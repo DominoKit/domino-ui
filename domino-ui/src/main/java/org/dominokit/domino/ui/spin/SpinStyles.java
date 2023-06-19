@@ -20,13 +20,13 @@ import org.dominokit.domino.ui.style.CssClass;
 /** Default CSS classes for {@link SpinSelect} and {@link SpinItem} */
 public interface SpinStyles {
 
-  CssClass dui_spin = ()-> "dui-spin";
-  CssClass dui_spin_prev = ()-> "dui-spin-prev";
-  CssClass dui_spin_next = ()-> "dui-spin-next";
-  CssClass dui_spin_content = ()-> "dui-spin-content";
-  CssClass dui_spin_horizontal = ()-> "dui-spin-horizontal";
-  CssClass dui_spin_vertical = ()-> "dui-spin-vertical";
-  CssClass dui_spin_item = ()-> "dui-spin-item";
+  CssClass dui_spin = () -> "dui-spin";
+  CssClass dui_spin_prev = () -> "dui-spin-prev";
+  CssClass dui_spin_next = () -> "dui-spin-next";
+  CssClass dui_spin_content = () -> "dui-spin-content";
+  CssClass dui_spin_horizontal = () -> "dui-spin-horizontal";
+  CssClass dui_spin_vertical = () -> "dui-spin-vertical";
+  CssClass dui_spin_item = () -> "dui-spin-item";
   CssClass spinActivating = () -> "dui-spin-item-activating";
   CssClass spinExiting = () -> "dui-spin-item-exiting";
   CssClass dui_spin_exit_forward = () -> "dui-spin-exit-forward";

@@ -18,19 +18,18 @@ package org.dominokit.domino.ui.datatable;
 import static java.util.Objects.nonNull;
 import static org.dominokit.domino.ui.utils.ElementsFactory.elements;
 
-import elemental2.dom.*;
+import elemental2.dom.HTMLTableSectionElement;
 import java.util.*;
 import java.util.stream.Collectors;
 import org.dominokit.domino.ui.datatable.plugins.DataTablePlugin;
-import org.dominokit.domino.ui.datatable.plugins.ResizeColumnMeta;
+import org.dominokit.domino.ui.datatable.plugins.column.ResizeColumnMeta;
+import org.dominokit.domino.ui.datatable.plugins.grouping.GroupingPlugin;
 import org.dominokit.domino.ui.elements.THeadElement;
-import org.dominokit.domino.ui.grid.flex.FlexAlign;
-import org.dominokit.domino.ui.grid.flex.FlexItem;
-import org.dominokit.domino.ui.grid.flex.FlexJustifyContent;
-import org.dominokit.domino.ui.grid.flex.FlexLayout;
+import org.dominokit.domino.ui.elements.TableRowElement;
+import org.dominokit.domino.ui.style.DominoCss;
 import org.dominokit.domino.ui.utils.DominoElement;
-import org.dominokit.domino.ui.utils.ElementsFactory;
 import org.dominokit.domino.ui.utils.HasMultiSelectionSupport;
+import org.dominokit.domino.ui.utils.PostfixAddOn;
 
 /**
  * This class is responsible for configuring the data table
@@ -60,7 +59,8 @@ import org.dominokit.domino.ui.utils.HasMultiSelectionSupport;
  *
  * @param <T> the type of the data table records
  */
-public class TableConfig<T> implements HasMultiSelectionSupport<TableConfig<T>> {
+public class TableConfig<T>
+    implements HasMultiSelectionSupport<TableConfig<T>>, DataTableStyles, DominoCss {
 
   private List<ColumnConfig<T>> columns = new LinkedList<>();
   private List<DataTablePlugin<T>> plugins = new ArrayList<>();
@@ -82,35 +82,41 @@ public class TableConfig<T> implements HasMultiSelectionSupport<TableConfig<T>> 
   private final ColumnConfig<T> pluginUtilityColumn =
       ColumnConfig.<T>create("plugin-utility-column")
           .setShowTooltip(false)
-          .setSortable(true)
           .setDrawTitle(true)
           .setPluginColumn(true)
-          .setWidth("100px")
           .applyMeta(ResizeColumnMeta.create().setResizable(false))
           .setCellRenderer(
               cellInfo -> {
-               elements.elementOf(cellInfo.getElement()).css("dt-cm-utility");
-                FlexLayout flexLayout =
-                    FlexLayout.create()
-                        .setAlignItems(FlexAlign.CENTER)
-                        .setJustifyContent(FlexJustifyContent.START);
-                getPlugins().stream()
-                    .map(plugin -> plugin.getUtilityElements(dataTable, cellInfo))
-                    .filter(Optional::isPresent)
-                    .map(Optional::get)
-                    .flatMap(Collection::stream)
-                    .forEach(
-                        node -> {
-                          String order =
-                              Optional.ofNullable(elements.elementOf(node).getAttribute("order"))
-                                  .orElse("0");
-                          flexLayout.appendChild(
-                              FlexItem.create()
-                                  .setOrder(Integer.parseInt(order))
-                                  .setAlignSelf(FlexAlign.CENTER)
-                                  .appendChild(node));
-                        });
-                return flexLayout.element();
+                elements.elementOf(cellInfo.getElement()).addCss(dui_datatable_column_utility);
+                return PostfixAddOn.of(
+                        elements
+                            .div()
+                            .addCss(dui_datatable_utility_elements)
+                            .apply(
+                                div -> {
+                                  getPlugins().stream()
+                                      .map(plugin -> plugin.getUtilityElements(dataTable, cellInfo))
+                                      .filter(Optional::isPresent)
+                                      .map(Optional::get)
+                                      .flatMap(Collection::stream)
+                                      .forEach(
+                                          node -> {
+                                            String order =
+                                                Optional.ofNullable(
+                                                        elements
+                                                            .elementOf(node)
+                                                            .getAttribute("order"))
+                                                    .orElse("0");
+                                            div.appendChild(
+                                                elements
+                                                    .div()
+                                                    .setCssProperty(
+                                                        "order", Integer.parseInt(order))
+                                                    .addCss(dui_datatable_utility_element)
+                                                    .appendChild(node));
+                                          });
+                                }))
+                    .element();
               });
   private UtilityColumnHandler<T> utilityColumnHandler = utilityColumn -> {};
 
@@ -127,16 +133,13 @@ public class TableConfig<T> implements HasMultiSelectionSupport<TableConfig<T>> 
 
     int maxDepth = columns.stream().mapToInt(ColumnConfig::getColumnsDepth).max().orElse(0);
 
-    HTMLTableRowElement[] headers = new HTMLTableRowElement[maxDepth + 1];
+    TableRowElement[] headers = new TableRowElement[maxDepth + 1];
     for (int i = 0; i < headers.length; i++) {
-      headers[i] = elements.tr().element();
+      headers[i] = elements.tr().addCss(dui_datatable_row);
       thead.appendChild(headers[i]);
     }
 
-    columns.forEach(
-        col -> {
-          col.renderHeader(dataTable, this, headers);
-        });
+    columns.forEach(col -> col.renderHeader(dataTable, this, headers));
     if (!thead.isAttached()) {
       dataTable.tableElement().appendChild(thead);
     }
@@ -150,7 +153,7 @@ public class TableConfig<T> implements HasMultiSelectionSupport<TableConfig<T>> 
    */
   public void drawRecord(DataTable<T> dataTable, TableRow<T> tableRow) {
     tableRow.render();
-    tableRow.addCss(isOdd(tableRow.getIndex()) ? "dom-ui-dt-tr-odd" : "dom-ui-dt-tr-even");
+    tableRow.addCss(isOdd(tableRow.getIndex()) ? dui_odd : dui_even);
     Optional<RowAppenderMeta<T>> appenderMeta = RowAppenderMeta.get(tableRow);
     if (appenderMeta.isPresent()) {
       appenderMeta.get().getRowAppender().appendRow(dataTable, tableRow);
@@ -158,7 +161,7 @@ public class TableConfig<T> implements HasMultiSelectionSupport<TableConfig<T>> 
       rowAppender.appendRow(dataTable, tableRow);
     }
 
-    plugins.forEach(plugin -> plugin.onRowAdded(dataTable, tableRow));
+    getPlugins().forEach(plugin -> plugin.onRowAdded(dataTable, tableRow));
   }
 
   private boolean isOdd(int index) {
@@ -325,7 +328,7 @@ public class TableConfig<T> implements HasMultiSelectionSupport<TableConfig<T>> 
 
   /** @return the {@link List} of plugins added to the table */
   public List<DataTablePlugin<T>> getPlugins() {
-    return plugins;
+    return plugins.stream().sorted().collect(Collectors.toList());
   }
 
   /**
@@ -335,7 +338,7 @@ public class TableConfig<T> implements HasMultiSelectionSupport<TableConfig<T>> 
    * @param dataTable the {@link DataTable} initialized with this configuration
    */
   void onBeforeHeaders(DataTable<T> dataTable) {
-    plugins.forEach(plugin -> plugin.onBeforeAddHeaders(dataTable));
+    getPlugins().forEach(plugin -> plugin.onBeforeAddHeaders(dataTable));
   }
 
   /**
@@ -345,7 +348,7 @@ public class TableConfig<T> implements HasMultiSelectionSupport<TableConfig<T>> 
    * @param dataTable the {@link DataTable} initialized with this configuration
    */
   void onAfterHeaders(DataTable<T> dataTable) {
-    plugins.forEach(plugin -> plugin.onAfterAddHeaders(dataTable));
+    getPlugins().forEach(plugin -> plugin.onAfterAddHeaders(dataTable));
   }
 
   /** @return a {@link List} of all non grouping {@link ColumnConfig} added to the table */
@@ -458,8 +461,8 @@ public class TableConfig<T> implements HasMultiSelectionSupport<TableConfig<T>> 
    *
    * <p>e.g
    *
-   * <p>The {@link org.dominokit.domino.ui.datatable.plugins.GroupingPlugin} defines an appender
-   * that appends a row into the appropriate group instead of appending row sequentially
+   * <p>The {@link GroupingPlugin} defines an appender that appends a row into the appropriate group
+   * instead of appending row sequentially
    *
    * @param <T> the type of the row record
    */

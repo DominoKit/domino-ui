@@ -21,7 +21,6 @@ import static java.util.Objects.nonNull;
 import java.util.Arrays;
 import java.util.Optional;
 import java.util.stream.Collectors;
-
 import org.dominokit.domino.ui.elements.SmallElement;
 import org.dominokit.domino.ui.elements.SpanElement;
 
@@ -58,16 +57,12 @@ public class MenuItem<V> extends AbstractMenuItem<V> {
     }
   }
 
-  /**
-   * @return The description element
-   */
+  /** @return The description element */
   public SmallElement getDescriptionElement() {
     return descriptionElement;
   }
 
-  /**
-   * @return the main text element
-   */
+  /** @return the main text element */
   public SpanElement getTextElement() {
     return textElement;
   }
@@ -112,5 +107,4 @@ public class MenuItem<V> extends AbstractMenuItem<V> {
     }
     return textContent.toLowerCase().contains(token.toLowerCase());
   }
-
 }

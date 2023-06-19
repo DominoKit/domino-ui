@@ -59,10 +59,7 @@ public class Alert extends BaseDominoElement<HTMLDivElement, Alert> {
   private LazyChild<RemoveButton> removeButton;
 
   public Alert() {
-    element =
-        div()
-            .addCss(dui_alert)
-            .appendChild(bodyElement = div().addCss(dui_alert_body));
+    element = div().addCss(dui_alert).appendChild(bodyElement = div().addCss(dui_alert_body));
     removeButton = LazyChild.of(RemoveButton.create().addClickListener(evt -> remove()), element);
 
     init(this);

@@ -15,10 +15,14 @@
  */
 package org.dominokit.domino.ui.popover;
 
+import static elemental2.dom.DomGlobal.document;
+import static org.dominokit.domino.ui.dialogs.ModalBackDrop.DUI_REMOVE_TOOLTIPS;
+
 import elemental2.dom.Element;
 import elemental2.dom.EventListener;
 import elemental2.dom.MouseEvent;
 import elemental2.dom.Node;
+import java.util.function.Consumer;
 import jsinterop.base.Js;
 import org.dominokit.domino.ui.IsElement;
 import org.dominokit.domino.ui.animations.Transition;
@@ -27,11 +31,6 @@ import org.dominokit.domino.ui.collapsible.CollapseDuration;
 import org.dominokit.domino.ui.dialogs.ModalBackDrop;
 import org.dominokit.domino.ui.events.EventType;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
-
-import java.util.function.Consumer;
-
-import static elemental2.dom.DomGlobal.document;
-import static org.dominokit.domino.ui.dialogs.ModalBackDrop.DUI_REMOVE_TOOLTIPS;
 
 /**
  * A component for showing content on top of another element in different locations.
@@ -46,28 +45,33 @@ import static org.dominokit.domino.ui.dialogs.ModalBackDrop.DUI_REMOVE_TOOLTIPS;
  *
  * @see BaseDominoElement
  */
-public class Tooltip extends BasePopover<Tooltip>{
+public class Tooltip extends BasePopover<Tooltip> {
 
   static {
-    document.body.addEventListener(EventType.click.getName(), element -> {
-      ModalBackDrop.INSTANCE.closeTooltips("");
-    });
+    document.body.addEventListener(
+        EventType.click.getName(),
+        element -> {
+          ModalBackDrop.INSTANCE.closeTooltips("");
+        });
   }
 
   private final EventListener showListener;
   private final Consumer<Tooltip> removeHandler;
   private boolean closeOnEscape = true;
-  public static Tooltip create(Element target, String text){
+
+  public static Tooltip create(Element target, String text) {
     return new Tooltip(target, elements.text(text));
   }
 
-  public static Tooltip create(IsElement<? extends Element> target, String text){
+  public static Tooltip create(IsElement<? extends Element> target, String text) {
     return new Tooltip(target.element(), elements.text(text));
   }
-  public static Tooltip create(Element target, Node content){
+
+  public static Tooltip create(Element target, Node content) {
     return new Tooltip(target, content);
   }
-  public static Tooltip create(IsElement<? extends Element> target, Node content){
+
+  public static Tooltip create(IsElement<? extends Element> target, Node content) {
     return new Tooltip(target.element(), content);
   }
 
@@ -77,29 +81,29 @@ public class Tooltip extends BasePopover<Tooltip>{
     addCss(dui_tooltip);
     appendChild(content);
     showListener =
-            evt -> {
-              MouseEvent mouseEvent = Js.uncheckedCast(evt);
-              evt.stopPropagation();
-              if (mouseEvent.buttons == 0) {
-                expand();
-              }
-            };
+        evt -> {
+          MouseEvent mouseEvent = Js.uncheckedCast(evt);
+          evt.stopPropagation();
+          if (mouseEvent.buttons == 0) {
+            expand();
+          }
+        };
     targetElement.addEventListener(EventType.mouseenter.getName(), showListener, false);
     targetElement.addEventListener(EventType.mouseleave.getName(), closeListener, false);
     removeHandler =
-            tooltip -> {
-              targetElement.removeEventListener(EventType.mouseenter.getName(), showListener);
-              targetElement.removeEventListener(EventType.mouseleave.getName(), closeListener);
-            };
+        tooltip -> {
+          targetElement.removeEventListener(EventType.mouseenter.getName(), showListener);
+          targetElement.removeEventListener(EventType.mouseleave.getName(), closeListener);
+        };
     setCollapseStrategy(
-            new AnimationCollapseStrategy(
-                    Transition.FADE_IN, Transition.FADE_OUT, CollapseDuration._300ms));
+        new AnimationCollapseStrategy(
+            Transition.FADE_IN, Transition.FADE_OUT, CollapseDuration._300ms));
     addCollapseListener(() -> removeEventListener(DUI_REMOVE_TOOLTIPS, closeAllListener));
   }
 
   @Override
   protected EventListener getCloseListener() {
-    return evt-> closeOthers("");
+    return evt -> closeOthers("");
   }
 
   @Override
@@ -117,9 +121,7 @@ public class Tooltip extends BasePopover<Tooltip>{
     }
   }
 
-  /**
-   * Removes the tooltip
-   */
+  /** Removes the tooltip */
   public void detach() {
     removeHandler.accept(this);
     remove();

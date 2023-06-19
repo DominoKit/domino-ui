@@ -25,8 +25,8 @@ public interface SearchStyles {
   CssClass dui_search_bar = () -> "dui-search-bar";
   CssClass dui_search_bar_container = () -> "dui-search-bar-container";
 
-//  public static final String search_bar = "search-bar";
-//  public static final String search_icon = "search-icon";
-//  public static final String close_search = "close-search";
-//  public static final String open = "open";
+  //  public static final String search_bar = "search-bar";
+  //  public static final String search_icon = "search-icon";
+  //  public static final String close_search = "close-search";
+  //  public static final String open = "open";
 }

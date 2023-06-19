@@ -16,13 +16,12 @@
 package org.dominokit.domino.ui.style;
 
 import elemental2.dom.Element;
-import org.dominokit.domino.ui.IsElement;
-
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Collectors;
+import org.dominokit.domino.ui.IsElement;
 
 public class CompositeCssClass implements CssClass {
 
@@ -36,14 +35,14 @@ public class CompositeCssClass implements CssClass {
     return new CompositeCssClass(cssClasses);
   }
 
-  public static CompositeCssClass of(Element element){
-    return of(element.classList.asList()
-            .stream()
+  public static CompositeCssClass of(Element element) {
+    return of(
+        element.classList.asList().stream()
             .map(s -> (CssClass) () -> s)
             .collect(Collectors.toList()));
   }
 
-  public static CompositeCssClass of(IsElement<?> element){
+  public static CompositeCssClass of(IsElement<?> element) {
     return of(element.element());
   }
 
@@ -75,9 +74,8 @@ public class CompositeCssClass implements CssClass {
     return isAppliedTo(element.element());
   }
 
-  public boolean contains(CssClass cssClass){
-    return cssClasses.stream()
-            .anyMatch(c -> c.isSameAs(cssClass));
+  public boolean contains(CssClass cssClass) {
+    return cssClasses.stream().anyMatch(c -> c.isSameAs(cssClass));
   }
 
   public Set<CssClass> getCssClasses() {

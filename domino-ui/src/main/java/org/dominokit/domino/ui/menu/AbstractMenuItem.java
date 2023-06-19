@@ -18,37 +18,41 @@ package org.dominokit.domino.ui.menu;
 import static java.util.Objects.isNull;
 import static java.util.Objects.nonNull;
 
-import elemental2.dom.*;
+import elemental2.dom.Element;
+import elemental2.dom.Event;
+import elemental2.dom.HTMLElement;
+import elemental2.dom.HTMLLIElement;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-
+import org.dominokit.domino.ui.IsElement;
 import org.dominokit.domino.ui.elements.AnchorElement;
 import org.dominokit.domino.ui.elements.DivElement;
 import org.dominokit.domino.ui.elements.LIElement;
-import org.dominokit.domino.ui.grid.flex.FlexItem;
+import org.dominokit.domino.ui.events.EventType;
 import org.dominokit.domino.ui.icons.Icons;
 import org.dominokit.domino.ui.menu.direction.BestFitSideDropDirection;
 import org.dominokit.domino.ui.utils.*;
 import org.gwtproject.editor.client.TakesValue;
-import org.dominokit.domino.ui.events.EventType;
-import org.dominokit.domino.ui.IsElement;
 
 /**
  * The base implementation for {@link Menu} items
  *
  * @param <V> The type of the menu item value
  */
-public class AbstractMenuItem<V>
-    extends BaseDominoElement<HTMLLIElement, AbstractMenuItem<V>>
-    implements HasSelectionHandler<AbstractMenuItem<V>, AbstractMenuItem<V>>, HasDeselectionHandler<AbstractMenuItem<V>>, TakesValue<V>, MenuStyles {
+public class AbstractMenuItem<V> extends BaseDominoElement<HTMLLIElement, AbstractMenuItem<V>>
+    implements HasSelectionHandler<AbstractMenuItem<V>, AbstractMenuItem<V>>,
+        HasDeselectionHandler<AbstractMenuItem<V>>,
+        TakesValue<V>,
+        MenuStyles {
 
   protected final LIElement root;
   protected final AnchorElement linkElement;
 
   protected Menu<V> parent;
 
-  private final List<HasSelectionHandler.SelectionHandler<AbstractMenuItem<V>>> selectionHandlers = new ArrayList<>();
+  private final List<HasSelectionHandler.SelectionHandler<AbstractMenuItem<V>>> selectionHandlers =
+      new ArrayList<>();
   private final List<HasDeselectionHandler.DeselectionHandler> deselectionHandlers =
       new ArrayList<>();
   private String key;
@@ -73,10 +77,10 @@ public class AbstractMenuItem<V>
             .setAttribute("tabindex", "0")
             .setAttribute("aria-expanded", "true")
             .addCss(dui_menu_item_anchor)
-                .appendChild(prefixElement = div().addCss(dui_menu_item_prefix))
-                .appendChild(bodyElement = div().addCss(dui_menu_item_body))
-                .appendChild(postfixElement = div().addCss(dui_menu_item_postfix))
-                .appendChild(nestedIndicatorElement = div().addCss(dui_menu_item_nested_indicator));
+            .appendChild(prefixElement = div().addCss(dui_menu_item_prefix))
+            .appendChild(bodyElement = div().addCss(dui_menu_item_body))
+            .appendChild(postfixElement = div().addCss(dui_menu_item_postfix))
+            .appendChild(nestedIndicatorElement = div().addCss(dui_menu_item_nested_indicator));
     root.appendChild(linkElement);
 
     indicatorIcon = createIndicator(Icons.menu_right());
@@ -164,7 +168,7 @@ public class AbstractMenuItem<V>
    * @param silent boolean, true to avoid triggering the select handlers.
    * @return same menu item instance
    */
-  public  <T extends AbstractMenuItem<V>> T select(boolean silent) {
+  public <T extends AbstractMenuItem<V>> T select(boolean silent) {
     if (!isDisabled()) {
       addCss(dui_menu_item_selected);
       setAttribute("selected", true);
@@ -184,7 +188,7 @@ public class AbstractMenuItem<V>
    * @param silent boolean, true to avoid triggering the select handlers.
    * @return same menu item instance
    */
-  public  <T extends AbstractMenuItem<V>> T deselect(boolean silent) {
+  public <T extends AbstractMenuItem<V>> T deselect(boolean silent) {
     if (!isDisabled()) {
       dui_menu_item_selected.remove(this);
       setAttribute("selected", false);
@@ -205,7 +209,8 @@ public class AbstractMenuItem<V>
 
   /** {@inheritDoc} */
   @Override
-  public AbstractMenuItem<V> addSelectionHandler(HasSelectionHandler.SelectionHandler<AbstractMenuItem<V>> selectionHandler) {
+  public AbstractMenuItem<V> addSelectionHandler(
+      HasSelectionHandler.SelectionHandler<AbstractMenuItem<V>> selectionHandler) {
     if (nonNull(selectionHandler)) {
       selectionHandlers.add(selectionHandler);
     }
@@ -214,7 +219,8 @@ public class AbstractMenuItem<V>
 
   /** {@inheritDoc} */
   @Override
-  public AbstractMenuItem<V> removeSelectionHandler(HasSelectionHandler.SelectionHandler<AbstractMenuItem<V>> selectionHandler) {
+  public AbstractMenuItem<V> removeSelectionHandler(
+      HasSelectionHandler.SelectionHandler<AbstractMenuItem<V>> selectionHandler) {
     if (nonNull(selectionHandler)) {
       selectionHandlers.remove(selectionHandler);
     }
@@ -275,12 +281,12 @@ public class AbstractMenuItem<V>
    * @param value the value of the meu item
    * @return same menu item instance
    */
-  public <T extends AbstractMenuItem<V>> T value(V value) {
+  public <T extends AbstractMenuItem<V>> T withValue(V value) {
     setValue(value);
     return (T) this;
   }
 
-  /** @return the {@link FlexItem} that represent the current menu nesting indication. */
+  /** @return the {@link Element} that represent the current menu nesting indication. */
   public LazyChild<IsElement<?>> getNestingIndicator() {
     return indicatorIcon;
   }
@@ -288,7 +294,7 @@ public class AbstractMenuItem<V>
   /**
    * Sets a custom menu nesting indicator
    *
-   * @param nestingIndicator {@link FlexItem}
+   * @param nestingIndicator {@link Element}
    * @return same menu item
    */
   public AbstractMenuItem<V> setNestingIndicator(IsElement<?> nestingIndicator) {
@@ -403,7 +409,7 @@ public class AbstractMenuItem<V>
     return (T) this;
   }
 
-  public <T extends AbstractMenuItem<V>> T appendChild(PrefixAddOn<?> prefixAddOn){
+  public <T extends AbstractMenuItem<V>> T appendChild(PrefixAddOn<?> prefixAddOn) {
     prefixElement.appendChild(prefixAddOn);
     return (T) this;
   }

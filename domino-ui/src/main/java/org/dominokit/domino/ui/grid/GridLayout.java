@@ -73,9 +73,7 @@ public class GridLayout extends BaseDominoElement<HTMLDivElement, GridLayout>
 
   public GridLayout() {
     element =
-        div()
-            .addCss(dui_layout_grid)
-            .appendChild(contentElement = div().addCss(dui_grid_content));
+        div().addCss(dui_layout_grid).appendChild(contentElement = div().addCss(dui_grid_content));
     headerElement = LazyChild.of(div().addCss(dui_grid_header), element);
     footerElement = LazyChild.of(div().addCss(dui_grid_footer), element);
     leftElement = LazyChild.of(div().addCss(dui_grid_left), element);
@@ -123,11 +121,13 @@ public class GridLayout extends BaseDominoElement<HTMLDivElement, GridLayout>
    * @return same instance
    */
   public GridLayout setHeaderSpan(SectionSpan sectionSpan) {
-    sectionSpan.ifSpanOrElse(() -> {
-      editor.addHeader(sectionSpan);
-      headerElement.get();
-      updateGridLayout();
-    }, this::hideHeader);
+    sectionSpan.ifSpanOrElse(
+        () -> {
+          editor.addHeader(sectionSpan);
+          headerElement.get();
+          updateGridLayout();
+        },
+        this::hideHeader);
 
     return this;
   }
@@ -156,11 +156,13 @@ public class GridLayout extends BaseDominoElement<HTMLDivElement, GridLayout>
    * @return same instance
    */
   public GridLayout setRightSpan(SectionSpan sectionSpan, boolean spanUp, boolean spanDown) {
-    sectionSpan.ifSpanOrElse(() -> {
-      editor.addRight(sectionSpan, spanUp, spanDown);
-      rightElement.get();
-      updateGridLayout();
-    }, this::hideRight);
+    sectionSpan.ifSpanOrElse(
+        () -> {
+          editor.addRight(sectionSpan, spanUp, spanDown);
+          rightElement.get();
+          updateGridLayout();
+        },
+        this::hideRight);
     return this;
   }
 
@@ -191,11 +193,13 @@ public class GridLayout extends BaseDominoElement<HTMLDivElement, GridLayout>
    * @return same instance
    */
   public GridLayout setLeftSpan(SectionSpan sectionSpan, boolean spanUp, boolean spanDown) {
-    sectionSpan.ifSpanOrElse(() -> {
-      editor.addLeft(sectionSpan, spanUp, spanDown);
-      leftElement.get();
-      updateGridLayout();
-    }, this::hideLeft);
+    sectionSpan.ifSpanOrElse(
+        () -> {
+          editor.addLeft(sectionSpan, spanUp, spanDown);
+          leftElement.get();
+          updateGridLayout();
+        },
+        this::hideLeft);
     return this;
   }
 
@@ -218,11 +222,13 @@ public class GridLayout extends BaseDominoElement<HTMLDivElement, GridLayout>
    * @return same instance
    */
   public GridLayout setFooterSpan(SectionSpan sectionSpan) {
-    sectionSpan.ifSpanOrElse(() -> {
-      editor.addFooter(sectionSpan);
-      footerElement.get();
-      updateGridLayout();
-    }, this::hideFooter);
+    sectionSpan.ifSpanOrElse(
+        () -> {
+          editor.addFooter(sectionSpan);
+          footerElement.get();
+          updateGridLayout();
+        },
+        this::hideFooter);
 
     return this;
   }
@@ -262,7 +268,7 @@ public class GridLayout extends BaseDominoElement<HTMLDivElement, GridLayout>
     return contentElement;
   }
 
-  public GridLayout withContent(ChildHandler<GridLayout, DivElement> handler){
+  public GridLayout withContent(ChildHandler<GridLayout, DivElement> handler) {
     handler.apply(this, contentElement);
     return this;
   }
@@ -272,7 +278,7 @@ public class GridLayout extends BaseDominoElement<HTMLDivElement, GridLayout>
     return headerElement.get();
   }
 
-  public GridLayout withHeader(ChildHandler<GridLayout, DivElement> handler){
+  public GridLayout withHeader(ChildHandler<GridLayout, DivElement> handler) {
     DivElement header = headerElement.get();
     setHeaderSpan(editor.headerSectionSpan);
     handler.apply(this, header);
@@ -284,7 +290,7 @@ public class GridLayout extends BaseDominoElement<HTMLDivElement, GridLayout>
     return footerElement.get();
   }
 
-  public GridLayout withFooter(ChildHandler<GridLayout, DivElement> handler){
+  public GridLayout withFooter(ChildHandler<GridLayout, DivElement> handler) {
     DivElement footer = footerElement.get();
     setFooterSpan(editor.footerSectionSpan);
     handler.apply(this, footer);
@@ -296,7 +302,7 @@ public class GridLayout extends BaseDominoElement<HTMLDivElement, GridLayout>
     return leftElement.get();
   }
 
-  public GridLayout withLeftPanel(ChildHandler<GridLayout, DivElement> handler){
+  public GridLayout withLeftPanel(ChildHandler<GridLayout, DivElement> handler) {
     DivElement left = leftElement.get();
     setLeftSpan(editor.leftSectionSpan, editor.leftSpanUp, editor.leftSpanDown);
     handler.apply(this, left);
@@ -308,7 +314,7 @@ public class GridLayout extends BaseDominoElement<HTMLDivElement, GridLayout>
     return rightElement.get();
   }
 
-  public GridLayout withRightPanel(ChildHandler<GridLayout, DivElement> handler){
+  public GridLayout withRightPanel(ChildHandler<GridLayout, DivElement> handler) {
     DivElement right = rightElement.get();
     setRightSpan(editor.rightSectionSpan, editor.rightSpanUp, editor.rightSpanDown);
     handler.apply(this, right);

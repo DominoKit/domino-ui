@@ -20,7 +20,6 @@ import static org.dominokit.domino.ui.style.SpacingCss.dui_flex_col_reverse;
 
 import elemental2.dom.DOMRect;
 import elemental2.dom.Element;
-import elemental2.dom.HTMLElement;
 
 public class BestMiddleUpDownDropDirection implements DropDirection {
 
@@ -34,13 +33,14 @@ public class BestMiddleUpDownDropDirection implements DropDirection {
 
     double sourceHeight = sourceRect.height;
     double downSpace = innerHeight - targetRect.bottom;
+    double spaceUp = downSpace - targetRect.height;
 
     DropDirection currentPosition;
 
-    if (hasSpaceBelow(sourceHeight, downSpace)) {
-      currentPosition = DropDirection.BOTTOM_MIDDLE;
-    } else {
+    if (hasSpaceUp(sourceHeight, spaceUp)) {
       currentPosition = DropDirection.TOP_MIDDLE;
+    } else {
+      currentPosition = DropDirection.BOTTOM_MIDDLE;
     }
 
     currentPosition.position(source, target);
@@ -52,8 +52,8 @@ public class BestMiddleUpDownDropDirection implements DropDirection {
     DropDirection.TOP_MIDDLE.cleanup(source);
   }
 
-  private boolean hasSpaceBelow(double sourceHeight, double downSpace) {
-    return downSpace > sourceHeight;
+  private boolean hasSpaceUp(double sourceHeight, double spaceUp) {
+    return spaceUp > sourceHeight;
   }
 
   private boolean hasSpaceOnRightSide(double sourceWidth, double rightSpace) {

@@ -18,7 +18,6 @@ package org.dominokit.domino.ui.scroll;
 import elemental2.dom.HTMLDivElement;
 import org.dominokit.domino.ui.elements.DivElement;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
-import org.dominokit.domino.ui.utils.DominoElement;
 
 /**
  * A component that wraps the {@link HTMLDivElement} to make it auto vertically scrollable when the
@@ -26,25 +25,21 @@ import org.dominokit.domino.ui.utils.DominoElement;
  */
 public class AutoVScrollPanel extends BaseDominoElement<HTMLDivElement, AutoVScrollPanel> {
 
-    private DivElement root;
+  private DivElement root;
 
-    /**
-     * @return new AutoVScrollPanel instance
-     */
-    public static AutoVScrollPanel create() {
-        return new AutoVScrollPanel();
-    }
+  /** @return new AutoVScrollPanel instance */
+  public static AutoVScrollPanel create() {
+    return new AutoVScrollPanel();
+  }
 
-    public AutoVScrollPanel() {
-        root = div().addCss(dui_overflow_y_auto);
-        init(this);
-    }
+  public AutoVScrollPanel() {
+    root = div().addCss(dui_overflow_y_auto);
+    init(this);
+  }
 
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public HTMLDivElement element() {
-        return root.element();
-    }
+  /** {@inheritDoc} */
+  @Override
+  public HTMLDivElement element() {
+    return root.element();
+  }
 }

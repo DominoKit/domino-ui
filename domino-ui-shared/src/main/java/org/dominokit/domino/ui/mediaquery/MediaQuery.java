@@ -17,7 +17,6 @@ package org.dominokit.domino.ui.mediaquery;
 
 import static elemental2.dom.DomGlobal.window;
 
-import elemental2.dom.EventTarget;
 import elemental2.dom.MediaQueryList;
 import elemental2.dom.MediaQueryListListener;
 import java.util.HashMap;
@@ -196,7 +195,8 @@ public class MediaQuery {
    *
    * @param listener A {@link MediaQueryListener}
    */
-  public static MediaQueryListenerRecord addPortraitOrientationListener(MediaQueryListener listener) {
+  public static MediaQueryListenerRecord addPortraitOrientationListener(
+      MediaQueryListener listener) {
     return addCustomQueryListener("(orientation : portrait)", listener);
   }
 
@@ -205,7 +205,8 @@ public class MediaQuery {
    *
    * @param listener A {@link MediaQueryListener}
    */
-  public static MediaQueryListenerRecord addLandscapeOrientationListener(MediaQueryListener listener) {
+  public static MediaQueryListenerRecord addLandscapeOrientationListener(
+      MediaQueryListener listener) {
     return addCustomQueryListener("(orientation : landscape)", listener);
   }
 
@@ -254,7 +255,8 @@ public class MediaQuery {
     return addListener(listener, xSmallAndDownMediaQueryList);
   }
 
-  private static MediaQueryListenerRecord addListener(MediaQueryListener listener, MediaQueryList mediaQueryList) {
+  private static MediaQueryListenerRecord addListener(
+      MediaQueryListener listener, MediaQueryList mediaQueryList) {
     MediaQueryListListener mediaQueryListListener =
         p0 -> {
           if (p0.matches) {
@@ -415,7 +417,8 @@ public class MediaQuery {
    * @param mediaQuery A text representing the custom query
    * @param listener A {@link MediaQueryListener} to add
    */
-  public static MediaQueryListenerRecord addCustomQueryListener(String mediaQuery, MediaQueryListener listener) {
+  public static MediaQueryListenerRecord addCustomQueryListener(
+      String mediaQuery, MediaQueryListener listener) {
     if (!MEDIA_QUERIES.containsKey(mediaQuery)) {
       MediaQueryList mediaQueryList = window.matchMedia(mediaQuery);
       MEDIA_QUERIES.put(mediaQuery, mediaQueryList);

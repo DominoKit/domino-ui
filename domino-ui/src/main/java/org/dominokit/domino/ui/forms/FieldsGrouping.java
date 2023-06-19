@@ -88,7 +88,7 @@ public class FieldsGrouping
     return this;
   }
 
-  public ValidationResult validate(){
+  public ValidationResult validate() {
     return validate(this);
   }
 
@@ -397,24 +397,24 @@ public class FieldsGrouping
   public FieldsGrouping onKeyDown(KeyEventsConsumer handler) {
     HTMLElement[] elements = getInputElements();
     Arrays.stream(elements)
-            .map(ElementsFactory.elements::elementOf)
-            .forEach(element -> element.onKeyDown(handler));
+        .map(ElementsFactory.elements::elementOf)
+        .forEach(element -> element.onKeyDown(handler));
     return this;
   }
 
   public FieldsGrouping onKeyUp(KeyEventsConsumer handler) {
     HTMLElement[] elements = getInputElements();
     Arrays.stream(elements)
-            .map(ElementsFactory.elements::elementOf)
-            .forEach(element -> element.onKeyUp(handler));
+        .map(ElementsFactory.elements::elementOf)
+        .forEach(element -> element.onKeyUp(handler));
     return this;
   }
 
   public FieldsGrouping onKeyPress(KeyEventsConsumer handler) {
     HTMLElement[] elements = getInputElements();
     Arrays.stream(elements)
-            .map(ElementsFactory.elements::elementOf)
-                    .forEach(element -> element.onKeyPress(handler));
+        .map(ElementsFactory.elements::elementOf)
+        .forEach(element -> element.onKeyPress(handler));
     return this;
   }
 

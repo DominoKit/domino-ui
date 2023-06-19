@@ -1,4 +1,0 @@
-@import url(./mdi/css/materialdesignicons.css?v=${project.version});
-@import url(../plugins/node-waves/domino-ui-waves.css?v=${project.version});
-@import url(loaders/domino-ui-waitMe.min.css?v=${project.version});
-@import url(domino-ui-grid.css?v=${project.version});

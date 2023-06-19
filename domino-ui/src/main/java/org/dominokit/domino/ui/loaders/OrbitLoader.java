@@ -16,39 +16,29 @@
 package org.dominokit.domino.ui.loaders;
 
 import elemental2.dom.HTMLDivElement;
+import org.dominokit.domino.ui.IsElement;
 import org.dominokit.domino.ui.elements.DivElement;
 import org.dominokit.domino.ui.utils.DominoElement;
-import org.dominokit.domino.ui.IsElement;
 
 /** Orbit loader implementation */
 public class OrbitLoader extends BaseLoader<OrbitLoader> implements IsElement<HTMLDivElement> {
 
   private final DivElement progress1 =
-     div()
-          .addCss(wait_me_progress_elem_1)
-          .appendChild(div().addCss(dui_bg_black));
+      div().addCss(wait_me_progress_elem_1).appendChild(div().addCss(dui_bg_black));
   private final DivElement progress2 =
-     div()
-          .addCss(wait_me_progress_elem_2)
-          .appendChild(div().addCss(dui_bg_black));
+      div().addCss(wait_me_progress_elem_2).appendChild(div().addCss(dui_bg_black));
 
   private final DivElement loader =
-     div()
-          .addCss(wait_me_progress, orbit)
-          .appendChild(progress1)
-          .appendChild(progress2);
+      div().addCss(wait_me_progress, orbit).appendChild(progress1).appendChild(progress2);
 
   private final DivElement content =
-     div()
+      div()
           .addCss(wait_me_content, dui_vertical_center)
           .appendChild(loader)
           .appendChild(loadingText);
 
   private final DivElement element =
-     div()
-          .addCss(wait_me)
-          .style("background: rgba(255, 255, 255, 0.9);")
-          .appendChild(content);
+      div().addCss(wait_me).style("background: rgba(255, 255, 255, 0.9);").appendChild(content);
 
   public OrbitLoader() {
     init(this);

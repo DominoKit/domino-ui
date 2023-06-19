@@ -19,10 +19,10 @@ import static org.dominokit.domino.ui.grid.Column.Offset.*;
 import static org.dominokit.domino.ui.grid.Column.Span.*;
 
 import elemental2.dom.HTMLElement;
+import org.dominokit.domino.ui.IsElement;
 import org.dominokit.domino.ui.elements.DivElement;
 import org.dominokit.domino.ui.style.PostfixCssClass;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
-import org.dominokit.domino.ui.IsElement;
 
 /**
  * A component which provides an abstract level of the CSS grid column which will inherit the styles
@@ -84,7 +84,12 @@ public class Column extends BaseDominoElement<HTMLElement, Column>
    * @return new instance
    */
   public static Column colspan(Span xLarge, Span large, Span medium, Span small, Span xsmall) {
-    return colspan().onXLarge(xLarge).onLarge(large).onMedium(medium).onSmall(small).onXSmall(xsmall);
+    return colspan()
+        .onXLarge(xLarge)
+        .onLarge(large)
+        .onMedium(medium)
+        .onSmall(small)
+        .onXSmall(xsmall);
   }
 
   /**

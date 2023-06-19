@@ -48,7 +48,7 @@ public interface FormsStyles {
   CssClass dui_form_select = () -> "dui-form-select";
   CssClass dui_form_select_clear = () -> "dui-form-select-clear";
   CssClass dui_form_select_drop_arrow = () -> "dui-form-select-drop-arrow";
-  CssClass dui_select_menu = ()-> "dui-select-menu";
+  CssClass dui_select_menu = () -> "dui-select-menu";
 
   CssClass dui_form_radio_group = () -> "dui-form-radio-group";
   CssClass dui_form_radio = () -> "dui-form-radio";
@@ -58,6 +58,7 @@ public interface FormsStyles {
   CssClass dui_form_radio_group_gap = () -> "dui-form-radio-gap";
 
   CssClass dui_form_check_box = () -> "dui-form-checkbox";
+  CssClass dui_form_select_check_box = () -> "dui-form-select-checkbox";
   CssClass dui_check_box_label = () -> "dui-checkbox-label";
   CssClass dui_check_box_indeterminate = () -> "dui-form-checkbox-indeterminate";
   CssClass dui_check_box_filled = () -> "dui-form-checkbox-filled";

@@ -34,13 +34,6 @@ public interface HasSelectionSupport<T> {
   /** @return a List of all selected and not selected items */
   List<T> getRows();
 
-  /**
-   * Called when an item selection is changed, implementation can delegate to a list listeners
-   *
-   * @param source T item that has its selection changed
-   */
-  void onSelectionChange(T source);
-
   /** @return boolean, true if the component allows selection otherwise false. */
   boolean isSelectable();
 

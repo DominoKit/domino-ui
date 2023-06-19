@@ -15,7 +15,7 @@
  */
 package org.dominokit.domino.ui.datatable.events;
 
-import org.dominokit.domino.ui.datatable.plugins.BodyScrollPlugin;
+import org.dominokit.domino.ui.datatable.plugins.pagination.BodyScrollPlugin;
 
 /**
  * This event will be fired by the {@link BodyScrollPlugin} for scrollable table body whenever the

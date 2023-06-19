@@ -20,8 +20,7 @@ import org.dominokit.domino.ui.style.CssClass;
 /** A constants class for {@link Progress} and {@link ProgressBar} css classes */
 public interface ProgressStyles {
   /** the main Progress css class */
-  CssClass dui_progress = ()->"dui-progress";
+  CssClass dui_progress = () -> "dui-progress";
   /** the main ProgressBar css class */
-  CssClass dui_progress_bar = ()->"dui-progress-bar";
-
+  CssClass dui_progress_bar = () -> "dui-progress-bar";
 }

@@ -15,153 +15,156 @@
  */
 package org.dominokit.domino.ui.forms.suggest;
 
+import static java.util.Objects.nonNull;
+
 import elemental2.dom.DomGlobal;
 import elemental2.dom.Element;
 import elemental2.dom.Node;
+import java.util.Objects;
 import org.dominokit.domino.ui.IsElement;
 import org.dominokit.domino.ui.menu.AbstractMenuItem;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
 import org.dominokit.domino.ui.utils.ChildHandler;
 import org.dominokit.domino.ui.utils.MatchHighlighter;
 
-import java.util.Objects;
+public abstract class Option<V, C extends IsElement<?>, O extends Option<V, C, O>>
+    extends BaseDominoElement<Element, Option<V, C, O>> {
 
-import static java.util.Objects.nonNull;
+  private final C component;
+  private final AbstractMenuItem<V> menuItem;
 
-public abstract class Option<V, C extends IsElement<?>, O extends Option<V, C, O>> extends BaseDominoElement<Element, Option<V, C, O>> {
+  private final String key;
+  private final V value;
+  protected HasSuggestOptions<V, C, O> target;
 
-    private final C component;
-    private final AbstractMenuItem<V> menuItem;
+  public Option(String key, V value, C component, AbstractMenuItem<V> menuItem) {
+    this.key = key;
+    this.value = value;
+    this.component = component;
+    this.menuItem = menuItem;
+    this.menuItem.setKey(key);
+    this.menuItem.setValue(value);
+    this.menuItem.applyMeta(OptionMeta.of(component, (O) this));
+    init(this);
+  }
 
-    private final String key;
-    private final V value;
-    protected HasSuggestOptions<V, C, O> target;
+  public Option(
+      String key,
+      V value,
+      OptionSupplier<C, V> componentSupplier,
+      OptionSupplier<AbstractMenuItem<V>, V> menuItemSupplier) {
+    this.key = key;
+    this.value = value;
+    this.component = componentSupplier.get(key, value);
+    this.menuItem = menuItemSupplier.get(key, value);
+    this.menuItem.setKey(key);
+    this.menuItem.setValue(value);
+    this.menuItem.applyMeta(OptionMeta.of(component, (O) this));
+    init(this);
+  }
 
-    public Option(String key, V value, C component, AbstractMenuItem<V> menuItem) {
-        this.key = key;
-        this.value = value;
-        this.component = component;
-        this.menuItem = menuItem;
-        this.menuItem.setKey(key);
-        this.menuItem.setValue(value);
-        this.menuItem.applyMeta(OptionMeta.of(component, (O)this));
-        init(this);
+  public C getComponent() {
+    return component;
+  }
+
+  public AbstractMenuItem<V> getMenuItem() {
+    return menuItem;
+  }
+
+  public String getKey() {
+    return key;
+  }
+
+  public V getValue() {
+    return value;
+  }
+
+  public O withMenuItem(ChildHandler<O, AbstractMenuItem<V>> handler) {
+    handler.apply((O) this, menuItem);
+    return (O) this;
+  }
+
+  public O withComponent(ChildHandler<O, C> handler) {
+    handler.apply((O) this, component);
+    return (O) this;
+  }
+
+  @Override
+  public Element element() {
+    return component.element();
+  }
+
+  public O setSearchable(boolean searchable) {
+    this.menuItem.setSearchable(searchable);
+    return (O) this;
+  }
+
+  public void highlight(String displayValue) {
+    if (nonNull(displayValue) && displayValue.length() > 0) {
+      highlightNode(menuItem.getClickableElement(), displayValue);
     }
-    public Option(String key, V value, OptionSupplier<C, V> componentSupplier, OptionSupplier<AbstractMenuItem<V>, V> menuItemSupplier) {
-        this.key = key;
-        this.value = value;
-        this.component = componentSupplier.get(key, value);
-        this.menuItem = menuItemSupplier.get(key, value);
-        this.menuItem.setKey(key);
-        this.menuItem.setValue(value);
-        this.menuItem.applyMeta(OptionMeta.of(component, (O)this));
-        init(this);
-    }
+  }
 
-    public C getComponent() {
-        return component;
-    }
+  public O bindTo(HasSuggestOptions<V, C, O> target) {
+    this.target = target;
+    return (O) this;
+  }
 
-    public AbstractMenuItem<V> getMenuItem() {
-        return menuItem;
-    }
+  public O unbindTarget() {
+    this.target = null;
+    return (O) this;
+  }
 
-    public String getKey() {
-        return key;
-    }
+  public HasSuggestOptions<V, C, O> getTarget() {
+    return target;
+  }
 
-    public V getValue() {
-        return value;
+  private void highlightNode(Node node, String searchTerm) {
+    cleanHighlight(node);
+    if (node.nodeType == DomGlobal.document.TEXT_NODE) {
+      String text = node.nodeValue;
+      String highlighted = MatchHighlighter.highlight(text, searchTerm);
+      node.parentElement.appendChild(span().setInnerHtml(highlighted).element());
+      node.parentElement.removeChild(node);
+    } else if (node.nodeType == DomGlobal.document.ELEMENT_NODE) {
+      for (int i = 0; i < node.childNodes.length; i++) {
+        highlightNode(node.childNodes.getAt(i), searchTerm);
+      }
     }
+  }
 
-    public O withMenuItem(ChildHandler<O, AbstractMenuItem<V>> handler) {
-        handler.apply((O) this, menuItem);
-        return (O) this;
-    }
-
-    public O withComponent(ChildHandler<O, C> handler) {
-        handler.apply((O) this, component);
-        return (O) this;
-    }
-
-    @Override
-    public Element element() {
-        return component.element();
-    }
-
-    public O setSearchable(boolean searchable){
-        this.menuItem.setSearchable(searchable);
-        return (O) this;
-    }
-
-    public void highlight(String displayValue) {
-        if (nonNull(displayValue) && displayValue.length() > 0) {
-            highlightNode(menuItem.getClickableElement(), displayValue);
+  private void cleanHighlight(Node node) {
+    if (node.nodeType == DomGlobal.document.ELEMENT_NODE) {
+      if (node.nodeName.equalsIgnoreCase("mark")) {
+        node.parentElement.textContent =
+            node.parentElement.textContent.replace("<mark>", "").replace("</mark>", "");
+      } else {
+        for (int i = 0; i < node.childNodes.length; i++) {
+          cleanHighlight(node.childNodes.getAt(i));
         }
+      }
     }
+  }
 
-    public O bindTo(HasSuggestOptions<V, C, O> target){
-        this.target = target;
-        return (O) this;
-    }
+  public interface OptionSupplier<T, V> {
+    T get(String key, V value);
+  }
 
-    public O unbindTarget(){
-        this.target = null;
-        return (O) this;
-    }
+  @Override
+  public String toString() {
+    return "Option{" + "key='" + key + '\'' + '}';
+  }
 
-    public HasSuggestOptions<V, C, O> getTarget() {
-        return target;
-    }
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    Option<?, ?, ?> option = (Option<?, ?, ?>) o;
+    return Objects.equals(key, option.key);
+  }
 
-    private void highlightNode(Node node, String searchTerm) {
-        cleanHighlight(node);
-        if (node.nodeType == DomGlobal.document.TEXT_NODE) {
-            String text = node.nodeValue;
-            String highlighted = MatchHighlighter.highlight(text, searchTerm);
-            node.parentElement.appendChild(span().setInnerHtml(highlighted).element());
-            node.parentElement.removeChild(node);
-        } else if (node.nodeType == DomGlobal.document.ELEMENT_NODE) {
-            for (int i = 0; i < node.childNodes.length; i++) {
-                highlightNode(node.childNodes.getAt(i), searchTerm);
-            }
-        }
-    }
-
-    private void cleanHighlight(Node node) {
-        if (node.nodeType == DomGlobal.document.ELEMENT_NODE) {
-            if (node.nodeName.equalsIgnoreCase("mark")) {
-                node.parentElement.textContent =
-                        node.parentElement.textContent.replace("<mark>", "").replace("</mark>", "");
-            } else {
-                for (int i = 0; i < node.childNodes.length; i++) {
-                    cleanHighlight(node.childNodes.getAt(i));
-                }
-            }
-        }
-    }
-
-    public interface OptionSupplier<T, V> {
-        T get(String key, V value);
-    }
-
-    @Override
-    public String toString() {
-        return "Option{" +
-                "key='" + key + '\'' +
-                '}';
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Option<?, ?, ?> option = (Option<?, ?, ?>) o;
-        return Objects.equals(key, option.key);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(key);
-    }
+  @Override
+  public int hashCode() {
+    return Objects.hash(key);
+  }
 }

@@ -15,32 +15,30 @@
  */
 package org.dominokit.domino.ui.chips;
 
-import elemental2.dom.HTMLDivElement;
-import elemental2.dom.HTMLImageElement;
-import org.dominokit.domino.ui.button.RemoveButton;
-import org.dominokit.domino.ui.elements.DivElement;
-import org.dominokit.domino.ui.elements.SpanElement;
-import org.dominokit.domino.ui.style.BooleanCssClass;
-import org.dominokit.domino.ui.utils.AcceptDisable;
-import org.dominokit.domino.ui.utils.BaseDominoElement;
-import org.dominokit.domino.ui.utils.ChildHandler;
-import org.dominokit.domino.ui.utils.HasRemoveHandler;
-import org.dominokit.domino.ui.utils.HasSelectionListeners;
-import org.dominokit.domino.ui.utils.LazyChild;
-import org.dominokit.domino.ui.utils.PrefixAddOn;
-import org.dominokit.domino.ui.utils.Selectable;
-import org.dominokit.domino.ui.elements.ImageElement;
-
-import java.util.HashSet;
-import java.util.Optional;
-import java.util.Set;
-
 import static org.dominokit.domino.ui.chips.ChipStyles.dui_chip;
 import static org.dominokit.domino.ui.chips.ChipStyles.dui_chip_addon;
 import static org.dominokit.domino.ui.chips.ChipStyles.dui_chip_has_addon;
 import static org.dominokit.domino.ui.chips.ChipStyles.dui_chip_remove;
 import static org.dominokit.domino.ui.chips.ChipStyles.dui_chip_selected;
 import static org.dominokit.domino.ui.chips.ChipStyles.dui_chip_value;
+
+import elemental2.dom.HTMLDivElement;
+import elemental2.dom.HTMLImageElement;
+import java.util.HashSet;
+import java.util.Optional;
+import java.util.Set;
+import org.dominokit.domino.ui.button.RemoveButton;
+import org.dominokit.domino.ui.elements.DivElement;
+import org.dominokit.domino.ui.elements.ImageElement;
+import org.dominokit.domino.ui.elements.SpanElement;
+import org.dominokit.domino.ui.style.BooleanCssClass;
+import org.dominokit.domino.ui.utils.AcceptDisable;
+import org.dominokit.domino.ui.utils.BaseDominoElement;
+import org.dominokit.domino.ui.utils.ChildHandler;
+import org.dominokit.domino.ui.utils.HasSelectionListeners;
+import org.dominokit.domino.ui.utils.LazyChild;
+import org.dominokit.domino.ui.utils.PrefixAddOn;
+import org.dominokit.domino.ui.utils.Selectable;
 
 public class Chip extends BaseDominoElement<HTMLDivElement, Chip>
     implements HasSelectionListeners<Chip, Chip, Chip>, Selectable<Chip>, AcceptDisable<Chip> {
@@ -65,8 +63,7 @@ public class Chip extends BaseDominoElement<HTMLDivElement, Chip>
         div()
             .addCss(dui_chip)
             .setAttribute("tabindex", "0")
-            .appendChild(
-                textElement = span().addCss(dui_chip_value).setTextContent(text));
+            .appendChild(textElement = span().addCss(dui_chip_value).setTextContent(text));
     init(this);
 
     removeButton =
@@ -87,22 +84,23 @@ public class Chip extends BaseDominoElement<HTMLDivElement, Chip>
             .whenInitialized(() -> root.addCss(dui_chip_has_addon))
             .onReset(() -> root.removeCss(dui_chip_has_addon));
 
-    root
-            .onKeyDown(keyEvents -> keyEvents.onEnter(
+    root.onKeyDown(
+        keyEvents ->
+            keyEvents
+                .onEnter(
                     evt -> {
                       evt.stopPropagation();
                       if (isSelectable()) {
                         toggleSelect();
                       }
                     })
-                    .onDelete(
-                            evt -> {
-                              evt.stopPropagation();
-                              if (isRemovable()) {
-                                remove();
-                              }
-                            })
-            );
+                .onDelete(
+                    evt -> {
+                      evt.stopPropagation();
+                      if (isRemovable()) {
+                        remove();
+                      }
+                    }));
     root.addClickListener(
         evt -> {
           evt.stopPropagation();
@@ -205,7 +203,7 @@ public class Chip extends BaseDominoElement<HTMLDivElement, Chip>
 
   @Override
   public Chip setSelected(boolean selected, boolean silent) {
-    if(!isReadOnly() && !isDisabled()) {
+    if (!isReadOnly() && !isDisabled()) {
       if (selected) {
         select(silent);
       } else {
@@ -276,6 +274,7 @@ public class Chip extends BaseDominoElement<HTMLDivElement, Chip>
   public Chip setImage(HTMLImageElement img) {
     return appendChild(PrefixAddOn.of(img));
   }
+
   public Chip setImage(ImageElement img) {
     return appendChild(PrefixAddOn.of(img));
   }

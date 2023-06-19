@@ -27,7 +27,7 @@ import org.dominokit.domino.ui.datatable.events.BodyScrollEvent;
 import org.dominokit.domino.ui.datatable.events.SearchEvent;
 import org.dominokit.domino.ui.datatable.events.SortEvent;
 import org.dominokit.domino.ui.datatable.events.TableEvent;
-import org.dominokit.domino.ui.datatable.plugins.BodyScrollPlugin;
+import org.dominokit.domino.ui.datatable.plugins.pagination.BodyScrollPlugin;
 
 /**
  * An implementation of the {@link DataStore} that wraps an in-memory/local list of records allowing

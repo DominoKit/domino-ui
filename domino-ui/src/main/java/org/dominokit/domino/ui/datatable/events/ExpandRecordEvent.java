@@ -16,10 +16,10 @@
 package org.dominokit.domino.ui.datatable.events;
 
 import org.dominokit.domino.ui.datatable.TableRow;
+import org.dominokit.domino.ui.datatable.plugins.row.RecordDetailsPlugin;
 
 /**
- * This event will be fired by the {@link
- * org.dominokit.domino.ui.datatable.plugins.RecordDetailsPlugin} when a record is expanded
+ * This event will be fired by the {@link RecordDetailsPlugin} when a record is expanded
  *
  * @param <T> the type of the record.
  */

@@ -76,7 +76,10 @@ public class ListItem<T> extends BaseDominoElement<HTMLLIElement, ListItem<T>>
     evt.stopPropagation();
     evt.preventDefault();
     MouseEvent mouseEvent = Js.uncheckedCast(evt);
-    if (selectable && (isNull(listGroup) || listGroup.isSelectable()) && isEnabled() && selectOnClick) {
+    if (selectable
+        && (isNull(listGroup) || listGroup.isSelectable())
+        && isEnabled()
+        && selectOnClick) {
       if (isSelected()) {
         if (mouseEvent.shiftKey && isMultiSelect()) {
           deselectRange();

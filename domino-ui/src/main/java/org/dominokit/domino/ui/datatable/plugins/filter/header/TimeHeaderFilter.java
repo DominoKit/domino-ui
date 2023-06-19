@@ -13,24 +13,23 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
- package org.dominokit.domino.ui.datatable.plugins.filter.header;
+package org.dominokit.domino.ui.datatable.plugins.filter.header;
 
- import elemental2.dom.HTMLElement;
- import org.dominokit.domino.ui.datatable.ColumnConfig;
- import org.dominokit.domino.ui.datatable.model.Category;
- import org.dominokit.domino.ui.datatable.model.Filter;
- import org.dominokit.domino.ui.datatable.model.FilterTypes;
- import org.dominokit.domino.ui.datatable.model.SearchContext;
- import org.dominokit.domino.ui.datatable.plugins.ColumnHeaderFilterPlugin;
- import org.dominokit.domino.ui.menu.direction.DropDirection;
- import org.dominokit.domino.ui.timepicker.TimeBox;
+import elemental2.dom.HTMLElement;
+import org.dominokit.domino.ui.datatable.ColumnConfig;
+import org.dominokit.domino.ui.datatable.model.Category;
+import org.dominokit.domino.ui.datatable.model.Filter;
+import org.dominokit.domino.ui.datatable.model.FilterTypes;
+import org.dominokit.domino.ui.datatable.model.SearchContext;
+import org.dominokit.domino.ui.datatable.plugins.column.ColumnHeaderFilterPlugin;
+import org.dominokit.domino.ui.forms.TimeBox;
 
 /**
  * Date column header filter component that is rendered as a {@link TimeBox} component
  *
  * @param <T> type of data table records
  */
- public class TimeHeaderFilter<T> implements ColumnHeaderFilterPlugin.HeaderFilter<T> {
+public class TimeHeaderFilter<T> implements ColumnHeaderFilterPlugin.HeaderFilter<T> {
 
   private TimeBox timeBox;
 
@@ -51,18 +50,14 @@
             .setPlaceholder("Search")
             .apply(
                 element -> {
-                  element
-                      .getTimePicker()
-                      .addTimeSelectionHandler(
-                          (time, dateTimeFormatInfo, picker) -> {
-                              // TODO
-//                              timeBox.close();
-                          }
-                      );
-                })
-            .setPickerStyle(TimeBox.PickerStyle.POPOVER)
-            .setPopoverPosition(DropDirection.BEST_SIDE_UP_DOWN)
-            .styler(style -> style.setMarginBottom("0px"));
+                  element.withTimePicker(
+                      (parent, timePicker) -> {
+                        timePicker.addTimeSelectionListener(
+                            (oldDate, newDate) -> {
+                              element.close();
+                            });
+                      });
+                });
   }
 
   /** @return the {@link TimeBox} wrapped in this filter component */
@@ -76,23 +71,26 @@
     searchContext.addBeforeSearchHandler(
         context -> {
           if (timeBox.isEmptyIgnoreSpaces()) {
-            searchContext.remove(columnConfig.getName(), Category.HEADER_FILTER);
+            searchContext.remove(columnConfig.getFilterKey(), Category.HEADER_FILTER);
           } else {
             searchContext.add(
                 Filter.create(
-                    columnConfig.getName(),
+                    columnConfig.getFilterKey(),
                     timeBox.getValue().getTime() + "",
                     Category.HEADER_FILTER,
                     FilterTypes.TIME));
           }
         });
-    timeBox.addChangeListener((oldValue, newValue) -> searchContext.fireSearchEvent());
+    timeBox.addChangeListener((oldValue, value) -> searchContext.fireSearchEvent());
   }
 
   /** {@inheritDoc} */
   @Override
   public void clear() {
-    timeBox.withPausedChangeListeners(field -> timeBox.clear());
+    timeBox.withPausedChangeListeners(
+        field -> {
+          timeBox.clear();
+        });
   }
 
   /** {@inheritDoc} */
@@ -100,4 +98,4 @@
   public HTMLElement element() {
     return timeBox.element();
   }
- }
+}

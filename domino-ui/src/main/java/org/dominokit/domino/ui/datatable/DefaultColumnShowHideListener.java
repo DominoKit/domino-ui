@@ -15,9 +15,9 @@
  */
 package org.dominokit.domino.ui.datatable;
 
-import elemental2.dom.HTMLElement;
-
 import static org.dominokit.domino.ui.utils.ElementsFactory.elements;
+
+import elemental2.dom.HTMLElement;
 
 /**
  * This implementation is default to show/hide any element whenever the table column visibility is

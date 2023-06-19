@@ -45,6 +45,12 @@ public interface HasSelectionListeners<T, V, S> {
     return (T) this;
   }
 
+  default T addSelectionDeselectionListener(SelectionListener<? super V, ? super S> listener) {
+    addDeselectionListener(listener);
+    addSelectionListener(listener);
+    return (T) this;
+  }
+
   /**
    * @param selectionListener {@link SelectionListener}
    * @return same implementing class instance

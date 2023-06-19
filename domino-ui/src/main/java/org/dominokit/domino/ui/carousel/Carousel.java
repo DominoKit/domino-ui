@@ -18,10 +18,8 @@ package org.dominokit.domino.ui.carousel;
 import static org.dominokit.domino.ui.carousel.CarouselStyles.*;
 
 import elemental2.dom.HTMLDivElement;
-
 import java.util.ArrayList;
 import java.util.List;
-
 import org.dominokit.domino.ui.elements.AnchorElement;
 import org.dominokit.domino.ui.elements.DivElement;
 import org.dominokit.domino.ui.elements.OListElement;
@@ -70,314 +68,296 @@ import org.gwtproject.timer.client.Timer;
  * @see CarouselStyles
  */
 public class Carousel extends BaseDominoElement<HTMLDivElement, Carousel> {
-    public static final String NEXT = "next";
-    /**
-     * CSS class for previous indicator
-     */
-    public static final String PREV = "prev";
+  public static final String NEXT = "next";
+  /** CSS class for previous indicator */
+  public static final String PREV = "prev";
 
-    private final OListElement indicatorsElement;
-    private final DivElement slidesElement;
-    private boolean autoSlide = false;
+  private final OListElement indicatorsElement;
+  private final DivElement slidesElement;
+  private boolean autoSlide = false;
 
-    private final AnchorElement prevElement;
+  private final AnchorElement prevElement;
 
-    private final AnchorElement nextElement;
+  private final AnchorElement nextElement;
 
-    private final DivElement element;
+  private final DivElement element;
 
-    private final List<Slide> slides = new ArrayList<>();
-    private final Timer timer;
-    private Slide activeSlide;
-    private Slide targetSlide;
-    private int autoSlideDuration = 3000;
-    private boolean attached = false;
+  private final List<Slide> slides = new ArrayList<>();
+  private final Timer timer;
+  private Slide activeSlide;
+  private Slide targetSlide;
+  private int autoSlideDuration = 3000;
+  private boolean attached = false;
 
-    public Carousel() {
+  public Carousel() {
 
-        element =
-                div()
-                        .appendChild(indicatorsElement = ol().addCss(carousel_indicators))
-                        .appendChild(slidesElement = div().addCss(carousel_inner))
+    element =
+        div()
+            .appendChild(indicatorsElement = ol().addCss(carousel_indicators))
+            .appendChild(slidesElement = div().addCss(carousel_inner))
+            .appendChild(
+                prevElement =
+                    a().addCss(slide_left, carousel_control)
+                        .setAttribute("role", "button")
                         .appendChild(
-                                prevElement =
-                                        a()
-                                                .addCss(slide_left, carousel_control)
-                                                .setAttribute("role", "button")
-                                                .appendChild(
-                                                        Icons
-                                                                .chevron_left()
-                                                                .addCss(GenericCss.dui_vertical_center, dui_font_size_12))
-                                                .addEventListener(
-                                                        "click",
-                                                        evt -> {
-                                                            resetTimer();
-                                                            prevSlide();
-                                                        }))
+                            Icons.chevron_left()
+                                .addCss(GenericCss.dui_vertical_center, dui_font_size_12))
+                        .addEventListener(
+                            "click",
+                            evt -> {
+                              resetTimer();
+                              prevSlide();
+                            }))
+            .appendChild(
+                nextElement =
+                    a().addCss(slide_right, carousel_control)
+                        .setAttribute("role", "button")
                         .appendChild(
-                                nextElement =
-                                        a()
-                                                .addCss(slide_right, carousel_control)
-                                                .setAttribute("role", "button")
-                                                .appendChild(
-                                                        Icons
-                                                                .chevron_right()
-                                                                .addCss(GenericCss.dui_vertical_center, SpacingCss.dui_font_size_12))
-                                                .addEventListener(
-                                                        "click",
-                                                        evt -> {
-                                                            resetTimer();
-                                                            nextSlide();
-                                                        }))
-                        .addCss(carousel);
-        timer =
-                new Timer() {
-                    @Override
-                    public void run() {
-                        nextSlide();
-                    }
-                };
-        addAttachListener();
-        addDetachListener();
-        init(this);
+                            Icons.chevron_right()
+                                .addCss(
+                                    GenericCss.dui_vertical_center, SpacingCss.dui_font_size_12))
+                        .addEventListener(
+                            "click",
+                            evt -> {
+                              resetTimer();
+                              nextSlide();
+                            }))
+            .addCss(carousel);
+    timer =
+        new Timer() {
+          @Override
+          public void run() {
+            nextSlide();
+          }
+        };
+    addAttachListener();
+    addDetachListener();
+    init(this);
+  }
+
+  private void resetTimer() {
+    if (autoSlide) {
+      timer.cancel();
+      timer.scheduleRepeating(autoSlideDuration);
     }
+  }
 
-    private void resetTimer() {
-        if (autoSlide) {
-            timer.cancel();
+  private void addDetachListener() {
+    ElementUtil.onDetach(
+        element(),
+        mutationRecord -> {
+          this.attached = false;
+          this.stopAutoSlide();
+        });
+  }
+
+  private void addAttachListener() {
+    ElementUtil.onAttach(
+        this.element(),
+        mutationRecord -> {
+          this.attached = true;
+          if (autoSlide) {
             timer.scheduleRepeating(autoSlideDuration);
-        }
+          }
+
+          addDetachListener();
+        });
+  }
+
+  /**
+   * Creates new carousel
+   *
+   * @return new instance
+   */
+  public static Carousel create() {
+    return new Carousel();
+  }
+
+  /**
+   * Adds new {@link Slide}, event listeners will be added to the slide for removing the motion
+   * styles
+   *
+   * @param slide a {@link Slide} to be added
+   * @return same instance
+   */
+  public Carousel appendChild(Slide slide) {
+    getIndicatorsElement().appendChild(slide.getIndicatorElement().element());
+    slidesElement.appendChild(slide.element());
+    slide
+        .getIndicatorElement()
+        .addEventListener(
+            "click",
+            evt -> {
+              resetTimer();
+              goToSlide(slide, "");
+            });
+
+    slide.element().addEventListener("webkitTransitionEnd", evt -> removeMotionStyles());
+    slide.element().addEventListener("MSTransitionEnd", evt -> removeMotionStyles());
+    slide.element().addEventListener("mozTransitionEnd", evt -> removeMotionStyles());
+    slide.element().addEventListener("otransitionend", evt -> removeMotionStyles());
+    slide.element().addEventListener("transitionend", evt -> removeMotionStyles());
+
+    if (slides.isEmpty()) {
+      slide.activate();
+      this.activeSlide = slide;
+    }
+    slides.add(slide);
+
+    SwipeUtil.addSwipeListener(SwipeUtil.SwipeDirection.LEFT, slide.element(), evt -> nextSlide());
+    SwipeUtil.addSwipeListener(SwipeUtil.SwipeDirection.RIGHT, slide.element(), evt -> prevSlide());
+    return this;
+  }
+
+  private void nextSlide() {
+    Slide nextSlide;
+    if (slides.indexOf(activeSlide) < slides.size() - 1) {
+      nextSlide = slides.get(slides.indexOf(activeSlide) + 1);
+    } else {
+      nextSlide = slides.get(0);
     }
 
-    private void addDetachListener() {
-        ElementUtil.onDetach(
-                element(),
-                mutationRecord -> {
-                    this.attached = false;
-                    this.stopAutoSlide();
-                });
+    goToSlide(nextSlide, NEXT);
+  }
+
+  private void prevSlide() {
+    Slide prevSlide;
+    if (slides.indexOf(activeSlide) > 0) {
+      prevSlide = slides.get(slides.indexOf(activeSlide) - 1);
+    } else {
+      prevSlide = slides.get(slides.size() - 1);
     }
 
-    private void addAttachListener() {
-        ElementUtil.onAttach(
-                this.element(),
-                mutationRecord -> {
-                    this.attached = true;
-                    if (autoSlide) {
-                        timer.scheduleRepeating(autoSlideDuration);
-                    }
+    goToSlide(prevSlide, PREV);
+  }
 
-                    addDetachListener();
-                });
+  private void goToSlide(Slide slide, String source) {
+    if (!slide.isActive()) {
+      this.targetSlide = slide;
+      slide.getIndicatorElement().addCss(dui_active);
+      activeSlide.getIndicatorElement().removeCss(dui_active);
+      slide.addCss(getPositionStyle(slide, source));
+      Scheduler.get()
+          .scheduleFixedDelay(
+              () -> {
+                activeSlide.getIndicatorElement().removeCss(dui_active);
+                CssClass directionStyle = getDirectionStyle(slide, source);
+                slide.addCss(directionStyle);
+                activeSlide.addCss(directionStyle);
+                return false;
+              },
+              50);
+    }
+  }
+
+  private CssClass getPositionStyle(Slide target, String source) {
+    if ((slides.indexOf(target) > slides.indexOf(activeSlide) && !PREV.equals(source))
+        || (NEXT.equals(source))) {
+      return slide_next;
+    } else {
+      return slide_prev;
+    }
+  }
+
+  private CssClass getDirectionStyle(Slide target, String source) {
+    if ((slides.indexOf(target) > slides.indexOf(activeSlide) && !PREV.equals(source))
+        || (NEXT.equals(source))) {
+      return slide_left;
+    } else {
+      return slide_right;
+    }
+  }
+
+  private void removeMotionStyles() {
+    activeSlide
+        .removeCss(slide_left)
+        .removeCss(slide_right)
+        .removeCss(slide_next)
+        .removeCss(slide_prev);
+    activeSlide.deActivate();
+    targetSlide
+        .removeCss(slide_left)
+        .removeCss(slide_right)
+        .removeCss(slide_next)
+        .removeCss(slide_prev);
+
+    targetSlide.activate();
+    this.activeSlide = targetSlide;
+  }
+
+  /**
+   * Slides through items every {@code slideDuration}
+   *
+   * @param slideDuration the time between slide between each element
+   * @return same instance
+   */
+  public Carousel startAutoSlide(int slideDuration) {
+    this.autoSlide = true;
+    this.autoSlideDuration = slideDuration;
+    if (attached) {
+      timer.scheduleRepeating(slideDuration);
     }
 
-    /**
-     * Creates new carousel
-     *
-     * @return new instance
-     */
-    public static Carousel create() {
-        return new Carousel();
+    return this;
+  }
+
+  /**
+   * Stops the automatic sliding
+   *
+   * @return same instance
+   */
+  public Carousel stopAutoSlide() {
+    if (timer.isRunning()) {
+      timer.cancel();
     }
 
-    /**
-     * Adds new {@link Slide}, event listeners will be added to the slide for removing the motion
-     * styles
-     *
-     * @param slide a {@link Slide} to be added
-     * @return same instance
-     */
-    public Carousel appendChild(Slide slide) {
-        getIndicatorsElement().appendChild(slide.getIndicatorElement().element());
-        slidesElement.appendChild(slide.element());
-        slide
-                .getIndicatorElement()
-                .addEventListener(
-                        "click",
-                        evt -> {
-                            resetTimer();
-                            goToSlide(slide, "");
-                        });
+    addAttachListener();
+    return this;
+  }
 
-        slide.element().addEventListener("webkitTransitionEnd", evt -> removeMotionStyles());
-        slide.element().addEventListener("MSTransitionEnd", evt -> removeMotionStyles());
-        slide.element().addEventListener("mozTransitionEnd", evt -> removeMotionStyles());
-        slide.element().addEventListener("otransitionend", evt -> removeMotionStyles());
-        slide.element().addEventListener("transitionend", evt -> removeMotionStyles());
+  /** {@inheritDoc} */
+  @Override
+  public HTMLDivElement element() {
+    return element.element();
+  }
 
-        if (slides.isEmpty()) {
-            slide.activate();
-            this.activeSlide = slide;
-        }
-        slides.add(slide);
+  /** @return the indicator element */
+  public OListElement getIndicatorsElement() {
+    return indicatorsElement;
+  }
 
-        SwipeUtil.addSwipeListener(SwipeUtil.SwipeDirection.LEFT, slide.element(), evt -> nextSlide());
-        SwipeUtil.addSwipeListener(SwipeUtil.SwipeDirection.RIGHT, slide.element(), evt -> prevSlide());
-        return this;
-    }
+  /** @return the slides element which has all the slides */
+  public DivElement getSlidesElement() {
+    return slidesElement;
+  }
 
-    private void nextSlide() {
-        Slide nextSlide;
-        if (slides.indexOf(activeSlide) < slides.size() - 1) {
-            nextSlide = slides.get(slides.indexOf(activeSlide) + 1);
-        } else {
-            nextSlide = slides.get(0);
-        }
+  public Carousel withSlidesElement(ChildHandler<Carousel, DivElement> handler) {
+    handler.apply(this, slidesElement);
+    return this;
+  }
 
-        goToSlide(nextSlide, NEXT);
-    }
+  public Carousel withIndicatorsElement(ChildHandler<Carousel, OListElement> handler) {
+    handler.apply(this, indicatorsElement);
+    return this;
+  }
 
-    private void prevSlide() {
-        Slide prevSlide;
-        if (slides.indexOf(activeSlide) > 0) {
-            prevSlide = slides.get(slides.indexOf(activeSlide) - 1);
-        } else {
-            prevSlide = slides.get(slides.size() - 1);
-        }
+  public Carousel withPreviousElement(ChildHandler<Carousel, AnchorElement> handler) {
+    handler.apply(this, prevElement);
+    return this;
+  }
 
-        goToSlide(prevSlide, PREV);
-    }
+  public Carousel withNextElement(ChildHandler<Carousel, AnchorElement> handler) {
+    handler.apply(this, nextElement);
+    return this;
+  }
 
-    private void goToSlide(Slide slide, String source) {
-        if (!slide.isActive()) {
-            this.targetSlide = slide;
-            slide.getIndicatorElement().addCss(dui_active);
-            activeSlide.getIndicatorElement().removeCss(dui_active);
-            slide.addCss(getPositionStyle(slide, source));
-            Scheduler.get()
-                    .scheduleFixedDelay(
-                            () -> {
-                                activeSlide.getIndicatorElement().removeCss(dui_active);
-                                CssClass directionStyle = getDirectionStyle(slide, source);
-                                slide.addCss(directionStyle);
-                                activeSlide.addCss(directionStyle);
-                                return false;
-                            },
-                            50);
-        }
-    }
+  /** @return All the added slides */
+  public List<Slide> getSlides() {
+    return slides;
+  }
 
-    private CssClass getPositionStyle(Slide target, String source) {
-        if ((slides.indexOf(target) > slides.indexOf(activeSlide) && !PREV.equals(source))
-                || (NEXT.equals(source))) {
-            return slide_next;
-        } else {
-            return slide_prev;
-        }
-    }
-
-    private CssClass getDirectionStyle(Slide target, String source) {
-        if ((slides.indexOf(target) > slides.indexOf(activeSlide) && !PREV.equals(source))
-                || (NEXT.equals(source))) {
-            return slide_left;
-        } else {
-            return slide_right;
-        }
-    }
-
-    private void removeMotionStyles() {
-        activeSlide
-                .removeCss(slide_left)
-                .removeCss(slide_right)
-                .removeCss(slide_next)
-                .removeCss(slide_prev);
-        activeSlide.deActivate();
-        targetSlide
-                .removeCss(slide_left)
-                .removeCss(slide_right)
-                .removeCss(slide_next)
-                .removeCss(slide_prev);
-
-        targetSlide.activate();
-        this.activeSlide = targetSlide;
-    }
-
-    /**
-     * Slides through items every {@code slideDuration}
-     *
-     * @param slideDuration the time between slide between each element
-     * @return same instance
-     */
-    public Carousel startAutoSlide(int slideDuration) {
-        this.autoSlide = true;
-        this.autoSlideDuration = slideDuration;
-        if (attached) {
-            timer.scheduleRepeating(slideDuration);
-        }
-
-        return this;
-    }
-
-    /**
-     * Stops the automatic sliding
-     *
-     * @return same instance
-     */
-    public Carousel stopAutoSlide() {
-        if (timer.isRunning()) {
-            timer.cancel();
-        }
-
-        addAttachListener();
-        return this;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public HTMLDivElement element() {
-        return element.element();
-    }
-
-    /**
-     * @return the indicator element
-     */
-    public OListElement getIndicatorsElement() {
-        return indicatorsElement;
-    }
-
-    /**
-     * @return the slides element which has all the slides
-     */
-    public DivElement getSlidesElement() {
-        return slidesElement;
-    }
-
-    public Carousel withSlidesElement(ChildHandler<Carousel, DivElement> handler) {
-        handler.apply(this, slidesElement);
-        return this;
-    }
-
-    public Carousel withIndicatorsElement(
-            ChildHandler<Carousel, OListElement> handler) {
-        handler.apply(this, indicatorsElement);
-        return this;
-    }
-
-    public Carousel withPreviousElement(
-            ChildHandler<Carousel, AnchorElement> handler) {
-        handler.apply(this, prevElement);
-        return this;
-    }
-
-    public Carousel withNextElement(
-            ChildHandler<Carousel, AnchorElement> handler) {
-        handler.apply(this, nextElement);
-        return this;
-    }
-
-    /**
-     * @return All the added slides
-     */
-    public List<Slide> getSlides() {
-        return slides;
-    }
-
-    /**
-     * @return the currently active slide
-     */
-    public Slide getActiveSlide() {
-        return activeSlide;
-    }
+  /** @return the currently active slide */
+  public Slide getActiveSlide() {
+    return activeSlide;
+  }
 }

@@ -21,7 +21,6 @@ import elemental2.dom.HTMLElement;
 import org.dominokit.domino.ui.elements.SpanElement;
 import org.dominokit.domino.ui.style.WavesElement;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
-import org.dominokit.domino.ui.utils.DominoElement;
 
 /**
  * Icon with a label
@@ -39,11 +38,12 @@ public class LabeledIcon extends WavesElement<HTMLElement, LabeledIcon> {
   }
 
   public LabeledIcon(Icon<?> icon, String text, IconPosition position) {
-     element = span()
-             .addCss(dui_labeled_icon)
-             .appendChild(icon)
-             .appendChild(span().addCss(dui_icon_text, dui_text_ellipsis).textContent(text));
-     init(this);
+    element =
+        span()
+            .addCss(dui_labeled_icon)
+            .appendChild(icon)
+            .appendChild(span().addCss(dui_icon_text, dui_text_ellipsis).textContent(text));
+    init(this);
     position.apply(this);
   }
 

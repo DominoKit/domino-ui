@@ -15,10 +15,9 @@
  */
 package org.dominokit.domino.ui.dialogs;
 
-import org.dominokit.domino.ui.utils.IsPopup;
-
 import java.util.Deque;
 import java.util.Optional;
+import org.dominokit.domino.ui.utils.IsPopup;
 
 public interface ZIndexManager {
 

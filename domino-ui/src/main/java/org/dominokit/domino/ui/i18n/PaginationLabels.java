@@ -20,11 +20,11 @@ public interface PaginationLabels extends Labels {
     return " of " + pagesCount + " Pages";
   }
 
-  default String getPreviousLabel(){
+  default String getPreviousLabel() {
     return "Previous";
   }
 
-  default String getNextLabel(){
+  default String getNextLabel() {
     return "Next";
   }
 }

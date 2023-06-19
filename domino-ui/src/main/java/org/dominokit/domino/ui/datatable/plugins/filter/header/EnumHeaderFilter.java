@@ -13,18 +13,18 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
- package org.dominokit.domino.ui.datatable.plugins.filter.header;
+package org.dominokit.domino.ui.datatable.plugins.filter.header;
 
- import elemental2.dom.HTMLElement;
- import java.util.Arrays;
- import org.dominokit.domino.ui.datatable.ColumnConfig;
- import org.dominokit.domino.ui.datatable.model.Category;
- import org.dominokit.domino.ui.datatable.model.Filter;
- import org.dominokit.domino.ui.datatable.model.FilterTypes;
- import org.dominokit.domino.ui.datatable.model.SearchContext;
- import org.dominokit.domino.ui.datatable.plugins.ColumnHeaderFilterPlugin;
- import org.dominokit.domino.ui.forms.suggest.Select;
- import org.dominokit.domino.ui.forms.suggest.SelectOption;
+import elemental2.dom.HTMLElement;
+import java.util.Arrays;
+import org.dominokit.domino.ui.datatable.ColumnConfig;
+import org.dominokit.domino.ui.datatable.model.Category;
+import org.dominokit.domino.ui.datatable.model.Filter;
+import org.dominokit.domino.ui.datatable.model.FilterTypes;
+import org.dominokit.domino.ui.datatable.model.SearchContext;
+import org.dominokit.domino.ui.datatable.plugins.column.ColumnHeaderFilterPlugin;
+import org.dominokit.domino.ui.forms.suggest.Select;
+import org.dominokit.domino.ui.forms.suggest.SelectOption;
 
 /**
  * Enum column header filter component that is rendered as a {@link Select} component
@@ -32,7 +32,7 @@
  * @param <T> type of data table records
  * @param <E> the enum type
  */
- public class EnumHeaderFilter<T, E extends Enum>
+public class EnumHeaderFilter<T, E extends Enum>
     implements ColumnHeaderFilterPlugin.HeaderFilter<T> {
 
   private final Select<String> select;
@@ -69,14 +69,14 @@
   public EnumHeaderFilter(E[] values, String allLabel) {
     select =
         Select.<String>create()
-            .appendChild(SelectOption.create("", "", allLabel))
+            .appendChild(SelectOption.create("", allLabel))
             .apply(
                 element ->
                     Arrays.stream(values)
                         .forEach(
                             value ->
                                 element.appendChild(
-                                    SelectOption.create(value.toString(), value.toString(), value.toString()))))
+                                    SelectOption.create(value.toString(), value.toString()))))
             .selectAt(0);
     select.styler(style -> style.setMarginBottom("0px"));
   }
@@ -89,21 +89,24 @@
           if (select.getSelectedIndex() > 0) {
             searchContext.add(
                 Filter.create(
-                    columnConfig.getName(),
+                    columnConfig.getFilterKey(),
                     select.getValue(),
                     Category.HEADER_FILTER,
                     FilterTypes.ENUM));
           } else {
-            searchContext.remove(columnConfig.getName(), Category.HEADER_FILTER);
+            searchContext.remove(columnConfig.getFilterKey(), Category.HEADER_FILTER);
           }
         });
-    select.addChangeListener((oldValue, newValue) -> searchContext.fireSearchEvent());
+    select.addChangeListener((oldOption, option) -> searchContext.fireSearchEvent());
   }
 
   /** {@inheritDoc} */
   @Override
   public void clear() {
-      select.withPausedChangeListeners(field -> select.selectAt(0));
+    select.withPausedChangeListeners(
+        field -> {
+          select.selectAt(0);
+        });
   }
 
   /** {@inheritDoc} */
@@ -116,4 +119,4 @@
   public Select<String> getSelect() {
     return select;
   }
- }
+}

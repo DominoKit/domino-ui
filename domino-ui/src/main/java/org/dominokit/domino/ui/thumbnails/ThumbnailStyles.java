@@ -17,15 +17,13 @@ package org.dominokit.domino.ui.thumbnails;
 
 import org.dominokit.domino.ui.style.CssClass;
 
-/**
- * Default CSS styles for {@link Thumbnail}
- */
+/** Default CSS styles for {@link Thumbnail} */
 public interface ThumbnailStyles {
-    CssClass dui_thumbnail = () -> "dui-thumbnail";
-    CssClass dui_thumbnail_title = () -> "dui-thumbnail-title";
-    CssClass dui_thumbnail_body = () -> "dui-thumbnail-body";
-    CssClass dui_thumbnail_head = () -> "dui-thumbnail-head";
-    CssClass dui_thumbnail_tail = () -> "dui-thumbnail-tail";
-    CssClass dui_thumbnail_footer = () -> "dui-thumbnail-footer";
-    CssClass dui_thumbnail_img = () -> "dui-thumbnail-img";
+  CssClass dui_thumbnail = () -> "dui-thumbnail";
+  CssClass dui_thumbnail_title = () -> "dui-thumbnail-title";
+  CssClass dui_thumbnail_body = () -> "dui-thumbnail-body";
+  CssClass dui_thumbnail_head = () -> "dui-thumbnail-head";
+  CssClass dui_thumbnail_tail = () -> "dui-thumbnail-tail";
+  CssClass dui_thumbnail_footer = () -> "dui-thumbnail-footer";
+  CssClass dui_thumbnail_img = () -> "dui-thumbnail-img";
 }

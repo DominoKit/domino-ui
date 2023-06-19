@@ -15,15 +15,14 @@
  */
 package org.dominokit.domino.ui.menu.direction;
 
-import elemental2.dom.DOMRect;
-import elemental2.dom.Element;
-import org.dominokit.domino.ui.style.CssClass;
-import org.dominokit.domino.ui.style.Style;
-
 import static elemental2.dom.DomGlobal.window;
 import static org.dominokit.domino.ui.style.SpacingCss.dui_flex_col_reverse;
 import static org.dominokit.domino.ui.utils.ElementsFactory.elements;
 import static org.dominokit.domino.ui.utils.Unit.px;
+
+import elemental2.dom.DOMRect;
+import elemental2.dom.Element;
+import org.dominokit.domino.ui.style.Style;
 
 public class MiddleOfScreenDropDirection implements DropDirection {
   @Override
@@ -31,11 +30,15 @@ public class MiddleOfScreenDropDirection implements DropDirection {
     dui_flex_col_reverse.remove(source);
     DOMRect sourceRect = source.getBoundingClientRect();
 
-    Style.of(source).style.setProperty(
-        "top", px.of(((window.innerHeight - sourceRect.height) / 2) + window.pageYOffset));
+    Style.of(source)
+        .style
+        .setProperty(
+            "top", px.of(((window.innerHeight - sourceRect.height) / 2) + window.pageYOffset));
     Style.of(source).style.setProperty("left", px.of((window.innerWidth - sourceRect.width) / 2));
     dui_dd_middle_screen.apply(source);
-    elements.elementOf(source).setCssProperty("--dui-menu-drop-min-width", target.getBoundingClientRect().width+"px");
+    elements
+        .elementOf(source)
+        .setCssProperty("--dui-menu-drop-min-width", target.getBoundingClientRect().width + "px");
   }
 
   @Override
@@ -43,5 +46,4 @@ public class MiddleOfScreenDropDirection implements DropDirection {
     dui_dd_middle_screen.remove(source);
     elements.elementOf(source).removeCssProperty("--dui-menu-drop-min-width");
   }
-
 }

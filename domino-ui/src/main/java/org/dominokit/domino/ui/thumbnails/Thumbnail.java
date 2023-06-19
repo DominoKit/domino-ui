@@ -47,142 +47,143 @@ import org.dominokit.domino.ui.utils.LazyChild;
  *
  * @see BaseDominoElement
  */
-public class Thumbnail extends BaseDominoElement<HTMLDivElement, Thumbnail> implements ThumbnailStyles {
+public class Thumbnail extends BaseDominoElement<HTMLDivElement, Thumbnail>
+    implements ThumbnailStyles {
 
-    private final DivElement element;
-    private final DivElement head;
-    private final LazyChild<DivElement> title;
-    private final DivElement body;
+  private final DivElement element;
+  private final DivElement head;
+  private final LazyChild<DivElement> title;
+  private final DivElement body;
 
-    private final LazyChild<DivElement> tail;
-    private final LazyChild<DivElement> footer;
+  private final LazyChild<DivElement> tail;
+  private final LazyChild<DivElement> footer;
 
-    private SwapCssClass directionCss = SwapCssClass.of();
+  private SwapCssClass directionCss = SwapCssClass.of();
 
-    public Thumbnail() {
-        this.element = div()
-                .addCss(dui_thumbnail)
-                .appendChild(head = div().addCss(dui_thumbnail_head)
-                        .appendChild(body = div().addCss(dui_thumbnail_body))
-                );
-        title = LazyChild.of(div().addCss(dui_thumbnail_title), head);
-        tail = LazyChild.of(div().addCss(dui_thumbnail_tail), element);
-        footer = LazyChild.of(div().addCss(dui_thumbnail_footer), tail);
+  public Thumbnail() {
+    this.element =
+        div()
+            .addCss(dui_thumbnail)
+            .appendChild(
+                head =
+                    div()
+                        .addCss(dui_thumbnail_head)
+                        .appendChild(body = div().addCss(dui_thumbnail_body)));
+    title = LazyChild.of(div().addCss(dui_thumbnail_title), head);
+    tail = LazyChild.of(div().addCss(dui_thumbnail_tail), element);
+    footer = LazyChild.of(div().addCss(dui_thumbnail_footer), tail);
 
-        init(this);
+    init(this);
+  }
+
+  /** @return new instnace */
+  public static Thumbnail create() {
+    return new Thumbnail();
+  }
+
+  @Override
+  protected HTMLElement getAppendTarget() {
+    return body.element();
+  }
+
+  public Thumbnail setDirection(ThumbnailDirection direction) {
+    addCss(directionCss.replaceWith(direction));
+    return this;
+  }
+
+  public Thumbnail appendChild(HTMLImageElement img) {
+    elements.elementOf(img).addCss(dui_thumbnail_img);
+    return super.appendChild(img);
+  }
+
+  public Thumbnail appendChild(IsElement<?> element) {
+    if (element.element() instanceof HTMLImageElement
+        || element.element() instanceof HTMLPictureElement) {
+      elements.elementOf(element).addCss(dui_thumbnail_img);
     }
+    return super.appendChild(element);
+  }
 
-    /**
-     * @return new instnace
-     */
-    public static Thumbnail create() {
-        return new Thumbnail();
+  public Thumbnail appendChild(Node node) {
+    if (node instanceof HTMLImageElement || node instanceof HTMLPictureElement) {
+      elements.elementOf(Js.<HTMLElement>uncheckedCast(node)).addCss(dui_thumbnail_img);
     }
+    return super.appendChild(node);
+  }
 
-    @Override
-    protected HTMLElement getAppendTarget() {
-        return body.element();
-    }
+  /** {@inheritDoc} */
+  @Override
+  public HTMLDivElement element() {
+    return element.element();
+  }
 
-    public Thumbnail setDirection(ThumbnailDirection direction) {
-        addCss(directionCss.replaceWith(direction));
-        return this;
-    }
+  public Thumbnail withHeader(ChildHandler<Thumbnail, DivElement> handler) {
+    handler.apply(this, head);
+    return this;
+  }
 
-    public Thumbnail appendChild(HTMLImageElement img) {
-        elements.elementOf(img).addCss(dui_thumbnail_img);
-        return super.appendChild(img);
-    }
+  public Thumbnail withTitle(ChildHandler<Thumbnail, DivElement> handler) {
+    handler.apply(this, title.get());
+    return this;
+  }
 
-    public Thumbnail appendChild(IsElement<?> element) {
-        if (element.element() instanceof HTMLImageElement || element.element() instanceof HTMLPictureElement) {
-            elements.elementOf(element).addCss(dui_thumbnail_img);
-        }
-        return super.appendChild(element);
-    }
+  public Thumbnail withTitle() {
+    title.get();
+    return this;
+  }
 
-    public Thumbnail appendChild(Node node) {
-        if (node instanceof HTMLImageElement || node instanceof HTMLPictureElement) {
-            elements.elementOf(Js.<HTMLElement>uncheckedCast(node)).addCss(dui_thumbnail_img);
-        }
-        return super.appendChild(node);
-    }
+  public Thumbnail withTail(ChildHandler<Thumbnail, DivElement> handler) {
+    handler.apply(this, tail.get());
+    return this;
+  }
 
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public HTMLDivElement element() {
-        return element.element();
-    }
+  public Thumbnail withTail() {
+    tail.get();
+    return this;
+  }
 
-    public Thumbnail withHeader(ChildHandler<Thumbnail, DivElement> handler) {
-        handler.apply(this, head);
-        return this;
-    }
+  public Thumbnail appendChild(FooterContent<?> footerContent) {
+    footer.get().appendChild(footerContent);
+    return this;
+  }
 
-    public Thumbnail withTitle(ChildHandler<Thumbnail, DivElement> handler) {
-        handler.apply(this, title.get());
-        return this;
-    }
+  public Thumbnail appendChild(HeaderContent<?> headerContent) {
+    title.get().appendChild(headerContent);
+    return this;
+  }
 
-    public Thumbnail withTitle() {
-        title.get();
-        return this;
-    }
+  public Thumbnail withFooter(ChildHandler<Thumbnail, DivElement> handler) {
+    handler.apply(this, footer.get());
+    return this;
+  }
 
-    public Thumbnail withTail(ChildHandler<Thumbnail, DivElement> handler) {
-        handler.apply(this, tail.get());
-        return this;
-    }
+  public Thumbnail withFooter() {
+    footer.get();
+    return this;
+  }
 
-    public Thumbnail withTail() {
-        tail.get();
-        return this;
-    }
+  public Thumbnail withBody(ChildHandler<Thumbnail, DivElement> handler) {
+    handler.apply(this, body);
+    return this;
+  }
 
-    public Thumbnail appendChild(FooterContent<?> footerContent){
-        footer.get().appendChild(footerContent);
-        return this;
-    }
+  public DivElement getHeader() {
+    return head;
+  }
 
-    public Thumbnail appendChild(HeaderContent<?> headerContent){
-        title.get().appendChild(headerContent);
-        return this;
-    }
+  public DivElement getTitle() {
+    return title.get();
+  }
 
-    public Thumbnail withFooter(ChildHandler<Thumbnail, DivElement> handler) {
-        handler.apply(this, footer.get());
-        return this;
-    }
+  public DivElement getBody() {
+    return body;
+  }
 
-    public Thumbnail withFooter() {
-        footer.get();
-        return this;
-    }
+  public DivElement getTail() {
+    return tail.get();
+  }
 
-    public Thumbnail withBody(ChildHandler<Thumbnail, DivElement> handler) {
-        handler.apply(this, body);
-        return this;
-    }
-
-    public DivElement getHeader() {
-        return head;
-    }
-
-    public DivElement getTitle() {
-        return title.get();
-    }
-
-    public DivElement getBody() {
-        return body;
-    }
-
-    public DivElement getTail() {
-        return tail.get();
-    }
-
-    public DivElement getFooter() {
-        return footer.get();
-    }
+  public DivElement getFooter() {
+    return footer.get();
+  }
 }

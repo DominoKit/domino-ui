@@ -21,35 +21,47 @@ import org.dominokit.domino.ui.menu.MenuItem;
 
 public class SelectOption<V> extends Option<V, DivElement, SelectOption<V>> {
 
-    public static <V> SelectOption<V> create(String key, V value, String text) {
-        return new SelectOption<>(key, value, text);
-    }
+  public static <V> SelectOption<V> create(String key, V value, String text) {
+    return new SelectOption<>(key, value, text);
+  }
 
-    public static <V> SelectOption<V> create(V value) {
-        return new SelectOption<>(String.valueOf(value), value, String.valueOf(value));
-    }
+  public static <V> SelectOption<V> create(V value) {
+    return new SelectOption<>(String.valueOf(value), value, String.valueOf(value));
+  }
 
-    public static <V> SelectOption<V> create(V value, String text) {
-        return new SelectOption<>(String.valueOf(value), value, text);
-    }
+  public static <V> SelectOption<V> create(V value, String text) {
+    return new SelectOption<>(String.valueOf(value), value, text);
+  }
 
-    public static <V> SelectOption<V> create(String key, V value, String text, String description) {
-        return new SelectOption<>(key, value, text, description);
-    }
+  public static <V> SelectOption<V> create(String key, V value, String text, String description) {
+    return new SelectOption<>(key, value, text, description);
+  }
 
-    public static <V> SelectOption<V> create(String key, V value, OptionSupplier<DivElement, V> componentSupplier, OptionSupplier<AbstractMenuItem<V>, V> menuItemSupplier) {
-        return new SelectOption<>(key, value, componentSupplier, menuItemSupplier);
-    }
+  public static <V> SelectOption<V> create(
+      String key,
+      V value,
+      OptionSupplier<DivElement, V> componentSupplier,
+      OptionSupplier<AbstractMenuItem<V>, V> menuItemSupplier) {
+    return new SelectOption<>(key, value, componentSupplier, menuItemSupplier);
+  }
 
-    public SelectOption(String key, V value, String text, String description) {
-        super(key, value, elements.div().textContent(text).addCss(dui_m_r_1), MenuItem.create(text, description));
-    }
+  public SelectOption(String key, V value, String text, String description) {
+    super(
+        key,
+        value,
+        elements.div().textContent(text).addCss(dui_m_r_1),
+        MenuItem.create(text, description));
+  }
 
-    public SelectOption(String key, V value, String text) {
-        super(key, value, elements.div().textContent(text).addCss(dui_m_r_1), MenuItem.create(text));
-    }
+  public SelectOption(String key, V value, String text) {
+    super(key, value, elements.div().textContent(text).addCss(dui_m_r_1), MenuItem.create(text));
+  }
 
-    public SelectOption(String key, V value, OptionSupplier<DivElement, V> componentSupplier, OptionSupplier<AbstractMenuItem<V>, V> menuItemSupplier) {
-        super(key, value, componentSupplier, menuItemSupplier);
-    }
+  public SelectOption(
+      String key,
+      V value,
+      OptionSupplier<DivElement, V> componentSupplier,
+      OptionSupplier<AbstractMenuItem<V>, V> menuItemSupplier) {
+    super(key, value, componentSupplier, menuItemSupplier);
+  }
 }

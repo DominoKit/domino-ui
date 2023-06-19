@@ -18,14 +18,14 @@ package org.dominokit.domino.ui.spin;
 import elemental2.dom.HTMLDivElement;
 import org.dominokit.domino.ui.elements.DivElement;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
-import org.dominokit.domino.ui.utils.DominoElement;
 
 /**
  * A component provides an item inside a {@link SpinSelect}
  *
  * @param <T> the type of the object inside the item
  */
-public class SpinItem<T> extends BaseDominoElement<HTMLDivElement, SpinItem<T>> implements SpinStyles {
+public class SpinItem<T> extends BaseDominoElement<HTMLDivElement, SpinItem<T>>
+    implements SpinStyles {
 
   private final T value;
   private final DivElement element;
@@ -34,13 +34,15 @@ public class SpinItem<T> extends BaseDominoElement<HTMLDivElement, SpinItem<T>> 
     this.value = value;
     element = div().addCss(dui_spin_item);
     init(this);
-    addEventListener("transitionend", evt -> {
-      if(spinActivating.isAppliedTo(this)){
-        removeCss(spinActivating);
-      }else if(spinExiting.isAppliedTo(this)){
-        removeCss(spinExiting);
-      }
-    });
+    addEventListener(
+        "transitionend",
+        evt -> {
+          if (spinActivating.isAppliedTo(this)) {
+            removeCss(spinActivating);
+          } else if (spinExiting.isAppliedTo(this)) {
+            removeCss(spinExiting);
+          }
+        });
   }
 
   /**

@@ -16,14 +16,12 @@
 package org.dominokit.domino.ui.typography;
 
 import elemental2.dom.HTMLDivElement;
-import elemental2.dom.HTMLElement;
 import org.dominokit.domino.ui.elements.DivElement;
 import org.dominokit.domino.ui.elements.HeadingElement;
 import org.dominokit.domino.ui.elements.SmallElement;
 import org.dominokit.domino.ui.style.BooleanCssClass;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
 import org.dominokit.domino.ui.utils.ChildHandler;
-import org.dominokit.domino.ui.utils.DominoElement;
 import org.dominokit.domino.ui.utils.LazyChild;
 
 /**
@@ -51,11 +49,8 @@ public class BlockHeader extends BaseDominoElement<HTMLDivElement, BlockHeader>
     element =
         div()
             .addCss(dui_block_header)
-            .appendChild(
-                headerElement =
-                    h(2).addCss(dui_block_header_title).textContent(title));
-    descriptionElement =
-        LazyChild.of(small().addCss(dui_block_header_description), element);
+            .appendChild(headerElement = h(2).addCss(dui_block_header_title).textContent(title));
+    descriptionElement = LazyChild.of(small().addCss(dui_block_header_description), element);
     init(this);
   }
 
@@ -106,22 +101,17 @@ public class BlockHeader extends BaseDominoElement<HTMLDivElement, BlockHeader>
     return this;
   }
 
-  /**
-   * @return The header element
-   */
+  /** @return The header element */
   public HeadingElement getHeaderElement() {
     return headerElement;
   }
 
-  public BlockHeader withHeaderElement(
-      ChildHandler<BlockHeader, HeadingElement> handler) {
+  public BlockHeader withHeaderElement(ChildHandler<BlockHeader, HeadingElement> handler) {
     handler.apply(this, headerElement);
     return this;
   }
 
-  /**
-   * @return The description element
-   */
+  /** @return The description element */
   public SmallElement getDescriptionElement() {
     return descriptionElement.get();
   }
@@ -133,8 +123,7 @@ public class BlockHeader extends BaseDominoElement<HTMLDivElement, BlockHeader>
   }
 
   /** @return The description element */
-  public BlockHeader withDescriptionElement(
-      ChildHandler<BlockHeader, SmallElement> handler) {
+  public BlockHeader withDescriptionElement(ChildHandler<BlockHeader, SmallElement> handler) {
     handler.apply(this, descriptionElement.get());
     return this;
   }

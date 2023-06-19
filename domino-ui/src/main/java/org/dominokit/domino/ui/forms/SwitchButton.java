@@ -21,7 +21,6 @@ import static java.util.Objects.nonNull;
 import elemental2.dom.*;
 import java.util.Optional;
 import java.util.function.Consumer;
-
 import org.dominokit.domino.ui.elements.DivElement;
 import org.dominokit.domino.ui.elements.LabelElement;
 import org.dominokit.domino.ui.elements.SpanElement;
@@ -279,8 +278,7 @@ public class SwitchButton extends InputFormField<SwitchButton, HTMLInputElement,
   /** {@inheritDoc} */
   @Override
   protected void doSetValue(Boolean value) {
-    withPauseChangeListenersToggle(
-        true, field -> getInputElement().element().checked = value);
+    withPauseChangeListenersToggle(true, field -> getInputElement().element().checked = value);
   }
 
   /**

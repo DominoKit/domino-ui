@@ -15,13 +15,12 @@
  */
 package org.dominokit.domino.ui.utils;
 
+import java.util.List;
+import java.util.Optional;
 import org.dominokit.domino.ui.elements.UListElement;
 import org.dominokit.domino.ui.tree.Tree;
 import org.dominokit.domino.ui.tree.TreeItem;
 import org.dominokit.domino.ui.tree.TreeItemFilter;
-
-import java.util.List;
-import java.util.Optional;
 
 /**
  * An interface representing a parent tree item
@@ -29,87 +28,72 @@ import java.util.Optional;
  * @param <T> the type of the object
  */
 public interface TreeParent<T> {
-    /**
-     * @return The current active value
-     */
-    TreeItem<T> getActiveItem();
+  /** @return The current active value */
+  TreeItem<T> getActiveItem();
 
-    /**
-     * Activates the item representing the value
-     *
-     * @param activeItem the value of the item to activate
-     */
-    void setActiveItem(TreeItem<T> activeItem);
+  /**
+   * Activates the item representing the value
+   *
+   * @param activeItem the value of the item to activate
+   */
+  void setActiveItem(TreeItem<T> activeItem);
 
-    /**
-     * Activates the item representing the value
-     *
-     * @param activeItem the value of the item to activate
-     * @param silent     true to not notify listeners
-     */
-    void setActiveItem(TreeItem<T> activeItem, boolean silent);
+  /**
+   * Activates the item representing the value
+   *
+   * @param activeItem the value of the item to activate
+   * @param silent true to not notify listeners
+   */
+  void setActiveItem(TreeItem<T> activeItem, boolean silent);
 
-    /**
-     * @return The {@link Tree}
-     */
-    Tree<T> getTreeRoot();
+  /** @return The {@link Tree} */
+  Tree<T> getTreeRoot();
 
-    /**
-     * @return true if automatic expanding is enabled when finding items in search
-     */
-    boolean isAutoExpandFound();
+  /** @return true if automatic expanding is enabled when finding items in search */
+  boolean isAutoExpandFound();
 
-    /**
-     * Expands the tree item
-     *
-     * @return same instance
-     */
-    TreeParent<T> expandNode();
+  /**
+   * Expands the tree item
+   *
+   * @return same instance
+   */
+  TreeParent<T> expandNode();
 
-    /**
-     * Expands the tree item
-     *
-     * @param expandParent true to expand the parent of the item
-     * @return same instance
-     */
-    TreeParent<T> expandNode(boolean expandParent);
+  /**
+   * Expands the tree item
+   *
+   * @param expandParent true to expand the parent of the item
+   * @return same instance
+   */
+  TreeParent<T> expandNode(boolean expandParent);
 
-    /**
-     * Activates the item
-     */
-    void activate();
+  /** Activates the item */
+  void activate();
 
-    /**
-     * Activates the item
-     *
-     * @param activateParent true to activate parent
-     */
-    void activate(boolean activateParent);
+  /**
+   * Activates the item
+   *
+   * @param activateParent true to activate parent
+   */
+  void activate(boolean activateParent);
 
-    /**
-     * @return the parent item
-     */
-    Optional<TreeParent<T>> getParent();
+  /** @return the parent item */
+  Optional<TreeParent<T>> getParent();
 
-    /**
-     * Removes item
-     *
-     * @param item the item value
-     */
-    void removeItem(TreeItem<T> item);
+  /**
+   * Removes item
+   *
+   * @param item the item value
+   */
+  void removeItem(TreeItem<T> item);
 
-    /**
-     * @return the children of this item
-     */
-    List<TreeItem<T>> getSubItems();
+  /** @return the children of this item */
+  List<TreeItem<T>> getSubItems();
 
-    /**
-     * @return the {@link TreeItemFilter}
-     */
-    TreeItemFilter<TreeItem<T>> getFilter();
+  /** @return the {@link TreeItemFilter} */
+  TreeItemFilter<TreeItem<T>> getFilter();
 
-    UListElement getSubTree();
+  UListElement getSubTree();
 
-    T getValue();
-
+  T getValue();
 }

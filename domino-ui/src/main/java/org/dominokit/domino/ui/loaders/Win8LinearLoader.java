@@ -16,34 +16,24 @@
 package org.dominokit.domino.ui.loaders;
 
 import elemental2.dom.HTMLDivElement;
+import org.dominokit.domino.ui.IsElement;
 import org.dominokit.domino.ui.elements.DivElement;
 import org.dominokit.domino.ui.utils.DominoElement;
-import org.dominokit.domino.ui.IsElement;
 
 /** Win8 linear loader implementation */
 public class Win8LinearLoader extends BaseLoader<Win8LinearLoader>
     implements IsElement<HTMLDivElement> {
 
   private final DivElement progress1 =
-      div()
-          .addCss(wait_me_progress_elem_1)
-          .appendChild(div().addCss(dui_bg_grey_d_2));
+      div().addCss(wait_me_progress_elem_1).appendChild(div().addCss(dui_bg_grey_d_2));
   private final DivElement progress2 =
-      div()
-          .addCss(wait_me_progress_elem_2)
-          .appendChild(div().addCss(dui_bg_grey_d_2));
+      div().addCss(wait_me_progress_elem_2).appendChild(div().addCss(dui_bg_grey_d_2));
   private final DivElement progress3 =
-      div()
-          .addCss(wait_me_progress_elem_3)
-          .appendChild(div().addCss(dui_bg_grey_d_2));
+      div().addCss(wait_me_progress_elem_3).appendChild(div().addCss(dui_bg_grey_d_2));
   private final DivElement progress4 =
-      div()
-          .addCss(wait_me_progress_elem_4)
-          .appendChild(div().addCss(dui_bg_grey_d_2));
+      div().addCss(wait_me_progress_elem_4).appendChild(div().addCss(dui_bg_grey_d_2));
   private final DivElement progress5 =
-      div()
-          .addCss(wait_me_progress_elem_5)
-          .appendChild(div().addCss(dui_bg_grey_d_2));
+      div().addCss(wait_me_progress_elem_5).appendChild(div().addCss(dui_bg_grey_d_2));
 
   private final DivElement loader =
       div()
@@ -61,10 +51,7 @@ public class Win8LinearLoader extends BaseLoader<Win8LinearLoader>
           .appendChild(loadingText);
 
   private final DivElement element =
-      div()
-          .addCss(wait_me)
-          .style("background: rgba(255, 255, 255, 0.9);")
-          .appendChild(content);
+      div().addCss(wait_me).style("background: rgba(255, 255, 255, 0.9);").appendChild(content);
 
   public Win8LinearLoader() {
     init(this);

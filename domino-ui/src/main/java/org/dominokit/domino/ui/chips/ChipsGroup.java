@@ -17,7 +17,6 @@ package org.dominokit.domino.ui.chips;
 
 import elemental2.dom.HTMLDivElement;
 import java.util.*;
-
 import org.dominokit.domino.ui.elements.DivElement;
 import org.dominokit.domino.ui.utils.*;
 

@@ -32,7 +32,9 @@ import org.dominokit.domino.ui.utils.*;
  * @see Accordion
  */
 public class AccordionPanel extends BaseDominoElement<HTMLDivElement, AccordionPanel>
-    implements IsCollapsible<AccordionPanel>, CollapsibleStyles, HasComponentConfig<AccordionConfig> {
+    implements IsCollapsible<AccordionPanel>,
+        CollapsibleStyles,
+        HasComponentConfig<AccordionConfig> {
 
   private DivElement element;
   private LazyChild<NavBar> headerElement;
@@ -54,11 +56,9 @@ public class AccordionPanel extends BaseDominoElement<HTMLDivElement, AccordionP
     init(this);
 
     headerElement =
-        LazyChild.of(
-                NavBar.create().addCss(dui_panel_header).setAttribute("role", "tab"), element);
+        LazyChild.of(NavBar.create().addCss(dui_panel_header).setAttribute("role", "tab"), element);
 
-    contentHeader =
-        LazyChild.of(NavBar.create().addCss(dui_panel_content_header), contentElement);
+    contentHeader = LazyChild.of(NavBar.create().addCss(dui_panel_content_header), contentElement);
     contentFooter = LazyChild.of(NavBar.create().addCss(dui_panel_footer), contentElement);
     setCollapseStrategy(getConfig().getDefaultAccordionCollapseStrategySupplier().get());
 
@@ -129,8 +129,7 @@ public class AccordionPanel extends BaseDominoElement<HTMLDivElement, AccordionP
     return setTitle(title);
   }
 
-  public AccordionPanel withHeader(
-      ChildHandler<AccordionPanel, NavBar> handler) {
+  public AccordionPanel withHeader(ChildHandler<AccordionPanel, NavBar> handler) {
     handler.apply(this, headerElement.get());
     return this;
   }
@@ -160,8 +159,7 @@ public class AccordionPanel extends BaseDominoElement<HTMLDivElement, AccordionP
     return bodyElement;
   }
 
-  public AccordionPanel withContentBody(
-      ChildHandler<AccordionPanel, DivElement> handler) {
+  public AccordionPanel withContentBody(ChildHandler<AccordionPanel, DivElement> handler) {
     handler.apply(this, bodyElement);
     return this;
   }
@@ -170,8 +168,7 @@ public class AccordionPanel extends BaseDominoElement<HTMLDivElement, AccordionP
     return contentElement;
   }
 
-  public AccordionPanel withContent(
-      ChildHandler<AccordionPanel, DivElement> handler) {
+  public AccordionPanel withContent(ChildHandler<AccordionPanel, DivElement> handler) {
     handler.apply(this, contentElement);
     return this;
   }
@@ -180,8 +177,7 @@ public class AccordionPanel extends BaseDominoElement<HTMLDivElement, AccordionP
     return contentHeader.get();
   }
 
-  public AccordionPanel withContentHeader(
-      ChildHandler<AccordionPanel, NavBar> handler) {
+  public AccordionPanel withContentHeader(ChildHandler<AccordionPanel, NavBar> handler) {
     handler.apply(this, contentHeader.get());
     return this;
   }
@@ -195,8 +191,7 @@ public class AccordionPanel extends BaseDominoElement<HTMLDivElement, AccordionP
     return contentFooter.get();
   }
 
-  public AccordionPanel withContentFooter(
-      ChildHandler<AccordionPanel, NavBar> handler) {
+  public AccordionPanel withContentFooter(ChildHandler<AccordionPanel, NavBar> handler) {
     handler.apply(this, contentFooter.get());
     return this;
   }

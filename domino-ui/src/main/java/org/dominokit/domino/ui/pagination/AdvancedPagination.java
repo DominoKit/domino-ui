@@ -15,16 +15,15 @@
  */
 package org.dominokit.domino.ui.pagination;
 
+import static java.util.Objects.nonNull;
+
 import elemental2.dom.EventListener;
 import elemental2.dom.HTMLElement;
+import java.util.stream.IntStream;
 import org.dominokit.domino.ui.forms.suggest.Select;
 import org.dominokit.domino.ui.forms.suggest.SelectOption;
 import org.dominokit.domino.ui.utils.ChildHandler;
 import org.dominokit.domino.ui.utils.DominoElement;
-
-import java.util.stream.IntStream;
-
-import static java.util.Objects.nonNull;
 
 /** An advanced pagination implementation */
 public class AdvancedPagination extends BasePagination<AdvancedPagination> {
@@ -67,35 +66,45 @@ public class AdvancedPagination extends BasePagination<AdvancedPagination> {
     this.pageSize = pageSize;
 
     prevPage
-            .getLink()
-            .addClickListener(evt -> moveToPage(index - 1, isChangeListenersPaused()))
-            .onKeyDown(keyEvents -> keyEvents.onEnter(evt -> moveToPage(index - 1, isChangeListenersPaused())));
+        .getLink()
+        .addClickListener(evt -> moveToPage(index - 1, isChangeListenersPaused()))
+        .onKeyDown(
+            keyEvents ->
+                keyEvents.onEnter(evt -> moveToPage(index - 1, isChangeListenersPaused())));
 
     firstPage
-            .expand()
-            .getLink()
-            .addClickListener(evt -> moveToPage(1, isChangeListenersPaused()))
-            .onKeyDown(keyEvents -> keyEvents.onEnter(evt -> moveToPage(1, isChangeListenersPaused())));
+        .expand()
+        .getLink()
+        .addClickListener(evt -> moveToPage(1, isChangeListenersPaused()))
+        .onKeyDown(keyEvents -> keyEvents.onEnter(evt -> moveToPage(1, isChangeListenersPaused())));
 
     nextPage
-            .getLink()
-            .addClickListener(evt -> moveToPage(index + 1, isChangeListenersPaused()))
-            .onKeyDown(keyEvents -> keyEvents.onEnter(evt -> moveToPage(index + 1, isChangeListenersPaused())));
+        .getLink()
+        .addClickListener(evt -> moveToPage(index + 1, isChangeListenersPaused()))
+        .onKeyDown(
+            keyEvents ->
+                keyEvents.onEnter(evt -> moveToPage(index + 1, isChangeListenersPaused())));
     lastPage
-            .expand()
-            .getLink()
-            .addClickListener(evt -> moveToPage(allPages.size(), isChangeListenersPaused()))
-            .onKeyDown(keyEvents -> keyEvents.onEnter(evt -> moveToPage(allPages.size(), isChangeListenersPaused())));
+        .expand()
+        .getLink()
+        .addClickListener(evt -> moveToPage(allPages.size(), isChangeListenersPaused()))
+        .onKeyDown(
+            keyEvents ->
+                keyEvents.onEnter(evt -> moveToPage(allPages.size(), isChangeListenersPaused())));
 
     pagesSelect =
-            Select.<Integer>create()
-                    .addChangeListener((oldValue, newValue) -> moveToPage(newValue, isChangeListenersPaused()));
+        Select.<Integer>create()
+            .addChangeListener(
+                (oldValue, newValue) -> moveToPage(newValue, isChangeListenersPaused()));
 
-    pagesList.insertAfter(PagerNavItem.create(pagesSelect).withLink((parent, link) -> link.addCss(dui_pagination_select) ), prevPage);
-    totalPagesCount = PagerNavItem.create(text(labels.getPaginationCountLabel(pagesCount)))
+    pagesList.insertAfter(
+        PagerNavItem.create(pagesSelect)
+            .withLink((parent, link) -> link.addCss(dui_pagination_select)),
+        prevPage);
+    totalPagesCount =
+        PagerNavItem.create(text(labels.getPaginationCountLabel(pagesCount)))
             .withLink((parent, link) -> link.addCss(dui_page_count));
-    pagesList.insertBefore(totalPagesCount
-            , nextPage);
+    pagesList.insertBefore(totalPagesCount, nextPage);
 
     updatePages(pages, pageSize, isChangeListenersPaused());
   }
@@ -118,12 +127,15 @@ public class AdvancedPagination extends BasePagination<AdvancedPagination> {
       IntStream.rangeClosed(1, pages)
           .forEach(
               p -> {
-                pagesSelect.appendItem(page -> SelectOption.create(String.valueOf(p), p,  String.valueOf(p)), p);
+                pagesSelect.appendItem(
+                    page -> SelectOption.create(String.valueOf(p), p, String.valueOf(p)), p);
                 allPages.add(PagerNavItem.page(p));
               });
     }
 
-    totalPagesCount.withLink((parent, link) -> link.clearElement().appendChild(text(labels.getPaginationCountLabel(pagesCount))));
+    totalPagesCount.withLink(
+        (parent, link) ->
+            link.clearElement().appendChild(text(labels.getPaginationCountLabel(pagesCount))));
 
     if (pages > 0) {
       moveToPage(1, silent);
@@ -135,7 +147,7 @@ public class AdvancedPagination extends BasePagination<AdvancedPagination> {
       nextPage.disable();
       lastPage.disable();
       if (!silent) {
-         triggerChangeListeners(null, 0);
+        triggerChangeListeners(null, 0);
       }
     }
     return this;
@@ -150,11 +162,11 @@ public class AdvancedPagination extends BasePagination<AdvancedPagination> {
   /** {@inheritDoc} */
   @Override
   protected void moveToPage(int page, boolean silent) {
-    PagerNavItem oldPage= activePage;
+    PagerNavItem oldPage = activePage;
     if (page > 0 && page <= pagesCount) {
       index = page;
       if (!silent) {
-        triggerChangeListeners(nonNull(oldPage)?oldPage.getPage():null, page);
+        triggerChangeListeners(nonNull(oldPage) ? oldPage.getPage() : null, page);
       }
 
       if (page == pagesCount) {
@@ -181,7 +193,8 @@ public class AdvancedPagination extends BasePagination<AdvancedPagination> {
     return pagesSelect;
   }
 
-  public AdvancedPagination withPagesSelect(ChildHandler<AdvancedPagination, Select<Integer>> handler){
+  public AdvancedPagination withPagesSelect(
+      ChildHandler<AdvancedPagination, Select<Integer>> handler) {
     handler.apply(this, pagesSelect);
     return this;
   }

@@ -29,22 +29,18 @@ public class CssToJavaCssConverter {
     StringBuffer sb = new StringBuffer();
 
     Arrays.stream(css.split("\\r?\\n|\\r"))
-        .filter(line -> line.startsWith(".dui."))
+        .filter(line -> line.startsWith(".dui-"))
         .forEach(line -> sb.append(toJavaCss(line) + "\n"));
 
     System.out.println(sb);
   }
 
   private static String toJavaCss(String line) {
-    return "CssClass "
-        + asName(line)
-        + " = () -> \""
-        + asStyleName(line)
-        + "\";";
+    return "CssClass " + asName(line) + " = () -> \"" + asStyleName(line) + "\";";
   }
 
   private static String asName(String line) {
-    return line.replace(".dui.dui", "dui")
+    return line.replace(".dui", "dui")
         .replace("\\\\", "_")
         .replace("-", "_")
         .replace(" > * + *", "")
@@ -53,6 +49,6 @@ public class CssToJavaCssConverter {
   }
 
   private static String asStyleName(String line) {
-    return line.substring(5).replace(" > * + *", "").replace(" {", "");
+    return line.substring(1).replace(" > * + *", "").replace(" {", "");
   }
 }

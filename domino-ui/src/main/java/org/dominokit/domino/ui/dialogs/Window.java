@@ -17,11 +17,11 @@ package org.dominokit.domino.ui.dialogs;
 
 import elemental2.dom.*;
 import jsinterop.base.Js;
+import org.dominokit.domino.ui.events.EventType;
 import org.dominokit.domino.ui.icons.Icons;
 import org.dominokit.domino.ui.icons.MdiIcon;
 import org.dominokit.domino.ui.layout.NavBar;
 import org.dominokit.domino.ui.utils.PostfixAddOn;
-import org.dominokit.domino.ui.events.EventType;
 
 /**
  * A component that open a pop-up that acts like a window with close/maximize/minimize controls and
@@ -70,9 +70,8 @@ public class Window extends AbstractDialog<Window> {
     addCss(dui_window);
 
     restoreIcon =
-        Icons
-            .window_restore()
-                .addCss(dui_order_last_1)
+        Icons.window_restore()
+            .addCss(dui_order_last_1)
             .clickable()
             .addClickListener(
                 evt -> {
@@ -81,9 +80,8 @@ public class Window extends AbstractDialog<Window> {
                 })
             .collapse();
     maximizeIcon =
-        Icons
-            .window_maximize()
-                .addCss(dui_order_last_1)
+        Icons.window_maximize()
+            .addCss(dui_order_last_1)
             .clickable()
             .addClickListener(
                 evt -> {
@@ -91,9 +89,8 @@ public class Window extends AbstractDialog<Window> {
                   maximize();
                 });
     closeIcon =
-        Icons
-            .close()
-                .addCss(dui_order_last_4)
+        Icons.close()
+            .addCss(dui_order_last_4)
             .clickable()
             .addClickListener(
                 evt -> {
@@ -335,7 +332,7 @@ public class Window extends AbstractDialog<Window> {
   }
 
   private void initPosition() {
-    addExpandListener(component->updatePosition());
+    addExpandListener(component -> updatePosition());
   }
 
   /**

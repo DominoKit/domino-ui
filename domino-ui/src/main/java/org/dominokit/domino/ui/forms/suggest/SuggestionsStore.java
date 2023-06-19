@@ -15,11 +15,10 @@
  */
 package org.dominokit.domino.ui.forms.suggest;
 
-import org.dominokit.domino.ui.IsElement;
-
 import java.util.List;
 import java.util.Optional;
 import java.util.function.Consumer;
+import org.dominokit.domino.ui.IsElement;
 
 /**
  * This interface is used to implement data stores to provide a {@link SuggestBox} with its

@@ -20,10 +20,8 @@ import static java.util.Objects.nonNull;
 import elemental2.dom.HTMLDivElement;
 import java.util.ArrayList;
 import java.util.List;
-
 import org.dominokit.domino.ui.elements.DivElement;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
-import org.dominokit.domino.ui.utils.DominoElement;
 
 /**
  * A wrapper component for split panels
@@ -39,7 +37,8 @@ import org.dominokit.domino.ui.utils.DominoElement;
  *
  * @see BaseDominoElement
  */
-public class SplitPanel extends BaseDominoElement<HTMLDivElement, SplitPanel> implements SplitStyles {
+public class SplitPanel extends BaseDominoElement<HTMLDivElement, SplitPanel>
+    implements SplitStyles {
 
   private final DivElement element;
 

@@ -32,5 +32,4 @@ public interface CardStyles {
   CssClass dui_card_icon = () -> "dui-card-icon";
   CssClass dui_card_body = () -> "dui-card-body";
   CssClass dui_card_header_filler = () -> "dui-card-header-filler";
-
 }

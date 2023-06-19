@@ -15,8 +15,6 @@
  */
 package org.dominokit.domino.ui.utils;
 
-import elemental2.dom.HTMLElement;
-import org.dominokit.domino.ui.IsElement;
 
 public interface HasAddOns<T> {
   T appendChild(PrefixAddOn<?> prefix);

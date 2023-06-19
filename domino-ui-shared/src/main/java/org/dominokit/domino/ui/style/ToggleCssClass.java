@@ -20,6 +20,7 @@ import elemental2.dom.Element;
 public class ToggleCssClass implements CssClass {
 
   private final CssClass cssClass;
+
   public static ToggleCssClass of(CssClass cssClass) {
     return new ToggleCssClass(cssClass);
   }
@@ -29,7 +30,7 @@ public class ToggleCssClass implements CssClass {
   }
 
   public static ToggleCssClass of(String cssClass) {
-    return new ToggleCssClass(()-> cssClass);
+    return new ToggleCssClass(() -> cssClass);
   }
 
   public ToggleCssClass(CssClass cssClass) {

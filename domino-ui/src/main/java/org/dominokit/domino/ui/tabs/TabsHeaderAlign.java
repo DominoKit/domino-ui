@@ -18,7 +18,6 @@ package org.dominokit.domino.ui.tabs;
 import org.dominokit.domino.ui.style.CssClass;
 import org.dominokit.domino.ui.style.GenericCss;
 import org.dominokit.domino.ui.style.HasCssClass;
-import org.dominokit.domino.ui.style.SpacingCss;
 
 /** An enum to list possible values for tabs align */
 public enum TabsHeaderAlign implements HasCssClass {
@@ -40,7 +39,6 @@ public enum TabsHeaderAlign implements HasCssClass {
   public CssClass getAlign() {
     return align;
   }
-
 
   @Override
   public CssClass getCssClass() {

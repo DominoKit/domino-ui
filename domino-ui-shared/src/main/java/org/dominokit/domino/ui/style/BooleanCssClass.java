@@ -32,7 +32,7 @@ public class BooleanCssClass implements CssClass {
   }
 
   public static BooleanCssClass of(String cssClass, boolean addRemove) {
-    return new BooleanCssClass(()-> cssClass, addRemove);
+    return new BooleanCssClass(() -> cssClass, addRemove);
   }
 
   public static BooleanCssClass of(CssClass cssClass) {
@@ -44,7 +44,7 @@ public class BooleanCssClass implements CssClass {
   }
 
   public static BooleanCssClass of(String cssClass) {
-    return new BooleanCssClass(()-> cssClass);
+    return new BooleanCssClass(() -> cssClass);
   }
 
   public BooleanCssClass(CssClass cssClass, boolean addRemove) {

@@ -22,13 +22,13 @@ import elemental2.dom.*;
 import java.util.Objects;
 import jsinterop.base.Js;
 import org.dominokit.domino.ui.elements.DivElement;
+import org.dominokit.domino.ui.events.EventType;
 import org.dominokit.domino.ui.forms.validations.InputAutoValidator;
 import org.dominokit.domino.ui.forms.validations.ValidationResult;
 import org.dominokit.domino.ui.utils.*;
 import org.gwtproject.i18n.client.NumberFormat;
 import org.gwtproject.i18n.shared.cldr.LocaleInfo;
 import org.gwtproject.i18n.shared.cldr.NumberConstants;
-import org.dominokit.domino.ui.events.EventType;
 
 /**
  * A Base implementation for form inputs that takes/provide numeric values
@@ -88,7 +88,7 @@ public abstract class NumberBox<T extends NumberBox<T, V>, V extends Number>
     return input(type).addCss(dui_field_input).toDominoElement();
   }
 
-  private ValidationResult validateInputString(NumberBox<T,V> target) {
+  private ValidationResult validateInputString(NumberBox<T, V> target) {
     try {
       tryGetValue();
     } catch (NumberFormatException e) {
@@ -97,7 +97,7 @@ public abstract class NumberBox<T extends NumberBox<T, V>, V extends Number>
     return ValidationResult.valid();
   }
 
-  private ValidationResult validateMaxValue(NumberBox<T,V> target) {
+  private ValidationResult validateMaxValue(NumberBox<T, V> target) {
     V value = getValue();
     if (nonNull(value) && isExceedMaxValue(value)) {
       return ValidationResult.invalid(getMaxValueErrorMessage());
@@ -105,7 +105,7 @@ public abstract class NumberBox<T extends NumberBox<T, V>, V extends Number>
     return ValidationResult.valid();
   }
 
-  private ValidationResult validateMinValue(NumberBox<T,V> target) {
+  private ValidationResult validateMinValue(NumberBox<T, V> target) {
     V value = getValue();
     if (nonNull(value) && isLowerThanMinValue(value)) {
       return ValidationResult.invalid(getMinValueErrorMessage());

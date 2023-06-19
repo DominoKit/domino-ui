@@ -18,9 +18,6 @@ package org.dominokit.domino.ui.forms;
 import java.math.BigDecimal;
 import java.util.function.Function;
 
-import org.dominokit.domino.ui.config.FormsFieldsConfig;
-import org.dominokit.domino.ui.utils.DominoUIConfig;
-
 /** A component that has an input to take/provide BigDecimal value */
 public class BigDecimalBox extends NumberBox<BigDecimalBox, BigDecimal> {
 
@@ -91,5 +88,4 @@ public class BigDecimalBox extends NumberBox<BigDecimalBox, BigDecimal> {
   protected BigDecimal defaultMinValue() {
     return null;
   }
-
 }

@@ -13,24 +13,24 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
- package org.dominokit.domino.ui.datatable.plugins.filter.header;
+package org.dominokit.domino.ui.datatable.plugins.filter.header;
 
- import elemental2.dom.HTMLElement;
- import org.dominokit.domino.ui.datatable.ColumnConfig;
- import org.dominokit.domino.ui.datatable.model.Category;
- import org.dominokit.domino.ui.datatable.model.Filter;
- import org.dominokit.domino.ui.datatable.model.FilterTypes;
- import org.dominokit.domino.ui.datatable.model.SearchContext;
- import org.dominokit.domino.ui.datatable.plugins.ColumnHeaderFilterPlugin;
- import org.dominokit.domino.ui.forms.suggest.Select;
- import org.dominokit.domino.ui.forms.suggest.SelectOption;
+import elemental2.dom.HTMLElement;
+import org.dominokit.domino.ui.datatable.ColumnConfig;
+import org.dominokit.domino.ui.datatable.model.Category;
+import org.dominokit.domino.ui.datatable.model.Filter;
+import org.dominokit.domino.ui.datatable.model.FilterTypes;
+import org.dominokit.domino.ui.datatable.model.SearchContext;
+import org.dominokit.domino.ui.datatable.plugins.column.ColumnHeaderFilterPlugin;
+import org.dominokit.domino.ui.forms.suggest.Select;
+import org.dominokit.domino.ui.forms.suggest.SelectOption;
 
 /**
  * Boolean column header filter component that is rendered as a {@link Select} component
  *
  * @param <T> type of data table records
  */
- public class BooleanHeaderFilter<T> implements ColumnHeaderFilterPlugin.HeaderFilter<T> {
+public class BooleanHeaderFilter<T> implements ColumnHeaderFilterPlugin.HeaderFilter<T> {
 
   private final Select<String> select;
 
@@ -71,9 +71,9 @@
   public BooleanHeaderFilter(String trueLabel, String falseLabel, String bothLabel) {
     select =
         Select.<String>create()
-            .appendChild(SelectOption.create("", "", bothLabel))
-            .appendChild(SelectOption.create(Boolean.TRUE.toString(), Boolean.TRUE.toString(), trueLabel))
-            .appendChild(SelectOption.create(Boolean.FALSE.toString(), Boolean.FALSE.toString(), falseLabel))
+            .appendChild(SelectOption.create("", bothLabel))
+            .appendChild(SelectOption.create(Boolean.TRUE.toString(), trueLabel))
+            .appendChild(SelectOption.create(Boolean.FALSE.toString(), falseLabel))
             .setSearchable(false)
             .selectAt(0);
 
@@ -88,23 +88,24 @@
           if (select.getSelectedIndex() > 0) {
             searchContext.add(
                 Filter.create(
-                    columnConfig.getName(),
+                    columnConfig.getFilterKey(),
                     select.getValue(),
                     Category.HEADER_FILTER,
                     FilterTypes.BOOLEAN));
           } else {
-            searchContext.remove(columnConfig.getName(), Category.HEADER_FILTER);
+            searchContext.remove(columnConfig.getFilterKey(), Category.HEADER_FILTER);
           }
         });
-    select.addChangeListener((oldValue, newValue) -> searchContext.fireSearchEvent());
+    select.addChangeListener((oldOption, option) -> searchContext.fireSearchEvent());
   }
 
   /** {@inheritDoc} */
   @Override
   public void clear() {
-      select.withPausedChangeListeners((field) -> {
+    select.withPausedChangeListeners(
+        field -> {
           select.selectAt(0);
-      });
+        });
   }
 
   /** {@inheritDoc} */
@@ -117,4 +118,4 @@
   public Select<String> getSelect() {
     return select;
   }
- }
+}

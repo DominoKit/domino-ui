@@ -20,16 +20,17 @@ import static org.dominokit.domino.ui.utils.ElementsFactory.elements;
 
 import elemental2.dom.*;
 import java.util.Optional;
+import org.dominokit.domino.ui.IsElement;
+import org.dominokit.domino.ui.events.EventType;
 import org.gwtproject.i18n.shared.cldr.LocaleInfo;
 import org.gwtproject.i18n.shared.cldr.NumberConstants;
-import org.dominokit.domino.ui.events.EventType;
-import org.dominokit.domino.ui.IsElement;
 
 /** A general purpose utility class */
 public class ElementUtil {
 
   /** The default {@link NumberConstants} to format numbers */
   static final NumberConstants numberConstants = LocaleInfo.getCurrentLocale().getNumberConstants();
+
   public static final String DUI_EVENT_SCROLL_TOP = "dui-event-scroll-top";
 
   /**
@@ -120,7 +121,8 @@ public class ElementUtil {
    * @param callback {@link AttachDetachCallback}
    * @return an Optional {@link ElementObserver}
    */
-  public static Optional<ElementObserver> onAttach(HTMLElement element, AttachDetachCallback callback) {
+  public static Optional<ElementObserver> onAttach(
+      HTMLElement element, AttachDetachCallback callback) {
     if (element != null) {
       elements.elementOf(element).onAttached(callback);
     }
@@ -139,7 +141,7 @@ public class ElementUtil {
    * @return an Optional {@link ElementObserver}
    */
   public static Optional<ElementObserver> onAttach(
-          IsElement<?> element, AttachDetachCallback callback) {
+      IsElement<?> element, AttachDetachCallback callback) {
     if (element != null) {
       elements.elementOf(element).onAttached(callback);
     }
@@ -159,7 +161,8 @@ public class ElementUtil {
    * @param callback {@link AttachDetachCallback}
    * @return an Optional {@link ElementObserver}
    */
-  public static Optional<ElementObserver> onDetach(HTMLElement element, AttachDetachCallback callback) {
+  public static Optional<ElementObserver> onDetach(
+      HTMLElement element, AttachDetachCallback callback) {
     if (element != null) {
       elements.elementOf(element).onDetached(callback);
     }
@@ -174,7 +177,7 @@ public class ElementUtil {
    * @return an Optional {@link ElementObserver}
    */
   public static Optional<ElementObserver> onDetach(
-          IsElement<?> element, AttachDetachCallback callback) {
+      IsElement<?> element, AttachDetachCallback callback) {
     if (element != null) {
       elements.elementOf(element).onDetached(callback);
     }
@@ -296,7 +299,9 @@ public class ElementUtil {
    * @return new {@link HTMLAnchorElement} instance
    */
   public static HTMLAnchorElement openInNewTabLink(String text, String targetUrl) {
-    return elements.a().textContent(text)
+    return elements
+        .a()
+        .textContent(text)
         .addEventListener(EventType.click, event -> DomGlobal.window.open(targetUrl, "_blank"))
         .element();
   }

@@ -16,7 +16,6 @@
 package org.dominokit.domino.ui.collapsible;
 
 import elemental2.dom.Element;
-import elemental2.dom.HTMLElement;
 
 public interface CollapseStrategy {
 

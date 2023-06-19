@@ -15,18 +15,17 @@
  */
 package org.dominokit.domino.ui.menu.direction;
 
+import static elemental2.dom.DomGlobal.window;
+import static org.dominokit.domino.ui.style.SpacingCss.dui_flex_col_reverse;
+import static org.dominokit.domino.ui.utils.ElementsFactory.elements;
+import static org.dominokit.domino.ui.utils.Unit.px;
+
 import elemental2.dom.DOMRect;
 import elemental2.dom.Element;
 import elemental2.dom.Event;
 import elemental2.dom.MouseEvent;
 import jsinterop.base.Js;
-import org.dominokit.domino.ui.style.CssClass;
 import org.dominokit.domino.ui.style.Style;
-
-import static elemental2.dom.DomGlobal.window;
-import static org.dominokit.domino.ui.style.SpacingCss.dui_flex_col_reverse;
-import static org.dominokit.domino.ui.utils.ElementsFactory.elements;
-import static org.dominokit.domino.ui.utils.Unit.px;
 
 /** Positions the menu on the bottom right of the mouse click location */
 public class MouseBestFitDirection implements DropDirection {
@@ -65,7 +64,9 @@ public class MouseBestFitDirection implements DropDirection {
         positionTopLeft(source, sourceHeight, sourceWidth);
       }
     }
-    elements.elementOf(source).setCssProperty("--dui-menu-drop-min-width", target.getBoundingClientRect().width+"px");
+    elements
+        .elementOf(source)
+        .setCssProperty("--dui-menu-drop-min-width", target.getBoundingClientRect().width + "px");
   }
 
   private void positionBottomRight(Element source, double sourceHeight) {
@@ -75,7 +76,9 @@ public class MouseBestFitDirection implements DropDirection {
       delta = sourceHeight - availableSpace;
     }
 
-    Style.of(source).style.setProperty("top", px.of(mouseEvent.clientY - delta + window.pageYOffset));
+    Style.of(source)
+        .style
+        .setProperty("top", px.of(mouseEvent.clientY - delta + window.pageYOffset));
     Style.of(source).style.setProperty("left", px.of(mouseEvent.clientX + window.pageXOffset));
   }
 
@@ -85,8 +88,12 @@ public class MouseBestFitDirection implements DropDirection {
     if (availableSpace < sourceHeight) {
       delta = sourceHeight - availableSpace;
     }
-    Style.of(source).style.setProperty("top", px.of(mouseEvent.clientY - delta + window.pageYOffset));
-    Style.of(source).style.setProperty("left", px.of(mouseEvent.clientX - sourceWidth + window.pageXOffset));
+    Style.of(source)
+        .style
+        .setProperty("top", px.of(mouseEvent.clientY - delta + window.pageYOffset));
+    Style.of(source)
+        .style
+        .setProperty("left", px.of(mouseEvent.clientX - sourceWidth + window.pageXOffset));
   }
 
   private void positionTopRight(Element source, double sourceHeight) {
@@ -95,8 +102,9 @@ public class MouseBestFitDirection implements DropDirection {
     if (availableSpace < sourceHeight) {
       delta = sourceHeight - availableSpace;
     }
-    Style.of(source).style.setProperty(
-        "top", px.of(mouseEvent.clientY - sourceHeight + delta + window.pageYOffset));
+    Style.of(source)
+        .style
+        .setProperty("top", px.of(mouseEvent.clientY - sourceHeight + delta + window.pageYOffset));
     Style.of(source).style.setProperty("left", px.of(mouseEvent.clientX + window.pageXOffset));
   }
 
@@ -106,11 +114,13 @@ public class MouseBestFitDirection implements DropDirection {
     if (availableSpace < sourceHeight) {
       delta = sourceHeight - availableSpace;
     }
-    Style.of(source).style.setProperty(
-        "top", px.of(mouseEvent.clientY - sourceHeight + delta + window.pageYOffset));
-    Style.of(source).style.setProperty("left", px.of(mouseEvent.clientX - sourceWidth + window.pageXOffset));
+    Style.of(source)
+        .style
+        .setProperty("top", px.of(mouseEvent.clientY - sourceHeight + delta + window.pageYOffset));
+    Style.of(source)
+        .style
+        .setProperty("left", px.of(mouseEvent.clientX - sourceWidth + window.pageXOffset));
     dui_dd_best_mouse_fit.apply(source);
-
   }
 
   @Override
@@ -126,5 +136,4 @@ public class MouseBestFitDirection implements DropDirection {
   private boolean hasSpaceOnRightSide(double sourceWidth, double rightSpace) {
     return rightSpace > sourceWidth;
   }
-
 }

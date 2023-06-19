@@ -15,12 +15,11 @@
  */
 package org.dominokit.domino.ui.utils;
 
-import java.util.function.Supplier;
+import static org.dominokit.domino.ui.utils.ElementsFactory.elements;
 
 import elemental2.dom.Element;
+import java.util.function.Supplier;
 import org.dominokit.domino.ui.IsElement;
-
-import static org.dominokit.domino.ui.utils.ElementsFactory.elements;
 
 public class LazyChild<T extends IsElement<?>> extends BaseLazyInitializer<LazyChild<T>> {
 
@@ -38,16 +37,22 @@ public class LazyChild<T extends IsElement<?>> extends BaseLazyInitializer<LazyC
     return new LazyChild<>(element, parent);
   }
 
-  public static <T extends IsElement<?>> LazyChild<T> ofInsertFirst(T element, IsElement<?> parent) {
-    return new LazyChild<>(element, () -> parent, (p, child) -> elements.elementOf(p).insertFirst(child.element()));
+  public static <T extends IsElement<?>> LazyChild<T> ofInsertFirst(
+      T element, IsElement<?> parent) {
+    return new LazyChild<>(
+        element, () -> parent, (p, child) -> elements.elementOf(p).insertFirst(child.element()));
   }
 
-  public static <T extends IsElement<?>> LazyChild<T> ofInsertFirst(T element, Supplier<IsElement<?>> parent) {
-    return new LazyChild<>(element, parent, (p, child) -> elements.elementOf(p).insertFirst(child.element()));
+  public static <T extends IsElement<?>> LazyChild<T> ofInsertFirst(
+      T element, Supplier<IsElement<?>> parent) {
+    return new LazyChild<>(
+        element, parent, (p, child) -> elements.elementOf(p).insertFirst(child.element()));
   }
 
-  public static <T extends IsElement<?>> LazyChild<T> ofInsertFirst(T element, LazyChild<?> parent) {
-    return new LazyChild<>(element, parent, (p, child) -> elements.elementOf(p).insertFirst(child.element()));
+  public static <T extends IsElement<?>> LazyChild<T> ofInsertFirst(
+      T element, LazyChild<?> parent) {
+    return new LazyChild<>(
+        element, parent, (p, child) -> elements.elementOf(p).insertFirst(child.element()));
   }
 
   public LazyChild(T element, Supplier<IsElement<?>> parent) {

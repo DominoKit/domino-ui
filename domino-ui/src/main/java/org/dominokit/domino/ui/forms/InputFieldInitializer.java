@@ -15,9 +15,12 @@
  */
 package org.dominokit.domino.ui.forms;
 
+import static org.dominokit.domino.ui.forms.FormsStyles.dui_form_field;
+
 import elemental2.dom.Element;
 import elemental2.dom.HTMLElement;
 import elemental2.dom.HTMLInputElement;
+import java.util.List;
 import jsinterop.base.Js;
 import org.dominokit.domino.ui.config.FormsFieldsConfig;
 import org.dominokit.domino.ui.config.HasComponentConfig;
@@ -26,11 +29,8 @@ import org.dominokit.domino.ui.utils.ElementsFactory;
 import org.dominokit.domino.ui.utils.HasCounter;
 import org.dominokit.domino.ui.utils.HasMinMaxLength;
 
-import java.util.List;
-
-import static org.dominokit.domino.ui.forms.FormsStyles.dui_form_field;
-
-public class InputFieldInitializer<T extends FormElement<T, V>, V, E extends HTMLElement> implements HasComponentConfig<FormsFieldsConfig> {
+public class InputFieldInitializer<T extends FormElement<T, V>, V, E extends HTMLElement>
+    implements HasComponentConfig<FormsFieldsConfig> {
 
   private final T formElement;
   private V oldValue;
@@ -75,25 +75,27 @@ public class InputFieldInitializer<T extends FormElement<T, V>, V, E extends HTM
               countableElement.updateCounter(
                   hasLength.getLength(), countableElement.getMaxCount()));
     }
-      inputElement.onKeyPress(keyEvents -> {
+    inputElement.onKeyPress(
+        keyEvents -> {
           keyEvents.onEnter(
-                  evt -> {
-                      if (getConfig().isFocusNextFieldOnEnter()) {
-                          inputElement.blur();
-                          List<Element> elements =
-                                  ElementsFactory.elements.body()
-                                          .element()
-                                          .querySelectorAll("." + dui_form_field.getCssClass())
-                                          .asList();
-                          int i = elements.indexOf(formElement);
-                          if (i < elements.size() - 1) {
-                              Element element = elements.get(i + 1);
-                              Element input = element.querySelector(".dui-field-input");
-                              Js.<HTMLInputElement>uncheckedCast(input).focus();
-                          }
-                      }
-                  });
-      });
+              evt -> {
+                if (getConfig().isFocusNextFieldOnEnter()) {
+                  inputElement.blur();
+                  List<Element> elements =
+                      ElementsFactory.elements
+                          .body()
+                          .element()
+                          .querySelectorAll("." + dui_form_field.getCssClass())
+                          .asList();
+                  int i = elements.indexOf(formElement);
+                  if (i < elements.size() - 1) {
+                    Element element = elements.get(i + 1);
+                    Element input = element.querySelector(".dui-field-input");
+                    Js.<HTMLInputElement>uncheckedCast(input).focus();
+                  }
+                }
+              });
+        });
 
     return this;
   }

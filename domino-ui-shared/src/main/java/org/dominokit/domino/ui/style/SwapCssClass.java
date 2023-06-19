@@ -18,7 +18,6 @@ package org.dominokit.domino.ui.style;
 import static java.util.Objects.nonNull;
 
 import elemental2.dom.Element;
-import elemental2.dom.HTMLElement;
 
 public class SwapCssClass implements CssClass {
 
@@ -32,6 +31,7 @@ public class SwapCssClass implements CssClass {
   public static SwapCssClass of(CssClass initialStyle) {
     return new SwapCssClass(initialStyle);
   }
+
   public static SwapCssClass of(HasCssClass initialStyle) {
     return new SwapCssClass(initialStyle.getCssClass());
   }

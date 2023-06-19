@@ -13,20 +13,19 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
- package org.dominokit.domino.ui.datatable.plugins.filter.header;
+package org.dominokit.domino.ui.datatable.plugins.filter.header;
 
- import elemental2.dom.HTMLInputElement;
- import org.dominokit.domino.ui.datatable.model.FilterTypes;
- import org.dominokit.domino.ui.forms.BigDecimalBox;
-
- import java.math.BigDecimal;
+import elemental2.dom.HTMLInputElement;
+import java.math.BigDecimal;
+import org.dominokit.domino.ui.datatable.model.FilterTypes;
+import org.dominokit.domino.ui.forms.BigDecimalBox;
 
 /**
  * BigDecimal column header filter component that is rendered as a {@link BigDecimalBox} component
  *
  * @param <T> type of data table records
  */
- public class DecimalHeaderFilter<T> extends DelayedHeaderFilterInput<BigDecimal, BigDecimalBox, T> {
+public class DecimalHeaderFilter<T> extends DelayedHeaderFilterInput<BigDecimalBox, T, BigDecimal> {
 
   private BigDecimalBox decimalBox;
 
@@ -90,14 +89,15 @@
   /** {@inheritDoc} */
   @Override
   public void clear() {
-      decimalBox.withPausedChangeListeners(field -> {
+    decimalBox.withPausedChangeListeners(
+        field -> {
           decimalBox.clear();
           decimalBox.getInputElement().element().value = "";
-      });
+        });
   }
 
   /** @return the {@link BigDecimalBox} wrapped inside this filter component */
   public BigDecimalBox getDecimalBox() {
     return decimalBox;
   }
- }
+}

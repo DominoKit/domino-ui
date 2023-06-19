@@ -22,7 +22,6 @@ import elemental2.dom.EventListener;
 import elemental2.dom.HTMLTextAreaElement;
 import org.dominokit.domino.ui.elements.DivElement;
 import org.dominokit.domino.ui.elements.SpanElement;
-import org.dominokit.domino.ui.tabs.FillItem;
 import org.dominokit.domino.ui.utils.DominoElement;
 import org.dominokit.domino.ui.utils.FillerElement;
 import org.dominokit.domino.ui.utils.LazyChild;
@@ -50,8 +49,15 @@ public class TextAreaBox extends CountableInputFormField<TextAreaBox, HTMLTextAr
   public TextAreaBox() {
     setRows(4);
     addCss(dui_form_text_area);
-    wrapperElement
-            .appendChild(header = div().addCss(dui_form_text_area_header, dui_hide_empty, dui_flex, dui_items_center, dui_order_first));
+    wrapperElement.appendChild(
+        header =
+            div()
+                .addCss(
+                    dui_form_text_area_header,
+                    dui_hide_empty,
+                    dui_flex,
+                    dui_items_center,
+                    dui_order_first));
     headerFiller = LazyChild.of(FillerElement.create().addCss(dui_order_30), header);
     onAttached(mutationRecord -> adjustHeight());
     setDefaultValue("");
@@ -112,9 +118,10 @@ public class TextAreaBox extends CountableInputFormField<TextAreaBox, HTMLTextAr
 
   @Override
   protected DominoElement<HTMLTextAreaElement> createInputElement(String type) {
-    return textarea().addCss(dui_field_input)
-            .setCssProperty("line-height","26px")
-            .toDominoElement();
+    return textarea()
+        .addCss(dui_field_input)
+        .setCssProperty("line-height", "26px")
+        .toDominoElement();
   }
 
   /** {@inheritDoc} */

@@ -15,9 +15,9 @@
  */
 package org.dominokit.domino.ui.style;
 
-import elemental2.dom.Element;
-
 import static java.util.Objects.nonNull;
+
+import elemental2.dom.Element;
 
 public class AutoSwapCssClass implements CssClass {
 
@@ -27,6 +27,7 @@ public class AutoSwapCssClass implements CssClass {
   public static AutoSwapCssClass of(CssClass first, CssClass second) {
     return new AutoSwapCssClass(first, second);
   }
+
   public static AutoSwapCssClass of(HasCssClass first, HasCssClass second) {
     return new AutoSwapCssClass(first.getCssClass(), second.getCssClass());
   }
@@ -44,7 +45,7 @@ public class AutoSwapCssClass implements CssClass {
 
   public AutoSwapCssClass(String first, String second) {
     this.first = () -> first;
-    this.second = ()-> second;
+    this.second = () -> second;
   }
 
   @Override

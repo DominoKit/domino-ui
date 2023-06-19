@@ -15,21 +15,20 @@
  */
 package org.dominokit.domino.ui.popover;
 
+import static elemental2.dom.DomGlobal.document;
+import static org.dominokit.domino.ui.dialogs.ModalBackDrop.DUI_REMOVE_POPOVERS;
+
 import elemental2.dom.EventListener;
 import elemental2.dom.HTMLElement;
+import org.dominokit.domino.ui.IsElement;
 import org.dominokit.domino.ui.animations.Transition;
 import org.dominokit.domino.ui.collapsible.AnimationCollapseStrategy;
 import org.dominokit.domino.ui.collapsible.CollapseDuration;
-import org.dominokit.domino.ui.dialogs.Dialog;
 import org.dominokit.domino.ui.dialogs.ModalBackDrop;
+import org.dominokit.domino.ui.events.EventType;
 import org.dominokit.domino.ui.mediaquery.MediaQuery;
 import org.dominokit.domino.ui.menu.direction.DropDirection;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
-import org.dominokit.domino.ui.events.EventType;
-import org.dominokit.domino.ui.IsElement;
-
-import static elemental2.dom.DomGlobal.document;
-import static org.dominokit.domino.ui.dialogs.ModalBackDrop.DUI_REMOVE_POPOVERS;
 
 /**
  * A component for showing content on top of another element in different locations.
@@ -46,113 +45,117 @@ import static org.dominokit.domino.ui.dialogs.ModalBackDrop.DUI_REMOVE_POPOVERS;
  */
 public class Popover extends BasePopover<Popover> {
 
-    static {
-        document.body.addEventListener(EventType.click.getName(), element -> {
-            ModalBackDrop.INSTANCE.closePopovers("");
+  static {
+    document.body.addEventListener(
+        EventType.click.getName(),
+        element -> {
+          ModalBackDrop.INSTANCE.closePopovers("");
         });
-    }
+  }
 
-    private final EventListener showListener;
-    private boolean openOnClick = true;
-    private boolean closeOnEscape = true;
-    private boolean asDialog = false;
-    private final DropDirection dialog = DropDirection.MIDDLE_SCREEN;
-    private boolean modal = false;
+  private final EventListener showListener;
+  private boolean openOnClick = true;
+  private boolean closeOnEscape = true;
+  private boolean asDialog = false;
+  private final DropDirection dialog = DropDirection.MIDDLE_SCREEN;
+  private boolean modal = false;
 
-    public static Popover create(HTMLElement target) {
-        return new Popover(target);
-    }
+  public static Popover create(HTMLElement target) {
+    return new Popover(target);
+  }
 
-    public static Popover create(IsElement<? extends HTMLElement> target) {
-        return new Popover(target.element());
-    }
+  public static Popover create(IsElement<? extends HTMLElement> target) {
+    return new Popover(target.element());
+  }
 
-    public Popover(HTMLElement target) {
-        super(target);
-        showListener =
-                evt -> {
-                    evt.stopPropagation();
-                    if (openOnClick) {
-                        expand();
-                    }
-                };
-        target.addEventListener(EventType.click.getName(), showListener);
-        setCollapseStrategy(
-                new AnimationCollapseStrategy(
-                        Transition.FADE_IN, Transition.FADE_OUT, CollapseDuration._300ms));
+  public Popover(HTMLElement target) {
+    super(target);
+    showListener =
+        evt -> {
+          evt.stopPropagation();
+          if (openOnClick) {
+            expand();
+          }
+        };
+    target.addEventListener(EventType.click.getName(), showListener);
+    setCollapseStrategy(
+        new AnimationCollapseStrategy(
+            Transition.FADE_IN, Transition.FADE_OUT, CollapseDuration._300ms));
 
-        MediaQuery.addOnSmallAndDownListener(() -> {
-            this.asDialog = true;
+    MediaQuery.addOnSmallAndDownListener(
+        () -> {
+          this.asDialog = true;
         });
-        MediaQuery.addOnMediumAndUpListener(() -> {
-            this.asDialog = false;
+    MediaQuery.addOnMediumAndUpListener(
+        () -> {
+          this.asDialog = false;
         });
-        addCollapseListener(() -> removeEventListener(DUI_REMOVE_POPOVERS, closeAllListener));
-    }
+    addCollapseListener(() -> removeEventListener(DUI_REMOVE_POPOVERS, closeAllListener));
+  }
 
-    @Override
-    protected EventListener getCloseListener() {
-        return evt -> closeOthers("");
-    }
+  @Override
+  protected EventListener getCloseListener() {
+    return evt -> closeOthers("");
+  }
 
-    @Override
-    protected void doOpen() {
-        super.doOpen();
-        addEventListener(DUI_REMOVE_POPOVERS, closeAllListener);
-        if (closeOnEscape) {
-            body().onKeyDown(keyEvents -> keyEvents.onEscape(closeListener));
-        }
+  @Override
+  protected void doOpen() {
+    super.doOpen();
+    addEventListener(DUI_REMOVE_POPOVERS, closeAllListener);
+    if (closeOnEscape) {
+      body().onKeyDown(keyEvents -> keyEvents.onEscape(closeListener));
     }
+  }
 
-    public Popover detach() {
-        targetElement.removeEventListener(EventType.click.getName(), showListener);
-        document.removeEventListener(EventType.click.getName(), closeListener);
-        return this;
-    }
+  public Popover detach() {
+    targetElement.removeEventListener(EventType.click.getName(), showListener);
+    document.removeEventListener(EventType.click.getName(), closeListener);
+    return this;
+  }
 
-    /**
-     * Sets if the popover should be closed if escape key is pressed
-     *
-     * @param closeOnEscape true to close on escape, false otherwise
-     * @return same instance
-     */
-    public Popover closeOnEscape(boolean closeOnEscape) {
-        this.closeOnEscape = closeOnEscape;
-        return this;
-    }
+  /**
+   * Sets if the popover should be closed if escape key is pressed
+   *
+   * @param closeOnEscape true to close on escape, false otherwise
+   * @return same instance
+   */
+  public Popover closeOnEscape(boolean closeOnEscape) {
+    this.closeOnEscape = closeOnEscape;
+    return this;
+  }
 
-    @Override
-    protected Popover closeOthers(String sourceId) {
-        ModalBackDrop.INSTANCE.closePopovers(sourceId);
-        return this;
-    }
+  @Override
+  protected Popover closeOthers(String sourceId) {
+    ModalBackDrop.INSTANCE.closePopovers(sourceId);
+    return this;
+  }
 
-    @Override
-    protected void doPosition(DropDirection position) {
-        if (asDialog) {
-            dialog.position(this.element(), targetElement);
-        } else {
-            dialog.cleanup(this.element());
-            super.doPosition(position);
-        }
+  @Override
+  protected void doPosition(DropDirection position) {
+    if (asDialog) {
+      dialog.position(this.element(), targetElement);
+    } else {
+      dialog.cleanup(this.element());
+      super.doPosition(position);
     }
+  }
 
-    public boolean isOpenOnClick() {
-        return openOnClick;
-    }
+  public boolean isOpenOnClick() {
+    return openOnClick;
+  }
 
-    public Popover setOpenOnClick(boolean openOnClick) {
-        this.openOnClick = openOnClick;
-        return this;
-    }
+  public Popover setOpenOnClick(boolean openOnClick) {
+    this.openOnClick = openOnClick;
+    return this;
+  }
 
-    public Popover setModal(boolean modal) {
-        this.modal = modal;
-        return this;
-    }
+  public Popover setModal(boolean modal) {
+    this.modal = modal;
+    return this;
+  }
 
-    @Override
-    public boolean isModal() {
-        return modal;
-    }
+  @Override
+  public boolean isModal() {
+    return modal;
+  }
 }

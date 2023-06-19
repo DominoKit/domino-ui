@@ -78,17 +78,17 @@ public class AlertMessageDialog extends AbstractDialog<AlertMessageDialog> {
     contentHeader.get().addCss(dui_justify_around);
     addExpandListener(
         (component) -> {
-          if(alertIcon.isInitialized()) {
+          if (alertIcon.isInitialized()) {
             Animation.create(getAlertIcon())
-                    .transition(iconStartTransition)
-                    .duration(iconAnimationDuration)
-                    .callback(
-                            iconElement ->
-                                    Animation.create(getAlertIcon())
-                                            .transition(iconEndTransition)
-                                            .duration(iconAnimationDuration)
-                                            .animate())
-                    .animate();
+                .transition(iconStartTransition)
+                .duration(iconAnimationDuration)
+                .callback(
+                    iconElement ->
+                        Animation.create(getAlertIcon())
+                            .transition(iconEndTransition)
+                            .duration(iconAnimationDuration)
+                            .animate())
+                .animate();
           }
         });
   }
@@ -195,7 +195,7 @@ public class AlertMessageDialog extends AbstractDialog<AlertMessageDialog> {
     return this;
   }
 
-  public AlertMessageDialog withNavHeader(ChildHandler<AlertMessageDialog, NavBar> handler){
+  public AlertMessageDialog withNavHeader(ChildHandler<AlertMessageDialog, NavBar> handler) {
     handler.apply(this, navHeader.get());
     return this;
   }

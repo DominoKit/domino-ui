@@ -19,7 +19,6 @@ import static org.dominokit.domino.ui.collapsible.Collapsible.DUI_COLLAPSED;
 import static org.dominokit.domino.ui.utils.ElementsFactory.elements;
 
 import elemental2.dom.Element;
-import elemental2.dom.HTMLElement;
 import org.dominokit.domino.ui.style.DominoCss;
 
 /**
@@ -27,7 +26,6 @@ import org.dominokit.domino.ui.style.DominoCss;
  * collapsible element
  */
 public class DisplayCollapseStrategy implements CollapseStrategy, CollapsibleStyles, DominoCss {
-
 
   private CollapsibleHandlers handlers;
 

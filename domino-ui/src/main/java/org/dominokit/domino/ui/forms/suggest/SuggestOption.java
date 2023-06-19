@@ -36,22 +36,37 @@ public class SuggestOption<V> extends Option<V, SpanElement, SuggestOption<V>> {
     return new SuggestOption<>(key, value, text, description);
   }
 
-  public static <V> SuggestOption<V> create(V value, String key, OptionSupplier<SpanElement, V> componentSupplier, OptionSupplier<AbstractMenuItem<V>, V> menuItemSupplier) {
+  public static <V> SuggestOption<V> create(
+      V value,
+      String key,
+      OptionSupplier<SpanElement, V> componentSupplier,
+      OptionSupplier<AbstractMenuItem<V>, V> menuItemSupplier) {
     return new SuggestOption<>(key, value, componentSupplier, menuItemSupplier);
   }
 
   public SuggestOption(String key, V value, String text, String description) {
-    this(key, value, (k, v) -> elements.span().textContent(text), (k, v)-> MenuItem.create(text, description));
+    this(
+        key,
+        value,
+        (k, v) -> elements.span().textContent(text),
+        (k, v) -> MenuItem.create(text, description));
   }
 
   public SuggestOption(String key, V value, String text) {
     super(key, value, elements.span().textContent(text), MenuItem.create(text));
-    withComponent((parent, span) -> span.applyMeta(ValueMeta.of(value), AttributeMeta.of(DUI_OPTION_KEY, key)));
+    withComponent(
+        (parent, span) ->
+            span.applyMeta(ValueMeta.of(value), AttributeMeta.of(DUI_OPTION_KEY, key)));
   }
 
-  public SuggestOption(String key, V value, OptionSupplier<SpanElement, V> componentSupplier, OptionSupplier<AbstractMenuItem<V>, V> menuItemSupplier) {
+  public SuggestOption(
+      String key,
+      V value,
+      OptionSupplier<SpanElement, V> componentSupplier,
+      OptionSupplier<AbstractMenuItem<V>, V> menuItemSupplier) {
     super(key, value, componentSupplier, menuItemSupplier);
-    withComponent((parent, span) -> span.applyMeta(ValueMeta.of(value), AttributeMeta.of(DUI_OPTION_KEY, key)));
+    withComponent(
+        (parent, span) ->
+            span.applyMeta(ValueMeta.of(value), AttributeMeta.of(DUI_OPTION_KEY, key)));
   }
-
 }

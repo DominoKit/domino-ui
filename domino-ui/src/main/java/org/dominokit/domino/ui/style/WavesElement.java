@@ -16,8 +16,8 @@
 package org.dominokit.domino.ui.style;
 
 import elemental2.dom.HTMLElement;
-import org.dominokit.domino.ui.utils.BaseDominoElement;
 import org.dominokit.domino.ui.IsElement;
+import org.dominokit.domino.ui.utils.BaseDominoElement;
 
 /**
  * An abstract element that provides waves support
@@ -41,7 +41,6 @@ public abstract class WavesElement<E extends HTMLElement, T extends IsElement<E>
     wavesSupport.initWaves();
     return element;
   }
-
 
   /** {@inheritDoc} */
   @Override

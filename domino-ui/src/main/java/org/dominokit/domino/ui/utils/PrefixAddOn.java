@@ -16,7 +16,6 @@
 package org.dominokit.domino.ui.utils;
 
 import elemental2.dom.Element;
-import elemental2.dom.HTMLElement;
 import org.dominokit.domino.ui.IsElement;
 
 public class PrefixAddOn<T extends Element> extends BaseDominoElement<T, PrefixAddOn<T>> {

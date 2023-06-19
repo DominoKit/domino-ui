@@ -16,7 +16,6 @@
 package org.dominokit.domino.ui.forms;
 
 import java.util.function.Function;
-import org.dominokit.domino.ui.utils.DominoUIConfig;
 
 /** A component that has an input to take/provide Double value */
 public class DoubleBox extends NumberBox<DoubleBox, Double> {

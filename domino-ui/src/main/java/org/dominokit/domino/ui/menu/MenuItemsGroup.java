@@ -20,15 +20,13 @@ import static org.dominokit.domino.ui.menu.MenuStyles.*;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import org.dominokit.domino.ui.elements.DivElement;
 import org.dominokit.domino.ui.elements.UListElement;
 import org.dominokit.domino.ui.layout.NavBar;
 import org.dominokit.domino.ui.utils.ChildHandler;
 import org.dominokit.domino.ui.utils.LazyChild;
 
-public class MenuItemsGroup<V>
-    extends AbstractMenuItem<V> {
+public class MenuItemsGroup<V> extends AbstractMenuItem<V> {
 
   private final Menu<V> menu;
   private List<AbstractMenuItem<V>> menuItems = new ArrayList<>();
@@ -72,12 +70,12 @@ public class MenuItemsGroup<V>
     return menuItems;
   }
 
-  public MenuItemsGroup<V> withHeader(ChildHandler<MenuItemsGroup<V>, NavBar> handler){
+  public MenuItemsGroup<V> withHeader(ChildHandler<MenuItemsGroup<V>, NavBar> handler) {
     handler.apply(this, groupHeader.get());
     return this;
   }
 
-  public MenuItemsGroup<V> withItemsMenu(ChildHandler<MenuItemsGroup<V>, UListElement> handler){
+  public MenuItemsGroup<V> withItemsMenu(ChildHandler<MenuItemsGroup<V>, UListElement> handler) {
     handler.apply(this, itemsListElement.get());
     return this;
   }

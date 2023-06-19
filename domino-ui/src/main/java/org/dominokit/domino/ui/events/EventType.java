@@ -16,105 +16,105 @@
 package org.dominokit.domino.ui.events;
 
 /**
- *
- * @see <a href="https://developer.mozilla.org/en-US/docs/Web/Events">https://developer.mozilla.org/en-US/docs/Web/Events</a>
+ * @see <a
+ *     href="https://developer.mozilla.org/en-US/docs/Web/Events">https://developer.mozilla.org/en-US/docs/Web/Events</a>
  */
 public interface EventType {
 
-    // Network Events
-    EventType online = ()-> "online";
-    EventType offline = ()-> "offline";
+  // Network Events
+  EventType online = () -> "online";
+  EventType offline = () -> "offline";
 
-    // Focus Events
-    EventType focus = ()-> "focus";
-    EventType blur = ()-> "blur";
+  // Focus Events
+  EventType focus = () -> "focus";
+  EventType blur = () -> "blur";
 
-    // Session History Events
-    EventType pagehide = ()-> "pagehide";
-    EventType pageshow = ()-> "pageshow";
-    EventType popstate = ()-> "popstate";
+  // Session History Events
+  EventType pagehide = () -> "pagehide";
+  EventType pageshow = () -> "pageshow";
+  EventType popstate = () -> "popstate";
 
-    // Form Events
-    EventType reset = ()-> "reset";
-    EventType submit = ()-> "submit";
+  // Form Events
+  EventType reset = () -> "reset";
+  EventType submit = () -> "submit";
 
-    // Printing Events
-    EventType beforeprint = ()-> "beforeprint";
-    EventType afterprint = ()-> "afterprint";
+  // Printing Events
+  EventType beforeprint = () -> "beforeprint";
+  EventType afterprint = () -> "afterprint";
 
-    // Text Composition Events
-    EventType compositionstart = ()-> "compositionstart";
-    EventType compositionupdate = ()-> "compositionupdate";
-    EventType compositionend = ()-> "compositionend";
+  // Text Composition Events
+  EventType compositionstart = () -> "compositionstart";
+  EventType compositionupdate = () -> "compositionupdate";
+  EventType compositionend = () -> "compositionend";
 
-    // View Events
-    EventType fullscreenchange = ()-> "fullscreenchange";
-    EventType fullscreenerror = ()-> "fullscreenerror";
-    EventType resize = ()-> "resize";
-    EventType scroll = ()-> "scroll";
+  // View Events
+  EventType fullscreenchange = () -> "fullscreenchange";
+  EventType fullscreenerror = () -> "fullscreenerror";
+  EventType resize = () -> "resize";
+  EventType scroll = () -> "scroll";
 
-    // Clipboard Events
-    EventType cut = ()-> "cut";
-    EventType copy = ()-> "copy";
-    EventType paste = ()-> "paste";
+  // Clipboard Events
+  EventType cut = () -> "cut";
+  EventType copy = () -> "copy";
+  EventType paste = () -> "paste";
 
-    // Keyboard Events
-    EventType keydown = ()-> "keydown";
-    EventType keypress = ()-> "keypress";
-    EventType keyup = ()-> "keyup";
+  // Keyboard Events
+  EventType keydown = () -> "keydown";
+  EventType keypress = () -> "keypress";
+  EventType keyup = () -> "keyup";
 
-    // Mouse Events
-    EventType mouseenter = ()-> "mouseenter";
-    EventType mouseover = ()-> "mouseover";
-    EventType mousemove = ()-> "mousemove";
-    EventType mousedown = ()-> "mousedown";
-    EventType mouseup = ()-> "mouseup";
-    EventType auxclick = ()-> "auxclick";
-    EventType click = ()-> "click";
-    EventType dblclick = ()-> "dblclick";
-    EventType contextmenu = ()-> "contextmenu";
-    EventType wheel = ()-> "wheel";
-    EventType mouseleave = ()-> "mouseleave";
-    EventType mouseout = ()-> "mouseout";
-    EventType pointerlockchange = ()-> "pointerlockchange";
-    EventType pointerlockerror = ()-> "pointerlockerror";
+  // Mouse Events
+  EventType mouseenter = () -> "mouseenter";
+  EventType mouseover = () -> "mouseover";
+  EventType mousemove = () -> "mousemove";
+  EventType mousedown = () -> "mousedown";
+  EventType mouseup = () -> "mouseup";
+  EventType auxclick = () -> "auxclick";
+  EventType click = () -> "click";
+  EventType dblclick = () -> "dblclick";
+  EventType contextmenu = () -> "contextmenu";
+  EventType wheel = () -> "wheel";
+  EventType mouseleave = () -> "mouseleave";
+  EventType mouseout = () -> "mouseout";
+  EventType pointerlockchange = () -> "pointerlockchange";
+  EventType pointerlockerror = () -> "pointerlockerror";
 
-    // Drag & Drop Events
-    EventType dragstart = ()-> "dragstart";
-    EventType drag = ()-> "drag";
-    EventType dragend = ()-> "dragend";
-    EventType dragenter = ()-> "dragenter";
-    EventType dragover = ()-> "dragover";
-    EventType dragleave = ()-> "dragleave";
-    EventType drop = ()-> "drop";
+  // Drag & Drop Events
+  EventType dragstart = () -> "dragstart";
+  EventType drag = () -> "drag";
+  EventType dragend = () -> "dragend";
+  EventType dragenter = () -> "dragenter";
+  EventType dragover = () -> "dragover";
+  EventType dragleave = () -> "dragleave";
+  EventType drop = () -> "drop";
 
-    // Touch Events
-    EventType touchcancel = ()-> "touchcancel";
-    EventType touchend = ()-> "touchend";
-    EventType touchmove = ()-> "touchmove";
-    EventType touchstart = ()-> "touchstart";
+  // Touch Events
+  EventType touchcancel = () -> "touchcancel";
+  EventType touchend = () -> "touchend";
+  EventType touchmove = () -> "touchmove";
+  EventType touchstart = () -> "touchstart";
 
-    // Value Change Events
-    EventType hashchange = ()-> "hashchange";
-    EventType input = ()-> "input";
-    EventType readystatechange = ()-> "readystatechange";
-    EventType change = ()-> "change";
-    EventType search = ()-> "search";
+  // Value Change Events
+  EventType hashchange = () -> "hashchange";
+  EventType input = () -> "input";
+  EventType readystatechange = () -> "readystatechange";
+  EventType change = () -> "change";
+  EventType search = () -> "search";
 
-    // Uncategorized Events
-    EventType invalid = ()-> "invalid";
-    EventType show = ()-> "show";
-    EventType message = ()-> "message";
+  // Uncategorized Events
+  EventType invalid = () -> "invalid";
+  EventType show = () -> "show";
+  EventType message = () -> "message";
 
-    // Storage Events
-    EventType storage = ()-> "storage";
+  // Storage Events
+  EventType storage = () -> "storage";
 
-    // Window Events
-    EventType load = ()-> "load";
+  // Window Events
+  EventType load = () -> "load";
 
-    // Page Visibility API Events
-    EventType visibilitychange = ()-> "visibilitychange";
+  // Page Visibility API Events
+  EventType visibilitychange = () -> "visibilitychange";
 
-    /** @return the name of the event type. */
-    String getName();
+  /** @return the name of the event type. */
+  String getName();
 }

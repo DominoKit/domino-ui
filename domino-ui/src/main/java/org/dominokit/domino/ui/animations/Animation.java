@@ -15,16 +15,15 @@
  */
 package org.dominokit.domino.ui.animations;
 
+import static org.dominokit.domino.ui.utils.ElementsFactory.elements;
+
 import elemental2.dom.Element;
 import elemental2.dom.EventListener;
 import elemental2.dom.HTMLElement;
+import java.util.Arrays;
+import org.dominokit.domino.ui.IsElement;
 import org.dominokit.domino.ui.utils.DominoElement;
 import org.gwtproject.timer.client.Timer;
-import org.dominokit.domino.ui.IsElement;
-
-import java.util.Arrays;
-
-import static org.dominokit.domino.ui.utils.ElementsFactory.elements;
 
 /**
  * Animates an {@link HTMLElement}

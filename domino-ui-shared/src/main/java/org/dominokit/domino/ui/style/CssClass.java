@@ -15,14 +15,12 @@
  */
 package org.dominokit.domino.ui.style;
 
-import elemental2.dom.DomGlobal;
-import elemental2.dom.Element;
-import org.dominokit.domino.ui.IsElement;
+import static java.util.Objects.nonNull;
 
+import elemental2.dom.Element;
 import java.util.Arrays;
 import java.util.Objects;
-
-import static java.util.Objects.nonNull;
+import org.dominokit.domino.ui.IsElement;
 
 public interface CssClass {
 
@@ -30,7 +28,7 @@ public interface CssClass {
 
   String getCssClass();
 
-  default void apply(IsElement<?> element){
+  default void apply(IsElement<?> element) {
     apply(element.element());
   }
 
@@ -40,11 +38,11 @@ public interface CssClass {
     }
   }
 
-  default void apply(Element... elements){
+  default void apply(Element... elements) {
     Arrays.asList(elements).forEach(this::apply);
   }
 
-  default void apply(IsElement<?>... elements){
+  default void apply(IsElement<?>... elements) {
     Arrays.asList(elements).forEach(this::apply);
   }
 
@@ -73,11 +71,12 @@ public interface CssClass {
   default void remove(IsElement<?> element) {
     remove(element.element());
   }
+
   default void remove(IsElement<?>... elements) {
     Arrays.asList(elements).forEach(this::remove);
   }
 
-  default boolean isSameAs(CssClass other){
+  default boolean isSameAs(CssClass other) {
     return Objects.equals(getCssClass(), other.getCssClass());
   }
 }

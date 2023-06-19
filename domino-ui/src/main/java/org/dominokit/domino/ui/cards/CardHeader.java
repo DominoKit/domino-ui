@@ -47,10 +47,7 @@ public class CardHeader extends BaseDominoElement<HTMLDivElement, CardHeader> {
     mainHeader =
         LazyChild.of(div().addCss(dui_card_main_header), element)
             .whenInitialized(
-                () ->
-                    mainHeader
-                        .element()
-                        .appendChild(div().addCss(dui_card_header_filler)));
+                () -> mainHeader.element().appendChild(div().addCss(dui_card_header_filler)));
     subHeader = LazyChild.of(div().addCss(dui_card_sub_header), element);
     title = LazyChild.of(div().addCss(dui_card_title), mainHeader);
     mainTitle = LazyChild.of(h(2).addCss(dui_card_main_title), title);
@@ -78,8 +75,7 @@ public class CardHeader extends BaseDominoElement<HTMLDivElement, CardHeader> {
     return this;
   }
 
-  public CardHeader withMainHeader(
-      ChildHandler<CardHeader, DivElement> handler) {
+  public CardHeader withMainHeader(ChildHandler<CardHeader, DivElement> handler) {
     handler.apply(this, mainHeader.get());
     return this;
   }
@@ -136,8 +132,7 @@ public class CardHeader extends BaseDominoElement<HTMLDivElement, CardHeader> {
     return this;
   }
 
-  public CardHeader withMainTitle(
-      ChildHandler<CardHeader, HeadingElement> handler) {
+  public CardHeader withMainTitle(ChildHandler<CardHeader, HeadingElement> handler) {
     handler.apply(this, mainTitle.get());
     return this;
   }

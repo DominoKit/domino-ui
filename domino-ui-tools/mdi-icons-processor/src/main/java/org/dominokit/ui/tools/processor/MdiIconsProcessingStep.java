@@ -87,8 +87,8 @@ public class MdiIconsProcessingStep extends AbstractProcessingStep {
     } catch (IOException e) {
       FileObject fileObject = null;
       try {
-        fileObject = filer
-                .getResource(StandardLocation.CLASS_OUTPUT, "", "/cached/mdi/fonts/"+fontName );
+        fileObject =
+            filer.getResource(StandardLocation.CLASS_OUTPUT, "", "/cached/mdi/fonts/" + fontName);
         copyFont(fontName, fileObject.openInputStream());
       } catch (IOException ex) {
         ExceptionUtil.messageStackTrace(messager, e);
@@ -99,9 +99,9 @@ public class MdiIconsProcessingStep extends AbstractProcessingStep {
   private void copyFont(String fontName, InputStream inputStream) throws IOException {
     FileObject resource =
         filer.createResource(
-            StandardLocation.SOURCE_OUTPUT,
+            StandardLocation.CLASS_OUTPUT,
             "org.dominokit.domino.ui",
-            "public/css/mdi/fonts/" + fontName);
+            "public/css/fonts/" + fontName);
     OutputStream outputStream = resource.openOutputStream();
     IOUtils.copyLarge(inputStream, outputStream);
     outputStream.close();
@@ -120,8 +120,8 @@ public class MdiIconsProcessingStep extends AbstractProcessingStep {
     } catch (IOException e) {
       FileObject fileObject = null;
       try {
-        fileObject = filer
-                .getResource( StandardLocation.CLASS_OUTPUT, "", "/cached/mdi/css/"+cssName );
+        fileObject =
+            filer.getResource(StandardLocation.CLASS_OUTPUT, "", "/cached/mdi/css/" + cssName);
         copyFont(cssName, fileObject.openInputStream());
       } catch (IOException ex) {
         ExceptionUtil.messageStackTrace(messager, e);
@@ -132,9 +132,9 @@ public class MdiIconsProcessingStep extends AbstractProcessingStep {
   private void copyCss(String cssName, InputStream inputStream) throws IOException {
     FileObject resource =
         filer.createResource(
-            StandardLocation.SOURCE_OUTPUT,
+            StandardLocation.CLASS_OUTPUT,
             "org.dominokit.domino.ui",
-            "public/css/mdi/css/" + cssName);
+            "public/css/domino-ui/dui-components/mdi/" + cssName);
     OutputStream outputStream = resource.openOutputStream();
     IOUtils.copyLarge(inputStream, outputStream);
     outputStream.close();

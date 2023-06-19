@@ -15,9 +15,16 @@
  */
 package org.dominokit.domino.ui.tabs;
 
+import static java.util.Objects.isNull;
+import static java.util.Objects.nonNull;
+
 import elemental2.dom.Element;
 import elemental2.dom.HTMLDivElement;
 import elemental2.dom.HTMLElement;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.function.Consumer;
+import org.dominokit.domino.ui.IsElement;
 import org.dominokit.domino.ui.animations.Animation;
 import org.dominokit.domino.ui.animations.Transition;
 import org.dominokit.domino.ui.elements.DivElement;
@@ -25,16 +32,8 @@ import org.dominokit.domino.ui.elements.UListElement;
 import org.dominokit.domino.ui.style.SwapCssClass;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
 import org.dominokit.domino.ui.utils.DominoElement;
-import org.dominokit.domino.ui.IsElement;
 import org.dominokit.domino.ui.utils.PostfixAddOn;
 import org.dominokit.domino.ui.utils.PrefixAddOn;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.function.Consumer;
-
-import static java.util.Objects.isNull;
-import static java.util.Objects.nonNull;
 
 /**
  * A component to create tabs where only one {@link Tab} can be active at a time
@@ -83,7 +82,8 @@ public class TabsPanel extends BaseDominoElement<HTMLDivElement, TabsPanel>
   private final SwapCssClass headerAlignCss = SwapCssClass.of();
 
   public TabsPanel() {
-    root = div()
+    root =
+        div()
             .addCss(dui_tabs, directionCss)
             .appendChild(tabsListElement = ul().addCss(dui_tabs_nav))
             .appendChild(tabsContent = elementOf(div().addCss(dui_tabs_content).element()));
@@ -121,8 +121,7 @@ public class TabsPanel extends BaseDominoElement<HTMLDivElement, TabsPanel>
         } else {
           tabsListElement.insertBefore(tab, tabs.get(index + 1));
           tabsContent.insertBefore(
-              tab.getTabPanel().element(),
-              tabs.get(index + 1).getTabPanel().element());
+              tab.getTabPanel().element(), tabs.get(index + 1).getTabPanel().element());
         }
 
         tab.getClickableElement().addEventListener("click", evt -> activateTab(tab));
@@ -415,22 +414,22 @@ public class TabsPanel extends BaseDominoElement<HTMLDivElement, TabsPanel>
     return this;
   }
 
-  public TabsPanel setHeaderDirection(HeaderDirection direction){
+  public TabsPanel setHeaderDirection(HeaderDirection direction) {
     addCss(headerDirectionCss.replaceWith(direction));
     return this;
   }
 
-  public TabsPanel setTabHeaderAlign(TabsHeaderAlign align){
+  public TabsPanel setTabHeaderAlign(TabsHeaderAlign align) {
     addCss(headerAlignCss.replaceWith(align));
     return this;
   }
 
-  public TabsPanel appendChild(PostfixAddOn<?> postfixAddOn){
+  public TabsPanel appendChild(PostfixAddOn<?> postfixAddOn) {
     tabsListElement.appendChild(postfixAddOn);
     return this;
   }
 
-  public TabsPanel appendChild(PrefixAddOn<?> prefixAddOn){
+  public TabsPanel appendChild(PrefixAddOn<?> prefixAddOn) {
     tabsListElement.appendChild(prefixAddOn);
     return this;
   }

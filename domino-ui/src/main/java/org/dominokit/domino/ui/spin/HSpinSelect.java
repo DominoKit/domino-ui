@@ -27,53 +27,55 @@ import org.dominokit.domino.ui.utils.SwipeUtil;
  */
 public class HSpinSelect<T> extends SpinSelect<T, HSpinSelect<T>> {
 
-    /**
-     * Creates new instance
-     *
-     * @param <T> the type of the object inside the spin
-     * @return new instance
-     */
-    public static <T> HSpinSelect<T> create() {
-        return new HSpinSelect<>();
-    }
+  /**
+   * Creates new instance
+   *
+   * @param <T> the type of the object inside the spin
+   * @return new instance
+   */
+  public static <T> HSpinSelect<T> create() {
+    return new HSpinSelect<>();
+  }
 
-    /**
-     * Creates new instance with back/forward icons
-     *
-     * @param backIcon    the back {@link Icon}
-     * @param forwardIcon the forward {@link Icon}
-     * @param <T>         the type of the object inside the spin
-     * @return new instance
-     */
-    public static <T> HSpinSelect<T> create(Icon<?> backIcon, Icon<?> forwardIcon) {
-        return new HSpinSelect<>(backIcon, forwardIcon);
-    }
+  /**
+   * Creates new instance with back/forward icons
+   *
+   * @param backIcon the back {@link Icon}
+   * @param forwardIcon the forward {@link Icon}
+   * @param <T> the type of the object inside the spin
+   * @return new instance
+   */
+  public static <T> HSpinSelect<T> create(Icon<?> backIcon, Icon<?> forwardIcon) {
+    return new HSpinSelect<>(backIcon, forwardIcon);
+  }
 
-    public HSpinSelect() {
-        this(DominoUIConfig.CONFIG.getUIConfig().getDefaultBackIconSupplier().get()
-                , DominoUIConfig.CONFIG.getUIConfig().getDefaultForwardIconSupplier().get()
-        );
-    }
+  public HSpinSelect() {
+    this(
+        DominoUIConfig.CONFIG.getUIConfig().getDefaultBackIconSupplier().get(),
+        DominoUIConfig.CONFIG.getUIConfig().getDefaultForwardIconSupplier().get());
+  }
 
-    public HSpinSelect(Icon<?> backIcon, Icon<?> forwardIcon) {
-        super(backIcon, forwardIcon);
-        addCss(dui_spin_horizontal);
-        SwipeUtil.addSwipeListener(SwipeUtil.SwipeDirection.RIGHT, contentPanel.element(), evt -> moveBack());
-        SwipeUtil.addSwipeListener(SwipeUtil.SwipeDirection.LEFT, contentPanel.element(), evt -> moveForward());
-    }
+  public HSpinSelect(Icon<?> backIcon, Icon<?> forwardIcon) {
+    super(backIcon, forwardIcon);
+    addCss(dui_spin_horizontal);
+    SwipeUtil.addSwipeListener(
+        SwipeUtil.SwipeDirection.RIGHT, contentPanel.element(), evt -> moveBack());
+    SwipeUtil.addSwipeListener(
+        SwipeUtil.SwipeDirection.LEFT, contentPanel.element(), evt -> moveForward());
+  }
 
-    @Override
-    protected void fixElementsWidth() {
-        DOMRect boundingClientRect = contentPanel.getBoundingClientRect();
-        double totalWidth = boundingClientRect.width * items.size();
-        contentPanel.setWidth(100 * items.size() + "%");
+  @Override
+  protected void fixElementsWidth() {
+    DOMRect boundingClientRect = contentPanel.getBoundingClientRect();
+    double totalWidth = boundingClientRect.width * items.size();
+    contentPanel.setWidth(100 * items.size() + "%");
 
-        items.forEach(
-                spinItem -> spinItem.setWidth(((boundingClientRect.width / totalWidth) * 100) + "%"));
-    }
+    items.forEach(
+        spinItem -> spinItem.setWidth(((boundingClientRect.width / totalWidth) * 100) + "%"));
+  }
 
-    @Override
-    protected void setTransformProperty(double offset) {
-        contentPanel.setCssProperty("transform", "translate3d(-" + offset + "%, 0px, 0px)");
-    }
+  @Override
+  protected void setTransformProperty(double offset) {
+    contentPanel.setCssProperty("transform", "translate3d(-" + offset + "%, 0px, 0px)");
+  }
 }

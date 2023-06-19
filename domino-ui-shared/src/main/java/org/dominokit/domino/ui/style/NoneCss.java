@@ -16,8 +16,6 @@
 package org.dominokit.domino.ui.style;
 
 import elemental2.dom.Element;
-import elemental2.dom.HTMLElement;
-import org.dominokit.domino.ui.IsElement;
 import org.dominokit.domino.ui.IsElement;
 
 public class NoneCss implements CssClass {

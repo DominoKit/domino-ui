@@ -15,11 +15,10 @@
  */
 package org.dominokit.domino.ui.forms;
 
-import org.dominokit.domino.ui.elements.DataListElement;
-import org.dominokit.domino.ui.elements.OptionElement;
-
 import java.util.HashMap;
 import java.util.Map;
+import org.dominokit.domino.ui.elements.DataListElement;
+import org.dominokit.domino.ui.elements.OptionElement;
 
 /**
  * A component that has an input to take/provide Email(s) value

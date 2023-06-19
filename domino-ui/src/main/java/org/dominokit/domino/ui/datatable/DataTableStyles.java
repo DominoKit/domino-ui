@@ -15,25 +15,42 @@
  */
 package org.dominokit.domino.ui.datatable;
 
+import org.dominokit.domino.ui.style.CssClass;
+
 /** constants class for DataTable css classes names */
-public class DataTableStyles {
-  public static final String TABLE_RESPONSIVE = "table-responsive";
-  public static final String TABLE = "table";
-  public static final String TABLE_HOVER = "table-hover";
-  public static final String TABLE_STRIPED = "table-striped";
-  public static final String TABLE_CONDENSED = "table-condensed";
-  public static final String TABLE_BORDERED = "table-bordered";
-  public static final String TABLE_ROW_FILTERED = "table-row-filtered";
-  public static final String TABLE_FIXED = "table-fixed";
-  public static final String THEAD_FIXED = "thead-fixed";
-  public static final String TBODY_FIXED = "tbody-fixed";
-  public static final String TABLE_CM_HEADER = "table-cm-header";
-  public static final String TABLE_CM_FILTER = "table-cm-filter";
-  public static final String FIXED_WIDTH = "fixed-width";
-  public static final String HEADER = "table-header";
-  public static final String RECORD_DETAILS_BUTTON = "record-details-button";
-  public static final String DETAILS_TD = "details-td";
-  public static final String DETAILS_TR = "details-tr";
-  public static final String SELECT_CHECKBOX = "select-checkbox";
-  public static final String COLUMN_RESIZER = "col-resizer";
+public interface DataTableStyles {
+  CssClass dui_datatable = () -> "dui-datatable";
+  CssClass dui_datatable_responsive = () -> "dui-datatable-responsive";
+  CssClass dui_datatable_hover = () -> "dui-datatable-hover";
+  CssClass dui_datatable_bordered = () -> "dui-datatable-bordered";
+  CssClass dui_datatable_condensed = () -> "dui-datatable-condensed";
+  CssClass dui_datatable_striped = () -> "dui-datatable-striped";
+  CssClass dui_datatable_width_full = () -> "dui-datatable-width-full";
+  CssClass dui_datatable_fixed = () -> "dui-datatable-fixed";
+  CssClass dui_datatable_row = () -> "dui-datatable-row";
+  CssClass dui_datatable_th = () -> "dui-datatable-th";
+  CssClass dui_datatable_td = () -> "dui-datatable-td";
+  CssClass dui_datatable_thead = () -> "dui-datatable-thead";
+  CssClass dui_datatable_tfoot = () -> "dui-datatable-tfoot";
+  CssClass dui_datatable_row_marker = () -> "dui-datatable-row-marker";
+  CssClass dui_datatable_nav_bar = () -> "dui-datatable-nav-bar";
+  CssClass dui_datatable_row_selected = () -> "dui-datatable-row-selected";
+  CssClass dui_datatable_th_body = () -> "dui-datatable-th-body";
+  CssClass dui_datatable_th_title = () -> "dui-datatable-th-title";
+  CssClass dui_datatable_th_menu_icon = () -> "dui-datatable-th-menu-icon";
+  CssClass dui_datatable_utility_elements = () -> "dui-datatable-utility-elements";
+  CssClass dui_datatable_utility_element = () -> "dui-datatable-utility-element";
+  CssClass dui_datatable_column_utility = () -> "dui-datatable-column-utility";
+  CssClass dui_datatable_search_box = () -> "dui-datatable-search-box";
+  CssClass dui_datatable_details_td = () -> "dui-datatable-details-td";
+  CssClass dui_datatable_details_tr = () -> "dui-datatable-details-tr";
+  CssClass dui_datatable_column_filter = () -> "dui-datatable-column-filter";
+  CssClass dui_datatable_row_editable = () -> "dui-datatable-row-editable";
+  CssClass dui_row_dnd_grab = () -> "dui-row-dnd-grab";
+  CssClass dui_datatable_drop_area = () -> "dui-datatable-drop-area";
+  CssClass dui_datatable_drop_row = () -> "dui-datatable-drop-row";
+  CssClass table_row_filtered = () -> "table-row-filtered";
+  CssClass fixed_width = () -> "fixed-width";
+  CssClass header = () -> "table-header";
+  CssClass dui_column_resizer = () -> "dui-column-resizer";
 }

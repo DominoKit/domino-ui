@@ -50,16 +50,18 @@ public class VSpinSelect<T> extends SpinSelect<T, VSpinSelect<T>> {
   }
 
   public VSpinSelect() {
-    this(DominoUIConfig.CONFIG.getUIConfig().getDefaultUpIconSupplier().get()
-            , DominoUIConfig.CONFIG.getUIConfig().getDefaultDownIconSupplier().get()
-    );
+    this(
+        DominoUIConfig.CONFIG.getUIConfig().getDefaultUpIconSupplier().get(),
+        DominoUIConfig.CONFIG.getUIConfig().getDefaultDownIconSupplier().get());
   }
 
   public VSpinSelect(Icon<?> backIcon, Icon<?> forwardIcon) {
     super(backIcon, forwardIcon);
     addCss(dui_spin_vertical);
-    SwipeUtil.addSwipeListener(SwipeUtil.SwipeDirection.DOWN, contentPanel.element(), evt -> moveBack());
-    SwipeUtil.addSwipeListener(SwipeUtil.SwipeDirection.UP, contentPanel.element(), evt -> moveForward());
+    SwipeUtil.addSwipeListener(
+        SwipeUtil.SwipeDirection.DOWN, contentPanel.element(), evt -> moveBack());
+    SwipeUtil.addSwipeListener(
+        SwipeUtil.SwipeDirection.UP, contentPanel.element(), evt -> moveForward());
   }
 
   @Override
@@ -76,5 +78,4 @@ public class VSpinSelect<T> extends SpinSelect<T, VSpinSelect<T>> {
     items.forEach(
         spinItem -> spinItem.setHeight(((boundingClientRect.height / totalHeight) * 100) + "%"));
   }
-
 }

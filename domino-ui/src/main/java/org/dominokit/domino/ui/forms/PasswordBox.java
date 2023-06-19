@@ -25,8 +25,7 @@ public class PasswordBox extends BaseTextBox<PasswordBox> {
     return new PasswordBox(label);
   }
 
-  public PasswordBox() {
-  }
+  public PasswordBox() {}
 
   public PasswordBox(String label) {
     super(label);
@@ -36,5 +35,4 @@ public class PasswordBox extends BaseTextBox<PasswordBox> {
   public String getType() {
     return "password";
   }
-
 }

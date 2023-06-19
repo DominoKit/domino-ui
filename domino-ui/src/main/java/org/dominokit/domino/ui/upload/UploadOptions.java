@@ -15,13 +15,12 @@
  */
 package org.dominokit.domino.ui.upload;
 
-import elemental2.dom.XMLHttpRequest;
+import static org.dominokit.domino.ui.upload.FileUpload.DEFAULT_SUCCESS_CODES;
 
+import elemental2.dom.XMLHttpRequest;
 import java.util.List;
 import java.util.Optional;
 import java.util.function.Supplier;
-
-import static org.dominokit.domino.ui.upload.FileUpload.DEFAULT_SUCCESS_CODES;
 
 /** Options for controlling the upload */
 public class UploadOptions {
@@ -31,8 +30,7 @@ public class UploadOptions {
   private double maxFileSize = Double.MAX_VALUE;
   private Supplier<List<Integer>> successCodesProvider = DEFAULT_SUCCESS_CODES;
 
-  public UploadOptions() {
-  }
+  public UploadOptions() {}
 
   public UploadOptions setXMLHttpRequest(XMLHttpRequest xmlHttpRequest) {
     this.xmlHttpRequest = xmlHttpRequest;

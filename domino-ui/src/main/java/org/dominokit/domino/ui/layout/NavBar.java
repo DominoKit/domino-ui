@@ -38,9 +38,7 @@ public class NavBar extends BaseDominoElement<HTMLElement, NavBar> {
   }
 
   public NavBar() {
-    root = nav()
-            .addCss(dui_nav_bar)
-            .appendChild(title = h(4).addCss(dui_nav_title));
+    root = nav().addCss(dui_nav_bar).appendChild(title = h(4).addCss(dui_nav_title));
     description = LazyChild.of(small().addCss(dui_nav_description), title);
     init(this);
   }
@@ -53,7 +51,6 @@ public class NavBar extends BaseDominoElement<HTMLElement, NavBar> {
   public NavBar(String title, String description) {
     this(title);
     setDescription(description);
-
   }
 
   public NavBar setTitle(String title) {
@@ -62,9 +59,9 @@ public class NavBar extends BaseDominoElement<HTMLElement, NavBar> {
   }
 
   public NavBar setDescription(String description) {
-    if(isNull(description) || description.isEmpty()){
+    if (isNull(description) || description.isEmpty()) {
       this.description.remove();
-    }else {
+    } else {
       this.description.get().setTextContent(description);
     }
     return this;
@@ -75,7 +72,6 @@ public class NavBar extends BaseDominoElement<HTMLElement, NavBar> {
     return this;
   }
 
-
   public NavBar withDescription(ChildHandler<NavBar, SmallElement> handler) {
     handler.apply(this, description.get());
     return this;
@@ -84,7 +80,6 @@ public class NavBar extends BaseDominoElement<HTMLElement, NavBar> {
   public HeadingElement getTitleElement() {
     return title;
   }
-
 
   public SmallElement getDescriptionElement() {
     return description.get();

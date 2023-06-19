@@ -163,7 +163,7 @@ public class ConfirmationDialog extends AbstractDialog<ConfirmationDialog> {
     return this;
   }
 
-  public ConfirmationDialog withNavHeader(ChildHandler<ConfirmationDialog, NavBar> handler){
+  public ConfirmationDialog withNavHeader(ChildHandler<ConfirmationDialog, NavBar> handler) {
     handler.apply(this, navHeader.get());
     return this;
   }

@@ -15,12 +15,22 @@
  */
 package org.dominokit.domino.ui.tree;
 
+import static java.util.Objects.isNull;
+import static java.util.Objects.nonNull;
+
 import elemental2.dom.Element;
 import elemental2.dom.EventListener;
 import elemental2.dom.HTMLAnchorElement;
 import elemental2.dom.HTMLElement;
 import elemental2.dom.HTMLLIElement;
 import elemental2.dom.HTMLUListElement;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Optional;
+import java.util.Set;
 import org.dominokit.domino.ui.collapsible.Collapsible;
 import org.dominokit.domino.ui.config.HasComponentConfig;
 import org.dominokit.domino.ui.config.TreeConfig;
@@ -43,18 +53,6 @@ import org.dominokit.domino.ui.utils.PostfixAddOn;
 import org.dominokit.domino.ui.utils.PrefixAddOn;
 import org.dominokit.domino.ui.utils.TreeParent;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Optional;
-import java.util.Set;
-
-import static java.util.Objects.isNull;
-import static java.util.Objects.nonNull;
-import static org.dominokit.domino.ui.style.WavesStyles.dui_waves_accent;
-
 /**
  * A component representing the tree item
  *
@@ -65,7 +63,7 @@ import static org.dominokit.domino.ui.style.WavesStyles.dui_waves_accent;
  * @see HasClickableElement
  */
 public class TreeItem<T> extends BaseDominoElement<HTMLLIElement, TreeItem<T>>
-        implements TreeParent<T>,
+    implements TreeParent<T>,
         CanActivate,
         CanDeactivate,
         HasClickableElement,
@@ -73,820 +71,759 @@ public class TreeItem<T> extends BaseDominoElement<HTMLLIElement, TreeItem<T>>
         HasComponentConfig<TreeConfig>,
         HasSelectionListeners<TreeItem<T>, TreeItem<T>, TreeItem<T>> {
 
-    private String title;
-    private LIElement element;
-    private final AnchorElement anchorElement;
-    private final DivElement contentElement;
-    private LazyChild<Icon<?>> itemIcon;
-    private final LazyChild<SpanElement> textElement;
-    private final List<TreeItem<T>> subItems = new LinkedList<>();
-    private TreeItem<T> activeTreeItem;
-    private TreeParent<T> parent;
-    private final UListElement subTree;
+  private String title;
+  private LIElement element;
+  private final AnchorElement anchorElement;
+  private final DivElement contentElement;
+  private LazyChild<Icon<?>> itemIcon;
+  private final LazyChild<SpanElement> textElement;
+  private final List<TreeItem<T>> subItems = new LinkedList<>();
+  private TreeItem<T> activeTreeItem;
+  private TreeParent<T> parent;
+  private final UListElement subTree;
 
-    private T value;
+  private T value;
 
-    private ToggleTarget toggleTarget = ToggleTarget.ANY;
+  private ToggleTarget toggleTarget = ToggleTarget.ANY;
 
-    private OriginalState originalState;
-    private boolean selectionListenersPaused;
-    private Set<SelectionListener<? super TreeItem<T>, ? super TreeItem<T>>> selectionListeners = new HashSet<>();
-    private Set<SelectionListener<? super TreeItem<T>, ? super TreeItem<T>>> deselectionListeners = new HashSet<>();
+  private OriginalState originalState;
+  private boolean selectionListenersPaused;
+  private Set<SelectionListener<? super TreeItem<T>, ? super TreeItem<T>>> selectionListeners =
+      new HashSet<>();
+  private Set<SelectionListener<? super TreeItem<T>, ? super TreeItem<T>>> deselectionListeners =
+      new HashSet<>();
 
-    private final EventListener anchorListener = evt -> {
+  private final EventListener anchorListener =
+      evt -> {
         if (ToggleTarget.ANY.equals(this.toggleTarget)) {
-            evt.stopPropagation();
-            if(isParent()) {
-                toggle();
-            }
-            activateItem();
+          evt.stopPropagation();
+          if (isParent()) {
+            toggle();
+          }
+          activateItem();
         }
-    };
+      };
 
-    private final EventListener iconListener = evt -> {
+  private final EventListener iconListener =
+      evt -> {
         if (ToggleTarget.ICON.equals(this.toggleTarget)) {
-            evt.stopPropagation();
-            if(isParent()) {
-                toggle();
-            }
-            activateItem();
+          evt.stopPropagation();
+          if (isParent()) {
+            toggle();
+          }
+          activateItem();
         }
-    };
+      };
 
-    private TreeItem() {
-        this.element = li()
-                .addCss(dui_tree_item)
-                .appendChild(anchorElement = a()
-                        .addCss(dui_tree_anchor)
-                        .appendChild(contentElement = div()
-                                .addCss(dui_tree_item_content)
-                        )
-                )
-                .appendChild(subTree = ul()
-                        .addCss(dui_tree_nav)
-                        .hide());
-        this.textElement = LazyChild.of(span().addCss(dui_tree_item_text), contentElement);
-        init(this);
+  private TreeItem() {
+    this.element =
+        li().addCss(dui_tree_item)
+            .appendChild(
+                anchorElement =
+                    a().addCss(dui_tree_anchor)
+                        .appendChild(contentElement = div().addCss(dui_tree_item_content)))
+            .appendChild(subTree = ul().addCss(dui_tree_nav).hide());
+    this.textElement = LazyChild.of(span().addCss(dui_tree_item_text), contentElement);
+    init(this);
 
-        setCollapseStrategy(getConfig().getTreeDefaultCollapseStrategy(this).get());
-        setAttribute(Collapsible.DUI_COLLAPSED, "true");
+    setCollapseStrategy(getConfig().getTreeDefaultCollapseStrategy(this).get());
+    setAttribute(Collapsible.DUI_COLLAPSED, "true");
+  }
 
+  public TreeItem(Icon<?> icon, String title) {
+    this();
+    setIcon(icon);
+    setTitle(title);
+    init();
+  }
+
+  public TreeItem(String title) {
+    this();
+    setTitle(title);
+    init();
+  }
+
+  public TreeItem(Icon<?> icon) {
+    this();
+    setIcon(icon);
+    init();
+  }
+
+  public TreeItem(String title, T value) {
+    this(title);
+    this.value = value;
+  }
+
+  public TreeItem(Icon<?> icon, String title, T value) {
+    this(icon, title);
+    this.value = value;
+  }
+
+  public TreeItem(Icon<?> icon, T value) {
+    this(icon);
+    this.value = value;
+  }
+
+  /**
+   * Creates new tree item with a title
+   *
+   * @param title the title of the item
+   * @return new instance
+   */
+  public static TreeItem<String> create(String title) {
+    TreeItem<String> treeItem = new TreeItem<>(title);
+    treeItem.value = title;
+    return treeItem;
+  }
+
+  /**
+   * Creates new tree item with a title and an icon
+   *
+   * @param icon the item's {@link Icon}
+   * @param title the title of the item
+   * @return new instance
+   */
+  public static TreeItem<String> create(Icon<?> icon, String title) {
+    TreeItem<String> treeItem = new TreeItem<>(icon, title);
+    treeItem.value = title;
+    return treeItem;
+  }
+
+  /**
+   * Creates new tree item with an icon
+   *
+   * @param icon the item's {@link Icon}
+   * @return new instance
+   */
+  public static TreeItem<String> create(Icon<?> icon) {
+    TreeItem<String> treeItem = new TreeItem<>(icon);
+    treeItem.value = "";
+    return treeItem;
+  }
+
+  /**
+   * Creates new tree item with a title and a value
+   *
+   * @param title the title of the item
+   * @param value the value of the item
+   * @param <T> the type of the value
+   * @return new instance
+   */
+  public static <T> TreeItem<T> create(String title, T value) {
+    return new TreeItem<>(title, value);
+  }
+
+  /**
+   * Creates new tree item with a title, an icon and a value
+   *
+   * @param title the title of the item
+   * @param icon the item's {@link Icon}
+   * @param value the value of the item
+   * @param <T> the type of the value
+   * @return new instance
+   */
+  public static <T> TreeItem<T> create(Icon<?> icon, String title, T value) {
+    return new TreeItem<>(icon, title, value);
+  }
+
+  /**
+   * Creates new tree item with an icon and a value
+   *
+   * @param icon the item's {@link Icon}
+   * @param value the value of the item
+   * @param <T> the type of the value
+   * @return new instance
+   */
+  public static <T> TreeItem<T> create(Icon<?> icon, T value) {
+    return new TreeItem<>(icon, value);
+  }
+
+  private void init() {
+    addBeforeCollapseListener(() -> updateIcon(true));
+    addBeforeExpandListener(() -> updateIcon(false));
+    anchorElement.addClickListener(anchorListener);
+    applyWaves();
+  }
+
+  private void applyWaves() {
+    withWaves((item, waves) -> waves.setWaveStyle(WaveStyle.BLOCK));
+  }
+
+  private void activateItem() {
+    if (nonNull(TreeItem.this.getActiveItem())) {
+      TreeItem<T> source = this.activeTreeItem;
+      this.activeTreeItem.deactivate();
+      this.activeTreeItem = null;
+      triggerDeselectionListeners(source, this);
     }
+    getParent().ifPresent(itemParent -> itemParent.setActiveItem(this));
+    triggerSelectionListeners(this, this);
+  }
 
-    public TreeItem(Icon<?> icon, String title) {
-        this();
-        setIcon(icon);
-        setTitle(title);
-        init();
-    }
-
-    public TreeItem(String title) {
-        this();
-        setTitle(title);
-        init();
-    }
-
-    public TreeItem(Icon<?> icon) {
-        this();
-        setIcon(icon);
-        init();
-    }
-
-    public TreeItem(String title, T value) {
-        this(title);
-        this.value = value;
-    }
-
-    public TreeItem(Icon<?> icon, String title, T value) {
-        this(icon, title);
-        this.value = value;
-    }
-
-    public TreeItem(Icon<?> icon, T value) {
-        this(icon);
-        this.value = value;
-    }
-
-    /**
-     * Creates new tree item with a title
-     *
-     * @param title the title of the item
-     * @return new instance
-     */
-    public static TreeItem<String> create(String title) {
-        TreeItem<String> treeItem = new TreeItem<>(title);
-        treeItem.value = title;
-        return treeItem;
-    }
-
-    /**
-     * Creates new tree item with a title and an icon
-     *
-     * @param icon  the item's {@link Icon}
-     * @param title the title of the item
-     * @return new instance
-     */
-    public static TreeItem<String> create(Icon<?> icon, String title) {
-        TreeItem<String> treeItem = new TreeItem<>(icon, title);
-        treeItem.value = title;
-        return treeItem;
-    }
-
-    /**
-     * Creates new tree item with an icon
-     *
-     * @param icon the item's {@link Icon}
-     * @return new instance
-     */
-    public static TreeItem<String> create(Icon<?> icon) {
-        TreeItem<String> treeItem = new TreeItem<>(icon);
-        treeItem.value = "";
-        return treeItem;
-    }
-
-    /**
-     * Creates new tree item with a title and a value
-     *
-     * @param title the title of the item
-     * @param value the value of the item
-     * @param <T>   the type of the value
-     * @return new instance
-     */
-    public static <T> TreeItem<T> create(String title, T value) {
-        return new TreeItem<>(title, value);
-    }
-
-    /**
-     * Creates new tree item with a title, an icon and a value
-     *
-     * @param title the title of the item
-     * @param icon  the item's {@link Icon}
-     * @param value the value of the item
-     * @param <T>   the type of the value
-     * @return new instance
-     */
-    public static <T> TreeItem<T> create(Icon<?> icon, String title, T value) {
-        return new TreeItem<>(icon, title, value);
-    }
-
-    /**
-     * Creates new tree item with an icon and a value
-     *
-     * @param icon  the item's {@link Icon}
-     * @param value the value of the item
-     * @param <T>   the type of the value
-     * @return new instance
-     */
-    public static <T> TreeItem<T> create(Icon<?> icon, T value) {
-        return new TreeItem<>(icon, value);
-    }
-
-    private void init() {
-        addBeforeCollapseListener(() -> updateIcon(true));
-        addBeforeExpandListener(() -> updateIcon(false));
-        anchorElement.addClickListener(anchorListener);
-        applyWaves();
-    }
-
-    private void applyWaves() {
-        withWaves((item, waves) -> waves.setWaveStyle(WaveStyle.BLOCK)
-        );
-    }
-
-    private void activateItem() {
-        if (nonNull(TreeItem.this.getActiveItem())) {
-            TreeItem<T> source = this.activeTreeItem;
-            this.activeTreeItem.deactivate();
-            this.activeTreeItem = null;
-            triggerDeselectionListeners(source, this);
-        }
-        getParent().ifPresent(itemParent -> itemParent.setActiveItem(this));
-        triggerSelectionListeners(this, this);
-    }
-
-    /**
-     * Adds a child item to this one
-     *
-     * @param treeItem the child {@link TreeItem}
-     * @return same instance
-     */
-    public TreeItem<T> appendChild(TreeItem<T> treeItem) {
-        this.subItems.add(treeItem);
-        subTree.appendChild(treeItem);
-        treeItem.parent = this;
-        treeItem.setToggleTarget(this.toggleTarget);
-        updateIcon(isCollapsed());
-        getParent().ifPresent(p -> {
-            if (nonNull(p.getTreeRoot())) {
+  /**
+   * Adds a child item to this one
+   *
+   * @param treeItem the child {@link TreeItem}
+   * @return same instance
+   */
+  public TreeItem<T> appendChild(TreeItem<T> treeItem) {
+    this.subItems.add(treeItem);
+    subTree.appendChild(treeItem);
+    treeItem.parent = this;
+    treeItem.setToggleTarget(this.toggleTarget);
+    updateIcon(isCollapsed());
+    getParent()
+        .ifPresent(
+            p -> {
+              if (nonNull(p.getTreeRoot())) {
                 Tree.TreeItemIconSupplier<T> iconSupplier = p.getTreeRoot().getIconSupplier();
                 if (nonNull(iconSupplier)) {
-                    subItems.forEach(item -> item.onSuppliedIconChanged(iconSupplier));
+                  subItems.forEach(item -> item.onSuppliedIconChanged(iconSupplier));
                 }
-            }
-        });
-        return this;
-    }
+              }
+            });
+    return this;
+  }
 
-    public TreeItem<T> appendChild(PostfixAddOn<?> postfixAddOn) {
-        contentElement.appendChild(postfixAddOn);
-        return this;
-    }
+  public TreeItem<T> appendChild(PostfixAddOn<?> postfixAddOn) {
+    contentElement.appendChild(postfixAddOn);
+    return this;
+  }
 
-    public TreeItem<T> appendChild(PrefixAddOn<?> prefixAddOn) {
-        contentElement.appendChild(prefixAddOn);
-        return this;
-    }
+  public TreeItem<T> appendChild(PrefixAddOn<?> prefixAddOn) {
+    contentElement.appendChild(prefixAddOn);
+    return this;
+  }
 
-    private void updateIcon(boolean collapsed) {
+  private void updateIcon(boolean collapsed) {
+    if (nonNull(itemIcon) && itemIcon.isInitialized()) {
+      if (itemIcon.element() instanceof ToggleIcon) {
+        ((ToggleIcon<?, ?>) itemIcon.element()).toggle();
+      } else if (itemIcon.element() instanceof StateChangeIcon) {
+        StateChangeIcon<?, ?> icon = (StateChangeIcon<?, ?>) itemIcon.element();
+        if (isParent()) {
+          icon.setState(collapsed ? TreeItemIcon.STATE_COLLAPSED : TreeItemIcon.STATE_EXPANDED);
+        } else {
+          if (dui_active.isAppliedTo(this)) {
+            icon.setState(TreeItemIcon.STATE_ACTIVE);
+          } else {
+            icon.setState(TreeItemIcon.STATE_LEAF);
+          }
+        }
+      }
+    }
+  }
+
+  /**
+   * Adds new separator
+   *
+   * @return same instance
+   */
+  public TreeItem<T> addSeparator() {
+    subTree.appendChild(li().addCss(dui_separator));
+    return this;
+  }
+
+  /**
+   * Sets what is the target for toggling an item
+   *
+   * @param toggleTarget the {@link ToggleTarget}
+   * @return same instance
+   */
+  public TreeItem<T> setToggleTarget(ToggleTarget toggleTarget) {
+    if (nonNull(toggleTarget)) {
+
+      this.toggleTarget = toggleTarget;
+      if (ToggleTarget.ICON.equals(toggleTarget)) {
+        removeWaves();
         if (nonNull(itemIcon) && itemIcon.isInitialized()) {
-            if (itemIcon.element() instanceof ToggleIcon) {
-                ((ToggleIcon<?, ?>) itemIcon.element()).toggle();
-            } else if (itemIcon.element() instanceof StateChangeIcon) {
-                StateChangeIcon<?, ?> icon = (StateChangeIcon<?, ?>) itemIcon.element();
-                if (isParent()) {
-                    icon.setState(collapsed ? TreeItemIcon.STATE_COLLAPSED : TreeItemIcon.STATE_EXPANDED);
-                } else {
-                    if (dui_active.isAppliedTo(this)) {
-                        icon.setState(TreeItemIcon.STATE_ACTIVE);
-                    } else {
-                        icon.setState(TreeItemIcon.STATE_LEAF);
+          itemIcon.get().setClickable(true).addEventListener("click", iconListener, true);
+        }
+      } else {
+        applyWaves();
+        if (nonNull(itemIcon) && itemIcon.isInitialized()) {
+          itemIcon.get().setClickable(false).removeEventListener("click", iconListener);
+          ;
+        }
+      }
+
+      subItems.forEach(item -> item.setToggleTarget(toggleTarget));
+    }
+    return this;
+  }
+
+  private void toggle() {
+    if (isParent()) {
+      toggleCollapse();
+    }
+  }
+
+  /** {@inheritDoc} */
+  @Override
+  public TreeItem<T> expandNode() {
+    return show(false);
+  }
+
+  /**
+   * Shows the item
+   *
+   * @param expandParent true to expand the parent of the item
+   * @return same instance
+   */
+  public TreeItem<T> show(boolean expandParent) {
+    if (isParent()) {
+      super.expand();
+    }
+    if (expandParent) {
+      getParent().ifPresent(itemParent -> itemParent.expandNode(true));
+    }
+    return this;
+  }
+
+  /** {@inheritDoc} */
+  @Override
+  public TreeItem<T> expandNode(boolean expandParent) {
+    return show(expandParent);
+  }
+
+  /** {@inheritDoc} */
+  @Override
+  public TreeItem<T> toggleCollapse() {
+    if (isParent()) {
+      super.toggleCollapse();
+    }
+    return this;
+  }
+
+  /** {@inheritDoc} */
+  @Override
+  public HTMLLIElement element() {
+    return element.element();
+  }
+
+  /** {@inheritDoc} */
+  @Override
+  public TreeItem<T> getActiveItem() {
+    return activeTreeItem;
+  }
+
+  /** {@inheritDoc} */
+  @Override
+  public Tree<T> getTreeRoot() {
+    return parent.getTreeRoot();
+  }
+
+  /** {@inheritDoc} */
+  @Override
+  public Optional<TreeParent<T>> getParent() {
+    if (parent instanceof TreeItem) {
+      return Optional.of(parent);
+    } else {
+      return Optional.empty();
+    }
+  }
+
+  /** {@inheritDoc} */
+  @Override
+  public void setActiveItem(TreeItem<T> activeItem) {
+    setActiveItem(activeItem, false);
+  }
+
+  /** {@inheritDoc} */
+  @Override
+  public void setActiveItem(TreeItem<T> activeItem, boolean silent) {
+    TreeItem<T> source = null;
+    if (nonNull(activeItem)) {
+      if (nonNull(this.activeTreeItem) && !this.activeTreeItem.equals(activeItem)) {
+        source = this.activeTreeItem;
+        this.activeTreeItem.deactivate();
+      }
+      this.activeTreeItem = activeItem;
+      this.activeTreeItem.activate();
+      getParent().ifPresent(itemParent -> itemParent.setActiveItem(this, true));
+      if (!silent) {
+        triggerSelectionListeners(activeItem, activeItem);
+        getTreeRoot().triggerSelectionListeners(activeItem, activeItem);
+        Optional.ofNullable(source)
+            .ifPresent(
+                item -> {
+                  triggerDeselectionListeners(item, activeItem);
+                  getTreeRoot().triggerDeselectionListeners(item, activeItem);
+                });
+      }
+    }
+  }
+
+  /** @return A list of tree items representing the path for this item */
+  public List<TreeItem<T>> getPath() {
+    List<TreeItem<T>> items = new ArrayList<>();
+    items.add(this);
+    Optional<TreeParent<T>> parent = getParent();
+
+    while (parent.isPresent()) {
+      items.add((TreeItem<T>) parent.get());
+      parent = parent.get().getParent();
+    }
+
+    Collections.reverse(items);
+
+    return items;
+  }
+
+  /** @return A list of values representing the path for this item */
+  public List<T> getPathValues() {
+    List<T> values = new ArrayList<>();
+    values.add(this.getValue());
+    Optional<TreeParent<T>> parent = getParent();
+
+    while (parent.isPresent()) {
+      values.add(((TreeItem<T>) parent.get()).getValue());
+      parent = parent.get().getParent();
+    }
+
+    Collections.reverse(values);
+
+    return values;
+  }
+
+  /** {@inheritDoc} */
+  @Override
+  public void activate() {
+    activate(false);
+  }
+
+  /** {@inheritDoc} */
+  @Override
+  public void activate(boolean activateParent) {
+    addCss(dui_active);
+    if (activateParent) {
+      getParent().ifPresent(itemParent -> itemParent.setActiveItem(this));
+    }
+    updateIcon(isCollapsed());
+  }
+
+  /** {@inheritDoc} */
+  @Override
+  public void deactivate() {
+    dui_active.remove(this);
+    if (isParent()) {
+      subItems.forEach(TreeItem::deactivate);
+      if (getTreeRoot().isAutoCollapse()) {
+        collapse();
+      }
+    }
+    updateIcon(isCollapsed());
+  }
+
+  /** {@inheritDoc} */
+  @Override
+  public HTMLAnchorElement getClickableElement() {
+    return anchorElement.element();
+  }
+
+  /**
+   * Sets the icon of the item
+   *
+   * @param icon the new {@link Icon}
+   * @return same instance
+   */
+  public TreeItem<T> setIcon(Icon<?> icon) {
+    if (nonNull(itemIcon)) {
+      if (itemIcon.isInitialized()) {
+        itemIcon.remove();
+      }
+    }
+    itemIcon = LazyChild.of(icon.addCss(dui_tree_item_icon), contentElement);
+    itemIcon.whenInitialized(
+        () -> {
+          itemIcon.element().forEachChild(i -> i.addCss(dui_tree_item_icon));
+        });
+    itemIcon.whenInitialized(
+        () -> {
+          if (ToggleTarget.ICON.equals(this.toggleTarget)) {
+            itemIcon.element().clickable();
+          }
+          itemIcon
+              .element()
+              .addClickListener(
+                  evt -> {
+                    if (ToggleTarget.ICON.equals(this.toggleTarget)) {
+                      evt.stopPropagation();
+                      toggle();
                     }
-                }
-            }
-        }
-    }
-
-    /**
-     * Adds new separator
-     *
-     * @return same instance
-     */
-    public TreeItem<T> addSeparator() {
-        subTree.appendChild(li().addCss(dui_separator));
-        return this;
-    }
-
-    /**
-     * Sets what is the target for toggling an item
-     *
-     * @param toggleTarget the {@link ToggleTarget}
-     * @return same instance
-     */
-    public TreeItem<T> setToggleTarget(ToggleTarget toggleTarget) {
-        if (nonNull(toggleTarget)) {
-
-            this.toggleTarget = toggleTarget;
-            if (ToggleTarget.ICON.equals(toggleTarget)) {
-                removeWaves();
-                if (nonNull(itemIcon) && itemIcon.isInitialized()) {
-                    itemIcon.get()
-                            .setClickable(true)
-                            .addEventListener("click", iconListener, true);
-                }
-            } else {
-                applyWaves();
-                if (nonNull(itemIcon) && itemIcon.isInitialized()) {
-                    itemIcon.get()
-                            .setClickable(false)
-                            .removeEventListener("click", iconListener);
-                    ;
-                }
-            }
-
-            subItems.forEach(item -> item.setToggleTarget(toggleTarget));
-        }
-        return this;
-    }
-
-    private void toggle() {
-        if (isParent()) {
-            toggleCollapse();
-        }
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public TreeItem<T> expandNode() {
-        return show(false);
-    }
-
-    /**
-     * Shows the item
-     *
-     * @param expandParent true to expand the parent of the item
-     * @return same instance
-     */
-    public TreeItem<T> show(boolean expandParent) {
-        if (isParent()) {
-            super.expand();
-        }
-        if (expandParent) {
-            getParent().ifPresent(itemParent-> itemParent.expandNode(true));
-        }
-        return this;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public TreeItem<T> expandNode(boolean expandParent) {
-        return show(expandParent);
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public TreeItem<T> toggleCollapse() {
-        if (isParent()) {
-            super.toggleCollapse();
-        }
-        return this;
-    }
-
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public HTMLLIElement element() {
-        return element.element();
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public TreeItem<T> getActiveItem() {
-        return activeTreeItem;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public Tree<T> getTreeRoot() {
-        return parent.getTreeRoot();
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public Optional<TreeParent<T>> getParent() {
-        if (parent instanceof TreeItem) {
-            return Optional.of(parent);
-        } else {
-            return Optional.empty();
-        }
-    }
-
-
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public void setActiveItem(TreeItem<T> activeItem) {
-        setActiveItem(activeItem, false);
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public void setActiveItem(TreeItem<T> activeItem, boolean silent) {
-        TreeItem<T> source = null;
-        if (nonNull(activeItem)) {
-            if (nonNull(this.activeTreeItem) && !this.activeTreeItem.equals(activeItem)) {
-                source = this.activeTreeItem;
-                this.activeTreeItem.deactivate();
-            }
-            this.activeTreeItem = activeItem;
-            this.activeTreeItem.activate();
-            getParent().ifPresent(itemParent-> itemParent.setActiveItem(this, true));
-            if (!silent) {
-                triggerSelectionListeners(activeItem, activeItem);
-                getTreeRoot().triggerSelectionListeners(activeItem, activeItem);
-                Optional.ofNullable(source)
-                        .ifPresent(item -> {
-                            triggerDeselectionListeners(item, activeItem);
-                            getTreeRoot().triggerDeselectionListeners(item, activeItem);
-                        });
-            }
-        }
-    }
-
-    /**
-     * @return A list of tree items representing the path for this item
-     */
-    public List<TreeItem<T>> getPath() {
-        List<TreeItem<T>> items = new ArrayList<>();
-        items.add(this);
-        Optional<TreeParent<T>> parent = getParent();
-
-        while (parent.isPresent()) {
-            items.add((TreeItem<T>) parent.get());
-            parent = parent.get().getParent();
-        }
-
-        Collections.reverse(items);
-
-        return items;
-    }
-
-    /**
-     * @return A list of values representing the path for this item
-     */
-    public List<T> getPathValues() {
-        List<T> values = new ArrayList<>();
-        values.add(this.getValue());
-        Optional<TreeParent<T>> parent = getParent();
-
-        while (parent.isPresent()) {
-            values.add(((TreeItem<T>) parent.get()).getValue());
-            parent = parent.get().getParent();
-        }
-
-        Collections.reverse(values);
-
-        return values;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public void activate() {
-        activate(false);
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public void activate(boolean activateParent) {
-        addCss(dui_active);
-        if (activateParent) {
-            getParent().ifPresent(itemParent-> itemParent.setActiveItem(this));
-        }
-        updateIcon(isCollapsed());
-    }
-
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public void deactivate() {
-        dui_active.remove(this);
-        if (isParent()) {
-            subItems.forEach(TreeItem::deactivate);
-            if (getTreeRoot().isAutoCollapse()) {
-                collapse();
-            }
-        }
-        updateIcon(isCollapsed());
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public HTMLAnchorElement getClickableElement() {
-        return anchorElement.element();
-    }
-
-    /**
-     * Sets the icon of the item
-     *
-     * @param icon the new {@link Icon}
-     * @return same instance
-     */
-    public TreeItem<T> setIcon(Icon<?> icon) {
-        if (nonNull(itemIcon)) {
-            if (itemIcon.isInitialized()) {
-                itemIcon.remove();
-            }
-        }
-        itemIcon = LazyChild.of(icon.addCss(dui_tree_item_icon), contentElement);
-        itemIcon.whenInitialized(() -> {
-            itemIcon.element().forEachChild(i -> i.addCss(dui_tree_item_icon));
+                    activateItem();
+                  });
         });
-        itemIcon.whenInitialized(() -> {
-            if (ToggleTarget.ICON.equals(this.toggleTarget)) {
-                itemIcon.element().clickable();
-            }
-            itemIcon.element()
-                    .addClickListener(evt -> {
-                        if (ToggleTarget.ICON.equals(this.toggleTarget)) {
-                            evt.stopPropagation();
-                            toggle();
-                        }
-                        activateItem();
-                    });
+    itemIcon.get();
+    updateIcon(isCollapsed());
 
-        });
-        itemIcon.get();
-        updateIcon(isCollapsed());
+    return this;
+  }
 
-        return this;
+  boolean isParent() {
+    return !subItems.isEmpty();
+  }
+
+  void setParent(TreeParent<T> parentMenu) {
+    this.parent = parentMenu;
+  }
+
+  /** @return the title of the item */
+  public String getTitle() {
+    return title;
+  }
+
+  /**
+   * Filter this item based on the search token
+   *
+   * @param searchToken the search token
+   * @return true if this item should be shown, false otherwise
+   */
+  public boolean filter(String searchToken) {
+    boolean found;
+    if (isNull(this.originalState)) {
+      this.originalState = new OriginalState(isExpanded());
     }
 
-    boolean isParent() {
-        return !subItems.isEmpty();
+    if (isParent()) {
+      found = getFilter().filter(this, searchToken) | filterChildren(searchToken);
+    } else {
+      found = getFilter().filter(this, searchToken);
     }
 
-    void setParent(TreeParent<T> parentMenu) {
-        this.parent = parentMenu;
+    if (found) {
+      dui_hidden.remove(this);
+      if (isParent() && isAutoExpandFound() && isCollapsed()) {
+        this.expandNode();
+      }
+      return true;
+    } else {
+      addCss(dui_hidden);
+      return false;
     }
+  }
 
-    /**
-     * @return the title of the item
-     */
-    public String getTitle() {
-        return title;
-    }
+  /** {@inheritDoc} */
+  @Override
+  public boolean isAutoExpandFound() {
+    return getTreeRoot().isAutoExpandFound();
+  }
 
-    /**
-     * Filter this item based on the search token
-     *
-     * @param searchToken the search token
-     * @return true if this item should be shown, false otherwise
-     */
-    public boolean filter(String searchToken) {
-        boolean found;
-        if (isNull(this.originalState)) {
-            this.originalState = new OriginalState(isExpanded());
-        }
-
-        if (isParent()) {
-            found = getFilter().filter(this, searchToken) | filterChildren(searchToken);
+  /** Clears the filter applied */
+  public void clearFilter() {
+    if (nonNull(originalState)) {
+      if (isExpanded() != originalState.expanded) {
+        if (this.equals(this.getTreeRoot().getActiveItem())) {
+          this.expandNode();
         } else {
-            found = getFilter().filter(this, searchToken);
+          toggleCollapse(originalState.expanded);
         }
+      }
+      this.originalState = null;
+    }
+    dui_hidden.remove(this);
+    subItems.forEach(TreeItem::clearFilter);
+  }
 
-        if (found) {
-            dui_hidden.remove(this);
-            if (isParent() && isAutoExpandFound() && isCollapsed()) {
-                this.expandNode();
-            }
-            return true;
-        } else {
-            addCss(dui_hidden);
-            return false;
-        }
+  /**
+   * Filters the children and make sure the filter is applied to all children
+   *
+   * @param searchToken the search token
+   * @return true of one of the children matches the search token, false otherwise
+   */
+  public boolean filterChildren(String searchToken) {
+    // We use the noneMatch here instead of anyMatch to make sure we are looping all children
+    // instead of early exit on first matching one
+    return subItems.stream().filter(treeItem -> treeItem.filter(searchToken)).count() > 0;
+  }
+
+  /** Collapse all children */
+  public void collapseAll() {
+    if (isParent() && !isCollapsed()) {
+      addCss(dui_transition_none);
+      subItems.forEach(TreeItem::collapseAll);
+      collapse();
+      dui_transition_none.remove(this);
+    }
+  }
+
+  /** Expand all children */
+  public void expandAll() {
+    if (isParent() && isCollapsed()) {
+      addCss(dui_transition_none);
+      this.expandNode();
+      subItems.forEach(TreeItem::expandAll);
+      dui_transition_none.remove(this);
+    }
+  }
+
+  /** {@inheritDoc} */
+  @Override
+  public Element getWavesElement() {
+    return anchorElement.element();
+  }
+
+  /** @return true if this item does not have children, false otherwise */
+  public boolean isLeaf() {
+    return subItems.isEmpty();
+  }
+
+  /** @return the list of all sub {@link TreeItem} */
+  @Override
+  public List<TreeItem<T>> getSubItems() {
+    return subItems;
+  }
+
+  /** Selects this item, the item will be shown and activated */
+  public void select() {
+    this.show(true).activate(true);
+  }
+
+  /** @return the value of the item */
+  public T getValue() {
+    return value;
+  }
+
+  /**
+   * Sets the value of the item
+   *
+   * @param value the value
+   */
+  public void setValue(T value) {
+    this.value = value;
+  }
+
+  /** {@inheritDoc} */
+  @Override
+  public void removeItem(TreeItem<T> item) {
+    if (subItems.contains(item)) {
+      subItems.remove(item);
     }
 
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public boolean isAutoExpandFound() {
-        return getTreeRoot()
-                .isAutoExpandFound();
+    if (subItems.isEmpty()) {
+      collapse();
     }
+  }
 
-    /**
-     * Clears the filter applied
-     */
-    public void clearFilter() {
-        if (nonNull(originalState)) {
-            if (isExpanded() != originalState.expanded) {
-                if (this.equals(this.getTreeRoot().getActiveItem())) {
-                    this.expandNode();
-                } else {
-                    toggleCollapse(originalState.expanded);
-                }
-            }
-            this.originalState = null;
-        }
-        dui_hidden.remove(this);
-        subItems.forEach(TreeItem::clearFilter);
+  /**
+   * Remove all the TreeItem sub-items.
+   *
+   * @return same TreeItem instance
+   */
+  public TreeItem<T> clear() {
+    new ArrayList<>(subItems).forEach(TreeItem::remove);
+    return this;
+  }
+
+  /** {@inheritDoc} */
+  @Override
+  public TreeItem<T> remove() {
+    getParent().ifPresent(itemParent -> itemParent.removeItem(this));
+    return super.remove();
+  }
+
+  /** {@inheritDoc} */
+  @Override
+  public TreeItemFilter<TreeItem<T>> getFilter() {
+    return parent.getFilter();
+  }
+
+  /** @return The {@link HTMLElement} that contains the title of this TreeItem */
+  public SpanElement getTextElement() {
+    return textElement.get();
+  }
+
+  /**
+   * Change the title of a TreeItem, If the TreeItem was created without a value and the title is
+   * used as a value then it will not change when the title is changed to change the value a call to
+   * {@link #setValue(T)} should be called
+   *
+   * @param title String title to set
+   * @return same TreeItem instance
+   */
+  public TreeItem<T> setTitle(String title) {
+    this.title = title;
+    textElement.get().setTextContent(title);
+    return this;
+  }
+
+  /** @return the {@link HTMLUListElement} that contains the tree items */
+  public UListElement getSubTree() {
+    return subTree;
+  }
+
+  void onSuppliedIconChanged(Tree.TreeItemIconSupplier<T> iconSupplier) {
+    Icon<?> icon = iconSupplier.createIcon(this);
+    if (nonNull(icon) && isNull(itemIcon)) {
+      setIcon(icon);
+      subItems.forEach(item -> item.onSuppliedIconChanged(iconSupplier));
     }
+  }
 
-    /**
-     * Filters the children and make sure the filter is applied to all children
-     *
-     * @param searchToken the search token
-     * @return true of one of the children matches the search token, false otherwise
-     */
-    public boolean filterChildren(String searchToken) {
-        // We use the noneMatch here instead of anyMatch to make sure we are looping all children
-        // instead of early exit on first matching one
-        return subItems.stream().filter(treeItem -> treeItem.filter(searchToken)).count() > 0;
+  @Override
+  public TreeItem<T> pauseSelectionListeners() {
+    this.selectionListenersPaused = true;
+    return this;
+  }
+
+  @Override
+  public TreeItem<T> resumeSelectionListeners() {
+    this.selectionListenersPaused = false;
+    return this;
+  }
+
+  @Override
+  public TreeItem<T> togglePauseSelectionListeners(boolean toggle) {
+    this.selectionListenersPaused = toggle;
+    return this;
+  }
+
+  @Override
+  public Set<SelectionListener<? super TreeItem<T>, ? super TreeItem<T>>> getSelectionListeners() {
+    return this.selectionListeners;
+  }
+
+  @Override
+  public Set<SelectionListener<? super TreeItem<T>, ? super TreeItem<T>>>
+      getDeselectionListeners() {
+    return this.deselectionListeners;
+  }
+
+  @Override
+  public boolean isSelectionListenersPaused() {
+    return this.selectionListenersPaused;
+  }
+
+  @Override
+  public TreeItem<T> triggerSelectionListeners(TreeItem<T> source, TreeItem<T> selection) {
+    if (!isSelectionListenersPaused()) {
+      this.selectionListeners.forEach(
+          selectionListener ->
+              selectionListener.onSelectionChanged(Optional.ofNullable(source), selection));
     }
+    return this;
+  }
 
-    /**
-     * Collapse all children
-     */
-    public void collapseAll() {
-        if (isParent() && !isCollapsed()) {
-            addCss(dui_transition_none);
-            subItems.forEach(TreeItem::collapseAll);
-            collapse();
-            dui_transition_none.remove(this);
-        }
+  @Override
+  public TreeItem<T> triggerDeselectionListeners(TreeItem<T> source, TreeItem<T> selection) {
+    if (!isSelectionListenersPaused()) {
+      this.deselectionListeners.forEach(
+          selectionListener ->
+              selectionListener.onSelectionChanged(Optional.ofNullable(source), selection));
     }
+    return this;
+  }
 
-    /**
-     * Expand all children
-     */
-    public void expandAll() {
-        if (isParent() && isCollapsed()) {
-            addCss(dui_transition_none);
-            this.expandNode();
-            subItems.forEach(TreeItem::expandAll);
-            dui_transition_none.remove(this);
-        }
+  @Override
+  public TreeItem<T> getSelection() {
+    return this;
+  }
+
+  private static class OriginalState {
+    private boolean expanded;
+
+    public OriginalState(boolean expanded) {
+      this.expanded = expanded;
     }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public Element getWavesElement() {
-        return anchorElement.element();
-    }
-
-    /**
-     * @return true if this item does not have children, false otherwise
-     */
-    public boolean isLeaf() {
-        return subItems.isEmpty();
-    }
-
-    /**
-     * @return the list of all sub {@link TreeItem}
-     */
-    @Override
-    public List<TreeItem<T>> getSubItems() {
-        return subItems;
-    }
-
-    /**
-     * Selects this item, the item will be shown and activated
-     */
-    public void select() {
-        this.show(true).activate(true);
-    }
-
-    /**
-     * @return the value of the item
-     */
-    public T getValue() {
-        return value;
-    }
-
-    /**
-     * Sets the value of the item
-     *
-     * @param value the value
-     */
-    public void setValue(T value) {
-        this.value = value;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public void removeItem(TreeItem<T> item) {
-        if (subItems.contains(item)) {
-            subItems.remove(item);
-        }
-
-        if (subItems.isEmpty()) {
-            collapse();
-        }
-    }
-
-    /**
-     * Remove all the TreeItem sub-items.
-     *
-     * @return same TreeItem instance
-     */
-    public TreeItem<T> clear() {
-        new ArrayList<>(subItems).forEach(TreeItem::remove);
-        return this;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public TreeItem<T> remove() {
-        getParent().ifPresent(itemParent -> itemParent.removeItem(this));
-        return super.remove();
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public TreeItemFilter<TreeItem<T>> getFilter() {
-        return parent.getFilter();
-    }
-
-    /**
-     * @return The {@link HTMLElement} that contains the title of this TreeItem
-     */
-    public SpanElement getTextElement() {
-        return textElement.get();
-    }
-
-    /**
-     * Change the title of a TreeItem, If the TreeItem was created without a value and the title is
-     * used as a value then it will not change when the title is changed to change the value a call
-     * to
-     * {@link #setValue(T)} should be called
-     *
-     * @param title String title to set
-     * @return same TreeItem instance
-     */
-    public TreeItem<T> setTitle(String title) {
-        this.title = title;
-        textElement.get().setTextContent(title);
-        return this;
-    }
-
-    /**
-     * @return the {@link HTMLUListElement} that contains the tree items
-     */
-    public UListElement getSubTree() {
-        return subTree;
-    }
-
-    void onSuppliedIconChanged(Tree.TreeItemIconSupplier<T> iconSupplier) {
-        Icon<?> icon = iconSupplier.createIcon(this);
-        if (nonNull(icon) && isNull(itemIcon)) {
-            setIcon(icon);
-            subItems.forEach(item -> item.onSuppliedIconChanged(iconSupplier));
-        }
-    }
-
-    @Override
-    public TreeItem<T> pauseSelectionListeners() {
-        this.selectionListenersPaused = true;
-        return this;
-    }
-
-    @Override
-    public TreeItem<T> resumeSelectionListeners() {
-        this.selectionListenersPaused = false;
-        return this;
-    }
-
-    @Override
-    public TreeItem<T> togglePauseSelectionListeners(boolean toggle) {
-        this.selectionListenersPaused = toggle;
-        return this;
-    }
-
-    @Override
-    public Set<SelectionListener<? super TreeItem<T>, ? super TreeItem<T>>> getSelectionListeners() {
-        return this.selectionListeners;
-    }
-
-    @Override
-    public Set<SelectionListener<? super TreeItem<T>, ? super TreeItem<T>>> getDeselectionListeners() {
-        return this.deselectionListeners;
-    }
-
-    @Override
-    public boolean isSelectionListenersPaused() {
-        return this.selectionListenersPaused;
-    }
-
-    @Override
-    public TreeItem<T> triggerSelectionListeners(TreeItem<T> source, TreeItem<T> selection) {
-        if (!isSelectionListenersPaused()) {
-            this.selectionListeners.forEach(selectionListener -> selectionListener.onSelectionChanged(Optional.ofNullable(source), selection));
-        }
-        return this;
-    }
-
-    @Override
-    public TreeItem<T> triggerDeselectionListeners(TreeItem<T> source, TreeItem<T> selection) {
-        if (!isSelectionListenersPaused()) {
-            this.deselectionListeners.forEach(selectionListener -> selectionListener.onSelectionChanged(Optional.ofNullable(source), selection));
-        }
-        return this;
-    }
-
-    @Override
-    public TreeItem<T> getSelection() {
-        return this;
-    }
-
-    private static class OriginalState {
-        private boolean expanded;
-
-        public OriginalState(boolean expanded) {
-            this.expanded = expanded;
-        }
-    }
+  }
 }

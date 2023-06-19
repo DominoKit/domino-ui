@@ -13,18 +13,18 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
- package org.dominokit.domino.ui.datatable.plugins.filter.header;
+package org.dominokit.domino.ui.datatable.plugins.filter.header;
 
- import elemental2.dom.HTMLInputElement;
- import org.dominokit.domino.ui.datatable.model.FilterTypes;
- import org.dominokit.domino.ui.forms.ShortBox;
+import elemental2.dom.HTMLInputElement;
+import org.dominokit.domino.ui.datatable.model.FilterTypes;
+import org.dominokit.domino.ui.forms.ShortBox;
 
 /**
  * Short number column header filter component that is rendered as a {@link ShortBox} component
  *
  * @param <T> type of data table records
  */
- public class ShortHeaderFilter<T> extends DelayedHeaderFilterInput<Short, ShortBox, T> {
+public class ShortHeaderFilter<T> extends DelayedHeaderFilterInput<ShortBox, T, Short> {
 
   private ShortBox shortBox;
 
@@ -90,14 +90,15 @@
   /** {@inheritDoc} */
   @Override
   public void clear() {
-      shortBox.withPausedChangeListeners(field -> {
+    shortBox.withPausedChangeListeners(
+        field -> {
           shortBox.clear();
           shortBox.getInputElement().element().value = "";
-      });
+        });
   }
 
   /** @return the {@link ShortBox} wrapped in this component */
   public ShortBox getShortBox() {
     return shortBox;
   }
- }
+}

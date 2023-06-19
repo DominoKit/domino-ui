@@ -22,11 +22,10 @@ import static org.dominokit.domino.ui.grid.Columns._24;
 import static org.dominokit.domino.ui.grid.Columns._32;
 
 import elemental2.dom.HTMLDivElement;
+import org.dominokit.domino.ui.IsElement;
 import org.dominokit.domino.ui.elements.DivElement;
 import org.dominokit.domino.ui.style.PostfixCssClass;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
-import org.dominokit.domino.ui.utils.DominoElement;
-import org.dominokit.domino.ui.IsElement;
 
 /**
  * A component which provides an abstract level of the CSS grid row which will inherit the styles

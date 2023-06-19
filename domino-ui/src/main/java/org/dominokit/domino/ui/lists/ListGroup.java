@@ -22,11 +22,9 @@ import elemental2.dom.HTMLUListElement;
 import java.util.*;
 import java.util.function.Consumer;
 import java.util.stream.Collectors;
-
 import org.dominokit.domino.ui.elements.UListElement;
 import org.dominokit.domino.ui.style.BooleanCssClass;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
-import org.dominokit.domino.ui.utils.DominoElement;
 import org.dominokit.domino.ui.utils.HasSelectionListeners;
 
 /**

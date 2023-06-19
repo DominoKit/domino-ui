@@ -15,6 +15,11 @@
  */
 package org.dominokit.domino.ui.utils;
 
+import static elemental2.dom.DomGlobal.document;
+import static org.dominokit.domino.ui.utils.BaseDominoElement.ATTACH_UID_KEY;
+import static org.dominokit.domino.ui.utils.BaseDominoElement.DETACH_UID_KEY;
+import static org.dominokit.domino.ui.utils.ElementsFactory.elements;
+
 import elemental2.core.JsArray;
 import elemental2.dom.CustomEvent;
 import elemental2.dom.CustomEventInit;
@@ -24,14 +29,8 @@ import elemental2.dom.MutationObserver;
 import elemental2.dom.MutationObserverInit;
 import elemental2.dom.MutationRecord;
 import elemental2.dom.Node;
-import jsinterop.base.Js;
-
 import java.util.List;
-
-import static elemental2.dom.DomGlobal.document;
-import static org.dominokit.domino.ui.utils.BaseDominoElement.ATTACH_UID_KEY;
-import static org.dominokit.domino.ui.utils.BaseDominoElement.DETACH_UID_KEY;
-import static org.dominokit.domino.ui.utils.ElementsFactory.elements;
+import jsinterop.base.Js;
 
 /**
  * This class allows us to listen to the elements attach/detach life cycle
@@ -103,7 +102,8 @@ final class BodyObserver {
           element.dispatchEvent(
               new CustomEvent<>(AttachDetachEventType.attachedType(elements.elementOf(element))));
         }
-        elements.elementOf(element)
+        elements
+            .elementOf(element)
             .querySelectorAll("[" + ATTACH_UID_KEY + "]")
             .forEach(
                 child -> {
@@ -128,7 +128,8 @@ final class BodyObserver {
           element.dispatchEvent(
               new Event(AttachDetachEventType.detachedType(elements.elementOf(element))));
         }
-        elements.elementOf(element)
+        elements
+            .elementOf(element)
             .querySelectorAll("[" + DETACH_UID_KEY + "]")
             .forEach(
                 child -> {

@@ -15,16 +15,14 @@
  */
 package org.dominokit.domino.ui.menu.direction;
 
-import elemental2.dom.DOMRect;
-import elemental2.dom.DomGlobal;
-import elemental2.dom.Element;
-import org.dominokit.domino.ui.style.CssClass;
-import org.dominokit.domino.ui.style.Style;
-
 import static elemental2.dom.DomGlobal.window;
 import static org.dominokit.domino.ui.style.SpacingCss.dui_flex_col_reverse;
 import static org.dominokit.domino.ui.utils.ElementsFactory.elements;
 import static org.dominokit.domino.ui.utils.Unit.px;
+
+import elemental2.dom.DOMRect;
+import elemental2.dom.Element;
+import org.dominokit.domino.ui.style.Style;
 
 public class BottomMiddleDropDirection implements DropDirection {
   @Override
@@ -38,21 +36,23 @@ public class BottomMiddleDropDirection implements DropDirection {
       delta = sourceRect.width - availableSpace;
     }
 
-    elements.elementOf(source).setCssProperty("--dui-menu-drop-min-width", targetRect.width+"px");
+    elements.elementOf(source).setCssProperty("--dui-menu-drop-min-width", targetRect.width + "px");
     targetRect = target.getBoundingClientRect();
     sourceRect = source.getBoundingClientRect();
 
-    Style.of(source).style.setProperty(
-        "top", px.of((targetRect.top + window.pageYOffset) + targetRect.height + 1));
-    Style.of(source).style.setProperty(
-        "left",
-        px.of(
-            targetRect.left
-                + window.pageXOffset
-                - ((sourceRect.width - targetRect.width) / 2)
-                + delta));
+    Style.of(source)
+        .style
+        .setProperty("top", px.of((targetRect.top + window.pageYOffset) + targetRect.height + 1));
+    Style.of(source)
+        .style
+        .setProperty(
+            "left",
+            px.of(
+                targetRect.left
+                    + window.pageXOffset
+                    - ((sourceRect.width - targetRect.width) / 2)
+                    + delta));
     dui_dd_bottom_middle.apply(source);
-
   }
 
   @Override
@@ -60,5 +60,4 @@ public class BottomMiddleDropDirection implements DropDirection {
     dui_dd_bottom_middle.remove(source);
     elements.elementOf(source).removeCssProperty("--dui-menu-drop-min-width");
   }
-
 }

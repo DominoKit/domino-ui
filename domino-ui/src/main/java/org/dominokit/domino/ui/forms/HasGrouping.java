@@ -56,7 +56,7 @@ public interface HasGrouping<T>
   @Editor.Ignore
   T fixErrorsPosition(boolean fixErrorsPosition);
 
-  default ValidationResult validate(){
+  default ValidationResult validate() {
     return validate((T) this);
   }
 }

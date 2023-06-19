@@ -15,12 +15,12 @@
  */
 package org.dominokit.domino.ui.utils;
 
+import static java.util.Objects.nonNull;
+
 import org.dominokit.domino.ui.config.DefaultUIConfig;
 import org.dominokit.domino.ui.config.UIConfig;
 import org.dominokit.domino.ui.i18n.DefaultDominoUILabels;
 import org.dominokit.domino.ui.i18n.DominoUILabels;
-
-import static java.util.Objects.nonNull;
 
 // import org.dominokit.domino.ui.tree.TreeItem;
 
@@ -62,7 +62,6 @@ public class DominoUIConfig {
   //  private TreeCollapseSupplier defaultTreeCollapseStrategySupplier =
   //      TreeHeightCollapseStrategy::new;
 
-
   protected DominoUIConfig() {}
 
   //
@@ -70,7 +69,6 @@ public class DominoUIConfig {
   //  public RequiredIndicatorRenderer getRequiredIndicatorRenderer() {
   //    return requiredIndicatorRenderer;
   //  }
-
 
   //  /**
   //   * @param requiredIndicatorRenderer A {@link RequiredIndicatorRenderer}
@@ -131,7 +129,6 @@ public class DominoUIConfig {
   //    return this;
   //  }
 
-
   public DominoUILabels getDominoUILabels() {
     return dominoUILabels;
   }
@@ -142,6 +139,7 @@ public class DominoUIConfig {
     }
     return this;
   }
+
   public UIConfig getUIConfig() {
     return uiConfig;
   }

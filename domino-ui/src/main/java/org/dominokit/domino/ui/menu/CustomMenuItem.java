@@ -18,51 +18,48 @@ package org.dominokit.domino.ui.menu;
 import static java.util.Objects.isNull;
 import static java.util.Objects.nonNull;
 
-/**
- * An implementation of {@link AbstractMenuItem} that can take custom content
- */
+/** An implementation of {@link AbstractMenuItem} that can take custom content */
 public class CustomMenuItem<V> extends AbstractMenuItem<V> {
 
-    private MenuSearchFilter searchFilter = (token, caseSensitive) -> false;
+  private MenuSearchFilter searchFilter = (token, caseSensitive) -> false;
 
-    public static <V> CustomMenuItem<V> create() {
-        return new CustomMenuItem<>();
+  public static <V> CustomMenuItem<V> create() {
+    return new CustomMenuItem<>();
+  }
+
+  /**
+   * match the search token with both the text and description of the menu item
+   *
+   * @param token String search text
+   * @param caseSensitive boolean, true if the search is case-sensitive
+   * @return boolean, true if the item matches the search
+   */
+  @Override
+  public boolean onSearch(String token, boolean caseSensitive) {
+    if (isNull(token) || token.isEmpty()) {
+      this.show();
+      return true;
     }
-
-    /**
-     * match the search token with both the text and description of the menu item
-     *
-     * @param token String search text
-     * @param caseSensitive boolean, true if the search is case-sensitive
-     * @return boolean, true if the item matches the search
-     */
-    @Override
-    public boolean onSearch(String token, boolean caseSensitive) {
-        if (isNull(token) || token.isEmpty()) {
-            this.show();
-            return true;
-        }
-        if (searchable && searchFilter.onSearch(token, caseSensitive)) {
-            if (this.isHidden()) {
-                this.show();
-            }
-            return true;
-        }
-        if (!this.isHidden()) {
-            this.hide();
-        }
-        return false;
+    if (searchable && searchFilter.onSearch(token, caseSensitive)) {
+      if (this.isHidden()) {
+        this.show();
+      }
+      return true;
     }
-
-
-    public MenuSearchFilter getSearchFilter() {
-        return searchFilter;
+    if (!this.isHidden()) {
+      this.hide();
     }
+    return false;
+  }
 
-    public CustomMenuItem<V> setSearchFilter(MenuSearchFilter searchFilter) {
-        if (nonNull(searchFilter)) {
-            this.searchFilter = searchFilter;
-        }
-        return this;
+  public MenuSearchFilter getSearchFilter() {
+    return searchFilter;
+  }
+
+  public CustomMenuItem<V> setSearchFilter(MenuSearchFilter searchFilter) {
+    if (nonNull(searchFilter)) {
+      this.searchFilter = searchFilter;
     }
+    return this;
+  }
 }

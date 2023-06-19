@@ -21,5 +21,4 @@ public class Dialog extends AbstractDialog<Dialog> {
   public static Dialog create() {
     return new Dialog();
   }
-
 }

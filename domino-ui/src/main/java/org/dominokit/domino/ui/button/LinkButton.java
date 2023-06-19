@@ -19,7 +19,6 @@ import elemental2.dom.HTMLAnchorElement;
 import org.dominokit.domino.ui.elements.AnchorElement;
 import org.dominokit.domino.ui.icons.Icon;
 import org.dominokit.domino.ui.style.Elevation;
-import org.dominokit.domino.ui.utils.DominoElement;
 
 public class LinkButton extends BaseButton<HTMLAnchorElement, LinkButton> {
 

@@ -21,7 +21,6 @@ import elemental2.dom.HTMLDivElement;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
-
 import org.dominokit.domino.ui.elements.DivElement;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
 

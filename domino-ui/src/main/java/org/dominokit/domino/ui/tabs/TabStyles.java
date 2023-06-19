@@ -17,22 +17,19 @@ package org.dominokit.domino.ui.tabs;
 
 import org.dominokit.domino.ui.style.CssClass;
 
-/**
- * Constants class for Tabs component css classes names
- */
+/** Constants class for Tabs component css classes names */
 public interface TabStyles {
-    CssClass dui_tabs_nav =()->"dui-tabs-nav";
-    CssClass dui_tab_item =()->"dui-tab-item";
-    CssClass dui_tab_anchor =()->"dui-tab-anchor";
-    CssClass dui_tabs = () -> "dui-tabs";
-    CssClass dui_tab_header_item =()->"dui-tab-header-item";
-    CssClass dui_tab_header_close =()->"dui-tab-header-close";
-    CssClass dui_tab_header_icon =()->"dui-tab-header-icon";
-    CssClass dui_tab_header_text =()->"dui-tab-header-text";
-    CssClass dui_tab_header =()->"dui-tab-header";
-    CssClass dui_tabs_content =()->"dui-tabs-content";
-    CssClass dui_tab_panel =()->"dui-tab-panel";
-    CssClass dui_vertical_header = ()-> "dui-vertical-header";
-    CssClass dui_vertical_header_reversed = ()-> "dui-reversed-vertical-header";
-
+  CssClass dui_tabs_nav = () -> "dui-tabs-nav";
+  CssClass dui_tab_item = () -> "dui-tab-item";
+  CssClass dui_tab_anchor = () -> "dui-tab-anchor";
+  CssClass dui_tabs = () -> "dui-tabs";
+  CssClass dui_tab_header_item = () -> "dui-tab-header-item";
+  CssClass dui_tab_header_close = () -> "dui-tab-header-close";
+  CssClass dui_tab_header_icon = () -> "dui-tab-header-icon";
+  CssClass dui_tab_header_text = () -> "dui-tab-header-text";
+  CssClass dui_tab_header = () -> "dui-tab-header";
+  CssClass dui_tabs_content = () -> "dui-tabs-content";
+  CssClass dui_tab_panel = () -> "dui-tab-panel";
+  CssClass dui_vertical_header = () -> "dui-vertical-header";
+  CssClass dui_vertical_header_reversed = () -> "dui-reversed-vertical-header";
 }

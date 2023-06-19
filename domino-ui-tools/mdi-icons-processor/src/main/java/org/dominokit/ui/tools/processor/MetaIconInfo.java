@@ -16,9 +16,8 @@
 package org.dominokit.ui.tools.processor;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import java.util.List;
-
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import java.util.List;
 import org.dominokit.jackson.annotation.JSONMapper;
 
 @JSONMapper

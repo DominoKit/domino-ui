@@ -17,7 +17,7 @@ package org.dominokit.domino.ui.datatable.store;
 
 import java.util.List;
 import java.util.Optional;
-import org.dominokit.domino.ui.datatable.plugins.SortDirection;
+import org.dominokit.domino.ui.datatable.plugins.pagination.SortDirection;
 
 /**
  * This event is fired whenever the data in the data table is changed including the sort

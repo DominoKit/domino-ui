@@ -25,7 +25,6 @@ import elemental2.dom.HTMLPreElement;
 import org.dominokit.domino.ui.elements.PreElement;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
 import org.dominokit.domino.ui.utils.DominoElement;
-import org.dominokit.domino.ui.utils.ElementsFactory;
 
 /**
  * A component to create code blocks
@@ -115,9 +114,11 @@ public class Code {
    */
   public static Block block(String codeText) {
     return new Block(
-            elements.pre()
+        elements
+            .pre()
             .appendChild(
-                    elements.code()
+                elements
+                    .code()
                     .addCss(dui_overflow_x_scroll, dui_whitespace_pre)
                     .textContent(codeText))
             .element());
@@ -140,7 +141,8 @@ public class Code {
    */
   public static Statement statement(String code) {
     return new Statement(
-        elements.code()
+        elements
+            .code()
             .addCss(dui_overflow_x_scroll, dui_whitespace_pre)
             .textContent(code)
             .element());

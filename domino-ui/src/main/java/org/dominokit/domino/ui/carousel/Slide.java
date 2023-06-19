@@ -15,6 +15,10 @@
  */
 package org.dominokit.domino.ui.carousel;
 
+import static org.dominokit.domino.ui.carousel.CarouselStyles.slide;
+import static org.dominokit.domino.ui.carousel.CarouselStyles.slide_caption;
+import static org.dominokit.domino.ui.carousel.CarouselStyles.slide_indicator;
+
 import elemental2.dom.HTMLDivElement;
 import elemental2.dom.HTMLElement;
 import elemental2.dom.HTMLImageElement;
@@ -31,10 +35,6 @@ import org.dominokit.domino.ui.utils.BaseDominoElement;
 import org.dominokit.domino.ui.utils.ChildHandler;
 import org.dominokit.domino.ui.utils.DominoElement;
 import org.dominokit.domino.ui.utils.LazyChild;
-
-import static org.dominokit.domino.ui.carousel.CarouselStyles.slide;
-import static org.dominokit.domino.ui.carousel.CarouselStyles.slide_caption;
-import static org.dominokit.domino.ui.carousel.CarouselStyles.slide_indicator;
 
 /**
  * A component for an element for {@link Carousel}
@@ -56,8 +56,7 @@ public class Slide extends BaseDominoElement<HTMLDivElement, Slide> {
   private final DominoElement<HTMLElement> imageElement;
 
   private Slide(HTMLElement element) {
-    slideElement =
-        div().addCss(slide).appendChild(imageElement = elementOf(element));
+    slideElement = div().addCss(slide).appendChild(imageElement = elementOf(element));
 
     indicatorElement = li().addCss(slide_indicator);
 
@@ -144,8 +143,8 @@ public class Slide extends BaseDominoElement<HTMLDivElement, Slide> {
   }
 
   /**
-   * Activates this slide. This will add {@link
-   * org.dominokit.domino.ui.style.GenericCss#dui_active} style to the slide
+   * Activates this slide. This will add {@link org.dominokit.domino.ui.style.GenericCss#dui_active}
+   * style to the slide
    *
    * @return same instance
    */
@@ -194,8 +193,7 @@ public class Slide extends BaseDominoElement<HTMLDivElement, Slide> {
   }
 
   /** @return The slide label element */
-  public Slide withSlideLabelElement(
-      ChildHandler<Slide, HeadingElement> handler) {
+  public Slide withSlideLabelElement(ChildHandler<Slide, HeadingElement> handler) {
     handler.apply(this, slideLabelElement.get());
     return this;
   }
@@ -205,8 +203,7 @@ public class Slide extends BaseDominoElement<HTMLDivElement, Slide> {
     return slideDescriptionElement.get();
   }
 
-  public Slide withSlideDescriptionElement(
-      ChildHandler<Slide, ParagraphElement> handler) {
+  public Slide withSlideDescriptionElement(ChildHandler<Slide, ParagraphElement> handler) {
     handler.apply(this, slideDescriptionElement.get());
     return this;
   }

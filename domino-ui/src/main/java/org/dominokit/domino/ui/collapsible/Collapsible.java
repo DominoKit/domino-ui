@@ -23,9 +23,8 @@ import elemental2.dom.Element;
 import elemental2.dom.HTMLElement;
 import java.util.ArrayList;
 import java.util.List;
-
-import org.dominokit.domino.ui.utils.IsCollapsible;
 import org.dominokit.domino.ui.IsElement;
+import org.dominokit.domino.ui.utils.IsCollapsible;
 
 /**
  * A component to show and hide element
@@ -64,27 +63,27 @@ public class Collapsible implements IsElement<Element>, IsCollapsible<Collapsibl
   public Collapsible(Element element) {
     this.element = element;
     handlers =
-            new CollapsibleHandlers() {
-              @Override
-              public Runnable onBeforeExpand() {
-                return Collapsible.this::onBeforeExpand;
-              }
+        new CollapsibleHandlers() {
+          @Override
+          public Runnable onBeforeExpand() {
+            return Collapsible.this::onBeforeExpand;
+          }
 
-              @Override
-              public Runnable onExpandCompleted() {
-                return Collapsible.this::onExpandCompleted;
-              }
+          @Override
+          public Runnable onExpandCompleted() {
+            return Collapsible.this::onExpandCompleted;
+          }
 
-              @Override
-              public Runnable onBeforeCollapse() {
-                return Collapsible.this::onBeforeCollapse;
-              }
+          @Override
+          public Runnable onBeforeCollapse() {
+            return Collapsible.this::onBeforeCollapse;
+          }
 
-              @Override
-              public Runnable onCollapseCompleted() {
-                return Collapsible.this::onCollapseCompleted;
-              }
-            };
+          @Override
+          public Runnable onCollapseCompleted() {
+            return Collapsible.this::onCollapseCompleted;
+          }
+        };
     strategy.init(element, handlers);
   }
 

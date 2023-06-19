@@ -36,31 +36,40 @@ public class TagOption<V> extends Option<V, Chip, TagOption<V>> {
     return new TagOption<>(key, value, text, description);
   }
 
-  public static <V> TagOption<V> create(V value, String key, OptionSupplier<Chip, V> componentSupplier, OptionSupplier<AbstractMenuItem<V>, V> menuItemSupplier) {
+  public static <V> TagOption<V> create(
+      V value,
+      String key,
+      OptionSupplier<Chip, V> componentSupplier,
+      OptionSupplier<AbstractMenuItem<V>, V> menuItemSupplier) {
     return new TagOption<>(key, value, componentSupplier, menuItemSupplier);
   }
 
   public TagOption(String key, V value, String text, String description) {
-    this(key, value, (k, v) -> Chip.create(text), (k, v)-> MenuItem.create(text, description));
+    this(key, value, (k, v) -> Chip.create(text), (k, v) -> MenuItem.create(text, description));
   }
 
   public TagOption(String key, V value, String text) {
     super(key, value, Chip.create(text), MenuItem.create(text));
-    withComponent((parent, chip) -> chip
-            .addOnRemoveListener(c -> onChipRemoved())
-            .applyMeta(ValueMeta.of(value), AttributeMeta.of(DUI_OPTION_KEY, key)));
+    withComponent(
+        (parent, chip) ->
+            chip.addOnRemoveListener(c -> onChipRemoved())
+                .applyMeta(ValueMeta.of(value), AttributeMeta.of(DUI_OPTION_KEY, key)));
   }
 
-  public TagOption(String key, V value, OptionSupplier<Chip, V> componentSupplier, OptionSupplier<AbstractMenuItem<V>, V> menuItemSupplier) {
+  public TagOption(
+      String key,
+      V value,
+      OptionSupplier<Chip, V> componentSupplier,
+      OptionSupplier<AbstractMenuItem<V>, V> menuItemSupplier) {
     super(key, value, componentSupplier, menuItemSupplier);
-    withComponent((parent, chip) -> {
-      chip
-              .addOnRemoveListener(c -> onChipRemoved())
+    withComponent(
+        (parent, chip) -> {
+          chip.addOnRemoveListener(c -> onChipRemoved())
               .applyMeta(ValueMeta.of(value), AttributeMeta.of(DUI_OPTION_KEY, key));
-    });
+        });
   }
 
-  private void onChipRemoved(){
+  private void onChipRemoved() {
     getTarget().onOptionDeselected(this);
   }
 

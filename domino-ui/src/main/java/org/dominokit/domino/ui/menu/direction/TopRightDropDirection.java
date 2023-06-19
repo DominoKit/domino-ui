@@ -15,15 +15,14 @@
  */
 package org.dominokit.domino.ui.menu.direction;
 
-import elemental2.dom.DOMRect;
-import elemental2.dom.Element;
-import org.dominokit.domino.ui.style.CssClass;
-import org.dominokit.domino.ui.style.Style;
-
 import static elemental2.dom.DomGlobal.window;
 import static org.dominokit.domino.ui.style.SpacingCss.dui_flex_col_reverse;
 import static org.dominokit.domino.ui.utils.ElementsFactory.elements;
 import static org.dominokit.domino.ui.utils.Unit.px;
+
+import elemental2.dom.DOMRect;
+import elemental2.dom.Element;
+import org.dominokit.domino.ui.style.Style;
 
 public class TopRightDropDirection implements DropDirection {
   @Override
@@ -38,11 +37,12 @@ public class TopRightDropDirection implements DropDirection {
       delta = sourceRect.width - availableSpace;
     }
 
-    Style.of(source).style.setProperty(
-        "top", px.of((targetRect.top + window.pageYOffset) - sourceRect.height - 1));
+    Style.of(source)
+        .style
+        .setProperty("top", px.of((targetRect.top + window.pageYOffset) - sourceRect.height - 1));
     Style.of(source).style.setProperty("left", px.of(targetRect.left + window.pageXOffset - delta));
     dui_dd_top_right.apply(source);
-    elements.elementOf(source).setCssProperty("--dui-menu-drop-min-width", targetRect.width+"px");
+    elements.elementOf(source).setCssProperty("--dui-menu-drop-min-width", targetRect.width + "px");
   }
 
   @Override

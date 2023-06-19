@@ -19,8 +19,8 @@ import static java.util.Objects.isNull;
 
 import elemental2.dom.HTMLInputElement;
 import jsinterop.base.Js;
-import org.gwtproject.timer.client.Timer;
 import org.dominokit.domino.ui.events.EventType;
+import org.gwtproject.timer.client.Timer;
 
 /**
  * A component that wraps an {@link HTMLInputElement} and performs an action when the user stops

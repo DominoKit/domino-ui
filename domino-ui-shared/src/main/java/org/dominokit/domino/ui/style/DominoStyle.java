@@ -16,17 +16,21 @@
 package org.dominokit.domino.ui.style;
 
 import elemental2.dom.Element;
-import elemental2.dom.HTMLElement;
-
 import java.util.function.Predicate;
 
 public interface DominoStyle<E extends Element, R> {
   R setCssProperty(String name, String value);
+
   R setCssProperty(String name, Number value);
+
   R setCssProperty(String name, int value);
+
   R setCssProperty(String name, double value);
+
   R setCssProperty(String name, short value);
+
   R setCssProperty(String name, float value);
+
   R setCssProperty(String name, boolean value);
 
   R setCssProperty(String name, String value, boolean important);
@@ -50,6 +54,7 @@ public interface DominoStyle<E extends Element, R> {
   R removeCss(String cssClass);
 
   R removeCss(CssClass cssClass);
+
   R removeCss(HasCssClass cssClass);
 
   R removeCss(String... cssClasses);

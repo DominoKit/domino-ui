@@ -25,12 +25,12 @@ import org.dominokit.domino.ui.animations.Transition;
 import org.dominokit.domino.ui.button.RemoveButton;
 import org.dominokit.domino.ui.elements.DivElement;
 import org.dominokit.domino.ui.elements.SpanElement;
+import org.dominokit.domino.ui.events.EventType;
 import org.dominokit.domino.ui.style.*;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
 import org.dominokit.domino.ui.utils.ChildHandler;
 import org.dominokit.domino.ui.utils.DominoElement;
 import org.dominokit.domino.ui.utils.LazyChild;
-import org.dominokit.domino.ui.events.EventType;
 
 /**
  * A component for showing notifications on different position with custom content
@@ -68,16 +68,17 @@ public class Notification extends BaseDominoElement<HTMLDivElement, Notification
     root =
         div()
             .addCss(dui_notification_wrapper, position)
-            .appendChild(element = div()
-                    .appendChild(content = div().addCss(dui_order_first))
-                    .addCss(dui_notification));
+            .appendChild(
+                element =
+                    div()
+                        .appendChild(content = div().addCss(dui_order_first))
+                        .addCss(dui_notification));
     messageSpan = LazyChild.of(span(), content);
     closeButton = LazyChild.of(RemoveButton.create().addCss(dui_order_last), element);
     closeButton.whenInitialized(
         () -> {
           closeButton.element().addEventListener(EventType.click.getName(), e -> close());
-          element.insertBefore(
-              span().addCss("dui-notification-filler"), closeButton.element());
+          element.insertBefore(span().addCss("dui-notification-filler"), closeButton.element());
         });
     init(this);
   }
@@ -182,8 +183,8 @@ public class Notification extends BaseDominoElement<HTMLDivElement, Notification
   }
 
   /**
-   * Defines the location in which the notification will show up when {@link Notification#expand()} is
-   * called.
+   * Defines the location in which the notification will show up when {@link Notification#expand()}
+   * is called.
    *
    * @param position {@link Position}
    * @return {@link Notification}
@@ -211,7 +212,7 @@ public class Notification extends BaseDominoElement<HTMLDivElement, Notification
   }
 
   @Override
-  public Notification show(){
+  public Notification show() {
     return expand();
   }
 
@@ -229,10 +230,11 @@ public class Notification extends BaseDominoElement<HTMLDivElement, Notification
   public Notification expand() {
     this.closed = false;
     Animation.create(element)
-        .beforeStart(element -> {
-          DomGlobal.document.body.appendChild(element());
-          NotificationPosition.updatePositions(position);
-        })
+        .beforeStart(
+            element -> {
+              DomGlobal.document.body.appendChild(element());
+              NotificationPosition.updatePositions(position);
+            })
         .transition(inTransition)
         .callback(
             e -> {
@@ -313,7 +315,7 @@ public class Notification extends BaseDominoElement<HTMLDivElement, Notification
     return this;
   }
 
-  public Notification withContent(ChildHandler<Notification, DivElement> handler){
+  public Notification withContent(ChildHandler<Notification, DivElement> handler) {
     handler.apply(this, content);
     return this;
   }

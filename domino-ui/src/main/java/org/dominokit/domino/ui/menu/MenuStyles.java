@@ -45,10 +45,10 @@ public interface MenuStyles {
   CssClass dui_menu_group_header = () -> "dui-menu-group-header";
   CssClass dui_menu_drop = () -> "dui-menu-drop";
 
-  CssClass dui_menu_item_prefix = ()-> "dui-menu-item-prefix";
-  CssClass dui_menu_item_postfix = ()-> "dui-menu-item-postfix";
-  CssClass dui_menu_item_nested_indicator = ()-> "dui-menu-item-nested-indicator";
-  CssClass dui_menu_item_content = ()-> "dui-menu-item-content";
-  CssClass dui_menu_item_bottom = ()-> "dui-menu-item-bottom";
-
+  CssClass dui_menu_item_prefix = () -> "dui-menu-item-prefix";
+  CssClass dui_menu_item_postfix = () -> "dui-menu-item-postfix";
+  CssClass dui_menu_item_nested_indicator = () -> "dui-menu-item-nested-indicator";
+  CssClass dui_menu_item_content = () -> "dui-menu-item-content";
+  CssClass dui_menu_item_bottom = () -> "dui-menu-item-bottom";
+  CssClass dui_context_menu = () -> "dui-context-menu";
 }

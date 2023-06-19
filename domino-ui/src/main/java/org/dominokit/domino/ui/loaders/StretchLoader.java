@@ -16,23 +16,18 @@
 package org.dominokit.domino.ui.loaders;
 
 import elemental2.dom.HTMLDivElement;
+import org.dominokit.domino.ui.IsElement;
 import org.dominokit.domino.ui.elements.DivElement;
 import org.dominokit.domino.ui.utils.DominoElement;
-import org.dominokit.domino.ui.IsElement;
 
 /** Stretch loader implementation */
 public class StretchLoader extends BaseLoader<StretchLoader> implements IsElement<HTMLDivElement> {
 
-  private final DivElement progress1 =
-      div().addCss(wait_me_progress_elem_1, dui_bg_grey_d_2);
-  private final DivElement progress2 =
-      div().addCss(wait_me_progress_elem_2, dui_bg_grey_d_2);
-  private final DivElement progress3 =
-      div().addCss(wait_me_progress_elem_3, dui_bg_grey_d_2);
-  private final DivElement progress4 =
-      div().addCss(wait_me_progress_elem_4, dui_bg_grey_d_2);
-  private final DivElement progress5 =
-      div().addCss(wait_me_progress_elem_5, dui_bg_grey_d_2);
+  private final DivElement progress1 = div().addCss(wait_me_progress_elem_1, dui_bg_grey_d_2);
+  private final DivElement progress2 = div().addCss(wait_me_progress_elem_2, dui_bg_grey_d_2);
+  private final DivElement progress3 = div().addCss(wait_me_progress_elem_3, dui_bg_grey_d_2);
+  private final DivElement progress4 = div().addCss(wait_me_progress_elem_4, dui_bg_grey_d_2);
+  private final DivElement progress5 = div().addCss(wait_me_progress_elem_5, dui_bg_grey_d_2);
 
   private final DivElement loader =
       div()
@@ -50,10 +45,7 @@ public class StretchLoader extends BaseLoader<StretchLoader> implements IsElemen
           .appendChild(loadingText);
 
   private final DivElement element =
-      div()
-          .addCss(wait_me)
-          .style("background: rgba(255, 255, 255, 0.9);")
-          .appendChild(content);
+      div().addCss(wait_me).style("background: rgba(255, 255, 255, 0.9);").appendChild(content);
 
   public StretchLoader() {
     init(this);

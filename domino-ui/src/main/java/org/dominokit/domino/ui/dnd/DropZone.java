@@ -15,13 +15,13 @@
  */
 package org.dominokit.domino.ui.dnd;
 
+import static org.dominokit.domino.ui.utils.ElementsFactory.elements;
+
 import elemental2.dom.*;
 import java.util.HashMap;
 import java.util.Map;
-import org.dominokit.domino.ui.utils.DominoElement;
 import org.dominokit.domino.ui.IsElement;
-
-import static org.dominokit.domino.ui.utils.ElementsFactory.elements;
+import org.dominokit.domino.ui.utils.DominoElement;
 
 /**
  * Define a drop zone.

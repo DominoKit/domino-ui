@@ -15,17 +15,16 @@
  */
 package org.dominokit.domino.ui.forms;
 
+import static java.util.Objects.nonNull;
+
 import elemental2.dom.HTMLInputElement;
+import java.util.HashMap;
+import java.util.Map;
 import org.dominokit.domino.ui.elements.DataListElement;
 import org.dominokit.domino.ui.elements.OptionElement;
 import org.dominokit.domino.ui.forms.validations.InputAutoValidator;
 import org.dominokit.domino.ui.utils.ApplyFunction;
 import org.dominokit.domino.ui.utils.DominoElement;
-
-import java.util.HashMap;
-import java.util.Map;
-
-import static java.util.Objects.nonNull;
 
 /**
  * A Base implementation for special type components with text input

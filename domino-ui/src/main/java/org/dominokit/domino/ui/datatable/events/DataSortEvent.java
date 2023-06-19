@@ -15,11 +15,12 @@
  */
 package org.dominokit.domino.ui.datatable.events;
 
-import org.dominokit.domino.ui.datatable.plugins.SortDirection;
+import org.dominokit.domino.ui.datatable.plugins.pagination.SortDirection;
+import org.dominokit.domino.ui.datatable.plugins.pagination.SortPlugin;
 
 /**
- * This event will be fired by the {@link org.dominokit.domino.ui.datatable.plugins.SortPlugin} or
- * the {@link org.dominokit.domino.ui.datatable.DataTable} when the sort is by the data store.
+ * This event will be fired by the {@link SortPlugin} or the {@link
+ * org.dominokit.domino.ui.datatable.DataTable} when the sort is by the data store.
  */
 public class DataSortEvent implements TableEvent {
 

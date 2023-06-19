@@ -16,7 +16,7 @@
 package org.dominokit.domino.ui.datatable.store;
 
 import java.util.Comparator;
-import org.dominokit.domino.ui.datatable.plugins.SortDirection;
+import org.dominokit.domino.ui.datatable.plugins.pagination.SortDirection;
 
 /**
  * An interface to implement the sort mechanism for a {@link LocalListDataStore}

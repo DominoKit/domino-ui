@@ -18,7 +18,6 @@ package org.dominokit.domino.ui.scroll;
 import elemental2.dom.HTMLDivElement;
 import org.dominokit.domino.ui.elements.DivElement;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
-import org.dominokit.domino.ui.utils.DominoElement;
 
 /**
  * A component that wraps the {@link HTMLDivElement} to make it horizontally scrollable by default

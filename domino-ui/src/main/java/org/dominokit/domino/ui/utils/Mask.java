@@ -13,20 +13,19 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
- package org.dominokit.domino.ui.utils;
+package org.dominokit.domino.ui.utils;
 
- import static java.util.Objects.nonNull;
+import static java.util.Objects.nonNull;
 
- import elemental2.core.JsArray;
- import elemental2.core.JsRegExp;
- import elemental2.core.JsString;
- import elemental2.dom.HTMLInputElement;
- import elemental2.dom.KeyboardEvent;
- import org.dominokit.domino.ui.forms.InputFormField;
-
- import java.util.List;
- import java.util.function.Consumer;
- import java.util.stream.Collectors;
+import elemental2.core.JsArray;
+import elemental2.core.JsRegExp;
+import elemental2.core.JsString;
+import elemental2.dom.HTMLInputElement;
+import elemental2.dom.KeyboardEvent;
+import java.util.List;
+import java.util.function.Consumer;
+import java.util.stream.Collectors;
+import org.dominokit.domino.ui.forms.InputFormField;
 
 /**
  * A utility that provides masking feature on input elements based on pattern and regex
@@ -44,7 +43,7 @@
  *             .build();
  * </pre>
  */
- public class Mask {
+public class Mask {
 
   private final HTMLInputElement element;
   private JsRegExp regex;
@@ -198,8 +197,7 @@
   }
 
   /**
-   * @param onPatternNotMatched a consumer that will be called when the value is filled but it
- does
+   * @param onPatternNotMatched a consumer that will be called when the value is filled but it does
    *     not match the pattern
    */
   public void onPatternNotMatched(Consumer<String> onPatternNotMatched) {
@@ -248,4 +246,4 @@
       return new Mask(element, pattern, regex, slots, onPatternMatched, onPatternNotMatched);
     }
   }
- }
+}

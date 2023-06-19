@@ -19,10 +19,10 @@ import org.dominokit.domino.ui.style.CssClass;
 
 /** A constants class for different preloader sizes */
 public interface PreloaderStyles {
-  CssClass dui_preloader = ()->"dui-preloader";
-  CssClass dui_pl_spinner_layer = ()->"dui-pl-spinner-layer";
-  CssClass dui_pl_circle_clipper = ()->"dui-pl-circle-clipper";
-  CssClass dui_pl_circle_left = ()->"dui-pl-circle-left";
-  CssClass dui_pl_circle_right = ()->"dui-pl-circle-right";
-  CssClass dui_pl_right = ()->"dui-pl-right";
+  CssClass dui_preloader = () -> "dui-preloader";
+  CssClass dui_pl_spinner_layer = () -> "dui-pl-spinner-layer";
+  CssClass dui_pl_circle_clipper = () -> "dui-pl-circle-clipper";
+  CssClass dui_pl_circle_left = () -> "dui-pl-circle-left";
+  CssClass dui_pl_circle_right = () -> "dui-pl-circle-right";
+  CssClass dui_pl_right = () -> "dui-pl-right";
 }

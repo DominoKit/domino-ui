@@ -13,18 +13,18 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
- package org.dominokit.domino.ui.datatable.plugins.filter.header;
+package org.dominokit.domino.ui.datatable.plugins.filter.header;
 
- import elemental2.dom.HTMLInputElement;
- import org.dominokit.domino.ui.datatable.model.FilterTypes;
- import org.dominokit.domino.ui.forms.TextBox;
+import elemental2.dom.HTMLInputElement;
+import org.dominokit.domino.ui.datatable.model.FilterTypes;
+import org.dominokit.domino.ui.forms.TextBox;
 
 /**
  * String column header filter component that is rendered as a {@link TextBox} component
  *
  * @param <T> type of data table records
  */
- public class TextHeaderFilter<T> extends DelayedHeaderFilterInput<String, TextBox, T> {
+public class TextHeaderFilter<T> extends DelayedHeaderFilterInput<TextBox, T, String> {
 
   private TextBox textBox;
 
@@ -95,6 +95,9 @@
   /** {@inheritDoc} */
   @Override
   public void clear() {
-      textBox.withPausedChangeListeners(field -> textBox.clear());
+    textBox.withPausedChangeListeners(
+        field -> {
+          textBox.clear();
+        });
   }
- }
+}

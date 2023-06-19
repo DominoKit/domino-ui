@@ -15,18 +15,15 @@
  */
 package org.dominokit.domino.ui.style;
 
+import static java.util.Objects.nonNull;
+
 import elemental2.dom.CSSStyleDeclaration;
 import elemental2.dom.Element;
-import elemental2.dom.HTMLElement;
-import elemental2.svg.SVGElement;
+import java.util.Arrays;
+import java.util.function.Predicate;
 import jsinterop.base.Js;
 import org.dominokit.domino.ui.DominoElementAdapter;
 import org.dominokit.domino.ui.IsElement;
-
-import java.util.Arrays;
-import java.util.function.Predicate;
-
-import static java.util.Objects.nonNull;
 
 public class Style<E extends Element> implements DominoStyle<E, Style<E>> {
 
@@ -108,15 +105,15 @@ public class Style<E extends Element> implements DominoStyle<E, Style<E>> {
     }
     return this;
   }
+
   public Style<E> setOrRemoveCssProperty(String name, String value, Predicate<Style<E>> predicate) {
-    if(predicate.test(this)){
+    if (predicate.test(this)) {
       setCssProperty(name, value);
-    }else {
+    } else {
       removeCssProperty(name);
     }
     return this;
   }
-
 
   /**
    * @param name css property name

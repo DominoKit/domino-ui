@@ -19,7 +19,6 @@ import elemental2.dom.HTMLButtonElement;
 import org.dominokit.domino.ui.elements.ButtonElement;
 import org.dominokit.domino.ui.icons.Icon;
 import org.dominokit.domino.ui.style.Elevation;
-import org.dominokit.domino.ui.utils.DominoElement;
 
 /**
  * a simple button component

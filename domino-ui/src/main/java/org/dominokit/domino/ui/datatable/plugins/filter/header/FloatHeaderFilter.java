@@ -13,18 +13,18 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
- package org.dominokit.domino.ui.datatable.plugins.filter.header;
+package org.dominokit.domino.ui.datatable.plugins.filter.header;
 
- import elemental2.dom.HTMLInputElement;
- import org.dominokit.domino.ui.datatable.model.FilterTypes;
- import org.dominokit.domino.ui.forms.FloatBox;
+import elemental2.dom.HTMLInputElement;
+import org.dominokit.domino.ui.datatable.model.FilterTypes;
+import org.dominokit.domino.ui.forms.FloatBox;
 
 /**
  * Float number column header filter component that is rendered as a {@link FloatBox} component
  *
  * @param <T> type of data table records
  */
- public class FloatHeaderFilter<T> extends DelayedHeaderFilterInput<Float, FloatBox, T> {
+public class FloatHeaderFilter<T> extends DelayedHeaderFilterInput<FloatBox, T, Float> {
 
   private FloatBox floatBox;
 
@@ -90,14 +90,15 @@
   /** {@inheritDoc} */
   @Override
   public void clear() {
-      floatBox.withPausedChangeListeners(field -> {
+    floatBox.withPausedChangeListeners(
+        field -> {
           floatBox.clear();
           floatBox.getInputElement().element().value = "";
-      });
+        });
   }
 
   /** @return the {@link FloatBox} wrapped in this component */
   public FloatBox getFloatBox() {
     return floatBox;
   }
- }
+}

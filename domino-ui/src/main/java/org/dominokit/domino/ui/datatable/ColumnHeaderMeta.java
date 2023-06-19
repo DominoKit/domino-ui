@@ -15,20 +15,16 @@
  */
 package org.dominokit.domino.ui.datatable;
 
-import elemental2.dom.HTMLTableCellElement;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import org.dominokit.domino.ui.utils.ComponentMeta;
 
-import org.dominokit.domino.ui.elements.THElement;
-import org.dominokit.domino.ui.elements.THeadElement;
-import org.dominokit.domino.ui.utils.DominoElement;
-
-public class ColumnHeaderMeta implements ColumnMeta {
+public class ColumnHeaderMeta implements ComponentMeta {
 
   public static final String DOMINO_COLUMN_HEADER_META = "domino-column-header-meta";
 
-  private List<THElement> extraHeadElements = new ArrayList<>();
+  private List<ColumnHeader> extraHeadElements = new ArrayList<>();
 
   public static ColumnHeaderMeta create() {
     return new ColumnHeaderMeta();
@@ -43,12 +39,11 @@ public class ColumnHeaderMeta implements ColumnMeta {
     return column.getMeta(DOMINO_COLUMN_HEADER_META);
   }
 
-  public List<THElement> getExtraHeadElements() {
+  public List<ColumnHeader> getExtraHeadElements() {
     return extraHeadElements;
   }
 
-  public ColumnHeaderMeta addExtraHeadElement(
-      THElement extraHeadElement) {
+  public ColumnHeaderMeta addExtraHeadElement(ColumnHeader extraHeadElement) {
     this.extraHeadElements.add(extraHeadElement);
     return this;
   }

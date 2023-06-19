@@ -15,11 +15,11 @@
  */
 package org.dominokit.domino.ui.tabs;
 
+import static org.dominokit.domino.ui.tabs.TabStyles.dui_tab_item;
+
 import elemental2.dom.HTMLLIElement;
 import org.dominokit.domino.ui.elements.LIElement;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
-
-import static org.dominokit.domino.ui.tabs.TabStyles.dui_tab_item;
 
 /** A component that adds a space between {@link Tab}s in the {@link TabsPanel} */
 public class FillItem extends BaseDominoElement<HTMLLIElement, FillItem> {

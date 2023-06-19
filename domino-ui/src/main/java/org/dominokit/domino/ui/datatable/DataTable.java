@@ -15,42 +15,20 @@
  */
 package org.dominokit.domino.ui.datatable;
 
+import static java.util.Objects.nonNull;
+
+import elemental2.dom.*;
 import elemental2.dom.EventListener;
-import elemental2.dom.HTMLDivElement;
-import elemental2.dom.HTMLTableElement;
-import elemental2.dom.HTMLTableSectionElement;
-import org.dominokit.domino.ui.datatable.events.DataSortEvent;
-import org.dominokit.domino.ui.datatable.events.OnBeforeDataChangeEvent;
-import org.dominokit.domino.ui.datatable.events.TableBorderedEvent;
-import org.dominokit.domino.ui.datatable.events.TableDataUpdatedEvent;
-import org.dominokit.domino.ui.datatable.events.TableEvent;
-import org.dominokit.domino.ui.datatable.events.TableEventListener;
+import java.util.*;
+import java.util.stream.Collectors;
+import org.dominokit.domino.ui.IsElement;
+import org.dominokit.domino.ui.datatable.events.*;
 import org.dominokit.domino.ui.datatable.model.SearchContext;
 import org.dominokit.domino.ui.datatable.store.DataStore;
-import org.dominokit.domino.ui.elements.DivElement;
-import org.dominokit.domino.ui.elements.TBodyElement;
-import org.dominokit.domino.ui.elements.THeadElement;
-import org.dominokit.domino.ui.elements.TableElement;
-import org.dominokit.domino.ui.utils.BaseDominoElement;
-import org.dominokit.domino.ui.utils.DominoElement;
+import org.dominokit.domino.ui.elements.*;
 import org.dominokit.domino.ui.events.EventType;
-import org.dominokit.domino.ui.utils.HasSelectionSupport;
-
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
-
-import static java.util.Objects.nonNull;
-import static org.dominokit.domino.ui.datatable.DataTableStyles.TABLE_BORDERED;
-import static org.dominokit.domino.ui.datatable.DataTableStyles.TABLE_CONDENSED;
-import static org.dominokit.domino.ui.datatable.DataTableStyles.TABLE_HOVER;
-import static org.dominokit.domino.ui.datatable.DataTableStyles.TABLE_RESPONSIVE;
-import static org.dominokit.domino.ui.datatable.DataTableStyles.TABLE_ROW_FILTERED;
-import static org.dominokit.domino.ui.datatable.DataTableStyles.TABLE_STRIPED;
-import static org.dominokit.domino.ui.utils.Unit.px;
+import org.dominokit.domino.ui.style.BooleanCssClass;
+import org.dominokit.domino.ui.utils.*;
 
 /**
  * The data table component
@@ -58,30 +36,29 @@ import static org.dominokit.domino.ui.utils.Unit.px;
  * @param <T> the type of the data table records
  */
 public class DataTable<T> extends BaseDominoElement<HTMLDivElement, DataTable<T>>
-    implements HasSelectionSupport<TableRow<T>> {
+    implements HasSelectionSupport<TableRow<T>>,
+        HasSelectionListeners<DataTable<T>, TableRow<T>, List<TableRow<T>>>,
+        DataTableStyles {
 
   /** Use this constant to register a table event listener that listen to all events */
   public static final String ANY = "*";
   /** Use this constant as flag value to check if a row in the data tables have been filtered out */
   public static final String DATA_TABLE_ROW_FILTERED = "data-table-row-filtered";
 
+  private static final String PARENT_SELECTOR_PREFIX = "dui-dt-";
+
   private final DataStore<T> dataStore;
-  private DivElement root = div().css(TABLE_RESPONSIVE);
-  private TableElement tableElement =
-      table()
-          .css(DataTableStyles.TABLE, TABLE_HOVER, TABLE_STRIPED, "table-width-full");
+  private DivElement root = div().addCss(dui_datatable_responsive);
+  private TableElement tableElement;
   private TableConfig<T> tableConfig;
   private TBodyElement tbody = tbody();
-  private THeadElement thead = thead();
+  private THeadElement thead = thead().addCss(dui_datatable_thead);
+  private TFootElement tfoot = tfoot().addCss(dui_datatable_tfoot);
   private List<T> data = new ArrayList<>();
   private boolean selectable = true;
   private List<TableRow<T>> tableRows = new ArrayList<>();
 
-  private List<SelectionChangeListener<T>> selectionChangeListeners = new ArrayList<>();
-  private boolean condensed = false;
-  private boolean hoverable = true;
-  private boolean striped = true;
-  private boolean bordered = false;
+  private boolean selectionListenersPaused = false;
 
   private Map<String, List<TableEventListener>> events = new HashMap<>();
 
@@ -97,6 +74,12 @@ public class DataTable<T> extends BaseDominoElement<HTMLDivElement, DataTable<T>
         }
       };
 
+  private DynamicStyleSheet<HTMLDivElement, DataTable<T>> dynamicStyleSheet;
+  private Set<SelectionListener<? super TableRow<T>, ? super List<TableRow<T>>>>
+      selectionListeners = new HashSet<>();
+  private Set<SelectionListener<? super TableRow<T>, ? super List<TableRow<T>>>>
+      deselectionListeners = new HashSet<>();
+
   /**
    * Creates a new data table instance
    *
@@ -104,12 +87,24 @@ public class DataTable<T> extends BaseDominoElement<HTMLDivElement, DataTable<T>
    * @param dataStore the {@link DataStore}
    */
   public DataTable(TableConfig<T> tableConfig, DataStore<T> dataStore) {
+    tableElement = table().addCss(dui_datatable, dui_datatable_width_full);
     super.init(this);
     this.tableConfig = tableConfig;
+
     this.events.put(ANY, new ArrayList<>());
     this.dataStore = dataStore;
     this.addTableEventListener(ANY, dataStore);
+    tableElement.setAttribute("dui-data-v-scroll", 0);
+    tableElement.setAttribute("dui-data-h-scroll", 0);
     this.addEventListener(EventType.keydown.getName(), disableKeyboardListener, true);
+    tableElement.addEventListener(
+        "scroll",
+        evt -> {
+          double scrollTop = new Double(tableElement.element().scrollTop).intValue();
+          double scrollLeft = new Double(tableElement.element().scrollLeft).intValue();
+          tableElement.setAttribute("dui-data-v-scroll", scrollTop);
+          tableElement.setAttribute("dui-data-h-scroll", scrollLeft);
+        });
     this.dataStore.onDataChanged(
         dataChangedEvent -> {
           fireTableEvent(
@@ -130,7 +125,35 @@ public class DataTable<T> extends BaseDominoElement<HTMLDivElement, DataTable<T>
           fireTableEvent(new TableDataUpdatedEvent<>(this.data, dataChangedEvent.getTotalCount()));
         });
 
+    initDynamicStyleSheet();
     init();
+    onAttached(
+        mutationRecord -> {
+          DomGlobal.setTimeout(
+              p0 -> {
+                getDynamicStyleSheet().flush();
+              },
+              0);
+        });
+    addCss(dui_datatable_hover, dui_datatable_striped);
+  }
+
+  private void initDynamicStyleSheet() {
+    this.dynamicStyleSheet = new DynamicStyleSheet<>(PARENT_SELECTOR_PREFIX, this);
+    tableConfig
+        .getColumnsGrouped()
+        .forEach(
+            col -> {
+              col.applyAndOnSubColumns(
+                  column -> {
+                    ColumnCssRuleMeta<T> columnCssRuleMeta =
+                        ColumnCssRuleMeta.of(this.dynamicStyleSheet);
+                    columnCssRuleMeta.addRule(
+                        ColumnCssRuleMeta.DEFAULT_RULE,
+                        "col-" + column.getName().replace(" ", "-"));
+                    column.applyMeta(columnCssRuleMeta);
+                  });
+            });
   }
 
   public DataStore<T> getDataStore() {
@@ -152,7 +175,9 @@ public class DataTable<T> extends BaseDominoElement<HTMLDivElement, DataTable<T>
     tableConfig.onAfterHeaders(this);
     tableElement.appendChild(tbody);
     tableConfig.getPlugins().forEach(plugin -> plugin.onBodyAdded(DataTable.this));
-    root.appendChild(tableElement);
+    tableElement.appendChild(tfoot);
+    tableConfig.getPlugins().forEach(plugin -> plugin.onFooterAdded(DataTable.this));
+    appendChild(tableElement);
     tableConfig.getPlugins().forEach(plugin -> plugin.onAfterAddTable(DataTable.this));
     if (!tableConfig.isLazyLoad()) {
       this.dataStore.load();
@@ -163,8 +188,8 @@ public class DataTable<T> extends BaseDominoElement<HTMLDivElement, DataTable<T>
     }
 
     if (tableConfig.isFixed()) {
-      tableElement.removeCss("table-width-full");
-      root.addCss("table-fixed");
+      dui_datatable_width_full.remove(this);
+      this.addCss(dui_datatable_fixed);
       ColumnUtils.fixElementWidth(this, tableElement.element());
     }
 
@@ -174,51 +199,54 @@ public class DataTable<T> extends BaseDominoElement<HTMLDivElement, DataTable<T>
     return this;
   }
 
-  public void redraw() {
+  public DataTable<T> redraw() {
     tableConfig.onBeforeHeaders(this);
     tableConfig.drawHeaders(this, thead);
     tableConfig.onAfterHeaders(this);
     load();
+    return this;
   }
 
-  private void updateTableWidth() {
-    final long w =
-        tableElement.element().offsetWidth + Math.round(tableElement.element().scrollLeft);
-    thead.setWidth(px.of(w - 2));
-    tbody.setWidth(px.of(w - 2));
-  }
-
-  /** Force loading the data into the table */
-  public void load() {
+  /**
+   * Force loading the data into the table
+   *
+   * @return Same datatable instance
+   */
+  public DataTable<T> load() {
     this.dataStore.load();
+    return this;
   }
 
   /**
    * Set the table data
    *
    * @param data {@link List} of T
+   * @return Same datatable instance
    */
-  public void setData(List<T> data) {
+  public DataTable<T> setData(List<T> data) {
     this.data = data;
     tableRows.clear();
     removeRecordsHandler.removeRows(this);
     if (nonNull(data) && !data.isEmpty()) {
       addRows(data, 0);
     }
+    return this;
   }
 
   /**
    * Appends more records to the current data list of the table
    *
    * @param newData {@link List} of T
+   * @return Same datatable instance
    */
-  public void appendData(List<T> newData) {
+  public DataTable<T> appendData(List<T> newData) {
     if (nonNull(this.data)) {
       addRows(newData, this.data.size());
       this.data.addAll(newData);
     } else {
       setData(newData);
     }
+    return this;
   }
 
   private void addRows(List<T> data, int initialIndex) {
@@ -240,99 +268,40 @@ public class DataTable<T> extends BaseDominoElement<HTMLDivElement, DataTable<T>
     return data;
   }
 
-  /**
-   * Increases the height of the data table rows
-   *
-   * @return same DataTable instance
-   */
-  public DataTable<T> uncondense() {
-    tableElement.removeCss(TABLE_CONDENSED);
-    this.condensed = false;
+  public DataTable<T> setCondensed(boolean condensed) {
+    this.addCss(BooleanCssClass.of(dui_datatable_condensed, condensed));
     return this;
   }
 
-  /**
-   * Decreases the height of the data table rows
-   *
-   * @return same DataTable instance
-   */
-  public DataTable<T> condense() {
-    tableElement.addCss(TABLE_CONDENSED);
-    this.condensed = true;
+  public boolean isCondensed() {
+    return dui_datatable_condensed.isAppliedTo(this);
+  }
+
+  public DataTable<T> setHover(boolean hover) {
+    this.addCss(BooleanCssClass.of(dui_datatable_hover, hover));
     return this;
   }
 
-  /**
-   * removes the hover effect from data table rows
-   *
-   * @return same DataTable instance
-   */
-  public DataTable<T> noHover() {
-    tableElement.removeCss(TABLE_HOVER);
-    this.hoverable = false;
+  public boolean isHover() {
+    return dui_datatable_hover.isAppliedTo(this);
+  }
+
+  public DataTable<T> setBordered(boolean bordered) {
+    this.addCss(BooleanCssClass.of(dui_datatable_bordered, bordered));
     return this;
   }
 
-  /**
-   * Adds the hover effect to the data table rows
-   *
-   * @return same DataTable instance
-   */
-  public DataTable<T> hovered() {
-    noHover();
-    tableElement.addCss(TABLE_HOVER);
-    this.hoverable = true;
+  public boolean isBordered() {
+    return dui_datatable_bordered.isAppliedTo(this);
+  }
+
+  public DataTable<T> setStriped(boolean striped) {
+    this.addCss(BooleanCssClass.of(dui_datatable_striped, striped));
     return this;
   }
 
-  /**
-   * Remove the borders from the data table rows
-   *
-   * @return same DataTable instance
-   */
-  public DataTable<T> noBorder() {
-    tableElement.removeCss(TABLE_BORDERED);
-    removeCss(TABLE_BORDERED);
-    this.bordered = false;
-    fireTableEvent(new TableBorderedEvent(false));
-    return this;
-  }
-
-  /**
-   * Adds borders from the data table rows
-   *
-   * @return same DataTable instance
-   */
-  public DataTable<T> bordered() {
-    noBorder();
-    tableElement.addCss(TABLE_BORDERED);
-    addCss(TABLE_BORDERED);
-    this.bordered = true;
-    fireTableEvent(new TableBorderedEvent(true));
-    return this;
-  }
-
-  /**
-   * Remove the background alternation from the data table rows
-   *
-   * @return same DataTable instance
-   */
-  public DataTable<T> noStripes() {
-    tableElement.removeCss(TABLE_STRIPED);
-    this.striped = false;
-    return this;
-  }
-
-  /**
-   * Adds background alternation from the data table rows
-   *
-   * @return same DataTable instance
-   */
-  public DataTable<T> striped() {
-    noStripes();
-    tableElement.addCss(TABLE_STRIPED);
-    this.striped = true;
-    return this;
+  public boolean isStriped() {
+    return dui_datatable_striped.isAppliedTo(this);
   }
 
   /**
@@ -380,62 +349,54 @@ public class DataTable<T> extends BaseDominoElement<HTMLDivElement, DataTable<T>
     return thead;
   }
 
+  /** @return the {@link HTMLTableSectionElement} -tfoot- wrapped as {@link DominoElement} */
+  public TFootElement footerElement() {
+    return tfoot;
+  }
+
   /** @return the applied {@link TableConfig} of this table */
   public TableConfig<T> getTableConfig() {
     return tableConfig;
-  }
-
-  /** @return boolean */
-  public boolean isCondensed() {
-    return condensed;
-  }
-
-  /** @return boolean */
-  public boolean isHoverable() {
-    return hoverable;
-  }
-
-  /** @return boolean */
-  public boolean isStriped() {
-    return striped;
-  }
-
-  /** @return boolean */
-  public boolean isBordered() {
-    return bordered;
   }
 
   /**
    * Immediately filter the current table rows using the the specified filter
    *
    * @param rowFilter {@link LocalRowFilter}
+   * @return Same datatable instance
    */
-  public void filterRows(LocalRowFilter<T> rowFilter) {
+  public DataTable<T> filterRows(LocalRowFilter<T> rowFilter) {
     tableRows.forEach(
         tableRow -> {
           if (rowFilter.filter(tableRow)) {
-            tableRow.removeCss(TABLE_ROW_FILTERED);
+            tableRow.removeCss(table_row_filtered);
             tableRow.removeFlag(DATA_TABLE_ROW_FILTERED);
             tableRow.fireUpdate();
           } else {
-            tableRow.addCss(TABLE_ROW_FILTERED);
+            tableRow.addCss(table_row_filtered);
             tableRow.setFlag(DATA_TABLE_ROW_FILTERED, "true");
             tableRow.deselect();
             tableRow.fireUpdate();
           }
         });
+    return this;
   }
 
-  /** Clear all filtration applied using {@link #filterRows(LocalRowFilter)} */
-  public void clearRowFilters() {
+  /**
+   * Clear all filtration applied using {@link #filterRows(LocalRowFilter)}
+   *
+   * @return Same datatable instance
+   */
+  public DataTable<T> clearRowFilters() {
     tableRows.stream()
         .filter(tableRow -> nonNull(tableRow.getFlag(DATA_TABLE_ROW_FILTERED)))
         .forEach(
             tableRow -> {
-              tableRow.removeCss(TABLE_ROW_FILTERED);
+              tableRow.removeCss(table_row_filtered);
               tableRow.removeFlag(DATA_TABLE_ROW_FILTERED);
               tableRow.fireUpdate();
             });
+    return this;
   }
 
   /** {@inheritDoc} */
@@ -487,13 +448,15 @@ public class DataTable<T> extends BaseDominoElement<HTMLDivElement, DataTable<T>
   public List<T> getDirtyRecords() {
     return getRows().stream().map(TableRow::getDirtyRecord).collect(Collectors.toList());
   }
-
-  @Override
-  public void onSelectionChange(TableRow<T> source) {
-    selectionChangeListeners.forEach(
-        selectionChangeListener ->
-            selectionChangeListener.onSelectionChanged(getSelectedItems(), getSelectedRecords()));
-  }
+  //
+  //    @Override
+  //    public void onSelectionChange(TableRow<T> source) {
+  //
+  //        selectionChangeListeners.forEach(
+  //                selectionChangeListener ->
+  //                        selectionChangeListener.onSelectionChanged(getSelectedItems(),
+  // getSelectedRecords()));
+  //    }
 
   /** Select all table rows */
   @Override
@@ -501,16 +464,26 @@ public class DataTable<T> extends BaseDominoElement<HTMLDivElement, DataTable<T>
     selectAll((table, tableRow) -> true);
   }
 
-  /** Select all table rows that match a condition */
-  public void selectAll(SelectionCondition<T> selectionCondition) {
+  /**
+   * Select all table rows that match a condition
+   *
+   * @return Same datatable instance
+   */
+  public DataTable<T> selectAll(SelectionCondition<T> selectionCondition) {
     if (tableConfig.isMultiSelect() && !tableRows.isEmpty()) {
       for (TableRow<T> tableRow : tableRows) {
         if (selectionCondition.isAllowSelection(this, tableRow)) {
-          tableRow.select();
+          withPauseSelectionListenersToggle(
+              true,
+              field -> {
+                tableRow.select();
+              });
         }
       }
-      onSelectionChange(tableRows.get(0));
+      triggerSelectionListeners(null, getSelection());
+      fireTableEvent(SelectAllEvent.of(true, selectionCondition));
     }
+    return this;
   }
 
   /** Deselect all table rows */
@@ -519,18 +492,28 @@ public class DataTable<T> extends BaseDominoElement<HTMLDivElement, DataTable<T>
     deselectAll((table, tableRow) -> true);
   }
 
-  /** Deselect all table rows that match a condition */
-  public void deselectAll(SelectionCondition<T> selectionCondition) {
+  /**
+   * Deselect all table rows that match a condition
+   *
+   * @return Same datatable instance
+   */
+  public DataTable<T> deselectAll(SelectionCondition<T> selectionCondition) {
     if (!tableRows.isEmpty()) {
       for (TableRow<T> tableRow : tableRows) {
         if (tableRow.isSelected()) {
           if (selectionCondition.isAllowSelection(this, tableRow)) {
-            tableRow.deselect();
+            withPauseSelectionListenersToggle(
+                true,
+                field -> {
+                  tableRow.deselect();
+                });
           }
         }
       }
-      onSelectionChange(tableRows.get(0));
+      triggerDeselectionListeners(null, new ArrayList<>());
+      fireTableEvent(SelectAllEvent.of(false, selectionCondition));
     }
+    return this;
   }
 
   /** {@inheritDoc} */
@@ -539,24 +522,64 @@ public class DataTable<T> extends BaseDominoElement<HTMLDivElement, DataTable<T>
     return this.selectable;
   }
 
-  /**
-   * Add a listener to listen to data table selection changes
-   *
-   * @param selectionChangeListener {@link SelectionChangeListener}
-   */
-  public void addSelectionListener(SelectionChangeListener<T> selectionChangeListener) {
-    this.selectionChangeListeners.add(selectionChangeListener);
+  @Override
+  public DataTable<T> pauseSelectionListeners() {
+    this.selectionListenersPaused = true;
+    return this;
   }
 
-  /** @param selectionChangeListener {@link SelectionChangeListener} */
-  public void removeSelectionListener(SelectionChangeListener<T> selectionChangeListener) {
-    this.selectionChangeListeners.remove(selectionChangeListener);
+  @Override
+  public DataTable<T> resumeSelectionListeners() {
+    this.selectionListenersPaused = false;
+    return this;
   }
 
-  /** @deprecated use {@link #addTableEventListener(String, TableEventListener)} */
-  @Deprecated
-  public void addTableEventListner(String type, TableEventListener listener) {
-    addTableEventListener(type, listener);
+  @Override
+  public DataTable<T> togglePauseSelectionListeners(boolean toggle) {
+    this.selectionListenersPaused = toggle;
+    return this;
+  }
+
+  @Override
+  public Set<SelectionListener<? super TableRow<T>, ? super List<TableRow<T>>>>
+      getSelectionListeners() {
+    return this.selectionListeners;
+  }
+
+  @Override
+  public Set<SelectionListener<? super TableRow<T>, ? super List<TableRow<T>>>>
+      getDeselectionListeners() {
+    return this.deselectionListeners;
+  }
+
+  @Override
+  public boolean isSelectionListenersPaused() {
+    return this.selectionListenersPaused;
+  }
+
+  @Override
+  public DataTable<T> triggerSelectionListeners(TableRow<T> source, List<TableRow<T>> selection) {
+    if (!this.selectionListenersPaused) {
+      this.selectionListeners.forEach(
+          selectionListener ->
+              selectionListener.onSelectionChanged(Optional.ofNullable(source), selection));
+    }
+    return this;
+  }
+
+  @Override
+  public DataTable<T> triggerDeselectionListeners(TableRow<T> source, List<TableRow<T>> selection) {
+    if (!this.selectionListenersPaused) {
+      this.deselectionListeners.forEach(
+          selectionListener ->
+              selectionListener.onSelectionChanged(Optional.ofNullable(source), selection));
+    }
+    return this;
+  }
+
+  @Override
+  public List<TableRow<T>> getSelection() {
+    return getSelectedItems();
   }
 
   /**
@@ -564,12 +587,14 @@ public class DataTable<T> extends BaseDominoElement<HTMLDivElement, DataTable<T>
    *
    * @param type String type of the event
    * @param listener {@link TableEventListener}
+   * @return Same datatable instance
    */
-  public void addTableEventListener(String type, TableEventListener listener) {
+  public DataTable<T> addTableEventListener(String type, TableEventListener listener) {
     if (!events.containsKey(type)) {
       events.put(type, new ArrayList<>());
     }
     events.get(type).add(listener);
+    return this;
   }
 
   /**
@@ -577,24 +602,28 @@ public class DataTable<T> extends BaseDominoElement<HTMLDivElement, DataTable<T>
    *
    * @param type String type of the event
    * @param listener {@link TableEventListener}
+   * @return Same datatable instance
    */
-  public void removeTableListener(String type, TableEventListener listener) {
+  public DataTable<T> removeTableListener(String type, TableEventListener listener) {
     if (events.containsKey(type)) {
       events.get(type).remove(listener);
     }
+    return this;
   }
 
   /**
    * Manually fire a table event
    *
    * @param tableEvent {@link TableEvent}
+   * @return Same datatable instance
    */
-  public void fireTableEvent(TableEvent tableEvent) {
+  public DataTable<T> fireTableEvent(TableEvent tableEvent) {
     if (events.containsKey(tableEvent.getType())) {
       events.get(tableEvent.getType()).forEach(listener -> listener.handleEvent(tableEvent));
     }
 
     events.get(ANY).forEach(listener -> listener.handleEvent(tableEvent));
+    return this;
   }
 
   /** @return the current {@link SearchContext} of the data table */
@@ -605,6 +634,37 @@ public class DataTable<T> extends BaseDominoElement<HTMLDivElement, DataTable<T>
   public DataTable<T> setRemoveRecordsHandler(RemoveRowsHandler<T> removeRecordsHandler) {
     if (nonNull(removeRecordsHandler)) {
       this.removeRecordsHandler = removeRecordsHandler;
+    }
+    return this;
+  }
+
+  public DynamicStyleSheet<HTMLDivElement, DataTable<T>> getDynamicStyleSheet() {
+    return dynamicStyleSheet;
+  }
+
+  @Override
+  public DataTable<T> appendChild(Node node) {
+    super.appendChild(node);
+    if (nonNull(this.dynamicStyleSheet)) {
+      this.root.appendChild(this.dynamicStyleSheet.getStyleElement());
+    }
+    return this;
+  }
+
+  @Override
+  public DataTable<T> appendChild(String text) {
+    super.appendChild(text);
+    if (nonNull(this.dynamicStyleSheet)) {
+      this.root.appendChild(this.dynamicStyleSheet.getStyleElement());
+    }
+    return this;
+  }
+
+  @Override
+  public DataTable<T> appendChild(IsElement<?> isElement) {
+    super.appendChild(isElement);
+    if (nonNull(this.dynamicStyleSheet)) {
+      this.root.appendChild(this.dynamicStyleSheet.getStyleElement());
     }
     return this;
   }

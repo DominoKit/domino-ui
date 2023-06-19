@@ -13,18 +13,18 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
- package org.dominokit.domino.ui.datatable.plugins.filter.header;
+package org.dominokit.domino.ui.datatable.plugins.filter.header;
 
- import elemental2.dom.HTMLInputElement;
- import org.dominokit.domino.ui.datatable.model.FilterTypes;
- import org.dominokit.domino.ui.forms.LongBox;
+import elemental2.dom.HTMLInputElement;
+import org.dominokit.domino.ui.datatable.model.FilterTypes;
+import org.dominokit.domino.ui.forms.LongBox;
 
 /**
  * Long column header filter component that is rendered as a {@link LongBox} component
  *
  * @param <T> type of data table records
  */
- public class LongHeaderFilter<T> extends DelayedHeaderFilterInput<Long, LongBox, T> {
+public class LongHeaderFilter<T> extends DelayedHeaderFilterInput<LongBox, T, Long> {
 
   private LongBox longBox;
 
@@ -90,14 +90,15 @@
   /** {@inheritDoc} */
   @Override
   public void clear() {
-      longBox.withPausedChangeListeners(field -> {
+    longBox.withPausedChangeListeners(
+        field -> {
           longBox.clear();
           longBox.getInputElement().element().value = "";
-      });
+        });
   }
 
   /** @return the {@link LongBox} wrapped in this component */
   public LongBox getLongBox() {
     return longBox;
   }
- }
+}

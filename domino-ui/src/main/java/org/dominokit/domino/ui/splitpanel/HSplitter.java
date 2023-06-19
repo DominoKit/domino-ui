@@ -45,5 +45,4 @@ class HSplitter extends BaseSplitter<HSplitter> {
   public double getSize() {
     return element.getBoundingClientRect().width;
   }
-
 }

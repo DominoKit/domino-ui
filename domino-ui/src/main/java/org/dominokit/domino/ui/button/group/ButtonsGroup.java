@@ -17,14 +17,12 @@ package org.dominokit.domino.ui.button.group;
 
 import static org.dominokit.domino.ui.button.ButtonStyles.*;
 
-import elemental2.dom.HTMLDivElement;
 import elemental2.dom.HTMLElement;
 import java.util.Arrays;
 import org.dominokit.domino.ui.button.IsButton;
 import org.dominokit.domino.ui.elements.DivElement;
 import org.dominokit.domino.ui.style.BooleanCssClass;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
-import org.dominokit.domino.ui.utils.DominoElement;
 
 /**
  * a component to group a set of buttons.
@@ -67,7 +65,7 @@ public class ButtonsGroup extends BaseDominoElement<HTMLElement, ButtonsGroup> {
   }
 
   public ButtonsGroup appendChild(IsButton<?>... buttons) {
-    Arrays.stream(buttons).forEach(btn-> appendChild(btn.asButton()));
+    Arrays.stream(buttons).forEach(btn -> appendChild(btn.asButton()));
     return this;
   }
 

@@ -17,12 +17,10 @@ package org.dominokit.domino.ui.sliders;
 
 import org.dominokit.domino.ui.style.CssClass;
 
-/**
- * A constants class for Slider css classes names
- */
+/** A constants class for Slider css classes names */
 public interface SliderStyles {
-    CssClass dui_slider = () -> "dui-slider";
-    CssClass dui_slider_input = () -> "dui-slider-input";
-    CssClass dui_slider_thumb = () -> "dui-slider-thumb";
-    CssClass dui_slider_value = () -> "dui-slider-value";
+  CssClass dui_slider = () -> "dui-slider";
+  CssClass dui_slider_input = () -> "dui-slider-input";
+  CssClass dui_slider_thumb = () -> "dui-slider-thumb";
+  CssClass dui_slider_value = () -> "dui-slider-value";
 }

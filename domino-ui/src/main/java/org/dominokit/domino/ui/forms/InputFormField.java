@@ -22,8 +22,6 @@ import elemental2.dom.DomGlobal;
 import elemental2.dom.HTMLElement;
 import java.util.Objects;
 import jsinterop.base.Js;
-import org.dominokit.domino.ui.elements.BaseElement;
-import org.dominokit.domino.ui.elements.InputElement;
 import org.dominokit.domino.ui.forms.validations.InputAutoValidator;
 import org.dominokit.domino.ui.utils.ApplyFunction;
 import org.dominokit.domino.ui.utils.ChildHandler;
@@ -186,15 +184,14 @@ public abstract class InputFormField<T extends InputFormField<T, E, V>, E extend
   public boolean isFocused() {
     if (nonNull(DomGlobal.document.activeElement)) {
       String dominoId =
-          elementOf(Js.<HTMLElement>uncheckedCast(DomGlobal.document.activeElement))
-              .getDominoId();
+          elementOf(Js.<HTMLElement>uncheckedCast(DomGlobal.document.activeElement)).getDominoId();
       return nonNull(formElement.querySelector("[domino-uuid=\"" + dominoId + "\"]"));
     }
     return false;
   }
 
-  public T withInputElement(ChildHandler<T, DominoElement<E>> handler){
-    handler.apply((T)this, getInputElement());
+  public T withInputElement(ChildHandler<T, DominoElement<E>> handler) {
+    handler.apply((T) this, getInputElement());
     return (T) this;
   }
 }

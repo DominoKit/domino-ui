@@ -16,10 +16,10 @@
 package org.dominokit.domino.ui.loaders;
 
 import elemental2.dom.HTMLDivElement;
+import org.dominokit.domino.ui.IsElement;
 import org.dominokit.domino.ui.i18n.LoaderLabels;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
 import org.dominokit.domino.ui.utils.DominoUIConfig;
-import org.dominokit.domino.ui.IsElement;
 
 /**
  * Base loader implementation

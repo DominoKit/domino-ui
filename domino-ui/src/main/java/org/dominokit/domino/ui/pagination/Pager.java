@@ -39,198 +39,196 @@ import org.dominokit.domino.ui.utils.BaseDominoElement;
  *
  * @see BaseDominoElement
  */
-public class Pager extends BaseDominoElement<HTMLElement, Pager> implements PaginationStyles, HasLabels<PaginationLabels> {
+public class Pager extends BaseDominoElement<HTMLElement, Pager>
+    implements PaginationStyles, HasLabels<PaginationLabels> {
 
-    private final NavElement element;
-    private final PagerNavItem nextElement;
-    private final PagerNavItem prevElement;
-    private final SpanElement prevArrow;
-    private final SpanElement nextArrow;
+  private final NavElement element;
+  private final PagerNavItem nextElement;
+  private final PagerNavItem prevElement;
+  private final SpanElement prevArrow;
+  private final SpanElement nextArrow;
 
-    private final Text nextText;
-    private final Text prevText;
+  private final Text nextText;
+  private final Text prevText;
 
-    private PagerChangeCallback onNext = () -> {
-    };
-    private PagerChangeCallback onPrev = () -> {
-    };
+  private PagerChangeCallback onNext = () -> {};
+  private PagerChangeCallback onPrev = () -> {};
 
-    private boolean allowNext = true;
-    private boolean allowPrev = true;
+  private boolean allowNext = true;
+  private boolean allowPrev = true;
 
-    public Pager() {
-        EventListener goNext = evt -> {
-            if (allowNext) {
-                onNext.onChange();
-            }
+  public Pager() {
+    EventListener goNext =
+        evt -> {
+          if (allowNext) {
+            onNext.onChange();
+          }
         };
-        EventListener goPrevious = evt -> {
-            if (allowPrev) {
-                onPrev.onChange();
-            }
+    EventListener goPrevious =
+        evt -> {
+          if (allowPrev) {
+            onPrev.onChange();
+          }
         };
-        element = nav().addCss(dui_pager)
-                .appendChild(ul()
-                        .addCss(dui_pager_list, dui_navigator)
-                        .appendChild(prevElement = PagerNavItem.create()
+    element =
+        nav()
+            .addCss(dui_pager)
+            .appendChild(
+                ul().addCss(dui_pager_list, dui_navigator)
+                    .appendChild(
+                        prevElement =
+                            PagerNavItem.create()
                                 .withLink((parent, link) -> link.addCss(dui_navigator_nav))
                                 .appendChild(prevArrow = span().textContent("←"))
                                 .appendChild(prevText = text(getLabels().getPreviousLabel()))
                                 .addClickListener(goPrevious)
-                                .onKeyDown(keyEvents -> keyEvents.onEnter(goPrevious))
-                        )
-                        .appendChild(nextElement = PagerNavItem.create()
+                                .onKeyDown(keyEvents -> keyEvents.onEnter(goPrevious)))
+                    .appendChild(
+                        nextElement =
+                            PagerNavItem.create()
                                 .withLink((parent, link) -> link.addCss(dui_navigator_nav))
                                 .appendChild(nextText = text(getLabels().getNextLabel()))
                                 .appendChild(nextArrow = span().textContent("→"))
                                 .addClickListener(goNext)
-                                .onKeyDown(keyEvents -> keyEvents.onEnter(goNext))
-                        )
-                );
-        init(this);
-    }
+                                .onKeyDown(keyEvents -> keyEvents.onEnter(goNext))));
+    init(this);
+  }
 
-    /**
-     * @return new instance
-     */
-    public static Pager create() {
-        return new Pager();
-    }
+  /** @return new instance */
+  public static Pager create() {
+    return new Pager();
+  }
 
-    /**
-     * Sets the handler that will be called when next element is clicked
-     *
-     * @param nextCallback the {@link PagerChangeCallback}
-     * @return same instance
-     */
-    public Pager onNext(PagerChangeCallback nextCallback) {
-        this.onNext = nextCallback;
-        return this;
-    }
+  /**
+   * Sets the handler that will be called when next element is clicked
+   *
+   * @param nextCallback the {@link PagerChangeCallback}
+   * @return same instance
+   */
+  public Pager onNext(PagerChangeCallback nextCallback) {
+    this.onNext = nextCallback;
+    return this;
+  }
 
-    /**
-     * Sets the handler that will be called when previous element is clicked
-     *
-     * @param previousCallback the {@link PagerChangeCallback}
-     * @return same instance
-     */
-    public Pager onPrevious(PagerChangeCallback previousCallback) {
-        this.onPrev = previousCallback;
-        return this;
-    }
+  /**
+   * Sets the handler that will be called when previous element is clicked
+   *
+   * @param previousCallback the {@link PagerChangeCallback}
+   * @return same instance
+   */
+  public Pager onPrevious(PagerChangeCallback previousCallback) {
+    this.onPrev = previousCallback;
+    return this;
+  }
 
-    /**
-     * Disables the next element
-     *
-     * @return same instance
-     */
-    public Pager disableNext() {
-        this.allowNext = false;
-        nextElement.disable();
-        return this;
-    }
+  /**
+   * Disables the next element
+   *
+   * @return same instance
+   */
+  public Pager disableNext() {
+    this.allowNext = false;
+    nextElement.disable();
+    return this;
+  }
 
-    /**
-     * Disables the previous element
-     *
-     * @return same instance
-     */
-    public Pager disablePrevious() {
-        this.allowPrev = false;
-        prevElement.disable();
-        return this;
-    }
+  /**
+   * Disables the previous element
+   *
+   * @return same instance
+   */
+  public Pager disablePrevious() {
+    this.allowPrev = false;
+    prevElement.disable();
+    return this;
+  }
 
-    /**
-     * Enables the next element
-     *
-     * @return same instance
-     */
-    public Pager enableNext() {
-        this.allowNext = true;
-        nextElement.enable();
-        return this;
-    }
+  /**
+   * Enables the next element
+   *
+   * @return same instance
+   */
+  public Pager enableNext() {
+    this.allowNext = true;
+    nextElement.enable();
+    return this;
+  }
 
-    /**
-     * Enables the previous element
-     *
-     * @return same instance
-     */
-    public Pager enablePrevious() {
-        this.allowPrev = true;
-        prevElement.enable();
-        return this;
-    }
+  /**
+   * Enables the previous element
+   *
+   * @return same instance
+   */
+  public Pager enablePrevious() {
+    this.allowPrev = true;
+    prevElement.enable();
+    return this;
+  }
 
-    /**
-     * Sets the text of the next element
-     *
-     * @param text the new text
-     * @return same instance
-     */
-    public Pager nextText(String text) {
-        nextText.textContent = text;
-        return this;
-    }
+  /**
+   * Sets the text of the next element
+   *
+   * @param text the new text
+   * @return same instance
+   */
+  public Pager nextText(String text) {
+    nextText.textContent = text;
+    return this;
+  }
 
-    /**
-     * Sets the text of the previous element
-     *
-     * @param text the new text
-     * @return same instance
-     */
-    public Pager previousText(String text) {
-        prevText.textContent = text;
-        return this;
-    }
+  /**
+   * Sets the text of the previous element
+   *
+   * @param text the new text
+   * @return same instance
+   */
+  public Pager previousText(String text) {
+    prevText.textContent = text;
+    return this;
+  }
 
-    /**
-     * Shows arrows next to the navigation elements
-     *
-     * @return same instance
-     */
-    public Pager showArrows() {
-        prevArrow.expand();
-        nextArrow.expand();
-        return this;
-    }
+  /**
+   * Shows arrows next to the navigation elements
+   *
+   * @return same instance
+   */
+  public Pager showArrows() {
+    prevArrow.expand();
+    nextArrow.expand();
+    return this;
+  }
 
-    /**
-     * hides arrows next to the navigation elements
-     *
-     * @return same instance
-     */
-    public Pager hideArrows() {
-        prevArrow.collapse();
-        nextArrow.collapse();
-        return this;
-    }
+  /**
+   * hides arrows next to the navigation elements
+   *
+   * @return same instance
+   */
+  public Pager hideArrows() {
+    prevArrow.collapse();
+    nextArrow.collapse();
+    return this;
+  }
 
-    public Pager setShowArrows(boolean show){
-        prevArrow.toggleDisplay(show);
-        nextArrow.toggleDisplay(show);
-        return this;
-    }
+  public Pager setShowArrows(boolean show) {
+    prevArrow.toggleDisplay(show);
+    nextArrow.toggleDisplay(show);
+    return this;
+  }
 
-    public Pager spread(boolean spread){
-        BooleanCssClass.of(dui_navigator_previous, spread).apply(prevElement);
-        BooleanCssClass.of(dui_navigator_next, spread).apply(nextElement);
-        return this;
-    }
+  public Pager spread(boolean spread) {
+    BooleanCssClass.of(dui_navigator_previous, spread).apply(prevElement);
+    BooleanCssClass.of(dui_navigator_next, spread).apply(nextElement);
+    return this;
+  }
 
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public HTMLElement element() {
-        return element.element();
-    }
+  /** {@inheritDoc} */
+  @Override
+  public HTMLElement element() {
+    return element.element();
+  }
 
-    /**
-     * A handler that will be called when the navigation is changed
-     */
-    public interface PagerChangeCallback {
-        void onChange();
-    }
+  /** A handler that will be called when the navigation is changed */
+  public interface PagerChangeCallback {
+    void onChange();
+  }
 }

@@ -15,10 +15,10 @@
  */
 package org.dominokit.domino.ui.utils;
 
+import static org.dominokit.domino.ui.utils.ElementsFactory.elements;
+
 import elemental2.dom.Element;
 import elemental2.dom.HTMLElement;
-
-import static org.dominokit.domino.ui.utils.ElementsFactory.elements;
 
 /** The strategy for appending the menu to the target element */
 @FunctionalInterface

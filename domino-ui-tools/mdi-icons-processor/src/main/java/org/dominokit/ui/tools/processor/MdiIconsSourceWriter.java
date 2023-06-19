@@ -15,6 +15,8 @@
  */
 package org.dominokit.ui.tools.processor;
 
+import static java.util.Objects.isNull;
+
 import com.squareup.javapoet.ClassName;
 import com.squareup.javapoet.CodeBlock;
 import com.squareup.javapoet.FieldSpec;
@@ -23,12 +25,6 @@ import com.squareup.javapoet.ParameterSpec;
 import com.squareup.javapoet.ParameterizedTypeName;
 import com.squareup.javapoet.TypeName;
 import com.squareup.javapoet.TypeSpec;
-import org.dominokit.domino.apt.commons.AbstractSourceBuilder;
-import org.dominokit.domino.apt.commons.DominoTypeBuilder;
-
-import javax.annotation.processing.ProcessingEnvironment;
-import javax.lang.model.element.Element;
-import javax.lang.model.element.Modifier;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
@@ -36,11 +32,69 @@ import java.util.List;
 import java.util.Set;
 import java.util.function.Supplier;
 import java.util.stream.Collectors;
-
-import static java.util.Objects.isNull;
+import javax.annotation.processing.ProcessingEnvironment;
+import javax.lang.model.element.Element;
+import javax.lang.model.element.Modifier;
+import org.dominokit.domino.apt.commons.AbstractSourceBuilder;
+import org.dominokit.domino.apt.commons.DominoTypeBuilder;
 
 public class MdiIconsSourceWriter extends AbstractSourceBuilder {
-  public static final Set<String> RESERVED_KEYWORDS = new HashSet<>(Arrays.asList("abstract", "assert", "boolean", "break", "byte", "case", "catch", "char", "class", "const", "continue", "default", "do", "double", "else", "enum", "extends", "final", "finally", "float", "for", "goto", "if", "implements", "import", "instanceof", "int", "interface", "long", "native", "new", "package", "private", "protected", "public", "return", "short", "static", "strictfp", "super", "switch", "synchronized", "this", "throw", "throws", "transient", "try", "void", "volatile", "while", "true", "false", "null"));
+  public static final Set<String> RESERVED_KEYWORDS =
+      new HashSet<>(
+          Arrays.asList(
+              "abstract",
+              "assert",
+              "boolean",
+              "break",
+              "byte",
+              "case",
+              "catch",
+              "char",
+              "class",
+              "const",
+              "continue",
+              "default",
+              "do",
+              "double",
+              "else",
+              "enum",
+              "extends",
+              "final",
+              "finally",
+              "float",
+              "for",
+              "goto",
+              "if",
+              "implements",
+              "import",
+              "instanceof",
+              "int",
+              "interface",
+              "long",
+              "native",
+              "new",
+              "package",
+              "private",
+              "protected",
+              "public",
+              "return",
+              "short",
+              "static",
+              "strictfp",
+              "super",
+              "switch",
+              "synchronized",
+              "this",
+              "throw",
+              "throws",
+              "transient",
+              "try",
+              "void",
+              "volatile",
+              "while",
+              "true",
+              "false",
+              "null"));
   private static final String MDI_ICON_TYPE = "org.dominokit.domino.ui.icons.MdiIcon";
   private static final String MDI_ICON_FACTORY_TYPE =
       "org.dominokit.domino.ui.icons.MdiIconsByTagFactory";
@@ -198,7 +252,8 @@ public class MdiIconsSourceWriter extends AbstractSourceBuilder {
     metaIconInfos.forEach(
         metaIconInfo -> {
           MethodSpec.Builder iconMethod =
-              MethodSpec.methodBuilder(unreservedKeywordName(metaIconInfo.getName().replace("-", "_")))
+              MethodSpec.methodBuilder(
+                      unreservedKeywordName(metaIconInfo.getName().replace("-", "_")))
                   .addModifiers(Modifier.PUBLIC)
                   .addModifiers(Modifier.STATIC)
                   .returns(ClassName.bestGuess(MDI_ICON_TYPE))
@@ -225,7 +280,8 @@ public class MdiIconsSourceWriter extends AbstractSourceBuilder {
     metaIconInfos.forEach(
         metaIconInfo -> {
           MethodSpec.Builder iconMethod =
-              MethodSpec.methodBuilder(unreservedKeywordName(metaIconInfo.getName().replace("-", "_")))
+              MethodSpec.methodBuilder(
+                      unreservedKeywordName(metaIconInfo.getName().replace("-", "_")))
                   .addModifiers(Modifier.PUBLIC)
                   .addModifiers(Modifier.STATIC)
                   .returns(ClassName.bestGuess(MDI_ICON_TYPE))
@@ -309,7 +365,8 @@ public class MdiIconsSourceWriter extends AbstractSourceBuilder {
 
     icons.forEach(
         metaIconInfo -> {
-          String methodName = unreservedKeywordName(metaIconInfo.getName().replace("-", "_") + methodPostFix(tag));
+          String methodName =
+              unreservedKeywordName(metaIconInfo.getName().replace("-", "_") + methodPostFix(tag));
           MethodSpec.Builder iconMethod =
               MethodSpec.methodBuilder(methodName)
                   .addModifiers(Modifier.PUBLIC)
@@ -363,5 +420,4 @@ public class MdiIconsSourceWriter extends AbstractSourceBuilder {
     }
     return str;
   }
-
 }

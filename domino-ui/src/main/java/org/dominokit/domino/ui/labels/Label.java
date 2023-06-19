@@ -19,7 +19,6 @@ import elemental2.dom.HTMLElement;
 import org.dominokit.domino.ui.elements.SpanElement;
 import org.dominokit.domino.ui.style.CssClass;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
-import org.dominokit.domino.ui.utils.DominoElement;
 import org.dominokit.domino.ui.utils.HasBackground;
 import org.dominokit.domino.ui.utils.HasContent;
 

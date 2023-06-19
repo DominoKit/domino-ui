@@ -17,19 +17,20 @@ package org.dominokit.domino.ui.icons;
 
 import elemental2.dom.EventListener;
 import elemental2.dom.HTMLElement;
+import org.dominokit.domino.ui.events.EventType;
 import org.dominokit.domino.ui.style.GenericCss;
 import org.dominokit.domino.ui.style.SwapCssClass;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
 import org.dominokit.domino.ui.utils.DominoElement;
 import org.dominokit.domino.ui.utils.ElementHandler;
-import org.dominokit.domino.ui.events.EventType;
 
 /**
  * A base implementation for Icon
  *
  * @param <T> the type of the icon
  */
-public abstract class Icon<T extends Icon<T>> extends BaseDominoElement<HTMLElement, T> implements CanApplyOnChildren<T, Icon<?>> {
+public abstract class Icon<T extends Icon<T>> extends BaseDominoElement<HTMLElement, T>
+    implements CanApplyOnChildren<T, Icon<?>> {
 
   protected DominoElement<HTMLElement> icon;
   protected SwapCssClass name = SwapCssClass.of();

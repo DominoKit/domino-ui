@@ -19,7 +19,6 @@ import elemental2.dom.HTMLDivElement;
 import org.dominokit.domino.ui.IsElement;
 import org.dominokit.domino.ui.elements.DivElement;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
-import org.dominokit.domino.ui.utils.DominoElement;
 
 /**
  * A component to show a loading indicator with different sizes and colors
@@ -34,53 +33,47 @@ import org.dominokit.domino.ui.utils.DominoElement;
  * </pre>
  */
 public class Preloader extends BaseDominoElement<HTMLDivElement, Preloader>
-        implements IsElement<HTMLDivElement>, PreloaderStyles {
+    implements IsElement<HTMLDivElement>, PreloaderStyles {
 
-    private final DivElement root;
+  private final DivElement root;
 
-    /**
-     *
-     */
-    public Preloader() {
-        this.root =
+  /** */
+  public Preloader() {
+    this.root =
+        div()
+            .addCss(dui_preloader, dui_small)
+            .appendChild(
                 div()
-                        .addCss(dui_preloader, dui_small)
-                        .appendChild(
-                                div()
-                                        .addCss(dui_pl_spinner_layer)
-                                        .appendChild(div()
-                                                .addCss(dui_pl_circle_clipper)
-                                                .appendChild(div().addCss(dui_pl_circle_left)))
-                                        .appendChild(
-                                                div()
-                                                        .addCss(dui_pl_circle_clipper, dui_pl_right)
-                                                        .appendChild(div().addCss(dui_pl_circle_right)))
-                        );
-        init(this);
-    }
+                    .addCss(dui_pl_spinner_layer)
+                    .appendChild(
+                        div()
+                            .addCss(dui_pl_circle_clipper)
+                            .appendChild(div().addCss(dui_pl_circle_left)))
+                    .appendChild(
+                        div()
+                            .addCss(dui_pl_circle_clipper, dui_pl_right)
+                            .appendChild(div().addCss(dui_pl_circle_right))));
+    init(this);
+  }
 
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public HTMLDivElement element() {
-        return root.element();
-    }
+  /** {@inheritDoc} */
+  @Override
+  public HTMLDivElement element() {
+    return root.element();
+  }
 
-    /**
-     * @return new Preloader instance
-     */
-    public static Preloader create() {
-        return new Preloader();
-    }
+  /** @return new Preloader instance */
+  public static Preloader create() {
+    return new Preloader();
+  }
 
-    /**
-     * removes the loader from the dom tree
-     *
-     * @return same Preloader instance
-     */
-    public Preloader stop() {
-        element().remove();
-        return this;
-    }
+  /**
+   * removes the loader from the dom tree
+   *
+   * @return same Preloader instance
+   */
+  public Preloader stop() {
+    element().remove();
+    return this;
+  }
 }

@@ -23,10 +23,10 @@ public class DominoId {
   private static int counter = 0;
   private static String SEED;
   private static LazyInitializer seedInit =
-          new LazyInitializer(
-                  () -> {
-                    SEED = new JsDate().getTime() + "-";
-                  });
+      new LazyInitializer(
+          () -> {
+            SEED = new JsDate().getTime() + "-";
+          });
 
   public static String unique() {
     return unique(DEFAULT_PREFIX);

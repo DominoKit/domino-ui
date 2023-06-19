@@ -15,125 +15,125 @@
  */
 package org.dominokit.domino.ui.forms.suggest;
 
-import org.dominokit.domino.ui.IsElement;
-
-import java.util.Objects;
-
 import static java.util.Objects.nonNull;
 
-public class SuggestBox<V, E extends IsElement<?>, O extends Option<V, E, O>> extends AbstractSuggestBox<V, V, E, O, SuggestBox<V, E, O>> {
+import java.util.Objects;
+import org.dominokit.domino.ui.IsElement;
 
-    private O selectedOption;
+public class SuggestBox<V, E extends IsElement<?>, O extends Option<V, E, O>>
+    extends AbstractSuggestBox<V, V, E, O, SuggestBox<V, E, O>> {
 
-    public static <V, E extends IsElement<?>, O extends Option<V, E, O>> SuggestBox<V, E, O> create(SuggestionsStore<V, E, O> store) {
-        return new SuggestBox<>(store);
+  private O selectedOption;
+
+  public static <V, E extends IsElement<?>, O extends Option<V, E, O>> SuggestBox<V, E, O> create(
+      SuggestionsStore<V, E, O> store) {
+    return new SuggestBox<>(store);
+  }
+
+  public static <V, E extends IsElement<?>, O extends Option<V, E, O>> SuggestBox<V, E, O> create(
+      String label, SuggestionsStore<V, E, O> store) {
+    return new SuggestBox<>(label, store);
+  }
+
+  public SuggestBox(SuggestionsStore<V, E, O> store) {
+    super(store);
+  }
+
+  public SuggestBox(String label, SuggestionsStore<V, E, O> store) {
+    super(store);
+    setLabel(label);
+  }
+
+  protected void doSetValue(V value) {
+    store.find(value, this::applyOptionValue);
+  }
+
+  @Override
+  public V getValue() {
+    if (nonNull(selectedOption)) {
+      return selectedOption.getValue();
     }
+    return null;
+  }
 
-    public static <V, E extends IsElement<?>, O extends Option<V, E, O>> SuggestBox<V, E, O> create(String label, SuggestionsStore<V, E, O> store) {
-        return new SuggestBox<>(label, store);
+  @Override
+  protected void onBackspace() {
+    if (nonNull(selectedOption)) {
+      selectedOption.remove();
+      selectedOption = null;
     }
+  }
 
-    public SuggestBox(SuggestionsStore<V, E, O> store) {
-        super(store);
+  @Override
+  public void onOptionSelected(O option) {
+    withOption(option);
+    updateTextValue();
+    if (nonNull(this.selectedOption)) {
+      onOptionDeselected(this.selectedOption);
     }
+    this.selectedOption = option;
+  }
 
-    public SuggestBox(String label, SuggestionsStore<V, E, O> store) {
-        super(store);
-        setLabel(label);
+  public SuggestBox<V, E, O> withOption(O option) {
+    return withOption(option, isChangeListenersPaused());
+  }
+
+  public SuggestBox<V, E, O> withOption(O option, boolean silent) {
+    V oldValue = getValue();
+    if (!Objects.equals(option.getValue(), oldValue)) {
+      this.selectedOption = option;
+      if (!silent) {
+        triggerChangeListeners(oldValue, getValue());
+      }
     }
+    autoValidate();
+    return this;
+  }
 
-    protected void doSetValue(V value) {
-        store.find(value, this::applyOptionValue);
+  private void updateTextValue() {
+    getInputElement().element().value = getStringValue();
+  }
+
+  @Override
+  public void onOptionDeselected(O option) {
+    option.remove();
+    if (Objects.equals(this.selectedOption, option)) {
+      this.selectedOption = null;
     }
-
-    @Override
-    public V getValue() {
-        if (nonNull(selectedOption)) {
-            return selectedOption.getValue();
-        }
-        return null;
-    }
-
-    @Override
-    protected void onBackspace() {
-        if (nonNull(selectedOption)) {
-            selectedOption.remove();
-            selectedOption = null;
-        }
-    }
-
-    @Override
-    public void onOptionSelected(O option) {
-        withOption(option);
-        updateTextValue();
-        if(nonNull(this.selectedOption)){
-            onOptionDeselected(this.selectedOption);
-        }
-        this.selectedOption = option;
-    }
-
-    public SuggestBox<V, E,O> withOption(O option) {
-        return withOption(option, isChangeListenersPaused());
-    }
-
-    public SuggestBox<V, E,O> withOption(O option, boolean silent) {
-        V oldValue = getValue();
-        if (!Objects.equals(option.getValue(), oldValue)) {
-            this.selectedOption = option;
-            if (!silent) {
-                triggerChangeListeners(oldValue, getValue());
-            }
-        }
-        autoValidate();
-        return this;
-    }
-
-    private void updateTextValue() {
-        getInputElement().element().value = getStringValue();
-    }
-
-    @Override
-    public void onOptionDeselected(O option) {
-        option.remove();
-        if(Objects.equals(this.selectedOption, option)){
-            this.selectedOption = null;
-        }
-        this.optionsMenu.withPauseSelectionListenersToggle(true, field -> {
-            option.getMenuItem().deselect(true);
+    this.optionsMenu.withPauseSelectionListenersToggle(
+        true,
+        field -> {
+          option.getMenuItem().deselect(true);
         });
+  }
+
+  @Override
+  protected SuggestBox<V, E, O> clearValue(boolean silent) {
+    if (nonNull(selectedOption)) {
+      V oldValue = getValue();
+      withPauseChangeListenersToggle(true, field -> onOptionDeselected(selectedOption));
+
+      if (!silent) {
+        triggerClearListeners(oldValue);
+        triggerChangeListeners(oldValue, getValue());
+      }
+
+      if (isAutoValidation()) {
+        autoValidate();
+      }
     }
 
-    @Override
-    protected SuggestBox<V, E, O> clearValue(boolean silent) {
-        if (nonNull(selectedOption)) {
-            V oldValue = getValue();
-            withPauseChangeListenersToggle(
-                    true,
-                    field -> onOptionDeselected(selectedOption));
+    return this;
+  }
 
-            if (!silent) {
-                triggerClearListeners(oldValue);
-                triggerChangeListeners(oldValue, getValue());
-            }
-
-            if (isAutoValidation()) {
-                autoValidate();
-            }
-        }
-
-        return this;
+  @Override
+  public String getStringValue() {
+    if (nonNull(this.selectedOption)) {
+      return String.valueOf(this.selectedOption.getValue());
     }
+    return null;
+  }
 
-    @Override
-    public String getStringValue() {
-        if(nonNull(this.selectedOption)) {
-            return String.valueOf(this.selectedOption.getValue());
-        }
-        return null;
-    }
-
-    @Override
-    protected void onAfterOptionSelected() {
-
-    }
+  @Override
+  protected void onAfterOptionSelected() {}
 }

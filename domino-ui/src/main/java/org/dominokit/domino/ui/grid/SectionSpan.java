@@ -15,9 +15,7 @@
  */
 package org.dominokit.domino.ui.grid;
 
-import org.dominokit.domino.ui.elements.DivElement;
 import org.dominokit.domino.ui.utils.ApplyFunction;
-import org.dominokit.domino.ui.utils.LazyChild;
 
 /** An enum representing the size of a section in {@link GridLayout} */
 public enum SectionSpan {
@@ -40,12 +38,11 @@ public enum SectionSpan {
     return value;
   }
 
-  public void ifSpanOrElse(ApplyFunction span, ApplyFunction elseFunction){
-    if(getValue() > 0 ){
+  public void ifSpanOrElse(ApplyFunction span, ApplyFunction elseFunction) {
+    if (getValue() > 0) {
       span.apply();
-    }else {
+    } else {
       elseFunction.apply();
     }
   }
-
 }

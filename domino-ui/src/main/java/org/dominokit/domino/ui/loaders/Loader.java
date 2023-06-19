@@ -22,10 +22,10 @@ import static org.dominokit.domino.ui.utils.ElementsFactory.elements;
 
 import elemental2.dom.Element;
 import elemental2.dom.HTMLElement;
+import org.dominokit.domino.ui.IsElement;
 import org.dominokit.domino.ui.style.*;
 import org.dominokit.domino.ui.utils.DominoElement;
 import org.gwtproject.timer.client.Timer;
-import org.dominokit.domino.ui.IsElement;
 
 /**
  * A component which provides a loader mask on a target element

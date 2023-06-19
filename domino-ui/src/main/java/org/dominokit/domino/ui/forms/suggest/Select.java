@@ -15,81 +15,82 @@
  */
 package org.dominokit.domino.ui.forms.suggest;
 
-import org.dominokit.domino.ui.elements.DivElement;
+import static java.util.Objects.nonNull;
 
 import java.util.Objects;
-
-import static java.util.Objects.nonNull;
+import org.dominokit.domino.ui.elements.DivElement;
 
 public class Select<V> extends AbstractSelect<V, V, DivElement, SelectOption<V>, Select<V>> {
 
-    private SelectOption<V> selectedOption;
+  private SelectOption<V> selectedOption;
 
-    public static <V> Select<V> create() {
-        return new Select<>();
-    }
+  public static <V> Select<V> create() {
+    return new Select<>();
+  }
 
-    public static <V> Select<V> create(String label) {
-        return new Select<>(label);
-    }
+  public static <V> Select<V> create(String label) {
+    return new Select<>(label);
+  }
 
-    public Select() {
-    }
+  public Select() {}
 
-    public Select(String label) {
-        setLabel(label);
-    }
+  public Select(String label) {
+    setLabel(label);
+  }
 
-    protected void doSetValue(V value) {
-        findOptionByValue(value).ifPresent(this::onOptionSelected);
-    }
-    protected void doSetOption(SelectOption<V> option) {
-        if(nonNull(this.selectedOption)) {
-            this.selectedOption.remove();
-        }
-        this.selectedOption = option;
-    }
+  protected void doSetValue(V value) {
+    findOptionByValue(value).ifPresent(this::onOptionSelected);
+  }
 
-    @Override
-    protected void onOptionSelected(SelectOption<V> option) {
-        withOption(option);
-        updateTextValue();
-        if(nonNull(this.selectedOption)){
-            onOptionDeselected(this.selectedOption);
-        }
-        this.selectedOption = option;
-        fieldInput.appendChild(option);
+  protected void doSetOption(SelectOption<V> option) {
+    if (nonNull(this.selectedOption)) {
+      this.selectedOption.remove();
     }
+    this.selectedOption = option;
+  }
 
-    @Override
-    public Select<V> withOption(SelectOption<V> option, boolean silent) {
-                V oldValue = getValue();
-        if (!Objects.equals(option.getValue(), oldValue)) {
-            doSetOption(option);
-            if (!silent) {
-                triggerChangeListeners(oldValue, getValue());
-            }
-        }
-        autoValidate();
-        return this;
+  @Override
+  protected void onOptionSelected(SelectOption<V> option) {
+    withOption(option);
+    updateTextValue();
+    if (nonNull(this.selectedOption)) {
+      onOptionDeselected(this.selectedOption);
     }
+    this.selectedOption = option;
+    fieldInput.appendChild(option);
+  }
 
-    @Override
-    protected void onOptionDeselected(SelectOption<V> option) {
-        option.remove();
-        if(Objects.equals(this.selectedOption, option)){
-            this.selectedOption = null;
-        }
-        this.optionsMenu.withPauseSelectionListenersToggle(true, field -> {
-            option.getMenuItem().deselect(true);
+  @Override
+  public Select<V> withOption(SelectOption<V> option, boolean silent) {
+    V oldValue = getValue();
+    if (!Objects.equals(option.getValue(), oldValue)) {
+      doSetOption(option);
+      if (!silent) {
+        triggerChangeListeners(oldValue, getValue());
+      }
+    }
+    autoValidate();
+    return this;
+  }
+
+  @Override
+  protected void onOptionDeselected(SelectOption<V> option) {
+    option.remove();
+    if (Objects.equals(this.selectedOption, option)) {
+      this.selectedOption = null;
+    }
+    this.optionsMenu.withPauseSelectionListenersToggle(
+        true,
+        field -> {
+          option.getMenuItem().deselect(true);
         });
-    }
+  }
 
-    @Override
-    public V getValue() {
-        if(nonNull(this.selectedOption)){
-            return this.selectedOption.getValue();
-        }
-        return null;
+  @Override
+  public V getValue() {
+    if (nonNull(this.selectedOption)) {
+      return this.selectedOption.getValue();
     }
+    return null;
+  }
 }

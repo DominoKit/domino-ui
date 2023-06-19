@@ -15,25 +15,22 @@
  */
 package org.dominokit.domino.ui.style;
 
+import static elemental2.dom.DomGlobal.window;
+import static java.util.Objects.nonNull;
+import static org.dominokit.domino.ui.events.EventType.mousedown;
+import static org.dominokit.domino.ui.utils.ElementsFactory.elements;
+
 import elemental2.dom.DOMRect;
 import elemental2.dom.Element;
 import elemental2.dom.Event;
 import elemental2.dom.EventListener;
-import elemental2.dom.HTMLDivElement;
 import elemental2.dom.MouseEvent;
 import jsinterop.base.Js;
 import jsinterop.base.JsPropertyMap;
 import org.dominokit.domino.ui.IsElement;
 import org.dominokit.domino.ui.elements.DivElement;
 import org.dominokit.domino.ui.utils.DominoElement;
-import org.dominokit.domino.ui.utils.ElementsFactory;
-import org.gwtproject.editor.client.EditorVisitor;
 import org.gwtproject.timer.client.Timer;
-
-import static elemental2.dom.DomGlobal.window;
-import static java.util.Objects.nonNull;
-import static org.dominokit.domino.ui.utils.ElementsFactory.elements;
-import static org.dominokit.domino.ui.events.EventType.mousedown;
 
 /** Adds the required events to add waves for a target element */
 public class Waves implements IsElement<Element> {
@@ -52,9 +49,7 @@ public class Waves implements IsElement<Element> {
 
   public Waves(DominoElement<? extends Element> target) {
     this.target = elements.div().addCss("dui-wave-sentinel");
-    elements.elementOf(target)
-            .addCss("dui-waves-target")
-            .appendChild(this.target);
+    elements.elementOf(target).addCss("dui-waves-target").appendChild(this.target);
   }
 
   /**

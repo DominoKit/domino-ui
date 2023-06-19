@@ -15,15 +15,14 @@
  */
 package org.dominokit.domino.ui.menu.direction;
 
-import elemental2.dom.DOMRect;
-import elemental2.dom.Element;
-import org.dominokit.domino.ui.style.CssClass;
-import org.dominokit.domino.ui.style.Style;
-
 import static elemental2.dom.DomGlobal.window;
 import static org.dominokit.domino.ui.style.SpacingCss.dui_flex_col_reverse;
 import static org.dominokit.domino.ui.utils.ElementsFactory.elements;
 import static org.dominokit.domino.ui.utils.Unit.px;
+
+import elemental2.dom.DOMRect;
+import elemental2.dom.Element;
+import org.dominokit.domino.ui.style.Style;
 
 public class RightMiddleDropDirection implements DropDirection {
   @Override
@@ -43,19 +42,24 @@ public class RightMiddleDropDirection implements DropDirection {
       delta = ((sourceRect.height / 2) - availableUpSpace);
     }
 
-    Style.of(source).style.setProperty(
-        "top",
-        px.of(
-            (targetRect.top
-                + window.pageYOffset
-                - ((sourceRect.height - targetRect.height) / 2)
-                + delta)));
+    Style.of(source)
+        .style
+        .setProperty(
+            "top",
+            px.of(
+                (targetRect.top
+                    + window.pageYOffset
+                    - ((sourceRect.height - targetRect.height) / 2)
+                    + delta)));
 
-    Style.of(source).style.setProperty(
-        "left", px.of(targetRect.left + window.pageXOffset + targetRect.width + 1));
+    Style.of(source)
+        .style
+        .setProperty("left", px.of(targetRect.left + window.pageXOffset + targetRect.width + 1));
     dui_dd_right_middle.apply(source);
-    elements.elementOf(source).setCssProperty("--dui-dd-position-delta", (delta + (targetRect.height/2))+"px");
-    elements.elementOf(source).setCssProperty("--dui-menu-drop-min-width", targetRect.width+"px");
+    elements
+        .elementOf(source)
+        .setCssProperty("--dui-dd-position-delta", (delta + (targetRect.height / 2)) + "px");
+    elements.elementOf(source).setCssProperty("--dui-menu-drop-min-width", targetRect.width + "px");
   }
 
   @Override

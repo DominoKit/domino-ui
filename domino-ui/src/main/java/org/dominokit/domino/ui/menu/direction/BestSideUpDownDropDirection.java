@@ -20,56 +20,54 @@ import static org.dominokit.domino.ui.style.SpacingCss.dui_flex_col_reverse;
 
 import elemental2.dom.DOMRect;
 import elemental2.dom.Element;
-import elemental2.dom.HTMLElement;
-import org.dominokit.domino.ui.style.CompositeCssClass;
 
 public class BestSideUpDownDropDirection implements DropDirection {
-    @Override
-    public void position(Element source, Element target) {
-        dui_flex_col_reverse.remove(source);
-        cleanup(source);
-        DOMRect targetRect = target.getBoundingClientRect();
-        DOMRect sourceRect = source.getBoundingClientRect();
-        int innerWidth = window.innerWidth;
-        int innerHeight = window.innerHeight;
+  @Override
+  public void position(Element source, Element target) {
+    dui_flex_col_reverse.remove(source);
+    cleanup(source);
+    DOMRect targetRect = target.getBoundingClientRect();
+    DOMRect sourceRect = source.getBoundingClientRect();
+    int innerWidth = window.innerWidth;
+    int innerHeight = window.innerHeight;
 
-        double sourceHeight = sourceRect.height;
-        double downSpace = innerHeight - targetRect.height;
-        double sourceWidth = sourceRect.width;
-        double rightSpace = innerWidth - targetRect.right - window.pageXOffset;
+    double sourceHeight = sourceRect.height;
+    double downSpace = innerHeight - targetRect.height;
+    double sourceWidth = sourceRect.width;
+    double rightSpace = innerWidth - targetRect.right - window.pageXOffset;
 
-        DropDirection currentPosition;
+    DropDirection currentPosition;
 
-        if (hasSpaceOnRightSide(sourceWidth, rightSpace)) {
-            if (hasSpaceBelow(sourceHeight, downSpace)) {
-                currentPosition = DropDirection.BOTTOM_RIGHT;
-            } else {
-                currentPosition = DropDirection.TOP_RIGHT;
-            }
-        } else {
-            if (hasSpaceBelow(sourceHeight, downSpace)) {
-                currentPosition = DropDirection.BOTTOM_LEFT;
-            } else {
-                currentPosition = DropDirection.TOP_LEFT;
-            }
-        }
-
-        currentPosition.position(source, target);
+    if (hasSpaceOnRightSide(sourceWidth, rightSpace)) {
+      if (hasSpaceBelow(sourceHeight, downSpace)) {
+        currentPosition = DropDirection.BOTTOM_RIGHT;
+      } else {
+        currentPosition = DropDirection.TOP_RIGHT;
+      }
+    } else {
+      if (hasSpaceBelow(sourceHeight, downSpace)) {
+        currentPosition = DropDirection.BOTTOM_LEFT;
+      } else {
+        currentPosition = DropDirection.TOP_LEFT;
+      }
     }
 
-    @Override
-    public void cleanup(Element source) {
-        DropDirection.BOTTOM_RIGHT.cleanup(source);
-        DropDirection.TOP_RIGHT.cleanup(source);
-        DropDirection.BOTTOM_LEFT.cleanup(source);
-        DropDirection.TOP_LEFT.cleanup(source);
-    }
+    currentPosition.position(source, target);
+  }
 
-    private boolean hasSpaceBelow(double sourceHeight, double downSpace) {
-        return downSpace > sourceHeight;
-    }
+  @Override
+  public void cleanup(Element source) {
+    DropDirection.BOTTOM_RIGHT.cleanup(source);
+    DropDirection.TOP_RIGHT.cleanup(source);
+    DropDirection.BOTTOM_LEFT.cleanup(source);
+    DropDirection.TOP_LEFT.cleanup(source);
+  }
 
-    private boolean hasSpaceOnRightSide(double sourceWidth, double rightSpace) {
-        return rightSpace > sourceWidth;
-    }
+  private boolean hasSpaceBelow(double sourceHeight, double downSpace) {
+    return downSpace > sourceHeight;
+  }
+
+  private boolean hasSpaceOnRightSide(double sourceWidth, double rightSpace) {
+    return rightSpace > sourceWidth;
+  }
 }

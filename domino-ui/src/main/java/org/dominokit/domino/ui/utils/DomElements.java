@@ -1,4 +1,22 @@
+/*
+ * Copyright © 2019 Dominokit
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package org.dominokit.domino.ui.utils;
+
+import static elemental2.dom.DomGlobal.document;
+import static jsinterop.base.Js.cast;
 
 import elemental2.dom.Element;
 import elemental2.dom.HTMLAnchorElement;
@@ -54,417 +72,410 @@ import elemental2.svg.SVGCircleElement;
 import elemental2.svg.SVGElement;
 import elemental2.svg.SVGLineElement;
 
-import static elemental2.dom.DomGlobal.document;
-import static jsinterop.base.Js.cast;
-
 public interface DomElements {
 
-    String SVGNS = "http://www.w3.org/2000/svg";
-    DomElements dom = new DomElements() {
-    };
-
-    default <E extends Element> E create(String element, Class<E> type) {
-        return cast(document.createElement(element));
-    }
-
-    default <E extends Element> E createSVG(String element, Class<E> type) {
-        return cast(document.createElementNS(SVGNS, element));
-    }
-
-    /**
-     * @return a {@link DominoElement} wrapping the document {@link HTMLBodyElement}
-     */
-    default HTMLBodyElement body() {
-        return document.body;
-    }
-
-    /**
-     * @return a new {@link HTMLDivElement} wrapped as a {@link DominoElement}
-     */
-    default HTMLPictureElement picture() {
-        return create("picture", HTMLPictureElement.class);
-    }
-
-    // ------------------------------------------------------ content sectioning
-
-    default HTMLElement address() {
-        return create("address", HTMLElement.class);
-    }
-
-    default HTMLElement article() {
-        return create("article", HTMLElement.class);
-    }
-
-    default HTMLElement aside() {
-        return create("aside", HTMLElement.class);
-    }
-
-    default HTMLElement footer() {
-        return create("footer", HTMLElement.class);
-    }
-
-    default HTMLHeadingElement h(int n) {
-        return create("h" + n, HTMLHeadingElement.class);
-    }
-
-    default HTMLElement header() {
-        return create("header", HTMLElement.class);
-    }
-
-    default HTMLElement hgroup() {
-        return create("hgroup", HTMLElement.class);
-    }
-
-    default HTMLElement nav() {
-        return create("nav", HTMLElement.class);
-    }
-
-    default HTMLElement section() {
-        return create("section", HTMLElement.class);
-    }
-
-    // ------------------------------------------------------ text content
-
-    default HTMLQuoteElement blockquote() {
-        return create("blockquote", HTMLQuoteElement.class);
-    }
-
-    default HTMLElement dd() {
-        return create("dd", HTMLElement.class);
-    }
-
-    default HTMLDivElement div() {
-        return create("div", HTMLDivElement.class);
-    }
-
-    default HTMLDListElement dl() {
-        return create("dl", HTMLDListElement.class);
-    }
-
-    default HTMLElement dt() {
-        return create("dt", HTMLElement.class);
-    }
-
-    default HTMLElement figcaption() {
-        return create("figcaption", HTMLElement.class);
-    }
-
-    default HTMLElement figure() {
-        return create("figure", HTMLElement.class);
-    }
-
-    default HTMLHRElement hr() {
-        return create("hr", HTMLHRElement.class);
-    }
-
-    default HTMLLIElement li() {
-        return create("li", HTMLLIElement.class);
-    }
+  String SVGNS = "http://www.w3.org/2000/svg";
+  DomElements dom = new DomElements() {};
 
-    default HTMLElement main() {
-        return create("main", HTMLElement.class);
-    }
+  default <E extends Element> E create(String element, Class<E> type) {
+    return cast(document.createElement(element));
+  }
 
-    default HTMLOListElement ol() {
-        return create("ol", HTMLOListElement.class);
-    }
+  default <E extends Element> E createSVG(String element, Class<E> type) {
+    return cast(document.createElementNS(SVGNS, element));
+  }
 
-    default HTMLParagraphElement p() {
-        return create("p", HTMLParagraphElement.class);
-    }
+  /** @return a {@link DominoElement} wrapping the document {@link HTMLBodyElement} */
+  default HTMLBodyElement body() {
+    return document.body;
+  }
 
-    default HTMLPreElement pre() {
-        return create("pre", HTMLPreElement.class);
-    }
+  /** @return a new {@link HTMLDivElement} wrapped as a {@link DominoElement} */
+  default HTMLPictureElement picture() {
+    return create("picture", HTMLPictureElement.class);
+  }
 
-    default HTMLUListElement ul() {
-        return create("ul", HTMLUListElement.class);
-    }
+  // ------------------------------------------------------ content sectioning
 
-    // ------------------------------------------------------ inline text semantics
+  default HTMLElement address() {
+    return create("address", HTMLElement.class);
+  }
 
-    default HTMLAnchorElement a() {
-        return create("a", HTMLAnchorElement.class);
-    }
+  default HTMLElement article() {
+    return create("article", HTMLElement.class);
+  }
 
-    default HTMLElement abbr() {
-        return create("abbr", HTMLElement.class);
-    }
+  default HTMLElement aside() {
+    return create("aside", HTMLElement.class);
+  }
 
-    default HTMLElement b() {
-        return create("b", HTMLElement.class);
-    }
+  default HTMLElement footer() {
+    return create("footer", HTMLElement.class);
+  }
 
-    default HTMLBRElement br() {
-        return create("br", HTMLBRElement.class);
-    }
+  default HTMLHeadingElement h(int n) {
+    return create("h" + n, HTMLHeadingElement.class);
+  }
 
-    default HTMLElement cite() {
-        return create("cite", HTMLElement.class);
-    }
+  default HTMLElement header() {
+    return create("header", HTMLElement.class);
+  }
 
-    default HTMLElement code() {
-        return create("code", HTMLElement.class);
-    }
+  default HTMLElement hgroup() {
+    return create("hgroup", HTMLElement.class);
+  }
 
-    default HTMLElement dfn() {
-        return create("dfn", HTMLElement.class);
-    }
+  default HTMLElement nav() {
+    return create("nav", HTMLElement.class);
+  }
 
-    default HTMLElement em() {
-        return create("em", HTMLElement.class);
-    }
+  default HTMLElement section() {
+    return create("section", HTMLElement.class);
+  }
 
-    default HTMLElement i() {
-        return create("i", HTMLElement.class);
-    }
+  // ------------------------------------------------------ text content
 
-    default HTMLElement kbd() {
-        return create("kbd", HTMLElement.class);
-    }
+  default HTMLQuoteElement blockquote() {
+    return create("blockquote", HTMLQuoteElement.class);
+  }
 
-    default HTMLElement mark() {
-        return create("mark", HTMLElement.class);
-    }
+  default HTMLElement dd() {
+    return create("dd", HTMLElement.class);
+  }
 
-    default HTMLQuoteElement q() {
-        return create("q", HTMLQuoteElement.class);
-    }
+  default HTMLDivElement div() {
+    return create("div", HTMLDivElement.class);
+  }
 
-    default HTMLElement small() {
-        return create("small", HTMLElement.class);
-    }
+  default HTMLDListElement dl() {
+    return create("dl", HTMLDListElement.class);
+  }
 
-    default HTMLElement span() {
-        return create("span", HTMLElement.class);
-    }
+  default HTMLElement dt() {
+    return create("dt", HTMLElement.class);
+  }
 
-    default HTMLElement strong() {
-        return create("strong", HTMLElement.class);
-    }
+  default HTMLElement figcaption() {
+    return create("figcaption", HTMLElement.class);
+  }
 
-    default HTMLElement sub() {
-        return create("sub", HTMLElement.class);
-    }
+  default HTMLElement figure() {
+    return create("figure", HTMLElement.class);
+  }
 
-    default HTMLElement sup() {
-        return create("sup", HTMLElement.class);
-    }
+  default HTMLHRElement hr() {
+    return create("hr", HTMLHRElement.class);
+  }
 
-    default HTMLElement time() {
-        return create("time", HTMLElement.class);
-    }
+  default HTMLLIElement li() {
+    return create("li", HTMLLIElement.class);
+  }
 
-    default HTMLElement u() {
-        return create("u", HTMLElement.class);
-    }
+  default HTMLElement main() {
+    return create("main", HTMLElement.class);
+  }
 
-    default HTMLElement var() {
-        return create("var", HTMLElement.class);
-    }
+  default HTMLOListElement ol() {
+    return create("ol", HTMLOListElement.class);
+  }
 
-    default HTMLElement wbr() {
-        return create("wbr", HTMLElement.class);
-    }
+  default HTMLParagraphElement p() {
+    return create("p", HTMLParagraphElement.class);
+  }
 
-    // ------------------------------------------------------ image and multimedia
+  default HTMLPreElement pre() {
+    return create("pre", HTMLPreElement.class);
+  }
 
-    default HTMLAreaElement area() {
-        return create("area", HTMLAreaElement.class);
-    }
+  default HTMLUListElement ul() {
+    return create("ul", HTMLUListElement.class);
+  }
 
-    default HTMLAudioElement audio() {
-        return create("audio", HTMLAudioElement.class);
-    }
+  // ------------------------------------------------------ inline text semantics
 
-    default HTMLImageElement img() {
-        return create("img", HTMLImageElement.class);
-    }
+  default HTMLAnchorElement a() {
+    return create("a", HTMLAnchorElement.class);
+  }
 
-    default HTMLImageElement img(String src) {
-        HTMLImageElement img = create("img", HTMLImageElement.class);
-        img.src = src;
-        return img;
-    }
+  default HTMLElement abbr() {
+    return create("abbr", HTMLElement.class);
+  }
 
-    default HTMLMapElement map() {
-        return create("map", HTMLMapElement.class);
-    }
+  default HTMLElement b() {
+    return create("b", HTMLElement.class);
+  }
 
-    default HTMLTrackElement track() {
-        return create("track", HTMLTrackElement.class);
-    }
+  default HTMLBRElement br() {
+    return create("br", HTMLBRElement.class);
+  }
 
-    default HTMLVideoElement video() {
-        return create("video", HTMLVideoElement.class);
-    }
+  default HTMLElement cite() {
+    return create("cite", HTMLElement.class);
+  }
 
-    // ------------------------------------------------------ embedded content
+  default HTMLElement code() {
+    return create("code", HTMLElement.class);
+  }
 
-    default HTMLCanvasElement canvas() {
-        return create("canvas", HTMLCanvasElement.class);
-    }
+  default HTMLElement dfn() {
+    return create("dfn", HTMLElement.class);
+  }
 
-    default HTMLEmbedElement embed() {
-        return create("embed", HTMLEmbedElement.class);
-    }
+  default HTMLElement em() {
+    return create("em", HTMLElement.class);
+  }
 
-    default HTMLIFrameElement iframe() {
-        return create("iframe", HTMLIFrameElement.class);
-    }
+  default HTMLElement i() {
+    return create("i", HTMLElement.class);
+  }
 
-    default HTMLIFrameElement iframe(String src) {
-        HTMLIFrameElement iframe = iframe();
-        iframe.src = src;
-        return iframe;
-    }
+  default HTMLElement kbd() {
+    return create("kbd", HTMLElement.class);
+  }
 
-    default HTMLObjectElement object() {
-        return create("object", HTMLObjectElement.class);
-    }
+  default HTMLElement mark() {
+    return create("mark", HTMLElement.class);
+  }
 
-    default HTMLParamElement param() {
-        return create("param", HTMLParamElement.class);
-    }
+  default HTMLQuoteElement q() {
+    return create("q", HTMLQuoteElement.class);
+  }
 
-    default HTMLSourceElement source() {
-        return create("source", HTMLSourceElement.class);
-    }
+  default HTMLElement small() {
+    return create("small", HTMLElement.class);
+  }
 
-    // ------------------------------------------------------ scripting
+  default HTMLElement span() {
+    return create("span", HTMLElement.class);
+  }
 
-    default HTMLElement noscript() {
-        return create("noscript", HTMLElement.class);
-    }
+  default HTMLElement strong() {
+    return create("strong", HTMLElement.class);
+  }
 
-    default HTMLScriptElement script() {
-        return create("script", HTMLScriptElement.class);
-    }
+  default HTMLElement sub() {
+    return create("sub", HTMLElement.class);
+  }
 
-    // ------------------------------------------------------ demarcating edits
+  default HTMLElement sup() {
+    return create("sup", HTMLElement.class);
+  }
 
-    default HTMLModElement del() {
-        return create("del", HTMLModElement.class);
-    }
+  default HTMLElement time() {
+    return create("time", HTMLElement.class);
+  }
 
-    default HTMLModElement ins() {
-        return create("ins", HTMLModElement.class);
-    }
+  default HTMLElement u() {
+    return create("u", HTMLElement.class);
+  }
 
-    // ------------------------------------------------------ table content
+  default HTMLElement var() {
+    return create("var", HTMLElement.class);
+  }
 
-    default HTMLTableCaptionElement caption() {
-        return create("caption", HTMLTableCaptionElement.class);
-    }
+  default HTMLElement wbr() {
+    return create("wbr", HTMLElement.class);
+  }
 
-    default HTMLTableColElement col() {
-        return create("col", HTMLTableColElement.class);
-    }
+  // ------------------------------------------------------ image and multimedia
 
-    default HTMLTableColElement colgroup() {
-        return create("colgroup", HTMLTableColElement.class);
-    }
+  default HTMLAreaElement area() {
+    return create("area", HTMLAreaElement.class);
+  }
 
-    default HTMLTableElement table() {
-        return create("table", HTMLTableElement.class);
-    }
+  default HTMLAudioElement audio() {
+    return create("audio", HTMLAudioElement.class);
+  }
 
-    default HTMLTableSectionElement tbody() {
-        return create("tbody", HTMLTableSectionElement.class);
-    }
+  default HTMLImageElement img() {
+    return create("img", HTMLImageElement.class);
+  }
 
-    default HTMLTableCellElement td() {
-        return create("td", HTMLTableCellElement.class);
-    }
+  default HTMLImageElement img(String src) {
+    HTMLImageElement img = create("img", HTMLImageElement.class);
+    img.src = src;
+    return img;
+  }
 
-    default HTMLTableSectionElement tfoot() {
-        return create("tfoot", HTMLTableSectionElement.class);
-    }
+  default HTMLMapElement map() {
+    return create("map", HTMLMapElement.class);
+  }
 
-    default HTMLTableCellElement th() {
-        return create("th", HTMLTableCellElement.class);
-    }
+  default HTMLTrackElement track() {
+    return create("track", HTMLTrackElement.class);
+  }
 
-    default HTMLTableSectionElement thead() {
-        return create("thead", HTMLTableSectionElement.class);
-    }
+  default HTMLVideoElement video() {
+    return create("video", HTMLVideoElement.class);
+  }
 
-    default HTMLTableRowElement tr() {
-        return create("tr", HTMLTableRowElement.class);
-    }
+  // ------------------------------------------------------ embedded content
 
-    // ------------------------------------------------------ forms
+  default HTMLCanvasElement canvas() {
+    return create("canvas", HTMLCanvasElement.class);
+  }
 
-    default HTMLButtonElement button() {
-        return create("button", HTMLButtonElement.class);
-    }
+  default HTMLEmbedElement embed() {
+    return create("embed", HTMLEmbedElement.class);
+  }
 
-    default HTMLDataListElement datalist() {
-        return create("datalist", HTMLDataListElement.class);
-    }
+  default HTMLIFrameElement iframe() {
+    return create("iframe", HTMLIFrameElement.class);
+  }
 
-    default HTMLFieldSetElement fieldset() {
-        return create("fieldset", HTMLFieldSetElement.class);
-    }
+  default HTMLIFrameElement iframe(String src) {
+    HTMLIFrameElement iframe = iframe();
+    iframe.src = src;
+    return iframe;
+  }
 
-    default HTMLFormElement form() {
-        return create("form", HTMLFormElement.class);
-    }
+  default HTMLObjectElement object() {
+    return create("object", HTMLObjectElement.class);
+  }
 
-    default HTMLInputElement input(InputType type) {
-        return input(type.name());
-    }
+  default HTMLParamElement param() {
+    return create("param", HTMLParamElement.class);
+  }
 
-    default HTMLInputElement input(String type) {
-        HTMLInputElement input = create("input", HTMLInputElement.class);
-        input.type = type;
-        return input;
-    }
+  default HTMLSourceElement source() {
+    return create("source", HTMLSourceElement.class);
+  }
 
-    default HTMLLabelElement label() {
-        return create("label", HTMLLabelElement.class);
-    }
+  // ------------------------------------------------------ scripting
 
-    default HTMLLegendElement legend() {
-        return create("legend", HTMLLegendElement.class);
-    }
+  default HTMLElement noscript() {
+    return create("noscript", HTMLElement.class);
+  }
 
-    default HTMLMeterElement meter() {
-        return create("meter", HTMLMeterElement.class);
-    }
+  default HTMLScriptElement script() {
+    return create("script", HTMLScriptElement.class);
+  }
 
-    default HTMLOptGroupElement optgroup() {
-        return create("optgroup", HTMLOptGroupElement.class);
-    }
+  // ------------------------------------------------------ demarcating edits
 
-    default HTMLOptionElement option() {
-        return create("option", HTMLOptionElement.class);
-    }
+  default HTMLModElement del() {
+    return create("del", HTMLModElement.class);
+  }
 
-    default HTMLOutputElement output() {
-        return create("output", HTMLOutputElement.class);
-    }
+  default HTMLModElement ins() {
+    return create("ins", HTMLModElement.class);
+  }
 
-    default HTMLProgressElement progress() {
-        return create("progress", HTMLProgressElement.class);
-    }
+  // ------------------------------------------------------ table content
 
-    default HTMLSelectElement select_() {
-        return create("select", HTMLSelectElement.class);
-    }
+  default HTMLTableCaptionElement caption() {
+    return create("caption", HTMLTableCaptionElement.class);
+  }
 
-    default HTMLTextAreaElement textarea() {
-        return create("textarea", HTMLTextAreaElement.class);
-    }
+  default HTMLTableColElement col() {
+    return create("col", HTMLTableColElement.class);
+  }
 
-    default SVGElement svg(){
-        return createSVG("svg", SVGElement.class);
-    }
-    default SVGCircleElement circle(){
-        return createSVG("circle", SVGCircleElement.class);
-    }
+  default HTMLTableColElement colgroup() {
+    return create("colgroup", HTMLTableColElement.class);
+  }
 
-    default SVGLineElement line(){
-        return createSVG("line", SVGLineElement.class);
-    }
+  default HTMLTableElement table() {
+    return create("table", HTMLTableElement.class);
+  }
+
+  default HTMLTableSectionElement tbody() {
+    return create("tbody", HTMLTableSectionElement.class);
+  }
+
+  default HTMLTableCellElement td() {
+    return create("td", HTMLTableCellElement.class);
+  }
+
+  default HTMLTableSectionElement tfoot() {
+    return create("tfoot", HTMLTableSectionElement.class);
+  }
+
+  default HTMLTableCellElement th() {
+    return create("th", HTMLTableCellElement.class);
+  }
+
+  default HTMLTableSectionElement thead() {
+    return create("thead", HTMLTableSectionElement.class);
+  }
+
+  default HTMLTableRowElement tr() {
+    return create("tr", HTMLTableRowElement.class);
+  }
+
+  // ------------------------------------------------------ forms
+
+  default HTMLButtonElement button() {
+    return create("button", HTMLButtonElement.class);
+  }
+
+  default HTMLDataListElement datalist() {
+    return create("datalist", HTMLDataListElement.class);
+  }
+
+  default HTMLFieldSetElement fieldset() {
+    return create("fieldset", HTMLFieldSetElement.class);
+  }
+
+  default HTMLFormElement form() {
+    return create("form", HTMLFormElement.class);
+  }
+
+  default HTMLInputElement input(InputType type) {
+    return input(type.name());
+  }
+
+  default HTMLInputElement input(String type) {
+    HTMLInputElement input = create("input", HTMLInputElement.class);
+    input.type = type;
+    return input;
+  }
+
+  default HTMLLabelElement label() {
+    return create("label", HTMLLabelElement.class);
+  }
+
+  default HTMLLegendElement legend() {
+    return create("legend", HTMLLegendElement.class);
+  }
+
+  default HTMLMeterElement meter() {
+    return create("meter", HTMLMeterElement.class);
+  }
+
+  default HTMLOptGroupElement optgroup() {
+    return create("optgroup", HTMLOptGroupElement.class);
+  }
+
+  default HTMLOptionElement option() {
+    return create("option", HTMLOptionElement.class);
+  }
+
+  default HTMLOutputElement output() {
+    return create("output", HTMLOutputElement.class);
+  }
+
+  default HTMLProgressElement progress() {
+    return create("progress", HTMLProgressElement.class);
+  }
+
+  default HTMLSelectElement select_() {
+    return create("select", HTMLSelectElement.class);
+  }
+
+  default HTMLTextAreaElement textarea() {
+    return create("textarea", HTMLTextAreaElement.class);
+  }
+
+  default SVGElement svg() {
+    return createSVG("svg", SVGElement.class);
+  }
+
+  default SVGCircleElement circle() {
+    return createSVG("circle", SVGCircleElement.class);
+  }
+
+  default SVGLineElement line() {
+    return createSVG("line", SVGLineElement.class);
+  }
 }

@@ -17,11 +17,11 @@ package org.dominokit.domino.ui.infoboxes;
 
 import elemental2.dom.HTMLDivElement;
 import elemental2.dom.HTMLElement;
+import org.dominokit.domino.ui.IsElement;
 import org.dominokit.domino.ui.elements.DivElement;
 import org.dominokit.domino.ui.icons.Icon;
 import org.dominokit.domino.ui.style.*;
 import org.dominokit.domino.ui.utils.*;
-import org.dominokit.domino.ui.IsElement;
 
 /**
  * Container for displaying information with icons
@@ -267,16 +267,16 @@ public class InfoBox extends BaseDominoElement<HTMLDivElement, InfoBox> implemen
     return this;
   }
 
-  public DivElement getContent(){
+  public DivElement getContent() {
     return contentElement.get();
   }
 
-  public InfoBox withContent(){
+  public InfoBox withContent() {
     contentElement.get();
     return this;
   }
 
-  public InfoBox withContent(ChildHandler<InfoBox, DivElement> handler){
+  public InfoBox withContent(ChildHandler<InfoBox, DivElement> handler) {
     handler.apply(this, contentElement.get());
     return this;
   }

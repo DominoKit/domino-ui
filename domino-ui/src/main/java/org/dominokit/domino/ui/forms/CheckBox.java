@@ -18,10 +18,8 @@ package org.dominokit.domino.ui.forms;
 import static java.util.Objects.isNull;
 
 import elemental2.dom.*;
-
 import java.util.Optional;
 import java.util.function.Consumer;
-
 import org.dominokit.domino.ui.elements.LabelElement;
 import org.dominokit.domino.ui.elements.SpanElement;
 import org.dominokit.domino.ui.style.BooleanCssClass;
@@ -78,7 +76,6 @@ public class CheckBox extends InputFormField<CheckBox, HTMLInputElement, Boolean
           evt.preventDefault();
           if (isEnabled() && !isReadOnly()) {
             toggleChecked();
-
           }
         };
     checkLabelElement.addClickListener(listener);
@@ -88,11 +85,9 @@ public class CheckBox extends InputFormField<CheckBox, HTMLInputElement, Boolean
   }
 
   protected LazyChild<DominoElement<HTMLElement>> initRequiredIndicator() {
-    return
-            LazyChild.of(
-                    elementOf(getConfig().getRequiredIndicator().get())
-                            .addCss(dui_field_required_indicator),
-                    checkLabelElement);
+    return LazyChild.of(
+        elementOf(getConfig().getRequiredIndicator().get()).addCss(dui_field_required_indicator),
+        checkLabelElement);
   }
 
   /**
@@ -217,6 +212,7 @@ public class CheckBox extends InputFormField<CheckBox, HTMLInputElement, Boolean
   /** {@inheritDoc} */
   @Override
   public CheckBox check(boolean silent) {
+    determinate();
     toggleChecked(true, silent);
     return this;
   }
@@ -224,6 +220,7 @@ public class CheckBox extends InputFormField<CheckBox, HTMLInputElement, Boolean
   /** {@inheritDoc} */
   @Override
   public CheckBox uncheck(boolean silent) {
+    determinate();
     toggleChecked(false, silent);
     return this;
   }
@@ -297,8 +294,7 @@ public class CheckBox extends InputFormField<CheckBox, HTMLInputElement, Boolean
   /** {@inheritDoc} */
   @Override
   protected void doSetValue(Boolean value) {
-    withPauseChangeListenersToggle(
-        true, field -> getInputElement().element().checked = value);
+    withPauseChangeListenersToggle(true, field -> getInputElement().element().checked = value);
   }
 
   /** {@inheritDoc} */

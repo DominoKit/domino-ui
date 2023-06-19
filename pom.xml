@@ -5,7 +5,7 @@
 
     <groupId>org.dominokit</groupId>
     <artifactId>domino-ui-parent</artifactId>
-    <version>THEME-SNAPSHOT</version>
+    <version>2.0-HEAD-SNAPSHOT</version>
     <packaging>pom</packaging>
 
     <name>domino-ui-parent</name>
@@ -67,8 +67,8 @@
     </modules>
 
     <properties>
-        <snapshot.version>HEAD-SNAPSHOT</snapshot.version>
-        <next.release.version>1.0.0-RC15</next.release.version>
+        <snapshot.version>2.0-HEAD-SNAPSHOT</snapshot.version>
+        <next.release.version>1.0.0-alpha-1</next.release.version>
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
 
@@ -230,7 +230,7 @@
                 <artifactId>fmt-maven-plugin</artifactId>
                 <version>${maven.fmt.plugin}</version>
                 <configuration>
-                    <skip>true</skip>
+                    <skip>false</skip>
                 </configuration>
                 <executions>
                     <execution>
@@ -245,7 +245,7 @@
                 <artifactId>license-maven-plugin</artifactId>
                 <version>${maven.license.plugin}</version>
                 <configuration>
-                    <skip>true</skip>
+                    <skip>false</skip>
                     <header>LICENSE.header</header>
                     <encoding>${project.build.sourceEncoding}</encoding>
                     <skipExistingHeaders>true</skipExistingHeaders>

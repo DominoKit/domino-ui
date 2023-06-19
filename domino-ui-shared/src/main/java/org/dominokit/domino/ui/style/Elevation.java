@@ -18,7 +18,6 @@ package org.dominokit.domino.ui.style;
 import static java.util.Objects.nonNull;
 
 import elemental2.dom.Element;
-import elemental2.dom.HTMLElement;
 
 /**
  * A class to apply a box-shadow to any element

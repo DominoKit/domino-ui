@@ -16,16 +16,15 @@
 package org.dominokit.domino.ui.loaders;
 
 import elemental2.dom.HTMLDivElement;
+import org.dominokit.domino.ui.IsElement;
 import org.dominokit.domino.ui.elements.DivElement;
 import org.dominokit.domino.ui.utils.DominoElement;
-import org.dominokit.domino.ui.IsElement;
 
 /** Rotate plane loader implementation */
 public class RotatePlaneLoader extends BaseLoader<RotatePlaneLoader>
     implements IsElement<HTMLDivElement> {
 
-  private final DivElement progress1 =
-      div().addCss(wait_me_progress_elem_1, dui_bg_grey_d_2);
+  private final DivElement progress1 = div().addCss(wait_me_progress_elem_1, dui_bg_grey_d_2);
 
   private final DivElement loader =
       div().addCss(wait_me_progress, rotateplane).appendChild(progress1);
@@ -37,10 +36,7 @@ public class RotatePlaneLoader extends BaseLoader<RotatePlaneLoader>
           .appendChild(loadingText);
 
   private final DivElement element =
-      div()
-          .addCss(wait_me)
-          .style("background: rgba(255, 255, 255, 0.9);")
-          .appendChild(content);
+      div().addCss(wait_me).style("background: rgba(255, 255, 255, 0.9);").appendChild(content);
 
   public RotatePlaneLoader() {
     init(this);

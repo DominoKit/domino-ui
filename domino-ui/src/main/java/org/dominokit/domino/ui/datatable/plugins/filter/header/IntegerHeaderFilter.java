@@ -13,19 +13,18 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
- package org.dominokit.domino.ui.datatable.plugins.filter.header;
+package org.dominokit.domino.ui.datatable.plugins.filter.header;
 
- import elemental2.dom.HTMLInputElement;
- import org.dominokit.domino.ui.datatable.model.FilterTypes;
- import org.dominokit.domino.ui.forms.IntegerBox;
+import elemental2.dom.HTMLInputElement;
+import org.dominokit.domino.ui.datatable.model.FilterTypes;
+import org.dominokit.domino.ui.forms.IntegerBox;
 
 /**
- * Integer number column header filter component that is rendered as a {@link IntegerBox}
- component
+ * Integer number column header filter component that is rendered as a {@link IntegerBox} component
  *
  * @param <T> type of data table records
  */
- public class IntegerHeaderFilter<T> extends DelayedHeaderFilterInput<Integer, IntegerBox, T> {
+public class IntegerHeaderFilter<T> extends DelayedHeaderFilterInput<IntegerBox, T, Integer> {
 
   private IntegerBox integerBox;
 
@@ -91,14 +90,15 @@
   /** {@inheritDoc} */
   @Override
   public void clear() {
-      integerBox.withPausedChangeListeners(field -> {
+    integerBox.withPausedChangeListeners(
+        field -> {
           integerBox.clear();
           integerBox.getInputElement().element().value = "";
-      });
+        });
   }
 
   /** @return the {@link IntegerBox} wrapped in this component */
   public IntegerBox getIntegerBox() {
     return integerBox;
   }
- }
+}

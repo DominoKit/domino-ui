@@ -15,14 +15,17 @@
  */
 package org.dominokit.domino.ui.datatable.events;
 
+import org.dominokit.domino.ui.datatable.plugins.column.ColumnHeaderFilterPlugin;
+import org.dominokit.domino.ui.datatable.plugins.header.HeaderBarPlugin;
+
 /**
  * This event will be fired when the date table search is cleared, it is fired by the
  *
  * <p>{@link org.dominokit.domino.ui.datatable.DataTable}
  *
- * <p>{@link org.dominokit.domino.ui.datatable.plugins.ColumnHeaderFilterPlugin}
+ * <p>{@link ColumnHeaderFilterPlugin}
  *
- * <p>{@link org.dominokit.domino.ui.datatable.plugins.HeaderBarPlugin.SearchTableAction}
+ * <p>{@link HeaderBarPlugin.SearchTableAction}
  *
  * <p>{@link org.dominokit.domino.ui.datatable.model.SearchContext}
  */

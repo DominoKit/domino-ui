@@ -22,14 +22,24 @@ public class ColumnResizedEvent implements TableEvent {
   public static final String COLUMN_RESIZED = "column-resized";
   private final ColumnConfig<?> column;
   private final double sizeDiff;
+  private final boolean completed;
 
   public static ColumnResizedEvent of(ColumnConfig<?> column, double sizeDiff) {
     return new ColumnResizedEvent(column, sizeDiff);
   }
 
+  public static ColumnResizedEvent of(ColumnConfig<?> column, double sizeDiff, boolean completed) {
+    return new ColumnResizedEvent(column, sizeDiff, completed);
+  }
+
   public ColumnResizedEvent(ColumnConfig<?> column, double sizeDiff) {
+    this(column, sizeDiff, false);
+  }
+
+  public ColumnResizedEvent(ColumnConfig<?> column, double sizeDiff, boolean completed) {
     this.column = column;
     this.sizeDiff = sizeDiff;
+    this.completed = completed;
   }
 
   public ColumnConfig<?> getColumn() {
@@ -38,6 +48,10 @@ public class ColumnResizedEvent implements TableEvent {
 
   public double getSizeDiff() {
     return sizeDiff;
+  }
+
+  public boolean isCompleted() {
+    return completed;
   }
 
   @Override

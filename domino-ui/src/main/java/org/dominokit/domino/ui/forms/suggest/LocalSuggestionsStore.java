@@ -15,21 +15,21 @@
  */
 package org.dominokit.domino.ui.forms.suggest;
 
-import org.dominokit.domino.ui.IsElement;
-
 import static java.util.Objects.isNull;
 import static java.util.Objects.nonNull;
 
 import java.util.*;
 import java.util.function.Consumer;
 import java.util.function.Function;
+import org.dominokit.domino.ui.IsElement;
 
 /**
  * An implementation of {@link SuggestionsStore} that provides Suggestion from a local List
  *
  * @param <T> The type of the SuggestBox value
  */
-public class LocalSuggestionsStore<T, E extends IsElement<?>, O extends Option<T, E, O>> implements SuggestionsStore<T, E, O> {
+public class LocalSuggestionsStore<T, E extends IsElement<?>, O extends Option<T, E, O>>
+    implements SuggestionsStore<T, E, O> {
 
   private List<O> suggestions;
   private SuggestionFilter<T, E, O> suggestionFilter =
@@ -59,7 +59,8 @@ public class LocalSuggestionsStore<T, E extends IsElement<?>, O extends Option<T
    * @param <T> the type of the SuggestBox value
    * @return new store instance
    */
-  public static <T, E extends IsElement<?>, O extends Option<T, E, O>> LocalSuggestionsStore<T, E, O> create() {
+  public static <T, E extends IsElement<?>, O extends Option<T, E, O>>
+      LocalSuggestionsStore<T, E, O> create() {
     return new LocalSuggestionsStore<>();
   }
 
@@ -70,24 +71,26 @@ public class LocalSuggestionsStore<T, E extends IsElement<?>, O extends Option<T
    * @param <T> the type of the SuggestBox value
    * @return new store instance
    */
-  public static <T, E extends IsElement<?>, O extends Option<T, E, O>> LocalSuggestionsStore<T, E, O> create(List<O> suggestions) {
+  public static <T, E extends IsElement<?>, O extends Option<T, E, O>>
+      LocalSuggestionsStore<T, E, O> create(List<O> suggestions) {
     return new LocalSuggestionsStore<>(suggestions);
   }
 
-  public static <T, E extends IsElement<?>, O extends Option<T, E, O>> LocalSuggestionsStore<T, E, O> create(
-      Function<T, Optional<O>> optionMapper, Collection<T> items) {
+  public static <T, E extends IsElement<?>, O extends Option<T, E, O>>
+      LocalSuggestionsStore<T, E, O> create(
+          Function<T, Optional<O>> optionMapper, Collection<T> items) {
     LocalSuggestionsStore<T, E, O> store = create(optionMapper);
     store.addItem(items);
     return store;
   }
 
-  public static <T, E extends IsElement<?>, O extends Option<T, E, O>> LocalSuggestionsStore<T, E, O> create(
-      Function<T, Optional<O>> optionMapper, T... items) {
+  public static <T, E extends IsElement<?>, O extends Option<T, E, O>>
+      LocalSuggestionsStore<T, E, O> create(Function<T, Optional<O>> optionMapper, T... items) {
     return create(optionMapper, Arrays.asList(items));
   }
 
-  public static <T, E extends IsElement<?>, O extends Option<T, E, O>> LocalSuggestionsStore<T, E, O> create(
-      Function<T, Optional<O>> optionMapper) {
+  public static <T, E extends IsElement<?>, O extends Option<T, E, O>>
+      LocalSuggestionsStore<T, E, O> create(Function<T, Optional<O>> optionMapper) {
     LocalSuggestionsStore<T, E, O> store = new LocalSuggestionsStore<>();
     store.setOptionMapper(optionMapper);
     return store;
@@ -212,9 +215,7 @@ public class LocalSuggestionsStore<T, E extends IsElement<?>, O extends Option<T
   public List<O> getSuggestions() {
     return suggestions;
   }
-  /**
-   * {@inheritDoc}
-   */
+  /** {@inheritDoc} */
   @Override
   public void filter(String searchValue, SuggestionsHandler<T, E, O> suggestionsHandler) {
     List<O> filteredSuggestions = new ArrayList<>();
@@ -258,7 +259,8 @@ public class LocalSuggestionsStore<T, E extends IsElement<?>, O extends Option<T
    * @param suggestionFilter {@link SuggestionFilter}
    * @return same store instance
    */
-  public LocalSuggestionsStore<T, E, O> setSuggestionFilter(SuggestionFilter<T, E, O> suggestionFilter) {
+  public LocalSuggestionsStore<T, E, O> setSuggestionFilter(
+      SuggestionFilter<T, E, O> suggestionFilter) {
     if (nonNull(suggestionFilter)) {
       this.suggestionFilter = suggestionFilter;
     }

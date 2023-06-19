@@ -15,7 +15,7 @@
  */
 package org.dominokit.domino.ui.i18n;
 
-public interface DialogLabels extends Labels{
+public interface DialogLabels extends Labels {
   default String dialogConfirmationReject() {
     return "No";
   }

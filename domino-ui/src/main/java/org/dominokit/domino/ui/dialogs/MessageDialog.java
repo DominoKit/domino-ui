@@ -125,7 +125,7 @@ public class MessageDialog extends AbstractDialog<MessageDialog> {
     return this;
   }
 
-  public MessageDialog withNavHeader(ChildHandler<MessageDialog, NavBar> handler){
+  public MessageDialog withNavHeader(ChildHandler<MessageDialog, NavBar> handler) {
     handler.apply(this, navHeader.get());
     return this;
   }

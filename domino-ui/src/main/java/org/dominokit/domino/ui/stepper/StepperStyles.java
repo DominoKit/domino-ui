@@ -20,23 +20,23 @@ import org.dominokit.domino.ui.style.CssClass;
 /** A constants class for Steppers css classes names */
 public interface StepperStyles {
 
-  CssClass dui_stepper = ()-> "dui-stepper";
-  CssClass dui_stepper_track = ()-> "dui-stepper-track";
-  CssClass dui_step_track = ()-> "dui-step-track";
-  CssClass dui_stepper_content = ()-> "dui-stepper-content";
-  CssClass dui_stepper_step = ()-> "dui-stepper-step";
-  CssClass dui_step_header = ()-> "dui-step-header";
-  CssClass dui_step_content = ()-> "dui-step-content";
-  CssClass dui_step_footer = ()-> "dui-step-footer";
-  CssClass dui_tracker_node = ()-> "dui-tracker-node";
-  CssClass dui_tracker_node_icon = ()-> "dui-tracker-node-icon";
-  CssClass dui_tracker_line = ()-> "dui-tracker-line";
-  CssClass dui_tracker_chain = ()-> "dui-tracker-chain";
-  CssClass dui_tracker_content = ()-> "dui-tracker-content";
+  CssClass dui_stepper = () -> "dui-stepper";
+  CssClass dui_stepper_track = () -> "dui-stepper-track";
+  CssClass dui_step_track = () -> "dui-step-track";
+  CssClass dui_stepper_content = () -> "dui-stepper-content";
+  CssClass dui_stepper_step = () -> "dui-stepper-step";
+  CssClass dui_step_header = () -> "dui-step-header";
+  CssClass dui_step_content = () -> "dui-step-content";
+  CssClass dui_step_footer = () -> "dui-step-footer";
+  CssClass dui_tracker_node = () -> "dui-tracker-node";
+  CssClass dui_tracker_node_icon = () -> "dui-tracker-node-icon";
+  CssClass dui_tracker_line = () -> "dui-tracker-line";
+  CssClass dui_tracker_chain = () -> "dui-tracker-chain";
+  CssClass dui_tracker_content = () -> "dui-tracker-content";
 
-  CssClass dui_stepper_active_content = ()-> "dui-stepper-active-content";
-  CssClass dui_step_prefix = ()-> "dui-step-prefix";
-  CssClass dui_step_last = ()-> "dui-step-last";
+  CssClass dui_stepper_active_content = () -> "dui-stepper-active-content";
+  CssClass dui_step_prefix = () -> "dui-step-prefix";
+  CssClass dui_step_last = () -> "dui-step-last";
   String D_STEPPER = "d-stepper";
   String STEP_CONTENT = "step-content";
   String LAST_STEP = "last-step";

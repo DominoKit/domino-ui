@@ -16,7 +16,7 @@
 package org.dominokit.domino.ui.datatable.events;
 
 import org.dominokit.domino.ui.datatable.ColumnConfig;
-import org.dominokit.domino.ui.datatable.plugins.SortDirection;
+import org.dominokit.domino.ui.datatable.plugins.pagination.SortDirection;
 
 /**
  * This event will be fired when ever the sort in a data store is changed or by clicking on a column

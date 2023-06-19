@@ -1,0 +1,52 @@
+.dui-quick-search {
+    display: inline-block;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    gap: 4px;
+    background-color: var(--dui-quick-search-background-color);
+    color : var(--dui-quick-search-color);
+    border-radius: var(--dui-quick-search-radius);
+    --dui-form-field-readonly-border:none;
+    --dui-form-field-border:none;
+    --dui-form-field-focused-border:none
+}
+
+.dui-search-bar {
+    position: absolute;
+    display: inline-block;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: var(--dui-search-bar-background-color, inherit);
+    color : var(--dui-search-bar-color, inherit);
+    border-radius: var(--dui-quick-search-radius);
+    --dui-form-field-readonly-border:none;
+    --dui-form-field-border:none;
+    --dui-form-field-focused-border:none;
+    z-index: 1;
+}
+
+.dui-search-bar-container {
+    display: flex;
+    height: 100%;
+    padding: 0 20px 0 20px;
+    align-items: center;
+    justify-content: space-around;
+    gap: var(--dui-quick-search-gap);
+}
+.dui-search-bar-container input {
+    text-indent: 5px;
+    border: none;
+    background-color: transparent;
+    color: inherit;
+}
+.dui-search-bar-container input::placeholder{
+    color: inherit;
+}
+
+.dui-search-bar-container input:focus {
+    outline: none;
+}

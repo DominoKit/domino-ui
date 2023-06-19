@@ -25,9 +25,7 @@ public class TextBox extends BaseTextBox<TextBox> {
     return new TextBox(label);
   }
 
-  public TextBox() {
-
-  }
+  public TextBox() {}
 
   public TextBox(String label) {
     super(label);
@@ -37,5 +35,4 @@ public class TextBox extends BaseTextBox<TextBox> {
   public String getType() {
     return "text";
   }
-
 }

@@ -22,6 +22,7 @@ import elemental2.dom.*;
 import java.util.LinkedHashSet;
 import java.util.Set;
 import jsinterop.base.Js;
+import org.dominokit.domino.ui.IsElement;
 import org.dominokit.domino.ui.elements.DivElement;
 import org.dominokit.domino.ui.elements.InputElement;
 import org.dominokit.domino.ui.elements.LabelElement;
@@ -29,7 +30,6 @@ import org.dominokit.domino.ui.elements.SmallElement;
 import org.dominokit.domino.ui.utils.*;
 import org.gwtproject.editor.client.TakesValue;
 import org.gwtproject.safehtml.shared.SafeHtml;
-import org.dominokit.domino.ui.IsElement;
 
 /**
  * A component that represent a single option in a {@link RadioGroup}
@@ -74,8 +74,7 @@ public class Radio<T> extends BaseDominoElement<HTMLDivElement, Radio<T>>
                 fieldInput =
                     div()
                         .addCss(dui_field_input)
-                        .appendChild(
-                            labelElement = label().addCss(dui_form_radio_label)));
+                        .appendChild(labelElement = label().addCss(dui_form_radio_label)));
     noteElement = LazyChild.of(small().addCss(dui_form_radio_note), radioElement);
     setLabel(label);
     labelForId(inputElement.getDominoId());
@@ -376,8 +375,7 @@ public class Radio<T> extends BaseDominoElement<HTMLDivElement, Radio<T>>
   public boolean isFocused() {
     if (nonNull(DomGlobal.document.activeElement)) {
       String dominoId =
-          elementOf(Js.<HTMLElement>uncheckedCast(DomGlobal.document.activeElement))
-              .getDominoId();
+          elementOf(Js.<HTMLElement>uncheckedCast(DomGlobal.document.activeElement)).getDominoId();
       return nonNull(radioElement.querySelector("[domino-uuid=\"" + dominoId + "\"]"));
     }
     return false;

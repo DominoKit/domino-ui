@@ -17,32 +17,12 @@ package org.dominokit.domino.ui.timepicker;
 
 import org.dominokit.domino.ui.style.CssClass;
 
-/** Constants class for time picker components css classes names */
 public interface TimePickerStyles {
-  CssClass dui_picker_width = ()-> "270px";
-  CssClass dui_time_picker = ()-> "time-picker";
-  CssClass dui_time_panel = ()-> "time-panel";
-  CssClass dui_hour_text = ()-> "hour-text";
-  CssClass dui_minute_text = ()-> "minute-text";
-  CssClass dui_second_text = ()-> "second-text";
-  CssClass dui_am_pm_container = ()-> "am-pm-container";
-  CssClass dui_am_pm_text = ()-> "am-pm-text";
-  CssClass dui_am_pm_top = ()-> "am-pm-top";
-  CssClass dui_am_pm_bottom = ()-> "am-pm-bottom";
-  CssClass dui_time_display_large = ()-> "time-display-large";
-  CssClass du_time_footer = ()-> "time-footer";
-  CssClass dui_clear_button = ()-> "clear-button";
-  CssClass dui_now_button = ()-> "now-button";
-  CssClass dui_close_button = ()-> "close-button";
-  CssClass dui_navigate = ()-> "navigate";
-  CssClass dui_navigate_left = ()-> "navigate-left";
-  CssClass dui_navigate_right = ()-> "navigate-right";
-  CssClass dui_picker_content = ()-> "picker-content";
-  CssClass dui_clock_picker = ()-> "clock-picker";
-  CssClass dui_hour = ()-> "hour";
-  CssClass dui_small_hour = ()-> "small-hour";
-
-  // ==============================
-  CssClass dui_time_picker_center_circle = ()-> "dui-time-picker-center-circle";
-  CssClass dui_time_picker_svg_root = ()-> "dui-time-picker-svg-root";
+  CssClass dui_time_picker = () -> "dui-time-picker";
+  CssClass dui_timepicker_body = () -> "dui-timepicker-body";
+  CssClass dui_timepicker_footer = () -> "dui-timepicker-footer";
+  CssClass dui_timepicker_selectors = () -> "dui-timepicker-selectors";
+  CssClass dui_timepicker_unit_selector = () -> "dui-timepicker-unit-selector";
+  CssClass dui_time_header = () -> "dui-time-header";
+  CssClass dui_time_header_text = () -> "dui-time-header-text";
 }

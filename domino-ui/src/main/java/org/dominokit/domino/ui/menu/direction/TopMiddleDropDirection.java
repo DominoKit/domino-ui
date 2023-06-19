@@ -15,17 +15,14 @@
  */
 package org.dominokit.domino.ui.menu.direction;
 
-import elemental2.dom.DOMRect;
-import elemental2.dom.Element;
-import org.dominokit.domino.ui.style.CssClass;
-import org.dominokit.domino.ui.style.Style;
-import org.dominokit.domino.ui.utils.ElementsFactory;
-
 import static elemental2.dom.DomGlobal.window;
-import static org.dominokit.domino.ui.style.SpacingCss.dui_flex_col;
 import static org.dominokit.domino.ui.style.SpacingCss.dui_flex_col_reverse;
 import static org.dominokit.domino.ui.utils.ElementsFactory.elements;
 import static org.dominokit.domino.ui.utils.Unit.px;
+
+import elemental2.dom.DOMRect;
+import elemental2.dom.Element;
+import org.dominokit.domino.ui.style.Style;
 
 public class TopMiddleDropDirection implements DropDirection {
   @Override
@@ -39,19 +36,22 @@ public class TopMiddleDropDirection implements DropDirection {
     if (availableSpace < sourceRect.width) {
       delta = sourceRect.width - availableSpace;
     }
-    elements.elementOf(source).setCssProperty("--dui-menu-drop-min-width", targetRect.width+"px");
+    elements.elementOf(source).setCssProperty("--dui-menu-drop-min-width", targetRect.width + "px");
     targetRect = target.getBoundingClientRect();
     sourceRect = source.getBoundingClientRect();
 
-    Style.of(source).style.setProperty(
-        "top", px.of((targetRect.top + window.pageYOffset) - sourceRect.height - 1));
-    Style.of(source).style.setProperty(
-        "left",
-        px.of(
-            targetRect.left
-                + window.pageXOffset
-                - ((sourceRect.width - targetRect.width) / 2)
-                - delta));
+    Style.of(source)
+        .style
+        .setProperty("top", px.of((targetRect.top + window.pageYOffset) - sourceRect.height - 1));
+    Style.of(source)
+        .style
+        .setProperty(
+            "left",
+            px.of(
+                targetRect.left
+                    + window.pageXOffset
+                    - ((sourceRect.width - targetRect.width) / 2)
+                    - delta));
     dui_dd_top_middle.apply(source);
   }
 
@@ -60,5 +60,4 @@ public class TopMiddleDropDirection implements DropDirection {
     dui_dd_top_middle.remove(source);
     elements.elementOf(source).removeCssProperty("--dui-menu-drop-min-width");
   }
-
 }

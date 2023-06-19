@@ -35,9 +35,7 @@ public abstract class CountableInputFormField<
   private MinLengthValidator<T, E> minLengthValidator;
   private MaxLengthValidator<T, E> maxLengthValidator;
 
-  public CountableInputFormField() {
-
-  }
+  public CountableInputFormField() {}
 
   @Override
   public T updateCounter(int count, int maxCount) {
@@ -50,7 +48,7 @@ public abstract class CountableInputFormField<
   }
 
   private SpanElement getCountElement() {
-    if(isNull(counterElement)){
+    if (isNull(counterElement)) {
       counterElement = initCounterElement();
     }
     return counterElement.get();

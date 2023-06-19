@@ -15,6 +15,8 @@
  */
 package org.dominokit.domino.ui.forms;
 
+import static java.util.Objects.isNull;
+
 import elemental2.dom.HTMLInputElement;
 import jsinterop.base.Js;
 import org.dominokit.domino.ui.elements.DivElement;
@@ -23,8 +25,6 @@ import org.dominokit.domino.ui.utils.ChildHandler;
 import org.dominokit.domino.ui.utils.HasPostfix;
 import org.dominokit.domino.ui.utils.HasPrefix;
 import org.dominokit.domino.ui.utils.LazyChild;
-
-import static java.util.Objects.isNull;
 
 public abstract class TextInputFormField<
         T extends InputFormField<T, E, V>, E extends HTMLInputElement, V>
@@ -37,27 +37,25 @@ public abstract class TextInputFormField<
 
   private void addInvalidPatternValidator() {
     addValidator(
-            (target) -> {
-              HTMLInputElement inputElement = Js.uncheckedCast(getInputElement().element());
-              if (inputElement.validity.patternMismatch) {
-                return ValidationResult.invalid(getInvalidPatternErrorMessage());
-              }
-              return ValidationResult.valid();
-            });
+        (target) -> {
+          HTMLInputElement inputElement = Js.uncheckedCast(getInputElement().element());
+          if (inputElement.validity.patternMismatch) {
+            return ValidationResult.invalid(getInvalidPatternErrorMessage());
+          }
+          return ValidationResult.valid();
+        });
   }
-
 
   private void addTypeMismatchValidator() {
     addValidator(
-            (target) -> {
-              HTMLInputElement inputElement = Js.uncheckedCast(getInputElement().element());
-              if (inputElement.validity.typeMismatch) {
-                return ValidationResult.invalid(getTypeMismatchErrorMessage());
-              }
-              return ValidationResult.valid();
-            });
+        (target) -> {
+          HTMLInputElement inputElement = Js.uncheckedCast(getInputElement().element());
+          if (inputElement.validity.typeMismatch) {
+            return ValidationResult.invalid(getTypeMismatchErrorMessage());
+          }
+          return ValidationResult.valid();
+        });
   }
-
 
   public TextInputFormField() {
     prefixElement = LazyChild.of(div().addCss(dui_field_prefix), wrapperElement);
@@ -133,7 +131,6 @@ public abstract class TextInputFormField<
     return (T) this;
   }
 
-
   /**
    * Sets a pattern to be used for formatting this component value, this is the <b>pattern</b> html
    * attribute
@@ -182,8 +179,8 @@ public abstract class TextInputFormField<
    */
   public String getInvalidPatternErrorMessage() {
     return isNull(invalidPatternErrorMessage)
-            ? "Value mismatch pattern [" + getPattern() + "]"
-            : invalidPatternErrorMessage;
+        ? "Value mismatch pattern [" + getPattern() + "]"
+        : invalidPatternErrorMessage;
   }
 
   public T setTypeMismatchErrorMessage(String typeMismatchErrorMessage) {

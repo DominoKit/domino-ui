@@ -16,8 +16,6 @@
 package org.dominokit.domino.ui.layout;
 
 import elemental2.dom.HTMLDivElement;
-import elemental2.dom.HTMLElement;
-import elemental2.dom.HTMLHeadingElement;
 import org.dominokit.domino.ui.elements.DivElement;
 import org.dominokit.domino.ui.elements.HeadingElement;
 import org.dominokit.domino.ui.elements.SmallElement;

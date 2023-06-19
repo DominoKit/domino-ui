@@ -16,7 +16,7 @@
 package org.dominokit.domino.ui.i18n;
 
 public interface DominoUILabels
-        extends QuickSearchLabels,
+    extends QuickSearchLabels,
         FormsLabels,
         MenuLabels,
         DialogLabels,
@@ -26,5 +26,4 @@ public interface DominoUILabels
         UploadLabels,
         PickersLabels,
         CalendarLabels,
-        TimePickerLabels {
-}
+        TimePickerLabels {}

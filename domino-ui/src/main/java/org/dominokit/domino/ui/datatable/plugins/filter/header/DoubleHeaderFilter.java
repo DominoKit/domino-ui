@@ -13,18 +13,18 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
- package org.dominokit.domino.ui.datatable.plugins.filter.header;
+package org.dominokit.domino.ui.datatable.plugins.filter.header;
 
- import elemental2.dom.HTMLInputElement;
- import org.dominokit.domino.ui.datatable.model.FilterTypes;
- import org.dominokit.domino.ui.forms.DoubleBox;
+import elemental2.dom.HTMLInputElement;
+import org.dominokit.domino.ui.datatable.model.FilterTypes;
+import org.dominokit.domino.ui.forms.DoubleBox;
 
 /**
  * BigDecimal column header filter component that is rendered as a {@link DoubleBox} component
  *
  * @param <T> type of data table records
  */
- public class DoubleHeaderFilter<T> extends DelayedHeaderFilterInput<Double, DoubleBox, T> {
+public class DoubleHeaderFilter<T> extends DelayedHeaderFilterInput<DoubleBox, T, Double> {
 
   private DoubleBox doubleBox;
 
@@ -90,14 +90,15 @@
   /** {@inheritDoc} */
   @Override
   public void clear() {
-      doubleBox.withPausedChangeListeners(field -> {
+    doubleBox.withPausedChangeListeners(
+        field -> {
           doubleBox.clear();
           doubleBox.getInputElement().element().value = "";
-      });
+        });
   }
 
   /** @return the {@link DoubleBox} wrapped in this component */
   public DoubleBox getDoubleBox() {
     return doubleBox;
   }
- }
+}

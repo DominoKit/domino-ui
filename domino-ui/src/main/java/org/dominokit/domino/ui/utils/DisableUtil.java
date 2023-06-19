@@ -15,13 +15,11 @@
  */
 package org.dominokit.domino.ui.utils;
 
-import elemental2.dom.Element;
-import elemental2.dom.HTMLElement;
-import org.dominokit.domino.ui.IsElement;
-
-import java.util.Optional;
-
 import static org.dominokit.domino.ui.utils.ElementsFactory.elements;
+
+import elemental2.dom.Element;
+import java.util.Optional;
+import org.dominokit.domino.ui.IsElement;
 
 public class DisableUtil {
 
@@ -39,7 +37,8 @@ public class DisableUtil {
               DominoElement<Element> dominoElement = elements.elementOf(e);
               if (!isDisabled(dominoElement)) {
                 disableElement(dominoElement);
-                elements.elementOf(element)
+                elements
+                    .elementOf(element)
                     .querySelectorAll(FOCUSABLE_ELEMENTS)
                     .forEach(child -> disableChild(elements.elementOf(child)));
               }
@@ -80,7 +79,8 @@ public class DisableUtil {
               DominoElement<Element> dominoElement = elements.elementOf(e);
               if (isDisabled(dominoElement)) {
                 enableElement(dominoElement);
-                elements.elementOf(element)
+                elements
+                    .elementOf(element)
                     .querySelectorAll(FOCUSABLE_ELEMENTS)
                     .forEach(child -> enableChild(elements.elementOf(child)));
               }

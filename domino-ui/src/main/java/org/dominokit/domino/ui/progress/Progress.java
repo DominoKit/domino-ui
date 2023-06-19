@@ -16,12 +16,10 @@
 package org.dominokit.domino.ui.progress;
 
 import elemental2.dom.HTMLDivElement;
-import org.dominokit.domino.ui.elements.DivElement;
-import org.dominokit.domino.ui.utils.BaseDominoElement;
-import org.dominokit.domino.ui.utils.DominoElement;
-
 import java.util.ArrayList;
 import java.util.List;
+import org.dominokit.domino.ui.elements.DivElement;
+import org.dominokit.domino.ui.utils.BaseDominoElement;
 
 /**
  * A component that can show the progress for one or more operation
@@ -35,7 +33,8 @@ import java.util.List;
  *
  * @see ProgressBar
  */
-public class Progress extends BaseDominoElement<HTMLDivElement, Progress> implements ProgressStyles {
+public class Progress extends BaseDominoElement<HTMLDivElement, Progress>
+    implements ProgressStyles {
 
   private DivElement element;
   private final List<ProgressBar> progressBars = new ArrayList<>();
@@ -71,9 +70,10 @@ public class Progress extends BaseDominoElement<HTMLDivElement, Progress> implem
   }
 
   String calculateWidth(double value) {
-    return String.valueOf(new Double((value / progressBars.stream()
-            .mapToDouble(ProgressBar::getMaxValue)
-            .sum()) * 100).intValue());
+    return String.valueOf(
+        new Double(
+                (value / progressBars.stream().mapToDouble(ProgressBar::getMaxValue).sum()) * 100)
+            .intValue());
   }
 
   void removeBar(ProgressBar progressBar) {

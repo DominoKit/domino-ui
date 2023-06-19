@@ -15,31 +15,23 @@
  */
 package org.dominokit.domino.ui.datatable;
 
-import elemental2.dom.HTMLTableCellElement;
-import elemental2.dom.HTMLTableRowElement;
-import org.dominokit.domino.ui.datatable.events.RowRecordUpdatedEvent;
-import org.dominokit.domino.ui.datatable.events.TableDataUpdatedEvent;
-import org.dominokit.domino.ui.forms.validations.ValidationResult;
-import org.dominokit.domino.ui.utils.BaseDominoElement;
-import org.dominokit.domino.ui.utils.ComponentMeta;
-import org.dominokit.domino.ui.utils.HasSelectionListeners;
-import org.dominokit.domino.ui.utils.Selectable;
-
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
-import java.util.Set;
-
 import static java.util.Objects.isNull;
 import static java.util.Objects.nonNull;
 
+import elemental2.dom.HTMLTableCellElement;
+import elemental2.dom.HTMLTableRowElement;
+import java.util.*;
+import org.dominokit.domino.ui.datatable.events.RowRecordUpdatedEvent;
+import org.dominokit.domino.ui.datatable.events.TableDataUpdatedEvent;
+import org.dominokit.domino.ui.forms.validations.ValidationResult;
+import org.dominokit.domino.ui.style.BooleanCssClass;
+import org.dominokit.domino.ui.utils.*;
+import org.dominokit.domino.ui.utils.HasSelectionHandler.SelectionHandler;
+
 public class TableRow<T> extends BaseDominoElement<HTMLTableRowElement, TableRow<T>>
     implements Selectable<TableRow<T>>,
-        HasSelectionListeners<TableRow<T>, TableRow<T>, TableRow<T>> {
+        HasSelectionListeners<TableRow<T>, TableRow<T>, TableRow<T>>,
+        DataTableStyles {
   private T record;
   private boolean selected = false;
   private final int index;
@@ -49,25 +41,26 @@ public class TableRow<T> extends BaseDominoElement<HTMLTableRowElement, TableRow
   private Map<String, String> flags = new HashMap<>();
 
   private HTMLTableRowElement element = tr().element();
+  private List<SelectionHandler<T>> selectionHandlers = new ArrayList<>();
 
   private List<RowListener<T>> listeners = new ArrayList<>();
   private boolean editable = false;
   private RowRenderer<T> rowRenderer = new DefaultRowRenderer<>();
   private TableRow<T> parent;
   private List<TableRow<T>> children = new ArrayList<>();
-
+  private boolean selectionListenersPaused = false;
   private Set<SelectionListener<? super TableRow<T>, ? super TableRow<T>>> selectionListeners =
       new HashSet<>();
   private Set<SelectionListener<? super TableRow<T>, ? super TableRow<T>>> deselectionListeners =
       new HashSet<>();
-  private boolean selectionListenersPaused = false;
-  private boolean selectable = true;
+  private boolean selectable;
 
   public TableRow(T record, int index, DataTable<T> dataTable) {
     this.record = record;
     this.index = index;
     this.dataTable = dataTable;
     init(this);
+    addCss(dui_datatable_row);
   }
 
   public void setRecord(T record) {
@@ -80,80 +73,50 @@ public class TableRow<T> extends BaseDominoElement<HTMLTableRowElement, TableRow
     return dirtyRecord;
   }
 
+  @Override
+  public TableRow<T> select() {
+    return doSelect(true);
+  }
+
+  private TableRow<T> doSelect(boolean selectChildren) {
+    if (!hasFalg(DataTable.DATA_TABLE_ROW_FILTERED)) {
+      this.selected = true;
+      if (selectChildren) {
+        getChildren().forEach(TableRow::select);
+      }
+      Optional.ofNullable(parent)
+          .ifPresent(
+              tableRow -> {
+                if (tableRow.shouldBeSelected()) {
+                  tableRow.doSelect(false);
+                }
+              });
+      triggerSelectionListeners(this, this);
+      this.dataTable.triggerSelectionListeners(this, dataTable.getSelection());
+    }
+    return this;
+  }
+
   private boolean shouldBeSelected() {
     return getChildren().stream().allMatch(TableRow::isSelected);
   }
 
   @Override
-  public TableRow<T> select() {
-    return select(isSelectionListenersPaused());
-  }
-
-  @Override
-  public TableRow<T> select(boolean silent) {
-    if (!hasFlag(DataTable.DATA_TABLE_ROW_FILTERED) && isSelectable()) {
-      this.selected = true;
-      doSelect(true, silent);
-    }
-    return this;
-  }
-
-  private TableRow<T> doSelect(boolean selectChildren, boolean silent) {
-    if (selectChildren) {
-      getChildren().forEach(childRow -> childRow.select(silent));
-    }
-    Optional.ofNullable(parent)
-        .ifPresent(
-            tableRow -> {
-              if (tableRow.shouldBeSelected()) {
-                tableRow.doSelect(false, silent);
-              }
-            });
-    if (!silent) {
-      triggerSelectionListeners(this, this);
-    }
-    return this;
-  }
-
-  @Override
   public TableRow<T> deselect() {
-    return deselect(isSelectionListenersPaused());
+    return doDeselect(true, true);
   }
 
-  @Override
-  public TableRow<T> deselect(boolean silent) {
-    if (!hasFlag(DataTable.DATA_TABLE_ROW_FILTERED) && isSelectable()) {
-      this.selected = false;
-      doDeselect(true, true, silent);
-    }
-    return this;
-  }
-
-  private TableRow<T> doDeselect(boolean deselectParent, boolean deselectChildren, boolean silent) {
+  private TableRow<T> doDeselect(boolean deselectParent, boolean deselectChildren) {
     this.selected = false;
     if (deselectChildren) {
-      getChildren().forEach(tableRow -> tableRow.doDeselect(false, true, silent));
+      getChildren().forEach(tableRow -> tableRow.doDeselect(false, true));
     }
     if (deselectParent) {
-      Optional.ofNullable(parent).ifPresent(tableRow -> tableRow.doDeselect(true, false, silent));
+      Optional.ofNullable(parent).ifPresent(tableRow -> tableRow.doDeselect(true, false));
     }
-    if (!silent) {
-      triggerDeselectionListeners(this, this);
-    }
+    triggerDeselectionListeners(this, this);
+    this.dataTable.triggerDeselectionListeners(this, dataTable.getSelection());
     return this;
-  }
-
-  @Override
-  public boolean isSelected() {
-    return selected;
-  }
-
-  public T getRecord() {
-    return record;
-  }
-
-  public DataTable<T> getDataTable() {
-    return dataTable;
   }
 
   @Override
@@ -176,13 +139,13 @@ public class TableRow<T> extends BaseDominoElement<HTMLTableRowElement, TableRow
 
   @Override
   public Set<SelectionListener<? super TableRow<T>, ? super TableRow<T>>> getSelectionListeners() {
-    return selectionListeners;
+    return this.selectionListeners;
   }
 
   @Override
   public Set<SelectionListener<? super TableRow<T>, ? super TableRow<T>>>
       getDeselectionListeners() {
-    return deselectionListeners;
+    return this.deselectionListeners;
   }
 
   @Override
@@ -192,25 +155,34 @@ public class TableRow<T> extends BaseDominoElement<HTMLTableRowElement, TableRow
 
   @Override
   public TableRow<T> triggerSelectionListeners(TableRow<T> source, TableRow<T> selection) {
-    selectionListeners.forEach(
-        listener -> listener.onSelectionChanged(Optional.ofNullable(source), selection));
+    if (!this.selectionListenersPaused) {
+      new ArrayList<>(selectionListeners)
+          .forEach(
+              listener -> {
+                listener.onSelectionChanged(Optional.ofNullable(source), selection);
+              });
+    }
     return this;
   }
 
   @Override
   public TableRow<T> triggerDeselectionListeners(TableRow<T> source, TableRow<T> selection) {
-    deselectionListeners.forEach(
-        listener -> listener.onSelectionChanged(Optional.ofNullable(source), selection));
+    if (!this.selectionListenersPaused) {
+      new ArrayList<>(deselectionListeners)
+          .forEach(
+              listener -> {
+                listener.onSelectionChanged(Optional.ofNullable(source), selection);
+              });
+    }
     return this;
   }
 
   @Override
   public TableRow<T> getSelection() {
-    if (isSelected() && isSelectable()) {
+    if (isSelected()) {
       return this;
-    } else {
-      return null;
     }
+    return null;
   }
 
   @Override
@@ -226,17 +198,42 @@ public class TableRow<T> extends BaseDominoElement<HTMLTableRowElement, TableRow
 
   @Override
   public TableRow<T> setSelected(boolean selected) {
-    return setSelected(selected, isSelectionListenersPaused());
+    this.selected = selected;
+    if (selected) {
+      select();
+    } else {
+      deselect();
+    }
+    return this;
   }
 
   @Override
   public TableRow<T> setSelected(boolean selected, boolean silent) {
-    if (selected) {
-      select(silent);
-    } else {
-      deselect(silent);
-    }
+    withPauseSelectionListenersToggle(silent, tableRow -> tableRow.setSelected(selected));
     return this;
+  }
+
+  @Override
+  public TableRow<T> select(boolean silent) {
+    return setSelected(true, silent);
+  }
+
+  @Override
+  public TableRow<T> deselect(boolean silent) {
+    return setSelected(true, silent);
+  }
+
+  @Override
+  public boolean isSelected() {
+    return selected;
+  }
+
+  public T getRecord() {
+    return record;
+  }
+
+  public DataTable<T> getDataTable() {
+    return dataTable;
   }
 
   public void addRowListener(RowListener<T> listener) {
@@ -266,6 +263,12 @@ public class TableRow<T> extends BaseDominoElement<HTMLTableRowElement, TableRow
 
   public void removeFlag(String name) {
     flags.remove(name);
+  }
+
+  /** @deprecated use {@link #hasFlag} */
+  @Deprecated
+  public boolean hasFalg(String name) {
+    return flags.containsKey(name);
   }
 
   public boolean hasFlag(String name) {
@@ -366,15 +369,20 @@ public class TableRow<T> extends BaseDominoElement<HTMLTableRowElement, TableRow
   /** @param editable boolean, true if this row should be editable, otherwise it is not */
   private void setEditable(boolean editable) {
     this.editable = editable;
+    addCss(BooleanCssClass.of(dui_datatable_row_editable, editable));
   }
 
   public void renderCell(ColumnConfig<T> columnConfig) {
-    HTMLTableCellElement cellElement;
-    if (columnConfig.isHeader()) {
-      cellElement = th().css("dt-th-cell").element();
-    } else {
-      cellElement = td().css("dt-td-cell").element();
-    }
+    HTMLTableCellElement cellElement = td().addCss(dui_datatable_td).element();
+
+    ColumnCssRuleMeta.get(columnConfig)
+        .ifPresent(
+            meta ->
+                meta.cssRules()
+                    .forEach(
+                        columnCssRule ->
+                            elementOf(cellElement)
+                                .addCss(columnCssRule.getCssRule().getCssClass())));
 
     RowCell<T> rowCell =
         new RowCell<>(new CellRenderer.CellInfo<>(this, cellElement), columnConfig);
@@ -385,7 +393,7 @@ public class TableRow<T> extends BaseDominoElement<HTMLTableRowElement, TableRow
 
     columnConfig.applyCellStyle(cellElement);
     if (columnConfig.isHidden()) {
-      elementOf(cellElement).collapse();
+      elementOf(cellElement).hide();
     }
     dataTable
         .getTableConfig()

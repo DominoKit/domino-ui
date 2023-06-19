@@ -32,10 +32,8 @@ import org.dominokit.domino.ui.utils.ElementsFactory;
  *
  * @param <T> the type of the datatable records
  */
-public interface DataTablePlugin<T> extends TableEventListener,
-        Comparable<DataTablePlugin<T>>,
-        ElementsFactory,
-        DominoCss {
+public interface DataTablePlugin<T>
+    extends TableEventListener, Comparable<DataTablePlugin<T>>, ElementsFactory, DominoCss {
 
   /**
    * this method is used to initialise the plugin with the datatable instance
@@ -134,7 +132,7 @@ public interface DataTablePlugin<T> extends TableEventListener,
 
   /**
    * @param dataTable {@link DataTable}
-   * @param cellInfo {@link org.dominokit.domino.ui.datatable.CellRenderer.CellInfo}
+   * @param cellInfo {@link CellRenderer.CellInfo}
    * @return return an {@link Optional} {@link List} of {@link HTMLElement}s to be used as part of
    *     the plugins utility column, elements returned from this method will be rendered as flex
    *     items inside the utility cell.
@@ -143,4 +141,11 @@ public interface DataTablePlugin<T> extends TableEventListener,
       DataTable<T> dataTable, CellRenderer.CellInfo<T> cellInfo) {
     return Optional.empty();
   }
+
+  /**
+   * Will be called when the footer element is appended to the table element
+   *
+   * @param datatable {@link DataTable}
+   */
+  default void onFooterAdded(DataTable<T> datatable) {}
 }

@@ -16,6 +16,7 @@
 package org.dominokit.domino.ui.datatable.plugins;
 
 import static java.util.Objects.nonNull;
+import static org.dominokit.domino.ui.datatable.DataTableStyles.*;
 
 import elemental2.dom.HTMLElement;
 import elemental2.dom.Text;
@@ -33,10 +34,7 @@ import org.dominokit.domino.ui.datatable.events.RecordDroppedEvent;
 import org.dominokit.domino.ui.datatable.events.TableEvent;
 import org.dominokit.domino.ui.dnd.DragSource;
 import org.dominokit.domino.ui.dnd.DropZone;
-import org.dominokit.domino.ui.grid.flex.FlexAlign;
-import org.dominokit.domino.ui.grid.flex.FlexItem;
-import org.dominokit.domino.ui.grid.flex.FlexJustifyContent;
-import org.dominokit.domino.ui.grid.flex.FlexLayout;
+import org.dominokit.domino.ui.elements.DivElement;
 import org.dominokit.domino.ui.icons.Icon;
 import org.dominokit.domino.ui.icons.Icons;
 
@@ -51,9 +49,9 @@ public class DragDropPlugin<T> implements DataTablePlugin<T> {
   private DragSource dragSource;
   private TableRow<T> emptyDropRow;
   private DataTable<T> dataTable;
-  private Supplier<Icon<?>> emptyDropIconSupplier = Icons::plus;
+  private Supplier<Icon<?>> emptyDropIconSupplier = Icons::vector_point_plus;
   private Supplier<Icon<?>> dragDropIconSupplier = Icons::drag_vertical;
-  private FlexLayout emptyDropArea;
+  private DivElement emptyDropArea;
   private Text emptyDropText;
   private final List<DataTable<T>> otherDataTables = new ArrayList<>();
 
@@ -66,22 +64,16 @@ public class DragDropPlugin<T> implements DataTablePlugin<T> {
   }
 
   private void initEmptyDropArea(DataTable<T> dataTable) {
-    emptyDropText = text("Drop items here");
+    emptyDropText = elements.text("Drop items here");
     emptyDropArea =
-        FlexLayout.create()
-            .setAlignItems(FlexAlign.CENTER)
-            .setJustifyContent(FlexJustifyContent.CENTER)
-            .appendChild(
-                FlexItem.create()
-                    .appendChild(
-                        FlexLayout.create()
-                            .setAlignItems(FlexAlign.CENTER)
-                            .appendChild(FlexItem.create().appendChild(emptyDropIconSupplier.get()))
-                            .appendChild(FlexItem.create().appendChild(emptyDropText))));
-    emptyDropRow = new TableRow<>(null, -1, dataTable).css("default-drop-area");
+        div()
+            .addCss(dui_flex, dui_items_center, dui_justify_center, dui_datatable_drop_area)
+            .appendChild(emptyDropIconSupplier.get())
+            .appendChild(emptyDropText);
+    emptyDropRow = new TableRow<>(null, -1, dataTable).addCss(dui_datatable_drop_row);
     emptyDropRow.appendChild(emptyDropArea);
     dropZone.addDropTarget(emptyDropRow, draggableId -> moveItem(dataTable, null, draggableId));
-    emptyDropRow.collapse();
+    emptyDropRow.hide();
   }
 
   /** {@inheritDoc} */
@@ -95,16 +87,14 @@ public class DragDropPlugin<T> implements DataTablePlugin<T> {
   public Optional<List<HTMLElement>> getUtilityElements(
       DataTable<T> dataTable, CellRenderer.CellInfo<T> cellInfo) {
     return Optional.of(
-        Collections.singletonList(dragDropIconSupplier.get().css("dui-row-dnd-element").element()));
+        Collections.singletonList(dragDropIconSupplier.get().addCss(dui_row_dnd_grab).element()));
   }
 
   /** {@inheritDoc} */
   @Override
   public void onHeaderAdded(DataTable<T> dataTable, ColumnConfig<T> column) {
     if (column.isUtilityColumn()) {
-      column
-          .getHeaderLayout()
-          .appendChild(FlexItem.create().appendChild(dragDropIconSupplier.get()));
+      column.appendChild(div().appendChild(dragDropIconSupplier.get()));
     }
   }
 
@@ -177,7 +167,7 @@ public class DragDropPlugin<T> implements DataTablePlugin<T> {
   }
 
   /** @return the element of empty drop */
-  public FlexLayout getEmptyDropArea() {
+  public DivElement getEmptyDropArea() {
     return emptyDropArea;
   }
 

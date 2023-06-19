@@ -20,9 +20,8 @@ import org.dominokit.domino.ui.style.CssClass;
 /** Default CSS classes for {@link SplitPanel} */
 public interface SplitStyles {
 
-  CssClass dui_split_layout = ()-> "dui-split-layout";
-  CssClass dui_split_panel = ()-> "dui-split-panel";
-  CssClass dui_split_layout_splitter = ()-> "dui-split-layout-splitter";
-  CssClass dui_splitter_handle = ()-> "dui-splitter-handle";
-
+  CssClass dui_split_layout = () -> "dui-split-layout";
+  CssClass dui_split_panel = () -> "dui-split-panel";
+  CssClass dui_split_layout_splitter = () -> "dui-split-layout-splitter";
+  CssClass dui_splitter_handle = () -> "dui-splitter-handle";
 }

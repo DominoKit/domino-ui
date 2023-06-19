@@ -140,11 +140,13 @@ public interface HasCollapseListeners<T> {
   }
 
   Set<CollapseListener<? super T>> getCollapseListeners();
+
   Set<ExpandListener<? super T>> getExpandListeners();
 
   boolean isCollapseListenersPaused();
 
   T triggerCollapseListeners(T component);
+
   T triggerExpandListeners(T component);
 
   /** @param <T> the type of the component */

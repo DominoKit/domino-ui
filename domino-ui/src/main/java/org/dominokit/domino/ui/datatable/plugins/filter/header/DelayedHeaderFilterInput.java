@@ -13,7 +13,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
- package org.dominokit.domino.ui.datatable.plugins.filter.header;
+package org.dominokit.domino.ui.datatable.plugins.filter.header;
+
+import static java.util.Objects.nonNull;
+import static org.dominokit.domino.ui.style.SpacingCss.dui_m_b_0;
 
 import elemental2.dom.HTMLElement;
 import elemental2.dom.HTMLInputElement;
@@ -22,23 +25,21 @@ import org.dominokit.domino.ui.datatable.model.Category;
 import org.dominokit.domino.ui.datatable.model.Filter;
 import org.dominokit.domino.ui.datatable.model.FilterTypes;
 import org.dominokit.domino.ui.datatable.model.SearchContext;
-import org.dominokit.domino.ui.datatable.plugins.ColumnHeaderFilterPlugin;
+import org.dominokit.domino.ui.datatable.plugins.column.ColumnHeaderFilterPlugin;
 import org.dominokit.domino.ui.forms.InputFormField;
 import org.dominokit.domino.ui.utils.DelayedTextInput;
 import org.dominokit.domino.ui.utils.HasPlaceHolder;
 
-import static java.util.Objects.nonNull;
-
 /**
- * An abstract implementation of the {@link
- * org.dominokit.domino.ui.datatable.plugins.ColumnHeaderFilterPlugin.HeaderFilter} for text input
+ * An abstract implementation of the {@link ColumnHeaderFilterPlugin.HeaderFilter} for text input
  * based filters that add a delay for triggering the search while the user is typing
  *
- * @param <B> the type of the component that extends from {@link InputFormField} and is wrapped in the
- *     implementation
+ * @param <B> the type of the component that extends from {@link InputFormField} and is wrapped in
+ *     the implementation
  * @param <T> the type of the data table records
  */
- public abstract class DelayedHeaderFilterInput<V, B extends InputFormField<B, HTMLInputElement, V>, T>
+public abstract class DelayedHeaderFilterInput<
+        B extends InputFormField<B, HTMLInputElement, V>, T, V>
     implements ColumnHeaderFilterPlugin.HeaderFilter<T> {
   private B input;
   private DelayedTextInput delayedTextInput;
@@ -60,10 +61,9 @@ import static java.util.Objects.nonNull;
   public DelayedHeaderFilterInput(String placeHolder) {
     input = createValueBox();
 
-    input.styler(style -> style.setMarginBottom("0px"));
-    if(input instanceof HasPlaceHolder){
-        ((HasPlaceHolder)input).setPlaceholder(placeHolder);
-
+    input.addCss(dui_m_b_0);
+    if (input instanceof HasPlaceHolder<?>) {
+      ((HasPlaceHolder<B>) input).setPlaceholder(placeHolder);
     }
 
     delayedTextInput = DelayedTextInput.create(getInputElement(), 200);
@@ -74,19 +74,19 @@ import static java.util.Objects.nonNull;
   public void init(SearchContext<T> searchContext, ColumnConfig<T> columnConfig) {
     searchContext.addBeforeSearchHandler(
         tSearchContext -> {
-          if (nonNull(searchContext) && nonNull(columnConfig)) {
+          if (nonNull(columnConfig)) {
             if (isEmpty()) {
-              searchContext.remove(columnConfig.getName(), Category.HEADER_FILTER);
+              searchContext.remove(columnConfig.getFilterKey(), Category.HEADER_FILTER);
             } else {
               searchContext.add(
                   Filter.create(
-                      columnConfig.getName(), getValue(), Category.HEADER_FILTER, getType()));
+                      columnConfig.getFilterKey(), getValue(), Category.HEADER_FILTER, getType()));
             }
           }
         });
     delayedTextInput.setDelayedAction(
         () -> {
-          if (nonNull(searchContext) && nonNull(columnConfig)) {
+          if (nonNull(columnConfig)) {
             searchContext.fireSearchEvent();
           }
         });
@@ -117,4 +117,4 @@ import static java.util.Objects.nonNull;
   public HTMLElement element() {
     return input.element();
   }
- }
+}

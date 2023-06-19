@@ -19,7 +19,6 @@ import elemental2.dom.HTMLElement;
 import org.dominokit.domino.ui.menu.Menu;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
 import org.dominokit.domino.ui.utils.ChildHandler;
-import org.dominokit.domino.ui.utils.DominoElement;
 
 /**
  * A Button with dropdown menu component
@@ -53,7 +52,7 @@ public class DropdownButton<T extends BaseButton<?, T>, V>
         .setAttribute("aria-haspopup", true)
         .setAttribute("aria-expanded", true)
         .setAttribute("type", "button");
-//    this.menu.setTargetElement(button).setMenuAppendTarget(body().element());
+    //    this.menu.setTargetElement(button).setMenuAppendTarget(body().element());
     this.button.addClickListener(evt -> this.menu.open());
     this.button.setDropMenu(this.menu);
     init(this);

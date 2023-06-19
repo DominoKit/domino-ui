@@ -15,89 +15,83 @@
  */
 package org.dominokit.domino.ui.pagination;
 
-import elemental2.dom.HTMLAnchorElement;
 import elemental2.dom.HTMLElement;
 import elemental2.dom.HTMLLIElement;
 import elemental2.dom.Node;
+import org.dominokit.domino.ui.IsElement;
 import org.dominokit.domino.ui.elements.AnchorElement;
 import org.dominokit.domino.ui.elements.LIElement;
 import org.dominokit.domino.ui.icons.Icon;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
 import org.dominokit.domino.ui.utils.ChildHandler;
-import org.dominokit.domino.ui.utils.DominoElement;
-import org.dominokit.domino.ui.IsElement;
 
 class PagerNavItem extends BaseDominoElement<HTMLLIElement, PagerNavItem>
-        implements PaginationStyles {
+    implements PaginationStyles {
 
-    private LIElement root;
-    private AnchorElement link;
-    private final int page;
+  private LIElement root;
+  private AnchorElement link;
+  private final int page;
 
-    public static PagerNavItem create(Node node) {
-        return new PagerNavItem(-1)
-                .withLink((parent, link) -> link.addCss(dui_page_link))
-                .appendChild(node);
-    }
+  public static PagerNavItem create(Node node) {
+    return new PagerNavItem(-1)
+        .withLink((parent, link) -> link.addCss(dui_page_link))
+        .appendChild(node);
+  }
 
-    public static PagerNavItem create(IsElement<?> element) {
-        return new PagerNavItem(-1)
-                .withLink((parent, link) -> link.addCss(dui_page_link))
-                .appendChild(element);
-    }
+  public static PagerNavItem create(IsElement<?> element) {
+    return new PagerNavItem(-1)
+        .withLink((parent, link) -> link.addCss(dui_page_link))
+        .appendChild(element);
+  }
 
-    public static PagerNavItem nav(Icon<?> icon) {
-        return new PagerNavItem(-1)
-                .withLink((parent, link) -> link.addCss(dui_page_link))
-                .appendChild(icon.addCss(dui_page_icon, dui_clickable));
-    }
+  public static PagerNavItem nav(Icon<?> icon) {
+    return new PagerNavItem(-1)
+        .withLink((parent, link) -> link.addCss(dui_page_link))
+        .appendChild(icon.addCss(dui_page_icon, dui_clickable));
+  }
 
-    public static PagerNavItem page(int page) {
-        return new PagerNavItem(page)
-                .withLink(
-                        (parent, self) -> self
-                                .addCss(dui_page_link, dui_clickable).setTextContent(String.valueOf(page)));
-    }
+  public static PagerNavItem page(int page) {
+    return new PagerNavItem(page)
+        .withLink(
+            (parent, self) ->
+                self.addCss(dui_page_link, dui_clickable).setTextContent(String.valueOf(page)));
+  }
 
-    public static PagerNavItem create() {
-        return new PagerNavItem(-1);
-    }
+  public static PagerNavItem create() {
+    return new PagerNavItem(-1);
+  }
 
-    public PagerNavItem(int page) {
-        this.page = page;
-        root =
-                li()
-                        .addCss(dui_pager_item)
-                        .appendChild(link = a());
-        init(this);
-    }
+  public PagerNavItem(int page) {
+    this.page = page;
+    root = li().addCss(dui_pager_item).appendChild(link = a());
+    init(this);
+  }
 
-    @Override
-    protected HTMLElement getAppendTarget() {
-        return link.element();
-    }
+  @Override
+  protected HTMLElement getAppendTarget() {
+    return link.element();
+  }
 
-    @Override
-    public HTMLElement getClickableElement() {
-        return link.element();
-    }
+  @Override
+  public HTMLElement getClickableElement() {
+    return link.element();
+  }
 
-    public AnchorElement getLink() {
-        return link;
-    }
+  public AnchorElement getLink() {
+    return link;
+  }
 
-    public PagerNavItem withLink(
-            ChildHandler<PagerNavItem, AnchorElement> handler) {
-        handler.apply(this, link);
-        return this;
-    }
+  public PagerNavItem withLink(ChildHandler<PagerNavItem, AnchorElement> handler) {
+    handler.apply(this, link);
+    return this;
+  }
 
-    public int getPage() {
-        return page;
-    }
+  public int getPage() {
+    return page;
+  }
 
-    @Override
-    public HTMLLIElement element() {
-        return root.element();
-    }
+  @Override
+  public HTMLLIElement element() {
+    return root.element();
+  }
 }
