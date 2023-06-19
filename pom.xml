@@ -215,6 +215,7 @@
                     <failOnError>false</failOnError>
                     <source>8</source>
                     <skip>false</skip>
+                    <additionalparam>-Xdoclint:none</additionalparam>
                 </configuration>
                 <executions>
                     <execution>
