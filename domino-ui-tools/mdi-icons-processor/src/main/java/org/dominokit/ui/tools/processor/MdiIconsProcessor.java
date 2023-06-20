@@ -27,7 +27,6 @@ import javax.lang.model.element.TypeElement;
 import org.dominokit.domino.apt.commons.BaseProcessor;
 import org.dominokit.domino.ui.MdiIconsFactory;
 
-/** This processor will generate all needed classes to uise mdi icons with domino-ui */
 @AutoService(Processor.class)
 public class MdiIconsProcessor extends BaseProcessor {
 
