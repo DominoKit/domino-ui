@@ -822,6 +822,10 @@
     min-width: var(--dui-spc-0_5);
 }
 
+.dui.dui-h-auto {
+    height: auto;
+}
+
 .dui.dui-h-0_5 {
     height: var(--dui-spc-0_5);
 }
