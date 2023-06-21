@@ -21,14 +21,16 @@ import org.dominokit.domino.ui.datatable.model.Category;
 import org.dominokit.domino.ui.datatable.model.Filter;
 import org.dominokit.domino.ui.datatable.model.FilterTypes;
 import org.dominokit.domino.ui.datatable.model.SearchContext;
-import org.dominokit.domino.ui.datatable.plugins.ColumnHeaderFilterPlugin;
-import org.dominokit.domino.ui.popover.PopupPosition;
-import org.dominokit.domino.ui.timepicker.TimeBox;
+import org.dominokit.domino.ui.datatable.plugins.column.ColumnHeaderFilterPlugin;
+import org.dominokit.domino.ui.forms.TimeBox;
 
 /**
- * Date column header filter component that is rendered as a {@link TimeBox} component
+ * Date column header filter component that is rendered as a {@link
+ * org.dominokit.domino.ui.forms.TimeBox} component
  *
  * @param <T> type of data table records
+ * @author vegegoku
+ * @version $Id: $Id
  */
 public class TimeHeaderFilter<T> implements ColumnHeaderFilterPlugin.HeaderFilter<T> {
 
@@ -45,23 +47,29 @@ public class TimeHeaderFilter<T> implements ColumnHeaderFilterPlugin.HeaderFilte
   }
 
   /** @see TimeHeaderFilter#create() */
+  /** Constructor for TimeHeaderFilter. */
   public TimeHeaderFilter() {
     this.timeBox =
         TimeBox.create()
             .setPlaceholder("Search")
             .apply(
                 element -> {
-                  element
-                      .getTimePicker()
-                      .addTimeSelectionHandler(
-                          (time, dateTimeFormatInfo, picker) -> timeBox.close());
-                })
-            .setPickerStyle(TimeBox.PickerStyle.POPOVER)
-            .setPopoverPosition(PopupPosition.BEST_FIT)
-            .styler(style -> style.setMarginBottom("0px"));
+                  element.withTimePicker(
+                      (parent, timePicker) -> {
+                        timePicker.addTimeSelectionListener(
+                            (oldDate, newDate) -> {
+                              element.close();
+                            });
+                      });
+                });
   }
 
   /** @return the {@link TimeBox} wrapped in this filter component */
+  /**
+   * Getter for the field <code>timeBox</code>.
+   *
+   * @return a {@link org.dominokit.domino.ui.forms.TimeBox} object
+   */
   public TimeBox getTimeBox() {
     return timeBox;
   }
@@ -82,15 +90,16 @@ public class TimeHeaderFilter<T> implements ColumnHeaderFilterPlugin.HeaderFilte
                     FilterTypes.TIME));
           }
         });
-    timeBox.addChangeHandler(value -> searchContext.fireSearchEvent());
+    timeBox.addChangeListener((oldValue, value) -> searchContext.fireSearchEvent());
   }
 
   /** {@inheritDoc} */
   @Override
   public void clear() {
-    timeBox.pauseChangeHandlers();
-    timeBox.clear();
-    timeBox.resumeChangeHandlers();
+    timeBox.withPausedChangeListeners(
+        field -> {
+          timeBox.clear();
+        });
   }
 
   /** {@inheritDoc} */

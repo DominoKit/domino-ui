@@ -23,8 +23,16 @@ import java.util.function.Consumer;
  * A functional interface to supply record children
  *
  * @param <T> Type of table records.
+ * @author vegegoku
+ * @version $Id: $Id
  */
 @FunctionalInterface
 public interface SubItemsProvider<T> {
+  /**
+   * getSubItems.
+   *
+   * @param parent a T object
+   * @param itemsConsumer a {@link java.util.function.Consumer} object
+   */
   void getSubItems(T parent, Consumer<Optional<Collection<T>>> itemsConsumer);
 }

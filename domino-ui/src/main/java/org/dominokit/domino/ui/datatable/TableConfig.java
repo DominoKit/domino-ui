@@ -16,49 +16,28 @@
 package org.dominokit.domino.ui.datatable;
 
 import static java.util.Objects.nonNull;
-import static org.jboss.elemento.Elements.*;
+import static org.dominokit.domino.ui.utils.ElementsFactory.elements;
 
-import elemental2.dom.*;
 import java.util.*;
 import java.util.stream.Collectors;
 import org.dominokit.domino.ui.datatable.plugins.DataTablePlugin;
-import org.dominokit.domino.ui.datatable.plugins.ResizeColumnMeta;
-import org.dominokit.domino.ui.grid.flex.FlexAlign;
-import org.dominokit.domino.ui.grid.flex.FlexItem;
-import org.dominokit.domino.ui.grid.flex.FlexJustifyContent;
-import org.dominokit.domino.ui.grid.flex.FlexLayout;
-import org.dominokit.domino.ui.utils.DominoElement;
+import org.dominokit.domino.ui.datatable.plugins.column.ResizeColumnMeta;
+import org.dominokit.domino.ui.datatable.plugins.grouping.GroupingPlugin;
+import org.dominokit.domino.ui.elements.THeadElement;
+import org.dominokit.domino.ui.elements.TableRowElement;
+import org.dominokit.domino.ui.style.DominoCss;
 import org.dominokit.domino.ui.utils.HasMultiSelectionSupport;
+import org.dominokit.domino.ui.utils.PostfixAddOn;
 
 /**
  * This class is responsible for configuring the data table
  *
- * <pre>
- *     TableConfig&lt;Contact&gt; tableConfig = new TableConfig&lt;&gt;();
- * tableConfig
- *         .addColumn(ColumnConfig.<Contact&gt;create("id", "#")
- *                 .textAlign("right")
- *                 .asHeader()
- *                 .setCellRenderer(cell -&gt; TextNode.of(cell.getTableRow().getRecord().getIndex() + 1 + "")))
- *         .addColumn(ColumnConfig.<Contact&gt;create("firstName", "First name")
- *                 .setCellRenderer(cell -&gt; TextNode.of(cell.getTableRow().getRecord().getName())))
- *         .addColumn(ColumnConfig.<Contact&gt;create("email", "Email")
- *                 .setCellRenderer(cell -&gt; TextNode.of(cell.getTableRow().getRecord().getEmail())))
- *         .addColumn(ColumnConfig.<Contact&gt;create("phone", "Phone")
- *                 .setCellRenderer(cell -&gt; TextNode.of(cell.getTableRow().getRecord().getPhone())))
- *         .addColumn(ColumnConfig.<Contact&gt;create("badges", "Badges")
- *                 .setCellRenderer(cell -&gt; {
- *                     if (cell.getTableRow().getRecord().getAge() &lt; 35) {
- *                         return Badge.create("Young")
- *                                 .setBackground(ColorScheme.GREEN.color()).element();
- *                     }
- *                     return TextNode.of("");
- *                 }));
- * </pre>
- *
  * @param <T> the type of the data table records
+ * @author vegegoku
+ * @version $Id: $Id
  */
-public class TableConfig<T> implements HasMultiSelectionSupport<TableConfig<T>> {
+public class TableConfig<T>
+    implements HasMultiSelectionSupport<TableConfig<T>>, DataTableStyles, DominoCss {
 
   private List<ColumnConfig<T>> columns = new LinkedList<>();
   private List<DataTablePlugin<T>> plugins = new ArrayList<>();
@@ -85,28 +64,36 @@ public class TableConfig<T> implements HasMultiSelectionSupport<TableConfig<T>> 
           .applyMeta(ResizeColumnMeta.create().setResizable(false))
           .setCellRenderer(
               cellInfo -> {
-                DominoElement.of(cellInfo.getElement()).css("dt-cm-utility");
-                FlexLayout flexLayout =
-                    FlexLayout.create()
-                        .setAlignItems(FlexAlign.CENTER)
-                        .setJustifyContent(FlexJustifyContent.START);
-                getPlugins().stream()
-                    .map(plugin -> plugin.getUtilityElements(dataTable, cellInfo))
-                    .filter(Optional::isPresent)
-                    .map(Optional::get)
-                    .flatMap(Collection::stream)
-                    .forEach(
-                        node -> {
-                          String order =
-                              Optional.ofNullable(DominoElement.of(node).getAttribute("order"))
-                                  .orElse("0");
-                          flexLayout.appendChild(
-                              FlexItem.create()
-                                  .setOrder(Integer.parseInt(order))
-                                  .setAlignSelf(FlexAlign.CENTER)
-                                  .appendChild(node));
-                        });
-                return flexLayout.element();
+                elements.elementOf(cellInfo.getElement()).addCss(dui_datatable_column_utility);
+                return PostfixAddOn.of(
+                        elements
+                            .div()
+                            .addCss(dui_datatable_utility_elements)
+                            .apply(
+                                div -> {
+                                  getPlugins().stream()
+                                      .map(plugin -> plugin.getUtilityElements(dataTable, cellInfo))
+                                      .filter(Optional::isPresent)
+                                      .map(Optional::get)
+                                      .flatMap(Collection::stream)
+                                      .forEach(
+                                          node -> {
+                                            String order =
+                                                Optional.ofNullable(
+                                                        elements
+                                                            .elementOf(node)
+                                                            .getAttribute("order"))
+                                                    .orElse("0");
+                                            div.appendChild(
+                                                elements
+                                                    .div()
+                                                    .setCssProperty(
+                                                        "order", Integer.parseInt(order))
+                                                    .addCss(dui_datatable_utility_element)
+                                                    .appendChild(node));
+                                          });
+                                }))
+                    .element();
               });
   private UtilityColumnHandler<T> utilityColumnHandler = utilityColumn -> {};
 
@@ -114,18 +101,19 @@ public class TableConfig<T> implements HasMultiSelectionSupport<TableConfig<T>> 
    * This method will draw the table columns header elements for all columns and append them to the
    * table head element
    *
-   * @param dataTable the {@link DataTable} initialized with this configuration
-   * @param thead the {@link DominoElement} of {@link HTMLTableSectionElement} that is the table
-   *     header element
+   * @param dataTable the {@link org.dominokit.domino.ui.datatable.DataTable} initialized with this
+   *     configuration
+   * @param thead the {@link org.dominokit.domino.ui.utils.DominoElement} of {@link
+   *     elemental2.dom.HTMLTableSectionElement} that is the table header element
    */
-  public void drawHeaders(DataTable<T> dataTable, DominoElement<HTMLTableSectionElement> thead) {
+  public void drawHeaders(DataTable<T> dataTable, THeadElement thead) {
     this.dataTable = dataTable;
 
     int maxDepth = columns.stream().mapToInt(ColumnConfig::getColumnsDepth).max().orElse(0);
 
-    HTMLTableRowElement[] headers = new HTMLTableRowElement[maxDepth + 1];
+    TableRowElement[] headers = new TableRowElement[maxDepth + 1];
     for (int i = 0; i < headers.length; i++) {
-      headers[i] = tr().element();
+      headers[i] = elements.tr().addCss(dui_datatable_row);
       thead.appendChild(headers[i]);
     }
 
@@ -138,12 +126,14 @@ public class TableConfig<T> implements HasMultiSelectionSupport<TableConfig<T>> 
   /**
    * Draw a record as a row in the data table, row information is obtained from the TableRow
    *
-   * @param dataTable the {@link DataTable} initialized with this configuration
-   * @param tableRow the {@link TableRow} we are adding to the table
+   * @param dataTable the {@link org.dominokit.domino.ui.datatable.DataTable} initialized with this
+   *     configuration
+   * @param tableRow the {@link org.dominokit.domino.ui.datatable.TableRow} we are adding to the
+   *     table
    */
   public void drawRecord(DataTable<T> dataTable, TableRow<T> tableRow) {
     tableRow.render();
-    tableRow.addCss(isOdd(tableRow.getIndex()) ? "dom-ui-dt-tr-odd" : "dom-ui-dt-tr-even");
+    tableRow.addCss(isOdd(tableRow.getIndex()) ? dui_odd : dui_even);
     Optional<RowAppenderMeta<T>> appenderMeta = RowAppenderMeta.get(tableRow);
     if (appenderMeta.isPresent()) {
       appenderMeta.get().getRowAppender().appendRow(dataTable, tableRow);
@@ -161,7 +151,7 @@ public class TableConfig<T> implements HasMultiSelectionSupport<TableConfig<T>> 
   /**
    * Adds a configuration for a column in the data table
    *
-   * @param column {@link ColumnConfig}
+   * @param column {@link org.dominokit.domino.ui.datatable.ColumnConfig}
    * @return same TableConfig instance
    */
   public TableConfig<T> addColumn(ColumnConfig<T> column) {
@@ -174,7 +164,7 @@ public class TableConfig<T> implements HasMultiSelectionSupport<TableConfig<T>> 
    * Adds a configuration for a column in the data table as the first column over the existing
    * columns list
    *
-   * @param column {@link ColumnConfig}
+   * @param column {@link org.dominokit.domino.ui.datatable.ColumnConfig}
    * @return same TableConfig instance
    */
   public TableConfig<T> insertColumnFirst(ColumnConfig<T> column) {
@@ -186,7 +176,7 @@ public class TableConfig<T> implements HasMultiSelectionSupport<TableConfig<T>> 
    * Adds a configuration for a column in the data table as the last column after the existing
    * columns list
    *
-   * @param column {@link ColumnConfig}
+   * @param column {@link org.dominokit.domino.ui.datatable.ColumnConfig}
    * @return same TableConfig instance
    */
   public TableConfig<T> insertColumnLast(ColumnConfig<T> column) {
@@ -197,7 +187,7 @@ public class TableConfig<T> implements HasMultiSelectionSupport<TableConfig<T>> 
   /**
    * Adds a new plugin to the data table
    *
-   * @param plugin {@link DataTablePlugin}
+   * @param plugin {@link org.dominokit.domino.ui.datatable.plugins.DataTablePlugin}
    * @return same TableConfig instance
    */
   public TableConfig<T> addPlugin(DataTablePlugin<T> plugin) {
@@ -209,6 +199,13 @@ public class TableConfig<T> implements HasMultiSelectionSupport<TableConfig<T>> 
     return this;
   }
 
+  /**
+   * onUtilityColumn.
+   *
+   * @param utilityColumnHandler a {@link
+   *     org.dominokit.domino.ui.datatable.TableConfig.UtilityColumnHandler} object
+   * @return a {@link org.dominokit.domino.ui.datatable.TableConfig} object
+   */
   public TableConfig<T> onUtilityColumn(UtilityColumnHandler<T> utilityColumnHandler) {
     this.utilityColumnHandler = utilityColumnHandler;
     return this;
@@ -220,6 +217,8 @@ public class TableConfig<T> implements HasMultiSelectionSupport<TableConfig<T>> 
   }
 
   /**
+   * isFixed.
+   *
    * @return boolean, if true then this table will have a fixed width and wont change the columns
    *     width when resized, otherwise columns will stretch to match the table root element width
    */
@@ -228,6 +227,8 @@ public class TableConfig<T> implements HasMultiSelectionSupport<TableConfig<T>> 
   }
 
   /**
+   * Setter for the field <code>fixed</code>.
+   *
    * @param fixed boolean, if true then this table will have a fixed width and wont change the
    *     columns width when resized, otherwise columns will stretch to match the table root element
    *     width
@@ -239,6 +240,8 @@ public class TableConfig<T> implements HasMultiSelectionSupport<TableConfig<T>> 
   }
 
   /**
+   * isLazyLoad.
+   *
    * @return boolean, if true the table will only start loading the data from the data store if load
    *     is called manually, otherwise it will automatically load the data when it is initialized
    */
@@ -247,6 +250,8 @@ public class TableConfig<T> implements HasMultiSelectionSupport<TableConfig<T>> 
   }
 
   /**
+   * Setter for the field <code>lazyLoad</code>.
+   *
    * @param lazyLoad boolean, if true the table will only start loading the data from the data store
    *     if load is called manually, otherwise it will automatically load the data when it is
    *     initialized
@@ -258,6 +263,8 @@ public class TableConfig<T> implements HasMultiSelectionSupport<TableConfig<T>> 
   }
 
   /**
+   * Getter for the field <code>fixedBodyHeight</code>.
+   *
    * @return String, the height of the data table body, this is the value we set with {@link
    *     #setFixedBodyHeight(String)} not the actual current table body height
    */
@@ -266,6 +273,8 @@ public class TableConfig<T> implements HasMultiSelectionSupport<TableConfig<T>> 
   }
 
   /**
+   * Setter for the field <code>fixedBodyHeight</code>.
+   *
    * @param fixedBodyHeight boolean, if true the height of the table body will be fixed to the
    *     specified value and while adding records to the table if the total height of rows exceed
    *     this height scroll bars will show up, otherwise the table body will not fixed and will grow
@@ -278,11 +287,18 @@ public class TableConfig<T> implements HasMultiSelectionSupport<TableConfig<T>> 
   }
 
   /** @return String default value for a fixed column width */
+  /**
+   * Getter for the field <code>fixedDefaultColumnWidth</code>.
+   *
+   * @return a {@link java.lang.String} object
+   */
   public String getFixedDefaultColumnWidth() {
     return fixedDefaultColumnWidth;
   }
 
   /**
+   * Setter for the field <code>fixedDefaultColumnWidth</code>.
+   *
    * @param fixedDefaultColumnWidth String default value to be used as width for the fixed width
    *     columns
    * @return same TableConfig instance
@@ -308,7 +324,7 @@ public class TableConfig<T> implements HasMultiSelectionSupport<TableConfig<T>> 
   /**
    * Change the default RowAppender for the data table
    *
-   * @param rowAppender {@link RowAppender}
+   * @param rowAppender {@link org.dominokit.domino.ui.datatable.TableConfig.RowAppender}
    */
   public void setRowAppender(RowAppender<T> rowAppender) {
     if (nonNull(rowAppender)) {
@@ -317,6 +333,11 @@ public class TableConfig<T> implements HasMultiSelectionSupport<TableConfig<T>> 
   }
 
   /** @return the {@link List} of plugins added to the table */
+  /**
+   * Getter for the field <code>plugins</code>.
+   *
+   * @return a {@link java.util.List} object
+   */
   public List<DataTablePlugin<T>> getPlugins() {
     return plugins.stream().sorted().collect(Collectors.toList());
   }
@@ -342,22 +363,42 @@ public class TableConfig<T> implements HasMultiSelectionSupport<TableConfig<T>> 
   }
 
   /** @return a {@link List} of all non grouping {@link ColumnConfig} added to the table */
+  /**
+   * Getter for the field <code>columns</code>.
+   *
+   * @return a {@link java.util.List} object
+   */
   public List<ColumnConfig<T>> getColumns() {
     return columns.stream().flatMap(col -> col.leafColumns().stream()).collect(Collectors.toList());
   }
 
   /** @return a {@link List} of all {@link ColumnConfig} added to the table */
+  /**
+   * getFlattenColumns.
+   *
+   * @return a {@link java.util.List} object
+   */
   public List<ColumnConfig<T>> getFlattenColumns() {
     return columns.stream()
         .flatMap(col -> col.flattenColumns().stream())
         .collect(Collectors.toList());
   }
 
+  /**
+   * getColumnsGrouped.
+   *
+   * @return a {@link java.util.List} object
+   */
   public List<ColumnConfig<T>> getColumnsGrouped() {
     return columns;
   }
 
   /** @return a {@link List} of all currently visible {@link ColumnConfig} of the table */
+  /**
+   * getVisibleColumns.
+   *
+   * @return a {@link java.util.List} object
+   */
   public List<ColumnConfig<T>> getVisibleColumns() {
     return columns.stream().filter(column -> !column.isHidden()).collect(Collectors.toList());
   }
@@ -366,7 +407,8 @@ public class TableConfig<T> implements HasMultiSelectionSupport<TableConfig<T>> 
    * get a column config by the column name
    *
    * @param name String name of the column
-   * @return the {@link ColumnConfig} if exists otherwise throw {@link ColumnNofFoundException}
+   * @return the {@link org.dominokit.domino.ui.datatable.ColumnConfig} if exists otherwise throw
+   *     {@link org.dominokit.domino.ui.datatable.TableConfig.ColumnNofFoundException}
    */
   public ColumnConfig<T> getColumnByName(String name) {
     Optional<ColumnConfig<T>> first =
@@ -380,6 +422,12 @@ public class TableConfig<T> implements HasMultiSelectionSupport<TableConfig<T>> 
     }
   }
 
+  /**
+   * setUtilityColumnTitle.
+   *
+   * @param title a {@link java.lang.String} object
+   * @return a {@link org.dominokit.domino.ui.datatable.TableConfig} object
+   */
   public TableConfig<T> setUtilityColumnTitle(String title) {
     if (nonNull(title)) {
       pluginUtilityColumn.setTitle(title);
@@ -388,6 +436,11 @@ public class TableConfig<T> implements HasMultiSelectionSupport<TableConfig<T>> 
   }
 
   /** @return the {@link DataTable} initialized with this configuration */
+  /**
+   * Getter for the field <code>dataTable</code>.
+   *
+   * @return a {@link org.dominokit.domino.ui.datatable.DataTable} object
+   */
   public DataTable<T> getDataTable() {
     return dataTable;
   }
@@ -395,8 +448,8 @@ public class TableConfig<T> implements HasMultiSelectionSupport<TableConfig<T>> 
   /**
    * sets the dirty record handlers for editable tables
    *
-   * @param dirtyRecordProvider {@link DirtyRecordProvider}
-   * @param saveDirtyRecordHandler {@link SaveDirtyRecordHandler}
+   * @param dirtyRecordProvider {@link org.dominokit.domino.ui.datatable.DirtyRecordProvider}
+   * @param saveDirtyRecordHandler {@link org.dominokit.domino.ui.datatable.SaveDirtyRecordHandler}
    * @return same TableConfig istance
    */
   public TableConfig<T> setDirtyRecordHandlers(
@@ -408,28 +461,61 @@ public class TableConfig<T> implements HasMultiSelectionSupport<TableConfig<T>> 
     return this;
   }
 
+  /**
+   * Getter for the field <code>width</code>.
+   *
+   * @return a {@link java.lang.String} object
+   */
   public String getWidth() {
     return width;
   }
 
+  /**
+   * Setter for the field <code>width</code>.
+   *
+   * @param width a {@link java.lang.String} object
+   * @return a {@link org.dominokit.domino.ui.datatable.TableConfig} object
+   */
   public TableConfig<T> setWidth(String width) {
     this.width = width;
     return this;
   }
 
+  /**
+   * Getter for the field <code>maxWidth</code>.
+   *
+   * @return a {@link java.lang.String} object
+   */
   public String getMaxWidth() {
     return maxWidth;
   }
 
+  /**
+   * Setter for the field <code>maxWidth</code>.
+   *
+   * @param maxWidth a {@link java.lang.String} object
+   * @return a {@link org.dominokit.domino.ui.datatable.TableConfig} object
+   */
   public TableConfig<T> setMaxWidth(String maxWidth) {
     this.maxWidth = maxWidth;
     return this;
   }
 
+  /**
+   * Getter for the field <code>minWidth</code>.
+   *
+   * @return a {@link java.lang.String} object
+   */
   public String getMinWidth() {
     return minWidth;
   }
 
+  /**
+   * Setter for the field <code>minWidth</code>.
+   *
+   * @param minWidth a {@link java.lang.String} object
+   * @return a {@link org.dominokit.domino.ui.datatable.TableConfig} object
+   */
   public TableConfig<T> setMinWidth(String minWidth) {
     this.minWidth = minWidth;
     return this;
@@ -451,8 +537,8 @@ public class TableConfig<T> implements HasMultiSelectionSupport<TableConfig<T>> 
    *
    * <p>e.g
    *
-   * <p>The {@link org.dominokit.domino.ui.datatable.plugins.GroupingPlugin} defines an appender
-   * that appends a row into the appropriate group instead of appending row sequentially
+   * <p>The {@link GroupingPlugin} defines an appender that appends a row into the appropriate group
+   * instead of appending row sequentially
    *
    * @param <T> the type of the row record
    */

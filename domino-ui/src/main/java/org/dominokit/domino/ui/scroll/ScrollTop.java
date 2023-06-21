@@ -18,46 +18,53 @@ package org.dominokit.domino.ui.scroll;
 import static elemental2.dom.DomGlobal.document;
 
 import elemental2.dom.HTMLElement;
-import org.dominokit.domino.ui.button.BaseButton;
-import org.dominokit.domino.ui.button.ButtonSize;
-import org.dominokit.domino.ui.icons.BaseIcon;
-import org.dominokit.domino.ui.style.Color;
-import org.dominokit.domino.ui.utils.DominoUIConfig;
+import org.dominokit.domino.ui.button.Button;
+import org.dominokit.domino.ui.button.ButtonStyles;
+import org.dominokit.domino.ui.events.EventType;
+import org.dominokit.domino.ui.icons.Icon;
+import org.dominokit.domino.ui.style.ColorsCss;
 import org.dominokit.domino.ui.utils.ElementUtil;
-import org.jboss.elemento.EventType;
 
 /**
  * A component that show up in a specific position on the screen only when the user scrolls down and
  * allow the user to click it to scroll to the top of the page
+ *
+ * @author vegegoku
+ * @version $Id: $Id
  */
-public class ScrollTop extends BaseButton<ScrollTop> {
+public class ScrollTop extends Button implements ButtonStyles {
 
   private int showOffset = 60;
 
-  /** @param icon {@link BaseIcon} to show in the component */
-  public ScrollTop(BaseIcon<?> icon) {
+  /** @param icon {@link Icon} to show in the component */
+  /**
+   * Constructor for ScrollTop.
+   *
+   * @param icon a {@link org.dominokit.domino.ui.icons.Icon} object
+   */
+  public ScrollTop(Icon<?> icon) {
     super(icon);
     init(this);
-    elevate(DominoUIConfig.INSTANCE.getDefaultButtonElevation());
     circle();
-    setSize(ButtonSize.LARGE);
-    setBackground(Color.THEME);
-    addCss("top-scroller");
-    hide();
+    addCss(ColorsCss.dui_bg_accent);
+    addCss(dui_top_scroller);
+    collapse();
     addClickListener(evt -> ElementUtil.scrollTop());
 
     document.addEventListener(
         EventType.scroll.getName(),
         evt -> {
           if (document.scrollingElement.scrollTop > showOffset) {
-            ScrollTop.this.show();
+            ScrollTop.this.expand();
           } else {
-            ScrollTop.this.hide();
+            ScrollTop.this.collapse();
           }
         });
   }
 
   /**
+   * setBottom.
+   *
    * @param bottom int bottom position
    * @return same ScrollTop instance
    */
@@ -67,6 +74,8 @@ public class ScrollTop extends BaseButton<ScrollTop> {
   }
 
   /**
+   * setRight.
+   *
    * @param right int right position
    * @return same ScrollTop instance
    */
@@ -76,6 +85,8 @@ public class ScrollTop extends BaseButton<ScrollTop> {
   }
 
   /**
+   * Setter for the field <code>showOffset</code>.
+   *
    * @param offset int minimum scroll offset that the user needs to scroll before showing this
    *     component
    * @return same ScrollTop instance
@@ -86,10 +97,12 @@ public class ScrollTop extends BaseButton<ScrollTop> {
   }
 
   /**
-   * @param icon {@link BaseIcon} to show in the component
+   * create.
+   *
+   * @param icon {@link org.dominokit.domino.ui.icons.Icon} to show in the component
    * @return same ScrollTop instance
    */
-  public static ScrollTop create(BaseIcon<?> icon) {
+  public static ScrollTop create(Icon<?> icon) {
     return new ScrollTop(icon);
   }
 

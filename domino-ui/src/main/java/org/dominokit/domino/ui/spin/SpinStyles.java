@@ -15,22 +15,39 @@
  */
 package org.dominokit.domino.ui.spin;
 
-/** Default CSS classes for {@link SpinSelect} and {@link SpinItem} */
-public class SpinStyles {
-  /** CSS class for previous element */
-  public static final String PREV = "prev";
-  /** CSS class for disabled spin */
-  public static final String DISABLED = "disabled";
-  /** CSS class for next element */
-  public static final String NEXT = "next";
-  /** CSS class for spin content element */
-  public static final String SPIN_CONTENT = "spin-content";
-  /** CSS class for spin container */
-  public static final String SPIN_CONTAINER = "spin-container";
-  /** CSS class for horizontal spin */
-  public static final String H_SPIN = "h-spin";
-  /** CSS class for vertical spin */
-  public static final String V_SPIN = "v-spin";
-  /** CSS class for spin item */
-  public static final String SPIN_ITEM = "spin-item";
+import org.dominokit.domino.ui.style.CssClass;
+
+/**
+ * Default CSS classes for {@link org.dominokit.domino.ui.spin.SpinSelect} and {@link
+ * org.dominokit.domino.ui.spin.SpinItem}
+ *
+ * @author vegegoku
+ * @version $Id: $Id
+ */
+public interface SpinStyles {
+
+  /** Constant <code>dui_spin</code> */
+  CssClass dui_spin = () -> "dui-spin";
+  /** Constant <code>dui_spin_prev</code> */
+  CssClass dui_spin_prev = () -> "dui-spin-prev";
+  /** Constant <code>dui_spin_next</code> */
+  CssClass dui_spin_next = () -> "dui-spin-next";
+  /** Constant <code>dui_spin_content</code> */
+  CssClass dui_spin_content = () -> "dui-spin-content";
+  /** Constant <code>dui_spin_horizontal</code> */
+  CssClass dui_spin_horizontal = () -> "dui-spin-horizontal";
+  /** Constant <code>dui_spin_vertical</code> */
+  CssClass dui_spin_vertical = () -> "dui-spin-vertical";
+  /** Constant <code>dui_spin_item</code> */
+  CssClass dui_spin_item = () -> "dui-spin-item";
+  /** Constant <code>spinActivating</code> */
+  CssClass spinActivating = () -> "dui-spin-item-activating";
+  /** Constant <code>spinExiting</code> */
+  CssClass spinExiting = () -> "dui-spin-item-exiting";
+  /** Constant <code>dui_spin_exit_forward</code> */
+  CssClass dui_spin_exit_forward = () -> "dui-spin-exit-forward";
+  /** Constant <code>dui_spin_exit_backward</code> */
+  CssClass dui_spin_exit_backward = () -> "dui-spin-exit-backward";
+  /** Constant <code>dui_spin_animate</code> */
+  CssClass dui_spin_animate = () -> "dui-spin-animate";
 }

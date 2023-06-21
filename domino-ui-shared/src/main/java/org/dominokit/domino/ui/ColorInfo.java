@@ -19,7 +19,10 @@ import java.lang.annotation.*;
 
 /**
  * An annotation to setup the information for a specific color to generate its assets and classes
- * using the {@link ColorsSet}
+ * using the {@link org.dominokit.domino.ui.ColorsSet}
+ *
+ * @author vegegoku
+ * @version $Id: $Id
  */
 @Retention(RetentionPolicy.SOURCE)
 @Target(ElementType.PACKAGE)

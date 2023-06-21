@@ -15,4 +15,10 @@
  */
 package org.dominokit.domino.ui.datatable.plugins;
 
+/**
+ * PluginConfig interface.
+ *
+ * @author vegegoku
+ * @version $Id: $Id
+ */
 public interface PluginConfig {}

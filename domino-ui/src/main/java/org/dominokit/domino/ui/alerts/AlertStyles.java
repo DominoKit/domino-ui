@@ -15,23 +15,18 @@
  */
 package org.dominokit.domino.ui.alerts;
 
-/** Default CSS classes for {@link Alert} */
-public class AlertStyles {
+import org.dominokit.domino.ui.style.CssClass;
 
-  /** CSS class for alert */
-  public static final String ALERT = "alert";
-  /** CSS class for alert with success severity */
-  public static final String SUCCESS = "alert-success";
-  /** CSS class for alert with info severity */
-  public static final String INFO = "alert-info";
-  /** CSS class for alert with warning severity */
-  public static final String WARNING = "alert-warning";
-  /** CSS class for alert with error severity */
-  public static final String ERROR = "alert-danger";
-  /** CSS class for the close button */
-  public static final String CLOSE = "close";
-  /** CSS class for setting the alert as dismissible */
-  public static final String ALERT_DISMISSIBLE = "alert-dismissible";
-  /** CSS class for links inside alert */
-  public static final String ALERT_LINK = "alert-link";
+/**
+ * Default CSS classes for {@link org.dominokit.domino.ui.alerts.Alert}
+ *
+ * @author vegegoku
+ * @version $Id: $Id
+ */
+public interface AlertStyles {
+
+  /** Constant <code>dui_alert</code> */
+  CssClass dui_alert = () -> "dui-alert";
+  /** Constant <code>dui_alert_body</code> */
+  CssClass dui_alert_body = () -> "dui-alert-body";
 }

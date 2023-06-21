@@ -15,93 +15,56 @@
  */
 package org.dominokit.domino.ui.preloaders;
 
-import static org.jboss.elemento.Elements.div;
-
 import elemental2.dom.HTMLDivElement;
-import org.dominokit.domino.ui.style.Color;
-import org.dominokit.domino.ui.style.Style;
+import org.dominokit.domino.ui.IsElement;
+import org.dominokit.domino.ui.elements.DivElement;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
-import org.dominokit.domino.ui.utils.DominoElement;
-import org.jboss.elemento.IsElement;
 
 /**
  * A component to show a loading indicator with different sizes and colors
  *
- * <p>example
- *
- * <pre>
- * DominoElement.body()
- *         .appendChild(Preloader.create()
- *                 .setSize(Preloader.Size.large)
- *                 .setColor(Color.GREEN));
- * </pre>
+ * @author vegegoku
+ * @version $Id: $Id
  */
 public class Preloader extends BaseDominoElement<HTMLDivElement, Preloader>
-    implements IsElement<HTMLDivElement> {
+    implements IsElement<HTMLDivElement>, PreloaderStyles {
 
-  private final HTMLDivElement root;
-  private final HTMLDivElement spinnerLayer;
-
-  private Size size = Size.large;
-  private Color color = Color.RED;
+  private final DivElement root;
 
   /** */
+  /** Constructor for Preloader. */
   public Preloader() {
     this.root =
-        DominoElement.of(div())
-            .css("preloader", "pl-size-l")
-            .add(
-                spinnerLayer =
-                    DominoElement.of(div())
-                        .css("spinner-layer", "pl-red")
-                        .add(
-                            DominoElement.of(div())
-                                .css("circle-clipper", "left")
-                                .add(DominoElement.of(div()).css("circle")))
-                        .add(
-                            DominoElement.of(div())
-                                .css("circle-clipper", "right")
-                                .add(DominoElement.of(div()).css("circle")))
-                        .element())
-            .element();
+        div()
+            .addCss(dui_preloader, dui_small)
+            .appendChild(
+                div()
+                    .addCss(dui_pl_spinner_layer)
+                    .appendChild(
+                        div()
+                            .addCss(dui_pl_circle_clipper)
+                            .appendChild(div().addCss(dui_pl_circle_left)))
+                    .appendChild(
+                        div()
+                            .addCss(dui_pl_circle_clipper, dui_pl_right)
+                            .appendChild(div().addCss(dui_pl_circle_right))));
     init(this);
   }
 
   /** {@inheritDoc} */
   @Override
   public HTMLDivElement element() {
-    return root;
+    return root.element();
   }
 
   /** @return new Preloader instance */
+  /**
+   * create.
+   *
+   * @return a {@link org.dominokit.domino.ui.preloaders.Preloader} object
+   */
   public static Preloader create() {
     return new Preloader();
-  }
-
-  /**
-   * @param size {@link Size}
-   * @return same Preloader instance
-   */
-  public Preloader setSize(Size size) {
-    removeCss(this.size.style);
-    this.size = size;
-    addCss(this.size.style);
-    return this;
-  }
-
-  /**
-   * @param color {@link Color}
-   * @return same Preloader instance
-   */
-  public Preloader setColor(Color color) {
-    spinnerStyle().removeCss(this.color.getStyle().replace("col-", "pl-"));
-    this.color = color;
-    spinnerStyle().addCss(this.color.getStyle().replace("col-", "pl-"));
-    return this;
-  }
-
-  private Style<HTMLDivElement, IsElement<HTMLDivElement>> spinnerStyle() {
-    return Style.of(spinnerLayer);
   }
 
   /**
@@ -112,21 +75,5 @@ public class Preloader extends BaseDominoElement<HTMLDivElement, Preloader>
   public Preloader stop() {
     element().remove();
     return this;
-  }
-
-  /** An enum to list preloader sizes */
-  public enum Size {
-    xLarge(PreloaderStyles.pl_size_xl),
-    large(PreloaderStyles.pl_size_l),
-    medium(PreloaderStyles.pl_size_md),
-    small(PreloaderStyles.pl_size_sm),
-    xSmall(PreloaderStyles.pl_size_xs);
-
-    private String style;
-
-    /** @param style String css class for the loader size */
-    Size(String style) {
-      this.style = style;
-    }
   }
 }

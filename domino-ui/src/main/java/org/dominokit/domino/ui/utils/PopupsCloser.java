@@ -21,39 +21,45 @@ import elemental2.dom.Element;
 import elemental2.dom.HTMLElement;
 import elemental2.dom.NodeList;
 import jsinterop.base.Js;
-import org.jboss.elemento.EventType;
+import org.dominokit.domino.ui.events.EventType;
 
-/** A utility class that close all opened popus based on a selector */
+/**
+ * A utility class that close all opened popus based on a selector
+ *
+ * @author vegegoku
+ * @version $Id: $Id
+ */
 public class PopupsCloser {
 
-  public static final PopupsCloser INSTANCE = new PopupsCloser();
-
+  /** Constant <code>DOMINO_UI_AUTO_CLOSABLE="domino-ui-auto-closable"</code> */
   public static final String DOMINO_UI_AUTO_CLOSABLE = "domino-ui-auto-closable";
+
   private static boolean touchMoved;
 
   static {
-    document.addEventListener(EventType.click.getName(), evt -> PopupsCloser.INSTANCE.close());
+    document.addEventListener(EventType.click.getName(), evt -> close());
     document.addEventListener(EventType.touchmove.getName(), evt -> touchMoved = true);
     document.addEventListener(
         EventType.touchend.getName(),
         evt -> {
           if (!touchMoved) {
-            PopupsCloser.INSTANCE.close();
+            close();
           }
           touchMoved = false;
         });
   }
 
-  public void close() {
+  /** close. */
+  public static void close() {
     close(DOMINO_UI_AUTO_CLOSABLE);
   }
 
   /**
    * Close all popups that matches the provided selector
    *
-   * @param selector
+   * @param selector a {@link java.lang.String} object
    */
-  public void close(String selector) {
+  public static void close(String selector) {
     NodeList<Element> elementsByName = document.body.querySelectorAll("[" + selector + "]");
     for (int i = 0; i < elementsByName.length; i++) {
       HTMLElement element = Js.uncheckedCast(elementsByName.item(i));

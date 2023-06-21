@@ -15,40 +15,65 @@
  */
 package org.dominokit.domino.ui.menu;
 
-import elemental2.dom.HTMLElement;
+import static org.dominokit.domino.ui.utils.ElementsFactory.elements;
+
+import elemental2.dom.Element;
 import java.util.HashMap;
 import java.util.Map;
+import org.dominokit.domino.ui.utils.AttachDetachCallback;
 import org.dominokit.domino.ui.utils.ComponentMeta;
 import org.dominokit.domino.ui.utils.DominoElement;
 import org.dominokit.domino.ui.utils.HasMeta;
-import org.jboss.elemento.ObserverCallback;
 
+/**
+ * MenuTarget class.
+ *
+ * @author vegegoku
+ * @version $Id: $Id
+ */
 public class MenuTarget implements HasMeta<MenuTarget> {
 
-  private final DominoElement<HTMLElement> targetElement;
-  private ObserverCallback targetDetachObserver;
+  private final Element targetElement;
+  private AttachDetachCallback targetDetachObserver;
   private final Map<String, ComponentMeta> metaObjects = new HashMap<>();
 
-  public static MenuTarget of(HTMLElement element) {
+  /**
+   * of.
+   *
+   * @param element a {@link elemental2.dom.Element} object
+   * @return a {@link org.dominokit.domino.ui.menu.MenuTarget} object
+   */
+  public static MenuTarget of(Element element) {
     return new MenuTarget(element);
   }
 
-  public MenuTarget(HTMLElement targetElement) {
-    this.targetElement = DominoElement.of(targetElement);
+  /**
+   * Constructor for MenuTarget.
+   *
+   * @param targetElement a {@link elemental2.dom.Element} object
+   */
+  public MenuTarget(Element targetElement) {
+    this.targetElement = targetElement;
   }
 
-  public DominoElement<HTMLElement> getTargetElement() {
-    return targetElement;
+  /**
+   * Getter for the field <code>targetElement</code>.
+   *
+   * @return a {@link org.dominokit.domino.ui.utils.DominoElement} object
+   */
+  public DominoElement<Element> getTargetElement() {
+    return elements.elementOf(targetElement);
   }
 
-  void setTargetDetachObserver(ObserverCallback targetDetachObserver) {
+  void setTargetDetachObserver(AttachDetachCallback targetDetachObserver) {
     this.targetDetachObserver = targetDetachObserver;
   }
 
-  ObserverCallback getTargetDetachObserver() {
+  AttachDetachCallback getTargetDetachObserver() {
     return targetDetachObserver;
   }
 
+  /** {@inheritDoc} */
   @Override
   public Map<String, ComponentMeta> getMetaObjects() {
     return metaObjects;

@@ -15,16 +15,15 @@
  */
 package org.dominokit.domino.ui.pagination;
 
-import static org.jboss.elemento.Elements.*;
-
-import elemental2.dom.HTMLAnchorElement;
+import elemental2.dom.EventListener;
 import elemental2.dom.HTMLElement;
-import elemental2.dom.HTMLLIElement;
-import elemental2.dom.HTMLUListElement;
+import elemental2.dom.Text;
+import org.dominokit.domino.ui.elements.NavElement;
+import org.dominokit.domino.ui.elements.SpanElement;
+import org.dominokit.domino.ui.i18n.HasLabels;
+import org.dominokit.domino.ui.i18n.PaginationLabels;
+import org.dominokit.domino.ui.style.BooleanCssClass;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
-import org.dominokit.domino.ui.utils.DominoElement;
-import org.jboss.elemento.EventType;
-import org.jboss.elemento.HtmlContentBuilder;
 
 /**
  * A component which provides a simple navigation between a list of elements using next/previous
@@ -39,17 +38,20 @@ import org.jboss.elemento.HtmlContentBuilder;
  * </pre>
  *
  * @see BaseDominoElement
+ * @author vegegoku
+ * @version $Id: $Id
  */
-public class Pager extends BaseDominoElement<HTMLElement, Pager> {
+public class Pager extends BaseDominoElement<HTMLElement, Pager>
+    implements PaginationStyles, HasLabels<PaginationLabels> {
 
-  private final DominoElement<HTMLUListElement> pagerElement = DominoElement.of(ul()).css("pager");
-  private final DominoElement<HTMLElement> element = DominoElement.of(nav()).add(pagerElement);
+  private final NavElement element;
+  private final PagerNavItem nextElement;
+  private final PagerNavItem prevElement;
+  private final SpanElement prevArrow;
+  private final SpanElement nextArrow;
 
-  private final DominoElement<HTMLLIElement> nextElement;
-  private final DominoElement<HTMLLIElement> prevElement;
-
-  private final DominoElement<HTMLAnchorElement> nextAnchor;
-  private final DominoElement<HTMLAnchorElement> prevAnchor;
+  private final Text nextText;
+  private final Text prevText;
 
   private PagerChangeCallback onNext = () -> {};
   private PagerChangeCallback onPrev = () -> {};
@@ -57,42 +59,50 @@ public class Pager extends BaseDominoElement<HTMLElement, Pager> {
   private boolean allowNext = true;
   private boolean allowPrev = true;
 
+  /** Constructor for Pager. */
   public Pager() {
-    HtmlContentBuilder<HTMLAnchorElement> nextAnchor = a();
-    this.nextAnchor = DominoElement.of(nextAnchor);
-    nextElement =
-        DominoElement.of(
-            li().add(
-                    DominoElement.of(nextAnchor)
-                        .css("wave-effect")
-                        .addEventListener(
-                            EventType.click,
-                            event -> {
-                              if (allowNext) onNext.onChange();
-                            })
-                        .textContent("Next")
-                        .element()));
-
-    HtmlContentBuilder<HTMLAnchorElement> prevAnchor = a();
-    this.prevAnchor = DominoElement.of(prevAnchor);
-    prevElement =
-        DominoElement.of(
-            li().add(
-                    DominoElement.of(prevAnchor)
-                        .css("wave-effect")
-                        .addEventListener(
-                            EventType.click,
-                            event -> {
-                              if (allowPrev) onPrev.onChange();
-                            })
-                        .textContent("Previous")));
-    pagerElement.appendChild(prevElement);
-    pagerElement.appendChild(nextElement);
-
+    EventListener goNext =
+        evt -> {
+          if (allowNext) {
+            onNext.onChange();
+          }
+        };
+    EventListener goPrevious =
+        evt -> {
+          if (allowPrev) {
+            onPrev.onChange();
+          }
+        };
+    element =
+        nav()
+            .addCss(dui_pager)
+            .appendChild(
+                ul().addCss(dui_pager_list, dui_navigator)
+                    .appendChild(
+                        prevElement =
+                            PagerNavItem.create()
+                                .withLink((parent, link) -> link.addCss(dui_navigator_nav))
+                                .appendChild(prevArrow = span().textContent("←"))
+                                .appendChild(prevText = text(getLabels().getPreviousLabel()))
+                                .addClickListener(goPrevious)
+                                .onKeyDown(keyEvents -> keyEvents.onEnter(goPrevious)))
+                    .appendChild(
+                        nextElement =
+                            PagerNavItem.create()
+                                .withLink((parent, link) -> link.addCss(dui_navigator_nav))
+                                .appendChild(nextText = text(getLabels().getNextLabel()))
+                                .appendChild(nextArrow = span().textContent("→"))
+                                .addClickListener(goNext)
+                                .onKeyDown(keyEvents -> keyEvents.onEnter(goNext))));
     init(this);
   }
 
   /** @return new instance */
+  /**
+   * create.
+   *
+   * @return a {@link org.dominokit.domino.ui.pagination.Pager} object
+   */
   public static Pager create() {
     return new Pager();
   }
@@ -100,7 +110,7 @@ public class Pager extends BaseDominoElement<HTMLElement, Pager> {
   /**
    * Sets the handler that will be called when next element is clicked
    *
-   * @param nextCallback the {@link PagerChangeCallback}
+   * @param nextCallback the {@link org.dominokit.domino.ui.pagination.Pager.PagerChangeCallback}
    * @return same instance
    */
   public Pager onNext(PagerChangeCallback nextCallback) {
@@ -111,7 +121,8 @@ public class Pager extends BaseDominoElement<HTMLElement, Pager> {
   /**
    * Sets the handler that will be called when previous element is clicked
    *
-   * @param previousCallback the {@link PagerChangeCallback}
+   * @param previousCallback the {@link
+   *     org.dominokit.domino.ui.pagination.Pager.PagerChangeCallback}
    * @return same instance
    */
   public Pager onPrevious(PagerChangeCallback previousCallback) {
@@ -126,9 +137,7 @@ public class Pager extends BaseDominoElement<HTMLElement, Pager> {
    */
   public Pager disableNext() {
     this.allowNext = false;
-    nextElement.removeCss("disabled");
-    nextElement.addCss("disabled");
-
+    nextElement.disable();
     return this;
   }
 
@@ -139,9 +148,7 @@ public class Pager extends BaseDominoElement<HTMLElement, Pager> {
    */
   public Pager disablePrevious() {
     this.allowPrev = false;
-    prevElement.removeCss("disabled");
-    prevElement.addCss("disabled");
-
+    prevElement.disable();
     return this;
   }
 
@@ -152,8 +159,7 @@ public class Pager extends BaseDominoElement<HTMLElement, Pager> {
    */
   public Pager enableNext() {
     this.allowNext = true;
-    nextElement.removeCss("disabled");
-
+    nextElement.enable();
     return this;
   }
 
@@ -164,8 +170,7 @@ public class Pager extends BaseDominoElement<HTMLElement, Pager> {
    */
   public Pager enablePrevious() {
     this.allowPrev = true;
-    prevElement.removeCss("disabled");
-
+    prevElement.enable();
     return this;
   }
 
@@ -176,7 +181,7 @@ public class Pager extends BaseDominoElement<HTMLElement, Pager> {
    * @return same instance
    */
   public Pager nextText(String text) {
-    nextAnchor.setTextContent(text);
+    nextText.textContent = text;
     return this;
   }
 
@@ -187,15 +192,7 @@ public class Pager extends BaseDominoElement<HTMLElement, Pager> {
    * @return same instance
    */
   public Pager previousText(String text) {
-    prevAnchor.setTextContent(text);
-    return this;
-  }
-
-  /** {@inheritDoc} */
-  @Override
-  public Pager show() {
-    nextElement.addCss("next");
-    prevElement.addCss("previous");
+    prevText.textContent = text;
     return this;
   }
 
@@ -205,8 +202,43 @@ public class Pager extends BaseDominoElement<HTMLElement, Pager> {
    * @return same instance
    */
   public Pager showArrows() {
-    prevAnchor.insertFirst(span().attr("aria-hidden", "true").textContent("←"));
-    nextAnchor.appendChild(span().attr("aria-hidden", "true").textContent("→"));
+    prevArrow.expand();
+    nextArrow.expand();
+    return this;
+  }
+
+  /**
+   * hides arrows next to the navigation elements
+   *
+   * @return same instance
+   */
+  public Pager hideArrows() {
+    prevArrow.collapse();
+    nextArrow.collapse();
+    return this;
+  }
+
+  /**
+   * setShowArrows.
+   *
+   * @param show a boolean
+   * @return a {@link org.dominokit.domino.ui.pagination.Pager} object
+   */
+  public Pager setShowArrows(boolean show) {
+    prevArrow.toggleDisplay(show);
+    nextArrow.toggleDisplay(show);
+    return this;
+  }
+
+  /**
+   * spread.
+   *
+   * @param spread a boolean
+   * @return a {@link org.dominokit.domino.ui.pagination.Pager} object
+   */
+  public Pager spread(boolean spread) {
+    BooleanCssClass.of(dui_navigator_previous, spread).apply(prevElement);
+    BooleanCssClass.of(dui_navigator_next, spread).apply(nextElement);
     return this;
   }
 

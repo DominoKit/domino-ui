@@ -15,18 +15,14 @@
  */
 package org.dominokit.domino.ui.button.group;
 
-import static java.util.Objects.nonNull;
-import static org.jboss.elemento.Elements.div;
+import static org.dominokit.domino.ui.button.ButtonStyles.*;
 
-import elemental2.dom.HTMLDivElement;
 import elemental2.dom.HTMLElement;
-import org.dominokit.domino.ui.button.Button;
-import org.dominokit.domino.ui.button.ButtonSize;
-import org.dominokit.domino.ui.button.ButtonStyles;
-import org.dominokit.domino.ui.button.DropdownButton;
-import org.dominokit.domino.ui.style.WavesElement;
-import org.dominokit.domino.ui.utils.DominoElement;
-import org.dominokit.domino.ui.utils.Sizable;
+import java.util.Arrays;
+import org.dominokit.domino.ui.button.IsButton;
+import org.dominokit.domino.ui.elements.DivElement;
+import org.dominokit.domino.ui.style.BooleanCssClass;
+import org.dominokit.domino.ui.utils.BaseDominoElement;
 
 /**
  * a component to group a set of buttons.
@@ -34,53 +30,58 @@ import org.dominokit.domino.ui.utils.Sizable;
  * <p>This component wraps a set of different Buttons into one group the grouped buttons can be
  * aligned horizontally or vertically and the group can apply some properties to all grouped button
  *
- * <pre>
- *         ButtonsGroup.create()
- *            .appendChild(Button.createDefault("LEFT"))
- *            .appendChild(Button.createDefault("MIDDLE"))
- *            .appendChild(Button.createDefault("RIGHT"))
- *            .setSize(ButtonSize.LARGE);
- *     </pre>
+ * @author vegegoku
+ * @version $Id: $Id
  */
-public class ButtonsGroup extends WavesElement<HTMLElement, ButtonsGroup>
-    implements IsGroup<ButtonsGroup>, Sizable<ButtonsGroup> {
+public class ButtonsGroup extends BaseDominoElement<HTMLElement, ButtonsGroup> {
 
-  private DominoElement<HTMLDivElement> groupElement =
-      DominoElement.of(div()).css(ButtonStyles.BTN_GROUP).attr("role", "group");
-  private ButtonSize size;
+  private DivElement groupElement;
 
   /** default constructor */
   public ButtonsGroup() {
+    groupElement = div().addCss(dui_button_group).setAttribute("role", "group");
     init(this);
-    initWaves();
+  }
+
+  /**
+   * default constructor
+   *
+   * @param buttons a {@link org.dominokit.domino.ui.button.IsButton} object
+   */
+  public ButtonsGroup(IsButton<?>... buttons) {
+    this();
+    appendChild(buttons);
   }
 
   /** @return a new ButtonsGroup instance */
+  /**
+   * create.
+   *
+   * @return a {@link org.dominokit.domino.ui.button.group.ButtonsGroup} object
+   */
   public static ButtonsGroup create() {
     return new ButtonsGroup();
   }
 
+  /** @return a new ButtonsGroup instance */
   /**
-   * adds a Button to the ButtonsGroup
+   * create.
    *
-   * @param button {@link Button}
-   * @return same ButtonsGroup instance
+   * @param buttons a {@link org.dominokit.domino.ui.button.IsButton} object
+   * @return a {@link org.dominokit.domino.ui.button.group.ButtonsGroup} object
    */
-  @Override
-  public ButtonsGroup appendChild(Button button) {
-    appendChild(button.element());
-    return this;
+  public static ButtonsGroup create(IsButton<?>... buttons) {
+    return new ButtonsGroup(buttons);
   }
 
   /**
-   * adds a DropdownButton to the ButtonsGroup
+   * appendChild.
    *
-   * @param dropDown {@link DropdownButton}
-   * @return same ButtonsGroup instance
+   * @param buttons a {@link org.dominokit.domino.ui.button.IsButton} object
+   * @return a {@link org.dominokit.domino.ui.button.group.ButtonsGroup} object
    */
-  @Override
-  public ButtonsGroup appendChild(DropdownButton dropDown) {
-    appendChild(dropDown.element());
+  public ButtonsGroup appendChild(IsButton<?>... buttons) {
+    Arrays.stream(buttons).forEach(btn -> appendChild(btn.asButton()));
     return this;
   }
 
@@ -91,56 +92,32 @@ public class ButtonsGroup extends WavesElement<HTMLElement, ButtonsGroup>
   }
 
   /**
-   * Apply a size to all buttons in the ButtonsGroup
+   * setVertical.
    *
-   * @param size {@link ButtonSize}
-   * @return same ButtonsGroup instance
+   * @param vertical a boolean
+   * @return a {@link org.dominokit.domino.ui.button.group.ButtonsGroup} object
    */
-  public ButtonsGroup setSize(ButtonSize size) {
-    if (nonNull(this.size)) groupElement.removeCss(this.size.getStyle());
-    groupElement.addCss(size.getStyle());
-    this.size = size;
+  public ButtonsGroup setVertical(boolean vertical) {
+    addCss(BooleanCssClass.of(dui_vertical, vertical));
     return this;
   }
 
-  /** {@inheritDoc} */
-  @Override
-  public ButtonsGroup verticalAlign() {
-    return switchClasses(ButtonStyles.BTN_GROUP, ButtonStyles.BTN_GROUP_VERTICAL);
+  /**
+   * {@inheritDoc}
+   *
+   * @return a {@link org.dominokit.domino.ui.button.group.ButtonsGroup} object
+   */
+  public ButtonsGroup vertical() {
+    return addCss(dui_vertical);
   }
 
-  /** {@inheritDoc} */
-  @Override
-  public ButtonsGroup horizontalAlign() {
-    return switchClasses(ButtonStyles.BTN_GROUP_VERTICAL, ButtonStyles.BTN_GROUP);
-  }
-
-  private ButtonsGroup switchClasses(String toRemove, String toAdd) {
-    groupElement.removeCss(toRemove).addCss(toAdd);
+  /**
+   * {@inheritDoc}
+   *
+   * @return a {@link org.dominokit.domino.ui.button.group.ButtonsGroup} object
+   */
+  public ButtonsGroup horizontal() {
+    dui_vertical.remove(this.element());
     return this;
-  }
-
-  /** {@inheritDoc} */
-  @Override
-  public ButtonsGroup large() {
-    return setSize(ButtonSize.LARGE);
-  }
-
-  /** {@inheritDoc} */
-  @Override
-  public ButtonsGroup medium() {
-    return setSize(ButtonSize.MEDIUM);
-  }
-
-  /** {@inheritDoc} */
-  @Override
-  public ButtonsGroup small() {
-    return setSize(ButtonSize.SMALL);
-  }
-
-  /** {@inheritDoc} */
-  @Override
-  public ButtonsGroup xSmall() {
-    return setSize(ButtonSize.XSMALL);
   }
 }

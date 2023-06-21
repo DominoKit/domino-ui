@@ -27,14 +27,17 @@ import org.dominokit.domino.ui.datatable.events.BodyScrollEvent;
 import org.dominokit.domino.ui.datatable.events.SearchEvent;
 import org.dominokit.domino.ui.datatable.events.SortEvent;
 import org.dominokit.domino.ui.datatable.events.TableEvent;
-import org.dominokit.domino.ui.datatable.plugins.BodyScrollPlugin;
+import org.dominokit.domino.ui.datatable.plugins.pagination.BodyScrollPlugin;
 
 /**
- * An implementation of the {@link DataStore} that wraps an in-memory/local list of records allowing
- * the data table to use features like pagination and sorting and will keep load data into the data
- * table in append mode as we scroll to the bottom of the data table
+ * An implementation of the {@link org.dominokit.domino.ui.datatable.store.DataStore} that wraps an
+ * in-memory/local list of records allowing the data table to use features like pagination and
+ * sorting and will keep load data into the data table in append mode as we scroll to the bottom of
+ * the data table
  *
  * @param <T> the type of the data table records
+ * @author vegegoku
+ * @version $Id: $Id
  */
 public class LocalListScrollingDataSource<T> implements DataStore<T> {
 
@@ -60,7 +63,7 @@ public class LocalListScrollingDataSource<T> implements DataStore<T> {
   /**
    * Creates and instance with an initial data list and a custom page size
    *
-   * @param data {@link List} of records
+   * @param data {@link java.util.List} of records
    * @param pageSize int
    */
   public LocalListScrollingDataSource(List<T> data, int pageSize) {
@@ -70,18 +73,21 @@ public class LocalListScrollingDataSource<T> implements DataStore<T> {
   }
 
   /**
-   * @return a reference to the current applied {@link SearchFilter} if exists, otherwise return
-   *     null
+   * Getter for the field <code>searchFilter</code>.
+   *
+   * @return a reference to the current applied {@link
+   *     org.dominokit.domino.ui.datatable.store.SearchFilter} if exists, otherwise return null
    */
   public SearchFilter<T> getSearchFilter() {
     return searchFilter;
   }
 
   /**
-   * Sets a search filter, when ever the data store receives a {@link SearchEvent} it will use this
-   * search filter to filter the data list
+   * Sets a search filter, when ever the data store receives a {@link
+   * org.dominokit.domino.ui.datatable.events.SearchEvent} it will use this search filter to filter
+   * the data list
    *
-   * @param searchFilter {@link SearchFilter}
+   * @param searchFilter {@link org.dominokit.domino.ui.datatable.store.SearchFilter}
    * @return same instance
    */
   public LocalListScrollingDataSource<T> setSearchFilter(SearchFilter<T> searchFilter) {
@@ -90,6 +96,11 @@ public class LocalListScrollingDataSource<T> implements DataStore<T> {
   }
 
   /** @return the {@link RecordsSorter} used in this data store */
+  /**
+   * Getter for the field <code>recordsSorter</code>.
+   *
+   * @return a {@link org.dominokit.domino.ui.datatable.store.RecordsSorter} object
+   */
   public RecordsSorter<T> getRecordsSorter() {
     return recordsSorter;
   }
@@ -97,7 +108,7 @@ public class LocalListScrollingDataSource<T> implements DataStore<T> {
   /**
    * Sets the records sorting for this data store
    *
-   * @param recordsSorter {@link RecordsSorter}
+   * @param recordsSorter {@link org.dominokit.domino.ui.datatable.store.RecordsSorter}
    * @return same instance
    */
   public LocalListScrollingDataSource<T> setRecordsSorter(RecordsSorter<T> recordsSorter) {
@@ -109,7 +120,7 @@ public class LocalListScrollingDataSource<T> implements DataStore<T> {
    * sets new data list overriding the existing one, and clears all filters, then loads it in the
    * data table
    *
-   * @param data the new {@link List} of records
+   * @param data the new {@link java.util.List} of records
    */
   public void setData(List<T> data) {
     this.original.clear();
@@ -212,6 +223,8 @@ public class LocalListScrollingDataSource<T> implements DataStore<T> {
   }
 
   /**
+   * Getter for the field <code>filtered</code>.
+   *
    * @return an immutable list obtained from the data records from the data store that match the
    *     current applied filters
    */

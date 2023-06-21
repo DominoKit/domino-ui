@@ -18,51 +18,44 @@ package org.dominokit.domino.ui.splitpanel;
 /**
  * A horizontal split panel implementation
  *
- * <p>For example:
- *
- * <pre>
- *     HSplitPanel.create()
- *                     .appendChild(
- *                         SplitPanel.create()
- *                             .appendChild(
- *                                 div()
- *                                     .css("demo-split-div", Color.INDIGO_LIGHTEN_5.getBackground())))
- *                     .appendChild(
- *                         SplitPanel.create()
- *                             .appendChild(
- *                                 div()
- *                                     .css(
- *                                         "demo-split-div",
- *                                         Color.BLUE_GREY_LIGHTEN_5.getBackground())))
- *                     .setHeight("400px")
- * </pre>
- *
  * @see BaseSplitPanel
- * @see HasSize
+ * @see HasSplitPanels
+ * @author vegegoku
+ * @version $Id: $Id
  */
-public class HSplitPanel extends BaseSplitPanel<HSplitPanel, HSplitter> implements HasSize {
+public class HSplitPanel extends BaseSplitPanel<HSplitPanel, HSplitter>
+    implements HasSplitPanels, SplitStyles {
 
+  /** Constructor for HSplitPanel. */
   public HSplitPanel() {
-    super(SplitStyles.HORIZONTAL);
-    init(this);
+    addCss(dui_horizontal);
   }
 
+  /** {@inheritDoc} */
   @Override
-  protected HSplitter createSplitter(SplitPanel first, SplitPanel second, HasSize mainPanel) {
+  protected HSplitter createSplitter(
+      SplitPanel first, SplitPanel second, HasSplitPanels mainPanel) {
     return HSplitter.create(first, second, this);
   }
 
+  /** {@inheritDoc} */
   @Override
   protected double getPanelSize(SplitPanel panel) {
     return panel.getBoundingClientRect().width;
   }
 
+  /** {@inheritDoc} */
   @Override
   protected void setPanelSize(SplitPanel panel, String size) {
     panel.style().setWidth(size);
   }
 
   /** @return new instance */
+  /**
+   * create.
+   *
+   * @return a {@link org.dominokit.domino.ui.splitpanel.HSplitPanel} object
+   */
   public static HSplitPanel create() {
     return new HSplitPanel();
   }

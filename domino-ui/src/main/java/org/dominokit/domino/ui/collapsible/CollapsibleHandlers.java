@@ -15,13 +15,39 @@
  */
 package org.dominokit.domino.ui.collapsible;
 
+/**
+ * CollapsibleHandlers interface.
+ *
+ * @author vegegoku
+ * @version $Id: $Id
+ */
 public interface CollapsibleHandlers {
 
-  Runnable onBeforeShow();
+  /**
+   * onBeforeExpand.
+   *
+   * @return a {@link java.lang.Runnable} object
+   */
+  Runnable onBeforeExpand();
 
-  Runnable onShowCompleted();
+  /**
+   * onExpandCompleted.
+   *
+   * @return a {@link java.lang.Runnable} object
+   */
+  Runnable onExpandCompleted();
 
-  Runnable onBeforeHide();
+  /**
+   * onBeforeCollapse.
+   *
+   * @return a {@link java.lang.Runnable} object
+   */
+  Runnable onBeforeCollapse();
 
-  Runnable onHideCompleted();
+  /**
+   * onCollapseCompleted.
+   *
+   * @return a {@link java.lang.Runnable} object
+   */
+  Runnable onCollapseCompleted();
 }

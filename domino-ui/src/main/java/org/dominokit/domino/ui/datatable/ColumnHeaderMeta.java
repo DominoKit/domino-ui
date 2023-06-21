@@ -15,38 +15,65 @@
  */
 package org.dominokit.domino.ui.datatable;
 
-import elemental2.dom.HTMLTableCellElement;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import org.dominokit.domino.ui.utils.ComponentMeta;
-import org.dominokit.domino.ui.utils.DominoElement;
 
+/**
+ * ColumnHeaderMeta class.
+ *
+ * @author vegegoku
+ * @version $Id: $Id
+ */
 public class ColumnHeaderMeta implements ComponentMeta {
 
+  /** Constant <code>DOMINO_COLUMN_HEADER_META="domino-column-header-meta"</code> */
   public static final String DOMINO_COLUMN_HEADER_META = "domino-column-header-meta";
 
-  private List<DominoElement<HTMLTableCellElement>> extraHeadElements = new ArrayList<>();
+  private List<ColumnHeader> extraHeadElements = new ArrayList<>();
 
+  /**
+   * create.
+   *
+   * @return a {@link org.dominokit.domino.ui.datatable.ColumnHeaderMeta} object
+   */
   public static ColumnHeaderMeta create() {
     return new ColumnHeaderMeta();
   }
 
+  /** {@inheritDoc} */
   @Override
   public String getKey() {
     return DOMINO_COLUMN_HEADER_META;
   }
 
+  /**
+   * get.
+   *
+   * @param column a {@link org.dominokit.domino.ui.datatable.ColumnConfig} object
+   * @return a {@link java.util.Optional} object
+   */
   public static Optional<ColumnHeaderMeta> get(ColumnConfig<?> column) {
     return column.getMeta(DOMINO_COLUMN_HEADER_META);
   }
 
-  public List<DominoElement<HTMLTableCellElement>> getExtraHeadElements() {
+  /**
+   * Getter for the field <code>extraHeadElements</code>.
+   *
+   * @return a {@link java.util.List} object
+   */
+  public List<ColumnHeader> getExtraHeadElements() {
     return extraHeadElements;
   }
 
-  public ColumnHeaderMeta addExtraHeadElement(
-      DominoElement<HTMLTableCellElement> extraHeadElement) {
+  /**
+   * addExtraHeadElement.
+   *
+   * @param extraHeadElement a {@link org.dominokit.domino.ui.datatable.ColumnHeader} object
+   * @return a {@link org.dominokit.domino.ui.datatable.ColumnHeaderMeta} object
+   */
+  public ColumnHeaderMeta addExtraHeadElement(ColumnHeader extraHeadElement) {
     this.extraHeadElements.add(extraHeadElement);
     return this;
   }

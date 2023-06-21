@@ -16,50 +16,54 @@
 package org.dominokit.domino.ui.forms;
 
 import static java.util.Objects.nonNull;
+import static org.dominokit.domino.ui.utils.ElementsFactory.elements;
 
 import elemental2.dom.HTMLElement;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 import jsinterop.base.Js;
 import org.dominokit.domino.ui.forms.validations.ValidationResult;
-import org.dominokit.domino.ui.keyboard.KeyboardEvents;
+import org.dominokit.domino.ui.keyboard.KeyEventsConsumer;
 import org.dominokit.domino.ui.utils.*;
+import org.dominokit.domino.ui.utils.ApplyFunction;
 
 /**
- * This class can logically group a set of components that implements {@link HasGrouping} interface
+ * This class can logically group a set of components that implements {@link
+ * org.dominokit.domino.ui.forms.HasGrouping} interface
  *
  * <p>The same component can be grouped using multiple FieldGrouping instances
  *
  * <p>The FieldsGrouping can be used to perform common logic to all grouped component with a single
  * call
  *
- * <p>example
- *
- * <pre>
- *     FieldsGrouping.create()
- *         .addFormElement(nameTextBox)
- *         .addFormElement(phoneTextBox)
- *         .addFormElement(emailBox)
- *         .setRequired(true)
- *         .setAutoValidation(true);
- * </pre>
+ * @author vegegoku
+ * @version $Id: $Id
  */
-public class FieldsGrouping implements HasValidation<FieldsGrouping> {
+public class FieldsGrouping
+    implements HasValidation<FieldsGrouping>,
+        AcceptReadOnly<FieldsGrouping>,
+        AcceptDisable<FieldsGrouping> {
 
-  private List<HasGrouping<?>> formElements = new ArrayList<>();
-  private List<Validator> validators = new ArrayList<>();
-  private List<String> errors = new ArrayList<>();
+  private final List<HasGrouping<?>> formElements = new ArrayList<>();
+  private final Set<Validator<FieldsGrouping>> validators = new LinkedHashSet<>();
+  private final List<String> errors = new ArrayList<>();
+
+  private boolean validationsPaused = false;
+  private boolean focusValidationsPaused = false;
 
   /** @return a new instance */
+  /**
+   * create.
+   *
+   * @return a {@link org.dominokit.domino.ui.forms.FieldsGrouping} object
+   */
   public static FieldsGrouping create() {
     return new FieldsGrouping();
   }
 
   /**
-   * Adds a component that implements {@link HasGrouping}
+   * Adds a component that implements {@link org.dominokit.domino.ui.forms.HasGrouping}
    *
-   * @param formElement {@link HasGrouping}
+   * @param formElement {@link org.dominokit.domino.ui.forms.HasGrouping}
    * @return same FieldGrouping instance
    */
   public FieldsGrouping addFormElement(HasGrouping<?> formElement) {
@@ -68,9 +72,9 @@ public class FieldsGrouping implements HasValidation<FieldsGrouping> {
   }
 
   /**
-   * Adds a component that implements {@link HasGrouping}
+   * Adds a component that implements {@link org.dominokit.domino.ui.forms.HasGrouping}
    *
-   * @param formElements a vararg of {@link HasGrouping}
+   * @param formElements a vararg of {@link org.dominokit.domino.ui.forms.HasGrouping}
    * @return same FieldGrouping instance
    */
   public FieldsGrouping group(HasGrouping<?>... formElements) {
@@ -82,20 +86,31 @@ public class FieldsGrouping implements HasValidation<FieldsGrouping> {
     return this;
   }
 
+  /**
+   * validate.
+   *
+   * @return a {@link org.dominokit.domino.ui.forms.validations.ValidationResult} object
+   */
+  public ValidationResult validate() {
+    return validate(this);
+  }
+
   /** {@inheritDoc} validate all components grouped by this FieldsGrouping in fail-fast mode */
   @Override
-  public ValidationResult validate() {
-    this.errors.clear();
-    boolean fieldsValid = validateFields();
+  public ValidationResult validate(FieldsGrouping fieldsGrouping) {
+    if (!validationsPaused) {
+      this.errors.clear();
+      boolean fieldsValid = validateFields();
 
-    if (!fieldsValid) {
-      return new ValidationResult(false, "Invalid fields");
-    }
+      if (!fieldsValid) {
+        return new ValidationResult(false, "Invalid fields");
+      }
 
-    for (Validator validator : validators) {
-      ValidationResult result = validator.isValid();
-      if (!result.isValid()) {
-        return result;
+      for (Validator validator : validators) {
+        ValidationResult result = validator.isValid(fieldsGrouping);
+        if (!result.isValid()) {
+          return result;
+        }
       }
     }
     return ValidationResult.valid();
@@ -161,56 +176,66 @@ public class FieldsGrouping implements HasValidation<FieldsGrouping> {
   }
 
   /**
-   * change the readonly mode for all grouped components
+   * {@inheritDoc}
    *
-   * @param readOnly boolean, if true change all grouped components to readonly mode, otherwise
-   *     switch them out of readonly mode
-   * @return same FieldsGrouping instance
+   * <p>change the readonly mode for all grouped components
    */
+  @Override
   public FieldsGrouping setReadOnly(boolean readOnly) {
     formElements.stream()
-        .filter(formElement -> formElement instanceof IsReadOnly)
-        .map(Js::<IsReadOnly>cast)
-        .forEach(isReadOnly -> isReadOnly.setReadOnly(readOnly));
+        .filter(formElement -> formElement instanceof AcceptReadOnly)
+        .map(Js::<AcceptReadOnly>cast)
+        .forEach(acceptReadOnly -> acceptReadOnly.setReadOnly(readOnly));
     return this;
   }
 
+  /** {@inheritDoc} */
+  @Override
+  public boolean isReadOnly() {
+    return formElements.stream().allMatch(AcceptReadOnly::isReadOnly);
+  }
+
   /**
-   * Disable all grouped components
+   * {@inheritDoc}
    *
-   * @return same FieldsGrouping instance
+   * <p>Disable all grouped components
    */
+  @Override
   public FieldsGrouping disable() {
-    formElements.forEach(Switchable::disable);
+    formElements.forEach(AcceptDisable::disable);
     return this;
   }
 
   /**
-   * Enable all grouped components
+   * {@inheritDoc}
    *
-   * @return same FieldsGrouping instance
+   * <p>Enable all grouped components
    */
+  @Override
   public FieldsGrouping enable() {
-    formElements.forEach(Switchable::enable);
+    formElements.forEach(AcceptDisable::enable);
     return this;
   }
 
   /** @return boolean, true if all grouped components are enabled, otherwise false */
+  /** {@inheritDoc} */
+  @Override
   public boolean isEnabled() {
-    return formElements.stream().allMatch(Switchable::isEnabled);
+    return formElements.stream().allMatch(AcceptDisable::isEnabled);
   }
 
-  /**
-   * @param autoValidation boolean, if true enables autoValidation for all grouped components,
-   *     otherwise disable autoValidation
-   * @return
-   */
+  /** {@inheritDoc} */
   public FieldsGrouping setAutoValidation(boolean autoValidation) {
     formElements.forEach(formElement -> formElement.setAutoValidation(autoValidation));
     return this;
   }
 
   /** @return boolean, true if all grouped components has autoValidation enabled */
+  /**
+   * isAutoValidation.
+   *
+   * @return a boolean
+   */
   public boolean isAutoValidation() {
     return formElements.stream().allMatch(HasAutoValidation::isAutoValidation);
   }
@@ -241,44 +266,136 @@ public class FieldsGrouping implements HasValidation<FieldsGrouping> {
   }
 
   /** @return boolean, true if all grouped components are required */
+  /**
+   * isRequired.
+   *
+   * @return a boolean
+   */
   public boolean isRequired() {
     return formElements.stream().allMatch(IsRequired::isRequired);
   }
 
   /** @return the grouped components as a List of {@link HasGrouping} */
+  /**
+   * Getter for the field <code>formElements</code>.
+   *
+   * @return a {@link java.util.List} object
+   */
   public List<HasGrouping<?>> getFormElements() {
     return formElements;
   }
 
   /**
    * {@inheritDoc} Adds a validator to this FieldsGrouping, the validator will be applied to all
-   * grouped elements when {@link #validate()} is called
+   * grouped elements when {@link #validate(FieldsGrouping)} is called
    *
    * @param validator {@link Validator}
    * @return same FieldsGrouping instance
    */
-  public FieldsGrouping addValidator(Validator validator) {
+  public FieldsGrouping addValidator(Validator<FieldsGrouping> validator) {
     validators.add(validator);
     return this;
   }
 
   /** {@inheritDoc} */
   @Override
-  public FieldsGrouping removeValidator(Validator validator) {
+  public FieldsGrouping removeValidator(Validator<FieldsGrouping> validator) {
     validators.remove(validator);
     return this;
   }
 
   /** {@inheritDoc} */
   @Override
-  public boolean hasValidator(Validator validator) {
+  public boolean hasValidator(Validator<FieldsGrouping> validator) {
     return validators.contains(validator);
+  }
+
+  /** {@inheritDoc} */
+  @Override
+  public Set<Validator<FieldsGrouping>> getValidators() {
+    return validators;
+  }
+
+  /** {@inheritDoc} */
+  @Override
+  public FieldsGrouping pauseValidations() {
+    formElements.forEach(HasValidation::pauseValidations);
+    this.validationsPaused = true;
+    return this;
+  }
+
+  /** {@inheritDoc} */
+  @Override
+  public FieldsGrouping resumeValidations() {
+    formElements.forEach(HasValidation::resumeValidations);
+    this.validationsPaused = false;
+    return this;
+  }
+
+  /** {@inheritDoc} */
+  @Override
+  public FieldsGrouping togglePauseValidations(boolean toggle) {
+    formElements.forEach(formElement -> formElement.togglePauseValidations(toggle));
+    this.validationsPaused = toggle;
+    return this;
+  }
+
+  /** {@inheritDoc} */
+  @Override
+  public FieldsGrouping pauseFocusValidations() {
+    this.focusValidationsPaused = true;
+    formElements.forEach(HasValidation::pauseFocusValidations);
+    return this;
+  }
+
+  /** {@inheritDoc} */
+  @Override
+  public FieldsGrouping resumeFocusValidations() {
+    this.focusValidationsPaused = false;
+    formElements.forEach(HasValidation::resumeFocusValidations);
+    return this;
+  }
+
+  /** {@inheritDoc} */
+  @Override
+  public FieldsGrouping togglePauseFocusValidations(boolean toggle) {
+    this.focusValidationsPaused = toggle;
+    formElements.forEach(field -> field.togglePauseFocusValidations(toggle));
+    return this;
+  }
+
+  /** {@inheritDoc} */
+  @Override
+  public boolean isFocusValidationsPaused() {
+    return this.focusValidationsPaused;
+  }
+
+  /** {@inheritDoc} */
+  @Override
+  public boolean isValidationsPaused() {
+    return validationsPaused;
+  }
+
+  /** {@inheritDoc} */
+  @Override
+  public AutoValidator createAutoValidator(ApplyFunction autoValidate) {
+    formElements.forEach(formElement -> formElement.createAutoValidator(autoValidate));
+    return new AutoValidator(autoValidate) {};
+  }
+
+  /** {@inheritDoc} */
+  @Override
+  public FieldsGrouping autoValidate() {
+    if (isAutoValidation()) {
+      validate(this);
+    }
+    return this;
   }
 
   /**
    * Removes a grouped component from this FieldsGrouping
    *
-   * @param hasGrouping {@link HasGrouping}
+   * @param hasGrouping {@link org.dominokit.domino.ui.forms.HasGrouping}
    * @return same FieldsGrouping instance
    */
   public FieldsGrouping removeFormElement(HasGrouping hasGrouping) {
@@ -302,21 +419,45 @@ public class FieldsGrouping implements HasValidation<FieldsGrouping> {
     return errors;
   }
 
-  public FieldsGrouping onKeyDown(KeyboardEventsHandler handler) {
+  /**
+   * onKeyDown.
+   *
+   * @param handler a {@link org.dominokit.domino.ui.keyboard.KeyEventsConsumer} object
+   * @return a {@link org.dominokit.domino.ui.forms.FieldsGrouping} object
+   */
+  public FieldsGrouping onKeyDown(KeyEventsConsumer handler) {
     HTMLElement[] elements = getInputElements();
-    handler.accept(KeyboardEvents.listenOnKeyDown(elements));
+    Arrays.stream(elements)
+        .map(ElementsFactory.elements::elementOf)
+        .forEach(element -> element.onKeyDown(handler));
     return this;
   }
 
-  public FieldsGrouping onKeyUp(KeyboardEventsHandler handler) {
+  /**
+   * onKeyUp.
+   *
+   * @param handler a {@link org.dominokit.domino.ui.keyboard.KeyEventsConsumer} object
+   * @return a {@link org.dominokit.domino.ui.forms.FieldsGrouping} object
+   */
+  public FieldsGrouping onKeyUp(KeyEventsConsumer handler) {
     HTMLElement[] elements = getInputElements();
-    handler.accept(KeyboardEvents.listenOnKeyUp(elements));
+    Arrays.stream(elements)
+        .map(ElementsFactory.elements::elementOf)
+        .forEach(element -> element.onKeyUp(handler));
     return this;
   }
 
-  public FieldsGrouping onKeyPress(KeyboardEventsHandler handler) {
+  /**
+   * onKeyPress.
+   *
+   * @param handler a {@link org.dominokit.domino.ui.keyboard.KeyEventsConsumer} object
+   * @return a {@link org.dominokit.domino.ui.forms.FieldsGrouping} object
+   */
+  public FieldsGrouping onKeyPress(KeyEventsConsumer handler) {
     HTMLElement[] elements = getInputElements();
-    handler.accept(KeyboardEvents.listenOnKeyPress(elements));
+    Arrays.stream(elements)
+        .map(ElementsFactory.elements::elementOf)
+        .forEach(element -> element.onKeyPress(handler));
     return this;
   }
 
@@ -328,9 +469,5 @@ public class FieldsGrouping implements HasValidation<FieldsGrouping> {
             .map(hasInputElement -> hasInputElement.getInputElement().element())
             .toArray(HTMLElement[]::new);
     return elements;
-  }
-
-  public interface KeyboardEventsHandler {
-    void accept(KeyboardEvents<? extends HTMLElement> keyboardEvents);
   }
 }

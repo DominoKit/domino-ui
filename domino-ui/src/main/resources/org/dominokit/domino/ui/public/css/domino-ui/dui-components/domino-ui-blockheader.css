@@ -1,0 +1,22 @@
+.dui-block-header {
+    margin: var(--dui-block-header-margin);
+    display: flex;
+    flex-direction: var(--dui-block-header-direction, column);
+}
+
+.dui-block-header-title {
+    order: 10;
+    margin: var(--dui-block-header-title-margin);
+    color: inherit;
+    font: var(--dui-block-header-title-font);
+}
+
+.dui-block-header-description{
+    order: 20;
+    display: block;
+    font: var(--dui-block-header-description-font);
+}
+
+.dui-block-header-reversed {
+    --dui-block-header-direction: column-reverse
+}

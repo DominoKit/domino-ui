@@ -15,9 +15,17 @@
  */
 package org.dominokit.domino.ui.utils;
 
+import static org.dominokit.domino.ui.utils.ElementsFactory.elements;
+
+import elemental2.dom.Element;
 import elemental2.dom.HTMLElement;
 
-/** The strategy for appending the menu to the target element */
+/**
+ * The strategy for appending the menu to the target element
+ *
+ * @author vegegoku
+ * @version $Id: $Id
+ */
 @FunctionalInterface
 public interface AppendStrategy {
   /**
@@ -26,15 +34,15 @@ public interface AppendStrategy {
    * @param target the target element
    * @param menu the menu element
    */
-  void onAppend(HTMLElement target, HTMLElement menu);
+  void onAppend(Element target, HTMLElement menu);
 
   /**
    * {@code FIRST} strategy means that the menu will be added at the first index of the target
    * element
    */
-  AppendStrategy FIRST = (target, menu) -> DominoElement.of(target).insertFirst(menu);
+  AppendStrategy FIRST = (target, menu) -> elements.elementOf(target).insertFirst(menu);
   /**
    * {@code LAST} strategy means that the menu will be added at the last index of the target element
    */
-  AppendStrategy LAST = (target, menu) -> DominoElement.of(target).appendChild(menu);
+  AppendStrategy LAST = (target, menu) -> elements.elementOf(target).appendChild(menu);
 }

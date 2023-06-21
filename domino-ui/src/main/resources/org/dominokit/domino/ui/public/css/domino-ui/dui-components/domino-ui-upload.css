@@ -1,0 +1,32 @@
+.dui-file-upload {
+    display: flex;
+    flex-direction: column;
+    border: var(--dui-file-upload-border);
+    background-color: var(--dui-file-upload-background);
+    padding: var(--dui-file-upload-padding);
+    cursor: var(--dui-file-upload-cursor);
+}
+
+.dui-file-upload:hover {
+    border: var(--dui-file-upload-hovered-border);
+}
+
+.dui-file-upload-input {
+    position: absolute;
+    visibility: hidden;
+    top: 0;
+    left: 0;
+    height: 0;
+    width: 0;
+}
+
+.dui-file-upload-messages:empty {
+    display: none;
+}
+
+.dui-file-upload-decoration {
+    order: 10;
+}
+.dui-file-preview-container {
+    order: 20;
+}

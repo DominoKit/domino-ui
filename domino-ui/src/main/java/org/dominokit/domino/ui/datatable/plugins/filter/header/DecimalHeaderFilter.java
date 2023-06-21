@@ -16,18 +16,23 @@
 package org.dominokit.domino.ui.datatable.plugins.filter.header;
 
 import elemental2.dom.HTMLInputElement;
+import java.math.BigDecimal;
 import org.dominokit.domino.ui.datatable.model.FilterTypes;
 import org.dominokit.domino.ui.forms.BigDecimalBox;
 
 /**
- * BigDecimal column header filter component that is rendered as a {@link BigDecimalBox} component
+ * BigDecimal column header filter component that is rendered as a {@link
+ * org.dominokit.domino.ui.forms.BigDecimalBox} component
  *
  * @param <T> type of data table records
+ * @author vegegoku
+ * @version $Id: $Id
  */
-public class DecimalHeaderFilter<T> extends DelayedHeaderFilterInput<BigDecimalBox, T> {
+public class DecimalHeaderFilter<T> extends DelayedHeaderFilterInput<BigDecimalBox, T, BigDecimal> {
 
   private BigDecimalBox decimalBox;
 
+  /** Constructor for DecimalHeaderFilter. */
   public DecimalHeaderFilter() {}
 
   /**
@@ -39,7 +44,13 @@ public class DecimalHeaderFilter<T> extends DelayedHeaderFilterInput<BigDecimalB
     super(placeholder);
   }
 
-  /** create a new instance */
+  /**
+   * create a new instance
+   *
+   * @param <T> a T class
+   * @return a {@link org.dominokit.domino.ui.datatable.plugins.filter.header.DecimalHeaderFilter}
+   *     object
+   */
   public static <T> DecimalHeaderFilter<T> create() {
     return new DecimalHeaderFilter<>();
   }
@@ -68,6 +79,7 @@ public class DecimalHeaderFilter<T> extends DelayedHeaderFilterInput<BigDecimalB
     return this.decimalBox;
   }
 
+  /** {@inheritDoc} */
   @Override
   protected boolean isEmpty() {
     return this.decimalBox.isEmptyIgnoreSpaces();
@@ -88,13 +100,19 @@ public class DecimalHeaderFilter<T> extends DelayedHeaderFilterInput<BigDecimalB
   /** {@inheritDoc} */
   @Override
   public void clear() {
-    decimalBox.pauseChangeHandlers();
-    decimalBox.clear();
-    decimalBox.getInputElement().element().value = "";
-    decimalBox.resumeChangeHandlers();
+    decimalBox.withPausedChangeListeners(
+        field -> {
+          decimalBox.clear();
+          decimalBox.getInputElement().element().value = "";
+        });
   }
 
   /** @return the {@link BigDecimalBox} wrapped inside this filter component */
+  /**
+   * Getter for the field <code>decimalBox</code>.
+   *
+   * @return a {@link org.dominokit.domino.ui.forms.BigDecimalBox} object
+   */
   public BigDecimalBox getDecimalBox() {
     return decimalBox;
   }

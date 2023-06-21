@@ -16,204 +16,117 @@
 package org.dominokit.domino.ui.upload;
 
 import static java.util.Objects.nonNull;
-import static org.jboss.elemento.Elements.h;
+import static org.dominokit.domino.ui.upload.FilePreviewFactory.UNITS;
 
 import elemental2.core.JsNumber;
-import elemental2.dom.*;
+import elemental2.dom.File;
+import elemental2.dom.FormData;
+import elemental2.dom.HTMLElement;
+import elemental2.dom.XMLHttpRequest;
 import java.util.ArrayList;
 import java.util.List;
-import org.dominokit.domino.ui.icons.Icons;
-import org.dominokit.domino.ui.popover.PopupPosition;
-import org.dominokit.domino.ui.popover.Tooltip;
-import org.dominokit.domino.ui.progress.Progress;
-import org.dominokit.domino.ui.progress.ProgressBar;
-import org.dominokit.domino.ui.style.Color;
-import org.dominokit.domino.ui.thumbnails.Thumbnail;
-import org.dominokit.domino.ui.typography.Paragraph;
+import java.util.Optional;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
-import org.dominokit.domino.ui.utils.DominoElement;
-import org.jboss.elemento.Elements;
+import org.dominokit.domino.ui.utils.ChildHandler;
 
 /**
  * A component representing the upload file
  *
  * @see BaseDominoElement
  * @see FileUpload
+ * @author vegegoku
+ * @version $Id: $Id
  */
-public class FileItem extends BaseDominoElement<HTMLDivElement, FileItem> {
-  private static final String[] UNITS = {"KB", "MB", "GB", "TB"};
-  private static final String ELLIPSIS_TEXT = "ellipsis-text";
-
-  private final Thumbnail thumbnail = Thumbnail.create();
-  private FileImage fileImage;
-  private HTMLParagraphElement fileSizeParagraph;
-  private HTMLHeadingElement fileNameTitleContainer;
-  private final HTMLDivElement footerContainer = Elements.div().element();
-  private final HTMLElement messageContainer =
-      DominoElement.of(Elements.p()).css(ELLIPSIS_TEXT).element();
-  private HTMLDivElement progressElement;
-  private ProgressBar progressBar;
-  private final HTMLElement deleteIcon = Icons.ALL.delete().element();
-  private final HTMLElement cancelIcon = Icons.ALL.cancel().element();
-  private final HTMLElement refreshIcon = Icons.ALL.refresh().element();
+public class FileItem extends BaseDominoElement<HTMLElement, FileItem> {
 
   private final File file;
   private final UploadOptions options;
-
   private final List<RemoveFileHandler> removeHandlers = new ArrayList<>();
   private final List<ErrorHandler> errorHandlers = new ArrayList<>();
   private final List<ProgressHandler> progressHandlers = new ArrayList<>();
   private final List<BeforeUploadHandler> beforeUploadHandlers = new ArrayList<>();
   private final List<SuccessUploadHandler> successUploadHandlers = new ArrayList<>();
   private final List<CancelHandler> cancelHandlers = new ArrayList<>();
-  private String successMessage;
-  private String errorMessage;
   private XMLHttpRequest request;
   private boolean canceled;
   private boolean removed;
   private boolean uploaded;
   private String fileName;
   private UploadRequestSender requestSender;
-  private Tooltip tooltip;
+
+  private IsFilePreview<?> filePreview;
 
   /**
-   * @param file the {@link File}
-   * @param options the {@link UploadOptions}
+   * create.
+   *
+   * @param file the {@link elemental2.dom.File}
+   * @param options the {@link org.dominokit.domino.ui.upload.UploadOptions}
    * @return new instance
+   * @param previewFactory a {@link org.dominokit.domino.ui.upload.FilePreviewFactory} object
    */
-  public static FileItem create(File file, UploadOptions options) {
-    return new FileItem(file, options);
+  public static FileItem create(
+      File file, UploadOptions options, FilePreviewFactory previewFactory) {
+    return new FileItem(file, options, previewFactory);
+  }
+  /**
+   * create.
+   *
+   * @param file the {@link elemental2.dom.File}
+   * @return new instance
+   * @param previewFactory a {@link org.dominokit.domino.ui.upload.FilePreviewFactory} object
+   */
+  public static FileItem create(File file, FilePreviewFactory previewFactory) {
+    return new FileItem(file, new UploadOptions(), previewFactory);
   }
 
-  public FileItem(File file, UploadOptions options) {
+  /**
+   * Constructor for FileItem.
+   *
+   * @param file a {@link elemental2.dom.File} object
+   * @param options a {@link org.dominokit.domino.ui.upload.UploadOptions} object
+   * @param previewFactory a {@link org.dominokit.domino.ui.upload.FilePreviewFactory} object
+   */
+  public FileItem(File file, UploadOptions options, FilePreviewFactory previewFactory) {
     this.file = file;
     this.options = options;
-    initFileImage();
-    initFileTitle();
-    initFileSizeParagraph();
-    initFooter();
-    initProgress();
-    initThumbnail();
-
-    if (isExceedsMaxFile()) {
-      invalidate("File is too large, maximum file size is " + formatSize(options.getMaxFileSize()));
-    }
+    this.fileName = file.name;
+    this.filePreview = previewFactory.forFile(this);
 
     init(this);
-    this.fileName = file.name;
-  }
-
-  private void initFileImage() {
-    if (isImage()) fileImage = FileImage.createImageFile(file);
-    else fileImage = FileImage.createDefault();
   }
 
   /** @return true if the uploaded file is image */
+  /**
+   * isImage.
+   *
+   * @return a boolean
+   */
   public boolean isImage() {
     return file.type.startsWith("image");
   }
 
-  private void initFileTitle() {
-    fileNameTitleContainer =
-        DominoElement.of(h(3)).css(ELLIPSIS_TEXT).textContent(file.name).element();
-    fileNameTitleContainer.style.margin = CSSProperties.MarginUnionType.of("0px");
-    Tooltip.create(fileNameTitleContainer, file.name);
-  }
-
-  private void initFileSizeParagraph() {
-    fileSizeParagraph = Paragraph.create("File size : " + readableFileSize()).element();
-  }
-
-  private void initFooter() {
-    initDeleteIcon();
-    initCancelIcon();
-    initRefreshIcon();
-    initMessageContainer();
-    footerContainer.style.display = "inline-block";
-    footerContainer.style.width = CSSProperties.WidthUnionType.of("100%");
-    footerContainer.style.height = CSSProperties.HeightUnionType.of("25px");
-    footerContainer.appendChild(deleteIcon);
-    footerContainer.appendChild(cancelIcon);
-    footerContainer.appendChild(refreshIcon);
-    footerContainer.appendChild(messageContainer);
-  }
-
-  private void initDeleteIcon() {
-    deleteIcon.style.cssFloat = "right";
-    deleteIcon.style.cursor = "pointer";
-    deleteIcon.addEventListener("click", evt -> remove());
-  }
-
-  private void initCancelIcon() {
-    cancelIcon.style.cssFloat = "right";
-    cancelIcon.style.cursor = "pointer";
-    cancelIcon.addEventListener("click", evt -> cancel());
-    hideCancelIcon();
-  }
-
-  private void initRefreshIcon() {
-    refreshIcon.style.cssFloat = "right";
-    refreshIcon.style.cursor = "pointer";
-    refreshIcon.addEventListener(
-        "click",
-        evt -> {
-          if (nonNull(requestSender)) {
-            upload(requestSender);
-          } else {
-            upload();
-          }
-        });
-    hideRefreshIcon();
-  }
-
-  private void initMessageContainer() {
-    messageContainer.style.height = CSSProperties.HeightUnionType.of("20px");
-  }
-
-  private void initProgress() {
-    progressBar = ProgressBar.create(file.size);
-    progressElement = Progress.create().appendChild(progressBar).element();
-    progressElement.style.marginBottom = CSSProperties.MarginBottomUnionType.of("0px");
-    progressElement.style.height = CSSProperties.HeightUnionType.of("5px");
-  }
-
-  private void initThumbnail() {
-    thumbnail.element().appendChild(fileImage.element());
-    thumbnail.appendCaptionChild(fileNameTitleContainer);
-    thumbnail.appendCaptionChild(fileSizeParagraph);
-    thumbnail.appendCaptionChild(footerContainer);
-    thumbnail.appendCaptionChild(progressElement);
-    thumbnail.getContentElement().style().cssText("cursor: default !important").setPadding("5px");
-    thumbnail.getContentElement().remove();
-  }
-
   /** {@inheritDoc} */
   @Override
-  public HTMLDivElement element() {
-    return thumbnail.element();
-  }
-
-  private void setThumbnailBorder(Color red) {
-    thumbnail.element().style.border = "1px solid " + red.getHex();
+  public HTMLElement element() {
+    return filePreview.element();
   }
 
   /** @return the {@link File} */
+  /**
+   * Getter for the field <code>file</code>.
+   *
+   * @return a {@link elemental2.dom.File} object
+   */
   public File getFile() {
     return file;
   }
 
-  /**
-   * The title of the file size
-   *
-   * @param sizeTitle the title
-   * @return same instance
-   */
-  public FileItem setSizeTitle(String sizeTitle) {
-    fileSizeParagraph.textContent = sizeTitle;
-    return this;
-  }
-
   /** @return the size of the file in a readable format */
+  /**
+   * readableFileSize.
+   *
+   * @return a {@link java.lang.String} object
+   */
   public String readableFileSize() {
     return formatSize(file.size);
   }
@@ -230,15 +143,15 @@ public class FileItem extends BaseDominoElement<HTMLDivElement, FileItem> {
     return new JsNumber(size).toFixed(1) + " " + UNITS[unitIndex];
   }
 
-  private void updateProgress(double loaded) {
-    progressBar.setValue(loaded);
-    progressHandlers.forEach(handler -> handler.onProgress(loaded, request));
+  private void updateProgress(double progress) {
+    filePreview.onUploadProgress(progress);
+    progressHandlers.forEach(handler -> handler.onProgress(progress, request));
   }
 
   /**
    * Adds a handler to be called when removing the file
    *
-   * @param removeHandler A {@link RemoveFileHandler}
+   * @param removeHandler A {@link org.dominokit.domino.ui.upload.FileItem.RemoveFileHandler}
    * @return same instance
    */
   public FileItem addRemoveHandler(RemoveFileHandler removeHandler) {
@@ -249,7 +162,7 @@ public class FileItem extends BaseDominoElement<HTMLDivElement, FileItem> {
   /**
    * Adds a handler to be called when an error happens while uploading the file
    *
-   * @param errorHandler A {@link ErrorHandler}
+   * @param errorHandler A {@link org.dominokit.domino.ui.upload.FileItem.ErrorHandler}
    * @return same instance
    */
   public FileItem addErrorHandler(ErrorHandler errorHandler) {
@@ -260,7 +173,7 @@ public class FileItem extends BaseDominoElement<HTMLDivElement, FileItem> {
   /**
    * Adds a handler to be called when file is uploading providing the progress
    *
-   * @param progressHandler A {@link ProgressHandler}
+   * @param progressHandler A {@link org.dominokit.domino.ui.upload.FileItem.ProgressHandler}
    * @return same instance
    */
   public FileItem addProgressHandler(ProgressHandler progressHandler) {
@@ -271,7 +184,8 @@ public class FileItem extends BaseDominoElement<HTMLDivElement, FileItem> {
   /**
    * Adds a handler to be called before uploading the file
    *
-   * @param beforeUploadHandler\ A {@link BeforeUploadHandler}
+   * @param beforeUploadHandler\ A {@link
+   *     org.dominokit.domino.ui.upload.FileItem.BeforeUploadHandler}
    * @return same instance
    */
   public FileItem addBeforeUploadHandler(BeforeUploadHandler beforeUploadHandler) {
@@ -282,7 +196,8 @@ public class FileItem extends BaseDominoElement<HTMLDivElement, FileItem> {
   /**
    * Adds a handler to be called when the file is uploaded successfully
    *
-   * @param successUploadHandler A {@link SuccessUploadHandler}
+   * @param successUploadHandler A {@link
+   *     org.dominokit.domino.ui.upload.FileItem.SuccessUploadHandler}
    * @return same instance
    */
   public FileItem addSuccessUploadHandler(SuccessUploadHandler successUploadHandler) {
@@ -293,12 +208,32 @@ public class FileItem extends BaseDominoElement<HTMLDivElement, FileItem> {
   /**
    * Adds a handler to be called when uploading the file is canceled
    *
-   * @param cancelHandler A {@link CancelHandler}
+   * @param cancelHandler A {@link org.dominokit.domino.ui.upload.FileItem.CancelHandler}
    * @return same instance
    */
   public FileItem addCancelHandler(CancelHandler cancelHandler) {
     cancelHandlers.add(cancelHandler);
     return this;
+  }
+
+  /**
+   * withOptions.
+   *
+   * @param handler a {@link org.dominokit.domino.ui.utils.ChildHandler} object
+   * @return a {@link org.dominokit.domino.ui.upload.FileItem} object
+   */
+  public FileItem withOptions(ChildHandler<FileItem, UploadOptions> handler) {
+    handler.apply(this, options);
+    return this;
+  }
+
+  /**
+   * Getter for the field <code>options</code>.
+   *
+   * @return a {@link org.dominokit.domino.ui.upload.UploadOptions} object
+   */
+  public UploadOptions getOptions() {
+    return options;
   }
 
   /** Uploads the file */
@@ -313,28 +248,23 @@ public class FileItem extends BaseDominoElement<HTMLDivElement, FileItem> {
   /**
    * Uploads the file
    *
-   * @param requestSender a {@link UploadRequestSender} to use for sending the request
+   * @param requestSender a {@link org.dominokit.domino.ui.upload.UploadRequestSender} to use for
+   *     sending the request
    */
   public void upload(UploadRequestSender requestSender) {
     this.requestSender = requestSender;
     if (!isExceedsMaxFile() && !uploaded && !isCanceled()) {
       resetState();
+      if (!Optional.ofNullable(options.getUrl()).isPresent()) {
+        filePreview.onUploadFailed("URL is not provided in the FileItem upload options.");
+        throw new IllegalArgumentException("URL is not provided in the FileItem upload options.");
+      }
 
-      request = new XMLHttpRequest();
-      request.upload.addEventListener(
-          "loadstart",
-          evt -> {
-            hideRefreshIcon();
-            hideDeleteIcon();
-            showCancelIcon();
-          });
+      request = options.getXmlHttpRequest().orElseGet(XMLHttpRequest::new);
 
-      request.upload.addEventListener(
-          "loadend",
-          evt -> {
-            hideCancelIcon();
-            showDeleteIcon();
-          });
+      request.upload.addEventListener("loadstart", evt -> filePreview.onUploadStarted());
+
+      request.upload.addEventListener("loadend", evt -> filePreview.onUploadCompleted());
 
       request.upload.onprogress =
           p0 -> {
@@ -343,9 +273,7 @@ public class FileItem extends BaseDominoElement<HTMLDivElement, FileItem> {
 
       request.onabort =
           p0 -> {
-            showRefreshIcon();
-            showDeleteIcon();
-            resetProgress();
+            filePreview.onUploadCanceled();
             cancelHandlers.forEach(handler -> handler.onCancel(request));
           };
 
@@ -366,100 +294,37 @@ public class FileItem extends BaseDominoElement<HTMLDivElement, FileItem> {
     }
   }
 
-  private void showRefreshIcon() {
-    refreshIcon.style.display = "inline-block";
-  }
-
-  private void hideRefreshIcon() {
-    refreshIcon.style.display = "none";
-  }
-
-  private void hideDeleteIcon() {
-    deleteIcon.style.display = "none";
-  }
-
-  private void showDeleteIcon() {
-    deleteIcon.style.display = "inline-block";
-  }
-
-  private void showCancelIcon() {
-    cancelIcon.style.display = "inline-block";
-  }
-
-  private void hideCancelIcon() {
-    cancelIcon.style.display = "none";
-  }
-
   private void resetState() {
-    thumbnail.element().style.border = "1px solid #ddd";
-    messageContainer.textContent = "";
     canceled = false;
     removed = false;
-    updateProgress(0);
-    updateProgressBackground(Color.BLUE);
   }
 
+  /**
+   * isExceedsMaxFile.
+   *
+   * @return a boolean
+   */
   public boolean isExceedsMaxFile() {
     return options.getMaxFileSize() > 0 && file.size > options.getMaxFileSize();
   }
 
-  private void resetProgress() {
-    progressBar.setValue(0);
-  }
-
   private void onSuccess() {
     uploaded = true;
-    setThumbnailBorder(Color.GREEN);
-    updateProgressBackground(Color.GREEN);
-    updateProgress(file.size);
-    setMessage(getSuccessMessage(), Color.GREEN);
+    filePreview.onUploadSuccess();
     successUploadHandlers.forEach(handler -> handler.onSuccessUpload(request));
   }
 
-  private String getSuccessMessage() {
-    return successMessage == null ? "Uploaded successfully" : successMessage;
-  }
-
   private void onError() {
-    invalidate(getErrorMessage());
-    updateProgressBackground(Color.RED);
+    filePreview.onUploadFailed(getErrorMessage());
     errorHandlers.forEach(handler -> handler.onError(request));
-    showRefreshIcon();
-    showDeleteIcon();
   }
 
   private String getErrorMessage() {
-    if (errorMessage != null) return errorMessage;
-
     final boolean hasErrorText =
         request.responseType != null
             && (request.responseType.isEmpty() || request.responseType.equals("text"))
             && !request.responseText.isEmpty();
     return hasErrorText ? request.responseText : "Error while sending request";
-  }
-
-  /**
-   * Invalidates the file preview with an error message
-   *
-   * @param message the error message
-   */
-  public void invalidate(String message) {
-    setThumbnailBorder(Color.RED);
-    setMessage(message, Color.RED);
-  }
-
-  private void setMessage(String message, Color color) {
-    messageContainer.textContent = message;
-    messageContainer.style.color = color.getHex();
-    if (nonNull(tooltip)) {
-      tooltip.setContent(DomGlobal.document.createTextNode(message));
-    } else {
-      tooltip = Tooltip.create(messageContainer, message).position(PopupPosition.BOTTOM);
-    }
-  }
-
-  private void updateProgressBackground(Color background) {
-    progressBar.setBackground(background);
   }
 
   /** {@inheritDoc} */
@@ -483,6 +348,11 @@ public class FileItem extends BaseDominoElement<HTMLDivElement, FileItem> {
   }
 
   /** @return the file name */
+  /**
+   * Getter for the field <code>fileName</code>.
+   *
+   * @return a {@link java.lang.String} object
+   */
   public String getFileName() {
     return fileName;
   }
@@ -496,91 +366,54 @@ public class FileItem extends BaseDominoElement<HTMLDivElement, FileItem> {
     this.fileName = fileName;
   }
 
-  /** @return the {@link FileImage} element */
-  public FileImage getFileImage() {
-    return fileImage;
-  }
-
-  /** @return the file size element */
-  public DominoElement<HTMLParagraphElement> getFileSizeParagraph() {
-    return DominoElement.of(fileSizeParagraph);
-  }
-
-  /** @return the file name container */
-  public DominoElement<HTMLHeadingElement> getFileNameTitleContainer() {
-    return DominoElement.of(fileNameTitleContainer);
-  }
-
-  /** @return the footer container */
-  public DominoElement<HTMLDivElement> getFooterContainer() {
-    return DominoElement.of(footerContainer);
-  }
-
-  /** @return the delete icon */
-  public DominoElement<HTMLElement> getDeleteIcon() {
-    return DominoElement.of(deleteIcon);
-  }
-
-  /** @return the message container */
-  public DominoElement<HTMLElement> getMessageContainer() {
-    return DominoElement.of(messageContainer);
-  }
-
-  /** @return the progress element */
-  public DominoElement<HTMLDivElement> getProgressElement() {
-    return DominoElement.of(progressElement);
-  }
-
-  /** @return the {@link ProgressBar} */
-  public ProgressBar getProgressBar() {
-    return progressBar;
-  }
-
   /** @return all the {@link RemoveFileHandler} */
+  /**
+   * Getter for the field <code>removeHandlers</code>.
+   *
+   * @return a {@link java.util.List} object
+   */
   public List<RemoveFileHandler> getRemoveHandlers() {
     return removeHandlers;
   }
 
   /** @return all the {@link ErrorHandler} */
+  /**
+   * Getter for the field <code>errorHandlers</code>.
+   *
+   * @return a {@link java.util.List} object
+   */
   public List<ErrorHandler> getErrorHandlers() {
     return errorHandlers;
   }
 
   /** @return all the {@link ProgressHandler} */
+  /**
+   * Getter for the field <code>progressHandlers</code>.
+   *
+   * @return a {@link java.util.List} object
+   */
   public List<ProgressHandler> getProgressHandlers() {
     return progressHandlers;
   }
 
   /** @return all the {@link BeforeUploadHandler} */
+  /**
+   * Getter for the field <code>beforeUploadHandlers</code>.
+   *
+   * @return a {@link java.util.List} object
+   */
   public List<BeforeUploadHandler> getBeforeUploadHandlers() {
     return beforeUploadHandlers;
   }
 
   /** @return all the {@link SuccessUploadHandler} */
+  /**
+   * Getter for the field <code>successUploadHandlers</code>.
+   *
+   * @return a {@link java.util.List} object
+   */
   public List<SuccessUploadHandler> getSuccessUploadHandlers() {
     return successUploadHandlers;
-  }
-
-  /**
-   * Sets the message to be shown when the file is uploaded
-   *
-   * @param successMessage the message
-   * @return same instance
-   */
-  public FileItem setSuccessUploadMessage(String successMessage) {
-    this.successMessage = successMessage;
-    return this;
-  }
-
-  /**
-   * Sets the message to be shown when uploading file fails
-   *
-   * @param errorMessage the message
-   * @return same instance
-   */
-  public FileItem setErrorUploadMessage(String errorMessage) {
-    this.errorMessage = errorMessage;
-    return this;
   }
 
   /**
@@ -596,29 +429,52 @@ public class FileItem extends BaseDominoElement<HTMLDivElement, FileItem> {
     return this;
   }
 
-  /** @return the cancel icon */
-  public DominoElement<HTMLElement> getCancelIcon() {
-    return DominoElement.of(cancelIcon);
-  }
-
   /** @return all the {@link CancelHandler} */
+  /**
+   * Getter for the field <code>cancelHandlers</code>.
+   *
+   * @return a {@link java.util.List} object
+   */
   public List<CancelHandler> getCancelHandlers() {
     return cancelHandlers;
   }
 
   /** @return true if the upload request is canceled */
+  /**
+   * isCanceled.
+   *
+   * @return a boolean
+   */
   public boolean isCanceled() {
     return canceled;
   }
 
   /** @return true if the file is removed */
+  /**
+   * isRemoved.
+   *
+   * @return a boolean
+   */
   public boolean isRemoved() {
     return removed;
   }
 
   /** @return true if the file is uploaded */
+  /**
+   * isUploaded.
+   *
+   * @return a boolean
+   */
   public boolean isUploaded() {
     return uploaded;
+  }
+
+  /** validateSize. */
+  public void validateSize() {
+    if (isExceedsMaxFile()) {
+      filePreview.onUploadFailed(
+          "File is too large, maximum file size is " + formatSize(options.getMaxFileSize()));
+    }
   }
 
   /** A handler to be called when the file is removed */

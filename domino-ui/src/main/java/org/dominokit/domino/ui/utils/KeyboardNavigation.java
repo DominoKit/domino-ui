@@ -33,7 +33,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import jsinterop.base.Js;
-import org.jboss.elemento.IsElement;
+import org.dominokit.domino.ui.IsElement;
 
 /**
  * A helper class to ease the keyboard navigation of a menu
@@ -41,6 +41,8 @@ import org.jboss.elemento.IsElement;
  * @param <V> The element type
  * @see IsElement
  * @see EventListener
+ * @author vegegoku
+ * @version $Id: $Id
  */
 public class KeyboardNavigation<V extends IsElement<?>> implements EventListener {
 
@@ -58,6 +60,11 @@ public class KeyboardNavigation<V extends IsElement<?>> implements EventListener
   private EventOptions tabOptions = new EventOptions(true, true);
   private EventOptions spaceOptions = new EventOptions(true, true);
 
+  /**
+   * Constructor for KeyboardNavigation.
+   *
+   * @param items a {@link java.util.List} object
+   */
   public KeyboardNavigation(List<V> items) {
     this.items = items;
   }
@@ -76,7 +83,7 @@ public class KeyboardNavigation<V extends IsElement<?>> implements EventListener
   /**
    * Sets a handler which will be called when an item gets focused
    *
-   * @param focusHandler A {@link FocusHandler}
+   * @param focusHandler A {@link org.dominokit.domino.ui.utils.KeyboardNavigation.FocusHandler}
    * @return same instance
    */
   public KeyboardNavigation<V> onFocus(FocusHandler<V> focusHandler) {
@@ -87,7 +94,8 @@ public class KeyboardNavigation<V extends IsElement<?>> implements EventListener
   /**
    * Sets a handler which will be called when an item gets selected
    *
-   * @param selectHandler A {@link ItemNavigationHandler}
+   * @param selectHandler A {@link
+   *     org.dominokit.domino.ui.utils.KeyboardNavigation.ItemNavigationHandler}
    * @return same instance
    */
   public KeyboardNavigation<V> onSelect(ItemNavigationHandler<V> selectHandler) {
@@ -98,7 +106,7 @@ public class KeyboardNavigation<V extends IsElement<?>> implements EventListener
   /**
    * Sets a handler which will be called when escape key is pressed
    *
-   * @param escapeHandler A {@link EscapeHandler}
+   * @param escapeHandler A {@link org.dominokit.domino.ui.utils.KeyboardNavigation.EscapeHandler}
    * @return same instance
    */
   public KeyboardNavigation<V> onEscape(EscapeHandler escapeHandler) {
@@ -173,7 +181,8 @@ public class KeyboardNavigation<V extends IsElement<?>> implements EventListener
   /**
    * A handler to be called when the user press enter key
    *
-   * @param enterHandler {@link ItemNavigationHandler}
+   * @param enterHandler {@link
+   *     org.dominokit.domino.ui.utils.KeyboardNavigation.ItemNavigationHandler}
    * @return same navigation instance
    */
   public KeyboardNavigation<V> setEnterHandler(ItemNavigationHandler<V> enterHandler) {
@@ -184,7 +193,8 @@ public class KeyboardNavigation<V extends IsElement<?>> implements EventListener
   /**
    * A handler to be called when the user press tab key
    *
-   * @param tabHandler {@link ItemNavigationHandler}
+   * @param tabHandler {@link
+   *     org.dominokit.domino.ui.utils.KeyboardNavigation.ItemNavigationHandler}
    * @return same navigation instance
    */
   public KeyboardNavigation<V> setTabHandler(ItemNavigationHandler<V> tabHandler) {
@@ -195,7 +205,8 @@ public class KeyboardNavigation<V extends IsElement<?>> implements EventListener
   /**
    * A handler to be called when the user press sapce key
    *
-   * @param spaceHandler {@link ItemNavigationHandler}
+   * @param spaceHandler {@link
+   *     org.dominokit.domino.ui.utils.KeyboardNavigation.ItemNavigationHandler}
    * @return same navigation instance
    */
   public KeyboardNavigation<V> setSpaceHandler(ItemNavigationHandler<V> spaceHandler) {
@@ -206,7 +217,7 @@ public class KeyboardNavigation<V extends IsElement<?>> implements EventListener
   /**
    * Set global stopPropagation and preventDefault for all navigation keyboard events
    *
-   * @param globalOptions {@link EventOptions}
+   * @param globalOptions {@link org.dominokit.domino.ui.utils.KeyboardNavigation.EventOptions}
    * @return same navigation instance
    */
   public KeyboardNavigation<V> setGlobalOptions(EventOptions globalOptions) {
@@ -217,7 +228,7 @@ public class KeyboardNavigation<V extends IsElement<?>> implements EventListener
   /**
    * Set global stopPropagation and preventDefault for enter key events
    *
-   * @param enterOptions {@link EventOptions}
+   * @param enterOptions {@link org.dominokit.domino.ui.utils.KeyboardNavigation.EventOptions}
    * @return same navigation instance
    */
   public KeyboardNavigation<V> setEnterOptions(EventOptions enterOptions) {
@@ -228,7 +239,7 @@ public class KeyboardNavigation<V extends IsElement<?>> implements EventListener
   /**
    * Set global stopPropagation and preventDefault for tab key events
    *
-   * @param tabOptions {@link EventOptions}
+   * @param tabOptions {@link org.dominokit.domino.ui.utils.KeyboardNavigation.EventOptions}
    * @return same navigation instance
    */
   public KeyboardNavigation<V> setTabOptions(EventOptions tabOptions) {
@@ -239,7 +250,7 @@ public class KeyboardNavigation<V extends IsElement<?>> implements EventListener
   /**
    * Set global stopPropagation and preventDefault for space key events
    *
-   * @param spaceOptions {@link EventOptions}
+   * @param spaceOptions {@link org.dominokit.domino.ui.utils.KeyboardNavigation.EventOptions}
    * @return same navigation instance
    */
   public KeyboardNavigation<V> setSpaceOptions(EventOptions spaceOptions) {
@@ -270,6 +281,8 @@ public class KeyboardNavigation<V extends IsElement<?>> implements EventListener
   }
 
   /**
+   * isLastFocusableItem.
+   *
    * @param item The item to check if is the last focusable item in the items list
    * @return boolean, true if the item is the last focusable item
    */
@@ -284,7 +297,9 @@ public class KeyboardNavigation<V extends IsElement<?>> implements EventListener
   }
 
   private boolean shouldFocus(V itemToFocus) {
-    return isNull(focusCondition) || focusCondition.shouldFocus(itemToFocus);
+    return isNull(focusCondition)
+        || focusCondition.shouldFocus(itemToFocus)
+            && !ElementsFactory.elements.elementOf(itemToFocus.element()).isHidden();
   }
 
   /** apply focus on the top most focusable item */
@@ -355,6 +370,8 @@ public class KeyboardNavigation<V extends IsElement<?>> implements EventListener
   }
 
   /**
+   * registerNavigationHandler.
+   *
    * @param keyCode String keyboard key code
    * @param navigationHandler the navigation handler to be registered
    * @return same instance
@@ -369,6 +386,8 @@ public class KeyboardNavigation<V extends IsElement<?>> implements EventListener
   }
 
   /**
+   * removeNavigationHandler.
+   *
    * @param keyCode String keyboard key code
    * @param navigationHandler the navigation handler to be removed
    * @return same instance

@@ -15,11 +15,15 @@
  */
 package org.dominokit.domino.ui.datatable.events;
 
-import org.dominokit.domino.ui.datatable.plugins.SortDirection;
+import org.dominokit.domino.ui.datatable.plugins.pagination.SortDirection;
 
 /**
- * This event will be fired by the {@link org.dominokit.domino.ui.datatable.plugins.SortPlugin} or
- * the {@link org.dominokit.domino.ui.datatable.DataTable} when the sort is by the data store.
+ * This event will be fired by the {@link
+ * org.dominokit.domino.ui.datatable.plugins.pagination.SortPlugin} or the {@link
+ * org.dominokit.domino.ui.datatable.DataTable} when the sort is by the data store.
+ *
+ * @author vegegoku
+ * @version $Id: $Id
  */
 public class DataSortEvent implements TableEvent {
 
@@ -30,7 +34,9 @@ public class DataSortEvent implements TableEvent {
   private final SortDirection sortDirection;
 
   /**
-   * @param sortDirection {@link SortDirection}
+   * Constructor for DataSortEvent.
+   *
+   * @param sortDirection {@link org.dominokit.domino.ui.datatable.plugins.pagination.SortDirection}
    * @param sortColumn String, the column name that we are using to sort the data by.
    */
   public DataSortEvent(SortDirection sortDirection, String sortColumn) {
@@ -39,11 +45,21 @@ public class DataSortEvent implements TableEvent {
   }
 
   /** @return String, the sort column name */
+  /**
+   * Getter for the field <code>sortColumn</code>.
+   *
+   * @return a {@link java.lang.String} object
+   */
   public String getSortColumn() {
     return sortColumn;
   }
 
   /** @return {@link SortDirection} */
+  /**
+   * Getter for the field <code>sortDirection</code>.
+   *
+   * @return a {@link org.dominokit.domino.ui.datatable.plugins.pagination.SortDirection} object
+   */
   public SortDirection getSortDirection() {
     return sortDirection;
   }

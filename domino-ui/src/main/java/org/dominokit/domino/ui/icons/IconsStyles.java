@@ -15,33 +15,50 @@
  */
 package org.dominokit.domino.ui.icons;
 
+import org.dominokit.domino.ui.style.CssClass;
+import org.dominokit.domino.ui.style.ToggleCssClass;
+
+/**
+ * IconsStyles class.
+ *
+ * @author vegegoku
+ * @version $Id: $Id
+ */
 public class IconsStyles {
-  public static final String CLICKABLE_ICON = "clickable-icon";
-  public static final String MATERIAL_ICONS = "material-icons";
-  public static final String SMALL_ICON = "small-icon";
+  /** Constant <code>dui_mdi</code> */
+  public static final CssClass dui_mdi = () -> "mdi";
+  /** Constant <code>dui_labeled_icon</code> */
+  public static final CssClass dui_labeled_icon = () -> "dui-labeled-icon";
+  /** Constant <code>dui_icon_text</code> */
+  public static final CssClass dui_icon_text = () -> "dui-mdi-text";
 
-  public static final String LABELED_ICON = "labeled-icon";
-  public static final String LEFT_NODE = "left-node";
-  public static final String RIGHT_NODE = "right-node";
-  public static final String ICON_NODE = "icon-node";
-  public static final String TEXT_NODE = "text-node";
+  /** Constant <code>mdi_rotate_45</code> */
+  public static final CssClass mdi_rotate_45 = () -> "mdi-rotate-45";
+  /** Constant <code>mdi_rotate_90</code> */
+  public static final CssClass mdi_rotate_90 = () -> "mdi-rotate-90";
+  /** Constant <code>mdi_rotate_135</code> */
+  public static final CssClass mdi_rotate_135 = () -> "mdi-rotate-135";
+  /** Constant <code>mdi_rotate_180</code> */
+  public static final CssClass mdi_rotate_180 = () -> "mdi-rotate-180";
+  /** Constant <code>mdi_rotate_225</code> */
+  public static final CssClass mdi_rotate_225 = () -> "mdi-rotate-225";
+  /** Constant <code>mdi_rotate_270</code> */
+  public static final CssClass mdi_rotate_270 = () -> "mdi-rotate-270";
+  /** Constant <code>mdi_rotate_315</code> */
+  public static final CssClass mdi_rotate_315 = () -> "mdi-rotate-315";
 
-  public static final String MDI_18_PX = "mdi-18px";
-  public static final String MDI_24_PX = "mdi-24px";
-  public static final String MDI_36_PX = "mdi-36px";
-  public static final String MDI_48_PX = "mdi-48px";
+  /** Constant <code>mdi_flip_v</code> */
+  public static final ToggleCssClass mdi_flip_v = ToggleCssClass.of(() -> "mdi-flip-v");
+  /** Constant <code>mdi_flip_h</code> */
+  public static final ToggleCssClass mdi_flip_h = ToggleCssClass.of(() -> "mdi-flip-h");
 
-  public static final String MDI_ROTATE_45 = "mdi-rotate-45";
-  public static final String MDI_ROTATE_90 = "mdi-rotate-90";
-  public static final String MDI_ROTATE_135 = "mdi-rotate-135";
-  public static final String MDI_ROTATE_180 = "mdi-rotate-180";
-  public static final String MDI_ROTATE_225 = "mdi-rotate-225";
-  public static final String MDI_ROTATE_270 = "mdi-rotate-270";
-  public static final String MDI_ROTATE_315 = "mdi-rotate-315";
+  /** Constant <code>mdi_light</code> */
+  public static final CssClass mdi_light = () -> "mdi-light";
+  /** Constant <code>mdi_dark</code> */
+  public static final CssClass mdi_dark = () -> "mdi-dark";
 
-  public static final String MDI_FLIP_V = "mdi-flip-v";
-  public static final String MDI_FLIP_H = "mdi-flip-h";
-
-  public static final String MDI_LIGHT = "mdi-light";
-  public static final String MDI_DARK = "mdi-dark";
+  /** Constant <code>mdi_spin</code> */
+  public static final CssClass mdi_spin = () -> "mdi-spin";
+  /** Constant <code>mdi_inactive</code> */
+  public static final CssClass mdi_inactive = () -> "mdi-inactive";
 }

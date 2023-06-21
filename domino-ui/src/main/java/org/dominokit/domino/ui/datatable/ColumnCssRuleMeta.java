@@ -25,9 +25,17 @@ import org.dominokit.domino.ui.utils.ComponentMeta;
 import org.dominokit.domino.ui.utils.DominoCSSRule;
 import org.dominokit.domino.ui.utils.DynamicStyleSheet;
 
+/**
+ * ColumnCssRuleMeta class.
+ *
+ * @author vegegoku
+ * @version $Id: $Id
+ */
 public class ColumnCssRuleMeta<T> implements ComponentMeta {
 
+  /** Constant <code>COLUMN_CSS_RULE_META="column-css-rule-meta"</code> */
   public static final String COLUMN_CSS_RULE_META = "column-css-rule-meta";
+  /** Constant <code>DEFAULT_RULE="COLUMN-DEFAULT-CSS-RULE"</code> */
   public static final String DEFAULT_RULE = "COLUMN-DEFAULT-CSS-RULE";
 
   private final Map<String, DominoCSSRule> cssRules = new HashMap<>();
@@ -42,16 +50,36 @@ public class ColumnCssRuleMeta<T> implements ComponentMeta {
     this.dynamicStyleSheet = dynamicStyleSheet;
   }
 
+  /**
+   * get.
+   *
+   * @param column a {@link org.dominokit.domino.ui.datatable.ColumnConfig} object
+   * @param <T> a T class
+   * @return a {@link java.util.Optional} object
+   */
   public static <T> Optional<ColumnCssRuleMeta<T>> get(ColumnConfig<?> column) {
     return column.getMeta(COLUMN_CSS_RULE_META);
   }
 
+  /**
+   * addRule.
+   *
+   * @param key a {@link java.lang.String} object
+   * @param cssClass a {@link java.lang.String} object
+   * @return a {@link org.dominokit.domino.ui.datatable.ColumnCssRuleMeta} object
+   */
   public ColumnCssRuleMeta<T> addRule(String key, String cssClass) {
     DominoCSSRule dominoCSSRule = dynamicStyleSheet.insertRule(cssClass);
     cssRules.put(key, dominoCSSRule);
     return this;
   }
 
+  /**
+   * getColumnCssRule.
+   *
+   * @param key a {@link java.lang.String} object
+   * @return a {@link java.util.Optional} object
+   */
   public Optional<ColumnCssRule> getColumnCssRule(String key) {
     if (cssRules.containsKey(key)) {
       Optional<DominoCSSRule> cssStyleRule =
@@ -64,6 +92,11 @@ public class ColumnCssRuleMeta<T> implements ComponentMeta {
     return Optional.empty();
   }
 
+  /**
+   * cssRules.
+   *
+   * @return a {@link java.util.Collection} object
+   */
   public Collection<ColumnCssRule> cssRules() {
     return cssRules.keySet().stream()
         .map(this::getColumnCssRule)
@@ -72,6 +105,7 @@ public class ColumnCssRuleMeta<T> implements ComponentMeta {
         .collect(Collectors.toList());
   }
 
+  /** {@inheritDoc} */
   @Override
   public String getKey() {
     return COLUMN_CSS_RULE_META;

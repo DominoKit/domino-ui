@@ -15,39 +15,40 @@
  */
 package org.dominokit.domino.ui.pagination;
 
-import static org.jboss.elemento.Elements.a;
-import static org.jboss.elemento.Elements.li;
+import static java.util.Objects.nonNull;
 
-import elemental2.dom.*;
-import java.util.function.Function;
+import elemental2.dom.EventListener;
+import elemental2.dom.HTMLElement;
 import java.util.stream.IntStream;
-import org.dominokit.domino.ui.forms.Select;
-import org.dominokit.domino.ui.forms.SelectOption;
-import org.dominokit.domino.ui.icons.Icons;
-import org.dominokit.domino.ui.keyboard.KeyboardEvents;
+import org.dominokit.domino.ui.forms.suggest.Select;
+import org.dominokit.domino.ui.forms.suggest.SelectOption;
+import org.dominokit.domino.ui.utils.ChildHandler;
 import org.dominokit.domino.ui.utils.DominoElement;
 
-/** An advanced pagination implementation */
+/**
+ * An advanced pagination implementation
+ *
+ * @author vegegoku
+ * @version $Id: $Id
+ */
 public class AdvancedPagination extends BasePagination<AdvancedPagination> {
 
-  private DominoElement<HTMLLIElement> firstPage;
-  private DominoElement<HTMLLIElement> lastPage;
-
-  private DominoElement<HTMLAnchorElement> prevAnchor;
-  private DominoElement<HTMLAnchorElement> firstPageAnchor;
-  private DominoElement<HTMLAnchorElement> nextAnchor;
-  private DominoElement<HTMLAnchorElement> lastPageAnchor;
   private Select<Integer> pagesSelect;
-
-  private Function<Integer, String> pagesCountTextHandler =
-      pagesCount -> " of " + pagesCount + " Pages";
+  private PagerNavItem totalPagesCount;
 
   /** @return new instance */
+  /**
+   * create.
+   *
+   * @return a {@link org.dominokit.domino.ui.pagination.AdvancedPagination} object
+   */
   public static AdvancedPagination create() {
     return new AdvancedPagination();
   }
 
   /**
+   * create.
+   *
    * @param pages the number of pages
    * @return new instance
    */
@@ -56,6 +57,8 @@ public class AdvancedPagination extends BasePagination<AdvancedPagination> {
   }
 
   /**
+   * create.
+   *
    * @param pages the number of pages
    * @param pageSize the page size
    * @return new instance
@@ -64,19 +67,72 @@ public class AdvancedPagination extends BasePagination<AdvancedPagination> {
     return new AdvancedPagination(pages, pageSize);
   }
 
+  /** Constructor for AdvancedPagination. */
   public AdvancedPagination() {
     this(0, 10);
   }
 
+  /**
+   * Constructor for AdvancedPagination.
+   *
+   * @param pages a int
+   */
   public AdvancedPagination(int pages) {
     this(pages, 10);
   }
 
+  /**
+   * Constructor for AdvancedPagination.
+   *
+   * @param pages a int
+   * @param pageSize a int
+   */
   public AdvancedPagination(int pages, int pageSize) {
     this.pagesCount = pages;
     this.pageSize = pageSize;
-    init(this);
-    updatePages(pages, pageSize);
+
+    prevPage
+        .getLink()
+        .addClickListener(evt -> moveToPage(index - 1, isChangeListenersPaused()))
+        .onKeyDown(
+            keyEvents ->
+                keyEvents.onEnter(evt -> moveToPage(index - 1, isChangeListenersPaused())));
+
+    firstPage
+        .expand()
+        .getLink()
+        .addClickListener(evt -> moveToPage(1, isChangeListenersPaused()))
+        .onKeyDown(keyEvents -> keyEvents.onEnter(evt -> moveToPage(1, isChangeListenersPaused())));
+
+    nextPage
+        .getLink()
+        .addClickListener(evt -> moveToPage(index + 1, isChangeListenersPaused()))
+        .onKeyDown(
+            keyEvents ->
+                keyEvents.onEnter(evt -> moveToPage(index + 1, isChangeListenersPaused())));
+    lastPage
+        .expand()
+        .getLink()
+        .addClickListener(evt -> moveToPage(allPages.size(), isChangeListenersPaused()))
+        .onKeyDown(
+            keyEvents ->
+                keyEvents.onEnter(evt -> moveToPage(allPages.size(), isChangeListenersPaused())));
+
+    pagesSelect =
+        Select.<Integer>create()
+            .addChangeListener(
+                (oldValue, newValue) -> moveToPage(newValue, isChangeListenersPaused()));
+
+    pagesList.insertAfter(
+        PagerNavItem.create(pagesSelect)
+            .withLink((parent, link) -> link.addCss(dui_pagination_select)),
+        prevPage);
+    totalPagesCount =
+        PagerNavItem.create(text(labels.getPaginationCountLabel(pagesCount)))
+            .withLink((parent, link) -> link.addCss(dui_page_count));
+    pagesList.insertBefore(totalPagesCount, nextPage);
+
+    updatePages(pages, pageSize, isChangeListenersPaused());
   }
 
   /** {@inheritDoc} */
@@ -92,157 +148,91 @@ public class AdvancedPagination extends BasePagination<AdvancedPagination> {
     this.pagesCount = pages;
     this.index = 1;
     allPages.clear();
-
-    prevAnchor = DominoElement.of(a());
-    prevElement =
-        DominoElement.of(li())
-            .css("page-nav")
-            .appendChild(prevAnchor.appendChild(Icons.ALL.chevron_left().clickable()));
-
-    addListenerToElement(prevAnchor, event -> moveToPage(index - 1, false));
-
-    firstPageAnchor = DominoElement.of(a());
-    firstPage =
-        DominoElement.of(li())
-            .css("page-nav")
-            .appendChild(firstPageAnchor.appendChild(Icons.ALL.skip_previous().clickable()));
-
-    addListenerToElement(firstPageAnchor, event -> moveToPage(1, false));
-
-    pagesElement.clearElement().appendChild(firstPage).appendChild(prevElement);
-
-    pagesSelect =
-        Select.<Integer>create()
-            .styler(style -> style.setMarginBottom("0px"))
-            .addSelectionHandler(option -> moveToPage(option.getValue(), false));
-
+    pagesSelect.removeAllOptions();
     if (pages > 0) {
       IntStream.rangeClosed(1, pages)
           .forEach(
               p -> {
-                pagesSelect.appendChild(
-                    SelectOption.create(p, p + "")
-                        .apply(element -> allPages.add(DominoElement.of(element.element()))));
+                pagesSelect.appendItem(
+                    page -> SelectOption.create(String.valueOf(p), p, String.valueOf(p)), p);
+                allPages.add(PagerNavItem.page(p));
               });
     }
 
-    pagesElement.appendChild(
-        DominoElement.of(li())
-            .appendChild(a().style("margin-left: 10px; margin-right: 10px;").add(pagesSelect)));
-    pagesElement.appendChild(
-        DominoElement.of(li())
-            .appendChild(
-                DominoElement.of(a())
-                    .css("adv-page-count")
-                    .textContent(pagesCountTextHandler.apply(pages))));
-
-    nextAnchor = DominoElement.of(a());
-    nextElement =
-        DominoElement.of(li())
-            .css("page-nav")
-            .appendChild(nextAnchor.appendChild(Icons.ALL.chevron_right().clickable()));
-
-    addListenerToElement(nextAnchor, event -> moveToPage(index + 1, false));
-
-    lastPageAnchor = DominoElement.of(a());
-    lastPage =
-        DominoElement.of(li())
-            .css("page-nav")
-            .appendChild(lastPageAnchor.appendChild(Icons.ALL.skip_next().clickable()));
-
-    addListenerToElement(lastPageAnchor, event -> moveToPage(allPages.size(), false));
+    totalPagesCount.withLink(
+        (parent, link) ->
+            link.clearElement().appendChild(text(labels.getPaginationCountLabel(pagesCount))));
 
     if (pages > 0) {
       moveToPage(1, silent);
     }
 
     if (pages <= 0) {
-      nextElement.disable();
-      prevElement.disable();
+      prevPage.disable();
+      firstPage.disable();
+      nextPage.disable();
+      lastPage.disable();
       if (!silent) {
-        pageChangedCallBack.onPageChanged(0);
+        triggerChangeListeners(null, 0);
       }
     }
-
-    pagesElement.appendChild(nextElement).appendChild(lastPage);
     return this;
   }
 
   private void addListenerToElement(
       DominoElement<? extends HTMLElement> element, EventListener listener) {
     element.addClickListener(listener);
-    KeyboardEvents.listenOnKeyDown(element).onEnter(listener);
+    element.onKeyDown(keyEvents -> keyEvents.onEnter(listener));
   }
 
   /** {@inheritDoc} */
   @Override
   protected void moveToPage(int page, boolean silent) {
+    PagerNavItem oldPage = activePage;
     if (page > 0 && page <= pagesCount) {
-
       index = page;
-
       if (!silent) {
-        pageChangedCallBack.onPageChanged(page);
+        triggerChangeListeners(nonNull(oldPage) ? oldPage.getPage() : null, page);
       }
 
       if (page == pagesCount) {
-        nextElement.disable();
+        nextPage.disable();
         lastPage.disable();
-
-        nextAnchor.removeAttribute("tabindex");
-        lastPageAnchor.removeAttribute("tabindex");
       } else {
-        nextElement.enable();
+        nextPage.enable();
         lastPage.enable();
-
-        nextAnchor.setAttribute("tabindex", "0");
-        lastPageAnchor.setAttribute("tabindex", "0");
       }
 
       if (page == 1) {
-        prevElement.disable();
+        prevPage.disable();
         firstPage.disable();
-
-        prevAnchor.removeAttribute("tabindex");
-        firstPageAnchor.removeAttribute("tabindex");
       } else {
-        prevElement.enable();
+        prevPage.enable();
         firstPage.enable();
-
-        prevAnchor.setAttribute("tabindex", "0");
-        firstPageAnchor.setAttribute("tabindex", "0");
       }
 
-      pagesSelect.selectAt(page - 1, true);
+      pagesSelect.withPauseChangeListenersToggle(true, select -> pagesSelect.selectAt(page - 1));
     }
   }
 
-  /** @return the previous element */
-  public DominoElement<HTMLAnchorElement> getPrevAnchor() {
-    return prevAnchor;
-  }
-
-  /** @return the first page element */
-  public DominoElement<HTMLAnchorElement> getFirstPageAnchor() {
-    return firstPageAnchor;
-  }
-
-  /** @return the next element */
-  public DominoElement<HTMLAnchorElement> getNextAnchor() {
-    return nextAnchor;
-  }
-
-  /** @return the last page element */
-  public DominoElement<HTMLAnchorElement> getLastPageAnchor() {
-    return lastPageAnchor;
+  /**
+   * Getter for the field <code>pagesSelect</code>.
+   *
+   * @return a {@link org.dominokit.domino.ui.forms.suggest.Select} object
+   */
+  public Select<Integer> getPagesSelect() {
+    return pagesSelect;
   }
 
   /**
-   * Sets the text of total number of pages
+   * withPagesSelect.
    *
-   * @param pagesCountTextHandler a {@link Function} that returns the text based on the current page
+   * @param handler a {@link org.dominokit.domino.ui.utils.ChildHandler} object
+   * @return a {@link org.dominokit.domino.ui.pagination.AdvancedPagination} object
    */
-  public void setPagesCountTextHandler(Function<Integer, String> pagesCountTextHandler) {
-    this.pagesCountTextHandler = pagesCountTextHandler;
+  public AdvancedPagination withPagesSelect(
+      ChildHandler<AdvancedPagination, Select<Integer>> handler) {
+    handler.apply(this, pagesSelect);
+    return this;
   }
 }

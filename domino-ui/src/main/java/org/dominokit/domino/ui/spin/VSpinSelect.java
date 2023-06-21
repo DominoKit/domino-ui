@@ -16,15 +16,16 @@
 package org.dominokit.domino.ui.spin;
 
 import elemental2.dom.DOMRect;
-import elemental2.dom.HTMLDivElement;
-import org.dominokit.domino.ui.icons.BaseIcon;
-import org.dominokit.domino.ui.icons.Icons;
+import org.dominokit.domino.ui.icons.Icon;
+import org.dominokit.domino.ui.utils.DominoUIConfig;
 import org.dominokit.domino.ui.utils.SwipeUtil;
 
 /**
  * A component provides vertical spin
  *
  * @param <T> the type of the object inside the spin
+ * @author vegegoku
+ * @version $Id: $Id
  */
 public class VSpinSelect<T> extends SpinSelect<T, VSpinSelect<T>> {
 
@@ -41,49 +42,51 @@ public class VSpinSelect<T> extends SpinSelect<T, VSpinSelect<T>> {
   /**
    * Creates new instance with back/forward icons
    *
-   * @param backIcon the back {@link BaseIcon}
-   * @param forwardIcon the forward {@link BaseIcon}
+   * @param backIcon the back {@link org.dominokit.domino.ui.icons.Icon}
+   * @param forwardIcon the forward {@link org.dominokit.domino.ui.icons.Icon}
    * @param <T> the type of the object inside the spin
    * @return new instance
    */
-  public static <T> VSpinSelect<T> create(BaseIcon<?> backIcon, BaseIcon<?> forwardIcon) {
+  public static <T> VSpinSelect<T> create(Icon<?> backIcon, Icon<?> forwardIcon) {
     return new VSpinSelect<>(backIcon, forwardIcon);
   }
 
+  /** Constructor for VSpinSelect. */
   public VSpinSelect() {
-    this(Icons.ALL.keyboard_arrow_up(), Icons.ALL.keyboard_arrow_down());
+    this(
+        DominoUIConfig.CONFIG.getUIConfig().getDefaultUpIconSupplier().get(),
+        DominoUIConfig.CONFIG.getUIConfig().getDefaultDownIconSupplier().get());
   }
 
-  public VSpinSelect(BaseIcon<?> backIcon, BaseIcon<?> forwardIcon) {
+  /**
+   * Constructor for VSpinSelect.
+   *
+   * @param backIcon a {@link org.dominokit.domino.ui.icons.Icon} object
+   * @param forwardIcon a {@link org.dominokit.domino.ui.icons.Icon} object
+   */
+  public VSpinSelect(Icon<?> backIcon, Icon<?> forwardIcon) {
     super(backIcon, forwardIcon);
-    SwipeUtil.addSwipeListener(SwipeUtil.SwipeDirection.DOWN, main.element(), evt -> moveBack());
-    SwipeUtil.addSwipeListener(SwipeUtil.SwipeDirection.UP, main.element(), evt -> moveForward());
-    setHeight("50px");
+    addCss(dui_spin_vertical);
+    SwipeUtil.addSwipeListener(
+        SwipeUtil.SwipeDirection.DOWN, contentPanel.element(), evt -> moveBack());
+    SwipeUtil.addSwipeListener(
+        SwipeUtil.SwipeDirection.UP, contentPanel.element(), evt -> moveForward());
   }
 
+  /** {@inheritDoc} */
   @Override
   protected void setTransformProperty(double offset) {
     contentPanel.setCssProperty("transform", "translate3d(0px, -" + offset + "%, 0px)");
   }
 
-  @Override
-  protected String getStyle() {
-    return SpinStyles.V_SPIN;
-  }
-
+  /** {@inheritDoc} */
   @Override
   protected void fixElementsWidth() {
-    DOMRect boundingClientRect = main.getBoundingClientRect();
+    DOMRect boundingClientRect = contentPanel.getBoundingClientRect();
     double totalHeight = boundingClientRect.height * items.size();
     contentPanel.setHeight(100 * items.size() + "%");
 
     items.forEach(
         spinItem -> spinItem.setHeight(((boundingClientRect.height / totalHeight) * 100) + "%"));
-  }
-
-  /** {@inheritDoc} */
-  @Override
-  public HTMLDivElement element() {
-    return element.element();
   }
 }

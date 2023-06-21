@@ -19,6 +19,9 @@ package org.dominokit.domino.ui.style;
  * Enum that lists different predefined informative styles
  *
  * <p>Each enum value represent a different css class to style the element
+ *
+ * @author vegegoku
+ * @version $Id: $Id
  */
 public enum StyleType {
   /** a default style that indicate no special information */
@@ -42,6 +45,11 @@ public enum StyleType {
   }
 
   /** @return the css class name that represent the informative style. */
+  /**
+   * Getter for the field <code>style</code>.
+   *
+   * @return a {@link java.lang.String} object
+   */
   public String getStyle() {
     return style;
   }

@@ -1,0 +1,87 @@
+.dui-notification-wrapper {
+    position: fixed;
+    width: 100%;
+    height:0;
+    overflow: visible;
+    background: none;
+    text-align: center;
+    z-index: 9999999;
+    display: flex;
+    padding: 0 var(--dui-ntfy-left-right-space);
+    pointer-events: none;
+}
+
+.dui-notification{
+    display: flex;
+    position: absolute;
+    align-items: center;
+    height: max-content;
+    padding: var(--dui-ntfy-padding);
+    margin: var(--dui-ntfy-margin);
+    border-radius: var(--dui-ntfy-border-radius);
+    border: var(--dui-ntfy-border);
+    color: var(--dui-ntfy-color);
+    background-color: var(--dui-bg-d-2, var(--dui-ntfy-background));
+    font: var(--dui-ntfy-font);
+    box-shadow: var(--dui-ntfy-box-shadow);
+    line-height: var(--dui-ntfy-line-height);
+    z-index: 9999999;
+    pointer-events: auto;
+    transition: all 0.2s;
+}
+.dui-notification .dui-close{
+    order: 9999;
+    margin:var(--dui-ntfy-close-icon-margin);
+}
+.dui-notification-filler{
+    order: 9990;
+    flex-grow: 1;
+}
+
+.dui-ntf-top-middle .dui-notification,
+.dui-ntf-top-right .dui-notification,
+.dui-ntf-top-left .dui-notification{
+    margin-top: var(--dui-ntfy-top-bottom-space);
+}
+
+.dui-notification-wrapper.dui-ntf-top-left {
+    top: 0;
+    justify-content: start;
+}
+
+.dui-notification-wrapper.dui-ntf-top-middle {
+    top: 0;
+    justify-content: center;
+}
+
+.dui-notification-wrapper.dui-ntf-top-right {
+    top: 0;
+    justify-content: end;
+}
+
+.dui-ntf-top-middle .dui-notification,
+.dui-ntf-top-right .dui-notification,
+.dui-ntf-top-left .dui-notification {
+    top: var(--dui-ntf-position-offset, 0);
+}
+
+.dui-ntf-bottom-middle .dui-notification,
+.dui-ntf-bottom-right .dui-notification,
+.dui-ntf-bottom-left .dui-notification {
+    margin-bottom: var(--dui-ntfy-top-bottom-space);
+    bottom: var(--dui-ntf-position-offset, 0);
+}
+.dui-notification-wrapper.dui-ntf-bottom-left {
+    top: 100vh;
+    justify-content: start;
+}
+
+.dui-notification-wrapper.dui-ntf-bottom-middle {
+    top: 100vh;
+    justify-content: center;
+}
+
+.dui-notification-wrapper.dui-ntf-bottom-right {
+    top: 100vh;
+    justify-content: end;
+}

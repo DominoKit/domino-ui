@@ -15,16 +15,21 @@
  */
 package org.dominokit.domino.ui.utils;
 
+import org.dominokit.domino.ui.forms.AutoValidator;
 import org.gwtproject.editor.client.Editor;
 
 /**
  * Components that need to use the auto validation feature should implement this interface
  *
  * @param <T> the type of the class implementing this interface
+ * @author vegegoku
+ * @version $Id: $Id
  */
 public interface HasAutoValidation<T> {
 
   /**
+   * setAutoValidation.
+   *
    * @param autoValidation boolean, true to enable auto validation, false to disable it
    * @return T the instance of the implementing class
    */
@@ -32,6 +37,26 @@ public interface HasAutoValidation<T> {
   T setAutoValidation(boolean autoValidation);
 
   /** @return boolean, true if auto validation is enabled, otherwise false */
+  /**
+   * isAutoValidation.
+   *
+   * @return a boolean
+   */
   @Editor.Ignore
   boolean isAutoValidation();
+
+  /**
+   * autoValidate.
+   *
+   * @return a T object
+   */
+  T autoValidate();
+
+  /**
+   * Create an AutoValidator that will automatically validate the component when it loses focus
+   *
+   * @param autoValidate {@link org.dominokit.domino.ui.utils.ApplyFunction}
+   * @return same component instance
+   */
+  AutoValidator createAutoValidator(ApplyFunction autoValidate);
 }

@@ -21,10 +21,14 @@ import org.gwtproject.editor.client.Editor;
  * Components that need to have required value validation should implement this interface
  *
  * @param <T> the type of the component implementing this interface
+ * @author vegegoku
+ * @version $Id: $Id
  */
 public interface IsRequired<T> {
 
   /**
+   * setRequired.
+   *
    * @param required boolean, true to make the component value as required
    * @return same implementing component instance
    */
@@ -32,6 +36,8 @@ public interface IsRequired<T> {
   T setRequired(boolean required);
 
   /**
+   * setRequired.
+   *
    * @param required boolean, true to make the component value required
    * @param message String to show as error message when the value is missing
    * @return same implementing component instance
@@ -40,10 +46,17 @@ public interface IsRequired<T> {
   T setRequired(boolean required, String message);
 
   /** @return boolean, true if the component value is required */
+  /**
+   * isRequired.
+   *
+   * @return a boolean
+   */
   @Editor.Ignore
   boolean isRequired();
 
   /**
+   * setRequiredErrorMessage.
+   *
    * @param requiredErrorMessage String error message to show when the value is missing
    * @return same implementing component instance
    */
@@ -51,6 +64,11 @@ public interface IsRequired<T> {
   T setRequiredErrorMessage(String requiredErrorMessage);
 
   /** @return String required error message */
+  /**
+   * getRequiredErrorMessage.
+   *
+   * @return a {@link java.lang.String} object
+   */
   @Editor.Ignore
   String getRequiredErrorMessage();
 }

@@ -17,43 +17,94 @@ package org.dominokit.domino.ui.datatable.events;
 
 import org.dominokit.domino.ui.datatable.ColumnConfig;
 
-/** This event will be fired when a column gets resized */
+/**
+ * This event will be fired when a column gets resized
+ *
+ * @author vegegoku
+ * @version $Id: $Id
+ */
 public class ColumnResizedEvent implements TableEvent {
+  /** Constant <code>COLUMN_RESIZED="column-resized"</code> */
   public static final String COLUMN_RESIZED = "column-resized";
+
   private final ColumnConfig<?> column;
   private final double sizeDiff;
   private final boolean completed;
 
+  /**
+   * of.
+   *
+   * @param column a {@link org.dominokit.domino.ui.datatable.ColumnConfig} object
+   * @param sizeDiff a double
+   * @return a {@link org.dominokit.domino.ui.datatable.events.ColumnResizedEvent} object
+   */
   public static ColumnResizedEvent of(ColumnConfig<?> column, double sizeDiff) {
     return new ColumnResizedEvent(column, sizeDiff);
   }
 
+  /**
+   * of.
+   *
+   * @param column a {@link org.dominokit.domino.ui.datatable.ColumnConfig} object
+   * @param sizeDiff a double
+   * @param completed a boolean
+   * @return a {@link org.dominokit.domino.ui.datatable.events.ColumnResizedEvent} object
+   */
   public static ColumnResizedEvent of(ColumnConfig<?> column, double sizeDiff, boolean completed) {
     return new ColumnResizedEvent(column, sizeDiff, completed);
   }
 
+  /**
+   * Constructor for ColumnResizedEvent.
+   *
+   * @param column a {@link org.dominokit.domino.ui.datatable.ColumnConfig} object
+   * @param sizeDiff a double
+   */
   public ColumnResizedEvent(ColumnConfig<?> column, double sizeDiff) {
     this(column, sizeDiff, false);
   }
 
+  /**
+   * Constructor for ColumnResizedEvent.
+   *
+   * @param column a {@link org.dominokit.domino.ui.datatable.ColumnConfig} object
+   * @param sizeDiff a double
+   * @param completed a boolean
+   */
   public ColumnResizedEvent(ColumnConfig<?> column, double sizeDiff, boolean completed) {
     this.column = column;
     this.sizeDiff = sizeDiff;
     this.completed = completed;
   }
 
+  /**
+   * Getter for the field <code>column</code>.
+   *
+   * @return a {@link org.dominokit.domino.ui.datatable.ColumnConfig} object
+   */
   public ColumnConfig<?> getColumn() {
     return column;
   }
 
+  /**
+   * Getter for the field <code>sizeDiff</code>.
+   *
+   * @return a double
+   */
   public double getSizeDiff() {
     return sizeDiff;
   }
 
+  /**
+   * isCompleted.
+   *
+   * @return a boolean
+   */
   public boolean isCompleted() {
     return completed;
   }
 
+  /** {@inheritDoc} */
   @Override
   public String getType() {
     return COLUMN_RESIZED;

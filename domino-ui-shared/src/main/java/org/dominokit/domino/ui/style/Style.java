@@ -16,197 +16,206 @@
 package org.dominokit.domino.ui.style;
 
 import static java.util.Objects.nonNull;
-import static org.dominokit.domino.ui.style.Styles.*;
 
-import elemental2.dom.DomGlobal;
-import elemental2.dom.HTMLBodyElement;
-import elemental2.dom.HTMLElement;
-import org.jboss.elemento.IsElement;
+import elemental2.dom.CSSStyleDeclaration;
+import elemental2.dom.Element;
+import java.util.Arrays;
+import java.util.function.Predicate;
+import jsinterop.base.Js;
+import org.dominokit.domino.ui.DominoElementAdapter;
+import org.dominokit.domino.ui.IsElement;
 
-public class Style<E extends HTMLElement, T extends IsElement<E>>
-    implements IsElement<E>, DominoStyle<E, T, Style<E, T>> {
+/**
+ * Style class.
+ *
+ * @author vegegoku
+ * @version $Id: $Id
+ */
+public class Style<E extends Element> implements DominoStyle<E, Style<E>> {
 
+  public final CSSStyleDeclaration style;
   private E element;
-  private T wrapperElement;
 
-  public Style(T element) {
-    this.element = element.element();
-    this.wrapperElement = element;
-  }
-
-  public static <E extends HTMLElement, T extends IsElement<E>> Style<E, T> of(E htmlElement) {
-    return new Style<>((T) (IsElement<E>) () -> htmlElement);
-  }
-
-  public static <E extends HTMLElement, T extends IsElement<E>> Style<E, T> of(T htmlElement) {
-    return new Style<>(htmlElement);
-  }
-
-  public static Style<HTMLBodyElement, IsElement<HTMLBodyElement>> bodyStyle() {
-    return Style.of(DomGlobal.document.body);
+  /**
+   * Constructor for Style.
+   *
+   * @param element a E object.
+   */
+  public Style(E element) {
+    this.element = element;
+    this.style = Js.<DominoElementAdapter>uncheckedCast(element).style;
   }
 
   /**
-   * @param name css property name
-   * @param value css property value
-   * @return same style instance
-   * @deprecated use {@link #setCssProperty(String, String)}
+   * of.
+   *
+   * @param element a E object.
+   * @param <E> a E object.
+   * @return a {@link org.dominokit.domino.ui.style.Style} object.
    */
-  @Deprecated
-  @Override
-  public Style<E, T> setProperty(String name, String value) {
-    return setCssProperty(name, value);
+  public static <E extends Element> Style<E> of(E element) {
+    return new Style<>(element);
   }
 
   /**
-   * @param name css property name
-   * @param value css property value
-   * @return same style instance
+   * of.
+   *
+   * @param isElement a T object.
+   * @param <E> a E object.
+   * @param <T> a T object.
+   * @return a {@link org.dominokit.domino.ui.style.Style} object.
    */
+  public static <E extends Element, T extends IsElement<E>> Style<E> of(T isElement) {
+    return new Style<>(isElement.element());
+  }
+
+  /** {@inheritDoc} */
   @Override
-  public Style<E, T> setCssProperty(String name, String value) {
-    element.style.setProperty(name, value);
+  public Style<E> setCssProperty(String name, String value) {
+    style.setProperty(name, value);
     return this;
   }
 
-  /**
-   * @param name css property name
-   * @param value css property value
-   * @param important if true adds !important
-   * @return same style instance
-   * @deprecated use {@link #setCssProperty(String, String, boolean)}
-   */
-  @Deprecated
+  /** {@inheritDoc} */
   @Override
-  public Style<E, T> setProperty(String name, String value, boolean important) {
-    return setCssProperty(name, value, important);
+  public Style<E> setCssProperty(String name, Number value) {
+    style.setProperty(name, String.valueOf(value));
+    return this;
   }
 
-  /**
-   * @param name css property name
-   * @param value css property value
-   * @param important if true adds !important
-   * @return same style instance
-   */
+  /** {@inheritDoc} */
   @Override
-  public Style<E, T> setCssProperty(String name, String value, boolean important) {
+  public Style<E> setCssProperty(String name, int value) {
+    style.setProperty(name, String.valueOf(value));
+    return this;
+  }
+
+  /** {@inheritDoc} */
+  @Override
+  public Style<E> setCssProperty(String name, double value) {
+    style.setProperty(name, String.valueOf(value));
+    return this;
+  }
+
+  /** {@inheritDoc} */
+  @Override
+  public Style<E> setCssProperty(String name, short value) {
+    style.setProperty(name, String.valueOf(value));
+    return this;
+  }
+
+  /** {@inheritDoc} */
+  @Override
+  public Style<E> setCssProperty(String name, float value) {
+    style.setProperty(name, String.valueOf(value));
+    return this;
+  }
+
+  /** {@inheritDoc} */
+  @Override
+  public Style<E> setCssProperty(String name, boolean value) {
+    style.setProperty(name, String.valueOf(value));
+    return this;
+  }
+
+  /** {@inheritDoc} */
+  @Override
+  public Style<E> setCssProperty(String name, String value, boolean important) {
     if (important) {
-      element.style.setProperty(name, value, "important");
+      style.setProperty(name, value, "important");
     } else {
-      element.style.setProperty(name, value);
+      style.setProperty(name, value);
     }
     return this;
   }
 
-  /**
-   * @param name css property name
-   * @return same style instance
-   * @deprecated use {@link #removeCssProperty(String)}
-   */
-  @Deprecated
-  @Override
-  public Style<E, T> removeProperty(String name) {
-    return removeCssProperty(name);
-  }
-
-  /**
-   * @param name css property name
-   * @return same style instance
-   */
-  @Override
-  public Style<E, T> removeCssProperty(String name) {
-    element.style.removeProperty(name);
+  /** {@inheritDoc} */
+  public Style<E> setOrRemoveCssProperty(String name, String value, Predicate<Style<E>> predicate) {
+    if (predicate.test(this)) {
+      setCssProperty(name, value);
+    } else {
+      removeCssProperty(name);
+    }
     return this;
   }
 
-  /**
-   * @param cssClass css class name
-   * @return same style instance
-   * @deprecated use {@link #addCss(String)}
-   */
-  @Deprecated
+  /** {@inheritDoc} */
   @Override
-  public Style<E, T> add(String cssClass) {
-    return addCss(cssClass);
+  public Style<E> removeCssProperty(String name) {
+    style.removeProperty(name);
+    return this;
   }
 
-  /**
-   * @param cssClass css class name
-   * @return same style instance
-   */
+  /** {@inheritDoc} */
   @Override
-  public Style<E, T> addCss(String cssClass) {
+  public Style<E> addCss(String cssClass) {
     if (nonNull(cssClass) && !cssClass.isEmpty()) {
       element.classList.add(cssClass);
     }
     return this;
   }
 
-  /**
-   * @param cssClasses css classes names
-   * @return same style instance
-   * @deprecated use {@link #addCss(String...)}
-   */
-  @Deprecated
+  /** {@inheritDoc} */
   @Override
-  public Style<E, T> add(String... cssClasses) {
-    return addCss(cssClasses);
-  }
-
-  /**
-   * @param cssClasses css classes names
-   * @return same style instance
-   */
-  @Override
-  public Style<E, T> addCss(String... cssClasses) {
+  public Style<E> addCss(String... cssClasses) {
     if (nonNull(cssClasses) && cssClasses.length > 0) {
-      //       add(String... arr) is not supported in IE11, so looping over the array solving the
-      // problem
-      for (String cssClass : cssClasses) {
-        addCss(cssClass);
-      }
+      element.classList.add(cssClasses);
     }
     return this;
   }
 
-  /**
-   * @param cssClass css class name
-   * @return same style instance
-   * @deprecated use {@link #removeCss(String)}
-   */
-  @Deprecated
+  /** {@inheritDoc} */
   @Override
-  public Style<E, T> remove(String cssClass) {
-    return removeCss(cssClass);
+  public Style<E> addCss(CssClass cssClasses) {
+    cssClasses.apply(element);
+    return this;
   }
 
-  /**
-   * @param cssClass css class name
-   * @return same style instance
-   */
+  /** {@inheritDoc} */
   @Override
-  public Style<E, T> removeCss(String cssClass) {
+  public Style<E> addCss(HasCssClass hasCssClass) {
+    addCss(hasCssClass.getCssClass());
+    return this;
+  }
+
+  /** {@inheritDoc} */
+  @Override
+  public Style<E> addCss(CssClass... cssClasses) {
+    Arrays.asList(cssClasses).forEach(this::addCss);
+    return this;
+  }
+
+  /** {@inheritDoc} */
+  @Override
+  public Style<E> addCss(HasCssClasses hasCssClasses) {
+    addCss(hasCssClasses.getCssClasses());
+    return this;
+  }
+
+  /** {@inheritDoc} */
+  @Override
+  public Style<E> removeCss(String cssClass) {
     if (nonNull(cssClass) && !cssClass.isEmpty()) element.classList.remove(cssClass);
     return this;
   }
 
-  /**
-   * @param cssClasses css classes names
-   * @return same style instance
-   * @deprecated use {@link #removeCss(String...)}
-   */
-  @Deprecated
+  /** {@inheritDoc} */
   @Override
-  public Style<E, T> remove(String... cssClasses) {
-    return removeCss(cssClasses);
+  public Style<E> removeCss(CssClass cssClass) {
+    cssClass.remove(element);
+    return this;
   }
 
-  /**
-   * @param cssClasses css classes names
-   * @return same style instance
-   */
+  /** {@inheritDoc} */
   @Override
-  public Style<E, T> removeCss(String... cssClasses) {
+  public Style<E> removeCss(HasCssClass hasCssClass) {
+    hasCssClass.getCssClass().remove(element);
+    return this;
+  }
+
+  /** {@inheritDoc} */
+  @Override
+  public Style<E> removeCss(String... cssClasses) {
     if (nonNull(cssClasses) && cssClasses.length > 0) {
       // remove(String... arr) is not supported in IE11, so looping over the array solving the
       // problem
@@ -217,13 +226,9 @@ public class Style<E extends HTMLElement, T extends IsElement<E>>
     return this;
   }
 
-  /**
-   * @param cssClass css class name to be removed
-   * @param replacementClass cdd class name to be added
-   * @return same style instance
-   */
+  /** {@inheritDoc} */
   @Override
-  public Style<E, T> replaceCss(String cssClass, String replacementClass) {
+  public Style<E> replaceCss(String cssClass, String replacementClass) {
     if (containsCss(cssClass)) {
       removeCss(cssClass);
       addCss(replacementClass);
@@ -231,411 +236,448 @@ public class Style<E extends HTMLElement, T extends IsElement<E>>
     return this;
   }
 
-  /**
-   * @param cssClass css class name to be removed
-   * @param replacementClass cdd class name to be added
-   * @return same style instance
-   * @deprecated use {@link #replaceCss(String, String)}
-   */
-  @Deprecated
+  /** {@inheritDoc} */
   @Override
-  public Style<E, T> replace(String cssClass, String replacementClass) {
-    return replaceCss(cssClass, replacementClass);
-  }
-
-  @Override
-  public Style<E, T> setBorder(String border) {
+  public Style<E> setBorder(String border) {
     setCssProperty("border", border);
     return this;
   }
 
+  /** {@inheritDoc} */
   @Override
-  public Style<E, T> setBorderColor(String borderColor) {
+  public Style<E> setBorderColor(String borderColor) {
     setCssProperty("border-color", borderColor);
     return this;
   }
 
+  /** {@inheritDoc} */
   @Override
-  public Style<E, T> setWidth(String width) {
+  public Style<E> setWidth(String width) {
     setWidth(width, false);
     return this;
   }
 
+  /** {@inheritDoc} */
   @Override
-  public Style<E, T> setWidth(String width, boolean important) {
+  public Style<E> setWidth(String width, boolean important) {
     setCssProperty("width", width, important);
     return this;
   }
 
+  /** {@inheritDoc} */
   @Override
-  public Style<E, T> setMinWidth(String width) {
+  public Style<E> setMinWidth(String width) {
     setMinWidth(width, false);
     return this;
   }
 
+  /** {@inheritDoc} */
   @Override
-  public Style<E, T> setMinWidth(String width, boolean important) {
+  public Style<E> setMinWidth(String width, boolean important) {
     setCssProperty("min-width", width, important);
     return this;
   }
 
+  /** {@inheritDoc} */
   @Override
-  public Style<E, T> setMaxWidth(String width) {
+  public Style<E> setMaxWidth(String width) {
     setMaxWidth(width, false);
     return this;
   }
 
+  /** {@inheritDoc} */
   @Override
-  public Style<E, T> setMaxWidth(String width, boolean important) {
+  public Style<E> setMaxWidth(String width, boolean important) {
     setCssProperty("max-width", width, important);
     return this;
   }
 
+  /** {@inheritDoc} */
   @Override
-  public Style<E, T> setHeight(String height) {
+  public Style<E> setHeight(String height) {
     setHeight(height, false);
     return this;
   }
 
+  /** {@inheritDoc} */
   @Override
-  public Style<E, T> setHeight(String height, boolean important) {
+  public Style<E> setHeight(String height, boolean important) {
     setCssProperty("height", height, important);
     return this;
   }
 
+  /** {@inheritDoc} */
   @Override
-  public Style<E, T> setMinHeight(String height) {
+  public Style<E> setMinHeight(String height) {
     setMinHeight(height, false);
     return this;
   }
 
+  /** {@inheritDoc} */
   @Override
-  public Style<E, T> setMinHeight(String height, boolean important) {
+  public Style<E> setMinHeight(String height, boolean important) {
     setCssProperty("min-height", height, important);
     return this;
   }
 
+  /** {@inheritDoc} */
   @Override
-  public Style<E, T> setMaxHeight(String height) {
+  public Style<E> setMaxHeight(String height) {
     setMaxHeight(height, false);
     return this;
   }
 
+  /** {@inheritDoc} */
   @Override
-  public Style<E, T> setMaxHeight(String height, boolean important) {
+  public Style<E> setMaxHeight(String height, boolean important) {
     setCssProperty("max-height", height, important);
     return this;
   }
 
+  /** {@inheritDoc} */
   @Override
-  public Style<E, T> setTextAlign(String textAlign) {
+  public Style<E> setTextAlign(String textAlign) {
     setTextAlign(textAlign, false);
     return this;
   }
 
+  /** {@inheritDoc} */
   @Override
-  public Style<E, T> setTextAlign(String textAlign, boolean important) {
+  public Style<E> setTextAlign(String textAlign, boolean important) {
     setCssProperty("text-align", textAlign, important);
     return this;
   }
 
+  /** {@inheritDoc} */
   @Override
-  public Style<E, T> setColor(String color) {
+  public Style<E> setColor(String color) {
     setColor(color, false);
     return this;
   }
 
+  /** {@inheritDoc} */
   @Override
-  public Style<E, T> setColor(String color, boolean important) {
+  public Style<E> setColor(String color, boolean important) {
     setCssProperty("color", color, important);
     return this;
   }
 
+  /** {@inheritDoc} */
   @Override
-  public Style<E, T> setBackgroundColor(String color) {
+  public Style<E> setBackgroundColor(String color) {
     setBackgroundColor(color, false);
     return this;
   }
 
+  /** {@inheritDoc} */
   @Override
-  public Style<E, T> setBackgroundColor(String color, boolean important) {
+  public Style<E> setBackgroundColor(String color, boolean important) {
     setCssProperty("background-color", color, important);
     return this;
   }
 
+  /** {@inheritDoc} */
   @Override
-  public Style<E, T> setMargin(String margin) {
+  public Style<E> setMargin(String margin) {
     setMargin(margin, false);
     return this;
   }
 
+  /** {@inheritDoc} */
   @Override
-  public Style<E, T> setMargin(String margin, boolean important) {
+  public Style<E> setMargin(String margin, boolean important) {
     setCssProperty("margin", margin, important);
     return this;
   }
 
+  /** {@inheritDoc} */
   @Override
-  public Style<E, T> setMarginTop(String margin) {
+  public Style<E> setMarginTop(String margin) {
     setMarginTop(margin, false);
     return this;
   }
 
+  /** {@inheritDoc} */
   @Override
-  public Style<E, T> setMarginTop(String margin, boolean important) {
+  public Style<E> setMarginTop(String margin, boolean important) {
     setCssProperty("margin-top", margin, important);
     return this;
   }
 
+  /** {@inheritDoc} */
   @Override
-  public Style<E, T> setMarginBottom(String margin) {
+  public Style<E> setMarginBottom(String margin) {
     setMarginBottom(margin, false);
     return this;
   }
 
+  /** {@inheritDoc} */
   @Override
-  public Style<E, T> setMarginBottom(String margin, boolean important) {
+  public Style<E> setMarginBottom(String margin, boolean important) {
     setCssProperty("margin-bottom", margin, important);
     return this;
   }
 
+  /** {@inheritDoc} */
   @Override
-  public Style<E, T> setMarginLeft(String margin) {
+  public Style<E> setMarginLeft(String margin) {
     setMarginLeft(margin, false);
     return this;
   }
 
+  /** {@inheritDoc} */
   @Override
-  public Style<E, T> setMarginLeft(String margin, boolean important) {
+  public Style<E> setMarginLeft(String margin, boolean important) {
     setCssProperty("margin-left", margin, important);
     return this;
   }
 
+  /** {@inheritDoc} */
   @Override
-  public Style<E, T> setMarginRight(String margin) {
+  public Style<E> setMarginRight(String margin) {
     setMarginRight(margin, false);
     return this;
   }
 
+  /** {@inheritDoc} */
   @Override
-  public Style<E, T> setMarginRight(String margin, boolean important) {
+  public Style<E> setMarginRight(String margin, boolean important) {
     setCssProperty("margin-right", margin, important);
     return this;
   }
 
+  /** {@inheritDoc} */
   @Override
-  public Style<E, T> setPaddingRight(String padding) {
+  public Style<E> setPaddingRight(String padding) {
     setPaddingRight(padding, false);
     return this;
   }
 
+  /** {@inheritDoc} */
   @Override
-  public Style<E, T> setPaddingRight(String padding, boolean important) {
+  public Style<E> setPaddingRight(String padding, boolean important) {
     setCssProperty("padding-right", padding, important);
     return this;
   }
 
+  /** {@inheritDoc} */
   @Override
-  public Style<E, T> setPaddingLeft(String padding) {
+  public Style<E> setPaddingLeft(String padding) {
     setPaddingLeft(padding, false);
     return this;
   }
 
+  /** {@inheritDoc} */
   @Override
-  public Style<E, T> setPaddingLeft(String padding, boolean important) {
+  public Style<E> setPaddingLeft(String padding, boolean important) {
     setCssProperty("padding-left", padding, important);
     return this;
   }
 
+  /** {@inheritDoc} */
   @Override
-  public Style<E, T> setPaddingBottom(String padding) {
+  public Style<E> setPaddingBottom(String padding) {
     setPaddingBottom(padding, false);
     return this;
   }
 
+  /** {@inheritDoc} */
   @Override
-  public Style<E, T> setPaddingBottom(String padding, boolean important) {
+  public Style<E> setPaddingBottom(String padding, boolean important) {
     setCssProperty("padding-bottom", padding, important);
     return this;
   }
 
+  /** {@inheritDoc} */
   @Override
-  public Style<E, T> setPaddingTop(String padding) {
+  public Style<E> setPaddingTop(String padding) {
     setPaddingTop(padding, false);
     return this;
   }
 
+  /** {@inheritDoc} */
   @Override
-  public Style<E, T> setPaddingTop(String padding, boolean important) {
+  public Style<E> setPaddingTop(String padding, boolean important) {
     setCssProperty("padding-top", padding, important);
     return this;
   }
 
+  /** {@inheritDoc} */
   @Override
-  public Style<E, T> setPadding(String padding) {
+  public Style<E> setPadding(String padding) {
     setPadding(padding, false);
     return this;
   }
 
+  /** {@inheritDoc} */
   @Override
-  public Style<E, T> setPadding(String padding, boolean important) {
+  public Style<E> setPadding(String padding, boolean important) {
     setCssProperty("padding", padding, important);
     return this;
   }
 
+  /** {@inheritDoc} */
   @Override
-  public Style<E, T> setDisplay(String display) {
+  public Style<E> setDisplay(String display) {
     setDisplay(display, false);
     return this;
   }
 
+  /** {@inheritDoc} */
   @Override
-  public Style<E, T> setDisplay(String display, boolean important) {
+  public Style<E> setDisplay(String display, boolean important) {
     setCssProperty("display", display, important);
     return this;
   }
 
+  /** {@inheritDoc} */
   @Override
-  public Style<E, T> setFontSize(String fontSize) {
+  public Style<E> setFontSize(String fontSize) {
     setFontSize(fontSize, false);
     return this;
   }
 
+  /** {@inheritDoc} */
   @Override
-  public Style<E, T> setFontSize(String fontSize, boolean important) {
+  public Style<E> setFontSize(String fontSize, boolean important) {
     setCssProperty("font-size", fontSize, important);
     return this;
   }
 
+  /** {@inheritDoc} */
   @Override
-  public Style<E, T> setFloat(String cssFloat) {
+  public Style<E> setFloat(String cssFloat) {
     setFloat(cssFloat, false);
     return this;
   }
 
+  /** {@inheritDoc} */
   @Override
-  public Style<E, T> setFloat(String cssFloat, boolean important) {
+  public Style<E> setFloat(String cssFloat, boolean important) {
     setCssProperty("float", cssFloat, important);
     return this;
   }
 
+  /** {@inheritDoc} */
   @Override
-  public Style<E, T> setLineHeight(String lineHeight) {
+  public Style<E> setLineHeight(String lineHeight) {
     setLineHeight(lineHeight, false);
     return this;
   }
 
+  /** {@inheritDoc} */
   @Override
-  public Style<E, T> setLineHeight(String lineHeight, boolean important) {
+  public Style<E> setLineHeight(String lineHeight, boolean important) {
     setCssProperty("line-height", lineHeight, important);
     return this;
   }
 
+  /** {@inheritDoc} */
   @Override
-  public Style<E, T> setOverFlow(String overFlow) {
+  public Style<E> setOverFlow(String overFlow) {
     setOverFlow(overFlow, false);
     return this;
   }
 
+  /** {@inheritDoc} */
   @Override
-  public Style<E, T> setOverFlow(String overFlow, boolean important) {
+  public Style<E> setOverFlow(String overFlow, boolean important) {
     setCssProperty("overflow", overFlow, important);
     return this;
   }
 
+  /** {@inheritDoc} */
   @Override
-  public Style<E, T> setCursor(String cursor) {
+  public Style<E> setCursor(String cursor) {
     setCursor(cursor, false);
     return this;
   }
 
+  /** {@inheritDoc} */
   @Override
-  public Style<E, T> setCursor(String cursor, boolean important) {
+  public Style<E> setCursor(String cursor, boolean important) {
     setCssProperty("cursor", cursor, important);
     return this;
   }
 
+  /** {@inheritDoc} */
   @Override
-  public Style<E, T> setPosition(String position) {
+  public Style<E> setPosition(String position) {
     setPosition(position, false);
     return this;
   }
 
+  /** {@inheritDoc} */
   @Override
-  public Style<E, T> setPosition(String position, boolean important) {
+  public Style<E> setPosition(String position, boolean important) {
     setCssProperty("position", position, important);
     return this;
   }
 
+  /** {@inheritDoc} */
   @Override
-  public Style<E, T> setLeft(String left) {
+  public Style<E> setLeft(String left) {
     setLeft(left, false);
     return this;
   }
 
+  /** {@inheritDoc} */
   @Override
-  public Style<E, T> setLeft(String left, boolean important) {
+  public Style<E> setLeft(String left, boolean important) {
     setCssProperty("left", left, important);
     return this;
   }
 
+  /** {@inheritDoc} */
   @Override
-  public Style<E, T> setRight(String right) {
+  public Style<E> setRight(String right) {
     setRight(right, false);
     return this;
   }
 
+  /** {@inheritDoc} */
   @Override
-  public Style<E, T> setRight(String right, boolean important) {
+  public Style<E> setRight(String right, boolean important) {
     setCssProperty("right", right, important);
     return this;
   }
 
+  /** {@inheritDoc} */
   @Override
-  public Style<E, T> setTop(String top) {
+  public Style<E> setTop(String top) {
     setTop(top, false);
     return this;
   }
 
+  /** {@inheritDoc} */
   @Override
-  public Style<E, T> setTop(String top, boolean important) {
+  public Style<E> setTop(String top, boolean important) {
     setCssProperty("top", top, important);
     return this;
   }
 
+  /** {@inheritDoc} */
   @Override
-  public Style<E, T> setBottom(String bottom) {
+  public Style<E> setBottom(String bottom) {
     setBottom(bottom, false);
     return this;
   }
 
+  /** {@inheritDoc} */
   @Override
-  public Style<E, T> setBottom(String bottom, boolean important) {
+  public Style<E> setBottom(String bottom, boolean important) {
     setCssProperty("bottom", bottom, important);
     return this;
   }
 
+  /** {@inheritDoc} */
   @Override
-  public Style<E, T> setZIndex(int zindex) {
+  public Style<E> setZIndex(int zindex) {
     setCssProperty("z-index", zindex + "");
     return this;
   }
 
-  /**
-   * @param cssClass css class name under check
-   * @return same style instance
-   * @deprecated use {@link #containsCss(String)}
-   */
-  @Deprecated
-  @Override
-  public boolean contains(String cssClass) {
-    return containsCss(cssClass);
-  }
-
-  /**
-   * @param cssClass css class name under check
-   * @return same style instance
-   */
+  /** {@inheritDoc} */
   @Override
   public boolean containsCss(String cssClass) {
     if (nonNull(cssClass) && !cssClass.isEmpty()) {
@@ -644,64 +686,28 @@ public class Style<E extends HTMLElement, T extends IsElement<E>>
     return false;
   }
 
+  /** {@inheritDoc} */
   @Override
-  public Style<E, T> pullRight() {
-    if (!containsCss(pull_right)) {
-      addCss(pull_right);
-    }
-
+  public Style<E> alignCenter() {
+    addCss(SpacingCss.dui_text_center);
     return this;
-  }
-
-  @Override
-  public Style<E, T> pullLeft() {
-    if (!containsCss(pull_left)) {
-      addCss(pull_left);
-    }
-
-    return this;
-  }
-
-  @Override
-  public Style<E, T> alignCenter() {
-    if (containsCss(align_center)) {
-      removeCss(align_center);
-    }
-    addCss(align_center);
-    return this;
-  }
-
-  @Override
-  public Style<E, T> alignRight() {
-    if (containsCss(align_right)) {
-      removeCss(align_right);
-    }
-    addCss(align_right);
-    return this;
-  }
-
-  @Override
-  public Style<E, T> cssText(String cssText) {
-    element.style.cssText = cssText;
-    return this;
-  }
-
-  @Override
-  public E element() {
-    return element;
-  }
-
-  public T get() {
-    return wrapperElement;
   }
 
   /** {@inheritDoc} */
   @Override
-  @Deprecated
-  public int length() {
-    return cssClassesCount();
+  public Style<E> alignRight() {
+    addCss(SpacingCss.dui_text_right);
+    return this;
   }
 
+  /** {@inheritDoc} */
+  @Override
+  public Style<E> cssText(String cssText) {
+    style.cssText = cssText;
+    return this;
+  }
+
+  /** {@inheritDoc} */
   @Override
   public int cssClassesCount() {
     return element.classList.length;
@@ -709,68 +715,73 @@ public class Style<E extends HTMLElement, T extends IsElement<E>>
 
   /** {@inheritDoc} */
   @Override
-  @Deprecated
-  public String item(int index) {
-    return cssClassByIndex(index);
-  }
-
-  @Override
   public String cssClassByIndex(int index) {
     return element.classList.item(index);
   }
 
+  /** {@inheritDoc} */
   @Override
-  public Style<E, T> setPointerEvents(String pointerEvents) {
+  public Style<E> setPointerEvents(String pointerEvents) {
     return setCssProperty("pointer-events", pointerEvents);
   }
 
+  /** {@inheritDoc} */
   @Override
-  public Style<E, T> setAlignItems(String alignItems) {
+  public Style<E> setAlignItems(String alignItems) {
     return setCssProperty("align-items", alignItems);
   }
 
+  /** {@inheritDoc} */
   @Override
-  public Style<E, T> setOverFlowY(String overflow) {
+  public Style<E> setOverFlowY(String overflow) {
     return setCssProperty("overflow-y", overflow);
   }
 
+  /** {@inheritDoc} */
   @Override
-  public Style<E, T> setOverFlowY(String overflow, boolean important) {
+  public Style<E> setOverFlowY(String overflow, boolean important) {
     return setCssProperty("overflow-y", overflow, important);
   }
 
+  /** {@inheritDoc} */
   @Override
-  public Style<E, T> setOverFlowX(String overflow) {
+  public Style<E> setOverFlowX(String overflow) {
     return setCssProperty("overflow-x", overflow);
   }
 
+  /** {@inheritDoc} */
   @Override
-  public Style<E, T> setOverFlowX(String overflow, boolean important) {
+  public Style<E> setOverFlowX(String overflow, boolean important) {
     return setCssProperty("overflow-x", overflow, important);
   }
 
+  /** {@inheritDoc} */
   @Override
-  public Style<E, T> setBoxShadow(String boxShadow) {
+  public Style<E> setBoxShadow(String boxShadow) {
     return setCssProperty("box-shadow", boxShadow);
   }
 
+  /** {@inheritDoc} */
   @Override
-  public Style<E, T> setTransitionDuration(String transactionDuration) {
+  public Style<E> setTransitionDuration(String transactionDuration) {
     return setCssProperty("transaction-duration", transactionDuration);
   }
 
+  /** {@inheritDoc} */
   @Override
-  public Style<E, T> setFlex(String flex) {
+  public Style<E> setFlex(String flex) {
     return setCssProperty("flex", flex);
   }
 
+  /** {@inheritDoc} */
   @Override
-  public Style<E, T> setOpacity(double opacity) {
+  public Style<E> setOpacity(double opacity) {
     return setCssProperty("opacity", opacity + "");
   }
 
+  /** {@inheritDoc} */
   @Override
-  public Style<E, T> setOpacity(double opacity, boolean important) {
+  public Style<E> setOpacity(double opacity, boolean important) {
     return setCssProperty("opacity", opacity + "", important);
   }
 }

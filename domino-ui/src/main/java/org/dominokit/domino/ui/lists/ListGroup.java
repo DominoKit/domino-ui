@@ -17,23 +17,15 @@ package org.dominokit.domino.ui.lists;
 
 import static java.util.Objects.isNull;
 import static java.util.Objects.nonNull;
-import static org.jboss.elemento.Elements.li;
 
-import elemental2.dom.HTMLLIElement;
 import elemental2.dom.HTMLUListElement;
-import elemental2.dom.MouseEvent;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
-import java.util.Optional;
+import java.util.*;
 import java.util.function.Consumer;
 import java.util.stream.Collectors;
-import jsinterop.base.Js;
-import org.dominokit.domino.ui.style.Color;
-import org.dominokit.domino.ui.style.Styles;
+import org.dominokit.domino.ui.elements.UListElement;
+import org.dominokit.domino.ui.style.BooleanCssClass;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
-import org.dominokit.domino.ui.utils.DominoElement;
-import org.jboss.elemento.Elements;
+import org.dominokit.domino.ui.utils.HasSelectionListeners;
 
 /**
  * A collection of elements that can be selected and customized grouped in a single list container.
@@ -41,7 +33,8 @@ import org.jboss.elemento.Elements;
  * <p>This component provides a container which accepts a collection of elements to view which
  * customized content for each one.
  *
- * <p>Customize the component can be done by overwriting classes provided by {@link ListStyles}
+ * <p>Customize the component can be done by overwriting classes provided by {@link
+ * org.dominokit.domino.ui.lists.ListStyles}
  *
  * <p>For example:
  *
@@ -57,20 +50,27 @@ import org.jboss.elemento.Elements;
  *
  * @param <T> the type of the value object inside the element
  * @see BaseDominoElement
+ * @author vegegoku
+ * @version $Id: $Id
  */
-public class ListGroup<T> extends BaseDominoElement<HTMLUListElement, ListGroup<T>> {
+public class ListGroup<T> extends BaseDominoElement<HTMLUListElement, ListGroup<T>>
+    implements HasSelectionListeners<ListGroup<T>, T, List<T>>, ListStyles {
 
-  private final HTMLUListElement element;
+  private final UListElement element;
   private final List<ListItem<T>> items = new ArrayList<>();
   private ItemRenderer<T> itemRenderer = (listGroup, item) -> {};
 
   private final List<RemoveListener<T>> removeListeners = new ArrayList<>();
   private final List<AddListener<T>> addListeners = new ArrayList<>();
-  private final List<SelectionListener<T>> selectionListeners = new ArrayList<>();
-  private final List<DeSelectionListener<T>> deSelectionListeners = new ArrayList<>();
+
+  private boolean selectionListenersPaused = false;
+
   private boolean multiSelect = false;
   private ListItem<? extends T> lastSelected = null;
-  private Color selectionColor = null;
+
+  private boolean selectable = true;
+  private Set<SelectionListener<? super T, ? super List<T>>> selectionListeners = new HashSet<>();
+  private Set<SelectionListener<? super T, ? super List<T>>> deselectionListeners = new HashSet<>();
 
   /**
    * Creates an empty list group
@@ -82,14 +82,13 @@ public class ListGroup<T> extends BaseDominoElement<HTMLUListElement, ListGroup<
     return new ListGroup<>();
   }
 
+  /** Constructor for ListGroup. */
   public ListGroup() {
-    element =
-        DominoElement.of(Elements.ul()).css(ListStyles.LIST_GROUP, ListStyles.BORDERED).element();
+    element = ul().addCss(dui_list_group, dui_list_group_bordered);
     init(this);
 
     this.addClickListener(
         evt -> {
-          MouseEvent mouseEvent = Js.uncheckedCast(evt);
           evt.stopPropagation();
           evt.preventDefault();
         });
@@ -98,7 +97,7 @@ public class ListGroup<T> extends BaseDominoElement<HTMLUListElement, ListGroup<
   /**
    * Sets the renderer for which adds the content of a single element inside the group
    *
-   * @param itemRenderer the {@link ItemRenderer}
+   * @param itemRenderer the {@link org.dominokit.domino.ui.lists.ListGroup.ItemRenderer}
    * @return same instance
    */
   public ListGroup<T> setItemRenderer(ItemRenderer<T> itemRenderer) {
@@ -181,24 +180,20 @@ public class ListGroup<T> extends BaseDominoElement<HTMLUListElement, ListGroup<
   private ListGroup<T> insertAt(
       int index, T value, boolean silent, Consumer<ListItem<T>> onItemAdded) {
     if (index == 0 || (index >= 0 && index <= items.size())) {
-      HTMLLIElement li = DominoElement.of(li()).css(ListStyles.LIST_GROUP_ITEM).element();
-      ListItem<T> listItem = new ListItem<>(this, value, li);
-
+      ListItem<T> li = ListItem.create(value);
+      li.bindTo(this);
       if (index == items.size()) {
-        items.add(listItem);
+        items.add(li);
       } else {
-        items.add(index, listItem);
+        items.add(index, li);
       }
-      if (!items.isEmpty()) {
-        this.insertAfter(listItem.element(), items.get(index).getElement());
-      } else {
-        this.appendChild(listItem);
-      }
-      itemRenderer.onRender(this, listItem);
-      onItemAdded.accept(listItem);
+      this.insertAfter(li.element(), items.get(index));
+
+      itemRenderer.onRender(this, li);
+      onItemAdded.accept(li);
       if (!silent) {
         List<ListItem<? extends T>> added = new ArrayList<>();
-        added.add(listItem);
+        added.add(li);
         this.addListeners.forEach(listener -> listener.onAdd(added));
       }
     } else {
@@ -229,16 +224,16 @@ public class ListGroup<T> extends BaseDominoElement<HTMLUListElement, ListGroup<
    */
   public ListGroup<T> removeItem(T value) {
     Optional<ListItem<T>> first =
-        items.stream().filter(listItem -> listItem.valueEquals(value)).findFirst();
+        items.stream().filter(listItem -> Objects.equals(listItem.getValue(), value)).findFirst();
 
     first.ifPresent(this::removeItem);
     return this;
   }
 
   /**
-   * Removes a single {@link ListItem} from the list group
+   * Removes a single {@link org.dominokit.domino.ui.lists.ListItem} from the list group
    *
-   * @param item the {@link ListItem} to remove
+   * @param item the {@link org.dominokit.domino.ui.lists.ListItem} to remove
    * @return same instance
    */
   public ListGroup<T> removeItem(ListItem<? extends T> item) {
@@ -246,9 +241,9 @@ public class ListGroup<T> extends BaseDominoElement<HTMLUListElement, ListGroup<
   }
 
   /**
-   * Removes a collection of {@link ListItem} from the list group
+   * Removes a collection of {@link org.dominokit.domino.ui.lists.ListItem} from the list group
    *
-   * @param items the collection of the {@link ListItem} to remove
+   * @param items the collection of the {@link org.dominokit.domino.ui.lists.ListItem} to remove
    * @return same instance
    */
   public ListGroup<T> removeItems(List<ListItem<? extends T>> items) {
@@ -258,10 +253,10 @@ public class ListGroup<T> extends BaseDominoElement<HTMLUListElement, ListGroup<
   }
 
   /**
-   * Removes a single {@link ListItem} from the list group with a boolean to indicate if this should
-   * inform handlers or not
+   * Removes a single {@link org.dominokit.domino.ui.lists.ListItem} from the list group with a
+   * boolean to indicate if this should inform handlers or not
    *
-   * @param item the {@link ListItem} to remove
+   * @param item the {@link org.dominokit.domino.ui.lists.ListItem} to remove
    * @param silent true for not informing the handlers associated with the list group, false
    *     otherwise
    * @return same instance
@@ -286,28 +281,88 @@ public class ListGroup<T> extends BaseDominoElement<HTMLUListElement, ListGroup<
    * @return same instance
    */
   public ListGroup<T> setBordered(boolean bordered) {
-    if (bordered) {
-      removeCss(ListStyles.BORDERED);
-      css(ListStyles.BORDERED);
-    } else {
-      removeCss(ListStyles.BORDERED);
-    }
-
+    addCss(BooleanCssClass.of(dui_list_group_bordered, bordered));
     return this;
   }
 
   /** @return All the {@link ListItem} */
+  /**
+   * Getter for the field <code>items</code>.
+   *
+   * @return a {@link java.util.List} object
+   */
   public List<ListItem<T>> getItems() {
     return items;
   }
 
   /** @return All the selected {@link ListItem} */
+  /**
+   * getSelectedItems.
+   *
+   * @return a {@link java.util.List} object
+   */
   public List<ListItem<T>> getSelectedItems() {
     return items.stream().filter(ListItem::isSelected).collect(Collectors.toList());
   }
 
-  /** @return All the selected values */
-  public List<T> getSelectedValues() {
+  /** {@inheritDoc} */
+  @Override
+  public ListGroup<T> pauseSelectionListeners() {
+    this.selectionListenersPaused = true;
+    return this;
+  }
+
+  /** {@inheritDoc} */
+  @Override
+  public ListGroup<T> resumeSelectionListeners() {
+    this.selectionListenersPaused = false;
+    return this;
+  }
+
+  /** {@inheritDoc} */
+  @Override
+  public ListGroup<T> togglePauseSelectionListeners(boolean toggle) {
+    this.selectionListenersPaused = toggle;
+    return this;
+  }
+
+  /** {@inheritDoc} */
+  @Override
+  public Set<SelectionListener<? super T, ? super List<T>>> getSelectionListeners() {
+    return this.selectionListeners;
+  }
+
+  /** {@inheritDoc} */
+  @Override
+  public Set<SelectionListener<? super T, ? super List<T>>> getDeselectionListeners() {
+    return this.deselectionListeners;
+  }
+
+  /** {@inheritDoc} */
+  @Override
+  public boolean isSelectionListenersPaused() {
+    return selectionListenersPaused;
+  }
+
+  /** {@inheritDoc} */
+  @Override
+  public ListGroup<T> triggerSelectionListeners(T source, List<T> selection) {
+    selectionListeners.forEach(
+        listener -> listener.onSelectionChanged(Optional.ofNullable(source), selection));
+    return this;
+  }
+
+  /** {@inheritDoc} */
+  @Override
+  public ListGroup<T> triggerDeselectionListeners(T source, List<T> selection) {
+    deselectionListeners.forEach(
+        listener -> listener.onSelectionChanged(Optional.ofNullable(source), selection));
+    return this;
+  }
+
+  /** {@inheritDoc} */
+  @Override
+  public List<T> getSelection() {
     return items.stream()
         .filter(ListItem::isSelected)
         .map(ListItem::getValue)
@@ -315,30 +370,34 @@ public class ListGroup<T> extends BaseDominoElement<HTMLUListElement, ListGroup<
   }
 
   /** @return All the values */
+  /**
+   * getValues.
+   *
+   * @return a {@link java.util.List} object
+   */
   public List<T> getValues() {
     return items.stream().map(ListItem::getValue).collect(Collectors.toList());
   }
 
   /**
-   * Selects a collection of {@link ListItem}
+   * Selects a collection of {@link org.dominokit.domino.ui.lists.ListItem}
    *
-   * @param items the collection of {@link ListItem} to select
+   * @param items the collection of {@link org.dominokit.domino.ui.lists.ListItem} to select
    * @return same instance
    */
   public ListGroup<T> select(List<ListItem<T>> items) {
     List<ListItem<? extends T>> selected = new ArrayList<>();
-    items.forEach(listItem -> select(listItem, multiSelect, selected::add));
-    if (!selected.isEmpty() && multiSelect) {
-      this.selectionListeners.forEach(listener -> listener.onSelect(selected));
-      selected.forEach(listItem -> listItem.fireSelectionHandlers(true));
+    items.forEach(listItem -> select(listItem, isSelectionListenersPaused(), selected::add));
+    if (!selected.isEmpty() && !isSelectionListenersPaused()) {
+      triggerSelectionListeners(null, getSelection());
     }
     return this;
   }
 
   /**
-   * Selects a single {@link ListItem}
+   * Selects a single {@link org.dominokit.domino.ui.lists.ListItem}
    *
-   * @param listItem the {@link ListItem} to select
+   * @param listItem the {@link org.dominokit.domino.ui.lists.ListItem} to select
    * @return same instance
    */
   public ListGroup<T> select(ListItem<T> listItem) {
@@ -346,10 +405,10 @@ public class ListGroup<T> extends BaseDominoElement<HTMLUListElement, ListGroup<
   }
 
   /**
-   * Selects a single {@link ListItem} with a boolean to indicate if this should inform handlers or
-   * not
+   * Selects a single {@link org.dominokit.domino.ui.lists.ListItem} with a boolean to indicate if
+   * this should inform handlers or not
    *
-   * @param listItem the {@link ListItem} to select
+   * @param listItem the {@link org.dominokit.domino.ui.lists.ListItem} to select
    * @param silent true for not informing the handlers associated with the list group, false
    *     otherwise
    * @return same instance
@@ -401,37 +460,34 @@ public class ListGroup<T> extends BaseDominoElement<HTMLUListElement, ListGroup<
         }
       }
       this.lastSelected = listItem;
-      listItem.setSelected(true, silent);
       onSelected.accept(listItem);
+      listItem.setSelected(true);
       if (!silent) {
-        List<ListItem<? extends T>> selected = new ArrayList<>();
-        selected.add(listItem);
-        this.selectionListeners.forEach(listener -> listener.onSelect(selected));
+        triggerSelectionListeners(listItem.getValue(), getSelection());
       }
     }
     return this;
   }
 
   /**
-   * Deselects a collection of {@link ListItem}
+   * Deselects a collection of {@link org.dominokit.domino.ui.lists.ListItem}
    *
-   * @param items the collection of {@link ListItem} to deselect
+   * @param items the collection of {@link org.dominokit.domino.ui.lists.ListItem} to deselect
    * @return same instance
    */
   public ListGroup<T> deselect(List<ListItem<T>> items) {
     List<ListItem<? extends T>> deselected = new ArrayList<>();
     items.forEach(listItem -> deselect(listItem, false, deselected::add));
     if (!deselected.isEmpty()) {
-      this.deSelectionListeners.forEach(listener -> listener.onDeSelect(deselected));
-      deselected.forEach(listItem -> listItem.fireSelectionHandlers(false));
+      triggerDeselectionListeners(null, getSelection());
     }
     return this;
   }
 
   /**
-   * Deselects a single {@link ListItem}
+   * Deselects a single {@link org.dominokit.domino.ui.lists.ListItem}
    *
-   * @param listItem the {@link ListItem} to deselect
+   * @param listItem the {@link org.dominokit.domino.ui.lists.ListItem} to deselect
    * @return same instance
    */
   public ListGroup<T> deselect(ListItem<T> listItem) {
@@ -439,10 +495,10 @@ public class ListGroup<T> extends BaseDominoElement<HTMLUListElement, ListGroup<
   }
 
   /**
-   * Deselects a single {@link ListItem} with a boolean to indicate if this should inform handlers
-   * or not
+   * Deselects a single {@link org.dominokit.domino.ui.lists.ListItem} with a boolean to indicate if
+   * this should inform handlers or not
    *
-   * @param listItem the {@link ListItem} to deselect
+   * @param listItem the {@link org.dominokit.domino.ui.lists.ListItem} to deselect
    * @param silent true for not informing the handlers associated with the list group, false
    *     otherwise
    * @return same instance
@@ -454,18 +510,21 @@ public class ListGroup<T> extends BaseDominoElement<HTMLUListElement, ListGroup<
   private ListGroup<T> deselect(
       ListItem<T> listItem, boolean silent, Consumer<ListItem<? extends T>> onDeselected) {
     if (listItem.isSelected() && this.items.contains(listItem)) {
-      listItem.setSelected(false, silent);
       onDeselected.accept(listItem);
+      listItem.setSelected(false);
       if (!silent) {
-        List<ListItem<? extends T>> deselected = new ArrayList<>();
-        deselected.add(listItem);
-        this.deSelectionListeners.forEach(listener -> listener.onDeSelect(deselected));
+        triggerDeselectionListeners(listItem.getValue(), getSelection());
       }
     }
     return this;
   }
 
   /** @return True if the list group supports multiselect */
+  /**
+   * isMultiSelect.
+   *
+   * @return a boolean
+   */
   public boolean isMultiSelect() {
     return multiSelect;
   }
@@ -478,61 +537,13 @@ public class ListGroup<T> extends BaseDominoElement<HTMLUListElement, ListGroup<
    */
   public ListGroup<T> setMultiSelect(boolean multiSelect) {
     this.multiSelect = multiSelect;
-    removeCss(Styles.disable_selection);
-    if (multiSelect) {
-      css(Styles.disable_selection);
-    }
-    return this;
-  }
-
-  /**
-   * Adds selection listener to be called when item is selected
-   *
-   * @param selectionListener the {@link SelectionListener} to add
-   * @return same instance
-   */
-  public ListGroup<T> addSelectionListener(SelectionListener<T> selectionListener) {
-    this.selectionListeners.add(selectionListener);
-    return this;
-  }
-
-  /**
-   * Removes a selection listener
-   *
-   * @param selectionListener the {@link SelectionListener} to remove
-   * @return same instance
-   */
-  public ListGroup<T> removeSelectionListener(SelectionListener<T> selectionListener) {
-    this.selectionListeners.remove(selectionListener);
-    return this;
-  }
-
-  /**
-   * Adds deselection listener to be called when item is deselected
-   *
-   * @param deSelectionListener the {@link DeSelectionListener} to add
-   * @return same instance
-   */
-  public ListGroup<T> addDeselectionListener(DeSelectionListener<T> deSelectionListener) {
-    this.deSelectionListeners.add(deSelectionListener);
-    return this;
-  }
-
-  /**
-   * Removes a deselection listener
-   *
-   * @param deSelectionListener the {@link DeSelectionListener} to remove
-   * @return same instance
-   */
-  public ListGroup<T> removeDeselectionListener(DeSelectionListener<T> deSelectionListener) {
-    this.deSelectionListeners.remove(deSelectionListener);
     return this;
   }
 
   /**
    * Adds adding listener to be called when a new item is added
    *
-   * @param addListener the {@link AddListener} to add
+   * @param addListener the {@link org.dominokit.domino.ui.lists.ListGroup.AddListener} to add
    * @return same instance
    */
   public ListGroup<T> addAddListener(AddListener<T> addListener) {
@@ -543,7 +554,7 @@ public class ListGroup<T> extends BaseDominoElement<HTMLUListElement, ListGroup<
   /**
    * Removes adding listener
    *
-   * @param addListener the {@link AddListener} to remove
+   * @param addListener the {@link org.dominokit.domino.ui.lists.ListGroup.AddListener} to remove
    * @return same instance
    */
   public ListGroup<T> removeAddListener(AddListener<T> addListener) {
@@ -554,7 +565,7 @@ public class ListGroup<T> extends BaseDominoElement<HTMLUListElement, ListGroup<
   /**
    * Adds removing listener to be called when item is removed
    *
-   * @param removeListener the {@link RemoveListener} to add
+   * @param removeListener the {@link org.dominokit.domino.ui.lists.ListGroup.RemoveListener} to add
    * @return same instance
    */
   public ListGroup<T> addRemoveListener(RemoveListener<T> removeListener) {
@@ -565,27 +576,12 @@ public class ListGroup<T> extends BaseDominoElement<HTMLUListElement, ListGroup<
   /**
    * Removes removing listener
    *
-   * @param removeListener the {@link RemoveListener} to remove
+   * @param removeListener the {@link org.dominokit.domino.ui.lists.ListGroup.RemoveListener} to
+   *     remove
    * @return same instance
    */
   public ListGroup<T> removeRemoveListener(RemoveListener<T> removeListener) {
     this.removeListeners.remove(removeListener);
-    return this;
-  }
-
-  /** @return The color for selected items */
-  public Color getSelectionColor() {
-    return selectionColor;
-  }
-
-  /**
-   * Sets the color for all selected items
-   *
-   * @param selectionColor the {@link Color}
-   * @return same instance
-   */
-  public ListGroup<T> setSelectionColor(Color selectionColor) {
-    this.selectionColor = selectionColor;
     return this;
   }
 
@@ -596,14 +592,24 @@ public class ListGroup<T> extends BaseDominoElement<HTMLUListElement, ListGroup<
    * @return same instance
    */
   public ListGroup<T> setSelectable(boolean selectable) {
+    this.selectable = selectable;
     getItems().forEach(item -> item.setSelectable(selectable));
     return this;
+  }
+
+  /**
+   * isSelectable.
+   *
+   * @return a boolean
+   */
+  public boolean isSelectable() {
+    return selectable;
   }
 
   /** {@inheritDoc} */
   @Override
   public HTMLUListElement element() {
-    return element;
+    return element.element();
   }
 
   /**
@@ -640,27 +646,5 @@ public class ListGroup<T> extends BaseDominoElement<HTMLUListElement, ListGroup<
   public interface AddListener<T> {
     /** @param addedItems The added list of {@link ListItem} */
     void onAdd(List<ListItem<? extends T>> addedItems);
-  }
-
-  /**
-   * A handler which will be called when selecting items
-   *
-   * @param <T> the type of the value
-   */
-  @FunctionalInterface
-  public interface SelectionListener<T> {
-    /** @param selectedItems The selected list of {@link ListItem} */
-    void onSelect(List<ListItem<? extends T>> selectedItems);
-  }
-
-  /**
-   * A handler which will be called when deselecting items
-   *
-   * @param <T> the type of the value
-   */
-  @FunctionalInterface
-  public interface DeSelectionListener<T> {
-    /** @param deSelectedItems The deselected list of {@link ListItem} */
-    void onDeSelect(List<ListItem<? extends T>> deSelectedItems);
   }
 }

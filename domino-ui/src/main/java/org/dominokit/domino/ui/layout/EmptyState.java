@@ -15,143 +15,253 @@
  */
 package org.dominokit.domino.ui.layout;
 
-import static java.util.Objects.nonNull;
-import static org.jboss.elemento.Elements.*;
-
 import elemental2.dom.HTMLDivElement;
-import elemental2.dom.HTMLHeadingElement;
-import elemental2.dom.HTMLParagraphElement;
-import org.dominokit.domino.ui.icons.BaseIcon;
-import org.dominokit.domino.ui.style.Color;
-import org.dominokit.domino.ui.style.Style;
-import org.dominokit.domino.ui.style.Styles;
-import org.dominokit.domino.ui.utils.BaseDominoElement;
-import org.dominokit.domino.ui.utils.DominoElement;
+import org.dominokit.domino.ui.elements.DivElement;
+import org.dominokit.domino.ui.elements.HeadingElement;
+import org.dominokit.domino.ui.elements.SmallElement;
+import org.dominokit.domino.ui.icons.Icon;
+import org.dominokit.domino.ui.utils.*;
 
 /**
  * A component that indicate that other components or parts of the page has no content currently to
  * display
  *
- * <pre>
- * EmptyState.create(Icons.ALL.cloud_question_mdi())
- *                 .setTitle("Could not find records")
- *                 .setIconColor(Color.GREY)
- *                 .setTitleColor(Color.GREY)
- * </pre>
+ * @author vegegoku
+ * @version $Id: $Id
  */
-public class EmptyState extends BaseDominoElement<HTMLDivElement, EmptyState> {
+public class EmptyState extends BaseDominoElement<HTMLDivElement, EmptyState>
+    implements EmptyStateStyles {
 
-  private HTMLDivElement element =
-      DominoElement.of(div())
-          .css("empty-state", Styles.align_center, Styles.vertical_center)
-          .element();
-  private HTMLDivElement iconContainer = div().element();
-  private HTMLHeadingElement titleContainer = h(4).element();
-  private HTMLParagraphElement descriptionContainer = p().element();
-  private Color iconColor;
-  private Color titleColor;
-  private Color descriptionColor;
+  private DivElement element;
+  private LazyChild<HeadingElement> title;
+  private LazyChild<SmallElement> description;
 
-  /** @param icon {@link BaseIcon} to indicate empty data */
-  public EmptyState(BaseIcon<?> icon) {
-    iconContainer.appendChild(icon.element());
-    element.appendChild(iconContainer);
-    element.appendChild(titleContainer);
-    element.appendChild(descriptionContainer);
+  private LazyChild<Icon<?>> icon = NullLazyChild.of();
+
+  /** Constructor for EmptyState. */
+  public EmptyState() {
+    element = div().addCss(dui_empty_state);
+    title = LazyChild.of(h(4).addCss(dui_empty_state_title), element);
+    description = LazyChild.of(small().addCss(dui_empty_state_description), element);
     init(this);
   }
 
   /**
-   * @param icon {@link BaseIcon} to indicate empty data
+   * Constructor for EmptyState.
+   *
+   * @param title a {@link java.lang.String} object
+   */
+  public EmptyState(String title) {
+    this();
+    setTitle(title);
+  }
+
+  /**
+   * Constructor for EmptyState.
+   *
+   * @param title a {@link java.lang.String} object
+   * @param description a {@link java.lang.String} object
+   */
+  public EmptyState(String title, String description) {
+    this(title);
+    setDescription(description);
+  }
+
+  /**
+   * Constructor for EmptyState.
+   *
+   * @param title a {@link java.lang.String} object
+   * @param icon a {@link org.dominokit.domino.ui.icons.Icon} object
+   */
+  public EmptyState(String title, Icon<?> icon) {
+    this(title);
+    setIcon(icon);
+  }
+
+  /**
+   * Constructor for EmptyState.
+   *
+   * @param title a {@link java.lang.String} object
+   * @param description a {@link java.lang.String} object
+   * @param icon a {@link org.dominokit.domino.ui.icons.Icon} object
+   */
+  public EmptyState(String title, String description, Icon<?> icon) {
+    this(title, description);
+    setIcon(icon);
+  }
+
+  /** @param icon {@link Icon} to indicate empty data */
+  /**
+   * Constructor for EmptyState.
+   *
+   * @param icon a {@link org.dominokit.domino.ui.icons.Icon} object
+   */
+  public EmptyState(Icon<?> icon) {
+    this();
+    setIcon(icon);
+  }
+
+  /**
+   * create.
+   *
+   * @return a {@link org.dominokit.domino.ui.layout.EmptyState} object
+   */
+  public static EmptyState create() {
+    return new EmptyState();
+  }
+
+  /**
+   * create.
+   *
+   * @param title a {@link java.lang.String} object
+   * @return a {@link org.dominokit.domino.ui.layout.EmptyState} object
+   */
+  public static EmptyState create(String title) {
+    return new EmptyState(title);
+  }
+
+  /**
+   * create.
+   *
+   * @param title a {@link java.lang.String} object
+   * @param description a {@link java.lang.String} object
+   * @return a {@link org.dominokit.domino.ui.layout.EmptyState} object
+   */
+  public static EmptyState create(String title, String description) {
+    return new EmptyState(title, description);
+  }
+
+  /**
+   * create.
+   *
+   * @param title a {@link java.lang.String} object
+   * @param icon a {@link org.dominokit.domino.ui.icons.Icon} object
+   * @return a {@link org.dominokit.domino.ui.layout.EmptyState} object
+   */
+  public static EmptyState create(String title, Icon<?> icon) {
+    return new EmptyState(title, icon);
+  }
+
+  /**
+   * create.
+   *
+   * @param title a {@link java.lang.String} object
+   * @param description a {@link java.lang.String} object
+   * @param icon a {@link org.dominokit.domino.ui.icons.Icon} object
+   * @return a {@link org.dominokit.domino.ui.layout.EmptyState} object
+   */
+  public static EmptyState create(String title, String description, Icon<?> icon) {
+    return new EmptyState(title, description, icon);
+  }
+
+  /**
+   * create.
+   *
+   * @param icon {@link org.dominokit.domino.ui.icons.Icon} to indicate empty data
    * @return new EmptyState instance
    */
-  public static EmptyState create(BaseIcon<?> icon) {
+  public static EmptyState create(Icon<?> icon) {
     return new EmptyState(icon);
   }
 
   /**
+   * Setter for the field <code>title</code>.
+   *
    * @param title String to be shown under the icon
    * @return same EmptyState instance
    */
   public EmptyState setTitle(String title) {
-    titleContainer.textContent = title;
+    this.title.get().setTextContent(title);
     return this;
   }
 
   /**
-   * @param description String to be show under the title with smaller font
+   * Setter for the field <code>description</code>.
+   *
+   * @param description String to be shown under the title with smaller font
    * @return same EmptyState instance
    */
   public EmptyState setDescription(String description) {
-    descriptionContainer.textContent = description;
+    this.description.get().setTextContent(description);
     return this;
   }
 
   /**
-   * @param iconColor {@link Color}
-   * @return same EmptyState instance
+   * Setter for the field <code>icon</code>.
+   *
+   * @param icon a {@link org.dominokit.domino.ui.icons.Icon} object
+   * @return a {@link org.dominokit.domino.ui.layout.EmptyState} object
    */
-  public EmptyState setIconColor(Color iconColor) {
-    if (nonNull(this.iconColor)) {
-      Style.of(iconContainer).removeCss(this.iconColor.getStyle());
-    }
-    this.iconColor = iconColor;
-    Style.of(iconContainer).addCss(iconColor.getStyle());
+  public EmptyState setIcon(Icon<?> icon) {
+    this.icon.remove();
+    this.icon = LazyChild.of(icon.addCss(dui_empty_state_icon), element);
+    this.icon.get();
     return this;
   }
 
   /**
-   * @param titleColor {@link Color}
-   * @return same EmptyState instance
+   * Getter for the field <code>title</code>.
+   *
+   * @return a {@link org.dominokit.domino.ui.elements.HeadingElement} object
    */
-  public EmptyState setTitleColor(Color titleColor) {
-    if (nonNull(this.titleColor)) {
-      Style.of(titleContainer).removeCss(this.titleColor.getStyle());
-    }
-    this.titleColor = titleColor;
-    Style.of(titleContainer).addCss(titleColor.getStyle());
+  public HeadingElement getTitle() {
+    return title.get();
+  }
+
+  /**
+   * Getter for the field <code>description</code>.
+   *
+   * @return a {@link org.dominokit.domino.ui.elements.SmallElement} object
+   */
+  public SmallElement getDescription() {
+    return description.get();
+  }
+
+  /**
+   * Getter for the field <code>icon</code>.
+   *
+   * @return a {@link org.dominokit.domino.ui.icons.Icon} object
+   */
+  public Icon<?> getIcon() {
+    return icon.get();
+  }
+
+  /**
+   * withTitle.
+   *
+   * @param handler a {@link org.dominokit.domino.ui.utils.ChildHandler} object
+   * @return a {@link org.dominokit.domino.ui.layout.EmptyState} object
+   */
+  public EmptyState withTitle(ChildHandler<EmptyState, HeadingElement> handler) {
+    handler.apply(this, title.get());
     return this;
   }
 
   /**
-   * @param descriptionColor {@link Color}
-   * @return same EmptyState instance
+   * withDescription.
+   *
+   * @param handler a {@link org.dominokit.domino.ui.utils.ChildHandler} object
+   * @return a {@link org.dominokit.domino.ui.layout.EmptyState} object
    */
-  public EmptyState setDescriptionColor(Color descriptionColor) {
-    if (nonNull(this.descriptionColor)) {
-      Style.of(descriptionContainer).removeCss(this.descriptionColor.getStyle());
-    }
-    this.descriptionColor = descriptionColor;
-    Style.of(descriptionContainer).addCss(descriptionColor.getStyle());
+  public EmptyState withDescription(ChildHandler<EmptyState, SmallElement> handler) {
+    handler.apply(this, description.get());
     return this;
   }
 
   /**
-   * @return the {@link HTMLDivElement} that contains the icon wrapped as a {@link DominoElement}
+   * withIcon.
+   *
+   * @param handler a {@link org.dominokit.domino.ui.utils.ChildHandler} object
+   * @return a {@link org.dominokit.domino.ui.layout.EmptyState} object
    */
-  public DominoElement<HTMLDivElement> getIconContainer() {
-    return DominoElement.of(iconContainer);
-  }
-
-  /**
-   * @return the {@link HTMLHeadingElement} that contains the title wrapped as a {@link
-   *     DominoElement}
-   */
-  public DominoElement<HTMLHeadingElement> getTitleContainer() {
-    return DominoElement.of(titleContainer);
-  }
-
-  /**
-   * @return the {@link HTMLParagraphElement} that contains the description wrapped as a {@link
-   *     DominoElement}
-   */
-  public DominoElement<HTMLParagraphElement> getDescriptionContainer() {
-    return DominoElement.of(descriptionContainer);
+  public EmptyState withIcon(ChildHandler<EmptyState, Icon<?>> handler) {
+    handler.apply(this, icon.get());
+    return this;
   }
 
   /** {@inheritDoc} */
   @Override
   public HTMLDivElement element() {
-    return element;
+    return element.element();
   }
 }

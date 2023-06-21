@@ -16,17 +16,28 @@
 package org.dominokit.domino.ui.forms;
 
 import java.util.function.Function;
-import org.dominokit.domino.ui.utils.DominoUIConfig;
 
-/** A component that has an input to take/provide Integer value */
+/**
+ * A component that has an input to take/provide Integer value
+ *
+ * @author vegegoku
+ * @version $Id: $Id
+ */
 public class IntegerBox extends NumberBox<IntegerBox, Integer> {
 
   /** @return a new instance without a label */
+  /**
+   * create.
+   *
+   * @return a {@link org.dominokit.domino.ui.forms.IntegerBox} object
+   */
   public static IntegerBox create() {
     return new IntegerBox();
   }
 
   /**
+   * create.
+   *
    * @param label String
    * @return new instance with a label
    */
@@ -36,7 +47,7 @@ public class IntegerBox extends NumberBox<IntegerBox, Integer> {
 
   /** Create instance without a label */
   public IntegerBox() {
-    this("");
+    setDefaultValue(0);
   }
 
   /**
@@ -45,19 +56,14 @@ public class IntegerBox extends NumberBox<IntegerBox, Integer> {
    * @param label String
    */
   public IntegerBox(String label) {
-    super(label);
-  }
-
-  /** {@inheritDoc} */
-  @Override
-  protected void clearValue(boolean silent) {
-    value(0, silent);
+    this();
+    setLabel(label);
   }
 
   /** {@inheritDoc} */
   @Override
   protected Function<String, Integer> defaultValueParser() {
-    return DominoUIConfig.INSTANCE.getNumberParsers().integerParser(this);
+    return getConfig().getNumberParsers().integerParser(this);
   }
 
   /** {@inheritDoc} */

@@ -21,6 +21,12 @@ import elemental2.dom.Element;
 import jsinterop.annotations.JsPackage;
 import jsinterop.annotations.JsType;
 
+/**
+ * ResizeObserverEntry class.
+ *
+ * @author vegegoku
+ * @version $Id: $Id
+ */
 @JsType(isNative = true, namespace = JsPackage.GLOBAL)
 public class ResizeObserverEntry {
 

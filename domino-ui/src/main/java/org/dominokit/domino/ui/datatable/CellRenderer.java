@@ -26,14 +26,16 @@ import org.dominokit.domino.ui.forms.validations.ValidationResult;
  * and rendered in the table
  *
  * @param <T> the type of the data table records
+ * @author vegegoku
+ * @version $Id: $Id
  */
 @FunctionalInterface
 public interface CellRenderer<T> {
   /**
    * Takes a cell info to determine what content to append to the cell element
    *
-   * @param cellInfo {@link CellInfo}
-   * @return the {@link Node} to be appended to the table cell element
+   * @param cellInfo {@link org.dominokit.domino.ui.datatable.CellRenderer.CellInfo}
+   * @return the {@link elemental2.dom.Node} to be appended to the table cell element
    */
   Node asElement(CellInfo<T> cellInfo);
 

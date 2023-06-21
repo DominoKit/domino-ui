@@ -15,76 +15,77 @@
  */
 package org.dominokit.domino.ui.search;
 
-import static org.jboss.elemento.Elements.*;
-
-import elemental2.dom.*;
+import elemental2.dom.HTMLDivElement;
 import jsinterop.base.Js;
+import org.dominokit.domino.ui.animations.Transition;
+import org.dominokit.domino.ui.collapsible.AnimationCollapseStrategy;
+import org.dominokit.domino.ui.collapsible.CollapseDuration;
+import org.dominokit.domino.ui.elements.DivElement;
+import org.dominokit.domino.ui.elements.InputElement;
+import org.dominokit.domino.ui.events.EventType;
+import org.dominokit.domino.ui.i18n.HasLabels;
+import org.dominokit.domino.ui.i18n.SearchLabels;
+import org.dominokit.domino.ui.icons.Icon;
+import org.dominokit.domino.ui.icons.lib.Icons;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
-import org.dominokit.domino.ui.utils.DominoElement;
 import org.dominokit.domino.ui.utils.ElementUtil;
-import org.gwtproject.core.client.Scheduler;
 import org.gwtproject.timer.client.Timer;
-import org.jboss.elemento.EventType;
 
 /**
  * A search component that can fit into another component with fixed height, this component will be
  * hidden by default and can be revealed by a trigger.
  *
  * <p>also the component provide callback and a type ahead delay, and provides a close button to
- * hide the component
+ * hide the component </pre>
  *
- * <pre>
- * Search.create(true)
- *                 .setSearchPlaceHolder("Search")
- *                 .styler(style -&gt; style.setHeight(Unit.px.of(40)))
- *                 .onSearch(searchToken -&gt; Notification.create("Inline searching for : " + searchToken).show())
- *                 .onClose(() -&gt; Notification.create("Closing inline search : ").show());
- * </pre>
+ * @author vegegoku
+ * @version $Id: $Id
  */
-public class Search extends BaseDominoElement<HTMLDivElement, Search> {
+public class Search extends BaseDominoElement<HTMLDivElement, Search>
+    implements HasLabels<SearchLabels>, SearchStyles {
 
-  private final HTMLElement closeIcon =
-      DominoElement.of(i()).css("material-icons").textContent("close").element();
-
-  private final HTMLInputElement searchInput =
-      DominoElement.of(input("text")).attr("placeholder", "START TYPING...").element();
-
-  private HTMLDivElement element =
-      DominoElement.of(div())
-          .style("display: none;")
-          .css(SearchStyles.search_bar)
-          .add(
-              DominoElement.of(div())
-                  .css(SearchStyles.search_icon)
-                  .add(DominoElement.of(i()).css("material-icons").textContent("search")))
-          .add(searchInput)
-          .add(DominoElement.of(div()).css(SearchStyles.close_search).add(closeIcon))
-          .element();
-
-  private SearchHandler searchHandler = searchToken -> {};
-  private SearchCloseHandler closeHandler = () -> {};
+  private final Icon<?> closeIcon;
+  private final InputElement searchInput;
+  private DivElement element;
+  private SearchHandler searchHandler;
+  private SearchCloseHandler closeHandler;
   private final boolean autoSearch;
-
   private Timer autoSearchTimer;
 
   /**
+   * Constructor for Search.
+   *
    * @param autoSearch boolean, true to trigger the search while the user is typing with 200ms
    *     delay, false to trigger the search only when the user press ENTER
    */
   public Search(boolean autoSearch) {
     this.autoSearch = autoSearch;
-    this.closeIcon.addEventListener(
-        "click",
-        evt -> {
-          evt.stopPropagation();
-          close();
-        });
-
+    this.closeIcon =
+        Icons.close()
+            .clickable()
+            .addClickListener(
+                evt -> {
+                  evt.stopPropagation();
+                  close();
+                });
+    this.searchInput = input("text").setAttribute("placeholder", getLabels().getStartTyping());
+    this.element =
+        div()
+            .addCss(dui_search_bar, dui_h_full)
+            .collapse()
+            .appendChild(
+                div()
+                    .addCss(dui_search_bar_container)
+                    .appendChild(Icons.magnify())
+                    .appendChild(searchInput.addCss(dui_grow_1))
+                    .appendChild(closeIcon));
+    this.searchHandler = searchToken -> {};
+    this.closeHandler = () -> {};
     autoSearchTimer =
         new Timer() {
           @Override
           public void run() {
-            searchHandler.onSearch(searchInput.value);
+            searchHandler.onSearch(searchInput.element().value);
           }
         };
 
@@ -101,29 +102,38 @@ public class Search extends BaseDominoElement<HTMLDivElement, Search> {
         EventType.keypress.getName(),
         evt -> {
           if (ElementUtil.isEnterKey(Js.uncheckedCast(evt))) {
-            searchHandler.onSearch(searchInput.value);
+            searchHandler.onSearch(searchInput.element().value);
           }
         });
 
-    searchInput.addEventListener(
-        "keydown",
-        evt -> {
-          if (ElementUtil.isEscapeKey(Js.uncheckedCast(evt))) {
-            evt.stopPropagation();
-            close();
-          }
-        });
+    searchInput.onKeyDown(
+        keyEvents ->
+            keyEvents.onEscape(
+                evt -> {
+                  evt.stopPropagation();
+                  close();
+                }));
 
     init(this);
-    style().setHeight("100%");
+
+    setCollapseStrategy(
+        new AnimationCollapseStrategy(
+            Transition.FADE_IN, Transition.FADE_OUT, CollapseDuration._300ms));
   }
 
   /** @return new Search instance */
+  /**
+   * create.
+   *
+   * @return a {@link org.dominokit.domino.ui.search.Search} object
+   */
   public static Search create() {
     return new Search(false);
   }
 
   /**
+   * create.
+   *
    * @param autoSearch boolean, true to trigger the search while the user is typing with 200ms delay
    * @return new Search instance
    */
@@ -137,16 +147,9 @@ public class Search extends BaseDominoElement<HTMLDivElement, Search> {
    * @return same Search instance
    */
   public Search open() {
-    style().setDisplay("inline-block");
-    Scheduler.get()
-        .scheduleFixedDelay(
-            () -> {
-              addCss(SearchStyles.open);
-              return false;
-            },
-            50);
-
-    searchInput.focus();
+    expand();
+    setZIndex(config().getUIConfig().getZindexManager().getNextZIndex());
+    searchInput.element().focus();
     return this;
   }
 
@@ -156,23 +159,16 @@ public class Search extends BaseDominoElement<HTMLDivElement, Search> {
    * @return same Search instance
    */
   public Search close() {
-    removeCss(SearchStyles.open);
-    Scheduler.get()
-        .scheduleFixedDelay(
-            () -> {
-              style().setDisplay("none");
-              return false;
-            },
-            50);
-
-    searchInput.value = "";
+    collapse();
+    searchInput.element().value = "";
     closeHandler.onClose();
-
     return this;
   }
 
   /**
-   * @param handler {@link SearchHandler}
+   * onSearch.
+   *
+   * @param handler {@link org.dominokit.domino.ui.search.Search.SearchHandler}
    * @return same Search instance
    */
   public Search onSearch(SearchHandler handler) {
@@ -181,7 +177,9 @@ public class Search extends BaseDominoElement<HTMLDivElement, Search> {
   }
 
   /**
-   * @param handler {@link SearchCloseHandler}
+   * onClose.
+   *
+   * @param handler {@link org.dominokit.domino.ui.search.Search.SearchCloseHandler}
    * @return same Search instance
    */
   public Search onClose(SearchCloseHandler handler) {
@@ -190,35 +188,62 @@ public class Search extends BaseDominoElement<HTMLDivElement, Search> {
   }
 
   /**
+   * setSearchPlaceHolder.
+   *
    * @param placeHolder String placeholder text for the search input
    * @return same Search instance
    */
   public Search setSearchPlaceHolder(String placeHolder) {
-    DominoElement.of(searchInput).setAttribute("placeholder", placeHolder);
+    searchInput.setAttribute("placeholder", placeHolder);
     return this;
   }
 
   /** @return boolean, true if auto search is enabled */
+  /**
+   * isAutoSearch.
+   *
+   * @return a boolean
+   */
   public boolean isAutoSearch() {
     return autoSearch;
   }
 
   /** @return the {@link SearchHandler} */
+  /**
+   * Getter for the field <code>searchHandler</code>.
+   *
+   * @return a {@link org.dominokit.domino.ui.search.Search.SearchHandler} object
+   */
   public SearchHandler getSearchHandler() {
     return searchHandler;
   }
 
   /** @param searchHandler {@link SearchHandler} */
+  /**
+   * Setter for the field <code>searchHandler</code>.
+   *
+   * @param searchHandler a {@link org.dominokit.domino.ui.search.Search.SearchHandler} object
+   */
   public void setSearchHandler(SearchHandler searchHandler) {
     this.searchHandler = searchHandler;
   }
 
   /** @return the {@link SearchCloseHandler} */
+  /**
+   * Getter for the field <code>closeHandler</code>.
+   *
+   * @return a {@link org.dominokit.domino.ui.search.Search.SearchCloseHandler} object
+   */
   public SearchCloseHandler getCloseHandler() {
     return closeHandler;
   }
 
   /** @param closeHandler {@link SearchCloseHandler} */
+  /**
+   * Setter for the field <code>closeHandler</code>.
+   *
+   * @param closeHandler a {@link org.dominokit.domino.ui.search.Search.SearchCloseHandler} object
+   */
   public void setCloseHandler(SearchCloseHandler closeHandler) {
     this.closeHandler = closeHandler;
   }
@@ -226,14 +251,17 @@ public class Search extends BaseDominoElement<HTMLDivElement, Search> {
   /** {@inheritDoc} */
   @Override
   public HTMLDivElement element() {
-    return element;
+    return element.element();
   }
 
   /**
-   * @return the {@link HTMLInputElement} of this search component wrapped as {@link DominoElement}
+   * getInputElement.
+   *
+   * @return the {@link elemental2.dom.HTMLInputElement} of this search component wrapped as {@link
+   *     org.dominokit.domino.ui.utils.DominoElement}
    */
-  public DominoElement<HTMLInputElement> getInputElement() {
-    return DominoElement.of(searchInput);
+  public InputElement getInputElement() {
+    return searchInput;
   }
 
   /** A functional interface to implement the search logic */

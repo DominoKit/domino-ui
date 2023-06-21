@@ -15,7 +15,12 @@
  */
 package org.dominokit.domino.ui.tree;
 
-/** An enum representing what toggles the tree item */
+/**
+ * An enum representing what toggles the tree item
+ *
+ * @author vegegoku
+ * @version $Id: $Id
+ */
 public enum ToggleTarget {
   /** any element inside the item */
   ANY("tgl-any"),
@@ -29,6 +34,11 @@ public enum ToggleTarget {
   }
 
   /** @return the CSS style */
+  /**
+   * Getter for the field <code>style</code>.
+   *
+   * @return a {@link java.lang.String} object
+   */
   public String getStyle() {
     return style;
   }

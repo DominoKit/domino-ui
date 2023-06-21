@@ -15,8 +15,18 @@
  */
 package org.dominokit.domino.ui.datatable.events;
 
-/** An interface to define events for the data table and specify the event type */
+/**
+ * An interface to define events for the data table and specify the event type
+ *
+ * @author vegegoku
+ * @version $Id: $Id
+ */
 public interface TableEvent {
   /** @return String, a unique event type. */
+  /**
+   * getType.
+   *
+   * @return a {@link java.lang.String} object
+   */
   String getType();
 }

@@ -15,7 +15,12 @@
  */
 package org.dominokit.domino.ui.utils;
 
-/** A component that can be activated should implement this interface */
+/**
+ * A component that can be activated should implement this interface
+ *
+ * @author vegegoku
+ * @version $Id: $Id
+ */
 public interface CanActivate {
   /** Activates the component */
   void activate();

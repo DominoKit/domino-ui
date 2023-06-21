@@ -21,19 +21,24 @@ import org.dominokit.domino.ui.datatable.events.TableEventListener;
  * An interface to implement different data stores for the data table and listen to table events.
  *
  * @param <T> the type of the data table records
+ * @author vegegoku
+ * @version $Id: $Id
  */
 public interface DataStore<T> extends TableEventListener {
   /**
-   * Adds a listener to handle the {@link DataChangedEvent} events
+   * Adds a listener to handle the {@link org.dominokit.domino.ui.datatable.store.DataChangedEvent}
+   * events
    *
-   * @param dataChangeListener {@link StoreDataChangeListener}
+   * @param dataChangeListener {@link
+   *     org.dominokit.domino.ui.datatable.store.StoreDataChangeListener}
    */
   void onDataChanged(StoreDataChangeListener<T> dataChangeListener);
 
   /**
    * removes the listener
    *
-   * @param dataChangeListener {@link StoreDataChangeListener}
+   * @param dataChangeListener {@link
+   *     org.dominokit.domino.ui.datatable.store.StoreDataChangeListener}
    */
   void removeDataChangeListener(StoreDataChangeListener<T> dataChangeListener);
 

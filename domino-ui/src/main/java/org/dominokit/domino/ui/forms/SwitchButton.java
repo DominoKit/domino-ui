@@ -17,35 +17,70 @@ package org.dominokit.domino.ui.forms;
 
 import static java.util.Objects.isNull;
 import static java.util.Objects.nonNull;
-import static org.jboss.elemento.Elements.*;
 
-import elemental2.dom.HTMLElement;
-import elemental2.dom.HTMLInputElement;
-import elemental2.dom.HTMLLabelElement;
-import org.dominokit.domino.ui.keyboard.KeyboardEvents;
-import org.dominokit.domino.ui.style.Color;
+import elemental2.dom.*;
+import java.util.Optional;
+import java.util.function.Consumer;
+import org.dominokit.domino.ui.elements.DivElement;
+import org.dominokit.domino.ui.elements.LabelElement;
+import org.dominokit.domino.ui.elements.SpanElement;
+import org.dominokit.domino.ui.style.BooleanCssClass;
+import org.dominokit.domino.ui.utils.ApplyFunction;
 import org.dominokit.domino.ui.utils.Checkable;
 import org.dominokit.domino.ui.utils.DominoElement;
-import org.dominokit.domino.ui.utils.LambdaFunction;
+import org.dominokit.domino.ui.utils.LazyChild;
 
-/** A component that can switch between two boolean values with different labels */
-public class SwitchButton extends AbstractValueBox<SwitchButton, HTMLElement, Boolean>
+/**
+ * A component that can switch between two boolean values with different labels
+ *
+ * @author vegegoku
+ * @version $Id: $Id
+ */
+public class SwitchButton extends InputFormField<SwitchButton, HTMLInputElement, Boolean>
     implements Checkable<SwitchButton> {
 
-  private HTMLLabelElement onOffLabelElement;
-  private DominoElement<HTMLInputElement> inputElement;
-  private DominoElement<HTMLElement> lever = DominoElement.of(span()).css("lever");
-  private Color color;
-  private DominoElement<HTMLElement> onTitleTextRoot = DominoElement.of(span());
-  private DominoElement<HTMLElement> offTitleTextRoot = DominoElement.of(span());
-  private String checkedReadonlyLabel = "Yes";
-  private String unCheckedReadonlyLabel = "No";
+  private LazyChild<LabelElement> offLabelElement;
+  private LazyChild<LabelElement> onLabelElement;
+
   private String offTitle;
   private String onTitle;
-  private LambdaFunction offLabelInitializer;
-  private LambdaFunction onLabelInitializer;
+  private SpanElement trackElement;
 
   /**
+   * create.
+   *
+   * @param label String label describing the switch
+   * @param offTitle String label for the OFF state
+   * @param onTitle String label for the ON state
+   * @return new SwitchButton instance
+   */
+  public static SwitchButton create(String label, String offTitle, String onTitle) {
+    return new SwitchButton(label, offTitle, onTitle);
+  }
+
+  /**
+   * create.
+   *
+   * @param label String label describing the switch
+   * @param onOffTitle String label for the OFF state
+   * @return new SwitchButton instance
+   */
+  public static SwitchButton create(String label, String onOffTitle) {
+    return new SwitchButton(label, onOffTitle);
+  }
+
+  /**
+   * create.
+   *
+   * @return a {@link org.dominokit.domino.ui.forms.SwitchButton} object
+   */
+  public static SwitchButton create() {
+    return new SwitchButton();
+  }
+
+  /**
+   * Constructor for SwitchButton.
+   *
    * @param label String label describing the switch
    * @param offTitle String label for the OFF state
    * @param onTitle String label for the ON state
@@ -57,6 +92,8 @@ public class SwitchButton extends AbstractValueBox<SwitchButton, HTMLElement, Bo
   }
 
   /**
+   * Constructor for SwitchButton.
+   *
    * @param label String label describing the switch
    * @param onOffTitle String label for the ON/OFF state
    */
@@ -66,6 +103,11 @@ public class SwitchButton extends AbstractValueBox<SwitchButton, HTMLElement, Bo
   }
 
   /** @param label String label describing the switch */
+  /**
+   * Constructor for SwitchButton.
+   *
+   * @param label a {@link java.lang.String} object
+   */
   public SwitchButton(String label) {
     this();
     setLabel(label);
@@ -73,102 +115,175 @@ public class SwitchButton extends AbstractValueBox<SwitchButton, HTMLElement, Bo
 
   /** Creates a switch without a label */
   public SwitchButton() {
-    super("switch", "");
-    init(this);
-    onOffLabelElement = label().element();
-    DominoElement.of(onOffLabelElement).css("switch-label");
-    getInputContainer().appendChild(onOffLabelElement);
-    onOffLabelElement.appendChild(getInputElement().element());
-    onOffLabelElement.appendChild(lever.element());
+    addCss(dui_switch);
+    DivElement fieldInput = div().addCss(dui_field_input);
+    wrapperElement.appendChild(fieldInput);
+    offLabelElement = LazyChild.of(label().addCss(di_switch_off_label), fieldInput);
+    onLabelElement = LazyChild.of(label().addCss(dui_switch_on_label), fieldInput);
+    fieldInput.appendChild(trackElement = span().addCss(dui_switch_track));
 
-    linkLabelToField();
-
-    inputElement.addEventListener("focus", evt -> inputElement.css("tabbed"));
-    inputElement.addEventListener("blur", evt -> inputElement.removeCss("tabbed"));
-
-    inputElement.addEventListener(
-        "change",
+    EventListener listener =
         evt -> {
           evt.stopPropagation();
-          if (!isReadOnly()) {
-            if (isAutoValidation()) {
-              validate();
-            }
+          evt.preventDefault();
+          if (isEnabled() && !isReadOnly()) {
+            toggleChecked();
           }
-        });
-
-    KeyboardEvents.listenOnKeyDown(inputElement)
-        .onEnter(
-            evt -> {
-              evt.stopPropagation();
-              setValue(!this.getValue());
-            });
-    css("switch");
-    onLabelInitializer =
-        () -> {
-          onOffLabelElement.appendChild(onTitleTextRoot.element());
-          onLabelInitializer = () -> {};
         };
-    offLabelInitializer =
-        () -> {
-          onOffLabelElement.insertBefore(offTitleTextRoot.element(), inputElement.element());
-          offLabelInitializer = () -> {};
-        };
-  }
-
-  /**
-   * @param label String label describing the switch
-   * @param offTitle String label for the OFF state
-   * @param onTitle String label for the ON state
-   * @return new SwitchButton instance
-   */
-  public static SwitchButton create(String label, String offTitle, String onTitle) {
-    return new SwitchButton(label, offTitle, onTitle);
-  }
-
-  /**
-   * @param label String label describing the switch
-   * @param onOffTitle String label for the OFF state
-   * @return new SwitchButton instance
-   */
-  public static SwitchButton create(String label, String onOffTitle) {
-    return new SwitchButton(label, onOffTitle);
-  }
-
-  public static SwitchButton create() {
-    return new SwitchButton();
-  }
-
-  /** @return the lever {@link HTMLElement} */
-  public DominoElement<HTMLElement> getLever() {
-    return lever;
+    trackElement.addClickListener(listener);
+    getInputElement().onKeyDown(keyEvents -> keyEvents.onEnter(listener));
+    setDefaultValue(false);
+    labelElement.get();
   }
 
   /** {@inheritDoc} */
   @Override
-  public SwitchButton value(Boolean value) {
-    if (value != null && value) {
-      check(true);
-    } else {
-      uncheck(true);
-    }
-    super.value(value);
+  public String getType() {
+    return "checkbox";
+  }
+
+  /** {@inheritDoc} */
+  @Override
+  protected DominoElement<HTMLInputElement> createInputElement(String type) {
+    return input(type).addCss(dui_hidden_input).toDominoElement();
+  }
+
+  /** {@inheritDoc} */
+  @Override
+  public Optional<Consumer<Event>> onChange() {
+    return Optional.of(
+        event -> {
+          if (isEnabled() && !isReadOnly()) {
+            withValue(isChecked(), isChangeListenersPaused());
+          }
+        });
+  }
+
+  /** {@inheritDoc} */
+  @Override
+  public SwitchButton toggleChecked(boolean silent) {
+    withValue(!isChecked(), silent);
     return this;
   }
 
+  /** {@inheritDoc} */
   @Override
-  protected void updateCharacterCount() {
-    // Do nothing, Switch does not have character count
+  public SwitchButton toggleChecked() {
+    withValue(!isChecked());
+    return this;
+  }
+
+  /** {@inheritDoc} */
+  @Override
+  public SwitchButton toggleChecked(boolean checkedState, boolean silent) {
+    withValue(checkedState, silent);
+    return this;
+  }
+
+  /** {@inheritDoc} */
+  @Override
+  public Boolean getDefaultValue() {
+    return isNull(defaultValue) ? false : defaultValue;
+  }
+
+  /** {@inheritDoc} */
+  @Override
+  public SwitchButton withValue(Boolean value, boolean silent) {
+    if (isNull(value)) {
+      return withValue(getDefaultValue(), silent);
+    }
+    super.withValue(value, silent);
+    return this;
+  }
+
+  /** {@inheritDoc} */
+  @Override
+  public SwitchButton check() {
+    return check(isChangeListenersPaused());
+  }
+
+  /** {@inheritDoc} */
+  @Override
+  public SwitchButton uncheck() {
+    return uncheck(isChangeListenersPaused());
+  }
+
+  /** {@inheritDoc} */
+  @Override
+  public SwitchButton check(boolean silent) {
+    toggleChecked(true, silent);
+    return this;
+  }
+
+  /** {@inheritDoc} */
+  @Override
+  public SwitchButton uncheck(boolean silent) {
+    toggleChecked(false, silent);
+    return this;
   }
 
   /**
-   * {@inheritDoc}
+   * Setter for the field <code>onTitle</code>.
    *
-   * @return boolean, true if ON false if OFF
+   * @param onTitle String title for the ON switch state
+   * @return same SwitchButton instance
    */
+  public SwitchButton setOnTitle(String onTitle) {
+    if (nonNull(onTitle) && !onTitle.isEmpty()) {
+      onLabelElement.get().setTextContent(onTitle);
+    } else {
+      onLabelElement.remove();
+    }
+    this.onTitle = onTitle;
+    return this;
+  }
+
+  /**
+   * Setter for the field <code>offTitle</code>.
+   *
+   * @param offTitle String title for the OFF switch state
+   * @return same SwitchButton instance
+   */
+  public SwitchButton setOffTitle(String offTitle) {
+    if (nonNull(offTitle) && !offTitle.isEmpty()) {
+      offLabelElement.get().setTextContent(offTitle);
+    } else {
+      offLabelElement.remove();
+    }
+    this.offTitle = offTitle;
+    return this;
+  }
+
+  /** @return HTMLLabelElement */
+  /**
+   * Getter for the field <code>offLabelElement</code>.
+   *
+   * @return a {@link org.dominokit.domino.ui.utils.LazyChild} object
+   */
+  public LazyChild<LabelElement> getOffLabelElement() {
+    return offLabelElement;
+  }
+
+  private boolean isOnTitleEmpty() {
+    return isNull(onTitle) || onTitle.isEmpty();
+  }
+
+  /** {@inheritDoc} */
+  @Override
+  public AutoValidator createAutoValidator(ApplyFunction autoValidate) {
+    return new SwitchButtonAutoValidator(this, autoValidate);
+  }
+
+  /** {@inheritDoc} */
   @Override
   public Boolean getValue() {
-    return inputElement.element().checked;
+    return isChecked();
+  }
+
+  /** {@inheritDoc} */
+  @Override
+  public boolean isChecked() {
+    return getInputElement().element().checked;
   }
 
   /** {@inheritDoc} */
@@ -185,249 +300,112 @@ public class SwitchButton extends AbstractValueBox<SwitchButton, HTMLElement, Bo
 
   /** {@inheritDoc} */
   @Override
-  public SwitchButton clear() {
-    value(false);
-    return this;
-  }
-
-  /** {@inheritDoc} */
-  @Override
-  public SwitchButton check() {
-    return check(false);
-  }
-
-  /** {@inheritDoc} */
-  @Override
-  public SwitchButton uncheck() {
-    return uncheck(false);
-  }
-
-  /** {@inheritDoc} */
-  @Override
-  public SwitchButton check(boolean silent) {
-    inputElement.element().checked = true;
-    if (!silent) {
-      callChangeHandlers();
-      validate();
-    }
-    updateLabel();
-    return this;
-  }
-
-  /** {@inheritDoc} */
-  @Override
-  public SwitchButton uncheck(boolean silent) {
-    inputElement.element().checked = false;
-    if (!silent) {
-      callChangeHandlers();
-      validate();
-    }
-    updateLabel();
-    return this;
-  }
-
-  /** {@inheritDoc} */
-  @Override
-  public boolean isChecked() {
-    return inputElement.element().checked;
-  }
-
-  /** {@inheritDoc} */
-  @Override
-  public SwitchButton addChangeHandler(ChangeHandler<? super Boolean> changeHandler) {
-    changeHandlers.add(changeHandler);
-    return this;
-  }
-
-  /** {@inheritDoc} */
-  @Override
-  public SwitchButton removeChangeHandler(ChangeHandler<? super Boolean> changeHandler) {
-    if (changeHandler != null) changeHandlers.remove(changeHandler);
-    return this;
-  }
-
-  /** {@inheritDoc} */
-  @Override
-  public boolean hasChangeHandler(ChangeHandler<? super Boolean> changeHandler) {
-    return changeHandlers.contains(changeHandler);
-  }
-
-  /**
-   * Sets the color of the Switch when it is ON
-   *
-   * @param color {@link Color}
-   * @return same Switch instance
-   */
-  public SwitchButton setColor(Color color) {
-    if (this.color != null) lever.removeCss(this.color.getStyle());
-    lever.addCss(color.getStyle());
-    this.color = color;
-    return this;
-  }
-
-  /**
-   * @param onTitle String title for the ON switch state
-   * @return same SwitchButton instance
-   */
-  public SwitchButton setOnTitle(String onTitle) {
-    if (nonNull(onTitle) && !onTitle.isEmpty()) {
-      onLabelInitializer.apply();
-      onTitleTextRoot.clearElement().appendChild(span().textContent(onTitle));
-      this.onTitle = onTitle;
-    }
-    return this;
-  }
-
-  /**
-   * @param offTitle String title for the OFF switch state
-   * @return same SwitchButton instance
-   */
-  public SwitchButton setOffTitle(String offTitle) {
-    if (nonNull(offTitle) && !offTitle.isEmpty()) {
-      offLabelInitializer.apply();
-      offTitleTextRoot.clearElement().appendChild(span().textContent(offTitle));
-      this.offTitle = offTitle;
-    }
-    return this;
-  }
-
-  /** @return HTMLLabelElement */
-  public DominoElement<HTMLLabelElement> getOnOffLabelElement() {
-    return DominoElement.of(onOffLabelElement);
-  }
-
-  /** {@inheritDoc} */
-  @Override
-  public SwitchButton setReadOnly(boolean readOnly) {
-    super.setReadOnly(readOnly);
-    if (readOnly) {
-      updateLabel();
-    } else {
-      setOffTitle(offTitle);
-      setOnTitle(onTitle);
-    }
-
-    return this;
-  }
-
-  private void updateLabel() {
-    setOffTitle(offTitle);
-    setOnTitle(onTitle);
-    if (isReadOnly()) {
-      if (isChecked()) {
-        if (isOnTitleEmpty()) {
-          offTitleTextRoot
-              .clearElement()
-              .appendChild(span().textContent(offTitle))
-              .appendChild(span().textContent(getCheckedReadonlyLabel()));
-        } else {
-          offTitleTextRoot.clearElement();
-        }
-      } else {
-        if (isOnTitleEmpty()) {
-          offTitleTextRoot
-              .clearElement()
-              .appendChild(span().textContent(offTitle))
-              .appendChild(span().textContent(getUnCheckedReadonlyLabel()));
-        } else {
-          onTitleTextRoot.clearElement();
-        }
-      }
-    }
-  }
-
-  private boolean isOnTitleEmpty() {
-    return isNull(onTitle) || onTitle.isEmpty();
-  }
-
-  private String getCheckedReadonlyLabel() {
-    return isNull(checkedReadonlyLabel) || checkedReadonlyLabel.isEmpty()
-        ? ""
-        : ": " + checkedReadonlyLabel;
-  }
-
-  private String getUnCheckedReadonlyLabel() {
-    return isNull(unCheckedReadonlyLabel) || unCheckedReadonlyLabel.isEmpty()
-        ? ""
-        : ": " + unCheckedReadonlyLabel;
-  }
-
-  /**
-   * Set the label when the state is ON but the switch is readonly
-   *
-   * @param checkedReadonlyLabel String
-   * @return same SwitchButton instance
-   */
-  public SwitchButton setCheckedReadonlyLabel(String checkedReadonlyLabel) {
-    this.checkedReadonlyLabel = checkedReadonlyLabel;
-    return this;
-  }
-
-  /**
-   * Set the label when the state is OFF but the switch is readonly
-   *
-   * @param unCheckedReadonlyLabel String
-   * @return same SwitchButton instance
-   */
-  public SwitchButton setUnCheckedReadonlyLabel(String unCheckedReadonlyLabel) {
-    this.unCheckedReadonlyLabel = unCheckedReadonlyLabel;
-    return this;
-  }
-
-  /** {@inheritDoc} */
-  @Override
-  protected HTMLElement createInputElement(String type) {
-    inputElement = DominoElement.of(input("checkbox"));
-    return inputElement.element();
-  }
-
-  /** {@inheritDoc} */
-  @Override
-  protected AutoValidator createAutoValidator(AutoValidate autoValidate) {
-    return null;
-  }
-
-  /** {@inheritDoc} */
-  @Override
-  protected void clearValue(boolean silent) {
-    value(false, silent);
-  }
-
-  /** {@inheritDoc} */
-  @Override
-  protected void doSetValue(Boolean value) {}
-
-  /** {@inheritDoc} */
-  @Override
   public String getStringValue() {
     return Boolean.toString(getValue());
   }
 
   /** {@inheritDoc} */
   @Override
-  protected boolean isAddFocusColor() {
-    return false;
+  protected void doSetValue(Boolean value) {
+    withPauseChangeListenersToggle(true, field -> getInputElement().element().checked = value);
   }
 
-  private static class SwitchButtonAutoValidator<T> extends AutoValidator {
+  /**
+   * The SwitchButton will stretch the left label pushing the switch and the right label to the
+   * right keeping the left label on the left
+   *
+   * @return same SwitchButton instance
+   */
+  public SwitchButton grow() {
+    addCss(BooleanCssClass.of(dui_switch_grow, true));
+    return this;
+  }
+
+  /**
+   * reverse the effect if {@link #grow()}
+   *
+   * @return same SwitchButton instance
+   */
+  public SwitchButton ungrow() {
+    addCss(BooleanCssClass.of(dui_switch_grow, false));
+    return this;
+  }
+
+  /**
+   * switch between {@link #grow()} if true and {@link #ungrow()} if false
+   *
+   * @return same SwitchButton instance
+   * @param grow a boolean
+   */
+  public SwitchButton grow(boolean grow) {
+    addCss(BooleanCssClass.of(dui_switch_grow, grow));
+    return this;
+  }
+
+  /**
+   * Will force SwitchButton labels closer to the switch track , in case of {@link #grow()} the
+   * right label will be pushed to the right closer to the track
+   *
+   * @return same SwitchButton instance
+   */
+  public SwitchButton condenseLabels() {
+    addCss(BooleanCssClass.of(dui_switch_condense, true));
+    return this;
+  }
+
+  /**
+   * reverse the effect if {@link #condenseLabels()}
+   *
+   * @return same SwitchButton instance
+   */
+  public SwitchButton uncondenseLabels() {
+    addCss(BooleanCssClass.of(dui_switch_condense, false));
+    return this;
+  }
+
+  /**
+   * switch between {@link #condenseLabels()} if true and {@link #uncondenseLabels()} if false
+   *
+   * @return same SwitchButton instance
+   * @param grow a boolean
+   */
+  public SwitchButton condenseLabels(boolean grow) {
+    addCss(BooleanCssClass.of(dui_switch_condense, grow));
+    return this;
+  }
+
+  /** {@inheritDoc} */
+  @Override
+  public String getName() {
+    return getInputElement().element().name;
+  }
+
+  /** {@inheritDoc} */
+  @Override
+  public SwitchButton setName(String name) {
+    getInputElement().element().name = name;
+    return this;
+  }
+
+  private static class SwitchButtonAutoValidator extends AutoValidator {
 
     private SwitchButton switchButton;
-    private ChangeHandler<Boolean> changeHandler;
+    private ChangeListener<Boolean> changeListener;
 
-    public SwitchButtonAutoValidator(SwitchButton switchButton, AutoValidate autoValidate) {
+    public SwitchButtonAutoValidator(SwitchButton switchButton, ApplyFunction autoValidate) {
       super(autoValidate);
       this.switchButton = switchButton;
     }
 
     @Override
     public void attach() {
-      changeHandler = value -> autoValidate.apply();
-      switchButton.addChangeHandler(changeHandler);
+      changeListener = (oldValue, newValue) -> autoValidate.apply();
+      switchButton.addChangeListener(changeListener);
     }
 
     @Override
     public void remove() {
-      switchButton.removeChangeHandler(changeHandler);
+      switchButton.removeChangeListener(changeListener);
     }
   }
 }

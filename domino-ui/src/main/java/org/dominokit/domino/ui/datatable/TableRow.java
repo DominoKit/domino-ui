@@ -17,7 +17,6 @@ package org.dominokit.domino.ui.datatable;
 
 import static java.util.Objects.isNull;
 import static java.util.Objects.nonNull;
-import static org.jboss.elemento.Elements.*;
 
 import elemental2.dom.HTMLTableCellElement;
 import elemental2.dom.HTMLTableRowElement;
@@ -25,12 +24,20 @@ import java.util.*;
 import org.dominokit.domino.ui.datatable.events.RowRecordUpdatedEvent;
 import org.dominokit.domino.ui.datatable.events.TableDataUpdatedEvent;
 import org.dominokit.domino.ui.forms.validations.ValidationResult;
-import org.dominokit.domino.ui.utils.BaseDominoElement;
-import org.dominokit.domino.ui.utils.DominoElement;
-import org.dominokit.domino.ui.utils.Selectable;
+import org.dominokit.domino.ui.style.BooleanCssClass;
+import org.dominokit.domino.ui.utils.*;
+import org.dominokit.domino.ui.utils.HasSelectionHandler.SelectionHandler;
 
+/**
+ * TableRow class.
+ *
+ * @author vegegoku
+ * @version $Id: $Id
+ */
 public class TableRow<T> extends BaseDominoElement<HTMLTableRowElement, TableRow<T>>
-    implements Selectable<T> {
+    implements Selectable<TableRow<T>>,
+        HasSelectionListeners<TableRow<T>, TableRow<T>, TableRow<T>>,
+        DataTableStyles {
   private T record;
   private boolean selected = false;
   private final int index;
@@ -47,30 +54,55 @@ public class TableRow<T> extends BaseDominoElement<HTMLTableRowElement, TableRow
   private RowRenderer<T> rowRenderer = new DefaultRowRenderer<>();
   private TableRow<T> parent;
   private List<TableRow<T>> children = new ArrayList<>();
+  private boolean selectionListenersPaused = false;
+  private Set<SelectionListener<? super TableRow<T>, ? super TableRow<T>>> selectionListeners =
+      new HashSet<>();
+  private Set<SelectionListener<? super TableRow<T>, ? super TableRow<T>>> deselectionListeners =
+      new HashSet<>();
+  private boolean selectable;
 
+  /**
+   * Constructor for TableRow.
+   *
+   * @param record a T object
+   * @param index a int
+   * @param dataTable a {@link org.dominokit.domino.ui.datatable.DataTable} object
+   */
   public TableRow(T record, int index, DataTable<T> dataTable) {
     this.record = record;
     this.index = index;
     this.dataTable = dataTable;
     init(this);
+    addCss(dui_datatable_row);
   }
 
+  /**
+   * Setter for the field <code>record</code>.
+   *
+   * @param record a T object
+   */
   public void setRecord(T record) {
     this.record = record;
   }
 
+  /**
+   * getDirtyRecord.
+   *
+   * @return a T object
+   */
   public T getDirtyRecord() {
     T dirtyRecord = dataTable.getTableConfig().getDirtyRecordProvider().createDirtyRecord(record);
     getRowCells().forEach((s, rowCell) -> rowCell.getCellInfo().updateDirtyRecord(dirtyRecord));
     return dirtyRecord;
   }
 
+  /** {@inheritDoc} */
   @Override
-  public T select() {
+  public TableRow<T> select() {
     return doSelect(true);
   }
 
-  private T doSelect(boolean selectChildren) {
+  private TableRow<T> doSelect(boolean selectChildren) {
     if (!hasFalg(DataTable.DATA_TABLE_ROW_FILTERED)) {
       this.selected = true;
       if (selectChildren) {
@@ -83,22 +115,23 @@ public class TableRow<T> extends BaseDominoElement<HTMLTableRowElement, TableRow
                   tableRow.doSelect(false);
                 }
               });
-      selectionHandlers.forEach(
-          selectionHandler -> selectionHandler.onSelectionChanged(TableRow.this));
+      triggerSelectionListeners(this, this);
+      this.dataTable.triggerSelectionListeners(this, dataTable.getSelection());
     }
-    return record;
+    return this;
   }
 
   private boolean shouldBeSelected() {
     return getChildren().stream().allMatch(TableRow::isSelected);
   }
 
+  /** {@inheritDoc} */
   @Override
-  public T deselect() {
+  public TableRow<T> deselect() {
     return doDeselect(true, true);
   }
 
-  private T doDeselect(boolean deselectParent, boolean deselectChildren) {
+  private TableRow<T> doDeselect(boolean deselectParent, boolean deselectChildren) {
     this.selected = false;
     if (deselectChildren) {
       getChildren().forEach(tableRow -> tableRow.doDeselect(false, true));
@@ -106,96 +139,272 @@ public class TableRow<T> extends BaseDominoElement<HTMLTableRowElement, TableRow
     if (deselectParent) {
       Optional.ofNullable(parent).ifPresent(tableRow -> tableRow.doDeselect(true, false));
     }
-    selectionHandlers.forEach(
-        selectionHandler -> selectionHandler.onSelectionChanged(TableRow.this));
-    return record;
+    triggerDeselectionListeners(this, this);
+    this.dataTable.triggerDeselectionListeners(this, dataTable.getSelection());
+    return this;
   }
 
+  /** {@inheritDoc} */
   @Override
-  public T select(boolean silent) {
-    this.selected = true;
-    return record;
+  public TableRow<T> pauseSelectionListeners() {
+    this.selectionListenersPaused = true;
+    return this;
   }
 
+  /** {@inheritDoc} */
   @Override
-  public T deselect(boolean silent) {
-    this.selected = false;
-    return record;
+  public TableRow<T> resumeSelectionListeners() {
+    this.selectionListenersPaused = false;
+    return this;
   }
 
+  /** {@inheritDoc} */
+  @Override
+  public TableRow<T> togglePauseSelectionListeners(boolean toggle) {
+    this.selectionListenersPaused = toggle;
+    return this;
+  }
+
+  /** {@inheritDoc} */
+  @Override
+  public Set<SelectionListener<? super TableRow<T>, ? super TableRow<T>>> getSelectionListeners() {
+    return this.selectionListeners;
+  }
+
+  /** {@inheritDoc} */
+  @Override
+  public Set<SelectionListener<? super TableRow<T>, ? super TableRow<T>>>
+      getDeselectionListeners() {
+    return this.deselectionListeners;
+  }
+
+  /** {@inheritDoc} */
+  @Override
+  public boolean isSelectionListenersPaused() {
+    return this.selectionListenersPaused;
+  }
+
+  /** {@inheritDoc} */
+  @Override
+  public TableRow<T> triggerSelectionListeners(TableRow<T> source, TableRow<T> selection) {
+    if (!this.selectionListenersPaused) {
+      new ArrayList<>(selectionListeners)
+          .forEach(
+              listener -> {
+                listener.onSelectionChanged(Optional.ofNullable(source), selection);
+              });
+    }
+    return this;
+  }
+
+  /** {@inheritDoc} */
+  @Override
+  public TableRow<T> triggerDeselectionListeners(TableRow<T> source, TableRow<T> selection) {
+    if (!this.selectionListenersPaused) {
+      new ArrayList<>(deselectionListeners)
+          .forEach(
+              listener -> {
+                listener.onSelectionChanged(Optional.ofNullable(source), selection);
+              });
+    }
+    return this;
+  }
+
+  /** {@inheritDoc} */
+  @Override
+  public TableRow<T> getSelection() {
+    if (isSelected()) {
+      return this;
+    }
+    return null;
+  }
+
+  /** {@inheritDoc} */
+  @Override
+  public boolean isSelectable() {
+    return this.selectable;
+  }
+
+  /** {@inheritDoc} */
+  @Override
+  public TableRow<T> setSelectable(boolean selectable) {
+    this.selectable = selectable;
+    return this;
+  }
+
+  /** {@inheritDoc} */
+  @Override
+  public TableRow<T> setSelected(boolean selected) {
+    this.selected = selected;
+    if (selected) {
+      select();
+    } else {
+      deselect();
+    }
+    return this;
+  }
+
+  /** {@inheritDoc} */
+  @Override
+  public TableRow<T> setSelected(boolean selected, boolean silent) {
+    withPauseSelectionListenersToggle(silent, tableRow -> tableRow.setSelected(selected));
+    return this;
+  }
+
+  /** {@inheritDoc} */
+  @Override
+  public TableRow<T> select(boolean silent) {
+    return setSelected(true, silent);
+  }
+
+  /** {@inheritDoc} */
+  @Override
+  public TableRow<T> deselect(boolean silent) {
+    return setSelected(true, silent);
+  }
+
+  /** {@inheritDoc} */
   @Override
   public boolean isSelected() {
     return selected;
   }
 
+  /**
+   * Getter for the field <code>record</code>.
+   *
+   * @return a T object
+   */
   public T getRecord() {
     return record;
   }
 
+  /**
+   * Getter for the field <code>dataTable</code>.
+   *
+   * @return a {@link org.dominokit.domino.ui.datatable.DataTable} object
+   */
   public DataTable<T> getDataTable() {
     return dataTable;
   }
 
-  @Override
-  public void addSelectionHandler(SelectionHandler<T> selectionHandler) {
-    this.selectionHandlers.add(selectionHandler);
-  }
-
+  /**
+   * addRowListener.
+   *
+   * @param listener a {@link org.dominokit.domino.ui.datatable.TableRow.RowListener} object
+   */
   public void addRowListener(RowListener<T> listener) {
     listeners.add(listener);
   }
 
+  /**
+   * removeListener.
+   *
+   * @param listener a {@link org.dominokit.domino.ui.datatable.TableRow.RowListener} object
+   */
   public void removeListener(RowListener<T> listener) {
     listeners.remove(listener);
   }
 
+  /** fireUpdate. */
   public void fireUpdate() {
     listeners.forEach(listener -> listener.onChange(TableRow.this));
   }
 
+  /** {@inheritDoc} */
   @Override
   public HTMLTableRowElement element() {
     return element;
   }
 
+  /**
+   * setFlag.
+   *
+   * @param name a {@link java.lang.String} object
+   * @param value a {@link java.lang.String} object
+   */
   public void setFlag(String name, String value) {
     flags.put(name, value);
   }
 
+  /**
+   * getFlag.
+   *
+   * @param name a {@link java.lang.String} object
+   * @return a {@link java.lang.String} object
+   */
   public String getFlag(String name) {
     return flags.get(name);
   }
 
+  /**
+   * removeFlag.
+   *
+   * @param name a {@link java.lang.String} object
+   */
   public void removeFlag(String name) {
     flags.remove(name);
   }
 
   /** @deprecated use {@link #hasFlag} */
+  /**
+   * hasFalg.
+   *
+   * @param name a {@link java.lang.String} object
+   * @return a boolean
+   */
   @Deprecated
   public boolean hasFalg(String name) {
     return flags.containsKey(name);
   }
 
+  /**
+   * hasFlag.
+   *
+   * @param name a {@link java.lang.String} object
+   * @return a boolean
+   */
   public boolean hasFlag(String name) {
     return flags.containsKey(name);
   }
 
+  /**
+   * addCell.
+   *
+   * @param rowCell a {@link org.dominokit.domino.ui.datatable.RowCell} object
+   */
   public void addCell(RowCell<T> rowCell) {
     rowCells.put(rowCell.getColumnConfig().getName(), rowCell);
   }
 
+  /**
+   * getCell.
+   *
+   * @param name a {@link java.lang.String} object
+   * @return a {@link org.dominokit.domino.ui.datatable.RowCell} object
+   */
   public RowCell<T> getCell(String name) {
     return rowCells.get(name);
   }
 
+  /**
+   * Getter for the field <code>index</code>.
+   *
+   * @return a int
+   */
   public int getIndex() {
     return index;
   }
 
+  /** updateRow. */
   public void updateRow() {
     updateRow(this.record);
   }
 
+  /**
+   * updateRow.
+   *
+   * @param record a T object
+   */
   public void updateRow(T record) {
     this.record = record;
     rowCells.values().forEach(RowCell::updateCell);
@@ -205,6 +414,11 @@ public class TableRow<T> extends BaseDominoElement<HTMLTableRowElement, TableRow
             new ArrayList<>(dataTable.getData()), dataTable.getData().size()));
   }
 
+  /**
+   * validate.
+   *
+   * @return a {@link org.dominokit.domino.ui.forms.validations.ValidationResult} object
+   */
   public ValidationResult validate() {
     Optional<ValidationResult> first =
         getRowCells().values().stream()
@@ -218,10 +432,16 @@ public class TableRow<T> extends BaseDominoElement<HTMLTableRowElement, TableRow
     }
   }
 
+  /**
+   * Getter for the field <code>rowCells</code>.
+   *
+   * @return a {@link java.util.Map} object
+   */
   public Map<String, RowCell<T>> getRowCells() {
     return Collections.unmodifiableMap(rowCells);
   }
 
+  /** render. */
   public void render() {
     Optional<RowRendererMeta<T>> rendererMeta = RowRendererMeta.get(this);
     if (rendererMeta.isPresent()) {
@@ -267,6 +487,11 @@ public class TableRow<T> extends BaseDominoElement<HTMLTableRowElement, TableRow
   }
 
   /** @return boolean, true if the row is editable, otherwise false */
+  /**
+   * isEditable.
+   *
+   * @return a boolean
+   */
   public boolean isEditable() {
     return editable;
   }
@@ -274,15 +499,16 @@ public class TableRow<T> extends BaseDominoElement<HTMLTableRowElement, TableRow
   /** @param editable boolean, true if this row should be editable, otherwise it is not */
   private void setEditable(boolean editable) {
     this.editable = editable;
+    addCss(BooleanCssClass.of(dui_datatable_row_editable, editable));
   }
 
+  /**
+   * renderCell.
+   *
+   * @param columnConfig a {@link org.dominokit.domino.ui.datatable.ColumnConfig} object
+   */
   public void renderCell(ColumnConfig<T> columnConfig) {
-    HTMLTableCellElement cellElement;
-    if (columnConfig.isHeader()) {
-      cellElement = DominoElement.of(th()).css("dt-th-cell").element();
-    } else {
-      cellElement = DominoElement.of(td()).css("dt-td-cell").element();
-    }
+    HTMLTableCellElement cellElement = td().addCss(dui_datatable_td).element();
 
     ColumnCssRuleMeta.get(columnConfig)
         .ifPresent(
@@ -290,7 +516,7 @@ public class TableRow<T> extends BaseDominoElement<HTMLTableRowElement, TableRow
                 meta.cssRules()
                     .forEach(
                         columnCssRule ->
-                            DominoElement.of(cellElement)
+                            elementOf(cellElement)
                                 .addCss(columnCssRule.getCssRule().getCssClass())));
 
     RowCell<T> rowCell =
@@ -302,7 +528,7 @@ public class TableRow<T> extends BaseDominoElement<HTMLTableRowElement, TableRow
 
     columnConfig.applyCellStyle(cellElement);
     if (columnConfig.isHidden()) {
-      DominoElement.of(cellElement).hide();
+      elementOf(cellElement).hide();
     }
     dataTable
         .getTableConfig()
@@ -316,32 +542,67 @@ public class TableRow<T> extends BaseDominoElement<HTMLTableRowElement, TableRow
     columnConfig.addShowHideListener(DefaultColumnShowHideListener.of(cellElement));
   }
 
+  /**
+   * Getter for the field <code>parent</code>.
+   *
+   * @return a {@link org.dominokit.domino.ui.datatable.TableRow} object
+   */
   public TableRow<T> getParent() {
     return parent;
   }
 
+  /**
+   * Setter for the field <code>parent</code>.
+   *
+   * @param parent a {@link org.dominokit.domino.ui.datatable.TableRow} object
+   */
   public void setParent(TableRow<T> parent) {
     this.parent = parent;
   }
 
+  /**
+   * Getter for the field <code>children</code>.
+   *
+   * @return a {@link java.util.List} object
+   */
   public List<TableRow<T>> getChildren() {
     return children;
   }
 
+  /**
+   * Setter for the field <code>children</code>.
+   *
+   * @param children a {@link java.util.List} object
+   */
   public void setChildren(List<TableRow<T>> children) {
     if (nonNull(children)) {
       this.children = children;
     }
   }
 
+  /**
+   * isParent.
+   *
+   * @return a boolean
+   */
   public boolean isParent() {
     return !getChildren().isEmpty();
   }
 
+  /**
+   * isChild.
+   *
+   * @return a boolean
+   */
   public boolean isChild() {
     return nonNull(parent);
   }
 
+  /**
+   * isRoot.
+   *
+   * @return a boolean
+   */
   public boolean isRoot() {
     return isNull(parent);
   }

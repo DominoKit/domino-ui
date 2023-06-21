@@ -15,19 +15,24 @@
  */
 package org.dominokit.domino.ui.dnd;
 
+import static org.dominokit.domino.ui.utils.ElementsFactory.elements;
+
 import elemental2.dom.DragEvent;
 import elemental2.dom.Event;
 import elemental2.dom.EventListener;
 import elemental2.dom.HTMLElement;
 import java.util.HashMap;
 import java.util.Map;
+import org.dominokit.domino.ui.IsElement;
 import org.dominokit.domino.ui.utils.DominoElement;
-import org.jboss.elemento.IsElement;
 
 /**
  * Defines draggable elements.
  *
  * <p>Each drag source has a list of draggable elements (i.e. can be dragged and dropped)
+ *
+ * @author vegegoku
+ * @version $Id: $Id
  */
 public class DragSource {
 
@@ -41,7 +46,7 @@ public class DragSource {
    * @param draggable the element
    */
   public void addDraggable(HTMLElement draggable) {
-    DominoElement<? extends HTMLElement> dominoElement = DominoElement.of(draggable);
+    DominoElement<? extends HTMLElement> dominoElement = elements.elementOf(draggable);
     addDraggable(dominoElement.getDominoId(), draggable);
   }
 
@@ -74,6 +79,11 @@ public class DragSource {
     draggables.put(id, new Draggable(id, draggable));
   }
 
+  /**
+   * removeDraggable.
+   *
+   * @param id a {@link java.lang.String} object
+   */
   public void removeDraggable(String id) {
     if (draggables.containsKey(id)) {
       Draggable draggable = draggables.get(id);
@@ -89,7 +99,7 @@ public class DragSource {
 
     private Draggable(String id, HTMLElement element) {
       this.element = element;
-      DominoElement<? extends HTMLElement> dominoElement = DominoElement.of(element);
+      DominoElement<? extends HTMLElement> dominoElement = elements.elementOf(element);
       element.draggable = true;
       eventListener = evt -> onDragStart(evt, element, id);
       dominoElement.addEventListener("dragstart", eventListener);

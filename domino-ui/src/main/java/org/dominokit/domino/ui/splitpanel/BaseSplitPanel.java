@@ -15,16 +15,12 @@
  */
 package org.dominokit.domino.ui.splitpanel;
 
-import static org.jboss.elemento.Elements.div;
-
 import elemental2.dom.HTMLDivElement;
 import java.util.LinkedList;
 import java.util.List;
-import org.dominokit.domino.ui.style.Calc;
-import org.dominokit.domino.ui.style.ColorScheme;
-import org.dominokit.domino.ui.style.Unit;
+import org.dominokit.domino.ui.elements.DivElement;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
-import org.dominokit.domino.ui.utils.DominoElement;
+import org.dominokit.domino.ui.utils.ChildHandler;
 
 /**
  * Abstract implementation for a split panel
@@ -33,57 +29,115 @@ import org.dominokit.domino.ui.utils.DominoElement;
  * @param <S> the type of the splitter
  */
 abstract class BaseSplitPanel<T extends BaseSplitPanel<T, S>, S extends BaseSplitter>
-    extends BaseDominoElement<HTMLDivElement, T> implements HasSize {
+    extends BaseDominoElement<HTMLDivElement, T> implements HasSize, HasSplitPanels, SplitStyles {
 
-  private final DominoElement<HTMLDivElement> element =
-      DominoElement.of(div()).css(SplitStyles.SPLIT_PANEL);
+  private final DivElement element;
 
   private final List<SplitPanel> panels = new LinkedList<>();
   private final List<S> splitters = new LinkedList<>();
-  private ColorScheme colorScheme = ColorScheme.INDIGO;
-  private int splitterSize = 10;
+  private double firstSize = 0;
+  private double secondSize = 0;
 
-  public BaseSplitPanel(String splitterStyle) {
-    element.addCss(splitterStyle);
+  /** Constructor for BaseSplitPanel. */
+  public BaseSplitPanel() {
+    element = div().addCss(dui_split_layout);
+    init((T) this);
     element.onAttached(mutationRecord -> updatePanelsSize());
   }
 
   private void updatePanelsSize() {
     double mainPanelSize = getSize();
+    String splitterPanelShare = getSplittersSizeShare();
 
-    double totalPercent = (getSplitterSize() / mainPanelSize) * 100;
     for (SplitPanel panel : panels) {
       double panelSize = getPanelSize(panel);
       double sizePercent = (panelSize / mainPanelSize) * 100;
-      double newTotalPercent = totalPercent + sizePercent;
-      if (newTotalPercent >= 100) {
-        sizePercent = sizePercent - (newTotalPercent - 100);
-      }
-      totalPercent = newTotalPercent;
-      setPanelSize(
-          panel,
-          Calc.sub(
-              Unit.percent.of(sizePercent),
-              Unit.px.of(panel.isFirst() || panel.isLast() ? splitterSize / 2 : splitterSize)));
+      setPanelSize(panel, "calc(" + sizePercent + "% - " + splitterPanelShare + ")");
     }
   }
 
+  /**
+   * getSplittersSizeShare.
+   *
+   * @return a {@link java.lang.String} object
+   */
+  public String getSplittersSizeShare() {
+    int n = panels.size();
+    return "(var(--dui-split-layout-splitter-size)*" + (n - 1) + "/" + n + ")";
+  }
+
+  /** {@inheritDoc} */
+  @Override
+  public void onResizeStart(SplitPanel first, SplitPanel second) {
+    this.firstSize = Math.round(getPanelSize(first));
+    this.secondSize = Math.round(getPanelSize(second));
+  }
+
+  /** {@inheritDoc} */
+  @Override
+  public void resizePanels(SplitPanel first, SplitPanel second, double sizeDiff) {
+
+    double maxSize = getSize();
+
+    double current1stSize = getPanelSize(first);
+
+    double new1stSize = this.firstSize + sizeDiff;
+    double new1stPercent = (new1stSize / maxSize) * 100;
+
+    double new2ndSize = this.secondSize - sizeDiff;
+    double new2ndPercent = (new2ndSize / maxSize) * 100;
+
+    boolean right = new1stSize > current1stSize;
+    boolean left = !right;
+    if (right && ((new2ndSize < second.getMinSize() || new2ndPercent < second.getMinPercent()))
+        || right
+            && ((new1stSize > first.getMaxSize()) || (new1stPercent > first.getMaxPercent()))) {
+      return;
+    }
+
+    if (left && ((new1stSize < first.getMinSize() || new1stPercent < first.getMinPercent()))
+        || left
+            && ((new2ndSize > second.getMaxSize()) || (new2ndPercent > second.getMaxPercent()))) {
+      return;
+    }
+
+    setPanelSize(first, (new1stSize) + "px");
+    setPanelSize(second, (new2ndSize) + "px");
+
+    double panelsTotalSize = panels.stream().mapToDouble(this::getPanelSize).sum();
+    double splittersSize = splitters.stream().mapToDouble(BaseSplitter::getSize).sum();
+
+    double totalElementsSize = panelsTotalSize + splittersSize;
+    double diff = maxSize - totalElementsSize;
+    setPanelSize(second, (new2ndSize + diff) + "px");
+  }
+
+  /**
+   * getPanelSize.
+   *
+   * @param panel a {@link org.dominokit.domino.ui.splitpanel.SplitPanel} object
+   * @return a double
+   */
   protected abstract double getPanelSize(SplitPanel panel);
 
+  /**
+   * setPanelSize.
+   *
+   * @param panel a {@link org.dominokit.domino.ui.splitpanel.SplitPanel} object
+   * @param size a {@link java.lang.String} object
+   */
   protected abstract void setPanelSize(SplitPanel panel, String size);
 
   /**
    * Adds a new panel
    *
-   * @param panel the {@link SplitPanel} to add
+   * @param panel the {@link org.dominokit.domino.ui.splitpanel.SplitPanel} to add
    * @return same instance
    */
   public T appendChild(SplitPanel panel) {
     panels.add(panel);
     if (panels.size() > 1) {
       S splitter = createSplitter(panels.get(panels.size() - 2), panel, this);
-      splitter.setColorScheme(colorScheme);
-      splitter.setSize(splitterSize);
       splitters.add(splitter);
       element.appendChild(splitter);
       element.appendChild(panel);
@@ -99,52 +153,31 @@ abstract class BaseSplitPanel<T extends BaseSplitPanel<T, S>, S extends BaseSpli
     return (T) this;
   }
 
-  protected abstract S createSplitter(SplitPanel first, SplitPanel second, HasSize mainPanel);
-
-  /** @return The current color scheme applied */
-  public ColorScheme getColorScheme() {
-    return this.colorScheme;
-  }
+  /**
+   * createSplitter.
+   *
+   * @param first a {@link org.dominokit.domino.ui.splitpanel.SplitPanel} object
+   * @param second a {@link org.dominokit.domino.ui.splitpanel.SplitPanel} object
+   * @param mainPanel a {@link org.dominokit.domino.ui.splitpanel.HasSplitPanels} object
+   * @return a S object
+   */
+  protected abstract S createSplitter(
+      SplitPanel first, SplitPanel second, HasSplitPanels mainPanel);
 
   /**
-   * Sets a new color scheme
+   * withSplitters.
    *
-   * @param colorScheme the {@link ColorScheme}
-   * @return same instance
+   * @param handler a {@link org.dominokit.domino.ui.utils.ChildHandler} object
+   * @return a T object
    */
-  public T setColorScheme(ColorScheme colorScheme) {
-    this.colorScheme = colorScheme;
-    splitters.forEach(hSplitter -> hSplitter.setColorScheme(colorScheme));
+  public T withSplitters(ChildHandler<T, List<S>> handler) {
+    handler.apply((T) this, splitters);
     return (T) this;
-  }
-
-  /**
-   * Sets the width of the splitter in pixels
-   *
-   * @param size the width in pixels
-   * @return same instance
-   */
-  public T setSplitterSize(int size) {
-    this.splitterSize = size;
-    splitters.forEach(hSplitter -> hSplitter.setSize(size));
-    return (T) this;
-  }
-
-  /** {@inheritDoc} */
-  @Override
-  public int getSplitterSize() {
-    return splitterSize;
   }
 
   /** {@inheritDoc} */
   @Override
   public HTMLDivElement element() {
     return element.element();
-  }
-
-  /** {@inheritDoc} */
-  @Override
-  public double getSize() {
-    return getBoundingClientRect().width;
   }
 }

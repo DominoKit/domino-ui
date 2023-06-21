@@ -16,391 +16,178 @@
 package org.dominokit.domino.ui.dialogs;
 
 import static java.util.Objects.nonNull;
-import static org.jboss.elemento.Elements.div;
 
-import elemental2.dom.HTMLDivElement;
-import elemental2.dom.HTMLElement;
-import elemental2.dom.Node;
-import java.util.function.Supplier;
-import org.dominokit.domino.ui.animations.Animation;
-import org.dominokit.domino.ui.animations.Transition;
-import org.dominokit.domino.ui.button.Button;
-import org.dominokit.domino.ui.icons.BaseIcon;
-import org.dominokit.domino.ui.icons.Icons;
-import org.dominokit.domino.ui.modals.BaseModal;
-import org.dominokit.domino.ui.style.Color;
-import org.dominokit.domino.ui.style.Style;
-import org.dominokit.domino.ui.typography.Paragraph;
-import org.dominokit.domino.ui.utils.DominoElement;
-import org.jboss.elemento.EventType;
-import org.jboss.elemento.IsElement;
+import org.dominokit.domino.ui.button.LinkButton;
+import org.dominokit.domino.ui.elements.SpanElement;
+import org.dominokit.domino.ui.layout.NavBar;
+import org.dominokit.domino.ui.utils.*;
 
 /**
- * A component to show message dialogs to the user with ability to make him take actions from those
- * dialogs
+ * MessageDialog class.
  *
- * <pre>
- *     MessageDialog.createMessage(
- *         "Here\'s a message!", () -> Notification.create("Dialog closed").show();
- * </pre>
+ * @author vegegoku
+ * @version $Id: $Id
  */
-public class MessageDialog extends BaseModal<MessageDialog> {
+public class MessageDialog extends AbstractDialog<MessageDialog> {
 
-  private DominoElement<HTMLDivElement> iconContainer = DominoElement.of(div());
+  private LinkButton confirmButton;
 
-  private DominoElement<HTMLElement> icon;
-  private Color iconColorStart;
-  private Color iconColorEnd;
-  private Transition iconStartTransition;
-  private Transition iconEndTransition;
-  private Button okButton;
+  private MessageHandler confirmHandler = (dialog) -> {};
 
-  /** Creates a new instance */
+  private LazyChild<SpanElement> messageElement;
+  private LazyChild<NavBar> navHeader;
+
+  /** @return new instance with empty title */
+  /**
+   * create.
+   *
+   * @return a {@link org.dominokit.domino.ui.dialogs.MessageDialog} object
+   */
+  public static MessageDialog create() {
+    return new MessageDialog();
+  }
+
+  /**
+   * create.
+   *
+   * @param title String
+   * @return new instance with custom title
+   */
+  public static MessageDialog create(String title) {
+    return new MessageDialog(title);
+  }
+
+  /**
+   * create.
+   *
+   * @param title String
+   * @return new instance with custom title
+   * @param message a {@link java.lang.String} object
+   */
+  public static MessageDialog create(String title, String message) {
+    return new MessageDialog(title, message);
+  }
+
+  /** creates new instance with empty title */
   public MessageDialog() {
-    init(this);
+    messageElement = LazyChild.of(span(), contentElement);
+    navHeader = LazyChild.of(NavBar.create().addCss(dui_dialog_nav), headerElement);
+    bodyElement.addCss(dui_text_center);
+    appendButtons();
+    setStretchWidth(DialogSize.SMALL);
+    setStretchHeight(DialogSize.SMALL);
+    setAutoClose(false);
+  }
+
+  /** @param title String creates new instance with custom title */
+  /**
+   * Constructor for MessageDialog.
+   *
+   * @param title a {@link java.lang.String} object
+   */
+  public MessageDialog(String title) {
+    this();
+    navHeader.get().setTitle(title);
+  }
+
+  /** @param title String creates new instance with custom title */
+  /**
+   * Constructor for MessageDialog.
+   *
+   * @param title a {@link java.lang.String} object
+   * @param message a {@link java.lang.String} object
+   */
+  public MessageDialog(String title, String message) {
+    this(title);
+    setMessage(message);
   }
 
   /**
-   * Creates an instance and initialize it with custom content
+   * setTitle.
    *
-   * @param content {@link Node}
-   * @return new instance
+   * @param title a {@link java.lang.String} object
+   * @return a {@link org.dominokit.domino.ui.dialogs.MessageDialog} object
    */
-  public static MessageDialog createMessage(Node content) {
-    return createMessage(content, () -> {});
-  }
-
-  /**
-   * Creates an instance and initialize it with custom content and an Ok action button
-   *
-   * @param content {@link Node}
-   * @param okButtonProvider {@link Supplier} of {@link Button} for the ok action
-   * @return new instance
-   */
-  public static MessageDialog createMessage(Node content, Supplier<Button> okButtonProvider) {
-    return createMessage(content, () -> {}, okButtonProvider);
-  }
-
-  /**
-   * Creates an instance and initialize it with a title and custom content
-   *
-   * @param title String
-   * @param content {@link Node}
-   * @return new instance
-   */
-  public static MessageDialog createMessage(String title, Node content) {
-    return createMessage(title, content, () -> {});
-  }
-
-  /**
-   * Creates an instance and initialize it with a title and custom content and an ok action button
-   *
-   * @param title String
-   * @param content {@link Node}
-   * @param okButtonProvider {@link Supplier} of {@link Button} for the ok action
-   * @return new instance
-   */
-  public static MessageDialog createMessage(
-      String title, Node content, Supplier<Button> okButtonProvider) {
-    return createMessage(title, content, () -> {}, okButtonProvider);
-  }
-
-  /**
-   * Creates an instance and initialize it with a title and custom content and a close handler
-   *
-   * @param title String
-   * @param content {@link Node}
-   * @param closeHandler {@link CloseHandler}
-   * @return new instance
-   */
-  public static MessageDialog createMessage(String title, Node content, CloseHandler closeHandler) {
-    MessageDialog modalDialog = createMessage(content, closeHandler);
-    modalDialog.setTitle(title);
-    return modalDialog;
-  }
-
-  /**
-   * Creates an instance and initialize it with a title and custom content a close handler and an ok
-   * action button
-   *
-   * @param title String
-   * @param content {@link Node}
-   * @param closeHandler {@link CloseHandler}
-   * @param okButtonProvider {@link Supplier} of {@link Button}
-   * @return new instance
-   */
-  public static MessageDialog createMessage(
-      String title, Node content, CloseHandler closeHandler, Supplier<Button> okButtonProvider) {
-    MessageDialog modalDialog = createMessage(content, closeHandler, okButtonProvider);
-    modalDialog.setTitle(title);
-    return modalDialog;
-  }
-
-  /**
-   * Creates an instance and initialize it with custom content a close handler
-   *
-   * @param content {@link Node}
-   * @param closeHandler {@link CloseHandler}
-   * @return new instance
-   */
-  public static MessageDialog createMessage(Node content, CloseHandler closeHandler) {
-    return createMessage(
-        content,
-        closeHandler,
-        () -> Button.create("OK").addCss(MessageDialogStyles.DIALOG_BUTTON).linkify());
-  }
-
-  /**
-   * Creates an instance and initialize it with custom content a close handler and an ok action
-   * button
-   *
-   * @param content {@link Node}
-   * @param closeHandler {@link CloseHandler}
-   * @param okButtonProvider {@link Supplier} of {@link Button}
-   * @return new instance
-   */
-  public static MessageDialog createMessage(
-      Node content, CloseHandler closeHandler, Supplier<Button> okButtonProvider) {
-    MessageDialog messageDialog = new MessageDialog();
-    messageDialog.style().addCss(MessageDialogStyles.MESSAGE_DIALOG);
-
-    messageDialog.setSize(ModalSize.ALERT);
-    messageDialog
-        .modalElement
-        .getModalHeader()
-        .insertBefore(
-            messageDialog.iconContainer, messageDialog.modalElement.getModalHeader().firstChild());
-    messageDialog.hideHeader();
-    messageDialog.setAutoClose(true);
-    messageDialog.addCloseListener(closeHandler);
-    messageDialog.appendChild(content);
-    messageDialog.okButton = okButtonProvider.get();
-    messageDialog.appendFooterChild(messageDialog.okButton);
-    messageDialog
-        .okButton
-        .getClickableElement()
-        .addEventListener(EventType.click.getName(), evt -> messageDialog.close());
-
-    return messageDialog;
-  }
-
-  /**
-   * Change the ok button text
-   *
-   * @param text String button text
-   * @return same MessageDialog instance
-   */
-  public MessageDialog setOkButtonText(String text) {
-    okButton.setContent(text);
+  public MessageDialog setTitle(String title) {
+    navHeader.get().setTitle(title);
     return this;
   }
 
   /**
-   * Creates an instance and initialize it with a text message
+   * setMessage.
    *
-   * @param message String
-   * @return new instance
+   * @param message a {@link java.lang.String} object
+   * @return a {@link org.dominokit.domino.ui.dialogs.MessageDialog} object
    */
-  public static MessageDialog createMessage(String message) {
-    return createMessage(message, () -> {});
+  public MessageDialog setMessage(String message) {
+    messageElement.remove();
+    appendChild(messageElement.get().setTextContent(message));
+    return this;
+  }
+
+  private void appendButtons() {
+    confirmButton =
+        LinkButton.create(labels.dialogOk())
+            .addCss(dui_min_w_32)
+            .addClickListener(
+                evt -> {
+                  if (nonNull(confirmHandler)) {
+                    confirmHandler.onConfirm(MessageDialog.this);
+                  }
+                });
+
+    appendChild(FooterContent.of(confirmButton));
+
+    withContentFooter((parent, self) -> self.addCss(dui_text_center));
   }
 
   /**
-   * Creates an instance and initialize it with a title and a text message
+   * Sets the handler for the confirm action
    *
-   * @param title String
-   * @param message String
-   * @return new instance
+   * @param handler {@link org.dominokit.domino.ui.dialogs.MessageDialog.MessageHandler}
+   * @return same ConfirmationDialog instance
    */
-  public static MessageDialog createMessage(String title, String message) {
-    return createMessage(title, message, () -> {});
+  public MessageDialog onConfirm(MessageHandler handler) {
+    this.confirmHandler = handler;
+    return this;
   }
 
+  /** @return the confirmation {@link Button} */
   /**
-   * Creates an instance and initialize it with a title and a text message and a close handler
+   * Getter for the field <code>confirmButton</code>.
    *
-   * @param title String
-   * @param message String
-   * @param closeHandler {@link CloseHandler}
-   * @return new instance
+   * @return a {@link org.dominokit.domino.ui.button.LinkButton} object
    */
-  public static MessageDialog createMessage(
-      String title, String message, CloseHandler closeHandler) {
-    MessageDialog modalDialog = createMessage(message, closeHandler);
-    modalDialog.setTitle(title);
-    return modalDialog;
+  public LinkButton getConfirmButton() {
+    return confirmButton;
   }
 
+  /** @return the confirmation {@link Button} */
   /**
-   * Creates an instance and initialize it with a text message and a close handler
+   * withConfirmButton.
    *
-   * @param message String
-   * @param closeHandler {@link CloseHandler}
-   * @return new instance
+   * @param handler a {@link org.dominokit.domino.ui.utils.ChildHandler} object
+   * @return a {@link org.dominokit.domino.ui.dialogs.MessageDialog} object
    */
-  public static MessageDialog createMessage(String message, CloseHandler closeHandler) {
-    return createMessage(Paragraph.create(message).element(), closeHandler);
-  }
-
-  /**
-   * Creates an instance and initialize it with a text message and a close handler and an ok action
-   * button
-   *
-   * @param message String
-   * @param closeHandler {@link CloseHandler}
-   * @param okButtonProvider {@link Supplier} of {@link Button}
-   * @return new instance
-   */
-  public static MessageDialog createMessage(
-      String message, CloseHandler closeHandler, Supplier<Button> okButtonProvider) {
-    return createMessage(Paragraph.create(message).element(), closeHandler, okButtonProvider);
-  }
-
-  /**
-   * Set the icon as the dialog content with an animation transition to indicate a success operation
-   *
-   * @param icon {@link BaseIcon}
-   * @return same MessageDialog instance
-   */
-  public MessageDialog success(BaseIcon<?> icon) {
-    this.icon = MessageDialog.createMessageIcon(icon.element());
-    this.iconColorStart = Color.ORANGE;
-    this.iconColorEnd = Color.LIGHT_GREEN;
-    this.iconStartTransition = Transition.ROTATE_IN;
-    this.iconEndTransition = Transition.PULSE;
-    showHeader();
-    initIcon();
+  public MessageDialog withConfirmButton(ChildHandler<MessageDialog, LinkButton> handler) {
+    handler.apply(this, confirmButton);
     return this;
   }
 
   /**
-   * Set a default {@link Icons#ALL#done()} icon as the dialog content with an animation transition
-   * to indicate a success operation
+   * withNavHeader.
    *
-   * @return same MessageDialog instance
+   * @param handler a {@link org.dominokit.domino.ui.utils.ChildHandler} object
+   * @return a {@link org.dominokit.domino.ui.dialogs.MessageDialog} object
    */
-  public MessageDialog success() {
-    return success(Icons.ALL.done());
-  }
-
-  /**
-   * Set the icon as the dialog content with an animation transition to indicate a failed operation
-   *
-   * @param icon {@link BaseIcon}
-   * @return same MessageDialog instance
-   */
-  public MessageDialog error(BaseIcon<?> icon) {
-    this.icon = MessageDialog.createMessageIcon(icon.element());
-    this.iconColorStart = Color.GREY;
-    this.iconColorEnd = Color.RED;
-    this.iconStartTransition = Transition.ROTATE_IN;
-    this.iconEndTransition = Transition.TADA;
-    showHeader();
-    initIcon();
+  public MessageDialog withNavHeader(ChildHandler<MessageDialog, NavBar> handler) {
+    handler.apply(this, navHeader.get());
     return this;
   }
 
-  /**
-   * Set a default {@link Icons#ALL#error()} icon as the dialog content with an animation transition
-   * to indicate a failed operation
-   *
-   * @return same MessageDialog instance
-   */
-  public MessageDialog error() {
-    return error(Icons.ALL.error());
-  }
-
-  /**
-   * Set the icon as the dialog content with an animation transition to indicate a warning operation
-   *
-   * @param icon {@link BaseIcon}
-   * @return same MessageDialog instance
-   */
-  public MessageDialog warning(BaseIcon<?> icon) {
-    this.icon = MessageDialog.createMessageIcon(icon.element());
-    this.iconColorStart = Color.GREY;
-    this.iconColorEnd = Color.ORANGE;
-    this.iconStartTransition = Transition.ROTATE_IN;
-    this.iconEndTransition = Transition.RUBBER_BAND;
-    showHeader();
-    initIcon();
-    return this;
-  }
-
-  /**
-   * Set a default {@link Icons#ALL#clear()} icon as the dialog content with an animation transition
-   * to indicate a warning operation
-   *
-   * @return same MessageDialog instance
-   */
-  public MessageDialog warning() {
-    return warning(Icons.ALL.clear());
-  }
-
-  private static DominoElement<HTMLElement> createMessageIcon(HTMLElement element) {
-    return DominoElement.of(element).addCss(MessageDialogStyles.MESSAGE_ICON);
-  }
-
-  private void initIcon() {
-    iconContainer.clearElement();
-    iconContainer.appendChild(icon);
-
-    addOpenListener(
-        () -> {
-          icon.removeCss(iconColorEnd.getStyle())
-              .addCss(iconColorStart.getStyle())
-              .setBorder("3px solid " + iconColorStart.getHex());
-          Animation.create(icon)
-              .transition(iconStartTransition)
-              .duration(400)
-              .callback(
-                  element -> {
-                    Style.of(element)
-                        .removeCss(iconColorStart.getStyle())
-                        .addCss(iconColorEnd.getStyle())
-                        .setBorder("3px solid " + iconColorEnd.getHex());
-                    Animation.create(icon).transition(iconEndTransition).animate();
-                  })
-              .animate();
-        });
-  }
-
-  /**
-   * Change the dialog icon colors transitions
-   *
-   * @param iconColorStart {@link Color} at the start of the animation transition
-   * @param iconColorEnd {@link Color} at the end of the animation transition
-   * @return same MessageDialog instance
-   */
-  public MessageDialog setIconColor(Color iconColorStart, Color iconColorEnd) {
-    this.iconColorStart = iconColorStart;
-    this.iconColorEnd = iconColorEnd;
-
-    return this;
-  }
-
-  /**
-   * @param content {@link Node} to be appended to the dialog body
-   * @return same MessageDialog instance
-   */
-  public MessageDialog appendHeaderChild(Node content) {
-    if (nonNull(icon)) {
-      icon.remove();
-    }
-    modalElement.getModalHeader().insertBefore(content, modalElement.getModalTitle());
-    return this;
-  }
-
-  /** @return the ok {@link Button} if exists or null */
-  public Button getOkButton() {
-    return okButton;
-  }
-
-  /**
-   * @param content {@link IsElement} to be appended to the dialog header
-   * @return same MessageDialog instance
-   */
-  public MessageDialog appendHeaderChild(IsElement<?> content) {
-    return appendHeaderChild(content.element());
+  /** An interface to implement Confirm action handlers */
+  @FunctionalInterface
+  public interface MessageHandler {
+    void onConfirm(MessageDialog dialog);
   }
 }

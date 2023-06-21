@@ -19,6 +19,8 @@ package org.dominokit.domino.ui.utils;
  * A component that can be removed should implement this interface
  *
  * @param <T> the type of the component implementing this interface
+ * @author vegegoku
+ * @version $Id: $Id
  */
 @FunctionalInterface
 public interface HasRemoveHandler<T> {
@@ -26,14 +28,14 @@ public interface HasRemoveHandler<T> {
   /**
    * adds a remove handler to the component
    *
-   * @param removeHandler {@link RemoveHandler}
+   * @param removeHandler {@link org.dominokit.domino.ui.utils.HasRemoveHandler.RemoveHandler}
    * @return same implementing component
    */
-  T addRemoveHandler(RemoveHandler removeHandler);
+  T addRemoveHandler(RemoveHandler<T> removeHandler);
 
   /** a function to handle removing of the component */
-  interface RemoveHandler {
+  interface RemoveHandler<T> {
     /** Will be called when the component is being removed */
-    void onRemove();
+    void onRemove(T component);
   }
 }

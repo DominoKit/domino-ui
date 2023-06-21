@@ -18,13 +18,28 @@ package org.dominokit.domino.ui.loaders;
 import elemental2.dom.HTMLDivElement;
 import org.dominokit.domino.ui.utils.DominoElement;
 
-/** An interface represents loader effect implementation */
+/**
+ * An interface represents loader effect implementation
+ *
+ * @author vegegoku
+ * @version $Id: $Id
+ */
 public interface IsLoader {
 
   /** @param text the loading text to set */
+  /**
+   * setLoadingText.
+   *
+   * @param text a {@link java.lang.String} object
+   */
   default void setLoadingText(String text) {}
 
   /** @return The root loader element */
+  /**
+   * getElement.
+   *
+   * @return a {@link elemental2.dom.HTMLDivElement} object
+   */
   HTMLDivElement getElement();
 
   /**
@@ -39,5 +54,10 @@ public interface IsLoader {
   void removeLoadingText();
 
   /** @return The content element */
+  /**
+   * getContentElement.
+   *
+   * @return a {@link org.dominokit.domino.ui.utils.DominoElement} object
+   */
   DominoElement<HTMLDivElement> getContentElement();
 }

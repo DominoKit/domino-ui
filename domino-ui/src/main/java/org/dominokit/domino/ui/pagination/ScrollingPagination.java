@@ -16,43 +16,42 @@
 package org.dominokit.domino.ui.pagination;
 
 import static java.util.Objects.nonNull;
-import static org.jboss.elemento.Elements.a;
-import static org.jboss.elemento.Elements.li;
 
-import elemental2.dom.HTMLAnchorElement;
-import elemental2.dom.HTMLLIElement;
+import elemental2.dom.DomGlobal;
 import java.util.stream.IntStream;
-import org.dominokit.domino.ui.icons.Icons;
-import org.dominokit.domino.ui.utils.DominoElement;
+import org.dominokit.domino.ui.icons.lib.Icons;
+import org.dominokit.domino.ui.utils.BaseDominoElement;
 
-/** A scrolling pagination implementation */
+/**
+ * A scrolling pagination implementation
+ *
+ * @author vegegoku
+ * @version $Id: $Id
+ */
 public class ScrollingPagination extends BasePagination<ScrollingPagination> {
-
-  private DominoElement<HTMLLIElement> prevSet;
-  private DominoElement<HTMLLIElement> firstPage;
-  private DominoElement<HTMLLIElement> nextSet;
-  private DominoElement<HTMLLIElement> lastPage;
-
-  private DominoElement<HTMLLIElement> dotsElement;
-  private DominoElement<HTMLLIElement> pagesCountPageElement;
-  private DominoElement<HTMLAnchorElement> prevAnchor;
-  private DominoElement<HTMLAnchorElement> prevSetAnchor;
-  private DominoElement<HTMLAnchorElement> firstPageAnchor;
-  private DominoElement<HTMLAnchorElement> dotsAnchor;
-  private DominoElement<HTMLAnchorElement> nextAnchor;
-  private DominoElement<HTMLAnchorElement> nextSetAnchor;
-  private DominoElement<HTMLAnchorElement> lastPageAnchor;
 
   private final int windowSize;
   private int windowIndex = 0;
   private boolean totalRecordVisible = false;
+  private final PagerNavItem dots;
+  private final PagerNavItem pagesTotalCount;
+  protected PagerNavItem prevSet;
+  protected PagerNavItem nextSet;
+  private final PagerNavItem totalCountNavItem;
 
   /** @return new instance */
+  /**
+   * create.
+   *
+   * @return a {@link org.dominokit.domino.ui.pagination.ScrollingPagination} object
+   */
   public static ScrollingPagination create() {
     return new ScrollingPagination();
   }
 
   /**
+   * create.
+   *
    * @param pages the number of pages
    * @return new instance
    */
@@ -61,6 +60,8 @@ public class ScrollingPagination extends BasePagination<ScrollingPagination> {
   }
 
   /**
+   * create.
+   *
    * @param pages the number of pages
    * @param pageSize the page size
    * @return new instance
@@ -70,6 +71,8 @@ public class ScrollingPagination extends BasePagination<ScrollingPagination> {
   }
 
   /**
+   * create.
+   *
    * @param pages the number of pages
    * @param pageSize the page size
    * @param windowSize the number of pages to show in a window
@@ -79,23 +82,114 @@ public class ScrollingPagination extends BasePagination<ScrollingPagination> {
     return new ScrollingPagination(pages, pageSize, windowSize);
   }
 
+  /** Constructor for ScrollingPagination. */
   public ScrollingPagination() {
     this(0, 10, 10);
   }
 
+  /**
+   * Constructor for ScrollingPagination.
+   *
+   * @param pages a int
+   */
   public ScrollingPagination(int pages) {
     this(pages, 10, 10);
   }
 
+  /**
+   * Constructor for ScrollingPagination.
+   *
+   * @param pages a int
+   * @param pageSize a int
+   */
   public ScrollingPagination(int pages, int pageSize) {
     this(pages, pageSize, 10);
   }
 
+  /**
+   * Constructor for ScrollingPagination.
+   *
+   * @param pages a int
+   * @param pageSize a int
+   * @param windowSize a int
+   */
   public ScrollingPagination(int pages, int pageSize, int windowSize) {
     this.pagesCount = pages;
     this.pageSize = pageSize;
     this.windowSize = windowSize;
-    init(this);
+    pagesList.insertFirst(prevSet = PagerNavItem.nav(Icons.page_first()).collapse());
+    pagesList.appendChild(nextSet = PagerNavItem.nav(Icons.page_last()).collapse());
+
+    prevPage
+        .getLink()
+        .addClickListener(evt -> moveToPage(index - 1, isChangeListenersPaused()))
+        .onKeyDown(
+            keyEvents ->
+                keyEvents.onEnter(evt -> moveToPage(index - 1, isChangeListenersPaused())));
+
+    firstPage
+        .expand()
+        .getLink()
+        .addClickListener(evt -> moveToPage(1, isChangeListenersPaused()))
+        .onKeyDown(keyEvents -> keyEvents.onEnter(evt -> moveToPage(1, isChangeListenersPaused())));
+    prevSet
+        .expand()
+        .getLink()
+        .addClickListener(evt -> moveToPage((windowIndex * windowSize), isChangeListenersPaused()))
+        .onKeyDown(
+            keyEvents ->
+                keyEvents.onEnter(
+                    evt -> moveToPage((windowIndex * windowSize), isChangeListenersPaused())));
+
+    nextPage
+        .getLink()
+        .addClickListener(evt -> moveToPage(index + 1, isChangeListenersPaused()))
+        .onKeyDown(
+            keyEvents ->
+                keyEvents.onEnter(evt -> moveToPage(index + 1, isChangeListenersPaused())));
+
+    lastPage
+        .expand()
+        .getLink()
+        .addClickListener(evt -> moveToPage(allPages.size(), isChangeListenersPaused()))
+        .onKeyDown(
+            keyEvents ->
+                keyEvents.onEnter(evt -> moveToPage(allPages.size(), isChangeListenersPaused())));
+    nextSet
+        .expand()
+        .getLink()
+        .addClickListener(
+            evt ->
+                moveToPage((windowIndex * windowSize) + windowSize + 1, isChangeListenersPaused()))
+        .onKeyDown(
+            keyEvents ->
+                keyEvents.onEnter(
+                    evt ->
+                        moveToPage(
+                            (windowIndex * windowSize) + windowSize + 1,
+                            isChangeListenersPaused())));
+
+    dots =
+        PagerNavItem.create(text("..."))
+            .addClickListener(
+                evt ->
+                    moveToPage(
+                        (windowIndex * windowSize) + windowSize + 1, isChangeListenersPaused()))
+            .onKeyDown(
+                keyEvents ->
+                    keyEvents.onEnter(
+                        evt ->
+                            moveToPage(
+                                (windowIndex * windowSize) + windowSize + 1,
+                                isChangeListenersPaused())));
+
+    pagesList.insertBefore(dots, nextPage);
+    pagesTotalCount = PagerNavItem.create(text(pagesCount + ""));
+    pagesList.insertAfter(pagesTotalCount, dots);
+
+    totalCountNavItem = PagerNavItem.create(text("(" + this.getTotalCount() + ")"));
+    pagesList.insertBefore(totalCountNavItem.toggleDisplay(totalRecordVisible), nextPage);
+
     updatePages(pages, pageSize);
   }
 
@@ -111,139 +205,65 @@ public class ScrollingPagination extends BasePagination<ScrollingPagination> {
     this.pageSize = pageSize;
     this.pagesCount = pages;
     this.index = 1;
-    allPages.clear();
-
-    prevAnchor = DominoElement.of(a());
-    prevElement =
-        DominoElement.of(li())
-            .css("page-nav")
-            .appendChild(
-                prevAnchor
-                    .appendChild(Icons.ALL.chevron_left().clickable())
-                    .addClickListener(event -> moveToPage(index - 1, false)));
-
-    prevSetAnchor = DominoElement.of(a());
-    prevSet =
-        DominoElement.of(li())
-            .css("page-nav")
-            .appendChild(
-                prevSetAnchor
-                    .appendChild(Icons.ALL.first_page().clickable())
-                    .addClickListener(event -> moveToPage((windowIndex * windowSize), false)));
-
-    firstPageAnchor = DominoElement.of(a());
-    firstPage =
-        DominoElement.of(li())
-            .css("page-nav")
-            .appendChild(
-                firstPageAnchor
-                    .appendChild(Icons.ALL.skip_previous().clickable())
-                    .addClickListener(event -> moveToPage(1, false)));
-
-    pagesElement
-        .clearElement()
-        .appendChild(firstPage)
-        .appendChild(prevSet)
-        .appendChild(prevElement);
+    clearPages();
 
     if (pages > 0) {
       IntStream.rangeClosed(1, pages)
           .forEach(
-              p ->
-                  DominoElement.of(li())
-                      .css("page")
-                      .apply(
-                          element -> {
-                            element.appendChild(
-                                DominoElement.of(a())
-                                    .setTextContent(p + "")
-                                    .addClickListener(evt -> moveToPage(p, false)));
-                            allPages.add(element);
-                            if (p <= windowSize) {
-                              pagesElement.appendChild(element);
-                            }
-                          }));
+              p -> {
+                PagerNavItem page =
+                    PagerNavItem.page(p)
+                        .addClickListener(evt -> moveToPage(p, isChangeListenersPaused()))
+                        .onKeyDown(
+                            keyEvents ->
+                                keyEvents.onEnter(evt -> moveToPage(p, isChangeListenersPaused())));
+
+                if (p <= windowSize) {
+                  if (allPages.isEmpty()) {
+                    pagesList.insertAfter(page, prevPage);
+                  } else {
+                    pagesList.insertAfter(page, allPages.get(allPages.size() - 1));
+                  }
+                }
+                allPages.add(page);
+              });
     }
 
-    if (pages > windowSize) {
-      dotsAnchor = DominoElement.of(a());
-      dotsElement =
-          DominoElement.of(li())
-              .css("page")
-              .appendChild(
-                  dotsAnchor
-                      .setTextContent("...")
-                      .addClickListener(
-                          evt -> moveToPage((windowIndex * windowSize) + windowSize + 1, false)));
-      pagesElement.appendChild(dotsElement);
-      pagesCountPageElement =
-          DominoElement.of(li())
-              .css("page")
-              .appendChild(
-                  DominoElement.of(a())
-                      .setTextContent("" + pages)
-                      .addClickListener(evt -> moveToPage(pages, false)));
-      pagesElement.appendChild(pagesCountPageElement);
-    }
-    DominoElement<HTMLLIElement> recordsCountPageElement =
-        DominoElement.of(li())
-            .css("page")
-            .appendChild(DominoElement.of(a()).setTextContent("(" + this.totalCount + ")"))
-            .toggleDisplay(totalRecordVisible);
-    pagesElement.appendChild(recordsCountPageElement);
+    dots.expand();
 
-    nextAnchor = DominoElement.of(a());
-    nextElement =
-        DominoElement.of(li())
-            .css("page-nav")
-            .appendChild(
-                nextAnchor
-                    .appendChild(Icons.ALL.chevron_right().clickable())
-                    .addClickListener(event -> moveToPage(index + 1, false)));
-
-    nextSetAnchor = DominoElement.of(a());
-    nextSet =
-        DominoElement.of(li())
-            .css("page-nav")
-            .appendChild(
-                nextSetAnchor
-                    .appendChild(Icons.ALL.last_page().clickable())
-                    .addClickListener(
-                        event -> moveToPage((windowIndex * windowSize) + windowSize + 1, false)));
-
-    lastPageAnchor = DominoElement.of(a());
-    lastPage =
-        DominoElement.of(li())
-            .css("page-nav")
-            .appendChild(
-                lastPageAnchor
-                    .appendChild(Icons.ALL.skip_next().clickable())
-                    .addClickListener(event -> moveToPage(allPages.size(), false)));
+    pagesTotalCount.withLink(
+        (parent, link) -> link.clearElement().appendChild(text(pagesCount + "")));
+    totalCountNavItem.withLink(
+        (parent, link) -> link.clearElement().appendChild(text("(" + getTotalCount() + ")")));
 
     if (pages > 0) {
       moveToPage(1, silent);
     }
 
     if (pages <= 0) {
-      nextElement.disable();
+      nextPage.disable();
       nextSet.disable();
       lastPage.disable();
-      prevElement.disable();
+      prevPage.disable();
       prevSet.disable();
       firstPage.disable();
       if (!silent) {
-        pageChangedCallBack.onPageChanged(0);
+        triggerChangeListeners(null, 0);
       }
     }
-
-    pagesElement.appendChild(nextElement).appendChild(nextSet).appendChild(lastPage);
-
     return this;
+  }
+
+  private void clearPages() {
+    allPages.forEach(BaseDominoElement::remove);
+    allPages.clear();
   }
 
   /** {@inheritDoc} */
   @Override
   protected void moveToPage(int page, boolean silent) {
+    DomGlobal.console.info(page);
+    PagerNavItem oldPage = activePage;
     if (page > 0 && page <= pagesCount) {
 
       index = page;
@@ -252,25 +272,25 @@ public class ScrollingPagination extends BasePagination<ScrollingPagination> {
       }
 
       if (!silent) {
-        pageChangedCallBack.onPageChanged(page);
+        triggerChangeListeners(nonNull(oldPage) ? oldPage.getPage() : null, page);
       }
 
       if (page == pagesCount) {
-        nextElement.disable();
+        nextPage.disable();
         nextSet.disable();
         lastPage.disable();
       } else {
-        nextElement.enable();
+        nextPage.enable();
         nextSet.enable();
         lastPage.enable();
       }
 
       if (page == 1) {
-        prevElement.disable();
+        prevPage.disable();
         prevSet.disable();
         firstPage.disable();
       } else {
-        prevElement.enable();
+        prevPage.enable();
         prevSet.enable();
         firstPage.enable();
       }
@@ -295,22 +315,12 @@ public class ScrollingPagination extends BasePagination<ScrollingPagination> {
     int windowCount = (allPages.size() / windowSize) + (allPages.size() % windowSize > 0 ? 1 : 0);
     if (windowIndex >= windowCount - 1) {
       nextSet.disable();
-      if (nonNull(dotsElement) && nonNull(pagesCountPageElement)) {
-        dotsElement.hide();
-        pagesCountPageElement.hide();
-      }
-
     } else {
       nextSet.enable();
-      if (nonNull(dotsElement) && nonNull(pagesCountPageElement)) {
-        dotsElement.show();
-        pagesCountPageElement.show();
-      }
     }
   }
 
   private void showWindow(int index) {
-
     if (index != this.windowIndex) {
       int windowMinLimit = windowIndex * windowSize;
       int windowMaxLimit = windowMinLimit + windowSize;
@@ -326,13 +336,7 @@ public class ScrollingPagination extends BasePagination<ScrollingPagination> {
 
       for (int i = targetWindowMinLimit; i < targetWindowMaxLimit; i++) {
         if (i < allPages.size()) {
-          if (pagesElement.contains(dotsElement)) {
-            pagesElement.insertBefore(allPages.get(i), dotsElement);
-          } else if (pagesElement.contains(pagesCountPageElement)) {
-            pagesElement.insertBefore(allPages.get(i), pagesCountPageElement);
-          } else {
-            pagesElement.appendChild(allPages.get(i));
-          }
+          pagesList.insertBefore(allPages.get(i), dots);
         }
       }
 
@@ -341,51 +345,36 @@ public class ScrollingPagination extends BasePagination<ScrollingPagination> {
   }
 
   /** @return true if the total number of records is visible, false otherwise */
+  /**
+   * isTotalRecordVisible.
+   *
+   * @return a boolean
+   */
   public boolean isTotalRecordVisible() {
     return totalRecordVisible;
   }
 
   /**
+   * Setter for the field <code>totalRecordVisible</code>.
+   *
    * @param totalRecordVisible true to show the total number of records
    * @return same instance
    */
   public ScrollingPagination setTotalRecordVisible(boolean totalRecordVisible) {
     this.totalRecordVisible = totalRecordVisible;
+    this.totalCountNavItem.toggleDisplay(this.totalRecordVisible);
     return this;
   }
 
-  /** @return the previous element */
-  public DominoElement<HTMLAnchorElement> getPrevAnchor() {
-    return prevAnchor;
-  }
-
-  /** @return the previous window element */
-  public DominoElement<HTMLAnchorElement> getPrevSetAnchor() {
-    return prevSetAnchor;
-  }
-
-  /** @return the first page element */
-  public DominoElement<HTMLAnchorElement> getFirstPageAnchor() {
-    return firstPageAnchor;
-  }
-
-  /** @return the dots element */
-  public DominoElement<HTMLAnchorElement> getDotsAnchor() {
-    return dotsAnchor;
-  }
-
-  /** @return the next element */
-  public DominoElement<HTMLAnchorElement> getNextAnchor() {
-    return nextAnchor;
-  }
-
-  /** @return the next window element */
-  public DominoElement<HTMLAnchorElement> getNextSetAnchor() {
-    return nextSetAnchor;
-  }
-
-  /** @return the last page element */
-  public DominoElement<HTMLAnchorElement> getLastPageAnchor() {
-    return lastPageAnchor;
+  /**
+   * showNextPrevSet.
+   *
+   * @param visible a boolean
+   * @return a {@link org.dominokit.domino.ui.pagination.ScrollingPagination} object
+   */
+  public ScrollingPagination showNextPrevSet(boolean visible) {
+    prevSet.toggleDisplay(visible);
+    nextSet.toggleDisplay(visible);
+    return this;
   }
 }

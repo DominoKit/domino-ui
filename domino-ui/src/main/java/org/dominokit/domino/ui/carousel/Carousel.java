@@ -16,18 +16,18 @@
 package org.dominokit.domino.ui.carousel;
 
 import static org.dominokit.domino.ui.carousel.CarouselStyles.*;
-import static org.jboss.elemento.Elements.*;
 
-import elemental2.dom.HTMLAnchorElement;
 import elemental2.dom.HTMLDivElement;
-import elemental2.dom.HTMLOListElement;
 import java.util.ArrayList;
 import java.util.List;
-import org.dominokit.domino.ui.icons.Icons;
-import org.dominokit.domino.ui.style.Styles;
-import org.dominokit.domino.ui.utils.BaseDominoElement;
-import org.dominokit.domino.ui.utils.DominoElement;
-import org.dominokit.domino.ui.utils.SwipeUtil;
+import org.dominokit.domino.ui.elements.AnchorElement;
+import org.dominokit.domino.ui.elements.DivElement;
+import org.dominokit.domino.ui.elements.OListElement;
+import org.dominokit.domino.ui.icons.lib.Icons;
+import org.dominokit.domino.ui.style.CssClass;
+import org.dominokit.domino.ui.style.GenericCss;
+import org.dominokit.domino.ui.style.SpacingCss;
+import org.dominokit.domino.ui.utils.*;
 import org.gwtproject.core.client.Scheduler;
 import org.gwtproject.timer.client.Timer;
 
@@ -37,66 +37,29 @@ import org.gwtproject.timer.client.Timer;
  * <p>The component provides APIs for going through all the elements by next/previous indicators.
  * Also, it provides automatic sliding with configurable duration.
  *
- * <p>Customize the component can be done by overwriting classes provided by {@link CarouselStyles}
- *
- * <p>For example:
- *
- * <pre>
- *     Carousel.create()
- *             .appendChild(
- *                 Slide.create(
- *                     GWT.getModuleBaseURL()
- *                         + "/images/image-gallery/11.jpg"))
- *             .appendChild(
- *                 Slide.create(
- *                     GWT.getModuleBaseURL()
- *                         + "/images/image-gallery/12.jpg"))
- *             .appendChild(
- *                 Slide.create(
- *                     GWT.getModuleBaseURL()
- *                         + "/images/image-gallery/19.jpg"))
- *             .appendChild(
- *                 Slide.create(
- *                     GWT.getModuleBaseURL() + "/images/image-gallery/9.jpg"))
- *             .appendChild(
- *                 Slide.create(
- *                     GWT.getModuleBaseURL()
- *                         + "/images/image-gallery/6.jpg")))
- * </pre>
+ * <p>Customize the component can be done by overwriting classes provided by {@link
+ * org.dominokit.domino.ui.carousel.CarouselStyles}
  *
  * @see BaseDominoElement
  * @see CarouselStyles
+ * @author vegegoku
+ * @version $Id: $Id
  */
 public class Carousel extends BaseDominoElement<HTMLDivElement, Carousel> {
+  /** Constant <code>NEXT="next"</code> */
+  public static final String NEXT = "next";
+  /** CSS class for previous indicator */
+  public static final String PREV = "prev";
 
-  private final HTMLOListElement indicatorsElement =
-      DominoElement.of(ol()).css(CAROUSEL_INDICATORS).element();
-  private final HTMLDivElement slidesElement =
-      DominoElement.of(div()).css(CAROUSEL_INNER).element();
+  private final OListElement indicatorsElement;
+  private final DivElement slidesElement;
   private boolean autoSlide = false;
 
-  private final HTMLAnchorElement prevElement =
-      DominoElement.of(a())
-          .css(LEFT, CAROUSEL_CONTROL)
-          .attr("role", "button")
-          .add(Icons.ALL.chevron_left().addCss(Styles.vertical_center).setFontSize("60px"))
-          .element();
+  private final AnchorElement prevElement;
 
-  private final HTMLAnchorElement nextElement =
-      DominoElement.of(a())
-          .css(RIGHT, CAROUSEL_CONTROL)
-          .attr("role", "button")
-          .add(Icons.ALL.chevron_right().addCss(Styles.vertical_center).setFontSize("60px"))
-          .element();
+  private final AnchorElement nextElement;
 
-  private final HTMLDivElement element =
-      DominoElement.of(div())
-          .add(indicatorsElement)
-          .add(slidesElement)
-          .add(prevElement)
-          .add(nextElement)
-          .css(CAROUSEL)
-          .element();
+  private final DivElement element;
 
   private final List<Slide> slides = new ArrayList<>();
   private final Timer timer;
@@ -105,19 +68,41 @@ public class Carousel extends BaseDominoElement<HTMLDivElement, Carousel> {
   private int autoSlideDuration = 3000;
   private boolean attached = false;
 
+  /** Constructor for Carousel. */
   public Carousel() {
-    nextElement.addEventListener(
-        "click",
-        evt -> {
-          resetTimer();
-          nextSlide();
-        });
-    prevElement.addEventListener(
-        "click",
-        evt -> {
-          resetTimer();
-          prevSlide();
-        });
+
+    element =
+        div()
+            .appendChild(indicatorsElement = ol().addCss(carousel_indicators))
+            .appendChild(slidesElement = div().addCss(carousel_inner))
+            .appendChild(
+                prevElement =
+                    a().addCss(slide_left, carousel_control)
+                        .setAttribute("role", "button")
+                        .appendChild(
+                            Icons.chevron_left()
+                                .addCss(GenericCss.dui_vertical_center, dui_font_size_12))
+                        .addEventListener(
+                            "click",
+                            evt -> {
+                              resetTimer();
+                              prevSlide();
+                            }))
+            .appendChild(
+                nextElement =
+                    a().addCss(slide_right, carousel_control)
+                        .setAttribute("role", "button")
+                        .appendChild(
+                            Icons.chevron_right()
+                                .addCss(
+                                    GenericCss.dui_vertical_center, SpacingCss.dui_font_size_12))
+                        .addEventListener(
+                            "click",
+                            evt -> {
+                              resetTimer();
+                              nextSlide();
+                            }))
+            .addCss(carousel);
     timer =
         new Timer() {
           @Override
@@ -125,9 +110,9 @@ public class Carousel extends BaseDominoElement<HTMLDivElement, Carousel> {
             nextSlide();
           }
         };
-    init(this);
     addAttachListener();
     addDetachListener();
+    init(this);
   }
 
   private void resetTimer() {
@@ -138,7 +123,8 @@ public class Carousel extends BaseDominoElement<HTMLDivElement, Carousel> {
   }
 
   private void addDetachListener() {
-    onDetached(
+    ElementUtil.onDetach(
+        element(),
         mutationRecord -> {
           this.attached = false;
           this.stopAutoSlide();
@@ -146,12 +132,15 @@ public class Carousel extends BaseDominoElement<HTMLDivElement, Carousel> {
   }
 
   private void addAttachListener() {
-    onAttached(
+    ElementUtil.onAttach(
+        this.element(),
         mutationRecord -> {
           this.attached = true;
           if (autoSlide) {
             timer.scheduleRepeating(autoSlideDuration);
           }
+
+          addDetachListener();
         });
   }
 
@@ -165,10 +154,10 @@ public class Carousel extends BaseDominoElement<HTMLDivElement, Carousel> {
   }
 
   /**
-   * Adds new {@link Slide}, event listeners will be added to the slide for removing the motion
-   * styles
+   * Adds new {@link org.dominokit.domino.ui.carousel.Slide}, event listeners will be added to the
+   * slide for removing the motion styles
    *
-   * @param slide a {@link Slide} to be added
+   * @param slide a {@link org.dominokit.domino.ui.carousel.Slide} to be added
    * @return same instance
    */
   public Carousel appendChild(Slide slide) {
@@ -223,16 +212,16 @@ public class Carousel extends BaseDominoElement<HTMLDivElement, Carousel> {
   }
 
   private void goToSlide(Slide slide, String source) {
-    if (!slide.hasActiveStyle()) {
+    if (!slide.isActive()) {
       this.targetSlide = slide;
-      slide.getIndicatorElement().addCss(ACTIVE);
-      activeSlide.getIndicatorElement().removeCss(ACTIVE);
+      slide.getIndicatorElement().addCss(dui_active);
+      activeSlide.getIndicatorElement().removeCss(dui_active);
       slide.addCss(getPositionStyle(slide, source));
       Scheduler.get()
           .scheduleFixedDelay(
               () -> {
-                activeSlide.getIndicatorElement().removeCss(ACTIVE);
-                String directionStyle = getDirectionStyle(slide, source);
+                activeSlide.getIndicatorElement().removeCss(dui_active);
+                CssClass directionStyle = getDirectionStyle(slide, source);
                 slide.addCss(directionStyle);
                 activeSlide.addCss(directionStyle);
                 return false;
@@ -241,28 +230,36 @@ public class Carousel extends BaseDominoElement<HTMLDivElement, Carousel> {
     }
   }
 
-  private String getPositionStyle(Slide target, String source) {
+  private CssClass getPositionStyle(Slide target, String source) {
     if ((slides.indexOf(target) > slides.indexOf(activeSlide) && !PREV.equals(source))
         || (NEXT.equals(source))) {
-      return NEXT;
+      return slide_next;
     } else {
-      return PREV;
+      return slide_prev;
     }
   }
 
-  private String getDirectionStyle(Slide target, String source) {
+  private CssClass getDirectionStyle(Slide target, String source) {
     if ((slides.indexOf(target) > slides.indexOf(activeSlide) && !PREV.equals(source))
         || (NEXT.equals(source))) {
-      return LEFT;
+      return slide_left;
     } else {
-      return RIGHT;
+      return slide_right;
     }
   }
 
   private void removeMotionStyles() {
-    activeSlide.removeCss(LEFT).removeCss(RIGHT).removeCss(NEXT).removeCss(PREV);
+    activeSlide
+        .removeCss(slide_left)
+        .removeCss(slide_right)
+        .removeCss(slide_next)
+        .removeCss(slide_prev);
     activeSlide.deActivate();
-    targetSlide.removeCss(LEFT).removeCss(RIGHT).removeCss(NEXT).removeCss(PREV);
+    targetSlide
+        .removeCss(slide_left)
+        .removeCss(slide_right)
+        .removeCss(slide_next)
+        .removeCss(slide_prev);
 
     targetSlide.activate();
     this.activeSlide = targetSlide;
@@ -301,25 +298,89 @@ public class Carousel extends BaseDominoElement<HTMLDivElement, Carousel> {
   /** {@inheritDoc} */
   @Override
   public HTMLDivElement element() {
-    return element;
+    return element.element();
   }
 
   /** @return the indicator element */
-  public DominoElement<HTMLOListElement> getIndicatorsElement() {
-    return DominoElement.of(indicatorsElement);
+  /**
+   * Getter for the field <code>indicatorsElement</code>.
+   *
+   * @return a {@link org.dominokit.domino.ui.elements.OListElement} object
+   */
+  public OListElement getIndicatorsElement() {
+    return indicatorsElement;
   }
 
   /** @return the slides element which has all the slides */
-  public DominoElement<HTMLDivElement> getSlidesElement() {
-    return DominoElement.of(slidesElement);
+  /**
+   * Getter for the field <code>slidesElement</code>.
+   *
+   * @return a {@link org.dominokit.domino.ui.elements.DivElement} object
+   */
+  public DivElement getSlidesElement() {
+    return slidesElement;
+  }
+
+  /**
+   * withSlidesElement.
+   *
+   * @param handler a {@link org.dominokit.domino.ui.utils.ChildHandler} object
+   * @return a {@link org.dominokit.domino.ui.carousel.Carousel} object
+   */
+  public Carousel withSlidesElement(ChildHandler<Carousel, DivElement> handler) {
+    handler.apply(this, slidesElement);
+    return this;
+  }
+
+  /**
+   * withIndicatorsElement.
+   *
+   * @param handler a {@link org.dominokit.domino.ui.utils.ChildHandler} object
+   * @return a {@link org.dominokit.domino.ui.carousel.Carousel} object
+   */
+  public Carousel withIndicatorsElement(ChildHandler<Carousel, OListElement> handler) {
+    handler.apply(this, indicatorsElement);
+    return this;
+  }
+
+  /**
+   * withPreviousElement.
+   *
+   * @param handler a {@link org.dominokit.domino.ui.utils.ChildHandler} object
+   * @return a {@link org.dominokit.domino.ui.carousel.Carousel} object
+   */
+  public Carousel withPreviousElement(ChildHandler<Carousel, AnchorElement> handler) {
+    handler.apply(this, prevElement);
+    return this;
+  }
+
+  /**
+   * withNextElement.
+   *
+   * @param handler a {@link org.dominokit.domino.ui.utils.ChildHandler} object
+   * @return a {@link org.dominokit.domino.ui.carousel.Carousel} object
+   */
+  public Carousel withNextElement(ChildHandler<Carousel, AnchorElement> handler) {
+    handler.apply(this, nextElement);
+    return this;
   }
 
   /** @return All the added slides */
+  /**
+   * Getter for the field <code>slides</code>.
+   *
+   * @return a {@link java.util.List} object
+   */
   public List<Slide> getSlides() {
     return slides;
   }
 
   /** @return the currently active slide */
+  /**
+   * Getter for the field <code>activeSlide</code>.
+   *
+   * @return a {@link org.dominokit.domino.ui.carousel.Slide} object
+   */
   public Slide getActiveSlide() {
     return activeSlide;
   }

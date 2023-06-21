@@ -15,12 +15,11 @@
  */
 package org.dominokit.domino.ui.grid;
 
-import static java.util.Objects.nonNull;
-import static org.jboss.elemento.Elements.div;
-
 import elemental2.dom.HTMLDivElement;
+import org.dominokit.domino.ui.elements.DivElement;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
-import org.dominokit.domino.ui.utils.DominoElement;
+import org.dominokit.domino.ui.utils.ChildHandler;
+import org.dominokit.domino.ui.utils.LazyChild;
 
 /**
  * A layout which is a 12 columns grid based with a required content section and 4 other optional
@@ -30,55 +29,32 @@ import org.dominokit.domino.ui.utils.DominoElement;
  * href="https://developer.mozilla.org/en-US/docs/Learn/CSS/CSS_layout/Grids">MDN official
  * documentation</a>
  *
- * <p>Customize the component can be done by overwriting classes provided by {@link GridStyles}
- *
- * <p>For example:
- *
- * <pre>
- *     GridLayout gridLayout = GridLayout.create()
- *                 .style()
- *                 .setHeight("500px").get();
- *
- *     // changing a section size
- *     gridLayout.setHeaderSpan(SectionSpan._2);
- *     gridLayout.setLeftSpan(SectionSpan._3);
- *     gridLayout.setRightSpan(SectionSpan._4);
- *     gridLayout.setFooterSpan(SectionSpan._2);
- *
- *     // hiding sections
- *     gridLayout.hideHeader();
- *     gridLayout.hideLeft();
- *     gridLayout.hideRight();
- *     gridLayout.hideFooter();
- *
- *     // Adding elements
- *     gridLayout.getContentElement().appendChild(otherElement);
- *     gridLayout.getHeaderElement().appendChild(otherElement);
- *     gridLayout.getLeftElement().appendChild(otherElement);
- *     gridLayout.getRightElement().appendChild(otherElement);
- *     gridLayout.getFooterElement().appendChild(otherElement);
- * </pre>
+ * <p>Customize the component can be done by overwriting classes provided by {@link
+ * org.dominokit.domino.ui.grid.GridStyles}
  *
  * @see BaseDominoElement
+ * @author vegegoku
+ * @version $Id: $Id
  */
-public class GridLayout extends BaseDominoElement<HTMLDivElement, GridLayout> {
+public class GridLayout extends BaseDominoElement<HTMLDivElement, GridLayout>
+    implements GridStyles {
 
-  private final HTMLDivElement element =
-      DominoElement.of(div()).css(GridStyles.LAYOUT_GRID).element();
-  private final HTMLDivElement contentElement =
-      DominoElement.of(div()).css(GridStyles.LAYOUT_CONTENT).element();
-  private final HTMLDivElement headerElement =
-      DominoElement.of(div()).css(GridStyles.LAYOUT_HEADER).element();
-  private final HTMLDivElement footerElement =
-      DominoElement.of(div()).css(GridStyles.LAYOUT_FOOTER).element();
-  private final HTMLDivElement leftElement =
-      DominoElement.of(div()).css(GridStyles.LAYOUT_LEFT).element();
-  private final HTMLDivElement rightElement =
-      DominoElement.of(div()).css(GridStyles.LAYOUT_RIGHT).element();
+  private final DivElement element;
+  private final DivElement contentElement;
+  private final LazyChild<DivElement> headerElement;
+  private final LazyChild<DivElement> footerElement;
+  private final LazyChild<DivElement> leftElement;
+  private final LazyChild<DivElement> rightElement;
   private final GridLayoutEditor editor = new GridLayoutEditor();
 
+  /** Constructor for GridLayout. */
   public GridLayout() {
-    element.appendChild(contentElement);
+    element =
+        div().addCss(dui_layout_grid).appendChild(contentElement = div().addCss(dui_grid_content));
+    headerElement = LazyChild.of(div().addCss(dui_grid_header), element);
+    footerElement = LazyChild.of(div().addCss(dui_grid_footer), element);
+    leftElement = LazyChild.of(div().addCss(dui_grid_left), element);
+    rightElement = LazyChild.of(div().addCss(dui_grid_right), element);
     init(this);
     updateGridLayout();
   }
@@ -122,9 +98,14 @@ public class GridLayout extends BaseDominoElement<HTMLDivElement, GridLayout> {
    * @return same instance
    */
   public GridLayout setHeaderSpan(SectionSpan sectionSpan) {
-    editor.addHeader(sectionSpan);
-    element.appendChild(headerElement);
-    updateGridLayout();
+    sectionSpan.ifSpanOrElse(
+        () -> {
+          editor.addHeader(sectionSpan);
+          headerElement.get();
+          updateGridLayout();
+        },
+        this::hideHeader);
+
     return this;
   }
 
@@ -152,14 +133,18 @@ public class GridLayout extends BaseDominoElement<HTMLDivElement, GridLayout> {
    * @return same instance
    */
   public GridLayout setRightSpan(SectionSpan sectionSpan, boolean spanUp, boolean spanDown) {
-    editor.addRight(sectionSpan, spanUp, spanDown);
-    element.appendChild(rightElement);
-    updateGridLayout();
+    sectionSpan.ifSpanOrElse(
+        () -> {
+          editor.addRight(sectionSpan, spanUp, spanDown);
+          rightElement.get();
+          updateGridLayout();
+        },
+        this::hideRight);
     return this;
   }
 
-  public final boolean hasFooter() {
-    return nonNull(footerElement.parentNode);
+  private boolean hasFooter() {
+    return footerElement.element().isAttached();
   }
 
   /**
@@ -185,9 +170,13 @@ public class GridLayout extends BaseDominoElement<HTMLDivElement, GridLayout> {
    * @return same instance
    */
   public GridLayout setLeftSpan(SectionSpan sectionSpan, boolean spanUp, boolean spanDown) {
-    editor.addLeft(sectionSpan, spanUp, spanDown);
-    element.appendChild(leftElement);
-    updateGridLayout();
+    sectionSpan.ifSpanOrElse(
+        () -> {
+          editor.addLeft(sectionSpan, spanUp, spanDown);
+          leftElement.get();
+          updateGridLayout();
+        },
+        this::hideLeft);
     return this;
   }
 
@@ -210,9 +199,13 @@ public class GridLayout extends BaseDominoElement<HTMLDivElement, GridLayout> {
    * @return same instance
    */
   public GridLayout setFooterSpan(SectionSpan sectionSpan) {
-    editor.addFooter(sectionSpan);
-    element.appendChild(footerElement);
-    updateGridLayout();
+    sectionSpan.ifSpanOrElse(
+        () -> {
+          editor.addFooter(sectionSpan);
+          footerElement.get();
+          updateGridLayout();
+        },
+        this::hideFooter);
 
     return this;
   }
@@ -229,46 +222,134 @@ public class GridLayout extends BaseDominoElement<HTMLDivElement, GridLayout> {
     return this;
   }
 
-  public final boolean hasHeader() {
-    return nonNull(headerElement.parentNode);
+  private boolean hasHeader() {
+    return headerElement.element().isAttached();
   }
 
-  public final boolean hasLeft() {
-    return nonNull(leftElement.parentNode);
+  private boolean hasLeft() {
+    return leftElement.element().isAttached();
   }
 
-  public final boolean hasRight() {
-    return nonNull(rightElement.parentNode);
+  private boolean hasRight() {
+    return rightElement.element().isAttached();
   }
 
   /** {@inheritDoc} */
   @Override
   public HTMLDivElement element() {
-    return element;
+    return element.element();
   }
 
   /** @return The content section */
-  public DominoElement<HTMLDivElement> getContentElement() {
-    return DominoElement.of(contentElement);
+  /**
+   * Getter for the field <code>contentElement</code>.
+   *
+   * @return a {@link org.dominokit.domino.ui.elements.DivElement} object
+   */
+  public DivElement getContentElement() {
+    return contentElement;
+  }
+
+  /**
+   * withContent.
+   *
+   * @param handler a {@link org.dominokit.domino.ui.utils.ChildHandler} object
+   * @return a {@link org.dominokit.domino.ui.grid.GridLayout} object
+   */
+  public GridLayout withContent(ChildHandler<GridLayout, DivElement> handler) {
+    handler.apply(this, contentElement);
+    return this;
   }
 
   /** @return The header section */
-  public DominoElement<HTMLDivElement> getHeaderElement() {
-    return DominoElement.of(headerElement);
+  /**
+   * Getter for the field <code>headerElement</code>.
+   *
+   * @return a {@link org.dominokit.domino.ui.elements.DivElement} object
+   */
+  public DivElement getHeaderElement() {
+    return headerElement.get();
+  }
+
+  /**
+   * withHeader.
+   *
+   * @param handler a {@link org.dominokit.domino.ui.utils.ChildHandler} object
+   * @return a {@link org.dominokit.domino.ui.grid.GridLayout} object
+   */
+  public GridLayout withHeader(ChildHandler<GridLayout, DivElement> handler) {
+    DivElement header = headerElement.get();
+    setHeaderSpan(editor.headerSectionSpan);
+    handler.apply(this, header);
+    return this;
   }
 
   /** @return The footer section */
-  public DominoElement<HTMLDivElement> getFooterElement() {
-    return DominoElement.of(footerElement);
+  /**
+   * Getter for the field <code>footerElement</code>.
+   *
+   * @return a {@link org.dominokit.domino.ui.elements.DivElement} object
+   */
+  public DivElement getFooterElement() {
+    return footerElement.get();
+  }
+
+  /**
+   * withFooter.
+   *
+   * @param handler a {@link org.dominokit.domino.ui.utils.ChildHandler} object
+   * @return a {@link org.dominokit.domino.ui.grid.GridLayout} object
+   */
+  public GridLayout withFooter(ChildHandler<GridLayout, DivElement> handler) {
+    DivElement footer = footerElement.get();
+    setFooterSpan(editor.footerSectionSpan);
+    handler.apply(this, footer);
+    return this;
   }
 
   /** @return The left section */
-  public DominoElement<HTMLDivElement> getLeftElement() {
-    return DominoElement.of(leftElement);
+  /**
+   * Getter for the field <code>leftElement</code>.
+   *
+   * @return a {@link org.dominokit.domino.ui.elements.DivElement} object
+   */
+  public DivElement getLeftElement() {
+    return leftElement.get();
+  }
+
+  /**
+   * withLeftPanel.
+   *
+   * @param handler a {@link org.dominokit.domino.ui.utils.ChildHandler} object
+   * @return a {@link org.dominokit.domino.ui.grid.GridLayout} object
+   */
+  public GridLayout withLeftPanel(ChildHandler<GridLayout, DivElement> handler) {
+    DivElement left = leftElement.get();
+    setLeftSpan(editor.leftSectionSpan, editor.leftSpanUp, editor.leftSpanDown);
+    handler.apply(this, left);
+    return this;
   }
 
   /** @return The right section */
-  public DominoElement<HTMLDivElement> getRightElement() {
-    return DominoElement.of(rightElement);
+  /**
+   * Getter for the field <code>rightElement</code>.
+   *
+   * @return a {@link org.dominokit.domino.ui.elements.DivElement} object
+   */
+  public DivElement getRightElement() {
+    return rightElement.get();
+  }
+
+  /**
+   * withRightPanel.
+   *
+   * @param handler a {@link org.dominokit.domino.ui.utils.ChildHandler} object
+   * @return a {@link org.dominokit.domino.ui.grid.GridLayout} object
+   */
+  public GridLayout withRightPanel(ChildHandler<GridLayout, DivElement> handler) {
+    DivElement right = rightElement.get();
+    setRightSpan(editor.rightSectionSpan, editor.rightSpanUp, editor.rightSpanDown);
+    handler.apply(this, right);
+    return this;
   }
 }

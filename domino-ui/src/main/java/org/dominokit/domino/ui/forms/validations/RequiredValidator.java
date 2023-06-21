@@ -18,19 +18,29 @@ package org.dominokit.domino.ui.forms.validations;
 import org.dominokit.domino.ui.forms.FormElement;
 import org.dominokit.domino.ui.utils.HasValidation;
 
-/** A predefined validator that validates a required field as not empty */
-public class RequiredValidator implements HasValidation.Validator {
+/**
+ * A predefined validator that validates a required field as not empty
+ *
+ * @author vegegoku
+ * @version $Id: $Id
+ */
+public class RequiredValidator<T> implements HasValidation.Validator<T> {
 
   private FormElement element;
 
   /** @param element the {@link FormElement} we are attaching this validator to */
+  /**
+   * Constructor for RequiredValidator.
+   *
+   * @param element a {@link org.dominokit.domino.ui.forms.FormElement} object
+   */
   public RequiredValidator(FormElement element) {
     this.element = element;
   }
 
   /** {@inheritDoc} */
   @Override
-  public ValidationResult isValid() {
+  public ValidationResult isValid(T target) {
     if (element.isEmpty()) {
       return ValidationResult.invalid(element.getRequiredErrorMessage());
     }

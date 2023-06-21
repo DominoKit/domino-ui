@@ -21,6 +21,8 @@ import java.util.List;
  * This event will be fired after the data in the table is changed
  *
  * @param <T> the type of the table records
+ * @author vegegoku
+ * @version $Id: $Id
  */
 public class TableDataUpdatedEvent<T> implements TableEvent {
 
@@ -31,7 +33,9 @@ public class TableDataUpdatedEvent<T> implements TableEvent {
   private final int totalCount;
 
   /**
-   * @param data {@link List} of the new data records
+   * Constructor for TableDataUpdatedEvent.
+   *
+   * @param data {@link java.util.List} of the new data records
    * @param totalCount int, the total count of the data
    */
   public TableDataUpdatedEvent(List<T> data, int totalCount) {
@@ -46,11 +50,21 @@ public class TableDataUpdatedEvent<T> implements TableEvent {
   }
 
   /** @return {@link List} of the new data records */
+  /**
+   * Getter for the field <code>data</code>.
+   *
+   * @return a {@link java.util.List} object
+   */
   public List<T> getData() {
     return data;
   }
 
   /** @return int, the total count of the data */
+  /**
+   * Getter for the field <code>totalCount</code>.
+   *
+   * @return a int
+   */
   public int getTotalCount() {
     return totalCount;
   }

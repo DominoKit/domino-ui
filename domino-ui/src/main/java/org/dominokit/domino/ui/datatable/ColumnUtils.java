@@ -16,15 +16,28 @@
 package org.dominokit.domino.ui.datatable;
 
 import static java.util.Objects.nonNull;
+import static org.dominokit.domino.ui.utils.ElementsFactory.elements;
 
 import elemental2.dom.HTMLElement;
 import java.util.Optional;
 import org.dominokit.domino.ui.style.Style;
 import org.dominokit.domino.ui.utils.DominoCSSRule;
-import org.dominokit.domino.ui.utils.DominoElement;
 
+/**
+ * ColumnUtils class.
+ *
+ * @author vegegoku
+ * @version $Id: $Id
+ */
 public class ColumnUtils {
 
+  /**
+   * fixElementWidth.
+   *
+   * @param column a {@link org.dominokit.domino.ui.datatable.ColumnConfig} object
+   * @param element a {@link elemental2.dom.HTMLElement} object
+   * @param <T> a T class
+   */
   public static <T> void fixElementWidth(ColumnConfig<T> column, HTMLElement element) {
     bestFitWidth(column)
         .ifPresent(
@@ -50,22 +63,29 @@ public class ColumnUtils {
                                       cssRule.setProperty("max-width", fixedWidth);
                                     }
                                   }));
-              Style.of(element).addCss(DataTableStyles.FIXED_WIDTH);
+              Style.of(element).addCss(DataTableStyles.fixed_width);
             });
     ;
   }
 
+  /**
+   * fixElementWidth.
+   *
+   * @param table a {@link org.dominokit.domino.ui.datatable.DataTable} object
+   * @param element a {@link elemental2.dom.HTMLElement} object
+   * @param <T> a T class
+   */
   public static <T> void fixElementWidth(DataTable<T> table, HTMLElement element) {
 
     TableConfig<T> config = table.getTableConfig();
     if (nonNull(config.getWidth()) && !config.getWidth().isEmpty()) {
-      DominoElement.of(element).setWidth(config.getWidth());
+      elements.elementOf(element).setWidth(config.getWidth());
     }
     if (nonNull(config.getMinWidth()) && !config.getMinWidth().isEmpty()) {
-      DominoElement.of(element).setMinWidth(config.getMinWidth());
+      elements.elementOf(element).setMinWidth(config.getMinWidth());
     }
     if (nonNull(config.getMaxWidth()) && !config.getMaxWidth().isEmpty()) {
-      DominoElement.of(element).setMaxWidth(config.getMaxWidth());
+      elements.elementOf(element).setMaxWidth(config.getMaxWidth());
     }
   }
 

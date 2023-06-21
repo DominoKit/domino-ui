@@ -15,67 +15,75 @@
  */
 package org.dominokit.domino.ui.button;
 
-import elemental2.dom.HTMLElement;
+import elemental2.dom.HTMLDivElement;
+import java.util.Arrays;
 import org.dominokit.domino.ui.button.group.ButtonsGroup;
+import org.dominokit.domino.ui.elements.DivElement;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
-import org.dominokit.domino.ui.utils.DominoElement;
-import org.jboss.elemento.Elements;
 
 /**
  * a component for a toolbar that has many buttons
  *
  * <p>This class is used to group buttons in a set of groups to form a toolbar
  *
- * <pre>
- *         ButtonsToolbar.create()
- *              .addGroup(
- *                  ButtonsGroup.create()
- *                      .appendChild(Button.createDefault("1"))
- *                      .appendChild(Button.createDefault("2"))
- *                      .appendChild(Button.createDefault("3")))
- *              .addGroup(
- *                  ButtonsGroup.create()
- *                      .appendChild(Button.createDefault("4"))
- *                      .appendChild(Button.createDefault("5"))
- *                      .appendChild(Button.createDefault("6")))
- *              .addGroup(
- *                  ButtonsGroup.create()
- *                      .appendChild(Button.createDefault("7"))
- *                    );
- *     </pre>
+ * @author vegegoku
+ * @version $Id: $Id
  */
-public class ButtonsToolbar extends BaseDominoElement<HTMLElement, ButtonsToolbar> {
+public class ButtonsToolbar extends BaseDominoElement<HTMLDivElement, ButtonsToolbar> {
 
-  private HTMLElement toolbarElement =
-      DominoElement.of(Elements.div())
-          .css(ButtonStyles.BUTTON_TOOLBAR)
-          .attr("role", "toolbar")
-          .element();
+  private DivElement toolbarElement;
 
   /** default constructor */
   public ButtonsToolbar() {
+    toolbarElement = div().addCss(ButtonStyles.dui_button_toolbar).setAttribute("role", "toolbar");
     init(this);
   }
 
   /** @return a new ButtonsToolbar instance */
+  /**
+   * create.
+   *
+   * @return a {@link org.dominokit.domino.ui.button.ButtonsToolbar} object
+   */
   public static ButtonsToolbar create() {
     return new ButtonsToolbar();
   }
 
   /**
-   * Adds a a ButtonsGroup to the toolbar
+   * Adds a ButtonsGroup to the toolbar
    *
-   * @param group {@link ButtonsGroup}
+   * @param group {@link org.dominokit.domino.ui.button.group.ButtonsGroup}
    * @return new ButtonsToolbar instance
    */
-  public ButtonsToolbar addGroup(ButtonsGroup group) {
+  public ButtonsToolbar appendChild(ButtonsGroup group) {
     toolbarElement.appendChild(group.element());
+    return this;
+  }
+
+  /**
+   * Adds a ButtonsGroup to the toolbar
+   *
+   * @param groups {@link org.dominokit.domino.ui.button.group.ButtonsGroup}
+   * @return new ButtonsToolbar instance
+   */
+  public ButtonsToolbar appendChild(ButtonsGroup... groups) {
+    Arrays.stream(groups).forEach(this::appendChild);
+    return this;
+  }
+  /**
+   * Adds a ButtonsGroup to the toolbar
+   *
+   * @param buttons {@link IsButton<?>}
+   * @return new ButtonsToolbar instance
+   */
+  public ButtonsToolbar appendChild(IsButton<?>... buttons) {
+    Arrays.stream(buttons).forEach(this::appendChild);
     return this;
   }
 
   /** {@inheritDoc} */
   @Override
-  public HTMLElement element() {
-    return toolbarElement;
+  public HTMLDivElement element() {
+    return toolbarElement.element();
   }
 }

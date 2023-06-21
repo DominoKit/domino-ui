@@ -1,0 +1,62 @@
+
+@-webkit-keyframes dui-progress-bar-stripes {
+    from {
+        background-position: 40px 0;
+    }
+    to {
+        background-position: 0 0;
+    }
+}
+@-o-keyframes dui-progress-bar-stripes {
+    from {
+        background-position: 40px 0;
+    }
+    to {
+        background-position: 0 0;
+    }
+}
+@keyframes dui-progress-bar-stripes {
+    from {
+        background-position: 40px 0;
+    }
+    to {
+        background-position: 0 0;
+    }
+}
+
+.dui-progress {
+    height: var(--dui-progress-hight);
+    margin: var(--dui-progress-margin);
+    overflow: hidden;
+    background-color: var(--dui-progress-background);
+    border-radius: var(--dui-progress-radius);
+    box-shadow: var(--dui-progress-box-shadow);
+}
+
+.dui-progress-bar {
+    line-height: var(--dui-progress-bar-line-hight);
+    box-shadow: var(--dui-progress-bar-box-shadow);
+    float: var(--dui-progress-bar-float);
+    width: 0;
+    height: 100%;
+    font: var(--dui-progress-bar-font);
+    line-height: var(--dui-progress-bar-line-hight);
+    color: var(--dui-progress-bar-color);
+    text-align: var(--dui-progress-bar-text-align);
+    transition: width 500ms ease;
+    background-color: var(--dui-accent);
+}
+
+.dui-progress-bar:first-child {
+    border-top-left-radius: inherit;
+    border-bottom-left-radius: inherit;
+}
+
+.dui-progress-bar:last-child {
+    border-top-right-radius: inherit;
+    border-bottom-right-radius: inherit;
+}
+
+.dui-progress-bar.dui-active {
+    animation: dui-progress-bar-stripes 2s linear infinite;
+}

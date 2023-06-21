@@ -15,24 +15,29 @@
  */
 package org.dominokit.domino.ui.icons;
 
-import static java.util.Objects.nonNull;
-import static org.jboss.elemento.Elements.i;
+import static org.dominokit.domino.ui.icons.IconsStyles.*;
 
 import elemental2.dom.HTMLElement;
-import org.dominokit.domino.ui.utils.DominoElement;
+import org.dominokit.domino.ui.style.BooleanCssClass;
+import org.dominokit.domino.ui.style.CompositeCssClass;
+import org.dominokit.domino.ui.style.CssClass;
+import org.dominokit.domino.ui.style.HasCssClass;
+import org.dominokit.domino.ui.style.SwapCssClass;
 
-/** <a href="https://materialdesignicons.com/">MDI</a> icons implementation */
-public class MdiIcon extends BaseIcon<MdiIcon> {
-  private MdiSize mdiSize;
-  private MdiRotate mdiRotate;
-  private MdiFlip mdiFlip;
-  private MdiContrast mdiContrast;
+/**
+ * <a href="https://materialdesignicons.com/">MDI</a> icons implementation
+ *
+ * @author vegegoku
+ * @version $Id: $Id
+ */
+public class MdiIcon extends Icon<MdiIcon> implements CanChangeIcon<MdiIcon> {
 
   private MdiMeta metaInfo;
+  private SwapCssClass rotateClass = new SwapCssClass();
+  private SwapCssClass contrastClass = new SwapCssClass();
 
   private MdiIcon(HTMLElement icon) {
-    this.icon = DominoElement.of(icon).css(MdiSize.mdi24.style);
-    this.mdiSize = MdiSize.mdi24;
+    this.icon = elementOf(icon);
     init(this);
   }
 
@@ -40,12 +45,33 @@ public class MdiIcon extends BaseIcon<MdiIcon> {
     this(icon, new MdiMeta(icon.replace("mdi-", "")));
   }
 
+  private MdiIcon(CssClass icon) {
+    this(icon, new MdiMeta(icon.getCssClass().replace("mdi-", "")));
+  }
+
   private MdiIcon(String icon, MdiMeta mdiMeta) {
-    this.icon = DominoElement.of(i()).css("mdi").css(icon);
-    this.name = icon;
+    this(() -> icon, mdiMeta);
+  }
+
+  private MdiIcon(CssClass icon, MdiMeta mdiMeta) {
+    this();
+    this.addCss(icon);
+    this.name = SwapCssClass.of(icon);
     this.metaInfo = mdiMeta;
+  }
+
+  private MdiIcon() {
+    this.icon = i().addCss(dui, dui_mdi).toDominoElement();
     init(this);
-    size24();
+  }
+
+  /**
+   * Creates a new empty mdi icon
+   *
+   * @return new instance
+   */
+  public static MdiIcon create() {
+    return new MdiIcon();
   }
 
   /**
@@ -59,10 +85,20 @@ public class MdiIcon extends BaseIcon<MdiIcon> {
   }
 
   /**
+   * Creates a new icon
+   *
+   * @param icon the name of the icon
+   * @return new instance
+   */
+  public static MdiIcon create(CssClass icon) {
+    return new MdiIcon(icon);
+  }
+
+  /**
    * Creates a new icon with meta
    *
    * @param icon the icon name
-   * @param meta the {@link MdiMeta}
+   * @param meta the {@link org.dominokit.domino.ui.icons.MdiMeta}
    * @return new instance
    */
   public static MdiIcon create(String icon, MdiMeta meta) {
@@ -72,107 +108,27 @@ public class MdiIcon extends BaseIcon<MdiIcon> {
   /** {@inheritDoc} */
   @Override
   public MdiIcon copy() {
-    return MdiIcon.create(this.getName()).setColor(this.color);
+    MdiIcon mdiIcon = MdiIcon.create(this.getName());
+    return mdiIcon.addCss(
+        SwapCssClass.of(CompositeCssClass.of(mdiIcon)).replaceWith(CompositeCssClass.of(this)));
   }
 
   /** {@inheritDoc} */
   @Override
-  protected MdiIcon doToggle() {
-    if (nonNull(toggleName)) {
-      if (this.style().containsCss(originalName)) {
-        this.style().removeCss(originalName);
-        this.style().addCss(toggleName);
-      } else {
-        this.style().addCss(originalName);
-        this.style().removeCss(toggleName);
-      }
-    }
-    return this;
-  }
-
-  /** {@inheritDoc} */
-  @Override
-  public MdiIcon changeTo(BaseIcon<MdiIcon> icon) {
-    removeCss(getName());
-    addCss(icon.getName());
-    return this;
-  }
-
-  /**
-   * Sets the size of the icon
-   *
-   * @param mdiSize the {@link MdiSize}
-   * @return same instance
-   */
-  public MdiIcon setSize(MdiSize mdiSize) {
-    if (nonNull(this.mdiSize)) {
-      removeCss(this.mdiSize.getStyle());
-    }
-    this.mdiSize = mdiSize;
-    addCss(this.mdiSize.getStyle());
-    return this;
-  }
-
-  /**
-   * Sets the size to 18 px
-   *
-   * @return same instance
-   */
-  public MdiIcon size18() {
-    return setSize(MdiSize.mdi18);
-  }
-
-  /**
-   * Sets the size to 24 px
-   *
-   * @return same instance
-   */
-  public MdiIcon size24() {
-    return setSize(MdiSize.mdi24);
-  }
-
-  /**
-   * Sets the size to 36 px
-   *
-   * @return same instance
-   */
-  public MdiIcon size36() {
-    return setSize(MdiSize.mdi36);
-  }
-
-  /**
-   * Sets the size to 48 px
-   *
-   * @return same instance
-   */
-  public MdiIcon size48() {
-    return setSize(MdiSize.mdi48);
-  }
-
-  /**
-   * Sets the size to the default
-   *
-   * @return same instance
-   */
-  public MdiIcon sizeNone() {
-    if (nonNull(this.mdiSize)) {
-      removeCss(this.mdiSize.getStyle());
-    }
+  public MdiIcon changeTo(MdiIcon icon) {
+    this.name.replaceWith(icon.name.getCurrent()).apply(this);
+    this.name = icon.name;
     return this;
   }
 
   /**
    * Sets the type of rotate applied to the icon
    *
-   * @param mdiRotate the {@link MdiRotate}
+   * @param mdiRotate the {@link org.dominokit.domino.ui.icons.MdiIcon.MdiRotate}
    * @return same instance
    */
   public MdiIcon setRotate(MdiRotate mdiRotate) {
-    if (nonNull(this.mdiRotate)) {
-      removeCss(this.mdiRotate.getStyle());
-    }
-    this.mdiRotate = mdiRotate;
-    addCss(this.mdiRotate.getStyle());
+    addCss(rotateClass.replaceWith(mdiRotate));
     return this;
   }
 
@@ -245,24 +201,18 @@ public class MdiIcon extends BaseIcon<MdiIcon> {
    * @return same instance
    */
   public MdiIcon rotateNone() {
-    if (nonNull(this.mdiRotate)) {
-      removeCss(this.mdiRotate.getStyle());
-    }
+    rotateClass.remove(this);
     return this;
   }
 
   /**
    * Flips the icon either horizontally or vertically
    *
-   * @param mdiFlip the {@link MdiFlip}
+   * @param mdiFlip the {@link org.dominokit.domino.ui.icons.MdiIcon.MdiFlip}
    * @return same instance
    */
   public MdiIcon setFlip(MdiFlip mdiFlip) {
-    if (nonNull(this.mdiFlip)) {
-      removeCss(this.mdiFlip.getStyle());
-    }
-    this.mdiFlip = mdiFlip;
-    addCss(this.mdiFlip.getStyle());
+    addCss(mdiFlip);
     return this;
   }
 
@@ -290,9 +240,8 @@ public class MdiIcon extends BaseIcon<MdiIcon> {
    * @return same instance
    */
   public MdiIcon flipNone() {
-    if (nonNull(this.mdiFlip)) {
-      removeCss(this.mdiFlip.getStyle());
-    }
+    mdi_flip_v.remove(this);
+    mdi_flip_h.remove(this);
     return this;
   }
 
@@ -303,11 +252,7 @@ public class MdiIcon extends BaseIcon<MdiIcon> {
    * @return same instance
    */
   public MdiIcon setSpin(boolean spin) {
-    removeCss("mdi-spin");
-    if (spin) {
-      addCss("mdi-spin");
-    }
-
+    addCss(BooleanCssClass.of(mdi_spin, spin));
     return this;
   }
 
@@ -336,11 +281,7 @@ public class MdiIcon extends BaseIcon<MdiIcon> {
    * @return same instance
    */
   public MdiIcon setActive(boolean active) {
-    removeCss("mdi-inactive");
-    if (!active) {
-      addCss("mdi-inactive");
-    }
-
+    addCss(BooleanCssClass.of(mdi_inactive, !active));
     return this;
   }
 
@@ -365,15 +306,11 @@ public class MdiIcon extends BaseIcon<MdiIcon> {
   /**
    * Sets the contrast of the icon
    *
-   * @param mdiContrast the {@link MdiContrast}
+   * @param mdiContrast the {@link org.dominokit.domino.ui.icons.MdiIcon.MdiContrast}
    * @return same instance
    */
   public MdiIcon setContrast(MdiContrast mdiContrast) {
-    if (nonNull(this.mdiContrast)) {
-      removeCss(this.mdiContrast.getStyle());
-    }
-    this.mdiContrast = mdiContrast;
-    addCss(this.mdiContrast.getStyle());
+    addCss(contrastClass.replaceWith(mdiContrast));
     return this;
   }
 
@@ -401,9 +338,7 @@ public class MdiIcon extends BaseIcon<MdiIcon> {
    * @return same instance
    */
   public MdiIcon noContrast() {
-    if (nonNull(this.mdiContrast)) {
-      removeCss(this.mdiContrast.getStyle());
-    }
+    contrastClass.remove(this);
     return this;
   }
 
@@ -413,82 +348,68 @@ public class MdiIcon extends BaseIcon<MdiIcon> {
     return icon.element();
   }
 
-  /** An enum representing the sizes of the icon */
-  public enum MdiSize {
-    mdi18(IconsStyles.MDI_18_PX),
-    mdi24(IconsStyles.MDI_24_PX),
-    mdi36(IconsStyles.MDI_36_PX),
-    mdi48(IconsStyles.MDI_48_PX);
-
-    private final String style;
-
-    MdiSize(String style) {
-      this.style = style;
-    }
-
-    /** @return The style of the size */
-    public String getStyle() {
-      return style;
-    }
-  }
-
   /** An enum representing the rotation degree of the icon */
-  public enum MdiRotate {
-    rotate45(IconsStyles.MDI_ROTATE_45),
-    rotate90(IconsStyles.MDI_ROTATE_90),
-    rotate135(IconsStyles.MDI_ROTATE_135),
-    rotate180(IconsStyles.MDI_ROTATE_180),
-    rotate225(IconsStyles.MDI_ROTATE_225),
-    rotate270(IconsStyles.MDI_ROTATE_270),
-    rotate315(IconsStyles.MDI_ROTATE_315);
+  public enum MdiRotate implements HasCssClass {
+    rotate45(IconsStyles.mdi_rotate_45),
+    rotate90(IconsStyles.mdi_rotate_90),
+    rotate135(IconsStyles.mdi_rotate_135),
+    rotate180(IconsStyles.mdi_rotate_180),
+    rotate225(IconsStyles.mdi_rotate_225),
+    rotate270(IconsStyles.mdi_rotate_270),
+    rotate315(IconsStyles.mdi_rotate_315);
 
-    private final String style;
+    private final CssClass style;
 
-    MdiRotate(String style) {
+    MdiRotate(CssClass style) {
       this.style = style;
     }
 
     /** @return The style of the rotation */
-    public String getStyle() {
+    public CssClass getCssClass() {
       return style;
     }
   }
 
   /** An enum representing the flip of the icon */
-  public enum MdiFlip {
-    flipV(IconsStyles.MDI_FLIP_V),
-    flipH(IconsStyles.MDI_FLIP_H);
+  public enum MdiFlip implements HasCssClass {
+    flipV(mdi_flip_v),
+    flipH(IconsStyles.mdi_flip_h);
 
-    private final String style;
+    private final CssClass style;
 
-    MdiFlip(String style) {
+    MdiFlip(CssClass style) {
       this.style = style;
     }
 
     /** @return The style of the flip */
-    public String getStyle() {
+    public CssClass getCssClass() {
       return style;
     }
   }
 
   /** @return The {@link MdiMeta} of the icon */
+  /**
+   * Getter for the field <code>metaInfo</code>.
+   *
+   * @return a {@link org.dominokit.domino.ui.icons.MdiMeta} object
+   */
   public MdiMeta getMetaInfo() {
     return metaInfo;
   }
 
   /** An enum representing the contrast of the icon */
-  public enum MdiContrast {
-    light(IconsStyles.MDI_LIGHT),
-    dark(IconsStyles.MDI_DARK);
+  public enum MdiContrast implements HasCssClass {
+    light(IconsStyles.mdi_light),
+    dark(IconsStyles.mdi_dark);
 
-    private final String style;
+    private final CssClass style;
 
-    MdiContrast(String style) {
+    MdiContrast(CssClass style) {
       this.style = style;
     }
 
     /** @return The style of the contrast */
-    public String getStyle() {
+    public CssClass getCssClass() {
       return style;
     }
   }

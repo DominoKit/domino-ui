@@ -18,9 +18,16 @@ package org.dominokit.domino.ui.utils;
 import jsinterop.annotations.JsPackage;
 import jsinterop.annotations.JsType;
 
-/** JsInterop to use the missing features from elemental2 */
+/**
+ * JsInterop to use the missing features from elemental2
+ *
+ * @author vegegoku
+ * @version $Id: $Id
+ */
 @JsType(isNative = true, name = "window", namespace = JsPackage.GLOBAL)
 public class DominoDom {
+  /** Constant <code>document</code> */
   public static DominoDocument document;
+  /** Constant <code>window</code> */
   public static DominoWindow window;
 }

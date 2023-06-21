@@ -15,15 +15,30 @@
  */
 package org.dominokit.domino.ui.infoboxes;
 
-/** Default CSS classes for {@link InfoBox} */
-public class InfoBoxStyles {
+import org.dominokit.domino.ui.style.CssClass;
 
-  /** CSS class for zoom hover effect */
-  public static final String HOVER_ZOOM_EFFECT = "hover-zoom-effect";
-  /** CSS class for expand hover effect */
-  public static final String HOVER_EXPAND_EFFECT = "hover-expand-effect";
-  /** CSS class for right flip */
-  public static final String INFO_BOX_3 = "info-box-3";
-  /** CSS class for left flip */
-  public static final String INFO_BOX = "info-box";
+/**
+ * Default CSS classes for {@link org.dominokit.domino.ui.infoboxes.InfoBox}
+ *
+ * @author vegegoku
+ * @version $Id: $Id
+ */
+public interface InfoBoxStyles {
+
+  /** Constant <code>dui_info_box</code> */
+  CssClass dui_info_box = () -> "dui-info-box";
+  /** Constant <code>dui_info_flipped</code> */
+  CssClass dui_info_flipped = () -> "dui-info-flipped";
+  /** Constant <code>dui_info_icon</code> */
+  CssClass dui_info_icon = () -> "dui-info-icon";
+  /** Constant <code>dui_info_content</code> */
+  CssClass dui_info_content = () -> "dui-info-content";
+  /** Constant <code>dui_info_title</code> */
+  CssClass dui_info_title = () -> "dui-info-title";
+  /** Constant <code>dui_info_value</code> */
+  CssClass dui_info_value = () -> "dui-info-value";
+  /** Constant <code>dui_info_hover_zoom</code> */
+  CssClass dui_info_hover_zoom = () -> "dui-info-hover-zoom";
+  /** Constant <code>dui_info_hover_expand</code> */
+  CssClass dui_info_hover_expand = () -> "dui-info-hover-expand";
 }

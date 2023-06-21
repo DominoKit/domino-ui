@@ -15,11 +15,17 @@
  */
 package org.dominokit.domino.ui.splitpanel;
 
-/** An interface provides information about size in split panels */
+/**
+ * HasSize interface.
+ *
+ * @author vegegoku
+ * @version $Id: $Id
+ */
 public interface HasSize {
-  /** @return the current size */
+  /**
+   * getSize.
+   *
+   * @return a double
+   */
   double getSize();
-
-  /** @return the splitter size */
-  int getSplitterSize();
 }

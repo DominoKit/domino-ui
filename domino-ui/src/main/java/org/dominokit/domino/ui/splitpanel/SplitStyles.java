@@ -15,16 +15,22 @@
  */
 package org.dominokit.domino.ui.splitpanel;
 
-/** Default CSS classes for {@link SplitPanel} */
-public class SplitStyles {
-  /** CSS class for a splitter */
-  public static final String SPLITTER = "splitter";
-  /** CSS class for a split handle element */
-  public static final String SPLIT_HANDLE = "split-handle";
-  /** CSS class for a split panel */
-  public static final String SPLIT_PANEL = "split-panel";
-  /** CSS class for horizontal split panel */
-  public static final String HORIZONTAL = "horizontal";
-  /** CSS class for vertical split panel */
-  public static final String VERTICAL = "vertical";
+import org.dominokit.domino.ui.style.CssClass;
+
+/**
+ * Default CSS classes for {@link org.dominokit.domino.ui.splitpanel.SplitPanel}
+ *
+ * @author vegegoku
+ * @version $Id: $Id
+ */
+public interface SplitStyles {
+
+  /** Constant <code>dui_split_layout</code> */
+  CssClass dui_split_layout = () -> "dui-split-layout";
+  /** Constant <code>dui_split_panel</code> */
+  CssClass dui_split_panel = () -> "dui-split-panel";
+  /** Constant <code>dui_split_layout_splitter</code> */
+  CssClass dui_split_layout_splitter = () -> "dui-split-layout-splitter";
+  /** Constant <code>dui_splitter_handle</code> */
+  CssClass dui_splitter_handle = () -> "dui-splitter-handle";
 }

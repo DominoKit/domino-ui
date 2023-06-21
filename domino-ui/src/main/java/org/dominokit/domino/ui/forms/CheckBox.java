@@ -16,72 +16,46 @@
 package org.dominokit.domino.ui.forms;
 
 import static java.util.Objects.isNull;
-import static org.jboss.elemento.Elements.input;
-import static org.jboss.elemento.Elements.span;
 
 import elemental2.dom.*;
-import org.dominokit.domino.ui.keyboard.KeyboardEvents;
-import org.dominokit.domino.ui.style.Color;
-import org.dominokit.domino.ui.utils.Checkable;
-import org.dominokit.domino.ui.utils.DominoElement;
-import org.jboss.elemento.IsElement;
+import java.util.Optional;
+import java.util.function.Consumer;
+import org.dominokit.domino.ui.elements.LabelElement;
+import org.dominokit.domino.ui.elements.SpanElement;
+import org.dominokit.domino.ui.style.BooleanCssClass;
+import org.dominokit.domino.ui.utils.*;
 
-/** A checkbox component that takes/provide a boolean value */
-public class CheckBox extends AbstractValueBox<CheckBox, HTMLInputElement, Boolean>
-    implements Checkable<CheckBox> {
+/**
+ * A checkbox component that takes/provide a boolean value
+ *
+ * @author vegegoku
+ * @version $Id: $Id
+ */
+public class CheckBox extends InputFormField<CheckBox, HTMLInputElement, Boolean>
+    implements Checkable<CheckBox>, HasIndeterminateState<CheckBox> {
 
-  private static final String READONLY = "readonly";
-  private Color color;
-  private String checkedReadonlyLabel = "Yes";
-  private String unCheckedReadonlyLabel = "No";
-  private DominoElement<HTMLElement> readOnlyLabelElement = DominoElement.of(span());
-
-  /** Creates a checkbox without a label */
-  public CheckBox() {
-    this("");
-  }
+  private LabelElement checkLabelElement;
+  private LazyChild<SpanElement> checkLabelTextElement;
 
   /**
    * Creates a checkbox with a label
    *
-   * @param label String
-   */
-  public CheckBox(String label) {
-    super("checkbox", label);
-    css("d-checkbox");
-
-    EventListener listener =
-        evt -> {
-          evt.stopPropagation();
-          evt.preventDefault();
-          if (isEnabled() && !isReadOnly()) toggle();
-        };
-
-    getInputElement()
-        .removeEventListener("change", changeListener)
-        .addEventListener(
-            "change",
-            evt -> {
-              if (isEnabled() && !isReadOnly()) {
-                setValue(isChecked());
-              }
-            });
-    getLabelElement().ifPresent(labelElement -> labelElement.addEventListener("click", listener));
-    KeyboardEvents.listenOnKeyDown(getInputElement()).onEnter(listener);
-  }
-
-  private void onCheck() {
-    changeHandlers.forEach(handler -> handler.onValueChanged(isChecked()));
-  }
-
-  /**
-   * Creates a checkbox with a label
-   *
-   * @param label String
+   * @param checkLabel String
    * @return new CheckBox instance
    */
-  public static CheckBox create(String label) {
-    return new CheckBox(label);
+  public static CheckBox create(String checkLabel) {
+    return new CheckBox(checkLabel);
+  }
+
+  /**
+   * Creates a checkbox with a label
+   *
+   * @param label String, the field label
+   * @param checkLabel String, the checkbox label
+   * @return new CheckBox instance
+   */
+  public static CheckBox create(String label, String checkLabel) {
+    return new CheckBox(label, checkLabel);
   }
 
   /**
@@ -93,85 +67,190 @@ public class CheckBox extends AbstractValueBox<CheckBox, HTMLInputElement, Boole
     return new CheckBox();
   }
 
-  /**
-   * Creates a CheckBox with a clickable link as a label
-   *
-   * @param link {@link HTMLAnchorElement} wrapped as {@link IsElement}
-   * @return new CheckBox instance
-   */
-  public static CheckBox create(IsElement<HTMLAnchorElement> link) {
-    return create(DominoElement.of(link));
+  /** Creates a checkbox without a label */
+  public CheckBox() {
+    formElement.addCss(dui_form_check_box);
+    wrapperElement.appendChild(
+        div()
+            .addCss(dui_field_input)
+            .appendChild(checkLabelElement = label().addCss(dui_check_box_label)));
+    checkLabelTextElement = LazyChild.of(span(), checkLabelElement);
+    EventListener listener =
+        evt -> {
+          evt.stopPropagation();
+          evt.preventDefault();
+          if (isEnabled() && !isReadOnly()) {
+            toggleChecked();
+          }
+        };
+    checkLabelElement.addClickListener(listener);
+    getInputElement().onKeyDown(keyEvents -> keyEvents.onEnter(listener));
+    setDefaultValue(false);
+    labelElement.get();
   }
 
   /**
-   * Creates a CheckBox with a clickable link as a label
+   * initRequiredIndicator.
    *
-   * @param link {@link HTMLAnchorElement}
-   * @return new CheckBox instance
+   * @return a {@link org.dominokit.domino.ui.utils.LazyChild} object
    */
-  public static CheckBox create(HTMLAnchorElement link) {
-    return create(DominoElement.of(link));
+  protected LazyChild<DominoElement<HTMLElement>> initRequiredIndicator() {
+    return LazyChild.of(
+        elementOf(getConfig().getRequiredIndicator().get()).addCss(dui_field_required_indicator),
+        checkLabelElement);
   }
 
   /**
-   * Creates a CheckBox with a clickable link as a label
+   * Creates a checkbox with a label
    *
-   * @param link {@link HTMLAnchorElement} wrapped as {@link DominoElement}
-   * @return new CheckBox instance
+   * @param checkLabel String
    */
-  public static CheckBox create(DominoElement<HTMLAnchorElement> link) {
-    CheckBox checkBox = new CheckBox();
-    checkBox.setLabel(link.element());
-    link.addClickListener(Event::stopPropagation);
-    return checkBox;
+  public CheckBox(String checkLabel) {
+    this();
+    setCheckLabel(checkLabel);
   }
 
   /**
-   * Toggle the current state of the CheckBox, if it is checked it will be unchecked, and if it is
-   * unchecked it will be checked
+   * Creates a checkbox with a label
    *
-   * @return same CheckBox instance
+   * @param checkLabel String
+   * @param label a {@link java.lang.String} object
    */
-  public CheckBox toggle() {
-    if (isChecked()) {
-      uncheck();
-      element.removeCss("checked");
-    } else {
-      check();
-      element.css("checked");
+  public CheckBox(String label, String checkLabel) {
+    this();
+    setLabel(label);
+    setCheckLabel(checkLabel);
+  }
+
+  /** {@inheritDoc} */
+  @Override
+  public Optional<Consumer<Event>> onChange() {
+    return Optional.of(
+        event -> {
+          if (isEnabled() && !isReadOnly()) {
+            withValue(isChecked(), isChangeListenersPaused());
+          }
+        });
+  }
+
+  /**
+   * setCheckLabel.
+   *
+   * @param checkLabel a {@link java.lang.String} object
+   * @return a {@link org.dominokit.domino.ui.forms.CheckBox} object
+   */
+  public CheckBox setCheckLabel(String checkLabel) {
+    checkLabelTextElement.get().setTextContent(checkLabel);
+    return this;
+  }
+
+  /** {@inheritDoc} */
+  @Override
+  protected DominoElement<HTMLInputElement> createInputElement(String type) {
+    return input(type).addCss(dui_hidden_input).toDominoElement();
+  }
+
+  /** {@inheritDoc} */
+  @Override
+  public String getType() {
+    return "checkbox";
+  }
+
+  /** {@inheritDoc} */
+  @Override
+  public CheckBox toggleChecked(boolean silent) {
+    withValue(!isChecked(), silent);
+    return this;
+  }
+
+  /** {@inheritDoc} */
+  @Override
+  public CheckBox toggleChecked() {
+    withValue(!isChecked(), isChangeListenersPaused());
+    return this;
+  }
+
+  /** {@inheritDoc} */
+  @Override
+  public CheckBox toggleChecked(boolean checkedState, boolean silent) {
+    withValue(checkedState, silent);
+    return this;
+  }
+
+  /** {@inheritDoc} */
+  @Override
+  public Boolean getDefaultValue() {
+    return isNull(defaultValue) ? false : defaultValue;
+  }
+
+  /** {@inheritDoc} */
+  @Override
+  public CheckBox withValue(Boolean value, boolean silent) {
+    if (isNull(value)) {
+      return withValue(getDefaultValue(), silent);
     }
+    super.withValue(value, silent);
+    return this;
+  }
+
+  /** {@inheritDoc} */
+  @Override
+  public CheckBox indeterminate() {
+    getInputElement().element().indeterminate = true;
+    addCss(BooleanCssClass.of(dui_check_box_indeterminate, true));
+    return this;
+  }
+
+  /** {@inheritDoc} */
+  @Override
+  public CheckBox determinate() {
+    getInputElement().element().indeterminate = false;
+    addCss(BooleanCssClass.of(dui_check_box_indeterminate, false));
+    return this;
+  }
+
+  /** {@inheritDoc} */
+  @Override
+  public CheckBox toggleIndeterminate(boolean indeterminate) {
+    getInputElement().element().indeterminate = indeterminate;
+    addCss(BooleanCssClass.of(dui_check_box_indeterminate, indeterminate));
+    return this;
+  }
+
+  /** {@inheritDoc} */
+  @Override
+  public CheckBox toggleIndeterminate() {
+    boolean current = getInputElement().element().indeterminate;
+    getInputElement().element().indeterminate = !current;
+    addCss(BooleanCssClass.of(dui_check_box_indeterminate, !current));
     return this;
   }
 
   /** {@inheritDoc} */
   @Override
   public CheckBox check() {
-    return check(false);
+    return check(isChangeListenersPaused());
   }
 
   /** {@inheritDoc} */
   @Override
   public CheckBox uncheck() {
-    return uncheck(false);
+    return uncheck(isChangeListenersPaused());
   }
 
   /** {@inheritDoc} */
   @Override
   public CheckBox check(boolean silent) {
-    getInputElement().element().checked = true;
-    element.css("checked");
-    if (!silent) onCheck();
-    if (isReadOnly()) changeReadOnlyText();
+    determinate();
+    toggleChecked(true, silent);
     return this;
   }
 
   /** {@inheritDoc} */
   @Override
   public CheckBox uncheck(boolean silent) {
-    getInputElement().element().checked = false;
-    element.removeCss("checked");
-    if (!silent) onCheck();
-    if (isReadOnly()) changeReadOnlyText();
+    determinate();
+    toggleChecked(false, silent);
     return this;
   }
 
@@ -181,41 +260,13 @@ public class CheckBox extends AbstractValueBox<CheckBox, HTMLInputElement, Boole
     return getInputElement().element().checked;
   }
 
-  /** {@inheritDoc} */
-  @Override
-  public CheckBox setLabel(String label) {
-    super.setLabel(label);
-    if (isReadOnly()) changeReadOnlyText();
-    return this;
-  }
-
-  /** {@inheritDoc} */
-  @Override
-  public CheckBox addChangeHandler(ChangeHandler<? super Boolean> changeHandler) {
-    changeHandlers.add(changeHandler);
-    return this;
-  }
-
-  /** {@inheritDoc} */
-  @Override
-  public CheckBox removeChangeHandler(ChangeHandler<? super Boolean> changeHandler) {
-    if (changeHandler != null) changeHandlers.remove(changeHandler);
-    return this;
-  }
-
-  /** {@inheritDoc} */
-  @Override
-  public boolean hasChangeHandler(ChangeHandler<? super Boolean> changeHandler) {
-    return changeHandlers.contains(changeHandler);
-  }
-
   /**
    * The CheckBox will be filled with its color instead of a white background
    *
    * @return same CheckBox instance
    */
   public CheckBox filledIn() {
-    element.addCss("filled-in");
+    addCss(BooleanCssClass.of(dui_check_box_filled, true));
     return this;
   }
 
@@ -225,186 +276,89 @@ public class CheckBox extends AbstractValueBox<CheckBox, HTMLInputElement, Boole
    * @return same CheckBox instance
    */
   public CheckBox filledOut() {
-    element.removeCss("filled-in");
+    addCss(BooleanCssClass.of(dui_check_box_filled, false));
     return this;
   }
 
   /**
-   * This color will be used for the check mark in the CheckBox or the background for a {@link
-   * #filledIn()} CheckBox
+   * setFilled.
    *
-   * @param color {@link Color}
-   * @return same CheckBox instance
+   * @param filled a boolean
+   * @return a {@link org.dominokit.domino.ui.forms.CheckBox} object
    */
-  public CheckBox setColor(Color color) {
-    if (this.color != null) {
-      element.removeCss(this.color.getStyle());
-    }
-    element.addCss(color.getStyle());
-    this.color = color;
+  public CheckBox setFilled(boolean filled) {
+    addCss(BooleanCssClass.of(dui_check_box_filled, filled));
     return this;
   }
 
-  /** {@inheritDoc} This will check/uncheck the CheckBox based on the boolean value */
-  @Override
-  public CheckBox value(Boolean value) {
-    if (value != null && value) {
-      check();
-    } else {
-      uncheck();
-    }
-    return this;
-  }
-
-  /**
-   * {@inheritDoc}
-   *
-   * @return boolean, true if checked, false if unchecked
-   */
+  /** {@inheritDoc} */
   @Override
   public Boolean getValue() {
     return isChecked();
   }
 
-  /**
-   * {@inheritDoc}
-   *
-   * @return boolean, CheckBox cant be empty so this actually is true if the CheckBox is unchecked.
-   */
+  /** {@inheritDoc} */
   @Override
   public boolean isEmpty() {
     return !isChecked();
   }
 
+  /** {@inheritDoc} */
   @Override
   public boolean isEmptyIgnoreSpaces() {
     return isEmpty();
   }
 
-  /**
-   * This should render the checkbox as a label based on {@link #setCheckedReadonlyLabel(String)}
-   * and {@link #setUnCheckedReadonlyLabel(String)}
-   *
-   * @param readOnly boolean
-   * @return same CheckBox instance
-   */
-  @Override
-  public CheckBox setReadOnly(boolean readOnly) {
-    super.setReadOnly(readOnly);
-    if (readOnly) {
-      getInputElement().setReadOnly(true);
-      css(READONLY);
-      changeReadOnlyText();
-    } else {
-      getInputElement().setReadOnly(false);
-      removeCss(READONLY);
-      readOnlyLabelElement.remove();
-    }
-    return this;
-  }
-
-  private void changeReadOnlyText() {
-    readOnlyLabelElement.remove();
-    if (isChecked()) {
-      readOnlyLabelElement.setTextContent(getCheckedReadonlyLabel());
-    } else {
-      readOnlyLabelElement.setTextContent(getUnCheckedReadonlyLabel());
-    }
-    getLabelElement().ifPresent(labelElement -> labelElement.appendChild(readOnlyLabelElement));
-  }
-
-  private String getCheckedReadonlyLabel() {
-    return isNull(checkedReadonlyLabel) || checkedReadonlyLabel.isEmpty()
-        ? ""
-        : ": " + checkedReadonlyLabel;
-  }
-
-  private String getUnCheckedReadonlyLabel() {
-    return isNull(unCheckedReadonlyLabel) || unCheckedReadonlyLabel.isEmpty()
-        ? ""
-        : ": " + unCheckedReadonlyLabel;
-  }
-
-  /**
-   * @param checkedReadonlyLabel String label to be used in checked readonly mode
-   * @return same CheckBox instance
-   */
-  public CheckBox setCheckedReadonlyLabel(String checkedReadonlyLabel) {
-    this.checkedReadonlyLabel = checkedReadonlyLabel;
-    return this;
-  }
-
-  /**
-   * @param unCheckedReadonlyLabel String label to be used in unchecked readonly mode
-   * @return same CheckBox instance
-   */
-  public CheckBox setUnCheckedReadonlyLabel(String unCheckedReadonlyLabel) {
-    this.unCheckedReadonlyLabel = unCheckedReadonlyLabel;
-    return this;
-  }
-
-  /**
-   * {@inheritDoc}
-   *
-   * @return String boolean value
-   */
+  /** {@inheritDoc} */
   @Override
   public String getStringValue() {
     return Boolean.toString(getValue());
   }
 
-  /** {@inheritDoc} creates a <b>checkbox</b> input element */
+  /** {@inheritDoc} */
   @Override
-  protected HTMLInputElement createInputElement(String type) {
-    return DominoElement.of(input("checkbox")).element();
-  }
-
-  /** {@inheritDoc} this will uncheck the CheckBox if it is checked */
-  @Override
-  protected void clearValue(boolean silent) {
-    value(false, silent);
+  protected void doSetValue(Boolean value) {
+    withPauseChangeListenersToggle(true, field -> getInputElement().element().checked = value);
   }
 
   /** {@inheritDoc} */
   @Override
-  protected void doSetValue(Boolean value) {}
-
-  /** {@inheritDoc} */
-  @Override
-  protected boolean isAddFocusColor() {
-    return false;
+  public AutoValidator createAutoValidator(ApplyFunction autoValidate) {
+    return new CheckBoxAutoValidator(this, autoValidate);
   }
 
   /** {@inheritDoc} */
   @Override
-  protected AutoValidator createAutoValidator(AutoValidate autoValidate) {
-    return new CheckBoxAutoValidator<>(this, autoValidate);
+  public String getName() {
+    return getInputElement().element().name;
   }
 
+  /** {@inheritDoc} */
   @Override
-  protected boolean allowEmptyLabel() {
-    return true;
+  public CheckBox setName(String name) {
+    getInputElement().element().name = name;
+    return this;
   }
 
-  private static class CheckBoxAutoValidator<T> extends AutoValidator {
+  private static class CheckBoxAutoValidator extends AutoValidator {
 
     private CheckBox checkBox;
-    private ChangeHandler<Boolean> changeHandler;
+    private ChangeListener<Boolean> changeListener;
 
-    public CheckBoxAutoValidator(CheckBox checkBox, AutoValidate autoValidate) {
+    public CheckBoxAutoValidator(CheckBox checkBox, ApplyFunction autoValidate) {
       super(autoValidate);
       this.checkBox = checkBox;
     }
 
     @Override
     public void attach() {
-      changeHandler = value -> autoValidate.apply();
-      checkBox.addChangeHandler(changeHandler);
+      changeListener = (oldValue, newValue) -> autoValidate.apply();
+      checkBox.addChangeListener(changeListener);
     }
 
     @Override
     public void remove() {
-      checkBox.removeChangeHandler(changeHandler);
+      checkBox.removeChangeListener(changeListener);
     }
   }
 }

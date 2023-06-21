@@ -15,35 +15,38 @@
  */
 package org.dominokit.domino.ui.style;
 
-import static java.util.Objects.isNull;
-import static java.util.Objects.nonNull;
+import static org.dominokit.domino.ui.utils.ElementsFactory.elements;
 
-import elemental2.dom.HTMLElement;
+import elemental2.dom.Element;
 import org.dominokit.domino.ui.utils.DominoElement;
 import org.dominokit.domino.ui.utils.HasWavesElement;
 
-/** A utility class for configuring waves for a specific element */
+/**
+ * A utility class for configuring waves for a specific element
+ *
+ * @author vegegoku
+ * @version $Id: $Id
+ */
 public class WavesSupport implements HasWaveEffect<WavesSupport> {
 
-  private static final String WAVES_EFFECT = "waves-effect";
-  private final DominoElement<HTMLElement> element;
-
-  private String waveColor;
+  private static final CssClass dui_waves_effect = () -> "dui-waves-effect";
+  private final DominoElement<Element> element;
   private final Waves wavesElement;
+  private final SwapCssClass waveClass = SwapCssClass.of(WaveStyle.RIPPLE);
 
   private WavesSupport(HasWavesElement targetElement) {
     this(targetElement.getWavesElement());
   }
 
-  private WavesSupport(HTMLElement targetElement) {
-    this.element = DominoElement.of(targetElement);
+  private WavesSupport(Element targetElement) {
+    this.element = elements.elementOf(targetElement);
     wavesElement = Waves.create(this.element);
   }
 
   /**
    * Adds waves support for a specific element
    *
-   * @param element the {@link HasWavesElement}
+   * @param element the {@link org.dominokit.domino.ui.utils.HasWavesElement}
    * @return new instance
    */
   public static WavesSupport addFor(HasWavesElement element) {
@@ -53,58 +56,42 @@ public class WavesSupport implements HasWaveEffect<WavesSupport> {
   /**
    * Adds waves support for a specific element
    *
-   * @param element the {@link HTMLElement}
+   * @param element the {@link elemental2.dom.HTMLElement}
    * @return new instance
    */
-  public static WavesSupport addFor(HTMLElement element) {
+  public static WavesSupport addFor(Element element) {
     return new WavesSupport(element).initWaves();
   }
 
   /** {@inheritDoc} */
   @Override
   public WavesSupport initWaves() {
-    if (!hasWavesEffect()) element.addCss(WAVES_EFFECT);
-
-    wavesElement.initWaves();
+    if (!hasWavesEffect()) {
+      element.addCss(dui_waves_effect);
+      wavesElement.initWaves();
+    }
     return this;
   }
 
   private boolean hasWavesEffect() {
-    return element.style().containsCss(WAVES_EFFECT);
-  }
-
-  /** Use {@link WavesSupport#setWaveColor(WaveColor)} instead */
-  @Deprecated
-  public WavesSupport setWavesColor(WaveColor waveColor) {
-    return setWaveColor(waveColor);
+    return dui_waves_effect.isAppliedTo(element);
   }
 
   /** {@inheritDoc} */
   @Override
-  public WavesSupport setWaveColor(WaveColor waveColor) {
-    if (!hasWavesEffect()) initWaves();
-    if (isNull(this.waveColor)) element.addCss(waveColor.getStyle());
-    else {
-      element.removeCss(this.waveColor);
-      element.addCss(waveColor.getStyle());
+  public WavesSupport setWaveStyle(WaveStyle waveStyle) {
+    if (!hasWavesEffect()) {
+      initWaves();
     }
-    this.waveColor = waveColor.getStyle();
-    return this;
-  }
-
-  /** {@inheritDoc} */
-  @Override
-  public WavesSupport applyWaveStyle(WaveStyle waveStyle) {
-    if (!hasWavesEffect()) initWaves();
-    if (!element.style().containsCss(waveStyle.getStyle())) element.addCss(waveStyle.getStyle());
+    element.addCss(waveClass.replaceWith(waveStyle));
     return this;
   }
 
   /** {@inheritDoc} */
   @Override
   public WavesSupport removeWaves() {
-    if (hasWavesEffect()) element.removeCss(WAVES_EFFECT);
-    if (nonNull(waveColor)) element.removeCss(waveColor);
+    dui_waves_effect.remove(element);
+    waveClass.remove(element);
     removeWaveStyles();
     wavesElement.removeWaves();
     return this;
@@ -115,5 +102,14 @@ public class WavesSupport implements HasWaveEffect<WavesSupport> {
       String style = element.style().cssClassByIndex(i);
       if (style.contains("waves-")) element.removeCss(style);
     }
+  }
+
+  /**
+   * Getter for the field <code>element</code>.
+   *
+   * @return a {@link org.dominokit.domino.ui.utils.DominoElement} object
+   */
+  public DominoElement<Element> getElement() {
+    return element;
   }
 }

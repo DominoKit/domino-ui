@@ -15,10 +15,21 @@
  */
 package org.dominokit.domino.ui.sliders;
 
-/** A constants class for Slider css classes names */
-public class SliderStyles {
-  public static final String slide_container = "slide-container";
-  public static final String slider = "slider";
-  public static final String thumb = "thumb";
-  public static final String active = "active";
+import org.dominokit.domino.ui.style.CssClass;
+
+/**
+ * A constants class for Slider css classes names
+ *
+ * @author vegegoku
+ * @version $Id: $Id
+ */
+public interface SliderStyles {
+  /** Constant <code>dui_slider</code> */
+  CssClass dui_slider = () -> "dui-slider";
+  /** Constant <code>dui_slider_input</code> */
+  CssClass dui_slider_input = () -> "dui-slider-input";
+  /** Constant <code>dui_slider_thumb</code> */
+  CssClass dui_slider_thumb = () -> "dui-slider-thumb";
+  /** Constant <code>dui_slider_value</code> */
+  CssClass dui_slider_value = () -> "dui-slider-value";
 }

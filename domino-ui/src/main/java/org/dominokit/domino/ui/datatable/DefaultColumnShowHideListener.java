@@ -15,14 +15,18 @@
  */
 package org.dominokit.domino.ui.datatable;
 
+import static org.dominokit.domino.ui.utils.ElementsFactory.elements;
+
 import elemental2.dom.HTMLElement;
-import org.dominokit.domino.ui.utils.DominoElement;
 
 /**
  * This implementation is default to show/hide any element whenever the table column visibility is
  * changed
  *
  * <p>e.g remove the column name a from a list of columns
+ *
+ * @author vegegoku
+ * @version $Id: $Id
  */
 public class DefaultColumnShowHideListener implements ColumnShowHideListener {
 
@@ -32,8 +36,8 @@ public class DefaultColumnShowHideListener implements ColumnShowHideListener {
   /**
    * Create an instance initialized with any custom element
    *
-   * @param element {@link HTMLElement}
-   * @return new {@link DefaultColumnShowHideListener}
+   * @param element {@link elemental2.dom.HTMLElement}
+   * @return new {@link org.dominokit.domino.ui.datatable.DefaultColumnShowHideListener}
    */
   public static DefaultColumnShowHideListener of(HTMLElement element) {
     return new DefaultColumnShowHideListener(element);
@@ -42,10 +46,10 @@ public class DefaultColumnShowHideListener implements ColumnShowHideListener {
   /**
    * Create an instance initialized with any custom element and make it permanent
    *
-   * @param element {@link HTMLElement}
+   * @param element {@link elemental2.dom.HTMLElement}
    * @param permanent boolean, if true make this listener permanent so it wont be removed when the
    *     listeners are cleared
-   * @return new {@link DefaultColumnShowHideListener}
+   * @return new {@link org.dominokit.domino.ui.datatable.DefaultColumnShowHideListener}
    */
   public static DefaultColumnShowHideListener of(HTMLElement element, boolean permanent) {
     return new DefaultColumnShowHideListener(element, permanent);
@@ -54,7 +58,7 @@ public class DefaultColumnShowHideListener implements ColumnShowHideListener {
   /**
    * Create an instance initialized with any custom element
    *
-   * @param element {@link HTMLElement}
+   * @param element {@link elemental2.dom.HTMLElement}
    */
   public DefaultColumnShowHideListener(HTMLElement element) {
     this.element = element;
@@ -63,7 +67,7 @@ public class DefaultColumnShowHideListener implements ColumnShowHideListener {
   /**
    * Create an instance initialized with any custom element and make it permanent
    *
-   * @param element {@link HTMLElement}
+   * @param element {@link elemental2.dom.HTMLElement}
    * @param permanent boolean, if true make this listener permanent so it wont be removed when the
    *     listeners are cleared
    */
@@ -75,7 +79,7 @@ public class DefaultColumnShowHideListener implements ColumnShowHideListener {
   /** {@inheritDoc} */
   @Override
   public void onShowHide(boolean visible) {
-    DominoElement.of(element).toggleDisplay(visible);
+    elements.elementOf(element).toggleDisplay(visible);
   }
 
   /** {@inheritDoc} */

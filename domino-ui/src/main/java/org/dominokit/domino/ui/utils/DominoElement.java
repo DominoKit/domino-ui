@@ -15,68 +15,32 @@
  */
 package org.dominokit.domino.ui.utils;
 
-import static elemental2.dom.DomGlobal.document;
-
-import elemental2.dom.HTMLBodyElement;
-import elemental2.dom.HTMLDivElement;
-import elemental2.dom.HTMLElement;
-import elemental2.dom.HTMLPictureElement;
-import jsinterop.base.Js;
-import org.jboss.elemento.Elements;
-import org.jboss.elemento.IsElement;
+import elemental2.dom.*;
 
 /**
  * A class that can wrap any HTMLElement as domino component
  *
  * @param <E> the type of the wrapped element
+ * @author vegegoku
+ * @version $Id: $Id
  */
-public class DominoElement<E extends HTMLElement> extends BaseDominoElement<E, DominoElement<E>> {
+public class DominoElement<E extends Element> extends BaseDominoElement<E, DominoElement<E>> {
 
   private final E wrappedElement;
 
-  /**
-   * @param element the {@link HTMLElement} E to wrap as a DominoElement
-   * @param <E> extends from {@link HTMLElement}
-   * @return the {@link DominoElement} wrapping the provided element
-   */
-  public static <E extends HTMLElement> DominoElement<E> of(E element) {
-    return new DominoElement<>(element);
-  }
-
-  /**
-   * @param element the {@link IsElement} E to wrap as a DominoElement
-   * @param <E> extends from {@link HTMLElement}
-   * @return the {@link DominoElement} wrapping the provided element
-   */
-  public static <E extends HTMLElement> DominoElement<E> of(IsElement<E> element) {
-    return new DominoElement<>(element.element());
-  }
-
-  /** @return a {@link DominoElement} wrapping the document {@link HTMLBodyElement} */
-  public static DominoElement<HTMLBodyElement> body() {
-    return new DominoElement<>(document.body);
-  }
-
-  /** @return a new {@link HTMLDivElement} wrapped as a {@link DominoElement} */
-  public static DominoElement<HTMLDivElement> div() {
-    return DominoElement.of(Elements.div());
-  }
-
-  /** @return a new {@link HTMLDivElement} wrapped as a {@link DominoElement} */
-  public static DominoElement<HTMLPictureElement> picture() {
-    return DominoElement.of(
-        Js.<HTMLPictureElement>uncheckedCast(document.createElement("picture")));
-  }
-
   /** @param element the E element extending from {@link HTMLElement} */
+  /**
+   * Constructor for DominoElement.
+   *
+   * @param element a E object
+   */
   public DominoElement(E element) {
     this.wrappedElement = element;
     init(this);
+    addCss(dui);
   }
 
-  /**
-   * @return the E element that is extending from {@link HTMLElement} wrapped in this DominoElement
-   */
+  /** {@inheritDoc} */
   @Override
   public E element() {
     return wrappedElement;

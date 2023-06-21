@@ -15,7 +15,12 @@
  */
 package org.dominokit.domino.ui.forms.validations;
 
-/** This class represent the result of a single validation logic */
+/**
+ * This class represent the result of a single validation logic
+ *
+ * @author vegegoku
+ * @version $Id: $Id
+ */
 public class ValidationResult {
 
   private String errorMessage;
@@ -43,7 +48,11 @@ public class ValidationResult {
     this.errorMessage = errorMessage;
   }
 
-  /** Creates an instance of a validation result that indicate a <b>valid</b> state */
+  /**
+   * Creates an instance of a validation result that indicate a <b>valid</b> state
+   *
+   * @return a {@link org.dominokit.domino.ui.forms.validations.ValidationResult} object
+   */
   public static ValidationResult valid() {
     return new ValidationResult(true);
   }
@@ -53,17 +62,28 @@ public class ValidationResult {
    * message
    *
    * @param errorMessage String error message
+   * @return a {@link org.dominokit.domino.ui.forms.validations.ValidationResult} object
    */
   public static ValidationResult invalid(String errorMessage) {
     return new ValidationResult(false, errorMessage);
   }
 
   /** @return String error message, empty String for valid results */
+  /**
+   * Getter for the field <code>errorMessage</code>.
+   *
+   * @return a {@link java.lang.String} object
+   */
   public String getErrorMessage() {
     return errorMessage;
   }
 
   /** @return boolean, true if there was no errors false if there was errors. */
+  /**
+   * isValid.
+   *
+   * @return a boolean
+   */
   public boolean isValid() {
     return valid;
   }

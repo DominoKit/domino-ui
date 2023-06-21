@@ -23,14 +23,17 @@ import elemental2.dom.Node;
  * and rendered in the table
  *
  * @param <T> the type of the data table records
+ * @author vegegoku
+ * @version $Id: $Id
  */
 @FunctionalInterface
 public interface SummaryCellRenderer<T, S> {
   /**
    * Takes a cell info to determine what content to append to the cell element
    *
-   * @param summaryCellInfo {@link SummaryCellInfo}
-   * @return the {@link Node} to be appended to the table cell element
+   * @param summaryCellInfo {@link
+   *     org.dominokit.domino.ui.datatable.plugins.summary.SummaryCellRenderer.SummaryCellInfo}
+   * @return the {@link elemental2.dom.Node} to be appended to the table cell element
    */
   Node asElement(SummaryCellInfo<T, S> summaryCellInfo);
 

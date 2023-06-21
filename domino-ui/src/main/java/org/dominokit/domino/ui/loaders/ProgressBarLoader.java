@@ -15,45 +15,44 @@
  */
 package org.dominokit.domino.ui.loaders;
 
-import static org.dominokit.domino.ui.loaders.LoaderStyles.*;
-import static org.jboss.elemento.Elements.div;
-
 import elemental2.dom.HTMLDivElement;
-import org.dominokit.domino.ui.style.Style;
-import org.dominokit.domino.ui.style.Styles;
+import org.dominokit.domino.ui.IsElement;
+import org.dominokit.domino.ui.elements.DivElement;
 import org.dominokit.domino.ui.utils.DominoElement;
-import org.jboss.elemento.IsElement;
 
-/** Progress bar loader implementation */
+/**
+ * Progress bar loader implementation
+ *
+ * @author vegegoku
+ * @version $Id: $Id
+ */
 public class ProgressBarLoader extends BaseLoader<ProgressBarLoader>
     implements IsElement<HTMLDivElement> {
 
-  private final HTMLDivElement progress1 =
-      DominoElement.of(div()).css(WAIT_ME_PROGRESS_ELEM_1).style("background-color:#000").element();
+  private final DivElement progress1 = div().addCss(wait_me_progress_elem_1, dui_bg_black);
 
-  private final HTMLDivElement loader =
-      DominoElement.of(div()).css(WAIT_ME_PROGRESS).css(PROGRESS_BAR).add(progress1).element();
+  private final DivElement loader =
+      div().addCss(wait_me_progress, progress_bar).appendChild(progress1);
 
-  private final HTMLDivElement content =
-      DominoElement.of(div())
-          .css(WAIT_ME_CONTENT)
-          .css(Styles.vertical_center)
-          .css(VERTICAL)
-          .add(loader)
-          .add(loadingText)
-          .element();
+  private final DivElement content =
+      div()
+          .addCss(wait_me_content, dui_vertical_center, vertical)
+          .appendChild(loader)
+          .appendChild(loadingText);
 
-  private final HTMLDivElement element =
-      DominoElement.of(div())
-          .css(WAIT_ME)
-          .style("background: rgba(255, 255, 255, 0.7);")
-          .add(content)
-          .element();
+  private final DivElement element =
+      div().addCss(wait_me).style("background: rgba(255, 255, 255, 0.7);").appendChild(content);
 
+  /** Constructor for ProgressBarLoader. */
   public ProgressBarLoader() {
     init(this);
   }
 
+  /**
+   * create.
+   *
+   * @return a {@link org.dominokit.domino.ui.loaders.ProgressBarLoader} object
+   */
   public static ProgressBarLoader create() {
     return new ProgressBarLoader();
   }
@@ -67,7 +66,7 @@ public class ProgressBarLoader extends BaseLoader<ProgressBarLoader>
   /** {@inheritDoc} */
   @Override
   public void setSize(String width, String height) {
-    onAttached(mutationRecord -> Style.of(loader).setWidth(width).setHeight(height));
+    onAttached(mutationRecord -> loader.setWidth(width).setHeight(height));
   }
 
   /** {@inheritDoc} */
@@ -79,12 +78,12 @@ public class ProgressBarLoader extends BaseLoader<ProgressBarLoader>
   /** {@inheritDoc} */
   @Override
   public DominoElement<HTMLDivElement> getContentElement() {
-    return DominoElement.of(content);
+    return content.toDominoElement();
   }
 
   /** {@inheritDoc} */
   @Override
   public HTMLDivElement element() {
-    return element;
+    return element.element();
   }
 }

@@ -15,8 +15,18 @@
  */
 package org.dominokit.domino.ui.datatable.events;
 
-/** An interface to define a new listener for a Table event */
+/**
+ * An interface to define a new listener for a Table event
+ *
+ * @author vegegoku
+ * @version $Id: $Id
+ */
 public interface TableEventListener {
   /** @param event the {@link TableEvent} being received */
+  /**
+   * handleEvent.
+   *
+   * @param event a {@link org.dominokit.domino.ui.datatable.events.TableEvent} object
+   */
   void handleEvent(TableEvent event);
 }

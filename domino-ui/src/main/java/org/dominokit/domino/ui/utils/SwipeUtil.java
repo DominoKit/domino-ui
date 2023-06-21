@@ -21,15 +21,20 @@ import elemental2.dom.*;
 import java.util.Date;
 import jsinterop.base.Js;
 
-/** A utility class to register swap events listeners on elements */
+/**
+ * A utility class to register swap events listeners on elements
+ *
+ * @author vegegoku
+ * @version $Id: $Id
+ */
 public class SwipeUtil {
 
   /**
    * Adds a swap listener on an element
    *
-   * @param direction {@link SwipeDirection}
-   * @param element the target {@link HTMLElement}
-   * @param listener {@link EventListener}
+   * @param direction {@link org.dominokit.domino.ui.utils.SwipeUtil.SwipeDirection}
+   * @param element the target {@link elemental2.dom.HTMLElement}
+   * @param listener {@link elemental2.dom.EventListener}
    */
   public static void addSwipeListener(
       SwipeDirection direction, HTMLElement element, EventListener listener) {
@@ -37,8 +42,7 @@ public class SwipeUtil {
 
     SwipeData swipeData = new SwipeData();
 
-    DominoElement<HTMLElement> touchSurfaceElement = DominoElement.of(touchsurface);
-    touchSurfaceElement.addEventListener(
+    touchsurface.addEventListener(
         "touchstart",
         evt -> {
           TouchEvent touchEvent = Js.uncheckedCast(evt);
@@ -50,13 +54,12 @@ public class SwipeUtil {
               new Date().getTime(); // record time when finger first makes contact with surface
           evt.preventDefault();
         },
-        EventOptions.of().setPassive(false));
+        false);
 
     // prevent scrolling when inside DIV
-    touchSurfaceElement.addEventListener(
-        "touchmove", Event::preventDefault, EventOptions.of().setPassive(true));
+    touchsurface.addEventListener("touchmove", Event::preventDefault, false);
 
-    touchSurfaceElement.addEventListener(
+    touchsurface.addEventListener(
         "touchend",
         evt -> {
           TouchEvent touchEvent = Js.uncheckedCast(evt);
@@ -93,7 +96,7 @@ public class SwipeUtil {
           }
           evt.preventDefault();
         },
-        EventOptions.of().setPassive(true));
+        false);
   }
 
   private static class SwipeData {

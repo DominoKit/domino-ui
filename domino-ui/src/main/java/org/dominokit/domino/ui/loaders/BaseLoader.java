@@ -15,12 +15,11 @@
  */
 package org.dominokit.domino.ui.loaders;
 
-import static org.jboss.elemento.Elements.div;
-
 import elemental2.dom.HTMLDivElement;
+import org.dominokit.domino.ui.IsElement;
+import org.dominokit.domino.ui.i18n.LoaderLabels;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
-import org.dominokit.domino.ui.utils.DominoElement;
-import org.jboss.elemento.IsElement;
+import org.dominokit.domino.ui.utils.DominoUIConfig;
 
 /**
  * Base loader implementation
@@ -28,16 +27,17 @@ import org.jboss.elemento.IsElement;
  * @param <T> the type of the loader
  * @see BaseDominoElement
  * @see IsLoader
+ * @author vegegoku
+ * @version $Id: $Id
  */
 public abstract class BaseLoader<T extends BaseLoader<T>>
-    extends BaseDominoElement<HTMLDivElement, T> implements IsLoader, IsElement<HTMLDivElement> {
+    extends BaseDominoElement<HTMLDivElement, T>
+    implements IsLoader, IsElement<HTMLDivElement>, LoaderStyles {
+
+  protected final LoaderLabels labels = DominoUIConfig.CONFIG.getDominoUILabels();
 
   protected HTMLDivElement loadingText =
-      DominoElement.of(div())
-          .css(LoaderStyles.WAIT_ME_TEXT)
-          .style("color:#555")
-          .textContent("Loading...")
-          .element();
+      div().addCss(dui_loader, wait_me_text).textContent(labels.loading()).element();
 
   /** {@inheritDoc} */
   @Override

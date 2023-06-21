@@ -21,14 +21,27 @@ import org.dominokit.domino.ui.datatable.DataTable;
 import org.dominokit.domino.ui.datatable.RowCell;
 import org.dominokit.domino.ui.datatable.TableRow;
 
+/**
+ * TreeGridRowRenderer class.
+ *
+ * @author vegegoku
+ * @version $Id: $Id
+ */
 public class TreeGridRowRenderer<T> implements TableRow.RowRenderer<T> {
 
   private final TreeGridPlugin<T> treeGridPlugin;
 
+  /**
+   * Constructor for TreeGridRowRenderer.
+   *
+   * @param treeGridPlugin a {@link org.dominokit.domino.ui.datatable.plugins.tree.TreeGridPlugin}
+   *     object
+   */
   public TreeGridRowRenderer(TreeGridPlugin<T> treeGridPlugin) {
     this.treeGridPlugin = treeGridPlugin;
   }
 
+  /** {@inheritDoc} */
   @Override
   public void render(DataTable<T> dataTable, TableRow<T> tableRow) {
     List<ColumnConfig<T>> columns = dataTable.getTableConfig().getColumns();

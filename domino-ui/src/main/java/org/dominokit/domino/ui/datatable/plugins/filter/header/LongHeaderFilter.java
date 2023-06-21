@@ -20,11 +20,14 @@ import org.dominokit.domino.ui.datatable.model.FilterTypes;
 import org.dominokit.domino.ui.forms.LongBox;
 
 /**
- * Long column header filter component that is rendered as a {@link LongBox} component
+ * Long column header filter component that is rendered as a {@link
+ * org.dominokit.domino.ui.forms.LongBox} component
  *
  * @param <T> type of data table records
+ * @author vegegoku
+ * @version $Id: $Id
  */
-public class LongHeaderFilter<T> extends DelayedHeaderFilterInput<LongBox, T> {
+public class LongHeaderFilter<T> extends DelayedHeaderFilterInput<LongBox, T, Long> {
 
   private LongBox longBox;
 
@@ -40,7 +43,13 @@ public class LongHeaderFilter<T> extends DelayedHeaderFilterInput<LongBox, T> {
     super(placeholder);
   }
 
-  /** create a new instance */
+  /**
+   * create a new instance
+   *
+   * @param <T> a T class
+   * @return a {@link org.dominokit.domino.ui.datatable.plugins.filter.header.LongHeaderFilter}
+   *     object
+   */
   public static <T> LongHeaderFilter<T> create() {
     return new LongHeaderFilter<>();
   }
@@ -90,13 +99,19 @@ public class LongHeaderFilter<T> extends DelayedHeaderFilterInput<LongBox, T> {
   /** {@inheritDoc} */
   @Override
   public void clear() {
-    longBox.pauseChangeHandlers();
-    longBox.clear();
-    longBox.getInputElement().element().value = "";
-    longBox.resumeChangeHandlers();
+    longBox.withPausedChangeListeners(
+        field -> {
+          longBox.clear();
+          longBox.getInputElement().element().value = "";
+        });
   }
 
   /** @return the {@link LongBox} wrapped in this component */
+  /**
+   * Getter for the field <code>longBox</code>.
+   *
+   * @return a {@link org.dominokit.domino.ui.forms.LongBox} object
+   */
   public LongBox getLongBox() {
     return longBox;
   }

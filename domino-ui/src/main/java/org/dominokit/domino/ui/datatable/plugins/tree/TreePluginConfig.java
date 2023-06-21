@@ -16,39 +16,68 @@
 package org.dominokit.domino.ui.datatable.plugins.tree;
 
 import static java.util.Objects.isNull;
+import static org.dominokit.domino.ui.style.SpacingCss.dui_font_size_4;
+import static org.dominokit.domino.ui.utils.ElementsFactory.elements;
 
 import elemental2.dom.Node;
 import java.util.function.Function;
 import java.util.function.Supplier;
 import org.dominokit.domino.ui.datatable.TableRow;
 import org.dominokit.domino.ui.datatable.plugins.PluginConfig;
-import org.dominokit.domino.ui.icons.BaseIcon;
-import org.dominokit.domino.ui.icons.Icons;
-import org.dominokit.domino.ui.utils.TextNode;
+import org.dominokit.domino.ui.icons.Icon;
+import org.dominokit.domino.ui.icons.ToggleIcon;
+import org.dominokit.domino.ui.icons.ToggleMdiIcon;
+import org.dominokit.domino.ui.icons.lib.Icons;
 
+/**
+ * TreePluginConfig class.
+ *
+ * @author vegegoku
+ * @version $Id: $Id
+ */
 public class TreePluginConfig<T> implements PluginConfig {
 
+  /** Constant <code>DEFAULT_INDENT=20</code> */
   public static final int DEFAULT_INDENT = 20;
 
   private boolean lazy = false;
   private TreeGridPlugin.ParentRowCellsSupplier<T> parentRowCellsSupplier;
-  private Supplier<BaseIcon<?>> expandIconSupplier = Icons.ALL::menu_right_mdi;
-  private Supplier<BaseIcon<?>> collapseIconSupplier = Icons.ALL::menu_down_mdi;
-  private Supplier<BaseIcon<?>> leafIconSupplier = Icons.ALL::circle_medium_mdi;
-  private Function<TableRow<T>, Node> indentColumnElementSupplier = tableRow -> TextNode.empty();
+  private Supplier<ToggleIcon<?, ?>> expandToggleIconSupplier =
+      () -> ToggleMdiIcon.create(Icons.menu_right(), Icons.menu_down());
+  private Supplier<Icon<?>> leafIconSupplier = Icons::circle_medium;
+  private Function<TableRow<T>, Node> indentColumnElementSupplier = tableRow -> elements.text();
   private int indent = DEFAULT_INDENT;
 
+  /** Constructor for TreePluginConfig. */
   public TreePluginConfig() {}
 
+  /**
+   * isLazy.
+   *
+   * @return a boolean
+   */
   public boolean isLazy() {
     return lazy;
   }
 
+  /**
+   * Setter for the field <code>lazy</code>.
+   *
+   * @param lazy a boolean
+   * @return a {@link org.dominokit.domino.ui.datatable.plugins.tree.TreePluginConfig} object
+   */
   public TreePluginConfig<T> setLazy(boolean lazy) {
     this.lazy = lazy;
     return this;
   }
 
+  /**
+   * Getter for the field <code>parentRowCellsSupplier</code>.
+   *
+   * @return a {@link
+   *     org.dominokit.domino.ui.datatable.plugins.tree.TreeGridPlugin.ParentRowCellsSupplier}
+   *     object
+   */
   public TreeGridPlugin.ParentRowCellsSupplier<T> getParentRowCellsSupplier() {
     return parentRowCellsSupplier;
   }
@@ -58,7 +87,7 @@ public class TreePluginConfig<T> implements PluginConfig {
    * provide a custom UI for parent rows
    *
    * @param parentRowCellsSupplier {@link
-   *     org.dominokit.domino.ui.datatable.plugins.TreeGridPlugin.ParentRowCellsSupplier}
+   *     org.dominokit.domino.ui.datatable.plugins.tree.TreeGridPlugin.ParentRowCellsSupplier}
    * @return Same config instance
    */
   public TreePluginConfig<T> setParentRowCellsSupplier(
@@ -67,63 +96,63 @@ public class TreePluginConfig<T> implements PluginConfig {
     return this;
   }
 
-  public Supplier<BaseIcon<?>> getExpandIconSupplier() {
-    return expandIconSupplier;
+  /**
+   * Getter for the field <code>expandToggleIconSupplier</code>.
+   *
+   * @return a {@link java.util.function.Supplier} object
+   */
+  public Supplier<ToggleIcon<?, ?>> getExpandToggleIconSupplier() {
+    return expandToggleIconSupplier;
   }
 
   /**
    * Sets a supplier for a custom expand icon instead of the default one
    *
-   * @param expandIconSupplier {@link Supplier} of {@link BaseIcon}
+   * @param expandIconSupplier {@link java.util.function.Supplier} of {@link
+   *     org.dominokit.domino.ui.icons.Icon}
    * @return Same config instance
    */
-  public TreePluginConfig<T> setExpandIconSupplier(Supplier<BaseIcon<?>> expandIconSupplier) {
+  public TreePluginConfig<T> setExpandToggleIconSupplier(
+      Supplier<ToggleIcon<?, ?>> expandIconSupplier) {
     if (isNull(expandIconSupplier)) {
-      this.expandIconSupplier = () -> Icons.ALL.plus_mdi().size18();
+      this.expandToggleIconSupplier =
+          () -> ToggleMdiIcon.create(Icons.menu_right(), Icons.menu_down());
     } else {
-      this.expandIconSupplier = expandIconSupplier;
+      this.expandToggleIconSupplier = expandIconSupplier;
     }
     return this;
-  }
-
-  public Supplier<BaseIcon<?>> getCollapseIconSupplier() {
-    return collapseIconSupplier;
   }
 
   /**
-   * Sets a supplier for a custom collapse icon instead of the default one
+   * Getter for the field <code>leafIconSupplier</code>.
    *
-   * @param collapseIconSupplier {@link Supplier} of {@link BaseIcon}
-   * @return Same config instance
+   * @return a {@link java.util.function.Supplier} object
    */
-  public TreePluginConfig<T> setCollapseIconSupplier(Supplier<BaseIcon<?>> collapseIconSupplier) {
-    if (isNull(collapseIconSupplier)) {
-      this.collapseIconSupplier = () -> Icons.ALL.minus_mdi().size18();
-    } else {
-      this.collapseIconSupplier = collapseIconSupplier;
-    }
-    return this;
-  }
-
-  public Supplier<BaseIcon<?>> getLeafIconSupplier() {
+  public Supplier<Icon<?>> getLeafIconSupplier() {
     return leafIconSupplier;
   }
 
   /**
    * Sets a supplier for a custom leaf row icon instead of the default one
    *
-   * @param leafIconSupplier {@link Supplier} of {@link BaseIcon}
+   * @param leafIconSupplier {@link java.util.function.Supplier} of {@link
+   *     org.dominokit.domino.ui.icons.Icon}
    * @return Same config instance
    */
-  public TreePluginConfig<T> setLeafIconSupplier(Supplier<BaseIcon<?>> leafIconSupplier) {
+  public TreePluginConfig<T> setLeafIconSupplier(Supplier<Icon<?>> leafIconSupplier) {
     if (isNull(leafIconSupplier)) {
-      this.leafIconSupplier = () -> Icons.ALL.circle_medium_mdi().size18();
+      this.leafIconSupplier = () -> Icons.circle_medium().addCss(dui_font_size_4);
     } else {
       this.leafIconSupplier = leafIconSupplier;
     }
     return this;
   }
 
+  /**
+   * Getter for the field <code>indentColumnElementSupplier</code>.
+   *
+   * @return a {@link java.util.function.Function} object
+   */
   public Function<TableRow<T>, Node> getIndentColumnElementSupplier() {
     return indentColumnElementSupplier;
   }
@@ -132,8 +161,8 @@ public class TreePluginConfig<T> implements PluginConfig {
    * Sets a supplier of elements to be appended to the tree grid indent column as part of the
    * utility columns cells
    *
-   * @param indentColumnElementSupplier {@link Function} that takes a {@link TableRow} and return a
-   *     {@link Node}
+   * @param indentColumnElementSupplier {@link java.util.function.Function} that takes a {@link
+   *     org.dominokit.domino.ui.datatable.TableRow} and return a {@link elemental2.dom.Node}
    * @return same config instance
    */
   public TreePluginConfig<T> setIndentColumnElementSupplier(
@@ -142,6 +171,11 @@ public class TreePluginConfig<T> implements PluginConfig {
     return this;
   }
 
+  /**
+   * Getter for the field <code>indent</code>.
+   *
+   * @return a int
+   */
   public int getIndent() {
     return indent;
   }

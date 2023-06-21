@@ -16,183 +16,148 @@
 package org.dominokit.domino.ui.popover;
 
 import static elemental2.dom.DomGlobal.document;
-import static org.dominokit.domino.ui.popover.PopupPosition.TOP;
-import static org.dominokit.domino.ui.popover.TooltipStyles.*;
-import static org.jboss.elemento.Elements.div;
+import static org.dominokit.domino.ui.dialogs.ModalBackDrop.DUI_REMOVE_TOOLTIPS;
 
-import elemental2.dom.*;
+import elemental2.dom.Element;
+import elemental2.dom.EventListener;
+import elemental2.dom.MouseEvent;
+import elemental2.dom.Node;
 import java.util.function.Consumer;
 import jsinterop.base.Js;
-import org.dominokit.domino.ui.utils.*;
-import org.jboss.elemento.EventType;
-import org.jboss.elemento.IsElement;
+import org.dominokit.domino.ui.IsElement;
+import org.dominokit.domino.ui.animations.Transition;
+import org.dominokit.domino.ui.collapsible.AnimationCollapseStrategy;
+import org.dominokit.domino.ui.collapsible.CollapseDuration;
+import org.dominokit.domino.ui.dialogs.ModalBackDrop;
+import org.dominokit.domino.ui.events.EventType;
+import org.dominokit.domino.ui.utils.BaseDominoElement;
 
 /**
- * A component for showing a content when hovering over a target element
+ * A component for showing content on top of another element in different locations.
  *
- * <p>Customize the component can be done by overwriting classes provided by {@link TooltipStyles}
- *
- * <p>For example:
- *
- * <pre>
- *     Tooltip.create(element, "Tooltip on top").position(PopupPosition.TOP);
- * </pre>
+ * <p>Customize the component can be done by overwriting classes provided by {@link
+ * org.dominokit.domino.ui.popover.PopoverStyles}
  *
  * @see BaseDominoElement
+ * @author vegegoku
+ * @version $Id: $Id
  */
-public class Tooltip extends BaseDominoElement<HTMLDivElement, Tooltip> {
+public class Tooltip extends BasePopover<Tooltip> {
 
-  private final DominoElement<HTMLDivElement> element =
-      DominoElement.of(div()).css(TOOLTIP).attr("role", "tooltip");
-  private final DominoElement<HTMLDivElement> arrowElement =
-      DominoElement.of(div()).css(TOOLTIP_ARROW);
-  private final DominoElement<HTMLDivElement> innerElement =
-      DominoElement.of(div()).css(TOOLTIP_INNER);
-  private PopupPosition popupPosition = TOP;
-  private final EventListener showToolTipListener;
-  private final Consumer<Tooltip> removeHandler;
-  private final EventListener removeToolTipListener;
-
-  public Tooltip(HTMLElement targetElement, String text) {
-    this(targetElement, DomGlobal.document.createTextNode(text));
+  static {
+    document.body.addEventListener(
+        EventType.click.getName(),
+        element -> {
+          ModalBackDrop.INSTANCE.closeTooltips("");
+        });
   }
 
-  public Tooltip(HTMLElement targetElement, Node content) {
-    element.appendChild(arrowElement);
-    element.appendChild(innerElement);
-    innerElement.appendChild(content);
+  private final EventListener showListener;
+  private final Consumer<Tooltip> removeHandler;
+  private boolean closeOnEscape = true;
 
-    element.addCss(popupPosition.getDirectionClass());
+  /**
+   * create.
+   *
+   * @param target a {@link elemental2.dom.Element} object
+   * @param text a {@link java.lang.String} object
+   * @return a {@link org.dominokit.domino.ui.popover.Tooltip} object
+   */
+  public static Tooltip create(Element target, String text) {
+    return new Tooltip(target, elements.text(text));
+  }
 
-    showToolTipListener =
+  /**
+   * create.
+   *
+   * @param target a {@link org.dominokit.domino.ui.IsElement} object
+   * @param text a {@link java.lang.String} object
+   * @return a {@link org.dominokit.domino.ui.popover.Tooltip} object
+   */
+  public static Tooltip create(IsElement<? extends Element> target, String text) {
+    return new Tooltip(target.element(), elements.text(text));
+  }
+
+  /**
+   * create.
+   *
+   * @param target a {@link elemental2.dom.Element} object
+   * @param content a {@link elemental2.dom.Node} object
+   * @return a {@link org.dominokit.domino.ui.popover.Tooltip} object
+   */
+  public static Tooltip create(Element target, Node content) {
+    return new Tooltip(target, content);
+  }
+
+  /**
+   * create.
+   *
+   * @param target a {@link org.dominokit.domino.ui.IsElement} object
+   * @param content a {@link elemental2.dom.Node} object
+   * @return a {@link org.dominokit.domino.ui.popover.Tooltip} object
+   */
+  public static Tooltip create(IsElement<? extends Element> target, Node content) {
+    return new Tooltip(target.element(), content);
+  }
+
+  /**
+   * Constructor for Tooltip.
+   *
+   * @param target a {@link elemental2.dom.Element} object
+   * @param content a {@link elemental2.dom.Node} object
+   */
+  public Tooltip(Element target, Node content) {
+    super(target);
+    setAttribute("dui-tooltip", true);
+    addCss(dui_tooltip);
+    appendChild(content);
+    showListener =
         evt -> {
           MouseEvent mouseEvent = Js.uncheckedCast(evt);
           evt.stopPropagation();
           if (mouseEvent.buttons == 0) {
-            show();
+            expand();
           }
         };
-    removeToolTipListener =
-        evt -> {
-          evt.stopPropagation();
-          hide();
-        };
-    targetElement.addEventListener(EventType.mouseenter.getName(), showToolTipListener, false);
-    targetElement.addEventListener(EventType.mouseleave.getName(), removeToolTipListener, false);
-    init(this);
-
+    targetElement.addEventListener(EventType.mouseenter.getName(), showListener, false);
+    targetElement.addEventListener(EventType.mouseleave.getName(), closeListener, false);
     removeHandler =
         tooltip -> {
-          targetElement.removeEventListener(EventType.mouseenter.getName(), showToolTipListener);
-          targetElement.removeEventListener(EventType.mouseleave.getName(), removeToolTipListener);
+          targetElement.removeEventListener(EventType.mouseenter.getName(), showListener);
+          targetElement.removeEventListener(EventType.mouseleave.getName(), closeListener);
         };
-
-    addBeforeShowListener(
-        () -> {
-          document.body.appendChild(element.element());
-          setZIndex(config().getZindexManager().getNextZIndex());
-          popupPosition.position(element.element(), targetElement);
-          position(popupPosition);
-        });
-    addHideListener(this::doClose);
-    setCollapseStrategy(DominoUIConfig.INSTANCE.getDefaultTooltipCollapseStrategySupplier().get());
-    DominoElement.of(targetElement).onDetached(mutationRecord -> doClose());
+    setCollapseStrategy(
+        new AnimationCollapseStrategy(
+            Transition.FADE_IN, Transition.FADE_OUT, CollapseDuration._300ms));
+    addCollapseListener(() -> removeEventListener(DUI_REMOVE_TOOLTIPS, closeAllListener));
   }
 
-  private void doClose() {
-    element.remove();
+  /** {@inheritDoc} */
+  @Override
+  protected EventListener getCloseListener() {
+    return evt -> closeOthers("");
+  }
+
+  /** {@inheritDoc} */
+  @Override
+  protected Tooltip closeOthers(String sourceId) {
+    ModalBackDrop.INSTANCE.closeTooltips(sourceId);
+    return this;
+  }
+
+  /** {@inheritDoc} */
+  @Override
+  protected void doOpen() {
+    super.doOpen();
+    addEventListener(DUI_REMOVE_TOOLTIPS, closeAllListener);
+    if (closeOnEscape) {
+      body().onKeyDown(keyEvents -> keyEvents.onEscape(closeListener));
+    }
   }
 
   /** Removes the tooltip */
   public void detach() {
     removeHandler.accept(this);
     remove();
-  }
-
-  /**
-   * Creates new instance with text content
-   *
-   * @param target the target element
-   * @param text the text content
-   * @return new instance
-   */
-  public static Tooltip create(HTMLElement target, String text) {
-    return new Tooltip(target, text);
-  }
-
-  /**
-   * Creates new instance with element content
-   *
-   * @param target the target element
-   * @param content the {@link Node} content
-   * @return new instance
-   */
-  public static Tooltip create(HTMLElement target, Node content) {
-    return new Tooltip(target, content);
-  }
-
-  /**
-   * Creates new instance with text content
-   *
-   * @param element the target element
-   * @param text the text content
-   * @return new instance
-   */
-  public static Tooltip create(IsElement<?> element, String text) {
-    return new Tooltip(element.element(), text);
-  }
-
-  /**
-   * Creates new instance with element content
-   *
-   * @param element the target element
-   * @param content the {@link Node} content
-   * @return new instance
-   */
-  public static Tooltip create(IsElement<?> element, Node content) {
-    return new Tooltip(element.element(), content);
-  }
-
-  /**
-   * Positions the tooltip in a new position
-   *
-   * @param position the {@link PopupPosition}
-   * @return same instance
-   */
-  public Tooltip position(PopupPosition position) {
-    this.element.removeCss(popupPosition.getDirectionClass());
-    this.popupPosition = position;
-    this.element.addCss(popupPosition.getDirectionClass());
-
-    return this;
-  }
-
-  /** {@inheritDoc} */
-  @Override
-  public HTMLDivElement element() {
-    return element.element();
-  }
-
-  /** @return the arrow element */
-  public DominoElement<HTMLDivElement> getArrowElement() {
-    return arrowElement;
-  }
-
-  /** @return the inner container element */
-  public DominoElement<HTMLDivElement> getInnerElement() {
-    return innerElement;
-  }
-
-  /** @return the current {@link PopupPosition} */
-  public PopupPosition getPopupPosition() {
-    return popupPosition;
-  }
-
-  /** {@inheritDoc} */
-  @Override
-  public Tooltip setContent(Node content) {
-    innerElement.clearElement();
-    innerElement.appendChild(content);
-    return this;
   }
 }
