@@ -56,7 +56,7 @@ jobs:
         run: |
           cat <(echo -e "${{ secrets.gpg_private_key }}") | gpg --batch --import
       - name: publish to snapshot
-        run: ./mvnw --no-transfer-progress clean deploy -B -e -Dci=true -Dgpg.passphrase=${{ secrets.gpg_passphrase }} -X
+        run: ./mvnw --no-transfer-progress clean deploy -B -e -Dci=true -Dgpg.passphrase=${{ secrets.gpg_passphrase }}
         env:
           SONATYPE_USERNAME: ${{ secrets.nexus_username }}
           SONATYPE_PASSWORD: ${{ secrets.nexus_password }}
