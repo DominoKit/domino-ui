@@ -28,6 +28,8 @@ public interface SpacingCss {
   /** Constant <code>dui_hide_label</code> */
   CssClass dui_hide_label = () -> "dui-hide-label";
   /** Constant <code>dui_bottom_0_5</code> */
+  CssClass dui_bottom_0 = () -> "dui-bottom-0";
+
   CssClass dui_bottom_0_5 = () -> "dui-bottom-0_5";
   /** Constant <code>dui_bottom_1</code> */
   CssClass dui_bottom_1 = () -> "dui-bottom-1";
@@ -820,6 +822,8 @@ public interface SpacingCss {
   /** Constant <code>dui_inset_y_px</code> */
   CssClass dui_inset_y_px = () -> "dui-inset-y-px";
   /** Constant <code>dui_left_0_5</code> */
+  CssClass dui_left_0 = () -> "dui-left-0";
+
   CssClass dui_left_0_5 = () -> "dui-left-0_5";
   /** Constant <code>dui_left_1</code> */
   CssClass dui_left_1 = () -> "dui-left-1";
@@ -2506,6 +2510,8 @@ public interface SpacingCss {
   /** Constant <code>dui_p_y_px</code> */
   CssClass dui_p_y_px = () -> "dui-p-y-px";
   /** Constant <code>dui_right_0_5</code> */
+  CssClass dui_right_0 = () -> "dui-right-0";
+
   CssClass dui_right_0_5 = () -> "dui-right-0_5";
   /** Constant <code>dui_right_1</code> */
   CssClass dui_right_1 = () -> "dui-right-1";
@@ -2770,6 +2776,8 @@ public interface SpacingCss {
   /** Constant <code>dui_space_y_px</code> */
   CssClass dui_space_y_px = () -> "dui-space-y-px";
   /** Constant <code>dui_top_0_5</code> */
+  CssClass dui_top_0 = () -> "dui-top-0";
+
   CssClass dui_top_0_5 = () -> "dui-top-0_5";
   /** Constant <code>dui_top_1</code> */
   CssClass dui_top_1 = () -> "dui-top-1";
