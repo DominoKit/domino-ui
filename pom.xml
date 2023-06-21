@@ -213,7 +213,6 @@
                 <configuration>
                     <failOnError>false</failOnError>
                     <source>8</source>
-                    <skip>false</skip>
                 </configuration>
                 <executions>
                     <execution>
@@ -228,9 +227,6 @@
                 <groupId>com.coveo</groupId>
                 <artifactId>fmt-maven-plugin</artifactId>
                 <version>${maven.fmt.plugin}</version>
-                <configuration>
-                    <skip>false</skip>
-                </configuration>
                 <executions>
                     <execution>
                         <goals>
@@ -280,9 +276,6 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-deploy-plugin</artifactId>
                 <version>${maven.deploy.plugin}</version>
-                <configuration>
-                    <skip>false</skip>
-                </configuration>
             </plugin>
             <plugin>
                 <groupId>org.dominokit</groupId>
