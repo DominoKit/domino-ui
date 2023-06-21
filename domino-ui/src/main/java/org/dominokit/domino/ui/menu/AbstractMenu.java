@@ -114,7 +114,6 @@ public abstract class AbstractMenu<V, T extends AbstractMenu<V, T>>
   private final DropDirection smallScreenDropDirection = new MiddleOfScreenDropDirection();
   private DropDirection effectiveDropDirection = dropDirection;
   private MenuTarget lastTarget;
-
   private Map<String, MenuTarget> targets = new HashMap<>();
   private DominoElement<HTMLElement> appendTarget = DominoElement.of(document.body);
   private AppendStrategy appendStrategy = AppendStrategy.LAST;
