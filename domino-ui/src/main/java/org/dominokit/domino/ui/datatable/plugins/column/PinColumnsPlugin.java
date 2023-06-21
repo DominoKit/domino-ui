@@ -31,7 +31,7 @@ import org.dominokit.domino.ui.datatable.events.TableEvent;
 import org.dominokit.domino.ui.datatable.plugins.DataTablePlugin;
 import org.dominokit.domino.ui.datatable.plugins.HasPluginConfig;
 import org.dominokit.domino.ui.icons.Icon;
-import org.dominokit.domino.ui.icons.Icons;
+import org.dominokit.domino.ui.icons.lib.Icons;
 import org.dominokit.domino.ui.menu.MenuItem;
 import org.dominokit.domino.ui.utils.DominoCSSRule;
 import org.dominokit.domino.ui.utils.ElementUtil;
@@ -45,7 +45,8 @@ import org.dominokit.domino.ui.utils.PrefixAddOn;
  * left too pinning a column to the right will also pin all columns that are to the right of that
  * column to the right. pinning a column in a column group will pin all columns in that group.
  *
- * <p>to pin a column to the left apply a {@link PinColumnMeta} to the column with left direction
+ * <p>to pin a column to the left apply a {@link
+ * org.dominokit.domino.ui.datatable.plugins.column.PinColumnMeta} to the column with left direction
  *
  * <pre>
  *     <code>
@@ -53,7 +54,9 @@ import org.dominokit.domino.ui.utils.PrefixAddOn;
  *     </code>
  * </pre>
  *
- * <p>to pin a column to the left apply a {@link PinColumnMeta} to the column with right direction
+ * <p>to pin a column to the left apply a {@link
+ * org.dominokit.domino.ui.datatable.plugins.column.PinColumnMeta} to the column with right
+ * direction
  *
  * <pre>
  *     <code>
@@ -64,10 +67,13 @@ import org.dominokit.domino.ui.utils.PrefixAddOn;
  * <p>The pin menu and pin icon are both configurable and are disabled by default.
  *
  * @param <T>
+ * @author vegegoku
+ * @version $Id: $Id
  */
 public class PinColumnsPlugin<T>
     implements DataTablePlugin<T>, HasPluginConfig<T, PinColumnsPlugin<T>, PinColumnsConfig> {
 
+  /** Constant <code>PIN_COLUMNS_CSS_RULE="PIN-COLUMNS-CSS-RULE"</code> */
   public static final String PIN_COLUMNS_CSS_RULE = "PIN-COLUMNS-CSS-RULE";
 
   private DataTable<T> datatable;
@@ -79,6 +85,7 @@ public class PinColumnsPlugin<T>
   private ColumnConfig<T> pinLeftColumn;
   private ColumnConfig<T> pinRightColumn;
 
+  /** {@inheritDoc} */
   @Override
   public void init(DataTable<T> dataTable) {
     this.datatable = dataTable;
@@ -103,6 +110,7 @@ public class PinColumnsPlugin<T>
     this.datatable.onAttached(mutationRecord -> pinColumns());
   }
 
+  /** {@inheritDoc} */
   @Override
   public void onAfterAddHeaders(DataTable<T> dataTable) {
     dataTable
@@ -185,6 +193,11 @@ public class PinColumnsPlugin<T>
     datatable.getDynamicStyleSheet().flush();
   }
 
+  /**
+   * Setter for the field <code>pinRightColumn</code>.
+   *
+   * @param pinRightColumn a {@link org.dominokit.domino.ui.datatable.ColumnConfig} object
+   */
   public void setPinRightColumn(ColumnConfig<T> pinRightColumn) {
     this.datatable.nowOrWhenAttached(
         () -> {
@@ -205,6 +218,11 @@ public class PinColumnsPlugin<T>
         });
   }
 
+  /**
+   * unpinColumn.
+   *
+   * @param column a {@link org.dominokit.domino.ui.datatable.ColumnConfig} object
+   */
   public void unpinColumn(ColumnConfig<T> column) {
     if (PinColumnMeta.isPinLeft(column)) {
       unpinLeftColumns();
@@ -215,6 +233,7 @@ public class PinColumnsPlugin<T>
     }
   }
 
+  /** unpinLeftColumns. */
   public void unpinLeftColumns() {
     onBeforeSetPinColumn();
     datatable.getTableConfig().getColumnsGrouped().stream()
@@ -227,6 +246,7 @@ public class PinColumnsPlugin<T>
     applyPinnedColumns();
   }
 
+  /** unpinRightColumns. */
   public void unpinRightColumns() {
     onBeforeSetPinColumn();
     datatable.getTableConfig().getColumnsGrouped().stream()
@@ -239,6 +259,11 @@ public class PinColumnsPlugin<T>
     applyPinnedColumns();
   }
 
+  /**
+   * Setter for the field <code>pinLeftColumn</code>.
+   *
+   * @param pinLeftColumn a {@link org.dominokit.domino.ui.datatable.ColumnConfig} object
+   */
   public void setPinLeftColumn(ColumnConfig<T> pinLeftColumn) {
     this.datatable.nowOrWhenAttached(
         () -> {
@@ -354,6 +379,7 @@ public class PinColumnsPlugin<T>
     }
   }
 
+  /** {@inheritDoc} */
   @Override
   public void handleEvent(TableEvent event) {
     switch (event.getType()) {
@@ -378,6 +404,7 @@ public class PinColumnsPlugin<T>
     }
   }
 
+  /** {@inheritDoc} */
   @Override
   public void onAllRowsAdded(DataTable<T> dataTable) {
     applyPinnedColumns();
@@ -430,10 +457,9 @@ public class PinColumnsPlugin<T>
   }
 
   /**
-   * Set the configuration for this plugin instance
+   * {@inheritDoc}
    *
-   * @param config {@link PinColumnsConfig}
-   * @return same plugion instance
+   * <p>Set the configuration for this plugin instance
    */
   @Override
   public PinColumnsPlugin<T> setConfig(PinColumnsConfig config) {
@@ -441,6 +467,7 @@ public class PinColumnsPlugin<T>
     return this;
   }
 
+  /** {@inheritDoc} */
   @Override
   public PinColumnsConfig getConfig() {
     return config;

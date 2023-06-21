@@ -25,6 +25,12 @@ import org.dominokit.domino.ui.icons.Icon;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
 import org.dominokit.domino.ui.utils.LazyChild;
 
+/**
+ * DefaultFileUploadDecoration class.
+ *
+ * @author vegegoku
+ * @version $Id: $Id
+ */
 public class DefaultFileUploadDecoration
     extends BaseDominoElement<HTMLDivElement, DefaultFileUploadDecoration>
     implements FileUploadStyles {
@@ -34,26 +40,50 @@ public class DefaultFileUploadDecoration
   private LazyChild<HeadingElement> titleElement;
   private LazyChild<SmallElement> descriptionElement;
 
+  /**
+   * create.
+   *
+   * @return a {@link org.dominokit.domino.ui.upload.DefaultFileUploadDecoration} object
+   */
   public static DefaultFileUploadDecoration create() {
     return new DefaultFileUploadDecoration();
   }
 
+  /** Constructor for DefaultFileUploadDecoration. */
   public DefaultFileUploadDecoration() {
     root = div().addCss(dui_flex, dui_flex_col, dui_text_center, dui_items_center);
     init(this);
   }
 
+  /**
+   * Constructor for DefaultFileUploadDecoration.
+   *
+   * @param icon a {@link org.dominokit.domino.ui.icons.Icon} object
+   */
   public DefaultFileUploadDecoration(Icon<?> icon) {
     this();
     setIcon(icon);
   }
 
+  /**
+   * Constructor for DefaultFileUploadDecoration.
+   *
+   * @param icon a {@link org.dominokit.domino.ui.icons.Icon} object
+   * @param title a {@link java.lang.String} object
+   */
   public DefaultFileUploadDecoration(Icon<?> icon, String title) {
     this();
     setIcon(icon);
     setTitle(title);
   }
 
+  /**
+   * Constructor for DefaultFileUploadDecoration.
+   *
+   * @param icon a {@link org.dominokit.domino.ui.icons.Icon} object
+   * @param title a {@link java.lang.String} object
+   * @param description a {@link java.lang.String} object
+   */
   public DefaultFileUploadDecoration(Icon<?> icon, String title, String description) {
     this();
     setIcon(icon);
@@ -61,6 +91,12 @@ public class DefaultFileUploadDecoration
     setDescription(description);
   }
 
+  /**
+   * setIcon.
+   *
+   * @param icon a {@link org.dominokit.domino.ui.icons.Icon} object
+   * @return a {@link org.dominokit.domino.ui.upload.DefaultFileUploadDecoration} object
+   */
   public DefaultFileUploadDecoration setIcon(Icon<?> icon) {
     if (nonNull(iconElement) && iconElement.isInitialized()) {
       iconElement.remove();
@@ -73,6 +109,12 @@ public class DefaultFileUploadDecoration
     return this;
   }
 
+  /**
+   * setTitle.
+   *
+   * @param title a {@link java.lang.String} object
+   * @return a {@link org.dominokit.domino.ui.upload.DefaultFileUploadDecoration} object
+   */
   public DefaultFileUploadDecoration setTitle(String title) {
     if (nonNull(titleElement) && titleElement.isInitialized()) {
       titleElement.remove();
@@ -85,6 +127,12 @@ public class DefaultFileUploadDecoration
     return this;
   }
 
+  /**
+   * setDescription.
+   *
+   * @param description a {@link java.lang.String} object
+   * @return a {@link org.dominokit.domino.ui.upload.DefaultFileUploadDecoration} object
+   */
   public DefaultFileUploadDecoration setDescription(String description) {
     if (nonNull(descriptionElement) && descriptionElement.isInitialized()) {
       descriptionElement.remove();
@@ -98,6 +146,7 @@ public class DefaultFileUploadDecoration
     return this;
   }
 
+  /** {@inheritDoc} */
   @Override
   public HTMLDivElement element() {
     return root.element();

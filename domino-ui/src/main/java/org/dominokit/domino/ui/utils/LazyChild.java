@@ -21,64 +21,154 @@ import elemental2.dom.Element;
 import java.util.function.Supplier;
 import org.dominokit.domino.ui.IsElement;
 
+/**
+ * LazyChild class.
+ *
+ * @author vegegoku
+ * @version $Id: $Id
+ */
 public class LazyChild<T extends IsElement<?>> extends BaseLazyInitializer<LazyChild<T>> {
 
   private T element;
 
+  /**
+   * of.
+   *
+   * @param element a T object
+   * @param parent a {@link org.dominokit.domino.ui.IsElement} object
+   * @param <T> a T class
+   * @return a {@link org.dominokit.domino.ui.utils.LazyChild} object
+   */
   public static <T extends IsElement<?>> LazyChild<T> of(T element, IsElement<?> parent) {
     return new LazyChild<>(element, () -> parent);
   }
 
+  /**
+   * of.
+   *
+   * @param element a T object
+   * @param parent a {@link java.util.function.Supplier} object
+   * @param <T> a T class
+   * @return a {@link org.dominokit.domino.ui.utils.LazyChild} object
+   */
   public static <T extends IsElement<?>> LazyChild<T> of(T element, Supplier<IsElement<?>> parent) {
     return new LazyChild<>(element, parent);
   }
 
+  /**
+   * of.
+   *
+   * @param element a T object
+   * @param parent a {@link org.dominokit.domino.ui.utils.LazyChild} object
+   * @param <T> a T class
+   * @return a {@link org.dominokit.domino.ui.utils.LazyChild} object
+   */
   public static <T extends IsElement<?>> LazyChild<T> of(T element, LazyChild<?> parent) {
     return new LazyChild<>(element, parent);
   }
 
+  /**
+   * ofInsertFirst.
+   *
+   * @param element a T object
+   * @param parent a {@link org.dominokit.domino.ui.IsElement} object
+   * @param <T> a T class
+   * @return a {@link org.dominokit.domino.ui.utils.LazyChild} object
+   */
   public static <T extends IsElement<?>> LazyChild<T> ofInsertFirst(
       T element, IsElement<?> parent) {
     return new LazyChild<>(
         element, () -> parent, (p, child) -> elements.elementOf(p).insertFirst(child.element()));
   }
 
+  /**
+   * ofInsertFirst.
+   *
+   * @param element a T object
+   * @param parent a {@link java.util.function.Supplier} object
+   * @param <T> a T class
+   * @return a {@link org.dominokit.domino.ui.utils.LazyChild} object
+   */
   public static <T extends IsElement<?>> LazyChild<T> ofInsertFirst(
       T element, Supplier<IsElement<?>> parent) {
     return new LazyChild<>(
         element, parent, (p, child) -> elements.elementOf(p).insertFirst(child.element()));
   }
 
+  /**
+   * ofInsertFirst.
+   *
+   * @param element a T object
+   * @param parent a {@link org.dominokit.domino.ui.utils.LazyChild} object
+   * @param <T> a T class
+   * @return a {@link org.dominokit.domino.ui.utils.LazyChild} object
+   */
   public static <T extends IsElement<?>> LazyChild<T> ofInsertFirst(
       T element, LazyChild<?> parent) {
     return new LazyChild<>(
         element, parent, (p, child) -> elements.elementOf(p).insertFirst(child.element()));
   }
 
+  /**
+   * Constructor for LazyChild.
+   *
+   * @param element a T object
+   * @param parent a {@link java.util.function.Supplier} object
+   */
   public LazyChild(T element, Supplier<IsElement<?>> parent) {
     this(element, parent, (p, child) -> elements.elementOf(p).appendChild(child));
     this.element = element;
   }
 
+  /**
+   * Constructor for LazyChild.
+   *
+   * @param element a T object
+   * @param parent a {@link java.util.function.Supplier} object
+   * @param appendStrategy a {@link org.dominokit.domino.ui.utils.LazyChild.AppendStrategy} object
+   */
   public LazyChild(T element, Supplier<IsElement<?>> parent, AppendStrategy<T> appendStrategy) {
     super(() -> appendStrategy.onAppend(parent.get().element(), element));
     this.element = element;
   }
 
+  /**
+   * Constructor for LazyChild.
+   *
+   * @param element a T object
+   * @param parent a {@link org.dominokit.domino.ui.utils.LazyChild} object
+   */
   public LazyChild(T element, LazyChild<?> parent) {
     this(element, parent, (p, child) -> elements.elementOf(p).appendChild(child));
   }
 
+  /**
+   * Constructor for LazyChild.
+   *
+   * @param element a T object
+   * @param parent a {@link org.dominokit.domino.ui.utils.LazyChild} object
+   * @param appendStrategy a {@link org.dominokit.domino.ui.utils.LazyChild.AppendStrategy} object
+   */
   public LazyChild(T element, LazyChild<?> parent, AppendStrategy<T> appendStrategy) {
     super(() -> appendStrategy.onAppend(parent.get().element(), element));
     this.element = element;
   }
 
+  /**
+   * get.
+   *
+   * @return a T object
+   */
   public T get() {
     apply();
     return element;
   }
 
+  /**
+   * remove.
+   *
+   * @return a {@link org.dominokit.domino.ui.utils.LazyChild} object
+   */
   public LazyChild<T> remove() {
     if (isInitialized()) {
       element.element().remove();
@@ -87,10 +177,21 @@ public class LazyChild<T extends IsElement<?>> extends BaseLazyInitializer<LazyC
     return this;
   }
 
+  /**
+   * element.
+   *
+   * @return a T object
+   */
   public T element() {
     return element;
   }
 
+  /**
+   * initOrRemove.
+   *
+   * @param state a boolean
+   * @return a {@link org.dominokit.domino.ui.utils.LazyChild} object
+   */
   public LazyChild<T> initOrRemove(boolean state) {
     if (state) {
       get();

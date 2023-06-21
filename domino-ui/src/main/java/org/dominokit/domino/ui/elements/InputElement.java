@@ -18,23 +18,57 @@ package org.dominokit.domino.ui.elements;
 import elemental2.dom.HTMLInputElement;
 import org.dominokit.domino.ui.IsElement;
 
+/**
+ * InputElement class.
+ *
+ * @author vegegoku
+ * @version $Id: $Id
+ */
 public class InputElement extends BaseElement<HTMLInputElement, InputElement> {
+  /**
+   * of.
+   *
+   * @param e a {@link elemental2.dom.HTMLInputElement} object
+   * @return a {@link org.dominokit.domino.ui.elements.InputElement} object
+   */
   public static InputElement of(HTMLInputElement e) {
     return new InputElement(e);
   }
 
+  /**
+   * of.
+   *
+   * @param e a {@link org.dominokit.domino.ui.IsElement} object
+   * @return a {@link org.dominokit.domino.ui.elements.InputElement} object
+   */
   public static InputElement of(IsElement<HTMLInputElement> e) {
     return new InputElement(e.element());
   }
 
+  /**
+   * Constructor for InputElement.
+   *
+   * @param element a {@link elemental2.dom.HTMLInputElement} object
+   */
   public InputElement(HTMLInputElement element) {
     super(element);
   }
 
+  /**
+   * getName.
+   *
+   * @return a {@link java.lang.String} object
+   */
   public String getName() {
     return element.element().name;
   }
 
+  /**
+   * setName.
+   *
+   * @param name a {@link java.lang.String} object
+   * @return a {@link org.dominokit.domino.ui.elements.InputElement} object
+   */
   public InputElement setName(String name) {
     element.element().name = name;
     return this;

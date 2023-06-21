@@ -22,12 +22,23 @@ import org.dominokit.domino.ui.style.BooleanCssClass;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
 import org.gwtproject.i18n.shared.cldr.DateTimeFormatInfo;
 
+/**
+ * MonthsPicker class.
+ *
+ * @author vegegoku
+ * @version $Id: $Id
+ */
 public class MonthsPicker extends BaseDominoElement<HTMLDivElement, MonthsPicker>
     implements CalendarStyles, CalendarViewListener {
 
   private final DivElement root;
   private final IsCalendar calendar;
 
+  /**
+   * Constructor for MonthsPicker.
+   *
+   * @param calendar a {@link org.dominokit.domino.ui.datepicker.IsCalendar} object
+   */
   public MonthsPicker(IsCalendar calendar) {
     this.calendar = calendar;
     this.root = div().addCss(dui_month_selector);
@@ -36,6 +47,12 @@ public class MonthsPicker extends BaseDominoElement<HTMLDivElement, MonthsPicker
     init(this);
   }
 
+  /**
+   * create.
+   *
+   * @param isCalendar a {@link org.dominokit.domino.ui.datepicker.IsCalendar} object
+   * @return a {@link org.dominokit.domino.ui.datepicker.MonthsPicker} object
+   */
   public static MonthsPicker create(IsCalendar isCalendar) {
     return new MonthsPicker(isCalendar);
   }
@@ -71,6 +88,7 @@ public class MonthsPicker extends BaseDominoElement<HTMLDivElement, MonthsPicker
     return this;
   }
 
+  /** {@inheritDoc} */
   @Override
   public void onDateTimeFormatInfoChanged(DateTimeFormatInfo dateTimeFormatInfo) {
     updateView();
@@ -84,6 +102,7 @@ public class MonthsPicker extends BaseDominoElement<HTMLDivElement, MonthsPicker
     return counter == this.calendar.getDate().getMonth();
   }
 
+  /** {@inheritDoc} */
   @Override
   public HTMLDivElement element() {
     return root.element();

@@ -35,6 +35,8 @@ import org.dominokit.domino.ui.utils.DominoDom;
  * this plugin allows resizing columns of a data table
  *
  * @param <T> the type of data table records
+ * @author vegegoku
+ * @version $Id: $Id
  */
 public class ResizeColumnsPlugin<T>
     implements DataTablePlugin<T>, HasPluginConfig<T, ResizeColumnsPlugin<T>, ResizeColumnsConfig> {
@@ -42,6 +44,7 @@ public class ResizeColumnsPlugin<T>
   private ResizeColumnsConfig config = new ResizeColumnsConfig();
   private DataTable<T> datatable;
 
+  /** {@inheritDoc} */
   @Override
   public void init(DataTable<T> dataTable) {
     this.datatable = dataTable;
@@ -215,6 +218,7 @@ public class ResizeColumnsPlugin<T>
         });
   }
 
+  /** {@inheritDoc} */
   @Override
   public void onBeforeAddCell(DataTable<T> dataTable, TableRow<T> tableRow, RowCell<T> rowCell) {
     if (config.isClipContent()) {
@@ -222,12 +226,14 @@ public class ResizeColumnsPlugin<T>
     }
   }
 
+  /** {@inheritDoc} */
   @Override
   public ResizeColumnsPlugin<T> setConfig(ResizeColumnsConfig config) {
     this.config = config;
     return this;
   }
 
+  /** {@inheritDoc} */
   @Override
   public ResizeColumnsConfig getConfig() {
     return config;

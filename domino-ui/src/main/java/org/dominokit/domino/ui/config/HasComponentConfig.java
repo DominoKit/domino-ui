@@ -17,7 +17,18 @@ package org.dominokit.domino.ui.config;
 
 import org.dominokit.domino.ui.utils.DominoUIConfig;
 
+/**
+ * HasComponentConfig interface.
+ *
+ * @author vegegoku
+ * @version $Id: $Id
+ */
 public interface HasComponentConfig<T extends ComponentConfig> {
+  /**
+   * getConfig.
+   *
+   * @return a T object
+   */
   default T getConfig() {
     return (T) DominoUIConfig.CONFIG.getUIConfig();
   }

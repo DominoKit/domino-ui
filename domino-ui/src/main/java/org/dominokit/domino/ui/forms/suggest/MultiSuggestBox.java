@@ -23,30 +23,67 @@ import java.util.List;
 import java.util.stream.Collectors;
 import org.dominokit.domino.ui.IsElement;
 
+/**
+ * MultiSuggestBox class.
+ *
+ * @author vegegoku
+ * @version $Id: $Id
+ */
 public class MultiSuggestBox<V, E extends IsElement<?>, O extends Option<V, E, O>>
     extends AbstractSuggestBox<V, List<V>, E, O, MultiSuggestBox<V, E, O>> {
 
   private List<O> selectedOptions = new ArrayList<>();
 
+  /**
+   * create.
+   *
+   * @param store a {@link org.dominokit.domino.ui.forms.suggest.SuggestionsStore} object
+   * @param <V> a V class
+   * @param <E> a E class
+   * @param <O> a O class
+   * @return a {@link org.dominokit.domino.ui.forms.suggest.MultiSuggestBox} object
+   */
   public static <V, E extends IsElement<?>, O extends Option<V, E, O>>
       MultiSuggestBox<V, E, O> create(SuggestionsStore<V, E, O> store) {
     return new MultiSuggestBox<>(store);
   }
 
+  /**
+   * create.
+   *
+   * @param label a {@link java.lang.String} object
+   * @param store a {@link org.dominokit.domino.ui.forms.suggest.SuggestionsStore} object
+   * @param <V> a V class
+   * @param <E> a E class
+   * @param <O> a O class
+   * @return a {@link org.dominokit.domino.ui.forms.suggest.MultiSuggestBox} object
+   */
   public static <V, E extends IsElement<?>, O extends Option<V, E, O>>
       MultiSuggestBox<V, E, O> create(String label, SuggestionsStore<V, E, O> store) {
     return new MultiSuggestBox<>(label, store);
   }
 
+  /**
+   * Constructor for MultiSuggestBox.
+   *
+   * @param store a {@link org.dominokit.domino.ui.forms.suggest.SuggestionsStore} object
+   */
   public MultiSuggestBox(SuggestionsStore<V, E, O> store) {
     super(store);
   }
 
+  /**
+   * Constructor for MultiSuggestBox.
+   *
+   * @param label a {@link java.lang.String} object
+   * @param store a {@link org.dominokit.domino.ui.forms.suggest.SuggestionsStore} object
+   */
   public MultiSuggestBox(String label, SuggestionsStore<V, E, O> store) {
     super(store);
     setLabel(label);
   }
 
+  /** {@inheritDoc} */
   @Override
   protected void doSetValue(List<V> values) {
     clearValue(false);
@@ -56,11 +93,13 @@ public class MultiSuggestBox<V, E extends IsElement<?>, O extends Option<V, E, O
         });
   }
 
+  /** {@inheritDoc} */
   @Override
   public List<V> getValue() {
     return selectedOptions.stream().map(Option::getValue).collect(Collectors.toList());
   }
 
+  /** {@inheritDoc} */
   @Override
   public void onOptionSelected(O option) {
     if (nonNull(this.selectedOptions) && this.selectedOptions.contains(option)) {
@@ -72,10 +111,23 @@ public class MultiSuggestBox<V, E extends IsElement<?>, O extends Option<V, E, O
     option.bindTo(this);
   }
 
+  /**
+   * withOption.
+   *
+   * @param option a O object
+   * @return a {@link org.dominokit.domino.ui.forms.suggest.MultiSuggestBox} object
+   */
   public MultiSuggestBox<V, E, O> withOption(O option) {
     return withOption(option, isChangeListenersPaused());
   }
 
+  /**
+   * withOption.
+   *
+   * @param option a O object
+   * @param silent a boolean
+   * @return a {@link org.dominokit.domino.ui.forms.suggest.MultiSuggestBox} object
+   */
   public MultiSuggestBox<V, E, O> withOption(O option, boolean silent) {
     List<V> oldValue = getValue();
     if (isNull(oldValue) || !oldValue.contains(option.getValue())) {
@@ -95,6 +147,7 @@ public class MultiSuggestBox<V, E extends IsElement<?>, O extends Option<V, E, O
     this.selectedOptions.add(option);
   }
 
+  /** {@inheritDoc} */
   @Override
   public void onOptionDeselected(O option) {
     List<V> oldValue = getValue();
@@ -113,6 +166,7 @@ public class MultiSuggestBox<V, E extends IsElement<?>, O extends Option<V, E, O
     option.unbindTarget();
   }
 
+  /** {@inheritDoc} */
   @Override
   protected void onBackspace() {
     if (!selectedOptions.isEmpty()) {
@@ -122,6 +176,7 @@ public class MultiSuggestBox<V, E extends IsElement<?>, O extends Option<V, E, O
     }
   }
 
+  /** {@inheritDoc} */
   @Override
   protected MultiSuggestBox<V, E, O> clearValue(boolean silent) {
     if (!selectedOptions.isEmpty()) {
@@ -142,6 +197,7 @@ public class MultiSuggestBox<V, E extends IsElement<?>, O extends Option<V, E, O
     return this;
   }
 
+  /** {@inheritDoc} */
   @Override
   public String getStringValue() {
     if (nonNull(this.selectedOptions) && !this.selectedOptions.isEmpty()) {
@@ -152,6 +208,7 @@ public class MultiSuggestBox<V, E extends IsElement<?>, O extends Option<V, E, O
     return null;
   }
 
+  /** {@inheritDoc} */
   @Override
   protected void onAfterOptionSelected() {
     getInputElement().element().value = null;

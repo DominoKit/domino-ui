@@ -20,8 +20,20 @@ import org.dominokit.domino.ui.collapsible.CollapseStrategy;
 import org.dominokit.domino.ui.collapsible.TreeHeightCollapseStrategy;
 import org.dominokit.domino.ui.tree.TreeItem;
 
+/**
+ * TreeConfig interface.
+ *
+ * @author vegegoku
+ * @version $Id: $Id
+ */
 public interface TreeConfig extends ComponentConfig {
 
+  /**
+   * getTreeDefaultCollapseStrategy.
+   *
+   * @param treeItem a {@link org.dominokit.domino.ui.tree.TreeItem} object
+   * @return a {@link java.util.function.Supplier} object
+   */
   default Supplier<CollapseStrategy> getTreeDefaultCollapseStrategy(TreeItem<?> treeItem) {
     return () -> new TreeHeightCollapseStrategy(treeItem);
   }

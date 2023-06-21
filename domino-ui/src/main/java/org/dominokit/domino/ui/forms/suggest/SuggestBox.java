@@ -20,34 +20,76 @@ import static java.util.Objects.nonNull;
 import java.util.Objects;
 import org.dominokit.domino.ui.IsElement;
 
+/**
+ * SuggestBox class.
+ *
+ * @author vegegoku
+ * @version $Id: $Id
+ */
 public class SuggestBox<V, E extends IsElement<?>, O extends Option<V, E, O>>
     extends AbstractSuggestBox<V, V, E, O, SuggestBox<V, E, O>> {
 
   private O selectedOption;
 
+  /**
+   * create.
+   *
+   * @param store a {@link org.dominokit.domino.ui.forms.suggest.SuggestionsStore} object
+   * @param <V> a V class
+   * @param <E> a E class
+   * @param <O> a O class
+   * @return a {@link org.dominokit.domino.ui.forms.suggest.SuggestBox} object
+   */
   public static <V, E extends IsElement<?>, O extends Option<V, E, O>> SuggestBox<V, E, O> create(
       SuggestionsStore<V, E, O> store) {
     return new SuggestBox<>(store);
   }
 
+  /**
+   * create.
+   *
+   * @param label a {@link java.lang.String} object
+   * @param store a {@link org.dominokit.domino.ui.forms.suggest.SuggestionsStore} object
+   * @param <V> a V class
+   * @param <E> a E class
+   * @param <O> a O class
+   * @return a {@link org.dominokit.domino.ui.forms.suggest.SuggestBox} object
+   */
   public static <V, E extends IsElement<?>, O extends Option<V, E, O>> SuggestBox<V, E, O> create(
       String label, SuggestionsStore<V, E, O> store) {
     return new SuggestBox<>(label, store);
   }
 
+  /**
+   * Constructor for SuggestBox.
+   *
+   * @param store a {@link org.dominokit.domino.ui.forms.suggest.SuggestionsStore} object
+   */
   public SuggestBox(SuggestionsStore<V, E, O> store) {
     super(store);
   }
 
+  /**
+   * Constructor for SuggestBox.
+   *
+   * @param label a {@link java.lang.String} object
+   * @param store a {@link org.dominokit.domino.ui.forms.suggest.SuggestionsStore} object
+   */
   public SuggestBox(String label, SuggestionsStore<V, E, O> store) {
     super(store);
     setLabel(label);
   }
 
+  /**
+   * doSetValue.
+   *
+   * @param value a V object
+   */
   protected void doSetValue(V value) {
     store.find(value, this::applyOptionValue);
   }
 
+  /** {@inheritDoc} */
   @Override
   public V getValue() {
     if (nonNull(selectedOption)) {
@@ -56,6 +98,7 @@ public class SuggestBox<V, E extends IsElement<?>, O extends Option<V, E, O>>
     return null;
   }
 
+  /** {@inheritDoc} */
   @Override
   protected void onBackspace() {
     if (nonNull(selectedOption)) {
@@ -64,6 +107,7 @@ public class SuggestBox<V, E extends IsElement<?>, O extends Option<V, E, O>>
     }
   }
 
+  /** {@inheritDoc} */
   @Override
   public void onOptionSelected(O option) {
     withOption(option);
@@ -74,10 +118,23 @@ public class SuggestBox<V, E extends IsElement<?>, O extends Option<V, E, O>>
     this.selectedOption = option;
   }
 
+  /**
+   * withOption.
+   *
+   * @param option a O object
+   * @return a {@link org.dominokit.domino.ui.forms.suggest.SuggestBox} object
+   */
   public SuggestBox<V, E, O> withOption(O option) {
     return withOption(option, isChangeListenersPaused());
   }
 
+  /**
+   * withOption.
+   *
+   * @param option a O object
+   * @param silent a boolean
+   * @return a {@link org.dominokit.domino.ui.forms.suggest.SuggestBox} object
+   */
   public SuggestBox<V, E, O> withOption(O option, boolean silent) {
     V oldValue = getValue();
     if (!Objects.equals(option.getValue(), oldValue)) {
@@ -94,6 +151,7 @@ public class SuggestBox<V, E extends IsElement<?>, O extends Option<V, E, O>>
     getInputElement().element().value = getStringValue();
   }
 
+  /** {@inheritDoc} */
   @Override
   public void onOptionDeselected(O option) {
     option.remove();
@@ -107,6 +165,7 @@ public class SuggestBox<V, E extends IsElement<?>, O extends Option<V, E, O>>
         });
   }
 
+  /** {@inheritDoc} */
   @Override
   protected SuggestBox<V, E, O> clearValue(boolean silent) {
     if (nonNull(selectedOption)) {
@@ -126,6 +185,7 @@ public class SuggestBox<V, E extends IsElement<?>, O extends Option<V, E, O>>
     return this;
   }
 
+  /** {@inheritDoc} */
   @Override
   public String getStringValue() {
     if (nonNull(this.selectedOption)) {
@@ -134,6 +194,7 @@ public class SuggestBox<V, E extends IsElement<?>, O extends Option<V, E, O>>
     return null;
   }
 
+  /** {@inheritDoc} */
   @Override
   protected void onAfterOptionSelected() {}
 }

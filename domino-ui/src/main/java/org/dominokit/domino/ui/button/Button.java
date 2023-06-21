@@ -18,7 +18,6 @@ package org.dominokit.domino.ui.button;
 import elemental2.dom.HTMLButtonElement;
 import org.dominokit.domino.ui.elements.ButtonElement;
 import org.dominokit.domino.ui.icons.Icon;
-import org.dominokit.domino.ui.style.Elevation;
 
 /**
  * a simple button component
@@ -40,14 +39,20 @@ import org.dominokit.domino.ui.style.Elevation;
  *         Button.createPrimary("Approve")
  *              .addClickListener(evt-&gt; //handle the event);
  *     </pre>
+ *
+ * @author vegegoku
+ * @version $Id: $Id
  */
 public class Button extends BaseButton<HTMLButtonElement, Button> {
 
-  /** creates a Button without a text and with {@link Elevation#LEVEL_1} */
+  /**
+   * creates a Button without a text and with {@link
+   * org.dominokit.domino.ui.style.Elevation#LEVEL_1}
+   */
   public Button() {}
 
   /**
-   * create a Button with a text and with {@link Elevation#LEVEL_1}
+   * create a Button with a text and with {@link org.dominokit.domino.ui.style.Elevation#LEVEL_1}
    *
    * @param text String, the button text
    */
@@ -56,7 +61,7 @@ public class Button extends BaseButton<HTMLButtonElement, Button> {
   }
 
   /**
-   * creates a Button with an icon and {@link Elevation#LEVEL_1}
+   * creates a Button with an icon and {@link org.dominokit.domino.ui.style.Elevation#LEVEL_1}
    *
    * @param icon The button icon
    */
@@ -64,12 +69,18 @@ public class Button extends BaseButton<HTMLButtonElement, Button> {
     super(icon);
   }
 
+  /**
+   * Constructor for Button.
+   *
+   * @param text a {@link java.lang.String} object
+   * @param icon a {@link org.dominokit.domino.ui.icons.Icon} object
+   */
   public Button(String text, Icon<?> icon) {
     super(text, icon);
   }
 
   /**
-   * creats a Button using {@link Button#Button()}
+   * creats a Button using {@link org.dominokit.domino.ui.button.Button#Button()}
    *
    * @return new Button instance
    */
@@ -78,7 +89,7 @@ public class Button extends BaseButton<HTMLButtonElement, Button> {
   }
 
   /**
-   * create a button using {@link Button#Button(String)}
+   * create a button using {@link org.dominokit.domino.ui.button.Button#Button(String)}
    *
    * @param text String button text
    * @return new Button instance
@@ -88,9 +99,10 @@ public class Button extends BaseButton<HTMLButtonElement, Button> {
   }
 
   /**
-   * creates a Button with an icon by calling {@link Button#Button(Icon)}
+   * creates a Button with an icon by calling {@link
+   * org.dominokit.domino.ui.button.Button#Button(Icon)}
    *
-   * @param icon {@link Icon}, the button icon
+   * @param icon {@link org.dominokit.domino.ui.icons.Icon}, the button icon
    * @return new Button instance
    */
   public static Button create(Icon<?> icon) {
@@ -98,25 +110,30 @@ public class Button extends BaseButton<HTMLButtonElement, Button> {
   }
 
   /**
-   * creates a Button with an icon by calling {@link Button#Button(Icon)}
+   * creates a Button with an icon by calling {@link
+   * org.dominokit.domino.ui.button.Button#Button(Icon)}
    *
-   * @param icon {@link Icon}, the button icon
+   * @param icon {@link org.dominokit.domino.ui.icons.Icon}, the button icon
    * @return new Button instance
+   * @param text a {@link java.lang.String} object
    */
   public static Button create(String text, Icon<?> icon) {
     return new Button(text, icon);
   }
 
   /**
-   * creates a Button with an icon by calling {@link Button#Button(Icon)}
+   * creates a Button with an icon by calling {@link
+   * org.dominokit.domino.ui.button.Button#Button(Icon)}
    *
-   * @param icon {@link Icon}, the button icon
+   * @param icon {@link org.dominokit.domino.ui.icons.Icon}, the button icon
    * @return new Button instance
+   * @param text a {@link java.lang.String} object
    */
   public static Button create(Icon<?> icon, String text) {
     return new Button(text, icon);
   }
 
+  /** {@inheritDoc} */
   @Override
   protected ButtonElement createButtonElement() {
     return button();

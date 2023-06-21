@@ -15,16 +15,37 @@
  */
 package org.dominokit.domino.ui.i18n;
 
+/**
+ * PickersLabels interface.
+ *
+ * @author vegegoku
+ * @version $Id: $Id
+ */
 public interface PickersLabels extends Labels {
 
+  /**
+   * clear.
+   *
+   * @return a {@link java.lang.String} object
+   */
   default String clear() {
     return "CLEAR";
   }
 
+  /**
+   * now.
+   *
+   * @return a {@link java.lang.String} object
+   */
   default String now() {
     return "NOW";
   }
 
+  /**
+   * close.
+   *
+   * @return a {@link java.lang.String} object
+   */
   default String close() {
     return "CLOSE";
   }

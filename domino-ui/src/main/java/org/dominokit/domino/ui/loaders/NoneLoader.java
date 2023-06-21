@@ -20,7 +20,12 @@ import org.dominokit.domino.ui.IsElement;
 import org.dominokit.domino.ui.elements.DivElement;
 import org.dominokit.domino.ui.utils.DominoElement;
 
-/** A none loader implementation */
+/**
+ * A none loader implementation
+ *
+ * @author vegegoku
+ * @version $Id: $Id
+ */
 public class NoneLoader extends BaseLoader<NoneLoader> implements IsElement<HTMLDivElement> {
 
   private final DivElement content =
@@ -32,10 +37,16 @@ public class NoneLoader extends BaseLoader<NoneLoader> implements IsElement<HTML
   private final DivElement element =
       div().addCss(wait_me).style("background: rgba(255, 255, 255, 0.9);").appendChild(content);
 
+  /** Constructor for NoneLoader. */
   public NoneLoader() {
     init(this);
   }
 
+  /**
+   * create.
+   *
+   * @return a {@link org.dominokit.domino.ui.loaders.NoneLoader} object
+   */
   public static NoneLoader create() {
     return new NoneLoader();
   }

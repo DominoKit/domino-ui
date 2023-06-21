@@ -18,6 +18,17 @@ package org.dominokit.domino.ui.icons;
 import java.util.List;
 import java.util.function.Supplier;
 
+/**
+ * MdiIconsByTagFactory interface.
+ *
+ * @author vegegoku
+ * @version $Id: $Id
+ */
 public interface MdiIconsByTagFactory {
+  /**
+   * icons.
+   *
+   * @return a {@link java.util.List} object
+   */
   List<Supplier<MdiIcon>> icons();
 }

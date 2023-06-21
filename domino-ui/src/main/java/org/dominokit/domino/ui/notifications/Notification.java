@@ -29,7 +29,6 @@ import org.dominokit.domino.ui.events.EventType;
 import org.dominokit.domino.ui.style.*;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
 import org.dominokit.domino.ui.utils.ChildHandler;
-import org.dominokit.domino.ui.utils.DominoElement;
 import org.dominokit.domino.ui.utils.LazyChild;
 
 /**
@@ -45,6 +44,8 @@ import org.dominokit.domino.ui.utils.LazyChild;
  * </pre>
  *
  * @see BaseDominoElement
+ * @author vegegoku
+ * @version $Id: $Id
  */
 public class Notification extends BaseDominoElement<HTMLDivElement, Notification>
     implements NotificationStyles {
@@ -64,6 +65,7 @@ public class Notification extends BaseDominoElement<HTMLDivElement, Notification
   private boolean closed = true;
   private final List<CloseHandler> closeHandlers = new ArrayList<>();
 
+  /** Constructor for Notification. */
   public Notification() {
     root =
         div()
@@ -87,7 +89,7 @@ public class Notification extends BaseDominoElement<HTMLDivElement, Notification
    * Creates a notification for the message with no specific type and default black bacjground.
    *
    * @param message the content message
-   * @return {@link Notification}
+   * @return {@link org.dominokit.domino.ui.notifications.Notification}
    */
   public static Notification create(String message) {
     Notification notification = new Notification();
@@ -98,23 +100,30 @@ public class Notification extends BaseDominoElement<HTMLDivElement, Notification
   /**
    * Creates a notification for the message with no specific type and default black bacjground.
    *
-   * @return {@link Notification}
+   * @return {@link org.dominokit.domino.ui.notifications.Notification}
    */
   public static Notification create() {
     return new Notification();
   }
 
+  /** {@inheritDoc} */
   @Override
   protected HTMLElement getStyleTarget() {
     return element.element();
   }
 
+  /** {@inheritDoc} */
   @Override
   protected HTMLElement getAppendTarget() {
     return content.element();
   }
 
   /** @return {@link DominoElement<HTMLButtonElement>} the close button of the notification. */
+  /**
+   * Getter for the field <code>closeButton</code>.
+   *
+   * @return a {@link org.dominokit.domino.ui.button.RemoveButton} object
+   */
   public RemoveButton getCloseButton() {
     return closeButton.get();
   }
@@ -122,7 +131,8 @@ public class Notification extends BaseDominoElement<HTMLDivElement, Notification
   /**
    * Use to show or hide the close button.
    *
-   * @return {@link Notification}
+   * @return {@link org.dominokit.domino.ui.notifications.Notification}
+   * @param dismissible a boolean
    */
   public Notification setDismissible(boolean dismissible) {
     this.dismissible = dismissible;
@@ -131,6 +141,11 @@ public class Notification extends BaseDominoElement<HTMLDivElement, Notification
   }
 
   /** @return boolean, true if the close button is visible, else false. */
+  /**
+   * isDismissible.
+   *
+   * @return a boolean
+   */
   public boolean isDismissible() {
     return dismissible;
   }
@@ -140,7 +155,7 @@ public class Notification extends BaseDominoElement<HTMLDivElement, Notification
    * visible after the show transition is completed before it is automatically closed.
    *
    * @param duration in millisecond
-   * @return {@link Notification}
+   * @return {@link org.dominokit.domino.ui.notifications.Notification}
    */
   public Notification setDuration(int duration) {
     this.duration = duration;
@@ -151,8 +166,8 @@ public class Notification extends BaseDominoElement<HTMLDivElement, Notification
    * Defines the animation transition to be applied to show up the notification when {@link
    * Notification#expand()} is called.
    *
-   * @param inTransition {@link Transition}
-   * @return {@link Notification}
+   * @param inTransition {@link org.dominokit.domino.ui.animations.Transition}
+   * @return {@link org.dominokit.domino.ui.notifications.Notification}
    */
   public Notification inTransition(Transition inTransition) {
     this.inTransition = inTransition;
@@ -163,8 +178,8 @@ public class Notification extends BaseDominoElement<HTMLDivElement, Notification
    * Defines the animation transition to be applied to close up the notification when {@link
    * Notification#close()} is called, or the duration ends.
    *
-   * @param outTransition {@link Transition}
-   * @return {@link Notification}
+   * @param outTransition {@link org.dominokit.domino.ui.animations.Transition}
+   * @return {@link org.dominokit.domino.ui.notifications.Notification}
    */
   public Notification outTransition(Transition outTransition) {
     this.outTransition = outTransition;
@@ -175,7 +190,7 @@ public class Notification extends BaseDominoElement<HTMLDivElement, Notification
    * The text content of the notification
    *
    * @param message the content message
-   * @return {@link Notification}
+   * @return {@link org.dominokit.domino.ui.notifications.Notification}
    */
   public Notification setMessage(String message) {
     this.messageSpan.get().setTextContent(message);
@@ -183,11 +198,11 @@ public class Notification extends BaseDominoElement<HTMLDivElement, Notification
   }
 
   /**
-   * Defines the location in which the notification will show up when {@link Notification#expand()}
-   * is called.
+   * Defines the location in which the notification will show up when {@link
+   * org.dominokit.domino.ui.notifications.Notification#expand()} is called.
    *
-   * @param position {@link Position}
-   * @return {@link Notification}
+   * @param position {@link org.dominokit.domino.ui.notifications.Notification.Position}
+   * @return {@link org.dominokit.domino.ui.notifications.Notification}
    */
   public Notification setPosition(Position position) {
     root.addCss(this.position.replaceWith(position.style));
@@ -199,7 +214,7 @@ public class Notification extends BaseDominoElement<HTMLDivElement, Notification
    * Notification#close()} is called or close button is clicked.
    *
    * @param infinite true to close manually only, false otherwise
-   * @return {@link Notification}
+   * @return {@link org.dominokit.domino.ui.notifications.Notification}
    */
   public Notification setInfinite(boolean infinite) {
     this.infinite = infinite;
@@ -207,15 +222,22 @@ public class Notification extends BaseDominoElement<HTMLDivElement, Notification
   }
 
   /** @return boolean, true if notification is finite */
+  /**
+   * isInfinite.
+   *
+   * @return a boolean
+   */
   public boolean isInfinite() {
     return infinite;
   }
 
+  /** {@inheritDoc} */
   @Override
   public Notification show() {
     return expand();
   }
 
+  /** {@inheritDoc} */
   @Override
   public Notification hide() {
     close();
@@ -225,7 +247,7 @@ public class Notification extends BaseDominoElement<HTMLDivElement, Notification
   /**
    * Show up the notification and apply the IN transtion animation.
    *
-   * @return {@link Notification}
+   * @return {@link org.dominokit.domino.ui.notifications.Notification}
    */
   public Notification expand() {
     this.closed = false;
@@ -285,6 +307,11 @@ public class Notification extends BaseDominoElement<HTMLDivElement, Notification
   }
 
   /** @return List of {@link CloseHandler} to be called when a notification is closed. */
+  /**
+   * Getter for the field <code>closeHandlers</code>.
+   *
+   * @return a {@link java.util.List} object
+   */
   public List<CloseHandler> getCloseHandlers() {
     return closeHandlers;
   }
@@ -292,8 +319,8 @@ public class Notification extends BaseDominoElement<HTMLDivElement, Notification
   /**
    * Add a handler to be called when a notification is closed
    *
-   * @param closeHandler {@link CloseHandler}
-   * @return {@link Notification}
+   * @param closeHandler {@link org.dominokit.domino.ui.notifications.Notification.CloseHandler}
+   * @return {@link org.dominokit.domino.ui.notifications.Notification}
    */
   public Notification addCloseHandler(CloseHandler closeHandler) {
     if (nonNull(closeHandler)) {
@@ -303,10 +330,11 @@ public class Notification extends BaseDominoElement<HTMLDivElement, Notification
   }
 
   /**
-   * Removes a {@link CloseHandler} from the currently existing close handlers.
+   * Removes a {@link org.dominokit.domino.ui.notifications.Notification.CloseHandler} from the
+   * currently existing close handlers.
    *
-   * @param closeHandler A {@link CloseHandler}
-   * @return {@link Notification}
+   * @param closeHandler A {@link org.dominokit.domino.ui.notifications.Notification.CloseHandler}
+   * @return {@link org.dominokit.domino.ui.notifications.Notification}
    */
   public Notification removeCloseHandler(CloseHandler closeHandler) {
     if (nonNull(closeHandler)) {
@@ -315,12 +343,19 @@ public class Notification extends BaseDominoElement<HTMLDivElement, Notification
     return this;
   }
 
+  /**
+   * withContent.
+   *
+   * @param handler a {@link org.dominokit.domino.ui.utils.ChildHandler} object
+   * @return a {@link org.dominokit.domino.ui.notifications.Notification} object
+   */
   public Notification withContent(ChildHandler<Notification, DivElement> handler) {
     handler.apply(this, content);
     return this;
   }
 
   /** @return {@link HTMLDivElement} the root element that represent this notification instance. */
+  /** {@inheritDoc} */
   @Override
   public HTMLDivElement element() {
     return root.element();

@@ -17,11 +17,28 @@ package org.dominokit.domino.ui.elements;
 
 import elemental2.dom.HTMLAreaElement;
 
+/**
+ * AreaElement class.
+ *
+ * @author vegegoku
+ * @version $Id: $Id
+ */
 public class AreaElement extends BaseElement<HTMLAreaElement, AreaElement> {
+  /**
+   * of.
+   *
+   * @param e a {@link elemental2.dom.HTMLAreaElement} object
+   * @return a {@link org.dominokit.domino.ui.elements.AreaElement} object
+   */
   public static AreaElement of(HTMLAreaElement e) {
     return new AreaElement(e);
   }
 
+  /**
+   * Constructor for AreaElement.
+   *
+   * @param element a {@link elemental2.dom.HTMLAreaElement} object
+   */
   public AreaElement(HTMLAreaElement element) {
     super(element);
   }

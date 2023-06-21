@@ -21,21 +21,26 @@ import elemental2.dom.*;
  * A class that can wrap any HTMLElement as domino component
  *
  * @param <E> the type of the wrapped element
+ * @author vegegoku
+ * @version $Id: $Id
  */
 public class DominoElement<E extends Element> extends BaseDominoElement<E, DominoElement<E>> {
 
   private final E wrappedElement;
 
   /** @param element the E element extending from {@link HTMLElement} */
+  /**
+   * Constructor for DominoElement.
+   *
+   * @param element a E object
+   */
   public DominoElement(E element) {
     this.wrappedElement = element;
     init(this);
     addCss(dui);
   }
 
-  /**
-   * @return the E element that is extending from {@link HTMLElement} wrapped in this DominoElement
-   */
+  /** {@inheritDoc} */
   @Override
   public E element() {
     return wrappedElement;

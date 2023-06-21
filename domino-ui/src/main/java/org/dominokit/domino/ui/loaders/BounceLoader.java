@@ -20,7 +20,12 @@ import org.dominokit.domino.ui.IsElement;
 import org.dominokit.domino.ui.elements.DivElement;
 import org.dominokit.domino.ui.utils.DominoElement;
 
-/** Bounce loader implementation */
+/**
+ * Bounce loader implementation
+ *
+ * @author vegegoku
+ * @version $Id: $Id
+ */
 public class BounceLoader extends BaseLoader<BounceLoader> implements IsElement<HTMLDivElement> {
 
   private final DivElement progress1 = div().addCss(wait_me_progress_elem_1, dui_bg_grey_d_2);
@@ -43,10 +48,16 @@ public class BounceLoader extends BaseLoader<BounceLoader> implements IsElement<
   private final DivElement element =
       div().addCss(wait_me).style("background: rgba(255, 255, 255, 0.9);").appendChild(content);
 
+  /** Constructor for BounceLoader. */
   public BounceLoader() {
     init(this);
   }
 
+  /**
+   * create.
+   *
+   * @return a {@link org.dominokit.domino.ui.loaders.BounceLoader} object
+   */
   public static BounceLoader create() {
     return new BounceLoader();
   }

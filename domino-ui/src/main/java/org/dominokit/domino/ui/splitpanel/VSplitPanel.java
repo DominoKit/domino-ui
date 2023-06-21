@@ -36,31 +36,42 @@ package org.dominokit.domino.ui.splitpanel;
  *
  * @see BaseSplitPanel
  * @see HasSplitPanels
+ * @author vegegoku
+ * @version $Id: $Id
  */
 public class VSplitPanel extends BaseSplitPanel<VSplitPanel, VSplitter>
     implements HasSplitPanels, SplitStyles {
 
+  /** Constructor for VSplitPanel. */
   public VSplitPanel() {
     addCss(dui_vertical);
   }
 
+  /** {@inheritDoc} */
   @Override
   protected VSplitter createSplitter(
       SplitPanel first, SplitPanel second, HasSplitPanels mainPanel) {
     return VSplitter.create(first, second, this);
   }
 
+  /** {@inheritDoc} */
   @Override
   protected double getPanelSize(SplitPanel panel) {
     return panel.getBoundingClientRect().height;
   }
 
+  /** {@inheritDoc} */
   @Override
   protected void setPanelSize(SplitPanel panel, String size) {
     panel.style().setHeight(size);
   }
 
   /** @return new instance */
+  /**
+   * create.
+   *
+   * @return a {@link org.dominokit.domino.ui.splitpanel.VSplitPanel} object
+   */
   public static VSplitPanel create() {
     return new VSplitPanel();
   }

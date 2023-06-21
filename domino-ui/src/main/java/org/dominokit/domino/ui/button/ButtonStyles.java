@@ -17,18 +17,34 @@ package org.dominokit.domino.ui.button;
 
 import org.dominokit.domino.ui.style.CssClass;
 
-/** A constants class to reference css classes used in Button components */
+/**
+ * A constants class to reference css classes used in Button components
+ *
+ * @author vegegoku
+ * @version $Id: $Id
+ */
 public interface ButtonStyles {
+  /** Constant <code>dui_button</code> */
   CssClass dui_button = () -> "dui-btn";
+  /** Constant <code>dui_button_body</code> */
   CssClass dui_button_body = () -> "dui-btn-body";
+  /** Constant <code>dui_button_text</code> */
   CssClass dui_button_text = () -> "dui-btn-text";
+  /** Constant <code>dui_button_icon</code> */
   CssClass dui_button_icon = () -> "dui-btn-icon";
+  /** Constant <code>dui_button_split</code> */
   CssClass dui_button_split = () -> "dui-btn-split";
+  /** Constant <code>dui_button_group</code> */
   CssClass dui_button_group = () -> "dui-btn-group";
+  /** Constant <code>dui_button_toolbar</code> */
   CssClass dui_button_toolbar = () -> "dui-btn-toolbar";
+  /** Constant <code>dui_vertical</code> */
   CssClass dui_vertical = () -> "dui-vertical";
+  /** Constant <code>dui_circle</code> */
   CssClass dui_circle = () -> "dui-circle";
+  /** Constant <code>dui_button_reversed</code> */
   CssClass dui_button_reversed = () -> "dui-btn-reverse";
 
+  /** Constant <code>dui_top_scroller</code> */
   CssClass dui_top_scroller = () -> "dui-top-scroller";
 }

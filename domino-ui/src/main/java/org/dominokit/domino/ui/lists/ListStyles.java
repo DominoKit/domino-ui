@@ -17,9 +17,18 @@ package org.dominokit.domino.ui.lists;
 
 import org.dominokit.domino.ui.style.CssClass;
 
-/** Default CSS classes for {@link ListGroup} and {@link ListItem} */
+/**
+ * Default CSS classes for {@link org.dominokit.domino.ui.lists.ListGroup} and {@link
+ * org.dominokit.domino.ui.lists.ListItem}
+ *
+ * @author vegegoku
+ * @version $Id: $Id
+ */
 public interface ListStyles {
+  /** Constant <code>dui_list_group</code> */
   CssClass dui_list_group = () -> "dui-list-group";
+  /** Constant <code>dui_list_group_bordered</code> */
   CssClass dui_list_group_bordered = () -> "dui-list-group-bordered";
+  /** Constant <code>dui_list_group_item</code> */
   CssClass dui_list_group_item = () -> "dui-list-group-item";
 }

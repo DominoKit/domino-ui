@@ -21,17 +21,29 @@ import elemental2.dom.HTMLLIElement;
 import org.dominokit.domino.ui.elements.LIElement;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
 
-/** A component that adds a space between {@link Tab}s in the {@link TabsPanel} */
+/**
+ * A component that adds a space between {@link org.dominokit.domino.ui.tabs.Tab}s in the {@link
+ * org.dominokit.domino.ui.tabs.TabsPanel}
+ *
+ * @author vegegoku
+ * @version $Id: $Id
+ */
 public class FillItem extends BaseDominoElement<HTMLLIElement, FillItem> {
 
   private LIElement element;
 
+  /** Constructor for FillItem. */
   public FillItem() {
     this.element = li().addCss(dui_tab_item, dui_grow_1);
     init(this);
   }
 
   /** @return new instance */
+  /**
+   * create.
+   *
+   * @return a {@link org.dominokit.domino.ui.tabs.FillItem} object
+   */
   public static FillItem create() {
     return new FillItem();
   }

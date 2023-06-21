@@ -37,6 +37,9 @@ import org.dominokit.domino.ui.utils.BaseDominoElement;
  *            .appendChild(Button.createDefault("RIGHT"))
  *            .setSize(ButtonSize.LARGE);
  *     </pre>
+ *
+ * @author vegegoku
+ * @version $Id: $Id
  */
 public class ButtonsGroup extends BaseDominoElement<HTMLElement, ButtonsGroup> {
 
@@ -48,22 +51,43 @@ public class ButtonsGroup extends BaseDominoElement<HTMLElement, ButtonsGroup> {
     init(this);
   }
 
-  /** default constructor */
+  /**
+   * default constructor
+   *
+   * @param buttons a {@link org.dominokit.domino.ui.button.IsButton} object
+   */
   public ButtonsGroup(IsButton<?>... buttons) {
     this();
     appendChild(buttons);
   }
 
   /** @return a new ButtonsGroup instance */
+  /**
+   * create.
+   *
+   * @return a {@link org.dominokit.domino.ui.button.group.ButtonsGroup} object
+   */
   public static ButtonsGroup create() {
     return new ButtonsGroup();
   }
 
   /** @return a new ButtonsGroup instance */
+  /**
+   * create.
+   *
+   * @param buttons a {@link org.dominokit.domino.ui.button.IsButton} object
+   * @return a {@link org.dominokit.domino.ui.button.group.ButtonsGroup} object
+   */
   public static ButtonsGroup create(IsButton<?>... buttons) {
     return new ButtonsGroup(buttons);
   }
 
+  /**
+   * appendChild.
+   *
+   * @param buttons a {@link org.dominokit.domino.ui.button.IsButton} object
+   * @return a {@link org.dominokit.domino.ui.button.group.ButtonsGroup} object
+   */
   public ButtonsGroup appendChild(IsButton<?>... buttons) {
     Arrays.stream(buttons).forEach(btn -> appendChild(btn.asButton()));
     return this;
@@ -75,17 +99,31 @@ public class ButtonsGroup extends BaseDominoElement<HTMLElement, ButtonsGroup> {
     return groupElement.element();
   }
 
+  /**
+   * setVertical.
+   *
+   * @param vertical a boolean
+   * @return a {@link org.dominokit.domino.ui.button.group.ButtonsGroup} object
+   */
   public ButtonsGroup setVertical(boolean vertical) {
     addCss(BooleanCssClass.of(dui_vertical, vertical));
     return this;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * {@inheritDoc}
+   *
+   * @return a {@link org.dominokit.domino.ui.button.group.ButtonsGroup} object
+   */
   public ButtonsGroup vertical() {
     return addCss(dui_vertical);
   }
 
-  /** {@inheritDoc} */
+  /**
+   * {@inheritDoc}
+   *
+   * @return a {@link org.dominokit.domino.ui.button.group.ButtonsGroup} object
+   */
   public ButtonsGroup horizontal() {
     dui_vertical.remove(this.element());
     return this;

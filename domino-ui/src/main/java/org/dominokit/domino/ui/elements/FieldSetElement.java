@@ -17,11 +17,28 @@ package org.dominokit.domino.ui.elements;
 
 import elemental2.dom.HTMLFieldSetElement;
 
+/**
+ * FieldSetElement class.
+ *
+ * @author vegegoku
+ * @version $Id: $Id
+ */
 public class FieldSetElement extends BaseElement<HTMLFieldSetElement, FieldSetElement> {
+  /**
+   * of.
+   *
+   * @param e a {@link elemental2.dom.HTMLFieldSetElement} object
+   * @return a {@link org.dominokit.domino.ui.elements.FieldSetElement} object
+   */
   public static FieldSetElement of(HTMLFieldSetElement e) {
     return new FieldSetElement(e);
   }
 
+  /**
+   * Constructor for FieldSetElement.
+   *
+   * @param element a {@link elemental2.dom.HTMLFieldSetElement} object
+   */
   public FieldSetElement(HTMLFieldSetElement element) {
     super(element);
   }

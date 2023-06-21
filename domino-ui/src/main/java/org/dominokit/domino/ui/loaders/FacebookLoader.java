@@ -20,7 +20,12 @@ import org.dominokit.domino.ui.IsElement;
 import org.dominokit.domino.ui.elements.DivElement;
 import org.dominokit.domino.ui.utils.DominoElement;
 
-/** Facebook loader implementation */
+/**
+ * Facebook loader implementation
+ *
+ * @author vegegoku
+ * @version $Id: $Id
+ */
 public class FacebookLoader extends BaseLoader<FacebookLoader>
     implements IsElement<HTMLDivElement> {
 
@@ -44,10 +49,16 @@ public class FacebookLoader extends BaseLoader<FacebookLoader>
   private final DivElement element =
       div().addCss(wait_me).style("background: rgba(255, 255, 255, 0.9);").appendChild(content);
 
+  /** Constructor for FacebookLoader. */
   public FacebookLoader() {
     init(this);
   }
 
+  /**
+   * create.
+   *
+   * @return a {@link org.dominokit.domino.ui.loaders.FacebookLoader} object
+   */
   public static FacebookLoader create() {
     return new FacebookLoader();
   }

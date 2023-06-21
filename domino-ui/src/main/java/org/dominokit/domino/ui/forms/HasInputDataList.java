@@ -17,7 +17,6 @@ package org.dominokit.domino.ui.forms;
 
 import static org.dominokit.domino.ui.utils.ElementsFactory.elements;
 
-import elemental2.dom.HTMLOptionElement;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
@@ -26,12 +25,34 @@ import org.dominokit.domino.ui.elements.OptionElement;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
 import org.dominokit.domino.ui.utils.DominoId;
 
+/**
+ * HasInputDataList interface.
+ *
+ * @author vegegoku
+ * @version $Id: $Id
+ */
 public interface HasInputDataList<T extends HasInputElement<?, ?>> {
 
+  /**
+   * getDataListElement.
+   *
+   * @return a {@link org.dominokit.domino.ui.elements.DataListElement} object
+   */
   DataListElement getDataListElement();
 
+  /**
+   * getDataListOptions.
+   *
+   * @return a {@link java.util.Map} object
+   */
   Map<String, OptionElement> getDataListOptions();
 
+  /**
+   * bindDataList.
+   *
+   * @param component a T object
+   * @return a T object
+   */
   default T bindDataList(T component) {
     String listId = DominoId.unique();
     getDataListElement().element().id = listId;
@@ -40,12 +61,24 @@ public interface HasInputDataList<T extends HasInputElement<?, ?>> {
     return component;
   }
 
+  /**
+   * unbindDataList.
+   *
+   * @param component a T object
+   * @return a T object
+   */
   default T unbindDataList(T component) {
     component.getInputElement().removeAttribute("list");
     getDataListElement().remove();
     return component;
   }
 
+  /**
+   * setDataListEnabled.
+   *
+   * @param state a boolean
+   * @return a T object
+   */
   default T setDataListEnabled(boolean state) {
     if (state) {
       return bindDataList((T) this);
@@ -55,9 +88,10 @@ public interface HasInputDataList<T extends HasInputElement<?, ?>> {
   }
 
   /**
-   * Adds a String value as a suggested value {@link OptionElement} for this input
+   * Adds a String value as a suggested value {@link org.dominokit.domino.ui.elements.OptionElement}
+   * for this input
    *
-   * @param dataListOption
+   * @param dataListOption a {@link java.lang.String} object
    * @return same implementing component instance
    */
   default T addDataListOption(String dataListOption) {
@@ -68,7 +102,8 @@ public interface HasInputDataList<T extends HasInputElement<?, ?>> {
   }
 
   /**
-   * Adds a List of String values as a suggested values {@link HTMLOptionElement} for this input
+   * Adds a List of String values as a suggested values {@link elemental2.dom.HTMLOptionElement} for
+   * this input
    *
    * @param dataListValues List of String
    * @return same implementing component instance
@@ -80,7 +115,8 @@ public interface HasInputDataList<T extends HasInputElement<?, ?>> {
   }
 
   /**
-   * Removes a suggested value {@link OptionElement} from this input
+   * Removes a suggested value {@link org.dominokit.domino.ui.elements.OptionElement} from this
+   * input
    *
    * @param dataListValue String
    * @return same implementing component instance
@@ -94,6 +130,11 @@ public interface HasInputDataList<T extends HasInputElement<?, ?>> {
   }
 
   /** @return a List of all suggested values of this component */
+  /**
+   * getDataListValues.
+   *
+   * @return a {@link java.util.Collection} object
+   */
   default Collection<String> getDataListValues() {
     return getDataListOptions().keySet();
   }

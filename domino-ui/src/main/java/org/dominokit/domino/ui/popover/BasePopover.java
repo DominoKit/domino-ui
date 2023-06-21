@@ -30,6 +30,12 @@ import org.dominokit.domino.ui.utils.ChildHandler;
 import org.dominokit.domino.ui.utils.FollowOnScroll;
 import org.dominokit.domino.ui.utils.IsPopup;
 
+/**
+ * Abstract BasePopover class.
+ *
+ * @author vegegoku
+ * @version $Id: $Id
+ */
 public abstract class BasePopover<T extends BasePopover<T>>
     extends BaseDominoElement<HTMLDivElement, T>
     implements IsPopup<T>,
@@ -50,6 +56,11 @@ public abstract class BasePopover<T extends BasePopover<T>>
   protected final EventListener closeListener;
   private final FollowOnScroll followOnScroll;
 
+  /**
+   * Constructor for BasePopover.
+   *
+   * @param target a {@link elemental2.dom.Element} object
+   */
   public BasePopover(Element target) {
     this.targetElement = target;
     root =
@@ -90,6 +101,11 @@ public abstract class BasePopover<T extends BasePopover<T>>
     setAttribute(DUI_COLLAPSED, "true");
   }
 
+  /**
+   * Getter for the field <code>closeListener</code>.
+   *
+   * @return a {@link elemental2.dom.EventListener} object
+   */
   protected abstract EventListener getCloseListener();
 
   /** {@inheritDoc} */
@@ -106,10 +122,16 @@ public abstract class BasePopover<T extends BasePopover<T>>
     return (T) this;
   }
 
+  /**
+   * open.
+   *
+   * @return a T object
+   */
   public T open() {
     return expand();
   }
 
+  /** doOpen. */
   protected void doOpen() {
     body().appendChild(root.element());
     super.expand();
@@ -123,18 +145,34 @@ public abstract class BasePopover<T extends BasePopover<T>>
     doPosition(this.popupPosition);
   }
 
+  /**
+   * doPosition.
+   *
+   * @param position a {@link org.dominokit.domino.ui.menu.direction.DropDirection} object
+   */
   protected void doPosition(DropDirection position) {
     popupPosition.position(root.element(), targetElement);
   }
 
-  /** Closes the popover */
+  /**
+   * Closes the popover
+   *
+   * @return a T object
+   */
   public T close() {
     collapse();
     return (T) this;
   }
 
+  /**
+   * closeOthers.
+   *
+   * @param sourceId a {@link java.lang.String} object
+   * @return a T object
+   */
   protected abstract T closeOthers(String sourceId);
 
+  /** doClose. */
   protected void doClose() {
     followOnScroll.stop();
     element().remove();
@@ -143,11 +181,13 @@ public abstract class BasePopover<T extends BasePopover<T>>
     triggerCollapseListeners((T) this);
   }
 
+  /** {@inheritDoc} */
   @Override
   public boolean isModal() {
     return false;
   }
 
+  /** {@inheritDoc} */
   @Override
   public boolean isAutoClose() {
     return true;
@@ -164,7 +204,7 @@ public abstract class BasePopover<T extends BasePopover<T>>
   /**
    * Sets the position of the popover related to the target element
    *
-   * @param position the {@link DropDirection}
+   * @param position the {@link org.dominokit.domino.ui.menu.direction.DropDirection}
    * @return same instance
    */
   public T setPosition(DropDirection position) {
@@ -184,33 +224,67 @@ public abstract class BasePopover<T extends BasePopover<T>>
     return (T) this;
   }
 
+  /**
+   * getArrowElement.
+   *
+   * @return a {@link org.dominokit.domino.ui.elements.DivElement} object
+   */
   public DivElement getArrowElement() {
     return arrow;
   }
 
+  /**
+   * withArrow.
+   *
+   * @param handler a {@link org.dominokit.domino.ui.utils.ChildHandler} object
+   * @return a T object
+   */
   public T withArrow(ChildHandler<T, DivElement> handler) {
     handler.apply((T) this, arrow);
     return (T) this;
   }
 
+  /**
+   * getHeaderElement.
+   *
+   * @return a {@link org.dominokit.domino.ui.elements.DivElement} object
+   */
   public DivElement getHeaderElement() {
     return header;
   }
 
+  /**
+   * withHeader.
+   *
+   * @param handler a {@link org.dominokit.domino.ui.utils.ChildHandler} object
+   * @return a T object
+   */
   public T withHeader(ChildHandler<T, DivElement> handler) {
     handler.apply((T) this, header);
     return (T) this;
   }
 
+  /**
+   * Getter for the field <code>body</code>.
+   *
+   * @return a {@link org.dominokit.domino.ui.elements.DivElement} object
+   */
   public DivElement getBody() {
     return body;
   }
 
+  /**
+   * withBody.
+   *
+   * @param handler a {@link org.dominokit.domino.ui.utils.ChildHandler} object
+   * @return a T object
+   */
   public T withBody(ChildHandler<T, DivElement> handler) {
     handler.apply((T) this, body);
     return (T) this;
   }
 
+  /** {@inheritDoc} */
   @Override
   protected HTMLElement getAppendTarget() {
     return body.element();
@@ -234,16 +308,23 @@ public abstract class BasePopover<T extends BasePopover<T>>
   }
 
   /** @return true if close on scrolling, false otherwise */
+  /**
+   * isCloseOnScroll.
+   *
+   * @return a boolean
+   */
   public boolean isCloseOnScroll() {
     return hasAttribute("d-close-on-scroll")
         && getAttribute("d-close-on-scroll").equalsIgnoreCase("true");
   }
 
+  /** {@inheritDoc} */
   @Override
   public boolean isFollowerOpen() {
     return isAttached();
   }
 
+  /** {@inheritDoc} */
   @Override
   public void positionFollower() {
     doPosition();

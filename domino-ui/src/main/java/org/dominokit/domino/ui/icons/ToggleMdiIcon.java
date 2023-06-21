@@ -15,16 +15,36 @@
  */
 package org.dominokit.domino.ui.icons;
 
+/**
+ * ToggleMdiIcon class.
+ *
+ * @author vegegoku
+ * @version $Id: $Id
+ */
 public class ToggleMdiIcon extends ToggleIcon<MdiIcon, ToggleMdiIcon> {
 
+  /**
+   * create.
+   *
+   * @param primary a {@link org.dominokit.domino.ui.icons.MdiIcon} object
+   * @param toggle a {@link org.dominokit.domino.ui.icons.MdiIcon} object
+   * @return a {@link org.dominokit.domino.ui.icons.ToggleMdiIcon} object
+   */
   public static ToggleMdiIcon create(MdiIcon primary, MdiIcon toggle) {
     return new ToggleMdiIcon(primary, toggle);
   }
 
+  /**
+   * Constructor for ToggleMdiIcon.
+   *
+   * @param primary a {@link org.dominokit.domino.ui.icons.MdiIcon} object
+   * @param toggle a {@link org.dominokit.domino.ui.icons.MdiIcon} object
+   */
   public ToggleMdiIcon(MdiIcon primary, MdiIcon toggle) {
     super(primary, toggle);
   }
 
+  /** {@inheritDoc} */
   @Override
   public ToggleMdiIcon copy() {
     return new ToggleMdiIcon(primary.copy(), toggle.copy());
@@ -33,7 +53,7 @@ public class ToggleMdiIcon extends ToggleIcon<MdiIcon, ToggleMdiIcon> {
   /**
    * Sets the type of rotate applied to the icon
    *
-   * @param mdiRotate the {@link MdiIcon.MdiRotate}
+   * @param mdiRotate the {@link org.dominokit.domino.ui.icons.MdiIcon.MdiRotate}
    * @return same instance
    */
   public ToggleMdiIcon setRotate(MdiIcon.MdiRotate mdiRotate) {
@@ -133,7 +153,7 @@ public class ToggleMdiIcon extends ToggleIcon<MdiIcon, ToggleMdiIcon> {
   /**
    * Flips the icon either horizontally or vertically
    *
-   * @param mdiFlip the {@link MdiIcon.MdiFlip}
+   * @param mdiFlip the {@link org.dominokit.domino.ui.icons.MdiIcon.MdiFlip}
    * @return same instance
    */
   public ToggleMdiIcon setFlip(MdiIcon.MdiFlip mdiFlip) {
@@ -246,7 +266,7 @@ public class ToggleMdiIcon extends ToggleIcon<MdiIcon, ToggleMdiIcon> {
   /**
    * Sets the contrast of the icon
    *
-   * @param mdiContrast the {@link MdiIcon.MdiContrast}
+   * @param mdiContrast the {@link org.dominokit.domino.ui.icons.MdiIcon.MdiContrast}
    * @return same instance
    */
   public ToggleMdiIcon setContrast(MdiIcon.MdiContrast mdiContrast) {

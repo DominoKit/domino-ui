@@ -17,11 +17,28 @@ package org.dominokit.domino.ui.elements;
 
 import elemental2.dom.HTMLQuoteElement;
 
+/**
+ * QuoteElement class.
+ *
+ * @author vegegoku
+ * @version $Id: $Id
+ */
 public class QuoteElement extends BaseElement<HTMLQuoteElement, QuoteElement> {
+  /**
+   * of.
+   *
+   * @param e a {@link elemental2.dom.HTMLQuoteElement} object
+   * @return a {@link org.dominokit.domino.ui.elements.QuoteElement} object
+   */
   public static QuoteElement of(HTMLQuoteElement e) {
     return new QuoteElement(e);
   }
 
+  /**
+   * Constructor for QuoteElement.
+   *
+   * @param element a {@link elemental2.dom.HTMLQuoteElement} object
+   */
   public QuoteElement(HTMLQuoteElement element) {
     super(element);
   }

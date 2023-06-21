@@ -15,12 +15,28 @@
  */
 package org.dominokit.domino.ui.i18n;
 
+/**
+ * QuickSearchLabels interface.
+ *
+ * @author vegegoku
+ * @version $Id: $Id
+ */
 public interface QuickSearchLabels extends Labels {
 
+  /**
+   * defaultQuickSearchPlaceHolder.
+   *
+   * @return a {@link java.lang.String} object
+   */
   default String defaultQuickSearchPlaceHolder() {
     return "Search";
   }
 
+  /**
+   * defaultQuickSearchClearToolTip.
+   *
+   * @return a {@link java.lang.String} object
+   */
   default String defaultQuickSearchClearToolTip() {
     return "Clear search";
   }

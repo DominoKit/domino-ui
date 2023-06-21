@@ -26,7 +26,7 @@ import org.dominokit.domino.ui.utils.DominoElement;
 import org.gwtproject.timer.client.Timer;
 
 /**
- * Animates an {@link HTMLElement}
+ * Animates an {@link elemental2.dom.HTMLElement}
  *
  * <p>This class is used to animate an HTMLElement and provide a set of method to configure the
  * animation, also provide some method to add some callback during different animation phases
@@ -43,6 +43,8 @@ import org.gwtproject.timer.client.Timer;
  * </pre>
  *
  * @see <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/animation">Animation on MDN</a>
+ * @author vegegoku
+ * @version $Id: $Id
  */
 public class Animation {
 
@@ -60,16 +62,23 @@ public class Animation {
   private double repeatCount = 1;
 
   /** @param element an {@link HTMLElement} to be animated */
+  /**
+   * Constructor for Animation.
+   *
+   * @param element a {@link elemental2.dom.Element} object
+   */
   public Animation(Element element) {
     this.element = elements.elementOf(element);
   }
 
   /**
-   * @param element an {@link HTMLElement} to be animated
+   * Constructor for Animation.
+   *
+   * @param element an {@link elemental2.dom.HTMLElement} to be animated
    * @param duration int duration of animation in milliseconds
    * @param delay int delay in millisecond before the animation starts
-   * @param infinite boolean repeat this animation infinitely or until {@link Animation#stop()} is
-   *     called
+   * @param infinite boolean repeat this animation infinitely or until {@link
+   *     org.dominokit.domino.ui.animations.Animation#stop()} is called
    */
   public Animation(HTMLElement element, int duration, int delay, boolean infinite) {
     this(element);
@@ -79,21 +88,22 @@ public class Animation {
   }
 
   /**
-   * static factory method to create an animation for an {@link HTMLElement}
+   * static factory method to create an animation for an {@link elemental2.dom.HTMLElement}
    *
-   * @param element an {@link HTMLElement} to be animated
-   * @return an {@link Animation} instance
+   * @param element an {@link elemental2.dom.HTMLElement} to be animated
+   * @return an {@link org.dominokit.domino.ui.animations.Animation} instance
    */
   public static Animation create(Element element) {
     return new Animation(element);
   }
 
   /**
-   * static factory method to create an animation for an {@link IsElement} this method will create
-   * an animation for the {@link HTMLElement} wrapped in the {@link IsElement}
+   * static factory method to create an animation for an {@link org.dominokit.domino.ui.IsElement}
+   * this method will create an animation for the {@link elemental2.dom.HTMLElement} wrapped in the
+   * {@link org.dominokit.domino.ui.IsElement}
    *
-   * @param element an {@link IsElement} to be animated
-   * @return an {@link Animation} instance
+   * @param element an {@link org.dominokit.domino.ui.IsElement} to be animated
+   * @return an {@link org.dominokit.domino.ui.animations.Animation} instance
    */
   public static Animation create(IsElement<?> element) {
     return new Animation(element.element());
@@ -124,7 +134,7 @@ public class Animation {
 
   /**
    * sets the animation as infinite so once the animation starts it will repeat infinitely or until
-   * {@link Animation#stop()} is called
+   * {@link org.dominokit.domino.ui.animations.Animation#stop()} is called
    *
    * @return same instance
    */
@@ -136,7 +146,7 @@ public class Animation {
   /**
    * sets the transition type for this animation.
    *
-   * @param transition a {@link Transition} value
+   * @param transition a {@link org.dominokit.domino.ui.animations.Transition} value
    * @return same instance
    */
   public Animation transition(Transition transition) {
@@ -145,8 +155,8 @@ public class Animation {
   }
 
   /**
-   * sets the animation to repeat for a specific number of times or until {@link Animation#stop()}
-   * is called.
+   * sets the animation to repeat for a specific number of times or until {@link
+   * org.dominokit.domino.ui.animations.Animation#stop()} is called.
    *
    * @param repeatCount double the number of times the animation to be repeated e.g
    *     <pre>2.5</pre>
@@ -161,7 +171,8 @@ public class Animation {
   /**
    * sets some logic to be executed when the animation is completed
    *
-   * @param callback a {@link CompleteCallback} to be executed
+   * @param callback a {@link org.dominokit.domino.ui.animations.Animation.CompleteCallback} to be
+   *     executed
    * @return same instance
    */
   public Animation callback(CompleteCallback callback) {
@@ -172,7 +183,8 @@ public class Animation {
   /**
    * sets some logic to be executed before the animation starts
    *
-   * @param startHandler {@link StartHandler} to be executed
+   * @param startHandler {@link org.dominokit.domino.ui.animations.Animation.StartHandler} to be
+   *     executed
    * @return same instance
    */
   public Animation beforeStart(StartHandler startHandler) {
@@ -227,12 +239,20 @@ public class Animation {
     ;
   }
 
-  /** stops the animation and calls the {@link CompleteCallback} if it is set. */
+  /**
+   * stops the animation and calls the {@link
+   * org.dominokit.domino.ui.animations.Animation.CompleteCallback} if it is set.
+   */
   public void stop() {
     stop(false);
   }
 
-  /** stops the animation and calls the {@link CompleteCallback} if it is set. */
+  /**
+   * stops the animation and calls the {@link
+   * org.dominokit.domino.ui.animations.Animation.CompleteCallback} if it is set.
+   *
+   * @param silent a boolean
+   */
   public void stop(boolean silent) {
     element.removeCss(transition.getStyle());
     element.removeCss("animated");

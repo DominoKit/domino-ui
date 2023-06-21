@@ -25,9 +25,12 @@ import org.dominokit.domino.ui.datatable.plugins.column.ColumnHeaderFilterPlugin
 import org.dominokit.domino.ui.forms.TimeBox;
 
 /**
- * Date column header filter component that is rendered as a {@link TimeBox} component
+ * Date column header filter component that is rendered as a {@link
+ * org.dominokit.domino.ui.forms.TimeBox} component
  *
  * @param <T> type of data table records
+ * @author vegegoku
+ * @version $Id: $Id
  */
 public class TimeHeaderFilter<T> implements ColumnHeaderFilterPlugin.HeaderFilter<T> {
 
@@ -44,6 +47,7 @@ public class TimeHeaderFilter<T> implements ColumnHeaderFilterPlugin.HeaderFilte
   }
 
   /** @see TimeHeaderFilter#create() */
+  /** Constructor for TimeHeaderFilter. */
   public TimeHeaderFilter() {
     this.timeBox =
         TimeBox.create()
@@ -61,6 +65,11 @@ public class TimeHeaderFilter<T> implements ColumnHeaderFilterPlugin.HeaderFilte
   }
 
   /** @return the {@link TimeBox} wrapped in this filter component */
+  /**
+   * Getter for the field <code>timeBox</code>.
+   *
+   * @return a {@link org.dominokit.domino.ui.forms.TimeBox} object
+   */
   public TimeBox getTimeBox() {
     return timeBox;
   }

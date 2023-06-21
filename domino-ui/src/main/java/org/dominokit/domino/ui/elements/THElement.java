@@ -17,11 +17,28 @@ package org.dominokit.domino.ui.elements;
 
 import elemental2.dom.HTMLTableCellElement;
 
+/**
+ * THElement class.
+ *
+ * @author vegegoku
+ * @version $Id: $Id
+ */
 public class THElement extends BaseElement<HTMLTableCellElement, THElement> {
+  /**
+   * of.
+   *
+   * @param e a {@link elemental2.dom.HTMLTableCellElement} object
+   * @return a {@link org.dominokit.domino.ui.elements.THElement} object
+   */
   public static THElement of(HTMLTableCellElement e) {
     return new THElement(e);
   }
 
+  /**
+   * Constructor for THElement.
+   *
+   * @param element a {@link elemental2.dom.HTMLTableCellElement} object
+   */
   public THElement(HTMLTableCellElement element) {
     super(element);
   }

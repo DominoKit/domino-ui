@@ -29,22 +29,48 @@ import org.dominokit.domino.ui.utils.ElementsFactory;
 import org.dominokit.domino.ui.utils.HasCounter;
 import org.dominokit.domino.ui.utils.HasMinMaxLength;
 
+/**
+ * InputFieldInitializer class.
+ *
+ * @author vegegoku
+ * @version $Id: $Id
+ */
 public class InputFieldInitializer<T extends FormElement<T, V>, V, E extends HTMLElement>
     implements HasComponentConfig<FormsFieldsConfig> {
 
   private final T formElement;
   private V oldValue;
 
+  /**
+   * create.
+   *
+   * @param formElement a T object
+   * @param <T> a T class
+   * @param <V> a V class
+   * @param <E> a E class
+   * @return a {@link org.dominokit.domino.ui.forms.InputFieldInitializer} object
+   */
   public static <T extends FormElement<T, V>, V, E extends HTMLElement>
       InputFieldInitializer<T, V, E> create(T formElement) {
     return new InputFieldInitializer<>(formElement);
   }
 
+  /**
+   * Constructor for InputFieldInitializer.
+   *
+   * @param formElement a T object
+   */
   public InputFieldInitializer(T formElement) {
     this.formElement = formElement;
     this.oldValue = formElement.getValue();
   }
 
+  /**
+   * init.
+   *
+   * @param hasInput a {@link org.dominokit.domino.ui.forms.HasInputElement} object
+   * @return a {@link org.dominokit.domino.ui.forms.InputFieldInitializer} object
+   */
   public InputFieldInitializer<T, V, E> init(HasInputElement<T, E> hasInput) {
     DominoElement<E> inputElement = hasInput.getInputElement();
     inputElement.addEventListener(

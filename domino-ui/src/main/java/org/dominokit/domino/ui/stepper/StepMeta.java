@@ -19,27 +19,57 @@ import java.util.Optional;
 import org.dominokit.domino.ui.utils.ComponentMeta;
 import org.dominokit.domino.ui.utils.HasMeta;
 
+/**
+ * StepMeta class.
+ *
+ * @author vegegoku
+ * @version $Id: $Id
+ */
 public class StepMeta implements ComponentMeta {
+  /** Constant <code>DUI_STEP_META="dui-step-meta"</code> */
   public static final String DUI_STEP_META = "dui-step-meta";
 
   private final Step step;
 
+  /**
+   * Constructor for StepMeta.
+   *
+   * @param step a {@link org.dominokit.domino.ui.stepper.Step} object
+   */
   public StepMeta(Step step) {
     this.step = step;
   }
 
+  /**
+   * of.
+   *
+   * @param step a {@link org.dominokit.domino.ui.stepper.Step} object
+   * @return a {@link org.dominokit.domino.ui.stepper.StepMeta} object
+   */
   public static StepMeta of(Step step) {
     return new StepMeta(step);
   }
 
+  /**
+   * get.
+   *
+   * @param component a {@link org.dominokit.domino.ui.utils.HasMeta} object
+   * @return a {@link java.util.Optional} object
+   */
   public static Optional<StepMeta> get(HasMeta<?> component) {
     return component.getMeta(DUI_STEP_META);
   }
 
+  /**
+   * Getter for the field <code>step</code>.
+   *
+   * @return a {@link org.dominokit.domino.ui.stepper.Step} object
+   */
   public Step getStep() {
     return step;
   }
 
+  /** {@inheritDoc} */
   @Override
   public String getKey() {
     return DUI_STEP_META;

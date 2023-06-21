@@ -18,15 +18,31 @@ package org.dominokit.domino.ui.forms;
 import elemental2.core.JsNumber;
 import java.util.function.Function;
 
-/** A component that has an input to take/provide float value */
+/**
+ * A component that has an input to take/provide float value
+ *
+ * @author vegegoku
+ * @version $Id: $Id
+ */
 public class FloatBox extends NumberBox<FloatBox, Float> {
 
   /** @return a new instance without a label */
+  /**
+   * create.
+   *
+   * @return a {@link org.dominokit.domino.ui.forms.FloatBox} object
+   */
   public static FloatBox create() {
     return new FloatBox();
   }
 
   /** @return a new instance with a label */
+  /**
+   * create.
+   *
+   * @param label a {@link java.lang.String} object
+   * @return a {@link org.dominokit.domino.ui.forms.FloatBox} object
+   */
   public static FloatBox create(String label) {
     return new FloatBox(label);
   }

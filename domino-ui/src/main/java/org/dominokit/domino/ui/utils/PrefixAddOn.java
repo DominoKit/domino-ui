@@ -18,28 +18,59 @@ package org.dominokit.domino.ui.utils;
 import elemental2.dom.Element;
 import org.dominokit.domino.ui.IsElement;
 
+/**
+ * PrefixAddOn class.
+ *
+ * @author vegegoku
+ * @version $Id: $Id
+ */
 public class PrefixAddOn<T extends Element> extends BaseDominoElement<T, PrefixAddOn<T>> {
 
   private DominoElement<T> element;
 
+  /**
+   * of.
+   *
+   * @param element a T object
+   * @param <T> a T class
+   * @return a {@link org.dominokit.domino.ui.utils.PrefixAddOn} object
+   */
   public static <T extends Element> PrefixAddOn<T> of(T element) {
     return new PrefixAddOn<>(element);
   }
 
+  /**
+   * of.
+   *
+   * @param element a {@link org.dominokit.domino.ui.IsElement} object
+   * @param <T> a T class
+   * @return a {@link org.dominokit.domino.ui.utils.PrefixAddOn} object
+   */
   public static <T extends Element> PrefixAddOn<T> of(IsElement<T> element) {
     return new PrefixAddOn<>(element);
   }
 
+  /**
+   * Constructor for PrefixAddOn.
+   *
+   * @param element a T object
+   */
   public PrefixAddOn(T element) {
     this.element = elementOf(element);
     init(this);
     addCss(dui_prefix_addon);
   }
 
+  /**
+   * Constructor for PrefixAddOn.
+   *
+   * @param element a {@link org.dominokit.domino.ui.IsElement} object
+   */
   public PrefixAddOn(IsElement<T> element) {
     this(element.element());
   }
 
+  /** {@inheritDoc} */
   @Override
   public T element() {
     return element.element();

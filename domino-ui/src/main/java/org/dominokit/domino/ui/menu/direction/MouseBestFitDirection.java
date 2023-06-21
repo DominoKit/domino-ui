@@ -27,11 +27,17 @@ import elemental2.dom.MouseEvent;
 import jsinterop.base.Js;
 import org.dominokit.domino.ui.style.Style;
 
-/** Positions the menu on the bottom right of the mouse click location */
+/**
+ * Positions the menu on the bottom right of the mouse click location
+ *
+ * @author vegegoku
+ * @version $Id: $Id
+ */
 public class MouseBestFitDirection implements DropDirection {
 
   private MouseEvent mouseEvent;
 
+  /** {@inheritDoc} */
   @Override
   public DropDirection init(Event event) {
     this.mouseEvent = Js.uncheckedCast(event);
@@ -123,6 +129,7 @@ public class MouseBestFitDirection implements DropDirection {
     dui_dd_best_mouse_fit.apply(source);
   }
 
+  /** {@inheritDoc} */
   @Override
   public void cleanup(Element source) {
     dui_dd_best_mouse_fit.remove(source);

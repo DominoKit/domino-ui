@@ -17,11 +17,28 @@ package org.dominokit.domino.ui.elements;
 
 import elemental2.dom.HTMLDivElement;
 
+/**
+ * DivElement class.
+ *
+ * @author vegegoku
+ * @version $Id: $Id
+ */
 public class DivElement extends BaseElement<HTMLDivElement, DivElement> {
+  /**
+   * of.
+   *
+   * @param e a {@link elemental2.dom.HTMLDivElement} object
+   * @return a {@link org.dominokit.domino.ui.elements.DivElement} object
+   */
   public static DivElement of(HTMLDivElement e) {
     return new DivElement(e);
   }
 
+  /**
+   * Constructor for DivElement.
+   *
+   * @param element a {@link elemental2.dom.HTMLDivElement} object
+   */
   public DivElement(HTMLDivElement element) {
     super(element);
   }

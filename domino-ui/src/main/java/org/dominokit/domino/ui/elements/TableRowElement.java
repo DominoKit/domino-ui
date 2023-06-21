@@ -17,11 +17,28 @@ package org.dominokit.domino.ui.elements;
 
 import elemental2.dom.HTMLTableRowElement;
 
+/**
+ * TableRowElement class.
+ *
+ * @author vegegoku
+ * @version $Id: $Id
+ */
 public class TableRowElement extends BaseElement<HTMLTableRowElement, TableRowElement> {
+  /**
+   * of.
+   *
+   * @param e a {@link elemental2.dom.HTMLTableRowElement} object
+   * @return a {@link org.dominokit.domino.ui.elements.TableRowElement} object
+   */
   public static TableRowElement of(HTMLTableRowElement e) {
     return new TableRowElement(e);
   }
 
+  /**
+   * Constructor for TableRowElement.
+   *
+   * @param element a {@link elemental2.dom.HTMLTableRowElement} object
+   */
   public TableRowElement(HTMLTableRowElement element) {
     super(element);
   }

@@ -18,15 +18,41 @@ package org.dominokit.domino.ui.style;
 import elemental2.dom.Element;
 import org.dominokit.domino.ui.IsElement;
 
+/**
+ * IsCssProperty interface.
+ *
+ * @author vegegoku
+ * @version $Id: $Id
+ */
 public interface IsCssProperty {
+  /**
+   * apply.
+   *
+   * @param element a {@link elemental2.dom.Element} object
+   */
   void apply(Element element);
 
+  /**
+   * apply.
+   *
+   * @param element a {@link org.dominokit.domino.ui.IsElement} object
+   */
   default void apply(IsElement<?> element) {
     apply(element.element());
   }
 
+  /**
+   * remove.
+   *
+   * @param element a {@link elemental2.dom.Element} object
+   */
   void remove(Element element);
 
+  /**
+   * remove.
+   *
+   * @param element a {@link org.dominokit.domino.ui.IsElement} object
+   */
   default void remove(IsElement<?> element) {
     remove(element.element());
   }

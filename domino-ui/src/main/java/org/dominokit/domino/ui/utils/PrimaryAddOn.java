@@ -18,28 +18,59 @@ package org.dominokit.domino.ui.utils;
 import elemental2.dom.Element;
 import org.dominokit.domino.ui.IsElement;
 
+/**
+ * PrimaryAddOn class.
+ *
+ * @author vegegoku
+ * @version $Id: $Id
+ */
 public class PrimaryAddOn<T extends Element> extends BaseDominoElement<T, PrimaryAddOn<T>> {
 
   private DominoElement<T> element;
 
+  /**
+   * of.
+   *
+   * @param element a T object
+   * @param <T> a T class
+   * @return a {@link org.dominokit.domino.ui.utils.PrimaryAddOn} object
+   */
   public static <T extends Element> PrimaryAddOn<T> of(T element) {
     return new PrimaryAddOn<>(element);
   }
 
+  /**
+   * of.
+   *
+   * @param element a {@link org.dominokit.domino.ui.IsElement} object
+   * @param <T> a T class
+   * @return a {@link org.dominokit.domino.ui.utils.PrimaryAddOn} object
+   */
   public static <T extends Element> PrimaryAddOn<T> of(IsElement<T> element) {
     return new PrimaryAddOn<>(element);
   }
 
+  /**
+   * Constructor for PrimaryAddOn.
+   *
+   * @param element a T object
+   */
   public PrimaryAddOn(T element) {
     this.element = elementOf(element);
     init(this);
     addCss(dui_primary_addon);
   }
 
+  /**
+   * Constructor for PrimaryAddOn.
+   *
+   * @param element a {@link org.dominokit.domino.ui.IsElement} object
+   */
   public PrimaryAddOn(IsElement<T> element) {
     this(element.element());
   }
 
+  /** {@inheritDoc} */
   @Override
   public T element() {
     return element.element();

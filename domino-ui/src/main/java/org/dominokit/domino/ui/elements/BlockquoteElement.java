@@ -17,11 +17,28 @@ package org.dominokit.domino.ui.elements;
 
 import elemental2.dom.HTMLQuoteElement;
 
+/**
+ * BlockquoteElement class.
+ *
+ * @author vegegoku
+ * @version $Id: $Id
+ */
 public class BlockquoteElement extends BaseElement<HTMLQuoteElement, BlockquoteElement> {
+  /**
+   * of.
+   *
+   * @param e a {@link elemental2.dom.HTMLQuoteElement} object
+   * @return a {@link org.dominokit.domino.ui.elements.BlockquoteElement} object
+   */
   public static BlockquoteElement of(HTMLQuoteElement e) {
     return new BlockquoteElement(e);
   }
 
+  /**
+   * Constructor for BlockquoteElement.
+   *
+   * @param element a {@link elemental2.dom.HTMLQuoteElement} object
+   */
   public BlockquoteElement(HTMLQuoteElement element) {
     super(element);
   }

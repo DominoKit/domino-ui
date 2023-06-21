@@ -16,7 +16,6 @@
 package org.dominokit.domino.ui.search;
 
 import elemental2.dom.HTMLDivElement;
-import elemental2.dom.HTMLInputElement;
 import jsinterop.base.Js;
 import org.dominokit.domino.ui.animations.Transition;
 import org.dominokit.domino.ui.collapsible.AnimationCollapseStrategy;
@@ -27,9 +26,8 @@ import org.dominokit.domino.ui.events.EventType;
 import org.dominokit.domino.ui.i18n.HasLabels;
 import org.dominokit.domino.ui.i18n.SearchLabels;
 import org.dominokit.domino.ui.icons.Icon;
-import org.dominokit.domino.ui.icons.Icons;
+import org.dominokit.domino.ui.icons.lib.Icons;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
-import org.dominokit.domino.ui.utils.DominoElement;
 import org.dominokit.domino.ui.utils.ElementUtil;
 import org.gwtproject.timer.client.Timer;
 
@@ -48,6 +46,9 @@ import org.gwtproject.timer.client.Timer;
  * searchToken).show())
  *                 .onClose(() -&gt; Notification.create("Closing inline search : ").show());
  * </pre>
+ *
+ * @author vegegoku
+ * @version $Id: $Id
  */
 public class Search extends BaseDominoElement<HTMLDivElement, Search>
     implements HasLabels<SearchLabels>, SearchStyles {
@@ -61,6 +62,8 @@ public class Search extends BaseDominoElement<HTMLDivElement, Search>
   private Timer autoSearchTimer;
 
   /**
+   * Constructor for Search.
+   *
    * @param autoSearch boolean, true to trigger the search while the user is typing with 200ms
    *     delay, false to trigger the search only when the user press ENTER
    */
@@ -128,11 +131,18 @@ public class Search extends BaseDominoElement<HTMLDivElement, Search>
   }
 
   /** @return new Search instance */
+  /**
+   * create.
+   *
+   * @return a {@link org.dominokit.domino.ui.search.Search} object
+   */
   public static Search create() {
     return new Search(false);
   }
 
   /**
+   * create.
+   *
    * @param autoSearch boolean, true to trigger the search while the user is typing with 200ms delay
    * @return new Search instance
    */
@@ -165,7 +175,9 @@ public class Search extends BaseDominoElement<HTMLDivElement, Search>
   }
 
   /**
-   * @param handler {@link SearchHandler}
+   * onSearch.
+   *
+   * @param handler {@link org.dominokit.domino.ui.search.Search.SearchHandler}
    * @return same Search instance
    */
   public Search onSearch(SearchHandler handler) {
@@ -174,7 +186,9 @@ public class Search extends BaseDominoElement<HTMLDivElement, Search>
   }
 
   /**
-   * @param handler {@link SearchCloseHandler}
+   * onClose.
+   *
+   * @param handler {@link org.dominokit.domino.ui.search.Search.SearchCloseHandler}
    * @return same Search instance
    */
   public Search onClose(SearchCloseHandler handler) {
@@ -183,6 +197,8 @@ public class Search extends BaseDominoElement<HTMLDivElement, Search>
   }
 
   /**
+   * setSearchPlaceHolder.
+   *
    * @param placeHolder String placeholder text for the search input
    * @return same Search instance
    */
@@ -192,26 +208,51 @@ public class Search extends BaseDominoElement<HTMLDivElement, Search>
   }
 
   /** @return boolean, true if auto search is enabled */
+  /**
+   * isAutoSearch.
+   *
+   * @return a boolean
+   */
   public boolean isAutoSearch() {
     return autoSearch;
   }
 
   /** @return the {@link SearchHandler} */
+  /**
+   * Getter for the field <code>searchHandler</code>.
+   *
+   * @return a {@link org.dominokit.domino.ui.search.Search.SearchHandler} object
+   */
   public SearchHandler getSearchHandler() {
     return searchHandler;
   }
 
   /** @param searchHandler {@link SearchHandler} */
+  /**
+   * Setter for the field <code>searchHandler</code>.
+   *
+   * @param searchHandler a {@link org.dominokit.domino.ui.search.Search.SearchHandler} object
+   */
   public void setSearchHandler(SearchHandler searchHandler) {
     this.searchHandler = searchHandler;
   }
 
   /** @return the {@link SearchCloseHandler} */
+  /**
+   * Getter for the field <code>closeHandler</code>.
+   *
+   * @return a {@link org.dominokit.domino.ui.search.Search.SearchCloseHandler} object
+   */
   public SearchCloseHandler getCloseHandler() {
     return closeHandler;
   }
 
   /** @param closeHandler {@link SearchCloseHandler} */
+  /**
+   * Setter for the field <code>closeHandler</code>.
+   *
+   * @param closeHandler a {@link org.dominokit.domino.ui.search.Search.SearchCloseHandler} object
+   */
   public void setCloseHandler(SearchCloseHandler closeHandler) {
     this.closeHandler = closeHandler;
   }
@@ -223,7 +264,10 @@ public class Search extends BaseDominoElement<HTMLDivElement, Search>
   }
 
   /**
-   * @return the {@link HTMLInputElement} of this search component wrapped as {@link DominoElement}
+   * getInputElement.
+   *
+   * @return the {@link elemental2.dom.HTMLInputElement} of this search component wrapped as {@link
+   *     org.dominokit.domino.ui.utils.DominoElement}
    */
   public InputElement getInputElement() {
     return searchInput;

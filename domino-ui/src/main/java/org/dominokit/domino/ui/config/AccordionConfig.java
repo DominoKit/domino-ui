@@ -19,8 +19,19 @@ import java.util.function.Supplier;
 import org.dominokit.domino.ui.collapsible.CollapseStrategy;
 import org.dominokit.domino.ui.collapsible.HeightCollapseStrategy;
 
+/**
+ * AccordionConfig interface.
+ *
+ * @author vegegoku
+ * @version $Id: $Id
+ */
 public interface AccordionConfig extends ComponentConfig {
 
+  /**
+   * getDefaultAccordionCollapseStrategySupplier.
+   *
+   * @return a {@link java.util.function.Supplier} object
+   */
   default Supplier<CollapseStrategy> getDefaultAccordionCollapseStrategySupplier() {
     return HeightCollapseStrategy::new;
   }

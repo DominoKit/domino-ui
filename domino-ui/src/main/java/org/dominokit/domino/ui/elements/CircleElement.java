@@ -17,11 +17,28 @@ package org.dominokit.domino.ui.elements;
 
 import elemental2.svg.SVGCircleElement;
 
+/**
+ * CircleElement class.
+ *
+ * @author vegegoku
+ * @version $Id: $Id
+ */
 public class CircleElement extends BaseElement<SVGCircleElement, CircleElement> {
+  /**
+   * of.
+   *
+   * @param e a {@link elemental2.svg.SVGCircleElement} object
+   * @return a {@link org.dominokit.domino.ui.elements.CircleElement} object
+   */
   public static CircleElement of(SVGCircleElement e) {
     return new CircleElement(e);
   }
 
+  /**
+   * Constructor for CircleElement.
+   *
+   * @param element a {@link elemental2.svg.SVGCircleElement} object
+   */
   public CircleElement(SVGCircleElement element) {
     super(element);
   }

@@ -17,11 +17,28 @@ package org.dominokit.domino.ui.elements;
 
 import elemental2.dom.HTMLSourceElement;
 
+/**
+ * SourceElement class.
+ *
+ * @author vegegoku
+ * @version $Id: $Id
+ */
 public class SourceElement extends BaseElement<HTMLSourceElement, SourceElement> {
+  /**
+   * of.
+   *
+   * @param e a {@link elemental2.dom.HTMLSourceElement} object
+   * @return a {@link org.dominokit.domino.ui.elements.SourceElement} object
+   */
   public static SourceElement of(HTMLSourceElement e) {
     return new SourceElement(e);
   }
 
+  /**
+   * Constructor for SourceElement.
+   *
+   * @param element a {@link elemental2.dom.HTMLSourceElement} object
+   */
   public SourceElement(HTMLSourceElement element) {
     super(element);
   }

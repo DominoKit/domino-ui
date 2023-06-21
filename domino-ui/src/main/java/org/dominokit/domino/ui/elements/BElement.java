@@ -17,11 +17,28 @@ package org.dominokit.domino.ui.elements;
 
 import elemental2.dom.HTMLElement;
 
+/**
+ * BElement class.
+ *
+ * @author vegegoku
+ * @version $Id: $Id
+ */
 public class BElement extends BaseElement<HTMLElement, BElement> {
+  /**
+   * of.
+   *
+   * @param e a {@link elemental2.dom.HTMLElement} object
+   * @return a {@link org.dominokit.domino.ui.elements.BElement} object
+   */
   public static BElement of(HTMLElement e) {
     return new BElement(e);
   }
 
+  /**
+   * Constructor for BElement.
+   *
+   * @param element a {@link elemental2.dom.HTMLElement} object
+   */
   public BElement(HTMLElement element) {
     super(element);
   }

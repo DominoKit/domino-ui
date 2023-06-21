@@ -17,11 +17,28 @@ package org.dominokit.domino.ui.elements;
 
 import elemental2.dom.HTMLTrackElement;
 
+/**
+ * TrackElement class.
+ *
+ * @author vegegoku
+ * @version $Id: $Id
+ */
 public class TrackElement extends BaseElement<HTMLTrackElement, TrackElement> {
+  /**
+   * of.
+   *
+   * @param e a {@link elemental2.dom.HTMLTrackElement} object
+   * @return a {@link org.dominokit.domino.ui.elements.TrackElement} object
+   */
   public static TrackElement of(HTMLTrackElement e) {
     return new TrackElement(e);
   }
 
+  /**
+   * Constructor for TrackElement.
+   *
+   * @param element a {@link elemental2.dom.HTMLTrackElement} object
+   */
   public TrackElement(HTMLTrackElement element) {
     super(element);
   }

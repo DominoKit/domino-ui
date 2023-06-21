@@ -23,8 +23,21 @@ import java.util.Optional;
 import org.dominokit.domino.ui.style.Style;
 import org.dominokit.domino.ui.utils.DominoCSSRule;
 
+/**
+ * ColumnUtils class.
+ *
+ * @author vegegoku
+ * @version $Id: $Id
+ */
 public class ColumnUtils {
 
+  /**
+   * fixElementWidth.
+   *
+   * @param column a {@link org.dominokit.domino.ui.datatable.ColumnConfig} object
+   * @param element a {@link elemental2.dom.HTMLElement} object
+   * @param <T> a T class
+   */
   public static <T> void fixElementWidth(ColumnConfig<T> column, HTMLElement element) {
     bestFitWidth(column)
         .ifPresent(
@@ -55,6 +68,13 @@ public class ColumnUtils {
     ;
   }
 
+  /**
+   * fixElementWidth.
+   *
+   * @param table a {@link org.dominokit.domino.ui.datatable.DataTable} object
+   * @param element a {@link elemental2.dom.HTMLElement} object
+   * @param <T> a T class
+   */
   public static <T> void fixElementWidth(DataTable<T> table, HTMLElement element) {
 
     TableConfig<T> config = table.getTableConfig();

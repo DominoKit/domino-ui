@@ -17,11 +17,28 @@ package org.dominokit.domino.ui.elements;
 
 import elemental2.dom.HTMLElement;
 
+/**
+ * TimeElement class.
+ *
+ * @author vegegoku
+ * @version $Id: $Id
+ */
 public class TimeElement extends BaseElement<HTMLElement, TimeElement> {
+  /**
+   * of.
+   *
+   * @param e a {@link elemental2.dom.HTMLElement} object
+   * @return a {@link org.dominokit.domino.ui.elements.TimeElement} object
+   */
   public static TimeElement of(HTMLElement e) {
     return new TimeElement(e);
   }
 
+  /**
+   * Constructor for TimeElement.
+   *
+   * @param element a {@link elemental2.dom.HTMLElement} object
+   */
   public TimeElement(HTMLElement element) {
     super(element);
   }

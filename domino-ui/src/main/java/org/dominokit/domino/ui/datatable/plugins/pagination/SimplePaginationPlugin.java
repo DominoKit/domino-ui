@@ -21,10 +21,12 @@ import org.dominokit.domino.ui.datatable.plugins.DataTablePlugin;
 import org.dominokit.domino.ui.pagination.SimplePagination;
 
 /**
- * This plugin attach an {@link SimplePagination} component to the data table and fires {@link
- * TablePageChangeEvent} when ever the page is changed
+ * This plugin attach an {@link org.dominokit.domino.ui.pagination.SimplePagination} component to
+ * the data table and fires {@link TablePageChangeEvent} when ever the page is changed
  *
  * @param <T> the type of the data table records
+ * @author vegegoku
+ * @version $Id: $Id
  */
 public class SimplePaginationPlugin<T> implements DataTablePlugin<T> {
 
@@ -55,6 +57,11 @@ public class SimplePaginationPlugin<T> implements DataTablePlugin<T> {
   }
 
   /** @return the {@link SimplePagination} wrapped in this plugin */
+  /**
+   * Getter for the field <code>simplePagination</code>.
+   *
+   * @return a {@link org.dominokit.domino.ui.pagination.SimplePagination} object
+   */
   public SimplePagination getSimplePagination() {
     return simplePagination;
   }

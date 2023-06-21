@@ -22,6 +22,12 @@ import org.dominokit.domino.ui.menu.direction.DropDirection;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
 import org.gwtproject.i18n.shared.cldr.DateTimeFormatInfo;
 
+/**
+ * WeekDayHeader class.
+ *
+ * @author vegegoku
+ * @version $Id: $Id
+ */
 public class WeekDayHeader extends BaseDominoElement<HTMLDivElement, WeekDayHeader>
     implements CalendarStyles, CalendarViewListener {
 
@@ -30,6 +36,12 @@ public class WeekDayHeader extends BaseDominoElement<HTMLDivElement, WeekDayHead
   private final int dayIndex;
   private final SpanElement dayElement;
 
+  /**
+   * Constructor for WeekDayHeader.
+   *
+   * @param calendar a {@link org.dominokit.domino.ui.datepicker.IsCalendar} object
+   * @param dayIndex a int
+   */
   public WeekDayHeader(IsCalendar calendar, int dayIndex) {
     this.calendar = calendar;
     this.calendar.bindCalenderViewListener(this);
@@ -47,16 +59,25 @@ public class WeekDayHeader extends BaseDominoElement<HTMLDivElement, WeekDayHead
     onDetached(mutationRecord -> this.calendar.unbindCalenderViewListener(this));
   }
 
+  /**
+   * create.
+   *
+   * @param calendar a {@link org.dominokit.domino.ui.datepicker.IsCalendar} object
+   * @param dayIndex a int
+   * @return a {@link org.dominokit.domino.ui.datepicker.WeekDayHeader} object
+   */
   public static WeekDayHeader create(IsCalendar calendar, int dayIndex) {
     return new WeekDayHeader(calendar, dayIndex);
   }
 
+  /** {@inheritDoc} */
   @Override
   public void onDateTimeFormatInfoChanged(DateTimeFormatInfo dateTimeFormatInfo) {
     dayElement.textContent(dateTimeFormatInfo.weekdaysShort()[dayIndex]);
     root.setTooltip(dateTimeFormatInfo.weekdaysFull()[dayIndex], DropDirection.TOP_MIDDLE);
   }
 
+  /** {@inheritDoc} */
   @Override
   public HTMLDivElement element() {
     return root.element();

@@ -19,6 +19,8 @@ package org.dominokit.domino.ui.utils;
  * A Component that needs to have a toggle state (checked/unchecked) should implement this interface
  *
  * @param <T> The type of the component implementing this interface
+ * @author vegegoku
+ * @version $Id: $Id
  */
 public interface Checkable<T> {
   /**
@@ -64,6 +66,7 @@ public interface Checkable<T> {
    *
    * @param silent boolean, if true dont trigger change handlers
    * @return same component instance
+   * @param checkedState a boolean
    */
   T toggleChecked(boolean checkedState, boolean silent);
 
@@ -75,5 +78,10 @@ public interface Checkable<T> {
   T toggleChecked();
 
   /** @return boolean, true if the component is checked, otherwise false */
+  /**
+   * isChecked.
+   *
+   * @return a boolean
+   */
   boolean isChecked();
 }

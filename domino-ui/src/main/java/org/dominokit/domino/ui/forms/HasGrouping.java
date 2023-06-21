@@ -20,9 +20,12 @@ import org.dominokit.domino.ui.utils.*;
 import org.gwtproject.editor.client.Editor;
 
 /**
- * Components that can be grouped by a {@link FieldsGrouping} should implement this interface
+ * Components that can be grouped by a {@link org.dominokit.domino.ui.forms.FieldsGrouping} should
+ * implement this interface
  *
  * @param <T> the type of the component implementing this interface
+ * @author vegegoku
+ * @version $Id: $Id
  */
 public interface HasGrouping<T>
     extends AcceptDisable<T>, AcceptReadOnly<T>, IsRequired<T>, HasValidation<T>, Clearable<T> {
@@ -30,7 +33,7 @@ public interface HasGrouping<T>
   /**
    * Adds the component to the specified fields group
    *
-   * @param fieldsGrouping {@link FieldsGrouping}
+   * @param fieldsGrouping {@link org.dominokit.domino.ui.forms.FieldsGrouping}
    * @return same implementing component instance
    */
   @Editor.Ignore
@@ -39,23 +42,44 @@ public interface HasGrouping<T>
   /**
    * remove the component from the specified fields group
    *
-   * @param fieldsGrouping {@link FieldsGrouping}
+   * @param fieldsGrouping {@link org.dominokit.domino.ui.forms.FieldsGrouping}
    * @return same implementing component instance
    */
   @Editor.Ignore
   T ungroup(FieldsGrouping fieldsGrouping);
 
   /** @return boolean, true if the component value is empty */
+  /**
+   * isEmpty.
+   *
+   * @return a boolean
+   */
   @Editor.Ignore
   boolean isEmpty();
 
   /** @return boolean, true if the component value is empty after trimming spaces */
+  /**
+   * isEmptyIgnoreSpaces.
+   *
+   * @return a boolean
+   */
   @Editor.Ignore
   boolean isEmptyIgnoreSpaces();
 
+  /**
+   * fixErrorsPosition.
+   *
+   * @param fixErrorsPosition a boolean
+   * @return a T object
+   */
   @Editor.Ignore
   T fixErrorsPosition(boolean fixErrorsPosition);
 
+  /**
+   * validate.
+   *
+   * @return a {@link org.dominokit.domino.ui.forms.validations.ValidationResult} object
+   */
   default ValidationResult validate() {
     return validate((T) this);
   }

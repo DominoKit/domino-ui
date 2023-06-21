@@ -20,7 +20,12 @@ import org.dominokit.domino.ui.IsElement;
 import org.dominokit.domino.ui.elements.DivElement;
 import org.dominokit.domino.ui.utils.DominoElement;
 
-/** Rotation loader implementation */
+/**
+ * Rotation loader implementation
+ *
+ * @author vegegoku
+ * @version $Id: $Id
+ */
 public class RotationLoader extends BaseLoader<RotationLoader>
     implements IsElement<HTMLDivElement> {
 
@@ -37,10 +42,16 @@ public class RotationLoader extends BaseLoader<RotationLoader>
   private final DivElement element =
       div().addCss(wait_me).style("background: rgba(255, 255, 255, 0.9);").appendChild(content);
 
+  /** Constructor for RotationLoader. */
   public RotationLoader() {
     init(this);
   }
 
+  /**
+   * create.
+   *
+   * @return a {@link org.dominokit.domino.ui.loaders.RotationLoader} object
+   */
   public static RotationLoader create() {
     return new RotationLoader();
   }

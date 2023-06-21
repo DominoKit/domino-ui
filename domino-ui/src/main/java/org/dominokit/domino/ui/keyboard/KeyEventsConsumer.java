@@ -15,8 +15,19 @@
  */
 package org.dominokit.domino.ui.keyboard;
 
+/**
+ * KeyEventsConsumer interface.
+ *
+ * @author vegegoku
+ * @version $Id: $Id
+ */
 @FunctionalInterface
 public interface KeyEventsConsumer {
 
+  /**
+   * accept.
+   *
+   * @param keyEvents a {@link org.dominokit.domino.ui.keyboard.AcceptKeyEvents} object
+   */
   void accept(AcceptKeyEvents keyEvents);
 }

@@ -17,11 +17,28 @@ package org.dominokit.domino.ui.elements;
 
 import elemental2.svg.SVGLineElement;
 
+/**
+ * LineElement class.
+ *
+ * @author vegegoku
+ * @version $Id: $Id
+ */
 public class LineElement extends BaseElement<SVGLineElement, LineElement> {
+  /**
+   * of.
+   *
+   * @param e a {@link elemental2.svg.SVGLineElement} object
+   * @return a {@link org.dominokit.domino.ui.elements.LineElement} object
+   */
   public static LineElement of(SVGLineElement e) {
     return new LineElement(e);
   }
 
+  /**
+   * Constructor for LineElement.
+   *
+   * @param element a {@link elemental2.svg.SVGLineElement} object
+   */
   public LineElement(SVGLineElement element) {
     super(element);
   }

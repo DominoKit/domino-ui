@@ -17,11 +17,28 @@ package org.dominokit.domino.ui.elements;
 
 import elemental2.dom.HTMLTableSectionElement;
 
+/**
+ * TFootElement class.
+ *
+ * @author vegegoku
+ * @version $Id: $Id
+ */
 public class TFootElement extends BaseElement<HTMLTableSectionElement, TFootElement> {
+  /**
+   * of.
+   *
+   * @param e a {@link elemental2.dom.HTMLTableSectionElement} object
+   * @return a {@link org.dominokit.domino.ui.elements.TFootElement} object
+   */
   public static TFootElement of(HTMLTableSectionElement e) {
     return new TFootElement(e);
   }
 
+  /**
+   * Constructor for TFootElement.
+   *
+   * @param element a {@link elemental2.dom.HTMLTableSectionElement} object
+   */
   public TFootElement(HTMLTableSectionElement element) {
     super(element);
   }

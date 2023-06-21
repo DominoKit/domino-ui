@@ -38,6 +38,9 @@ import org.dominokit.domino.ui.utils.DominoElement;
  * <pre>code</pre>
  *
  * <p>element
+ *
+ * @author vegegoku
+ * @version $Id: $Id
  */
 public class Code {
 

@@ -30,6 +30,9 @@ import org.dominokit.domino.ui.utils.DominoElement;
  * Defines draggable elements.
  *
  * <p>Each drag source has a list of draggable elements (i.e. can be dragged and dropped)
+ *
+ * @author vegegoku
+ * @version $Id: $Id
  */
 public class DragSource {
 
@@ -76,6 +79,11 @@ public class DragSource {
     draggables.put(id, new Draggable(id, draggable));
   }
 
+  /**
+   * removeDraggable.
+   *
+   * @param id a {@link java.lang.String} object
+   */
   public void removeDraggable(String id) {
     if (draggables.containsKey(id)) {
       Draggable draggable = draggables.get(id);

@@ -16,22 +16,25 @@
 package org.dominokit.domino.ui.datatable.plugins.header;
 
 import elemental2.dom.Element;
-import elemental2.dom.Node;
 import org.dominokit.domino.ui.datatable.DataTable;
 import org.dominokit.domino.ui.datatable.events.TableEvent;
 import org.dominokit.domino.ui.datatable.events.TableEventListener;
 
 /**
- * An interface to implement header action elements for the {@link HeaderBarPlugin}
+ * An interface to implement header action elements for the {@link
+ * org.dominokit.domino.ui.datatable.plugins.header.HeaderBarPlugin}
  *
  * @param <T> the type of the data table records
+ * @author vegegoku
+ * @version $Id: $Id
  */
 public interface HeaderActionElement<T> extends TableEventListener {
   /**
    * initialize the element for this action
    *
-   * @param dataTable the {@link DataTable} we are attaching the plugin to
-   * @return the {@link Node} representing this action element
+   * @param dataTable the {@link org.dominokit.domino.ui.datatable.DataTable} we are attaching the
+   *     plugin to
+   * @return the {@link elemental2.dom.Node} representing this action element
    */
   Element asElement(DataTable<T> dataTable);
 

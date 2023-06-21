@@ -23,11 +23,15 @@ import java.util.Set;
  *
  * @param <T> the type of the class implementing this interface
  * @param <V> the type of the component value
+ * @author vegegoku
+ * @version $Id: $Id
  */
 public interface HasClearListeners<T, V> {
 
   /**
-   * @param clearListener {@link ClearListener}
+   * addClearListener.
+   *
+   * @param clearListener {@link org.dominokit.domino.ui.utils.HasClearListeners.ClearListener}
    * @return same implementing class instance
    */
   default T addClearListener(ClearListener<? super V> clearListener) {
@@ -36,7 +40,9 @@ public interface HasClearListeners<T, V> {
   }
 
   /**
-   * @param clearListener {@link ClearListener}
+   * removeClearListener.
+   *
+   * @param clearListener {@link org.dominokit.domino.ui.utils.HasClearListeners.ClearListener}
    * @return same implementing class instance
    */
   default T removeClearListener(ClearListener<? super V> clearListener) {
@@ -47,15 +53,25 @@ public interface HasClearListeners<T, V> {
   /**
    * Checks if a component has the specified ChangeHandler
    *
-   * @param clearListener {@link ClearListener}
+   * @param clearListener {@link org.dominokit.domino.ui.utils.HasClearListeners.ClearListener}
    * @return same implementing class instance
    */
   default boolean hasClearListener(ClearListener<? super V> clearListener) {
     return getClearListeners().contains(clearListener);
   }
 
+  /**
+   * getClearListeners.
+   *
+   * @return a {@link java.util.Set} object
+   */
   Set<ClearListener<? super V>> getClearListeners();
 
+  /**
+   * isClearListenersPaused.
+   *
+   * @return a boolean
+   */
   boolean isClearListenersPaused();
 
   /**
@@ -86,6 +102,7 @@ public interface HasClearListeners<T, V> {
    *
    * @param toggle boolean, true to pause the change listeners, false to enable them
    * @return same component instance
+   * @param handler a {@link org.dominokit.domino.ui.utils.Handler} object
    */
   default T withPauseClearListenersToggle(boolean toggle, Handler<T> handler) {
     boolean oldState = isClearListenersPaused();
@@ -104,6 +121,7 @@ public interface HasClearListeners<T, V> {
    *
    * @param toggle boolean, true to pause the change listeners, false to enable them
    * @return same component instance
+   * @param handler a {@link org.dominokit.domino.ui.utils.AsyncHandler} object
    */
   default T withPauseClearListenersToggle(boolean toggle, AsyncHandler<T> handler) {
     boolean oldState = isClearListenersPaused();
@@ -117,6 +135,12 @@ public interface HasClearListeners<T, V> {
     return (T) this;
   }
 
+  /**
+   * triggerClearListeners.
+   *
+   * @param oldValue a V object
+   * @return a T object
+   */
   T triggerClearListeners(V oldValue);
 
   /** @param <V> the type of the component value */

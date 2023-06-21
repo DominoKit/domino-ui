@@ -20,7 +20,12 @@ import org.dominokit.domino.ui.IsElement;
 import org.dominokit.domino.ui.elements.DivElement;
 import org.dominokit.domino.ui.utils.DominoElement;
 
-/** Orbit loader implementation */
+/**
+ * Orbit loader implementation
+ *
+ * @author vegegoku
+ * @version $Id: $Id
+ */
 public class OrbitLoader extends BaseLoader<OrbitLoader> implements IsElement<HTMLDivElement> {
 
   private final DivElement progress1 =
@@ -40,10 +45,16 @@ public class OrbitLoader extends BaseLoader<OrbitLoader> implements IsElement<HT
   private final DivElement element =
       div().addCss(wait_me).style("background: rgba(255, 255, 255, 0.9);").appendChild(content);
 
+  /** Constructor for OrbitLoader. */
   public OrbitLoader() {
     init(this);
   }
 
+  /**
+   * create.
+   *
+   * @return a {@link org.dominokit.domino.ui.loaders.OrbitLoader} object
+   */
   public static OrbitLoader create() {
     return new OrbitLoader();
   }

@@ -19,6 +19,8 @@ package org.dominokit.domino.ui.utils;
  * Components that can be focused should implement this interface
  *
  * @param <T> the type of the class implementing this interface
+ * @author vegegoku
+ * @version $Id: $Id
  */
 public interface Focusable<T> {
   /**
@@ -36,5 +38,10 @@ public interface Focusable<T> {
   T unfocus();
 
   /** @return boolean, true if the component is focused */
+  /**
+   * isFocused.
+   *
+   * @return a boolean
+   */
   boolean isFocused();
 }

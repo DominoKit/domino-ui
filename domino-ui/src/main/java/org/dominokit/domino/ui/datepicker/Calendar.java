@@ -28,6 +28,12 @@ import org.dominokit.domino.ui.utils.LazyChild;
 import org.gwtproject.i18n.shared.cldr.DateTimeFormatInfo;
 import org.gwtproject.i18n.shared.cldr.impl.DateTimeFormatInfo_factory;
 
+/**
+ * Calendar class.
+ *
+ * @author vegegoku
+ * @version $Id: $Id
+ */
 public class Calendar extends BaseDominoElement<HTMLDivElement, Calendar>
     implements CalendarStyles, IsCalendar, HasChangeListeners<Calendar, Date> {
 
@@ -46,26 +52,56 @@ public class Calendar extends BaseDominoElement<HTMLDivElement, Calendar>
   private LazyChild<DivElement> footer;
   private boolean changeListenersPaused;
 
+  /** Constructor for Calendar. */
   public Calendar() {
     this(new Date(), new CalendarInitConfig());
   }
 
+  /**
+   * Constructor for Calendar.
+   *
+   * @param config a {@link org.dominokit.domino.ui.datepicker.CalendarInitConfig} object
+   */
   public Calendar(CalendarInitConfig config) {
     this(new Date(), config);
   }
 
+  /**
+   * Constructor for Calendar.
+   *
+   * @param date a {@link java.util.Date} object
+   */
   public Calendar(Date date) {
     this(date, DateTimeFormatInfo_factory.create(), new CalendarInitConfig());
   }
 
+  /**
+   * Constructor for Calendar.
+   *
+   * @param date a {@link java.util.Date} object
+   * @param config a {@link org.dominokit.domino.ui.datepicker.CalendarInitConfig} object
+   */
   public Calendar(Date date, CalendarInitConfig config) {
     this(date, DateTimeFormatInfo_factory.create(), config);
   }
 
+  /**
+   * Constructor for Calendar.
+   *
+   * @param date a {@link java.util.Date} object
+   * @param dateTimeFormatInfo a {@link org.gwtproject.i18n.shared.cldr.DateTimeFormatInfo} object
+   */
   public Calendar(Date date, DateTimeFormatInfo dateTimeFormatInfo) {
     this(date, dateTimeFormatInfo, new CalendarInitConfig());
   }
 
+  /**
+   * Constructor for Calendar.
+   *
+   * @param date a {@link java.util.Date} object
+   * @param dateTimeFormatInfo a {@link org.gwtproject.i18n.shared.cldr.DateTimeFormatInfo} object
+   * @param config a {@link org.dominokit.domino.ui.datepicker.CalendarInitConfig} object
+   */
   public Calendar(Date date, DateTimeFormatInfo dateTimeFormatInfo, CalendarInitConfig config) {
     this.date = date;
     this.dateTimeFormatInfo = dateTimeFormatInfo;
@@ -134,39 +170,92 @@ public class Calendar extends BaseDominoElement<HTMLDivElement, Calendar>
     getConfig().getPlugins().forEach(plugin -> plugin.onInit(this));
   }
 
+  /**
+   * create.
+   *
+   * @return a {@link org.dominokit.domino.ui.datepicker.Calendar} object
+   */
   public static Calendar create() {
     return new Calendar(new Date(), new CalendarInitConfig());
   }
 
+  /**
+   * create.
+   *
+   * @param config a {@link org.dominokit.domino.ui.datepicker.CalendarInitConfig} object
+   * @return a {@link org.dominokit.domino.ui.datepicker.Calendar} object
+   */
   public static Calendar create(CalendarInitConfig config) {
     return new Calendar(new Date(), config);
   }
 
+  /**
+   * create.
+   *
+   * @param date a {@link java.util.Date} object
+   * @return a {@link org.dominokit.domino.ui.datepicker.Calendar} object
+   */
   public static Calendar create(Date date) {
     return new Calendar(date, DateTimeFormatInfo_factory.create(), new CalendarInitConfig());
   }
 
+  /**
+   * create.
+   *
+   * @param dateTimeFormatInfo a {@link org.gwtproject.i18n.shared.cldr.DateTimeFormatInfo} object
+   * @return a {@link org.dominokit.domino.ui.datepicker.Calendar} object
+   */
   public static Calendar create(DateTimeFormatInfo dateTimeFormatInfo) {
     return new Calendar(new Date(), dateTimeFormatInfo, new CalendarInitConfig());
   }
 
+  /**
+   * create.
+   *
+   * @param date a {@link java.util.Date} object
+   * @param config a {@link org.dominokit.domino.ui.datepicker.CalendarInitConfig} object
+   * @return a {@link org.dominokit.domino.ui.datepicker.Calendar} object
+   */
   public static Calendar create(Date date, CalendarInitConfig config) {
     return new Calendar(date, DateTimeFormatInfo_factory.create(), config);
   }
 
+  /**
+   * create.
+   *
+   * @param date a {@link java.util.Date} object
+   * @param dateTimeFormatInfo a {@link org.gwtproject.i18n.shared.cldr.DateTimeFormatInfo} object
+   * @return a {@link org.dominokit.domino.ui.datepicker.Calendar} object
+   */
   public static Calendar create(Date date, DateTimeFormatInfo dateTimeFormatInfo) {
     return new Calendar(date, dateTimeFormatInfo, new CalendarInitConfig());
   }
 
+  /**
+   * create.
+   *
+   * @param dateTimeFormatInfo a {@link org.gwtproject.i18n.shared.cldr.DateTimeFormatInfo} object
+   * @param config a {@link org.dominokit.domino.ui.datepicker.CalendarInitConfig} object
+   * @return a {@link org.dominokit.domino.ui.datepicker.Calendar} object
+   */
   public static Calendar create(DateTimeFormatInfo dateTimeFormatInfo, CalendarInitConfig config) {
     return new Calendar(new Date(), dateTimeFormatInfo, config);
   }
 
+  /**
+   * create.
+   *
+   * @param date a {@link java.util.Date} object
+   * @param dateTimeFormatInfo a {@link org.gwtproject.i18n.shared.cldr.DateTimeFormatInfo} object
+   * @param config a {@link org.dominokit.domino.ui.datepicker.CalendarInitConfig} object
+   * @return a {@link org.dominokit.domino.ui.datepicker.Calendar} object
+   */
   public static Calendar create(
       Date date, DateTimeFormatInfo dateTimeFormatInfo, CalendarInitConfig config) {
     return new Calendar(date, dateTimeFormatInfo, config);
   }
 
+  /** {@inheritDoc} */
   @Override
   public CalendarInitConfig getConfig() {
     return config;
@@ -187,11 +276,18 @@ public class Calendar extends BaseDominoElement<HTMLDivElement, Calendar>
         .forEach(listener -> listener.onDateSelectionChanged(updatedDate));
   }
 
+  /** {@inheritDoc} */
   @Override
   public Date getDate() {
     return this.date;
   }
 
+  /**
+   * Setter for the field <code>date</code>.
+   *
+   * @param date a {@link java.util.Date} object
+   * @return a {@link org.dominokit.domino.ui.datepicker.Calendar} object
+   */
   public Calendar setDate(Date date) {
     Date oldDate = this.date;
     this.date = date;
@@ -201,22 +297,31 @@ public class Calendar extends BaseDominoElement<HTMLDivElement, Calendar>
     return this;
   }
 
+  /** {@inheritDoc} */
   @Override
   public DateTimeFormatInfo getDateTimeFormatInfo() {
     return dateTimeFormatInfo;
   }
 
+  /**
+   * Setter for the field <code>dateTimeFormatInfo</code>.
+   *
+   * @param dateTimeFormatInfo a {@link org.gwtproject.i18n.shared.cldr.DateTimeFormatInfo} object
+   * @return a {@link org.dominokit.domino.ui.datepicker.Calendar} object
+   */
   public Calendar setDateTimeFormatInfo(DateTimeFormatInfo dateTimeFormatInfo) {
     this.dateTimeFormatInfo = dateTimeFormatInfo;
     onDateTimeFormatChanged();
     return this;
   }
 
+  /** {@inheritDoc} */
   @Override
   public HTMLDivElement element() {
     return root.element();
   }
 
+  /** {@inheritDoc} */
   @Override
   public void bindCalenderViewListener(CalendarViewListener listener) {
     if (nonNull(listener)) {
@@ -224,6 +329,7 @@ public class Calendar extends BaseDominoElement<HTMLDivElement, Calendar>
     }
   }
 
+  /** {@inheritDoc} */
   @Override
   public void unbindCalenderViewListener(CalendarViewListener listener) {
     if (nonNull(listener)) {
@@ -231,69 +337,116 @@ public class Calendar extends BaseDominoElement<HTMLDivElement, Calendar>
     }
   }
 
+  /**
+   * withHeader.
+   *
+   * @param handler a {@link org.dominokit.domino.ui.utils.ChildHandler} object
+   * @return a {@link org.dominokit.domino.ui.datepicker.Calendar} object
+   */
   public Calendar withHeader(ChildHandler<Calendar, CalendarHeader> handler) {
     handler.apply(this, header.get());
     return this;
   }
 
+  /**
+   * withHeader.
+   *
+   * @return a {@link org.dominokit.domino.ui.datepicker.Calendar} object
+   */
   public Calendar withHeader() {
     header.get();
     return this;
   }
 
+  /**
+   * withSelectors.
+   *
+   * @param handler a {@link org.dominokit.domino.ui.utils.ChildHandler} object
+   * @return a {@link org.dominokit.domino.ui.datepicker.Calendar} object
+   */
   public Calendar withSelectors(ChildHandler<Calendar, CalendarSelectors> handler) {
     handler.apply(this, selectors);
     return this;
   }
 
+  /**
+   * withBody.
+   *
+   * @param handler a {@link org.dominokit.domino.ui.utils.ChildHandler} object
+   * @return a {@link org.dominokit.domino.ui.datepicker.Calendar} object
+   */
   public Calendar withBody(ChildHandler<Calendar, DivElement> handler) {
     handler.apply(this, calendarBody);
     return this;
   }
 
+  /**
+   * withCalendarMonth.
+   *
+   * @param handler a {@link org.dominokit.domino.ui.utils.ChildHandler} object
+   * @return a {@link org.dominokit.domino.ui.datepicker.Calendar} object
+   */
   public Calendar withCalendarMonth(ChildHandler<Calendar, CalendarMonth> handler) {
     handler.apply(this, calendarMonth);
     return this;
   }
 
+  /**
+   * withYearMonthPicker.
+   *
+   * @param handler a {@link org.dominokit.domino.ui.utils.ChildHandler} object
+   * @return a {@link org.dominokit.domino.ui.datepicker.Calendar} object
+   */
   public Calendar withYearMonthPicker(ChildHandler<Calendar, YearMonthPicker> handler) {
     handler.apply(this, yearMonthPicker);
     return this;
   }
 
+  /**
+   * withFooter.
+   *
+   * @param handler a {@link org.dominokit.domino.ui.utils.ChildHandler} object
+   * @return a {@link org.dominokit.domino.ui.datepicker.Calendar} object
+   */
   public Calendar withFooter(ChildHandler<Calendar, DivElement> handler) {
     handler.apply(this, footer.get());
     return this;
   }
 
+  /** {@inheritDoc} */
   @Override
   public Calendar pauseChangeListeners() {
     this.changeListenersPaused = true;
     return this;
   }
 
+  /** {@inheritDoc} */
   @Override
   public Calendar resumeChangeListeners() {
     this.changeListenersPaused = false;
     return this;
   }
 
+  /** {@inheritDoc} */
   @Override
   public Calendar togglePauseChangeListeners(boolean toggle) {
     this.changeListenersPaused = toggle;
     return this;
   }
 
+  /** {@inheritDoc} */
   @Override
   public Set<ChangeListener<? super Date>> getChangeListeners() {
     return changeListeners;
   }
 
+  /** {@inheritDoc} */
   @Override
   public boolean isChangeListenersPaused() {
     return this.changeListenersPaused;
   }
 
+  /** {@inheritDoc} */
   @Override
   public Calendar triggerChangeListeners(Date oldValue, Date newValue) {
     if (!this.changeListenersPaused) {
@@ -303,11 +456,18 @@ public class Calendar extends BaseDominoElement<HTMLDivElement, Calendar>
     return this;
   }
 
+  /** {@inheritDoc} */
   @Override
   public Set<DateSelectionListener> getDateSelectionListeners() {
     return this.dateSelectionListeners;
   }
 
+  /**
+   * addDateSelectionListener.
+   *
+   * @param listener a {@link org.dominokit.domino.ui.datepicker.DateSelectionListener} object
+   * @return a {@link org.dominokit.domino.ui.datepicker.Calendar} object
+   */
   public Calendar addDateSelectionListener(DateSelectionListener listener) {
     if (nonNull(listener)) {
       this.dateSelectionListeners.add(listener);
@@ -315,6 +475,12 @@ public class Calendar extends BaseDominoElement<HTMLDivElement, Calendar>
     return this;
   }
 
+  /**
+   * removeDateSelectionListener.
+   *
+   * @param listener a {@link org.dominokit.domino.ui.datepicker.DateSelectionListener} object
+   * @return a {@link org.dominokit.domino.ui.datepicker.Calendar} object
+   */
   public Calendar removeDateSelectionListener(DateSelectionListener listener) {
     if (nonNull(listener)) {
       this.dateSelectionListeners.remove(listener);

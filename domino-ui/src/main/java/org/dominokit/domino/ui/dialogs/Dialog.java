@@ -15,9 +15,21 @@
  */
 package org.dominokit.domino.ui.dialogs;
 
+/**
+ * Dialog class.
+ *
+ * @author vegegoku
+ * @version $Id: $Id
+ */
 public class Dialog extends AbstractDialog<Dialog> {
+  /** Constructor for Dialog. */
   public Dialog() {}
 
+  /**
+   * create.
+   *
+   * @return a {@link org.dominokit.domino.ui.dialogs.Dialog} object
+   */
   public static Dialog create() {
     return new Dialog();
   }

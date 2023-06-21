@@ -36,12 +36,14 @@ import org.dominokit.domino.ui.dnd.DragSource;
 import org.dominokit.domino.ui.dnd.DropZone;
 import org.dominokit.domino.ui.elements.DivElement;
 import org.dominokit.domino.ui.icons.Icon;
-import org.dominokit.domino.ui.icons.Icons;
+import org.dominokit.domino.ui.icons.lib.Icons;
 
 /**
  * this plugin allows reordering and moving records in a data table
  *
  * @param <T> the type of data table records
+ * @author vegegoku
+ * @version $Id: $Id
  */
 public class DragDropPlugin<T> implements DataTablePlugin<T> {
 
@@ -55,6 +57,7 @@ public class DragDropPlugin<T> implements DataTablePlugin<T> {
   private Text emptyDropText;
   private final List<DataTable<T>> otherDataTables = new ArrayList<>();
 
+  /** {@inheritDoc} */
   @Override
   public void init(DataTable<T> dataTable) {
     this.dataTable = dataTable;
@@ -125,6 +128,7 @@ public class DragDropPlugin<T> implements DataTablePlugin<T> {
     }
   }
 
+  /** {@inheritDoc} */
   @Override
   public void handleEvent(TableEvent event) {
     if (event instanceof RecordDraggedOutEvent) {
@@ -157,21 +161,41 @@ public class DragDropPlugin<T> implements DataTablePlugin<T> {
   }
 
   /** @param emptyDropIconSupplier supplier to create icon for the empty drop area */
+  /**
+   * Setter for the field <code>emptyDropIconSupplier</code>.
+   *
+   * @param emptyDropIconSupplier a {@link java.util.function.Supplier} object
+   */
   public void setEmptyDropIconSupplier(Supplier<Icon<?>> emptyDropIconSupplier) {
     this.emptyDropIconSupplier = emptyDropIconSupplier;
   }
 
   /** @param dragDropIconSupplier supplier to create icon for each draggable row */
+  /**
+   * Setter for the field <code>dragDropIconSupplier</code>.
+   *
+   * @param dragDropIconSupplier a {@link java.util.function.Supplier} object
+   */
   public void setDragDropIconSupplier(Supplier<Icon<?>> dragDropIconSupplier) {
     this.dragDropIconSupplier = dragDropIconSupplier;
   }
 
   /** @return the element of empty drop */
+  /**
+   * Getter for the field <code>emptyDropArea</code>.
+   *
+   * @return a {@link org.dominokit.domino.ui.elements.DivElement} object
+   */
   public DivElement getEmptyDropArea() {
     return emptyDropArea;
   }
 
   /** @param text changes the text of the empty drop area */
+  /**
+   * Setter for the field <code>emptyDropText</code>.
+   *
+   * @param text a {@link java.lang.String} object
+   */
   public void setEmptyDropText(String text) {
     emptyDropText.textContent = text;
   }

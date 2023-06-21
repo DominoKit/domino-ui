@@ -21,9 +21,7 @@ import static java.util.Objects.nonNull;
 import elemental2.dom.Element;
 import elemental2.dom.EventListener;
 import elemental2.dom.HTMLAnchorElement;
-import elemental2.dom.HTMLElement;
 import elemental2.dom.HTMLLIElement;
-import elemental2.dom.HTMLUListElement;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
@@ -61,6 +59,8 @@ import org.dominokit.domino.ui.utils.TreeParent;
  * @see CanActivate
  * @see CanDeactivate
  * @see HasClickableElement
+ * @author vegegoku
+ * @version $Id: $Id
  */
 public class TreeItem<T> extends BaseDominoElement<HTMLLIElement, TreeItem<T>>
     implements TreeParent<T>,
@@ -130,6 +130,12 @@ public class TreeItem<T> extends BaseDominoElement<HTMLLIElement, TreeItem<T>>
     setAttribute(Collapsible.DUI_COLLAPSED, "true");
   }
 
+  /**
+   * Constructor for TreeItem.
+   *
+   * @param icon a {@link org.dominokit.domino.ui.icons.Icon} object
+   * @param title a {@link java.lang.String} object
+   */
   public TreeItem(Icon<?> icon, String title) {
     this();
     setIcon(icon);
@@ -137,28 +143,57 @@ public class TreeItem<T> extends BaseDominoElement<HTMLLIElement, TreeItem<T>>
     init();
   }
 
+  /**
+   * Constructor for TreeItem.
+   *
+   * @param title a {@link java.lang.String} object
+   */
   public TreeItem(String title) {
     this();
     setTitle(title);
     init();
   }
 
+  /**
+   * Constructor for TreeItem.
+   *
+   * @param icon a {@link org.dominokit.domino.ui.icons.Icon} object
+   */
   public TreeItem(Icon<?> icon) {
     this();
     setIcon(icon);
     init();
   }
 
+  /**
+   * Constructor for TreeItem.
+   *
+   * @param title a {@link java.lang.String} object
+   * @param value a T object
+   */
   public TreeItem(String title, T value) {
     this(title);
     this.value = value;
   }
 
+  /**
+   * Constructor for TreeItem.
+   *
+   * @param icon a {@link org.dominokit.domino.ui.icons.Icon} object
+   * @param title a {@link java.lang.String} object
+   * @param value a T object
+   */
   public TreeItem(Icon<?> icon, String title, T value) {
     this(icon, title);
     this.value = value;
   }
 
+  /**
+   * Constructor for TreeItem.
+   *
+   * @param icon a {@link org.dominokit.domino.ui.icons.Icon} object
+   * @param value a T object
+   */
   public TreeItem(Icon<?> icon, T value) {
     this(icon);
     this.value = value;
@@ -179,7 +214,7 @@ public class TreeItem<T> extends BaseDominoElement<HTMLLIElement, TreeItem<T>>
   /**
    * Creates new tree item with a title and an icon
    *
-   * @param icon the item's {@link Icon}
+   * @param icon the item's {@link org.dominokit.domino.ui.icons.Icon}
    * @param title the title of the item
    * @return new instance
    */
@@ -192,7 +227,7 @@ public class TreeItem<T> extends BaseDominoElement<HTMLLIElement, TreeItem<T>>
   /**
    * Creates new tree item with an icon
    *
-   * @param icon the item's {@link Icon}
+   * @param icon the item's {@link org.dominokit.domino.ui.icons.Icon}
    * @return new instance
    */
   public static TreeItem<String> create(Icon<?> icon) {
@@ -217,7 +252,7 @@ public class TreeItem<T> extends BaseDominoElement<HTMLLIElement, TreeItem<T>>
    * Creates new tree item with a title, an icon and a value
    *
    * @param title the title of the item
-   * @param icon the item's {@link Icon}
+   * @param icon the item's {@link org.dominokit.domino.ui.icons.Icon}
    * @param value the value of the item
    * @param <T> the type of the value
    * @return new instance
@@ -229,7 +264,7 @@ public class TreeItem<T> extends BaseDominoElement<HTMLLIElement, TreeItem<T>>
   /**
    * Creates new tree item with an icon and a value
    *
-   * @param icon the item's {@link Icon}
+   * @param icon the item's {@link org.dominokit.domino.ui.icons.Icon}
    * @param value the value of the item
    * @param <T> the type of the value
    * @return new instance
@@ -263,7 +298,7 @@ public class TreeItem<T> extends BaseDominoElement<HTMLLIElement, TreeItem<T>>
   /**
    * Adds a child item to this one
    *
-   * @param treeItem the child {@link TreeItem}
+   * @param treeItem the child {@link org.dominokit.domino.ui.tree.TreeItem}
    * @return same instance
    */
   public TreeItem<T> appendChild(TreeItem<T> treeItem) {
@@ -285,11 +320,23 @@ public class TreeItem<T> extends BaseDominoElement<HTMLLIElement, TreeItem<T>>
     return this;
   }
 
+  /**
+   * appendChild.
+   *
+   * @param postfixAddOn a {@link org.dominokit.domino.ui.utils.PostfixAddOn} object
+   * @return a {@link org.dominokit.domino.ui.tree.TreeItem} object
+   */
   public TreeItem<T> appendChild(PostfixAddOn<?> postfixAddOn) {
     contentElement.appendChild(postfixAddOn);
     return this;
   }
 
+  /**
+   * appendChild.
+   *
+   * @param prefixAddOn a {@link org.dominokit.domino.ui.utils.PrefixAddOn} object
+   * @return a {@link org.dominokit.domino.ui.tree.TreeItem} object
+   */
   public TreeItem<T> appendChild(PrefixAddOn<?> prefixAddOn) {
     contentElement.appendChild(prefixAddOn);
     return this;
@@ -327,7 +374,7 @@ public class TreeItem<T> extends BaseDominoElement<HTMLLIElement, TreeItem<T>>
   /**
    * Sets what is the target for toggling an item
    *
-   * @param toggleTarget the {@link ToggleTarget}
+   * @param toggleTarget the {@link org.dominokit.domino.ui.tree.ToggleTarget}
    * @return same instance
    */
   public TreeItem<T> setToggleTarget(ToggleTarget toggleTarget) {
@@ -455,6 +502,11 @@ public class TreeItem<T> extends BaseDominoElement<HTMLLIElement, TreeItem<T>>
   }
 
   /** @return A list of tree items representing the path for this item */
+  /**
+   * getPath.
+   *
+   * @return a {@link java.util.List} object
+   */
   public List<TreeItem<T>> getPath() {
     List<TreeItem<T>> items = new ArrayList<>();
     items.add(this);
@@ -471,6 +523,11 @@ public class TreeItem<T> extends BaseDominoElement<HTMLLIElement, TreeItem<T>>
   }
 
   /** @return A list of values representing the path for this item */
+  /**
+   * getPathValues.
+   *
+   * @return a {@link java.util.List} object
+   */
   public List<T> getPathValues() {
     List<T> values = new ArrayList<>();
     values.add(this.getValue());
@@ -524,7 +581,7 @@ public class TreeItem<T> extends BaseDominoElement<HTMLLIElement, TreeItem<T>>
   /**
    * Sets the icon of the item
    *
-   * @param icon the new {@link Icon}
+   * @param icon the new {@link org.dominokit.domino.ui.icons.Icon}
    * @return same instance
    */
   public TreeItem<T> setIcon(Icon<?> icon) {
@@ -569,6 +626,11 @@ public class TreeItem<T> extends BaseDominoElement<HTMLLIElement, TreeItem<T>>
   }
 
   /** @return the title of the item */
+  /**
+   * Getter for the field <code>title</code>.
+   *
+   * @return a {@link java.lang.String} object
+   */
   public String getTitle() {
     return title;
   }
@@ -664,11 +726,17 @@ public class TreeItem<T> extends BaseDominoElement<HTMLLIElement, TreeItem<T>>
   }
 
   /** @return true if this item does not have children, false otherwise */
+  /**
+   * isLeaf.
+   *
+   * @return a boolean
+   */
   public boolean isLeaf() {
     return subItems.isEmpty();
   }
 
   /** @return the list of all sub {@link TreeItem} */
+  /** {@inheritDoc} */
   @Override
   public List<TreeItem<T>> getSubItems() {
     return subItems;
@@ -680,6 +748,11 @@ public class TreeItem<T> extends BaseDominoElement<HTMLLIElement, TreeItem<T>>
   }
 
   /** @return the value of the item */
+  /**
+   * Getter for the field <code>value</code>.
+   *
+   * @return a T object
+   */
   public T getValue() {
     return value;
   }
@@ -729,6 +802,11 @@ public class TreeItem<T> extends BaseDominoElement<HTMLLIElement, TreeItem<T>>
   }
 
   /** @return The {@link HTMLElement} that contains the title of this TreeItem */
+  /**
+   * Getter for the field <code>textElement</code>.
+   *
+   * @return a {@link org.dominokit.domino.ui.elements.SpanElement} object
+   */
   public SpanElement getTextElement() {
     return textElement.get();
   }
@@ -748,6 +826,11 @@ public class TreeItem<T> extends BaseDominoElement<HTMLLIElement, TreeItem<T>>
   }
 
   /** @return the {@link HTMLUListElement} that contains the tree items */
+  /**
+   * Getter for the field <code>subTree</code>.
+   *
+   * @return a {@link org.dominokit.domino.ui.elements.UListElement} object
+   */
   public UListElement getSubTree() {
     return subTree;
   }
@@ -760,40 +843,47 @@ public class TreeItem<T> extends BaseDominoElement<HTMLLIElement, TreeItem<T>>
     }
   }
 
+  /** {@inheritDoc} */
   @Override
   public TreeItem<T> pauseSelectionListeners() {
     this.selectionListenersPaused = true;
     return this;
   }
 
+  /** {@inheritDoc} */
   @Override
   public TreeItem<T> resumeSelectionListeners() {
     this.selectionListenersPaused = false;
     return this;
   }
 
+  /** {@inheritDoc} */
   @Override
   public TreeItem<T> togglePauseSelectionListeners(boolean toggle) {
     this.selectionListenersPaused = toggle;
     return this;
   }
 
+  /** {@inheritDoc} */
   @Override
   public Set<SelectionListener<? super TreeItem<T>, ? super TreeItem<T>>> getSelectionListeners() {
     return this.selectionListeners;
   }
 
+  /** {@inheritDoc} */
   @Override
   public Set<SelectionListener<? super TreeItem<T>, ? super TreeItem<T>>>
       getDeselectionListeners() {
     return this.deselectionListeners;
   }
 
+  /** {@inheritDoc} */
   @Override
   public boolean isSelectionListenersPaused() {
     return this.selectionListenersPaused;
   }
 
+  /** {@inheritDoc} */
   @Override
   public TreeItem<T> triggerSelectionListeners(TreeItem<T> source, TreeItem<T> selection) {
     if (!isSelectionListenersPaused()) {
@@ -804,6 +894,7 @@ public class TreeItem<T> extends BaseDominoElement<HTMLLIElement, TreeItem<T>>
     return this;
   }
 
+  /** {@inheritDoc} */
   @Override
   public TreeItem<T> triggerDeselectionListeners(TreeItem<T> source, TreeItem<T> selection) {
     if (!isSelectionListenersPaused()) {
@@ -814,6 +905,7 @@ public class TreeItem<T> extends BaseDominoElement<HTMLLIElement, TreeItem<T>>
     return this;
   }
 
+  /** {@inheritDoc} */
   @Override
   public TreeItem<T> getSelection() {
     return this;

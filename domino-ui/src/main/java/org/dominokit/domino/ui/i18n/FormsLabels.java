@@ -15,16 +15,41 @@
  */
 package org.dominokit.domino.ui.i18n;
 
+/**
+ * FormsLabels interface.
+ *
+ * @author vegegoku
+ * @version $Id: $Id
+ */
 public interface FormsLabels extends Labels {
 
+  /**
+   * requiredErrorMessage.
+   *
+   * @return a {@link java.lang.String} object
+   */
   default String requiredErrorMessage() {
     return "* This field is required.";
   }
 
+  /**
+   * getMinErrorMessage.
+   *
+   * @param minLength a int
+   * @param length a int
+   * @return a {@link java.lang.String} object
+   */
   default String getMinErrorMessage(int minLength, int length) {
     return "Minimum length is " + minLength + " , current length is : " + length;
   }
 
+  /**
+   * getMaxErrorMessage.
+   *
+   * @param maxLength a int
+   * @param length a int
+   * @return a {@link java.lang.String} object
+   */
   default String getMaxErrorMessage(int maxLength, int length) {
     return "Maximum length is " + maxLength + " , current length is : " + length;
   }

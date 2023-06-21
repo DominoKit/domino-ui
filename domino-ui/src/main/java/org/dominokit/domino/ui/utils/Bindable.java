@@ -15,6 +15,17 @@
  */
 package org.dominokit.domino.ui.utils;
 
+/**
+ * Bindable interface.
+ *
+ * @author vegegoku
+ * @version $Id: $Id
+ */
 public interface Bindable<T> {
+  /**
+   * bindTo.
+   *
+   * @param owner a T object
+   */
   void bindTo(T owner);
 }

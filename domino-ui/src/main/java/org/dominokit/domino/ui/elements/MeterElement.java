@@ -17,11 +17,28 @@ package org.dominokit.domino.ui.elements;
 
 import elemental2.dom.HTMLMeterElement;
 
+/**
+ * MeterElement class.
+ *
+ * @author vegegoku
+ * @version $Id: $Id
+ */
 public class MeterElement extends BaseElement<HTMLMeterElement, MeterElement> {
+  /**
+   * of.
+   *
+   * @param e a {@link elemental2.dom.HTMLMeterElement} object
+   * @return a {@link org.dominokit.domino.ui.elements.MeterElement} object
+   */
   public static MeterElement of(HTMLMeterElement e) {
     return new MeterElement(e);
   }
 
+  /**
+   * Constructor for MeterElement.
+   *
+   * @param element a {@link elemental2.dom.HTMLMeterElement} object
+   */
   public MeterElement(HTMLMeterElement element) {
     super(element);
   }

@@ -31,6 +31,7 @@ import org.dominokit.domino.ui.datatable.model.Category;
 import org.dominokit.domino.ui.datatable.model.Filter;
 import org.dominokit.domino.ui.datatable.plugins.DataTablePlugin;
 import org.dominokit.domino.ui.icons.*;
+import org.dominokit.domino.ui.icons.lib.Icons;
 import org.dominokit.domino.ui.layout.NavBar;
 import org.dominokit.domino.ui.menu.CustomMenuItem;
 import org.dominokit.domino.ui.menu.Menu;
@@ -40,9 +41,12 @@ import org.dominokit.domino.ui.utils.ChildHandler;
 import org.dominokit.domino.ui.utils.PostfixAddOn;
 
 /**
- * This plugin attach an action bar to the table and adds {@link HeaderActionElement}(s) to it
+ * This plugin attach an action bar to the table and adds {@link
+ * org.dominokit.domino.ui.datatable.plugins.header.HeaderActionElement}(s) to it
  *
  * @param <T> the type of the data table records
+ * @author vegegoku
+ * @version $Id: $Id
  */
 public class HeaderBarPlugin<T> implements DataTablePlugin<T> {
 
@@ -82,7 +86,8 @@ public class HeaderBarPlugin<T> implements DataTablePlugin<T> {
   /**
    * Adds a new header action to this header bar
    *
-   * @param headerActionElement the {@link HeaderActionElement}
+   * @param headerActionElement the {@link
+   *     org.dominokit.domino.ui.datatable.plugins.header.HeaderActionElement}
    * @return same plugin instance
    */
   public HeaderBarPlugin<T> addActionElement(HeaderActionElement<T> headerActionElement) {

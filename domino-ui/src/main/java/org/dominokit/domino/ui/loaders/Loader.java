@@ -30,7 +30,8 @@ import org.gwtproject.timer.client.Timer;
 /**
  * A component which provides a loader mask on a target element
  *
- * <p>Customize the component can be done by overwriting classes provided by {@link LoaderStyles}
+ * <p>Customize the component can be done by overwriting classes provided by {@link
+ * org.dominokit.domino.ui.loaders.LoaderStyles}
  *
  * <p>For example:
  *
@@ -39,6 +40,9 @@ import org.gwtproject.timer.client.Timer;
  *           .setLoadingText("Loading ...")
  *           .start();
  * </pre>
+ *
+ * @author vegegoku
+ * @version $Id: $Id
  */
 public class Loader {
 
@@ -57,7 +61,7 @@ public class Loader {
    * Creates a loader for a target element with an effect
    *
    * @param target the target element
-   * @param effect the {@link LoaderEffect}
+   * @param effect the {@link org.dominokit.domino.ui.loaders.LoaderEffect}
    * @return new instance
    */
   public static Loader create(HTMLElement target, LoaderEffect effect) {
@@ -68,7 +72,7 @@ public class Loader {
    * Creates a loader for a target element with an effect
    *
    * @param target the target element
-   * @param effect the {@link LoaderEffect}
+   * @param effect the {@link org.dominokit.domino.ui.loaders.LoaderEffect}
    * @return new instance
    */
   public static Loader create(IsElement<?> target, LoaderEffect effect) {
@@ -82,7 +86,8 @@ public class Loader {
   }
 
   /**
-   * Starts the loading, the loader will keep loading until {@link Loader#stop()} is called
+   * Starts the loading, the loader will keep loading until {@link
+   * org.dominokit.domino.ui.loaders.Loader#stop()} is called
    *
    * @return same instance
    */
@@ -90,7 +95,8 @@ public class Loader {
     return start(0);
   }
   /**
-   * Starts the loading, the loader will keep loading until {@link Loader#stop()} is called
+   * Starts the loading, the loader will keep loading until {@link
+   * org.dominokit.domino.ui.loaders.Loader#stop()} is called
    *
    * @param timeout int delay in milliseconds before automatically stopping the loader.
    * @return same instance
@@ -177,6 +183,11 @@ public class Loader {
   }
 
   /** @return True if the loader is started, false otherwise */
+  /**
+   * isStarted.
+   *
+   * @return a boolean
+   */
   public boolean isStarted() {
     return started;
   }
@@ -184,7 +195,8 @@ public class Loader {
   /**
    * Sets the position of the loading text
    *
-   * @param loadingTextPosition the {@link LoadingTextPosition}
+   * @param loadingTextPosition the {@link
+   *     org.dominokit.domino.ui.loaders.Loader.LoadingTextPosition}
    * @return same instance
    */
   public Loader setLoadingTextPosition(LoadingTextPosition loadingTextPosition) {
@@ -195,6 +207,11 @@ public class Loader {
   }
 
   /** @return The loader element */
+  /**
+   * Getter for the field <code>loaderElement</code>.
+   *
+   * @return a {@link org.dominokit.domino.ui.loaders.IsLoader} object
+   */
   public IsLoader getLoaderElement() {
     return loaderElement;
   }

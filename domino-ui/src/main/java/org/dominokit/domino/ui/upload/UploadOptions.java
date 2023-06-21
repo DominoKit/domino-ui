@@ -22,7 +22,12 @@ import java.util.List;
 import java.util.Optional;
 import java.util.function.Supplier;
 
-/** Options for controlling the upload */
+/**
+ * Options for controlling the upload
+ *
+ * @author vegegoku
+ * @version $Id: $Id
+ */
 public class UploadOptions {
 
   private String url;
@@ -30,41 +35,86 @@ public class UploadOptions {
   private double maxFileSize = Double.MAX_VALUE;
   private Supplier<List<Integer>> successCodesProvider = DEFAULT_SUCCESS_CODES;
 
+  /** Constructor for UploadOptions. */
   public UploadOptions() {}
 
+  /**
+   * setXMLHttpRequest.
+   *
+   * @param xmlHttpRequest a {@link elemental2.dom.XMLHttpRequest} object
+   * @return a {@link org.dominokit.domino.ui.upload.UploadOptions} object
+   */
   public UploadOptions setXMLHttpRequest(XMLHttpRequest xmlHttpRequest) {
     this.xmlHttpRequest = xmlHttpRequest;
     return this;
   }
 
+  /**
+   * Getter for the field <code>xmlHttpRequest</code>.
+   *
+   * @return a {@link java.util.Optional} object
+   */
   public Optional<XMLHttpRequest> getXmlHttpRequest() {
     return Optional.ofNullable(xmlHttpRequest);
   }
 
   /** @return the maximum accepted file size */
+  /**
+   * Getter for the field <code>maxFileSize</code>.
+   *
+   * @return a double
+   */
   public double getMaxFileSize() {
     return maxFileSize;
   }
 
+  /**
+   * Setter for the field <code>maxFileSize</code>.
+   *
+   * @param maxFileSize a double
+   * @return a {@link org.dominokit.domino.ui.upload.UploadOptions} object
+   */
   public UploadOptions setMaxFileSize(double maxFileSize) {
     this.maxFileSize = maxFileSize;
     return this;
   }
 
+  /**
+   * Getter for the field <code>url</code>.
+   *
+   * @return a {@link java.lang.String} object
+   */
   public String getUrl() {
     return url;
   }
 
+  /**
+   * Setter for the field <code>url</code>.
+   *
+   * @param url a {@link java.lang.String} object
+   * @return a {@link org.dominokit.domino.ui.upload.UploadOptions} object
+   */
   public UploadOptions setUrl(String url) {
     this.url = url;
     return this;
   }
 
   /** @return the success codes provider */
+  /**
+   * Getter for the field <code>successCodesProvider</code>.
+   *
+   * @return a {@link java.util.function.Supplier} object
+   */
   public Supplier<List<Integer>> getSuccessCodesProvider() {
     return successCodesProvider;
   }
 
+  /**
+   * Setter for the field <code>successCodesProvider</code>.
+   *
+   * @param successCodesProvider a {@link java.util.function.Supplier} object
+   * @return a {@link org.dominokit.domino.ui.upload.UploadOptions} object
+   */
   public UploadOptions setSuccessCodesProvider(Supplier<List<Integer>> successCodesProvider) {
     this.successCodesProvider = successCodesProvider;
     return this;

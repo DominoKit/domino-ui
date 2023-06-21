@@ -20,10 +20,18 @@ package org.dominokit.domino.ui.utils;
  * CompleteHandler.onComplete after finish executing the logic to finalize the process.
  *
  * @param <T> the field
+ * @author vegegoku
+ * @version $Id: $Id
  */
 @FunctionalInterface
 public interface AsyncHandler<T> {
   /** @param field T the field we apply the logic on */
+  /**
+   * apply.
+   *
+   * @param field a T object
+   * @param handler a {@link org.dominokit.domino.ui.utils.AsyncHandler.CompleteHandler} object
+   */
   void apply(T field, CompleteHandler handler);
 
   @FunctionalInterface

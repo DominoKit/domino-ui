@@ -17,11 +17,28 @@ package org.dominokit.domino.ui.elements;
 
 import elemental2.dom.HTMLPreElement;
 
+/**
+ * PreElement class.
+ *
+ * @author vegegoku
+ * @version $Id: $Id
+ */
 public class PreElement extends BaseElement<HTMLPreElement, PreElement> {
+  /**
+   * of.
+   *
+   * @param e a {@link elemental2.dom.HTMLPreElement} object
+   * @return a {@link org.dominokit.domino.ui.elements.PreElement} object
+   */
   public static PreElement of(HTMLPreElement e) {
     return new PreElement(e);
   }
 
+  /**
+   * Constructor for PreElement.
+   *
+   * @param element a {@link elemental2.dom.HTMLPreElement} object
+   */
   public PreElement(HTMLPreElement element) {
     super(element);
   }

@@ -17,7 +17,12 @@ package org.dominokit.domino.ui.dialogs;
 
 import org.dominokit.domino.ui.style.CssClass;
 
-/** An enum to list modal types */
+/**
+ * An enum to list modal types
+ *
+ * @author vegegoku
+ * @version $Id: $Id
+ */
 public enum DialogType implements DialogStyles {
   /** A modal that show up from the bottom of screen and spread to match the screen width */
   BOTTOM_SHEET(dui_dialog_bottom_sheet),

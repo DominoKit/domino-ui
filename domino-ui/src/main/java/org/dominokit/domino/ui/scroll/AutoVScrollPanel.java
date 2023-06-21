@@ -20,18 +20,27 @@ import org.dominokit.domino.ui.elements.DivElement;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
 
 /**
- * A component that wraps the {@link HTMLDivElement} to make it auto vertically scrollable when the
- * content exceeds the component fixed height
+ * A component that wraps the {@link elemental2.dom.HTMLDivElement} to make it auto vertically
+ * scrollable when the content exceeds the component fixed height
+ *
+ * @author vegegoku
+ * @version $Id: $Id
  */
 public class AutoVScrollPanel extends BaseDominoElement<HTMLDivElement, AutoVScrollPanel> {
 
   private DivElement root;
 
   /** @return new AutoVScrollPanel instance */
+  /**
+   * create.
+   *
+   * @return a {@link org.dominokit.domino.ui.scroll.AutoVScrollPanel} object
+   */
   public static AutoVScrollPanel create() {
     return new AutoVScrollPanel();
   }
 
+  /** Constructor for AutoVScrollPanel. */
   public AutoVScrollPanel() {
     root = div().addCss(dui_overflow_y_auto);
     init(this);

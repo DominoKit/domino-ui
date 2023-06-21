@@ -23,10 +23,17 @@ import elemental2.dom.NodeList;
 import jsinterop.base.Js;
 import org.dominokit.domino.ui.events.EventType;
 
-/** A utility class that close all opened popus based on a selector */
+/**
+ * A utility class that close all opened popus based on a selector
+ *
+ * @author vegegoku
+ * @version $Id: $Id
+ */
 public class PopupsCloser {
 
+  /** Constant <code>DOMINO_UI_AUTO_CLOSABLE="domino-ui-auto-closable"</code> */
   public static final String DOMINO_UI_AUTO_CLOSABLE = "domino-ui-auto-closable";
+
   private static boolean touchMoved;
 
   static {
@@ -42,6 +49,7 @@ public class PopupsCloser {
         });
   }
 
+  /** close. */
   public static void close() {
     close(DOMINO_UI_AUTO_CLOSABLE);
   }
@@ -49,7 +57,7 @@ public class PopupsCloser {
   /**
    * Close all popups that matches the provided selector
    *
-   * @param selector
+   * @param selector a {@link java.lang.String} object
    */
   public static void close(String selector) {
     NodeList<Element> elementsByName = document.body.querySelectorAll("[" + selector + "]");

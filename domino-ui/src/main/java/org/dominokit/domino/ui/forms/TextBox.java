@@ -15,22 +15,46 @@
  */
 package org.dominokit.domino.ui.forms;
 
+/**
+ * TextBox class.
+ *
+ * @author vegegoku
+ * @version $Id: $Id
+ */
 public class TextBox extends BaseTextBox<TextBox> {
 
+  /**
+   * create.
+   *
+   * @return a {@link org.dominokit.domino.ui.forms.TextBox} object
+   */
   public static TextBox create() {
     return new TextBox();
   }
 
+  /**
+   * create.
+   *
+   * @param label a {@link java.lang.String} object
+   * @return a {@link org.dominokit.domino.ui.forms.TextBox} object
+   */
   public static TextBox create(String label) {
     return new TextBox(label);
   }
 
+  /** Constructor for TextBox. */
   public TextBox() {}
 
+  /**
+   * Constructor for TextBox.
+   *
+   * @param label a {@link java.lang.String} object
+   */
   public TextBox(String label) {
     super(label);
   }
 
+  /** {@inheritDoc} */
   @Override
   public String getType() {
     return "text";

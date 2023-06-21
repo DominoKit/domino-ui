@@ -38,6 +38,8 @@ import org.dominokit.domino.ui.utils.BaseDominoElement;
  * </pre>
  *
  * @see BaseDominoElement
+ * @author vegegoku
+ * @version $Id: $Id
  */
 public class Pager extends BaseDominoElement<HTMLElement, Pager>
     implements PaginationStyles, HasLabels<PaginationLabels> {
@@ -57,6 +59,7 @@ public class Pager extends BaseDominoElement<HTMLElement, Pager>
   private boolean allowNext = true;
   private boolean allowPrev = true;
 
+  /** Constructor for Pager. */
   public Pager() {
     EventListener goNext =
         evt -> {
@@ -95,6 +98,11 @@ public class Pager extends BaseDominoElement<HTMLElement, Pager>
   }
 
   /** @return new instance */
+  /**
+   * create.
+   *
+   * @return a {@link org.dominokit.domino.ui.pagination.Pager} object
+   */
   public static Pager create() {
     return new Pager();
   }
@@ -102,7 +110,7 @@ public class Pager extends BaseDominoElement<HTMLElement, Pager>
   /**
    * Sets the handler that will be called when next element is clicked
    *
-   * @param nextCallback the {@link PagerChangeCallback}
+   * @param nextCallback the {@link org.dominokit.domino.ui.pagination.Pager.PagerChangeCallback}
    * @return same instance
    */
   public Pager onNext(PagerChangeCallback nextCallback) {
@@ -113,7 +121,8 @@ public class Pager extends BaseDominoElement<HTMLElement, Pager>
   /**
    * Sets the handler that will be called when previous element is clicked
    *
-   * @param previousCallback the {@link PagerChangeCallback}
+   * @param previousCallback the {@link
+   *     org.dominokit.domino.ui.pagination.Pager.PagerChangeCallback}
    * @return same instance
    */
   public Pager onPrevious(PagerChangeCallback previousCallback) {
@@ -209,12 +218,24 @@ public class Pager extends BaseDominoElement<HTMLElement, Pager>
     return this;
   }
 
+  /**
+   * setShowArrows.
+   *
+   * @param show a boolean
+   * @return a {@link org.dominokit.domino.ui.pagination.Pager} object
+   */
   public Pager setShowArrows(boolean show) {
     prevArrow.toggleDisplay(show);
     nextArrow.toggleDisplay(show);
     return this;
   }
 
+  /**
+   * spread.
+   *
+   * @param spread a boolean
+   * @return a {@link org.dominokit.domino.ui.pagination.Pager} object
+   */
   public Pager spread(boolean spread) {
     BooleanCssClass.of(dui_navigator_previous, spread).apply(prevElement);
     BooleanCssClass.of(dui_navigator_next, spread).apply(nextElement);

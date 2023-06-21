@@ -17,7 +17,18 @@ package org.dominokit.domino.ui.utils;
 
 import elemental2.dom.MutationRecord;
 
+/**
+ * AttachDetachCallback interface.
+ *
+ * @author vegegoku
+ * @version $Id: $Id
+ */
 @FunctionalInterface
 public interface AttachDetachCallback {
+  /**
+   * onObserved.
+   *
+   * @param mutationRecord a {@link elemental2.dom.MutationRecord} object
+   */
   void onObserved(MutationRecord mutationRecord);
 }

@@ -19,10 +19,15 @@ import static java.util.Objects.nonNull;
 
 import elemental2.dom.DomGlobal;
 import java.util.stream.IntStream;
-import org.dominokit.domino.ui.icons.Icons;
+import org.dominokit.domino.ui.icons.lib.Icons;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
 
-/** A scrolling pagination implementation */
+/**
+ * A scrolling pagination implementation
+ *
+ * @author vegegoku
+ * @version $Id: $Id
+ */
 public class ScrollingPagination extends BasePagination<ScrollingPagination> {
 
   private final int windowSize;
@@ -35,11 +40,18 @@ public class ScrollingPagination extends BasePagination<ScrollingPagination> {
   private final PagerNavItem totalCountNavItem;
 
   /** @return new instance */
+  /**
+   * create.
+   *
+   * @return a {@link org.dominokit.domino.ui.pagination.ScrollingPagination} object
+   */
   public static ScrollingPagination create() {
     return new ScrollingPagination();
   }
 
   /**
+   * create.
+   *
    * @param pages the number of pages
    * @return new instance
    */
@@ -48,6 +60,8 @@ public class ScrollingPagination extends BasePagination<ScrollingPagination> {
   }
 
   /**
+   * create.
+   *
    * @param pages the number of pages
    * @param pageSize the page size
    * @return new instance
@@ -57,6 +71,8 @@ public class ScrollingPagination extends BasePagination<ScrollingPagination> {
   }
 
   /**
+   * create.
+   *
    * @param pages the number of pages
    * @param pageSize the page size
    * @param windowSize the number of pages to show in a window
@@ -66,18 +82,37 @@ public class ScrollingPagination extends BasePagination<ScrollingPagination> {
     return new ScrollingPagination(pages, pageSize, windowSize);
   }
 
+  /** Constructor for ScrollingPagination. */
   public ScrollingPagination() {
     this(0, 10, 10);
   }
 
+  /**
+   * Constructor for ScrollingPagination.
+   *
+   * @param pages a int
+   */
   public ScrollingPagination(int pages) {
     this(pages, 10, 10);
   }
 
+  /**
+   * Constructor for ScrollingPagination.
+   *
+   * @param pages a int
+   * @param pageSize a int
+   */
   public ScrollingPagination(int pages, int pageSize) {
     this(pages, pageSize, 10);
   }
 
+  /**
+   * Constructor for ScrollingPagination.
+   *
+   * @param pages a int
+   * @param pageSize a int
+   * @param windowSize a int
+   */
   public ScrollingPagination(int pages, int pageSize, int windowSize) {
     this.pagesCount = pages;
     this.pageSize = pageSize;
@@ -310,11 +345,18 @@ public class ScrollingPagination extends BasePagination<ScrollingPagination> {
   }
 
   /** @return true if the total number of records is visible, false otherwise */
+  /**
+   * isTotalRecordVisible.
+   *
+   * @return a boolean
+   */
   public boolean isTotalRecordVisible() {
     return totalRecordVisible;
   }
 
   /**
+   * Setter for the field <code>totalRecordVisible</code>.
+   *
    * @param totalRecordVisible true to show the total number of records
    * @return same instance
    */
@@ -324,6 +366,12 @@ public class ScrollingPagination extends BasePagination<ScrollingPagination> {
     return this;
   }
 
+  /**
+   * showNextPrevSet.
+   *
+   * @param visible a boolean
+   * @return a {@link org.dominokit.domino.ui.pagination.ScrollingPagination} object
+   */
   public ScrollingPagination showNextPrevSet(boolean visible) {
     prevSet.toggleDisplay(visible);
     nextSet.toggleDisplay(visible);

@@ -18,7 +18,6 @@ package org.dominokit.domino.ui.datatable;
 import static java.util.Objects.nonNull;
 import static org.dominokit.domino.ui.utils.ElementsFactory.elements;
 
-import elemental2.dom.HTMLTableSectionElement;
 import java.util.*;
 import java.util.stream.Collectors;
 import org.dominokit.domino.ui.datatable.plugins.DataTablePlugin;
@@ -27,7 +26,6 @@ import org.dominokit.domino.ui.datatable.plugins.grouping.GroupingPlugin;
 import org.dominokit.domino.ui.elements.THeadElement;
 import org.dominokit.domino.ui.elements.TableRowElement;
 import org.dominokit.domino.ui.style.DominoCss;
-import org.dominokit.domino.ui.utils.DominoElement;
 import org.dominokit.domino.ui.utils.HasMultiSelectionSupport;
 import org.dominokit.domino.ui.utils.PostfixAddOn;
 
@@ -58,6 +56,8 @@ import org.dominokit.domino.ui.utils.PostfixAddOn;
  * </pre>
  *
  * @param <T> the type of the data table records
+ * @author vegegoku
+ * @version $Id: $Id
  */
 public class TableConfig<T>
     implements HasMultiSelectionSupport<TableConfig<T>>, DataTableStyles, DominoCss {
@@ -124,9 +124,10 @@ public class TableConfig<T>
    * This method will draw the table columns header elements for all columns and append them to the
    * table head element
    *
-   * @param dataTable the {@link DataTable} initialized with this configuration
-   * @param thead the {@link DominoElement} of {@link HTMLTableSectionElement} that is the table
-   *     header element
+   * @param dataTable the {@link org.dominokit.domino.ui.datatable.DataTable} initialized with this
+   *     configuration
+   * @param thead the {@link org.dominokit.domino.ui.utils.DominoElement} of {@link
+   *     elemental2.dom.HTMLTableSectionElement} that is the table header element
    */
   public void drawHeaders(DataTable<T> dataTable, THeadElement thead) {
     this.dataTable = dataTable;
@@ -148,8 +149,10 @@ public class TableConfig<T>
   /**
    * Draw a record as a row in the data table, row information is obtained from the TableRow
    *
-   * @param dataTable the {@link DataTable} initialized with this configuration
-   * @param tableRow the {@link TableRow} we are adding to the table
+   * @param dataTable the {@link org.dominokit.domino.ui.datatable.DataTable} initialized with this
+   *     configuration
+   * @param tableRow the {@link org.dominokit.domino.ui.datatable.TableRow} we are adding to the
+   *     table
    */
   public void drawRecord(DataTable<T> dataTable, TableRow<T> tableRow) {
     tableRow.render();
@@ -171,7 +174,7 @@ public class TableConfig<T>
   /**
    * Adds a configuration for a column in the data table
    *
-   * @param column {@link ColumnConfig}
+   * @param column {@link org.dominokit.domino.ui.datatable.ColumnConfig}
    * @return same TableConfig instance
    */
   public TableConfig<T> addColumn(ColumnConfig<T> column) {
@@ -184,7 +187,7 @@ public class TableConfig<T>
    * Adds a configuration for a column in the data table as the first column over the existing
    * columns list
    *
-   * @param column {@link ColumnConfig}
+   * @param column {@link org.dominokit.domino.ui.datatable.ColumnConfig}
    * @return same TableConfig instance
    */
   public TableConfig<T> insertColumnFirst(ColumnConfig<T> column) {
@@ -196,7 +199,7 @@ public class TableConfig<T>
    * Adds a configuration for a column in the data table as the last column after the existing
    * columns list
    *
-   * @param column {@link ColumnConfig}
+   * @param column {@link org.dominokit.domino.ui.datatable.ColumnConfig}
    * @return same TableConfig instance
    */
   public TableConfig<T> insertColumnLast(ColumnConfig<T> column) {
@@ -207,7 +210,7 @@ public class TableConfig<T>
   /**
    * Adds a new plugin to the data table
    *
-   * @param plugin {@link DataTablePlugin}
+   * @param plugin {@link org.dominokit.domino.ui.datatable.plugins.DataTablePlugin}
    * @return same TableConfig instance
    */
   public TableConfig<T> addPlugin(DataTablePlugin<T> plugin) {
@@ -219,6 +222,13 @@ public class TableConfig<T>
     return this;
   }
 
+  /**
+   * onUtilityColumn.
+   *
+   * @param utilityColumnHandler a {@link
+   *     org.dominokit.domino.ui.datatable.TableConfig.UtilityColumnHandler} object
+   * @return a {@link org.dominokit.domino.ui.datatable.TableConfig} object
+   */
   public TableConfig<T> onUtilityColumn(UtilityColumnHandler<T> utilityColumnHandler) {
     this.utilityColumnHandler = utilityColumnHandler;
     return this;
@@ -230,6 +240,8 @@ public class TableConfig<T>
   }
 
   /**
+   * isFixed.
+   *
    * @return boolean, if true then this table will have a fixed width and wont change the columns
    *     width when resized, otherwise columns will stretch to match the table root element width
    */
@@ -238,6 +250,8 @@ public class TableConfig<T>
   }
 
   /**
+   * Setter for the field <code>fixed</code>.
+   *
    * @param fixed boolean, if true then this table will have a fixed width and wont change the
    *     columns width when resized, otherwise columns will stretch to match the table root element
    *     width
@@ -249,6 +263,8 @@ public class TableConfig<T>
   }
 
   /**
+   * isLazyLoad.
+   *
    * @return boolean, if true the table will only start loading the data from the data store if load
    *     is called manually, otherwise it will automatically load the data when it is initialized
    */
@@ -257,6 +273,8 @@ public class TableConfig<T>
   }
 
   /**
+   * Setter for the field <code>lazyLoad</code>.
+   *
    * @param lazyLoad boolean, if true the table will only start loading the data from the data store
    *     if load is called manually, otherwise it will automatically load the data when it is
    *     initialized
@@ -268,6 +286,8 @@ public class TableConfig<T>
   }
 
   /**
+   * Getter for the field <code>fixedBodyHeight</code>.
+   *
    * @return String, the height of the data table body, this is the value we set with {@link
    *     #setFixedBodyHeight(String)} not the actual current table body height
    */
@@ -276,6 +296,8 @@ public class TableConfig<T>
   }
 
   /**
+   * Setter for the field <code>fixedBodyHeight</code>.
+   *
    * @param fixedBodyHeight boolean, if true the height of the table body will be fixed to the
    *     specified value and while adding records to the table if the total height of rows exceed
    *     this height scroll bars will show up, otherwise the table body will not fixed and will grow
@@ -288,11 +310,18 @@ public class TableConfig<T>
   }
 
   /** @return String default value for a fixed column width */
+  /**
+   * Getter for the field <code>fixedDefaultColumnWidth</code>.
+   *
+   * @return a {@link java.lang.String} object
+   */
   public String getFixedDefaultColumnWidth() {
     return fixedDefaultColumnWidth;
   }
 
   /**
+   * Setter for the field <code>fixedDefaultColumnWidth</code>.
+   *
    * @param fixedDefaultColumnWidth String default value to be used as width for the fixed width
    *     columns
    * @return same TableConfig instance
@@ -318,7 +347,7 @@ public class TableConfig<T>
   /**
    * Change the default RowAppender for the data table
    *
-   * @param rowAppender {@link RowAppender}
+   * @param rowAppender {@link org.dominokit.domino.ui.datatable.TableConfig.RowAppender}
    */
   public void setRowAppender(RowAppender<T> rowAppender) {
     if (nonNull(rowAppender)) {
@@ -327,6 +356,11 @@ public class TableConfig<T>
   }
 
   /** @return the {@link List} of plugins added to the table */
+  /**
+   * Getter for the field <code>plugins</code>.
+   *
+   * @return a {@link java.util.List} object
+   */
   public List<DataTablePlugin<T>> getPlugins() {
     return plugins.stream().sorted().collect(Collectors.toList());
   }
@@ -352,22 +386,42 @@ public class TableConfig<T>
   }
 
   /** @return a {@link List} of all non grouping {@link ColumnConfig} added to the table */
+  /**
+   * Getter for the field <code>columns</code>.
+   *
+   * @return a {@link java.util.List} object
+   */
   public List<ColumnConfig<T>> getColumns() {
     return columns.stream().flatMap(col -> col.leafColumns().stream()).collect(Collectors.toList());
   }
 
   /** @return a {@link List} of all {@link ColumnConfig} added to the table */
+  /**
+   * getFlattenColumns.
+   *
+   * @return a {@link java.util.List} object
+   */
   public List<ColumnConfig<T>> getFlattenColumns() {
     return columns.stream()
         .flatMap(col -> col.flattenColumns().stream())
         .collect(Collectors.toList());
   }
 
+  /**
+   * getColumnsGrouped.
+   *
+   * @return a {@link java.util.List} object
+   */
   public List<ColumnConfig<T>> getColumnsGrouped() {
     return columns;
   }
 
   /** @return a {@link List} of all currently visible {@link ColumnConfig} of the table */
+  /**
+   * getVisibleColumns.
+   *
+   * @return a {@link java.util.List} object
+   */
   public List<ColumnConfig<T>> getVisibleColumns() {
     return columns.stream().filter(column -> !column.isHidden()).collect(Collectors.toList());
   }
@@ -376,7 +430,8 @@ public class TableConfig<T>
    * get a column config by the column name
    *
    * @param name String name of the column
-   * @return the {@link ColumnConfig} if exists otherwise throw {@link ColumnNofFoundException}
+   * @return the {@link org.dominokit.domino.ui.datatable.ColumnConfig} if exists otherwise throw
+   *     {@link org.dominokit.domino.ui.datatable.TableConfig.ColumnNofFoundException}
    */
   public ColumnConfig<T> getColumnByName(String name) {
     Optional<ColumnConfig<T>> first =
@@ -390,6 +445,12 @@ public class TableConfig<T>
     }
   }
 
+  /**
+   * setUtilityColumnTitle.
+   *
+   * @param title a {@link java.lang.String} object
+   * @return a {@link org.dominokit.domino.ui.datatable.TableConfig} object
+   */
   public TableConfig<T> setUtilityColumnTitle(String title) {
     if (nonNull(title)) {
       pluginUtilityColumn.setTitle(title);
@@ -398,6 +459,11 @@ public class TableConfig<T>
   }
 
   /** @return the {@link DataTable} initialized with this configuration */
+  /**
+   * Getter for the field <code>dataTable</code>.
+   *
+   * @return a {@link org.dominokit.domino.ui.datatable.DataTable} object
+   */
   public DataTable<T> getDataTable() {
     return dataTable;
   }
@@ -405,8 +471,8 @@ public class TableConfig<T>
   /**
    * sets the dirty record handlers for editable tables
    *
-   * @param dirtyRecordProvider {@link DirtyRecordProvider}
-   * @param saveDirtyRecordHandler {@link SaveDirtyRecordHandler}
+   * @param dirtyRecordProvider {@link org.dominokit.domino.ui.datatable.DirtyRecordProvider}
+   * @param saveDirtyRecordHandler {@link org.dominokit.domino.ui.datatable.SaveDirtyRecordHandler}
    * @return same TableConfig istance
    */
   public TableConfig<T> setDirtyRecordHandlers(
@@ -418,28 +484,61 @@ public class TableConfig<T>
     return this;
   }
 
+  /**
+   * Getter for the field <code>width</code>.
+   *
+   * @return a {@link java.lang.String} object
+   */
   public String getWidth() {
     return width;
   }
 
+  /**
+   * Setter for the field <code>width</code>.
+   *
+   * @param width a {@link java.lang.String} object
+   * @return a {@link org.dominokit.domino.ui.datatable.TableConfig} object
+   */
   public TableConfig<T> setWidth(String width) {
     this.width = width;
     return this;
   }
 
+  /**
+   * Getter for the field <code>maxWidth</code>.
+   *
+   * @return a {@link java.lang.String} object
+   */
   public String getMaxWidth() {
     return maxWidth;
   }
 
+  /**
+   * Setter for the field <code>maxWidth</code>.
+   *
+   * @param maxWidth a {@link java.lang.String} object
+   * @return a {@link org.dominokit.domino.ui.datatable.TableConfig} object
+   */
   public TableConfig<T> setMaxWidth(String maxWidth) {
     this.maxWidth = maxWidth;
     return this;
   }
 
+  /**
+   * Getter for the field <code>minWidth</code>.
+   *
+   * @return a {@link java.lang.String} object
+   */
   public String getMinWidth() {
     return minWidth;
   }
 
+  /**
+   * Setter for the field <code>minWidth</code>.
+   *
+   * @param minWidth a {@link java.lang.String} object
+   * @return a {@link org.dominokit.domino.ui.datatable.TableConfig} object
+   */
   public TableConfig<T> setMinWidth(String minWidth) {
     this.minWidth = minWidth;
     return this;

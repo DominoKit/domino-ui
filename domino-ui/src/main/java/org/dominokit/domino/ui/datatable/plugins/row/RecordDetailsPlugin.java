@@ -36,7 +36,9 @@ import org.dominokit.domino.ui.datatable.plugins.pagination.StateIcon;
 import org.dominokit.domino.ui.elements.DivElement;
 import org.dominokit.domino.ui.elements.TDElement;
 import org.dominokit.domino.ui.elements.TableRowElement;
-import org.dominokit.domino.ui.icons.*;
+import org.dominokit.domino.ui.icons.Icon;
+import org.dominokit.domino.ui.icons.IconWrapper;
+import org.dominokit.domino.ui.icons.lib.*;
 import org.dominokit.domino.ui.utils.ComponentMeta;
 
 /**
@@ -44,6 +46,8 @@ import org.dominokit.domino.ui.utils.ComponentMeta;
  * record beneath the row itself
  *
  * @param <T> the type of the data table records
+ * @author vegegoku
+ * @version $Id: $Id
  */
 public class RecordDetailsPlugin<T> implements DataTablePlugin<T> {
 
@@ -60,7 +64,7 @@ public class RecordDetailsPlugin<T> implements DataTablePlugin<T> {
   /**
    * Creates an instance with custom renderer and default expand/collapse icons
    *
-   * @param cellRenderer the {@link CellRenderer}
+   * @param cellRenderer the {@link org.dominokit.domino.ui.datatable.CellRenderer}
    */
   public RecordDetailsPlugin(CellRenderer<T> cellRenderer) {
     this(
@@ -72,7 +76,7 @@ public class RecordDetailsPlugin<T> implements DataTablePlugin<T> {
   /**
    * Creates an instance with custom renderer and expand/collapse icons
    *
-   * @param cellRenderer the {@link CellRenderer}
+   * @param cellRenderer the {@link org.dominokit.domino.ui.datatable.CellRenderer}
    * @param expandIcon {@link Supplier<Icon>}
    * @param collapseIcon {@link Supplier<Icon>}
    */
@@ -83,11 +87,13 @@ public class RecordDetailsPlugin<T> implements DataTablePlugin<T> {
     this.collapseIcon = collapseIcon;
   }
 
+  /** {@inheritDoc} */
   @Override
   public boolean requiresUtilityColumn() {
     return true;
   }
 
+  /** {@inheritDoc} */
   @Override
   public Optional<List<HTMLElement>> getUtilityElements(
       DataTable<T> dataTable, CellRenderer.CellInfo<T> cell) {
@@ -109,6 +115,7 @@ public class RecordDetailsPlugin<T> implements DataTablePlugin<T> {
     return Optional.of(Collections.singletonList(detailsButtonElement.element()));
   }
 
+  /** {@inheritDoc} */
   @Override
   public void onHeaderAdded(DataTable<T> dataTable, ColumnConfig<T> column) {
     if (column.isUtilityColumn()) {
@@ -116,6 +123,7 @@ public class RecordDetailsPlugin<T> implements DataTablePlugin<T> {
     }
   }
 
+  /** {@inheritDoc} */
   @Override
   public void onBeforeAddHeaders(DataTable<T> dataTable) {
     this.dataTable = dataTable;
@@ -136,26 +144,46 @@ public class RecordDetailsPlugin<T> implements DataTablePlugin<T> {
   }
 
   /** @return the root {@link HTMLDivElement} of this component */
+  /**
+   * Getter for the field <code>element</code>.
+   *
+   * @return a {@link org.dominokit.domino.ui.elements.DivElement} object
+   */
   public DivElement getElement() {
     return element;
   }
 
   /** @return the {@link HTMLTableCellElement} that contains the records details */
+  /**
+   * Getter for the field <code>td</code>.
+   *
+   * @return a {@link org.dominokit.domino.ui.elements.TDElement} object
+   */
   public TDElement getTd() {
     return td;
   }
 
   /** @return the {@link HTMLTableRowElement} that contains the records details */
+  /**
+   * Getter for the field <code>tr</code>.
+   *
+   * @return a {@link org.dominokit.domino.ui.elements.TableRowElement} object
+   */
   public TableRowElement getTr() {
     return tr;
   }
 
+  /**
+   * applyStyles.
+   *
+   * @param cellInfo a {@link org.dominokit.domino.ui.datatable.CellRenderer.CellInfo} object
+   */
   public void applyStyles(CellRenderer.CellInfo<T> cellInfo) {}
 
   /**
    * A hook method to customize the column of the expand/collapse icons
    *
-   * @param column {@link ColumnConfig}
+   * @param column {@link org.dominokit.domino.ui.datatable.ColumnConfig}
    */
   public void setupColumn(ColumnConfig<T> column) {}
 

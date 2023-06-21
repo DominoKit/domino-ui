@@ -17,11 +17,28 @@ package org.dominokit.domino.ui.elements;
 
 import elemental2.dom.HTMLEmbedElement;
 
+/**
+ * EmbedElement class.
+ *
+ * @author vegegoku
+ * @version $Id: $Id
+ */
 public class EmbedElement extends BaseElement<HTMLEmbedElement, EmbedElement> {
+  /**
+   * of.
+   *
+   * @param e a {@link elemental2.dom.HTMLEmbedElement} object
+   * @return a {@link org.dominokit.domino.ui.elements.EmbedElement} object
+   */
   public static EmbedElement of(HTMLEmbedElement e) {
     return new EmbedElement(e);
   }
 
+  /**
+   * Constructor for EmbedElement.
+   *
+   * @param element a {@link elemental2.dom.HTMLEmbedElement} object
+   */
   public EmbedElement(HTMLEmbedElement element) {
     super(element);
   }

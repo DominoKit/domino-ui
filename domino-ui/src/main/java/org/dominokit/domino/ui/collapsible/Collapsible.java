@@ -20,7 +20,6 @@ import static java.util.Objects.nonNull;
 import static org.dominokit.domino.ui.utils.ElementsFactory.elements;
 
 import elemental2.dom.Element;
-import elemental2.dom.HTMLElement;
 import java.util.ArrayList;
 import java.util.List;
 import org.dominokit.domino.ui.IsElement;
@@ -37,12 +36,19 @@ import org.dominokit.domino.ui.utils.IsCollapsible;
  *         .addShowHandler(() -&gt; DomGlobal.console.info("Div visible"))
  *         .addHideHandler(() -&gt; DomGlobal.console.info("Div visible"));
  *     </pre>
+ *
+ * @author vegegoku
+ * @version $Id: $Id
  */
 public class Collapsible implements IsElement<Element>, IsCollapsible<Collapsible> {
 
+  /** Constant <code>DUI_SCROLL_HEIGHT="dui-scroll-height"</code> */
   public static final String DUI_SCROLL_HEIGHT = "dui-scroll-height";
+  /** Constant <code>DUI_COLLAPSE_HEIGHT="dom-ui-collapse-height"</code> */
   public static final String DUI_COLLAPSE_HEIGHT = "dom-ui-collapse-height";
+  /** Constant <code>DUI_COLLAPSED="dui-collapsed"</code> */
   public static final String DUI_COLLAPSED = "dui-collapsed";
+
   private final Element element;
   private final CollapsibleHandlers handlers;
 
@@ -58,7 +64,7 @@ public class Collapsible implements IsElement<Element>, IsCollapsible<Collapsibl
   /**
    * Creates a collapsible wrapping the element
    *
-   * @param element {@link HTMLElement} to be wrapped in a collapsible
+   * @param element {@link elemental2.dom.HTMLElement} to be wrapped in a collapsible
    */
   public Collapsible(Element element) {
     this.element = element;
@@ -90,7 +96,8 @@ public class Collapsible implements IsElement<Element>, IsCollapsible<Collapsibl
   /**
    * A factory to create a collapsible wrapping the element
    *
-   * @param element {@link HTMLElement} to be wrapped in a collapsible
+   * @param element {@link elemental2.dom.HTMLElement} to be wrapped in a collapsible
+   * @return a {@link org.dominokit.domino.ui.collapsible.Collapsible} object
    */
   public static Collapsible create(Element element) {
     return new Collapsible(element);
@@ -99,13 +106,16 @@ public class Collapsible implements IsElement<Element>, IsCollapsible<Collapsibl
   /**
    * A factory to create a collapsible wrapping the element
    *
-   * @param isElement {@link IsElement} to be wrapped in a collapsible
+   * @param isElement {@link org.dominokit.domino.ui.IsElement} to be wrapped in a collapsible
+   * @return a {@link org.dominokit.domino.ui.collapsible.Collapsible} object
    */
   public static Collapsible create(IsElement<?> isElement) {
     return create(isElement.element());
   }
 
   /**
+   * isForceCollapsed.
+   *
    * @return boolean, if true the element is hidden and will not be shown even if we call {@link
    *     #expand()}
    */
@@ -130,9 +140,9 @@ public class Collapsible implements IsElement<Element>, IsCollapsible<Collapsibl
   }
 
   /**
-   * Make the element visible and call any attached show handlers
+   * {@inheritDoc}
    *
-   * @return same collapsible instance
+   * <p>Make the element visible and call any attached show handlers
    */
   @Override
   public Collapsible expand() {
@@ -145,9 +155,9 @@ public class Collapsible implements IsElement<Element>, IsCollapsible<Collapsibl
   }
 
   /**
-   * Make the element hidden and call any attached hide handlers
+   * {@inheritDoc}
    *
-   * @return same collapsible instance
+   * <p>Make the element hidden and call any attached hide handlers
    */
   @Override
   public Collapsible collapse() {
@@ -184,9 +194,9 @@ public class Collapsible implements IsElement<Element>, IsCollapsible<Collapsibl
   }
 
   /**
-   * checks if the wrapped element is collapsed
+   * {@inheritDoc}
    *
-   * @return boolean, true if the element is collapsed.
+   * <p>checks if the wrapped element is collapsed
    */
   @Override
   public boolean isCollapsed() {
@@ -194,9 +204,9 @@ public class Collapsible implements IsElement<Element>, IsCollapsible<Collapsibl
   }
 
   /**
-   * toggle the element visibility, if its visible it hides it, otherwise it make it visible
+   * {@inheritDoc}
    *
-   * @return same collapsible instance
+   * <p>toggle the element visibility, if its visible it hides it, otherwise it make it visible
    */
   @Override
   public Collapsible toggleCollapse() {
@@ -209,10 +219,9 @@ public class Collapsible implements IsElement<Element>, IsCollapsible<Collapsibl
   }
 
   /**
-   * toggle the element visibility based on the flag.
+   * {@inheritDoc}
    *
-   * @param state boolean, if true make the element visible otherwise make it hidden
-   * @return same collapsible instance
+   * <p>toggle the element visibility based on the flag.
    */
   @Override
   public Collapsible toggleCollapse(boolean state) {
@@ -227,7 +236,7 @@ public class Collapsible implements IsElement<Element>, IsCollapsible<Collapsibl
   /**
    * Add handler to be called when ever the element changed state to hidden
    *
-   * @param handler {@link CollapseHandler}
+   * @param handler {@link org.dominokit.domino.ui.collapsible.Collapsible.CollapseHandler}
    * @return same Collapsible instance
    */
   public Collapsible addCollapseHandler(CollapseHandler handler) {
@@ -242,7 +251,7 @@ public class Collapsible implements IsElement<Element>, IsCollapsible<Collapsibl
    * Add handler to be called when ever the element changed state to hidden before the hide
    * operation started
    *
-   * @param handler {@link CollapseHandler}
+   * @param handler {@link org.dominokit.domino.ui.collapsible.Collapsible.CollapseHandler}
    * @return same Collapsible instance
    */
   public Collapsible addBeforeCollapseHandler(CollapseHandler handler) {
@@ -256,8 +265,7 @@ public class Collapsible implements IsElement<Element>, IsCollapsible<Collapsibl
   /**
    * removes the hide handler
    *
-   * @param handler {@link CollapseHandler}
-   * @return same Collapsible instance
+   * @param handler {@link org.dominokit.domino.ui.collapsible.Collapsible.CollapseHandler}
    */
   public void removeCollapseHandler(CollapseHandler handler) {
     if (nonNull(collapseHandlers)) {
@@ -267,8 +275,7 @@ public class Collapsible implements IsElement<Element>, IsCollapsible<Collapsibl
   /**
    * removes the before hide handler
    *
-   * @param handler {@link CollapseHandler}
-   * @return same Collapsible instance
+   * @param handler {@link org.dominokit.domino.ui.collapsible.Collapsible.CollapseHandler}
    */
   public void removeBeforeCollapseHandler(CollapseHandler handler) {
     if (nonNull(beforeCollapseHandlers)) {
@@ -279,7 +286,7 @@ public class Collapsible implements IsElement<Element>, IsCollapsible<Collapsibl
   /**
    * Add handler to be called when ever the element changed state to visible
    *
-   * @param handler {@link ExpandHandler}
+   * @param handler {@link org.dominokit.domino.ui.collapsible.Collapsible.ExpandHandler}
    * @return same Collapsible instance
    */
   public Collapsible addExpandHandler(ExpandHandler handler) {
@@ -294,7 +301,7 @@ public class Collapsible implements IsElement<Element>, IsCollapsible<Collapsibl
    * Add handler to be called when ever the element changed state to visible, before the show
    * operation is completed
    *
-   * @param handler {@link ExpandHandler}
+   * @param handler {@link org.dominokit.domino.ui.collapsible.Collapsible.ExpandHandler}
    * @return same Collapsible instance
    */
   public Collapsible addBeforeExpandHandler(ExpandHandler handler) {
@@ -308,8 +315,7 @@ public class Collapsible implements IsElement<Element>, IsCollapsible<Collapsibl
   /**
    * removes the show handler
    *
-   * @param handler {@link ExpandHandler}
-   * @return same Collapsible instance
+   * @param handler {@link org.dominokit.domino.ui.collapsible.Collapsible.ExpandHandler}
    */
   public void removeExpandHandler(ExpandHandler handler) {
     if (nonNull(expandHandlers)) {
@@ -320,8 +326,7 @@ public class Collapsible implements IsElement<Element>, IsCollapsible<Collapsibl
   /**
    * removes the before show handler
    *
-   * @param handler {@link ExpandHandler}
-   * @return same Collapsible instance
+   * @param handler {@link org.dominokit.domino.ui.collapsible.Collapsible.ExpandHandler}
    */
   public void removeBeforeExpandHandler(ExpandHandler handler) {
     if (nonNull(beforeExpandHandlers)) {
@@ -330,12 +335,20 @@ public class Collapsible implements IsElement<Element>, IsCollapsible<Collapsibl
   }
 
   /** @return the current {@link CollapseStrategy} used by this Collapsible */
+  /**
+   * Getter for the field <code>strategy</code>.
+   *
+   * @return a {@link org.dominokit.domino.ui.collapsible.CollapseStrategy} object
+   */
   public CollapseStrategy getStrategy() {
     return strategy;
   }
 
   /**
-   * @param strategy {@link CollapseStrategy} to be used with this collapsible
+   * Setter for the field <code>strategy</code>.
+   *
+   * @param strategy {@link org.dominokit.domino.ui.collapsible.CollapseStrategy} to be used with
+   *     this collapsible
    * @return same Collapsible instance
    */
   public Collapsible setStrategy(CollapseStrategy strategy) {

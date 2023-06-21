@@ -32,7 +32,12 @@ import org.dominokit.domino.ui.elements.DivElement;
 import org.dominokit.domino.ui.utils.DominoElement;
 import org.gwtproject.timer.client.Timer;
 
-/** Adds the required events to add waves for a target element */
+/**
+ * Adds the required events to add waves for a target element
+ *
+ * @author vegegoku
+ * @version $Id: $Id
+ */
 public class Waves implements IsElement<Element> {
 
   private final DivElement target;
@@ -43,10 +48,20 @@ public class Waves implements IsElement<Element> {
   private final int duration = 750;
   private final WavesEventListener wavesEventListener = new WavesEventListener();
 
+  /**
+   * Constructor for Waves.
+   *
+   * @param target a {@link elemental2.dom.Element} object
+   */
   public Waves(Element target) {
     this(elements.elementOf(target));
   }
 
+  /**
+   * Constructor for Waves.
+   *
+   * @param target a {@link org.dominokit.domino.ui.utils.DominoElement} object
+   */
   public Waves(DominoElement<? extends Element> target) {
     this.target = elements.div().addCss("dui-wave-sentinel");
     elements.elementOf(target).addCss("dui-waves-target").appendChild(this.target);
@@ -55,7 +70,7 @@ public class Waves implements IsElement<Element> {
   /**
    * Creates waves for a specific target element
    *
-   * @param target the {@link Element} to add waves to
+   * @param target the {@link elemental2.dom.Element} to add waves to
    * @return new instance
    */
   public static Waves create(Element target) {
@@ -65,7 +80,7 @@ public class Waves implements IsElement<Element> {
   /**
    * Creates waves for a specific target element
    *
-   * @param target the {@link DominoElement} to add waves to
+   * @param target the {@link org.dominokit.domino.ui.utils.DominoElement} to add waves to
    * @return new instance
    */
   public static Waves create(DominoElement<? extends Element> target) {

@@ -20,29 +20,59 @@ import java.util.List;
 import java.util.Optional;
 import org.dominokit.domino.ui.utils.ComponentMeta;
 
+/**
+ * ColumnHeaderMeta class.
+ *
+ * @author vegegoku
+ * @version $Id: $Id
+ */
 public class ColumnHeaderMeta implements ComponentMeta {
 
+  /** Constant <code>DOMINO_COLUMN_HEADER_META="domino-column-header-meta"</code> */
   public static final String DOMINO_COLUMN_HEADER_META = "domino-column-header-meta";
 
   private List<ColumnHeader> extraHeadElements = new ArrayList<>();
 
+  /**
+   * create.
+   *
+   * @return a {@link org.dominokit.domino.ui.datatable.ColumnHeaderMeta} object
+   */
   public static ColumnHeaderMeta create() {
     return new ColumnHeaderMeta();
   }
 
+  /** {@inheritDoc} */
   @Override
   public String getKey() {
     return DOMINO_COLUMN_HEADER_META;
   }
 
+  /**
+   * get.
+   *
+   * @param column a {@link org.dominokit.domino.ui.datatable.ColumnConfig} object
+   * @return a {@link java.util.Optional} object
+   */
   public static Optional<ColumnHeaderMeta> get(ColumnConfig<?> column) {
     return column.getMeta(DOMINO_COLUMN_HEADER_META);
   }
 
+  /**
+   * Getter for the field <code>extraHeadElements</code>.
+   *
+   * @return a {@link java.util.List} object
+   */
   public List<ColumnHeader> getExtraHeadElements() {
     return extraHeadElements;
   }
 
+  /**
+   * addExtraHeadElement.
+   *
+   * @param extraHeadElement a {@link org.dominokit.domino.ui.datatable.ColumnHeader} object
+   * @return a {@link org.dominokit.domino.ui.datatable.ColumnHeaderMeta} object
+   */
   public ColumnHeaderMeta addExtraHeadElement(ColumnHeader extraHeadElement) {
     this.extraHeadElements.add(extraHeadElement);
     return this;

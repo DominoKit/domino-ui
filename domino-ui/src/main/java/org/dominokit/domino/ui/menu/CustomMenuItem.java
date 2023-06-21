@@ -18,21 +18,31 @@ package org.dominokit.domino.ui.menu;
 import static java.util.Objects.isNull;
 import static java.util.Objects.nonNull;
 
-/** An implementation of {@link AbstractMenuItem} that can take custom content */
+/**
+ * An implementation of {@link org.dominokit.domino.ui.menu.AbstractMenuItem} that can take custom
+ * content
+ *
+ * @author vegegoku
+ * @version $Id: $Id
+ */
 public class CustomMenuItem<V> extends AbstractMenuItem<V> {
 
   private MenuSearchFilter searchFilter = (token, caseSensitive) -> false;
 
+  /**
+   * create.
+   *
+   * @param <V> a V class
+   * @return a {@link org.dominokit.domino.ui.menu.CustomMenuItem} object
+   */
   public static <V> CustomMenuItem<V> create() {
     return new CustomMenuItem<>();
   }
 
   /**
-   * match the search token with both the text and description of the menu item
+   * {@inheritDoc}
    *
-   * @param token String search text
-   * @param caseSensitive boolean, true if the search is case-sensitive
-   * @return boolean, true if the item matches the search
+   * <p>match the search token with both the text and description of the menu item
    */
   @Override
   public boolean onSearch(String token, boolean caseSensitive) {
@@ -52,10 +62,21 @@ public class CustomMenuItem<V> extends AbstractMenuItem<V> {
     return false;
   }
 
+  /**
+   * Getter for the field <code>searchFilter</code>.
+   *
+   * @return a {@link org.dominokit.domino.ui.menu.MenuSearchFilter} object
+   */
   public MenuSearchFilter getSearchFilter() {
     return searchFilter;
   }
 
+  /**
+   * Setter for the field <code>searchFilter</code>.
+   *
+   * @param searchFilter a {@link org.dominokit.domino.ui.menu.MenuSearchFilter} object
+   * @return a {@link org.dominokit.domino.ui.menu.CustomMenuItem} object
+   */
   public CustomMenuItem<V> setSearchFilter(MenuSearchFilter searchFilter) {
     if (nonNull(searchFilter)) {
       this.searchFilter = searchFilter;

@@ -21,6 +21,12 @@ import org.dominokit.domino.ui.style.AutoSwapCssClass;
 import org.dominokit.domino.ui.style.CompositeCssClass;
 import org.dominokit.domino.ui.utils.ElementHandler;
 
+/**
+ * Abstract ToggleIcon class.
+ *
+ * @author vegegoku
+ * @version $Id: $Id
+ */
 public abstract class ToggleIcon<I extends Icon<I>, T extends ToggleIcon<I, T>> extends Icon<T> {
   protected final I primary;
   protected final I toggle;
@@ -29,6 +35,12 @@ public abstract class ToggleIcon<I extends Icon<I>, T extends ToggleIcon<I, T>> 
   protected AutoSwapCssClass swapCss;
   private Consumer<T> onToggleHandler = icon -> {};
 
+  /**
+   * Constructor for ToggleIcon.
+   *
+   * @param primary a I object
+   * @param toggle a I object
+   */
   public ToggleIcon(I primary, I toggle) {
     this.primary = primary;
     this.toggle = toggle;
@@ -45,6 +57,11 @@ public abstract class ToggleIcon<I extends Icon<I>, T extends ToggleIcon<I, T>> 
   }
 
   /** @return True if the icon is toggled, false otherwise */
+  /**
+   * isToggled.
+   *
+   * @return a boolean
+   */
   public boolean isToggled() {
     return primary.containsCss(toggle.name.getCssClass());
   }
@@ -63,7 +80,7 @@ public abstract class ToggleIcon<I extends Icon<I>, T extends ToggleIcon<I, T>> 
   /**
    * Sets a handler to be called when the icon is toggled
    *
-   * @param toggleConsumer the {@link Consumer} handler
+   * @param toggleConsumer the {@link java.util.function.Consumer} handler
    * @return same instance
    */
   public T onToggle(Consumer<T> toggleConsumer) {
@@ -71,10 +88,21 @@ public abstract class ToggleIcon<I extends Icon<I>, T extends ToggleIcon<I, T>> 
     return (T) this;
   }
 
+  /**
+   * toggle.
+   *
+   * @return a T object
+   */
   public T toggle() {
     return toggle(false);
   }
 
+  /**
+   * toggle.
+   *
+   * @param silent a boolean
+   * @return a T object
+   */
   public T toggle(boolean silent) {
     primary.addCss(swapCss);
     if (!silent) {
@@ -83,17 +111,25 @@ public abstract class ToggleIcon<I extends Icon<I>, T extends ToggleIcon<I, T>> 
     return (T) this;
   }
 
+  /**
+   * applyToAll.
+   *
+   * @param elementHandler a {@link org.dominokit.domino.ui.utils.ElementHandler} object
+   * @return a T object
+   */
   public T applyToAll(ElementHandler<I> elementHandler) {
     elementHandler.handleElement(primary);
     elementHandler.handleElement(toggle);
     return (T) this;
   }
 
+  /** {@inheritDoc} */
   @Override
   protected HTMLElement getStyleTarget() {
     return primary.element();
   }
 
+  /** {@inheritDoc} */
   @Override
   public T forEachChild(ElementHandler<Icon<?>> handler) {
     handler.handleElement(primary);
@@ -101,6 +137,7 @@ public abstract class ToggleIcon<I extends Icon<I>, T extends ToggleIcon<I, T>> 
     return (T) this;
   }
 
+  /** {@inheritDoc} */
   @Override
   public HTMLElement getClickableElement() {
     return primary.element();

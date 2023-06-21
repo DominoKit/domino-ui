@@ -25,11 +25,16 @@ import java.util.Set;
  * @param <T> the type of the class implementing this interface
  * @param <V> the type of the component value
  * @param <S> the type of selected value
+ * @author vegegoku
+ * @version $Id: $Id
  */
 public interface HasSelectionListeners<T, V, S> {
 
   /**
-   * @param selectionListener {@link SelectionListener}
+   * addSelectionListener.
+   *
+   * @param selectionListener {@link
+   *     org.dominokit.domino.ui.utils.HasSelectionListeners.SelectionListener}
    * @return same implementing class instance
    */
   default T addSelectionListener(SelectionListener<? super V, ? super S> selectionListener) {
@@ -37,7 +42,10 @@ public interface HasSelectionListeners<T, V, S> {
     return (T) this;
   }
   /**
-   * @param selectionListener {@link SelectionListener}
+   * addDeselectionListener.
+   *
+   * @param selectionListener {@link
+   *     org.dominokit.domino.ui.utils.HasSelectionListeners.SelectionListener}
    * @return same implementing class instance
    */
   default T addDeselectionListener(SelectionListener<? super V, ? super S> selectionListener) {
@@ -45,6 +53,13 @@ public interface HasSelectionListeners<T, V, S> {
     return (T) this;
   }
 
+  /**
+   * addSelectionDeselectionListener.
+   *
+   * @param listener a {@link org.dominokit.domino.ui.utils.HasSelectionListeners.SelectionListener}
+   *     object
+   * @return a T object
+   */
   default T addSelectionDeselectionListener(SelectionListener<? super V, ? super S> listener) {
     addDeselectionListener(listener);
     addSelectionListener(listener);
@@ -52,7 +67,10 @@ public interface HasSelectionListeners<T, V, S> {
   }
 
   /**
-   * @param selectionListener {@link SelectionListener}
+   * removeSelectionListener.
+   *
+   * @param selectionListener {@link
+   *     org.dominokit.domino.ui.utils.HasSelectionListeners.SelectionListener}
    * @return same implementing class instance
    */
   default T removeSelectionListener(SelectionListener<? super V, ? super S> selectionListener) {
@@ -61,7 +79,10 @@ public interface HasSelectionListeners<T, V, S> {
   }
 
   /**
-   * @param selectionListener {@link SelectionListener}
+   * removeDeselectionListener.
+   *
+   * @param selectionListener {@link
+   *     org.dominokit.domino.ui.utils.HasSelectionListeners.SelectionListener}
    * @return same implementing class instance
    */
   default T removeDeselectionListener(SelectionListener<? super V, ? super S> selectionListener) {
@@ -72,7 +93,8 @@ public interface HasSelectionListeners<T, V, S> {
   /**
    * Checks if a component has the specified SelectionHandler
    *
-   * @param selectionListener {@link SelectionListener}
+   * @param selectionListener {@link
+   *     org.dominokit.domino.ui.utils.HasSelectionListeners.SelectionListener}
    * @return same implementing class instance
    */
   default boolean hasSelectionListener(SelectionListener<? super V, ? super S> selectionListener) {
@@ -82,7 +104,8 @@ public interface HasSelectionListeners<T, V, S> {
   /**
    * Checks if a component has the specified SelectionHandler
    *
-   * @param selectionListener {@link SelectionListener}
+   * @param selectionListener {@link
+   *     org.dominokit.domino.ui.utils.HasSelectionListeners.SelectionListener}
    * @return same implementing class instance
    */
   default boolean hasDeselectionListener(
@@ -118,6 +141,7 @@ public interface HasSelectionListeners<T, V, S> {
    *
    * @param toggle boolean, true to pause the selection listeners, false to enable them
    * @return same component instance
+   * @param handler a {@link org.dominokit.domino.ui.utils.Handler} object
    */
   default T withPauseSelectionListenersToggle(boolean toggle, Handler<T> handler) {
     boolean oldState = isSelectionListenersPaused();
@@ -136,6 +160,7 @@ public interface HasSelectionListeners<T, V, S> {
    *
    * @param toggle boolean, true to pause the selection listeners, false to enable them
    * @return same component instance
+   * @param handler a {@link org.dominokit.domino.ui.utils.AsyncHandler} object
    */
   default T withPauseSelectionListenersToggleAsync(boolean toggle, AsyncHandler<T> handler) {
     boolean oldState = isSelectionListenersPaused();
@@ -149,16 +174,50 @@ public interface HasSelectionListeners<T, V, S> {
     return (T) this;
   }
 
+  /**
+   * getSelectionListeners.
+   *
+   * @return a {@link java.util.Set} object
+   */
   Set<SelectionListener<? super V, ? super S>> getSelectionListeners();
 
+  /**
+   * getDeselectionListeners.
+   *
+   * @return a {@link java.util.Set} object
+   */
   Set<SelectionListener<? super V, ? super S>> getDeselectionListeners();
 
+  /**
+   * isSelectionListenersPaused.
+   *
+   * @return a boolean
+   */
   boolean isSelectionListenersPaused();
 
+  /**
+   * triggerSelectionListeners.
+   *
+   * @param source a V object
+   * @param selection a S object
+   * @return a T object
+   */
   T triggerSelectionListeners(V source, S selection);
 
+  /**
+   * triggerDeselectionListeners.
+   *
+   * @param source a V object
+   * @param selection a S object
+   * @return a T object
+   */
   T triggerDeselectionListeners(V source, S selection);
 
+  /**
+   * getSelection.
+   *
+   * @return a S object
+   */
   S getSelection();
 
   /**

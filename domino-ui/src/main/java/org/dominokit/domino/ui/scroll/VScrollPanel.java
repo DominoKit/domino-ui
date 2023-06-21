@@ -19,16 +19,28 @@ import elemental2.dom.HTMLDivElement;
 import org.dominokit.domino.ui.elements.DivElement;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
 
-/** A component that wraps the {@link HTMLDivElement} to make it vertically scrollable by default */
+/**
+ * A component that wraps the {@link elemental2.dom.HTMLDivElement} to make it vertically scrollable
+ * by default
+ *
+ * @author vegegoku
+ * @version $Id: $Id
+ */
 public class VScrollPanel extends BaseDominoElement<HTMLDivElement, VScrollPanel> {
 
   private DivElement root;
 
   /** @return new AutoHScrollPanel instance */
+  /**
+   * create.
+   *
+   * @return a {@link org.dominokit.domino.ui.scroll.VScrollPanel} object
+   */
   public static VScrollPanel create() {
     return new VScrollPanel();
   }
 
+  /** Constructor for VScrollPanel. */
   public VScrollPanel() {
     root = div().addCss(dui_overflow_y_scroll);
     init(this);

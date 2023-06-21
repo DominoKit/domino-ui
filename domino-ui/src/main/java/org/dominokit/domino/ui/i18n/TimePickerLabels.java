@@ -15,23 +15,54 @@
  */
 package org.dominokit.domino.ui.i18n;
 
+/**
+ * TimePickerLabels interface.
+ *
+ * @author vegegoku
+ * @version $Id: $Id
+ */
 public interface TimePickerLabels extends Labels {
+  /**
+   * hour.
+   *
+   * @return a {@link java.lang.String} object
+   */
   default String hour() {
     return "Hour";
   }
 
+  /**
+   * minute.
+   *
+   * @return a {@link java.lang.String} object
+   */
   default String minute() {
     return "Minutes";
   }
 
+  /**
+   * seconds.
+   *
+   * @return a {@link java.lang.String} object
+   */
   default String seconds() {
     return "Seconds";
   }
 
+  /**
+   * ampm.
+   *
+   * @return a {@link java.lang.String} object
+   */
   default String ampm() {
     return "AM/PM";
   }
 
+  /**
+   * timePickerInvalidTimeFormat.
+   *
+   * @return a {@link java.lang.String} object
+   */
   default String timePickerInvalidTimeFormat() {
     return "Invalid time format";
   }

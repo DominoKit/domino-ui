@@ -17,11 +17,28 @@ package org.dominokit.domino.ui.elements;
 
 import elemental2.dom.HTMLTableSectionElement;
 
+/**
+ * TBodyElement class.
+ *
+ * @author vegegoku
+ * @version $Id: $Id
+ */
 public class TBodyElement extends BaseElement<HTMLTableSectionElement, TBodyElement> {
+  /**
+   * of.
+   *
+   * @param e a {@link elemental2.dom.HTMLTableSectionElement} object
+   * @return a {@link org.dominokit.domino.ui.elements.TBodyElement} object
+   */
   public static TBodyElement of(HTMLTableSectionElement e) {
     return new TBodyElement(e);
   }
 
+  /**
+   * Constructor for TBodyElement.
+   *
+   * @param element a {@link elemental2.dom.HTMLTableSectionElement} object
+   */
   public TBodyElement(HTMLTableSectionElement element) {
     super(element);
   }

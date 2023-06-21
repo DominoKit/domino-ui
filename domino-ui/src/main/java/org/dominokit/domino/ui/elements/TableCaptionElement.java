@@ -17,11 +17,28 @@ package org.dominokit.domino.ui.elements;
 
 import elemental2.dom.HTMLTableCaptionElement;
 
+/**
+ * TableCaptionElement class.
+ *
+ * @author vegegoku
+ * @version $Id: $Id
+ */
 public class TableCaptionElement extends BaseElement<HTMLTableCaptionElement, TableCaptionElement> {
+  /**
+   * of.
+   *
+   * @param e a {@link elemental2.dom.HTMLTableCaptionElement} object
+   * @return a {@link org.dominokit.domino.ui.elements.TableCaptionElement} object
+   */
   public static TableCaptionElement of(HTMLTableCaptionElement e) {
     return new TableCaptionElement(e);
   }
 
+  /**
+   * Constructor for TableCaptionElement.
+   *
+   * @param element a {@link elemental2.dom.HTMLTableCaptionElement} object
+   */
   public TableCaptionElement(HTMLTableCaptionElement element) {
     super(element);
   }

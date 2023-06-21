@@ -25,6 +25,8 @@ import org.gwtproject.editor.client.Editor;
  * Component that can be validated should implement this interface
  *
  * @param <T> the type of the component implementing this interface
+ * @author vegegoku
+ * @version $Id: $Id
  */
 public interface HasValidation<T> extends HasAutoValidation<T> {
 
@@ -32,16 +34,24 @@ public interface HasValidation<T> extends HasAutoValidation<T> {
    * validate the component and fail-fast with first error
    *
    * @return same implementing component
+   * @param target a T object
    */
   @Editor.Ignore
   ValidationResult validate(T target);
 
+  /**
+   * getValidators.
+   *
+   * @return a {@link java.util.Set} object
+   */
   Set<Validator<T>> getValidators();
 
   /**
    * Run all the validators and return all errors
    *
-   * @return All {@link ValidationResult}s, default to a single validation result
+   * @return All {@link org.dominokit.domino.ui.forms.validations.ValidationResult}s, default to a
+   *     single validation result
+   * @param target a T object
    */
   @Editor.Ignore
   default List<ValidationResult> validateAll(T target) {
@@ -63,7 +73,9 @@ public interface HasValidation<T> extends HasAutoValidation<T> {
   }
 
   /**
-   * @param validator {@link Validator}
+   * addValidator.
+   *
+   * @param validator {@link org.dominokit.domino.ui.utils.HasValidation.Validator}
    * @return same implementing component
    */
   @Editor.Ignore
@@ -73,7 +85,9 @@ public interface HasValidation<T> extends HasAutoValidation<T> {
   }
 
   /**
-   * @param validator {@link Validator}
+   * removeValidator.
+   *
+   * @param validator {@link org.dominokit.domino.ui.utils.HasValidation.Validator}
    * @return same implementing component
    */
   @Editor.Ignore
@@ -82,6 +96,13 @@ public interface HasValidation<T> extends HasAutoValidation<T> {
     return (T) this;
   }
 
+  /**
+   * addOrRemoveValidator.
+   *
+   * @param validator a {@link org.dominokit.domino.ui.utils.HasValidation.Validator} object
+   * @param state a boolean
+   * @return a T object
+   */
   default T addOrRemoveValidator(Validator<T> validator, boolean state) {
     if (state) {
       addValidator(validator);
@@ -92,7 +113,9 @@ public interface HasValidation<T> extends HasAutoValidation<T> {
   }
 
   /**
-   * @param validator {@link Validator}
+   * hasValidator.
+   *
+   * @param validator {@link org.dominokit.domino.ui.utils.HasValidation.Validator}
    * @return same implementing component
    */
   @Editor.Ignore
@@ -112,13 +135,18 @@ public interface HasValidation<T> extends HasAutoValidation<T> {
   /**
    * Mark the component as invalid with a list of error messages
    *
-   * @param errorMessages {@link List} of String error messages
+   * @param errorMessages {@link java.util.List} of String error messages
    * @return same implementing component
    */
   @Editor.Ignore
   T invalidate(List<String> errorMessages);
 
   /** @return a List of String error messages */
+  /**
+   * getErrors.
+   *
+   * @return a {@link java.util.List} object
+   */
   @Editor.Ignore
   List<String> getErrors();
 
@@ -152,6 +180,11 @@ public interface HasValidation<T> extends HasAutoValidation<T> {
    */
   T togglePauseValidations(boolean toggle);
 
+  /**
+   * isValidationsPaused.
+   *
+   * @return a boolean
+   */
   boolean isValidationsPaused();
 
   /**
@@ -176,6 +209,11 @@ public interface HasValidation<T> extends HasAutoValidation<T> {
    */
   T togglePauseFocusValidations(boolean toggle);
 
+  /**
+   * isFocusValidationsPaused.
+   *
+   * @return a boolean
+   */
   boolean isFocusValidationsPaused();
 
   /**
@@ -184,6 +222,7 @@ public interface HasValidation<T> extends HasAutoValidation<T> {
    *
    * @param toggle boolean, true to pause thevalidations, false to enable them
    * @return same component instance
+   * @param handler a {@link org.dominokit.domino.ui.utils.Handler} object
    */
   default T withPauseValidationsToggle(boolean toggle, Handler<T> handler) {
     boolean oldState = isValidationsPaused();
@@ -202,6 +241,7 @@ public interface HasValidation<T> extends HasAutoValidation<T> {
    *
    * @param toggle boolean, true to pause the validations, false to enable them
    * @return same component instance
+   * @param handler a {@link org.dominokit.domino.ui.utils.AsyncHandler} object
    */
   default T withPauseValidationsToggleAsync(boolean toggle, AsyncHandler<T> handler) {
     boolean oldState = isValidationsPaused();
@@ -221,6 +261,7 @@ public interface HasValidation<T> extends HasAutoValidation<T> {
    *
    * @param toggle boolean, true to pause thevalidations, false to enable them
    * @return same component instance
+   * @param handler a {@link org.dominokit.domino.ui.utils.Handler} object
    */
   default T withPauseFocusValidationsToggle(boolean toggle, Handler<T> handler) {
     boolean oldState = isFocusValidationsPaused();
@@ -239,6 +280,7 @@ public interface HasValidation<T> extends HasAutoValidation<T> {
    *
    * @param toggle boolean, true to pause the validations, false to enable them
    * @return same component instance
+   * @param handler a {@link org.dominokit.domino.ui.utils.AsyncHandler} object
    */
   default T withPauseFocusValidationsToggleAsync(boolean toggle, AsyncHandler<T> handler) {
     boolean oldState = isFocusValidationsPaused();

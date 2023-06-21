@@ -25,53 +25,112 @@ import org.dominokit.domino.ui.datatable.ColumnHeaderMeta;
 import org.dominokit.domino.ui.utils.ComponentMeta;
 import org.dominokit.domino.ui.utils.DominoCSSRule;
 
+/**
+ * PinColumnMeta class.
+ *
+ * @author vegegoku
+ * @version $Id: $Id
+ */
 public class PinColumnMeta implements ComponentMeta, PinColumnFunction {
 
   private final PinDirection direction;
 
+  /** Constant <code>PIN_COLUMN_META="pin-column-meta"</code> */
   public static final String PIN_COLUMN_META = "pin-column-meta";
 
+  /**
+   * left.
+   *
+   * @return a {@link org.dominokit.domino.ui.datatable.plugins.column.PinColumnMeta} object
+   */
   public static PinColumnMeta left() {
     return new PinColumnMeta(PinDirection.LEFT);
   }
 
+  /**
+   * right.
+   *
+   * @return a {@link org.dominokit.domino.ui.datatable.plugins.column.PinColumnMeta} object
+   */
   public static PinColumnMeta right() {
     return new PinColumnMeta(PinDirection.RIGHT);
   }
 
+  /**
+   * get.
+   *
+   * @param column a {@link org.dominokit.domino.ui.datatable.ColumnConfig} object
+   * @return a {@link java.util.Optional} object
+   */
   public static Optional<PinColumnMeta> get(ColumnConfig<?> column) {
     return column.getMeta(PIN_COLUMN_META);
   }
 
+  /**
+   * isPinLeft.
+   *
+   * @param column a {@link org.dominokit.domino.ui.datatable.ColumnConfig} object
+   * @return a boolean
+   */
   public static boolean isPinLeft(ColumnConfig<?> column) {
     return PinColumnMeta.get(column).isPresent() && PinColumnMeta.get(column).get().isLeftPin();
   }
 
+  /**
+   * isPinRight.
+   *
+   * @param column a {@link org.dominokit.domino.ui.datatable.ColumnConfig} object
+   * @return a boolean
+   */
   public static boolean isPinRight(ColumnConfig<?> column) {
     return PinColumnMeta.get(column).isPresent() && PinColumnMeta.get(column).get().isRightPin();
   }
 
+  /**
+   * isPinned.
+   *
+   * @param column a {@link org.dominokit.domino.ui.datatable.ColumnConfig} object
+   * @return a boolean
+   */
   public static boolean isPinned(ColumnConfig<?> column) {
     return (PinColumnMeta.isPinLeft(column) || PinColumnMeta.isPinRight(column));
   }
 
+  /**
+   * Constructor for PinColumnMeta.
+   *
+   * @param direction a {@link
+   *     org.dominokit.domino.ui.datatable.plugins.column.PinColumnMeta.PinDirection} object
+   */
   public PinColumnMeta(PinDirection direction) {
     this.direction = direction;
   }
 
+  /**
+   * isLeftPin.
+   *
+   * @return a boolean
+   */
   public boolean isLeftPin() {
     return PinDirection.LEFT.equals(direction);
   }
 
+  /**
+   * isRightPin.
+   *
+   * @return a boolean
+   */
   public boolean isRightPin() {
     return PinDirection.RIGHT.equals(direction);
   }
 
+  /** {@inheritDoc} */
   @Override
   public String getKey() {
     return PIN_COLUMN_META;
   }
 
+  /** {@inheritDoc} */
   @Override
   public double pin(ColumnConfig<?> column, double position) {
     return direction.pin(column, position);

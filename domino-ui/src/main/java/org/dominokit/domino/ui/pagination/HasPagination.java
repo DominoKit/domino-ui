@@ -15,7 +15,12 @@
  */
 package org.dominokit.domino.ui.pagination;
 
-/** An interface providing component with pagination */
+/**
+ * An interface providing component with pagination
+ *
+ * @author vegegoku
+ * @version $Id: $Id
+ */
 public interface HasPagination<T extends HasPagination<T>> {
   /**
    * Go to a specific page number
@@ -176,6 +181,11 @@ public interface HasPagination<T extends HasPagination<T>> {
   T updatePagesByTotalCount(int totalCount, int pageSize, boolean silent);
 
   /** @return the total number of items */
+  /**
+   * getTotalCount.
+   *
+   * @return a int
+   */
   int getTotalCount();
 
   /**
@@ -187,12 +197,27 @@ public interface HasPagination<T extends HasPagination<T>> {
   T setPageSize(int pageSize);
 
   /** @return the page size */
+  /**
+   * getPageSize.
+   *
+   * @return a int
+   */
   int getPageSize();
 
   /** @return the active page number */
+  /**
+   * activePage.
+   *
+   * @return a int
+   */
   int activePage();
 
   /** @return the total number of pages */
+  /**
+   * getPagesCount.
+   *
+   * @return a int
+   */
   int getPagesCount();
 
   /** A listener that will be called when the page is changed */

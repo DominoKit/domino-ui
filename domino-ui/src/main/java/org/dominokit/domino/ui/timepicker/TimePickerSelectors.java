@@ -25,6 +25,12 @@ import org.dominokit.domino.ui.forms.suggest.SelectOption;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
 import org.dominokit.domino.ui.utils.ChildHandler;
 
+/**
+ * TimePickerSelectors class.
+ *
+ * @author vegegoku
+ * @version $Id: $Id
+ */
 public class TimePickerSelectors extends BaseDominoElement<HTMLDivElement, TimePickerSelectors>
     implements TimePickerStyles, TimePickerViewListener {
 
@@ -36,6 +42,12 @@ public class TimePickerSelectors extends BaseDominoElement<HTMLDivElement, TimeP
   private final Select<TimePeriod> ampmSelect;
   private Date date;
 
+  /**
+   * Constructor for TimePickerSelectors.
+   *
+   * @param timePicker a {@link org.dominokit.domino.ui.timepicker.IsTimePicker} object
+   * @param date a {@link java.util.Date} object
+   */
   public TimePickerSelectors(IsTimePicker timePicker, Date date) {
     this.timePicker = timePicker;
     this.date = date;
@@ -109,6 +121,13 @@ public class TimePickerSelectors extends BaseDominoElement<HTMLDivElement, TimeP
         });
   }
 
+  /**
+   * create.
+   *
+   * @param timePicker a {@link org.dominokit.domino.ui.timepicker.IsTimePicker} object
+   * @param date a {@link java.util.Date} object
+   * @return a {@link org.dominokit.domino.ui.timepicker.TimePickerSelectors} object
+   */
   public static TimePickerSelectors create(IsTimePicker timePicker, Date date) {
     return new TimePickerSelectors(timePicker, date);
   }
@@ -159,6 +178,7 @@ public class TimePickerSelectors extends BaseDominoElement<HTMLDivElement, TimeP
     return String.valueOf(hour);
   }
 
+  /** {@inheritDoc} */
   @Override
   public void onUpdatePickerView(Date date) {
     this.date = date;
@@ -195,30 +215,55 @@ public class TimePickerSelectors extends BaseDominoElement<HTMLDivElement, TimeP
     this.hoursSelect.withPausedChangeListeners(field -> field.selectByValue(hour));
   }
 
+  /**
+   * withHourSelect.
+   *
+   * @param handler a {@link org.dominokit.domino.ui.utils.ChildHandler} object
+   * @return a {@link org.dominokit.domino.ui.timepicker.TimePickerSelectors} object
+   */
   public TimePickerSelectors withHourSelect(
       ChildHandler<TimePickerSelectors, Select<Integer>> handler) {
     handler.apply(this, hoursSelect);
     return this;
   }
 
+  /**
+   * withMinuteSelect.
+   *
+   * @param handler a {@link org.dominokit.domino.ui.utils.ChildHandler} object
+   * @return a {@link org.dominokit.domino.ui.timepicker.TimePickerSelectors} object
+   */
   public TimePickerSelectors withMinuteSelect(
       ChildHandler<TimePickerSelectors, Select<Integer>> handler) {
     handler.apply(this, minutesSelect);
     return this;
   }
 
+  /**
+   * withSecondSelect.
+   *
+   * @param handler a {@link org.dominokit.domino.ui.utils.ChildHandler} object
+   * @return a {@link org.dominokit.domino.ui.timepicker.TimePickerSelectors} object
+   */
   public TimePickerSelectors withSecondSelect(
       ChildHandler<TimePickerSelectors, Select<Integer>> handler) {
     handler.apply(this, secondsSelect);
     return this;
   }
 
+  /**
+   * withAmPmSelect.
+   *
+   * @param handler a {@link org.dominokit.domino.ui.utils.ChildHandler} object
+   * @return a {@link org.dominokit.domino.ui.timepicker.TimePickerSelectors} object
+   */
   public TimePickerSelectors withAmPmSelect(
       ChildHandler<TimePickerSelectors, Select<TimePeriod>> handler) {
     handler.apply(this, ampmSelect);
     return this;
   }
 
+  /** {@inheritDoc} */
   @Override
   public HTMLDivElement element() {
     return root.element();

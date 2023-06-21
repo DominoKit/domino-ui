@@ -27,34 +27,82 @@ import org.dominokit.domino.ui.datatable.plugins.tree.store.TreeNodeStoreContext
 import org.dominokit.domino.ui.datatable.store.DataStore;
 import org.dominokit.domino.ui.utils.ComponentMeta;
 
+/**
+ * TreeGridRowSubItemsMeta class.
+ *
+ * @author vegegoku
+ * @version $Id: $Id
+ */
 public class TreeGridRowSubItemsMeta<T> implements ComponentMeta {
 
+  /** Constant <code>TREE_GRID_ROW_SUB_ITEMS_META="tree-grid-row-sub-items-meta"</code> */
   public static final String TREE_GRID_ROW_SUB_ITEMS_META = "tree-grid-row-sub-items-meta";
+
   private final TreePluginConfig<T> config;
   private Collection<T> records;
 
+  /**
+   * of.
+   *
+   * @param config a {@link org.dominokit.domino.ui.datatable.plugins.tree.TreePluginConfig} object
+   * @param records a {@link java.util.Collection} object
+   * @param <T> a T class
+   * @return a {@link org.dominokit.domino.ui.datatable.plugins.tree.TreeGridRowSubItemsMeta} object
+   */
   public static <T> TreeGridRowSubItemsMeta<T> of(
       TreePluginConfig<T> config, Collection<T> records) {
     return new TreeGridRowSubItemsMeta<>(config, records);
   }
 
+  /**
+   * of.
+   *
+   * @param config a {@link org.dominokit.domino.ui.datatable.plugins.tree.TreePluginConfig} object
+   * @param <T> a T class
+   * @return a {@link org.dominokit.domino.ui.datatable.plugins.tree.TreeGridRowSubItemsMeta} object
+   */
   public static <T> TreeGridRowSubItemsMeta<T> of(TreePluginConfig<T> config) {
     return new TreeGridRowSubItemsMeta<>(config);
   }
 
+  /**
+   * Constructor for TreeGridRowSubItemsMeta.
+   *
+   * @param config a {@link org.dominokit.domino.ui.datatable.plugins.tree.TreePluginConfig} object
+   */
   public TreeGridRowSubItemsMeta(TreePluginConfig<T> config) {
     this.config = config;
   }
 
+  /**
+   * Constructor for TreeGridRowSubItemsMeta.
+   *
+   * @param config a {@link org.dominokit.domino.ui.datatable.plugins.tree.TreePluginConfig} object
+   * @param records a {@link java.util.Collection} object
+   */
   public TreeGridRowSubItemsMeta(TreePluginConfig<T> config, Collection<T> records) {
     this.config = config;
     this.records = records;
   }
 
+  /**
+   * get.
+   *
+   * @param row a {@link org.dominokit.domino.ui.datatable.TableRow} object
+   * @param <T> a T class
+   * @return a {@link java.util.Optional} object
+   */
   public static <T> Optional<TreeGridRowSubItemsMeta<T>> get(TableRow<T> row) {
     return row.getMeta(TREE_GRID_ROW_SUB_ITEMS_META);
   }
 
+  /**
+   * Getter for the field <code>records</code>.
+   *
+   * @param row a {@link org.dominokit.domino.ui.datatable.TableRow} object
+   * @param recordsConsumer a {@link java.util.function.Consumer} object
+   * @return a {@link org.dominokit.domino.ui.datatable.plugins.tree.TreeGridRowSubItemsMeta} object
+   */
   public TreeGridRowSubItemsMeta<T> getRecords(
       TableRow<T> row, Consumer<Optional<Collection<T>>> recordsConsumer) {
 
@@ -74,6 +122,12 @@ public class TreeGridRowSubItemsMeta<T> implements ComponentMeta {
     return this;
   }
 
+  /**
+   * hasChildren.
+   *
+   * @param row a {@link org.dominokit.domino.ui.datatable.TableRow} object
+   * @return a boolean
+   */
   @SuppressWarnings("unchecked")
   public boolean hasChildren(TableRow<T> row) {
     if (row.getRecord() instanceof IsTreeNode) {
@@ -86,10 +140,16 @@ public class TreeGridRowSubItemsMeta<T> implements ComponentMeta {
     return ((TreeNodeStore<T>) row.getDataTable().getDataStore()).hasChildren(row.getRecord());
   }
 
+  /**
+   * loaded.
+   *
+   * @return a boolean
+   */
   public boolean loaded() {
     return nonNull(records);
   }
 
+  /** {@inheritDoc} */
   @Override
   public String getKey() {
     return TREE_GRID_ROW_SUB_ITEMS_META;

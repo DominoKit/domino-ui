@@ -15,6 +15,12 @@
  */
 package org.dominokit.domino.ui.i18n;
 
+/**
+ * DominoUILabels interface.
+ *
+ * @author vegegoku
+ * @version $Id: $Id
+ */
 public interface DominoUILabels
     extends QuickSearchLabels,
         FormsLabels,

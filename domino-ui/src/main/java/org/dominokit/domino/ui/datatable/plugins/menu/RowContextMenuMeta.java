@@ -21,19 +21,45 @@ import org.dominokit.domino.ui.menu.Menu;
 import org.dominokit.domino.ui.menu.MenuTarget;
 import org.dominokit.domino.ui.utils.ComponentMeta;
 
+/**
+ * RowContextMenuMeta class.
+ *
+ * @author vegegoku
+ * @version $Id: $Id
+ */
 public class RowContextMenuMeta<T> implements ComponentMeta {
+  /** Constant <code>ROW_CONTEXT_MENU_META="row-context-menu-meta"</code> */
   public static final String ROW_CONTEXT_MENU_META = "row-context-menu-meta";
 
   private final TableRow<T> tableRow;
 
+  /**
+   * Constructor for RowContextMenuMeta.
+   *
+   * @param tableRow a {@link org.dominokit.domino.ui.datatable.TableRow} object
+   */
   public RowContextMenuMeta(TableRow<T> tableRow) {
     this.tableRow = tableRow;
   }
 
+  /**
+   * of.
+   *
+   * @param tableRow a {@link org.dominokit.domino.ui.datatable.TableRow} object
+   * @param <T> a T class
+   * @return a {@link org.dominokit.domino.ui.datatable.plugins.menu.RowContextMenuMeta} object
+   */
   public static <T> RowContextMenuMeta<T> of(TableRow<T> tableRow) {
     return new RowContextMenuMeta<>(tableRow);
   }
 
+  /**
+   * get.
+   *
+   * @param menu a {@link org.dominokit.domino.ui.menu.Menu} object
+   * @param <T> a T class
+   * @return a {@link java.util.Optional} object
+   */
   public static <T> Optional<RowContextMenuMeta<T>> get(Menu<?> menu) {
     Optional<MenuTarget> target = menu.getTarget();
     if (target.isPresent()) {
@@ -42,10 +68,16 @@ public class RowContextMenuMeta<T> implements ComponentMeta {
     return Optional.empty();
   }
 
+  /**
+   * Getter for the field <code>tableRow</code>.
+   *
+   * @return a {@link org.dominokit.domino.ui.datatable.TableRow} object
+   */
   public TableRow<T> getTableRow() {
     return tableRow;
   }
 
+  /** {@inheritDoc} */
   @Override
   public String getKey() {
     return ROW_CONTEXT_MENU_META;

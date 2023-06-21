@@ -19,28 +19,61 @@ import java.util.Objects;
 import java.util.Optional;
 import org.dominokit.domino.ui.utils.ComponentMeta;
 
+/**
+ * RowAppenderMeta class.
+ *
+ * @author vegegoku
+ * @version $Id: $Id
+ */
 public class RowAppenderMeta<T> implements ComponentMeta {
 
+  /** Constant <code>TABLE_ROW_APPENDER_META="table-row-appender-meta"</code> */
   public static final String TABLE_ROW_APPENDER_META = "table-row-appender-meta";
+
   private final TableConfig.RowAppender<T> rowAppender;
 
+  /**
+   * of.
+   *
+   * @param rowAppender a {@link org.dominokit.domino.ui.datatable.TableConfig.RowAppender} object
+   * @param <T> a T class
+   * @return a {@link org.dominokit.domino.ui.datatable.RowAppenderMeta} object
+   */
   public static <T> RowAppenderMeta<T> of(TableConfig.RowAppender<T> rowAppender) {
     return new RowAppenderMeta<>(rowAppender);
   }
 
+  /**
+   * Constructor for RowAppenderMeta.
+   *
+   * @param rowAppender a {@link org.dominokit.domino.ui.datatable.TableConfig.RowAppender} object
+   */
   public RowAppenderMeta(TableConfig.RowAppender<T> rowAppender) {
     Objects.requireNonNull(rowAppender, "RowAppender cant be null.");
     this.rowAppender = rowAppender;
   }
 
+  /**
+   * get.
+   *
+   * @param row a {@link org.dominokit.domino.ui.datatable.TableRow} object
+   * @param <T> a T class
+   * @return a {@link java.util.Optional} object
+   */
   public static <T> Optional<RowAppenderMeta<T>> get(TableRow<T> row) {
     return row.getMeta(TABLE_ROW_APPENDER_META);
   }
 
+  /**
+   * Getter for the field <code>rowAppender</code>.
+   *
+   * @return a {@link org.dominokit.domino.ui.datatable.TableConfig.RowAppender} object
+   */
   public TableConfig.RowAppender<T> getRowAppender() {
     return rowAppender;
   }
 
+  /** {@inheritDoc} */
   @Override
   public String getKey() {
     return TABLE_ROW_APPENDER_META;

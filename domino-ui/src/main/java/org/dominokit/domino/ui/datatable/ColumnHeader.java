@@ -26,6 +26,12 @@ import org.dominokit.domino.ui.elements.THElement;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
 import org.dominokit.domino.ui.utils.ChildHandler;
 
+/**
+ * ColumnHeader class.
+ *
+ * @author vegegoku
+ * @version $Id: $Id
+ */
 public class ColumnHeader extends BaseDominoElement<HTMLTableCellElement, ColumnHeader>
     implements DataTableStyles {
 
@@ -33,18 +39,36 @@ public class ColumnHeader extends BaseDominoElement<HTMLTableCellElement, Column
   private final DivElement body;
   private SpanElement titleEelement;
 
+  /**
+   * create.
+   *
+   * @param title a {@link java.lang.String} object
+   * @return a {@link org.dominokit.domino.ui.datatable.ColumnHeader} object
+   */
   public static ColumnHeader create(String title) {
     return new ColumnHeader(title);
   }
 
+  /**
+   * create.
+   *
+   * @param title a {@link elemental2.dom.Node} object
+   * @return a {@link org.dominokit.domino.ui.datatable.ColumnHeader} object
+   */
   public static ColumnHeader create(Node title) {
     return new ColumnHeader(title);
   }
 
+  /**
+   * create.
+   *
+   * @return a {@link org.dominokit.domino.ui.datatable.ColumnHeader} object
+   */
   public static ColumnHeader create() {
     return new ColumnHeader();
   }
 
+  /** Constructor for ColumnHeader. */
   public ColumnHeader() {
     this.element =
         th().addCss(dui_datatable_th)
@@ -56,6 +80,11 @@ public class ColumnHeader extends BaseDominoElement<HTMLTableCellElement, Column
     init(this);
   }
 
+  /**
+   * Constructor for ColumnHeader.
+   *
+   * @param title a {@link java.lang.String} object
+   */
   public ColumnHeader(String title) {
     this();
     if (nonNull(title) && !title.isEmpty()) {
@@ -63,6 +92,11 @@ public class ColumnHeader extends BaseDominoElement<HTMLTableCellElement, Column
     }
   }
 
+  /**
+   * Constructor for ColumnHeader.
+   *
+   * @param title a {@link elemental2.dom.Node} object
+   */
   public ColumnHeader(Node title) {
     this();
     if (nonNull(title)) {
@@ -70,30 +104,56 @@ public class ColumnHeader extends BaseDominoElement<HTMLTableCellElement, Column
     }
   }
 
+  /**
+   * setTitle.
+   *
+   * @param title a {@link java.lang.String} object
+   * @return a {@link org.dominokit.domino.ui.datatable.ColumnHeader} object
+   */
   public ColumnHeader setTitle(String title) {
     return setTitle(text(title));
   }
 
+  /**
+   * setTitle.
+   *
+   * @param title a {@link elemental2.dom.Node} object
+   * @return a {@link org.dominokit.domino.ui.datatable.ColumnHeader} object
+   */
   public ColumnHeader setTitle(Node title) {
     this.titleEelement.clearElement().appendChild(title);
     return this;
   }
 
+  /**
+   * withBody.
+   *
+   * @param handler a {@link org.dominokit.domino.ui.utils.ChildHandler} object
+   * @return a {@link org.dominokit.domino.ui.datatable.ColumnHeader} object
+   */
   public ColumnHeader withBody(ChildHandler<ColumnHeader, DivElement> handler) {
     handler.apply(this, body);
     return this;
   }
 
+  /**
+   * withTitle.
+   *
+   * @param handler a {@link org.dominokit.domino.ui.utils.ChildHandler} object
+   * @return a {@link org.dominokit.domino.ui.datatable.ColumnHeader} object
+   */
   public ColumnHeader withTitle(ChildHandler<ColumnHeader, SpanElement> handler) {
     handler.apply(this, titleEelement);
     return this;
   }
 
+  /** {@inheritDoc} */
   @Override
   protected Element getAppendTarget() {
     return body.element();
   }
 
+  /** {@inheritDoc} */
   @Override
   public HTMLTableCellElement element() {
     return element.element();

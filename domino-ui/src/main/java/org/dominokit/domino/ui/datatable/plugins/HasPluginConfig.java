@@ -17,16 +17,33 @@ package org.dominokit.domino.ui.datatable.plugins;
 
 import java.util.function.Consumer;
 
+/**
+ * HasPluginConfig interface.
+ *
+ * @author vegegoku
+ * @version $Id: $Id
+ */
 public interface HasPluginConfig<R, T extends DataTablePlugin<R>, C extends PluginConfig> {
 
+  /**
+   * setConfig.
+   *
+   * @param config a C object
+   * @return a T object
+   */
   T setConfig(C config);
 
+  /**
+   * getConfig.
+   *
+   * @return a C object
+   */
   C getConfig();
 
   /**
    * Use to update the configuration in the current plugin configuration
    *
-   * @param handler {@link Consumer} of {@link C}
+   * @param handler {@link java.util.function.Consumer} of {@link C}
    * @return same plugin instance.
    */
   default T configure(Consumer<C> handler) {

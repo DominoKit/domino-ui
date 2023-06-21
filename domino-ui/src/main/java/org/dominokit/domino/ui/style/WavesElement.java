@@ -24,6 +24,8 @@ import org.dominokit.domino.ui.utils.BaseDominoElement;
  *
  * @param <E> the type of the root element
  * @param <T> the type of the waves element
+ * @author vegegoku
+ * @version $Id: $Id
  */
 public abstract class WavesElement<E extends HTMLElement, T extends IsElement<E>>
     extends BaseDominoElement<E, T> implements HasWaveEffect<T> {

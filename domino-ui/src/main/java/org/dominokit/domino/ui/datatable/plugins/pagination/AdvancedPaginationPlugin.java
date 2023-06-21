@@ -21,10 +21,12 @@ import org.dominokit.domino.ui.datatable.plugins.DataTablePlugin;
 import org.dominokit.domino.ui.pagination.AdvancedPagination;
 
 /**
- * This plugin attach an {@link AdvancedPagination} component to the data table and fires {@link
- * TablePageChangeEvent} when ever the page is changed
+ * This plugin attach an {@link org.dominokit.domino.ui.pagination.AdvancedPagination} component to
+ * the data table and fires {@link TablePageChangeEvent} when ever the page is changed
  *
  * @param <T> the type of the data table records
+ * @author vegegoku
+ * @version $Id: $Id
  */
 public class AdvancedPaginationPlugin<T> implements DataTablePlugin<T> {
 
@@ -54,6 +56,11 @@ public class AdvancedPaginationPlugin<T> implements DataTablePlugin<T> {
   }
 
   /** @return the {@link AdvancedPagination} wrapped in this plugin */
+  /**
+   * Getter for the field <code>pagination</code>.
+   *
+   * @return a {@link org.dominokit.domino.ui.pagination.AdvancedPagination} object
+   */
   public AdvancedPagination getPagination() {
     return pagination;
   }

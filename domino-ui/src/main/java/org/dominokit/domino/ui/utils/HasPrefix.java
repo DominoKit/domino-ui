@@ -15,8 +15,25 @@
  */
 package org.dominokit.domino.ui.utils;
 
+/**
+ * HasPrefix interface.
+ *
+ * @author vegegoku
+ * @version $Id: $Id
+ */
 public interface HasPrefix<T> {
+  /**
+   * setPrefix.
+   *
+   * @param prefix a {@link java.lang.String} object
+   * @return a T object
+   */
   T setPrefix(String prefix);
 
+  /**
+   * getPrefix.
+   *
+   * @return a {@link java.lang.String} object
+   */
   String getPrefix();
 }

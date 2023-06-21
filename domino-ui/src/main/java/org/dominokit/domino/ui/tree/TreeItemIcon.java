@@ -18,13 +18,32 @@ package org.dominokit.domino.ui.tree;
 import org.dominokit.domino.ui.icons.MdiIcon;
 import org.dominokit.domino.ui.icons.StateChangeMdiIcon;
 
+/**
+ * TreeItemIcon class.
+ *
+ * @author vegegoku
+ * @version $Id: $Id
+ */
 public class TreeItemIcon {
 
+  /** Constant <code>STATE_COLLAPSED="dui-tree-collapsed"</code> */
   public static final String STATE_COLLAPSED = "dui-tree-collapsed";
+  /** Constant <code>STATE_EXPANDED="dui-tree-expanded"</code> */
   public static final String STATE_EXPANDED = "dui-tree-expanded";
+  /** Constant <code>STATE_LEAF="dui-tree-leaf"</code> */
   public static final String STATE_LEAF = "dui-tree-leaf";
+  /** Constant <code>STATE_ACTIVE="dui-tree-active"</code> */
   public static final String STATE_ACTIVE = "dui-tree-active";
 
+  /**
+   * of.
+   *
+   * @param collapsed a {@link org.dominokit.domino.ui.icons.MdiIcon} object
+   * @param expanded a {@link org.dominokit.domino.ui.icons.MdiIcon} object
+   * @param leaf a {@link org.dominokit.domino.ui.icons.MdiIcon} object
+   * @param active a {@link org.dominokit.domino.ui.icons.MdiIcon} object
+   * @return a {@link org.dominokit.domino.ui.icons.StateChangeMdiIcon} object
+   */
   public static StateChangeMdiIcon of(
       MdiIcon collapsed, MdiIcon expanded, MdiIcon leaf, MdiIcon active) {
     StateChangeMdiIcon stateChangeMdiIcon = new StateChangeMdiIcon(MdiIcon.create(leaf.getName()));

@@ -31,12 +31,23 @@ import org.dominokit.domino.ui.style.CompositeCssClass;
 import org.dominokit.domino.ui.style.CssClass;
 import org.dominokit.domino.ui.utils.DominoElement;
 
+/**
+ * NotificationPosition class.
+ *
+ * @author vegegoku
+ * @version $Id: $Id
+ */
 public class NotificationPosition {
   private static CompositeCssClass topPositions =
       CompositeCssClass.of(dui_ntf_top_left, dui_ntf_top_right, dui_ntf_top_middle);
   private static CompositeCssClass bottomPositions =
       CompositeCssClass.of(dui_ntf_bottom_left, dui_ntf_bottom_right, dui_ntf_bottom_middle);
 
+  /**
+   * updatePositions.
+   *
+   * @param notificationPosition a {@link org.dominokit.domino.ui.style.CssClass} object
+   */
   public static void updatePositions(CssClass notificationPosition) {
     List<Element> samePositionNotifications =
         DomGlobal.document.querySelectorAll("." + notificationPosition.getCssClass()).asList();

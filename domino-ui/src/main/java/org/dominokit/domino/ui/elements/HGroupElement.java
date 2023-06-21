@@ -17,11 +17,28 @@ package org.dominokit.domino.ui.elements;
 
 import elemental2.dom.HTMLElement;
 
+/**
+ * HGroupElement class.
+ *
+ * @author vegegoku
+ * @version $Id: $Id
+ */
 public class HGroupElement extends BaseElement<HTMLElement, HGroupElement> {
+  /**
+   * of.
+   *
+   * @param e a {@link elemental2.dom.HTMLElement} object
+   * @return a {@link org.dominokit.domino.ui.elements.HGroupElement} object
+   */
   public static HGroupElement of(HTMLElement e) {
     return new HGroupElement(e);
   }
 
+  /**
+   * Constructor for HGroupElement.
+   *
+   * @param element a {@link elemental2.dom.HTMLElement} object
+   */
   public HGroupElement(HTMLElement element) {
     super(element);
   }

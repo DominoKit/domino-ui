@@ -27,6 +27,12 @@ import org.dominokit.domino.ui.utils.ChildHandler;
 import org.dominokit.domino.ui.utils.PostfixAddOn;
 import org.dominokit.domino.ui.utils.PrefixAddOn;
 
+/**
+ * StepTracker class.
+ *
+ * @author vegegoku
+ * @version $Id: $Id
+ */
 public class StepTracker extends BaseDominoElement<HTMLDivElement, StepTracker>
     implements StepperStyles {
 
@@ -39,6 +45,7 @@ public class StepTracker extends BaseDominoElement<HTMLDivElement, StepTracker>
   private StepState state;
   private String key;
 
+  /** Constructor for StepTracker. */
   public StepTracker() {
     root =
         div()
@@ -54,33 +61,71 @@ public class StepTracker extends BaseDominoElement<HTMLDivElement, StepTracker>
     setState(uiconfig().getDefaultStepState());
   }
 
+  /**
+   * Constructor for StepTracker.
+   *
+   * @param key a {@link java.lang.String} object
+   */
   public StepTracker(String key) {
     this();
     setKey(key);
   }
 
+  /**
+   * create.
+   *
+   * @return a {@link org.dominokit.domino.ui.stepper.StepTracker} object
+   */
   public static StepTracker create() {
     return new StepTracker();
   }
 
+  /**
+   * create.
+   *
+   * @param key a {@link java.lang.String} object
+   * @return a {@link org.dominokit.domino.ui.stepper.StepTracker} object
+   */
   public static StepTracker create(String key) {
     return new StepTracker(key);
   }
 
+  /**
+   * withTrackerNode.
+   *
+   * @param handler a {@link org.dominokit.domino.ui.utils.ChildHandler} object
+   * @return a {@link org.dominokit.domino.ui.stepper.StepTracker} object
+   */
   public StepTracker withTrackerNode(ChildHandler<StepTracker, DivElement> handler) {
     handler.apply(this, trackerNode);
     return this;
   }
 
+  /**
+   * withTrackerLine.
+   *
+   * @param handler a {@link org.dominokit.domino.ui.utils.ChildHandler} object
+   * @return a {@link org.dominokit.domino.ui.stepper.StepTracker} object
+   */
   public StepTracker withTrackerLine(ChildHandler<StepTracker, DivElement> handler) {
     handler.apply(this, trackerLine);
     return this;
   }
 
+  /**
+   * Getter for the field <code>trackerNode</code>.
+   *
+   * @return a {@link org.dominokit.domino.ui.elements.DivElement} object
+   */
   public DivElement getTrackerNode() {
     return trackerNode;
   }
 
+  /**
+   * Getter for the field <code>trackerLine</code>.
+   *
+   * @return a {@link org.dominokit.domino.ui.elements.DivElement} object
+   */
   public DivElement getTrackerLine() {
     return trackerLine;
   }
@@ -93,6 +138,12 @@ public class StepTracker extends BaseDominoElement<HTMLDivElement, StepTracker>
     this.removeCss(dui_active);
   }
 
+  /**
+   * addStateListener.
+   *
+   * @param listener a {@link org.dominokit.domino.ui.stepper.StepTracker.TrackerListener} object
+   * @return a {@link org.dominokit.domino.ui.stepper.StepTracker} object
+   */
   public StepTracker addStateListener(TrackerListener listener) {
     if (nonNull(listener)) {
       listeners.add(listener);
@@ -100,6 +151,12 @@ public class StepTracker extends BaseDominoElement<HTMLDivElement, StepTracker>
     return this;
   }
 
+  /**
+   * removeStateListener.
+   *
+   * @param listener a {@link org.dominokit.domino.ui.stepper.StepTracker.TrackerListener} object
+   * @return a {@link org.dominokit.domino.ui.stepper.StepTracker} object
+   */
   public StepTracker removeStateListener(TrackerListener listener) {
     if (nonNull(listener)) {
       listeners.remove(listener);
@@ -107,10 +164,21 @@ public class StepTracker extends BaseDominoElement<HTMLDivElement, StepTracker>
     return this;
   }
 
+  /**
+   * Getter for the field <code>state</code>.
+   *
+   * @return a {@link org.dominokit.domino.ui.stepper.StepState} object
+   */
   public StepState getState() {
     return state;
   }
 
+  /**
+   * Setter for the field <code>state</code>.
+   *
+   * @param state a {@link org.dominokit.domino.ui.stepper.StepState} object
+   * @return a {@link org.dominokit.domino.ui.stepper.StepTracker} object
+   */
   public StepTracker setState(StepState state) {
     if (nonNull(this.state)) {
       this.state.cleanUp(this);
@@ -125,39 +193,74 @@ public class StepTracker extends BaseDominoElement<HTMLDivElement, StepTracker>
     listeners.forEach(listener -> listener.onStateChanged(this, state));
   }
 
+  /**
+   * withContent.
+   *
+   * @param handler a {@link org.dominokit.domino.ui.utils.ChildHandler} object
+   * @return a {@link org.dominokit.domino.ui.stepper.StepTracker} object
+   */
   public StepTracker withContent(ChildHandler<StepTracker, DivElement> handler) {
     handler.apply(this, trackerContent);
     return this;
   }
 
+  /**
+   * appendChild.
+   *
+   * @param postfixAddOn a {@link org.dominokit.domino.ui.utils.PostfixAddOn} object
+   * @return a {@link org.dominokit.domino.ui.stepper.StepTracker} object
+   */
   public StepTracker appendChild(PostfixAddOn<?> postfixAddOn) {
     this.trackerChain.appendChild(postfixAddOn);
     return this;
   }
 
+  /**
+   * appendChild.
+   *
+   * @param prefixAddOn a {@link org.dominokit.domino.ui.utils.PrefixAddOn} object
+   * @return a {@link org.dominokit.domino.ui.stepper.StepTracker} object
+   */
   public StepTracker appendChild(PrefixAddOn<?> prefixAddOn) {
     this.trackerChain.appendChild(prefixAddOn);
     return this;
   }
 
+  /** {@inheritDoc} */
   @Override
   public HTMLDivElement element() {
     return root.element();
   }
 
+  /** {@inheritDoc} */
   @Override
   protected Element getAppendTarget() {
     return trackerContent.element();
   }
 
+  /**
+   * Getter for the field <code>key</code>.
+   *
+   * @return a {@link java.lang.String} object
+   */
   public String getKey() {
     return key;
   }
 
+  /**
+   * Setter for the field <code>key</code>.
+   *
+   * @param key a {@link java.lang.String} object
+   */
   public void setKey(String key) {
     this.key = key;
   }
 
+  /**
+   * isActive.
+   *
+   * @return a boolean
+   */
   public boolean isActive() {
     return dui_active.isAppliedTo(this);
   }

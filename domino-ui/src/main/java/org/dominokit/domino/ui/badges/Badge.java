@@ -19,7 +19,6 @@ import static org.dominokit.domino.ui.badges.BadgeStyles.dui_badge;
 
 import elemental2.dom.HTMLElement;
 import elemental2.dom.Text;
-import org.dominokit.domino.ui.alerts.Alert;
 import org.dominokit.domino.ui.button.RemoveButton;
 import org.dominokit.domino.ui.elements.SpanElement;
 import org.dominokit.domino.ui.utils.*;
@@ -28,7 +27,8 @@ import org.dominokit.domino.ui.utils.*;
  * Displays small label with color.
  *
  * <p>This component provides a small label that has background color and a text. Customize the
- * component can be done by overwriting classes provided by {@link BadgeStyles}
+ * component can be done by overwriting classes provided by {@link
+ * org.dominokit.domino.ui.badges.BadgeStyles}
  *
  * <p>For example:
  *
@@ -38,6 +38,8 @@ import org.dominokit.domino.ui.utils.*;
  *
  * @see BaseDominoElement
  * @see HasBackground
+ * @author vegegoku
+ * @version $Id: $Id
  */
 public class Badge extends BaseDominoElement<HTMLElement, Badge> {
   private final Text textNode = ElementsFactory.elements.text();
@@ -58,6 +60,7 @@ public class Badge extends BaseDominoElement<HTMLElement, Badge> {
     return badge;
   }
 
+  /** Constructor for Badge. */
   public Badge() {
     element = span().addCss(dui_badge);
     removeButton = LazyChild.of(RemoveButton.create().addClickListener(evt -> remove()), element);
@@ -99,7 +102,7 @@ public class Badge extends BaseDominoElement<HTMLElement, Badge> {
 
   /**
    * Sets the alert to not closable and the close button will be removed if exist, the alert can be
-   * hidden programmatically using {@link Alert#remove()}
+   * hidden programmatically using {@link org.dominokit.domino.ui.alerts.Alert#remove()}
    *
    * @return same instance
    */
@@ -110,6 +113,11 @@ public class Badge extends BaseDominoElement<HTMLElement, Badge> {
   }
 
   /** @return true if the alert is closable, false otherwise */
+  /**
+   * isRemovable.
+   *
+   * @return a boolean
+   */
   public boolean isRemovable() {
     return removable;
   }
@@ -123,11 +131,22 @@ public class Badge extends BaseDominoElement<HTMLElement, Badge> {
     return removeButton.get();
   }
 
+  /**
+   * withCloseButton.
+   *
+   * @param handler a {@link org.dominokit.domino.ui.utils.ChildHandler} object
+   * @return a {@link org.dominokit.domino.ui.badges.Badge} object
+   */
   public Badge withCloseButton(ChildHandler<Badge, RemoveButton> handler) {
     handler.apply(this, removeButton.get());
     return this;
   }
 
+  /**
+   * withCloseButton.
+   *
+   * @return a {@link org.dominokit.domino.ui.badges.Badge} object
+   */
   public Badge withCloseButton() {
     removeButton.get();
     return this;

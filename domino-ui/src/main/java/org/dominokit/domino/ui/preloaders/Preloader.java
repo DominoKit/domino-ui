@@ -31,6 +31,9 @@ import org.dominokit.domino.ui.utils.BaseDominoElement;
  *                 .setSize(Preloader.Size.large)
  *                 .setColor(Color.GREEN));
  * </pre>
+ *
+ * @author vegegoku
+ * @version $Id: $Id
  */
 public class Preloader extends BaseDominoElement<HTMLDivElement, Preloader>
     implements IsElement<HTMLDivElement>, PreloaderStyles {
@@ -38,6 +41,7 @@ public class Preloader extends BaseDominoElement<HTMLDivElement, Preloader>
   private final DivElement root;
 
   /** */
+  /** Constructor for Preloader. */
   public Preloader() {
     this.root =
         div()
@@ -63,6 +67,11 @@ public class Preloader extends BaseDominoElement<HTMLDivElement, Preloader>
   }
 
   /** @return new Preloader instance */
+  /**
+   * create.
+   *
+   * @return a {@link org.dominokit.domino.ui.preloaders.Preloader} object
+   */
   public static Preloader create() {
     return new Preloader();
   }

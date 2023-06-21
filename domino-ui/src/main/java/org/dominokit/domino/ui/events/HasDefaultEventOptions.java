@@ -15,6 +15,17 @@
  */
 package org.dominokit.domino.ui.events;
 
+/**
+ * HasDefaultEventOptions interface.
+ *
+ * @author vegegoku
+ * @version $Id: $Id
+ */
 public interface HasDefaultEventOptions<T extends EvenHandlerOptions> {
+  /**
+   * getOptions.
+   *
+   * @return a T object
+   */
   T getOptions();
 }

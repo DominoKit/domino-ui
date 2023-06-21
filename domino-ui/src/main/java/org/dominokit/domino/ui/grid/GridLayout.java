@@ -29,7 +29,8 @@ import org.dominokit.domino.ui.utils.LazyChild;
  * href="https://developer.mozilla.org/en-US/docs/Learn/CSS/CSS_layout/Grids">MDN official
  * documentation</a>
  *
- * <p>Customize the component can be done by overwriting classes provided by {@link GridStyles}
+ * <p>Customize the component can be done by overwriting classes provided by {@link
+ * org.dominokit.domino.ui.grid.GridStyles}
  *
  * <p>For example:
  *
@@ -59,6 +60,8 @@ import org.dominokit.domino.ui.utils.LazyChild;
  * </pre>
  *
  * @see BaseDominoElement
+ * @author vegegoku
+ * @version $Id: $Id
  */
 public class GridLayout extends BaseDominoElement<HTMLDivElement, GridLayout>
     implements GridStyles {
@@ -71,6 +74,7 @@ public class GridLayout extends BaseDominoElement<HTMLDivElement, GridLayout>
   private final LazyChild<DivElement> rightElement;
   private final GridLayoutEditor editor = new GridLayoutEditor();
 
+  /** Constructor for GridLayout. */
   public GridLayout() {
     element =
         div().addCss(dui_layout_grid).appendChild(contentElement = div().addCss(dui_grid_content));
@@ -264,20 +268,42 @@ public class GridLayout extends BaseDominoElement<HTMLDivElement, GridLayout>
   }
 
   /** @return The content section */
+  /**
+   * Getter for the field <code>contentElement</code>.
+   *
+   * @return a {@link org.dominokit.domino.ui.elements.DivElement} object
+   */
   public DivElement getContentElement() {
     return contentElement;
   }
 
+  /**
+   * withContent.
+   *
+   * @param handler a {@link org.dominokit.domino.ui.utils.ChildHandler} object
+   * @return a {@link org.dominokit.domino.ui.grid.GridLayout} object
+   */
   public GridLayout withContent(ChildHandler<GridLayout, DivElement> handler) {
     handler.apply(this, contentElement);
     return this;
   }
 
   /** @return The header section */
+  /**
+   * Getter for the field <code>headerElement</code>.
+   *
+   * @return a {@link org.dominokit.domino.ui.elements.DivElement} object
+   */
   public DivElement getHeaderElement() {
     return headerElement.get();
   }
 
+  /**
+   * withHeader.
+   *
+   * @param handler a {@link org.dominokit.domino.ui.utils.ChildHandler} object
+   * @return a {@link org.dominokit.domino.ui.grid.GridLayout} object
+   */
   public GridLayout withHeader(ChildHandler<GridLayout, DivElement> handler) {
     DivElement header = headerElement.get();
     setHeaderSpan(editor.headerSectionSpan);
@@ -286,10 +312,21 @@ public class GridLayout extends BaseDominoElement<HTMLDivElement, GridLayout>
   }
 
   /** @return The footer section */
+  /**
+   * Getter for the field <code>footerElement</code>.
+   *
+   * @return a {@link org.dominokit.domino.ui.elements.DivElement} object
+   */
   public DivElement getFooterElement() {
     return footerElement.get();
   }
 
+  /**
+   * withFooter.
+   *
+   * @param handler a {@link org.dominokit.domino.ui.utils.ChildHandler} object
+   * @return a {@link org.dominokit.domino.ui.grid.GridLayout} object
+   */
   public GridLayout withFooter(ChildHandler<GridLayout, DivElement> handler) {
     DivElement footer = footerElement.get();
     setFooterSpan(editor.footerSectionSpan);
@@ -298,10 +335,21 @@ public class GridLayout extends BaseDominoElement<HTMLDivElement, GridLayout>
   }
 
   /** @return The left section */
+  /**
+   * Getter for the field <code>leftElement</code>.
+   *
+   * @return a {@link org.dominokit.domino.ui.elements.DivElement} object
+   */
   public DivElement getLeftElement() {
     return leftElement.get();
   }
 
+  /**
+   * withLeftPanel.
+   *
+   * @param handler a {@link org.dominokit.domino.ui.utils.ChildHandler} object
+   * @return a {@link org.dominokit.domino.ui.grid.GridLayout} object
+   */
   public GridLayout withLeftPanel(ChildHandler<GridLayout, DivElement> handler) {
     DivElement left = leftElement.get();
     setLeftSpan(editor.leftSectionSpan, editor.leftSpanUp, editor.leftSpanDown);
@@ -310,10 +358,21 @@ public class GridLayout extends BaseDominoElement<HTMLDivElement, GridLayout>
   }
 
   /** @return The right section */
+  /**
+   * Getter for the field <code>rightElement</code>.
+   *
+   * @return a {@link org.dominokit.domino.ui.elements.DivElement} object
+   */
   public DivElement getRightElement() {
     return rightElement.get();
   }
 
+  /**
+   * withRightPanel.
+   *
+   * @param handler a {@link org.dominokit.domino.ui.utils.ChildHandler} object
+   * @return a {@link org.dominokit.domino.ui.grid.GridLayout} object
+   */
   public GridLayout withRightPanel(ChildHandler<GridLayout, DivElement> handler) {
     DivElement right = rightElement.get();
     setRightSpan(editor.rightSectionSpan, editor.rightSpanUp, editor.rightSpanDown);

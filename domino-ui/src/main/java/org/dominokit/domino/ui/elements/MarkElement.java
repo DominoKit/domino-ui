@@ -17,11 +17,28 @@ package org.dominokit.domino.ui.elements;
 
 import elemental2.dom.HTMLElement;
 
+/**
+ * MarkElement class.
+ *
+ * @author vegegoku
+ * @version $Id: $Id
+ */
 public class MarkElement extends BaseElement<HTMLElement, MarkElement> {
+  /**
+   * of.
+   *
+   * @param e a {@link elemental2.dom.HTMLElement} object
+   * @return a {@link org.dominokit.domino.ui.elements.MarkElement} object
+   */
   public static MarkElement of(HTMLElement e) {
     return new MarkElement(e);
   }
 
+  /**
+   * Constructor for MarkElement.
+   *
+   * @param element a {@link elemental2.dom.HTMLElement} object
+   */
   public MarkElement(HTMLElement element) {
     super(element);
   }

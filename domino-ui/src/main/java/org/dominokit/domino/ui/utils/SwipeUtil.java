@@ -21,15 +21,20 @@ import elemental2.dom.*;
 import java.util.Date;
 import jsinterop.base.Js;
 
-/** A utility class to register swap events listeners on elements */
+/**
+ * A utility class to register swap events listeners on elements
+ *
+ * @author vegegoku
+ * @version $Id: $Id
+ */
 public class SwipeUtil {
 
   /**
    * Adds a swap listener on an element
    *
-   * @param direction {@link SwipeDirection}
-   * @param element the target {@link HTMLElement}
-   * @param listener {@link EventListener}
+   * @param direction {@link org.dominokit.domino.ui.utils.SwipeUtil.SwipeDirection}
+   * @param element the target {@link elemental2.dom.HTMLElement}
+   * @param listener {@link elemental2.dom.EventListener}
    */
   public static void addSwipeListener(
       SwipeDirection direction, HTMLElement element, EventListener listener) {

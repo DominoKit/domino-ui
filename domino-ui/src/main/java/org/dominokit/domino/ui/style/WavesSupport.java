@@ -18,11 +18,15 @@ package org.dominokit.domino.ui.style;
 import static org.dominokit.domino.ui.utils.ElementsFactory.elements;
 
 import elemental2.dom.Element;
-import elemental2.dom.HTMLElement;
 import org.dominokit.domino.ui.utils.DominoElement;
 import org.dominokit.domino.ui.utils.HasWavesElement;
 
-/** A utility class for configuring waves for a specific element */
+/**
+ * A utility class for configuring waves for a specific element
+ *
+ * @author vegegoku
+ * @version $Id: $Id
+ */
 public class WavesSupport implements HasWaveEffect<WavesSupport> {
 
   private static final CssClass dui_waves_effect = () -> "dui-waves-effect";
@@ -42,7 +46,7 @@ public class WavesSupport implements HasWaveEffect<WavesSupport> {
   /**
    * Adds waves support for a specific element
    *
-   * @param element the {@link HasWavesElement}
+   * @param element the {@link org.dominokit.domino.ui.utils.HasWavesElement}
    * @return new instance
    */
   public static WavesSupport addFor(HasWavesElement element) {
@@ -52,7 +56,7 @@ public class WavesSupport implements HasWaveEffect<WavesSupport> {
   /**
    * Adds waves support for a specific element
    *
-   * @param element the {@link HTMLElement}
+   * @param element the {@link elemental2.dom.HTMLElement}
    * @return new instance
    */
   public static WavesSupport addFor(Element element) {
@@ -100,6 +104,11 @@ public class WavesSupport implements HasWaveEffect<WavesSupport> {
     }
   }
 
+  /**
+   * Getter for the field <code>element</code>.
+   *
+   * @return a {@link org.dominokit.domino.ui.utils.DominoElement} object
+   */
   public DominoElement<Element> getElement() {
     return element;
   }

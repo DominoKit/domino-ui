@@ -22,6 +22,12 @@ import java.util.Date;
 import org.dominokit.domino.ui.elements.DivElement;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
 
+/**
+ * CalendarMonth class.
+ *
+ * @author vegegoku
+ * @version $Id: $Id
+ */
 public class CalendarMonth extends BaseDominoElement<HTMLDivElement, CalendarMonth>
     implements CalendarStyles, CalendarViewListener {
 
@@ -32,6 +38,11 @@ public class CalendarMonth extends BaseDominoElement<HTMLDivElement, CalendarMon
   private DivElement root;
   private CalendarDay selectedDay;
 
+  /**
+   * Constructor for CalendarMonth.
+   *
+   * @param calendar a {@link org.dominokit.domino.ui.datepicker.IsCalendar} object
+   */
   public CalendarMonth(IsCalendar calendar) {
     this.calendar = calendar;
     this.calendar.bindCalenderViewListener(this);
@@ -41,6 +52,12 @@ public class CalendarMonth extends BaseDominoElement<HTMLDivElement, CalendarMon
     setDate(this.date);
   }
 
+  /**
+   * create.
+   *
+   * @param calendar a {@link org.dominokit.domino.ui.datepicker.IsCalendar} object
+   * @return a {@link org.dominokit.domino.ui.datepicker.CalendarMonth} object
+   */
   public static CalendarMonth create(IsCalendar calendar) {
     return new CalendarMonth(calendar);
   }
@@ -147,16 +164,19 @@ public class CalendarMonth extends BaseDominoElement<HTMLDivElement, CalendarMon
     }
   }
 
+  /** {@inheritDoc} */
   @Override
   public HTMLDivElement element() {
     return this.root.element();
   }
 
+  /** {@inheritDoc} */
   @Override
   public void onUpdateCalendarView(Date date) {
     setDate(date);
   }
 
+  /** {@inheritDoc} */
   @Override
   public void onDateSelectionChanged(Date date) {
     setDate(date);

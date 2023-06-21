@@ -18,19 +18,32 @@ package org.dominokit.domino.ui.utils;
 import elemental2.dom.HTMLLIElement;
 import org.dominokit.domino.ui.elements.LIElement;
 
+/**
+ * Separator class.
+ *
+ * @author vegegoku
+ * @version $Id: $Id
+ */
 public class Separator extends BaseDominoElement<HTMLLIElement, Separator> {
 
   private LIElement element;
 
+  /**
+   * create.
+   *
+   * @return a {@link org.dominokit.domino.ui.utils.Separator} object
+   */
   public static Separator create() {
     return new Separator();
   }
 
+  /** Constructor for Separator. */
   public Separator() {
     element = li().addCss(dui_separator);
     init(this);
   }
 
+  /** {@inheritDoc} */
   @Override
   public HTMLLIElement element() {
     return element.element();

@@ -17,13 +17,21 @@ package org.dominokit.domino.ui.typography;
 
 import org.dominokit.domino.ui.style.CssClass;
 
-/** Default CSS classes for {@link BlockHeader} */
+/**
+ * Default CSS classes for {@link org.dominokit.domino.ui.typography.BlockHeader}
+ *
+ * @author vegegoku
+ * @version $Id: $Id
+ */
 public interface BlockHeaderStyles {
 
   /** CSS class for a block header */
   CssClass dui_block_header = () -> "dui-block-header";
 
+  /** Constant <code>dui_block_header_title</code> */
   CssClass dui_block_header_title = () -> "dui-block-header-title";
+  /** Constant <code>dui_block_header_description</code> */
   CssClass dui_block_header_description = () -> "dui-block-header-description";
+  /** Constant <code>dui_block_header_reversed</code> */
   CssClass dui_block_header_reversed = () -> "dui-block-header-reversed";
 }

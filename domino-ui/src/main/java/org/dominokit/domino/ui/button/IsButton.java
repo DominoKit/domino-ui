@@ -15,6 +15,17 @@
  */
 package org.dominokit.domino.ui.button;
 
+/**
+ * IsButton interface.
+ *
+ * @author vegegoku
+ * @version $Id: $Id
+ */
 public interface IsButton<T extends BaseButton<?, T>> {
+  /**
+   * asButton.
+   *
+   * @return a T object
+   */
   T asButton();
 }

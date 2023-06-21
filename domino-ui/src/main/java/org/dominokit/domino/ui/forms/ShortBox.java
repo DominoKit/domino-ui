@@ -17,15 +17,27 @@ package org.dominokit.domino.ui.forms;
 
 import java.util.function.Function;
 
-/** A component that has an input to take/provide Short value */
+/**
+ * A component that has an input to take/provide Short value
+ *
+ * @author vegegoku
+ * @version $Id: $Id
+ */
 public class ShortBox extends NumberBox<ShortBox, Short> {
 
   /** @return a new instance without a label */
+  /**
+   * create.
+   *
+   * @return a {@link org.dominokit.domino.ui.forms.ShortBox} object
+   */
   public static ShortBox create() {
     return new ShortBox();
   }
 
   /**
+   * create.
+   *
    * @param label String
    * @return new instance with a label
    */

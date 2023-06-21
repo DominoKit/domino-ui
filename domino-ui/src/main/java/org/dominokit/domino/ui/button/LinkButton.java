@@ -18,29 +18,53 @@ package org.dominokit.domino.ui.button;
 import elemental2.dom.HTMLAnchorElement;
 import org.dominokit.domino.ui.elements.AnchorElement;
 import org.dominokit.domino.ui.icons.Icon;
-import org.dominokit.domino.ui.style.Elevation;
 
+/**
+ * LinkButton class.
+ *
+ * @author vegegoku
+ * @version $Id: $Id
+ */
 public class LinkButton extends BaseButton<HTMLAnchorElement, LinkButton> {
 
-  /** creates a Button without a text and with {@link Elevation#LEVEL_1} */
+  /**
+   * creates a Button without a text and with {@link
+   * org.dominokit.domino.ui.style.Elevation#LEVEL_1}
+   */
   public LinkButton() {}
 
   /** @param text String, the button text */
+  /**
+   * Constructor for LinkButton.
+   *
+   * @param text a {@link java.lang.String} object
+   */
   public LinkButton(String text) {
     super(text);
   }
 
   /** @param icon The button icon */
+  /**
+   * Constructor for LinkButton.
+   *
+   * @param icon a {@link org.dominokit.domino.ui.icons.Icon} object
+   */
   public LinkButton(Icon<?> icon) {
     super(icon);
   }
 
+  /**
+   * Constructor for LinkButton.
+   *
+   * @param text a {@link java.lang.String} object
+   * @param icon a {@link org.dominokit.domino.ui.icons.Icon} object
+   */
   public LinkButton(String text, Icon<?> icon) {
     super(text, icon);
   }
 
   /**
-   * creats a Button using {@link Button#Button()}
+   * creats a Button using {@link org.dominokit.domino.ui.button.Button#Button()}
    *
    * @return new Button instance
    */
@@ -49,7 +73,7 @@ public class LinkButton extends BaseButton<HTMLAnchorElement, LinkButton> {
   }
 
   /**
-   * create a button using {@link Button#Button(String)}
+   * create a button using {@link org.dominokit.domino.ui.button.Button#Button(String)}
    *
    * @param text String button text
    * @return new Button instance
@@ -59,9 +83,10 @@ public class LinkButton extends BaseButton<HTMLAnchorElement, LinkButton> {
   }
 
   /**
-   * creates a Button with an icon by calling {@link Button#Button(Icon)}
+   * creates a Button with an icon by calling {@link
+   * org.dominokit.domino.ui.button.Button#Button(Icon)}
    *
-   * @param icon {@link Icon}, the button icon
+   * @param icon {@link org.dominokit.domino.ui.icons.Icon}, the button icon
    * @return new Button instance
    */
   public static LinkButton create(Icon<?> icon) {
@@ -69,15 +94,18 @@ public class LinkButton extends BaseButton<HTMLAnchorElement, LinkButton> {
   }
 
   /**
-   * creates a Button with an icon by calling {@link LinkButton#LinkButton(Icon)}
+   * creates a Button with an icon by calling {@link
+   * org.dominokit.domino.ui.button.LinkButton#LinkButton(Icon)}
    *
-   * @param icon {@link Icon}, the button icon
+   * @param icon {@link org.dominokit.domino.ui.icons.Icon}, the button icon
    * @return new Button instance
+   * @param text a {@link java.lang.String} object
    */
   public static LinkButton create(String text, Icon<?> icon) {
     return new LinkButton(text, icon);
   }
 
+  /** {@inheritDoc} */
   @Override
   protected AnchorElement createButtonElement() {
     return a();

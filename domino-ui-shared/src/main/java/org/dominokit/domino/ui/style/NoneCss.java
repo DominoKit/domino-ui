@@ -18,28 +18,40 @@ package org.dominokit.domino.ui.style;
 import elemental2.dom.Element;
 import org.dominokit.domino.ui.IsElement;
 
+/**
+ * NoneCss class.
+ *
+ * @author vegegoku
+ * @version $Id: $Id
+ */
 public class NoneCss implements CssClass {
+  /** {@inheritDoc} */
   @Override
   public String getCssClass() {
     return "";
   }
 
+  /** {@inheritDoc} */
   @Override
   public void apply(Element element) {}
 
+  /** {@inheritDoc} */
   @Override
   public boolean isAppliedTo(Element element) {
     return false;
   }
 
+  /** {@inheritDoc} */
   @Override
   public boolean isAppliedTo(IsElement<?> element) {
     return false;
   }
 
+  /** {@inheritDoc} */
   @Override
   public void remove(Element element) {}
 
+  /** {@inheritDoc} */
   @Override
   public void remove(IsElement<?> element) {}
 }

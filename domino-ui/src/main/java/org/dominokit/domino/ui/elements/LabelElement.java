@@ -17,11 +17,28 @@ package org.dominokit.domino.ui.elements;
 
 import elemental2.dom.HTMLLabelElement;
 
+/**
+ * LabelElement class.
+ *
+ * @author vegegoku
+ * @version $Id: $Id
+ */
 public class LabelElement extends BaseElement<HTMLLabelElement, LabelElement> {
+  /**
+   * of.
+   *
+   * @param e a {@link elemental2.dom.HTMLLabelElement} object
+   * @return a {@link org.dominokit.domino.ui.elements.LabelElement} object
+   */
   public static LabelElement of(HTMLLabelElement e) {
     return new LabelElement(e);
   }
 
+  /**
+   * Constructor for LabelElement.
+   *
+   * @param element a {@link elemental2.dom.HTMLLabelElement} object
+   */
   public LabelElement(HTMLLabelElement element) {
     super(element);
   }

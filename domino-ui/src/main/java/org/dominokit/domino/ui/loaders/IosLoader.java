@@ -21,7 +21,12 @@ import org.dominokit.domino.ui.elements.DivElement;
 import org.dominokit.domino.ui.style.GenericCss;
 import org.dominokit.domino.ui.utils.DominoElement;
 
-/** IOS loader implementation */
+/**
+ * IOS loader implementation
+ *
+ * @author vegegoku
+ * @version $Id: $Id
+ */
 public class IosLoader extends BaseLoader<IosLoader> implements IsElement<HTMLDivElement> {
 
   private final DivElement progress1 = div().addCss(wait_me_progress_elem_1, dui_bg_grey_d_2);
@@ -61,10 +66,16 @@ public class IosLoader extends BaseLoader<IosLoader> implements IsElement<HTMLDi
   private final DivElement element =
       div().addCss(wait_me).style("background: rgba(255, 255, 255, 0.9);").appendChild(content);
 
+  /** Constructor for IosLoader. */
   public IosLoader() {
     init(this);
   }
 
+  /**
+   * create.
+   *
+   * @return a {@link org.dominokit.domino.ui.loaders.IosLoader} object
+   */
   public static IosLoader create() {
     return new IosLoader();
   }

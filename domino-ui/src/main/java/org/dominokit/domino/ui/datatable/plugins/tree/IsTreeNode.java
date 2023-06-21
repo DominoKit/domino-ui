@@ -15,6 +15,17 @@
  */
 package org.dominokit.domino.ui.datatable.plugins.tree;
 
+/**
+ * IsTreeNode interface.
+ *
+ * @author vegegoku
+ * @version $Id: $Id
+ */
 public interface IsTreeNode {
+  /**
+   * hasChildren.
+   *
+   * @return a boolean
+   */
   boolean hasChildren();
 }

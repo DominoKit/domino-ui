@@ -33,6 +33,12 @@ import org.dominokit.domino.ui.icons.Icon;
 import org.dominokit.domino.ui.style.SwapCssClass;
 import org.dominokit.domino.ui.utils.*;
 
+/**
+ * AbstractDialog class.
+ *
+ * @author vegegoku
+ * @version $Id: $Id
+ */
 public class AbstractDialog<T extends AbstractDialog<T>>
     extends BaseDominoElement<HTMLDivElement, T>
     implements DialogStyles, IsPopup<T>, HasComponentConfig<ZIndexConfig> {
@@ -68,6 +74,7 @@ public class AbstractDialog<T extends AbstractDialog<T>>
 
   protected DialogLabels labels = DominoUIConfig.CONFIG.getDominoUILabels();
 
+  /** Constructor for AbstractDialog. */
   public AbstractDialog() {
     element =
         div()
@@ -154,55 +161,113 @@ public class AbstractDialog<T extends AbstractDialog<T>>
     }
   }
 
+  /**
+   * Getter for the field <code>openTransition</code>.
+   *
+   * @return a {@link org.dominokit.domino.ui.animations.Transition} object
+   */
   public Transition getOpenTransition() {
     return openTransition;
   }
 
+  /**
+   * Setter for the field <code>openTransition</code>.
+   *
+   * @param openTransition a {@link org.dominokit.domino.ui.animations.Transition} object
+   * @return a T object
+   */
   public T setOpenTransition(Transition openTransition) {
     this.openTransition = openTransition;
     return (T) this;
   }
 
+  /**
+   * Getter for the field <code>closeTransition</code>.
+   *
+   * @return a {@link org.dominokit.domino.ui.animations.Transition} object
+   */
   public Transition getCloseTransition() {
     return closeTransition;
   }
 
+  /**
+   * Setter for the field <code>closeTransition</code>.
+   *
+   * @param closeTransition a {@link org.dominokit.domino.ui.animations.Transition} object
+   * @return a T object
+   */
   public T setCloseTransition(Transition closeTransition) {
     this.closeTransition = closeTransition;
     return (T) this;
   }
 
+  /**
+   * Getter for the field <code>transitionDuration</code>.
+   *
+   * @return a int
+   */
   public int getTransitionDuration() {
     return transitionDuration;
   }
 
+  /**
+   * Setter for the field <code>transitionDuration</code>.
+   *
+   * @param transitionDuration a int
+   * @return a T object
+   */
   public T setTransitionDuration(int transitionDuration) {
     this.transitionDuration = transitionDuration;
     return (T) this;
   }
 
+  /**
+   * isAnimate.
+   *
+   * @return a boolean
+   */
   public boolean isAnimate() {
     return animate;
   }
 
+  /**
+   * Setter for the field <code>animate</code>.
+   *
+   * @param animate a boolean
+   * @return a T object
+   */
   public T setAnimate(boolean animate) {
     this.animate = animate;
     return (T) this;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * {@inheritDoc}
+   *
+   * @param autoClose a boolean
+   * @return a T object
+   */
   public T setAutoClose(boolean autoClose) {
     this.autoClose = autoClose;
     return (T) this;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * {@inheritDoc}
+   *
+   * @param autoAppendAndRemove a boolean
+   * @return a T object
+   */
   public T setAutoAppendAndRemove(boolean autoAppendAndRemove) {
     this.autoAppendAndRemove = autoAppendAndRemove;
     return (T) this;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * {@inheritDoc}
+   *
+   * @return a T object
+   */
   public T open() {
     if (isEnabled()) {
       if (animate) {
@@ -255,7 +320,11 @@ public class AbstractDialog<T extends AbstractDialog<T>>
     }
   }
 
-  /** {@inheritDoc} */
+  /**
+   * {@inheritDoc}
+   *
+   * @return a T object
+   */
   public T close() {
     if (this.open) {
       if (animate) {
@@ -285,6 +354,8 @@ public class AbstractDialog<T extends AbstractDialog<T>>
   }
 
   /**
+   * isAutoClose.
+   *
    * @return boolean
    * @see #setAutoClose(boolean)
    */
@@ -293,7 +364,9 @@ public class AbstractDialog<T extends AbstractDialog<T>>
   }
 
   /**
-   * @param size {@link DialogSize}
+   * setStretchWidth.
+   *
+   * @param size {@link org.dominokit.domino.ui.dialogs.DialogSize}
    * @return same Dialog instance
    */
   public T setStretchWidth(IsDialogWidth size) {
@@ -302,7 +375,9 @@ public class AbstractDialog<T extends AbstractDialog<T>>
   }
 
   /**
-   * @param size {@link DialogSize}
+   * setStretchHeight.
+   *
+   * @param size {@link org.dominokit.domino.ui.dialogs.DialogSize}
    * @return same Dialog instance
    */
   public T setStretchHeight(IsDialogHeight size) {
@@ -311,7 +386,9 @@ public class AbstractDialog<T extends AbstractDialog<T>>
   }
 
   /**
-   * @param type {@link DialogType}
+   * setType.
+   *
+   * @param type {@link org.dominokit.domino.ui.dialogs.DialogType}
    * @return same Dialog instance
    */
   public T setType(DialogType type) {
@@ -320,11 +397,18 @@ public class AbstractDialog<T extends AbstractDialog<T>>
   }
 
   /** @return boolean, true if this modal will show an overlay to block the content behind it. */
+  /**
+   * isModal.
+   *
+   * @return a boolean
+   */
   public boolean isModal() {
     return modal;
   }
 
   /**
+   * Setter for the field <code>modal</code>.
+   *
    * @param modal boolean,true to make this modal show an overlay to block the content behind it
    *     when it is open
    * @return same dialog instance
@@ -335,11 +419,18 @@ public class AbstractDialog<T extends AbstractDialog<T>>
   }
 
   /** @return boolean, true if the modal should auto-focus first focusable element when opened. */
+  /**
+   * isAutoFocus.
+   *
+   * @return a boolean
+   */
   public boolean isAutoFocus() {
     return autoFocus;
   }
 
   /**
+   * Setter for the field <code>autoFocus</code>.
+   *
    * @param autoFocus boolean, true if the modal should auto-focus first focusable element when
    *     opened.
    * @return same dialog instance
@@ -349,40 +440,72 @@ public class AbstractDialog<T extends AbstractDialog<T>>
     return (T) this;
   }
 
+  /** {@inheritDoc} */
   @Override
   protected HTMLElement getAppendTarget() {
     return bodyElement.element();
   }
 
+  /** {@inheritDoc} */
   @Override
   protected HTMLElement getStyleTarget() {
     return modalElement.element();
   }
 
+  /** {@inheritDoc} */
   @Override
   public HTMLDivElement element() {
     return element.element();
   }
 
+  /**
+   * appendChild.
+   *
+   * @param element a {@link org.dominokit.domino.ui.utils.HeaderContent} object
+   * @return a T object
+   */
   public T appendChild(HeaderContent<?> element) {
     contentHeader.get().appendChild(element);
     return (T) this;
   }
 
+  /**
+   * appendChild.
+   *
+   * @param element a {@link org.dominokit.domino.ui.utils.FooterContent} object
+   * @return a T object
+   */
   public T appendChild(FooterContent<?> element) {
     contentFooter.get().appendChild(element);
     return (T) this;
   }
 
+  /**
+   * withHeader.
+   *
+   * @param handler a {@link org.dominokit.domino.ui.utils.ChildHandler} object
+   * @return a T object
+   */
   public T withHeader(ChildHandler<T, DivElement> handler) {
     handler.apply((T) this, headerElement.get());
     return (T) this;
   }
 
+  /**
+   * getHeader.
+   *
+   * @return a {@link org.dominokit.domino.ui.elements.DivElement} object
+   */
   public DivElement getHeader() {
     return headerElement.get();
   }
 
+  /**
+   * setIcon.
+   *
+   * @param icon a {@link org.dominokit.domino.ui.icons.Icon} object
+   * @return a T object
+   */
   public T setIcon(Icon<?> icon) {
     panelIcon.remove();
     panelIcon = LazyChild.of(icon.addCss(dui_dialog_icon), headerElement);
@@ -390,51 +513,111 @@ public class AbstractDialog<T extends AbstractDialog<T>>
     return (T) this;
   }
 
+  /**
+   * withIcon.
+   *
+   * @param icon a {@link org.dominokit.domino.ui.icons.Icon} object
+   * @return a T object
+   */
   public T withIcon(Icon<?> icon) {
     return setIcon(icon);
   }
 
+  /**
+   * getContentBody.
+   *
+   * @return a {@link org.dominokit.domino.ui.elements.DivElement} object
+   */
   public DivElement getContentBody() {
     return bodyElement;
   }
 
+  /**
+   * withContentBody.
+   *
+   * @param handler a {@link org.dominokit.domino.ui.utils.ChildHandler} object
+   * @return a T object
+   */
   public T withContentBody(ChildHandler<T, DivElement> handler) {
     handler.apply((T) this, bodyElement);
     return (T) this;
   }
 
+  /**
+   * Getter for the field <code>contentElement</code>.
+   *
+   * @return a {@link org.dominokit.domino.ui.elements.DivElement} object
+   */
   public DivElement getContentElement() {
     return contentElement;
   }
 
+  /**
+   * withContentElement.
+   *
+   * @param handler a {@link org.dominokit.domino.ui.utils.ChildHandler} object
+   * @return a T object
+   */
   public T withContentElement(ChildHandler<T, DivElement> handler) {
     handler.apply((T) this, contentElement);
     return (T) this;
   }
 
+  /**
+   * Getter for the field <code>contentHeader</code>.
+   *
+   * @return a {@link org.dominokit.domino.ui.elements.DivElement} object
+   */
   public DivElement getContentHeader() {
     return contentHeader.get();
   }
 
+  /**
+   * withContentHeader.
+   *
+   * @param handler a {@link org.dominokit.domino.ui.utils.ChildHandler} object
+   * @return a T object
+   */
   public T withContentHeader(ChildHandler<T, DivElement> handler) {
     handler.apply((T) this, contentHeader.get());
     return (T) this;
   }
 
+  /**
+   * withContentHeader.
+   *
+   * @return a T object
+   */
   public T withContentHeader() {
     contentHeader.get();
     return (T) this;
   }
 
+  /**
+   * Getter for the field <code>contentFooter</code>.
+   *
+   * @return a {@link org.dominokit.domino.ui.elements.DivElement} object
+   */
   public DivElement getContentFooter() {
     return contentFooter.get();
   }
 
+  /**
+   * withContentFooter.
+   *
+   * @param handler a {@link org.dominokit.domino.ui.utils.ChildHandler} object
+   * @return a T object
+   */
   public T withContentFooter(ChildHandler<T, DivElement> handler) {
     handler.apply((T) this, contentFooter.get());
     return (T) this;
   }
 
+  /**
+   * withContentFooter.
+   *
+   * @return a T object
+   */
   public T withContentFooter() {
     contentFooter.get();
     return (T) this;

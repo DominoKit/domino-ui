@@ -15,22 +15,40 @@
  */
 package org.dominokit.domino.ui.forms;
 
-/** A component to input phone numbers */
+/**
+ * A component to input phone numbers
+ *
+ * @author vegegoku
+ * @version $Id: $Id
+ */
 public class TelephoneBox extends CustomInputBox<TelephoneBox> {
 
+  /** Constructor for TelephoneBox. */
   public TelephoneBox() {}
 
   /** @param label String */
+  /**
+   * Constructor for TelephoneBox.
+   *
+   * @param label a {@link java.lang.String} object
+   */
   public TelephoneBox(String label) {
     super(label);
   }
 
   /** @return new TelephoneBox instance */
+  /**
+   * create.
+   *
+   * @return a {@link org.dominokit.domino.ui.forms.TelephoneBox} object
+   */
   public static TelephoneBox create() {
     return new TelephoneBox();
   }
 
   /**
+   * create.
+   *
    * @param label String
    * @return new TelephoneBox instance
    */
@@ -38,6 +56,7 @@ public class TelephoneBox extends CustomInputBox<TelephoneBox> {
     return new TelephoneBox(label);
   }
 
+  /** {@inheritDoc} */
   @Override
   public String getType() {
     return "tel";

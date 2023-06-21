@@ -17,11 +17,28 @@ package org.dominokit.domino.ui.elements;
 
 import elemental2.dom.HTMLOListElement;
 
+/**
+ * OListElement class.
+ *
+ * @author vegegoku
+ * @version $Id: $Id
+ */
 public class OListElement extends BaseElement<HTMLOListElement, OListElement> {
+  /**
+   * of.
+   *
+   * @param e a {@link elemental2.dom.HTMLOListElement} object
+   * @return a {@link org.dominokit.domino.ui.elements.OListElement} object
+   */
   public static OListElement of(HTMLOListElement e) {
     return new OListElement(e);
   }
 
+  /**
+   * Constructor for OListElement.
+   *
+   * @param element a {@link elemental2.dom.HTMLOListElement} object
+   */
   public OListElement(HTMLOListElement element) {
     super(element);
   }

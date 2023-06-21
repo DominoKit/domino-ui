@@ -21,10 +21,23 @@ import static org.dominokit.domino.ui.utils.ElementsFactory.elements;
 import elemental2.dom.Element;
 import elemental2.dom.EventListener;
 
+/**
+ * FollowOnScroll class.
+ *
+ * @author vegegoku
+ * @version $Id: $Id
+ */
 public class FollowOnScroll {
 
   private final EventListener repositionListener;
 
+  /**
+   * Constructor for FollowOnScroll.
+   *
+   * @param targetElement a {@link elemental2.dom.Element} object
+   * @param scrollFollower a {@link org.dominokit.domino.ui.utils.FollowOnScroll.ScrollFollower}
+   *     object
+   */
   public FollowOnScroll(Element targetElement, ScrollFollower scrollFollower) {
     repositionListener =
         evt -> {
@@ -35,10 +48,12 @@ public class FollowOnScroll {
     elements.elementOf(targetElement).onDetached(mutationRecord -> stop());
   }
 
+  /** start. */
   public void start() {
     document.addEventListener("scroll", repositionListener, true);
   }
 
+  /** stop. */
   public void stop() {
     document.removeEventListener("scroll", repositionListener, true);
   }

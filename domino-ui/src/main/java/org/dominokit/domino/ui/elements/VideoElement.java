@@ -17,11 +17,28 @@ package org.dominokit.domino.ui.elements;
 
 import elemental2.dom.HTMLVideoElement;
 
+/**
+ * VideoElement class.
+ *
+ * @author vegegoku
+ * @version $Id: $Id
+ */
 public class VideoElement extends BaseElement<HTMLVideoElement, VideoElement> {
+  /**
+   * of.
+   *
+   * @param e a {@link elemental2.dom.HTMLVideoElement} object
+   * @return a {@link org.dominokit.domino.ui.elements.VideoElement} object
+   */
   public static VideoElement of(HTMLVideoElement e) {
     return new VideoElement(e);
   }
 
+  /**
+   * Constructor for VideoElement.
+   *
+   * @param element a {@link elemental2.dom.HTMLVideoElement} object
+   */
   public VideoElement(HTMLVideoElement element) {
     super(element);
   }

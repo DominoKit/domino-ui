@@ -17,6 +17,17 @@ package org.dominokit.domino.ui.dialogs;
 
 import org.dominokit.domino.ui.style.CssClass;
 
+/**
+ * IsDialogWidth interface.
+ *
+ * @author vegegoku
+ * @version $Id: $Id
+ */
 public interface IsDialogWidth {
+  /**
+   * getWidthStyle.
+   *
+   * @return a {@link org.dominokit.domino.ui.style.CssClass} object
+   */
   CssClass getWidthStyle();
 }

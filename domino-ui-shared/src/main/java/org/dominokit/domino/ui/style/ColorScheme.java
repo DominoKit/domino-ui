@@ -17,32 +17,99 @@ package org.dominokit.domino.ui.style;
 
 import org.dominokit.domino.ui.themes.Theme;
 
+/**
+ * ColorScheme interface.
+ *
+ * @author vegegoku
+ * @version $Id: $Id
+ */
 public interface ColorScheme {
 
+  /**
+   * lighten_5.
+   *
+   * @return a {@link org.dominokit.domino.ui.style.Color} object.
+   */
   Color lighten_5();
 
+  /**
+   * lighten_4.
+   *
+   * @return a {@link org.dominokit.domino.ui.style.Color} object.
+   */
   Color lighten_4();
 
+  /**
+   * lighten_3.
+   *
+   * @return a {@link org.dominokit.domino.ui.style.Color} object.
+   */
   Color lighten_3();
 
+  /**
+   * lighten_2.
+   *
+   * @return a {@link org.dominokit.domino.ui.style.Color} object.
+   */
   Color lighten_2();
 
+  /**
+   * lighten_1.
+   *
+   * @return a {@link org.dominokit.domino.ui.style.Color} object.
+   */
   Color lighten_1();
 
+  /**
+   * color.
+   *
+   * @return a {@link org.dominokit.domino.ui.style.Color} object.
+   */
   Color color();
 
+  /**
+   * darker_1.
+   *
+   * @return a {@link org.dominokit.domino.ui.style.Color} object.
+   */
   Color darker_1();
 
+  /**
+   * darker_2.
+   *
+   * @return a {@link org.dominokit.domino.ui.style.Color} object.
+   */
   Color darker_2();
 
+  /**
+   * darker_3.
+   *
+   * @return a {@link org.dominokit.domino.ui.style.Color} object.
+   */
   Color darker_3();
 
+  /**
+   * darker_4.
+   *
+   * @return a {@link org.dominokit.domino.ui.style.Color} object.
+   */
   Color darker_4();
 
+  /**
+   * theme.
+   *
+   * @return a {@link org.dominokit.domino.ui.themes.Theme} object
+   */
   default Theme theme() {
     return new Theme(this);
   }
 
+  /**
+   * valueOf.
+   *
+   * @param name a {@link java.lang.String} object
+   * @return a {@link org.dominokit.domino.ui.style.ColorScheme} object
+   */
   static ColorScheme valueOf(String name) {
     switch (name) {
       case "RED":
@@ -149,7 +216,15 @@ public interface ColorScheme {
         public String getName() {
           return "DOMINANT";
         }
+        /** Constant <code>DOMINANT</code> */
+        /** Constant <code>DOMINANT</code> */
+        /** Constant <code>DOMINANT</code> */
+        /** Constant <code>DOMINANT</code> */
+        /** Constant <code>DOMINANT</code> */
+        /** Constant <code>DOMINANT</code> */
+        /** Constant <code>DOMINANT</code> */
       };
+  /** Constant <code>PRIMARY</code> */
   ColorScheme PRIMARY =
       new ColorScheme() {
         @Override
@@ -207,6 +282,7 @@ public interface ColorScheme {
         }
       };
 
+  /** Constant <code>SECONDARY</code> */
   ColorScheme SECONDARY =
       new ColorScheme() {
         @Override
@@ -264,6 +340,7 @@ public interface ColorScheme {
         }
       };
 
+  /** Constant <code>ACCENT</code> */
   ColorScheme ACCENT =
       new ColorScheme() {
         @Override
@@ -321,6 +398,7 @@ public interface ColorScheme {
         }
       };
 
+  /** Constant <code>SUCCESS</code> */
   ColorScheme SUCCESS =
       new ColorScheme() {
         @Override
@@ -378,6 +456,7 @@ public interface ColorScheme {
         }
       };
 
+  /** Constant <code>WARNING</code> */
   ColorScheme WARNING =
       new ColorScheme() {
         @Override
@@ -434,6 +513,7 @@ public interface ColorScheme {
           return "WARNING";
         }
       };
+  /** Constant <code>INFO</code> */
   ColorScheme INFO =
       new ColorScheme() {
         @Override
@@ -491,6 +571,7 @@ public interface ColorScheme {
         }
       };
 
+  /** Constant <code>ERROR</code> */
   ColorScheme ERROR =
       new ColorScheme() {
         @Override
@@ -548,6 +629,7 @@ public interface ColorScheme {
         }
       };
 
+  /** Constant <code>RED</code> */
   ColorScheme RED =
       new ColorScheme() {
         @Override
@@ -605,6 +687,7 @@ public interface ColorScheme {
         }
       };
 
+  /** Constant <code>PINK</code> */
   ColorScheme PINK =
       new ColorScheme() {
         @Override
@@ -658,6 +741,7 @@ public interface ColorScheme {
         }
       };
 
+  /** Constant <code>PURPLE</code> */
   ColorScheme PURPLE =
       new ColorScheme() {
         @Override
@@ -711,6 +795,7 @@ public interface ColorScheme {
         }
       };
 
+  /** Constant <code>DEEP_PURPLE</code> */
   ColorScheme DEEP_PURPLE =
       new ColorScheme() {
         @Override
@@ -764,6 +849,7 @@ public interface ColorScheme {
         }
       };
 
+  /** Constant <code>INDIGO</code> */
   ColorScheme INDIGO =
       new ColorScheme() {
         @Override
@@ -817,6 +903,7 @@ public interface ColorScheme {
         }
       };
 
+  /** Constant <code>BLUE</code> */
   ColorScheme BLUE =
       new ColorScheme() {
         @Override
@@ -870,6 +957,7 @@ public interface ColorScheme {
         }
       };
 
+  /** Constant <code>LIGHT_BLUE</code> */
   ColorScheme LIGHT_BLUE =
       new ColorScheme() {
         @Override
@@ -923,6 +1011,7 @@ public interface ColorScheme {
         }
       };
 
+  /** Constant <code>CYAN</code> */
   ColorScheme CYAN =
       new ColorScheme() {
         @Override
@@ -976,6 +1065,7 @@ public interface ColorScheme {
         }
       };
 
+  /** Constant <code>TEAL</code> */
   ColorScheme TEAL =
       new ColorScheme() {
         @Override
@@ -1029,6 +1119,7 @@ public interface ColorScheme {
         }
       };
 
+  /** Constant <code>GREEN</code> */
   ColorScheme GREEN =
       new ColorScheme() {
         @Override
@@ -1082,6 +1173,7 @@ public interface ColorScheme {
         }
       };
 
+  /** Constant <code>LIGHT_GREEN</code> */
   ColorScheme LIGHT_GREEN =
       new ColorScheme() {
         @Override
@@ -1135,6 +1227,7 @@ public interface ColorScheme {
         }
       };
 
+  /** Constant <code>LIME</code> */
   ColorScheme LIME =
       new ColorScheme() {
         @Override
@@ -1188,6 +1281,7 @@ public interface ColorScheme {
         }
       };
 
+  /** Constant <code>YELLOW</code> */
   ColorScheme YELLOW =
       new ColorScheme() {
         @Override
@@ -1241,6 +1335,7 @@ public interface ColorScheme {
         }
       };
 
+  /** Constant <code>AMBER</code> */
   ColorScheme AMBER =
       new ColorScheme() {
         @Override
@@ -1294,6 +1389,7 @@ public interface ColorScheme {
         }
       };
 
+  /** Constant <code>ORANGE</code> */
   ColorScheme ORANGE =
       new ColorScheme() {
         @Override
@@ -1347,6 +1443,7 @@ public interface ColorScheme {
         }
       };
 
+  /** Constant <code>DEEP_ORANGE</code> */
   ColorScheme DEEP_ORANGE =
       new ColorScheme() {
         @Override
@@ -1400,6 +1497,7 @@ public interface ColorScheme {
         }
       };
 
+  /** Constant <code>BROWN</code> */
   ColorScheme BROWN =
       new ColorScheme() {
         @Override
@@ -1453,6 +1551,7 @@ public interface ColorScheme {
         }
       };
 
+  /** Constant <code>GREY</code> */
   ColorScheme GREY =
       new ColorScheme() {
         @Override
@@ -1506,6 +1605,7 @@ public interface ColorScheme {
         }
       };
 
+  /** Constant <code>BLUE_GREY</code> */
   ColorScheme BLUE_GREY =
       new ColorScheme() {
         @Override
@@ -1559,6 +1659,7 @@ public interface ColorScheme {
         }
       };
 
+  /** Constant <code>BLACK</code> */
   ColorScheme BLACK =
       new ColorScheme() {
         @Override
@@ -1612,6 +1713,7 @@ public interface ColorScheme {
         }
       };
 
+  /** Constant <code>WHITE</code> */
   ColorScheme WHITE =
       new ColorScheme() {
         @Override
@@ -1665,6 +1767,7 @@ public interface ColorScheme {
         }
       };
 
+  /** Constant <code>TRANSPARENT</code> */
   ColorScheme TRANSPARENT =
       new ColorScheme() {
         @Override
@@ -1718,6 +1821,12 @@ public interface ColorScheme {
         }
       };
 
+  /**
+   * of.
+   *
+   * @param name a {@link java.lang.String} object.
+   * @return a {@link org.dominokit.domino.ui.style.ColorScheme} object.
+   */
   static ColorScheme of(String name) {
     switch (name) {
       case "RED":

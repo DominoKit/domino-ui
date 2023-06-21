@@ -15,16 +15,34 @@
  */
 package org.dominokit.domino.ui.icons;
 
+/**
+ * StateChangeMdiIcon class.
+ *
+ * @author vegegoku
+ * @version $Id: $Id
+ */
 public class StateChangeMdiIcon extends StateChangeIcon<MdiIcon, StateChangeMdiIcon> {
 
+  /**
+   * create.
+   *
+   * @param defaultIcon a {@link org.dominokit.domino.ui.icons.MdiIcon} object
+   * @return a {@link org.dominokit.domino.ui.icons.StateChangeMdiIcon} object
+   */
   public static StateChangeMdiIcon create(MdiIcon defaultIcon) {
     return new StateChangeMdiIcon(defaultIcon);
   }
 
+  /**
+   * Constructor for StateChangeMdiIcon.
+   *
+   * @param defaultIcon a {@link org.dominokit.domino.ui.icons.MdiIcon} object
+   */
   public StateChangeMdiIcon(MdiIcon defaultIcon) {
     super(defaultIcon);
   }
 
+  /** {@inheritDoc} */
   @Override
   public StateChangeMdiIcon copy() {
     StateChangeMdiIcon copy = new StateChangeMdiIcon(defaultIcon.copy());
@@ -35,7 +53,7 @@ public class StateChangeMdiIcon extends StateChangeIcon<MdiIcon, StateChangeMdiI
   /**
    * Sets the type of rotate applied to the icon
    *
-   * @param mdiRotate the {@link MdiIcon.MdiRotate}
+   * @param mdiRotate the {@link org.dominokit.domino.ui.icons.MdiIcon.MdiRotate}
    * @return same instance
    */
   public StateChangeMdiIcon setRotate(MdiIcon.MdiRotate mdiRotate) {
@@ -135,7 +153,7 @@ public class StateChangeMdiIcon extends StateChangeIcon<MdiIcon, StateChangeMdiI
   /**
    * Flips the icon either horizontally or vertically
    *
-   * @param mdiFlip the {@link MdiIcon.MdiFlip}
+   * @param mdiFlip the {@link org.dominokit.domino.ui.icons.MdiIcon.MdiFlip}
    * @return same instance
    */
   public StateChangeMdiIcon setFlip(MdiIcon.MdiFlip mdiFlip) {
@@ -248,7 +266,7 @@ public class StateChangeMdiIcon extends StateChangeIcon<MdiIcon, StateChangeMdiI
   /**
    * Sets the contrast of the icon
    *
-   * @param mdiContrast the {@link MdiIcon.MdiContrast}
+   * @param mdiContrast the {@link org.dominokit.domino.ui.icons.MdiIcon.MdiContrast}
    * @return same instance
    */
   public StateChangeMdiIcon setContrast(MdiIcon.MdiContrast mdiContrast) {

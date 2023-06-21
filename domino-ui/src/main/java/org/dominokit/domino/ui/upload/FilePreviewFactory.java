@@ -15,8 +15,21 @@
  */
 package org.dominokit.domino.ui.upload;
 
+/**
+ * FilePreviewFactory interface.
+ *
+ * @author vegegoku
+ * @version $Id: $Id
+ */
 public interface FilePreviewFactory {
+  /** Constant <code>UNITS</code> */
   String[] UNITS = {"KB", "MB", "GB", "TB"};
 
+  /**
+   * forFile.
+   *
+   * @param fileItem a {@link org.dominokit.domino.ui.upload.FileItem} object
+   * @return a {@link org.dominokit.domino.ui.upload.IsFilePreview} object
+   */
   IsFilePreview<?> forFile(FileItem fileItem);
 }

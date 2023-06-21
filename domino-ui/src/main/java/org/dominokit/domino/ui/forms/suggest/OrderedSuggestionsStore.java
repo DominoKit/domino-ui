@@ -31,9 +31,12 @@ import java.util.function.Function;
 import org.dominokit.domino.ui.IsElement;
 
 /**
- * An implementation of {@link SuggestionsStore} that provides Suggestion from a local List
+ * An implementation of {@link org.dominokit.domino.ui.forms.suggest.SuggestionsStore} that provides
+ * Suggestion from a local List
  *
  * @param <T> The type of the SuggestBox value
+ * @author vegegoku
+ * @version $Id: $Id
  */
 public class OrderedSuggestionsStore<T, E extends IsElement<?>, O extends Option<T, E, O>>
     implements SuggestionsStore<T, E, O> {
@@ -54,7 +57,7 @@ public class OrderedSuggestionsStore<T, E extends IsElement<?>, O extends Option
   /**
    * Creates a store initialized with a List of Suggestions
    *
-   * @param suggestions List of {@link Option}
+   * @param suggestions List of {@link org.dominokit.domino.ui.forms.suggest.Option}
    */
   public OrderedSuggestionsStore(Collection<O> suggestions) {
     suggestions.forEach(s -> this.suggestions.put(s.getKey(), s));
@@ -65,6 +68,8 @@ public class OrderedSuggestionsStore<T, E extends IsElement<?>, O extends Option
    *
    * @param <T> the type of the SuggestBox value
    * @return new store instance
+   * @param <E> a E class
+   * @param <O> a O class
    */
   public static <T, E extends IsElement<?>, O extends Option<T, E, O>>
       OrderedSuggestionsStore<T, E, O> create() {
@@ -74,15 +79,27 @@ public class OrderedSuggestionsStore<T, E extends IsElement<?>, O extends Option
   /**
    * Creates a store initialized with a List of suggestions
    *
-   * @param suggestions List of {@link Option}
+   * @param suggestions List of {@link org.dominokit.domino.ui.forms.suggest.Option}
    * @param <T> the type of the SuggestBox value
    * @return new store instance
+   * @param <E> a E class
+   * @param <O> a O class
    */
   public static <T, E extends IsElement<?>, O extends Option<T, E, O>>
       OrderedSuggestionsStore<T, E, O> create(List<O> suggestions) {
     return new OrderedSuggestionsStore<>(suggestions);
   }
 
+  /**
+   * create.
+   *
+   * @param optionMapper a {@link java.util.function.Function} object
+   * @param items a {@link java.util.Collection} object
+   * @param <T> a T class
+   * @param <E> a E class
+   * @param <O> a O class
+   * @return a {@link org.dominokit.domino.ui.forms.suggest.OrderedSuggestionsStore} object
+   */
   public static <T, E extends IsElement<?>, O extends Option<T, E, O>>
       OrderedSuggestionsStore<T, E, O> create(
           Function<T, Optional<O>> optionMapper, Collection<T> items) {
@@ -91,11 +108,30 @@ public class OrderedSuggestionsStore<T, E extends IsElement<?>, O extends Option
     return store;
   }
 
+  /**
+   * create.
+   *
+   * @param optionMapper a {@link java.util.function.Function} object
+   * @param items a T object
+   * @param <T> a T class
+   * @param <E> a E class
+   * @param <O> a O class
+   * @return a {@link org.dominokit.domino.ui.forms.suggest.OrderedSuggestionsStore} object
+   */
   public static <T, E extends IsElement<?>, O extends Option<T, E, O>>
       OrderedSuggestionsStore<T, E, O> create(Function<T, Optional<O>> optionMapper, T... items) {
     return create(optionMapper, Arrays.asList(items));
   }
 
+  /**
+   * create.
+   *
+   * @param optionMapper a {@link java.util.function.Function} object
+   * @param <T> a T class
+   * @param <E> a E class
+   * @param <O> a O class
+   * @return a {@link org.dominokit.domino.ui.forms.suggest.OrderedSuggestionsStore} object
+   */
   public static <T, E extends IsElement<?>, O extends Option<T, E, O>>
       OrderedSuggestionsStore<T, E, O> create(Function<T, Optional<O>> optionMapper) {
     OrderedSuggestionsStore<T, E, O> store = new OrderedSuggestionsStore<>();
@@ -106,7 +142,7 @@ public class OrderedSuggestionsStore<T, E extends IsElement<?>, O extends Option
   /**
    * Adds a suggestion the suggestions List
    *
-   * @param suggestion {@link Option}
+   * @param suggestion {@link org.dominokit.domino.ui.forms.suggest.Option}
    * @return same store instance
    */
   public OrderedSuggestionsStore<T, E, O> addSuggestion(O suggestion) {
@@ -117,7 +153,7 @@ public class OrderedSuggestionsStore<T, E extends IsElement<?>, O extends Option
   /**
    * Adds a suggestion the suggestions List
    *
-   * @param suggestions {@link Option}
+   * @param suggestions {@link org.dominokit.domino.ui.forms.suggest.Option}
    * @return same store instance
    */
   public OrderedSuggestionsStore<T, E, O> addSuggestions(Collection<O> suggestions) {
@@ -130,7 +166,7 @@ public class OrderedSuggestionsStore<T, E extends IsElement<?>, O extends Option
   /**
    * Adds a suggestion the suggestions List
    *
-   * @param suggestions {@link Option}
+   * @param suggestions {@link org.dominokit.domino.ui.forms.suggest.Option}
    * @return same store instance
    */
   @SafeVarargs
@@ -141,46 +177,99 @@ public class OrderedSuggestionsStore<T, E extends IsElement<?>, O extends Option
     return this;
   }
 
+  /**
+   * removeOption.
+   *
+   * @param option a O object
+   * @return a {@link org.dominokit.domino.ui.forms.suggest.OrderedSuggestionsStore} object
+   */
   public OrderedSuggestionsStore<T, E, O> removeOption(O option) {
     findOption(option).ifPresent(found -> suggestions.remove(found.getKey()));
     return this;
   }
 
+  /**
+   * removeOptions.
+   *
+   * @param options a {@link java.util.Collection} object
+   * @return a {@link org.dominokit.domino.ui.forms.suggest.OrderedSuggestionsStore} object
+   */
   public OrderedSuggestionsStore<T, E, O> removeOptions(Collection<O> options) {
     options.forEach(this::removeOption);
     return this;
   }
 
+  /**
+   * removeOptions.
+   *
+   * @param options a O object
+   * @return a {@link org.dominokit.domino.ui.forms.suggest.OrderedSuggestionsStore} object
+   */
   @SafeVarargs
   public final OrderedSuggestionsStore<T, E, O> removeOptions(O... options) {
     Arrays.asList(options).forEach(this::removeOption);
     return this;
   }
 
+  /**
+   * removeAllOptions.
+   *
+   * @return a {@link org.dominokit.domino.ui.forms.suggest.OrderedSuggestionsStore} object
+   */
   public OrderedSuggestionsStore<T, E, O> removeAllOptions() {
     suggestions.values().forEach(this::removeOption);
     return this;
   }
 
+  /**
+   * findOption.
+   *
+   * @param option a O object
+   * @return a {@link java.util.Optional} object
+   */
   public Optional<O> findOption(O option) {
     return Optional.ofNullable(option)
         .flatMap(o -> Optional.ofNullable(suggestions.get(o.getKey())));
   }
 
+  /**
+   * findOptionByKey.
+   *
+   * @param key a {@link java.lang.String} object
+   * @return a {@link java.util.Optional} object
+   */
   public Optional<O> findOptionByKey(String key) {
     return Optional.ofNullable(suggestions.get(key));
   }
 
+  /**
+   * findOptionByValue.
+   *
+   * @param value a T object
+   * @return a {@link java.util.Optional} object
+   */
   public Optional<O> findOptionByValue(T value) {
     return suggestions.values().stream()
         .filter(option -> Objects.equals(value, option.getValue()))
         .findFirst();
   }
 
+  /**
+   * containsKey.
+   *
+   * @param key a {@link java.lang.String} object
+   * @return a boolean
+   */
   public boolean containsKey(String key) {
     return this.suggestions.containsKey(key);
   }
 
+  /**
+   * containsValue.
+   *
+   * @param value a T object
+   * @return a boolean
+   */
   public boolean containsValue(T value) {
     return findOptionByValue(value).isPresent();
   }
@@ -188,7 +277,7 @@ public class OrderedSuggestionsStore<T, E extends IsElement<?>, O extends Option
   /**
    * replace the store suggestions with the provided List
    *
-   * @param suggestions List of new {@link Option}
+   * @param suggestions List of new {@link org.dominokit.domino.ui.forms.suggest.Option}
    * @return same store instance
    */
   public OrderedSuggestionsStore<T, E, O> setSuggestions(Collection<O> suggestions) {
@@ -198,6 +287,11 @@ public class OrderedSuggestionsStore<T, E extends IsElement<?>, O extends Option
   }
 
   /** @return Map of {@link Option} in this store */
+  /**
+   * Getter for the field <code>suggestions</code>.
+   *
+   * @return a {@link java.util.Map} object
+   */
   public Map<String, O> getSuggestions() {
     return suggestions;
   }
@@ -236,6 +330,11 @@ public class OrderedSuggestionsStore<T, E extends IsElement<?>, O extends Option
   }
 
   /** @return the {@link SuggestionFilter} used by this store */
+  /**
+   * Getter for the field <code>suggestionFilter</code>.
+   *
+   * @return a SuggestionFilter object
+   */
   public SuggestionFilter<T, E, O> getSuggestionFilter() {
     return suggestionFilter;
   }
@@ -296,11 +395,23 @@ public class OrderedSuggestionsStore<T, E extends IsElement<?>, O extends Option
     return missingEntryProvider;
   }
 
+  /**
+   * Setter for the field <code>optionMapper</code>.
+   *
+   * @param optionMapper a {@link java.util.function.Function} object
+   * @return a {@link org.dominokit.domino.ui.forms.suggest.OrderedSuggestionsStore} object
+   */
   public OrderedSuggestionsStore<T, E, O> setOptionMapper(Function<T, Optional<O>> optionMapper) {
     this.optionMapper = optionMapper;
     return this;
   }
 
+  /**
+   * addItem.
+   *
+   * @param item a T object
+   * @return a {@link org.dominokit.domino.ui.forms.suggest.OrderedSuggestionsStore} object
+   */
   public OrderedSuggestionsStore<T, E, O> addItem(T item) {
     if (isNull(optionMapper)) {
       throw new IllegalArgumentException(
@@ -310,11 +421,23 @@ public class OrderedSuggestionsStore<T, E extends IsElement<?>, O extends Option
     return this;
   }
 
+  /**
+   * addItem.
+   *
+   * @param items a {@link java.util.Collection} object
+   * @return a {@link org.dominokit.domino.ui.forms.suggest.OrderedSuggestionsStore} object
+   */
   public OrderedSuggestionsStore<T, E, O> addItem(Collection<T> items) {
     items.forEach(this::addItem);
     return this;
   }
 
+  /**
+   * addItem.
+   *
+   * @param items a T object
+   * @return a {@link org.dominokit.domino.ui.forms.suggest.OrderedSuggestionsStore} object
+   */
   public OrderedSuggestionsStore<T, E, O> addItem(T... items) {
     addItem(Arrays.asList(items));
     return this;

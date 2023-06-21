@@ -15,8 +15,19 @@
  */
 package org.dominokit.domino.ui.config;
 
+/**
+ * SearchConfig interface.
+ *
+ * @author vegegoku
+ * @version $Id: $Id
+ */
 public interface SearchConfig extends ComponentConfig {
 
+  /**
+   * getAutoSearchDelay.
+   *
+   * @return a int
+   */
   default int getAutoSearchDelay() {
     return 200;
   }

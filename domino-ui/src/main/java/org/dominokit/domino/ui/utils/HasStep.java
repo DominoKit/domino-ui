@@ -15,9 +15,26 @@
  */
 package org.dominokit.domino.ui.utils;
 
+/**
+ * HasStep interface.
+ *
+ * @author vegegoku
+ * @version $Id: $Id
+ */
 public interface HasStep<T, V> {
 
+  /**
+   * getStep.
+   *
+   * @return a V object
+   */
   V getStep();
 
+  /**
+   * setStep.
+   *
+   * @param step a V object
+   * @return a T object
+   */
   T setStep(V step);
 }

@@ -17,11 +17,28 @@ package org.dominokit.domino.ui.elements;
 
 import elemental2.dom.HTMLParagraphElement;
 
+/**
+ * ParagraphElement class.
+ *
+ * @author vegegoku
+ * @version $Id: $Id
+ */
 public class ParagraphElement extends BaseElement<HTMLParagraphElement, ParagraphElement> {
+  /**
+   * of.
+   *
+   * @param e a {@link elemental2.dom.HTMLParagraphElement} object
+   * @return a {@link org.dominokit.domino.ui.elements.ParagraphElement} object
+   */
   public static ParagraphElement of(HTMLParagraphElement e) {
     return new ParagraphElement(e);
   }
 
+  /**
+   * Constructor for ParagraphElement.
+   *
+   * @param element a {@link elemental2.dom.HTMLParagraphElement} object
+   */
   public ParagraphElement(HTMLParagraphElement element) {
     super(element);
   }

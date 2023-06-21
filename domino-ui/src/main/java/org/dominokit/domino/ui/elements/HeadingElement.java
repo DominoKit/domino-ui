@@ -17,11 +17,28 @@ package org.dominokit.domino.ui.elements;
 
 import elemental2.dom.HTMLHeadingElement;
 
+/**
+ * HeadingElement class.
+ *
+ * @author vegegoku
+ * @version $Id: $Id
+ */
 public class HeadingElement extends BaseElement<HTMLHeadingElement, HeadingElement> {
+  /**
+   * of.
+   *
+   * @param e a {@link elemental2.dom.HTMLHeadingElement} object
+   * @return a {@link org.dominokit.domino.ui.elements.HeadingElement} object
+   */
   public static HeadingElement of(HTMLHeadingElement e) {
     return new HeadingElement(e);
   }
 
+  /**
+   * Constructor for HeadingElement.
+   *
+   * @param element a {@link elemental2.dom.HTMLHeadingElement} object
+   */
   public HeadingElement(HTMLHeadingElement element) {
     super(element);
   }

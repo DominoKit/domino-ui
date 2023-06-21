@@ -17,11 +17,28 @@ package org.dominokit.domino.ui.elements;
 
 import elemental2.dom.HTMLElement;
 
+/**
+ * CiteElement class.
+ *
+ * @author vegegoku
+ * @version $Id: $Id
+ */
 public class CiteElement extends BaseElement<HTMLElement, CiteElement> {
+  /**
+   * of.
+   *
+   * @param e a {@link elemental2.dom.HTMLElement} object
+   * @return a {@link org.dominokit.domino.ui.elements.CiteElement} object
+   */
   public static CiteElement of(HTMLElement e) {
     return new CiteElement(e);
   }
 
+  /**
+   * Constructor for CiteElement.
+   *
+   * @param element a {@link elemental2.dom.HTMLElement} object
+   */
   public CiteElement(HTMLElement element) {
     super(element);
   }

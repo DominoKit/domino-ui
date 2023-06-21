@@ -28,6 +28,9 @@ import org.dominokit.domino.ui.utils.DominoElement;
  *
  * <p>Each drop zone has a list of drop targets that accept drop event. Each drop target has a
  * listener that will be called when a drop event happens passing the id of the element
+ *
+ * @author vegegoku
+ * @version $Id: $Id
  */
 public class DropZone {
 
@@ -55,6 +58,11 @@ public class DropZone {
     addDropTarget(element.element(), dropListener);
   }
 
+  /**
+   * removeDropTarget.
+   *
+   * @param element a {@link elemental2.dom.HTMLElement} object
+   */
   public void removeDropTarget(HTMLElement element) {
     if (dropTargets.containsKey(element)) {
       dropTargets.get(element).detach();
@@ -62,6 +70,11 @@ public class DropZone {
     }
   }
 
+  /**
+   * removeDropTarget.
+   *
+   * @param element a {@link org.dominokit.domino.ui.IsElement} object
+   */
   public void removeDropTarget(IsElement<? extends HTMLElement> element) {
     removeDropTarget(element.element());
   }

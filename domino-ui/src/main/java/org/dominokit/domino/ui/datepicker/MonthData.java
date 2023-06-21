@@ -18,12 +18,23 @@ package org.dominokit.domino.ui.datepicker;
 import elemental2.core.JsDate;
 import java.util.Date;
 
+/**
+ * MonthData class.
+ *
+ * @author vegegoku
+ * @version $Id: $Id
+ */
 public class MonthData {
 
   private final int daysCount;
   private final int fullYear;
   private final Date date;
 
+  /**
+   * Constructor for MonthData.
+   *
+   * @param date a {@link java.util.Date} object
+   */
   public MonthData(Date date) {
     this.date = date;
     JsDate zeroDayDate = new JsDate(this.date.getYear() + 1900, this.date.getMonth() + 1, 0);
@@ -31,6 +42,11 @@ public class MonthData {
     this.fullYear = zeroDayDate.getFullYear();
   }
 
+  /**
+   * getMonthBefore.
+   *
+   * @return a {@link org.dominokit.domino.ui.datepicker.MonthData} object
+   */
   public MonthData getMonthBefore() {
     if (this.date.getMonth() == 0) {
       return new MonthData(new Date(this.date.getYear() - 1, 11, 1));
@@ -39,6 +55,11 @@ public class MonthData {
     }
   }
 
+  /**
+   * getMonthAfter.
+   *
+   * @return a {@link org.dominokit.domino.ui.datepicker.MonthData} object
+   */
   public MonthData getMonthAfter() {
     if (this.date.getMonth() == 11) {
       return new MonthData(new Date(this.date.getYear() + 1, 0, 1));
@@ -47,18 +68,38 @@ public class MonthData {
     }
   }
 
+  /**
+   * getYear.
+   *
+   * @return a int
+   */
   public int getYear() {
     return this.date.getYear();
   }
 
+  /**
+   * getMonth.
+   *
+   * @return a int
+   */
   public int getMonth() {
     return this.date.getMonth();
   }
 
+  /**
+   * Getter for the field <code>daysCount</code>.
+   *
+   * @return a int
+   */
   public int getDaysCount() {
     return daysCount;
   }
 
+  /**
+   * Getter for the field <code>fullYear</code>.
+   *
+   * @return a int
+   */
   public int getFullYear() {
     return fullYear;
   }

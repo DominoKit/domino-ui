@@ -17,12 +17,21 @@ package org.dominokit.domino.ui.search;
 
 import org.dominokit.domino.ui.style.CssClass;
 
-/** Constants class for the Search component css classes names */
+/**
+ * Constants class for the Search component css classes names
+ *
+ * @author vegegoku
+ * @version $Id: $Id
+ */
 public interface SearchStyles {
 
+  /** Constant <code>dui_quick_search</code> */
   CssClass dui_quick_search = () -> "dui-quick-search";
+  /** Constant <code>dui_quick_search_container</code> */
   CssClass dui_quick_search_container = () -> "dui-quick-search-container";
+  /** Constant <code>dui_search_bar</code> */
   CssClass dui_search_bar = () -> "dui-search-bar";
+  /** Constant <code>dui_search_bar_container</code> */
   CssClass dui_search_bar_container = () -> "dui-search-bar-container";
 
   //  public static final String search_bar = "search-bar";

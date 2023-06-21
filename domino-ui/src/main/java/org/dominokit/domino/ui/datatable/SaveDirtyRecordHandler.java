@@ -20,10 +20,14 @@ package org.dominokit.domino.ui.datatable;
  * record
  *
  * @param <T> the type of data table records
+ * @author vegegoku
+ * @version $Id: $Id
  */
 @FunctionalInterface
 public interface SaveDirtyRecordHandler<T> {
   /**
+   * saveDirtyRecord.
+   *
    * @param originalRecord T the record in the table row
    * @param dirtyRecord T the dirty record that has changes
    */

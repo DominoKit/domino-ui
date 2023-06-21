@@ -22,12 +22,14 @@ import org.dominokit.domino.ui.datatable.plugins.DataTablePlugin;
 import org.dominokit.domino.ui.dnd.DragSource;
 import org.dominokit.domino.ui.dnd.DropZone;
 import org.dominokit.domino.ui.icons.Icon;
-import org.dominokit.domino.ui.icons.Icons;
+import org.dominokit.domino.ui.icons.lib.Icons;
 
 /**
  * this plugin allows reordering columns of a data table
  *
  * @param <T> the type of data table records
+ * @author vegegoku
+ * @version $Id: $Id
  */
 public class ReorderColumnsPlugin<T> implements DataTablePlugin<T> {
 
@@ -56,6 +58,11 @@ public class ReorderColumnsPlugin<T> implements DataTablePlugin<T> {
   }
 
   /** @param headerIconSupplier header icon supplier */
+  /**
+   * Setter for the field <code>headerIconSupplier</code>.
+   *
+   * @param headerIconSupplier a {@link java.util.function.Supplier} object
+   */
   public void setHeaderIconSupplier(Supplier<Icon<?>> headerIconSupplier) {
     this.headerIconSupplier = headerIconSupplier;
   }

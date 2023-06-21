@@ -25,7 +25,12 @@ import org.dominokit.domino.ui.elements.SpanElement;
 import org.dominokit.domino.ui.style.BooleanCssClass;
 import org.dominokit.domino.ui.utils.*;
 
-/** A checkbox component that takes/provide a boolean value */
+/**
+ * A checkbox component that takes/provide a boolean value
+ *
+ * @author vegegoku
+ * @version $Id: $Id
+ */
 public class CheckBox extends InputFormField<CheckBox, HTMLInputElement, Boolean>
     implements Checkable<CheckBox>, HasIndeterminateState<CheckBox> {
 
@@ -84,6 +89,11 @@ public class CheckBox extends InputFormField<CheckBox, HTMLInputElement, Boolean
     labelElement.get();
   }
 
+  /**
+   * initRequiredIndicator.
+   *
+   * @return a {@link org.dominokit.domino.ui.utils.LazyChild} object
+   */
   protected LazyChild<DominoElement<HTMLElement>> initRequiredIndicator() {
     return LazyChild.of(
         elementOf(getConfig().getRequiredIndicator().get()).addCss(dui_field_required_indicator),
@@ -104,6 +114,7 @@ public class CheckBox extends InputFormField<CheckBox, HTMLInputElement, Boolean
    * Creates a checkbox with a label
    *
    * @param checkLabel String
+   * @param label a {@link java.lang.String} object
    */
   public CheckBox(String label, String checkLabel) {
     this();
@@ -111,6 +122,7 @@ public class CheckBox extends InputFormField<CheckBox, HTMLInputElement, Boolean
     setCheckLabel(checkLabel);
   }
 
+  /** {@inheritDoc} */
   @Override
   public Optional<Consumer<Event>> onChange() {
     return Optional.of(
@@ -121,44 +133,57 @@ public class CheckBox extends InputFormField<CheckBox, HTMLInputElement, Boolean
         });
   }
 
+  /**
+   * setCheckLabel.
+   *
+   * @param checkLabel a {@link java.lang.String} object
+   * @return a {@link org.dominokit.domino.ui.forms.CheckBox} object
+   */
   public CheckBox setCheckLabel(String checkLabel) {
     checkLabelTextElement.get().setTextContent(checkLabel);
     return this;
   }
 
+  /** {@inheritDoc} */
   @Override
   protected DominoElement<HTMLInputElement> createInputElement(String type) {
     return input(type).addCss(dui_hidden_input).toDominoElement();
   }
 
+  /** {@inheritDoc} */
   @Override
   public String getType() {
     return "checkbox";
   }
 
+  /** {@inheritDoc} */
   @Override
   public CheckBox toggleChecked(boolean silent) {
     withValue(!isChecked(), silent);
     return this;
   }
 
+  /** {@inheritDoc} */
   @Override
   public CheckBox toggleChecked() {
     withValue(!isChecked(), isChangeListenersPaused());
     return this;
   }
 
+  /** {@inheritDoc} */
   @Override
   public CheckBox toggleChecked(boolean checkedState, boolean silent) {
     withValue(checkedState, silent);
     return this;
   }
 
+  /** {@inheritDoc} */
   @Override
   public Boolean getDefaultValue() {
     return isNull(defaultValue) ? false : defaultValue;
   }
 
+  /** {@inheritDoc} */
   @Override
   public CheckBox withValue(Boolean value, boolean silent) {
     if (isNull(value)) {
@@ -168,6 +193,7 @@ public class CheckBox extends InputFormField<CheckBox, HTMLInputElement, Boolean
     return this;
   }
 
+  /** {@inheritDoc} */
   @Override
   public CheckBox indeterminate() {
     getInputElement().element().indeterminate = true;
@@ -175,6 +201,7 @@ public class CheckBox extends InputFormField<CheckBox, HTMLInputElement, Boolean
     return this;
   }
 
+  /** {@inheritDoc} */
   @Override
   public CheckBox determinate() {
     getInputElement().element().indeterminate = false;
@@ -182,6 +209,7 @@ public class CheckBox extends InputFormField<CheckBox, HTMLInputElement, Boolean
     return this;
   }
 
+  /** {@inheritDoc} */
   @Override
   public CheckBox toggleIndeterminate(boolean indeterminate) {
     getInputElement().element().indeterminate = indeterminate;
@@ -189,6 +217,7 @@ public class CheckBox extends InputFormField<CheckBox, HTMLInputElement, Boolean
     return this;
   }
 
+  /** {@inheritDoc} */
   @Override
   public CheckBox toggleIndeterminate() {
     boolean current = getInputElement().element().indeterminate;
@@ -251,41 +280,36 @@ public class CheckBox extends InputFormField<CheckBox, HTMLInputElement, Boolean
     return this;
   }
 
+  /**
+   * setFilled.
+   *
+   * @param filled a boolean
+   * @return a {@link org.dominokit.domino.ui.forms.CheckBox} object
+   */
   public CheckBox setFilled(boolean filled) {
     addCss(BooleanCssClass.of(dui_check_box_filled, filled));
     return this;
   }
 
-  /**
-   * {@inheritDoc}
-   *
-   * @return boolean, true if checked, false if unchecked
-   */
+  /** {@inheritDoc} */
   @Override
   public Boolean getValue() {
     return isChecked();
   }
 
-  /**
-   * {@inheritDoc}
-   *
-   * @return boolean, CheckBox cant be empty so this actually is true if the CheckBox is unchecked.
-   */
+  /** {@inheritDoc} */
   @Override
   public boolean isEmpty() {
     return !isChecked();
   }
 
+  /** {@inheritDoc} */
   @Override
   public boolean isEmptyIgnoreSpaces() {
     return isEmpty();
   }
 
-  /**
-   * {@inheritDoc}
-   *
-   * @return String boolean value
-   */
+  /** {@inheritDoc} */
   @Override
   public String getStringValue() {
     return Boolean.toString(getValue());
@@ -303,11 +327,13 @@ public class CheckBox extends InputFormField<CheckBox, HTMLInputElement, Boolean
     return new CheckBoxAutoValidator(this, autoValidate);
   }
 
+  /** {@inheritDoc} */
   @Override
   public String getName() {
     return getInputElement().element().name;
   }
 
+  /** {@inheritDoc} */
   @Override
   public CheckBox setName(String name) {
     getInputElement().element().name = name;

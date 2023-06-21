@@ -31,12 +31,15 @@ import org.dominokit.domino.ui.utils.DelayedTextInput;
 import org.dominokit.domino.ui.utils.HasPlaceHolder;
 
 /**
- * An abstract implementation of the {@link ColumnHeaderFilterPlugin.HeaderFilter} for text input
- * based filters that add a delay for triggering the search while the user is typing
+ * An abstract implementation of the {@link
+ * org.dominokit.domino.ui.datatable.plugins.column.ColumnHeaderFilterPlugin.HeaderFilter} for text
+ * input based filters that add a delay for triggering the search while the user is typing
  *
- * @param <B> the type of the component that extends from {@link InputFormField} and is wrapped in
- *     the implementation
+ * @param <B> the type of the component that extends from {@link
+ *     org.dominokit.domino.ui.forms.InputFormField} and is wrapped in the implementation
  * @param <T> the type of the data table records
+ * @author vegegoku
+ * @version $Id: $Id
  */
 public abstract class DelayedHeaderFilterInput<
         B extends InputFormField<B, HTMLInputElement, V>, T, V>
@@ -93,21 +96,51 @@ public abstract class DelayedHeaderFilterInput<
   }
 
   /** @return the {@link HTMLInputElement} wrapped inside the ValueBox component */
+  /**
+   * getInputElement.
+   *
+   * @return a {@link elemental2.dom.HTMLInputElement} object
+   */
   protected abstract HTMLInputElement getInputElement();
 
   /** @return a new instance of the wrapped component type */
+  /**
+   * createValueBox.
+   *
+   * @return a B object
+   */
   protected abstract B createValueBox();
 
   /** @return boolean, true if the wrapped component is empty */
+  /**
+   * isEmpty.
+   *
+   * @return a boolean
+   */
   protected abstract boolean isEmpty();
 
   /** @return String value of the wrapped component */
+  /**
+   * getValue.
+   *
+   * @return a {@link java.lang.String} object
+   */
   protected abstract String getValue();
 
   /** @return The type of the filter */
+  /**
+   * getType.
+   *
+   * @return a {@link org.dominokit.domino.ui.datatable.model.FilterTypes} object
+   */
   protected abstract FilterTypes getType();
 
   /** @return the wrapped component instance */
+  /**
+   * getField.
+   *
+   * @return a B object
+   */
   public B getField() {
     return input;
   }

@@ -17,11 +17,28 @@ package org.dominokit.domino.ui.elements;
 
 import elemental2.dom.HTMLTableSectionElement;
 
+/**
+ * THeadElement class.
+ *
+ * @author vegegoku
+ * @version $Id: $Id
+ */
 public class THeadElement extends BaseElement<HTMLTableSectionElement, THeadElement> {
+  /**
+   * of.
+   *
+   * @param e a {@link elemental2.dom.HTMLTableSectionElement} object
+   * @return a {@link org.dominokit.domino.ui.elements.THeadElement} object
+   */
   public static THeadElement of(HTMLTableSectionElement e) {
     return new THeadElement(e);
   }
 
+  /**
+   * Constructor for THeadElement.
+   *
+   * @param element a {@link elemental2.dom.HTMLTableSectionElement} object
+   */
   public THeadElement(HTMLTableSectionElement element) {
     super(element);
   }

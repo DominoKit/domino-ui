@@ -24,6 +24,9 @@ import elemental2.dom.HTMLElement;
  * changed
  *
  * <p>e.g remove the column name a from a list of columns
+ *
+ * @author vegegoku
+ * @version $Id: $Id
  */
 public class DefaultColumnShowHideListener implements ColumnShowHideListener {
 
@@ -33,8 +36,8 @@ public class DefaultColumnShowHideListener implements ColumnShowHideListener {
   /**
    * Create an instance initialized with any custom element
    *
-   * @param element {@link HTMLElement}
-   * @return new {@link DefaultColumnShowHideListener}
+   * @param element {@link elemental2.dom.HTMLElement}
+   * @return new {@link org.dominokit.domino.ui.datatable.DefaultColumnShowHideListener}
    */
   public static DefaultColumnShowHideListener of(HTMLElement element) {
     return new DefaultColumnShowHideListener(element);
@@ -43,10 +46,10 @@ public class DefaultColumnShowHideListener implements ColumnShowHideListener {
   /**
    * Create an instance initialized with any custom element and make it permanent
    *
-   * @param element {@link HTMLElement}
+   * @param element {@link elemental2.dom.HTMLElement}
    * @param permanent boolean, if true make this listener permanent so it wont be removed when the
    *     listeners are cleared
-   * @return new {@link DefaultColumnShowHideListener}
+   * @return new {@link org.dominokit.domino.ui.datatable.DefaultColumnShowHideListener}
    */
   public static DefaultColumnShowHideListener of(HTMLElement element, boolean permanent) {
     return new DefaultColumnShowHideListener(element, permanent);
@@ -55,7 +58,7 @@ public class DefaultColumnShowHideListener implements ColumnShowHideListener {
   /**
    * Create an instance initialized with any custom element
    *
-   * @param element {@link HTMLElement}
+   * @param element {@link elemental2.dom.HTMLElement}
    */
   public DefaultColumnShowHideListener(HTMLElement element) {
     this.element = element;
@@ -64,7 +67,7 @@ public class DefaultColumnShowHideListener implements ColumnShowHideListener {
   /**
    * Create an instance initialized with any custom element and make it permanent
    *
-   * @param element {@link HTMLElement}
+   * @param element {@link elemental2.dom.HTMLElement}
    * @param permanent boolean, if true make this listener permanent so it wont be removed when the
    *     listeners are cleared
    */

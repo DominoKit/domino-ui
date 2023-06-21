@@ -25,18 +25,30 @@ import org.dominokit.domino.ui.forms.suggest.SelectOption;
 import org.dominokit.domino.ui.utils.ChildHandler;
 import org.dominokit.domino.ui.utils.DominoElement;
 
-/** An advanced pagination implementation */
+/**
+ * An advanced pagination implementation
+ *
+ * @author vegegoku
+ * @version $Id: $Id
+ */
 public class AdvancedPagination extends BasePagination<AdvancedPagination> {
 
   private Select<Integer> pagesSelect;
   private PagerNavItem totalPagesCount;
 
   /** @return new instance */
+  /**
+   * create.
+   *
+   * @return a {@link org.dominokit.domino.ui.pagination.AdvancedPagination} object
+   */
   public static AdvancedPagination create() {
     return new AdvancedPagination();
   }
 
   /**
+   * create.
+   *
    * @param pages the number of pages
    * @return new instance
    */
@@ -45,6 +57,8 @@ public class AdvancedPagination extends BasePagination<AdvancedPagination> {
   }
 
   /**
+   * create.
+   *
    * @param pages the number of pages
    * @param pageSize the page size
    * @return new instance
@@ -53,14 +67,26 @@ public class AdvancedPagination extends BasePagination<AdvancedPagination> {
     return new AdvancedPagination(pages, pageSize);
   }
 
+  /** Constructor for AdvancedPagination. */
   public AdvancedPagination() {
     this(0, 10);
   }
 
+  /**
+   * Constructor for AdvancedPagination.
+   *
+   * @param pages a int
+   */
   public AdvancedPagination(int pages) {
     this(pages, 10);
   }
 
+  /**
+   * Constructor for AdvancedPagination.
+   *
+   * @param pages a int
+   * @param pageSize a int
+   */
   public AdvancedPagination(int pages, int pageSize) {
     this.pagesCount = pages;
     this.pageSize = pageSize;
@@ -189,10 +215,21 @@ public class AdvancedPagination extends BasePagination<AdvancedPagination> {
     }
   }
 
+  /**
+   * Getter for the field <code>pagesSelect</code>.
+   *
+   * @return a {@link org.dominokit.domino.ui.forms.suggest.Select} object
+   */
   public Select<Integer> getPagesSelect() {
     return pagesSelect;
   }
 
+  /**
+   * withPagesSelect.
+   *
+   * @param handler a {@link org.dominokit.domino.ui.utils.ChildHandler} object
+   * @return a {@link org.dominokit.domino.ui.pagination.AdvancedPagination} object
+   */
   public AdvancedPagination withPagesSelect(
       ChildHandler<AdvancedPagination, Select<Integer>> handler) {
     handler.apply(this, pagesSelect);

@@ -17,12 +17,17 @@ package org.dominokit.domino.ui.dialogs;
 
 import static java.util.Objects.nonNull;
 
-import org.dominokit.domino.ui.button.Button;
 import org.dominokit.domino.ui.button.LinkButton;
 import org.dominokit.domino.ui.elements.SpanElement;
 import org.dominokit.domino.ui.layout.NavBar;
 import org.dominokit.domino.ui.utils.*;
 
+/**
+ * MessageDialog class.
+ *
+ * @author vegegoku
+ * @version $Id: $Id
+ */
 public class MessageDialog extends AbstractDialog<MessageDialog> {
 
   private LinkButton confirmButton;
@@ -33,11 +38,18 @@ public class MessageDialog extends AbstractDialog<MessageDialog> {
   private LazyChild<NavBar> navHeader;
 
   /** @return new instance with empty title */
+  /**
+   * create.
+   *
+   * @return a {@link org.dominokit.domino.ui.dialogs.MessageDialog} object
+   */
   public static MessageDialog create() {
     return new MessageDialog();
   }
 
   /**
+   * create.
+   *
    * @param title String
    * @return new instance with custom title
    */
@@ -46,8 +58,11 @@ public class MessageDialog extends AbstractDialog<MessageDialog> {
   }
 
   /**
+   * create.
+   *
    * @param title String
    * @return new instance with custom title
+   * @param message a {@link java.lang.String} object
    */
   public static MessageDialog create(String title, String message) {
     return new MessageDialog(title, message);
@@ -65,22 +80,45 @@ public class MessageDialog extends AbstractDialog<MessageDialog> {
   }
 
   /** @param title String creates new instance with custom title */
+  /**
+   * Constructor for MessageDialog.
+   *
+   * @param title a {@link java.lang.String} object
+   */
   public MessageDialog(String title) {
     this();
     navHeader.get().setTitle(title);
   }
 
   /** @param title String creates new instance with custom title */
+  /**
+   * Constructor for MessageDialog.
+   *
+   * @param title a {@link java.lang.String} object
+   * @param message a {@link java.lang.String} object
+   */
   public MessageDialog(String title, String message) {
     this(title);
     setMessage(message);
   }
 
+  /**
+   * setTitle.
+   *
+   * @param title a {@link java.lang.String} object
+   * @return a {@link org.dominokit.domino.ui.dialogs.MessageDialog} object
+   */
   public MessageDialog setTitle(String title) {
     navHeader.get().setTitle(title);
     return this;
   }
 
+  /**
+   * setMessage.
+   *
+   * @param message a {@link java.lang.String} object
+   * @return a {@link org.dominokit.domino.ui.dialogs.MessageDialog} object
+   */
   public MessageDialog setMessage(String message) {
     messageElement.remove();
     appendChild(messageElement.get().setTextContent(message));
@@ -106,7 +144,7 @@ public class MessageDialog extends AbstractDialog<MessageDialog> {
   /**
    * Sets the handler for the confirm action
    *
-   * @param handler {@link MessageHandler}
+   * @param handler {@link org.dominokit.domino.ui.dialogs.MessageDialog.MessageHandler}
    * @return same ConfirmationDialog instance
    */
   public MessageDialog onConfirm(MessageHandler handler) {
@@ -115,16 +153,33 @@ public class MessageDialog extends AbstractDialog<MessageDialog> {
   }
 
   /** @return the confirmation {@link Button} */
+  /**
+   * Getter for the field <code>confirmButton</code>.
+   *
+   * @return a {@link org.dominokit.domino.ui.button.LinkButton} object
+   */
   public LinkButton getConfirmButton() {
     return confirmButton;
   }
 
   /** @return the confirmation {@link Button} */
+  /**
+   * withConfirmButton.
+   *
+   * @param handler a {@link org.dominokit.domino.ui.utils.ChildHandler} object
+   * @return a {@link org.dominokit.domino.ui.dialogs.MessageDialog} object
+   */
   public MessageDialog withConfirmButton(ChildHandler<MessageDialog, LinkButton> handler) {
     handler.apply(this, confirmButton);
     return this;
   }
 
+  /**
+   * withNavHeader.
+   *
+   * @param handler a {@link org.dominokit.domino.ui.utils.ChildHandler} object
+   * @return a {@link org.dominokit.domino.ui.dialogs.MessageDialog} object
+   */
   public MessageDialog withNavHeader(ChildHandler<MessageDialog, NavBar> handler) {
     handler.apply(this, navHeader.get());
     return this;

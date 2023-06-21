@@ -29,16 +29,17 @@ import org.dominokit.domino.ui.datatable.TableRow;
 import org.dominokit.domino.ui.datatable.events.OnBeforeDataChangeEvent;
 import org.dominokit.domino.ui.datatable.events.TableEvent;
 import org.dominokit.domino.ui.datatable.plugins.DataTablePlugin;
-import org.dominokit.domino.ui.icons.Icon;
-import org.dominokit.domino.ui.icons.Icons;
 import org.dominokit.domino.ui.icons.ToggleIcon;
 import org.dominokit.domino.ui.icons.ToggleMdiIcon;
+import org.dominokit.domino.ui.icons.lib.Icons;
 import org.dominokit.domino.ui.utils.ComponentMeta;
 
 /**
  * This plugin renders the table rows in groups.
  *
  * @param <T> the type of the data table records
+ * @author vegegoku
+ * @version $Id: $Id
  */
 public class GroupingPlugin<T> implements DataTablePlugin<T>, TableConfig.RowAppender<T> {
 
@@ -51,8 +52,9 @@ public class GroupingPlugin<T> implements DataTablePlugin<T>, TableConfig.RowApp
   /**
    * Create an instance with custom group supplier and group cell renderer
    *
-   * @param groupSupplier the {@link GroupSupplier}
-   * @param groupRenderer the {@link CellRenderer}
+   * @param groupSupplier the {@link
+   *     org.dominokit.domino.ui.datatable.plugins.grouping.GroupingPlugin.GroupSupplier}
+   * @param groupRenderer the {@link org.dominokit.domino.ui.datatable.CellRenderer}
    */
   public GroupingPlugin(GroupSupplier<T> groupSupplier, CellRenderer<T> groupRenderer) {
     this.groupSupplier = groupSupplier;
@@ -68,7 +70,8 @@ public class GroupingPlugin<T> implements DataTablePlugin<T>, TableConfig.RowApp
   /**
    * Changes the group expand icon
    *
-   * @param groupExpandedIconSupplier Supplier of {@link Icon} to change the icon
+   * @param groupExpandedIconSupplier Supplier of {@link org.dominokit.domino.ui.icons.Icon} to
+   *     change the icon
    * @return same plugin instance
    */
   public GroupingPlugin<T> setGroupExpandedCollapseIcon(
@@ -144,6 +147,11 @@ public class GroupingPlugin<T> implements DataTablePlugin<T>, TableConfig.RowApp
     }
   }
 
+  /**
+   * Getter for the field <code>dataGroups</code>.
+   *
+   * @return a {@link java.util.Map} object
+   */
   public Map<String, DataGroup<T>> getDataGroups() {
     return dataGroups;
   }

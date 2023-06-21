@@ -15,9 +15,26 @@
  */
 package org.dominokit.domino.ui.utils;
 
+/**
+ * HasPostfix interface.
+ *
+ * @author vegegoku
+ * @version $Id: $Id
+ */
 public interface HasPostfix<T> {
 
+  /**
+   * setPostfix.
+   *
+   * @param postfix a {@link java.lang.String} object
+   * @return a T object
+   */
   T setPostfix(String postfix);
 
+  /**
+   * getPostfix.
+   *
+   * @return a {@link java.lang.String} object
+   */
   String getPostfix();
 }

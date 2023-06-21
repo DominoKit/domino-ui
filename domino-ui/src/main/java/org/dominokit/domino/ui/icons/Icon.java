@@ -28,6 +28,8 @@ import org.dominokit.domino.ui.utils.ElementHandler;
  * A base implementation for Icon
  *
  * @param <T> the type of the icon
+ * @author vegegoku
+ * @version $Id: $Id
  */
 public abstract class Icon<T extends Icon<T>> extends BaseDominoElement<HTMLElement, T>
     implements CanApplyOnChildren<T, Icon<?>> {
@@ -36,6 +38,11 @@ public abstract class Icon<T extends Icon<T>> extends BaseDominoElement<HTMLElem
   protected SwapCssClass name = SwapCssClass.of();
 
   /** @return The name of the icon */
+  /**
+   * Getter for the field <code>name</code>.
+   *
+   * @return a {@link java.lang.String} object
+   */
   public String getName() {
     return name.getCssClass();
   }
@@ -66,6 +73,7 @@ public abstract class Icon<T extends Icon<T>> extends BaseDominoElement<HTMLElem
    * Adds a clickable style to the icon
    *
    * @return same instance
+   * @param withWaves a boolean
    */
   public T clickable(boolean withWaves) {
     addCss(dui_clickable);
@@ -97,6 +105,7 @@ public abstract class Icon<T extends Icon<T>> extends BaseDominoElement<HTMLElem
     return (T) this;
   }
 
+  /** {@inheritDoc} */
   @Override
   public T forEachChild(ElementHandler<Icon<?>> handler) {
     handler.handleElement(this);

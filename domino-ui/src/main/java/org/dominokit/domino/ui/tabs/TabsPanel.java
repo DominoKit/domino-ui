@@ -20,7 +20,6 @@ import static java.util.Objects.nonNull;
 
 import elemental2.dom.Element;
 import elemental2.dom.HTMLDivElement;
-import elemental2.dom.HTMLElement;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Consumer;
@@ -36,7 +35,8 @@ import org.dominokit.domino.ui.utils.PostfixAddOn;
 import org.dominokit.domino.ui.utils.PrefixAddOn;
 
 /**
- * A component to create tabs where only one {@link Tab} can be active at a time
+ * A component to create tabs where only one {@link org.dominokit.domino.ui.tabs.Tab} can be active
+ * at a time
  *
  * <p>The tabs in this component will be always aligned horizontally
  *
@@ -61,6 +61,9 @@ import org.dominokit.domino.ui.utils.PrefixAddOn;
  *                         .appendChild(Paragraph.create("SAMPLE_TEXT"))
  *         );
  * </pre>
+ *
+ * @author vegegoku
+ * @version $Id: $Id
  */
 public class TabsPanel extends BaseDominoElement<HTMLDivElement, TabsPanel>
     implements IsElement<HTMLDivElement>, TabStyles {
@@ -81,6 +84,7 @@ public class TabsPanel extends BaseDominoElement<HTMLDivElement, TabsPanel>
   private final SwapCssClass headerDirectionCss = SwapCssClass.of();
   private final SwapCssClass headerAlignCss = SwapCssClass.of();
 
+  /** Constructor for TabsPanel. */
   public TabsPanel() {
     root =
         div()
@@ -91,6 +95,11 @@ public class TabsPanel extends BaseDominoElement<HTMLDivElement, TabsPanel>
     init(this);
   }
 
+  /**
+   * create.
+   *
+   * @return a {@link org.dominokit.domino.ui.tabs.TabsPanel} object
+   */
   public static TabsPanel create() {
     return new TabsPanel();
   }
@@ -99,7 +108,7 @@ public class TabsPanel extends BaseDominoElement<HTMLDivElement, TabsPanel>
    * Inserts a Tab into the specified index
    *
    * @param index int
-   * @param tab {@link Tab}
+   * @param tab {@link org.dominokit.domino.ui.tabs.Tab}
    * @return same TabsPanel
    */
   public TabsPanel insertAt(int index, Tab tab) {
@@ -139,7 +148,10 @@ public class TabsPanel extends BaseDominoElement<HTMLDivElement, TabsPanel>
   }
 
   /**
-   * @param tab {@link Tab} to be added to the TabsPanel, the tab will be added as the last Tab
+   * appendChild.
+   *
+   * @param tab {@link org.dominokit.domino.ui.tabs.Tab} to be added to the TabsPanel, the tab will
+   *     be added as the last Tab
    * @return same TabsPanel instance
    */
   public TabsPanel appendChild(Tab tab) {
@@ -147,7 +159,9 @@ public class TabsPanel extends BaseDominoElement<HTMLDivElement, TabsPanel>
     return this;
   }
   /**
-   * @param fillItem {@link FillItem}
+   * appendChild.
+   *
+   * @param fillItem {@link org.dominokit.domino.ui.tabs.FillItem}
    * @return same TabsPanel instance
    */
   public TabsPanel appendChild(FillItem fillItem) {
@@ -156,6 +170,11 @@ public class TabsPanel extends BaseDominoElement<HTMLDivElement, TabsPanel>
   }
 
   /** @param index int index of the Tab to be activated, this will show the tab content */
+  /**
+   * activateTab.
+   *
+   * @param index a int
+   */
   public void activateTab(int index) {
     if (!tabs.isEmpty() && index < tabs.size() && index >= 0) {
       activateTab(tabs.get(index));
@@ -170,6 +189,11 @@ public class TabsPanel extends BaseDominoElement<HTMLDivElement, TabsPanel>
   }
 
   /** @param index int index of the tab to be deactivated, this will hide the tab content */
+  /**
+   * deActivateTab.
+   *
+   * @param index a int
+   */
   public void deActivateTab(int index) {
     if (!tabs.isEmpty() && index < tabs.size() && index >= 0) {
       deActivateTab(tabs.get(index));
@@ -184,12 +208,20 @@ public class TabsPanel extends BaseDominoElement<HTMLDivElement, TabsPanel>
   }
 
   /** @param tab {@link Tab} to be activated, this will show the tab content */
+  /**
+   * activateTab.
+   *
+   * @param tab a {@link org.dominokit.domino.ui.tabs.Tab} object
+   */
   public void activateTab(Tab tab) {
     activateTab(tab, false);
   }
 
   /**
-   * @param tab {@link Tab} to be activated, this will show the tab content
+   * activateTab.
+   *
+   * @param tab {@link org.dominokit.domino.ui.tabs.Tab} to be activated, this will show the tab
+   *     content
    * @param silent boolean, if true the tab will be activated without triggering the {@link
    *     org.dominokit.domino.ui.tabs.Tab.ActivationHandler}s
    */
@@ -212,12 +244,20 @@ public class TabsPanel extends BaseDominoElement<HTMLDivElement, TabsPanel>
   }
 
   /** @param tab {@link Tab} to be deactivated, this will hide the tab content */
+  /**
+   * deActivateTab.
+   *
+   * @param tab a {@link org.dominokit.domino.ui.tabs.Tab} object
+   */
   public void deActivateTab(Tab tab) {
     deActivateTab(tab, false);
   }
 
   /**
-   * @param tab {@link Tab} to be deactivated, this will hide the tab content
+   * deActivateTab.
+   *
+   * @param tab {@link org.dominokit.domino.ui.tabs.Tab} to be deactivated, this will hide the tab
+   *     content
    * @param silent boolean, if true the tab will be deactivated without triggering the {@link
    *     org.dominokit.domino.ui.tabs.Tab.ActivationHandler}s
    */
@@ -242,7 +282,10 @@ public class TabsPanel extends BaseDominoElement<HTMLDivElement, TabsPanel>
   }
 
   /**
-   * @param transition {@link Transition} for activating/deactivating tabs animations
+   * Setter for the field <code>transition</code>.
+   *
+   * @param transition {@link org.dominokit.domino.ui.animations.Transition} for
+   *     activating/deactivating tabs animations
    * @return same TabsPanel instance
    */
   public TabsPanel setTransition(Transition transition) {
@@ -251,8 +294,10 @@ public class TabsPanel extends BaseDominoElement<HTMLDivElement, TabsPanel>
   }
 
   /**
-   * @param contentContainer {@link HTMLElement} to used as a container element to render active tab
-   *     content
+   * setContentContainer.
+   *
+   * @param contentContainer {@link elemental2.dom.HTMLElement} to used as a container element to
+   *     render active tab content
    * @return same TabsPanel instance
    */
   public TabsPanel setContentContainer(Element contentContainer) {
@@ -264,8 +309,10 @@ public class TabsPanel extends BaseDominoElement<HTMLDivElement, TabsPanel>
   }
 
   /**
-   * @param contentContainer {@link IsElement} to used as a container element to render active tab
-   *     content
+   * setContentContainer.
+   *
+   * @param contentContainer {@link org.dominokit.domino.ui.IsElement} to used as a container
+   *     element to render active tab content
    * @return same TabsPanel instance
    */
   public TabsPanel setContentContainer(IsElement<?> contentContainer) {
@@ -273,24 +320,41 @@ public class TabsPanel extends BaseDominoElement<HTMLDivElement, TabsPanel>
   }
 
   /**
-   * @return the {@link HTMLElement} that is used to as a container element to render active tab
-   *     content wrapped as {@link DominoElement}
+   * Getter for the field <code>tabsContent</code>.
+   *
+   * @return the {@link elemental2.dom.HTMLElement} that is used to as a container element to render
+   *     active tab content wrapped as {@link org.dominokit.domino.ui.utils.DominoElement}
    */
   public DominoElement<Element> getTabsContent() {
     return tabsContent;
   }
 
   /** @return the current active {@link Tab} */
+  /**
+   * Getter for the field <code>activeTab</code>.
+   *
+   * @return a {@link org.dominokit.domino.ui.tabs.Tab} object
+   */
   public Tab getActiveTab() {
     return activeTab;
   }
 
   /** @return List of all {@link Tab}s */
+  /**
+   * Getter for the field <code>tabs</code>.
+   *
+   * @return a {@link java.util.List} object
+   */
   public List<Tab> getTabs() {
     return tabs;
   }
 
   /** @param tab {@link Tab} to be closed and removed from the TabsPanel */
+  /**
+   * closeTab.
+   *
+   * @param tab a {@link org.dominokit.domino.ui.tabs.Tab} object
+   */
   public void closeTab(Tab tab) {
     int tabIndex = tabs.indexOf(tab);
     if (tabs.size() > 1) {
@@ -315,7 +379,10 @@ public class TabsPanel extends BaseDominoElement<HTMLDivElement, TabsPanel>
   }
 
   /**
-   * @param closeHandler {@link Consumer} of {@link Tab} to be called when ever a Tab is closed
+   * addCloseHandler.
+   *
+   * @param closeHandler {@link java.util.function.Consumer} of {@link
+   *     org.dominokit.domino.ui.tabs.Tab} to be called when ever a Tab is closed
    * @return same TabsPanel
    */
   public TabsPanel addCloseHandler(Consumer<Tab> closeHandler) {
@@ -326,8 +393,10 @@ public class TabsPanel extends BaseDominoElement<HTMLDivElement, TabsPanel>
   }
 
   /**
-   * @param closeHandler {@link Consumer} of {@link Tab} to be called when ever a Tab is closed to
-   *     be removed
+   * removeCloseHandler.
+   *
+   * @param closeHandler {@link java.util.function.Consumer} of {@link
+   *     org.dominokit.domino.ui.tabs.Tab} to be called when ever a Tab is closed to be removed
    * @return same TabsPanel
    */
   public TabsPanel removeCloseHandler(Consumer<Tab> closeHandler) {
@@ -338,6 +407,8 @@ public class TabsPanel extends BaseDominoElement<HTMLDivElement, TabsPanel>
   }
 
   /**
+   * addActivationHandler.
+   *
    * @param activationHandler {@link org.dominokit.domino.ui.tabs.Tab.ActivationHandler}
    * @return same TabsPanel instance
    */
@@ -349,6 +420,8 @@ public class TabsPanel extends BaseDominoElement<HTMLDivElement, TabsPanel>
   }
 
   /**
+   * removeActivationHandler.
+   *
    * @param activationHandler {@link org.dominokit.domino.ui.tabs.Tab.ActivationHandler}
    * @return same TabsPanel instance
    */
@@ -360,6 +433,8 @@ public class TabsPanel extends BaseDominoElement<HTMLDivElement, TabsPanel>
   }
 
   /**
+   * activateByKey.
+   *
    * @param key String unique key of the currently active tab
    * @return same TabsPanel instance
    */
@@ -368,10 +443,12 @@ public class TabsPanel extends BaseDominoElement<HTMLDivElement, TabsPanel>
   }
 
   /**
+   * activateByKey.
+   *
    * @param key String unique key of the Tab to be activated
    * @param silent boolean, if true the tab will be activated without triggering the {@link
    *     org.dominokit.domino.ui.tabs.Tab.ActivationHandler}s
-   * @return
+   * @return a {@link org.dominokit.domino.ui.tabs.TabsPanel} object
    */
   public TabsPanel activateByKey(String key, boolean silent) {
     tabs.stream()
@@ -382,11 +459,18 @@ public class TabsPanel extends BaseDominoElement<HTMLDivElement, TabsPanel>
   }
 
   /** @return boolean, if auto-activating is enabled */
+  /**
+   * isAutoActivate.
+   *
+   * @return a boolean
+   */
   public boolean isAutoActivate() {
     return autoActivate;
   }
 
   /**
+   * Setter for the field <code>autoActivate</code>.
+   *
    * @param autoActivate boolean, if true then the first tab will be automatically activated when
    *     the TabsPanel is attached to the DOM
    * @return same TabsPanel instance
@@ -397,7 +481,9 @@ public class TabsPanel extends BaseDominoElement<HTMLDivElement, TabsPanel>
   }
 
   /**
-   * @param align {@link TabsAlign}
+   * setTabsAlign.
+   *
+   * @param align {@link org.dominokit.domino.ui.tabs.TabsAlign}
    * @return same TabsPanel instance
    */
   public TabsPanel setTabsAlign(TabsAlign align) {
@@ -406,7 +492,9 @@ public class TabsPanel extends BaseDominoElement<HTMLDivElement, TabsPanel>
   }
 
   /**
-   * @param direction {@link TabsDirection}
+   * setTabsDirection.
+   *
+   * @param direction {@link org.dominokit.domino.ui.tabs.TabsDirection}
    * @return same TabsPanel instance
    */
   public TabsPanel setTabsDirection(TabsDirection direction) {
@@ -414,21 +502,45 @@ public class TabsPanel extends BaseDominoElement<HTMLDivElement, TabsPanel>
     return this;
   }
 
+  /**
+   * setHeaderDirection.
+   *
+   * @param direction a {@link org.dominokit.domino.ui.tabs.HeaderDirection} object
+   * @return a {@link org.dominokit.domino.ui.tabs.TabsPanel} object
+   */
   public TabsPanel setHeaderDirection(HeaderDirection direction) {
     addCss(headerDirectionCss.replaceWith(direction));
     return this;
   }
 
+  /**
+   * setTabHeaderAlign.
+   *
+   * @param align a {@link org.dominokit.domino.ui.tabs.TabsHeaderAlign} object
+   * @return a {@link org.dominokit.domino.ui.tabs.TabsPanel} object
+   */
   public TabsPanel setTabHeaderAlign(TabsHeaderAlign align) {
     addCss(headerAlignCss.replaceWith(align));
     return this;
   }
 
+  /**
+   * appendChild.
+   *
+   * @param postfixAddOn a {@link org.dominokit.domino.ui.utils.PostfixAddOn} object
+   * @return a {@link org.dominokit.domino.ui.tabs.TabsPanel} object
+   */
   public TabsPanel appendChild(PostfixAddOn<?> postfixAddOn) {
     tabsListElement.appendChild(postfixAddOn);
     return this;
   }
 
+  /**
+   * appendChild.
+   *
+   * @param prefixAddOn a {@link org.dominokit.domino.ui.utils.PrefixAddOn} object
+   * @return a {@link org.dominokit.domino.ui.tabs.TabsPanel} object
+   */
   public TabsPanel appendChild(PrefixAddOn<?> prefixAddOn) {
     tabsListElement.appendChild(prefixAddOn);
     return this;

@@ -21,8 +21,15 @@ import static org.dominokit.domino.ui.style.SpacingCss.dui_flex_col_reverse;
 import elemental2.dom.DOMRect;
 import elemental2.dom.Element;
 
+/**
+ * BestMiddleSideDropDirection class.
+ *
+ * @author vegegoku
+ * @version $Id: $Id
+ */
 public class BestMiddleSideDropDirection implements DropDirection {
 
+  /** {@inheritDoc} */
   @Override
   public void position(Element source, Element target) {
     dui_flex_col_reverse.remove(source);
@@ -43,6 +50,7 @@ public class BestMiddleSideDropDirection implements DropDirection {
     currentPosition.position(source, target);
   }
 
+  /** {@inheritDoc} */
   @Override
   public void cleanup(Element source) {
     DropDirection.RIGHT_MIDDLE.cleanup(source);

@@ -21,6 +21,12 @@ import org.dominokit.domino.ui.spin.HSpinSelect;
 import org.dominokit.domino.ui.spin.SpinItem;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
 
+/**
+ * YearMonthPicker class.
+ *
+ * @author vegegoku
+ * @version $Id: $Id
+ */
 public class YearMonthPicker extends BaseDominoElement<HTMLDivElement, YearMonthPicker>
     implements CalendarStyles, CalendarViewListener {
 
@@ -29,6 +35,11 @@ public class YearMonthPicker extends BaseDominoElement<HTMLDivElement, YearMonth
   private final HSpinSelect<YearPicker> yearPickerSpin;
   private final IsCalendar calendar;
 
+  /**
+   * Constructor for YearMonthPicker.
+   *
+   * @param calendar a {@link org.dominokit.domino.ui.datepicker.IsCalendar} object
+   */
   public YearMonthPicker(IsCalendar calendar) {
     this.calendar = calendar;
     this.calendar.bindCalenderViewListener(this);
@@ -44,6 +55,12 @@ public class YearMonthPicker extends BaseDominoElement<HTMLDivElement, YearMonth
     init(this);
   }
 
+  /**
+   * create.
+   *
+   * @param calendar a {@link org.dominokit.domino.ui.datepicker.IsCalendar} object
+   * @return a {@link org.dominokit.domino.ui.datepicker.YearMonthPicker} object
+   */
   public static YearMonthPicker create(IsCalendar calendar) {
     return new YearMonthPicker(calendar);
   }
@@ -81,6 +98,7 @@ public class YearMonthPicker extends BaseDominoElement<HTMLDivElement, YearMonth
             });
   }
 
+  /** {@inheritDoc} */
   @Override
   public YearMonthPicker show() {
     if (!isVisible()) {
@@ -89,6 +107,7 @@ public class YearMonthPicker extends BaseDominoElement<HTMLDivElement, YearMonth
     return super.show();
   }
 
+  /** {@inheritDoc} */
   @Override
   public HTMLDivElement element() {
     return root.element();

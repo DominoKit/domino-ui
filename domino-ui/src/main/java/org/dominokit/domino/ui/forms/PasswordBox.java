@@ -15,22 +15,46 @@
  */
 package org.dominokit.domino.ui.forms;
 
+/**
+ * PasswordBox class.
+ *
+ * @author vegegoku
+ * @version $Id: $Id
+ */
 public class PasswordBox extends BaseTextBox<PasswordBox> {
 
+  /**
+   * create.
+   *
+   * @return a {@link org.dominokit.domino.ui.forms.PasswordBox} object
+   */
   public static PasswordBox create() {
     return new PasswordBox();
   }
 
+  /**
+   * create.
+   *
+   * @param label a {@link java.lang.String} object
+   * @return a {@link org.dominokit.domino.ui.forms.PasswordBox} object
+   */
   public static PasswordBox create(String label) {
     return new PasswordBox(label);
   }
 
+  /** Constructor for PasswordBox. */
   public PasswordBox() {}
 
+  /**
+   * Constructor for PasswordBox.
+   *
+   * @param label a {@link java.lang.String} object
+   */
   public PasswordBox(String label) {
     super(label);
   }
 
+  /** {@inheritDoc} */
   @Override
   public String getType() {
     return "password";

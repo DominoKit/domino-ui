@@ -25,6 +25,12 @@ import org.dominokit.domino.ui.forms.validations.MaxLengthValidator;
 import org.dominokit.domino.ui.forms.validations.MinLengthValidator;
 import org.dominokit.domino.ui.utils.*;
 
+/**
+ * Abstract CountableInputFormField class.
+ *
+ * @author vegegoku
+ * @version $Id: $Id
+ */
 public abstract class CountableInputFormField<
         T extends InputFormField<T, E, V>, E extends HTMLElement, V>
     extends InputFormField<T, E, V>
@@ -35,8 +41,10 @@ public abstract class CountableInputFormField<
   private MinLengthValidator<T, E> minLengthValidator;
   private MaxLengthValidator<T, E> maxLengthValidator;
 
+  /** Constructor for CountableInputFormField. */
   public CountableInputFormField() {}
 
+  /** {@inheritDoc} */
   @Override
   public T updateCounter(int count, int maxCount) {
     if (maxCount > 0) {
@@ -54,10 +62,21 @@ public abstract class CountableInputFormField<
     return counterElement.get();
   }
 
+  /**
+   * initCounterElement.
+   *
+   * @return a {@link org.dominokit.domino.ui.utils.LazyChild} object
+   */
   protected LazyChild<SpanElement> initCounterElement() {
     return counterElement = LazyChild.of(span().addCss(du_field_counter), wrapperElement);
   }
 
+  /**
+   * Setter for the field <code>countFormatter</code>.
+   *
+   * @param formatter a CountFormatter object
+   * @return a T object
+   */
   public T setCountFormatter(CountFormatter formatter) {
     this.countFormatter = formatter;
     if (counterElement.isInitialized()) {
@@ -66,6 +85,7 @@ public abstract class CountableInputFormField<
     return (T) this;
   }
 
+  /** {@inheritDoc} */
   @Override
   public int getMaxLength() {
     if (getInputElement().hasAttribute(MAX_LENGTH)) {
@@ -74,6 +94,7 @@ public abstract class CountableInputFormField<
     return -1;
   }
 
+  /** {@inheritDoc} */
   @Override
   public T setMaxLength(int maxLength) {
     if (maxLength < 0) {
@@ -89,6 +110,7 @@ public abstract class CountableInputFormField<
     return (T) this;
   }
 
+  /** {@inheritDoc} */
   @Override
   public int getLength() {
     String stringValue = getStringValue();
@@ -98,6 +120,7 @@ public abstract class CountableInputFormField<
     return 0;
   }
 
+  /** {@inheritDoc} */
   @Override
   public int getMinLength() {
     if (getInputElement().hasAttribute(MIN_LENGTH)) {
@@ -106,6 +129,7 @@ public abstract class CountableInputFormField<
     return -1;
   }
 
+  /** {@inheritDoc} */
   @Override
   public T setMinLength(int minLength) {
     if (minLength < 0) {
@@ -122,31 +146,50 @@ public abstract class CountableInputFormField<
     return (T) this;
   }
 
+  /** {@inheritDoc} */
   @Override
   public int getMaxCount() {
     return getMaxLength();
   }
 
+  /** {@inheritDoc} */
   @Override
   public String getPlaceholder() {
     return getInputElement().getAttribute("placeholder");
   }
 
+  /** {@inheritDoc} */
   @Override
   public T setPlaceholder(String placeholder) {
     getInputElement().setAttribute("placeholder", placeholder);
     return (T) this;
   }
 
+  /**
+   * Getter for the field <code>counterElement</code>.
+   *
+   * @return a {@link org.dominokit.domino.ui.elements.SpanElement} object
+   */
   public SpanElement getCounterElement() {
     return getCountElement();
   }
 
+  /**
+   * withCounterElement.
+   *
+   * @return a T object
+   */
   public T withCounterElement() {
     getCountElement();
     return (T) this;
   }
 
+  /**
+   * withCounterElement.
+   *
+   * @param handler a {@link org.dominokit.domino.ui.utils.ChildHandler} object
+   * @return a T object
+   */
   public T withCounterElement(ChildHandler<T, SpanElement> handler) {
     handler.apply((T) this, getCountElement());
     return (T) this;

@@ -27,6 +27,12 @@ import org.dominokit.domino.ui.elements.TableRowElement;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
 import org.dominokit.domino.ui.utils.DominoElement;
 
+/**
+ * SummaryRow class.
+ *
+ * @author vegegoku
+ * @version $Id: $Id
+ */
 public class SummaryRow<T, S> extends BaseDominoElement<HTMLTableRowElement, SummaryRow<T, S>>
     implements DataTableStyles {
   private S record;
@@ -36,6 +42,13 @@ public class SummaryRow<T, S> extends BaseDominoElement<HTMLTableRowElement, Sum
   private TableRowElement element = tr().addCss(dui_datatable_row);
   private SummaryRowRenderer<T, S> rowRenderer = new DefaultSummaryRowRenderer<>();
 
+  /**
+   * Constructor for SummaryRow.
+   *
+   * @param record a S object
+   * @param index a int
+   * @param dataTable a {@link org.dominokit.domino.ui.datatable.DataTable} object
+   */
   public SummaryRow(S record, int index, DataTable<T> dataTable) {
     this.record = record;
     this.index = index;
@@ -43,48 +56,93 @@ public class SummaryRow<T, S> extends BaseDominoElement<HTMLTableRowElement, Sum
     init(this);
   }
 
+  /**
+   * Setter for the field <code>record</code>.
+   *
+   * @param record a S object
+   */
   public void setRecord(S record) {
     this.record = record;
   }
 
+  /**
+   * Getter for the field <code>record</code>.
+   *
+   * @return a S object
+   */
   public S getRecord() {
     return record;
   }
 
+  /**
+   * Getter for the field <code>dataTable</code>.
+   *
+   * @return a {@link org.dominokit.domino.ui.datatable.DataTable} object
+   */
   public DataTable<T> getDataTable() {
     return dataTable;
   }
 
+  /** {@inheritDoc} */
   @Override
   public HTMLTableRowElement element() {
     return element.element();
   }
 
+  /**
+   * addCell.
+   *
+   * @param rowCell a {@link org.dominokit.domino.ui.datatable.plugins.summary.SummaryRowCell}
+   *     object
+   */
   public void addCell(SummaryRowCell<T, S> rowCell) {
     rowCells.put(rowCell.getColumnConfig().getName(), rowCell);
   }
 
+  /**
+   * getCell.
+   *
+   * @param name a {@link java.lang.String} object
+   * @return a {@link org.dominokit.domino.ui.datatable.plugins.summary.SummaryRowCell} object
+   */
   public SummaryRowCell<T, S> getCell(String name) {
     return rowCells.get(name);
   }
 
+  /**
+   * Getter for the field <code>index</code>.
+   *
+   * @return a int
+   */
   public int getIndex() {
     return index;
   }
 
+  /** updateRow. */
   public void updateRow() {
     updateRow(this.record);
   }
 
+  /**
+   * updateRow.
+   *
+   * @param record a S object
+   */
   public void updateRow(S record) {
     this.record = record;
     rowCells.values().forEach(SummaryRowCell::updateCell);
   }
 
+  /**
+   * Getter for the field <code>rowCells</code>.
+   *
+   * @return a {@link java.util.Map} object
+   */
   public Map<String, SummaryRowCell<T, S>> getRowCells() {
     return Collections.unmodifiableMap(rowCells);
   }
 
+  /** render. */
   public void render() {
     rowRenderer.render(dataTable, this);
   }
@@ -100,6 +158,11 @@ public class SummaryRow<T, S> extends BaseDominoElement<HTMLTableRowElement, Sum
     void onChange(SummaryRow<T, S> summaryRow);
   }
 
+  /**
+   * renderCell.
+   *
+   * @param columnConfig a {@link org.dominokit.domino.ui.datatable.ColumnConfig} object
+   */
   public void renderCell(ColumnConfig<T> columnConfig) {
     TDElement cellElement = td().addCss(dui_datatable_td);
 

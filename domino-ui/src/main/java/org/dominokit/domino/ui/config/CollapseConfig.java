@@ -19,7 +19,18 @@ import java.util.function.Supplier;
 import org.dominokit.domino.ui.collapsible.CollapseStrategy;
 import org.dominokit.domino.ui.collapsible.DisplayCollapseStrategy;
 
+/**
+ * CollapseConfig interface.
+ *
+ * @author vegegoku
+ * @version $Id: $Id
+ */
 public interface CollapseConfig extends ComponentConfig {
+  /**
+   * getDefaultCollapseStrategySupplier.
+   *
+   * @return a {@link java.util.function.Supplier} object
+   */
   default Supplier<CollapseStrategy> getDefaultCollapseStrategySupplier() {
     return DisplayCollapseStrategy::new;
   }

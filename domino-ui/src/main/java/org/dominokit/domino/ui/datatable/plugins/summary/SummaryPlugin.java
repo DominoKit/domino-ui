@@ -24,22 +24,36 @@ import org.dominokit.domino.ui.datatable.plugins.DataTablePlugin;
 import org.dominokit.domino.ui.elements.TFootElement;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
 
+/**
+ * SummaryPlugin class.
+ *
+ * @author vegegoku
+ * @version $Id: $Id
+ */
 public class SummaryPlugin<T, S> implements DataTablePlugin<T> {
 
   private List<TableRow<S>> summaryRows = new ArrayList<>();
   private DataTable<T> dataTable;
   private TFootElement footer;
 
+  /** {@inheritDoc} */
   @Override
   public void init(DataTable<T> dataTable) {
     this.dataTable = dataTable;
   }
 
+  /** {@inheritDoc} */
   @Override
   public void onFooterAdded(DataTable<T> datatable) {
     this.footer = datatable.footerElement();
   }
 
+  /**
+   * setSummaryRecords.
+   *
+   * @param records a {@link java.util.Collection} object
+   * @return a {@link org.dominokit.domino.ui.datatable.plugins.summary.SummaryPlugin} object
+   */
   public SummaryPlugin<T, S> setSummaryRecords(Collection<S> records) {
     summaryRows.forEach(BaseDominoElement::remove);
     summaryRows.clear();
@@ -52,6 +66,7 @@ public class SummaryPlugin<T, S> implements DataTablePlugin<T> {
     return this;
   }
 
+  /** {@inheritDoc} */
   @Override
   public int order() {
     return 10;

@@ -19,12 +19,33 @@ import elemental2.dom.CustomEvent;
 import elemental2.dom.CustomEventInit;
 import jsinterop.base.Js;
 
+/**
+ * CustomEvents class.
+ *
+ * @author vegegoku
+ * @version $Id: $Id
+ */
 public class CustomEvents {
 
+  /**
+   * create.
+   *
+   * @param name a {@link java.lang.String} object
+   * @param <T> a T class
+   * @return a {@link elemental2.dom.CustomEvent} object
+   */
   public static <T> CustomEvent<T> create(String name) {
     return new CustomEvent<>(name);
   }
 
+  /**
+   * create.
+   *
+   * @param name a {@link java.lang.String} object
+   * @param details a T object
+   * @param <T> a T class
+   * @return a {@link elemental2.dom.CustomEvent} object
+   */
   public static <T> CustomEvent<T> create(String name, T details) {
     CustomEventInit<T> initOptions = Js.uncheckedCast(CustomEventInit.create());
     initOptions.setDetail(details);

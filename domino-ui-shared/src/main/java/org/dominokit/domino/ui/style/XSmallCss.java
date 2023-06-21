@@ -24,18 +24,42 @@ import java.util.stream.Collectors;
 import org.dominokit.domino.ui.IsElement;
 import org.dominokit.domino.ui.mediaquery.MediaQuery;
 
+/**
+ * XSmallCss class.
+ *
+ * @author vegegoku
+ * @version $Id: $Id
+ */
 public class XSmallCss implements CssClass {
 
   private Set<CssClass> cssClasses = new HashSet<>();
 
+  /**
+   * of.
+   *
+   * @param cssClasses a {@link java.util.Collection} object.
+   * @return a {@link org.dominokit.domino.ui.style.XSmallCss} object.
+   */
   public static XSmallCss of(Collection<CssClass> cssClasses) {
     return new XSmallCss(cssClasses);
   }
 
+  /**
+   * of.
+   *
+   * @param cssClasses a {@link org.dominokit.domino.ui.style.CssClass} object.
+   * @return a {@link org.dominokit.domino.ui.style.XSmallCss} object.
+   */
   public static XSmallCss of(CssClass... cssClasses) {
     return new XSmallCss(cssClasses);
   }
 
+  /**
+   * of.
+   *
+   * @param element a {@link elemental2.dom.Element} object.
+   * @return a {@link org.dominokit.domino.ui.style.XSmallCss} object.
+   */
   public static XSmallCss of(Element element) {
     return of(
         element.classList.asList().stream()
@@ -43,23 +67,41 @@ public class XSmallCss implements CssClass {
             .collect(Collectors.toList()));
   }
 
+  /**
+   * of.
+   *
+   * @param element a {@link org.dominokit.domino.ui.IsElement} object.
+   * @return a {@link org.dominokit.domino.ui.style.XSmallCss} object.
+   */
   public static XSmallCss of(IsElement<?> element) {
     return of(element.element());
   }
 
+  /**
+   * Constructor for XSmallCss.
+   *
+   * @param cssClasses a {@link java.util.Collection} object.
+   */
   public XSmallCss(Collection<CssClass> cssClasses) {
     this.cssClasses.addAll(cssClasses);
   }
 
+  /**
+   * Constructor for XSmallCss.
+   *
+   * @param cssClasses a {@link org.dominokit.domino.ui.style.CssClass} object.
+   */
   public XSmallCss(CssClass... cssClasses) {
     this(Arrays.asList(cssClasses));
   }
 
+  /** {@inheritDoc} */
   @Override
   public String getCssClass() {
     return cssClasses.stream().map(CssClass::getCssClass).collect(Collectors.joining(" "));
   }
 
+  /** {@inheritDoc} */
   @Override
   public void apply(Element element) {
     MediaQuery.addOnXSmallAndDownListener(() -> {});
@@ -67,21 +109,25 @@ public class XSmallCss implements CssClass {
     cssClasses.forEach(cssClass -> cssClass.apply(element));
   }
 
+  /** {@inheritDoc} */
   @Override
   public boolean isAppliedTo(Element element) {
     return cssClasses.stream().allMatch(cssClass -> cssClass.isAppliedTo(element));
   }
 
+  /** {@inheritDoc} */
   @Override
   public boolean isAppliedTo(IsElement<?> element) {
     return isAppliedTo(element.element());
   }
 
+  /** {@inheritDoc} */
   @Override
   public void remove(Element element) {
     cssClasses.forEach(cssClass -> cssClass.remove(element));
   }
 
+  /** {@inheritDoc} */
   @Override
   public void remove(IsElement<?> element) {
     remove(element.element());

@@ -35,7 +35,7 @@ import org.dominokit.domino.ui.datatable.events.TableEvent;
 import org.dominokit.domino.ui.datatable.plugins.DataTablePlugin;
 import org.dominokit.domino.ui.forms.CheckBox;
 import org.dominokit.domino.ui.icons.Icon;
-import org.dominokit.domino.ui.icons.Icons;
+import org.dominokit.domino.ui.icons.lib.Icons;
 import org.dominokit.domino.ui.utils.Selectable;
 
 /**
@@ -44,6 +44,8 @@ import org.dominokit.domino.ui.utils.Selectable;
  * selection.
  *
  * @param <T> the type of the data table records
+ * @author vegegoku
+ * @version $Id: $Id
  */
 public class SelectionPlugin<T> implements DataTablePlugin<T> {
   private Selectable<TableRow<T>> selectedRow;
@@ -62,18 +64,20 @@ public class SelectionPlugin<T> implements DataTablePlugin<T> {
    * create an instance that changes the selected row background color and use a custom selection
    * indicator icon
    *
-   * @param singleSelectIndicator {@link HTMLElement} to use a selection indicator
+   * @param singleSelectIndicator {@link elemental2.dom.HTMLElement} to use a selection indicator
    */
   public SelectionPlugin(Supplier<Element> singleSelectIndicator) {
     this();
     this.singleSelectIndicator = singleSelectIndicator;
   }
 
+  /** {@inheritDoc} */
   @Override
   public boolean requiresUtilityColumn() {
     return true;
   }
 
+  /** {@inheritDoc} */
   @Override
   public Optional<List<HTMLElement>> getUtilityElements(
       DataTable<T> dataTable, CellRenderer.CellInfo<T> cellInfo) {
@@ -92,11 +96,13 @@ public class SelectionPlugin<T> implements DataTablePlugin<T> {
     return Optional.empty();
   }
 
+  /** {@inheritDoc} */
   @Override
   public void onAfterAddTable(DataTable<T> dataTable) {
     this.datatable = dataTable;
   }
 
+  /** {@inheritDoc} */
   @Override
   public void onHeaderAdded(DataTable<T> dataTable, ColumnConfig<T> column) {
     if (column.isUtilityColumn()) {
@@ -259,7 +265,7 @@ public class SelectionPlugin<T> implements DataTablePlugin<T> {
   /**
    * Change the single selection indicator icon
    *
-   * @param singleSelectIcon {@link Icon}
+   * @param singleSelectIcon {@link org.dominokit.domino.ui.icons.Icon}
    * @return same plugin instance
    */
   public SelectionPlugin<T> setSingleSelectIcon(Supplier<Icon<?>> singleSelectIcon) {
@@ -276,7 +282,7 @@ public class SelectionPlugin<T> implements DataTablePlugin<T> {
   /**
    * Set a condition to use to determine if a row should be selectable or not
    *
-   * @param selectionCondition {@link SelectionCondition}
+   * @param selectionCondition {@link org.dominokit.domino.ui.datatable.SelectionCondition}
    * @return Same plugin instance
    */
   public SelectionPlugin<T> setSelectionCondition(SelectionCondition<T> selectionCondition) {
@@ -299,6 +305,7 @@ public class SelectionPlugin<T> implements DataTablePlugin<T> {
     return this;
   }
 
+  /** {@inheritDoc} */
   @Override
   public void onRowAdded(DataTable<T> dataTable, TableRow<T> tableRow) {
     if (retainSelectionOnDataChange) {
@@ -313,6 +320,7 @@ public class SelectionPlugin<T> implements DataTablePlugin<T> {
     }
   }
 
+  /** {@inheritDoc} */
   @Override
   public void handleEvent(TableEvent event) {
     if (retainSelectionOnDataChange) {
@@ -325,7 +333,8 @@ public class SelectionPlugin<T> implements DataTablePlugin<T> {
   /**
    * A setter to give the user the ability to customize the selection checkbox
    *
-   * @param checkBoxCreator {@link Supplier} of {@link CheckBox}
+   * @param checkBoxCreator {@link java.util.function.Supplier} of {@link
+   *     org.dominokit.domino.ui.forms.CheckBox}
    * @return same plugin instance
    */
   public SelectionPlugin<T> setCheckBoxCreator(CheckBoxCreator<T> checkBoxCreator) {

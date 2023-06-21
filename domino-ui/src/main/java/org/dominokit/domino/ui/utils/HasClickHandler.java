@@ -19,11 +19,15 @@ package org.dominokit.domino.ui.utils;
  * A component that can receive click interactions should implement this interface
  *
  * @param <T> the type of the component implementing this interface
+ * @author vegegoku
+ * @version $Id: $Id
  */
 public interface HasClickHandler<T> {
 
   /**
-   * @param clickHandler {@link ClickHandler}
+   * addClickHandler.
+   *
+   * @param clickHandler {@link org.dominokit.domino.ui.utils.HasClickHandler.ClickHandler}
    * @return same implementing component
    */
   T addClickHandler(ClickHandler clickHandler);

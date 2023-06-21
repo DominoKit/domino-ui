@@ -18,16 +18,37 @@ package org.dominokit.domino.ui.config;
 import org.dominokit.domino.ui.dialogs.DefaultZIndexManager;
 import org.dominokit.domino.ui.dialogs.ZIndexManager;
 
+/**
+ * ZIndexConfig interface.
+ *
+ * @author vegegoku
+ * @version $Id: $Id
+ */
 public interface ZIndexConfig extends ComponentConfig {
 
+  /**
+   * getInitialZIndex.
+   *
+   * @return a int
+   */
   default int getInitialZIndex() {
     return 8388635;
   }
 
+  /**
+   * getzIndexIncrement.
+   *
+   * @return a int
+   */
   default int getzIndexIncrement() {
     return 1;
   }
 
+  /**
+   * getZindexManager.
+   *
+   * @return a {@link org.dominokit.domino.ui.dialogs.ZIndexManager} object
+   */
   default ZIndexManager getZindexManager() {
     return DefaultZIndexManager.INSTANCE;
   }

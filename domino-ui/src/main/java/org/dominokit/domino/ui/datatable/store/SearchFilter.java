@@ -18,16 +18,19 @@ package org.dominokit.domino.ui.datatable.store;
 import org.dominokit.domino.ui.datatable.events.SearchEvent;
 
 /**
- * An interface to write implementation for filtering {@link LocalListDataStore} records
+ * An interface to write implementation for filtering {@link
+ * org.dominokit.domino.ui.datatable.store.LocalListDataStore} records
  *
  * @param <T> the type of the datatable records
+ * @author vegegoku
+ * @version $Id: $Id
  */
 @FunctionalInterface
 public interface SearchFilter<T> {
   /**
    * Filters a record based on the search filters
    *
-   * @param event {@link SearchEvent}
+   * @param event {@link org.dominokit.domino.ui.datatable.events.SearchEvent}
    * @param record T the record being checked
    * @return boolean, true if the record match the search criteria otherwise false.
    */

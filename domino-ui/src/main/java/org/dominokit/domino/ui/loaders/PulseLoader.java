@@ -20,7 +20,12 @@ import org.dominokit.domino.ui.IsElement;
 import org.dominokit.domino.ui.elements.DivElement;
 import org.dominokit.domino.ui.utils.DominoElement;
 
-/** Pulse loader implementation */
+/**
+ * Pulse loader implementation
+ *
+ * @author vegegoku
+ * @version $Id: $Id
+ */
 public class PulseLoader extends BaseLoader<PulseLoader> implements IsElement<HTMLDivElement> {
 
   private final DivElement progress1 = div().addCss(wait_me_progress_elem_1, dui_bg_black);
@@ -37,10 +42,16 @@ public class PulseLoader extends BaseLoader<PulseLoader> implements IsElement<HT
   private final DivElement element =
       div().addCss(wait_me).style("background: rgba(255, 255, 255, 0.7);").appendChild(content);
 
+  /** Constructor for PulseLoader. */
   public PulseLoader() {
     init(this);
   }
 
+  /**
+   * create.
+   *
+   * @return a {@link org.dominokit.domino.ui.loaders.PulseLoader} object
+   */
   public static PulseLoader create() {
     return new PulseLoader();
   }

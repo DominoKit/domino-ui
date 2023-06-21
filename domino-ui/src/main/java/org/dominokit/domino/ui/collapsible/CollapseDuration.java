@@ -17,6 +17,12 @@ package org.dominokit.domino.ui.collapsible;
 
 import org.dominokit.domino.ui.style.CssClass;
 
+/**
+ * CollapseDuration class.
+ *
+ * @author vegegoku
+ * @version $Id: $Id
+ */
 public enum CollapseDuration implements CollapsibleStyles {
   _100ms(dui_height_collapsed_trans_100, 100),
   _200ms(dui_height_collapsed_trans_200, 200),
@@ -38,10 +44,20 @@ public enum CollapseDuration implements CollapsibleStyles {
     this.duration = duration;
   }
 
+  /**
+   * Getter for the field <code>style</code>.
+   *
+   * @return a {@link org.dominokit.domino.ui.style.CssClass} object
+   */
   public CssClass getStyle() {
     return style;
   }
 
+  /**
+   * Getter for the field <code>duration</code>.
+   *
+   * @return a int
+   */
   public int getDuration() {
     return duration;
   }

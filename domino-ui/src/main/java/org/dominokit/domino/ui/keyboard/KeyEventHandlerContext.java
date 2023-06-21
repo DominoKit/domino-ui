@@ -22,6 +22,12 @@ class KeyEventHandlerContext {
   final EventListener handler;
   final Supplier<KeyboardEventOptions> options;
 
+  /**
+   * Constructor for KeyEventHandlerContext.
+   *
+   * @param handler a {@link elemental2.dom.EventListener} object
+   * @param options a {@link java.util.function.Supplier} object
+   */
   public KeyEventHandlerContext(EventListener handler, Supplier<KeyboardEventOptions> options) {
     this.handler = handler;
     this.options = options;

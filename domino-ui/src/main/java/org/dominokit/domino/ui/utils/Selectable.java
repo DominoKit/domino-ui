@@ -19,6 +19,8 @@ package org.dominokit.domino.ui.utils;
  * A component that can be selected/deselected should implement this interface
  *
  * @param <T> the type of the component implementing this interface
+ * @author vegegoku
+ * @version $Id: $Id
  */
 public interface Selectable<T> {
   /**
@@ -39,6 +41,7 @@ public interface Selectable<T> {
    * make the component selected without triggering the selection/change handlers
    *
    * @return same implementing component instance
+   * @param silent a boolean
    */
   T select(boolean silent);
 
@@ -46,24 +49,65 @@ public interface Selectable<T> {
    * deselect the component without triggering the selection/change handlers
    *
    * @return same implementing component instance
+   * @param silent a boolean
    */
   T deselect(boolean silent);
 
   /** @return boolean, true if the component is currently selected */
+  /**
+   * isSelected.
+   *
+   * @return a boolean
+   */
   boolean isSelected();
 
+  /**
+   * isSelectable.
+   *
+   * @return a boolean
+   */
   boolean isSelectable();
 
+  /**
+   * setSelectable.
+   *
+   * @param selectable a boolean
+   * @return a T object
+   */
   T setSelectable(boolean selectable);
 
+  /**
+   * setSelected.
+   *
+   * @param selected a boolean
+   * @return a T object
+   */
   T setSelected(boolean selected);
 
+  /**
+   * setSelected.
+   *
+   * @param selected a boolean
+   * @param silent a boolean
+   * @return a T object
+   */
   T setSelected(boolean selected, boolean silent);
 
+  /**
+   * toggleSelect.
+   *
+   * @return a T object
+   */
   default T toggleSelect() {
     return setSelected(!isSelected());
   }
 
+  /**
+   * toggleSelect.
+   *
+   * @param silent a boolean
+   * @return a T object
+   */
   default T toggleSelect(boolean silent) {
     return setSelected(!isSelected(), silent);
   }

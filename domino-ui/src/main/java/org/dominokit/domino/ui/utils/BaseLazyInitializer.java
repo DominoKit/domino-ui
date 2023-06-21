@@ -19,6 +19,12 @@ import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 
+/**
+ * Abstract BaseLazyInitializer class.
+ *
+ * @author vegegoku
+ * @version $Id: $Id
+ */
 public abstract class BaseLazyInitializer<T extends BaseLazyInitializer<T>> {
 
   private LambdaFunction function;
@@ -29,6 +35,11 @@ public abstract class BaseLazyInitializer<T extends BaseLazyInitializer<T>> {
   private Set<LambdaFunction> doOnce = new HashSet<>();
   private Set<LambdaFunction> doOnReset = new HashSet<>();
 
+  /**
+   * Constructor for BaseLazyInitializer.
+   *
+   * @param function a {@link org.dominokit.domino.ui.utils.LambdaFunction} object
+   */
   public BaseLazyInitializer(LambdaFunction function) {
     this.function = function;
     this.originalFunction = function;
@@ -45,6 +56,11 @@ public abstract class BaseLazyInitializer<T extends BaseLazyInitializer<T>> {
         };
   }
 
+  /**
+   * apply.
+   *
+   * @return a T object
+   */
   public T apply() {
     if (!initialized) {
       function.apply();
@@ -58,6 +74,12 @@ public abstract class BaseLazyInitializer<T extends BaseLazyInitializer<T>> {
     return (T) this;
   }
 
+  /**
+   * ifInitialized.
+   *
+   * @param lambdaFunction a {@link org.dominokit.domino.ui.utils.LambdaFunction} object
+   * @return a T object
+   */
   public T ifInitialized(LambdaFunction lambdaFunction) {
     if (isInitialized()) {
       lambdaFunction.apply();
@@ -65,6 +87,12 @@ public abstract class BaseLazyInitializer<T extends BaseLazyInitializer<T>> {
     return (T) this;
   }
 
+  /**
+   * whenInitialized.
+   *
+   * @param functions a {@link org.dominokit.domino.ui.utils.LambdaFunction} object
+   * @return a T object
+   */
   public T whenInitialized(LambdaFunction... functions) {
     if (isInitialized()) {
       for (LambdaFunction func : functions) {
@@ -76,6 +104,12 @@ public abstract class BaseLazyInitializer<T extends BaseLazyInitializer<T>> {
     return (T) this;
   }
 
+  /**
+   * doOnce.
+   *
+   * @param function a {@link org.dominokit.domino.ui.utils.LambdaFunction} object
+   * @return a T object
+   */
   public T doOnce(LambdaFunction function) {
     if (isInitialized()) {
       function.apply();
@@ -85,15 +119,27 @@ public abstract class BaseLazyInitializer<T extends BaseLazyInitializer<T>> {
     return (T) this;
   }
 
+  /**
+   * onReset.
+   *
+   * @param function a {@link org.dominokit.domino.ui.utils.LambdaFunction} object
+   * @return a T object
+   */
   public T onReset(LambdaFunction function) {
     doOnReset.add(function);
     return (T) this;
   }
 
+  /**
+   * isInitialized.
+   *
+   * @return a boolean
+   */
   public boolean isInitialized() {
     return initialized;
   }
 
+  /** reset. */
   public void reset() {
     if (isInitialized()) {
       this.function = this.originalFunction;

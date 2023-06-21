@@ -15,6 +15,12 @@
  */
 package org.dominokit.domino.ui.datepicker;
 
+/**
+ * Pattern class.
+ *
+ * @author vegegoku
+ * @version $Id: $Id
+ */
 public enum Pattern {
   /** A full date format */
   FULL,

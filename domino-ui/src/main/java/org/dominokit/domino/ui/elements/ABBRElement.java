@@ -17,11 +17,28 @@ package org.dominokit.domino.ui.elements;
 
 import elemental2.dom.HTMLElement;
 
+/**
+ * ABBRElement class.
+ *
+ * @author vegegoku
+ * @version $Id: $Id
+ */
 public class ABBRElement extends BaseElement<HTMLElement, ABBRElement> {
+  /**
+   * of.
+   *
+   * @param e a {@link elemental2.dom.HTMLElement} object
+   * @return a {@link org.dominokit.domino.ui.elements.ABBRElement} object
+   */
   public static ABBRElement of(HTMLElement e) {
     return new ABBRElement(e);
   }
 
+  /**
+   * Constructor for ABBRElement.
+   *
+   * @param element a {@link elemental2.dom.HTMLElement} object
+   */
   public ABBRElement(HTMLElement element) {
     super(element);
   }

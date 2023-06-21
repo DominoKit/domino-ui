@@ -47,6 +47,9 @@ import org.dominokit.domino.ui.utils.HasChangeListeners;
  *         .setStep(1)
  *         .setWithThumb(true);
  * </pre>
+ *
+ * @author vegegoku
+ * @version $Id: $Id
  */
 public class Slider extends BaseDominoElement<HTMLDivElement, Slider>
     implements HasChangeListeners<Slider, Double>, SliderStyles {
@@ -61,6 +64,8 @@ public class Slider extends BaseDominoElement<HTMLDivElement, Slider>
   private boolean changeListenersPaused;
 
   /**
+   * create.
+   *
    * @param max double value
    * @return new Slider instance initialized with the max value and its value is 0, also its min
    *     value is 0
@@ -70,6 +75,8 @@ public class Slider extends BaseDominoElement<HTMLDivElement, Slider>
   }
 
   /**
+   * create.
+   *
    * @param max double
    * @param min double
    * @return new Slider instance initialized with the max and min values and its value is 0
@@ -79,6 +86,8 @@ public class Slider extends BaseDominoElement<HTMLDivElement, Slider>
   }
 
   /**
+   * create.
+   *
    * @param max double
    * @param min double
    * @param value double
@@ -162,34 +171,40 @@ public class Slider extends BaseDominoElement<HTMLDivElement, Slider>
     return percent * width + input.element().offsetLeft;
   }
 
+  /** {@inheritDoc} */
   @Override
   public Slider pauseChangeListeners() {
     this.changeListenersPaused = true;
     return this;
   }
 
+  /** {@inheritDoc} */
   @Override
   public Slider resumeChangeListeners() {
     this.changeListenersPaused = false;
     return this;
   }
 
+  /** {@inheritDoc} */
   @Override
   public Slider togglePauseChangeListeners(boolean toggle) {
     this.changeListenersPaused = toggle;
     return this;
   }
 
+  /** {@inheritDoc} */
   @Override
   public Set<ChangeListener<? super Double>> getChangeListeners() {
     return changeListeners;
   }
 
+  /** {@inheritDoc} */
   @Override
   public boolean isChangeListenersPaused() {
     return this.changeListenersPaused;
   }
 
+  /** {@inheritDoc} */
   @Override
   public Slider triggerChangeListeners(Double oldValue, Double newValue) {
     if (!isChangeListenersPaused()) {
@@ -213,12 +228,23 @@ public class Slider extends BaseDominoElement<HTMLDivElement, Slider>
     thumb.collapse();
   }
 
+  /**
+   * withThumb.
+   *
+   * @param handler a {@link org.dominokit.domino.ui.utils.ChildHandler} object
+   * @return a {@link org.dominokit.domino.ui.sliders.Slider} object
+   */
   public Slider withThumb(ChildHandler<Slider, SpanElement> handler) {
     setShowThumb(true);
     handler.apply(this, thumb);
     return this;
   }
 
+  /**
+   * withThumb.
+   *
+   * @return a {@link org.dominokit.domino.ui.sliders.Slider} object
+   */
   public Slider withThumb() {
     setShowThumb(true);
     return this;
@@ -231,6 +257,8 @@ public class Slider extends BaseDominoElement<HTMLDivElement, Slider>
   }
 
   /**
+   * setMaxValue.
+   *
    * @param max double max value
    * @return same Slider instance
    */
@@ -240,6 +268,8 @@ public class Slider extends BaseDominoElement<HTMLDivElement, Slider>
   }
 
   /**
+   * setMinValue.
+   *
    * @param min double min value
    * @return same Slider instance
    */
@@ -249,6 +279,8 @@ public class Slider extends BaseDominoElement<HTMLDivElement, Slider>
   }
 
   /**
+   * setValue.
+   *
    * @param newValue double value
    * @param silent boolean, if true change handler wont be triggered
    * @return same Slider instance
@@ -264,6 +296,8 @@ public class Slider extends BaseDominoElement<HTMLDivElement, Slider>
   }
 
   /**
+   * setValue.
+   *
    * @param newValue double value
    * @return same Slider instance
    */
@@ -272,6 +306,8 @@ public class Slider extends BaseDominoElement<HTMLDivElement, Slider>
   }
 
   /**
+   * setStep.
+   *
    * @param step double value increment while dragging the pointer
    * @return same Slider instance
    */
@@ -291,21 +327,38 @@ public class Slider extends BaseDominoElement<HTMLDivElement, Slider>
   }
 
   /** @return double max value of this Slider */
+  /**
+   * getMax.
+   *
+   * @return a double
+   */
   public double getMax() {
     return Double.parseDouble(input.element().max);
   }
 
   /** @return double min value of this Slider */
+  /**
+   * getMin.
+   *
+   * @return a double
+   */
   public double getMin() {
     return Double.parseDouble(input.element().min);
   }
 
   /** @return double value of the Slider */
+  /**
+   * getValue.
+   *
+   * @return a double
+   */
   public double getValue() {
     return input.element().valueAsNumber;
   }
 
   /**
+   * setShowThumb.
+   *
    * @param withThumb boolean, if true the slider will show a thumb over the pointer that shows the
    *     slider value while dragging
    * @return same Slider instance

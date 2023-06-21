@@ -15,15 +15,45 @@
  */
 package org.dominokit.domino.ui.utils;
 
+/**
+ * HasMinMaxValue interface.
+ *
+ * @author vegegoku
+ * @version $Id: $Id
+ */
 public interface HasMinMaxValue<T, V> {
+  /** Constant <code>MAX_VALUE="max"</code> */
   String MAX_VALUE = "max";
+  /** Constant <code>MIN_VALUE="min"</code> */
   String MIN_VALUE = "min";
 
+  /**
+   * getMaxValue.
+   *
+   * @return a V object
+   */
   V getMaxValue();
 
+  /**
+   * setMaxValue.
+   *
+   * @param maxValue a V object
+   * @return a T object
+   */
   T setMaxValue(V maxValue);
 
+  /**
+   * getMinValue.
+   *
+   * @return a V object
+   */
   V getMinValue();
 
+  /**
+   * setMinValue.
+   *
+   * @param minLength a V object
+   * @return a T object
+   */
   T setMinValue(V minLength);
 }

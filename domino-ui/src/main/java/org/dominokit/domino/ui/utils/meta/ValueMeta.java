@@ -19,27 +19,60 @@ import java.util.Optional;
 import org.dominokit.domino.ui.utils.ComponentMeta;
 import org.dominokit.domino.ui.utils.HasMeta;
 
+/**
+ * ValueMeta class.
+ *
+ * @author vegegoku
+ * @version $Id: $Id
+ */
 public class ValueMeta<T> implements ComponentMeta {
 
+  /** Constant <code>VALUE_META="dui-value-meta"</code> */
   public static final String VALUE_META = "dui-value-meta";
+
   private final T value;
 
+  /**
+   * of.
+   *
+   * @param value a T object
+   * @param <T> a T class
+   * @return a {@link org.dominokit.domino.ui.utils.meta.ValueMeta} object
+   */
   public static <T> ValueMeta<T> of(T value) {
     return new ValueMeta<>(value);
   }
 
+  /**
+   * Constructor for ValueMeta.
+   *
+   * @param value a T object
+   */
   public ValueMeta(T value) {
     this.value = value;
   }
 
+  /**
+   * get.
+   *
+   * @param component a {@link org.dominokit.domino.ui.utils.HasMeta} object
+   * @param <T> a T class
+   * @return a {@link java.util.Optional} object
+   */
   public static <T> Optional<ValueMeta<T>> get(HasMeta<?> component) {
     return component.getMeta(VALUE_META);
   }
 
+  /**
+   * Getter for the field <code>value</code>.
+   *
+   * @return a T object
+   */
   public T getValue() {
     return value;
   }
 
+  /** {@inheritDoc} */
   @Override
   public String getKey() {
     return VALUE_META;

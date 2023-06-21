@@ -32,6 +32,8 @@ import org.dominokit.domino.ui.utils.DominoElement;
  * @param <T> The type of the component extending from this class
  * @see TelephoneBox
  * @see EmailBox
+ * @author vegegoku
+ * @version $Id: $Id
  */
 public abstract class CustomInputBox<T extends CustomInputBox<T>>
     extends TextInputFormField<T, HTMLInputElement, String> implements HasInputDataList<T> {
@@ -61,6 +63,7 @@ public abstract class CustomInputBox<T extends CustomInputBox<T>>
     setAutoValidation(true);
   }
 
+  /** {@inheritDoc} */
   @Override
   protected DominoElement<HTMLInputElement> createInputElement(String type) {
     return input(type).addCss(dui_field_input).toDominoElement();
@@ -103,17 +106,18 @@ public abstract class CustomInputBox<T extends CustomInputBox<T>>
     return getValue();
   }
 
-  /**
-   * @param emptyAsNull boolean, if true empty value will be treated as null otherwise it is empty
-   *     string
-   * @return same implementing component instance
-   */
+  /** {@inheritDoc} */
   public T setEmptyAsNull(boolean emptyAsNull) {
     this.emptyAsNull = emptyAsNull;
     return (T) this;
   }
 
   /** @return boolean, if true empty value will be treated as null otherwise it is empty string */
+  /**
+   * isEmptyAsNull.
+   *
+   * @return a boolean
+   */
   public boolean isEmptyAsNull() {
     return emptyAsNull;
   }
@@ -124,11 +128,13 @@ public abstract class CustomInputBox<T extends CustomInputBox<T>>
     return new InputAutoValidator(autoValidate, getInputElement());
   }
 
+  /** {@inheritDoc} */
   @Override
   public DataListElement getDataListElement() {
     return dataListElement;
   }
 
+  /** {@inheritDoc} */
   @Override
   public Map<String, OptionElement> getDataListOptions() {
     return dataListOptions;

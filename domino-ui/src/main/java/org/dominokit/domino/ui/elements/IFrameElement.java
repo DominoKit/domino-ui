@@ -17,11 +17,28 @@ package org.dominokit.domino.ui.elements;
 
 import elemental2.dom.HTMLIFrameElement;
 
+/**
+ * IFrameElement class.
+ *
+ * @author vegegoku
+ * @version $Id: $Id
+ */
 public class IFrameElement extends BaseElement<HTMLIFrameElement, IFrameElement> {
+  /**
+   * of.
+   *
+   * @param e a {@link elemental2.dom.HTMLIFrameElement} object
+   * @return a {@link org.dominokit.domino.ui.elements.IFrameElement} object
+   */
   public static IFrameElement of(HTMLIFrameElement e) {
     return new IFrameElement(e);
   }
 
+  /**
+   * Constructor for IFrameElement.
+   *
+   * @param element a {@link elemental2.dom.HTMLIFrameElement} object
+   */
   public IFrameElement(HTMLIFrameElement element) {
     super(element);
   }

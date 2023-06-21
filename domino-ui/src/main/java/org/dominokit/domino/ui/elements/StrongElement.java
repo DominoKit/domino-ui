@@ -17,11 +17,28 @@ package org.dominokit.domino.ui.elements;
 
 import elemental2.dom.HTMLElement;
 
+/**
+ * StrongElement class.
+ *
+ * @author vegegoku
+ * @version $Id: $Id
+ */
 public class StrongElement extends BaseElement<HTMLElement, StrongElement> {
+  /**
+   * of.
+   *
+   * @param e a {@link elemental2.dom.HTMLElement} object
+   * @return a {@link org.dominokit.domino.ui.elements.StrongElement} object
+   */
   public static StrongElement of(HTMLElement e) {
     return new StrongElement(e);
   }
 
+  /**
+   * Constructor for StrongElement.
+   *
+   * @param element a {@link elemental2.dom.HTMLElement} object
+   */
   public StrongElement(HTMLElement element) {
     super(element);
   }

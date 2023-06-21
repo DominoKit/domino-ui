@@ -18,15 +18,27 @@ package org.dominokit.domino.ui.forms;
 import java.math.BigDecimal;
 import java.util.function.Function;
 
-/** A component that has an input to take/provide BigDecimal value */
+/**
+ * A component that has an input to take/provide BigDecimal value
+ *
+ * @author vegegoku
+ * @version $Id: $Id
+ */
 public class BigDecimalBox extends NumberBox<BigDecimalBox, BigDecimal> {
 
   /** @return a new instance without a label */
+  /**
+   * create.
+   *
+   * @return a {@link org.dominokit.domino.ui.forms.BigDecimalBox} object
+   */
   public static BigDecimalBox create() {
     return new BigDecimalBox();
   }
 
   /**
+   * create.
+   *
    * @param label String
    * @return new instance with a label
    */
@@ -49,11 +61,7 @@ public class BigDecimalBox extends NumberBox<BigDecimalBox, BigDecimal> {
     setLabel(label);
   }
 
-  /**
-   * {@inheritDoc}
-   *
-   * @return
-   */
+  /** {@inheritDoc} */
   @Override
   protected Function<String, BigDecimal> defaultValueParser() {
     return getConfig().getNumberParsers().bigDecimalParser(this);

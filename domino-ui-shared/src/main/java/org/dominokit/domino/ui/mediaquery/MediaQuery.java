@@ -48,6 +48,9 @@ import jsinterop.base.Js;
  *   <li>{@code min-width} is between 768px and 992px, the size is small
  *   <li>{@code min-width} is less than 768px, the size is X small
  * </ul>
+ *
+ * @author vegegoku
+ * @version $Id: $Id
  */
 public class MediaQuery {
 
@@ -103,7 +106,9 @@ public class MediaQuery {
   /**
    * Adds listener when media query is X large
    *
-   * @param listener A {@link MediaQueryListener}
+   * @param listener A {@link org.dominokit.domino.ui.mediaquery.MediaQuery.MediaQueryListener}
+   * @return a {@link org.dominokit.domino.ui.mediaquery.MediaQuery.MediaQueryListenerRecord}
+   *     object.
    */
   public static MediaQueryListenerRecord addOnXLargeListener(MediaQueryListener listener) {
     return addListener(listener, xLargeMediaQueryList);
@@ -112,7 +117,9 @@ public class MediaQuery {
   /**
    * Adds listener when media query is large
    *
-   * @param listener A {@link MediaQueryListener}
+   * @param listener A {@link org.dominokit.domino.ui.mediaquery.MediaQuery.MediaQueryListener}
+   * @return a {@link org.dominokit.domino.ui.mediaquery.MediaQuery.MediaQueryListenerRecord}
+   *     object.
    */
   public static MediaQueryListenerRecord addOnLargeListener(MediaQueryListener listener) {
     return addListener(listener, largeMediaQueryList);
@@ -121,7 +128,9 @@ public class MediaQuery {
   /**
    * Adds listener when media query is medium
    *
-   * @param listener A {@link MediaQueryListener}
+   * @param listener A {@link org.dominokit.domino.ui.mediaquery.MediaQuery.MediaQueryListener}
+   * @return a {@link org.dominokit.domino.ui.mediaquery.MediaQuery.MediaQueryListenerRecord}
+   *     object.
    */
   public static MediaQueryListenerRecord addOnMediumListener(MediaQueryListener listener) {
     return addListener(listener, mediumMediaQueryList);
@@ -130,7 +139,9 @@ public class MediaQuery {
   /**
    * Adds listener when media query is small
    *
-   * @param listener A {@link MediaQueryListener}
+   * @param listener A {@link org.dominokit.domino.ui.mediaquery.MediaQuery.MediaQueryListener}
+   * @return a {@link org.dominokit.domino.ui.mediaquery.MediaQuery.MediaQueryListenerRecord}
+   *     object.
    */
   public static MediaQueryListenerRecord addOnSmallListener(MediaQueryListener listener) {
     return addListener(listener, smallMediaQueryList);
@@ -139,7 +150,9 @@ public class MediaQuery {
   /**
    * Adds listener when media query is X small
    *
-   * @param listener A {@link MediaQueryListener}
+   * @param listener A {@link org.dominokit.domino.ui.mediaquery.MediaQuery.MediaQueryListener}
+   * @return a {@link org.dominokit.domino.ui.mediaquery.MediaQuery.MediaQueryListenerRecord}
+   *     object.
    */
   public static MediaQueryListenerRecord addOnXSmallListener(MediaQueryListener listener) {
     return addListener(listener, xSmallMediaQueryList);
@@ -148,7 +161,9 @@ public class MediaQuery {
   /**
    * Adds listener when media query is X large and more
    *
-   * @param listener A {@link MediaQueryListener}
+   * @param listener A {@link org.dominokit.domino.ui.mediaquery.MediaQuery.MediaQueryListener}
+   * @return a {@link org.dominokit.domino.ui.mediaquery.MediaQuery.MediaQueryListenerRecord}
+   *     object.
    */
   public static MediaQueryListenerRecord addOnXLargeAndUpListener(MediaQueryListener listener) {
     return addListener(listener, xLargeAndUpMediaQueryList);
@@ -157,7 +172,9 @@ public class MediaQuery {
   /**
    * Adds listener when media query is large and more
    *
-   * @param listener A {@link MediaQueryListener}
+   * @param listener A {@link org.dominokit.domino.ui.mediaquery.MediaQuery.MediaQueryListener}
+   * @return a {@link org.dominokit.domino.ui.mediaquery.MediaQuery.MediaQueryListenerRecord}
+   *     object.
    */
   public static MediaQueryListenerRecord addOnLargeAndUpListener(MediaQueryListener listener) {
     return addListener(listener, largeAndUpMediaQueryList);
@@ -166,7 +183,9 @@ public class MediaQuery {
   /**
    * Adds listener when media query is medium and more
    *
-   * @param listener A {@link MediaQueryListener}
+   * @param listener A {@link org.dominokit.domino.ui.mediaquery.MediaQuery.MediaQueryListener}
+   * @return a {@link org.dominokit.domino.ui.mediaquery.MediaQuery.MediaQueryListenerRecord}
+   *     object.
    */
   public static MediaQueryListenerRecord addOnMediumAndUpListener(MediaQueryListener listener) {
     return addListener(listener, mediumAndUpMediaQueryList);
@@ -175,7 +194,9 @@ public class MediaQuery {
   /**
    * Adds listener when media query is small and more
    *
-   * @param listener A {@link MediaQueryListener}
+   * @param listener A {@link org.dominokit.domino.ui.mediaquery.MediaQuery.MediaQueryListener}
+   * @return a {@link org.dominokit.domino.ui.mediaquery.MediaQuery.MediaQueryListenerRecord}
+   *     object.
    */
   public static MediaQueryListenerRecord addOnSmallAndUpListener(MediaQueryListener listener) {
     return addListener(listener, smallAndUpMediaQueryList);
@@ -184,7 +205,9 @@ public class MediaQuery {
   /**
    * Adds listener when media query is X small and more
    *
-   * @param listener A {@link MediaQueryListener}
+   * @param listener A {@link org.dominokit.domino.ui.mediaquery.MediaQuery.MediaQueryListener}
+   * @return a {@link org.dominokit.domino.ui.mediaquery.MediaQuery.MediaQueryListenerRecord}
+   *     object.
    */
   public static MediaQueryListenerRecord addOnXSmallAndUpListener(MediaQueryListener listener) {
     return addListener(listener, xSmallAndUpMediaQueryList);
@@ -193,7 +216,9 @@ public class MediaQuery {
   /**
    * Adds listener when media query orientation is portrait
    *
-   * @param listener A {@link MediaQueryListener}
+   * @param listener A {@link org.dominokit.domino.ui.mediaquery.MediaQuery.MediaQueryListener}
+   * @return a {@link org.dominokit.domino.ui.mediaquery.MediaQuery.MediaQueryListenerRecord}
+   *     object.
    */
   public static MediaQueryListenerRecord addPortraitOrientationListener(
       MediaQueryListener listener) {
@@ -203,7 +228,9 @@ public class MediaQuery {
   /**
    * Adds listener when media query orientation is landscape
    *
-   * @param listener A {@link MediaQueryListener}
+   * @param listener A {@link org.dominokit.domino.ui.mediaquery.MediaQuery.MediaQueryListener}
+   * @return a {@link org.dominokit.domino.ui.mediaquery.MediaQuery.MediaQueryListenerRecord}
+   *     object.
    */
   public static MediaQueryListenerRecord addLandscapeOrientationListener(
       MediaQueryListener listener) {
@@ -213,7 +240,9 @@ public class MediaQuery {
   /**
    * Adds listener when media query is X large and less
    *
-   * @param listener A {@link MediaQueryListener}
+   * @param listener A {@link org.dominokit.domino.ui.mediaquery.MediaQuery.MediaQueryListener}
+   * @return a {@link org.dominokit.domino.ui.mediaquery.MediaQuery.MediaQueryListenerRecord}
+   *     object.
    */
   public static MediaQueryListenerRecord addOnXLargeAndDownListener(MediaQueryListener listener) {
     return addListener(listener, xLargeAndDownMediaQueryList);
@@ -222,7 +251,9 @@ public class MediaQuery {
   /**
    * Adds listener when media query is large and less
    *
-   * @param listener A {@link MediaQueryListener}
+   * @param listener A {@link org.dominokit.domino.ui.mediaquery.MediaQuery.MediaQueryListener}
+   * @return a {@link org.dominokit.domino.ui.mediaquery.MediaQuery.MediaQueryListenerRecord}
+   *     object.
    */
   public static MediaQueryListenerRecord addOnLargeAndDownListener(MediaQueryListener listener) {
     return addListener(listener, largeAndDownMediaQueryList);
@@ -231,7 +262,9 @@ public class MediaQuery {
   /**
    * Adds listener when media query is medium and less
    *
-   * @param listener A {@link MediaQueryListener}
+   * @param listener A {@link org.dominokit.domino.ui.mediaquery.MediaQuery.MediaQueryListener}
+   * @return a {@link org.dominokit.domino.ui.mediaquery.MediaQuery.MediaQueryListenerRecord}
+   *     object.
    */
   public static MediaQueryListenerRecord addOnMediumAndDownListener(MediaQueryListener listener) {
     return addListener(listener, mediumAndDownMediaQueryList);
@@ -240,7 +273,9 @@ public class MediaQuery {
   /**
    * Adds listener when media query is small and less
    *
-   * @param listener A {@link MediaQueryListener}
+   * @param listener A {@link org.dominokit.domino.ui.mediaquery.MediaQuery.MediaQueryListener}
+   * @return a {@link org.dominokit.domino.ui.mediaquery.MediaQuery.MediaQueryListenerRecord}
+   *     object.
    */
   public static MediaQueryListenerRecord addOnSmallAndDownListener(MediaQueryListener listener) {
     return addListener(listener, smallAndDownMediaQueryList);
@@ -249,7 +284,9 @@ public class MediaQuery {
   /**
    * Adds listener when media query is X small and less
    *
-   * @param listener A {@link MediaQueryListener}
+   * @param listener A {@link org.dominokit.domino.ui.mediaquery.MediaQuery.MediaQueryListener}
+   * @return a {@link org.dominokit.domino.ui.mediaquery.MediaQuery.MediaQueryListenerRecord}
+   *     object.
    */
   public static MediaQueryListenerRecord addOnXSmallAndDownListener(MediaQueryListener listener) {
     return addListener(listener, xSmallAndDownMediaQueryList);
@@ -272,7 +309,8 @@ public class MediaQuery {
   /**
    * Removes X large listener
    *
-   * @param listener the {@link MediaQueryListener} to remove
+   * @param listener the {@link org.dominokit.domino.ui.mediaquery.MediaQuery.MediaQueryListener} to
+   *     remove
    */
   public static void removeOnXLargeListener(MediaQueryListener listener) {
     removeListener(listener, xLargeMediaQueryList);
@@ -281,7 +319,8 @@ public class MediaQuery {
   /**
    * Removes large listener
    *
-   * @param listener the {@link MediaQueryListener} to remove
+   * @param listener the {@link org.dominokit.domino.ui.mediaquery.MediaQuery.MediaQueryListener} to
+   *     remove
    */
   public static void removeOnLargeListener(MediaQueryListener listener) {
     removeListener(listener, largeMediaQueryList);
@@ -290,7 +329,8 @@ public class MediaQuery {
   /**
    * Removes medium listener
    *
-   * @param listener the {@link MediaQueryListener} to remove
+   * @param listener the {@link org.dominokit.domino.ui.mediaquery.MediaQuery.MediaQueryListener} to
+   *     remove
    */
   public static void removeOnMediumListener(MediaQueryListener listener) {
     removeListener(listener, mediumMediaQueryList);
@@ -299,7 +339,8 @@ public class MediaQuery {
   /**
    * Removes small listener
    *
-   * @param listener the {@link MediaQueryListener} to remove
+   * @param listener the {@link org.dominokit.domino.ui.mediaquery.MediaQuery.MediaQueryListener} to
+   *     remove
    */
   public static void removeOnSmallListener(MediaQueryListener listener) {
     removeListener(listener, smallMediaQueryList);
@@ -308,7 +349,8 @@ public class MediaQuery {
   /**
    * Removes X small listener
    *
-   * @param listener the {@link MediaQueryListener} to remove
+   * @param listener the {@link org.dominokit.domino.ui.mediaquery.MediaQuery.MediaQueryListener} to
+   *     remove
    */
   public static void removeOnXSmallListener(MediaQueryListener listener) {
     removeListener(listener, xSmallMediaQueryList);
@@ -317,7 +359,8 @@ public class MediaQuery {
   /**
    * Removes X large and more listener
    *
-   * @param listener the {@link MediaQueryListener} to remove
+   * @param listener the {@link org.dominokit.domino.ui.mediaquery.MediaQuery.MediaQueryListener} to
+   *     remove
    */
   public static void removeOnXLargeAndUpListener(MediaQueryListener listener) {
     removeListener(listener, xLargeAndUpMediaQueryList);
@@ -326,7 +369,8 @@ public class MediaQuery {
   /**
    * Removes large and more listener
    *
-   * @param listener the {@link MediaQueryListener} to remove
+   * @param listener the {@link org.dominokit.domino.ui.mediaquery.MediaQuery.MediaQueryListener} to
+   *     remove
    */
   public static void removeOnLargeAndUpListener(MediaQueryListener listener) {
     removeListener(listener, largeAndUpMediaQueryList);
@@ -335,7 +379,8 @@ public class MediaQuery {
   /**
    * Removes medium and more listener
    *
-   * @param listener the {@link MediaQueryListener} to remove
+   * @param listener the {@link org.dominokit.domino.ui.mediaquery.MediaQuery.MediaQueryListener} to
+   *     remove
    */
   public static void removeOnMediumAndUpListener(MediaQueryListener listener) {
     removeListener(listener, mediumAndUpMediaQueryList);
@@ -344,7 +389,8 @@ public class MediaQuery {
   /**
    * Removes small and more listener
    *
-   * @param listener the {@link MediaQueryListener} to remove
+   * @param listener the {@link org.dominokit.domino.ui.mediaquery.MediaQuery.MediaQueryListener} to
+   *     remove
    */
   public static void removeOnSmallAndUpListener(MediaQueryListener listener) {
     removeListener(listener, smallAndUpMediaQueryList);
@@ -353,7 +399,8 @@ public class MediaQuery {
   /**
    * Removes X small and more listener
    *
-   * @param listener the {@link MediaQueryListener} to remove
+   * @param listener the {@link org.dominokit.domino.ui.mediaquery.MediaQuery.MediaQueryListener} to
+   *     remove
    */
   public static void removeOnXSmallAndUpListener(MediaQueryListener listener) {
     removeListener(listener, xSmallMediaQueryList);
@@ -362,7 +409,8 @@ public class MediaQuery {
   /**
    * Removes X large and less listener
    *
-   * @param listener the {@link MediaQueryListener} to remove
+   * @param listener the {@link org.dominokit.domino.ui.mediaquery.MediaQuery.MediaQueryListener} to
+   *     remove
    */
   public static void removeOnXLargeAndDownListener(MediaQueryListener listener) {
     removeListener(listener, xLargeAndDownMediaQueryList);
@@ -371,7 +419,8 @@ public class MediaQuery {
   /**
    * Removes large and less listener
    *
-   * @param listener the {@link MediaQueryListener} to remove
+   * @param listener the {@link org.dominokit.domino.ui.mediaquery.MediaQuery.MediaQueryListener} to
+   *     remove
    */
   public static void removeOnLargeAndDownListener(MediaQueryListener listener) {
     removeListener(listener, largeAndDownMediaQueryList);
@@ -380,7 +429,8 @@ public class MediaQuery {
   /**
    * Removes medium and less listener
    *
-   * @param listener the {@link MediaQueryListener} to remove
+   * @param listener the {@link org.dominokit.domino.ui.mediaquery.MediaQuery.MediaQueryListener} to
+   *     remove
    */
   public static void removeOnMediumAndDownListener(MediaQueryListener listener) {
     removeListener(listener, mediumAndDownMediaQueryList);
@@ -389,7 +439,8 @@ public class MediaQuery {
   /**
    * Removes small and less listener
    *
-   * @param listener the {@link MediaQueryListener} to remove
+   * @param listener the {@link org.dominokit.domino.ui.mediaquery.MediaQuery.MediaQueryListener} to
+   *     remove
    */
   public static void removeOnSmallAndDownListener(MediaQueryListener listener) {
     removeListener(listener, smallAndDownMediaQueryList);
@@ -398,7 +449,8 @@ public class MediaQuery {
   /**
    * Removes X small and less listener
    *
-   * @param listener the {@link MediaQueryListener} to remove
+   * @param listener the {@link org.dominokit.domino.ui.mediaquery.MediaQuery.MediaQueryListener} to
+   *     remove
    */
   public static void removeOnXSmallAndDownListener(MediaQueryListener listener) {
     removeListener(listener, xSmallAndDownMediaQueryList);
@@ -415,7 +467,10 @@ public class MediaQuery {
    * Adds media query listener with custom size based on the CSS conventions
    *
    * @param mediaQuery A text representing the custom query
-   * @param listener A {@link MediaQueryListener} to add
+   * @param listener A {@link org.dominokit.domino.ui.mediaquery.MediaQuery.MediaQueryListener} to
+   *     add
+   * @return a {@link org.dominokit.domino.ui.mediaquery.MediaQuery.MediaQueryListenerRecord}
+   *     object.
    */
   public static MediaQueryListenerRecord addCustomQueryListener(
       String mediaQuery, MediaQueryListener listener) {
@@ -432,7 +487,8 @@ public class MediaQuery {
    * Removes custom media query listener
    *
    * @param mediaQuery A text representing the custom query
-   * @param listener A {@link MediaQueryListener} to add
+   * @param listener A {@link org.dominokit.domino.ui.mediaquery.MediaQuery.MediaQueryListener} to
+   *     add
    */
   public static void removeCustomQueryListener(String mediaQuery, MediaQueryListener listener) {
     if (MEDIA_QUERIES.containsKey(mediaQuery)) {

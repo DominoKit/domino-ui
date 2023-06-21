@@ -17,11 +17,28 @@ package org.dominokit.domino.ui.elements;
 
 import elemental2.dom.HTMLMapElement;
 
+/**
+ * MapElement class.
+ *
+ * @author vegegoku
+ * @version $Id: $Id
+ */
 public class MapElement extends BaseElement<HTMLMapElement, MapElement> {
+  /**
+   * of.
+   *
+   * @param e a {@link elemental2.dom.HTMLMapElement} object
+   * @return a {@link org.dominokit.domino.ui.elements.MapElement} object
+   */
   public static MapElement of(HTMLMapElement e) {
     return new MapElement(e);
   }
 
+  /**
+   * Constructor for MapElement.
+   *
+   * @param element a {@link elemental2.dom.HTMLMapElement} object
+   */
   public MapElement(HTMLMapElement element) {
     super(element);
   }

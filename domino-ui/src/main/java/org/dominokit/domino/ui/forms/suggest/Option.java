@@ -27,6 +27,12 @@ import org.dominokit.domino.ui.utils.BaseDominoElement;
 import org.dominokit.domino.ui.utils.ChildHandler;
 import org.dominokit.domino.ui.utils.MatchHighlighter;
 
+/**
+ * Abstract Option class.
+ *
+ * @author vegegoku
+ * @version $Id: $Id
+ */
 public abstract class Option<V, C extends IsElement<?>, O extends Option<V, C, O>>
     extends BaseDominoElement<Element, Option<V, C, O>> {
 
@@ -37,6 +43,14 @@ public abstract class Option<V, C extends IsElement<?>, O extends Option<V, C, O
   private final V value;
   protected HasSuggestOptions<V, C, O> target;
 
+  /**
+   * Constructor for Option.
+   *
+   * @param key a {@link java.lang.String} object
+   * @param value a V object
+   * @param component a C object
+   * @param menuItem a {@link org.dominokit.domino.ui.menu.AbstractMenuItem} object
+   */
   public Option(String key, V value, C component, AbstractMenuItem<V> menuItem) {
     this.key = key;
     this.value = value;
@@ -48,6 +62,16 @@ public abstract class Option<V, C extends IsElement<?>, O extends Option<V, C, O
     init(this);
   }
 
+  /**
+   * Constructor for Option.
+   *
+   * @param key a {@link java.lang.String} object
+   * @param value a V object
+   * @param componentSupplier a {@link org.dominokit.domino.ui.forms.suggest.Option.OptionSupplier}
+   *     object
+   * @param menuItemSupplier a {@link org.dominokit.domino.ui.forms.suggest.Option.OptionSupplier}
+   *     object
+   */
   public Option(
       String key,
       V value,
@@ -63,58 +87,118 @@ public abstract class Option<V, C extends IsElement<?>, O extends Option<V, C, O
     init(this);
   }
 
+  /**
+   * Getter for the field <code>component</code>.
+   *
+   * @return a C object
+   */
   public C getComponent() {
     return component;
   }
 
+  /**
+   * Getter for the field <code>menuItem</code>.
+   *
+   * @return a {@link org.dominokit.domino.ui.menu.AbstractMenuItem} object
+   */
   public AbstractMenuItem<V> getMenuItem() {
     return menuItem;
   }
 
+  /**
+   * Getter for the field <code>key</code>.
+   *
+   * @return a {@link java.lang.String} object
+   */
   public String getKey() {
     return key;
   }
 
+  /**
+   * Getter for the field <code>value</code>.
+   *
+   * @return a V object
+   */
   public V getValue() {
     return value;
   }
 
+  /**
+   * withMenuItem.
+   *
+   * @param handler a {@link org.dominokit.domino.ui.utils.ChildHandler} object
+   * @return a O object
+   */
   public O withMenuItem(ChildHandler<O, AbstractMenuItem<V>> handler) {
     handler.apply((O) this, menuItem);
     return (O) this;
   }
 
+  /**
+   * withComponent.
+   *
+   * @param handler a {@link org.dominokit.domino.ui.utils.ChildHandler} object
+   * @return a O object
+   */
   public O withComponent(ChildHandler<O, C> handler) {
     handler.apply((O) this, component);
     return (O) this;
   }
 
+  /** {@inheritDoc} */
   @Override
   public Element element() {
     return component.element();
   }
 
+  /**
+   * setSearchable.
+   *
+   * @param searchable a boolean
+   * @return a O object
+   */
   public O setSearchable(boolean searchable) {
     this.menuItem.setSearchable(searchable);
     return (O) this;
   }
 
+  /**
+   * highlight.
+   *
+   * @param displayValue a {@link java.lang.String} object
+   */
   public void highlight(String displayValue) {
     if (nonNull(displayValue) && displayValue.length() > 0) {
       highlightNode(menuItem.getClickableElement(), displayValue);
     }
   }
 
+  /**
+   * bindTo.
+   *
+   * @param target a {@link org.dominokit.domino.ui.forms.suggest.HasSuggestOptions} object
+   * @return a O object
+   */
   public O bindTo(HasSuggestOptions<V, C, O> target) {
     this.target = target;
     return (O) this;
   }
 
+  /**
+   * unbindTarget.
+   *
+   * @return a O object
+   */
   public O unbindTarget() {
     this.target = null;
     return (O) this;
   }
 
+  /**
+   * Getter for the field <code>target</code>.
+   *
+   * @return a {@link org.dominokit.domino.ui.forms.suggest.HasSuggestOptions} object
+   */
   public HasSuggestOptions<V, C, O> getTarget() {
     return target;
   }
@@ -150,11 +234,13 @@ public abstract class Option<V, C extends IsElement<?>, O extends Option<V, C, O
     T get(String key, V value);
   }
 
+  /** {@inheritDoc} */
   @Override
   public String toString() {
     return "Option{" + "key='" + key + '\'' + '}';
   }
 
+  /** {@inheritDoc} */
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
@@ -163,6 +249,7 @@ public abstract class Option<V, C extends IsElement<?>, O extends Option<V, C, O
     return Objects.equals(key, option.key);
   }
 
+  /** {@inheritDoc} */
   @Override
   public int hashCode() {
     return Objects.hash(key);

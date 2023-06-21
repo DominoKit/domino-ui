@@ -17,11 +17,28 @@ package org.dominokit.domino.ui.elements;
 
 import elemental2.dom.HTMLOptionElement;
 
+/**
+ * OptionElement class.
+ *
+ * @author vegegoku
+ * @version $Id: $Id
+ */
 public class OptionElement extends BaseElement<HTMLOptionElement, OptionElement> {
+  /**
+   * of.
+   *
+   * @param e a {@link elemental2.dom.HTMLOptionElement} object
+   * @return a {@link org.dominokit.domino.ui.elements.OptionElement} object
+   */
   public static OptionElement of(HTMLOptionElement e) {
     return new OptionElement(e);
   }
 
+  /**
+   * Constructor for OptionElement.
+   *
+   * @param element a {@link elemental2.dom.HTMLOptionElement} object
+   */
   public OptionElement(HTMLOptionElement element) {
     super(element);
   }

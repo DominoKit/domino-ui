@@ -18,7 +18,12 @@ package org.dominokit.domino.ui.icons;
 import org.dominokit.domino.ui.style.CssClass;
 import org.dominokit.domino.ui.style.SwapCssClass;
 
-/** Url icon implementation */
+/**
+ * Url icon implementation
+ *
+ * @author vegegoku
+ * @version $Id: $Id
+ */
 public class UrlIcon extends Icon<UrlIcon> implements CanChangeIcon<UrlIcon> {
 
   private final String url;

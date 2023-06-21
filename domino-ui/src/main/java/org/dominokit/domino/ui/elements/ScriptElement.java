@@ -17,11 +17,28 @@ package org.dominokit.domino.ui.elements;
 
 import elemental2.dom.HTMLScriptElement;
 
+/**
+ * ScriptElement class.
+ *
+ * @author vegegoku
+ * @version $Id: $Id
+ */
 public class ScriptElement extends BaseElement<HTMLScriptElement, ScriptElement> {
+  /**
+   * of.
+   *
+   * @param e a {@link elemental2.dom.HTMLScriptElement} object
+   * @return a {@link org.dominokit.domino.ui.elements.ScriptElement} object
+   */
   public static ScriptElement of(HTMLScriptElement e) {
     return new ScriptElement(e);
   }
 
+  /**
+   * Constructor for ScriptElement.
+   *
+   * @param element a {@link elemental2.dom.HTMLScriptElement} object
+   */
   public ScriptElement(HTMLScriptElement element) {
     super(element);
   }

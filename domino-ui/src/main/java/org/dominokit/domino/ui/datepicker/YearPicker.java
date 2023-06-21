@@ -21,6 +21,12 @@ import org.dominokit.domino.ui.elements.DivElement;
 import org.dominokit.domino.ui.style.BooleanCssClass;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
 
+/**
+ * YearPicker class.
+ *
+ * @author vegegoku
+ * @version $Id: $Id
+ */
 public class YearPicker extends BaseDominoElement<HTMLDivElement, YearPicker>
     implements CalendarStyles {
 
@@ -28,6 +34,12 @@ public class YearPicker extends BaseDominoElement<HTMLDivElement, YearPicker>
   private final int referenceYear;
   private final IsCalendar calendar;
 
+  /**
+   * Constructor for YearPicker.
+   *
+   * @param calendar a {@link org.dominokit.domino.ui.datepicker.IsCalendar} object
+   * @param referenceYear a int
+   */
   public YearPicker(IsCalendar calendar, int referenceYear) {
     this.referenceYear = referenceYear;
     this.calendar = calendar;
@@ -61,6 +73,13 @@ public class YearPicker extends BaseDominoElement<HTMLDivElement, YearPicker>
     init(this);
   }
 
+  /**
+   * create.
+   *
+   * @param calendar a {@link org.dominokit.domino.ui.datepicker.IsCalendar} object
+   * @param referenceYear a int
+   * @return a {@link org.dominokit.domino.ui.datepicker.YearPicker} object
+   */
   public static YearPicker create(IsCalendar calendar, int referenceYear) {
     return new YearPicker(calendar, referenceYear);
   }
@@ -73,10 +92,16 @@ public class YearPicker extends BaseDominoElement<HTMLDivElement, YearPicker>
     return year == this.calendar.getDate().getYear();
   }
 
+  /**
+   * Getter for the field <code>referenceYear</code>.
+   *
+   * @return a int
+   */
   public int getReferenceYear() {
     return referenceYear;
   }
 
+  /** {@inheritDoc} */
   @Override
   public HTMLDivElement element() {
     return root.element();

@@ -15,18 +15,46 @@
  */
 package org.dominokit.domino.ui.stepper;
 
+/**
+ * StepState interface.
+ *
+ * @author vegegoku
+ * @version $Id: $Id
+ */
 public interface StepState extends StepperStyles {
+  /** Constant <code>ACTIVE</code> */
   StepState ACTIVE = new ActiveStep();
+  /** Constant <code>INACTIVE</code> */
   StepState INACTIVE = new InactiveStep();
+  /** Constant <code>COMPLETED</code> */
   StepState COMPLETED = new CompletedStep();
+  /** Constant <code>DISABLED</code> */
   StepState DISABLED = new DisabledStep();
+  /** Constant <code>ERROR</code> */
   StepState ERROR = new ErrorStep();
+  /** Constant <code>WARNING</code> */
   StepState WARNING = new WarningStep();
+  /** Constant <code>SKIPPED</code> */
   StepState SKIPPED = new SkippedStep();
 
+  /**
+   * apply.
+   *
+   * @param tracker a {@link org.dominokit.domino.ui.stepper.StepTracker} object
+   */
   void apply(StepTracker tracker);
 
+  /**
+   * cleanUp.
+   *
+   * @param tracker a {@link org.dominokit.domino.ui.stepper.StepTracker} object
+   */
   void cleanUp(StepTracker tracker);
 
+  /**
+   * getKey.
+   *
+   * @return a {@link java.lang.String} object
+   */
   String getKey();
 }

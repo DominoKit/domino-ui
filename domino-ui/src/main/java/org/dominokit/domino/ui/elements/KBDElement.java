@@ -17,11 +17,28 @@ package org.dominokit.domino.ui.elements;
 
 import elemental2.dom.HTMLElement;
 
+/**
+ * KBDElement class.
+ *
+ * @author vegegoku
+ * @version $Id: $Id
+ */
 public class KBDElement extends BaseElement<HTMLElement, KBDElement> {
+  /**
+   * of.
+   *
+   * @param e a {@link elemental2.dom.HTMLElement} object
+   * @return a {@link org.dominokit.domino.ui.elements.KBDElement} object
+   */
   public static KBDElement of(HTMLElement e) {
     return new KBDElement(e);
   }
 
+  /**
+   * Constructor for KBDElement.
+   *
+   * @param element a {@link elemental2.dom.HTMLElement} object
+   */
   public KBDElement(HTMLElement element) {
     super(element);
   }

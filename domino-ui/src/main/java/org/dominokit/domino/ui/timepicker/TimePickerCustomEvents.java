@@ -22,9 +22,19 @@ import jsinterop.base.JsPropertyMap;
 
 class TimePickerCustomEvents {
 
+  /**
+   * Constant <code>DUI_TIMEPICKER_TIME_SELECTION_CHANGED="dui-timepicker-time-selection-changed"
+   * </code>
+   */
   public static final String DUI_TIMEPICKER_TIME_SELECTION_CHANGED =
       "dui-timepicker-time-selection-changed";
 
+  /**
+   * timeSelectionChanged.
+   *
+   * @param timestamp a {@link java.lang.Long} object
+   * @return a {@link elemental2.dom.CustomEvent} object
+   */
   public static CustomEvent<JsPropertyMap<Double>> timeSelectionChanged(Long timestamp) {
     CustomEventInit<JsPropertyMap<Double>> initOptions = Js.uncheckedCast(CustomEventInit.create());
     JsPropertyMap<Double> stringJsPropertyMap = Js.uncheckedCast(JsPropertyMap.of());

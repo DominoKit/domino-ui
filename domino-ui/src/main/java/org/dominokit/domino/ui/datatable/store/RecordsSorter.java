@@ -19,16 +19,21 @@ import java.util.Comparator;
 import org.dominokit.domino.ui.datatable.plugins.pagination.SortDirection;
 
 /**
- * An interface to implement the sort mechanism for a {@link LocalListDataStore}
+ * An interface to implement the sort mechanism for a {@link
+ * org.dominokit.domino.ui.datatable.store.LocalListDataStore}
  *
  * @param <T> the type of the data table records
+ * @author vegegoku
+ * @version $Id: $Id
  */
 @FunctionalInterface
 public interface RecordsSorter<T> {
   /**
+   * onSortChange.
+   *
    * @param sortBy String sort column name
-   * @param sortDirection {@link SortDirection}
-   * @return a {@link Comparator} to sort the records
+   * @param sortDirection {@link org.dominokit.domino.ui.datatable.plugins.pagination.SortDirection}
+   * @return a {@link java.util.Comparator} to sort the records
    */
   Comparator<T> onSortChange(String sortBy, SortDirection sortDirection);
 }

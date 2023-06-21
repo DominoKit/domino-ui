@@ -20,9 +20,12 @@ import org.dominokit.domino.ui.datatable.model.FilterTypes;
 import org.dominokit.domino.ui.forms.ShortBox;
 
 /**
- * Short number column header filter component that is rendered as a {@link ShortBox} component
+ * Short number column header filter component that is rendered as a {@link
+ * org.dominokit.domino.ui.forms.ShortBox} component
  *
  * @param <T> type of data table records
+ * @author vegegoku
+ * @version $Id: $Id
  */
 public class ShortHeaderFilter<T> extends DelayedHeaderFilterInput<ShortBox, T, Short> {
 
@@ -40,7 +43,13 @@ public class ShortHeaderFilter<T> extends DelayedHeaderFilterInput<ShortBox, T, 
     super(placeholder);
   }
 
-  /** create a new instance */
+  /**
+   * create a new instance
+   *
+   * @param <T> a T class
+   * @return a {@link org.dominokit.domino.ui.datatable.plugins.filter.header.ShortHeaderFilter}
+   *     object
+   */
   public static <T> ShortHeaderFilter<T> create() {
     return new ShortHeaderFilter<>();
   }
@@ -98,6 +107,11 @@ public class ShortHeaderFilter<T> extends DelayedHeaderFilterInput<ShortBox, T, 
   }
 
   /** @return the {@link ShortBox} wrapped in this component */
+  /**
+   * Getter for the field <code>shortBox</code>.
+   *
+   * @return a {@link org.dominokit.domino.ui.forms.ShortBox} object
+   */
   public ShortBox getShortBox() {
     return shortBox;
   }

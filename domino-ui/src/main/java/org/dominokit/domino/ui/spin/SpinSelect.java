@@ -145,7 +145,7 @@ abstract class SpinSelect<T, S extends SpinSelect<T, S>>
   /**
    * Move to a specific item
    *
-   * @param item the {@link SpinItem}
+   * @param item the {@link org.dominokit.domino.ui.spin.SpinItem}
    * @return same instance
    */
   public S moveToItem(SpinItem<T> item) {
@@ -173,34 +173,40 @@ abstract class SpinSelect<T, S extends SpinSelect<T, S>>
     }
   }
 
+  /** {@inheritDoc} */
   @Override
   public S pauseChangeListeners() {
     this.changeListenersPaused = true;
     return (S) this;
   }
 
+  /** {@inheritDoc} */
   @Override
   public S resumeChangeListeners() {
     this.changeListenersPaused = false;
     return (S) this;
   }
 
+  /** {@inheritDoc} */
   @Override
   public S togglePauseChangeListeners(boolean toggle) {
     this.changeListenersPaused = toggle;
     return (S) this;
   }
 
+  /** {@inheritDoc} */
   @Override
   public Set<ChangeListener<? super T>> getChangeListeners() {
     return this.changeListeners;
   }
 
+  /** {@inheritDoc} */
   @Override
   public boolean isChangeListenersPaused() {
     return this.changeListenersPaused;
   }
 
+  /** {@inheritDoc} */
   @Override
   public S triggerChangeListeners(T oldValue, T newValue) {
     if (!isChangeListenersPaused()) {
@@ -216,7 +222,7 @@ abstract class SpinSelect<T, S extends SpinSelect<T, S>>
   /**
    * Adds a new item
    *
-   * @param spinItem A {@link SpinItem} to add
+   * @param spinItem A {@link org.dominokit.domino.ui.spin.SpinItem} to add
    * @return same instance
    */
   public S appendChild(SpinItem<T> spinItem) {
@@ -236,7 +242,7 @@ abstract class SpinSelect<T, S extends SpinSelect<T, S>>
   /**
    * Adds a new item
    *
-   * @param spinItem A {@link SpinItem} to add
+   * @param spinItem A {@link org.dominokit.domino.ui.spin.SpinItem} to add
    * @return same instance
    */
   public S prependChild(SpinItem<T> spinItem) {
@@ -253,6 +259,11 @@ abstract class SpinSelect<T, S extends SpinSelect<T, S>>
     return (S) this;
   }
 
+  /**
+   * reset.
+   *
+   * @return a S object
+   */
   public S reset() {
     getItems().forEach(BaseDominoElement::remove);
     this.getItems().clear();
@@ -262,17 +273,29 @@ abstract class SpinSelect<T, S extends SpinSelect<T, S>>
   }
 
   /** @return the current active item */
+  /**
+   * Getter for the field <code>activeItem</code>.
+   *
+   * @return a {@link org.dominokit.domino.ui.spin.SpinItem} object
+   */
   public SpinItem<T> getActiveItem() {
     return activeItem;
   }
 
   /** @return All the items */
+  /**
+   * Getter for the field <code>items</code>.
+   *
+   * @return a {@link java.util.List} object
+   */
   public List<SpinItem<T>> getItems() {
     return items;
   }
 
   /**
-   * @param item the {@link SpinItem}
+   * indexOf.
+   *
+   * @param item the {@link org.dominokit.domino.ui.spin.SpinItem}
    * @return the index of the item inside the spin
    */
   public int indexOf(SpinItem<T> item) {
@@ -284,12 +307,19 @@ abstract class SpinSelect<T, S extends SpinSelect<T, S>>
   }
 
   /** @return the total number of items inside the spin */
+  /**
+   * itemsCount.
+   *
+   * @return a int
+   */
   public int itemsCount() {
     return items.size();
   }
 
   /**
-   * @param item the {@link SpinItem}
+   * isLastItem.
+   *
+   * @param item the {@link org.dominokit.domino.ui.spin.SpinItem}
    * @return true if the item is the last item, false otherwise
    */
   public boolean isLastItem(SpinItem<T> item) {
@@ -297,7 +327,9 @@ abstract class SpinSelect<T, S extends SpinSelect<T, S>>
   }
 
   /**
-   * @param item the {@link SpinItem}
+   * isFirstItem.
+   *
+   * @param item the {@link org.dominokit.domino.ui.spin.SpinItem}
    * @return true if the item is the first item, false otherwise
    */
   public boolean isFirstItem(SpinItem<T> item) {
@@ -325,53 +357,110 @@ abstract class SpinSelect<T, S extends SpinSelect<T, S>>
   }
 
   /** @return the previous element */
+  /**
+   * Getter for the field <code>prevAnchor</code>.
+   *
+   * @return a {@link org.dominokit.domino.ui.elements.AnchorElement} object
+   */
   public AnchorElement getPrevAnchor() {
     return prevAnchor;
   }
 
   /** @return the next element */
+  /**
+   * Getter for the field <code>nextAnchor</code>.
+   *
+   * @return a {@link org.dominokit.domino.ui.elements.AnchorElement} object
+   */
   public AnchorElement getNextAnchor() {
     return nextAnchor;
   }
 
   /** @return the content panel */
+  /**
+   * Getter for the field <code>contentPanel</code>.
+   *
+   * @return a {@link org.dominokit.domino.ui.elements.DivElement} object
+   */
   public DivElement getContentPanel() {
     return contentPanel;
   }
 
+  /**
+   * getValue.
+   *
+   * @return a T object
+   */
   public T getValue() {
     return Optional.ofNullable(activeItem).map(SpinItem::getValue).orElse(null);
   }
 
+  /**
+   * withBackAnchor.
+   *
+   * @param handler a {@link org.dominokit.domino.ui.utils.ChildHandler} object
+   * @return a S object
+   */
   public S withBackAnchor(ChildHandler<S, AnchorElement> handler) {
     handler.apply((S) this, prevAnchor);
     return (S) this;
   }
 
+  /**
+   * withForwardAnchor.
+   *
+   * @param handler a {@link org.dominokit.domino.ui.utils.ChildHandler} object
+   * @return a S object
+   */
   public S withForwardAnchor(ChildHandler<S, AnchorElement> handler) {
     handler.apply((S) this, nextAnchor);
     return (S) this;
   }
 
+  /**
+   * withBackIcon.
+   *
+   * @param handler a {@link org.dominokit.domino.ui.utils.ChildHandler} object
+   * @return a S object
+   */
   public S withBackIcon(ChildHandler<S, Icon<?>> handler) {
     handler.apply((S) this, backIcon);
     return (S) this;
   }
 
+  /**
+   * withForwardIcon.
+   *
+   * @param handler a {@link org.dominokit.domino.ui.utils.ChildHandler} object
+   * @return a S object
+   */
   public S withForwardIcon(ChildHandler<S, Icon<?>> handler) {
     handler.apply((S) this, forwardIcon);
     return (S) this;
   }
 
+  /**
+   * withContentContainer.
+   *
+   * @param handler a {@link org.dominokit.domino.ui.utils.ChildHandler} object
+   * @return a S object
+   */
   public S withContentContainer(ChildHandler<S, DivElement> handler) {
     handler.apply((S) this, contentPanel);
     return (S) this;
   }
 
+  /** fixElementsWidth. */
   protected abstract void fixElementsWidth();
 
+  /**
+   * setTransformProperty.
+   *
+   * @param offset a double
+   */
   protected abstract void setTransformProperty(double offset);
 
+  /** {@inheritDoc} */
   @Override
   public HTMLDivElement element() {
     return root.element();

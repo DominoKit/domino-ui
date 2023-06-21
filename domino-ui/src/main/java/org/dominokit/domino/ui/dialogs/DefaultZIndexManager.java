@@ -28,8 +28,15 @@ import org.dominokit.domino.ui.config.HasComponentConfig;
 import org.dominokit.domino.ui.config.ZIndexConfig;
 import org.dominokit.domino.ui.utils.IsPopup;
 
+/**
+ * DefaultZIndexManager class.
+ *
+ * @author vegegoku
+ * @version $Id: $Id
+ */
 public class DefaultZIndexManager implements ZIndexManager, HasComponentConfig<ZIndexConfig> {
 
+  /** Constant <code>INSTANCE</code> */
   public static final ZIndexManager INSTANCE = new DefaultZIndexManager();
 
   private Integer currentZIndex;
@@ -37,13 +44,7 @@ public class DefaultZIndexManager implements ZIndexManager, HasComponentConfig<Z
 
   private final List<ZIndexListener> listeners = new ArrayList<>();
 
-  /**
-   * {@inheritDoc}
-   *
-   * @return The next z-index starting from {@link
-   *     org.dominokit.domino.ui.config.ZIndexConfig#getInitialZIndex()} and incremented by {@link
-   *     org.dominokit.domino.ui.config.ZIndexConfig#getzIndexIncrement()} with every call
-   */
+  /** {@inheritDoc} */
   @Override
   public Integer getNextZIndex() {
     if (isNull(currentZIndex)) {
@@ -53,11 +54,7 @@ public class DefaultZIndexManager implements ZIndexManager, HasComponentConfig<Z
     return currentZIndex;
   }
 
-  /**
-   * {@inheritDoc} Also attach the modal backdrop if not attached
-   *
-   * @param popup the popup to be shown next
-   */
+  /** {@inheritDoc} Also attach the modal backdrop if not attached */
   @Override
   public void onPopupOpen(IsPopup<?> popup) {
     if (popup.isModal()) {
@@ -75,11 +72,7 @@ public class DefaultZIndexManager implements ZIndexManager, HasComponentConfig<Z
         listener -> listener.onZIndexChange(new ZIndexListener.ZIndexInfo(popup, modals)));
   }
 
-  /**
-   * {@inheritDoc} Also remove the modal backdrop when modal remain open
-   *
-   * @param popup the popup to be closed
-   */
+  /** {@inheritDoc} Also remove the modal backdrop when modal remain open */
   @Override
   public void onPopupClose(IsPopup<?> popup) {
     if (popup.isModal()) {
@@ -98,11 +91,13 @@ public class DefaultZIndexManager implements ZIndexManager, HasComponentConfig<Z
     }
   }
 
+  /** {@inheritDoc} */
   @Override
   public Optional<IsPopup<?>> getTopLevelModal() {
     return Optional.ofNullable(modals.peek());
   }
 
+  /** {@inheritDoc} */
   @Override
   public void addZIndexListener(ZIndexListener listener) {
     if (nonNull(listener)) {
@@ -110,6 +105,7 @@ public class DefaultZIndexManager implements ZIndexManager, HasComponentConfig<Z
     }
   }
 
+  /** {@inheritDoc} */
   @Override
   public void removeZIndexListener(ZIndexListener listener) {
     if (nonNull(listener)) {

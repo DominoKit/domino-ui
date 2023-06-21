@@ -16,12 +16,14 @@
 package org.dominokit.domino.ui.datatable.events;
 
 import org.dominokit.domino.ui.datatable.TableRow;
-import org.dominokit.domino.ui.datatable.plugins.row.RecordDetailsPlugin;
 
 /**
- * This event will be fired by the {@link RecordDetailsPlugin} when a record is expanded
+ * This event will be fired by the {@link
+ * org.dominokit.domino.ui.datatable.plugins.row.RecordDetailsPlugin} when a record is expanded
  *
  * @param <T> the type of the record.
+ * @author vegegoku
+ * @version $Id: $Id
  */
 public class ExpandRecordEvent<T> implements TableEvent {
 
@@ -31,6 +33,11 @@ public class ExpandRecordEvent<T> implements TableEvent {
   private final TableRow<T> tableRow;
 
   /** @param tableRow the {@link TableRow} being expanded */
+  /**
+   * Constructor for ExpandRecordEvent.
+   *
+   * @param tableRow a {@link org.dominokit.domino.ui.datatable.TableRow} object
+   */
   public ExpandRecordEvent(TableRow<T> tableRow) {
     this.tableRow = tableRow;
   }
@@ -42,6 +49,11 @@ public class ExpandRecordEvent<T> implements TableEvent {
   }
 
   /** @return the {@link TableRow} being expanded */
+  /**
+   * Getter for the field <code>tableRow</code>.
+   *
+   * @return a {@link org.dominokit.domino.ui.datatable.TableRow} object
+   */
   public TableRow<T> getTableRow() {
     return tableRow;
   }

@@ -27,6 +27,8 @@ import org.dominokit.domino.ui.datatable.events.SearchEvent;
  * A class to represent the current search and filter state of the datatable
  *
  * @param <T> the type of data table records
+ * @author vegegoku
+ * @version $Id: $Id
  */
 public class SearchContext<T> {
 
@@ -37,7 +39,8 @@ public class SearchContext<T> {
   /**
    * Initialize the context with a datatable
    *
-   * @param dataTable the {@link DataTable} that is linked to this context
+   * @param dataTable the {@link org.dominokit.domino.ui.datatable.DataTable} that is linked to this
+   *     context
    */
   public SearchContext(DataTable<T> dataTable) {
     this.dataTable = dataTable;
@@ -46,7 +49,7 @@ public class SearchContext<T> {
   /**
    * Adds a new filter to the search context
    *
-   * @param filter {@link Filter}
+   * @param filter {@link org.dominokit.domino.ui.datatable.model.Filter}
    * @return same SearchContext instance
    */
   public SearchContext add(Filter filter) {
@@ -61,7 +64,7 @@ public class SearchContext<T> {
   /**
    * Removes a filter from the context
    *
-   * @param filter {@link Filter}
+   * @param filter {@link org.dominokit.domino.ui.datatable.model.Filter}
    * @return same SearchContext instance
    */
   public SearchContext remove(Filter filter) {
@@ -87,7 +90,7 @@ public class SearchContext<T> {
    * the context
    *
    * @param fieldName String field name
-   * @param category {@link Category}
+   * @param category {@link org.dominokit.domino.ui.datatable.model.Category}
    * @return same SearchContext instance
    */
   public SearchContext remove(String fieldName, Category category) {
@@ -104,7 +107,7 @@ public class SearchContext<T> {
   /**
    * Removes all filters of the specified category from the context
    *
-   * @param category {@link Category}
+   * @param category {@link org.dominokit.domino.ui.datatable.model.Category}
    * @return same SearchContext instance
    */
   public SearchContext removeByCategory(Category category) {
@@ -119,7 +122,8 @@ public class SearchContext<T> {
   }
 
   /**
-   * Remove all filters and fires the {@link SearchClearedEvent}
+   * Remove all filters and fires the {@link
+   * org.dominokit.domino.ui.datatable.events.SearchClearedEvent}
    *
    * @return same SearchContext instance
    */
@@ -130,6 +134,8 @@ public class SearchContext<T> {
   }
 
   /**
+   * get.
+   *
    * @param fieldName String field name
    * @return a List of all Filters associated with the specified field name
    */
@@ -140,6 +146,11 @@ public class SearchContext<T> {
   }
 
   /** @return a new List of all filters */
+  /**
+   * listAll.
+   *
+   * @return a {@link java.util.List} object
+   */
   public List<Filter> listAll() {
     return new ArrayList<>(filters);
   }
@@ -147,14 +158,17 @@ public class SearchContext<T> {
   /**
    * Checks if the context contains the specified filter
    *
-   * @param filter {@link Filter}
+   * @param filter {@link org.dominokit.domino.ui.datatable.model.Filter}
    * @return boolean, true if the context contains the filter, otherwise false
    */
   public boolean contains(Filter filter) {
     return filters.stream().anyMatch(f -> f.equals(filter));
   }
 
-  /** Call all the before search handlers and then fire the {@link SearchEvent} */
+  /**
+   * Call all the before search handlers and then fire the {@link
+   * org.dominokit.domino.ui.datatable.events.SearchEvent}
+   */
   public void fireSearchEvent() {
     beforeSearchHandlers.forEach(handler -> handler.accept(SearchContext.this));
     dataTable.fireTableEvent(new SearchEvent(listAll()));
@@ -163,7 +177,8 @@ public class SearchContext<T> {
   /**
    * Adds a new BeforeSearch handler
    *
-   * @param handler {@link Consumer} of {@link SearchContext}
+   * @param handler {@link java.util.function.Consumer} of {@link
+   *     org.dominokit.domino.ui.datatable.model.SearchContext}
    */
   public void addBeforeSearchHandler(Consumer<SearchContext<T>> handler) {
     this.beforeSearchHandlers.add(handler);
@@ -172,7 +187,8 @@ public class SearchContext<T> {
   /**
    * removes a BeforeSearch handler
    *
-   * @param handler {@link Consumer} of {@link SearchContext}
+   * @param handler {@link java.util.function.Consumer} of {@link
+   *     org.dominokit.domino.ui.datatable.model.SearchContext}
    */
   public void removeBeforeSearchHandler(Consumer<SearchContext<T>> handler) {
     this.beforeSearchHandlers.remove(handler);

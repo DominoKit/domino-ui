@@ -25,22 +25,45 @@ import org.dominokit.domino.ui.elements.SmallElement;
 import org.dominokit.domino.ui.elements.SpanElement;
 
 /**
- * An implementation og the {@link AbstractMenuItem} for a menu item that can have a main text and a
- * description {@inheritDoc}
+ * An implementation og the {@link org.dominokit.domino.ui.menu.AbstractMenuItem} for a menu item
+ * that can have a main text and a description {@inheritDoc}
+ *
+ * @author vegegoku
+ * @version $Id: $Id
  */
 public class MenuItem<V> extends AbstractMenuItem<V> {
 
   private SmallElement descriptionElement;
   private SpanElement textElement;
 
+  /**
+   * create.
+   *
+   * @param text a {@link java.lang.String} object
+   * @param <V> a V class
+   * @return a {@link org.dominokit.domino.ui.menu.MenuItem} object
+   */
   public static <V> MenuItem<V> create(String text) {
     return new MenuItem<>(text);
   }
 
+  /**
+   * create.
+   *
+   * @param text a {@link java.lang.String} object
+   * @param description a {@link java.lang.String} object
+   * @param <V> a V class
+   * @return a {@link org.dominokit.domino.ui.menu.MenuItem} object
+   */
   public static <V> MenuItem<V> create(String text, String description) {
     return new MenuItem<>(text, description);
   }
 
+  /**
+   * Constructor for MenuItem.
+   *
+   * @param text a {@link java.lang.String} object
+   */
   public MenuItem(String text) {
     if (nonNull(text) && !text.isEmpty()) {
       textElement = span().addCss(dui_menu_item_content).setTextContent(text);
@@ -48,6 +71,12 @@ public class MenuItem<V> extends AbstractMenuItem<V> {
     }
   }
 
+  /**
+   * Constructor for MenuItem.
+   *
+   * @param text a {@link java.lang.String} object
+   * @param description a {@link java.lang.String} object
+   */
   public MenuItem(String text, String description) {
     this(text);
 
@@ -58,21 +87,29 @@ public class MenuItem<V> extends AbstractMenuItem<V> {
   }
 
   /** @return The description element */
+  /**
+   * Getter for the field <code>descriptionElement</code>.
+   *
+   * @return a {@link org.dominokit.domino.ui.elements.SmallElement} object
+   */
   public SmallElement getDescriptionElement() {
     return descriptionElement;
   }
 
   /** @return the main text element */
+  /**
+   * Getter for the field <code>textElement</code>.
+   *
+   * @return a {@link org.dominokit.domino.ui.elements.SpanElement} object
+   */
   public SpanElement getTextElement() {
     return textElement;
   }
 
   /**
-   * match the search token with both the text and description of the menu item
+   * {@inheritDoc}
    *
-   * @param token String search text
-   * @param caseSensitive boolean, true if the search is case-sensitive
-   * @return boolean, true if the item matches the search
+   * <p>match the search token with both the text and description of the menu item
    */
   @Override
   public boolean onSearch(String token, boolean caseSensitive) {

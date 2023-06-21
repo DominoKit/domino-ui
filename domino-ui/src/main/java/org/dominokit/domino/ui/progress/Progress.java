@@ -32,6 +32,8 @@ import org.dominokit.domino.ui.utils.BaseDominoElement;
  * </pre>
  *
  * @see ProgressBar
+ * @author vegegoku
+ * @version $Id: $Id
  */
 public class Progress extends BaseDominoElement<HTMLDivElement, Progress>
     implements ProgressStyles {
@@ -40,19 +42,27 @@ public class Progress extends BaseDominoElement<HTMLDivElement, Progress>
   private final List<ProgressBar> progressBars = new ArrayList<>();
 
   /** */
+  /** Constructor for Progress. */
   public Progress() {
     element = div().addCss(dui_progress);
     init(this);
   }
 
   /** @return new Progress instance */
+  /**
+   * create.
+   *
+   * @return a {@link org.dominokit.domino.ui.progress.Progress} object
+   */
   public static Progress create() {
     return new Progress();
   }
 
   /**
-   * @param bar {@link ProgressBar} to be appended to this progress instance, each progress can have
-   *     multiple ProgressBars
+   * appendChild.
+   *
+   * @param bar {@link org.dominokit.domino.ui.progress.ProgressBar} to be appended to this progress
+   *     instance, each progress can have multiple ProgressBars
    * @return same Progress instance
    */
   public Progress appendChild(ProgressBar bar) {

@@ -17,11 +17,28 @@ package org.dominokit.domino.ui.elements;
 
 import elemental2.dom.HTMLParamElement;
 
+/**
+ * ParamElement class.
+ *
+ * @author vegegoku
+ * @version $Id: $Id
+ */
 public class ParamElement extends BaseElement<HTMLParamElement, ParamElement> {
+  /**
+   * of.
+   *
+   * @param e a {@link elemental2.dom.HTMLParamElement} object
+   * @return a {@link org.dominokit.domino.ui.elements.ParamElement} object
+   */
   public static ParamElement of(HTMLParamElement e) {
     return new ParamElement(e);
   }
 
+  /**
+   * Constructor for ParamElement.
+   *
+   * @param element a {@link elemental2.dom.HTMLParamElement} object
+   */
   public ParamElement(HTMLParamElement element) {
     super(element);
   }

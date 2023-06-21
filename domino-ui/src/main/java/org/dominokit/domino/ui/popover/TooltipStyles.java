@@ -15,7 +15,12 @@
  */
 package org.dominokit.domino.ui.popover;
 
-/** Default CSS classes for {@link Tooltip} */
+/**
+ * Default CSS classes for {@link org.dominokit.domino.ui.popover.Tooltip}
+ *
+ * @author vegegoku
+ * @version $Id: $Id
+ */
 public class TooltipStyles {
 
   /** CSS class for tooltip */

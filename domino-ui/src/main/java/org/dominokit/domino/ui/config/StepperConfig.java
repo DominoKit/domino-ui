@@ -17,8 +17,19 @@ package org.dominokit.domino.ui.config;
 
 import org.dominokit.domino.ui.stepper.StepState;
 
+/**
+ * StepperConfig interface.
+ *
+ * @author vegegoku
+ * @version $Id: $Id
+ */
 public interface StepperConfig extends ComponentConfig {
 
+  /**
+   * getDefaultStepState.
+   *
+   * @return a {@link org.dominokit.domino.ui.stepper.StepState} object
+   */
   default StepState getDefaultStepState() {
     return StepState.INACTIVE;
   }

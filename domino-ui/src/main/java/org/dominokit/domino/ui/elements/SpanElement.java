@@ -17,11 +17,28 @@ package org.dominokit.domino.ui.elements;
 
 import elemental2.dom.HTMLElement;
 
+/**
+ * SpanElement class.
+ *
+ * @author vegegoku
+ * @version $Id: $Id
+ */
 public class SpanElement extends BaseElement<HTMLElement, SpanElement> {
+  /**
+   * of.
+   *
+   * @param e a {@link elemental2.dom.HTMLElement} object
+   * @return a {@link org.dominokit.domino.ui.elements.SpanElement} object
+   */
   public static SpanElement of(HTMLElement e) {
     return new SpanElement(e);
   }
 
+  /**
+   * Constructor for SpanElement.
+   *
+   * @param element a {@link elemental2.dom.HTMLElement} object
+   */
   public SpanElement(HTMLElement element) {
     super(element);
   }

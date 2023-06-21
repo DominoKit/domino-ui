@@ -18,14 +18,17 @@ package org.dominokit.domino.ui.dialogs;
 import elemental2.dom.*;
 import jsinterop.base.Js;
 import org.dominokit.domino.ui.events.EventType;
-import org.dominokit.domino.ui.icons.Icons;
 import org.dominokit.domino.ui.icons.MdiIcon;
+import org.dominokit.domino.ui.icons.lib.Icons;
 import org.dominokit.domino.ui.layout.NavBar;
 import org.dominokit.domino.ui.utils.PostfixAddOn;
 
 /**
  * A component that open a pop-up that acts like a window with close/maximize/minimize controls and
  * can be dragged across the page
+ *
+ * @author vegegoku
+ * @version $Id: $Id
  */
 public class Window extends AbstractDialog<Window> {
 
@@ -54,6 +57,8 @@ public class Window extends AbstractDialog<Window> {
   private NavBar navHeader;
 
   /**
+   * create.
+   *
    * @param title String window title
    * @return new Window instance
    */
@@ -62,6 +67,11 @@ public class Window extends AbstractDialog<Window> {
   }
 
   /** @param title String window title */
+  /**
+   * Constructor for Window.
+   *
+   * @param title a {@link java.lang.String} object
+   */
   public Window(String title) {
     super();
     headerElement.get().appendChild(navHeader = NavBar.create(title).addCss(dui_dialog_nav));
@@ -241,11 +251,18 @@ public class Window extends AbstractDialog<Window> {
   }
 
   /** @return boolean, true if this window can be dragged across the screen */
+  /**
+   * isDraggable.
+   *
+   * @return a boolean
+   */
   public boolean isDraggable() {
     return draggable;
   }
 
   /**
+   * Setter for the field <code>draggable</code>.
+   *
    * @param draggable boolean true to make this window instance draggable
    * @return same Window instance
    */
@@ -299,16 +316,28 @@ public class Window extends AbstractDialog<Window> {
   }
 
   /** @return boolean, true if the Window is maximized */
+  /**
+   * isMaximized.
+   *
+   * @return a boolean
+   */
   public boolean isMaximized() {
     return maximized;
   }
 
   /** @return the double left position of the window */
+  /**
+   * Getter for the field <code>windowLeft</code>.
+   *
+   * @return a double
+   */
   public double getWindowLeft() {
     return windowLeft;
   }
 
   /**
+   * Setter for the field <code>windowLeft</code>.
+   *
    * @param windowLeft double window left position
    * @return same Window instance
    */
@@ -318,11 +347,18 @@ public class Window extends AbstractDialog<Window> {
   }
 
   /** @return double top position of the window */
+  /**
+   * Getter for the field <code>windowTop</code>.
+   *
+   * @return a double
+   */
   public double getWindowTop() {
     return windowTop;
   }
 
   /**
+   * Setter for the field <code>windowTop</code>.
+   *
    * @param windowTop double top position of the window
    * @return same Window instance
    */
@@ -346,6 +382,12 @@ public class Window extends AbstractDialog<Window> {
     return this;
   }
 
+  /**
+   * setTitle.
+   *
+   * @param title a {@link java.lang.String} object
+   * @return a {@link org.dominokit.domino.ui.dialogs.Window} object
+   */
   public Window setTitle(String title) {
     navHeader.setTitle(title);
     return this;
@@ -388,16 +430,31 @@ public class Window extends AbstractDialog<Window> {
   }
 
   /** @return the {@link MdiIcon} of the restore window size control */
+  /**
+   * Getter for the field <code>restoreIcon</code>.
+   *
+   * @return a {@link org.dominokit.domino.ui.icons.MdiIcon} object
+   */
   public MdiIcon getRestoreIcon() {
     return restoreIcon;
   }
 
   /** @return the {@link MdiIcon} of the maximize window size control */
+  /**
+   * Getter for the field <code>maximizeIcon</code>.
+   *
+   * @return a {@link org.dominokit.domino.ui.icons.MdiIcon} object
+   */
   public MdiIcon getMaximizeIcon() {
     return maximizeIcon;
   }
 
   /** @return the {@link MdiIcon} of the close window control */
+  /**
+   * Getter for the field <code>closeIcon</code>.
+   *
+   * @return a {@link org.dominokit.domino.ui.icons.MdiIcon} object
+   */
   public MdiIcon getCloseIcon() {
     return closeIcon;
   }

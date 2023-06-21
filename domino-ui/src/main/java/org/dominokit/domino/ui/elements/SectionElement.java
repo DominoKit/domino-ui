@@ -17,11 +17,28 @@ package org.dominokit.domino.ui.elements;
 
 import elemental2.dom.HTMLElement;
 
+/**
+ * SectionElement class.
+ *
+ * @author vegegoku
+ * @version $Id: $Id
+ */
 public class SectionElement extends BaseElement<HTMLElement, SectionElement> {
+  /**
+   * of.
+   *
+   * @param e a {@link elemental2.dom.HTMLElement} object
+   * @return a {@link org.dominokit.domino.ui.elements.SectionElement} object
+   */
   public static SectionElement of(HTMLElement e) {
     return new SectionElement(e);
   }
 
+  /**
+   * Constructor for SectionElement.
+   *
+   * @param element a {@link elemental2.dom.HTMLElement} object
+   */
   public SectionElement(HTMLElement element) {
     super(element);
   }

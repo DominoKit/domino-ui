@@ -20,9 +20,12 @@ import org.dominokit.domino.ui.datatable.model.FilterTypes;
 import org.dominokit.domino.ui.forms.FloatBox;
 
 /**
- * Float number column header filter component that is rendered as a {@link FloatBox} component
+ * Float number column header filter component that is rendered as a {@link
+ * org.dominokit.domino.ui.forms.FloatBox} component
  *
  * @param <T> type of data table records
+ * @author vegegoku
+ * @version $Id: $Id
  */
 public class FloatHeaderFilter<T> extends DelayedHeaderFilterInput<FloatBox, T, Float> {
 
@@ -40,7 +43,13 @@ public class FloatHeaderFilter<T> extends DelayedHeaderFilterInput<FloatBox, T, 
     super(placeholder);
   }
 
-  /** create a new instance */
+  /**
+   * create a new instance
+   *
+   * @param <T> a T class
+   * @return a {@link org.dominokit.domino.ui.datatable.plugins.filter.header.FloatHeaderFilter}
+   *     object
+   */
   public static <T> FloatHeaderFilter<T> create() {
     return new FloatHeaderFilter<>();
   }
@@ -98,6 +107,11 @@ public class FloatHeaderFilter<T> extends DelayedHeaderFilterInput<FloatBox, T, 
   }
 
   /** @return the {@link FloatBox} wrapped in this component */
+  /**
+   * Getter for the field <code>floatBox</code>.
+   *
+   * @return a {@link org.dominokit.domino.ui.forms.FloatBox} object
+   */
   public FloatBox getFloatBox() {
     return floatBox;
   }

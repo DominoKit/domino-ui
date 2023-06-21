@@ -17,11 +17,28 @@ package org.dominokit.domino.ui.elements;
 
 import elemental2.dom.HTMLElement;
 
+/**
+ * VarElement class.
+ *
+ * @author vegegoku
+ * @version $Id: $Id
+ */
 public class VarElement extends BaseElement<HTMLElement, VarElement> {
+  /**
+   * of.
+   *
+   * @param e a {@link elemental2.dom.HTMLElement} object
+   * @return a {@link org.dominokit.domino.ui.elements.VarElement} object
+   */
   public static VarElement of(HTMLElement e) {
     return new VarElement(e);
   }
 
+  /**
+   * Constructor for VarElement.
+   *
+   * @param element a {@link elemental2.dom.HTMLElement} object
+   */
   public VarElement(HTMLElement element) {
     super(element);
   }

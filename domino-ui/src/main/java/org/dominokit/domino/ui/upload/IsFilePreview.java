@@ -18,18 +18,39 @@ package org.dominokit.domino.ui.upload;
 import elemental2.dom.HTMLElement;
 import org.dominokit.domino.ui.IsElement;
 
+/**
+ * IsFilePreview interface.
+ *
+ * @author vegegoku
+ * @version $Id: $Id
+ */
 public interface IsFilePreview<E extends HTMLElement> extends IsElement<E> {
+  /**
+   * onUploadFailed.
+   *
+   * @param error a {@link java.lang.String} object
+   */
   void onUploadFailed(String error);
 
+  /** onUploadSuccess. */
   void onUploadSuccess();
 
+  /** onUploadCompleted. */
   void onUploadCompleted();
 
+  /** onUploadCanceled. */
   void onUploadCanceled();
 
+  /**
+   * onUploadProgress.
+   *
+   * @param progress a double
+   */
   void onUploadProgress(double progress);
 
+  /** onReset. */
   void onReset();
 
+  /** onUploadStarted. */
   void onUploadStarted();
 }

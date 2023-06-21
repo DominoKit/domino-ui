@@ -17,11 +17,28 @@ package org.dominokit.domino.ui.elements;
 
 import elemental2.dom.HTMLCanvasElement;
 
+/**
+ * CanvasElement class.
+ *
+ * @author vegegoku
+ * @version $Id: $Id
+ */
 public class CanvasElement extends BaseElement<HTMLCanvasElement, CanvasElement> {
+  /**
+   * of.
+   *
+   * @param e a {@link elemental2.dom.HTMLCanvasElement} object
+   * @return a {@link org.dominokit.domino.ui.elements.CanvasElement} object
+   */
   public static CanvasElement of(HTMLCanvasElement e) {
     return new CanvasElement(e);
   }
 
+  /**
+   * Constructor for CanvasElement.
+   *
+   * @param element a {@link elemental2.dom.HTMLCanvasElement} object
+   */
   public CanvasElement(HTMLCanvasElement element) {
     super(element);
   }

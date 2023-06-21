@@ -17,11 +17,28 @@ package org.dominokit.domino.ui.elements;
 
 import elemental2.dom.HTMLBRElement;
 
+/**
+ * BRElement class.
+ *
+ * @author vegegoku
+ * @version $Id: $Id
+ */
 public class BRElement extends BaseElement<HTMLBRElement, BRElement> {
+  /**
+   * of.
+   *
+   * @param e a {@link elemental2.dom.HTMLBRElement} object
+   * @return a {@link org.dominokit.domino.ui.elements.BRElement} object
+   */
   public static BRElement of(HTMLBRElement e) {
     return new BRElement(e);
   }
 
+  /**
+   * Constructor for BRElement.
+   *
+   * @param element a {@link elemental2.dom.HTMLBRElement} object
+   */
   public BRElement(HTMLBRElement element) {
     super(element);
   }

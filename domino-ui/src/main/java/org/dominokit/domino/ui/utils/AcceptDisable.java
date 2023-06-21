@@ -21,6 +21,8 @@ import org.gwtproject.editor.client.Editor;
  * Components that can be enabled/disabled should implement this interface
  *
  * @param <T> the type of the component implementing this interface
+ * @author vegegoku
+ * @version $Id: $Id
  */
 public interface AcceptDisable<T> {
 
@@ -41,6 +43,11 @@ public interface AcceptDisable<T> {
   T disable();
 
   /** @return boolean, true if component is enabled else false */
+  /**
+   * isEnabled.
+   *
+   * @return a boolean
+   */
   @Editor.Ignore
   boolean isEnabled();
 }

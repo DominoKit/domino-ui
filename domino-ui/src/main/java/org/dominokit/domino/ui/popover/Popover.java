@@ -33,7 +33,8 @@ import org.dominokit.domino.ui.utils.BaseDominoElement;
 /**
  * A component for showing content on top of another element in different locations.
  *
- * <p>Customize the component can be done by overwriting classes provided by {@link PopoverStyles}
+ * <p>Customize the component can be done by overwriting classes provided by {@link
+ * org.dominokit.domino.ui.popover.PopoverStyles}
  *
  * <p>For example:
  *
@@ -42,6 +43,8 @@ import org.dominokit.domino.ui.utils.BaseDominoElement;
  * </pre>
  *
  * @see BaseDominoElement
+ * @author vegegoku
+ * @version $Id: $Id
  */
 public class Popover extends BasePopover<Popover> {
 
@@ -60,14 +63,31 @@ public class Popover extends BasePopover<Popover> {
   private final DropDirection dialog = DropDirection.MIDDLE_SCREEN;
   private boolean modal = false;
 
+  /**
+   * create.
+   *
+   * @param target a {@link elemental2.dom.HTMLElement} object
+   * @return a {@link org.dominokit.domino.ui.popover.Popover} object
+   */
   public static Popover create(HTMLElement target) {
     return new Popover(target);
   }
 
+  /**
+   * create.
+   *
+   * @param target a {@link org.dominokit.domino.ui.IsElement} object
+   * @return a {@link org.dominokit.domino.ui.popover.Popover} object
+   */
   public static Popover create(IsElement<? extends HTMLElement> target) {
     return new Popover(target.element());
   }
 
+  /**
+   * Constructor for Popover.
+   *
+   * @param target a {@link elemental2.dom.HTMLElement} object
+   */
   public Popover(HTMLElement target) {
     super(target);
     showListener =
@@ -93,11 +113,13 @@ public class Popover extends BasePopover<Popover> {
     addCollapseListener(() -> removeEventListener(DUI_REMOVE_POPOVERS, closeAllListener));
   }
 
+  /** {@inheritDoc} */
   @Override
   protected EventListener getCloseListener() {
     return evt -> closeOthers("");
   }
 
+  /** {@inheritDoc} */
   @Override
   protected void doOpen() {
     super.doOpen();
@@ -107,6 +129,11 @@ public class Popover extends BasePopover<Popover> {
     }
   }
 
+  /**
+   * detach.
+   *
+   * @return a {@link org.dominokit.domino.ui.popover.Popover} object
+   */
   public Popover detach() {
     targetElement.removeEventListener(EventType.click.getName(), showListener);
     document.removeEventListener(EventType.click.getName(), closeListener);
@@ -124,12 +151,14 @@ public class Popover extends BasePopover<Popover> {
     return this;
   }
 
+  /** {@inheritDoc} */
   @Override
   protected Popover closeOthers(String sourceId) {
     ModalBackDrop.INSTANCE.closePopovers(sourceId);
     return this;
   }
 
+  /** {@inheritDoc} */
   @Override
   protected void doPosition(DropDirection position) {
     if (asDialog) {
@@ -140,20 +169,38 @@ public class Popover extends BasePopover<Popover> {
     }
   }
 
+  /**
+   * isOpenOnClick.
+   *
+   * @return a boolean
+   */
   public boolean isOpenOnClick() {
     return openOnClick;
   }
 
+  /**
+   * Setter for the field <code>openOnClick</code>.
+   *
+   * @param openOnClick a boolean
+   * @return a {@link org.dominokit.domino.ui.popover.Popover} object
+   */
   public Popover setOpenOnClick(boolean openOnClick) {
     this.openOnClick = openOnClick;
     return this;
   }
 
+  /**
+   * Setter for the field <code>modal</code>.
+   *
+   * @param modal a boolean
+   * @return a {@link org.dominokit.domino.ui.popover.Popover} object
+   */
   public Popover setModal(boolean modal) {
     this.modal = modal;
     return this;
   }
 
+  /** {@inheritDoc} */
   @Override
   public boolean isModal() {
     return modal;

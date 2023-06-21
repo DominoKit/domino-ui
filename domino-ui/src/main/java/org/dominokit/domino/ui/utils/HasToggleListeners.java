@@ -22,11 +22,15 @@ import java.util.Set;
  * should implement this interface
  *
  * @param <T> the type of the class implementing this interface
+ * @author vegegoku
+ * @version $Id: $Id
  */
 public interface HasToggleListeners<T> {
 
   /**
-   * @param toggleListener {@link ToggleListener}
+   * addToggleListener.
+   *
+   * @param toggleListener {@link org.dominokit.domino.ui.utils.HasToggleListeners.ToggleListener}
    * @return same implementing class instance
    */
   default T addToggleListener(ToggleListener toggleListener) {
@@ -35,7 +39,9 @@ public interface HasToggleListeners<T> {
   }
 
   /**
-   * @param toggleListener {@link ToggleListener}
+   * removeToggleListener.
+   *
+   * @param toggleListener {@link org.dominokit.domino.ui.utils.HasToggleListeners.ToggleListener}
    * @return same implementing class instance
    */
   default T removeToggleListener(ToggleListener toggleListener) {
@@ -46,7 +52,7 @@ public interface HasToggleListeners<T> {
   /**
    * Checks if a component has the specified ChangeHandler
    *
-   * @param toggleListener {@link ToggleListener}
+   * @param toggleListener {@link org.dominokit.domino.ui.utils.HasToggleListeners.ToggleListener}
    * @return same implementing class instance
    */
   default boolean hasToggleListener(ToggleListener toggleListener) {
@@ -81,6 +87,7 @@ public interface HasToggleListeners<T> {
    *
    * @param toggle boolean, true to pause the change listeners, false to enable them
    * @return same component instance
+   * @param handler a {@link org.dominokit.domino.ui.utils.Handler} object
    */
   default T withPauseToggleListenersToggle(boolean toggle, Handler<T> handler) {
     boolean oldState = isToggleListenersPaused();
@@ -99,6 +106,7 @@ public interface HasToggleListeners<T> {
    *
    * @param toggle boolean, true to pause the change listeners, false to enable them
    * @return same component instance
+   * @param handler a {@link org.dominokit.domino.ui.utils.AsyncHandler} object
    */
   default T withPauseToggleListenersToggle(boolean toggle, AsyncHandler<T> handler) {
     boolean oldState = isToggleListenersPaused();
@@ -112,10 +120,27 @@ public interface HasToggleListeners<T> {
     return (T) this;
   }
 
+  /**
+   * getToggleListeners.
+   *
+   * @return a {@link java.util.Set} object
+   */
   Set<ToggleListener> getToggleListeners();
 
+  /**
+   * isToggleListenersPaused.
+   *
+   * @return a boolean
+   */
   boolean isToggleListenersPaused();
 
+  /**
+   * triggerToggleListeners.
+   *
+   * @param oldValue a {@link java.lang.Boolean} object
+   * @param newValue a {@link java.lang.Boolean} object
+   * @return a T object
+   */
   T triggerToggleListeners(Boolean oldValue, Boolean newValue);
 
   /** */

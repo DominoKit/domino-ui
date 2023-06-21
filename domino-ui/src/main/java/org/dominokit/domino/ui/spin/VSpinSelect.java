@@ -24,6 +24,8 @@ import org.dominokit.domino.ui.utils.SwipeUtil;
  * A component provides vertical spin
  *
  * @param <T> the type of the object inside the spin
+ * @author vegegoku
+ * @version $Id: $Id
  */
 public class VSpinSelect<T> extends SpinSelect<T, VSpinSelect<T>> {
 
@@ -40,8 +42,8 @@ public class VSpinSelect<T> extends SpinSelect<T, VSpinSelect<T>> {
   /**
    * Creates new instance with back/forward icons
    *
-   * @param backIcon the back {@link Icon}
-   * @param forwardIcon the forward {@link Icon}
+   * @param backIcon the back {@link org.dominokit.domino.ui.icons.Icon}
+   * @param forwardIcon the forward {@link org.dominokit.domino.ui.icons.Icon}
    * @param <T> the type of the object inside the spin
    * @return new instance
    */
@@ -49,12 +51,19 @@ public class VSpinSelect<T> extends SpinSelect<T, VSpinSelect<T>> {
     return new VSpinSelect<>(backIcon, forwardIcon);
   }
 
+  /** Constructor for VSpinSelect. */
   public VSpinSelect() {
     this(
         DominoUIConfig.CONFIG.getUIConfig().getDefaultUpIconSupplier().get(),
         DominoUIConfig.CONFIG.getUIConfig().getDefaultDownIconSupplier().get());
   }
 
+  /**
+   * Constructor for VSpinSelect.
+   *
+   * @param backIcon a {@link org.dominokit.domino.ui.icons.Icon} object
+   * @param forwardIcon a {@link org.dominokit.domino.ui.icons.Icon} object
+   */
   public VSpinSelect(Icon<?> backIcon, Icon<?> forwardIcon) {
     super(backIcon, forwardIcon);
     addCss(dui_spin_vertical);
@@ -64,11 +73,13 @@ public class VSpinSelect<T> extends SpinSelect<T, VSpinSelect<T>> {
         SwipeUtil.SwipeDirection.UP, contentPanel.element(), evt -> moveForward());
   }
 
+  /** {@inheritDoc} */
   @Override
   protected void setTransformProperty(double offset) {
     contentPanel.setCssProperty("transform", "translate3d(0px, -" + offset + "%, 0px)");
   }
 
+  /** {@inheritDoc} */
   @Override
   protected void fixElementsWidth() {
     DOMRect boundingClientRect = contentPanel.getBoundingClientRect();

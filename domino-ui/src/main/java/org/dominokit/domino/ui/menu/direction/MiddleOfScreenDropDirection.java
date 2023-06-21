@@ -24,7 +24,14 @@ import elemental2.dom.DOMRect;
 import elemental2.dom.Element;
 import org.dominokit.domino.ui.style.Style;
 
+/**
+ * MiddleOfScreenDropDirection class.
+ *
+ * @author vegegoku
+ * @version $Id: $Id
+ */
 public class MiddleOfScreenDropDirection implements DropDirection {
+  /** {@inheritDoc} */
   @Override
   public void position(Element source, Element target) {
     dui_flex_col_reverse.remove(source);
@@ -41,6 +48,7 @@ public class MiddleOfScreenDropDirection implements DropDirection {
         .setCssProperty("--dui-menu-drop-min-width", target.getBoundingClientRect().width + "px");
   }
 
+  /** {@inheritDoc} */
   @Override
   public void cleanup(Element source) {
     dui_dd_middle_screen.remove(source);

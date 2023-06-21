@@ -17,12 +17,23 @@ package org.dominokit.domino.ui.preloaders;
 
 import org.dominokit.domino.ui.style.CssClass;
 
-/** A constants class for different preloader sizes */
+/**
+ * A constants class for different preloader sizes
+ *
+ * @author vegegoku
+ * @version $Id: $Id
+ */
 public interface PreloaderStyles {
+  /** Constant <code>dui_preloader</code> */
   CssClass dui_preloader = () -> "dui-preloader";
+  /** Constant <code>dui_pl_spinner_layer</code> */
   CssClass dui_pl_spinner_layer = () -> "dui-pl-spinner-layer";
+  /** Constant <code>dui_pl_circle_clipper</code> */
   CssClass dui_pl_circle_clipper = () -> "dui-pl-circle-clipper";
+  /** Constant <code>dui_pl_circle_left</code> */
   CssClass dui_pl_circle_left = () -> "dui-pl-circle-left";
+  /** Constant <code>dui_pl_circle_right</code> */
   CssClass dui_pl_circle_right = () -> "dui-pl-circle-right";
+  /** Constant <code>dui_pl_right</code> */
   CssClass dui_pl_right = () -> "dui-pl-right";
 }

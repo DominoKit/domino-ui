@@ -17,13 +17,24 @@ package org.dominokit.domino.ui.media;
 
 import org.dominokit.domino.ui.style.CssClass;
 
-/** Default CSS classes for {@link MediaObject} */
+/**
+ * Default CSS classes for {@link org.dominokit.domino.ui.media.MediaObject}
+ *
+ * @author vegegoku
+ * @version $Id: $Id
+ */
 public interface MediaStyles {
 
+  /** Constant <code>dui_media</code> */
   CssClass dui_media = () -> "dui-media";
+  /** Constant <code>dui_media_body</code> */
   CssClass dui_media_body = () -> "dui-media-body";
+  /** Constant <code>dui_media_heading</code> */
   CssClass dui_media_heading = () -> "dui-media-heading";
+  /** Constant <code>dui_media_object</code> */
   CssClass dui_media_object = () -> "dui-media-object";
+  /** Constant <code>dui_media_left</code> */
   CssClass dui_media_left = () -> "dui-media-left";
+  /** Constant <code>dui_media_right</code> */
   CssClass dui_media_right = () -> "dui-media-right";
 }

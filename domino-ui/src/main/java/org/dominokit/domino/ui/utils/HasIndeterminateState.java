@@ -15,6 +15,12 @@
  */
 package org.dominokit.domino.ui.utils;
 
+/**
+ * HasIndeterminateState interface.
+ *
+ * @author vegegoku
+ * @version $Id: $Id
+ */
 public interface HasIndeterminateState<T> {
 
   /**
@@ -32,6 +38,8 @@ public interface HasIndeterminateState<T> {
   T determinate();
 
   /**
+   * toggleIndeterminate.
+   *
    * @param indeterminate boolean, if true set the state to indeterminate otherwise determinate
    * @return same component instance
    */
@@ -45,5 +53,10 @@ public interface HasIndeterminateState<T> {
   T toggleIndeterminate();
 
   /** @return boolean, true if the component is checked, otherwise false */
+  /**
+   * isChecked.
+   *
+   * @return a boolean
+   */
   boolean isChecked();
 }

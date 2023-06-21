@@ -15,12 +15,18 @@
  */
 package org.dominokit.domino.ui.icons;
 
+/**
+ * CanChangeIcon interface.
+ *
+ * @author vegegoku
+ * @version $Id: $Id
+ */
 public interface CanChangeIcon<T extends Icon<T>> {
 
   /**
    * Change the icon to another icon
    *
-   * @param replacement the new {@link Icon}
+   * @param replacement the new {@link org.dominokit.domino.ui.icons.Icon}
    * @return same instance
    */
   T changeTo(T replacement);

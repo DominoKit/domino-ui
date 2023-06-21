@@ -17,7 +17,13 @@ package org.dominokit.domino.ui.progress;
 
 import org.dominokit.domino.ui.style.CssClass;
 
-/** A constants class for {@link Progress} and {@link ProgressBar} css classes */
+/**
+ * A constants class for {@link org.dominokit.domino.ui.progress.Progress} and {@link
+ * org.dominokit.domino.ui.progress.ProgressBar} css classes
+ *
+ * @author vegegoku
+ * @version $Id: $Id
+ */
 public interface ProgressStyles {
   /** the main Progress css class */
   CssClass dui_progress = () -> "dui-progress";

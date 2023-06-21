@@ -26,6 +26,8 @@ import org.dominokit.domino.ui.utils.DominoElement;
  * row and column which it is part of
  *
  * @param <T> the type of the data table records
+ * @author vegegoku
+ * @version $Id: $Id
  */
 public class RowCell<T> {
 
@@ -36,8 +38,10 @@ public class RowCell<T> {
   /**
    * Creates and initialize an instance with the cell info and column info
    *
-   * @param cellInfo the {@link CellRenderer.CellInfo} information about this cell
-   * @param columnConfig the {@link ColumnConfig} the column this cell is part of
+   * @param cellInfo the {@link org.dominokit.domino.ui.datatable.CellRenderer.CellInfo} information
+   *     about this cell
+   * @param columnConfig the {@link org.dominokit.domino.ui.datatable.ColumnConfig} the column this
+   *     cell is part of
    */
   public RowCell(CellRenderer.CellInfo<T> cellInfo, ColumnConfig<T> columnConfig) {
     this.columnConfig = columnConfig;
@@ -45,6 +49,11 @@ public class RowCell<T> {
   }
 
   /** @return the {@link ColumnConfig} the column this cell is part of */
+  /**
+   * Getter for the field <code>columnConfig</code>.
+   *
+   * @return a {@link org.dominokit.domino.ui.datatable.ColumnConfig} object
+   */
   public ColumnConfig<T> getColumnConfig() {
     return columnConfig;
   }
@@ -91,6 +100,11 @@ public class RowCell<T> {
   }
 
   /** @return the {@link CellRenderer.CellInfo} information about this cell */
+  /**
+   * Getter for the field <code>cellInfo</code>.
+   *
+   * @return a {@link org.dominokit.domino.ui.datatable.CellRenderer.CellInfo} object
+   */
   public CellRenderer.CellInfo<T> getCellInfo() {
     return cellInfo;
   }

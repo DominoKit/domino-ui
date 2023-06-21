@@ -29,16 +29,20 @@ import org.dominokit.domino.ui.style.CssClass;
  * This plugin adds a thin colored border to the left of a row based on custom criteria
  *
  * @param <T> the type of the data table records
+ * @author vegegoku
+ * @version $Id: $Id
  */
 public class RowMarkerPlugin<T> implements DataTablePlugin<T>, DataTableStyles {
 
   private final MarkerColor<T> markerColor;
 
+  /** {@inheritDoc} */
   @Override
   public void onBeforeAddTable(DataTable<T> dataTable) {
     dataTable.addCss(dui_datatable_row_marker);
   }
 
+  /** {@inheritDoc} */
   @Override
   public void onRowAdded(DataTable<T> dataTable, TableRow<T> tableRow) {
     setStyle(tableRow);
@@ -53,6 +57,7 @@ public class RowMarkerPlugin<T> implements DataTablePlugin<T>, DataTableStyles {
     }
   }
 
+  /** {@inheritDoc} */
   @Override
   public void handleEvent(TableEvent event) {
     if (RowRecordUpdatedEvent.RECORD_UPDATED.equals(event.getType())) {
@@ -63,12 +68,14 @@ public class RowMarkerPlugin<T> implements DataTablePlugin<T>, DataTableStyles {
   /**
    * creates an instance with a custom marker color
    *
-   * @param markerColor {@link MarkerColor}
+   * @param markerColor {@link
+   *     org.dominokit.domino.ui.datatable.plugins.marker.RowMarkerPlugin.MarkerColor}
    */
   public RowMarkerPlugin(MarkerColor<T> markerColor) {
     this.markerColor = markerColor;
   }
 
+  /** {@inheritDoc} */
   @Override
   public int order() {
     return Integer.MAX_VALUE;

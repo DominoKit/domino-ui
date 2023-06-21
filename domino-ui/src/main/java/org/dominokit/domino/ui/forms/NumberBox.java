@@ -35,6 +35,8 @@ import org.gwtproject.i18n.shared.cldr.NumberConstants;
  *
  * @param <T> The type of the class extending from this base class
  * @param <V> The Numeric type of the component value
+ * @author vegegoku
+ * @version $Id: $Id
  */
 public abstract class NumberBox<T extends NumberBox<T, V>, V extends Number>
     extends InputFormField<T, HTMLInputElement, V>
@@ -78,11 +80,13 @@ public abstract class NumberBox<T extends NumberBox<T, V>, V extends Number>
     setLabel(label);
   }
 
+  /** {@inheritDoc} */
   @Override
   public String getType() {
     return "tel";
   }
 
+  /** {@inheritDoc} */
   @Override
   protected DominoElement<HTMLInputElement> createInputElement(String type) {
     return input(type).addCss(dui_field_input).toDominoElement();
@@ -113,10 +117,20 @@ public abstract class NumberBox<T extends NumberBox<T, V>, V extends Number>
     return ValidationResult.valid();
   }
 
+  /**
+   * hasDecimalSeparator.
+   *
+   * @return a boolean
+   */
   protected boolean hasDecimalSeparator() {
     return false;
   }
 
+  /**
+   * createKeyMatch.
+   *
+   * @return a {@link java.lang.String} object
+   */
   protected String createKeyMatch() {
     StringBuilder sB = new StringBuilder();
 
@@ -136,11 +150,21 @@ public abstract class NumberBox<T extends NumberBox<T, V>, V extends Number>
     return sB.toString();
   }
 
+  /**
+   * onKeyPress.
+   *
+   * @param event a {@link elemental2.dom.Event} object
+   */
   protected void onKeyPress(Event event) {
     KeyboardEvent keyboardEvent = Js.uncheckedCast(event);
     if (!keyboardEvent.key.matches(createKeyMatch())) event.preventDefault();
   }
 
+  /**
+   * onPaste.
+   *
+   * @param event a {@link elemental2.dom.Event} object
+   */
   protected void onPaste(Event event) {
     ClipboardEvent clipboardEvent = Js.uncheckedCast(event);
     try {
@@ -217,10 +241,9 @@ public abstract class NumberBox<T extends NumberBox<T, V>, V extends Number>
   }
 
   /**
-   * Sets the minimum allowed value for the field
+   * {@inheritDoc}
    *
-   * @param minValue E minimum value
-   * @return same component instance
+   * <p>Sets the minimum allowed value for the field
    */
   @Override
   public T setMinValue(V minValue) {
@@ -229,10 +252,9 @@ public abstract class NumberBox<T extends NumberBox<T, V>, V extends Number>
   }
 
   /**
-   * Sets the maximum allowed value for the field
+   * {@inheritDoc}
    *
-   * @param maxValue E maximum value
-   * @return same component instance
+   * <p>Sets the maximum allowed value for the field
    */
   @Override
   public T setMaxValue(V maxValue) {
@@ -241,12 +263,12 @@ public abstract class NumberBox<T extends NumberBox<T, V>, V extends Number>
   }
 
   /**
-   * Sets the increment step attribute for the field
+   * {@inheritDoc}
+   *
+   * <p>Sets the increment step attribute for the field
    *
    * @see <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/step">HTML
    *     attribute: step</a>
-   * @param step E numeric value
-   * @return same field instance
    */
   @Override
   public T setStep(V step) {
@@ -254,10 +276,7 @@ public abstract class NumberBox<T extends NumberBox<T, V>, V extends Number>
     return (T) this;
   }
 
-  /**
-   * @return the maximum allowed value for the field if exists or else return {@link
-   *     #defaultMaxValue()}
-   */
+  /** {@inheritDoc} */
   @Override
   public V getMaxValue() {
     String maxValue = getInputElement().element().max;
@@ -267,10 +286,7 @@ public abstract class NumberBox<T extends NumberBox<T, V>, V extends Number>
     return parseValue(maxValue);
   }
 
-  /**
-   * @return the minimum allowed value for the field if exists or else return {@link
-   *     #defaultMinValue()}
-   */
+  /** {@inheritDoc} */
   @Override
   public V getMinValue() {
     String minValue = getInputElement().element().min;
@@ -280,10 +296,7 @@ public abstract class NumberBox<T extends NumberBox<T, V>, V extends Number>
     return parseValue(minValue);
   }
 
-  /**
-   * @return the step value for the field if exists or else return null
-   * @see #setStep(Number)
-   */
+  /** {@inheritDoc} */
   @Override
   public V getStep() {
     String step = getInputElement().element().step;
@@ -294,6 +307,8 @@ public abstract class NumberBox<T extends NumberBox<T, V>, V extends Number>
   }
 
   /**
+   * Setter for the field <code>maxValueErrorMessage</code>.
+   *
    * @param maxValueErrorMessage String error message to display when the field value is greater
    *     than the maximum value
    * @return same field instance
@@ -304,6 +319,8 @@ public abstract class NumberBox<T extends NumberBox<T, V>, V extends Number>
   }
 
   /**
+   * Setter for the field <code>minValueErrorMessage</code>.
+   *
    * @param minValueErrorMessage String error message to display when the field value is less than
    *     the minimum value
    * @return same field instance
@@ -314,6 +331,8 @@ public abstract class NumberBox<T extends NumberBox<T, V>, V extends Number>
   }
 
   /**
+   * Setter for the field <code>invalidFormatMessage</code>.
+   *
    * @param invalidFormatMessage String error message to display when the field value does not match
    *     the field format
    * @return same field instance
@@ -324,6 +343,8 @@ public abstract class NumberBox<T extends NumberBox<T, V>, V extends Number>
   }
 
   /**
+   * Getter for the field <code>maxValueErrorMessage</code>.
+   *
    * @return String error message to display when the field value is greater than the maximum value
    */
   public String getMaxValueErrorMessage() {
@@ -333,6 +354,11 @@ public abstract class NumberBox<T extends NumberBox<T, V>, V extends Number>
   }
 
   /** @return String error message to display when the field value is less than the minimum value */
+  /**
+   * Getter for the field <code>minValueErrorMessage</code>.
+   *
+   * @return a {@link java.lang.String} object
+   */
   public String getMinValueErrorMessage() {
     return isNull(minValueErrorMessage)
         ? "Minimum allowed value is [" + getMinValue() + "]"
@@ -340,6 +366,8 @@ public abstract class NumberBox<T extends NumberBox<T, V>, V extends Number>
   }
 
   /**
+   * Getter for the field <code>invalidFormatMessage</code>.
+   *
    * @return String error message to display when the field value format does not match the field
    *     format
    */
@@ -392,6 +420,11 @@ public abstract class NumberBox<T extends NumberBox<T, V>, V extends Number>
   }
 
   /** @return a {@link NumberFormat} instance that should be used to format this field */
+  /**
+   * getNumberFormat.
+   *
+   * @return a {@link org.gwtproject.i18n.client.NumberFormat} object
+   */
   protected NumberFormat getNumberFormat() {
     if (nonNull(getPattern())) {
       return NumberFormat.getFormat(getPattern());
@@ -401,11 +434,18 @@ public abstract class NumberBox<T extends NumberBox<T, V>, V extends Number>
   }
 
   /** @return String pattern used to format the field value */
+  /**
+   * Getter for the field <code>pattern</code>.
+   *
+   * @return a {@link java.lang.String} object
+   */
   public String getPattern() {
     return pattern;
   }
 
   /**
+   * Setter for the field <code>pattern</code>.
+   *
    * @param pattern String pattern to format the field value
    * @return same field instance
    */
@@ -421,6 +461,12 @@ public abstract class NumberBox<T extends NumberBox<T, V>, V extends Number>
     return (T) this;
   }
 
+  /**
+   * parseDouble.
+   *
+   * @param value a {@link java.lang.String} object
+   * @return a double
+   */
   public double parseDouble(String value) {
     try {
       return getNumberFormat().parse(value);
@@ -432,11 +478,13 @@ public abstract class NumberBox<T extends NumberBox<T, V>, V extends Number>
     }
   }
 
+  /** {@inheritDoc} */
   @Override
   public String getPlaceholder() {
     return getInputElement().element().placeholder;
   }
 
+  /** {@inheritDoc} */
   @Override
   public T setPlaceholder(String placeholder) {
     getInputElement().element().placeholder = placeholder;
@@ -453,14 +501,35 @@ public abstract class NumberBox<T extends NumberBox<T, V>, V extends Number>
     return valueParser.apply(value);
   }
 
+  /**
+   * defaultValueParser.
+   *
+   * @return a {@link java.util.function.Function} object
+   */
   protected abstract java.util.function.Function<String, V> defaultValueParser();
 
   /** @return E numeric max value as a default in case {@link #setMaxValue(Number)} is not called */
+  /**
+   * defaultMaxValue.
+   *
+   * @return a V object
+   */
   protected abstract V defaultMaxValue();
 
   /** @return E numeric min value as a default in case {@link #setMinValue(Number)} is not called */
+  /**
+   * defaultMinValue.
+   *
+   * @return a V object
+   */
   protected abstract V defaultMinValue();
 
+  /**
+   * Setter for the field <code>valueParser</code>.
+   *
+   * @param valueParser a {@link java.util.function.Function} object
+   * @return a T object
+   */
   public T setValueParser(java.util.function.Function<String, V> valueParser) {
     if (nonNull(valueParser)) {
       this.valueParser = valueParser;
@@ -492,12 +561,14 @@ public abstract class NumberBox<T extends NumberBox<T, V>, V extends Number>
     return new InputAutoValidator(autoValidate, getInputElement());
   }
 
+  /** {@inheritDoc} */
   @Override
   public T setPostfix(String postfix) {
     postfixElement.get().setTextContent(postfix);
     return (T) this;
   }
 
+  /** {@inheritDoc} */
   @Override
   public String getPostfix() {
     if (postfixElement.isInitialized()) {
@@ -506,12 +577,14 @@ public abstract class NumberBox<T extends NumberBox<T, V>, V extends Number>
     return "";
   }
 
+  /** {@inheritDoc} */
   @Override
   public T setPrefix(String prefix) {
     prefixElement.get().setTextContent(prefix);
     return (T) this;
   }
 
+  /** {@inheritDoc} */
   @Override
   public String getPrefix() {
     if (prefixElement.isInitialized()) {
@@ -520,39 +593,73 @@ public abstract class NumberBox<T extends NumberBox<T, V>, V extends Number>
     return "";
   }
 
+  /**
+   * Getter for the field <code>prefixElement</code>.
+   *
+   * @return a {@link org.dominokit.domino.ui.elements.DivElement} object
+   */
   public DivElement getPrefixElement() {
     return prefixElement.get();
   }
 
+  /**
+   * Getter for the field <code>postfixElement</code>.
+   *
+   * @return a {@link org.dominokit.domino.ui.elements.DivElement} object
+   */
   public DivElement getPostfixElement() {
     return postfixElement.get();
   }
 
+  /**
+   * withPrefixElement.
+   *
+   * @return a T object
+   */
   public T withPrefixElement() {
     prefixElement.get();
     return (T) this;
   }
 
+  /**
+   * withPrefixElement.
+   *
+   * @param handler a {@link org.dominokit.domino.ui.utils.ChildHandler} object
+   * @return a T object
+   */
   public T withPrefixElement(ChildHandler<T, DivElement> handler) {
     handler.apply((T) this, prefixElement.get());
     return (T) this;
   }
 
+  /**
+   * withPostfixElement.
+   *
+   * @return a T object
+   */
   public T withPostfixElement() {
     postfixElement.get();
     return (T) this;
   }
 
+  /**
+   * withPostfixElement.
+   *
+   * @param handler a {@link org.dominokit.domino.ui.utils.ChildHandler} object
+   * @return a T object
+   */
   public T withPostfixElement(ChildHandler<T, DivElement> handler) {
     handler.apply((T) this, postfixElement.get());
     return (T) this;
   }
 
+  /** {@inheritDoc} */
   @Override
   public String getName() {
     return getInputElement().element().name;
   }
 
+  /** {@inheritDoc} */
   @Override
   public T setName(String name) {
     getInputElement().element().name = name;

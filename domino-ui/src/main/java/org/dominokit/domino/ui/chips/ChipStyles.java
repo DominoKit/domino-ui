@@ -17,7 +17,12 @@ package org.dominokit.domino.ui.chips;
 
 import org.dominokit.domino.ui.style.CssClass;
 
-/** Default CSS classes for {@link Chip} */
+/**
+ * Default CSS classes for {@link org.dominokit.domino.ui.chips.Chip}
+ *
+ * @author vegegoku
+ * @version $Id: $Id
+ */
 public class ChipStyles {
   /** CSS class for chip */
   public static final CssClass dui_chip = () -> "dui-chip";
@@ -28,6 +33,8 @@ public class ChipStyles {
   /** CSS class for remove element */
   public static final CssClass dui_chip_selected = () -> "dui-chip-selected";
 
+  /** Constant <code>dui_chip_remove</code> */
   public static final CssClass dui_chip_remove = () -> "dui-chip-remove";
+  /** Constant <code>dui_chip_has_addon</code> */
   public static final CssClass dui_chip_has_addon = () -> "dui-has-addon";
 }

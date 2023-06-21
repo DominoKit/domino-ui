@@ -20,14 +20,26 @@ import org.dominokit.domino.ui.elements.ButtonElement;
 import org.dominokit.domino.ui.style.GenericCss;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
 
+/**
+ * RemoveButton class.
+ *
+ * @author vegegoku
+ * @version $Id: $Id
+ */
 public class RemoveButton extends BaseDominoElement<HTMLButtonElement, RemoveButton> {
 
   private ButtonElement button;
 
+  /**
+   * create.
+   *
+   * @return a {@link org.dominokit.domino.ui.button.RemoveButton} object
+   */
   public static RemoveButton create() {
     return new RemoveButton();
   }
 
+  /** Constructor for RemoveButton. */
   public RemoveButton() {
     button =
         button()
@@ -36,6 +48,7 @@ public class RemoveButton extends BaseDominoElement<HTMLButtonElement, RemoveBut
     init(this);
   }
 
+  /** {@inheritDoc} */
   @Override
   public HTMLButtonElement element() {
     return button.element();

@@ -29,6 +29,12 @@ import org.dominokit.domino.ui.utils.PostfixAddOn;
 import org.dominokit.domino.ui.utils.PrefixAddOn;
 import org.dominokit.domino.ui.utils.PrimaryAddOn;
 
+/**
+ * TextAreaBox class.
+ *
+ * @author vegegoku
+ * @version $Id: $Id
+ */
 public class TextAreaBox extends CountableInputFormField<TextAreaBox, HTMLTextAreaElement, String> {
 
   private EventListener autosizeListener = evt -> adjustHeight();
@@ -38,14 +44,26 @@ public class TextAreaBox extends CountableInputFormField<TextAreaBox, HTMLTextAr
   private DivElement header;
   private LazyChild<FillerElement> headerFiller;
 
+  /**
+   * create.
+   *
+   * @return a {@link org.dominokit.domino.ui.forms.TextAreaBox} object
+   */
   public static TextAreaBox create() {
     return new TextAreaBox();
   }
 
+  /**
+   * create.
+   *
+   * @param label a {@link java.lang.String} object
+   * @return a {@link org.dominokit.domino.ui.forms.TextAreaBox} object
+   */
   public static TextAreaBox create(String label) {
     return new TextAreaBox(label);
   }
 
+  /** Constructor for TextAreaBox. */
   public TextAreaBox() {
     setRows(4);
     addCss(dui_form_text_area);
@@ -71,24 +89,28 @@ public class TextAreaBox extends CountableInputFormField<TextAreaBox, HTMLTextAr
                     .setAttribute("data-scroll", getInputElement().element().scrollTop));
   }
 
+  /** {@inheritDoc} */
   @Override
   protected LazyChild<SpanElement> initCounterElement() {
     headerFiller.get();
     return counterElement = LazyChild.of(span().addCss(du_field_counter), header);
   }
 
+  /** {@inheritDoc} */
   @Override
   public TextAreaBox appendChild(PrefixAddOn<?> addon) {
     header.appendChild(addon);
     return this;
   }
 
+  /** {@inheritDoc} */
   @Override
   public TextAreaBox appendChild(PrimaryAddOn<?> addon) {
     header.appendChild(addon);
     return this;
   }
 
+  /** {@inheritDoc} */
   @Override
   public TextAreaBox appendChild(PostfixAddOn<?> addon) {
     headerFiller.get();
@@ -96,11 +118,22 @@ public class TextAreaBox extends CountableInputFormField<TextAreaBox, HTMLTextAr
     return this;
   }
 
+  /**
+   * Constructor for TextAreaBox.
+   *
+   * @param label a {@link java.lang.String} object
+   */
   public TextAreaBox(String label) {
     this();
     setLabel(label);
   }
 
+  /**
+   * Setter for the field <code>rows</code>.
+   *
+   * @param rows a int
+   * @return a {@link org.dominokit.domino.ui.forms.TextAreaBox} object
+   */
   public TextAreaBox setRows(int rows) {
     this.rows = rows;
     updateRows(rows);
@@ -111,11 +144,13 @@ public class TextAreaBox extends CountableInputFormField<TextAreaBox, HTMLTextAr
     getInputElement().setAttribute("rows", rows + "");
   }
 
+  /** {@inheritDoc} */
   @Override
   public String getStringValue() {
     return getValue();
   }
 
+  /** {@inheritDoc} */
   @Override
   protected DominoElement<HTMLTextAreaElement> createInputElement(String type) {
     return textarea()
@@ -140,6 +175,8 @@ public class TextAreaBox extends CountableInputFormField<TextAreaBox, HTMLTextAr
   /**
    * The TextArea will start with initial number of rows and will automatically grow if more lines
    * are added instead of showing scrollbars
+   *
+   * @return a {@link org.dominokit.domino.ui.forms.TextAreaBox} object
    */
   public TextAreaBox autoSize() {
     getInputElement().addEventListener("input", autosizeListener);
@@ -174,11 +211,13 @@ public class TextAreaBox extends CountableInputFormField<TextAreaBox, HTMLTextAr
     }
   }
 
+  /** {@inheritDoc} */
   @Override
   public String getType() {
     return "text";
   }
 
+  /** {@inheritDoc} */
   @Override
   public String getValue() {
     String value = getInputElement().element().value;
@@ -188,11 +227,13 @@ public class TextAreaBox extends CountableInputFormField<TextAreaBox, HTMLTextAr
     return value;
   }
 
+  /** {@inheritDoc} */
   @Override
   public String getName() {
     return getInputElement().element().name;
   }
 
+  /** {@inheritDoc} */
   @Override
   public TextAreaBox setName(String name) {
     getInputElement().element().name = name;

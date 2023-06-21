@@ -17,15 +17,16 @@ package org.dominokit.domino.ui.forms.validations;
 
 import elemental2.dom.EventListener;
 import elemental2.dom.HTMLElement;
-import org.dominokit.domino.ui.events.EventType;
 import org.dominokit.domino.ui.forms.AutoValidator;
-import org.dominokit.domino.ui.forms.FormElement;
 import org.dominokit.domino.ui.utils.ApplyFunction;
 import org.dominokit.domino.ui.utils.DominoElement;
 
 /**
- * this class attach an {@link FormElement#autoValidate()} } to a component and bind the validation
- * the {@link EventType#blur}
+ * this class attach an {@link org.dominokit.domino.ui.forms.FormElement#autoValidate()} } to a
+ * component and bind the validation the {@link org.dominokit.domino.ui.events.EventType#blur}
+ *
+ * @author vegegoku
+ * @version $Id: $Id
  */
 public class InputAutoValidator<E extends HTMLElement> extends AutoValidator {
 
@@ -33,8 +34,10 @@ public class InputAutoValidator<E extends HTMLElement> extends AutoValidator {
   private final EventListener eventListener;
 
   /**
-   * @param autoValidate {@link ApplyFunction}
-   * @param inputElement
+   * Constructor for InputAutoValidator.
+   *
+   * @param autoValidate {@link org.dominokit.domino.ui.utils.ApplyFunction}
+   * @param inputElement a {@link org.dominokit.domino.ui.utils.DominoElement} object
    */
   public InputAutoValidator(ApplyFunction autoValidate, DominoElement<E> inputElement) {
     super(autoValidate);

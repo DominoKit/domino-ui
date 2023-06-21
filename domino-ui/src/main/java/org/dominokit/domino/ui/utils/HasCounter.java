@@ -15,9 +15,27 @@
  */
 package org.dominokit.domino.ui.utils;
 
+/**
+ * HasCounter interface.
+ *
+ * @author vegegoku
+ * @version $Id: $Id
+ */
 public interface HasCounter<T> {
+  /**
+   * updateCounter.
+   *
+   * @param count a int
+   * @param maxCount a int
+   * @return a T object
+   */
   T updateCounter(int count, int maxCount);
 
+  /**
+   * getMaxCount.
+   *
+   * @return a int
+   */
   int getMaxCount();
 
   interface CountFormatter {

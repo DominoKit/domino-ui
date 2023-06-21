@@ -17,15 +17,31 @@ package org.dominokit.domino.ui.forms;
 
 import java.util.function.Function;
 
-/** A component that has an input to take/provide Double value */
+/**
+ * A component that has an input to take/provide Double value
+ *
+ * @author vegegoku
+ * @version $Id: $Id
+ */
 public class DoubleBox extends NumberBox<DoubleBox, Double> {
 
   /** @return a new instance without a label */
+  /**
+   * create.
+   *
+   * @return a {@link org.dominokit.domino.ui.forms.DoubleBox} object
+   */
   public static DoubleBox create() {
     return new DoubleBox();
   }
 
   /** @return a new instance with a label */
+  /**
+   * create.
+   *
+   * @param label a {@link java.lang.String} object
+   * @return a {@link org.dominokit.domino.ui.forms.DoubleBox} object
+   */
   public static DoubleBox create(String label) {
     return new DoubleBox(label);
   }

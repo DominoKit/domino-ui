@@ -17,11 +17,28 @@ package org.dominokit.domino.ui.elements;
 
 import elemental2.dom.HTMLElement;
 
+/**
+ * NoScriptElement class.
+ *
+ * @author vegegoku
+ * @version $Id: $Id
+ */
 public class NoScriptElement extends BaseElement<HTMLElement, NoScriptElement> {
+  /**
+   * of.
+   *
+   * @param e a {@link elemental2.dom.HTMLElement} object
+   * @return a {@link org.dominokit.domino.ui.elements.NoScriptElement} object
+   */
   public static NoScriptElement of(HTMLElement e) {
     return new NoScriptElement(e);
   }
 
+  /**
+   * Constructor for NoScriptElement.
+   *
+   * @param element a {@link elemental2.dom.HTMLElement} object
+   */
   public NoScriptElement(HTMLElement element) {
     super(element);
   }

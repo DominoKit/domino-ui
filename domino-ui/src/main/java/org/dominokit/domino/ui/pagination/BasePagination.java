@@ -22,7 +22,7 @@ import java.util.*;
 import org.dominokit.domino.ui.elements.NavElement;
 import org.dominokit.domino.ui.elements.UListElement;
 import org.dominokit.domino.ui.i18n.PaginationLabels;
-import org.dominokit.domino.ui.icons.Icons;
+import org.dominokit.domino.ui.icons.lib.Icons;
 import org.dominokit.domino.ui.style.BooleanCssClass;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
 import org.dominokit.domino.ui.utils.DominoUIConfig;
@@ -32,6 +32,8 @@ import org.dominokit.domino.ui.utils.HasChangeListeners;
  * Base implementation for pagination
  *
  * @param <T> the type of the pagination
+ * @author vegegoku
+ * @version $Id: $Id
  */
 public abstract class BasePagination<T extends BasePagination<T>>
     extends BaseDominoElement<HTMLElement, T>
@@ -63,6 +65,7 @@ public abstract class BasePagination<T extends BasePagination<T>>
 
   protected PaginationLabels labels = DominoUIConfig.CONFIG.getDominoUILabels();
 
+  /** Constructor for BasePagination. */
   public BasePagination() {
     pager = nav().addCss(dui_pager).appendChild(pagesList = ul().addCss(dui_pager_list));
 
@@ -74,12 +77,24 @@ public abstract class BasePagination<T extends BasePagination<T>>
         .appendChild(lastPage = PagerNavItem.nav(Icons.skip_next()).collapse());
   }
 
+  /**
+   * showFirstLastPage.
+   *
+   * @param visible a boolean
+   * @return a T object
+   */
   public T showFirstLastPage(boolean visible) {
     firstPage.toggleDisplay(visible);
     lastPage.toggleDisplay(visible);
     return (T) this;
   }
 
+  /**
+   * showNextPrevPage.
+   *
+   * @param visible a boolean
+   * @return a T object
+   */
   public T showNextPrevPage(boolean visible) {
     nextPage.toggleDisplay(visible);
     prevPage.toggleDisplay(visible);
@@ -114,11 +129,13 @@ public abstract class BasePagination<T extends BasePagination<T>>
     return updatePages(pages, pageSize, silent);
   }
 
+  /** {@inheritDoc} */
   @Override
   public T updatePages(int pages) {
     return updatePages(pages, true);
   }
 
+  /** {@inheritDoc} */
   @Override
   public T updatePages(int pages, int pageSize) {
     return updatePages(pages, pageSize, true);
@@ -259,36 +276,48 @@ public abstract class BasePagination<T extends BasePagination<T>>
     return pagesCount;
   }
 
+  /**
+   * moveToPage.
+   *
+   * @param page a int
+   * @param silent a boolean
+   */
   protected abstract void moveToPage(int page, boolean silent);
 
+  /** {@inheritDoc} */
   @Override
   public T pauseChangeListeners() {
     this.changeListenersPaused = true;
     return (T) this;
   }
 
+  /** {@inheritDoc} */
   @Override
   public T resumeChangeListeners() {
     this.changeListenersPaused = false;
     return (T) this;
   }
 
+  /** {@inheritDoc} */
   @Override
   public T togglePauseChangeListeners(boolean toggle) {
     this.changeListenersPaused = toggle;
     return (T) this;
   }
 
+  /** {@inheritDoc} */
   @Override
   public Set<ChangeListener<? super Integer>> getChangeListeners() {
     return pageChangeListeners;
   }
 
+  /** {@inheritDoc} */
   @Override
   public boolean isChangeListenersPaused() {
     return changeListenersPaused;
   }
 
+  /** {@inheritDoc} */
   @Override
   public T triggerChangeListeners(Integer oldValue, Integer newValue) {
     getChangeListeners()

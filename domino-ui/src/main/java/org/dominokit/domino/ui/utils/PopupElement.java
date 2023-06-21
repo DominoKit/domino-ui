@@ -18,5 +18,11 @@ package org.dominokit.domino.ui.utils;
 import elemental2.dom.HTMLElement;
 import org.dominokit.domino.ui.IsElement;
 
+/**
+ * Abstract PopupElement class.
+ *
+ * @author vegegoku
+ * @version $Id: $Id
+ */
 public abstract class PopupElement<E extends HTMLElement, T extends IsElement<E>>
     extends BaseDominoElement<E, T> implements IsPopup<T> {}

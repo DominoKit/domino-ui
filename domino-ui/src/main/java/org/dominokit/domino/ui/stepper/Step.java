@@ -28,6 +28,12 @@ import org.dominokit.domino.ui.utils.BaseDominoElement;
 import org.dominokit.domino.ui.utils.ChildHandler;
 import org.dominokit.domino.ui.utils.LazyChild;
 
+/**
+ * Step class.
+ *
+ * @author vegegoku
+ * @version $Id: $Id
+ */
 public class Step extends BaseDominoElement<HTMLDivElement, Step>
     implements StepperStyles, HasComponentConfig<StepperConfig> {
 
@@ -39,6 +45,11 @@ public class Step extends BaseDominoElement<HTMLDivElement, Step>
   private StepState state;
   private Stepper stepper;
 
+  /**
+   * Constructor for Step.
+   *
+   * @param title a {@link java.lang.String} object
+   */
   public Step(String title) {
     this.state = getConfig().getDefaultStepState();
     root =
@@ -54,6 +65,12 @@ public class Step extends BaseDominoElement<HTMLDivElement, Step>
     init(this);
   }
 
+  /**
+   * create.
+   *
+   * @param title a {@link java.lang.String} object
+   * @return a {@link org.dominokit.domino.ui.stepper.Step} object
+   */
   public static Step create(String title) {
     return new Step(title);
   }
@@ -63,26 +80,55 @@ public class Step extends BaseDominoElement<HTMLDivElement, Step>
     addCss(BooleanCssClass.of(dui_active, tracker.isActive()));
   }
 
+  /**
+   * withHeader.
+   *
+   * @param handler a {@link org.dominokit.domino.ui.utils.ChildHandler} object
+   * @return a {@link org.dominokit.domino.ui.stepper.Step} object
+   */
   public Step withHeader(ChildHandler<Step, NavBar> handler) {
     handler.apply(this, stepHeader);
     return this;
   }
 
+  /**
+   * withFooter.
+   *
+   * @param handler a {@link org.dominokit.domino.ui.utils.ChildHandler} object
+   * @return a {@link org.dominokit.domino.ui.stepper.Step} object
+   */
   public Step withFooter(ChildHandler<Step, DivElement> handler) {
     handler.apply(this, stepFooter.get());
     return this;
   }
 
+  /**
+   * withContent.
+   *
+   * @param handler a {@link org.dominokit.domino.ui.utils.ChildHandler} object
+   * @return a {@link org.dominokit.domino.ui.stepper.Step} object
+   */
   public Step withContent(ChildHandler<Step, DivElement> handler) {
     handler.apply(this, stepContent);
     return this;
   }
 
+  /**
+   * withTracker.
+   *
+   * @param handler a {@link org.dominokit.domino.ui.utils.ChildHandler} object
+   * @return a {@link org.dominokit.domino.ui.stepper.Step} object
+   */
   public Step withTracker(ChildHandler<Step, StepTracker> handler) {
     handler.apply(this, stepTracker);
     return this;
   }
 
+  /**
+   * Getter for the field <code>stepTracker</code>.
+   *
+   * @return a {@link org.dominokit.domino.ui.stepper.StepTracker} object
+   */
   public StepTracker getStepTracker() {
     return stepTracker;
   }
@@ -92,6 +138,12 @@ public class Step extends BaseDominoElement<HTMLDivElement, Step>
     setState(this.state);
   }
 
+  /**
+   * Setter for the field <code>state</code>.
+   *
+   * @param state a {@link org.dominokit.domino.ui.stepper.StepState} object
+   * @return a {@link org.dominokit.domino.ui.stepper.Step} object
+   */
   public Step setState(StepState state) {
     this.stepTracker.setState(state);
     return this;
@@ -101,18 +153,44 @@ public class Step extends BaseDominoElement<HTMLDivElement, Step>
     this.stepper = null;
   }
 
+  /**
+   * next.
+   *
+   * @return a {@link org.dominokit.domino.ui.stepper.Step} object
+   */
   public Step next() {
     return next(0);
   }
 
+  /**
+   * next.
+   *
+   * @param skip a int
+   * @return a {@link org.dominokit.domino.ui.stepper.Step} object
+   */
   public Step next(int skip) {
     return next(skip, (deactivated, activated) -> {});
   }
 
+  /**
+   * next.
+   *
+   * @param consumer a {@link org.dominokit.domino.ui.stepper.StepperTrack.StepTrackersConsumer}
+   *     object
+   * @return a {@link org.dominokit.domino.ui.stepper.Step} object
+   */
   public Step next(StepperTrack.StepTrackersConsumer consumer) {
     return next(0, consumer);
   }
 
+  /**
+   * next.
+   *
+   * @param skip a int
+   * @param consumer a {@link org.dominokit.domino.ui.stepper.StepperTrack.StepTrackersConsumer}
+   *     object
+   * @return a {@link org.dominokit.domino.ui.stepper.Step} object
+   */
   public Step next(int skip, StepperTrack.StepTrackersConsumer consumer) {
     if (nonNull(this.stepper)) {
       this.stepper.next(skip, consumer);
@@ -120,18 +198,44 @@ public class Step extends BaseDominoElement<HTMLDivElement, Step>
     return this;
   }
 
+  /**
+   * prev.
+   *
+   * @return a {@link org.dominokit.domino.ui.stepper.Step} object
+   */
   public Step prev() {
     return prev(0);
   }
 
+  /**
+   * prev.
+   *
+   * @param consumer a {@link org.dominokit.domino.ui.stepper.StepperTrack.StepTrackersConsumer}
+   *     object
+   * @return a {@link org.dominokit.domino.ui.stepper.Step} object
+   */
   public Step prev(StepperTrack.StepTrackersConsumer consumer) {
     return prev(0, consumer);
   }
 
+  /**
+   * prev.
+   *
+   * @param skip a int
+   * @return a {@link org.dominokit.domino.ui.stepper.Step} object
+   */
   public Step prev(int skip) {
     return prev(skip, (deactivated, activated) -> {});
   }
 
+  /**
+   * prev.
+   *
+   * @param skip a int
+   * @param consumer a {@link org.dominokit.domino.ui.stepper.StepperTrack.StepTrackersConsumer}
+   *     object
+   * @return a {@link org.dominokit.domino.ui.stepper.Step} object
+   */
   public Step prev(int skip, StepperTrack.StepTrackersConsumer consumer) {
     if (nonNull(this.stepper)) {
       this.stepper.prev(skip, consumer);
@@ -139,6 +243,14 @@ public class Step extends BaseDominoElement<HTMLDivElement, Step>
     return this;
   }
 
+  /**
+   * finish.
+   *
+   * @param finishState a {@link org.dominokit.domino.ui.stepper.StepState} object
+   * @param consumer a {@link org.dominokit.domino.ui.stepper.StepperTrack.StepTrackersConsumer}
+   *     object
+   * @return a {@link org.dominokit.domino.ui.stepper.Step} object
+   */
   public Step finish(StepState finishState, StepperTrack.StepTrackersConsumer consumer) {
     if (nonNull(this.stepper)) {
       this.stepper.finish(finishState, consumer);
@@ -146,16 +258,24 @@ public class Step extends BaseDominoElement<HTMLDivElement, Step>
     return this;
   }
 
+  /**
+   * finish.
+   *
+   * @param finishState a {@link org.dominokit.domino.ui.stepper.StepState} object
+   * @return a {@link org.dominokit.domino.ui.stepper.Step} object
+   */
   public Step finish(StepState finishState) {
     finish(finishState, (deactivated, activated) -> {});
     return this;
   }
 
+  /** {@inheritDoc} */
   @Override
   public HTMLDivElement element() {
     return root.element();
   }
 
+  /** {@inheritDoc} */
   @Override
   protected Element getAppendTarget() {
     return stepContent.element();

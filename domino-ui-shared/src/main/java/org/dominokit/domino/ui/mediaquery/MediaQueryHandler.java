@@ -16,6 +16,18 @@
 package org.dominokit.domino.ui.mediaquery;
 
 @FunctionalInterface
+/**
+ * MediaQueryHandler interface.
+ *
+ * @author vegegoku
+ * @version $Id: $Id
+ */
 public interface MediaQueryHandler<T> {
+  /**
+   * onMedia.
+   *
+   * @param element a T object.
+   * @return a {@link org.dominokit.domino.ui.mediaquery.MediaQuery.MediaQueryListener} object.
+   */
   MediaQuery.MediaQueryListener onMedia(T element);
 }

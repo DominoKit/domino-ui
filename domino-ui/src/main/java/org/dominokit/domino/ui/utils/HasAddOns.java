@@ -15,10 +15,34 @@
  */
 package org.dominokit.domino.ui.utils;
 
+/**
+ * HasAddOns interface.
+ *
+ * @author vegegoku
+ * @version $Id: $Id
+ */
 public interface HasAddOns<T> {
+  /**
+   * appendChild.
+   *
+   * @param prefix a {@link org.dominokit.domino.ui.utils.PrefixAddOn} object
+   * @return a T object
+   */
   T appendChild(PrefixAddOn<?> prefix);
 
+  /**
+   * appendChild.
+   *
+   * @param addon a {@link org.dominokit.domino.ui.utils.PostfixAddOn} object
+   * @return a T object
+   */
   T appendChild(PostfixAddOn<?> addon);
 
+  /**
+   * appendChild.
+   *
+   * @param addon a {@link org.dominokit.domino.ui.utils.PrimaryAddOn} object
+   * @return a T object
+   */
   T appendChild(PrimaryAddOn<?> addon);
 }

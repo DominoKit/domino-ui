@@ -17,11 +17,28 @@ package org.dominokit.domino.ui.elements;
 
 import elemental2.dom.HTMLModElement;
 
+/**
+ * InsElement class.
+ *
+ * @author vegegoku
+ * @version $Id: $Id
+ */
 public class InsElement extends BaseElement<HTMLModElement, InsElement> {
+  /**
+   * of.
+   *
+   * @param e a {@link elemental2.dom.HTMLModElement} object
+   * @return a {@link org.dominokit.domino.ui.elements.InsElement} object
+   */
   public static InsElement of(HTMLModElement e) {
     return new InsElement(e);
   }
 
+  /**
+   * Constructor for InsElement.
+   *
+   * @param element a {@link elemental2.dom.HTMLModElement} object
+   */
   public InsElement(HTMLModElement element) {
     super(element);
   }

@@ -20,7 +20,12 @@ import org.dominokit.domino.ui.IsElement;
 import org.dominokit.domino.ui.elements.DivElement;
 import org.dominokit.domino.ui.utils.DominoElement;
 
-/** Stretch loader implementation */
+/**
+ * Stretch loader implementation
+ *
+ * @author vegegoku
+ * @version $Id: $Id
+ */
 public class StretchLoader extends BaseLoader<StretchLoader> implements IsElement<HTMLDivElement> {
 
   private final DivElement progress1 = div().addCss(wait_me_progress_elem_1, dui_bg_grey_d_2);
@@ -47,10 +52,16 @@ public class StretchLoader extends BaseLoader<StretchLoader> implements IsElemen
   private final DivElement element =
       div().addCss(wait_me).style("background: rgba(255, 255, 255, 0.9);").appendChild(content);
 
+  /** Constructor for StretchLoader. */
   public StretchLoader() {
     init(this);
   }
 
+  /**
+   * create.
+   *
+   * @return a {@link org.dominokit.domino.ui.loaders.StretchLoader} object
+   */
   public static StretchLoader create() {
     return new StretchLoader();
   }

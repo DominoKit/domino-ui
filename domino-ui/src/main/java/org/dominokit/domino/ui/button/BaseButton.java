@@ -44,6 +44,8 @@ import org.dominokit.domino.ui.utils.LazyChild;
  * button
  *
  * @param <B> The button subclass being wrapped
+ * @author vegegoku
+ * @version $Id: $Id
  */
 public abstract class BaseButton<E extends HTMLElement, B extends BaseButton<E, B>>
     extends WavesElement<HTMLElement, B>
@@ -67,6 +69,11 @@ public abstract class BaseButton<E extends HTMLElement, B extends BaseButton<E, 
     init((B) this);
   }
 
+  /**
+   * createButtonElement.
+   *
+   * @return a {@link org.dominokit.domino.ui.elements.BaseElement} object
+   */
   protected abstract BaseElement<E, ?> createButtonElement();
 
   /**
@@ -79,6 +86,12 @@ public abstract class BaseButton<E extends HTMLElement, B extends BaseButton<E, 
     setText(text);
   }
 
+  /**
+   * Constructor for BaseButton.
+   *
+   * @param text a {@link java.lang.String} object
+   * @param icon a {@link org.dominokit.domino.ui.icons.Icon} object
+   */
   protected BaseButton(String text, Icon<?> icon) {
     this();
     setText(text);
@@ -88,36 +101,41 @@ public abstract class BaseButton<E extends HTMLElement, B extends BaseButton<E, 
   /**
    * creates a button with an icon
    *
-   * @param icon {@link Icon}
+   * @param icon {@link org.dominokit.domino.ui.icons.Icon}
    */
   protected BaseButton(Icon<?> icon) {
     this();
     setIcon(icon);
   }
 
+  /** {@inheritDoc} */
   @Override
   protected Element getAppendTarget() {
     return bodyElement.element();
   }
 
-  /**
-   * @param text String, the new text
-   * @return same instance
-   */
+  /** {@inheritDoc} */
   @Override
   public B setTextContent(String text) {
     return setText(text);
   }
 
+  /**
+   * setText.
+   *
+   * @param text a {@link java.lang.String} object
+   * @return a B object
+   */
   public B setText(String text) {
     textElement.get().setTextContent(text);
     return (B) this;
   }
 
   /**
-   * return the clickable {@link HTMLElement} of this component, which the component button element.
+   * {@inheritDoc}
    *
-   * @return {@link HTMLElement} of this button instance
+   * <p>return the clickable {@link HTMLElement} of this component, which the component button
+   * element.
    */
   @Override
   public HTMLElement getClickableElement() {
@@ -125,7 +143,8 @@ public abstract class BaseButton<E extends HTMLElement, B extends BaseButton<E, 
   }
 
   /**
-   * changes the button to a circle button by applying {@link ButtonStyles#dui_circle}
+   * changes the button to a circle button by applying {@link
+   * org.dominokit.domino.ui.button.ButtonStyles#dui_circle}
    *
    * @return same instance
    */
@@ -138,7 +157,7 @@ public abstract class BaseButton<E extends HTMLElement, B extends BaseButton<E, 
   /**
    * sets the button icon replacing the current icon.
    *
-   * @param icon the new {@link Icon}
+   * @param icon the new {@link org.dominokit.domino.ui.icons.Icon}
    * @return same instance
    */
   public B setIcon(Icon<?> icon) {
@@ -150,20 +169,42 @@ public abstract class BaseButton<E extends HTMLElement, B extends BaseButton<E, 
     return (B) this;
   }
 
+  /**
+   * Getter for the field <code>textElement</code>.
+   *
+   * @return a {@link org.dominokit.domino.ui.elements.SpanElement} object
+   */
   public SpanElement getTextElement() {
     return textElement.get();
   }
 
+  /**
+   * withTextElement.
+   *
+   * @param handler a {@link org.dominokit.domino.ui.utils.ChildHandler} object
+   * @return a B object
+   */
   public B withTextElement(ChildHandler<B, SpanElement> handler) {
     handler.apply((B) this, textElement.get());
     return (B) this;
   }
 
+  /**
+   * withTextElement.
+   *
+   * @return a B object
+   */
   public B withTextElement() {
     textElement.get();
     return (B) this;
   }
 
+  /**
+   * withIconElement.
+   *
+   * @param handler a {@link org.dominokit.domino.ui.utils.ChildHandler} object
+   * @return a B object
+   */
   public B withIconElement(ChildHandler<B, Icon<?>> handler) {
     if (nonNull(iconElement)) {
       handler.apply((B) this, iconElement.get());
@@ -171,6 +212,11 @@ public abstract class BaseButton<E extends HTMLElement, B extends BaseButton<E, 
     return (B) this;
   }
 
+  /**
+   * withIconElement.
+   *
+   * @return a B object
+   */
   public B withIconElement() {
     if (nonNull(iconElement)) {
       iconElement.get();
@@ -178,16 +224,24 @@ public abstract class BaseButton<E extends HTMLElement, B extends BaseButton<E, 
     return (B) this;
   }
 
+  /**
+   * setReversed.
+   *
+   * @param reversed a boolean
+   * @return a B object
+   */
   public B setReversed(boolean reversed) {
     addCss(BooleanCssClass.of(dui_button_reversed, reversed));
     return (B) this;
   }
 
+  /** {@inheritDoc} */
   @Override
   public HTMLElement element() {
     return buttonElement.element();
   }
 
+  /** {@inheritDoc} */
   @Override
   public B asButton() {
     return (B) this;

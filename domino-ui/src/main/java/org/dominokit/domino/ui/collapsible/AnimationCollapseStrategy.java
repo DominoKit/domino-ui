@@ -25,8 +25,11 @@ import org.dominokit.domino.ui.animations.Animation;
 import org.dominokit.domino.ui.animations.Transition;
 
 /**
- * An implementation of {@link CollapseStrategy} that uses the css display property to hide/show the
- * collapsible element
+ * An implementation of {@link org.dominokit.domino.ui.collapsible.CollapseStrategy} that uses the
+ * css display property to hide/show the collapsible element
+ *
+ * @author vegegoku
+ * @version $Id: $Id
  */
 public class AnimationCollapseStrategy implements CollapseStrategy {
 
@@ -37,11 +40,19 @@ public class AnimationCollapseStrategy implements CollapseStrategy {
   private CollapsibleHandlers handlers;
   private Animation showAnimation;
 
+  /** {@inheritDoc} */
   @Override
   public void init(Element element, CollapsibleHandlers handlers) {
     this.handlers = handlers;
   }
 
+  /**
+   * Constructor for AnimationCollapseStrategy.
+   *
+   * @param showTransition a {@link org.dominokit.domino.ui.animations.Transition} object
+   * @param hideTransition a {@link org.dominokit.domino.ui.animations.Transition} object
+   * @param duration a {@link org.dominokit.domino.ui.collapsible.CollapseDuration} object
+   */
   public AnimationCollapseStrategy(
       Transition showTransition, Transition hideTransition, CollapseDuration duration) {
     this.options =
@@ -52,6 +63,12 @@ public class AnimationCollapseStrategy implements CollapseStrategy {
             .setHideDuration(duration);
   }
 
+  /**
+   * Constructor for AnimationCollapseStrategy.
+   *
+   * @param transition a {@link org.dominokit.domino.ui.animations.Transition} object
+   * @param duration a {@link org.dominokit.domino.ui.collapsible.CollapseDuration} object
+   */
   public AnimationCollapseStrategy(Transition transition, CollapseDuration duration) {
     this.options =
         new AnimationCollapseOptions()
@@ -61,6 +78,11 @@ public class AnimationCollapseStrategy implements CollapseStrategy {
             .setHideDuration(duration);
   }
 
+  /**
+   * Constructor for AnimationCollapseStrategy.
+   *
+   * @param options a {@link org.dominokit.domino.ui.collapsible.AnimationCollapseOptions} object
+   */
   public AnimationCollapseStrategy(AnimationCollapseOptions options) {
     this.options = options;
   }

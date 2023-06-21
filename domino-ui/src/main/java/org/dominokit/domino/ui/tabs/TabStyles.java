@@ -17,19 +17,37 @@ package org.dominokit.domino.ui.tabs;
 
 import org.dominokit.domino.ui.style.CssClass;
 
-/** Constants class for Tabs component css classes names */
+/**
+ * Constants class for Tabs component css classes names
+ *
+ * @author vegegoku
+ * @version $Id: $Id
+ */
 public interface TabStyles {
+  /** Constant <code>dui_tabs_nav</code> */
   CssClass dui_tabs_nav = () -> "dui-tabs-nav";
+  /** Constant <code>dui_tab_item</code> */
   CssClass dui_tab_item = () -> "dui-tab-item";
+  /** Constant <code>dui_tab_anchor</code> */
   CssClass dui_tab_anchor = () -> "dui-tab-anchor";
+  /** Constant <code>dui_tabs</code> */
   CssClass dui_tabs = () -> "dui-tabs";
+  /** Constant <code>dui_tab_header_item</code> */
   CssClass dui_tab_header_item = () -> "dui-tab-header-item";
+  /** Constant <code>dui_tab_header_close</code> */
   CssClass dui_tab_header_close = () -> "dui-tab-header-close";
+  /** Constant <code>dui_tab_header_icon</code> */
   CssClass dui_tab_header_icon = () -> "dui-tab-header-icon";
+  /** Constant <code>dui_tab_header_text</code> */
   CssClass dui_tab_header_text = () -> "dui-tab-header-text";
+  /** Constant <code>dui_tab_header</code> */
   CssClass dui_tab_header = () -> "dui-tab-header";
+  /** Constant <code>dui_tabs_content</code> */
   CssClass dui_tabs_content = () -> "dui-tabs-content";
+  /** Constant <code>dui_tab_panel</code> */
   CssClass dui_tab_panel = () -> "dui-tab-panel";
+  /** Constant <code>dui_vertical_header</code> */
   CssClass dui_vertical_header = () -> "dui-vertical-header";
+  /** Constant <code>dui_vertical_header_reversed</code> */
   CssClass dui_vertical_header_reversed = () -> "dui-reversed-vertical-header";
 }

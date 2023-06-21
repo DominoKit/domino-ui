@@ -36,6 +36,8 @@ import org.dominokit.domino.ui.utils.DominoElement;
  * This plugin adds sort capability to column headers on click
  *
  * @param <T> the type of the data table records
+ * @author vegegoku
+ * @version $Id: $Id
  */
 public class SortPlugin<T>
     implements DataTablePlugin<T>, HasPluginConfig<T, SortPlugin<T>, SortPluginConfig> {
@@ -81,10 +83,11 @@ public class SortPlugin<T>
   }
 
   /**
-   * manually sort the table by the specified column and fires the {@link SortEvent}
+   * manually sort the table by the specified column and fires the {@link
+   * org.dominokit.domino.ui.datatable.events.SortEvent}
    *
-   * @param direction the {@link SortDirection}
-   * @param column the sort {@link ColumnConfig}
+   * @param direction the {@link org.dominokit.domino.ui.datatable.plugins.pagination.SortDirection}
+   * @param column the sort {@link org.dominokit.domino.ui.datatable.ColumnConfig}
    */
   public void sort(SortDirection direction, ColumnConfig<T> column) {
     SortContext sortContext = sortContainers.get(column.getSortKey());
@@ -111,22 +114,23 @@ public class SortPlugin<T>
     }
   }
 
+  /** {@inheritDoc} */
   @Override
   public SortPlugin<T> setConfig(SortPluginConfig config) {
     this.config = config;
     return this;
   }
 
+  /** {@inheritDoc} */
   @Override
   public SortPluginConfig getConfig() {
     return config;
   }
 
   /**
-   * Use to update the configuration in the current plugin configuration
+   * {@inheritDoc}
    *
-   * @param handler {@link Consumer} of {@link SortPluginConfig}
-   * @return same plugin instance.
+   * <p>Use to update the configuration in the current plugin configuration
    */
   public SortPlugin<T> configure(Consumer<SortPluginConfig> handler) {
     handler.accept(config);

@@ -15,9 +15,20 @@
  */
 package org.dominokit.domino.ui.loaders;
 
-/** A factory for creating loaders based on their type */
+/**
+ * A factory for creating loaders based on their type
+ *
+ * @author vegegoku
+ * @version $Id: $Id
+ */
 public class LoaderFactory {
 
+  /**
+   * make.
+   *
+   * @param type a {@link org.dominokit.domino.ui.loaders.LoaderEffect} object
+   * @return a {@link org.dominokit.domino.ui.loaders.IsLoader} object
+   */
   public static IsLoader make(LoaderEffect type) {
     switch (type) {
       case BOUNCE:

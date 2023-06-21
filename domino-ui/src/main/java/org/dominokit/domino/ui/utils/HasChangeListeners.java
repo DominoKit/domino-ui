@@ -23,11 +23,15 @@ import java.util.Set;
  *
  * @param <T> the type of the class implementing this interface
  * @param <V> the type of the component value
+ * @author vegegoku
+ * @version $Id: $Id
  */
 public interface HasChangeListeners<T, V> {
 
   /**
-   * @param changeListener {@link ChangeListener}
+   * addChangeListener.
+   *
+   * @param changeListener {@link org.dominokit.domino.ui.utils.HasChangeListeners.ChangeListener}
    * @return same implementing class instance
    */
   default T addChangeListener(ChangeListener<? super V> changeListener) {
@@ -36,7 +40,9 @@ public interface HasChangeListeners<T, V> {
   }
 
   /**
-   * @param changeListener {@link ChangeListener}
+   * removeChangeListener.
+   *
+   * @param changeListener {@link org.dominokit.domino.ui.utils.HasChangeListeners.ChangeListener}
    * @return same implementing class instance
    */
   default T removeChangeListener(ChangeListener<? super V> changeListener) {
@@ -47,7 +53,7 @@ public interface HasChangeListeners<T, V> {
   /**
    * Checks if a component has the specified ChangeHandler
    *
-   * @param changeListener {@link ChangeListener}
+   * @param changeListener {@link org.dominokit.domino.ui.utils.HasChangeListeners.ChangeListener}
    * @return same implementing class instance
    */
   default boolean hasChangeListener(ChangeListener<? super V> changeListener) {
@@ -82,6 +88,7 @@ public interface HasChangeListeners<T, V> {
    *
    * @param toggle boolean, true to pause the change listeners, false to enable them
    * @return same component instance
+   * @param handler a {@link org.dominokit.domino.ui.utils.Handler} object
    */
   default T withPauseChangeListenersToggle(boolean toggle, Handler<T> handler) {
     boolean oldState = isChangeListenersPaused();
@@ -99,6 +106,7 @@ public interface HasChangeListeners<T, V> {
    * original value after executing the handler
    *
    * @return same component instance
+   * @param handler a {@link org.dominokit.domino.ui.utils.Handler} object
    */
   default T withPausedChangeListeners(Handler<T> handler) {
     boolean oldState = isChangeListenersPaused();
@@ -117,6 +125,7 @@ public interface HasChangeListeners<T, V> {
    *
    * @param toggle boolean, true to pause the change listeners, false to enable them
    * @return same component instance
+   * @param handler a {@link org.dominokit.domino.ui.utils.AsyncHandler} object
    */
   default T withPauseChangeListenersToggleAsync(boolean toggle, AsyncHandler<T> handler) {
     boolean oldState = isChangeListenersPaused();
@@ -135,6 +144,7 @@ public interface HasChangeListeners<T, V> {
    * original value after the AsyncHandler.onComplete is called
    *
    * @return same component instance
+   * @param handler a {@link org.dominokit.domino.ui.utils.AsyncHandler} object
    */
   default T withPausedChangeListenersAsync(AsyncHandler<T> handler) {
     boolean oldState = isChangeListenersPaused();
@@ -148,10 +158,27 @@ public interface HasChangeListeners<T, V> {
     return (T) this;
   }
 
+  /**
+   * getChangeListeners.
+   *
+   * @return a {@link java.util.Set} object
+   */
   Set<ChangeListener<? super V>> getChangeListeners();
 
+  /**
+   * isChangeListenersPaused.
+   *
+   * @return a boolean
+   */
   boolean isChangeListenersPaused();
 
+  /**
+   * triggerChangeListeners.
+   *
+   * @param oldValue a V object
+   * @param newValue a V object
+   * @return a T object
+   */
   T triggerChangeListeners(V oldValue, V newValue);
 
   /** @param <V> the type of the component value */

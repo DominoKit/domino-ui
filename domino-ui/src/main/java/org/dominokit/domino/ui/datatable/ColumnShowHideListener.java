@@ -15,12 +15,24 @@
  */
 package org.dominokit.domino.ui.datatable;
 
-/** Implementations of this interface can listen to columns show/hide events */
+/**
+ * Implementations of this interface can listen to columns show/hide events
+ *
+ * @author vegegoku
+ * @version $Id: $Id
+ */
 public interface ColumnShowHideListener {
   /** @param visible boolean, if true the column has become visible, otherwise it is hidden */
+  /**
+   * onShowHide.
+   *
+   * @param visible a boolean
+   */
   void onShowHide(boolean visible);
 
   /**
+   * isPermanent.
+   *
    * @return boolean, if true the listener wont be removed if the listeners of the column are
    *     cleared.
    */

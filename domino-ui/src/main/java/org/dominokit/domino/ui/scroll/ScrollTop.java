@@ -28,12 +28,20 @@ import org.dominokit.domino.ui.utils.ElementUtil;
 /**
  * A component that show up in a specific position on the screen only when the user scrolls down and
  * allow the user to click it to scroll to the top of the page
+ *
+ * @author vegegoku
+ * @version $Id: $Id
  */
 public class ScrollTop extends Button implements ButtonStyles {
 
   private int showOffset = 60;
 
   /** @param icon {@link Icon} to show in the component */
+  /**
+   * Constructor for ScrollTop.
+   *
+   * @param icon a {@link org.dominokit.domino.ui.icons.Icon} object
+   */
   public ScrollTop(Icon<?> icon) {
     super(icon);
     init(this);
@@ -55,6 +63,8 @@ public class ScrollTop extends Button implements ButtonStyles {
   }
 
   /**
+   * setBottom.
+   *
    * @param bottom int bottom position
    * @return same ScrollTop instance
    */
@@ -64,6 +74,8 @@ public class ScrollTop extends Button implements ButtonStyles {
   }
 
   /**
+   * setRight.
+   *
    * @param right int right position
    * @return same ScrollTop instance
    */
@@ -73,6 +85,8 @@ public class ScrollTop extends Button implements ButtonStyles {
   }
 
   /**
+   * Setter for the field <code>showOffset</code>.
+   *
    * @param offset int minimum scroll offset that the user needs to scroll before showing this
    *     component
    * @return same ScrollTop instance
@@ -83,7 +97,9 @@ public class ScrollTop extends Button implements ButtonStyles {
   }
 
   /**
-   * @param icon {@link Icon} to show in the component
+   * create.
+   *
+   * @param icon {@link org.dominokit.domino.ui.icons.Icon} to show in the component
    * @return same ScrollTop instance
    */
   public static ScrollTop create(Icon<?> icon) {

@@ -17,11 +17,28 @@ package org.dominokit.domino.ui.elements;
 
 import elemental2.dom.HTMLElement;
 
+/**
+ * FigureElement class.
+ *
+ * @author vegegoku
+ * @version $Id: $Id
+ */
 public class FigureElement extends BaseElement<HTMLElement, FigureElement> {
+  /**
+   * of.
+   *
+   * @param e a {@link elemental2.dom.HTMLElement} object
+   * @return a {@link org.dominokit.domino.ui.elements.FigureElement} object
+   */
   public static FigureElement of(HTMLElement e) {
     return new FigureElement(e);
   }
 
+  /**
+   * Constructor for FigureElement.
+   *
+   * @param element a {@link elemental2.dom.HTMLElement} object
+   */
   public FigureElement(HTMLElement element) {
     super(element);
   }

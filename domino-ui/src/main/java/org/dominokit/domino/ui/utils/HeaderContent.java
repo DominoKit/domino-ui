@@ -18,27 +18,58 @@ package org.dominokit.domino.ui.utils;
 import elemental2.dom.Element;
 import org.dominokit.domino.ui.IsElement;
 
+/**
+ * HeaderContent class.
+ *
+ * @author vegegoku
+ * @version $Id: $Id
+ */
 public class HeaderContent<T extends Element> extends BaseDominoElement<T, HeaderContent<T>> {
 
   private DominoElement<T> element;
 
+  /**
+   * of.
+   *
+   * @param element a T object
+   * @param <T> a T class
+   * @return a {@link org.dominokit.domino.ui.utils.HeaderContent} object
+   */
   public static <T extends Element> HeaderContent<T> of(T element) {
     return new HeaderContent<>(element);
   }
 
+  /**
+   * of.
+   *
+   * @param element a {@link org.dominokit.domino.ui.IsElement} object
+   * @param <T> a T class
+   * @return a {@link org.dominokit.domino.ui.utils.HeaderContent} object
+   */
   public static <T extends Element> HeaderContent<T> of(IsElement<T> element) {
     return new HeaderContent<>(element);
   }
 
+  /**
+   * Constructor for HeaderContent.
+   *
+   * @param element a T object
+   */
   public HeaderContent(T element) {
     this.element = elementOf(element);
     init(this);
   }
 
+  /**
+   * Constructor for HeaderContent.
+   *
+   * @param element a {@link org.dominokit.domino.ui.IsElement} object
+   */
   public HeaderContent(IsElement<T> element) {
     this(element.element());
   }
 
+  /** {@inheritDoc} */
   @Override
   public T element() {
     return element.element();

@@ -17,12 +17,29 @@ package org.dominokit.domino.ui.elements;
 
 import elemental2.dom.HTMLModElement;
 
+/**
+ * DelElement class.
+ *
+ * @author vegegoku
+ * @version $Id: $Id
+ */
 public class DelElement extends BaseElement<HTMLModElement, DelElement> {
 
+  /**
+   * of.
+   *
+   * @param e a {@link elemental2.dom.HTMLModElement} object
+   * @return a {@link org.dominokit.domino.ui.elements.DelElement} object
+   */
   public static DelElement of(HTMLModElement e) {
     return new DelElement(e);
   }
 
+  /**
+   * Constructor for DelElement.
+   *
+   * @param element a {@link elemental2.dom.HTMLModElement} object
+   */
   public DelElement(HTMLModElement element) {
     super(element);
   }

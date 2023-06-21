@@ -19,7 +19,12 @@ import org.dominokit.domino.ui.style.CssClass;
 import org.dominokit.domino.ui.style.GenericCss;
 import org.dominokit.domino.ui.style.HasCssClass;
 
-/** An enum to list possible values for tabs align */
+/**
+ * An enum to list possible values for tabs align
+ *
+ * @author vegegoku
+ * @version $Id: $Id
+ */
 public enum TabsDirection implements HasCssClass {
   /** Tabs headers will be aligned to the left of the tab panel */
   HORIZONTAL(GenericCss.dui_horizontal),
@@ -34,6 +39,11 @@ public enum TabsDirection implements HasCssClass {
   }
 
   /** @return String css class name for the tab align */
+  /**
+   * getCssClass.
+   *
+   * @return a {@link org.dominokit.domino.ui.style.CssClass} object
+   */
   public CssClass getCssClass() {
     return direction;
   }

@@ -15,6 +15,19 @@
  */
 package org.dominokit.domino.ui.menu;
 
+/**
+ * MenuSearchFilter interface.
+ *
+ * @author vegegoku
+ * @version $Id: $Id
+ */
 public interface MenuSearchFilter {
+  /**
+   * onSearch.
+   *
+   * @param token a {@link java.lang.String} object
+   * @param caseSensitive a boolean
+   * @return a boolean
+   */
   boolean onSearch(String token, boolean caseSensitive);
 }

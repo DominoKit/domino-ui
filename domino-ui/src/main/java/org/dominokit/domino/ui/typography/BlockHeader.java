@@ -37,6 +37,8 @@ import org.dominokit.domino.ui.utils.LazyChild;
  * </pre>
  *
  * @see BaseDominoElement
+ * @author vegegoku
+ * @version $Id: $Id
  */
 public class BlockHeader extends BaseDominoElement<HTMLDivElement, BlockHeader>
     implements BlockHeaderStyles {
@@ -59,6 +61,12 @@ public class BlockHeader extends BaseDominoElement<HTMLDivElement, BlockHeader>
     setDescription(description);
   }
 
+  /**
+   * setDescription.
+   *
+   * @param description a {@link java.lang.String} object
+   * @return a {@link org.dominokit.domino.ui.typography.BlockHeader} object
+   */
   public BlockHeader setDescription(String description) {
     descriptionElement.get().setTextContent(description);
     return this;
@@ -85,6 +93,12 @@ public class BlockHeader extends BaseDominoElement<HTMLDivElement, BlockHeader>
     return new BlockHeader(header);
   }
 
+  /**
+   * setReversed.
+   *
+   * @param reversed a boolean
+   * @return a {@link org.dominokit.domino.ui.typography.BlockHeader} object
+   */
   public BlockHeader setReversed(boolean reversed) {
     addCss(BooleanCssClass.of(dui_block_header_reversed, reversed));
     return this;
@@ -102,27 +116,54 @@ public class BlockHeader extends BaseDominoElement<HTMLDivElement, BlockHeader>
   }
 
   /** @return The header element */
+  /**
+   * Getter for the field <code>headerElement</code>.
+   *
+   * @return a {@link org.dominokit.domino.ui.elements.HeadingElement} object
+   */
   public HeadingElement getHeaderElement() {
     return headerElement;
   }
 
+  /**
+   * withHeaderElement.
+   *
+   * @param handler a {@link org.dominokit.domino.ui.utils.ChildHandler} object
+   * @return a {@link org.dominokit.domino.ui.typography.BlockHeader} object
+   */
   public BlockHeader withHeaderElement(ChildHandler<BlockHeader, HeadingElement> handler) {
     handler.apply(this, headerElement);
     return this;
   }
 
   /** @return The description element */
+  /**
+   * Getter for the field <code>descriptionElement</code>.
+   *
+   * @return a {@link org.dominokit.domino.ui.elements.SmallElement} object
+   */
   public SmallElement getDescriptionElement() {
     return descriptionElement.get();
   }
 
   /** @return The description element */
+  /**
+   * withDescriptionElement.
+   *
+   * @return a {@link org.dominokit.domino.ui.typography.BlockHeader} object
+   */
   public BlockHeader withDescriptionElement() {
     descriptionElement.get();
     return this;
   }
 
   /** @return The description element */
+  /**
+   * withDescriptionElement.
+   *
+   * @param handler a {@link org.dominokit.domino.ui.utils.ChildHandler} object
+   * @return a {@link org.dominokit.domino.ui.typography.BlockHeader} object
+   */
   public BlockHeader withDescriptionElement(ChildHandler<BlockHeader, SmallElement> handler) {
     handler.apply(this, descriptionElement.get());
     return this;

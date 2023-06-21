@@ -29,6 +29,12 @@ import org.dominokit.domino.ui.elements.DivElement;
 import org.dominokit.domino.ui.style.BooleanCssClass;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
 
+/**
+ * StepperTrack class.
+ *
+ * @author vegegoku
+ * @version $Id: $Id
+ */
 public class StepperTrack extends BaseDominoElement<HTMLDivElement, StepperTrack>
     implements StepperStyles, HasComponentConfig<StepperConfig> {
   private final DivElement root;
@@ -38,15 +44,27 @@ public class StepperTrack extends BaseDominoElement<HTMLDivElement, StepperTrack
   private int currentTrackerIndex;
   private boolean started = false;
 
+  /** Constructor for StepperTrack. */
   public StepperTrack() {
     root = div().addCss(dui_stepper_track);
     init(this);
   }
 
+  /**
+   * create.
+   *
+   * @return a {@link org.dominokit.domino.ui.stepper.StepperTrack} object
+   */
   public static StepperTrack create() {
     return new StepperTrack();
   }
 
+  /**
+   * appendChild.
+   *
+   * @param stepTracker a {@link org.dominokit.domino.ui.stepper.StepTracker} object
+   * @return a {@link org.dominokit.domino.ui.stepper.StepperTrack} object
+   */
   public StepperTrack appendChild(StepTracker stepTracker) {
     root.appendChild(stepTracker);
     trackers.add(stepTracker);
@@ -54,6 +72,12 @@ public class StepperTrack extends BaseDominoElement<HTMLDivElement, StepperTrack
     return this;
   }
 
+  /**
+   * removeTracker.
+   *
+   * @param stepTracker a {@link org.dominokit.domino.ui.stepper.StepTracker} object
+   * @return a {@link org.dominokit.domino.ui.stepper.StepperTrack} object
+   */
   public StepperTrack removeTracker(StepTracker stepTracker) {
     if (trackers.contains(stepTracker)) {
       stepTracker.remove();
@@ -61,18 +85,44 @@ public class StepperTrack extends BaseDominoElement<HTMLDivElement, StepperTrack
     return this;
   }
 
+  /**
+   * next.
+   *
+   * @return a {@link org.dominokit.domino.ui.stepper.StepperTrack} object
+   */
   public StepperTrack next() {
     return next(0);
   }
 
+  /**
+   * next.
+   *
+   * @param skip a int
+   * @return a {@link org.dominokit.domino.ui.stepper.StepperTrack} object
+   */
   public StepperTrack next(int skip) {
     return next(skip, (deactivated, activated) -> {});
   }
 
+  /**
+   * next.
+   *
+   * @param consumer a {@link org.dominokit.domino.ui.stepper.StepperTrack.StepTrackersConsumer}
+   *     object
+   * @return a {@link org.dominokit.domino.ui.stepper.StepperTrack} object
+   */
   public StepperTrack next(StepTrackersConsumer consumer) {
     return next(0, consumer);
   }
 
+  /**
+   * next.
+   *
+   * @param skip a int
+   * @param consumer a {@link org.dominokit.domino.ui.stepper.StepperTrack.StepTrackersConsumer}
+   *     object
+   * @return a {@link org.dominokit.domino.ui.stepper.StepperTrack} object
+   */
   public StepperTrack next(int skip, StepTrackersConsumer consumer) {
     if (!started) {
       throw new IllegalStateException(
@@ -103,14 +153,33 @@ public class StepperTrack extends BaseDominoElement<HTMLDivElement, StepperTrack
     return this;
   }
 
+  /**
+   * start.
+   *
+   * @return a {@link org.dominokit.domino.ui.stepper.StepperTrack} object
+   */
   public StepperTrack start() {
     return start(getConfig().getDefaultStepState(), (deactivated, activated) -> {});
   }
 
+  /**
+   * start.
+   *
+   * @param startState a {@link org.dominokit.domino.ui.stepper.StepState} object
+   * @return a {@link org.dominokit.domino.ui.stepper.StepperTrack} object
+   */
   public StepperTrack start(StepState startState) {
     return start(startState, (deactivated, activated) -> {});
   }
 
+  /**
+   * start.
+   *
+   * @param startState a {@link org.dominokit.domino.ui.stepper.StepState} object
+   * @param consumer a {@link org.dominokit.domino.ui.stepper.StepperTrack.StepTrackersConsumer}
+   *     object
+   * @return a {@link org.dominokit.domino.ui.stepper.StepperTrack} object
+   */
   public StepperTrack start(StepState startState, StepTrackersConsumer consumer) {
     this.started = true;
     trackers.stream()
@@ -124,6 +193,14 @@ public class StepperTrack extends BaseDominoElement<HTMLDivElement, StepperTrack
     return this;
   }
 
+  /**
+   * finish.
+   *
+   * @param finishState a {@link org.dominokit.domino.ui.stepper.StepState} object
+   * @param consumer a {@link org.dominokit.domino.ui.stepper.StepperTrack.StepTrackersConsumer}
+   *     object
+   * @return a {@link org.dominokit.domino.ui.stepper.StepperTrack} object
+   */
   public StepperTrack finish(StepState finishState, StepTrackersConsumer consumer) {
     if (!started) {
       throw new IllegalStateException(
@@ -137,6 +214,12 @@ public class StepperTrack extends BaseDominoElement<HTMLDivElement, StepperTrack
     return this;
   }
 
+  /**
+   * finish.
+   *
+   * @param finishState a {@link org.dominokit.domino.ui.stepper.StepState} object
+   * @return a {@link org.dominokit.domino.ui.stepper.StepperTrack} object
+   */
   public StepperTrack finish(StepState finishState) {
     return finish(finishState, (deactivated, activated) -> {});
   }
@@ -164,18 +247,44 @@ public class StepperTrack extends BaseDominoElement<HTMLDivElement, StepperTrack
     }
   }
 
+  /**
+   * prev.
+   *
+   * @return a {@link org.dominokit.domino.ui.stepper.StepperTrack} object
+   */
   public StepperTrack prev() {
     return prev(0);
   }
 
+  /**
+   * prev.
+   *
+   * @param consumer a {@link org.dominokit.domino.ui.stepper.StepperTrack.StepTrackersConsumer}
+   *     object
+   * @return a {@link org.dominokit.domino.ui.stepper.StepperTrack} object
+   */
   public StepperTrack prev(StepTrackersConsumer consumer) {
     return prev(0, consumer);
   }
 
+  /**
+   * prev.
+   *
+   * @param skip a int
+   * @return a {@link org.dominokit.domino.ui.stepper.StepperTrack} object
+   */
   public StepperTrack prev(int skip) {
     return prev(skip, (deactivated, activated) -> {});
   }
 
+  /**
+   * prev.
+   *
+   * @param skip a int
+   * @param consumer a {@link org.dominokit.domino.ui.stepper.StepperTrack.StepTrackersConsumer}
+   *     object
+   * @return a {@link org.dominokit.domino.ui.stepper.StepperTrack} object
+   */
   public StepperTrack prev(int skip, StepTrackersConsumer consumer) {
     if (!started) {
       throw new IllegalStateException(
@@ -201,12 +310,24 @@ public class StepperTrack extends BaseDominoElement<HTMLDivElement, StepperTrack
     return this;
   }
 
+  /**
+   * reset.
+   *
+   * @param startState a {@link org.dominokit.domino.ui.stepper.StepState} object
+   * @param trackersConsumer a {@link java.util.function.Consumer} object
+   * @return a {@link org.dominokit.domino.ui.stepper.StepperTrack} object
+   */
   public StepperTrack reset(StepState startState, Consumer<List<StepTracker>> trackersConsumer) {
     trackersConsumer.accept(this.trackers);
     start(startState);
     return this;
   }
 
+  /**
+   * getNextTracker.
+   *
+   * @return a {@link java.util.Optional} object
+   */
   public Optional<StepTracker> getNextTracker() {
     if (this.trackers.isEmpty()) {
       return Optional.empty();
@@ -223,6 +344,11 @@ public class StepperTrack extends BaseDominoElement<HTMLDivElement, StepperTrack
     }
   }
 
+  /**
+   * getPreviousTracker.
+   *
+   * @return a {@link java.util.Optional} object
+   */
   public Optional<StepTracker> getPreviousTracker() {
     if (this.trackers.isEmpty()) {
       return Optional.empty();
@@ -239,15 +365,27 @@ public class StepperTrack extends BaseDominoElement<HTMLDivElement, StepperTrack
     }
   }
 
+  /**
+   * Getter for the field <code>activeTracker</code>.
+   *
+   * @return a {@link java.util.Optional} object
+   */
   public Optional<StepTracker> getActiveTracker() {
     return Optional.ofNullable(activeTracker);
   }
 
+  /**
+   * setTextPositionReversed.
+   *
+   * @param reversed a boolean
+   * @return a {@link org.dominokit.domino.ui.stepper.StepperTrack} object
+   */
   public StepperTrack setTextPositionReversed(boolean reversed) {
     textPosition.apply(this, reversed);
     return this;
   }
 
+  /** {@inheritDoc} */
   @Override
   public HTMLDivElement element() {
     return root.element();

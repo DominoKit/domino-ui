@@ -21,24 +21,80 @@ import org.dominokit.domino.ui.i18n.HasLabels;
 import org.dominokit.domino.ui.i18n.TimePickerLabels;
 import org.gwtproject.i18n.shared.cldr.DateTimeFormatInfo;
 
+/**
+ * IsTimePicker interface.
+ *
+ * @author vegegoku
+ * @version $Id: $Id
+ */
 public interface IsTimePicker extends HasLabels<TimePickerLabels> {
+  /**
+   * getDate.
+   *
+   * @return a {@link java.util.Date} object
+   */
   Date getDate();
 
+  /**
+   * getDateTimeFormatInfo.
+   *
+   * @return a {@link org.gwtproject.i18n.shared.cldr.DateTimeFormatInfo} object
+   */
   DateTimeFormatInfo getDateTimeFormatInfo();
 
+  /**
+   * bindTimePickerViewListener.
+   *
+   * @param listener a {@link org.dominokit.domino.ui.timepicker.TimePickerViewListener} object
+   */
   void bindTimePickerViewListener(TimePickerViewListener listener);
 
+  /**
+   * unbindTimePickerViewListener.
+   *
+   * @param listener a {@link org.dominokit.domino.ui.timepicker.TimePickerViewListener} object
+   */
   void unbindTimePickerViewListener(TimePickerViewListener listener);
 
+  /**
+   * getTimeSelectionListeners.
+   *
+   * @return a {@link java.util.Set} object
+   */
   Set<TimeSelectionListener> getTimeSelectionListeners();
 
+  /**
+   * getTimeStyle.
+   *
+   * @return a {@link org.dominokit.domino.ui.timepicker.TimeStyle} object
+   */
   TimeStyle getTimeStyle();
 
+  /**
+   * isPm.
+   *
+   * @return a boolean
+   */
   boolean isPm();
 
+  /**
+   * is24Hours.
+   *
+   * @return a boolean
+   */
   boolean is24Hours();
 
+  /**
+   * isShowSeconds.
+   *
+   * @return a boolean
+   */
   boolean isShowSeconds();
 
+  /**
+   * formattedTime.
+   *
+   * @return a {@link java.lang.String} object
+   */
   String formattedTime();
 }

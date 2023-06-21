@@ -21,21 +21,64 @@ import org.dominokit.domino.ui.menu.MenuItem;
 import org.dominokit.domino.ui.utils.meta.AttributeMeta;
 import org.dominokit.domino.ui.utils.meta.ValueMeta;
 
+/**
+ * TagOption class.
+ *
+ * @author vegegoku
+ * @version $Id: $Id
+ */
 public class TagOption<V> extends Option<V, Chip, TagOption<V>> {
+  /** Constant <code>DUI_OPTION_KEY="dui_option_key"</code> */
   public static final String DUI_OPTION_KEY = "dui_option_key";
 
+  /**
+   * create.
+   *
+   * @param key a {@link java.lang.String} object
+   * @param value a V object
+   * @param text a {@link java.lang.String} object
+   * @param <V> a V class
+   * @return a {@link org.dominokit.domino.ui.forms.suggest.TagOption} object
+   */
   public static <V> TagOption<V> create(String key, V value, String text) {
     return new TagOption<>(key, value, text);
   }
 
+  /**
+   * create.
+   *
+   * @param value a V object
+   * @param <V> a V class
+   * @return a {@link org.dominokit.domino.ui.forms.suggest.TagOption} object
+   */
   public static <V> TagOption<V> create(V value) {
     return new TagOption<>(String.valueOf(value), value, String.valueOf(value));
   }
 
+  /**
+   * create.
+   *
+   * @param key a {@link java.lang.String} object
+   * @param value a V object
+   * @param text a {@link java.lang.String} object
+   * @param description a {@link java.lang.String} object
+   * @param <V> a V class
+   * @return a {@link org.dominokit.domino.ui.forms.suggest.TagOption} object
+   */
   public static <V> TagOption<V> create(String key, V value, String text, String description) {
     return new TagOption<>(key, value, text, description);
   }
 
+  /**
+   * create.
+   *
+   * @param value a V object
+   * @param key a {@link java.lang.String} object
+   * @param componentSupplier a OptionSupplier object
+   * @param menuItemSupplier a OptionSupplier object
+   * @param <V> a V class
+   * @return a {@link org.dominokit.domino.ui.forms.suggest.TagOption} object
+   */
   public static <V> TagOption<V> create(
       V value,
       String key,
@@ -44,10 +87,25 @@ public class TagOption<V> extends Option<V, Chip, TagOption<V>> {
     return new TagOption<>(key, value, componentSupplier, menuItemSupplier);
   }
 
+  /**
+   * Constructor for TagOption.
+   *
+   * @param key a {@link java.lang.String} object
+   * @param value a V object
+   * @param text a {@link java.lang.String} object
+   * @param description a {@link java.lang.String} object
+   */
   public TagOption(String key, V value, String text, String description) {
     this(key, value, (k, v) -> Chip.create(text), (k, v) -> MenuItem.create(text, description));
   }
 
+  /**
+   * Constructor for TagOption.
+   *
+   * @param key a {@link java.lang.String} object
+   * @param value a V object
+   * @param text a {@link java.lang.String} object
+   */
   public TagOption(String key, V value, String text) {
     super(key, value, Chip.create(text), MenuItem.create(text));
     withComponent(
@@ -56,6 +114,14 @@ public class TagOption<V> extends Option<V, Chip, TagOption<V>> {
                 .applyMeta(ValueMeta.of(value), AttributeMeta.of(DUI_OPTION_KEY, key)));
   }
 
+  /**
+   * Constructor for TagOption.
+   *
+   * @param key a {@link java.lang.String} object
+   * @param value a V object
+   * @param componentSupplier a OptionSupplier object
+   * @param menuItemSupplier a OptionSupplier object
+   */
   public TagOption(
       String key,
       V value,
@@ -73,11 +139,22 @@ public class TagOption<V> extends Option<V, Chip, TagOption<V>> {
     getTarget().onOptionDeselected(this);
   }
 
+  /**
+   * setRemovable.
+   *
+   * @param removable a boolean
+   * @return a {@link org.dominokit.domino.ui.forms.suggest.TagOption} object
+   */
   public TagOption<V> setRemovable(boolean removable) {
     this.getComponent().setRemovable(removable);
     return this;
   }
 
+  /**
+   * isRemovable.
+   *
+   * @return a boolean
+   */
   public boolean isRemovable() {
     return this.getComponent().isRemovable();
   }

@@ -25,7 +25,6 @@ import org.dominokit.domino.ui.config.HasComponentConfig;
 import org.dominokit.domino.ui.config.ZIndexConfig;
 import org.dominokit.domino.ui.elements.DivElement;
 import org.dominokit.domino.ui.events.EventType;
-import org.dominokit.domino.ui.popover.Popover;
 import org.dominokit.domino.ui.style.CssClass;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
 import org.dominokit.domino.ui.utils.PopupsCloser;
@@ -35,14 +34,21 @@ import org.dominokit.domino.ui.utils.PopupsCloser;
  *
  * <p>this class can track the overlay across the page and all opened modals and it adjust its
  * position whenever a modal is opened or closed
+ *
+ * @author vegegoku
+ * @version $Id: $Id
  */
 public class ModalBackDrop extends BaseDominoElement<HTMLDivElement, ModalBackDrop>
     implements HasComponentConfig<ZIndexConfig> {
 
+  /** Constant <code>DUI_REMOVE_POPOVERS="dui-remove-popovers"</code> */
   public static final String DUI_REMOVE_POPOVERS = "dui-remove-popovers";
+  /** Constant <code>DUI_REMOVE_TOOLTIPS="dui-remove-tooltips"</code> */
   public static final String DUI_REMOVE_TOOLTIPS = "dui-remove-tooltips";
 
+  /** Constant <code>INSTANCE</code> */
   public static final ModalBackDrop INSTANCE = new ModalBackDrop();
+
   private CssClass dui_dialog_backdrop = () -> "dui-dialog-backdrop";
 
   /** The single instance of the overlay backdrop element */
@@ -90,18 +96,31 @@ public class ModalBackDrop extends BaseDominoElement<HTMLDivElement, ModalBackDr
             });
   }
 
-  /** Close all currently open {@link Popover}s */
+  /**
+   * Close all currently open {@link org.dominokit.domino.ui.popover.Popover}s
+   *
+   * @param sourceId a {@link java.lang.String} object
+   */
   public void closePopovers(String sourceId) {
     closePopovers(sourceId, null);
   }
 
-  /** Close all currently open {@link Popover}s */
+  /**
+   * Close all currently open {@link org.dominokit.domino.ui.popover.Popover}s
+   *
+   * @param sourceId a {@link java.lang.String} object
+   */
   public void closeTooltips(String sourceId) {
     body()
         .querySelectorAll(".dui-tooltip")
         .forEach(e -> e.dispatchEvent(closeTooltipEvent(sourceId)));
   }
-  /** Close all currently open {@link Popover}s */
+  /**
+   * Close all currently open {@link org.dominokit.domino.ui.popover.Popover}s
+   *
+   * @param sourceId a {@link java.lang.String} object
+   * @param selectAttribute a {@link java.lang.String} object
+   */
   public void closePopovers(String sourceId, String selectAttribute) {
     body().querySelectorAll(".dui-popover").stream()
         .filter(
@@ -127,13 +146,17 @@ public class ModalBackDrop extends BaseDominoElement<HTMLDivElement, ModalBackDr
     return new CustomEvent<>(DUI_REMOVE_TOOLTIPS, initOptions);
   }
 
-  /** Automatically close all {@link Popover}s when the page is scrolled */
+  /**
+   * Automatically close all {@link org.dominokit.domino.ui.popover.Popover}s when the page is
+   * scrolled
+   */
   public void onScrollClosePopovers() {
     body()
         .querySelectorAll(".dui-popover[d-close-on-scroll='true']")
         .forEach(BaseDominoElement::remove);
   }
 
+  /** {@inheritDoc} */
   @Override
   public HTMLDivElement element() {
     return element.element();

@@ -19,40 +19,86 @@ import static java.util.Objects.nonNull;
 
 import elemental2.dom.Element;
 
+/**
+ * ReplaceCssClass class.
+ *
+ * @author vegegoku
+ * @version $Id: $Id
+ */
 public class ReplaceCssClass implements CssClass {
 
   private CssClass original = CssClass.NONE;
   private CssClass replacement = CssClass.NONE;
 
+  /**
+   * of.
+   *
+   * @return a {@link org.dominokit.domino.ui.style.ReplaceCssClass} object.
+   */
   public static ReplaceCssClass of() {
     return new ReplaceCssClass();
   }
 
+  /**
+   * of.
+   *
+   * @param initialStyle a {@link org.dominokit.domino.ui.style.CssClass} object.
+   * @return a {@link org.dominokit.domino.ui.style.ReplaceCssClass} object.
+   */
   public static ReplaceCssClass of(CssClass initialStyle) {
     return new ReplaceCssClass(initialStyle);
   }
 
+  /**
+   * of.
+   *
+   * @param cssClass a {@link java.lang.String} object.
+   * @return a {@link org.dominokit.domino.ui.style.ReplaceCssClass} object.
+   */
   public static ReplaceCssClass of(String cssClass) {
     return new ReplaceCssClass(cssClass);
   }
 
+  /** Constructor for ReplaceCssClass. */
   public ReplaceCssClass() {}
 
+  /**
+   * Constructor for ReplaceCssClass.
+   *
+   * @param initialStyle a {@link org.dominokit.domino.ui.style.CssClass} object.
+   */
   public ReplaceCssClass(CssClass initialStyle) {
     this.original = initialStyle;
     this.replacement = original;
   }
 
+  /**
+   * Constructor for ReplaceCssClass.
+   *
+   * @param cssClass a {@link java.lang.String} object.
+   */
   public ReplaceCssClass(String cssClass) {
     this.original = () -> cssClass;
     this.replacement = original;
   }
 
+  /**
+   * replaceWith.
+   *
+   * @param replacement a {@link org.dominokit.domino.ui.style.CssClass} object.
+   * @return a {@link org.dominokit.domino.ui.style.ReplaceCssClass} object.
+   */
   public ReplaceCssClass replaceWith(CssClass replacement) {
     this.replacement = replacement;
     return this;
   }
 
+  /**
+   * replaceWith.
+   *
+   * @param replacement a {@link org.dominokit.domino.ui.style.HasCssClass} object.
+   * @return a {@link org.dominokit.domino.ui.style.ReplaceCssClass} object.
+   */
   public ReplaceCssClass replaceWith(HasCssClass replacement) {
     if (nonNull(replacement)) {
       this.replacement = replacement.getCssClass();
@@ -60,6 +106,7 @@ public class ReplaceCssClass implements CssClass {
     return this;
   }
 
+  /** {@inheritDoc} */
   @Override
   public void remove(Element element) {
     if (nonNull(replacement)) {
@@ -67,6 +114,7 @@ public class ReplaceCssClass implements CssClass {
     }
   }
 
+  /** {@inheritDoc} */
   @Override
   public void apply(Element element) {
     if (nonNull(replacement)) {
@@ -75,14 +123,25 @@ public class ReplaceCssClass implements CssClass {
     }
   }
 
+  /**
+   * Getter for the field <code>original</code>.
+   *
+   * @return a {@link org.dominokit.domino.ui.style.CssClass} object.
+   */
   public CssClass getOriginal() {
     return original;
   }
 
+  /**
+   * Getter for the field <code>replacement</code>.
+   *
+   * @return a {@link org.dominokit.domino.ui.style.CssClass} object.
+   */
   public CssClass getReplacement() {
     return replacement;
   }
 
+  /** {@inheritDoc} */
   @Override
   public String getCssClass() {
     return replacement.getCssClass();

@@ -19,40 +19,85 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+/**
+ * DominoCSSRule class.
+ *
+ * @author vegegoku
+ * @version $Id: $Id
+ */
 public class DominoCSSRule {
 
   private final String selector;
   private final String cssClass;
   private Map<String, String> cssProperties = new HashMap<>();
 
+  /**
+   * Constructor for DominoCSSRule.
+   *
+   * @param selector a {@link java.lang.String} object
+   * @param cssClass a {@link java.lang.String} object
+   */
   public DominoCSSRule(String selector, String cssClass) {
     this.selector = selector;
     this.cssClass = cssClass;
   }
 
+  /**
+   * Getter for the field <code>selector</code>.
+   *
+   * @return a {@link java.lang.String} object
+   */
   public String getSelector() {
     return selector;
   }
 
+  /**
+   * Getter for the field <code>cssClass</code>.
+   *
+   * @return a {@link java.lang.String} object
+   */
   public String getCssClass() {
     return cssClass;
   }
 
+  /**
+   * clear.
+   *
+   * @return a {@link org.dominokit.domino.ui.utils.DominoCSSRule} object
+   */
   public DominoCSSRule clear() {
     cssProperties.clear();
     return this;
   }
 
+  /**
+   * setProperty.
+   *
+   * @param key a {@link java.lang.String} object
+   * @param value a {@link java.lang.String} object
+   * @return a {@link org.dominokit.domino.ui.utils.DominoCSSRule} object
+   */
   public DominoCSSRule setProperty(String key, String value) {
     cssProperties.put(key, value);
     return this;
   }
 
+  /**
+   * removeProperty.
+   *
+   * @param key a {@link java.lang.String} object
+   * @return a {@link org.dominokit.domino.ui.utils.DominoCSSRule} object
+   */
   public DominoCSSRule removeProperty(String key) {
     cssProperties.remove(key);
     return this;
   }
 
+  /**
+   * cssText.
+   *
+   * @return a {@link java.lang.String} object
+   */
   public String cssText() {
     return selector
         + "{"

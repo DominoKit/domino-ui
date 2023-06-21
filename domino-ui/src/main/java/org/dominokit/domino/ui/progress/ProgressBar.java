@@ -24,7 +24,8 @@ import org.dominokit.domino.ui.utils.BaseDominoElement;
 import org.dominokit.domino.ui.utils.DominoUIConfig;
 
 /**
- * A component to show the progress for a single operation within a {@link Progress}
+ * A component to show the progress for a single operation within a {@link
+ * org.dominokit.domino.ui.progress.Progress}
  *
  * <p>example
  *
@@ -34,6 +35,8 @@ import org.dominokit.domino.ui.utils.DominoUIConfig;
  * </pre>
  *
  * @see Progress
+ * @author vegegoku
+ * @version $Id: $Id
  */
 public class ProgressBar extends BaseDominoElement<HTMLDivElement, ProgressBar>
     implements ProgressStyles, HasComponentConfig<ProgressBarConfig> {
@@ -47,11 +50,18 @@ public class ProgressBar extends BaseDominoElement<HTMLDivElement, ProgressBar>
   private Progress parent;
 
   /** @param maxValue int max value of the operation progress */
+  /**
+   * Constructor for ProgressBar.
+   *
+   * @param maxValue a int
+   */
   public ProgressBar(int maxValue) {
     this(maxValue, DominoUIConfig.CONFIG.getUIConfig().getDefaultProgressExpression());
   }
 
   /**
+   * Constructor for ProgressBar.
+   *
    * @param maxValue int max value of the operation progress
    * @param textExpression String that contains the parameter one or all of the parameters
    *     <b>percent</b>,<b>value</b>,<b>maxValue</b>
@@ -69,6 +79,8 @@ public class ProgressBar extends BaseDominoElement<HTMLDivElement, ProgressBar>
   }
 
   /**
+   * create.
+   *
    * @param maxValue int max value of the operation progress
    * @return new ProgressBar instance
    */
@@ -87,6 +99,11 @@ public class ProgressBar extends BaseDominoElement<HTMLDivElement, ProgressBar>
   }
 
   /** @return double current progress value */
+  /**
+   * Getter for the field <code>value</code>.
+   *
+   * @return a double
+   */
   public double getValue() {
     return value;
   }
@@ -103,6 +120,8 @@ public class ProgressBar extends BaseDominoElement<HTMLDivElement, ProgressBar>
   }
 
   /**
+   * Setter for the field <code>value</code>.
+   *
    * @param value double value of progress
    * @return same Progressbar instance
    */
@@ -144,11 +163,18 @@ public class ProgressBar extends BaseDominoElement<HTMLDivElement, ProgressBar>
   }
 
   /** @return double max value */
+  /**
+   * Getter for the field <code>maxValue</code>.
+   *
+   * @return a double
+   */
   public double getMaxValue() {
     return maxValue;
   }
 
   /**
+   * Setter for the field <code>maxValue</code>.
+   *
    * @param maxValue double
    * @return same ProgressBar instance
    */
@@ -159,6 +185,8 @@ public class ProgressBar extends BaseDominoElement<HTMLDivElement, ProgressBar>
   }
 
   /**
+   * textExpression.
+   *
    * @param expression String that contains the parameter one or all of the parameters
    *     <b>percent</b>,<b>value</b>,<b>maxValue</b>
    *     <p>example
@@ -174,6 +202,7 @@ public class ProgressBar extends BaseDominoElement<HTMLDivElement, ProgressBar>
     return this;
   }
 
+  /** {@inheritDoc} */
   @Override
   public ProgressBar remove() {
     Optional.ofNullable(parent).ifPresent(progress -> progress.removeBar(this));

@@ -32,9 +32,11 @@ import org.gwtproject.editor.client.TakesValue;
 import org.gwtproject.safehtml.shared.SafeHtml;
 
 /**
- * A component that represent a single option in a {@link RadioGroup}
+ * A component that represent a single option in a {@link org.dominokit.domino.ui.forms.RadioGroup}
  *
  * @param <T> The type fo the radio value
+ * @author vegegoku
+ * @version $Id: $Id
  */
 public class Radio<T> extends BaseDominoElement<HTMLDivElement, Radio<T>>
     implements HasType,
@@ -131,6 +133,7 @@ public class Radio<T> extends BaseDominoElement<HTMLDivElement, Radio<T>>
     return new Radio<>(value);
   }
 
+  /** {@inheritDoc} */
   @Override
   public String getType() {
     return "radio";
@@ -174,16 +177,19 @@ public class Radio<T> extends BaseDominoElement<HTMLDivElement, Radio<T>>
     return this;
   }
 
+  /** {@inheritDoc} */
   @Override
   public Radio<T> toggleChecked(boolean silent) {
     return setChecked(!isChecked(), silent);
   }
 
+  /** {@inheritDoc} */
   @Override
   public Radio<T> toggleChecked(boolean checkedState, boolean silent) {
     return setChecked(checkedState, silent);
   }
 
+  /** {@inheritDoc} */
   @Override
   public Radio<T> toggleChecked() {
     return setChecked(!isChecked(), isChangeListenersPaused());
@@ -272,18 +278,36 @@ public class Radio<T> extends BaseDominoElement<HTMLDivElement, Radio<T>>
   }
 
   /** @param safeHtml {@link SafeHtml} to be used as a label */
+  /**
+   * setLabel.
+   *
+   * @param safeHtml a {@link org.gwtproject.safehtml.shared.SafeHtml} object
+   * @return a {@link org.dominokit.domino.ui.forms.Radio} object
+   */
   public Radio<T> setLabel(SafeHtml safeHtml) {
     labelElement.clearElement().setInnerHtml(safeHtml.asString());
     return this;
   }
 
   /** @param node {@link Node} to be used as a label */
+  /**
+   * setLabel.
+   *
+   * @param node a {@link elemental2.dom.Node} object
+   * @return a {@link org.dominokit.domino.ui.forms.Radio} object
+   */
   public Radio<T> setLabel(Node node) {
     elementOf(labelElement).clearElement().appendChild(node);
     return this;
   }
 
   /** @param element {@link IsElement} to be used as a label */
+  /**
+   * setLabel.
+   *
+   * @param element a {@link org.dominokit.domino.ui.IsElement} object
+   * @return a {@link org.dominokit.domino.ui.forms.Radio} object
+   */
   public Radio<T> setLabel(IsElement<?> element) {
     return setLabel(element.element());
   }
@@ -334,16 +358,25 @@ public class Radio<T> extends BaseDominoElement<HTMLDivElement, Radio<T>>
     this.radioGroup = radioGroup;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * {@inheritDoc}
+   *
+   * @return a {@link org.dominokit.domino.ui.utils.DominoElement} object
+   */
   public DominoElement<HTMLInputElement> getInputElement() {
     return inputElement.toDominoElement();
   }
 
-  /** {@inheritDoc} */
+  /**
+   * {@inheritDoc}
+   *
+   * @return a {@link java.lang.String} object
+   */
   public String getStringValue() {
     return String.valueOf(getValue());
   }
 
+  /** {@inheritDoc} */
   @Override
   public Radio<T> focus() {
     if (!isDisabled()) {
@@ -357,6 +390,7 @@ public class Radio<T> extends BaseDominoElement<HTMLDivElement, Radio<T>>
     return this;
   }
 
+  /** {@inheritDoc} */
   @Override
   public Radio<T> unfocus() {
     if (!isAttached()) {
@@ -371,6 +405,7 @@ public class Radio<T> extends BaseDominoElement<HTMLDivElement, Radio<T>>
     return this;
   }
 
+  /** {@inheritDoc} */
   @Override
   public boolean isFocused() {
     if (nonNull(DomGlobal.document.activeElement)) {
@@ -381,6 +416,7 @@ public class Radio<T> extends BaseDominoElement<HTMLDivElement, Radio<T>>
     return false;
   }
 
+  /** {@inheritDoc} */
   @Override
   public Radio<T> labelForId(String id) {
     DominoElement<HTMLInputElement> asDominoElement = elementOf(inputElement);
@@ -391,77 +427,128 @@ public class Radio<T> extends BaseDominoElement<HTMLDivElement, Radio<T>>
     return this;
   }
 
+  /** {@inheritDoc} */
   @Override
   public Radio<T> pauseChangeListeners() {
     this.changeListenersPaused = true;
     return this;
   }
 
+  /** {@inheritDoc} */
   @Override
   public Radio<T> resumeChangeListeners() {
     this.changeListenersPaused = false;
     return this;
   }
 
+  /** {@inheritDoc} */
   @Override
   public Radio<T> togglePauseChangeListeners(boolean toggle) {
     this.changeListenersPaused = toggle;
     return this;
   }
 
+  /** {@inheritDoc} */
   @Override
   public Set<ChangeListener<? super Boolean>> getChangeListeners() {
     return changeListeners;
   }
 
+  /** {@inheritDoc} */
   @Override
   public boolean isChangeListenersPaused() {
     return this.changeListenersPaused;
   }
 
+  /** {@inheritDoc} */
   @Override
   public Radio<T> triggerChangeListeners(Boolean oldValue, Boolean newValue) {
     changeListeners.forEach(listener -> listener.onValueChanged(oldValue, newValue));
     return this;
   }
 
+  /** {@inheritDoc} */
   @Override
   public Radio<T> setReadOnly(boolean readOnly) {
     getInputElement().setReadOnly(readOnly);
     return super.setReadOnly(readOnly);
   }
 
+  /**
+   * Getter for the field <code>fieldInput</code>.
+   *
+   * @return a {@link org.dominokit.domino.ui.elements.DivElement} object
+   */
   public DivElement getFieldInput() {
     return fieldInput;
   }
 
+  /**
+   * Getter for the field <code>labelElement</code>.
+   *
+   * @return a {@link org.dominokit.domino.ui.elements.LabelElement} object
+   */
   public LabelElement getLabelElement() {
     return labelElement;
   }
 
+  /**
+   * Getter for the field <code>noteElement</code>.
+   *
+   * @return a {@link org.dominokit.domino.ui.elements.SmallElement} object
+   */
   public SmallElement getNoteElement() {
     return noteElement.get();
   }
 
+  /**
+   * Getter for the field <code>radioGroup</code>.
+   *
+   * @return a {@link org.dominokit.domino.ui.forms.RadioGroup} object
+   */
   public RadioGroup<? super T> getRadioGroup() {
     return radioGroup;
   }
 
+  /**
+   * withFieldInput.
+   *
+   * @param handler a {@link org.dominokit.domino.ui.utils.ChildHandler} object
+   * @return a T object
+   */
   public T withFieldInput(ChildHandler<Radio<T>, DivElement> handler) {
     handler.apply(this, fieldInput);
     return (T) this;
   }
 
+  /**
+   * withLabelElement.
+   *
+   * @param handler a {@link org.dominokit.domino.ui.utils.ChildHandler} object
+   * @return a T object
+   */
   public T withLabelElement(ChildHandler<Radio<T>, LabelElement> handler) {
     handler.apply(this, labelElement);
     return (T) this;
   }
 
+  /**
+   * withNoteElement.
+   *
+   * @param handler a {@link org.dominokit.domino.ui.utils.ChildHandler} object
+   * @return a T object
+   */
   public T withNoteElement(ChildHandler<Radio<T>, SmallElement> handler) {
     handler.apply(this, noteElement.get());
     return (T) this;
   }
 
+  /**
+   * withRadioGroup.
+   *
+   * @param handler a {@link org.dominokit.domino.ui.utils.ChildHandler} object
+   * @return a T object
+   */
   public T withRadioGroup(ChildHandler<Radio<T>, RadioGroup<? super T>> handler) {
     handler.apply(this, radioGroup);
     return (T) this;

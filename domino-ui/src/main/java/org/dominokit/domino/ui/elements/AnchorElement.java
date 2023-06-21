@@ -17,11 +17,28 @@ package org.dominokit.domino.ui.elements;
 
 import elemental2.dom.HTMLAnchorElement;
 
+/**
+ * AnchorElement class.
+ *
+ * @author vegegoku
+ * @version $Id: $Id
+ */
 public class AnchorElement extends BaseElement<HTMLAnchorElement, AnchorElement> {
+  /**
+   * of.
+   *
+   * @param e a {@link elemental2.dom.HTMLAnchorElement} object
+   * @return a {@link org.dominokit.domino.ui.elements.AnchorElement} object
+   */
   public static AnchorElement of(HTMLAnchorElement e) {
     return new AnchorElement(e);
   }
 
+  /**
+   * Constructor for AnchorElement.
+   *
+   * @param element a {@link elemental2.dom.HTMLAnchorElement} object
+   */
   public AnchorElement(HTMLAnchorElement element) {
     super(element);
   }

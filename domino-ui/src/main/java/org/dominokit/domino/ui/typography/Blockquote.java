@@ -24,13 +24,19 @@ import org.dominokit.domino.ui.utils.ChildHandler;
 import org.dominokit.domino.ui.utils.FooterContent;
 import org.dominokit.domino.ui.utils.LazyChild;
 
-/** A wrapper component for <strong>blockquote</strong> HTML tag */
+/**
+ * A wrapper component for <strong>blockquote</strong> HTML tag
+ *
+ * @author vegegoku
+ * @version $Id: $Id
+ */
 public class Blockquote extends BaseDominoElement<HTMLElement, Blockquote> {
 
   private final BlockquoteElement element;
   private final ParagraphElement paragraph;
   private LazyChild<FooterElement> footer;
 
+  /** Constructor for Blockquote. */
   public Blockquote() {
     element = blockquote().appendChild(paragraph = p());
     footer = LazyChild.of(footer(), element);
@@ -38,17 +44,29 @@ public class Blockquote extends BaseDominoElement<HTMLElement, Blockquote> {
     init(this);
   }
 
+  /**
+   * Constructor for Blockquote.
+   *
+   * @param text a {@link java.lang.String} object
+   */
   public Blockquote(String text) {
     this();
     setText(text);
   }
 
   /** @return new instance with empty text */
+  /**
+   * create.
+   *
+   * @return a {@link org.dominokit.domino.ui.typography.Blockquote} object
+   */
   public static Blockquote create() {
     return new Blockquote();
   }
 
   /**
+   * create.
+   *
    * @param text the value
    * @return new instance with text
    */
@@ -67,30 +85,63 @@ public class Blockquote extends BaseDominoElement<HTMLElement, Blockquote> {
     return this;
   }
 
+  /**
+   * withFooter.
+   *
+   * @return a {@link org.dominokit.domino.ui.typography.Blockquote} object
+   */
   public Blockquote withFooter() {
     footer.get();
     return this;
   }
 
+  /**
+   * withFooter.
+   *
+   * @param handler a {@link org.dominokit.domino.ui.utils.ChildHandler} object
+   * @return a {@link org.dominokit.domino.ui.typography.Blockquote} object
+   */
   public Blockquote withFooter(ChildHandler<Blockquote, FooterElement> handler) {
     handler.apply(this, footer.get());
     return this;
   }
 
+  /**
+   * appendChild.
+   *
+   * @param footerContent a {@link org.dominokit.domino.ui.utils.FooterContent} object
+   * @return a {@link org.dominokit.domino.ui.typography.Blockquote} object
+   */
   public Blockquote appendChild(FooterContent<?> footerContent) {
     footer.get().appendChild(footerContent);
     return this;
   }
 
+  /**
+   * Getter for the field <code>footer</code>.
+   *
+   * @return a {@link org.dominokit.domino.ui.elements.FooterElement} object
+   */
   public FooterElement getFooter() {
     return this.footer.get();
   }
 
+  /**
+   * withParagraph.
+   *
+   * @param handler a {@link org.dominokit.domino.ui.utils.ChildHandler} object
+   * @return a {@link org.dominokit.domino.ui.typography.Blockquote} object
+   */
   public Blockquote withParagraph(ChildHandler<Blockquote, ParagraphElement> handler) {
     handler.apply(this, paragraph);
     return this;
   }
 
+  /**
+   * Getter for the field <code>paragraph</code>.
+   *
+   * @return a {@link org.dominokit.domino.ui.elements.ParagraphElement} object
+   */
   public ParagraphElement getParagraph() {
     return paragraph;
   }

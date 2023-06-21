@@ -17,11 +17,28 @@ package org.dominokit.domino.ui.elements;
 
 import elemental2.dom.HTMLAudioElement;
 
+/**
+ * AudioElement class.
+ *
+ * @author vegegoku
+ * @version $Id: $Id
+ */
 public class AudioElement extends BaseElement<HTMLAudioElement, AudioElement> {
+  /**
+   * of.
+   *
+   * @param e a {@link elemental2.dom.HTMLAudioElement} object
+   * @return a {@link org.dominokit.domino.ui.elements.AudioElement} object
+   */
   public static AudioElement of(HTMLAudioElement e) {
     return new AudioElement(e);
   }
 
+  /**
+   * Constructor for AudioElement.
+   *
+   * @param element a {@link elemental2.dom.HTMLAudioElement} object
+   */
   public AudioElement(HTMLAudioElement element) {
     super(element);
   }

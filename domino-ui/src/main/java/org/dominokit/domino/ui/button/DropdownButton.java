@@ -31,6 +31,9 @@ import org.dominokit.domino.ui.utils.ChildHandler;
  *                     .appendChild(DropdownAction.create("Another action"))
  *                     .setPosition(DropDownPosition.TOP)
  *     </pre>
+ *
+ * @author vegegoku
+ * @version $Id: $Id
  */
 public class DropdownButton<T extends BaseButton<?, T>, V>
     extends BaseDominoElement<HTMLElement, DropdownButton<T, V>> implements IsButton<T> {
@@ -38,12 +41,26 @@ public class DropdownButton<T extends BaseButton<?, T>, V>
   private T button;
   private Menu<V> menu;
 
+  /**
+   * create.
+   *
+   * @param button a T object
+   * @param menu a {@link org.dominokit.domino.ui.menu.Menu} object
+   * @param <T> a T class
+   * @param <V> a V class
+   * @return a {@link org.dominokit.domino.ui.button.DropdownButton} object
+   */
   public static <T extends BaseButton<?, T>, V> DropdownButton<T, V> create(
       T button, Menu<V> menu) {
     return new DropdownButton<>(button, menu);
   }
 
-  /** Creates a Dropdown button from a button and a menu */
+  /**
+   * Creates a Dropdown button from a button and a menu
+   *
+   * @param button a T object
+   * @param menu a {@link org.dominokit.domino.ui.menu.Menu} object
+   */
   public DropdownButton(T button, Menu<V> menu) {
     this.button = button;
     this.menu = menu;
@@ -58,19 +75,41 @@ public class DropdownButton<T extends BaseButton<?, T>, V>
     init(this);
   }
 
+  /**
+   * Getter for the field <code>button</code>.
+   *
+   * @return a T object
+   */
   public T getButton() {
     return button;
   }
 
+  /**
+   * Getter for the field <code>menu</code>.
+   *
+   * @return a {@link org.dominokit.domino.ui.menu.Menu} object
+   */
   public Menu<V> getMenu() {
     return menu;
   }
 
+  /**
+   * withButton.
+   *
+   * @param handler a {@link org.dominokit.domino.ui.utils.ChildHandler} object
+   * @return a {@link org.dominokit.domino.ui.button.DropdownButton} object
+   */
   public DropdownButton<T, V> withButton(ChildHandler<DropdownButton<T, V>, T> handler) {
     handler.apply(this, button);
     return this;
   }
 
+  /**
+   * withMenu.
+   *
+   * @param handler a {@link org.dominokit.domino.ui.utils.ChildHandler} object
+   * @return a {@link org.dominokit.domino.ui.button.DropdownButton} object
+   */
   public DropdownButton<T, V> withMenu(ChildHandler<DropdownButton<T, V>, Menu<V>> handler) {
     handler.apply(this, menu);
     return this;
@@ -82,6 +121,7 @@ public class DropdownButton<T extends BaseButton<?, T>, V>
     return button.element();
   }
 
+  /** {@inheritDoc} */
   @Override
   public T asButton() {
     return button;

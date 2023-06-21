@@ -21,15 +21,33 @@ import elemental2.dom.Element;
 import java.util.Optional;
 import org.dominokit.domino.ui.IsElement;
 
+/**
+ * DisableUtil class.
+ *
+ * @author vegegoku
+ * @version $Id: $Id
+ */
 public class DisableUtil {
 
+  /** Constant <code>FOCUSABLE_ELEMENTS="a, button, embed, iframe, label, audio["{trunked}</code> */
   public static final String FOCUSABLE_ELEMENTS =
       "a, button, embed, iframe, label, audio[controls], video[controls], img[usemap], object[usemap], input, textarea, select, details, [tabindex]";
 
+  /**
+   * disable.
+   *
+   * @param element a {@link org.dominokit.domino.ui.IsElement} object
+   * @param <E> a E class
+   */
   public static <E extends Element> void disable(IsElement<E> element) {
     Optional.ofNullable(element).ifPresent(e -> disable(e.element()));
   }
 
+  /**
+   * disable.
+   *
+   * @param element a {@link elemental2.dom.Element} object
+   */
   public static void disable(Element element) {
     Optional.ofNullable(element)
         .ifPresent(
@@ -68,10 +86,21 @@ public class DisableUtil {
     return element.hasAttribute("disabled");
   }
 
+  /**
+   * enable.
+   *
+   * @param element a {@link org.dominokit.domino.ui.IsElement} object
+   * @param <E> a E class
+   */
   public static <E extends Element> void enable(IsElement<E> element) {
     Optional.ofNullable(element).ifPresent(e -> enable(e.element()));
   }
 
+  /**
+   * enable.
+   *
+   * @param element a {@link elemental2.dom.Element} object
+   */
   public static void enable(Element element) {
     Optional.ofNullable(element)
         .ifPresent(

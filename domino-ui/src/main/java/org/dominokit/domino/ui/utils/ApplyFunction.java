@@ -15,7 +15,14 @@
  */
 package org.dominokit.domino.ui.utils;
 
+/**
+ * ApplyFunction interface.
+ *
+ * @author vegegoku
+ * @version $Id: $Id
+ */
 @FunctionalInterface
 public interface ApplyFunction {
+  /** apply. */
   void apply();
 }

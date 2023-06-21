@@ -15,6 +15,18 @@
  */
 package org.dominokit.domino.ui.menu;
 
+/**
+ * OpenMenuCondition interface.
+ *
+ * @author vegegoku
+ * @version $Id: $Id
+ */
 public interface OpenMenuCondition<V> {
+  /**
+   * check.
+   *
+   * @param menu a {@link org.dominokit.domino.ui.menu.Menu} object
+   * @return a boolean
+   */
   boolean check(Menu<V> menu);
 }

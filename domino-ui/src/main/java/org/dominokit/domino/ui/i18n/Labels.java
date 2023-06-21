@@ -15,4 +15,10 @@
  */
 package org.dominokit.domino.ui.i18n;
 
+/**
+ * Labels interface.
+ *
+ * @author vegegoku
+ * @version $Id: $Id
+ */
 public interface Labels {}

@@ -25,20 +25,42 @@ import org.dominokit.domino.ui.utils.ComponentMeta;
 import org.dominokit.domino.ui.utils.DominoElement;
 import org.dominokit.domino.ui.utils.HasMeta;
 
+/**
+ * MenuTarget class.
+ *
+ * @author vegegoku
+ * @version $Id: $Id
+ */
 public class MenuTarget implements HasMeta<MenuTarget> {
 
   private final Element targetElement;
   private AttachDetachCallback targetDetachObserver;
   private final Map<String, ComponentMeta> metaObjects = new HashMap<>();
 
+  /**
+   * of.
+   *
+   * @param element a {@link elemental2.dom.Element} object
+   * @return a {@link org.dominokit.domino.ui.menu.MenuTarget} object
+   */
   public static MenuTarget of(Element element) {
     return new MenuTarget(element);
   }
 
+  /**
+   * Constructor for MenuTarget.
+   *
+   * @param targetElement a {@link elemental2.dom.Element} object
+   */
   public MenuTarget(Element targetElement) {
     this.targetElement = targetElement;
   }
 
+  /**
+   * Getter for the field <code>targetElement</code>.
+   *
+   * @return a {@link org.dominokit.domino.ui.utils.DominoElement} object
+   */
   public DominoElement<Element> getTargetElement() {
     return elements.elementOf(targetElement);
   }
@@ -51,6 +73,7 @@ public class MenuTarget implements HasMeta<MenuTarget> {
     return targetDetachObserver;
   }
 
+  /** {@inheritDoc} */
   @Override
   public Map<String, ComponentMeta> getMetaObjects() {
     return metaObjects;

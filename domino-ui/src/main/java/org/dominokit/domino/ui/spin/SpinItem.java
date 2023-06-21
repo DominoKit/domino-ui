@@ -20,9 +20,11 @@ import org.dominokit.domino.ui.elements.DivElement;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
 
 /**
- * A component provides an item inside a {@link SpinSelect}
+ * A component provides an item inside a {@link org.dominokit.domino.ui.spin.SpinSelect}
  *
  * @param <T> the type of the object inside the item
+ * @author vegegoku
+ * @version $Id: $Id
  */
 public class SpinItem<T> extends BaseDominoElement<HTMLDivElement, SpinItem<T>>
     implements SpinStyles {
@@ -30,6 +32,11 @@ public class SpinItem<T> extends BaseDominoElement<HTMLDivElement, SpinItem<T>>
   private final T value;
   private final DivElement element;
 
+  /**
+   * Constructor for SpinItem.
+   *
+   * @param value a T object
+   */
   public SpinItem(T value) {
     this.value = value;
     element = div().addCss(dui_spin_item);
@@ -57,6 +64,11 @@ public class SpinItem<T> extends BaseDominoElement<HTMLDivElement, SpinItem<T>>
   }
 
   /** @return the value of the item */
+  /**
+   * Getter for the field <code>value</code>.
+   *
+   * @return a T object
+   */
   public T getValue() {
     return value;
   }

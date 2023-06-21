@@ -24,7 +24,12 @@ import org.dominokit.domino.ui.style.CssClass;
 import org.dominokit.domino.ui.style.HasCssClass;
 import org.dominokit.domino.ui.style.SwapCssClass;
 
-/** <a href="https://materialdesignicons.com/">MDI</a> icons implementation */
+/**
+ * <a href="https://materialdesignicons.com/">MDI</a> icons implementation
+ *
+ * @author vegegoku
+ * @version $Id: $Id
+ */
 public class MdiIcon extends Icon<MdiIcon> implements CanChangeIcon<MdiIcon> {
 
   private MdiMeta metaInfo;
@@ -93,7 +98,7 @@ public class MdiIcon extends Icon<MdiIcon> implements CanChangeIcon<MdiIcon> {
    * Creates a new icon with meta
    *
    * @param icon the icon name
-   * @param meta the {@link MdiMeta}
+   * @param meta the {@link org.dominokit.domino.ui.icons.MdiMeta}
    * @return new instance
    */
   public static MdiIcon create(String icon, MdiMeta meta) {
@@ -119,7 +124,7 @@ public class MdiIcon extends Icon<MdiIcon> implements CanChangeIcon<MdiIcon> {
   /**
    * Sets the type of rotate applied to the icon
    *
-   * @param mdiRotate the {@link MdiRotate}
+   * @param mdiRotate the {@link org.dominokit.domino.ui.icons.MdiIcon.MdiRotate}
    * @return same instance
    */
   public MdiIcon setRotate(MdiRotate mdiRotate) {
@@ -203,7 +208,7 @@ public class MdiIcon extends Icon<MdiIcon> implements CanChangeIcon<MdiIcon> {
   /**
    * Flips the icon either horizontally or vertically
    *
-   * @param mdiFlip the {@link MdiFlip}
+   * @param mdiFlip the {@link org.dominokit.domino.ui.icons.MdiIcon.MdiFlip}
    * @return same instance
    */
   public MdiIcon setFlip(MdiFlip mdiFlip) {
@@ -301,7 +306,7 @@ public class MdiIcon extends Icon<MdiIcon> implements CanChangeIcon<MdiIcon> {
   /**
    * Sets the contrast of the icon
    *
-   * @param mdiContrast the {@link MdiContrast}
+   * @param mdiContrast the {@link org.dominokit.domino.ui.icons.MdiIcon.MdiContrast}
    * @return same instance
    */
   public MdiIcon setContrast(MdiContrast mdiContrast) {
@@ -383,6 +388,11 @@ public class MdiIcon extends Icon<MdiIcon> implements CanChangeIcon<MdiIcon> {
   }
 
   /** @return The {@link MdiMeta} of the icon */
+  /**
+   * Getter for the field <code>metaInfo</code>.
+   *
+   * @return a {@link org.dominokit.domino.ui.icons.MdiMeta} object
+   */
   public MdiMeta getMetaInfo() {
     return metaInfo;
   }

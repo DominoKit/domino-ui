@@ -24,7 +24,7 @@ import org.dominokit.domino.ui.elements.DivElement;
 import org.dominokit.domino.ui.i18n.HasLabels;
 import org.dominokit.domino.ui.i18n.UploadLabels;
 import org.dominokit.domino.ui.icons.Icon;
-import org.dominokit.domino.ui.icons.Icons;
+import org.dominokit.domino.ui.icons.lib.Icons;
 import org.dominokit.domino.ui.progress.Progress;
 import org.dominokit.domino.ui.progress.ProgressBar;
 import org.dominokit.domino.ui.style.CompositeCssClass;
@@ -33,6 +33,12 @@ import org.dominokit.domino.ui.thumbnails.Thumbnail;
 import org.dominokit.domino.ui.typography.BlockHeader;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
 
+/**
+ * DefaultFilePreview class.
+ *
+ * @author vegegoku
+ * @version $Id: $Id
+ */
 public class DefaultFilePreview extends BaseDominoElement<HTMLDivElement, DefaultFilePreview>
     implements IsFilePreview<HTMLDivElement>,
         HasComponentConfig<UploadConfig>,
@@ -55,6 +61,11 @@ public class DefaultFilePreview extends BaseDominoElement<HTMLDivElement, Defaul
       CompositeCssClass.of(dui_border, dui_border_solid, dui_border_warning);
   private final Progress progress;
 
+  /**
+   * Constructor for DefaultFilePreview.
+   *
+   * @param fileItem a {@link org.dominokit.domino.ui.upload.FileItem} object
+   */
   public DefaultFilePreview(FileItem fileItem) {
     this.fileItem = fileItem;
     this.thumbnail =
@@ -135,6 +146,7 @@ public class DefaultFilePreview extends BaseDominoElement<HTMLDivElement, Defaul
         });
   }
 
+  /** {@inheritDoc} */
   @Override
   public void onUploadFailed(String error) {
     SwapCssClass failedCss = statusMessageCss.replaceWith(dui_fg_error);
@@ -146,6 +158,7 @@ public class DefaultFilePreview extends BaseDominoElement<HTMLDivElement, Defaul
     addCss(statusCss.replaceWith(failedBorder));
   }
 
+  /** {@inheritDoc} */
   @Override
   public void onUploadSuccess() {
     SwapCssClass successCss = statusMessageCss.replaceWith(dui_fg_success);
@@ -158,6 +171,7 @@ public class DefaultFilePreview extends BaseDominoElement<HTMLDivElement, Defaul
     addCss(statusCss.replaceWith(successBorder));
   }
 
+  /** {@inheritDoc} */
   @Override
   public void onUploadCompleted() {
     cancelIcon.hide();
@@ -165,11 +179,13 @@ public class DefaultFilePreview extends BaseDominoElement<HTMLDivElement, Defaul
     removeIcon.show();
   }
 
+  /** {@inheritDoc} */
   @Override
   public void onUploadProgress(double progress) {
     progressBar.setValue(progress);
   }
 
+  /** {@inheritDoc} */
   @Override
   public void onUploadCanceled() {
     SwapCssClass cancelledCss = statusMessageCss.replaceWith(dui_fg_warning);
@@ -183,6 +199,7 @@ public class DefaultFilePreview extends BaseDominoElement<HTMLDivElement, Defaul
     addCss(statusCss.replaceWith(canceledBorder));
   }
 
+  /** {@inheritDoc} */
   @Override
   public void onUploadStarted() {
     cancelIcon.show();
@@ -191,6 +208,7 @@ public class DefaultFilePreview extends BaseDominoElement<HTMLDivElement, Defaul
     messageElement.removeCss(statusMessageCss).clearElement();
   }
 
+  /** {@inheritDoc} */
   @Override
   public void onReset() {
     cancelIcon.hide();
@@ -202,10 +220,16 @@ public class DefaultFilePreview extends BaseDominoElement<HTMLDivElement, Defaul
     progressBar.removeCss(statusMessageCss);
   }
 
+  /**
+   * Getter for the field <code>thumbnail</code>.
+   *
+   * @return a {@link org.dominokit.domino.ui.thumbnails.Thumbnail} object
+   */
   public Thumbnail getThumbnail() {
     return thumbnail;
   }
 
+  /** {@inheritDoc} */
   @Override
   public HTMLDivElement element() {
     return thumbnail.element();

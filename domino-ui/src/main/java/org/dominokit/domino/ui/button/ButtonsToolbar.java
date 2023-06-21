@@ -43,6 +43,9 @@ import org.dominokit.domino.ui.utils.BaseDominoElement;
  *                      .appendChild(Button.createDefault("7"))
  *                    );
  *     </pre>
+ *
+ * @author vegegoku
+ * @version $Id: $Id
  */
 public class ButtonsToolbar extends BaseDominoElement<HTMLDivElement, ButtonsToolbar> {
 
@@ -55,6 +58,11 @@ public class ButtonsToolbar extends BaseDominoElement<HTMLDivElement, ButtonsToo
   }
 
   /** @return a new ButtonsToolbar instance */
+  /**
+   * create.
+   *
+   * @return a {@link org.dominokit.domino.ui.button.ButtonsToolbar} object
+   */
   public static ButtonsToolbar create() {
     return new ButtonsToolbar();
   }
@@ -62,7 +70,7 @@ public class ButtonsToolbar extends BaseDominoElement<HTMLDivElement, ButtonsToo
   /**
    * Adds a ButtonsGroup to the toolbar
    *
-   * @param group {@link ButtonsGroup}
+   * @param group {@link org.dominokit.domino.ui.button.group.ButtonsGroup}
    * @return new ButtonsToolbar instance
    */
   public ButtonsToolbar appendChild(ButtonsGroup group) {
@@ -73,7 +81,7 @@ public class ButtonsToolbar extends BaseDominoElement<HTMLDivElement, ButtonsToo
   /**
    * Adds a ButtonsGroup to the toolbar
    *
-   * @param groups {@link ButtonsGroup}
+   * @param groups {@link org.dominokit.domino.ui.button.group.ButtonsGroup}
    * @return new ButtonsToolbar instance
    */
   public ButtonsToolbar appendChild(ButtonsGroup... groups) {

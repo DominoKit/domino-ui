@@ -19,30 +19,50 @@ package org.dominokit.domino.ui.datatable.events;
  * This event will be fired when a record gets dropped
  *
  * @param <T> the type of the record
+ * @author vegegoku
+ * @version $Id: $Id
  */
 public class RecordDroppedEvent<T> implements TableEvent {
 
+  /** Constant <code>RECORD_DROPPED="record-dropped"</code> */
   public static final String RECORD_DROPPED = "record-dropped";
 
   private final T droppedRecord;
   private final T targetRecord;
 
+  /**
+   * Constructor for RecordDroppedEvent.
+   *
+   * @param droppedRecord a T object
+   * @param targetRecord a T object
+   */
   public RecordDroppedEvent(T droppedRecord, T targetRecord) {
     this.droppedRecord = droppedRecord;
     this.targetRecord = targetRecord;
   }
 
+  /** {@inheritDoc} */
   @Override
   public String getType() {
     return RECORD_DROPPED;
   }
 
   /** @return the dropped record */
+  /**
+   * Getter for the field <code>droppedRecord</code>.
+   *
+   * @return a T object
+   */
   public T getDroppedRecord() {
     return droppedRecord;
   }
 
   /** @return the target record */
+  /**
+   * Getter for the field <code>targetRecord</code>.
+   *
+   * @return a T object
+   */
   public T getTargetRecord() {
     return targetRecord;
   }

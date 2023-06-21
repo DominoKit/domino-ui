@@ -26,9 +26,16 @@ import org.dominokit.domino.ui.tree.TreeItemFilter;
  * An interface representing a parent tree item
  *
  * @param <T> the type of the object
+ * @author vegegoku
+ * @version $Id: $Id
  */
 public interface TreeParent<T> {
   /** @return The current active value */
+  /**
+   * getActiveItem.
+   *
+   * @return a {@link org.dominokit.domino.ui.tree.TreeItem} object
+   */
   TreeItem<T> getActiveItem();
 
   /**
@@ -47,9 +54,19 @@ public interface TreeParent<T> {
   void setActiveItem(TreeItem<T> activeItem, boolean silent);
 
   /** @return The {@link Tree} */
+  /**
+   * getTreeRoot.
+   *
+   * @return a {@link org.dominokit.domino.ui.tree.Tree} object
+   */
   Tree<T> getTreeRoot();
 
   /** @return true if automatic expanding is enabled when finding items in search */
+  /**
+   * isAutoExpandFound.
+   *
+   * @return a boolean
+   */
   boolean isAutoExpandFound();
 
   /**
@@ -78,6 +95,11 @@ public interface TreeParent<T> {
   void activate(boolean activateParent);
 
   /** @return the parent item */
+  /**
+   * getParent.
+   *
+   * @return a {@link java.util.Optional} object
+   */
   Optional<TreeParent<T>> getParent();
 
   /**
@@ -88,12 +110,32 @@ public interface TreeParent<T> {
   void removeItem(TreeItem<T> item);
 
   /** @return the children of this item */
+  /**
+   * getSubItems.
+   *
+   * @return a {@link java.util.List} object
+   */
   List<TreeItem<T>> getSubItems();
 
   /** @return the {@link TreeItemFilter} */
+  /**
+   * getFilter.
+   *
+   * @return a {@link org.dominokit.domino.ui.tree.TreeItemFilter} object
+   */
   TreeItemFilter<TreeItem<T>> getFilter();
 
+  /**
+   * getSubTree.
+   *
+   * @return a {@link org.dominokit.domino.ui.elements.UListElement} object
+   */
   UListElement getSubTree();
 
+  /**
+   * getValue.
+   *
+   * @return a T object
+   */
   T getValue();
 }

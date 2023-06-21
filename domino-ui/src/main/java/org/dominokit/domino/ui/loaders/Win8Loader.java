@@ -20,7 +20,12 @@ import org.dominokit.domino.ui.IsElement;
 import org.dominokit.domino.ui.elements.DivElement;
 import org.dominokit.domino.ui.utils.DominoElement;
 
-/** Win8 loader implementation */
+/**
+ * Win8 loader implementation
+ *
+ * @author vegegoku
+ * @version $Id: $Id
+ */
 public class Win8Loader extends BaseLoader<Win8Loader> implements IsElement<HTMLDivElement> {
 
   private final DivElement progress1 =
@@ -52,10 +57,16 @@ public class Win8Loader extends BaseLoader<Win8Loader> implements IsElement<HTML
   private final DivElement element =
       div().addCss(wait_me).style("background: rgba(255, 255, 255, 0.9);").appendChild(content);
 
+  /** Constructor for Win8Loader. */
   public Win8Loader() {
     init(this);
   }
 
+  /**
+   * create.
+   *
+   * @return a {@link org.dominokit.domino.ui.loaders.Win8Loader} object
+   */
   public static Win8Loader create() {
     return new Win8Loader();
   }

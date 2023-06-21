@@ -23,18 +23,42 @@ import java.util.Set;
 import java.util.stream.Collectors;
 import org.dominokit.domino.ui.IsElement;
 
+/**
+ * MediaQueryCss class.
+ *
+ * @author vegegoku
+ * @version $Id: $Id
+ */
 public class MediaQueryCss implements CssClass {
 
   private Set<CssClass> cssClasses = new HashSet<>();
 
+  /**
+   * of.
+   *
+   * @param cssClasses a {@link java.util.Collection} object.
+   * @return a {@link org.dominokit.domino.ui.style.CompositeCssClass} object.
+   */
   public static CompositeCssClass of(Collection<CssClass> cssClasses) {
     return new CompositeCssClass(cssClasses);
   }
 
+  /**
+   * of.
+   *
+   * @param cssClasses a {@link org.dominokit.domino.ui.style.CssClass} object.
+   * @return a {@link org.dominokit.domino.ui.style.CompositeCssClass} object.
+   */
   public static CompositeCssClass of(CssClass... cssClasses) {
     return new CompositeCssClass(cssClasses);
   }
 
+  /**
+   * of.
+   *
+   * @param element a {@link elemental2.dom.Element} object.
+   * @return a {@link org.dominokit.domino.ui.style.CompositeCssClass} object.
+   */
   public static CompositeCssClass of(Element element) {
     return of(
         element.classList.asList().stream()
@@ -42,43 +66,65 @@ public class MediaQueryCss implements CssClass {
             .collect(Collectors.toList()));
   }
 
+  /**
+   * of.
+   *
+   * @param element a {@link org.dominokit.domino.ui.IsElement} object.
+   * @return a {@link org.dominokit.domino.ui.style.CompositeCssClass} object.
+   */
   public static CompositeCssClass of(IsElement<?> element) {
     return of(element.element());
   }
 
+  /**
+   * Constructor for MediaQueryCss.
+   *
+   * @param cssClasses a {@link java.util.Collection} object.
+   */
   public MediaQueryCss(Collection<CssClass> cssClasses) {
     this.cssClasses.addAll(cssClasses);
   }
 
+  /**
+   * Constructor for MediaQueryCss.
+   *
+   * @param cssClasses a {@link org.dominokit.domino.ui.style.CssClass} object.
+   */
   public MediaQueryCss(CssClass... cssClasses) {
     this(Arrays.asList(cssClasses));
   }
 
+  /** {@inheritDoc} */
   @Override
   public String getCssClass() {
     return cssClasses.stream().map(CssClass::getCssClass).collect(Collectors.joining(" "));
   }
 
+  /** {@inheritDoc} */
   @Override
   public void apply(Element element) {
     cssClasses.forEach(cssClass -> cssClass.apply(element));
   }
 
+  /** {@inheritDoc} */
   @Override
   public boolean isAppliedTo(Element element) {
     return cssClasses.stream().allMatch(cssClass -> cssClass.isAppliedTo(element));
   }
 
+  /** {@inheritDoc} */
   @Override
   public boolean isAppliedTo(IsElement<?> element) {
     return isAppliedTo(element.element());
   }
 
+  /** {@inheritDoc} */
   @Override
   public void remove(Element element) {
     cssClasses.forEach(cssClass -> cssClass.remove(element));
   }
 
+  /** {@inheritDoc} */
   @Override
   public void remove(IsElement<?> element) {
     remove(element.element());

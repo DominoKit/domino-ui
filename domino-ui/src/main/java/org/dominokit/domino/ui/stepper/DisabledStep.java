@@ -17,11 +17,18 @@ package org.dominokit.domino.ui.stepper;
 
 import static org.dominokit.domino.ui.style.GenericCss.dui_grey;
 
-import org.dominokit.domino.ui.icons.Icons;
+import org.dominokit.domino.ui.icons.lib.Icons;
 import org.dominokit.domino.ui.style.ColorsCss;
 import org.dominokit.domino.ui.style.SpacingCss;
 
+/**
+ * DisabledStep class.
+ *
+ * @author vegegoku
+ * @version $Id: $Id
+ */
 public class DisabledStep implements StepState {
+  /** {@inheritDoc} */
   @Override
   public void apply(StepTracker tracker) {
     tracker
@@ -33,6 +40,7 @@ public class DisabledStep implements StepState {
                     .addCss(dui_grey));
   }
 
+  /** {@inheritDoc} */
   @Override
   public void cleanUp(StepTracker tracker) {
     tracker
@@ -40,6 +48,7 @@ public class DisabledStep implements StepState {
         .withTrackerNode((parent1, node) -> node.clearElement().removeCss(dui_grey));
   }
 
+  /** {@inheritDoc} */
   @Override
   public String getKey() {
     return "DISABLED";

@@ -15,8 +15,19 @@
  */
 package org.dominokit.domino.ui.utils;
 
+/**
+ * LazyInitializer class.
+ *
+ * @author vegegoku
+ * @version $Id: $Id
+ */
 public class LazyInitializer extends BaseLazyInitializer<LazyInitializer> {
 
+  /**
+   * Constructor for LazyInitializer.
+   *
+   * @param function a {@link org.dominokit.domino.ui.utils.LambdaFunction} object
+   */
   public LazyInitializer(LambdaFunction function) {
     super(function);
   }

@@ -20,9 +20,12 @@ import org.dominokit.domino.ui.datatable.model.FilterTypes;
 import org.dominokit.domino.ui.forms.TextBox;
 
 /**
- * String column header filter component that is rendered as a {@link TextBox} component
+ * String column header filter component that is rendered as a {@link
+ * org.dominokit.domino.ui.forms.TextBox} component
  *
  * @param <T> type of data table records
+ * @author vegegoku
+ * @version $Id: $Id
  */
 public class TextHeaderFilter<T> extends DelayedHeaderFilterInput<TextBox, T, String> {
 
@@ -40,7 +43,13 @@ public class TextHeaderFilter<T> extends DelayedHeaderFilterInput<TextBox, T, St
     super(placeholder);
   }
 
-  /** create a new instance */
+  /**
+   * create a new instance
+   *
+   * @param <T> a T class
+   * @return a {@link org.dominokit.domino.ui.datatable.plugins.filter.header.TextHeaderFilter}
+   *     object
+   */
   public static <T> TextHeaderFilter<T> create() {
     return new TextHeaderFilter<>();
   }
@@ -82,6 +91,11 @@ public class TextHeaderFilter<T> extends DelayedHeaderFilterInput<TextBox, T, St
   }
 
   /** @return the {@link TextBox} wrapped in this component */
+  /**
+   * Getter for the field <code>textBox</code>.
+   *
+   * @return a {@link org.dominokit.domino.ui.forms.TextBox} object
+   */
   public TextBox getTextBox() {
     return textBox;
   }

@@ -27,6 +27,12 @@ import org.dominokit.domino.ui.utils.ChildHandler;
 import org.dominokit.domino.ui.utils.LazyChild;
 import org.dominokit.domino.ui.utils.PostfixAddOn;
 
+/**
+ * TreeHeader class.
+ *
+ * @author vegegoku
+ * @version $Id: $Id
+ */
 public class TreeHeader extends BaseDominoElement<HTMLDivElement, TreeHeader>
     implements TreeStyles {
 
@@ -35,22 +41,47 @@ public class TreeHeader extends BaseDominoElement<HTMLDivElement, TreeHeader>
   private LazyChild<Icon<?>> headerIcon;
   private final LazyChild<SpanElement> textElement;
 
+  /**
+   * create.
+   *
+   * @return a {@link org.dominokit.domino.ui.tree.TreeHeader} object
+   */
   public static TreeHeader create() {
     return new TreeHeader();
   }
 
+  /**
+   * create.
+   *
+   * @param icon a {@link org.dominokit.domino.ui.icons.Icon} object
+   * @return a {@link org.dominokit.domino.ui.tree.TreeHeader} object
+   */
   public static TreeHeader create(Icon<?> icon) {
     return new TreeHeader(icon);
   }
 
+  /**
+   * create.
+   *
+   * @param title a {@link java.lang.String} object
+   * @return a {@link org.dominokit.domino.ui.tree.TreeHeader} object
+   */
   public static TreeHeader create(String title) {
     return new TreeHeader(title);
   }
 
+  /**
+   * create.
+   *
+   * @param icon a {@link org.dominokit.domino.ui.icons.Icon} object
+   * @param title a {@link java.lang.String} object
+   * @return a {@link org.dominokit.domino.ui.tree.TreeHeader} object
+   */
   public static TreeHeader create(Icon<?> icon, String title) {
     return new TreeHeader(icon, title);
   }
 
+  /** Constructor for TreeHeader. */
   public TreeHeader() {
     element =
         div()
@@ -64,27 +95,55 @@ public class TreeHeader extends BaseDominoElement<HTMLDivElement, TreeHeader>
     init(this);
   }
 
+  /**
+   * Constructor for TreeHeader.
+   *
+   * @param icon a {@link org.dominokit.domino.ui.icons.Icon} object
+   */
   public TreeHeader(Icon<?> icon) {
     this();
     setIcon(icon);
   }
 
+  /**
+   * Constructor for TreeHeader.
+   *
+   * @param title a {@link java.lang.String} object
+   */
   public TreeHeader(String title) {
     this();
     setTitle(title);
   }
 
+  /**
+   * Constructor for TreeHeader.
+   *
+   * @param icon a {@link org.dominokit.domino.ui.icons.Icon} object
+   * @param title a {@link java.lang.String} object
+   */
   public TreeHeader(Icon<?> icon, String title) {
     this();
     setIcon(icon);
     setTitle(title);
   }
 
+  /**
+   * setTitle.
+   *
+   * @param title a {@link java.lang.String} object
+   * @return a {@link org.dominokit.domino.ui.tree.TreeHeader} object
+   */
   public TreeHeader setTitle(String title) {
     textElement.get().setTextContent(title);
     return this;
   }
 
+  /**
+   * setIcon.
+   *
+   * @param icon a {@link org.dominokit.domino.ui.icons.Icon} object
+   * @return a {@link org.dominokit.domino.ui.tree.TreeHeader} object
+   */
   public TreeHeader setIcon(Icon<?> icon) {
     if (nonNull(headerIcon) && headerIcon.isInitialized()) {
       headerIcon.remove();
@@ -95,6 +154,12 @@ public class TreeHeader extends BaseDominoElement<HTMLDivElement, TreeHeader>
     return this;
   }
 
+  /**
+   * appendChild.
+   *
+   * @param postfixAddOn a {@link org.dominokit.domino.ui.utils.PostfixAddOn} object
+   * @return a {@link org.dominokit.domino.ui.tree.TreeHeader} object
+   */
   public TreeHeader appendChild(PostfixAddOn<?> postfixAddOn) {
     if (nonNull(postfixAddOn)) {
       postfixAddOn.addCss(dui_tree_header_item);
@@ -103,34 +168,63 @@ public class TreeHeader extends BaseDominoElement<HTMLDivElement, TreeHeader>
     return this;
   }
 
+  /**
+   * withContent.
+   *
+   * @param handler a {@link org.dominokit.domino.ui.utils.ChildHandler} object
+   * @return a {@link org.dominokit.domino.ui.tree.TreeHeader} object
+   */
   public TreeHeader withContent(ChildHandler<TreeHeader, DivElement> handler) {
     handler.apply(this, content);
     return this;
   }
 
+  /**
+   * Getter for the field <code>content</code>.
+   *
+   * @return a {@link org.dominokit.domino.ui.elements.DivElement} object
+   */
   public DivElement getContent() {
     return content;
   }
 
+  /**
+   * withTitle.
+   *
+   * @param handler a {@link org.dominokit.domino.ui.utils.ChildHandler} object
+   * @return a {@link org.dominokit.domino.ui.tree.TreeHeader} object
+   */
   public TreeHeader withTitle(ChildHandler<TreeHeader, SpanElement> handler) {
     handler.apply(this, textElement.get());
     return this;
   }
 
+  /**
+   * withTitle.
+   *
+   * @return a {@link org.dominokit.domino.ui.tree.TreeHeader} object
+   */
   public TreeHeader withTitle() {
     textElement.get();
     return this;
   }
 
+  /**
+   * getTitle.
+   *
+   * @return a {@link org.dominokit.domino.ui.elements.SpanElement} object
+   */
   public SpanElement getTitle() {
     return textElement.get();
   }
 
+  /** {@inheritDoc} */
   @Override
   protected HTMLElement getAppendTarget() {
     return content.element();
   }
 
+  /** {@inheritDoc} */
   @Override
   public HTMLDivElement element() {
     return element.element();

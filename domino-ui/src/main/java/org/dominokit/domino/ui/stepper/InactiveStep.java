@@ -17,17 +17,26 @@ package org.dominokit.domino.ui.stepper;
 
 import org.dominokit.domino.ui.style.ColorsCss;
 
+/**
+ * InactiveStep class.
+ *
+ * @author vegegoku
+ * @version $Id: $Id
+ */
 public class InactiveStep implements StepState {
+  /** {@inheritDoc} */
   @Override
   public void apply(StepTracker tracker) {
     tracker.addCss(ColorsCss.dui_accent_accent_l_2);
   }
 
+  /** {@inheritDoc} */
   @Override
   public void cleanUp(StepTracker tracker) {
     tracker.removeCss(ColorsCss.dui_accent_accent_l_2);
   }
 
+  /** {@inheritDoc} */
   @Override
   public String getKey() {
     return "INACTIVE";

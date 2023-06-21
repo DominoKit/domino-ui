@@ -44,6 +44,8 @@ import org.dominokit.domino.ui.style.Style;
  * </pre>
  *
  * @param <T> the type of the data table records
+ * @author vegegoku
+ * @version $Id: $Id
  */
 public class ColumnHeaderFilterPlugin<T> implements DataTablePlugin<T> {
 
@@ -132,10 +134,12 @@ public class ColumnHeaderFilterPlugin<T> implements DataTablePlugin<T> {
    * Adds a new header filter to the plugin
    *
    * @param columnName String, the name of the column we are adding the header filter to.
-   * @param headerFilter the {@link HeaderFilter}
+   * @param headerFilter the {@link
+   *     org.dominokit.domino.ui.datatable.plugins.column.ColumnHeaderFilterPlugin.HeaderFilter}
    * @return same instance
-   * @deprecated use {@link ColumnConfig#applyMeta(org.dominokit.domino.ui.utils.ComponentMeta)} and
-   *     pass {@link ColumnFilterMeta}
+   * @deprecated use {@link
+   *     org.dominokit.domino.ui.datatable.ColumnConfig#applyMeta(org.dominokit.domino.ui.utils.ComponentMeta)}
+   *     and pass {@link org.dominokit.domino.ui.datatable.plugins.column.ColumnFilterMeta}
    */
   @Deprecated
   public ColumnHeaderFilterPlugin<T> addHeaderFilter(String columnName, HeaderFilter headerFilter) {
@@ -152,10 +156,16 @@ public class ColumnHeaderFilterPlugin<T> implements DataTablePlugin<T> {
   }
 
   /** @return The table row element that contains the header filters components */
+  /**
+   * Getter for the field <code>filtersRowElement</code>.
+   *
+   * @return a {@link org.dominokit.domino.ui.elements.TableRowElement} object
+   */
   public TableRowElement getFiltersRowElement() {
     return filtersRowElement;
   }
 
+  /** {@inheritDoc} */
   @Override
   public int order() {
     return 110;

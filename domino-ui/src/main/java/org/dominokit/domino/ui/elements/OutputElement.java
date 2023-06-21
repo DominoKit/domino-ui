@@ -17,11 +17,28 @@ package org.dominokit.domino.ui.elements;
 
 import elemental2.dom.HTMLOutputElement;
 
+/**
+ * OutputElement class.
+ *
+ * @author vegegoku
+ * @version $Id: $Id
+ */
 public class OutputElement extends BaseElement<HTMLOutputElement, OutputElement> {
+  /**
+   * of.
+   *
+   * @param e a {@link elemental2.dom.HTMLOutputElement} object
+   * @return a {@link org.dominokit.domino.ui.elements.OutputElement} object
+   */
   public static OutputElement of(HTMLOutputElement e) {
     return new OutputElement(e);
   }
 
+  /**
+   * Constructor for OutputElement.
+   *
+   * @param element a {@link elemental2.dom.HTMLOutputElement} object
+   */
   public OutputElement(HTMLOutputElement element) {
     super(element);
   }

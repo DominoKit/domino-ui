@@ -26,41 +26,85 @@ import java.util.Set;
 import java.util.stream.Collectors;
 import org.dominokit.domino.ui.elements.DivElement;
 
+/**
+ * MultiSelect class.
+ *
+ * @author vegegoku
+ * @version $Id: $Id
+ */
 public class MultiSelect<V>
     extends AbstractSelect<V, List<V>, DivElement, SelectOption<V>, MultiSelect<V>> {
 
   private Set<SelectOption<V>> selectedOptions = new HashSet<>();
 
+  /**
+   * create.
+   *
+   * @param <V> a V class
+   * @return a {@link org.dominokit.domino.ui.forms.suggest.MultiSelect} object
+   */
   public static <V> MultiSelect<V> create() {
     return new MultiSelect<>();
   }
 
+  /**
+   * create.
+   *
+   * @param label a {@link java.lang.String} object
+   * @param <V> a V class
+   * @return a {@link org.dominokit.domino.ui.forms.suggest.MultiSelect} object
+   */
   public static <V> MultiSelect<V> create(String label) {
     return new MultiSelect<>(label);
   }
 
+  /** Constructor for MultiSelect. */
   public MultiSelect() {
     optionsMenu.setMultiSelect(true);
   }
 
+  /**
+   * Constructor for MultiSelect.
+   *
+   * @param label a {@link java.lang.String} object
+   */
   public MultiSelect(String label) {
     this();
     setLabel(label);
   }
 
+  /** {@inheritDoc} */
   @Override
   protected List<V> asValue(V singleValue) {
     return Arrays.asList(singleValue);
   }
 
+  /**
+   * withValue.
+   *
+   * @param value a V object
+   * @return a {@link org.dominokit.domino.ui.forms.suggest.MultiSelect} object
+   */
   public MultiSelect<V> withValue(V... value) {
     return withValue(isChangeListenersPaused(), value);
   }
 
+  /**
+   * withValue.
+   *
+   * @param silent a boolean
+   * @param value a V object
+   * @return a {@link org.dominokit.domino.ui.forms.suggest.MultiSelect} object
+   */
   public MultiSelect<V> withValue(boolean silent, V... value) {
     return withValue(Arrays.asList(value), silent);
   }
 
+  /**
+   * doSetValue.
+   *
+   * @param value a {@link java.util.List} object
+   */
   protected void doSetValue(List<V> value) {
     withPauseChangeListenersToggle(
         true,
@@ -72,6 +116,7 @@ public class MultiSelect<V>
                 }));
   }
 
+  /** {@inheritDoc} */
   @Override
   protected void onOptionSelected(SelectOption<V> option) {
     if (nonNull(this.selectedOptions) && this.selectedOptions.contains(option)) {
@@ -83,6 +128,7 @@ public class MultiSelect<V>
     selectedOptions.add(option);
   }
 
+  /** {@inheritDoc} */
   @Override
   public MultiSelect<V> withOption(SelectOption<V> option, boolean silent) {
     List<V> oldValue = getValue();
@@ -96,6 +142,7 @@ public class MultiSelect<V>
     return this;
   }
 
+  /** {@inheritDoc} */
   @Override
   protected void onOptionDeselected(SelectOption<V> option) {
     List<V> oldValue = getValue();
@@ -108,6 +155,7 @@ public class MultiSelect<V>
     }
   }
 
+  /** {@inheritDoc} */
   @Override
   protected void doSetOption(SelectOption<V> option) {
     if (isNull(this.selectedOptions)) {
@@ -116,6 +164,7 @@ public class MultiSelect<V>
     this.selectedOptions.add(option);
   }
 
+  /** {@inheritDoc} */
   @Override
   public List<V> getValue() {
     return this.selectedOptions.stream().map(Option::getValue).collect(Collectors.toList());

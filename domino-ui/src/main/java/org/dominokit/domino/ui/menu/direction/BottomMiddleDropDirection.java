@@ -24,7 +24,14 @@ import elemental2.dom.DOMRect;
 import elemental2.dom.Element;
 import org.dominokit.domino.ui.style.Style;
 
+/**
+ * BottomMiddleDropDirection class.
+ *
+ * @author vegegoku
+ * @version $Id: $Id
+ */
 public class BottomMiddleDropDirection implements DropDirection {
+  /** {@inheritDoc} */
   @Override
   public void position(Element source, Element target) {
     dui_flex_col_reverse.remove(source);
@@ -55,6 +62,7 @@ public class BottomMiddleDropDirection implements DropDirection {
     dui_dd_bottom_middle.apply(source);
   }
 
+  /** {@inheritDoc} */
   @Override
   public void cleanup(Element source) {
     dui_dd_bottom_middle.remove(source);

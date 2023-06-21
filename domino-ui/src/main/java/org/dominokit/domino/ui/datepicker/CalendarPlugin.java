@@ -15,8 +15,24 @@
  */
 package org.dominokit.domino.ui.datepicker;
 
+/**
+ * CalendarPlugin interface.
+ *
+ * @author vegegoku
+ * @version $Id: $Id
+ */
 public interface CalendarPlugin {
+  /**
+   * onCalendarDayAdded.
+   *
+   * @param calendarDay a {@link org.dominokit.domino.ui.datepicker.CalendarDay} object
+   */
   default void onCalendarDayAdded(CalendarDay calendarDay) {}
 
+  /**
+   * onInit.
+   *
+   * @param calendar a {@link org.dominokit.domino.ui.datepicker.Calendar} object
+   */
   default void onInit(Calendar calendar) {}
 }

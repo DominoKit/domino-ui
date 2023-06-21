@@ -27,7 +27,8 @@ import org.dominokit.domino.ui.utils.*;
 import org.dominokit.domino.ui.utils.ApplyFunction;
 
 /**
- * This class can logically group a set of components that implements {@link HasGrouping} interface
+ * This class can logically group a set of components that implements {@link
+ * org.dominokit.domino.ui.forms.HasGrouping} interface
  *
  * <p>The same component can be grouped using multiple FieldGrouping instances
  *
@@ -44,6 +45,9 @@ import org.dominokit.domino.ui.utils.ApplyFunction;
  *         .setRequired(true)
  *         .setAutoValidation(true);
  * </pre>
+ *
+ * @author vegegoku
+ * @version $Id: $Id
  */
 public class FieldsGrouping
     implements HasValidation<FieldsGrouping>,
@@ -58,14 +62,19 @@ public class FieldsGrouping
   private boolean focusValidationsPaused = false;
 
   /** @return a new instance */
+  /**
+   * create.
+   *
+   * @return a {@link org.dominokit.domino.ui.forms.FieldsGrouping} object
+   */
   public static FieldsGrouping create() {
     return new FieldsGrouping();
   }
 
   /**
-   * Adds a component that implements {@link HasGrouping}
+   * Adds a component that implements {@link org.dominokit.domino.ui.forms.HasGrouping}
    *
-   * @param formElement {@link HasGrouping}
+   * @param formElement {@link org.dominokit.domino.ui.forms.HasGrouping}
    * @return same FieldGrouping instance
    */
   public FieldsGrouping addFormElement(HasGrouping<?> formElement) {
@@ -74,9 +83,9 @@ public class FieldsGrouping
   }
 
   /**
-   * Adds a component that implements {@link HasGrouping}
+   * Adds a component that implements {@link org.dominokit.domino.ui.forms.HasGrouping}
    *
-   * @param formElements a vararg of {@link HasGrouping}
+   * @param formElements a vararg of {@link org.dominokit.domino.ui.forms.HasGrouping}
    * @return same FieldGrouping instance
    */
   public FieldsGrouping group(HasGrouping<?>... formElements) {
@@ -88,6 +97,11 @@ public class FieldsGrouping
     return this;
   }
 
+  /**
+   * validate.
+   *
+   * @return a {@link org.dominokit.domino.ui.forms.validations.ValidationResult} object
+   */
   public ValidationResult validate() {
     return validate(this);
   }
@@ -173,11 +187,9 @@ public class FieldsGrouping
   }
 
   /**
-   * change the readonly mode for all grouped components
+   * {@inheritDoc}
    *
-   * @param readOnly boolean, if true change all grouped components to readonly mode, otherwise
-   *     switch them out of readonly mode
-   * @return same FieldsGrouping instance
+   * <p>change the readonly mode for all grouped components
    */
   @Override
   public FieldsGrouping setReadOnly(boolean readOnly) {
@@ -188,15 +200,16 @@ public class FieldsGrouping
     return this;
   }
 
+  /** {@inheritDoc} */
   @Override
   public boolean isReadOnly() {
     return formElements.stream().allMatch(AcceptReadOnly::isReadOnly);
   }
 
   /**
-   * Disable all grouped components
+   * {@inheritDoc}
    *
-   * @return same FieldsGrouping instance
+   * <p>Disable all grouped components
    */
   @Override
   public FieldsGrouping disable() {
@@ -205,9 +218,9 @@ public class FieldsGrouping
   }
 
   /**
-   * Enable all grouped components
+   * {@inheritDoc}
    *
-   * @return same FieldsGrouping instance
+   * <p>Enable all grouped components
    */
   @Override
   public FieldsGrouping enable() {
@@ -216,22 +229,24 @@ public class FieldsGrouping
   }
 
   /** @return boolean, true if all grouped components are enabled, otherwise false */
+  /** {@inheritDoc} */
   @Override
   public boolean isEnabled() {
     return formElements.stream().allMatch(AcceptDisable::isEnabled);
   }
 
-  /**
-   * @param autoValidation boolean, if true enables autoValidation for all grouped components,
-   *     otherwise disable autoValidation
-   * @return
-   */
+  /** {@inheritDoc} */
   public FieldsGrouping setAutoValidation(boolean autoValidation) {
     formElements.forEach(formElement -> formElement.setAutoValidation(autoValidation));
     return this;
   }
 
   /** @return boolean, true if all grouped components has autoValidation enabled */
+  /**
+   * isAutoValidation.
+   *
+   * @return a boolean
+   */
   public boolean isAutoValidation() {
     return formElements.stream().allMatch(HasAutoValidation::isAutoValidation);
   }
@@ -262,11 +277,21 @@ public class FieldsGrouping
   }
 
   /** @return boolean, true if all grouped components are required */
+  /**
+   * isRequired.
+   *
+   * @return a boolean
+   */
   public boolean isRequired() {
     return formElements.stream().allMatch(IsRequired::isRequired);
   }
 
   /** @return the grouped components as a List of {@link HasGrouping} */
+  /**
+   * Getter for the field <code>formElements</code>.
+   *
+   * @return a {@link java.util.List} object
+   */
   public List<HasGrouping<?>> getFormElements() {
     return formElements;
   }
@@ -296,11 +321,13 @@ public class FieldsGrouping
     return validators.contains(validator);
   }
 
+  /** {@inheritDoc} */
   @Override
   public Set<Validator<FieldsGrouping>> getValidators() {
     return validators;
   }
 
+  /** {@inheritDoc} */
   @Override
   public FieldsGrouping pauseValidations() {
     formElements.forEach(HasValidation::pauseValidations);
@@ -308,6 +335,7 @@ public class FieldsGrouping
     return this;
   }
 
+  /** {@inheritDoc} */
   @Override
   public FieldsGrouping resumeValidations() {
     formElements.forEach(HasValidation::resumeValidations);
@@ -315,6 +343,7 @@ public class FieldsGrouping
     return this;
   }
 
+  /** {@inheritDoc} */
   @Override
   public FieldsGrouping togglePauseValidations(boolean toggle) {
     formElements.forEach(formElement -> formElement.togglePauseValidations(toggle));
@@ -322,6 +351,7 @@ public class FieldsGrouping
     return this;
   }
 
+  /** {@inheritDoc} */
   @Override
   public FieldsGrouping pauseFocusValidations() {
     this.focusValidationsPaused = true;
@@ -329,6 +359,7 @@ public class FieldsGrouping
     return this;
   }
 
+  /** {@inheritDoc} */
   @Override
   public FieldsGrouping resumeFocusValidations() {
     this.focusValidationsPaused = false;
@@ -336,6 +367,7 @@ public class FieldsGrouping
     return this;
   }
 
+  /** {@inheritDoc} */
   @Override
   public FieldsGrouping togglePauseFocusValidations(boolean toggle) {
     this.focusValidationsPaused = toggle;
@@ -343,22 +375,26 @@ public class FieldsGrouping
     return this;
   }
 
+  /** {@inheritDoc} */
   @Override
   public boolean isFocusValidationsPaused() {
     return this.focusValidationsPaused;
   }
 
+  /** {@inheritDoc} */
   @Override
   public boolean isValidationsPaused() {
     return validationsPaused;
   }
 
+  /** {@inheritDoc} */
   @Override
   public AutoValidator createAutoValidator(ApplyFunction autoValidate) {
     formElements.forEach(formElement -> formElement.createAutoValidator(autoValidate));
     return new AutoValidator(autoValidate) {};
   }
 
+  /** {@inheritDoc} */
   @Override
   public FieldsGrouping autoValidate() {
     if (isAutoValidation()) {
@@ -370,7 +406,7 @@ public class FieldsGrouping
   /**
    * Removes a grouped component from this FieldsGrouping
    *
-   * @param hasGrouping {@link HasGrouping}
+   * @param hasGrouping {@link org.dominokit.domino.ui.forms.HasGrouping}
    * @return same FieldsGrouping instance
    */
   public FieldsGrouping removeFormElement(HasGrouping hasGrouping) {
@@ -394,6 +430,12 @@ public class FieldsGrouping
     return errors;
   }
 
+  /**
+   * onKeyDown.
+   *
+   * @param handler a {@link org.dominokit.domino.ui.keyboard.KeyEventsConsumer} object
+   * @return a {@link org.dominokit.domino.ui.forms.FieldsGrouping} object
+   */
   public FieldsGrouping onKeyDown(KeyEventsConsumer handler) {
     HTMLElement[] elements = getInputElements();
     Arrays.stream(elements)
@@ -402,6 +444,12 @@ public class FieldsGrouping
     return this;
   }
 
+  /**
+   * onKeyUp.
+   *
+   * @param handler a {@link org.dominokit.domino.ui.keyboard.KeyEventsConsumer} object
+   * @return a {@link org.dominokit.domino.ui.forms.FieldsGrouping} object
+   */
   public FieldsGrouping onKeyUp(KeyEventsConsumer handler) {
     HTMLElement[] elements = getInputElements();
     Arrays.stream(elements)
@@ -410,6 +458,12 @@ public class FieldsGrouping
     return this;
   }
 
+  /**
+   * onKeyPress.
+   *
+   * @param handler a {@link org.dominokit.domino.ui.keyboard.KeyEventsConsumer} object
+   * @return a {@link org.dominokit.domino.ui.forms.FieldsGrouping} object
+   */
   public FieldsGrouping onKeyPress(KeyEventsConsumer handler) {
     HTMLElement[] elements = getInputElements();
     Arrays.stream(elements)

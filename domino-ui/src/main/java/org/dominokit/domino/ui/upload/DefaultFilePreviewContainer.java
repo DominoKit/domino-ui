@@ -19,23 +19,32 @@ import elemental2.dom.HTMLDivElement;
 import org.dominokit.domino.ui.grid.Row;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
 
+/**
+ * DefaultFilePreviewContainer class.
+ *
+ * @author vegegoku
+ * @version $Id: $Id
+ */
 public class DefaultFilePreviewContainer
     extends BaseDominoElement<HTMLDivElement, DefaultFilePreviewContainer>
     implements FilePreviewContainer<HTMLDivElement, DefaultFilePreviewContainer>, FileUploadStyles {
 
   private final Row rootRow;
 
+  /** Constructor for DefaultFilePreviewContainer. */
   public DefaultFilePreviewContainer() {
     rootRow = Row.create().addCss(dui_gap_2).addCss(dui_file_preview_container);
     init(this);
   }
 
+  /** {@inheritDoc} */
   @Override
   public DefaultFilePreviewContainer appendChild(FileItem fileItem) {
     rootRow.span2(fileItem);
     return this;
   }
 
+  /** {@inheritDoc} */
   @Override
   public HTMLDivElement element() {
     return rootRow.element();

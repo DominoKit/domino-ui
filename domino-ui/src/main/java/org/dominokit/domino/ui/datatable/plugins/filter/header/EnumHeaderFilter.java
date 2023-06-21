@@ -27,10 +27,13 @@ import org.dominokit.domino.ui.forms.suggest.Select;
 import org.dominokit.domino.ui.forms.suggest.SelectOption;
 
 /**
- * Enum column header filter component that is rendered as a {@link Select} component
+ * Enum column header filter component that is rendered as a {@link
+ * org.dominokit.domino.ui.forms.suggest.Select} component
  *
  * @param <T> type of data table records
  * @param <E> the enum type
+ * @author vegegoku
+ * @version $Id: $Id
  */
 public class EnumHeaderFilter<T, E extends Enum>
     implements ColumnHeaderFilterPlugin.HeaderFilter<T> {
@@ -56,6 +59,7 @@ public class EnumHeaderFilter<T, E extends Enum>
    * @param <T> type of data table records
    * @param <E> the enum type
    * @return new instance
+   * @param allLabel a {@link java.lang.String} object
    */
   public static <T, E extends Enum> EnumHeaderFilter<T, E> create(E[] values, String allLabel) {
     return new EnumHeaderFilter<>(values, allLabel);
@@ -65,6 +69,7 @@ public class EnumHeaderFilter<T, E extends Enum>
    * Creates a filter from an array of enum values and a custom label for all option
    *
    * @param values Array of enum values
+   * @param allLabel a {@link java.lang.String} object
    */
   public EnumHeaderFilter(E[] values, String allLabel) {
     select =
@@ -116,6 +121,11 @@ public class EnumHeaderFilter<T, E extends Enum>
   }
 
   /** @return the {@link Select} wrapped in this component */
+  /**
+   * Getter for the field <code>select</code>.
+   *
+   * @return a {@link org.dominokit.domino.ui.forms.suggest.Select} object
+   */
   public Select<String> getSelect() {
     return select;
   }

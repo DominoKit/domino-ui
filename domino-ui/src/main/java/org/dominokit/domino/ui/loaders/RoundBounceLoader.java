@@ -20,7 +20,12 @@ import org.dominokit.domino.ui.IsElement;
 import org.dominokit.domino.ui.elements.DivElement;
 import org.dominokit.domino.ui.utils.DominoElement;
 
-/** Round bounce loader implementation */
+/**
+ * Round bounce loader implementation
+ *
+ * @author vegegoku
+ * @version $Id: $Id
+ */
 public class RoundBounceLoader extends BaseLoader<RoundBounceLoader>
     implements IsElement<HTMLDivElement> {
 
@@ -62,10 +67,16 @@ public class RoundBounceLoader extends BaseLoader<RoundBounceLoader>
   private final DivElement element =
       div().addCss(wait_me).style("background: rgba(255, 255, 255, 0.9);").appendChild(content);
 
+  /** Constructor for RoundBounceLoader. */
   public RoundBounceLoader() {
     init(this);
   }
 
+  /**
+   * create.
+   *
+   * @return a {@link org.dominokit.domino.ui.loaders.RoundBounceLoader} object
+   */
   public static RoundBounceLoader create() {
     return new RoundBounceLoader();
   }

@@ -15,16 +15,39 @@
  */
 package org.dominokit.domino.ui.i18n;
 
+/**
+ * UploadLabels interface.
+ *
+ * @author vegegoku
+ * @version $Id: $Id
+ */
 public interface UploadLabels extends Labels {
 
+  /**
+   * getDefaultUploadSuccessMessage.
+   *
+   * @return a {@link java.lang.String} object
+   */
   default String getDefaultUploadSuccessMessage() {
     return "Upload completed.";
   }
 
+  /**
+   * getDefaultUploadCanceledMessage.
+   *
+   * @return a {@link java.lang.String} object
+   */
   default String getDefaultUploadCanceledMessage() {
     return "Upload canceled.";
   }
 
+  /**
+   * getMaxFileErrorMessage.
+   *
+   * @param maxFiles a int
+   * @param current a int
+   * @return a {@link java.lang.String} object
+   */
   default String getMaxFileErrorMessage(int maxFiles, int current) {
     return "The maximum allowed uploads is : " + maxFiles + ", You have " + current;
   }

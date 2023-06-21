@@ -15,7 +15,12 @@
  */
 package org.dominokit.domino.ui.grid;
 
-/** An enum representing the number of columns a row can have */
+/**
+ * An enum representing the number of columns a row can have
+ *
+ * @author vegegoku
+ * @version $Id: $Id
+ */
 public enum Columns {
   _12(12),
   _16(16),
@@ -30,6 +35,11 @@ public enum Columns {
   }
 
   /** @return The number of columns */
+  /**
+   * Getter for the field <code>count</code>.
+   *
+   * @return a int
+   */
   public int getCount() {
     return count;
   }

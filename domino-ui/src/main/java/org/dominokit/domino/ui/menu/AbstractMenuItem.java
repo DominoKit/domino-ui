@@ -30,15 +30,17 @@ import org.dominokit.domino.ui.elements.AnchorElement;
 import org.dominokit.domino.ui.elements.DivElement;
 import org.dominokit.domino.ui.elements.LIElement;
 import org.dominokit.domino.ui.events.EventType;
-import org.dominokit.domino.ui.icons.Icons;
+import org.dominokit.domino.ui.icons.lib.Icons;
 import org.dominokit.domino.ui.menu.direction.BestFitSideDropDirection;
 import org.dominokit.domino.ui.utils.*;
 import org.gwtproject.editor.client.TakesValue;
 
 /**
- * The base implementation for {@link Menu} items
+ * The base implementation for {@link org.dominokit.domino.ui.menu.Menu} items
  *
  * @param <V> The type of the menu item value
+ * @author vegegoku
+ * @version $Id: $Id
  */
 public class AbstractMenuItem<V> extends BaseDominoElement<HTMLLIElement, AbstractMenuItem<V>>
     implements HasSelectionHandler<AbstractMenuItem<V>, AbstractMenuItem<V>>,
@@ -69,6 +71,7 @@ public class AbstractMenuItem<V> extends BaseDominoElement<HTMLLIElement, Abstra
   protected DivElement nestedIndicatorElement;
   protected boolean searchable = true;
 
+  /** Constructor for AbstractMenuItem. */
   public AbstractMenuItem() {
     root = li().addCss(dui_menu_item);
 
@@ -114,15 +117,28 @@ public class AbstractMenuItem<V> extends BaseDominoElement<HTMLLIElement, Abstra
     }
   }
 
+  /** {@inheritDoc} */
   @Override
   protected Element getAppendTarget() {
     return bodyElement.element();
   }
 
+  /**
+   * isSearchable.
+   *
+   * @return a boolean
+   */
   public boolean isSearchable() {
     return searchable;
   }
 
+  /**
+   * Setter for the field <code>searchable</code>.
+   *
+   * @param searchable a boolean
+   * @param <T> a T class
+   * @return a T object
+   */
   public <T extends AbstractMenuItem<V>> T setSearchable(boolean searchable) {
     this.searchable = searchable;
     return (T) this;
@@ -167,6 +183,7 @@ public class AbstractMenuItem<V> extends BaseDominoElement<HTMLLIElement, Abstra
    *
    * @param silent boolean, true to avoid triggering the select handlers.
    * @return same menu item instance
+   * @param <T> a T class
    */
   public <T extends AbstractMenuItem<V>> T select(boolean silent) {
     if (!isDisabled()) {
@@ -187,6 +204,7 @@ public class AbstractMenuItem<V> extends BaseDominoElement<HTMLLIElement, Abstra
    *
    * @param silent boolean, true to avoid triggering the select handlers.
    * @return same menu item instance
+   * @param <T> a T class
    */
   public <T extends AbstractMenuItem<V>> T deselect(boolean silent) {
     if (!isDisabled()) {
@@ -203,6 +221,11 @@ public class AbstractMenuItem<V> extends BaseDominoElement<HTMLLIElement, Abstra
   }
 
   /** @return boolean, true if the menu item is selected */
+  /**
+   * isSelected.
+   *
+   * @return a boolean
+   */
   public boolean isSelected() {
     return Optional.ofNullable(getAttribute("selected")).map(Boolean::parseBoolean).orElse(false);
   }
@@ -251,13 +274,21 @@ public class AbstractMenuItem<V> extends BaseDominoElement<HTMLLIElement, Abstra
   }
 
   /** @return String unique key of the menu item */
+  /**
+   * Getter for the field <code>key</code>.
+   *
+   * @return a {@link java.lang.String} object
+   */
   public String getKey() {
     return key;
   }
 
   /**
+   * Setter for the field <code>key</code>.
+   *
    * @param key String unique key of the menu item
    * @return String menu iten unique key
+   * @param <T> a T class
    */
   public <T extends AbstractMenuItem<V>> T setKey(String key) {
     this.key = key;
@@ -265,21 +296,30 @@ public class AbstractMenuItem<V> extends BaseDominoElement<HTMLLIElement, Abstra
   }
 
   /** @return the value of the menu item */
+  /**
+   * Getter for the field <code>value</code>.
+   *
+   * @return a V object
+   */
   public V getValue() {
     return value;
   }
 
   /**
+   * Setter for the field <code>value</code>.
+   *
    * @param value the value of the meu item
-   * @return same menu item instance
    */
   public void setValue(V value) {
     this.value = value;
   }
 
   /**
+   * withValue.
+   *
    * @param value the value of the meu item
    * @return same menu item instance
+   * @param <T> a T class
    */
   public <T extends AbstractMenuItem<V>> T withValue(V value) {
     setValue(value);
@@ -287,6 +327,11 @@ public class AbstractMenuItem<V> extends BaseDominoElement<HTMLLIElement, Abstra
   }
 
   /** @return the {@link Element} that represent the current menu nesting indication. */
+  /**
+   * getNestingIndicator.
+   *
+   * @return a {@link org.dominokit.domino.ui.utils.LazyChild} object
+   */
   public LazyChild<IsElement<?>> getNestingIndicator() {
     return indicatorIcon;
   }
@@ -294,7 +339,7 @@ public class AbstractMenuItem<V> extends BaseDominoElement<HTMLLIElement, Abstra
   /**
    * Sets a custom menu nesting indicator
    *
-   * @param nestingIndicator {@link Element}
+   * @param nestingIndicator {@link elemental2.dom.Element}
    * @return same menu item
    */
   public AbstractMenuItem<V> setNestingIndicator(IsElement<?> nestingIndicator) {
@@ -309,7 +354,7 @@ public class AbstractMenuItem<V> extends BaseDominoElement<HTMLLIElement, Abstra
   /**
    * Sets the sub-menu of the menu item
    *
-   * @param menu {@link Menu}
+   * @param menu {@link org.dominokit.domino.ui.menu.Menu}
    * @return same menu item
    */
   public AbstractMenuItem<V> setMenu(Menu<V> menu) {
@@ -384,16 +429,30 @@ public class AbstractMenuItem<V> extends BaseDominoElement<HTMLLIElement, Abstra
     return this;
   }
 
+  /**
+   * isGrouped.
+   *
+   * @return a boolean
+   */
   public boolean isGrouped() {
     return Optional.ofNullable(this.itemGroup).isPresent();
   }
 
   /** @return The parent {@link Menu} of the menu item */
+  /**
+   * Getter for the field <code>parent</code>.
+   *
+   * @return a {@link org.dominokit.domino.ui.menu.Menu} object
+   */
   public Menu<V> getParent() {
     return this.parent;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * {@inheritDoc}
+   *
+   * @return a boolean
+   */
   public boolean hasMenu() {
     return nonNull(this.menu);
   }
@@ -404,11 +463,25 @@ public class AbstractMenuItem<V> extends BaseDominoElement<HTMLLIElement, Abstra
     return linkElement.element();
   }
 
+  /**
+   * appendChild.
+   *
+   * @param postfixAddOn a {@link org.dominokit.domino.ui.utils.PostfixAddOn} object
+   * @param <T> a T class
+   * @return a T object
+   */
   public <T extends AbstractMenuItem<V>> T appendChild(PostfixAddOn<?> postfixAddOn) {
     postfixElement.appendChild(postfixAddOn);
     return (T) this;
   }
 
+  /**
+   * appendChild.
+   *
+   * @param prefixAddOn a {@link org.dominokit.domino.ui.utils.PrefixAddOn} object
+   * @param <T> a T class
+   * @return a T object
+   */
   public <T extends AbstractMenuItem<V>> T appendChild(PrefixAddOn<?> prefixAddOn) {
     prefixElement.appendChild(prefixAddOn);
     return (T) this;

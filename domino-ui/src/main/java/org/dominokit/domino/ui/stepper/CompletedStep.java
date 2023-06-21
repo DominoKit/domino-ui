@@ -17,11 +17,18 @@ package org.dominokit.domino.ui.stepper;
 
 import static org.dominokit.domino.ui.style.GenericCss.dui_success;
 
-import org.dominokit.domino.ui.icons.Icons;
+import org.dominokit.domino.ui.icons.lib.Icons;
 import org.dominokit.domino.ui.style.ColorsCss;
 import org.dominokit.domino.ui.style.SpacingCss;
 
+/**
+ * CompletedStep class.
+ *
+ * @author vegegoku
+ * @version $Id: $Id
+ */
 public class CompletedStep implements StepState {
+  /** {@inheritDoc} */
   @Override
   public void apply(StepTracker tracker) {
     tracker
@@ -33,6 +40,7 @@ public class CompletedStep implements StepState {
                     .addCss(dui_success));
   }
 
+  /** {@inheritDoc} */
   @Override
   public void cleanUp(StepTracker tracker) {
     tracker
@@ -40,6 +48,7 @@ public class CompletedStep implements StepState {
         .withTrackerNode((parent1, node) -> node.clearElement().removeCss(dui_success));
   }
 
+  /** {@inheritDoc} */
   @Override
   public String getKey() {
     return "COMPLETED";

@@ -17,11 +17,28 @@ package org.dominokit.domino.ui.elements;
 
 import elemental2.dom.HTMLTableColElement;
 
+/**
+ * ColGroupElement class.
+ *
+ * @author vegegoku
+ * @version $Id: $Id
+ */
 public class ColGroupElement extends BaseElement<HTMLTableColElement, ColGroupElement> {
+  /**
+   * of.
+   *
+   * @param e a {@link elemental2.dom.HTMLTableColElement} object
+   * @return a {@link org.dominokit.domino.ui.elements.ColGroupElement} object
+   */
   public static ColGroupElement of(HTMLTableColElement e) {
     return new ColGroupElement(e);
   }
 
+  /**
+   * Constructor for ColGroupElement.
+   *
+   * @param element a {@link elemental2.dom.HTMLTableColElement} object
+   */
   public ColGroupElement(HTMLTableColElement element) {
     super(element);
   }

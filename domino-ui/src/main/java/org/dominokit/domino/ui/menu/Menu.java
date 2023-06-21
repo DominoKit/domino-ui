@@ -38,8 +38,8 @@ import org.dominokit.domino.ui.elements.LIElement;
 import org.dominokit.domino.ui.elements.UListElement;
 import org.dominokit.domino.ui.events.EventType;
 import org.dominokit.domino.ui.icons.Icon;
-import org.dominokit.domino.ui.icons.Icons;
 import org.dominokit.domino.ui.icons.MdiIcon;
+import org.dominokit.domino.ui.icons.lib.Icons;
 import org.dominokit.domino.ui.layout.NavBar;
 import org.dominokit.domino.ui.mediaquery.MediaQuery;
 import org.dominokit.domino.ui.menu.direction.BestSideUpDownDropDirection;
@@ -55,6 +55,8 @@ import org.dominokit.domino.ui.utils.*;
  * The base component to create a menu like UI.
  *
  * @param <V> The type of the menu items value
+ * @author vegegoku
+ * @version $Id: $Id
  */
 public class Menu<V> extends BaseDominoElement<HTMLDivElement, Menu<V>>
     implements HasSelectionListeners<Menu<V>, AbstractMenuItem<V>, List<AbstractMenuItem<V>>>,
@@ -62,7 +64,9 @@ public class Menu<V> extends BaseDominoElement<HTMLDivElement, Menu<V>>
         HasComponentConfig<ZIndexConfig>,
         MenuStyles {
 
+  /** Constant <code>ANY="*"</code> */
   public static final String ANY = "*";
+
   private final LazyChild<NavBar> menuHeader;
   private final LazyChild<DivElement> menuSearchContainer;
   private final LazyChild<SearchBox> searchBox;
@@ -140,12 +144,19 @@ public class Menu<V> extends BaseDominoElement<HTMLDivElement, Menu<V>>
   private boolean fitToTargetWidth = false;
   private boolean centerOnSmallScreens = false;
 
+  /**
+   * create.
+   *
+   * @param <V> a V class
+   * @return a {@link org.dominokit.domino.ui.menu.Menu} object
+   */
   public static <V> Menu<V> create() {
     return new Menu<>();
   }
 
   private OpenMenuCondition<V> openMenuCondition = (menu) -> true;
 
+  /** Constructor for Menu. */
   public Menu() {
     menuElement = div().addCss(dui_menu);
     menuHeader = LazyChild.of(NavBar.create(), menuElement);
@@ -299,10 +310,21 @@ public class Menu<V> extends BaseDominoElement<HTMLDivElement, Menu<V>>
     }
   }
 
+  /**
+   * isCenterOnSmallScreens.
+   *
+   * @return a boolean
+   */
   public boolean isCenterOnSmallScreens() {
     return centerOnSmallScreens;
   }
 
+  /**
+   * Setter for the field <code>centerOnSmallScreens</code>.
+   *
+   * @param centerOnSmallScreens a boolean
+   * @return a {@link org.dominokit.domino.ui.menu.Menu} object
+   */
   public Menu<V> setCenterOnSmallScreens(boolean centerOnSmallScreens) {
     this.centerOnSmallScreens = centerOnSmallScreens;
     return this;
@@ -312,7 +334,7 @@ public class Menu<V> extends BaseDominoElement<HTMLDivElement, Menu<V>>
    * Set the menu icon in the header, setting the icon will force the header to show up if not
    * visible
    *
-   * @param icon Any Icon instance that extends from {@link Icon}
+   * @param icon Any Icon instance that extends from {@link org.dominokit.domino.ui.icons.Icon}
    * @return the same menu instance
    */
   public Menu<V> setIcon(Icon<?> icon) {
@@ -336,7 +358,7 @@ public class Menu<V> extends BaseDominoElement<HTMLDivElement, Menu<V>>
    * Appends a child element to the menu subheader, the subheader will show up below the search and
    * before the menu items.
    *
-   * @param addon {@link SubheaderAddon}
+   * @param addon {@link org.dominokit.domino.ui.utils.SubheaderAddon}
    * @return same menu instance
    */
   public Menu<V> appendChild(SubheaderAddon<?> addon) {
@@ -347,7 +369,7 @@ public class Menu<V> extends BaseDominoElement<HTMLDivElement, Menu<V>>
   /**
    * Appends a menu item to this menu
    *
-   * @param menuItem {@link Menu}
+   * @param menuItem {@link org.dominokit.domino.ui.menu.Menu}
    * @return same menu instance
    */
   public Menu<V> appendChild(AbstractMenuItem<V> menuItem) {
@@ -367,8 +389,10 @@ public class Menu<V> extends BaseDominoElement<HTMLDivElement, Menu<V>>
   /**
    * Appends a menu item to this menu
    *
-   * @param menuGroup {@link MenuItemsGroup}
+   * @param menuGroup {@link org.dominokit.domino.ui.menu.MenuItemsGroup}
    * @return same menu instance
+   * @param groupHandler a {@link org.dominokit.domino.ui.menu.Menu.MenuItemsGroupHandler} object
+   * @param <I> a I class
    */
   public <I extends AbstractMenuItem<V>> Menu<V> appendGroup(
       MenuItemsGroup<V> menuGroup, MenuItemsGroupHandler<V, I> groupHandler) {
@@ -384,7 +408,7 @@ public class Menu<V> extends BaseDominoElement<HTMLDivElement, Menu<V>>
   /**
    * Removes a menu item from this menu
    *
-   * @param menuItem {@link Menu}
+   * @param menuItem {@link org.dominokit.domino.ui.menu.Menu}
    * @return same menu instance
    */
   public Menu<V> removeItem(AbstractMenuItem<V> menuItem) {
@@ -412,6 +436,7 @@ public class Menu<V> extends BaseDominoElement<HTMLDivElement, Menu<V>>
    * Appends a separator item to this menu, separator will show up as a simple border.
    *
    * @return same menu instance
+   * @param separator a {@link org.dominokit.domino.ui.utils.Separator} object
    */
   public Menu<V> appendChild(Separator separator) {
     this.menuItemsList.appendChild(separator.addCss(dui_menu_separator));
@@ -428,6 +453,11 @@ public class Menu<V> extends BaseDominoElement<HTMLDivElement, Menu<V>>
     searchBox.get().clearSearch();
   }
 
+  /**
+   * clearSelection.
+   *
+   * @param silent a boolean
+   */
   public void clearSelection(boolean silent) {
     selectedValues.clear();
     if (!silent) {
@@ -438,7 +468,7 @@ public class Menu<V> extends BaseDominoElement<HTMLDivElement, Menu<V>>
   /**
    * If search is enabled, when search is trigger it will call this method.
    *
-   * @param token String user input in the {@link SearchBox}
+   * @param token String user input in the {@link org.dominokit.domino.ui.search.SearchBox}
    * @return boolean, true if there is at least one menu item that matched the search token, else
    *     will return false.
    */
@@ -469,6 +499,11 @@ public class Menu<V> extends BaseDominoElement<HTMLDivElement, Menu<V>>
   }
 
   /** @return String label that indicate the create missing items action */
+  /**
+   * Getter for the field <code>createMissingLabel</code>.
+   *
+   * @return a {@link java.lang.String} object
+   */
   public String getCreateMissingLabel() {
     return createMissingLabel;
   }
@@ -493,10 +528,20 @@ public class Menu<V> extends BaseDominoElement<HTMLDivElement, Menu<V>>
   }
 
   /** @return a List of {@link AbstractMenuItem} of this menu */
+  /**
+   * Getter for the field <code>menuItems</code>.
+   *
+   * @return a {@link java.util.List} object
+   */
   public List<AbstractMenuItem<V>> getMenuItems() {
     return menuItems;
   }
   /** @return a List of {@link AbstractMenuItem} of this menu */
+  /**
+   * getFlatMenuItems.
+   *
+   * @return a {@link java.util.List} object
+   */
   public List<AbstractMenuItem<V>> getFlatMenuItems() {
     List<AbstractMenuItem<V>> items = new ArrayList<>();
     menuItems.forEach(
@@ -513,8 +558,10 @@ public class Menu<V> extends BaseDominoElement<HTMLDivElement, Menu<V>>
   }
 
   /**
-   * @return The {@link DominoElement} of the {@link HTMLLIElement} that is used to represent no
-   *     results when search is applied
+   * Getter for the field <code>noResultElement</code>.
+   *
+   * @return The {@link org.dominokit.domino.ui.utils.DominoElement} of the {@link
+   *     elemental2.dom.HTMLLIElement} that is used to represent no results when search is applied
    */
   public LazyChild<LIElement> getNoResultElement() {
     return noResultElement;
@@ -523,7 +570,7 @@ public class Menu<V> extends BaseDominoElement<HTMLDivElement, Menu<V>>
   /**
    * Sets a custom element to represent no results when search is applied.
    *
-   * @param noResultElement {@link HTMLLIElement}
+   * @param noResultElement {@link elemental2.dom.HTMLLIElement}
    * @return same menu instance
    */
   public Menu<V> setNoResultElement(HTMLLIElement noResultElement) {
@@ -538,7 +585,8 @@ public class Menu<V> extends BaseDominoElement<HTMLDivElement, Menu<V>>
   /**
    * Sets a custom element to represent no results when search is applied.
    *
-   * @param noResultElement {@link IsElement} of {@link HTMLLIElement}
+   * @param noResultElement {@link org.dominokit.domino.ui.IsElement} of {@link
+   *     elemental2.dom.HTMLLIElement}
    * @return same menu instance
    */
   public Menu<V> setNoResultElement(IsElement<HTMLLIElement> noResultElement) {
@@ -549,16 +597,32 @@ public class Menu<V> extends BaseDominoElement<HTMLDivElement, Menu<V>>
   }
 
   /** @return boolean, true if this menu search is case-sensitive */
+  /**
+   * isCaseSensitive.
+   *
+   * @return a boolean
+   */
   public boolean isCaseSensitive() {
     return caseSensitive;
   }
 
+  /**
+   * Setter for the field <code>caseSensitive</code>.
+   *
+   * @param caseSensitive a boolean
+   * @return a {@link org.dominokit.domino.ui.menu.Menu} object
+   */
   public Menu<V> setCaseSensitive(boolean caseSensitive) {
     this.caseSensitive = caseSensitive;
     return this;
   }
 
   /** @return the {@link HTMLElement} that should be focused by default when open the menu */
+  /**
+   * Getter for the field <code>focusElement</code>.
+   *
+   * @return a {@link elemental2.dom.HTMLElement} object
+   */
   public HTMLElement getFocusElement() {
     if (isNull(this.focusElement)) {
       if (isSearchable()) {
@@ -575,7 +639,7 @@ public class Menu<V> extends BaseDominoElement<HTMLDivElement, Menu<V>>
   /**
    * Sets a custom element as the default focus element of the menu
    *
-   * @param focusElement {@link HTMLElement}
+   * @param focusElement {@link elemental2.dom.HTMLElement}
    * @return same menu instance
    */
   public Menu<V> setFocusElement(HTMLElement focusElement) {
@@ -586,7 +650,7 @@ public class Menu<V> extends BaseDominoElement<HTMLDivElement, Menu<V>>
   /**
    * Sets a custom element as the default focus element of the menu
    *
-   * @param focusElement {@link IsElement}
+   * @param focusElement {@link org.dominokit.domino.ui.IsElement}
    * @return same menu instance
    */
   public Menu<V> setFocusElement(IsElement<? extends HTMLElement> focusElement) {
@@ -594,16 +658,31 @@ public class Menu<V> extends BaseDominoElement<HTMLDivElement, Menu<V>>
   }
 
   /** @return the {@link SearchBox} of the menu */
+  /**
+   * Getter for the field <code>searchBox</code>.
+   *
+   * @return a {@link org.dominokit.domino.ui.search.SearchBox} object
+   */
   public SearchBox getSearchBox() {
     return searchBox.get();
   }
 
   /** @return The {@link KeyboardNavigation} of the menu */
+  /**
+   * Getter for the field <code>keyboardNavigation</code>.
+   *
+   * @return a {@link org.dominokit.domino.ui.utils.KeyboardNavigation} object
+   */
   public KeyboardNavigation<AbstractMenuItem<V>> getKeyboardNavigation() {
     return keyboardNavigation;
   }
 
   /** @return The {@link NavBar} component of the menu */
+  /**
+   * Getter for the field <code>menuHeader</code>.
+   *
+   * @return a {@link org.dominokit.domino.ui.layout.NavBar} object
+   */
   public NavBar getMenuHeader() {
     return menuHeader.get();
   }
@@ -621,11 +700,21 @@ public class Menu<V> extends BaseDominoElement<HTMLDivElement, Menu<V>>
   }
 
   /** @return boolean, true if search is enabled */
+  /**
+   * isSearchable.
+   *
+   * @return a boolean
+   */
   public boolean isSearchable() {
     return searchable;
   }
 
   /** @return boolean, true if search is enabled */
+  /**
+   * isAllowCreateMissing.
+   *
+   * @return a boolean
+   */
   public boolean isAllowCreateMissing() {
     return nonNull(missingItemHandler);
   }
@@ -652,7 +741,7 @@ public class Menu<V> extends BaseDominoElement<HTMLDivElement, Menu<V>>
    * Set a handler that will allow the user to handle a search that does not match any existing
    * items.
    *
-   * @param missingItemHandler {@link MissingItemHandler}
+   * @param missingItemHandler {@link org.dominokit.domino.ui.menu.MissingItemHandler}
    * @return same menu instance
    */
   public Menu<V> setMissingItemHandler(MissingItemHandler<V> missingItemHandler) {
@@ -663,7 +752,7 @@ public class Menu<V> extends BaseDominoElement<HTMLDivElement, Menu<V>>
   /**
    * Selects the specified menu item if it is one of this menu items
    *
-   * @param menuItem {@link AbstractMenuItem}
+   * @param menuItem {@link org.dominokit.domino.ui.menu.AbstractMenuItem}
    * @return same menu instance
    */
   public Menu<V> select(AbstractMenuItem<V> menuItem) {
@@ -673,7 +762,7 @@ public class Menu<V> extends BaseDominoElement<HTMLDivElement, Menu<V>>
   /**
    * Selects the menu item at the specified index if exists
    *
-   * @param menuItem {@link AbstractMenuItem}
+   * @param menuItem {@link org.dominokit.domino.ui.menu.AbstractMenuItem}
    * @param silent boolean, true to avoid triggering change handlers
    * @return same menu instance
    */
@@ -733,11 +822,18 @@ public class Menu<V> extends BaseDominoElement<HTMLDivElement, Menu<V>>
   }
 
   /** @return boolean, true if the menu should close after selecting a menu item */
+  /**
+   * isAutoCloseOnSelect.
+   *
+   * @return a boolean
+   */
   public boolean isAutoCloseOnSelect() {
     return autoCloseOnSelect;
   }
 
   /**
+   * Setter for the field <code>autoCloseOnSelect</code>.
+   *
    * @param autoCloseOnSelect boolean, if true the menu will close after selecting a menu item
    *     otherwise it remains open
    * @return same menu instance
@@ -747,68 +843,108 @@ public class Menu<V> extends BaseDominoElement<HTMLDivElement, Menu<V>>
     return this;
   }
 
+  /**
+   * isMultiSelect.
+   *
+   * @return a boolean
+   */
   public boolean isMultiSelect() {
     return multiSelect;
   }
 
+  /**
+   * Setter for the field <code>multiSelect</code>.
+   *
+   * @param multiSelect a boolean
+   * @return a {@link org.dominokit.domino.ui.menu.Menu} object
+   */
   public Menu<V> setMultiSelect(boolean multiSelect) {
     this.multiSelect = multiSelect;
     return this;
   }
 
+  /**
+   * isAutoOpen.
+   *
+   * @return a boolean
+   */
   public boolean isAutoOpen() {
     return autoOpen;
   }
 
+  /**
+   * Setter for the field <code>autoOpen</code>.
+   *
+   * @param autoOpen a boolean
+   * @return a {@link org.dominokit.domino.ui.menu.Menu} object
+   */
   public Menu<V> setAutoOpen(boolean autoOpen) {
     this.autoOpen = autoOpen;
     return this;
   }
 
+  /**
+   * isFitToTargetWidth.
+   *
+   * @return a boolean
+   */
   public boolean isFitToTargetWidth() {
     return fitToTargetWidth;
   }
 
+  /**
+   * Setter for the field <code>fitToTargetWidth</code>.
+   *
+   * @param fitToTargetWidth a boolean
+   * @return a {@link org.dominokit.domino.ui.menu.Menu} object
+   */
   public Menu<V> setFitToTargetWidth(boolean fitToTargetWidth) {
     this.fitToTargetWidth = fitToTargetWidth;
     return this;
   }
 
+  /** {@inheritDoc} */
   @Override
   public Menu<V> pauseSelectionListeners() {
     this.togglePauseSelectionListeners(true);
     return this;
   }
 
+  /** {@inheritDoc} */
   @Override
   public Menu<V> resumeSelectionListeners() {
     this.togglePauseSelectionListeners(false);
     return this;
   }
 
+  /** {@inheritDoc} */
   @Override
   public Menu<V> togglePauseSelectionListeners(boolean toggle) {
     this.selectionListenersPaused = toggle;
     return this;
   }
 
+  /** {@inheritDoc} */
   @Override
   public Set<SelectionListener<? super AbstractMenuItem<V>, ? super List<AbstractMenuItem<V>>>>
       getSelectionListeners() {
     return selectionListeners;
   }
 
+  /** {@inheritDoc} */
   @Override
   public Set<SelectionListener<? super AbstractMenuItem<V>, ? super List<AbstractMenuItem<V>>>>
       getDeselectionListeners() {
     return deselectionListeners;
   }
 
+  /** {@inheritDoc} */
   @Override
   public boolean isSelectionListenersPaused() {
     return this.selectionListenersPaused;
   }
 
+  /** {@inheritDoc} */
   @Override
   public Menu<V> triggerSelectionListeners(
       AbstractMenuItem<V> source, List<AbstractMenuItem<V>> selection) {
@@ -817,6 +953,7 @@ public class Menu<V> extends BaseDominoElement<HTMLDivElement, Menu<V>>
     return this;
   }
 
+  /** {@inheritDoc} */
   @Override
   public Menu<V> triggerDeselectionListeners(
       AbstractMenuItem<V> source, List<AbstractMenuItem<V>> selection) {
@@ -825,6 +962,7 @@ public class Menu<V> extends BaseDominoElement<HTMLDivElement, Menu<V>>
     return this;
   }
 
+  /** {@inheritDoc} */
   @Override
   public List<AbstractMenuItem<V>> getSelection() {
     return selectedValues;
@@ -847,7 +985,7 @@ public class Menu<V> extends BaseDominoElement<HTMLDivElement, Menu<V>>
   /**
    * Opens a sub menu that has this menu as its parent
    *
-   * @param dropMenu {@link Menu} to open
+   * @param dropMenu {@link org.dominokit.domino.ui.menu.Menu} to open
    * @return same menu instance
    */
   public Menu<V> openSubMenu(Menu<V> dropMenu) {
@@ -881,6 +1019,11 @@ public class Menu<V> extends BaseDominoElement<HTMLDivElement, Menu<V>>
   }
 
   /** @return True if the menu is opened, false otherwise */
+  /**
+   * isOpened.
+   *
+   * @return a boolean
+   */
   public boolean isOpened() {
     return isDropDown() && isAttached();
   }
@@ -951,6 +1094,11 @@ public class Menu<V> extends BaseDominoElement<HTMLDivElement, Menu<V>>
     }
   }
 
+  /**
+   * Getter for the field <code>effectiveDropDirection</code>.
+   *
+   * @return a {@link org.dominokit.domino.ui.menu.direction.DropDirection} object
+   */
   protected DropDirection getEffectiveDropDirection() {
     if (isUseSmallScreensDirection() && smallScreen) {
       return smallScreenDropDirection;
@@ -971,13 +1119,16 @@ public class Menu<V> extends BaseDominoElement<HTMLDivElement, Menu<V>>
     PopupsCloser.close();
   }
 
+  /** focus. */
   public void focus() {
     getFocusElement().focus();
   }
 
   /**
-   * @return the {@link HTMLElement} that triggers this menu to open, and which the positioning of
-   *     the menu will be based on.
+   * getTarget.
+   *
+   * @return the {@link elemental2.dom.HTMLElement} that triggers this menu to open, and which the
+   *     positioning of the menu will be based on.
    */
   public Optional<MenuTarget> getTarget() {
     if (isNull(lastTarget) && targets.size() == 1) {
@@ -987,8 +1138,10 @@ public class Menu<V> extends BaseDominoElement<HTMLDivElement, Menu<V>>
   }
 
   /**
-   * @param targetElement The {@link IsElement} that triggers this menu to open, and which the
-   *     positioning of the menu will be based on.
+   * setTargetElement.
+   *
+   * @param targetElement The {@link org.dominokit.domino.ui.IsElement} that triggers this menu to
+   *     open, and which the positioning of the menu will be based on.
    * @return same menu instance
    */
   public Menu<V> setTargetElement(IsElement<?> targetElement) {
@@ -996,8 +1149,10 @@ public class Menu<V> extends BaseDominoElement<HTMLDivElement, Menu<V>>
   }
 
   /**
-   * @param targetElement The {@link HTMLElement} that triggers this menu to open, and which the
-   *     positioning of the menu will be based on.
+   * setTargetElement.
+   *
+   * @param targetElement The {@link elemental2.dom.HTMLElement} that triggers this menu to open,
+   *     and which the positioning of the menu will be based on.
    * @return same menu instance
    */
   public Menu<V> setTargetElement(Element targetElement) {
@@ -1005,6 +1160,12 @@ public class Menu<V> extends BaseDominoElement<HTMLDivElement, Menu<V>>
     return this;
   }
 
+  /**
+   * setTarget.
+   *
+   * @param menuTarget a {@link org.dominokit.domino.ui.menu.MenuTarget} object
+   * @return a {@link org.dominokit.domino.ui.menu.Menu} object
+   */
   public Menu<V> setTarget(MenuTarget menuTarget) {
     this.targets
         .values()
@@ -1021,6 +1182,12 @@ public class Menu<V> extends BaseDominoElement<HTMLDivElement, Menu<V>>
     return addTarget(menuTarget);
   }
 
+  /**
+   * addTarget.
+   *
+   * @param menuTarget a {@link org.dominokit.domino.ui.menu.MenuTarget} object
+   * @return a {@link org.dominokit.domino.ui.menu.Menu} object
+   */
   public Menu<V> addTarget(MenuTarget menuTarget) {
     if (nonNull(menuTarget)) {
       this.targets.put(menuTarget.getTargetElement().getDominoId(), menuTarget);
@@ -1044,14 +1211,19 @@ public class Menu<V> extends BaseDominoElement<HTMLDivElement, Menu<V>>
   }
 
   /** @return the {@link HTMLElement} to which the menu will be appended to when opened. */
+  /**
+   * Getter for the field <code>menuAppendTarget</code>.
+   *
+   * @return a {@link elemental2.dom.Element} object
+   */
   public Element getMenuAppendTarget() {
     return menuAppendTarget;
   }
 
   /**
-   * set the {@link HTMLElement} to which the menu will be appended to when opened.
+   * set the {@link elemental2.dom.HTMLElement} to which the menu will be appended to when opened.
    *
-   * @param appendTarget {@link HTMLElement}
+   * @param appendTarget {@link elemental2.dom.HTMLElement}
    * @return same menu instance
    */
   public Menu<V> setMenuAppendTarget(Element appendTarget) {
@@ -1103,14 +1275,19 @@ public class Menu<V> extends BaseDominoElement<HTMLDivElement, Menu<V>>
   }
 
   /** @return The current {@link DropDirection} of the menu */
+  /**
+   * Getter for the field <code>dropDirection</code>.
+   *
+   * @return a {@link org.dominokit.domino.ui.menu.direction.DropDirection} object
+   */
   public DropDirection getDropDirection() {
     return dropDirection;
   }
 
   /**
-   * Sets the {@link DropDirection} of the menu
+   * Sets the {@link org.dominokit.domino.ui.menu.direction.DropDirection} of the menu
    *
-   * @param dropDirection {@link DropDirection}
+   * @param dropDirection {@link org.dominokit.domino.ui.menu.direction.DropDirection}
    * @return same menu instance
    */
   public Menu<V> setDropDirection(DropDirection dropDirection) {
@@ -1136,6 +1313,11 @@ public class Menu<V> extends BaseDominoElement<HTMLDivElement, Menu<V>>
   }
 
   /** @return the parent {@link Menu} of the menu */
+  /**
+   * Getter for the field <code>parent</code>.
+   *
+   * @return a {@link org.dominokit.domino.ui.menu.Menu} object
+   */
   public Menu<V> getParent() {
     return parent;
   }
@@ -1145,11 +1327,21 @@ public class Menu<V> extends BaseDominoElement<HTMLDivElement, Menu<V>>
   }
 
   /** @return the {@link AbstractMenuItem} that opens the menu */
+  /**
+   * Getter for the field <code>parentItem</code>.
+   *
+   * @return a {@link org.dominokit.domino.ui.menu.AbstractMenuItem} object
+   */
   public AbstractMenuItem<V> getParentItem() {
     return parentItem;
   }
 
   /** @return boolean, true if the menu is a context menu that will open on right click */
+  /**
+   * isContextMenu.
+   *
+   * @return a boolean
+   */
   public boolean isContextMenu() {
     return contextMenu;
   }
@@ -1180,6 +1372,12 @@ public class Menu<V> extends BaseDominoElement<HTMLDivElement, Menu<V>>
     }
   }
 
+  /**
+   * onItemSelected.
+   *
+   * @param item a {@link org.dominokit.domino.ui.menu.AbstractMenuItem} object
+   * @param silent a boolean
+   */
   protected void onItemSelected(AbstractMenuItem<V> item, boolean silent) {
     if (nonNull(parent)) {
       parent.onItemSelected(item, silent);
@@ -1201,6 +1399,12 @@ public class Menu<V> extends BaseDominoElement<HTMLDivElement, Menu<V>>
     }
   }
 
+  /**
+   * onItemDeselected.
+   *
+   * @param item a {@link org.dominokit.domino.ui.menu.AbstractMenuItem} object
+   * @param silent a boolean
+   */
   protected void onItemDeselected(AbstractMenuItem<V> item, boolean silent) {
     if (nonNull(parent)) {
       parent.onItemDeselected(item, silent);
@@ -1217,6 +1421,8 @@ public class Menu<V> extends BaseDominoElement<HTMLDivElement, Menu<V>>
   }
 
   /**
+   * isUseSmallScreensDirection.
+   *
    * @return boolean, true if use of small screens drop direction to the middle of screen is used or
    *     else false
    */
@@ -1225,6 +1431,8 @@ public class Menu<V> extends BaseDominoElement<HTMLDivElement, Menu<V>>
   }
 
   /**
+   * Setter for the field <code>useSmallScreensDirection</code>.
+   *
    * @param useSmallScreensDropDirection boolean, true to allow the switch to small screen middle of
    *     screen position, false to use the provided menu drop direction
    * @return same menu instance
@@ -1237,6 +1445,11 @@ public class Menu<V> extends BaseDominoElement<HTMLDivElement, Menu<V>>
     return this;
   }
 
+  /**
+   * isDropDown.
+   *
+   * @return a boolean
+   */
   public boolean isDropDown() {
     return dropDown;
   }
@@ -1256,6 +1469,12 @@ public class Menu<V> extends BaseDominoElement<HTMLDivElement, Menu<V>>
     setAutoClose(this.dropDown);
   }
 
+  /**
+   * addOnAddItemHandler.
+   *
+   * @param onAddItemHandler a {@link org.dominokit.domino.ui.menu.Menu.OnAddItemHandler} object
+   * @return a {@link org.dominokit.domino.ui.menu.Menu} object
+   */
   public Menu<V> addOnAddItemHandler(OnAddItemHandler<V> onAddItemHandler) {
     if (nonNull(onAddItemHandler)) {
       this.onAddItemHandlers.add(onAddItemHandler);
@@ -1263,26 +1482,45 @@ public class Menu<V> extends BaseDominoElement<HTMLDivElement, Menu<V>>
     return this;
   }
 
+  /**
+   * withHeader.
+   *
+   * @return a {@link org.dominokit.domino.ui.menu.Menu} object
+   */
   public Menu<V> withHeader() {
     menuHeader.get();
     return this;
   }
 
+  /**
+   * withHeader.
+   *
+   * @param handler a {@link org.dominokit.domino.ui.utils.ChildHandler} object
+   * @return a {@link org.dominokit.domino.ui.menu.Menu} object
+   */
   public Menu<V> withHeader(ChildHandler<Menu<V>, NavBar> handler) {
     handler.apply(this, menuHeader.get());
     return this;
   }
 
+  /** {@inheritDoc} */
   @Override
   public boolean isModal() {
     return false;
   }
 
+  /** {@inheritDoc} */
   @Override
   public boolean isAutoClose() {
     return Boolean.parseBoolean(getAttribute(DOMINO_UI_AUTO_CLOSABLE, "false"));
   }
 
+  /**
+   * setAutoClose.
+   *
+   * @param autoClose a boolean
+   * @return a {@link org.dominokit.domino.ui.menu.Menu} object
+   */
   public Menu<V> setAutoClose(boolean autoClose) {
     if (autoClose) {
       setAttribute(DOMINO_UI_AUTO_CLOSABLE, "true");
@@ -1292,6 +1530,12 @@ public class Menu<V> extends BaseDominoElement<HTMLDivElement, Menu<V>>
     return this;
   }
 
+  /**
+   * Setter for the field <code>openMenuCondition</code>.
+   *
+   * @param openMenuCondition a {@link org.dominokit.domino.ui.menu.OpenMenuCondition} object
+   * @return a {@link org.dominokit.domino.ui.menu.Menu} object
+   */
   public Menu<V> setOpenMenuCondition(OpenMenuCondition<V> openMenuCondition) {
     if (isNull(openMenuCondition)) {
       this.openMenuCondition = menu -> true;

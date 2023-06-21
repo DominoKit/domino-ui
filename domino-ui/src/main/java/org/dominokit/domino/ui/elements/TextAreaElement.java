@@ -17,11 +17,28 @@ package org.dominokit.domino.ui.elements;
 
 import elemental2.dom.HTMLTextAreaElement;
 
+/**
+ * TextAreaElement class.
+ *
+ * @author vegegoku
+ * @version $Id: $Id
+ */
 public class TextAreaElement extends BaseElement<HTMLTextAreaElement, TextAreaElement> {
+  /**
+   * of.
+   *
+   * @param e a {@link elemental2.dom.HTMLTextAreaElement} object
+   * @return a {@link org.dominokit.domino.ui.elements.TextAreaElement} object
+   */
   public static TextAreaElement of(HTMLTextAreaElement e) {
     return new TextAreaElement(e);
   }
 
+  /**
+   * Constructor for TextAreaElement.
+   *
+   * @param element a {@link elemental2.dom.HTMLTextAreaElement} object
+   */
   public TextAreaElement(HTMLTextAreaElement element) {
     super(element);
   }

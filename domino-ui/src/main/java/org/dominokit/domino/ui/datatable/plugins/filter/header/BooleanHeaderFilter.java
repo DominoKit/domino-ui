@@ -26,9 +26,12 @@ import org.dominokit.domino.ui.forms.suggest.Select;
 import org.dominokit.domino.ui.forms.suggest.SelectOption;
 
 /**
- * Boolean column header filter component that is rendered as a {@link Select} component
+ * Boolean column header filter component that is rendered as a {@link
+ * org.dominokit.domino.ui.forms.suggest.Select} component
  *
  * @param <T> type of data table records
+ * @author vegegoku
+ * @version $Id: $Id
  */
 public class BooleanHeaderFilter<T> implements ColumnHeaderFilterPlugin.HeaderFilter<T> {
 
@@ -58,11 +61,14 @@ public class BooleanHeaderFilter<T> implements ColumnHeaderFilterPlugin.HeaderFi
   }
 
   /** @see BooleanHeaderFilter#create() */
+  /** Constructor for BooleanHeaderFilter. */
   public BooleanHeaderFilter() {
     this("Yes", "No", "ALL");
   }
 
   /**
+   * Constructor for BooleanHeaderFilter.
+   *
    * @see BooleanHeaderFilter#create(String, String, String)
    * @param trueLabel String, the label for the Yes option
    * @param falseLabel String, the label for the No option
@@ -115,6 +121,11 @@ public class BooleanHeaderFilter<T> implements ColumnHeaderFilterPlugin.HeaderFi
   }
 
   /** @return the {@link Select} component wrapped in this filter */
+  /**
+   * Getter for the field <code>select</code>.
+   *
+   * @return a {@link org.dominokit.domino.ui.forms.suggest.Select} object
+   */
   public Select<String> getSelect() {
     return select;
   }

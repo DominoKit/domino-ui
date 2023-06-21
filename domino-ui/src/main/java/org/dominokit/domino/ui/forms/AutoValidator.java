@@ -18,20 +18,28 @@ package org.dominokit.domino.ui.forms;
 import org.dominokit.domino.ui.utils.ApplyFunction;
 
 /**
- * A class to wrap an {@link ApplyFunction} and provide the ability to attach/remove it from a
- * component
+ * A class to wrap an {@link org.dominokit.domino.ui.utils.ApplyFunction} and provide the ability to
+ * attach/remove it from a component
+ *
+ * @author vegegoku
+ * @version $Id: $Id
  */
 public abstract class AutoValidator {
   protected ApplyFunction autoValidate;
 
   /** @param autoValidate {@link ApplyFunction} */
+  /**
+   * Constructor for AutoValidator.
+   *
+   * @param autoValidate a {@link org.dominokit.domino.ui.utils.ApplyFunction} object
+   */
   public AutoValidator(ApplyFunction autoValidate) {
     this.autoValidate = autoValidate;
   }
 
-  /** Attach the {@link ApplyFunction} to the component */
+  /** Attach the {@link org.dominokit.domino.ui.utils.ApplyFunction} to the component */
   public void attach() {}
 
-  /** Remove the {@link ApplyFunction} from the component */
+  /** Remove the {@link org.dominokit.domino.ui.utils.ApplyFunction} from the component */
   public void remove() {}
 }

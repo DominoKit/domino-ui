@@ -17,11 +17,28 @@ package org.dominokit.domino.ui.elements;
 
 import elemental2.dom.HTMLElement;
 
+/**
+ * SmallElement class.
+ *
+ * @author vegegoku
+ * @version $Id: $Id
+ */
 public class SmallElement extends BaseElement<HTMLElement, SmallElement> {
+  /**
+   * of.
+   *
+   * @param e a {@link elemental2.dom.HTMLElement} object
+   * @return a {@link org.dominokit.domino.ui.elements.SmallElement} object
+   */
   public static SmallElement of(HTMLElement e) {
     return new SmallElement(e);
   }
 
+  /**
+   * Constructor for SmallElement.
+   *
+   * @param element a {@link elemental2.dom.HTMLElement} object
+   */
   public SmallElement(HTMLElement element) {
     super(element);
   }

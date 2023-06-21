@@ -17,11 +17,28 @@ package org.dominokit.domino.ui.elements;
 
 import elemental2.dom.HTMLProgressElement;
 
+/**
+ * ProgressElement class.
+ *
+ * @author vegegoku
+ * @version $Id: $Id
+ */
 public class ProgressElement extends BaseElement<HTMLProgressElement, ProgressElement> {
+  /**
+   * of.
+   *
+   * @param e a {@link elemental2.dom.HTMLProgressElement} object
+   * @return a {@link org.dominokit.domino.ui.elements.ProgressElement} object
+   */
   public static ProgressElement of(HTMLProgressElement e) {
     return new ProgressElement(e);
   }
 
+  /**
+   * Constructor for ProgressElement.
+   *
+   * @param element a {@link elemental2.dom.HTMLProgressElement} object
+   */
   public ProgressElement(HTMLProgressElement element) {
     super(element);
   }

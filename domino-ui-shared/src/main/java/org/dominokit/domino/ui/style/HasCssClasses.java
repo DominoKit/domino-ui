@@ -15,6 +15,17 @@
  */
 package org.dominokit.domino.ui.style;
 
+/**
+ * HasCssClasses interface.
+ *
+ * @author vegegoku
+ * @version $Id: $Id
+ */
 public interface HasCssClasses {
+  /**
+   * getCssClasses.
+   *
+   * @return an array of {@link org.dominokit.domino.ui.style.CssClass} objects.
+   */
   CssClass[] getCssClasses();
 }

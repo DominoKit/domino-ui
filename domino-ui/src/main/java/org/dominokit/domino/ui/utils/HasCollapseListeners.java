@@ -22,11 +22,16 @@ import java.util.Set;
  * should implement this interface
  *
  * @param <T> the type of the class implementing this interface
+ * @author vegegoku
+ * @version $Id: $Id
  */
 public interface HasCollapseListeners<T> {
 
   /**
-   * @param collapseListener {@link CollapseListener}
+   * addCollapseListener.
+   *
+   * @param collapseListener {@link
+   *     org.dominokit.domino.ui.utils.HasCollapseListeners.CollapseListener}
    * @return same implementing class instance
    */
   default T addCollapseListener(CollapseListener<? super T> collapseListener) {
@@ -35,7 +40,9 @@ public interface HasCollapseListeners<T> {
   }
 
   /**
-   * @param expandListener {@link ExpandListener}
+   * addExpandListener.
+   *
+   * @param expandListener {@link org.dominokit.domino.ui.utils.HasCollapseListeners.ExpandListener}
    * @return same implementing class instance
    */
   default T addExpandListener(ExpandListener<? super T> expandListener) {
@@ -44,7 +51,10 @@ public interface HasCollapseListeners<T> {
   }
 
   /**
-   * @param collapseListener {@link CollapseListener}
+   * removeCollapseListener.
+   *
+   * @param collapseListener {@link
+   *     org.dominokit.domino.ui.utils.HasCollapseListeners.CollapseListener}
    * @return same implementing class instance
    */
   default T removeCollapseListener(CollapseListener<? super T> collapseListener) {
@@ -53,7 +63,9 @@ public interface HasCollapseListeners<T> {
   }
 
   /**
-   * @param expandListener {@link ExpandListener}
+   * removeCExpandListener.
+   *
+   * @param expandListener {@link org.dominokit.domino.ui.utils.HasCollapseListeners.ExpandListener}
    * @return same implementing class instance
    */
   default T removeCExpandListener(ExpandListener<? super T> expandListener) {
@@ -64,7 +76,8 @@ public interface HasCollapseListeners<T> {
   /**
    * Checks if a component has the specified ChangeHandler
    *
-   * @param collapseListener {@link CollapseListener}
+   * @param collapseListener {@link
+   *     org.dominokit.domino.ui.utils.HasCollapseListeners.CollapseListener}
    * @return same implementing class instance
    */
   default boolean hasCollapseListener(CollapseListener<? super T> collapseListener) {
@@ -73,7 +86,7 @@ public interface HasCollapseListeners<T> {
   /**
    * Checks if a component has the specified ChangeHandler
    *
-   * @param expandListener {@link ExpandListener}
+   * @param expandListener {@link org.dominokit.domino.ui.utils.HasCollapseListeners.ExpandListener}
    * @return same implementing class instance
    */
   default boolean hasExpandListener(ExpandListener<? super T> expandListener) {
@@ -108,6 +121,7 @@ public interface HasCollapseListeners<T> {
    *
    * @param toggle boolean, true to pause the change listeners, false to enable them
    * @return same component instance
+   * @param handler a {@link org.dominokit.domino.ui.utils.Handler} object
    */
   default T withPauseCollapseListenersToggle(boolean toggle, Handler<T> handler) {
     boolean oldState = isCollapseListenersPaused();
@@ -126,6 +140,7 @@ public interface HasCollapseListeners<T> {
    *
    * @param toggle boolean, true to pause the change listeners, false to enable them
    * @return same component instance
+   * @param handler a {@link org.dominokit.domino.ui.utils.AsyncHandler} object
    */
   default T withPauseCollapseListenersToggle(boolean toggle, AsyncHandler<T> handler) {
     boolean oldState = isCollapseListenersPaused();
@@ -139,14 +154,41 @@ public interface HasCollapseListeners<T> {
     return (T) this;
   }
 
+  /**
+   * getCollapseListeners.
+   *
+   * @return a {@link java.util.Set} object
+   */
   Set<CollapseListener<? super T>> getCollapseListeners();
 
+  /**
+   * getExpandListeners.
+   *
+   * @return a {@link java.util.Set} object
+   */
   Set<ExpandListener<? super T>> getExpandListeners();
 
+  /**
+   * isCollapseListenersPaused.
+   *
+   * @return a boolean
+   */
   boolean isCollapseListenersPaused();
 
+  /**
+   * triggerCollapseListeners.
+   *
+   * @param component a T object
+   * @return a T object
+   */
   T triggerCollapseListeners(T component);
 
+  /**
+   * triggerExpandListeners.
+   *
+   * @param component a T object
+   * @return a T object
+   */
   T triggerExpandListeners(T component);
 
   /** @param <T> the type of the component */

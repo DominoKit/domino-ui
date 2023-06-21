@@ -24,7 +24,14 @@ import elemental2.dom.DOMRect;
 import elemental2.dom.Element;
 import org.dominokit.domino.ui.style.Style;
 
+/**
+ * BottomLeftDropDirection class.
+ *
+ * @author vegegoku
+ * @version $Id: $Id
+ */
 public class BottomLeftDropDirection implements DropDirection {
+  /** {@inheritDoc} */
   @Override
   public void position(Element source, Element target) {
     dui_flex_col_reverse.remove(source);
@@ -47,6 +54,7 @@ public class BottomLeftDropDirection implements DropDirection {
     elements.elementOf(source).setCssProperty("--dui-menu-drop-min-width", targetRect.width + "px");
   }
 
+  /** {@inheritDoc} */
   @Override
   public void cleanup(Element source) {
     dui_dd_bottom_left.remove(source);

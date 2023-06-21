@@ -17,11 +17,28 @@ package org.dominokit.domino.ui.elements;
 
 import elemental2.dom.HTMLSelectElement;
 
+/**
+ * SelectElement class.
+ *
+ * @author vegegoku
+ * @version $Id: $Id
+ */
 public class SelectElement extends BaseElement<HTMLSelectElement, SelectElement> {
+  /**
+   * of.
+   *
+   * @param e a {@link elemental2.dom.HTMLSelectElement} object
+   * @return a {@link org.dominokit.domino.ui.elements.SelectElement} object
+   */
   public static SelectElement of(HTMLSelectElement e) {
     return new SelectElement(e);
   }
 
+  /**
+   * Constructor for SelectElement.
+   *
+   * @param element a {@link elemental2.dom.HTMLSelectElement} object
+   */
   public SelectElement(HTMLSelectElement element) {
     super(element);
   }

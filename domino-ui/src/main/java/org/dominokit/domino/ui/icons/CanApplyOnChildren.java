@@ -17,6 +17,18 @@ package org.dominokit.domino.ui.icons;
 
 import org.dominokit.domino.ui.utils.ElementHandler;
 
+/**
+ * CanApplyOnChildren interface.
+ *
+ * @author vegegoku
+ * @version $Id: $Id
+ */
 public interface CanApplyOnChildren<T, C> {
+  /**
+   * forEachChild.
+   *
+   * @param handler a {@link org.dominokit.domino.ui.utils.ElementHandler} object
+   * @return a T object
+   */
   T forEachChild(ElementHandler<C> handler);
 }

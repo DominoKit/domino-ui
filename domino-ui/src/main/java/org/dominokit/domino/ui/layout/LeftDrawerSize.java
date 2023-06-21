@@ -17,6 +17,12 @@ package org.dominokit.domino.ui.layout;
 
 import org.dominokit.domino.ui.style.CssClass;
 
+/**
+ * LeftDrawerSize class.
+ *
+ * @author vegegoku
+ * @version $Id: $Id
+ */
 public enum LeftDrawerSize {
   XSMALL(AppLayoutStyles.dui_left_xsmall),
   SMALL(AppLayoutStyles.dui_left_small),
@@ -31,6 +37,11 @@ public enum LeftDrawerSize {
     this.cssClass = cssClass;
   }
 
+  /**
+   * Getter for the field <code>cssClass</code>.
+   *
+   * @return a {@link org.dominokit.domino.ui.style.CssClass} object
+   */
   public CssClass getCssClass() {
     return cssClass;
   }

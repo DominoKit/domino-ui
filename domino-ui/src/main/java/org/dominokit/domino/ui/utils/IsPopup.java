@@ -15,22 +15,65 @@
  */
 package org.dominokit.domino.ui.utils;
 
+/**
+ * IsPopup interface.
+ *
+ * @author vegegoku
+ * @version $Id: $Id
+ */
 public interface IsPopup<T> {
+  /**
+   * open.
+   *
+   * @return a T object
+   */
   T open();
 
+  /**
+   * close.
+   *
+   * @return a T object
+   */
   T close();
 
+  /**
+   * isModal.
+   *
+   * @return a boolean
+   */
   boolean isModal();
 
+  /**
+   * isAutoClose.
+   *
+   * @return a boolean
+   */
   boolean isAutoClose();
 
+  /**
+   * isDialog.
+   *
+   * @return a boolean
+   */
   default boolean isDialog() {
     return false;
   }
 
+  /**
+   * setZIndex.
+   *
+   * @param zIndex a int
+   * @return a T object
+   */
   T setZIndex(int zIndex);
 
+  /**
+   * getZIndex.
+   *
+   * @return a int
+   */
   int getZIndex();
 
+  /** stealFocus. */
   default void stealFocus() {}
 }

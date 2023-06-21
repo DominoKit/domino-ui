@@ -25,6 +25,8 @@ import org.dominokit.domino.ui.elements.OptionElement;
  *
  * @see <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/email">Email input
  *     on MDN</a>
+ * @author vegegoku
+ * @version $Id: $Id
  */
 public class EmailBox extends BaseTextBox<EmailBox> implements HasInputDataList<EmailBox> {
 
@@ -53,21 +55,35 @@ public class EmailBox extends BaseTextBox<EmailBox> implements HasInputDataList<
   }
 
   /** @return a new instance without a label */
+  /**
+   * create.
+   *
+   * @return a {@link org.dominokit.domino.ui.forms.EmailBox} object
+   */
   public static EmailBox create() {
     return new EmailBox();
   }
 
   /** @return a new instance with a label */
+  /**
+   * create.
+   *
+   * @param label a {@link java.lang.String} object
+   * @return a {@link org.dominokit.domino.ui.forms.EmailBox} object
+   */
   public static EmailBox create(String label) {
     return new EmailBox(label);
   }
 
+  /** {@inheritDoc} */
   @Override
   public String getType() {
     return "email";
   }
 
   /**
+   * setMultiple.
+   *
    * @param multiple boolean, Whether to allow multiple comma-separated e-mail addresses to be
    *     entered
    * @return Same EmailBox instance
@@ -81,11 +97,13 @@ public class EmailBox extends BaseTextBox<EmailBox> implements HasInputDataList<
     return this;
   }
 
+  /** {@inheritDoc} */
   @Override
   public DataListElement getDataListElement() {
     return dataListElement;
   }
 
+  /** {@inheritDoc} */
   @Override
   public Map<String, OptionElement> getDataListOptions() {
     return dataListOptions;

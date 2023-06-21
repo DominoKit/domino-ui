@@ -21,31 +21,61 @@ import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 
+/**
+ * CompositeCssProperty class.
+ *
+ * @author vegegoku
+ * @version $Id: $Id
+ */
 public class CompositeCssProperty implements IsCssProperty {
 
   private Set<CssProperty> cssProperties = new HashSet<>();
 
+  /**
+   * of.
+   *
+   * @param cssProperties a {@link java.util.Collection} object.
+   * @return a {@link org.dominokit.domino.ui.style.CompositeCssProperty} object.
+   */
   public static CompositeCssProperty of(Collection<CssProperty> cssProperties) {
     return new CompositeCssProperty(cssProperties);
   }
 
+  /**
+   * of.
+   *
+   * @param cssProperties a {@link org.dominokit.domino.ui.style.CssProperty} object.
+   * @return a {@link org.dominokit.domino.ui.style.CompositeCssProperty} object.
+   */
   public static CompositeCssProperty of(CssProperty... cssProperties) {
     return new CompositeCssProperty(cssProperties);
   }
 
+  /**
+   * Constructor for CompositeCssProperty.
+   *
+   * @param cssProperties a {@link java.util.Collection} object.
+   */
   public CompositeCssProperty(Collection<CssProperty> cssProperties) {
     this.cssProperties.addAll(cssProperties);
   }
 
+  /**
+   * Constructor for CompositeCssProperty.
+   *
+   * @param cssProperties a {@link org.dominokit.domino.ui.style.CssProperty} object.
+   */
   public CompositeCssProperty(CssProperty... cssProperties) {
     this(Arrays.asList(cssProperties));
   }
 
+  /** {@inheritDoc} */
   @Override
   public void apply(Element element) {
     cssProperties.forEach(cssProperty -> cssProperty.apply(element));
   }
 
+  /** {@inheritDoc} */
   @Override
   public void remove(Element element) {
     cssProperties.forEach(cssProperty -> cssProperty.remove(element));

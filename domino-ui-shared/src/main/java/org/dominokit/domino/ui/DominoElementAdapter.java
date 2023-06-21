@@ -20,6 +20,12 @@ import elemental2.dom.Element;
 import jsinterop.annotations.JsPackage;
 import jsinterop.annotations.JsType;
 
+/**
+ * DominoElementAdapter class.
+ *
+ * @author vegegoku
+ * @version $Id: $Id
+ */
 @JsType(isNative = true, name = "Element", namespace = JsPackage.GLOBAL)
 public class DominoElementAdapter extends Element {
   public CSSStyleDeclaration style;

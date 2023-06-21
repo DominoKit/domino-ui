@@ -20,8 +20,12 @@ import java.lang.annotation.*;
 /**
  * Use this annotation on a package-info class to generate new colors and colors assets for use by
  * applications using domino-ui the annotation will result in generating a Color with 10 different
- * shades for each {@link ColorInfo} , a theme-xxx.css for each {@link ColorInfo}, A xxx-color.css
- * for each, and an optional html page to demo the generated styles.
+ * shades for each {@link org.dominokit.domino.ui.ColorInfo} , a theme-xxx.css for each {@link
+ * org.dominokit.domino.ui.ColorInfo}, A xxx-color.css for each, and an optional html page to demo
+ * the generated styles.
+ *
+ * @author vegegoku
+ * @version $Id: $Id
  */
 @Retention(RetentionPolicy.SOURCE)
 @Target(ElementType.PACKAGE)

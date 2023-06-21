@@ -17,8 +17,24 @@ package org.dominokit.domino.ui.forms.suggest;
 
 import org.dominokit.domino.ui.IsElement;
 
+/**
+ * HasSuggestOptions interface.
+ *
+ * @author vegegoku
+ * @version $Id: $Id
+ */
 public interface HasSuggestOptions<T, E extends IsElement<?>, O extends Option<T, E, O>> {
+  /**
+   * onOptionSelected.
+   *
+   * @param suggestion a O object
+   */
   void onOptionSelected(O suggestion);
 
+  /**
+   * onOptionDeselected.
+   *
+   * @param suggestion a O object
+   */
   void onOptionDeselected(O suggestion);
 }

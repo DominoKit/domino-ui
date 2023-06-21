@@ -23,6 +23,12 @@ import org.dominokit.domino.ui.elements.DivElement;
 import org.dominokit.domino.ui.elements.SpanElement;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
 
+/**
+ * CalendarHeader class.
+ *
+ * @author vegegoku
+ * @version $Id: $Id
+ */
 public class CalendarHeader extends BaseDominoElement<HTMLDivElement, CalendarHeader>
     implements CalendarStyles, CalendarViewListener {
 
@@ -32,6 +38,11 @@ public class CalendarHeader extends BaseDominoElement<HTMLDivElement, CalendarHe
   private SpanElement dayElement;
   private SpanElement montAndYearElement;
 
+  /**
+   * Constructor for CalendarHeader.
+   *
+   * @param calendar a {@link org.dominokit.domino.ui.datepicker.IsCalendar} object
+   */
   public CalendarHeader(IsCalendar calendar) {
     this.calendar = calendar;
     this.calendar.bindCalenderViewListener(this);
@@ -58,15 +69,23 @@ public class CalendarHeader extends BaseDominoElement<HTMLDivElement, CalendarHe
     init(this);
   }
 
+  /**
+   * create.
+   *
+   * @param calendar a {@link org.dominokit.domino.ui.datepicker.IsCalendar} object
+   * @return a {@link org.dominokit.domino.ui.datepicker.CalendarHeader} object
+   */
   public static CalendarHeader create(IsCalendar calendar) {
     return new CalendarHeader(calendar);
   }
 
+  /** {@inheritDoc} */
   @Override
   public HTMLDivElement element() {
     return root.element();
   }
 
+  /** {@inheritDoc} */
   @Override
   public void onDateSelectionChanged(Date date) {
     if (isNull(date)) {

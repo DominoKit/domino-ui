@@ -20,7 +20,12 @@ import org.dominokit.domino.ui.IsElement;
 import org.dominokit.domino.ui.elements.DivElement;
 import org.dominokit.domino.ui.utils.DominoElement;
 
-/** Win8 linear loader implementation */
+/**
+ * Win8 linear loader implementation
+ *
+ * @author vegegoku
+ * @version $Id: $Id
+ */
 public class Win8LinearLoader extends BaseLoader<Win8LinearLoader>
     implements IsElement<HTMLDivElement> {
 
@@ -53,10 +58,16 @@ public class Win8LinearLoader extends BaseLoader<Win8LinearLoader>
   private final DivElement element =
       div().addCss(wait_me).style("background: rgba(255, 255, 255, 0.9);").appendChild(content);
 
+  /** Constructor for Win8LinearLoader. */
   public Win8LinearLoader() {
     init(this);
   }
 
+  /**
+   * create.
+   *
+   * @return a {@link org.dominokit.domino.ui.loaders.Win8LinearLoader} object
+   */
   public static Win8LinearLoader create() {
     return new Win8LinearLoader();
   }

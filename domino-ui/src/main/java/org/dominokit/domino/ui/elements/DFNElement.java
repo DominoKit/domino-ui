@@ -17,11 +17,28 @@ package org.dominokit.domino.ui.elements;
 
 import elemental2.dom.HTMLElement;
 
+/**
+ * DFNElement class.
+ *
+ * @author vegegoku
+ * @version $Id: $Id
+ */
 public class DFNElement extends BaseElement<HTMLElement, DFNElement> {
+  /**
+   * of.
+   *
+   * @param e a {@link elemental2.dom.HTMLElement} object
+   * @return a {@link org.dominokit.domino.ui.elements.DFNElement} object
+   */
   public static DFNElement of(HTMLElement e) {
     return new DFNElement(e);
   }
 
+  /**
+   * Constructor for DFNElement.
+   *
+   * @param element a {@link elemental2.dom.HTMLElement} object
+   */
   public DFNElement(HTMLElement element) {
     super(element);
   }

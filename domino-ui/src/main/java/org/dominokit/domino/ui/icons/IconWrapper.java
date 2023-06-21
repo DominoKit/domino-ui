@@ -17,24 +17,43 @@ package org.dominokit.domino.ui.icons;
 
 import elemental2.dom.HTMLElement;
 
+/**
+ * IconWrapper class.
+ *
+ * @author vegegoku
+ * @version $Id: $Id
+ */
 public class IconWrapper extends Icon<IconWrapper> {
 
   private final Icon<?> icon;
 
+  /**
+   * of.
+   *
+   * @param icon a {@link org.dominokit.domino.ui.icons.Icon} object
+   * @return a {@link org.dominokit.domino.ui.icons.IconWrapper} object
+   */
   public static IconWrapper of(Icon<?> icon) {
     return new IconWrapper(icon);
   }
 
+  /**
+   * Constructor for IconWrapper.
+   *
+   * @param icon a {@link org.dominokit.domino.ui.icons.Icon} object
+   */
   public IconWrapper(Icon<?> icon) {
     this.icon = icon;
     init(this);
   }
 
+  /** {@inheritDoc} */
   @Override
   public HTMLElement element() {
     return icon.element();
   }
 
+  /** {@inheritDoc} */
   @Override
   public IconWrapper copy() {
     return new IconWrapper(icon.copy());

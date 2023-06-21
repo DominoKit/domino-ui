@@ -37,7 +37,8 @@ import org.dominokit.domino.ui.utils.*;
  *   <li>Error
  * </ul>
  *
- * <p>Customize the component can be done by overwriting classes provided by {@link AlertStyles}
+ * <p>Customize the component can be done by overwriting classes provided by {@link
+ * org.dominokit.domino.ui.alerts.AlertStyles}
  *
  * <p>For example:
  *
@@ -50,6 +51,8 @@ import org.dominokit.domino.ui.utils.*;
  * @see BaseDominoElement
  * @see HasBackground
  * @see Color
+ * @author vegegoku
+ * @version $Id: $Id
  */
 public class Alert extends BaseDominoElement<HTMLDivElement, Alert> {
 
@@ -58,6 +61,7 @@ public class Alert extends BaseDominoElement<HTMLDivElement, Alert> {
   private final DivElement bodyElement;
   private LazyChild<RemoveButton> removeButton;
 
+  /** Constructor for Alert. */
   public Alert() {
     element = div().addCss(dui_alert).appendChild(bodyElement = div().addCss(dui_alert_body));
     removeButton = LazyChild.of(RemoveButton.create().addClickListener(evt -> remove()), element);
@@ -165,7 +169,7 @@ public class Alert extends BaseDominoElement<HTMLDivElement, Alert> {
 
   /**
    * Sets the alert to not closable and the close button will be removed if exist, the alert can be
-   * hidden programmatically using {@link Alert#remove()}
+   * hidden programmatically using {@link org.dominokit.domino.ui.alerts.Alert#remove()}
    *
    * @return same instance
    */
@@ -176,6 +180,11 @@ public class Alert extends BaseDominoElement<HTMLDivElement, Alert> {
   }
 
   /** @return true if the alert is closable, false otherwise */
+  /**
+   * isDismissible.
+   *
+   * @return a boolean
+   */
   public boolean isDismissible() {
     return dismissible;
   }
@@ -189,16 +198,28 @@ public class Alert extends BaseDominoElement<HTMLDivElement, Alert> {
     return removeButton.get();
   }
 
+  /**
+   * withCloseButton.
+   *
+   * @param handler a {@link org.dominokit.domino.ui.utils.ChildHandler} object
+   * @return a {@link org.dominokit.domino.ui.alerts.Alert} object
+   */
   public Alert withCloseButton(ChildHandler<Alert, RemoveButton> handler) {
     handler.apply(this, removeButton.get());
     return this;
   }
 
+  /**
+   * withCloseButton.
+   *
+   * @return a {@link org.dominokit.domino.ui.alerts.Alert} object
+   */
   public Alert withCloseButton() {
     removeButton.get();
     return this;
   }
 
+  /** {@inheritDoc} */
   @Override
   protected Element getAppendTarget() {
     return bodyElement.element();

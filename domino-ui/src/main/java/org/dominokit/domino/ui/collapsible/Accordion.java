@@ -28,9 +28,10 @@ import org.dominokit.domino.ui.utils.BaseDominoElement;
  * A drawer like component that allow you to show and hide content.
  *
  * <p>Accordion component can work in different mode to give the user the ability to show and hide
- * content an accordion can multiple {@link AccordionPanel} and the user click on a panel to
- * show/hide its content by default only one panel will be open and the other panels will be closed
- * unless the multi open flag is set which will allow more than one panel to be open at once.
+ * content an accordion can multiple {@link org.dominokit.domino.ui.collapsible.AccordionPanel} and
+ * the user click on a panel to show/hide its content by default only one panel will be open and the
+ * other panels will be closed unless the multi open flag is set which will allow more than one
+ * panel to be open at once.
  *
  * <p>Multi open false
  *
@@ -84,6 +85,8 @@ import org.dominokit.domino.ui.utils.BaseDominoElement;
  *     </pre>
  *
  * @see AccordionPanel
+ * @author vegegoku
+ * @version $Id: $Id
  */
 public class Accordion extends BaseDominoElement<HTMLDivElement, Accordion>
     implements CollapsibleStyles {
@@ -112,7 +115,7 @@ public class Accordion extends BaseDominoElement<HTMLDivElement, Accordion>
    * Adds an accordion panel to the accordion and allow overriding the accordion panel colors with
    * the colors from the Accordion
    *
-   * @param panel {@link AccordionPanel}
+   * @param panel {@link org.dominokit.domino.ui.collapsible.AccordionPanel}
    * @return same accordion instance
    */
   public Accordion appendChild(AccordionPanel panel) {
@@ -132,7 +135,7 @@ public class Accordion extends BaseDominoElement<HTMLDivElement, Accordion>
    * Toggles the Accordion panel open state. if it is open it will be closed and if closed it will
    * open
    *
-   * @param panel {@link AccordionPanel}
+   * @param panel {@link org.dominokit.domino.ui.collapsible.AccordionPanel}
    */
   public void togglePanel(AccordionPanel panel) {
     if (panels.contains(panel)) {
@@ -169,15 +172,32 @@ public class Accordion extends BaseDominoElement<HTMLDivElement, Accordion>
     return this;
   }
 
+  /**
+   * isMultiOpen.
+   *
+   * @return a boolean
+   */
   public boolean isMultiOpen() {
     return multiOpen;
   }
 
+  /**
+   * Setter for the field <code>multiOpen</code>.
+   *
+   * @param multiOpen a boolean
+   * @return a {@link org.dominokit.domino.ui.collapsible.Accordion} object
+   */
   public Accordion setMultiOpen(boolean multiOpen) {
     this.multiOpen = multiOpen;
     return this;
   }
 
+  /**
+   * setPanelCollapseStrategy.
+   *
+   * @param strategy a {@link org.dominokit.domino.ui.collapsible.CollapseStrategy} object
+   * @return a {@link org.dominokit.domino.ui.collapsible.Accordion} object
+   */
   public Accordion setPanelCollapseStrategy(CollapseStrategy strategy) {
     this.panelsCollapseStrategy = strategy;
     panels.forEach(
@@ -192,6 +212,11 @@ public class Accordion extends BaseDominoElement<HTMLDivElement, Accordion>
   }
 
   /** @return {@link List} of {@link AccordionPanel} that are added to this accordion */
+  /**
+   * Getter for the field <code>panels</code>.
+   *
+   * @return a {@link java.util.List} object
+   */
   public List<AccordionPanel> getPanels() {
     return panels;
   }

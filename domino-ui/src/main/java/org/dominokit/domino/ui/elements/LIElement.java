@@ -17,11 +17,28 @@ package org.dominokit.domino.ui.elements;
 
 import elemental2.dom.HTMLLIElement;
 
+/**
+ * LIElement class.
+ *
+ * @author vegegoku
+ * @version $Id: $Id
+ */
 public class LIElement extends BaseElement<HTMLLIElement, LIElement> {
+  /**
+   * of.
+   *
+   * @param e a {@link elemental2.dom.HTMLLIElement} object
+   * @return a {@link org.dominokit.domino.ui.elements.LIElement} object
+   */
   public static LIElement of(HTMLLIElement e) {
     return new LIElement(e);
   }
 
+  /**
+   * Constructor for LIElement.
+   *
+   * @param element a {@link elemental2.dom.HTMLLIElement} object
+   */
   public LIElement(HTMLLIElement element) {
     super(element);
   }

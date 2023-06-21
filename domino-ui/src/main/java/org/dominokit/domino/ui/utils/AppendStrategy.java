@@ -20,7 +20,12 @@ import static org.dominokit.domino.ui.utils.ElementsFactory.elements;
 import elemental2.dom.Element;
 import elemental2.dom.HTMLElement;
 
-/** The strategy for appending the menu to the target element */
+/**
+ * The strategy for appending the menu to the target element
+ *
+ * @author vegegoku
+ * @version $Id: $Id
+ */
 @FunctionalInterface
 public interface AppendStrategy {
   /**

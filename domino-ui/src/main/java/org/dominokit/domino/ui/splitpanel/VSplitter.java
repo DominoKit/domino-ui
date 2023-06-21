@@ -30,15 +30,18 @@ class VSplitter extends BaseSplitter<VSplitter> {
     return new VSplitter(top, bottom, vSplitPanel);
   }
 
+  /** {@inheritDoc} */
   public double mousePosition(MouseEvent event) {
     return event.clientY;
   }
 
+  /** {@inheritDoc} */
   @Override
   protected double touchPosition(TouchEvent event) {
     return event.touches.getAt(0).clientY;
   }
 
+  /** {@inheritDoc} */
   @Override
   public double getSize() {
     return element.getBoundingClientRect().height;

@@ -20,15 +20,27 @@ import static java.util.Objects.nonNull;
 import java.util.stream.IntStream;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
 
-/** A simple pagination implementation */
+/**
+ * A simple pagination implementation
+ *
+ * @author vegegoku
+ * @version $Id: $Id
+ */
 public class SimplePagination extends BasePagination<SimplePagination> {
 
   /** @return new instance */
+  /**
+   * create.
+   *
+   * @return a {@link org.dominokit.domino.ui.pagination.SimplePagination} object
+   */
   public static SimplePagination create() {
     return new SimplePagination();
   }
 
   /**
+   * create.
+   *
    * @param pages the number of pages
    * @return new instance
    */
@@ -37,6 +49,8 @@ public class SimplePagination extends BasePagination<SimplePagination> {
   }
 
   /**
+   * create.
+   *
    * @param pages the number of pages
    * @param pageSize the page size
    * @return new instance
@@ -45,14 +59,26 @@ public class SimplePagination extends BasePagination<SimplePagination> {
     return new SimplePagination(pages, pageSize);
   }
 
+  /** Constructor for SimplePagination. */
   public SimplePagination() {
     this(0);
   }
 
+  /**
+   * Constructor for SimplePagination.
+   *
+   * @param pages a int
+   */
   public SimplePagination(int pages) {
     this(pages, 10);
   }
 
+  /**
+   * Constructor for SimplePagination.
+   *
+   * @param pages a int
+   * @param pageSize a int
+   */
   public SimplePagination(int pages, int pageSize) {
     this.pagesCount = pages;
     this.pageSize = pageSize;

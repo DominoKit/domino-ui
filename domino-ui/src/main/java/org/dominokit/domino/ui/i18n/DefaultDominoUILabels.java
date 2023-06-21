@@ -15,4 +15,10 @@
  */
 package org.dominokit.domino.ui.i18n;
 
+/**
+ * DefaultDominoUILabels class.
+ *
+ * @author vegegoku
+ * @version $Id: $Id
+ */
 public class DefaultDominoUILabels implements DominoUILabels {}

@@ -17,30 +17,61 @@ package org.dominokit.domino.ui.config;
 
 import java.util.function.Supplier;
 import org.dominokit.domino.ui.icons.Icon;
-import org.dominokit.domino.ui.icons.Icons;
+import org.dominokit.domino.ui.icons.lib.Icons;
 import org.dominokit.domino.ui.upload.DefaultFilePreview;
 import org.dominokit.domino.ui.upload.DefaultFilePreviewContainer;
 import org.dominokit.domino.ui.upload.FilePreviewContainer;
 import org.dominokit.domino.ui.upload.FilePreviewFactory;
 
+/**
+ * UploadConfig interface.
+ *
+ * @author vegegoku
+ * @version $Id: $Id
+ */
 public interface UploadConfig extends ComponentConfig {
 
+  /**
+   * getDefaultUploadIcon.
+   *
+   * @return a {@link java.util.function.Supplier} object
+   */
   default Supplier<Icon<?>> getDefaultUploadIcon() {
     return Icons::upload;
   }
 
+  /**
+   * getDefaultRemoveIcon.
+   *
+   * @return a {@link java.util.function.Supplier} object
+   */
   default Supplier<Icon<?>> getDefaultRemoveIcon() {
     return Icons::trash_can;
   }
 
+  /**
+   * getDefaultCancelIcon.
+   *
+   * @return a {@link java.util.function.Supplier} object
+   */
   default Supplier<Icon<?>> getDefaultCancelIcon() {
     return Icons::cancel;
   }
 
+  /**
+   * getFilePreviewFactory.
+   *
+   * @return a {@link org.dominokit.domino.ui.upload.FilePreviewFactory} object
+   */
   default FilePreviewFactory getFilePreviewFactory() {
     return DefaultFilePreview::new;
   }
 
+  /**
+   * getDefaultFilePreviewContainer.
+   *
+   * @return a {@link java.util.function.Supplier} object
+   */
   default Supplier<FilePreviewContainer<?, ?>> getDefaultFilePreviewContainer() {
     return DefaultFilePreviewContainer::new;
   }

@@ -21,21 +21,64 @@ import org.dominokit.domino.ui.menu.MenuItem;
 import org.dominokit.domino.ui.utils.meta.AttributeMeta;
 import org.dominokit.domino.ui.utils.meta.ValueMeta;
 
+/**
+ * SuggestOption class.
+ *
+ * @author vegegoku
+ * @version $Id: $Id
+ */
 public class SuggestOption<V> extends Option<V, SpanElement, SuggestOption<V>> {
+  /** Constant <code>DUI_OPTION_KEY="dui_option_key"</code> */
   public static final String DUI_OPTION_KEY = "dui_option_key";
 
+  /**
+   * create.
+   *
+   * @param key a {@link java.lang.String} object
+   * @param value a V object
+   * @param text a {@link java.lang.String} object
+   * @param <V> a V class
+   * @return a {@link org.dominokit.domino.ui.forms.suggest.SuggestOption} object
+   */
   public static <V> SuggestOption<V> create(String key, V value, String text) {
     return new SuggestOption<>(key, value, text);
   }
 
+  /**
+   * create.
+   *
+   * @param value a V object
+   * @param <V> a V class
+   * @return a {@link org.dominokit.domino.ui.forms.suggest.SuggestOption} object
+   */
   public static <V> SuggestOption<V> create(V value) {
     return new SuggestOption<>(String.valueOf(value), value, String.valueOf(value));
   }
 
+  /**
+   * create.
+   *
+   * @param key a {@link java.lang.String} object
+   * @param value a V object
+   * @param text a {@link java.lang.String} object
+   * @param description a {@link java.lang.String} object
+   * @param <V> a V class
+   * @return a {@link org.dominokit.domino.ui.forms.suggest.SuggestOption} object
+   */
   public static <V> SuggestOption<V> create(String key, V value, String text, String description) {
     return new SuggestOption<>(key, value, text, description);
   }
 
+  /**
+   * create.
+   *
+   * @param value a V object
+   * @param key a {@link java.lang.String} object
+   * @param componentSupplier a OptionSupplier object
+   * @param menuItemSupplier a OptionSupplier object
+   * @param <V> a V class
+   * @return a {@link org.dominokit.domino.ui.forms.suggest.SuggestOption} object
+   */
   public static <V> SuggestOption<V> create(
       V value,
       String key,
@@ -44,6 +87,14 @@ public class SuggestOption<V> extends Option<V, SpanElement, SuggestOption<V>> {
     return new SuggestOption<>(key, value, componentSupplier, menuItemSupplier);
   }
 
+  /**
+   * Constructor for SuggestOption.
+   *
+   * @param key a {@link java.lang.String} object
+   * @param value a V object
+   * @param text a {@link java.lang.String} object
+   * @param description a {@link java.lang.String} object
+   */
   public SuggestOption(String key, V value, String text, String description) {
     this(
         key,
@@ -52,6 +103,13 @@ public class SuggestOption<V> extends Option<V, SpanElement, SuggestOption<V>> {
         (k, v) -> MenuItem.create(text, description));
   }
 
+  /**
+   * Constructor for SuggestOption.
+   *
+   * @param key a {@link java.lang.String} object
+   * @param value a V object
+   * @param text a {@link java.lang.String} object
+   */
   public SuggestOption(String key, V value, String text) {
     super(key, value, elements.span().textContent(text), MenuItem.create(text));
     withComponent(
@@ -59,6 +117,14 @@ public class SuggestOption<V> extends Option<V, SpanElement, SuggestOption<V>> {
             span.applyMeta(ValueMeta.of(value), AttributeMeta.of(DUI_OPTION_KEY, key)));
   }
 
+  /**
+   * Constructor for SuggestOption.
+   *
+   * @param key a {@link java.lang.String} object
+   * @param value a V object
+   * @param componentSupplier a OptionSupplier object
+   * @param menuItemSupplier a OptionSupplier object
+   */
   public SuggestOption(
       String key,
       V value,

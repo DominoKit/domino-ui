@@ -17,11 +17,28 @@ package org.dominokit.domino.ui.elements;
 
 import elemental2.dom.HTMLOptGroupElement;
 
+/**
+ * OptGroupElement class.
+ *
+ * @author vegegoku
+ * @version $Id: $Id
+ */
 public class OptGroupElement extends BaseElement<HTMLOptGroupElement, OptGroupElement> {
+  /**
+   * of.
+   *
+   * @param e a {@link elemental2.dom.HTMLOptGroupElement} object
+   * @return a {@link org.dominokit.domino.ui.elements.OptGroupElement} object
+   */
   public static OptGroupElement of(HTMLOptGroupElement e) {
     return new OptGroupElement(e);
   }
 
+  /**
+   * Constructor for OptGroupElement.
+   *
+   * @param element a {@link elemental2.dom.HTMLOptGroupElement} object
+   */
   public OptGroupElement(HTMLOptGroupElement element) {
     super(element);
   }

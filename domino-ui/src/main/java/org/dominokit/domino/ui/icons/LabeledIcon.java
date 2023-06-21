@@ -28,15 +28,30 @@ import org.dominokit.domino.ui.utils.BaseDominoElement;
  * <p>This component makes sure that the label and the icon fits together
  *
  * @see BaseDominoElement
+ * @author vegegoku
+ * @version $Id: $Id
  */
 public class LabeledIcon extends WavesElement<HTMLElement, LabeledIcon> {
 
   private final SpanElement element;
 
+  /**
+   * Constructor for LabeledIcon.
+   *
+   * @param icon a {@link org.dominokit.domino.ui.icons.Icon} object
+   * @param text a {@link java.lang.String} object
+   */
   public LabeledIcon(Icon<?> icon, String text) {
     this(icon, text, IconPosition.LEFT);
   }
 
+  /**
+   * Constructor for LabeledIcon.
+   *
+   * @param icon a {@link org.dominokit.domino.ui.icons.Icon} object
+   * @param text a {@link java.lang.String} object
+   * @param position a {@link org.dominokit.domino.ui.icons.LabeledIcon.IconPosition} object
+   */
   public LabeledIcon(Icon<?> icon, String text, IconPosition position) {
     element =
         span()
@@ -50,7 +65,7 @@ public class LabeledIcon extends WavesElement<HTMLElement, LabeledIcon> {
   /**
    * Creates an icon with a label text
    *
-   * @param icon the {@link Icon}
+   * @param icon the {@link org.dominokit.domino.ui.icons.Icon}
    * @param text the label of the icon
    * @return new instance
    */
@@ -62,9 +77,9 @@ public class LabeledIcon extends WavesElement<HTMLElement, LabeledIcon> {
    * Creates an icon with a label text with providing the position of the icon to either left or
    * right
    *
-   * @param icon the {@link Icon}
+   * @param icon the {@link org.dominokit.domino.ui.icons.Icon}
    * @param text the label of the icon
-   * @param position the {@link IconPosition}
+   * @param position the {@link org.dominokit.domino.ui.icons.LabeledIcon.IconPosition}
    * @return new instance
    */
   public static LabeledIcon create(Icon<?> icon, String text, IconPosition position) {

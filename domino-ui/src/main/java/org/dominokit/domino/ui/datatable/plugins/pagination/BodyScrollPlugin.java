@@ -22,10 +22,12 @@ import org.dominokit.domino.ui.datatable.events.BodyScrollEvent;
 import org.dominokit.domino.ui.datatable.plugins.DataTablePlugin;
 
 /**
- * This plugin fires {@link BodyScrollEvent} whenever the table body scroll reaches the top of the
- * bottom
+ * This plugin fires {@link org.dominokit.domino.ui.datatable.events.BodyScrollEvent} whenever the
+ * table body scroll reaches the top of the bottom
  *
  * @param <T> the type of the data table records
+ * @author vegegoku
+ * @version $Id: $Id
  */
 public class BodyScrollPlugin<T> implements DataTablePlugin<T> {
 

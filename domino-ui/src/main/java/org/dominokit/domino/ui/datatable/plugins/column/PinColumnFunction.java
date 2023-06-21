@@ -18,5 +18,12 @@ package org.dominokit.domino.ui.datatable.plugins.column;
 import org.dominokit.domino.ui.datatable.ColumnConfig;
 
 interface PinColumnFunction {
+  /**
+   * pin.
+   *
+   * @param column a {@link org.dominokit.domino.ui.datatable.ColumnConfig} object
+   * @param position a double
+   * @return a double
+   */
   double pin(ColumnConfig<?> column, double position);
 }

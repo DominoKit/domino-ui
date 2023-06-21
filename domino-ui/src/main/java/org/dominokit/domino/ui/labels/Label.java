@@ -30,9 +30,12 @@ import org.dominokit.domino.ui.utils.HasContent;
  * @see BaseDominoElement
  * @see HasBackground
  * @see HasContent
+ * @author vegegoku
+ * @version $Id: $Id
  */
 public class Label extends BaseDominoElement<HTMLElement, Label> {
 
+  /** Constant <code>dui_label</code> */
   public static CssClass dui_label = () -> "dui-label";
 
   private final SpanElement element;
@@ -42,6 +45,11 @@ public class Label extends BaseDominoElement<HTMLElement, Label> {
     init(this);
   }
 
+  /**
+   * Constructor for Label.
+   *
+   * @param text a {@link java.lang.String} object
+   */
   public Label(String text) {
     this();
     element.setTextContent(text);
@@ -63,7 +71,12 @@ public class Label extends BaseDominoElement<HTMLElement, Label> {
     return element.element();
   }
 
-  /** {@inheritDoc} */
+  /**
+   * {@inheritDoc}
+   *
+   * @param text a {@link java.lang.String} object
+   * @return a {@link org.dominokit.domino.ui.labels.Label} object
+   */
   public Label setText(String text) {
     element.setTextContent(text);
     return this;

@@ -17,11 +17,28 @@ package org.dominokit.domino.ui.elements;
 
 import elemental2.dom.HTMLHRElement;
 
+/**
+ * HRElement class.
+ *
+ * @author vegegoku
+ * @version $Id: $Id
+ */
 public class HRElement extends BaseElement<HTMLHRElement, HRElement> {
+  /**
+   * of.
+   *
+   * @param e a {@link elemental2.dom.HTMLHRElement} object
+   * @return a {@link org.dominokit.domino.ui.elements.HRElement} object
+   */
   public static HRElement of(HTMLHRElement e) {
     return new HRElement(e);
   }
 
+  /**
+   * Constructor for HRElement.
+   *
+   * @param element a {@link elemental2.dom.HTMLHRElement} object
+   */
   public HRElement(HTMLHRElement element) {
     super(element);
   }

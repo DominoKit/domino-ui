@@ -17,15 +17,27 @@ package org.dominokit.domino.ui.forms;
 
 import java.util.function.Function;
 
-/** A component that has an input to take/provide Integer value */
+/**
+ * A component that has an input to take/provide Integer value
+ *
+ * @author vegegoku
+ * @version $Id: $Id
+ */
 public class IntegerBox extends NumberBox<IntegerBox, Integer> {
 
   /** @return a new instance without a label */
+  /**
+   * create.
+   *
+   * @return a {@link org.dominokit.domino.ui.forms.IntegerBox} object
+   */
   public static IntegerBox create() {
     return new IntegerBox();
   }
 
   /**
+   * create.
+   *
    * @param label String
    * @return new instance with a label
    */

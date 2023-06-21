@@ -25,6 +25,12 @@ import org.dominokit.domino.ui.elements.DivElement;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
 import org.dominokit.domino.ui.utils.ChildHandler;
 
+/**
+ * Stepper class.
+ *
+ * @author vegegoku
+ * @version $Id: $Id
+ */
 public class Stepper extends BaseDominoElement<HTMLDivElement, Stepper>
     implements StepperStyles, HasComponentConfig<StepperConfig> {
   private final DivElement root;
@@ -34,6 +40,7 @@ public class Stepper extends BaseDominoElement<HTMLDivElement, Stepper>
 
   private DivElement finishContent = div();
 
+  /** Constructor for Stepper. */
   public Stepper() {
     root =
         div()
@@ -43,10 +50,21 @@ public class Stepper extends BaseDominoElement<HTMLDivElement, Stepper>
     init(this);
   }
 
+  /**
+   * create.
+   *
+   * @return a {@link org.dominokit.domino.ui.stepper.Stepper} object
+   */
   public static Stepper create() {
     return new Stepper();
   }
 
+  /**
+   * appendChild.
+   *
+   * @param step a {@link org.dominokit.domino.ui.stepper.Step} object
+   * @return a {@link org.dominokit.domino.ui.stepper.Stepper} object
+   */
   public Stepper appendChild(Step step) {
     stepperContent.appendChild(step);
     stepperTrack.appendChild(step.getStepTracker());
@@ -55,6 +73,12 @@ public class Stepper extends BaseDominoElement<HTMLDivElement, Stepper>
     return this;
   }
 
+  /**
+   * removeStep.
+   *
+   * @param step a {@link org.dominokit.domino.ui.stepper.Step} object
+   * @return a {@link org.dominokit.domino.ui.stepper.Stepper} object
+   */
   public Stepper removeStep(Step step) {
     step.remove();
     stepperTrack.removeTracker(step.getStepTracker());
@@ -63,91 +87,208 @@ public class Stepper extends BaseDominoElement<HTMLDivElement, Stepper>
     return this;
   }
 
+  /**
+   * next.
+   *
+   * @return a {@link org.dominokit.domino.ui.stepper.Stepper} object
+   */
   public Stepper next() {
     return next(0);
   }
 
+  /**
+   * next.
+   *
+   * @param skip a int
+   * @return a {@link org.dominokit.domino.ui.stepper.Stepper} object
+   */
   public Stepper next(int skip) {
     return next(skip, (deactivated, activated) -> {});
   }
 
+  /**
+   * next.
+   *
+   * @param consumer a {@link org.dominokit.domino.ui.stepper.StepperTrack.StepTrackersConsumer}
+   *     object
+   * @return a {@link org.dominokit.domino.ui.stepper.Stepper} object
+   */
   public Stepper next(StepperTrack.StepTrackersConsumer consumer) {
     return next(0, consumer);
   }
 
+  /**
+   * next.
+   *
+   * @param skip a int
+   * @param consumer a {@link org.dominokit.domino.ui.stepper.StepperTrack.StepTrackersConsumer}
+   *     object
+   * @return a {@link org.dominokit.domino.ui.stepper.Stepper} object
+   */
   public Stepper next(int skip, StepperTrack.StepTrackersConsumer consumer) {
     this.stepperTrack.next(skip, consumer);
     return this;
   }
 
+  /**
+   * prev.
+   *
+   * @return a {@link org.dominokit.domino.ui.stepper.Stepper} object
+   */
   public Stepper prev() {
     return prev(0);
   }
 
+  /**
+   * prev.
+   *
+   * @param consumer a {@link org.dominokit.domino.ui.stepper.StepperTrack.StepTrackersConsumer}
+   *     object
+   * @return a {@link org.dominokit.domino.ui.stepper.Stepper} object
+   */
   public Stepper prev(StepperTrack.StepTrackersConsumer consumer) {
     return prev(0, consumer);
   }
 
+  /**
+   * prev.
+   *
+   * @param skip a int
+   * @return a {@link org.dominokit.domino.ui.stepper.Stepper} object
+   */
   public Stepper prev(int skip) {
     return prev(skip, (deactivated, activated) -> {});
   }
 
+  /**
+   * prev.
+   *
+   * @param skip a int
+   * @param consumer a {@link org.dominokit.domino.ui.stepper.StepperTrack.StepTrackersConsumer}
+   *     object
+   * @return a {@link org.dominokit.domino.ui.stepper.Stepper} object
+   */
   public Stepper prev(int skip, StepperTrack.StepTrackersConsumer consumer) {
     this.stepperTrack.prev(skip, consumer);
     return this;
   }
 
+  /**
+   * start.
+   *
+   * @return a {@link org.dominokit.domino.ui.stepper.Stepper} object
+   */
   public Stepper start() {
     return start(getConfig().getDefaultStepState(), (deactivated, activated) -> {});
   }
 
+  /**
+   * start.
+   *
+   * @param startState a {@link org.dominokit.domino.ui.stepper.StepState} object
+   * @return a {@link org.dominokit.domino.ui.stepper.Stepper} object
+   */
   public Stepper start(StepState startState) {
     return start(startState, (deactivated, activated) -> {});
   }
 
+  /**
+   * start.
+   *
+   * @param startState a {@link org.dominokit.domino.ui.stepper.StepState} object
+   * @param consumer a {@link org.dominokit.domino.ui.stepper.StepperTrack.StepTrackersConsumer}
+   *     object
+   * @return a {@link org.dominokit.domino.ui.stepper.Stepper} object
+   */
   public Stepper start(StepState startState, StepperTrack.StepTrackersConsumer consumer) {
     elementOf(this.finishContent).remove();
     this.stepperTrack.start(startState, consumer);
     return this;
   }
 
+  /**
+   * withStepperTrack.
+   *
+   * @param handler a {@link org.dominokit.domino.ui.utils.ChildHandler} object
+   * @return a {@link org.dominokit.domino.ui.stepper.Stepper} object
+   */
   public Stepper withStepperTrack(ChildHandler<Stepper, StepperTrack> handler) {
     handler.apply(this, stepperTrack);
     return this;
   }
 
+  /**
+   * withStepperContent.
+   *
+   * @param handler a {@link org.dominokit.domino.ui.utils.ChildHandler} object
+   * @return a {@link org.dominokit.domino.ui.stepper.Stepper} object
+   */
   public Stepper withStepperContent(ChildHandler<Stepper, DivElement> handler) {
     handler.apply(this, stepperContent);
     return this;
   }
 
+  /**
+   * withSteps.
+   *
+   * @param handler a {@link org.dominokit.domino.ui.utils.ChildHandler} object
+   * @return a {@link org.dominokit.domino.ui.stepper.Stepper} object
+   */
   public Stepper withSteps(ChildHandler<Stepper, List<Step>> handler) {
     handler.apply(this, steps);
     return this;
   }
 
+  /**
+   * finish.
+   *
+   * @param finishState a {@link org.dominokit.domino.ui.stepper.StepState} object
+   * @param consumer a {@link org.dominokit.domino.ui.stepper.StepperTrack.StepTrackersConsumer}
+   *     object
+   * @return a {@link org.dominokit.domino.ui.stepper.Stepper} object
+   */
   public Stepper finish(StepState finishState, StepperTrack.StepTrackersConsumer consumer) {
     this.stepperTrack.finish(finishState, consumer);
     this.stepperContent.appendChild(finishContent);
     return this;
   }
 
+  /**
+   * finish.
+   *
+   * @param finishState a {@link org.dominokit.domino.ui.stepper.StepState} object
+   * @return a {@link org.dominokit.domino.ui.stepper.Stepper} object
+   */
   public Stepper finish(StepState finishState) {
     finish(finishState, (deactivated, activated) -> {});
     return this;
   }
 
+  /**
+   * withFinishContent.
+   *
+   * @param handler a {@link org.dominokit.domino.ui.utils.ChildHandler} object
+   * @return a {@link org.dominokit.domino.ui.stepper.Stepper} object
+   */
   public Stepper withFinishContent(ChildHandler<Stepper, DivElement> handler) {
     handler.apply(this, finishContent);
     return this;
   }
 
+  /**
+   * reset.
+   *
+   * @param startState a {@link org.dominokit.domino.ui.stepper.StepState} object
+   * @param stepsConsumer a {@link java.util.function.Consumer} object
+   * @return a {@link org.dominokit.domino.ui.stepper.Stepper} object
+   */
   public Stepper reset(StepState startState, Consumer<List<Step>> stepsConsumer) {
     stepsConsumer.accept(this.steps);
     start(startState);
     return this;
   }
 
+  /** {@inheritDoc} */
   @Override
   public HTMLDivElement element() {
     return root.element();

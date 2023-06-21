@@ -17,10 +17,23 @@ package org.dominokit.domino.ui.style;
 
 import elemental2.dom.Element;
 
+/**
+ * CssProperty class.
+ *
+ * @author vegegoku
+ * @version $Id: $Id
+ */
 public class CssProperty implements IsCssProperty {
   private final String name;
   private final String value;
 
+  /**
+   * of.
+   *
+   * @param name a {@link java.lang.String} object.
+   * @param value a {@link java.lang.String} object.
+   * @return a {@link org.dominokit.domino.ui.style.CssProperty} object.
+   */
   public static CssProperty of(String name, String value) {
     return new CssProperty(name, value);
   }
@@ -30,18 +43,34 @@ public class CssProperty implements IsCssProperty {
     this.value = value;
   }
 
+  /**
+   * Getter for the field <code>name</code>.
+   *
+   * @return a {@link java.lang.String} object.
+   */
   public String getName() {
     return name;
   }
 
+  /**
+   * Getter for the field <code>value</code>.
+   *
+   * @return a {@link java.lang.String} object.
+   */
   public String getValue() {
     return value;
   }
 
+  /**
+   * apply.
+   *
+   * @param element a {@link elemental2.dom.Element} object.
+   */
   public void apply(Element element) {
     Style.of(element).setCssProperty(name, value);
   }
 
+  /** {@inheritDoc} */
   @Override
   public void remove(Element element) {
     Style.of(element).removeCssProperty(name);

@@ -31,16 +31,19 @@ class HSplitter extends BaseSplitter<HSplitter> {
     return new HSplitter(left, right, hSplitPanel);
   }
 
+  /** {@inheritDoc} */
   @Override
   protected double touchPosition(TouchEvent event) {
     return event.touches.getAt(0).clientX;
   }
 
+  /** {@inheritDoc} */
   @Override
   protected double mousePosition(MouseEvent event) {
     return event.clientX;
   }
 
+  /** {@inheritDoc} */
   @Override
   public double getSize() {
     return element.getBoundingClientRect().width;

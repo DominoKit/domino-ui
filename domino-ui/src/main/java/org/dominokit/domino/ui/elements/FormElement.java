@@ -17,11 +17,28 @@ package org.dominokit.domino.ui.elements;
 
 import elemental2.dom.HTMLFormElement;
 
+/**
+ * FormElement class.
+ *
+ * @author vegegoku
+ * @version $Id: $Id
+ */
 public class FormElement extends BaseElement<HTMLFormElement, FormElement> {
+  /**
+   * of.
+   *
+   * @param e a {@link elemental2.dom.HTMLFormElement} object
+   * @return a {@link org.dominokit.domino.ui.elements.FormElement} object
+   */
   public static FormElement of(HTMLFormElement e) {
     return new FormElement(e);
   }
 
+  /**
+   * Constructor for FormElement.
+   *
+   * @param element a {@link elemental2.dom.HTMLFormElement} object
+   */
   public FormElement(HTMLFormElement element) {
     super(element);
   }

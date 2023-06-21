@@ -19,7 +19,18 @@ import elemental2.dom.Event;
 import java.util.Optional;
 import java.util.function.Consumer;
 
+/**
+ * CanChange interface.
+ *
+ * @author vegegoku
+ * @version $Id: $Id
+ */
 public interface CanChange {
+  /**
+   * onChange.
+   *
+   * @return a {@link java.util.Optional} object
+   */
   default Optional<Consumer<Event>> onChange() {
     return Optional.empty();
   }

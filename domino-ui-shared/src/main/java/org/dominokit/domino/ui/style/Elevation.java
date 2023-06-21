@@ -28,6 +28,9 @@ import elemental2.dom.Element;
  * <pre>
  *     someDominoElement.elevate(Elevation.LEVEL_3)
  *     </pre>
+ *
+ * @author vegegoku
+ * @version $Id: $Id
  */
 public enum Elevation {
   NONE("elevation-none"),
@@ -64,7 +67,11 @@ public enum Elevation {
     this.style = style;
   }
 
-  /** @return String, the elevation css class name */
+  /**
+   * Getter for the field <code>style</code>.
+   *
+   * @return a {@link java.lang.String} object.
+   */
   public String getStyle() {
     return style;
   }
@@ -139,7 +146,7 @@ public enum Elevation {
   /**
    * Removes all elevation css classes from an element
    *
-   * @param element an {@link Element} to remove the css classes from.
+   * @param element an {@link elemental2.dom.Element} to remove the css classes from.
    */
   public static void removeFrom(Element element) {
     String elevationClass = "";

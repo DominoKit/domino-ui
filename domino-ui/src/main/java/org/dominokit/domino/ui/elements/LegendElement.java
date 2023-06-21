@@ -17,11 +17,28 @@ package org.dominokit.domino.ui.elements;
 
 import elemental2.dom.HTMLLegendElement;
 
+/**
+ * LegendElement class.
+ *
+ * @author vegegoku
+ * @version $Id: $Id
+ */
 public class LegendElement extends BaseElement<HTMLLegendElement, LegendElement> {
+  /**
+   * of.
+   *
+   * @param e a {@link elemental2.dom.HTMLLegendElement} object
+   * @return a {@link org.dominokit.domino.ui.elements.LegendElement} object
+   */
   public static LegendElement of(HTMLLegendElement e) {
     return new LegendElement(e);
   }
 
+  /**
+   * Constructor for LegendElement.
+   *
+   * @param element a {@link elemental2.dom.HTMLLegendElement} object
+   */
   public LegendElement(HTMLLegendElement element) {
     super(element);
   }

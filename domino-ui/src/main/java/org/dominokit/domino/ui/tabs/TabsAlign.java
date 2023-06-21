@@ -18,7 +18,12 @@ package org.dominokit.domino.ui.tabs;
 import org.dominokit.domino.ui.style.CssClass;
 import org.dominokit.domino.ui.style.SpacingCss;
 
-/** An enum to list possible values for tabs align */
+/**
+ * An enum to list possible values for tabs align
+ *
+ * @author vegegoku
+ * @version $Id: $Id
+ */
 public enum TabsAlign {
   /** Tabs headers will be aligned to the left of the tab panel */
   START(SpacingCss.dui_justify_start),
@@ -35,6 +40,11 @@ public enum TabsAlign {
   }
 
   /** @return String css class name for the tab align */
+  /**
+   * Getter for the field <code>align</code>.
+   *
+   * @return a {@link org.dominokit.domino.ui.style.CssClass} object
+   */
   public CssClass getAlign() {
     return align;
   }

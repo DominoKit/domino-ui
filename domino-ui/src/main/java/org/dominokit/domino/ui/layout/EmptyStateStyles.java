@@ -17,10 +17,20 @@ package org.dominokit.domino.ui.layout;
 
 import org.dominokit.domino.ui.style.CssClass;
 
+/**
+ * EmptyStateStyles interface.
+ *
+ * @author vegegoku
+ * @version $Id: $Id
+ */
 public interface EmptyStateStyles {
 
+  /** Constant <code>dui_empty_state</code> */
   CssClass dui_empty_state = () -> "dui-empty-state";
+  /** Constant <code>dui_empty_state_title</code> */
   CssClass dui_empty_state_title = () -> "dui-empty-state-title";
+  /** Constant <code>dui_empty_state_description</code> */
   CssClass dui_empty_state_description = () -> "dui-empty-state-description";
+  /** Constant <code>dui_empty_state_icon</code> */
   CssClass dui_empty_state_icon = () -> "dui-empty-state-icon";
 }

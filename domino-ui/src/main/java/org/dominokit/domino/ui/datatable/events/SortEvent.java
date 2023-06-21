@@ -23,6 +23,8 @@ import org.dominokit.domino.ui.datatable.plugins.pagination.SortDirection;
  * header
  *
  * @param <T> the type of the table records
+ * @author vegegoku
+ * @version $Id: $Id
  */
 public class SortEvent<T> implements TableEvent {
 
@@ -33,8 +35,12 @@ public class SortEvent<T> implements TableEvent {
   private final ColumnConfig<T> columnConfig;
 
   /**
-   * @param sortDirection the {@link SortDirection}
-   * @param columnConfig the {@link ColumnConfig} that represent the column being clicked for sort
+   * Constructor for SortEvent.
+   *
+   * @param sortDirection the {@link
+   *     org.dominokit.domino.ui.datatable.plugins.pagination.SortDirection}
+   * @param columnConfig the {@link org.dominokit.domino.ui.datatable.ColumnConfig} that represent
+   *     the column being clicked for sort
    */
   public SortEvent(SortDirection sortDirection, ColumnConfig<T> columnConfig) {
     this.sortDirection = sortDirection;
@@ -42,11 +48,21 @@ public class SortEvent<T> implements TableEvent {
   }
 
   /** @return the {@link SortDirection} */
+  /**
+   * Getter for the field <code>sortDirection</code>.
+   *
+   * @return a {@link org.dominokit.domino.ui.datatable.plugins.pagination.SortDirection} object
+   */
   public SortDirection getSortDirection() {
     return sortDirection;
   }
 
   /** @return the {@link ColumnConfig} that represent the column being clicked for sort */
+  /**
+   * Getter for the field <code>columnConfig</code>.
+   *
+   * @return a {@link org.dominokit.domino.ui.datatable.ColumnConfig} object
+   */
   public ColumnConfig<T> getColumnConfig() {
     return columnConfig;
   }

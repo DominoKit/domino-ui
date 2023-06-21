@@ -17,11 +17,28 @@ package org.dominokit.domino.ui.elements;
 
 import elemental2.dom.HTMLElement;
 
+/**
+ * AsideElement class.
+ *
+ * @author vegegoku
+ * @version $Id: $Id
+ */
 public class AsideElement extends BaseElement<HTMLElement, AsideElement> {
+  /**
+   * of.
+   *
+   * @param e a {@link elemental2.dom.HTMLElement} object
+   * @return a {@link org.dominokit.domino.ui.elements.AsideElement} object
+   */
   public static AsideElement of(HTMLElement e) {
     return new AsideElement(e);
   }
 
+  /**
+   * Constructor for AsideElement.
+   *
+   * @param element a {@link elemental2.dom.HTMLElement} object
+   */
   public AsideElement(HTMLElement element) {
     super(element);
   }

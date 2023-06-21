@@ -17,18 +17,39 @@ package org.dominokit.domino.ui.config;
 
 import java.util.function.Supplier;
 import org.dominokit.domino.ui.icons.Icon;
-import org.dominokit.domino.ui.icons.Icons;
+import org.dominokit.domino.ui.icons.lib.Icons;
 
+/**
+ * CalendarConfig interface.
+ *
+ * @author vegegoku
+ * @version $Id: $Id
+ */
 public interface CalendarConfig extends ComponentConfig {
 
+  /**
+   * defaultCalendarNextIcon.
+   *
+   * @return a {@link java.util.function.Supplier} object
+   */
   default Supplier<Icon<?>> defaultCalendarNextIcon() {
     return Icons::chevron_right;
   }
 
+  /**
+   * defaultCalendarPreviousIcon.
+   *
+   * @return a {@link java.util.function.Supplier} object
+   */
   default Supplier<Icon<?>> defaultCalendarPreviousIcon() {
     return Icons::chevron_left;
   }
 
+  /**
+   * defaultDateBoxIcon.
+   *
+   * @return a {@link java.util.function.Supplier} object
+   */
   default Supplier<Icon<?>> defaultDateBoxIcon() {
     return Icons::calendar;
   }

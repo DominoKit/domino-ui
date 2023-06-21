@@ -31,8 +31,8 @@ import org.dominokit.domino.ui.elements.DivElement;
 import org.dominokit.domino.ui.elements.SpanElement;
 import org.dominokit.domino.ui.elements.UListElement;
 import org.dominokit.domino.ui.icons.Icon;
-import org.dominokit.domino.ui.icons.Icons;
 import org.dominokit.domino.ui.icons.ToggleMdiIcon;
+import org.dominokit.domino.ui.icons.lib.Icons;
 import org.dominokit.domino.ui.search.Search;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
 import org.dominokit.domino.ui.utils.ChildHandler;
@@ -45,7 +45,8 @@ import org.dominokit.domino.ui.utils.TreeParent;
 /**
  * A component provides a tree representation of elements
  *
- * <p>Customize the component can be done by overwriting classes provided by {@link TreeStyles}
+ * <p>Customize the component can be done by overwriting classes provided by {@link
+ * org.dominokit.domino.ui.tree.TreeStyles}
  *
  * <p>For example:
  *
@@ -84,6 +85,8 @@ import org.dominokit.domino.ui.utils.TreeParent;
  * @param <T> the type of the object
  * @see BaseDominoElement
  * @see TreeParent
+ * @author vegegoku
+ * @version $Id: $Id
  */
 public class Tree<T> extends BaseDominoElement<HTMLDivElement, Tree<T>>
     implements TreeParent<T>,
@@ -120,6 +123,7 @@ public class Tree<T> extends BaseDominoElement<HTMLDivElement, Tree<T>>
   private final Set<SelectionListener<? super TreeItem<T>, ? super TreeItem<T>>>
       deselectionListeners = new HashSet<>();
 
+  /** Constructor for Tree. */
   public Tree() {
     element =
         div()
@@ -131,17 +135,30 @@ public class Tree<T> extends BaseDominoElement<HTMLDivElement, Tree<T>>
     init(this);
   }
 
+  /**
+   * Constructor for Tree.
+   *
+   * @param treeTitle a {@link java.lang.String} object
+   */
   public Tree(String treeTitle) {
     this();
     headerElement.get().setTitle(treeTitle);
   }
 
+  /**
+   * Constructor for Tree.
+   *
+   * @param treeTitle a {@link java.lang.String} object
+   * @param value a T object
+   */
   public Tree(String treeTitle, T value) {
     this(treeTitle);
     this.value = value;
   }
 
   /**
+   * create.
+   *
    * @param title the title of the tree
    * @param value the default selected value
    * @param <T> the type of the object
@@ -152,6 +169,8 @@ public class Tree<T> extends BaseDominoElement<HTMLDivElement, Tree<T>>
   }
 
   /**
+   * create.
+   *
    * @param title the default selected value
    * @param <T> the type of the object
    * @return new instance
@@ -161,6 +180,8 @@ public class Tree<T> extends BaseDominoElement<HTMLDivElement, Tree<T>>
   }
 
   /**
+   * create.
+   *
    * @param <T> the type of the object
    * @return new instance
    */
@@ -168,6 +189,7 @@ public class Tree<T> extends BaseDominoElement<HTMLDivElement, Tree<T>>
     return new Tree<>();
   }
 
+  /** {@inheritDoc} */
   @Override
   protected HTMLElement getAppendTarget() {
     return subTree.element();
@@ -176,7 +198,7 @@ public class Tree<T> extends BaseDominoElement<HTMLDivElement, Tree<T>>
   /**
    * Adds a new tree item
    *
-   * @param treeItem a new {@link TreeItem}
+   * @param treeItem a new {@link org.dominokit.domino.ui.tree.TreeItem}
    * @return same instance
    */
   public Tree<T> appendChild(TreeItem<T> treeItem) {
@@ -193,6 +215,12 @@ public class Tree<T> extends BaseDominoElement<HTMLDivElement, Tree<T>>
     return this;
   }
 
+  /**
+   * setTreeItemIconSupplier.
+   *
+   * @param iconSupplier a {@link org.dominokit.domino.ui.tree.Tree.TreeItemIconSupplier} object
+   * @return a {@link org.dominokit.domino.ui.tree.Tree} object
+   */
   public Tree<T> setTreeItemIconSupplier(TreeItemIconSupplier<T> iconSupplier) {
     this.iconSupplier = iconSupplier;
     if (nonNull(this.iconSupplier)) {
@@ -221,7 +249,7 @@ public class Tree<T> extends BaseDominoElement<HTMLDivElement, Tree<T>>
   /**
    * Sets what is the target for toggling an item
    *
-   * @param toggleTarget the {@link ToggleTarget}
+   * @param toggleTarget the {@link org.dominokit.domino.ui.tree.ToggleTarget}
    * @return same instance
    */
   public Tree<T> setToggleTarget(ToggleTarget toggleTarget) {
@@ -268,16 +296,31 @@ public class Tree<T> extends BaseDominoElement<HTMLDivElement, Tree<T>>
   }
 
   /** @return the header element */
+  /**
+   * getHeader.
+   *
+   * @return a {@link org.dominokit.domino.ui.tree.TreeHeader} object
+   */
   public TreeHeader getHeader() {
     return headerElement.get();
   }
 
   /** @return the root element */
+  /**
+   * Getter for the field <code>subTree</code>.
+   *
+   * @return a {@link org.dominokit.domino.ui.elements.UListElement} object
+   */
   public UListElement getSubTree() {
     return subTree;
   }
 
   /** @return the title element */
+  /**
+   * getTitle.
+   *
+   * @return a {@link org.dominokit.domino.ui.elements.SpanElement} object
+   */
   public SpanElement getTitle() {
     return headerElement.get().getTitle();
   }
@@ -286,6 +329,7 @@ public class Tree<T> extends BaseDominoElement<HTMLDivElement, Tree<T>>
    * Enables the search
    *
    * @return same instance
+   * @param searchable a boolean
    */
   public Tree<T> setSearchable(boolean searchable) {
     if (searchable) {
@@ -345,6 +389,7 @@ public class Tree<T> extends BaseDominoElement<HTMLDivElement, Tree<T>>
    * Adds the ability to expand/collapse all items
    *
    * @return same instance
+   * @param foldingEnabled a boolean
    */
   public Tree<T> setFoldable(boolean foldingEnabled) {
     if (foldingEnabled) {
@@ -413,6 +458,7 @@ public class Tree<T> extends BaseDominoElement<HTMLDivElement, Tree<T>>
    * Sets if the items found by the search should be expanded automatically
    *
    * @param autoExpandFound true to expand automatically, false otherwise
+   * @return a {@link org.dominokit.domino.ui.tree.Tree} object
    */
   public Tree<T> setAutoExpandFound(boolean autoExpandFound) {
     this.autoExpandFound = autoExpandFound;
@@ -461,12 +507,23 @@ public class Tree<T> extends BaseDominoElement<HTMLDivElement, Tree<T>>
     return this;
   }
 
+  /**
+   * setIcon.
+   *
+   * @param icon a {@link org.dominokit.domino.ui.icons.Icon} object
+   * @return a {@link org.dominokit.domino.ui.tree.Tree} object
+   */
   public Tree<T> setIcon(Icon<?> icon) {
     headerElement.get().setIcon(icon);
     return this;
   }
 
   /** @return true if deactivated items should be collapsed automatically */
+  /**
+   * isAutoCollapse.
+   *
+   * @return a boolean
+   */
   public boolean isAutoCollapse() {
     return autoCollapse;
   }
@@ -504,6 +561,11 @@ public class Tree<T> extends BaseDominoElement<HTMLDivElement, Tree<T>>
   public void activate(boolean activateParent) {}
 
   /** @return the search element */
+  /**
+   * Getter for the field <code>search</code>.
+   *
+   * @return a {@link java.util.Optional} object
+   */
   public Optional<Search> getSearch() {
     if (nonNull(search) && search.isInitialized()) {
       return Optional.ofNullable(search.get());
@@ -512,6 +574,11 @@ public class Tree<T> extends BaseDominoElement<HTMLDivElement, Tree<T>>
   }
 
   /** @return the search icon */
+  /**
+   * Getter for the field <code>searchIcon</code>.
+   *
+   * @return a {@link java.util.Optional} object
+   */
   public Optional<PostfixAddOn<?>> getSearchIcon() {
     if (nonNull(searchIcon) && search.isInitialized()) {
       return Optional.of(searchIcon.get());
@@ -520,6 +587,11 @@ public class Tree<T> extends BaseDominoElement<HTMLDivElement, Tree<T>>
   }
 
   /** @return the collapse all icon */
+  /**
+   * Getter for the field <code>collapseExpandAllIcon</code>.
+   *
+   * @return a {@link java.util.Optional} object
+   */
   public Optional<PostfixAddOn<?>> getCollapseExpandAllIcon() {
     if (nonNull(collapseExpandAllIcon) && collapseExpandAllIcon.isInitialized()) {
       return Optional.of(collapseExpandAllIcon.get());
@@ -528,6 +600,11 @@ public class Tree<T> extends BaseDominoElement<HTMLDivElement, Tree<T>>
   }
 
   /** @return the current value */
+  /**
+   * Getter for the field <code>value</code>.
+   *
+   * @return a T object
+   */
   public T getValue() {
     return value;
   }
@@ -542,6 +619,11 @@ public class Tree<T> extends BaseDominoElement<HTMLDivElement, Tree<T>>
   }
 
   /** @return the list of the items in the current active path */
+  /**
+   * getActivePath.
+   *
+   * @return a {@link java.util.List} object
+   */
   public List<TreeItem<T>> getActivePath() {
     List<TreeItem<T>> activeItems = new ArrayList<>();
     TreeItem<T> activeItem = getActiveItem();
@@ -554,6 +636,11 @@ public class Tree<T> extends BaseDominoElement<HTMLDivElement, Tree<T>>
   }
 
   /** @return the list of values in the current active path */
+  /**
+   * getActivePathValues.
+   *
+   * @return a {@link java.util.List} object
+   */
   public List<T> getActivePathValues() {
     List<T> activeValues = new ArrayList<>();
     TreeItem<T> activeItem = getActiveItem();
@@ -586,7 +673,7 @@ public class Tree<T> extends BaseDominoElement<HTMLDivElement, Tree<T>>
    * Sets the filter that will be used when searching items, the default filter searches using the
    * title of the items
    *
-   * @param filter a {@link TreeItemFilter}
+   * @param filter a {@link org.dominokit.domino.ui.tree.TreeItemFilter}
    * @return same instance
    */
   public Tree<T> setFilter(TreeItemFilter<TreeItem<T>> filter) {
@@ -600,55 +687,74 @@ public class Tree<T> extends BaseDominoElement<HTMLDivElement, Tree<T>>
     return this.filter;
   }
 
+  /** {@inheritDoc} */
   public Tree<T> setCollapseStrategy(CollapseStrategy collapseStrategy) {
     getSubItems().forEach(tTreeItem -> setCollapseStrategy(collapseStrategy));
     this.collapseStrategy = collapseStrategy;
     return this;
   }
 
+  /**
+   * Getter for the field <code>collapseStrategy</code>.
+   *
+   * @return a {@link org.dominokit.domino.ui.collapsible.CollapseStrategy} object
+   */
   public CollapseStrategy getCollapseStrategy() {
     return collapseStrategy;
   }
 
+  /**
+   * withHeader.
+   *
+   * @param handler a {@link org.dominokit.domino.ui.utils.ChildHandler} object
+   * @return a {@link org.dominokit.domino.ui.tree.Tree} object
+   */
   public Tree<T> withHeader(ChildHandler<Tree<T>, TreeHeader> handler) {
     handler.apply(this, headerElement.get());
     return this;
   }
 
+  /** {@inheritDoc} */
   @Override
   public Tree<T> pauseSelectionListeners() {
     this.selectionListenersPaused = true;
     return this;
   }
 
+  /** {@inheritDoc} */
   @Override
   public Tree<T> resumeSelectionListeners() {
     this.selectionListenersPaused = false;
     return this;
   }
 
+  /** {@inheritDoc} */
   @Override
   public Tree<T> togglePauseSelectionListeners(boolean toggle) {
     this.selectionListenersPaused = toggle;
     return this;
   }
 
+  /** {@inheritDoc} */
   @Override
   public Set<SelectionListener<? super TreeItem<T>, ? super TreeItem<T>>> getSelectionListeners() {
     return this.selectionListeners;
   }
 
+  /** {@inheritDoc} */
   @Override
   public Set<SelectionListener<? super TreeItem<T>, ? super TreeItem<T>>>
       getDeselectionListeners() {
     return this.deselectionListeners;
   }
 
+  /** {@inheritDoc} */
   @Override
   public boolean isSelectionListenersPaused() {
     return this.selectionListenersPaused;
   }
 
+  /** {@inheritDoc} */
   @Override
   public Tree<T> triggerSelectionListeners(TreeItem<T> source, TreeItem<T> selection) {
     if (!this.selectionListenersPaused) {
@@ -658,6 +764,7 @@ public class Tree<T> extends BaseDominoElement<HTMLDivElement, Tree<T>>
     return this;
   }
 
+  /** {@inheritDoc} */
   @Override
   public Tree<T> triggerDeselectionListeners(TreeItem<T> source, TreeItem<T> selection) {
     if (!this.selectionListenersPaused) {
@@ -667,6 +774,7 @@ public class Tree<T> extends BaseDominoElement<HTMLDivElement, Tree<T>>
     return this;
   }
 
+  /** {@inheritDoc} */
   @Override
   public TreeItem<T> getSelection() {
     return this.activeTreeItem;

@@ -15,12 +15,32 @@
  */
 package org.dominokit.domino.ui.config;
 
+/**
+ * ProgressBarConfig interface.
+ *
+ * @author vegegoku
+ * @version $Id: $Id
+ */
 public interface ProgressBarConfig extends ComponentConfig {
 
+  /**
+   * getDefaultProgressExpression.
+   *
+   * @return a {@link java.lang.String} object
+   */
   default String getDefaultProgressExpression() {
     return "{percent}%";
   }
 
+  /**
+   * evaluateProgressBarExpression.
+   *
+   * @param expression a {@link java.lang.String} object
+   * @param percent a int
+   * @param value a double
+   * @param maxValue a double
+   * @return a {@link java.lang.String} object
+   */
   default String evaluateProgressBarExpression(
       String expression, int percent, double value, double maxValue) {
     return expression

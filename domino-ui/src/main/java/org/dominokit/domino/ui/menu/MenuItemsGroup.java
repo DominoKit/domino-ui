@@ -26,6 +26,12 @@ import org.dominokit.domino.ui.layout.NavBar;
 import org.dominokit.domino.ui.utils.ChildHandler;
 import org.dominokit.domino.ui.utils.LazyChild;
 
+/**
+ * MenuItemsGroup class.
+ *
+ * @author vegegoku
+ * @version $Id: $Id
+ */
 public class MenuItemsGroup<V> extends AbstractMenuItem<V> {
 
   private final Menu<V> menu;
@@ -35,6 +41,11 @@ public class MenuItemsGroup<V> extends AbstractMenuItem<V> {
   private LazyChild<NavBar> groupHeader;
   private LazyChild<UListElement> itemsListElement;
 
+  /**
+   * Constructor for MenuItemsGroup.
+   *
+   * @param menu a {@link org.dominokit.domino.ui.menu.Menu} object
+   */
   public MenuItemsGroup(Menu<V> menu) {
     this.menu = menu;
     removeCss(dui_menu_item);
@@ -46,6 +57,12 @@ public class MenuItemsGroup<V> extends AbstractMenuItem<V> {
     itemsListElement = LazyChild.of(ul().addCss(dui_menu_items_list, dui_order_last), groupElement);
   }
 
+  /**
+   * appendChild.
+   *
+   * @param menuItem a {@link org.dominokit.domino.ui.menu.AbstractMenuItem} object
+   * @return a {@link org.dominokit.domino.ui.menu.MenuItemsGroup} object
+   */
   public MenuItemsGroup<V> appendChild(AbstractMenuItem<V> menuItem) {
     if (nonNull(menuItem)) {
       menuItem.bindToGroup(this);
@@ -57,6 +74,12 @@ public class MenuItemsGroup<V> extends AbstractMenuItem<V> {
     return this;
   }
 
+  /**
+   * removeItem.
+   *
+   * @param menuItem a {@link org.dominokit.domino.ui.menu.AbstractMenuItem} object
+   * @return a {@link org.dominokit.domino.ui.menu.MenuItemsGroup} object
+   */
   public MenuItemsGroup<V> removeItem(AbstractMenuItem<V> menuItem) {
     if (this.menuItems.contains(menuItem)) {
       menuItem.unbindGroup();
@@ -66,20 +89,38 @@ public class MenuItemsGroup<V> extends AbstractMenuItem<V> {
     return this;
   }
 
+  /**
+   * Getter for the field <code>menuItems</code>.
+   *
+   * @return a {@link java.util.List} object
+   */
   public List<AbstractMenuItem<V>> getMenuItems() {
     return menuItems;
   }
 
+  /**
+   * withHeader.
+   *
+   * @param handler a {@link org.dominokit.domino.ui.utils.ChildHandler} object
+   * @return a {@link org.dominokit.domino.ui.menu.MenuItemsGroup} object
+   */
   public MenuItemsGroup<V> withHeader(ChildHandler<MenuItemsGroup<V>, NavBar> handler) {
     handler.apply(this, groupHeader.get());
     return this;
   }
 
+  /**
+   * withItemsMenu.
+   *
+   * @param handler a {@link org.dominokit.domino.ui.utils.ChildHandler} object
+   * @return a {@link org.dominokit.domino.ui.menu.MenuItemsGroup} object
+   */
   public MenuItemsGroup<V> withItemsMenu(ChildHandler<MenuItemsGroup<V>, UListElement> handler) {
     handler.apply(this, itemsListElement.get());
     return this;
   }
 
+  /** {@inheritDoc} */
   @Override
   public boolean onSearch(String token, boolean caseSensitive) {
     return menuItems.stream().anyMatch(menuItem -> menuItem.onSearch(token, caseSensitive));

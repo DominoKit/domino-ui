@@ -22,11 +22,22 @@ import jsinterop.base.JsPropertyMap;
 
 class CalendarCustomEvents {
 
+  /**
+   * Constant <code>DUI_CALENDAR_DATE_SELECTION_CHANGED="dui-calendar-date-selection-changed"</code>
+   */
   public static final String DUI_CALENDAR_DATE_SELECTION_CHANGED =
       "dui-calendar-date-selection-changed";
+  /** Constant <code>SELECT_YEAR_MONTH="dui-calendar-select-year-month"</code> */
   public static final String SELECT_YEAR_MONTH = "dui-calendar-select-year-month";
+  /** Constant <code>DATE_NAVIGATION_CHANGED="dui-calendar-date-navigation-changed"</code> */
   public static final String DATE_NAVIGATION_CHANGED = "dui-calendar-date-navigation-changed";
 
+  /**
+   * dateSelectionChanged.
+   *
+   * @param timestamp a {@link java.lang.Long} object
+   * @return a {@link elemental2.dom.CustomEvent} object
+   */
   public static CustomEvent<JsPropertyMap<Double>> dateSelectionChanged(Long timestamp) {
     CustomEventInit<JsPropertyMap<Double>> initOptions = Js.uncheckedCast(CustomEventInit.create());
     JsPropertyMap<Double> stringJsPropertyMap = Js.uncheckedCast(JsPropertyMap.of());
@@ -37,6 +48,11 @@ class CalendarCustomEvents {
     return new CustomEvent<>(DUI_CALENDAR_DATE_SELECTION_CHANGED, initOptions);
   }
 
+  /**
+   * selectYearMonth.
+   *
+   * @return a {@link elemental2.dom.CustomEvent} object
+   */
   public static CustomEvent<JsPropertyMap<Double>> selectYearMonth() {
     CustomEventInit<JsPropertyMap<Double>> initOptions = Js.uncheckedCast(CustomEventInit.create());
     initOptions.setBubbles(true);
@@ -44,6 +60,12 @@ class CalendarCustomEvents {
     return new CustomEvent<>(SELECT_YEAR_MONTH, initOptions);
   }
 
+  /**
+   * dateNavigationChanged.
+   *
+   * @param timestamp a long
+   * @return a {@link elemental2.dom.CustomEvent} object
+   */
   public static CustomEvent<JsPropertyMap<Double>> dateNavigationChanged(long timestamp) {
     CustomEventInit<JsPropertyMap<Double>> initOptions = Js.uncheckedCast(CustomEventInit.create());
     JsPropertyMap<Double> stringJsPropertyMap = Js.uncheckedCast(JsPropertyMap.of());

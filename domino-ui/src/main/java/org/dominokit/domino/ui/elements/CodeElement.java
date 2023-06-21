@@ -17,11 +17,28 @@ package org.dominokit.domino.ui.elements;
 
 import elemental2.dom.HTMLElement;
 
+/**
+ * CodeElement class.
+ *
+ * @author vegegoku
+ * @version $Id: $Id
+ */
 public class CodeElement extends BaseElement<HTMLElement, CodeElement> {
+  /**
+   * of.
+   *
+   * @param e a {@link elemental2.dom.HTMLElement} object
+   * @return a {@link org.dominokit.domino.ui.elements.CodeElement} object
+   */
   public static CodeElement of(HTMLElement e) {
     return new CodeElement(e);
   }
 
+  /**
+   * Constructor for CodeElement.
+   *
+   * @param element a {@link elemental2.dom.HTMLElement} object
+   */
   public CodeElement(HTMLElement element) {
     super(element);
   }

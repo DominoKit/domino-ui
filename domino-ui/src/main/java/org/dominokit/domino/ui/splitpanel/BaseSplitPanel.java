@@ -38,6 +38,7 @@ abstract class BaseSplitPanel<T extends BaseSplitPanel<T, S>, S extends BaseSpli
   private double firstSize = 0;
   private double secondSize = 0;
 
+  /** Constructor for BaseSplitPanel. */
   public BaseSplitPanel() {
     element = div().addCss(dui_split_layout);
     init((T) this);
@@ -55,17 +56,24 @@ abstract class BaseSplitPanel<T extends BaseSplitPanel<T, S>, S extends BaseSpli
     }
   }
 
+  /**
+   * getSplittersSizeShare.
+   *
+   * @return a {@link java.lang.String} object
+   */
   public String getSplittersSizeShare() {
     int n = panels.size();
     return "(var(--dui-split-layout-splitter-size)*" + (n - 1) + "/" + n + ")";
   }
 
+  /** {@inheritDoc} */
   @Override
   public void onResizeStart(SplitPanel first, SplitPanel second) {
     this.firstSize = Math.round(getPanelSize(first));
     this.secondSize = Math.round(getPanelSize(second));
   }
 
+  /** {@inheritDoc} */
   @Override
   public void resizePanels(SplitPanel first, SplitPanel second, double sizeDiff) {
 
@@ -104,14 +112,26 @@ abstract class BaseSplitPanel<T extends BaseSplitPanel<T, S>, S extends BaseSpli
     setPanelSize(second, (new2ndSize + diff) + "px");
   }
 
+  /**
+   * getPanelSize.
+   *
+   * @param panel a {@link org.dominokit.domino.ui.splitpanel.SplitPanel} object
+   * @return a double
+   */
   protected abstract double getPanelSize(SplitPanel panel);
 
+  /**
+   * setPanelSize.
+   *
+   * @param panel a {@link org.dominokit.domino.ui.splitpanel.SplitPanel} object
+   * @param size a {@link java.lang.String} object
+   */
   protected abstract void setPanelSize(SplitPanel panel, String size);
 
   /**
    * Adds a new panel
    *
-   * @param panel the {@link SplitPanel} to add
+   * @param panel the {@link org.dominokit.domino.ui.splitpanel.SplitPanel} to add
    * @return same instance
    */
   public T appendChild(SplitPanel panel) {
@@ -133,9 +153,23 @@ abstract class BaseSplitPanel<T extends BaseSplitPanel<T, S>, S extends BaseSpli
     return (T) this;
   }
 
+  /**
+   * createSplitter.
+   *
+   * @param first a {@link org.dominokit.domino.ui.splitpanel.SplitPanel} object
+   * @param second a {@link org.dominokit.domino.ui.splitpanel.SplitPanel} object
+   * @param mainPanel a {@link org.dominokit.domino.ui.splitpanel.HasSplitPanels} object
+   * @return a S object
+   */
   protected abstract S createSplitter(
       SplitPanel first, SplitPanel second, HasSplitPanels mainPanel);
 
+  /**
+   * withSplitters.
+   *
+   * @param handler a {@link org.dominokit.domino.ui.utils.ChildHandler} object
+   * @return a T object
+   */
   public T withSplitters(ChildHandler<T, List<S>> handler) {
     handler.apply((T) this, splitters);
     return (T) this;

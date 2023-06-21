@@ -38,13 +38,24 @@ import org.dominokit.domino.ui.utils.ComponentMeta;
 import org.dominokit.domino.ui.utils.DominoElement;
 import org.dominokit.domino.ui.utils.Unit;
 
+/**
+ * TreeGridPlugin class.
+ *
+ * @author vegegoku
+ * @version $Id: $Id
+ */
 public class TreeGridPlugin<T>
     implements DataTablePlugin<T>, HasPluginConfig<T, TreeGridPlugin<T>, TreePluginConfig<T>> {
 
+  /** Constant <code>TREE_GRID_ROW_LEVEL="tree-grid-row-level"</code> */
   public static final String TREE_GRID_ROW_LEVEL = "tree-grid-row-level";
+  /** Constant <code>TREE_GRID_ROW_TOGGLE_ICON="tree-grid-row-toggle-icon"</code> */
   public static final String TREE_GRID_ROW_TOGGLE_ICON = "tree-grid-row-toggle-icon";
+  /** Constant <code>TREE_GRID_EXPAND_COLLAPSE="plugin-utility-column"</code> */
   public static final String TREE_GRID_EXPAND_COLLAPSE = "plugin-utility-column";
+  /** Constant <code>BASE_PADDING=10</code> */
   public static final int BASE_PADDING = 10;
+  /** Constant <code>ICON_ORDER="10"</code> */
   public static final String ICON_ORDER = "10";
 
   private ToggleIcon<?, ?> headerIcon;
@@ -52,6 +63,7 @@ public class TreeGridPlugin<T>
   private DataTable<T> dataTable;
   private TreePluginConfig<T> config;
 
+  /** Constructor for TreeGridPlugin. */
   public TreeGridPlugin() {
     config = new TreePluginConfig<>();
   }
@@ -73,7 +85,7 @@ public class TreeGridPlugin<T>
    * If the row has children it will expand the row, and based on recursive value it might also
    * expand its children sub-children
    *
-   * @param row {@link TableRow} to be expanded
+   * @param row {@link org.dominokit.domino.ui.datatable.TableRow} to be expanded
    * @param recursive boolean, if true will recursively expand the row children
    */
   public final void expandRow(TableRow<T> row, boolean recursive) {
@@ -118,6 +130,7 @@ public class TreeGridPlugin<T>
     }
   }
 
+  /** {@inheritDoc} */
   @Override
   public void onRowAdded(DataTable<T> dataTable, TableRow<T> tableRow) {
     if (!config.isLazy()) {
@@ -134,6 +147,7 @@ public class TreeGridPlugin<T>
             });
   }
 
+  /** {@inheritDoc} */
   @Override
   public void onAllRowsAdded(DataTable<T> dataTable) {
     TreeStateMeta.get(this.dataTable).ifPresent(TreeStateMeta::onAllRowsAdded);
@@ -213,7 +227,7 @@ public class TreeGridPlugin<T>
   /**
    * If the row has children it will expand the row and recursively expand the row children
    *
-   * @param row {@link TableRow} to be expanded
+   * @param row {@link org.dominokit.domino.ui.datatable.TableRow} to be expanded
    */
   public final void expandRow(TableRow<T> row) {
     expandRow(row, true);
@@ -232,7 +246,7 @@ public class TreeGridPlugin<T>
   /**
    * If the row has children it will collapse the row.
    *
-   * @param row {@link TableRow} to be collapsed
+   * @param row {@link org.dominokit.domino.ui.datatable.TableRow} to be collapsed
    */
   public final void collapseRow(TableRow<T> row) {
     collapse(row);
@@ -447,6 +461,14 @@ public class TreeGridPlugin<T>
   }
 
   /** @deprecated use {@link TreePluginConfig#setParentRowCellsSupplier(ParentRowCellsSupplier)} */
+  /**
+   * setParentRowCellsSupplier.
+   *
+   * @param parentRowCellsSupplier a {@link
+   *     org.dominokit.domino.ui.datatable.plugins.tree.TreeGridPlugin.ParentRowCellsSupplier}
+   *     object
+   * @return a {@link org.dominokit.domino.ui.datatable.plugins.tree.TreeGridPlugin} object
+   */
   @Deprecated
   public TreeGridPlugin<T> setParentRowCellsSupplier(
       ParentRowCellsSupplier<T> parentRowCellsSupplier) {
@@ -455,6 +477,12 @@ public class TreeGridPlugin<T>
   }
 
   /** @deprecated use {@link TreePluginConfig#setLeafIconSupplier(Supplier)} */
+  /**
+   * setLeafIconSupplier.
+   *
+   * @param leafIconSupplier a {@link java.util.function.Supplier} object
+   * @return a {@link org.dominokit.domino.ui.datatable.plugins.tree.TreeGridPlugin} object
+   */
   @Deprecated
   public TreeGridPlugin<T> setLeafIconSupplier(Supplier<Icon<?>> leafIconSupplier) {
     config.setLeafIconSupplier(leafIconSupplier);
@@ -462,6 +490,12 @@ public class TreeGridPlugin<T>
   }
 
   /** @deprecated use {@link TreePluginConfig#setIndent(int)} */
+  /**
+   * setIndent.
+   *
+   * @param indent a int
+   * @return a {@link org.dominokit.domino.ui.datatable.plugins.tree.TreeGridPlugin} object
+   */
   @Deprecated
   public TreeGridPlugin<T> setIndent(int indent) {
     config.setIndent(indent);
@@ -469,6 +503,12 @@ public class TreeGridPlugin<T>
   }
 
   /** @deprecated use {@link TreePluginConfig#setIndentColumnElementSupplier(Function)} */
+  /**
+   * setIndentColumnElementSupplier.
+   *
+   * @param indentColumnElementSupplier a {@link java.util.function.Function} object
+   * @return a {@link org.dominokit.domino.ui.datatable.plugins.tree.TreeGridPlugin} object
+   */
   @Deprecated
   public TreeGridPlugin<T> setIndentColumnElementSupplier(
       Function<TableRow<T>, Node> indentColumnElementSupplier) {
@@ -480,12 +520,14 @@ public class TreeGridPlugin<T>
     return items.isPresent() && !items.get().isEmpty();
   }
 
+  /** {@inheritDoc} */
   @Override
   public TreeGridPlugin<T> setConfig(TreePluginConfig<T> config) {
     this.config = config;
     return this;
   }
 
+  /** {@inheritDoc} */
   @Override
   public TreePluginConfig<T> getConfig() {
     return config;

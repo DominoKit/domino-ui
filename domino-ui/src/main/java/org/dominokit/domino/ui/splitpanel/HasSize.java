@@ -15,6 +15,17 @@
  */
 package org.dominokit.domino.ui.splitpanel;
 
+/**
+ * HasSize interface.
+ *
+ * @author vegegoku
+ * @version $Id: $Id
+ */
 public interface HasSize {
+  /**
+   * getSize.
+   *
+   * @return a double
+   */
   double getSize();
 }

@@ -28,24 +28,46 @@ import org.dominokit.domino.ui.forms.suggest.Select;
 import org.dominokit.domino.ui.forms.suggest.SelectOption;
 
 /**
- * A Single option select column header filter component that is rendered as a {@link Select}
- * component * @param <T&gt; type of data table records
+ * A Single option select column header filter component that is rendered as a {@link
+ * org.dominokit.domino.ui.forms.suggest.Select} component * @param <T&gt; type of data table
+ * records
+ *
+ * @author vegegoku
+ * @version $Id: $Id
  */
 public class SelectHeaderFilter<T> implements ColumnHeaderFilterPlugin.HeaderFilter<T> {
 
   private final Select<String> select;
 
-  /** create a new instance with a default label for ALL option */
+  /**
+   * create a new instance with a default label for ALL option
+   *
+   * @param <T> a T class
+   * @return a {@link org.dominokit.domino.ui.datatable.plugins.filter.header.SelectHeaderFilter}
+   *     object
+   */
   public static <T> SelectHeaderFilter<T> create() {
     return new SelectHeaderFilter<>("ALL");
   }
 
-  /** create a new instance with a custom label for ALL option */
+  /**
+   * create a new instance with a custom label for ALL option
+   *
+   * @param allLabel a {@link java.lang.String} object
+   * @param <T> a T class
+   * @return a {@link org.dominokit.domino.ui.datatable.plugins.filter.header.SelectHeaderFilter}
+   *     object
+   */
   public static <T> SelectHeaderFilter<T> create(String allLabel) {
     return new SelectHeaderFilter<>(allLabel);
   }
 
   /** @param allLabel String, ALL option label */
+  /**
+   * Constructor for SelectHeaderFilter.
+   *
+   * @param allLabel a {@link java.lang.String} object
+   */
   public SelectHeaderFilter(String allLabel) {
     select =
         Select.<String>create()
@@ -58,7 +80,7 @@ public class SelectHeaderFilter<T> implements ColumnHeaderFilterPlugin.HeaderFil
    * adds a new option to the select
    *
    * @see Select#appendChild(SelectOption)
-   * @param selectOption the {@link SelectOption}
+   * @param selectOption the {@link org.dominokit.domino.ui.forms.suggest.SelectOption}
    * @return same instance
    */
   public SelectHeaderFilter<T> appendChild(SelectOption<String> selectOption) {
@@ -101,6 +123,11 @@ public class SelectHeaderFilter<T> implements ColumnHeaderFilterPlugin.HeaderFil
   }
 
   /** @return the {@link Select} wrapped in this component */
+  /**
+   * Getter for the field <code>select</code>.
+   *
+   * @return a {@link org.dominokit.domino.ui.forms.suggest.Select} object
+   */
   public Select<String> getSelect() {
     return select;
   }

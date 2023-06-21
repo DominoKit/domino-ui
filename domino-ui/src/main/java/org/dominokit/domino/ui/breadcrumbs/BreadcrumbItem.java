@@ -27,7 +27,7 @@ import org.dominokit.domino.ui.utils.BaseDominoElement;
 import org.dominokit.domino.ui.utils.HasClickableElement;
 
 /**
- * A component for {@link Breadcrumb} location.
+ * A component for {@link org.dominokit.domino.ui.breadcrumbs.Breadcrumb} location.
  *
  * <p>This component provides basic styles of a location and functionalities that allows switching
  * between location statuses
@@ -45,6 +45,8 @@ import org.dominokit.domino.ui.utils.HasClickableElement;
  * @see Breadcrumb
  * @see BaseDominoElement
  * @see HasClickableElement
+ * @author vegegoku
+ * @version $Id: $Id
  */
 public class BreadcrumbItem extends BaseDominoElement<HTMLLIElement, BreadcrumbItem>
     implements HasClickableElement {
@@ -55,6 +57,11 @@ public class BreadcrumbItem extends BaseDominoElement<HTMLLIElement, BreadcrumbI
   private Icon<?> icon;
   private boolean active = false;
 
+  /**
+   * Constructor for BreadcrumbItem.
+   *
+   * @param text a {@link java.lang.String} object
+   */
   protected BreadcrumbItem(String text) {
     element = li();
     init(this);
@@ -65,6 +72,12 @@ public class BreadcrumbItem extends BaseDominoElement<HTMLLIElement, BreadcrumbI
     anchorElement.setAttribute("tabindex", "0");
   }
 
+  /**
+   * Constructor for BreadcrumbItem.
+   *
+   * @param text a {@link java.lang.String} object
+   * @param icon a {@link org.dominokit.domino.ui.icons.Icon} object
+   */
   protected BreadcrumbItem(String text, Icon<?> icon) {
     this(text);
     this.icon = icon;
@@ -84,7 +97,7 @@ public class BreadcrumbItem extends BaseDominoElement<HTMLLIElement, BreadcrumbI
   /**
    * Creates item with text content and icon
    *
-   * @param icon the {@link Icon} of the item
+   * @param icon the {@link org.dominokit.domino.ui.icons.Icon} of the item
    * @param text the content of the item
    * @return new instance
    */
@@ -140,16 +153,31 @@ public class BreadcrumbItem extends BaseDominoElement<HTMLLIElement, BreadcrumbI
   }
 
   /** @return the {@link Text} content */
+  /**
+   * Getter for the field <code>textElement</code>.
+   *
+   * @return a {@link elemental2.dom.Text} object
+   */
   public Text getTextElement() {
     return textElement;
   }
 
   /** @return the {@link Icon} */
+  /**
+   * Getter for the field <code>icon</code>.
+   *
+   * @return a {@link org.dominokit.domino.ui.icons.Icon} object
+   */
   public Icon<?> getIcon() {
     return icon;
   }
 
   /** @return true if the item is active, false otherwise */
+  /**
+   * isActive.
+   *
+   * @return a boolean
+   */
   public boolean isActive() {
     return dui_active.isAppliedTo(this);
   }

@@ -17,12 +17,18 @@ package org.dominokit.domino.ui.keyboard;
 
 import elemental2.dom.EventListener;
 
+/**
+ * AcceptKeyEvents interface.
+ *
+ * @author vegegoku
+ * @version $Id: $Id
+ */
 public interface AcceptKeyEvents {
 
   /**
    * On ctrl + backspace buttons pressed
    *
-   * @param backspaceHandler the {@link EventListener} to call
+   * @param backspaceHandler the {@link elemental2.dom.EventListener} to call
    * @return same instance
    */
   AcceptKeyEvents onBackspace(EventListener backspaceHandler);
@@ -30,8 +36,8 @@ public interface AcceptKeyEvents {
   /**
    * On ctrl + backspace buttons pressed with options
    *
-   * @param options the {@link KeyboardEventOptions}
-   * @param backspaceHandler the {@link EventListener} to call
+   * @param options the {@link org.dominokit.domino.ui.keyboard.KeyboardEventOptions}
+   * @param backspaceHandler the {@link elemental2.dom.EventListener} to call
    * @return same instance
    */
   AcceptKeyEvents onBackspace(KeyboardEventOptions options, EventListener backspaceHandler);
@@ -40,7 +46,7 @@ public interface AcceptKeyEvents {
   /**
    * On escape button pressed
    *
-   * @param escapeHandler the {@link EventListener} to call
+   * @param escapeHandler the {@link elemental2.dom.EventListener} to call
    * @return same instance
    */
   AcceptKeyEvents onEscape(EventListener escapeHandler);
@@ -48,8 +54,8 @@ public interface AcceptKeyEvents {
   /**
    * On escape button pressed with {@code options}
    *
-   * @param options the {@link KeyboardEventOptions}
-   * @param escapeHandler the {@link EventListener} to call
+   * @param options the {@link org.dominokit.domino.ui.keyboard.KeyboardEventOptions}
+   * @param escapeHandler the {@link elemental2.dom.EventListener} to call
    * @return same instance
    */
   AcceptKeyEvents onEscape(KeyboardEventOptions options, EventListener escapeHandler);
@@ -57,7 +63,7 @@ public interface AcceptKeyEvents {
   /**
    * On arrow up or arrow down buttons pressed
    *
-   * @param arrowDownHandler the {@link EventListener} to call
+   * @param arrowDownHandler the {@link elemental2.dom.EventListener} to call
    * @return same instance
    */
   AcceptKeyEvents onArrowUpDown(EventListener arrowDownHandler);
@@ -65,8 +71,8 @@ public interface AcceptKeyEvents {
   /**
    * On arrow up or arrow down buttons pressed with options
    *
-   * @param options the {@link KeyboardEventOptions}
-   * @param arrowDownHandler the {@link EventListener} to call
+   * @param options the {@link org.dominokit.domino.ui.keyboard.KeyboardEventOptions}
+   * @param arrowDownHandler the {@link elemental2.dom.EventListener} to call
    * @return same instance
    */
   AcceptKeyEvents onArrowUpDown(KeyboardEventOptions options, EventListener arrowDownHandler);
@@ -74,7 +80,7 @@ public interface AcceptKeyEvents {
   /**
    * On arrow down button pressed
    *
-   * @param arrowDownHandler the {@link EventListener} to call
+   * @param arrowDownHandler the {@link elemental2.dom.EventListener} to call
    * @return same instance
    */
   AcceptKeyEvents onArrowDown(EventListener arrowDownHandler);
@@ -82,8 +88,8 @@ public interface AcceptKeyEvents {
   /**
    * On arrow down button pressed with options
    *
-   * @param options the {@link KeyboardEventOptions}
-   * @param arrowDownHandler the {@link EventListener} to call
+   * @param options the {@link org.dominokit.domino.ui.keyboard.KeyboardEventOptions}
+   * @param arrowDownHandler the {@link elemental2.dom.EventListener} to call
    * @return same instance
    */
   AcceptKeyEvents onArrowDown(KeyboardEventOptions options, EventListener arrowDownHandler);
@@ -91,7 +97,7 @@ public interface AcceptKeyEvents {
   /**
    * On arrow up button pressed with options
    *
-   * @param arrowUpHandler the {@link EventListener} to call
+   * @param arrowUpHandler the {@link elemental2.dom.EventListener} to call
    * @return same instance
    */
   AcceptKeyEvents onArrowUp(EventListener arrowUpHandler);
@@ -99,8 +105,8 @@ public interface AcceptKeyEvents {
   /**
    * On arrow up button pressed with options
    *
-   * @param options the {@link KeyboardEventOptions}
-   * @param arrowUpHandler the {@link EventListener} to call
+   * @param options the {@link org.dominokit.domino.ui.keyboard.KeyboardEventOptions}
+   * @param arrowUpHandler the {@link elemental2.dom.EventListener} to call
    * @return same instance
    */
   AcceptKeyEvents onArrowUp(KeyboardEventOptions options, EventListener arrowUpHandler);
@@ -108,7 +114,7 @@ public interface AcceptKeyEvents {
   /**
    * On arrow right button pressed with options
    *
-   * @param arrowUpHandler the {@link EventListener} to call
+   * @param arrowUpHandler the {@link elemental2.dom.EventListener} to call
    * @return same instance
    */
   AcceptKeyEvents onArrowRight(EventListener arrowUpHandler);
@@ -116,8 +122,8 @@ public interface AcceptKeyEvents {
   /**
    * On arrow right button pressed with options
    *
-   * @param options the {@link KeyboardEventOptions}
-   * @param arrowUpHandler the {@link EventListener} to call
+   * @param options the {@link org.dominokit.domino.ui.keyboard.KeyboardEventOptions}
+   * @param arrowUpHandler the {@link elemental2.dom.EventListener} to call
    * @return same instance
    */
   AcceptKeyEvents onArrowRight(KeyboardEventOptions options, EventListener arrowUpHandler);
@@ -125,7 +131,7 @@ public interface AcceptKeyEvents {
   /**
    * On arrow right button pressed with options
    *
-   * @param arrowUpHandler the {@link EventListener} to call
+   * @param arrowUpHandler the {@link elemental2.dom.EventListener} to call
    * @return same instance
    */
   AcceptKeyEvents onArrowLeft(EventListener arrowUpHandler);
@@ -133,8 +139,8 @@ public interface AcceptKeyEvents {
   /**
    * On arrow right button pressed with options
    *
-   * @param options the {@link KeyboardEventOptions}
-   * @param arrowUpHandler the {@link EventListener} to call
+   * @param options the {@link org.dominokit.domino.ui.keyboard.KeyboardEventOptions}
+   * @param arrowUpHandler the {@link elemental2.dom.EventListener} to call
    * @return same instance
    */
   AcceptKeyEvents onArrowLeft(KeyboardEventOptions options, EventListener arrowUpHandler);
@@ -142,7 +148,7 @@ public interface AcceptKeyEvents {
   /**
    * On enter button pressed
    *
-   * @param enterHandler the {@link EventListener} to call
+   * @param enterHandler the {@link elemental2.dom.EventListener} to call
    * @return same instance
    */
   AcceptKeyEvents onEnter(EventListener enterHandler);
@@ -150,8 +156,8 @@ public interface AcceptKeyEvents {
   /**
    * On enter button pressed with options
    *
-   * @param options the {@link KeyboardEventOptions}
-   * @param enterHandler the {@link EventListener} to call
+   * @param options the {@link org.dominokit.domino.ui.keyboard.KeyboardEventOptions}
+   * @param enterHandler the {@link elemental2.dom.EventListener} to call
    * @return same instance
    */
   AcceptKeyEvents onEnter(KeyboardEventOptions options, EventListener enterHandler);
@@ -159,7 +165,7 @@ public interface AcceptKeyEvents {
   /**
    * On delete button pressed
    *
-   * @param deleteHandler the {@link EventListener} to call
+   * @param deleteHandler the {@link elemental2.dom.EventListener} to call
    * @return same instance
    */
   AcceptKeyEvents onDelete(EventListener deleteHandler);
@@ -167,8 +173,8 @@ public interface AcceptKeyEvents {
   /**
    * On delete button pressed with options
    *
-   * @param options the {@link KeyboardEventOptions}
-   * @param deleteHandler the {@link EventListener} to call
+   * @param options the {@link org.dominokit.domino.ui.keyboard.KeyboardEventOptions}
+   * @param deleteHandler the {@link elemental2.dom.EventListener} to call
    * @return same instance
    */
   AcceptKeyEvents onDelete(KeyboardEventOptions options, EventListener deleteHandler);
@@ -176,7 +182,7 @@ public interface AcceptKeyEvents {
   /**
    * On space button pressed
    *
-   * @param spaceHandler the {@link EventListener} to call
+   * @param spaceHandler the {@link elemental2.dom.EventListener} to call
    * @return same instance
    */
   AcceptKeyEvents onSpace(EventListener spaceHandler);
@@ -184,8 +190,8 @@ public interface AcceptKeyEvents {
   /**
    * On space button pressed with options
    *
-   * @param options the {@link KeyboardEventOptions}
-   * @param spaceHandler the {@link EventListener} to call
+   * @param options the {@link org.dominokit.domino.ui.keyboard.KeyboardEventOptions}
+   * @param spaceHandler the {@link elemental2.dom.EventListener} to call
    * @return same instance
    */
   AcceptKeyEvents onSpace(KeyboardEventOptions options, EventListener spaceHandler);
@@ -193,7 +199,7 @@ public interface AcceptKeyEvents {
   /**
    * On tab button pressed
    *
-   * @param tabHandler the {@link EventListener} to call
+   * @param tabHandler the {@link elemental2.dom.EventListener} to call
    * @return same instance
    */
   AcceptKeyEvents onTab(EventListener tabHandler);
@@ -201,8 +207,8 @@ public interface AcceptKeyEvents {
   /**
    * On tab button pressed with options
    *
-   * @param options the {@link KeyboardEventOptions}
-   * @param tabHandler the {@link EventListener} to call
+   * @param options the {@link org.dominokit.domino.ui.keyboard.KeyboardEventOptions}
+   * @param tabHandler the {@link elemental2.dom.EventListener} to call
    * @return same instance
    */
   AcceptKeyEvents onTab(KeyboardEventOptions options, EventListener tabHandler);
@@ -210,24 +216,26 @@ public interface AcceptKeyEvents {
   /**
    * On key button pressed with options
    *
-   * @param options the {@link KeyboardEventOptions}
-   * @param handler the {@link EventListener} to call
+   * @param options the {@link org.dominokit.domino.ui.keyboard.KeyboardEventOptions}
+   * @param handler the {@link elemental2.dom.EventListener} to call
    * @return same instance
+   * @param key a {@link java.lang.String} object
    */
   AcceptKeyEvents on(String key, KeyboardEventOptions options, EventListener handler);
 
   /**
    * On key button pressed
    *
-   * @param handler the {@link EventListener} to call
+   * @param handler the {@link elemental2.dom.EventListener} to call
    * @return same instance
+   * @param key a {@link java.lang.String} object
    */
   AcceptKeyEvents on(String key, EventListener handler);
   /**
    * On key pressed with options
    *
-   * @param options the {@link KeyboardEventOptions}
-   * @param handler the {@link EventListener} to call
+   * @param options the {@link org.dominokit.domino.ui.keyboard.KeyboardEventOptions}
+   * @param handler the {@link elemental2.dom.EventListener} to call
    * @return same instance
    */
   AcceptKeyEvents any(KeyboardEventOptions options, EventListener handler);
@@ -235,12 +243,23 @@ public interface AcceptKeyEvents {
   /**
    * On key pressed
    *
-   * @param handler the {@link EventListener} to call
+   * @param handler the {@link elemental2.dom.EventListener} to call
    * @return same instance
    */
   AcceptKeyEvents any(EventListener handler);
 
+  /**
+   * clearAll.
+   *
+   * @return a {@link org.dominokit.domino.ui.keyboard.AcceptKeyEvents} object
+   */
   AcceptKeyEvents clearAll();
 
+  /**
+   * clear.
+   *
+   * @param key a {@link java.lang.String} object
+   * @return a {@link org.dominokit.domino.ui.keyboard.AcceptKeyEvents} object
+   */
   AcceptKeyEvents clear(String key);
 }

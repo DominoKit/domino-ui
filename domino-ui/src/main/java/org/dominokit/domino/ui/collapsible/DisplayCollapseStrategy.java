@@ -22,13 +22,17 @@ import elemental2.dom.Element;
 import org.dominokit.domino.ui.style.DominoCss;
 
 /**
- * An implementation of {@link CollapseStrategy} that uses the css display property to hide/show the
- * collapsible element
+ * An implementation of {@link org.dominokit.domino.ui.collapsible.CollapseStrategy} that uses the
+ * css display property to hide/show the collapsible element
+ *
+ * @author vegegoku
+ * @version $Id: $Id
  */
 public class DisplayCollapseStrategy implements CollapseStrategy, CollapsibleStyles, DominoCss {
 
   private CollapsibleHandlers handlers;
 
+  /** {@inheritDoc} */
   @Override
   public void init(Element element, CollapsibleHandlers handlers) {
     this.handlers = handlers;

@@ -21,13 +21,15 @@ import java.util.function.Consumer;
 import org.dominokit.domino.ui.IsElement;
 
 /**
- * This interface is used to implement data stores to provide a {@link SuggestBox} with its
- * suggestion
+ * This interface is used to implement data stores to provide a {@link
+ * org.dominokit.domino.ui.forms.suggest.SuggestBox} with its suggestion
  *
  * <p>The interface can be used to provide suggestions locally or remotely
  *
  * @param <T> the type of the SuggestBox value
  * @see LocalSuggestionsStore
+ * @author vegegoku
+ * @version $Id: $Id
  */
 public interface SuggestionsStore<T, E extends IsElement<?>, O extends Option<T, E, O>> {
 
@@ -35,7 +37,8 @@ public interface SuggestionsStore<T, E extends IsElement<?>, O extends Option<T,
    * Takes the current typed text in the SuggestBox and provide a List of matching suggestion
    *
    * @param value String text in the SuggestBox
-   * @param suggestionsHandler {@link SuggestionsHandler}
+   * @param suggestionsHandler {@link
+   *     org.dominokit.domino.ui.forms.suggest.SuggestionsStore.SuggestionsHandler}
    */
   void filter(String value, SuggestionsHandler<T, E, O> suggestionsHandler);
 
@@ -45,7 +48,7 @@ public interface SuggestionsStore<T, E extends IsElement<?>, O extends Option<T,
    * suggestion
    *
    * @param searchValue T
-   * @param handler Consumer of {@link Option}
+   * @param handler Consumer of {@link org.dominokit.domino.ui.forms.suggest.Option}
    */
   void find(T searchValue, Consumer<O> handler);
 
@@ -54,24 +57,31 @@ public interface SuggestionsStore<T, E extends IsElement<?>, O extends Option<T,
    * lowercase display text contains the search text
    *
    * @param searchValue String
-   * @param suggestItem {@link Option}
-   * @return boolean, true if the {@link Option} match the search text
+   * @param suggestItem {@link org.dominokit.domino.ui.forms.suggest.Option}
+   * @return boolean, true if the {@link org.dominokit.domino.ui.forms.suggest.Option} match the
+   *     search text
    */
   default boolean filterItem(String searchValue, O suggestItem) {
     return suggestItem.getMenuItem().onSearch(searchValue, false);
   }
 
   /**
-   * @return the {@link MissingSuggestProvider} to handle missing suggestions for a value this is
-   *     default to Optional.empty()
+   * getMessingSuggestionProvider.
+   *
+   * @return the {@link
+   *     org.dominokit.domino.ui.forms.suggest.SuggestionsStore.MissingSuggestProvider} to handle
+   *     missing suggestions for a value this is default to Optional.empty()
    */
   default MissingSuggestProvider<T, E, O> getMessingSuggestionProvider() {
     return missingValue -> Optional.empty();
   }
 
   /**
-   * @return the {@link MissingEntryProvider} to handle missing suggestions for a text typed in the
-   *     SuggestBox this is default to Optional.empty()
+   * getMessingEntryProvider.
+   *
+   * @return the {@link org.dominokit.domino.ui.forms.suggest.SuggestionsStore.MissingEntryProvider}
+   *     to handle missing suggestions for a text typed in the SuggestBox this is default to
+   *     Optional.empty()
    */
   default MissingEntryProvider<T, E, O> getMessingEntryProvider() {
     return missingValue -> Optional.empty();

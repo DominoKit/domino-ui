@@ -19,11 +19,20 @@ import elemental2.dom.Node;
 import org.dominokit.domino.ui.events.HasDefaultEventOptions;
 import org.dominokit.domino.ui.utils.LazyInitializer;
 
+/**
+ * KeyboardEvents class.
+ *
+ * @author vegegoku
+ * @version $Id: $Id
+ */
 public class KeyboardEvents<T extends Node>
     implements HasDefaultEventOptions<KeyboardEventOptions> {
 
+  /** Constant <code>KEYDOWN="keydown"</code> */
   public static final String KEYDOWN = "keydown";
+  /** Constant <code>KEYUP="keyup"</code> */
   public static final String KEYUP = "keyup";
+  /** Constant <code>KEYPRESS="keypress"</code> */
   public static final String KEYPRESS = "keypress";
 
   private KeyboardEventOptions defaultOptions = KeyboardEventOptions.create();
@@ -37,6 +46,11 @@ public class KeyboardEvents<T extends Node>
   private LazyInitializer keyDownListenerInitializer;
   private LazyInitializer keyPressListenerInitializer;
 
+  /**
+   * Constructor for KeyboardEvents.
+   *
+   * @param element a T object
+   */
   public KeyboardEvents(T element) {
     this.element = element;
     keyUpListenerInitializer =
@@ -47,51 +61,85 @@ public class KeyboardEvents<T extends Node>
         new LazyInitializer(() -> element.addEventListener(KEYPRESS, keyPressListener));
   }
 
+  /**
+   * listenOnKeyDown.
+   *
+   * @param onKeyDown a {@link org.dominokit.domino.ui.keyboard.KeyEventsConsumer} object
+   * @return a {@link org.dominokit.domino.ui.keyboard.KeyboardEvents} object
+   */
   public KeyboardEvents<T> listenOnKeyDown(KeyEventsConsumer onKeyDown) {
     keyDownListenerInitializer.apply();
     onKeyDown.accept(keyDownListener);
     return this;
   }
 
+  /**
+   * stopListenOnKeyDown.
+   *
+   * @return a {@link org.dominokit.domino.ui.keyboard.KeyboardEvents} object
+   */
   public KeyboardEvents<T> stopListenOnKeyDown() {
     element.removeEventListener(KEYDOWN, keyDownListener);
     keyDownListenerInitializer.reset();
     return this;
   }
 
+  /**
+   * listenOnKeyUp.
+   *
+   * @param onKeyUp a {@link org.dominokit.domino.ui.keyboard.KeyEventsConsumer} object
+   * @return a {@link org.dominokit.domino.ui.keyboard.KeyboardEvents} object
+   */
   public KeyboardEvents<T> listenOnKeyUp(KeyEventsConsumer onKeyUp) {
     keyUpListenerInitializer.apply();
     onKeyUp.accept(keyUpListener);
     return this;
   }
 
+  /**
+   * stopListenOnKeyUp.
+   *
+   * @return a {@link org.dominokit.domino.ui.keyboard.KeyboardEvents} object
+   */
   public KeyboardEvents<T> stopListenOnKeyUp() {
     element.removeEventListener(KEYUP, keyUpListener);
     keyDownListenerInitializer.reset();
     return this;
   }
 
+  /**
+   * listenOnKeyPress.
+   *
+   * @param onKeyPress a {@link org.dominokit.domino.ui.keyboard.KeyEventsConsumer} object
+   * @return a {@link org.dominokit.domino.ui.keyboard.KeyboardEvents} object
+   */
   public KeyboardEvents<T> listenOnKeyPress(KeyEventsConsumer onKeyPress) {
     keyPressListenerInitializer.apply();
     onKeyPress.accept(keyPressListener);
     return this;
   }
 
+  /**
+   * stopListenOnKeyPress.
+   *
+   * @return a {@link org.dominokit.domino.ui.keyboard.KeyboardEvents} object
+   */
   public KeyboardEvents<T> stopListenOnKeyPress() {
     element.removeEventListener(KEYPRESS, keyPressListener);
     keyPressListenerInitializer.reset();
     return this;
   }
 
+  /** {@inheritDoc} */
   @Override
   public KeyboardEventOptions getOptions() {
     return defaultOptions;
   }
 
   /**
-   * Sets the default {@link KeyboardEventOptions}
+   * Sets the default {@link org.dominokit.domino.ui.keyboard.KeyboardEventOptions}
    *
-   * @param defaultOptions the default {@link KeyboardEventOptions}
+   * @param defaultOptions the default {@link org.dominokit.domino.ui.keyboard.KeyboardEventOptions}
    * @return same instance
    */
   public KeyboardEvents<T> setDefaultOptions(KeyboardEventOptions defaultOptions) {

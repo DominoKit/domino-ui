@@ -18,19 +18,32 @@ package org.dominokit.domino.ui.utils;
 import elemental2.dom.HTMLElement;
 import org.dominokit.domino.ui.elements.SpanElement;
 
+/**
+ * FillerElement class.
+ *
+ * @author vegegoku
+ * @version $Id: $Id
+ */
 public class FillerElement extends BaseDominoElement<HTMLElement, FillerElement> {
 
   private SpanElement element;
 
+  /**
+   * create.
+   *
+   * @return a {@link org.dominokit.domino.ui.utils.FillerElement} object
+   */
   public static FillerElement create() {
     return new FillerElement();
   }
 
+  /** Constructor for FillerElement. */
   public FillerElement() {
     element = span().addCss(dui_grow_1);
     init(this);
   }
 
+  /** {@inheritDoc} */
   @Override
   public HTMLElement element() {
     return element.element();

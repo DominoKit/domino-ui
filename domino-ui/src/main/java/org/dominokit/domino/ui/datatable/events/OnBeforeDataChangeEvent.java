@@ -23,6 +23,8 @@ import java.util.List;
  * new data is applied
  *
  * @param <T> the type of the data records in the table
+ * @author vegegoku
+ * @version $Id: $Id
  */
 public class OnBeforeDataChangeEvent<T> implements TableEvent {
 
@@ -34,7 +36,9 @@ public class OnBeforeDataChangeEvent<T> implements TableEvent {
   private boolean isAppend = false;
 
   /**
-   * @param data {@link List} of new data
+   * Constructor for OnBeforeDataChangeEvent.
+   *
+   * @param data {@link java.util.List} of new data
    * @param totalCount int, the total count for the new data
    * @param isAppend boolean, true if the new data will be appended to old data, otherwise it will
    *     replace the old data.
@@ -52,16 +56,28 @@ public class OnBeforeDataChangeEvent<T> implements TableEvent {
   }
 
   /** @return {@link List} of the new data */
+  /**
+   * Getter for the field <code>data</code>.
+   *
+   * @return a {@link java.util.List} object
+   */
   public List<T> getData() {
     return data;
   }
 
   /** @return int, the total count of the new data */
+  /**
+   * Getter for the field <code>totalCount</code>.
+   *
+   * @return a int
+   */
   public int getTotalCount() {
     return totalCount;
   }
 
   /**
+   * isAppend.
+   *
    * @return boolean, true if the new data will be appended to old data otherwise new data replaces
    *     old data.
    */

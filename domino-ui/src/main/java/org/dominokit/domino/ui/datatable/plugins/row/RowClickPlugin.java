@@ -24,6 +24,8 @@ import org.dominokit.domino.ui.events.EventType;
  * This plugin allow adding a listener to single click event on a row
  *
  * @param <T> the type of the data table records
+ * @author vegegoku
+ * @version $Id: $Id
  */
 public class RowClickPlugin<T> implements DataTablePlugin<T> {
   private ClickHandler<T> handler;
@@ -31,7 +33,9 @@ public class RowClickPlugin<T> implements DataTablePlugin<T> {
   /**
    * Creates a new instance
    *
-   * @param handler the {@link ClickHandler} to handle the click event
+   * @param handler the {@link
+   *     org.dominokit.domino.ui.datatable.plugins.row.RowClickPlugin.ClickHandler} to handle the
+   *     click event
    */
   public RowClickPlugin(ClickHandler<T> handler) {
     this.handler = handler;

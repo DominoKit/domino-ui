@@ -21,33 +21,72 @@ import java.util.Collection;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+/**
+ * LimitOneOfCssClass class.
+ *
+ * @author vegegoku
+ * @version $Id: $Id
+ */
 public class LimitOneOfCssClass implements CssClass {
 
   private final CompositeCssClass allowedClasses;
   private CssClass active = CssClass.NONE;
 
+  /**
+   * of.
+   *
+   * @param allowedClasses a {@link org.dominokit.domino.ui.style.CssClass} object.
+   * @return a {@link org.dominokit.domino.ui.style.LimitOneOfCssClass} object.
+   */
   public static LimitOneOfCssClass of(CssClass... allowedClasses) {
     return new LimitOneOfCssClass(allowedClasses);
   }
 
+  /**
+   * of.
+   *
+   * @param allowedClasses a {@link java.lang.String} object.
+   * @return a {@link org.dominokit.domino.ui.style.LimitOneOfCssClass} object.
+   */
   public static LimitOneOfCssClass of(String... allowedClasses) {
     return new LimitOneOfCssClass(allowedClasses);
   }
 
+  /**
+   * Constructor for LimitOneOfCssClass.
+   *
+   * @param allowedClasses a {@link org.dominokit.domino.ui.style.CssClass} object.
+   */
   public LimitOneOfCssClass(CssClass... allowedClasses) {
     this.allowedClasses = CompositeCssClass.of(allowedClasses);
   }
 
+  /**
+   * Constructor for LimitOneOfCssClass.
+   *
+   * @param allowedClasses a {@link java.lang.String} object.
+   */
   public LimitOneOfCssClass(String... allowedClasses) {
     this.allowedClasses =
         CompositeCssClass.of(
             Arrays.stream(allowedClasses).map(s -> (CssClass) () -> s).collect(Collectors.toSet()));
   }
 
+  /**
+   * Constructor for LimitOneOfCssClass.
+   *
+   * @param allowedClasses a {@link java.util.Collection} object.
+   */
   public LimitOneOfCssClass(Collection<CssClass> allowedClasses) {
     this.allowedClasses = CompositeCssClass.of(allowedClasses);
   }
 
+  /**
+   * use.
+   *
+   * @param activated a {@link org.dominokit.domino.ui.style.CssClass} object.
+   * @return a {@link org.dominokit.domino.ui.style.LimitOneOfCssClass} object.
+   */
   public LimitOneOfCssClass use(CssClass activated) {
     if (this.allowedClasses.contains(activated)) {
       this.active = activated;
@@ -55,6 +94,12 @@ public class LimitOneOfCssClass implements CssClass {
     return this;
   }
 
+  /**
+   * use.
+   *
+   * @param activated a {@link org.dominokit.domino.ui.style.HasCssClass} object.
+   * @return a {@link org.dominokit.domino.ui.style.LimitOneOfCssClass} object.
+   */
   public LimitOneOfCssClass use(HasCssClass activated) {
     if (this.allowedClasses.contains(activated.getCssClass())) {
       this.active = activated.getCssClass();
@@ -62,11 +107,13 @@ public class LimitOneOfCssClass implements CssClass {
     return this;
   }
 
+  /** {@inheritDoc} */
   @Override
   public void remove(Element element) {
     allowedClasses.remove(element);
   }
 
+  /** {@inheritDoc} */
   @Override
   public void apply(Element element) {
     if (allowedClasses.contains(active)) {
@@ -75,16 +122,28 @@ public class LimitOneOfCssClass implements CssClass {
     }
   }
 
+  /**
+   * Getter for the field <code>allowedClasses</code>.
+   *
+   * @return a {@link org.dominokit.domino.ui.style.CompositeCssClass} object.
+   */
   public CompositeCssClass getAllowedClasses() {
     return allowedClasses;
   }
 
+  /**
+   * Getter for the field <code>active</code>.
+   *
+   * @param element a {@link elemental2.dom.Element} object.
+   * @return a {@link java.util.Optional} object.
+   */
   public Optional<CssClass> getActive(Element element) {
     return CompositeCssClass.of(element).getCssClasses().stream()
         .filter(allowedClasses::contains)
         .findFirst();
   }
 
+  /** {@inheritDoc} */
   @Override
   public String getCssClass() {
     return active.getCssClass();

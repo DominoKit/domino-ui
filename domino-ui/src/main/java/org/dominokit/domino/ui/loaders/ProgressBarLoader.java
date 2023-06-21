@@ -20,7 +20,12 @@ import org.dominokit.domino.ui.IsElement;
 import org.dominokit.domino.ui.elements.DivElement;
 import org.dominokit.domino.ui.utils.DominoElement;
 
-/** Progress bar loader implementation */
+/**
+ * Progress bar loader implementation
+ *
+ * @author vegegoku
+ * @version $Id: $Id
+ */
 public class ProgressBarLoader extends BaseLoader<ProgressBarLoader>
     implements IsElement<HTMLDivElement> {
 
@@ -38,10 +43,16 @@ public class ProgressBarLoader extends BaseLoader<ProgressBarLoader>
   private final DivElement element =
       div().addCss(wait_me).style("background: rgba(255, 255, 255, 0.7);").appendChild(content);
 
+  /** Constructor for ProgressBarLoader. */
   public ProgressBarLoader() {
     init(this);
   }
 
+  /**
+   * create.
+   *
+   * @return a {@link org.dominokit.domino.ui.loaders.ProgressBarLoader} object
+   */
   public static ProgressBarLoader create() {
     return new ProgressBarLoader();
   }

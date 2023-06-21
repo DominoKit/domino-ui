@@ -17,13 +17,27 @@ package org.dominokit.domino.ui.events;
 
 import elemental2.dom.AddEventListenerOptions;
 
+/**
+ * EventOptions class.
+ *
+ * @author vegegoku
+ * @version $Id: $Id
+ */
 public class EventOptions {
   private final AddEventListenerOptions options;
 
+  /** Constructor for EventOptions. */
   public EventOptions() {
     this.options = AddEventListenerOptions.create();
   }
 
+  /**
+   * Constructor for EventOptions.
+   *
+   * @param capture a boolean
+   * @param once a boolean
+   * @param passive a boolean
+   */
   public EventOptions(boolean capture, boolean once, boolean passive) {
     this.options = AddEventListenerOptions.create();
     this.options.setCapture(capture);
@@ -31,29 +45,65 @@ public class EventOptions {
     this.options.setPassive(passive);
   }
 
+  /**
+   * of.
+   *
+   * @return a {@link org.dominokit.domino.ui.events.EventOptions} object
+   */
   public static EventOptions of() {
     return new EventOptions();
   }
 
+  /**
+   * of.
+   *
+   * @param capture a boolean
+   * @param once a boolean
+   * @param passive a boolean
+   * @return a {@link org.dominokit.domino.ui.events.EventOptions} object
+   */
   public static EventOptions of(boolean capture, boolean once, boolean passive) {
     return new EventOptions(capture, once, passive);
   }
 
+  /**
+   * setPassive.
+   *
+   * @param passive a boolean
+   * @return a {@link org.dominokit.domino.ui.events.EventOptions} object
+   */
   public EventOptions setPassive(boolean passive) {
     options.setPassive(passive);
     return this;
   }
 
+  /**
+   * setOnce.
+   *
+   * @param once a boolean
+   * @return a {@link org.dominokit.domino.ui.events.EventOptions} object
+   */
   public EventOptions setOnce(boolean once) {
     options.setOnce(once);
     return this;
   }
 
+  /**
+   * setCapture.
+   *
+   * @param capture a boolean
+   * @return a {@link org.dominokit.domino.ui.events.EventOptions} object
+   */
   public EventOptions setCapture(boolean capture) {
     options.setCapture(capture);
     return this;
   }
 
+  /**
+   * get.
+   *
+   * @return a {@link elemental2.dom.AddEventListenerOptions} object
+   */
   public AddEventListenerOptions get() {
     return options;
   }

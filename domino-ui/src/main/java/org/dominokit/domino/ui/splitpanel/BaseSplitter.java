@@ -108,15 +108,34 @@ abstract class BaseSplitter<T extends BaseSplitter<?>> extends BaseDominoElement
     mainPanel.onResizeStart(first, second);
   }
 
+  /**
+   * mousePosition.
+   *
+   * @param event a {@link elemental2.dom.MouseEvent} object
+   * @return a double
+   */
   protected abstract double mousePosition(MouseEvent event);
 
+  /**
+   * touchPosition.
+   *
+   * @param event a {@link elemental2.dom.TouchEvent} object
+   * @return a double
+   */
   protected abstract double touchPosition(TouchEvent event);
 
+  /**
+   * withHandle.
+   *
+   * @param handler a {@link org.dominokit.domino.ui.utils.ChildHandler} object
+   * @return a T object
+   */
   public T withHandle(ChildHandler<T, DivElement> handler) {
     handler.apply((T) this, handleElement);
     return (T) this;
   }
 
+  /** {@inheritDoc} */
   @Override
   public HTMLDivElement element() {
     return element.element();

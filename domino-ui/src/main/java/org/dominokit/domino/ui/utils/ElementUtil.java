@@ -25,18 +25,24 @@ import org.dominokit.domino.ui.events.EventType;
 import org.gwtproject.i18n.shared.cldr.LocaleInfo;
 import org.gwtproject.i18n.shared.cldr.NumberConstants;
 
-/** A general purpose utility class */
+/**
+ * A general purpose utility class
+ *
+ * @author vegegoku
+ * @version $Id: $Id
+ */
 public class ElementUtil {
 
   /** The default {@link NumberConstants} to format numbers */
   static final NumberConstants numberConstants = LocaleInfo.getCurrentLocale().getNumberConstants();
 
+  /** Constant <code>DUI_EVENT_SCROLL_TOP="dui-event-scroll-top"</code> */
   public static final String DUI_EVENT_SCROLL_TOP = "dui-event-scroll-top";
 
   /**
    * Removes all the children of the element
    *
-   * @param element {@link Element}
+   * @param element {@link elemental2.dom.Element}
    */
   public static void clear(Element element) {
     if (nonNull(element)) {
@@ -49,15 +55,17 @@ public class ElementUtil {
   /**
    * Removes all the children of the element
    *
-   * @param element {@link IsElement}
+   * @param element {@link org.dominokit.domino.ui.IsElement}
    */
   public static void clear(IsElement<?> element) {
     clear(element.element());
   }
 
   /**
+   * isKeyOf.
+   *
    * @param keyCode String keyboard key code
-   * @param keyboardEvent {@link KeyboardEvent}
+   * @param keyboardEvent {@link elemental2.dom.KeyboardEvent}
    * @return boolean, true if the KeyCode is same as the key of the KeyboradEvent
    */
   public static boolean isKeyOf(String keyCode, KeyboardEvent keyboardEvent) {
@@ -65,7 +73,9 @@ public class ElementUtil {
   }
 
   /**
-   * @param keyboardEvent {@link KeyboardEvent}
+   * isEnterKey.
+   *
+   * @param keyboardEvent {@link elemental2.dom.KeyboardEvent}
    * @return boolean, true if the Key pressed is Enter key
    */
   public static boolean isEnterKey(KeyboardEvent keyboardEvent) {
@@ -73,7 +83,9 @@ public class ElementUtil {
   }
 
   /**
-   * @param keyboardEvent {@link KeyboardEvent}
+   * isSpaceKey.
+   *
+   * @param keyboardEvent {@link elemental2.dom.KeyboardEvent}
    * @return boolean, true if the Key pressed is Space key
    */
   public static boolean isSpaceKey(KeyboardEvent keyboardEvent) {
@@ -81,7 +93,9 @@ public class ElementUtil {
   }
 
   /**
-   * @param keyboardEvent {@link KeyboardEvent}
+   * isArrowDown.
+   *
+   * @param keyboardEvent {@link elemental2.dom.KeyboardEvent}
    * @return boolean, true if the Key pressed is Arrow down key
    */
   public static boolean isArrowDown(KeyboardEvent keyboardEvent) {
@@ -89,7 +103,9 @@ public class ElementUtil {
   }
 
   /**
-   * @param keyboardEvent {@link KeyboardEvent}
+   * isArrowUp.
+   *
+   * @param keyboardEvent {@link elemental2.dom.KeyboardEvent}
    * @return boolean, true if the Key pressed is Arrow up key
    */
   public static boolean isArrowUp(KeyboardEvent keyboardEvent) {
@@ -97,7 +113,9 @@ public class ElementUtil {
   }
 
   /**
-   * @param keyboardEvent {@link KeyboardEvent}
+   * isTabKey.
+   *
+   * @param keyboardEvent {@link elemental2.dom.KeyboardEvent}
    * @return boolean, true if the Key pressed is Tab key
    */
   public static boolean isTabKey(KeyboardEvent keyboardEvent) {
@@ -105,7 +123,9 @@ public class ElementUtil {
   }
 
   /**
-   * @param keyboardEvent {@link KeyboardEvent}
+   * isEscapeKey.
+   *
+   * @param keyboardEvent {@link elemental2.dom.KeyboardEvent}
    * @return boolean, true if the Key pressed is Escape key
    */
   public static boolean isEscapeKey(KeyboardEvent keyboardEvent) {
@@ -117,9 +137,9 @@ public class ElementUtil {
    * will be called only once, if the element is appended more than once a new callback should be
    * registered.
    *
-   * @param element the {@link HTMLElement} which is going to be added to the body
-   * @param callback {@link AttachDetachCallback}
-   * @return an Optional {@link ElementObserver}
+   * @param element the {@link elemental2.dom.HTMLElement} which is going to be added to the body
+   * @param callback {@link org.dominokit.domino.ui.utils.AttachDetachCallback}
+   * @return an Optional {@link org.dominokit.domino.ui.utils.ElementObserver}
    */
   public static Optional<ElementObserver> onAttach(
       HTMLElement element, AttachDetachCallback callback) {
@@ -129,6 +149,11 @@ public class ElementUtil {
     return Optional.empty();
   }
 
+  /**
+   * withBodyObserverPaused.
+   *
+   * @param handler a {@link java.lang.Runnable} object
+   */
   public static void withBodyObserverPaused(Runnable handler) {
     BodyObserver.pauseFor(handler);
   }
@@ -136,9 +161,10 @@ public class ElementUtil {
   /**
    * {@link #onAttach(HTMLElement, AttachDetachCallback)}
    *
-   * @param element the {@link IsElement} which is going to be added to the body
-   * @param callback {@link AttachDetachCallback}
-   * @return an Optional {@link ElementObserver}
+   * @param element the {@link org.dominokit.domino.ui.IsElement} which is going to be added to the
+   *     body
+   * @param callback {@link org.dominokit.domino.ui.utils.AttachDetachCallback}
+   * @return an Optional {@link org.dominokit.domino.ui.utils.ElementObserver}
    */
   public static Optional<ElementObserver> onAttach(
       IsElement<?> element, AttachDetachCallback callback) {
@@ -148,6 +174,7 @@ public class ElementUtil {
     return Optional.empty();
   }
 
+  /** startObserving. */
   public static void startObserving() {
     BodyObserver.startObserving();
   }
@@ -157,9 +184,10 @@ public class ElementUtil {
    * will be called only once, if the element is removed and re-appended a new callback should be
    * registered.
    *
-   * @param element the {@link HTMLElement} which is going to be removed from the body
-   * @param callback {@link AttachDetachCallback}
-   * @return an Optional {@link ElementObserver}
+   * @param element the {@link elemental2.dom.HTMLElement} which is going to be removed from the
+   *     body
+   * @param callback {@link org.dominokit.domino.ui.utils.AttachDetachCallback}
+   * @return an Optional {@link org.dominokit.domino.ui.utils.ElementObserver}
    */
   public static Optional<ElementObserver> onDetach(
       HTMLElement element, AttachDetachCallback callback) {
@@ -172,9 +200,10 @@ public class ElementUtil {
   /**
    * {@link #onDetach(HTMLElement, AttachDetachCallback)}
    *
-   * @param element the {@link HTMLElement} which is going to be removed from the body
-   * @param callback {@link AttachDetachCallback}
-   * @return an Optional {@link ElementObserver}
+   * @param element the {@link elemental2.dom.HTMLElement} which is going to be removed from the
+   *     body
+   * @param callback {@link org.dominokit.domino.ui.utils.AttachDetachCallback}
+   * @return an Optional {@link org.dominokit.domino.ui.utils.ElementObserver}
    */
   public static Optional<ElementObserver> onDetach(
       IsElement<?> element, AttachDetachCallback callback) {
@@ -276,7 +305,7 @@ public class ElementUtil {
   /**
    * Scrolls the document to the specified element, making the element visible on the screen
    *
-   * @param isElement {@link IsElement}
+   * @param isElement {@link org.dominokit.domino.ui.IsElement}
    */
   public static void scrollToElement(IsElement<?> isElement) {
     scrollToElement(isElement.element());
@@ -285,18 +314,19 @@ public class ElementUtil {
   /**
    * Scrolls the document to the specified element, making the element visible on the screen
    *
-   * @param element {@link HTMLElement}
+   * @param element {@link elemental2.dom.HTMLElement}
    */
   public static void scrollToElement(Element element) {
     element.scrollIntoView();
   }
 
   /**
-   * Creates an {@link HTMLAnchorElement} that opens it target link in a new browser tab
+   * Creates an {@link elemental2.dom.HTMLAnchorElement} that opens it target link in a new browser
+   * tab
    *
    * @param text String link text
    * @param targetUrl String link target url
-   * @return new {@link HTMLAnchorElement} instance
+   * @return new {@link elemental2.dom.HTMLAnchorElement} instance
    */
   public static HTMLAnchorElement openInNewTabLink(String text, String targetUrl) {
     return elements
@@ -309,8 +339,8 @@ public class ElementUtil {
   /**
    * Scrolls a parent to make child visible in the browser window
    *
-   * @param child {@link Element}
-   * @param parent {@link Element}
+   * @param child {@link elemental2.dom.Element}
+   * @param parent {@link elemental2.dom.Element}
    */
   public static void scrollIntoParent(Element child, Element parent) {
 

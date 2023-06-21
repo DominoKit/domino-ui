@@ -20,7 +20,12 @@ import org.dominokit.domino.ui.IsElement;
 import org.dominokit.domino.ui.elements.DivElement;
 import org.dominokit.domino.ui.utils.DominoElement;
 
-/** Rotate plane loader implementation */
+/**
+ * Rotate plane loader implementation
+ *
+ * @author vegegoku
+ * @version $Id: $Id
+ */
 public class RotatePlaneLoader extends BaseLoader<RotatePlaneLoader>
     implements IsElement<HTMLDivElement> {
 
@@ -38,10 +43,16 @@ public class RotatePlaneLoader extends BaseLoader<RotatePlaneLoader>
   private final DivElement element =
       div().addCss(wait_me).style("background: rgba(255, 255, 255, 0.9);").appendChild(content);
 
+  /** Constructor for RotatePlaneLoader. */
   public RotatePlaneLoader() {
     init(this);
   }
 
+  /**
+   * create.
+   *
+   * @return a {@link org.dominokit.domino.ui.loaders.RotatePlaneLoader} object
+   */
   public static RotatePlaneLoader create() {
     return new RotatePlaneLoader();
   }

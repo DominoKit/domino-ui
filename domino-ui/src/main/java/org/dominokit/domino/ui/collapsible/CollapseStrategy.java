@@ -17,25 +17,32 @@ package org.dominokit.domino.ui.collapsible;
 
 import elemental2.dom.Element;
 
+/**
+ * CollapseStrategy interface.
+ *
+ * @author vegegoku
+ * @version $Id: $Id
+ */
 public interface CollapseStrategy {
 
   /**
    * Implement this method to provide any initialization required for the collapse strategy
    *
-   * @param element The collapsible {@link Element}
+   * @param element The collapsible {@link elemental2.dom.Element}
+   * @param handlers a {@link org.dominokit.domino.ui.collapsible.CollapsibleHandlers} object
    */
   default void init(Element element, CollapsibleHandlers handlers) {}
   /**
    * Implement this method to show a collapsible element
    *
-   * @param element The collapsible {@link Element}
+   * @param element The collapsible {@link elemental2.dom.Element}
    */
   void expand(Element element);
 
   /**
    * Implement this method to hide a collapsible element
    *
-   * @param element The collapsible {@link Element}
+   * @param element The collapsible {@link elemental2.dom.Element}
    */
   void collapse(Element element);
 
@@ -43,7 +50,7 @@ public interface CollapseStrategy {
    * Implement this method to clean up any attributes or styles added the strategy when we switch to
    * a different one.
    *
-   * @param element The collapsible {@link Element}
+   * @param element The collapsible {@link elemental2.dom.Element}
    */
   default void cleanup(Element element) {};
 }

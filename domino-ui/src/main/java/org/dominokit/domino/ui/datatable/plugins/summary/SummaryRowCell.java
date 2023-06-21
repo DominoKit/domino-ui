@@ -20,7 +20,6 @@ import static org.dominokit.domino.ui.utils.ElementsFactory.elements;
 
 import elemental2.dom.HTMLTableCellElement;
 import java.util.Optional;
-import org.dominokit.domino.ui.datatable.CellRenderer;
 import org.dominokit.domino.ui.datatable.ColumnConfig;
 import org.dominokit.domino.ui.utils.DominoElement;
 
@@ -29,6 +28,8 @@ import org.dominokit.domino.ui.utils.DominoElement;
  * cell row and column which it is part of
  *
  * @param <T> the type of the data table records
+ * @author vegegoku
+ * @version $Id: $Id
  */
 public class SummaryRowCell<T, S> {
 
@@ -39,8 +40,10 @@ public class SummaryRowCell<T, S> {
   /**
    * Creates and initialize an instance with the cell info and column info
    *
-   * @param cellInfo the {@link CellRenderer.CellInfo} information about this cell
-   * @param columnConfig the {@link ColumnConfig} the column this cell is part of
+   * @param cellInfo the {@link org.dominokit.domino.ui.datatable.CellRenderer.CellInfo} information
+   *     about this cell
+   * @param columnConfig the {@link org.dominokit.domino.ui.datatable.ColumnConfig} the column this
+   *     cell is part of
    */
   public SummaryRowCell(
       SummaryCellRenderer.SummaryCellInfo<T, S> cellInfo, ColumnConfig<T> columnConfig) {
@@ -49,6 +52,11 @@ public class SummaryRowCell<T, S> {
   }
 
   /** @return the {@link ColumnConfig} the column this cell is part of */
+  /**
+   * Getter for the field <code>columnConfig</code>.
+   *
+   * @return a {@link org.dominokit.domino.ui.datatable.ColumnConfig} object
+   */
   public ColumnConfig<T> getColumnConfig() {
     return columnConfig;
   }
@@ -88,6 +96,13 @@ public class SummaryRowCell<T, S> {
   }
 
   /** @return the {@link CellRenderer.CellInfo} information about this cell */
+  /**
+   * Getter for the field <code>cellInfo</code>.
+   *
+   * @return a {@link
+   *     org.dominokit.domino.ui.datatable.plugins.summary.SummaryCellRenderer.SummaryCellInfo}
+   *     object
+   */
   public SummaryCellRenderer.SummaryCellInfo<T, S> getCellInfo() {
     return cellInfo;
   }

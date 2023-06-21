@@ -17,11 +17,28 @@ package org.dominokit.domino.ui.elements;
 
 import elemental2.dom.HTMLElement;
 
+/**
+ * SupElement class.
+ *
+ * @author vegegoku
+ * @version $Id: $Id
+ */
 public class SupElement extends BaseElement<HTMLElement, SupElement> {
+  /**
+   * of.
+   *
+   * @param e a {@link elemental2.dom.HTMLElement} object
+   * @return a {@link org.dominokit.domino.ui.elements.SupElement} object
+   */
   public static SupElement of(HTMLElement e) {
     return new SupElement(e);
   }
 
+  /**
+   * Constructor for SupElement.
+   *
+   * @param element a {@link elemental2.dom.HTMLElement} object
+   */
   public SupElement(HTMLElement element) {
     super(element);
   }

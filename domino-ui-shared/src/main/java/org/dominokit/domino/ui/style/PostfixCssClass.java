@@ -17,58 +17,116 @@ package org.dominokit.domino.ui.style;
 
 import elemental2.dom.Element;
 
+/**
+ * PostfixCssClass class.
+ *
+ * @author vegegoku
+ * @version $Id: $Id
+ */
 public class PostfixCssClass implements CssClass {
   private final String baseCssName;
 
   private final SwapCssClass swapCssClass;
 
+  /**
+   * of.
+   *
+   * @param baseCssName a {@link java.lang.String} object.
+   * @param postfix a int.
+   * @return a {@link org.dominokit.domino.ui.style.PostfixCssClass} object.
+   */
   public static PostfixCssClass of(String baseCssName, int postfix) {
     return new PostfixCssClass(baseCssName, postfix);
   }
 
+  /**
+   * of.
+   *
+   * @param baseCssName a {@link java.lang.String} object.
+   * @param postfix a {@link java.lang.String} object.
+   * @return a {@link org.dominokit.domino.ui.style.PostfixCssClass} object.
+   */
   public static PostfixCssClass of(String baseCssName, String postfix) {
     return new PostfixCssClass(baseCssName, postfix);
   }
 
+  /**
+   * of.
+   *
+   * @param baseCssName a {@link java.lang.String} object.
+   * @return a {@link org.dominokit.domino.ui.style.PostfixCssClass} object.
+   */
   public static PostfixCssClass of(String baseCssName) {
     return new PostfixCssClass(baseCssName);
   }
 
+  /**
+   * Constructor for PostfixCssClass.
+   *
+   * @param baseCssName a {@link java.lang.String} object.
+   */
   public PostfixCssClass(String baseCssName) {
     this.baseCssName = baseCssName;
     this.swapCssClass = SwapCssClass.of();
   }
 
+  /**
+   * Constructor for PostfixCssClass.
+   *
+   * @param baseCssName a {@link java.lang.String} object.
+   * @param postfix a int.
+   */
   public PostfixCssClass(String baseCssName, int postfix) {
     this.baseCssName = baseCssName;
     this.swapCssClass = SwapCssClass.of(() -> baseCssName + "-" + postfix);
   }
 
+  /**
+   * Constructor for PostfixCssClass.
+   *
+   * @param baseCssName a {@link java.lang.String} object.
+   * @param postfix a {@link java.lang.String} object.
+   */
   public PostfixCssClass(String baseCssName, String postfix) {
     this.baseCssName = baseCssName;
     this.swapCssClass = SwapCssClass.of(() -> baseCssName + "-" + postfix);
   }
 
+  /**
+   * postfix.
+   *
+   * @param postfix a int.
+   * @return a {@link org.dominokit.domino.ui.style.PostfixCssClass} object.
+   */
   public PostfixCssClass postfix(int postfix) {
     this.swapCssClass.replaceWith(() -> baseCssName + "-" + postfix);
     return this;
   }
 
+  /**
+   * postfix.
+   *
+   * @param postfix a {@link java.lang.String} object.
+   * @return a {@link org.dominokit.domino.ui.style.PostfixCssClass} object.
+   */
   public PostfixCssClass postfix(String postfix) {
     this.swapCssClass.replaceWith(() -> baseCssName + "-" + postfix);
     return this;
   }
 
+  /** {@inheritDoc} */
   @Override
   public void remove(Element element) {
     swapCssClass.remove(element);
   }
 
+  /** {@inheritDoc} */
   @Override
   public void apply(Element element) {
     swapCssClass.apply(element);
   }
 
+  /** {@inheritDoc} */
   @Override
   public String getCssClass() {
     return swapCssClass.getCssClass();

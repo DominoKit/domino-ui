@@ -29,6 +29,12 @@ import org.dominokit.domino.ui.icons.Icon;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
 import org.gwtproject.i18n.shared.cldr.DateTimeFormatInfo;
 
+/**
+ * CalendarSelectors class.
+ *
+ * @author vegegoku
+ * @version $Id: $Id
+ */
 public class CalendarSelectors extends BaseDominoElement<HTMLDivElement, CalendarSelectors>
     implements CalendarStyles, HasComponentConfig<CalendarConfig>, CalendarViewListener {
 
@@ -38,6 +44,11 @@ public class CalendarSelectors extends BaseDominoElement<HTMLDivElement, Calenda
   private DivElement monthElement;
   private Date date = new Date();
 
+  /**
+   * Constructor for CalendarSelectors.
+   *
+   * @param calendar a {@link org.dominokit.domino.ui.datepicker.IsCalendar} object
+   */
   public CalendarSelectors(IsCalendar calendar) {
     this(
         calendar,
@@ -45,6 +56,13 @@ public class CalendarSelectors extends BaseDominoElement<HTMLDivElement, Calenda
         CONFIG.getUIConfig().defaultCalendarNextIcon().get());
   }
 
+  /**
+   * Constructor for CalendarSelectors.
+   *
+   * @param calendar a {@link org.dominokit.domino.ui.datepicker.IsCalendar} object
+   * @param previousIcon a {@link org.dominokit.domino.ui.icons.Icon} object
+   * @param nextIcon a {@link org.dominokit.domino.ui.icons.Icon} object
+   */
   public CalendarSelectors(IsCalendar calendar, Icon<?> previousIcon, Icon<?> nextIcon) {
     this.calendar = calendar;
     this.calendar.bindCalenderViewListener(this);
@@ -82,10 +100,24 @@ public class CalendarSelectors extends BaseDominoElement<HTMLDivElement, Calenda
     init(this);
   }
 
+  /**
+   * create.
+   *
+   * @param calendar a {@link org.dominokit.domino.ui.datepicker.IsCalendar} object
+   * @return a {@link org.dominokit.domino.ui.datepicker.CalendarSelectors} object
+   */
   public static CalendarSelectors create(IsCalendar calendar) {
     return new CalendarSelectors(calendar);
   }
 
+  /**
+   * create.
+   *
+   * @param calendar a {@link org.dominokit.domino.ui.datepicker.IsCalendar} object
+   * @param previousIcon a {@link org.dominokit.domino.ui.icons.Icon} object
+   * @param nextIcon a {@link org.dominokit.domino.ui.icons.Icon} object
+   * @return a {@link org.dominokit.domino.ui.datepicker.CalendarSelectors} object
+   */
   public static CalendarSelectors create(
       IsCalendar calendar, Icon<?> previousIcon, Icon<?> nextIcon) {
     return new CalendarSelectors(calendar, previousIcon, nextIcon);
@@ -130,6 +162,7 @@ public class CalendarSelectors extends BaseDominoElement<HTMLDivElement, Calenda
     return this;
   }
 
+  /** {@inheritDoc} */
   @Override
   public void onDateTimeFormatInfoChanged(DateTimeFormatInfo dateTimeFormatInfo) {
     if (nonNull(dateTimeFormatInfo)) {
@@ -140,6 +173,7 @@ public class CalendarSelectors extends BaseDominoElement<HTMLDivElement, Calenda
     }
   }
 
+  /** {@inheritDoc} */
   @Override
   public void onDateSelectionChanged(Date date) {
     if (nonNull(date)) {
@@ -147,6 +181,12 @@ public class CalendarSelectors extends BaseDominoElement<HTMLDivElement, Calenda
     }
   }
 
+  /**
+   * Setter for the field <code>date</code>.
+   *
+   * @param date a {@link java.util.Date} object
+   * @return a {@link org.dominokit.domino.ui.datepicker.CalendarSelectors} object
+   */
   public CalendarSelectors setDate(Date date) {
     if (isNull(date)) {
       this.date = new Date();
@@ -158,11 +198,13 @@ public class CalendarSelectors extends BaseDominoElement<HTMLDivElement, Calenda
     return this;
   }
 
+  /** {@inheritDoc} */
   @Override
   public HTMLDivElement element() {
     return root.element();
   }
 
+  /** {@inheritDoc} */
   @Override
   public void onUpdateCalendarView(Date date) {
     setDate(date);

@@ -39,31 +39,42 @@ package org.dominokit.domino.ui.splitpanel;
  *
  * @see BaseSplitPanel
  * @see HasSplitPanels
+ * @author vegegoku
+ * @version $Id: $Id
  */
 public class HSplitPanel extends BaseSplitPanel<HSplitPanel, HSplitter>
     implements HasSplitPanels, SplitStyles {
 
+  /** Constructor for HSplitPanel. */
   public HSplitPanel() {
     addCss(dui_horizontal);
   }
 
+  /** {@inheritDoc} */
   @Override
   protected HSplitter createSplitter(
       SplitPanel first, SplitPanel second, HasSplitPanels mainPanel) {
     return HSplitter.create(first, second, this);
   }
 
+  /** {@inheritDoc} */
   @Override
   protected double getPanelSize(SplitPanel panel) {
     return panel.getBoundingClientRect().width;
   }
 
+  /** {@inheritDoc} */
   @Override
   protected void setPanelSize(SplitPanel panel, String size) {
     panel.style().setWidth(size);
   }
 
   /** @return new instance */
+  /**
+   * create.
+   *
+   * @return a {@link org.dominokit.domino.ui.splitpanel.HSplitPanel} object
+   */
   public static HSplitPanel create() {
     return new HSplitPanel();
   }

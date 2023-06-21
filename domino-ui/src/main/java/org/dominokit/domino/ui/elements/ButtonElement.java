@@ -17,11 +17,28 @@ package org.dominokit.domino.ui.elements;
 
 import elemental2.dom.HTMLButtonElement;
 
+/**
+ * ButtonElement class.
+ *
+ * @author vegegoku
+ * @version $Id: $Id
+ */
 public class ButtonElement extends BaseElement<HTMLButtonElement, ButtonElement> {
+  /**
+   * of.
+   *
+   * @param e a {@link elemental2.dom.HTMLButtonElement} object
+   * @return a {@link org.dominokit.domino.ui.elements.ButtonElement} object
+   */
   public static ButtonElement of(HTMLButtonElement e) {
     return new ButtonElement(e);
   }
 
+  /**
+   * Constructor for ButtonElement.
+   *
+   * @param element a {@link elemental2.dom.HTMLButtonElement} object
+   */
   public ButtonElement(HTMLButtonElement element) {
     super(element);
   }

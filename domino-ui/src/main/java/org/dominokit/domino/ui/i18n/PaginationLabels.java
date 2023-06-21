@@ -15,15 +15,37 @@
  */
 package org.dominokit.domino.ui.i18n;
 
+/**
+ * PaginationLabels interface.
+ *
+ * @author vegegoku
+ * @version $Id: $Id
+ */
 public interface PaginationLabels extends Labels {
+  /**
+   * getPaginationCountLabel.
+   *
+   * @param pagesCount a int
+   * @return a {@link java.lang.String} object
+   */
   default String getPaginationCountLabel(int pagesCount) {
     return " of " + pagesCount + " Pages";
   }
 
+  /**
+   * getPreviousLabel.
+   *
+   * @return a {@link java.lang.String} object
+   */
   default String getPreviousLabel() {
     return "Previous";
   }
 
+  /**
+   * getNextLabel.
+   *
+   * @return a {@link java.lang.String} object
+   */
   default String getNextLabel() {
     return "Next";
   }

@@ -17,26 +17,56 @@ package org.dominokit.domino.ui.style;
 
 import elemental2.dom.Element;
 
+/**
+ * ToggleCssClass class.
+ *
+ * @author vegegoku
+ * @version $Id: $Id
+ */
 public class ToggleCssClass implements CssClass {
 
   private final CssClass cssClass;
 
+  /**
+   * of.
+   *
+   * @param cssClass a {@link org.dominokit.domino.ui.style.CssClass} object.
+   * @return a {@link org.dominokit.domino.ui.style.ToggleCssClass} object.
+   */
   public static ToggleCssClass of(CssClass cssClass) {
     return new ToggleCssClass(cssClass);
   }
 
+  /**
+   * of.
+   *
+   * @param cssClass a {@link org.dominokit.domino.ui.style.HasCssClass} object.
+   * @return a {@link org.dominokit.domino.ui.style.ToggleCssClass} object.
+   */
   public static ToggleCssClass of(HasCssClass cssClass) {
     return new ToggleCssClass(cssClass.getCssClass());
   }
 
+  /**
+   * of.
+   *
+   * @param cssClass a {@link java.lang.String} object.
+   * @return a {@link org.dominokit.domino.ui.style.ToggleCssClass} object.
+   */
   public static ToggleCssClass of(String cssClass) {
     return new ToggleCssClass(() -> cssClass);
   }
 
+  /**
+   * Constructor for ToggleCssClass.
+   *
+   * @param cssClass a {@link org.dominokit.domino.ui.style.CssClass} object.
+   */
   public ToggleCssClass(CssClass cssClass) {
     this.cssClass = cssClass;
   }
 
+  /** {@inheritDoc} */
   @Override
   public void apply(Element element) {
     if (element.classList.contains(getCssClass())) {
@@ -46,6 +76,7 @@ public class ToggleCssClass implements CssClass {
     }
   }
 
+  /** {@inheritDoc} */
   @Override
   public String getCssClass() {
     return cssClass.getCssClass();

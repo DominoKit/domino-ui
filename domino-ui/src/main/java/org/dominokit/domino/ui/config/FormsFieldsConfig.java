@@ -18,7 +18,6 @@ package org.dominokit.domino.ui.config;
 import static org.dominokit.domino.ui.utils.ElementsFactory.elements;
 
 import elemental2.dom.HTMLElement;
-import elemental2.dom.Node;
 import java.math.BigDecimal;
 import java.util.function.Function;
 import java.util.function.Supplier;
@@ -29,39 +28,77 @@ import org.dominokit.domino.ui.forms.IntegerBox;
 import org.dominokit.domino.ui.forms.LongBox;
 import org.dominokit.domino.ui.forms.ShortBox;
 
+/**
+ * FormsFieldsConfig interface.
+ *
+ * @author vegegoku
+ * @version $Id: $Id
+ */
 public interface FormsFieldsConfig extends ComponentConfig, CalendarConfig {
 
   /**
-   * @return a supplier of {@link Node}, this should return a new Node instance everytime it is call
-   *     and that will be used as a required field indicator the default will supply a text node of
-   *     <b>*</b>
+   * getRequiredIndicator.
+   *
+   * @return a supplier of {@link elemental2.dom.Node}, this should return a new Node instance
+   *     everytime it is call and that will be used as a required field indicator the default will
+   *     supply a text node of <b>*</b>
    */
   default Supplier<HTMLElement> getRequiredIndicator() {
     return () -> elements.span().textContent("*").element();
   }
 
   /** @return a boolean representing if the errors position should be fixed */
+  /**
+   * isFixErrorsPosition.
+   *
+   * @return a boolean
+   */
   default boolean isFixErrorsPosition() {
     return false;
   }
 
   /** @return true if press enter key will move the focus to the next input field if exists */
+  /**
+   * isFocusNextFieldOnEnter.
+   *
+   * @return a boolean
+   */
   default boolean isFocusNextFieldOnEnter() {
     return false;
   }
 
+  /**
+   * isSpellCheckEnabled.
+   *
+   * @return a boolean
+   */
   default boolean isSpellCheckEnabled() {
     return false;
   }
 
+  /**
+   * isFixedLabelSpace.
+   *
+   * @return a boolean
+   */
   default boolean isFixedLabelSpace() {
     return true;
   }
 
+  /**
+   * getNumberParsers.
+   *
+   * @return a {@link org.dominokit.domino.ui.config.FormsFieldsConfig.NumberParsers} object
+   */
   default NumberParsers getNumberParsers() {
     return new NumberParsers() {};
   }
 
+  /**
+   * isFormFieldFloatLabelLeft.
+   *
+   * @return a boolean
+   */
   default boolean isFormFieldFloatLabelLeft() {
     return false;
   }

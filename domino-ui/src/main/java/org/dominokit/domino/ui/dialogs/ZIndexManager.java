@@ -19,9 +19,20 @@ import java.util.Deque;
 import java.util.Optional;
 import org.dominokit.domino.ui.utils.IsPopup;
 
+/**
+ * ZIndexManager interface.
+ *
+ * @author vegegoku
+ * @version $Id: $Id
+ */
 public interface ZIndexManager {
 
   /** @return return the next z-index value */
+  /**
+   * getNextZIndex.
+   *
+   * @return a {@link java.lang.Integer} object
+   */
   Integer getNextZIndex();
 
   /**
@@ -41,19 +52,24 @@ public interface ZIndexManager {
   void onPopupClose(IsPopup<?> popup);
 
   /** @return The last opened modal popup. */
+  /**
+   * getTopLevelModal.
+   *
+   * @return a {@link java.util.Optional} object
+   */
   Optional<IsPopup<?>> getTopLevelModal();
 
   /**
-   * Adds a new {@link ZIndexListener}
+   * Adds a new {@link org.dominokit.domino.ui.dialogs.ZIndexManager.ZIndexListener}
    *
-   * @param listener {@link ZIndexListener}
+   * @param listener {@link org.dominokit.domino.ui.dialogs.ZIndexManager.ZIndexListener}
    */
   void addZIndexListener(ZIndexListener listener);
 
   /**
-   * Removes a {@link ZIndexListener}
+   * Removes a {@link org.dominokit.domino.ui.dialogs.ZIndexManager.ZIndexListener}
    *
-   * @param listener {@link ZIndexListener}
+   * @param listener {@link org.dominokit.domino.ui.dialogs.ZIndexManager.ZIndexListener}
    */
   void removeZIndexListener(ZIndexListener listener);
 

@@ -17,11 +17,28 @@ package org.dominokit.domino.ui.elements;
 
 import elemental2.dom.HTMLPictureElement;
 
+/**
+ * PictureElement class.
+ *
+ * @author vegegoku
+ * @version $Id: $Id
+ */
 public class PictureElement extends BaseElement<HTMLPictureElement, PictureElement> {
+  /**
+   * of.
+   *
+   * @param e a {@link elemental2.dom.HTMLPictureElement} object
+   * @return a {@link org.dominokit.domino.ui.elements.PictureElement} object
+   */
   public static PictureElement of(HTMLPictureElement e) {
     return new PictureElement(e);
   }
 
+  /**
+   * Constructor for PictureElement.
+   *
+   * @param element a {@link elemental2.dom.HTMLPictureElement} object
+   */
   public PictureElement(HTMLPictureElement element) {
     super(element);
   }

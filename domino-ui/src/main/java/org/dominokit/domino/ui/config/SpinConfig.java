@@ -17,22 +17,48 @@ package org.dominokit.domino.ui.config;
 
 import java.util.function.Supplier;
 import org.dominokit.domino.ui.icons.Icon;
-import org.dominokit.domino.ui.icons.Icons;
+import org.dominokit.domino.ui.icons.lib.Icons;
 
+/**
+ * SpinConfig interface.
+ *
+ * @author vegegoku
+ * @version $Id: $Id
+ */
 public interface SpinConfig extends ComponentConfig {
 
+  /**
+   * getDefaultBackIconSupplier.
+   *
+   * @return a {@link java.util.function.Supplier} object
+   */
   default Supplier<Icon<?>> getDefaultBackIconSupplier() {
     return Icons::chevron_left;
   }
 
+  /**
+   * getDefaultForwardIconSupplier.
+   *
+   * @return a {@link java.util.function.Supplier} object
+   */
   default Supplier<Icon<?>> getDefaultForwardIconSupplier() {
     return Icons::chevron_right;
   }
 
+  /**
+   * getDefaultUpIconSupplier.
+   *
+   * @return a {@link java.util.function.Supplier} object
+   */
   default Supplier<Icon<?>> getDefaultUpIconSupplier() {
     return Icons::chevron_up;
   }
 
+  /**
+   * getDefaultDownIconSupplier.
+   *
+   * @return a {@link java.util.function.Supplier} object
+   */
   default Supplier<Icon<?>> getDefaultDownIconSupplier() {
     return Icons::chevron_down;
   }

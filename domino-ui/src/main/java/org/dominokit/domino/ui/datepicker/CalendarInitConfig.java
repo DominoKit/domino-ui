@@ -20,16 +20,34 @@ import static java.util.Objects.nonNull;
 import java.util.HashSet;
 import java.util.Set;
 
+/**
+ * CalendarInitConfig class.
+ *
+ * @author vegegoku
+ * @version $Id: $Id
+ */
 public class CalendarInitConfig {
 
   private final Set<CalendarPlugin> plugins = new HashSet<>();
 
+  /** Constructor for CalendarInitConfig. */
   public CalendarInitConfig() {}
 
+  /**
+   * create.
+   *
+   * @return a {@link org.dominokit.domino.ui.datepicker.CalendarInitConfig} object
+   */
   public static CalendarInitConfig create() {
     return new CalendarInitConfig();
   }
 
+  /**
+   * addPlugin.
+   *
+   * @param plugin a {@link org.dominokit.domino.ui.datepicker.CalendarPlugin} object
+   * @return a {@link org.dominokit.domino.ui.datepicker.CalendarInitConfig} object
+   */
   public CalendarInitConfig addPlugin(CalendarPlugin plugin) {
     if (nonNull(plugin)) {
       this.plugins.add(plugin);
@@ -37,6 +55,12 @@ public class CalendarInitConfig {
     return this;
   }
 
+  /**
+   * removePlugin.
+   *
+   * @param plugin a {@link org.dominokit.domino.ui.datepicker.CalendarPlugin} object
+   * @return a {@link org.dominokit.domino.ui.datepicker.CalendarInitConfig} object
+   */
   public CalendarInitConfig removePlugin(CalendarPlugin plugin) {
     if (nonNull(plugin)) {
       this.plugins.remove(plugin);
@@ -44,6 +68,11 @@ public class CalendarInitConfig {
     return this;
   }
 
+  /**
+   * Getter for the field <code>plugins</code>.
+   *
+   * @return a {@link java.util.Set} object
+   */
   public Set<CalendarPlugin> getPlugins() {
     return plugins;
   }

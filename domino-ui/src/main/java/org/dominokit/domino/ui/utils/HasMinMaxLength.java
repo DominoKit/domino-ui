@@ -15,17 +15,52 @@
  */
 package org.dominokit.domino.ui.utils;
 
+/**
+ * HasMinMaxLength interface.
+ *
+ * @author vegegoku
+ * @version $Id: $Id
+ */
 public interface HasMinMaxLength<T> {
+  /** Constant <code>MAX_LENGTH="maxlength"</code> */
   String MAX_LENGTH = "maxlength";
+  /** Constant <code>MIN_LENGTH="minlength"</code> */
   String MIN_LENGTH = "minlength";
 
+  /**
+   * getMaxLength.
+   *
+   * @return a int
+   */
   int getMaxLength();
 
+  /**
+   * setMaxLength.
+   *
+   * @param maxLength a int
+   * @return a T object
+   */
   T setMaxLength(int maxLength);
 
+  /**
+   * getMinLength.
+   *
+   * @return a int
+   */
   int getMinLength();
 
+  /**
+   * setMinLength.
+   *
+   * @param minLength a int
+   * @return a T object
+   */
   T setMinLength(int minLength);
 
+  /**
+   * getLength.
+   *
+   * @return a int
+   */
   int getLength();
 }

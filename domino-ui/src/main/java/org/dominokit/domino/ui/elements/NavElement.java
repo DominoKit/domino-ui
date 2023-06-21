@@ -17,11 +17,28 @@ package org.dominokit.domino.ui.elements;
 
 import elemental2.dom.HTMLElement;
 
+/**
+ * NavElement class.
+ *
+ * @author vegegoku
+ * @version $Id: $Id
+ */
 public class NavElement extends BaseElement<HTMLElement, NavElement> {
+  /**
+   * of.
+   *
+   * @param e a {@link elemental2.dom.HTMLElement} object
+   * @return a {@link org.dominokit.domino.ui.elements.NavElement} object
+   */
   public static NavElement of(HTMLElement e) {
     return new NavElement(e);
   }
 
+  /**
+   * Constructor for NavElement.
+   *
+   * @param element a {@link elemental2.dom.HTMLElement} object
+   */
   public NavElement(HTMLElement element) {
     super(element);
   }

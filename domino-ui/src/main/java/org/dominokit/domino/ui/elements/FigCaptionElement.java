@@ -17,11 +17,28 @@ package org.dominokit.domino.ui.elements;
 
 import elemental2.dom.HTMLElement;
 
+/**
+ * FigCaptionElement class.
+ *
+ * @author vegegoku
+ * @version $Id: $Id
+ */
 public class FigCaptionElement extends BaseElement<HTMLElement, FigCaptionElement> {
+  /**
+   * of.
+   *
+   * @param e a {@link elemental2.dom.HTMLElement} object
+   * @return a {@link org.dominokit.domino.ui.elements.FigCaptionElement} object
+   */
   public static FigCaptionElement of(HTMLElement e) {
     return new FigCaptionElement(e);
   }
 
+  /**
+   * Constructor for FigCaptionElement.
+   *
+   * @param element a {@link elemental2.dom.HTMLElement} object
+   */
   public FigCaptionElement(HTMLElement element) {
     super(element);
   }

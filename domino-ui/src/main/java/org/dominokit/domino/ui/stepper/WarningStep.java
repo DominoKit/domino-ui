@@ -17,11 +17,18 @@ package org.dominokit.domino.ui.stepper;
 
 import static org.dominokit.domino.ui.style.GenericCss.dui_warning;
 
-import org.dominokit.domino.ui.icons.Icons;
+import org.dominokit.domino.ui.icons.lib.Icons;
 import org.dominokit.domino.ui.style.ColorsCss;
 import org.dominokit.domino.ui.style.SpacingCss;
 
+/**
+ * WarningStep class.
+ *
+ * @author vegegoku
+ * @version $Id: $Id
+ */
 public class WarningStep implements StepState {
+  /** {@inheritDoc} */
   @Override
   public void apply(StepTracker tracker) {
     tracker
@@ -34,6 +41,7 @@ public class WarningStep implements StepState {
                     .addCss(dui_warning));
   }
 
+  /** {@inheritDoc} */
   @Override
   public void cleanUp(StepTracker tracker) {
     tracker
@@ -41,6 +49,7 @@ public class WarningStep implements StepState {
         .withTrackerNode((parent1, node) -> node.clearElement().removeCss(dui_warning));
   }
 
+  /** {@inheritDoc} */
   @Override
   public String getKey() {
     return "WARNING";

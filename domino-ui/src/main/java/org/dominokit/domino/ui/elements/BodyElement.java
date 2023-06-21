@@ -17,11 +17,28 @@ package org.dominokit.domino.ui.elements;
 
 import elemental2.dom.HTMLBodyElement;
 
+/**
+ * BodyElement class.
+ *
+ * @author vegegoku
+ * @version $Id: $Id
+ */
 public class BodyElement extends BaseElement<HTMLBodyElement, BodyElement> {
+  /**
+   * of.
+   *
+   * @param e a {@link elemental2.dom.HTMLBodyElement} object
+   * @return a {@link org.dominokit.domino.ui.elements.BodyElement} object
+   */
   public static BodyElement of(HTMLBodyElement e) {
     return new BodyElement(e);
   }
 
+  /**
+   * Constructor for BodyElement.
+   *
+   * @param element a {@link elemental2.dom.HTMLBodyElement} object
+   */
   public BodyElement(HTMLBodyElement element) {
     super(element);
     setCssProperty("--dui-z-index", "10");

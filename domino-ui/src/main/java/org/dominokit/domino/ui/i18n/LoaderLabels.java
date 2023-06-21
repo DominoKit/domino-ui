@@ -15,8 +15,19 @@
  */
 package org.dominokit.domino.ui.i18n;
 
+/**
+ * LoaderLabels interface.
+ *
+ * @author vegegoku
+ * @version $Id: $Id
+ */
 public interface LoaderLabels extends Labels {
 
+  /**
+   * loading.
+   *
+   * @return a {@link java.lang.String} object
+   */
   default String loading() {
     return "Loading...";
   }

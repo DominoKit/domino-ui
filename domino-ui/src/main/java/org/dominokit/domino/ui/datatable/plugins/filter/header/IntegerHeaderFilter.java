@@ -20,9 +20,12 @@ import org.dominokit.domino.ui.datatable.model.FilterTypes;
 import org.dominokit.domino.ui.forms.IntegerBox;
 
 /**
- * Integer number column header filter component that is rendered as a {@link IntegerBox} component
+ * Integer number column header filter component that is rendered as a {@link
+ * org.dominokit.domino.ui.forms.IntegerBox} component
  *
  * @param <T> type of data table records
+ * @author vegegoku
+ * @version $Id: $Id
  */
 public class IntegerHeaderFilter<T> extends DelayedHeaderFilterInput<IntegerBox, T, Integer> {
 
@@ -40,7 +43,13 @@ public class IntegerHeaderFilter<T> extends DelayedHeaderFilterInput<IntegerBox,
     super(placeholder);
   }
 
-  /** create a new instance */
+  /**
+   * create a new instance
+   *
+   * @param <T> a T class
+   * @return a {@link org.dominokit.domino.ui.datatable.plugins.filter.header.IntegerHeaderFilter}
+   *     object
+   */
   public static <T> IntegerHeaderFilter<T> create() {
     return new IntegerHeaderFilter<>();
   }
@@ -98,6 +107,11 @@ public class IntegerHeaderFilter<T> extends DelayedHeaderFilterInput<IntegerBox,
   }
 
   /** @return the {@link IntegerBox} wrapped in this component */
+  /**
+   * Getter for the field <code>integerBox</code>.
+   *
+   * @return a {@link org.dominokit.domino.ui.forms.IntegerBox} object
+   */
   public IntegerBox getIntegerBox() {
     return integerBox;
   }

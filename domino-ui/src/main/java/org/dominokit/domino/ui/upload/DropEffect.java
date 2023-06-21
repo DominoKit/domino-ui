@@ -21,6 +21,9 @@ package org.dominokit.domino.ui.upload;
  * <p>More information can be found in <a
  * href="https://developer.mozilla.org/en-US/docs/Web/API/DataTransfer/dropEffect">MDN official
  * documentation</a>
+ *
+ * @author vegegoku
+ * @version $Id: $Id
  */
 public enum DropEffect {
   COPY("copy"),
@@ -35,6 +38,11 @@ public enum DropEffect {
   }
 
   /** @return the effect */
+  /**
+   * Getter for the field <code>effect</code>.
+   *
+   * @return a {@link java.lang.String} object
+   */
   public String getEffect() {
     return effect;
   }

@@ -17,11 +17,24 @@ package org.dominokit.domino.ui.utils;
 
 import static java.util.Objects.isNull;
 
+/**
+ * MatchHighlighter class.
+ *
+ * @author vegegoku
+ * @version $Id: $Id
+ */
 public class MatchHighlighter {
 
   private static final String prefix = "<mark>";
   private static final String postfix = "</mark>";
 
+  /**
+   * highlight.
+   *
+   * @param source a {@link java.lang.String} object
+   * @param part a {@link java.lang.String} object
+   * @return a {@link java.lang.String} object
+   */
   public static String highlight(String source, String part) {
     if (isNull(part)
         || isNull(source)

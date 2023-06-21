@@ -26,6 +26,12 @@ import org.dominokit.domino.ui.utils.HasPostfix;
 import org.dominokit.domino.ui.utils.HasPrefix;
 import org.dominokit.domino.ui.utils.LazyChild;
 
+/**
+ * Abstract TextInputFormField class.
+ *
+ * @author vegegoku
+ * @version $Id: $Id
+ */
 public abstract class TextInputFormField<
         T extends InputFormField<T, E, V>, E extends HTMLInputElement, V>
     extends CountableInputFormField<T, E, V> implements HasPostfix<T>, HasPrefix<T> {
@@ -57,6 +63,7 @@ public abstract class TextInputFormField<
         });
   }
 
+  /** Constructor for TextInputFormField. */
   public TextInputFormField() {
     prefixElement = LazyChild.of(div().addCss(dui_field_prefix), wrapperElement);
     postfixElement = LazyChild.of(div().addCss(dui_field_postfix), wrapperElement);
@@ -64,12 +71,14 @@ public abstract class TextInputFormField<
     addTypeMismatchValidator();
   }
 
+  /** {@inheritDoc} */
   @Override
   public T setPostfix(String postfix) {
     postfixElement.get().setTextContent(postfix);
     return (T) this;
   }
 
+  /** {@inheritDoc} */
   @Override
   public String getPostfix() {
     if (postfixElement.isInitialized()) {
@@ -78,12 +87,14 @@ public abstract class TextInputFormField<
     return "";
   }
 
+  /** {@inheritDoc} */
   @Override
   public T setPrefix(String prefix) {
     prefixElement.get().setTextContent(prefix);
     return (T) this;
   }
 
+  /** {@inheritDoc} */
   @Override
   public String getPrefix() {
     if (prefixElement.isInitialized()) {
@@ -92,39 +103,73 @@ public abstract class TextInputFormField<
     return "";
   }
 
+  /**
+   * Getter for the field <code>prefixElement</code>.
+   *
+   * @return a {@link org.dominokit.domino.ui.elements.DivElement} object
+   */
   public DivElement getPrefixElement() {
     return prefixElement.get();
   }
 
+  /**
+   * Getter for the field <code>postfixElement</code>.
+   *
+   * @return a {@link org.dominokit.domino.ui.elements.DivElement} object
+   */
   public DivElement getPostfixElement() {
     return postfixElement.get();
   }
 
+  /**
+   * withPrefixElement.
+   *
+   * @return a T object
+   */
   public T withPrefixElement() {
     prefixElement.get();
     return (T) this;
   }
 
+  /**
+   * withPrefixElement.
+   *
+   * @param handler a {@link org.dominokit.domino.ui.utils.ChildHandler} object
+   * @return a T object
+   */
   public T withPrefixElement(ChildHandler<T, DivElement> handler) {
     handler.apply((T) this, prefixElement.get());
     return (T) this;
   }
 
+  /**
+   * withPostfixElement.
+   *
+   * @return a T object
+   */
   public T withPostfixElement() {
     postfixElement.get();
     return (T) this;
   }
 
+  /**
+   * withPostfixElement.
+   *
+   * @param handler a {@link org.dominokit.domino.ui.utils.ChildHandler} object
+   * @return a T object
+   */
   public T withPostfixElement(ChildHandler<T, DivElement> handler) {
     handler.apply((T) this, postfixElement.get());
     return (T) this;
   }
 
+  /** {@inheritDoc} */
   @Override
   public String getName() {
     return getInputElement().element().name;
   }
 
+  /** {@inheritDoc} */
   @Override
   public T setName(String name) {
     getInputElement().element().name = name;
@@ -159,11 +204,18 @@ public abstract class TextInputFormField<
   }
 
   /** @return the value of the <b>pattern</b> attribute of this component input element */
+  /**
+   * getPattern.
+   *
+   * @return a {@link java.lang.String} object
+   */
   public String getPattern() {
     return getInputElement().getAttribute("pattern");
   }
 
   /**
+   * Setter for the field <code>invalidPatternErrorMessage</code>.
+   *
    * @param invalidPatternErrorMessage String error message to be used when the field value does not
    *     match the provided pattern
    * @return same implementing component instance
@@ -174,6 +226,8 @@ public abstract class TextInputFormField<
   }
 
   /**
+   * Getter for the field <code>invalidPatternErrorMessage</code>.
+   *
    * @return the String error message to be used when the field value does not match the provided
    *     pattern
    */
@@ -183,6 +237,12 @@ public abstract class TextInputFormField<
         : invalidPatternErrorMessage;
   }
 
+  /**
+   * Setter for the field <code>typeMismatchErrorMessage</code>.
+   *
+   * @param typeMismatchErrorMessage a {@link java.lang.String} object
+   * @return a T object
+   */
   public T setTypeMismatchErrorMessage(String typeMismatchErrorMessage) {
     this.typeMismatchErrorMessage = typeMismatchErrorMessage;
     return (T) this;

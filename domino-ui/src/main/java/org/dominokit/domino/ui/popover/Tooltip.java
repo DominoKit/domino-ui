@@ -35,7 +35,8 @@ import org.dominokit.domino.ui.utils.BaseDominoElement;
 /**
  * A component for showing content on top of another element in different locations.
  *
- * <p>Customize the component can be done by overwriting classes provided by {@link PopoverStyles}
+ * <p>Customize the component can be done by overwriting classes provided by {@link
+ * org.dominokit.domino.ui.popover.PopoverStyles}
  *
  * <p>For example:
  *
@@ -44,6 +45,8 @@ import org.dominokit.domino.ui.utils.BaseDominoElement;
  * </pre>
  *
  * @see BaseDominoElement
+ * @author vegegoku
+ * @version $Id: $Id
  */
 public class Tooltip extends BasePopover<Tooltip> {
 
@@ -59,22 +62,56 @@ public class Tooltip extends BasePopover<Tooltip> {
   private final Consumer<Tooltip> removeHandler;
   private boolean closeOnEscape = true;
 
+  /**
+   * create.
+   *
+   * @param target a {@link elemental2.dom.Element} object
+   * @param text a {@link java.lang.String} object
+   * @return a {@link org.dominokit.domino.ui.popover.Tooltip} object
+   */
   public static Tooltip create(Element target, String text) {
     return new Tooltip(target, elements.text(text));
   }
 
+  /**
+   * create.
+   *
+   * @param target a {@link org.dominokit.domino.ui.IsElement} object
+   * @param text a {@link java.lang.String} object
+   * @return a {@link org.dominokit.domino.ui.popover.Tooltip} object
+   */
   public static Tooltip create(IsElement<? extends Element> target, String text) {
     return new Tooltip(target.element(), elements.text(text));
   }
 
+  /**
+   * create.
+   *
+   * @param target a {@link elemental2.dom.Element} object
+   * @param content a {@link elemental2.dom.Node} object
+   * @return a {@link org.dominokit.domino.ui.popover.Tooltip} object
+   */
   public static Tooltip create(Element target, Node content) {
     return new Tooltip(target, content);
   }
 
+  /**
+   * create.
+   *
+   * @param target a {@link org.dominokit.domino.ui.IsElement} object
+   * @param content a {@link elemental2.dom.Node} object
+   * @return a {@link org.dominokit.domino.ui.popover.Tooltip} object
+   */
   public static Tooltip create(IsElement<? extends Element> target, Node content) {
     return new Tooltip(target.element(), content);
   }
 
+  /**
+   * Constructor for Tooltip.
+   *
+   * @param target a {@link elemental2.dom.Element} object
+   * @param content a {@link elemental2.dom.Node} object
+   */
   public Tooltip(Element target, Node content) {
     super(target);
     setAttribute("dui-tooltip", true);
@@ -101,17 +138,20 @@ public class Tooltip extends BasePopover<Tooltip> {
     addCollapseListener(() -> removeEventListener(DUI_REMOVE_TOOLTIPS, closeAllListener));
   }
 
+  /** {@inheritDoc} */
   @Override
   protected EventListener getCloseListener() {
     return evt -> closeOthers("");
   }
 
+  /** {@inheritDoc} */
   @Override
   protected Tooltip closeOthers(String sourceId) {
     ModalBackDrop.INSTANCE.closeTooltips(sourceId);
     return this;
   }
 
+  /** {@inheritDoc} */
   @Override
   protected void doOpen() {
     super.doOpen();

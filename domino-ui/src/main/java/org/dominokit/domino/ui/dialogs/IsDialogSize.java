@@ -15,4 +15,10 @@
  */
 package org.dominokit.domino.ui.dialogs;
 
+/**
+ * IsDialogSize interface.
+ *
+ * @author vegegoku
+ * @version $Id: $Id
+ */
 public interface IsDialogSize extends IsDialogWidth, IsDialogHeight {}

@@ -28,6 +28,9 @@ import org.dominokit.domino.ui.i18n.DominoUILabels;
  * This class provides global configuration for form fields
  *
  * <p>These configurations should be set before creating the form fields
+ *
+ * @author vegegoku
+ * @version $Id: $Id
  */
 public class DominoUIConfig {
 
@@ -62,6 +65,7 @@ public class DominoUIConfig {
   //  private TreeCollapseSupplier defaultTreeCollapseStrategySupplier =
   //      TreeHeightCollapseStrategy::new;
 
+  /** Constructor for DominoUIConfig. */
   protected DominoUIConfig() {}
 
   //
@@ -129,10 +133,21 @@ public class DominoUIConfig {
   //    return this;
   //  }
 
+  /**
+   * Getter for the field <code>dominoUILabels</code>.
+   *
+   * @return a {@link org.dominokit.domino.ui.i18n.DominoUILabels} object
+   */
   public DominoUILabels getDominoUILabels() {
     return dominoUILabels;
   }
 
+  /**
+   * Setter for the field <code>dominoUILabels</code>.
+   *
+   * @param dominoUILabels a {@link org.dominokit.domino.ui.i18n.DominoUILabels} object
+   * @return a {@link org.dominokit.domino.ui.utils.DominoUIConfig} object
+   */
   public DominoUIConfig setDominoUILabels(DominoUILabels dominoUILabels) {
     if (nonNull(dominoUILabels)) {
       this.dominoUILabels = dominoUILabels;
@@ -140,10 +155,21 @@ public class DominoUIConfig {
     return this;
   }
 
+  /**
+   * getUIConfig.
+   *
+   * @return a {@link org.dominokit.domino.ui.config.UIConfig} object
+   */
   public UIConfig getUIConfig() {
     return uiConfig;
   }
 
+  /**
+   * setUIConfig.
+   *
+   * @param uiConfig a {@link org.dominokit.domino.ui.config.UIConfig} object
+   * @return a {@link org.dominokit.domino.ui.utils.DominoUIConfig} object
+   */
   public DominoUIConfig setUIConfig(UIConfig uiConfig) {
     if (nonNull(uiConfig)) {
       this.uiConfig = uiConfig;

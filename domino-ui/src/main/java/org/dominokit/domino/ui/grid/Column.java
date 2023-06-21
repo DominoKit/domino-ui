@@ -32,7 +32,8 @@ import org.dominokit.domino.ui.utils.BaseDominoElement;
  * href="https://developer.mozilla.org/en-US/docs/Web/CSS/grid-column">MDN official
  * documentation</a>
  *
- * <p>Customize the component can be done by overwriting classes provided by {@link GridStyles}
+ * <p>Customize the component can be done by overwriting classes provided by {@link
+ * org.dominokit.domino.ui.grid.GridStyles}
  *
  * <p>For example:
  *
@@ -43,6 +44,8 @@ import org.dominokit.domino.ui.utils.BaseDominoElement;
  *
  * @see BaseDominoElement
  * @see Cloneable
+ * @author vegegoku
+ * @version $Id: $Id
  */
 public class Column extends BaseDominoElement<HTMLElement, Column>
     implements Cloneable, GridStyles {
@@ -141,6 +144,7 @@ public class Column extends BaseDominoElement<HTMLElement, Column>
    * of full row for screens that are smaller and equal small
    *
    * @return new instance
+   * @param content a {@link org.dominokit.domino.ui.IsElement} object
    */
   public static Column span1(IsElement<?> content) {
     return span1().appendChild(content);
@@ -156,6 +160,12 @@ public class Column extends BaseDominoElement<HTMLElement, Column>
     return colspan(_2, _full);
   }
 
+  /**
+   * span2.
+   *
+   * @param content a {@link org.dominokit.domino.ui.IsElement} object
+   * @return a {@link org.dominokit.domino.ui.grid.Column} object
+   */
   public static Column span2(IsElement<?> content) {
     return span2().appendChild(content);
   }
@@ -170,6 +180,12 @@ public class Column extends BaseDominoElement<HTMLElement, Column>
     return colspan(Span._3, _full);
   }
 
+  /**
+   * span3.
+   *
+   * @param content a {@link org.dominokit.domino.ui.IsElement} object
+   * @return a {@link org.dominokit.domino.ui.grid.Column} object
+   */
   public static Column span3(IsElement<?> content) {
     return span3().appendChild(content);
   }
@@ -184,6 +200,12 @@ public class Column extends BaseDominoElement<HTMLElement, Column>
     return colspan(_4, _full);
   }
 
+  /**
+   * span4.
+   *
+   * @param content a {@link org.dominokit.domino.ui.IsElement} object
+   * @return a {@link org.dominokit.domino.ui.grid.Column} object
+   */
   public static Column span4(IsElement<?> content) {
     return span4().appendChild(content);
   }
@@ -197,6 +219,12 @@ public class Column extends BaseDominoElement<HTMLElement, Column>
     return colspan(_5, _full);
   }
 
+  /**
+   * span5.
+   *
+   * @param content a {@link org.dominokit.domino.ui.IsElement} object
+   * @return a {@link org.dominokit.domino.ui.grid.Column} object
+   */
   public static Column span5(IsElement<?> content) {
     return span5().appendChild(content);
   }
@@ -211,6 +239,12 @@ public class Column extends BaseDominoElement<HTMLElement, Column>
     return colspan(_6, _full);
   }
 
+  /**
+   * span6.
+   *
+   * @param content a {@link org.dominokit.domino.ui.IsElement} object
+   * @return a {@link org.dominokit.domino.ui.grid.Column} object
+   */
   public static Column span6(IsElement<?> content) {
     return span6().appendChild(content);
   }
@@ -224,6 +258,12 @@ public class Column extends BaseDominoElement<HTMLElement, Column>
     return colspan(_7, _full);
   }
 
+  /**
+   * span7.
+   *
+   * @param content a {@link org.dominokit.domino.ui.IsElement} object
+   * @return a {@link org.dominokit.domino.ui.grid.Column} object
+   */
   public static Column span7(IsElement<?> content) {
     return span7().appendChild(content);
   }
@@ -237,6 +277,12 @@ public class Column extends BaseDominoElement<HTMLElement, Column>
     return colspan(_8, _full);
   }
 
+  /**
+   * span8.
+   *
+   * @param content a {@link org.dominokit.domino.ui.IsElement} object
+   * @return a {@link org.dominokit.domino.ui.grid.Column} object
+   */
   public static Column span8(IsElement<?> content) {
     return span8().appendChild(content);
   }
@@ -250,6 +296,12 @@ public class Column extends BaseDominoElement<HTMLElement, Column>
     return colspan(_9, _full);
   }
 
+  /**
+   * span9.
+   *
+   * @param content a {@link org.dominokit.domino.ui.IsElement} object
+   * @return a {@link org.dominokit.domino.ui.grid.Column} object
+   */
   public static Column span9(IsElement<?> content) {
     return span9().appendChild(content);
   }
@@ -263,6 +315,12 @@ public class Column extends BaseDominoElement<HTMLElement, Column>
     return colspan(_10, _full);
   }
 
+  /**
+   * span10.
+   *
+   * @param content a {@link org.dominokit.domino.ui.IsElement} object
+   * @return a {@link org.dominokit.domino.ui.grid.Column} object
+   */
   public static Column span10(IsElement<?> content) {
     return span10().appendChild(content);
   }
@@ -276,6 +334,12 @@ public class Column extends BaseDominoElement<HTMLElement, Column>
     return colspan(_11, _full);
   }
 
+  /**
+   * span11.
+   *
+   * @param content a {@link org.dominokit.domino.ui.IsElement} object
+   * @return a {@link org.dominokit.domino.ui.grid.Column} object
+   */
   public static Column span11(IsElement<?> content) {
     return span11().appendChild(content);
   }
@@ -289,6 +353,12 @@ public class Column extends BaseDominoElement<HTMLElement, Column>
     return colspan(_12, _full);
   }
 
+  /**
+   * span12.
+   *
+   * @param content a {@link org.dominokit.domino.ui.IsElement} object
+   * @return a {@link org.dominokit.domino.ui.grid.Column} object
+   */
   public static Column span12(IsElement<?> content) {
     return span12().appendChild(content);
   }
@@ -302,6 +372,12 @@ public class Column extends BaseDominoElement<HTMLElement, Column>
     return colspan(_13, _full);
   }
 
+  /**
+   * span13.
+   *
+   * @param content a {@link org.dominokit.domino.ui.IsElement} object
+   * @return a {@link org.dominokit.domino.ui.grid.Column} object
+   */
   public static Column span13(IsElement<?> content) {
     return span13().appendChild(content);
   }
@@ -315,6 +391,12 @@ public class Column extends BaseDominoElement<HTMLElement, Column>
     return colspan(_14, _full);
   }
 
+  /**
+   * span14.
+   *
+   * @param content a {@link org.dominokit.domino.ui.IsElement} object
+   * @return a {@link org.dominokit.domino.ui.grid.Column} object
+   */
   public static Column span14(IsElement<?> content) {
     return span14().appendChild(content);
   }
@@ -328,6 +410,12 @@ public class Column extends BaseDominoElement<HTMLElement, Column>
     return colspan(_15, _full);
   }
 
+  /**
+   * span15.
+   *
+   * @param content a {@link org.dominokit.domino.ui.IsElement} object
+   * @return a {@link org.dominokit.domino.ui.grid.Column} object
+   */
   public static Column span15(IsElement<?> content) {
     return span15().appendChild(content);
   }
@@ -341,6 +429,12 @@ public class Column extends BaseDominoElement<HTMLElement, Column>
     return colspan(_16, _full);
   }
 
+  /**
+   * span16.
+   *
+   * @param content a {@link org.dominokit.domino.ui.IsElement} object
+   * @return a {@link org.dominokit.domino.ui.grid.Column} object
+   */
   public static Column span16(IsElement<?> content) {
     return span16().appendChild(content);
   }
@@ -355,6 +449,12 @@ public class Column extends BaseDominoElement<HTMLElement, Column>
     return colspan(_17, _full);
   }
 
+  /**
+   * span17.
+   *
+   * @param content a {@link org.dominokit.domino.ui.IsElement} object
+   * @return a {@link org.dominokit.domino.ui.grid.Column} object
+   */
   public static Column span17(IsElement<?> content) {
     return span17().appendChild(content);
   }
@@ -369,6 +469,12 @@ public class Column extends BaseDominoElement<HTMLElement, Column>
     return colspan(_18, _full);
   }
 
+  /**
+   * span18.
+   *
+   * @param content a {@link org.dominokit.domino.ui.IsElement} object
+   * @return a {@link org.dominokit.domino.ui.grid.Column} object
+   */
   public static Column span18(IsElement<?> content) {
     return span18().appendChild(content);
   }
@@ -382,6 +488,12 @@ public class Column extends BaseDominoElement<HTMLElement, Column>
     return colspan(_19, _full);
   }
 
+  /**
+   * span19.
+   *
+   * @param content a {@link org.dominokit.domino.ui.IsElement} object
+   * @return a {@link org.dominokit.domino.ui.grid.Column} object
+   */
   public static Column span19(IsElement<?> content) {
     return span19().appendChild(content);
   }
@@ -395,6 +507,12 @@ public class Column extends BaseDominoElement<HTMLElement, Column>
     return colspan(_20, _full);
   }
 
+  /**
+   * span20.
+   *
+   * @param content a {@link org.dominokit.domino.ui.IsElement} object
+   * @return a {@link org.dominokit.domino.ui.grid.Column} object
+   */
   public static Column span20(IsElement<?> content) {
     return span20().appendChild(content);
   }
@@ -408,6 +526,12 @@ public class Column extends BaseDominoElement<HTMLElement, Column>
     return colspan(_21, _full);
   }
 
+  /**
+   * span21.
+   *
+   * @param content a {@link org.dominokit.domino.ui.IsElement} object
+   * @return a {@link org.dominokit.domino.ui.grid.Column} object
+   */
   public static Column span21(IsElement<?> content) {
     return span21().appendChild(content);
   }
@@ -421,6 +545,12 @@ public class Column extends BaseDominoElement<HTMLElement, Column>
     return colspan(_22, _full);
   }
 
+  /**
+   * span22.
+   *
+   * @param content a {@link org.dominokit.domino.ui.IsElement} object
+   * @return a {@link org.dominokit.domino.ui.grid.Column} object
+   */
   public static Column span22(IsElement<?> content) {
     return span22().appendChild(content);
   }
@@ -434,6 +564,12 @@ public class Column extends BaseDominoElement<HTMLElement, Column>
     return colspan(_23, _full);
   }
 
+  /**
+   * span23.
+   *
+   * @param content a {@link org.dominokit.domino.ui.IsElement} object
+   * @return a {@link org.dominokit.domino.ui.grid.Column} object
+   */
   public static Column span23(IsElement<?> content) {
     return span23().appendChild(content);
   }
@@ -447,6 +583,12 @@ public class Column extends BaseDominoElement<HTMLElement, Column>
     return colspan(_24, _full);
   }
 
+  /**
+   * span24.
+   *
+   * @param content a {@link org.dominokit.domino.ui.IsElement} object
+   * @return a {@link org.dominokit.domino.ui.grid.Column} object
+   */
   public static Column span24(IsElement<?> content) {
     return span24().appendChild(content);
   }
@@ -460,6 +602,12 @@ public class Column extends BaseDominoElement<HTMLElement, Column>
     return colspan(_25, _full);
   }
 
+  /**
+   * span25.
+   *
+   * @param content a {@link org.dominokit.domino.ui.IsElement} object
+   * @return a {@link org.dominokit.domino.ui.grid.Column} object
+   */
   public static Column span25(IsElement<?> content) {
     return span25().appendChild(content);
   }
@@ -473,6 +621,12 @@ public class Column extends BaseDominoElement<HTMLElement, Column>
     return colspan(_26, _full);
   }
 
+  /**
+   * span26.
+   *
+   * @param content a {@link org.dominokit.domino.ui.IsElement} object
+   * @return a {@link org.dominokit.domino.ui.grid.Column} object
+   */
   public static Column span26(IsElement<?> content) {
     return span26().appendChild(content);
   }
@@ -486,6 +640,12 @@ public class Column extends BaseDominoElement<HTMLElement, Column>
     return colspan(_27, _full);
   }
 
+  /**
+   * span27.
+   *
+   * @param content a {@link org.dominokit.domino.ui.IsElement} object
+   * @return a {@link org.dominokit.domino.ui.grid.Column} object
+   */
   public static Column span27(IsElement<?> content) {
     return span27().appendChild(content);
   }
@@ -499,6 +659,12 @@ public class Column extends BaseDominoElement<HTMLElement, Column>
     return colspan(_28, _full);
   }
 
+  /**
+   * span28.
+   *
+   * @param content a {@link org.dominokit.domino.ui.IsElement} object
+   * @return a {@link org.dominokit.domino.ui.grid.Column} object
+   */
   public static Column span28(IsElement<?> content) {
     return span28().appendChild(content);
   }
@@ -512,6 +678,12 @@ public class Column extends BaseDominoElement<HTMLElement, Column>
     return colspan(_29, _full);
   }
 
+  /**
+   * span29.
+   *
+   * @param content a {@link org.dominokit.domino.ui.IsElement} object
+   * @return a {@link org.dominokit.domino.ui.grid.Column} object
+   */
   public static Column span29(IsElement<?> content) {
     return span29().appendChild(content);
   }
@@ -525,6 +697,12 @@ public class Column extends BaseDominoElement<HTMLElement, Column>
     return colspan(_30, _full);
   }
 
+  /**
+   * span30.
+   *
+   * @param content a {@link org.dominokit.domino.ui.IsElement} object
+   * @return a {@link org.dominokit.domino.ui.grid.Column} object
+   */
   public static Column span30(IsElement<?> content) {
     return span30().appendChild(content);
   }
@@ -538,6 +716,12 @@ public class Column extends BaseDominoElement<HTMLElement, Column>
     return colspan(_31, _full);
   }
 
+  /**
+   * span31.
+   *
+   * @param content a {@link org.dominokit.domino.ui.IsElement} object
+   * @return a {@link org.dominokit.domino.ui.grid.Column} object
+   */
   public static Column span31(IsElement<?> content) {
     return span31().appendChild(content);
   }
@@ -551,6 +735,12 @@ public class Column extends BaseDominoElement<HTMLElement, Column>
     return colspan(_32, _full);
   }
 
+  /**
+   * span32.
+   *
+   * @param content a {@link org.dominokit.domino.ui.IsElement} object
+   * @return a {@link org.dominokit.domino.ui.grid.Column} object
+   */
   public static Column span32(IsElement<?> content) {
     return span32().appendChild(content);
   }
@@ -901,7 +1091,7 @@ public class Column extends BaseDominoElement<HTMLElement, Column>
   /**
    * Sets the size of the column when the screen is X large
    *
-   * @param span the new {@link Span} size
+   * @param span the new {@link org.dominokit.domino.ui.grid.Column.Span} size
    * @return same instance
    */
   public Column onXLarge(Span span) {
@@ -912,7 +1102,7 @@ public class Column extends BaseDominoElement<HTMLElement, Column>
   /**
    * Sets the size of the column when the screen is large
    *
-   * @param span the new {@link Span} size
+   * @param span the new {@link org.dominokit.domino.ui.grid.Column.Span} size
    * @return same instance
    */
   public Column onLarge(Span span) {
@@ -923,7 +1113,7 @@ public class Column extends BaseDominoElement<HTMLElement, Column>
   /**
    * Sets the size of the column when the screen is medium
    *
-   * @param span the new {@link Span} size
+   * @param span the new {@link org.dominokit.domino.ui.grid.Column.Span} size
    * @return same instance
    */
   public Column onMedium(Span span) {
@@ -934,7 +1124,7 @@ public class Column extends BaseDominoElement<HTMLElement, Column>
   /**
    * Sets the size of the column when the screen is small
    *
-   * @param span the new {@link Span} size
+   * @param span the new {@link org.dominokit.domino.ui.grid.Column.Span} size
    * @return same instance
    */
   public Column onSmall(Span span) {
@@ -945,7 +1135,7 @@ public class Column extends BaseDominoElement<HTMLElement, Column>
   /**
    * Sets the size of the column when the screen is X small
    *
-   * @param span the new {@link Span} size
+   * @param span the new {@link org.dominokit.domino.ui.grid.Column.Span} size
    * @return same instance
    */
   public Column onXSmall(Span span) {
@@ -956,7 +1146,7 @@ public class Column extends BaseDominoElement<HTMLElement, Column>
   /**
    * Sets the offset of the column when the screen is X large
    *
-   * @param offset the new {@link Offset} offset
+   * @param offset the new {@link org.dominokit.domino.ui.grid.Column.Offset} offset
    * @return same instance
    */
   public Column onXLargeOffset(Offset offset) {
@@ -967,7 +1157,7 @@ public class Column extends BaseDominoElement<HTMLElement, Column>
   /**
    * Sets the offset of the column when the screen is large
    *
-   * @param offset the new {@link Offset} offset
+   * @param offset the new {@link org.dominokit.domino.ui.grid.Column.Offset} offset
    * @return same instance
    */
   public Column onLargeOffset(Offset offset) {
@@ -978,7 +1168,7 @@ public class Column extends BaseDominoElement<HTMLElement, Column>
   /**
    * Sets the offset of the column when the screen is medium
    *
-   * @param offset the new {@link Offset} offset
+   * @param offset the new {@link org.dominokit.domino.ui.grid.Column.Offset} offset
    * @return same instance
    */
   public Column onMediumOffset(Offset offset) {
@@ -989,7 +1179,7 @@ public class Column extends BaseDominoElement<HTMLElement, Column>
   /**
    * Sets the offset of the column when the screen is small
    *
-   * @param offset the new {@link Offset} offset
+   * @param offset the new {@link org.dominokit.domino.ui.grid.Column.Offset} offset
    * @return same instance
    */
   public Column onSmallOffset(Offset offset) {
@@ -1000,7 +1190,7 @@ public class Column extends BaseDominoElement<HTMLElement, Column>
   /**
    * Sets the offset of the column when the screen is X small
    *
-   * @param offset the new {@link Offset} offset
+   * @param offset the new {@link org.dominokit.domino.ui.grid.Column.Offset} offset
    * @return same instance
    */
   public Column onXSmallOffset(Offset offset) {
@@ -1009,51 +1199,101 @@ public class Column extends BaseDominoElement<HTMLElement, Column>
   }
 
   /** @return The {@link PostfixCssClass} size */
+  /**
+   * Getter for the field <code>onXLargeStyle</code>.
+   *
+   * @return a {@link org.dominokit.domino.ui.style.PostfixCssClass} object
+   */
   public PostfixCssClass getOnXLargeStyle() {
     return onXLargeStyle;
   }
 
   /** @return The {@link PostfixCssClass} size */
+  /**
+   * Getter for the field <code>onLargeStyle</code>.
+   *
+   * @return a {@link org.dominokit.domino.ui.style.PostfixCssClass} object
+   */
   public PostfixCssClass getOnLargeStyle() {
     return onLargeStyle;
   }
 
   /** @return The {@link PostfixCssClass} size */
+  /**
+   * Getter for the field <code>onMediumStyle</code>.
+   *
+   * @return a {@link org.dominokit.domino.ui.style.PostfixCssClass} object
+   */
   public PostfixCssClass getOnMediumStyle() {
     return onMediumStyle;
   }
 
   /** @return The {@link PostfixCssClass} size */
+  /**
+   * Getter for the field <code>onSmallStyle</code>.
+   *
+   * @return a {@link org.dominokit.domino.ui.style.PostfixCssClass} object
+   */
   public PostfixCssClass getOnSmallStyle() {
     return onSmallStyle;
   }
 
   /** @return The {@link PostfixCssClass} size */
+  /**
+   * Getter for the field <code>onXSmallStyle</code>.
+   *
+   * @return a {@link org.dominokit.domino.ui.style.PostfixCssClass} object
+   */
   public PostfixCssClass getOnXSmallStyle() {
     return onXSmallStyle;
   }
 
   /** @return The {@link PostfixCssClass} offset */
+  /**
+   * Getter for the field <code>onMediumOffsetStyle</code>.
+   *
+   * @return a {@link org.dominokit.domino.ui.style.PostfixCssClass} object
+   */
   public PostfixCssClass getOnMediumOffsetStyle() {
     return onMediumOffsetStyle;
   }
 
   /** @return The {@link PostfixCssClass} offset */
+  /**
+   * Getter for the field <code>onXSmallOffsetStyle</code>.
+   *
+   * @return a {@link org.dominokit.domino.ui.style.PostfixCssClass} object
+   */
   public PostfixCssClass getOnXSmallOffsetStyle() {
     return onXSmallOffsetStyle;
   }
 
   /** @return The {@link PostfixCssClass} offset */
+  /**
+   * Getter for the field <code>onXLargeOffsetStyle</code>.
+   *
+   * @return a {@link org.dominokit.domino.ui.style.PostfixCssClass} object
+   */
   public PostfixCssClass getOnXLargeOffsetStyle() {
     return onXLargeOffsetStyle;
   }
 
   /** @return The {@link PostfixCssClass} offset */
+  /**
+   * Getter for the field <code>onLargeOffsetStyle</code>.
+   *
+   * @return a {@link org.dominokit.domino.ui.style.PostfixCssClass} object
+   */
   public PostfixCssClass getOnLargeOffsetStyle() {
     return onLargeOffsetStyle;
   }
 
   /** @return The {@link PostfixCssClass} offset */
+  /**
+   * Getter for the field <code>onSmallOffsetStyle</code>.
+   *
+   * @return a {@link org.dominokit.domino.ui.style.PostfixCssClass} object
+   */
   public PostfixCssClass getOnSmallOffsetStyle() {
     return onSmallOffsetStyle;
   }

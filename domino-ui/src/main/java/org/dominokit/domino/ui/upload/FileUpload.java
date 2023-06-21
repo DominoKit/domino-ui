@@ -49,6 +49,8 @@ import org.dominokit.domino.ui.utils.LazyChild;
  *
  * @see BaseDominoElement
  * @see HasName
+ * @author vegegoku
+ * @version $Id: $Id
  */
 public class FileUpload extends BaseDominoElement<HTMLDivElement, FileUpload>
     implements HasName<FileUpload>,
@@ -56,8 +58,10 @@ public class FileUpload extends BaseDominoElement<HTMLDivElement, FileUpload>
         HasComponentConfig<UploadConfig>,
         HasLabels<UploadLabels> {
 
+  /** Constant <code>DEFAULT_SUCCESS_CODES</code> */
   public static final Supplier<List<Integer>> DEFAULT_SUCCESS_CODES =
       () -> Arrays.asList(200, 201, 202, 203, 204, 205, 206, 207, 208, 226);
+
   private final DivElement root;
   private final DivElement messagesContainer;
 
@@ -75,22 +79,50 @@ public class FileUpload extends BaseDominoElement<HTMLDivElement, FileUpload>
   private DropEffect dropEffect;
 
   /** @return new instance */
+  /**
+   * create.
+   *
+   * @return a {@link org.dominokit.domino.ui.upload.FileUpload} object
+   */
   public static FileUpload create() {
     return new FileUpload();
   }
 
   /** @return new instance */
+  /**
+   * create.
+   *
+   * @param filePreviewFactory a {@link org.dominokit.domino.ui.upload.FilePreviewFactory} object
+   * @param filePreviewContainer a {@link org.dominokit.domino.ui.upload.FilePreviewContainer}
+   *     object
+   * @return a {@link org.dominokit.domino.ui.upload.FileUpload} object
+   */
   public static FileUpload create(
       FilePreviewFactory filePreviewFactory, FilePreviewContainer<?, ?> filePreviewContainer) {
     return new FileUpload(filePreviewFactory, filePreviewContainer);
   }
 
   /** @return new instance */
+  /**
+   * create.
+   *
+   * @param filePreviewFactory a {@link org.dominokit.domino.ui.upload.FilePreviewFactory} object
+   * @return a {@link org.dominokit.domino.ui.upload.FileUpload} object
+   */
   public static FileUpload create(FilePreviewFactory filePreviewFactory) {
     return new FileUpload(filePreviewFactory);
   }
 
   /** @return new instance */
+  /**
+   * create.
+   *
+   * @param filePreviewFactory a {@link org.dominokit.domino.ui.upload.FilePreviewFactory} object
+   * @param filePreviewContainer a {@link org.dominokit.domino.ui.upload.FilePreviewContainer}
+   *     object
+   * @param decoration a {@link org.dominokit.domino.ui.IsElement} object
+   * @return a {@link org.dominokit.domino.ui.upload.FileUpload} object
+   */
   public static FileUpload create(
       FilePreviewFactory filePreviewFactory,
       FilePreviewContainer<?, ?> filePreviewContainer,
@@ -98,6 +130,13 @@ public class FileUpload extends BaseDominoElement<HTMLDivElement, FileUpload>
     return new FileUpload(filePreviewFactory, filePreviewContainer, decoration);
   }
 
+  /**
+   * Constructor for FileUpload.
+   *
+   * @param filePreviewFactory a {@link org.dominokit.domino.ui.upload.FilePreviewFactory} object
+   * @param filePreviewContainer a {@link org.dominokit.domino.ui.upload.FilePreviewContainer}
+   *     object
+   */
   public FileUpload(
       FilePreviewFactory filePreviewFactory, FilePreviewContainer<?, ?> filePreviewContainer) {
     this.filePreviewFactory = filePreviewFactory;
@@ -157,6 +196,14 @@ public class FileUpload extends BaseDominoElement<HTMLDivElement, FileUpload>
         });
   }
 
+  /**
+   * Constructor for FileUpload.
+   *
+   * @param filePreviewFactory a {@link org.dominokit.domino.ui.upload.FilePreviewFactory} object
+   * @param filePreviewContainer a {@link org.dominokit.domino.ui.upload.FilePreviewContainer}
+   *     object
+   * @param decoration a {@link org.dominokit.domino.ui.IsElement} object
+   */
   public FileUpload(
       FilePreviewFactory filePreviewFactory,
       FilePreviewContainer<?, ?> filePreviewContainer,
@@ -165,20 +212,38 @@ public class FileUpload extends BaseDominoElement<HTMLDivElement, FileUpload>
     setDecoration(decoration.element());
   }
 
+  /**
+   * Constructor for FileUpload.
+   *
+   * @param filePreviewFactory a {@link org.dominokit.domino.ui.upload.FilePreviewFactory} object
+   */
   public FileUpload(FilePreviewFactory filePreviewFactory) {
     this(filePreviewFactory, CONFIG.getUIConfig().getDefaultFilePreviewContainer().get());
   }
 
+  /** Constructor for FileUpload. */
   public FileUpload() {
     this(
         CONFIG.getUIConfig().getFilePreviewFactory(),
         CONFIG.getUIConfig().getDefaultFilePreviewContainer().get());
   }
 
+  /**
+   * Setter for the field <code>decoration</code>.
+   *
+   * @param decoration a {@link org.dominokit.domino.ui.IsElement} object
+   * @return a {@link org.dominokit.domino.ui.upload.FileUpload} object
+   */
   public FileUpload setDecoration(IsElement<?> decoration) {
     return setDecoration(decoration.element());
   }
 
+  /**
+   * Setter for the field <code>decoration</code>.
+   *
+   * @param decoration a {@link elemental2.dom.Element} object
+   * @return a {@link org.dominokit.domino.ui.upload.FileUpload} object
+   */
   public FileUpload setDecoration(Element decoration) {
     if (nonNull(this.decoration) && this.decoration.isInitialized()) {
       this.decoration.remove();
@@ -191,10 +256,20 @@ public class FileUpload extends BaseDominoElement<HTMLDivElement, FileUpload>
     return this;
   }
 
+  /**
+   * Setter for the field <code>maxAllowedUploads</code>.
+   *
+   * @param maxAllowedUploads a int
+   */
   public void setMaxAllowedUploads(int maxAllowedUploads) {
     this.maxAllowedUploads = maxAllowedUploads;
   }
 
+  /**
+   * Getter for the field <code>maxAllowedUploads</code>.
+   *
+   * @return a int
+   */
   public int getMaxAllowedUploads() {
     return maxAllowedUploads;
   }
@@ -202,7 +277,7 @@ public class FileUpload extends BaseDominoElement<HTMLDivElement, FileUpload>
   /**
    * Sets the sender of the upload request when the request is ready to be sent
    *
-   * @param requestSender the {@link UploadRequestSender}
+   * @param requestSender the {@link org.dominokit.domino.ui.upload.UploadRequestSender}
    * @return same instance
    */
   public FileUpload setRequestSender(UploadRequestSender requestSender) {
@@ -267,6 +342,7 @@ public class FileUpload extends BaseDominoElement<HTMLDivElement, FileUpload>
    * Enables multiple files upload
    *
    * @return same instance
+   * @param multiUpload a boolean
    */
   public FileUpload setMultiUpload(boolean multiUpload) {
     hiddenFileInput.element().multiple = multiUpload;
@@ -274,6 +350,8 @@ public class FileUpload extends BaseDominoElement<HTMLDivElement, FileUpload>
   }
 
   /**
+   * accept.
+   *
    * @see <a href='https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/accept'>MDN docs for
    *     accept attribute</a> Sets the accepted files extensions
    * @param acceptedFiles a comma separated string containing all the accepted file extensions
@@ -285,6 +363,8 @@ public class FileUpload extends BaseDominoElement<HTMLDivElement, FileUpload>
   }
 
   /**
+   * accept.
+   *
    * @see <a href='https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/accept'>MDN docs for
    *     accept attribute</a> Sets the accepted files extensions
    * @param acceptedFiles a comma separated string containing all the accepted file extensions
@@ -297,7 +377,7 @@ public class FileUpload extends BaseDominoElement<HTMLDivElement, FileUpload>
   /**
    * Sets a handler to be called when file is added
    *
-   * @param fileItemHandler a {@link FileItemHandler}
+   * @param fileItemHandler a {@link org.dominokit.domino.ui.upload.FileUpload.FileItemHandler}
    * @return same instance
    */
   public FileUpload onAddFile(FileItemHandler fileItemHandler) {
@@ -317,7 +397,8 @@ public class FileUpload extends BaseDominoElement<HTMLDivElement, FileUpload>
 
   /**
    * Sets that the file should be uploaded only when calling {@link
-   * FileUpload#uploadFiles(FileList)} or {@link FileUpload#uploadAllFiles()}
+   * FileUpload#uploadFiles(FileList)} or {@link
+   * org.dominokit.domino.ui.upload.FileUpload#uploadAllFiles()}
    *
    * @return same instance
    */
@@ -326,32 +407,63 @@ public class FileUpload extends BaseDominoElement<HTMLDivElement, FileUpload>
     return this;
   }
 
+  /**
+   * Setter for the field <code>autoUpload</code>.
+   *
+   * @param autoUpload a boolean
+   * @return a {@link org.dominokit.domino.ui.upload.FileUpload} object
+   */
   public FileUpload setAutoUpload(boolean autoUpload) {
     this.autoUpload = autoUpload;
     return this;
   }
 
   /** @return the hidden file input element */
+  /**
+   * getInputElement.
+   *
+   * @return a {@link org.dominokit.domino.ui.elements.InputElement} object
+   */
   public InputElement getInputElement() {
     return hiddenFileInput;
   }
 
   /** @return the files container */
+  /**
+   * Getter for the field <code>filesContainer</code>.
+   *
+   * @return a {@link org.dominokit.domino.ui.utils.DominoElement} object
+   */
   public DominoElement<HTMLElement> getFilesContainer() {
     return (DominoElement<HTMLElement>) filesContainer;
   }
 
   /** @return the added file items */
+  /**
+   * Getter for the field <code>addedFileItems</code>.
+   *
+   * @return a {@link java.util.List} object
+   */
   public List<FileItem> getAddedFileItems() {
     return addedFileItems;
   }
 
   /** @return all {@link FileItemHandler} defined */
+  /**
+   * getOnAddFileHandlers.
+   *
+   * @return a {@link java.util.List} object
+   */
   public List<FileItemHandler> getOnAddFileHandlers() {
     return fileItemHandlers;
   }
 
   /** @return true if auto upload is set, false otherwise */
+  /**
+   * isAutoUpload.
+   *
+   * @return a boolean
+   */
   public boolean isAutoUpload() {
     return autoUpload;
   }
@@ -370,6 +482,11 @@ public class FileUpload extends BaseDominoElement<HTMLDivElement, FileUpload>
   }
 
   /** @return the {@link DropEffect} configured */
+  /**
+   * Getter for the field <code>dropEffect</code>.
+   *
+   * @return a {@link java.util.Optional} object
+   */
   public Optional<DropEffect> getDropEffect() {
     return Optional.ofNullable(dropEffect);
   }
@@ -377,7 +494,7 @@ public class FileUpload extends BaseDominoElement<HTMLDivElement, FileUpload>
   /**
    * Sets the drop effect
    *
-   * @param dropEffect the {@link DropEffect}
+   * @param dropEffect the {@link org.dominokit.domino.ui.upload.DropEffect}
    * @return same instance
    */
   public FileUpload setDropEffect(DropEffect dropEffect) {

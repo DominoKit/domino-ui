@@ -25,6 +25,12 @@ import org.dominokit.domino.ui.style.CompositeCssClass;
 import org.dominokit.domino.ui.style.SwapCssClass;
 import org.dominokit.domino.ui.utils.ElementHandler;
 
+/**
+ * Abstract StateChangeIcon class.
+ *
+ * @author vegegoku
+ * @version $Id: $Id
+ */
 public abstract class StateChangeIcon<I extends Icon<I>, T extends StateChangeIcon<I, T>>
     extends Icon<T> {
   protected final I defaultIcon;
@@ -33,12 +39,24 @@ public abstract class StateChangeIcon<I extends Icon<I>, T extends StateChangeIc
   protected final Map<String, I> statesMap = new HashMap<>();
   private Consumer<T> onStateChanged = icon -> {};
 
+  /**
+   * Constructor for StateChangeIcon.
+   *
+   * @param defaultIcon a I object
+   */
   public StateChangeIcon(I defaultIcon) {
     this.defaultIcon = defaultIcon;
     this.icon = elementOf(this.defaultIcon);
     init((T) this);
   }
 
+  /**
+   * withState.
+   *
+   * @param state a {@link java.lang.String} object
+   * @param icon a I object
+   * @return a T object
+   */
   public T withState(String state, I icon) {
     if (nonNull(state) && !state.isEmpty() && nonNull(icon)) {
       statesMap.put(state, icon);
@@ -46,6 +64,12 @@ public abstract class StateChangeIcon<I extends Icon<I>, T extends StateChangeIc
     return (T) this;
   }
 
+  /**
+   * removeState.
+   *
+   * @param state a {@link java.lang.String} object
+   * @return a T object
+   */
   public T removeState(String state) {
     statesMap.remove(state);
     return (T) this;
@@ -54,7 +78,7 @@ public abstract class StateChangeIcon<I extends Icon<I>, T extends StateChangeIc
   /**
    * Sets a handler to be called when the icon state is changed
    *
-   * @param stateConsumer the {@link Consumer} handler
+   * @param stateConsumer the {@link java.util.function.Consumer} handler
    * @return same instance
    */
   public T onStateChanged(Consumer<T> stateConsumer) {
@@ -62,6 +86,12 @@ public abstract class StateChangeIcon<I extends Icon<I>, T extends StateChangeIc
     return (T) this;
   }
 
+  /**
+   * setState.
+   *
+   * @param state a {@link java.lang.String} object
+   * @return a T object
+   */
   public T setState(String state) {
     if (statesMap.containsKey(state)) {
       this.defaultIcon.addCss(
@@ -74,6 +104,7 @@ public abstract class StateChangeIcon<I extends Icon<I>, T extends StateChangeIc
     return (T) this;
   }
 
+  /** {@inheritDoc} */
   @Override
   public T forEachChild(ElementHandler<Icon<?>> handler) {
     handler.handleElement(defaultIcon);
@@ -81,16 +112,23 @@ public abstract class StateChangeIcon<I extends Icon<I>, T extends StateChangeIc
     return (T) this;
   }
 
+  /** {@inheritDoc} */
   @Override
   protected HTMLElement getStyleTarget() {
     return defaultIcon.element();
   }
 
+  /** {@inheritDoc} */
   @Override
   public HTMLElement getClickableElement() {
     return defaultIcon.element();
   }
 
+  /**
+   * getState.
+   *
+   * @return a {@link java.lang.String} object
+   */
   public String getState() {
     return this.currentState;
   }

@@ -30,11 +30,13 @@ import org.dominokit.domino.ui.style.BooleanCssClass;
 import org.dominokit.domino.ui.utils.*;
 
 /**
- * A component which represents an item inside a {@link ListGroup}
+ * A component which represents an item inside a {@link org.dominokit.domino.ui.lists.ListGroup}
  *
  * @param <T> the type of the value object inside the item
  * @see ListGroup
  * @see BaseDominoElement
+ * @author vegegoku
+ * @version $Id: $Id
  */
 public class ListItem<T> extends BaseDominoElement<HTMLLIElement, ListItem<T>>
     implements Selectable<ListItem<T>>,
@@ -54,10 +56,22 @@ public class ListItem<T> extends BaseDominoElement<HTMLLIElement, ListItem<T>>
   private Set<SelectionListener<? super ListItem<T>, ? super ListItem<T>>> deselectionListeners =
       new HashSet<>();
 
+  /**
+   * create.
+   *
+   * @param value a T object
+   * @param <T> a T class
+   * @return a {@link org.dominokit.domino.ui.lists.ListItem} object
+   */
   public static <T> ListItem<T> create(T value) {
     return new ListItem<>(value);
   }
 
+  /**
+   * Constructor for ListItem.
+   *
+   * @param value a T object
+   */
   public ListItem(T value) {
     this.value = value;
     this.element = li().addCss(dui_list_group_item).setAttribute("tabindex", "0");
@@ -67,6 +81,7 @@ public class ListItem<T> extends BaseDominoElement<HTMLLIElement, ListItem<T>>
     element.onKeyDown(keyEvents -> keyEvents.onEnter(this::trySelect));
   }
 
+  /** {@inheritDoc} */
   @Override
   public void bindTo(ListGroup<T> owner) {
     this.listGroup = owner;
@@ -119,49 +134,66 @@ public class ListItem<T> extends BaseDominoElement<HTMLLIElement, ListItem<T>>
   }
 
   /** @return The value */
+  /**
+   * Getter for the field <code>value</code>.
+   *
+   * @return a T object
+   */
   public T getValue() {
     return value;
   }
 
   /** @param value The new value of this item */
+  /**
+   * Setter for the field <code>value</code>.
+   *
+   * @param value a T object
+   */
   public void setValue(T value) {
     this.value = value;
   }
 
+  /** {@inheritDoc} */
   @Override
   public ListItem<T> pauseSelectionListeners() {
     this.selectionListenersPaused = true;
     return this;
   }
 
+  /** {@inheritDoc} */
   @Override
   public ListItem<T> resumeSelectionListeners() {
     this.selectionListenersPaused = false;
     return this;
   }
 
+  /** {@inheritDoc} */
   @Override
   public ListItem<T> togglePauseSelectionListeners(boolean toggle) {
     this.selectionListenersPaused = toggle;
     return this;
   }
 
+  /** {@inheritDoc} */
   @Override
   public Set<SelectionListener<? super ListItem<T>, ? super ListItem<T>>> getSelectionListeners() {
     return this.selectionListeners;
   }
 
+  /** {@inheritDoc} */
   @Override
   public Set<SelectionListener<? super ListItem<T>, ? super ListItem<T>>>
       getDeselectionListeners() {
     return this.deselectionListeners;
   }
 
+  /** {@inheritDoc} */
   @Override
   public boolean isSelectionListenersPaused() {
     return selectionListenersPaused;
   }
 
+  /** {@inheritDoc} */
   @Override
   public ListItem<T> triggerSelectionListeners(ListItem<T> source, ListItem<T> selection) {
     selectionListeners.forEach(
@@ -169,6 +201,7 @@ public class ListItem<T> extends BaseDominoElement<HTMLLIElement, ListItem<T>>
     return this;
   }
 
+  /** {@inheritDoc} */
   @Override
   public ListItem<T> triggerDeselectionListeners(ListItem<T> source, ListItem<T> selection) {
     deselectionListeners.forEach(
@@ -176,21 +209,25 @@ public class ListItem<T> extends BaseDominoElement<HTMLLIElement, ListItem<T>>
     return this;
   }
 
+  /** {@inheritDoc} */
   @Override
   public ListItem<T> getSelection() {
     return this;
   }
 
+  /** {@inheritDoc} */
   @Override
   public ListItem<T> select() {
     return select(isSelectable());
   }
 
+  /** {@inheritDoc} */
   @Override
   public ListItem<T> deselect() {
     return deselect(isSelectionListenersPaused());
   }
 
+  /** {@inheritDoc} */
   @Override
   public ListItem<T> select(boolean silent) {
     if (selectable && isEnabled()) {
@@ -205,6 +242,7 @@ public class ListItem<T> extends BaseDominoElement<HTMLLIElement, ListItem<T>>
     return this;
   }
 
+  /** {@inheritDoc} */
   @Override
   public ListItem<T> deselect(boolean silent) {
     if (selectable && isEnabled()) {
@@ -219,28 +257,33 @@ public class ListItem<T> extends BaseDominoElement<HTMLLIElement, ListItem<T>>
     return this;
   }
 
+  /** {@inheritDoc} */
   @Override
   public boolean isSelected() {
     return dui_selected.isAppliedTo(this);
   }
 
+  /** {@inheritDoc} */
   @Override
   public boolean isSelectable() {
     return selectable;
   }
 
+  /** {@inheritDoc} */
   @Override
   public ListItem<T> setSelectable(boolean selectable) {
     this.selectable = selectable;
     return this;
   }
 
+  /** {@inheritDoc} */
   @Override
   public ListItem<T> setSelected(boolean selected) {
     addCss(BooleanCssClass.of(dui_selected, selected));
     return this;
   }
 
+  /** {@inheritDoc} */
   @Override
   public ListItem<T> setSelected(boolean selected, boolean silent) {
     if (selected) {

@@ -16,11 +16,20 @@
 package org.dominokit.domino.ui.utils;
 
 import elemental2.dom.Element;
-import elemental2.dom.HTMLElement;
 
-/** A component that can have Waves effect should implement this interface */
+/**
+ * A component that can have Waves effect should implement this interface
+ *
+ * @author vegegoku
+ * @version $Id: $Id
+ */
 @FunctionalInterface
 public interface HasWavesElement {
   /** @return the {@link HTMLElement} that has the wave effect */
+  /**
+   * getWavesElement.
+   *
+   * @return a {@link elemental2.dom.Element} object
+   */
   Element getWavesElement();
 }

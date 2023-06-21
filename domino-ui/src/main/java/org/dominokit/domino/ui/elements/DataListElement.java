@@ -17,11 +17,28 @@ package org.dominokit.domino.ui.elements;
 
 import elemental2.dom.HTMLDataListElement;
 
+/**
+ * DataListElement class.
+ *
+ * @author vegegoku
+ * @version $Id: $Id
+ */
 public class DataListElement extends BaseElement<HTMLDataListElement, DataListElement> {
+  /**
+   * of.
+   *
+   * @param e a {@link elemental2.dom.HTMLDataListElement} object
+   * @return a {@link org.dominokit.domino.ui.elements.DataListElement} object
+   */
   public static DataListElement of(HTMLDataListElement e) {
     return new DataListElement(e);
   }
 
+  /**
+   * Constructor for DataListElement.
+   *
+   * @param element a {@link elemental2.dom.HTMLDataListElement} object
+   */
   public DataListElement(HTMLDataListElement element) {
     super(element);
   }

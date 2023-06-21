@@ -15,7 +15,18 @@
  */
 package org.dominokit.domino.ui.i18n;
 
+/**
+ * CalendarLabels interface.
+ *
+ * @author vegegoku
+ * @version $Id: $Id
+ */
 public interface CalendarLabels extends Labels {
+  /**
+   * calendarInvalidDateFormat.
+   *
+   * @return a {@link java.lang.String} object
+   */
   default String calendarInvalidDateFormat() {
     return "Invalid date format";
   }

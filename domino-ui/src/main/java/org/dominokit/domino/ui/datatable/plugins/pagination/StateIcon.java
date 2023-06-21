@@ -17,16 +17,34 @@ package org.dominokit.domino.ui.datatable.plugins.pagination;
 
 import org.dominokit.domino.ui.icons.*;
 
+/**
+ * StateIcon class.
+ *
+ * @author vegegoku
+ * @version $Id: $Id
+ */
 public class StateIcon extends StateChangeIcon<IconWrapper, StateIcon> {
 
+  /**
+   * create.
+   *
+   * @param defaultIcon a {@link org.dominokit.domino.ui.icons.Icon} object
+   * @return a {@link org.dominokit.domino.ui.datatable.plugins.pagination.StateIcon} object
+   */
   public static StateIcon create(Icon<?> defaultIcon) {
     return new StateIcon(defaultIcon);
   }
 
+  /**
+   * Constructor for StateIcon.
+   *
+   * @param defaultIcon a {@link org.dominokit.domino.ui.icons.Icon} object
+   */
   public StateIcon(Icon<?> defaultIcon) {
     super(new IconWrapper(defaultIcon));
   }
 
+  /** {@inheritDoc} */
   @Override
   public StateIcon copy() {
     StateIcon copy = new StateIcon(defaultIcon.copy());

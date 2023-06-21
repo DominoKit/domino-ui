@@ -34,6 +34,8 @@ import org.dominokit.domino.ui.utils.ChildHandler;
  *
  * @see BaseDominoElement
  * @see FileUpload
+ * @author vegegoku
+ * @version $Id: $Id
  */
 public class FileItem extends BaseDominoElement<HTMLElement, FileItem> {
 
@@ -55,22 +57,35 @@ public class FileItem extends BaseDominoElement<HTMLElement, FileItem> {
   private IsFilePreview<?> filePreview;
 
   /**
-   * @param file the {@link File}
-   * @param options the {@link UploadOptions}
+   * create.
+   *
+   * @param file the {@link elemental2.dom.File}
+   * @param options the {@link org.dominokit.domino.ui.upload.UploadOptions}
    * @return new instance
+   * @param previewFactory a {@link org.dominokit.domino.ui.upload.FilePreviewFactory} object
    */
   public static FileItem create(
       File file, UploadOptions options, FilePreviewFactory previewFactory) {
     return new FileItem(file, options, previewFactory);
   }
   /**
-   * @param file the {@link File}
+   * create.
+   *
+   * @param file the {@link elemental2.dom.File}
    * @return new instance
+   * @param previewFactory a {@link org.dominokit.domino.ui.upload.FilePreviewFactory} object
    */
   public static FileItem create(File file, FilePreviewFactory previewFactory) {
     return new FileItem(file, new UploadOptions(), previewFactory);
   }
 
+  /**
+   * Constructor for FileItem.
+   *
+   * @param file a {@link elemental2.dom.File} object
+   * @param options a {@link org.dominokit.domino.ui.upload.UploadOptions} object
+   * @param previewFactory a {@link org.dominokit.domino.ui.upload.FilePreviewFactory} object
+   */
   public FileItem(File file, UploadOptions options, FilePreviewFactory previewFactory) {
     this.file = file;
     this.options = options;
@@ -81,6 +96,11 @@ public class FileItem extends BaseDominoElement<HTMLElement, FileItem> {
   }
 
   /** @return true if the uploaded file is image */
+  /**
+   * isImage.
+   *
+   * @return a boolean
+   */
   public boolean isImage() {
     return file.type.startsWith("image");
   }
@@ -92,11 +112,21 @@ public class FileItem extends BaseDominoElement<HTMLElement, FileItem> {
   }
 
   /** @return the {@link File} */
+  /**
+   * Getter for the field <code>file</code>.
+   *
+   * @return a {@link elemental2.dom.File} object
+   */
   public File getFile() {
     return file;
   }
 
   /** @return the size of the file in a readable format */
+  /**
+   * readableFileSize.
+   *
+   * @return a {@link java.lang.String} object
+   */
   public String readableFileSize() {
     return formatSize(file.size);
   }
@@ -121,7 +151,7 @@ public class FileItem extends BaseDominoElement<HTMLElement, FileItem> {
   /**
    * Adds a handler to be called when removing the file
    *
-   * @param removeHandler A {@link RemoveFileHandler}
+   * @param removeHandler A {@link org.dominokit.domino.ui.upload.FileItem.RemoveFileHandler}
    * @return same instance
    */
   public FileItem addRemoveHandler(RemoveFileHandler removeHandler) {
@@ -132,7 +162,7 @@ public class FileItem extends BaseDominoElement<HTMLElement, FileItem> {
   /**
    * Adds a handler to be called when an error happens while uploading the file
    *
-   * @param errorHandler A {@link ErrorHandler}
+   * @param errorHandler A {@link org.dominokit.domino.ui.upload.FileItem.ErrorHandler}
    * @return same instance
    */
   public FileItem addErrorHandler(ErrorHandler errorHandler) {
@@ -143,7 +173,7 @@ public class FileItem extends BaseDominoElement<HTMLElement, FileItem> {
   /**
    * Adds a handler to be called when file is uploading providing the progress
    *
-   * @param progressHandler A {@link ProgressHandler}
+   * @param progressHandler A {@link org.dominokit.domino.ui.upload.FileItem.ProgressHandler}
    * @return same instance
    */
   public FileItem addProgressHandler(ProgressHandler progressHandler) {
@@ -154,7 +184,8 @@ public class FileItem extends BaseDominoElement<HTMLElement, FileItem> {
   /**
    * Adds a handler to be called before uploading the file
    *
-   * @param beforeUploadHandler\ A {@link BeforeUploadHandler}
+   * @param beforeUploadHandler\ A {@link
+   *     org.dominokit.domino.ui.upload.FileItem.BeforeUploadHandler}
    * @return same instance
    */
   public FileItem addBeforeUploadHandler(BeforeUploadHandler beforeUploadHandler) {
@@ -165,7 +196,8 @@ public class FileItem extends BaseDominoElement<HTMLElement, FileItem> {
   /**
    * Adds a handler to be called when the file is uploaded successfully
    *
-   * @param successUploadHandler A {@link SuccessUploadHandler}
+   * @param successUploadHandler A {@link
+   *     org.dominokit.domino.ui.upload.FileItem.SuccessUploadHandler}
    * @return same instance
    */
   public FileItem addSuccessUploadHandler(SuccessUploadHandler successUploadHandler) {
@@ -176,7 +208,7 @@ public class FileItem extends BaseDominoElement<HTMLElement, FileItem> {
   /**
    * Adds a handler to be called when uploading the file is canceled
    *
-   * @param cancelHandler A {@link CancelHandler}
+   * @param cancelHandler A {@link org.dominokit.domino.ui.upload.FileItem.CancelHandler}
    * @return same instance
    */
   public FileItem addCancelHandler(CancelHandler cancelHandler) {
@@ -184,11 +216,22 @@ public class FileItem extends BaseDominoElement<HTMLElement, FileItem> {
     return this;
   }
 
+  /**
+   * withOptions.
+   *
+   * @param handler a {@link org.dominokit.domino.ui.utils.ChildHandler} object
+   * @return a {@link org.dominokit.domino.ui.upload.FileItem} object
+   */
   public FileItem withOptions(ChildHandler<FileItem, UploadOptions> handler) {
     handler.apply(this, options);
     return this;
   }
 
+  /**
+   * Getter for the field <code>options</code>.
+   *
+   * @return a {@link org.dominokit.domino.ui.upload.UploadOptions} object
+   */
   public UploadOptions getOptions() {
     return options;
   }
@@ -205,7 +248,8 @@ public class FileItem extends BaseDominoElement<HTMLElement, FileItem> {
   /**
    * Uploads the file
    *
-   * @param requestSender a {@link UploadRequestSender} to use for sending the request
+   * @param requestSender a {@link org.dominokit.domino.ui.upload.UploadRequestSender} to use for
+   *     sending the request
    */
   public void upload(UploadRequestSender requestSender) {
     this.requestSender = requestSender;
@@ -255,6 +299,11 @@ public class FileItem extends BaseDominoElement<HTMLElement, FileItem> {
     removed = false;
   }
 
+  /**
+   * isExceedsMaxFile.
+   *
+   * @return a boolean
+   */
   public boolean isExceedsMaxFile() {
     return options.getMaxFileSize() > 0 && file.size > options.getMaxFileSize();
   }
@@ -299,6 +348,11 @@ public class FileItem extends BaseDominoElement<HTMLElement, FileItem> {
   }
 
   /** @return the file name */
+  /**
+   * Getter for the field <code>fileName</code>.
+   *
+   * @return a {@link java.lang.String} object
+   */
   public String getFileName() {
     return fileName;
   }
@@ -313,26 +367,51 @@ public class FileItem extends BaseDominoElement<HTMLElement, FileItem> {
   }
 
   /** @return all the {@link RemoveFileHandler} */
+  /**
+   * Getter for the field <code>removeHandlers</code>.
+   *
+   * @return a {@link java.util.List} object
+   */
   public List<RemoveFileHandler> getRemoveHandlers() {
     return removeHandlers;
   }
 
   /** @return all the {@link ErrorHandler} */
+  /**
+   * Getter for the field <code>errorHandlers</code>.
+   *
+   * @return a {@link java.util.List} object
+   */
   public List<ErrorHandler> getErrorHandlers() {
     return errorHandlers;
   }
 
   /** @return all the {@link ProgressHandler} */
+  /**
+   * Getter for the field <code>progressHandlers</code>.
+   *
+   * @return a {@link java.util.List} object
+   */
   public List<ProgressHandler> getProgressHandlers() {
     return progressHandlers;
   }
 
   /** @return all the {@link BeforeUploadHandler} */
+  /**
+   * Getter for the field <code>beforeUploadHandlers</code>.
+   *
+   * @return a {@link java.util.List} object
+   */
   public List<BeforeUploadHandler> getBeforeUploadHandlers() {
     return beforeUploadHandlers;
   }
 
   /** @return all the {@link SuccessUploadHandler} */
+  /**
+   * Getter for the field <code>successUploadHandlers</code>.
+   *
+   * @return a {@link java.util.List} object
+   */
   public List<SuccessUploadHandler> getSuccessUploadHandlers() {
     return successUploadHandlers;
   }
@@ -351,25 +430,46 @@ public class FileItem extends BaseDominoElement<HTMLElement, FileItem> {
   }
 
   /** @return all the {@link CancelHandler} */
+  /**
+   * Getter for the field <code>cancelHandlers</code>.
+   *
+   * @return a {@link java.util.List} object
+   */
   public List<CancelHandler> getCancelHandlers() {
     return cancelHandlers;
   }
 
   /** @return true if the upload request is canceled */
+  /**
+   * isCanceled.
+   *
+   * @return a boolean
+   */
   public boolean isCanceled() {
     return canceled;
   }
 
   /** @return true if the file is removed */
+  /**
+   * isRemoved.
+   *
+   * @return a boolean
+   */
   public boolean isRemoved() {
     return removed;
   }
 
   /** @return true if the file is uploaded */
+  /**
+   * isUploaded.
+   *
+   * @return a boolean
+   */
   public boolean isUploaded() {
     return uploaded;
   }
 
+  /** validateSize. */
   public void validateSize() {
     if (isExceedsMaxFile()) {
       filePreview.onUploadFailed(

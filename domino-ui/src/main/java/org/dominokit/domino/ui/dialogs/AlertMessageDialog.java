@@ -19,7 +19,6 @@ import static java.util.Objects.nonNull;
 
 import org.dominokit.domino.ui.animations.Animation;
 import org.dominokit.domino.ui.animations.Transition;
-import org.dominokit.domino.ui.button.Button;
 import org.dominokit.domino.ui.button.LinkButton;
 import org.dominokit.domino.ui.elements.SpanElement;
 import org.dominokit.domino.ui.icons.Icon;
@@ -29,6 +28,12 @@ import org.dominokit.domino.ui.utils.FooterContent;
 import org.dominokit.domino.ui.utils.LazyChild;
 import org.dominokit.domino.ui.utils.NullLazyChild;
 
+/**
+ * AlertMessageDialog class.
+ *
+ * @author vegegoku
+ * @version $Id: $Id
+ */
 public class AlertMessageDialog extends AbstractDialog<AlertMessageDialog> {
 
   private LinkButton confirmButton;
@@ -46,11 +51,18 @@ public class AlertMessageDialog extends AbstractDialog<AlertMessageDialog> {
   private LazyChild<NavBar> navHeader;
 
   /** @return new instance with empty title */
+  /**
+   * create.
+   *
+   * @return a {@link org.dominokit.domino.ui.dialogs.AlertMessageDialog} object
+   */
   public static AlertMessageDialog create() {
     return new AlertMessageDialog();
   }
 
   /**
+   * create.
+   *
    * @param title String
    * @return new instance with custom title
    */
@@ -59,8 +71,11 @@ public class AlertMessageDialog extends AbstractDialog<AlertMessageDialog> {
   }
 
   /**
+   * create.
+   *
    * @param title String
    * @return new instance with custom title
+   * @param message a {@link java.lang.String} object
    */
   public static AlertMessageDialog create(String title, String message) {
     return new AlertMessageDialog(title, message);
@@ -94,22 +109,45 @@ public class AlertMessageDialog extends AbstractDialog<AlertMessageDialog> {
   }
 
   /** @param title String creates new instance with custom title */
+  /**
+   * Constructor for AlertMessageDialog.
+   *
+   * @param title a {@link java.lang.String} object
+   */
   public AlertMessageDialog(String title) {
     this();
     navHeader.get().setTitle(title);
   }
 
   /** @param title String creates new instance with custom title */
+  /**
+   * Constructor for AlertMessageDialog.
+   *
+   * @param title a {@link java.lang.String} object
+   * @param message a {@link java.lang.String} object
+   */
   public AlertMessageDialog(String title, String message) {
     this(title);
     setMessage(message);
   }
 
+  /**
+   * setTitle.
+   *
+   * @param title a {@link java.lang.String} object
+   * @return a {@link org.dominokit.domino.ui.dialogs.AlertMessageDialog} object
+   */
   public AlertMessageDialog setTitle(String title) {
     navHeader.get().setTitle(title);
     return this;
   }
 
+  /**
+   * setMessage.
+   *
+   * @param message a {@link java.lang.String} object
+   * @return a {@link org.dominokit.domino.ui.dialogs.AlertMessageDialog} object
+   */
   public AlertMessageDialog setMessage(String message) {
     messageElement.remove();
     appendChild(messageElement.get().setTextContent(message));
@@ -135,7 +173,7 @@ public class AlertMessageDialog extends AbstractDialog<AlertMessageDialog> {
   /**
    * Sets the handler for the confirm action
    *
-   * @param handler {@link MessageHandler}
+   * @param handler {@link org.dominokit.domino.ui.dialogs.AlertMessageDialog.MessageHandler}
    * @return same ConfirmationDialog instance
    */
   public AlertMessageDialog onConfirm(MessageHandler handler) {
@@ -144,48 +182,103 @@ public class AlertMessageDialog extends AbstractDialog<AlertMessageDialog> {
   }
 
   /** @return the confirmation {@link Button} */
+  /**
+   * Getter for the field <code>confirmButton</code>.
+   *
+   * @return a {@link org.dominokit.domino.ui.button.LinkButton} object
+   */
   public LinkButton getConfirmButton() {
     return confirmButton;
   }
 
   /** @return the confirmation {@link Button} */
+  /**
+   * withConfirmButton.
+   *
+   * @param handler a {@link org.dominokit.domino.ui.utils.ChildHandler} object
+   * @return a {@link org.dominokit.domino.ui.dialogs.AlertMessageDialog} object
+   */
   public AlertMessageDialog withConfirmButton(
       ChildHandler<AlertMessageDialog, LinkButton> handler) {
     handler.apply(this, confirmButton);
     return this;
   }
 
+  /**
+   * Getter for the field <code>iconStartTransition</code>.
+   *
+   * @return a {@link org.dominokit.domino.ui.animations.Transition} object
+   */
   public Transition getIconStartTransition() {
     return iconStartTransition;
   }
 
+  /**
+   * Setter for the field <code>iconStartTransition</code>.
+   *
+   * @param transition a {@link org.dominokit.domino.ui.animations.Transition} object
+   * @return a {@link org.dominokit.domino.ui.dialogs.AlertMessageDialog} object
+   */
   public AlertMessageDialog setIconStartTransition(Transition transition) {
     this.iconStartTransition = transition;
     return this;
   }
 
+  /**
+   * Getter for the field <code>iconEndTransition</code>.
+   *
+   * @return a {@link org.dominokit.domino.ui.animations.Transition} object
+   */
   public Transition getIconEndTransition() {
     return iconEndTransition;
   }
 
+  /**
+   * Setter for the field <code>iconEndTransition</code>.
+   *
+   * @param transition a {@link org.dominokit.domino.ui.animations.Transition} object
+   * @return a {@link org.dominokit.domino.ui.dialogs.AlertMessageDialog} object
+   */
   public AlertMessageDialog setIconEndTransition(Transition transition) {
     this.iconEndTransition = transition;
     return this;
   }
 
+  /**
+   * Getter for the field <code>iconAnimationDuration</code>.
+   *
+   * @return a int
+   */
   public int getIconAnimationDuration() {
     return iconAnimationDuration;
   }
 
+  /**
+   * Setter for the field <code>iconAnimationDuration</code>.
+   *
+   * @param duration a int
+   * @return a {@link org.dominokit.domino.ui.dialogs.AlertMessageDialog} object
+   */
   public AlertMessageDialog setIconAnimationDuration(int duration) {
     this.iconAnimationDuration = duration;
     return this;
   }
 
+  /**
+   * Getter for the field <code>alertIcon</code>.
+   *
+   * @return a {@link org.dominokit.domino.ui.icons.Icon} object
+   */
   public Icon<?> getAlertIcon() {
     return alertIcon.get();
   }
 
+  /**
+   * Setter for the field <code>alertIcon</code>.
+   *
+   * @param alertIcon a {@link org.dominokit.domino.ui.icons.Icon} object
+   * @return a {@link org.dominokit.domino.ui.dialogs.AlertMessageDialog} object
+   */
   public AlertMessageDialog setAlertIcon(Icon<?> alertIcon) {
     if (nonNull(alertIcon)) {
       this.alertIcon.remove();
@@ -195,6 +288,12 @@ public class AlertMessageDialog extends AbstractDialog<AlertMessageDialog> {
     return this;
   }
 
+  /**
+   * withNavHeader.
+   *
+   * @param handler a {@link org.dominokit.domino.ui.utils.ChildHandler} object
+   * @return a {@link org.dominokit.domino.ui.dialogs.AlertMessageDialog} object
+   */
   public AlertMessageDialog withNavHeader(ChildHandler<AlertMessageDialog, NavBar> handler) {
     handler.apply(this, navHeader.get());
     return this;

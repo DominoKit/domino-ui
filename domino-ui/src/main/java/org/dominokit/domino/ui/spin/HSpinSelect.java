@@ -24,6 +24,8 @@ import org.dominokit.domino.ui.utils.SwipeUtil;
  * A component provides horizontal spin
  *
  * @param <T> the type of the object inside the spin
+ * @author vegegoku
+ * @version $Id: $Id
  */
 public class HSpinSelect<T> extends SpinSelect<T, HSpinSelect<T>> {
 
@@ -40,8 +42,8 @@ public class HSpinSelect<T> extends SpinSelect<T, HSpinSelect<T>> {
   /**
    * Creates new instance with back/forward icons
    *
-   * @param backIcon the back {@link Icon}
-   * @param forwardIcon the forward {@link Icon}
+   * @param backIcon the back {@link org.dominokit.domino.ui.icons.Icon}
+   * @param forwardIcon the forward {@link org.dominokit.domino.ui.icons.Icon}
    * @param <T> the type of the object inside the spin
    * @return new instance
    */
@@ -49,12 +51,19 @@ public class HSpinSelect<T> extends SpinSelect<T, HSpinSelect<T>> {
     return new HSpinSelect<>(backIcon, forwardIcon);
   }
 
+  /** Constructor for HSpinSelect. */
   public HSpinSelect() {
     this(
         DominoUIConfig.CONFIG.getUIConfig().getDefaultBackIconSupplier().get(),
         DominoUIConfig.CONFIG.getUIConfig().getDefaultForwardIconSupplier().get());
   }
 
+  /**
+   * Constructor for HSpinSelect.
+   *
+   * @param backIcon a {@link org.dominokit.domino.ui.icons.Icon} object
+   * @param forwardIcon a {@link org.dominokit.domino.ui.icons.Icon} object
+   */
   public HSpinSelect(Icon<?> backIcon, Icon<?> forwardIcon) {
     super(backIcon, forwardIcon);
     addCss(dui_spin_horizontal);
@@ -64,6 +73,7 @@ public class HSpinSelect<T> extends SpinSelect<T, HSpinSelect<T>> {
         SwipeUtil.SwipeDirection.LEFT, contentPanel.element(), evt -> moveForward());
   }
 
+  /** {@inheritDoc} */
   @Override
   protected void fixElementsWidth() {
     DOMRect boundingClientRect = contentPanel.getBoundingClientRect();
@@ -74,6 +84,7 @@ public class HSpinSelect<T> extends SpinSelect<T, HSpinSelect<T>> {
         spinItem -> spinItem.setWidth(((boundingClientRect.width / totalWidth) * 100) + "%"));
   }
 
+  /** {@inheritDoc} */
   @Override
   protected void setTransformProperty(double offset) {
     contentPanel.setCssProperty("transform", "translate3d(-" + offset + "%, 0px, 0px)");

@@ -15,6 +15,18 @@
  */
 package org.dominokit.domino.ui.datepicker;
 
+/**
+ * DateSelectionListener interface.
+ *
+ * @author vegegoku
+ * @version $Id: $Id
+ */
 public interface DateSelectionListener {
+  /**
+   * onDaySelected.
+   *
+   * @param oldDay a {@link org.dominokit.domino.ui.datepicker.CalendarDay} object
+   * @param newDay a {@link org.dominokit.domino.ui.datepicker.CalendarDay} object
+   */
   void onDaySelected(CalendarDay oldDay, CalendarDay newDay);
 }

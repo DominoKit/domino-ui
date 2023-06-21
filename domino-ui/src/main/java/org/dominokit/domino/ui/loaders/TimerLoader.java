@@ -20,7 +20,12 @@ import org.dominokit.domino.ui.IsElement;
 import org.dominokit.domino.ui.elements.DivElement;
 import org.dominokit.domino.ui.utils.DominoElement;
 
-/** Timer loader implementation */
+/**
+ * Timer loader implementation
+ *
+ * @author vegegoku
+ * @version $Id: $Id
+ */
 public class TimerLoader extends BaseLoader<TimerLoader> implements IsElement<HTMLDivElement> {
 
   private final DivElement progress1 = div().addCss(wait_me_progress_elem_1, dui_bg_grey_d_2);
@@ -41,10 +46,16 @@ public class TimerLoader extends BaseLoader<TimerLoader> implements IsElement<HT
   private final DivElement element =
       div().addCss(wait_me).style("background: rgba(255, 255, 255, 0.9);").appendChild(content);
 
+  /** Constructor for TimerLoader. */
   public TimerLoader() {
     init(this);
   }
 
+  /**
+   * create.
+   *
+   * @return a {@link org.dominokit.domino.ui.loaders.TimerLoader} object
+   */
   public static TimerLoader create() {
     return new TimerLoader();
   }

@@ -25,12 +25,19 @@ import java.util.function.Supplier;
 import org.dominokit.domino.ui.datatable.TableRow;
 import org.dominokit.domino.ui.datatable.plugins.PluginConfig;
 import org.dominokit.domino.ui.icons.Icon;
-import org.dominokit.domino.ui.icons.Icons;
 import org.dominokit.domino.ui.icons.ToggleIcon;
 import org.dominokit.domino.ui.icons.ToggleMdiIcon;
+import org.dominokit.domino.ui.icons.lib.Icons;
 
+/**
+ * TreePluginConfig class.
+ *
+ * @author vegegoku
+ * @version $Id: $Id
+ */
 public class TreePluginConfig<T> implements PluginConfig {
 
+  /** Constant <code>DEFAULT_INDENT=20</code> */
   public static final int DEFAULT_INDENT = 20;
 
   private boolean lazy = false;
@@ -41,17 +48,36 @@ public class TreePluginConfig<T> implements PluginConfig {
   private Function<TableRow<T>, Node> indentColumnElementSupplier = tableRow -> elements.text();
   private int indent = DEFAULT_INDENT;
 
+  /** Constructor for TreePluginConfig. */
   public TreePluginConfig() {}
 
+  /**
+   * isLazy.
+   *
+   * @return a boolean
+   */
   public boolean isLazy() {
     return lazy;
   }
 
+  /**
+   * Setter for the field <code>lazy</code>.
+   *
+   * @param lazy a boolean
+   * @return a {@link org.dominokit.domino.ui.datatable.plugins.tree.TreePluginConfig} object
+   */
   public TreePluginConfig<T> setLazy(boolean lazy) {
     this.lazy = lazy;
     return this;
   }
 
+  /**
+   * Getter for the field <code>parentRowCellsSupplier</code>.
+   *
+   * @return a {@link
+   *     org.dominokit.domino.ui.datatable.plugins.tree.TreeGridPlugin.ParentRowCellsSupplier}
+   *     object
+   */
   public TreeGridPlugin.ParentRowCellsSupplier<T> getParentRowCellsSupplier() {
     return parentRowCellsSupplier;
   }
@@ -60,7 +86,8 @@ public class TreePluginConfig<T> implements PluginConfig {
    * Set a supplier that provides cells to be rendered in a parent row cells, this can be used to
    * provide a custom UI for parent rows
    *
-   * @param parentRowCellsSupplier {@link TreeGridPlugin.ParentRowCellsSupplier}
+   * @param parentRowCellsSupplier {@link
+   *     org.dominokit.domino.ui.datatable.plugins.tree.TreeGridPlugin.ParentRowCellsSupplier}
    * @return Same config instance
    */
   public TreePluginConfig<T> setParentRowCellsSupplier(
@@ -69,6 +96,11 @@ public class TreePluginConfig<T> implements PluginConfig {
     return this;
   }
 
+  /**
+   * Getter for the field <code>expandToggleIconSupplier</code>.
+   *
+   * @return a {@link java.util.function.Supplier} object
+   */
   public Supplier<ToggleIcon<?, ?>> getExpandToggleIconSupplier() {
     return expandToggleIconSupplier;
   }
@@ -76,7 +108,8 @@ public class TreePluginConfig<T> implements PluginConfig {
   /**
    * Sets a supplier for a custom expand icon instead of the default one
    *
-   * @param expandIconSupplier {@link Supplier} of {@link Icon}
+   * @param expandIconSupplier {@link java.util.function.Supplier} of {@link
+   *     org.dominokit.domino.ui.icons.Icon}
    * @return Same config instance
    */
   public TreePluginConfig<T> setExpandToggleIconSupplier(
@@ -90,6 +123,11 @@ public class TreePluginConfig<T> implements PluginConfig {
     return this;
   }
 
+  /**
+   * Getter for the field <code>leafIconSupplier</code>.
+   *
+   * @return a {@link java.util.function.Supplier} object
+   */
   public Supplier<Icon<?>> getLeafIconSupplier() {
     return leafIconSupplier;
   }
@@ -97,7 +135,8 @@ public class TreePluginConfig<T> implements PluginConfig {
   /**
    * Sets a supplier for a custom leaf row icon instead of the default one
    *
-   * @param leafIconSupplier {@link Supplier} of {@link Icon}
+   * @param leafIconSupplier {@link java.util.function.Supplier} of {@link
+   *     org.dominokit.domino.ui.icons.Icon}
    * @return Same config instance
    */
   public TreePluginConfig<T> setLeafIconSupplier(Supplier<Icon<?>> leafIconSupplier) {
@@ -109,6 +148,11 @@ public class TreePluginConfig<T> implements PluginConfig {
     return this;
   }
 
+  /**
+   * Getter for the field <code>indentColumnElementSupplier</code>.
+   *
+   * @return a {@link java.util.function.Function} object
+   */
   public Function<TableRow<T>, Node> getIndentColumnElementSupplier() {
     return indentColumnElementSupplier;
   }
@@ -117,8 +161,8 @@ public class TreePluginConfig<T> implements PluginConfig {
    * Sets a supplier of elements to be appended to the tree grid indent column as part of the
    * utility columns cells
    *
-   * @param indentColumnElementSupplier {@link Function} that takes a {@link TableRow} and return a
-   *     {@link Node}
+   * @param indentColumnElementSupplier {@link java.util.function.Function} that takes a {@link
+   *     org.dominokit.domino.ui.datatable.TableRow} and return a {@link elemental2.dom.Node}
    * @return same config instance
    */
   public TreePluginConfig<T> setIndentColumnElementSupplier(
@@ -127,6 +171,11 @@ public class TreePluginConfig<T> implements PluginConfig {
     return this;
   }
 
+  /**
+   * Getter for the field <code>indent</code>.
+   *
+   * @return a int
+   */
   public int getIndent() {
     return indent;
   }

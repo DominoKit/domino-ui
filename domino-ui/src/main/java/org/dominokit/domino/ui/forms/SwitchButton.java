@@ -30,7 +30,12 @@ import org.dominokit.domino.ui.utils.Checkable;
 import org.dominokit.domino.ui.utils.DominoElement;
 import org.dominokit.domino.ui.utils.LazyChild;
 
-/** A component that can switch between two boolean values with different labels */
+/**
+ * A component that can switch between two boolean values with different labels
+ *
+ * @author vegegoku
+ * @version $Id: $Id
+ */
 public class SwitchButton extends InputFormField<SwitchButton, HTMLInputElement, Boolean>
     implements Checkable<SwitchButton> {
 
@@ -42,6 +47,8 @@ public class SwitchButton extends InputFormField<SwitchButton, HTMLInputElement,
   private SpanElement trackElement;
 
   /**
+   * create.
+   *
    * @param label String label describing the switch
    * @param offTitle String label for the OFF state
    * @param onTitle String label for the ON state
@@ -52,6 +59,8 @@ public class SwitchButton extends InputFormField<SwitchButton, HTMLInputElement,
   }
 
   /**
+   * create.
+   *
    * @param label String label describing the switch
    * @param onOffTitle String label for the OFF state
    * @return new SwitchButton instance
@@ -60,11 +69,18 @@ public class SwitchButton extends InputFormField<SwitchButton, HTMLInputElement,
     return new SwitchButton(label, onOffTitle);
   }
 
+  /**
+   * create.
+   *
+   * @return a {@link org.dominokit.domino.ui.forms.SwitchButton} object
+   */
   public static SwitchButton create() {
     return new SwitchButton();
   }
 
   /**
+   * Constructor for SwitchButton.
+   *
    * @param label String label describing the switch
    * @param offTitle String label for the OFF state
    * @param onTitle String label for the ON state
@@ -76,6 +92,8 @@ public class SwitchButton extends InputFormField<SwitchButton, HTMLInputElement,
   }
 
   /**
+   * Constructor for SwitchButton.
+   *
    * @param label String label describing the switch
    * @param onOffTitle String label for the ON/OFF state
    */
@@ -85,6 +103,11 @@ public class SwitchButton extends InputFormField<SwitchButton, HTMLInputElement,
   }
 
   /** @param label String label describing the switch */
+  /**
+   * Constructor for SwitchButton.
+   *
+   * @param label a {@link java.lang.String} object
+   */
   public SwitchButton(String label) {
     this();
     setLabel(label);
@@ -113,16 +136,19 @@ public class SwitchButton extends InputFormField<SwitchButton, HTMLInputElement,
     labelElement.get();
   }
 
+  /** {@inheritDoc} */
   @Override
   public String getType() {
     return "checkbox";
   }
 
+  /** {@inheritDoc} */
   @Override
   protected DominoElement<HTMLInputElement> createInputElement(String type) {
     return input(type).addCss(dui_hidden_input).toDominoElement();
   }
 
+  /** {@inheritDoc} */
   @Override
   public Optional<Consumer<Event>> onChange() {
     return Optional.of(
@@ -133,29 +159,34 @@ public class SwitchButton extends InputFormField<SwitchButton, HTMLInputElement,
         });
   }
 
+  /** {@inheritDoc} */
   @Override
   public SwitchButton toggleChecked(boolean silent) {
     withValue(!isChecked(), silent);
     return this;
   }
 
+  /** {@inheritDoc} */
   @Override
   public SwitchButton toggleChecked() {
     withValue(!isChecked());
     return this;
   }
 
+  /** {@inheritDoc} */
   @Override
   public SwitchButton toggleChecked(boolean checkedState, boolean silent) {
     withValue(checkedState, silent);
     return this;
   }
 
+  /** {@inheritDoc} */
   @Override
   public Boolean getDefaultValue() {
     return isNull(defaultValue) ? false : defaultValue;
   }
 
+  /** {@inheritDoc} */
   @Override
   public SwitchButton withValue(Boolean value, boolean silent) {
     if (isNull(value)) {
@@ -192,6 +223,8 @@ public class SwitchButton extends InputFormField<SwitchButton, HTMLInputElement,
   }
 
   /**
+   * Setter for the field <code>onTitle</code>.
+   *
    * @param onTitle String title for the ON switch state
    * @return same SwitchButton instance
    */
@@ -206,6 +239,8 @@ public class SwitchButton extends InputFormField<SwitchButton, HTMLInputElement,
   }
 
   /**
+   * Setter for the field <code>offTitle</code>.
+   *
    * @param offTitle String title for the OFF switch state
    * @return same SwitchButton instance
    */
@@ -220,6 +255,11 @@ public class SwitchButton extends InputFormField<SwitchButton, HTMLInputElement,
   }
 
   /** @return HTMLLabelElement */
+  /**
+   * Getter for the field <code>offLabelElement</code>.
+   *
+   * @return a {@link org.dominokit.domino.ui.utils.LazyChild} object
+   */
   public LazyChild<LabelElement> getOffLabelElement() {
     return offLabelElement;
   }
@@ -234,11 +274,7 @@ public class SwitchButton extends InputFormField<SwitchButton, HTMLInputElement,
     return new SwitchButtonAutoValidator(this, autoValidate);
   }
 
-  /**
-   * {@inheritDoc}
-   *
-   * @return boolean, true if checked, false if unchecked
-   */
+  /** {@inheritDoc} */
   @Override
   public Boolean getValue() {
     return isChecked();
@@ -250,26 +286,19 @@ public class SwitchButton extends InputFormField<SwitchButton, HTMLInputElement,
     return getInputElement().element().checked;
   }
 
-  /**
-   * {@inheritDoc}
-   *
-   * @return boolean, CheckBox cant be empty so this actually is true if the CheckBox is unchecked.
-   */
+  /** {@inheritDoc} */
   @Override
   public boolean isEmpty() {
     return !isChecked();
   }
 
+  /** {@inheritDoc} */
   @Override
   public boolean isEmptyIgnoreSpaces() {
     return isEmpty();
   }
 
-  /**
-   * {@inheritDoc}
-   *
-   * @return String boolean value
-   */
+  /** {@inheritDoc} */
   @Override
   public String getStringValue() {
     return Boolean.toString(getValue());
@@ -306,6 +335,7 @@ public class SwitchButton extends InputFormField<SwitchButton, HTMLInputElement,
    * switch between {@link #grow()} if true and {@link #ungrow()} if false
    *
    * @return same SwitchButton instance
+   * @param grow a boolean
    */
   public SwitchButton grow(boolean grow) {
     addCss(BooleanCssClass.of(dui_switch_grow, grow));
@@ -337,17 +367,20 @@ public class SwitchButton extends InputFormField<SwitchButton, HTMLInputElement,
    * switch between {@link #condenseLabels()} if true and {@link #uncondenseLabels()} if false
    *
    * @return same SwitchButton instance
+   * @param grow a boolean
    */
   public SwitchButton condenseLabels(boolean grow) {
     addCss(BooleanCssClass.of(dui_switch_condense, grow));
     return this;
   }
 
+  /** {@inheritDoc} */
   @Override
   public String getName() {
     return getInputElement().element().name;
   }
 
+  /** {@inheritDoc} */
   @Override
   public SwitchButton setName(String name) {
     getInputElement().element().name = name;

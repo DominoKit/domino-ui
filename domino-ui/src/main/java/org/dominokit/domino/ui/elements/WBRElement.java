@@ -17,11 +17,28 @@ package org.dominokit.domino.ui.elements;
 
 import elemental2.dom.HTMLElement;
 
+/**
+ * WBRElement class.
+ *
+ * @author vegegoku
+ * @version $Id: $Id
+ */
 public class WBRElement extends BaseElement<HTMLElement, WBRElement> {
+  /**
+   * of.
+   *
+   * @param e a {@link elemental2.dom.HTMLElement} object
+   * @return a {@link org.dominokit.domino.ui.elements.WBRElement} object
+   */
   public static WBRElement of(HTMLElement e) {
     return new WBRElement(e);
   }
 
+  /**
+   * Constructor for WBRElement.
+   *
+   * @param element a {@link elemental2.dom.HTMLElement} object
+   */
   public WBRElement(HTMLElement element) {
     super(element);
   }

@@ -19,24 +19,74 @@ import org.dominokit.domino.ui.elements.DivElement;
 import org.dominokit.domino.ui.menu.AbstractMenuItem;
 import org.dominokit.domino.ui.menu.MenuItem;
 
+/**
+ * SelectOption class.
+ *
+ * @author vegegoku
+ * @version $Id: $Id
+ */
 public class SelectOption<V> extends Option<V, DivElement, SelectOption<V>> {
 
+  /**
+   * create.
+   *
+   * @param key a {@link java.lang.String} object
+   * @param value a V object
+   * @param text a {@link java.lang.String} object
+   * @param <V> a V class
+   * @return a {@link org.dominokit.domino.ui.forms.suggest.SelectOption} object
+   */
   public static <V> SelectOption<V> create(String key, V value, String text) {
     return new SelectOption<>(key, value, text);
   }
 
+  /**
+   * create.
+   *
+   * @param value a V object
+   * @param <V> a V class
+   * @return a {@link org.dominokit.domino.ui.forms.suggest.SelectOption} object
+   */
   public static <V> SelectOption<V> create(V value) {
     return new SelectOption<>(String.valueOf(value), value, String.valueOf(value));
   }
 
+  /**
+   * create.
+   *
+   * @param value a V object
+   * @param text a {@link java.lang.String} object
+   * @param <V> a V class
+   * @return a {@link org.dominokit.domino.ui.forms.suggest.SelectOption} object
+   */
   public static <V> SelectOption<V> create(V value, String text) {
     return new SelectOption<>(String.valueOf(value), value, text);
   }
 
+  /**
+   * create.
+   *
+   * @param key a {@link java.lang.String} object
+   * @param value a V object
+   * @param text a {@link java.lang.String} object
+   * @param description a {@link java.lang.String} object
+   * @param <V> a V class
+   * @return a {@link org.dominokit.domino.ui.forms.suggest.SelectOption} object
+   */
   public static <V> SelectOption<V> create(String key, V value, String text, String description) {
     return new SelectOption<>(key, value, text, description);
   }
 
+  /**
+   * create.
+   *
+   * @param key a {@link java.lang.String} object
+   * @param value a V object
+   * @param componentSupplier a OptionSupplier object
+   * @param menuItemSupplier a OptionSupplier object
+   * @param <V> a V class
+   * @return a {@link org.dominokit.domino.ui.forms.suggest.SelectOption} object
+   */
   public static <V> SelectOption<V> create(
       String key,
       V value,
@@ -45,6 +95,14 @@ public class SelectOption<V> extends Option<V, DivElement, SelectOption<V>> {
     return new SelectOption<>(key, value, componentSupplier, menuItemSupplier);
   }
 
+  /**
+   * Constructor for SelectOption.
+   *
+   * @param key a {@link java.lang.String} object
+   * @param value a V object
+   * @param text a {@link java.lang.String} object
+   * @param description a {@link java.lang.String} object
+   */
   public SelectOption(String key, V value, String text, String description) {
     super(
         key,
@@ -53,10 +111,25 @@ public class SelectOption<V> extends Option<V, DivElement, SelectOption<V>> {
         MenuItem.create(text, description));
   }
 
+  /**
+   * Constructor for SelectOption.
+   *
+   * @param key a {@link java.lang.String} object
+   * @param value a V object
+   * @param text a {@link java.lang.String} object
+   */
   public SelectOption(String key, V value, String text) {
     super(key, value, elements.div().textContent(text).addCss(dui_m_r_1), MenuItem.create(text));
   }
 
+  /**
+   * Constructor for SelectOption.
+   *
+   * @param key a {@link java.lang.String} object
+   * @param value a V object
+   * @param componentSupplier a OptionSupplier object
+   * @param menuItemSupplier a OptionSupplier object
+   */
   public SelectOption(
       String key,
       V value,

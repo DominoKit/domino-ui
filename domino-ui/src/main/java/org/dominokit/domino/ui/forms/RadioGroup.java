@@ -27,10 +27,12 @@ import org.dominokit.domino.ui.utils.ApplyFunction;
 import org.dominokit.domino.ui.utils.ChildHandler;
 
 /**
- * A component to group a set of {@link Radio} component as one field, only one Radio can be checked
- * from this radio group.
+ * A component to group a set of {@link org.dominokit.domino.ui.forms.Radio} component as one field,
+ * only one Radio can be checked from this radio group.
  *
  * @param <T> The type of the RadioGroup value
+ * @author vegegoku
+ * @version $Id: $Id
  */
 public class RadioGroup<T> extends AbstractFormElement<RadioGroup<T>, T> {
 
@@ -83,12 +85,20 @@ public class RadioGroup<T> extends AbstractFormElement<RadioGroup<T>, T> {
     return new RadioGroup<>(name, label);
   }
 
+  /**
+   * withGap.
+   *
+   * @param withGap a boolean
+   * @return a {@link org.dominokit.domino.ui.forms.RadioGroup} object
+   */
   public RadioGroup<T> withGap(boolean withGap) {
     addCss(BooleanCssClass.of(dui_form_radio_group_gap, withGap));
     return this;
   }
   /**
-   * @param radio {@link Radio}
+   * appendChild.
+   *
+   * @param radio {@link org.dominokit.domino.ui.forms.Radio}
    * @return same RadioGroup instance
    */
   public RadioGroup<T> appendChild(Radio<? extends T> radio) {
@@ -102,6 +112,13 @@ public class RadioGroup<T> extends AbstractFormElement<RadioGroup<T>, T> {
     return this;
   }
 
+  /**
+   * removeRadio.
+   *
+   * @param radio a {@link org.dominokit.domino.ui.forms.Radio} object
+   * @param silent a boolean
+   * @return a {@link org.dominokit.domino.ui.forms.RadioGroup} object
+   */
   public RadioGroup<T> removeRadio(Radio<? extends T> radio, boolean silent) {
     if (radios.remove(radio)) {
       radio.uncheck(silent);
@@ -110,12 +127,19 @@ public class RadioGroup<T> extends AbstractFormElement<RadioGroup<T>, T> {
     return this;
   }
 
+  /**
+   * removeAllRadios.
+   *
+   * @param silent a boolean
+   * @return a {@link org.dominokit.domino.ui.forms.RadioGroup} object
+   */
   public RadioGroup<T> removeAllRadios(boolean silent) {
     new ArrayList<>(radios).forEach(radio -> removeRadio(radio, silent));
     radios.clear();
     return this;
   }
 
+  /** {@inheritDoc} */
   @Override
   public RadioGroup<T> clear(boolean silent) {
     if (radios.isEmpty()) {
@@ -151,28 +175,33 @@ public class RadioGroup<T> extends AbstractFormElement<RadioGroup<T>, T> {
     }
   }
 
+  /** {@inheritDoc} */
   @Override
   public RadioGroup<T> triggerChangeListeners(T oldValue, T newValue) {
     changeListeners.forEach(changeListener -> changeListener.onValueChanged(oldValue, newValue));
     return this;
   }
 
+  /** {@inheritDoc} */
   @Override
   public RadioGroup<T> triggerClearListeners(T oldValue) {
     clearListeners.forEach(clearListener -> clearListener.onValueCleared(oldValue));
     return this;
   }
 
+  /** {@inheritDoc} */
   @Override
   public String getType() {
     return "RadioGroup";
   }
 
+  /** {@inheritDoc} */
   @Override
   public RadioGroup<T> withValue(T value) {
     return withValue(value, isChangeListenersPaused());
   }
 
+  /** {@inheritDoc} */
   @Override
   public RadioGroup<T> withValue(T value, boolean silent) {
     radios.stream()
@@ -204,6 +233,7 @@ public class RadioGroup<T> extends AbstractFormElement<RadioGroup<T>, T> {
    * Aligns the radios in this group vertically
    *
    * @return same RadioGroup instance
+   * @param vertical a boolean
    */
   public RadioGroup<T> vertical(boolean vertical) {
     addCss(BooleanCssClass.of(dui_form_radio_group_vertical, vertical));
@@ -211,6 +241,11 @@ public class RadioGroup<T> extends AbstractFormElement<RadioGroup<T>, T> {
   }
 
   /** @return List of {@link Radio} that belongs to this RadioGroup */
+  /**
+   * Getter for the field <code>radios</code>.
+   *
+   * @return a {@link java.util.List} object
+   */
   public List<Radio<? extends T>> getRadios() {
     return radios;
   }
@@ -219,6 +254,7 @@ public class RadioGroup<T> extends AbstractFormElement<RadioGroup<T>, T> {
    * Apply a function on the current Radio group radio buttons
    *
    * @return same radio group instance
+   * @param handler a {@link org.dominokit.domino.ui.utils.ChildHandler} object
    */
   public RadioGroup<T> withRadios(ChildHandler<RadioGroup<T>, List<Radio<? extends T>>> handler) {
     handler.apply(this, getRadios());
@@ -226,11 +262,21 @@ public class RadioGroup<T> extends AbstractFormElement<RadioGroup<T>, T> {
   }
 
   /** @return boolean, true only if there is a checked radio in this RadioGroup */
+  /**
+   * isSelected.
+   *
+   * @return a boolean
+   */
   public boolean isSelected() {
     return getValue() != null;
   }
 
   /** @return T value of the first checked Radio in this RadioGroup */
+  /**
+   * getValue.
+   *
+   * @return a T object
+   */
   public T getValue() {
     return radios.stream().filter(Radio::isChecked).map(Radio::getValue).findFirst().orElse(null);
   }
@@ -291,7 +337,7 @@ public class RadioGroup<T> extends AbstractFormElement<RadioGroup<T>, T> {
    * Sets the value from the specific Radio. When the radio self is null, clearValue will be
    * executed.
    *
-   * @param value {@link Radio}
+   * @param value {@link org.dominokit.domino.ui.forms.Radio}
    */
   public void setValue(Radio<T> value) {
     if (value == null) {
@@ -307,7 +353,12 @@ public class RadioGroup<T> extends AbstractFormElement<RadioGroup<T>, T> {
     setValue(value, isChangeListenersPaused());
   }
 
-  /** {@inheritDoc} */
+  /**
+   * {@inheritDoc}
+   *
+   * @param value a T object
+   * @param silent a boolean
+   */
   public void setValue(T value, boolean silent) {
     radios.stream()
         .filter(radio -> radio.getValue().equals(value))
@@ -322,11 +373,21 @@ public class RadioGroup<T> extends AbstractFormElement<RadioGroup<T>, T> {
             });
   }
 
+  /**
+   * getSelectedRadioImpl.
+   *
+   * @return a {@link java.util.Optional} object
+   */
   protected Optional<Radio<? extends T>> getSelectedRadioImpl() {
     return radios.stream().filter(Radio::isChecked).findFirst();
   }
 
   /** @return the checked {@link Radio} */
+  /**
+   * getSelectedRadio.
+   *
+   * @return a {@link org.dominokit.domino.ui.forms.Radio} object
+   */
   public Radio<? extends T> getSelectedRadio() {
     return getSelectedRadioImpl().orElse(null);
   }

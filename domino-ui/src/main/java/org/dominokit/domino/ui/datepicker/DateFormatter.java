@@ -19,26 +19,33 @@ import java.util.Date;
 import org.gwtproject.i18n.shared.DateTimeFormat;
 import org.gwtproject.i18n.shared.cldr.DateTimeFormatInfo;
 
+/**
+ * DateFormatter interface.
+ *
+ * @author vegegoku
+ * @version $Id: $Id
+ */
 public interface DateFormatter {
 
+  /** Constant <code>DEFAULT</code> */
   DateFormatter DEFAULT = new DefaultFormatter();
 
   /**
    * parse the date string with strict formatting, if the date string does not match the date
-   * pattern this method should throw {@link IllegalArgumentException}
+   * pattern this method should throw {@link java.lang.IllegalArgumentException}
    *
    * @param pattern String date pattern
-   * @param dtfi {@link DateTimeFormatInfo}
+   * @param dtfi {@link org.gwtproject.i18n.shared.cldr.DateTimeFormatInfo}
    * @param dateString String date value
    * @return Date
    */
   Date parseStrict(String pattern, DateTimeFormatInfo dtfi, String dateString);
 
   /**
-   * parse the date string and produce a {@link Date} object
+   * parse the date string and produce a {@link java.util.Date} object
    *
    * @param pattern String date pattern
-   * @param dtfi {@link DateTimeFormatInfo}
+   * @param dtfi {@link org.gwtproject.i18n.shared.cldr.DateTimeFormatInfo}
    * @param dateString String date value
    * @return Date
    */
@@ -49,8 +56,8 @@ public interface DateFormatter {
    * DateTimeFormatInfo}
    *
    * @param pattern String date pattern
-   * @param dtfi {@link DateTimeFormatInfo}
-   * @param date {@link Date}
+   * @param dtfi {@link org.gwtproject.i18n.shared.cldr.DateTimeFormatInfo}
+   * @param date {@link java.util.Date}
    * @return String formatted date
    */
   String format(String pattern, DateTimeFormatInfo dtfi, Date date);

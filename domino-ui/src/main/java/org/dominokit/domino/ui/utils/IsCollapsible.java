@@ -20,6 +20,8 @@ package org.dominokit.domino.ui.utils;
  *
  * @see org.dominokit.domino.ui.collapsible.Collapsible
  * @param <T> the type of the component implementing this interface
+ * @author vegegoku
+ * @version $Id: $Id
  */
 public interface IsCollapsible<T> {
 
@@ -53,9 +55,19 @@ public interface IsCollapsible<T> {
   T toggleCollapse(boolean state);
 
   /** @return boolean, true if the component is collapsed */
+  /**
+   * isCollapsed.
+   *
+   * @return a boolean
+   */
   boolean isCollapsed();
 
   /** @return boolean, true if the component is expanded */
+  /**
+   * isExpanded.
+   *
+   * @return a boolean
+   */
   default boolean isExpanded() {
     return !isCollapsed();
   }

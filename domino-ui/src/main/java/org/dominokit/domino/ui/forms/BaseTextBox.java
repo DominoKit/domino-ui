@@ -20,28 +20,43 @@ import static java.util.Objects.nonNull;
 import elemental2.dom.HTMLInputElement;
 import org.dominokit.domino.ui.utils.DominoElement;
 
+/**
+ * Abstract BaseTextBox class.
+ *
+ * @author vegegoku
+ * @version $Id: $Id
+ */
 public abstract class BaseTextBox<T extends BaseTextBox<T>>
     extends TextInputFormField<T, HTMLInputElement, String> {
 
+  /** Constructor for BaseTextBox. */
   public BaseTextBox() {
     setDefaultValue("");
   }
 
+  /**
+   * Constructor for BaseTextBox.
+   *
+   * @param label a {@link java.lang.String} object
+   */
   public BaseTextBox(String label) {
     this();
     setLabel(label);
   }
 
+  /** {@inheritDoc} */
   @Override
   protected DominoElement<HTMLInputElement> createInputElement(String type) {
     return input(type).addCss(dui_field_input).toDominoElement();
   }
 
+  /** {@inheritDoc} */
   @Override
   public String getStringValue() {
     return getValue();
   }
 
+  /** {@inheritDoc} */
   @Override
   protected void doSetValue(String value) {
     if (nonNull(value)) {
@@ -51,6 +66,7 @@ public abstract class BaseTextBox<T extends BaseTextBox<T>>
     }
   }
 
+  /** {@inheritDoc} */
   @Override
   public String getValue() {
     String value = getInputElement().element().value;

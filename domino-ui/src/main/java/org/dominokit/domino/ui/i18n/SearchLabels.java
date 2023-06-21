@@ -15,7 +15,18 @@
  */
 package org.dominokit.domino.ui.i18n;
 
+/**
+ * SearchLabels interface.
+ *
+ * @author vegegoku
+ * @version $Id: $Id
+ */
 public interface SearchLabels extends Labels {
+  /**
+   * getStartTyping.
+   *
+   * @return a {@link java.lang.String} object
+   */
   default String getStartTyping() {
     return "START TYPING...";
   }
