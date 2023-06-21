@@ -18,10 +18,6 @@ package org.dominokit.domino.ui.datatable.events;
 /**
  * This event will be fired when the date table bordered is changed
  *
- * <p>{@link org.dominokit.domino.ui.datatable.DataTable#bordered()}
- *
- * <p>{@link org.dominokit.domino.ui.datatable.DataTable#noBorder()}
- *
  * @author vegegoku
  * @version $Id: $Id
  */

@@ -36,16 +36,7 @@ import org.gwtproject.timer.client.Timer;
  * hidden by default and can be revealed by a trigger.
  *
  * <p>also the component provide callback and a type ahead delay, and provides a close button to
- * hide the component
- *
- * <pre>
- * Search.create(true)
- *                 .setSearchPlaceHolder("Search")
- *                 .styler(style -&gt; style.setHeight(Unit.px.of(40)))
- *                 .onSearch(searchToken -&gt; Notification.create("Inline searching for : " +
- * searchToken).show())
- *                 .onClose(() -&gt; Notification.create("Closing inline search : ").show());
- * </pre>
+ * hide the component </pre>
  *
  * @author vegegoku
  * @version $Id: $Id

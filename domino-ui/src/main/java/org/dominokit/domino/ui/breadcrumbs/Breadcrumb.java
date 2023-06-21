@@ -40,14 +40,6 @@ import org.dominokit.domino.ui.utils.HasChangeListeners;
  * <p>Customize the component can be done by overwriting classes provided by {@link
  * BreadcrumbStyles}
  *
- * <p>For example:
- *
- * <pre>
- *     Breadcrumb.create()
- *               .appendChild(" Home ", (evt) -> {//do something when clicked})
- *               .appendChild(" Library ", (evt) -> {//do something when clicked})
- * </pre>
- *
  * @see BaseDominoElement
  * @see HasBackground
  * @see BreadcrumbItem

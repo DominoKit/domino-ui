@@ -30,12 +30,6 @@ import org.dominokit.domino.ui.utils.LazyChild;
  * <p>Customize the component can be done by overwriting classes provided by {@link
  * BlockHeaderStyles}
  *
- * <p>For example:
- *
- * <pre>
- *     BlockHeader.create("Header", "Description");
- * </pre>
- *
  * @see BaseDominoElement
  * @author vegegoku
  * @version $Id: $Id

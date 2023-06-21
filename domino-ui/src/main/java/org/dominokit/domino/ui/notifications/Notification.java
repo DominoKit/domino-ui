@@ -35,13 +35,7 @@ import org.dominokit.domino.ui.utils.LazyChild;
  * A component for showing notifications on different position with custom content
  *
  * <p>Customize the component can be done by overwriting classes provided by {@link
- * NotificationStyles}
- *
- * <p>For example:
- *
- * <pre>
- *     Notification.createSuccess("Everything is okay");
- * </pre>
+ * NotificationStyles} </pre>
  *
  * @see BaseDominoElement
  * @author vegegoku

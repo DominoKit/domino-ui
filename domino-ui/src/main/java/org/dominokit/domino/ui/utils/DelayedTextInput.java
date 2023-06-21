@@ -24,13 +24,7 @@ import org.gwtproject.timer.client.Timer;
 
 /**
  * A component that wraps an {@link elemental2.dom.HTMLInputElement} and performs an action when the
- * user stops typing in the input after a configurable delay
- *
- * <pre>
- * TextBox search = TextBox.create("Search");
- * DelayedTextInput.create(search.getInputElement(), 300)
- *         .setDelayedAction(() -> Notification.create(search.getValue()).show());
- * </pre>
+ * user stops typing in the input after a configurable delay </pre>
  *
  * @author vegegoku
  * @version $Id: $Id

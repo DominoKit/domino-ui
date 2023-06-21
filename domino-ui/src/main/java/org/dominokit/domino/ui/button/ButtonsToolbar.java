@@ -26,24 +26,6 @@ import org.dominokit.domino.ui.utils.BaseDominoElement;
  *
  * <p>This class is used to group buttons in a set of groups to form a toolbar
  *
- * <pre>
- *         ButtonsToolbar.create()
- *              .addGroup(
- *                  ButtonsGroup.create()
- *                      .appendChild(Button.createDefault("1"))
- *                      .appendChild(Button.createDefault("2"))
- *                      .appendChild(Button.createDefault("3")))
- *              .addGroup(
- *                  ButtonsGroup.create()
- *                      .appendChild(Button.createDefault("4"))
- *                      .appendChild(Button.createDefault("5"))
- *                      .appendChild(Button.createDefault("6")))
- *              .addGroup(
- *                  ButtonsGroup.create()
- *                      .appendChild(Button.createDefault("7"))
- *                    );
- *     </pre>
- *
  * @author vegegoku
  * @version $Id: $Id
  */

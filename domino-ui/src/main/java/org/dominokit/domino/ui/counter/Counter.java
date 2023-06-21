@@ -25,16 +25,7 @@ import org.gwtproject.timer.client.Timer;
  * notified through a handler everytime the count it changed
  *
  * <p>e.g : count from 0 to 100 by 1 increment every 1 second and log the count to the console
- *
- * <pre>
- *        Counter
- *                 .countFrom(0)
- *                 .countTo(100)
- *                 .every(1000)
- *                 .incrementBy(1)
- *                 .onCount(count -&gt; DomGlobal.console.info(count))
- *                 .startCounting();
- *     </pre>
+ * </pre>
  *
  * @author vegegoku
  * @version $Id: $Id

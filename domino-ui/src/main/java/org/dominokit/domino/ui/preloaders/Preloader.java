@@ -23,15 +23,6 @@ import org.dominokit.domino.ui.utils.BaseDominoElement;
 /**
  * A component to show a loading indicator with different sizes and colors
  *
- * <p>example
- *
- * <pre>
- * DominoElement.body()
- *         .appendChild(Preloader.create()
- *                 .setSize(Preloader.Size.large)
- *                 .setColor(Color.GREEN));
- * </pre>
- *
  * @author vegegoku
  * @version $Id: $Id
  */

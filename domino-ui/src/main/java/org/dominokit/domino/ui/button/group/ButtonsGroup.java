@@ -30,14 +30,6 @@ import org.dominokit.domino.ui.utils.BaseDominoElement;
  * <p>This component wraps a set of different Buttons into one group the grouped buttons can be
  * aligned horizontally or vertically and the group can apply some properties to all grouped button
  *
- * <pre>
- *         ButtonsGroup.create()
- *            .appendChild(Button.createDefault("LEFT"))
- *            .appendChild(Button.createDefault("MIDDLE"))
- *            .appendChild(Button.createDefault("RIGHT"))
- *            .setSize(ButtonSize.LARGE);
- *     </pre>
- *
  * @author vegegoku
  * @version $Id: $Id
  */

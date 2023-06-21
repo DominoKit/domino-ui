@@ -31,12 +31,6 @@ import org.dominokit.domino.ui.utils.IsCollapsible;
  * <p>Collapsible component can wrap any element to provide functionality to show and hide the
  * wrapped element also it allows attaching callbacks when the element is shown/hidden
  *
- * <pre>
- *         Collapsible.create(DominoElement.div().setTextContent("Hello world"))
- *         .addShowHandler(() -&gt; DomGlobal.console.info("Div visible"))
- *         .addHideHandler(() -&gt; DomGlobal.console.info("Div visible"));
- *     </pre>
- *
  * @author vegegoku
  * @version $Id: $Id
  */

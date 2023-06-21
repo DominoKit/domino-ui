@@ -25,13 +25,6 @@ import org.dominokit.domino.ui.utils.ChildHandler;
  *
  * <p>This Button component will open a dropdown menu when clicked by default
  *
- * <pre>
- *         DropdownButton.createDefault("TOP")
- *                     .appendChild(DropdownAction.create("Action"))
- *                     .appendChild(DropdownAction.create("Another action"))
- *                     .setPosition(DropDownPosition.TOP)
- *     </pre>
- *
  * @author vegegoku
  * @version $Id: $Id
  */

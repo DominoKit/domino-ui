@@ -26,15 +26,6 @@ import org.dominokit.domino.ui.utils.BaseDominoElement;
 /**
  * A wrapper component for split panels
  *
- * <p>For example:
- *
- * <pre>
- *     SplitPanel.create()
- *                             .appendChild(
- *                                 div()
- *                                     .css("demo-split-div", Color.INDIGO_LIGHTEN_5.getBackground()))
- * </pre>
- *
  * @see BaseDominoElement
  * @author vegegoku
  * @version $Id: $Id

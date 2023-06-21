@@ -27,19 +27,6 @@ import org.dominokit.domino.ui.utils.*;
  * <p>This component will handle the switching between all the chips configured, so that one chip
  * will be select at one time
  *
- * <p>For example:
- *
- * <pre>
- *     ChipsGroup.create()
- *             .appendChild(Chip.create("Extra small"))
- *             .appendChild(Chip.create("Small"))
- *             .appendChild(Chip.create("Medium"))
- *             .appendChild(Chip.create("Large"))
- *             .appendChild(Chip.create("Extra large"))
- *             .setColorScheme(ColorScheme.TEAL)
- *             .addSelectionHandler(value -> Notification.createInfo("Chip [ " + chipsGroup.getSelectedChip().getValue() + " ] is selected").show())
- * </pre>
- *
  * @see BaseDominoElement
  * @see Chip
  * @see HasSelectionHandler

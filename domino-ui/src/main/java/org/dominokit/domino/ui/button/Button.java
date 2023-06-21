@@ -25,21 +25,6 @@ import org.dominokit.domino.ui.icons.Icon;
  * <p>this class provide a set of factory methods to create simple buttons with different styles and
  * a combination of a text and icon. example
  *
- * <pre>
- *         Button.create("submit")
- *              .addClickListener(evt-&gt; //handle the event);
- *     </pre>
- *
- * <pre>
- *         Button.create(Icons.content_save(), "Save")
- *              .addClickListener(evt-&gt; //handle the event);
- *     </pre>
- *
- * <pre>
- *         Button.createPrimary("Approve")
- *              .addClickListener(evt-&gt; //handle the event);
- *     </pre>
- *
  * @author vegegoku
  * @version $Id: $Id
  */

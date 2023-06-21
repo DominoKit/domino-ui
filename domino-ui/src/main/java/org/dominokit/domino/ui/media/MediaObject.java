@@ -31,20 +31,6 @@ import org.dominokit.domino.ui.utils.LazyChild;
  * <p>Customize the component can be done by overwriting classes provided by {@link
  * org.dominokit.domino.ui.media.MediaStyles}
  *
- * <p>For example:
- *
- * <pre>
- *     MediaObject.create()
- *                .setHeader("Media heading")
- *                .setLeftMedia(a().add(
- *                                  img("http://placehold.it/64x64")
- *                                      .attr("width", "64")
- *                                      .attr("height", "64")
- *                             )
- *                )
- *                .appendChild(TextNode.of(SAMPLE_TEXT))
- * </pre>
- *
  * @see BaseDominoElement
  * @author vegegoku
  * @version $Id: $Id

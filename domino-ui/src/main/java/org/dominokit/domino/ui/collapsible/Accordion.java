@@ -33,57 +33,6 @@ import org.dominokit.domino.ui.utils.BaseDominoElement;
  * other panels will be closed unless the multi open flag is set which will allow more than one
  * panel to be open at once.
  *
- * <p>Multi open false
- *
- * <pre>
- *         Accordion.create()
- *                 .appendChild(
- *                         AccordionPanel.create(
- *                                 "Collapsible item 1", TextNode.of("Panel 1"))
- *                                 .show())
- *                 .appendChild(
- *                         AccordionPanel.create(
- *                                 "Collapsible item 2", TextNode.of("Panel 1")))
- *                 .appendChild(
- *                         AccordionPanel.create(
- *                                 "Collapsible item 3", TextNode.of("panel 1")));
- *     </pre>
- *
- * <p>Multi open true
- *
- * <pre>
- *         Accordion.create()
- *                 .multiOpen()
- *                 .appendChild(
- *                         AccordionPanel.create(
- *                                 "Collapsible item 1", TextNode.of("Panel 1"))
- *                                 .show()
- *                                 .setIcon(Icons.perm_contact_calendar())
- *                                 .setHeaderBackground(Color.PINK)
- *                                 .setBodyBackground(Color.PINK)
- *                                 .show())
- *                 .appendChild(
- *                         AccordionPanel.create(
- *                                 "Collapsible item 2", TextNode.of("Panel 2"))
- *                                 .setIcon(Icons.cloud_download())
- *                                 .setHeaderBackground(Color.CYAN)
- *                                 .setBodyBackground(Color.CYAN))
- *                 .appendChild(
- *                         AccordionPanel.create(
- *                                 "Collapsible item 3", TextNode.of("Panel 3"))
- *                                 .show()
- *                                 .setIcon(Icons.contact_phone())
- *                                 .setHeaderBackground(Color.TEAL)
- *                                 .setBodyBackground(Color.TEAL)
- *                                 .show())
- *                 .appendChild(
- *                         AccordionPanel.create(
- *                                 "Collapsible item 4", TextNode.of("Panel 4"))
- *                                 .setIcon(Icons.folder_shared())
- *                                 .setHeaderBackground(Color.ORANGE)
- *                                 .setBodyBackground(Color.ORANGE))
- *     </pre>
- *
  * @see AccordionPanel
  * @author vegegoku
  * @version $Id: $Id

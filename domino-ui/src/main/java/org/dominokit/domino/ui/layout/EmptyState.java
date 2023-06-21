@@ -26,13 +26,6 @@ import org.dominokit.domino.ui.utils.*;
  * A component that indicate that other components or parts of the page has no content currently to
  * display
  *
- * <pre>
- * EmptyState.create(Icons.cloud_question())
- *                 .setTitle("Could not find records")
- *                 .setIconColor(Color.GREY)
- *                 .setTitleColor(Color.GREY)
- * </pre>
- *
  * @author vegegoku
  * @version $Id: $Id
  */

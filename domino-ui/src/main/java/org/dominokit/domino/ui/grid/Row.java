@@ -35,14 +35,7 @@ import org.dominokit.domino.ui.utils.BaseDominoElement;
  * href="https://developer.mozilla.org/en-US/docs/Web/CSS/grid-row">MDN official documentation</a>
  *
  * <p>Customize the component can be done by overwriting classes provided by {@link
- * org.dominokit.domino.ui.grid.GridStyles}
- *
- * <p>For example:
- *
- * <pre>
- *     Row.create()
- *        .appendChild(element);
- * </pre>
+ * org.dominokit.domino.ui.grid.GridStyles} </pre>
  *
  * @see BaseDominoElement
  * @author vegegoku

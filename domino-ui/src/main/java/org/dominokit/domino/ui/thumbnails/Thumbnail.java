@@ -36,16 +36,6 @@ import org.dominokit.domino.ui.utils.LazyChild;
  * <p>Customize the component can be done by overwriting classes provided by {@link
  * org.dominokit.domino.ui.thumbnails.ThumbnailStyles}
  *
- * <p>For example:
- *
- * <pre>
- *     Thumbnail.create()
- *         .setContent(a().add(img(GWT.getModuleBaseURL() + "/images/image-gallery/1.jpg").css(Styles.img_responsive)))
- *         .appendCaptionChild(h(3).textContent("Thumbnail label"))
- *         .appendCaptionChild(Paragraph.create(SAMPLE_TEXT))
- *         .appendCaptionChild(Button.createPrimary("BUTTON"))
- * </pre>
- *
  * @see BaseDominoElement
  * @author vegegoku
  * @version $Id: $Id

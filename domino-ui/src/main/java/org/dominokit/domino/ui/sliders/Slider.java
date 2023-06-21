@@ -40,13 +40,7 @@ import org.dominokit.domino.ui.utils.HasChangeListeners;
 
 /**
  * A component with min/max value and its value can be changed by sliding a pointer through the
- * component
- *
- * <pre>
- *     Slider.create(100, 0)
- *         .setStep(1)
- *         .setWithThumb(true);
- * </pre>
+ * component </pre>
  *
  * @author vegegoku
  * @version $Id: $Id

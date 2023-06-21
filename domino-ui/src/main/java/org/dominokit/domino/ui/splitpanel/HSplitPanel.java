@@ -18,25 +18,6 @@ package org.dominokit.domino.ui.splitpanel;
 /**
  * A horizontal split panel implementation
  *
- * <p>For example:
- *
- * <pre>
- *     HSplitPanel.create()
- *                     .appendChild(
- *                         SplitPanel.create()
- *                             .appendChild(
- *                                 div()
- *                                     .css("demo-split-div", Color.INDIGO_LIGHTEN_5.getBackground())))
- *                     .appendChild(
- *                         SplitPanel.create()
- *                             .appendChild(
- *                                 div()
- *                                     .css(
- *                                         "demo-split-div",
- *                                         Color.BLUE_GREY_LIGHTEN_5.getBackground())))
- *                     .setHeight("400px")
- * </pre>
- *
  * @see BaseSplitPanel
  * @see HasSplitPanels
  * @author vegegoku

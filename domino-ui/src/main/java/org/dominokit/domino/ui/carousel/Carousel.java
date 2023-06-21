@@ -40,31 +40,6 @@ import org.gwtproject.timer.client.Timer;
  * <p>Customize the component can be done by overwriting classes provided by {@link
  * org.dominokit.domino.ui.carousel.CarouselStyles}
  *
- * <p>For example:
- *
- * <pre>
- *     Carousel.create()
- *             .appendChild(
- *                 Slide.create(
- *                     GWT.getModuleBaseURL()
- *                         + "/images/image-gallery/11.jpg"))
- *             .appendChild(
- *                 Slide.create(
- *                     GWT.getModuleBaseURL()
- *                         + "/images/image-gallery/12.jpg"))
- *             .appendChild(
- *                 Slide.create(
- *                     GWT.getModuleBaseURL()
- *                         + "/images/image-gallery/19.jpg"))
- *             .appendChild(
- *                 Slide.create(
- *                     GWT.getModuleBaseURL() + "/images/image-gallery/9.jpg"))
- *             .appendChild(
- *                 Slide.create(
- *                     GWT.getModuleBaseURL()
- *                         + "/images/image-gallery/6.jpg")))
- * </pre>
- *
  * @see BaseDominoElement
  * @see CarouselStyles
  * @author vegegoku

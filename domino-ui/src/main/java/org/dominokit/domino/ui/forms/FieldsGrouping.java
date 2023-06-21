@@ -35,17 +35,6 @@ import org.dominokit.domino.ui.utils.ApplyFunction;
  * <p>The FieldsGrouping can be used to perform common logic to all grouped component with a single
  * call
  *
- * <p>example
- *
- * <pre>
- *     FieldsGrouping.create()
- *         .addFormElement(nameTextBox)
- *         .addFormElement(phoneTextBox)
- *         .addFormElement(emailBox)
- *         .setRequired(true)
- *         .setAutoValidation(true);
- * </pre>
- *
  * @author vegegoku
  * @version $Id: $Id
  */

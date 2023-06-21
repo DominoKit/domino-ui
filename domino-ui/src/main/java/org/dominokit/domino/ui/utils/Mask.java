@@ -30,19 +30,6 @@ import org.dominokit.domino.ui.forms.InputFormField;
 /**
  * A utility that provides masking feature on input elements based on pattern and regex
  *
- * <p>For example:
- *
- * <pre>
- *     Mask.of(element)
- *             .pattern("dd/mm/yyyy hh:mm")
- *             .dataSlots("dmyh")
- *             .onPatternMatched(
- *                 value -> {
- *                   // value matched the pattern
- *                 })
- *             .build();
- * </pre>
- *
  * @author vegegoku
  * @version $Id: $Id
  */

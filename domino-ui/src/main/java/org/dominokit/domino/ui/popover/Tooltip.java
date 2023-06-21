@@ -38,12 +38,6 @@ import org.dominokit.domino.ui.utils.BaseDominoElement;
  * <p>Customize the component can be done by overwriting classes provided by {@link
  * org.dominokit.domino.ui.popover.PopoverStyles}
  *
- * <p>For example:
- *
- * <pre>
- *     Popover.create(element, "Popover", Paragraph.create("This is a popover"));
- * </pre>
- *
  * @see BaseDominoElement
  * @author vegegoku
  * @version $Id: $Id

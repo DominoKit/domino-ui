@@ -32,33 +32,6 @@ import org.dominokit.domino.ui.utils.LazyChild;
  * <p>Customize the component can be done by overwriting classes provided by {@link
  * org.dominokit.domino.ui.grid.GridStyles}
  *
- * <p>For example:
- *
- * <pre>
- *     GridLayout gridLayout = GridLayout.create()
- *                 .style()
- *                 .setHeight("500px").get();
- *
- *     // changing a section size
- *     gridLayout.setHeaderSpan(SectionSpan._2);
- *     gridLayout.setLeftSpan(SectionSpan._3);
- *     gridLayout.setRightSpan(SectionSpan._4);
- *     gridLayout.setFooterSpan(SectionSpan._2);
- *
- *     // hiding sections
- *     gridLayout.hideHeader();
- *     gridLayout.hideLeft();
- *     gridLayout.hideRight();
- *     gridLayout.hideFooter();
- *
- *     // Adding elements
- *     gridLayout.getContentElement().appendChild(otherElement);
- *     gridLayout.getHeaderElement().appendChild(otherElement);
- *     gridLayout.getLeftElement().appendChild(otherElement);
- *     gridLayout.getRightElement().appendChild(otherElement);
- *     gridLayout.getFooterElement().appendChild(otherElement);
- * </pre>
- *
  * @see BaseDominoElement
  * @author vegegoku
  * @version $Id: $Id

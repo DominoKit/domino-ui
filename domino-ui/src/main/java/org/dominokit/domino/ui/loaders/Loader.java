@@ -33,14 +33,6 @@ import org.gwtproject.timer.client.Timer;
  * <p>Customize the component can be done by overwriting classes provided by {@link
  * org.dominokit.domino.ui.loaders.LoaderStyles}
  *
- * <p>For example:
- *
- * <pre>
- *     Loader.create(element, LoaderEffect.PULSE)
- *           .setLoadingText("Loading ...")
- *           .start();
- * </pre>
- *
  * @author vegegoku
  * @version $Id: $Id
  */

@@ -29,13 +29,7 @@ import org.dominokit.domino.ui.utils.*;
  * <p>This component provides a container which allows showing information with icons and effects
  *
  * <p>Customize the component can be done by overwriting classes provided by {@link
- * org.dominokit.domino.ui.infoboxes.InfoBoxStyles}
- *
- * <p>For example:
- *
- * <pre>
- *     InfoBox.create(Icons.shopping_cart(), "NEW ORDERS", "125");
- * </pre>
+ * org.dominokit.domino.ui.infoboxes.InfoBoxStyles} </pre>
  *
  * @see BaseDominoElement
  * @see HasBackground

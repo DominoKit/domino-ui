@@ -25,14 +25,7 @@ import org.dominokit.domino.ui.utils.DominoUIConfig;
 
 /**
  * A component to show the progress for a single operation within a {@link
- * org.dominokit.domino.ui.progress.Progress}
- *
- * <p>example
- *
- * <pre>
- * Progress.create()
- *         .appendChild(ProgressBar.create(100).setValue(50));
- * </pre>
+ * org.dominokit.domino.ui.progress.Progress} </pre>
  *
  * @see Progress
  * @author vegegoku

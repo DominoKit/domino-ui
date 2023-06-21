@@ -35,13 +35,6 @@ import org.dominokit.domino.ui.utils.HasClickableElement;
  * <p>Customize the component can be done by overwriting classes provided by {@link
  * BreadcrumbStyles}
  *
- * <p>For example:
- *
- * <pre>
- *     Breadcrumb.create()
- *               .appendChild(BreadcrumbItem.create(" Home "))
- * </pre>
- *
  * @see Breadcrumb
  * @see BaseDominoElement
  * @see HasClickableElement

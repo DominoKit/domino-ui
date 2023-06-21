@@ -24,13 +24,6 @@ import org.dominokit.domino.ui.utils.BaseDominoElement;
 /**
  * A component that can show the progress for one or more operation
  *
- * <p>example
- *
- * <pre>
- * Progress.create()
- *         .appendChild(ProgressBar.create(100).setValue(50));
- * </pre>
- *
  * @see ProgressBar
  * @author vegegoku
  * @version $Id: $Id

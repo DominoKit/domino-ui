@@ -32,29 +32,6 @@ import org.dominokit.domino.ui.utils.PostfixAddOn;
 /**
  * This class is responsible for configuring the data table
  *
- * <pre>
- *     TableConfig&lt;Contact&gt; tableConfig = new TableConfig&lt;&gt;();
- * tableConfig
- *         .addColumn(ColumnConfig.<Contact&gt;create("id", "#")
- *                 .textAlign("right")
- *                 .asHeader()
- *                 .setCellRenderer(cell -&gt; TextNode.of(cell.getTableRow().getRecord().getIndex() + 1 + "")))
- *         .addColumn(ColumnConfig.<Contact&gt;create("firstName", "First name")
- *                 .setCellRenderer(cell -&gt; TextNode.of(cell.getTableRow().getRecord().getName())))
- *         .addColumn(ColumnConfig.<Contact&gt;create("email", "Email")
- *                 .setCellRenderer(cell -&gt; TextNode.of(cell.getTableRow().getRecord().getEmail())))
- *         .addColumn(ColumnConfig.<Contact&gt;create("phone", "Phone")
- *                 .setCellRenderer(cell -&gt; TextNode.of(cell.getTableRow().getRecord().getPhone())))
- *         .addColumn(ColumnConfig.<Contact&gt;create("badges", "Badges")
- *                 .setCellRenderer(cell -&gt; {
- *                     if (cell.getTableRow().getRecord().getAge() &lt; 35) {
- *                         return Badge.create("Young")
- *                                 .setBackground(ColorScheme.GREEN.color()).element();
- *                     }
- *                     return TextNode.of("");
- *                 }));
- * </pre>
- *
  * @param <T> the type of the data table records
  * @author vegegoku
  * @version $Id: $Id

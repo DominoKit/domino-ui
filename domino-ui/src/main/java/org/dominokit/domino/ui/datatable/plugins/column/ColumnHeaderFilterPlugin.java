@@ -36,13 +36,6 @@ import org.dominokit.domino.ui.style.Style;
 /**
  * This plugin adds header filters to table columns headers
  *
- * <pre>
- * tableConfig
- *         .addPlugin(ColumnHeaderFilterPlugin.<Person&gt;create()
- *                 .addHeaderFilter("id", IntegerHeaderFilter.create())
- *                 .addHeaderFilter("name", TextHeaderFilter.create()));
- * </pre>
- *
  * @param <T> the type of the data table records
  * @author vegegoku
  * @version $Id: $Id
