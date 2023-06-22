@@ -446,7 +446,7 @@ public abstract class BaseButton<B extends BaseButton<?>> extends WavesElement<H
 
   /** @return {@link DominoElement} of {@link HTMLElement} that wrap the button text */
   public DominoElement<HTMLElement> getTextSpan() {
-    return DominoElement.of(Js.<HTMLElement>uncheckedCast(textContainer));
+    return DominoElement.of(Js.<HTMLElement>uncheckedCast(textContainer.element()));
   }
 
   public B setIconPosition(IconPosition position) {
