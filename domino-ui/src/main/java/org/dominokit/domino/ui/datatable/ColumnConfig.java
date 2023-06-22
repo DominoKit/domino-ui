@@ -918,10 +918,8 @@ public class ColumnConfig<T> {
       flexLayout.appendChild(
           FlexItem.of(DominoElement.div().css("dui-th-title-wrapper"))
               .setOrder(50)
+              .setFlexGrow(1)
               .appendChild(getHeaderElementSupplier().asElement(getTitle())));
-
-      flexLayout.appendChild(
-          FlexItem.of(DominoElement.div().css("dui-th-filler")).setOrder(60).setFlexGrow(1));
     }
 
     flexLayout.appendChild(FlexItem.of(menuIcon.size18().clickable().removeWaves()).setOrder(9980));

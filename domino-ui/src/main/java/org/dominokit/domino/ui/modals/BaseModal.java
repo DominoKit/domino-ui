@@ -366,6 +366,7 @@ public abstract class BaseModal<T extends IsElement<HTMLDivElement>>
       stealFocus();
       openHandlers.forEach(OpenHandler::onOpen);
       this.open = true;
+      document.body.classList.add("modal-open");
       show();
     }
     return (T) this;
@@ -414,6 +415,7 @@ public abstract class BaseModal<T extends IsElement<HTMLDivElement>>
     } else {
       doClose();
     }
+    document.body.classList.remove("modal-open");
     ModalBackDrop.INSTANCE.showHideBodyScrolls();
     return (T) this;
   }
