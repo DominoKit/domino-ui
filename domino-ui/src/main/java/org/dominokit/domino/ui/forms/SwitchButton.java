@@ -86,6 +86,15 @@ public class SwitchButton extends AbstractValueBox<SwitchButton, HTMLElement, Bo
     inputElement.addEventListener("focus", evt -> inputElement.css("tabbed"));
     inputElement.addEventListener("blur", evt -> inputElement.removeCss("tabbed"));
 
+    addEventListener(
+        "click",
+        evt -> {
+          if (isReadOnly() || isDisabled()) {
+            evt.stopPropagation();
+            evt.preventDefault();
+          }
+        });
+
     inputElement.addEventListener(
         "change",
         evt -> {
