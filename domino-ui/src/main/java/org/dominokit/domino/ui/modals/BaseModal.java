@@ -59,7 +59,12 @@ public abstract class BaseModal<T extends IsElement<HTMLDivElement>>
 
     /** */
     public Modal() {
-      root = DominoElement.div().setTabIndex(-1).css("modal").setAttribute("role", "dialog");
+      root =
+          DominoElement.div()
+              .setTabIndex(-1)
+              .css("modal")
+              .setAttribute("role", "dialog")
+              .elevate(DominoUIConfig.INSTANCE.getDefaultModalElevation());
       modalDialog =
           DominoElement.div().setTabIndex(-1).css("modal-dialog").setAttribute("role", "document");
       modalContent =
