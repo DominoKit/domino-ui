@@ -412,12 +412,14 @@ public class Step extends BaseDominoElement<HTMLDivElement, Step> implements Has
 
   /** if the step is invalid it will be put in the {@link Stepper.StepState#ERROR} {@inheritDoc} */
   @Override
-  public ValidationResult validate() {
+  public ValidationResult validate(boolean silent) {
     clearInvalid();
     for (Validator validator : validators) {
       ValidationResult result = validator.isValid();
       if (!result.isValid()) {
-        invalidate(result.getErrorMessage());
+        if (!silent) {
+          invalidate(result.getErrorMessage());
+        }
         return result;
       }
     }

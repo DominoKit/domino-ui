@@ -84,9 +84,9 @@ public class FieldsGrouping implements HasValidation<FieldsGrouping> {
 
   /** {@inheritDoc} validate all components grouped by this FieldsGrouping in fail-fast mode */
   @Override
-  public ValidationResult validate() {
+  public ValidationResult validate(boolean silent) {
     this.errors.clear();
-    boolean fieldsValid = validateFields();
+    boolean fieldsValid = validateFields(silent);
 
     if (!fieldsValid) {
       return new ValidationResult(false, "Invalid fields");
@@ -101,12 +101,12 @@ public class FieldsGrouping implements HasValidation<FieldsGrouping> {
     return ValidationResult.valid();
   }
 
-  private boolean validateFields() {
+  private boolean validateFields(boolean silent) {
 
     boolean valid = true;
 
     for (HasGrouping<?> formElement : formElements) {
-      ValidationResult result = formElement.validate();
+      ValidationResult result = formElement.validate(silent);
       if (!result.isValid()) {
         valid = false;
         this.errors.addAll(formElement.getErrors());

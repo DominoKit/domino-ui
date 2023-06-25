@@ -3358,6 +3358,10 @@ input[type=tel].disabled-suggestions::-webkit-calendar-picker-indicator {
     padding: 7px 10px 7px 30px;
 }
 
+.select-option.disabled {
+    opacity: 0.5;
+}
+
 .select-option-selected {
     background-color: rgba(0, 0, 0, 0.075);
 }

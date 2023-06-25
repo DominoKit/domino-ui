@@ -755,6 +755,10 @@ public class DropDownMenu extends BaseDominoElement<HTMLDivElement, DropDownMenu
     return this;
   }
 
+  public DominoElement<HTMLInputElement> getSearchBox() {
+    return searchBox;
+  }
+
   /** A handler that will be called when closing the menu */
   @FunctionalInterface
   public interface CloseHandler {

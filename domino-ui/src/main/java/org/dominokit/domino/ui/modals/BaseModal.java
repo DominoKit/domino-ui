@@ -59,7 +59,12 @@ public abstract class BaseModal<T extends IsElement<HTMLDivElement>>
 
     /** */
     public Modal() {
-      root = DominoElement.div().setTabIndex(-1).css("modal").setAttribute("role", "dialog");
+      root =
+          DominoElement.div()
+              .setTabIndex(-1)
+              .css("modal")
+              .setAttribute("role", "dialog")
+              .elevate(DominoUIConfig.INSTANCE.getDefaultModalElevation());
       modalDialog =
           DominoElement.div().setTabIndex(-1).css("modal-dialog").setAttribute("role", "document");
       modalContent =
@@ -366,6 +371,7 @@ public abstract class BaseModal<T extends IsElement<HTMLDivElement>>
       stealFocus();
       openHandlers.forEach(OpenHandler::onOpen);
       this.open = true;
+      document.body.classList.add("modal-open");
       show();
     }
     return (T) this;
@@ -414,6 +420,7 @@ public abstract class BaseModal<T extends IsElement<HTMLDivElement>>
     } else {
       doClose();
     }
+    document.body.classList.remove("modal-open");
     ModalBackDrop.INSTANCE.showHideBodyScrolls();
     return (T) this;
   }

@@ -244,12 +244,10 @@ public class TreeItem<T> extends WavesElement<HTMLLIElement, TreeItem<T>>
             .setStrategy(DominoUIConfig.INSTANCE.getDefaultTreeCollapseStrategySupplier().get(this))
             .addHideHandler(
                 () -> {
-                  anchorElement.removeCss("toggled");
                   restoreIcon();
                 })
             .addShowHandler(
                 () -> {
-                  anchorElement.addCss("toggled");
                   replaceIcon(expandIcon);
                 })
             .hide();
@@ -336,6 +334,11 @@ public class TreeItem<T> extends WavesElement<HTMLLIElement, TreeItem<T>>
 
   private void toggle() {
     if (isParent()) {
+      if (isCollapsed()) {
+        anchorElement.addCss("toggled");
+      } else {
+        anchorElement.removeCss("toggled");
+      }
       collapsible.toggleDisplay();
     }
   }
