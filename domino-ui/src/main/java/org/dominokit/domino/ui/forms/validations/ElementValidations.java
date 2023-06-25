@@ -42,7 +42,7 @@ public class ElementValidations {
    *
    * @return the {@link ValidationResult}
    */
-  public ValidationResult validate() {
+  public ValidationResult validate(boolean silent) {
     element.clearInvalid();
     if (!element.isEnabled()) {
       return ValidationResult.valid();
@@ -50,7 +50,9 @@ public class ElementValidations {
     for (Validator validator : validators) {
       ValidationResult result = validator.isValid();
       if (!result.isValid()) {
-        element.invalidate(result.getErrorMessage());
+        if (!silent) {
+          element.invalidate(result.getErrorMessage());
+        }
         return result;
       }
     }

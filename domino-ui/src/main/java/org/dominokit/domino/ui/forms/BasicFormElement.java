@@ -181,9 +181,9 @@ public abstract class BasicFormElement<T extends BasicFormElement<T, V>, V>
 
   /** {@inheritDoc} */
   @Override
-  public ValidationResult validate() {
+  public ValidationResult validate(boolean silent) {
     if (!validationDisabled) {
-      return elementValidations.validate();
+      return elementValidations.validate(silent);
     } else {
       return ValidationResult.valid();
     }

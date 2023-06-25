@@ -33,7 +33,16 @@ public interface HasValidation<T> {
    * @return same implementing component
    */
   @Editor.Ignore
-  ValidationResult validate();
+  default ValidationResult validate() {
+    return validate(false);
+  }
+  /**
+   * validate the component and fail-fast with first error
+   *
+   * @return same implementing component
+   */
+  @Editor.Ignore
+  ValidationResult validate(boolean silent);
 
   /**
    * Run all the validators and return all errors
