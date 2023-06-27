@@ -38,6 +38,7 @@
 .dui-btn-text {
     order: var(--dui-btn-text-order);
     height: var(--dui-btn-text-height);
+    flex-grow: 1;
 }
 
 .dui-btn-icon {
@@ -176,7 +177,7 @@ fieldset[disabled] .dui-btn {
 }
 
 .dui-btn {
-    background-color: var(--dui-bg, buttonface);
+    background-color: var(--dui-accent-l-4, buttonface);
     color: var(--dui-text-color, initial);
 }
 a.dui-btn {

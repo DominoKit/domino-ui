@@ -20,6 +20,7 @@ import static java.util.Objects.isNull;
 import elemental2.dom.*;
 import java.util.Optional;
 import java.util.function.Consumer;
+import org.dominokit.domino.ui.IsElement;
 import org.dominokit.domino.ui.elements.LabelElement;
 import org.dominokit.domino.ui.elements.SpanElement;
 import org.dominokit.domino.ui.style.BooleanCssClass;
@@ -141,6 +142,28 @@ public class CheckBox extends InputFormField<CheckBox, HTMLInputElement, Boolean
    */
   public CheckBox setCheckLabel(String checkLabel) {
     checkLabelTextElement.get().setTextContent(checkLabel);
+    return this;
+  }
+
+  /**
+   * setCheckLabel.
+   *
+   * @param checkLabel a {@link java.lang.String} object
+   * @return a {@link org.dominokit.domino.ui.forms.CheckBox} object
+   */
+  public CheckBox setCheckLabel(Node checkLabel) {
+    checkLabelTextElement.get().setContent(checkLabel);
+    return this;
+  }
+
+  /**
+   * setCheckLabel.
+   *
+   * @param checkLabel a {@link java.lang.String} object
+   * @return a {@link org.dominokit.domino.ui.forms.CheckBox} object
+   */
+  public CheckBox setCheckLabel(IsElement<?> checkLabel) {
+    checkLabelTextElement.get().setContent(checkLabel);
     return this;
   }
 

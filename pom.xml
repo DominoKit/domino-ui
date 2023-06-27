@@ -84,7 +84,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <elemental2.version>1.1.0</elemental2.version>
-        <gwt.version>2.9.0</gwt.version>
+        <gwt.version>2.10.0</gwt.version>
         <jackson.apt.version>1.0.0-RC3</jackson.apt.version>
         <gwt.i18n.version>1.0.1</gwt.i18n.version>
     </properties>
@@ -286,7 +286,7 @@
                     <!-- Set to true to immediately bump the development version when creating a release branch -->
                     <commitDevelopmentVersionAtStart>true</commitDevelopmentVersionAtStart>
 
-                    <!-- Which digit to increas in major.minor.patch versioning, the values being 0.1.2 respectively.
+                    <!-- Which digit to increase in major.minor.patch versioning, the values being 0.1.2 respectively.
                          By default the rightmost number is increased.
                          Pass in the number via parameter or profile to allow configuration,
                          since everything set in the file can't be overwritten via command line -->

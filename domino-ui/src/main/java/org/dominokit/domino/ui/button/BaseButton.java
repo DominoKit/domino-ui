@@ -65,7 +65,7 @@ public abstract class BaseButton<E extends HTMLElement, B extends BaseButton<E, 
             .addClickListener(Event::stopPropagation)
             .addCss(dui_button)
             .appendChild(bodyElement = div().addCss(dui_button_body));
-    textElement = LazyChild.of(span().addCss(dui_button_text, dui_grow_1), bodyElement);
+    textElement = LazyChild.of(span().addCss(dui_button_text), bodyElement);
     init((B) this);
   }
 
@@ -221,6 +221,11 @@ public abstract class BaseButton<E extends HTMLElement, B extends BaseButton<E, 
     if (nonNull(iconElement)) {
       iconElement.get();
     }
+    return (B) this;
+  }
+
+  public B withBodyElement(ChildHandler<B, DivElement> handler) {
+    handler.apply((B) this, bodyElement);
     return (B) this;
   }
 
