@@ -85,7 +85,7 @@
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <elemento.version>1.0.3</elemento.version>
         <elemental2.version>1.1.0</elemental2.version>
-        <gwt.version>2.9.0</gwt.version>
+        <gwt.version>2.10.0</gwt.version>
         <jackson.apt.version>1.0.0-RC3</jackson.apt.version>
         <gwt.i18n.version>1.0</gwt.i18n.version>
     </properties>
