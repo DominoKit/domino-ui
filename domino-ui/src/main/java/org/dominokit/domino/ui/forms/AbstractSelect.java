@@ -317,7 +317,12 @@ public abstract class AbstractSelect<T, V, S extends AbstractSelect<T, V, S>>
     return DropdownAction.create(option, optionRenderer.element(option))
         .setAutoClose(this.autoCloseOnSelect)
         .setExcludeFromSearchResults(option.isExcludeFromSearchResults())
-        .addSelectionHandler(value -> doSelectOption(option));
+        .addSelectionHandler(
+            value -> {
+              if (!option.isDisabled()) {
+                doSelectOption(option);
+              }
+            });
   }
 
   /**
@@ -585,8 +590,8 @@ public abstract class AbstractSelect<T, V, S extends AbstractSelect<T, V, S>>
   }
 
   /**
-   * @deprecated use {@link #getLabelElement()}
    * @return the {@link HTMLLabelElement} of the select wrapped as {@link DominoElement}
+   * @deprecated use {@link #getLabelElement()}
    */
   @Deprecated
   public DominoElement<HTMLLabelElement> getSelectLabel() {

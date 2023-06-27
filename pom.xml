@@ -68,7 +68,7 @@
 
     <properties>
         <snapshot.version>HEAD-SNAPSHOT</snapshot.version>
-        <next.release.version>1.0.0-RC19</next.release.version>
+        <next.release.version>1.0.0-RC20</next.release.version>
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
 

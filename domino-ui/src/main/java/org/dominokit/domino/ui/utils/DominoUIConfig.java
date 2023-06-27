@@ -116,6 +116,7 @@ public class DominoUIConfig {
 
   private boolean focusNextFieldOnEnter = false;
   private int defaultButtonElevation = 1;
+  private int defaultModalElevation = 2;
 
   protected DominoUIConfig() {}
 
@@ -367,6 +368,15 @@ public class DominoUIConfig {
 
   public DominoUIConfig setDefaultButtonElevation(int defaultButtonElevation) {
     this.defaultButtonElevation = defaultButtonElevation;
+    return this;
+  }
+
+  public int getDefaultModalElevation() {
+    return defaultModalElevation;
+  }
+
+  public DominoUIConfig setDefaultModalElevation(int defaultModalElevation) {
+    this.defaultModalElevation = defaultModalElevation;
     return this;
   }
 

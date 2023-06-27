@@ -30,6 +30,7 @@ import java.util.Map;
 import jsinterop.base.Js;
 import org.dominokit.domino.ui.forms.validations.InputAutoValidator;
 import org.dominokit.domino.ui.forms.validations.ValidationResult;
+import org.dominokit.domino.ui.utils.DominoId;
 
 /**
  * A Base implementation for special type components with text input
@@ -54,8 +55,8 @@ public class InputValueBox<T extends InputValueBox<T>>
    */
   public InputValueBox(String type, String label) {
     super(type, label);
-    suggestionsDataList.id = getDominoId();
-    getInputElement().setAttribute("list", getDominoId());
+    suggestionsDataList.id = DominoId.unique();
+    getInputElement().setAttribute("list", suggestionsDataList.id);
     getInputElement().element().parentNode.appendChild(suggestionsDataList);
     addTypeMismatchValidator();
     addInvalidPatternValidator();

@@ -238,28 +238,6 @@ public abstract class BaseButton<B extends BaseButton<?>> extends WavesElement<H
   }
 
   /**
-   * disables the button, this will effectively set the button HTMLElement disable attribute
-   *
-   * @return same instance
-   */
-  @Override
-  public B disable() {
-    buttonElement.setAttribute(DISABLED, DISABLED);
-    return (B) this;
-  }
-
-  /**
-   * enables the button, this will effectively remove the button HTMLElement disable attribute
-   *
-   * @return same instance
-   */
-  @Override
-  public B enable() {
-    buttonElement.removeAttribute(DISABLED);
-    return (B) this;
-  }
-
-  /**
    * delegate to {@link #disable()} or {@link #enable()} based on the flag
    *
    * @param enabled boolean, if true call {@link #enable()} else call {@link #disable()}
@@ -446,7 +424,7 @@ public abstract class BaseButton<B extends BaseButton<?>> extends WavesElement<H
 
   /** @return {@link DominoElement} of {@link HTMLElement} that wrap the button text */
   public DominoElement<HTMLElement> getTextSpan() {
-    return DominoElement.of(Js.<HTMLElement>uncheckedCast(textContainer));
+    return DominoElement.of(Js.<HTMLElement>uncheckedCast(textContainer.element()));
   }
 
   public B setIconPosition(IconPosition position) {

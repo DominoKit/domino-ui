@@ -23,13 +23,7 @@ import static org.jboss.elemento.Elements.li;
 import static org.jboss.elemento.Elements.span;
 import static org.jboss.elemento.Elements.ul;
 
-import elemental2.dom.Event;
-import elemental2.dom.EventListener;
-import elemental2.dom.HTMLAnchorElement;
-import elemental2.dom.HTMLDivElement;
-import elemental2.dom.HTMLElement;
-import elemental2.dom.HTMLLIElement;
-import elemental2.dom.HTMLUListElement;
+import elemental2.dom.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -114,7 +108,6 @@ public abstract class AbstractMenu<V, T extends AbstractMenu<V, T>>
   private final DropDirection smallScreenDropDirection = new MiddleOfScreenDropDirection();
   private DropDirection effectiveDropDirection = dropDirection;
   private MenuTarget lastTarget;
-
   private Map<String, MenuTarget> targets = new HashMap<>();
   private DominoElement<HTMLElement> appendTarget = DominoElement.of(document.body);
   private AppendStrategy appendStrategy = AppendStrategy.LAST;
@@ -251,9 +244,16 @@ public abstract class AbstractMenu<V, T extends AbstractMenu<V, T>>
 
     menuHeader.leftAddOnsContainer.appendChild(backArrowContainer);
     positionListener = evt -> position();
-    onAttached(mutationRecord -> document.body.addEventListener("scroll", positionListener, true));
+    onAttached(
+        mutationRecord -> {
+          DomGlobal.window.addEventListener("resize", positionListener, true);
+          document.body.addEventListener("scroll", positionListener, true);
+        });
     onDetached(
-        mutationRecord -> document.body.removeEventListener("scroll", positionListener, true));
+        mutationRecord -> {
+          DomGlobal.window.removeEventListener("resize", positionListener, true);
+          document.body.removeEventListener("scroll", positionListener, true);
+        });
   }
 
   private void onAddMissingElement() {
