@@ -29,15 +29,15 @@ import org.dominokit.domino.ui.utils.DominoElement;
 public class Win8Loader extends BaseLoader<Win8Loader> implements IsElement<HTMLDivElement> {
 
   private final DivElement progress1 =
-      div().addCss(wait_me_progress_elem_1).appendChild(div().addCss(dui_bg_grey_d_2));
+      div().addCss(wait_me_progress_elem_1).appendChild(div().addCss(dui_loader_darker));
   private final DivElement progress2 =
-      div().addCss(wait_me_progress_elem_2).appendChild(div().addCss(dui_bg_grey_d_2));
+      div().addCss(wait_me_progress_elem_2).appendChild(div().addCss(dui_loader_darker));
   private final DivElement progress3 =
-      div().addCss(wait_me_progress_elem_3).appendChild(div().addCss(dui_bg_grey_d_2));
+      div().addCss(wait_me_progress_elem_3).appendChild(div().addCss(dui_loader_darker));
   private final DivElement progress4 =
-      div().addCss(wait_me_progress_elem_4).appendChild(div().addCss(dui_bg_grey_d_2));
+      div().addCss(wait_me_progress_elem_4).appendChild(div().addCss(dui_loader_darker));
   private final DivElement progress5 =
-      div().addCss(wait_me_progress_elem_5).appendChild(div().addCss(dui_bg_grey_d_2));
+      div().addCss(wait_me_progress_elem_5).appendChild(div().addCss(dui_loader_darker));
 
   private final DivElement loader =
       div()
@@ -55,7 +55,7 @@ public class Win8Loader extends BaseLoader<Win8Loader> implements IsElement<HTML
           .appendChild(loadingText);
 
   private final DivElement element =
-      div().addCss(wait_me).style("background: rgba(255, 255, 255, 0.9);").appendChild(content);
+      div().addCss(wait_me).style("background: var(--dui-loader-background);").appendChild(content);
 
   /** Constructor for Win8Loader. */
   public Win8Loader() {

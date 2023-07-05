@@ -26,7 +26,7 @@
     background: rgb(0 0 0 / 8%);
     transform-origin: 50% 50%;
     transform: var(--dui-clickable-transform);
-    box-shadow: 0 0 0 0 rgb(0 0 0 / 40%), 0 0 0 5px rgb(0 0 0 / 8%);
+    box-shadow: var(--dui-clickable-box-shadow);
     outline: none;
 }
 

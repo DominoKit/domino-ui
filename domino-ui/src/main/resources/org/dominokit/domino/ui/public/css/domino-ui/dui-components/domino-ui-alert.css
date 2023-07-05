@@ -1,7 +1,7 @@
 .dui-alert {
     --dui-bg: var(--dui-accent);
     --dui-bg-d-2: var(--dui-accent-d-2);
-    --dui-text-color: var(--dui-color-light);
+    --dui-text-color: var(--dui-color);
     padding: var(--dui-alert-padding);
     margin: var(--dui-alert-margin);
     border-radius: var(--dui-alert-border-radius);

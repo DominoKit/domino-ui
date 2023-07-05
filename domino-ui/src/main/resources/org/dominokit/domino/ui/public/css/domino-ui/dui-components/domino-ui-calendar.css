@@ -1,7 +1,7 @@
 .dui-calendar {
     display: flex;
     flex-direction: column;
-    border: 1px solid var(--dui-accent-l-4);
+    border: var(--dui-calendar-border);
     min-width: var(--dui-calendar-min-width);
 }
 
@@ -14,7 +14,7 @@
     display: flex;
     border-width: var(--dui-calendar-days-header-border-width);
     border-style: var(--dui-calendar-days-header-border-style);
-    border-color: var(--dui-accent-l-4);
+    border-color: var(--dui-calendar-header-border-color);
 }
 
 .dui-month-days-row {
@@ -48,7 +48,7 @@
 }
 
 .dui-calendar-day:hover .dui-calendar-day-number{
-    background-color: var(--dui-accent-l-4);
+    background-color: var(--dui-calender-select-bg);
 }
 
 .dui-month-days-row > .dui-calendar-day + .dui-calendar-day {
@@ -107,7 +107,7 @@
     color: var(--dui-calendar-selected-date-color);
 }
 .dui-selected-date .dui-calendar-day-number:hover {
-    color: var(--dui-color-dark);
+    color: var(--dui-color-5);
 }
 
 .dui-year-selector {
@@ -126,13 +126,13 @@
     flex-grow: 1;
     flex-basis: 0;
     text-align: center;
-    background-color: var(--dui-accent-l-5);
+    background-color: var(--dui-calender-select-bg);
     line-height: var(--dui-spc-8);
     cursor: pointer;
     border-radius: 3px;
 }
 .dui-years-selector-year:hover {
-    background-color: var(--dui-accent-l-3);
+    background-color: var(--dui-calender-select-hover-bg);
 }
 
 .dui-calender-years-spin {
@@ -159,7 +159,7 @@
     flex-grow: 1;
     flex-basis: 0;
     text-align: center;
-    background-color: var(--dui-accent-l-5);
+    background-color: var(--dui-calender-select-bg);
     border-radius: var(--dui-calendar-month-year-selector-border-radius);
     cursor: pointer;
     line-height: var(--dui-spc-8);
@@ -170,7 +170,7 @@
     flex-grow: 1;
     flex-basis: 0;
     text-align: center;
-    background-color: var(--dui-accent-l-5);
+    background-color: var(--dui-calender-select-bg);
     border-radius: var(--dui-calendar-month-year-selector-border-radius);
     cursor: pointer;
     line-height: var(--dui-spc-8);
@@ -179,14 +179,14 @@
 
 .dui-calendar-selectors-month:hover,
 .dui-calendar-selectors-year:hover {
-    background-color: var(--dui-accent-l-3);
+    background-color: var(--dui-calender-select-hover-bg);
 }
 
 .dui-calendar-header {
     order: 20;
     padding: var(--dui-calendar-header-padding);
     background-color: var(--dui-accent);
-    color: var(--dui-text-color, var(--dui-color-light));
+    color: var(--dui-text-color, var(--dui-calendar-header-text-color));
     border-width: var(--dui-calendar-header-border-width);
     border-style: var(--dui-calendar-header-border-style);
     border-color: var(--dui-accent-l-2);
@@ -250,13 +250,13 @@
     flex-grow: 1;
     flex-basis: 0;
     text-align: center;
-    background-color: var(--dui-accent-l-5);
+    background-color: var(--dui-calender-select-bg);
     line-height: var(--dui-spc-8);
     cursor: pointer;
     border-radius: 3px;
 }
 .dui-month-selector-month:hover {
-    background-color: var(--dui-accent-l-3);
+    background-color: var(--dui-calender-select-hover-bg);
 }
 
 .dui-current-month {

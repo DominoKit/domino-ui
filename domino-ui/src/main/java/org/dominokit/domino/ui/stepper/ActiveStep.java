@@ -15,8 +15,6 @@
  */
 package org.dominokit.domino.ui.stepper;
 
-import static org.dominokit.domino.ui.style.ColorsCss.dui_accent_accent_d_2;
-
 /**
  * ActiveStep class.
  *
@@ -27,15 +25,15 @@ public class ActiveStep implements StepState {
   /** {@inheritDoc} */
   @Override
   public void apply(StepTracker tracker) {
-    tracker.addCss(dui_accent_accent_d_2);
+    //    tracker.addCss(dui_accent_accent_d_2);
   }
 
   /** {@inheritDoc} */
   @Override
   public void cleanUp(StepTracker tracker) {
-    tracker
-        .removeCss(dui_accent_accent_d_2)
-        .withTrackerNode((parent1, node) -> node.removeCss(dui_accent_accent_d_2));
+    //    tracker
+    //        .removeCss(dui_accent_accent_d_2)
+    //        .withTrackerNode((parent1, node) -> node.removeCss(dui_accent_accent_d_2));
   }
 
   /** {@inheritDoc} */

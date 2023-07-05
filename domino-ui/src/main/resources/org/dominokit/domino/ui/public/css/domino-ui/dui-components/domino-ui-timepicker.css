@@ -1,7 +1,7 @@
 .dui-time-picker {
     border-width: var(--dui-timepicker-border-width);
     border-style: var(--dui-timepicker-border-style);
-    border-color: var(--dui-accent-l-4);
+    border-color: var(--dui-timepicker-border-color);
     display: flex;
     flex-direction: column;
 }
@@ -10,7 +10,7 @@
     order: 20;
     padding: var(--dui-timepicker-header-padding);
     background-color: var(--dui-accent);
-    color: var(--dui-text-color, var(--dui-color-light));
+    color: var(--dui-text-color, var(--dui-timepicker-header-text-color));
     border-width: var(--dui-timepicker-header-border-width);
     border-style: var(--dui-timepicker-header-border-style);
     border-color: var(--dui-accent-l-2);

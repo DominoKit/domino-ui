@@ -19,9 +19,11 @@ import static java.util.Objects.nonNull;
 
 import elemental2.dom.HTMLDivElement;
 import java.util.Date;
+import java.util.stream.Collectors;
 import org.dominokit.domino.ui.elements.DivElement;
 import org.dominokit.domino.ui.forms.suggest.Select;
 import org.dominokit.domino.ui.forms.suggest.SelectOption;
+import org.dominokit.domino.ui.menu.AbstractMenuItem;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
 import org.dominokit.domino.ui.utils.ChildHandler;
 
@@ -187,11 +189,12 @@ public class TimePickerSelectors extends BaseDominoElement<HTMLDivElement, TimeP
     updateHours();
     if (this.timePicker.is24Hours()) {
       setHour(this.date.getHours());
-    } else if (this.date.getHours() >= 12) {
+    } else if (this.date.getHours() > 12) {
       setHour(this.date.getHours() - 12, TimePeriod.PM);
     } else {
-      setHour(this.date.getHours(), TimePeriod.AM);
-      this.ampmSelect.withValue(TimePeriod.AM);
+      TimePeriod period = (this.date.getHours() - 12) >= 0 ? TimePeriod.PM : TimePeriod.AM;
+      setHour(this.date.getHours(), period);
+      this.ampmSelect.withValue(period);
     }
     this.minutesSelect.withPausedChangeListeners(
         field -> {
@@ -212,7 +215,22 @@ public class TimePickerSelectors extends BaseDominoElement<HTMLDivElement, TimeP
     if (nonNull(timePeriod)) {
       ampmSelect.withPausedChangeListeners(field -> field.withValue(timePeriod));
     }
-    this.hoursSelect.withPausedChangeListeners(field -> field.selectByValue(hour));
+    this.hoursSelect.withPausedChangeListeners(
+        field -> {
+          LOGGER.info(
+              "Is found "
+                  + hour
+                  + ": "
+                  + this.date.getHours()
+                  + " : "
+                  + field.findOptionByValue(hour).isPresent()
+                  + " "
+                  + field.getOptionsMenu().getMenuItems().stream()
+                      .map(AbstractMenuItem::getValue)
+                      .map(String::valueOf)
+                      .collect(Collectors.joining(",")));
+          field.selectByValue(hour);
+        });
   }
 
   /**

@@ -35,7 +35,6 @@
     font: var(--dui-tree-header-font);
     padding: var(--dui-tree-header-padding);
     border-radius: var(--dui-tree-header-radius);
-    color: var(--dui-accent-d-4);
 }
 
 .dui-tree-header-item{
@@ -169,7 +168,7 @@
     color: var(--dui-tree-item-color, var(--dui-accent-d-2));
 }
 .dui-tree-item-text {
-    color: var(--dui-color-dark);
+    color: var(--dui-color);
 }
 
 .dui-tree-item-icon {
@@ -181,7 +180,6 @@
 .dui-active > .dui-tree-anchor .dui-tree-item-icon {
     color: var(--dui-tree-item-active-color, var(--dui-accent-d-3));
 }
-
 .dui-tree-anchor:hover,
 .dui-tree-anchor:hover .dui-tree-item-text,
 .dui-tree-anchor:hover .dui-tree-item-icon,
@@ -190,7 +188,7 @@
 .dui-tree-anchor:focus .dui-tree-item-text,
 .dui-tree-anchor:focus .dui-tree-item-icon,
 .dui-active > .dui-tree-anchor:focus {
-    color: var(--dui-tree-item-active-color, var(--dui-color-light));
+    color: var(--dui-tree-item-hover-color, var(--dui-color-5));
 }
 
 .dui-tree-nav {

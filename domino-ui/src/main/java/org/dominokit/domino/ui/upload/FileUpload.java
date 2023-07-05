@@ -106,6 +106,18 @@ public class FileUpload extends BaseDominoElement<HTMLDivElement, FileUpload>
   /**
    * create.
    *
+   * @param filePreviewContainer a {@link org.dominokit.domino.ui.upload.FilePreviewContainer}
+   *     object
+   * @return a {@link org.dominokit.domino.ui.upload.FileUpload} object
+   */
+  public static FileUpload create(FilePreviewContainer<?, ?> filePreviewContainer) {
+    return new FileUpload(CONFIG.getUIConfig().getFilePreviewFactory(), filePreviewContainer);
+  }
+
+  /** @return new instance */
+  /**
+   * create.
+   *
    * @param filePreviewFactory a {@link org.dominokit.domino.ui.upload.FilePreviewFactory} object
    * @return a {@link org.dominokit.domino.ui.upload.FileUpload} object
    */

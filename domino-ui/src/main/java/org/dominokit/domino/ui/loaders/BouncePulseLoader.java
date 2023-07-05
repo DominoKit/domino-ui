@@ -29,9 +29,9 @@ import org.dominokit.domino.ui.utils.DominoElement;
 public class BouncePulseLoader extends BaseLoader<BouncePulseLoader>
     implements IsElement<HTMLDivElement> {
 
-  private final DivElement progress1 = div().addCss(wait_me_progress_elem_1, dui_bg_black);
-  private final DivElement progress2 = div().addCss(wait_me_progress_elem_2, dui_bg_black);
-  private final DivElement progress3 = div().addCss(wait_me_progress_elem_3, dui_bg_black);
+  private final DivElement progress1 = div().addCss(wait_me_progress_elem_1, dui_loader_darkest);
+  private final DivElement progress2 = div().addCss(wait_me_progress_elem_2, dui_loader_darkest);
+  private final DivElement progress3 = div().addCss(wait_me_progress_elem_3, dui_loader_darkest);
 
   private final DivElement loader =
       div()
@@ -47,7 +47,7 @@ public class BouncePulseLoader extends BaseLoader<BouncePulseLoader>
           .appendChild(loadingText);
 
   private final DivElement element =
-      div().addCss(wait_me).style("background: rgba(255, 255, 255, 0.7);").appendChild(content);
+      div().addCss(wait_me).style("background: var(--dui-loader-background);").appendChild(content);
 
   /** Constructor for BouncePulseLoader. */
   public BouncePulseLoader() {

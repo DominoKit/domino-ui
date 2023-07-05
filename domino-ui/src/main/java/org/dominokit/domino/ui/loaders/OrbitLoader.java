@@ -29,9 +29,9 @@ import org.dominokit.domino.ui.utils.DominoElement;
 public class OrbitLoader extends BaseLoader<OrbitLoader> implements IsElement<HTMLDivElement> {
 
   private final DivElement progress1 =
-      div().addCss(wait_me_progress_elem_1).appendChild(div().addCss(dui_bg_black));
+      div().addCss(wait_me_progress_elem_1).appendChild(div().addCss(dui_loader_darkest));
   private final DivElement progress2 =
-      div().addCss(wait_me_progress_elem_2).appendChild(div().addCss(dui_bg_black));
+      div().addCss(wait_me_progress_elem_2).appendChild(div().addCss(dui_loader_darkest));
 
   private final DivElement loader =
       div().addCss(wait_me_progress, orbit).appendChild(progress1).appendChild(progress2);
@@ -43,7 +43,7 @@ public class OrbitLoader extends BaseLoader<OrbitLoader> implements IsElement<HT
           .appendChild(loadingText);
 
   private final DivElement element =
-      div().addCss(wait_me).style("background: rgba(255, 255, 255, 0.9);").appendChild(content);
+      div().addCss(wait_me).style("background: var(--dui-loader-background);").appendChild(content);
 
   /** Constructor for OrbitLoader. */
   public OrbitLoader() {

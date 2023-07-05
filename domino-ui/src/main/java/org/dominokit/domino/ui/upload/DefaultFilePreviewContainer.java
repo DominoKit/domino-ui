@@ -18,6 +18,7 @@ package org.dominokit.domino.ui.upload;
 import elemental2.dom.HTMLDivElement;
 import org.dominokit.domino.ui.grid.Row;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
+import org.dominokit.domino.ui.utils.ChildHandler;
 
 /**
  * DefaultFilePreviewContainer class.
@@ -41,6 +42,12 @@ public class DefaultFilePreviewContainer
   @Override
   public DefaultFilePreviewContainer appendChild(FileItem fileItem) {
     rootRow.span2(fileItem);
+    return this;
+  }
+
+  public DefaultFilePreviewContainer withRow(
+      ChildHandler<DefaultFilePreviewContainer, Row> handler) {
+    handler.apply(this, rootRow);
     return this;
   }
 

@@ -45,7 +45,7 @@
 .dui-tab-anchor:hover,
 .dui-tab-anchor:focus {
     background-color: var(--dui-tab-anchor-focus-bg, var(--dui-bg-d-2, var(--dui-accent-d-2)));
-    color: var(--dui-accent-text-color, var(--dui-text-color, var(--dui-color-light)));
+    color: var(--dui-accent-text-color, var(--dui-text-color, var(--dui-color)));
 }
 
 .dui-tab-anchor:before {

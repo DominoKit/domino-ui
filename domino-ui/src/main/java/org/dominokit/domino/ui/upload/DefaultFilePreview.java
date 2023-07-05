@@ -17,7 +17,7 @@ package org.dominokit.domino.ui.upload;
 
 import elemental2.dom.Event;
 import elemental2.dom.FileReader;
-import elemental2.dom.HTMLDivElement;
+import elemental2.dom.HTMLElement;
 import org.dominokit.domino.ui.config.HasComponentConfig;
 import org.dominokit.domino.ui.config.UploadConfig;
 import org.dominokit.domino.ui.elements.DivElement;
@@ -32,6 +32,7 @@ import org.dominokit.domino.ui.style.SwapCssClass;
 import org.dominokit.domino.ui.thumbnails.Thumbnail;
 import org.dominokit.domino.ui.typography.BlockHeader;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
+import org.dominokit.domino.ui.utils.ChildHandler;
 
 /**
  * DefaultFilePreview class.
@@ -39,8 +40,8 @@ import org.dominokit.domino.ui.utils.BaseDominoElement;
  * @author vegegoku
  * @version $Id: $Id
  */
-public class DefaultFilePreview extends BaseDominoElement<HTMLDivElement, DefaultFilePreview>
-    implements IsFilePreview<HTMLDivElement>,
+public class DefaultFilePreview extends BaseDominoElement<HTMLElement, DefaultFilePreview>
+    implements IsFilePreview<Thumbnail>,
         HasComponentConfig<UploadConfig>,
         HasLabels<UploadLabels>,
         FileUploadStyles {
@@ -74,7 +75,6 @@ public class DefaultFilePreview extends BaseDominoElement<HTMLDivElement, Defaul
             .withBody(
                 (parent, body) ->
                     body.addCss(
-                        dui_max_h_52,
                         dui_min_h_52,
                         dui_overflow_y_hidden,
                         dui_flex,
@@ -231,7 +231,14 @@ public class DefaultFilePreview extends BaseDominoElement<HTMLDivElement, Defaul
 
   /** {@inheritDoc} */
   @Override
-  public HTMLDivElement element() {
+  public HTMLElement element() {
     return thumbnail.element();
+  }
+
+  @Override
+  public IsFilePreview<Thumbnail> withComponent(
+      ChildHandler<IsFilePreview<Thumbnail>, Thumbnail> handler) {
+    handler.apply(this, thumbnail);
+    return this;
   }
 }

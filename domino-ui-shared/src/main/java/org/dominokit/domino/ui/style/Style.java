@@ -225,6 +225,18 @@ public class Style<E extends Element> implements DominoStyle<E, Style<E>> {
     }
     return this;
   }
+  /** {@inheritDoc} */
+  @Override
+  public Style<E> removeCss(CssClass... cssClasses) {
+    if (nonNull(cssClasses) && cssClasses.length > 0) {
+      // remove(String... arr) is not supported in IE11, so looping over the array solving the
+      // problem
+      for (CssClass cssClass : cssClasses) {
+        removeCss(cssClass);
+      }
+    }
+    return this;
+  }
 
   /** {@inheritDoc} */
   @Override

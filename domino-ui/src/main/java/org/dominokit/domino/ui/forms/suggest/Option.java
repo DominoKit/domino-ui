@@ -21,6 +21,7 @@ import elemental2.dom.DomGlobal;
 import elemental2.dom.Element;
 import elemental2.dom.Node;
 import java.util.Objects;
+import jsinterop.base.Js;
 import org.dominokit.domino.ui.IsElement;
 import org.dominokit.domino.ui.menu.AbstractMenuItem;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
@@ -224,7 +225,10 @@ public abstract class Option<V, C extends IsElement<?>, O extends Option<V, C, O
             node.parentElement.textContent.replace("<mark>", "").replace("</mark>", "");
       } else {
         for (int i = 0; i < node.childNodes.length; i++) {
-          cleanHighlight(node.childNodes.getAt(i));
+
+          if (node.childNodes.getAt(i) instanceof Node) {
+            cleanHighlight(Js.uncheckedCast(node.childNodes.getAt(i)));
+          }
         }
       }
     }

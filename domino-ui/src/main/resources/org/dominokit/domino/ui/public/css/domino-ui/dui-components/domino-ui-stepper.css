@@ -142,12 +142,16 @@
     height: var(--dui-step-tracker-node-height);
     border-width: var(--dui-step-tracker-node-border-width);
     border-style: var(--dui-step-tracker-node-border-style);
-    border-color: var(--dui-accent-clr);
+    border-color: var(--dui-accent);
     /*border: var(--dui-spc-1) solid var(--dui-accent-clr);*/
     border-radius: var(--dui-step-tracker-node-border-radius);
     position: relative;
     order: 10;
     transition: var(--dui-step-tracker-node-transition);
+}
+
+.dui-active .dui-tracker-node {
+    border-color: var(--dui-accent-d-2);
 }
 
 .dui-tracker-node-icon {
@@ -177,11 +181,17 @@
 
 .dui-tracker-line {
     position: relative;
-    background-color: var(--dui-accent-clr);
+    --dui-tracker-line-color: var(--dui-accent);
+    background-color: var(--dui-accent);
     flex-grow: 1;
     order: 50;
     transition: all 0.2s;
     height: var(--dui-step-tracker-line-thinkness);
+}
+
+.dui-active .dui-tracker-line {
+    --dui-tracker-line-color: var(--dui-accent-d-2);
+    background-color: var(--dui-accent-d-2);
 }
 
 .dui-stepper-track.dui-horizontal .dui-tracker-line,
@@ -199,7 +209,7 @@
     content: "";
     position: absolute;
     width: var(--dui-step-tracker-line-thinkness);
-    background-color: var(--dui-accent-clr);
+    background-color: var(--dui-tracker-line-color);
     height: var(--dui-spc-1);
     top: calc(var(--dui-spc-1) * -1);
     left: 0;
@@ -226,7 +236,7 @@
     content: "";
     position: absolute;
     width: var(--dui-step-tracker-line-thinkness);
-    background-color: var(--dui-accent-clr);
+    background-color: var(--dui-tracker-line-color);
     height: var(--dui-spc-1);
     bottom: calc(var(--dui-spc-1) * -1);
     left: 0;

@@ -151,7 +151,7 @@
 .dui-left-drawer {
     overflow-y: hidden;
     order: 999;
-    background-color: var(--dui-clr-white);
+    background-color: var(--dui-layout-drawer-background);
     padding: var(--dui-left-drawer-padding-top) 0 var(--dui-left-drawer-padding-bottom) 0;
     width: var(--dui-left-drawer-width);
     height: 100%;
@@ -187,7 +187,7 @@
 .dui-right-drawer {
     overflow-y: auto;
     right: calc(-1 * var(--dui-right-drawer-width) - 5px);
-    background-color: var(--dui-clr-white);
+    background-color: var(--dui-layout-drawer-background);
     margin: var(--dui-right-drawer-padding-top) 0 var(--dui-left-drawer-padding-bottom) 0;
     width: var(--dui-right-drawer-width);
     height: calc(100%);

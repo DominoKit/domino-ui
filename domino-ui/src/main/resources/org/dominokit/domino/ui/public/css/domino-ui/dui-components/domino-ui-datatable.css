@@ -29,7 +29,7 @@
 .dui-datatable-tfoot {
     position: sticky;
     bottom: 0;
-    background-color: var(--dui-accent-l-5);
+    background-color: var(--dui-datatable-tfoot-bg-color);
 }
 
 .dui-datatable-tfoot .dui-datatable-row:first-child .dui-datatable-td {
@@ -45,15 +45,15 @@
 .dui-datatable-hover tbody .dui-datatable-row:hover,
 .dui-datatable-hover tbody .dui-datatable-row:nth-child(odd):hover,
 .dui-datatable-hover tbody .dui-datatable-row:nth-child(even):hover {
-    background-color: var(--dui-accent-l-3);
+    background-color: var(--dui-datatable-row-hover-bg-color);
 }
 
 .dui-datatable-striped tbody .dui-datatable-row:nth-child(even) {
-    background-color: var(--dui-accent-l-5);
+    background-color: var(--dui-datatable-even-bg-color);
 }
 
 .dui-datatable-striped tbody .dui-datatable-row:nth-child(odd) {
-    background-color: var(--dui-clr-white);
+    background-color: var(--dui-datatable-odd-bg-color);
 }
 
 .dui-datatable-width-full {
@@ -62,37 +62,37 @@
 }
 
 .dui-datatable-row:not(:last-child) {
-    border-bottom: 1px solid var(--dui-accent-l-4);
+    border-bottom: 1px solid var(--dui-datatable-border-color);
 }
 
 .dui-datatable-thead .dui-datatable-th {
-    border-bottom: 1px solid var(--dui-accent-l-4);
+    border-bottom: 1px solid var(--dui-datatable-border-color);
 }
 
 .dui-datatable-bordered .dui-datatable:not(:first-child) {
-    border-top: 1px solid var(--dui-accent-l-4);
+    border-top: 1px solid var(--dui-datatable-border-color);
 }
 
 .dui-datatable-bordered {
-    border: 1px solid var(--dui-accent-l-4);
+    border: 1px solid var(--dui-datatable-border-color);
 }
 
 .dui-datatable-bordered.dui-datatable-fixed .dui-datatable-th,
 .dui-datatable-bordered.dui-datatable-fixed .dui-datatable-td,
 .dui-datatable-bordered .dui-datatable-th:not(:last-child),
 .dui-datatable-bordered .dui-datatable-td:not(:last-child) {
-    border-right: 1px solid var(--dui-accent-l-4);
+    border-right: 1px solid var(--dui-datatable-border-color);
 }
 
 .dui-datatable-bordered .dui-datatable-thead .dui-column-group {
-    border-right: 1px solid var(--dui-accent-l-4);
+    border-right: 1px solid var(--dui-datatable-border-color);
 }
 
 .dui-datatable-bordered.dui-datatable-fixed .dui-datatable-row:not(:last-child) .dui-datatable-th,
 .dui-datatable-bordered.dui-datatable-fixed .dui-datatable-row:not(:last-child) .dui-datatable-td,
 .dui-datatable-bordered .dui-datatable-row:not(:last-child) .dui-datatable-th,
 .dui-datatable-bordered .dui-datatable-row:not(:last-child) .dui-datatable-td {
-    border-bottom: 1px solid var(--dui-accent-l-4);
+    border-bottom: 1px solid var(--dui-datatable-border-color);
 }
 
 .dui-datatable-th,
@@ -108,7 +108,7 @@
 }
 
 .dui-datatable-th:hover {
-    background-color: var(--dui-accent-l-5);
+    background-color: var(--dui-datatable-header-hover-bg-color);
 }
 
 .dui-datatable-row-marker .dui-datatable-row .dui-datatable-td:first-child,
@@ -125,7 +125,8 @@
 
 .dui-datatable-row-selected.dui-datatable-row.dui-odd,
 .dui-datatable-row-selected.dui-datatable-row.dui-even {
-    background-color: var(--dui-accent-l-4);
+    --dui-datatable-even-bg-color: var(--dui-datatable-row-selected-bg-color);
+    --dui-datatable-odd-bg-color: var(--dui-datatable-row-selected-bg-color);
 }
 
 .dui-datatable-th-body {
@@ -175,11 +176,11 @@
 
 .dui-datatable-details-td {
     max-width: 200px;
-    border-bottom: 1px solid var(--dui-accent-l-4);
+    border-bottom: 1px solid var(--dui-datatable-border-color);
 }
 
 .dui-datatable-responsive:not(.dui-datatable-bordered) .dui-datatable-details-td {
-    border-top: 1px solid var(--dui-accent-l-4);
+    border-top: 1px solid var(--dui-datatable-border-color);
 }
 
 .dui-datatable-row-editable .dui-form-field {
@@ -191,7 +192,7 @@
     min-height: 20px;
     cursor: col-resize;
     height: 100%;
-    background-color: var(--dui-accent-l-4);
+    background-color: var(--dui-datatable-column-resizer-color);
     order: var(--dui-order-last-4);
     margin-left: 5px;
     border-radius: 2px;

@@ -20,7 +20,8 @@
     border-radius: var(--dui-btn-border-radius);
     box-shadow: var(--dui-btn-box-shadow);
     transition: var(--dui-btn-transition);
-    color: var(--dui-color-dark);
+    background-color: var(--dui-accent, buttonface);
+    color: var(--dui-clr-white);
     text-decoration: none;
     width: fit-content;
     --dui-btn-text-height:28px;
@@ -33,6 +34,9 @@
 
 .dui-btn-body {
     display: flex;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
 }
 
 .dui-btn-text {
@@ -62,7 +66,7 @@ fieldset[disabled] .dui-btn {
     outline-offset: var(--dui-btn-focus-outline-offset);
     outline: var(--dui-bg-l-4, var(--dui-accent-l-4)) var(--dui-btn-focus-outline-style) var(--dui-btn-focus-outline-width);
     background-color: var(--dui-bg-l-4, var(--dui-accent-l-4));
-    color: var(--dui-color-dark);
+    color: var(--dui-btn-hover-color);
     box-shadow: var(--dui-btn-focus-box-shadow);
 }
 
@@ -176,10 +180,6 @@ fieldset[disabled] .dui-btn {
     border-bottom-right-radius: var(--dui-btn-group-border-radius);
 }
 
-.dui-btn {
-    background-color: var(--dui-accent-l-4, buttonface);
-    color: var(--dui-text-color, initial);
-}
 a.dui-btn {
     background-color: var(--dui-btn-link-bg);
     box-shadow: var(--dui-btn-link-box-shadow);

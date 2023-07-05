@@ -69,6 +69,8 @@ import org.dominokit.domino.ui.style.WavesSupport;
 import org.gwtproject.editor.client.Editor;
 import org.gwtproject.safehtml.shared.SafeHtml;
 import org.gwtproject.safehtml.shared.SafeHtmlBuilder;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * This is the base implementation for all domino components.
@@ -96,6 +98,8 @@ public abstract class BaseDominoElement<E extends Element, T extends IsElement<E
         HasAttributes<T>,
         ElementsFactory,
         HasMeta<T> {
+
+  public static final Logger LOGGER = LoggerFactory.getLogger(BaseDominoElement.class);
 
   /** The name of the attribute that holds a unique id for the component */
   private static final String DOMINO_UUID = "domino-uuid";
@@ -1954,6 +1958,18 @@ public abstract class BaseDominoElement<E extends Element, T extends IsElement<E
    */
   @Editor.Ignore
   public T removeCss(String... cssClass) {
+    style().removeCss(cssClass);
+    return element;
+  }
+
+  /**
+   * removeCss.
+   *
+   * @param cssClass String args css classes names
+   * @return same component
+   */
+  @Editor.Ignore
+  public T removeCss(CssClass... cssClass) {
     style().removeCss(cssClass);
     return element;
   }

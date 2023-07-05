@@ -1146,12 +1146,12 @@
 }
 .dui.dui-bg-dominant-l-5 {
     --dui-bg-clr: var(--dui-clr-dominant-l-5);
-    --dui-text-color: var(--dui-color-dark);
+    --dui-text-color: var(--dui-color-5);
     background-color: var(--dui-clr-dominant-l-5);
 }
 .dui.dui-accent-dominant-l-5 {
     --dui-accent-clr: var(--dui-clr-dominant-l-5);
-    --dui-accent-text-color: var(--dui-color-dark);
+    --dui-accent-text-color: var(--dui-color-5);
     accent-color: var(--dui-clr-dominant-l-5);
 }
 .dui.dui-shadow-dominant-l-5 {
@@ -1206,12 +1206,12 @@
 }
 .dui.dui-bg-dominant-l-4 {
     --dui-bg-clr: var(--dui-clr-dominant-l-4);
-    --dui-text-color: var(--dui-color-dark);
+    --dui-text-color: var(--dui-color-5);
     background-color: var(--dui-clr-dominant-l-4);
 }
 .dui.dui-accent-dominant-l-4 {
     --dui-accent-clr: var(--dui-clr-dominant-l-4);
-    --dui-accent-text-color: var(--dui-color-dark);
+    --dui-accent-text-color: var(--dui-color-5);
     accent-color: var(--dui-clr-dominant-l-4);
 }
 .dui.dui-shadow-dominant-l-4 {
@@ -1266,12 +1266,12 @@
 }
 .dui.dui-bg-dominant-l-3 {
     --dui-bg-clr: var(--dui-clr-dominant-l-3);
-    --dui-text-color: var(--dui-color-dark);
+    --dui-text-color: var(--dui-color-5);
     background-color: var(--dui-clr-dominant-l-3);
 }
 .dui.dui-accent-dominant-l-3 {
     --dui-accent-clr: var(--dui-clr-dominant-l-3);
-    --dui-accent-text-color: var(--dui-color-dark);
+    --dui-accent-text-color: var(--dui-color-5);
     accent-color: var(--dui-clr-dominant-l-3);
 }
 .dui.dui-shadow-dominant-l-3 {
@@ -1326,12 +1326,12 @@
 }
 .dui.dui-bg-dominant-l-2 {
     --dui-bg-clr: var(--dui-clr-dominant-l-2);
-    --dui-text-color: var(--dui-color-dark);
+    --dui-text-color: var(--dui-color-5);
     background-color: var(--dui-clr-dominant-l-2);
 }
 .dui.dui-accent-dominant-l-2 {
     --dui-accent-clr: var(--dui-clr-dominant-l-2);
-    --dui-accent-text-color: var(--dui-color-dark);
+    --dui-accent-text-color: var(--dui-color-5);
     accent-color: var(--dui-clr-dominant-l-2);
 }
 .dui.dui-shadow-dominant-l-2 {
@@ -1386,12 +1386,12 @@
 }
 .dui.dui-bg-dominant-l-1 {
     --dui-bg-clr: var(--dui-clr-dominant-l-1);
-    --dui-text-color: var(--dui-color-dark);
+    --dui-text-color: var(--dui-color-5);
     background-color: var(--dui-clr-dominant-l-1);
 }
 .dui.dui-accent-dominant-l-1 {
     --dui-accent-clr: var(--dui-clr-dominant-l-1);
-    --dui-accent-text-color: var(--dui-color-dark);
+    --dui-accent-text-color: var(--dui-color-5);
     accent-color: var(--dui-clr-dominant-l-1);
 }
 .dui.dui-shadow-dominant-l-1 {
@@ -1446,12 +1446,12 @@
 }
 .dui.dui-bg-dominant {
     --dui-bg-clr: var(--dui-clr-dominant);
-    --dui-text-color: var(--dui-color-dark);
+    --dui-text-color: var(--dui-color-5);
     background-color: var(--dui-clr-dominant);
 }
 .dui.dui-accent-dominant {
     --dui-accent-clr: var(--dui-clr-dominant);
-    --dui-accent-text-color: var(--dui-color-dark);
+    --dui-accent-text-color: var(--dui-color-5);
     accent-color: var(--dui-clr-dominant);
 }
 .dui.dui-shadow-dominant {
@@ -1506,12 +1506,12 @@
 }
 .dui.dui-bg-dominant-d-1 {
     --dui-bg-clr: var(--dui-clr-dominant-d-1);
-    --dui-text-color: var(--dui-color-dark);
+    --dui-text-color: var(--dui-color-5);
     background-color: var(--dui-clr-dominant-d-1);
 }
 .dui.dui-accent-dominant-d-1 {
     --dui-accent-clr: var(--dui-clr-dominant-d-1);
-    --dui-accent-text-color: var(--dui-color-dark);
+    --dui-accent-text-color: var(--dui-color-5);
     accent-color: var(--dui-clr-dominant-d-1);
 }
 .dui.dui-shadow-dominant-d-1 {
@@ -1566,12 +1566,12 @@
 }
 .dui.dui-bg-dominant-d-2 {
     --dui-bg-clr: var(--dui-clr-dominant-d-2);
-    --dui-text-color: var(--dui-color-dark);
+    --dui-text-color: var(--dui-color-5);
     background-color: var(--dui-clr-dominant-d-2);
 }
 .dui.dui-accent-dominant-d-2 {
     --dui-accent-clr: var(--dui-clr-dominant-d-2);
-    --dui-accent-text-color: var(--dui-color-dark);
+    --dui-accent-text-color: var(--dui-color-5);
     accent-color: var(--dui-clr-dominant-d-2);
 }
 .dui.dui-shadow-dominant-d-2 {
@@ -1626,12 +1626,12 @@
 }
 .dui.dui-bg-dominant-d-3 {
     --dui-bg-clr: var(--dui-clr-dominant-d-3);
-    --dui-text-color: var(--dui-color-light);
+    --dui-text-color: var(--dui-color);
     background-color: var(--dui-clr-dominant-d-3);
 }
 .dui.dui-accent-dominant-d-3 {
     --dui-accent-clr: var(--dui-clr-dominant-d-3);
-    --dui-accent-text-color: var(--dui-color-dark);
+    --dui-accent-text-color: var(--dui-color-5);
     accent-color: var(--dui-clr-dominant-d-3);
 }
 .dui.dui-shadow-dominant-d-3 {
@@ -1686,12 +1686,12 @@
 }
 .dui.dui-bg-dominant-d-4 {
     --dui-bg-clr: var(--dui-clr-dominant-d-4);
-    --dui-text-color: var(--dui-color-light);
+    --dui-text-color: var(--dui-color);
     background-color: var(--dui-clr-dominant-d-4);
 }
 .dui.dui-accent-dominant-d-4 {
     --dui-accent-clr: var(--dui-clr-dominant-d-4);
-    --dui-accent-text-color: var(--dui-color-light);
+    --dui-accent-text-color: var(--dui-color);
     accent-color: var(--dui-clr-dominant-d-4);
 }
 .dui.dui-shadow-dominant-d-4 {
@@ -1745,12 +1745,12 @@
 }
 .dui.dui-bg-accent-l-5 {
     --dui-bg-clr: var(--dui-accent-l-5);
-    --dui-text-color: var(--dui-color-dark);
+    --dui-text-color: var(--dui-color-5);
     background-color: var(--dui-bg-clr);
 }
 .dui.dui-accent-accent-l-5 {
     --dui-accent-clr: var(--dui-accent-l-5);
-    --dui-accent-text-color: var(--dui-color-dark);
+    --dui-accent-text-color: var(--dui-color-5);
     accent-color: var(--dui-accent-l-5);
 }
 .dui.dui-shadow-accent-l-5 {
@@ -1804,12 +1804,12 @@
 }
 .dui.dui-bg-accent-l-4 {
     --dui-bg-clr: var(--dui-accent-l-4);
-    --dui-text-color: var(--dui-color-dark);
+    --dui-text-color: var(--dui-color-5);
     background-color: var(--dui-bg-clr);
 }
 .dui.dui-accent-accent-l-4 {
     --dui-accent-clr: var(--dui-accent-l-4);
-    --dui-accent-text-color: var(--dui-color-dark);
+    --dui-accent-text-color: var(--dui-color-5);
     accent-color: var(--dui-accent-l-4);
 }
 .dui.dui-shadow-accent-l-4 {
@@ -1863,12 +1863,12 @@
 }
 .dui.dui-bg-accent-l-3 {
     --dui-bg-clr: var(--dui-accent-l-3);
-    --dui-text-color: var(--dui-color-dark);
+    --dui-text-color: var(--dui-color-5);
     background-color: var(--dui-bg-clr);
 }
 .dui.dui-accent-accent-l-3 {
     --dui-accent-clr: var(--dui-accent-l-3);
-    --dui-accent-text-color: var(--dui-color-dark);
+    --dui-accent-text-color: var(--dui-color-5);
     accent-color: var(--dui-accent-l-3);
 }
 .dui.dui-shadow-accent-l-3 {
@@ -1922,12 +1922,12 @@
 }
 .dui.dui-bg-accent-l-2 {
     --dui-bg-clr: var(--dui-accent-l-2);
-    --dui-text-color: var(--dui-color-dark);
+    --dui-text-color: var(--dui-color-5);
     background-color: var(--dui-bg-clr);
 }
 .dui.dui-accent-accent-l-2 {
     --dui-accent-clr: var(--dui-accent-l-2);
-    --dui-accent-text-color: var(--dui-color-dark);
+    --dui-accent-text-color: var(--dui-color-5);
     accent-color: var(--dui-accent-l-2);
 }
 .dui.dui-shadow-accent-l-2 {
@@ -1981,12 +1981,12 @@
 }
 .dui.dui-bg-accent-l-1 {
     --dui-bg-clr: var(--dui-accent-l-1);
-    --dui-text-color: var(--dui-color-light);
+    --dui-text-color: var(--dui-color);
     background-color: var(--dui-bg-clr);
 }
 .dui.dui-accent-accent-l-1 {
     --dui-accent-clr: var(--dui-accent-l-1);
-    --dui-accent-text-color: var(--dui-color-dark);
+    --dui-accent-text-color: var(--dui-color-5);
     accent-color: var(--dui-accent-l-1);
 }
 .dui.dui-shadow-accent-l-1 {
@@ -2040,12 +2040,12 @@
 }
 .dui.dui-bg-accent {
     --dui-bg-clr: var(--dui-accent);
-    --dui-text-color: var(--dui-color-light);
+    --dui-text-color: var(--dui-color);
     background-color: var(--dui-bg-clr);
 }
 .dui.dui-accent-accent {
     --dui-accent-clr: var(--dui-accent);
-    --dui-accent-text-color: var(--dui-color-light);
+    --dui-accent-text-color: var(--dui-color);
     accent-color: var(--dui-accent);
 }
 .dui.dui-shadow-accent {
@@ -2099,12 +2099,12 @@
 }
 .dui.dui-bg-accent-d-1 {
     --dui-bg-clr: var(--dui-accent-d-1);
-    --dui-text-color: var(--dui-color-light);
+    --dui-text-color: var(--dui-color);
     background-color: var(--dui-bg-clr);
 }
 .dui.dui-accent-accent-d-1 {
     --dui-accent-clr: var(--dui-accent-d-1);
-    --dui-accent-text-color: var(--dui-color-light);
+    --dui-accent-text-color: var(--dui-color);
     accent-color: var(--dui-accent-d-1);
 }
 .dui.dui-shadow-accent-d-1 {
@@ -2158,12 +2158,12 @@
 }
 .dui.dui-bg-accent-d-2 {
     --dui-bg-clr: var(--dui-accent-d-2);
-    --dui-text-color: var(--dui-color-light);
+    --dui-text-color: var(--dui-color);
     background-color: var(--dui-bg-clr);
 }
 .dui.dui-accent-accent-d-2 {
     --dui-accent-clr: var(--dui-accent-d-2);
-    --dui-accent-text-color: var(--dui-color-light);
+    --dui-accent-text-color: var(--dui-color);
     accent-color: var(--dui-accent-d-2);
 }
 .dui.dui-shadow-accent-d-2 {
@@ -2217,12 +2217,12 @@
 }
 .dui.dui-bg-accent-d-3 {
     --dui-bg-clr: var(--dui-accent-d-3);
-    --dui-text-color: var(--dui-color-light);
+    --dui-text-color: var(--dui-color);
     background-color: var(--dui-bg-clr);
 }
 .dui.dui-accent-accent-d-3 {
     --dui-accent-clr: var(--dui-accent-d-3);
-    --dui-accent-text-color: var(--dui-color-light);
+    --dui-accent-text-color: var(--dui-color);
     accent-color: var(--dui-accent-d-3);
 }
 .dui.dui-shadow-accent-d-3 {
@@ -2276,12 +2276,12 @@
 }
 .dui.dui-bg-accent-d-4 {
     --dui-bg-clr: var(--dui-accent-d-4);
-    --dui-text-color: var(--dui-color-light);
+    --dui-text-color: var(--dui-color);
     background-color: var(--dui-bg-clr);
 }
 .dui.dui-accent-accent-d-4 {
     --dui-accent-clr: var(--dui-accent-d-4);
-    --dui-accent-text-color: var(--dui-color-light);
+    --dui-accent-text-color: var(--dui-color);
     accent-color: var(--dui-accent-d-4);
 }
 .dui.dui-shadow-accent-d-4 {
@@ -2336,12 +2336,12 @@
 }
 .dui.dui-bg-primary-l-5 {
     --dui-bg-clr: var(--dui-clr-primary-l-5);
-    --dui-text-color: var(--dui-color-dark);
+    --dui-text-color: var(--dui-color-5);
     background-color: var(--dui-clr-primary-l-5);
 }
 .dui.dui-accent-primary-l-5 {
     --dui-accent-clr: var(--dui-clr-primary-l-5);
-    --dui-accent-text-color: var(--dui-color-dark);
+    --dui-accent-text-color: var(--dui-color-5);
     accent-color: var(--dui-clr-primary-l-5);
 }
 .dui.dui-shadow-primary-l-5 {
@@ -2396,12 +2396,12 @@
 }
 .dui.dui-bg-primary-l-4 {
     --dui-bg-clr: var(--dui-clr-primary-l-4);
-    --dui-text-color: var(--dui-color-dark);
+    --dui-text-color: var(--dui-color-5);
     background-color: var(--dui-clr-primary-l-4);
 }
 .dui.dui-accent-primary-l-4 {
     --dui-accent-clr: var(--dui-clr-primary-l-4);
-    --dui-accent-text-color: var(--dui-color-dark);
+    --dui-accent-text-color: var(--dui-color-5);
     accent-color: var(--dui-clr-primary-l-4);
 }
 .dui.dui-shadow-primary-l-4 {
@@ -2456,12 +2456,12 @@
 }
 .dui.dui-bg-primary-l-3 {
     --dui-bg-clr: var(--dui-clr-primary-l-3);
-    --dui-text-color: var(--dui-color-dark);
+    --dui-text-color: var(--dui-color-5);
     background-color: var(--dui-clr-primary-l-3);
 }
 .dui.dui-accent-primary-l-3 {
     --dui-accent-clr: var(--dui-clr-primary-l-3);
-    --dui-accent-text-color: var(--dui-color-dark);
+    --dui-accent-text-color: var(--dui-color-5);
     accent-color: var(--dui-clr-primary-l-3);
 }
 .dui.dui-shadow-primary-l-3 {
@@ -2516,12 +2516,12 @@
 }
 .dui.dui-bg-primary-l-2 {
     --dui-bg-clr: var(--dui-clr-primary-l-2);
-    --dui-text-color: var(--dui-color-dark);
+    --dui-text-color: var(--dui-color-5);
     background-color: var(--dui-clr-primary-l-2);
 }
 .dui.dui-accent-primary-l-2 {
     --dui-accent-clr: var(--dui-clr-primary-l-2);
-    --dui-accent-text-color: var(--dui-color-dark);
+    --dui-accent-text-color: var(--dui-color-5);
     accent-color: var(--dui-clr-primary-l-2);
 }
 .dui.dui-shadow-primary-l-2 {
@@ -2576,12 +2576,12 @@
 }
 .dui.dui-bg-primary-l-1 {
     --dui-bg-clr: var(--dui-clr-primary-l-1);
-    --dui-text-color: var(--dui-color-light);
+    --dui-text-color: var(--dui-color);
     background-color: var(--dui-clr-primary-l-1);
 }
 .dui.dui-accent-primary-l-1 {
     --dui-accent-clr: var(--dui-clr-primary-l-1);
-    --dui-accent-text-color: var(--dui-color-light);
+    --dui-accent-text-color: var(--dui-color);
     accent-color: var(--dui-clr-primary-l-1);
 }
 .dui.dui-shadow-primary-l-1 {
@@ -2636,12 +2636,12 @@
 }
 .dui.dui-bg-primary {
     --dui-bg-clr: var(--dui-clr-primary);
-    --dui-text-color: var(--dui-color-light);
+    --dui-text-color: var(--dui-color);
     background-color: var(--dui-clr-primary);
 }
 .dui.dui-accent-primary {
     --dui-accent-clr: var(--dui-clr-primary);
-    --dui-accent-text-color: var(--dui-color-light);
+    --dui-accent-text-color: var(--dui-color);
     accent-color: var(--dui-clr-primary);
 }
 .dui.dui-shadow-primary {
@@ -2696,12 +2696,12 @@
 }
 .dui.dui-bg-primary-d-1 {
     --dui-bg-clr: var(--dui-clr-primary-d-1);
-    --dui-text-color: var(--dui-color-light);
+    --dui-text-color: var(--dui-color);
     background-color: var(--dui-clr-primary-d-1);
 }
 .dui.dui-accent-primary-d-1 {
     --dui-accent-clr: var(--dui-clr-primary-d-1);
-    --dui-accent-text-color: var(--dui-color-light);
+    --dui-accent-text-color: var(--dui-color);
     accent-color: var(--dui-clr-primary-d-1);
 }
 .dui.dui-shadow-primary-d-1 {
@@ -2756,12 +2756,12 @@
 }
 .dui.dui-bg-primary-d-2 {
     --dui-bg-clr: var(--dui-clr-primary-d-2);
-    --dui-text-color: var(--dui-color-light);
+    --dui-text-color: var(--dui-color);
     background-color: var(--dui-clr-primary-d-2);
 }
 .dui.dui-accent-primary-d-2 {
     --dui-accent-clr: var(--dui-clr-primary-d-2);
-    --dui-accent-text-color: var(--dui-color-light);
+    --dui-accent-text-color: var(--dui-color);
     accent-color: var(--dui-clr-primary-d-2);
 }
 .dui.dui-shadow-primary-d-2 {
@@ -2816,12 +2816,12 @@
 }
 .dui.dui-bg-primary-d-3 {
     --dui-bg-clr: var(--dui-clr-primary-d-3);
-    --dui-text-color: var(--dui-color-light);
+    --dui-text-color: var(--dui-color);
     background-color: var(--dui-clr-primary-d-3);
 }
 .dui.dui-accent-primary-d-3 {
     --dui-accent-clr: var(--dui-clr-primary-d-3);
-    --dui-accent-text-color: var(--dui-color-light);
+    --dui-accent-text-color: var(--dui-color);
     accent-color: var(--dui-clr-primary-d-3);
 }
 .dui.dui-shadow-primary-d-3 {
@@ -2829,7 +2829,7 @@
 }
 .dui.dui-text-decoration-primary-d-3{
     --dui-text-decoration-clr: var(--dui-clr-primary-d-3);
-    --dui-accent-text-color: var(--dui-color-light);
+    --dui-accent-text-color: var(--dui-color);
     text-decoration-color: var(--dui-clr-primary-d-3);
 }
 .dui.dui-border-primary-d-3{
@@ -2877,12 +2877,12 @@
 }
 .dui.dui-bg-primary-d-4 {
     --dui-bg-clr: var(--dui-clr-primary-d-4);
-    --dui-text-color: var(--dui-color-light);
+    --dui-text-color: var(--dui-color);
     background-color: var(--dui-clr-primary-d-4);
 }
 .dui.dui-accent-primary-d-4 {
     --dui-accent-clr: var(--dui-clr-primary-d-4);
-    --dui-accent-text-color: var(--dui-color-light);
+    --dui-accent-text-color: var(--dui-color);
     accent-color: var(--dui-clr-primary-d-4);
 }
 .dui.dui-shadow-primary-d-4 {
@@ -2937,7 +2937,7 @@
 }
 .dui.dui-bg-secondary-l-5 {
     --dui-bg-clr: var(--dui-clr-secondary-l-5);
-    --dui-text-color: var(--dui-color-dark);
+    --dui-text-color: var(--dui-color-5);
     background-color: var(--dui-clr-secondary-l-5);
 }
 .dui.dui-accent-secondary-l-5 {
@@ -2996,12 +2996,12 @@
 }
 .dui.dui-bg-secondary-l-4 {
     --dui-bg-clr: var(--dui-clr-secondary-l-4);
-    --dui-text-color: var(--dui-color-dark);
+    --dui-text-color: var(--dui-color-5);
     background-color: var(--dui-clr-secondary-l-4);
 }
 .dui.dui-accent-secondary-l-4 {
     --dui-accent-clr: var(--dui-clr-secondary-l-4);
-    --dui-accent-text-color: var(--dui-color-dark);
+    --dui-accent-text-color: var(--dui-color-5);
     accent-color: var(--dui-clr-secondary-l-4);
 }
 .dui.dui-shadow-secondary-l-4 {
@@ -3056,12 +3056,12 @@
 }
 .dui.dui-bg-secondary-l-3 {
     --dui-bg-clr: var(--dui-clr-secondary-l-3);
-    --dui-text-color: var(--dui-color-dark);
+    --dui-text-color: var(--dui-color-5);
     background-color: var(--dui-clr-secondary-l-3);
 }
 .dui.dui-accent-secondary-l-3 {
     --dui-accent-clr: var(--dui-clr-secondary-l-3);
-    --dui-accent-text-color: var(--dui-color-dark);
+    --dui-accent-text-color: var(--dui-color-5);
     accent-color: var(--dui-clr-secondary-l-3);
 }
 .dui.dui-shadow-secondary-l-3 {
@@ -3116,12 +3116,12 @@
 }
 .dui.dui-bg-secondary-l-2 {
     --dui-bg-clr: var(--dui-clr-secondary-l-2);
-    --dui-text-color: var(--dui-color-dark);
+    --dui-text-color: var(--dui-color-5);
     background-color: var(--dui-clr-secondary-l-2);
 }
 .dui.dui-accent-secondary-l-2 {
     --dui-accent-clr: var(--dui-clr-secondary-l-2);
-    --dui-accent-text-color: var(--dui-color-dark);
+    --dui-accent-text-color: var(--dui-color-5);
     accent-color: var(--dui-clr-secondary-l-2);
 }
 .dui.dui-shadow-secondary-l-2 {
@@ -3176,12 +3176,12 @@
 }
 .dui.dui-bg-secondary-l-1 {
     --dui-bg-clr: var(--dui-clr-secondary-l-1);
-    --dui-text-color: var(--dui-color-light);
+    --dui-text-color: var(--dui-color);
     background-color: var(--dui-clr-secondary-l-1);
 }
 .dui.dui-accent-secondary-l-1 {
     --dui-accent-clr: var(--dui-clr-secondary-l-1);
-    --dui-accent-text-color: var(--dui-color-dark);
+    --dui-accent-text-color: var(--dui-color-5);
     accent-color: var(--dui-clr-secondary-l-1);
 }
 .dui.dui-shadow-secondary-l-1 {
@@ -3236,12 +3236,12 @@
 }
 .dui.dui-bg-secondary {
     --dui-bg-clr: var(--dui-clr-secondary);
-    --dui-text-color: var(--dui-color-light);
+    --dui-text-color: var(--dui-color);
     background-color: var(--dui-clr-secondary);
 }
 .dui.dui-accent-secondary {
     --dui-accent-clr: var(--dui-clr-secondary);
-    --dui-accent-text-color: var(--dui-color-light);
+    --dui-accent-text-color: var(--dui-color);
     accent-color: var(--dui-clr-secondary);
 }
 .dui.dui-shadow-secondary {
@@ -3296,12 +3296,12 @@
 }
 .dui.dui-bg-secondary-d-1 {
     --dui-bg-clr: var(--dui-clr-secondary-d-1);
-    --dui-text-color: var(--dui-color-light);
+    --dui-text-color: var(--dui-color);
     background-color: var(--dui-clr-secondary-d-1);
 }
 .dui.dui-accent-secondary-d-1 {
     --dui-accent-clr: var(--dui-clr-secondary-d-1);
-    --dui-accent-text-color: var(--dui-color-light);
+    --dui-accent-text-color: var(--dui-color);
     accent-color: var(--dui-clr-secondary-d-1);
 }
 .dui.dui-shadow-secondary-d-1 {
@@ -3356,12 +3356,12 @@
 }
 .dui.dui-bg-secondary-d-2 {
     --dui-bg-clr: var(--dui-clr-secondary-d-2);
-    --dui-text-color: var(--dui-color-light);
+    --dui-text-color: var(--dui-color);
     background-color: var(--dui-clr-secondary-d-2);
 }
 .dui.dui-accent-secondary-d-2 {
     --dui-accent-clr: var(--dui-clr-secondary-d-2);
-    --dui-accent-text-color: var(--dui-color-light);
+    --dui-accent-text-color: var(--dui-color);
     accent-color: var(--dui-clr-secondary-d-2);
 }
 .dui.dui-shadow-secondary-d-2 {
@@ -3416,12 +3416,12 @@
 }
 .dui.dui-bg-secondary-d-3 {
     --dui-bg-clr: var(--dui-clr-secondary-d-3);
-    --dui-text-color: var(--dui-color-light);
+    --dui-text-color: var(--dui-color);
     background-color: var(--dui-clr-secondary-d-3);
 }
 .dui.dui-accent-secondary-d-3 {
     --dui-accent-clr: var(--dui-clr-secondary-d-3);
-    --dui-accent-text-color: var(--dui-color-light);
+    --dui-accent-text-color: var(--dui-color);
     accent-color: var(--dui-clr-secondary-d-3);
 }
 .dui.dui-shadow-secondary-d-3 {
@@ -3476,12 +3476,12 @@
 }
 .dui.dui-bg-secondary-d-4 {
     --dui-bg-clr: var(--dui-clr-secondary-d-4);
-    --dui-text-color: var(--dui-color-light);
+    --dui-text-color: var(--dui-color);
     background-color: var(--dui-clr-secondary-d-4);
 }
 .dui.dui-accent-secondary-d-4 {
     --dui-accent-clr: var(--dui-clr-secondary-d-4);
-    --dui-accent-text-color: var(--dui-color-light);
+    --dui-accent-text-color: var(--dui-color);
     accent-color: var(--dui-clr-secondary-d-4);
 }
 .dui.dui-shadow-secondary-d-4 {
@@ -3536,12 +3536,12 @@
 }
 .dui.dui-bg-success-l-5 {
     --dui-bg-clr: var(--dui-clr-success-l-5);
-    --dui-text-color: var(--dui-color-dark);
+    --dui-text-color: var(--dui-color-5);
     background-color: var(--dui-clr-success-l-5);
 }
 .dui.dui-accent-success-l-5 {
     --dui-accent-clr: var(--dui-clr-success-l-5);
-    --dui-accent-text-color: var(--dui-color-dark);
+    --dui-accent-text-color: var(--dui-color-5);
     accent-color: var(--dui-clr-success-l-5);
 }
 .dui.dui-shadow-success-l-5 {
@@ -3596,12 +3596,12 @@
 }
 .dui.dui-bg-success-l-4 {
     --dui-bg-clr: var(--dui-clr-success-l-4);
-    --dui-text-color: var(--dui-color-dark);
+    --dui-text-color: var(--dui-color-5);
     background-color: var(--dui-clr-success-l-4);
 }
 .dui.dui-accent-success-l-4 {
     --dui-accent-clr: var(--dui-clr-success-l-4);
-    --dui-accent-text-color: var(--dui-color-dark);
+    --dui-accent-text-color: var(--dui-color-5);
     accent-color: var(--dui-clr-success-l-4);
 }
 .dui.dui-shadow-success-l-4 {
@@ -3656,12 +3656,12 @@
 }
 .dui.dui-bg-success-l-3 {
     --dui-bg-clr: var(--dui-clr-success-l-3);
-    --dui-text-color: var(--dui-color-dark);
+    --dui-text-color: var(--dui-color-5);
     background-color: var(--dui-clr-success-l-3);
 }
 .dui.dui-accent-success-l-3 {
     --dui-accent-clr: var(--dui-clr-success-l-3);
-    --dui-accent-text-color: var(--dui-color-dark);
+    --dui-accent-text-color: var(--dui-color-5);
     accent-color: var(--dui-clr-success-l-3);
 }
 .dui.dui-shadow-success-l-3 {
@@ -3716,12 +3716,12 @@
 }
 .dui.dui-bg-success-l-2 {
     --dui-bg-clr: var(--dui-clr-success-l-2);
-    --dui-text-color: var(--dui-color-dark);
+    --dui-text-color: var(--dui-color-5);
     background-color: var(--dui-clr-success-l-2);
 }
 .dui.dui-accent-success-l-2 {
     --dui-accent-clr: var(--dui-clr-success-l-2);
-    --dui-accent-text-color: var(--dui-color-dark);
+    --dui-accent-text-color: var(--dui-color-5);
     accent-color: var(--dui-clr-success-l-2);
 }
 .dui.dui-shadow-success-l-2 {
@@ -3776,12 +3776,12 @@
 }
 .dui.dui-bg-success-l-1 {
     --dui-bg-clr: var(--dui-clr-success-l-1);
-    --dui-text-color: var(--dui-color-light);
+    --dui-text-color: var(--dui-color);
     background-color: var(--dui-clr-success-l-1);
 }
 .dui.dui-accent-success-l-1 {
     --dui-accent-clr: var(--dui-clr-success-l-1);
-    --dui-accent-text-color: var(--dui-color-light);
+    --dui-accent-text-color: var(--dui-color);
     accent-color: var(--dui-clr-success-l-1);
 }
 .dui.dui-shadow-success-l-1 {
@@ -3836,12 +3836,12 @@
 }
 .dui.dui-bg-success {
     --dui-bg-clr: var(--dui-clr-success);
-    --dui-text-color: var(--dui-color-light);
+    --dui-text-color: var(--dui-color);
     background-color: var(--dui-clr-success);
 }
 .dui.dui-accent-success {
     --dui-accent-clr: var(--dui-clr-success);
-    --dui-accent-text-color: var(--dui-color-light);
+    --dui-accent-text-color: var(--dui-color);
     accent-color: var(--dui-clr-success);
 }
 .dui.dui-shadow-success {
@@ -3896,12 +3896,12 @@
 }
 .dui.dui-bg-success-d-1 {
     --dui-bg-clr: var(--dui-clr-success-d-1);
-    --dui-text-color: var(--dui-color-light);
+    --dui-text-color: var(--dui-color);
     background-color: var(--dui-clr-success-d-1);
 }
 .dui.dui-accent-success-d-1 {
     --dui-accent-clr: var(--dui-clr-success-d-1);
-    --dui-accent-text-color: var(--dui-color-light);
+    --dui-accent-text-color: var(--dui-color);
     accent-color: var(--dui-clr-success-d-1);
 }
 .dui.dui-shadow-success-d-1 {
@@ -3956,12 +3956,12 @@
 }
 .dui.dui-bg-success-d-2 {
     --dui-bg-clr: var(--dui-clr-success-d-2);
-    --dui-text-color: var(--dui-color-light);
+    --dui-text-color: var(--dui-color);
     background-color: var(--dui-clr-success-d-2);
 }
 .dui.dui-accent-success-d-2 {
     --dui-accent-clr: var(--dui-clr-success-d-2);
-    --dui-accent-text-color: var(--dui-color-light);
+    --dui-accent-text-color: var(--dui-color);
     accent-color: var(--dui-clr-success-d-2);
 }
 .dui.dui-shadow-success-d-2 {
@@ -4016,12 +4016,12 @@
 }
 .dui.dui-bg-success-d-3 {
     --dui-bg-clr: var(--dui-clr-success-d-3);
-    --dui-text-color: var(--dui-color-light);
+    --dui-text-color: var(--dui-color);
     background-color: var(--dui-clr-success-d-3);
 }
 .dui.dui-accent-success-d-3 {
     --dui-accent-clr: var(--dui-clr-success-d-3);
-    --dui-accent-text-color: var(--dui-color-light);
+    --dui-accent-text-color: var(--dui-color);
     accent-color: var(--dui-clr-success-d-3);
 }
 .dui.dui-shadow-success-d-3 {
@@ -4076,12 +4076,12 @@
 }
 .dui.dui-bg-success-d-4 {
     --dui-bg-clr: var(--dui-clr-success-d-4);
-    --dui-text-color: var(--dui-color-light);
+    --dui-text-color: var(--dui-color);
     background-color: var(--dui-clr-success-d-4);
 }
 .dui.dui-accent-success-d-4 {
     --dui-accent-clr: var(--dui-clr-success-d-4);
-    --dui-accent-text-color: var(--dui-color-light);
+    --dui-accent-text-color: var(--dui-color);
     accent-color: var(--dui-clr-success-d-4);
 }
 .dui.dui-shadow-success-d-4 {
@@ -4136,12 +4136,12 @@
 }
 .dui.dui-bg-warning-l-5 {
     --dui-bg-clr: var(--dui-clr-warning-l-5);
-    --dui-text-color: var(--dui-color-dark);
+    --dui-text-color: var(--dui-color-5);
     background-color: var(--dui-clr-warning-l-5);
 }
 .dui.dui-accent-warning-l-5 {
     --dui-accent-clr: var(--dui-clr-warning-l-5);
-    --dui-accent-text-color: var(--dui-color-dark);
+    --dui-accent-text-color: var(--dui-color-5);
     accent-color: var(--dui-clr-warning-l-5);
 }
 .dui.dui-shadow-warning-l-5 {
@@ -4196,12 +4196,12 @@
 }
 .dui.dui-bg-warning-l-4 {
     --dui-bg-clr: var(--dui-clr-warning-l-4);
-    --dui-text-color: var(--dui-color-dark);
+    --dui-text-color: var(--dui-color-5);
     background-color: var(--dui-clr-warning-l-4);
 }
 .dui.dui-accent-warning-l-4 {
     --dui-accent-clr: var(--dui-clr-warning-l-4);
-    --dui-accent-text-color: var(--dui-color-dark);
+    --dui-accent-text-color: var(--dui-color-5);
     accent-color: var(--dui-clr-warning-l-4);
 }
 .dui.dui-shadow-warning-l-4 {
@@ -4256,12 +4256,12 @@
 }
 .dui.dui-bg-warning-l-3 {
     --dui-bg-clr: var(--dui-clr-warning-l-3);
-    --dui-text-color: var(--dui-color-dark);
+    --dui-text-color: var(--dui-color-5);
     background-color: var(--dui-clr-warning-l-3);
 }
 .dui.dui-accent-warning-l-3 {
     --dui-accent-clr: var(--dui-clr-warning-l-3);
-    --dui-accent-text-color: var(--dui-color-dark);
+    --dui-accent-text-color: var(--dui-color-5);
     accent-color: var(--dui-clr-warning-l-3);
 }
 .dui.dui-shadow-warning-l-3 {
@@ -4316,12 +4316,12 @@
 }
 .dui.dui-bg-warning-l-2 {
     --dui-bg-clr: var(--dui-clr-warning-l-2);
-    --dui-text-color: var(--dui-color-dark);
+    --dui-text-color: var(--dui-color-5);
     background-color: var(--dui-clr-warning-l-2);
 }
 .dui.dui-accent-warning-l-2 {
     --dui-accent-clr: var(--dui-clr-warning-l-2);
-    --dui-accent-text-color: var(--dui-color-light);
+    --dui-accent-text-color: var(--dui-color);
     accent-color: var(--dui-clr-warning-l-2);
 }
 .dui.dui-shadow-warning-l-2 {
@@ -4376,12 +4376,12 @@
 }
 .dui.dui-bg-warning-l-1 {
     --dui-bg-clr: var(--dui-clr-warning-l-1);
-    --dui-text-color: var(--dui-color-light);
+    --dui-text-color: var(--dui-color);
     background-color: var(--dui-clr-warning-l-1);
 }
 .dui.dui-accent-warning-l-1 {
     --dui-accent-clr: var(--dui-clr-warning-l-1);
-    --dui-accent-text-color: var(--dui-color-light);
+    --dui-accent-text-color: var(--dui-color);
     accent-color: var(--dui-clr-warning-l-1);
 }
 .dui.dui-shadow-warning-l-1 {
@@ -4436,12 +4436,12 @@
 }
 .dui.dui-bg-warning {
     --dui-bg-clr: var(--dui-clr-warning);
-    --dui-text-color: var(--dui-color-light);
+    --dui-text-color: var(--dui-color);
     background-color: var(--dui-clr-warning);
 }
 .dui.dui-accent-warning {
     --dui-accent-clr: var(--dui-clr-warning);
-    --dui-accent-text-color: var(--dui-color-light);
+    --dui-accent-text-color: var(--dui-color);
     accent-color: var(--dui-clr-warning);
 }
 .dui.dui-shadow-warning {
@@ -4496,12 +4496,12 @@
 }
 .dui.dui-bg-warning-d-1 {
     --dui-bg-clr: var(--dui-clr-warning-d-1);
-    --dui-text-color: var(--dui-color-light);
+    --dui-text-color: var(--dui-color);
     background-color: var(--dui-clr-warning-d-1);
 }
 .dui.dui-accent-warning-d-1 {
     --dui-accent-clr: var(--dui-clr-warning-d-1);
-    --dui-accent-text-color: var(--dui-color-light);
+    --dui-accent-text-color: var(--dui-color);
     accent-color: var(--dui-clr-warning-d-1);
 }
 .dui.dui-shadow-warning-d-1 {
@@ -4556,12 +4556,12 @@
 }
 .dui.dui-bg-warning-d-2 {
     --dui-bg-clr: var(--dui-clr-warning-d-2);
-    --dui-text-color: var(--dui-color-light);
+    --dui-text-color: var(--dui-color);
     background-color: var(--dui-clr-warning-d-2);
 }
 .dui.dui-accent-warning-d-2 {
     --dui-accent-clr: var(--dui-clr-warning-d-2);
-    --dui-accent-text-color: var(--dui-color-light);
+    --dui-accent-text-color: var(--dui-color);
     accent-color: var(--dui-clr-warning-d-2);
 }
 .dui.dui-shadow-warning-d-2 {
@@ -4616,12 +4616,12 @@
 }
 .dui.dui-bg-warning-d-3 {
     --dui-bg-clr: var(--dui-clr-warning-d-3);
-    --dui-text-color: var(--dui-color-light);
+    --dui-text-color: var(--dui-color);
     background-color: var(--dui-clr-warning-d-3);
 }
 .dui.dui-accent-warning-d-3 {
     --dui-accent-clr: var(--dui-clr-warning-d-3);
-    --dui-accent-text-color: var(--dui-color-light);
+    --dui-accent-text-color: var(--dui-color);
     accent-color: var(--dui-clr-warning-d-3);
 }
 .dui.dui-shadow-warning-d-3 {
@@ -4676,12 +4676,12 @@
 }
 .dui.dui-bg-warning-d-4 {
     --dui-bg-clr: var(--dui-clr-warning-d-4);
-    --dui-text-color: var(--dui-color-light);
+    --dui-text-color: var(--dui-color);
     background-color: var(--dui-clr-warning-d-4);
 }
 .dui.dui-accent-warning-d-4 {
     --dui-accent-clr: var(--dui-clr-warning-d-4);
-    --dui-accent-text-color: var(--dui-color-light);
+    --dui-accent-text-color: var(--dui-color);
     accent-color: var(--dui-clr-warning-d-4);
 }
 .dui.dui-shadow-warning-d-4 {
@@ -4736,12 +4736,12 @@
 }
 .dui.dui-bg-info-l-5 {
     --dui-bg-clr: var(--dui-clr-info-l-5);
-    --dui-text-color: var(--dui-color-dark);
+    --dui-text-color: var(--dui-color-5);
     background-color: var(--dui-clr-info-l-5);
 }
 .dui.dui-accent-info-l-5 {
     --dui-accent-clr: var(--dui-clr-info-l-5);
-    --dui-accent-text-color: var(--dui-color-dark);
+    --dui-accent-text-color: var(--dui-color-5);
     accent-color: var(--dui-clr-info-l-5);
 }
 .dui.dui-shadow-info-l-5 {
@@ -4796,12 +4796,12 @@
 }
 .dui.dui-bg-info-l-4 {
     --dui-bg-clr: var(--dui-clr-info-l-4);
-    --dui-text-color: var(--dui-color-dark);
+    --dui-text-color: var(--dui-color-5);
     background-color: var(--dui-clr-info-l-4);
 }
 .dui.dui-accent-info-l-4 {
     --dui-accent-clr: var(--dui-clr-info-l-4);
-    --dui-accent-text-color: var(--dui-color-dark);
+    --dui-accent-text-color: var(--dui-color-5);
     accent-color: var(--dui-clr-info-l-4);
 }
 .dui.dui-shadow-info-l-4 {
@@ -4856,12 +4856,12 @@
 }
 .dui.dui-bg-info-l-3 {
     --dui-bg-clr: var(--dui-clr-info-l-3);
-    --dui-text-color: var(--dui-color-dark);
+    --dui-text-color: var(--dui-color-5);
     background-color: var(--dui-clr-info-l-3);
 }
 .dui.dui-accent-info-l-3 {
     --dui-accent-clr: var(--dui-clr-info-l-3);
-    --dui-accent-text-color: var(--dui-color-dark);
+    --dui-accent-text-color: var(--dui-color-5);
     accent-color: var(--dui-clr-info-l-3);
 }
 .dui.dui-shadow-info-l-3 {
@@ -4916,12 +4916,12 @@
 }
 .dui.dui-bg-info-l-2 {
     --dui-bg-clr: var(--dui-clr-info-l-2);
-    --dui-text-color: var(--dui-color-dark);
+    --dui-text-color: var(--dui-color-5);
     background-color: var(--dui-clr-info-l-2);
 }
 .dui.dui-accent-info-l-2 {
     --dui-accent-clr: var(--dui-clr-info-l-2);
-    --dui-accent-text-color: var(--dui-color-dark);
+    --dui-accent-text-color: var(--dui-color-5);
     accent-color: var(--dui-clr-info-l-2);
 }
 .dui.dui-shadow-info-l-2 {
@@ -4976,12 +4976,12 @@
 }
 .dui.dui-bg-info-l-1 {
     --dui-bg-clr: var(--dui-clr-info-l-1);
-    --dui-text-color: var(--dui-color-light);
+    --dui-text-color: var(--dui-color);
     background-color: var(--dui-clr-info-l-1);
 }
 .dui.dui-accent-info-l-1 {
     --dui-accent-clr: var(--dui-clr-info-l-1);
-    --dui-accent-text-color: var(--dui-color-light);
+    --dui-accent-text-color: var(--dui-color);
     accent-color: var(--dui-clr-info-l-1);
 }
 .dui.dui-shadow-info-l-1 {
@@ -5036,12 +5036,12 @@
 }
 .dui.dui-bg-info {
     --dui-bg-clr: var(--dui-clr-info);
-    --dui-text-color: var(--dui-color-light);
+    --dui-text-color: var(--dui-color);
     background-color: var(--dui-clr-info);
 }
 .dui.dui-accent-info {
     --dui-accent-clr: var(--dui-clr-info);
-    --dui-accent-text-color: var(--dui-color-light);
+    --dui-accent-text-color: var(--dui-color);
     accent-color: var(--dui-clr-info);
 }
 .dui.dui-shadow-info {
@@ -5096,12 +5096,12 @@
 }
 .dui.dui-bg-info-d-1 {
     --dui-bg-clr: var(--dui-clr-info-d-1);
-    --dui-text-color: var(--dui-color-light);
+    --dui-text-color: var(--dui-color);
     background-color: var(--dui-clr-info-d-1);
 }
 .dui.dui-accent-info-d-1 {
     --dui-accent-clr: var(--dui-clr-info-d-1);
-    --dui-accent-text-color: var(--dui-color-light);
+    --dui-accent-text-color: var(--dui-color);
     accent-color: var(--dui-clr-info-d-1);
 }
 .dui.dui-shadow-info-d-1 {
@@ -5156,12 +5156,12 @@
 }
 .dui.dui-bg-info-d-2 {
     --dui-bg-clr: var(--dui-clr-info-d-2);
-    --dui-text-color: var(--dui-color-light);
+    --dui-text-color: var(--dui-color);
     background-color: var(--dui-clr-info-d-2);
 }
 .dui.dui-accent-info-d-2 {
     --dui-accent-clr: var(--dui-clr-info-d-2);
-    --dui-accent-text-color: var(--dui-color-light);
+    --dui-accent-text-color: var(--dui-color);
     accent-color: var(--dui-clr-info-d-2);
 }
 .dui.dui-shadow-info-d-2 {
@@ -5216,12 +5216,12 @@
 }
 .dui.dui-bg-info-d-3 {
     --dui-bg-clr: var(--dui-clr-info-d-3);
-    --dui-text-color: var(--dui-color-light);
+    --dui-text-color: var(--dui-color);
     background-color: var(--dui-clr-info-d-3);
 }
 .dui.dui-accent-info-d-3 {
     --dui-accent-clr: var(--dui-clr-info-d-3);
-    --dui-accent-text-color: var(--dui-color-light);
+    --dui-accent-text-color: var(--dui-color);
     accent-color: var(--dui-clr-info-d-3);
 }
 .dui.dui-shadow-info-d-3 {
@@ -5276,12 +5276,12 @@
 }
 .dui.dui-bg-info-d-4 {
     --dui-bg-clr: var(--dui-clr-info-d-4);
-    --dui-text-color: var(--dui-color-light);
+    --dui-text-color: var(--dui-color);
     background-color: var(--dui-clr-info-d-4);
 }
 .dui.dui-accent-info-d-4 {
     --dui-accent-clr: var(--dui-clr-info-d-4);
-    --dui-accent-text-color: var(--dui-color-light);
+    --dui-accent-text-color: var(--dui-color);
     accent-color: var(--dui-clr-info-d-4);
 }
 .dui.dui-shadow-info-d-4 {
@@ -5336,12 +5336,12 @@
 }
 .dui.dui-bg-error-l-5 {
     --dui-bg-clr: var(--dui-clr-error-l-5);
-    --dui-text-color: var(--dui-color-dark);
+    --dui-text-color: var(--dui-color-5);
     background-color: var(--dui-clr-error-l-5);
 }
 .dui.dui-accent-error-l-5 {
     --dui-accent-clr: var(--dui-clr-error-l-5);
-    --dui-accent-text-color: var(--dui-color-dark);
+    --dui-accent-text-color: var(--dui-color-5);
     accent-color: var(--dui-clr-error-l-5);
 }
 .dui.dui-shadow-error-l-5 {
@@ -5396,12 +5396,12 @@
 }
 .dui.dui-bg-error-l-4 {
     --dui-bg-clr: var(--dui-clr-error-l-4);
-    --dui-text-color: var(--dui-color-dark);
+    --dui-text-color: var(--dui-color-5);
     background-color: var(--dui-clr-error-l-4);
 }
 .dui.dui-accent-error-l-4 {
     --dui-accent-clr: var(--dui-clr-error-l-4);
-    --dui-accent-text-color: var(--dui-color-dark);
+    --dui-accent-text-color: var(--dui-color-5);
     accent-color: var(--dui-clr-error-l-4);
 }
 .dui.dui-shadow-error-l-4 {
@@ -5456,12 +5456,12 @@
 }
 .dui.dui-bg-error-l-3 {
     --dui-bg-clr: var(--dui-clr-error-l-3);
-    --dui-text-color: var(--dui-color-dark);
+    --dui-text-color: var(--dui-color-5);
     background-color: var(--dui-clr-error-l-3);
 }
 .dui.dui-accent-error-l-3 {
     --dui-accent-clr: var(--dui-clr-error-l-3);
-    --dui-accent-text-color: var(--dui-color-dark);
+    --dui-accent-text-color: var(--dui-color-5);
     accent-color: var(--dui-clr-error-l-3);
 }
 .dui.dui-shadow-error-l-3 {
@@ -5516,12 +5516,12 @@
 }
 .dui.dui-bg-error-l-2 {
     --dui-bg-clr: var(--dui-clr-error-l-2);
-    --dui-text-color: var(--dui-color-dark);
+    --dui-text-color: var(--dui-color-5);
     background-color: var(--dui-clr-error-l-2);
 }
 .dui.dui-accent-error-l-2 {
     --dui-accent-clr: var(--dui-clr-error-l-2);
-    --dui-accent-text-color: var(--dui-color-light);
+    --dui-accent-text-color: var(--dui-color);
     accent-color: var(--dui-clr-error-l-2);
 }
 .dui.dui-shadow-error-l-2 {
@@ -5576,12 +5576,12 @@
 }
 .dui.dui-bg-error-l-1 {
     --dui-bg-clr: var(--dui-clr-error-l-1);
-    --dui-text-color: var(--dui-color-light);
+    --dui-text-color: var(--dui-color);
     background-color: var(--dui-clr-error-l-1);
 }
 .dui.dui-accent-error-l-1 {
     --dui-accent-clr: var(--dui-clr-error-l-1);
-    --dui-accent-text-color: var(--dui-color-light);
+    --dui-accent-text-color: var(--dui-color);
     accent-color: var(--dui-clr-error-l-1);
 }
 .dui.dui-shadow-error-l-1 {
@@ -5636,12 +5636,12 @@
 }
 .dui.dui-bg-error {
     --dui-bg-clr: var(--dui-clr-error);
-    --dui-text-color: var(--dui-color-light);
+    --dui-text-color: var(--dui-color);
     background-color: var(--dui-clr-error);
 }
 .dui.dui-accent-error {
     --dui-accent-clr: var(--dui-clr-error);
-    --dui-accent-text-color: var(--dui-color-light);
+    --dui-accent-text-color: var(--dui-color);
     accent-color: var(--dui-clr-error);
 }
 .dui.dui-shadow-error {
@@ -5696,12 +5696,12 @@
 }
 .dui.dui-bg-error-d-1 {
     --dui-bg-clr: var(--dui-clr-error-d-1);
-    --dui-text-color: var(--dui-color-light);
+    --dui-text-color: var(--dui-color);
     background-color: var(--dui-clr-error-d-1);
 }
 .dui.dui-accent-error-d-1 {
     --dui-accent-clr: var(--dui-clr-error-d-1);
-    --dui-accent-text-color: var(--dui-color-light);
+    --dui-accent-text-color: var(--dui-color);
     accent-color: var(--dui-clr-error-d-1);
 }
 .dui.dui-shadow-error-d-1 {
@@ -5756,12 +5756,12 @@
 }
 .dui.dui-bg-error-d-2 {
     --dui-bg-clr: var(--dui-clr-error-d-2);
-    --dui-text-color: var(--dui-color-light);
+    --dui-text-color: var(--dui-color);
     background-color: var(--dui-clr-error-d-2);
 }
 .dui.dui-accent-error-d-2 {
     --dui-accent-clr: var(--dui-clr-error-d-2);
-    --dui-accent-text-color: var(--dui-color-light);
+    --dui-accent-text-color: var(--dui-color);
     accent-color: var(--dui-clr-error-d-2);
 }
 .dui.dui-shadow-error-d-2 {
@@ -5816,12 +5816,12 @@
 }
 .dui.dui-bg-error-d-3 {
     --dui-bg-clr: var(--dui-clr-error-d-3);
-    --dui-text-color: var(--dui-color-light);
+    --dui-text-color: var(--dui-color);
     background-color: var(--dui-clr-error-d-3);
 }
 .dui.dui-accent-error-d-3 {
     --dui-accent-clr: var(--dui-clr-error-d-3);
-    --dui-accent-text-color: var(--dui-color-light);
+    --dui-accent-text-color: var(--dui-color);
     accent-color: var(--dui-clr-error-d-3);
 }
 .dui.dui-shadow-error-d-3 {
@@ -5876,12 +5876,12 @@
 }
 .dui.dui-bg-error-d-4 {
     --dui-bg-clr: var(--dui-clr-error-d-4);
-    --dui-text-color: var(--dui-color-light);
+    --dui-text-color: var(--dui-color);
     background-color: var(--dui-clr-error-d-4);
 }
 .dui.dui-accent-error-d-4 {
     --dui-accent-clr: var(--dui-clr-error-d-4);
-    --dui-accent-text-color: var(--dui-color-light);
+    --dui-accent-text-color: var(--dui-color);
     accent-color: var(--dui-clr-error-d-4);
 }
 .dui.dui-shadow-error-d-4 {
@@ -5936,12 +5936,12 @@
 }
 .dui.dui-bg-red-l-5 {
     --dui-bg-clr: var(--dui-clr-red-l-5);
-    --dui-text-color: var(--dui-color-dark);
+    --dui-text-color: var(--dui-color-5);
     background-color: var(--dui-clr-red-l-5);
 }
 .dui.dui-accent-red-l-5 {
     --dui-accent-clr: var(--dui-clr-red-l-5);
-    --dui-accent-text-color: var(--dui-color-dark);
+    --dui-accent-text-color: var(--dui-color-5);
     accent-color: var(--dui-clr-red-l-5);
 }
 .dui.dui-shadow-red-l-5 {
@@ -5996,12 +5996,12 @@
 }
 .dui.dui-bg-red-l-4 {
     --dui-bg-clr: var(--dui-clr-red-l-4);
-    --dui-text-color: var(--dui-color-dark);
+    --dui-text-color: var(--dui-color-5);
     background-color: var(--dui-clr-red-l-4);
 }
 .dui.dui-accent-red-l-4 {
     --dui-accent-clr: var(--dui-clr-red-l-4);
-    --dui-accent-text-color: var(--dui-color-dark);
+    --dui-accent-text-color: var(--dui-color-5);
     accent-color: var(--dui-clr-red-l-4);
 }
 .dui.dui-shadow-red-l-4 {
@@ -6056,12 +6056,12 @@
 }
 .dui.dui-bg-red-l-3 {
     --dui-bg-clr: var(--dui-clr-red-l-3);
-    --dui-text-color: var(--dui-color-dark);
+    --dui-text-color: var(--dui-color-5);
     background-color: var(--dui-clr-red-l-3);
 }
 .dui.dui-accent-red-l-3 {
     --dui-accent-clr: var(--dui-clr-red-l-3);
-    --dui-accent-text-color: var(--dui-color-dark);
+    --dui-accent-text-color: var(--dui-color-5);
     accent-color: var(--dui-clr-red-l-3);
 }
 .dui.dui-shadow-red-l-3 {
@@ -6116,12 +6116,12 @@
 }
 .dui.dui-bg-red-l-2 {
     --dui-bg-clr: var(--dui-clr-red-l-2);
-    --dui-text-color: var(--dui-color-dark);
+    --dui-text-color: var(--dui-color-5);
     background-color: var(--dui-clr-red-l-2);
 }
 .dui.dui-accent-red-l-2 {
     --dui-accent-clr: var(--dui-clr-red-l-2);
-    --dui-accent-text-color: var(--dui-color-light);
+    --dui-accent-text-color: var(--dui-color);
     accent-color: var(--dui-clr-red-l-2);
 }
 .dui.dui-shadow-red-l-2 {
@@ -6176,12 +6176,12 @@
 }
 .dui.dui-bg-red-l-1 {
     --dui-bg-clr: var(--dui-clr-red-l-1);
-    --dui-text-color: var(--dui-color-light);
+    --dui-text-color: var(--dui-color);
     background-color: var(--dui-clr-red-l-1);
 }
 .dui.dui-accent-red-l-1 {
     --dui-accent-clr: var(--dui-clr-red-l-1);
-    --dui-accent-text-color: var(--dui-color-light);
+    --dui-accent-text-color: var(--dui-color);
     accent-color: var(--dui-clr-red-l-1);
 }
 .dui.dui-shadow-red-l-1 {
@@ -6236,12 +6236,12 @@
 }
 .dui.dui-bg-red {
     --dui-bg-clr: var(--dui-clr-red);
-    --dui-text-color: var(--dui-color-light);
+    --dui-text-color: var(--dui-color);
     background-color: var(--dui-clr-red);
 }
 .dui.dui-accent-red {
     --dui-accent-clr: var(--dui-clr-red);
-    --dui-accent-text-color: var(--dui-color-light);
+    --dui-accent-text-color: var(--dui-color);
     accent-color: var(--dui-clr-red);
 }
 .dui.dui-shadow-red {
@@ -6296,12 +6296,12 @@
 }
 .dui.dui-bg-red-d-1 {
     --dui-bg-clr: var(--dui-clr-red-d-1);
-    --dui-text-color: var(--dui-color-light);
+    --dui-text-color: var(--dui-color);
     background-color: var(--dui-clr-red-d-1);
 }
 .dui.dui-accent-red-d-1 {
     --dui-accent-clr: var(--dui-clr-red-d-1);
-    --dui-accent-text-color: var(--dui-color-light);
+    --dui-accent-text-color: var(--dui-color);
     accent-color: var(--dui-clr-red-d-1);
 }
 .dui.dui-shadow-red-d-1 {
@@ -6356,12 +6356,12 @@
 }
 .dui.dui-bg-red-d-2 {
     --dui-bg-clr: var(--dui-clr-red-d-2);
-    --dui-text-color: var(--dui-color-light);
+    --dui-text-color: var(--dui-color);
     background-color: var(--dui-clr-red-d-2);
 }
 .dui.dui-accent-red-d-2 {
     --dui-accent-clr: var(--dui-clr-red-d-2);
-    --dui-accent-text-color: var(--dui-color-light);
+    --dui-accent-text-color: var(--dui-color);
     accent-color: var(--dui-clr-red-d-2);
 }
 .dui.dui-shadow-red-d-2 {
@@ -6416,12 +6416,12 @@
 }
 .dui.dui-bg-red-d-3 {
     --dui-bg-clr: var(--dui-clr-red-d-3);
-    --dui-text-color: var(--dui-color-light);
+    --dui-text-color: var(--dui-color);
     background-color: var(--dui-clr-red-d-3);
 }
 .dui.dui-accent-red-d-3 {
     --dui-accent-clr: var(--dui-clr-red-d-3);
-    --dui-accent-text-color: var(--dui-color-light);
+    --dui-accent-text-color: var(--dui-color);
     accent-color: var(--dui-clr-red-d-3);
 }
 .dui.dui-shadow-red-d-3 {
@@ -6476,12 +6476,12 @@
 }
 .dui.dui-bg-red-d-4 {
     --dui-bg-clr: var(--dui-clr-red-d-4);
-    --dui-text-color: var(--dui-color-light);
+    --dui-text-color: var(--dui-color);
     background-color: var(--dui-clr-red-d-4);
 }
 .dui.dui-accent-red-d-4 {
     --dui-accent-clr: var(--dui-clr-red-d-4);
-    --dui-accent-text-color: var(--dui-color-light);
+    --dui-accent-text-color: var(--dui-color);
     accent-color: var(--dui-clr-red-d-4);
 }
 .dui.dui-shadow-red-d-4 {
@@ -6536,12 +6536,12 @@
 }
 .dui.dui-bg-pink-l-5 {
     --dui-bg-clr: var(--dui-clr-pink-l-5);
-    --dui-text-color: var(--dui-color-dark);
+    --dui-text-color: var(--dui-color-5);
     background-color: var(--dui-clr-pink-l-5);
 }
 .dui.dui-accent-pink-l-5 {
     --dui-accent-clr: var(--dui-clr-pink-l-5);
-    --dui-accent-text-color: var(--dui-color-dark);
+    --dui-accent-text-color: var(--dui-color-5);
     accent-color: var(--dui-clr-pink-l-5);
 }
 .dui.dui-shadow-pink-l-5 {
@@ -6596,12 +6596,12 @@
 }
 .dui.dui-bg-pink-l-4 {
     --dui-bg-clr: var(--dui-clr-pink-l-4);
-    --dui-text-color: var(--dui-color-dark);
+    --dui-text-color: var(--dui-color-5);
     background-color: var(--dui-clr-pink-l-4);
 }
 .dui.dui-accent-pink-l-4 {
     --dui-accent-clr: var(--dui-clr-pink-l-4);
-    --dui-accent-text-color: var(--dui-color-dark);
+    --dui-accent-text-color: var(--dui-color-5);
     accent-color: var(--dui-clr-pink-l-4);
 }
 .dui.dui-shadow-pink-l-4 {
@@ -6656,12 +6656,12 @@
 }
 .dui.dui-bg-pink-l-3 {
     --dui-bg-clr: var(--dui-clr-pink-l-3);
-    --dui-text-color: var(--dui-color-dark);
+    --dui-text-color: var(--dui-color-5);
     background-color: var(--dui-clr-pink-l-3);
 }
 .dui.dui-accent-pink-l-3 {
     --dui-accent-clr: var(--dui-clr-pink-l-3);
-    --dui-accent-text-color: var(--dui-color-dark);
+    --dui-accent-text-color: var(--dui-color-5);
     accent-color: var(--dui-clr-pink-l-3);
 }
 .dui.dui-shadow-pink-l-3 {
@@ -6716,12 +6716,12 @@
 }
 .dui.dui-bg-pink-l-2 {
     --dui-bg-clr: var(--dui-clr-pink-l-2);
-    --dui-text-color: var(--dui-color-dark);
+    --dui-text-color: var(--dui-color-5);
     background-color: var(--dui-clr-pink-l-2);
 }
 .dui.dui-accent-pink-l-2 {
     --dui-accent-clr: var(--dui-clr-pink-l-2);
-    --dui-accent-text-color: var(--dui-color-light);
+    --dui-accent-text-color: var(--dui-color);
     accent-color: var(--dui-clr-pink-l-2);
 }
 .dui.dui-shadow-pink-l-2 {
@@ -6776,12 +6776,12 @@
 }
 .dui.dui-bg-pink-l-1 {
     --dui-bg-clr: var(--dui-clr-pink-l-1);
-    --dui-text-color: var(--dui-color-light);
+    --dui-text-color: var(--dui-color);
     background-color: var(--dui-clr-pink-l-1);
 }
 .dui.dui-accent-pink-l-1 {
     --dui-accent-clr: var(--dui-clr-pink-l-1);
-    --dui-accent-text-color: var(--dui-color-light);
+    --dui-accent-text-color: var(--dui-color);
     accent-color: var(--dui-clr-pink-l-1);
 }
 .dui.dui-shadow-pink-l-1 {
@@ -6836,12 +6836,12 @@
 }
 .dui.dui-bg-pink {
     --dui-bg-clr: var(--dui-clr-pink);
-    --dui-text-color: var(--dui-color-light);
+    --dui-text-color: var(--dui-color);
     background-color: var(--dui-clr-pink);
 }
 .dui.dui-accent-pink {
     --dui-accent-clr: var(--dui-clr-pink);
-    --dui-accent-text-color: var(--dui-color-light);
+    --dui-accent-text-color: var(--dui-color);
     accent-color: var(--dui-clr-pink);
 }
 .dui.dui-shadow-pink {
@@ -6896,12 +6896,12 @@
 }
 .dui.dui-bg-pink-d-1 {
     --dui-bg-clr: var(--dui-clr-pink-d-1);
-    --dui-text-color: var(--dui-color-light);
+    --dui-text-color: var(--dui-color);
     background-color: var(--dui-clr-pink-d-1);
 }
 .dui.dui-accent-pink-d-1 {
     --dui-accent-clr: var(--dui-clr-pink-d-1);
-    --dui-accent-text-color: var(--dui-color-light);
+    --dui-accent-text-color: var(--dui-color);
     accent-color: var(--dui-clr-pink-d-1);
 }
 .dui.dui-shadow-pink-d-1 {
@@ -6956,12 +6956,12 @@
 }
 .dui.dui-bg-pink-d-2 {
     --dui-bg-clr: var(--dui-clr-pink-d-2);
-    --dui-text-color: var(--dui-color-light);
+    --dui-text-color: var(--dui-color);
     background-color: var(--dui-clr-pink-d-2);
 }
 .dui.dui-accent-pink-d-2 {
     --dui-accent-clr: var(--dui-clr-pink-d-2);
-    --dui-accent-text-color: var(--dui-color-light);
+    --dui-accent-text-color: var(--dui-color);
     accent-color: var(--dui-clr-pink-d-2);
 }
 .dui.dui-shadow-pink-d-2 {
@@ -7016,12 +7016,12 @@
 }
 .dui.dui-bg-pink-d-3 {
     --dui-bg-clr: var(--dui-clr-pink-d-3);
-    --dui-text-color: var(--dui-color-light);
+    --dui-text-color: var(--dui-color);
     background-color: var(--dui-clr-pink-d-3);
 }
 .dui.dui-accent-pink-d-3 {
     --dui-accent-clr: var(--dui-clr-pink-d-3);
-    --dui-accent-text-color: var(--dui-color-light);
+    --dui-accent-text-color: var(--dui-color);
     accent-color: var(--dui-clr-pink-d-3);
 }
 .dui.dui-shadow-pink-d-3 {
@@ -7076,12 +7076,12 @@
 }
 .dui.dui-bg-pink-d-4 {
     --dui-bg-clr: var(--dui-clr-pink-d-4);
-    --dui-text-color: var(--dui-color-light);
+    --dui-text-color: var(--dui-color);
     background-color: var(--dui-clr-pink-d-4);
 }
 .dui.dui-accent-pink-d-4 {
     --dui-accent-clr: var(--dui-clr-pink-d-4);
-    --dui-accent-text-color: var(--dui-color-light);
+    --dui-accent-text-color: var(--dui-color);
     accent-color: var(--dui-clr-pink-d-4);
 }
 .dui.dui-shadow-pink-d-4 {
@@ -7136,12 +7136,12 @@
 }
 .dui.dui-bg-purple-l-5 {
     --dui-bg-clr: var(--dui-clr-purple-l-5);
-    --dui-text-color: var(--dui-color-dark);
+    --dui-text-color: var(--dui-color-5);
     background-color: var(--dui-clr-purple-l-5);
 }
 .dui.dui-accent-purple-l-5 {
     --dui-accent-clr: var(--dui-clr-purple-l-5);
-    --dui-accent-text-color: var(--dui-color-dark);
+    --dui-accent-text-color: var(--dui-color-5);
     accent-color: var(--dui-clr-purple-l-5);
 }
 .dui.dui-shadow-purple-l-5 {
@@ -7196,12 +7196,12 @@
 }
 .dui.dui-bg-purple-l-4 {
     --dui-bg-clr: var(--dui-clr-purple-l-4);
-    --dui-text-color: var(--dui-color-dark);
+    --dui-text-color: var(--dui-color-5);
     background-color: var(--dui-clr-purple-l-4);
 }
 .dui.dui-accent-purple-l-4 {
     --dui-accent-clr: var(--dui-clr-purple-l-4);
-    --dui-accent-text-color: var(--dui-color-dark);
+    --dui-accent-text-color: var(--dui-color-5);
     accent-color: var(--dui-clr-purple-l-4);
 }
 .dui.dui-shadow-purple-l-4 {
@@ -7256,12 +7256,12 @@
 }
 .dui.dui-bg-purple-l-3 {
     --dui-bg-clr: var(--dui-clr-purple-l-3);
-    --dui-text-color: var(--dui-color-dark);
+    --dui-text-color: var(--dui-color-5);
     background-color: var(--dui-clr-purple-l-3);
 }
 .dui.dui-accent-purple-l-3 {
     --dui-accent-clr: var(--dui-clr-purple-l-3);
-    --dui-accent-text-color: var(--dui-color-dark);
+    --dui-accent-text-color: var(--dui-color-5);
     accent-color: var(--dui-clr-purple-l-3);
 }
 .dui.dui-shadow-purple-l-3 {
@@ -7316,12 +7316,12 @@
 }
 .dui.dui-bg-purple-l-2 {
     --dui-bg-clr: var(--dui-clr-purple-l-2);
-    --dui-text-color: var(--dui-color-dark);
+    --dui-text-color: var(--dui-color-5);
     background-color: var(--dui-clr-purple-l-2);
 }
 .dui.dui-accent-purple-l-2 {
     --dui-accent-clr: var(--dui-clr-purple-l-2);
-    --dui-accent-text-color: var(--dui-color-light);
+    --dui-accent-text-color: var(--dui-color);
     accent-color: var(--dui-clr-purple-l-2);
 }
 .dui.dui-shadow-purple-l-2 {
@@ -7376,12 +7376,12 @@
 }
 .dui.dui-bg-purple-l-1 {
     --dui-bg-clr: var(--dui-clr-purple-l-1);
-    --dui-text-color: var(--dui-color-light);
+    --dui-text-color: var(--dui-color);
     background-color: var(--dui-clr-purple-l-1);
 }
 .dui.dui-accent-purple-l-1 {
     --dui-accent-clr: var(--dui-clr-purple-l-1);
-    --dui-accent-text-color: var(--dui-color-light);
+    --dui-accent-text-color: var(--dui-color);
     accent-color: var(--dui-clr-purple-l-1);
 }
 .dui.dui-shadow-purple-l-1 {
@@ -7436,12 +7436,12 @@
 }
 .dui.dui-bg-purple {
     --dui-bg-clr: var(--dui-clr-purple);
-    --dui-text-color: var(--dui-color-light);
+    --dui-text-color: var(--dui-color);
     background-color: var(--dui-clr-purple);
 }
 .dui.dui-accent-purple {
     --dui-accent-clr: var(--dui-clr-purple);
-    --dui-accent-text-color: var(--dui-color-light);
+    --dui-accent-text-color: var(--dui-color);
     accent-color: var(--dui-clr-purple);
 }
 .dui.dui-shadow-purple {
@@ -7496,12 +7496,12 @@
 }
 .dui.dui-bg-purple-d-1 {
     --dui-bg-clr: var(--dui-clr-purple-d-1);
-    --dui-text-color: var(--dui-color-light);
+    --dui-text-color: var(--dui-color);
     background-color: var(--dui-clr-purple-d-1);
 }
 .dui.dui-accent-purple-d-1 {
     --dui-accent-clr: var(--dui-clr-purple-d-1);
-    --dui-accent-text-color: var(--dui-color-light);
+    --dui-accent-text-color: var(--dui-color);
     accent-color: var(--dui-clr-purple-d-1);
 }
 .dui.dui-shadow-purple-d-1 {
@@ -7556,12 +7556,12 @@
 }
 .dui.dui-bg-purple-d-2 {
     --dui-bg-clr: var(--dui-clr-purple-d-2);
-    --dui-text-color: var(--dui-color-light);
+    --dui-text-color: var(--dui-color);
     background-color: var(--dui-clr-purple-d-2);
 }
 .dui.dui-accent-purple-d-2 {
     --dui-accent-clr: var(--dui-clr-purple-d-2);
-    --dui-accent-text-color: var(--dui-color-light);
+    --dui-accent-text-color: var(--dui-color);
     accent-color: var(--dui-clr-purple-d-2);
 }
 .dui.dui-shadow-purple-d-2 {
@@ -7616,12 +7616,12 @@
 }
 .dui.dui-bg-purple-d-3 {
     --dui-bg-clr: var(--dui-clr-purple-d-3);
-    --dui-text-color: var(--dui-color-light);
+    --dui-text-color: var(--dui-color);
     background-color: var(--dui-clr-purple-d-3);
 }
 .dui.dui-accent-purple-d-3 {
     --dui-accent-clr: var(--dui-clr-purple-d-3);
-    --dui-accent-text-color: var(--dui-color-light);
+    --dui-accent-text-color: var(--dui-color);
     accent-color: var(--dui-clr-purple-d-3);
 }
 .dui.dui-shadow-purple-d-3 {
@@ -7676,12 +7676,12 @@
 }
 .dui.dui-bg-purple-d-4 {
     --dui-bg-clr: var(--dui-clr-purple-d-4);
-    --dui-text-color: var(--dui-color-light);
+    --dui-text-color: var(--dui-color);
     background-color: var(--dui-clr-purple-d-4);
 }
 .dui.dui-accent-purple-d-4 {
     --dui-accent-clr: var(--dui-clr-purple-d-4);
-    --dui-accent-text-color: var(--dui-color-light);
+    --dui-accent-text-color: var(--dui-color);
     accent-color: var(--dui-clr-purple-d-4);
 }
 .dui.dui-shadow-purple-d-4 {
@@ -7736,12 +7736,12 @@
 }
 .dui.dui-bg-deep-purple-l-5 {
     --dui-bg-clr: var(--dui-clr-deep-purple-l-5);
-    --dui-text-color: var(--dui-color-dark);
+    --dui-text-color: var(--dui-color-5);
     background-color: var(--dui-clr-deep-purple-l-5);
 }
 .dui.dui-accent-deep-purple-l-5 {
     --dui-accent-clr: var(--dui-clr-deep-purple-l-5);
-    --dui-accent-text-color: var(--dui-color-dark);
+    --dui-accent-text-color: var(--dui-color-5);
     accent-color: var(--dui-clr-deep-purple-l-5);
 }
 .dui.dui-shadow-deep-purple-l-5 {
@@ -7796,12 +7796,12 @@
 }
 .dui.dui-bg-deep-purple-l-4 {
     --dui-bg-clr: var(--dui-clr-deep-purple-l-4);
-    --dui-text-color: var(--dui-color-dark);
+    --dui-text-color: var(--dui-color-5);
     background-color: var(--dui-clr-deep-purple-l-4);
 }
 .dui.dui-accent-deep-purple-l-4 {
     --dui-accent-clr: var(--dui-clr-deep-purple-l-4);
-    --dui-accent-text-color: var(--dui-color-dark);
+    --dui-accent-text-color: var(--dui-color-5);
     accent-color: var(--dui-clr-deep-purple-l-4);
 }
 .dui.dui-shadow-deep-purple-l-4 {
@@ -7856,12 +7856,12 @@
 }
 .dui.dui-bg-deep-purple-l-3 {
     --dui-bg-clr: var(--dui-clr-deep-purple-l-3);
-    --dui-text-color: var(--dui-color-dark);
+    --dui-text-color: var(--dui-color-5);
     background-color: var(--dui-clr-deep-purple-l-3);
 }
 .dui.dui-accent-deep-purple-l-3 {
     --dui-accent-clr: var(--dui-clr-deep-purple-l-3);
-    --dui-accent-text-color: var(--dui-color-dark);
+    --dui-accent-text-color: var(--dui-color-5);
     accent-color: var(--dui-clr-deep-purple-l-3);
 }
 .dui.dui-shadow-deep-purple-l-3 {
@@ -7916,12 +7916,12 @@
 }
 .dui.dui-bg-deep-purple-l-2 {
     --dui-bg-clr: var(--dui-clr-deep-purple-l-2);
-    --dui-text-color: var(--dui-color-dark);
+    --dui-text-color: var(--dui-color-5);
     background-color: var(--dui-clr-deep-purple-l-2);
 }
 .dui.dui-accent-deep-purple-l-2 {
     --dui-accent-clr: var(--dui-clr-deep-purple-l-2);
-    --dui-accent-text-color: var(--dui-color-light);
+    --dui-accent-text-color: var(--dui-color);
     accent-color: var(--dui-clr-deep-purple-l-2);
 }
 .dui.dui-shadow-deep-purple-l-2 {
@@ -7976,12 +7976,12 @@
 }
 .dui.dui-bg-deep-purple-l-1 {
     --dui-bg-clr: var(--dui-clr-deep-purple-l-1);
-    --dui-text-color: var(--dui-color-light);
+    --dui-text-color: var(--dui-color);
     background-color: var(--dui-clr-deep-purple-l-1);
 }
 .dui.dui-accent-deep-purple-l-1 {
     --dui-accent-clr: var(--dui-clr-deep-purple-l-1);
-    --dui-accent-text-color: var(--dui-color-light);
+    --dui-accent-text-color: var(--dui-color);
     accent-color: var(--dui-clr-deep-purple-l-1);
 }
 .dui.dui-shadow-deep-purple-l-1 {
@@ -8036,12 +8036,12 @@
 }
 .dui.dui-bg-deep-purple {
     --dui-bg-clr: var(--dui-clr-deep-purple);
-    --dui-text-color: var(--dui-color-light);
+    --dui-text-color: var(--dui-color);
     background-color: var(--dui-clr-deep-purple);
 }
 .dui.dui-accent-deep-purple {
     --dui-accent-clr: var(--dui-clr-deep-purple);
-    --dui-accent-text-color: var(--dui-color-light);
+    --dui-accent-text-color: var(--dui-color);
     accent-color: var(--dui-clr-deep-purple);
 }
 .dui.dui-shadow-deep-purple {
@@ -8096,12 +8096,12 @@
 }
 .dui.dui-bg-deep-purple-d-1 {
     --dui-bg-clr: var(--dui-clr-deep-purple-d-1);
-    --dui-text-color: var(--dui-color-light);
+    --dui-text-color: var(--dui-color);
     background-color: var(--dui-clr-deep-purple-d-1);
 }
 .dui.dui-accent-deep-purple-d-1 {
     --dui-accent-clr: var(--dui-clr-deep-purple-d-1);
-    --dui-accent-text-color: var(--dui-color-light);
+    --dui-accent-text-color: var(--dui-color);
     accent-color: var(--dui-clr-deep-purple-d-1);
 }
 .dui.dui-shadow-deep-purple-d-1 {
@@ -8156,12 +8156,12 @@
 }
 .dui.dui-bg-deep-purple-d-2 {
     --dui-bg-clr: var(--dui-clr-deep-purple-d-2);
-    --dui-text-color: var(--dui-color-light);
+    --dui-text-color: var(--dui-color);
     background-color: var(--dui-clr-deep-purple-d-2);
 }
 .dui.dui-accent-deep-purple-d-2 {
     --dui-accent-clr: var(--dui-clr-deep-purple-d-2);
-    --dui-accent-text-color: var(--dui-color-light);
+    --dui-accent-text-color: var(--dui-color);
     accent-color: var(--dui-clr-deep-purple-d-2);
 }
 .dui.dui-shadow-deep-purple-d-2 {
@@ -8216,12 +8216,12 @@
 }
 .dui.dui-bg-deep-purple-d-3 {
     --dui-bg-clr: var(--dui-clr-deep-purple-d-3);
-    --dui-text-color: var(--dui-color-light);
+    --dui-text-color: var(--dui-color);
     background-color: var(--dui-clr-deep-purple-d-3);
 }
 .dui.dui-accent-deep-purple-d-3 {
     --dui-accent-clr: var(--dui-clr-deep-purple-d-3);
-    --dui-accent-text-color: var(--dui-color-light);
+    --dui-accent-text-color: var(--dui-color);
     accent-color: var(--dui-clr-deep-purple-d-3);
 }
 .dui.dui-shadow-deep-purple-d-3 {
@@ -8276,12 +8276,12 @@
 }
 .dui.dui-bg-deep-purple-d-4 {
     --dui-bg-clr: var(--dui-clr-deep-purple-d-4);
-    --dui-text-color: var(--dui-color-light);
+    --dui-text-color: var(--dui-color);
     background-color: var(--dui-clr-deep-purple-d-4);
 }
 .dui.dui-accent-deep-purple-d-4 {
     --dui-accent-clr: var(--dui-clr-deep-purple-d-4);
-    --dui-accent-text-color: var(--dui-color-light);
+    --dui-accent-text-color: var(--dui-color);
     accent-color: var(--dui-clr-deep-purple-d-4);
 }
 .dui.dui-shadow-deep-purple-d-4 {
@@ -8336,12 +8336,12 @@
 }
 .dui.dui-bg-indigo-l-5 {
     --dui-bg-clr: var(--dui-clr-indigo-l-5);
-    --dui-text-color: var(--dui-color-dark);
+    --dui-text-color: var(--dui-color-5);
     background-color: var(--dui-clr-indigo-l-5);
 }
 .dui.dui-accent-indigo-l-5 {
     --dui-accent-clr: var(--dui-clr-indigo-l-5);
-    --dui-accent-text-color: var(--dui-color-dark);
+    --dui-accent-text-color: var(--dui-color-5);
     accent-color: var(--dui-clr-indigo-l-5);
 }
 .dui.dui-shadow-indigo-l-5 {
@@ -8396,12 +8396,12 @@
 }
 .dui.dui-bg-indigo-l-4 {
     --dui-bg-clr: var(--dui-clr-indigo-l-4);
-    --dui-text-color: var(--dui-color-dark);
+    --dui-text-color: var(--dui-color-5);
     background-color: var(--dui-clr-indigo-l-4);
 }
 .dui.dui-accent-indigo-l-4 {
     --dui-accent-clr: var(--dui-clr-indigo-l-4);
-    --dui-accent-text-color: var(--dui-color-dark);
+    --dui-accent-text-color: var(--dui-color-5);
     accent-color: var(--dui-clr-indigo-l-4);
 }
 .dui.dui-shadow-indigo-l-4 {
@@ -8456,12 +8456,12 @@
 }
 .dui.dui-bg-indigo-l-3 {
     --dui-bg-clr: var(--dui-clr-indigo-l-3);
-    --dui-text-color: var(--dui-color-dark);
+    --dui-text-color: var(--dui-color-5);
     background-color: var(--dui-clr-indigo-l-3);
 }
 .dui.dui-accent-indigo-l-3 {
     --dui-accent-clr: var(--dui-clr-indigo-l-3);
-    --dui-accent-text-color: var(--dui-color-dark);
+    --dui-accent-text-color: var(--dui-color-5);
     accent-color: var(--dui-clr-indigo-l-3);
 }
 .dui.dui-shadow-indigo-l-3 {
@@ -8516,12 +8516,12 @@
 }
 .dui.dui-bg-indigo-l-2 {
     --dui-bg-clr: var(--dui-clr-indigo-l-2);
-    --dui-text-color: var(--dui-color-dark);
+    --dui-text-color: var(--dui-color-5);
     background-color: var(--dui-clr-indigo-l-2);
 }
 .dui.dui-accent-indigo-l-2 {
     --dui-accent-clr: var(--dui-clr-indigo-l-2);
-    --dui-accent-text-color: var(--dui-color-light);
+    --dui-accent-text-color: var(--dui-color);
     accent-color: var(--dui-clr-indigo-l-2);
 }
 .dui.dui-shadow-indigo-l-2 {
@@ -8576,12 +8576,12 @@
 }
 .dui.dui-bg-indigo-l-1 {
     --dui-bg-clr: var(--dui-clr-indigo-l-1);
-    --dui-text-color: var(--dui-color-light);
+    --dui-text-color: var(--dui-color);
     background-color: var(--dui-clr-indigo-l-1);
 }
 .dui.dui-accent-indigo-l-1 {
     --dui-accent-clr: var(--dui-clr-indigo-l-1);
-    --dui-accent-text-color: var(--dui-color-light);
+    --dui-accent-text-color: var(--dui-color);
     accent-color: var(--dui-clr-indigo-l-1);
 }
 .dui.dui-shadow-indigo-l-1 {
@@ -8636,12 +8636,12 @@
 }
 .dui.dui-bg-indigo {
     --dui-bg-clr: var(--dui-clr-indigo);
-    --dui-text-color: var(--dui-color-light);
+    --dui-text-color: var(--dui-color);
     background-color: var(--dui-clr-indigo);
 }
 .dui.dui-accent-indigo {
     --dui-accent-clr: var(--dui-clr-indigo);
-    --dui-accent-text-color: var(--dui-color-light);
+    --dui-accent-text-color: var(--dui-color);
     accent-color: var(--dui-clr-indigo);
 }
 .dui.dui-shadow-indigo {
@@ -8696,12 +8696,12 @@
 }
 .dui.dui-bg-indigo-d-1 {
     --dui-bg-clr: var(--dui-clr-indigo-d-1);
-    --dui-text-color: var(--dui-color-light);
+    --dui-text-color: var(--dui-color);
     background-color: var(--dui-clr-indigo-d-1);
 }
 .dui.dui-accent-indigo-d-1 {
     --dui-accent-clr: var(--dui-clr-indigo-d-1);
-    --dui-accent-text-color: var(--dui-color-light);
+    --dui-accent-text-color: var(--dui-color);
     accent-color: var(--dui-clr-indigo-d-1);
 }
 .dui.dui-shadow-indigo-d-1 {
@@ -8756,12 +8756,12 @@
 }
 .dui.dui-bg-indigo-d-2 {
     --dui-bg-clr: var(--dui-clr-indigo-d-2);
-    --dui-text-color: var(--dui-color-light);
+    --dui-text-color: var(--dui-color);
     background-color: var(--dui-clr-indigo-d-2);
 }
 .dui.dui-accent-indigo-d-2 {
     --dui-accent-clr: var(--dui-clr-indigo-d-2);
-    --dui-accent-text-color: var(--dui-color-light);
+    --dui-accent-text-color: var(--dui-color);
     accent-color: var(--dui-clr-indigo-d-2);
 }
 .dui.dui-shadow-indigo-d-2 {
@@ -8816,12 +8816,12 @@
 }
 .dui.dui-bg-indigo-d-3 {
     --dui-bg-clr: var(--dui-clr-indigo-d-3);
-    --dui-text-color: var(--dui-color-light);
+    --dui-text-color: var(--dui-color);
     background-color: var(--dui-clr-indigo-d-3);
 }
 .dui.dui-accent-indigo-d-3 {
     --dui-accent-clr: var(--dui-clr-indigo-d-3);
-    --dui-accent-text-color: var(--dui-color-light);
+    --dui-accent-text-color: var(--dui-color);
     accent-color: var(--dui-clr-indigo-d-3);
 }
 .dui.dui-shadow-indigo-d-3 {
@@ -8876,12 +8876,12 @@
 }
 .dui.dui-bg-indigo-d-4 {
     --dui-bg-clr: var(--dui-clr-indigo-d-4);
-    --dui-text-color: var(--dui-color-light);
+    --dui-text-color: var(--dui-color);
     background-color: var(--dui-clr-indigo-d-4);
 }
 .dui.dui-accent-indigo-d-4 {
     --dui-accent-clr: var(--dui-clr-indigo-d-4);
-    --dui-accent-text-color: var(--dui-color-light);
+    --dui-accent-text-color: var(--dui-color);
     accent-color: var(--dui-clr-indigo-d-4);
 }
 .dui.dui-shadow-indigo-d-4 {
@@ -8936,12 +8936,12 @@
 }
 .dui.dui-bg-blue-l-5 {
     --dui-bg-clr: var(--dui-clr-blue-l-5);
-    --dui-text-color: var(--dui-color-dark);
+    --dui-text-color: var(--dui-color-5);
     background-color: var(--dui-clr-blue-l-5);
 }
 .dui.dui-accent-blue-l-5 {
     --dui-accent-clr: var(--dui-clr-blue-l-5);
-    --dui-accent-text-color: var(--dui-color-dark);
+    --dui-accent-text-color: var(--dui-color-5);
     accent-color: var(--dui-clr-blue-l-5);
 }
 .dui.dui-shadow-blue-l-5 {
@@ -8996,12 +8996,12 @@
 }
 .dui.dui-bg-blue-l-4 {
     --dui-bg-clr: var(--dui-clr-blue-l-4);
-    --dui-text-color: var(--dui-color-dark);
+    --dui-text-color: var(--dui-color-5);
     background-color: var(--dui-clr-blue-l-4);
 }
 .dui.dui-accent-blue-l-4 {
     --dui-accent-clr: var(--dui-clr-blue-l-4);
-    --dui-accent-text-color: var(--dui-color-dark);
+    --dui-accent-text-color: var(--dui-color-5);
     accent-color: var(--dui-clr-blue-l-4);
 }
 .dui.dui-shadow-blue-l-4 {
@@ -9056,12 +9056,12 @@
 }
 .dui.dui-bg-blue-l-3 {
     --dui-bg-clr: var(--dui-clr-blue-l-3);
-    --dui-text-color: var(--dui-color-dark);
+    --dui-text-color: var(--dui-color-5);
     background-color: var(--dui-clr-blue-l-3);
 }
 .dui.dui-accent-blue-l-3 {
     --dui-accent-clr: var(--dui-clr-blue-l-3);
-    --dui-accent-text-color: var(--dui-color-dark);
+    --dui-accent-text-color: var(--dui-color-5);
     accent-color: var(--dui-clr-blue-l-3);
 }
 .dui.dui-shadow-blue-l-3 {
@@ -9116,12 +9116,12 @@
 }
 .dui.dui-bg-blue-l-2 {
     --dui-bg-clr: var(--dui-clr-blue-l-2);
-    --dui-text-color: var(--dui-color-dark);
+    --dui-text-color: var(--dui-color-5);
     background-color: var(--dui-clr-blue-l-2);
 }
 .dui.dui-accent-blue-l-2 {
     --dui-accent-clr: var(--dui-clr-blue-l-2);
-    --dui-accent-text-color: var(--dui-color-light);
+    --dui-accent-text-color: var(--dui-color);
     accent-color: var(--dui-clr-blue-l-2);
 }
 .dui.dui-shadow-blue-l-2 {
@@ -9176,12 +9176,12 @@
 }
 .dui.dui-bg-blue-l-1 {
     --dui-bg-clr: var(--dui-clr-blue-l-1);
-    --dui-text-color: var(--dui-color-light);
+    --dui-text-color: var(--dui-color);
     background-color: var(--dui-clr-blue-l-1);
 }
 .dui.dui-accent-blue-l-1 {
     --dui-accent-clr: var(--dui-clr-blue-l-1);
-    --dui-accent-text-color: var(--dui-color-light);
+    --dui-accent-text-color: var(--dui-color);
     accent-color: var(--dui-clr-blue-l-1);
 }
 .dui.dui-shadow-blue-l-1 {
@@ -9236,12 +9236,12 @@
 }
 .dui.dui-bg-blue {
     --dui-bg-clr: var(--dui-clr-blue);
-    --dui-text-color: var(--dui-color-light);
+    --dui-text-color: var(--dui-color);
     background-color: var(--dui-clr-blue);
 }
 .dui.dui-accent-blue {
     --dui-accent-clr: var(--dui-clr-blue);
-    --dui-accent-text-color: var(--dui-color-light);
+    --dui-accent-text-color: var(--dui-color);
     accent-color: var(--dui-clr-blue);
 }
 .dui.dui-shadow-blue {
@@ -9296,12 +9296,12 @@
 }
 .dui.dui-bg-blue-d-1 {
     --dui-bg-clr: var(--dui-clr-blue-d-1);
-    --dui-text-color: var(--dui-color-light);
+    --dui-text-color: var(--dui-color);
     background-color: var(--dui-clr-blue-d-1);
 }
 .dui.dui-accent-blue-d-1 {
     --dui-accent-clr: var(--dui-clr-blue-d-1);
-    --dui-accent-text-color: var(--dui-color-light);
+    --dui-accent-text-color: var(--dui-color);
     accent-color: var(--dui-clr-blue-d-1);
 }
 .dui.dui-shadow-blue-d-1 {
@@ -9356,12 +9356,12 @@
 }
 .dui.dui-bg-blue-d-2 {
     --dui-bg-clr: var(--dui-clr-blue-d-2);
-    --dui-text-color: var(--dui-color-light);
+    --dui-text-color: var(--dui-color);
     background-color: var(--dui-clr-blue-d-2);
 }
 .dui.dui-accent-blue-d-2 {
     --dui-accent-clr: var(--dui-clr-blue-d-2);
-    --dui-accent-text-color: var(--dui-color-light);
+    --dui-accent-text-color: var(--dui-color);
     accent-color: var(--dui-clr-blue-d-2);
 }
 .dui.dui-shadow-blue-d-2 {
@@ -9416,12 +9416,12 @@
 }
 .dui.dui-bg-blue-d-3 {
     --dui-bg-clr: var(--dui-clr-blue-d-3);
-    --dui-text-color: var(--dui-color-light);
+    --dui-text-color: var(--dui-color);
     background-color: var(--dui-clr-blue-d-3);
 }
 .dui.dui-accent-blue-d-3 {
     --dui-accent-clr: var(--dui-clr-blue-d-3);
-    --dui-accent-text-color: var(--dui-color-light);
+    --dui-accent-text-color: var(--dui-color);
     accent-color: var(--dui-clr-blue-d-3);
 }
 .dui.dui-shadow-blue-d-3 {
@@ -9476,12 +9476,12 @@
 }
 .dui.dui-bg-blue-d-4 {
     --dui-bg-clr: var(--dui-clr-blue-d-4);
-    --dui-text-color: var(--dui-color-light);
+    --dui-text-color: var(--dui-color);
     background-color: var(--dui-clr-blue-d-4);
 }
 .dui.dui-accent-blue-d-4 {
     --dui-accent-clr: var(--dui-clr-blue-d-4);
-    --dui-accent-text-color: var(--dui-color-light);
+    --dui-accent-text-color: var(--dui-color);
     accent-color: var(--dui-clr-blue-d-4);
 }
 .dui.dui-shadow-blue-d-4 {
@@ -9536,12 +9536,12 @@
 }
 .dui.dui-bg-light-blue-l-5 {
     --dui-bg-clr: var(--dui-clr-light-blue-l-5);
-    --dui-text-color: var(--dui-color-dark);
+    --dui-text-color: var(--dui-color-5);
     background-color: var(--dui-clr-light-blue-l-5);
 }
 .dui.dui-accent-light-blue-l-5 {
     --dui-accent-clr: var(--dui-clr-light-blue-l-5);
-    --dui-accent-text-color: var(--dui-color-dark);
+    --dui-accent-text-color: var(--dui-color-5);
     accent-color: var(--dui-clr-light-blue-l-5);
 }
 .dui.dui-shadow-light-blue-l-5 {
@@ -9596,12 +9596,12 @@
 }
 .dui.dui-bg-light-blue-l-4 {
     --dui-bg-clr: var(--dui-clr-light-blue-l-4);
-    --dui-text-color: var(--dui-color-dark);
+    --dui-text-color: var(--dui-color-5);
     background-color: var(--dui-clr-light-blue-l-4);
 }
 .dui.dui-accent-light-blue-l-4 {
     --dui-accent-clr: var(--dui-clr-light-blue-l-4);
-    --dui-accent-text-color: var(--dui-color-dark);
+    --dui-accent-text-color: var(--dui-color-5);
     accent-color: var(--dui-clr-light-blue-l-4);
 }
 .dui.dui-shadow-light-blue-l-4 {
@@ -9656,12 +9656,12 @@
 }
 .dui.dui-bg-light-blue-l-3 {
     --dui-bg-clr: var(--dui-clr-light-blue-l-3);
-    --dui-text-color: var(--dui-color-dark);
+    --dui-text-color: var(--dui-color-5);
     background-color: var(--dui-clr-light-blue-l-3);
 }
 .dui.dui-accent-light-blue-l-3 {
     --dui-accent-clr: var(--dui-clr-light-blue-l-3);
-    --dui-accent-text-color: var(--dui-color-dark);
+    --dui-accent-text-color: var(--dui-color-5);
     accent-color: var(--dui-clr-light-blue-l-3);
 }
 .dui.dui-shadow-light-blue-l-3 {
@@ -9716,12 +9716,12 @@
 }
 .dui.dui-bg-light-blue-l-2 {
     --dui-bg-clr: var(--dui-clr-light-blue-l-2);
-    --dui-text-color: var(--dui-color-dark);
+    --dui-text-color: var(--dui-color-5);
     background-color: var(--dui-clr-light-blue-l-2);
 }
 .dui.dui-accent-light-blue-l-2 {
     --dui-accent-clr: var(--dui-clr-light-blue-l-2);
-    --dui-accent-text-color: var(--dui-color-light);
+    --dui-accent-text-color: var(--dui-color);
     accent-color: var(--dui-clr-light-blue-l-2);
 }
 .dui.dui-shadow-light-blue-l-2 {
@@ -9776,12 +9776,12 @@
 }
 .dui.dui-bg-light-blue-l-1 {
     --dui-bg-clr: var(--dui-clr-light-blue-l-1);
-    --dui-text-color: var(--dui-color-light);
+    --dui-text-color: var(--dui-color);
     background-color: var(--dui-clr-light-blue-l-1);
 }
 .dui.dui-accent-light-blue-l-1 {
     --dui-accent-clr: var(--dui-clr-light-blue-l-1);
-    --dui-accent-text-color: var(--dui-color-light);
+    --dui-accent-text-color: var(--dui-color);
     accent-color: var(--dui-clr-light-blue-l-1);
 }
 .dui.dui-shadow-light-blue-l-1 {
@@ -9836,12 +9836,12 @@
 }
 .dui.dui-bg-light-blue {
     --dui-bg-clr: var(--dui-clr-light-blue);
-    --dui-text-color: var(--dui-color-light);
+    --dui-text-color: var(--dui-color);
     background-color: var(--dui-clr-light-blue);
 }
 .dui.dui-accent-light-blue {
     --dui-accent-clr: var(--dui-clr-light-blue);
-    --dui-accent-text-color: var(--dui-color-light);
+    --dui-accent-text-color: var(--dui-color);
     accent-color: var(--dui-clr-light-blue);
 }
 .dui.dui-shadow-light-blue {
@@ -9896,12 +9896,12 @@
 }
 .dui.dui-bg-light-blue-d-1 {
     --dui-bg-clr: var(--dui-clr-light-blue-d-1);
-    --dui-text-color: var(--dui-color-light);
+    --dui-text-color: var(--dui-color);
     background-color: var(--dui-clr-light-blue-d-1);
 }
 .dui.dui-accent-light-blue-d-1 {
     --dui-accent-clr: var(--dui-clr-light-blue-d-1);
-    --dui-accent-text-color: var(--dui-color-light);
+    --dui-accent-text-color: var(--dui-color);
     accent-color: var(--dui-clr-light-blue-d-1);
 }
 .dui.dui-shadow-light-blue-d-1 {
@@ -9956,12 +9956,12 @@
 }
 .dui.dui-bg-light-blue-d-2 {
     --dui-bg-clr: var(--dui-clr-light-blue-d-2);
-    --dui-text-color: var(--dui-color-light);
+    --dui-text-color: var(--dui-color);
     background-color: var(--dui-clr-light-blue-d-2);
 }
 .dui.dui-accent-light-blue-d-2 {
     --dui-accent-clr: var(--dui-clr-light-blue-d-2);
-    --dui-accent-text-color: var(--dui-color-light);
+    --dui-accent-text-color: var(--dui-color);
     accent-color: var(--dui-clr-light-blue-d-2);
 }
 .dui.dui-shadow-light-blue-d-2 {
@@ -10016,12 +10016,12 @@
 }
 .dui.dui-bg-light-blue-d-3 {
     --dui-bg-clr: var(--dui-clr-light-blue-d-3);
-    --dui-text-color: var(--dui-color-light);
+    --dui-text-color: var(--dui-color);
     background-color: var(--dui-clr-light-blue-d-3);
 }
 .dui.dui-accent-light-blue-d-3 {
     --dui-accent-clr: var(--dui-clr-light-blue-d-3);
-    --dui-accent-text-color: var(--dui-color-light);
+    --dui-accent-text-color: var(--dui-color);
     accent-color: var(--dui-clr-light-blue-d-3);
 }
 .dui.dui-shadow-light-blue-d-3 {
@@ -10076,12 +10076,12 @@
 }
 .dui.dui-bg-light-blue-d-4 {
     --dui-bg-clr: var(--dui-clr-light-blue-d-4);
-    --dui-text-color: var(--dui-color-light);
+    --dui-text-color: var(--dui-color);
     background-color: var(--dui-clr-light-blue-d-4);
 }
 .dui.dui-accent-light-blue-d-4 {
     --dui-accent-clr: var(--dui-clr-light-blue-d-4);
-    --dui-accent-text-color: var(--dui-color-light);
+    --dui-accent-text-color: var(--dui-color);
     accent-color: var(--dui-clr-light-blue-d-4);
 }
 .dui.dui-shadow-light-blue-d-4 {
@@ -10136,12 +10136,12 @@
 }
 .dui.dui-bg-cyan-l-5 {
     --dui-bg-clr: var(--dui-clr-cyan-l-5);
-    --dui-text-color: var(--dui-color-dark);
+    --dui-text-color: var(--dui-color-5);
     background-color: var(--dui-clr-cyan-l-5);
 }
 .dui.dui-accent-cyan-l-5 {
     --dui-accent-clr: var(--dui-clr-cyan-l-5);
-    --dui-accent-text-color: var(--dui-color-dark);
+    --dui-accent-text-color: var(--dui-color-5);
     accent-color: var(--dui-clr-cyan-l-5);
 }
 .dui.dui-shadow-cyan-l-5 {
@@ -10196,12 +10196,12 @@
 }
 .dui.dui-bg-cyan-l-4 {
     --dui-bg-clr: var(--dui-clr-cyan-l-4);
-    --dui-text-color: var(--dui-color-dark);
+    --dui-text-color: var(--dui-color-5);
     background-color: var(--dui-clr-cyan-l-4);
 }
 .dui.dui-accent-cyan-l-4 {
     --dui-accent-clr: var(--dui-clr-cyan-l-4);
-    --dui-accent-text-color: var(--dui-color-dark);
+    --dui-accent-text-color: var(--dui-color-5);
     accent-color: var(--dui-clr-cyan-l-4);
 }
 .dui.dui-shadow-cyan-l-4 {
@@ -10256,12 +10256,12 @@
 }
 .dui.dui-bg-cyan-l-3 {
     --dui-bg-clr: var(--dui-clr-cyan-l-3);
-    --dui-text-color: var(--dui-color-dark);
+    --dui-text-color: var(--dui-color-5);
     background-color: var(--dui-clr-cyan-l-3);
 }
 .dui.dui-accent-cyan-l-3 {
     --dui-accent-clr: var(--dui-clr-cyan-l-3);
-    --dui-accent-text-color: var(--dui-color-dark);
+    --dui-accent-text-color: var(--dui-color-5);
     accent-color: var(--dui-clr-cyan-l-3);
 }
 .dui.dui-shadow-cyan-l-3 {
@@ -10316,12 +10316,12 @@
 }
 .dui.dui-bg-cyan-l-2 {
     --dui-bg-clr: var(--dui-clr-cyan-l-2);
-    --dui-text-color: var(--dui-color-dark);
+    --dui-text-color: var(--dui-color-5);
     background-color: var(--dui-clr-cyan-l-2);
 }
 .dui.dui-accent-cyan-l-2 {
     --dui-accent-clr: var(--dui-clr-cyan-l-2);
-    --dui-accent-text-color: var(--dui-color-light);
+    --dui-accent-text-color: var(--dui-color);
     accent-color: var(--dui-clr-cyan-l-2);
 }
 .dui.dui-shadow-cyan-l-2 {
@@ -10376,12 +10376,12 @@
 }
 .dui.dui-bg-cyan-l-1 {
     --dui-bg-clr: var(--dui-clr-cyan-l-1);
-    --dui-text-color: var(--dui-color-light);
+    --dui-text-color: var(--dui-color);
     background-color: var(--dui-clr-cyan-l-1);
 }
 .dui.dui-accent-cyan-l-1 {
     --dui-accent-clr: var(--dui-clr-cyan-l-1);
-    --dui-accent-text-color: var(--dui-color-light);
+    --dui-accent-text-color: var(--dui-color);
     accent-color: var(--dui-clr-cyan-l-1);
 }
 .dui.dui-shadow-cyan-l-1 {
@@ -10436,12 +10436,12 @@
 }
 .dui.dui-bg-cyan {
     --dui-bg-clr: var(--dui-clr-cyan);
-    --dui-text-color: var(--dui-color-light);
+    --dui-text-color: var(--dui-color);
     background-color: var(--dui-clr-cyan);
 }
 .dui.dui-accent-cyan {
     --dui-accent-clr: var(--dui-clr-cyan);
-    --dui-accent-text-color: var(--dui-color-light);
+    --dui-accent-text-color: var(--dui-color);
     accent-color: var(--dui-clr-cyan);
 }
 .dui.dui-shadow-cyan {
@@ -10496,12 +10496,12 @@
 }
 .dui.dui-bg-cyan-d-1 {
     --dui-bg-clr: var(--dui-clr-cyan-d-1);
-    --dui-text-color: var(--dui-color-light);
+    --dui-text-color: var(--dui-color);
     background-color: var(--dui-clr-cyan-d-1);
 }
 .dui.dui-accent-cyan-d-1 {
     --dui-accent-clr: var(--dui-clr-cyan-d-1);
-    --dui-accent-text-color: var(--dui-color-light);
+    --dui-accent-text-color: var(--dui-color);
     accent-color: var(--dui-clr-cyan-d-1);
 }
 .dui.dui-shadow-cyan-d-1 {
@@ -10556,12 +10556,12 @@
 }
 .dui.dui-bg-cyan-d-2 {
     --dui-bg-clr: var(--dui-clr-cyan-d-2);
-    --dui-text-color: var(--dui-color-light);
+    --dui-text-color: var(--dui-color);
     background-color: var(--dui-clr-cyan-d-2);
 }
 .dui.dui-accent-cyan-d-2 {
     --dui-accent-clr: var(--dui-clr-cyan-d-2);
-    --dui-accent-text-color: var(--dui-color-light);
+    --dui-accent-text-color: var(--dui-color);
     accent-color: var(--dui-clr-cyan-d-2);
 }
 .dui.dui-shadow-cyan-d-2 {
@@ -10616,12 +10616,12 @@
 }
 .dui.dui-bg-cyan-d-3 {
     --dui-bg-clr: var(--dui-clr-cyan-d-3);
-    --dui-text-color: var(--dui-color-light);
+    --dui-text-color: var(--dui-color);
     background-color: var(--dui-clr-cyan-d-3);
 }
 .dui.dui-accent-cyan-d-3 {
     --dui-accent-clr: var(--dui-clr-cyan-d-3);
-    --dui-accent-text-color: var(--dui-color-light);
+    --dui-accent-text-color: var(--dui-color);
     accent-color: var(--dui-clr-cyan-d-3);
 }
 .dui.dui-shadow-cyan-d-3 {
@@ -10676,12 +10676,12 @@
 }
 .dui.dui-bg-cyan-d-4 {
     --dui-bg-clr: var(--dui-clr-cyan-d-4);
-    --dui-text-color: var(--dui-color-light);
+    --dui-text-color: var(--dui-color);
     background-color: var(--dui-clr-cyan-d-4);
 }
 .dui.dui-accent-cyan-d-4 {
     --dui-accent-clr: var(--dui-clr-cyan-d-4);
-    --dui-accent-text-color: var(--dui-color-light);
+    --dui-accent-text-color: var(--dui-color);
     accent-color: var(--dui-clr-cyan-d-4);
 }
 .dui.dui-shadow-cyan-d-4 {
@@ -10736,12 +10736,12 @@
 }
 .dui.dui-bg-teal-l-5 {
     --dui-bg-clr: var(--dui-clr-teal-l-5);
-    --dui-text-color: var(--dui-color-dark);
+    --dui-text-color: var(--dui-color-5);
     background-color: var(--dui-clr-teal-l-5);
 }
 .dui.dui-accent-teal-l-5 {
     --dui-accent-clr: var(--dui-clr-teal-l-5);
-    --dui-accent-text-color: var(--dui-color-dark);
+    --dui-accent-text-color: var(--dui-color-5);
     accent-color: var(--dui-clr-teal-l-5);
 }
 .dui.dui-shadow-teal-l-5 {
@@ -10796,12 +10796,12 @@
 }
 .dui.dui-bg-teal-l-4 {
     --dui-bg-clr: var(--dui-clr-teal-l-4);
-    --dui-text-color: var(--dui-color-dark);
+    --dui-text-color: var(--dui-color-5);
     background-color: var(--dui-clr-teal-l-4);
 }
 .dui.dui-accent-teal-l-4 {
     --dui-accent-clr: var(--dui-clr-teal-l-4);
-    --dui-accent-text-color: var(--dui-color-dark);
+    --dui-accent-text-color: var(--dui-color-5);
     accent-color: var(--dui-clr-teal-l-4);
 }
 .dui.dui-shadow-teal-l-4 {
@@ -10856,12 +10856,12 @@
 }
 .dui.dui-bg-teal-l-3 {
     --dui-bg-clr: var(--dui-clr-teal-l-3);
-    --dui-text-color: var(--dui-color-dark);
+    --dui-text-color: var(--dui-color-5);
     background-color: var(--dui-clr-teal-l-3);
 }
 .dui.dui-accent-teal-l-3 {
     --dui-accent-clr: var(--dui-clr-teal-l-3);
-    --dui-accent-text-color: var(--dui-color-dark);
+    --dui-accent-text-color: var(--dui-color-5);
     accent-color: var(--dui-clr-teal-l-3);
 }
 .dui.dui-shadow-teal-l-3 {
@@ -10916,12 +10916,12 @@
 }
 .dui.dui-bg-teal-l-2 {
     --dui-bg-clr: var(--dui-clr-teal-l-2);
-    --dui-text-color: var(--dui-color-dark);
+    --dui-text-color: var(--dui-color-5);
     background-color: var(--dui-clr-teal-l-2);
 }
 .dui.dui-accent-teal-l-2 {
     --dui-accent-clr: var(--dui-clr-teal-l-2);
-    --dui-accent-text-color: var(--dui-color-light);
+    --dui-accent-text-color: var(--dui-color);
     accent-color: var(--dui-clr-teal-l-2);
 }
 .dui.dui-shadow-teal-l-2 {
@@ -10976,12 +10976,12 @@
 }
 .dui.dui-bg-teal-l-1 {
     --dui-bg-clr: var(--dui-clr-teal-l-1);
-    --dui-text-color: var(--dui-color-light);
+    --dui-text-color: var(--dui-color);
     background-color: var(--dui-clr-teal-l-1);
 }
 .dui.dui-accent-teal-l-1 {
     --dui-accent-clr: var(--dui-clr-teal-l-1);
-    --dui-accent-text-color: var(--dui-color-light);
+    --dui-accent-text-color: var(--dui-color);
     accent-color: var(--dui-clr-teal-l-1);
 }
 .dui.dui-shadow-teal-l-1 {
@@ -11036,12 +11036,12 @@
 }
 .dui.dui-bg-teal {
     --dui-bg-clr: var(--dui-clr-teal);
-    --dui-text-color: var(--dui-color-light);
+    --dui-text-color: var(--dui-color);
     background-color: var(--dui-clr-teal);
 }
 .dui.dui-accent-teal {
     --dui-accent-clr: var(--dui-clr-teal);
-    --dui-accent-text-color: var(--dui-color-light);
+    --dui-accent-text-color: var(--dui-color);
     accent-color: var(--dui-clr-teal);
 }
 .dui.dui-shadow-teal {
@@ -11096,12 +11096,12 @@
 }
 .dui.dui-bg-teal-d-1 {
     --dui-bg-clr: var(--dui-clr-teal-d-1);
-    --dui-text-color: var(--dui-color-light);
+    --dui-text-color: var(--dui-color);
     background-color: var(--dui-clr-teal-d-1);
 }
 .dui.dui-accent-teal-d-1 {
     --dui-accent-clr: var(--dui-clr-teal-d-1);
-    --dui-accent-text-color: var(--dui-color-light);
+    --dui-accent-text-color: var(--dui-color);
     accent-color: var(--dui-clr-teal-d-1);
 }
 .dui.dui-shadow-teal-d-1 {
@@ -11156,12 +11156,12 @@
 }
 .dui.dui-bg-teal-d-2 {
     --dui-bg-clr: var(--dui-clr-teal-d-2);
-    --dui-text-color: var(--dui-color-light);
+    --dui-text-color: var(--dui-color);
     background-color: var(--dui-clr-teal-d-2);
 }
 .dui.dui-accent-teal-d-2 {
     --dui-accent-clr: var(--dui-clr-teal-d-2);
-    --dui-accent-text-color: var(--dui-color-light);
+    --dui-accent-text-color: var(--dui-color);
     accent-color: var(--dui-clr-teal-d-2);
 }
 .dui.dui-shadow-teal-d-2 {
@@ -11216,12 +11216,12 @@
 }
 .dui.dui-bg-teal-d-3 {
     --dui-bg-clr: var(--dui-clr-teal-d-3);
-    --dui-text-color: var(--dui-color-light);
+    --dui-text-color: var(--dui-color);
     background-color: var(--dui-clr-teal-d-3);
 }
 .dui.dui-accent-teal-d-3 {
     --dui-accent-clr: var(--dui-clr-teal-d-3);
-    --dui-accent-text-color: var(--dui-color-light);
+    --dui-accent-text-color: var(--dui-color);
     accent-color: var(--dui-clr-teal-d-3);
 }
 .dui.dui-shadow-teal-d-3 {
@@ -11276,12 +11276,12 @@
 }
 .dui.dui-bg-teal-d-4 {
     --dui-bg-clr: var(--dui-clr-teal-d-4);
-    --dui-text-color: var(--dui-color-light);
+    --dui-text-color: var(--dui-color);
     background-color: var(--dui-clr-teal-d-4);
 }
 .dui.dui-accent-teal-d-4 {
     --dui-accent-clr: var(--dui-clr-teal-d-4);
-    --dui-accent-text-color: var(--dui-color-light);
+    --dui-accent-text-color: var(--dui-color);
     accent-color: var(--dui-clr-teal-d-4);
 }
 .dui.dui-shadow-teal-d-4 {
@@ -11336,12 +11336,12 @@
 }
 .dui.dui-bg-green-l-5 {
     --dui-bg-clr: var(--dui-clr-green-l-5);
-    --dui-text-color: var(--dui-color-dark);
+    --dui-text-color: var(--dui-color-5);
     background-color: var(--dui-clr-green-l-5);
 }
 .dui.dui-accent-green-l-5 {
     --dui-accent-clr: var(--dui-clr-green-l-5);
-    --dui-accent-text-color: var(--dui-color-dark);
+    --dui-accent-text-color: var(--dui-color-5);
     accent-color: var(--dui-clr-green-l-5);
 }
 .dui.dui-shadow-green-l-5 {
@@ -11396,12 +11396,12 @@
 }
 .dui.dui-bg-green-l-4 {
     --dui-bg-clr: var(--dui-clr-green-l-4);
-    --dui-text-color: var(--dui-color-dark);
+    --dui-text-color: var(--dui-color-5);
     background-color: var(--dui-clr-green-l-4);
 }
 .dui.dui-accent-green-l-4 {
     --dui-accent-clr: var(--dui-clr-green-l-4);
-    --dui-accent-text-color: var(--dui-color-dark);
+    --dui-accent-text-color: var(--dui-color-5);
     accent-color: var(--dui-clr-green-l-4);
 }
 .dui.dui-shadow-green-l-4 {
@@ -11456,12 +11456,12 @@
 }
 .dui.dui-bg-green-l-3 {
     --dui-bg-clr: var(--dui-clr-green-l-3);
-    --dui-text-color: var(--dui-color-dark);
+    --dui-text-color: var(--dui-color-5);
     background-color: var(--dui-clr-green-l-3);
 }
 .dui.dui-accent-green-l-3 {
     --dui-accent-clr: var(--dui-clr-green-l-3);
-    --dui-accent-text-color: var(--dui-color-dark);
+    --dui-accent-text-color: var(--dui-color-5);
     accent-color: var(--dui-clr-green-l-3);
 }
 .dui.dui-shadow-green-l-3 {
@@ -11516,12 +11516,12 @@
 }
 .dui.dui-bg-green-l-2 {
     --dui-bg-clr: var(--dui-clr-green-l-2);
-    --dui-text-color: var(--dui-color-dark);
+    --dui-text-color: var(--dui-color-5);
     background-color: var(--dui-clr-green-l-2);
 }
 .dui.dui-accent-green-l-2 {
     --dui-accent-clr: var(--dui-clr-green-l-2);
-    --dui-accent-text-color: var(--dui-color-light);
+    --dui-accent-text-color: var(--dui-color);
     accent-color: var(--dui-clr-green-l-2);
 }
 .dui.dui-shadow-green-l-2 {
@@ -11576,12 +11576,12 @@
 }
 .dui.dui-bg-green-l-1 {
     --dui-bg-clr: var(--dui-clr-green-l-1);
-    --dui-text-color: var(--dui-color-light);
+    --dui-text-color: var(--dui-color);
     background-color: var(--dui-clr-green-l-1);
 }
 .dui.dui-accent-green-l-1 {
     --dui-accent-clr: var(--dui-clr-green-l-1);
-    --dui-accent-text-color: var(--dui-color-light);
+    --dui-accent-text-color: var(--dui-color);
     accent-color: var(--dui-clr-green-l-1);
 }
 .dui.dui-shadow-green-l-1 {
@@ -11636,12 +11636,12 @@
 }
 .dui.dui-bg-green {
     --dui-bg-clr: var(--dui-clr-green);
-    --dui-text-color: var(--dui-color-light);
+    --dui-text-color: var(--dui-color);
     background-color: var(--dui-clr-green);
 }
 .dui.dui-accent-green {
     --dui-accent-clr: var(--dui-clr-green);
-    --dui-accent-text-color: var(--dui-color-light);
+    --dui-accent-text-color: var(--dui-color);
     accent-color: var(--dui-clr-green);
 }
 .dui.dui-shadow-green {
@@ -11696,12 +11696,12 @@
 }
 .dui.dui-bg-green-d-1 {
     --dui-bg-clr: var(--dui-clr-green-d-1);
-    --dui-text-color: var(--dui-color-light);
+    --dui-text-color: var(--dui-color);
     background-color: var(--dui-clr-green-d-1);
 }
 .dui.dui-accent-green-d-1 {
     --dui-accent-clr: var(--dui-clr-green-d-1);
-    --dui-accent-text-color: var(--dui-color-light);
+    --dui-accent-text-color: var(--dui-color);
     accent-color: var(--dui-clr-green-d-1);
 }
 .dui.dui-shadow-green-d-1 {
@@ -11756,12 +11756,12 @@
 }
 .dui.dui-bg-green-d-2 {
     --dui-bg-clr: var(--dui-clr-green-d-2);
-    --dui-text-color: var(--dui-color-light);
+    --dui-text-color: var(--dui-color);
     background-color: var(--dui-clr-green-d-2);
 }
 .dui.dui-accent-green-d-2 {
     --dui-accent-clr: var(--dui-clr-green-d-2);
-    --dui-accent-text-color: var(--dui-color-light);
+    --dui-accent-text-color: var(--dui-color);
     accent-color: var(--dui-clr-green-d-2);
 }
 .dui.dui-shadow-green-d-2 {
@@ -11816,12 +11816,12 @@
 }
 .dui.dui-bg-green-d-3 {
     --dui-bg-clr: var(--dui-clr-green-d-3);
-    --dui-text-color: var(--dui-color-light);
+    --dui-text-color: var(--dui-color);
     background-color: var(--dui-clr-green-d-3);
 }
 .dui.dui-accent-green-d-3 {
     --dui-accent-clr: var(--dui-clr-green-d-3);
-    --dui-accent-text-color: var(--dui-color-light);
+    --dui-accent-text-color: var(--dui-color);
     accent-color: var(--dui-clr-green-d-3);
 }
 .dui.dui-shadow-green-d-3 {
@@ -11876,12 +11876,12 @@
 }
 .dui.dui-bg-green-d-4 {
     --dui-bg-clr: var(--dui-clr-green-d-4);
-    --dui-text-color: var(--dui-color-light);
+    --dui-text-color: var(--dui-color);
     background-color: var(--dui-clr-green-d-4);
 }
 .dui.dui-accent-green-d-4 {
     --dui-accent-clr: var(--dui-clr-green-d-4);
-    --dui-accent-text-color: var(--dui-color-light);
+    --dui-accent-text-color: var(--dui-color);
     accent-color: var(--dui-clr-green-d-4);
 }
 .dui.dui-shadow-green-d-4 {
@@ -11936,12 +11936,12 @@
 }
 .dui.dui-bg-light-green-l-5 {
     --dui-bg-clr: var(--dui-clr-light-green-l-5);
-    --dui-text-color: var(--dui-color-dark);
+    --dui-text-color: var(--dui-color-5);
     background-color: var(--dui-clr-light-green-l-5);
 }
 .dui.dui-accent-light-green-l-5 {
     --dui-accent-clr: var(--dui-clr-light-green-l-5);
-    --dui-accent-text-color: var(--dui-color-dark);
+    --dui-accent-text-color: var(--dui-color-5);
     accent-color: var(--dui-clr-light-green-l-5);
 }
 .dui.dui-shadow-light-green-l-5 {
@@ -11996,12 +11996,12 @@
 }
 .dui.dui-bg-light-green-l-4 {
     --dui-bg-clr: var(--dui-clr-light-green-l-4);
-    --dui-text-color: var(--dui-color-dark);
+    --dui-text-color: var(--dui-color-5);
     background-color: var(--dui-clr-light-green-l-4);
 }
 .dui.dui-accent-light-green-l-4 {
     --dui-accent-clr: var(--dui-clr-light-green-l-4);
-    --dui-accent-text-color: var(--dui-color-dark);
+    --dui-accent-text-color: var(--dui-color-5);
     accent-color: var(--dui-clr-light-green-l-4);
 }
 .dui.dui-shadow-light-green-l-4 {
@@ -12056,12 +12056,12 @@
 }
 .dui.dui-bg-light-green-l-3 {
     --dui-bg-clr: var(--dui-clr-light-green-l-3);
-    --dui-text-color: var(--dui-color-dark);
+    --dui-text-color: var(--dui-color-5);
     background-color: var(--dui-clr-light-green-l-3);
 }
 .dui.dui-accent-light-green-l-3 {
     --dui-accent-clr: var(--dui-clr-light-green-l-3);
-    --dui-accent-text-color: var(--dui-color-dark);
+    --dui-accent-text-color: var(--dui-color-5);
     accent-color: var(--dui-clr-light-green-l-3);
 }
 .dui.dui-shadow-light-green-l-3 {
@@ -12116,12 +12116,12 @@
 }
 .dui.dui-bg-light-green-l-2 {
     --dui-bg-clr: var(--dui-clr-light-green-l-2);
-    --dui-text-color: var(--dui-color-dark);
+    --dui-text-color: var(--dui-color-5);
     background-color: var(--dui-clr-light-green-l-2);
 }
 .dui.dui-accent-light-green-l-2 {
     --dui-accent-clr: var(--dui-clr-light-green-l-2);
-    --dui-accent-text-color: var(--dui-color-light);
+    --dui-accent-text-color: var(--dui-color);
     accent-color: var(--dui-clr-light-green-l-2);
 }
 .dui.dui-shadow-light-green-l-2 {
@@ -12176,12 +12176,12 @@
 }
 .dui.dui-bg-light-green-l-1 {
     --dui-bg-clr: var(--dui-clr-light-green-l-1);
-    --dui-text-color: var(--dui-color-light);
+    --dui-text-color: var(--dui-color);
     background-color: var(--dui-clr-light-green-l-1);
 }
 .dui.dui-accent-light-green-l-1 {
     --dui-accent-clr: var(--dui-clr-light-green-l-1);
-    --dui-accent-text-color: var(--dui-color-light);
+    --dui-accent-text-color: var(--dui-color);
     accent-color: var(--dui-clr-light-green-l-1);
 }
 .dui.dui-shadow-light-green-l-1 {
@@ -12236,12 +12236,12 @@
 }
 .dui.dui-bg-light-green {
     --dui-bg-clr: var(--dui-clr-light-green);
-    --dui-text-color: var(--dui-color-light);
+    --dui-text-color: var(--dui-color);
     background-color: var(--dui-clr-light-green);
 }
 .dui.dui-accent-light-green {
     --dui-accent-clr: var(--dui-clr-light-green);
-    --dui-accent-text-color: var(--dui-color-light);
+    --dui-accent-text-color: var(--dui-color);
     accent-color: var(--dui-clr-light-green);
 }
 .dui.dui-shadow-light-green {
@@ -12296,12 +12296,12 @@
 }
 .dui.dui-bg-light-green-d-1 {
     --dui-bg-clr: var(--dui-clr-light-green-d-1);
-    --dui-text-color: var(--dui-color-light);
+    --dui-text-color: var(--dui-color);
     background-color: var(--dui-clr-light-green-d-1);
 }
 .dui.dui-accent-light-green-d-1 {
     --dui-accent-clr: var(--dui-clr-light-green-d-1);
-    --dui-accent-text-color: var(--dui-color-light);
+    --dui-accent-text-color: var(--dui-color);
     accent-color: var(--dui-clr-light-green-d-1);
 }
 .dui.dui-shadow-light-green-d-1 {
@@ -12356,12 +12356,12 @@
 }
 .dui.dui-bg-light-green-d-2 {
     --dui-bg-clr: var(--dui-clr-light-green-d-2);
-    --dui-text-color: var(--dui-color-light);
+    --dui-text-color: var(--dui-color);
     background-color: var(--dui-clr-light-green-d-2);
 }
 .dui.dui-accent-light-green-d-2 {
     --dui-accent-clr: var(--dui-clr-light-green-d-2);
-    --dui-accent-text-color: var(--dui-color-light);
+    --dui-accent-text-color: var(--dui-color);
     accent-color: var(--dui-clr-light-green-d-2);
 }
 .dui.dui-shadow-light-green-d-2 {
@@ -12416,12 +12416,12 @@
 }
 .dui.dui-bg-light-green-d-3 {
     --dui-bg-clr: var(--dui-clr-light-green-d-3);
-    --dui-text-color: var(--dui-color-light);
+    --dui-text-color: var(--dui-color);
     background-color: var(--dui-clr-light-green-d-3);
 }
 .dui.dui-accent-light-green-d-3 {
     --dui-accent-clr: var(--dui-clr-light-green-d-3);
-    --dui-accent-text-color: var(--dui-color-light);
+    --dui-accent-text-color: var(--dui-color);
     accent-color: var(--dui-clr-light-green-d-3);
 }
 .dui.dui-shadow-light-green-d-3 {
@@ -12476,12 +12476,12 @@
 }
 .dui.dui-bg-light-green-d-4 {
     --dui-bg-clr: var(--dui-clr-light-green-d-4);
-    --dui-text-color: var(--dui-color-light);
+    --dui-text-color: var(--dui-color);
     background-color: var(--dui-clr-light-green-d-4);
 }
 .dui.dui-accent-light-green-d-4 {
     --dui-accent-clr: var(--dui-clr-light-green-d-4);
-    --dui-accent-text-color: var(--dui-color-light);
+    --dui-accent-text-color: var(--dui-color);
     accent-color: var(--dui-clr-light-green-d-4);
 }
 .dui.dui-shadow-light-green-d-4 {
@@ -12536,12 +12536,12 @@
 }
 .dui.dui-bg-lime-l-4 {
     --dui-bg-clr: var(--dui-clr-lime-l-4);
-    --dui-text-color: var(--dui-color-dark);
+    --dui-text-color: var(--dui-color-5);
     background-color: var(--dui-clr-lime-l-4);
 }
 .dui.dui-accent-lime-l-4 {
     --dui-accent-clr: var(--dui-clr-lime-l-4);
-    --dui-accent-text-color: var(--dui-color-dark);
+    --dui-accent-text-color: var(--dui-color-5);
     accent-color: var(--dui-clr-lime-l-4);
 }
 .dui.dui-shadow-lime-l-4 {
@@ -12596,12 +12596,12 @@
 }
 .dui.dui-bg-lime-l-3 {
     --dui-bg-clr: var(--dui-clr-lime-l-3);
-    --dui-text-color: var(--dui-color-dark);
+    --dui-text-color: var(--dui-color-5);
     background-color: var(--dui-clr-lime-l-3);
 }
 .dui.dui-accent-lime-l-3 {
     --dui-accent-clr: var(--dui-clr-lime-l-3);
-    --dui-accent-text-color: var(--dui-color-dark);
+    --dui-accent-text-color: var(--dui-color-5);
     accent-color: var(--dui-clr-lime-l-3);
 }
 .dui.dui-shadow-lime-l-3 {
@@ -12656,12 +12656,12 @@
 }
 .dui.dui-bg-lime-l-2 {
     --dui-bg-clr: var(--dui-clr-lime-l-2);
-    --dui-text-color: var(--dui-color-dark);
+    --dui-text-color: var(--dui-color-5);
     background-color: var(--dui-clr-lime-l-2);
 }
 .dui.dui-accent-lime-l-2 {
     --dui-accent-clr: var(--dui-clr-lime-l-2);
-    --dui-accent-text-color: var(--dui-color-light);
+    --dui-accent-text-color: var(--dui-color);
     accent-color: var(--dui-clr-lime-l-2);
 }
 .dui.dui-shadow-lime-l-2 {
@@ -12716,12 +12716,12 @@
 }
 .dui.dui-bg-lime-l-1 {
     --dui-bg-clr: var(--dui-clr-lime-l-1);
-    --dui-text-color: var(--dui-color-light);
+    --dui-text-color: var(--dui-color);
     background-color: var(--dui-clr-lime-l-1);
 }
 .dui.dui-accent-lime-l-1 {
     --dui-accent-clr: var(--dui-clr-lime-l-1);
-    --dui-accent-text-color: var(--dui-color-light);
+    --dui-accent-text-color: var(--dui-color);
     accent-color: var(--dui-clr-lime-l-1);
 }
 .dui.dui-shadow-lime-l-1 {
@@ -12776,12 +12776,12 @@
 }
 .dui.dui-bg-lime {
     --dui-bg-clr: var(--dui-clr-lime);
-    --dui-text-color: var(--dui-color-light);
+    --dui-text-color: var(--dui-color);
     background-color: var(--dui-clr-lime);
 }
 .dui.dui-accent-lime {
     --dui-accent-clr: var(--dui-clr-lime);
-    --dui-accent-text-color: var(--dui-color-light);
+    --dui-accent-text-color: var(--dui-color);
     accent-color: var(--dui-clr-lime);
 }
 .dui.dui-shadow-lime {
@@ -12836,12 +12836,12 @@
 }
 .dui.dui-bg-lime-d-1 {
     --dui-bg-clr: var(--dui-clr-lime-d-1);
-    --dui-text-color: var(--dui-color-light);
+    --dui-text-color: var(--dui-color);
     background-color: var(--dui-clr-lime-d-1);
 }
 .dui.dui-accent-lime-d-1 {
     --dui-accent-clr: var(--dui-clr-lime-d-1);
-    --dui-accent-text-color: var(--dui-color-light);
+    --dui-accent-text-color: var(--dui-color);
     accent-color: var(--dui-clr-lime-d-1);
 }
 .dui.dui-shadow-lime-d-1 {
@@ -12896,12 +12896,12 @@
 }
 .dui.dui-bg-lime-d-2 {
     --dui-bg-clr: var(--dui-clr-lime-d-2);
-    --dui-text-color: var(--dui-color-light);
+    --dui-text-color: var(--dui-color);
     background-color: var(--dui-clr-lime-d-2);
 }
 .dui.dui-accent-lime-d-2 {
     --dui-accent-clr: var(--dui-clr-lime-d-2);
-    --dui-accent-text-color: var(--dui-color-light);
+    --dui-accent-text-color: var(--dui-color);
     accent-color: var(--dui-clr-lime-d-2);
 }
 .dui.dui-shadow-lime-d-2 {
@@ -12956,12 +12956,12 @@
 }
 .dui.dui-bg-lime-d-3 {
     --dui-bg-clr: var(--dui-clr-lime-d-3);
-    --dui-text-color: var(--dui-color-light);
+    --dui-text-color: var(--dui-color);
     background-color: var(--dui-clr-lime-d-3);
 }
 .dui.dui-accent-lime-d-3 {
     --dui-accent-clr: var(--dui-clr-lime-d-3);
-    --dui-accent-text-color: var(--dui-color-light);
+    --dui-accent-text-color: var(--dui-color);
     accent-color: var(--dui-clr-lime-d-3);
 }
 .dui.dui-shadow-lime-d-3 {
@@ -13016,12 +13016,12 @@
 }
 .dui.dui-bg-lime-d-4 {
     --dui-bg-clr: var(--dui-clr-lime-d-4);
-    --dui-text-color: var(--dui-color-light);
+    --dui-text-color: var(--dui-color);
     background-color: var(--dui-clr-lime-d-4);
 }
 .dui.dui-accent-lime-d-4 {
     --dui-accent-clr: var(--dui-clr-lime-d-4);
-    --dui-accent-text-color: var(--dui-color-light);
+    --dui-accent-text-color: var(--dui-color);
     accent-color: var(--dui-clr-lime-d-4);
 }
 .dui.dui-shadow-lime-d-4 {
@@ -13076,12 +13076,12 @@
 }
 .dui.dui-bg-yellow-l-5 {
     --dui-bg-clr: var(--dui-clr-yellow-l-5);
-    --dui-text-color: var(--dui-color-dark);
+    --dui-text-color: var(--dui-color-5);
     background-color: var(--dui-clr-yellow-l-5);
 }
 .dui.dui-accent-yellow-l-5 {
     --dui-accent-clr: var(--dui-clr-yellow-l-5);
-    --dui-accent-text-color: var(--dui-color-dark);
+    --dui-accent-text-color: var(--dui-color-5);
     accent-color: var(--dui-clr-yellow-l-5);
 }
 .dui.dui-shadow-yellow-l-5 {
@@ -13136,12 +13136,12 @@
 }
 .dui.dui-bg-yellow-l-4 {
     --dui-bg-clr: var(--dui-clr-yellow-l-4);
-    --dui-text-color: var(--dui-color-dark);
+    --dui-text-color: var(--dui-color-5);
     background-color: var(--dui-clr-yellow-l-4);
 }
 .dui.dui-accent-yellow-l-4 {
     --dui-accent-clr: var(--dui-clr-yellow-l-4);
-    --dui-accent-text-color: var(--dui-color-dark);
+    --dui-accent-text-color: var(--dui-color-5);
     accent-color: var(--dui-clr-yellow-l-4);
 }
 .dui.dui-shadow-yellow-l-4 {
@@ -13196,12 +13196,12 @@
 }
 .dui.dui-bg-yellow-l-3 {
     --dui-bg-clr: var(--dui-clr-yellow-l-3);
-    --dui-text-color: var(--dui-color-dark);
+    --dui-text-color: var(--dui-color-5);
     background-color: var(--dui-clr-yellow-l-3);
 }
 .dui.dui-accent-yellow-l-3 {
     --dui-accent-clr: var(--dui-clr-yellow-l-3);
-    --dui-accent-text-color: var(--dui-color-dark);
+    --dui-accent-text-color: var(--dui-color-5);
     accent-color: var(--dui-clr-yellow-l-3);
 }
 .dui.dui-shadow-yellow-l-3 {
@@ -13256,12 +13256,12 @@
 }
 .dui.dui-bg-yellow-l-2 {
     --dui-bg-clr: var(--dui-clr-yellow-l-2);
-    --dui-text-color: var(--dui-color-dark);
+    --dui-text-color: var(--dui-color-5);
     background-color: var(--dui-clr-yellow-l-2);
 }
 .dui.dui-accent-yellow-l-2 {
     --dui-accent-clr: var(--dui-clr-yellow-l-2);
-    --dui-accent-text-color: var(--dui-color-light);
+    --dui-accent-text-color: var(--dui-color);
     accent-color: var(--dui-clr-yellow-l-2);
 }
 .dui.dui-shadow-yellow-l-2 {
@@ -13316,12 +13316,12 @@
 }
 .dui.dui-bg-yellow-l-1 {
     --dui-bg-clr: var(--dui-clr-yellow-l-1);
-    --dui-text-color: var(--dui-color-light);
+    --dui-text-color: var(--dui-color);
     background-color: var(--dui-clr-yellow-l-1);
 }
 .dui.dui-accent-yellow-l-1 {
     --dui-accent-clr: var(--dui-clr-yellow-l-1);
-    --dui-accent-text-color: var(--dui-color-light);
+    --dui-accent-text-color: var(--dui-color);
     accent-color: var(--dui-clr-yellow-l-1);
 }
 .dui.dui-shadow-yellow-l-1 {
@@ -13376,12 +13376,12 @@
 }
 .dui.dui-bg-yellow {
     --dui-bg-clr: var(--dui-clr-yellow);
-    --dui-text-color: var(--dui-color-light);
+    --dui-text-color: var(--dui-color);
     background-color: var(--dui-clr-yellow);
 }
 .dui.dui-accent-yellow {
     --dui-accent-clr: var(--dui-clr-yellow);
-    --dui-accent-text-color: var(--dui-color-light);
+    --dui-accent-text-color: var(--dui-color);
     accent-color: var(--dui-clr-yellow);
 }
 .dui.dui-shadow-yellow {
@@ -13436,12 +13436,12 @@
 }
 .dui.dui-bg-yellow-d-1 {
     --dui-bg-clr: var(--dui-clr-yellow-d-1);
-    --dui-text-color: var(--dui-color-light);
+    --dui-text-color: var(--dui-color);
     background-color: var(--dui-clr-yellow-d-1);
 }
 .dui.dui-accent-yellow-d-1 {
     --dui-accent-clr: var(--dui-clr-yellow-d-1);
-    --dui-accent-text-color: var(--dui-color-light);
+    --dui-accent-text-color: var(--dui-color);
     accent-color: var(--dui-clr-yellow-d-1);
 }
 .dui.dui-shadow-yellow-d-1 {
@@ -13496,12 +13496,12 @@
 }
 .dui.dui-bg-yellow-d-2 {
     --dui-bg-clr: var(--dui-clr-yellow-d-2);
-    --dui-text-color: var(--dui-color-light);
+    --dui-text-color: var(--dui-color);
     background-color: var(--dui-clr-yellow-d-2);
 }
 .dui.dui-accent-yellow-d-2 {
     --dui-accent-clr: var(--dui-clr-yellow-d-2);
-    --dui-accent-text-color: var(--dui-color-light);
+    --dui-accent-text-color: var(--dui-color);
     accent-color: var(--dui-clr-yellow-d-2);
 }
 .dui.dui-shadow-yellow-d-2 {
@@ -13556,12 +13556,12 @@
 }
 .dui.dui-bg-yellow-d-3 {
     --dui-bg-clr: var(--dui-clr-yellow-d-3);
-    --dui-text-color: var(--dui-color-light);
+    --dui-text-color: var(--dui-color);
     background-color: var(--dui-clr-yellow-d-3);
 }
 .dui.dui-accent-yellow-d-3 {
     --dui-accent-clr: var(--dui-clr-yellow-d-3);
-    --dui-accent-text-color: var(--dui-color-light);
+    --dui-accent-text-color: var(--dui-color);
     accent-color: var(--dui-clr-yellow-d-3);
 }
 .dui.dui-shadow-yellow-d-3 {
@@ -13616,12 +13616,12 @@
 }
 .dui.dui-bg-yellow-d-4 {
     --dui-bg-clr: var(--dui-clr-yellow-d-4);
-    --dui-text-color: var(--dui-color-light);
+    --dui-text-color: var(--dui-color);
     background-color: var(--dui-clr-yellow-d-4);
 }
 .dui.dui-accent-yellow-d-4 {
     --dui-accent-clr: var(--dui-clr-yellow-d-4);
-    --dui-accent-text-color: var(--dui-color-light);
+    --dui-accent-text-color: var(--dui-color);
     accent-color: var(--dui-clr-yellow-d-4);
 }
 .dui.dui-shadow-yellow-d-4 {
@@ -13676,12 +13676,12 @@
 }
 .dui.dui-bg-amber-l-5 {
     --dui-bg-clr: var(--dui-clr-amber-l-5);
-    --dui-text-color: var(--dui-color-dark);
+    --dui-text-color: var(--dui-color-5);
     background-color: var(--dui-clr-amber-l-5);
 }
 .dui.dui-accent-amber-l-5 {
     --dui-accent-clr: var(--dui-clr-amber-l-5);
-    --dui-accent-text-color: var(--dui-color-dark);
+    --dui-accent-text-color: var(--dui-color-5);
     accent-color: var(--dui-clr-amber-l-5);
 }
 .dui.dui-shadow-amber-l-5 {
@@ -13736,12 +13736,12 @@
 }
 .dui.dui-bg-amber-l-4 {
     --dui-bg-clr: var(--dui-clr-amber-l-4);
-    --dui-text-color: var(--dui-color-dark);
+    --dui-text-color: var(--dui-color-5);
     background-color: var(--dui-clr-amber-l-4);
 }
 .dui.dui-accent-amber-l-4 {
     --dui-accent-clr: var(--dui-clr-amber-l-4);
-    --dui-accent-text-color: var(--dui-color-dark);
+    --dui-accent-text-color: var(--dui-color-5);
     accent-color: var(--dui-clr-amber-l-4);
 }
 .dui.dui-shadow-amber-l-4 {
@@ -13796,12 +13796,12 @@
 }
 .dui.dui-bg-amber-l-3 {
     --dui-bg-clr: var(--dui-clr-amber-l-3);
-    --dui-text-color: var(--dui-color-dark);
+    --dui-text-color: var(--dui-color-5);
     background-color: var(--dui-clr-amber-l-3);
 }
 .dui.dui-accent-amber-l-3 {
     --dui-accent-clr: var(--dui-clr-amber-l-3);
-    --dui-accent-text-color: var(--dui-color-dark);
+    --dui-accent-text-color: var(--dui-color-5);
     accent-color: var(--dui-clr-amber-l-3);
 }
 .dui.dui-shadow-amber-l-3 {
@@ -13856,12 +13856,12 @@
 }
 .dui.dui-bg-amber-l-2 {
     --dui-bg-clr: var(--dui-clr-amber-l-2);
-    --dui-text-color: var(--dui-color-dark);
+    --dui-text-color: var(--dui-color-5);
     background-color: var(--dui-clr-amber-l-2);
 }
 .dui.dui-accent-amber-l-2 {
     --dui-accent-clr: var(--dui-clr-amber-l-2);
-    --dui-accent-text-color: var(--dui-color-light);
+    --dui-accent-text-color: var(--dui-color);
     accent-color: var(--dui-clr-amber-l-2);
 }
 .dui.dui-shadow-amber-l-2 {
@@ -13916,12 +13916,12 @@
 }
 .dui.dui-bg-amber-l-1 {
     --dui-bg-clr: var(--dui-clr-amber-l-1);
-    --dui-text-color: var(--dui-color-light);
+    --dui-text-color: var(--dui-color);
     background-color: var(--dui-clr-amber-l-1);
 }
 .dui.dui-accent-amber-l-1 {
     --dui-accent-clr: var(--dui-clr-amber-l-1);
-    --dui-accent-text-color: var(--dui-color-light);
+    --dui-accent-text-color: var(--dui-color);
     accent-color: var(--dui-clr-amber-l-1);
 }
 .dui.dui-shadow-amber-l-1 {
@@ -13976,12 +13976,12 @@
 }
 .dui.dui-bg-amber {
     --dui-bg-clr: var(--dui-clr-amber);
-    --dui-text-color: var(--dui-color-light);
+    --dui-text-color: var(--dui-color);
     background-color: var(--dui-clr-amber);
 }
 .dui.dui-accent-amber {
     --dui-accent-clr: var(--dui-clr-amber);
-    --dui-accent-text-color: var(--dui-color-light);
+    --dui-accent-text-color: var(--dui-color);
     accent-color: var(--dui-clr-amber);
 }
 .dui.dui-shadow-amber {
@@ -14036,12 +14036,12 @@
 }
 .dui.dui-bg-amber-d-1 {
     --dui-bg-clr: var(--dui-clr-amber-d-1);
-    --dui-text-color: var(--dui-color-light);
+    --dui-text-color: var(--dui-color);
     background-color: var(--dui-clr-amber-d-1);
 }
 .dui.dui-accent-amber-d-1 {
     --dui-accent-clr: var(--dui-clr-amber-d-1);
-    --dui-accent-text-color: var(--dui-color-light);
+    --dui-accent-text-color: var(--dui-color);
     accent-color: var(--dui-clr-amber-d-1);
 }
 .dui.dui-shadow-amber-d-1 {
@@ -14096,12 +14096,12 @@
 }
 .dui.dui-bg-amber-d-2 {
     --dui-bg-clr: var(--dui-clr-amber-d-2);
-    --dui-text-color: var(--dui-color-light);
+    --dui-text-color: var(--dui-color);
     background-color: var(--dui-clr-amber-d-2);
 }
 .dui.dui-accent-amber-d-2 {
     --dui-accent-clr: var(--dui-clr-amber-d-2);
-    --dui-accent-text-color: var(--dui-color-light);
+    --dui-accent-text-color: var(--dui-color);
     accent-color: var(--dui-clr-amber-d-2);
 }
 .dui.dui-shadow-amber-d-2 {
@@ -14156,7 +14156,7 @@
 }
 .dui.dui-bg-amber-d-3 {
     --dui-bg-clr: var(--dui-clr-amber-d-3);
-    --dui-text-color: var(--dui-color-light);
+    --dui-text-color: var(--dui-color);
     background-color: var(--dui-clr-amber-d-3);
 }
 .dui.dui-accent-amber-d-3 {
@@ -14215,12 +14215,12 @@
 }
 .dui.dui-bg-amber-d-4 {
     --dui-bg-clr: var(--dui-clr-amber-d-4);
-    --dui-text-color: var(--dui-color-light);
+    --dui-text-color: var(--dui-color);
     background-color: var(--dui-clr-amber-d-4);
 }
 .dui.dui-accent-amber-d-4 {
     --dui-accent-clr: var(--dui-clr-amber-d-4);
-    --dui-accent-text-color: var(--dui-color-light);
+    --dui-accent-text-color: var(--dui-color);
     accent-color: var(--dui-clr-amber-d-4);
 }
 .dui.dui-shadow-amber-d-4 {
@@ -14275,12 +14275,12 @@
 }
 .dui.dui-bg-orange-l-5 {
     --dui-bg-clr: var(--dui-clr-orange-l-5);
-    --dui-text-color: var(--dui-color-dark);
+    --dui-text-color: var(--dui-color-5);
     background-color: var(--dui-clr-orange-l-5);
 }
 .dui.dui-accent-orange-l-5 {
     --dui-accent-clr: var(--dui-clr-orange-l-5);
-    --dui-accent-text-color: var(--dui-color-dark);
+    --dui-accent-text-color: var(--dui-color-5);
     accent-color: var(--dui-clr-orange-l-5);
 }
 .dui.dui-shadow-orange-l-5 {
@@ -14335,12 +14335,12 @@
 }
 .dui.dui-bg-orange-l-4 {
     --dui-bg-clr: var(--dui-clr-orange-l-4);
-    --dui-text-color: var(--dui-color-dark);
+    --dui-text-color: var(--dui-color-5);
     background-color: var(--dui-clr-orange-l-4);
 }
 .dui.dui-accent-orange-l-4 {
     --dui-accent-clr: var(--dui-clr-orange-l-4);
-    --dui-accent-text-color: var(--dui-color-dark);
+    --dui-accent-text-color: var(--dui-color-5);
     accent-color: var(--dui-clr-orange-l-4);
 }
 .dui.dui-shadow-orange-l-4 {
@@ -14395,12 +14395,12 @@
 }
 .dui.dui-bg-orange-l-3 {
     --dui-bg-clr: var(--dui-clr-orange-l-3);
-    --dui-text-color: var(--dui-color-dark);
+    --dui-text-color: var(--dui-color-5);
     background-color: var(--dui-clr-orange-l-3);
 }
 .dui.dui-accent-orange-l-3 {
     --dui-accent-clr: var(--dui-clr-orange-l-3);
-    --dui-accent-text-color: var(--dui-color-dark);
+    --dui-accent-text-color: var(--dui-color-5);
     accent-color: var(--dui-clr-orange-l-3);
 }
 .dui.dui-shadow-orange-l-3 {
@@ -14455,12 +14455,12 @@
 }
 .dui.dui-bg-orange-l-2 {
     --dui-bg-clr: var(--dui-clr-orange-l-2);
-    --dui-text-color: var(--dui-color-dark);
+    --dui-text-color: var(--dui-color-5);
     background-color: var(--dui-clr-orange-l-2);
 }
 .dui.dui-accent-orange-l-2 {
     --dui-accent-clr: var(--dui-clr-orange-l-2);
-    --dui-accent-text-color: var(--dui-color-light);
+    --dui-accent-text-color: var(--dui-color);
     accent-color: var(--dui-clr-orange-l-2);
 }
 .dui.dui-shadow-orange-l-2 {
@@ -14515,12 +14515,12 @@
 }
 .dui.dui-bg-orange-l-1 {
     --dui-bg-clr: var(--dui-clr-orange-l-1);
-    --dui-text-color: var(--dui-color-light);
+    --dui-text-color: var(--dui-color);
     background-color: var(--dui-clr-orange-l-1);
 }
 .dui.dui-accent-orange-l-1 {
     --dui-accent-clr: var(--dui-clr-orange-l-1);
-    --dui-accent-text-color: var(--dui-color-light);
+    --dui-accent-text-color: var(--dui-color);
     accent-color: var(--dui-clr-orange-l-1);
 }
 .dui.dui-shadow-orange-l-1 {
@@ -14575,12 +14575,12 @@
 }
 .dui.dui-bg-orange {
     --dui-bg-clr: var(--dui-clr-orange);
-    --dui-text-color: var(--dui-color-light);
+    --dui-text-color: var(--dui-color);
     background-color: var(--dui-clr-orange);
 }
 .dui.dui-accent-orange {
     --dui-accent-clr: var(--dui-clr-orange);
-    --dui-accent-text-color: var(--dui-color-light);
+    --dui-accent-text-color: var(--dui-color);
     accent-color: var(--dui-clr-orange);
 }
 .dui.dui-shadow-orange {
@@ -14635,12 +14635,12 @@
 }
 .dui.dui-bg-orange-d-1 {
     --dui-bg-clr: var(--dui-clr-orange-d-1);
-    --dui-text-color: var(--dui-color-light);
+    --dui-text-color: var(--dui-color);
     background-color: var(--dui-clr-orange-d-1);
 }
 .dui.dui-accent-orange-d-1 {
     --dui-accent-clr: var(--dui-clr-orange-d-1);
-    --dui-accent-text-color: var(--dui-color-light);
+    --dui-accent-text-color: var(--dui-color);
     accent-color: var(--dui-clr-orange-d-1);
 }
 .dui.dui-shadow-orange-d-1 {
@@ -14695,12 +14695,12 @@
 }
 .dui.dui-bg-orange-d-2 {
     --dui-bg-clr: var(--dui-clr-orange-d-2);
-    --dui-text-color: var(--dui-color-light);
+    --dui-text-color: var(--dui-color);
     background-color: var(--dui-clr-orange-d-2);
 }
 .dui.dui-accent-orange-d-2 {
     --dui-accent-clr: var(--dui-clr-orange-d-2);
-    --dui-accent-text-color: var(--dui-color-light);
+    --dui-accent-text-color: var(--dui-color);
     accent-color: var(--dui-clr-orange-d-2);
 }
 .dui.dui-shadow-orange-d-2 {
@@ -14755,12 +14755,12 @@
 }
 .dui.dui-bg-orange-d-3 {
     --dui-bg-clr: var(--dui-clr-orange-d-3);
-    --dui-text-color: var(--dui-color-light);
+    --dui-text-color: var(--dui-color);
     background-color: var(--dui-clr-orange-d-3);
 }
 .dui.dui-accent-orange-d-3 {
     --dui-accent-clr: var(--dui-clr-orange-d-3);
-    --dui-accent-text-color: var(--dui-color-light);
+    --dui-accent-text-color: var(--dui-color);
     accent-color: var(--dui-clr-orange-d-3);
 }
 .dui.dui-shadow-orange-d-3 {
@@ -14815,12 +14815,12 @@
 }
 .dui.dui-bg-orange-d-4 {
     --dui-bg-clr: var(--dui-clr-orange-d-4);
-    --dui-text-color: var(--dui-color-light);
+    --dui-text-color: var(--dui-color);
     background-color: var(--dui-clr-orange-d-4);
 }
 .dui.dui-accent-orange-d-4 {
     --dui-accent-clr: var(--dui-clr-orange-d-4);
-    --dui-accent-text-color: var(--dui-color-light);
+    --dui-accent-text-color: var(--dui-color);
     accent-color: var(--dui-clr-orange-d-4);
 }
 .dui.dui-shadow-orange-d-4 {
@@ -14875,12 +14875,12 @@
 }
 .dui.dui-bg-deep-orange-l-5 {
     --dui-bg-clr: var(--dui-clr-deep-orange-l-5);
-    --dui-text-color: var(--dui-color-dark);
+    --dui-text-color: var(--dui-color-5);
     background-color: var(--dui-clr-deep-orange-l-5);
 }
 .dui.dui-accent-deep-orange-l-5 {
     --dui-accent-clr: var(--dui-clr-deep-orange-l-5);
-    --dui-accent-text-color: var(--dui-color-dark);
+    --dui-accent-text-color: var(--dui-color-5);
     accent-color: var(--dui-clr-deep-orange-l-5);
 }
 .dui.dui-shadow-deep-orange-l-5 {
@@ -14935,12 +14935,12 @@
 }
 .dui.dui-bg-deep-orange-l-4 {
     --dui-bg-clr: var(--dui-clr-deep-orange-l-4);
-    --dui-text-color: var(--dui-color-dark);
+    --dui-text-color: var(--dui-color-5);
     background-color: var(--dui-clr-deep-orange-l-4);
 }
 .dui.dui-accent-deep-orange-l-4 {
     --dui-accent-clr: var(--dui-clr-deep-orange-l-4);
-    --dui-accent-text-color: var(--dui-color-dark);
+    --dui-accent-text-color: var(--dui-color-5);
     accent-color: var(--dui-clr-deep-orange-l-4);
 }
 .dui.dui-shadow-deep-orange-l-4 {
@@ -14995,12 +14995,12 @@
 }
 .dui.dui-bg-deep-orange-l-3 {
     --dui-bg-clr: var(--dui-clr-deep-orange-l-3);
-    --dui-text-color: var(--dui-color-dark);
+    --dui-text-color: var(--dui-color-5);
     background-color: var(--dui-clr-deep-orange-l-3);
 }
 .dui.dui-accent-deep-orange-l-3 {
     --dui-accent-clr: var(--dui-clr-deep-orange-l-3);
-    --dui-accent-text-color: var(--dui-color-dark);
+    --dui-accent-text-color: var(--dui-color-5);
     accent-color: var(--dui-clr-deep-orange-l-3);
 }
 .dui.dui-shadow-deep-orange-l-3 {
@@ -15055,12 +15055,12 @@
 }
 .dui.dui-bg-deep-orange-l-2 {
     --dui-bg-clr: var(--dui-clr-deep-orange-l-2);
-    --dui-text-color: var(--dui-color-dark);
+    --dui-text-color: var(--dui-color-5);
     background-color: var(--dui-clr-deep-orange-l-2);
 }
 .dui.dui-accent-deep-orange-l-2 {
     --dui-accent-clr: var(--dui-clr-deep-orange-l-2);
-    --dui-accent-text-color: var(--dui-color-light);
+    --dui-accent-text-color: var(--dui-color);
     accent-color: var(--dui-clr-deep-orange-l-2);
 }
 .dui.dui-shadow-deep-orange-l-2 {
@@ -15115,12 +15115,12 @@
 }
 .dui.dui-bg-deep-orange-l-1 {
     --dui-bg-clr: var(--dui-clr-deep-orange-l-1);
-    --dui-text-color: var(--dui-color-light);
+    --dui-text-color: var(--dui-color);
     background-color: var(--dui-clr-deep-orange-l-1);
 }
 .dui.dui-accent-deep-orange-l-1 {
     --dui-accent-clr: var(--dui-clr-deep-orange-l-1);
-    --dui-accent-text-color: var(--dui-color-light);
+    --dui-accent-text-color: var(--dui-color);
     accent-color: var(--dui-clr-deep-orange-l-1);
 }
 .dui.dui-shadow-deep-orange-l-1 {
@@ -15175,12 +15175,12 @@
 }
 .dui.dui-bg-deep-orange {
     --dui-bg-clr: var(--dui-clr-deep-orange);
-    --dui-text-color: var(--dui-color-light);
+    --dui-text-color: var(--dui-color);
     background-color: var(--dui-clr-deep-orange);
 }
 .dui.dui-accent-deep-orange {
     --dui-accent-clr: var(--dui-clr-deep-orange);
-    --dui-accent-text-color: var(--dui-color-light);
+    --dui-accent-text-color: var(--dui-color);
     accent-color: var(--dui-clr-deep-orange);
 }
 .dui.dui-shadow-deep-orange {
@@ -15235,12 +15235,12 @@
 }
 .dui.dui-bg-deep-orange-d-1 {
     --dui-bg-clr: var(--dui-clr-deep-orange-d-1);
-    --dui-text-color: var(--dui-color-light);
+    --dui-text-color: var(--dui-color);
     background-color: var(--dui-clr-deep-orange-d-1);
 }
 .dui.dui-accent-deep-orange-d-1 {
     --dui-accent-clr: var(--dui-clr-deep-orange-d-1);
-    --dui-accent-text-color: var(--dui-color-light);
+    --dui-accent-text-color: var(--dui-color);
     accent-color: var(--dui-clr-deep-orange-d-1);
 }
 .dui.dui-shadow-deep-orange-d-1 {
@@ -15295,12 +15295,12 @@
 }
 .dui.dui-bg-deep-orange-d-2 {
     --dui-bg-clr: var(--dui-clr-deep-orange-d-2);
-    --dui-text-color: var(--dui-color-light);
+    --dui-text-color: var(--dui-color);
     background-color: var(--dui-clr-deep-orange-d-2);
 }
 .dui.dui-accent-deep-orange-d-2 {
     --dui-accent-clr: var(--dui-clr-deep-orange-d-2);
-    --dui-accent-text-color: var(--dui-color-light);
+    --dui-accent-text-color: var(--dui-color);
     accent-color: var(--dui-clr-deep-orange-d-2);
 }
 .dui.dui-shadow-deep-orange-d-2 {
@@ -15355,12 +15355,12 @@
 }
 .dui.dui-bg-deep-orange-d-3 {
     --dui-bg-clr: var(--dui-clr-deep-orange-d-3);
-    --dui-text-color: var(--dui-color-light);
+    --dui-text-color: var(--dui-color);
     background-color: var(--dui-clr-deep-orange-d-3);
 }
 .dui.dui-accent-deep-orange-d-3 {
     --dui-accent-clr: var(--dui-clr-deep-orange-d-3);
-    --dui-accent-text-color: var(--dui-color-light);
+    --dui-accent-text-color: var(--dui-color);
     accent-color: var(--dui-clr-deep-orange-d-3);
 }
 .dui.dui-shadow-deep-orange-d-3 {
@@ -15415,12 +15415,12 @@
 }
 .dui.dui-bg-deep-orange-d-4 {
     --dui-bg-clr: var(--dui-clr-deep-orange-d-4);
-    --dui-text-color: var(--dui-color-light);
+    --dui-text-color: var(--dui-color);
     background-color: var(--dui-clr-deep-orange-d-4);
 }
 .dui.dui-accent-deep-orange-d-4 {
     --dui-accent-clr: var(--dui-clr-deep-orange-d-4);
-    --dui-accent-text-color: var(--dui-color-light);
+    --dui-accent-text-color: var(--dui-color);
     accent-color: var(--dui-clr-deep-orange-d-4);
 }
 .dui.dui-shadow-deep-orange-d-4 {
@@ -15475,12 +15475,12 @@
 }
 .dui.dui-bg-brown-l-5 {
     --dui-bg-clr: var(--dui-clr-brown-l-5);
-    --dui-text-color: var(--dui-color-dark);
+    --dui-text-color: var(--dui-color-5);
     background-color: var(--dui-clr-brown-l-5);
 }
 .dui.dui-accent-brown-l-5 {
     --dui-accent-clr: var(--dui-clr-brown-l-5);
-    --dui-accent-text-color: var(--dui-color-dark);
+    --dui-accent-text-color: var(--dui-color-5);
     accent-color: var(--dui-clr-brown-l-5);
 }
 .dui.dui-shadow-brown-l-5 {
@@ -15535,12 +15535,12 @@
 }
 .dui.dui-bg-brown-l-4 {
     --dui-bg-clr: var(--dui-clr-brown-l-4);
-    --dui-text-color: var(--dui-color-dark);
+    --dui-text-color: var(--dui-color-5);
     background-color: var(--dui-clr-brown-l-4);
 }
 .dui.dui-accent-brown-l-4 {
     --dui-accent-clr: var(--dui-clr-brown-l-4);
-    --dui-accent-text-color: var(--dui-color-dark);
+    --dui-accent-text-color: var(--dui-color-5);
     accent-color: var(--dui-clr-brown-l-4);
 }
 .dui.dui-shadow-brown-l-4 {
@@ -15595,12 +15595,12 @@
 }
 .dui.dui-bg-brown-l-3 {
     --dui-bg-clr: var(--dui-clr-brown-l-3);
-    --dui-text-color: var(--dui-color-dark);
+    --dui-text-color: var(--dui-color-5);
     background-color: var(--dui-clr-brown-l-3);
 }
 .dui.dui-accent-brown-l-3 {
     --dui-accent-clr: var(--dui-clr-brown-l-3);
-    --dui-accent-text-color: var(--dui-color-dark);
+    --dui-accent-text-color: var(--dui-color-5);
     accent-color: var(--dui-clr-brown-l-3);
 }
 .dui.dui-shadow-brown-l-3 {
@@ -15655,12 +15655,12 @@
 }
 .dui.dui-bg-brown-l-2 {
     --dui-bg-clr: var(--dui-clr-brown-l-2);
-    --dui-text-color: var(--dui-color-dark);
+    --dui-text-color: var(--dui-color-5);
     background-color: var(--dui-clr-brown-l-2);
 }
 .dui.dui-accent-brown-l-2 {
     --dui-accent-clr: var(--dui-clr-brown-l-2);
-    --dui-accent-text-color: var(--dui-color-light);
+    --dui-accent-text-color: var(--dui-color);
     accent-color: var(--dui-clr-brown-l-2);
 }
 .dui.dui-shadow-brown-l-2 {
@@ -15715,12 +15715,12 @@
 }
 .dui.dui-bg-brown-l-1 {
     --dui-bg-clr: var(--dui-clr-brown-l-1);
-    --dui-text-color: var(--dui-color-light);
+    --dui-text-color: var(--dui-color);
     background-color: var(--dui-clr-brown-l-1);
 }
 .dui.dui-accent-brown-l-1 {
     --dui-accent-clr: var(--dui-clr-brown-l-1);
-    --dui-accent-text-color: var(--dui-color-light);
+    --dui-accent-text-color: var(--dui-color);
     accent-color: var(--dui-clr-brown-l-1);
 }
 .dui.dui-shadow-brown-l-1 {
@@ -15775,12 +15775,12 @@
 }
 .dui.dui-bg-brown {
     --dui-bg-clr: var(--dui-clr-brown);
-    --dui-text-color: var(--dui-color-light);
+    --dui-text-color: var(--dui-color);
     background-color: var(--dui-clr-brown);
 }
 .dui.dui-accent-brown {
     --dui-accent-clr: var(--dui-clr-brown);
-    --dui-accent-text-color: var(--dui-color-light);
+    --dui-accent-text-color: var(--dui-color);
     accent-color: var(--dui-clr-brown);
 }
 .dui.dui-shadow-brown {
@@ -15835,12 +15835,12 @@
 }
 .dui.dui-bg-brown-d-1 {
     --dui-bg-clr: var(--dui-clr-brown-d-1);
-    --dui-text-color: var(--dui-color-light);
+    --dui-text-color: var(--dui-color);
     background-color: var(--dui-clr-brown-d-1);
 }
 .dui.dui-accent-brown-d-1 {
     --dui-accent-clr: var(--dui-clr-brown-d-1);
-    --dui-accent-text-color: var(--dui-color-light);
+    --dui-accent-text-color: var(--dui-color);
     accent-color: var(--dui-clr-brown-d-1);
 }
 .dui.dui-shadow-brown-d-1 {
@@ -15895,12 +15895,12 @@
 }
 .dui.dui-bg-brown-d-2 {
     --dui-bg-clr: var(--dui-clr-brown-d-2);
-    --dui-text-color: var(--dui-color-light);
+    --dui-text-color: var(--dui-color);
     background-color: var(--dui-clr-brown-d-2);
 }
 .dui.dui-accent-brown-d-2 {
     --dui-accent-clr: var(--dui-clr-brown-d-2);
-    --dui-accent-text-color: var(--dui-color-light);
+    --dui-accent-text-color: var(--dui-color);
     accent-color: var(--dui-clr-brown-d-2);
 }
 .dui.dui-shadow-brown-d-2 {
@@ -15955,12 +15955,12 @@
 }
 .dui.dui-bg-brown-d-3 {
     --dui-bg-clr: var(--dui-clr-brown-d-3);
-    --dui-text-color: var(--dui-color-light);
+    --dui-text-color: var(--dui-color);
     background-color: var(--dui-clr-brown-d-3);
 }
 .dui.dui-accent-brown-d-3 {
     --dui-accent-clr: var(--dui-clr-brown-d-3);
-    --dui-accent-text-color: var(--dui-color-light);
+    --dui-accent-text-color: var(--dui-color);
     accent-color: var(--dui-clr-brown-d-3);
 }
 .dui.dui-shadow-brown-d-3 {
@@ -16015,12 +16015,12 @@
 }
 .dui.dui-bg-brown-d-4 {
     --dui-bg-clr: var(--dui-clr-brown-d-4);
-    --dui-text-color: var(--dui-color-light);
+    --dui-text-color: var(--dui-color);
     background-color: var(--dui-clr-brown-d-4);
 }
 .dui.dui-accent-brown-d-4 {
     --dui-accent-clr: var(--dui-clr-brown-d-4);
-    --dui-accent-text-color: var(--dui-color-light);
+    --dui-accent-text-color: var(--dui-color);
     accent-color: var(--dui-clr-brown-d-4);
 }
 .dui.dui-shadow-brown-d-4 {
@@ -16075,12 +16075,12 @@
 }
 .dui.dui-bg-grey-l-5 {
     --dui-bg-clr: var(--dui-clr-grey-l-5);
-    --dui-text-color: var(--dui-color-dark);
+    --dui-text-color: var(--dui-color-5);
     background-color: var(--dui-clr-grey-l-5);
 }
 .dui.dui-accent-grey-l-5 {
     --dui-accent-clr: var(--dui-clr-grey-l-5);
-    --dui-accent-text-color: var(--dui-color-dark);
+    --dui-accent-text-color: var(--dui-color-5);
     accent-color: var(--dui-clr-grey-l-5);
 }
 .dui.dui-shadow-grey-l-5 {
@@ -16135,12 +16135,12 @@
 }
 .dui.dui-bg-grey-l-4 {
     --dui-bg-clr: var(--dui-clr-grey-l-4);
-    --dui-text-color: var(--dui-color-dark);
+    --dui-text-color: var(--dui-color-5);
     background-color: var(--dui-clr-grey-l-4);
 }
 .dui.dui-accent-grey-l-4 {
     --dui-accent-clr: var(--dui-clr-grey-l-4);
-    --dui-accent-text-color: var(--dui-color-dark);
+    --dui-accent-text-color: var(--dui-color-5);
     accent-color: var(--dui-clr-grey-l-4);
 }
 .dui.dui-shadow-grey-l-4 {
@@ -16195,12 +16195,12 @@
 }
 .dui.dui-bg-grey-l-3 {
     --dui-bg-clr: var(--dui-clr-grey-l-3);
-    --dui-text-color: var(--dui-color-dark);
+    --dui-text-color: var(--dui-color-5);
     background-color: var(--dui-clr-grey-l-3);
 }
 .dui.dui-accent-grey-l-3 {
     --dui-accent-clr: var(--dui-clr-grey-l-3);
-    --dui-accent-text-color: var(--dui-color-dark);
+    --dui-accent-text-color: var(--dui-color-5);
     accent-color: var(--dui-clr-grey-l-3);
 }
 .dui.dui-shadow-grey-l-3 {
@@ -16255,12 +16255,12 @@
 }
 .dui.dui-bg-grey-l-2 {
     --dui-bg-clr: var(--dui-clr-grey-l-2);
-    --dui-text-color: var(--dui-color-dark);
+    --dui-text-color: var(--dui-color-5);
     background-color: var(--dui-clr-grey-l-2);
 }
 .dui.dui-accent-grey-l-2 {
     --dui-accent-clr: var(--dui-clr-grey-l-2);
-    --dui-accent-text-color: var(--dui-color-dark);
+    --dui-accent-text-color: var(--dui-color-5);
     accent-color: var(--dui-clr-grey-l-2);
 }
 .dui.dui-shadow-grey-l-2 {
@@ -16315,12 +16315,12 @@
 }
 .dui.dui-bg-grey-l-1 {
     --dui-bg-clr: var(--dui-clr-grey-l-1);
-    --dui-text-color: var(--dui-color-light);
+    --dui-text-color: var(--dui-color);
     background-color: var(--dui-clr-grey-l-1);
 }
 .dui.dui-accent-grey-l-1 {
     --dui-accent-clr: var(--dui-clr-grey-l-1);
-    --dui-accent-text-color: var(--dui-color-dark);
+    --dui-accent-text-color: var(--dui-color-5);
     accent-color: var(--dui-clr-grey-l-1);
 }
 .dui.dui-shadow-grey-l-1 {
@@ -16375,12 +16375,12 @@
 }
 .dui.dui-bg-grey {
     --dui-bg-clr: var(--dui-clr-grey);
-    --dui-text-color: var(--dui-color-light);
+    --dui-text-color: var(--dui-color);
     background-color: var(--dui-clr-grey);
 }
 .dui.dui-accent-grey {
     --dui-accent-clr: var(--dui-clr-grey);
-    --dui-accent-text-color: var(--dui-color-dark);
+    --dui-accent-text-color: var(--dui-color-5);
     accent-color: var(--dui-clr-grey);
 }
 .dui.dui-shadow-grey {
@@ -16435,12 +16435,12 @@
 }
 .dui.dui-bg-grey-d-1 {
     --dui-bg-clr: var(--dui-clr-grey-d-1);
-    --dui-text-color: var(--dui-color-light);
+    --dui-text-color: var(--dui-color);
     background-color: var(--dui-clr-grey-d-1);
 }
 .dui.dui-accent-grey-d-1 {
     --dui-accent-clr: var(--dui-clr-grey-d-1);
-    --dui-accent-text-color: var(--dui-color-light);
+    --dui-accent-text-color: var(--dui-color);
     accent-color: var(--dui-clr-grey-d-1);
 }
 .dui.dui-shadow-grey-d-1 {
@@ -16495,12 +16495,12 @@
 }
 .dui.dui-bg-grey-d-2 {
     --dui-bg-clr: var(--dui-clr-grey-d-2);
-    --dui-text-color: var(--dui-color-light);
+    --dui-text-color: var(--dui-color);
     background-color: var(--dui-clr-grey-d-2);
 }
 .dui.dui-accent-grey-d-2 {
     --dui-accent-clr: var(--dui-clr-grey-d-2);
-    --dui-accent-text-color: var(--dui-color-light);
+    --dui-accent-text-color: var(--dui-color);
     accent-color: var(--dui-clr-grey-d-2);
 }
 .dui.dui-shadow-grey-d-2 {
@@ -16555,12 +16555,12 @@
 }
 .dui.dui-bg-grey-d-3 {
     --dui-bg-clr: var(--dui-clr-grey-d-3);
-    --dui-text-color: var(--dui-color-light);
+    --dui-text-color: var(--dui-color);
     background-color: var(--dui-clr-grey-d-3);
 }
 .dui.dui-accent-grey-d-3 {
     --dui-accent-clr: var(--dui-clr-grey-d-3);
-    --dui-accent-text-color: var(--dui-color-light);
+    --dui-accent-text-color: var(--dui-color);
     accent-color: var(--dui-clr-grey-d-3);
 }
 .dui.dui-shadow-grey-d-3 {
@@ -16615,12 +16615,12 @@
 }
 .dui.dui-bg-grey-d-4 {
     --dui-bg-clr: var(--dui-clr-grey-d-4);
-    --dui-text-color: var(--dui-color-light);
+    --dui-text-color: var(--dui-color);
     background-color: var(--dui-clr-grey-d-4);
 }
 .dui.dui-accent-grey-d-4 {
     --dui-accent-clr: var(--dui-clr-grey-d-4);
-    --dui-accent-text-color: var(--dui-color-light);
+    --dui-accent-text-color: var(--dui-color);
     accent-color: var(--dui-clr-grey-d-4);
 }
 .dui.dui-shadow-grey-d-4 {
@@ -16675,12 +16675,12 @@
 }
 .dui.dui-bg-blue-grey-l-5 {
     --dui-bg-clr: var(--dui-clr-blue-grey-l-5);
-    --dui-text-color: var(--dui-color-dark);
+    --dui-text-color: var(--dui-color-5);
     background-color: var(--dui-clr-blue-grey-l-5);
 }
 .dui.dui-accent-blue-grey-l-5 {
     --dui-accent-clr: var(--dui-clr-blue-grey-l-5);
-    --dui-accent-text-color: var(--dui-color-dark);
+    --dui-accent-text-color: var(--dui-color-5);
     accent-color: var(--dui-clr-blue-grey-l-5);
 }
 .dui.dui-shadow-blue-grey-l-5 {
@@ -16735,12 +16735,12 @@
 }
 .dui.dui-bg-blue-grey-l-4 {
     --dui-bg-clr: var(--dui-clr-blue-grey-l-4);
-    --dui-text-color: var(--dui-color-dark);
+    --dui-text-color: var(--dui-color-5);
     background-color: var(--dui-clr-blue-grey-l-4);
 }
 .dui.dui-accent-blue-grey-l-4 {
     --dui-accent-clr: var(--dui-clr-blue-grey-l-4);
-    --dui-accent-text-color: var(--dui-color-dark);
+    --dui-accent-text-color: var(--dui-color-5);
     accent-color: var(--dui-clr-blue-grey-l-4);
 }
 .dui.dui-shadow-blue-grey-l-4 {
@@ -16795,12 +16795,12 @@
 }
 .dui.dui-bg-blue-grey-l-3 {
     --dui-bg-clr: var(--dui-clr-blue-grey-l-3);
-    --dui-text-color: var(--dui-color-dark);
+    --dui-text-color: var(--dui-color-5);
     background-color: var(--dui-clr-blue-grey-l-3);
 }
 .dui.dui-accent-blue-grey-l-3 {
     --dui-accent-clr: var(--dui-clr-blue-grey-l-3);
-    --dui-accent-text-color: var(--dui-color-dark);
+    --dui-accent-text-color: var(--dui-color-5);
     accent-color: var(--dui-clr-blue-grey-l-3);
 }
 .dui.dui-shadow-blue-grey-l-3 {
@@ -16855,12 +16855,12 @@
 }
 .dui.dui-bg-blue-grey-l-2 {
     --dui-bg-clr: var(--dui-clr-blue-grey-l-2);
-    --dui-text-color: var(--dui-color-dark);
+    --dui-text-color: var(--dui-color-5);
     background-color: var(--dui-clr-blue-grey-l-2);
 }
 .dui.dui-accent-blue-grey-l-2 {
     --dui-accent-clr: var(--dui-clr-blue-grey-l-2);
-    --dui-accent-text-color: var(--dui-color-dark);
+    --dui-accent-text-color: var(--dui-color-5);
     accent-color: var(--dui-clr-blue-grey-l-2);
 }
 .dui.dui-shadow-blue-grey-l-2 {
@@ -16915,12 +16915,12 @@
 }
 .dui.dui-bg-blue-grey-l-1 {
     --dui-bg-clr: var(--dui-clr-blue-grey-l-1);
-    --dui-text-color: var(--dui-color-light);
+    --dui-text-color: var(--dui-color);
     background-color: var(--dui-clr-blue-grey-l-1);
 }
 .dui.dui-accent-blue-grey-l-1 {
     --dui-accent-clr: var(--dui-clr-blue-grey-l-1);
-    --dui-accent-text-color: var(--dui-color-light);
+    --dui-accent-text-color: var(--dui-color);
     accent-color: var(--dui-clr-blue-grey-l-1);
 }
 .dui.dui-shadow-blue-grey-l-1 {
@@ -16975,12 +16975,12 @@
 }
 .dui.dui-bg-blue-grey {
     --dui-bg-clr: var(--dui-clr-blue-grey);
-    --dui-text-color: var(--dui-color-light);
+    --dui-text-color: var(--dui-color);
     background-color: var(--dui-clr-blue-grey);
 }
 .dui.dui-accent-blue-grey {
     --dui-accent-clr: var(--dui-clr-blue-grey);
-    --dui-accent-text-color: var(--dui-color-light);
+    --dui-accent-text-color: var(--dui-color);
     accent-color: var(--dui-clr-blue-grey);
 }
 .dui.dui-shadow-blue-grey {
@@ -17035,12 +17035,12 @@
 }
 .dui.dui-bg-blue-grey-d-1 {
     --dui-bg-clr: var(--dui-clr-blue-grey-d-1);
-    --dui-text-color: var(--dui-color-light);
+    --dui-text-color: var(--dui-color);
     background-color: var(--dui-clr-blue-grey-d-1);
 }
 .dui.dui-accent-blue-grey-d-1 {
     --dui-accent-clr: var(--dui-clr-blue-grey-d-1);
-    --dui-accent-text-color: var(--dui-color-light);
+    --dui-accent-text-color: var(--dui-color);
     accent-color: var(--dui-clr-blue-grey-d-1);
 }
 .dui.dui-shadow-blue-grey-d-1 {
@@ -17095,12 +17095,12 @@
 }
 .dui.dui-bg-blue-grey-d-2 {
     --dui-bg-clr: var(--dui-clr-blue-grey-d-2);
-    --dui-text-color: var(--dui-color-light);
+    --dui-text-color: var(--dui-color);
     background-color: var(--dui-clr-blue-grey-d-2);
 }
 .dui.dui-accent-blue-grey-d-2 {
     --dui-accent-clr: var(--dui-clr-blue-grey-d-2);
-    --dui-accent-text-color: var(--dui-color-light);
+    --dui-accent-text-color: var(--dui-color);
     accent-color: var(--dui-clr-blue-grey-d-2);
 }
 .dui.dui-shadow-blue-grey-d-2 {
@@ -17155,12 +17155,12 @@
 }
 .dui.dui-bg-blue-grey-d-3 {
     --dui-bg-clr: var(--dui-clr-blue-grey-d-3);
-    --dui-text-color: var(--dui-color-light);
+    --dui-text-color: var(--dui-color);
     background-color: var(--dui-clr-blue-grey-d-3);
 }
 .dui.dui-accent-blue-grey-d-3 {
     --dui-accent-clr: var(--dui-clr-blue-grey-d-3);
-    --dui-accent-text-color: var(--dui-color-light);
+    --dui-accent-text-color: var(--dui-color);
     accent-color: var(--dui-clr-blue-grey-d-3);
 }
 .dui.dui-shadow-blue-grey-d-3 {
@@ -17215,12 +17215,12 @@
 }
 .dui.dui-bg-blue-grey-d-4 {
     --dui-bg-clr: var(--dui-clr-blue-grey-d-4);
-    --dui-text-color: var(--dui-color-light);
+    --dui-text-color: var(--dui-color);
     background-color: var(--dui-clr-blue-grey-d-4);
 }
 .dui.dui-accent-blue-grey-d-4 {
     --dui-accent-clr: var(--dui-clr-blue-grey-d-4);
-    --dui-accent-text-color: var(--dui-color-light);
+    --dui-accent-text-color: var(--dui-color);
     accent-color: var(--dui-clr-blue-grey-d-4);
 }
 .dui.dui-shadow-blue-grey-d-4 {
@@ -17275,12 +17275,12 @@
 }
 .dui.dui-bg-white-l-5 {
     --dui-bg-clr: var(--dui-clr-white-l-5);
-    --dui-text-color: var(--dui-color-dark);
+    --dui-text-color: var(--dui-color-5);
     background-color: var(--dui-clr-white-l-5);
 }
 .dui.dui-accent-white-l-5 {
     --dui-accent-clr: var(--dui-clr-white-l-5);
-    --dui-accent-text-color: var(--dui-color-dark);
+    --dui-accent-text-color: var(--dui-color-5);
     accent-color: var(--dui-clr-white-l-5);
 }
 .dui.dui-shadow-white-l-5 {
@@ -17335,12 +17335,12 @@
 }
 .dui.dui-bg-white-l-4 {
     --dui-bg-clr: var(--dui-clr-white-l-4);
-    --dui-text-color: var(--dui-color-dark);
+    --dui-text-color: var(--dui-color-5);
     background-color: var(--dui-clr-white-l-4);
 }
 .dui.dui-accent-white-l-4 {
     --dui-accent-clr: var(--dui-clr-white-l-4);
-    --dui-accent-text-color: var(--dui-color-dark);
+    --dui-accent-text-color: var(--dui-color-5);
     accent-color: var(--dui-clr-white-l-4);
 }
 .dui.dui-shadow-white-l-4 {
@@ -17395,12 +17395,12 @@
 }
 .dui.dui-bg-white-l-3 {
     --dui-bg-clr: var(--dui-clr-white-l-3);
-    --dui-text-color: var(--dui-color-dark);
+    --dui-text-color: var(--dui-color-5);
     background-color: var(--dui-clr-white-l-3);
 }
 .dui.dui-accent-white-l-3 {
     --dui-accent-clr: var(--dui-clr-white-l-3);
-    --dui-accent-text-color: var(--dui-color-dark);
+    --dui-accent-text-color: var(--dui-color-5);
     accent-color: var(--dui-clr-white-l-3);
 }
 .dui.dui-shadow-white-l-3 {
@@ -17455,12 +17455,12 @@
 }
 .dui.dui-bg-white-l-2 {
     --dui-bg-clr: var(--dui-clr-white-l-2);
-    --dui-text-color: var(--dui-color-dark);
+    --dui-text-color: var(--dui-color-5);
     background-color: var(--dui-clr-white-l-2);
 }
 .dui.dui-accent-white-l-2 {
     --dui-accent-clr: var(--dui-clr-white-l-2);
-    --dui-accent-text-color: var(--dui-color-dark);
+    --dui-accent-text-color: var(--dui-color-5);
     accent-color: var(--dui-clr-white-l-2);
 }
 .dui.dui-shadow-white-l-2 {
@@ -17515,12 +17515,12 @@
 }
 .dui.dui-bg-white-l-1 {
     --dui-bg-clr: var(--dui-clr-white-l-1);
-    --dui-text-color: var(--dui-color-dark);
+    --dui-text-color: var(--dui-color-5);
     background-color: var(--dui-clr-white-l-1);
 }
 .dui.dui-accent-white-l-1 {
     --dui-accent-clr: var(--dui-clr-white-l-1);
-    --dui-accent-text-color: var(--dui-color-dark);
+    --dui-accent-text-color: var(--dui-color-5);
     accent-color: var(--dui-clr-white-l-1);
 }
 .dui.dui-shadow-white-l-1 {
@@ -17575,7 +17575,7 @@
 }
 .dui.dui-accent-white {
     --dui-accent-clr: var(--dui-clr-white);
-    --dui-accent-text-color: var(--dui-color-dark);
+    --dui-accent-text-color: var(--dui-color-5);
     accent-color: var(--dui-clr-white);
 }
 .dui.dui-text-decoration-white{
@@ -17610,12 +17610,12 @@
 }
 .dui.dui-bg-white-d-1 {
     --dui-bg-clr: var(--dui-clr-white-d-1);
-    --dui-text-color: var(--dui-color-dark);
+    --dui-text-color: var(--dui-color-5);
     background-color: var(--dui-clr-white-d-1);
 }
 .dui.dui-accent-white-d-1 {
     --dui-accent-clr: var(--dui-clr-white-d-1);
-    --dui-accent-text-color: var(--dui-color-dark);
+    --dui-accent-text-color: var(--dui-color-5);
     accent-color: var(--dui-clr-white-d-1);
 }
 .dui.dui-shadow-white-d-1 {
@@ -17670,12 +17670,12 @@
 }
 .dui.dui-bg-white-d-2 {
     --dui-bg-clr: var(--dui-clr-white-d-2);
-    --dui-text-color: var(--dui-color-dark);
+    --dui-text-color: var(--dui-color-5);
     background-color: var(--dui-clr-white-d-2);
 }
 .dui.dui-accent-white-d-2 {
     --dui-accent-clr: var(--dui-clr-white-d-2);
-    --dui-accent-text-color: var(--dui-color-dark);
+    --dui-accent-text-color: var(--dui-color-5);
     accent-color: var(--dui-clr-white-d-2);
 }
 .dui.dui-shadow-white-d-2 {
@@ -17730,12 +17730,12 @@
 }
 .dui.dui-bg-white-d-3 {
     --dui-bg-clr: var(--dui-clr-white-d-3);
-    --dui-text-color: var(--dui-color-dark);
+    --dui-text-color: var(--dui-color-5);
     background-color: var(--dui-clr-white-d-3);
 }
 .dui.dui-accent-white-d-3 {
     --dui-accent-clr: var(--dui-clr-white-d-3);
-    --dui-accent-text-color: var(--dui-color-dark);
+    --dui-accent-text-color: var(--dui-color-5);
     accent-color: var(--dui-clr-white-d-3);
 }
 .dui.dui-shadow-white-d-3 {
@@ -17790,12 +17790,12 @@
 }
 .dui.dui-bg-white-d-4 {
     --dui-bg-clr: var(--dui-clr-white-d-4);
-    --dui-text-color: var(--dui-color-dark);
+    --dui-text-color: var(--dui-color-5);
     background-color: var(--dui-clr-white-d-4);
 }
 .dui.dui-accent-white-d-4 {
     --dui-accent-clr: var(--dui-clr-white-d-4);
-    --dui-accent-text-color: var(--dui-color-dark);
+    --dui-accent-text-color: var(--dui-color-5);
     accent-color: var(--dui-clr-white-d-4);
 }
 .dui.dui-shadow-white-d-4 {
@@ -17850,12 +17850,12 @@
 }
 .dui.dui-bg-black-l-5 {
     --dui-bg-clr: var(--dui-clr-black-l-5);
-    --dui-text-color: var(--dui-color-light);
+    --dui-text-color: var(--dui-color);
     background-color: var(--dui-clr-black-l-5);
 }
 .dui.dui-accent-black-l-5 {
     --dui-accent-clr: var(--dui-clr-black-l-5);
-    --dui-accent-text-color: var(--dui-color-light);
+    --dui-accent-text-color: var(--dui-color);
     accent-color: var(--dui-clr-black-l-5);
 }
 .dui.dui-shadow-black-l-5 {
@@ -17910,12 +17910,12 @@
 }
 .dui.dui-bg-black-l-4 {
     --dui-bg-clr: var(--dui-clr-black-l-4);
-    --dui-text-color: var(--dui-color-light);
+    --dui-text-color: var(--dui-color);
     background-color: var(--dui-clr-black-l-4);
 }
 .dui.dui-accent-black-l-4 {
     --dui-accent-clr: var(--dui-clr-black-l-4);
-    --dui-accent-text-color: var(--dui-color-light);
+    --dui-accent-text-color: var(--dui-color);
     accent-color: var(--dui-clr-black-l-4);
 }
 .dui.dui-shadow-black-l-4 {
@@ -17970,12 +17970,12 @@
 }
 .dui.dui-bg-black-l-3 {
     --dui-bg-clr: var(--dui-clr-black-l-3);
-    --dui-text-color: var(--dui-color-light);
+    --dui-text-color: var(--dui-color);
     background-color: var(--dui-clr-black-l-3);
 }
 .dui.dui-accent-black-l-3 {
     --dui-accent-clr: var(--dui-clr-black-l-3);
-    --dui-accent-text-color: var(--dui-color-light);
+    --dui-accent-text-color: var(--dui-color);
     accent-color: var(--dui-clr-black-l-3);
 }
 .dui.dui-shadow-black-l-3 {
@@ -18030,12 +18030,12 @@
 }
 .dui.dui-bg-black-l-2 {
     --dui-bg-clr: var(--dui-clr-black-l-2);
-    --dui-text-color: var(--dui-color-light);
+    --dui-text-color: var(--dui-color);
     background-color: var(--dui-clr-black-l-2);
 }
 .dui.dui-accent-black-l-2 {
     --dui-accent-clr: var(--dui-clr-black-l-2);
-    --dui-accent-text-color: var(--dui-color-light);
+    --dui-accent-text-color: var(--dui-color);
     accent-color: var(--dui-clr-black-l-2);
 }
 .dui.dui-shadow-black-l-2 {
@@ -18090,12 +18090,12 @@
 }
 .dui.dui-bg-black-l-1 {
     --dui-bg-clr: var(--dui-clr-black-l-1);
-    --dui-text-color: var(--dui-color-light);
+    --dui-text-color: var(--dui-color);
     background-color: var(--dui-clr-black-l-1);
 }
 .dui.dui-accent-black-l-1 {
     --dui-accent-clr: var(--dui-clr-black-l-1);
-    --dui-accent-text-color: var(--dui-color-light);
+    --dui-accent-text-color: var(--dui-color);
     accent-color: var(--dui-clr-black-l-1);
 }
 .dui.dui-shadow-black-l-1 {
@@ -18150,7 +18150,7 @@
 }
 .dui.dui-accent-black {
     --dui-accent-clr: var(--dui-clr-black);
-    --dui-accent-text-color: var(--dui-color-light);
+    --dui-accent-text-color: var(--dui-color);
     accent-color: var(--dui-clr-black);
 }
 .dui.dui-shadow-black {
@@ -18181,12 +18181,12 @@
 }
 .dui.dui-bg-black-d-1 {
     --dui-bg-clr: var(--dui-clr-black-d-1);
-    --dui-text-color: var(--dui-color-light);
+    --dui-text-color: var(--dui-color);
     background-color: var(--dui-clr-black-d-1);
 }
 .dui.dui-accent-black-d-1 {
     --dui-accent-clr: var(--dui-clr-black-d-1);
-    --dui-accent-text-color: var(--dui-color-light);
+    --dui-accent-text-color: var(--dui-color);
     accent-color: var(--dui-clr-black-d-1);
 }
 .dui.dui-shadow-black-d-1 {
@@ -18241,12 +18241,12 @@
 }
 .dui.dui-bg-black-d-2 {
     --dui-bg-clr: var(--dui-clr-black-d-2);
-    --dui-text-color: var(--dui-color-light);
+    --dui-text-color: var(--dui-color);
     background-color: var(--dui-clr-black-d-2);
 }
 .dui.dui-accent-black-d-2 {
     --dui-accent-clr: var(--dui-clr-black-d-2);
-    --dui-accent-text-color: var(--dui-color-light);
+    --dui-accent-text-color: var(--dui-color);
     accent-color: var(--dui-clr-black-d-2);
 }
 .dui.dui-shadow-black-d-2 {
@@ -18301,12 +18301,12 @@
 }
 .dui.dui-bg-black-d-3 {
     --dui-bg-clr: var(--dui-clr-black-d-3);
-    --dui-text-color: var(--dui-color-light);
+    --dui-text-color: var(--dui-color);
     background-color: var(--dui-clr-black-d-3);
 }
 .dui.dui-accent-black-d-3 {
     --dui-accent-clr: var(--dui-clr-black-d-3);
-    --dui-accent-text-color: var(--dui-color-light);
+    --dui-accent-text-color: var(--dui-color);
     accent-color: var(--dui-clr-black-d-3);
 }
 .dui.dui-shadow-black-d-3 {
@@ -18361,12 +18361,12 @@
 }
 .dui.dui-bg-black-d-4 {
     --dui-bg-clr: var(--dui-clr-black-d-4);
-    --dui-text-color: var(--dui-color-light);
+    --dui-text-color: var(--dui-color);
     background-color: var(--dui-clr-black-d-4);
 }
 .dui.dui-accent-black-d-4 {
     --dui-accent-clr: var(--dui-clr-black-d-4);
-    --dui-accent-text-color: var(--dui-color-light);
+    --dui-accent-text-color: var(--dui-color);
     accent-color: var(--dui-clr-black-d-4);
 }
 .dui.dui-shadow-black-d-4 {
@@ -18416,7 +18416,7 @@
 }
 .dui.dui-bg-black {
     --dui-bg-clr: var(--dui-clr-black);
-    --dui-text-color: var(--dui-color-light);
+    --dui-text-color: var(--dui-color);
     background-color: var(--dui-clr-black);
 }
 .dui.dui-text-decoration-black{
@@ -18446,7 +18446,7 @@
 }
 .dui.dui-bg-white {
     --dui-bg-clr: var(--dui-clr-white);
-    --dui-text-color: var(--dui-color-dark);
+    --dui-text-color: var(--dui-color-5);
     background-color: var(--dui-clr-white);
 }
 .dui.dui-shadow-white {
@@ -18476,7 +18476,7 @@
 }
 .dui.dui-bg-inherit {
     --dui-bg-clr: var(--dui-clr-inherit);
-    --dui-text-color: var(--dui-color-light);
+    --dui-text-color: var(--dui-color);
     background-color: var(--dui-clr-inherit);
 }
 .dui.dui-accent-inherit {
@@ -18536,7 +18536,7 @@
 }
 .dui.dui-bg-current {
     --dui-bg-clr: var(--dui-clr-current);
-    --dui-text-color: var(--dui-color-light);
+    --dui-text-color: var(--dui-color);
     background-color: var(--dui-clr-current);
 }
 .dui.dui-accent-current {
@@ -18595,7 +18595,7 @@
 }
 .dui.dui-bg-transparent {
     --dui-bg-clr: var(--dui-clr-transparent);
-    --dui-text-color: var(--dui-color-light);
+    --dui-text-color: var(--dui-color);
     background-color: var(--dui-clr-transparent);
 }
 .dui.dui-accent-transparent {

@@ -16,7 +16,7 @@
 .dui-card-main-title,
 .dui-card-description,
 .dui-card-header .dui.mdi:not(:hover) {
-    color: inherit;
+    color: var(--dui-fg-clr, inherit);
 }
 
 .dui-card-header {
@@ -26,7 +26,7 @@
     position: relative;
     border-width: var(--dui-card-head-border-width, var(--dui-card-header-border-width));
     border-style: var(--dui-card-header-border-style);
-    border-color: var(--dui-bg-d-1, var(--dui-accent-l-5));
+    border-color: var(--dui-bg-d-1, var(--dui-card-header-border-color));
 }
 
 .dui-card-header-filler {

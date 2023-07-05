@@ -17,7 +17,6 @@ package org.dominokit.domino.ui.datatable.plugins.grouping;
 
 import static java.util.Objects.nonNull;
 
-import elemental2.dom.DomGlobal;
 import elemental2.dom.HTMLTableCellElement;
 import elemental2.dom.Node;
 import java.util.*;
@@ -122,8 +121,6 @@ public class GroupingPlugin<T> implements DataTablePlugin<T>, TableConfig.RowApp
 
       dataGroup.lastRow = tableRow;
       dataGroup.addRow(tableRow);
-
-      DomGlobal.console.info(groupId + " : " + dataGroup.groupRows.indexOf(tableRow));
     }
   }
 

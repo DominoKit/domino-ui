@@ -29,10 +29,7 @@ import org.dominokit.domino.ui.animations.Transition;
 import org.dominokit.domino.ui.elements.DivElement;
 import org.dominokit.domino.ui.elements.UListElement;
 import org.dominokit.domino.ui.style.SwapCssClass;
-import org.dominokit.domino.ui.utils.BaseDominoElement;
-import org.dominokit.domino.ui.utils.DominoElement;
-import org.dominokit.domino.ui.utils.PostfixAddOn;
-import org.dominokit.domino.ui.utils.PrefixAddOn;
+import org.dominokit.domino.ui.utils.*;
 
 /**
  * A component to create tabs where only one {@link org.dominokit.domino.ui.tabs.Tab} can be active
@@ -543,6 +540,16 @@ public class TabsPanel extends BaseDominoElement<HTMLDivElement, TabsPanel>
    */
   public TabsPanel appendChild(PrefixAddOn<?> prefixAddOn) {
     tabsListElement.appendChild(prefixAddOn);
+    return this;
+  }
+
+  public TabsPanel withTabsNav(ChildHandler<TabsPanel, UListElement> handler) {
+    handler.apply(this, tabsListElement);
+    return this;
+  }
+
+  public TabsPanel withTabsContent(ChildHandler<TabsPanel, DominoElement<Element>> handler) {
+    handler.apply(this, tabsContent);
     return this;
   }
 }

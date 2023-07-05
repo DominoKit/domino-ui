@@ -13,30 +13,17 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.dominokit.domino.ui.stepper;
+package org.dominokit.domino.ui.themes;
 
-/**
- * InactiveStep class.
- *
- * @author vegegoku
- * @version $Id: $Id
- */
-public class InactiveStep implements StepState {
-  /** {@inheritDoc} */
-  @Override
-  public void apply(StepTracker tracker) {
-    //    tracker.addCss(ColorsCss.dui_accent_accent_l_2);
-  }
+public interface IsDominoTheme {
 
-  /** {@inheritDoc} */
-  @Override
-  public void cleanUp(StepTracker tracker) {
-    //    tracker.removeCss(ColorsCss.dui_accent_accent_l_2);
-  }
+  String getName();
 
-  /** {@inheritDoc} */
-  @Override
-  public String getKey() {
-    return "INACTIVE";
-  }
+  String getCategory();
+
+  void apply();
+
+  void cleanup();
+
+  boolean isApplied();
 }

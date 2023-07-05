@@ -22,6 +22,14 @@ package org.dominokit.domino.ui.style;
  * @version $Id: $Id
  */
 public interface ColorsCss {
+
+  CssClass dui_fg_color = () -> "dui-fg-color";
+  CssClass dui_fg_color_1 = () -> "dui-fg-color-1";
+  CssClass dui_fg_color_2 = () -> "dui-fg-color-2";
+  CssClass dui_fg_color_3 = () -> "dui-fg-color-3";
+  CssClass dui_fg_color_4 = () -> "dui-fg-color-4";
+  CssClass dui_fg_color_5 = () -> "dui-fg-color-5";
+
   /** Constant <code>dui_fg_dominant_l_5</code> */
   CssClass dui_fg_dominant_l_5 = () -> "dui-fg-dominant-l-5";
   /** Constant <code>dui_bg_dominant_l_5</code> */

@@ -29,7 +29,8 @@ import org.dominokit.domino.ui.utils.DominoElement;
 public class RotationLoader extends BaseLoader<RotationLoader>
     implements IsElement<HTMLDivElement> {
 
-  private final DivElement progress1 = div().addCss(wait_me_progress_elem_1, dui_border_grey_d_2);
+  private final DivElement progress1 =
+      div().addCss(wait_me_progress_elem_1, dui_loader_border_darker);
 
   private final DivElement loader = div().addCss(wait_me_progress, rotation).appendChild(progress1);
 
@@ -40,7 +41,7 @@ public class RotationLoader extends BaseLoader<RotationLoader>
           .appendChild(loadingText);
 
   private final DivElement element =
-      div().addCss(wait_me).style("background: rgba(255, 255, 255, 0.9);").appendChild(content);
+      div().addCss(wait_me).style("background: var(--dui-loader-background);").appendChild(content);
 
   /** Constructor for RotationLoader. */
   public RotationLoader() {

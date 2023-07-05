@@ -17,6 +17,7 @@ package org.dominokit.domino.ui.upload;
 
 import elemental2.dom.HTMLElement;
 import org.dominokit.domino.ui.IsElement;
+import org.dominokit.domino.ui.utils.ChildHandler;
 
 /**
  * IsFilePreview interface.
@@ -24,7 +25,7 @@ import org.dominokit.domino.ui.IsElement;
  * @author vegegoku
  * @version $Id: $Id
  */
-public interface IsFilePreview<E extends HTMLElement> extends IsElement<E> {
+public interface IsFilePreview<T> extends IsElement<HTMLElement> {
   /**
    * onUploadFailed.
    *
@@ -53,4 +54,6 @@ public interface IsFilePreview<E extends HTMLElement> extends IsElement<E> {
 
   /** onUploadStarted. */
   void onUploadStarted();
+
+  IsFilePreview<T> withComponent(ChildHandler<IsFilePreview<T>, T> handler);
 }

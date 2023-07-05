@@ -29,7 +29,7 @@ import org.dominokit.domino.ui.utils.DominoElement;
 public class ProgressBarLoader extends BaseLoader<ProgressBarLoader>
     implements IsElement<HTMLDivElement> {
 
-  private final DivElement progress1 = div().addCss(wait_me_progress_elem_1, dui_bg_black);
+  private final DivElement progress1 = div().addCss(wait_me_progress_elem_1, dui_loader_darker);
 
   private final DivElement loader =
       div().addCss(wait_me_progress, progress_bar).appendChild(progress1);
@@ -41,7 +41,7 @@ public class ProgressBarLoader extends BaseLoader<ProgressBarLoader>
           .appendChild(loadingText);
 
   private final DivElement element =
-      div().addCss(wait_me).style("background: rgba(255, 255, 255, 0.7);").appendChild(content);
+      div().addCss(wait_me).style("background: var(--dui-loader-background);").appendChild(content);
 
   /** Constructor for ProgressBarLoader. */
   public ProgressBarLoader() {

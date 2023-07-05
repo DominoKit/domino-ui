@@ -24,9 +24,11 @@ fieldset.dui {
     background-color: inherit;
 }
 
-.dui-form-field[readonly] .dui-field-input,
 .dui-form-field[readonly] .dui-field-input-wrapper {
     border: var(--dui-form-field-readonly-border);
+}
+.dui-form-field[readonly] .dui-field-input{
+    border: var(--dui-form-field-input-readonly-border);
 }
 .dui-form-field[readonly] .dui-field-input-wrapper {
     background-color: var(--dui-form-field-readonly-background);
@@ -227,7 +229,7 @@ fieldset.dui {
     text-overflow: ellipsis;
     order: 10;
     padding-top: var(--dui-spc-2px);
-    color: var(--dui-text-color, var(--dui-color-dark-2));
+    color: var(--dui-text-color, var(--dui-color-1));
 }
 
 .dui-field-error {

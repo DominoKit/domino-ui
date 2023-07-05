@@ -197,6 +197,14 @@ public interface DominoStyle<E extends Element, R> {
   R removeCss(String... cssClasses);
 
   /**
+   * removeCss.
+   *
+   * @param cssClasses a {@link java.lang.String} object.
+   * @return a R object.
+   */
+  R removeCss(CssClass... cssClasses);
+
+  /**
    * replaceCss.
    *
    * @param cssClass a {@link java.lang.String} object.

@@ -312,7 +312,9 @@ public class PinColumnsPlugin<T>
                   .ifPresent(
                       pinCssRule -> {
                         DominoCSSRule style = pinCssRule.getCssRule();
-                        style.setProperty("border-right", "1px solid #ddd");
+                        style.setProperty(
+                            "border-right",
+                            "1px solid var(--dui-datatable-pin-column-border-color)");
                         style.removeProperty("border-left");
                       });
             });

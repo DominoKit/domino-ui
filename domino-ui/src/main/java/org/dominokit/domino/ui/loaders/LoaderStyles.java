@@ -101,4 +101,12 @@ public interface LoaderStyles {
   CssClass loading_middle = () -> "loading-middle";
   /** Constant <code>loading_bottom</code> */
   CssClass loading_bottom = () -> "loading-bottom";
+
+  CssClass dui_loader_dark = () -> "dui-loader-dark";
+  CssClass dui_loader_darker = () -> "dui-loader-darker";
+  CssClass dui_loader_darkest = () -> "dui-loader-darkest";
+
+  CssClass dui_loader_border_dark = () -> "dui-loader-border-dark";
+  CssClass dui_loader_border_darker = () -> "dui-loader-border-darker";
+  CssClass dui_loader_border_darkest = () -> "dui-loader-border-darkest";
 }

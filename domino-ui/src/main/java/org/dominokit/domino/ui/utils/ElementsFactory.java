@@ -17,12 +17,14 @@ package org.dominokit.domino.ui.utils;
 
 import static elemental2.dom.DomGlobal.document;
 import static java.util.Objects.isNull;
+import static java.util.Objects.nonNull;
 import static jsinterop.base.Js.cast;
 import static org.dominokit.domino.ui.utils.DomElements.dom;
 
 import elemental2.dom.DomGlobal;
 import elemental2.dom.Element;
 import elemental2.dom.Text;
+import java.util.Optional;
 import org.dominokit.domino.ui.IsElement;
 import org.dominokit.domino.ui.elements.ABBRElement;
 import org.dominokit.domino.ui.elements.AddressElement;
@@ -124,6 +126,14 @@ public interface ElementsFactory {
 
   /** Constant <code>elements</code> */
   ElementsFactory elements = new ElementsFactory() {};
+
+  default Optional<DominoElement<Element>> byId(String id) {
+    Element elementById = document.getElementById(id);
+    if (nonNull(elementById)) {
+      return Optional.of(elementOf(elementById));
+    }
+    return Optional.empty();
+  }
 
   /**
    * create.

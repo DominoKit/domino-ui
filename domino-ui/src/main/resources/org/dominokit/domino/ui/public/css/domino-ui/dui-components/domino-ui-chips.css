@@ -11,7 +11,7 @@
     align-items: center;
     vertical-align: var(--dui-chip-vertical-align);
     border-color: var(--dui-bg-clr, var(--dui-chip-border-color));
-    color: var(--dui-text-color, var(--dui-color-light));
+    color: var(--dui-text-color, var(--dui-accent-fg-clr));
 
 }
 
@@ -31,7 +31,7 @@
 .dui-form-field[disabled] .dui-chip[disabled],
 .dui-form-field[readonly] .dui-chip[readonly] span.dui,
 .dui-form-field[readonly] .dui-chip[readonly] {
-    color: var(--dui-text-color, var(--dui-color-light))
+    color: var(--dui-text-color, var(--dui-color))
 }
 
 .dui-chip-value {

@@ -35,7 +35,7 @@ public class NoneLoader extends BaseLoader<NoneLoader> implements IsElement<HTML
           .appendChild(loadingText);
 
   private final DivElement element =
-      div().addCss(wait_me).style("background: rgba(255, 255, 255, 0.9);").appendChild(content);
+      div().addCss(wait_me).style("background: var(--dui-loader-background);").appendChild(content);
 
   /** Constructor for NoneLoader. */
   public NoneLoader() {

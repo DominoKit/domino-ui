@@ -59,7 +59,7 @@
 }
 
 .dui-menu .dui-menu-search-box {
-    background-color: var(--dui-accent-l-5);
+    background-color: var(--dui-quick-search-bg-color);
     border-radius: var(--dui-spc-1);
     border: none;
 }
@@ -93,11 +93,10 @@
 .dui-menu-item:focus-within:not(.dui-hover-disabled),
 .dui-menu-item:hover:not(.dui-hover-disabled) {
     outline: none;
-    background-color: var(--dui-menu-item-hover-color);
+    background-color: var(--dui-menu-item-hover-bg-color);
+    color: var(--dui-menu-item-hover-color);
 }
 
-.dui-menu-item:focus:before,
-.dui-menu-item:focus-within:before,
 .dui-menu-item:hover:before {
     content: '';
     border-top: 6px solid transparent;
@@ -113,7 +112,8 @@
 .dui-menu-item.dui-menu-item-selected:focus:not(.dui-hover-disabled),
 .dui-menu-item.dui-menu-item-selected:focus-within:not(.dui-hover-disabled) {
     outline: none;
-    background-color: var(--dui-menu-item-selected-hover-color);
+    background-color: var(--dui-menu-item-selected-hover-bg-color);
+    color: var(--dui-menu-item-selected-hover-color);
 }
 
 .dui-menu-item-anchor:focus {
@@ -201,7 +201,7 @@
 
 .dui-menu-item-selected {
     background-color: var(--dui-accent-l-3);
-    color: var(--dui-color-dark);
+    color: var(--dui-color-5);
 }
 
 .dui.dui-menu-append-target {
@@ -245,6 +245,7 @@
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
+    color: var(--dui-color);
 }
 
 .dui-menu-item-hint:empty {
