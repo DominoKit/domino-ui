@@ -31,6 +31,8 @@ public interface NavBarStyles {
   CssClass dui_nav_add_on = () -> "dui-nav-addon";
   /** Constant <code>dui_nav_title</code> */
   CssClass dui_nav_title = () -> "dui-nav-title";
+  /** Constant <code>dui_nav_body</code> */
+  CssClass dui_nav_body = () -> "dui-nav-body";
   /** Constant <code>dui_nav_utility</code> */
   CssClass dui_nav_utility = () -> "dui-nav-utility";
   /** Constant <code>dui_nav_description</code> */

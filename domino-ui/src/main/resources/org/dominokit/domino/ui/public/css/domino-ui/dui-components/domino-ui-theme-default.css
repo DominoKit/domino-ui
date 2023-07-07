@@ -1022,8 +1022,10 @@ body.dui {
     --dui-nav-bar-padding: 0 var(--dui-spc-4);
     --dui-nav-bar-addon-margin: 0 var(--dui-spc-2);
     --dui-nav-bar-title-margin: 0 var(--dui-spc-2);
+    --dui-nav-bar-body-margin: 0 var(--dui-spc-2);
     --dui-nav-bar-utility-margin: 0 var(--dui-spc-2);
     --dui-nav-bar-title-indent: var(--dui-spc-0);
+    --dui-nav-bar-body-indent: var(--dui-spc-0);
 
     --dui-nav-bar-description-font: var(--dui-font-regular-sm);
     --dui-nav-bar-description-margin: 5px 0 0 0;

@@ -19,6 +19,7 @@ import static java.util.Objects.isNull;
 import static org.dominokit.domino.ui.layout.NavBarStyles.*;
 
 import elemental2.dom.HTMLElement;
+import org.dominokit.domino.ui.elements.DivElement;
 import org.dominokit.domino.ui.elements.HeadingElement;
 import org.dominokit.domino.ui.elements.NavElement;
 import org.dominokit.domino.ui.elements.SmallElement;
@@ -34,6 +35,7 @@ public class NavBar extends BaseDominoElement<HTMLElement, NavBar> {
   private NavElement root;
   private HeadingElement title;
   private LazyChild<SmallElement> description;
+  private DivElement body;
 
   /**
    * create.
@@ -56,7 +58,11 @@ public class NavBar extends BaseDominoElement<HTMLElement, NavBar> {
 
   /** Constructor for NavBar. */
   public NavBar() {
-    root = nav().addCss(dui_nav_bar).appendChild(title = h(4).addCss(dui_nav_title));
+    root =
+        nav()
+            .addCss(dui_nav_bar)
+            .appendChild(title = h(4).addCss(dui_nav_title))
+            .appendChild(body = div().addCss(dui_nav_body));
     description = LazyChild.of(small().addCss(dui_nav_description), title);
     init(this);
   }
@@ -164,6 +170,15 @@ public class NavBar extends BaseDominoElement<HTMLElement, NavBar> {
    */
   public String getDescription() {
     return description.get().getTextContent();
+  }
+
+  public NavBar withBody(ChildHandler<NavBar, DivElement> handler) {
+    handler.apply(this, body);
+    return this;
+  }
+
+  public DivElement getBody() {
+    return body;
   }
 
   /** {@inheritDoc} */

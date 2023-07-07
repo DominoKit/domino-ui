@@ -56,10 +56,10 @@ public class LinkButton extends BaseButton<HTMLAnchorElement, LinkButton> {
   /**
    * Constructor for LinkButton.
    *
-   * @param text a {@link java.lang.String} object
    * @param icon a {@link org.dominokit.domino.ui.icons.Icon} object
+   * @param text a {@link java.lang.String} object
    */
-  public LinkButton(String text, Icon<?> icon) {
+  public LinkButton(Icon<?> icon, String text) {
     super(text, icon);
   }
 
@@ -101,8 +101,8 @@ public class LinkButton extends BaseButton<HTMLAnchorElement, LinkButton> {
    * @return new Button instance
    * @param text a {@link java.lang.String} object
    */
-  public static LinkButton create(String text, Icon<?> icon) {
-    return new LinkButton(text, icon);
+  public static LinkButton create(Icon<?> icon, String text) {
+    return new LinkButton(icon, text);
   }
 
   /** {@inheritDoc} */

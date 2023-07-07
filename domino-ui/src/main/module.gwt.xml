@@ -25,6 +25,7 @@
     <inherits name="org.gwtproject.i18n.CLDR"/>
     <inherits name="org.gwtproject.i18n.DateTimeFormat"/>
     <inherits name="org.gwtproject.i18n.I18n"/>
+    <inherits name="org.dominokit.domino.logger.Logging"/>
 
     <source path=""/>
 

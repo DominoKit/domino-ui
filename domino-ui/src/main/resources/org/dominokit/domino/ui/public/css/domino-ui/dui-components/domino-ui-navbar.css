@@ -20,13 +20,19 @@
 .dui-nav-title {
     margin: var(--dui-nav-bar-title-margin);
     order: 20;
-    flex-grow: 1;
     text-indent: var(--dui-nav-bar-title-indent);
+}
+
+.dui-nav-body {
+    margin: var(--dui-nav-bar-body-margin);
+    order: 30;
+    flex-grow: 1;
+    text-indent: var(--dui-nav-bar-body-indent);
 }
 
 .dui-nav-bar .dui-postfix-addon {
     margin: var(--dui-nav-bar-utility-margin);
-    order: 30;
+    order: 40;
 }
 
 .dui-nav-description {
