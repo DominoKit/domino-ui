@@ -303,7 +303,7 @@ public class FileUpload extends BaseDominoElement<HTMLDivElement, FileUpload>
     root.addCss("dui-hovered");
   }
 
-  private void uploadFiles(FileList files) {
+  public void uploadFiles(FileList files) {
     for (int i = 0; i < files.length; i++) {
       File file = files.item(i);
       addFilePreview(file);
@@ -458,6 +458,18 @@ public class FileUpload extends BaseDominoElement<HTMLDivElement, FileUpload>
    */
   public List<FileItem> getAddedFileItems() {
     return addedFileItems;
+  }
+
+  /** @return the added file items */
+  /**
+   * Getter for the field <code>addedFileItems</code>.
+   *
+   * @return a {@link java.util.List} object
+   */
+  public FileUpload removeFileItems() {
+    addedFileItems.forEach(FileItem::remove);
+    addedFileItems.clear();
+    return this;
   }
 
   /** @return all {@link FileItemHandler} defined */

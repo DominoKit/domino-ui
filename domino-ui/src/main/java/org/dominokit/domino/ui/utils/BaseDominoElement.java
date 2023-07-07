@@ -66,6 +66,7 @@ import org.dominokit.domino.ui.style.HasCssClasses;
 import org.dominokit.domino.ui.style.Style;
 import org.dominokit.domino.ui.style.WaveStyle;
 import org.dominokit.domino.ui.style.WavesSupport;
+import org.dominokit.domino.ui.themes.DominoThemeManager;
 import org.gwtproject.editor.client.Editor;
 import org.gwtproject.safehtml.shared.SafeHtml;
 import org.gwtproject.safehtml.shared.SafeHtmlBuilder;
@@ -98,6 +99,10 @@ public abstract class BaseDominoElement<E extends Element, T extends IsElement<E
         HasAttributes<T>,
         ElementsFactory,
         HasMeta<T> {
+
+  static {
+    DominoThemeManager.INSTANCE.applyUserThemes();
+  }
 
   public static final Logger LOGGER = LoggerFactory.getLogger(BaseDominoElement.class);
 
@@ -1781,7 +1786,7 @@ public abstract class BaseDominoElement<E extends Element, T extends IsElement<E
    * Setter for the field <code>tooltip</code>.
    *
    * @param text String tooltip
-   * @param position {@link PopupPosition}
+   * @param position {@link DropDirection}
    * @return same component
    * @see Tooltip
    */
@@ -1806,7 +1811,7 @@ public abstract class BaseDominoElement<E extends Element, T extends IsElement<E
    * Setter for the field <code>tooltip</code>.
    *
    * @param node {@link elemental2.dom.Node} tooltip content
-   * @param position {@link PopupPosition}
+   * @param position {@link DropDirection}
    * @return same component
    * @see Tooltip
    */
