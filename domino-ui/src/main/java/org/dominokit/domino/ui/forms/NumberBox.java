@@ -668,10 +668,8 @@ public abstract class NumberBox<T extends NumberBox<T, V>, V extends Number>
 
   @Override
   public V getDefaultValue() {
-    if (nonNull(defaultMinValue())) {
+    if (nonNull(getMinValue())) {
       return defaultMinValue();
-    } else if (nonNull(getMinValue())) {
-      return getMinValue();
     }
     return super.getDefaultValue();
   }
