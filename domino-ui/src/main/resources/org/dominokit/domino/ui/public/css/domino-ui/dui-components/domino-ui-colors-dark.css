@@ -68,16 +68,16 @@
     --dui-clr-success-d-3: #29581E;
     --dui-clr-success-d-4: #173D11;
 
-    --dui-clr-warning-l-5: #FFF0D9;
-    --dui-clr-warning-l-4: #FFE6B3;
-    --dui-clr-warning-l-3: #FFDB8C;
-    --dui-clr-warning-l-2: #FFD066;
-    --dui-clr-warning-l-1: #FFC53F;
-    --dui-clr-warning: #FFB919;
-    --dui-clr-warning-d-1: #FFAB00;
-    --dui-clr-warning-d-2: #F59A00;
-    --dui-clr-warning-d-3: #EC8800;
-    --dui-clr-warning-d-4: #E27600;
+    --dui-clr-warning-l-5: #F9EED9;
+    --dui-clr-warning-l-4: #F3DFB3;
+    --dui-clr-warning-l-3: #EACF8C;
+    --dui-clr-warning-l-2: #E2BF66;
+    --dui-clr-warning-l-1: #DAAF3F;
+    --dui-clr-warning: #D2A619;
+    --dui-clr-warning-d-1: #C89F00;
+    --dui-clr-warning-d-2: #BF8F00;
+    --dui-clr-warning-d-3: #B67F00;
+    --dui-clr-warning-d-4: #AE6F00;
 
     --dui-clr-info-l-5: #D6E9F3;
     --dui-clr-info-l-4: #A6C5DE;
@@ -255,16 +255,16 @@
     --dui-clr-amber-d-3: #944B00;
     --dui-clr-amber-d-4: #7D3600;
 
-    --dui-clr-orange-l-5: #FFF0D9;
-    --dui-clr-orange-l-4: #FFE6B3;
-    --dui-clr-orange-l-3: #FFDB8C;
-    --dui-clr-orange-l-2: #FFD066;
-    --dui-clr-orange-l-1: #FFC53F;
-    --dui-clr-orange: #FFB919;
-    --dui-clr-orange-d-1: #FFAB00;
-    --dui-clr-orange-d-2: #F59A00;
-    --dui-clr-orange-d-3: #EC8800;
-    --dui-clr-orange-d-4: #E27600;
+    --dui-clr-orange-l-5: #F9EED9;
+    --dui-clr-orange-l-4: #F3DFB3;
+    --dui-clr-orange-l-3: #EACF8C;
+    --dui-clr-orange-l-2: #E2BF66;
+    --dui-clr-orange-l-1: #DAAF3F;
+    --dui-clr-orange: #D2A619;
+    --dui-clr-orange-d-1: #C89F00;
+    --dui-clr-orange-d-2: #BF8F00;
+    --dui-clr-orange-d-3: #B67F00;
+    --dui-clr-orange-d-4: #AE6F00;
 
     --dui-clr-deep-orange-l-5: #F1D9D4;
     --dui-clr-deep-orange-l-4: #FFBFAE;
@@ -276,6 +276,17 @@
     --dui-clr-deep-orange-d-2: #D8320B;
     --dui-clr-deep-orange-d-3: #C82B08;
     --dui-clr-deep-orange-d-4: #A22806;
+
+    --dui-clr-deep-orange-l-5: #EFD3CD;
+    --dui-clr-deep-orange-l-4: #FF9D84;
+    --dui-clr-deep-orange-l-3: #FF6E47;
+    --dui-clr-deep-orange-l-2: #FF512D;
+    --dui-clr-deep-orange-l-1: #FF3517;
+    --dui-clr-deep-orange: #FF2300;
+    --dui-clr-deep-orange-d-1: #DD1B00;
+    --dui-clr-deep-orange-d-2: #C31400;
+    --dui-clr-deep-orange-d-3: #AD0E00;
+    --dui-clr-deep-orange-d-4: #891000;
 
     --dui-clr-brown-l-5: #E6DFDB;
     --dui-clr-brown-l-4: #CABEB8;
@@ -378,6 +389,7 @@
     --dui-thumbnail-border-active-color: var(--dui-accent-d-3);
     --dui-tree-header-bg-color: var(--dui-accent-d-3);
     --dui-list-group-item-hover-background: var(--dui-accent-l-2);
+    --dui-list-group-item-selected-background: var(--dui-accent);
     --dui-form-field-disabled-background: var(--dui-clr-dominant-d-1);
     --dui-form-field-disabled-border-color: var(--dui-clr-dominant-d-3);
     --dui-form-field-readonly-background: var(--dui-clr-dominant-l-1);

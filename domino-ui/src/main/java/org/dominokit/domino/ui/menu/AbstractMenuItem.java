@@ -119,7 +119,7 @@ public class AbstractMenuItem<V> extends BaseDominoElement<HTMLLIElement, Abstra
 
   /** {@inheritDoc} */
   @Override
-  protected Element getAppendTarget() {
+  public Element getAppendTarget() {
     return bodyElement.element();
   }
 

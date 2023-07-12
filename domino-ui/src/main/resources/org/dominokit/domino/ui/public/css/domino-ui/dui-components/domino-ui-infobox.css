@@ -12,7 +12,7 @@
 }
 
 .dui-info-box.dui-info-flipped {
-    height: var(--dui-info-flipped-height);
+    min-height: var(--dui-info-flipped-height);
     --dui-infobox-direction: row-reverse;
 }
 

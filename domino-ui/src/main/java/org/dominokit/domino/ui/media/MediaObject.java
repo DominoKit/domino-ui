@@ -67,7 +67,7 @@ public class MediaObject extends BaseDominoElement<HTMLDivElement, MediaObject>
 
   /** {@inheritDoc} */
   @Override
-  protected HTMLElement getAppendTarget() {
+  public HTMLElement getAppendTarget() {
     return mediaBody.get().element();
   }
 

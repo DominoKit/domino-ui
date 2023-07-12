@@ -56,12 +56,17 @@
 .dui-card-title {
     flex-grow: 1;
     align-self: center;
+    overflow: hidden;
+    order: 40;
 }
 
 .dui-card-main-title {
     margin: var(--dui-card-header-title-margin);
     font: var(--dui-card-header-title-font);
     color: var(--dui-fg-d-4);
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
 }
 
 .dui-card-description {
@@ -91,10 +96,6 @@
 .dui-card-icon {
     order: 30;
     margin: var(--dui-card-icon-margins);
-}
-
-.dui-card-title {
-    order: 40;
 }
 
 .dui-card-header .dui-postfix-addon:not(.dui-order-last) {

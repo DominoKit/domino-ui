@@ -33,6 +33,7 @@ import org.dominokit.domino.ui.datatable.events.RecordDraggedOutEvent;
 import org.dominokit.domino.ui.datatable.events.RecordDroppedEvent;
 import org.dominokit.domino.ui.datatable.events.TableEvent;
 import org.dominokit.domino.ui.dnd.DragSource;
+import org.dominokit.domino.ui.dnd.Draggable;
 import org.dominokit.domino.ui.dnd.DropZone;
 import org.dominokit.domino.ui.elements.DivElement;
 import org.dominokit.domino.ui.icons.Icon;
@@ -104,7 +105,7 @@ public class DragDropPlugin<T> implements DataTablePlugin<T> {
   /** {@inheritDoc} */
   @Override
   public void onRowAdded(DataTable<T> dataTable, TableRow<T> tableRow) {
-    dragSource.addDraggable(tableRow);
+    dragSource.addDraggable(Draggable.of(tableRow));
     dropZone.addDropTarget(
         tableRow, draggableId -> moveItem(dataTable, tableRow.getRecord(), draggableId));
   }

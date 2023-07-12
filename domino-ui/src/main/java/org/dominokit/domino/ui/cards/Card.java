@@ -108,15 +108,7 @@ public class Card extends BaseDominoElement<HTMLDivElement, Card>
 
   /** Constructor for Card. */
   public Card() {
-    element =
-        div()
-            .addCss(dui_card)
-            .appendChild(
-                body =
-                    div()
-                        .addCss(dui_card_body)
-                        .setCollapseStrategy(
-                            getConfig().getDefaultCardCollapseStrategySupplier().get()));
+    element = div().addCss(dui_card).appendChild(body = div().addCss(dui_card_body));
     header = LazyChild.of(CardHeader.create(), element);
     collapseIcon = getConfig().getCardCollapseExpandIcon().get();
 
@@ -517,6 +509,7 @@ public class Card extends BaseDominoElement<HTMLDivElement, Card>
   public Card setCollapsible(boolean collapsible) {
     collapseElement.remove();
     if (collapsible) {
+      body.setCollapseStrategy(getConfig().getDefaultCardCollapseStrategySupplier().get());
       header
           .get()
           .withMainHeader(
@@ -538,6 +531,7 @@ public class Card extends BaseDominoElement<HTMLDivElement, Card>
       collapseElement.get();
     } else {
       collapseElement.remove();
+      body.getCollapsible().getStrategy().cleanup(body.element());
     }
     return this;
   }
@@ -600,7 +594,7 @@ public class Card extends BaseDominoElement<HTMLDivElement, Card>
 
   /** {@inheritDoc} */
   @Override
-  protected HTMLElement getAppendTarget() {
+  public HTMLElement getAppendTarget() {
     return body.element();
   }
 

@@ -206,7 +206,7 @@ public class Tab extends BaseDominoElement<HTMLLIElement, Tab>
 
   /** {@inheritDoc} */
   @Override
-  protected HTMLElement getAppendTarget() {
+  public HTMLElement getAppendTarget() {
     return tabPanel.element();
   }
 

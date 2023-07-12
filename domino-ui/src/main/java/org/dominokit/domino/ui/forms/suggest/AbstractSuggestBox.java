@@ -122,6 +122,11 @@ public abstract class AbstractSuggestBox<
             .setLoadingTextPosition(Loader.LoadingTextPosition.TOP)
             .setRemoveLoadingText(true);
 
+    onAttached(
+        mutationRecord -> {
+          optionsMenu.setTargetElement(getWrapperElement());
+        });
+
     appendChild(
         PrimaryAddOn.of(
             Icons.delete()

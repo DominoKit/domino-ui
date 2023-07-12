@@ -149,7 +149,7 @@ public class ColumnHeader extends BaseDominoElement<HTMLTableCellElement, Column
 
   /** {@inheritDoc} */
   @Override
-  protected Element getAppendTarget() {
+  public Element getAppendTarget() {
     return body.element();
   }
 

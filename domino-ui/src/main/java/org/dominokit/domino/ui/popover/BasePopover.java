@@ -286,7 +286,7 @@ public abstract class BasePopover<T extends BasePopover<T>>
 
   /** {@inheritDoc} */
   @Override
-  protected HTMLElement getAppendTarget() {
+  public HTMLElement getAppendTarget() {
     return body.element();
   }
 

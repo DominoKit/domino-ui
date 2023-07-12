@@ -73,7 +73,7 @@ public interface Color {
    *
    * @return a {@link org.dominokit.domino.ui.style.CssClass} object.
    */
-  CssClass getUtilityColor();
+  CssClass getContextColor();
 
   /** Constant <code>DOMINANT</code> */
   Color DOMINANT =
@@ -109,8 +109,8 @@ public interface Color {
         }
 
         @Override
-        public CssClass getUtilityColor() {
-          return dui_color_dominant;
+        public CssClass getContextColor() {
+          return dui_context_dominant;
         }
       };
 
@@ -148,8 +148,8 @@ public interface Color {
         }
 
         @Override
-        public CssClass getUtilityColor() {
-          return dui_color_dominant_l_1;
+        public CssClass getContextColor() {
+          return dui_context_dominant_l_1;
         }
       };
 
@@ -187,8 +187,8 @@ public interface Color {
         }
 
         @Override
-        public CssClass getUtilityColor() {
-          return dui_color_dominant_l_2;
+        public CssClass getContextColor() {
+          return dui_context_dominant_l_2;
         }
       };
 
@@ -226,8 +226,8 @@ public interface Color {
         }
 
         @Override
-        public CssClass getUtilityColor() {
-          return dui_color_dominant_l_3;
+        public CssClass getContextColor() {
+          return dui_context_dominant_l_3;
         }
       };
 
@@ -265,8 +265,8 @@ public interface Color {
         }
 
         @Override
-        public CssClass getUtilityColor() {
-          return dui_color_dominant_l_4;
+        public CssClass getContextColor() {
+          return dui_context_dominant_l_4;
         }
       };
 
@@ -304,8 +304,8 @@ public interface Color {
         }
 
         @Override
-        public CssClass getUtilityColor() {
-          return dui_color_dominant_l_5;
+        public CssClass getContextColor() {
+          return dui_context_dominant_l_5;
         }
       };
 
@@ -343,8 +343,8 @@ public interface Color {
         }
 
         @Override
-        public CssClass getUtilityColor() {
-          return dui_color_dominant_d_1;
+        public CssClass getContextColor() {
+          return dui_context_dominant_d_1;
         }
       };
 
@@ -382,8 +382,8 @@ public interface Color {
         }
 
         @Override
-        public CssClass getUtilityColor() {
-          return dui_color_dominant_d_2;
+        public CssClass getContextColor() {
+          return dui_context_dominant_d_2;
         }
       };
 
@@ -421,8 +421,8 @@ public interface Color {
         }
 
         @Override
-        public CssClass getUtilityColor() {
-          return dui_color_dominant_d_3;
+        public CssClass getContextColor() {
+          return dui_context_dominant_d_3;
         }
       };
 
@@ -460,8 +460,8 @@ public interface Color {
         }
 
         @Override
-        public CssClass getUtilityColor() {
-          return dui_color_deep_orange_d_4;
+        public CssClass getContextColor() {
+          return dui_context_deep_orange_d_4;
         }
       };
 
@@ -499,8 +499,8 @@ public interface Color {
         }
 
         @Override
-        public CssClass getUtilityColor() {
-          return dui_color_accent;
+        public CssClass getContextColor() {
+          return dui_context_accent;
         }
       };
 
@@ -538,8 +538,8 @@ public interface Color {
         }
 
         @Override
-        public CssClass getUtilityColor() {
-          return dui_color_accent_l_1;
+        public CssClass getContextColor() {
+          return dui_context_accent_l_1;
         }
       };
 
@@ -577,8 +577,8 @@ public interface Color {
         }
 
         @Override
-        public CssClass getUtilityColor() {
-          return dui_color_accent_l_2;
+        public CssClass getContextColor() {
+          return dui_context_accent_l_2;
         }
       };
 
@@ -616,8 +616,8 @@ public interface Color {
         }
 
         @Override
-        public CssClass getUtilityColor() {
-          return dui_color_accent_l_3;
+        public CssClass getContextColor() {
+          return dui_context_accent_l_3;
         }
       };
 
@@ -655,8 +655,8 @@ public interface Color {
         }
 
         @Override
-        public CssClass getUtilityColor() {
-          return dui_color_accent_l_4;
+        public CssClass getContextColor() {
+          return dui_context_accent_l_4;
         }
       };
 
@@ -694,8 +694,8 @@ public interface Color {
         }
 
         @Override
-        public CssClass getUtilityColor() {
-          return dui_color_accent_l_5;
+        public CssClass getContextColor() {
+          return dui_context_accent_l_5;
         }
       };
 
@@ -733,8 +733,8 @@ public interface Color {
         }
 
         @Override
-        public CssClass getUtilityColor() {
-          return dui_color_accent_d_1;
+        public CssClass getContextColor() {
+          return dui_context_accent_d_1;
         }
       };
 
@@ -772,8 +772,8 @@ public interface Color {
         }
 
         @Override
-        public CssClass getUtilityColor() {
-          return dui_color_accent_d_2;
+        public CssClass getContextColor() {
+          return dui_context_accent_d_2;
         }
       };
 
@@ -811,8 +811,8 @@ public interface Color {
         }
 
         @Override
-        public CssClass getUtilityColor() {
-          return dui_color_accent_d_3;
+        public CssClass getContextColor() {
+          return dui_context_accent_d_3;
         }
       };
 
@@ -850,8 +850,8 @@ public interface Color {
         }
 
         @Override
-        public CssClass getUtilityColor() {
-          return dui_color_accent_d_4;
+        public CssClass getContextColor() {
+          return dui_context_accent_d_4;
         }
       };
 
@@ -889,8 +889,8 @@ public interface Color {
         }
 
         @Override
-        public CssClass getUtilityColor() {
-          return dui_color_primary;
+        public CssClass getContextColor() {
+          return dui_context_primary;
         }
       };
 
@@ -928,8 +928,8 @@ public interface Color {
         }
 
         @Override
-        public CssClass getUtilityColor() {
-          return dui_color_primary_l_1;
+        public CssClass getContextColor() {
+          return dui_context_primary_l_1;
         }
       };
 
@@ -967,8 +967,8 @@ public interface Color {
         }
 
         @Override
-        public CssClass getUtilityColor() {
-          return dui_color_primary_l_2;
+        public CssClass getContextColor() {
+          return dui_context_primary_l_2;
         }
       };
 
@@ -1006,8 +1006,8 @@ public interface Color {
         }
 
         @Override
-        public CssClass getUtilityColor() {
-          return dui_color_primary_l_3;
+        public CssClass getContextColor() {
+          return dui_context_primary_l_3;
         }
       };
 
@@ -1045,8 +1045,8 @@ public interface Color {
         }
 
         @Override
-        public CssClass getUtilityColor() {
-          return dui_color_primary_l_4;
+        public CssClass getContextColor() {
+          return dui_context_primary_l_4;
         }
       };
 
@@ -1084,8 +1084,8 @@ public interface Color {
         }
 
         @Override
-        public CssClass getUtilityColor() {
-          return dui_color_primary_l_5;
+        public CssClass getContextColor() {
+          return dui_context_primary_l_5;
         }
       };
 
@@ -1123,8 +1123,8 @@ public interface Color {
         }
 
         @Override
-        public CssClass getUtilityColor() {
-          return dui_color_primary_d_1;
+        public CssClass getContextColor() {
+          return dui_context_primary_d_1;
         }
       };
 
@@ -1162,8 +1162,8 @@ public interface Color {
         }
 
         @Override
-        public CssClass getUtilityColor() {
-          return dui_color_primary_d_2;
+        public CssClass getContextColor() {
+          return dui_context_primary_d_2;
         }
       };
 
@@ -1201,8 +1201,8 @@ public interface Color {
         }
 
         @Override
-        public CssClass getUtilityColor() {
-          return dui_color_primary_d_3;
+        public CssClass getContextColor() {
+          return dui_context_primary_d_3;
         }
       };
 
@@ -1240,8 +1240,8 @@ public interface Color {
         }
 
         @Override
-        public CssClass getUtilityColor() {
-          return dui_color_primary_d_4;
+        public CssClass getContextColor() {
+          return dui_context_primary_d_4;
         }
       };
 
@@ -1279,8 +1279,8 @@ public interface Color {
         }
 
         @Override
-        public CssClass getUtilityColor() {
-          return dui_color_secondary;
+        public CssClass getContextColor() {
+          return dui_context_secondary;
         }
       };
 
@@ -1318,8 +1318,8 @@ public interface Color {
         }
 
         @Override
-        public CssClass getUtilityColor() {
-          return dui_color_secondary_l_1;
+        public CssClass getContextColor() {
+          return dui_context_secondary_l_1;
         }
       };
 
@@ -1357,8 +1357,8 @@ public interface Color {
         }
 
         @Override
-        public CssClass getUtilityColor() {
-          return dui_color_secondary_l_2;
+        public CssClass getContextColor() {
+          return dui_context_secondary_l_2;
         }
       };
 
@@ -1396,8 +1396,8 @@ public interface Color {
         }
 
         @Override
-        public CssClass getUtilityColor() {
-          return dui_color_secondary_l_3;
+        public CssClass getContextColor() {
+          return dui_context_secondary_l_3;
         }
       };
 
@@ -1435,8 +1435,8 @@ public interface Color {
         }
 
         @Override
-        public CssClass getUtilityColor() {
-          return dui_color_secondary_l_4;
+        public CssClass getContextColor() {
+          return dui_context_secondary_l_4;
         }
       };
 
@@ -1474,8 +1474,8 @@ public interface Color {
         }
 
         @Override
-        public CssClass getUtilityColor() {
-          return dui_color_secondary_l_5;
+        public CssClass getContextColor() {
+          return dui_context_secondary_l_5;
         }
       };
 
@@ -1513,8 +1513,8 @@ public interface Color {
         }
 
         @Override
-        public CssClass getUtilityColor() {
-          return dui_color_secondary_d_1;
+        public CssClass getContextColor() {
+          return dui_context_secondary_d_1;
         }
       };
 
@@ -1552,8 +1552,8 @@ public interface Color {
         }
 
         @Override
-        public CssClass getUtilityColor() {
-          return dui_color_secondary_d_2;
+        public CssClass getContextColor() {
+          return dui_context_secondary_d_2;
         }
       };
 
@@ -1591,8 +1591,8 @@ public interface Color {
         }
 
         @Override
-        public CssClass getUtilityColor() {
-          return dui_color_secondary_d_3;
+        public CssClass getContextColor() {
+          return dui_context_secondary_d_3;
         }
       };
 
@@ -1630,8 +1630,8 @@ public interface Color {
         }
 
         @Override
-        public CssClass getUtilityColor() {
-          return dui_color_secondary_d_4;
+        public CssClass getContextColor() {
+          return dui_context_secondary_d_4;
         }
       };
 
@@ -1669,8 +1669,8 @@ public interface Color {
         }
 
         @Override
-        public CssClass getUtilityColor() {
-          return dui_color_success;
+        public CssClass getContextColor() {
+          return dui_context_success;
         }
       };
 
@@ -1708,8 +1708,8 @@ public interface Color {
         }
 
         @Override
-        public CssClass getUtilityColor() {
-          return dui_color_success_l_1;
+        public CssClass getContextColor() {
+          return dui_context_success_l_1;
         }
       };
 
@@ -1747,8 +1747,8 @@ public interface Color {
         }
 
         @Override
-        public CssClass getUtilityColor() {
-          return dui_color_success_l_2;
+        public CssClass getContextColor() {
+          return dui_context_success_l_2;
         }
       };
 
@@ -1786,8 +1786,8 @@ public interface Color {
         }
 
         @Override
-        public CssClass getUtilityColor() {
-          return dui_color_success_l_3;
+        public CssClass getContextColor() {
+          return dui_context_success_l_3;
         }
       };
 
@@ -1825,8 +1825,8 @@ public interface Color {
         }
 
         @Override
-        public CssClass getUtilityColor() {
-          return dui_color_success_l_4;
+        public CssClass getContextColor() {
+          return dui_context_success_l_4;
         }
       };
 
@@ -1864,8 +1864,8 @@ public interface Color {
         }
 
         @Override
-        public CssClass getUtilityColor() {
-          return dui_color_success_l_5;
+        public CssClass getContextColor() {
+          return dui_context_success_l_5;
         }
       };
 
@@ -1903,8 +1903,8 @@ public interface Color {
         }
 
         @Override
-        public CssClass getUtilityColor() {
-          return dui_color_success_d_1;
+        public CssClass getContextColor() {
+          return dui_context_success_d_1;
         }
       };
 
@@ -1942,8 +1942,8 @@ public interface Color {
         }
 
         @Override
-        public CssClass getUtilityColor() {
-          return dui_color_success_d_2;
+        public CssClass getContextColor() {
+          return dui_context_success_d_2;
         }
       };
 
@@ -1981,8 +1981,8 @@ public interface Color {
         }
 
         @Override
-        public CssClass getUtilityColor() {
-          return dui_color_success_d_3;
+        public CssClass getContextColor() {
+          return dui_context_success_d_3;
         }
       };
 
@@ -2020,8 +2020,8 @@ public interface Color {
         }
 
         @Override
-        public CssClass getUtilityColor() {
-          return dui_color_success_d_4;
+        public CssClass getContextColor() {
+          return dui_context_success_d_4;
         }
       };
 
@@ -2059,8 +2059,8 @@ public interface Color {
         }
 
         @Override
-        public CssClass getUtilityColor() {
-          return dui_color_warning;
+        public CssClass getContextColor() {
+          return dui_context_warning;
         }
       };
 
@@ -2098,8 +2098,8 @@ public interface Color {
         }
 
         @Override
-        public CssClass getUtilityColor() {
-          return dui_color_warning_l_1;
+        public CssClass getContextColor() {
+          return dui_context_warning_l_1;
         }
       };
 
@@ -2137,8 +2137,8 @@ public interface Color {
         }
 
         @Override
-        public CssClass getUtilityColor() {
-          return dui_color_warning_l_2;
+        public CssClass getContextColor() {
+          return dui_context_warning_l_2;
         }
       };
 
@@ -2176,8 +2176,8 @@ public interface Color {
         }
 
         @Override
-        public CssClass getUtilityColor() {
-          return dui_color_warning_l_3;
+        public CssClass getContextColor() {
+          return dui_context_warning_l_3;
         }
       };
 
@@ -2215,8 +2215,8 @@ public interface Color {
         }
 
         @Override
-        public CssClass getUtilityColor() {
-          return dui_color_warning_l_4;
+        public CssClass getContextColor() {
+          return dui_context_warning_l_4;
         }
       };
 
@@ -2254,8 +2254,8 @@ public interface Color {
         }
 
         @Override
-        public CssClass getUtilityColor() {
-          return dui_color_warning_l_5;
+        public CssClass getContextColor() {
+          return dui_context_warning_l_5;
         }
       };
 
@@ -2293,8 +2293,8 @@ public interface Color {
         }
 
         @Override
-        public CssClass getUtilityColor() {
-          return dui_color_warning_d_1;
+        public CssClass getContextColor() {
+          return dui_context_warning_d_1;
         }
       };
 
@@ -2332,8 +2332,8 @@ public interface Color {
         }
 
         @Override
-        public CssClass getUtilityColor() {
-          return dui_color_warning_d_2;
+        public CssClass getContextColor() {
+          return dui_context_warning_d_2;
         }
       };
 
@@ -2371,8 +2371,8 @@ public interface Color {
         }
 
         @Override
-        public CssClass getUtilityColor() {
-          return dui_color_warning_d_3;
+        public CssClass getContextColor() {
+          return dui_context_warning_d_3;
         }
       };
 
@@ -2410,8 +2410,8 @@ public interface Color {
         }
 
         @Override
-        public CssClass getUtilityColor() {
-          return dui_color_warning_d_4;
+        public CssClass getContextColor() {
+          return dui_context_warning_d_4;
         }
       };
 
@@ -2449,8 +2449,8 @@ public interface Color {
         }
 
         @Override
-        public CssClass getUtilityColor() {
-          return dui_color_info;
+        public CssClass getContextColor() {
+          return dui_context_info;
         }
       };
 
@@ -2488,8 +2488,8 @@ public interface Color {
         }
 
         @Override
-        public CssClass getUtilityColor() {
-          return dui_color_info_l_1;
+        public CssClass getContextColor() {
+          return dui_context_info_l_1;
         }
       };
 
@@ -2527,8 +2527,8 @@ public interface Color {
         }
 
         @Override
-        public CssClass getUtilityColor() {
-          return dui_color_info_l_2;
+        public CssClass getContextColor() {
+          return dui_context_info_l_2;
         }
       };
 
@@ -2566,8 +2566,8 @@ public interface Color {
         }
 
         @Override
-        public CssClass getUtilityColor() {
-          return dui_color_info_l_3;
+        public CssClass getContextColor() {
+          return dui_context_info_l_3;
         }
       };
 
@@ -2605,8 +2605,8 @@ public interface Color {
         }
 
         @Override
-        public CssClass getUtilityColor() {
-          return dui_color_info_l_4;
+        public CssClass getContextColor() {
+          return dui_context_info_l_4;
         }
       };
 
@@ -2644,8 +2644,8 @@ public interface Color {
         }
 
         @Override
-        public CssClass getUtilityColor() {
-          return dui_color_info_l_5;
+        public CssClass getContextColor() {
+          return dui_context_info_l_5;
         }
       };
 
@@ -2683,8 +2683,8 @@ public interface Color {
         }
 
         @Override
-        public CssClass getUtilityColor() {
-          return dui_color_info_d_1;
+        public CssClass getContextColor() {
+          return dui_context_info_d_1;
         }
       };
 
@@ -2722,8 +2722,8 @@ public interface Color {
         }
 
         @Override
-        public CssClass getUtilityColor() {
-          return dui_color_info_d_2;
+        public CssClass getContextColor() {
+          return dui_context_info_d_2;
         }
       };
 
@@ -2761,8 +2761,8 @@ public interface Color {
         }
 
         @Override
-        public CssClass getUtilityColor() {
-          return dui_color_info_d_3;
+        public CssClass getContextColor() {
+          return dui_context_info_d_3;
         }
       };
 
@@ -2800,8 +2800,8 @@ public interface Color {
         }
 
         @Override
-        public CssClass getUtilityColor() {
-          return dui_color_info_d_4;
+        public CssClass getContextColor() {
+          return dui_context_info_d_4;
         }
       };
 
@@ -2839,8 +2839,8 @@ public interface Color {
         }
 
         @Override
-        public CssClass getUtilityColor() {
-          return dui_color_error;
+        public CssClass getContextColor() {
+          return dui_context_error;
         }
       };
 
@@ -2878,8 +2878,8 @@ public interface Color {
         }
 
         @Override
-        public CssClass getUtilityColor() {
-          return dui_color_error_l_1;
+        public CssClass getContextColor() {
+          return dui_context_error_l_1;
         }
       };
 
@@ -2917,8 +2917,8 @@ public interface Color {
         }
 
         @Override
-        public CssClass getUtilityColor() {
-          return dui_color_error_l_2;
+        public CssClass getContextColor() {
+          return dui_context_error_l_2;
         }
       };
 
@@ -2956,8 +2956,8 @@ public interface Color {
         }
 
         @Override
-        public CssClass getUtilityColor() {
-          return dui_color_error_l_3;
+        public CssClass getContextColor() {
+          return dui_context_error_l_3;
         }
       };
 
@@ -2995,8 +2995,8 @@ public interface Color {
         }
 
         @Override
-        public CssClass getUtilityColor() {
-          return dui_color_error_l_4;
+        public CssClass getContextColor() {
+          return dui_context_error_l_4;
         }
       };
 
@@ -3034,8 +3034,8 @@ public interface Color {
         }
 
         @Override
-        public CssClass getUtilityColor() {
-          return dui_color_error_l_5;
+        public CssClass getContextColor() {
+          return dui_context_error_l_5;
         }
       };
 
@@ -3073,8 +3073,8 @@ public interface Color {
         }
 
         @Override
-        public CssClass getUtilityColor() {
-          return dui_color_error_d_1;
+        public CssClass getContextColor() {
+          return dui_context_error_d_1;
         }
       };
 
@@ -3112,8 +3112,8 @@ public interface Color {
         }
 
         @Override
-        public CssClass getUtilityColor() {
-          return dui_color_error_d_2;
+        public CssClass getContextColor() {
+          return dui_context_error_d_2;
         }
       };
 
@@ -3151,8 +3151,8 @@ public interface Color {
         }
 
         @Override
-        public CssClass getUtilityColor() {
-          return dui_color_error_d_3;
+        public CssClass getContextColor() {
+          return dui_context_error_d_3;
         }
       };
 
@@ -3190,8 +3190,8 @@ public interface Color {
         }
 
         @Override
-        public CssClass getUtilityColor() {
-          return dui_color_error_d_4;
+        public CssClass getContextColor() {
+          return dui_context_error_d_4;
         }
       };
 
@@ -3229,8 +3229,8 @@ public interface Color {
         }
 
         @Override
-        public CssClass getUtilityColor() {
-          return dui_color_red;
+        public CssClass getContextColor() {
+          return dui_context_red;
         }
       };
 
@@ -3268,8 +3268,8 @@ public interface Color {
         }
 
         @Override
-        public CssClass getUtilityColor() {
-          return dui_color_red_l_1;
+        public CssClass getContextColor() {
+          return dui_context_red_l_1;
         }
       };
 
@@ -3307,8 +3307,8 @@ public interface Color {
         }
 
         @Override
-        public CssClass getUtilityColor() {
-          return dui_color_red_l_2;
+        public CssClass getContextColor() {
+          return dui_context_red_l_2;
         }
       };
 
@@ -3346,8 +3346,8 @@ public interface Color {
         }
 
         @Override
-        public CssClass getUtilityColor() {
-          return dui_color_red_l_3;
+        public CssClass getContextColor() {
+          return dui_context_red_l_3;
         }
       };
 
@@ -3385,8 +3385,8 @@ public interface Color {
         }
 
         @Override
-        public CssClass getUtilityColor() {
-          return dui_color_red_l_4;
+        public CssClass getContextColor() {
+          return dui_context_red_l_4;
         }
       };
 
@@ -3424,8 +3424,8 @@ public interface Color {
         }
 
         @Override
-        public CssClass getUtilityColor() {
-          return dui_color_red_l_5;
+        public CssClass getContextColor() {
+          return dui_context_red_l_5;
         }
       };
 
@@ -3463,8 +3463,8 @@ public interface Color {
         }
 
         @Override
-        public CssClass getUtilityColor() {
-          return dui_color_red_d_1;
+        public CssClass getContextColor() {
+          return dui_context_red_d_1;
         }
       };
 
@@ -3502,8 +3502,8 @@ public interface Color {
         }
 
         @Override
-        public CssClass getUtilityColor() {
-          return dui_color_red_d_2;
+        public CssClass getContextColor() {
+          return dui_context_red_d_2;
         }
       };
 
@@ -3541,8 +3541,8 @@ public interface Color {
         }
 
         @Override
-        public CssClass getUtilityColor() {
-          return dui_color_red_d_3;
+        public CssClass getContextColor() {
+          return dui_context_red_d_3;
         }
       };
 
@@ -3580,8 +3580,8 @@ public interface Color {
         }
 
         @Override
-        public CssClass getUtilityColor() {
-          return dui_color_red_d_4;
+        public CssClass getContextColor() {
+          return dui_context_red_d_4;
         }
       };
 
@@ -3619,8 +3619,8 @@ public interface Color {
         }
 
         @Override
-        public CssClass getUtilityColor() {
-          return dui_color_pink;
+        public CssClass getContextColor() {
+          return dui_context_pink;
         }
       };
 
@@ -3658,8 +3658,8 @@ public interface Color {
         }
 
         @Override
-        public CssClass getUtilityColor() {
-          return dui_color_pink_l_1;
+        public CssClass getContextColor() {
+          return dui_context_pink_l_1;
         }
       };
 
@@ -3697,8 +3697,8 @@ public interface Color {
         }
 
         @Override
-        public CssClass getUtilityColor() {
-          return dui_color_pink_l_2;
+        public CssClass getContextColor() {
+          return dui_context_pink_l_2;
         }
       };
 
@@ -3736,8 +3736,8 @@ public interface Color {
         }
 
         @Override
-        public CssClass getUtilityColor() {
-          return dui_color_pink_l_3;
+        public CssClass getContextColor() {
+          return dui_context_pink_l_3;
         }
       };
 
@@ -3775,8 +3775,8 @@ public interface Color {
         }
 
         @Override
-        public CssClass getUtilityColor() {
-          return dui_color_pink_l_4;
+        public CssClass getContextColor() {
+          return dui_context_pink_l_4;
         }
       };
 
@@ -3814,8 +3814,8 @@ public interface Color {
         }
 
         @Override
-        public CssClass getUtilityColor() {
-          return dui_color_pink_l_5;
+        public CssClass getContextColor() {
+          return dui_context_pink_l_5;
         }
       };
 
@@ -3853,8 +3853,8 @@ public interface Color {
         }
 
         @Override
-        public CssClass getUtilityColor() {
-          return dui_color_pink_d_1;
+        public CssClass getContextColor() {
+          return dui_context_pink_d_1;
         }
       };
 
@@ -3892,8 +3892,8 @@ public interface Color {
         }
 
         @Override
-        public CssClass getUtilityColor() {
-          return dui_color_pink_d_2;
+        public CssClass getContextColor() {
+          return dui_context_pink_d_2;
         }
       };
 
@@ -3931,8 +3931,8 @@ public interface Color {
         }
 
         @Override
-        public CssClass getUtilityColor() {
-          return dui_color_pink_d_3;
+        public CssClass getContextColor() {
+          return dui_context_pink_d_3;
         }
       };
 
@@ -3970,8 +3970,8 @@ public interface Color {
         }
 
         @Override
-        public CssClass getUtilityColor() {
-          return dui_color_pink_d_4;
+        public CssClass getContextColor() {
+          return dui_context_pink_d_4;
         }
       };
 
@@ -4009,8 +4009,8 @@ public interface Color {
         }
 
         @Override
-        public CssClass getUtilityColor() {
-          return dui_color_purple;
+        public CssClass getContextColor() {
+          return dui_context_purple;
         }
       };
 
@@ -4048,8 +4048,8 @@ public interface Color {
         }
 
         @Override
-        public CssClass getUtilityColor() {
-          return dui_color_purple_l_1;
+        public CssClass getContextColor() {
+          return dui_context_purple_l_1;
         }
       };
 
@@ -4087,8 +4087,8 @@ public interface Color {
         }
 
         @Override
-        public CssClass getUtilityColor() {
-          return dui_color_purple_l_2;
+        public CssClass getContextColor() {
+          return dui_context_purple_l_2;
         }
       };
 
@@ -4126,8 +4126,8 @@ public interface Color {
         }
 
         @Override
-        public CssClass getUtilityColor() {
-          return dui_color_purple_l_3;
+        public CssClass getContextColor() {
+          return dui_context_purple_l_3;
         }
       };
 
@@ -4165,8 +4165,8 @@ public interface Color {
         }
 
         @Override
-        public CssClass getUtilityColor() {
-          return dui_color_purple_l_4;
+        public CssClass getContextColor() {
+          return dui_context_purple_l_4;
         }
       };
 
@@ -4204,8 +4204,8 @@ public interface Color {
         }
 
         @Override
-        public CssClass getUtilityColor() {
-          return dui_color_purple_l_5;
+        public CssClass getContextColor() {
+          return dui_context_purple_l_5;
         }
       };
 
@@ -4243,8 +4243,8 @@ public interface Color {
         }
 
         @Override
-        public CssClass getUtilityColor() {
-          return dui_color_purple_d_1;
+        public CssClass getContextColor() {
+          return dui_context_purple_d_1;
         }
       };
 
@@ -4282,8 +4282,8 @@ public interface Color {
         }
 
         @Override
-        public CssClass getUtilityColor() {
-          return dui_color_purple_d_2;
+        public CssClass getContextColor() {
+          return dui_context_purple_d_2;
         }
       };
 
@@ -4321,8 +4321,8 @@ public interface Color {
         }
 
         @Override
-        public CssClass getUtilityColor() {
-          return dui_color_purple_d_3;
+        public CssClass getContextColor() {
+          return dui_context_purple_d_3;
         }
       };
 
@@ -4360,8 +4360,8 @@ public interface Color {
         }
 
         @Override
-        public CssClass getUtilityColor() {
-          return dui_color_purple_d_4;
+        public CssClass getContextColor() {
+          return dui_context_purple_d_4;
         }
       };
 
@@ -4399,8 +4399,8 @@ public interface Color {
         }
 
         @Override
-        public CssClass getUtilityColor() {
-          return dui_color_deep_purple;
+        public CssClass getContextColor() {
+          return dui_context_deep_purple;
         }
       };
 
@@ -4438,8 +4438,8 @@ public interface Color {
         }
 
         @Override
-        public CssClass getUtilityColor() {
-          return dui_color_deep_purple_l_1;
+        public CssClass getContextColor() {
+          return dui_context_deep_purple_l_1;
         }
       };
 
@@ -4477,8 +4477,8 @@ public interface Color {
         }
 
         @Override
-        public CssClass getUtilityColor() {
-          return dui_color_deep_purple_l_2;
+        public CssClass getContextColor() {
+          return dui_context_deep_purple_l_2;
         }
       };
 
@@ -4516,8 +4516,8 @@ public interface Color {
         }
 
         @Override
-        public CssClass getUtilityColor() {
-          return dui_color_deep_purple_l_3;
+        public CssClass getContextColor() {
+          return dui_context_deep_purple_l_3;
         }
       };
 
@@ -4555,8 +4555,8 @@ public interface Color {
         }
 
         @Override
-        public CssClass getUtilityColor() {
-          return dui_color_deep_purple_l_4;
+        public CssClass getContextColor() {
+          return dui_context_deep_purple_l_4;
         }
       };
 
@@ -4594,8 +4594,8 @@ public interface Color {
         }
 
         @Override
-        public CssClass getUtilityColor() {
-          return dui_color_deep_purple_l_5;
+        public CssClass getContextColor() {
+          return dui_context_deep_purple_l_5;
         }
       };
 
@@ -4633,8 +4633,8 @@ public interface Color {
         }
 
         @Override
-        public CssClass getUtilityColor() {
-          return dui_color_deep_purple_d_1;
+        public CssClass getContextColor() {
+          return dui_context_deep_purple_d_1;
         }
       };
 
@@ -4672,8 +4672,8 @@ public interface Color {
         }
 
         @Override
-        public CssClass getUtilityColor() {
-          return dui_color_deep_purple_d_2;
+        public CssClass getContextColor() {
+          return dui_context_deep_purple_d_2;
         }
       };
 
@@ -4711,8 +4711,8 @@ public interface Color {
         }
 
         @Override
-        public CssClass getUtilityColor() {
-          return dui_color_deep_purple_d_3;
+        public CssClass getContextColor() {
+          return dui_context_deep_purple_d_3;
         }
       };
 
@@ -4750,8 +4750,8 @@ public interface Color {
         }
 
         @Override
-        public CssClass getUtilityColor() {
-          return dui_color_deep_purple_d_4;
+        public CssClass getContextColor() {
+          return dui_context_deep_purple_d_4;
         }
       };
 
@@ -4789,8 +4789,8 @@ public interface Color {
         }
 
         @Override
-        public CssClass getUtilityColor() {
-          return dui_color_indigo;
+        public CssClass getContextColor() {
+          return dui_context_indigo;
         }
       };
 
@@ -4828,8 +4828,8 @@ public interface Color {
         }
 
         @Override
-        public CssClass getUtilityColor() {
-          return dui_color_indigo_l_1;
+        public CssClass getContextColor() {
+          return dui_context_indigo_l_1;
         }
       };
 
@@ -4867,8 +4867,8 @@ public interface Color {
         }
 
         @Override
-        public CssClass getUtilityColor() {
-          return dui_color_indigo_l_2;
+        public CssClass getContextColor() {
+          return dui_context_indigo_l_2;
         }
       };
 
@@ -4906,8 +4906,8 @@ public interface Color {
         }
 
         @Override
-        public CssClass getUtilityColor() {
-          return dui_color_indigo_l_3;
+        public CssClass getContextColor() {
+          return dui_context_indigo_l_3;
         }
       };
 
@@ -4945,8 +4945,8 @@ public interface Color {
         }
 
         @Override
-        public CssClass getUtilityColor() {
-          return dui_color_indigo_l_4;
+        public CssClass getContextColor() {
+          return dui_context_indigo_l_4;
         }
       };
 
@@ -4984,8 +4984,8 @@ public interface Color {
         }
 
         @Override
-        public CssClass getUtilityColor() {
-          return dui_color_indigo_l_5;
+        public CssClass getContextColor() {
+          return dui_context_indigo_l_5;
         }
       };
 
@@ -5023,8 +5023,8 @@ public interface Color {
         }
 
         @Override
-        public CssClass getUtilityColor() {
-          return dui_color_indigo_d_1;
+        public CssClass getContextColor() {
+          return dui_context_indigo_d_1;
         }
       };
 
@@ -5062,8 +5062,8 @@ public interface Color {
         }
 
         @Override
-        public CssClass getUtilityColor() {
-          return dui_color_indigo_d_2;
+        public CssClass getContextColor() {
+          return dui_context_indigo_d_2;
         }
       };
 
@@ -5101,8 +5101,8 @@ public interface Color {
         }
 
         @Override
-        public CssClass getUtilityColor() {
-          return dui_color_indigo_d_3;
+        public CssClass getContextColor() {
+          return dui_context_indigo_d_3;
         }
       };
 
@@ -5140,8 +5140,8 @@ public interface Color {
         }
 
         @Override
-        public CssClass getUtilityColor() {
-          return dui_color_indigo_d_4;
+        public CssClass getContextColor() {
+          return dui_context_indigo_d_4;
         }
       };
 
@@ -5179,8 +5179,8 @@ public interface Color {
         }
 
         @Override
-        public CssClass getUtilityColor() {
-          return dui_color_blue;
+        public CssClass getContextColor() {
+          return dui_context_blue;
         }
       };
 
@@ -5218,8 +5218,8 @@ public interface Color {
         }
 
         @Override
-        public CssClass getUtilityColor() {
-          return dui_color_blue_l_1;
+        public CssClass getContextColor() {
+          return dui_context_blue_l_1;
         }
       };
 
@@ -5257,8 +5257,8 @@ public interface Color {
         }
 
         @Override
-        public CssClass getUtilityColor() {
-          return dui_color_blue_l_2;
+        public CssClass getContextColor() {
+          return dui_context_blue_l_2;
         }
       };
 
@@ -5296,8 +5296,8 @@ public interface Color {
         }
 
         @Override
-        public CssClass getUtilityColor() {
-          return dui_color_blue_l_3;
+        public CssClass getContextColor() {
+          return dui_context_blue_l_3;
         }
       };
 
@@ -5335,8 +5335,8 @@ public interface Color {
         }
 
         @Override
-        public CssClass getUtilityColor() {
-          return dui_color_blue_l_4;
+        public CssClass getContextColor() {
+          return dui_context_blue_l_4;
         }
       };
 
@@ -5374,8 +5374,8 @@ public interface Color {
         }
 
         @Override
-        public CssClass getUtilityColor() {
-          return dui_color_blue_l_5;
+        public CssClass getContextColor() {
+          return dui_context_blue_l_5;
         }
       };
 
@@ -5413,8 +5413,8 @@ public interface Color {
         }
 
         @Override
-        public CssClass getUtilityColor() {
-          return dui_color_blue_d_1;
+        public CssClass getContextColor() {
+          return dui_context_blue_d_1;
         }
       };
 
@@ -5452,8 +5452,8 @@ public interface Color {
         }
 
         @Override
-        public CssClass getUtilityColor() {
-          return dui_color_blue_d_2;
+        public CssClass getContextColor() {
+          return dui_context_blue_d_2;
         }
       };
 
@@ -5491,8 +5491,8 @@ public interface Color {
         }
 
         @Override
-        public CssClass getUtilityColor() {
-          return dui_color_blue_d_3;
+        public CssClass getContextColor() {
+          return dui_context_blue_d_3;
         }
       };
 
@@ -5530,8 +5530,8 @@ public interface Color {
         }
 
         @Override
-        public CssClass getUtilityColor() {
-          return dui_color_blue_d_4;
+        public CssClass getContextColor() {
+          return dui_context_blue_d_4;
         }
       };
 
@@ -5569,8 +5569,8 @@ public interface Color {
         }
 
         @Override
-        public CssClass getUtilityColor() {
-          return dui_color_light_blue;
+        public CssClass getContextColor() {
+          return dui_context_light_blue;
         }
       };
 
@@ -5608,8 +5608,8 @@ public interface Color {
         }
 
         @Override
-        public CssClass getUtilityColor() {
-          return dui_color_light_blue_l_1;
+        public CssClass getContextColor() {
+          return dui_context_light_blue_l_1;
         }
       };
 
@@ -5647,8 +5647,8 @@ public interface Color {
         }
 
         @Override
-        public CssClass getUtilityColor() {
-          return dui_color_light_blue_l_2;
+        public CssClass getContextColor() {
+          return dui_context_light_blue_l_2;
         }
       };
 
@@ -5686,8 +5686,8 @@ public interface Color {
         }
 
         @Override
-        public CssClass getUtilityColor() {
-          return dui_color_light_blue_l_3;
+        public CssClass getContextColor() {
+          return dui_context_light_blue_l_3;
         }
       };
 
@@ -5725,8 +5725,8 @@ public interface Color {
         }
 
         @Override
-        public CssClass getUtilityColor() {
-          return dui_color_light_blue_l_4;
+        public CssClass getContextColor() {
+          return dui_context_light_blue_l_4;
         }
       };
 
@@ -5764,8 +5764,8 @@ public interface Color {
         }
 
         @Override
-        public CssClass getUtilityColor() {
-          return dui_color_light_blue_l_5;
+        public CssClass getContextColor() {
+          return dui_context_light_blue_l_5;
         }
       };
 
@@ -5803,8 +5803,8 @@ public interface Color {
         }
 
         @Override
-        public CssClass getUtilityColor() {
-          return dui_color_light_blue_d_1;
+        public CssClass getContextColor() {
+          return dui_context_light_blue_d_1;
         }
       };
 
@@ -5842,8 +5842,8 @@ public interface Color {
         }
 
         @Override
-        public CssClass getUtilityColor() {
-          return dui_color_light_blue_d_2;
+        public CssClass getContextColor() {
+          return dui_context_light_blue_d_2;
         }
       };
 
@@ -5881,8 +5881,8 @@ public interface Color {
         }
 
         @Override
-        public CssClass getUtilityColor() {
-          return dui_color_light_blue_d_3;
+        public CssClass getContextColor() {
+          return dui_context_light_blue_d_3;
         }
       };
 
@@ -5920,8 +5920,8 @@ public interface Color {
         }
 
         @Override
-        public CssClass getUtilityColor() {
-          return dui_color_light_blue_d_4;
+        public CssClass getContextColor() {
+          return dui_context_light_blue_d_4;
         }
       };
 
@@ -5959,8 +5959,8 @@ public interface Color {
         }
 
         @Override
-        public CssClass getUtilityColor() {
-          return dui_color_cyan;
+        public CssClass getContextColor() {
+          return dui_context_cyan;
         }
       };
 
@@ -5998,8 +5998,8 @@ public interface Color {
         }
 
         @Override
-        public CssClass getUtilityColor() {
-          return dui_color_cyan_l_1;
+        public CssClass getContextColor() {
+          return dui_context_cyan_l_1;
         }
       };
 
@@ -6037,8 +6037,8 @@ public interface Color {
         }
 
         @Override
-        public CssClass getUtilityColor() {
-          return dui_color_cyan_l_2;
+        public CssClass getContextColor() {
+          return dui_context_cyan_l_2;
         }
       };
 
@@ -6076,8 +6076,8 @@ public interface Color {
         }
 
         @Override
-        public CssClass getUtilityColor() {
-          return dui_color_cyan_l_3;
+        public CssClass getContextColor() {
+          return dui_context_cyan_l_3;
         }
       };
 
@@ -6115,8 +6115,8 @@ public interface Color {
         }
 
         @Override
-        public CssClass getUtilityColor() {
-          return dui_color_cyan_l_4;
+        public CssClass getContextColor() {
+          return dui_context_cyan_l_4;
         }
       };
 
@@ -6154,8 +6154,8 @@ public interface Color {
         }
 
         @Override
-        public CssClass getUtilityColor() {
-          return dui_color_cyan_l_5;
+        public CssClass getContextColor() {
+          return dui_context_cyan_l_5;
         }
       };
 
@@ -6193,8 +6193,8 @@ public interface Color {
         }
 
         @Override
-        public CssClass getUtilityColor() {
-          return dui_color_cyan_d_1;
+        public CssClass getContextColor() {
+          return dui_context_cyan_d_1;
         }
       };
 
@@ -6232,8 +6232,8 @@ public interface Color {
         }
 
         @Override
-        public CssClass getUtilityColor() {
-          return dui_color_cyan_d_2;
+        public CssClass getContextColor() {
+          return dui_context_cyan_d_2;
         }
       };
 
@@ -6271,8 +6271,8 @@ public interface Color {
         }
 
         @Override
-        public CssClass getUtilityColor() {
-          return dui_color_cyan_d_3;
+        public CssClass getContextColor() {
+          return dui_context_cyan_d_3;
         }
       };
 
@@ -6310,8 +6310,8 @@ public interface Color {
         }
 
         @Override
-        public CssClass getUtilityColor() {
-          return dui_color_cyan_d_4;
+        public CssClass getContextColor() {
+          return dui_context_cyan_d_4;
         }
       };
 
@@ -6349,8 +6349,8 @@ public interface Color {
         }
 
         @Override
-        public CssClass getUtilityColor() {
-          return dui_color_teal;
+        public CssClass getContextColor() {
+          return dui_context_teal;
         }
       };
 
@@ -6388,8 +6388,8 @@ public interface Color {
         }
 
         @Override
-        public CssClass getUtilityColor() {
-          return dui_color_teal_l_1;
+        public CssClass getContextColor() {
+          return dui_context_teal_l_1;
         }
       };
 
@@ -6427,8 +6427,8 @@ public interface Color {
         }
 
         @Override
-        public CssClass getUtilityColor() {
-          return dui_color_teal_l_2;
+        public CssClass getContextColor() {
+          return dui_context_teal_l_2;
         }
       };
 
@@ -6466,8 +6466,8 @@ public interface Color {
         }
 
         @Override
-        public CssClass getUtilityColor() {
-          return dui_color_teal_l_3;
+        public CssClass getContextColor() {
+          return dui_context_teal_l_3;
         }
       };
 
@@ -6505,8 +6505,8 @@ public interface Color {
         }
 
         @Override
-        public CssClass getUtilityColor() {
-          return dui_color_teal_l_4;
+        public CssClass getContextColor() {
+          return dui_context_teal_l_4;
         }
       };
 
@@ -6544,8 +6544,8 @@ public interface Color {
         }
 
         @Override
-        public CssClass getUtilityColor() {
-          return dui_color_teal_l_5;
+        public CssClass getContextColor() {
+          return dui_context_teal_l_5;
         }
       };
 
@@ -6583,8 +6583,8 @@ public interface Color {
         }
 
         @Override
-        public CssClass getUtilityColor() {
-          return dui_color_teal_d_1;
+        public CssClass getContextColor() {
+          return dui_context_teal_d_1;
         }
       };
 
@@ -6622,8 +6622,8 @@ public interface Color {
         }
 
         @Override
-        public CssClass getUtilityColor() {
-          return dui_color_teal_d_2;
+        public CssClass getContextColor() {
+          return dui_context_teal_d_2;
         }
       };
 
@@ -6661,8 +6661,8 @@ public interface Color {
         }
 
         @Override
-        public CssClass getUtilityColor() {
-          return dui_color_teal_d_3;
+        public CssClass getContextColor() {
+          return dui_context_teal_d_3;
         }
       };
 
@@ -6700,8 +6700,8 @@ public interface Color {
         }
 
         @Override
-        public CssClass getUtilityColor() {
-          return dui_color_teal_d_4;
+        public CssClass getContextColor() {
+          return dui_context_teal_d_4;
         }
       };
 
@@ -6739,8 +6739,8 @@ public interface Color {
         }
 
         @Override
-        public CssClass getUtilityColor() {
-          return dui_color_green;
+        public CssClass getContextColor() {
+          return dui_context_green;
         }
       };
 
@@ -6778,8 +6778,8 @@ public interface Color {
         }
 
         @Override
-        public CssClass getUtilityColor() {
-          return dui_color_green_l_1;
+        public CssClass getContextColor() {
+          return dui_context_green_l_1;
         }
       };
 
@@ -6817,8 +6817,8 @@ public interface Color {
         }
 
         @Override
-        public CssClass getUtilityColor() {
-          return dui_color_green_l_2;
+        public CssClass getContextColor() {
+          return dui_context_green_l_2;
         }
       };
 
@@ -6856,8 +6856,8 @@ public interface Color {
         }
 
         @Override
-        public CssClass getUtilityColor() {
-          return dui_color_green_l_3;
+        public CssClass getContextColor() {
+          return dui_context_green_l_3;
         }
       };
 
@@ -6895,8 +6895,8 @@ public interface Color {
         }
 
         @Override
-        public CssClass getUtilityColor() {
-          return dui_color_green_l_4;
+        public CssClass getContextColor() {
+          return dui_context_green_l_4;
         }
       };
 
@@ -6934,8 +6934,8 @@ public interface Color {
         }
 
         @Override
-        public CssClass getUtilityColor() {
-          return dui_color_green_l_5;
+        public CssClass getContextColor() {
+          return dui_context_green_l_5;
         }
       };
 
@@ -6973,8 +6973,8 @@ public interface Color {
         }
 
         @Override
-        public CssClass getUtilityColor() {
-          return dui_color_green_d_1;
+        public CssClass getContextColor() {
+          return dui_context_green_d_1;
         }
       };
 
@@ -7012,8 +7012,8 @@ public interface Color {
         }
 
         @Override
-        public CssClass getUtilityColor() {
-          return dui_color_green_d_2;
+        public CssClass getContextColor() {
+          return dui_context_green_d_2;
         }
       };
 
@@ -7051,8 +7051,8 @@ public interface Color {
         }
 
         @Override
-        public CssClass getUtilityColor() {
-          return dui_color_green_d_3;
+        public CssClass getContextColor() {
+          return dui_context_green_d_3;
         }
       };
 
@@ -7090,8 +7090,8 @@ public interface Color {
         }
 
         @Override
-        public CssClass getUtilityColor() {
-          return dui_color_green_d_4;
+        public CssClass getContextColor() {
+          return dui_context_green_d_4;
         }
       };
 
@@ -7129,8 +7129,8 @@ public interface Color {
         }
 
         @Override
-        public CssClass getUtilityColor() {
-          return dui_color_light_green;
+        public CssClass getContextColor() {
+          return dui_context_light_green;
         }
       };
 
@@ -7168,8 +7168,8 @@ public interface Color {
         }
 
         @Override
-        public CssClass getUtilityColor() {
-          return dui_color_light_green_l_1;
+        public CssClass getContextColor() {
+          return dui_context_light_green_l_1;
         }
       };
 
@@ -7207,8 +7207,8 @@ public interface Color {
         }
 
         @Override
-        public CssClass getUtilityColor() {
-          return dui_color_light_green_l_2;
+        public CssClass getContextColor() {
+          return dui_context_light_green_l_2;
         }
       };
 
@@ -7246,8 +7246,8 @@ public interface Color {
         }
 
         @Override
-        public CssClass getUtilityColor() {
-          return dui_color_light_green_l_3;
+        public CssClass getContextColor() {
+          return dui_context_light_green_l_3;
         }
       };
 
@@ -7285,8 +7285,8 @@ public interface Color {
         }
 
         @Override
-        public CssClass getUtilityColor() {
-          return dui_color_light_green_l_4;
+        public CssClass getContextColor() {
+          return dui_context_light_green_l_4;
         }
       };
 
@@ -7324,8 +7324,8 @@ public interface Color {
         }
 
         @Override
-        public CssClass getUtilityColor() {
-          return dui_color_light_green_l_5;
+        public CssClass getContextColor() {
+          return dui_context_light_green_l_5;
         }
       };
 
@@ -7363,8 +7363,8 @@ public interface Color {
         }
 
         @Override
-        public CssClass getUtilityColor() {
-          return dui_color_light_green_d_1;
+        public CssClass getContextColor() {
+          return dui_context_light_green_d_1;
         }
       };
 
@@ -7402,8 +7402,8 @@ public interface Color {
         }
 
         @Override
-        public CssClass getUtilityColor() {
-          return dui_color_light_green_d_2;
+        public CssClass getContextColor() {
+          return dui_context_light_green_d_2;
         }
       };
 
@@ -7441,8 +7441,8 @@ public interface Color {
         }
 
         @Override
-        public CssClass getUtilityColor() {
-          return dui_color_light_green_d_3;
+        public CssClass getContextColor() {
+          return dui_context_light_green_d_3;
         }
       };
 
@@ -7480,8 +7480,8 @@ public interface Color {
         }
 
         @Override
-        public CssClass getUtilityColor() {
-          return dui_color_light_green_d_4;
+        public CssClass getContextColor() {
+          return dui_context_light_green_d_4;
         }
       };
 
@@ -7519,8 +7519,8 @@ public interface Color {
         }
 
         @Override
-        public CssClass getUtilityColor() {
-          return dui_color_lime;
+        public CssClass getContextColor() {
+          return dui_context_lime;
         }
       };
 
@@ -7558,8 +7558,8 @@ public interface Color {
         }
 
         @Override
-        public CssClass getUtilityColor() {
-          return dui_color_lime_l_1;
+        public CssClass getContextColor() {
+          return dui_context_lime_l_1;
         }
       };
 
@@ -7597,8 +7597,8 @@ public interface Color {
         }
 
         @Override
-        public CssClass getUtilityColor() {
-          return dui_color_lime_l_2;
+        public CssClass getContextColor() {
+          return dui_context_lime_l_2;
         }
       };
 
@@ -7636,8 +7636,8 @@ public interface Color {
         }
 
         @Override
-        public CssClass getUtilityColor() {
-          return dui_color_lime_l_3;
+        public CssClass getContextColor() {
+          return dui_context_lime_l_3;
         }
       };
 
@@ -7675,8 +7675,8 @@ public interface Color {
         }
 
         @Override
-        public CssClass getUtilityColor() {
-          return dui_color_lime_l_4;
+        public CssClass getContextColor() {
+          return dui_context_lime_l_4;
         }
       };
 
@@ -7714,8 +7714,8 @@ public interface Color {
         }
 
         @Override
-        public CssClass getUtilityColor() {
-          return dui_color_lime_l_5;
+        public CssClass getContextColor() {
+          return dui_context_lime_l_5;
         }
       };
 
@@ -7753,8 +7753,8 @@ public interface Color {
         }
 
         @Override
-        public CssClass getUtilityColor() {
-          return dui_color_lime_d_1;
+        public CssClass getContextColor() {
+          return dui_context_lime_d_1;
         }
       };
 
@@ -7792,8 +7792,8 @@ public interface Color {
         }
 
         @Override
-        public CssClass getUtilityColor() {
-          return dui_color_lime_d_2;
+        public CssClass getContextColor() {
+          return dui_context_lime_d_2;
         }
       };
 
@@ -7831,8 +7831,8 @@ public interface Color {
         }
 
         @Override
-        public CssClass getUtilityColor() {
-          return dui_color_lime_d_3;
+        public CssClass getContextColor() {
+          return dui_context_lime_d_3;
         }
       };
 
@@ -7870,8 +7870,8 @@ public interface Color {
         }
 
         @Override
-        public CssClass getUtilityColor() {
-          return dui_color_lime_d_4;
+        public CssClass getContextColor() {
+          return dui_context_lime_d_4;
         }
       };
 
@@ -7909,8 +7909,8 @@ public interface Color {
         }
 
         @Override
-        public CssClass getUtilityColor() {
-          return dui_color_yellow;
+        public CssClass getContextColor() {
+          return dui_context_yellow;
         }
       };
 
@@ -7948,8 +7948,8 @@ public interface Color {
         }
 
         @Override
-        public CssClass getUtilityColor() {
-          return dui_color_yellow_l_1;
+        public CssClass getContextColor() {
+          return dui_context_yellow_l_1;
         }
       };
 
@@ -7987,8 +7987,8 @@ public interface Color {
         }
 
         @Override
-        public CssClass getUtilityColor() {
-          return dui_color_yellow_l_2;
+        public CssClass getContextColor() {
+          return dui_context_yellow_l_2;
         }
       };
 
@@ -8026,8 +8026,8 @@ public interface Color {
         }
 
         @Override
-        public CssClass getUtilityColor() {
-          return dui_color_yellow_l_3;
+        public CssClass getContextColor() {
+          return dui_context_yellow_l_3;
         }
       };
 
@@ -8065,8 +8065,8 @@ public interface Color {
         }
 
         @Override
-        public CssClass getUtilityColor() {
-          return dui_color_yellow_l_4;
+        public CssClass getContextColor() {
+          return dui_context_yellow_l_4;
         }
       };
 
@@ -8104,8 +8104,8 @@ public interface Color {
         }
 
         @Override
-        public CssClass getUtilityColor() {
-          return dui_color_yellow_l_5;
+        public CssClass getContextColor() {
+          return dui_context_yellow_l_5;
         }
       };
 
@@ -8143,8 +8143,8 @@ public interface Color {
         }
 
         @Override
-        public CssClass getUtilityColor() {
-          return dui_color_yellow_d_1;
+        public CssClass getContextColor() {
+          return dui_context_yellow_d_1;
         }
       };
 
@@ -8182,8 +8182,8 @@ public interface Color {
         }
 
         @Override
-        public CssClass getUtilityColor() {
-          return dui_color_yellow_d_2;
+        public CssClass getContextColor() {
+          return dui_context_yellow_d_2;
         }
       };
 
@@ -8221,8 +8221,8 @@ public interface Color {
         }
 
         @Override
-        public CssClass getUtilityColor() {
-          return dui_color_yellow_d_3;
+        public CssClass getContextColor() {
+          return dui_context_yellow_d_3;
         }
       };
 
@@ -8260,8 +8260,8 @@ public interface Color {
         }
 
         @Override
-        public CssClass getUtilityColor() {
-          return dui_color_yellow_d_4;
+        public CssClass getContextColor() {
+          return dui_context_yellow_d_4;
         }
       };
 
@@ -8299,8 +8299,8 @@ public interface Color {
         }
 
         @Override
-        public CssClass getUtilityColor() {
-          return dui_color_amber;
+        public CssClass getContextColor() {
+          return dui_context_amber;
         }
       };
 
@@ -8338,8 +8338,8 @@ public interface Color {
         }
 
         @Override
-        public CssClass getUtilityColor() {
-          return dui_color_amber_l_1;
+        public CssClass getContextColor() {
+          return dui_context_amber_l_1;
         }
       };
 
@@ -8377,8 +8377,8 @@ public interface Color {
         }
 
         @Override
-        public CssClass getUtilityColor() {
-          return dui_color_amber_l_2;
+        public CssClass getContextColor() {
+          return dui_context_amber_l_2;
         }
       };
 
@@ -8416,8 +8416,8 @@ public interface Color {
         }
 
         @Override
-        public CssClass getUtilityColor() {
-          return dui_color_amber_l_3;
+        public CssClass getContextColor() {
+          return dui_context_amber_l_3;
         }
       };
 
@@ -8455,8 +8455,8 @@ public interface Color {
         }
 
         @Override
-        public CssClass getUtilityColor() {
-          return dui_color_amber_l_4;
+        public CssClass getContextColor() {
+          return dui_context_amber_l_4;
         }
       };
 
@@ -8494,8 +8494,8 @@ public interface Color {
         }
 
         @Override
-        public CssClass getUtilityColor() {
-          return dui_color_amber_l_5;
+        public CssClass getContextColor() {
+          return dui_context_amber_l_5;
         }
       };
 
@@ -8533,8 +8533,8 @@ public interface Color {
         }
 
         @Override
-        public CssClass getUtilityColor() {
-          return dui_color_amber_d_1;
+        public CssClass getContextColor() {
+          return dui_context_amber_d_1;
         }
       };
 
@@ -8572,8 +8572,8 @@ public interface Color {
         }
 
         @Override
-        public CssClass getUtilityColor() {
-          return dui_color_amber_d_2;
+        public CssClass getContextColor() {
+          return dui_context_amber_d_2;
         }
       };
 
@@ -8611,8 +8611,8 @@ public interface Color {
         }
 
         @Override
-        public CssClass getUtilityColor() {
-          return dui_color_amber_d_3;
+        public CssClass getContextColor() {
+          return dui_context_amber_d_3;
         }
       };
 
@@ -8650,8 +8650,8 @@ public interface Color {
         }
 
         @Override
-        public CssClass getUtilityColor() {
-          return dui_color_amber_d_4;
+        public CssClass getContextColor() {
+          return dui_context_amber_d_4;
         }
       };
 
@@ -8689,8 +8689,8 @@ public interface Color {
         }
 
         @Override
-        public CssClass getUtilityColor() {
-          return dui_color_orange;
+        public CssClass getContextColor() {
+          return dui_context_orange;
         }
       };
 
@@ -8728,8 +8728,8 @@ public interface Color {
         }
 
         @Override
-        public CssClass getUtilityColor() {
-          return dui_color_orange_l_1;
+        public CssClass getContextColor() {
+          return dui_context_orange_l_1;
         }
       };
 
@@ -8767,8 +8767,8 @@ public interface Color {
         }
 
         @Override
-        public CssClass getUtilityColor() {
-          return dui_color_orange_l_2;
+        public CssClass getContextColor() {
+          return dui_context_orange_l_2;
         }
       };
 
@@ -8806,8 +8806,8 @@ public interface Color {
         }
 
         @Override
-        public CssClass getUtilityColor() {
-          return dui_color_orange_l_3;
+        public CssClass getContextColor() {
+          return dui_context_orange_l_3;
         }
       };
 
@@ -8845,8 +8845,8 @@ public interface Color {
         }
 
         @Override
-        public CssClass getUtilityColor() {
-          return dui_color_orange_l_4;
+        public CssClass getContextColor() {
+          return dui_context_orange_l_4;
         }
       };
 
@@ -8884,8 +8884,8 @@ public interface Color {
         }
 
         @Override
-        public CssClass getUtilityColor() {
-          return dui_color_orange_l_5;
+        public CssClass getContextColor() {
+          return dui_context_orange_l_5;
         }
       };
 
@@ -8923,8 +8923,8 @@ public interface Color {
         }
 
         @Override
-        public CssClass getUtilityColor() {
-          return dui_color_orange_d_1;
+        public CssClass getContextColor() {
+          return dui_context_orange_d_1;
         }
       };
 
@@ -8962,8 +8962,8 @@ public interface Color {
         }
 
         @Override
-        public CssClass getUtilityColor() {
-          return dui_color_orange_d_2;
+        public CssClass getContextColor() {
+          return dui_context_orange_d_2;
         }
       };
 
@@ -9001,8 +9001,8 @@ public interface Color {
         }
 
         @Override
-        public CssClass getUtilityColor() {
-          return dui_color_orange_d_3;
+        public CssClass getContextColor() {
+          return dui_context_orange_d_3;
         }
       };
 
@@ -9040,8 +9040,8 @@ public interface Color {
         }
 
         @Override
-        public CssClass getUtilityColor() {
-          return dui_color_orange_d_4;
+        public CssClass getContextColor() {
+          return dui_context_orange_d_4;
         }
       };
 
@@ -9079,8 +9079,8 @@ public interface Color {
         }
 
         @Override
-        public CssClass getUtilityColor() {
-          return dui_color_deep_orange;
+        public CssClass getContextColor() {
+          return dui_context_deep_orange;
         }
       };
 
@@ -9118,8 +9118,8 @@ public interface Color {
         }
 
         @Override
-        public CssClass getUtilityColor() {
-          return dui_color_deep_orange_l_1;
+        public CssClass getContextColor() {
+          return dui_context_deep_orange_l_1;
         }
       };
 
@@ -9157,8 +9157,8 @@ public interface Color {
         }
 
         @Override
-        public CssClass getUtilityColor() {
-          return dui_color_deep_orange_l_2;
+        public CssClass getContextColor() {
+          return dui_context_deep_orange_l_2;
         }
       };
 
@@ -9196,8 +9196,8 @@ public interface Color {
         }
 
         @Override
-        public CssClass getUtilityColor() {
-          return dui_color_deep_orange_l_3;
+        public CssClass getContextColor() {
+          return dui_context_deep_orange_l_3;
         }
       };
 
@@ -9235,8 +9235,8 @@ public interface Color {
         }
 
         @Override
-        public CssClass getUtilityColor() {
-          return dui_color_deep_orange_l_4;
+        public CssClass getContextColor() {
+          return dui_context_deep_orange_l_4;
         }
       };
 
@@ -9274,8 +9274,8 @@ public interface Color {
         }
 
         @Override
-        public CssClass getUtilityColor() {
-          return dui_color_deep_orange_l_5;
+        public CssClass getContextColor() {
+          return dui_context_deep_orange_l_5;
         }
       };
 
@@ -9313,8 +9313,8 @@ public interface Color {
         }
 
         @Override
-        public CssClass getUtilityColor() {
-          return dui_color_deep_orange_d_1;
+        public CssClass getContextColor() {
+          return dui_context_deep_orange_d_1;
         }
       };
 
@@ -9352,8 +9352,8 @@ public interface Color {
         }
 
         @Override
-        public CssClass getUtilityColor() {
-          return dui_color_deep_orange_d_2;
+        public CssClass getContextColor() {
+          return dui_context_deep_orange_d_2;
         }
       };
 
@@ -9391,8 +9391,8 @@ public interface Color {
         }
 
         @Override
-        public CssClass getUtilityColor() {
-          return dui_color_deep_orange_d_3;
+        public CssClass getContextColor() {
+          return dui_context_deep_orange_d_3;
         }
       };
 
@@ -9430,8 +9430,8 @@ public interface Color {
         }
 
         @Override
-        public CssClass getUtilityColor() {
-          return dui_color_deep_orange_d_4;
+        public CssClass getContextColor() {
+          return dui_context_deep_orange_d_4;
         }
       };
 
@@ -9469,8 +9469,8 @@ public interface Color {
         }
 
         @Override
-        public CssClass getUtilityColor() {
-          return dui_color_brown;
+        public CssClass getContextColor() {
+          return dui_context_brown;
         }
       };
 
@@ -9508,8 +9508,8 @@ public interface Color {
         }
 
         @Override
-        public CssClass getUtilityColor() {
-          return dui_color_brown_l_1;
+        public CssClass getContextColor() {
+          return dui_context_brown_l_1;
         }
       };
 
@@ -9547,8 +9547,8 @@ public interface Color {
         }
 
         @Override
-        public CssClass getUtilityColor() {
-          return dui_color_brown_l_2;
+        public CssClass getContextColor() {
+          return dui_context_brown_l_2;
         }
       };
 
@@ -9586,8 +9586,8 @@ public interface Color {
         }
 
         @Override
-        public CssClass getUtilityColor() {
-          return dui_color_brown_l_3;
+        public CssClass getContextColor() {
+          return dui_context_brown_l_3;
         }
       };
 
@@ -9625,8 +9625,8 @@ public interface Color {
         }
 
         @Override
-        public CssClass getUtilityColor() {
-          return dui_color_brown_l_4;
+        public CssClass getContextColor() {
+          return dui_context_brown_l_4;
         }
       };
 
@@ -9664,8 +9664,8 @@ public interface Color {
         }
 
         @Override
-        public CssClass getUtilityColor() {
-          return dui_color_brown_l_5;
+        public CssClass getContextColor() {
+          return dui_context_brown_l_5;
         }
       };
 
@@ -9703,8 +9703,8 @@ public interface Color {
         }
 
         @Override
-        public CssClass getUtilityColor() {
-          return dui_color_brown_d_1;
+        public CssClass getContextColor() {
+          return dui_context_brown_d_1;
         }
       };
 
@@ -9742,8 +9742,8 @@ public interface Color {
         }
 
         @Override
-        public CssClass getUtilityColor() {
-          return dui_color_brown_d_2;
+        public CssClass getContextColor() {
+          return dui_context_brown_d_2;
         }
       };
 
@@ -9781,8 +9781,8 @@ public interface Color {
         }
 
         @Override
-        public CssClass getUtilityColor() {
-          return dui_color_brown_d_3;
+        public CssClass getContextColor() {
+          return dui_context_brown_d_3;
         }
       };
 
@@ -9820,8 +9820,8 @@ public interface Color {
         }
 
         @Override
-        public CssClass getUtilityColor() {
-          return dui_color_brown_d_4;
+        public CssClass getContextColor() {
+          return dui_context_brown_d_4;
         }
       };
 
@@ -9859,8 +9859,8 @@ public interface Color {
         }
 
         @Override
-        public CssClass getUtilityColor() {
-          return dui_color_grey;
+        public CssClass getContextColor() {
+          return dui_context_grey;
         }
       };
 
@@ -9898,8 +9898,8 @@ public interface Color {
         }
 
         @Override
-        public CssClass getUtilityColor() {
-          return dui_color_grey_l_1;
+        public CssClass getContextColor() {
+          return dui_context_grey_l_1;
         }
       };
 
@@ -9937,8 +9937,8 @@ public interface Color {
         }
 
         @Override
-        public CssClass getUtilityColor() {
-          return dui_color_grey_l_2;
+        public CssClass getContextColor() {
+          return dui_context_grey_l_2;
         }
       };
 
@@ -9976,8 +9976,8 @@ public interface Color {
         }
 
         @Override
-        public CssClass getUtilityColor() {
-          return dui_color_grey_l_3;
+        public CssClass getContextColor() {
+          return dui_context_grey_l_3;
         }
       };
 
@@ -10015,8 +10015,8 @@ public interface Color {
         }
 
         @Override
-        public CssClass getUtilityColor() {
-          return dui_color_grey_l_4;
+        public CssClass getContextColor() {
+          return dui_context_grey_l_4;
         }
       };
 
@@ -10054,8 +10054,8 @@ public interface Color {
         }
 
         @Override
-        public CssClass getUtilityColor() {
-          return dui_color_grey_l_5;
+        public CssClass getContextColor() {
+          return dui_context_grey_l_5;
         }
       };
 
@@ -10093,8 +10093,8 @@ public interface Color {
         }
 
         @Override
-        public CssClass getUtilityColor() {
-          return dui_color_grey_d_1;
+        public CssClass getContextColor() {
+          return dui_context_grey_d_1;
         }
       };
 
@@ -10132,8 +10132,8 @@ public interface Color {
         }
 
         @Override
-        public CssClass getUtilityColor() {
-          return dui_color_grey_d_2;
+        public CssClass getContextColor() {
+          return dui_context_grey_d_2;
         }
       };
 
@@ -10171,8 +10171,8 @@ public interface Color {
         }
 
         @Override
-        public CssClass getUtilityColor() {
-          return dui_color_grey_d_3;
+        public CssClass getContextColor() {
+          return dui_context_grey_d_3;
         }
       };
 
@@ -10210,8 +10210,8 @@ public interface Color {
         }
 
         @Override
-        public CssClass getUtilityColor() {
-          return dui_color_grey_d_4;
+        public CssClass getContextColor() {
+          return dui_context_grey_d_4;
         }
       };
 
@@ -10249,8 +10249,8 @@ public interface Color {
         }
 
         @Override
-        public CssClass getUtilityColor() {
-          return dui_color_blue_grey;
+        public CssClass getContextColor() {
+          return dui_context_blue_grey;
         }
       };
 
@@ -10288,8 +10288,8 @@ public interface Color {
         }
 
         @Override
-        public CssClass getUtilityColor() {
-          return dui_color_blue_grey_l_1;
+        public CssClass getContextColor() {
+          return dui_context_blue_grey_l_1;
         }
       };
 
@@ -10327,8 +10327,8 @@ public interface Color {
         }
 
         @Override
-        public CssClass getUtilityColor() {
-          return dui_color_blue_grey_l_2;
+        public CssClass getContextColor() {
+          return dui_context_blue_grey_l_2;
         }
       };
 
@@ -10366,8 +10366,8 @@ public interface Color {
         }
 
         @Override
-        public CssClass getUtilityColor() {
-          return dui_color_blue_grey_l_3;
+        public CssClass getContextColor() {
+          return dui_context_blue_grey_l_3;
         }
       };
 
@@ -10405,8 +10405,8 @@ public interface Color {
         }
 
         @Override
-        public CssClass getUtilityColor() {
-          return dui_color_blue_grey_l_4;
+        public CssClass getContextColor() {
+          return dui_context_blue_grey_l_4;
         }
       };
 
@@ -10444,8 +10444,8 @@ public interface Color {
         }
 
         @Override
-        public CssClass getUtilityColor() {
-          return dui_color_blue_grey_l_5;
+        public CssClass getContextColor() {
+          return dui_context_blue_grey_l_5;
         }
       };
 
@@ -10483,8 +10483,8 @@ public interface Color {
         }
 
         @Override
-        public CssClass getUtilityColor() {
-          return dui_color_blue_grey_d_1;
+        public CssClass getContextColor() {
+          return dui_context_blue_grey_d_1;
         }
       };
 
@@ -10522,8 +10522,8 @@ public interface Color {
         }
 
         @Override
-        public CssClass getUtilityColor() {
-          return dui_color_blue_grey_d_2;
+        public CssClass getContextColor() {
+          return dui_context_blue_grey_d_2;
         }
       };
 
@@ -10561,8 +10561,8 @@ public interface Color {
         }
 
         @Override
-        public CssClass getUtilityColor() {
-          return dui_color_blue_grey_d_3;
+        public CssClass getContextColor() {
+          return dui_context_blue_grey_d_3;
         }
       };
 
@@ -10600,8 +10600,8 @@ public interface Color {
         }
 
         @Override
-        public CssClass getUtilityColor() {
-          return dui_color_blue_grey_d_4;
+        public CssClass getContextColor() {
+          return dui_context_blue_grey_d_4;
         }
       };
 
@@ -10639,8 +10639,8 @@ public interface Color {
         }
 
         @Override
-        public CssClass getUtilityColor() {
-          return dui_color_white;
+        public CssClass getContextColor() {
+          return dui_context_white;
         }
       };
 
@@ -10678,8 +10678,8 @@ public interface Color {
         }
 
         @Override
-        public CssClass getUtilityColor() {
-          return dui_color_white_l_1;
+        public CssClass getContextColor() {
+          return dui_context_white_l_1;
         }
       };
 
@@ -10717,8 +10717,8 @@ public interface Color {
         }
 
         @Override
-        public CssClass getUtilityColor() {
-          return dui_color_white_l_2;
+        public CssClass getContextColor() {
+          return dui_context_white_l_2;
         }
       };
 
@@ -10756,8 +10756,8 @@ public interface Color {
         }
 
         @Override
-        public CssClass getUtilityColor() {
-          return dui_color_white_l_3;
+        public CssClass getContextColor() {
+          return dui_context_white_l_3;
         }
       };
 
@@ -10795,8 +10795,8 @@ public interface Color {
         }
 
         @Override
-        public CssClass getUtilityColor() {
-          return dui_color_white_l_4;
+        public CssClass getContextColor() {
+          return dui_context_white_l_4;
         }
       };
 
@@ -10834,8 +10834,8 @@ public interface Color {
         }
 
         @Override
-        public CssClass getUtilityColor() {
-          return dui_color_white_l_5;
+        public CssClass getContextColor() {
+          return dui_context_white_l_5;
         }
       };
 
@@ -10873,8 +10873,8 @@ public interface Color {
         }
 
         @Override
-        public CssClass getUtilityColor() {
-          return dui_color_white_d_1;
+        public CssClass getContextColor() {
+          return dui_context_white_d_1;
         }
       };
 
@@ -10912,8 +10912,8 @@ public interface Color {
         }
 
         @Override
-        public CssClass getUtilityColor() {
-          return dui_color_white_d_2;
+        public CssClass getContextColor() {
+          return dui_context_white_d_2;
         }
       };
 
@@ -10951,8 +10951,8 @@ public interface Color {
         }
 
         @Override
-        public CssClass getUtilityColor() {
-          return dui_color_white_d_3;
+        public CssClass getContextColor() {
+          return dui_context_white_d_3;
         }
       };
 
@@ -10990,8 +10990,8 @@ public interface Color {
         }
 
         @Override
-        public CssClass getUtilityColor() {
-          return dui_color_white_d_4;
+        public CssClass getContextColor() {
+          return dui_context_white_d_4;
         }
       };
 
@@ -11029,8 +11029,8 @@ public interface Color {
         }
 
         @Override
-        public CssClass getUtilityColor() {
-          return dui_color_black;
+        public CssClass getContextColor() {
+          return dui_context_black;
         }
       };
 
@@ -11068,8 +11068,8 @@ public interface Color {
         }
 
         @Override
-        public CssClass getUtilityColor() {
-          return dui_color_black_l_1;
+        public CssClass getContextColor() {
+          return dui_context_black_l_1;
         }
       };
 
@@ -11107,8 +11107,8 @@ public interface Color {
         }
 
         @Override
-        public CssClass getUtilityColor() {
-          return dui_color_black_l_2;
+        public CssClass getContextColor() {
+          return dui_context_black_l_2;
         }
       };
 
@@ -11146,8 +11146,8 @@ public interface Color {
         }
 
         @Override
-        public CssClass getUtilityColor() {
-          return dui_color_black_l_3;
+        public CssClass getContextColor() {
+          return dui_context_black_l_3;
         }
       };
 
@@ -11185,8 +11185,8 @@ public interface Color {
         }
 
         @Override
-        public CssClass getUtilityColor() {
-          return dui_color_black_l_4;
+        public CssClass getContextColor() {
+          return dui_context_black_l_4;
         }
       };
 
@@ -11224,8 +11224,8 @@ public interface Color {
         }
 
         @Override
-        public CssClass getUtilityColor() {
-          return dui_color_black_l_5;
+        public CssClass getContextColor() {
+          return dui_context_black_l_5;
         }
       };
 
@@ -11263,8 +11263,8 @@ public interface Color {
         }
 
         @Override
-        public CssClass getUtilityColor() {
-          return dui_color_black_d_1;
+        public CssClass getContextColor() {
+          return dui_context_black_d_1;
         }
       };
 
@@ -11302,8 +11302,8 @@ public interface Color {
         }
 
         @Override
-        public CssClass getUtilityColor() {
-          return dui_color_black_d_2;
+        public CssClass getContextColor() {
+          return dui_context_black_d_2;
         }
       };
 
@@ -11341,8 +11341,8 @@ public interface Color {
         }
 
         @Override
-        public CssClass getUtilityColor() {
-          return dui_color_black_d_3;
+        public CssClass getContextColor() {
+          return dui_context_black_d_3;
         }
       };
 
@@ -11380,8 +11380,8 @@ public interface Color {
         }
 
         @Override
-        public CssClass getUtilityColor() {
-          return dui_color_black_d_4;
+        public CssClass getContextColor() {
+          return dui_context_black_d_4;
         }
       };
 
@@ -11419,8 +11419,8 @@ public interface Color {
         }
 
         @Override
-        public CssClass getUtilityColor() {
-          return dui_color_transparent;
+        public CssClass getContextColor() {
+          return CssClass.NONE;
         }
       };
 
@@ -11458,8 +11458,8 @@ public interface Color {
         }
 
         @Override
-        public CssClass getUtilityColor() {
-          return dui_color_transparent;
+        public CssClass getContextColor() {
+          return CssClass.NONE;
         }
       };
 
@@ -11497,8 +11497,8 @@ public interface Color {
         }
 
         @Override
-        public CssClass getUtilityColor() {
-          return dui_color_transparent;
+        public CssClass getContextColor() {
+          return CssClass.NONE;
         }
       };
 
@@ -11536,8 +11536,8 @@ public interface Color {
         }
 
         @Override
-        public CssClass getUtilityColor() {
-          return dui_color_transparent;
+        public CssClass getContextColor() {
+          return CssClass.NONE;
         }
       };
 
@@ -11575,8 +11575,8 @@ public interface Color {
         }
 
         @Override
-        public CssClass getUtilityColor() {
-          return dui_color_transparent;
+        public CssClass getContextColor() {
+          return CssClass.NONE;
         }
       };
 
@@ -11614,8 +11614,8 @@ public interface Color {
         }
 
         @Override
-        public CssClass getUtilityColor() {
-          return dui_color_transparent;
+        public CssClass getContextColor() {
+          return CssClass.NONE;
         }
       };
 
@@ -11653,8 +11653,8 @@ public interface Color {
         }
 
         @Override
-        public CssClass getUtilityColor() {
-          return dui_color_transparent;
+        public CssClass getContextColor() {
+          return CssClass.NONE;
         }
       };
 
@@ -11692,8 +11692,8 @@ public interface Color {
         }
 
         @Override
-        public CssClass getUtilityColor() {
-          return dui_color_transparent;
+        public CssClass getContextColor() {
+          return CssClass.NONE;
         }
       };
 
@@ -11731,8 +11731,8 @@ public interface Color {
         }
 
         @Override
-        public CssClass getUtilityColor() {
-          return dui_color_transparent;
+        public CssClass getContextColor() {
+          return CssClass.NONE;
         }
       };
 
@@ -11770,8 +11770,8 @@ public interface Color {
         }
 
         @Override
-        public CssClass getUtilityColor() {
-          return dui_color_transparent;
+        public CssClass getContextColor() {
+          return CssClass.NONE;
         }
       };
 

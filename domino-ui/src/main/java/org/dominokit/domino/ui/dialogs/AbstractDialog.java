@@ -442,7 +442,7 @@ public class AbstractDialog<T extends AbstractDialog<T>>
 
   /** {@inheritDoc} */
   @Override
-  protected HTMLElement getAppendTarget() {
+  public HTMLElement getAppendTarget() {
     return bodyElement.element();
   }
 

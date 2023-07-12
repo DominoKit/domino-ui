@@ -25,6 +25,7 @@ import org.dominokit.domino.ui.i18n.PaginationLabels;
 import org.dominokit.domino.ui.icons.lib.Icons;
 import org.dominokit.domino.ui.style.BooleanCssClass;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
+import org.dominokit.domino.ui.utils.ChildHandler;
 import org.dominokit.domino.ui.utils.DominoUIConfig;
 import org.dominokit.domino.ui.utils.HasChangeListeners;
 
@@ -41,9 +42,6 @@ public abstract class BasePagination<T extends BasePagination<T>>
 
   protected NavElement pager;
   protected UListElement pagesList;
-
-  protected UListElement pagesElement = ul().css("pagination");
-  protected NavElement element = nav().appendChild(pagesElement);
   protected PagerNavItem activePage;
   protected List<PagerNavItem> allPages = new LinkedList<>();
 
@@ -57,7 +55,6 @@ public abstract class BasePagination<T extends BasePagination<T>>
   protected int pagesCount;
   protected int pageSize = 10;
   protected int totalCount = 0;
-
   protected PagerNavItem prevPage;
   protected PagerNavItem nextPage;
   protected PagerNavItem firstPage;
@@ -274,6 +271,36 @@ public abstract class BasePagination<T extends BasePagination<T>>
   @Override
   public int getPagesCount() {
     return pagesCount;
+  }
+
+  public T withNavElement(ChildHandler<T, NavElement> handler) {
+    handler.apply((T) this, pager);
+    return (T) this;
+  }
+
+  public T withPageList(ChildHandler<T, UListElement> handler) {
+    handler.apply((T) this, pagesList);
+    return (T) this;
+  }
+
+  public T withPrevPageNav(ChildHandler<T, PagerNavItem> handler) {
+    handler.apply((T) this, prevPage);
+    return (T) this;
+  }
+
+  public T withNextPageNav(ChildHandler<T, PagerNavItem> handler) {
+    handler.apply((T) this, nextPage);
+    return (T) this;
+  }
+
+  public T withFirstPageNav(ChildHandler<T, PagerNavItem> handler) {
+    handler.apply((T) this, firstPage);
+    return (T) this;
+  }
+
+  public T withLastPageNav(ChildHandler<T, PagerNavItem> handler) {
+    handler.apply((T) this, lastPage);
+    return (T) this;
   }
 
   /**

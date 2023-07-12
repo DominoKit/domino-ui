@@ -234,7 +234,7 @@ public class StepTracker extends BaseDominoElement<HTMLDivElement, StepTracker>
 
   /** {@inheritDoc} */
   @Override
-  protected Element getAppendTarget() {
+  public Element getAppendTarget() {
     return trackerContent.element();
   }
 

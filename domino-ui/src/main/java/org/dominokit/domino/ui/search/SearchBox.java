@@ -83,7 +83,7 @@ public class SearchBox extends BaseDominoElement<HTMLDivElement, SearchBox>
             .setTooltip(getLabels().defaultQuickSearchPlaceHolder());
 
     clearIcon =
-        Icons.backspace_outline()
+        Icons.close()
             .clickable()
             .setTooltip(getLabels().defaultQuickSearchClearToolTip())
             .addClickListener(

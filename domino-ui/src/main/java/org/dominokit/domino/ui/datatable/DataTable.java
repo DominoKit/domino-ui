@@ -53,7 +53,7 @@ public class DataTable<T> extends BaseDominoElement<HTMLDivElement, DataTable<T>
   private DivElement root = div().addCss(dui_datatable_responsive);
   private TableElement tableElement;
   private TableConfig<T> tableConfig;
-  private TBodyElement tbody = tbody();
+  private TBodyElement tbody = tbody().addCss(dui_datatable_body);
   private THeadElement thead = thead().addCss(dui_datatable_thead);
   private TFootElement tfoot = tfoot().addCss(dui_datatable_tfoot);
   private List<T> data = new ArrayList<>();
@@ -177,6 +177,9 @@ public class DataTable<T> extends BaseDominoElement<HTMLDivElement, DataTable<T>
               plugin.onBeforeAddTable(DataTable.this);
             });
     thead.clearElement();
+    if (tableConfig.isStickyHeader()) {
+      addCss(dui_datatable_sticky_header);
+    }
     tableConfig.onBeforeHeaders(this);
     tableConfig.drawHeaders(this, thead);
     tableConfig.onAfterHeaders(this);
@@ -804,6 +807,26 @@ public class DataTable<T> extends BaseDominoElement<HTMLDivElement, DataTable<T>
     if (nonNull(this.dynamicStyleSheet)) {
       this.root.appendChild(this.dynamicStyleSheet.getStyleElement());
     }
+    return this;
+  }
+
+  public DataTable<T> withTable(ChildHandler<DataTable<T>, TableElement> handler) {
+    handler.apply(this, tableElement);
+    return this;
+  }
+
+  public DataTable<T> withTableBody(ChildHandler<DataTable<T>, TBodyElement> handler) {
+    handler.apply(this, tbody);
+    return this;
+  }
+
+  public DataTable<T> withTableFooter(ChildHandler<DataTable<T>, TFootElement> handler) {
+    handler.apply(this, tfoot);
+    return this;
+  }
+
+  public DataTable<T> withTableHead(ChildHandler<DataTable<T>, THeadElement> handler) {
+    handler.apply(this, thead);
     return this;
   }
 

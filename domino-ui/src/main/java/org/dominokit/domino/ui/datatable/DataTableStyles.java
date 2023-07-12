@@ -48,6 +48,10 @@ public interface DataTableStyles {
   CssClass dui_datatable_td = () -> "dui-datatable-td";
   /** Constant <code>dui_datatable_thead</code> */
   CssClass dui_datatable_thead = () -> "dui-datatable-thead";
+
+  CssClass dui_datatable_sticky_header = () -> "dui-datatable-sticky-header";
+
+  CssClass dui_datatable_body = () -> "dui-datatable-body";
   /** Constant <code>dui_datatable_tfoot</code> */
   CssClass dui_datatable_tfoot = () -> "dui-datatable-tfoot";
   /** Constant <code>dui_datatable_row_marker</code> */

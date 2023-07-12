@@ -20,6 +20,7 @@ import org.dominokit.domino.ui.datatable.ColumnConfig;
 import org.dominokit.domino.ui.datatable.DataTable;
 import org.dominokit.domino.ui.datatable.plugins.DataTablePlugin;
 import org.dominokit.domino.ui.dnd.DragSource;
+import org.dominokit.domino.ui.dnd.Draggable;
 import org.dominokit.domino.ui.dnd.DropZone;
 import org.dominokit.domino.ui.icons.Icon;
 import org.dominokit.domino.ui.icons.lib.Icons;
@@ -52,7 +53,7 @@ public class ReorderColumnsPlugin<T> implements DataTablePlugin<T> {
             dataTable.redraw();
           });
 
-      dragSource.addDraggable(column.getName(), column.getHeadElement());
+      dragSource.addDraggable(Draggable.of(column.getName(), column.getHeadElement()));
       column.appendChild(div().addCss(dui_order_100).appendChild(headerIconSupplier.get()));
     }
   }

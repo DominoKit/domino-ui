@@ -22,13 +22,19 @@
 
 }
 
+
 .dui-list-group-item:hover {
-    background: var(--dui-bg-l-5, var(--dui-list-group-item-hover-background));
+    background: var(--dui-list-group-item-hover-background, var(--dui-accent-l-5));
+    color: var(--dui-list-group-item-hover-color);
+}
+
+.dui-list-group-item.dui-selected:hover {
+    background: var(--dui-list-group-item-hover-background, var(--dui-accent-l-4));
     color: var(--dui-list-group-item-hover-color);
 }
 
 .dui-list-group-item.dui-selected {
-    background: var(--dui-list-group-item-selected-background);
+    background: var(--dui-list-group-item-selected-background, var(--dui-accent));
     color: var(--dui-list-group-item-selected-color);
 }
 

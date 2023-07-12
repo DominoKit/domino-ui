@@ -11,7 +11,7 @@
     list-style: none;
     border-width: var(--dui-tabs-border-width);
     border-style: var(--dui-tabs-border-style);
-    border-color: var(--dui-tabs-border-color, var(--dui-bg-l-5, var(--dui-accent)));
+    border-color: var(--dui-tabs-border-color, var(--dui-accent));
     display: flex;
     justify-content: inherit;
 }
@@ -26,6 +26,7 @@
 .dui-tab-item {
     position: relative;
     display: block;
+    border-radius: var(--dui-tab-item-border-radius);
     cursor: var(--dui-tab-item-cursor);
 }
 
@@ -33,18 +34,17 @@
     position: relative;
     display: block;
     padding: var(--dui-tab-anchor-padding);
-    border-radius: var(--dui-tab-anchor-radius);
+    border-radius: inherit;
     text-decoration: var(--dui-tab-anchor-text-decoration);
 }
 
 .dui[class*="dui-bg-"] .dui-tab-anchor:hover,
 .dui[class*="dui-bg-"] .dui-tab-anchor:focus {
-    background-color: var(--dui-tab-anchor-focus-bg, var(--dui-bg-d-2, var(--dui-accent-clr)));
+    background-color: var(--dui-tab-anchor-focus-bg, var(--dui-accent-clr));
 }
-
 .dui-tab-anchor:hover,
 .dui-tab-anchor:focus {
-    background-color: var(--dui-tab-anchor-focus-bg, var(--dui-bg-d-2, var(--dui-accent-d-2)));
+    background-color: var(--dui-tab-anchor-focus-bg, var(--dui-accent-d-2));
     color: var(--dui-accent-text-color, var(--dui-text-color, var(--dui-color)));
 }
 
@@ -56,7 +56,7 @@
     display: var(--dui-tab-active-indicator-display);
     border-width: var(--dui-tab-active-indicator-border-width);
     border-style: var(--dui-tab-active-indicator-border-style);
-    border-color: var(--dui-tab-active-indicator-border-color, var(--dui-bg-l-5, var(--dui-accent)));
+    border-color: var(--dui-tab-active-indicator-border-color, var(--dui-accent));
     border-radius: var(--dui-tab-active-indicator-border-radius);
     bottom: var(--dui-tab-active-indicator-bottom);
     transform: var(--dui-tab-active-indicator-transform);
@@ -122,12 +122,8 @@
     padding: var(--dui-v-tabs-content-padding);
 }
 
-.dui-tab-panel {
+.dui-tab-panel:not(.dui-active) {
     display: none;
-}
-
-.dui-tab-panel.dui-active {
-    display: block;
 }
 
 .dui-tabs.dui-vertical {

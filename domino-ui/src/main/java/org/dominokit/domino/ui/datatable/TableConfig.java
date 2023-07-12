@@ -27,7 +27,6 @@ import org.dominokit.domino.ui.elements.THeadElement;
 import org.dominokit.domino.ui.elements.TableRowElement;
 import org.dominokit.domino.ui.style.DominoCss;
 import org.dominokit.domino.ui.utils.HasMultiSelectionSupport;
-import org.dominokit.domino.ui.utils.PostfixAddOn;
 
 /**
  * This class is responsible for configuring the data table
@@ -47,6 +46,7 @@ public class TableConfig<T>
   private String fixedBodyHeight = "400px";
   private boolean lazyLoad = true;
   private boolean multiSelect = true;
+  private boolean stickyHeader = false;
   private RowAppender<T> rowAppender =
       (dataTable, tableRow) -> dataTable.bodyElement().appendChild(tableRow.element());
   private DirtyRecordProvider<T> dirtyRecordProvider = original -> original;
@@ -65,34 +65,30 @@ public class TableConfig<T>
           .setCellRenderer(
               cellInfo -> {
                 elements.elementOf(cellInfo.getElement()).addCss(dui_datatable_column_utility);
-                return PostfixAddOn.of(
-                        elements
-                            .div()
-                            .addCss(dui_datatable_utility_elements)
-                            .apply(
-                                div -> {
-                                  getPlugins().stream()
-                                      .map(plugin -> plugin.getUtilityElements(dataTable, cellInfo))
-                                      .filter(Optional::isPresent)
-                                      .map(Optional::get)
-                                      .flatMap(Collection::stream)
-                                      .forEach(
-                                          node -> {
-                                            String order =
-                                                Optional.ofNullable(
-                                                        elements
-                                                            .elementOf(node)
-                                                            .getAttribute("order"))
-                                                    .orElse("0");
-                                            div.appendChild(
-                                                elements
-                                                    .div()
-                                                    .setCssProperty(
-                                                        "order", Integer.parseInt(order))
-                                                    .addCss(dui_datatable_utility_element)
-                                                    .appendChild(node));
-                                          });
-                                }))
+                return elements
+                    .div()
+                    .addCss(dui_datatable_utility_elements)
+                    .apply(
+                        div -> {
+                          getPlugins().stream()
+                              .map(plugin -> plugin.getUtilityElements(dataTable, cellInfo))
+                              .filter(Optional::isPresent)
+                              .map(Optional::get)
+                              .flatMap(Collection::stream)
+                              .forEach(
+                                  node -> {
+                                    String order =
+                                        Optional.ofNullable(
+                                                elements.elementOf(node).getAttribute("order"))
+                                            .orElse("0");
+                                    div.appendChild(
+                                        elements
+                                            .div()
+                                            .setCssProperty("order", Integer.parseInt(order))
+                                            .addCss(dui_datatable_utility_element)
+                                            .appendChild(node));
+                                  });
+                        })
                     .element();
               });
   private UtilityColumnHandler<T> utilityColumnHandler = utilityColumn -> {};
@@ -508,6 +504,15 @@ public class TableConfig<T>
    */
   public String getMinWidth() {
     return minWidth;
+  }
+
+  public boolean isStickyHeader() {
+    return stickyHeader;
+  }
+
+  public TableConfig<T> setStickyHeader(boolean stickyHeader) {
+    this.stickyHeader = stickyHeader;
+    return this;
   }
 
   /**

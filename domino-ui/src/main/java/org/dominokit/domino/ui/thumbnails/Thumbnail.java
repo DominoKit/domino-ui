@@ -82,7 +82,7 @@ public class Thumbnail extends BaseDominoElement<HTMLDivElement, Thumbnail>
 
   /** {@inheritDoc} */
   @Override
-  protected HTMLElement getAppendTarget() {
+  public HTMLElement getAppendTarget() {
     return body.element();
   }
 

@@ -98,7 +98,7 @@
 }
 
 .dui-menu-item:hover:before {
-    content: '';
+    content: var(--dui-menu-hover-before-content);
     border-top: 6px solid transparent;
     border-bottom: 6px solid transparent;
     border-left: 6px solid var(--dui-accent);
@@ -200,8 +200,8 @@
 }
 
 .dui-menu-item-selected {
-    background-color: var(--dui-accent-l-3);
-    color: var(--dui-color-5);
+    background-color: var(--dui-menu-item-selected-bg-color);
+    color: var(--dui-menu-item-selected-color);
 }
 
 .dui.dui-menu-append-target {

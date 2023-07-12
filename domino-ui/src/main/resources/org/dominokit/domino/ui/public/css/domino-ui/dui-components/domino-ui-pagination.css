@@ -34,7 +34,7 @@
 
 .dui-page-link.dui-active {
     color: var(--dui-pager-active-page-color);
-    background-color: var(--dui-pager-page-link-active-background, var(--dui-bg-d-3, var(--dui-accent)));
+    background-color: var(--dui-pager-page-link-active-background, var(--dui-accent));
 }
 
 .dui-page-link.dui-active:hover {

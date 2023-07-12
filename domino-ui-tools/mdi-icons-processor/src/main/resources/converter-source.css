@@ -1,0 +1,23 @@
+.dui.dui-border-context {
+    border-color: var(--dui-context-color);
+}
+.dui.dui-border-l-context {
+    border-left-color: var(--dui-context-color);
+}
+.dui.dui-border-r-context {
+    border-right-color: var(--dui-context-color);
+}
+.dui.dui-border-t-context {
+    border-top-color: var(--dui-context-color);
+}
+.dui.dui-border-b-context {
+    border-bottom-color: var(--dui-context-color);
+}
+.dui.dui-border-x-context {
+    border-left-color: var(--dui-context-color);
+    border-right-color: var(--dui-context-color);
+}
+.dui.dui-border-y-context {
+    border-top-color: var(--dui-context-color);
+    border-bottom-color: var(--dui-context-color);
+}

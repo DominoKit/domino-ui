@@ -782,7 +782,7 @@ public abstract class BaseDominoElement<E extends Element, T extends IsElement<E
    *
    * @return a {@link elemental2.dom.Element} object
    */
-  protected Element getAppendTarget() {
+  public Element getAppendTarget() {
     return element.element();
   }
 

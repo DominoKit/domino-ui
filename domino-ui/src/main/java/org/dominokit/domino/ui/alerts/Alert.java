@@ -221,7 +221,7 @@ public class Alert extends BaseDominoElement<HTMLDivElement, Alert> {
 
   /** {@inheritDoc} */
   @Override
-  protected Element getAppendTarget() {
+  public Element getAppendTarget() {
     return bodyElement.element();
   }
 

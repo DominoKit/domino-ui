@@ -41,4 +41,6 @@ public interface GridStyles {
   CssClass dui_grid_right = () -> "dui-grid-right";
   /** CSS style for grid row */
   CssClass dui_grid_row = () -> "dui-grid-row";
+
+  CssClass dui_auto_grid = () -> "dui-auto-grid";
 }

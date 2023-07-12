@@ -384,7 +384,7 @@ body.dui {
     --dui-btn-focus-bg: var(--dui-bg-d-2);
     --dui-btn-focus-color: var(--dui-fg-l-3);
     --dui-btn-focus-box-shadow: var(--dui-box-shadow-2);
-    --dui-btn-focus-outline-width: 1px;
+    --dui-btn-focus-outline-width: 0px;
     --dui-btn-focus-outline-style: dotted;
     --dui-btn-focus-outline-offset: 2px;
 
@@ -585,7 +585,7 @@ body.dui {
     --dui-tab-item-cursor: pointer;
     --dui-tab-anchor-padding: 10px 15px;
     --dui-tab-text-line-height: 24px;
-    --dui-tab-anchor-radius: 0px;
+    --dui-tab-item-border-radius: 0px;
     --dui-tab-anchor-text-decoration: none;
     --dui-tab-active-indicator-display: block;
     --dui-tab-active-indicator-border-width: 0 0 3px 0;
@@ -682,7 +682,6 @@ body.dui {
     --dui-list-group-item-border-width: 0 0 1px 0;
     --dui-list-group-item-border-style: solid;
     --dui-list-group-item-border-color: var(--dui-accent-l-4);
-    --dui-list-group-item-selected-background: var(--dui-accent);
     --dui-list-group-item-selected-color: var(--dui-clr-white);
     --dui-list-group-item-hover-color: var(--dui-color-alternate);
 
@@ -805,10 +804,15 @@ body.dui {
     --dui-menu-item-hint-color: var(--dui-color-1);
     --dui-menu-item-hint-font: var(--dui-font-regular-sm);
 
+    --dui-menu-item-selected-bg-color: var(--dui-accent-l-3);
+    --dui-menu-item-selected-color: var(--dui-color-5);
+
     --dui-menu-no-result-color: var(--dui-accent-l-1);
     --dui-menu-no-result-background: var(--dui-accent-l-5);
     --dui-menu-no-result-padding: 10px;
     --dui-menu-no-result-text-align: left;
+
+    --dui-menu-hover-before-content:'';
 
     --dui-menu-create-missing-color: var(--dui-accent-l-1);
     --dui-menu-create-missing-background: var(--dui-accent-l-5);

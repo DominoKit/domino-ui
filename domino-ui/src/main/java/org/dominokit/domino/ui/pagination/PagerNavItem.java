@@ -103,7 +103,7 @@ class PagerNavItem extends BaseDominoElement<HTMLLIElement, PagerNavItem>
 
   /** {@inheritDoc} */
   @Override
-  protected HTMLElement getAppendTarget() {
+  public HTMLElement getAppendTarget() {
     return link.element();
   }
 

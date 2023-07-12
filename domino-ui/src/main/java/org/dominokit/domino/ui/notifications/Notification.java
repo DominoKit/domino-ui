@@ -108,7 +108,7 @@ public class Notification extends BaseDominoElement<HTMLDivElement, Notification
 
   /** {@inheritDoc} */
   @Override
-  protected HTMLElement getAppendTarget() {
+  public HTMLElement getAppendTarget() {
     return content.element();
   }
 

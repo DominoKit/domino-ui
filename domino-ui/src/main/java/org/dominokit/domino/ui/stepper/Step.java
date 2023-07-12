@@ -277,7 +277,7 @@ public class Step extends BaseDominoElement<HTMLDivElement, Step>
 
   /** {@inheritDoc} */
   @Override
-  protected Element getAppendTarget() {
+  public Element getAppendTarget() {
     return stepContent.element();
   }
 }

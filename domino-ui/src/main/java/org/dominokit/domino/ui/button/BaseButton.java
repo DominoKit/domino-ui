@@ -110,7 +110,7 @@ public abstract class BaseButton<E extends HTMLElement, B extends BaseButton<E, 
 
   /** {@inheritDoc} */
   @Override
-  protected Element getAppendTarget() {
+  public Element getAppendTarget() {
     return bodyElement.element();
   }
 

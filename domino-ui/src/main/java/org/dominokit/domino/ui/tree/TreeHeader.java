@@ -220,7 +220,7 @@ public class TreeHeader extends BaseDominoElement<HTMLDivElement, TreeHeader>
 
   /** {@inheritDoc} */
   @Override
-  protected HTMLElement getAppendTarget() {
+  public HTMLElement getAppendTarget() {
     return content.element();
   }
 

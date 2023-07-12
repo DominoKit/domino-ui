@@ -93,6 +93,10 @@ public abstract class AbstractSelect<
                         .ifPresent(meta -> onOptionDeselected(meta.getOption())))
             .addCollapseListener((menu) -> focus());
 
+    onAttached(
+        mutationRecord -> {
+          optionsMenu.setTargetElement(getWrapperElement());
+        });
     getInputElement()
         .onKeyDown(
             keyEvents ->

@@ -93,7 +93,7 @@ public class AccordionPanel extends BaseDominoElement<HTMLDivElement, AccordionP
 
   /** {@inheritDoc} */
   @Override
-  protected HTMLElement getAppendTarget() {
+  public HTMLElement getAppendTarget() {
     return bodyElement.element();
   }
 

@@ -665,12 +665,4 @@ public abstract class NumberBox<T extends NumberBox<T, V>, V extends Number>
     getInputElement().element().name = name;
     return (T) this;
   }
-
-  @Override
-  public V getDefaultValue() {
-    if (nonNull(getMinValue())) {
-      return defaultMinValue();
-    }
-    return super.getDefaultValue();
-  }
 }

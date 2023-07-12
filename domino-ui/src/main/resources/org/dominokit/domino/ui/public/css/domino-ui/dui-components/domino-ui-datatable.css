@@ -19,11 +19,11 @@
 }
 
 .dui-datatable-thead {
-    background-color: inherit;
+    background-color: var(--dui-bg, var(--dui-clr-dominant));
 }
 
 .dui-datatable-thead .dui-datatable-row{
-    background-color: inherit;
+    background-color: var(--dui-bg, var(--dui-clr-dominant));
 }
 
 .dui-datatable-tfoot {
@@ -115,7 +115,7 @@
 .dui-datatable-row-marker .dui-datatable-row .dui-datatable-th:first-child {
     border-left-width: var(--dui-spc-1);
     border-left-style: solid;
-    border-left-color: var(--dui-utility-color, transparent);
+    border-left-color: var(--dui-context-color, transparent);
 }
 
 .dui-nav-bar.dui-datatable-nav-bar {
@@ -222,4 +222,16 @@
 
 .dui-datatable-column-utility {
     white-space: nowrap;
+}
+
+.dui-datatable-sticky-header {
+    position: relative;
+    overflow-y: auto;
+    max-height: 100%;
+}
+
+.dui-datatable-sticky-header .dui-datatable-thead {
+    position: sticky;
+    top: 0;
+    z-index: 1;
 }

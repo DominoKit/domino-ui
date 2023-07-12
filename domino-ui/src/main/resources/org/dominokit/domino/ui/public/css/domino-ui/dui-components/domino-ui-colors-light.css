@@ -12,11 +12,11 @@
 
     /* ====================== Colors ========================= */
 
-    --dui-clr-dominant-l-5: #f2f2f2;
-    --dui-clr-dominant-l-4: #f2f2f2;
-    --dui-clr-dominant-l-3: #f2f2f2;
+    --dui-clr-dominant-l-5: #fEfEfE;
+    --dui-clr-dominant-l-4: #fdfdfd;
+    --dui-clr-dominant-l-3: #f9f9f9;
     --dui-clr-dominant-l-2: #f2f2f2;
-    --dui-clr-dominant-l-1: #f2f2f2;
+    --dui-clr-dominant-l-1: #d9d9d9;
     --dui-clr-dominant: #FFFFFF;
     --dui-clr-dominant-d-1: #f2f2f2;
     --dui-clr-dominant-d-2: #d9d9d9;
@@ -265,6 +265,17 @@
     --dui-clr-orange-d-3: #EF6C00;
     --dui-clr-orange-d-4: #E65100;
 
+    --dui-clr-deep-orange-l-5: #FBE9E7;
+    --dui-clr-deep-orange-l-4: #FFCCBC;
+    --dui-clr-deep-orange-l-3: #FFAB91;
+    --dui-clr-deep-orange-l-2: #FF8A65;
+    --dui-clr-deep-orange-l-1: #FF7043;
+    --dui-clr-deep-orange: #FF5722;
+    --dui-clr-deep-orange-d-1: #F4511E;
+    --dui-clr-deep-orange-d-2: #E64A19;
+    --dui-clr-deep-orange-d-3: #D84315;
+    --dui-clr-deep-orange-d-4: #BF360C;
+
     --dui-clr-brown-l-5: #EFEBE9;
     --dui-clr-brown-l-4: #D7CCC8;
     --dui-clr-brown-l-3: #BCAAA4;
@@ -365,6 +376,7 @@
     --dui-thumbnail-border-active-color: var(--dui-accent-l-3);
     --dui-tree-header-bg-color: var(--dui-accent-l-3);
     --dui-list-group-item-hover-background: var(--dui-accent-l-4);
+    --dui-list-group-item-selected-background: var(--dui-accent);
     --dui-form-field-disabled-background: var(--dui-clr-grey-l-4);
     --dui-form-field-disabled-border-color: var(--dui-clr-grey-l-2);
     --dui-form-field-readonly-background: var(--dui-accent-l-5);
