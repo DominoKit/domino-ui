@@ -1082,12 +1082,8 @@ public class Menu<V> extends BaseDominoElement<HTMLDivElement, Menu<V>>
   private void position() {
     if (isDropDown() && isOpened()) {
       Optional<MenuTarget> menuTarget = getTarget();
-      LOGGER.info("Menu target present : " + menuTarget.isPresent());
-
       menuTarget.ifPresent(
           target -> {
-            LOGGER.info("Menu target element : " + target.getTargetElement());
-            DomGlobal.console.info(target.getTargetElement());
             getEffectiveDropDirection()
                 .position(element.element(), target.getTargetElement().element());
             if (fitToTargetWidth) {

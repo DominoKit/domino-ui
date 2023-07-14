@@ -36,6 +36,7 @@ import org.dominokit.domino.ui.loaders.Loader;
 import org.dominokit.domino.ui.loaders.LoaderEffect;
 import org.dominokit.domino.ui.menu.AbstractMenuItem;
 import org.dominokit.domino.ui.menu.Menu;
+import org.dominokit.domino.ui.menu.direction.DropDirection;
 import org.dominokit.domino.ui.style.BooleanCssClass;
 import org.dominokit.domino.ui.utils.*;
 
@@ -69,7 +70,6 @@ public abstract class AbstractSuggestBox<
       () -> {
         if (isEmptyInputText()) {
           optionsMenu.close();
-          clearValue(false);
         } else {
           search();
         }
@@ -102,6 +102,7 @@ public abstract class AbstractSuggestBox<
             .setTargetElement(getWrapperElement())
             .setAutoOpen(false)
             .setFitToTargetWidth(true)
+            .setDropDirection(DropDirection.BEST_MIDDLE_UP_DOWN)
             .addCollapseListener(component -> focus())
             .addSelectionListener(
                 (source, selection) -> {
