@@ -615,10 +615,10 @@ table th[class*="col-"] {
     background-color: inherit;
 }
 
-.table-responsive thead,
-.table-responsive thead tr,
-.table-responsive tbody {
-    background-color: inherit;
+.table-responsive thead:not([class*="bg-"]),
+.table-responsive thead tr:not([class*="bg-"]),
+.table-responsive tbody:not([class*="bg-"]) {
+    background-color: white;
 }
 
 .table-responsive.table-bordered {

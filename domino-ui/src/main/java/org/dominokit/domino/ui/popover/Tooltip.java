@@ -79,7 +79,7 @@ public class Tooltip extends BaseDominoElement<HTMLDivElement, Tooltip> {
         };
     targetElement.addEventListener(EventType.mouseenter.getName(), showToolTipListener, false);
     targetElement.addEventListener(EventType.mouseleave.getName(), removeToolTipListener, false);
-    targetElement.addEventListener(EventType.click.getName(), removeToolTipListener, false);
+    targetElement.addEventListener(EventType.click.getName(), evt -> hide(), false);
     init(this);
 
     removeHandler =

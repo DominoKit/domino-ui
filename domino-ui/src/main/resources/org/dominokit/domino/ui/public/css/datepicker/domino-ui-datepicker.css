@@ -98,7 +98,12 @@
     font-weight: 600;
     width: 35px;
     height: 35px;
+    margin: auto;
     line-height: 35px;
+}
+
+.date-picker tbody tr td {
+    text-align: center;
 }
 
 .date-picker .current-month:hover {
@@ -111,6 +116,7 @@
     color: #999999;
     width: 35px;
     height: 35px;
+    margin: auto;
     line-height: 35px;
 }
 
