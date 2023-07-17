@@ -13,24 +13,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.dominokit.domino.ui.i18n;
+package org.dominokit.domino.ui.richtext;
 
-/**
- * DominoUILabels interface.
- *
- * @author vegegoku
- * @version $Id: $Id
- */
-public interface DominoUILabels
-    extends QuickSearchLabels,
-        FormsLabels,
-        MenuLabels,
-        DialogLabels,
-        LoaderLabels,
-        PaginationLabels,
-        SearchLabels,
-        UploadLabels,
-        PickersLabels,
-        CalendarLabels,
-        RichTextLabels,
-        TimePickerLabels {}
+import org.dominokit.domino.ui.style.CssClass;
+
+public interface RichTextStyles {
+  CssClass dui_rich_text = () -> "dui-rich-text-editable";
+  CssClass dui_rich_text_editable = () -> "dui-rich-text-editable";
+  CssClass dui_rich_text_toolbars = () -> "dui-rich-text-toolbars";
+}

@@ -21,4 +21,8 @@ package org.dominokit.domino.ui.i18n;
  * @author vegegoku
  * @version $Id: $Id
  */
-public interface Labels {}
+public interface Labels {
+  default String close() {
+    return "Close";
+  }
+}

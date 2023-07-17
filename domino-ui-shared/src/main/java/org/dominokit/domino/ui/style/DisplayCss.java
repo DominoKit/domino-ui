@@ -216,384 +216,256 @@ public interface DisplayCss {
   CssClass dui_inset_x_1 = () -> "dui-inset-x-1";
   /** Constant <code>dui_inset_y_1</code> */
   CssClass dui_inset_y_1 = () -> "dui-inset-y-1";
-  /** Constant <code>dui_right_1</code> */
-  CssClass dui_right_1 = () -> "dui-right-1";
   /** Constant <code>dui_bottom_1</code> */
   CssClass dui_bottom_1 = () -> "dui-bottom-1";
-  /** Constant <code>dui_left_1</code> */
-  CssClass dui_left_1 = () -> "dui-left-1";
   /** Constant <code>dui_inset_1_5</code> */
   CssClass dui_inset_1_5 = () -> "dui-inset-1.5";
   /** Constant <code>dui_inset_x_1_5</code> */
   CssClass dui_inset_x_1_5 = () -> "dui-inset-x-1.5";
   /** Constant <code>dui_inset_y_1_5</code> */
   CssClass dui_inset_y_1_5 = () -> "dui-inset-y-1.5";
-  /** Constant <code>dui_right_1_5</code> */
-  CssClass dui_right_1_5 = () -> "dui-right-1.5";
   /** Constant <code>dui_bottom_1_5</code> */
   CssClass dui_bottom_1_5 = () -> "dui-bottom-1.5";
-  /** Constant <code>dui_left_1_5</code> */
-  CssClass dui_left_1_5 = () -> "dui-left-1.5";
   /** Constant <code>dui_inset_2</code> */
   CssClass dui_inset_2 = () -> "dui-inset-2";
   /** Constant <code>dui_inset_x_2</code> */
   CssClass dui_inset_x_2 = () -> "dui-inset-x-2";
   /** Constant <code>dui_inset_y_2</code> */
   CssClass dui_inset_y_2 = () -> "dui-inset-y-2";
-  /** Constant <code>dui_right_2</code> */
-  CssClass dui_right_2 = () -> "dui-right-2";
   /** Constant <code>dui_bottom_2</code> */
   CssClass dui_bottom_2 = () -> "dui-bottom-2";
-  /** Constant <code>dui_left_2</code> */
-  CssClass dui_left_2 = () -> "dui-left-2";
   /** Constant <code>dui_inset_2_5</code> */
   CssClass dui_inset_2_5 = () -> "dui-inset-2.5";
   /** Constant <code>dui_inset_x_2_5</code> */
   CssClass dui_inset_x_2_5 = () -> "dui-inset-x-2.5";
   /** Constant <code>dui_inset_y_2_5</code> */
   CssClass dui_inset_y_2_5 = () -> "dui-inset-y-2.5";
-  /** Constant <code>dui_right_2_5</code> */
-  CssClass dui_right_2_5 = () -> "dui-right-2.5";
   /** Constant <code>dui_bottom_2_5</code> */
   CssClass dui_bottom_2_5 = () -> "dui-bottom-2.5";
-  /** Constant <code>dui_left_2_5</code> */
-  CssClass dui_left_2_5 = () -> "dui-left-2.5";
   /** Constant <code>dui_inset_3</code> */
   CssClass dui_inset_3 = () -> "dui-inset-3";
   /** Constant <code>dui_inset_x_3</code> */
   CssClass dui_inset_x_3 = () -> "dui-inset-x-3";
   /** Constant <code>dui_inset_y_3</code> */
   CssClass dui_inset_y_3 = () -> "dui-inset-y-3";
-  /** Constant <code>dui_right_3</code> */
-  CssClass dui_right_3 = () -> "dui-right-3";
   /** Constant <code>dui_bottom_3</code> */
   CssClass dui_bottom_3 = () -> "dui-bottom-3";
-  /** Constant <code>dui_left_3</code> */
-  CssClass dui_left_3 = () -> "dui-left-3";
   /** Constant <code>dui_inset_3_5</code> */
   CssClass dui_inset_3_5 = () -> "dui-inset-3.5";
   /** Constant <code>dui_inset_x_3_5</code> */
   CssClass dui_inset_x_3_5 = () -> "dui-inset-x-3.5";
   /** Constant <code>dui_inset_y_3_5</code> */
   CssClass dui_inset_y_3_5 = () -> "dui-inset-y-3.5";
-  /** Constant <code>dui_right_3_5</code> */
-  CssClass dui_right_3_5 = () -> "dui-right-3.5";
   /** Constant <code>dui_bottom_3_5</code> */
   CssClass dui_bottom_3_5 = () -> "dui-bottom-3.5";
-  /** Constant <code>dui_left_3_5</code> */
-  CssClass dui_left_3_5 = () -> "dui-left-3.5";
   /** Constant <code>dui_inset_4</code> */
   CssClass dui_inset_4 = () -> "dui-inset-4";
   /** Constant <code>dui_inset_x_4</code> */
   CssClass dui_inset_x_4 = () -> "dui-inset-x-4";
   /** Constant <code>dui_inset_y_4</code> */
   CssClass dui_inset_y_4 = () -> "dui-inset-y-4";
-  /** Constant <code>dui_right_4</code> */
-  CssClass dui_right_4 = () -> "dui-right-4";
   /** Constant <code>dui_bottom_4</code> */
   CssClass dui_bottom_4 = () -> "dui-bottom-4";
-  /** Constant <code>dui_left_4</code> */
-  CssClass dui_left_4 = () -> "dui-left-4";
   /** Constant <code>dui_inset_5</code> */
   CssClass dui_inset_5 = () -> "dui-inset-5";
   /** Constant <code>dui_inset_x_5</code> */
   CssClass dui_inset_x_5 = () -> "dui-inset-x-5";
   /** Constant <code>dui_inset_y_5</code> */
   CssClass dui_inset_y_5 = () -> "dui-inset-y-5";
-  /** Constant <code>dui_right_5</code> */
-  CssClass dui_right_5 = () -> "dui-right-5";
   /** Constant <code>dui_bottom_5</code> */
   CssClass dui_bottom_5 = () -> "dui-bottom-5";
-  /** Constant <code>dui_left_5</code> */
-  CssClass dui_left_5 = () -> "dui-left-5";
   /** Constant <code>dui_inset_6</code> */
   CssClass dui_inset_6 = () -> "dui-inset-6";
   /** Constant <code>dui_inset_x_6</code> */
   CssClass dui_inset_x_6 = () -> "dui-inset-x-6";
   /** Constant <code>dui_inset_y_6</code> */
   CssClass dui_inset_y_6 = () -> "dui-inset-y-6";
-  /** Constant <code>dui_right_6</code> */
-  CssClass dui_right_6 = () -> "dui-right-6";
   /** Constant <code>dui_bottom_6</code> */
   CssClass dui_bottom_6 = () -> "dui-bottom-6";
-  /** Constant <code>dui_left_6</code> */
-  CssClass dui_left_6 = () -> "dui-left-6";
   /** Constant <code>dui_inset_7</code> */
   CssClass dui_inset_7 = () -> "dui-inset-7";
   /** Constant <code>dui_inset_x_7</code> */
   CssClass dui_inset_x_7 = () -> "dui-inset-x-7";
   /** Constant <code>dui_inset_y_7</code> */
   CssClass dui_inset_y_7 = () -> "dui-inset-y-7";
-  /** Constant <code>dui_right_7</code> */
-  CssClass dui_right_7 = () -> "dui-right-7";
   /** Constant <code>dui_bottom_7</code> */
   CssClass dui_bottom_7 = () -> "dui-bottom-7";
-  /** Constant <code>dui_left_7</code> */
-  CssClass dui_left_7 = () -> "dui-left-7";
   /** Constant <code>dui_inset_8</code> */
   CssClass dui_inset_8 = () -> "dui-inset-8";
   /** Constant <code>dui_inset_x_8</code> */
   CssClass dui_inset_x_8 = () -> "dui-inset-x-8";
   /** Constant <code>dui_inset_y_8</code> */
   CssClass dui_inset_y_8 = () -> "dui-inset-y-8";
-  /** Constant <code>dui_right_8</code> */
-  CssClass dui_right_8 = () -> "dui-right-8";
   /** Constant <code>dui_bottom_8</code> */
   CssClass dui_bottom_8 = () -> "dui-bottom-8";
-  /** Constant <code>dui_left_8</code> */
-  CssClass dui_left_8 = () -> "dui-left-8";
   /** Constant <code>dui_inset_9</code> */
   CssClass dui_inset_9 = () -> "dui-inset-9";
   /** Constant <code>dui_inset_x_9</code> */
   CssClass dui_inset_x_9 = () -> "dui-inset-x-9";
   /** Constant <code>dui_inset_y_9</code> */
   CssClass dui_inset_y_9 = () -> "dui-inset-y-9";
-  /** Constant <code>dui_right_9</code> */
-  CssClass dui_right_9 = () -> "dui-right-9";
   /** Constant <code>dui_bottom_9</code> */
   CssClass dui_bottom_9 = () -> "dui-bottom-9";
-  /** Constant <code>dui_left_9</code> */
-  CssClass dui_left_9 = () -> "dui-left-9";
   /** Constant <code>dui_inset_10</code> */
   CssClass dui_inset_10 = () -> "dui-inset-10";
   /** Constant <code>dui_inset_x_10</code> */
   CssClass dui_inset_x_10 = () -> "dui-inset-x-10";
   /** Constant <code>dui_inset_y_10</code> */
   CssClass dui_inset_y_10 = () -> "dui-inset-y-10";
-  /** Constant <code>dui_right_10</code> */
-  CssClass dui_right_10 = () -> "dui-right-10";
   /** Constant <code>dui_bottom_10</code> */
   CssClass dui_bottom_10 = () -> "dui-bottom-10";
-  /** Constant <code>dui_left_10</code> */
-  CssClass dui_left_10 = () -> "dui-left-10";
   /** Constant <code>dui_inset_11</code> */
   CssClass dui_inset_11 = () -> "dui-inset-11";
   /** Constant <code>dui_inset_x_11</code> */
   CssClass dui_inset_x_11 = () -> "dui-inset-x-11";
   /** Constant <code>dui_inset_y_11</code> */
   CssClass dui_inset_y_11 = () -> "dui-inset-y-11";
-  /** Constant <code>dui_right_11</code> */
-  CssClass dui_right_11 = () -> "dui-right-11";
   /** Constant <code>dui_bottom_11</code> */
   CssClass dui_bottom_11 = () -> "dui-bottom-11";
-  /** Constant <code>dui_left_11</code> */
-  CssClass dui_left_11 = () -> "dui-left-11";
   /** Constant <code>dui_inset_12</code> */
   CssClass dui_inset_12 = () -> "dui-inset-12";
   /** Constant <code>dui_inset_x_12</code> */
   CssClass dui_inset_x_12 = () -> "dui-inset-x-12";
   /** Constant <code>dui_inset_y_12</code> */
   CssClass dui_inset_y_12 = () -> "dui-inset-y-12";
-  /** Constant <code>dui_right_12</code> */
-  CssClass dui_right_12 = () -> "dui-right-12";
   /** Constant <code>dui_bottom_12</code> */
   CssClass dui_bottom_12 = () -> "dui-bottom-12";
-  /** Constant <code>dui_left_12</code> */
-  CssClass dui_left_12 = () -> "dui-left-12";
   /** Constant <code>dui_inset_14</code> */
   CssClass dui_inset_14 = () -> "dui-inset-14";
   /** Constant <code>dui_inset_x_14</code> */
   CssClass dui_inset_x_14 = () -> "dui-inset-x-14";
   /** Constant <code>dui_inset_y_14</code> */
   CssClass dui_inset_y_14 = () -> "dui-inset-y-14";
-  /** Constant <code>dui_right_14</code> */
-  CssClass dui_right_14 = () -> "dui-right-14";
   /** Constant <code>dui_bottom_14</code> */
   CssClass dui_bottom_14 = () -> "dui-bottom-14";
-  /** Constant <code>dui_left_14</code> */
-  CssClass dui_left_14 = () -> "dui-left-14";
   /** Constant <code>dui_inset_16</code> */
   CssClass dui_inset_16 = () -> "dui-inset-16";
   /** Constant <code>dui_inset_x_16</code> */
   CssClass dui_inset_x_16 = () -> "dui-inset-x-16";
   /** Constant <code>dui_inset_y_16</code> */
   CssClass dui_inset_y_16 = () -> "dui-inset-y-16";
-  /** Constant <code>dui_right_16</code> */
-  CssClass dui_right_16 = () -> "dui-right-16";
   /** Constant <code>dui_bottom_16</code> */
   CssClass dui_bottom_16 = () -> "dui-bottom-16";
-  /** Constant <code>dui_left_16</code> */
-  CssClass dui_left_16 = () -> "dui-left-16";
   /** Constant <code>dui_inset_20</code> */
   CssClass dui_inset_20 = () -> "dui-inset-20";
   /** Constant <code>dui_inset_x_20</code> */
   CssClass dui_inset_x_20 = () -> "dui-inset-x-20";
   /** Constant <code>dui_inset_y_20</code> */
   CssClass dui_inset_y_20 = () -> "dui-inset-y-20";
-  /** Constant <code>dui_right_20</code> */
-  CssClass dui_right_20 = () -> "dui-right-20";
   /** Constant <code>dui_bottom_20</code> */
   CssClass dui_bottom_20 = () -> "dui-bottom-20";
-  /** Constant <code>dui_left_20</code> */
-  CssClass dui_left_20 = () -> "dui-left-20";
   /** Constant <code>dui_inset_24</code> */
   CssClass dui_inset_24 = () -> "dui-inset-24";
   /** Constant <code>dui_inset_x_24</code> */
   CssClass dui_inset_x_24 = () -> "dui-inset-x-24";
   /** Constant <code>dui_inset_y_24</code> */
   CssClass dui_inset_y_24 = () -> "dui-inset-y-24";
-  /** Constant <code>dui_right_24</code> */
-  CssClass dui_right_24 = () -> "dui-right-24";
   /** Constant <code>dui_bottom_24</code> */
   CssClass dui_bottom_24 = () -> "dui-bottom-24";
-  /** Constant <code>dui_left_24</code> */
-  CssClass dui_left_24 = () -> "dui-left-24";
   /** Constant <code>dui_inset_28</code> */
   CssClass dui_inset_28 = () -> "dui-inset-28";
   /** Constant <code>dui_inset_x_28</code> */
   CssClass dui_inset_x_28 = () -> "dui-inset-x-28";
   /** Constant <code>dui_inset_y_28</code> */
   CssClass dui_inset_y_28 = () -> "dui-inset-y-28";
-  /** Constant <code>dui_right_28</code> */
-  CssClass dui_right_28 = () -> "dui-right-28";
   /** Constant <code>dui_bottom_28</code> */
   CssClass dui_bottom_28 = () -> "dui-bottom-28";
-  /** Constant <code>dui_left_28</code> */
-  CssClass dui_left_28 = () -> "dui-left-28";
   /** Constant <code>dui_inset_32</code> */
   CssClass dui_inset_32 = () -> "dui-inset-32";
   /** Constant <code>dui_inset_x_32</code> */
   CssClass dui_inset_x_32 = () -> "dui-inset-x-32";
   /** Constant <code>dui_inset_y_32</code> */
   CssClass dui_inset_y_32 = () -> "dui-inset-y-32";
-  /** Constant <code>dui_right_32</code> */
-  CssClass dui_right_32 = () -> "dui-right-32";
   /** Constant <code>dui_bottom_32</code> */
   CssClass dui_bottom_32 = () -> "dui-bottom-32";
-  /** Constant <code>dui_left_32</code> */
-  CssClass dui_left_32 = () -> "dui-left-32";
   /** Constant <code>dui_inset_36</code> */
   CssClass dui_inset_36 = () -> "dui-inset-36";
   /** Constant <code>dui_inset_x_36</code> */
   CssClass dui_inset_x_36 = () -> "dui-inset-x-36";
   /** Constant <code>dui_inset_y_36</code> */
   CssClass dui_inset_y_36 = () -> "dui-inset-y-36";
-  /** Constant <code>dui_right_36</code> */
-  CssClass dui_right_36 = () -> "dui-right-36";
   /** Constant <code>dui_bottom_36</code> */
   CssClass dui_bottom_36 = () -> "dui-bottom-36";
-  /** Constant <code>dui_left_36</code> */
-  CssClass dui_left_36 = () -> "dui-left-36";
   /** Constant <code>dui_inset_40</code> */
   CssClass dui_inset_40 = () -> "dui-inset-40";
   /** Constant <code>dui_inset_x_40</code> */
   CssClass dui_inset_x_40 = () -> "dui-inset-x-40";
   /** Constant <code>dui_inset_y_40</code> */
   CssClass dui_inset_y_40 = () -> "dui-inset-y-40";
-  /** Constant <code>dui_right_40</code> */
-  CssClass dui_right_40 = () -> "dui-right-40";
   /** Constant <code>dui_bottom_40</code> */
   CssClass dui_bottom_40 = () -> "dui-bottom-40";
-  /** Constant <code>dui_left_40</code> */
-  CssClass dui_left_40 = () -> "dui-left-40";
   /** Constant <code>dui_inset_44</code> */
   CssClass dui_inset_44 = () -> "dui-inset-44";
   /** Constant <code>dui_inset_x_44</code> */
   CssClass dui_inset_x_44 = () -> "dui-inset-x-44";
   /** Constant <code>dui_inset_y_44</code> */
   CssClass dui_inset_y_44 = () -> "dui-inset-y-44";
-  /** Constant <code>dui_right_44</code> */
-  CssClass dui_right_44 = () -> "dui-right-44";
   /** Constant <code>dui_bottom_44</code> */
   CssClass dui_bottom_44 = () -> "dui-bottom-44";
-  /** Constant <code>dui_left_44</code> */
-  CssClass dui_left_44 = () -> "dui-left-44";
   /** Constant <code>dui_inset_48</code> */
   CssClass dui_inset_48 = () -> "dui-inset-48";
   /** Constant <code>dui_inset_x_48</code> */
   CssClass dui_inset_x_48 = () -> "dui-inset-x-48";
   /** Constant <code>dui_inset_y_48</code> */
   CssClass dui_inset_y_48 = () -> "dui-inset-y-48";
-  /** Constant <code>dui_right_48</code> */
-  CssClass dui_right_48 = () -> "dui-right-48";
   /** Constant <code>dui_bottom_48</code> */
   CssClass dui_bottom_48 = () -> "dui-bottom-48";
-  /** Constant <code>dui_left_48</code> */
-  CssClass dui_left_48 = () -> "dui-left-48";
   /** Constant <code>dui_inset_52</code> */
   CssClass dui_inset_52 = () -> "dui-inset-52";
   /** Constant <code>dui_inset_x_52</code> */
   CssClass dui_inset_x_52 = () -> "dui-inset-x-52";
   /** Constant <code>dui_inset_y_52</code> */
   CssClass dui_inset_y_52 = () -> "dui-inset-y-52";
-  /** Constant <code>dui_right_52</code> */
-  CssClass dui_right_52 = () -> "dui-right-52";
   /** Constant <code>dui_bottom_52</code> */
   CssClass dui_bottom_52 = () -> "dui-bottom-52";
-  /** Constant <code>dui_left_52</code> */
-  CssClass dui_left_52 = () -> "dui-left-52";
   /** Constant <code>dui_inset_56</code> */
   CssClass dui_inset_56 = () -> "dui-inset-56";
   /** Constant <code>dui_inset_x_56</code> */
   CssClass dui_inset_x_56 = () -> "dui-inset-x-56";
   /** Constant <code>dui_inset_y_56</code> */
   CssClass dui_inset_y_56 = () -> "dui-inset-y-56";
-  /** Constant <code>dui_right_56</code> */
-  CssClass dui_right_56 = () -> "dui-right-56";
   /** Constant <code>dui_bottom_56</code> */
   CssClass dui_bottom_56 = () -> "dui-bottom-56";
-  /** Constant <code>dui_left_56</code> */
-  CssClass dui_left_56 = () -> "dui-left-56";
   /** Constant <code>dui_inset_60</code> */
   CssClass dui_inset_60 = () -> "dui-inset-60";
   /** Constant <code>dui_inset_x_60</code> */
   CssClass dui_inset_x_60 = () -> "dui-inset-x-60";
   /** Constant <code>dui_inset_y_60</code> */
   CssClass dui_inset_y_60 = () -> "dui-inset-y-60";
-  /** Constant <code>dui_right_60</code> */
-  CssClass dui_right_60 = () -> "dui-right-60";
   /** Constant <code>dui_bottom_60</code> */
   CssClass dui_bottom_60 = () -> "dui-bottom-60";
-  /** Constant <code>dui_left_60</code> */
-  CssClass dui_left_60 = () -> "dui-left-60";
   /** Constant <code>dui_inset_64</code> */
   CssClass dui_inset_64 = () -> "dui-inset-64";
   /** Constant <code>dui_inset_x_64</code> */
   CssClass dui_inset_x_64 = () -> "dui-inset-x-64";
   /** Constant <code>dui_inset_y_64</code> */
   CssClass dui_inset_y_64 = () -> "dui-inset-y-64";
-  /** Constant <code>dui_right_64</code> */
-  CssClass dui_right_64 = () -> "dui-right-64";
   /** Constant <code>dui_bottom_64</code> */
   CssClass dui_bottom_64 = () -> "dui-bottom-64";
-  /** Constant <code>dui_left_64</code> */
-  CssClass dui_left_64 = () -> "dui-left-64";
   /** Constant <code>dui_inset_72</code> */
   CssClass dui_inset_72 = () -> "dui-inset-72";
   /** Constant <code>dui_inset_x_72</code> */
   CssClass dui_inset_x_72 = () -> "dui-inset-x-72";
   /** Constant <code>dui_inset_y_72</code> */
   CssClass dui_inset_y_72 = () -> "dui-inset-y-72";
-  /** Constant <code>dui_right_72</code> */
-  CssClass dui_right_72 = () -> "dui-right-72";
   /** Constant <code>dui_bottom_72</code> */
   CssClass dui_bottom_72 = () -> "dui-bottom-72";
-  /** Constant <code>dui_left_72</code> */
-  CssClass dui_left_72 = () -> "dui-left-72";
   /** Constant <code>dui_inset_80</code> */
   CssClass dui_inset_80 = () -> "dui-inset-80";
   /** Constant <code>dui_inset_x_80</code> */
   CssClass dui_inset_x_80 = () -> "dui-inset-x-80";
   /** Constant <code>dui_inset_y_80</code> */
   CssClass dui_inset_y_80 = () -> "dui-inset-y-80";
-  /** Constant <code>dui_right_80</code> */
-  CssClass dui_right_80 = () -> "dui-right-80";
   /** Constant <code>dui_bottom_80</code> */
   CssClass dui_bottom_80 = () -> "dui-bottom-80";
-  /** Constant <code>dui_left_80</code> */
-  CssClass dui_left_80 = () -> "dui-left-80";
   /** Constant <code>dui_inset_96</code> */
   CssClass dui_inset_96 = () -> "dui-inset-96";
   /** Constant <code>dui_inset_x_96</code> */
   CssClass dui_inset_x_96 = () -> "dui-inset-x-96";
   /** Constant <code>dui_inset_y_96</code> */
   CssClass dui_inset_y_96 = () -> "dui-inset-y-96";
-  /** Constant <code>dui_right_96</code> */
-  CssClass dui_right_96 = () -> "dui-right-96";
   /** Constant <code>dui_bottom_96</code> */
   CssClass dui_bottom_96 = () -> "dui-bottom-96";
-  /** Constant <code>dui_left_96</code> */
-  CssClass dui_left_96 = () -> "dui-left-96";
   /** Constant <code>dui_inset_auto</code> */
   CssClass dui_inset_auto = () -> "dui-inset-auto";
   /** Constant <code>dui_inset_1_2</code> */
@@ -642,20 +514,12 @@ public interface DisplayCss {
   CssClass dui_inset_y_3_4 = () -> "dui-inset-y-3_4";
   /** Constant <code>dui_inset_y_full</code> */
   CssClass dui_inset_y_full = () -> "dui-inset-y-full";
-  /** Constant <code>dui_right_0</code> */
-  CssClass dui_right_0 = () -> "dui-right-0";
   /** Constant <code>dui_bottom_0</code> */
   CssClass dui_bottom_0 = () -> "dui-bottom-0";
-  /** Constant <code>dui_left_0</code> */
-  CssClass dui_left_0 = () -> "dui-left-0";
   /** Constant <code>dui_inset_y_0_5</code> */
   CssClass dui_inset_y_0_5 = () -> "dui-inset-y-0.5";
-  /** Constant <code>dui_right_0_5</code> */
-  CssClass dui_right_0_5 = () -> "dui-right-0.5";
   /** Constant <code>dui_bottom_0_5</code> */
   CssClass dui_bottom_0_5 = () -> "dui-bottom-0.5";
-  /** Constant <code>dui_left_0_5</code> */
-  CssClass dui_left_0_5 = () -> "dui-left-0.5";
   /** Constant <code>dui_inset_0</code> */
   CssClass dui_inset_0 = () -> "dui-inset-0";
   /** Constant <code>dui_inset_x_0</code> */
@@ -668,33 +532,13 @@ public interface DisplayCss {
   CssClass dui_inset_x_px = () -> "dui-inset-x-px";
   /** Constant <code>dui_inset_y_px</code> */
   CssClass dui_inset_y_px = () -> "dui-inset-y-px";
-  /** Constant <code>dui_right_px</code> */
-  CssClass dui_right_px = () -> "dui-right-px";
   /** Constant <code>dui_bottom_px</code> */
   CssClass dui_bottom_px = () -> "dui-bottom-px";
-  /** Constant <code>dui_left_px</code> */
-  CssClass dui_left_px = () -> "dui-left-px";
   /** Constant <code>dui_inset_0_5</code> */
   CssClass dui_inset_0_5 = () -> "dui-inset-0.5";
   /** Constant <code>dui_inset_x_0_5</code> */
   CssClass dui_inset_x_0_5 = () -> "dui-inset-x-0.5";
-  /** Constant <code>dui_right_auto</code> */
-  CssClass dui_right_auto = () -> "dui-right-auto";
-  /** Constant <code>dui_right_1_2</code> */
-  CssClass dui_right_1_2 = () -> "dui-right-1_2";
-  /** Constant <code>dui_right_1_3</code> */
-  CssClass dui_right_1_3 = () -> "dui-right-1_3";
-  /** Constant <code>dui_right_2_3</code> */
-  CssClass dui_right_2_3 = () -> "dui-right-2_3";
-  /** Constant <code>dui_right_1_4</code> */
-  CssClass dui_right_1_4 = () -> "dui-right-1_4";
-  /** Constant <code>dui_right_2_4</code> */
-  CssClass dui_right_2_4 = () -> "dui-right-2_4";
-  /** Constant <code>dui_right_3_4</code> */
-  CssClass dui_right_3_4 = () -> "dui-right-3_4";
-  /** Constant <code>dui_right_full</code> */
-  CssClass dui_right_full = () -> "dui-right-full";
-  /** Constant <code>dui_bottom_auto</code> */
+
   CssClass dui_bottom_auto = () -> "dui-bottom-auto";
   /** Constant <code>dui_bottom_1_2</code> */
   CssClass dui_bottom_1_2 = () -> "dui-bottom-1_2";
@@ -710,23 +554,7 @@ public interface DisplayCss {
   CssClass dui_bottom_3_4 = () -> "dui-bottom-3_4";
   /** Constant <code>dui_bottom_full</code> */
   CssClass dui_bottom_full = () -> "dui-bottom-full";
-  /** Constant <code>dui_left_auto</code> */
-  CssClass dui_left_auto = () -> "dui-left-auto";
-  /** Constant <code>dui_left_1_2</code> */
-  CssClass dui_left_1_2 = () -> "dui-left-1_2";
-  /** Constant <code>dui_left_1_3</code> */
-  CssClass dui_left_1_3 = () -> "dui-left-1_3";
-  /** Constant <code>dui_left_2_3</code> */
-  CssClass dui_left_2_3 = () -> "dui-left-2_3";
-  /** Constant <code>dui_left_1_4</code> */
-  CssClass dui_left_1_4 = () -> "dui-left-1_4";
-  /** Constant <code>dui_left_2_4</code> */
-  CssClass dui_left_2_4 = () -> "dui-left-2_4";
-  /** Constant <code>dui_left_3_4</code> */
-  CssClass dui_left_3_4 = () -> "dui-left-3_4";
-  /** Constant <code>dui_left_full</code> */
-  CssClass dui_left_full = () -> "dui-left-full";
-  /** Constant <code>dui_visible</code> */
+
   CssClass dui_visible = () -> "dui-visible";
   /** Constant <code>dui_invisible</code> */
   CssClass dui_invisible = () -> "dui-invisible";

@@ -21,6 +21,7 @@
     box-shadow: var(--dui-btn-box-shadow);
     transition: var(--dui-btn-transition);
     background-color: var(--dui-accent, buttonface);
+    --dui-btn-bg: var(--dui-accent, buttonface);
     color: var(--dui-clr-white);
     text-decoration: none;
     width: fit-content;
@@ -68,6 +69,7 @@ fieldset[disabled] .dui-btn {
     background-color: var(--dui-bg-l-4, var(--dui-accent-l-4));
     color: var(--dui-btn-hover-color);
     box-shadow: var(--dui-btn-focus-box-shadow);
+    --dui-btn-bg: var(--dui-bg-l-4, var(--dui-accent-l-4));
 }
 
 .dui-btn:hover,

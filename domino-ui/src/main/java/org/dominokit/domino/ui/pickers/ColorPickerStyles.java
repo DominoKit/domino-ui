@@ -13,24 +13,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.dominokit.domino.ui.i18n;
+package org.dominokit.domino.ui.pickers;
 
-/**
- * DominoUILabels interface.
- *
- * @author vegegoku
- * @version $Id: $Id
- */
-public interface DominoUILabels
-    extends QuickSearchLabels,
-        FormsLabels,
-        MenuLabels,
-        DialogLabels,
-        LoaderLabels,
-        PaginationLabels,
-        SearchLabels,
-        UploadLabels,
-        PickersLabels,
-        CalendarLabels,
-        RichTextLabels,
-        TimePickerLabels {}
+import org.dominokit.domino.ui.style.CssClass;
+
+public interface ColorPickerStyles {
+  CssClass dui_color_picker = () -> "dui-color-picker";
+  CssClass dui_color_picker_color = () -> "dui-color-picker-color";
+}

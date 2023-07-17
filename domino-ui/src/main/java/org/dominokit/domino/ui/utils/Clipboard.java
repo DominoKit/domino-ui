@@ -13,24 +13,21 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.dominokit.domino.ui.i18n;
+package org.dominokit.domino.ui.utils;
 
-/**
- * DominoUILabels interface.
- *
- * @author vegegoku
- * @version $Id: $Id
- */
-public interface DominoUILabels
-    extends QuickSearchLabels,
-        FormsLabels,
-        MenuLabels,
-        DialogLabels,
-        LoaderLabels,
-        PaginationLabels,
-        SearchLabels,
-        UploadLabels,
-        PickersLabels,
-        CalendarLabels,
-        RichTextLabels,
-        TimePickerLabels {}
+import elemental2.core.JsArray;
+import elemental2.promise.Promise;
+import jsinterop.annotations.JsPackage;
+import jsinterop.annotations.JsType;
+import jsinterop.base.Any;
+
+@JsType(isNative = true, namespace = JsPackage.GLOBAL)
+public class Clipboard {
+  public native Promise<JsArray<ClipboardItem>> read();
+
+  public native Promise<String> readText();
+
+  public native Promise<Any> write(ClipboardItem item);
+
+  public native Promise<Any> writeText(String item);
+}

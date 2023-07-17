@@ -40,13 +40,4 @@ public interface PickersLabels extends Labels {
   default String now() {
     return "NOW";
   }
-
-  /**
-   * close.
-   *
-   * @return a {@link java.lang.String} object
-   */
-  default String close() {
-    return "CLOSE";
-  }
 }
