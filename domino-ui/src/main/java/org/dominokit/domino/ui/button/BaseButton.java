@@ -25,6 +25,7 @@ import jsinterop.base.Js;
 import org.dominokit.domino.ui.grid.flex.FlexItem;
 import org.dominokit.domino.ui.grid.flex.FlexJustifyContent;
 import org.dominokit.domino.ui.grid.flex.FlexLayout;
+import org.dominokit.domino.ui.grid.flex.FlexStyles;
 import org.dominokit.domino.ui.icons.BaseIcon;
 import org.dominokit.domino.ui.style.Color;
 import org.dominokit.domino.ui.style.Elevation;
@@ -70,7 +71,11 @@ public abstract class BaseButton<B extends BaseButton<?>> extends WavesElement<H
 
   /** creates a button with default size {@link ButtonSize#MEDIUM} */
   protected BaseButton() {
-    textContainer = FlexItem.create().addCss("dui-btn-text").setFlexGrow(1).setOrder(20);
+    textContainer =
+        FlexItem.create()
+            .addCss("dui-btn-text", FlexStyles.FLEX_LAYOUT)
+            .setFlexGrow(1)
+            .setOrder(20);
 
     iconContainer = FlexItem.create().setOrder(10);
     contentLayout =
@@ -430,6 +435,13 @@ public abstract class BaseButton<B extends BaseButton<?>> extends WavesElement<H
   public B setIconPosition(IconPosition position) {
     if (nonNull(position)) {
       iconContainer.setOrder(position.getIconOrder());
+    }
+    return (B) this;
+  }
+
+  public B setJustifyText(FlexJustifyContent justifyContent) {
+    if (nonNull(justifyContent)) {
+      textContainer.addCss(justifyContent.getStyle());
     }
     return (B) this;
   }
