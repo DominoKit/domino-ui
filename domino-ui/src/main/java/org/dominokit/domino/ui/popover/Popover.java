@@ -16,306 +16,122 @@
 package org.dominokit.domino.ui.popover;
 
 import static elemental2.dom.DomGlobal.document;
-import static org.dominokit.domino.ui.popover.PopoverStyles.*;
-import static org.dominokit.domino.ui.popover.PopupPosition.TOP;
-import static org.jboss.elemento.Elements.div;
-import static org.jboss.elemento.Elements.h;
+import static org.dominokit.domino.ui.dialogs.ModalBackDrop.DUI_REMOVE_POPOVERS;
 
-import elemental2.dom.*;
-import java.util.ArrayList;
-import java.util.List;
+import elemental2.dom.EventListener;
+import elemental2.dom.HTMLElement;
+import org.dominokit.domino.ui.IsElement;
 import org.dominokit.domino.ui.animations.Transition;
 import org.dominokit.domino.ui.collapsible.AnimationCollapseStrategy;
 import org.dominokit.domino.ui.collapsible.CollapseDuration;
-import org.dominokit.domino.ui.datepicker.DateBox;
-import org.dominokit.domino.ui.keyboard.KeyboardEvents;
-import org.dominokit.domino.ui.modals.ModalBackDrop;
-import org.dominokit.domino.ui.style.Elevation;
-import org.dominokit.domino.ui.timepicker.TimeBox;
-import org.dominokit.domino.ui.utils.*;
-import org.jboss.elemento.EventType;
-import org.jboss.elemento.IsElement;
+import org.dominokit.domino.ui.dialogs.ModalBackDrop;
+import org.dominokit.domino.ui.events.EventType;
+import org.dominokit.domino.ui.mediaquery.MediaQuery;
+import org.dominokit.domino.ui.menu.direction.DropDirection;
+import org.dominokit.domino.ui.utils.BaseDominoElement;
 
 /**
  * A component for showing content on top of another element in different locations.
  *
- * <p>Customize the component can be done by overwriting classes provided by {@link PopoverStyles}
- *
- * <p>For example:
- *
- * <pre>
- *     Popover.create(element, "Popover", Paragraph.create("This is a popover"));
- * </pre>
+ * <p>Customize the component can be done by overwriting classes provided by {@link
+ * org.dominokit.domino.ui.popover.PopoverStyles}
  *
  * @see BaseDominoElement
- * @see Switchable
+ * @author vegegoku
+ * @version $Id: $Id
  */
-public class Popover extends BaseDominoElement<HTMLDivElement, Popover>
-    implements Switchable<Popover>, IsPopup<Popover> {
-
-  private final Text headerText;
-  private final HTMLElement targetElement;
-
-  private final DominoElement<HTMLDivElement> element =
-      DominoElement.of(div())
-          .css(POPOVER)
-          .attr("role", "tooltip")
-          .style("display: block;")
-          .elevate(Elevation.LEVEL_1);
-  private final DominoElement<HTMLHeadingElement> headingElement =
-      DominoElement.of(h(3)).css(POPOVER_TITLE);
-  private final DominoElement<HTMLDivElement> contentElement =
-      DominoElement.of(div()).css(POPOVER_CONTENT);
-
-  private PopupPosition popupPosition = TOP;
-
-  private boolean closeOthers = true;
-  private final EventListener showListener;
-  private final EventListener closeListener;
-  private boolean disabled = false;
-  private String positionClass;
-  private boolean closeOnEscape = true;
-
-  private final List<OpenHandler> openHandlers = new ArrayList<>();
-  private final List<CloseHandler> closeHandlers = new ArrayList<>();
+public class Popover extends BasePopover<Popover> {
 
   static {
-    document.body.addEventListener(EventType.click.getName(), element -> Popover.closeAll());
+    document.body.addEventListener(
+        EventType.click.getName(),
+        element -> {
+          ModalBackDrop.INSTANCE.closePopovers("");
+        });
   }
 
-  public Popover(HTMLElement target, String title, Node content) {
-    this.targetElement = target;
-    DominoElement<HTMLDivElement> arrowElement = DominoElement.of(div()).css(ARROW);
-    element.appendChild(arrowElement);
-    element.appendChild(headingElement);
-    element.appendChild(contentElement);
-    headerText = TextNode.of(title);
-    headingElement.appendChild(headerText);
-    contentElement.appendChild(content);
+  private final EventListener showListener;
+  private boolean openOnClick = true;
+  private boolean closeOnEscape = true;
+  private boolean asDialog = false;
+  private final DropDirection dialog = DropDirection.MIDDLE_SCREEN;
+  private boolean modal = false;
+
+  /**
+   * create.
+   *
+   * @param target a {@link elemental2.dom.HTMLElement} object
+   * @return a {@link org.dominokit.domino.ui.popover.Popover} object
+   */
+  public static Popover create(HTMLElement target) {
+    return new Popover(target);
+  }
+
+  /**
+   * create.
+   *
+   * @param target a {@link org.dominokit.domino.ui.IsElement} object
+   * @return a {@link org.dominokit.domino.ui.popover.Popover} object
+   */
+  public static Popover create(IsElement<? extends HTMLElement> target) {
+    return new Popover(target.element());
+  }
+
+  /**
+   * Constructor for Popover.
+   *
+   * @param target a {@link elemental2.dom.HTMLElement} object
+   */
+  public Popover(HTMLElement target) {
+    super(target);
     showListener =
         evt -> {
           evt.stopPropagation();
-          show();
+          if (openOnClick) {
+            expand();
+          }
         };
     target.addEventListener(EventType.click.getName(), showListener);
-    closeListener = evt -> closeAll();
-    element.addEventListener(EventType.click.getName(), Event::stopPropagation);
-    DominoElement.of(targetElement)
-        .onDetached(
-            mutationRecord -> {
-              close();
-            });
-    init(this);
-    onDetached(
-        mutationRecord ->
-            document.body.removeEventListener(EventType.keydown.getName(), closeListener));
     setCollapseStrategy(
         new AnimationCollapseStrategy(
             Transition.FADE_IN, Transition.FADE_OUT, CollapseDuration._300ms));
-    addHideListener(this::doClose);
+
+    MediaQuery.addOnSmallAndDownListener(
+        () -> {
+          this.asDialog = true;
+        });
+    MediaQuery.addOnMediumAndUpListener(
+        () -> {
+          this.asDialog = false;
+        });
+    addCollapseListener(() -> removeEventListener(DUI_REMOVE_POPOVERS, closeAllListener));
   }
 
   /** {@inheritDoc} */
   @Override
-  public Popover show() {
-    if (isEnabled()) {
-      if (closeOthers) {
-        closeAll();
-      }
-      doOpen();
-      config().getZindexManager().onPopupOpen(this);
-      openHandlers.forEach(OpenHandler::onOpen);
-    }
-
-    return this;
+  protected EventListener getCloseListener() {
+    return evt -> closeOthers("");
   }
 
-  private static void closeAll() {
-    ModalBackDrop.INSTANCE.closePopovers();
-  }
-
-  public Popover open() {
-    return show();
-  }
-
-  private void doOpen() {
-    document.body.appendChild(element.element());
-    super.show();
-    popupPosition.position(element.element(), targetElement);
-    position(popupPosition);
-
+  /** {@inheritDoc} */
+  @Override
+  protected void doOpen() {
+    super.doOpen();
+    addEventListener(DUI_REMOVE_POPOVERS, closeAllListener);
     if (closeOnEscape) {
-      KeyboardEvents.listenOnKeyDown(document.body).onEscape(closeListener);
+      body().onKeyDown(keyEvents -> keyEvents.onEscape(closeListener));
     }
-  }
-
-  /** Closes the popover */
-  public Popover close() {
-    hide();
-    return this;
-  }
-
-  private void doClose() {
-    element().remove();
-    document.body.removeEventListener(EventType.keydown.getName(), closeListener);
-    config().getZindexManager().onPopupClose(this);
-    closeHandlers.forEach(CloseHandler::onClose);
-  }
-
-  @Override
-  public boolean isModal() {
-    return false;
-  }
-
-  @Override
-  public boolean isAutoClose() {
-    return true;
   }
 
   /**
-   * Closes the popover and remove it completely from the target element so it will not be shown
-   * again
+   * detach.
+   *
+   * @return a {@link org.dominokit.domino.ui.popover.Popover} object
    */
-  public void discard() {
-    close();
+  public Popover detach() {
     targetElement.removeEventListener(EventType.click.getName(), showListener);
     document.removeEventListener(EventType.click.getName(), closeListener);
-  }
-
-  /**
-   * Creates new instance hidden and with no paddings by default; this is helpful for pickers inside
-   * {@link TimeBox} and {@link DateBox}
-   *
-   * @param target the target element
-   * @param content the {@link Node} content
-   * @return new instance
-   */
-  public static Popover createPicker(HTMLElement target, Node content) {
-    Popover popover = new Popover(target, "", content);
-    popover.getHeadingElement().setDisplay("none");
-    popover.getContentElement().setCssProperty("padding", "0px");
-
-    return popover;
-  }
-
-  /**
-   * Same as {@link Popover#createPicker(HTMLElement, Node)} but with wrapper {@link IsElement}
-   *
-   * @param target the target element
-   * @param content the {@link IsElement} content
-   * @return new instance
-   */
-  public static Popover createPicker(IsElement<?> target, IsElement<?> content) {
-    Popover popover = new Popover(target.element(), "", content.element());
-    popover.getHeadingElement().setDisplay("none");
-    popover.getContentElement().setCssProperty("padding", "0px");
-
-    return popover;
-  }
-
-  /**
-   * Creates new instance for target with title and content
-   *
-   * @param target the target element
-   * @param title the title of the popover
-   * @param content the content {@link Node}
-   * @return new instance
-   */
-  public static Popover create(HTMLElement target, String title, Node content) {
-    return new Popover(target, title, content);
-  }
-
-  /**
-   * Creates new instance for target with title and content
-   *
-   * @param target the target element
-   * @param title the title of the popover
-   * @param content the content {@link Node}
-   * @return new instance
-   */
-  public static Popover create(HTMLElement target, String title, IsElement<?> content) {
-    return new Popover(target, title, content.element());
-  }
-
-  /**
-   * Creates new instance for target with title and content
-   *
-   * @param target the target element
-   * @param title the title of the popover
-   * @param content the content {@link Node}
-   * @return new instance
-   */
-  public static Popover create(IsElement<?> target, String title, Node content) {
-    return new Popover(target.element(), title, content);
-  }
-
-  /**
-   * Creates new instance for target with title and content
-   *
-   * @param target the target element
-   * @param title the title of the popover
-   * @param content the content {@link IsElement}
-   * @return new instance
-   */
-  public static Popover create(IsElement<?> target, String title, IsElement<?> content) {
-    return new Popover(target.element(), title, content.element());
-  }
-
-  /**
-   * Sets the position of the popover related to the target element
-   *
-   * @param position the {@link PopupPosition}
-   * @return same instance
-   */
-  public Popover position(PopupPosition position) {
-    this.element.removeCss(this.positionClass);
-    this.popupPosition = position;
-    this.positionClass = position.getDirectionClass();
-    this.element.addCss(this.positionClass);
-
     return this;
-  }
-
-  /**
-   * Sets if other popovers should be closed when open this one
-   *
-   * @param closeOthers true to close all popovers when this on is opened, false otherwise
-   * @return same instance
-   */
-  public Popover setCloseOthers(boolean closeOthers) {
-    this.closeOthers = closeOthers;
-    return this;
-  }
-
-  /** {@inheritDoc} */
-  @Override
-  public Popover enable() {
-    this.disabled = false;
-    return this;
-  }
-
-  /** {@inheritDoc} */
-  @Override
-  public Popover disable() {
-    this.disabled = true;
-    return this;
-  }
-
-  /** {@inheritDoc} */
-  @Override
-  public boolean isEnabled() {
-    return !disabled;
-  }
-
-  /** @return The heading element */
-  public DominoElement<HTMLHeadingElement> getHeadingElement() {
-    return headingElement;
-  }
-
-  /** Use {@link Popover#closeOnEscape(boolean)} instead */
-  @Deprecated
-  public Popover closeOnEscp(boolean closeOnEscp) {
-    return closeOnEscape(closeOnEscp);
   }
 
   /**
@@ -329,92 +145,58 @@ public class Popover extends BaseDominoElement<HTMLDivElement, Popover>
     return this;
   }
 
-  /**
-   * Sets if the popover should be closed if scrolling
-   *
-   * @param closeOnScroll true to close on scroll, false otherwise
-   * @return same instance
-   */
-  public Popover closeOnScroll(boolean closeOnScroll) {
-    setAttribute("d-close-on-scroll", closeOnScroll);
+  /** {@inheritDoc} */
+  @Override
+  protected Popover closeOthers(String sourceId) {
+    ModalBackDrop.INSTANCE.closePopovers(sourceId);
     return this;
   }
 
   /** {@inheritDoc} */
   @Override
-  public HTMLDivElement element() {
-    return element.element();
-  }
-
-  /** @return the content element */
-  public DominoElement<HTMLDivElement> getContentElement() {
-    return contentElement;
-  }
-
-  /** @return The header text */
-  public Text getHeaderText() {
-    return headerText;
-  }
-
-  /** @return true if close on scrolling, false otherwise */
-  public boolean isCloseOnScroll() {
-    return hasAttribute("d-close-on-scroll")
-        && getAttribute("d-close-on-scroll").equalsIgnoreCase("true");
+  protected void doPosition(DropDirection position) {
+    if (asDialog) {
+      dialog.position(this.element(), targetElement);
+    } else {
+      dialog.cleanup(this.element());
+      super.doPosition(position);
+    }
   }
 
   /**
-   * Adds an open handler to be called when the popover is opened
+   * isOpenOnClick.
    *
-   * @param openHandler the {@link OpenHandler}
-   * @return same instance
+   * @return a boolean
    */
-  public Popover addOpenListener(OpenHandler openHandler) {
-    this.openHandlers.add(openHandler);
+  public boolean isOpenOnClick() {
+    return openOnClick;
+  }
+
+  /**
+   * Setter for the field <code>openOnClick</code>.
+   *
+   * @param openOnClick a boolean
+   * @return a {@link org.dominokit.domino.ui.popover.Popover} object
+   */
+  public Popover setOpenOnClick(boolean openOnClick) {
+    this.openOnClick = openOnClick;
     return this;
   }
 
   /**
-   * Adds a close handler to be called when the popover is closed
+   * Setter for the field <code>modal</code>.
    *
-   * @param closeHandler the {@link CloseHandler}
-   * @return same instance
+   * @param modal a boolean
+   * @return a {@link org.dominokit.domino.ui.popover.Popover} object
    */
-  public Popover addCloseListener(CloseHandler closeHandler) {
-    this.closeHandlers.add(closeHandler);
+  public Popover setModal(boolean modal) {
+    this.modal = modal;
     return this;
   }
 
-  /**
-   * Removes an open handler
-   *
-   * @param openHandler the {@link OpenHandler} to remove
-   * @return same instance
-   */
-  public Popover removeOpenHandler(OpenHandler openHandler) {
-    this.openHandlers.remove(openHandler);
-    return this;
-  }
-
-  /**
-   * Removes a close handler
-   *
-   * @param closeHandler the {@link CloseHandler} to remove
-   * @return same instance
-   */
-  public Popover removeCloseHandler(CloseHandler closeHandler) {
-    this.closeHandlers.remove(closeHandler);
-    return this;
-  }
-
-  /** A handler to be called when opening the popover */
-  @FunctionalInterface
-  public interface OpenHandler {
-    void onOpen();
-  }
-
-  /** A handler to be called when closing the popover */
-  @FunctionalInterface
-  public interface CloseHandler {
-    void onClose();
+  /** {@inheritDoc} */
+  @Override
+  public boolean isModal() {
+    return modal;
   }
 }

@@ -15,97 +15,102 @@
  */
 package org.dominokit.domino.ui.chips;
 
-import static org.jboss.elemento.Elements.div;
-
 import elemental2.dom.HTMLDivElement;
-import java.util.ArrayList;
-import java.util.List;
-import org.dominokit.domino.ui.style.ColorScheme;
-import org.dominokit.domino.ui.utils.BaseDominoElement;
-import org.dominokit.domino.ui.utils.HasDeselectionHandler;
-import org.dominokit.domino.ui.utils.HasSelectionHandler;
-import org.dominokit.domino.ui.utils.Switchable;
+import java.util.*;
+import org.dominokit.domino.ui.elements.DivElement;
+import org.dominokit.domino.ui.utils.*;
 
 /**
- * This component provides a group of {@link Chip} which handles the selection behaviour between
- * them.
+ * This component provides a group of {@link org.dominokit.domino.ui.chips.Chip} which handles the
+ * selection behaviour between them.
  *
  * <p>This component will handle the switching between all the chips configured, so that one chip
  * will be select at one time
- *
- * <p>For example:
- *
- * <pre>
- *     ChipsGroup.create()
- *             .appendChild(Chip.create("Extra small"))
- *             .appendChild(Chip.create("Small"))
- *             .appendChild(Chip.create("Medium"))
- *             .appendChild(Chip.create("Large"))
- *             .appendChild(Chip.create("Extra large"))
- *             .setColorScheme(ColorScheme.TEAL)
- *             .addSelectionHandler(value -> Notification.createInfo("Chip [ " + chipsGroup.getSelectedChip().getValue() + " ] is selected").show())
- * </pre>
  *
  * @see BaseDominoElement
  * @see Chip
  * @see HasSelectionHandler
  * @see HasDeselectionHandler
- * @see Switchable
+ * @see AcceptDisable
+ * @author vegegoku
+ * @version $Id: $Id
  */
 public class ChipsGroup extends BaseDominoElement<HTMLDivElement, ChipsGroup>
-    implements Switchable<ChipsGroup>,
-        HasSelectionHandler<ChipsGroup, Chip>,
-        HasDeselectionHandler<ChipsGroup> {
+    implements AcceptDisable<ChipsGroup>, HasSelectionListeners<ChipsGroup, Chip, List<Chip>> {
 
-  private final HTMLDivElement element = div().element();
+  private final DivElement root;
   private final List<Chip> chips = new ArrayList<>();
-  private Chip selectedChip;
-  private final List<SelectionHandler<Chip>> selectionHandlers = new ArrayList<>();
-  private final List<DeselectionHandler> deSelectionHandlers = new ArrayList<>();
+  private final List<Chip> selectedChips = new ArrayList<>();
 
+  private boolean multiSelect = false;
+  private boolean removable = false;
+  private Set<SelectionListener<? super Chip, ? super List<Chip>>> selectionListeners =
+      new HashSet<>();
+  private Set<SelectionListener<? super Chip, ? super List<Chip>>> deselectionListeners =
+      new HashSet<>();
+  private boolean selectionListenersPaused = false;
+
+  /** Constructor for ChipsGroup. */
   public ChipsGroup() {
+    root = div();
     init(this);
   }
 
   /** @return new instance */
+  /**
+   * create.
+   *
+   * @return a {@link org.dominokit.domino.ui.chips.ChipsGroup} object
+   */
   public static ChipsGroup create() {
     return new ChipsGroup();
   }
 
-  /** @deprecated use {@link #appendChild(Chip)} */
-  @Deprecated
-  public ChipsGroup addChip(Chip chip) {
-    return appendChild(chip);
-  }
-
   /**
-   * Adds new {@link Chip}
+   * Adds new {@link org.dominokit.domino.ui.chips.Chip}
    *
    * <p>This will set the chip as selectable and adds selection/deselection handler to handle the
    * switching between all the chips.
    *
-   * @param chip the new {@link Chip} to add
+   * @param chip the new {@link org.dominokit.domino.ui.chips.Chip} to add
    * @return same instance
    */
   public ChipsGroup appendChild(Chip chip) {
     chip.setSelectable(true);
-    chip.addSelectionHandler(
-        value -> {
-          for (Chip c : chips) {
-            if (!c.equals(chip)) {
-              c.deselect();
+    chip.setRemovable(removable || chip.isRemovable());
+    chip.onDetached(
+        mutationRecord -> {
+          if (chip.isSelected()) {
+            chip.deselect();
+          }
+        });
+    chip.addSelectionListener(
+        (source, selection) -> {
+          if (!this.selectedChips.isEmpty() && !multiSelect) {
+            this.selectedChips.forEach(
+                selectedChip ->
+                    selectedChip.withPauseSelectionListenersToggle(true, Chip::deselect));
+            this.selectedChips.clear();
+          }
+          source.ifPresent(this.selectedChips::add);
+          if (!isSelectionListenersPaused()) {
+            triggerSelectionListeners(source.get(), this.selectedChips);
+            if (!multiSelect) {
+              triggerDeselectionListeners(source.get(), this.selectedChips);
             }
           }
-          this.selectedChip = chip;
-          selectionHandlers.forEach(handler -> handler.onSelection(chip));
         });
-    chip.addDeselectionHandler(
-        () -> {
-          this.selectedChip = null;
-          deSelectionHandlers.forEach(DeselectionHandler::onDeselection);
+
+    chip.addDeselectionListener(
+        (source, selection) -> {
+          source.ifPresent(this.selectedChips::remove);
+          if (!isSelectionListenersPaused()) {
+            triggerDeselectionListeners(source.get(), this.selectedChips);
+          }
         });
+
     chips.add(chip);
-    element.appendChild(chip.element());
+    root.appendChild(chip);
     return this;
   }
 
@@ -130,46 +135,19 @@ public class ChipsGroup extends BaseDominoElement<HTMLDivElement, ChipsGroup>
   }
 
   /** @return The current selected chip */
-  public Chip getSelectedChip() {
-    return selectedChip;
-  }
-
-  /** {@inheritDoc} */
-  @Override
-  public ChipsGroup addSelectionHandler(SelectionHandler<Chip> selectionHandler) {
-    selectionHandlers.add(selectionHandler);
-    return this;
-  }
-
-  /** {@inheritDoc} */
-  @Override
-  public ChipsGroup removeSelectionHandler(SelectionHandler<Chip> selectionHandler) {
-    selectionHandlers.remove(selectionHandler);
-    return this;
-  }
-
-  /** {@inheritDoc} */
-  @Override
-  public ChipsGroup addDeselectionHandler(DeselectionHandler deselectionHandler) {
-    deSelectionHandlers.add(deselectionHandler);
-    return this;
+  /**
+   * Getter for the field <code>selectedChips</code>.
+   *
+   * @return a {@link java.util.List} object
+   */
+  public List<Chip> getSelectedChips() {
+    return selectedChips;
   }
 
   /** {@inheritDoc} */
   @Override
   public HTMLDivElement element() {
-    return element;
-  }
-
-  /**
-   * Sets {@link ColorScheme} for all the chips configured in this group
-   *
-   * @param colorScheme the new {@link ColorScheme}
-   * @return same instance
-   */
-  public ChipsGroup setColorScheme(ColorScheme colorScheme) {
-    chips.forEach(chip -> chip.setColorScheme(colorScheme));
-    return this;
+    return root.element();
   }
 
   /**
@@ -186,7 +164,120 @@ public class ChipsGroup extends BaseDominoElement<HTMLDivElement, ChipsGroup>
   }
 
   /** @return All the chips added to this group */
+  /**
+   * Getter for the field <code>chips</code>.
+   *
+   * @return a {@link java.util.List} object
+   */
   public List<Chip> getChips() {
     return chips;
+  }
+
+  /** {@inheritDoc} */
+  @Override
+  public ChipsGroup pauseSelectionListeners() {
+    this.selectionListenersPaused = true;
+    return this;
+  }
+
+  /** {@inheritDoc} */
+  @Override
+  public ChipsGroup resumeSelectionListeners() {
+    this.selectionListenersPaused = false;
+    return this;
+  }
+
+  /** {@inheritDoc} */
+  @Override
+  public ChipsGroup togglePauseSelectionListeners(boolean toggle) {
+    this.selectionListenersPaused = toggle;
+    return this;
+  }
+
+  /** {@inheritDoc} */
+  @Override
+  public Set<SelectionListener<? super Chip, ? super List<Chip>>> getSelectionListeners() {
+    return selectionListeners;
+  }
+
+  /** {@inheritDoc} */
+  @Override
+  public Set<SelectionListener<? super Chip, ? super List<Chip>>> getDeselectionListeners() {
+    return deselectionListeners;
+  }
+
+  /** {@inheritDoc} */
+  @Override
+  public boolean isSelectionListenersPaused() {
+    return this.selectionListenersPaused;
+  }
+
+  /** {@inheritDoc} */
+  @Override
+  public ChipsGroup triggerSelectionListeners(Chip source, List<Chip> selection) {
+    selectionListeners.forEach(
+        selectionListener ->
+            selectionListener.onSelectionChanged(Optional.ofNullable(source), selection));
+    return this;
+  }
+
+  /** {@inheritDoc} */
+  @Override
+  public ChipsGroup triggerDeselectionListeners(Chip source, List<Chip> selection) {
+    deselectionListeners.forEach(
+        selectionListener ->
+            selectionListener.onSelectionChanged(Optional.ofNullable(source), selection));
+    return this;
+  }
+
+  /** {@inheritDoc} */
+  @Override
+  public List<Chip> getSelection() {
+    return selectedChips;
+  }
+
+  /**
+   * isMultiSelect.
+   *
+   * @return a boolean
+   */
+  public boolean isMultiSelect() {
+    return multiSelect;
+  }
+
+  /**
+   * Setter for the field <code>multiSelect</code>.
+   *
+   * @param multiSelect a boolean
+   * @return a {@link org.dominokit.domino.ui.chips.ChipsGroup} object
+   */
+  public ChipsGroup setMultiSelect(boolean multiSelect) {
+    this.multiSelect = multiSelect;
+    if (!multiSelect && this.selectedChips.size() > 1) {
+      Chip chip = selectedChips.get(0);
+      chip.select();
+    }
+    return this;
+  }
+
+  /**
+   * isRemovable.
+   *
+   * @return a boolean
+   */
+  public boolean isRemovable() {
+    return removable;
+  }
+
+  /**
+   * Setter for the field <code>removable</code>.
+   *
+   * @param removable a boolean
+   * @return a {@link org.dominokit.domino.ui.chips.ChipsGroup} object
+   */
+  public ChipsGroup setRemovable(boolean removable) {
+    this.removable = removable;
+    chips.forEach(chip -> chip.setRemovable(removable));
+    return this;
   }
 }

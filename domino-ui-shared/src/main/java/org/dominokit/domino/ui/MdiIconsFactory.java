@@ -17,6 +17,12 @@ package org.dominokit.domino.ui;
 
 import java.lang.annotation.*;
 
+/**
+ * MdiIconsFactory class.
+ *
+ * @author vegegoku
+ * @version $Id: $Id
+ */
 @Retention(RetentionPolicy.SOURCE)
 @Target(ElementType.PACKAGE)
 @Documented

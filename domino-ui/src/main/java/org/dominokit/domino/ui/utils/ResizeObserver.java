@@ -26,20 +26,40 @@ import jsinterop.base.Js;
 /**
  * This class allows us to listen to the elements size changes
  *
- * <p>the class will register a {@link ResizeObserverCallbackFn} on the element to be called when
- * its size is changed
+ * <p>the class will register a {@link
+ * org.dominokit.domino.ui.utils.ResizeObserver.ResizeObserverCallbackFn} on the element to be
+ * called when its size is changed
  *
  * @see <a href="https://developer.mozilla.org/en-US/docs/Web/API/ResizeObserver">MDN
  *     ResizeObserver</a>
+ * @author vegegoku
+ * @version $Id: $Id
  */
 @JsType(isNative = true, namespace = JsPackage.GLOBAL)
 public class ResizeObserver {
+  /** disconnect. */
   public native void disconnect();
 
+  /**
+   * observe.
+   *
+   * @param target a {@link elemental2.dom.Element} object
+   * @param options a {@link org.dominokit.domino.ui.utils.ResizeObserverOptions} object
+   */
   public native void observe(Element target, ResizeObserverOptions options);
 
+  /**
+   * unobserve.
+   *
+   * @param target a {@link elemental2.dom.Element} object
+   */
   public native void unobserve(Element target);
 
+  /**
+   * observe.
+   *
+   * @param target a {@link elemental2.dom.Element} object
+   */
   @JsOverlay
   public final void observe(Element target) {
     ResizeObserverOptions options = ResizeObserverOptions.create();
@@ -57,5 +77,11 @@ public class ResizeObserver {
     }
   }
 
+  /**
+   * Constructor for ResizeObserver.
+   *
+   * @param callback a {@link org.dominokit.domino.ui.utils.ResizeObserver.ResizeObserverCallbackFn}
+   *     object
+   */
   public ResizeObserver(ResizeObserver.ResizeObserverCallbackFn callback) {}
 }

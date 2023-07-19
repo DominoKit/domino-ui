@@ -1,0 +1,39 @@
+.dui-loader {
+    color: var(--dui-laoder-color);
+}
+
+.dui .waitMe_container .waitMe *{
+    color: var(--dui-color);
+}
+
+.dui-loader-dark {
+    background-color: var(--dui-loader-dark-color);
+}
+
+.dui-loader-darker {
+    background-color: var(--dui-loader-darker-color);
+}
+
+.dui-loader-darkest {
+    background-color: var(--dui-loader-darkest-color);
+}
+
+.dui-loader-border-dark {
+    border-color: var(--dui-loader-dark-color);
+}
+
+.dui-loader-border-darker {
+    border-color: var(--dui-loader-darker-color);
+}
+
+.dui-loader-border-darkest {
+    border-color: var(--dui-loader-darkest-color);
+}
+
+.dui-field-input-wrapper .waitMe_container {
+    --dui-loader-background:none;
+}
+
+.dui-field-input-wrapper .waitMe_container .waitMe .waitMe_content {
+    top: auto;
+}

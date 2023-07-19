@@ -15,48 +15,42 @@
  */
 package org.dominokit.domino.ui.collapsible;
 
-import elemental2.dom.HTMLElement;
-import org.dominokit.domino.ui.style.Style;
-import org.jboss.elemento.IsElement;
+import elemental2.dom.Element;
 
 /**
- * The implementation of this interface are used to change the behavior used in {@link Collapsible}
- * to show and hide the element.
+ * CollapseStrategy interface.
+ *
+ * @author vegegoku
+ * @version $Id: $Id
  */
 public interface CollapseStrategy {
 
   /**
    * Implement this method to provide any initialization required for the collapse strategy
    *
-   * @param element The collapsible {@link HTMLElement}
-   * @param style the {@link Style} of the element
+   * @param element The collapsible {@link elemental2.dom.Element}
+   * @param handlers a {@link org.dominokit.domino.ui.collapsible.CollapsibleHandlers} object
    */
-  default void init(
-      HTMLElement element,
-      Style<HTMLElement, IsElement<HTMLElement>> style,
-      CollapsibleHandlers handlers) {}
+  default void init(Element element, CollapsibleHandlers handlers) {}
   /**
    * Implement this method to show a collapsible element
    *
-   * @param element The collapsible {@link HTMLElement}
-   * @param style the {@link Style} of the element
+   * @param element The collapsible {@link elemental2.dom.Element}
    */
-  void show(HTMLElement element, Style<HTMLElement, IsElement<HTMLElement>> style);
+  void expand(Element element);
 
   /**
    * Implement this method to hide a collapsible element
    *
-   * @param element The collapsible {@link HTMLElement}
-   * @param style the {@link Style} of the element
+   * @param element The collapsible {@link elemental2.dom.Element}
    */
-  void hide(HTMLElement element, Style<HTMLElement, IsElement<HTMLElement>> style);
+  void collapse(Element element);
 
   /**
    * Implement this method to clean up any attributes or styles added the strategy when we switch to
    * a different one.
    *
-   * @param element The collapsible {@link HTMLElement}
-   * @param style the {@link Style} of the element
+   * @param element The collapsible {@link elemental2.dom.Element}
    */
-  default void cleanup(HTMLElement element, Style<HTMLElement, IsElement<HTMLElement>> style) {};
+  default void cleanup(Element element) {};
 }

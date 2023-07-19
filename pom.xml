@@ -5,7 +5,7 @@
 
     <groupId>org.dominokit</groupId>
     <artifactId>domino-ui-parent</artifactId>
-    <version>1.0.0</version>
+    <version>2.0.0-RC1</version>
     <packaging>pom</packaging>
 
     <name>domino-ui-parent</name>
@@ -68,13 +68,13 @@
 
     <properties>
         <snapshot.version>HEAD-SNAPSHOT</snapshot.version>
-        <next.release.version>1.0.0</next.release.version>
+        <next.release.version>2.0.0-RC1</next.release.version>
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
 
-        <maven.compiler.plugin>3.8.1</maven.compiler.plugin>
+        <maven.compiler.plugin>3.11.0</maven.compiler.plugin>
         <maven.source.plugin>3.0.1</maven.source.plugin>
-        <maven.javadoc.plugin>2.10.4</maven.javadoc.plugin>
+        <maven.javadoc.plugin>3.5.0</maven.javadoc.plugin>
         <maven.fmt.plugin>2.9</maven.fmt.plugin>
         <maven.license.plugin>3.0</maven.license.plugin>
         <maven.deploy.plugin>3.0.0-M1</maven.deploy.plugin>
@@ -83,11 +83,10 @@
         <maven.gpg.plugin>1.6</maven.gpg.plugin>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-        <elemento.version>1.0.3</elemento.version>
         <elemental2.version>1.1.0</elemental2.version>
         <gwt.version>2.10.0</gwt.version>
-        <jackson.apt.version>1.0.0</jackson.apt.version>
-        <gwt.i18n.version>1.0</gwt.i18n.version>
+        <jackson.apt.version>1.0.0-RC3</jackson.apt.version>
+        <gwt.i18n.version>1.0.1</gwt.i18n.version>
     </properties>
 
     <dependencyManagement>
@@ -109,9 +108,9 @@
                 <version>1.0.0-RC1</version>
             </dependency>
             <dependency>
-                <groupId>org.jboss.elemento</groupId>
-                <artifactId>elemento-core</artifactId>
-                <version>${elemento.version}</version>
+                <groupId>org.gwtproject.safehtml</groupId>
+                <artifactId>gwt-safehtml</artifactId>
+                <version>1.0.0-RC1</version>
             </dependency>
             <dependency>
                 <groupId>org.dominokit.i18n</groupId>
@@ -136,6 +135,11 @@
             <dependency>
                 <groupId>com.google.elemental2</groupId>
                 <artifactId>elemental2-dom</artifactId>
+                <version>${elemental2.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.google.elemental2</groupId>
+                <artifactId>elemental2-webstorage</artifactId>
                 <version>${elemental2.version}</version>
             </dependency>
             <dependency>
@@ -191,8 +195,7 @@
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>${maven.compiler.plugin}</version>
                 <configuration>
-                    <source>${maven.compiler.source}</source>
-                    <target>${maven.compiler.target}</target>
+                    <release>8</release>
                 </configuration>
             </plugin>
             <plugin>
@@ -277,9 +280,6 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-deploy-plugin</artifactId>
                 <version>${maven.deploy.plugin}</version>
-                <configuration>
-                    <skip>true</skip>
-                </configuration>
             </plugin>
             <plugin>
                 <groupId>org.dominokit</groupId>
@@ -291,7 +291,7 @@
                     <!-- Set to true to immediately bump the development version when creating a release branch -->
                     <commitDevelopmentVersionAtStart>true</commitDevelopmentVersionAtStart>
 
-                    <!-- Which digit to increas in major.minor.patch versioning, the values being 0.1.2 respectively.
+                    <!-- Which digit to increase in major.minor.patch versioning, the values being 0.1.2 respectively.
                          By default the rightmost number is increased.
                          Pass in the number via parameter or profile to allow configuration,
                          since everything set in the file can't be overwritten via command line -->
@@ -305,7 +305,7 @@
                     <gitFlowConfig>
                         <productionBranch>master</productionBranch>
                         <!-- default is develop, but we use development -->
-                        <developmentBranch>development</developmentBranch>
+                        <developmentBranch>2.0-development</developmentBranch>
                     </gitFlowConfig>
                 </configuration>
             </plugin>

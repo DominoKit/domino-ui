@@ -15,55 +15,50 @@
  */
 package org.dominokit.domino.ui.loaders;
 
-import static org.dominokit.domino.ui.loaders.LoaderStyles.*;
-import static org.jboss.elemento.Elements.div;
-
 import elemental2.dom.HTMLDivElement;
-import org.dominokit.domino.ui.style.Style;
-import org.dominokit.domino.ui.style.Styles;
+import org.dominokit.domino.ui.IsElement;
+import org.dominokit.domino.ui.elements.DivElement;
 import org.dominokit.domino.ui.utils.DominoElement;
-import org.jboss.elemento.IsElement;
 
-/** Bounce pulse loader implementation */
+/**
+ * Bounce pulse loader implementation
+ *
+ * @author vegegoku
+ * @version $Id: $Id
+ */
 public class BouncePulseLoader extends BaseLoader<BouncePulseLoader>
     implements IsElement<HTMLDivElement> {
 
-  private final HTMLDivElement progress1 =
-      DominoElement.of(div()).css(WAIT_ME_PROGRESS_ELEM_1).style("background-color:#000").element();
-  private final HTMLDivElement progress2 =
-      DominoElement.of(div()).css(WAIT_ME_PROGRESS_ELEM_2).style("background-color:#000").element();
-  private final HTMLDivElement progress3 =
-      DominoElement.of(div()).css(WAIT_ME_PROGRESS_ELEM_3).style("background-color:#000").element();
+  private final DivElement progress1 = div().addCss(wait_me_progress_elem_1, dui_loader_darkest);
+  private final DivElement progress2 = div().addCss(wait_me_progress_elem_2, dui_loader_darkest);
+  private final DivElement progress3 = div().addCss(wait_me_progress_elem_3, dui_loader_darkest);
 
-  private final HTMLDivElement loader =
-      DominoElement.of(div())
-          .css(WAIT_ME_PROGRESS)
-          .css(BOUNCE_PULSE)
-          .add(progress1)
-          .add(progress2)
-          .add(progress3)
-          .element();
+  private final DivElement loader =
+      div()
+          .addCss(wait_me_progress, bounce_pulse)
+          .appendChild(progress1)
+          .appendChild(progress2)
+          .appendChild(progress3);
 
-  private final HTMLDivElement content =
-      DominoElement.of(div())
-          .css(WAIT_ME_CONTENT)
-          .css(Styles.vertical_center)
-          .css(VERTICAL)
-          .add(loader)
-          .add(loadingText)
-          .element();
+  private final DivElement content =
+      div()
+          .addCss(wait_me_content, dui_vertical_center, vertical)
+          .appendChild(loader)
+          .appendChild(loadingText);
 
-  private final HTMLDivElement element =
-      DominoElement.of(div())
-          .css(WAIT_ME)
-          .style("background: rgba(255, 255, 255, 0.7);")
-          .add(content)
-          .element();
+  private final DivElement element =
+      div().addCss(wait_me).style("background: var(--dui-loader-background);").appendChild(content);
 
+  /** Constructor for BouncePulseLoader. */
   public BouncePulseLoader() {
     init(this);
   }
 
+  /**
+   * create.
+   *
+   * @return a {@link org.dominokit.domino.ui.loaders.BouncePulseLoader} object
+   */
   public static BouncePulseLoader create() {
     return new BouncePulseLoader();
   }
@@ -77,7 +72,7 @@ public class BouncePulseLoader extends BaseLoader<BouncePulseLoader>
   /** {@inheritDoc} */
   @Override
   public void setSize(String width, String height) {
-    onAttached(mutationRecord -> Style.of(loader).setWidth(width).setHeight(height));
+    onAttached(mutationRecord -> loader.setWidth(width).setHeight(height));
   }
 
   /** {@inheritDoc} */
@@ -89,12 +84,12 @@ public class BouncePulseLoader extends BaseLoader<BouncePulseLoader>
   /** {@inheritDoc} */
   @Override
   public DominoElement<HTMLDivElement> getContentElement() {
-    return DominoElement.of(content);
+    return content.toDominoElement();
   }
 
   /** {@inheritDoc} */
   @Override
   public HTMLDivElement element() {
-    return element;
+    return element.element();
   }
 }

@@ -1,0 +1,74 @@
+@media screen and (max-width: 768px){
+    .dui-layout {
+        --dui-left-drawer-width: calc(var(--dui-drawer-small-screens-width));
+        --dui-right-drawer-width: calc(var(--dui-drawer-small-screens-width));
+    }
+
+    .dui-left-drawer{
+
+    }
+
+    .dui-layout-left-drawer-md {
+        --dui-left-drawer-width: var(--dui-drawer-small-screens-width);
+    }
+
+    .dui-layout-left-drawer-lg {
+        --dui-left-drawer-width: var(--dui-drawer-small-screens-width);
+    }
+
+    .dui-layout-left-drawer-xlg {
+        --dui-left-drawer-width: var(--dui-drawer-small-screens-width);
+    }
+
+    .dui-layout-right-drawer-md {
+        --dui-right-drawer-width: var(--dui-drawer-small-screens-width);
+    }
+
+    .dui-layout-right-drawer-lg {
+        --dui-right-drawer-width: var(--dui-drawer-small-screens-width);
+    }
+
+    .dui-layout-right-drawer-xlg {
+        --dui-right-drawer-width: var(--dui-drawer-small-screens-width);
+    }
+
+    .dui-dialog.dui-w-xs{
+        --dui-dialog-xsamll-width: 95%;
+    }
+
+    .dui-dialog.dui-h-xs{
+        --dui-dialog-xsmall-height: 95%;
+    }
+
+    .dui-dialog.dui-w-sm{
+        --dui-dialog-samll-width: 95%;
+    }
+
+    .dui-dialog.dui-h-sm{
+        --dui-dialog-small-height: 95%;
+    }
+
+    .dui-dialog.dui-w-md{
+        --dui-dialog-medium-width: 95%;
+    }
+
+    .dui-dialog.dui-h-md{
+        --dui-dialog-medium-height: 95%;
+    }
+
+    .dui-dialog.dui-w-lg{
+        --dui-dialog-large-width: 95%;
+    }
+
+    .dui-dialog.dui-h-lg{
+        --dui-dialog-large-height: 95%;
+    }
+
+    .dui-dialog.dui-w-xl{
+        --dui-dialog-xlarge-width: 95%;
+    }
+
+    .dui-dialog.dui-h-xl{
+        --dui-dialog-xlarge-height: 95%;
+    }
+}

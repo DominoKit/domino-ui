@@ -15,7 +15,12 @@
  */
 package org.dominokit.domino.ui.utils;
 
-/** A component that can be deactivated should implement this interface */
+/**
+ * A component that can be deactivated should implement this interface
+ *
+ * @author vegegoku
+ * @version $Id: $Id
+ */
 public interface CanDeactivate {
   /** Deactivate the component */
   void deactivate();

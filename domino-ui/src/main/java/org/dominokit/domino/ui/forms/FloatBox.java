@@ -17,24 +17,39 @@ package org.dominokit.domino.ui.forms;
 
 import elemental2.core.JsNumber;
 import java.util.function.Function;
-import org.dominokit.domino.ui.utils.DominoUIConfig;
 
-/** A component that has an input to take/provide float value */
+/**
+ * A component that has an input to take/provide float value
+ *
+ * @author vegegoku
+ * @version $Id: $Id
+ */
 public class FloatBox extends NumberBox<FloatBox, Float> {
 
   /** @return a new instance without a label */
+  /**
+   * create.
+   *
+   * @return a {@link org.dominokit.domino.ui.forms.FloatBox} object
+   */
   public static FloatBox create() {
     return new FloatBox();
   }
 
   /** @return a new instance with a label */
+  /**
+   * create.
+   *
+   * @param label a {@link java.lang.String} object
+   * @return a {@link org.dominokit.domino.ui.forms.FloatBox} object
+   */
   public static FloatBox create(String label) {
     return new FloatBox(label);
   }
 
   /** Create instance without a label */
   public FloatBox() {
-    this("");
+    setDefaultValue(0.0F);
   }
 
   /**
@@ -43,19 +58,14 @@ public class FloatBox extends NumberBox<FloatBox, Float> {
    * @param label String
    */
   public FloatBox(String label) {
-    super(label);
-  }
-
-  /** {@inheritDoc} */
-  @Override
-  protected void clearValue(boolean silent) {
-    value(0.0F, silent);
+    this();
+    setLabel(label);
   }
 
   /** {@inheritDoc} */
   @Override
   protected Function<String, Float> defaultValueParser() {
-    return DominoUIConfig.INSTANCE.getNumberParsers().floatParser(this);
+    return getConfig().getNumberParsers().floatParser(this);
   }
 
   /** {@inheritDoc} */

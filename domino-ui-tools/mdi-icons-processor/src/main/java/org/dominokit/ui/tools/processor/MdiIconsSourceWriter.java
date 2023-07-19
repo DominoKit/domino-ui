@@ -21,30 +21,100 @@ import com.squareup.javapoet.*;
 import java.util.*;
 import java.util.function.Supplier;
 import java.util.stream.Collectors;
-import javax.annotation.processing.ProcessingEnvironment;
-import javax.lang.model.element.Element;
 import javax.lang.model.element.Modifier;
-import org.dominokit.domino.apt.commons.AbstractSourceBuilder;
-import org.dominokit.domino.apt.commons.DominoTypeBuilder;
 
-public class MdiIconsSourceWriter extends AbstractSourceBuilder {
+/**
+ * MdiIconsSourceWriter class.
+ *
+ * @author vegegoku
+ * @version $Id: $Id
+ */
+public class MdiIconsSourceWriter {
+  /** Constant <code>RESERVED_KEYWORDS</code> */
+  public static final Set<String> RESERVED_KEYWORDS =
+      new HashSet<>(
+          Arrays.asList(
+              "abstract",
+              "assert",
+              "boolean",
+              "break",
+              "byte",
+              "case",
+              "catch",
+              "char",
+              "class",
+              "const",
+              "continue",
+              "default",
+              "do",
+              "double",
+              "else",
+              "enum",
+              "extends",
+              "final",
+              "finally",
+              "float",
+              "for",
+              "goto",
+              "if",
+              "implements",
+              "import",
+              "instanceof",
+              "int",
+              "interface",
+              "long",
+              "native",
+              "new",
+              "package",
+              "private",
+              "protected",
+              "public",
+              "return",
+              "short",
+              "static",
+              "strictfp",
+              "super",
+              "switch",
+              "synchronized",
+              "this",
+              "throw",
+              "throws",
+              "transient",
+              "try",
+              "void",
+              "volatile",
+              "while",
+              "true",
+              "false",
+              "null"));
+
   private static final String MDI_ICON_TYPE = "org.dominokit.domino.ui.icons.MdiIcon";
   private static final String MDI_ICON_FACTORY_TYPE =
       "org.dominokit.domino.ui.icons.MdiIconsByTagFactory";
   private static final String MDI_META_TYPE = "org.dominokit.domino.ui.icons.MdiMeta";
 
+  /** Constant <code>UNTAGGED="UnTagged"</code> */
   public static final String UNTAGGED = "UnTagged";
+
   private final List<MetaIconInfo> metaIconInfos;
   private final String rootPackageName;
 
-  protected MdiIconsSourceWriter(
-      Element rootPackage, List<MetaIconInfo> metaIconInfos, ProcessingEnvironment processingEnv) {
-    super(processingEnv);
+  /**
+   * Constructor for MdiIconsSourceWriter.
+   *
+   * @param rootPackage a Element object
+   * @param metaIconInfos a {@link java.util.List} object
+   */
+  protected MdiIconsSourceWriter(String rootPackage, List<MetaIconInfo> metaIconInfos) {
     this.metaIconInfos = metaIconInfos;
-    this.rootPackageName = elements.getPackageOf(rootPackage).getQualifiedName().toString();
+    this.rootPackageName = rootPackage + ".lib";
   }
 
-  @Override
+  /**
+   * {@inheritDoc}
+   *
+   * @return a {@link java.util.List} object
+   */
   public List<TypeSpec.Builder> asTypeBuilder() {
     return new ArrayList<>(generateIconsByTag());
   }
@@ -94,7 +164,7 @@ public class MdiIconsSourceWriter extends AbstractSourceBuilder {
             ParameterizedTypeName.get(
                 ClassName.get(Supplier.class), ClassName.bestGuess(MDI_ICON_TYPE)));
 
-    return DominoTypeBuilder.classBuilder("MdiByTagFactory", MdiIconsProcessor.class)
+    return classBuilder("MdiByTagFactory")
         .addModifiers(Modifier.PUBLIC)
         .addMethod(
             MethodSpec.methodBuilder("get")
@@ -103,6 +173,30 @@ public class MdiIconsSourceWriter extends AbstractSourceBuilder {
                 .addParameter(ParameterSpec.builder(TypeName.get(String.class), "tag").build())
                 .addCode(switchCodeBuilder(tags).build())
                 .build());
+  }
+
+  /**
+   * classBuilder.
+   *
+   * @param name a {@link java.lang.String} object
+   * @return a {@link com.squareup.javapoet.TypeSpec.Builder} object
+   */
+  public static TypeSpec.Builder classBuilder(String name) {
+    return TypeSpec.classBuilder(name)
+        .addModifiers(Modifier.PUBLIC)
+        .addJavadoc("This is a generated class, please don't modify\n");
+  }
+
+  /**
+   * interfaceBuilder.
+   *
+   * @param name a {@link java.lang.String} object
+   * @return a {@link com.squareup.javapoet.TypeSpec.Builder} object
+   */
+  public static TypeSpec.Builder interfaceBuilder(String name) {
+    return TypeSpec.interfaceBuilder(name)
+        .addModifiers(Modifier.PUBLIC)
+        .addJavadoc("This is a generated class, please don't modify\n");
   }
 
   private CodeBlock.Builder switchCodeBuilder(Set<String> tags) {
@@ -133,9 +227,7 @@ public class MdiIconsSourceWriter extends AbstractSourceBuilder {
   }
 
   private TypeSpec.Builder generateMdiTagsConstants(Set<String> tags) {
-    TypeSpec.Builder builder =
-        DominoTypeBuilder.interfaceBuilder("MdiTags", MdiIconsProcessor.class)
-            .addModifiers(Modifier.PUBLIC);
+    TypeSpec.Builder builder = interfaceBuilder("MdiTags").addModifiers(Modifier.PUBLIC);
 
     tags.forEach(
         tag ->
@@ -178,16 +270,15 @@ public class MdiIconsSourceWriter extends AbstractSourceBuilder {
   }
 
   private TypeSpec.Builder generateAllMdiIconsInterface() {
-    TypeSpec.Builder builder =
-        DominoTypeBuilder.interfaceBuilder("MdiIcons", MdiIconsProcessor.class)
-            .addModifiers(Modifier.PUBLIC);
+    TypeSpec.Builder builder = classBuilder("Icons").addModifiers(Modifier.PUBLIC);
 
     metaIconInfos.forEach(
         metaIconInfo -> {
           MethodSpec.Builder iconMethod =
-              MethodSpec.methodBuilder(metaIconInfo.getName().replace("-", "_") + "_mdi")
+              MethodSpec.methodBuilder(
+                      unreservedKeywordName(metaIconInfo.getName().replace("-", "_")))
                   .addModifiers(Modifier.PUBLIC)
-                  .addModifiers(Modifier.DEFAULT)
+                  .addModifiers(Modifier.STATIC)
                   .returns(ClassName.bestGuess(MDI_ICON_TYPE))
                   .addStatement(
                       "return $T.create($S)",
@@ -205,16 +296,15 @@ public class MdiIconsSourceWriter extends AbstractSourceBuilder {
   }
 
   private TypeSpec.Builder generateAllMdiIconsWithMetaInterface() {
-    TypeSpec.Builder builder =
-        DominoTypeBuilder.interfaceBuilder("MdiIconsWithMeta", MdiIconsProcessor.class)
-            .addModifiers(Modifier.PUBLIC);
+    TypeSpec.Builder builder = classBuilder("IconsMeta").addModifiers(Modifier.PUBLIC);
 
     metaIconInfos.forEach(
         metaIconInfo -> {
           MethodSpec.Builder iconMethod =
-              MethodSpec.methodBuilder(metaIconInfo.getName().replace("-", "_") + "_mdi")
+              MethodSpec.methodBuilder(
+                      unreservedKeywordName(metaIconInfo.getName().replace("-", "_")))
                   .addModifiers(Modifier.PUBLIC)
-                  .addModifiers(Modifier.DEFAULT)
+                  .addModifiers(Modifier.STATIC)
                   .returns(ClassName.bestGuess(MDI_ICON_TYPE))
                   .addStatement(
                       "return $T.create($S, new $T($S, $S, $T.asList($L), $T.asList($L), $S, $S))",
@@ -241,9 +331,7 @@ public class MdiIconsSourceWriter extends AbstractSourceBuilder {
   }
 
   private TypeSpec.Builder generateMdiIconsByTagInterface(Set<String> tags) {
-    TypeSpec.Builder builder =
-        DominoTypeBuilder.interfaceBuilder("MdiIconsByTag", MdiIconsProcessor.class)
-            .addModifiers(Modifier.PUBLIC);
+    TypeSpec.Builder builder = interfaceBuilder("MdiIconsByTag").addModifiers(Modifier.PUBLIC);
 
     tags.forEach(
         tag ->
@@ -262,9 +350,7 @@ public class MdiIconsSourceWriter extends AbstractSourceBuilder {
     if (typeName.isEmpty()) {
       typeName = UNTAGGED;
     }
-    TypeSpec.Builder builder =
-        DominoTypeBuilder.interfaceBuilder(typeName, MdiIconsProcessor.class)
-            .addModifiers(Modifier.PUBLIC);
+    TypeSpec.Builder builder = interfaceBuilder(typeName).addModifiers(Modifier.PUBLIC);
 
     ParameterizedTypeName listType =
         ParameterizedTypeName.get(
@@ -275,7 +361,7 @@ public class MdiIconsSourceWriter extends AbstractSourceBuilder {
     CodeBlock.Builder staticInitializer = CodeBlock.builder();
 
     TypeSpec.Builder factoryBuilder =
-        DominoTypeBuilder.classBuilder(typeName + "_Factory", MdiIconsProcessor.class)
+        classBuilder(typeName + "_Factory")
             .addModifiers(Modifier.PUBLIC)
             .addSuperinterface(ClassName.bestGuess(MDI_ICON_FACTORY_TYPE))
             .addField(
@@ -296,7 +382,8 @@ public class MdiIconsSourceWriter extends AbstractSourceBuilder {
 
     icons.forEach(
         metaIconInfo -> {
-          String methodName = metaIconInfo.getName().replace("-", "_") + methodPostFix(tag);
+          String methodName =
+              unreservedKeywordName(metaIconInfo.getName().replace("-", "_") + methodPostFix(tag));
           MethodSpec.Builder iconMethod =
               MethodSpec.methodBuilder(methodName)
                   .addModifiers(Modifier.PUBLIC)
@@ -329,9 +416,9 @@ public class MdiIconsSourceWriter extends AbstractSourceBuilder {
 
   private String methodPostFix(String tag) {
     if (tag.isEmpty()) {
-      return "_mdi";
+      return "";
     } else {
-      return "_" + tagToClassName(tag).toLowerCase() + "_mdi";
+      return "_" + tagToClassName(tag).toLowerCase();
     }
   }
 
@@ -342,5 +429,12 @@ public class MdiIconsSourceWriter extends AbstractSourceBuilder {
   private String getStringLiteral(List<String> stringList) {
     String literal = stringList.stream().map(s -> "\"" + s + "\"").collect(Collectors.joining(","));
     return (isNull(literal) || literal.isEmpty()) ? "" : literal;
+  }
+
+  private String unreservedKeywordName(String str) {
+    if (RESERVED_KEYWORDS.contains(str)) {
+      return str + "_";
+    }
+    return str;
   }
 }

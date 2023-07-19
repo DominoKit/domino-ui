@@ -15,528 +15,381 @@
  */
 package org.dominokit.domino.ui.chips;
 
-import static java.util.Objects.nonNull;
-import static org.dominokit.domino.ui.chips.ChipStyles.*;
-import static org.jboss.elemento.Elements.div;
-import static org.jboss.elemento.Elements.span;
+import static org.dominokit.domino.ui.chips.ChipStyles.dui_chip;
+import static org.dominokit.domino.ui.chips.ChipStyles.dui_chip_addon;
+import static org.dominokit.domino.ui.chips.ChipStyles.dui_chip_has_addon;
+import static org.dominokit.domino.ui.chips.ChipStyles.dui_chip_remove;
+import static org.dominokit.domino.ui.chips.ChipStyles.dui_chip_selected;
+import static org.dominokit.domino.ui.chips.ChipStyles.dui_chip_value;
 
 import elemental2.dom.HTMLDivElement;
-import elemental2.dom.HTMLElement;
 import elemental2.dom.HTMLImageElement;
-import java.util.ArrayList;
-import java.util.List;
-import org.dominokit.domino.ui.icons.BaseIcon;
-import org.dominokit.domino.ui.icons.Icons;
-import org.dominokit.domino.ui.keyboard.KeyboardEvents;
-import org.dominokit.domino.ui.style.Color;
-import org.dominokit.domino.ui.style.ColorScheme;
-import org.dominokit.domino.ui.style.Style;
-import org.dominokit.domino.ui.themes.Theme;
-import org.dominokit.domino.ui.utils.*;
-import org.jboss.elemento.IsElement;
+import java.util.HashSet;
+import java.util.Optional;
+import java.util.Set;
+import org.dominokit.domino.ui.button.RemoveButton;
+import org.dominokit.domino.ui.elements.DivElement;
+import org.dominokit.domino.ui.elements.ImageElement;
+import org.dominokit.domino.ui.elements.SpanElement;
+import org.dominokit.domino.ui.style.BooleanCssClass;
+import org.dominokit.domino.ui.utils.AcceptDisable;
+import org.dominokit.domino.ui.utils.BaseDominoElement;
+import org.dominokit.domino.ui.utils.ChildHandler;
+import org.dominokit.domino.ui.utils.HasSelectionListeners;
+import org.dominokit.domino.ui.utils.LazyChild;
+import org.dominokit.domino.ui.utils.PrefixAddOn;
+import org.dominokit.domino.ui.utils.Selectable;
 
 /**
- * A removable container which can have image, text, icon, letters and a customizable remove icon.
+ * Chip class.
  *
- * <p>This component provides a clickable container that allows adding text and an image along with
- * a remove icon to remove the container.
- *
- * <p>Customize the component can be done by overwriting classes provided by {@link ChipStyles}
- *
- * <p>For example:
- *
- * <pre>
- *     Chip.create()
- *         .setValue("Yay! I\'ll be there")
- *         .setColorScheme(ColorScheme.RED)
- *
- *     Chip.create()
- *         .setRemovable(true)
- *         .setColorScheme(ColorScheme.GREY)
- *         .setValue("Restaurants")
- *
- *     Chip.create()
- *         .setValue("Schroeder Coleman")
- *         .setColorScheme(ColorScheme.TRANSPARENT)
- *         .setBorderColor(Color.INDIGO)
- *         .setLeftImg(img("https://randomuser.me/api/portraits/med/men/0.jpg"))
- * </pre>
- *
- * @see BaseDominoElement
- * @see HasSelectionHandler
- * @see HasDeselectionHandler
- * @see Switchable
- * @see HasRemoveHandler
+ * @author vegegoku
+ * @version $Id: $Id
  */
 public class Chip extends BaseDominoElement<HTMLDivElement, Chip>
-    implements HasSelectionHandler<Chip, String>,
-        HasDeselectionHandler<Chip>,
-        Switchable<Chip>,
-        HasRemoveHandler<Chip> {
+    implements HasSelectionListeners<Chip, Chip, Chip>, Selectable<Chip>, AcceptDisable<Chip> {
 
-  private final DominoElement<HTMLDivElement> element = DominoElement.of(div().css(CHIP));
-  private final HTMLDivElement textContainer = DominoElement.of(div()).css(CHIP_VALUE).element();
-  private final HTMLDivElement leftAddonContainer =
-      DominoElement.of(div()).css(CHIP_ADDON).element();
-  private final HTMLDivElement removeIconContainer =
-      DominoElement.of(div()).css(CHIP_REMOVE).element();
-  private ColorScheme colorScheme = ColorScheme.INDIGO;
-  private Color color = Color.INDIGO;
-  private DominoElement<HTMLElement> removeIcon = DominoElement.of(Icons.ALL.close().element());
-  private final List<SelectionHandler<String>> selectionHandlers = new ArrayList<>();
-  private final List<DeselectionHandler> deselectionHandlers = new ArrayList<>();
-  private final List<RemoveHandler> removeHandlers = new ArrayList<>();
-  private boolean selected;
-  private boolean enabled;
-  private HTMLElement leftAddon;
-  private boolean selectable;
-  private boolean removable;
-  private Color leftBackground;
-  private final Theme.ThemeChangeHandler themeListener =
-      (oldTheme, newTheme) -> style().setBorderColor(newTheme.getScheme().color().getHex());
+  private DivElement root;
+  private SpanElement textElement;
+  private LazyChild<DivElement> addon;
+  private LazyChild<RemoveButton> removeButton;
+  private Set<SelectionListener<? super Chip, ? super Chip>> selectionListeners = new HashSet<>();
+  private Set<SelectionListener<? super Chip, ? super Chip>> deselectionListeners = new HashSet<>();
+  private boolean selectionListenersPaused = false;
+  private boolean selected = false;
+  private boolean selectable = true;
+  private boolean removable = false;
 
-  public Chip(String value) {
-    element.appendChild(leftAddonContainer);
-    element.appendChild(textContainer);
-    element.appendChild(removeIconContainer);
-    element.setAttribute("tabindex", "0");
-    setColorScheme(colorScheme);
-    setRemoveIcon(removeIcon);
-    setRemovable(false);
-    setBorderColor(Color.INDIGO);
-    setValue(value);
-    KeyboardEvents.listenOnKeyDown(element)
-        .onEnter(
-            evt -> {
-              if (selectable) {
-                toggleSelect();
-              }
-              evt.stopPropagation();
-            })
-        .onDelete(
-            evt -> {
-              if (removable) {
-                remove();
-              }
-              evt.stopPropagation();
-            });
-    element.addEventListener(
-        "click",
+  /**
+   * create.
+   *
+   * @param text a {@link java.lang.String} object
+   * @return a {@link org.dominokit.domino.ui.chips.Chip} object
+   */
+  public static Chip create(String text) {
+    return new Chip(text);
+  }
+
+  /**
+   * Constructor for Chip.
+   *
+   * @param text a {@link java.lang.String} object
+   */
+  public Chip(String text) {
+    root =
+        div()
+            .addCss(dui_chip)
+            .setAttribute("tabindex", "0")
+            .appendChild(textElement = span().addCss(dui_chip_value).setTextContent(text));
+    init(this);
+
+    removeButton =
+        LazyChild.of(RemoveButton.create().addCss(dui_chip_remove), root)
+            .whenInitialized(
+                () ->
+                    removeButton
+                        .element()
+                        .addClickListener(
+                            evt -> {
+                              evt.stopPropagation();
+                              evt.preventDefault();
+                              remove();
+                            }));
+
+    addon =
+        LazyChild.of(div().addCss(dui_chip_addon), root)
+            .whenInitialized(() -> root.addCss(dui_chip_has_addon))
+            .onReset(() -> root.removeCss(dui_chip_has_addon));
+
+    root.onKeyDown(
+        keyEvents ->
+            keyEvents
+                .onEnter(
+                    evt -> {
+                      evt.stopPropagation();
+                      if (isSelectable()) {
+                        toggleSelect();
+                      }
+                    })
+                .onDelete(
+                    evt -> {
+                      evt.stopPropagation();
+                      if (isRemovable()) {
+                        remove();
+                      }
+                    }));
+    root.addClickListener(
         evt -> {
-          if (selectable) {
+          evt.stopPropagation();
+          if (isSelectable()) {
             toggleSelect();
           }
-          evt.stopPropagation();
         });
-    init(this);
   }
 
-  /** @return new instance with empty text */
-  public static Chip create() {
-    return create("");
+  /** {@inheritDoc} */
+  @Override
+  public Chip pauseSelectionListeners() {
+    this.selectionListenersPaused = true;
+    return this;
   }
 
-  /** @return new instance with {@code value} text */
-  public static Chip create(String value) {
-    return new Chip(value);
+  /** {@inheritDoc} */
+  @Override
+  public Chip resumeSelectionListeners() {
+    this.selectionListenersPaused = false;
+    return this;
   }
 
-  /**
-   * Marks the chip as selected.
-   *
-   * <p>Selecting the chip will trigger all the {@link SelectionHandler} added to it. Also, it will
-   * change the background based on the {@link ColorScheme} configured
-   *
-   * @return same instance
-   */
+  /** {@inheritDoc} */
+  @Override
+  public Chip togglePauseSelectionListeners(boolean toggle) {
+    this.selectionListenersPaused = toggle;
+    return this;
+  }
+
+  /** {@inheritDoc} */
+  @Override
+  public Set<SelectionListener<? super Chip, ? super Chip>> getSelectionListeners() {
+    return selectionListeners;
+  }
+
+  /** {@inheritDoc} */
+  @Override
+  public Set<SelectionListener<? super Chip, ? super Chip>> getDeselectionListeners() {
+    return deselectionListeners;
+  }
+
+  /** {@inheritDoc} */
+  @Override
+  public boolean isSelectionListenersPaused() {
+    return this.selectionListenersPaused;
+  }
+
+  /** {@inheritDoc} */
+  @Override
+  public Chip triggerSelectionListeners(Chip source, Chip selection) {
+    selectionListeners.forEach(
+        listener -> listener.onSelectionChanged(Optional.ofNullable(source), selection));
+    return this;
+  }
+
+  /** {@inheritDoc} */
+  @Override
+  public Chip triggerDeselectionListeners(Chip source, Chip selection) {
+    deselectionListeners.forEach(
+        listener -> listener.onSelectionChanged(Optional.ofNullable(source), selection));
+    return this;
+  }
+
+  /** {@inheritDoc} */
+  @Override
+  public Chip getSelection() {
+    if (isSelected()) {
+      return this;
+    }
+    return null;
+  }
+
+  /** {@inheritDoc} */
+  @Override
   public Chip select() {
-    this.selected = true;
-    element.replaceCss(getBackgroundStyle(), getDarkerColor());
-    removeIcon.addCss(getDarkerColor());
-    selectionHandlers.forEach(selectionHandler -> selectionHandler.onSelection(getValue()));
-    return this;
+    return select(isSelectionListenersPaused());
   }
 
-  /**
-   * Marks the chip as deselected.
-   *
-   * <p>Deselecting the chip will trigger all the {@link DeselectionHandler} added to it. Also, it
-   * will change the background based on the {@link ColorScheme} configured
-   *
-   * @return same instance
-   */
+  /** {@inheritDoc} */
+  @Override
   public Chip deselect() {
-    this.selected = false;
-    element.replaceCss(getDarkerColor(), getBackgroundStyle());
-    removeIcon.removeCss(getDarkerColor());
-    deselectionHandlers.forEach(DeselectionHandler::onDeselection);
-    return this;
+    return deselect(isSelectionListenersPaused());
   }
 
-  /**
-   * Selects/Deselects the chip based on its current status (i.e. if selected, then deselect)
-   *
-   * @return same instance
-   * @see Chip#select()
-   * @see Chip#deselect()
-   */
-  public Chip toggleSelect() {
-    if (selected) {
-      deselect();
-    } else {
-      select();
+  /** {@inheritDoc} */
+  @Override
+  public Chip select(boolean silent) {
+    if (!isDisabled() && isSelectable()) {
+      doSetSelected(true);
+      if (!silent) {
+        triggerSelectionListeners(this, this);
+      }
     }
     return this;
   }
 
-  /** @return True if this chip is selected, false otherwise */
+  /** {@inheritDoc} */
+  @Override
+  public Chip deselect(boolean silent) {
+    if (!isDisabled() && isSelectable()) {
+      doSetSelected(false);
+      if (!silent) {
+        triggerDeselectionListeners(this, this);
+      }
+    }
+    return this;
+  }
+
+  /** {@inheritDoc} */
+  public Chip setSelected(boolean selected) {
+    return setSelected(selected, isSelectionListenersPaused());
+  }
+
+  /** {@inheritDoc} */
+  @Override
+  public Chip setSelected(boolean selected, boolean silent) {
+    if (!isReadOnly() && !isDisabled()) {
+      if (selected) {
+        select(silent);
+      } else {
+        deselect(silent);
+      }
+    }
+    return this;
+  }
+
+  private void doSetSelected(boolean selected) {
+    addCss(BooleanCssClass.of(dui_chip_selected, selected));
+    this.selected = selected;
+  }
+
+  /** {@inheritDoc} */
+  @Override
   public boolean isSelected() {
-    return selected;
-  }
-
-  /**
-   * Sets the remove icon element. This will add click {@link elemental2.dom.EventListener} to the
-   * {@code removeIcon} that removes the chip
-   *
-   * @param removeIcon the new remove {@link HTMLElement}
-   * @return same instance
-   */
-  public Chip setRemoveIcon(HTMLElement removeIcon) {
-    this.removeIcon = DominoElement.of(removeIcon);
-    ElementUtil.clear(removeIconContainer);
-    removeIconContainer.appendChild(removeIcon);
-    removeIcon.addEventListener(
-        "click",
-        evt -> {
-          remove();
-          evt.stopPropagation();
-        });
-    return this;
+    return selected && isSelectable();
   }
 
   /** {@inheritDoc} */
   @Override
-  public Chip remove() {
-    return remove(false);
-  }
-
-  /**
-   * Removes the chip.
-   *
-   * <p>Accepts {@code silent} flag to call all the {@link RemoveHandler} added to it.
-   *
-   * @param silent if true, then this will call all the {@link RemoveHandler}
-   * @return same instance
-   */
-  public Chip remove(boolean silent) {
-    element.remove();
-    if (!silent) removeHandlers.forEach(RemoveHandler::onRemove);
-    return this;
-  }
-
-  /**
-   * Same as {@link Chip#setRemoveIcon(HTMLElement)} but accepts a wrapper {@link IsElement}
-   *
-   * @param removeIcon the new remove icon {@link IsElement} to set
-   * @return same instance
-   */
-  public Chip setRemoveIcon(IsElement<?> removeIcon) {
-    return setRemoveIcon(removeIcon.element());
-  }
-
-  /**
-   * Sets the color scheme for this component.
-   *
-   * <p>The color scheme will be used for changing the color based on the chip status if it is
-   * selected or not.
-   *
-   * @param colorScheme the new {@link ColorScheme} to set
-   * @return same instance
-   */
-  public Chip setColorScheme(ColorScheme colorScheme) {
-    removeCurrentBackground();
-
-    this.colorScheme = colorScheme;
-    this.color = colorScheme.color();
-    applyColor();
-    return this;
-  }
-
-  private void applyColor() {
-    element.addCss(this.color.getBackground());
-    removeIcon.addCss(this.color.getBackground());
-    setBorderColor(this.color);
-  }
-
-  private void removeCurrentBackground() {
-    if (nonNull(this.colorScheme)) {
-      element.removeCss(getBackgroundStyle());
-      removeIcon.removeCss(getBackgroundStyle());
-    }
-
-    if (nonNull(this.color)) {
-      element.removeCss(color.getBackground());
-      removeIcon.removeCss(color.getBackground());
-    }
-  }
-
-  /**
-   * Sets the color.
-   *
-   * <p>The color is used to get the background color to be set to this chip, if not set then the
-   * color will be configured using the {@link ColorScheme} set.
-   *
-   * @param color the new {@link Color} to set
-   * @return same instance
-   */
-  public Chip setColor(Color color) {
-    if (nonNull(this.colorScheme)) {
-      element.removeCss(getBackgroundStyle());
-      removeIcon.removeCss(getBackgroundStyle());
-    }
-
-    if (nonNull(this.color)) {
-      element.removeCss(color.getBackground());
-      removeIcon.removeCss(color.getBackground());
-    }
-    this.color = color;
-    applyColor();
-    return this;
-  }
-
-  private boolean hasColor() {
-    return nonNull(this.colorScheme) || nonNull(color);
-  }
-
-  private String getDarkerColor() {
-    return colorScheme.darker_4().getBackground();
-  }
-
-  private String getBackgroundStyle() {
-    return this.color.getBackground();
-  }
-
-  /**
-   * Sets if this chip can be removed or not.
-   *
-   * <p>Setting this to removable will add the remove icon configured for this component
-   *
-   * @param removable true if the chip can be removed
-   * @return same instance
-   */
-  public Chip setRemovable(boolean removable) {
-    this.removable = removable;
-    if (removable) {
-      Style.of(removeIconContainer).setDisplay("block");
-    } else {
-      Style.of(removeIconContainer).setDisplay("none");
-    }
-    return this;
-  }
-
-  /**
-   * Sets the text of the chip.
-   *
-   * @param value the new text
-   * @return same instance
-   */
-  public Chip setValue(String value) {
-    textContainer.textContent = value;
-    return this;
-  }
-
-  /**
-   * Sets the left icon of the chip
-   *
-   * @param icon the new {@link BaseIcon}
-   * @return same instance
-   */
-  public Chip setLeftIcon(BaseIcon<?> icon) {
-    setLeftAddon(icon.element());
-    return this;
-  }
-
-  /**
-   * Sets the left image of the chip.
-   *
-   * @param imageElement the new {@link HTMLImageElement}
-   * @return same instance
-   */
-  public Chip setLeftImg(HTMLImageElement imageElement) {
-    setLeftAddon(imageElement);
-    return this;
-  }
-
-  /**
-   * Same as {@link Chip#setLeftImg(HTMLImageElement)} but with a wrapper {@link
-   * IsElement<HTMLImageElement>}
-   *
-   * @param imageElement the new {@link IsElement<HTMLImageElement>}
-   * @return same instance
-   */
-  public Chip setLeftImg(IsElement<HTMLImageElement> imageElement) {
-    return setLeftImg(imageElement.element());
-  }
-
-  /**
-   * Sets the left element as a letter.
-   *
-   * @param text the letter to set
-   * @return same instance
-   */
-  public Chip setLeftLetter(String text) {
-    setLeftAddon(span().textContent(text).element());
-    return this;
-  }
-
-  private void setLeftAddon(HTMLElement leftAddon) {
-    this.leftAddon = leftAddon;
-    ElementUtil.clear(leftAddonContainer);
-    leftAddonContainer.appendChild(leftAddon);
-    updateLeftAddonBackground();
-  }
-
-  /**
-   * Sets the left container background
-   *
-   * @param leftBackground the {@link Color}
-   * @return same instance
-   */
-  public Chip setLeftBackground(Color leftBackground) {
-    this.leftBackground = leftBackground;
-    updateLeftAddonBackground();
-    return this;
-  }
-
-  private void updateLeftAddonBackground() {
-    if (nonNull(leftAddon) && nonNull(leftBackground)) {
-      Style.of(leftAddon).addCss(leftBackground.getBackground());
-    }
+  public boolean isSelectable() {
+    return selectable;
   }
 
   /** {@inheritDoc} */
   @Override
-  public HTMLDivElement element() {
-    return element.element();
-  }
-
-  /** {@inheritDoc} */
-  @Override
-  public Chip addSelectionHandler(SelectionHandler<String> selectionHandler) {
-    selectionHandlers.add(selectionHandler);
-    return this;
-  }
-
-  /** {@inheritDoc} */
-  @Override
-  public Chip addDeselectionHandler(DeselectionHandler deselectionHandler) {
-    deselectionHandlers.add(deselectionHandler);
-    return this;
-  }
-
-  /** {@inheritDoc} */
-  @Override
-  public Chip removeSelectionHandler(SelectionHandler<String> selectionHandler) {
-    selectionHandlers.remove(selectionHandler);
-    return this;
-  }
-
-  /** {@inheritDoc} */
-  @Override
-  public Chip enable() {
-    this.enabled = true;
-    element.removeAttribute("disabled");
-    removeIconContainer.removeAttribute("disabled");
-    return this;
-  }
-
-  /** {@inheritDoc} */
-  @Override
-  public Chip disable() {
-    this.enabled = false;
-    element.setAttribute("disabled", "disabled");
-    removeIconContainer.setAttribute("disabled", "disabled");
-    return this;
-  }
-
-  /** {@inheritDoc} */
-  @Override
-  public boolean isEnabled() {
-    return enabled;
-  }
-
-  /** {@inheritDoc} */
-  @Override
-  public Chip addRemoveHandler(RemoveHandler removeHandler) {
-    removeHandlers.add(removeHandler);
-    return this;
-  }
-
-  /**
-   * Sets if the chip can be selected or not.
-   *
-   * @param selectable true if the chip can be selected
-   * @return same instance
-   */
   public Chip setSelectable(boolean selectable) {
     this.selectable = selectable;
     return this;
   }
 
   /**
-   * Sets the border {@link Color}
+   * isRemovable.
    *
-   * @param borderColor the {@link Color} to set
-   * @return same instance
+   * @return a boolean
    */
-  public Chip setBorderColor(Color borderColor) {
-    if (Color.THEME.equals(color)) {
-      Theme.addThemeChangeHandler(themeListener);
-    } else {
-      Theme.removeThemeChangeHandler(themeListener);
-    }
+  public boolean isRemovable() {
+    return removable;
+  }
 
-    Style.of(element).setBorderColor(borderColor.getHex());
+  /**
+   * Setter for the field <code>removable</code>.
+   *
+   * @param removable a boolean
+   * @return a {@link org.dominokit.domino.ui.chips.Chip} object
+   */
+  public Chip setRemovable(boolean removable) {
+    this.removable = removable;
+    if (isRemovable()) {
+      removeButton.get();
+    } else {
+      removeButton.remove();
+    }
     return this;
   }
 
   /**
-   * Removes the left element.
+   * setText.
    *
-   * @return same instance
+   * @param text a {@link java.lang.String} object
+   * @return a {@link org.dominokit.domino.ui.chips.Chip} object
    */
-  public Chip removeLeftAddon() {
-    ElementUtil.clear(leftAddonContainer);
+  public Chip setText(String text) {
+    textElement.setTextContent(text);
     return this;
   }
 
-  /** @return The text of the chip */
-  public String getValue() {
-    return textContainer.textContent;
+  /**
+   * withTextElement.
+   *
+   * @param handler a {@link org.dominokit.domino.ui.utils.ChildHandler} object
+   * @return a {@link org.dominokit.domino.ui.chips.Chip} object
+   */
+  public Chip withTextElement(ChildHandler<Chip, SpanElement> handler) {
+    handler.apply(this, textElement);
+    return this;
   }
 
-  /** @return The text container */
-  public DominoElement<HTMLDivElement> getTextContainer() {
-    return DominoElement.of(textContainer);
+  /**
+   * Getter for the field <code>textElement</code>.
+   *
+   * @return a {@link org.dominokit.domino.ui.elements.SpanElement} object
+   */
+  public SpanElement getTextElement() {
+    return textElement;
   }
 
-  /** @return The left element container */
-  public DominoElement<HTMLDivElement> getLeftAddonContainer() {
-    return DominoElement.of(leftAddonContainer);
+  /**
+   * appendChild.
+   *
+   * @param prefixAddOn a {@link org.dominokit.domino.ui.utils.PrefixAddOn} object
+   * @return a {@link org.dominokit.domino.ui.chips.Chip} object
+   */
+  public Chip appendChild(PrefixAddOn<?> prefixAddOn) {
+    this.addon.get().appendChild(prefixAddOn);
+    return this;
   }
 
-  /** @return The remove element container */
-  public DominoElement<HTMLDivElement> getRemoveIconContainer() {
-    return DominoElement.of(removeIconContainer);
+  /**
+   * setLetters.
+   *
+   * @param text a {@link java.lang.String} object
+   * @return a {@link org.dominokit.domino.ui.chips.Chip} object
+   */
+  public Chip setLetters(String text) {
+    return appendChild(PrefixAddOn.of(span().textContent(text)));
   }
 
-  /** @return The remove element */
-  public DominoElement<HTMLElement> getRemoveIcon() {
-    return DominoElement.of(removeIcon);
+  /**
+   * setImage.
+   *
+   * @param img a {@link elemental2.dom.HTMLImageElement} object
+   * @return a {@link org.dominokit.domino.ui.chips.Chip} object
+   */
+  public Chip setImage(HTMLImageElement img) {
+    return appendChild(PrefixAddOn.of(img));
   }
 
-  /** @return The left element */
-  public DominoElement<HTMLElement> getLeftAddon() {
-    return DominoElement.of(leftAddon);
+  /**
+   * setImage.
+   *
+   * @param img a {@link org.dominokit.domino.ui.elements.ImageElement} object
+   * @return a {@link org.dominokit.domino.ui.chips.Chip} object
+   */
+  public Chip setImage(ImageElement img) {
+    return appendChild(PrefixAddOn.of(img));
+  }
+
+  /**
+   * clearAddOn.
+   *
+   * @return a {@link org.dominokit.domino.ui.chips.Chip} object
+   */
+  public Chip clearAddOn() {
+    addon.remove();
+    return this;
+  }
+
+  /**
+   * withAddon.
+   *
+   * @param handler a {@link org.dominokit.domino.ui.utils.ChildHandler} object
+   * @return a {@link org.dominokit.domino.ui.chips.Chip} object
+   */
+  public Chip withAddon(ChildHandler<Chip, DivElement> handler) {
+    handler.apply(this, addon.get());
+    return this;
+  }
+
+  /** {@inheritDoc} */
+  @Override
+  public HTMLDivElement element() {
+    return root.element();
   }
 }

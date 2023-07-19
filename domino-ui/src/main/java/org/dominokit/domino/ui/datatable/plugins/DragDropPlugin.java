@@ -16,6 +16,7 @@
 package org.dominokit.domino.ui.datatable.plugins;
 
 import static java.util.Objects.nonNull;
+import static org.dominokit.domino.ui.datatable.DataTableStyles.*;
 
 import elemental2.dom.HTMLElement;
 import elemental2.dom.Text;
@@ -32,19 +33,18 @@ import org.dominokit.domino.ui.datatable.events.RecordDraggedOutEvent;
 import org.dominokit.domino.ui.datatable.events.RecordDroppedEvent;
 import org.dominokit.domino.ui.datatable.events.TableEvent;
 import org.dominokit.domino.ui.dnd.DragSource;
+import org.dominokit.domino.ui.dnd.Draggable;
 import org.dominokit.domino.ui.dnd.DropZone;
-import org.dominokit.domino.ui.grid.flex.FlexAlign;
-import org.dominokit.domino.ui.grid.flex.FlexItem;
-import org.dominokit.domino.ui.grid.flex.FlexJustifyContent;
-import org.dominokit.domino.ui.grid.flex.FlexLayout;
-import org.dominokit.domino.ui.icons.BaseIcon;
-import org.dominokit.domino.ui.icons.Icons;
-import org.dominokit.domino.ui.utils.TextNode;
+import org.dominokit.domino.ui.elements.DivElement;
+import org.dominokit.domino.ui.icons.Icon;
+import org.dominokit.domino.ui.icons.lib.Icons;
 
 /**
  * this plugin allows reordering and moving records in a data table
  *
  * @param <T> the type of data table records
+ * @author vegegoku
+ * @version $Id: $Id
  */
 public class DragDropPlugin<T> implements DataTablePlugin<T> {
 
@@ -52,12 +52,13 @@ public class DragDropPlugin<T> implements DataTablePlugin<T> {
   private DragSource dragSource;
   private TableRow<T> emptyDropRow;
   private DataTable<T> dataTable;
-  private Supplier<BaseIcon<?>> emptyDropIconSupplier = Icons.ALL::plus_mdi;
-  private Supplier<BaseIcon<?>> dragDropIconSupplier = Icons.ALL::drag_vertical_mdi;
-  private FlexLayout emptyDropArea;
+  private Supplier<Icon<?>> emptyDropIconSupplier = Icons::vector_point_plus;
+  private Supplier<Icon<?>> dragDropIconSupplier = Icons::drag_vertical;
+  private DivElement emptyDropArea;
   private Text emptyDropText;
   private final List<DataTable<T>> otherDataTables = new ArrayList<>();
 
+  /** {@inheritDoc} */
   @Override
   public void init(DataTable<T> dataTable) {
     this.dataTable = dataTable;
@@ -67,19 +68,13 @@ public class DragDropPlugin<T> implements DataTablePlugin<T> {
   }
 
   private void initEmptyDropArea(DataTable<T> dataTable) {
-    emptyDropText = TextNode.of("Drop items here");
+    emptyDropText = elements.text("Drop items here");
     emptyDropArea =
-        FlexLayout.create()
-            .setAlignItems(FlexAlign.CENTER)
-            .setJustifyContent(FlexJustifyContent.CENTER)
-            .appendChild(
-                FlexItem.create()
-                    .appendChild(
-                        FlexLayout.create()
-                            .setAlignItems(FlexAlign.CENTER)
-                            .appendChild(FlexItem.create().appendChild(emptyDropIconSupplier.get()))
-                            .appendChild(FlexItem.create().appendChild(emptyDropText))));
-    emptyDropRow = new TableRow<>(null, -1, dataTable).css("default-drop-area");
+        div()
+            .addCss(dui_flex, dui_items_center, dui_justify_center, dui_datatable_drop_area)
+            .appendChild(emptyDropIconSupplier.get())
+            .appendChild(emptyDropText);
+    emptyDropRow = new TableRow<>(null, -1, dataTable).addCss(dui_datatable_drop_row);
     emptyDropRow.appendChild(emptyDropArea);
     dropZone.addDropTarget(emptyDropRow, draggableId -> moveItem(dataTable, null, draggableId));
     emptyDropRow.hide();
@@ -96,23 +91,21 @@ public class DragDropPlugin<T> implements DataTablePlugin<T> {
   public Optional<List<HTMLElement>> getUtilityElements(
       DataTable<T> dataTable, CellRenderer.CellInfo<T> cellInfo) {
     return Optional.of(
-        Collections.singletonList(dragDropIconSupplier.get().css("dui-row-dnd-element").element()));
+        Collections.singletonList(dragDropIconSupplier.get().addCss(dui_row_dnd_grab).element()));
   }
 
   /** {@inheritDoc} */
   @Override
   public void onHeaderAdded(DataTable<T> dataTable, ColumnConfig<T> column) {
     if (column.isUtilityColumn()) {
-      column
-          .getHeaderLayout()
-          .appendChild(FlexItem.create().appendChild(dragDropIconSupplier.get()));
+      column.appendChild(div().appendChild(dragDropIconSupplier.get()));
     }
   }
 
   /** {@inheritDoc} */
   @Override
   public void onRowAdded(DataTable<T> dataTable, TableRow<T> tableRow) {
-    dragSource.addDraggable(tableRow);
+    dragSource.addDraggable(Draggable.of(tableRow));
     dropZone.addDropTarget(
         tableRow, draggableId -> moveItem(dataTable, tableRow.getRecord(), draggableId));
   }
@@ -136,6 +129,7 @@ public class DragDropPlugin<T> implements DataTablePlugin<T> {
     }
   }
 
+  /** {@inheritDoc} */
   @Override
   public void handleEvent(TableEvent event) {
     if (event instanceof RecordDraggedOutEvent) {
@@ -168,21 +162,41 @@ public class DragDropPlugin<T> implements DataTablePlugin<T> {
   }
 
   /** @param emptyDropIconSupplier supplier to create icon for the empty drop area */
-  public void setEmptyDropIconSupplier(Supplier<BaseIcon<?>> emptyDropIconSupplier) {
+  /**
+   * Setter for the field <code>emptyDropIconSupplier</code>.
+   *
+   * @param emptyDropIconSupplier a {@link java.util.function.Supplier} object
+   */
+  public void setEmptyDropIconSupplier(Supplier<Icon<?>> emptyDropIconSupplier) {
     this.emptyDropIconSupplier = emptyDropIconSupplier;
   }
 
   /** @param dragDropIconSupplier supplier to create icon for each draggable row */
-  public void setDragDropIconSupplier(Supplier<BaseIcon<?>> dragDropIconSupplier) {
+  /**
+   * Setter for the field <code>dragDropIconSupplier</code>.
+   *
+   * @param dragDropIconSupplier a {@link java.util.function.Supplier} object
+   */
+  public void setDragDropIconSupplier(Supplier<Icon<?>> dragDropIconSupplier) {
     this.dragDropIconSupplier = dragDropIconSupplier;
   }
 
   /** @return the element of empty drop */
-  public FlexLayout getEmptyDropArea() {
+  /**
+   * Getter for the field <code>emptyDropArea</code>.
+   *
+   * @return a {@link org.dominokit.domino.ui.elements.DivElement} object
+   */
+  public DivElement getEmptyDropArea() {
     return emptyDropArea;
   }
 
   /** @param text changes the text of the empty drop area */
+  /**
+   * Setter for the field <code>emptyDropText</code>.
+   *
+   * @param text a {@link java.lang.String} object
+   */
   public void setEmptyDropText(String text) {
     emptyDropText.textContent = text;
   }

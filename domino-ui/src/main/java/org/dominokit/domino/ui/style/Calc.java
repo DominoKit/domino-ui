@@ -15,7 +15,12 @@
  */
 package org.dominokit.domino.ui.style;
 
-/** A utility class for creating {@code calc} CSS property */
+/**
+ * A utility class for creating {@code calc} CSS property
+ *
+ * @author vegegoku
+ * @version $Id: $Id
+ */
 public class Calc {
 
   /**

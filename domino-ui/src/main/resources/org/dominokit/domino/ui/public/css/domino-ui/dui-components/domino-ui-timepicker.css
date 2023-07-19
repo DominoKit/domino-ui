@@ -1,0 +1,54 @@
+.dui-time-picker {
+    border-width: var(--dui-timepicker-border-width);
+    border-style: var(--dui-timepicker-border-style);
+    border-color: var(--dui-timepicker-border-color);
+    display: flex;
+    flex-direction: column;
+}
+
+.dui-time-header {
+    order: 20;
+    padding: var(--dui-timepicker-header-padding);
+    background-color: var(--dui-accent);
+    color: var(--dui-text-color, var(--dui-timepicker-header-text-color));
+    border-width: var(--dui-timepicker-header-border-width);
+    border-style: var(--dui-timepicker-header-border-style);
+    border-color: var(--dui-accent-l-2);
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}
+
+.dui-time-header-text {
+    font-size: var(--dui-timepicker-header-day-font-size);
+    line-height: var(--dui-timepicker-header-day-line-height);
+    font-weight: var(--dui-timepicker-header-day-font-weight);
+}
+
+.dui-timepicker-body {
+    order: 60;
+}
+
+.dui-timepicker-selectors {
+    order: 40;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    gap: var(--dui-spc-2);
+    padding: var(--dui-spc-2);
+}
+
+.dui-timepicker-footer {
+    order: 80;
+}
+
+.dui-timepicker-unit-selector {
+   min-inline-size: 0;
+}
+.dui-timepicker-unit-selector.dui-form-field{
+    margin-bottom: 0;
+}
+
+.dui-timepicker-footer {
+    padding: var(--dui-timepicker-footer-padding);
+}

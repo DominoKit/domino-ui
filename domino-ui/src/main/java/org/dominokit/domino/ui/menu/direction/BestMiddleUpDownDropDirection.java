@@ -16,35 +16,52 @@
 package org.dominokit.domino.ui.menu.direction;
 
 import static elemental2.dom.DomGlobal.window;
+import static org.dominokit.domino.ui.style.SpacingCss.dui_flex_col_reverse;
 
 import elemental2.dom.DOMRect;
-import elemental2.dom.HTMLElement;
+import elemental2.dom.Element;
 
+/**
+ * BestMiddleUpDownDropDirection class.
+ *
+ * @author vegegoku
+ * @version $Id: $Id
+ */
 public class BestMiddleUpDownDropDirection implements DropDirection {
 
-  private DropDirection currentPosition;
-
+  /** {@inheritDoc} */
   @Override
-  public void position(HTMLElement source, HTMLElement target) {
-
+  public void position(Element source, Element target) {
+    dui_flex_col_reverse.remove(source);
+    cleanup(source);
     DOMRect targetRect = target.getBoundingClientRect();
     DOMRect sourceRect = source.getBoundingClientRect();
     int innerHeight = window.innerHeight;
 
     double sourceHeight = sourceRect.height;
-    double downSpace = innerHeight - targetRect.height;
+    double downSpace = innerHeight - targetRect.bottom;
+    double spaceUp = downSpace - targetRect.height;
 
-    if (hasSpaceBelow(sourceHeight, downSpace)) {
-      currentPosition = new BottomMiddleDropDirection();
+    DropDirection currentPosition;
+
+    if (hasSpaceUp(sourceHeight, spaceUp)) {
+      currentPosition = DropDirection.TOP_MIDDLE;
     } else {
-      currentPosition = new TopMiddleDropDirection();
+      currentPosition = DropDirection.BOTTOM_MIDDLE;
     }
 
     currentPosition.position(source, target);
   }
 
-  private boolean hasSpaceBelow(double sourceHeight, double downSpace) {
-    return downSpace > sourceHeight;
+  /** {@inheritDoc} */
+  @Override
+  public void cleanup(Element source) {
+    DropDirection.BOTTOM_MIDDLE.cleanup(source);
+    DropDirection.TOP_MIDDLE.cleanup(source);
+  }
+
+  private boolean hasSpaceUp(double sourceHeight, double spaceUp) {
+    return spaceUp > sourceHeight;
   }
 
   private boolean hasSpaceOnRightSide(double sourceWidth, double rightSpace) {

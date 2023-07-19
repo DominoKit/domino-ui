@@ -1,0 +1,237 @@
+.dui-datatable {
+    border-spacing: 0;
+    border-collapse: separate;
+    font-size: var(--dui-datattable-font-size);
+    background-color: var(--dui-bg, inherit);
+    text-size-adjust: 100%
+}
+
+.dui-datatable-responsive {
+    min-height: .01%;
+    overflow-x: auto;
+    background-color: inherit;
+}
+
+.dui-datatable-fixed .dui-datatable {
+    display: block;
+    overflow-x: auto;
+    max-width: 100%;
+}
+
+.dui-datatable-thead {
+    background-color: var(--dui-bg, var(--dui-clr-dominant));
+}
+
+.dui-datatable-thead .dui-datatable-row{
+    background-color: var(--dui-bg, var(--dui-clr-dominant));
+}
+
+.dui-datatable-tfoot {
+    position: sticky;
+    bottom: 0;
+    background-color: var(--dui-datatable-tfoot-bg-color);
+}
+
+.dui-datatable-tfoot .dui-datatable-row:first-child .dui-datatable-td {
+    border-top: 1px solid var(--dui-accent-l-4);
+}
+
+.dui-datatable-fixed .dui-datatable-thead {
+    position: sticky;
+    top: 0;
+    z-index: 1;
+}
+
+.dui-datatable-hover tbody .dui-datatable-row:hover,
+.dui-datatable-hover tbody .dui-datatable-row:nth-child(odd):hover,
+.dui-datatable-hover tbody .dui-datatable-row:nth-child(even):hover {
+    background-color: var(--dui-datatable-row-hover-bg-color);
+}
+
+.dui-datatable-striped tbody .dui-datatable-row:nth-child(even) {
+    background-color: var(--dui-datatable-even-bg-color);
+}
+
+.dui-datatable-striped tbody .dui-datatable-row:nth-child(odd) {
+    background-color: var(--dui-datatable-odd-bg-color);
+}
+
+.dui-datatable-width-full {
+    width: 100%;
+    max-width: 100%;
+}
+
+.dui-datatable-row:not(:last-child) {
+    border-bottom: 1px solid var(--dui-datatable-border-color);
+}
+
+.dui-datatable-thead .dui-datatable-th {
+    border-bottom: 1px solid var(--dui-datatable-border-color);
+}
+
+.dui-datatable-bordered .dui-datatable:not(:first-child) {
+    border-top: 1px solid var(--dui-datatable-border-color);
+}
+
+.dui-datatable-bordered {
+    border: 1px solid var(--dui-datatable-border-color);
+}
+
+.dui-datatable-bordered.dui-datatable-fixed .dui-datatable-th,
+.dui-datatable-bordered.dui-datatable-fixed .dui-datatable-td,
+.dui-datatable-bordered .dui-datatable-th:not(:last-child),
+.dui-datatable-bordered .dui-datatable-td:not(:last-child) {
+    border-right: 1px solid var(--dui-datatable-border-color);
+}
+
+.dui-datatable-bordered .dui-datatable-thead .dui-column-group {
+    border-right: 1px solid var(--dui-datatable-border-color);
+}
+
+.dui-datatable-bordered.dui-datatable-fixed .dui-datatable-row:not(:last-child) .dui-datatable-th,
+.dui-datatable-bordered.dui-datatable-fixed .dui-datatable-row:not(:last-child) .dui-datatable-td,
+.dui-datatable-bordered .dui-datatable-row:not(:last-child) .dui-datatable-th,
+.dui-datatable-bordered .dui-datatable-row:not(:last-child) .dui-datatable-td {
+    border-bottom: 1px solid var(--dui-datatable-border-color);
+}
+
+.dui-datatable-th,
+.dui-datatable-td {
+    padding: var(--dui-spc-2);
+    line-height: var(--dui-spc-4);
+    background-color: inherit;
+}
+
+.dui-datatable-condensed .dui-datatable-td {
+    padding: var(--dui-datattable-cell-padding);
+    line-height: var(--dui-datattable-cell-line-height);
+}
+
+.dui-datatable-th:hover {
+    background-color: var(--dui-datatable-header-hover-bg-color);
+}
+
+.dui-datatable-row-marker .dui-datatable-row .dui-datatable-td:first-child,
+.dui-datatable-row-marker .dui-datatable-row .dui-datatable-th:first-child {
+    border-left-width: var(--dui-spc-1);
+    border-left-style: solid;
+    border-left-color: var(--dui-context-color, transparent);
+}
+
+.dui-nav-bar.dui-datatable-nav-bar {
+    padding: var(--dui-datattable-navbar-padding);
+    margin: var(--dui-datattable-navbar-margin);
+}
+
+.dui-datatable-row-selected.dui-datatable-row.dui-odd,
+.dui-datatable-row-selected.dui-datatable-row.dui-even {
+    --dui-datatable-even-bg-color: var(--dui-datatable-row-selected-bg-color);
+    --dui-datatable-odd-bg-color: var(--dui-datatable-row-selected-bg-color);
+}
+
+.dui-datatable-th-body {
+    display: flex;
+    width: 100%;
+    text-align: inherit;
+    align-items: center;
+}
+
+.dui-datatable-th-title {
+    flex-grow: 1;
+    text-align: inherit;
+    order: 60;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+.dui-datatable-th-menu-icon {
+    order: var(--dui-order-last);
+}
+
+.dui-datatable-th-body .dui-postfix-addon {
+    order: 80;
+}
+
+.dui-datatable-th-body .dui-prefix-addon {
+    order: 40;
+}
+
+.dui-datatable-utility-elements {
+    display: flex;
+    align-items: center;
+    justify-content: start;
+    gap: 4px;
+}
+
+.dui-datatable-utility-element {
+    align-self: center;
+}
+
+.dui-datatable-search-box {
+    background-color: var(--dui-accent-l-5);
+    border-radius: var(--dui-spc-1_5);
+    width: var(--dui-spc-72);
+}
+
+.dui-datatable-details-td {
+    max-width: 200px;
+    border-bottom: 1px solid var(--dui-datatable-border-color);
+}
+
+.dui-datatable-responsive:not(.dui-datatable-bordered) .dui-datatable-details-td {
+    border-top: 1px solid var(--dui-datatable-border-color);
+}
+
+.dui-datatable-row-editable .dui-form-field {
+    margin-bottom: 0;
+}
+
+.dui-column-resizer {
+    width: 3px;
+    min-height: 20px;
+    cursor: col-resize;
+    height: 100%;
+    background-color: var(--dui-datatable-column-resizer-color);
+    order: var(--dui-order-last-4);
+    margin-left: 5px;
+    border-radius: 2px;
+    flex-shrink: 0;
+}
+
+.dui-row-dnd-grab {
+    cursor: grab;
+}
+.dui-datatable-row.dui-datatable-drop-row:not(.dui-hidden) {
+    display: block;
+    border: none;
+    width: 100%;
+}
+
+.dui-datatable-drop-area {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    border: 1px dashed var(--dui-accent-l-4);
+    min-height: 50px;
+    padding: 8px;
+    margin-top: 4px;
+}
+
+.dui-datatable-column-utility {
+    white-space: nowrap;
+}
+
+.dui-datatable-sticky-header {
+    position: relative;
+    overflow-y: auto;
+    max-height: 100%;
+}
+
+.dui-datatable-sticky-header .dui-datatable-thead {
+    position: sticky;
+    top: 0;
+    z-index: 1;
+}

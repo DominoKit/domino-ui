@@ -15,28 +15,27 @@
  */
 package org.dominokit.domino.ui.timepicker;
 
-/** Constants class for time picker components css classes names */
-public class TimePickerStyles {
-  public static final String PICKER_WIDTH = "270px";
-  public static final String TIME_PICKER = "time-picker";
-  public static final String TIME_PANEL = "time-panel";
-  public static final String HOUR_TEXT = "hour-text";
-  public static final String MINUTE_TEXT = "minute-text";
-  public static final String SECOND_TEXT = "second-text";
-  public static final String AM_PM_CONTAINER = "am-pm-container";
-  public static final String AM_PM_TEXT = "am-pm-text";
-  public static final String AM_PM_TOP = "am-pm-top";
-  public static final String AM_PM_BOTTOM = "am-pm-bottom";
-  public static final String TIME_DISPLAY_LARGE = "time-display-large";
-  public static final String TIME_FOOTER = "time-footer";
-  public static final String CLEAR_BUTTON = "clear-button";
-  public static final String NOW_BUTTON = "now-button";
-  public static final String CLOSE_BUTTON = "close-button";
-  public static final String NAVIGATE = "navigate";
-  public static final String NAVIGATE_LEFT = "navigate-left";
-  public static final String NAVIGATE_RIGHT = "navigate-right";
-  public static final String PICKER_CONTENT = "picker-content";
-  public static final String CLOCK_PICKER = "clock-picker";
-  public static final String HOUR = "hour";
-  public static final String SMALL_HOUR = "small-hour";
+import org.dominokit.domino.ui.style.CssClass;
+
+/**
+ * TimePickerStyles interface.
+ *
+ * @author vegegoku
+ * @version $Id: $Id
+ */
+public interface TimePickerStyles {
+  /** Constant <code>dui_time_picker</code> */
+  CssClass dui_time_picker = () -> "dui-time-picker";
+  /** Constant <code>dui_timepicker_body</code> */
+  CssClass dui_timepicker_body = () -> "dui-timepicker-body";
+  /** Constant <code>dui_timepicker_footer</code> */
+  CssClass dui_timepicker_footer = () -> "dui-timepicker-footer";
+  /** Constant <code>dui_timepicker_selectors</code> */
+  CssClass dui_timepicker_selectors = () -> "dui-timepicker-selectors";
+  /** Constant <code>dui_timepicker_unit_selector</code> */
+  CssClass dui_timepicker_unit_selector = () -> "dui-timepicker-unit-selector";
+  /** Constant <code>dui_time_header</code> */
+  CssClass dui_time_header = () -> "dui-time-header";
+  /** Constant <code>dui_time_header_text</code> */
+  CssClass dui_time_header_text = () -> "dui-time-header-text";
 }

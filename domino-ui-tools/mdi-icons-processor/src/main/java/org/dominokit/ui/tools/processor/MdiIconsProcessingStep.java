@@ -15,66 +15,79 @@
  */
 package org.dominokit.ui.tools.processor;
 
+import com.squareup.javapoet.JavaFile;
+import com.squareup.javapoet.TypeSpec;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.URL;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Set;
-import javax.annotation.processing.ProcessingEnvironment;
-import javax.lang.model.element.Element;
-import javax.tools.FileObject;
-import javax.tools.StandardLocation;
 import org.apache.commons.io.IOUtils;
-import org.dominokit.domino.apt.commons.AbstractProcessingStep;
-import org.dominokit.domino.apt.commons.ExceptionUtil;
-import org.dominokit.domino.apt.commons.StepBuilder;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
-public class MdiIconsProcessingStep extends AbstractProcessingStep {
+/**
+ * MdiIconsProcessingStep class.
+ *
+ * @author vegegoku
+ * @version $Id: $Id
+ */
+public class MdiIconsProcessingStep {
 
-  private static final String MDI_VERSION = "v4.6.95";
+  private static final String MDI_VERSION = "v7.2.96";
+  private static final Logger LOGGER = LoggerFactory.getLogger(MdiIconsProcessingStep.class);
+  /** Constant <code>ICONS_ROOT_PACKAGE="org.dominokit.domino.ui.icons"</code> */
+  public static final String ICONS_ROOT_PACKAGE = "org.dominokit.domino.ui.icons";
+  /** Constant <code>PUBLIC_ROOT="org.dominokit.domino.ui.public"</code> */
+  public static final String PUBLIC_ROOT = "org.dominokit.domino.ui.public";
 
-  public MdiIconsProcessingStep(ProcessingEnvironment processingEnv) {
-    super(processingEnv);
+  /**
+   * {@inheritDoc}
+   *
+   * @param args an array of {@link java.lang.String} objects
+   */
+  public static void main(String[] args) {
+    generateIcons();
+    updateFonts();
+    updateCss();
   }
 
-  public static class Builder extends StepBuilder<MdiIconsProcessingStep> {
-    public MdiIconsProcessingStep build() {
-      return new MdiIconsProcessingStep(processingEnv);
-    }
+  private static Path getIconRootPath() {
+    return Paths.get("domino-ui/src/main/java", ICONS_ROOT_PACKAGE.replace(".", "/"));
   }
 
-  @Override
-  public void process(Set<? extends Element> elementsByAnnotation) {
-
-    for (Element element : elementsByAnnotation) {
-      try {
-        generateIcons(element);
-        updateFonts();
-        updateCss();
-      } catch (Exception e) {
-        ExceptionUtil.messageStackTrace(messager, e);
-      }
-    }
+  private static Path getSourceRootPath() {
+    return Paths.get("domino-ui/src/main/java");
   }
 
-  private void updateFonts() {
+  private static Path getResourceRootPath() {
+    return Paths.get("domino-ui/src/main/resources");
+  }
+
+  private static Path getResourcePublicRootPath() {
+    return Paths.get("domino-ui/src/main/resources/org/dominokit/domino/ui/public");
+  }
+
+  private static void updateFonts() {
     copyFont("materialdesignicons-webfont.eot");
     copyFont("materialdesignicons-webfont.ttf");
     copyFont("materialdesignicons-webfont.woff");
     copyFont("materialdesignicons-webfont.woff2");
   }
 
-  private void updateCss() {
+  private static void updateCss() {
     copyCss("materialdesignicons.css");
     copyCss("materialdesignicons.css.map");
     copyCss("materialdesignicons.min.css");
     copyCss("materialdesignicons.min.css.map");
   }
 
-  private void copyFont(String fontName) {
+  private static void copyFont(String fontName) {
     try (InputStream inputStream =
         new URL(
                 "https://github.com/Templarian/MaterialDesign-Webfont/blob/"
@@ -83,20 +96,27 @@ public class MdiIconsProcessingStep extends AbstractProcessingStep {
                     + fontName
                     + "?raw=true")
             .openStream()) {
-      FileObject resource =
-          filer.createResource(
-              StandardLocation.SOURCE_OUTPUT,
-              "org.dominokit.domino.ui",
-              "public/css/mdi/fonts/" + fontName);
-      OutputStream outputStream = resource.openOutputStream();
-      IOUtils.copyLarge(inputStream, outputStream);
-      outputStream.close();
+      copyFont(fontName, inputStream);
     } catch (IOException e) {
-      ExceptionUtil.messageStackTrace(messager, e);
+      try {
+        copyFont(
+            fontName,
+            Files.newInputStream(
+                Paths.get(getResourceRootPath().toString(), "cached/mdi/fonts/" + fontName)));
+      } catch (IOException ex) {
+        LOGGER.error("", ex);
+      }
     }
   }
 
-  private void copyCss(String cssName) {
+  private static void copyFont(String fontName, InputStream inputStream) throws IOException {
+    Path path = Paths.get(getResourcePublicRootPath().toString(), "css/fonts/" + fontName);
+    OutputStream outputStream = Files.newOutputStream(path);
+    IOUtils.copyLarge(inputStream, outputStream);
+    outputStream.close();
+  }
+
+  private static void copyCss(String cssName) {
     try (InputStream inputStream =
         new URL(
                 "https://raw.githubusercontent.com/Templarian/MaterialDesign-Webfont/"
@@ -105,27 +125,63 @@ public class MdiIconsProcessingStep extends AbstractProcessingStep {
                     + cssName
                     + "?raw=true")
             .openStream()) {
-      FileObject resource =
-          filer.createResource(
-              StandardLocation.SOURCE_OUTPUT,
-              "org.dominokit.domino.ui",
-              "public/css/mdi/css/" + cssName);
-      OutputStream outputStream = resource.openOutputStream();
-      IOUtils.copyLarge(inputStream, outputStream);
-      outputStream.close();
+      copyCss(cssName, inputStream);
     } catch (IOException e) {
-      ExceptionUtil.messageStackTrace(messager, e);
+      try {
+        copyFont(
+            cssName,
+            Files.newInputStream(
+                Paths.get(getResourceRootPath().toString(), "cached/mdi/css/" + cssName)));
+      } catch (IOException ex) {
+        LOGGER.error("", ex);
+      }
     }
   }
 
-  private void generateIcons(Element presenterElement) {
-    writeSource(
-        new MdiIconsSourceWriter(presenterElement, loadIconMetaInfo(), processingEnv)
-            .asTypeBuilder(),
-        elements.getPackageOf(presenterElement).getQualifiedName().toString());
+  private static void copyCss(String cssName, InputStream inputStream) throws IOException {
+    Path path =
+        Paths.get(
+            getResourcePublicRootPath().toString(), "css/domino-ui/dui-components/mdi/" + cssName);
+    System.out.println(path.toFile().getAbsolutePath().toString());
+    OutputStream outputStream = Files.newOutputStream(path);
+    IOUtils.copyLarge(inputStream, outputStream);
+    outputStream.close();
   }
 
-  private List<MetaIconInfo> loadIconMetaInfo() {
+  private static void generateIcons() {
+    writeSource(
+        new MdiIconsSourceWriter(ICONS_ROOT_PACKAGE, loadIconMetaInfo()).asTypeBuilder(),
+        ICONS_ROOT_PACKAGE + ".lib");
+  }
+
+  /**
+   * writeSource.
+   *
+   * @param builders a {@link java.util.List} object
+   * @param rootPackage a {@link java.lang.String} object
+   */
+  protected static void writeSource(List<TypeSpec.Builder> builders, String rootPackage) {
+    builders.forEach(
+        builder -> {
+          JavaFile javaFile = JavaFile.builder(rootPackage, builder.build()).build();
+          writeSource(javaFile);
+        });
+  }
+
+  /**
+   * Writes the source file to the {@link javax.annotation.processing.Filer}
+   *
+   * @param sourceFile the source file to write
+   */
+  protected static void writeSource(JavaFile sourceFile) {
+    try {
+      sourceFile.writeTo(Paths.get(getSourceRootPath().toString()));
+    } catch (IOException e) {
+      LOGGER.error("", e);
+    }
+  }
+
+  private static List<MetaIconInfo> loadIconMetaInfo() {
     try {
       try (InputStream meta =
           new URL(
@@ -138,7 +194,7 @@ public class MdiIconsProcessingStep extends AbstractProcessingStep {
             MetaIconInfo_MapperImpl.INSTANCE.readArray(metaJson, MetaIconInfo[]::new));
       }
     } catch (IOException e) {
-      ExceptionUtil.messageStackTrace(messager, e);
+      LOGGER.error("", e);
     }
 
     return new ArrayList<>();

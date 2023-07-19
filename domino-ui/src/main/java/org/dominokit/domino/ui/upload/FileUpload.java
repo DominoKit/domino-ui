@@ -16,126 +16,280 @@
 package org.dominokit.domino.ui.upload;
 
 import static java.util.Objects.nonNull;
-import static org.jboss.elemento.Elements.div;
-import static org.jboss.elemento.Elements.input;
+import static org.dominokit.domino.ui.utils.DominoUIConfig.CONFIG;
 
-import elemental2.dom.*;
+import elemental2.dom.DragEvent;
+import elemental2.dom.Element;
+import elemental2.dom.File;
+import elemental2.dom.FileList;
+import elemental2.dom.HTMLDivElement;
+import elemental2.dom.HTMLElement;
+import elemental2.dom.XMLHttpRequest;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 import java.util.function.Supplier;
 import jsinterop.base.Js;
-import org.dominokit.domino.ui.grid.Column;
-import org.dominokit.domino.ui.grid.Row;
-import org.dominokit.domino.ui.grid.Row_12;
-import org.dominokit.domino.ui.icons.BaseIcon;
-import org.dominokit.domino.ui.notifications.Notification;
+import org.dominokit.domino.ui.IsElement;
+import org.dominokit.domino.ui.config.HasComponentConfig;
+import org.dominokit.domino.ui.config.UploadConfig;
+import org.dominokit.domino.ui.elements.DivElement;
+import org.dominokit.domino.ui.elements.InputElement;
+import org.dominokit.domino.ui.i18n.HasLabels;
+import org.dominokit.domino.ui.i18n.UploadLabels;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
 import org.dominokit.domino.ui.utils.DominoElement;
 import org.dominokit.domino.ui.utils.HasName;
-import org.jboss.elemento.IsElement;
+import org.dominokit.domino.ui.utils.LazyChild;
 
 /**
  * A component for uploading files (photos, documents or any other file type) from local storage
  *
  * @see BaseDominoElement
  * @see HasName
+ * @author vegegoku
+ * @version $Id: $Id
  */
 public class FileUpload extends BaseDominoElement<HTMLDivElement, FileUpload>
-    implements HasName<FileUpload> {
+    implements HasName<FileUpload>,
+        FileUploadStyles,
+        HasComponentConfig<UploadConfig>,
+        HasLabels<UploadLabels> {
 
-  private final Row<Row_12> row = Row.create();
-  private int thumbSpanXLarge = 2;
-  private int thumbSpanLarge = 2;
-  private int thumbSpanMedium = 4;
-  private int thumbSpanSmall = 6;
-  private int thumbSpanXSmall = 12;
-
-  private int thumbOffsetXLarge = -1;
-  private int thumbOffsetLarge = -1;
-  private int thumbOffsetMedium = -1;
-  private int thumbOffsetSmall = -1;
-  private int thumbOffsetXSmall = -1;
-
-  private final DominoElement<HTMLDivElement> formElement =
-      DominoElement.of(div()).css("file-upload");
-  private final DominoElement<HTMLDivElement> uploadMessageContainer =
-      DominoElement.of(div()).css("file-upload-message");
-  private final DominoElement<HTMLDivElement> uploadIconContainer =
-      DominoElement.of(div()).css("file-upload-message-icon");
-  private HTMLInputElement hiddenFileInput;
-  private final DominoElement<HTMLDivElement> filesContainer = DominoElement.of(div());
-  private final List<FileItem> addedFileItems = new ArrayList<>();
-  private double maxFileSize;
-  private String url;
-
-  private final List<OnAddFileHandler> onAddFileHandlers = new ArrayList<>();
-  private boolean autoUpload = true;
-  private boolean singleFile = false;
-  private String errorMessage = "Only one file is allowed to be uploaded";
-
-  private Supplier<List<Integer>> successCodesProvider =
+  /** Constant <code>DEFAULT_SUCCESS_CODES</code> */
+  public static final Supplier<List<Integer>> DEFAULT_SUCCESS_CODES =
       () -> Arrays.asList(200, 201, 202, 203, 204, 205, 206, 207, 208, 226);
+
+  private final DivElement root;
+  private final DivElement messagesContainer;
+
+  private final InputElement hiddenFileInput;
+  private final FilePreviewContainer<?, ?> filesContainer;
+  private final List<FileItem> addedFileItems = new ArrayList<>();
+  private final FilePreviewFactory filePreviewFactory;
+  private LazyChild<DominoElement<Element>> decoration;
+  private final List<FileItemHandler> fileItemHandlers = new ArrayList<>();
+  private boolean autoUpload = true;
+  private int maxAllowedUploads = Integer.MAX_VALUE;
 
   private UploadRequestSender requestSender = (XMLHttpRequest::send);
 
-  private Optional<DropEffect> dropEffect = Optional.empty();
+  private DropEffect dropEffect;
 
-  public FileUpload() {
-    uploadMessageContainer.appendChild(uploadIconContainer);
-    createHiddenInput();
-    formElement.appendChild(uploadMessageContainer);
-    formElement.appendChild(filesContainer);
+  /** @return new instance */
+  /**
+   * create.
+   *
+   * @return a {@link org.dominokit.domino.ui.upload.FileUpload} object
+   */
+  public static FileUpload create() {
+    return new FileUpload();
+  }
 
-    hiddenFileInput.addEventListener(
-        "change",
-        evt -> {
-          uploadFiles(hiddenFileInput.files);
-        });
-    uploadMessageContainer.addEventListener("click", evt -> hiddenFileInput.click());
-    formElement.addEventListener(
+  /** @return new instance */
+  /**
+   * create.
+   *
+   * @param filePreviewFactory a {@link org.dominokit.domino.ui.upload.FilePreviewFactory} object
+   * @param filePreviewContainer a {@link org.dominokit.domino.ui.upload.FilePreviewContainer}
+   *     object
+   * @return a {@link org.dominokit.domino.ui.upload.FileUpload} object
+   */
+  public static FileUpload create(
+      FilePreviewFactory filePreviewFactory, FilePreviewContainer<?, ?> filePreviewContainer) {
+    return new FileUpload(filePreviewFactory, filePreviewContainer);
+  }
+
+  /** @return new instance */
+  /**
+   * create.
+   *
+   * @param filePreviewContainer a {@link org.dominokit.domino.ui.upload.FilePreviewContainer}
+   *     object
+   * @return a {@link org.dominokit.domino.ui.upload.FileUpload} object
+   */
+  public static FileUpload create(FilePreviewContainer<?, ?> filePreviewContainer) {
+    return new FileUpload(CONFIG.getUIConfig().getFilePreviewFactory(), filePreviewContainer);
+  }
+
+  /** @return new instance */
+  /**
+   * create.
+   *
+   * @param filePreviewFactory a {@link org.dominokit.domino.ui.upload.FilePreviewFactory} object
+   * @return a {@link org.dominokit.domino.ui.upload.FileUpload} object
+   */
+  public static FileUpload create(FilePreviewFactory filePreviewFactory) {
+    return new FileUpload(filePreviewFactory);
+  }
+
+  /** @return new instance */
+  /**
+   * create.
+   *
+   * @param filePreviewFactory a {@link org.dominokit.domino.ui.upload.FilePreviewFactory} object
+   * @param filePreviewContainer a {@link org.dominokit.domino.ui.upload.FilePreviewContainer}
+   *     object
+   * @param decoration a {@link org.dominokit.domino.ui.IsElement} object
+   * @return a {@link org.dominokit.domino.ui.upload.FileUpload} object
+   */
+  public static FileUpload create(
+      FilePreviewFactory filePreviewFactory,
+      FilePreviewContainer<?, ?> filePreviewContainer,
+      IsElement<?> decoration) {
+    return new FileUpload(filePreviewFactory, filePreviewContainer, decoration);
+  }
+
+  /**
+   * Constructor for FileUpload.
+   *
+   * @param filePreviewFactory a {@link org.dominokit.domino.ui.upload.FilePreviewFactory} object
+   * @param filePreviewContainer a {@link org.dominokit.domino.ui.upload.FilePreviewContainer}
+   *     object
+   */
+  public FileUpload(
+      FilePreviewFactory filePreviewFactory, FilePreviewContainer<?, ?> filePreviewContainer) {
+    this.filePreviewFactory = filePreviewFactory;
+    root =
+        div()
+            .addCss(dui_file_upload)
+            .appendChild(messagesContainer = div().addCss(dui_file_upload_messages))
+            .appendChild(hiddenFileInput = input("file").addCss(dui_file_upload_input))
+            .appendChild(filesContainer = filePreviewContainer);
+    elementOf(filesContainer.element()).addCss(dui_file_preview_container);
+    init(this);
+    root.addClickListener(evt -> hiddenFileInput.element().click());
+    hiddenFileInput.addEventListener("change", evt -> uploadFiles(hiddenFileInput.element().files));
+    root.addEventListener(
         "drop",
         evt -> {
+          evt.stopPropagation();
+          evt.preventDefault();
+
           FileList files = ((DragEvent) evt).dataTransfer.files;
-          if (dropEffect.isPresent() && files.length > 0) {
-            ((DragEvent) evt).dataTransfer.dropEffect = dropEffect.get().getEffect();
-          }
-          if (!singleFile || files.length == 1) {
-            uploadFiles(files);
+          Optional.ofNullable(dropEffect)
+              .ifPresent(
+                  effect -> {
+                    if (files.length > 0) {
+                      ((DragEvent) evt).dataTransfer.dropEffect = effect.getEffect();
+                    }
+                  });
+          int maxAllowed = hiddenFileInput.element().multiple ? maxAllowedUploads : 1;
+          if (maxAllowed > files.length) {
+            messagesContainer
+                .clearElement()
+                .setTextContent(getLabels().getMaxFileErrorMessage(maxAllowed, files.length));
           } else {
-            notifySingleFileError();
+            uploadFiles(files);
           }
           removeHover();
-          evt.stopPropagation();
-          evt.preventDefault();
         });
-    formElement.addEventListener(
+    root.addEventListener(
         "dragover",
         evt -> {
-          dropEffect.ifPresent(
-              effect -> ((DragEvent) evt).dataTransfer.dropEffect = effect.getEffect());
-          addHover();
           evt.stopPropagation();
           evt.preventDefault();
+          Optional.ofNullable(dropEffect)
+              .ifPresent(effect -> ((DragEvent) evt).dataTransfer.dropEffect = effect.getEffect());
+          addHover();
         });
-    formElement.addEventListener(
+    root.addEventListener(
         "dragleave",
         evt -> {
-          dropEffect.ifPresent(
-              effect -> ((DragEvent) evt).dataTransfer.dropEffect = effect.getEffect());
-          if (isFormUploadElement(evt.target)) removeHover();
           evt.stopPropagation();
           evt.preventDefault();
+          Optional.ofNullable(dropEffect)
+              .ifPresent(effect -> ((DragEvent) evt).dataTransfer.dropEffect = effect.getEffect());
+          if (Js.<HTMLElement>uncheckedCast(evt.target) == root.element()) {
+            removeHover();
+          }
         });
-    filesContainer.appendChild(row.element());
-    init(this);
+  }
+
+  /**
+   * Constructor for FileUpload.
+   *
+   * @param filePreviewFactory a {@link org.dominokit.domino.ui.upload.FilePreviewFactory} object
+   * @param filePreviewContainer a {@link org.dominokit.domino.ui.upload.FilePreviewContainer}
+   *     object
+   * @param decoration a {@link org.dominokit.domino.ui.IsElement} object
+   */
+  public FileUpload(
+      FilePreviewFactory filePreviewFactory,
+      FilePreviewContainer<?, ?> filePreviewContainer,
+      IsElement<?> decoration) {
+    this(filePreviewFactory, filePreviewContainer);
+    setDecoration(decoration.element());
+  }
+
+  /**
+   * Constructor for FileUpload.
+   *
+   * @param filePreviewFactory a {@link org.dominokit.domino.ui.upload.FilePreviewFactory} object
+   */
+  public FileUpload(FilePreviewFactory filePreviewFactory) {
+    this(filePreviewFactory, CONFIG.getUIConfig().getDefaultFilePreviewContainer().get());
+  }
+
+  /** Constructor for FileUpload. */
+  public FileUpload() {
+    this(
+        CONFIG.getUIConfig().getFilePreviewFactory(),
+        CONFIG.getUIConfig().getDefaultFilePreviewContainer().get());
+  }
+
+  /**
+   * Setter for the field <code>decoration</code>.
+   *
+   * @param decoration a {@link org.dominokit.domino.ui.IsElement} object
+   * @return a {@link org.dominokit.domino.ui.upload.FileUpload} object
+   */
+  public FileUpload setDecoration(IsElement<?> decoration) {
+    return setDecoration(decoration.element());
+  }
+
+  /**
+   * Setter for the field <code>decoration</code>.
+   *
+   * @param decoration a {@link elemental2.dom.Element} object
+   * @return a {@link org.dominokit.domino.ui.upload.FileUpload} object
+   */
+  public FileUpload setDecoration(Element decoration) {
+    if (nonNull(this.decoration) && this.decoration.isInitialized()) {
+      this.decoration.remove();
+    }
+    if (nonNull(decoration)) {
+      this.decoration =
+          LazyChild.of(elementOf(decoration).addCss(dui_file_upload_decoration), root);
+      this.decoration.get();
+    }
+    return this;
+  }
+
+  /**
+   * Setter for the field <code>maxAllowedUploads</code>.
+   *
+   * @param maxAllowedUploads a int
+   */
+  public void setMaxAllowedUploads(int maxAllowedUploads) {
+    this.maxAllowedUploads = maxAllowedUploads;
+  }
+
+  /**
+   * Getter for the field <code>maxAllowedUploads</code>.
+   *
+   * @return a int
+   */
+  public int getMaxAllowedUploads() {
+    return maxAllowedUploads;
   }
 
   /**
    * Sets the sender of the upload request when the request is ready to be sent
    *
-   * @param requestSender the {@link UploadRequestSender}
+   * @param requestSender the {@link org.dominokit.domino.ui.upload.UploadRequestSender}
    * @return same instance
    */
   public FileUpload setRequestSender(UploadRequestSender requestSender) {
@@ -145,29 +299,16 @@ public class FileUpload extends BaseDominoElement<HTMLDivElement, FileUpload>
     return this;
   }
 
-  private void notifySingleFileError() {
-    Notification.createWarning(errorMessage).show();
-  }
-
-  private boolean isFormUploadElement(EventTarget target) {
-    HTMLElement element = Js.uncheckedCast(target);
-    return element == formElement.element();
-  }
-
   private void addHover() {
-    formElement.addCss("file-upload-hover");
+    root.addCss("dui-hovered");
   }
 
-  private void uploadFiles(FileList files) {
-    if (singleFile) {
-      addedFileItems.forEach(FileItem::remove);
-      addedFileItems.clear();
-    }
+  public void uploadFiles(FileList files) {
     for (int i = 0; i < files.length; i++) {
       File file = files.item(i);
       addFilePreview(file);
     }
-    hiddenFileInput.value = "";
+    hiddenFileInput.element().value = "";
   }
 
   /** Sends the requests for uploading all files */
@@ -176,39 +317,19 @@ public class FileUpload extends BaseDominoElement<HTMLDivElement, FileUpload>
   }
 
   private void addFilePreview(File file) {
-    FileItem fileItem =
-        FileItem.create(file, new UploadOptions(url, maxFileSize, successCodesProvider));
-    Column previewColumn =
-        Column.span(
-                thumbSpanXLarge, thumbSpanLarge, thumbSpanMedium, thumbSpanSmall, thumbSpanXSmall)
-            .appendChild(fileItem.element());
+    FileItem fileItem = FileItem.create(file, new UploadOptions(), filePreviewFactory);
 
-    if (thumbOffsetXLarge >= 0) {
-      previewColumn.onXLargeOffset(Column.OnXLargeOffset.of(thumbOffsetXLarge));
-    }
-    if (thumbOffsetLarge >= 0) {
-      previewColumn.onLargeOffset(Column.OnLargeOffset.of(thumbOffsetLarge));
-    }
-    if (thumbOffsetMedium >= 0) {
-      previewColumn.onMediumOffset(Column.OnMediumOffset.of(thumbOffsetMedium));
-    }
-    if (thumbOffsetSmall >= 0) {
-      previewColumn.onSmallOffset(Column.OnSmallOffset.of(thumbOffsetSmall));
-    }
-    if (thumbOffsetXSmall >= 0) {
-      previewColumn.onXSmallOffset(Column.OnXSmallOffset.of(thumbOffsetXSmall));
-    }
+    fileItemHandlers.forEach(handler -> handler.handle(fileItem));
 
-    row.appendChild(previewColumn);
+    fileItem.validateSize();
+
+    filesContainer.appendChild(fileItem);
     addedFileItems.add(fileItem);
 
     fileItem.addRemoveHandler(
         removedFile -> {
-          previewColumn.element().remove();
           addedFileItems.remove(fileItem);
         });
-
-    onAddFileHandlers.forEach(handler -> handler.onAddFile(fileItem));
 
     if (fileItem.isCanceled()) {
       fileItem.remove();
@@ -220,106 +341,59 @@ public class FileUpload extends BaseDominoElement<HTMLDivElement, FileUpload>
   }
 
   private void removeHover() {
-    formElement.removeCss("file-upload-hover");
-  }
-
-  private void createHiddenInput() {
-    hiddenFileInput =
-        input("file")
-            .style(
-                "visibility: hidden; position: absolute; top: 0px; left: 0px; height: 0px; width: 0px;")
-            .element();
-    formElement.appendChild(hiddenFileInput);
-  }
-
-  /** @return new instance */
-  public static FileUpload create() {
-    return new FileUpload();
+    root.removeCss("dui-hovered");
   }
 
   /** {@inheritDoc} */
   @Override
   public HTMLDivElement element() {
-    return formElement.element();
-  }
-
-  /** {@inheritDoc} */
-  @Override
-  public FileUpload appendChild(Node child) {
-    uploadMessageContainer.appendChild(child);
-    return this;
-  }
-
-  /** {@inheritDoc} */
-  @Override
-  public FileUpload appendChild(IsElement<?> child) {
-    return appendChild(child.element());
+    return root.element();
   }
 
   /**
    * Enables multiple files upload
    *
    * @return same instance
+   * @param multiUpload a boolean
    */
-  public FileUpload multipleFiles() {
-    hiddenFileInput.multiple = true;
-    this.singleFile = false;
+  public FileUpload setMultiUpload(boolean multiUpload) {
+    hiddenFileInput.element().multiple = multiUpload;
     return this;
   }
 
   /**
-   * Enables uploading only a single file
+   * accept.
    *
-   * @return same instance
-   */
-  public FileUpload singleFile() {
-    hiddenFileInput.multiple = false;
-    this.singleFile = true;
-    return this;
-  }
-
-  /**
-   * Sets the accepted files extensions
-   *
+   * @see <a href='https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/accept'>MDN docs for
+   *     accept attribute</a> Sets the accepted files extensions
    * @param acceptedFiles a comma separated string containing all the accepted file extensions
    * @return same instance
    */
   public FileUpload accept(String acceptedFiles) {
-    hiddenFileInput.accept = acceptedFiles;
+    hiddenFileInput.element().accept = acceptedFiles;
     return this;
   }
 
   /**
-   * Sets the maximum accepted file size
+   * accept.
    *
-   * @param maxFileSize the maximum size of the file
+   * @see <a href='https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/accept'>MDN docs for
+   *     accept attribute</a> Sets the accepted files extensions
+   * @param acceptedFiles a comma separated string containing all the accepted file extensions
    * @return same instance
    */
-  public FileUpload maxFileSize(double maxFileSize) {
-    this.maxFileSize = maxFileSize;
-    return this;
-  }
-
-  /**
-   * Sets the url for uploading the files to
-   *
-   * @param url the url of the server
-   * @return same instance
-   */
-  public FileUpload setUrl(String url) {
-    this.url = url;
-    addedFileItems.forEach(fileItem -> fileItem.setUrl(url));
-    return this;
+  public FileUpload accept(Collection<String> acceptedFiles) {
+    return accept(String.join(",", acceptedFiles));
   }
 
   /**
    * Sets a handler to be called when file is added
    *
-   * @param onAddFileHandler a {@link OnAddFileHandler}
+   * @param fileItemHandler a {@link org.dominokit.domino.ui.upload.FileUpload.FileItemHandler}
    * @return same instance
    */
-  public FileUpload onAddFile(OnAddFileHandler onAddFileHandler) {
-    onAddFileHandlers.add(onAddFileHandler);
+  public FileUpload onAddFile(FileItemHandler fileItemHandler) {
+    fileItemHandlers.add(fileItemHandler);
     return this;
   }
 
@@ -335,7 +409,8 @@ public class FileUpload extends BaseDominoElement<HTMLDivElement, FileUpload>
 
   /**
    * Sets that the file should be uploaded only when calling {@link
-   * FileUpload#uploadFiles(FileList)} or {@link FileUpload#uploadAllFiles()}
+   * FileUpload#uploadFiles(FileList)} or {@link
+   * org.dominokit.domino.ui.upload.FileUpload#uploadAllFiles()}
    *
    * @return same instance
    */
@@ -344,57 +419,75 @@ public class FileUpload extends BaseDominoElement<HTMLDivElement, FileUpload>
     return this;
   }
 
-  /** @return the files container */
-  public Row<Row_12> getRow() {
-    return row;
-  }
-
-  /** @return The form element */
-  public DominoElement<HTMLDivElement> getFormElement() {
-    return DominoElement.of(formElement);
-  }
-
-  /** @return the upload message container */
-  public DominoElement<HTMLDivElement> getUploadMessageContainer() {
-    return DominoElement.of(uploadMessageContainer);
-  }
-
-  /** @return the upload icon container */
-  public DominoElement<HTMLDivElement> getUploadIconContainer() {
-    return DominoElement.of(uploadIconContainer);
+  /**
+   * Setter for the field <code>autoUpload</code>.
+   *
+   * @param autoUpload a boolean
+   * @return a {@link org.dominokit.domino.ui.upload.FileUpload} object
+   */
+  public FileUpload setAutoUpload(boolean autoUpload) {
+    this.autoUpload = autoUpload;
+    return this;
   }
 
   /** @return the hidden file input element */
-  public DominoElement<HTMLInputElement> getHiddenFileInput() {
-    return DominoElement.of(hiddenFileInput);
+  /**
+   * getInputElement.
+   *
+   * @return a {@link org.dominokit.domino.ui.elements.InputElement} object
+   */
+  public InputElement getInputElement() {
+    return hiddenFileInput;
   }
 
   /** @return the files container */
-  public DominoElement<HTMLDivElement> getFilesContainer() {
-    return DominoElement.of(filesContainer);
+  /**
+   * Getter for the field <code>filesContainer</code>.
+   *
+   * @return a {@link org.dominokit.domino.ui.utils.DominoElement} object
+   */
+  public DominoElement<HTMLElement> getFilesContainer() {
+    return (DominoElement<HTMLElement>) filesContainer;
   }
 
   /** @return the added file items */
+  /**
+   * Getter for the field <code>addedFileItems</code>.
+   *
+   * @return a {@link java.util.List} object
+   */
   public List<FileItem> getAddedFileItems() {
     return addedFileItems;
   }
 
-  /** @return the maximum accepted file size */
-  public double getMaxFileSize() {
-    return maxFileSize;
+  /** @return the added file items */
+  /**
+   * Getter for the field <code>addedFileItems</code>.
+   *
+   * @return a {@link java.util.List} object
+   */
+  public FileUpload removeFileItems() {
+    addedFileItems.forEach(FileItem::remove);
+    addedFileItems.clear();
+    return this;
   }
 
-  /** @return the url for the server */
-  public String getUrl() {
-    return url;
-  }
-
-  /** @return all {@link OnAddFileHandler} defined */
-  public List<OnAddFileHandler> getOnAddFileHandlers() {
-    return onAddFileHandlers;
+  /** @return all {@link FileItemHandler} defined */
+  /**
+   * getOnAddFileHandlers.
+   *
+   * @return a {@link java.util.List} object
+   */
+  public List<FileItemHandler> getOnAddFileHandlers() {
+    return fileItemHandlers;
   }
 
   /** @return true if auto upload is set, false otherwise */
+  /**
+   * isAutoUpload.
+   *
+   * @return a boolean
+   */
   public boolean isAutoUpload() {
     return autoUpload;
   }
@@ -402,107 +495,43 @@ public class FileUpload extends BaseDominoElement<HTMLDivElement, FileUpload>
   /** {@inheritDoc} */
   @Override
   public String getName() {
-    return hiddenFileInput.name;
-  }
-
-  /**
-   * Sets the upload icon
-   *
-   * @param icon a {@link BaseIcon}
-   * @return same instance
-   */
-  public FileUpload setIcon(BaseIcon<?> icon) {
-    uploadIconContainer.appendChild(icon);
-    return this;
-  }
-
-  /**
-   * Sets the column span for a file preview
-   *
-   * @param xLarge the span when the screen is X large
-   * @param large the span when the screen is Large
-   * @param medium the span when the screen is Medium
-   * @param small the span when the screen is Small
-   * @param xSmall the span when the screen is X small
-   * @return same instance
-   */
-  public FileUpload setThumbSpans(int xLarge, int large, int medium, int small, int xSmall) {
-    this.thumbSpanXLarge = xLarge;
-    this.thumbSpanLarge = large;
-    this.thumbSpanMedium = medium;
-    this.thumbSpanSmall = small;
-    this.thumbSpanXSmall = xSmall;
-    return this;
-  }
-
-  /**
-   * Sets the column offset for a file preview
-   *
-   * @param xLarge the offset when the screen is X large
-   * @param large the offset when the screen is Large
-   * @param medium the offset when the screen is Medium
-   * @param small the offset when the screen is Small
-   * @param xSmall the offset when the screen is X small
-   * @return same instance
-   */
-  public FileUpload setThumbOffset(int xLarge, int large, int medium, int small, int xSmall) {
-    this.thumbOffsetXLarge = xLarge;
-    this.thumbOffsetLarge = large;
-    this.thumbOffsetMedium = medium;
-    this.thumbOffsetSmall = small;
-    this.thumbOffsetXSmall = xSmall;
-    return this;
-  }
-
-  /**
-   * Sets the success codes for upload files
-   *
-   * @param successCodesProvider a {@link Supplier} for getting the success codes
-   */
-  public void setSuccessCodesProvider(Supplier<List<Integer>> successCodesProvider) {
-    this.successCodesProvider = successCodesProvider;
+    return hiddenFileInput.element().name;
   }
 
   /** {@inheritDoc} */
   @Override
   public FileUpload setName(String name) {
-    hiddenFileInput.name = name;
-    return this;
-  }
-
-  /**
-   * Sets the error message when uploading file fails
-   *
-   * @param errorMessage the error message
-   * @return same instance
-   */
-  public FileUpload setSingleFileErrorMessage(String errorMessage) {
-    this.errorMessage = errorMessage;
+    hiddenFileInput.element().name = name;
     return this;
   }
 
   /** @return the {@link DropEffect} configured */
+  /**
+   * Getter for the field <code>dropEffect</code>.
+   *
+   * @return a {@link java.util.Optional} object
+   */
   public Optional<DropEffect> getDropEffect() {
-    return dropEffect;
+    return Optional.ofNullable(dropEffect);
   }
 
   /**
    * Sets the drop effect
    *
-   * @param dropEffect the {@link DropEffect}
+   * @param dropEffect the {@link org.dominokit.domino.ui.upload.DropEffect}
    * @return same instance
    */
   public FileUpload setDropEffect(DropEffect dropEffect) {
     if (nonNull(dropEffect)) {
-      this.dropEffect = Optional.of(dropEffect);
+      this.dropEffect = dropEffect;
     }
     return this;
   }
 
   /** A handler to be called when file is added */
   @FunctionalInterface
-  public interface OnAddFileHandler {
+  public interface FileItemHandler {
     /** @param fileItem the added {@link FileItem} */
-    void onAddFile(FileItem fileItem);
+    void handle(FileItem fileItem);
   }
 }

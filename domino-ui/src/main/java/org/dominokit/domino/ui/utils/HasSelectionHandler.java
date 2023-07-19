@@ -20,6 +20,8 @@ package org.dominokit.domino.ui.utils;
  *
  * @param <T> the type of the component implementing this interface
  * @param <V> the type of the Value being selected
+ * @author vegegoku
+ * @version $Id: $Id
  */
 public interface HasSelectionHandler<T, V> {
   /**
@@ -30,6 +32,13 @@ public interface HasSelectionHandler<T, V> {
    */
   T addSelectionHandler(SelectionHandler<V> selectionHandler);
 
+  /**
+   * removeSelectionHandler.
+   *
+   * @param selectionHandler a {@link
+   *     org.dominokit.domino.ui.utils.HasSelectionHandler.SelectionHandler} object
+   * @return a T object
+   */
   T removeSelectionHandler(SelectionHandler<V> selectionHandler);
 
   /**

@@ -25,23 +25,13 @@ import elemental2.dom.KeyboardEvent;
 import java.util.List;
 import java.util.function.Consumer;
 import java.util.stream.Collectors;
-import org.dominokit.domino.ui.forms.ValueBox;
+import org.dominokit.domino.ui.forms.InputFormField;
 
 /**
  * A utility that provides masking feature on input elements based on pattern and regex
  *
- * <p>For example:
- *
- * <pre>
- *     Mask.of(element)
- *             .pattern("dd/mm/yyyy hh:mm")
- *             .dataSlots("dmyh")
- *             .onPatternMatched(
- *                 value -> {
- *                   // value matched the pattern
- *                 })
- *             .build();
- * </pre>
+ * @author vegegoku
+ * @version $Id: $Id
  */
 public class Mask {
 
@@ -78,20 +68,20 @@ public class Mask {
   }
 
   /**
-   * Build mask for {@link ValueBox}
+   * Build mask for {@link org.dominokit.domino.ui.forms.InputFormField}
    *
-   * @param valueBox {@link ValueBox}
-   * @return {@link MaskingBuilder}
+   * @param valueBox {@link org.dominokit.domino.ui.forms.InputFormField}
+   * @return {@link org.dominokit.domino.ui.utils.Mask.MaskingBuilder}
    */
-  public static MaskingBuilder of(ValueBox<?, HTMLInputElement, ?> valueBox) {
+  public static MaskingBuilder of(InputFormField<?, HTMLInputElement, ?> valueBox) {
     return of(valueBox.getInputElement().element());
   }
 
   /**
    * Build mask for HTML input element
    *
-   * @param element {@link HTMLInputElement}
-   * @return {@link MaskingBuilder}
+   * @param element {@link elemental2.dom.HTMLInputElement}
+   * @return {@link org.dominokit.domino.ui.utils.Mask.MaskingBuilder}
    */
   public static MaskingBuilder of(HTMLInputElement element) {
     return new MaskingBuilder(element);
@@ -158,16 +148,31 @@ public class Mask {
   }
 
   /** @return the element value */
+  /**
+   * getValue.
+   *
+   * @return a {@link java.lang.String} object
+   */
   public String getValue() {
     return element.value;
   }
 
   /** @return the pattern */
+  /**
+   * Getter for the field <code>pattern</code>.
+   *
+   * @return a {@link java.lang.String} object
+   */
   public String getPattern() {
     return pattern;
   }
 
   /** @param pattern the new pattern */
+  /**
+   * Setter for the field <code>pattern</code>.
+   *
+   * @param pattern a {@link java.lang.String} object
+   */
   public void setPattern(String pattern) {
     this.pattern = pattern;
     prev = new int[this.pattern.length()];
@@ -192,11 +197,18 @@ public class Mask {
   }
 
   /** @param regex the regex to check if the value matches the expected input */
+  /**
+   * Setter for the field <code>regex</code>.
+   *
+   * @param regex a {@link java.lang.String} object
+   */
   public void setRegex(String regex) {
     this.regex = new JsRegExp(regex, "g");
   }
 
   /**
+   * onPatternNotMatched.
+   *
    * @param onPatternNotMatched a consumer that will be called when the value is filled but it does
    *     not match the pattern
    */

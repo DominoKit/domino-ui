@@ -1,0 +1,277 @@
+.dui-stepper {
+    display: flex;
+    width: 100%;
+    flex-direction: var(--dui-stepper-direction, column);
+    gap: var(--dui-stepper-gap);
+}
+
+.dui-stepper-content {
+    flex-grow: 1;
+    height: 100%;
+    display: flex;
+    position: relative;
+    flex-direction: column;
+}
+
+.dui-stepper.dui-vertical {
+    --dui-stepper-direction: row;
+}
+
+.dui-stepper-track {
+    display: flex;
+    flex-direction: var(--dui-stepper-track-direction, row);
+    justify-content: var(--dui-stepper-track-justify-content, center);
+}
+
+.dui-stepper.dui-vertical .dui-stepper-track,
+.dui-stepper-track.dui-vertical {
+    --dui-stepper-track-direction: column;
+    --dui-step-tracker-direction: row;
+    min-height: 100%;
+}
+
+.dui-stepper-track.dui-vertical.dui-reversed ,
+.dui-stepper.dui-vertical.dui-reversed .dui-stepper-track,
+.dui-stepper.dui-reversed .dui-stepper-track.dui-vertical{
+    --dui-step-tracker-direction: row-reverse;
+}
+.dui-stepper.dui-horizontal .dui-stepper-track,
+.dui-stepper .dui-stepper-track,
+.dui-stepper-track,
+.dui-stepper-track.dui-horizontal {
+    --dui-stepper-track-direction: row;
+    --dui-stepper-track-justify-content: center;
+    --dui-step-tracker-direction: column;
+}
+
+.dui-stepper.dui-reversed .dui-stepper-track,
+.dui-stepper.dui-reversed .dui-stepper-track.dui-horizontal,
+.dui-stepper-track.dui-reversed,
+.dui-stepper-track.dui-horizontal.dui-reversed {
+    --dui-step-tracker-direction: column-reverse;
+}
+
+.dui-stepper-step {
+    display: none;
+    flex-direction: column;
+    --dui-step-content-display: none;
+    --dui-step-footer-display: none;
+}
+
+.dui-stepper-step.dui-active {
+    display: flex;
+    align-self: stretch;
+    flex-grow: 1;
+    height: 100%;
+}
+
+.dui-step-header {
+    height: auto;
+    align-items: flex-start;
+    min-height: var(--dui-step-min-header-height);
+    --dui-nav-bar-padding: 0;
+    --dui-nav-bar-addon-margin: 0;
+    --dui-nav-bar-utility-margin: 0;
+    --dui-nav-bar-title-margin: 0;
+}
+
+.dui.dui-stepper-step .dui.dui-step-content {
+    display: var(--dui-step-content-display);
+}
+
+.dui.dui-stepper-step .dui.dui-step-footer {
+    display: var(--dui-step-footer-display);
+}
+
+.dui-step-content {
+    flex-grow: 1;
+    padding: var(--dui-step-content-padding);
+}
+
+.dui-stepper-step.dui-active {
+    --dui-step-content-display: block;
+    --dui-step-footer-display: flex;
+}
+
+.dui-step-track {
+    display: flex;
+    flex-direction: var(--dui-step-tracker-direction, column);
+    align-items: start;
+    gap: var(--dui-step-track-gap);
+    transition: all 0.2s;
+}
+
+.dui-tracker-chain {
+    display: flex;
+    flex-direction: var(--dui-stepper-track-direction, row);
+    align-items: center;
+    min-height: var(--dui-step-tracker-chain-min-height);
+    transition: all 0.2s;
+    width: 100%;
+}
+
+.dui-stepper-track.dui-horizontal .dui-tracker-chain,
+.dui-stepper.dui-horizontal .dui-tracker-chain {
+    width: 100%;
+}
+
+.dui-stepper-track.dui-vertical .dui-tracker-chain,
+.dui-stepper.dui-vertical .dui-tracker-chain {
+    height: 100%;
+    width: auto;
+}
+
+.dui-tracker-content:empty {
+    display: none;
+}
+
+.dui-tracker-chain .dui-postfix-addon {
+    order: 100;
+}
+
+.dui-tracker-chain .dui-prefix-addon {
+    order: 30;
+}
+
+.dui-step-track {
+    flex-grow: 1;
+}
+
+.dui-tracker-node {
+    width: var(--dui-step-tracker-node-width);
+    height: var(--dui-step-tracker-node-height);
+    border-width: var(--dui-step-tracker-node-border-width);
+    border-style: var(--dui-step-tracker-node-border-style);
+    border-color: var(--dui-accent);
+    /*border: var(--dui-spc-1) solid var(--dui-accent-clr);*/
+    border-radius: var(--dui-step-tracker-node-border-radius);
+    position: relative;
+    order: 10;
+    transition: var(--dui-step-tracker-node-transition);
+}
+
+.dui-active .dui-tracker-node {
+    border-color: var(--dui-accent-d-2);
+}
+
+.dui-tracker-node-icon {
+    position: absolute;
+    inset: var(--dui-step-tracker-node-icon-inset);
+}
+
+.dui-stepper > .dui-stepper-track > .dui-step-track:last-child .dui-tracker-line:after,
+.dui-stepper.dui-horizontal > .dui-stepper-track > .dui-step-track:last-child .dui-tracker-line:after,
+.dui-stepper-track> .dui-step-track:last-child .dui-tracker-line:after,
+.dui-stepper-track.dui-horizontal > .dui-step-track:last-child .dui-tracker-line:after {
+    width: var(--dui-stepper-track-tail-node-width);
+    height: var(--dui-stepper-track-tail-node-height);
+    border-radius: var(--dui-stepper-track-tail-node-border-radius);
+    top: calc(var(--dui-spc-1) * -1);
+}
+
+.dui-stepper.dui-vertical > .dui-stepper-track > .dui-step-track:last-child .dui-tracker-line:after,
+.dui-stepper-track.dui-vertical > .dui-step-track:last-child .dui-tracker-line:after {
+    width: var(--dui-stepper-track-tail-node-width);
+    height: var(--dui-stepper-track-tail-node-width);
+    border-radius: var(--dui-stepper-track-tail-node-border-radius);
+    top: auto;
+    left: calc(var(--dui-spc-1) * -1);
+    bottom: calc(var(--dui-spc-1) * -1);
+}
+
+.dui-tracker-line {
+    position: relative;
+    --dui-tracker-line-color: var(--dui-accent);
+    background-color: var(--dui-accent);
+    flex-grow: 1;
+    order: 50;
+    transition: all 0.2s;
+    height: var(--dui-step-tracker-line-thinkness);
+}
+
+.dui-active .dui-tracker-line {
+    --dui-tracker-line-color: var(--dui-accent-d-2);
+    background-color: var(--dui-accent-d-2);
+}
+
+.dui-stepper-track.dui-horizontal .dui-tracker-line,
+.dui-stepper.dui-horizontal .dui-tracker-line {
+    height: var(--dui-step-tracker-line-thinkness);
+}
+
+.dui-stepper-track.dui-vertical .dui-tracker-line,
+.dui-stepper.dui-vertical .dui-tracker-line {
+    height: auto;
+    width: var(--dui-step-tracker-line-thinkness);
+}
+
+.dui-tracker-line:before {
+    content: "";
+    position: absolute;
+    width: var(--dui-step-tracker-line-thinkness);
+    background-color: var(--dui-tracker-line-color);
+    height: var(--dui-spc-1);
+    top: calc(var(--dui-spc-1) * -1);
+    left: 0;
+}
+.dui-tracker-line:before,
+.dui-stepper-track.dui-horizontal .dui-tracker-line:before,
+.dui-stepper.dui-horizontal .dui-tracker-line:before {
+    height: var(--dui-step-tracker-line-thinkness);
+    width: var(--dui-spc-1);
+    left: calc(var(--dui-spc-1) * -1);
+    top: 0;
+}
+
+.dui-stepper-track.dui-vertical .dui-tracker-line:before,
+.dui-stepper.dui-vertical .dui-tracker-line:before {
+    height: var(--dui-spc-1);
+    width: var(--dui-step-tracker-line-thinkness);
+    left: auto;
+    top: calc(var(--dui-spc-1) * -1);
+    right: auto;
+}
+
+.dui-tracker-line:after {
+    content: "";
+    position: absolute;
+    width: var(--dui-step-tracker-line-thinkness);
+    background-color: var(--dui-tracker-line-color);
+    height: var(--dui-spc-1);
+    bottom: calc(var(--dui-spc-1) * -1);
+    left: 0;
+}
+
+.dui-tracker-line:after,
+.dui-stepper-track.dui-horizontal .dui-tracker-line:after,
+.dui-stepper.dui-horizontal .dui-tracker-line:after {
+    height: var(--dui-step-tracker-line-thinkness);
+    width: var(--dui-spc-1);
+    right: calc(var(--dui-spc-1) * -1);
+    top: 0;
+    left: auto;
+}
+.dui-stepper-track.dui-vertical .dui-tracker-line:after,
+.dui-stepper.dui-vertical .dui-tracker-line:after {
+    height: var(--dui-spc-1);
+    width: var(--dui-step-tracker-line-thinkness);
+    top: auto;
+    left: auto;
+    bottom: calc(var(--dui-spc-1) * -1);
+    right: auto;
+}
+
+.dui-stepper.dui-horizontal {
+    --dui-stepper-direction: column;
+}
+
+.dui-stepper-active-content {
+    width: 100%;
+    padding: var(--dui-stepper-active-content-padding);
+}
+
+.dui-step-prefix {
+    border-radius: var(--dui-stepper-step-prefix-border-radius);
+    background-color: var(--dui-accent-l-4);
+    color: var(--dui-text-color);
+}

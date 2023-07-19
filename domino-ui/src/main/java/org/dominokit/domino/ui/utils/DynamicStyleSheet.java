@@ -17,9 +17,17 @@ package org.dominokit.domino.ui.utils;
 
 import static elemental2.dom.DomGlobal.document;
 
-import elemental2.dom.*;
-import java.util.*;
+import elemental2.dom.CSSStyleSheet;
+import elemental2.dom.HTMLElement;
+import elemental2.dom.HTMLStyleElement;
+import java.util.Optional;
 
+/**
+ * DynamicStyleSheet class.
+ *
+ * @author vegegoku
+ * @version $Id: $Id
+ */
 public class DynamicStyleSheet<E extends HTMLElement, D extends BaseDominoElement<E, D>> {
 
   private final String cssPrefix;
@@ -28,6 +36,12 @@ public class DynamicStyleSheet<E extends HTMLElement, D extends BaseDominoElemen
   private CSSStyleSheet styleSheet;
   private DominoStyleSheet dominoStyleSheet = new DominoStyleSheet();
 
+  /**
+   * Constructor for DynamicStyleSheet.
+   *
+   * @param cssPrefix a {@link java.lang.String} object
+   * @param target a D object
+   */
   public DynamicStyleSheet(String cssPrefix, D target) {
     this.cssPrefix = cssPrefix;
     this.target = target;
@@ -39,10 +53,17 @@ public class DynamicStyleSheet<E extends HTMLElement, D extends BaseDominoElemen
     target.addCss(cssPrefix + target.getDominoId());
   }
 
+  /** flush. */
   public void flush() {
     dominoStyleSheet.flushInto(styleElement);
   }
 
+  /**
+   * insertRule.
+   *
+   * @param cssClass a {@link java.lang.String} object
+   * @return a {@link org.dominokit.domino.ui.utils.DominoCSSRule} object
+   */
   public DominoCSSRule insertRule(String cssClass) {
     String ruleName = cssPrefix + cssClass;
     String selector = "." + cssPrefix + target.getDominoId() + " ." + ruleName;
@@ -52,18 +73,39 @@ public class DynamicStyleSheet<E extends HTMLElement, D extends BaseDominoElemen
     return dominoCSSRule;
   }
 
+  /**
+   * removeRule.
+   *
+   * @param cssRule a {@link org.dominokit.domino.ui.utils.DominoCSSRule} object
+   */
   public void removeRule(DominoCSSRule cssRule) {
     dominoStyleSheet.removeRule(cssRule);
   }
 
+  /**
+   * Getter for the field <code>styleElement</code>.
+   *
+   * @return a {@link elemental2.dom.HTMLStyleElement} object
+   */
   public HTMLStyleElement getStyleElement() {
     return styleElement;
   }
 
+  /**
+   * Getter for the field <code>styleSheet</code>.
+   *
+   * @return a {@link elemental2.dom.CSSStyleSheet} object
+   */
   public CSSStyleSheet getStyleSheet() {
     return styleSheet;
   }
 
+  /**
+   * getCssStyleRule.
+   *
+   * @param selector a {@link java.lang.String} object
+   * @return a {@link java.util.Optional} object
+   */
   public Optional<DominoCSSRule> getCssStyleRule(String selector) {
     return dominoStyleSheet.get(selector);
   }

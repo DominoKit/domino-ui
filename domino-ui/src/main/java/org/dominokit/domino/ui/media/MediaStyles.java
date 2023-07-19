@@ -15,22 +15,26 @@
  */
 package org.dominokit.domino.ui.media;
 
-/** Default CSS classes for {@link MediaObject} */
-public class MediaStyles {
-  /** CSS class for media header element */
-  public static final String MEDIA_HEADING = "media-heading";
-  /** CSS class for media body */
-  public static final String MEDIA_BODY = "media-body";
-  /** CSS class for media object */
-  public static final String MEDIA = "media";
-  /** CSS class for media left element */
-  public static final String MEDIA_LEFT = "media-left";
-  /** CSS class for media right element */
-  public static final String MEDIA_RIGHT = "media-right";
-  /** CSS class for middle alignment */
-  public static final String MEDIA_MIDDLE = "media-middle";
-  /** CSS class for bottom alignment */
-  public static final String MEDIA_BOTTOM = "media-bottom";
-  /** CSS class for top alignment */
-  public static final String MEDIA_TOP = "media-top";
+import org.dominokit.domino.ui.style.CssClass;
+
+/**
+ * Default CSS classes for {@link org.dominokit.domino.ui.media.MediaObject}
+ *
+ * @author vegegoku
+ * @version $Id: $Id
+ */
+public interface MediaStyles {
+
+  /** Constant <code>dui_media</code> */
+  CssClass dui_media = () -> "dui-media";
+  /** Constant <code>dui_media_body</code> */
+  CssClass dui_media_body = () -> "dui-media-body";
+  /** Constant <code>dui_media_heading</code> */
+  CssClass dui_media_heading = () -> "dui-media-heading";
+  /** Constant <code>dui_media_object</code> */
+  CssClass dui_media_object = () -> "dui-media-object";
+  /** Constant <code>dui_media_left</code> */
+  CssClass dui_media_left = () -> "dui-media-left";
+  /** Constant <code>dui_media_right</code> */
+  CssClass dui_media_right = () -> "dui-media-right";
 }

@@ -15,20 +15,27 @@
  */
 package org.dominokit.domino.ui.icons;
 
-import static java.util.Objects.nonNull;
-import static org.jboss.elemento.Elements.img;
+import org.dominokit.domino.ui.style.CssClass;
+import org.dominokit.domino.ui.style.SwapCssClass;
 
-import org.dominokit.domino.ui.utils.DominoElement;
-
-/** Url icon implementation */
-public class UrlIcon extends BaseIcon<UrlIcon> {
+/**
+ * Url icon implementation
+ *
+ * @author vegegoku
+ * @version $Id: $Id
+ */
+public class UrlIcon extends Icon<UrlIcon> implements CanChangeIcon<UrlIcon> {
 
   private final String url;
 
   private UrlIcon(String url, String name) {
+    this(url, () -> name);
+  }
+
+  private UrlIcon(String url, CssClass name) {
     this.url = url;
-    this.name = name;
-    this.icon = DominoElement.of(img(url).element());
+    this.name = SwapCssClass.of(name);
+    this.icon = elementOf(img(url).element());
     init(this);
   }
 
@@ -51,22 +58,7 @@ public class UrlIcon extends BaseIcon<UrlIcon> {
 
   /** {@inheritDoc} */
   @Override
-  protected UrlIcon doToggle() {
-    if (nonNull(toggleName)) {
-      if (this.style().containsCss(originalName)) {
-        this.style().removeCss(originalName);
-        this.style().addCss(toggleName);
-      } else {
-        this.style().addCss(originalName);
-        this.style().removeCss(toggleName);
-      }
-    }
-    return this;
-  }
-
-  /** {@inheritDoc} */
-  @Override
-  public UrlIcon changeTo(BaseIcon<UrlIcon> icon) {
+  public UrlIcon changeTo(UrlIcon icon) {
     removeCss(getName());
     addCss(icon.getName());
     return null;

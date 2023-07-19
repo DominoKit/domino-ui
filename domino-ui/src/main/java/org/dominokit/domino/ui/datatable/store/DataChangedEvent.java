@@ -17,12 +17,14 @@ package org.dominokit.domino.ui.datatable.store;
 
 import java.util.List;
 import java.util.Optional;
-import org.dominokit.domino.ui.datatable.plugins.SortDirection;
+import org.dominokit.domino.ui.datatable.plugins.pagination.SortDirection;
 
 /**
  * This event is fired whenever the data in the data table is changed including the sort
  *
  * @param <T> the type of the data table records
+ * @author vegegoku
+ * @version $Id: $Id
  */
 public class DataChangedEvent<T> {
   private final List<T> newData;
@@ -34,7 +36,7 @@ public class DataChangedEvent<T> {
   /**
    * Creates a new instance without sort information
    *
-   * @param newData {@link List} of new records
+   * @param newData {@link java.util.List} of new records
    * @param totalCount int, The total count which may not be equal to the data list size as this
    *     represent the total count of items not just in the current page
    */
@@ -49,10 +51,11 @@ public class DataChangedEvent<T> {
   /**
    * Creates a new instance with sort information
    *
-   * @param newData {@link List} of new records
+   * @param newData {@link java.util.List} of new records
    * @param totalCount int, The total count which may not be equal to the data list size as this
    *     represent the total count of items not just in the current page
-   * @param sortDirection the {@link SortDirection}
+   * @param sortDirection the {@link
+   *     org.dominokit.domino.ui.datatable.plugins.pagination.SortDirection}
    * @param sortColumn String, the name of the column we sort by.
    */
   public DataChangedEvent(
@@ -67,7 +70,7 @@ public class DataChangedEvent<T> {
   /**
    * Creates a new instance without sort information
    *
-   * @param newData {@link List} of new records
+   * @param newData {@link java.util.List} of new records
    * @param append boolean, true if the new data should be appended to the old data instead of
    *     replacing it.
    * @param totalCount int, The total count which may not be equal to the data list size as this
@@ -84,12 +87,13 @@ public class DataChangedEvent<T> {
   /**
    * Creates a new instance with sort information
    *
-   * @param newData {@link List} of new records
+   * @param newData {@link java.util.List} of new records
    * @param append boolean, true if the new data should be appended to the old data instead of
    *     replacing it.
    * @param totalCount int, The total count which may not be equal to the data list size as this
    *     represent the total count of items not just in the current page
-   * @param sortDirection the {@link SortDirection}
+   * @param sortDirection the {@link
+   *     org.dominokit.domino.ui.datatable.plugins.pagination.SortDirection}
    * @param sortColumn String, the name of the column we sort by.
    */
   public DataChangedEvent(
@@ -106,11 +110,18 @@ public class DataChangedEvent<T> {
   }
 
   /** @return the {@link List} of data */
+  /**
+   * Getter for the field <code>newData</code>.
+   *
+   * @return a {@link java.util.List} object
+   */
   public List<T> getNewData() {
     return newData;
   }
 
   /**
+   * isAppend.
+   *
    * @return boolean, true if the new data should be appended to the old data instead of replacing
    *     it.
    */
@@ -119,6 +130,8 @@ public class DataChangedEvent<T> {
   }
 
   /**
+   * Getter for the field <code>totalCount</code>.
+   *
    * @return int, The total count which may not be equal to the data list size as this represent the
    *     total count of items not just in the current page
    */
@@ -127,11 +140,21 @@ public class DataChangedEvent<T> {
   }
 
   /** @return the {@link SortDirection} */
+  /**
+   * Getter for the field <code>sortDir</code>.
+   *
+   * @return a {@link java.util.Optional} object
+   */
   public Optional<SortDirection> getSortDir() {
     return sortDir;
   }
 
   /** @return String, the name of the column we sort by. */
+  /**
+   * Getter for the field <code>sortColumn</code>.
+   *
+   * @return a {@link java.util.Optional} object
+   */
   public Optional<String> getSortColumn() {
     return sortColumn;
   }

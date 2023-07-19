@@ -15,672 +15,592 @@
  */
 package org.dominokit.domino.ui.cards;
 
-import static java.util.Objects.isNull;
 import static java.util.Objects.nonNull;
-import static org.dominokit.domino.ui.cards.CardStyles.*;
-import static org.jboss.elemento.Elements.*;
 
-import elemental2.dom.*;
-import org.dominokit.domino.ui.collapsible.CollapseStrategy;
-import org.dominokit.domino.ui.collapsible.Collapsible;
-import org.dominokit.domino.ui.grid.flex.FlexAlign;
-import org.dominokit.domino.ui.grid.flex.FlexItem;
-import org.dominokit.domino.ui.grid.flex.FlexLayout;
-import org.dominokit.domino.ui.icons.BaseIcon;
-import org.dominokit.domino.ui.icons.HardwareIcons;
-import org.dominokit.domino.ui.icons.Icons;
-import org.dominokit.domino.ui.keyboard.KeyboardEvents;
-import org.dominokit.domino.ui.style.Color;
-import org.dominokit.domino.ui.style.Style;
-import org.dominokit.domino.ui.style.Styles;
-import org.dominokit.domino.ui.utils.BaseDominoElement;
-import org.dominokit.domino.ui.utils.DominoElement;
-import org.dominokit.domino.ui.utils.DominoUIConfig;
-import org.dominokit.domino.ui.utils.HasBackground;
-import org.dominokit.domino.ui.utils.TextNode;
-import org.jboss.elemento.EventType;
-import org.jboss.elemento.HtmlContentBuilder;
-import org.jboss.elemento.IsElement;
+import elemental2.dom.Element;
+import elemental2.dom.HTMLDivElement;
+import elemental2.dom.HTMLElement;
+import elemental2.dom.HTMLImageElement;
+import java.util.HashSet;
+import java.util.Set;
+import org.dominokit.domino.ui.IsElement;
+import org.dominokit.domino.ui.config.CardConfig;
+import org.dominokit.domino.ui.config.HasComponentConfig;
+import org.dominokit.domino.ui.elements.DivElement;
+import org.dominokit.domino.ui.elements.HeadingElement;
+import org.dominokit.domino.ui.elements.ImageElement;
+import org.dominokit.domino.ui.elements.SmallElement;
+import org.dominokit.domino.ui.icons.Icon;
+import org.dominokit.domino.ui.icons.ToggleIcon;
+import org.dominokit.domino.ui.icons.ToggleMdiIcon;
+import org.dominokit.domino.ui.style.BooleanCssClass;
+import org.dominokit.domino.ui.utils.*;
 
 /**
- * A component provides a content container.
+ * Card class.
  *
- * <p>A card has two main sub-containers, header and body; the header provides title and description
- * for the card with customizable header actions to perform specific operations while the body
- * provides a container for custom content.
- *
- * <p>Customize the component can be done by overwriting classes provided by {@link CardStyles}
- *
- * <p>For example:
- *
- * <pre>
- *     Card.create("Card Title", "Description text here...")
- *             .appendChild(TextNode.of(SAMPLE_CONTENT))
- *             .addHeaderAction(Icons.ALL.more_vert(), (event) -&gt; {
- *                 DomGlobal.console.info("More action selected");
- *             })
- * </pre>
- *
- * @see BaseDominoElement
- * @see HasBackground
+ * @author vegegoku
+ * @version $Id: $Id
  */
-public class Card extends BaseDominoElement<HTMLDivElement, Card> implements HasBackground<Card> {
+public class Card extends BaseDominoElement<HTMLDivElement, Card>
+    implements CardStyles, CollapsibleElement<Card>, HasComponentConfig<CardConfig> {
+  private DivElement element;
+  private DivElement body;
 
-  private final FlexItem<HTMLDivElement> logoContainer;
-  private final DominoElement<HTMLDivElement> root = DominoElement.div().addCss(CARD);
-  private final DominoElement<HTMLDivElement> header = DominoElement.div().addCss(HEADER);
-  private final DominoElement<HTMLHeadingElement> headerTitle = DominoElement.of(h(2));
-  private final DominoElement<HTMLElement> headerDescription = DominoElement.of(small());
-  private final DominoElement<HTMLUListElement> headerBar =
-      DominoElement.of(ul()).addCss(HEADER_ACTIONS);
-  private final DominoElement<HTMLDivElement> body =
-      DominoElement.div()
-          .addCss(BODY)
-          .setCollapseStrategy(
-              DominoUIConfig.INSTANCE.getDefaultCardCollapseStrategySupplier().get());
+  private LazyChild<CardHeader> header;
 
-  private final Text title = TextNode.empty();
-  private final Text description = TextNode.empty();
-  private boolean collapsible = false;
-  private HTMLLIElement collapseAction;
-  private BaseIcon<?> collapseIcon;
-  private Color headerBackground;
-  private Color bodyBackground;
-  private HtmlContentBuilder<HTMLAnchorElement> collapseAnchor;
+  private Set<CollapseHandler<Card>> collapseHandlers = new HashSet<>();
+  private Set<ExpandHandler<Card>> expandHandlers = new HashSet<>();
+  private LazyChild<PostfixAddOn<? extends Element>> collapseElement = NullLazyChild.of();
 
+  private final ToggleIcon<?, ?> collapseIcon;
+
+  /**
+   * create.
+   *
+   * @return a {@link org.dominokit.domino.ui.cards.Card} object
+   */
+  public static Card create() {
+    return new Card();
+  }
+
+  /**
+   * create.
+   *
+   * @param title a {@link java.lang.String} object
+   * @return a {@link org.dominokit.domino.ui.cards.Card} object
+   */
+  public static Card create(String title) {
+    return new Card(title);
+  }
+
+  /**
+   * create.
+   *
+   * @param title a {@link java.lang.String} object
+   * @param description a {@link java.lang.String} object
+   * @return a {@link org.dominokit.domino.ui.cards.Card} object
+   */
+  public static Card create(String title, String description) {
+    return new Card(title, description);
+  }
+
+  /**
+   * Constructor for Card.
+   *
+   * @param title a {@link java.lang.String} object
+   */
+  public Card(String title) {
+    this();
+    setTitle(title);
+  }
+
+  /**
+   * Constructor for Card.
+   *
+   * @param title a {@link java.lang.String} object
+   * @param description a {@link java.lang.String} object
+   */
+  public Card(String title, String description) {
+    this(title);
+    setDescription(description);
+  }
+
+  /** Constructor for Card. */
   public Card() {
-    headerTitle.appendChild(title).appendChild(headerDescription);
-
-    logoContainer = FlexItem.create().css("logo").hide();
-    header.appendChild(
-        FlexLayout.create()
-            .appendChild(logoContainer.setAlignSelf(FlexAlign.CENTER))
-            .appendChild(
-                FlexItem.create()
-                    .setAlignSelf(FlexAlign.CENTER)
-                    .setFlexGrow(1)
-                    .appendChild(headerTitle))
-            .appendChild(FlexItem.create().appendChild(headerBar)));
-
-    root.appendChild(header).appendChild(body);
-
-    headerDescription.appendChild(description);
-
-    body.getCollapsible()
-        .addHideHandler(
-            () -> {
-              if (collapsible) {
-                collapseIcon.element().textContent = Icons.ALL.keyboard_arrow_down().getName();
-              }
-            });
-
-    body.getCollapsible()
-        .addShowHandler(
-            () -> {
-              if (collapsible) {
-                collapseIcon.element().textContent = Icons.ALL.keyboard_arrow_up().getName();
-              }
-            });
+    element = div().addCss(dui_card).appendChild(body = div().addCss(dui_card_body));
+    header = LazyChild.of(CardHeader.create(), element);
+    collapseIcon = getConfig().getCardCollapseExpandIcon().get();
 
     init(this);
   }
 
   /**
-   * Creates new card instance with hiding the header
+   * Getter for the field <code>header</code>.
    *
-   * @return new instance with no header
+   * @return a {@link org.dominokit.domino.ui.cards.CardHeader} object
    */
-  public static Card create() {
-    Card card = new Card();
-    card.header.hide();
-    return card;
+  public CardHeader getHeader() {
+    return header.get();
   }
 
   /**
-   * Creates new card instance with {@code title}.
+   * withHeader.
    *
-   * @param title the title of the header
-   * @return new instance
+   * @param handler a {@link org.dominokit.domino.ui.utils.ChildHandler} object
+   * @return a {@link org.dominokit.domino.ui.cards.Card} object
    */
-  public static Card create(String title) {
-    Card card = new Card();
-    card.setTitle(title);
-    return card;
-  }
-
-  /**
-   * Creates new card instance with {@code title} and {@code description}
-   *
-   * @param title the title of the header
-   * @param description the description of the header
-   * @return new instance
-   */
-  public static Card create(String title, String description) {
-    Card card = new Card();
-    card.setTitle(title);
-    card.setDescription(description);
-    return card;
-  }
-
-  /**
-   * Profile is a special case of a card which has {@code margin-bottom} to {@code 0px} and @link
-   * Color#THEME} as a background
-   *
-   * @param name the title of the header of the profile
-   * @param info the description of the header of the profile
-   * @return new instance
-   * @see Card#create(String, String)
-   */
-  public static Card createProfile(String name, String info) {
-    Card profileCard = Card.create(name, info);
-    profileCard.style().setMarginBottom("0px");
-    profileCard.setBackground(Color.THEME);
-    return profileCard;
-  }
-
-  /**
-   * Sets the title of the card
-   *
-   * @param titleText the title of the header
-   * @return same instance
-   */
-  public Card setTitle(String titleText) {
-    title.textContent = titleText;
-    if (nonNull(titleText) && !titleText.isEmpty()) {
-      header.show();
-    }
+  public Card withHeader(ChildHandler<Card, CardHeader> handler) {
+    handler.apply(this, header.get());
     return this;
   }
 
   /**
-   * Sets the description of the card
+   * withHeader.
    *
-   * @param descriptionText the description of the header
-   * @return same instance
+   * @return a {@link org.dominokit.domino.ui.cards.Card} object
    */
-  public Card setDescription(String descriptionText) {
-    description.textContent = descriptionText;
-    if (nonNull(descriptionText) && !descriptionText.isEmpty()) {
-      header.show();
-    }
+  public Card withHeader() {
+    header.get();
     return this;
   }
 
   /**
-   * Adds new element to the description element inside the header
+   * getSubHeader.
    *
-   * @param node the element to be added
-   * @return same instance
+   * @return a {@link org.dominokit.domino.ui.elements.DivElement} object
    */
-  public Card appendDescriptionChild(Node node) {
-    headerDescription.appendChild(node);
-    if (nonNull(node)) {
-      header.show();
-    }
+  public DivElement getSubHeader() {
+    return header.get().getSubHeader();
+  }
+
+  /**
+   * withSubHeader.
+   *
+   * @return a {@link org.dominokit.domino.ui.cards.Card} object
+   */
+  public Card withSubHeader() {
+    header.get().getSubHeader();
     return this;
   }
 
   /**
-   * Same as {@link Card#appendDescriptionChild(Node)} but takes {@link IsElement}
+   * withSubHeader.
    *
-   * @param element the element to append
-   * @return same instance
+   * @param handler a {@link org.dominokit.domino.ui.utils.ChildHandler} object
+   * @return a {@link org.dominokit.domino.ui.cards.Card} object
    */
-  public Card appendDescriptionChild(IsElement<?> element) {
-    return appendDescriptionChild(element.element());
-  }
-
-  /**
-   * Adds element to the body of the card
-   *
-   * @param content the element to add
-   * @return same instance
-   */
-  public Card appendChild(Node content) {
-    getBody().appendChild(content);
-    return this;
-  }
-
-  /** {@inheritDoc} */
-  @Override
-  public Card appendChild(IsElement<?> element) {
-    getBody().appendChild(element.element());
+  public Card withSubHeader(ChildHandler<CardHeader, DivElement> handler) {
+    handler.apply(header.get(), header.get().getSubHeader());
     return this;
   }
 
   /**
-   * Sets the background {@link Color} of the header
+   * setTitle.
    *
-   * @param headerBackground a {@link Color} to set as a background to the header
-   * @return same instance
+   * @param title a {@link java.lang.String} object
+   * @return a {@link org.dominokit.domino.ui.cards.Card} object
    */
-  public Card setHeaderBackground(Color headerBackground) {
-    if (nonNull(headerBackground)) {
-      if (nonNull(this.headerBackground)) {
-        header.removeCss(this.headerBackground.getBackground());
-      }
-      this.headerBackground = headerBackground;
-      header.addCss(headerBackground.getBackground());
-    }
+  public Card setTitle(String title) {
+    header.get().setTitle(title);
     return this;
   }
 
   /**
-   * Sets the background {@link Color} of the body
+   * setDescription.
    *
-   * @param bodyBackground a {@link Color} to set as a background to the body
-   * @return same instance
+   * @param text a {@link java.lang.String} object
+   * @return a {@link org.dominokit.domino.ui.cards.Card} object
    */
-  public Card setBodyBackground(Color bodyBackground) {
-    if (nonNull(bodyBackground)) {
-      if (nonNull(this.bodyBackground)) {
-        body.removeCss(this.bodyBackground.getBackground());
-      }
-      this.bodyBackground = bodyBackground;
-      body.addCss(bodyBackground.getBackground());
-    }
+  public Card setDescription(String text) {
+    header.get().setDescription(text);
     return this;
   }
 
   /**
-   * Removes spaces inside the card and fit the body to its content, check {@link
-   * CardStyles#FIT_CONTENT}
+   * getTitleElement.
    *
-   * @return same instance
+   * @return a {@link org.dominokit.domino.ui.elements.DivElement} object
    */
-  public Card fitContent() {
-    style().addCss(FIT_CONTENT);
+  public DivElement getTitleElement() {
+    return header.get().getTitleElement();
+  }
+
+  /**
+   * withTitle.
+   *
+   * @return a {@link org.dominokit.domino.ui.cards.Card} object
+   */
+  public Card withTitle() {
+    header.get().withTitle();
     return this;
   }
 
   /**
-   * Sets a default padding to the body of the card
+   * withTitle.
    *
-   * @return same instance
+   * @param handler a {@link org.dominokit.domino.ui.utils.ChildHandler} object
+   * @return a {@link org.dominokit.domino.ui.cards.Card} object
    */
-  public Card unFitContent() {
-    removeCss(FIT_CONTENT);
+  public Card withTitle(ChildHandler<CardHeader, DivElement> handler) {
+    handler.apply(header.get(), header.get().getTitleElement());
     return this;
   }
 
-  /** {@inheritDoc} */
-  @Override
-  public Card setBackground(Color background) {
-    setHeaderBackground(background);
-    setBodyBackground(background);
+  /**
+   * getMainTitleElement.
+   *
+   * @return a {@link org.dominokit.domino.ui.elements.HeadingElement} object
+   */
+  public HeadingElement getMainTitleElement() {
+    return header.get().getMainTitleElement();
+  }
+
+  /**
+   * withMainTitle.
+   *
+   * @return a {@link org.dominokit.domino.ui.cards.Card} object
+   */
+  public Card withMainTitle() {
+    header.get().withMainTitle();
     return this;
   }
 
-  /** @return The header element */
-  public DominoElement<HTMLDivElement> getHeader() {
-    return header;
+  /**
+   * withMainTitle.
+   *
+   * @param title a {@link java.lang.String} object
+   * @return a {@link org.dominokit.domino.ui.cards.Card} object
+   */
+  public Card withMainTitle(String title) {
+    header.get().setTitle(title);
+    return this;
   }
 
-  /** @return The header actions container */
-  public DominoElement<HTMLUListElement> getHeaderBar() {
-    return headerBar;
+  /**
+   * withMainTitle.
+   *
+   * @param handler a {@link org.dominokit.domino.ui.utils.ChildHandler} object
+   * @return a {@link org.dominokit.domino.ui.cards.Card} object
+   */
+  public Card withMainTitle(ChildHandler<CardHeader, HeadingElement> handler) {
+    handler.apply(header.get(), header.get().getMainTitleElement());
+    return this;
   }
 
-  /** @return The body element */
-  public DominoElement<HTMLDivElement> getBody() {
+  /**
+   * getDescriptionElement.
+   *
+   * @return a {@link org.dominokit.domino.ui.elements.SmallElement} object
+   */
+  public SmallElement getDescriptionElement() {
+    return header.get().getDescriptionElement();
+  }
+
+  /**
+   * withDescription.
+   *
+   * @return a {@link org.dominokit.domino.ui.cards.Card} object
+   */
+  public Card withDescription() {
+    header.get().withDescription();
+    return this;
+  }
+
+  /**
+   * withDescription.
+   *
+   * @param description a {@link java.lang.String} object
+   * @return a {@link org.dominokit.domino.ui.cards.Card} object
+   */
+  public Card withDescription(String description) {
+    header.get().setDescription(description);
+    return this;
+  }
+
+  /**
+   * withDescription.
+   *
+   * @param handler a {@link org.dominokit.domino.ui.utils.ChildHandler} object
+   * @return a {@link org.dominokit.domino.ui.cards.Card} object
+   */
+  public Card withDescription(ChildHandler<CardHeader, SmallElement> handler) {
+    handler.apply(header.get(), header.get().getDescriptionElement());
+    return this;
+  }
+
+  /**
+   * Getter for the field <code>body</code>.
+   *
+   * @return a {@link org.dominokit.domino.ui.elements.DivElement} object
+   */
+  public DivElement getBody() {
     return body;
   }
 
-  /** @return The header title element */
-  public DominoElement<HTMLHeadingElement> getHeaderTitle() {
-    return headerTitle;
-  }
-
-  /** @return The header description element */
-  public DominoElement<HTMLElement> getHeaderDescription() {
-    return headerDescription;
-  }
-
   /**
-   * Adds new header action to card header passing the {@code icon} and the {@code eventListener}.
+   * withBody.
    *
-   * @param icon the header action {@link BaseIcon}
-   * @param eventListener A {@link EventListener} to listen to the action
-   * @return same instance
+   * @param handler a {@link org.dominokit.domino.ui.utils.ChildHandler} object
+   * @return a {@link org.dominokit.domino.ui.cards.Card} object
    */
-  public Card addHeaderAction(BaseIcon<?> icon, EventListener eventListener) {
-    HTMLLIElement actionItem = createHeaderAction(icon);
-    actionItem.addEventListener("click", eventListener);
-
-    putAction(actionItem);
-
+  public Card withBody(ChildHandler<Card, DivElement> handler) {
+    handler.apply(this, body);
     return this;
   }
 
   /**
-   * Adds new {@link HeaderAction}
+   * setLogo.
    *
-   * @param headerAction A {@link HeaderAction} to be added to the card
-   * @return same instance
+   * @param img a {@link elemental2.dom.HTMLImageElement} object
+   * @return a {@link org.dominokit.domino.ui.cards.Card} object
    */
-  public Card addHeaderAction(HeaderAction headerAction) {
-    putAction(headerAction.element());
+  public Card setLogo(HTMLImageElement img) {
+    header.get().setLogo(img);
     return this;
-  }
-
-  private void putAction(HTMLLIElement actionItem) {
-    if (nonNull(collapseAction) && collapsible) {
-      headerBar.insertBefore(actionItem, collapseAction);
-    } else {
-      headerBar.appendChild(actionItem);
-    }
-    header.show();
-  }
-
-  private HTMLLIElement createHeaderAction(BaseIcon<?> icon) {
-    return li().add(
-            collapseAnchor =
-                a().attr("tabindex", "0")
-                    .attr("aria-expanded", "true")
-                    .attr("href", "#")
-                    .on(EventType.click, Event::preventDefault)
-                    .add(icon.clickable().addCss(Styles.pull_right, ACTION_ICON)))
-        .element();
   }
 
   /**
-   * Enables the ability to hide/show the body by adding header action to the card. This method will
-   * set the header action icon to {@link HardwareIcons#keyboard_arrow_up()} and adds a listener to
-   * hide and show the body.
+   * setLogo.
    *
-   * @return same instance
+   * @param img a {@link org.dominokit.domino.ui.elements.ImageElement} object
+   * @return a {@link org.dominokit.domino.ui.cards.Card} object
    */
-  public Card setCollapsible() {
-    collapseIcon = Icons.ALL.keyboard_arrow_up();
-
-    collapseIcon.setAttribute("tabindex", "0");
-
-    if (isNull(collapseAction)) {
-      collapseAction = createHeaderAction(collapseIcon);
-    }
-
-    KeyboardEvents.listenOnKeyDown(collapseAction).onEnter(evt -> switchVisibility());
-
-    collapseAction.addEventListener("click", evt -> switchVisibility());
-
-    putAction(collapseAction);
-
-    this.collapsible = true;
-
-    header.show();
-
+  public Card setLogo(ImageElement img) {
+    header.get().setLogo(img);
     return this;
   }
 
-  private void switchVisibility() {
-    if (collapsible) {
-      if (body.getCollapsible().isCollapsed()) {
-        expand();
-        collapseAnchor.element().setAttribute("aria-expanded", "true");
-      } else {
-        collapse();
-        collapseAnchor.element().setAttribute("aria-expanded", "false");
+  /**
+   * setLogo.
+   *
+   * @param img a {@link org.dominokit.domino.ui.IsElement} object
+   * @return a {@link org.dominokit.domino.ui.cards.Card} object
+   */
+  public Card setLogo(IsElement<HTMLImageElement> img) {
+    header.get().setLogo(img.element());
+    return this;
+  }
+
+  /**
+   * getLogo.
+   *
+   * @return a {@link org.dominokit.domino.ui.elements.ImageElement} object
+   */
+  public ImageElement getLogo() {
+    return header.get().getLogo();
+  }
+
+  /**
+   * withLogo.
+   *
+   * @param img a {@link elemental2.dom.HTMLImageElement} object
+   * @return a {@link org.dominokit.domino.ui.cards.Card} object
+   */
+  public Card withLogo(HTMLImageElement img) {
+    header.get().setLogo(img);
+    return this;
+  }
+
+  /**
+   * withLogo.
+   *
+   * @param img a {@link org.dominokit.domino.ui.IsElement} object
+   * @return a {@link org.dominokit.domino.ui.cards.Card} object
+   */
+  public Card withLogo(IsElement<HTMLImageElement> img) {
+    header.get().setLogo(img.element());
+    return this;
+  }
+
+  /**
+   * withLogo.
+   *
+   * @return a {@link org.dominokit.domino.ui.cards.Card} object
+   */
+  public Card withLogo() {
+    header.get().withLogo();
+    return this;
+  }
+
+  /**
+   * withLogo.
+   *
+   * @param handler a {@link org.dominokit.domino.ui.utils.ChildHandler} object
+   * @return a {@link org.dominokit.domino.ui.cards.Card} object
+   */
+  public Card withLogo(ChildHandler<CardHeader, ImageElement> handler) {
+    handler.apply(header.get(), header.get().getLogo());
+    return this;
+  }
+
+  /**
+   * setIcon.
+   *
+   * @param icon a {@link org.dominokit.domino.ui.icons.Icon} object
+   * @return a {@link org.dominokit.domino.ui.cards.Card} object
+   */
+  public Card setIcon(Icon<?> icon) {
+    header.get().setIcon(icon);
+    return this;
+  }
+
+  /**
+   * getIcon.
+   *
+   * @return a {@link org.dominokit.domino.ui.icons.Icon} object
+   */
+  public Icon<?> getIcon() {
+    return header.get().getIcon();
+  }
+
+  /**
+   * withIcon.
+   *
+   * @param icon a {@link org.dominokit.domino.ui.icons.Icon} object
+   * @return a {@link org.dominokit.domino.ui.cards.Card} object
+   */
+  public Card withIcon(Icon<?> icon) {
+    setIcon(icon);
+    return this;
+  }
+
+  /**
+   * withIcon.
+   *
+   * @return a {@link org.dominokit.domino.ui.cards.Card} object
+   */
+  public Card withIcon() {
+    header.get().withIcon();
+    return this;
+  }
+
+  /**
+   * withIcon.
+   *
+   * @param handler a {@link org.dominokit.domino.ui.utils.ChildHandler} object
+   * @return a {@link org.dominokit.domino.ui.cards.Card} object
+   */
+  public Card withIcon(ChildHandler<CardHeader, Icon<?>> handler) {
+    handler.apply(header.get(), header.get().getIcon());
+    return this;
+  }
+
+  /**
+   * appendChild.
+   *
+   * @param utility a {@link org.dominokit.domino.ui.utils.PostfixAddOn} object
+   * @return a {@link org.dominokit.domino.ui.cards.Card} object
+   */
+  public Card appendChild(PostfixAddOn<?> utility) {
+    header.get().appendChild(utility);
+    return this;
+  }
+
+  /**
+   * withUtility.
+   *
+   * @param utility a {@link org.dominokit.domino.ui.utils.PostfixAddOn} object
+   * @return a {@link org.dominokit.domino.ui.cards.Card} object
+   */
+  public Card withUtility(PostfixAddOn<?> utility) {
+    header.get().appendChild(utility);
+    return this;
+  }
+
+  /**
+   * setHeaderPosition.
+   *
+   * @param headerPosition a {@link org.dominokit.domino.ui.cards.HeaderPosition} object
+   * @return a {@link org.dominokit.domino.ui.cards.Card} object
+   */
+  public Card setHeaderPosition(HeaderPosition headerPosition) {
+    addCss(BooleanCssClass.of(dui_card_header_bottom, HeaderPosition.BOTTOM == headerPosition));
+    if (nonNull(collapseIcon) && collapseIcon instanceof ToggleMdiIcon) {
+      if (HeaderPosition.BOTTOM == headerPosition) {
+        ((ToggleMdiIcon) collapseIcon).flipV();
       }
     }
+    return this;
   }
 
-  /**
-   * Change the visibility of the body based on its current state; expand if collapsed or collapse
-   * if expanded
-   *
-   * @return same instance
-   */
-  public Card toggle() {
-    if (body.getCollapsible().isCollapsed()) {
-      expand();
+  /** {@inheritDoc} */
+  @Override
+  public Card setCollapsible(boolean collapsible) {
+    collapseElement.remove();
+    if (collapsible) {
+      body.setCollapseStrategy(getConfig().getDefaultCardCollapseStrategySupplier().get());
+      header
+          .get()
+          .withMainHeader(
+              (header, mainHeader) -> {
+                collapseElement =
+                    LazyChild.of(
+                        PostfixAddOn.of(collapseIcon.clickable())
+                            .addCss(dui_order_last)
+                            .setAttribute("tabindex", "0"),
+                        mainHeader);
+                collapseElement.whenInitialized(
+                    () -> {
+                      collapseElement.element().addClickListener(evt -> toggleCollapse());
+                      collapseElement
+                          .element()
+                          .onKeyDown(keyEvents -> keyEvents.onEnter(evt -> toggleCollapse()));
+                    });
+              });
+      collapseElement.get();
     } else {
-      collapse();
+      collapseElement.remove();
+      body.getCollapsible().getStrategy().cleanup(body.element());
     }
     return this;
   }
 
-  /**
-   * Show the body
-   *
-   * @return same instance
-   */
-  public Card expand() {
-    body.getCollapsible().show();
-    removeCss("dom-ui-collapsed");
-    return this;
-  }
-
-  /**
-   * Hide the body
-   *
-   * @return same instance
-   */
-  public Card collapse() {
-    body.getCollapsible().hide();
-    addCss("dom-ui-collapsed");
-    return this;
-  }
-
-  /**
-   * Checks if the body is hidden
-   *
-   * @return true if the body is hidden, false otherwise
-   */
+  /** {@inheritDoc} */
+  @Override
   public boolean isCollapsed() {
-    return body.getCollapsible().isCollapsed();
+    return body.isCollapsed();
   }
 
-  /**
-   * Adds listener to be called when the body gets expanded. The {@code listener} will be called
-   * everytime the body gets expanded.
-   *
-   * @param listener the {@link Collapsible.ShowHandler} to be added
-   * @return same instance
-   */
-  public Card addExpandListener(Collapsible.ShowHandler listener) {
-    body.addShowListener(listener);
+  /** {@inheritDoc} */
+  @Override
+  public Card toggleCollapse() {
+    toggleCollapse(!isCollapsed());
     return this;
   }
 
-  /**
-   * Removes expand listener.
-   *
-   * @param listener the {@link Collapsible.ShowHandler} to be removed
-   * @return same instance
-   */
-  public Card removeExpandListener(Collapsible.ShowHandler listener) {
-    body.removeShowListener(listener);
-    return this;
-  }
-
-  /**
-   * Adds listener to be called when the body gets collapsed. The {@code listener} will be called
-   * everytime the body gets collapsed.
-   *
-   * @param listener the {@link Collapsible.HideHandler} to add
-   * @return same instance
-   */
-  public Card addCollapseListener(Collapsible.HideHandler listener) {
-    body.addHideListener(listener);
-    return this;
-  }
-
-  /**
-   * Removes collapse listener.
-   *
-   * @param listener the {@link Collapsible.HideHandler} to be removed
-   * @return same instance
-   */
-  public Card removeCollapseListener(Collapsible.HideHandler listener) {
-    body.removeHideListener(listener);
-    return this;
-  }
-
-  /**
-   * Sets the padding of the body, the {@code padding} value will be the same as CSS defines it.
-   *
-   * <p>For example:
-   *
-   * <pre>
-   *     card.setBodyPadding("2px 1px 2px 1px")
-   * </pre>
-   *
-   * @param padding the padding to set
-   * @return same instance
-   */
-  public Card setBodyPadding(String padding) {
-    body.style().setPadding(padding);
-    return this;
-  }
-
-  /**
-   * Sets the left padding of the body
-   *
-   * @param padding the padding to set
-   * @return same instance
-   */
-  public Card setBodyPaddingLeft(String padding) {
-    body.style().setPaddingLeft(padding);
-    return this;
-  }
-
-  /**
-   * Sets the right padding of the body
-   *
-   * @param padding the padding to set
-   * @return same instance
-   */
-  public Card setBodyPaddingRight(String padding) {
-    body.style().setPaddingRight(padding);
-    return this;
-  }
-
-  /**
-   * Sets the top padding of the body
-   *
-   * @param padding the padding to set
-   * @return same instance
-   */
-  public Card setBodyPaddingTop(String padding) {
-    body.style().setPaddingTop(padding);
-    return this;
-  }
-
-  /**
-   * Sets the bottom padding of the body
-   *
-   * @param padding the padding to set
-   * @return same instance
-   */
-  public Card setBodyPaddingBottom(String padding) {
-    body.style().setPaddingBottom(padding);
-    return this;
-  }
-
-  /**
-   * Sets the header logo, this will removes the previous logo if set.
-   *
-   * @param node the element to be set in the logo container,if null logo container become hidden
-   * @return same instance
-   */
-  public Card setHeaderLogo(Node node) {
-    if (nonNull(node)) {
-      logoContainer.clearElement().appendChild(node).show();
-      header.show();
+  /** {@inheritDoc} */
+  @Override
+  public Card toggleCollapse(boolean collapse) {
+    if (collapse) {
+      collapse();
     } else {
-      removeHeaderLogo();
+      expand();
     }
     return this;
   }
 
-  /**
-   * Removes the card header logo and hides its container
-   *
-   * @return same instance
-   */
-  public Card removeHeaderLogo() {
-    logoContainer.clearElement().hide();
+  /** {@inheritDoc} */
+  @Override
+  public Card expand() {
+    body.getCollapsible().expand();
+    collapseIcon.toggle();
+    expandHandlers.forEach(handler -> handler.onExpanded(this));
+    removeCss(() -> "dui-collapsed");
     return this;
   }
 
-  /**
-   * Same as {@link Card#setHeaderLogo(Node)} but accepts {@link IsElement}
-   *
-   * @param element the element to be set in the logo container,if null it will hide the logo
-   *     container
-   * @return same instance
-   */
-  public Card setHeaderLogo(IsElement<?> element) {
-    if (nonNull(element)) {
-      setHeaderLogo(element.element());
-    } else {
-      setHeaderLogo((Node) null);
-    }
+  /** {@inheritDoc} */
+  @Override
+  public Card collapse() {
+    body.getCollapsible().collapse();
+    collapseIcon.toggle();
+    collapseHandlers.forEach(handler -> handler.onCollapsed(this));
+    addCss(() -> "dui-collapsed");
     return this;
   }
 
-  /**
-   * Show the header
-   *
-   * @return same instance
-   */
-  public Card showHeader() {
-    return setHeaderVisible(true);
+  /** {@inheritDoc} */
+  @Override
+  public Set<CollapseHandler<Card>> getCollapseHandlers() {
+    return this.collapseHandlers;
   }
 
-  /**
-   * Hide the header
-   *
-   * @return same instance
-   */
-  public Card hideHeader() {
-    return setHeaderVisible(false);
+  /** {@inheritDoc} */
+  @Override
+  public Set<ExpandHandler<Card>> getExpandHandlers() {
+    return this.expandHandlers;
   }
 
-  /**
-   * Sets the header visibility
-   *
-   * @param headerVisible true to show the header, false otherwise
-   * @return same instance
-   */
-  public Card setHeaderVisible(boolean headerVisible) {
-    this.header.toggleDisplay(headerVisible);
-    return this;
-  }
-
-  /** @return the collapse icon element */
-  public BaseIcon<?> getCollapseIcon() {
-    return collapseIcon;
-  }
-
-  /** @return The {@link Style} of the body */
-  public Style<HTMLDivElement, DominoElement<HTMLDivElement>> bodyStyle() {
-    return body.style();
-  }
-
-  /**
-   * Clears the body element
-   *
-   * @return same instance
-   */
-  public Card clearBody() {
-    getBody().clearElement();
-    return this;
-  }
-
-  /**
-   * Set the card body collapse strategy
-   *
-   * @return same instance
-   */
-  public Card setBodyCollapseStrategy(CollapseStrategy strategy) {
-    getBody().setCollapseStrategy(strategy);
-    return this;
+  /** {@inheritDoc} */
+  @Override
+  public HTMLElement getAppendTarget() {
+    return body.element();
   }
 
   /** {@inheritDoc} */
   @Override
   public HTMLDivElement element() {
-    return root.element();
+    return element.element();
   }
 }

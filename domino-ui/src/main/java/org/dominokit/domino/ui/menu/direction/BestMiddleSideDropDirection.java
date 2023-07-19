@@ -16,30 +16,45 @@
 package org.dominokit.domino.ui.menu.direction;
 
 import static elemental2.dom.DomGlobal.window;
+import static org.dominokit.domino.ui.style.SpacingCss.dui_flex_col_reverse;
 
 import elemental2.dom.DOMRect;
-import elemental2.dom.HTMLElement;
+import elemental2.dom.Element;
 
+/**
+ * BestMiddleSideDropDirection class.
+ *
+ * @author vegegoku
+ * @version $Id: $Id
+ */
 public class BestMiddleSideDropDirection implements DropDirection {
 
-  private DropDirection currentPosition;
-
+  /** {@inheritDoc} */
   @Override
-  public void position(HTMLElement source, HTMLElement target) {
-
+  public void position(Element source, Element target) {
+    dui_flex_col_reverse.remove(source);
+    cleanup(source);
     DOMRect targetRect = target.getBoundingClientRect();
     DOMRect sourceRect = source.getBoundingClientRect();
     int innerWidth = window.innerWidth;
 
     double sourceWidth = sourceRect.width;
     double rightSpace = innerWidth - targetRect.right - window.pageXOffset;
+    DropDirection currentPosition;
 
     if (hasSpaceOnRightSide(sourceWidth, rightSpace)) {
-      currentPosition = new RightMiddleDropDirection();
+      currentPosition = DropDirection.RIGHT_MIDDLE;
     } else {
-      currentPosition = new LeftMiddleDropDirection();
+      currentPosition = DropDirection.LEFT_MIDDLE;
     }
     currentPosition.position(source, target);
+  }
+
+  /** {@inheritDoc} */
+  @Override
+  public void cleanup(Element source) {
+    DropDirection.RIGHT_MIDDLE.cleanup(source);
+    DropDirection.LEFT_MIDDLE.cleanup(source);
   }
 
   private boolean hasSpaceOnRightSide(double sourceWidth, double rightSpace) {

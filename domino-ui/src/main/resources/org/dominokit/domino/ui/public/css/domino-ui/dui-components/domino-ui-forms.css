@@ -1,0 +1,690 @@
+fieldset.dui {
+    border: none;
+}
+
+.dui-form-field {
+    /*position: relative;*/
+    display: flex;
+    justify-content: center;
+    flex-direction: var(--dui-form-field-direction, column);
+    align-items: var(--dui-form-field-align, flex-start);
+    padding: var(--dui-form-field-padding);
+    margin: var(--dui-form-field-marging);
+    width: 100%;
+    margin-inline: 0;
+    max-inline-size: 100%;
+    min-inline-size:0;
+}
+
+.dui-grid-col > .dui-form-field {
+    min-inline-size: 100%;
+}
+
+.dui-form-field[readonly] .dui-field-input {
+    background-color: inherit;
+}
+
+.dui-form-field[readonly] .dui-field-input-wrapper {
+    border: var(--dui-form-field-readonly-border);
+}
+.dui-form-field[readonly] .dui-field-input{
+    border: var(--dui-form-field-input-readonly-border);
+}
+.dui-form-field[readonly] .dui-field-input-wrapper {
+    background-color: var(--dui-form-field-readonly-background);
+}
+
+.dui-form-field .waitMe_container .waitMe {
+    overflow: visible;
+}
+
+.dui-form-field[readonly] .dui:not(.dui-field-error):not(.dui-field-helper) {
+    color: var(--dui-form-field-readonly-color);
+    cursor: var(--dui-form-field-readonly-cursor);
+}
+
+.dui-form-field *.dui::placeholder {
+    color: var(--dui-form-field-placeholder-color);
+}
+
+.dui-form-field[disabled] *.dui::placeholder,
+.dui-form-field[readonly] *.dui::placeholder {
+    color: transparent;
+}
+
+.dui-form-field[disabled] .dui-field-input {
+    background-color: inherit;
+}
+
+.dui-form-field[disabled] .dui-field-input,
+.dui-form-field[disabled] .dui-field-input-wrapper {
+    color: var(--dui-form-field-disabled-color);
+}
+
+.dui-form-field[disabled] .dui-field-input-wrapper {
+    background-color: var(--dui-form-field-disabled-background);
+}
+
+.dui-form-field[disabled] *.dui {
+    color: var(--dui-form-field-disabled-color);
+    cursor: var(--dui-form-field-disabled-cursor);
+}
+
+.dui-form-field[disabled] .dui-field-input-wrapper {
+    border: var(--dui-form-field-disabled-border);
+}
+
+.dui-form-label-float-left {
+    --dui-form-field-direction: row;
+    --dui-form-field-align: baseline;
+}
+
+.dui-form-label-float-top {
+    --dui-form-field-direction: column;
+    --dui-form-field-align: flex-start;
+}
+
+.dui-hide-label .dui-field-label,
+.dui-hide-label.dui-field-label,
+.dui-field-label:empty {
+    display: none;
+}
+
+.dui-field-label {
+    padding: var(--dui-form-field-label-padding);
+    font: var(--dui-form-field-label-font);
+    min-width: var(--dui-form-field-label-min-width);
+    max-width: var(--dui-form-field-label-max-width);
+    min-height: var(--dui-form-field-label-min-height);
+    line-height: var(--dui-form-field-label-min-height);
+    text-align: var(--dui-form-field-label-text-align);
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    order: 10;
+}
+
+.dui-form-field .dui-prefix-addon,
+.dui-form-field .dui-postfix-addon {
+    margin: var(--dui-form-field-addon-margin);
+}
+
+.dui-form-field .dui-prefix-addon {
+    order: 10;
+}
+
+.dui-field-prefix {
+    order: 20;
+    font: var(--dui-form-field-prefix-font);
+    line-height: var(--dui-form-field-prefix-line-height);
+}
+
+.dui-form-radio,
+.dui-form-checkbox,
+.dui-field-input {
+    order: 30;
+}
+.dui-form-checkbox:not(.dui-hide-label) .dui-field-label:empty,
+.dui-form-radio-group:not(.dui-hide-label) .dui-field-label:empty,
+.dui-form-switch:not(.dui-hide-label) .dui-field-label:empty{
+    display: block;
+}
+.dui-form-checkbox .dui-field-label,
+.dui-form-radio-group .dui-field-label,
+.dui-form-switch .dui-field-label{
+    min-height: 28px;
+}
+
+.dui-form-radio-note {
+    order: 9999;
+}
+
+.dui-field-postfix {
+    order: 40;
+    font: var(--dui-form-field-postfix-font);
+    line-height: var(--dui-form-field-postfix-line-height);
+}
+
+.dui-form-field .dui-postfix-addon {
+    order: 50;
+}
+
+.dui-field-counter {
+    order: 60;
+    padding: var(--dui-form-field-counter-padding);
+    line-height: var(--dui-form-field-counter-line-height);
+}
+
+.dui-form-field .dui-primary-addon {
+    order: 70;
+}
+
+.dui-form-field:focus-within .dui-field-input-wrapper {
+    border: var(--dui-form-field-focused-border);
+}
+
+.dui-field-input-wrapper {
+    flex-grow: 1;
+    flex-shrink: 0;
+    width: 100%;
+    display: flex;
+    border: var(--dui-form-field-border);
+    padding: var(--dui-form-field-wrapper-padding);
+    align-items: center;
+    border-radius: var(--dui-form-field-wrapper-radius);
+    gap: var(--dui-form-field-wrapper-gap);
+}
+
+.dui-field-invalid .dui-field-input-wrapper {
+    border-color: var(--dui-form-field-invalid-border-color, var(--dui-clr-red));
+}
+
+.dui-form-radio-group .dui-field-input-wrapper,
+.dui-form-checkbox .dui-field-input-wrapper {
+    border: none;
+}
+
+.dui-field-input {
+    display: flex;
+    max-width: 100%;
+    min-height: var(--dui-form-field-input-height);
+    flex-grow: 1;
+    flex-wrap: wrap;
+    gap: var(--dui-form-field-values-gap, var(--dui-spc-1));
+    border: var(--dui-form-field-input-border);
+    font: var(--dui-form-field-input-line-font);
+    line-height: var(--dui-form-field-input-line-hieght);
+    overflow: var(--dui-form-input-overflow, hidden);
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    align-items: center;
+    background-color: inherit;
+    color: inherit;
+    width: inherit;
+}
+
+.dui-form-text-area {
+    --dui-form-input-overflow: auto
+}
+
+.dui-field-input:focus {
+    outline: none;
+}
+
+.dui-form-field-body {
+    width: 100%;
+    order:20;
+}
+
+.dui-field-messages-wrapper {
+    display: flex;
+    flex-direction: column;
+    padding: var(--dui-form-field-messages-wrapper-padding);
+}
+
+.dui-field-helper {
+    font: var(--dui-form-field-helper-font);
+    overflow-x: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    order: 10;
+    padding-top: var(--dui-spc-2px);
+    color: var(--dui-text-color, var(--dui-color-1));
+}
+
+.dui-field-error {
+    order: 20;
+    font: var(--dui-form-field-error-font);
+    overflow-x: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    color: var(--dui-form-field-error-color);
+}
+
+.dui-field-required-indicator {
+    padding: 0 3px 0 3px;
+}
+
+.dui-form-messages-fixed .dui-field-messages-wrapper {
+    min-height: var(--dui-form-field-fixed-messages-height);
+}
+
+.dui-form-field:not(.dui-form-messages-fixed) .dui-field-messages-wrapper:empty {
+    display: none;
+}
+
+textarea.dui-field-input {
+    resize: var(--dui-form-field-textarea-input-resize);
+    height: var(--dui-form-field-textarea-input-height);
+    padding: var(--dui-form-field-textarea-input-padding);
+    margin: var(--dui-form-field-textarea-input-mergin);
+}
+
+.dui-form-field-auto-resize .dui-field-input {
+    overflow: hidden;
+}
+
+.dui-select-menu {
+    --dui-menu-radius: var(--dui-form-field-wrapper-radius);
+}
+
+.dui-form-select .dui-field-input {
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+}
+
+.dui.mdi.dui-form-select-clear {
+    display: none;
+}
+
+.dui-form-select.dui-clearable .dui.mdi.dui-form-select-clear {
+    display: block;
+}
+
+.dui.dui-form-select[disabled] .dui.mdi.dui-form-select-drop-arrow,
+.dui.dui-form-select[readonly] .dui.mdi.dui-form-select-drop-arrow,
+.dui.dui-form-select[disabled] .dui.mdi.dui-form-select-clear,
+.dui.dui-form-select[readonly] .dui.mdi.dui-form-select-clear,
+.dui.dui-form-select.dui-clearable[disabled] .dui.mdi.dui-form-select-clear,
+.dui.dui-form-select.dui-clearable[readonly] .dui.mdi.dui-form-select-clear {
+    display: none;
+}
+
+.dui-field-placeholder:last-child {
+    display: block;
+}
+
+.dui-field-placeholder:empty,
+.dui-field-placeholder {
+    color: var(--dui-form-field-placeholder-color);
+    display: none;
+}
+
+.dui-form-checkbox.dui-form-select-checkbox {
+    margin: 0;
+}
+
+.dui-form-checkbox.dui-form-select-checkbox .dui-checkbox-label{
+    padding-left: 26px;
+}
+
+.dui-form-select-checkbox .dui-field-input {
+    justify-content: center;
+}
+
+.dui-form-checkbox.dui-form-select-checkbox .dui-field-label{
+    display: none;
+}
+
+.dui-form-checkbox.dui-form-select-checkbox .dui-field-input-wrapper{
+    padding: 0;
+}
+
+.dui-form-checkbox .dui-field-input-wrapper {
+    align-items: center;
+}
+
+.dui-field-input-hidden {
+    opacity: 0;
+    width: 1px;
+    height: 1px;
+    position: fixed;
+}
+
+.dui-checkbox-label {
+    cursor: pointer;
+    display: inline-block;
+    position: relative;
+    align-items: center;
+    gap: var(--dui-form-field-checkbox-gap);
+    overflow-y: hidden;
+    padding: var(--dui-form-field-checkbox-label-padding);
+    min-height: var(--dui-form-field-checkbox-label-min-height);
+}
+
+.dui-form-checkbox .dui-field-input {
+    overflow: hidden;
+}
+
+.dui-radio-label,
+.dui-checkbox-label {
+    font: var(--dui-form-field-sub-label-font);
+}
+.dui-radio-label{
+    height: 24px;
+}
+
+.dui-checkbox-label span {
+    line-height: var(--dui-checkbox-label-line-height);
+}
+
+.dui-form-radio:focus-within .dui-radio-label:before,
+.dui-radio-label:hover:before,
+.dui-form-checkbox:focus-within .dui-checkbox-label:after,
+.dui-form-checkbox .dui-checkbox-label:hover:after {
+    outline: var(--dui-accent, var(--dui-form-field-checkbox-outline-color)) var(--dui-form-field-checkbox-outline-style) var(--dui-form-field-checkbox-outline-width);
+    outline-offset: var(--dui-form-field-checkbox-outline-offset);
+}
+
+.dui-form-checkbox .dui-checkbox-label:before {
+    content: '';
+    position: absolute;
+    top: var(--dui-form-field-checkbox-square-top);
+    left: var(--dui-form-field-checkbox-square-left);
+    width: var(--dui-form-field-checkbox-square-length);
+    height: var(--dui-form-field-checkbox-square-length);
+    z-index: 0;
+    border-top: var(--dui-form-field-checkbox-square-border-width) var(--dui-form-field-checkbox-square-border-style) transparent;
+    border-left: var(--dui-form-field-checkbox-square-border-width) var(--dui-form-field-checkbox-square-border-style) transparent;
+    border-right: var(--dui-form-field-checkbox-square-border-width) var(--dui-form-field-checkbox-square-border-style) var(--dui-accent, var(--dui-form-field-checkbox-square-border-color));
+    border-bottom: var(--dui-form-field-checkbox-square-border-width) var(--dui-form-field-checkbox-square-border-style) var(--dui-accent, var(--dui-form-field-checkbox-square-border-color));
+    border-radius: var(--dui-form-field-checkbox-square-radius);
+    margin: var(--dui-form-field-checkbox-square-margin);
+    transition: transform 0.2s ease-in-out,
+    transform-origin 0.2s ease-in-out,
+    rotate 0.2s ease-in-out,
+    width 0.2s ease-in-out,
+    height 0.2s ease-in-out,
+    top 0.2s ease-in-out,
+    left 0.2s ease-in-out,
+    margin 0.2s ease-in-out;
+}
+
+.dui-form-checkbox.dui-form-checkbox-filled .dui-checkbox-label:after {
+    background-color: var(--dui-accent, var(--dui-form-field-checkbox-square-filled-background));
+}
+
+.dui-form-checkbox.dui-form-checkbox-filled .dui-checkbox-label:after,
+.dui-form-checkbox .dui-checkbox-label:after {
+    content: '';
+    position: absolute;
+    float: left;
+    top: var(--dui-form-field-checkbox-square-top);
+    left: var(--dui-form-field-checkbox-square-left);
+    width: var(--dui-form-field-checkbox-square-length);
+    height: var(--dui-form-field-checkbox-square-length);
+    z-index: 0;
+    border-top: var(--dui-form-field-checkbox-square-border-width) var(--dui-form-field-checkbox-square-border-style) var(--dui-accent, var(--dui-form-field-checkbox-square-border-color));
+    border-left: var(--dui-form-field-checkbox-square-border-width) var(--dui-form-field-checkbox-square-border-style) var(--dui-accent, var(--dui-form-field-checkbox-square-border-color));
+    border-right: var(--dui-form-field-checkbox-square-border-width) var(--dui-form-field-checkbox-square-border-style) var(--dui-accent, var(--dui-form-field-checkbox-square-border-color));
+    border-bottom: var(--dui-form-field-checkbox-square-border-width) var(--dui-form-field-checkbox-square-border-style) var(--dui-accent, var(--dui-form-field-checkbox-square-border-color));
+    border-radius: var(--dui-form-field-checkbox-square-radius);
+    margin: var(--dui-form-field-checkbox-square-margin);
+    transition: transform 0.2s ease-in-out,
+    transform-origin 0.2s ease-in-out,
+    rotate 0.2s ease-in-out,
+    width 0.2s ease-in-out,
+    height 0.2s ease-in-out,
+    top 0.2s ease-in-out,
+    left 0.2s ease-in-out,
+    margin 0.2s ease-in-out;
+}
+
+.dui-form-radio-group .dui-field-input-wrapper {
+    flex-wrap: wrap;
+}
+
+.dui-form-radio-group:focus-within .dui-field-input-wrapper,
+.dui-form-switch:focus-within .dui-field-input-wrapper,
+.dui-form-field.dui-form-checkbox:focus-within .dui-field-input-wrapper {
+    border: 1px solid transparent;
+}
+
+.dui-field-input-hidden:checked + .dui-field-input .dui-checkbox-label:before {
+    content: '';
+    position: absolute;
+    width: var(--dui-form-field-checkbox-check-width);
+    height: var(--dui-form-field-checkbox-check-height);
+    left: var(--dui-form-field-checkbox-check-left);
+    top: var(--dui-form-field-checkbox-check-top);
+    border-top: var(--dui-form-field-checkbox-square-border-width) var(--dui-form-field-checkbox-square-border-style) transparent;
+    border-left: var(--dui-form-field-checkbox-square-border-width) var(--dui-form-field-checkbox-square-border-style) transparent;
+    border-right: var(--dui-form-field-checkbox-square-border-width) var(--dui-form-field-checkbox-square-border-style) var(--dui-accent, var(--dui-form-field-checkbox-square-border-color));
+    border-bottom: var(--dui-form-field-checkbox-square-border-width) var(--dui-form-field-checkbox-square-border-style) var(--dui-accent, var(--dui-form-field-checkbox-square-border-color));
+    transform: rotate(40deg);
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    transform-origin: 100% 100%;
+}
+
+.dui-field-input-hidden:indeterminate + .dui-field-input .dui-checkbox-label:before {
+    content: '';
+    position: absolute;
+    width: var(--dui-form-field-checkbox-indeterminate-check-width);
+    height: var(--dui-form-field-checkbox-indeterminate-check-height);
+    left: var(--dui-form-field-checkbox-indeterminate-check-left);
+    top: var(--dui-form-field-checkbox-indeterminate-check-top);
+    border-top: var(--dui-form-field-checkbox-indeterminate-check-border-width) var(--dui-form-field-checkbox-square-border-style) var(--dui-accent, var(--dui-form-field-checkbox-square-border-color));
+    border-left: var(--dui-form-field-checkbox-indeterminate-check-border-width) var(--dui-form-field-checkbox-square-border-style) var(--dui-accent, var(--dui-form-field-checkbox-square-border-color));
+    border-right: var(--dui-form-field-checkbox-indeterminate-check-border-width) var(--dui-form-field-checkbox-square-border-style) var(--dui-accent, var(--dui-form-field-checkbox-square-border-color));
+    border-bottom: var(--dui-form-field-checkbox-indeterminate-check-border-width) var(--dui-form-field-checkbox-square-border-style) var(--dui-accent, var(--dui-form-field-checkbox-square-border-color));
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    transform-origin: 100% 100%;
+}
+
+.dui-form-checkbox-filled .dui-field-input-hidden:checked + .dui-field-input .dui-checkbox-label:before {
+    border-right: var(--dui-form-field-checkbox-square-border-width) var(--dui-form-field-checkbox-square-border-style) var(--dui-form-field-checkbox-check-filled-color);
+    border-bottom: var(--dui-form-field-checkbox-square-border-width) var(--dui-form-field-checkbox-square-border-style) var(--dui-form-field-checkbox-check-filled-color);
+    z-index: 10;
+}
+
+.dui-form-checkbox-filled .dui-field-input-hidden:indeterminate + .dui-field-input .dui-checkbox-label:before {
+    border: var(--dui-form-field-checkbox-indeterminate-check-border-width) var(--dui-form-field-checkbox-square-border-style) var(--dui-form-field-checkbox-check-filled-color);
+    z-index: 10;
+}
+
+.dui-form-switch[disabled],
+.dui-form-radio[disabled],
+.dui-form-radio[disabled] .dui-radio-label,
+.dui-form-radio-group[disabled],
+.dui-form-checkbox[disabled] {
+    --dui-form-field-disabled-background:none;
+    --dui-form-field-disabled-border: none;
+    --dui-form-field-checkbox-square-border-color: var(--dui-form-field-disabled-color);
+    --dui-form-field-checkbox-square-filled-background: var(--dui-form-field-disabled-color);
+    --dui-form-field-radio-circle-border-color: var(--dui-form-field-disabled-color);
+    --dui-form-field-radio-circle-checked-color: var(--dui-form-field-disabled-color);
+    --dui-form-field-switch-checked-track-background:var(--dui-form-field-disabled-color);
+    --dui-form-field-switch-checked-thumb-background:var(--dui-form-field-disabled-color-lighter);
+    --dui-form-field-switch-track-background:var(--dui-form-field-disabled-color-lighter);
+    --dui-form-field-switch-thumb-background:var(--dui-form-field-disabled-color);
+    --dui-accent: var(--dui-form-field-disabled-color);
+    --dui-accent-l-4: var(--dui-form-field-disabled-color-lighter);
+    --dui-accent-l-5: var(--dui-form-field-disabled-color-lighter);
+    --dui-accent-d-1: var(--dui-form-field-disabled-color);
+    --dui-accent-d-2: var(--dui-form-field-disabled-color-darker);
+    pointer-events: none;
+}
+.dui-form-radio[disabled] .dui-radio-label{
+    color: var(--dui-form-field-disabled-color);
+}
+
+
+.dui-form-radio {
+    position: relative;
+    padding-left: var(--dui-form-field-radio-lebel-padding);
+}
+
+.dui-form-radio *.dui {
+    cursor: var(--dui-form-field-radio-cursor);
+}
+
+.dui-radio-label:before {
+    content: '';
+    position: absolute;
+    left: var(--dui-form-field-radio-circle-left);
+    top: var(--dui-form-field-radio-circle-top);
+    margin: var(--dui-form-field-radio-circle-maring);
+    width: var(--dui-form-field-radio-circle-length);
+    height: var(--dui-form-field-radio-circle-length);
+    z-index: 0;
+    transition: transform 0.28s ease-in-out,
+    transform-origin 0.28s ease-in-out,
+    rotate 0.28s ease-in-out,
+    width 0.28s ease-in-out,
+    height 0.28s ease-in-out,
+    top 0.28s ease-in-out,
+    left 0.28s ease-in-out,
+    margin 0.28s ease-in-out;
+    border: var(--dui-form-field-radio-circle-border-width) var(--dui-form-field-radio-circle-border-style) var(--dui-accent, var(--dui-form-field-radio-circle-border-color));
+    border-radius: var(--dui-form-field-radio-circle-radius);
+}
+
+.dui-field-input-hidden:checked + .dui-field-input .dui-radio-label:after {
+    background-color: var(--dui-accent, var(--dui-form-field-radio-circle-checked-color));
+    border: var(--dui-form-field-radio-circle-border-width) var(--dui-form-field-radio-circle-border-style) var(--dui-accent, var(--dui-form-field-radio-circle-border-color));
+}
+
+.dui-form-radio-gap .dui-field-input-hidden:checked + .dui-field-input .dui-radio-label:after {
+    transform: var(--dui-form-field-radio-circle-checked-transform);
+}
+
+.dui-radio-label:after {
+    content: '';
+    position: absolute;
+    left: var(--dui-form-field-radio-circle-left);
+    top: var(--dui-form-field-radio-circle-top);
+    width: var(--dui-form-field-radio-circle-length);
+    height: var(--dui-form-field-radio-circle-length);
+    margin: var(--dui-form-field-radio-circle-maring);
+    z-index: 0;
+    transition: transform 0.28s ease-in-out,
+    transform-origin 0.28s ease-in-out,
+    rotate 0.28s ease-in-out,
+    width 0.28s ease-in-out,
+    height 0.28s ease-in-out,
+    top 0.28s ease-in-out,
+    left 0.28s ease-in-out,
+    margin 0.28s ease-in-out;;
+    border-radius: var(--dui-form-field-radio-circle-radius);
+
+}
+
+.dui-form-radio-group-vertical {
+    --dui-form-radio-group-direction: column;
+}
+
+.dui-form-radio-group .dui-field-input-wrapper {
+    flex-direction: var(--dui-form-radio-group-direction, row);
+    gap: var(--dui-form-radio-group-gap);
+}
+
+.dui-form-switch .dui-field-input-wrapper {
+    border: none;
+}
+
+.dui-form-switch *.dui {
+    cursor: var(--dui-form-field-switch-cursor);
+}
+
+.dui-form-switch .dui-field-input {
+    overflow: visible;
+}
+
+.dui-switch-track {
+    position: relative;
+    display: inline-block;
+    width: var(--dui-form-field-switch-track-width);
+    height: var(--dui-form-field-switch-track-height);
+    background-color: var(--dui-accent-l-4, var(--dui-form-field-switch-track-background));
+    border-radius: var(--dui-form-field-switch-track-radius);
+    margin: var(--dui-form-field-switch-track-margin);
+    overflow: visible;
+}
+
+.dui-switch-track:before {
+    position: absolute;
+    display: inline-block;
+    content: "";
+    height: var(--dui-form-field-switch-thumb-width);
+    width: var(--dui-form-field-switch-thumb-height);
+    left: var(--dui-form-field-switch-thumb-left);
+    bottom: var(--dui-form-field-switch-thumb-bottom);
+    -webkit-transition: var(--dui-form-field-switch-focus-transition);
+    transition: var(--dui-form-field-switch-focus-transition);
+    z-index: 10;
+    overflow: visible;
+    border-radius: var(--dui-form-field-switch-thumb-radius);
+    background-color: var(--dui-accent, var(--dui-form-field-switch-thumb-background));
+    filter: drop-shadow(0px 0px 2px var(--dui-accent-d-1));
+    /*box-shadow: var(--dui-form-field-switch-thumb-box-shadow);*/
+}
+
+.dui-field-input-hidden:checked + .dui-field-input .dui-switch-track {
+    background-color: var(--dui-accent, var(--dui-form-field-switch-checked-track-background));
+}
+
+.dui-field-input-hidden:checked + .dui-field-input .dui-switch-track:before {
+    background-color: var(--dui-accent-l-5, var(--dui-form-field-switch-checked-thumb-background));
+    transform: var(--dui-form-field-switch-thumb-checked-transform);
+    filter: drop-shadow(0px 0px 2px var(--dui-accent-d-2));
+}
+
+.dui-form-switch:focus-within .dui-switch-track:before,
+.dui-switch-track:hover:before {
+    /*background: var(--dui-form-field-switch-focus-background);*/
+    box-shadow: var(--dui-form-field-switch-focus-box-shadow);
+}
+
+.dui-switch-off-label {
+    order: 10;
+    flex-grow: var(--dui-switch-off-label-grow, 0);
+    text-align: var(--dui-switch-off-label-text-align, left);
+    margin: var(--dui-form-field-switch-off-label-margin);
+}
+
+.dui-switch-track {
+    order: 20;
+}
+
+.dui-switch-on-label {
+    order: 30;
+    flex-grow: var(--dui-switch-on-label-grow, 0);
+    text-align: var(--dui-switch-on-label-text-align, left);
+    margin: var(--dui-form-field-switch-on-label-margin);
+}
+
+.dui-switch-grow {
+    --dui-switch-off-label-grow: 1;
+    --dui-switch-on-label-grow: 1;
+}
+
+.dui-switch-condense-labels {
+    --dui-switch-off-label-text-align: right;
+    --dui-switch-on-label-text-align: left;
+}
+
+.dui-field-input.dui-form-tags-input{
+    order: 25;
+    overflow: visible;
+}
+
+.dui-form-field[disabled] .dui-close.dui-chip-remove,
+.dui-form-field[readonly] .dui-close.dui-chip-remove{
+    display: none;
+}
+
+.dui-form-field.dui-form-text-area .dui-field-input-wrapper{
+    flex-wrap: wrap;
+}
+.dui-form-field.dui-form-text-area .dui-field-input-wrapper{
+    flex-wrap: wrap;
+}
+.dui-form-field.dui-form-text-area .dui-field-input {
+    order: 9999;
+    width: 100%;
+}
+
+.dui-text-area-gap {
+    flex-grow: 1;
+    order: 20;
+}
+
+.dui-form-text-area-header {
+    width: 100%;
+}
+.dui-form-field.dui-form-text-area .dui-field-input:not([data-scroll='0']) {
+    border-top: var(--dui-form-scrolled-text-area-border);
+}

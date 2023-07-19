@@ -17,17 +17,28 @@ package org.dominokit.domino.ui.forms;
 
 import java.math.BigDecimal;
 import java.util.function.Function;
-import org.dominokit.domino.ui.utils.DominoUIConfig;
 
-/** A component that has an input to take/provide BigDecimal value */
+/**
+ * A component that has an input to take/provide BigDecimal value
+ *
+ * @author vegegoku
+ * @version $Id: $Id
+ */
 public class BigDecimalBox extends NumberBox<BigDecimalBox, BigDecimal> {
 
   /** @return a new instance without a label */
+  /**
+   * create.
+   *
+   * @return a {@link org.dominokit.domino.ui.forms.BigDecimalBox} object
+   */
   public static BigDecimalBox create() {
     return new BigDecimalBox();
   }
 
   /**
+   * create.
+   *
    * @param label String
    * @return new instance with a label
    */
@@ -37,7 +48,7 @@ public class BigDecimalBox extends NumberBox<BigDecimalBox, BigDecimal> {
 
   /** Create instance without a label */
   public BigDecimalBox() {
-    this("");
+    setDefaultValue(BigDecimal.ZERO);
   }
 
   /**
@@ -46,23 +57,14 @@ public class BigDecimalBox extends NumberBox<BigDecimalBox, BigDecimal> {
    * @param label String
    */
   public BigDecimalBox(String label) {
-    super(label);
+    this();
+    setLabel(label);
   }
 
-  /** {@inheritDoc} clears the field and set the value to BigDecimal.ZERO */
-  @Override
-  protected void clearValue(boolean silent) {
-    value(BigDecimal.ZERO, silent);
-  }
-
-  /**
-   * {@inheritDoc}
-   *
-   * @return
-   */
+  /** {@inheritDoc} */
   @Override
   protected Function<String, BigDecimal> defaultValueParser() {
-    return DominoUIConfig.INSTANCE.getNumberParsers().bigDecimalParser(this);
+    return getConfig().getNumberParsers().bigDecimalParser(this);
   }
 
   /** {@inheritDoc} */

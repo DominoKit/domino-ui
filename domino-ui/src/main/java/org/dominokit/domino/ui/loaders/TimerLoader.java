@@ -15,51 +15,47 @@
  */
 package org.dominokit.domino.ui.loaders;
 
-import static org.dominokit.domino.ui.loaders.LoaderStyles.*;
-import static org.jboss.elemento.Elements.div;
-
 import elemental2.dom.HTMLDivElement;
-import org.dominokit.domino.ui.style.Style;
-import org.dominokit.domino.ui.style.Styles;
+import org.dominokit.domino.ui.IsElement;
+import org.dominokit.domino.ui.elements.DivElement;
 import org.dominokit.domino.ui.utils.DominoElement;
-import org.jboss.elemento.IsElement;
 
-/** Timer loader implementation */
+/**
+ * Timer loader implementation
+ *
+ * @author vegegoku
+ * @version $Id: $Id
+ */
 public class TimerLoader extends BaseLoader<TimerLoader> implements IsElement<HTMLDivElement> {
 
-  private final HTMLDivElement progress1 =
-      DominoElement.of(div()).css(WAIT_ME_PROGRESS_ELEM_1).style("background-color:#555").element();
-  private final HTMLDivElement progress2 =
-      DominoElement.of(div()).css(WAIT_ME_PROGRESS_ELEM_2).style("background-color:#555").element();
+  private final DivElement progress1 = div().addCss(wait_me_progress_elem_1, dui_loader_darker);
+  private final DivElement progress2 = div().addCss(wait_me_progress_elem_2, dui_loader_darker);
 
-  private final HTMLDivElement loader =
-      DominoElement.of(div())
-          .css(WAIT_ME_PROGRESS)
-          .css(TIMER)
-          .style("border-color:#555;")
-          .add(progress1)
-          .add(progress2)
-          .element();
+  private final DivElement loader =
+      div()
+          .addCss(wait_me_progress, timer, dui_loader_border_darker)
+          .appendChild(progress1)
+          .appendChild(progress2);
 
-  private final HTMLDivElement content =
-      DominoElement.of(div())
-          .css(WAIT_ME_CONTENT)
-          .css(Styles.vertical_center)
-          .add(loader)
-          .add(loadingText)
-          .element();
+  private final DivElement content =
+      div()
+          .addCss(wait_me_content, dui_vertical_center)
+          .appendChild(loader)
+          .appendChild(loadingText);
 
-  private final HTMLDivElement element =
-      DominoElement.of(div())
-          .css(WAIT_ME)
-          .style("background: rgba(255, 255, 255, 0.9);")
-          .add(content)
-          .element();
+  private final DivElement element =
+      div().addCss(wait_me).style("background: var(--dui-loader-background);").appendChild(content);
 
+  /** Constructor for TimerLoader. */
   public TimerLoader() {
     init(this);
   }
 
+  /**
+   * create.
+   *
+   * @return a {@link org.dominokit.domino.ui.loaders.TimerLoader} object
+   */
   public static TimerLoader create() {
     return new TimerLoader();
   }
@@ -73,10 +69,7 @@ public class TimerLoader extends BaseLoader<TimerLoader> implements IsElement<HT
   /** {@inheritDoc} */
   @Override
   public void setSize(String width, String height) {
-    onAttached(
-        mutationRecord -> {
-          Style.of(loader).setWidth(width).setHeight(height);
-        });
+    onAttached(mutationRecord -> loader.setWidth(width).setHeight(height));
   }
 
   /** {@inheritDoc} */
@@ -88,12 +81,12 @@ public class TimerLoader extends BaseLoader<TimerLoader> implements IsElement<HT
   /** {@inheritDoc} */
   @Override
   public DominoElement<HTMLDivElement> getContentElement() {
-    return DominoElement.of(content);
+    return content.toDominoElement();
   }
 
   /** {@inheritDoc} */
   @Override
   public HTMLDivElement element() {
-    return element;
+    return element.element();
   }
 }

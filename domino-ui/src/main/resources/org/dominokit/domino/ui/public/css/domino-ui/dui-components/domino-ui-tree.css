@@ -1,0 +1,196 @@
+.dui-tree {
+    margin: var(--dui-tree-margin);
+    border: var(--dui-tree-border);
+    border-radius: var(--dui-tree-radius);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    max-height: 100%;
+    --next-level: 0.25;
+    --indentSize: 20px;
+}
+
+.dui-tree-body {
+    order:20;
+    overflow: auto;
+    max-height: 100%;
+    flex-grow: 1;
+    padding: 0 0 0 0;
+}
+
+.dui-tree-body > .dui-tree-nav {
+    list-style: none;
+    padding: var(--dui-tree-nav-padding);
+    margin: var(--dui-tree-nav-margin);
+}
+
+.dui-tree-header {
+    display: flex;
+    order: 10;
+    flex-shrink:0;
+    position: relative;
+    overflow: hidden;
+    line-height: var(--dui-tree-header-line-height);
+    background: var(--dui-tree-header-background, var(--dui-accent-l-3));
+    font: var(--dui-tree-header-font);
+    padding: var(--dui-tree-header-padding);
+    border-radius: var(--dui-tree-header-radius);
+}
+
+.dui-tree-header-item{
+    margin: var(--dui-tree-item-margin);
+}
+
+.dui-tree-item-close,
+.dui-tree-header .dui-postfix-addon,
+.dui-tree-item-icon {
+    position: relative;
+}
+
+.dui-tree-item-icon {
+    order: 20;
+}
+
+.dui-tree-item-text {
+    order: 30;
+    flex-grow: 1;
+    overflow-x: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.dui-tree-item-filler {
+    order: 40;
+    flex-grow: 1;
+
+}
+
+.dui-tree-item-close:before,
+.dui-tree-item-text {
+    line-height: var(--dui-tree-item-line-height);
+}
+
+.dui-tree .dui-postfix-addon {
+    order: 50;
+}
+
+.dui-tree .dui-prefix-addon {
+    order: 10;
+}
+
+.dui-tree-item-content {
+    display: flex;
+    flex-grow: 1;
+    align-items:center;
+    background: inherit;
+    gap:var(--dui-tree-item-content-gap)
+}
+
+.dui-tree-anchor {
+    position: relative;
+    display: block;
+    padding: var(--dui-tree-item-anchor-padding);
+    border-radius: var(--dui-tree-item-anchor-radius);
+    text-decoration: var(--dui-tree-anchor-text-decoration);
+}
+
+.dui[class*="dui-bg-"] .dui-tree-anchor:hover,
+.dui[class*="dui-bg-"] .dui-tree-anchor:focus {
+    background-color: var(--dui-tree-item-anchor-focus-bg, var(--dui-bg-d-2, var(--dui-accent-l-3)));
+}
+
+.dui-tree-anchor:hover,
+.dui-tree-anchor:focus {
+    background-color: var(--dui-tree-item-anchor-focus-bg, var(--dui-accent-l-3));
+    outline: none;
+}
+
+.dui-tree-item[disabled] .dui-tree-anchor *.dui,
+.dui-tree-item[disabled] .dui-tree-anchor,
+.dui-tree-item[disabled] .dui-tree-anchor:hover,
+.dui-tree-item[disabled] .dui-tree-anchor:focus,
+.dui-tree[disabled] .dui-tree-anchor,
+.dui-tree[disabled] .dui-tree-anchor *.dui,
+.dui-tree[disabled] .dui-tree-anchor:hover,
+.dui-tree[disabled] .dui-tree-anchor:focus {
+    color: var(--dui-tree-item-disabled-color);
+    text-decoration: none;
+    cursor: var(--dui-tree-item-disabled-cursor);
+}
+
+.dui-tree-item[disabled][class*="dui-bg-"] .dui-tree-anchor:hover,
+.dui-tree-item[disabled][class*="dui-bg-"] .dui-tree-anchor:focus,
+.dui-tree[disabled][class*="dui-bg-"] .dui-tree-anchor:hover,
+.dui-tree[disabled][class*="dui-bg-"] .dui-tree-anchor:focus {
+    background-color:  var(--dui-tree-item-disabled-hover-bg, var(--dui-bg-l-2, var(--dui-accent-l-3)));;
+}
+
+.dui-tree-item[disabled] .dui-tree-anchor:hover,
+.dui-tree-item[disabled] .dui-tree-anchor:focus,
+.dui-tree[disabled] .dui-tree-anchor:hover,
+.dui-tree[disabled] .dui-tree-anchor:focus {
+    background-color: var(--dui-tree-item-disabled-hover-bg, var(--dui-accent, var(--dui-clr-grey-l-3)));
+}
+
+.dui-tree-item-close,
+.dui-tree-item-collapse-icon {
+    order: 99999;
+}
+
+.dui-separator {
+    margin: var(--dui-tree-separator-margin);
+    padding: var(--dui-tree-separator-padding);
+    border-bottom: var(--dui-tree-separator-border);
+}
+
+/* Any ul nesting should calculate next level indent */
+.dui-tree-item > .dui-tree-nav {
+    --next-level: calc(var(--level) + 1);
+    /* counteract the padding for each li for previous level */
+    --offsetSize: calc(var(--level) * var(--indentSize));
+}
+.dui-tree-item > .dui-tree-anchor{
+    position: relative;
+    padding-left: calc((var(--level, 1) * 2) * var(--indentSize));
+}
+.dui-tree-item > .dui-tree-nav{
+    position: relative;
+    left: calc(var(--offsetSize) * -1 + var(--offsetSize));
+    width: calc(100%);
+}
+
+/* li's should just adopt the value set at the ul */
+.dui-tree-nav > .dui-tree-item {
+    --level: calc(var(--next-level));
+}
+
+.dui-tree-anchor {
+    color: var(--dui-tree-item-color, var(--dui-accent-d-2));
+}
+.dui-tree-item-text {
+    color: var(--dui-color);
+}
+
+.dui-tree-item-icon {
+    color: var(--dui-tree-item-color, var(--dui-accent));
+}
+
+.dui-active > .dui-tree-anchor,
+.dui-active > .dui-tree-anchor .dui-tree-item-text,
+.dui-active > .dui-tree-anchor .dui-tree-item-icon {
+    color: var(--dui-tree-item-active-color, var(--dui-accent-d-3));
+}
+.dui-tree-anchor:hover,
+.dui-tree-anchor:hover .dui-tree-item-text,
+.dui-tree-anchor:hover .dui-tree-item-icon,
+.dui-active > .dui-tree-anchor:hover,
+.dui-tree-anchor:focus,
+.dui-tree-anchor:focus .dui-tree-item-text,
+.dui-tree-anchor:focus .dui-tree-item-icon,
+.dui-active > .dui-tree-anchor:focus {
+    color: var(--dui-tree-item-hover-color, var(--dui-color-5));
+}
+
+.dui-tree-nav {
+    padding: 0;
+}

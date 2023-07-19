@@ -20,11 +20,14 @@ import org.dominokit.domino.ui.datatable.model.FilterTypes;
 import org.dominokit.domino.ui.forms.DoubleBox;
 
 /**
- * BigDecimal column header filter component that is rendered as a {@link DoubleBox} component
+ * BigDecimal column header filter component that is rendered as a {@link
+ * org.dominokit.domino.ui.forms.DoubleBox} component
  *
  * @param <T> type of data table records
+ * @author vegegoku
+ * @version $Id: $Id
  */
-public class DoubleHeaderFilter<T> extends DelayedHeaderFilterInput<DoubleBox, T> {
+public class DoubleHeaderFilter<T> extends DelayedHeaderFilterInput<DoubleBox, T, Double> {
 
   private DoubleBox doubleBox;
 
@@ -40,7 +43,13 @@ public class DoubleHeaderFilter<T> extends DelayedHeaderFilterInput<DoubleBox, T
     super(placeholder);
   }
 
-  /** create a new instance */
+  /**
+   * create a new instance
+   *
+   * @param <T> a T class
+   * @return a {@link org.dominokit.domino.ui.datatable.plugins.filter.header.DoubleHeaderFilter}
+   *     object
+   */
   public static <T> DoubleHeaderFilter<T> create() {
     return new DoubleHeaderFilter<>();
   }
@@ -90,13 +99,19 @@ public class DoubleHeaderFilter<T> extends DelayedHeaderFilterInput<DoubleBox, T
   /** {@inheritDoc} */
   @Override
   public void clear() {
-    doubleBox.pauseChangeHandlers();
-    doubleBox.clear();
-    doubleBox.getInputElement().element().value = "";
-    doubleBox.resumeChangeHandlers();
+    doubleBox.withPausedChangeListeners(
+        field -> {
+          doubleBox.clear();
+          doubleBox.getInputElement().element().value = "";
+        });
   }
 
   /** @return the {@link DoubleBox} wrapped in this component */
+  /**
+   * Getter for the field <code>doubleBox</code>.
+   *
+   * @return a {@link org.dominokit.domino.ui.forms.DoubleBox} object
+   */
   public DoubleBox getDoubleBox() {
     return doubleBox;
   }

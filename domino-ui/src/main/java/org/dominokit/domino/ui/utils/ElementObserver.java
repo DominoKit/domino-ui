@@ -16,21 +16,38 @@
 package org.dominokit.domino.ui.utils;
 
 import elemental2.dom.HTMLElement;
-import org.jboss.elemento.ObserverCallback;
 
 /**
  * Obeserving an element Attach/Detach cycle should return an implementation of this interface that
  * holds information about the element being observed
+ *
+ * @author vegegoku
+ * @version $Id: $Id
  */
 public interface ElementObserver {
   /** @return String unique attach/detach id assigned to the element */
+  /**
+   * attachId.
+   *
+   * @return a {@link java.lang.String} object
+   */
   String attachId();
 
   /** @return the {@link HTMLElement} being observed */
+  /**
+   * observedElement.
+   *
+   * @return a {@link elemental2.dom.HTMLElement} object
+   */
   HTMLElement observedElement();
 
-  /** @return the {@link ObserverCallback} to be called when the element is attached/detached */
-  ObserverCallback callback();
+  /** @return the {@link AttachDetachCallback} to be called when the element is attached/detached */
+  /**
+   * callback.
+   *
+   * @return a {@link org.dominokit.domino.ui.utils.AttachDetachCallback} object
+   */
+  AttachDetachCallback callback();
 
   /** Clean-up and remove the observe listeners for this element */
   void remove();

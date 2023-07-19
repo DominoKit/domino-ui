@@ -16,42 +16,59 @@
 package org.dominokit.domino.ui.menu.direction;
 
 import static elemental2.dom.DomGlobal.window;
+import static org.dominokit.domino.ui.style.SpacingCss.dui_flex_col_reverse;
 
 import elemental2.dom.DOMRect;
-import elemental2.dom.HTMLElement;
+import elemental2.dom.Element;
 
+/**
+ * BestSideUpDownDropDirection class.
+ *
+ * @author vegegoku
+ * @version $Id: $Id
+ */
 public class BestSideUpDownDropDirection implements DropDirection {
-
-  private DropDirection currentPosition;
-
+  /** {@inheritDoc} */
   @Override
-  public void position(HTMLElement source, HTMLElement target) {
-
+  public void position(Element source, Element target) {
+    dui_flex_col_reverse.remove(source);
+    cleanup(source);
     DOMRect targetRect = target.getBoundingClientRect();
     DOMRect sourceRect = source.getBoundingClientRect();
     int innerWidth = window.innerWidth;
     int innerHeight = window.innerHeight;
 
     double sourceHeight = sourceRect.height;
-    double downSpace = innerHeight - targetRect.bottom;
+    double downSpace = innerHeight - targetRect.height;
     double sourceWidth = sourceRect.width;
     double rightSpace = innerWidth - targetRect.right - window.pageXOffset;
 
+    DropDirection currentPosition;
+
     if (hasSpaceOnRightSide(sourceWidth, rightSpace)) {
       if (hasSpaceBelow(sourceHeight, downSpace)) {
-        currentPosition = new BottomRightDropDirection();
+        currentPosition = DropDirection.BOTTOM_RIGHT;
       } else {
-        currentPosition = new TopRightDropDirection();
+        currentPosition = DropDirection.TOP_RIGHT;
       }
     } else {
       if (hasSpaceBelow(sourceHeight, downSpace)) {
-        currentPosition = new BottomLeftDropDirection();
+        currentPosition = DropDirection.BOTTOM_LEFT;
       } else {
-        currentPosition = new TopLeftDropDirection();
+        currentPosition = DropDirection.TOP_LEFT;
       }
     }
 
     currentPosition.position(source, target);
+  }
+
+  /** {@inheritDoc} */
+  @Override
+  public void cleanup(Element source) {
+    DropDirection.BOTTOM_RIGHT.cleanup(source);
+    DropDirection.TOP_RIGHT.cleanup(source);
+    DropDirection.BOTTOM_LEFT.cleanup(source);
+    DropDirection.TOP_LEFT.cleanup(source);
   }
 
   private boolean hasSpaceBelow(double sourceHeight, double downSpace) {

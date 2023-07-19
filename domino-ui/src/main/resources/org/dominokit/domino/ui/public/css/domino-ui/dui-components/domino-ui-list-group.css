@@ -1,0 +1,65 @@
+.dui-list-group {
+    padding: var(--dui-list-group-padding);
+    margin-bottom: var(--dui-list-group-margin);
+
+}
+
+.dui-list-group-bordered {
+    border: var(--dui-list-group-border);
+    border-radius: var(--dui-list-group-radius);
+}
+
+.dui-list-group-item {
+    position: relative;
+    display: block;
+    outline: var(--dui-list-group-item-outline);
+    cursor: var(--dui-list-group-item-cursor);
+    padding: var(--dui-list-group-item-padding);
+    user-select: none;
+    -ms-user-select: none;
+    -moz-user-select: none;
+    -webkit-user-select: none;
+
+}
+
+
+.dui-list-group-item:hover {
+    background: var(--dui-list-group-item-hover-background, var(--dui-accent-l-5));
+    color: var(--dui-list-group-item-hover-color);
+}
+
+.dui-list-group-item.dui-selected:hover {
+    background: var(--dui-list-group-item-hover-background, var(--dui-accent-l-4));
+    color: var(--dui-list-group-item-hover-color);
+}
+
+.dui-list-group-item.dui-selected {
+    background: var(--dui-list-group-item-selected-background, var(--dui-accent));
+    color: var(--dui-list-group-item-selected-color);
+}
+
+.dui-list-group .dui-list-group-item:first-child {
+    border-top-right-radius: inherit;
+    border-top-left-radius: inherit;
+}
+
+.dui-list-group .dui-list-group-item:last-child {
+    margin-bottom: -1px;
+}
+
+.dui-list-group .dui-list-group-item:last-child {
+    border-bottom-right-radius: inherit;
+    border-bottom-left-radius: inherit;
+}
+
+.dui-list-group .dui-list-group-item:first-child,
+.dui-list-group-item + .dui-list-group-item {
+    border-width: var(--dui-list-group-item-border-width);
+    border-style: var(--dui-list-group-item-border-style);
+    border-color: var(--dui-list-group-item-border-color);
+}
+
+.dui-list-group:disabled .dui-list-group-item,
+.dui-list-group-item:disabled {
+    cursor: var(--dui-list-group-item-disabled-cursor);
+}

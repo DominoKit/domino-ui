@@ -16,33 +16,27 @@
 package org.dominokit.domino.ui.splitpanel;
 
 import static java.util.Objects.nonNull;
-import static org.jboss.elemento.Elements.div;
 
 import elemental2.dom.HTMLDivElement;
 import java.util.ArrayList;
 import java.util.List;
+import org.dominokit.domino.ui.elements.DivElement;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
 
 /**
  * A wrapper component for split panels
  *
- * <p>For example:
- *
- * <pre>
- *     SplitPanel.create()
- *                             .appendChild(
- *                                 div()
- *                                     .css("demo-split-div", Color.INDIGO_LIGHTEN_5.getBackground()))
- * </pre>
- *
  * @see BaseDominoElement
+ * @author vegegoku
+ * @version $Id: $Id
  */
-public class SplitPanel extends BaseDominoElement<HTMLDivElement, SplitPanel> {
+public class SplitPanel extends BaseDominoElement<HTMLDivElement, SplitPanel>
+    implements SplitStyles {
 
-  private final HTMLDivElement element = div().element();
+  private final DivElement element;
 
-  private int minSize = 0;
-  private int maxSize = -1;
+  private int minSize = 1;
+  private int maxSize = Integer.MAX_VALUE;
 
   private boolean isFirst = false;
   private boolean isLast = false;
@@ -51,21 +45,34 @@ public class SplitPanel extends BaseDominoElement<HTMLDivElement, SplitPanel> {
   private double maxPercent = 100;
   private final List<ResizeListener> resizeListeners = new ArrayList<>();
 
+  /** Constructor for SplitPanel. */
   public SplitPanel() {
+    element = div().addCss(dui_split_panel);
     init(this);
   }
 
+  /** {@inheritDoc} */
   @Override
   public HTMLDivElement element() {
-    return element;
+    return element.element();
   }
 
   /** @return new instance */
+  /**
+   * create.
+   *
+   * @return a {@link org.dominokit.domino.ui.splitpanel.SplitPanel} object
+   */
   public static SplitPanel create() {
     return new SplitPanel();
   }
 
   /** @return the minimum size of this panel */
+  /**
+   * Getter for the field <code>minSize</code>.
+   *
+   * @return a int
+   */
   public int getMinSize() {
     return minSize;
   }
@@ -82,6 +89,11 @@ public class SplitPanel extends BaseDominoElement<HTMLDivElement, SplitPanel> {
   }
 
   /** @return the maximum size */
+  /**
+   * Getter for the field <code>maxSize</code>.
+   *
+   * @return a int
+   */
   public int getMaxSize() {
     return maxSize;
   }
@@ -98,6 +110,11 @@ public class SplitPanel extends BaseDominoElement<HTMLDivElement, SplitPanel> {
   }
 
   /** @return the minimum size percentage */
+  /**
+   * Getter for the field <code>minPercent</code>.
+   *
+   * @return a double
+   */
   public double getMinPercent() {
     return minPercent;
   }
@@ -122,6 +139,11 @@ public class SplitPanel extends BaseDominoElement<HTMLDivElement, SplitPanel> {
   }
 
   /** @return the maximum size percentage */
+  /**
+   * Getter for the field <code>maxPercent</code>.
+   *
+   * @return a double
+   */
   public double getMaxPercent() {
     return maxPercent;
   }
@@ -148,7 +170,8 @@ public class SplitPanel extends BaseDominoElement<HTMLDivElement, SplitPanel> {
   /**
    * Adds a listener which will be called when the panel is resized
    *
-   * @param resizeListener A {@link ResizeListener} to add
+   * @param resizeListener A {@link org.dominokit.domino.ui.splitpanel.SplitPanel.ResizeListener} to
+   *     add
    * @return same instance
    */
   public SplitPanel addResizeListener(ResizeListener resizeListener) {
@@ -161,7 +184,8 @@ public class SplitPanel extends BaseDominoElement<HTMLDivElement, SplitPanel> {
   /**
    * Removes a resize listener
    *
-   * @param resizeListener A {@link ResizeListener} to remove
+   * @param resizeListener A {@link org.dominokit.domino.ui.splitpanel.SplitPanel.ResizeListener} to
+   *     remove
    * @return same instance
    */
   public SplitPanel removeResizeListener(ResizeListener resizeListener) {
@@ -172,6 +196,11 @@ public class SplitPanel extends BaseDominoElement<HTMLDivElement, SplitPanel> {
   }
 
   /** @return true if this panel is the first one in its container */
+  /**
+   * isFirst.
+   *
+   * @return a boolean
+   */
   public boolean isFirst() {
     return isFirst;
   }
@@ -188,6 +217,11 @@ public class SplitPanel extends BaseDominoElement<HTMLDivElement, SplitPanel> {
   }
 
   /** @return true if this panel is the last one in its container */
+  /**
+   * isLast.
+   *
+   * @return a boolean
+   */
   public boolean isLast() {
     return isLast;
   }

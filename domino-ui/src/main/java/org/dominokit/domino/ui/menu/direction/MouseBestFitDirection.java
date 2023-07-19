@@ -16,19 +16,28 @@
 package org.dominokit.domino.ui.menu.direction;
 
 import static elemental2.dom.DomGlobal.window;
-import static org.dominokit.domino.ui.style.Unit.px;
+import static org.dominokit.domino.ui.style.SpacingCss.dui_flex_col_reverse;
+import static org.dominokit.domino.ui.utils.ElementsFactory.elements;
+import static org.dominokit.domino.ui.utils.Unit.px;
 
 import elemental2.dom.DOMRect;
+import elemental2.dom.Element;
 import elemental2.dom.Event;
-import elemental2.dom.HTMLElement;
 import elemental2.dom.MouseEvent;
 import jsinterop.base.Js;
+import org.dominokit.domino.ui.style.Style;
 
-/** Positions the menu on the bottom right of the mouse click location */
+/**
+ * Positions the menu on the bottom right of the mouse click location
+ *
+ * @author vegegoku
+ * @version $Id: $Id
+ */
 public class MouseBestFitDirection implements DropDirection {
 
   private MouseEvent mouseEvent;
 
+  /** {@inheritDoc} */
   @Override
   public DropDirection init(Event event) {
     this.mouseEvent = Js.uncheckedCast(event);
@@ -37,7 +46,8 @@ public class MouseBestFitDirection implements DropDirection {
 
   /** {@inheritDoc} */
   @Override
-  public void position(HTMLElement source, HTMLElement target) {
+  public void position(Element source, Element target) {
+    dui_flex_col_reverse.remove(source);
     DOMRect sourceRect = source.getBoundingClientRect();
     int innerWidth = window.innerWidth;
     int innerHeight = window.innerHeight;
@@ -60,49 +70,70 @@ public class MouseBestFitDirection implements DropDirection {
         positionTopLeft(source, sourceHeight, sourceWidth);
       }
     }
+    elements
+        .elementOf(source)
+        .setCssProperty("--dui-menu-drop-min-width", target.getBoundingClientRect().width + "px");
   }
 
-  private void positionBottomRight(HTMLElement source, double sourceHeight) {
+  private void positionBottomRight(Element source, double sourceHeight) {
     double delta = 0;
     double availableSpace = window.innerHeight - mouseEvent.clientY;
     if (availableSpace < sourceHeight) {
       delta = sourceHeight - availableSpace;
     }
 
-    source.style.setProperty("top", px.of(mouseEvent.clientY - delta + window.pageYOffset));
-    source.style.setProperty("left", px.of(mouseEvent.clientX + window.pageXOffset));
+    Style.of(source)
+        .style
+        .setProperty("top", px.of(mouseEvent.clientY - delta + window.pageYOffset));
+    Style.of(source).style.setProperty("left", px.of(mouseEvent.clientX + window.pageXOffset));
   }
 
-  private void positionBottomLeft(HTMLElement source, double sourceHeight, double sourceWidth) {
+  private void positionBottomLeft(Element source, double sourceHeight, double sourceWidth) {
     double delta = 0;
     double availableSpace = window.innerHeight - mouseEvent.clientY;
     if (availableSpace < sourceHeight) {
       delta = sourceHeight - availableSpace;
     }
-    source.style.setProperty("top", px.of(mouseEvent.clientY - delta + window.pageYOffset));
-    source.style.setProperty("left", px.of(mouseEvent.clientX - sourceWidth + window.pageXOffset));
+    Style.of(source)
+        .style
+        .setProperty("top", px.of(mouseEvent.clientY - delta + window.pageYOffset));
+    Style.of(source)
+        .style
+        .setProperty("left", px.of(mouseEvent.clientX - sourceWidth + window.pageXOffset));
   }
 
-  private void positionTopRight(HTMLElement source, double sourceHeight) {
+  private void positionTopRight(Element source, double sourceHeight) {
     double delta = 0;
     double availableSpace = mouseEvent.clientY;
     if (availableSpace < sourceHeight) {
       delta = sourceHeight - availableSpace;
     }
-    source.style.setProperty(
-        "top", px.of(mouseEvent.clientY - sourceHeight + delta + window.pageYOffset));
-    source.style.setProperty("left", px.of(mouseEvent.clientX + window.pageXOffset));
+    Style.of(source)
+        .style
+        .setProperty("top", px.of(mouseEvent.clientY - sourceHeight + delta + window.pageYOffset));
+    Style.of(source).style.setProperty("left", px.of(mouseEvent.clientX + window.pageXOffset));
   }
 
-  private void positionTopLeft(HTMLElement source, double sourceHeight, double sourceWidth) {
+  private void positionTopLeft(Element source, double sourceHeight, double sourceWidth) {
     double delta = 0;
     double availableSpace = mouseEvent.clientY;
     if (availableSpace < sourceHeight) {
       delta = sourceHeight - availableSpace;
     }
-    source.style.setProperty(
-        "top", px.of(mouseEvent.clientY - sourceHeight + delta + window.pageYOffset));
-    source.style.setProperty("left", px.of(mouseEvent.clientX - sourceWidth + window.pageXOffset));
+    Style.of(source)
+        .style
+        .setProperty("top", px.of(mouseEvent.clientY - sourceHeight + delta + window.pageYOffset));
+    Style.of(source)
+        .style
+        .setProperty("left", px.of(mouseEvent.clientX - sourceWidth + window.pageXOffset));
+    dui_dd_best_mouse_fit.apply(source);
+  }
+
+  /** {@inheritDoc} */
+  @Override
+  public void cleanup(Element source) {
+    dui_dd_best_mouse_fit.remove(source);
+    elements.elementOf(source).removeCssProperty("--dui-menu-drop-min-width");
   }
 
   private boolean hasSpaceBelow(double sourceHeight, double downSpace) {

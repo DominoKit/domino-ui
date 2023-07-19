@@ -21,27 +21,42 @@ import java.util.List;
  * Components that needs to support selection of items can implement this interface
  *
  * @param <T> the type of items being selected
+ * @author vegegoku
+ * @version $Id: $Id
  */
 public interface HasSelectionSupport<T> {
 
   /** @return a List of all currently selected items */
+  /**
+   * getSelectedItems.
+   *
+   * @return a {@link java.util.List} object
+   */
   List<T> getSelectedItems();
 
   /** @deprecated use {@link #getRows()} */
+  /**
+   * getItems.
+   *
+   * @return a {@link java.util.List} object
+   */
   @Deprecated
   List<T> getItems();
 
   /** @return a List of all selected and not selected items */
+  /**
+   * getRows.
+   *
+   * @return a {@link java.util.List} object
+   */
   List<T> getRows();
 
-  /**
-   * Called when an item selection is changed, implementation can delegate to a list listeners
-   *
-   * @param source T item that has its selection changed
-   */
-  void onSelectionChange(T source);
-
   /** @return boolean, true if the component allows selection otherwise false. */
+  /**
+   * isSelectable.
+   *
+   * @return a boolean
+   */
   boolean isSelectable();
 
   /** Select all not selected items */

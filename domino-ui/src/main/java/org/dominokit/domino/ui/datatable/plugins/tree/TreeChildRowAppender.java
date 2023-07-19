@@ -21,14 +21,26 @@ import org.dominokit.domino.ui.datatable.DataTable;
 import org.dominokit.domino.ui.datatable.TableConfig;
 import org.dominokit.domino.ui.datatable.TableRow;
 
+/**
+ * TreeChildRowAppender class.
+ *
+ * @author vegegoku
+ * @version $Id: $Id
+ */
 public class TreeChildRowAppender<T> implements TableConfig.RowAppender<T> {
 
   private final TreePluginConfig<T> config;
 
+  /**
+   * Constructor for TreeChildRowAppender.
+   *
+   * @param config a {@link org.dominokit.domino.ui.datatable.plugins.tree.TreePluginConfig} object
+   */
   public TreeChildRowAppender(TreePluginConfig<T> config) {
     this.config = config;
   }
 
+  /** {@inheritDoc} */
   @Override
   public void appendRow(DataTable<T> dataTable, TableRow<T> tableRow) {
     if (config.isLazy()) {

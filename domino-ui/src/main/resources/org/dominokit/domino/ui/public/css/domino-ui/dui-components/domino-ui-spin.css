@@ -1,0 +1,116 @@
+.dui-spin {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    flex-direction: var(--dui-spin-direction);
+}
+
+.dui-spin-prev[disabled],
+.dui-spin-next[disabled]{
+    opacity: var(--dui-spin-disabled-arrow-opacity);
+}
+
+.dui-spin-vertical {
+    --dui-spin-direction: column;
+}
+
+.dui-spin-horizontal {
+    --dui-spin-direction: row;
+}
+
+.dui-spin-back,
+.dui-spin-forward {
+    cursor: pointer;
+}
+
+.dui-spin-content {
+    position: relative;
+}
+.dui-spin-horizontal .dui-spin-content{
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    flex-grow: 1;
+    align-self: stretch;
+    flex-direction: var(--dui-spin-direction);
+}
+.dui-spin-vertical .dui-spin-content{
+    overflow: hidden;
+    height: var(--dui-spin-vertical-default-height);
+    display: flex;
+    flex-grow: 1;
+    align-self: stretch;
+    flex-direction: var(--dui-spin-direction);
+    justify-content: center;
+}
+
+.dui-spin-item {
+    display: inline-block;
+    text-align: center;
+    flex-shrink: 0;
+    width: 100%;
+    position: absolute;
+    visibility: hidden;
+}
+
+.dui-spin-vertical .dui-spin-item,
+.dui-spin-horizontal .dui-spin-item {
+    transform: var(--dui-spin-exit);
+}
+
+.dui-spin.dui-spin-horizontal .dui-spin-item.dui-active {
+    transform: translateX(0);
+}
+
+.dui-spin.dui-spin-vertical .dui-spin-item.dui-active {
+    transform: translateY(0);
+}
+.dui-spin.dui-spin-horizontal .dui-spin-item.dui-active,
+.dui-spin.dui-spin-vertical .dui-spin-item.dui-active {
+    display: inline-block;
+    width: 100%;
+    visibility:visible;
+}
+
+.dui-spin-horizontal.dui-spin-exit-forward {
+    --dui-spin-exit: translateX(100%);
+    --dui-spin-entering: translateX(-100%)
+}
+.dui-spin-horizontal.dui-spin-exit-backward {
+    --dui-spin-exit: translateX(-100%);
+    --dui-spin-entering: translateX(100%)
+}
+
+.dui-spin-vertical.dui-spin-exit-forward {
+    --dui-spin-exit: translateY(-100%);
+    --dui-spin-entering: translateY(100%)
+}
+.dui-spin-vertical.dui-spin-exit-backward {
+    --dui-spin-exit: translateY(100%);
+    --dui-spin-entering: translateY(-100%)
+}
+
+.dui-spin-animate .dui-spin-item-exiting,
+.dui-spin-animate .dui-spin-item-activating{
+    transition-property: transform;
+    transition-duration: var(--dui-spin-transition-duration);
+    transition-timing-function: var(--dui-spin-transition-timing-function);
+}
+
+.dui-spin-animate .dui-spin-item-exiting {
+    visibility: visible;
+}
+
+.dui-spin-animate .dui-spin-item-activating {
+    visibility: visible;
+}
+.dui-spin-horizontal .dui-spin-item.dui-spin-item-activating.dui-active {
+    transform: translateX(0);
+}
+.dui-spin-vertical .dui-spin-item.dui-spin-item-activating.dui-active {
+    transform: translateY(0);
+}
+.dui-spin-vertical .dui-spin-item.dui-spin-item-activating ,
+.dui-spin-horizontal .dui-spin-item.dui-spin-item-activating {
+    --dui-spin-exit: var(--dui-spin-entering);
+}

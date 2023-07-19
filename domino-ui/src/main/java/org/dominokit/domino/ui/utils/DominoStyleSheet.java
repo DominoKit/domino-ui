@@ -25,30 +25,67 @@ import java.util.Map;
 import java.util.Optional;
 import jsinterop.base.Js;
 
+/**
+ * DominoStyleSheet class.
+ *
+ * @author vegegoku
+ * @version $Id: $Id
+ */
 public class DominoStyleSheet {
 
   private Map<String, DominoCSSRule> cssRules = new HashMap<>();
 
+  /**
+   * Getter for the field <code>cssRules</code>.
+   *
+   * @return a {@link java.util.Map} object
+   */
   public Map<String, DominoCSSRule> getCssRules() {
     return cssRules;
   }
 
+  /**
+   * Setter for the field <code>cssRules</code>.
+   *
+   * @param cssRules a {@link java.util.Map} object
+   */
   public void setCssRules(Map<String, DominoCSSRule> cssRules) {
     this.cssRules = cssRules;
   }
 
+  /**
+   * addCssRule.
+   *
+   * @param rule a {@link org.dominokit.domino.ui.utils.DominoCSSRule} object
+   */
   public void addCssRule(DominoCSSRule rule) {
     cssRules.put(rule.getSelector(), rule);
   }
 
+  /**
+   * removeRule.
+   *
+   * @param rule a {@link org.dominokit.domino.ui.utils.DominoCSSRule} object
+   */
   public void removeRule(DominoCSSRule rule) {
     cssRules.remove(rule.getSelector());
   }
 
+  /**
+   * get.
+   *
+   * @param selector a {@link java.lang.String} object
+   * @return a {@link java.util.Optional} object
+   */
   public Optional<DominoCSSRule> get(String selector) {
     return Optional.ofNullable(cssRules.get(selector));
   }
 
+  /**
+   * flushInto.
+   *
+   * @param style a {@link elemental2.dom.HTMLStyleElement} object
+   */
   public void flushInto(HTMLStyleElement style) {
     DomGlobal.setTimeout(
         p0 -> {

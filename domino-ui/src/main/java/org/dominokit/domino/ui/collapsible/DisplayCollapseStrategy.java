@@ -15,42 +15,42 @@
  */
 package org.dominokit.domino.ui.collapsible;
 
-import elemental2.dom.HTMLElement;
-import org.dominokit.domino.ui.style.Style;
-import org.dominokit.domino.ui.utils.DominoElement;
-import org.jboss.elemento.IsElement;
+import static org.dominokit.domino.ui.collapsible.Collapsible.DUI_COLLAPSED;
+import static org.dominokit.domino.ui.utils.ElementsFactory.elements;
+
+import elemental2.dom.Element;
+import org.dominokit.domino.ui.style.DominoCss;
 
 /**
- * An implementation of {@link CollapseStrategy} that uses the css display property to hide/show the
- * collapsible element
+ * An implementation of {@link org.dominokit.domino.ui.collapsible.CollapseStrategy} that uses the
+ * css display property to hide/show the collapsible element
+ *
+ * @author vegegoku
+ * @version $Id: $Id
  */
-public class DisplayCollapseStrategy implements CollapseStrategy {
+public class DisplayCollapseStrategy implements CollapseStrategy, CollapsibleStyles, DominoCss {
 
   private CollapsibleHandlers handlers;
 
+  /** {@inheritDoc} */
   @Override
-  public void init(
-      HTMLElement element,
-      Style<HTMLElement, IsElement<HTMLElement>> style,
-      CollapsibleHandlers handlers) {
+  public void init(Element element, CollapsibleHandlers handlers) {
     this.handlers = handlers;
   }
 
   /** {@inheritDoc} */
   @Override
-  public void show(HTMLElement element, Style<HTMLElement, IsElement<HTMLElement>> style) {
-    style.removeCssProperty("display");
-    DominoElement.of(element).removeAttribute("d-collapsed");
-    this.handlers.onBeforeShow().run();
-    this.handlers.onShowCompleted().run();
+  public void expand(Element element) {
+    elements.elementOf(element).removeCss(dui_hidden).removeAttribute(DUI_COLLAPSED);
+    this.handlers.onBeforeExpand().run();
+    this.handlers.onExpandCompleted().run();
   }
 
   /** {@inheritDoc} */
   @Override
-  public void hide(HTMLElement element, Style<HTMLElement, IsElement<HTMLElement>> style) {
-    this.handlers.onBeforeHide().run();
-    style.setDisplay("none");
-    DominoElement.of(element).setAttribute("d-collapsed", "true");
-    this.handlers.onHideCompleted().run();
+  public void collapse(Element element) {
+    this.handlers.onBeforeCollapse().run();
+    elements.elementOf(element).addCss(dui_hidden).setAttribute(DUI_COLLAPSED, "true");
+    this.handlers.onCollapseCompleted().run();
   }
 }

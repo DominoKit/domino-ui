@@ -15,28 +15,36 @@
  */
 package org.dominokit.domino.ui.carousel;
 
-/** Default CSS classes for {@link Carousel} */
-public class CarouselStyles {
-  /** CSS class for carousel indicator */
-  public static final String CAROUSEL_INDICATORS = "carousel-indicators";
-  /** CSS class for slides container */
-  public static final String CAROUSEL_INNER = "carousel-inner";
-  /** CSS class for sliding controls */
-  public static final String CAROUSEL_CONTROL = "carousel-control";
-  /** CSS class for slide caption */
-  public static final String CAROUSEL_CAPTION = "carousel-caption";
-  /** CSS class for carousel */
-  public static final String CAROUSEL = "carousel";
-  /** CSS class for active slide */
-  public static final String ACTIVE = "active";
-  /** CSS class for animate sliding to the left */
-  public static final String LEFT = "left";
-  /** CSS class for animate sliding to the right */
-  public static final String RIGHT = "right";
-  /** CSS class for next indicator */
-  public static final String NEXT = "next";
-  /** CSS class for previous indicator */
-  public static final String PREV = "prev";
-  /** CSS class for slide */
-  public static final String ITEM = "item";
+import org.dominokit.domino.ui.style.CssClass;
+
+/**
+ * Default CSS classes for {@link org.dominokit.domino.ui.carousel.Carousel}
+ *
+ * @author vegegoku
+ * @version $Id: $Id
+ */
+public interface CarouselStyles {
+
+  /** Constant <code>carousel</code> */
+  CssClass carousel = () -> "dui-carousel";
+  /** Constant <code>carousel_indicators</code> */
+  CssClass carousel_indicators = () -> "dui-carousel-indicators";
+  /** Constant <code>slide_indicator</code> */
+  CssClass slide_indicator = () -> "dui-slide-indicator";
+  /** Constant <code>carousel_inner</code> */
+  CssClass carousel_inner = () -> "dui-carousel-inner";
+  /** Constant <code>slide</code> */
+  CssClass slide = () -> "dui-slide";
+  /** Constant <code>slide_next</code> */
+  CssClass slide_next = () -> "dui-slide-next";
+  /** Constant <code>slide_prev</code> */
+  CssClass slide_prev = () -> "dui-slide-prev";
+  /** Constant <code>slide_right</code> */
+  CssClass slide_right = () -> "dui-slide-right";
+  /** Constant <code>slide_left</code> */
+  CssClass slide_left = () -> "dui-slide-left";
+  /** Constant <code>carousel_control</code> */
+  CssClass carousel_control = () -> "dui-carousel-control";
+  /** Constant <code>slide_caption</code> */
+  CssClass slide_caption = () -> "dui-slide-caption";
 }

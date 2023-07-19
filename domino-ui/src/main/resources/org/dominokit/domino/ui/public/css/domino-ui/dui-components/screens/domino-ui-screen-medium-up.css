@@ -1,0 +1,11 @@
+@media screen and (min-width: 992px) {
+    .dui-shrink-content {
+        --dui-layout-shrink-content: 1;
+    }
+    .dui-left-drawer-span-up.dui-shrink-content {
+        --dui-layout-shrink-header: 1;
+    }
+    .dui-left-drawer-span-down.dui-shrink-content {
+        --dui-layout-shrink-footer: 1;
+    }
+}

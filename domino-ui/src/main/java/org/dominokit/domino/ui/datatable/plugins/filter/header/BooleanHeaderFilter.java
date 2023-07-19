@@ -21,14 +21,17 @@ import org.dominokit.domino.ui.datatable.model.Category;
 import org.dominokit.domino.ui.datatable.model.Filter;
 import org.dominokit.domino.ui.datatable.model.FilterTypes;
 import org.dominokit.domino.ui.datatable.model.SearchContext;
-import org.dominokit.domino.ui.datatable.plugins.ColumnHeaderFilterPlugin;
-import org.dominokit.domino.ui.forms.Select;
-import org.dominokit.domino.ui.forms.SelectOption;
+import org.dominokit.domino.ui.datatable.plugins.column.ColumnHeaderFilterPlugin;
+import org.dominokit.domino.ui.forms.suggest.Select;
+import org.dominokit.domino.ui.forms.suggest.SelectOption;
 
 /**
- * Boolean column header filter component that is rendered as a {@link Select} component
+ * Boolean column header filter component that is rendered as a {@link
+ * org.dominokit.domino.ui.forms.suggest.Select} component
  *
  * @param <T> type of data table records
+ * @author vegegoku
+ * @version $Id: $Id
  */
 public class BooleanHeaderFilter<T> implements ColumnHeaderFilterPlugin.HeaderFilter<T> {
 
@@ -58,11 +61,14 @@ public class BooleanHeaderFilter<T> implements ColumnHeaderFilterPlugin.HeaderFi
   }
 
   /** @see BooleanHeaderFilter#create() */
+  /** Constructor for BooleanHeaderFilter. */
   public BooleanHeaderFilter() {
     this("Yes", "No", "ALL");
   }
 
   /**
+   * Constructor for BooleanHeaderFilter.
+   *
    * @see BooleanHeaderFilter#create(String, String, String)
    * @param trueLabel String, the label for the Yes option
    * @param falseLabel String, the label for the No option
@@ -96,13 +102,16 @@ public class BooleanHeaderFilter<T> implements ColumnHeaderFilterPlugin.HeaderFi
             searchContext.remove(columnConfig.getFilterKey(), Category.HEADER_FILTER);
           }
         });
-    select.addSelectionHandler(option -> searchContext.fireSearchEvent());
+    select.addChangeListener((oldOption, option) -> searchContext.fireSearchEvent());
   }
 
   /** {@inheritDoc} */
   @Override
   public void clear() {
-    select.selectAt(0, true);
+    select.withPausedChangeListeners(
+        field -> {
+          select.selectAt(0);
+        });
   }
 
   /** {@inheritDoc} */
@@ -112,6 +121,11 @@ public class BooleanHeaderFilter<T> implements ColumnHeaderFilterPlugin.HeaderFi
   }
 
   /** @return the {@link Select} component wrapped in this filter */
+  /**
+   * Getter for the field <code>select</code>.
+   *
+   * @return a {@link org.dominokit.domino.ui.forms.suggest.Select} object
+   */
   public Select<String> getSelect() {
     return select;
   }

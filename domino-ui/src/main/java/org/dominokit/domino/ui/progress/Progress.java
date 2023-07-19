@@ -15,51 +15,71 @@
  */
 package org.dominokit.domino.ui.progress;
 
-import static org.jboss.elemento.Elements.div;
-
 import elemental2.dom.HTMLDivElement;
+import java.util.ArrayList;
+import java.util.List;
+import org.dominokit.domino.ui.elements.DivElement;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
-import org.dominokit.domino.ui.utils.DominoElement;
 
 /**
  * A component that can show the progress for one or more operation
  *
- * <p>example
- *
- * <pre>
- * Progress.create()
- *         .appendChild(ProgressBar.create(100).setValue(50));
- * </pre>
- *
  * @see ProgressBar
+ * @author vegegoku
+ * @version $Id: $Id
  */
-public class Progress extends BaseDominoElement<HTMLDivElement, Progress> {
+public class Progress extends BaseDominoElement<HTMLDivElement, Progress>
+    implements ProgressStyles {
 
-  private HTMLDivElement element = DominoElement.of(div()).css(ProgressStyles.progress).element();
+  private DivElement element;
+  private final List<ProgressBar> progressBars = new ArrayList<>();
 
   /** */
+  /** Constructor for Progress. */
   public Progress() {
+    element = div().addCss(dui_progress);
     init(this);
   }
 
   /** @return new Progress instance */
+  /**
+   * create.
+   *
+   * @return a {@link org.dominokit.domino.ui.progress.Progress} object
+   */
   public static Progress create() {
     return new Progress();
   }
 
   /**
-   * @param bar {@link ProgressBar} to be appended to this progress instance, each progress can have
-   *     multiple ProgressBars
+   * appendChild.
+   *
+   * @param bar {@link org.dominokit.domino.ui.progress.ProgressBar} to be appended to this progress
+   *     instance, each progress can have multiple ProgressBars
    * @return same Progress instance
    */
   public Progress appendChild(ProgressBar bar) {
     element.appendChild(bar.element());
+    this.progressBars.add(bar);
+    bar.setParent(this);
+    bar.updateWidth();
     return this;
   }
 
   /** {@inheritDoc} */
   @Override
   public HTMLDivElement element() {
-    return element;
+    return element.element();
+  }
+
+  String calculateWidth(double value) {
+    return String.valueOf(
+        new Double(
+                (value / progressBars.stream().mapToDouble(ProgressBar::getMaxValue).sum()) * 100)
+            .intValue());
+  }
+
+  void removeBar(ProgressBar progressBar) {
+    this.progressBars.remove(progressBar);
   }
 }

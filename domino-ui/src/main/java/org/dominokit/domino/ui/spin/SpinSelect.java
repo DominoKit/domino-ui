@@ -16,19 +16,24 @@
 package org.dominokit.domino.ui.spin;
 
 import static java.util.Objects.nonNull;
-import static org.dominokit.domino.ui.spin.SpinStyles.*;
-import static org.jboss.elemento.Elements.a;
-import static org.jboss.elemento.Elements.div;
 
-import elemental2.dom.HTMLAnchorElement;
+import elemental2.dom.DomGlobal;
+import elemental2.dom.EventListener;
 import elemental2.dom.HTMLDivElement;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
-import org.dominokit.domino.ui.icons.BaseIcon;
+import java.util.Optional;
+import java.util.Set;
+import org.dominokit.domino.ui.config.HasComponentConfig;
+import org.dominokit.domino.ui.config.SpinConfig;
+import org.dominokit.domino.ui.elements.AnchorElement;
+import org.dominokit.domino.ui.elements.DivElement;
+import org.dominokit.domino.ui.icons.Icon;
+import org.dominokit.domino.ui.style.SwapCssClass;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
-import org.dominokit.domino.ui.utils.DominoElement;
-import org.dominokit.domino.ui.utils.HasSelectionHandler;
-import org.dominokit.domino.ui.utils.SwipeUtil;
+import org.dominokit.domino.ui.utils.ChildHandler;
+import org.dominokit.domino.ui.utils.HasChangeListeners;
 
 /**
  * Abstract implementation for spin
@@ -36,47 +41,51 @@ import org.dominokit.domino.ui.utils.SwipeUtil;
  * @param <T> the type of the object inside the spin
  * @param <S> the type of the spin
  */
-abstract class SpinSelect<T, S extends SpinSelect<T, ?>>
-    extends BaseDominoElement<HTMLDivElement, S> implements HasSelectionHandler<S, SpinItem<T>> {
+abstract class SpinSelect<T, S extends SpinSelect<T, S>>
+    extends BaseDominoElement<HTMLDivElement, S>
+    implements SpinStyles, HasChangeListeners<S, T>, HasComponentConfig<SpinConfig> {
 
-  protected DominoElement<HTMLDivElement> element = DominoElement.of(div()).css(getStyle());
-  private final DominoElement<HTMLAnchorElement> prevAnchor =
-      DominoElement.of(a()).css(PREV).css(DISABLED);
-  private final DominoElement<HTMLAnchorElement> nextAnchor = DominoElement.of(a()).css(NEXT);
-  protected DominoElement<HTMLDivElement> contentPanel = DominoElement.of(div()).css(SPIN_CONTENT);
-  protected DominoElement<HTMLDivElement> main =
-      DominoElement.of(div()).add(contentPanel).css(SPIN_CONTAINER);
+  private final Icon<?> backIcon;
+  private final Icon<?> forwardIcon;
+
+  protected DivElement root;
+  private final AnchorElement prevAnchor;
+  private final AnchorElement nextAnchor;
+  protected DivElement contentPanel;
   protected List<SpinItem<T>> items = new ArrayList<>();
   private SpinItem<T> activeItem;
-  private final List<HasSelectionHandler.SelectionHandler<SpinItem<T>>> selectionHandlers =
-      new ArrayList<>();
-  private NavigationHandler navigationHandler = direction -> {};
+  private T oldValue;
+  private boolean changeListenersPaused;
+  private final Set<ChangeListener<? super T>> changeListeners = new HashSet<>();
+  private SwapCssClass exitCss = SwapCssClass.of();
+  private EventListener clearAnimation;
 
-  SpinSelect(BaseIcon<?> backIcon, BaseIcon<?> forwardIcon) {
-    element
-        .appendChild(
-            prevAnchor.appendChild(
-                backIcon
-                    .clickable()
-                    .addClickListener(
-                        evt -> {
-                          moveBack();
-                          navigationHandler.onNavigate(Direction.BACKWARD);
-                        })))
-        .appendChild(main)
-        .appendChild(
-            nextAnchor.appendChild(
-                forwardIcon
-                    .clickable()
-                    .addClickListener(
-                        evt -> {
-                          moveForward();
-                          navigationHandler.onNavigate(Direction.FORWARD);
-                        })));
+  SpinSelect(Icon<?> backIcon, Icon<?> forwardIcon) {
+    this.backIcon = backIcon;
+    this.forwardIcon = forwardIcon;
+    root =
+        div()
+            .addCss(dui_spin)
+            .appendChild(
+                prevAnchor =
+                    a().addCss(dui_spin_prev, dui_disabled)
+                        .appendChild(
+                            backIcon.addCss(dui_clickable).addClickListener(evt -> moveBack())))
+            .appendChild(contentPanel = div().addCss(dui_spin_content))
+            .appendChild(
+                nextAnchor =
+                    a().addCss(dui_spin_next)
+                        .appendChild(
+                            forwardIcon
+                                .addCss(dui_clickable)
+                                .addClickListener(evt -> moveForward())));
+
     init((S) this);
-    onAttached(mutationRecord -> fixElementsWidth());
-    SwipeUtil.addSwipeListener(SwipeUtil.SwipeDirection.RIGHT, main.element(), evt -> moveBack());
-    SwipeUtil.addSwipeListener(SwipeUtil.SwipeDirection.LEFT, main.element(), evt -> moveForward());
+    addCss(() -> "dui-spin-exit-right");
+    clearAnimation =
+        evt -> {
+          removeCss("dui-spin-animate");
+        };
   }
 
   /**
@@ -106,24 +115,37 @@ abstract class SpinSelect<T, S extends SpinSelect<T, ?>>
    * @return same instance
    */
   public S moveToIndex(int targetIndex) {
+    this.oldValue = getValue();
     if (targetIndex < items.size() && targetIndex >= 0) {
       int activeIndex = items.indexOf(activeItem);
       if (targetIndex != activeIndex) {
-        this.activeItem = items.get(targetIndex);
-        double offset = (100d / items.size()) * (targetIndex);
-        setTransformProperty(offset);
-        informSelectionHandlers();
+        SpinItem<T> next = items.get(targetIndex);
+        if (items.indexOf(next) > indexOf(this.activeItem)) {
+          addCss(exitCss.replaceWith(dui_spin_exit_forward));
+        } else {
+          addCss(exitCss.replaceWith(dui_spin_exit_backward));
+        }
+        this.activeItem.addCss(spinExiting);
+        next.addCss(spinActivating);
+        DomGlobal.setTimeout(
+            p0 -> {
+              addCss(dui_spin_animate);
+              this.activeItem.removeCss(dui_active);
+              next.addCss(dui_active);
+              this.activeItem = next;
+              updateArrowsVisibility();
+              triggerChangeListeners(oldValue, getValue());
+            },
+            0);
       }
     }
-
-    updateArrowsVisibility();
     return (S) this;
   }
 
   /**
    * Move to a specific item
    *
-   * @param item the {@link SpinItem}
+   * @param item the {@link org.dominokit.domino.ui.spin.SpinItem}
    * @return same instance
    */
   public S moveToItem(SpinItem<T> item) {
@@ -135,64 +157,145 @@ abstract class SpinSelect<T, S extends SpinSelect<T, ?>>
 
   private void updateArrowsVisibility() {
     if (items.indexOf(this.activeItem) == items.size() - 1) {
-      nextAnchor.addCss(DISABLED);
+      nextAnchor.addCss(dui_disabled);
+      nextAnchor.disable();
     } else {
-      nextAnchor.removeCss(DISABLED);
+      nextAnchor.removeCss(dui_disabled);
+      nextAnchor.enable();
     }
 
     if (items.indexOf(this.activeItem) < 1) {
-      prevAnchor.addCss(DISABLED);
+      prevAnchor.addCss(dui_disabled);
+      prevAnchor.disable();
     } else {
-      prevAnchor.removeCss(DISABLED);
+      prevAnchor.removeCss(dui_disabled);
+      prevAnchor.enable();
     }
+  }
+
+  /** {@inheritDoc} */
+  @Override
+  public S pauseChangeListeners() {
+    this.changeListenersPaused = true;
+    return (S) this;
+  }
+
+  /** {@inheritDoc} */
+  @Override
+  public S resumeChangeListeners() {
+    this.changeListenersPaused = false;
+    return (S) this;
+  }
+
+  /** {@inheritDoc} */
+  @Override
+  public S togglePauseChangeListeners(boolean toggle) {
+    this.changeListenersPaused = toggle;
+    return (S) this;
+  }
+
+  /** {@inheritDoc} */
+  @Override
+  public Set<ChangeListener<? super T>> getChangeListeners() {
+    return this.changeListeners;
+  }
+
+  /** {@inheritDoc} */
+  @Override
+  public boolean isChangeListenersPaused() {
+    return this.changeListenersPaused;
+  }
+
+  /** {@inheritDoc} */
+  @Override
+  public S triggerChangeListeners(T oldValue, T newValue) {
+    if (!isChangeListenersPaused()) {
+      changeListeners.forEach(
+          changeListener ->
+              changeListener.onValueChanged(
+                  oldValue,
+                  Optional.ofNullable(getActiveItem()).map(SpinItem::getValue).orElse(null)));
+    }
+    return (S) this;
   }
 
   /**
    * Adds a new item
    *
-   * @param spinItem A {@link SpinItem} to add
+   * @param spinItem A {@link org.dominokit.domino.ui.spin.SpinItem} to add
    * @return same instance
    */
   public S appendChild(SpinItem<T> spinItem) {
-    if (items.isEmpty()) {
-      this.activeItem = spinItem;
+    if (nonNull(spinItem)) {
+      if (items.isEmpty()) {
+        this.activeItem = spinItem;
+        this.activeItem.addCss(dui_active);
+      }
+      items.add(spinItem);
+      spinItem.addEventListener("transitionend", clearAnimation);
+      contentPanel.appendChild(spinItem);
+      updateArrowsVisibility();
     }
-    items.add(spinItem);
-    contentPanel.appendChild(spinItem);
+    return (S) this;
+  }
+
+  /**
+   * Adds a new item
+   *
+   * @param spinItem A {@link org.dominokit.domino.ui.spin.SpinItem} to add
+   * @return same instance
+   */
+  public S prependChild(SpinItem<T> spinItem) {
+    if (nonNull(spinItem)) {
+      if (items.isEmpty()) {
+        this.activeItem = spinItem;
+        this.activeItem.addCss(dui_active);
+      }
+      items.add(0, spinItem);
+      spinItem.addEventListener("transitionend", clearAnimation);
+      contentPanel.insertFirst(spinItem);
+      updateArrowsVisibility();
+    }
+    return (S) this;
+  }
+
+  /**
+   * reset.
+   *
+   * @return a S object
+   */
+  public S reset() {
+    getItems().forEach(BaseDominoElement::remove);
+    this.getItems().clear();
+    this.activeItem = null;
+    this.oldValue = null;
     return (S) this;
   }
 
   /** @return the current active item */
+  /**
+   * Getter for the field <code>activeItem</code>.
+   *
+   * @return a {@link org.dominokit.domino.ui.spin.SpinItem} object
+   */
   public SpinItem<T> getActiveItem() {
     return activeItem;
   }
 
-  private void informSelectionHandlers() {
-    selectionHandlers.forEach(
-        spinItemSelectionHandler -> spinItemSelectionHandler.onSelection(this.activeItem));
-  }
-
-  /** {@inheritDoc} */
-  @Override
-  public S addSelectionHandler(SelectionHandler<SpinItem<T>> selectionHandler) {
-    selectionHandlers.add(selectionHandler);
-    return (S) this;
-  }
-
-  /** {@inheritDoc} */
-  @Override
-  public S removeSelectionHandler(SelectionHandler<SpinItem<T>> selectionHandler) {
-    selectionHandlers.remove(selectionHandler);
-    return (S) this;
-  }
-
   /** @return All the items */
+  /**
+   * Getter for the field <code>items</code>.
+   *
+   * @return a {@link java.util.List} object
+   */
   public List<SpinItem<T>> getItems() {
     return items;
   }
 
   /**
-   * @param item the {@link SpinItem}
+   * indexOf.
+   *
+   * @param item the {@link org.dominokit.domino.ui.spin.SpinItem}
    * @return the index of the item inside the spin
    */
   public int indexOf(SpinItem<T> item) {
@@ -204,12 +307,19 @@ abstract class SpinSelect<T, S extends SpinSelect<T, ?>>
   }
 
   /** @return the total number of items inside the spin */
+  /**
+   * itemsCount.
+   *
+   * @return a int
+   */
   public int itemsCount() {
     return items.size();
   }
 
   /**
-   * @param item the {@link SpinItem}
+   * isLastItem.
+   *
+   * @param item the {@link org.dominokit.domino.ui.spin.SpinItem}
    * @return true if the item is the last item, false otherwise
    */
   public boolean isLastItem(SpinItem<T> item) {
@@ -217,7 +327,9 @@ abstract class SpinSelect<T, S extends SpinSelect<T, ?>>
   }
 
   /**
-   * @param item the {@link SpinItem}
+   * isFirstItem.
+   *
+   * @param item the {@link org.dominokit.domino.ui.spin.SpinItem}
    * @return true if the item is the first item, false otherwise
    */
   public boolean isFirstItem(SpinItem<T> item) {
@@ -244,37 +356,113 @@ abstract class SpinSelect<T, S extends SpinSelect<T, ?>>
     return (S) this;
   }
 
-  /**
-   * Adds a handler which will be called when navigating between items
-   *
-   * @param navigationHandler A {@link NavigationHandler} to add
-   * @return same instance
-   */
-  public S onNavigate(NavigationHandler navigationHandler) {
-    if (nonNull(navigationHandler)) {
-      this.navigationHandler = navigationHandler;
-    }
-    return (S) this;
-  }
-
   /** @return the previous element */
-  public DominoElement<HTMLAnchorElement> getPrevAnchor() {
+  /**
+   * Getter for the field <code>prevAnchor</code>.
+   *
+   * @return a {@link org.dominokit.domino.ui.elements.AnchorElement} object
+   */
+  public AnchorElement getPrevAnchor() {
     return prevAnchor;
   }
 
   /** @return the next element */
-  public DominoElement<HTMLAnchorElement> getNextAnchor() {
+  /**
+   * Getter for the field <code>nextAnchor</code>.
+   *
+   * @return a {@link org.dominokit.domino.ui.elements.AnchorElement} object
+   */
+  public AnchorElement getNextAnchor() {
     return nextAnchor;
   }
 
   /** @return the content panel */
-  public DominoElement<HTMLDivElement> getContentPanel() {
+  /**
+   * Getter for the field <code>contentPanel</code>.
+   *
+   * @return a {@link org.dominokit.domino.ui.elements.DivElement} object
+   */
+  public DivElement getContentPanel() {
     return contentPanel;
   }
 
+  /**
+   * getValue.
+   *
+   * @return a T object
+   */
+  public T getValue() {
+    return Optional.ofNullable(activeItem).map(SpinItem::getValue).orElse(null);
+  }
+
+  /**
+   * withBackAnchor.
+   *
+   * @param handler a {@link org.dominokit.domino.ui.utils.ChildHandler} object
+   * @return a S object
+   */
+  public S withBackAnchor(ChildHandler<S, AnchorElement> handler) {
+    handler.apply((S) this, prevAnchor);
+    return (S) this;
+  }
+
+  /**
+   * withForwardAnchor.
+   *
+   * @param handler a {@link org.dominokit.domino.ui.utils.ChildHandler} object
+   * @return a S object
+   */
+  public S withForwardAnchor(ChildHandler<S, AnchorElement> handler) {
+    handler.apply((S) this, nextAnchor);
+    return (S) this;
+  }
+
+  /**
+   * withBackIcon.
+   *
+   * @param handler a {@link org.dominokit.domino.ui.utils.ChildHandler} object
+   * @return a S object
+   */
+  public S withBackIcon(ChildHandler<S, Icon<?>> handler) {
+    handler.apply((S) this, backIcon);
+    return (S) this;
+  }
+
+  /**
+   * withForwardIcon.
+   *
+   * @param handler a {@link org.dominokit.domino.ui.utils.ChildHandler} object
+   * @return a S object
+   */
+  public S withForwardIcon(ChildHandler<S, Icon<?>> handler) {
+    handler.apply((S) this, forwardIcon);
+    return (S) this;
+  }
+
+  /**
+   * withContentContainer.
+   *
+   * @param handler a {@link org.dominokit.domino.ui.utils.ChildHandler} object
+   * @return a S object
+   */
+  public S withContentContainer(ChildHandler<S, DivElement> handler) {
+    handler.apply((S) this, contentPanel);
+    return (S) this;
+  }
+
+  /** fixElementsWidth. */
   protected abstract void fixElementsWidth();
 
+  /**
+   * setTransformProperty.
+   *
+   * @param offset a double
+   */
   protected abstract void setTransformProperty(double offset);
 
-  protected abstract String getStyle();
+  /** {@inheritDoc} */
+  @Override
+  public HTMLDivElement element() {
+    return root.element();
+  }
 }

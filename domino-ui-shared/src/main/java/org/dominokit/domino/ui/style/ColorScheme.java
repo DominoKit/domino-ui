@@ -17,36 +17,99 @@ package org.dominokit.domino.ui.style;
 
 import org.dominokit.domino.ui.themes.Theme;
 
+/**
+ * ColorScheme interface.
+ *
+ * @author vegegoku
+ * @version $Id: $Id
+ */
 public interface ColorScheme {
 
+  /**
+   * lighten_5.
+   *
+   * @return a {@link org.dominokit.domino.ui.style.Color} object.
+   */
   Color lighten_5();
 
+  /**
+   * lighten_4.
+   *
+   * @return a {@link org.dominokit.domino.ui.style.Color} object.
+   */
   Color lighten_4();
 
+  /**
+   * lighten_3.
+   *
+   * @return a {@link org.dominokit.domino.ui.style.Color} object.
+   */
   Color lighten_3();
 
+  /**
+   * lighten_2.
+   *
+   * @return a {@link org.dominokit.domino.ui.style.Color} object.
+   */
   Color lighten_2();
 
+  /**
+   * lighten_1.
+   *
+   * @return a {@link org.dominokit.domino.ui.style.Color} object.
+   */
   Color lighten_1();
 
+  /**
+   * color.
+   *
+   * @return a {@link org.dominokit.domino.ui.style.Color} object.
+   */
   Color color();
 
+  /**
+   * darker_1.
+   *
+   * @return a {@link org.dominokit.domino.ui.style.Color} object.
+   */
   Color darker_1();
 
+  /**
+   * darker_2.
+   *
+   * @return a {@link org.dominokit.domino.ui.style.Color} object.
+   */
   Color darker_2();
 
+  /**
+   * darker_3.
+   *
+   * @return a {@link org.dominokit.domino.ui.style.Color} object.
+   */
   Color darker_3();
 
+  /**
+   * darker_4.
+   *
+   * @return a {@link org.dominokit.domino.ui.style.Color} object.
+   */
   Color darker_4();
 
-  String rgba_1();
-
-  String rgba_2();
-
+  /**
+   * theme.
+   *
+   * @return a {@link org.dominokit.domino.ui.themes.Theme} object
+   */
   default Theme theme() {
     return new Theme(this);
   }
 
+  /**
+   * valueOf.
+   *
+   * @param name a {@link java.lang.String} object
+   * @return a {@link org.dominokit.domino.ui.style.ColorScheme} object
+   */
   static ColorScheme valueOf(String name) {
     switch (name) {
       case "RED":
@@ -98,6 +161,475 @@ public interface ColorScheme {
     }
   }
 
+  ColorScheme DOMINANT =
+      new ColorScheme() {
+        @Override
+        public Color lighten_5() {
+          return Color.DOMINANT_LIGHTEN_5;
+        }
+
+        @Override
+        public Color lighten_4() {
+          return Color.DOMINANT_LIGHTEN_4;
+        }
+
+        @Override
+        public Color lighten_3() {
+          return Color.DOMINANT_LIGHTEN_3;
+        }
+
+        @Override
+        public Color lighten_2() {
+          return Color.DOMINANT_LIGHTEN_2;
+        }
+
+        @Override
+        public Color lighten_1() {
+          return Color.DOMINANT_LIGHTEN_1;
+        }
+
+        @Override
+        public Color color() {
+          return Color.DOMINANT;
+        }
+
+        @Override
+        public Color darker_1() {
+          return Color.DOMINANT_DARKEN_1;
+        }
+
+        @Override
+        public Color darker_2() {
+          return Color.DOMINANT_DARKEN_2;
+        }
+
+        @Override
+        public Color darker_3() {
+          return Color.DOMINANT_DARKEN_3;
+        }
+
+        @Override
+        public Color darker_4() {
+          return Color.DOMINANT_DARKEN_4;
+        }
+
+        public String getName() {
+          return "DOMINANT";
+        }
+        /** Constant <code>DOMINANT</code> */
+        /** Constant <code>DOMINANT</code> */
+        /** Constant <code>DOMINANT</code> */
+        /** Constant <code>DOMINANT</code> */
+        /** Constant <code>DOMINANT</code> */
+        /** Constant <code>DOMINANT</code> */
+        /** Constant <code>DOMINANT</code> */
+      };
+  /** Constant <code>PRIMARY</code> */
+  ColorScheme PRIMARY =
+      new ColorScheme() {
+        @Override
+        public Color lighten_5() {
+          return Color.PRIMARY_LIGHTEN_5;
+        }
+
+        @Override
+        public Color lighten_4() {
+          return Color.PRIMARY_LIGHTEN_4;
+        }
+
+        @Override
+        public Color lighten_3() {
+          return Color.PRIMARY_LIGHTEN_3;
+        }
+
+        @Override
+        public Color lighten_2() {
+          return Color.PRIMARY_LIGHTEN_2;
+        }
+
+        @Override
+        public Color lighten_1() {
+          return Color.PRIMARY_LIGHTEN_1;
+        }
+
+        @Override
+        public Color color() {
+          return Color.PRIMARY;
+        }
+
+        @Override
+        public Color darker_1() {
+          return Color.PRIMARY_DARKEN_1;
+        }
+
+        @Override
+        public Color darker_2() {
+          return Color.PRIMARY_DARKEN_2;
+        }
+
+        @Override
+        public Color darker_3() {
+          return Color.PRIMARY_DARKEN_3;
+        }
+
+        @Override
+        public Color darker_4() {
+          return Color.PRIMARY_DARKEN_4;
+        }
+
+        public String getName() {
+          return "PRIMARY";
+        }
+      };
+
+  /** Constant <code>SECONDARY</code> */
+  ColorScheme SECONDARY =
+      new ColorScheme() {
+        @Override
+        public Color lighten_5() {
+          return Color.SECONDARY_LIGHTEN_5;
+        }
+
+        @Override
+        public Color lighten_4() {
+          return Color.SECONDARY_LIGHTEN_4;
+        }
+
+        @Override
+        public Color lighten_3() {
+          return Color.SECONDARY_LIGHTEN_3;
+        }
+
+        @Override
+        public Color lighten_2() {
+          return Color.SECONDARY_LIGHTEN_2;
+        }
+
+        @Override
+        public Color lighten_1() {
+          return Color.SECONDARY_LIGHTEN_1;
+        }
+
+        @Override
+        public Color color() {
+          return Color.SECONDARY;
+        }
+
+        @Override
+        public Color darker_1() {
+          return Color.SECONDARY_DARKEN_1;
+        }
+
+        @Override
+        public Color darker_2() {
+          return Color.SECONDARY_DARKEN_2;
+        }
+
+        @Override
+        public Color darker_3() {
+          return Color.SECONDARY_DARKEN_3;
+        }
+
+        @Override
+        public Color darker_4() {
+          return Color.SECONDARY_DARKEN_4;
+        }
+
+        public String getName() {
+          return "SECONDARY";
+        }
+      };
+
+  /** Constant <code>ACCENT</code> */
+  ColorScheme ACCENT =
+      new ColorScheme() {
+        @Override
+        public Color lighten_5() {
+          return Color.ACCENT_LIGHTEN_5;
+        }
+
+        @Override
+        public Color lighten_4() {
+          return Color.ACCENT_LIGHTEN_4;
+        }
+
+        @Override
+        public Color lighten_3() {
+          return Color.ACCENT_LIGHTEN_3;
+        }
+
+        @Override
+        public Color lighten_2() {
+          return Color.ACCENT_LIGHTEN_2;
+        }
+
+        @Override
+        public Color lighten_1() {
+          return Color.ACCENT_LIGHTEN_1;
+        }
+
+        @Override
+        public Color color() {
+          return Color.ACCENT;
+        }
+
+        @Override
+        public Color darker_1() {
+          return Color.ACCENT_DARKEN_1;
+        }
+
+        @Override
+        public Color darker_2() {
+          return Color.ACCENT_DARKEN_2;
+        }
+
+        @Override
+        public Color darker_3() {
+          return Color.ACCENT_DARKEN_3;
+        }
+
+        @Override
+        public Color darker_4() {
+          return Color.ACCENT_DARKEN_4;
+        }
+
+        public String getName() {
+          return "ACCENT";
+        }
+      };
+
+  /** Constant <code>SUCCESS</code> */
+  ColorScheme SUCCESS =
+      new ColorScheme() {
+        @Override
+        public Color lighten_5() {
+          return Color.SUCCESS_LIGHTEN_5;
+        }
+
+        @Override
+        public Color lighten_4() {
+          return Color.SUCCESS_LIGHTEN_4;
+        }
+
+        @Override
+        public Color lighten_3() {
+          return Color.SUCCESS_LIGHTEN_3;
+        }
+
+        @Override
+        public Color lighten_2() {
+          return Color.SUCCESS_LIGHTEN_2;
+        }
+
+        @Override
+        public Color lighten_1() {
+          return Color.SUCCESS_LIGHTEN_1;
+        }
+
+        @Override
+        public Color color() {
+          return Color.SUCCESS;
+        }
+
+        @Override
+        public Color darker_1() {
+          return Color.SUCCESS_DARKEN_1;
+        }
+
+        @Override
+        public Color darker_2() {
+          return Color.SUCCESS_DARKEN_2;
+        }
+
+        @Override
+        public Color darker_3() {
+          return Color.SUCCESS_DARKEN_3;
+        }
+
+        @Override
+        public Color darker_4() {
+          return Color.SUCCESS_DARKEN_4;
+        }
+
+        public String getName() {
+          return "SUCCESS";
+        }
+      };
+
+  /** Constant <code>WARNING</code> */
+  ColorScheme WARNING =
+      new ColorScheme() {
+        @Override
+        public Color lighten_5() {
+          return Color.WARNING_LIGHTEN_5;
+        }
+
+        @Override
+        public Color lighten_4() {
+          return Color.WARNING_LIGHTEN_4;
+        }
+
+        @Override
+        public Color lighten_3() {
+          return Color.WARNING_LIGHTEN_3;
+        }
+
+        @Override
+        public Color lighten_2() {
+          return Color.WARNING_LIGHTEN_2;
+        }
+
+        @Override
+        public Color lighten_1() {
+          return Color.WARNING_LIGHTEN_1;
+        }
+
+        @Override
+        public Color color() {
+          return Color.WARNING;
+        }
+
+        @Override
+        public Color darker_1() {
+          return Color.WARNING_DARKEN_1;
+        }
+
+        @Override
+        public Color darker_2() {
+          return Color.WARNING_DARKEN_2;
+        }
+
+        @Override
+        public Color darker_3() {
+          return Color.WARNING_DARKEN_3;
+        }
+
+        @Override
+        public Color darker_4() {
+          return Color.WARNING_DARKEN_4;
+        }
+
+        public String getName() {
+          return "WARNING";
+        }
+      };
+  /** Constant <code>INFO</code> */
+  ColorScheme INFO =
+      new ColorScheme() {
+        @Override
+        public Color lighten_5() {
+          return Color.INFO_LIGHTEN_5;
+        }
+
+        @Override
+        public Color lighten_4() {
+          return Color.INFO_LIGHTEN_4;
+        }
+
+        @Override
+        public Color lighten_3() {
+          return Color.INFO_LIGHTEN_3;
+        }
+
+        @Override
+        public Color lighten_2() {
+          return Color.INFO_LIGHTEN_2;
+        }
+
+        @Override
+        public Color lighten_1() {
+          return Color.INFO_LIGHTEN_1;
+        }
+
+        @Override
+        public Color color() {
+          return Color.INFO;
+        }
+
+        @Override
+        public Color darker_1() {
+          return Color.INFO_DARKEN_1;
+        }
+
+        @Override
+        public Color darker_2() {
+          return Color.INFO_DARKEN_2;
+        }
+
+        @Override
+        public Color darker_3() {
+          return Color.INFO_DARKEN_3;
+        }
+
+        @Override
+        public Color darker_4() {
+          return Color.INFO_DARKEN_4;
+        }
+
+        public String getName() {
+          return "INFO";
+        }
+      };
+
+  /** Constant <code>ERROR</code> */
+  ColorScheme ERROR =
+      new ColorScheme() {
+        @Override
+        public Color lighten_5() {
+          return Color.ERROR_LIGHTEN_5;
+        }
+
+        @Override
+        public Color lighten_4() {
+          return Color.ERROR_LIGHTEN_4;
+        }
+
+        @Override
+        public Color lighten_3() {
+          return Color.ERROR_LIGHTEN_3;
+        }
+
+        @Override
+        public Color lighten_2() {
+          return Color.ERROR_LIGHTEN_2;
+        }
+
+        @Override
+        public Color lighten_1() {
+          return Color.ERROR_LIGHTEN_1;
+        }
+
+        @Override
+        public Color color() {
+          return Color.ERROR;
+        }
+
+        @Override
+        public Color darker_1() {
+          return Color.ERROR_DARKEN_1;
+        }
+
+        @Override
+        public Color darker_2() {
+          return Color.ERROR_DARKEN_2;
+        }
+
+        @Override
+        public Color darker_3() {
+          return Color.ERROR_DARKEN_3;
+        }
+
+        @Override
+        public Color darker_4() {
+          return Color.ERROR_DARKEN_4;
+        }
+
+        public String getName() {
+          return "ERROR";
+        }
+      };
+
+  /** Constant <code>RED</code> */
   ColorScheme RED =
       new ColorScheme() {
         @Override
@@ -153,18 +685,9 @@ public interface ColorScheme {
         public String getName() {
           return "RED";
         }
-
-        @Override
-        public String rgba_1() {
-          return "244, 67, 54, 0.1";
-        }
-
-        @Override
-        public String rgba_2() {
-          return "244, 67, 54, 0.5";
-        }
       };
 
+  /** Constant <code>PINK</code> */
   ColorScheme PINK =
       new ColorScheme() {
         @Override
@@ -216,18 +739,9 @@ public interface ColorScheme {
         public Color darker_4() {
           return Color.PINK_DARKEN_4;
         }
-
-        @Override
-        public String rgba_1() {
-          return "233, 30, 99, 0.1";
-        }
-
-        @Override
-        public String rgba_2() {
-          return "233, 30, 99, 0.5";
-        }
       };
 
+  /** Constant <code>PURPLE</code> */
   ColorScheme PURPLE =
       new ColorScheme() {
         @Override
@@ -279,18 +793,9 @@ public interface ColorScheme {
         public Color darker_4() {
           return Color.PURPLE_DARKEN_4;
         }
-
-        @Override
-        public String rgba_1() {
-          return "156, 39, 176, 0.1";
-        }
-
-        @Override
-        public String rgba_2() {
-          return "156, 39, 176, 0.5";
-        }
       };
 
+  /** Constant <code>DEEP_PURPLE</code> */
   ColorScheme DEEP_PURPLE =
       new ColorScheme() {
         @Override
@@ -342,18 +847,9 @@ public interface ColorScheme {
         public Color darker_4() {
           return Color.DEEP_PURPLE_DARKEN_4;
         }
-
-        @Override
-        public String rgba_1() {
-          return "103, 58, 183, 0.1";
-        }
-
-        @Override
-        public String rgba_2() {
-          return "103, 58, 183, 0.5";
-        }
       };
 
+  /** Constant <code>INDIGO</code> */
   ColorScheme INDIGO =
       new ColorScheme() {
         @Override
@@ -405,18 +901,9 @@ public interface ColorScheme {
         public Color darker_4() {
           return Color.INDIGO_DARKEN_4;
         }
-
-        @Override
-        public String rgba_1() {
-          return "63, 81, 181, 0.1";
-        }
-
-        @Override
-        public String rgba_2() {
-          return "63, 81, 181, 0.5";
-        }
       };
 
+  /** Constant <code>BLUE</code> */
   ColorScheme BLUE =
       new ColorScheme() {
         @Override
@@ -468,18 +955,9 @@ public interface ColorScheme {
         public Color darker_4() {
           return Color.BLUE_DARKEN_4;
         }
-
-        @Override
-        public String rgba_1() {
-          return "33, 150, 243, 0.1";
-        }
-
-        @Override
-        public String rgba_2() {
-          return "33, 150, 243, 0.5";
-        }
       };
 
+  /** Constant <code>LIGHT_BLUE</code> */
   ColorScheme LIGHT_BLUE =
       new ColorScheme() {
         @Override
@@ -531,18 +1009,9 @@ public interface ColorScheme {
         public Color darker_4() {
           return Color.LIGHT_BLUE_DARKEN_4;
         }
-
-        @Override
-        public String rgba_1() {
-          return "3, 169, 244, 0.1";
-        }
-
-        @Override
-        public String rgba_2() {
-          return "3, 169, 244, 0.5";
-        }
       };
 
+  /** Constant <code>CYAN</code> */
   ColorScheme CYAN =
       new ColorScheme() {
         @Override
@@ -594,18 +1063,9 @@ public interface ColorScheme {
         public Color darker_4() {
           return Color.CYAN_DARKEN_4;
         }
-
-        @Override
-        public String rgba_1() {
-          return "0, 188, 212, 0.1";
-        }
-
-        @Override
-        public String rgba_2() {
-          return "0, 188, 212, 0.5";
-        }
       };
 
+  /** Constant <code>TEAL</code> */
   ColorScheme TEAL =
       new ColorScheme() {
         @Override
@@ -657,18 +1117,9 @@ public interface ColorScheme {
         public Color darker_4() {
           return Color.TEAL_DARKEN_4;
         }
-
-        @Override
-        public String rgba_1() {
-          return "0, 150, 136, 0.1";
-        }
-
-        @Override
-        public String rgba_2() {
-          return "0, 150, 136, 0.5";
-        }
       };
 
+  /** Constant <code>GREEN</code> */
   ColorScheme GREEN =
       new ColorScheme() {
         @Override
@@ -720,18 +1171,9 @@ public interface ColorScheme {
         public Color darker_4() {
           return Color.GREEN_DARKEN_4;
         }
-
-        @Override
-        public String rgba_1() {
-          return "76, 175, 80, 0.1";
-        }
-
-        @Override
-        public String rgba_2() {
-          return "76, 175, 80, 0.5";
-        }
       };
 
+  /** Constant <code>LIGHT_GREEN</code> */
   ColorScheme LIGHT_GREEN =
       new ColorScheme() {
         @Override
@@ -783,18 +1225,9 @@ public interface ColorScheme {
         public Color darker_4() {
           return Color.LIGHT_GREEN_DARKEN_4;
         }
-
-        @Override
-        public String rgba_1() {
-          return "139, 195, 74, 0.1";
-        }
-
-        @Override
-        public String rgba_2() {
-          return "139, 195, 74, 0.5";
-        }
       };
 
+  /** Constant <code>LIME</code> */
   ColorScheme LIME =
       new ColorScheme() {
         @Override
@@ -846,18 +1279,9 @@ public interface ColorScheme {
         public Color darker_4() {
           return Color.LIME_DARKEN_4;
         }
-
-        @Override
-        public String rgba_1() {
-          return "205, 220, 57, 0.1";
-        }
-
-        @Override
-        public String rgba_2() {
-          return "205, 220, 57, 0.5";
-        }
       };
 
+  /** Constant <code>YELLOW</code> */
   ColorScheme YELLOW =
       new ColorScheme() {
         @Override
@@ -909,18 +1333,9 @@ public interface ColorScheme {
         public Color darker_4() {
           return Color.YELLOW_DARKEN_4;
         }
-
-        @Override
-        public String rgba_1() {
-          return "255, 232, 33, 0.1";
-        }
-
-        @Override
-        public String rgba_2() {
-          return "255, 232, 33, 0.5";
-        }
       };
 
+  /** Constant <code>AMBER</code> */
   ColorScheme AMBER =
       new ColorScheme() {
         @Override
@@ -972,18 +1387,9 @@ public interface ColorScheme {
         public Color darker_4() {
           return Color.AMBER_DARKEN_4;
         }
-
-        @Override
-        public String rgba_1() {
-          return "255, 193, 7, 0.1";
-        }
-
-        @Override
-        public String rgba_2() {
-          return "255, 193, 7, 0.5";
-        }
       };
 
+  /** Constant <code>ORANGE</code> */
   ColorScheme ORANGE =
       new ColorScheme() {
         @Override
@@ -1035,18 +1441,9 @@ public interface ColorScheme {
         public Color darker_4() {
           return Color.ORANGE_DARKEN_4;
         }
-
-        @Override
-        public String rgba_1() {
-          return "255, 152, 0, 0.1";
-        }
-
-        @Override
-        public String rgba_2() {
-          return "255, 152, 0, 0.5";
-        }
       };
 
+  /** Constant <code>DEEP_ORANGE</code> */
   ColorScheme DEEP_ORANGE =
       new ColorScheme() {
         @Override
@@ -1098,18 +1495,9 @@ public interface ColorScheme {
         public Color darker_4() {
           return Color.DEEP_ORANGE_DARKEN_4;
         }
-
-        @Override
-        public String rgba_1() {
-          return "255, 87, 34, 0.1";
-        }
-
-        @Override
-        public String rgba_2() {
-          return "255, 87, 34, 0.5";
-        }
       };
 
+  /** Constant <code>BROWN</code> */
   ColorScheme BROWN =
       new ColorScheme() {
         @Override
@@ -1161,18 +1549,9 @@ public interface ColorScheme {
         public Color darker_4() {
           return Color.BROWN_DARKEN_4;
         }
-
-        @Override
-        public String rgba_1() {
-          return "121, 85, 72, 0.1";
-        }
-
-        @Override
-        public String rgba_2() {
-          return "121, 85, 72, 0.5";
-        }
       };
 
+  /** Constant <code>GREY</code> */
   ColorScheme GREY =
       new ColorScheme() {
         @Override
@@ -1224,18 +1603,9 @@ public interface ColorScheme {
         public Color darker_4() {
           return Color.GREY_DARKEN_4;
         }
-
-        @Override
-        public String rgba_1() {
-          return "158, 158, 158, 0.1";
-        }
-
-        @Override
-        public String rgba_2() {
-          return "158, 158, 158, 0.5";
-        }
       };
 
+  /** Constant <code>BLUE_GREY</code> */
   ColorScheme BLUE_GREY =
       new ColorScheme() {
         @Override
@@ -1287,18 +1657,9 @@ public interface ColorScheme {
         public Color darker_4() {
           return Color.BLUE_GREY_DARKEN_4;
         }
-
-        @Override
-        public String rgba_1() {
-          return "96, 125, 139, 0.1";
-        }
-
-        @Override
-        public String rgba_2() {
-          return "96, 125, 139, 0.5";
-        }
       };
 
+  /** Constant <code>BLACK</code> */
   ColorScheme BLACK =
       new ColorScheme() {
         @Override
@@ -1350,18 +1711,9 @@ public interface ColorScheme {
         public Color darker_4() {
           return Color.BLACK_DARKEN_4;
         }
-
-        @Override
-        public String rgba_1() {
-          return "0, 0, 0, 0.1";
-        }
-
-        @Override
-        public String rgba_2() {
-          return "0, 0, 0, 0.5";
-        }
       };
 
+  /** Constant <code>WHITE</code> */
   ColorScheme WHITE =
       new ColorScheme() {
         @Override
@@ -1413,18 +1765,9 @@ public interface ColorScheme {
         public Color darker_4() {
           return Color.WHITE_DARKEN_4;
         }
-
-        @Override
-        public String rgba_1() {
-          return "255, 255, 255, 0.1";
-        }
-
-        @Override
-        public String rgba_2() {
-          return "255, 255, 255, 0.5";
-        }
       };
 
+  /** Constant <code>TRANSPARENT</code> */
   ColorScheme TRANSPARENT =
       new ColorScheme() {
         @Override
@@ -1476,18 +1819,14 @@ public interface ColorScheme {
         public Color darker_4() {
           return Color.TRANSPARENT_DARKEN_4;
         }
-
-        @Override
-        public String rgba_1() {
-          return "";
-        }
-
-        @Override
-        public String rgba_2() {
-          return "";
-        }
       };
 
+  /**
+   * of.
+   *
+   * @param name a {@link java.lang.String} object.
+   * @return a {@link org.dominokit.domino.ui.style.ColorScheme} object.
+   */
   static ColorScheme of(String name) {
     switch (name) {
       case "RED":

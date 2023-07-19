@@ -16,30 +16,33 @@
 package org.dominokit.domino.ui.utils;
 
 import static java.util.Objects.nonNull;
-import static org.jboss.elemento.Elements.a;
+import static org.dominokit.domino.ui.utils.ElementsFactory.elements;
 
 import elemental2.dom.*;
 import java.util.Optional;
-import jsinterop.base.Js;
-import org.dominokit.domino.ui.forms.HasInputElement;
-import org.gwtproject.i18n.client.NumberFormat;
+import org.dominokit.domino.ui.IsElement;
+import org.dominokit.domino.ui.events.EventType;
 import org.gwtproject.i18n.shared.cldr.LocaleInfo;
 import org.gwtproject.i18n.shared.cldr.NumberConstants;
-import org.jboss.elemento.EventType;
-import org.jboss.elemento.HtmlContentBuilder;
-import org.jboss.elemento.IsElement;
-import org.jboss.elemento.ObserverCallback;
 
-/** A general purpose utility class */
+/**
+ * A general purpose utility class
+ *
+ * @author vegegoku
+ * @version $Id: $Id
+ */
 public class ElementUtil {
 
   /** The default {@link NumberConstants} to format numbers */
   static final NumberConstants numberConstants = LocaleInfo.getCurrentLocale().getNumberConstants();
 
+  /** Constant <code>DUI_EVENT_SCROLL_TOP="dui-event-scroll-top"</code> */
+  public static final String DUI_EVENT_SCROLL_TOP = "dui-event-scroll-top";
+
   /**
    * Removes all the children of the element
    *
-   * @param element {@link Element}
+   * @param element {@link elemental2.dom.Element}
    */
   public static void clear(Element element) {
     if (nonNull(element)) {
@@ -52,41 +55,27 @@ public class ElementUtil {
   /**
    * Removes all the children of the element
    *
-   * @param element {@link IsElement}
+   * @param element {@link org.dominokit.domino.ui.IsElement}
    */
   public static void clear(IsElement<?> element) {
     clear(element.element());
   }
 
   /**
-   * @param element the target element
-   * @param <E> the type extending from {@link HTMLElement}
-   * @return new {@link HtmlContentBuilder} for the provided element
-   */
-  public static <E extends HTMLElement> HtmlContentBuilder<E> contentBuilder(E element) {
-    return new HtmlContentBuilder<>(element);
-  }
-
-  /**
-   * @param element the target {@link IsElement}
-   * @param <E> the type extending from {@link HTMLElement}
-   * @return new {@link HtmlContentBuilder} for the provided element
-   */
-  public static <E extends HTMLElement> HtmlContentBuilder<E> contentBuilder(IsElement<E> element) {
-    return new HtmlContentBuilder<>(element.element());
-  }
-
-  /**
+   * isKeyOf.
+   *
    * @param keyCode String keyboard key code
-   * @param keyboardEvent {@link KeyboardEvent}
-   * @return boolean, true if the the KeyCode is same as the key of the KeyboradEvent
+   * @param keyboardEvent {@link elemental2.dom.KeyboardEvent}
+   * @return boolean, true if the KeyCode is same as the key of the KeyboradEvent
    */
   public static boolean isKeyOf(String keyCode, KeyboardEvent keyboardEvent) {
     return keyCode.equalsIgnoreCase(keyboardEvent.key);
   }
 
   /**
-   * @param keyboardEvent {@link KeyboardEvent}
+   * isEnterKey.
+   *
+   * @param keyboardEvent {@link elemental2.dom.KeyboardEvent}
    * @return boolean, true if the Key pressed is Enter key
    */
   public static boolean isEnterKey(KeyboardEvent keyboardEvent) {
@@ -94,7 +83,9 @@ public class ElementUtil {
   }
 
   /**
-   * @param keyboardEvent {@link KeyboardEvent}
+   * isSpaceKey.
+   *
+   * @param keyboardEvent {@link elemental2.dom.KeyboardEvent}
    * @return boolean, true if the Key pressed is Space key
    */
   public static boolean isSpaceKey(KeyboardEvent keyboardEvent) {
@@ -102,7 +93,9 @@ public class ElementUtil {
   }
 
   /**
-   * @param keyboardEvent {@link KeyboardEvent}
+   * isArrowDown.
+   *
+   * @param keyboardEvent {@link elemental2.dom.KeyboardEvent}
    * @return boolean, true if the Key pressed is Arrow down key
    */
   public static boolean isArrowDown(KeyboardEvent keyboardEvent) {
@@ -110,7 +103,9 @@ public class ElementUtil {
   }
 
   /**
-   * @param keyboardEvent {@link KeyboardEvent}
+   * isArrowUp.
+   *
+   * @param keyboardEvent {@link elemental2.dom.KeyboardEvent}
    * @return boolean, true if the Key pressed is Arrow up key
    */
   public static boolean isArrowUp(KeyboardEvent keyboardEvent) {
@@ -118,7 +113,9 @@ public class ElementUtil {
   }
 
   /**
-   * @param keyboardEvent {@link KeyboardEvent}
+   * isTabKey.
+   *
+   * @param keyboardEvent {@link elemental2.dom.KeyboardEvent}
    * @return boolean, true if the Key pressed is Tab key
    */
   public static boolean isTabKey(KeyboardEvent keyboardEvent) {
@@ -126,7 +123,9 @@ public class ElementUtil {
   }
 
   /**
-   * @param keyboardEvent {@link KeyboardEvent}
+   * isEscapeKey.
+   *
+   * @param keyboardEvent {@link elemental2.dom.KeyboardEvent}
    * @return boolean, true if the Key pressed is Escape key
    */
   public static boolean isEscapeKey(KeyboardEvent keyboardEvent) {
@@ -138,36 +137,44 @@ public class ElementUtil {
    * will be called only once, if the element is appended more than once a new callback should be
    * registered.
    *
-   * @param element the {@link HTMLElement} which is going to be added to the body
-   * @param callback {@link ObserverCallback}
-   * @return an Optional {@link ElementObserver}
+   * @param element the {@link elemental2.dom.HTMLElement} which is going to be added to the body
+   * @param callback {@link org.dominokit.domino.ui.utils.AttachDetachCallback}
+   * @return an Optional {@link org.dominokit.domino.ui.utils.ElementObserver}
    */
-  public static Optional<ElementObserver> onAttach(HTMLElement element, ObserverCallback callback) {
+  public static Optional<ElementObserver> onAttach(
+      HTMLElement element, AttachDetachCallback callback) {
     if (element != null) {
-      DominoElement.of(element).onAttached(callback);
+      elements.elementOf(element).onAttached(callback);
     }
     return Optional.empty();
   }
 
+  /**
+   * withBodyObserverPaused.
+   *
+   * @param handler a {@link java.lang.Runnable} object
+   */
   public static void withBodyObserverPaused(Runnable handler) {
     BodyObserver.pauseFor(handler);
   }
 
   /**
-   * {@link #onAttach(HTMLElement, ObserverCallback)}
+   * {@link #onAttach(HTMLElement, AttachDetachCallback)}
    *
-   * @param element the {@link IsElement} which is going to be added to the body
-   * @param callback {@link ObserverCallback}
-   * @return an Optional {@link ElementObserver}
+   * @param element the {@link org.dominokit.domino.ui.IsElement} which is going to be added to the
+   *     body
+   * @param callback {@link org.dominokit.domino.ui.utils.AttachDetachCallback}
+   * @return an Optional {@link org.dominokit.domino.ui.utils.ElementObserver}
    */
   public static Optional<ElementObserver> onAttach(
-      IsElement<?> element, ObserverCallback callback) {
+      IsElement<?> element, AttachDetachCallback callback) {
     if (element != null) {
-      DominoElement.of(element).onAttached(callback);
+      elements.elementOf(element).onAttached(callback);
     }
     return Optional.empty();
   }
 
+  /** startObserving. */
   public static void startObserving() {
     BodyObserver.startObserving();
   }
@@ -177,100 +184,109 @@ public class ElementUtil {
    * will be called only once, if the element is removed and re-appended a new callback should be
    * registered.
    *
-   * @param element the {@link HTMLElement} which is going to be removed from the body
-   * @param callback {@link ObserverCallback}
-   * @return an Optional {@link ElementObserver}
-   */
-  public static Optional<ElementObserver> onDetach(HTMLElement element, ObserverCallback callback) {
-    if (element != null) {
-      DominoElement.of(element).onDetached(callback);
-    }
-    return Optional.empty();
-  }
-
-  /**
-   * {@link #onDetach(HTMLElement, ObserverCallback)}
-   *
-   * @param element the {@link HTMLElement} which is going to be removed from the body
-   * @param callback {@link ObserverCallback}
-   * @return an Optional {@link ElementObserver}
+   * @param element the {@link elemental2.dom.HTMLElement} which is going to be removed from the
+   *     body
+   * @param callback {@link org.dominokit.domino.ui.utils.AttachDetachCallback}
+   * @return an Optional {@link org.dominokit.domino.ui.utils.ElementObserver}
    */
   public static Optional<ElementObserver> onDetach(
-      IsElement<?> element, ObserverCallback callback) {
+      HTMLElement element, AttachDetachCallback callback) {
     if (element != null) {
-      DominoElement.of(element).onDetached(callback);
+      elements.elementOf(element).onDetached(callback);
     }
     return Optional.empty();
   }
 
   /**
-   * Force an input component to accept only numbers inputs
+   * {@link #onDetach(HTMLElement, AttachDetachCallback)}
    *
-   * @param hasInputElement {@link HasInputElement}
-   * @param <T> The type of the component that extends from {@link HasInputElement}
-   * @return same component
+   * @param element the {@link elemental2.dom.HTMLElement} which is going to be removed from the
+   *     body
+   * @param callback {@link org.dominokit.domino.ui.utils.AttachDetachCallback}
+   * @return an Optional {@link org.dominokit.domino.ui.utils.ElementObserver}
    */
-  public static <T extends HasInputElement> T numbersOnly(T hasInputElement) {
-    hasInputElement
-        .getInputElement()
-        .addEventListener(
-            "keypress",
-            evt -> {
-              KeyboardEvent keyboardEvent = Js.uncheckedCast(evt);
-              if (!(isMinusKey(keyboardEvent.key) || keyboardEvent.key.matches("^\\d+$"))) {
-                evt.preventDefault();
-              }
-            });
-    hasInputElement
-        .getInputElement()
-        .addEventListener(
-            "paste",
-            evt -> {
-              ClipboardEvent clipboardEvent = Js.uncheckedCast(evt);
-              String text = clipboardEvent.clipboardData.getData("text");
-              text = text.replace("-", "");
-              if (!text.matches("^\\d+$")) {
-                evt.preventDefault();
-              }
-            });
-    return hasInputElement;
+  public static Optional<ElementObserver> onDetach(
+      IsElement<?> element, AttachDetachCallback callback) {
+    if (element != null) {
+      elements.elementOf(element).onDetached(callback);
+    }
+    return Optional.empty();
   }
 
-  /**
-   * Force an input component to accept only numbers input with decimal characters
-   *
-   * @param hasInputElement {@link HasInputElement}
-   * @param <T> The type of the component that extends from {@link HasInputElement}
-   * @return same component
-   */
-  public static <T extends HasInputElement> T decimalOnly(T hasInputElement) {
-    hasInputElement
-        .getInputElement()
-        .addEventListener(
-            "keypress",
-            evt -> {
-              KeyboardEvent keyboardEvent = Js.uncheckedCast(evt);
-              String key = keyboardEvent.key;
-              if (!(isMinusKey(keyboardEvent.key)
-                  || key.equals(numberConstants.decimalSeparator())
-                  || keyboardEvent.key.matches("^\\d+$"))) {
-                evt.preventDefault();
-              }
-            });
-    hasInputElement
-        .getInputElement()
-        .addEventListener(
-            "paste",
-            evt -> {
-              ClipboardEvent clipboardEvent = Js.uncheckedCast(evt);
-              try {
-                NumberFormat.getDecimalFormat().parse(clipboardEvent.clipboardData.getData("text"));
-              } catch (Exception ex) {
-                evt.preventDefault();
-              }
-            });
-    return hasInputElement;
-  }
+  //
+  //  /**
+  //   * Force an input component to accept only numbers inputs
+  //   *
+  //   * @param hasInputElement {@link HasInputElement}
+  //   * @param <T> The type of the component that extends from {@link HasInputElement}
+  //   * @return same component
+  //   */
+  //  public static <T extends HasInputElement> T numbersOnly(T hasInputElement) {
+  //    hasInputElement
+  //        .getInputElement()
+  //            .get()
+  //        .addEventListener(
+  //            "keypress",
+  //            evt -> {
+  //              KeyboardEvent keyboardEvent = Js.uncheckedCast(evt);
+  //              if (!(isMinusKey(keyboardEvent.key) || keyboardEvent.key.matches("^\\d+$"))) {
+  //                evt.preventDefault();
+  //              }
+  //            });
+  //    hasInputElement
+  //        .getInputElement()
+  //            .get()
+  //        .addEventListener(
+  //            "paste",
+  //            evt -> {
+  //              ClipboardEvent clipboardEvent = Js.uncheckedCast(evt);
+  //              String text = clipboardEvent.clipboardData.getData("text");
+  //              text = text.replace("-", "");
+  //              if (!text.matches("^\\d+$")) {
+  //                evt.preventDefault();
+  //              }
+  //            });
+  //    return hasInputElement;
+  //  }
+  //
+  //  /**
+  //   * Force an input component to accept only numbers input with decimal characters
+  //   *
+  //   * @param hasInputElement {@link HasInputElement}
+  //   * @param <T> The type of the component that extends from {@link HasInputElement}
+  //   * @return same component
+  //   */
+  //  public static <T extends HasInputElement> T decimalOnly(T hasInputElement) {
+  //    hasInputElement
+  //        .getInputElement()
+  //            .get()
+  //        .addEventListener(
+  //            "keypress",
+  //            evt -> {
+  //              KeyboardEvent keyboardEvent = Js.uncheckedCast(evt);
+  //              String key = keyboardEvent.key;
+  //              if (!(isMinusKey(keyboardEvent.key)
+  //                  || key.equals(numberConstants.decimalSeparator())
+  //                  || keyboardEvent.key.matches("^\\d+$"))) {
+  //                evt.preventDefault();
+  //              }
+  //            });
+  //    hasInputElement
+  //        .getInputElement()
+  //            .get()
+  //        .addEventListener(
+  //            "paste",
+  //            evt -> {
+  //              ClipboardEvent clipboardEvent = Js.uncheckedCast(evt);
+  //              try {
+  //
+  // NumberFormat.getDecimalFormat().parse(clipboardEvent.clipboardData.getData("text"));
+  //              } catch (Exception ex) {
+  //                evt.preventDefault();
+  //              }
+  //            });
+  //    return hasInputElement;
+  //  }
 
   private static boolean isMinusKey(String key) {
     return numberConstants.minusSign().equals(key);
@@ -280,12 +296,16 @@ public class ElementUtil {
   public static void scrollTop() {
     DomGlobal.document.body.scrollTop = 0;
     DomGlobal.document.documentElement.scrollTop = 0;
+    CustomEventInit initOptions = CustomEventInit.create();
+    initOptions.setBubbles(true);
+    CustomEvent scrollTopEvent = new CustomEvent<>(DUI_EVENT_SCROLL_TOP, initOptions);
+    DomGlobal.document.dispatchEvent(scrollTopEvent);
   }
 
   /**
    * Scrolls the document to the specified element, making the element visible on the screen
    *
-   * @param isElement {@link IsElement}
+   * @param isElement {@link org.dominokit.domino.ui.IsElement}
    */
   public static void scrollToElement(IsElement<?> isElement) {
     scrollToElement(isElement.element());
@@ -294,30 +314,33 @@ public class ElementUtil {
   /**
    * Scrolls the document to the specified element, making the element visible on the screen
    *
-   * @param element {@link HTMLElement}
+   * @param element {@link elemental2.dom.HTMLElement}
    */
-  public static void scrollToElement(HTMLElement element) {
+  public static void scrollToElement(Element element) {
     element.scrollIntoView();
   }
 
   /**
-   * Creates an {@link HTMLAnchorElement} that opens it target link in a new browser tab
+   * Creates an {@link elemental2.dom.HTMLAnchorElement} that opens it target link in a new browser
+   * tab
    *
    * @param text String link text
    * @param targetUrl String link target url
-   * @return new {@link HTMLAnchorElement} instance
+   * @return new {@link elemental2.dom.HTMLAnchorElement} instance
    */
   public static HTMLAnchorElement openInNewTabLink(String text, String targetUrl) {
-    return a().textContent(text)
-        .on(EventType.click, event -> DomGlobal.window.open(targetUrl, "_blank"))
+    return elements
+        .a()
+        .textContent(text)
+        .addEventListener(EventType.click, event -> DomGlobal.window.open(targetUrl, "_blank"))
         .element();
   }
 
   /**
    * Scrolls a parent to make child visible in the browser window
    *
-   * @param child {@link Element}
-   * @param parent {@link Element}
+   * @param child {@link elemental2.dom.Element}
+   * @param parent {@link elemental2.dom.Element}
    */
   public static void scrollIntoParent(Element child, Element parent) {
 

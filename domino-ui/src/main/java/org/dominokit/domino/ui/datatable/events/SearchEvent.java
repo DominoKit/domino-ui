@@ -31,6 +31,9 @@ import org.dominokit.domino.ui.datatable.model.Filter;
  * <p>{@link org.dominokit.domino.ui.datatable.store.SearchFilter}
  *
  * <p>{@link org.dominokit.domino.ui.datatable.model.SearchContext}
+ *
+ * @author vegegoku
+ * @version $Id: $Id
  */
 public class SearchEvent implements TableEvent {
 
@@ -40,18 +43,31 @@ public class SearchEvent implements TableEvent {
   private final List<Filter> filters;
 
   /** @param filters the {@link List} of {@link Filter}s that are being applied */
+  /**
+   * Constructor for SearchEvent.
+   *
+   * @param filters a {@link java.util.List} object
+   */
   public SearchEvent(List<Filter> filters) {
     this.filters = filters;
   }
 
   /** @return the {@link List} of {@link Filter}s that are being applied */
+  /**
+   * Getter for the field <code>filters</code>.
+   *
+   * @return a {@link java.util.List} object
+   */
   public List<Filter> getFilters() {
     return filters;
   }
 
   /**
-   * @param category {@link Category}
-   * @return a List of {@link Filter}s of the specified category
+   * getByCategory.
+   *
+   * @param category {@link org.dominokit.domino.ui.datatable.model.Category}
+   * @return a List of {@link org.dominokit.domino.ui.datatable.model.Filter}s of the specified
+   *     category
    */
   public List<Filter> getByCategory(Category category) {
     return filters.stream()

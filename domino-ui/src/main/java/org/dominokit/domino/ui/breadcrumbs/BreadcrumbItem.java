@@ -15,21 +15,19 @@
  */
 package org.dominokit.domino.ui.breadcrumbs;
 
-import static java.util.Objects.nonNull;
-import static org.jboss.elemento.Elements.a;
-import static org.jboss.elemento.Elements.li;
-
 import elemental2.dom.HTMLAnchorElement;
 import elemental2.dom.HTMLLIElement;
 import elemental2.dom.Text;
-import org.dominokit.domino.ui.icons.BaseIcon;
+import org.dominokit.domino.ui.elements.AnchorElement;
+import org.dominokit.domino.ui.elements.LIElement;
+import org.dominokit.domino.ui.icons.Icon;
+import org.dominokit.domino.ui.style.BooleanCssClass;
+import org.dominokit.domino.ui.style.GenericCss;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
-import org.dominokit.domino.ui.utils.DominoElement;
 import org.dominokit.domino.ui.utils.HasClickableElement;
-import org.dominokit.domino.ui.utils.TextNode;
 
 /**
- * A component for {@link Breadcrumb} location.
+ * A component for {@link org.dominokit.domino.ui.breadcrumbs.Breadcrumb} location.
  *
  * <p>This component provides basic styles of a location and functionalities that allows switching
  * between location statuses
@@ -37,44 +35,46 @@ import org.dominokit.domino.ui.utils.TextNode;
  * <p>Customize the component can be done by overwriting classes provided by {@link
  * BreadcrumbStyles}
  *
- * <p>For example:
- *
- * <pre>
- *     Breadcrumb.create()
- *               .appendChild(BreadcrumbItem.create(" Home "))
- * </pre>
- *
  * @see Breadcrumb
  * @see BaseDominoElement
  * @see HasClickableElement
+ * @author vegegoku
+ * @version $Id: $Id
  */
 public class BreadcrumbItem extends BaseDominoElement<HTMLLIElement, BreadcrumbItem>
     implements HasClickableElement {
 
-  private final DominoElement<HTMLLIElement> element = DominoElement.of(li().element());
-  private final DominoElement<HTMLAnchorElement> anchorElement = DominoElement.of(a());
+  private final LIElement element;
+  private final AnchorElement anchorElement;
   private Text textElement;
-  private BaseIcon<?> icon;
+  private Icon<?> icon;
   private boolean active = false;
 
+  /**
+   * Constructor for BreadcrumbItem.
+   *
+   * @param text a {@link java.lang.String} object
+   */
   protected BreadcrumbItem(String text) {
-    init(text, null);
-  }
-
-  protected BreadcrumbItem(String text, BaseIcon<?> icon) {
-    init(text, icon);
-  }
-
-  private void init(String text, BaseIcon<?> icon) {
+    element = li();
     init(this);
-    this.textElement = TextNode.of(text);
-    if (nonNull(icon)) {
-      this.icon = icon;
-      this.anchorElement.appendChild(icon);
-    }
+    anchorElement = a();
+    this.textElement = text(text);
     this.anchorElement.appendChild(textElement);
     element.appendChild(anchorElement);
     anchorElement.setAttribute("tabindex", "0");
+  }
+
+  /**
+   * Constructor for BreadcrumbItem.
+   *
+   * @param text a {@link java.lang.String} object
+   * @param icon a {@link org.dominokit.domino.ui.icons.Icon} object
+   */
+  protected BreadcrumbItem(String text, Icon<?> icon) {
+    this(text);
+    this.icon = icon;
+    this.anchorElement.insertFirst(icon);
   }
 
   /**
@@ -90,33 +90,22 @@ public class BreadcrumbItem extends BaseDominoElement<HTMLLIElement, BreadcrumbI
   /**
    * Creates item with text content and icon
    *
-   * @param icon the {@link BaseIcon} of the item
+   * @param icon the {@link org.dominokit.domino.ui.icons.Icon} of the item
    * @param text the content of the item
    * @return new instance
    */
-  public static BreadcrumbItem create(BaseIcon<?> icon, String text) {
+  public static BreadcrumbItem create(Icon<?> icon, String text) {
     return new BreadcrumbItem(text, icon);
   }
 
   /**
    * Sets item as active, customizing the active style can be done by overwriting {@link
-   * BreadcrumbStyles#ACTIVE} CSS class
+   * GenericCss#dui_active} CSS class
    *
    * @return same instance
    */
   BreadcrumbItem activate() {
-    if (!active) {
-      element.addCss(BreadcrumbStyles.ACTIVE);
-      textElement.remove();
-      anchorElement.remove();
-      if (nonNull(icon)) {
-        icon.element().remove();
-        element.appendChild(icon);
-      }
-      element.appendChild(textElement);
-      this.active = true;
-    }
-
+    element.addCss(dui_active);
     return this;
   }
 
@@ -126,36 +115,22 @@ public class BreadcrumbItem extends BaseDominoElement<HTMLLIElement, BreadcrumbI
    * @return same instance
    */
   BreadcrumbItem deActivate() {
-    if (active) {
-      element.removeCss(BreadcrumbStyles.ACTIVE);
-      textElement.remove();
-      if (nonNull(icon)) {
-        icon.remove();
-        anchorElement.appendChild(icon);
-      }
-      anchorElement.appendChild(textElement);
-      element.appendChild(anchorElement);
-      this.active = false;
-    }
-
+    element.removeCss(dui_active);
     return this;
   }
 
   /**
    * If true, sets the status to active, otherwise sets the status to inactive
    *
-   * @deprecated This method should be no longer used directly. Use {@link
-   *     Breadcrumb#setActiveItem(BreadcrumbItem)} instead
    * @param active the boolean to set the status
    * @return same instance
+   * @deprecated This method should be no longer used directly. Use {@link
+   *     Breadcrumb#setActiveItem(BreadcrumbItem)} instead
    */
   @Deprecated
   public BreadcrumbItem setActive(boolean active) {
-    if (active) {
-      return activate();
-    } else {
-      return deActivate();
-    }
+    addCss(BooleanCssClass.of(dui_active, active));
+    return this;
   }
 
   /** {@inheritDoc} */
@@ -171,17 +146,32 @@ public class BreadcrumbItem extends BaseDominoElement<HTMLLIElement, BreadcrumbI
   }
 
   /** @return the {@link Text} content */
+  /**
+   * Getter for the field <code>textElement</code>.
+   *
+   * @return a {@link elemental2.dom.Text} object
+   */
   public Text getTextElement() {
     return textElement;
   }
 
-  /** @return the {@link BaseIcon} */
-  public BaseIcon<?> getIcon() {
+  /** @return the {@link Icon} */
+  /**
+   * Getter for the field <code>icon</code>.
+   *
+   * @return a {@link org.dominokit.domino.ui.icons.Icon} object
+   */
+  public Icon<?> getIcon() {
     return icon;
   }
 
   /** @return true if the item is active, false otherwise */
+  /**
+   * isActive.
+   *
+   * @return a boolean
+   */
   public boolean isActive() {
-    return active;
+    return dui_active.isAppliedTo(this);
   }
 }

@@ -21,13 +21,42 @@ import java.util.function.Consumer;
 import org.dominokit.domino.ui.datatable.events.SearchEvent;
 import org.dominokit.domino.ui.datatable.events.SortEvent;
 
+/**
+ * TreeNodeStore interface.
+ *
+ * @author vegegoku
+ * @version $Id: $Id
+ */
 public interface TreeNodeStore<T> {
+  /**
+   * getNodeChildren.
+   *
+   * @param context a {@link
+   *     org.dominokit.domino.ui.datatable.plugins.tree.store.TreeNodeStoreContext} object
+   * @param itemsConsumer a {@link java.util.function.Consumer} object
+   */
   void getNodeChildren(
       TreeNodeStoreContext<T> context, Consumer<Optional<Collection<T>>> itemsConsumer);
 
+  /**
+   * getLastSearch.
+   *
+   * @return a {@link org.dominokit.domino.ui.datatable.events.SearchEvent} object
+   */
   SearchEvent getLastSearch();
 
+  /**
+   * getLastSort.
+   *
+   * @return a {@link org.dominokit.domino.ui.datatable.events.SortEvent} object
+   */
   SortEvent<T> getLastSort();
 
+  /**
+   * hasChildren.
+   *
+   * @param record a T object
+   * @return a boolean
+   */
   boolean hasChildren(T record);
 }

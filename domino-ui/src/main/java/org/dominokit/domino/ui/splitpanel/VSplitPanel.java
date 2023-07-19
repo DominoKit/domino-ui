@@ -18,48 +18,44 @@ package org.dominokit.domino.ui.splitpanel;
 /**
  * A vertical split panel implementation
  *
- * <p>For example:
- *
- * <pre>
- *     VSplitPanel.create()
- *                     .setColorScheme(ColorScheme.TEAL)
- *                     .appendChild(
- *                         SplitPanel.create()
- *                             .appendChild(
- *                                 div().css("demo-split-div", Color.GREEN_LIGHTEN_5.getBackground())))
- *                     .appendChild(
- *                         SplitPanel.create()
- *                             .appendChild(
- *                                 div().css("demo-split-div", Color.GREEN_LIGHTEN_4.getBackground())))
- *                     .setHeight("400px")
- * </pre>
- *
  * @see BaseSplitPanel
- * @see HasSize
+ * @see HasSplitPanels
+ * @author vegegoku
+ * @version $Id: $Id
  */
-public class VSplitPanel extends BaseSplitPanel<VSplitPanel, VSplitter> implements HasSize {
+public class VSplitPanel extends BaseSplitPanel<VSplitPanel, VSplitter>
+    implements HasSplitPanels, SplitStyles {
 
+  /** Constructor for VSplitPanel. */
   public VSplitPanel() {
-    super(SplitStyles.VERTICAL);
-    init(this);
+    addCss(dui_vertical);
   }
 
+  /** {@inheritDoc} */
   @Override
-  protected VSplitter createSplitter(SplitPanel first, SplitPanel second, HasSize mainPanel) {
+  protected VSplitter createSplitter(
+      SplitPanel first, SplitPanel second, HasSplitPanels mainPanel) {
     return VSplitter.create(first, second, this);
   }
 
+  /** {@inheritDoc} */
   @Override
   protected double getPanelSize(SplitPanel panel) {
     return panel.getBoundingClientRect().height;
   }
 
+  /** {@inheritDoc} */
   @Override
   protected void setPanelSize(SplitPanel panel, String size) {
     panel.style().setHeight(size);
   }
 
   /** @return new instance */
+  /**
+   * create.
+   *
+   * @return a {@link org.dominokit.domino.ui.splitpanel.VSplitPanel} object
+   */
   public static VSplitPanel create() {
     return new VSplitPanel();
   }

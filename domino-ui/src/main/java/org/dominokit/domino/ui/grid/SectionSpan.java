@@ -15,8 +15,16 @@
  */
 package org.dominokit.domino.ui.grid;
 
-/** An enum representing the size of a section in {@link GridLayout} */
+import org.dominokit.domino.ui.utils.ApplyFunction;
+
+/**
+ * An enum representing the size of a section in {@link org.dominokit.domino.ui.grid.GridLayout}
+ *
+ * @author vegegoku
+ * @version $Id: $Id
+ */
 public enum SectionSpan {
+  _0(0),
   _1(1),
   _2(2),
   _3(3),
@@ -31,7 +39,26 @@ public enum SectionSpan {
   }
 
   /** @return the size integer value */
+  /**
+   * Getter for the field <code>value</code>.
+   *
+   * @return a int
+   */
   public int getValue() {
     return value;
+  }
+
+  /**
+   * ifSpanOrElse.
+   *
+   * @param span a {@link org.dominokit.domino.ui.utils.ApplyFunction} object
+   * @param elseFunction a {@link org.dominokit.domino.ui.utils.ApplyFunction} object
+   */
+  public void ifSpanOrElse(ApplyFunction span, ApplyFunction elseFunction) {
+    if (getValue() > 0) {
+      span.apply();
+    } else {
+      elseFunction.apply();
+    }
   }
 }

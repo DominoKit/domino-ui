@@ -21,14 +21,16 @@ import org.dominokit.domino.ui.datatable.model.Category;
 import org.dominokit.domino.ui.datatable.model.Filter;
 import org.dominokit.domino.ui.datatable.model.FilterTypes;
 import org.dominokit.domino.ui.datatable.model.SearchContext;
-import org.dominokit.domino.ui.datatable.plugins.ColumnHeaderFilterPlugin;
-import org.dominokit.domino.ui.datepicker.DateBox;
-import org.dominokit.domino.ui.popover.PopupPosition;
+import org.dominokit.domino.ui.datatable.plugins.column.ColumnHeaderFilterPlugin;
+import org.dominokit.domino.ui.forms.DateBox;
 
 /**
- * Date column header filter component that is rendered as a {@link DateBox} component
+ * Date column header filter component that is rendered as a {@link
+ * org.dominokit.domino.ui.forms.DateBox} component
  *
  * @param <T> type of data table records
+ * @author vegegoku
+ * @version $Id: $Id
  */
 public class DateHeaderFilter<T> implements ColumnHeaderFilterPlugin.HeaderFilter<T> {
 
@@ -45,26 +47,29 @@ public class DateHeaderFilter<T> implements ColumnHeaderFilterPlugin.HeaderFilte
   }
 
   /** @see DateHeaderFilter#create() */
+  /** Constructor for DateHeaderFilter. */
   public DateHeaderFilter() {
     this.dateBox =
         DateBox.create()
             .setPlaceholder("Search")
             .apply(
                 element -> {
-                  element.getDatePicker().hideHeaderPanel();
-                  element
-                      .getDatePicker()
-                      .addDateDayClickHandler(
-                          (date, dateTimeFormatInfo) -> {
-                            element.close();
-                          });
-                })
-            .setPickerStyle(DateBox.PickerStyle.POPOVER)
-            .setPopoverPosition(PopupPosition.BEST_FIT)
-            .styler(style -> style.setMarginBottom("0px"));
+                  element.withCalendar(
+                      (parent, calendar) -> {
+                        calendar.addDateSelectionListener(
+                            (oldDay, newDay) -> {
+                              element.close();
+                            });
+                      });
+                });
   }
 
   /** @return the {@link DateBox} wrapped in this filter component */
+  /**
+   * Getter for the field <code>dateBox</code>.
+   *
+   * @return a {@link org.dominokit.domino.ui.forms.DateBox} object
+   */
   public DateBox getDateBox() {
     return dateBox;
   }
@@ -85,15 +90,16 @@ public class DateHeaderFilter<T> implements ColumnHeaderFilterPlugin.HeaderFilte
                     FilterTypes.DATE));
           }
         });
-    dateBox.addChangeHandler(value -> searchContext.fireSearchEvent());
+    dateBox.addChangeListener((oldValue, value) -> searchContext.fireSearchEvent());
   }
 
   /** {@inheritDoc} */
   @Override
   public void clear() {
-    dateBox.pauseChangeHandlers();
-    dateBox.clear();
-    dateBox.resumeChangeHandlers();
+    dateBox.withPausedChangeListeners(
+        field -> {
+          dateBox.clear();
+        });
   }
 
   /** {@inheritDoc} */

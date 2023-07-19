@@ -18,6 +18,9 @@ package org.dominokit.domino.ui.animations;
 /**
  * An enum that lists all the available built in animations each enum value represent an animation
  * and provide both the name and the css class name for that animation
+ *
+ * @author vegegoku
+ * @version $Id: $Id
  */
 public enum Transition {
   BOUNCE("bounce", "BOUNCE"),
@@ -110,11 +113,21 @@ public enum Transition {
   }
 
   /** @return String css class */
+  /**
+   * Getter for the field <code>style</code>.
+   *
+   * @return a {@link java.lang.String} object
+   */
   public String getStyle() {
     return style;
   }
 
   /** @return String animation name */
+  /**
+   * Getter for the field <code>name</code>.
+   *
+   * @return a {@link java.lang.String} object
+   */
   public String getName() {
     return name;
   }

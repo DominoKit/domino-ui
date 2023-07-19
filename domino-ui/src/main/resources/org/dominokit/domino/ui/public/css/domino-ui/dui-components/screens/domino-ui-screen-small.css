@@ -1,0 +1,323 @@
+@media screen and (min-width: 768px) and (max-width: 992px){
+    .dui-dialog.dui-w-xs{
+        --dui-dialog-xsamll-width: 75%;
+    }
+
+    .dui-dialog.dui-h-xs{
+        --dui-dialog-xsmall-height: 75%;
+    }
+
+    .dui-dialog.dui-w-sm{
+        --dui-dialog-samll-width: 75%;
+    }
+
+    .dui-dialog.dui-h-sm{
+        --dui-dialog-small-height: 75%;
+    }
+
+    .dui-dialog.dui-w-md{
+        --dui-dialog-medium-width: 75;
+    }
+
+    .dui-dialog.dui-h-md{
+        --dui-dialog-medium-height: 75%;
+    }
+
+    .dui-dialog.dui-w-lg{
+        --dui-dialog-large-width: 75%;
+    }
+
+    .dui-dialog.dui-h-lg{
+        --dui-dialog-large-height: 75%;
+    }
+
+    .dui-dialog.dui-w-xl{
+        --dui-dialog-xlarge-width: 95%;
+    }
+
+    .dui-dialog.dui-h-xl{
+        --dui-dialog-xlarge-height: 75%;
+    }
+
+    @media screen and (min-width: 768px) and (max-width: 992px) {
+        .dui-span-s-1 {
+            grid-column-end: span 1;
+        }
+
+        .dui-span-s-2 {
+            grid-column-end: span 2;
+        }
+
+        .dui-span-s-3 {
+            grid-column-end: span 3;
+        }
+
+        .dui-span-s-4 {
+            grid-column-end: span 4;
+        }
+
+        .dui-span-s-5 {
+            grid-column-end: span 5;
+        }
+
+        .dui-span-s-6 {
+            grid-column-end: span 6;
+        }
+
+        .dui-span-s-7 {
+            grid-column-end: span 7;
+        }
+
+        .dui-span-s-8 {
+            grid-column-end: span 8;
+        }
+
+        .dui-span-s-9 {
+            grid-column-end: span 9;
+        }
+
+        .dui-span-s-10 {
+            grid-column-end: span 10;
+        }
+
+        .dui-span-s-11 {
+            grid-column-end: span 11;
+        }
+
+        .dui-span-s-12 {
+            grid-column-end: span 12;
+        }
+
+        .dui-span-s-13 {
+            grid-column-end: span 13;
+        }
+
+        .dui-span-s-14 {
+            grid-column-end: span 14;
+        }
+
+        .dui-span-s-15 {
+            grid-column-end: span 15;
+        }
+
+        .dui-span-s-16 {
+            grid-column-end: span 16;
+        }
+
+        .dui-span-s-17 {
+            grid-column-end: span 17;
+        }
+
+        .dui-span-s-18 {
+            grid-column-end: span 18;
+        }
+
+        .dui-span-s-19 {
+            grid-column-end: span 19;
+        }
+
+        .dui-span-s-20 {
+            grid-column-end: span 20;
+        }
+
+        .dui-span-s-21 {
+            grid-column-end: span 21;
+        }
+
+        .dui-span-s-22 {
+            grid-column-end: span 22;
+        }
+
+        .dui-span-s-23 {
+            grid-column-end: span 23;
+        }
+
+        .dui-span-s-24 {
+            grid-column-end: span 24;
+        }
+
+        .dui-span-s-25 {
+            grid-column-end: span 25;
+        }
+
+        .dui-span-s-26 {
+            grid-column-end: span 26;
+        }
+
+        .dui-span-s-27 {
+            grid-column-end: span 27;
+        }
+
+        .dui-span-s-28 {
+            grid-column-end: span 28;
+        }
+
+        .dui-span-s-29 {
+            grid-column-end: span 29;
+        }
+
+        .dui-span-s-30 {
+            grid-column-end: span 30;
+        }
+
+        .dui-span-s-31 {
+            grid-column-end: span 31;
+        }
+
+        .dui-span-s-32 {
+            grid-column-end: span 32;
+        }
+
+        .dui-row-12 .dui-span-s-full {
+            grid-column-end: span 12;
+        }
+
+        .dui-row-16 .dui-span-s-full {
+            grid-column-end: span 16;
+        }
+
+        .dui-row-18 .dui-span-s-full {
+            grid-column-end: span 18;
+        }
+
+        .dui-row-24 .dui-span-s-full {
+            grid-column-end: span 24;
+        }
+
+        .dui-row-32 .dui-span-s-full {
+            grid-column-end: span 32;
+        }
+
+        /*offset*/
+        .dui-offset-s-none {
+        }
+
+        .dui-offset-s-0 {
+            grid-column-start: 1;
+        }
+
+        .dui-offset-s-1 {
+            grid-column-start: 2;
+        }
+
+        .dui-offset-s-2 {
+            grid-column-start: 3;
+        }
+
+        .dui-offset-s-3 {
+            grid-column-start: 4;
+        }
+
+        .dui-offset-s-4 {
+            grid-column-start: 5;
+        }
+
+        .dui-offset-s-5 {
+            grid-column-start: 6;
+        }
+
+        .dui-offset-s-6 {
+            grid-column-start: 7;
+        }
+
+        .dui-offset-s-7 {
+            grid-column-start: 8;
+        }
+
+        .dui-offset-s-8 {
+            grid-column-start: 9;
+        }
+
+        .dui-offset-s-9 {
+            grid-column-start: 10;
+        }
+
+        .dui-offset-s-10 {
+            grid-column-start: 11;
+        }
+
+        .dui-offset-s-11 {
+            grid-column-start: 12;
+        }
+
+        .dui-offset-s-12 {
+            grid-column-start: 13;
+        }
+
+        .dui-offset-s-13 {
+            grid-column-start: 14;
+        }
+
+        .dui-offset-s-14 {
+            grid-column-start: 15;
+        }
+
+        .dui-offset-s-15 {
+            grid-column-start: 16;
+        }
+
+        .dui-offset-s-16 {
+            grid-column-start: 17;
+        }
+
+        .dui-offset-s-17 {
+            grid-column-start: 18;
+        }
+
+        .dui-offset-s-18 {
+            grid-column-start: 19;
+        }
+
+        .dui-offset-s-19 {
+            grid-column-start: 20;
+        }
+
+        .dui-offset-s-20 {
+            grid-column-start: 21;
+        }
+
+        .dui-offset-s-21 {
+            grid-column-start: 22;
+        }
+
+        .dui-offset-s-22 {
+            grid-column-start: 23;
+        }
+
+        .dui-offset-s-23 {
+            grid-column-start: 24;
+        }
+
+        .dui-offset-s-24 {
+            grid-column-start: 25;
+        }
+
+        .dui-offset-s-25 {
+            grid-column-start: 26;
+        }
+
+        .dui-offset-s-26 {
+            grid-column-start: 27;
+        }
+
+        .dui-offset-s-27 {
+            grid-column-start: 28;
+        }
+
+        .dui-offset-s-28 {
+            grid-column-start: 29;
+        }
+
+        .dui-offset-s-29 {
+            grid-column-start: 30;
+        }
+
+        .dui-offset-s-30 {
+            grid-column-start: 31;
+        }
+
+        .dui-offset-s-31 {
+            grid-column-start: 32;
+        }
+    }
+}

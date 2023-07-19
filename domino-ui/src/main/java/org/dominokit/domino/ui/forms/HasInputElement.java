@@ -16,16 +16,28 @@
 package org.dominokit.domino.ui.forms;
 
 import elemental2.dom.HTMLElement;
-import org.dominokit.domino.ui.utils.DominoElement;
+import org.dominokit.domino.ui.utils.*;
 
-/** Component that has input elements should implement this interface */
-public interface HasInputElement {
+/**
+ * Component that has input elements should implement this interface
+ *
+ * @author vegegoku
+ * @version $Id: $Id
+ */
+public interface HasInputElement<T, E extends HTMLElement> extends Focusable<T>, CanChange {
+  /** @return E the input element wrapped as {@link DominoElement} */
   /**
-   * @param <E> the type if the input element
-   * @return E the input element wrapped as {@link DominoElement}
+   * getInputElement.
+   *
+   * @return a {@link org.dominokit.domino.ui.utils.DominoElement} object
    */
-  <E extends HTMLElement> DominoElement<E> getInputElement();
+  DominoElement<E> getInputElement();
 
   /** @return String value of the input element */
+  /**
+   * getStringValue.
+   *
+   * @return a {@link java.lang.String} object
+   */
   String getStringValue();
 }

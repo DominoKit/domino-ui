@@ -15,12 +15,45 @@
  */
 package org.dominokit.domino.ui.utils;
 
+/**
+ * HasAttributes interface.
+ *
+ * @author vegegoku
+ * @version $Id: $Id
+ */
 public interface HasAttributes<T> {
+  /**
+   * setAttribute.
+   *
+   * @param name a {@link java.lang.String} object
+   * @param value a boolean
+   * @return a T object
+   */
   T setAttribute(String name, boolean value);
 
+  /**
+   * setAttribute.
+   *
+   * @param name a {@link java.lang.String} object
+   * @param value a double
+   * @return a T object
+   */
   T setAttribute(String name, double value);
 
+  /**
+   * setAttribute.
+   *
+   * @param name a {@link java.lang.String} object
+   * @param value a {@link java.lang.String} object
+   * @return a T object
+   */
   T setAttribute(String name, String value);
 
+  /**
+   * getAttribute.
+   *
+   * @param name a {@link java.lang.String} object
+   * @return a {@link java.lang.String} object
+   */
   String getAttribute(String name);
 }

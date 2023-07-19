@@ -20,11 +20,14 @@ import org.dominokit.domino.ui.datatable.model.FilterTypes;
 import org.dominokit.domino.ui.forms.FloatBox;
 
 /**
- * Float number column header filter component that is rendered as a {@link FloatBox} component
+ * Float number column header filter component that is rendered as a {@link
+ * org.dominokit.domino.ui.forms.FloatBox} component
  *
  * @param <T> type of data table records
+ * @author vegegoku
+ * @version $Id: $Id
  */
-public class FloatHeaderFilter<T> extends DelayedHeaderFilterInput<FloatBox, T> {
+public class FloatHeaderFilter<T> extends DelayedHeaderFilterInput<FloatBox, T, Float> {
 
   private FloatBox floatBox;
 
@@ -40,7 +43,13 @@ public class FloatHeaderFilter<T> extends DelayedHeaderFilterInput<FloatBox, T> 
     super(placeholder);
   }
 
-  /** create a new instance */
+  /**
+   * create a new instance
+   *
+   * @param <T> a T class
+   * @return a {@link org.dominokit.domino.ui.datatable.plugins.filter.header.FloatHeaderFilter}
+   *     object
+   */
   public static <T> FloatHeaderFilter<T> create() {
     return new FloatHeaderFilter<>();
   }
@@ -90,13 +99,19 @@ public class FloatHeaderFilter<T> extends DelayedHeaderFilterInput<FloatBox, T> 
   /** {@inheritDoc} */
   @Override
   public void clear() {
-    floatBox.pauseChangeHandlers();
-    floatBox.clear();
-    floatBox.getInputElement().element().value = "";
-    floatBox.resumeChangeHandlers();
+    floatBox.withPausedChangeListeners(
+        field -> {
+          floatBox.clear();
+          floatBox.getInputElement().element().value = "";
+        });
   }
 
   /** @return the {@link FloatBox} wrapped in this component */
+  /**
+   * Getter for the field <code>floatBox</code>.
+   *
+   * @return a {@link org.dominokit.domino.ui.forms.FloatBox} object
+   */
   public FloatBox getFloatBox() {
     return floatBox;
   }

@@ -15,9 +15,16 @@
  */
 package org.dominokit.domino.ui.utils;
 
-/** Utility class to deal with text operations */
+/**
+ * Utility class to deal with text operations
+ *
+ * @author vegegoku
+ * @version $Id: $Id
+ */
 public class TextUtil {
   /**
+   * firstLetterToUpper.
+   *
    * @param input String
    * @return same String with first letter capitalized
    */

@@ -1,0 +1,44 @@
+.dui-nav-bar {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    gap: var(--dui-nav-bar-gap);
+    background-color: inherit;
+    color: inherit;
+    padding: var(--dui-nav-bar-padding);
+    border-radius: inherit;
+    position: relative;
+    border-width: 0;
+}
+
+.dui-nav-bar .dui-prefix-addon {
+    column-width: auto;
+    margin: var(--dui-nav-bar-addon-margin);
+    order: 10;
+}
+.dui-nav-title {
+    margin: var(--dui-nav-bar-title-margin);
+    order: 20;
+    text-indent: var(--dui-nav-bar-title-indent);
+}
+
+.dui-nav-body {
+    margin: var(--dui-nav-bar-body-margin);
+    order: 30;
+    flex-grow: 1;
+    text-indent: var(--dui-nav-bar-body-indent);
+}
+
+.dui-nav-bar .dui-postfix-addon {
+    margin: var(--dui-nav-bar-utility-margin);
+    order: 40;
+}
+
+.dui-nav-description {
+    display: block;
+    font: var(--dui-nav-bar-description-font);
+    margin: var(--dui-nav-bar-description-margin);
+    color: var(--dui-text-color, var(--dui-nav-bar-description-color));
+    line-height: var(--dui-nav-bar-description-line-height);
+}

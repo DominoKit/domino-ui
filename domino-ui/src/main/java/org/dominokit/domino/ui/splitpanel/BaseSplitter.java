@@ -16,38 +16,33 @@
 package org.dominokit.domino.ui.splitpanel;
 
 import static elemental2.dom.DomGlobal.document;
-import static org.jboss.elemento.Elements.div;
 
-import elemental2.dom.*;
+import elemental2.dom.EventListener;
+import elemental2.dom.HTMLDivElement;
+import elemental2.dom.MouseEvent;
+import elemental2.dom.TouchEvent;
 import jsinterop.base.Js;
-import org.dominokit.domino.ui.style.ColorScheme;
+import org.dominokit.domino.ui.elements.DivElement;
+import org.dominokit.domino.ui.events.EventType;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
-import org.dominokit.domino.ui.utils.DominoElement;
-import org.jboss.elemento.EventType;
+import org.dominokit.domino.ui.utils.ChildHandler;
 
-abstract class BaseSplitter<T extends BaseSplitter<?>>
-    extends BaseDominoElement<HTMLDivElement, T> {
+abstract class BaseSplitter<T extends BaseSplitter<?>> extends BaseDominoElement<HTMLDivElement, T>
+    implements HasSize, SplitStyles {
 
   private static final int LEFT_BUTTON = 1;
 
-  protected DominoElement<HTMLDivElement> element =
-      DominoElement.of(div()).css(SplitStyles.SPLITTER);
-  private final DominoElement<HTMLDivElement> handleElement =
-      DominoElement.of(div()).css(SplitStyles.SPLIT_HANDLE);
-
-  private double fullSize = 0;
+  protected DivElement element;
+  protected final DivElement handleElement;
   private double initialStartPosition = 0;
-  private double firstSize = 0;
-  private double secondSize = 0;
 
-  private ColorScheme colorScheme = ColorScheme.INDIGO;
+  BaseSplitter(SplitPanel first, SplitPanel second, HasSplitPanels mainPanel) {
+    element =
+        div()
+            .addCss(dui_split_layout_splitter)
+            .appendChild(handleElement = div().addCss(dui_splitter_handle));
 
-  private static final boolean LEFT = true;
-  private static final boolean RIGHT = false;
-
-  BaseSplitter(SplitPanel first, SplitPanel second, HasSize mainPanel) {
-    element.appendChild(handleElement);
-
+    init((T) this);
     EventListener resizeListener =
         evt -> {
           MouseEvent mouseEvent = Js.uncheckedCast(evt);
@@ -67,16 +62,16 @@ abstract class BaseSplitter<T extends BaseSplitter<?>>
           resize(first, second, currentPosition, mainPanel);
         };
 
-    element.addEventListener(
+    addEventListener(
         EventType.mousedown.getName(),
         evt -> {
           MouseEvent mouseEvent = Js.uncheckedCast(evt);
           initialStartPosition = mousePosition(mouseEvent);
           startResize(first, second, mainPanel);
-          document.body.addEventListener(EventType.mousemove.getName(), resizeListener);
+          body().addEventListener(EventType.mousemove.getName(), resizeListener);
         });
 
-    element.addEventListener(
+    addEventListener(
         EventType.touchstart.getName(),
         evt -> {
           evt.preventDefault();
@@ -84,129 +79,65 @@ abstract class BaseSplitter<T extends BaseSplitter<?>>
           TouchEvent touchEvent = Js.uncheckedCast(evt);
           initialStartPosition = touchPosition(touchEvent);
           startResize(first, second, mainPanel);
-          document.body.addEventListener(EventType.touchmove.getName(), touchResizeListener);
+          body().addEventListener(EventType.touchmove.getName(), touchResizeListener);
         });
 
-    element.addEventListener(
+    addEventListener(
         EventType.mouseup.getName(),
-        evt -> document.body.removeEventListener(EventType.mousemove.getName(), resizeListener));
-    element.addEventListener(
+        evt -> body().removeEventListener(EventType.mousemove.getName(), resizeListener));
+    addEventListener(
         EventType.touchend.getName(),
-        evt ->
-            document.body.removeEventListener(EventType.touchmove.getName(), touchResizeListener));
+        evt -> body().removeEventListener(EventType.touchmove.getName(), touchResizeListener));
 
     document.body.addEventListener(
         EventType.mouseup.getName(),
-        evt -> document.body.removeEventListener(EventType.mousemove.getName(), resizeListener));
+        evt -> body().removeEventListener(EventType.mousemove.getName(), resizeListener));
     document.body.addEventListener(
         EventType.touchend.getName(),
-        evt ->
-            document.body.removeEventListener(EventType.touchmove.getName(), touchResizeListener));
+        evt -> body().removeEventListener(EventType.touchmove.getName(), touchResizeListener));
   }
 
   private void resize(
-      SplitPanel first, SplitPanel second, double currentPosition, HasSize mainPanel) {
+      SplitPanel first, SplitPanel second, double currentPosition, HasSplitPanels mainPanel) {
     double diff = currentPosition - initialStartPosition;
 
-    double firstSizeDiff =
-        first.isFirst()
-            ? this.firstSize + diff + (double) mainPanel.getSplitterSize() / 2
-            : this.firstSize + diff + mainPanel.getSplitterSize();
-    double secondSizeDiff =
-        second.isLast()
-            ? this.secondSize - diff + (double) mainPanel.getSplitterSize() / 2
-            : this.secondSize - diff + mainPanel.getSplitterSize();
-
-    double firstPercent = (firstSizeDiff / fullSize * 100);
-    double secondPercent = (secondSizeDiff / fullSize * 100);
-    double splitterPercent = mainPanel.getSplitterSize() / fullSize * 100;
-
-    firstPercent = adjustPercent(firstPercent, splitterPercent);
-    secondPercent = adjustPercent(secondPercent, splitterPercent);
-
-    if (withinPanelLimits(first, firstSize, firstPercent, diff, LEFT)
-        && withinPanelLimits(second, secondSize, secondPercent, diff, RIGHT)) {
-      setNewSizes(first, second, firstPercent, secondPercent, mainPanel);
-      first.onResize(firstSize, firstPercent);
-      second.onResize(secondSize, secondPercent);
-    }
+    mainPanel.resizePanels(first, second, diff);
   }
 
-  static double adjustPercent(double percent, double splitterPercent) {
-    double splitterShare = (splitterPercent / 2);
-    if (percent < 0) {
-      return 0;
-    }
-    if (percent > (100 - splitterShare)) {
-      return 100 - splitterShare;
-    }
-    return percent;
+  private void startResize(SplitPanel first, SplitPanel second, HasSplitPanels mainPanel) {
+    mainPanel.onResizeStart(first, second);
   }
 
-  private void startResize(SplitPanel first, SplitPanel second, HasSize mainPanel) {
-    firstSize = getPanelSize(first);
-    secondSize = getPanelSize(second);
-    fullSize = getFullSize(mainPanel);
-  }
-
-  private double getFullSize(HasSize mainPanel) {
-    return mainPanel.getSize();
-  }
-
-  protected abstract double getPanelSize(SplitPanel panel);
-
-  protected abstract void setNewSizes(
-      SplitPanel first,
-      SplitPanel second,
-      double firstPercent,
-      double secondPercent,
-      HasSize mainPanel);
-
+  /**
+   * mousePosition.
+   *
+   * @param event a {@link elemental2.dom.MouseEvent} object
+   * @return a double
+   */
   protected abstract double mousePosition(MouseEvent event);
 
+  /**
+   * touchPosition.
+   *
+   * @param event a {@link elemental2.dom.TouchEvent} object
+   * @return a double
+   */
   protected abstract double touchPosition(TouchEvent event);
 
-  private boolean withinPanelLimits(
-      SplitPanel panel, double topSize, double topPercent, double diff, boolean left) {
-    return withinPanelSize(panel, topSize, diff, left)
-        && withinPanelPercent(panel, topPercent, diff, left);
-  }
-
-  private boolean withinPanelSize(SplitPanel panel, double newSize, double diff, boolean left) {
-    return (newSize > panel.getMinSize() || ((diff > 0 && left) || (diff < 0 && !left)))
-        && (((panel.getMaxSize() > -1) && newSize < panel.getMaxSize()) || panel.getMaxSize() < 0);
-  }
-
-  private boolean withinPanelPercent(SplitPanel panel, double percent, double diff, boolean left) {
-    return (percent > panel.getMinPercent() || ((diff > 0 && left) || (diff < 0 && !left)))
-        && (((panel.getMaxPercent() > -1) && percent < panel.getMaxPercent())
-            || panel.getMaxPercent() < 0);
-  }
-
-  public ColorScheme getColorScheme() {
-    return colorScheme;
-  }
-
-  public T setColorScheme(ColorScheme colorScheme) {
-    element
-        .removeCss(this.colorScheme.lighten_4().getBackground())
-        .addCss(colorScheme.lighten_4().getBackground());
-    handleElement
-        .removeCss(this.colorScheme.color().getBackground())
-        .addCss(colorScheme.color().getBackground());
-
-    this.colorScheme = colorScheme;
+  /**
+   * withHandle.
+   *
+   * @param handler a {@link org.dominokit.domino.ui.utils.ChildHandler} object
+   * @return a T object
+   */
+  public T withHandle(ChildHandler<T, DivElement> handler) {
+    handler.apply((T) this, handleElement);
     return (T) this;
   }
 
+  /** {@inheritDoc} */
   @Override
   public HTMLDivElement element() {
     return element.element();
   }
-
-  public double getSize() {
-    return element.getBoundingClientRect().height;
-  }
-
-  protected abstract void setSize(int size);
 }

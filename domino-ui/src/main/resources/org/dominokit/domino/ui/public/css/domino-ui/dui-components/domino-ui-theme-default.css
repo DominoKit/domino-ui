@@ -1,0 +1,2104 @@
+body.dui {
+    padding: 0;
+    margin: 0;
+    overflow: hidden;
+}
+
+.dui-theme-default {
+    /* ====================== Spacing ========================= */
+    --dui-spc-0: 0;
+    --dui-spc-px: 1px;
+    --dui-spc-2px: 2px;
+    --dui-spc-4px: 4px;
+    --dui-spc-8px: 8px;
+    --dui-spc-9999px: 9999px;
+    --dui-spc-0_5: 0.125rem;
+    --dui-spc-1: 0.25rem;
+    --dui-spc-1_5: 0.375rem;
+    --dui-spc-2: 0.5rem;
+    --dui-spc-2_5: 0.625rem;
+    --dui-spc-3: 0.75rem;
+    --dui-spc-3_5: 0.875rem;
+    --dui-spc-4: 1rem;
+    --dui-spc-5: 1.25rem;
+    --dui-spc-6: 1.5rem;
+    --dui-spc-7: 1.75rem;
+    --dui-spc-8: 2rem;
+    --dui-spc-9: 2.25rem;
+    --dui-spc-10: 2.5rem;
+    --dui-spc-11: 2.75rem;
+    --dui-spc-12: 3rem;
+    --dui-spc-14: 3.5rem;
+    --dui-spc-16: 4rem;
+    --dui-spc-20: 5rem;
+    --dui-spc-24: 6rem;
+    --dui-spc-28: 7rem;
+    --dui-spc-32: 8rem;
+    --dui-spc-36: 9rem;
+    --dui-spc-40: 10rem;
+    --dui-spc-44: 11rem;
+    --dui-spc-48: 12rem;
+    --dui-spc-52: 13rem;
+    --dui-spc-56: 14rem;
+    --dui-spc-60: 15rem;
+    --dui-spc-64: 16rem;
+    --dui-spc-72: 18rem;
+    --dui-spc-80: 20rem;
+    --dui-spc-96: 24rem;
+    --dui-spc-1_2p: 50%;
+    --dui-spc-1_3p: 33.333333%;
+    --dui-spc-2_3p: 66.666667%;
+    --dui-spc-1_4p: 25%;
+    --dui-spc-3_4p: 75%;
+    --dui-spc-full: 100%;
+
+    --dui-box-sizing: border-box;
+
+    /* ====================== Opacity ========================= */
+    --dui-opacity-0: 0;
+    --dui-opacity-5: 0.05;
+    --dui-opacity-10: 0.1;
+    --dui-opacity-20: 0.2;
+    --dui-opacity-25: 0.25;
+    --dui-opacity-30: 0.3;
+    --dui-opacity-40: 0.4;
+    --dui-opacity-l-5: 0.5;
+    --dui-opacity-60: 0.6;
+    --dui-opacity-70: 0.7;
+    --dui-opacity-75: 0.75;
+    --dui-opacity-80: 0.8;
+    --dui-opacity-90: 0.9;
+    --dui-opacity-95: 0.95;
+    --dui-opacity-l-4: 1;
+
+    --dui-clr-inherit: inherit;
+    --dui-clr-current: currentColor;
+    --dui-clr-transparent: transparent;
+    --dui-clr-semi-transparent: #0000001a;
+
+    /* ================ Box shadow ========================== */
+    --dui-box-shadow-none: none;
+    --dui-box-shadow-sm: 0 1px 2px 0 var(--dui-shadow-clr-1);
+    --dui-box-shadow: 0 1px 3px 0 var(--dui-shadow-clr-1), 0 1px 2px -1px var(--dui-shadow-clr-2);
+    --dui-box-shadow-md: 0 4px 6px -1px var(--dui-shadow-clr-1), 0 2px 4px -2px var(--dui-shadow-clr-2);
+    --dui-box-shadow-lg: 0 10px 15px -3px var(--dui-shadow-clr-1), 0 4px 6px -4px var(--dui-shadow-clr-2);
+    --dui-box-shadow-xl: 0 20px 25px -5px var(--dui-shadow-clr-1), 0 8px 10px -6px var(--dui-shadow-clr-2);
+    --dui-box-shadow-2xl: 0 25px 50px -12px var(--dui-shadow-clr-1);
+    --dui-box-shadow-inner: inset 0px 4px 0 var(--dui-shadow-clr-1);
+    --dui-box-shadow-0: 0 0 0 0 var(--dui-shadow-clr-1), 0 0 0 0 var(--dui-shadow-clr-2), 0 0 0 0 var(--dui-shadow-clr-3);
+    --dui-box-shadow-1: 0 2px 1px -1px var(--dui-shadow-clr-1), 0 1px 1px 0 var(--dui-shadow-clr-2), 0 1px 3px 0 var(--dui-shadow-clr-3);
+    --dui-box-shadow-2: 0 0px 1px -1px var(--dui-shadow-clr-1), 0 0px 2px 0 var(--dui-shadow-clr-2), 0 1px 5px 0 var(--dui-shadow-clr-3);
+    --dui-box-shadow-3: 0 3px 3px -2px var(--dui-shadow-clr-1), 0 0px 4px 0 var(--dui-shadow-clr-2), 0 1px 8px 0 var(--dui-shadow-clr-3);
+    --dui-box-shadow-4: 0 2px 4px -1px var(--dui-shadow-clr-1), 0 0px 5px 0 var(--dui-shadow-clr-2), 0 1px 10px 0 var(--dui-shadow-clr-3);
+    --dui-box-shadow-5: 0 3px 5px -1px var(--dui-shadow-clr-1), 0 0px 8px 0 var(--dui-shadow-clr-2), 0 1px 14px 0 var(--dui-shadow-clr-3);
+    --dui-box-shadow-6: 0 3px 5px -1px var(--dui-shadow-clr-1), 0 0px 10px 0 var(--dui-shadow-clr-2), 0 1px 18px 0 var(--dui-shadow-clr-3);
+    --dui-box-shadow-7: 0 4px 5px -2px var(--dui-shadow-clr-1), 0 0px 10px 1px var(--dui-shadow-clr-2), 0 2px 16px 1px var(--dui-shadow-clr-3);
+    --dui-box-shadow-8: 0 5px 5px -3px var(--dui-shadow-clr-1), 0 0px 10px 1px var(--dui-shadow-clr-2), 0 3px 14px 2px var(--dui-shadow-clr-3);
+    --dui-box-shadow-9: 0 5px 6px -3px var(--dui-shadow-clr-1), 0 0px 12px 1px var(--dui-shadow-clr-2), 0 3px 16px 2px var(--dui-shadow-clr-3);
+    --dui-box-shadow-10: 0 6px 6px -3px var(--dui-shadow-clr-1), 0 0px 14px 1px var(--dui-shadow-clr-2), 0 4px 18px 3px var(--dui-shadow-clr-3);
+    --dui-box-shadow-11: 0 6px 7px -4px var(--dui-shadow-clr-1), 0 0px 15px 1px var(--dui-shadow-clr-2), 0 4px 20px 3px var(--dui-shadow-clr-3);
+    --dui-box-shadow-12: 0 7px 8px -4px var(--dui-shadow-clr-1), 0 0px 17px 2px var(--dui-shadow-clr-2), 0 5px 22px 4px var(--dui-shadow-clr-3);
+    --dui-box-shadow-13: 0 7px 8px -4px var(--dui-shadow-clr-1), 0 0px 19px 2px var(--dui-shadow-clr-2), 0 5px 24px 4px var(--dui-shadow-clr-3);
+    --dui-box-shadow-14: 0 7px 9px -4px var(--dui-shadow-clr-1), 0 0px 21px 2px var(--dui-shadow-clr-2), 0 5px 26px 4px var(--dui-shadow-clr-3);
+    --dui-box-shadow-15: 0 8px 9px -5px var(--dui-shadow-clr-1), 0 0px 22px 2px var(--dui-shadow-clr-2), 0 6px 28px 5px var(--dui-shadow-clr-3);
+    --dui-box-shadow-16: 0 8px 10px -5px var(--dui-shadow-clr-1), 0 0px 24px 2px var(--dui-shadow-clr-2), 0 6px 30px 5px var(--dui-shadow-clr-3);
+    --dui-box-shadow-17: 0 8px 11px -5px var(--dui-shadow-clr-1), 0 0px 26px 2px var(--dui-shadow-clr-2), 0 6px 32px 5px var(--dui-shadow-clr-3);
+    --dui-box-shadow-18: 0 9px 11px -5px var(--dui-shadow-clr-1), 0 0px 28px 2px var(--dui-shadow-clr-2), 0 7px 34px 6px var(--dui-shadow-clr-3);
+    --dui-box-shadow-19: 0 9px 12px -6px var(--dui-shadow-clr-1), 0 0px 29px 2px var(--dui-shadow-clr-2), 0 7px 36px 6px var(--dui-shadow-clr-3);
+    --dui-box-shadow-20: 0 10px 13px -6px var(--dui-shadow-clr-1), 0 0px 31px 3px var(--dui-shadow-clr-2), 0 8px 38px 7px var(--dui-shadow-clr-3);
+    --dui-box-shadow-21: 0 10px 13px -6px var(--dui-shadow-clr-1), 0 0px 33px 3px var(--dui-shadow-clr-2), 0 8px 40px 7px var(--dui-shadow-clr-3);
+    --dui-box-shadow-22: 0 10px 14px -6px var(--dui-shadow-clr-1), 0 0px 35px 3px var(--dui-shadow-clr-2), 0 8px 42px 7px var(--dui-shadow-clr-3);
+    --dui-box-shadow-23: 0 11px 14px -7px var(--dui-shadow-clr-1), 0 0px 36px 3px var(--dui-shadow-clr-2), 0 9px 44px 8px var(--dui-shadow-clr-3);
+    --dui-box-shadow-24: 0 11px 15px -7px var(--dui-shadow-clr-1), 0 0px 38px 3px var(--dui-shadow-clr-2), 0 9px 46px 8px var(--dui-shadow-clr-3);
+
+    --du-default-font-family: "Inter";
+
+    --dui-font-normal-100: normal 100 var(--dui-spc-4) var(--dui-font-family, var(--du-default-font-family)), sans-serif;
+    --dui-font-normal-100-sm: normal 100 var(--dui-spc-3) var(--dui-font-family, var(--du-default-font-family)), sans-serif;
+    --dui-font-normal-100-xsm: normal 100 var(--dui-spc-2) var(--dui-font-family, var(--du-default-font-family)), sans-serif;
+    --dui-font-normal-100-lg: normal 100 var(--dui-spc-5) var(--dui-font-family, var(--du-default-font-family)), sans-serif;
+    --dui-font-normal-100-xlg: normal 100 var(--dui-spc-8) var(--dui-font-family, var(--du-default-font-family)), sans-serif;
+
+    --dui-font-italic-100: italic 100 var(--dui-spc-4) var(--dui-font-family, var(--du-default-font-family)), sans-serif;
+    --dui-font-italic-100-sm: italic 100 var(--dui-spc-3) var(--dui-font-family, var(--du-default-font-family)), sans-serif;
+    --dui-font-italic-100-xsm: italic 100 var(--dui-spc-2) var(--dui-font-family, var(--du-default-font-family)), sans-serif;
+    --dui-font-italic-100-lg: italic 100 var(--dui-spc-5) var(--dui-font-family, var(--du-default-font-family)), sans-serif;
+    --dui-font-italic-100-xlg: italic 100 var(--dui-spc-8) var(--dui-font-family, var(--du-default-font-family)), sans-serif;
+
+    --dui-font-normal-300: normal 300 var(--dui-spc-4) var(--dui-font-family, var(--du-default-font-family)), sans-serif;
+    --dui-font-normal-300-sm: normal 300 var(--dui-spc-3) var(--dui-font-family, var(--du-default-font-family)), sans-serif;
+    --dui-font-normal-300-xsm: normal 300 var(--dui-spc-2) var(--dui-font-family, var(--du-default-font-family)), sans-serif;
+    --dui-font-normal-300-lg: normal 300 var(--dui-spc-5) var(--dui-font-family, var(--du-default-font-family)), sans-serif;
+    --dui-font-normal-300-xlg: normal 300 var(--dui-spc-8) var(--dui-font-family, var(--du-default-font-family)), sans-serif;
+
+    --dui-font-italic-300: italic 300 var(--dui-spc-4) var(--dui-font-family, var(--du-default-font-family)), sans-serif;
+    --dui-font-italic-300-sm: italic 300 var(--dui-spc-3) var(--dui-font-family, var(--du-default-font-family)), sans-serif;
+    --dui-font-italic-300-xsm: italic 300 var(--dui-spc-2) var(--dui-font-family, var(--du-default-font-family)), sans-serif;
+    --dui-font-italic-300-lg: italic 300 var(--dui-spc-5) var(--dui-font-family, var(--du-default-font-family)), sans-serif;
+    --dui-font-italic-300-xlg: italic 300 var(--dui-spc-8) var(--dui-font-family, var(--du-default-font-family)), sans-serif;
+
+    --dui-font-regular: normal 400 var(--dui-spc-4) var(--dui-font-family, var(--du-default-font-family)), sans-serif;
+    --dui-font-regular-sm: normal 400 var(--dui-spc-3) var(--dui-font-family, var(--du-default-font-family)), sans-serif;
+    --dui-font-regular-xsm: normal 400 var(--dui-spc-2) var(--dui-font-family, var(--du-default-font-family)), sans-serif;
+    --dui-font-regular-lg: normal 400 var(--dui-spc-5) var(--dui-font-family, var(--du-default-font-family)), sans-serif;
+    --dui-font-regular-xlg: normal 400 var(--dui-spc-8) var(--dui-font-family, var(--du-default-font-family)), sans-serif;
+
+    --dui-font-italic: italic 400 var(--dui-spc-4) var(--dui-font-family, var(--du-default-font-family)), sans-serif;
+    --dui-font-italic-sm: italic 400 var(--dui-spc-3) var(--dui-font-family, var(--du-default-font-family)), sans-serif;
+    --dui-font-italic-xsm: italic 400 var(--dui-spc-2) var(--dui-font-family, var(--du-default-font-family)), sans-serif;
+    --dui-font-italic-lg: italic 400 var(--dui-spc-5) var(--dui-font-family, var(--du-default-font-family)), sans-serif;
+    --dui-font-italic-xlg: italic 400 var(--dui-spc-8) var(--dui-font-family, var(--du-default-font-family)), sans-serif;
+
+    --dui-font-normal-500: normal 500 var(--dui-spc-4) var(--dui-font-family, var(--du-default-font-family)), sans-serif;
+    --dui-font-normal-500-sm: normal 500 var(--dui-spc-3) var(--dui-font-family, var(--du-default-font-family)), sans-serif;
+    --dui-font-normal-500-xsm: normal 500 var(--dui-spc-2) var(--dui-font-family, var(--du-default-font-family)), sans-serif;
+    --dui-font-normal-500-lg: normal 500 var(--dui-spc-5) var(--dui-font-family, var(--du-default-font-family)), sans-serif;
+    --dui-font-normal-500-xlg: normal 500 var(--dui-spc-8) var(--dui-font-family, var(--du-default-font-family)), sans-serif;
+
+    --dui-font-italic-500: italic 500 var(--dui-spc-4) var(--dui-font-family, var(--du-default-font-family)), sans-serif;
+    --dui-font-italic-500-sm: italic 500 var(--dui-spc-3) var(--dui-font-family, var(--du-default-font-family)), sans-serif;
+    --dui-font-italic-500-xsm: italic 500 var(--dui-spc-2) var(--dui-font-family, var(--du-default-font-family)), sans-serif;
+    --dui-font-italic-500-lg: italic 500 var(--dui-spc-5) var(--dui-font-family, var(--du-default-font-family)), sans-serif;
+    --dui-font-italic-500-xlg: italic 500 var(--dui-spc-8) var(--dui-font-family, var(--du-default-font-family)), sans-serif;
+
+    --dui-font-normal-600: normal 600 var(--dui-spc-4) var(--dui-font-family, var(--du-default-font-family)), sans-serif;
+    --dui-font-normal-600-sm: normal 600 var(--dui-spc-3) var(--dui-font-family, var(--du-default-font-family)), sans-serif;
+    --dui-font-normal-600-xsm: normal 600 var(--dui-spc-2) var(--dui-font-family, var(--du-default-font-family)), sans-serif;
+    --dui-font-normal-600-lg: normal 600 var(--dui-spc-5) var(--dui-font-family, var(--du-default-font-family)), sans-serif;
+    --dui-font-normal-600-xlg: normal 600 var(--dui-spc-8) var(--dui-font-family, var(--du-default-font-family)), sans-serif;
+
+    --dui-font-italic-600: italic 600 var(--dui-spc-4) var(--dui-font-family, var(--du-default-font-family)), sans-serif;
+    --dui-font-italic-600-sm: italic 600 var(--dui-spc-3) var(--dui-font-family, var(--du-default-font-family)), sans-serif;
+    --dui-font-italic-600-xsm: italic 600 var(--dui-spc-2) var(--dui-font-family, var(--du-default-font-family)), sans-serif;
+    --dui-font-italic-600-lg: italic 600 var(--dui-spc-5) var(--dui-font-family, var(--du-default-font-family)), sans-serif;
+    --dui-font-italic-600-xlg: italic 600 var(--dui-spc-8) var(--dui-font-family, var(--du-default-font-family)), sans-serif;
+
+    --dui-font-normal-700: normal 700 var(--dui-spc-4) var(--dui-font-family, var(--du-default-font-family)), sans-serif;
+    --dui-font-normal-700-sm: normal 700 var(--dui-spc-3) var(--dui-font-family, var(--du-default-font-family)), sans-serif;
+    --dui-font-normal-700-xsm: normal 700 var(--dui-spc-2) var(--dui-font-family, var(--du-default-font-family)), sans-serif;
+    --dui-font-normal-700-lg: normal 700 var(--dui-spc-5) var(--dui-font-family, var(--du-default-font-family)), sans-serif;
+    --dui-font-normal-700-xlg: normal 700 var(--dui-spc-8) var(--dui-font-family, var(--du-default-font-family)), sans-serif;
+
+    --dui-font-italic-700: italic 700 var(--dui-spc-4) var(--dui-font-family, var(--du-default-font-family)), sans-serif;
+    --dui-font-italic-700-sm: italic 700 var(--dui-spc-3) var(--dui-font-family, var(--du-default-font-family)), sans-serif;
+    --dui-font-italic-700-xsm: italic 700 var(--dui-spc-2) var(--dui-font-family, var(--du-default-font-family)), sans-serif;
+    --dui-font-italic-700-lg: italic 700 var(--dui-spc-5) var(--dui-font-family, var(--du-default-font-family)), sans-serif;
+    --dui-font-italic-700-xlg: italic 700 var(--dui-spc-8) var(--dui-font-family, var(--du-default-font-family)), sans-serif;
+
+    --dui-font-normal-800: normal 800 var(--dui-spc-4) var(--dui-font-family, var(--du-default-font-family)), sans-serif;
+    --dui-font-normal-800-sm: normal 800 var(--dui-spc-3) var(--dui-font-family, var(--du-default-font-family)), sans-serif;
+    --dui-font-normal-800-xsm: normal 800 var(--dui-spc-2) var(--dui-font-family, var(--du-default-font-family)), sans-serif;
+    --dui-font-normal-800-lg: normal 800 var(--dui-spc-5) var(--dui-font-family, var(--du-default-font-family)), sans-serif;
+    --dui-font-normal-800-xlg: normal 800 var(--dui-spc-8) var(--dui-font-family, var(--du-default-font-family)), sans-serif;
+
+    --dui-font-italic-800: italic 800 var(--dui-spc-4) var(--dui-font-family, var(--du-default-font-family)), sans-serif;
+    --dui-font-italic-800-sm: italic 800 var(--dui-spc-3) var(--dui-font-family, var(--du-default-font-family)), sans-serif;
+    --dui-font-italic-800-xsm: italic 800 var(--dui-spc-2) var(--dui-font-family, var(--du-default-font-family)), sans-serif;
+    --dui-font-italic-800-lg: italic 800 var(--dui-spc-5) var(--dui-font-family, var(--du-default-font-family)), sans-serif;
+    --dui-font-italic-800-xlg: italic 800 var(--dui-spc-8) var(--dui-font-family, var(--du-default-font-family)), sans-serif;
+
+    --dui-font-normal-900: normal 900 var(--dui-spc-4) var(--dui-font-family, var(--du-default-font-family)), sans-serif;
+    --dui-font-normal-900-sm: normal 900 var(--dui-spc-3) var(--dui-font-family, var(--du-default-font-family)), sans-serif;
+    --dui-font-normal-900-xsm: normal 900 var(--dui-spc-2) var(--dui-font-family, var(--du-default-font-family)), sans-serif;
+    --dui-font-normal-900-lg: normal 900 var(--dui-spc-5) var(--dui-font-family, var(--du-default-font-family)), sans-serif;
+    --dui-font-normal-900-xlg: normal 900 var(--dui-spc-8) var(--dui-font-family, var(--du-default-font-family)), sans-serif;
+
+    --dui-font-italic-900: italic 900 var(--dui-spc-4) var(--dui-font-family, var(--du-default-font-family)), sans-serif;
+    --dui-font-italic-900-sm: italic 900 var(--dui-spc-3) var(--dui-font-family, var(--du-default-font-family)), sans-serif;
+    --dui-font-italic-900-xsm: italic 900 var(--dui-spc-2) var(--dui-font-family, var(--du-default-font-family)), sans-serif;
+    --dui-font-italic-900-lg: italic 900 var(--dui-spc-5) var(--dui-font-family, var(--du-default-font-family)), sans-serif;
+    --dui-font-italic-900-xlg: italic 900 var(--dui-spc-8) var(--dui-font-family, var(--du-default-font-family)), sans-serif;
+
+    font: var(--dui-font-regular);
+
+    /* =============== Block header =================== */
+
+    --dui-block-header-margin: 0 0 10px 0;
+    --dui-block-header-title-margin: 0 0 0 0;
+    --dui-block-header-title-font: var(--dui-font-normal-600);
+    --dui-block-header-description-font: var(--dui-font-regular-sm);
+
+    /* =============== Generic =================== */
+    --dui-z-index: 0;
+
+    --dui-z-index-start: 10;
+    --dui-z-index-increment: 10;
+    --dui-z-index-l-0: 10;
+    --dui-z-index-l-1: 20;
+    --dui-z-index-l-2: 30;
+    --dui-z-index-l-3: 40;
+    --dui-z-index-l-4: 50;
+    --dui-z-index-l-5: 60;
+    --dui-z-index-l-6: 70;
+    --dui-z-index-l-7: 80;
+    --dui-z-index-l-8: 90;
+    --dui-z-index-l-9: 100;
+    --dui-z-index-l-10: 110;
+
+    --dui-order-1: 1;
+    --dui-order-2: 2;
+    --dui-order-3: 3;
+    --dui-order-4: 4;
+    --dui-order-5: 5;
+    --dui-order-6: 6;
+    --dui-order-7: 7;
+    --dui-order-8: 8;
+    --dui-order-9: 9;
+    --dui-order-10: 10;
+    --dui-order-20: 20;
+    --dui-order-30: 30;
+    --dui-order-40: 40;
+    --dui-order-50: 50;
+    --dui-order-60: 60;
+    --dui-order-70: 70;
+    --dui-order-80: 80;
+    --dui-order-90: 90;
+    --dui-order-100: 100;
+    --dui-order-first: -9999;
+    --dui-order-first-1: -9990;
+    --dui-order-first-2: -9980;
+    --dui-order-first-3: -9970;
+    --dui-order-first-4: -9960;
+    --dui-order-last: 9960;
+    --dui-order-last-1: 9970;
+    --dui-order-last-2: 9980;
+    --dui-order-last-3: 9990;
+    --dui-order-last-4: 9999;
+    --dui-order-none: unset;
+
+    --dui-shrink-0: 0;
+    --dui-shrink-1: 1;
+    --dui-shrink-2: 2;
+    --dui-shrink-3: 3;
+    --dui-shrink-4: 4;
+    --dui-shrink-5: 5;
+    --dui-shrink-6: 6;
+    --dui-shrink-7: 7;
+    --dui-shrink-8: 8;
+    --dui-shrink-9: 9;
+    --dui-shrink-10: 10;
+    --dui-shrink-11: 11;
+    --dui-shrink-12: 12;
+
+    --dui-grow-0: 0;
+    --dui-grow-1: 1;
+    --dui-grow-2: 2;
+    --dui-grow-3: 3;
+    --dui-grow-4: 4;
+    --dui-grow-5: 5;
+    --dui-grow-6: 6;
+    --dui-grow-7: 7;
+    --dui-grow-8: 8;
+    --dui-grow-9: 9;
+    --dui-grow-10: 10;
+    --dui-grow-11: 11;
+    --dui-grow-12: 12;
+
+    /* ================== Label ===================== */
+    --dui-label-font: inherit;
+    --dui-label-padding: var(--dui-spc-1) var(--dui-spc-2);
+    --dui-label-margin: var(--dui-spc-0);
+    --dui-label-border-radius: var(--dui-spc-0);
+    --dui-label-line-height: 1;
+    --dui-label-text-align: center;
+    --dui-label-border: 0;
+    --dui-label-link-text-decoration: none;
+    --dui-label-link-cursor: pointer;
+
+    /* ================== Alert =================== */
+
+    --dui-alert-padding: var(--dui-spc-4);
+    --dui-alert-margin: 0 0 0 0;
+    --dui-alert-border-radius: var(--dui-spc-0);
+    --dui-alert-border: none;
+    --dui-alert-font: var(--dui-font-regular);
+    --dui-alert-color: var(--dui-clr-white);
+    --dui-alert-background: var(--dui-accent);
+    --dui-alert-box-shadow: var(--dui-box-shadow-md);
+    --dui-alert-close-color: var(--dui-clr-white);
+    --dui-alert-close-border: none;
+    --dui-alert-close-shadow: none;
+    --dui-alert-close-top: 0px;
+    --dui-alert-close-bg: var(--dui-clr-inherit);
+    --dui-alert-close-hover-bg: rgb(0, 0, 0, 0.2);
+    --dui-alert-close-font: var(--dui-font-regular);
+    --dui-alert-close-line-height: 1;
+    --dui-alert-close-cursor: pointer;
+    --dui-alert-close-width: var(--dui-spc-6);
+    --dui-alert-close-height: var(--dui-spc-6);
+    --dui-alert-close-border-radius: var(--dui-spc-full);
+    --dui-alert-link-color: inherit;
+    --dui-alert-link-decoration: underline;
+    --dui-alert-link-font: var(--dui-font-normal-600);
+
+    /* ===================== Icons ==================================== */
+    --dui-clickable-cursor: pointer;
+    --dui-clickable-transform: none;
+    --dui-clickable-transition: all 0.2s ease-in;
+    --dui-default-icon-size: 24px;
+
+    --dui-primary-fg-clr: var(--dui-clr-white);
+    --dui-secondary-fg-clr: var(--dui-clr-white);
+    --dui-dominant-fg-clr: var(--dui-color);
+    --dui-success-fg-clr: var(--dui-clr-white);
+    --dui-warning-fg-clr: var(--dui-clr-white);
+    --dui-info-fg-clr: var(--dui-clr-white);
+    --dui-error-fg-clr: var(--dui-clr-white);
+    --dui-accent-fg-clr: var(--dui-clr-white);
+    --dui-red-fg-clr: var(--dui-clr-white);
+    --dui-pink-fg-clr: var(--dui-clr-white);
+    --dui-purple-fg-clr: var(--dui-clr-white);
+    --dui-deep-purple-fg-clr: var(--dui-clr-white);
+    --dui-indigo-fg-clr: var(--dui-clr-white);
+    --dui-blue-fg-clr: var(--dui-clr-white);
+    --dui-light-blue-fg-clr: var(--dui-clr-white);
+    --dui-cyan-fg-clr: var(--dui-clr-white);
+    --dui-teal-fg-clr: var(--dui-clr-white);
+    --dui-green-fg-clr: var(--dui-clr-white);
+    --dui-light-green-fg-clr: var(--dui-clr-white);
+    --dui-lime-fg-clr: var(--dui-clr-white);
+    --dui-yellow-fg-clr: var(--dui-clr-white);
+    --dui-amber-fg-clr: var(--dui-clr-white);
+    --dui-orange-fg-clr: var(--dui-clr-white);
+    --dui-deep-orange-fg-clr: var(--dui-clr-white);
+    --dui-brown-fg-clr: var(--dui-clr-white);
+    --dui-grey-fg-clr: var(--dui-clr-white);
+    --dui-blue-grey-fg-clr: var(--dui-clr-white);
+    --dui-white-fg-clr: var(--dui-clr-black);
+    --dui-black-fg-clr: var(--dui-clr-white);
+
+    /* ===================== Buttons ==================================== */
+
+    --dui-btn-font: var(--dui-font-regular);
+    --dui-btn-text-transform: none;
+    --dui-btn-cursor: pointer;
+    --dui-btn-border: 0;
+    --dui-btn-line-height: 29px;
+    --dui-btn-padding: 6px 11px;
+    --dui-btn-border-radius: 4px;
+    --dui-btn-box-shadow: var(--dui-box-shadow-0);
+    --dui-btn-transition: .0s;
+    --dui-btn-disabled-cursor: not-allowed;
+    --dui-btn-disabled-pointer-events: none;
+    --dui-btn-disabled-opacity: .65;
+    --dui-btn-focus-bg: var(--dui-bg-d-2);
+    --dui-btn-focus-color: var(--dui-fg-l-3);
+    --dui-btn-focus-box-shadow: var(--dui-box-shadow-2);
+    --dui-btn-focus-outline-width: 0px;
+    --dui-btn-focus-outline-style: dotted;
+    --dui-btn-focus-outline-offset: 2px;
+
+    --dui-btn-lg-font-size: 20px;
+    --dui-btn-lg-line-height: 1.3333333;
+    --dui-btn-lg-padding: 10px 16px;
+
+    --dui-btn-md-font-size: 16px;
+    --dui-btn-md-line-height: 2;
+    --dui-btn-md-padding: 6px 12px;
+
+    --dui-btn-sm-font-size: 14px;
+    --dui-btn-sm-line-height: 2;
+    --dui-btn-sm-padding: 5px 10px;
+
+    --dui-btn-xs-font-size: 12px;
+    --dui-btn-xs-line-height: 2.5;
+    --dui-btn-xs-padding: 1px 5px;
+
+    --dui-btn-group-box-shadow: var(--dui-box-shadow-0);
+    --dui-btn-group-border-radius: 3px;
+    --dui-btn-toolbar-group-spacing: 5px;
+
+    --dui-btn-link-bg: transparent;
+    --dui-btn-link-box-shadow: none;
+
+    --dui-scroll-top-button-right: 20px;
+    --dui-scroll-top-button-bottom: 20px;
+    --dui-scroll-top-button-zindex: 9999999999;
+    --dui-scroll-top-button-opacity: 04;
+
+    /* ===================== Breadcrumb ==================================== */
+
+    --dui-bc-default-bg: var(--dui-clr-transparent);
+    --dui-bc-font: var(--dui-font-regular);
+    --dui-bc-margin: 0px;
+    --dui-bc-padding: 8px 15px;
+    --dui-bc-active-cursor: pointer;
+    --dui-bc-arrow-padding: 0 5px;
+    --dui-bc-arrow-content: '>\00a0';
+    --dui-bc-disabled-opacity: 0.50;
+    --dui-bc-icon-margin: 0 4px 0 0;
+
+
+    /* ===================== Cards ==================================== */
+
+    --dui-card-background: var(--dui-clr-dominant);
+    --dui-card-box-shadow: var(--dui-box-shadow-1);
+    --dui-card-border-radius: var(--dui-spc-2px);
+    --dui-card-margin: 0 0 var(--dui-spc-4) 0;
+    --dui-card-min-height: var(--dui-spc-12);
+    --dui-card-header-padding: var(--dui-spc-3);
+    --dui-card-header-title-font: var(--dui-font-regular);
+    --dui-card-header-title-margin: 0;
+    --dui-card-header-gap: var(--dui-spc-5);
+    --dui-card-icon-margins: 0 5px 0 5px;
+    --dui-card-description-font: var(--dui-font-regular-sm);
+    --dui-card-body-font: var(--dui-font-regular);
+    --dui-card-description-line-height: var(--dui-spc-4);
+    --dui-card-description-margin: 5px 0 0 0;
+    --dui-card-description-color: var(--dui-color);
+    --dui-card-body-padding: 20px;
+    --dui-card-header-border-width: 0 0 1px 0;
+    --dui-card-header-border-reversed-width: 1px 0 0 0;
+    --dui-card-header-border-style: solid;
+    --dui-cardsubheader-padding: 4px 0 4px 0;
+
+    /*======================== Chips ===================================*/
+
+    --dui-chip-background: var(--dui-accent);
+    --dui-chip-color: var(--dui-text-color);
+    --dui-chip-border-color: var(--dui-accent-clr);
+    --dui-chip-border-radius: var(--dui-spc-9999px);
+    --dui-chip-min-width: var(--dui-spc-14);
+    --dui-chip-height: var(--dui-spc-8);
+    --dui-chip-line-height: var(--dui-spc-8);
+    --dui-chip-margin: 0 0 0 0;
+    --dui-chip-text-align: center;
+    --dui-chip-vertical-align: middle;
+    --dui-chip-padding: 0 10px 0 10px;
+    --dui-chip-cursor: pointer;
+    --dui-chip-border: 1px solid currentColor;
+    --dui-chip-disabled-background: var(--dui-clr-grey);
+    --dui-chip-disabled-border-color: var(--dui-clr-grey);
+    --dui-chip-value-width: var(--dui-spc-full);
+    --dui-chip-value-whitespace: nowrap;
+    --dui-chip-value-text-align: left;
+    --dui-chip-text-padding: 0 10px 0 10px;
+    --dui-chip-focus-box-shadow: var(--dui-box-shadow-1);
+    --dui-chip-focus-outline: 1px solid var(--dui-bg-clr);
+    --dui-chip-focus-outline-offset: 1px;
+    --dui-chip-addon-font-size: 20px;
+    --dui-chip-addon-span-font-size: 16px;
+    --dui-chip-addon-radius: 50%;
+    --dui-chip-addon-width: var(--dui-spc-8);
+    --dui-chip-addon-height: var(--dui-spc-8);
+    --dui-chip-addon-mrgin: 2px 0 0 0;
+    --dui-chip-close-mrgin: -2px 0 0 12px;
+
+    /*======================================= Info box ================================*/
+
+    --dui-infobox-direction: row;
+    --dui-info-background-color: var(--dui-clr-dominant);
+    --dui-info-margin: 0 0 0 0;
+    --dui-info-flipped-height: 70px;;
+    --dui-info-icon-size: 70px;;
+    --dui-info-icon-color: var(--dui-clr-white);
+    --dui-info-icon-background: var(--dui-clr-dominant);
+    --dui-info-icon-font-size: 50px;
+    --dui-info-title-font-size: var(--dui-spc-3);
+    --dui-info-title-margin: 6px 0 0 0;
+    --dui-info-value-font: var(--dui-font-normal-500-lg);
+    --dui-info-value-margin: -4px 0 0 0;
+    --dui-info-content-padding: 7px 10px 10px 10px;
+    --dui-info-flipped-content-padding: 7px 16px 16px 16px;
+    --dui-info-hover-duration: 0.3s;
+    --dui-info-hover-scale: 1.4;
+    --dui-info-hover-rotation: -32deg;
+    --dui-info-expand-duration: 0.95s;
+    --dui-infobox-box-shadow: var(--dui-box-shadow);
+
+    /* ===================== Media objects =============================*/
+
+    --dui-media-margin: 16px 0 0 0;
+    --dui-media-body-color: var(--dui-color);
+    --dui-media-heading-color: var(--dui-color);
+    --dui-media-body-font: var(--dui-font-regular-sm);
+    --dui-media-heading-font: var(--dui-font-normal-600);
+    --dui-media-object-padding: 0 10px 0 10px;
+    --dui-media-heading-maring: 0 0 5px 0;
+
+    /* ======================== Pagination ============================ */
+
+    --dui-pager-disabled-color: var(--dui-clr-grey);
+    --dui-pager-list-padding: 0 10px 0 10px;
+    --dui-pager-list-margin: 20px 0 20px 0;
+    --dui-pager-page-link-font: var(--dui-font-regular);
+    --dui-pager-page-link-font-small: var(--dui-font-regular-sm);
+    --dui-pager-page-link-font-large: var(--dui-font-regular-lg);
+    --dui-pager-page-link-size: var(--dui-spc-8);
+    --dui-pager-page-link-border-radius: var(--dui-spc-1_2p);
+    --dui-pager-page-link-cursor: pointer;
+    --dui-pager-page-link-active-color: var(--dui-clr-white);
+    --dui-pager-page-link-disabled-color: var(--dui-clr-grey);
+    --dui-pager-page-link-disabled-cursor: not-allowed;
+    --dui-pagination-link-text-decoration: none;
+    --dui-pager-item-margin: 0 5px 0 5px;
+
+    /* ============= uncomment to define specific colors ======================= */
+    /*--dui-pager-page-link-active-background: var(--dui-bg-d-2);*/
+    /*--dui-pager-page-link-active-hover-background: var(--dui-bg-d-3);*/
+    /*--dui-pager-page-link-hover-background: var(--dui-bg-d-1);*/
+    /*--dui-pager-page-link-active-hover-color: var(--dui-fg-l-5);*/
+
+    --dui-pager-page-count-margin: 0 10px 0 10px;
+    --dui-pager-page-count-min-width: 120px;
+    --dui-pager-page-count-radius: var(--dui-spc-9999px);
+    --dui-navigator-padding: 0 0 0 0;
+    --dui-navigator-margin: 20px 0;
+    --dui-navigator-text-align: center;
+    --dui-navigator-width: 100%;
+    --dui-navigator-nav-padding: 5px 14px 5px 14px;
+    --dui-navigator-nav-min-width: var(--dui-spc-28);
+    --dui-navigator-nav-next-float: right;
+    --dui-navigator-nav-prev-float: left;
+
+    /*========================== Preloaders =====================*/
+
+    --dui-preloader-size: 50px;
+    --dui-preloader-size-xlg: 75px;
+    --dui-preloader-size-lg: 60px;
+    --dui-preloader-size-md: 50px;
+    --dui-preloader-size-sm: 40px;
+    --dui-preloader-size-xsm: 25px;
+    --dui-preloader-color: var(--dui-accent);
+    --dui-preloader-thinckness: var(--dui-spc-1);
+
+    /* =================== Progress bars ==========================*/
+    --dui-progress-hight: var(--dui-spc-6);
+    --dui-progress-margin: 10px 0 10px 0;
+    --dui-progress-background: var(--dui-clr-dominant-l-3);
+    --dui-progress-radius: var(--dui-spc-2px);
+    --dui-progress-box-shadow: inset 0 1px 2px rgba(0, 0, 0, .1);
+    --dui-progress-bar-line-hight: var(--dui-spc-6);
+    --dui-progress-bar-box-shadow: 2px 5px 5px 0px rgba(0, 0, 0, .2), 0 0px 0px 0 rgba(0, 0, 0, .14), 0 0px 0px 0 rgba(0, 0, 0, .12);
+    --dui-progress-bar-float: left;
+    --dui-progress-bar-font: var(--dui-font-regular-sm);
+    --dui-progress-bar-color: var(--dui-clr-white);
+    --dui-progress-bar-text-align: center;
+    --dui-progress-bar-striped-bg-image: linear-gradient(45deg, rgba(255, 255, 255, .15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, .15) 50%, rgba(255, 255, 255, .15) 75%, transparent 75%, transparent);
+    --dui-progress-bar-striped-bg-size: 40px 40px;
+
+    /* ================================ Tabs ===========================*/
+    --dui-tabs-padding: 0 0 0 0;
+    --dui-tabs-margin: 0 0 0 0;
+    --dui-tabs-border-width: 0 0 1px 0;
+    --dui-tabs-border-style: solid;
+    --dui-tab-item-cursor: pointer;
+    --dui-tab-anchor-padding: 10px 15px;
+    --dui-tab-text-line-height: 24px;
+    --dui-tab-item-border-radius: 0px;
+    --dui-tab-anchor-text-decoration: none;
+    --dui-tab-active-indicator-display: block;
+    --dui-tab-active-indicator-border-width: 0 0 3px 0;
+    --dui-tab-active-indicator-border-style: solid;
+    --dui-tab-active-indicator-border-radius: 0;
+    --dui-tab-active-indicator-bottom: 0;
+    --dui-tab-active-indicator-transform: scaleX(0) skewX(45deg);
+    --dui-tab-active-indicator-transition: 0.1s ease-in;
+    --dui-tab-header-gap: var(--dui-spc-3);
+    --dui-tab-item-disabled-color: var(--dui-clr-grey);
+    --dui-tab-item-disabled-cursor: not-allowed;
+    --dui-tabs-content-padding: 15px 0;
+    --dui-v-tabs-content-padding: 0 15px;
+    --dui-v-tab-active-indicator-border-width: 0 3px 0 0;
+    --dui-v-tabs-border-width: 0 1px 0 0;
+    --dui-v-tab-active-indicator-transform: scaleX(0) skewX(0deg);
+    --dui-tab-active-indicator-right: 0;
+    --dui-tab-close-icon-order: 999999;
+    --dui-v-tab-close-icon-order: 999999;
+    /*Define to use custom fixed colors*/
+    /*--dui-tabs-border-color: var(--dui-accent-clr, var(--dui-accent));*/
+    /*--dui-tab-active-indicator-border-color: var(--dui-accent-clr, var(--dui-accent));*/
+    /*--dui-tab-anchor-focus-bg: var(--dui-accent-200, var(--dui-accent-clr));*/
+
+
+    /* =================================== Tree ================================ */
+
+    --dui-tree-margin: 0;
+    --dui-tree-border: none;
+    --dui-tree-radius: 0;
+    --dui-tree-nav-padding: 0;
+    --dui-tree-nav-margin: 0;
+    --dui-tree-header-line-height: 32px;
+    --dui-tree-header-background: var(--dui-tree-header-bg-color);
+    --dui-tree-header-font: var(--dui-font-normal-600-sm);
+    --dui-tree-header-padding: 8px 8px;
+    --dui-tree-header-radius: 0px;
+    --dui-tree-item-margin: 0 2px;
+    --dui-tree-item-line-height: 32px;
+    --dui-tree-item-cursor: pointer;
+    --dui-tree-item-disabled-cursor: not-allowed;
+    --dui-tree-item-disabled-color: var(--dui-clr-grey);
+
+    --dui-tree-item-anchor-padding: 5px 10px;
+    --dui-tree-item-anchor-radius: 0px;
+    --dui-tree-anchor-text-decoration: none;
+    --dui-tree-separator-margin: 5px 0 5px 0;
+    --dui-tree-separator-padding: 0px;
+    --dui-tree-separator-border: 1px solid var(--dui-menu-border-color);
+    --dui-tree-padding-inrement: 40px;
+    --dui-tree-initial-padding: 20px;
+    --dui-tree-item-content-gap: var(--dui-spc-4);
+    /*--dui-tree-item-active-color: var(--dui-accent);*/
+
+    /* =============== Define if you need to set a fixed value ================*/
+    /*--dui-tree-item-anchor-focus-bg: var(--dui-bg-700, var(--dui-accent-clr));*/
+    /*--dui-tree-item-disabled-hover-bg: var(--dui-clr-grey-l-3);*/
+
+
+    /* ===================== Thumbnails ====================== */
+    --dui-thumbnail-default-direction: column;
+    --dui-thumbnail-margin: 0 0 20px 0;
+    --dui-thumbnail-border: 1px solid var(--dui-thumbnail-border-color);
+    --dui-thumbnail-radius: 0;
+    --dui-thumbnail-active-border: 1px solid var(--dui-thumbnail-border-active-color);
+    --dui-thumbnail-transition: border .2s ease-in-out;
+    --dui-thumbnail-box-shadow: var(--dui-box-shadow-1);
+    --dui-thumbnail-title-padding: 0 var(--dui-spc-2_5);
+    --dui-thumbnail-footer-padding: var(--dui-spc-2_5);
+    --dui-thumbnail-body-padding: 0;
+    --dui-thumbnail-head-radius: inherit;
+    --dui-thumbnail-tail-radius: inherit;
+    --dui-thumbnail-body-radius: inherit;
+    --dui-thumbnail-image-radius: inherit;
+    --dui-thumbnail-img-padding: 0;
+    --dui-thumbnail-head-align-self: stretch;
+    --dui-thumbnail-tail-align-self: auto;
+    --dui-thumbnail-body-title-order: 10;
+    --dui-thumbnail-body-order: 20;
+    --dui-thumbnail-body-head-order: 10;
+    --dui-thumbnail-body-tail-order: 20;
+
+
+    /* ===================== List groups ======================*/
+
+    --dui-list-group-padding: 0;
+    --dui-list-group-margin: 0;
+    --dui-list-group-border: 1px solid var(--dui-accent-l-3);
+    --dui-list-group-radius: 0;
+    --dui-list-group-item-outline: none;
+    --dui-list-group-item-cursor: pointer;
+    --dui-list-group-item-disabled-cursor: not-allowed;
+    --dui-list-group-item-padding: 0 0;
+    --dui-list-group-item-border-width: 0 0 1px 0;
+    --dui-list-group-item-border-style: solid;
+    --dui-list-group-item-border-color: var(--dui-accent-l-4);
+    --dui-list-group-item-selected-color: var(--dui-clr-white);
+    --dui-list-group-item-hover-color: var(--dui-color-alternate);
+
+    /* ============================ Badge =============================*/
+    --dui-badge-background: var(--dui-accent);
+    --dui-badge-float: right;
+    --dui-badge-margin: 0 0 0 4px;
+    --dui-badge-padding: 3px 7px;
+    --dui-badge-min-width: 32px;
+    --dui-badge-font: var(--dui-font-normal-600-sm);
+    --dui-badge-radius: 2px;
+
+    --dui-icon-badge-top: -46px;
+    --dui-icon-badge-right: -10px;
+    --dui-icon-badge-height: 25px;
+    --dui-icon-badge-min-width: 25px;
+    --dui-icon-badge-max-width: 120px;
+    --dui-icon-badge-margin: 0;
+    --dui-icon-badge-line-height: 20px;
+    --dui-icon-badge-font-style: normal;
+
+    /* ===================== Collapse group ================= */
+    --dui-collapse-group-margin: 0 0 20px 0;
+    --dui-collapse-group-border-width: 1px;
+    --dui-collapse-group-border-color: var(--dui-border-default);
+    --dui-collapse-group-border-style: solid;
+    --dui-collapse-group-radius: 0;
+    --dui-collapse-panel-margin: 0;
+    --dui-collapse-between-panels-margin: 0;
+    --dui-collapse-between-panels-border-width: 0 0 1px 0;
+    --dui-collapse-between-panels-border-style: solid;
+    --dui-collapse-between-panels-border-color: var(--dui-accent-l-4);
+    --dui-collapse-panel-title-padding: var(--dui-spc-2);
+    --dui-collapse-panel-title-cursor: pointer;
+    --dui-collapse-panel-title-min-height: var(--dui-spc-12);
+    --dui-collapse-panel-title-margin: 0;
+    --dui-collapse-panel-body-border-width: 1px;
+    --dui-collapse-panel-title-border-style: solid;
+    --dui-collapse-border-color: var(--dui-accent-l-4);
+    --dui-collapse-panel-title-font: var(--dui-font-normal-600);
+    --dui-collapse-panel-title-items-margin: 0 2px;
+    --dui-collapse-panel-disabled-color: var(--dui-clr-grey);
+    --dui-collapse-panel-disabled-cursor: not-allowed;
+    --dui-collapse-panel-header-font: var(--dui-font-regular);
+    --dui-collapse-panel-content-header-padding: var(--dui-spc-3);
+    --dui-collapse-panel-body-padding: var(--dui-spc-3);
+    --dui-collapse-panel-footer-padding: var(--dui-spc-3);
+    --dui-collapse-panel-footer-border-width: 1px 0 0 0;
+    --dui-collapse-panel-footer-border-style: solid;
+    --dui-collapse-panel-footer-border-color: var(--dui-accent-l-4);
+    --dui-accordion-header-gap: 8px;
+
+    /* ===================== Notifications ===================================== */
+
+    --dui-ntfy-padding: var(--dui-spc-3);
+    --dui-ntfy-margin: 0px;
+    --dui-ntfy-border-radius: 0;
+    --dui-ntfy-border: none;
+    --dui-ntfy-color: var(--dui-clr-white);
+    --dui-ntfy-background: var(--dui-accent-d-4);
+    --dui-ntfy-font: var(--dui-font-regular);
+    --dui-ntfy-box-shadow: var(--dui-box-shadow-1);
+    --dui-ntfy-line-height: var(--dui-spc-8);
+    --dui-ntfy-close-icon-margin: 2px 8px 2px 8px;
+    --dui-ntfy-top-bottom-space: var(--dui-spc-4);
+    --dui-ntfy-left-right-space: var(--dui-spc-4);
+
+    /* ================= Quick search =======================*/
+
+    --dui-quick-search-gap: 10px;
+    --dui-quick-search-background-color: inherit;
+    /*--dui-search-bar-background-color: inherit;*/
+    /*--dui-search-bar-color: inherit;*/
+    --dui-quick-search-padding: 5px;
+    --dui-quick-search-radius: inherit;
+
+    --dui-quick-search-input-border: none;
+    --dui-quick-search-input-background: none;
+    --dui-quick-search-input-font: var(--dui-font-regular);
+    --dui-quick-search-input-focus-outline: none;
+    --dui-quick-search-input-placeholder-opacity: 0.5;
+
+    /* ============================== Menu ===================== */
+
+    --dui-menu-border: 1px solid var(--dui-menu-border-color);
+    --dui-menu-color: var(--dui-color);
+    --dui-menu-background-color: var(--dui-clr-dominant);
+    --dui-menu-radius: 0;
+    --dui-menu-header-height: var(--dui-spc-12);
+    --dui-menu-header-border-width: 0 0 1px 0;
+    --dui-menu-header-border-style: solid;
+    --dui-menu-header-border-color: var(--dui-menu-border-color);
+    --dui-menu-header-padding: 0;
+
+    --dui-menu-subheader-border-width: 0 0 1px 0;
+    --dui-menu-subheader-border-style: dotted;
+    --dui-menu-subheader-border-color: var(--dui-accent-l-3);
+
+    --dui-menu-drop-z-index: var(--dui-z-index-start);
+
+    --dui-menu-header-bar-padding: 5px;
+
+    --dui-menu-search-bar-border-width: 0 0 1px 0;
+    --dui-menu-search-bar-border-style: solid;
+    --dui-menu-search-bar-border-color: var(--dui-menu-border-color);
+    --dui-menu-search-box-padding: 5px;
+
+    --dui-menu-subheader-padding: 5px;
+
+    --dui-menu-item-padding: 5px;
+
+    --dui-menu-item-anchor-gap: 5px;
+    --dui-menu-item-anchor-min-height: 32px;
+    --dui-menu-item-icon-min-height: 32px;
+    --dui-menu-items-list-padding: 0 0 0 0;
+    --dui-menu-items-list-margin: 0;
+
+    --dui-menu-item-hint-padding: 0 0 0 0px;
+    --dui-menu-item-hint-margin: -8px 0 0 0;
+    --dui-menu-item-hint-color: var(--dui-color-1);
+    --dui-menu-item-hint-font: var(--dui-font-regular-sm);
+
+    --dui-menu-item-selected-bg-color: var(--dui-accent-l-3);
+    --dui-menu-item-selected-color: var(--dui-color-5);
+
+    --dui-menu-no-result-color: var(--dui-accent-l-1);
+    --dui-menu-no-result-background: var(--dui-accent-l-5);
+    --dui-menu-no-result-padding: 10px;
+    --dui-menu-no-result-text-align: left;
+
+    --dui-menu-hover-before-content:'';
+
+    --dui-menu-create-missing-color: var(--dui-accent-l-1);
+    --dui-menu-create-missing-background: var(--dui-accent-l-5);
+    --dui-menu-create-missing-focus-background: var(--dui-accent-l-4);
+    --dui-menu-create-missing-padding: 10px;
+    --dui-menu-create-missing-margin: 5px 0 0 0;
+    --dui-menu-create-missing-radius: 3px;
+    --dui-menu-create-missing-text-align: left;
+    --dui-menu-disabled-color: var(--dui-clr-grey);
+    --dui-menu-disabled-cursor: not-allowed;
+
+    /* ============================ Sliders ============================= */
+
+    --dui-slider-gap: 5px;
+    --dui-slider-height: 50px;
+    --dui-slider-cursor: pointer;
+    --dui-slider-margin: var(--dui-spc-4) 0 var(--dui-spc-4) 0;
+    --dui-slider-input-margin: 0;
+    --dui-slider-track-height: 5px;
+    --dui-slider-track-radius: 2px;
+    --dui-slider-track-box-shadow: none;
+    --dui-slider-track-border: none;
+    --dui-slider-thumb-border: none;
+    --dui-slider-thumb-box-shadow: none;
+    --dui-slider-thumb-height: 18px;
+    --dui-slider-thumb-width: 18px;
+    --dui-slider-thumb-radius: 25px;
+    --dui-slider-thumb-margin: -7px 0 0 0;
+    --dui-slider-thumb-transform: translate(-9px, 9px) rotate(-45deg);
+    --dui-slider-thumb-transform-origin: 50% 50%;
+    --dui-slider-thumb-transition: all 300ms cubic-bezier(0.23, 1, 0.32, 1);
+    --dui-slider-thumb-property: height, top;
+    --dui-slider-thumb-value-radius: 50% 50% 50% 0;
+    --dui-slider-thumb-value-width: 30px;
+    --dui-slider-thumb-value-height: 30px;
+    --dui-slider-thumb-value-top: -30px;
+    --dui-slider-thumb-value-margin: 0;
+    --dui-slider-thumb-text-indent: 6px;
+    --dui-slider-thumb-value-padding: 5px 0 0 0;
+    --dui-slider-thumb-value-transform: rotate(45deg);
+    --dui-slider-thumb-value-color: var(--dui-accent-l-5);
+    /* define to use a fixed color */
+    /*--dui-slider-track-background: var(--dui-accent-l-4);*/
+
+    /*--dui-slider-track-focus-background: var(--dui-accent-l-3);*/
+    /*--dui-slider-thumb-background: var(--dui-accent-l-1);*/
+
+    /* =========================== Form fields =========================*/
+    --dui-form-field-padding: 0px;
+    --dui-form-field-marging: 0 0 var(--dui-spc-4) 0;
+    --dui-form-field-wrapper-padding: 5px;
+    --dui-form-field-wrapper-radius: 5px;
+    --dui-form-field-wrapper-gap: 5px;
+    --dui-form-field-border: 1px solid var(--dui-form-field-border-color);
+    --dui-form-field-placeholder-color: var(--dui-color-1);
+    --dui-form-field-invalid-border-color: var(--dui-clr-red);
+
+
+    --dui-form-field-readonly-border: 1px solid var(--dui-form-field-readonly-border-color);
+    --dui-form-field-input-readonly-border: 1px solid var(--dui-clr-transparent);
+    --dui-form-field-readonly-cursor: not-allowed;
+
+    --dui-form-field-disabled-color: var(--dui-clr-grey);
+    --dui-form-field-disabled-color-lighter: var(--dui-clr-grey-l-2);
+    --dui-form-field-disabled-color-darker: var(--dui-clr-grey-d-2);
+    --dui-form-field-disabled-border: 1px solid var(--dui-form-field-disabled-border-color);
+    --dui-form-field-disabled-cursor: not-allowed;
+    --dui-form-field-focused-border: 1px solid var(--dui-accent-l-1);
+
+    --dui-form-field-label-padding: 0 0 0 0;
+    --dui-form-field-label-font: var(--dui-font-regular);
+    --dui-form-field-sub-label-font: var(--dui-font-normal-300);
+    --dui-form-field-label-min-width: var(--dui-spc-28);
+    --dui-form-field-label-max-width: 100%;
+    --dui-form-field-label-min-height: var(--dui-spc-6);
+    --dui-form-field-label-text-align: left;
+    --dui-form-field-addon-margin: 0 0;
+    --dui-form-field-prefix-font: var(--dui-font-normal-600-sm);
+    --dui-form-field-postfix-font: var(--dui-font-normal-600-sm);
+    --dui-form-field-prefix-line-height: 32px;
+    --dui-form-field-postfix-line-height: 32px;
+    --dui-form-field-counter-padding: 0 4px 0 4px;
+    --dui-form-field-counter-line-height: 28px;
+
+    --dui-form-field-input-height: 32px;
+    --dui-form-field-input-border: none;
+    --dui-form-field-input-line-hieght: 31px;
+    --dui-form-field-input-line-font: var(--dui-font-regular);
+    --dui-form-field-input-text-indent: 5px;
+    --dui-form-field-messages-wrapper-padding: 0 5px 0 5px;
+    --dui-form-field-helper-font: var(--dui-font-regular-sm);
+    --dui-form-field-error-font: var(--dui-font-regular-sm);
+    --dui-form-field-error-color: var(--dui-clr-error);
+    --dui-form-field-fixed-messages-height: var(--dui-spc-8);
+
+    --dui-form-field-scroll-width: 1px;
+    --dui-form-field-scroll-margin: 2px;
+    --dui-form-field-scroll-outline: 1px solid var(--dui-accent-l-3);
+    --dui-form-field-scroll-radius: 3px;
+    --dui-form-field-scroll-background: var(--dui-accent-l-3);
+    --dui-form-field-scroll-thumb-background: var(--dui-accent-l-2);
+
+    --dui-form-field-textarea-input-resize: none;
+    --dui-form-field-textarea-input-height: auto;
+    --dui-form-field-textarea-input-padding: 1px 0 0 0;
+    --dui-form-field-textarea-input-mergin: 0 2px 0 0;
+
+    --dui-form-field-checkbox-gap: 4px;
+    --dui-form-field-checkbox-label-padding: 0 0 0 30px;
+    --dui-form-field-checkbox-label-min-height: 25px;
+    --dui-forms-checkbox-margin-top: 27px;
+
+    --dui-form-field-checkbox-outline-width: 1px;
+    --dui-form-field-checkbox-outline-style: solid;
+    --dui-form-field-checkbox-outline-color: var(--dui-accent);
+    --dui-form-field-checkbox-outline-offset: 1px;
+    --dui-form-field-checkbox-square-top: -1px;
+    --dui-form-field-checkbox-square-left: 0px;
+    --dui-form-field-checkbox-square-length: 16px;
+    --dui-form-field-checkbox-square-border-width: 2px;
+    --dui-form-field-checkbox-square-border-style: solid;
+    --dui-form-field-checkbox-square-border-color: var(--dui-accent);
+    --dui-form-field-checkbox-square-radius: 1px;
+    --dui-form-field-checkbox-square-margin: 3px;
+    --dui-form-field-checkbox-square-filled-background: var(--dui-accent);
+    --dui-checkbox-label-line-height: var(--dui-spc-6);
+
+    --dui-form-field-checkbox-check-width: 5px;
+    --dui-form-field-checkbox-check-height: 10px;
+    --dui-form-field-checkbox-check-left: 0px;
+    --dui-form-field-checkbox-check-top: 0px;
+
+    --dui-form-field-checkbox-check-filled-color: var(--dui-clr-white);
+
+    --dui-form-field-checkbox-indeterminate-check-width: 10px;
+    --dui-form-field-checkbox-indeterminate-check-height: 0px;
+    --dui-form-field-checkbox-indeterminate-check-left: 4px;
+    --dui-form-field-checkbox-indeterminate-check-top: 8px;
+    --dui-form-field-checkbox-indeterminate-check-border-width: 1px;
+
+    --dui-form-field-radio-lebel-padding: 26px;
+    --dui-form-field-radio-cursor: pointer;
+
+    --dui-form-field-radio-circle-left: 0px;
+    --dui-form-field-radio-circle-top: 0px;
+    --dui-form-field-radio-circle-maring: 4px 4px 4px 0;
+    --dui-form-field-radio-circle-length: 16px;
+    --dui-form-field-radio-circle-border-width: 2px;
+    --dui-form-field-radio-circle-border-style: solid;
+    --dui-form-field-radio-circle-border-color: var(--dui-accent);
+    --dui-form-field-radio-circle-radius: 50%;
+    --dui-form-field-radio-circle-checked-color: var(--dui-accent);
+    --dui-form-field-radio-circle-checked-transform: scale(0.6);
+    --dui-form-radio-group-gap: 15px;
+
+    --dui-form-field-switch-cursor: pointer;
+    --dui-form-field-switch-track-width: 50px;
+    --dui-form-field-switch-track-height: 26px;
+    --dui-form-field-switch-track-background: var(--dui-accent-l-4);
+    --dui-form-field-switch-checked-track-background: var(--dui-accent);
+    --dui-form-field-switch-track-radius: 99999px;
+    --dui-form-field-switch-track-margin: 0 0 0 0;
+    --dui-form-field-switch-off-label-margin: 0 14px 0 0;
+    --dui-form-field-switch-on-label-margin: 0 0 0 14px;
+    --dui-forms-switch-margin-top: 3px;
+
+    --dui-form-field-switch-thumb-width: 20px;
+    --dui-form-field-switch-thumb-height: 20px;
+    --dui-form-field-switch-thumb-left: 3px;
+    --dui-form-field-switch-thumb-bottom: 3px;
+    --dui-form-field-switch-thumb-radius: 99999px;
+    --dui-form-field-switch-thumb-background: var(--dui-accent);
+    --dui-form-field-switch-checked-thumb-background: var(--dui-accent-l-5);
+    --dui-form-field-switch-thumb-box-shadow: var(--dui-box-shadow-2);
+    --dui-form-field-switch-thumb-checked-transform: translateX(24px);
+    --dui-form-field-switch-focus-transition: all 0.4s ease-in-out;
+    --dui-form-field-switch-focus-background: var(--dui-bg-d-2);
+
+    --dui-form-scrolled-text-area-border: 1px dotted var(--dui-accent-l-5);
+
+
+    /*------------------- set to define default style ------------------- */
+    /*--dui-form-field-direction: column;*/
+    /*--dui-form-field-align:flex-start;*/
+    /*or use `dui-form-label-float-left` and `dui-form-label-float-top`*/
+
+
+    /* =================== Stepper ========================== */
+    --dui-stepper-active-content-padding: var(--dui-spc-4);
+    --dui-stepper-step-prefix-border-radius: var(--dui-spc-9999px);
+    --dui-stepper-gap: var(--dui-spc-4);
+    --dui-step-min-header-height: var(--dui-spc-12);
+    --dui-step-content-padding: 0 var(--dui-spc-4);
+    --dui-step-track-gap: var(--dui-spc-1);
+    --dui-step-tracker-chain-min-height: var(--dui-spc-12);
+    --dui-step-tracker-node-width: var(--dui-spc-6);
+    --dui-step-tracker-node-height: var(--dui-spc-6);
+    --dui-step-tracker-node-border-width: var(--dui-spc-1);
+    --dui-step-tracker-node-border-style: solid;
+    --dui-step-tracker-node-border-radius: 999999px;
+    --dui-step-tracker-node-transition: all 0.2s;
+    --dui-step-tracker-node-icon-inset: -2px auto auto -2px;
+    --dui-stepper-track-tail-node-width: var(--dui-spc-4);
+    --dui-stepper-track-tail-node-height: var(--dui-spc-4);
+    --dui-stepper-track-tail-node-border-radius: 999999px;
+    --dui-step-tracker-line-thinkness: var(--dui-spc-2);
+
+
+    /* ===================== Nav bar ========================= */
+    --dui-nav-bar-gap: var(--dui-spc-2);
+    --dui-nav-bar-padding: 0 var(--dui-spc-4);
+    --dui-nav-bar-addon-margin: 0 var(--dui-spc-2);
+    --dui-nav-bar-title-margin: 0 var(--dui-spc-2);
+    --dui-nav-bar-body-margin: 0 var(--dui-spc-2);
+    --dui-nav-bar-utility-margin: 0 var(--dui-spc-2);
+    --dui-nav-bar-title-indent: var(--dui-spc-0);
+    --dui-nav-bar-body-indent: var(--dui-spc-0);
+
+    --dui-nav-bar-description-font: var(--dui-font-regular-sm);
+    --dui-nav-bar-description-margin: 5px 0 0 0;
+
+    --dui-nav-bar-description-line-height: var(--dui-spc-4);
+
+    /* =================== Layout =========================== */
+    --dui-layout-content-background: var(--dui-clr-dominant-d-1);
+    --dui-layout-content-color: var(--dui-color);
+
+    --dui-layout-header-background: var(--dui-accent);
+    --dui-layout-footer-background: var(--dui-accent);
+
+    --dui-layout-header-color: var(--dui-accent-l-5);
+    --dui-layout-footer-color: var(--dui-accent-l-5);
+
+    --dui-layout-drawer-background: var(--dui-clr-dominant);
+
+    --dui-layout-header-height: var(--dui-spc-16);
+    --dui-layout-footer-height: var(--dui-spc-16);
+    --dui-left-drawer-width-xsm: 100px;
+    --dui-left-drawer-width-sm: 150px;
+    --dui-left-drawer-width-md: 300px;
+    --dui-left-drawer-width-lg: 450px;
+    --dui-left-drawer-width-xlg: 600px;
+
+    --dui-right-drawer-width-xsm: 100px;
+    --dui-right-drawer-width-sm: 150px;
+    --dui-right-drawer-width-md: 300px;
+    --dui-right-drawer-width-lg: 450px;
+    --dui-right-drawer-width-xlg: 600px;
+
+    --dui-drawer-small-screens-width: 90%;
+
+    --dui-layout-transitions-duration: 0.3s;
+
+    --dui-layout-content-padding: 25px;
+
+    --dui-section-box-shadow: var(--dui-box-shadow-1);
+    --dui-overlay-opacify: 30%;
+    --dui-overlay-background: var(--dui-clr-black);
+    --dui-overlay-z-index: var(--dui-z-index-l-1);
+
+
+    /* ======================= Carousel ========================== */
+    --dui-carousel-indicators-bottom: 10px;
+    --dui-carousel-indicators-z-inex: 10;
+    --dui-carousel-indicators-padding: 0;
+    --dui-carousel-indicator-size: 10px;
+    --dui-carousel-indicator-active-size: 12px;
+    --dui-carousel-indicator-margin: 3px;
+    --dui-carousel-indicator-active-margin: 2px;
+    --dui-carousel-indicator-active-background: var(--dui-clr-white);
+    --dui-carousel-indicator-border: 1px solid var(--dui-clr-white);
+    --dui-carousel-indicator-border-radius: 10px;
+    --dui-carousel-transition-duration: 0.6s;
+    --dui-carousel-slide-caption-color: var(--dui-clr-white);
+    --dui-carousel-slide-caption-padding: 20px 0 20px 0;
+    --dui-carousel-slide-caption-text-shadow: 0 1px 2px rgba(0, 0, 0, .6);
+
+    /* ======================= dialog ========================== */
+
+    --dui-dialog-box-shadow: var(--dui-box-shadow-10);
+    --dui-dialog-border-radius: 3px;
+    --dui-dialog-title-padding: var(--dui-spc-3);
+    --dui-dialog-title-cursor: pointer;
+    --dui-dialog-title-margin: 0;
+    --dui-dialog-title-border-width: 0 0 1px 0;
+    --dui-dialog-title-border-style: solid;
+    --dui-dialog-title-border-color: var(--dui-dialog-header-border-color);
+    --dui-dialog-title-font: var(--dui-font-normal-600);
+    --dui-dialog-title-items-margin: 0 2px;
+    --dui-dialog-header-font: var(--dui-font-regular);
+    --dui-dialog-body-padding: var(--dui-spc-3);
+    --dui-dialog-footer-padding: var(--dui-spc-3);
+    --dui-dialog-footer-border-width: 0 0 0 0;
+    --dui-dialog-footer-border-style: solid;
+    --dui-dialog-footer-border-color: var(--dui-accent-l-4);
+    --dui-dialog-header-gap: 8px;
+
+    --dui-dialog-nave-height: var(--dui-spc-8);
+
+    --dui-dialog-default-width: 50%;
+    --dui-dialog-default-height: 25%;
+    --dui-dialog-default-top: 15%;
+    --dui-dialog-default-top-translate: calc(-1 * var(--dui-dialog-default-top));
+
+    --dui-dialog-xsamll-width: 15%;
+    --dui-dialog-xsmall-height: 15%;
+
+    --dui-dialog-samll-width: 25%;
+    --dui-dialog-small-height: 25%;
+
+    --dui-dialog-medium-width: 35%;
+    --dui-dialog-medium-height: 50%;
+
+    --dui-dialog-large-width: 75%;
+    --dui-dialog-large-height: 75%;
+
+    --dui-dialog-xlarge-width: 95%;
+    --dui-dialog-xlarge-height: 95%;
+
+
+    /* ============== Empty state ======================== */
+    --dui-empty-state-color: var(--dui-accent-l-2);
+    --dui-empty-state-title-margin: var(--dui-spc-4) 0 var(--dui-spc-4) 0;
+    --dui-empty-state-description-margin: var(--dui-spc-2) 0 var(--dui-spc-2) 0;
+    --dui-empty-state-icon-size: var(--dui-spc-32);
+
+    /* ===================== Loaders =================== */
+    --dui-laoder-color: var(--dui-clr-grey-d-2);
+
+    /* ==================== Popover ==================== */
+    --dui-popover-arrow-size: var(--dui-spc-2_5);
+    --dui-tooltip-arrow-size: var(--dui-spc-2);
+    --dui-popover-position-offset: var(--dui-spc-2_5);
+    --dui-toolip-padding: var(--dui-spc-2);
+    --dui-tooltip-default-background: var(--dui-clr-black);
+    --dui-tooltip-default-color: var(--dui-clr-white);
+
+    /* ================ spin ====================== */
+    --dui-spin-vertical-default-height: var(--dui-spc-16);
+    --dui-spin-disabled-arrow-opacity: 0.25;
+    --dui-spin-transition-duration: 200ms;
+    --dui-spin-transition-timing-function: linear;
+
+    /* ================ split layout ====================== */
+    --dui-split-layout-splitter-size: 10px;
+    --dui-split-layout-splitter-handle-size: 20px;
+    --dui-split-layout-handle-border-size: var(--dui-spc-px);
+    --dui-split-layout-handle-border-style: dotted;
+    /*--dui-split-layout-handle-border-color: var(--dui-accent);*/
+    /*--dui-split-layout-splitter-background: var(--dui-accent);*/
+    /*--dui-split-layout-handle-background: var(--dui-accent-d-4);*/
+
+    /* ===================== File upload ==================== */
+    --dui-file-upload-border: 2px dashed var(--dui-accent-l-4);
+    --dui-file-upload-hovered-border: 2px dashed var(--dui-accent-l-2);
+    --dui-file-upload-padding: var(--dui-spc-4);
+    --dui-file-upload-cursor: pointer;
+    --dui-file-upload-decoration-order: 10;
+    --dui-file-upload-preview-order: 20;
+
+    /* ===================== Grid ============================= */
+
+    --dui-row-default-gap: var(--dui-spc-2);
+    --dui-row-default-margin: 0 0 var(--dui-spc-2) 0;
+
+    /* ====================== hr ========================= */
+    --dui-hr-margin: var(--dui-spc-4) 0 var(--dui-spc-4) 0;
+    --dui-hr-border-width: 1px 0 0 0;
+    --dui-hr-border-style: solid;
+    --dui-hr-border-color: var(--dui-accent-l-5);
+
+    /* ============================ Calendar ================== */
+    --dui-calendar-min-width: var(--dui-spc-80);
+
+    --dui-calendar-header-padding: var(--dui-spc-4);
+    --dui-calendar-header-border-width: 0 0 var(--dui-spc-2) 0;
+    --dui-calendar-header-border-style: solid;
+    --dui-calendar-header-date-font-size: var(--dui-spc-14);
+    --dui-calendar-header-date-font-weight: 900;
+    --dui-calendar-header-date-line-height: var(--dui-spc-16);
+    --dui-calendar-header-date-min-width: var(--dui-spc-20);
+    --dui-calendar-header-date-text-align: right;
+    --dui-calendar-header-day-font-size: var(--dui-spc-8);
+    --dui-calendar-header-day-font-weight: 600;
+    --dui-calendar-header-day-line-height: var(--dui-spc-12);
+    --dui-calendar-header-month-year-font-size: var(--dui-spc-8);
+    --dui-calendar-header-month-year-text-indent: var(--dui-spc-1);
+
+    --dui-calendar-body-padding: var(--dui-spc-2) var(--dui-spc-4);
+    --dui-calendar-footer-padding: 0 var(--dui-spc-4) var(--dui-spc-2) var(--dui-spc-4);
+
+    --dui-calendar-month-selector-padding: 0 var(--dui-spc-11) 0 var(--dui-spc-11);
+    --dui-calendar-months-row-min-height: var(--dui-spc-8);
+
+    --dui-calendar-days-header-border-width: 0 0 1px 0;
+    --dui-calendar-days-header-border-style: solid;
+    --dui-calendar-day-header-font: var(--dui-font-normal-600);
+    --dui-calendar-day-header-min-width: var(--dui-spc-8);
+    --dui-calendar-day-header-min-height: var(--dui-spc-8);
+    --dui-calendar-day-header-padding: 0 0 var(--dui-spc-2) 0;
+    --dui-calendar-day-padding: var(--dui-spc-1);
+    --dui-calender-day-border-width: 0 0 0 0;
+    --dui-calender-day-border-style: solid;
+    --dui-calender-week-day-header-border-width: 0 0 0 0;
+    --dui-calender-week-day-header-border-style: solid;
+    --dui-calender-month-days-row-border-width: 0 0 0 0;
+    --dui-calender-month-days-row-border-style: solid;
+    --dui-calendar-day-header-name-padding: var(--dui-spc-1);
+    --dui-calender-day-number-padding: var(--dui-spc-1);
+    --dui-calender-day-number-min-width: var(--dui-spc-8);
+    --dui-calender-day-number-min-height: var(--dui-spc-8);
+    --dui-calender-day-number-border-radius: 999999px;
+    --dui-calender-day-number-line-height: 23px;
+    --dui-calendar-out-of-range-day-color: var(--dui-color-2);
+    --dui-calendar-day-in-range-font: var(--dui-font-normal-600);
+    --dui-calendar-today-date-border-width: 1px;
+    --dui-calendar-today-date-border-style: solid;
+
+    --dui-calendar-selected-date-hover-color: var(--dui-color-5);
+
+    --dui-calendar-selector-current-year-font: var(--dui-font-normal-600);
+    --dui-calendar-selector-current-month-font: var(--dui-font-normal-600);
+    --dui-calendar-selector-current-year-line-height: var(--dui-spc-8);
+    --dui-calendar-selector-current-month-line-height: var(--dui-spc-8);
+    --dui-calendar-selectors-padding: var(--dui-spc-2) var(--dui-spc-4);
+    --dui-calendar-month-year-selector-border-radius: 3px;
+    --dui-calender-years-spin-min-height: 106px;
+    --dui-calendar-border: 1px solid var(--dui-calendar-border-color);
+
+    /* ============================ Time picker ================== */
+    --dui-timepicker-border-width: 1px;
+    --dui-timepicker-border-style: solid;
+    --dui-timepicker-header-padding:var(--dui-spc-4);
+    --dui-timepicker-header-border-width: 0 0 var(--dui-spc-2) 0;
+    --dui-timepicker-header-border-style: solid;
+    --dui-timepicker-header-day-font-size: var(--dui-spc-8);
+    --dui-timepicker-header-day-line-height: var(--dui-spc-12);
+    --dui-timepicker-header-day-font-weight: 600;
+    --dui-timepicker-footer-padding: 0 var(--dui-spc-2) var(--dui-spc-2) var(--dui-spc-2);
+
+    /* ======================= data table ====================== */
+    --dui-datattable-font-size: var(--dui-spc-3_5);
+    --dui-datattable-cell-padding: var(--dui-spc-1);
+    --dui-datattable-cell-line-height: var(--dui-spc-2);
+    --dui-datattable-navbar-padding: 0;
+    --dui-datattable-navbar-margin: var(--dui-spc-2) 0 var(--dui-spc-2) 0;
+}
+
+.dui.dui-primary {
+    --dui-bg-l-5: var(--dui-clr-primary-l-5);
+    --dui-bg-l-4: var(--dui-clr-primary-l-4);
+    --dui-bg-l-3: var(--dui-clr-primary-l-3);
+    --dui-bg-l-2: var(--dui-clr-primary-l-2);
+    --dui-bg-l-1: var(--dui-clr-primary-l-1);
+    --dui-bg: var(--dui-clr-primary);
+    --dui-bg-d-1: var(--dui-clr-primary-d-1);
+    --dui-bg-d-2: var(--dui-clr-primary-d-2);
+    --dui-bg-d-3: var(--dui-clr-primary-d-3);
+    --dui-bg-d-4: var(--dui-clr-primary-d-4);
+    --dui-text-color: var(--dui-color);
+}
+
+.dui.dui-primary:not(.dui-ignore-bg) {
+    background-color: var(--dui-clr-primary);
+}
+
+.dui.dui-primary:not(.dui-ignore-fg) {
+    color: var(--dui-primary-fg-clr);
+}
+
+.dui.dui-secondary {
+    --dui-bg-l-5: var(--dui-clr-secondary-l-5);
+    --dui-bg-l-4: var(--dui-clr-secondary-l-4);
+    --dui-bg-l-3: var(--dui-clr-secondary-l-3);
+    --dui-bg-l-2: var(--dui-clr-secondary-l-2);
+    --dui-bg-l-1: var(--dui-clr-secondary-l-1);
+    --dui-bg: var(--dui-clr-secondary);
+    --dui-bg-d-1: var(--dui-clr-secondary-d-1);
+    --dui-bg-d-2: var(--dui-clr-secondary-d-2);
+    --dui-bg-d-3: var(--dui-clr-secondary-d-3);
+    --dui-bg-d-4: var(--dui-clr-secondary-d-4);
+    --dui-text-color: var(--dui-color);
+}
+
+.dui.dui-secondary:not(.dui-ignore-bg) {
+    background-color: var(--dui-clr-secondary);
+}
+
+.dui.dui-secondary:not(.dui-ignore-fg) {
+    color: var(--dui-secondary-fg-clr);
+}
+
+.dui.dui-dominant {
+    --dui-bg-l-5: var(--dui-clr-dominant-l-5);
+    --dui-bg-l-4: var(--dui-clr-dominant-l-4);
+    --dui-bg-l-3: var(--dui-clr-dominant-l-3);
+    --dui-bg-l-2: var(--dui-clr-dominant-l-2);
+    --dui-bg-l-1: var(--dui-clr-dominant-l-1);
+    --dui-bg: var(--dui-clr-dominant);
+    --dui-bg-d-1: var(--dui-clr-dominant-d-1);
+    --dui-bg-d-2: var(--dui-clr-dominant-d-2);
+    --dui-bg-d-3: var(--dui-clr-dominant-d-3);
+    --dui-bg-d-4: var(--dui-clr-dominant-d-4);
+    --dui-text-color: var(--dui-color-5);
+}
+
+.dui.dui-dominant:not(.dui-ignore-bg) {
+    background-color: var(--dui-clr-dominant);
+}
+
+.dui.dui-dominant:not(.dui-ignore-fg) {
+    color: var(--dui-dominant-fg-clr);
+}
+
+.dui.dui-accent {
+    --dui-bg-l-5: var(--dui-accent-l-5);
+    --dui-bg-l-4: var(--dui-accent-l-4);
+    --dui-bg-l-3: var(--dui-accent-l-3);
+    --dui-bg-l-2: var(--dui-accent-l-2);
+    --dui-bg-l-1: var(--dui-accent-l-1);
+    --dui-bg: var(--dui-clr-accent);
+    --dui-bg-d-1: var(--dui-accent-d-1);
+    --dui-bg-d-2: var(--dui-accent-d-2);
+    --dui-bg-d-3: var(--dui-accent-d-3);
+    --dui-bg-d-4: var(--dui-accent-d-4);
+    --dui-text-color: var(--dui-color);
+}
+
+.dui.dui-accent:not(.dui-ignore-bg) {
+    background-color: var(--dui-accent);
+}
+
+.dui.dui-accent:not(.dui-ignore-fg) {
+    color: var(--dui-accent-fg-clr);
+}
+
+.dui.dui-success {
+    --dui-bg-l-5: var(--dui-clr-success-l-5);
+    --dui-bg-l-4: var(--dui-clr-success-l-4);
+    --dui-bg-l-3: var(--dui-clr-success-l-3);
+    --dui-bg-l-2: var(--dui-clr-success-l-2);
+    --dui-bg-l-1: var(--dui-clr-success-l-1);
+    --dui-bg: var(--dui-clr-success);
+    --dui-bg-d-1: var(--dui-clr-success-d-1);
+    --dui-bg-d-2: var(--dui-clr-success-d-2);
+    --dui-bg-d-3: var(--dui-clr-success-d-3);
+    --dui-bg-d-4: var(--dui-clr-success-d-4);
+    --dui-text-color: var(--dui-clr-white);
+}
+
+.dui.dui-success:not(.dui-ignore-bg) {
+    background-color: var(--dui-clr-success);
+}
+
+.dui.dui-success:not(.dui-ignore-fg) {
+    color: var(--dui-success-fg-clr);
+}
+
+.dui.dui-info {
+    --dui-bg-l-5: var(--dui-clr-info-l-5);
+    --dui-bg-l-4: var(--dui-clr-info-l-4);
+    --dui-bg-l-3: var(--dui-clr-info-l-3);
+    --dui-bg-l-2: var(--dui-clr-info-l-2);
+    --dui-bg-l-1: var(--dui-clr-info-l-1);
+    --dui-bg: var(--dui-clr-info);
+    --dui-bg-d-1: var(--dui-clr-info-d-1);
+    --dui-bg-d-2: var(--dui-clr-info-d-2);
+    --dui-bg-d-3: var(--dui-clr-info-d-3);
+    --dui-bg-d-4: var(--dui-clr-info-d-4);
+    --dui-text-color: var(--dui-clr-white);
+}
+
+.dui.dui-info:not(.dui-ignore-bg) {
+    background-color: var(--dui-clr-info);
+}
+
+.dui.dui-info:not(.dui-ignore-fg) {
+    color: var(--dui-info-fg-clr);
+}
+
+.dui.dui-warning {
+    --dui-bg-l-5: var(--dui-clr-warning-l-5);
+    --dui-bg-l-4: var(--dui-clr-warning-l-4);
+    --dui-bg-l-3: var(--dui-clr-warning-l-3);
+    --dui-bg-l-2: var(--dui-clr-warning-l-2);
+    --dui-bg-l-1: var(--dui-clr-warning-l-1);
+    --dui-bg: var(--dui-clr-warning);
+    --dui-bg-d-1: var(--dui-clr-warning-d-1);
+    --dui-bg-d-2: var(--dui-clr-warning-d-2);
+    --dui-bg-d-3: var(--dui-clr-warning-d-3);
+    --dui-bg-d-4: var(--dui-clr-warning-d-4);
+    --dui-text-color: var(--dui-clr-white);
+}
+
+.dui.dui-warning:not(.dui-ignore-bg) {
+    background-color: var(--dui-clr-warning);
+}
+
+.dui.dui-warning:not(.dui-ignore-fg) {
+    color: var(--dui-warning-fg-clr);
+}
+
+.dui.dui-error {
+    --dui-bg-l-5: var(--dui-clr-error-l-5);
+    --dui-bg-l-4: var(--dui-clr-error-l-4);
+    --dui-bg-l-3: var(--dui-clr-error-l-3);
+    --dui-bg-l-2: var(--dui-clr-error-l-2);
+    --dui-bg-l-1: var(--dui-clr-error-l-1);
+    --dui-bg: var(--dui-clr-error);
+    --dui-bg-d-1: var(--dui-clr-error-d-1);
+    --dui-bg-d-2: var(--dui-clr-error-d-2);
+    --dui-bg-d-3: var(--dui-clr-error-d-3);
+    --dui-bg-d-4: var(--dui-clr-error-d-4);
+    --dui-text-color: var(--dui-clr-white);
+}
+
+.dui.dui-error:not(.dui-ignore-bg) {
+    background-color: var(--dui-clr-error);
+}
+
+.dui.dui-error:not(.dui-ignore-fg) {
+    color: var(--dui-error-fg-clr);
+}
+
+.dui.dui-red {
+    --dui-bg-l-5: var(--dui-clr-red-l-5);
+    --dui-bg-l-4: var(--dui-clr-red-l-4);
+    --dui-bg-l-3: var(--dui-clr-red-l-3);
+    --dui-bg-l-2: var(--dui-clr-red-l-2);
+    --dui-bg-l-1: var(--dui-clr-red-l-1);
+    --dui-bg: var(--dui-clr-red);
+    --dui-bg-d-1: var(--dui-clr-red-d-1);
+    --dui-bg-d-2: var(--dui-clr-red-d-2);
+    --dui-bg-d-3: var(--dui-clr-red-d-3);
+    --dui-bg-d-4: var(--dui-clr-red-d-4);
+    --dui-text-color: var(--dui-clr-white);
+}
+
+.dui.dui-red:not(.dui-ignore-bg) {
+    background-color: var(--dui-clr-red);
+}
+
+.dui.dui-red:not(.dui-ignore-fg) {
+    color: var(--dui-red-fg-clr);
+}
+
+.dui.dui-pink {
+    --dui-bg-l-5: var(--dui-clr-pink-l-5);
+    --dui-bg-l-4: var(--dui-clr-pink-l-4);
+    --dui-bg-l-3: var(--dui-clr-pink-l-3);
+    --dui-bg-l-2: var(--dui-clr-pink-l-2);
+    --dui-bg-l-1: var(--dui-clr-pink-l-1);
+    --dui-bg: var(--dui-clr-pink);
+    --dui-bg-d-1: var(--dui-clr-pink-d-1);
+    --dui-bg-d-2: var(--dui-clr-pink-d-2);
+    --dui-bg-d-3: var(--dui-clr-pink-d-3);
+    --dui-bg-d-4: var(--dui-clr-pink-d-4);
+    --dui-text-color: var(--dui-clr-white);
+}
+
+.dui.dui-pink:not(.dui-ignore-bg) {
+    background-color: var(--dui-clr-pink);
+}
+
+.dui.dui-pink:not(.dui-ignore-fg) {
+    color: var(--dui-pink-fg-clr);
+}
+
+.dui.dui-purple {
+    --dui-bg-l-5: var(--dui-clr-purple-l-5);
+    --dui-bg-l-4: var(--dui-clr-purple-l-4);
+    --dui-bg-l-3: var(--dui-clr-purple-l-3);
+    --dui-bg-l-2: var(--dui-clr-purple-l-2);
+    --dui-bg-l-1: var(--dui-clr-purple-l-1);
+    --dui-bg: var(--dui-clr-purple);
+    --dui-bg-d-1: var(--dui-clr-purple-d-1);
+    --dui-bg-d-2: var(--dui-clr-purple-d-2);
+    --dui-bg-d-3: var(--dui-clr-purple-d-3);
+    --dui-bg-d-4: var(--dui-clr-purple-d-4);
+    --dui-text-color: var(--dui-clr-white);
+}
+
+.dui.dui-purple:not(.dui-ignore-bg) {
+    background-color: var(--dui-clr-purple);
+}
+
+.dui.dui-purple:not(.dui-ignore-fg) {
+    color: var(--dui-purple-fg-clr);
+}
+
+.dui.dui-deep-purple {
+    --dui-bg-l-5: var(--dui-clr-deep-purple-l-5);
+    --dui-bg-l-4: var(--dui-clr-deep-purple-l-4);
+    --dui-bg-l-3: var(--dui-clr-deep-purple-l-3);
+    --dui-bg-l-2: var(--dui-clr-deep-purple-l-2);
+    --dui-bg-l-1: var(--dui-clr-deep-purple-l-1);
+    --dui-bg: var(--dui-clr-deep-purple);
+    --dui-bg-d-1: var(--dui-clr-deep-purple-d-1);
+    --dui-bg-d-2: var(--dui-clr-deep-purple-d-2);
+    --dui-bg-d-3: var(--dui-clr-deep-purple-d-3);
+    --dui-bg-d-4: var(--dui-clr-deep-purple-d-4);
+    --dui-text-color: var(--dui-clr-white);
+}
+
+.dui.dui-deep-purple:not(.dui-ignore-bg) {
+    background-color: var(--dui-clr-deep-purple);
+}
+
+.dui.dui-deep-purple:not(.dui-ignore-fg) {
+    color: var(--dui-deep-purple-fg-clr);
+}
+
+.dui.dui-indigo {
+    --dui-bg-l-5: var(--dui-clr-indigo-l-5);
+    --dui-bg-l-4: var(--dui-clr-indigo-l-4);
+    --dui-bg-l-3: var(--dui-clr-indigo-l-3);
+    --dui-bg-l-2: var(--dui-clr-indigo-l-2);
+    --dui-bg-l-1: var(--dui-clr-indigo-l-1);
+    --dui-bg: var(--dui-clr-indigo);
+    --dui-bg-d-1: var(--dui-clr-indigo-d-1);
+    --dui-bg-d-2: var(--dui-clr-indigo-d-2);
+    --dui-bg-d-3: var(--dui-clr-indigo-d-3);
+    --dui-bg-d-4: var(--dui-clr-indigo-d-4);
+    --dui-text-color: var(--dui-clr-white);
+}
+
+.dui.dui-indigo:not(.dui-ignore-bg) {
+    background-color: var(--dui-clr-indigo);
+}
+
+.dui.dui-indigo:not(.dui-ignore-fg) {
+    color: var(--dui-indigo-fg-clr);
+}
+
+.dui.dui-blue {
+    --dui-bg-l-5: var(--dui-clr-blue-l-5);
+    --dui-bg-l-4: var(--dui-clr-blue-l-4);
+    --dui-bg-l-3: var(--dui-clr-blue-l-3);
+    --dui-bg-l-2: var(--dui-clr-blue-l-2);
+    --dui-bg-l-1: var(--dui-clr-blue-l-1);
+    --dui-bg: var(--dui-clr-blue);
+    --dui-bg-d-1: var(--dui-clr-blue-d-1);
+    --dui-bg-d-2: var(--dui-clr-blue-d-2);
+    --dui-bg-d-3: var(--dui-clr-blue-d-3);
+    --dui-bg-d-4: var(--dui-clr-blue-d-4);
+    --dui-text-color: var(--dui-clr-white);
+}
+
+.dui.dui-blue:not(.dui-ignore-bg) {
+    background-color: var(--dui-clr-blue);
+}
+
+.dui.dui-blue:not(.dui-ignore-fg) {
+    color: var(--dui-blue-fg-clr);
+}
+
+.dui.dui-light-blue {
+    --dui-bg-l-5: var(--dui-clr-light-blue-l-5);
+    --dui-bg-l-4: var(--dui-clr-light-blue-l-4);
+    --dui-bg-l-3: var(--dui-clr-light-blue-l-3);
+    --dui-bg-l-2: var(--dui-clr-light-blue-l-2);
+    --dui-bg-l-1: var(--dui-clr-light-blue-l-1);
+    --dui-bg: var(--dui-clr-light-blue);
+    --dui-bg-d-1: var(--dui-clr-light-blue-d-1);
+    --dui-bg-d-2: var(--dui-clr-light-blue-d-2);
+    --dui-bg-d-3: var(--dui-clr-light-blue-d-3);
+    --dui-bg-d-4: var(--dui-clr-light-blue-d-4);
+    --dui-text-color: var(--dui-clr-white);
+}
+
+.dui.dui-light-blue:not(.dui-ignore-bg) {
+    background-color: var(--dui-clr-light-blue);
+}
+
+.dui.dui-light-blue:not(.dui-ignore-fg) {
+    color: var(--dui-light-blue-fg-clr);
+}
+
+.dui.dui-cyan {
+    --dui-bg-l-5: var(--dui-clr-cyan-l-5);
+    --dui-bg-l-4: var(--dui-clr-cyan-l-4);
+    --dui-bg-l-3: var(--dui-clr-cyan-l-3);
+    --dui-bg-l-2: var(--dui-clr-cyan-l-2);
+    --dui-bg-l-1: var(--dui-clr-cyan-l-1);
+    --dui-bg: var(--dui-clr-cyan);
+    --dui-bg-d-1: var(--dui-clr-cyan-d-1);
+    --dui-bg-d-2: var(--dui-clr-cyan-d-2);
+    --dui-bg-d-3: var(--dui-clr-cyan-d-3);
+    --dui-bg-d-4: var(--dui-clr-cyan-d-4);
+    --dui-text-color: var(--dui-clr-white);
+}
+
+.dui.dui-cyan:not(.dui-ignore-bg) {
+    background-color: var(--dui-clr-cyan);
+}
+
+.dui.dui-cyan:not(.dui-ignore-fg) {
+    color: var(--dui-cyan-fg-clr);
+}
+
+.dui.dui-teal {
+    --dui-bg-l-5: var(--dui-clr-teal-l-5);
+    --dui-bg-l-4: var(--dui-clr-teal-l-4);
+    --dui-bg-l-3: var(--dui-clr-teal-l-3);
+    --dui-bg-l-2: var(--dui-clr-teal-l-2);
+    --dui-bg-l-1: var(--dui-clr-teal-l-1);
+    --dui-bg: var(--dui-clr-teal);
+    --dui-bg-d-1: var(--dui-clr-teal-d-1);
+    --dui-bg-d-2: var(--dui-clr-teal-d-2);
+    --dui-bg-d-3: var(--dui-clr-teal-d-3);
+    --dui-bg-d-4: var(--dui-clr-teal-d-4);
+    --dui-text-color: var(--dui-clr-white);
+}
+
+.dui.dui-teal:not(.dui-ignore-bg) {
+    background-color: var(--dui-clr-teal);
+}
+
+.dui.dui-teal:not(.dui-ignore-fg) {
+    color: var(--dui-teal-fg-clr);
+}
+
+.dui.dui-green {
+    --dui-bg-l-5: var(--dui-clr-green-l-5);
+    --dui-bg-l-4: var(--dui-clr-green-l-4);
+    --dui-bg-l-3: var(--dui-clr-green-l-3);
+    --dui-bg-l-2: var(--dui-clr-green-l-2);
+    --dui-bg-l-1: var(--dui-clr-green-l-1);
+    --dui-bg: var(--dui-clr-green);
+    --dui-bg-d-1: var(--dui-clr-green-d-1);
+    --dui-bg-d-2: var(--dui-clr-green-d-2);
+    --dui-bg-d-3: var(--dui-clr-green-d-3);
+    --dui-bg-d-4: var(--dui-clr-green-d-4);
+    --dui-text-color: var(--dui-clr-white);
+}
+
+.dui.dui-green:not(.dui-ignore-bg) {
+    background-color: var(--dui-clr-green);
+}
+
+.dui.dui-green:not(.dui-ignore-fg) {
+    color: var(--dui-green-fg-clr);
+}
+
+.dui.dui-light-green {
+    --dui-bg-l-5: var(--dui-clr-light-green-l-5);
+    --dui-bg-l-4: var(--dui-clr-light-green-l-4);
+    --dui-bg-l-3: var(--dui-clr-light-green-l-3);
+    --dui-bg-l-2: var(--dui-clr-light-green-l-2);
+    --dui-bg-l-1: var(--dui-clr-light-green-l-1);
+    --dui-bg: var(--dui-clr-light-green);
+    --dui-bg-d-1: var(--dui-clr-light-green-d-1);
+    --dui-bg-d-2: var(--dui-clr-light-green-d-2);
+    --dui-bg-d-3: var(--dui-clr-light-green-d-3);
+    --dui-bg-d-4: var(--dui-clr-light-green-d-4);
+    --dui-text-color: var(--dui-clr-white);
+}
+
+.dui.dui-light-green:not(.dui-ignore-bg) {
+    background-color: var(--dui-clr-light-green);
+}
+
+.dui.dui-light-green:not(.dui-ignore-fg) {
+    color: var(--dui-light-green-fg-clr);
+}
+
+.dui.dui-lime {
+    --dui-bg-l-5: var(--dui-clr-lime-l-5);
+    --dui-bg-l-4: var(--dui-clr-lime-l-4);
+    --dui-bg-l-3: var(--dui-clr-lime-l-3);
+    --dui-bg-l-2: var(--dui-clr-lime-l-2);
+    --dui-bg-l-1: var(--dui-clr-lime-l-1);
+    --dui-bg: var(--dui-clr-lime);
+    --dui-bg-d-1: var(--dui-clr-lime-d-1);
+    --dui-bg-d-2: var(--dui-clr-lime-d-2);
+    --dui-bg-d-3: var(--dui-clr-lime-d-3);
+    --dui-bg-d-4: var(--dui-clr-lime-d-4);
+    --dui-text-color: var(--dui-clr-white);
+}
+
+.dui.dui-lime:not(.dui-ignore-bg) {
+    background-color: var(--dui-clr-lime);
+}
+
+.dui.dui-lime:not(.dui-ignore-fg) {
+    color: var(--dui-lime-fg-clr);
+}
+
+.dui.dui-yellow {
+    --dui-bg-l-5: var(--dui-clr-yellow-l-5);
+    --dui-bg-l-4: var(--dui-clr-yellow-l-4);
+    --dui-bg-l-3: var(--dui-clr-yellow-l-3);
+    --dui-bg-l-2: var(--dui-clr-yellow-l-2);
+    --dui-bg-l-1: var(--dui-clr-yellow-l-1);
+    --dui-bg: var(--dui-clr-yellow);
+    --dui-bg-d-1: var(--dui-clr-yellow-d-1);
+    --dui-bg-d-2: var(--dui-clr-yellow-d-2);
+    --dui-bg-d-3: var(--dui-clr-yellow-d-3);
+    --dui-bg-d-4: var(--dui-clr-yellow-d-4);
+    --dui-text-color: var(--dui-color);
+}
+
+.dui.dui-yellow:not(.dui-ignore-bg) {
+    background-color: var(--dui-clr-yellow);
+}
+
+.dui.dui-yellow:not(.dui-ignore-fg) {
+    color: var(--dui-yellow-fg-clr);
+}
+
+.dui.dui-amber {
+    --dui-bg-l-5: var(--dui-clr-amber-l-5);
+    --dui-bg-l-4: var(--dui-clr-amber-l-4);
+    --dui-bg-l-3: var(--dui-clr-amber-l-3);
+    --dui-bg-l-2: var(--dui-clr-amber-l-2);
+    --dui-bg-l-1: var(--dui-clr-amber-l-1);
+    --dui-bg: var(--dui-clr-amber);
+    --dui-bg-d-1: var(--dui-clr-amber-d-1);
+    --dui-bg-d-2: var(--dui-clr-amber-d-2);
+    --dui-bg-d-3: var(--dui-clr-amber-d-3);
+    --dui-bg-d-4: var(--dui-clr-amber-d-4);
+    --dui-text-color: var(--dui-clr-white);
+}
+
+.dui.dui-amber:not(.dui-ignore-bg) {
+    background-color: var(--dui-clr-amber);
+}
+
+.dui.dui-amber:not(.dui-ignore-fg) {
+    color: var(--dui-amber-fg-clr);
+}
+
+.dui.dui-orange {
+    --dui-bg-l-5: var(--dui-clr-orange-l-5);
+    --dui-bg-l-4: var(--dui-clr-orange-l-4);
+    --dui-bg-l-3: var(--dui-clr-orange-l-3);
+    --dui-bg-l-2: var(--dui-clr-orange-l-2);
+    --dui-bg-l-1: var(--dui-clr-orange-l-1);
+    --dui-bg: var(--dui-clr-orange);
+    --dui-bg-d-1: var(--dui-clr-orange-d-1);
+    --dui-bg-d-2: var(--dui-clr-orange-d-2);
+    --dui-bg-d-3: var(--dui-clr-orange-d-3);
+    --dui-bg-d-4: var(--dui-clr-orange-d-4);
+    --dui-text-color: var(--dui-clr-white);
+}
+
+.dui.dui-orange:not(.dui-ignore-bg) {
+    background-color: var(--dui-clr-orange);
+}
+
+.dui.dui-orange:not(.dui-ignore-fg) {
+    color: var(--dui-orange-fg-clr);
+}
+
+.dui.dui-deep-orange {
+    --dui-bg-l-5: var(--dui-clr-deep-orange-l-5);
+    --dui-bg-l-4: var(--dui-clr-deep-orange-l-4);
+    --dui-bg-l-3: var(--dui-clr-deep-orange-l-3);
+    --dui-bg-l-2: var(--dui-clr-deep-orange-l-2);
+    --dui-bg-l-1: var(--dui-clr-deep-orange-l-1);
+    --dui-bg: var(--dui-clr-deep-orange);
+    --dui-bg-d-1: var(--dui-clr-deep-orange-d-1);
+    --dui-bg-d-2: var(--dui-clr-deep-orange-d-2);
+    --dui-bg-d-3: var(--dui-clr-deep-orange-d-3);
+    --dui-bg-d-4: var(--dui-clr-deep-orange-d-4);
+    --dui-text-color: var(--dui-clr-white);
+}
+
+.dui.dui-deep-orange:not(.dui-ignore-bg) {
+    background-color: var(--dui-clr-deep-orange);
+}
+
+.dui.dui-deep-orange:not(.dui-ignore-fg) {
+    color: var(--dui-deep-orange-fg-clr);
+}
+
+.dui.dui-brown {
+    --dui-bg-l-5: var(--dui-clr-brown-l-5);
+    --dui-bg-l-4: var(--dui-clr-brown-l-4);
+    --dui-bg-l-3: var(--dui-clr-brown-l-3);
+    --dui-bg-l-2: var(--dui-clr-brown-l-2);
+    --dui-bg-l-1: var(--dui-clr-brown-l-1);
+    --dui-bg: var(--dui-clr-brown);
+    --dui-bg-d-1: var(--dui-clr-brown-d-1);
+    --dui-bg-d-2: var(--dui-clr-brown-d-2);
+    --dui-bg-d-3: var(--dui-clr-brown-d-3);
+    --dui-bg-d-4: var(--dui-clr-brown-d-4);
+    --dui-text-color: var(--dui-clr-white);
+}
+
+.dui.dui-brown:not(.dui-ignore-bg) {
+    background-color: var(--dui-clr-brown);
+}
+
+.dui.dui-brown:not(.dui-ignore-fg) {
+    color: var(--dui-brown-fg-clr);
+}
+
+.dui.dui-grey {
+    --dui-bg-l-5: var(--dui-clr-grey-l-5);
+    --dui-bg-l-4: var(--dui-clr-grey-l-4);
+    --dui-bg-l-3: var(--dui-clr-grey-l-3);
+    --dui-bg-l-2: var(--dui-clr-grey-l-2);
+    --dui-bg-l-1: var(--dui-clr-grey-l-1);
+    --dui-bg: var(--dui-clr-grey);
+    --dui-bg-d-1: var(--dui-clr-grey-d-1);
+    --dui-bg-d-2: var(--dui-clr-grey-d-2);
+    --dui-bg-d-3: var(--dui-clr-grey-d-3);
+    --dui-bg-d-4: var(--dui-clr-grey-d-4);
+    --dui-text-color: var(--dui-clr-black);
+}
+
+.dui.dui-grey:not(.dui-ignore-bg) {
+    background-color: var(--dui-clr-grey);
+}
+
+.dui.dui-grey:not(.dui-ignore-fg) {
+    color: var(--dui-grey-fg-clr);
+}
+
+.dui.dui-blue-grey {
+    --dui-bg-l-5: var(--dui-clr-blue-grey-l-5);
+    --dui-bg-l-4: var(--dui-clr-blue-grey-l-4);
+    --dui-bg-l-3: var(--dui-clr-blue-grey-l-3);
+    --dui-bg-l-2: var(--dui-clr-blue-grey-l-2);
+    --dui-bg-l-1: var(--dui-clr-blue-grey-l-1);
+    --dui-bg: var(--dui-clr-blue-grey);
+    --dui-bg-d-1: var(--dui-clr-blue-grey-d-1);
+    --dui-bg-d-2: var(--dui-clr-blue-grey-d-2);
+    --dui-bg-d-3: var(--dui-clr-blue-grey-d-3);
+    --dui-bg-d-4: var(--dui-clr-blue-grey-d-4);
+    --dui-text-color: var(--dui-clr-white);
+}
+
+.dui.dui-blue-grey:not(.dui-ignore-bg) {
+    background-color: var(--dui-clr-blue-grey);
+}
+
+.dui.dui-blue-grey:not(.dui-ignore-fg) {
+    color: var(--dui-blue-grey-fg-clr);
+}
+
+.dui.dui-white {
+    --dui-bg-l-5: var(--dui-clr-white-l-5);
+    --dui-bg-l-4: var(--dui-clr-white-l-4);
+    --dui-bg-l-3: var(--dui-clr-white-l-3);
+    --dui-bg-l-2: var(--dui-clr-white-l-2);
+    --dui-bg-l-1: var(--dui-clr-white-l-1);
+    --dui-bg: var(--dui-clr-white);
+    --dui-bg-d-1: var(--dui-clr-white-d-1);
+    --dui-bg-d-2: var(--dui-clr-white-d-2);
+    --dui-bg-d-3: var(--dui-clr-white-d-3);
+    --dui-bg-d-4: var(--dui-clr-white-d-4);
+    --dui-text-color: var(--dui-clr-black);
+}
+
+.dui.dui-white:not(.dui-ignore-bg) {
+    background-color: var(--dui-clr-white);
+}
+
+.dui.dui-white:not(.dui-ignore-fg) {
+    color: var(--dui-white-fg-clr);
+}
+
+.dui.dui-black {
+    --dui-bg-l-5: var(--dui-clr-black-l-5);
+    --dui-bg-l-4: var(--dui-clr-black-l-4);
+    --dui-bg-l-3: var(--dui-clr-black-l-3);
+    --dui-bg-l-2: var(--dui-clr-black-l-2);
+    --dui-bg-l-1: var(--dui-clr-black-l-1);
+    --dui-bg: var(--dui-clr-black);
+    --dui-bg-d-1: var(--dui-clr-black-d-1);
+    --dui-bg-d-2: var(--dui-clr-black-d-2);
+    --dui-bg-d-3: var(--dui-clr-black-d-3);
+    --dui-bg-d-4: var(--dui-clr-black-d-4);
+    --dui-text-color: var(--dui-clr-white);
+}
+
+.dui.dui-black:not(.dui-ignore-bg) {
+    background-color: var(--dui-clr-black);
+}
+
+.dui.dui-black:not(.dui-ignore-fg) {
+    color: var(--dui-black-fg-clr);
+}
+
+.dui.dui-transparent {
+    --dui-bg-l-5: var(--dui-clr-transparent);
+    --dui-bg-l-4: var(--dui-clr-transparent);
+    --dui-bg-l-3: var(--dui-clr-transparent);
+    --dui-bg-l-2: var(--dui-clr-transparent);
+    --dui-bg-l-1: var(--dui-clr-transparent);
+    --dui-bg: var(--dui-clr-transparent);
+    --dui-bg-d-1: var(--dui-clr-semi-transparent);
+    --dui-bg-d-2: var(--dui-clr-semi-transparent);
+    --dui-bg-d-3: var(--dui-clr-semi-transparent);
+    --dui-bg-d-4: var(--dui-clr-semi-transparent);
+    --dui-text-color: var(--dui-clr-inherit);
+}
+
+.dui.dui-transparent:not(.dui-ignore-bg) {
+    background-color: var(--dui-clr-transparent);
+}
+
+.dui.dui-transparent:not(.dui-ignore-fg) {
+    color: var(--dui-text-color);
+}
+
+.dui.dui-bg-l-5 {
+    background-color: var(--dui-bg-l-5);
+}
+
+.dui.dui-bg-l-4 {
+    background-color: var(--dui-bg-l-4);
+}
+
+.dui.dui-bg-l-3 {
+    background-color: var(--dui-bg-l-3);
+}
+
+.dui.dui-bg-l-2 {
+    background-color: var(--dui-bg-l-2);
+}
+
+.dui.dui-bg-l-1 {
+    background-color: var(--dui-bg-l-1);
+}
+
+.dui.dui-bg {
+    background-color: var(--dui-bg);
+}
+
+.dui.dui-bg-d-1 {
+    background-color: var(--dui-bg-d-1);
+}
+
+.dui.dui-bg-d-2 {
+    background-color: var(--dui-bg-d-2);
+}
+
+.dui.dui-bg-d-3 {
+    background-color: var(--dui-bg-d-3);
+}
+
+.dui.dui-bg-d-4 {
+    background-color: var(--dui-bg-d-4);
+}
+
+.dui.dui-fg {
+    color: var(--dui-text-color);
+}
+
+a.dui {
+    color: inherit;
+}
+
+.dui-reload-css {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    display: inline-block;
+}
+
+.dui-close {
+    color: inherit;
+    opacity: 1;
+    border: none;
+    position: relative;
+    top: 0;
+    font: var(--dui-font-regular);
+    line-height: 23px;
+    min-width: 24px;
+    min-height: 24px;
+    max-width: 24px;
+    max-height: 24px;
+    left: 6px;
+    cursor: pointer;
+    border-radius: 99999px;
+    margin-left: 2px;
+    margin-right: 2px;
+    order: 9999;
+    background-color: var(--dui-bg);
+}
+
+.dui-close-char {
+    position: relative;
+    top: -1px;
+}
+
+
+.dui-close:hover {
+    transition: var(--dui-clickable-transition);
+    background-color: var(--dui-bg-d-2, var(--dui-accent-d-2));
+    box-shadow: 0 0 0 0 rgb(0 0 0 / 40%), 0 0 0 10px rgb(0 0 0 / 8%);
+}
+
+.dui-overlay {
+    display: none;
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    opacity: var(--dui-overlay-opacify);
+    z-index: var(--dui-overlay-z-index);
+    transition: all 0.3s ease-in-out;
+    background-color: var(--dui-overlay-background);
+}
+
+.dui-highlighted {
+    color: var(--dui-highlight-color);
+}
+
+.height-collapsed {
+    padding-top: 0px !important;
+    padding-bottom: 0px !important;
+    margin-top: 0px !important;
+    margin-bottom: 0px !important;
+    height: 0 !important;
+}
+
+.dui-vertical-center {
+    position: relative;
+    top: 50%;
+    transform: translateY(calc(-50%)) !important;
+}
+
+.dui-horizontal-center {
+    position: relative;
+    left: 50%;
+    transform: translateX(calc(-50%)) !important;
+}
+
+.dui-striped {
+    background-image: var(--dui-progress-bar-striped-bg-image);
+    background-size: var(--dui-progress-bar-striped-bg-size);
+}
+
+.dui-wave-sentinel {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background: transparent;
+    overflow: hidden;
+    border-radius: inherit;
+}
+
+h1.dui {
+    font-size: 2em;
+}
+
+hr.dui {
+    box-sizing: content-box;
+    height: 0;
+    margin: var(--dui-hr-margin);
+    border-width: var(--dui-hr-border-width);
+    border-style: var(--dui-hr-border-style);
+    border-color: var(--dui-accent-l-5, var(--dui-hr-border-color));
+}
+
+.dui-hide-empty:empty {
+    display: none;
+}
+
+
+
+.dui-fg-color {
+    color: var(--dui-color);
+}
+
+.dui-fg-color-1 {
+    color: var(--dui-color-1);
+}
+
+.dui-fg-color-2 {
+    color: var(--dui-color-2);
+}
+
+.dui-fg-color-3 {
+    color: var(--dui-color-3);
+}
+
+.dui-fg-color-4 {
+    color: var(--dui-color-4);
+}
+
+.dui-fg-color-5 {
+    color: var(--dui-color-5);
+}

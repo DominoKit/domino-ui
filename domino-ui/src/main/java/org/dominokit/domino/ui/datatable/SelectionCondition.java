@@ -20,11 +20,15 @@ package org.dominokit.domino.ui.datatable;
  * or not
  *
  * @param <T> The type of the data table records
+ * @author vegegoku
+ * @version $Id: $Id
  */
 public interface SelectionCondition<T> {
   /**
-   * @param table {@link DataTable}
-   * @param tableRow {@link TableRow}
+   * isAllowSelection.
+   *
+   * @param table {@link org.dominokit.domino.ui.datatable.DataTable}
+   * @param tableRow {@link org.dominokit.domino.ui.datatable.TableRow}
    * @return boolean, true if the row should be selectable otherwise it will not be selectable
    */
   boolean isAllowSelection(DataTable<T> table, TableRow<T> tableRow);

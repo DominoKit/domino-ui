@@ -5,7 +5,7 @@
     <parent>
         <artifactId>domino-ui-tools</artifactId>
         <groupId>org.dominokit</groupId>
-        <version>1.0.0</version>
+        <version>2.0.0-RC1</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
@@ -57,77 +57,4 @@
         </dependency>
     </dependencies>
 
-    <build>
-        <plugins>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-shade-plugin</artifactId>
-                <version>3.2.1</version>
-                <executions>
-                    <execution>
-                        <phase>package</phase>
-                        <goals>
-                            <goal>shade</goal>
-                        </goals>
-                        <configuration>
-                            <artifactSet>
-                                <excludes>
-                                    <exclude>javax.annotation:javax.annotation-api</exclude>
-                                    <exclude>org.dominokit:domino-ui-shared</exclude>
-                                    <exclude>org.dominokit:domino-jackson-processor</exclude>
-                                    <exclude>com.google.code.findbugs:jsr305</exclude>
-                                    <exclude>com.google.j2objc:j2objc-annotations</exclude>
-                                    <exclude>com.google.errorprone:error_prone_annotations</exclude>
-                                </excludes>
-                            </artifactSet>
-                            <relocations>
-                                <relocation>
-                                    <pattern>com</pattern>
-                                    <shadedPattern>dominoui.shaded.com</shadedPattern>
-                                </relocation>
-                                <relocation>
-                                    <pattern>org.dominokit.domino.apt</pattern>
-                                    <shadedPattern>dominoui.shaded.org.dominokit.domino.apt</shadedPattern>
-                                </relocation>
-                                <relocation>
-                                    <pattern>org.apache</pattern>
-                                    <shadedPattern>dominoui.shaded.org.apache</shadedPattern>
-                                </relocation>
-                                <relocation>
-                                    <pattern>org.slf4j</pattern>
-                                    <shadedPattern>dominoui.shaded.org.slf4j</shadedPattern>
-                                </relocation>
-                                <relocation>
-                                    <pattern>org.dominokit.jackson</pattern>
-                                    <shadedPattern>dominoui.shaded.org.dominokit.jackson</shadedPattern>
-                                </relocation>
-                            </relocations>
-                            <transformers>
-                                <transformer implementation="org.apache.maven.plugins.shade.resource.ServicesResourceTransformer"/>
-                            </transformers>
-                            <createSourcesJar>true</createSourcesJar>
-                            <filters>
-                                <filter>
-                                    <artifact>org.dominokit:domino-jackson</artifact>
-                                    <excludes>
-                                        <exclude>**/*.java</exclude>
-                                        <exclude>**/*.gwt.xml</exclude>
-                                        <exclude>**/META-INF/gwt/*</exclude>
-                                    </excludes>
-                                </filter>
-                                <filter>
-                                    <artifact>org.dominokit:domino-jackson-super</artifact>
-                                    <excludes>
-                                        <exclude>**/*.java</exclude>
-                                        <exclude>java/**</exclude>
-                                    </excludes>
-                                </filter>
-                            </filters>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
-
-        </plugins>
-    </build>
 </project>

@@ -17,14 +17,13 @@ package org.dominokit.domino.ui.collapsible;
 
 import static java.util.Objects.isNull;
 import static java.util.Objects.nonNull;
+import static org.dominokit.domino.ui.utils.ElementsFactory.elements;
 
-import elemental2.dom.HTMLElement;
+import elemental2.dom.Element;
 import java.util.ArrayList;
 import java.util.List;
-import org.dominokit.domino.ui.style.Style;
-import org.dominokit.domino.ui.utils.DominoElement;
+import org.dominokit.domino.ui.IsElement;
 import org.dominokit.domino.ui.utils.IsCollapsible;
-import org.jboss.elemento.IsElement;
 
 /**
  * A component to show and hide element
@@ -32,112 +31,117 @@ import org.jboss.elemento.IsElement;
  * <p>Collapsible component can wrap any element to provide functionality to show and hide the
  * wrapped element also it allows attaching callbacks when the element is shown/hidden
  *
- * <pre>
- *         Collapsible.create(DominoElement.div().setTextContent("Hello world"))
- *         .addShowHandler(() -&gt; DomGlobal.console.info("Div visible"))
- *         .addHideHandler(() -&gt; DomGlobal.console.info("Div visible"));
- *     </pre>
+ * @author vegegoku
+ * @version $Id: $Id
  */
-public class Collapsible implements IsElement<HTMLElement>, IsCollapsible<Collapsible> {
+public class Collapsible implements IsElement<Element>, IsCollapsible<Collapsible> {
 
-  public static final String DOM_UI_SCROLL_HEIGHT = "dom-ui-scroll-height";
-  private final HTMLElement element;
-  private final Style<HTMLElement, IsElement<HTMLElement>> style;
+  /** Constant <code>DUI_SCROLL_HEIGHT="dui-scroll-height"</code> */
+  public static final String DUI_SCROLL_HEIGHT = "dui-scroll-height";
+  /** Constant <code>DUI_COLLAPSE_HEIGHT="dom-ui-collapse-height"</code> */
+  public static final String DUI_COLLAPSE_HEIGHT = "dom-ui-collapse-height";
+  /** Constant <code>DUI_COLLAPSED="dui-collapsed"</code> */
+  public static final String DUI_COLLAPSED = "dui-collapsed";
+
+  private final Element element;
   private final CollapsibleHandlers handlers;
 
   private boolean collapsed = false;
   private boolean forceHidden = false;
 
-  private List<HideHandler> hideHandlers = new ArrayList<>();
-  private List<HideHandler> beforeHideHandlers = new ArrayList<>();
-  private List<ShowHandler> showHandlers = new ArrayList<>();
-  private List<ShowHandler> beforeShowHandlers = new ArrayList<>();
+  private List<CollapseHandler> collapseHandlers = new ArrayList<>();
+  private List<CollapseHandler> beforeCollapseHandlers = new ArrayList<>();
+  private List<ExpandHandler> expandHandlers = new ArrayList<>();
+  private List<ExpandHandler> beforeExpandHandlers = new ArrayList<>();
   private CollapseStrategy strategy = new DisplayCollapseStrategy();
 
   /**
    * Creates a collapsible wrapping the element
    *
-   * @param element {@link HTMLElement} to be wrapped in a collapsible
+   * @param element {@link elemental2.dom.HTMLElement} to be wrapped in a collapsible
    */
-  public Collapsible(HTMLElement element) {
+  public Collapsible(Element element) {
     this.element = element;
-    style = Style.of(element);
     handlers =
         new CollapsibleHandlers() {
           @Override
-          public Runnable onBeforeShow() {
-            return Collapsible.this::onBeforeShow;
+          public Runnable onBeforeExpand() {
+            return Collapsible.this::onBeforeExpand;
           }
 
           @Override
-          public Runnable onShowCompleted() {
-            return Collapsible.this::onShowCompleted;
+          public Runnable onExpandCompleted() {
+            return Collapsible.this::onExpandCompleted;
           }
 
           @Override
-          public Runnable onBeforeHide() {
-            return Collapsible.this::onBeforeHide;
+          public Runnable onBeforeCollapse() {
+            return Collapsible.this::onBeforeCollapse;
           }
 
           @Override
-          public Runnable onHideCompleted() {
-            return Collapsible.this::onHideCompleted;
+          public Runnable onCollapseCompleted() {
+            return Collapsible.this::onCollapseCompleted;
           }
         };
-    strategy.init(element, Style.of(element), handlers);
+    strategy.init(element, handlers);
   }
 
   /**
    * A factory to create a collapsible wrapping the element
    *
-   * @param element {@link HTMLElement} to be wrapped in a collapsible
+   * @param element {@link elemental2.dom.HTMLElement} to be wrapped in a collapsible
+   * @return a {@link org.dominokit.domino.ui.collapsible.Collapsible} object
    */
-  public static Collapsible create(HTMLElement element) {
+  public static Collapsible create(Element element) {
     return new Collapsible(element);
   }
 
   /**
    * A factory to create a collapsible wrapping the element
    *
-   * @param isElement {@link IsElement} to be wrapped in a collapsible
+   * @param isElement {@link org.dominokit.domino.ui.IsElement} to be wrapped in a collapsible
+   * @return a {@link org.dominokit.domino.ui.collapsible.Collapsible} object
    */
   public static Collapsible create(IsElement<?> isElement) {
     return create(isElement.element());
   }
 
   /**
-   * @return boolean, if true the element is hidden and wont be shown even if we call {@link
-   *     #show()}
+   * isForceCollapsed.
+   *
+   * @return boolean, if true the element is hidden and will not be shown even if we call {@link
+   *     #expand()}
    */
-  public boolean isForceHidden() {
+  public boolean isForceCollapsed() {
     return forceHidden;
   }
 
   /**
    * Disable/Enable force hidden
    *
-   * @param forceHidden boolean, if true it will hide the element if it is visible and wont allow
-   *     the element to be shown unless it is turned off, when turned off the element will remain
-   *     hidden until we call {@link #show()}
+   * @param forceHidden boolean, if true it will hide the element if it is visible and will not
+   *     allow the element to be shown unless it is turned off, when turned off the element will
+   *     remain hidden until we call {@link #expand()}
    * @return same instance
    */
-  public Collapsible setForceHidden(boolean forceHidden) {
+  public Collapsible setForceCollapsed(boolean forceHidden) {
     if (!isCollapsed()) {
-      hide();
+      collapse();
     }
     this.forceHidden = forceHidden;
     return this;
   }
 
   /**
-   * Make the element visible and call any attached show handlers
+   * {@inheritDoc}
    *
-   * @return same collapsible instance
+   * <p>Make the element visible and call any attached show handlers
    */
   @Override
-  public Collapsible show() {
-    if (!forceHidden) {
-      strategy.show(element, style);
+  public Collapsible expand() {
+    if (!forceHidden && isCollapsed()) {
+      strategy.expand(element);
       element.setAttribute("aria-expanded", "true");
       this.collapsed = false;
     }
@@ -145,92 +149,80 @@ public class Collapsible implements IsElement<HTMLElement>, IsCollapsible<Collap
   }
 
   /**
-   * Make the element hidden and call any attached hide handlers
+   * {@inheritDoc}
    *
-   * @return same collapsible instance
+   * <p>Make the element hidden and call any attached hide handlers
    */
   @Override
-  public Collapsible hide() {
-    if (!forceHidden) {
-      strategy.hide(element, style);
+  public Collapsible collapse() {
+    if (!forceHidden && !isCollapsed()) {
+      strategy.collapse(element);
       element.setAttribute("aria-expanded", "false");
       this.collapsed = true;
     }
     return this;
   }
 
-  private void onHideCompleted() {
-    if (nonNull(hideHandlers)) {
-      hideHandlers.forEach(HideHandler::apply);
+  private void onCollapseCompleted() {
+    if (nonNull(collapseHandlers)) {
+      collapseHandlers.forEach(CollapseHandler::apply);
     }
   }
 
-  private void onBeforeHide() {
-    if (nonNull(beforeHideHandlers)) {
-      beforeHideHandlers.forEach(HideHandler::apply);
+  private void onBeforeCollapse() {
+    if (nonNull(beforeCollapseHandlers)) {
+      beforeCollapseHandlers.forEach(CollapseHandler::apply);
     }
   }
 
-  private void onShowCompleted() {
-    if (nonNull(showHandlers)) {
-      showHandlers.forEach(ShowHandler::apply);
+  private void onExpandCompleted() {
+    if (nonNull(expandHandlers)) {
+      expandHandlers.forEach(ExpandHandler::apply);
     }
   }
 
-  private void onBeforeShow() {
-    if (nonNull(beforeShowHandlers)) {
-      beforeShowHandlers.forEach(ShowHandler::apply);
+  private void onBeforeExpand() {
+    if (nonNull(beforeExpandHandlers)) {
+      beforeExpandHandlers.forEach(ExpandHandler::apply);
     }
   }
 
   /**
-   * checks if the wrapped element is hidden
+   * {@inheritDoc}
    *
-   * @return boolean, true if the element is hidden.
-   */
-  @Override
-  @Deprecated
-  public boolean isHidden() {
-    return isCollapsed();
-  }
-
-  /**
-   * checks if the wrapped element is collapsed
-   *
-   * @return boolean, true if the element is collapsed.
+   * <p>checks if the wrapped element is collapsed
    */
   @Override
   public boolean isCollapsed() {
-    return this.collapsed || DominoElement.of(element).hasAttribute("d-collapsed");
+    return this.collapsed || elements.elementOf(element).hasAttribute(DUI_COLLAPSED);
   }
 
   /**
-   * toggle the element visibility, if its visible it hides it, otherwise it make it visible
+   * {@inheritDoc}
    *
-   * @return same collapsible instance
+   * <p>toggle the element visibility, if its visible it hides it, otherwise it make it visible
    */
   @Override
-  public Collapsible toggleDisplay() {
+  public Collapsible toggleCollapse() {
     if (isCollapsed()) {
-      show();
+      expand();
     } else {
-      hide();
+      collapse();
     }
     return this;
   }
 
   /**
-   * toggle the element visibility based on the flag.
+   * {@inheritDoc}
    *
-   * @param state boolean, if true make the element visible otherwise make it hidden
-   * @return same collapsible instance
+   * <p>toggle the element visibility based on the flag.
    */
   @Override
-  public Collapsible toggleDisplay(boolean state) {
+  public Collapsible toggleCollapse(boolean state) {
     if (state) {
-      show();
+      expand();
     } else {
-      hide();
+      collapse();
     }
     return this;
   }
@@ -238,14 +230,14 @@ public class Collapsible implements IsElement<HTMLElement>, IsCollapsible<Collap
   /**
    * Add handler to be called when ever the element changed state to hidden
    *
-   * @param handler {@link HideHandler}
+   * @param handler {@link org.dominokit.domino.ui.collapsible.Collapsible.CollapseHandler}
    * @return same Collapsible instance
    */
-  public Collapsible addHideHandler(HideHandler handler) {
-    if (isNull(hideHandlers)) {
-      hideHandlers = new ArrayList<>();
+  public Collapsible addCollapseHandler(CollapseHandler handler) {
+    if (isNull(collapseHandlers)) {
+      collapseHandlers = new ArrayList<>();
     }
-    hideHandlers.add(handler);
+    collapseHandlers.add(handler);
     return this;
   }
 
@@ -253,51 +245,49 @@ public class Collapsible implements IsElement<HTMLElement>, IsCollapsible<Collap
    * Add handler to be called when ever the element changed state to hidden before the hide
    * operation started
    *
-   * @param handler {@link HideHandler}
+   * @param handler {@link org.dominokit.domino.ui.collapsible.Collapsible.CollapseHandler}
    * @return same Collapsible instance
    */
-  public Collapsible addBeforeHideHandler(HideHandler handler) {
-    if (isNull(beforeHideHandlers)) {
-      beforeHideHandlers = new ArrayList<>();
+  public Collapsible addBeforeCollapseHandler(CollapseHandler handler) {
+    if (isNull(beforeCollapseHandlers)) {
+      beforeCollapseHandlers = new ArrayList<>();
     }
-    beforeHideHandlers.add(handler);
+    beforeCollapseHandlers.add(handler);
     return this;
   }
 
   /**
    * removes the hide handler
    *
-   * @param handler {@link HideHandler}
-   * @return same Collapsible instance
+   * @param handler {@link org.dominokit.domino.ui.collapsible.Collapsible.CollapseHandler}
    */
-  public void removeHideHandler(HideHandler handler) {
-    if (nonNull(hideHandlers)) {
-      hideHandlers.remove(handler);
+  public void removeCollapseHandler(CollapseHandler handler) {
+    if (nonNull(collapseHandlers)) {
+      collapseHandlers.remove(handler);
     }
   }
   /**
    * removes the before hide handler
    *
-   * @param handler {@link HideHandler}
-   * @return same Collapsible instance
+   * @param handler {@link org.dominokit.domino.ui.collapsible.Collapsible.CollapseHandler}
    */
-  public void removeBeforeHideHandler(HideHandler handler) {
-    if (nonNull(beforeHideHandlers)) {
-      beforeHideHandlers.remove(handler);
+  public void removeBeforeCollapseHandler(CollapseHandler handler) {
+    if (nonNull(beforeCollapseHandlers)) {
+      beforeCollapseHandlers.remove(handler);
     }
   }
 
   /**
    * Add handler to be called when ever the element changed state to visible
    *
-   * @param handler {@link ShowHandler}
+   * @param handler {@link org.dominokit.domino.ui.collapsible.Collapsible.ExpandHandler}
    * @return same Collapsible instance
    */
-  public Collapsible addShowHandler(ShowHandler handler) {
-    if (isNull(showHandlers)) {
-      showHandlers = new ArrayList<>();
+  public Collapsible addExpandHandler(ExpandHandler handler) {
+    if (isNull(expandHandlers)) {
+      expandHandlers = new ArrayList<>();
     }
-    showHandlers.add(handler);
+    expandHandlers.add(handler);
     return this;
   }
 
@@ -305,75 +295,80 @@ public class Collapsible implements IsElement<HTMLElement>, IsCollapsible<Collap
    * Add handler to be called when ever the element changed state to visible, before the show
    * operation is completed
    *
-   * @param handler {@link ShowHandler}
+   * @param handler {@link org.dominokit.domino.ui.collapsible.Collapsible.ExpandHandler}
    * @return same Collapsible instance
    */
-  public Collapsible addBeforeShowHandler(ShowHandler handler) {
-    if (isNull(beforeShowHandlers)) {
-      beforeShowHandlers = new ArrayList<>();
+  public Collapsible addBeforeExpandHandler(ExpandHandler handler) {
+    if (isNull(beforeExpandHandlers)) {
+      beforeExpandHandlers = new ArrayList<>();
     }
-    beforeShowHandlers.add(handler);
+    beforeExpandHandlers.add(handler);
     return this;
   }
 
   /**
    * removes the show handler
    *
-   * @param handler {@link ShowHandler}
-   * @return same Collapsible instance
+   * @param handler {@link org.dominokit.domino.ui.collapsible.Collapsible.ExpandHandler}
    */
-  public void removeShowHandler(ShowHandler handler) {
-    if (nonNull(showHandlers)) {
-      showHandlers.remove(handler);
+  public void removeExpandHandler(ExpandHandler handler) {
+    if (nonNull(expandHandlers)) {
+      expandHandlers.remove(handler);
     }
   }
 
   /**
    * removes the before show handler
    *
-   * @param handler {@link ShowHandler}
-   * @return same Collapsible instance
+   * @param handler {@link org.dominokit.domino.ui.collapsible.Collapsible.ExpandHandler}
    */
-  public void removeBeforeShowHandler(ShowHandler handler) {
-    if (nonNull(beforeShowHandlers)) {
-      beforeShowHandlers.remove(handler);
+  public void removeBeforeExpandHandler(ExpandHandler handler) {
+    if (nonNull(beforeExpandHandlers)) {
+      beforeExpandHandlers.remove(handler);
     }
   }
 
   /** @return the current {@link CollapseStrategy} used by this Collapsible */
+  /**
+   * Getter for the field <code>strategy</code>.
+   *
+   * @return a {@link org.dominokit.domino.ui.collapsible.CollapseStrategy} object
+   */
   public CollapseStrategy getStrategy() {
     return strategy;
   }
 
   /**
-   * @param strategy {@link CollapseStrategy} to be used with this collapsible
+   * Setter for the field <code>strategy</code>.
+   *
+   * @param strategy {@link org.dominokit.domino.ui.collapsible.CollapseStrategy} to be used with
+   *     this collapsible
    * @return same Collapsible instance
    */
   public Collapsible setStrategy(CollapseStrategy strategy) {
     if (nonNull(this.strategy)) {
-      this.strategy.cleanup(element, style);
+      this.strategy.cleanup(element);
     }
     this.strategy = strategy;
-
-    this.strategy.init(element, style, handlers);
+    this.strategy.init(element, handlers);
     return this;
   }
 
   /** {@inheritDoc} */
   @Override
-  public HTMLElement element() {
+  public Element element() {
     return element;
   }
 
   /** A callback interface to attach some listener when finish hiding the element */
   @FunctionalInterface
-  public interface HideHandler {
+  public interface CollapseHandler {
     void apply();
   }
 
   /** A callback interface to attach some listener when showing an element. */
   @FunctionalInterface
-  public interface ShowHandler {
+  public interface ExpandHandler {
     void apply();
   }
 }

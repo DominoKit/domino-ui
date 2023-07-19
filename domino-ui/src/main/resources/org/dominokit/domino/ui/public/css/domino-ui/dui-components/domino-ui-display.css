@@ -1,0 +1,2481 @@
+.dui.dui-image-responsive {
+    display: block;
+    max-width: 100%;
+    height: auto;
+}
+
+.dui.dui-opacity-0 {
+    opacity: var(--dui-opacity-0);
+}
+
+.dui.dui-opacity-5 {
+    opacity: var(--dui-opacity-5);
+}
+
+.dui.dui-opacity-10 {
+    opacity: var(--dui-opacity-10);
+}
+
+.dui.dui-opacity-20 {
+    opacity: var(--dui-opacity-20);
+}
+
+.dui.dui-opacity-25 {
+    opacity: var(--dui-opacity-25);
+}
+
+.dui.dui-opacity-30 {
+    opacity: var(--dui-opacity-30);
+}
+
+.dui.dui-opacity-40 {
+    opacity: var(--dui-opacity-40);
+}
+
+.dui.dui-opacity-50 {
+    opacity: var(--dui-opacity-50);
+}
+
+.dui.dui-opacity-60 {
+    opacity: var(--dui-opacity-60);
+}
+
+.dui.dui-opacity-70 {
+    opacity: var(--dui-opacity-70);
+}
+
+.dui.dui-opacity-75 {
+    opacity: var(--dui-opacity-75);
+}
+
+.dui.dui-opacity-80 {
+    opacity: var(--dui-opacity-80);
+}
+
+.dui.dui-opacity-90 {
+    opacity: var(--dui-opacity-90);
+}
+
+.dui.dui-opacity-95 {
+    opacity: var(--dui-opacity-95);
+}
+
+.dui.dui-opacity-100 {
+    opacity: var(--dui-opacity-100);
+}
+
+.dui.dui-block {
+    display: block;
+}
+
+.dui.dui-block-full {
+    display: block;
+    width: 100%;
+}
+
+.dui.dui-inline-block {
+    display: inline-block;
+}
+
+.dui.dui-inline {
+    display: inline;
+}
+
+.dui.dui-flex {
+    display: flex;
+}
+
+.dui.dui-inline-flex {
+    display: inline-flex;
+}
+
+.dui.dui-table {
+    display: table;
+}
+
+.dui.dui-inline-table {
+    display: inline-table;
+}
+
+.dui.dui-table-caption {
+    display: table-caption;
+}
+
+.dui.dui-table-cell {
+    display: table-cell;
+}
+
+.dui.dui-table-column {
+    display: table-column;
+}
+
+.dui.dui-table-column-group {
+    display: table-column-group;
+}
+
+.dui.dui-table-footer-group {
+    display: table-footer-group;
+}
+
+.dui.dui-table-header-group {
+    display: table-header-group;
+}
+
+.dui.dui-table-row-group {
+    display: table-row-group;
+}
+
+.dui.dui-table-row {
+    display: table-row;
+}
+
+.dui.dui-flow-root {
+    display: flow-root;
+}
+
+.dui.dui-grid {
+    display: grid;
+}
+
+.dui.dui-inline-grid {
+    display: inline-grid;
+}
+
+.dui.dui-contents {
+    display: contents;
+}
+
+.dui.dui-list-item {
+    display: list-item;
+}
+
+.dui.dui-hidden {
+    display: none;
+}
+
+.dui.dui-float-right {
+    float: right;
+}
+
+.dui.dui-float-left {
+    float: left;
+}
+
+.dui.dui-float-none {
+    float: none;
+}
+
+.dui.dui-clear-left {
+    clear: left;
+}
+
+.dui.dui-clear-right {
+    clear: right;
+}
+
+.dui.dui-clear-both {
+    clear: both;
+}
+
+.dui.dui-clear-none {
+    clear: none;
+}
+
+.dui.dui-isolate {
+    isolation: isolate;
+}
+
+.dui.dui-isolation-auto {
+    isolation: auto;
+}
+
+.dui.dui-object-contain {
+    object-fit: contain;
+}
+
+.dui.dui-object-cover {
+    object-fit: cover;
+}
+
+.dui.dui-object-fill {
+    object-fit: fill;
+}
+
+.dui.dui-object-none {
+    object-fit: none;
+}
+
+.dui.dui-object-scale-down {
+    object-fit: scale-down;
+}
+
+.dui.dui-object-bottom {
+    object-position: bottom;
+}
+
+.dui.dui-object-center {
+    object-position: center;
+}
+
+.dui.dui-object-left {
+    object-position: left;
+}
+
+.dui.dui-object-left-bottom {
+    object-position: left bottom;
+}
+
+.dui.dui-object-left-top {
+    object-position: left top;
+}
+
+.dui.dui-object-right {
+    object-position: right;
+}
+
+.dui.dui-object-right-bottom {
+    object-position: right bottom;
+}
+
+.dui.dui-object-right-top {
+    object-position: right top;
+}
+
+.dui.dui-object-top {
+    object-position: top;
+}
+
+.dui.dui-overflow-auto {
+    overflow: auto;
+}
+
+.dui.dui-overflow-hidden {
+    overflow: hidden;
+}
+
+.dui.dui-overflow-clip {
+    overflow: clip;
+}
+
+.dui.dui-overflow-visible {
+    overflow: visible;
+}
+
+.dui.dui-overflow-scroll {
+    overflow: scroll;
+}
+
+.dui.dui-overflow-x-auto {
+    overflow-x: auto;
+}
+
+.dui.dui-overflow-y-auto {
+    overflow-y: auto;
+}
+
+.dui.dui-overflow-x-hidden {
+    overflow-x: hidden;
+}
+
+.dui.dui-overflow-y-hidden {
+    overflow-y: hidden;
+}
+
+.dui.dui-overflow-x-clip {
+    overflow-x: clip;
+}
+
+.dui.dui-overflow-y-clip {
+    overflow-y: clip;
+}
+
+.dui.dui-overflow-x-visible {
+    overflow-x: visible;
+}
+
+.dui.dui-overflow-y-visible {
+    overflow-y: visible;
+}
+
+.dui.dui-overflow-x-scroll {
+    overflow-x: scroll;
+}
+
+.dui.dui-overflow-y-scroll {
+    overflow-y: scroll;
+}
+
+.dui.dui-overscroll-auto {
+    overscroll-behavior: auto;
+}
+
+.dui.dui-overscroll-contain {
+    overscroll-behavior: contain;
+}
+
+.dui.dui-overscroll-none {
+    overscroll-behavior: none;
+}
+
+.dui.dui-overscroll-y-auto {
+    overscroll-behavior-y: auto;
+}
+
+.dui.dui-overscroll-y-contain {
+    overscroll-behavior-y: contain;
+}
+
+.dui.dui-overscroll-y-none {
+    overscroll-behavior-y: none;
+}
+
+.dui.dui-overscroll-x-auto {
+    overscroll-behavior-x: auto;
+}
+
+.dui.dui-overscroll-x-contain {
+    overscroll-behavior-x: contain;
+}
+
+.dui.dui-overscroll-x-none {
+    overscroll-behavior-x: none;
+}
+
+.dui.dui-static {
+    position: static;
+}
+
+.dui.dui-fixed {
+    position: fixed;
+}
+
+.dui.dui-absolute {
+    position: absolute;
+}
+
+.dui.dui-relative {
+    position: relative;
+}
+
+.dui.dui-sticky {
+    position: sticky;
+}
+
+.dui.dui-inset-0 {
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+}
+
+.dui.dui-inset-x-0 {
+    left: 0;
+    right: 0;
+}
+
+.dui.dui-inset-y-0 {
+    top: 0;
+    bottom: 0;
+}
+
+.dui.dui-top-0 {
+    top: 0;
+}
+
+.dui.dui-right-0 {
+    right: 0;
+}
+
+.dui.dui-bottom-0 {
+    bottom: 0;
+}
+
+.dui.dui-left-0 {
+    left: 0;
+}
+
+.dui.dui-inset-px {
+    top: 1px;
+    right: 1px;
+    bottom: 1px;
+    left: 1px;
+}
+
+.dui.dui-inset-x-px {
+    left: 1px;
+    right: 1px;
+}
+
+.dui.dui-inset-y-px {
+    top: 1px;
+    bottom: 1px;
+}
+
+.dui.dui-top-px {
+    top: 1px;
+}
+
+.dui.dui-right-px {
+    right: 1px;
+}
+
+.dui.dui-bottom-px {
+    bottom: 1px;
+}
+
+.dui.dui-left-px {
+    left: 1px;
+}
+
+.dui.dui-inset-0\.5 {
+    top: 0.125rem;
+    right: 0.125rem;
+    bottom: 0.125rem;
+    left: 0.125rem;
+}
+
+.dui.dui-inset-x-0\.5 {
+    left: 0.125rem;
+    right: 0.125rem;
+}
+
+.dui.dui-inset-y-0\.5 {
+    top: 0.125rem;
+    bottom: 0.125rem;
+}
+
+.dui.dui-top-0\.5 {
+    top: 0.125rem;
+}
+
+.dui.dui-right-0\.5 {
+    right: 0.125rem;
+}
+
+.dui.dui-bottom-0\.5 {
+    bottom: 0.125rem;
+}
+
+.dui.dui-left-0\.5 {
+    left: 0.125rem;
+}
+
+.dui.dui-inset-1 {
+    top: 0.25rem;
+    right: 0.25rem;
+    bottom: 0.25rem;
+    left: 0.25rem;
+}
+
+.dui.dui-inset-x-1 {
+    left: 0.25rem;
+    right: 0.25rem;
+}
+
+.dui.dui-inset-y-1 {
+    top: 0.25rem;
+    bottom: 0.25rem;
+}
+
+.dui.dui-top-1 {
+    top: 0.25rem;
+}
+
+.dui.dui-right-1 {
+    right: 0.25rem;
+}
+
+.dui.dui-bottom-1 {
+    bottom: 0.25rem;
+}
+
+.dui.dui-left-1 {
+    left: 0.25rem;
+}
+
+.dui.dui-inset-1\.5 {
+    top: 0.375rem;
+    right: 0.375rem;
+    bottom: 0.375rem;
+    left: 0.375rem;
+}
+
+.dui.dui-inset-x-1\.5 {
+    left: 0.375rem;
+    right: 0.375rem;
+}
+
+.dui.dui-inset-y-1\.5 {
+    top: 0.375rem;
+    bottom: 0.375rem;
+}
+
+.dui.dui-top-1\.5 {
+    top: 0.375rem;
+}
+
+.dui.dui-right-1\.5 {
+    right: 0.375rem;
+}
+
+.dui.dui-bottom-1\.5 {
+    bottom: 0.375rem;
+}
+
+.dui.dui-left-1\.5 {
+    left: 0.375rem;
+}
+
+.dui.dui-inset-2 {
+    top: 0.5rem;
+    right: 0.5rem;
+    bottom: 0.5rem;
+    left: 0.5rem;
+}
+
+.dui.dui-inset-x-2 {
+    left: 0.5rem;
+    right: 0.5rem;
+}
+
+.dui.dui-inset-y-2 {
+    top: 0.5rem;
+    bottom: 0.5rem;
+}
+
+.dui.dui-top-2 {
+    top: 0.5rem;
+}
+
+.dui.dui-right-2 {
+    right: 0.5rem;
+}
+
+.dui.dui-bottom-2 {
+    bottom: 0.5rem;
+}
+
+.dui.dui-left-2 {
+    left: 0.5rem;
+}
+
+.dui.dui-inset-2\.5 {
+    top: 0.625rem;
+    right: 0.625rem;
+    bottom: 0.625rem;
+    left: 0.625rem;
+}
+
+.dui.dui-inset-x-2\.5 {
+    left: 0.625rem;
+    right: 0.625rem;
+}
+
+.dui.dui-inset-y-2\.5 {
+    top: 0.625rem;
+    bottom: 0.625rem;
+}
+
+.dui.dui-top-2\.5 {
+    top: 0.625rem;
+}
+
+.dui.dui-right-2\.5 {
+    right: 0.625rem;
+}
+
+.dui.dui-bottom-2\.5 {
+    bottom: 0.625rem;
+}
+
+.dui.dui-left-2\.5 {
+    left: 0.625rem;
+}
+
+.dui.dui-inset-3 {
+    top: 0.75rem;
+    right: 0.75rem;
+    bottom: 0.75rem;
+    left: 0.75rem;
+}
+
+.dui.dui-inset-x-3 {
+    left: 0.75rem;
+    right: 0.75rem;
+}
+
+.dui.dui-inset-y-3 {
+    top: 0.75rem;
+    bottom: 0.75rem;
+}
+
+.dui.dui-top-3 {
+    top: 0.75rem;
+}
+
+.dui.dui-right-3 {
+    right: 0.75rem;
+}
+
+.dui.dui-bottom-3 {
+    bottom: 0.75rem;
+}
+
+.dui.dui-left-3 {
+    left: 0.75rem;
+}
+
+.dui.dui-inset-3\.5 {
+    top: 0.875rem;
+    right: 0.875rem;
+    bottom: 0.875rem;
+    left: 0.875rem;
+}
+
+.dui.dui-inset-x-3\.5 {
+    left: 0.875rem;
+    right: 0.875rem;
+}
+
+.dui.dui-inset-y-3\.5 {
+    top: 0.875rem;
+    bottom: 0.875rem;
+}
+
+.dui.dui-top-3\.5 {
+    top: 0.875rem;
+}
+
+.dui.dui-right-3\.5 {
+    right: 0.875rem;
+}
+
+.dui.dui-bottom-3\.5 {
+    bottom: 0.875rem;
+}
+
+.dui.dui-left-3\.5 {
+    left: 0.875rem;
+}
+
+.dui.dui-inset-4 {
+    top: 1rem;
+    right: 1rem;
+    bottom: 1rem;
+    left: 1rem;
+}
+
+.dui.dui-inset-x-4 {
+    left: 1rem;
+    right: 1rem;
+}
+
+.dui.dui-inset-y-4 {
+    top: 1rem;
+    bottom: 1rem;
+}
+
+.dui.dui-top-4 {
+    top: 1rem;
+}
+
+.dui.dui-right-4 {
+    right: 1rem;
+}
+
+.dui.dui-bottom-4 {
+    bottom: 1rem;
+}
+
+.dui.dui-left-4 {
+    left: 1rem;
+}
+
+.dui.dui-inset-5 {
+    top: 1.25rem;
+    right: 1.25rem;
+    bottom: 1.25rem;
+    left: 1.25rem;
+}
+
+.dui.dui-inset-x-5 {
+    left: 1.25rem;
+    right: 1.25rem;
+}
+
+.dui.dui-inset-y-5 {
+    top: 1.25rem;
+    bottom: 1.25rem;
+}
+
+.dui.dui-top-5 {
+    top: 1.25rem;
+}
+
+.dui.dui-right-5 {
+    right: 1.25rem;
+}
+
+.dui.dui-bottom-5 {
+    bottom: 1.25rem;
+}
+
+.dui.dui-left-5 {
+    left: 1.25rem;
+}
+
+.dui.dui-inset-6 {
+    top: 1.5rem;
+    right: 1.5rem;
+    bottom: 1.5rem;
+    left: 1.5rem;
+}
+
+.dui.dui-inset-x-6 {
+    left: 1.5rem;
+    right: 1.5rem;
+}
+
+.dui.dui-inset-y-6 {
+    top: 1.5rem;
+    bottom: 1.5rem;
+}
+
+.dui.dui-top-6 {
+    top: 1.5rem;
+}
+
+.dui.dui-right-6 {
+    right: 1.5rem;
+}
+
+.dui.dui-bottom-6 {
+    bottom: 1.5rem;
+}
+
+.dui.dui-left-6 {
+    left: 1.5rem;
+}
+
+.dui.dui-inset-7 {
+    top: 1.75rem;
+    right: 1.75rem;
+    bottom: 1.75rem;
+    left: 1.75rem;
+}
+
+.dui.dui-inset-x-7 {
+    left: 1.75rem;
+    right: 1.75rem;
+}
+
+.dui.dui-inset-y-7 {
+    top: 1.75rem;
+    bottom: 1.75rem;
+}
+
+.dui.dui-top-7 {
+    top: 1.75rem;
+}
+
+.dui.dui-right-7 {
+    right: 1.75rem;
+}
+
+.dui.dui-bottom-7 {
+    bottom: 1.75rem;
+}
+
+.dui.dui-left-7 {
+    left: 1.75rem;
+}
+
+.dui.dui-inset-8 {
+    top: 2rem;
+    right: 2rem;
+    bottom: 2rem;
+    left: 2rem;
+}
+
+.dui.dui-inset-x-8 {
+    left: 2rem;
+    right: 2rem;
+}
+
+.dui.dui-inset-y-8 {
+    top: 2rem;
+    bottom: 2rem;
+}
+
+.dui.dui-top-8 {
+    top: 2rem;
+}
+
+.dui.dui-right-8 {
+    right: 2rem;
+}
+
+.dui.dui-bottom-8 {
+    bottom: 2rem;
+}
+
+.dui.dui-left-8 {
+    left: 2rem;
+}
+
+.dui.dui-inset-9 {
+    top: 2.25rem;
+    right: 2.25rem;
+    bottom: 2.25rem;
+    left: 2.25rem;
+}
+
+.dui.dui-inset-x-9 {
+    left: 2.25rem;
+    right: 2.25rem;
+}
+
+.dui.dui-inset-y-9 {
+    top: 2.25rem;
+    bottom: 2.25rem;
+}
+
+.dui.dui-top-9 {
+    top: 2.25rem;
+}
+
+.dui.dui-right-9 {
+    right: 2.25rem;
+}
+
+.dui.dui-bottom-9 {
+    bottom: 2.25rem;
+}
+
+.dui.dui-left-9 {
+    left: 2.25rem;
+}
+
+.dui.dui-inset-10 {
+    top: 2.5rem;
+    right: 2.5rem;
+    bottom: 2.5rem;
+    left: 2.5rem;
+}
+
+.dui.dui-inset-x-10 {
+    left: 2.5rem;
+    right: 2.5rem;
+}
+
+.dui.dui-inset-y-10 {
+    top: 2.5rem;
+    bottom: 2.5rem;
+}
+
+.dui.dui-top-10 {
+    top: 2.5rem;
+}
+
+.dui.dui-right-10 {
+    right: 2.5rem;
+}
+
+.dui.dui-bottom-10 {
+    bottom: 2.5rem;
+}
+
+.dui.dui-left-10 {
+    left: 2.5rem;
+}
+
+.dui.dui-inset-11 {
+    top: 2.75rem;
+    right: 2.75rem;
+    bottom: 2.75rem;
+    left: 2.75rem;
+}
+
+.dui.dui-inset-x-11 {
+    left: 2.75rem;
+    right: 2.75rem;
+}
+
+.dui.dui-inset-y-11 {
+    top: 2.75rem;
+    bottom: 2.75rem;
+}
+
+.dui.dui-top-11 {
+    top: 2.75rem;
+}
+
+.dui.dui-right-11 {
+    right: 2.75rem;
+}
+
+.dui.dui-bottom-11 {
+    bottom: 2.75rem;
+}
+
+.dui.dui-left-11 {
+    left: 2.75rem;
+}
+
+.dui.dui-inset-12 {
+    top: 3rem;
+    right: 3rem;
+    bottom: 3rem;
+    left: 3rem;
+}
+
+.dui.dui-inset-x-12 {
+    left: 3rem;
+    right: 3rem;
+}
+
+.dui.dui-inset-y-12 {
+    top: 3rem;
+    bottom: 3rem;
+}
+
+.dui.dui-top-12 {
+    top: 3rem;
+}
+
+.dui.dui-right-12 {
+    right: 3rem;
+}
+
+.dui.dui-bottom-12 {
+    bottom: 3rem;
+}
+
+.dui.dui-left-12 {
+    left: 3rem;
+}
+
+.dui.dui-inset-14 {
+    top: 3.5rem;
+    right: 3.5rem;
+    bottom: 3.5rem;
+    left: 3.5rem;
+}
+
+.dui.dui-inset-x-14 {
+    left: 3.5rem;
+    right: 3.5rem;
+}
+
+.dui.dui-inset-y-14 {
+    top: 3.5rem;
+    bottom: 3.5rem;
+}
+
+.dui.dui-top-14 {
+    top: 3.5rem;
+}
+
+.dui.dui-right-14 {
+    right: 3.5rem;
+}
+
+.dui.dui-bottom-14 {
+    bottom: 3.5rem;
+}
+
+.dui.dui-left-14 {
+    left: 3.5rem;
+}
+
+.dui.dui-inset-16 {
+    top: 4rem;
+    right: 4rem;
+    bottom: 4rem;
+    left: 4rem;
+}
+
+.dui.dui-inset-x-16 {
+    left: 4rem;
+    right: 4rem;
+}
+
+.dui.dui-inset-y-16 {
+    top: 4rem;
+    bottom: 4rem;
+}
+
+.dui.dui-top-16 {
+    top: 4rem;
+}
+
+.dui.dui-right-16 {
+    right: 4rem;
+}
+
+.dui.dui-bottom-16 {
+    bottom: 4rem;
+}
+
+.dui.dui-left-16 {
+    left: 4rem;
+}
+
+.dui.dui-inset-20 {
+    top: 5rem;
+    right: 5rem;
+    bottom: 5rem;
+    left: 5rem;
+}
+
+.dui.dui-inset-x-20 {
+    left: 5rem;
+    right: 5rem;
+}
+
+.dui.dui-inset-y-20 {
+    top: 5rem;
+    bottom: 5rem;
+}
+
+.dui.dui-top-20 {
+    top: 5rem;
+}
+
+.dui.dui-right-20 {
+    right: 5rem;
+}
+
+.dui.dui-bottom-20 {
+    bottom: 5rem;
+}
+
+.dui.dui-left-20 {
+    left: 5rem;
+}
+
+.dui.dui-inset-24 {
+    top: 6rem;
+    right: 6rem;
+    bottom: 6rem;
+    left: 6rem;
+}
+
+.dui.dui-inset-x-24 {
+    left: 6rem;
+    right: 6rem;
+}
+
+.dui.dui-inset-y-24 {
+    top: 6rem;
+    bottom: 6rem;
+}
+
+.dui.dui-top-24 {
+    top: 6rem;
+}
+
+.dui.dui-right-24 {
+    right: 6rem;
+}
+
+.dui.dui-bottom-24 {
+    bottom: 6rem;
+}
+
+.dui.dui-left-24 {
+    left: 6rem;
+}
+
+.dui.dui-inset-28 {
+    top: 7rem;
+    right: 7rem;
+    bottom: 7rem;
+    left: 7rem;
+}
+
+.dui.dui-inset-x-28 {
+    left: 7rem;
+    right: 7rem;
+}
+
+.dui.dui-inset-y-28 {
+    top: 7rem;
+    bottom: 7rem;
+}
+
+.dui.dui-top-28 {
+    top: 7rem;
+}
+
+.dui.dui-right-28 {
+    right: 7rem;
+}
+
+.dui.dui-bottom-28 {
+    bottom: 7rem;
+}
+
+.dui.dui-left-28 {
+    left: 7rem;
+}
+
+.dui.dui-inset-32 {
+    top: 8rem;
+    right: 8rem;
+    bottom: 8rem;
+    left: 8rem;
+}
+
+.dui.dui-inset-x-32 {
+    left: 8rem;
+    right: 8rem;
+}
+
+.dui.dui-inset-y-32 {
+    top: 8rem;
+    bottom: 8rem;
+}
+
+.dui.dui-top-32 {
+    top: 8rem;
+}
+
+.dui.dui-right-32 {
+    right: 8rem;
+}
+
+.dui.dui-bottom-32 {
+    bottom: 8rem;
+}
+
+.dui.dui-left-32 {
+    left: 8rem;
+}
+
+.dui.dui-inset-36 {
+    top: 9rem;
+    right: 9rem;
+    bottom: 9rem;
+    left: 9rem;
+}
+
+.dui.dui-inset-x-36 {
+    left: 9rem;
+    right: 9rem;
+}
+
+.dui.dui-inset-y-36 {
+    top: 9rem;
+    bottom: 9rem;
+}
+
+.dui.dui-top-36 {
+    top: 9rem;
+}
+
+.dui.dui-right-36 {
+    right: 9rem;
+}
+
+.dui.dui-bottom-36 {
+    bottom: 9rem;
+}
+
+.dui.dui-left-36 {
+    left: 9rem;
+}
+
+.dui.dui-inset-40 {
+    top: 10rem;
+    right: 10rem;
+    bottom: 10rem;
+    left: 10rem;
+}
+
+.dui.dui-inset-x-40 {
+    left: 10rem;
+    right: 10rem;
+}
+
+.dui.dui-inset-y-40 {
+    top: 10rem;
+    bottom: 10rem;
+}
+
+.dui.dui-top-40 {
+    top: 10rem;
+}
+
+.dui.dui-right-40 {
+    right: 10rem;
+}
+
+.dui.dui-bottom-40 {
+    bottom: 10rem;
+}
+
+.dui.dui-left-40 {
+    left: 10rem;
+}
+
+.dui.dui-inset-44 {
+    top: 11rem;
+    right: 11rem;
+    bottom: 11rem;
+    left: 11rem;
+}
+
+.dui.dui-inset-x-44 {
+    left: 11rem;
+    right: 11rem;
+}
+
+.dui.dui-inset-y-44 {
+    top: 11rem;
+    bottom: 11rem;
+}
+
+.dui.dui-top-44 {
+    top: 11rem;
+}
+
+.dui.dui-right-44 {
+    right: 11rem;
+}
+
+.dui.dui-bottom-44 {
+    bottom: 11rem;
+}
+
+.dui.dui-left-44 {
+    left: 11rem;
+}
+
+.dui.dui-inset-48 {
+    top: 12rem;
+    right: 12rem;
+    bottom: 12rem;
+    left: 12rem;
+}
+
+.dui.dui-inset-x-48 {
+    left: 12rem;
+    right: 12rem;
+}
+
+.dui.dui-inset-y-48 {
+    top: 12rem;
+    bottom: 12rem;
+}
+
+.dui.dui-top-48 {
+    top: 12rem;
+}
+
+.dui.dui-right-48 {
+    right: 12rem;
+}
+
+.dui.dui-bottom-48 {
+    bottom: 12rem;
+}
+
+.dui.dui-left-48 {
+    left: 12rem;
+}
+
+.dui.dui-inset-52 {
+    top: 13rem;
+    right: 13rem;
+    bottom: 13rem;
+    left: 13rem;
+}
+
+.dui.dui-inset-x-52 {
+    left: 13rem;
+    right: 13rem;
+}
+
+.dui.dui-inset-y-52 {
+    top: 13rem;
+    bottom: 13rem;
+}
+
+.dui.dui-top-52 {
+    top: 13rem;
+}
+
+.dui.dui-right-52 {
+    right: 13rem;
+}
+
+.dui.dui-bottom-52 {
+    bottom: 13rem;
+}
+
+.dui.dui-left-52 {
+    left: 13rem;
+}
+
+.dui.dui-inset-56 {
+    top: 14rem;
+    right: 14rem;
+    bottom: 14rem;
+    left: 14rem;
+}
+
+.dui.dui-inset-x-56 {
+    left: 14rem;
+    right: 14rem;
+}
+
+.dui.dui-inset-y-56 {
+    top: 14rem;
+    bottom: 14rem;
+}
+
+.dui.dui-top-56 {
+    top: 14rem;
+}
+
+.dui.dui-right-56 {
+    right: 14rem;
+}
+
+.dui.dui-bottom-56 {
+    bottom: 14rem;
+}
+
+.dui.dui-left-56 {
+    left: 14rem;
+}
+
+.dui.dui-inset-60 {
+    top: 15rem;
+    right: 15rem;
+    bottom: 15rem;
+    left: 15rem;
+}
+
+.dui.dui-inset-x-60 {
+    left: 15rem;
+    right: 15rem;
+}
+
+.dui.dui-inset-y-60 {
+    top: 15rem;
+    bottom: 15rem;
+}
+
+.dui.dui-top-60 {
+    top: 15rem;
+}
+
+.dui.dui-right-60 {
+    right: 15rem;
+}
+
+.dui.dui-bottom-60 {
+    bottom: 15rem;
+}
+
+.dui.dui-left-60 {
+    left: 15rem;
+}
+
+.dui.dui-inset-64 {
+    top: 16rem;
+    right: 16rem;
+    bottom: 16rem;
+    left: 16rem;
+}
+
+.dui.dui-inset-x-64 {
+    left: 16rem;
+    right: 16rem;
+}
+
+.dui.dui-inset-y-64 {
+    top: 16rem;
+    bottom: 16rem;
+}
+
+.dui.dui-top-64 {
+    top: 16rem;
+}
+
+.dui.dui-right-64 {
+    right: 16rem;
+}
+
+.dui.dui-bottom-64 {
+    bottom: 16rem;
+}
+
+.dui.dui-left-64 {
+    left: 16rem;
+}
+
+.dui.dui-inset-72 {
+    top: 18rem;
+    right: 18rem;
+    bottom: 18rem;
+    left: 18rem;
+}
+
+.dui.dui-inset-x-72 {
+    left: 18rem;
+    right: 18rem;
+}
+
+.dui.dui-inset-y-72 {
+    top: 18rem;
+    bottom: 18rem;
+}
+
+.dui.dui-top-72 {
+    top: 18rem;
+}
+
+.dui.dui-right-72 {
+    right: 18rem;
+}
+
+.dui.dui-bottom-72 {
+    bottom: 18rem;
+}
+
+.dui.dui-left-72 {
+    left: 18rem;
+}
+
+.dui.dui-inset-80 {
+    top: 20rem;
+    right: 20rem;
+    bottom: 20rem;
+    left: 20rem;
+}
+
+.dui.dui-inset-x-80 {
+    left: 20rem;
+    right: 20rem;
+}
+
+.dui.dui-inset-y-80 {
+    top: 20rem;
+    bottom: 20rem;
+}
+
+.dui.dui-top-80 {
+    top: 20rem;
+}
+
+.dui.dui-right-80 {
+    right: 20rem;
+}
+
+.dui.dui-bottom-80 {
+    bottom: 20rem;
+}
+
+.dui.dui-left-80 {
+    left: 20rem;
+}
+
+.dui.dui-inset-96 {
+    top: 24rem;
+    right: 24rem;
+    bottom: 24rem;
+    left: 24rem;
+}
+
+.dui.dui-inset-x-96 {
+    left: 24rem;
+    right: 24rem;
+}
+
+.dui.dui-inset-y-96 {
+    top: 24rem;
+    bottom: 24rem;
+}
+
+.dui.dui-top-96 {
+    top: 24rem;
+}
+
+.dui.dui-right-96 {
+    right: 24rem;
+}
+
+.dui.dui-bottom-96 {
+    bottom: 24rem;
+}
+
+.dui.dui-left-96 {
+    left: 24rem;
+}
+
+.dui.dui-inset-auto {
+    top: auto;
+    right: auto;
+    bottom: auto;
+    left: auto;
+}
+
+.dui.dui-inset-1_2 {
+    top: 50%;
+    right: 50%;
+    bottom: 50%;
+    left: 50%;
+}
+
+.dui.dui-inset-1_3 {
+    top: 33.333333%;
+    right: 33.333333%;
+    bottom: 33.333333%;
+    left: 33.333333%;
+}
+
+.dui.dui-inset-2_3 {
+    top: 66.666667%;
+    right: 66.666667%;
+    bottom: 66.666667%;
+    left: 66.666667%;
+}
+
+.dui.dui-inset-1_4 {
+    top: 25%;
+    right: 25%;
+    bottom: 25%;
+    left: 25%;
+}
+
+.dui.dui-inset-2_4 {
+    top: 50%;
+    right: 50%;
+    bottom: 50%;
+    left: 50%;
+}
+
+.dui.dui-inset-3_4 {
+    top: 75%;
+    right: 75%;
+    bottom: 75%;
+    left: 75%;
+}
+
+.dui.dui-inset-full {
+    top: 100%;
+    right: 100%;
+    bottom: 100%;
+    left: 100%;
+}
+
+.dui.dui-inset-x-auto {
+    left: auto;
+    right: auto;
+}
+
+.dui.dui-inset-x-1_2 {
+    left: 50%;
+    right: 50%;
+}
+
+.dui.dui-inset-x-1_3 {
+    left: 33.333333%;
+    right: 33.333333%;
+}
+
+.dui.dui-inset-x-2_3 {
+    left: 66.666667%;
+    right: 66.666667%;
+}
+
+.dui.dui-inset-x-1_4 {
+    left: 25%;
+    right: 25%;
+}
+
+.dui.dui-inset-x-2_4 {
+    left: 50%;
+    right: 50%;
+}
+
+.dui.dui-inset-x-3_4 {
+    left: 75%;
+    right: 75%;
+}
+
+.dui.dui-inset-x-full {
+    left: 100%;
+    right: 100%;
+}
+
+.dui.dui-inset-y-auto {
+    top: auto;
+    bottom: auto;
+}
+
+.dui.dui-inset-y-1_2 {
+    top: 50%;
+    bottom: 50%;
+}
+
+.dui.dui-inset-y-1_3 {
+    top: 33.333333%;
+    bottom: 33.333333%;
+}
+
+.dui.dui-inset-y-2_3 {
+    top: 66.666667%;
+    bottom: 66.666667%;
+}
+
+.dui.dui-inset-y-1_4 {
+    top: 25%;
+    bottom: 25%;
+}
+
+.dui.dui-inset-y-2_4 {
+    top: 50%;
+    bottom: 50%;
+}
+
+.dui.dui-inset-y-3_4 {
+    top: 75%;
+    bottom: 75%;
+}
+
+.dui.dui-inset-y-full {
+    top: 100%;
+    bottom: 100%;
+}
+
+.dui.dui-top-auto {
+    top: auto;
+}
+
+.dui.dui-top-1_2 {
+    top: 50%;
+}
+
+.dui.dui-top-1_3 {
+    top: 33.333333%;
+}
+
+.dui.dui-top-2_3 {
+    top: 66.666667%;
+}
+
+.dui.dui-top-1_4 {
+    top: 25%;
+}
+
+.dui.dui-top-2_4 {
+    top: 50%;
+}
+
+.dui.dui-top-3_4 {
+    top: 75%;
+}
+
+.dui.dui-top-full {
+    top: 100%;
+}
+
+.dui.dui-right-auto {
+    right: auto;
+}
+
+.dui.dui-right-1_2 {
+    right: 50%;
+}
+
+.dui.dui-right-1_3 {
+    right: 33.333333%;
+}
+
+.dui.dui-right-2_3 {
+    right: 66.666667%;
+}
+
+.dui.dui-right-1_4 {
+    right: 25%;
+}
+
+.dui.dui-right-2_4 {
+    right: 50%;
+}
+
+.dui.dui-right-3_4 {
+    right: 75%;
+}
+
+.dui.dui-right-full {
+    right: 100%;
+}
+
+.dui.dui-bottom-auto {
+    bottom: auto;
+}
+
+.dui.dui-bottom-1_2 {
+    bottom: 50%;
+}
+
+.dui.dui-bottom-1_3 {
+    bottom: 33.333333%;
+}
+
+.dui.dui-bottom-2_3 {
+    bottom: 66.666667%;
+}
+
+.dui.dui-bottom-1_4 {
+    bottom: 25%;
+}
+
+.dui.dui-bottom-2_4 {
+    bottom: 50%;
+}
+
+.dui.dui-bottom-3_4 {
+    bottom: 75%;
+}
+
+.dui.dui-bottom-full {
+    bottom: 100%;
+}
+
+.dui.dui-left-auto {
+    left: auto;
+}
+
+.dui.dui-left-1_2 {
+    left: 50%;
+}
+
+.dui.dui-left-1_3 {
+    left: 33.333333%;
+}
+
+.dui.dui-left-2_3 {
+    left: 66.666667%;
+}
+
+.dui.dui-left-1_4 {
+    left: 25%;
+}
+
+.dui.dui-left-2_4 {
+    left: 50%;
+}
+
+.dui.dui-left-3_4 {
+    left: 75%;
+}
+
+.dui.dui-left-full {
+    left: 100%;
+}
+
+.dui.dui-visible {
+    visibility: visible;
+}
+
+.dui.dui-invisible {
+    visibility: hidden;
+}
+
+.dui.dui-border-solid {
+    border-style: solid;
+}
+
+.dui.dui-border-dashed {
+    border-style: dashed;
+}
+
+.dui.dui-border-dotted {
+    border-style: dotted;
+}
+
+.dui.dui-border-double {
+    border-style: double;
+}
+
+.dui.dui-border-hidden {
+    border-style: hidden;
+}
+
+.dui.dui-border-none {
+    border-style: none;
+}
+
+.dui.dui-divide-solid > * + * {
+    border-style: solid;
+}
+
+.dui.dui-divide-dashed > * + * {
+    border-style: dashed;
+}
+
+.dui.dui-divide-dotted > * + * {
+    border-style: dotted;
+}
+
+.dui.dui-divide-double > * + * {
+    border-style: double;
+}
+
+.dui.dui-divide-none > * + * {
+    border-style: none;
+}
+
+.dui.dui-outline-none {
+    outline: 2px solid transparent;
+    outline-offset: 2px;
+}
+
+.dui.dui-outline {
+    outline-style: solid;
+}
+
+.dui.dui-outline-dashed {
+    outline-style: dashed;
+}
+
+.dui.dui-outline-dotted {
+    outline-style: dotted;
+}
+
+.dui.dui-outline-double {
+    outline-style: double;
+}
+
+.dui.dui-outline-hidden {
+    outline-style: hidden;
+}
+
+.dui.dui-elevation-none {
+    box-shadow: none;
+}
+
+.dui.dui-elevation-sm {
+    box-shadow: var(--dui-box-shadow-sm);
+}
+
+.dui.dui-elevation {
+    box-shadow: var(--dui-box-shadow);
+}
+
+.dui.dui-elevation-md {
+    --dui-box-shadow-md: 0 4px 6px -1px var(--dui-shadow-clr), 0 2px 4px -2px var(--dui-shadow-clr);
+    box-shadow: var(--dui-box-shadow-md);
+}
+
+.dui.dui-elevation-lg {
+    box-shadow: var(--dui-box-shadow-lg);
+}
+
+.dui.dui-elevation-xl {
+    box-shadow: var(--dui-box-shadow-xl);
+}
+
+.dui.dui-elevation-2xl {
+    box-shadow: var(--dui-box-shadow-2xl);
+}
+
+.dui.dui-elevation-inner {
+    box-shadow: var(--dui-box-shadow-inner);
+}
+
+.dui.dui-elevation-0 {
+    box-shadow: var(--dui-box-shadow-0);
+}
+
+.dui.dui-elevation-1 {
+    box-shadow: var(--dui-box-shadow-1);
+}
+
+.dui.dui-elevation-2 {
+    box-shadow: var(--dui-box-shadow-2);
+}
+
+.dui.dui-elevation-3 {
+    box-shadow: var(--dui-box-shadow-3);
+}
+
+.dui.dui-elevation-4 {
+    box-shadow: var(--dui-box-shadow-4);
+}
+
+.dui.dui-elevation-5 {
+    box-shadow: var(--dui-box-shadow-5);
+}
+
+.dui.dui-elevation-6 {
+    box-shadow: var(--dui-box-shadow-6);
+}
+
+.dui.dui-elevation-7 {
+    box-shadow: var(--dui-box-shadow-7);
+}
+
+.dui.dui-elevation-8 {
+    box-shadow: var(--dui-box-shadow-8);
+}
+
+.dui.dui-elevation-9 {
+    box-shadow: var(--dui-box-shadow-9);
+}
+
+.dui.dui-elevation-10 {
+    box-shadow: var(--dui-box-shadow-10);
+}
+
+.dui.dui-elevation-11 {
+    box-shadow: var(--dui-box-shadow-11);
+}
+
+.dui.dui-elevation-12 {
+    box-shadow: var(--dui-box-shadow-12);
+}
+
+.dui.dui-elevation-13 {
+    box-shadow: var(--dui-box-shadow-13);
+}
+
+.dui.dui-elevation-14 {
+    box-shadow: var(--dui-box-shadow-14);
+}
+
+.dui.dui-elevation-15 {
+    box-shadow: var(--dui-box-shadow-15);
+}
+
+.dui.dui-elevation-16 {
+    box-shadow: var(--dui-box-shadow-16);
+}
+
+.dui.dui-elevation-17 {
+    box-shadow: var(--dui-box-shadow-17);
+}
+
+.dui.dui-elevation-18 {
+    box-shadow: var(--dui-box-shadow-18);
+}
+
+.dui.dui-elevation-19 {
+    box-shadow: var(--dui-box-shadow-19);
+}
+
+.dui.dui-elevation-20 {
+    box-shadow: var(--dui-box-shadow-20);
+}
+
+.dui.dui-elevation-21 {
+    box-shadow: var(--dui-box-shadow-21);
+}
+
+.dui.dui-elevation-22 {
+    box-shadow: var(--dui-box-shadow-22);
+}
+
+.dui.dui-elevation-23 {
+    box-shadow: var(--dui-box-shadow-23);
+}
+
+.dui.dui-elevation-24 {
+    box-shadow: var(--dui-box-shadow-24);
+}
+
+.dui.dui-cursor-auto {
+    cursor: auto;
+}
+
+.dui.dui-cursor-default {
+    cursor: default;
+}
+
+.dui.dui-cursor-pointer {
+    cursor: pointer;
+}
+
+.dui.dui-cursor-wait {
+    cursor: wait;
+}
+
+.dui.dui-cursor-text {
+    cursor: text;
+}
+
+.dui.dui-cursor-move {
+    cursor: move;
+}
+
+.dui.dui-cursor-help {
+    cursor: help;
+}
+
+.dui.dui-cursor-not-allowed {
+    cursor: not-allowed;
+}
+
+.dui.dui-cursor-none {
+    cursor: none;
+}
+
+.dui.dui-cursor-context-menu {
+    cursor: context-menu;
+}
+
+.dui.dui-cursor-progress {
+    cursor: progress;
+}
+
+.dui.dui-cursor-cell {
+    cursor: cell;
+}
+
+.dui.dui-cursor-crosshair {
+    cursor: crosshair;
+}
+
+.dui.dui-cursor-vertical-text {
+    cursor: vertical-text;
+}
+
+.dui.dui-cursor-alias {
+    cursor: alias;
+}
+
+.dui.dui-cursor-copy {
+    cursor: copy;
+}
+
+.dui.dui-cursor-no-drop {
+    cursor: no-drop;
+}
+
+.dui.dui-cursor-grab {
+    cursor: grab;
+}
+
+.dui.dui-cursor-grabbing {
+    cursor: grabbing;
+}
+
+.dui.dui-cursor-all-scroll {
+    cursor: all-scroll;
+}
+
+.dui.dui-cursor-col-resize {
+    cursor: col-resize;
+}
+
+.dui.dui-cursor-row-resize {
+    cursor: row-resize;
+}
+
+.dui.dui-cursor-n-resize {
+    cursor: n-resize;
+}
+
+.dui.dui-cursor-e-resize {
+    cursor: e-resize;
+}
+
+.dui.dui-cursor-s-resize {
+    cursor: s-resize;
+}
+
+.dui.dui-cursor-w-resize {
+    cursor: w-resize;
+}
+
+.dui.dui-cursor-ne-resize {
+    cursor: ne-resize;
+}
+
+.dui.dui-cursor-nw-resize {
+    cursor: nw-resize;
+}
+
+.dui.dui-cursor-se-resize {
+    cursor: se-resize;
+}
+
+.dui.dui-cursor-sw-resize {
+    cursor: sw-resize;
+}
+
+.dui.dui-cursor-ew-resize {
+    cursor: ew-resize;
+}
+
+.dui.dui-cursor-ns-resize {
+    cursor: ns-resize;
+}
+
+.dui.dui-cursor-nesw-resize {
+    cursor: nesw-resize;
+}
+
+.dui.dui-cursor-nwse-resize {
+    cursor: nwse-resize;
+}
+
+.dui.dui-cursor-zoom-in {
+    cursor: zoom-in;
+}
+
+.dui.dui-cursor-zoom-out {
+    cursor: zoom-out;
+}
+
+.dui.dui-transition-none {
+    transition: none;
+}
+
+.dui.dui-disable-text-select {
+    user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    -khtml-user-select: none;
+    -webkit-user-select: none;
+    -webkit-touch-callout: none;
+}
+
+.dui.dui-font-roboto {
+    --dui-font-family: "Roboto";
+}
+
+.dui.dui-font-open-sans {
+    --dui-font-family: "Open Sans";
+}
+
+.dui.dui-font-inter {
+    --dui-font-family: "Inter";
+}
+
+.dui.dui-font-normal-100 {
+    font: var(--dui-font-normal-100);
+}
+
+.dui.dui-font-normal-100-sm {
+    font: var(--dui-font-normal-100-sm);
+}
+
+.dui.dui-font-normal-100-xsm {
+    font: var(--dui-font-normal-100-xsm);
+}
+
+.dui.dui-font-normal-100-lg {
+    font: var(--dui-font-normal-100-lg);
+}
+
+.dui.dui-font-normal-100-xlg {
+    font: var(--dui-font-normal-100-xlg);
+}
+
+.dui.dui-font-italic-100 {
+    font: var(--dui-font-italic-100);
+}
+
+.dui.dui-font-italic-100-sm {
+    font: var(--dui-font-italic-100-sm);
+}
+
+.dui.dui-font-italic-100-xsm {
+    font: var(--dui-font-italic-100-xsm);
+}
+
+.dui.dui-font-italic-100-lg {
+    font: var(--dui-font-italic-100-lg);
+}
+
+.dui.dui-font-italic-100-xlg {
+    font: var(--dui-font-italic-100-xlg);
+}
+
+.dui.dui-font-normal-300 {
+    font: var(--dui-font-normal-300);
+}
+
+.dui.dui-font-normal-300-sm {
+    font: var(--dui-font-normal-300-sm);
+}
+
+.dui.dui-font-normal-300-xsm {
+    font: var(--dui-font-normal-300-xsm);
+}
+
+.dui.dui-font-normal-300-lg {
+    font: var(--dui-font-normal-300-lg);
+}
+
+.dui.dui-font-normal-300-xlg {
+    font: var(--dui-font-normal-300-xlg);
+}
+
+.dui.dui-font-italic-300 {
+    font: var(--dui-font-italic-300);
+}
+
+.dui.dui-font-italic-300-sm {
+    font: var(--dui-font-italic-300-sm);
+}
+
+.dui.dui-font-italic-300-xsm {
+    font: var(--dui-font-italic-300-xsm);
+}
+
+.dui.dui-font-italic-300-lg {
+    font: var(--dui-font-italic-300-lg);
+}
+
+.dui.dui-font-italic-300-xlg {
+    font: var(--dui-font-italic-300-xlg);
+}
+
+.dui.dui-font-regular {
+    font: var(--dui-font-regular);
+}
+
+.dui.dui-font-regular-sm {
+    font: var(--dui-font-regular-sm);
+}
+
+.dui.dui-font-regular-xsm {
+    font: var(--dui-font-regular-xsm);
+}
+
+.dui.dui-font-regular-lg {
+    font: var(--dui-font-regular-lg);
+}
+
+.dui.dui-font-regular-xlg {
+    font: var(--dui-font-regular-xlg);
+}
+
+.dui.dui-font-italic {
+    font: var(--dui-font-italic);
+}
+
+.dui.dui-font-italic-sm {
+    font: var(--dui-font-italic-sm);
+}
+
+.dui.dui-font-italic-xsm {
+    font: var(--dui-font-italic-xsm);
+}
+
+.dui.dui-font-italic-lg {
+    font: var(--dui-font-italic-lg);
+}
+
+.dui.dui-font-italic-xlg {
+    font: var(--dui-font-italic-xlg);
+}
+
+
+.dui.dui-font-normal-500 {
+    font: var(--dui-font-normal-500);
+}
+
+.dui.dui-font-normal-500-sm {
+    font: var(--dui-font-normal-500-sm);
+}
+
+.dui.dui-font-normal-500-xsm {
+    font: var(--dui-font-normal-500-xsm);
+}
+
+.dui.dui-font-normal-500-lg {
+    font: var(--dui-font-normal-500-lg);
+}
+
+.dui.dui-font-normal-500-xlg {
+    font: var(--dui-font-normal-500-xlg);
+}
+
+.dui.dui-font-italic-500 {
+    font: var(--dui-font-italic-500);
+}
+
+.dui.dui-font-italic-500-sm {
+    font: var(--dui-font-italic-500-sm);
+}
+
+.dui.dui-font-italic-500-xsm {
+    font: var(--dui-font-italic-500-xsm);
+}
+
+.dui.dui-font-italic-500-lg {
+    font: var(--dui-font-italic-500-lg);
+}
+
+.dui.dui-font-italic-500-xlg {
+    font: var(--dui-font-italic-500-xlg);
+}
+
+.dui.dui-font-normal-600 {
+    font: var(--dui-font-normal-600);
+}
+
+.dui.dui-font-normal-600-sm {
+    font: var(--dui-font-normal-600-sm);
+}
+
+.dui.dui-font-normal-600-xsm {
+    font: var(--dui-font-normal-600-xsm);
+}
+
+.dui.dui-font-normal-600-lg {
+    font: var(--dui-font-normal-600-lg);
+}
+
+.dui.dui-font-normal-600-xlg {
+    font: var(--dui-font-normal-600-xlg);
+}
+
+.dui.dui-font-italic-600 {
+    font: var(--dui-font-italic-600);
+}
+
+.dui.dui-font-italic-600-sm {
+    font: var(--dui-font-italic-600-sm);
+}
+
+.dui.dui-font-italic-600-xsm {
+    font: var(--dui-font-italic-600-xsm);
+}
+
+.dui.dui-font-italic-600-lg {
+    font: var(--dui-font-italic-600-lg);
+}
+
+.dui.dui-font-italic-600-xlg {
+    font: var(--dui-font-italic-600-xlg);
+}
+
+.dui.dui-font-normal-700 {
+    font: var(--dui-font-normal-700);
+}
+
+.dui.dui-font-normal-700-sm {
+    font: var(--dui-font-normal-700-sm);
+}
+
+.dui.dui-font-normal-700-xsm {
+    font: var(--dui-font-normal-700-xsm);
+}
+
+.dui.dui-font-normal-700-lg {
+    font: var(--dui-font-normal-700-lg);
+}
+
+.dui.dui-font-normal-700-xlg {
+    font: var(--dui-font-normal-700-xlg);
+}
+
+.dui.dui-font-italic-700 {
+    font: var(--dui-font-italic-700);
+}
+
+.dui.dui-font-italic-700-sm {
+    font: var(--dui-font-italic-700-sm);
+}
+
+.dui.dui-font-italic-700-xsm {
+    font: var(--dui-font-italic-700-xsm);
+}
+
+.dui.dui-font-italic-700-lg {
+    font: var(--dui-font-italic-700-lg);
+}
+
+.dui.dui-font-italic-700-xlg {
+    font: var(--dui-font-italic-700-xlg);
+}
+
+.dui.dui-font-normal-800 {
+    font: var(--dui-font-normal-800);
+}
+
+.dui.dui-font-normal-800-sm {
+    font: var(--dui-font-normal-800-sm);
+}
+
+.dui.dui-font-normal-800-xsm {
+    font: var(--dui-font-normal-800-xsm);
+}
+
+.dui.dui-font-normal-800-lg {
+    font: var(--dui-font-normal-800-lg);
+}
+
+.dui.dui-font-normal-800-xlg {
+    font: var(--dui-font-normal-800-xlg);
+}
+
+.dui.dui-font-italic-800 {
+    font: var(--dui-font-italic-800);
+}
+
+.dui.dui-font-italic-800-sm {
+    font: var(--dui-font-italic-800-sm);
+}
+
+.dui.dui-font-italic-800-xsm {
+    font: var(--dui-font-italic-800-xsm);
+}
+
+.dui.dui-font-italic-800-lg {
+    font: var(--dui-font-italic-800-lg);
+}
+
+.dui.dui-font-italic-800-xlg {
+    font: var(--dui-font-italic-800-xlg);
+}
+
+.dui.dui-font-normal-900 {
+    font: var(--dui-font-normal-900);
+}
+
+.dui.dui-font-normal-900-sm {
+    font: var(--dui-font-normal-900-sm);
+}
+
+.dui.dui-font-normal-900-xsm {
+    font: var(--dui-font-normal-900-xsm);
+}
+
+.dui.dui-font-normal-900-lg {
+    font: var(--dui-font-normal-900-lg);
+}
+
+.dui.dui-font-normal-900-xlg {
+    font: var(--dui-font-normal-900-xlg);
+}
+
+.dui.dui-font-italic-900 {
+    font: var(--dui-font-italic-900);
+}
+
+.dui.dui-font-italic-900-sm {
+    font: var(--dui-font-italic-900-sm);
+}
+
+.dui.dui-font-italic-900-xsm {
+    font: var(--dui-font-italic-900-xsm);
+}
+
+.dui.dui-font-italic-900-lg {
+    font: var(--dui-font-italic-900-lg);
+}
+
+.dui.dui-font-italic-900-xlg {
+    font: var(--dui-font-italic-900-xlg);
+}

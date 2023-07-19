@@ -1,0 +1,64 @@
+@media screen and (max-width: 992px) {
+
+    .dui.dui-flex.dui-flex-responsive-reverse,
+    .dui.dui-flex.dui-flex-responsive {
+        flex-direction: column;
+    }
+
+    .dui.dui-flex-row.dui-flex-responsive-reverse,
+    .dui.dui-flex-row.dui-flex-responsive {
+        flex-direction: column;
+    }
+
+    .dui.dui-flex-column.dui-flex-responsive-reverse {
+        flex-direction: row;
+    }
+
+    .dui-stepper-track.dui-horizontal {
+        --dui-stepper-track-direction: column;
+        --dui-stepper-track-justify-content: center;
+        --dui-step-tracker-direction: row;
+        width: auto;
+    }
+    .dui-horizontal .dui-tracker-chain {
+        width: auto;
+        align-self: stretch;
+    }
+
+    .dui-horizontal > .dui-stepper-track > .dui-step-track:last-child .dui-tracker-line:after,
+    .dui-stepper-track.dui-horizontal > .dui-step-track:last-child .dui-tracker-line:after {
+        width: var(--dui-spc-4);
+        height: var(--dui-spc-4);
+        border-radius: 9999px;
+        left: calc(var(--dui-spc-1) * -1);
+        bottom: calc(var(--dui-spc-1) * -1);
+        top: auto;
+    }
+
+    .dui-horizontal .dui-tracker-line {
+        height: auto;
+        width: var(--dui-spc-2);
+    }
+
+    .dui-horizontal .dui-tracker-line:before {
+        width: var(--dui-spc-2);
+        height: var(--dui-spc-1);
+        top: calc(var(--dui-spc-1) * -1);
+        left: 0;
+    }
+
+    .dui-horizontal .dui-tracker-line:after {
+        width: var(--dui-spc-2);
+        background-color: var(--dui-accent-clr);
+        height: var(--dui-spc-1);
+        bottom: calc(var(--dui-spc-1) * -1);
+        left: 0;
+        right: auto;
+        top: auto;
+    }
+
+    .dui-stepper.dui-horizontal {
+        --dui-stepper-direction: column;
+    }
+
+}

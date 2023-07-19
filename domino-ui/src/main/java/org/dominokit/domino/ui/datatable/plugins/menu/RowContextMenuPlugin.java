@@ -22,20 +22,37 @@ import org.dominokit.domino.ui.datatable.plugins.DataTablePlugin;
 import org.dominokit.domino.ui.menu.Menu;
 import org.dominokit.domino.ui.menu.MenuTarget;
 
+/**
+ * RowContextMenuPlugin class.
+ *
+ * @author vegegoku
+ * @version $Id: $Id
+ */
 public class RowContextMenuPlugin<T> implements DataTablePlugin<T> {
 
   private final Menu<?> menu;
 
+  /**
+   * Constructor for RowContextMenuPlugin.
+   *
+   * @param menu a {@link org.dominokit.domino.ui.menu.Menu} object
+   */
   public RowContextMenuPlugin(Menu<?> menu) {
     this.menu = menu;
   }
 
+  /** {@inheritDoc} */
   @Override
   public void onRowAdded(DataTable<T> dataTable, TableRow<T> tableRow) {
     this.menu.addTarget(
         MenuTarget.of(tableRow.element()).applyMeta(RowContextMenuMeta.of(tableRow)));
   }
 
+  /**
+   * getRowContextMenuMeta.
+   *
+   * @return a {@link java.util.Optional} object
+   */
   public Optional<RowContextMenuMeta<T>> getRowContextMenuMeta() {
     return RowContextMenuMeta.get(this.menu);
   }

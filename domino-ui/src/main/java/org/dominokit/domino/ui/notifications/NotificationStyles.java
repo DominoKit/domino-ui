@@ -15,22 +15,32 @@
  */
 package org.dominokit.domino.ui.notifications;
 
-/** Default CSS classes for {@link Notification} */
-public class NotificationStyles {
-  /** CSS class for close button */
-  public static final String CLOSE = "close";
-  /** CSS class for notification container */
-  public static final String BOOTSTRAP_NOTIFY_CONTAINER = "bootstrap-notify-container";
-  /** CSS class for notification container */
-  public static final String ALERT = "alert";
-  /** CSS class for notification container */
-  public static final String ALERT_DISMISSIBLE = "alert-dismissible";
-  /** CSS class for danger notification */
-  public static final String ALERT_DANGER = "alert-danger";
-  /** CSS class for success notification */
-  public static final String ALERT_SUCCESS = "alert-success";
-  /** CSS class for warning notification */
-  public static final String ALERT_WARNING = "alert-warning";
-  /** CSS class for info notification */
-  public static final String ALERT_INFO = "alert-info";
+import org.dominokit.domino.ui.style.CssClass;
+
+/**
+ * Default CSS classes for {@link org.dominokit.domino.ui.notifications.Notification}
+ *
+ * @author vegegoku
+ * @version $Id: $Id
+ */
+public interface NotificationStyles {
+
+  /** Constant <code>dui_notification</code> */
+  CssClass dui_notification = () -> "dui-notification";
+  /** Constant <code>dui_notification_wrapper</code> */
+  CssClass dui_notification_wrapper = () -> "dui-notification-wrapper";
+  /** Constant <code>dui_ntf_top_left</code> */
+  CssClass dui_ntf_top_left = () -> "dui-ntf-top-left";
+  /** Constant <code>dui_ntf_top_middle</code> */
+  CssClass dui_ntf_top_middle = () -> "dui-ntf-top-middle";
+  /** Constant <code>dui_ntf_top_right</code> */
+  CssClass dui_ntf_top_right = () -> "dui-ntf-top-right";
+  /** Constant <code>dui_ntf_bottom_left</code> */
+  CssClass dui_ntf_bottom_left = () -> "dui-ntf-bottom-left";
+  /** Constant <code>dui_ntf_bottom_middle</code> */
+  CssClass dui_ntf_bottom_middle = () -> "dui-ntf-bottom-middle";
+  /** Constant <code>dui_ntf_bottom_right</code> */
+  CssClass dui_ntf_bottom_right = () -> "dui-ntf-bottom-right";
+  /** Constant <code>dui_notification_filler</code> */
+  CssClass dui_notification_filler = () -> "dui-notification-filler";
 }

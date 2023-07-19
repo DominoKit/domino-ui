@@ -15,11 +15,9 @@
  */
 package org.dominokit.domino.ui.button;
 
-import elemental2.dom.HTMLElement;
-import org.dominokit.domino.ui.icons.BaseIcon;
-import org.dominokit.domino.ui.style.Elevation;
-import org.dominokit.domino.ui.style.StyleType;
-import org.dominokit.domino.ui.utils.DominoUIConfig;
+import elemental2.dom.HTMLButtonElement;
+import org.dominokit.domino.ui.elements.ButtonElement;
+import org.dominokit.domino.ui.icons.Icon;
 
 /**
  * a simple button component
@@ -27,78 +25,47 @@ import org.dominokit.domino.ui.utils.DominoUIConfig;
  * <p>this class provide a set of factory methods to create simple buttons with different styles and
  * a combination of a text and icon. example
  *
- * <pre>
- *         Button.create("submit")
- *              .addClickListener(evt-&gt; //handle the event);
- *     </pre>
- *
- * <pre>
- *         Button.create(Icons.ALL.content_save_mdi(), "Save")
- *              .addClickListener(evt-&gt; //handle the event);
- *     </pre>
- *
- * <pre>
- *         Button.createPrimary("Approve")
- *              .addClickListener(evt-&gt; //handle the event);
- *     </pre>
+ * @author vegegoku
+ * @version $Id: $Id
  */
-public class Button extends BaseButton<Button> {
-
-  /** creates a Button without a text and with {@link Elevation#LEVEL_1} */
-  public Button() {
-    init(this);
-    elevate(DominoUIConfig.INSTANCE.getDefaultButtonElevation());
-  }
+public class Button extends BaseButton<HTMLButtonElement, Button> {
 
   /**
-   * create a Button with a text and with {@link Elevation#LEVEL_1}
+   * creates a Button without a text and with {@link
+   * org.dominokit.domino.ui.style.Elevation#LEVEL_1}
+   */
+  public Button() {}
+
+  /**
+   * create a Button with a text and with {@link org.dominokit.domino.ui.style.Elevation#LEVEL_1}
    *
    * @param text String, the button text
    */
   public Button(String text) {
-    this();
-    setContent(text);
+    super(text);
   }
 
   /**
-   * creates a Button with a text and apply a {@link StyleType}
-   *
-   * @param text String, the button text
-   * @param type {@link StyleType}
-   */
-  public Button(String text, StyleType type) {
-    this(text);
-    setButtonType(type);
-  }
-
-  /**
-   * creates a Button with an icon and {@link Elevation#LEVEL_1}
+   * creates a Button with an icon and {@link org.dominokit.domino.ui.style.Elevation#LEVEL_1}
    *
    * @param icon The button icon
    */
-  public Button(BaseIcon<?> icon) {
+  public Button(Icon<?> icon) {
     super(icon);
-    init(this);
-    elevate(DominoUIConfig.INSTANCE.getDefaultButtonElevation());
   }
 
   /**
-   * creates a Button with an icon and apply a {@link StyleType}
+   * Constructor for Button.
    *
-   * @param icon the button icon
-   * @param type {@link StyleType}
+   * @param text a {@link java.lang.String} object
+   * @param icon a {@link org.dominokit.domino.ui.icons.Icon} object
    */
-  public Button(BaseIcon<?> icon, StyleType type) {
-    this(icon);
-    setButtonType(type);
-  }
-
-  private static Button create(String text, StyleType type) {
-    return new Button(text, type);
+  public Button(String text, Icon<?> icon) {
+    super(text, icon);
   }
 
   /**
-   * creats a Button using {@link Button#Button()}
+   * creats a Button using {@link org.dominokit.domino.ui.button.Button#Button()}
    *
    * @return new Button instance
    */
@@ -107,7 +74,7 @@ public class Button extends BaseButton<Button> {
   }
 
   /**
-   * create a button using {@link Button#Button(String)}
+   * create a button using {@link org.dominokit.domino.ui.button.Button#Button(String)}
    *
    * @param text String button text
    * @return new Button instance
@@ -117,142 +84,43 @@ public class Button extends BaseButton<Button> {
   }
 
   /**
-   * creates a Button with a text and apply {@link StyleType#DEFAULT}
+   * creates a Button with an icon by calling {@link
+   * org.dominokit.domino.ui.button.Button#Button(Icon)}
    *
-   * @param text String, the button text
+   * @param icon {@link org.dominokit.domino.ui.icons.Icon}, the button icon
    * @return new Button instance
    */
-  public static Button createDefault(String text) {
-    return create(text, StyleType.DEFAULT);
-  }
-
-  /**
-   * creates a Button with a text and apply {@link StyleType#PRIMARY}
-   *
-   * @param text String, the button text
-   * @return new Button instance
-   */
-  public static Button createPrimary(String text) {
-    return create(text, StyleType.PRIMARY);
-  }
-
-  /**
-   * creates a Button with a text and apply {@link StyleType#SUCCESS}
-   *
-   * @param text String, the button text
-   * @return new Button instance
-   */
-  public static Button createSuccess(String text) {
-    return create(text, StyleType.SUCCESS);
-  }
-
-  /**
-   * creates a Button with a text and apply {@link StyleType#INFO}
-   *
-   * @param text String, the button text
-   * @return new Button instance
-   */
-  public static Button createInfo(String text) {
-    return create(text, StyleType.INFO);
-  }
-
-  /**
-   * creates a Button with a text and apply {@link StyleType#WARNING}
-   *
-   * @param text String, the button text
-   * @return new Button instance
-   */
-  public static Button createWarning(String text) {
-    return create(text, StyleType.WARNING);
-  }
-
-  /**
-   * creates a Button with a text and apply {@link StyleType#DANGER}
-   *
-   * @param text String, the button text
-   * @return new Button instance
-   */
-  public static Button createDanger(String text) {
-    return create(text, StyleType.DANGER);
-  }
-
-  /**
-   * creates a Button with an icon by calling {@link Button#Button(BaseIcon)}
-   *
-   * @param icon {@link BaseIcon}, the button icon
-   * @return new Button instance
-   */
-  public static Button create(BaseIcon<?> icon) {
+  public static Button create(Icon<?> icon) {
     return new Button(icon);
   }
 
-  private static Button create(BaseIcon<?> icon, StyleType type) {
-    return new Button(icon, type);
+  /**
+   * creates a Button with an icon by calling {@link
+   * org.dominokit.domino.ui.button.Button#Button(Icon)}
+   *
+   * @param icon {@link org.dominokit.domino.ui.icons.Icon}, the button icon
+   * @return new Button instance
+   * @param text a {@link java.lang.String} object
+   */
+  public static Button create(String text, Icon<?> icon) {
+    return new Button(text, icon);
   }
 
   /**
-   * creates a Button with an icon and apply {@link StyleType#DEFAULT}
+   * creates a Button with an icon by calling {@link
+   * org.dominokit.domino.ui.button.Button#Button(Icon)}
    *
-   * @param icon {@link BaseIcon}, the button icon
+   * @param icon {@link org.dominokit.domino.ui.icons.Icon}, the button icon
    * @return new Button instance
+   * @param text a {@link java.lang.String} object
    */
-  public static Button createDefault(BaseIcon<?> icon) {
-    return create(icon, StyleType.DEFAULT);
-  }
-
-  /**
-   * creates a Button with an icon and apply {@link StyleType#PRIMARY}
-   *
-   * @param icon {@link BaseIcon}, the button icon
-   * @return new Button instance
-   */
-  public static Button createPrimary(BaseIcon<?> icon) {
-    return create(icon, StyleType.PRIMARY);
-  }
-
-  /**
-   * creates a Button with an icon and apply {@link StyleType#SUCCESS}
-   *
-   * @param icon {@link BaseIcon}, the button icon
-   * @return new Button instance
-   */
-  public static Button createSuccess(BaseIcon<?> icon) {
-    return create(icon, StyleType.SUCCESS);
-  }
-
-  /**
-   * creates a Button with an icon and apply {@link StyleType#INFO}
-   *
-   * @param icon {@link BaseIcon}, the button icon
-   * @return new Button instance
-   */
-  public static Button createInfo(BaseIcon<?> icon) {
-    return create(icon, StyleType.INFO);
-  }
-
-  /**
-   * creates a Button with an icon and apply {@link StyleType#WARNING}
-   *
-   * @param icon {@link BaseIcon}, the button icon
-   * @return new Button instance
-   */
-  public static Button createWarning(BaseIcon<?> icon) {
-    return create(icon, StyleType.WARNING);
-  }
-
-  /**
-   * creates a Button with an icon and apply {@link StyleType#DANGER}
-   *
-   * @param icon {@link BaseIcon}, the button icon
-   * @return new Button instance
-   */
-  public static Button createDanger(BaseIcon<?> icon) {
-    return create(icon, StyleType.DANGER);
+  public static Button create(Icon<?> icon, String text) {
+    return new Button(text, icon);
   }
 
   /** {@inheritDoc} */
   @Override
-  public HTMLElement element() {
-    return buttonElement.element();
+  protected ButtonElement createButtonElement() {
+    return button();
   }
 }

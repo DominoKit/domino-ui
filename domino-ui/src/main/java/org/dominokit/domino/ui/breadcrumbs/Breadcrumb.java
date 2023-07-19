@@ -16,18 +16,19 @@
 package org.dominokit.domino.ui.breadcrumbs;
 
 import static java.util.Objects.nonNull;
-import static org.jboss.elemento.Elements.ol;
+import static org.dominokit.domino.ui.breadcrumbs.BreadcrumbStyles.dui_breadcrumb;
 
 import elemental2.dom.EventListener;
 import elemental2.dom.HTMLOListElement;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
-import org.dominokit.domino.ui.icons.BaseIcon;
-import org.dominokit.domino.ui.style.Color;
+import java.util.Set;
+import org.dominokit.domino.ui.elements.OListElement;
+import org.dominokit.domino.ui.icons.Icon;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
-import org.dominokit.domino.ui.utils.DominoElement;
 import org.dominokit.domino.ui.utils.HasBackground;
-import org.dominokit.domino.ui.utils.HasChangeHandlers;
+import org.dominokit.domino.ui.utils.HasChangeListeners;
 
 /**
  * Provides current location in a navigational hierarchy.
@@ -39,32 +40,25 @@ import org.dominokit.domino.ui.utils.HasChangeHandlers;
  * <p>Customize the component can be done by overwriting classes provided by {@link
  * BreadcrumbStyles}
  *
- * <p>For example:
- *
- * <pre>
- *     Breadcrumb.create()
- *               .appendChild(" Home ", (evt) -> {//do something when clicked})
- *               .appendChild(" Library ", (evt) -> {//do something when clicked})
- * </pre>
- *
  * @see BaseDominoElement
  * @see HasBackground
  * @see BreadcrumbItem
+ * @author vegegoku
+ * @version $Id: $Id
  */
 public class Breadcrumb extends BaseDominoElement<HTMLOListElement, Breadcrumb>
-    implements HasBackground<Breadcrumb>, HasChangeHandlers<Breadcrumb, BreadcrumbItem> {
-
-  private final DominoElement<HTMLOListElement> element =
-      DominoElement.of(ol()).css(BreadcrumbStyles.BREADCRUMB);
+    implements HasChangeListeners<Breadcrumb, BreadcrumbItem> {
+  private final OListElement element;
   private final List<BreadcrumbItem> items = new ArrayList<>();
-  private final List<ChangeHandler<? super BreadcrumbItem>> changeHandlers = new ArrayList<>();
+  private final Set<ChangeListener<? super BreadcrumbItem>> changeListeners = new HashSet<>();
   private BreadcrumbItem activeItem;
   private boolean removeTail = false;
-  private Color activeColor;
-  private Color activeBackground;
-  private boolean allowNavigation = true;
 
+  private boolean changeListenersPaused = false;
+
+  /** Constructor for Breadcrumb. */
   public Breadcrumb() {
+    element = ol().addCss(dui_breadcrumb);
     init(this);
   }
 
@@ -81,7 +75,8 @@ public class Breadcrumb extends BaseDominoElement<HTMLOListElement, Breadcrumb>
    * Adds new location with {@code text} and {@code onClick} listener
    *
    * @param text the label of the location
-   * @param onClick {@link EventListener} that will be called when the location is clicked
+   * @param onClick {@link elemental2.dom.EventListener} that will be called when the location is
+   *     clicked
    * @return same instance
    */
   public Breadcrumb appendChild(String text, EventListener onClick) {
@@ -94,12 +89,13 @@ public class Breadcrumb extends BaseDominoElement<HTMLOListElement, Breadcrumb>
   /**
    * Adds new location with {@code text}, {@code icon} and {@code onClick} listener
    *
-   * @param icon the {@link BaseIcon} of the location
+   * @param icon the {@link org.dominokit.domino.ui.icons.Icon} of the location
    * @param text the label of the location
-   * @param onClick {@link EventListener} that will be called when the location is clicked
+   * @param onClick {@link elemental2.dom.EventListener} that will be called when the location is
+   *     clicked
    * @return same instance
    */
-  public Breadcrumb appendChild(BaseIcon<?> icon, String text, EventListener onClick) {
+  public Breadcrumb appendChild(Icon<?> icon, String text, EventListener onClick) {
     BreadcrumbItem item = BreadcrumbItem.create(icon, text);
     addAndActivateNewItem(item);
     item.addClickListener(onClick);
@@ -107,9 +103,11 @@ public class Breadcrumb extends BaseDominoElement<HTMLOListElement, Breadcrumb>
   }
 
   /**
-   * Adds new location by providing {@link BreadcrumbItem}, change handler can be triggered
+   * Adds new location by providing {@link org.dominokit.domino.ui.breadcrumbs.BreadcrumbItem},
+   * change handler can be triggered
    *
-   * @param items the {@link BreadcrumbItem} location to be added
+   * @param items the {@link org.dominokit.domino.ui.breadcrumbs.BreadcrumbItem} location to be
+   *     added
    * @return same instance
    */
   public Breadcrumb appendChild(BreadcrumbItem... items) {
@@ -117,10 +115,11 @@ public class Breadcrumb extends BaseDominoElement<HTMLOListElement, Breadcrumb>
   }
 
   /**
-   * Adds new location by providing {@link BreadcrumbItem}
+   * Adds new location by providing {@link org.dominokit.domino.ui.breadcrumbs.BreadcrumbItem}
    *
    * @param silent boolean, if true dont trigger change handlers
-   * @param items the {@link BreadcrumbItem} location to be added
+   * @param items the {@link org.dominokit.domino.ui.breadcrumbs.BreadcrumbItem} location to be
+   *     added
    * @return same instance
    */
   public Breadcrumb appendChild(boolean silent, BreadcrumbItem... items) {
@@ -132,9 +131,9 @@ public class Breadcrumb extends BaseDominoElement<HTMLOListElement, Breadcrumb>
   }
 
   /**
-   * Adds new location by providing {@link BreadcrumbItem}
+   * Adds new location by providing {@link org.dominokit.domino.ui.breadcrumbs.BreadcrumbItem}
    *
-   * @param item the {@link BreadcrumbItem} location to be added
+   * @param item the {@link org.dominokit.domino.ui.breadcrumbs.BreadcrumbItem} location to be added
    * @return same instance
    */
   public Breadcrumb appendChild(BreadcrumbItem item) {
@@ -145,8 +144,8 @@ public class Breadcrumb extends BaseDominoElement<HTMLOListElement, Breadcrumb>
   /**
    * Remove child BreadcrumbItems from a given index, inclusive.
    *
-   * @param itemFromIndex the {@link BreadcrumbItem} index from which and all its siblings are
-   *     removed.
+   * @param itemFromIndex the {@link org.dominokit.domino.ui.breadcrumbs.BreadcrumbItem} index from
+   *     which and all its siblings are removed.
    * @param silent boolean, if true dont trigger change handlers
    * @return same instance
    */
@@ -164,27 +163,6 @@ public class Breadcrumb extends BaseDominoElement<HTMLOListElement, Breadcrumb>
     return this;
   }
 
-  /**
-   * Sets if the breadcrumb supports navigation between its locations
-   *
-   * @param allowNavigation true to allow navigation, false otherwise
-   * @return same instance
-   */
-  public Breadcrumb setAllowNavigation(boolean allowNavigation) {
-    this.allowNavigation = allowNavigation;
-    removeCss(BreadcrumbStyles.NAV_DISABLED);
-
-    if (!allowNavigation) {
-      addCss(BreadcrumbStyles.NAV_DISABLED);
-    }
-    return this;
-  }
-
-  /** @return true if the breadcrumb supports navigation, false otherwise */
-  public boolean isAllowNavigation() {
-    return allowNavigation;
-  }
-
   private void addAndActivateNewItem(BreadcrumbItem item) {
     addNewItem(item);
     setActiveItem(item);
@@ -193,10 +171,10 @@ public class Breadcrumb extends BaseDominoElement<HTMLOListElement, Breadcrumb>
   private void addNewItem(BreadcrumbItem item) {
     items.add(item);
     element.appendChild(item);
-    DominoElement.of(item.getClickableElement())
+    elementOf(item.getClickableElement())
         .addClickListener(
             e -> {
-              if (allowNavigation) {
+              if (!isDisabled()) {
                 setActiveItem(item);
               }
             });
@@ -221,9 +199,17 @@ public class Breadcrumb extends BaseDominoElement<HTMLOListElement, Breadcrumb>
    */
   public Breadcrumb setActiveItem(BreadcrumbItem item, boolean silent) {
     // If item is already active, do nothing here.
-    if (item.isActive()) return this;
+    if (item.isActive()) {
+      return this;
+    }
 
-    if (nonNull(activeItem)) activeItem.deActivate();
+    BreadcrumbItem oldValue;
+    if (nonNull(activeItem)) {
+      oldValue = activeItem;
+      activeItem.deActivate();
+    } else {
+      oldValue = null;
+    }
     item.activate();
     activeItem = item;
     if (removeTail) {
@@ -234,7 +220,9 @@ public class Breadcrumb extends BaseDominoElement<HTMLOListElement, Breadcrumb>
       }
     }
 
-    if (!silent) changeHandlers.forEach(changeHandler -> changeHandler.onValueChanged(activeItem));
+    if (!silent && !changeListenersPaused) {
+      triggerChangeListeners(oldValue, activeItem);
+    }
 
     return this;
   }
@@ -265,40 +253,6 @@ public class Breadcrumb extends BaseDominoElement<HTMLOListElement, Breadcrumb>
   }
 
   /**
-   * Sets the color of the breadcrumb
-   *
-   * @param color the new {@link Color}
-   * @return same instance
-   */
-  public Breadcrumb setColor(Color color) {
-    if (nonNull(this.activeColor)) element.removeCss(color.getStyle());
-    this.activeColor = color;
-    element.addCss(color.getStyle());
-
-    return this;
-  }
-
-  /**
-   * Positions the breadcrumb to the center of its parent
-   *
-   * @return same instance
-   */
-  public Breadcrumb alignCenter() {
-    style().alignCenter();
-    return this;
-  }
-
-  /**
-   * Positions the breadcrumb to the right of its parent
-   *
-   * @return same instance
-   */
-  public Breadcrumb alignRight() {
-    style().alignRight();
-    return this;
-  }
-
-  /**
    * Removes all locations from the breadcrumb
    *
    * @return same instance
@@ -316,44 +270,83 @@ public class Breadcrumb extends BaseDominoElement<HTMLOListElement, Breadcrumb>
     return element.element();
   }
 
-  /** {@inheritDoc} */
-  @Override
-  public Breadcrumb setBackground(Color background) {
-    if (nonNull(background)) {
-      if (nonNull(this.activeBackground)) element.removeCss(background.getBackground());
-      this.activeBackground = background;
-      element.addCss(background.getBackground());
-    }
-    return this;
-  }
-
   /** @return The active {@link BreadcrumbItem} location */
+  /**
+   * Getter for the field <code>activeItem</code>.
+   *
+   * @return a {@link org.dominokit.domino.ui.breadcrumbs.BreadcrumbItem} object
+   */
   public BreadcrumbItem getActiveItem() {
     return activeItem;
   }
 
   /** @return All {@link BreadcrumbItem} locations */
+  /**
+   * Getter for the field <code>items</code>.
+   *
+   * @return a {@link java.util.List} object
+   */
   public List<BreadcrumbItem> getItems() {
     return items;
   }
 
   /** {@inheritDoc} */
   @Override
-  public Breadcrumb addChangeHandler(ChangeHandler<? super BreadcrumbItem> changeHandler) {
-    changeHandlers.add(changeHandler);
+  public Breadcrumb addChangeListener(ChangeListener<? super BreadcrumbItem> changeListener) {
+    changeListeners.add(changeListener);
     return this;
   }
 
   /** {@inheritDoc} */
   @Override
-  public Breadcrumb removeChangeHandler(ChangeHandler<? super BreadcrumbItem> changeHandler) {
-    changeHandlers.remove(changeHandler);
+  public Breadcrumb removeChangeListener(ChangeListener<? super BreadcrumbItem> changeListener) {
+    changeListeners.remove(changeListener);
     return this;
   }
 
   /** {@inheritDoc} */
   @Override
-  public boolean hasChangeHandler(ChangeHandler<? super BreadcrumbItem> changeHandler) {
-    return changeHandlers.contains(changeHandler);
+  public boolean hasChangeListener(ChangeListener<? super BreadcrumbItem> changeListener) {
+    return changeListeners.contains(changeListener);
+  }
+
+  /** {@inheritDoc} */
+  @Override
+  public Breadcrumb pauseChangeListeners() {
+    this.changeListenersPaused = true;
+    return this;
+  }
+
+  /** {@inheritDoc} */
+  @Override
+  public Breadcrumb resumeChangeListeners() {
+    this.changeListenersPaused = false;
+    return this;
+  }
+
+  /** {@inheritDoc} */
+  @Override
+  public Breadcrumb togglePauseChangeListeners(boolean toggle) {
+    this.changeListenersPaused = toggle;
+    return this;
+  }
+
+  /** {@inheritDoc} */
+  @Override
+  public Set<ChangeListener<? super BreadcrumbItem>> getChangeListeners() {
+    return changeListeners;
+  }
+
+  /** {@inheritDoc} */
+  @Override
+  public boolean isChangeListenersPaused() {
+    return this.changeListenersPaused;
+  }
+
+  /** {@inheritDoc} */
+  @Override
+  public Breadcrumb triggerChangeListeners(BreadcrumbItem oldValue, BreadcrumbItem newValue) {
+    changeListeners.forEach(changeListener -> changeListener.onValueChanged(oldValue, newValue));
+    return this;
   }
 }

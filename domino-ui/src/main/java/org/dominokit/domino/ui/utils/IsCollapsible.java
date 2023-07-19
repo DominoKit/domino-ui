@@ -20,6 +20,8 @@ package org.dominokit.domino.ui.utils;
  *
  * @see org.dominokit.domino.ui.collapsible.Collapsible
  * @param <T> the type of the component implementing this interface
+ * @author vegegoku
+ * @version $Id: $Id
  */
 public interface IsCollapsible<T> {
 
@@ -28,21 +30,21 @@ public interface IsCollapsible<T> {
    *
    * @return same component instance
    */
-  T show();
+  T expand();
 
   /**
    * Hides the component
    *
    * @return same component instance
    */
-  T hide();
+  T collapse();
 
   /**
    * if the component is visible then hide it, otherwise show it
    *
    * @return same component instance
    */
-  T toggleDisplay();
+  T toggleCollapse();
 
   /**
    * Show/hides the component based on the provided flag
@@ -50,19 +52,22 @@ public interface IsCollapsible<T> {
    * @param state boolean, if true show the component, if false hide it
    * @return same component instance
    */
-  T toggleDisplay(boolean state);
-
-  /**
-   * @deprecated use {@link #isCollapsed()}
-   * @return boolean, true if the component is hidden
-   */
-  @Deprecated
-  boolean isHidden();
+  T toggleCollapse(boolean state);
 
   /** @return boolean, true if the component is collapsed */
+  /**
+   * isCollapsed.
+   *
+   * @return a boolean
+   */
   boolean isCollapsed();
 
   /** @return boolean, true if the component is expanded */
+  /**
+   * isExpanded.
+   *
+   * @return a boolean
+   */
   default boolean isExpanded() {
     return !isCollapsed();
   }

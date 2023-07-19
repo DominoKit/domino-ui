@@ -17,6 +17,12 @@ package org.dominokit.domino.ui.utils;
 
 import elemental2.core.JsDate;
 
+/**
+ * DominoId class.
+ *
+ * @author vegegoku
+ * @version $Id: $Id
+ */
 public class DominoId {
 
   private static final String DEFAULT_PREFIX = "dui-";
@@ -28,10 +34,21 @@ public class DominoId {
             SEED = new JsDate().getTime() + "-";
           });
 
+  /**
+   * unique.
+   *
+   * @return a {@link java.lang.String} object
+   */
   public static String unique() {
     return unique(DEFAULT_PREFIX);
   }
 
+  /**
+   * unique.
+   *
+   * @param prefix a {@link java.lang.String} object
+   * @return a {@link java.lang.String} object
+   */
   public static String unique(String prefix) {
     String id = prefix + getSeed() + counter;
     counter++;

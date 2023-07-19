@@ -15,7 +15,14 @@
  */
 package org.dominokit.domino.ui.pickers;
 
+/**
+ * PickerHandler interface.
+ *
+ * @author vegegoku
+ * @version $Id: $Id
+ */
 @FunctionalInterface
 public interface PickerHandler {
+  /** handle. */
   void handle();
 }

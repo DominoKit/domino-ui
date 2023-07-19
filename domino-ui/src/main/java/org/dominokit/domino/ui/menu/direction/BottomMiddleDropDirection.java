@@ -16,14 +16,25 @@
 package org.dominokit.domino.ui.menu.direction;
 
 import static elemental2.dom.DomGlobal.window;
-import static org.dominokit.domino.ui.style.Unit.px;
+import static org.dominokit.domino.ui.style.SpacingCss.dui_flex_col_reverse;
+import static org.dominokit.domino.ui.utils.ElementsFactory.elements;
+import static org.dominokit.domino.ui.utils.Unit.px;
 
 import elemental2.dom.DOMRect;
-import elemental2.dom.HTMLElement;
+import elemental2.dom.Element;
+import org.dominokit.domino.ui.style.Style;
 
+/**
+ * BottomMiddleDropDirection class.
+ *
+ * @author vegegoku
+ * @version $Id: $Id
+ */
 public class BottomMiddleDropDirection implements DropDirection {
+  /** {@inheritDoc} */
   @Override
-  public void position(HTMLElement source, HTMLElement target) {
+  public void position(Element source, Element target) {
+    dui_flex_col_reverse.remove(source);
     DOMRect targetRect = target.getBoundingClientRect();
     DOMRect sourceRect = source.getBoundingClientRect();
     double delta = 0;
@@ -32,14 +43,29 @@ public class BottomMiddleDropDirection implements DropDirection {
       delta = sourceRect.width - availableSpace;
     }
 
-    source.style.setProperty(
-        "top", px.of((targetRect.top + window.pageYOffset) + targetRect.height + 1));
-    source.style.setProperty(
-        "left",
-        px.of(
-            targetRect.left
-                + window.pageXOffset
-                - ((sourceRect.width - targetRect.width) / 2)
-                + delta));
+    elements.elementOf(source).setCssProperty("--dui-menu-drop-min-width", targetRect.width + "px");
+    targetRect = target.getBoundingClientRect();
+    sourceRect = source.getBoundingClientRect();
+
+    Style.of(source)
+        .style
+        .setProperty("top", px.of((targetRect.top + window.pageYOffset) + targetRect.height + 1));
+    Style.of(source)
+        .style
+        .setProperty(
+            "left",
+            px.of(
+                targetRect.left
+                    + window.pageXOffset
+                    - ((sourceRect.width - targetRect.width) / 2)
+                    + delta));
+    dui_dd_bottom_middle.apply(source);
+  }
+
+  /** {@inheritDoc} */
+  @Override
+  public void cleanup(Element source) {
+    dui_dd_bottom_middle.remove(source);
+    elements.elementOf(source).removeCssProperty("--dui-menu-drop-min-width");
   }
 }

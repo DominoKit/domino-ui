@@ -28,14 +28,17 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 import org.dominokit.domino.ui.datatable.events.*;
-import org.dominokit.domino.ui.datatable.plugins.SortDirection;
+import org.dominokit.domino.ui.datatable.plugins.pagination.SortDirection;
 import org.dominokit.domino.ui.pagination.HasPagination;
 
 /**
- * An implementation of the {@link DataStore} that wraps an in-memory/local list of records allowing
- * the data table to use features like pagination and sorting
+ * An implementation of the {@link org.dominokit.domino.ui.datatable.store.DataStore} that wraps an
+ * in-memory/local list of records allowing the data table to use features like pagination and
+ * sorting
  *
  * @param <T> the type of the data table records
+ * @author vegegoku
+ * @version $Id: $Id
  */
 public class LocalListDataStore<T> implements DataStore<T> {
 
@@ -89,7 +92,7 @@ public class LocalListDataStore<T> implements DataStore<T> {
   /**
    * Creates an instance initialized with a custom list of data
    *
-   * @param data {@link List} of records
+   * @param data {@link java.util.List} of records
    */
   public LocalListDataStore(List<T> data) {
     this.original = data;
@@ -100,7 +103,7 @@ public class LocalListDataStore<T> implements DataStore<T> {
    * sets new data list overriding the existing one, and clears all filters, then loads it in the
    * data table
    *
-   * @param data the new {@link List} of records
+   * @param data the new {@link java.util.List} of records
    */
   public void setData(List<T> data) {
     this.original.clear();
@@ -111,18 +114,21 @@ public class LocalListDataStore<T> implements DataStore<T> {
   }
 
   /**
-   * @return a reference to the current applied {@link SearchFilter} if exists, otherwise return
-   *     null
+   * Getter for the field <code>searchFilter</code>.
+   *
+   * @return a reference to the current applied {@link
+   *     org.dominokit.domino.ui.datatable.store.SearchFilter} if exists, otherwise return null
    */
   public SearchFilter<T> getSearchFilter() {
     return searchFilter;
   }
 
   /**
-   * Sets a search filter, when ever the data store receives a {@link SearchEvent} it will use this
-   * search filter to filter the data list
+   * Sets a search filter, when ever the data store receives a {@link
+   * org.dominokit.domino.ui.datatable.events.SearchEvent} it will use this search filter to filter
+   * the data list
    *
-   * @param searchFilter {@link SearchFilter}
+   * @param searchFilter {@link org.dominokit.domino.ui.datatable.store.SearchFilter}
    * @return same instance
    */
   public LocalListDataStore<T> setSearchFilter(SearchFilter<T> searchFilter) {
@@ -131,6 +137,8 @@ public class LocalListDataStore<T> implements DataStore<T> {
   }
 
   /**
+   * Setter for the field <code>autoSort</code>.
+   *
    * @param autoSort if true the data store will automatically sort the data list before loading it
    *     into the data table
    * @return same instance
@@ -154,7 +162,8 @@ public class LocalListDataStore<T> implements DataStore<T> {
   /**
    * set the default sort direction to initially sort the data list by.
    *
-   * @param autoSortDirection {@link SortDirection}
+   * @param autoSortDirection {@link
+   *     org.dominokit.domino.ui.datatable.plugins.pagination.SortDirection}
    * @return same instance
    */
   public LocalListDataStore<T> setAutoSortDirection(SortDirection autoSortDirection) {
@@ -163,6 +172,11 @@ public class LocalListDataStore<T> implements DataStore<T> {
   }
 
   /** @return the {@link HasPagination} component used in this data store */
+  /**
+   * Getter for the field <code>pagination</code>.
+   *
+   * @return a {@link org.dominokit.domino.ui.pagination.HasPagination} object
+   */
   public HasPagination getPagination() {
     return pagination;
   }
@@ -170,7 +184,7 @@ public class LocalListDataStore<T> implements DataStore<T> {
   /**
    * set the pagination component to be used by the data store
    *
-   * @param pagination {@link HasPagination}
+   * @param pagination {@link org.dominokit.domino.ui.pagination.HasPagination}
    * @return same instance
    */
   public LocalListDataStore<T> setPagination(HasPagination pagination) {
@@ -179,6 +193,11 @@ public class LocalListDataStore<T> implements DataStore<T> {
   }
 
   /** @return the {@link RecordsSorter} used in this data store */
+  /**
+   * Getter for the field <code>recordsSorter</code>.
+   *
+   * @return a {@link org.dominokit.domino.ui.datatable.store.RecordsSorter} object
+   */
   public RecordsSorter<T> getRecordsSorter() {
     return recordsSorter;
   }
@@ -186,7 +205,7 @@ public class LocalListDataStore<T> implements DataStore<T> {
   /**
    * Sets the records sorting for this data store
    *
-   * @param recordsSorter {@link RecordsSorter}
+   * @param recordsSorter {@link org.dominokit.domino.ui.datatable.store.RecordsSorter}
    * @return same instance
    */
   public LocalListDataStore<T> setRecordsSorter(RecordsSorter<T> recordsSorter) {
@@ -194,6 +213,14 @@ public class LocalListDataStore<T> implements DataStore<T> {
     return this;
   }
 
+  /**
+   * Setter for the field <code>recordsSorter</code>.
+   *
+   * @param recordsSorter a {@link org.dominokit.domino.ui.datatable.store.RecordsSorter} object
+   * @param sortFunction a {@link
+   *     org.dominokit.domino.ui.datatable.store.LocalListDataStore.SortFunction} object
+   * @return a {@link org.dominokit.domino.ui.datatable.store.LocalListDataStore} object
+   */
   public LocalListDataStore<T> setRecordsSorter(
       RecordsSorter<T> recordsSorter, SortFunction<T> sortFunction) {
     this.recordsSorter = recordsSorter;
@@ -270,6 +297,11 @@ public class LocalListDataStore<T> implements DataStore<T> {
     fireUpdate(true);
   }
 
+  /**
+   * onSearchChanged.
+   *
+   * @param event a {@link org.dominokit.domino.ui.datatable.events.SearchEvent} object
+   */
   public void onSearchChanged(SearchEvent event) {
     if (nonNull(getSearchFilter())) {
       setLastSearch(event);
@@ -292,22 +324,47 @@ public class LocalListDataStore<T> implements DataStore<T> {
     }
   }
 
+  /**
+   * Setter for the field <code>lastSort</code>.
+   *
+   * @param event a {@link org.dominokit.domino.ui.datatable.events.SortEvent} object
+   */
   protected void setLastSort(SortEvent<T> event) {
     this.lastSort = event;
   }
 
+  /**
+   * Getter for the field <code>lastSort</code>.
+   *
+   * @return a {@link org.dominokit.domino.ui.datatable.events.SortEvent} object
+   */
   public SortEvent<T> getLastSort() {
     return lastSort;
   }
 
+  /**
+   * Setter for the field <code>lastSearch</code>.
+   *
+   * @param event a {@link org.dominokit.domino.ui.datatable.events.SearchEvent} object
+   */
   protected void setLastSearch(SearchEvent event) {
     this.lastSearch = event;
   }
 
+  /**
+   * Getter for the field <code>lastSearch</code>.
+   *
+   * @return a {@link org.dominokit.domino.ui.datatable.events.SearchEvent} object
+   */
   public SearchEvent getLastSearch() {
     return this.lastSearch;
   }
 
+  /**
+   * sort.
+   *
+   * @param event a {@link org.dominokit.domino.ui.datatable.events.SortEvent} object
+   */
   public void sort(SortEvent<T> event) {
     getSortFunction()
         .sort(
@@ -316,10 +373,17 @@ public class LocalListDataStore<T> implements DataStore<T> {
                 .onSortChange(event.getColumnConfig().getSortKey(), event.getSortDirection()));
   }
 
+  /**
+   * Getter for the field <code>sortFunction</code>.
+   *
+   * @return a {@link org.dominokit.domino.ui.datatable.store.LocalListDataStore.SortFunction}
+   *     object
+   */
   public SortFunction<T> getSortFunction() {
     return this.sortFunction;
   }
 
+  /** loadFirstPage. */
   protected void loadFirstPage() {
     if (nonNull(getPagination())) {
       getPagination().updatePagesByTotalCount(filtered.size());
@@ -338,26 +402,57 @@ public class LocalListDataStore<T> implements DataStore<T> {
     updatePagination();
   }
 
+  /**
+   * isAutoSort.
+   *
+   * @return a boolean
+   */
   public boolean isAutoSort() {
     return autoSort;
   }
 
+  /**
+   * Getter for the field <code>autoSortBy</code>.
+   *
+   * @return a {@link java.lang.String} object
+   */
   public String getAutoSortBy() {
     return autoSortBy;
   }
 
+  /**
+   * Getter for the field <code>autoSortDirection</code>.
+   *
+   * @return a {@link org.dominokit.domino.ui.datatable.plugins.pagination.SortDirection} object
+   */
   public SortDirection getAutoSortDirection() {
     return autoSortDirection;
   }
 
+  /**
+   * isAutoSortApplied.
+   *
+   * @return a boolean
+   */
   public boolean isAutoSortApplied() {
     return autoSortApplied;
   }
 
+  /**
+   * Setter for the field <code>sortFunction</code>.
+   *
+   * @param sortFunction a {@link
+   *     org.dominokit.domino.ui.datatable.store.LocalListDataStore.SortFunction} object
+   */
   public void setSortFunction(SortFunction<T> sortFunction) {
     this.sortFunction = sortFunction;
   }
 
+  /**
+   * Setter for the field <code>autoSortApplied</code>.
+   *
+   * @param autoSortApplied a boolean
+   */
   protected void setAutoSortApplied(boolean autoSortApplied) {
     this.autoSortApplied = autoSortApplied;
   }
@@ -464,6 +559,7 @@ public class LocalListDataStore<T> implements DataStore<T> {
    * <p>While updating the records, if the index is out of range then the process will stop.
    *
    * @param records records to be updated
+   * @param startIndex a int
    */
   public void updateRecords(int startIndex, Collection<T> records) {
     for (T record : records) {
@@ -491,7 +587,7 @@ public class LocalListDataStore<T> implements DataStore<T> {
   /**
    * adds a list of records to the current list and updates the data table accordingly
    *
-   * @param records {@link Collection} of records
+   * @param records {@link java.util.Collection} of records
    */
   public void addRecords(Collection<T> records) {
     original.addAll(records);
@@ -500,6 +596,11 @@ public class LocalListDataStore<T> implements DataStore<T> {
   }
 
   /** @deprecated use {@link #removeRecords} */
+  /**
+   * removeRecord.
+   *
+   * @param records a {@link java.util.Collection} object
+   */
   @Deprecated
   public void removeRecord(Collection<T> records) {
     original.removeAll(records);
@@ -510,7 +611,7 @@ public class LocalListDataStore<T> implements DataStore<T> {
   /**
    * removes a list of records from the current list and updates the data table accordingly
    *
-   * @param records {@link Collection} of records
+   * @param records {@link java.util.Collection} of records
    */
   public void removeRecords(Collection<T> records) {
     original.removeAll(records);
@@ -519,11 +620,18 @@ public class LocalListDataStore<T> implements DataStore<T> {
   }
 
   /** @return an immutable list obtained from the data records from the data store */
+  /**
+   * getRecords.
+   *
+   * @return a {@link java.util.List} object
+   */
   public List<T> getRecords() {
     return new ArrayList<>(original);
   }
 
   /**
+   * getFilteredRecords.
+   *
    * @return an immutable list obtained from the data records from the data store that match the
    *     current applied filters
    */
@@ -532,6 +640,12 @@ public class LocalListDataStore<T> implements DataStore<T> {
   }
 
   /** @param dragDropRecordActions the {@link DragDropRecordActions} handler */
+  /**
+   * Setter for the field <code>dragDropRecordActions</code>.
+   *
+   * @param dragDropRecordActions a {@link
+   *     org.dominokit.domino.ui.datatable.store.LocalListDataStore.DragDropRecordActions} object
+   */
   public void setDragDropRecordActions(DragDropRecordActions<T> dragDropRecordActions) {
     this.dragDropRecordActions = dragDropRecordActions;
   }

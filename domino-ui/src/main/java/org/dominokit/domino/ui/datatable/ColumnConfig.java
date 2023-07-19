@@ -18,59 +18,42 @@ package org.dominokit.domino.ui.datatable;
 import static java.util.Objects.isNull;
 import static java.util.Objects.nonNull;
 import static org.dominokit.domino.ui.datatable.ColumnUtils.fixElementWidth;
-import static org.jboss.elemento.Elements.th;
 
+import elemental2.dom.Element;
 import elemental2.dom.HTMLTableCellElement;
-import elemental2.dom.HTMLTableRowElement;
 import elemental2.dom.Node;
 import java.util.*;
 import java.util.function.Consumer;
 import java.util.function.Predicate;
-import org.dominokit.domino.ui.grid.flex.FlexAlign;
-import org.dominokit.domino.ui.grid.flex.FlexItem;
-import org.dominokit.domino.ui.grid.flex.FlexLayout;
-import org.dominokit.domino.ui.icons.Icons;
+import org.dominokit.domino.ui.IsElement;
+import org.dominokit.domino.ui.elements.TableRowElement;
 import org.dominokit.domino.ui.icons.MdiIcon;
+import org.dominokit.domino.ui.icons.lib.Icons;
 import org.dominokit.domino.ui.menu.Menu;
 import org.dominokit.domino.ui.menu.direction.BestSideUpDownDropDirection;
 import org.dominokit.domino.ui.popover.Tooltip;
-import org.dominokit.domino.ui.utils.ComponentMeta;
-import org.dominokit.domino.ui.utils.DominoElement;
-import org.dominokit.domino.ui.utils.ScreenMedia;
-import org.dominokit.domino.ui.utils.TextNode;
-import org.jboss.elemento.IsElement;
+import org.dominokit.domino.ui.utils.*;
 
 /**
  * Class to define a column in the data table
  *
  * @param <T> the type of the data table records
+ * @author vegegoku
+ * @version $Id: $Id
  */
-public class ColumnConfig<T> {
+public class ColumnConfig<T> implements ElementsFactory, DataTableStyles {
 
   private final String name;
   private String filterKey;
   private String title;
-  private HTMLTableCellElement headElement;
-  private FlexLayout headerLayout;
-  private boolean header = false;
+  private ColumnHeader headElement;
   private String minWidth;
   private String maxWidth;
-  private String textAlign;
-  private String headerTextAlign;
+  private CellTextAlign cellTextAlign = CellTextAlign.LEFT;
+  private CellTextAlign headerCellTextAlign = CellTextAlign.LEFT;
   private CellRenderer<T> cellRenderer;
   private CellRenderer<T> editableCellRenderer;
-  private HeaderElementSupplier headerElementSupplier =
-      columnTitle -> {
-        return FlexLayout.create()
-            .css("dui-th-title-wrapper")
-            .appendChild(
-                FlexItem.of(DominoElement.div().css("dui-th-title-text-wrapper"))
-                    .setOrder(50)
-                    .setFlexGrow(1)
-                    .styler(style -> style.setCssProperty("text-indent", "2px"))
-                    .appendChild(TextNode.of(columnTitle)))
-            .element();
-      };
+  private HeaderElementSupplier headerElementSupplier = columnTitle -> text(columnTitle);
   private CellStyler<T> headerStyler = element -> {};
   private CellStyler<T> cellStyler = element -> {};
   private boolean sortable = false;
@@ -95,14 +78,13 @@ public class ColumnConfig<T> {
 
   private final Menu<String> menu;
   private MdiIcon menuIcon;
-  private FlexLayout flexLayout;
 
   /**
    * Creates an instance with a name which will also be used as a title
    *
    * @param name String, the name of the column
    * @param <T> the type of the data table records
-   * @return new {@link ColumnConfig} instance
+   * @return new {@link org.dominokit.domino.ui.datatable.ColumnConfig} instance
    */
   public static <T> ColumnConfig<T> create(String name) {
     return new ColumnConfig<>(name);
@@ -114,7 +96,7 @@ public class ColumnConfig<T> {
    * @param name String, the name of the column
    * @param title String, the title of the column
    * @param <T> the type of the data table records
-   * @return new {@link ColumnConfig} instance
+   * @return new {@link org.dominokit.domino.ui.datatable.ColumnConfig} instance
    */
   public static <T> ColumnConfig<T> create(String name, String title) {
     return new ColumnConfig<>(name, title);
@@ -129,12 +111,12 @@ public class ColumnConfig<T> {
   public ColumnConfig(String name, String title) {
     this.name = name;
     this.title = title;
-    menuIcon = Icons.ALL.dots_vertical_mdi();
+    menuIcon = Icons.dots_vertical().addCss(dui_datatable_th_menu_icon);
     this.menu =
         Menu.<String>create()
             .setTargetElement(menuIcon)
             .setDropDirection(new BestSideUpDownDropDirection())
-            .addItemAddedHandler(menuItem -> menuIcon.show());
+            .addOnAddItemHandler((menu1, menuItem) -> menuIcon.show());
     menuIcon.hide();
   }
 
@@ -148,30 +130,48 @@ public class ColumnConfig<T> {
   }
 
   /** @return String column title */
+  /**
+   * Getter for the field <code>title</code>.
+   *
+   * @return a {@link java.lang.String} object
+   */
   public String getTitle() {
     return title;
   }
 
   /** @return String column name */
+  /**
+   * Getter for the field <code>name</code>.
+   *
+   * @return a {@link java.lang.String} object
+   */
   public String getName() {
     return name;
   }
 
+  /**
+   * Getter for the field <code>filterKey</code>.
+   *
+   * @return a {@link java.lang.String} object
+   */
   public String getFilterKey() {
     return nonNull(filterKey) ? filterKey : getName();
   }
 
+  /**
+   * Setter for the field <code>filterKey</code>.
+   *
+   * @param filterKey a {@link java.lang.String} object
+   * @return a {@link org.dominokit.domino.ui.datatable.ColumnConfig} object
+   */
   public ColumnConfig<T> setFilterKey(String filterKey) {
     this.filterKey = filterKey;
     return this;
   }
 
-  public ColumnConfig<T> asHeader() {
-    this.header = true;
-    return this;
-  }
-
   /**
+   * minWidth.
+   *
    * @param minWidth String css minimum width for the column
    * @return same ColumnConfig instance
    */
@@ -181,6 +181,8 @@ public class ColumnConfig<T> {
   }
 
   /**
+   * maxWidth.
+   *
    * @param maxWidth String css maximum width for the column
    * @return same ColumnConfig instance
    */
@@ -190,6 +192,8 @@ public class ColumnConfig<T> {
   }
 
   /**
+   * Getter for the field <code>width</code>.
+   *
    * @return String the width of the column that we set using the {@link #setWidth(String)} not the
    *     actual width of the column
    */
@@ -198,6 +202,8 @@ public class ColumnConfig<T> {
   }
 
   /**
+   * Setter for the field <code>width</code>.
+   *
    * @param width String css width for the column
    * @return same ColumnConfig instance
    */
@@ -207,92 +213,46 @@ public class ColumnConfig<T> {
   }
 
   /**
-   * @param textAlign String css text align for the column values
+   * setTextAlign.
+   *
+   * @param cellTextAlign String css text align for the column values
    *     <b>left</b>,<b>right</b>,<b>center</b>
    * @return same ColumnConfig instance
    */
-  public ColumnConfig<T> textAlign(String textAlign) {
-    this.textAlign = textAlign;
+  public ColumnConfig<T> setTextAlign(CellTextAlign cellTextAlign) {
+    this.cellTextAlign = cellTextAlign;
     return this;
   }
 
   /**
-   * @param headerTextAlign String css text align for the column header
+   * setHeaderTextAlign.
+   *
+   * @param headerCellTextAlign String css text align for the column header
    *     <b>left</b>,<b>right</b>,<b>center</b>
    * @return same ColumnConfig instance
    */
-  public ColumnConfig<T> headerTextAlign(String headerTextAlign) {
-    this.headerTextAlign = headerTextAlign;
-    return this;
-  }
-
-  /**
-   * a shortcut to {@link #headerTextAlign(String)} with value <b>left</b>
-   *
-   * @return same ColumnConfig instance
-   */
-  public ColumnConfig<T> headerAlignLeft() {
-    headerTextAlign("left");
-    return this;
-  }
-
-  /**
-   * a shortcut to {@link #headerTextAlign(String)} with value <b>right</b>
-   *
-   * @return same ColumnConfig instance
-   */
-  public ColumnConfig<T> headerAlignRight() {
-    headerTextAlign("right");
-    return this;
-  }
-
-  /**
-   * a shortcut to {@link #headerTextAlign(String)} with value <b>center</b>
-   *
-   * @return same ColumnConfig instance
-   */
-  public ColumnConfig<T> headerAlignCenter() {
-    headerTextAlign("center");
-    return this;
-  }
-
-  /**
-   * a shortcut to {@link #textAlign(String)} with value <b>left</b>
-   *
-   * @return same ColumnConfig instance
-   */
-  public ColumnConfig<T> alignLeft() {
-    textAlign("left");
-    return this;
-  }
-
-  /**
-   * a shortcut to {@link #textAlign(String)} with value <b>right</b>
-   *
-   * @return same ColumnConfig instance
-   */
-  public ColumnConfig<T> alignRight() {
-    textAlign("right");
-    return this;
-  }
-
-  /**
-   * a shortcut to {@link #textAlign(String)} with value <b>center</b>
-   *
-   * @return same ColumnConfig instance
-   */
-  public ColumnConfig<T> alignCenter() {
-    textAlign("center");
+  public ColumnConfig<T> setHeaderTextAlign(CellTextAlign headerCellTextAlign) {
+    this.headerCellTextAlign = headerCellTextAlign;
     return this;
   }
 
   /** @return the {@link HeaderElementSupplier} of the column */
+  /**
+   * getHeaderElement.
+   *
+   * @return a {@link org.dominokit.domino.ui.datatable.HeaderElementSupplier} object
+   */
   @Deprecated
   public HeaderElementSupplier getHeaderElement() {
     return getHeaderElementSupplier();
   }
 
   /** @return the {@link HeaderElementSupplier} of the column */
+  /**
+   * Getter for the field <code>headerElementSupplier</code>.
+   *
+   * @return a {@link org.dominokit.domino.ui.datatable.HeaderElementSupplier} object
+   */
   public HeaderElementSupplier getHeaderElementSupplier() {
     return headerElementSupplier;
   }
@@ -300,7 +260,7 @@ public class ColumnConfig<T> {
   /**
    * Sets a custom header element for the column
    *
-   * @param headerElement the {@link HeaderElementSupplier}
+   * @param headerElement the {@link org.dominokit.domino.ui.datatable.HeaderElementSupplier}
    * @return same ColumnConfig instance
    */
   @Deprecated
@@ -311,7 +271,7 @@ public class ColumnConfig<T> {
   /**
    * Sets a custom header element for the column
    *
-   * @param headerElement the {@link HeaderElementSupplier}
+   * @param headerElement the {@link org.dominokit.domino.ui.datatable.HeaderElementSupplier}
    * @return same ColumnConfig instance
    */
   public ColumnConfig<T> setHeaderElementSupplier(HeaderElementSupplier headerElement) {
@@ -319,37 +279,49 @@ public class ColumnConfig<T> {
     return this;
   }
 
-  /**
-   * While rendering the column this will determine if we should build the header with th or td
-   * elements
-   *
-   * @return boolean, if ture use th elements, otherwise use td elements
-   */
-  public boolean isHeader() {
-    return header;
-  }
-
   /** @return the String minimum width we set with {@link #minWidth(String)} */
+  /**
+   * Getter for the field <code>minWidth</code>.
+   *
+   * @return a {@link java.lang.String} object
+   */
   public String getMinWidth() {
     return minWidth;
   }
 
   /** @return the String maximum width we set with {@link #maxWidth(String)} */
+  /**
+   * Getter for the field <code>maxWidth</code>.
+   *
+   * @return a {@link java.lang.String} object
+   */
   public String getMaxWidth() {
     return maxWidth;
   }
 
-  /** @return the String text align we set with {@link #textAlign(String)} */
-  public String getTextAlign() {
-    return textAlign;
+  /** @return the String text align we set with {@link #setTextAlign(CellTextAlign)} */
+  /**
+   * getTextAlign.
+   *
+   * @return a {@link org.dominokit.domino.ui.datatable.CellTextAlign} object
+   */
+  public CellTextAlign getTextAlign() {
+    return cellTextAlign;
   }
 
-  /** @return the String text align we set with {@link #headerTextAlign(String)} */
-  public String getHeaderTextAlign() {
-    return headerTextAlign;
+  /** @return the String text align we set with {@link #setHeaderTextAlign(CellTextAlign)} */
+  /**
+   * getHeaderTextAlign.
+   *
+   * @return a {@link org.dominokit.domino.ui.datatable.CellTextAlign} object
+   */
+  public CellTextAlign getHeaderTextAlign() {
+    return headerCellTextAlign;
   }
 
   /**
+   * isFixed.
+   *
    * @return boolean, if true the column width will be fixed and wont change if the table size
    *     changed
    */
@@ -358,6 +330,8 @@ public class ColumnConfig<T> {
   }
 
   /**
+   * Setter for the field <code>fixed</code>.
+   *
    * @param fixed boolean, if true the column width will be fixed and wont change when the table
    *     size is changed.
    * @return same ColumnConfig instance.
@@ -367,29 +341,33 @@ public class ColumnConfig<T> {
     return this;
   }
 
+  /**
+   * Setter for the field <code>title</code>.
+   *
+   * @param title a {@link java.lang.String} object
+   * @return a {@link org.dominokit.domino.ui.datatable.ColumnConfig} object
+   */
   public ColumnConfig<T> setTitle(String title) {
     this.title = title;
     return this;
   }
 
   /**
-   * @return the {@link HTMLTableCellElement} that represent this column element wrapped as {@link
-   *     DominoElement}
+   * Getter for the field <code>headElement</code>.
+   *
+   * @return the {@link elemental2.dom.HTMLTableCellElement} that represent this column element
+   *     wrapped as {@link DominoElement}
    */
   public DominoElement<HTMLTableCellElement> getHeadElement() {
-    return DominoElement.of(headElement);
-  }
-
-  /**
-   * sets a custom element for the column header
-   *
-   * @param headElement {@link HTMLTableCellElement}
-   */
-  protected void setHeadElement(HTMLTableCellElement headElement) {
-    this.headElement = headElement;
+    return elementOf(headElement);
   }
 
   /** @return the {@link CellRenderer} of this column */
+  /**
+   * Getter for the field <code>cellRenderer</code>.
+   *
+   * @return a {@link org.dominokit.domino.ui.datatable.CellRenderer} object
+   */
   public CellRenderer<T> getCellRenderer() {
     return cellRenderer;
   }
@@ -397,7 +375,7 @@ public class ColumnConfig<T> {
   /**
    * sets the cell renderer for this column
    *
-   * @param cellRenderer {@link CellRenderer}
+   * @param cellRenderer {@link org.dominokit.domino.ui.datatable.CellRenderer}
    * @return same ColumnConfig instance
    */
   public ColumnConfig<T> setCellRenderer(CellRenderer<T> cellRenderer) {
@@ -409,6 +387,11 @@ public class ColumnConfig<T> {
   }
 
   /** @return the {@link CellRenderer} of the editable version of this column */
+  /**
+   * Getter for the field <code>editableCellRenderer</code>.
+   *
+   * @return a {@link org.dominokit.domino.ui.datatable.CellRenderer} object
+   */
   public CellRenderer<T> getEditableCellRenderer() {
     if (isNull(editableCellRenderer)) {
       return cellRenderer;
@@ -419,7 +402,7 @@ public class ColumnConfig<T> {
   /**
    * sets the cell renderer to render this column cells in editable mode
    *
-   * @param editableCellRenderer {@link CellRenderer}
+   * @param editableCellRenderer {@link org.dominokit.domino.ui.datatable.CellRenderer}
    * @return same ColumnConfig instance
    */
   public ColumnConfig<T> setEditableCellRenderer(CellRenderer<T> editableCellRenderer) {
@@ -433,7 +416,7 @@ public class ColumnConfig<T> {
   /**
    * a hook to style a column header
    *
-   * @param headerStyler {@link CellStyler}
+   * @param headerStyler {@link org.dominokit.domino.ui.datatable.ColumnConfig.CellStyler}
    * @return same ColumnConfig instance
    */
   public ColumnConfig<T> styleHeader(CellStyler<T> headerStyler) {
@@ -444,7 +427,7 @@ public class ColumnConfig<T> {
   /**
    * a hook to style a cell in the column
    *
-   * @param cellStyler {@link CellStyler}
+   * @param cellStyler {@link org.dominokit.domino.ui.datatable.ColumnConfig.CellStyler}
    * @return same ColumnConfig instance
    */
   public ColumnConfig<T> styleCell(CellStyler<T> cellStyler) {
@@ -453,6 +436,11 @@ public class ColumnConfig<T> {
   }
 
   /** @return boolean, true if data can be sorted with this column, otherwise false */
+  /**
+   * isSortable.
+   *
+   * @return a boolean
+   */
   public boolean isSortable() {
     return sortable;
   }
@@ -472,6 +460,7 @@ public class ColumnConfig<T> {
    *
    * @param sortable boolean, if true then data can be sorted with this column, otherwise it cant
    * @return same ColumnConfig instance
+   * @param sortKey a {@link java.lang.String} object
    */
   public ColumnConfig<T> setSortable(boolean sortable, String sortKey) {
     this.sortable = sortable;
@@ -501,10 +490,10 @@ public class ColumnConfig<T> {
   /**
    * force apply screen medias if exists to a cell in this column
    *
-   * @param element {@link HTMLTableCellElement}
+   * @param element {@link elemental2.dom.HTMLTableCellElement}
    */
-  public void applyScreenMedia(HTMLTableCellElement element) {
-    DominoElement<HTMLTableCellElement> thElement = DominoElement.of(element);
+  public void applyScreenMedia(Element element) {
+    DominoElement<Element> thElement = elements.elementOf(element);
 
     if (nonNull(showOn)) {
       thElement.showOn(showOn);
@@ -516,8 +505,10 @@ public class ColumnConfig<T> {
   }
 
   /**
-   * @return the {@link Node} representing the tooltip for this column header if exists otherwise
-   *     return the title node
+   * Getter for the field <code>tooltipNode</code>.
+   *
+   * @return the {@link elemental2.dom.Node} representing the tooltip for this column header if
+   *     exists otherwise return the title node
    */
   public Node getTooltipNode() {
     if (nonNull(tooltipNode)) return tooltipNode;
@@ -529,7 +520,7 @@ public class ColumnConfig<T> {
   /**
    * sets a custom tooltip element
    *
-   * @param tooltipNode {@link Node}
+   * @param tooltipNode {@link elemental2.dom.Node}
    * @return same ColumnConfig instance
    */
   public ColumnConfig<T> setTooltipNode(Node tooltipNode) {
@@ -544,11 +535,13 @@ public class ColumnConfig<T> {
    * @return same ColumnConfig instance
    */
   public ColumnConfig<T> setTooltipText(String tooltipText) {
-    this.tooltipNode = TextNode.of(tooltipText);
+    this.tooltipNode = elements.text(tooltipText);
     return this;
   }
 
   /**
+   * Setter for the field <code>showTooltip</code>.
+   *
    * @param showTooltip boolean, if true a tooltip will show up when hover on the column otherwise
    *     it will not.
    * @return same ColumnConfig instance
@@ -559,12 +552,20 @@ public class ColumnConfig<T> {
   }
 
   /** @return the {@link ScreenMedia} that result on showing the column */
+  /**
+   * Getter for the field <code>showOn</code>.
+   *
+   * @return a {@link org.dominokit.domino.ui.utils.ScreenMedia} object
+   */
   public ScreenMedia getShowOn() {
     return showOn;
   }
 
   /**
-   * @param showOn {@link ScreenMedia} when is applied the column will be shown
+   * showOn.
+   *
+   * @param showOn {@link org.dominokit.domino.ui.utils.ScreenMedia} when is applied the column will
+   *     be shown
    * @return same ColumnConfig instance
    */
   public ColumnConfig<T> showOn(ScreenMedia showOn) {
@@ -573,12 +574,20 @@ public class ColumnConfig<T> {
   }
 
   /** @return the {@link ScreenMedia} that result on hiding the column */
+  /**
+   * Getter for the field <code>hideOn</code>.
+   *
+   * @return a {@link org.dominokit.domino.ui.utils.ScreenMedia} object
+   */
   public ScreenMedia getHideOn() {
     return hideOn;
   }
 
   /**
-   * @param hideOn {@link ScreenMedia} when is applied the column will be hidden
+   * hideOn.
+   *
+   * @param hideOn {@link org.dominokit.domino.ui.utils.ScreenMedia} when is applied the column will
+   *     be hidden
    * @return same ColumnConfig instance
    */
   public ColumnConfig<T> hideOn(ScreenMedia hideOn) {
@@ -588,7 +597,7 @@ public class ColumnConfig<T> {
 
   /** make the headerStyler apply the styles */
   void applyHeaderStyle() {
-    headerStyler.styleCell(headElement);
+    headerStyler.styleCell(headElement.element());
   }
 
   /**
@@ -596,21 +605,36 @@ public class ColumnConfig<T> {
    *
    * @param element {@link HTMLTableCellElement}
    */
-  void applyCellStyle(HTMLTableCellElement element) {
+  void applyCellStyle(Element element) {
     cellStyler.styleCell(element);
   }
 
   /** @return the {@link CellStyler} of the header element */
+  /**
+   * Getter for the field <code>headerStyler</code>.
+   *
+   * @return a {@link org.dominokit.domino.ui.datatable.ColumnConfig.CellStyler} object
+   */
   public CellStyler<T> getHeaderStyler() {
     return headerStyler;
   }
 
   /** @return the {@link CellStyler} of the cell element */
+  /**
+   * Getter for the field <code>cellStyler</code>.
+   *
+   * @return a {@link org.dominokit.domino.ui.datatable.ColumnConfig.CellStyler} object
+   */
   public CellStyler<T> getCellStyler() {
     return cellStyler;
   }
 
   /** @return boolean, if true this column show a tooltip otherwise it does not */
+  /**
+   * isShowTooltip.
+   *
+   * @return a boolean
+   */
   public boolean isShowTooltip() {
     return showTooltip;
   }
@@ -618,7 +642,7 @@ public class ColumnConfig<T> {
   /**
    * Adds a listener to listen for column hide/show changes
    *
-   * @param showHideListener {@link ColumnShowHideListener}
+   * @param showHideListener {@link org.dominokit.domino.ui.datatable.ColumnShowHideListener}
    * @return same ColumnConfig instance
    */
   public ColumnConfig<T> addShowHideListener(ColumnShowHideListener showHideListener) {
@@ -633,7 +657,7 @@ public class ColumnConfig<T> {
   /**
    * remove the listener
    *
-   * @param showHideListener {@link ColumnShowHideListener}
+   * @param showHideListener {@link org.dominokit.domino.ui.datatable.ColumnShowHideListener}
    * @return same ColumnConfig instance
    */
   public ColumnConfig<T> removeShowHideListener(ColumnShowHideListener showHideListener) {
@@ -670,8 +694,10 @@ public class ColumnConfig<T> {
   }
 
   /**
+   * toggleDisplay.
+   *
    * @param visible boolean, if true call {@link #show()} otherwise call {@link #hide()}
-   * @return
+   * @return a {@link org.dominokit.domino.ui.datatable.ColumnConfig} object
    */
   public ColumnConfig<T> toggleDisplay(boolean visible) {
     if (visible) {
@@ -682,22 +708,36 @@ public class ColumnConfig<T> {
   }
 
   /** @deprecated use {@link ColumnConfig#clearShowHideListeners()} */
+  /** clearShowHideListners. */
   @Deprecated
   public void clearShowHideListners() {
     clearShowHideListeners();
   }
 
-  /** removes all {@link ColumnShowHideListener}s of this column except the permanent listeners */
+  /**
+   * removes all {@link org.dominokit.domino.ui.datatable.ColumnShowHideListener}s of this column
+   * except the permanent listeners
+   */
   public void clearShowHideListeners() {
     showHideListeners.clear();
   }
 
   /** @return boolean, true if the column is already hidden, otherwise false */
+  /**
+   * isHidden.
+   *
+   * @return a boolean
+   */
   public boolean isHidden() {
     return hidden;
   }
 
   /** @return boolean, true if the column is registered by a plugin, else false */
+  /**
+   * isPluginColumn.
+   *
+   * @return a boolean
+   */
   public boolean isPluginColumn() {
     return pluginColumn;
   }
@@ -714,30 +754,31 @@ public class ColumnConfig<T> {
   }
 
   /** @return String key of the column */
+  /**
+   * Getter for the field <code>sortKey</code>.
+   *
+   * @return a {@link java.lang.String} object
+   */
   public String getSortKey() {
     return Optional.ofNullable(sortKey).orElse(name);
   }
 
-  /** @return The {@link FlexLayout} of the column header */
-  public FlexLayout getHeaderLayout() {
-    return headerLayout;
-  }
-
-  /**
-   * Use to set a custom header layout
-   *
-   * @param headerLayout {@link FlexLayout}
-   */
-  void setHeaderLayout(FlexLayout headerLayout) {
-    this.headerLayout = headerLayout;
-  }
-
   /** @return boolean, true of the column is the plugins utility column, otherwise return false */
+  /**
+   * isUtilityColumn.
+   *
+   * @return a boolean
+   */
   public final boolean isUtilityColumn() {
     return "plugin-utility-column".equals(name);
   }
 
   /** @return boolean, true if the column show render the title */
+  /**
+   * isDrawTitle.
+   *
+   * @return a boolean
+   */
   public boolean isDrawTitle() {
     return drawTitle;
   }
@@ -756,7 +797,7 @@ public class ColumnConfig<T> {
   /**
    * Adds a configuration for a column in the data table
    *
-   * @param column {@link ColumnConfig}
+   * @param column {@link org.dominokit.domino.ui.datatable.ColumnConfig}
    * @return same TableConfig instance
    */
   public ColumnConfig<T> addColumn(ColumnConfig<T> column) {
@@ -766,10 +807,20 @@ public class ColumnConfig<T> {
     return this;
   }
 
+  /**
+   * isColumnGroup.
+   *
+   * @return a boolean
+   */
   public boolean isColumnGroup() {
     return !this.subColumns.isEmpty();
   }
 
+  /**
+   * getColumnsCount.
+   *
+   * @return a int
+   */
   public int getColumnsCount() {
     if (!isColumnGroup()) {
       return 1;
@@ -777,6 +828,11 @@ public class ColumnConfig<T> {
     return this.subColumns.stream().map(ColumnConfig::getColumnsCount).reduce(0, Integer::sum);
   }
 
+  /**
+   * getColumnsDepth.
+   *
+   * @return a int
+   */
   public int getColumnsDepth() {
     if (!isColumnGroup()) {
       return getGroupLevel();
@@ -784,6 +840,11 @@ public class ColumnConfig<T> {
     return this.subColumns.stream().mapToInt(ColumnConfig::getColumnsDepth).max().orElse(0);
   }
 
+  /**
+   * getGroupLevel.
+   *
+   * @return a int
+   */
   public int getGroupLevel() {
     if (isNull(parent)) {
       return 0;
@@ -798,6 +859,11 @@ public class ColumnConfig<T> {
     return subColumns.stream().mapToInt(ColumnConfig::getColSpan).sum();
   }
 
+  /**
+   * flattenColumns.
+   *
+   * @return a {@link java.util.List} object
+   */
   public List<ColumnConfig<T>> flattenColumns() {
     List<ColumnConfig<T>> cols = new ArrayList<>();
     cols.add(this);
@@ -807,6 +873,11 @@ public class ColumnConfig<T> {
     return cols;
   }
 
+  /**
+   * leafColumns.
+   *
+   * @return a {@link java.util.List} object
+   */
   public List<ColumnConfig<T>> leafColumns() {
     List<ColumnConfig<T>> cols = new ArrayList<>();
     if (!isColumnGroup()) {
@@ -817,45 +888,73 @@ public class ColumnConfig<T> {
     return cols;
   }
 
+  /**
+   * Getter for the field <code>subColumns</code>.
+   *
+   * @return a {@link java.util.List} object
+   */
   public List<ColumnConfig<T>> getSubColumns() {
     return subColumns;
   }
 
+  /**
+   * hasParent.
+   *
+   * @return a boolean
+   */
   public boolean hasParent() {
     return nonNull(parent);
   }
 
+  /**
+   * applyMeta.
+   *
+   * @param meta a {@link org.dominokit.domino.ui.utils.ComponentMeta} object
+   * @return a {@link org.dominokit.domino.ui.datatable.ColumnConfig} object
+   */
   public ColumnConfig<T> applyMeta(ComponentMeta meta) {
     columnMeta.put(meta.getKey(), meta);
     return this;
   }
 
+  /**
+   * getMeta.
+   *
+   * @param key a {@link java.lang.String} object
+   * @param <C> a C class
+   * @return a {@link java.util.Optional} object
+   */
   @SuppressWarnings("all")
   public <C extends ComponentMeta> Optional<C> getMeta(String key) {
     return Optional.ofNullable((C) columnMeta.get(key));
   }
 
+  /**
+   * removeMeta.
+   *
+   * @param key a {@link java.lang.String} object
+   * @return a {@link org.dominokit.domino.ui.datatable.ColumnConfig} object
+   */
   public ColumnConfig<T> removeMeta(String key) {
     columnMeta.remove(key);
     return this;
   }
 
-  void renderHeader(
-      DataTable<T> dataTable, TableConfig<T> tableConfig, HTMLTableRowElement[] headers) {
+  void renderHeader(DataTable<T> dataTable, TableConfig<T> tableConfig, TableRowElement[] headers) {
     int depth = getColumnsDepth();
     int startIndex = headers.length - 1 - depth;
 
     if (startIndex == 0) {
-      DominoElement.of(headers[0]).appendChild(createColumnElement(tableConfig));
+      elementOf(headers[0]).appendChild(createColumnElement(tableConfig));
     } else {
-      DominoElement<HTMLTableCellElement> fillHeader =
+      ColumnHeader fillHeader =
           createColumnElement(tableConfig)
               .clearElement()
               .apply(self -> self.setAttribute("rowspan", startIndex + ""));
       ColumnHeaderMeta.get(this)
           .ifPresent(columnHeaderMeta -> columnHeaderMeta.addExtraHeadElement(fillHeader));
-      DominoElement.of(headers[0]).appendChild(fillHeader);
-      DominoElement.of(headers[startIndex]).appendChild(createColumnElement(tableConfig));
+      elementOf(headers[0]).appendChild(fillHeader);
+      elementOf(headers[startIndex]).appendChild(createColumnElement(tableConfig));
     }
 
     if (isColumnGroup()) {
@@ -867,13 +966,13 @@ public class ColumnConfig<T> {
   private void renderChildColumns(
       DataTable<T> dataTable,
       TableConfig<T> tableConfig,
-      HTMLTableRowElement[] headers,
+      TableRowElement[] headers,
       int startIndex) {
     getSubColumns()
         .forEach(
             col -> {
               if (col.isColumnGroup()) {
-                DominoElement.of(headers[startIndex])
+                elementOf(headers[startIndex])
                     .appendChild(
                         col.createColumnElement(tableConfig)
                             .apply(
@@ -888,7 +987,7 @@ public class ColumnConfig<T> {
                 int index = headers.length - 1;
                 if (index > startIndex) {
                   int diff = startIndex - index;
-                  DominoElement<HTMLTableCellElement> fillHeader =
+                  ColumnHeader fillHeader =
                       col.createColumnElement(tableConfig)
                           .clearElement()
                           .setAttribute("rowspan", diff + "");
@@ -903,59 +1002,73 @@ public class ColumnConfig<T> {
                   ColumnHeaderMeta.get(col)
                       .ifPresent(
                           columnHeaderMeta -> columnHeaderMeta.addExtraHeadElement(fillHeader));
-                  DominoElement.of(headers[startIndex]).appendChild(fillHeader);
+                  elementOf(headers[startIndex]).appendChild(fillHeader);
                 }
-                DominoElement.of(headers[index]).appendChild(col.createColumnElement(tableConfig));
+                elementOf(headers[index]).appendChild(col.createColumnElement(tableConfig));
                 tableConfig.getPlugins().forEach(plugin -> plugin.onHeaderAdded(dataTable, col));
               }
             });
   }
 
-  private DominoElement<HTMLTableCellElement> createColumnElement(TableConfig<T> tableConfig) {
+  private ColumnHeader createColumnElement(TableConfig<T> tableConfig) {
 
-    flexLayout = FlexLayout.create().setAlignItems(FlexAlign.CENTER);
+    //        flexLayout = FlexLayout.create().setAlignItems(FlexAlign.CENTER);
+    //        if (isDrawTitle() && nonNull(getTitle())) {
+    //            flexLayout.appendChild(
+    //                    div().css("dui-th-title-wrapper")
+    //                            .addCss(SpacingCss.dui_order_50)
+    //                            .appendChild(getHeaderElementSupplier().asElement(getTitle())));
+    //
+    //            flexLayout.appendChild(
+    //                    div().addCss(() -> "dui-th-filler", dui_order_60, dui_grow_1)
+    //            );
+    //        }
+
+    //        flexLayout
+    //                .appendChild(menuIcon.addCss(dui_font_size_4)
+    //                        .clickable()
+    //                        .removeWaves()
+    //                        .addCss(dui_order_last_1));
     if (isDrawTitle() && nonNull(getTitle())) {
-      flexLayout.appendChild(
-          FlexItem.of(DominoElement.div().css("dui-th-title-wrapper"))
-              .setOrder(50)
-              .setFlexGrow(1)
-              .appendChild(getHeaderElementSupplier().asElement(getTitle())));
+      this.headElement = ColumnHeader.create(getHeaderElementSupplier().asElement(getTitle()));
+    } else {
+      this.headElement = ColumnHeader.create();
     }
-
-    flexLayout.appendChild(FlexItem.of(menuIcon.size18().clickable().removeWaves()).setOrder(9980));
-
-    DominoElement<HTMLTableCellElement> th =
-        DominoElement.of(th().attr("colspan", getColSpan() + ""))
-            .addCss(DataTableStyles.TABLE_CM_HEADER)
-            .appendChild(flexLayout);
+    this.headElement.setAttribute("colspan", getColSpan() + "").appendChild(menuIcon);
 
     if (isColumnGroup()) {
-      th.addCss("dui-column-group");
+      this.headElement.addCss("dui-column-group");
     }
 
     ColumnCssRuleMeta.get(this)
         .ifPresent(
             meta ->
                 meta.cssRules()
-                    .forEach(columnCssRule -> th.addCss(columnCssRule.getCssRule().getCssClass())));
+                    .forEach(
+                        columnCssRule ->
+                            this.headElement.addCss(columnCssRule.getCssRule().getCssClass())));
 
-    applyScreenMedia(th.element());
+    applyScreenMedia(this.headElement.element());
 
-    setHeadElement(th.element());
-    setHeaderLayout(flexLayout);
     if (tableConfig.isFixed() || isFixed()) {
-      fixElementWidth(this, th.element());
+      fixElementWidth(this, this.headElement.element());
     }
 
     if (isShowTooltip()) {
-      Tooltip.create(th.element(), getTooltipNode());
+      Tooltip.create(this.headElement.element(), getTooltipNode());
     }
     applyHeaderStyle();
-    addShowHideListener(DefaultColumnShowHideListener.of(th.element(), true));
-    DominoElement.of(th).toggleDisplay(!isHidden());
-    return th;
+    addShowHideListener(DefaultColumnShowHideListener.of(this.headElement.element(), true));
+    this.headElement.toggleDisplay(!isHidden());
+    return this.headElement;
   }
 
+  /**
+   * applyAndOnSubColumns.
+   *
+   * @param handler a {@link java.util.function.Consumer} object
+   * @return a {@link org.dominokit.domino.ui.datatable.ColumnConfig} object
+   */
   public ColumnConfig<T> applyAndOnSubColumns(Consumer<ColumnConfig<T>> handler) {
     handler.accept(this);
     if (isColumnGroup()) {
@@ -964,6 +1077,13 @@ public class ColumnConfig<T> {
     return this;
   }
 
+  /**
+   * applyAndOnSubColumns.
+   *
+   * @param predicate a {@link java.util.function.Predicate} object
+   * @param handler a {@link java.util.function.Consumer} object
+   * @return a {@link org.dominokit.domino.ui.datatable.ColumnConfig} object
+   */
   public ColumnConfig<T> applyAndOnSubColumns(
       Predicate<ColumnConfig<T>> predicate, Consumer<ColumnConfig<T>> handler) {
     handler.accept(this);
@@ -973,6 +1093,12 @@ public class ColumnConfig<T> {
     return this;
   }
 
+  /**
+   * applyAndOnEachFirstSubColumn.
+   *
+   * @param handler a {@link java.util.function.Consumer} object
+   * @return a {@link org.dominokit.domino.ui.datatable.ColumnConfig} object
+   */
   public ColumnConfig<T> applyAndOnEachFirstSubColumn(Consumer<ColumnConfig<T>> handler) {
     handler.accept(this);
     if (isColumnGroup()) {
@@ -981,6 +1107,12 @@ public class ColumnConfig<T> {
     return this;
   }
 
+  /**
+   * onFirstSubColumn.
+   *
+   * @param handler a {@link java.util.function.Consumer} object
+   * @return a {@link org.dominokit.domino.ui.datatable.ColumnConfig} object
+   */
   public ColumnConfig<T> onFirstSubColumn(Consumer<ColumnConfig<T>> handler) {
     if (isColumnGroup()) {
       getSubColumns().get(0).applyAndOnEachFirstSubColumn(handler);
@@ -988,6 +1120,12 @@ public class ColumnConfig<T> {
     return this;
   }
 
+  /**
+   * applyAndOnEachLastSubColumn.
+   *
+   * @param handler a {@link java.util.function.Consumer} object
+   * @return a {@link org.dominokit.domino.ui.datatable.ColumnConfig} object
+   */
   public ColumnConfig<T> applyAndOnEachLastSubColumn(Consumer<ColumnConfig<T>> handler) {
     handler.accept(this);
     if (isColumnGroup()) {
@@ -996,6 +1134,12 @@ public class ColumnConfig<T> {
     return this;
   }
 
+  /**
+   * onEachLastSubColumn.
+   *
+   * @param handler a {@link java.util.function.Consumer} object
+   * @return a {@link org.dominokit.domino.ui.datatable.ColumnConfig} object
+   */
   public ColumnConfig<T> onEachLastSubColumn(Consumer<ColumnConfig<T>> handler) {
     if (isColumnGroup()) {
       getSubColumns().get(getSubColumns().size() - 1).applyAndOnEachLastSubColumn(handler);
@@ -1003,6 +1147,12 @@ public class ColumnConfig<T> {
     return this;
   }
 
+  /**
+   * applyAndOnParents.
+   *
+   * @param handler a {@link java.util.function.Consumer} object
+   * @return a {@link org.dominokit.domino.ui.datatable.ColumnConfig} object
+   */
   public ColumnConfig<T> applyAndOnParents(Consumer<ColumnConfig<T>> handler) {
     handler.accept(this);
     if (this.hasParent()) {
@@ -1011,6 +1161,11 @@ public class ColumnConfig<T> {
     return this;
   }
 
+  /**
+   * getGrandParent.
+   *
+   * @return a {@link org.dominokit.domino.ui.datatable.ColumnConfig} object
+   */
   public ColumnConfig<T> getGrandParent() {
     if (hasParent()) {
       return getParent().getGrandParent();
@@ -1018,6 +1173,11 @@ public class ColumnConfig<T> {
     return this;
   }
 
+  /**
+   * getLastGrandSiblingColumn.
+   *
+   * @return a {@link org.dominokit.domino.ui.datatable.ColumnConfig} object
+   */
   public ColumnConfig<T> getLastGrandSiblingColumn() {
     if (!isColumnGroup()) {
       return this;
@@ -1025,6 +1185,11 @@ public class ColumnConfig<T> {
     return this.getSubColumns().get(this.getSubColumns().size() - 1).getLastGrandSiblingColumn();
   }
 
+  /**
+   * getFirstGrandSiblingColumn.
+   *
+   * @return a {@link org.dominokit.domino.ui.datatable.ColumnConfig} object
+   */
   public ColumnConfig<T> getFirstGrandSiblingColumn() {
     if (!isColumnGroup()) {
       return this;
@@ -1032,31 +1197,54 @@ public class ColumnConfig<T> {
     return this.getSubColumns().get(0).getFirstGrandSiblingColumn();
   }
 
+  /**
+   * Getter for the field <code>menu</code>.
+   *
+   * @return a {@link org.dominokit.domino.ui.menu.Menu} object
+   */
   public Menu<String> getMenu() {
     return menu;
   }
 
+  /**
+   * Getter for the field <code>parent</code>.
+   *
+   * @return a {@link org.dominokit.domino.ui.datatable.ColumnConfig} object
+   */
   public ColumnConfig<T> getParent() {
     return parent;
   }
 
+  /**
+   * appendChild.
+   *
+   * @param element a {@link org.dominokit.domino.ui.IsElement} object
+   * @return a {@link org.dominokit.domino.ui.datatable.ColumnConfig} object
+   */
   public ColumnConfig<T> appendChild(IsElement<?> element) {
-    flexLayout.appendChild(FlexItem.of(element));
+    headElement.appendChild(element);
     return this;
   }
 
-  public ColumnConfig<T> appendChild(FlexItem<?> element) {
-    flexLayout.appendChild(element);
-    return this;
-  }
-
+  /**
+   * removeChild.
+   *
+   * @param child a {@link elemental2.dom.Node} object
+   * @return a {@link org.dominokit.domino.ui.datatable.ColumnConfig} object
+   */
   public ColumnConfig<T> removeChild(Node child) {
-    if (flexLayout.contains(child)) {
-      flexLayout.removeChild(child);
+    if (headElement.contains(child)) {
+      headElement.removeChild(child);
     }
     return this;
   }
 
+  /**
+   * removeChild.
+   *
+   * @param child a {@link org.dominokit.domino.ui.IsElement} object
+   * @return a {@link org.dominokit.domino.ui.datatable.ColumnConfig} object
+   */
   public ColumnConfig<T> removeChild(IsElement<?> child) {
     return removeChild(child.element());
   }
@@ -1069,6 +1257,6 @@ public class ColumnConfig<T> {
   @FunctionalInterface
   public interface CellStyler<T> {
     /** @param element the {@link HTMLTableCellElement} to be styled */
-    void styleCell(HTMLTableCellElement element);
+    void styleCell(Element element);
   }
 }

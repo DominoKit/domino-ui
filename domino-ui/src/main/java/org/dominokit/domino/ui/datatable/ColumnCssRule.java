@@ -17,20 +17,42 @@ package org.dominokit.domino.ui.datatable;
 
 import org.dominokit.domino.ui.utils.DominoCSSRule;
 
+/**
+ * ColumnCssRule class.
+ *
+ * @author vegegoku
+ * @version $Id: $Id
+ */
 public class ColumnCssRule {
 
   private final String key;
   private final DominoCSSRule cssRule;
 
+  /**
+   * Constructor for ColumnCssRule.
+   *
+   * @param key a {@link java.lang.String} object
+   * @param cssRule a {@link org.dominokit.domino.ui.utils.DominoCSSRule} object
+   */
   public ColumnCssRule(String key, DominoCSSRule cssRule) {
     this.key = key;
     this.cssRule = cssRule;
   }
 
+  /**
+   * Getter for the field <code>key</code>.
+   *
+   * @return a {@link java.lang.String} object
+   */
   public String getKey() {
     return key;
   }
 
+  /**
+   * Getter for the field <code>cssRule</code>.
+   *
+   * @return a {@link org.dominokit.domino.ui.utils.DominoCSSRule} object
+   */
   public DominoCSSRule getCssRule() {
     return cssRule;
   }

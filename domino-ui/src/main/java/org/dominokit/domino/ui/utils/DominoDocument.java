@@ -20,7 +20,12 @@ import elemental2.dom.HTMLDocument;
 import jsinterop.annotations.JsPackage;
 import jsinterop.annotations.JsType;
 
-/** Extending {@link HTMLDocument} to add functionality missing from elemental2 */
+/**
+ * Extending {@link elemental2.dom.HTMLDocument} to add functionality missing from elemental2
+ *
+ * @author vegegoku
+ * @version $Id: $Id
+ */
 @JsType(isNative = true, name = "Document", namespace = JsPackage.GLOBAL)
 public class DominoDocument extends HTMLDocument {
   /**
@@ -30,6 +35,8 @@ public class DominoDocument extends HTMLDocument {
   public Element activeElement;
 
   /**
+   * execCommand.
+   *
    * @deprecated this is deprecated in MDN
    * @see <a href="https://developer.mozilla.org/en-US/docs/Web/API/Document/execCommand">MDN
    *     execCommand</a>
@@ -42,6 +49,8 @@ public class DominoDocument extends HTMLDocument {
       String aCommandName, boolean aShowDefaultUI, String aValueArgument);
 
   /**
+   * execCommand.
+   *
    * @deprecated this is deprecated in MDN
    * @see <a href="https://developer.mozilla.org/en-US/docs/Web/API/Document/execCommand">MDN
    *     execCommand</a>

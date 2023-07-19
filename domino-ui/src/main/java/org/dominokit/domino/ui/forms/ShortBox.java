@@ -16,17 +16,28 @@
 package org.dominokit.domino.ui.forms;
 
 import java.util.function.Function;
-import org.dominokit.domino.ui.utils.DominoUIConfig;
 
-/** A component that has an input to take/provide Short value */
+/**
+ * A component that has an input to take/provide Short value
+ *
+ * @author vegegoku
+ * @version $Id: $Id
+ */
 public class ShortBox extends NumberBox<ShortBox, Short> {
 
   /** @return a new instance without a label */
+  /**
+   * create.
+   *
+   * @return a {@link org.dominokit.domino.ui.forms.ShortBox} object
+   */
   public static ShortBox create() {
     return new ShortBox();
   }
 
   /**
+   * create.
+   *
    * @param label String
    * @return new instance with a label
    */
@@ -36,7 +47,7 @@ public class ShortBox extends NumberBox<ShortBox, Short> {
 
   /** Create instance without a label */
   public ShortBox() {
-    this("");
+    setDefaultValue((short) 0);
   }
 
   /**
@@ -45,19 +56,14 @@ public class ShortBox extends NumberBox<ShortBox, Short> {
    * @param label String
    */
   public ShortBox(String label) {
-    super(label);
-  }
-
-  /** {@inheritDoc} */
-  @Override
-  protected void clearValue(boolean silent) {
-    value((short) 0, silent);
+    this();
+    setLabel(label);
   }
 
   /** {@inheritDoc} */
   @Override
   protected Function<String, Short> defaultValueParser() {
-    return DominoUIConfig.INSTANCE.getNumberParsers().shortParser(this);
+    return getConfig().getNumberParsers().shortParser(this);
   }
 
   /** {@inheritDoc} */

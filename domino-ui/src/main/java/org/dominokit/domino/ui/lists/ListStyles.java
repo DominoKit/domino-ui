@@ -15,16 +15,20 @@
  */
 package org.dominokit.domino.ui.lists;
 
-/** Default CSS classes for {@link ListGroup} and {@link ListItem} */
-public class ListStyles {
-  /** CSS class for list group */
-  public static final String LIST_GROUP = "d-list";
-  /** CSS class for bordered list items */
-  public static final String BORDERED = "bordered";
-  /** CSS class for list item inside list group */
-  public static final String LIST_GROUP_ITEM = "d-list-item";
-  /** CSS class for selectable list items */
-  public static final String SELECTABLE = "d-selectable";
-  /** CSS class for selected list items */
-  public static final String SELECTED = "selected";
+import org.dominokit.domino.ui.style.CssClass;
+
+/**
+ * Default CSS classes for {@link org.dominokit.domino.ui.lists.ListGroup} and {@link
+ * org.dominokit.domino.ui.lists.ListItem}
+ *
+ * @author vegegoku
+ * @version $Id: $Id
+ */
+public interface ListStyles {
+  /** Constant <code>dui_list_group</code> */
+  CssClass dui_list_group = () -> "dui-list-group";
+  /** Constant <code>dui_list_group_bordered</code> */
+  CssClass dui_list_group_bordered = () -> "dui-list-group-bordered";
+  /** Constant <code>dui_list_group_item</code> */
+  CssClass dui_list_group_item = () -> "dui-list-group-item";
 }

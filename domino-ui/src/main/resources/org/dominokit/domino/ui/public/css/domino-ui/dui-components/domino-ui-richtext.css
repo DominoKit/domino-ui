@@ -1,0 +1,23 @@
+.dui-rich-text {
+    display: flex;
+    flex-direction: column;
+    background-color: var(--dui-clr-dominant-d-2);
+    border-radius: var(--dui-spc-1_5);
+    padding: var(--dui-spc-2);
+}
+
+.dui-rich-text-editable {
+    padding: var(--dui-spc-2);
+    background-color: var(--dui-clr-dominant);
+    border-radius: var(--dui-spc-1_5);
+    height: var(--dui-spc-full);
+    width: 100%;
+    outline-width: var(--dui-spc-0);
+}
+
+.dui-rich-text-toolbars {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--dui-spc-1);
+    padding: 0 0 var(--dui-spc-2) 0;
+}

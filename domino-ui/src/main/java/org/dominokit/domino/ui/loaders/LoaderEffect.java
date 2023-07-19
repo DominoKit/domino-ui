@@ -15,7 +15,12 @@
  */
 package org.dominokit.domino.ui.loaders;
 
-/** an Enum to list available effects for {@link Loader} */
+/**
+ * an Enum to list available effects for {@link org.dominokit.domino.ui.loaders.Loader}
+ *
+ * @author vegegoku
+ * @version $Id: $Id
+ */
 public enum LoaderEffect {
   BOUNCE,
   ROTATE_PLANE,

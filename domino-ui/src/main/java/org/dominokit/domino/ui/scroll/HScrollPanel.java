@@ -15,31 +15,40 @@
  */
 package org.dominokit.domino.ui.scroll;
 
-import static org.jboss.elemento.Elements.div;
-
 import elemental2.dom.HTMLDivElement;
+import org.dominokit.domino.ui.elements.DivElement;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
-import org.dominokit.domino.ui.utils.DominoElement;
 
 /**
- * A component that wraps the {@link HTMLDivElement} to make it horizontally scrollable by default
+ * A component that wraps the {@link elemental2.dom.HTMLDivElement} to make it horizontally
+ * scrollable by default
+ *
+ * @author vegegoku
+ * @version $Id: $Id
  */
 public class HScrollPanel extends BaseDominoElement<HTMLDivElement, HScrollPanel> {
 
-  private HTMLDivElement element = DominoElement.of(div()).css("h-scroll-panel").element();
+  private DivElement root;
 
   /** @return new HScrollPanel instance */
+  /**
+   * create.
+   *
+   * @return a {@link org.dominokit.domino.ui.scroll.HScrollPanel} object
+   */
   public static HScrollPanel create() {
     return new HScrollPanel();
   }
 
+  /** Constructor for HScrollPanel. */
   public HScrollPanel() {
+    root = div().addCss(dui_overflow_x_scroll);
     init(this);
   }
 
   /** {@inheritDoc} */
   @Override
   public HTMLDivElement element() {
-    return element;
+    return root.element();
   }
 }

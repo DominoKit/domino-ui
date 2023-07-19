@@ -15,37 +15,38 @@
  */
 package org.dominokit.domino.ui.loaders;
 
-import static org.dominokit.domino.ui.loaders.LoaderStyles.WAIT_ME;
-import static org.dominokit.domino.ui.loaders.LoaderStyles.WAIT_ME_CONTENT;
-import static org.jboss.elemento.Elements.div;
-
 import elemental2.dom.HTMLDivElement;
-import org.dominokit.domino.ui.style.Styles;
+import org.dominokit.domino.ui.IsElement;
+import org.dominokit.domino.ui.elements.DivElement;
 import org.dominokit.domino.ui.utils.DominoElement;
-import org.jboss.elemento.IsElement;
 
-/** A none loader implementation */
+/**
+ * A none loader implementation
+ *
+ * @author vegegoku
+ * @version $Id: $Id
+ */
 public class NoneLoader extends BaseLoader<NoneLoader> implements IsElement<HTMLDivElement> {
 
-  private final HTMLDivElement content =
-      DominoElement.of(div())
-          .css(WAIT_ME_CONTENT)
-          .css(Styles.vertical_center)
+  private final DivElement content =
+      div()
+          .addCss(wait_me_content, dui_vertical_center)
           .style("margin-top: -18px;")
-          .add(loadingText)
-          .element();
+          .appendChild(loadingText);
 
-  private final HTMLDivElement element =
-      DominoElement.of(div())
-          .css(WAIT_ME)
-          .style("background: rgba(255, 255, 255, 0.9);")
-          .add(content)
-          .element();
+  private final DivElement element =
+      div().addCss(wait_me).style("background: var(--dui-loader-background);").appendChild(content);
 
+  /** Constructor for NoneLoader. */
   public NoneLoader() {
     init(this);
   }
 
+  /**
+   * create.
+   *
+   * @return a {@link org.dominokit.domino.ui.loaders.NoneLoader} object
+   */
   public static NoneLoader create() {
     return new NoneLoader();
   }
@@ -69,12 +70,12 @@ public class NoneLoader extends BaseLoader<NoneLoader> implements IsElement<HTML
   /** {@inheritDoc} */
   @Override
   public DominoElement<HTMLDivElement> getContentElement() {
-    return DominoElement.of(content);
+    return elementOf(content);
   }
 
   /** {@inheritDoc} */
   @Override
   public HTMLDivElement element() {
-    return element;
+    return element.element();
   }
 }

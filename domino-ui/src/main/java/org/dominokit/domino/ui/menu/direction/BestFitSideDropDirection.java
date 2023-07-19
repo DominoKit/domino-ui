@@ -16,17 +16,24 @@
 package org.dominokit.domino.ui.menu.direction;
 
 import static elemental2.dom.DomGlobal.window;
+import static org.dominokit.domino.ui.style.SpacingCss.dui_flex_col_reverse;
 
 import elemental2.dom.DOMRect;
-import elemental2.dom.HTMLElement;
+import elemental2.dom.Element;
 
+/**
+ * BestFitSideDropDirection class.
+ *
+ * @author vegegoku
+ * @version $Id: $Id
+ */
 public class BestFitSideDropDirection implements DropDirection {
 
-  private DropDirection currentPosition;
-
+  /** {@inheritDoc} */
   @Override
-  public void position(HTMLElement source, HTMLElement target) {
-
+  public void position(Element source, Element target) {
+    cleanup(source);
+    dui_flex_col_reverse.remove(source);
     DOMRect targetRect = target.getBoundingClientRect();
     DOMRect sourceRect = source.getBoundingClientRect();
     int innerWidth = window.innerWidth;
@@ -36,21 +43,31 @@ public class BestFitSideDropDirection implements DropDirection {
     double sourceHeight = sourceRect.height;
     double rightSpace = innerWidth - targetRect.right - window.pageXOffset;
     double downSpace = innerHeight - targetRect.height;
+    DropDirection currentPosition;
 
     if (hasSpaceOnRightSide(sourceWidth, rightSpace)) {
       if (hasSpaceBelow(sourceHeight, downSpace)) {
-        currentPosition = new RightDownDropDirection();
+        currentPosition = DropDirection.RIGHT_DOWN;
       } else {
-        currentPosition = new RightUpDropDirection();
+        currentPosition = DropDirection.RIGHT_UP;
       }
     } else {
       if (hasSpaceBelow(sourceHeight, downSpace)) {
-        currentPosition = new LeftDownDropDirection();
+        currentPosition = DropDirection.LEFT_DOWN;
       } else {
-        currentPosition = new LeftUpDropDirection();
+        currentPosition = DropDirection.LEFT_UP;
       }
     }
     currentPosition.position(source, target);
+  }
+
+  /** {@inheritDoc} */
+  @Override
+  public void cleanup(Element source) {
+    DropDirection.RIGHT_DOWN.cleanup(source);
+    DropDirection.RIGHT_UP.cleanup(source);
+    DropDirection.LEFT_DOWN.cleanup(source);
+    DropDirection.LEFT_UP.cleanup(source);
   }
 
   private boolean hasSpaceBelow(double sourceHeight, double downSpace) {

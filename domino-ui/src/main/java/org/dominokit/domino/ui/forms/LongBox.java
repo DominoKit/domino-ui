@@ -16,17 +16,28 @@
 package org.dominokit.domino.ui.forms;
 
 import java.util.function.Function;
-import org.dominokit.domino.ui.utils.DominoUIConfig;
 
-/** A component that has an input to take/provide Long value */
+/**
+ * A component that has an input to take/provide Long value
+ *
+ * @author vegegoku
+ * @version $Id: $Id
+ */
 public class LongBox extends NumberBox<LongBox, Long> {
 
   /** @return a new instance without a label */
+  /**
+   * create.
+   *
+   * @return a {@link org.dominokit.domino.ui.forms.LongBox} object
+   */
   public static LongBox create() {
     return new LongBox();
   }
 
   /**
+   * create.
+   *
    * @param label String
    * @return new instance with a label
    */
@@ -36,7 +47,7 @@ public class LongBox extends NumberBox<LongBox, Long> {
 
   /** Create instance without a label */
   public LongBox() {
-    this("");
+    setDefaultValue(0L);
   }
 
   /**
@@ -45,19 +56,14 @@ public class LongBox extends NumberBox<LongBox, Long> {
    * @param label String
    */
   public LongBox(String label) {
-    super(label);
-  }
-
-  /** {@inheritDoc} */
-  @Override
-  protected void clearValue(boolean silent) {
-    value(0L, silent);
+    this();
+    setLabel(label);
   }
 
   /** {@inheritDoc} */
   @Override
   protected Function<String, Long> defaultValueParser() {
-    return DominoUIConfig.INSTANCE.getNumberParsers().longParser(this);
+    return getConfig().getNumberParsers().longParser(this);
   }
 
   /** {@inheritDoc} */

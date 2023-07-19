@@ -1,0 +1,408 @@
+.dui-colors-light {
+    --dui-color: var(--dui-clr-black);
+    --dui-color-1: var(--dui-clr-black-d-3);
+    --dui-color-2: var(--dui-clr-grey-d-2);
+    --dui-color-3: var(--dui-clr-grey-d-1);
+    --dui-color-4: var(--dui-clr-grey);
+    --dui-color-5: var(--dui-clr-grey-l-1);
+    --dui-color-alternate: var(--dui-color);
+    /*--dui-text-color: var(--dui-color-dark);*/
+    --dui-highlight-color: var(--dui-clr-white);
+    color: var(--dui-color);
+
+    /* ====================== Colors ========================= */
+
+    --dui-clr-dominant-l-5: #fEfEfE;
+    --dui-clr-dominant-l-4: #fdfdfd;
+    --dui-clr-dominant-l-3: #f9f9f9;
+    --dui-clr-dominant-l-2: #f2f2f2;
+    --dui-clr-dominant-l-1: #d9d9d9;
+    --dui-clr-dominant: #FFFFFF;
+    --dui-clr-dominant-d-1: #f2f2f2;
+    --dui-clr-dominant-d-2: #d9d9d9;
+    --dui-clr-dominant-d-3: #adadad;
+    --dui-clr-dominant-d-4: #797979;
+
+    --dui-clr-accent-l-5: #ECEFF1;
+    --dui-clr-accent-l-4: #CFD8DC;
+    --dui-clr-accent-l-3: #B0BEC5;
+    --dui-clr-accent-l-2: #90A4AE;
+    --dui-clr-accent-l-1: #78909C;
+    --dui-clr-accent: #607D8B;
+    --dui-clr-accent-d-1: #546E7A;
+    --dui-clr-accent-d-2: #455A64;
+    --dui-clr-accent-d-3: #37474F;
+    --dui-clr-accent-d-4: #263238;
+
+    --dui-clr-primary-l-5: #E8EAF6;
+    --dui-clr-primary-l-4: #C5CAE9;
+    --dui-clr-primary-l-3: #9FA8DA;
+    --dui-clr-primary-l-2: #7986CB;
+    --dui-clr-primary-l-1: #5C6BC0;
+    --dui-clr-primary: #3F51B5;
+    --dui-clr-primary-d-1: #3949AB;
+    --dui-clr-primary-d-2: #303F9F;
+    --dui-clr-primary-d-3: #283593;
+    --dui-clr-primary-d-4: #1A237E;
+
+    --dui-clr-secondary-l-5: #ECEFF1;
+    --dui-clr-secondary-l-4: #CFD8DC;
+    --dui-clr-secondary-l-3: #B0BEC5;
+    --dui-clr-secondary-l-2: #90A4AE;
+    --dui-clr-secondary-l-1: #78909C;
+    --dui-clr-secondary: #607D8B;
+    --dui-clr-secondary-d-1: #546E7A;
+    --dui-clr-secondary-d-2: #455A64;
+    --dui-clr-secondary-d-3: #37474F;
+    --dui-clr-secondary-d-4: #263238;
+
+    --dui-clr-success-l-5: #E8F5E9;
+    --dui-clr-success-l-4: #C8E6C9;
+    --dui-clr-success-l-3: #A5D6A7;
+    --dui-clr-success-l-2: #81C784;
+    --dui-clr-success-l-1: #66BB6A;
+    --dui-clr-success: #4CAF50;
+    --dui-clr-success-d-1: #43A047;
+    --dui-clr-success-d-2: #388E3C;
+    --dui-clr-success-d-3: #2E7D32;
+    --dui-clr-success-d-4: #1B5E20;
+
+    --dui-clr-warning-l-5: #FFF3E0;
+    --dui-clr-warning-l-4: #FFE0B2;
+    --dui-clr-warning-l-3: #FFCC80;
+    --dui-clr-warning-l-2: #FFB74D;
+    --dui-clr-warning-l-1: #FFA726;
+    --dui-clr-warning: #FF9800;
+    --dui-clr-warning-d-1: #FB8C00;
+    --dui-clr-warning-d-2: #F57C00;
+    --dui-clr-warning-d-3: #EF6C00;
+    --dui-clr-warning-d-4: #E65100;
+
+    --dui-clr-info-l-5: #E3F2FD;
+    --dui-clr-info-l-4: #BBDEFB;
+    --dui-clr-info-l-3: #90CAF9;
+    --dui-clr-info-l-2: #64B5F6;
+    --dui-clr-info-l-1: #42A5F5;
+    --dui-clr-info: #2196F3;
+    --dui-clr-info-d-1: #1E88E5;
+    --dui-clr-info-d-2: #1976D2;
+    --dui-clr-info-d-3: #1565C0;
+    --dui-clr-info-d-4: #0D47A1;
+
+    --dui-clr-error-l-5: #FFEBEE;
+    --dui-clr-error-l-4: #FFCDD2;
+    --dui-clr-error-l-3: #EF9A9A;
+    --dui-clr-error-l-2: #E57373;
+    --dui-clr-error-l-1: #EF5350;
+    --dui-clr-error: #F44336;
+    --dui-clr-error-d-1: #E53935;
+    --dui-clr-error-d-2: #D32F2F;
+    --dui-clr-error-d-3: #C62828;
+    --dui-clr-error-d-4: #B71C1C;
+
+    --dui-clr-red-l-5: #FFEBEE;
+    --dui-clr-red-l-4: #FFCDD2;
+    --dui-clr-red-l-3: #EF9A9A;
+    --dui-clr-red-l-2: #E57373;
+    --dui-clr-red-l-1: #EF5350;
+    --dui-clr-red: #F44336;
+    --dui-clr-red-d-1: #E53935;
+    --dui-clr-red-d-2: #D32F2F;
+    --dui-clr-red-d-3: #C62828;
+    --dui-clr-red-d-4: #B71C1C;
+
+    --dui-clr-pink-l-5: #FCE4EC;
+    --dui-clr-pink-l-4: #F8BBD0;
+    --dui-clr-pink-l-3: #F48FB1;
+    --dui-clr-pink-l-2: #F06292;
+    --dui-clr-pink-l-1: #EC407A;
+    --dui-clr-pink: #E91E63;
+    --dui-clr-pink-d-1: #D81B60;
+    --dui-clr-pink-d-2: #C2185B;
+    --dui-clr-pink-d-3: #AD1457;
+    --dui-clr-pink-d-4: #880E4F;
+
+    --dui-clr-purple-l-5: #F3E5F5;
+    --dui-clr-purple-l-4: #E1BEE7;
+    --dui-clr-purple-l-3: #CE93D8;
+    --dui-clr-purple-l-2: #BA68C8;
+    --dui-clr-purple-l-1: #AB47BC;
+    --dui-clr-purple: #9C27B0;
+    --dui-clr-purple-d-1: #8E24AA;
+    --dui-clr-purple-d-2: #7B1FA2;
+    --dui-clr-purple-d-3: #6A1B9A;
+    --dui-clr-purple-d-4: #4A148C;
+
+    --dui-clr-deep-purple-l-5: #EDE7F6;
+    --dui-clr-deep-purple-l-4: #D1C4E9;
+    --dui-clr-deep-purple-l-3: #B39DDB;
+    --dui-clr-deep-purple-l-2: #9575CD;
+    --dui-clr-deep-purple-l-1: #7E57C2;
+    --dui-clr-deep-purple: #673AB7;
+    --dui-clr-deep-purple-d-1: #5E35B1;
+    --dui-clr-deep-purple-d-2: #512DA8;
+    --dui-clr-deep-purple-d-3: #4527A0;
+    --dui-clr-deep-purple-d-4: #311B92;
+
+    --dui-clr-indigo-l-5: #E8EAF6;
+    --dui-clr-indigo-l-4: #C5CAE9;
+    --dui-clr-indigo-l-3: #9FA8DA;
+    --dui-clr-indigo-l-2: #7986CB;
+    --dui-clr-indigo-l-1: #5C6BC0;
+    --dui-clr-indigo: #3F51B5;
+    --dui-clr-indigo-d-1: #3949AB;
+    --dui-clr-indigo-d-2: #303F9F;
+    --dui-clr-indigo-d-3: #283593;
+    --dui-clr-indigo-d-4: #1A237E;
+
+    --dui-clr-blue-l-5: #E3F2FD;
+    --dui-clr-blue-l-4: #BBDEFB;
+    --dui-clr-blue-l-3: #90CAF9;
+    --dui-clr-blue-l-2: #64B5F6;
+    --dui-clr-blue-l-1: #42A5F5;
+    --dui-clr-blue: #2196F3;
+    --dui-clr-blue-d-1: #1E88E5;
+    --dui-clr-blue-d-2: #1976D2;
+    --dui-clr-blue-d-3: #1565C0;
+    --dui-clr-blue-d-4: #0D47A1;
+
+    --dui-clr-light-blue-l-5: #E1F5FE;
+    --dui-clr-light-blue-l-4: #B3E5FC;
+    --dui-clr-light-blue-l-3: #81D4FA;
+    --dui-clr-light-blue-l-2: #4FC3F7;
+    --dui-clr-light-blue-l-1: #29B6F6;
+    --dui-clr-light-blue: #03A9F4;
+    --dui-clr-light-blue-d-1: #039BE5;
+    --dui-clr-light-blue-d-2: #0288D1;
+    --dui-clr-light-blue-d-3: #0277BD;
+    --dui-clr-light-blue-d-4: #01579B;
+
+    --dui-clr-cyan-l-5: #E0F7FA;
+    --dui-clr-cyan-l-4: #B2EBF2;
+    --dui-clr-cyan-l-3: #80DEEA;
+    --dui-clr-cyan-l-2: #4DD0E1;
+    --dui-clr-cyan-l-1: #26C6DA;
+    --dui-clr-cyan: #00BCD4;
+    --dui-clr-cyan-d-1: #00ACC1;
+    --dui-clr-cyan-d-2: #0097A7;
+    --dui-clr-cyan-d-3: #00838F;
+    --dui-clr-cyan-d-4: #006064;
+
+    --dui-clr-teal-l-5: #E0F2F1;
+    --dui-clr-teal-l-4: #B2DFDB;
+    --dui-clr-teal-l-3: #80CBC4;
+    --dui-clr-teal-l-2: #4DB6AC;
+    --dui-clr-teal-l-1: #26A69A;
+    --dui-clr-teal: #009688;
+    --dui-clr-teal-d-1: #00897B;
+    --dui-clr-teal-d-2: #00796B;
+    --dui-clr-teal-d-3: #00695C;
+    --dui-clr-teal-d-4: #004D40;
+
+    --dui-clr-green-l-5: #E8F5E9;
+    --dui-clr-green-l-4: #C8E6C9;
+    --dui-clr-green-l-3: #A5D6A7;
+    --dui-clr-green-l-2: #81C784;
+    --dui-clr-green-l-1: #66BB6A;
+    --dui-clr-green: #4CAF50;
+    --dui-clr-green-d-1: #43A047;
+    --dui-clr-green-d-2: #388E3C;
+    --dui-clr-green-d-3: #2E7D32;
+    --dui-clr-green-d-4: #1B5E20;
+
+    --dui-clr-light-green-l-5: #F1FFE5;
+    --dui-clr-light-green-l-4: #DCEDC8;
+    --dui-clr-light-green-l-3: #C5E1A5;
+    --dui-clr-light-green-l-2: #AED581;
+    --dui-clr-light-green-l-1: #9CCC65;
+    --dui-clr-light-green: #8BC34A;
+    --dui-clr-light-green-d-1: #7CB342;
+    --dui-clr-light-green-d-2: #689F38;
+    --dui-clr-light-green-d-3: #558B2F;
+    --dui-clr-light-green-d-4: #33691E;
+
+    --dui-clr-lime-l-5: #F9FBE7;
+    --dui-clr-lime-l-4: #F0F4C3;
+    --dui-clr-lime-l-3: #E6EE9C;
+    --dui-clr-lime-l-2: #DCE775;
+    --dui-clr-lime-l-1: #D4E157;
+    --dui-clr-lime: #CDDC39;
+    --dui-clr-lime-d-1: #C0CA33;
+    --dui-clr-lime-d-2: #AFB42B;
+    --dui-clr-lime-d-3: #9E9D24;
+    --dui-clr-lime-d-4: #827717;
+
+    --dui-clr-yellow-l-5: #FFFDE7;
+    --dui-clr-yellow-l-4: #FFF9C4;
+    --dui-clr-yellow-l-3: #FFF59D;
+    --dui-clr-yellow-l-2: #FFF176;
+    --dui-clr-yellow-l-1: #FFEE58;
+    --dui-clr-yellow: #FFEB3B;
+    --dui-clr-yellow-d-1: #FDD835;
+    --dui-clr-yellow-d-2: #FBC02D;
+    --dui-clr-yellow-d-3: #F9A825;
+    --dui-clr-yellow-d-4: #F57F17;
+
+    --dui-clr-amber-l-5: #FFF8E1;
+    --dui-clr-amber-l-4: #FFECB3;
+    --dui-clr-amber-l-3: #FFE082;
+    --dui-clr-amber-l-2: #FFD54F;
+    --dui-clr-amber-l-1: #FFCA28;
+    --dui-clr-amber: #FFC107;
+    --dui-clr-amber-d-1: #FFB300;
+    --dui-clr-amber-d-2: #FFA000;
+    --dui-clr-amber-d-3: #FF8F00;
+    --dui-clr-amber-d-4: #FF6F00;
+
+    --dui-clr-orange-l-5: #FFF3E0;
+    --dui-clr-orange-l-4: #FFE0B2;
+    --dui-clr-orange-l-3: #FFCC80;
+    --dui-clr-orange-l-2: #FFB74D;
+    --dui-clr-orange-l-1: #FFA726;
+    --dui-clr-orange: #FF9800;
+    --dui-clr-orange-d-1: #FB8C00;
+    --dui-clr-orange-d-2: #F57C00;
+    --dui-clr-orange-d-3: #EF6C00;
+    --dui-clr-orange-d-4: #E65100;
+
+    --dui-clr-deep-orange-l-5: #FBE9E7;
+    --dui-clr-deep-orange-l-4: #FFCCBC;
+    --dui-clr-deep-orange-l-3: #FFAB91;
+    --dui-clr-deep-orange-l-2: #FF8A65;
+    --dui-clr-deep-orange-l-1: #FF7043;
+    --dui-clr-deep-orange: #FF5722;
+    --dui-clr-deep-orange-d-1: #F4511E;
+    --dui-clr-deep-orange-d-2: #E64A19;
+    --dui-clr-deep-orange-d-3: #D84315;
+    --dui-clr-deep-orange-d-4: #BF360C;
+
+    --dui-clr-brown-l-5: #EFEBE9;
+    --dui-clr-brown-l-4: #D7CCC8;
+    --dui-clr-brown-l-3: #BCAAA4;
+    --dui-clr-brown-l-2: #A1887F;
+    --dui-clr-brown-l-1: #8D6E63;
+    --dui-clr-brown: #795548;
+    --dui-clr-brown-d-1: #6D4C41;
+    --dui-clr-brown-d-2: #5D4037;
+    --dui-clr-brown-d-3: #4E342E;
+    --dui-clr-brown-d-4: #3E2723;
+
+    --dui-clr-grey-l-5: #FAFAFA;
+    --dui-clr-grey-l-4: #FAFAFA;
+    --dui-clr-grey-l-3: #EEEEEE;
+    --dui-clr-grey-l-2: #E0E0E0;
+    --dui-clr-grey-l-1: #BDBDBD;
+    --dui-clr-grey: #9E9E9E;
+    --dui-clr-grey-d-1: #757575;
+    --dui-clr-grey-d-2: #616161;
+    --dui-clr-grey-d-3: #424242;
+    --dui-clr-grey-d-4: #212121;
+
+    --dui-clr-blue-grey-l-5: #ECEFF1;
+    --dui-clr-blue-grey-l-4: #CFD8DC;
+    --dui-clr-blue-grey-l-3: #B0BEC5;
+    --dui-clr-blue-grey-l-2: #90A4AE;
+    --dui-clr-blue-grey-l-1: #78909C;
+    --dui-clr-blue-grey: #607D8B;
+    --dui-clr-blue-grey-d-1: #546E7A;
+    --dui-clr-blue-grey-d-2: #455A64;
+    --dui-clr-blue-grey-d-3: #37474F;
+    --dui-clr-blue-grey-d-4: #263238;
+
+    --dui-clr-white-l-5: #EEEEEE;
+    --dui-clr-white-l-4: #EEEEEE;
+    --dui-clr-white-l-3: #EEEEEE;
+    --dui-clr-white-l-2: #EEEEEE;
+    --dui-clr-white-l-1: #EEEEEE;
+    --dui-clr-white: #FFFFFF;
+    --dui-clr-white-d-1: #EEEEEE;
+    --dui-clr-white-d-2: #EEEEEE;
+    --dui-clr-white-d-3: #EEEEEE;
+    --dui-clr-white-d-4: #EEEEEE;
+
+    --dui-clr-black-l-5: #737373;
+    --dui-clr-black-l-4: #595959;
+    --dui-clr-black-l-3: #404040;
+    --dui-clr-black-l-2: #262626;
+    --dui-clr-black-l-1: #0d0d0d;
+    --dui-clr-black: #000000;
+    --dui-clr-black-d-1: #595959;
+    --dui-clr-black-d-2: #404040;
+    --dui-clr-black-d-3: #262626;
+    --dui-clr-black-d-4: #0d0d0d;
+
+    --dui-accent-l-5: var(--dui-clr-accent-l-5);
+    --dui-accent-l-4: var(--dui-clr-accent-l-4);
+    --dui-accent-l-3: var(--dui-clr-accent-l-3);
+    --dui-accent-l-2: var(--dui-clr-accent-l-2);
+    --dui-accent-l-1: var(--dui-clr-accent-l-1);
+    --dui-accent: var(--dui-clr-accent);
+    --dui-accent-d-1: var(--dui-clr-accent-d-1);
+    --dui-accent-d-2: var(--dui-clr-accent-d-2);
+    --dui-accent-d-3: var(--dui-clr-accent-d-3);
+    --dui-accent-d-4: var(--dui-clr-accent-d-4);
+
+    /* ================ Box shadow ========================== */
+    --dui-shadow-clr-1: #00000033;
+    --dui-shadow-clr-2: #00000024;
+    --dui-shadow-clr-3: #0000001f;
+
+    /* ================== Overrides ======================= */
+    --dui-card-header-border-color: var(--dui-clr-accent-l-5);
+    --dui-tree-item-hover-color: var(--dui-accent-d-4);
+    --dui-tree-item-active-color: var(--dui-accent-d-3);
+    --dui-list-group-border: 1px solid var(--dui-clr-accent-l-3);
+    --dui-list-group-item-border-color: var(--dui-clr-accent-l-3);
+    --dui-border-default: var(--dui-accent-l-3);
+    --dui-btn-hover-color: var(--dui-color);
+    --dui-info-color: var(--dui-clr-grey-d-1);
+    --dui-loader-background: #FFFFFFe6;
+    --dui-loader-dark-color: var(--dui-clr-grey-d-1);
+    --dui-loader-darker-color: var(--dui-clr-grey-d-2);
+    --dui-loader-darkest-color: var(--dui-clr-black);
+    --dui-menu-item-hover-bg-color: var(--dui-accent-l-5);
+
+    --dui-menu-item-hover-color: var(--dui-color);
+    --dui-menu-item-selected-hover-bg-color: var(--dui-accent-l-4);
+    --dui-menu-item-selected-hover-color: var(--dui-color-5);
+    --dui-quick-search-bg-color: var(--dui-accent-l-5);
+    --dui-quick-search-color: var(--dui-color);
+    --dui-menu-border-color: var(--dui-clr-accent-l-3);
+    --dui-dialog-header-border-color: var(--dui-accent-l-4);
+    --dui-pager-active-page-color: var(--dui-clr-white);
+    --dui-form-field-border-color: var(--dui-accent-l-3);
+    --dui-accent-text-color: var(--dui-clr-white);
+    --dui-thumbnail-border-color: var(--dui-accent-l-4);
+    --dui-thumbnail-border-active-color: var(--dui-accent-l-3);
+    --dui-tree-header-bg-color: var(--dui-accent-l-3);
+    --dui-list-group-item-hover-background: var(--dui-accent-l-4);
+    --dui-list-group-item-selected-background: var(--dui-accent);
+    --dui-form-field-disabled-background: var(--dui-clr-grey-l-4);
+    --dui-form-field-disabled-border-color: var(--dui-clr-grey-l-2);
+    --dui-form-field-readonly-background: var(--dui-accent-l-5);
+    --dui-form-field-readonly-border-color: var(--dui-accent-l-5);
+    --dui-form-field-readonly-color: var(--dui-color-5);
+    --dui-file-upload-background: var(--dui-accent-l-5);
+    --dui-calender-select-bg: var(--dui-accent-l-5);
+    --dui-calender-select-hover-bg: var(--dui-accent-l-3);
+    --dui-calendar-selected-date-color: var(--dui-clr-white);
+    --dui-calendar-header-text-color: var(--dui-clr-white);
+    --dui-calendar-selected-month-color: var(--dui-clr-white);
+    --dui-calendar-selected-year-color: var(--dui-clr-white);
+    --dui-calendar-border-color: var(--dui-accent-l-4);
+    --dui-calendar-header-border-color: var(--dui-accent-l-4);
+    --dui-timepicker-header-text-color: var(--dui-clr-white);
+    --dui-timepicker-border-color: var(--dui-accent-l-4);
+    --dui-form-field-switch-focus-box-shadow: 0 0 0 0 rgb(0 0 0 / 40%), 0 0 0 12px rgb(0 0 0 / 8%);
+    --dui-clickable-box-shadow: 0 0 0 0 rgb(0 0 0 / 40%), 0 0 0 5px rgb(0 0 0 / 8%);
+    --dui-datatable-even-bg-color: var(--dui-accent-l-5);
+    --dui-datatable-odd-bg-color: var(--dui-clr-white);
+    --dui-datatable-row-selected-bg-color: var(--dui-accent-l-2);
+    --dui-datatable-row-hover-bg-color: var(--dui-accent-l-3);
+    --dui-datatable-header-hover-bg-color: var(--dui-accent-l-5);
+    --dui-datatable-border-color: var(--dui-accent-l-4);
+    --dui-datatable-column-resizer-color: var(--dui-accent-l-4);
+    --dui-datatable-pin-column-border-color: var(--dui-accent-l-2);
+    --dui-nav-bar-description-color: var(--dui-color-1);
+    --dui-datatable-tfoot-bg-color: var(--dui-accent-l-5);
+}

@@ -18,14 +18,14 @@ name: Deploy
 
 on:
   push:
-    branches: [ master , development ]
+    branches: [ master , development , 2.0-development ]
 
 jobs:
   verify:
     runs-on: ubuntu-20.04
     strategy:
       matrix:
-        java-version: [ 8, 11 ]
+        java-version: [ 11 ]
     steps:
       - name: Check out Git repository
         uses: actions/checkout@v3
@@ -46,7 +46,7 @@ jobs:
       - name: Install Java and Maven
         uses: actions/setup-java@v3
         with:
-          java-version: 8
+          java-version: 11
           distribution: 'temurin'
           server-id: ossrh
           server-username: SONATYPE_USERNAME

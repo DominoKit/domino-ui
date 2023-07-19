@@ -17,12 +17,19 @@ package org.dominokit.domino.ui.datatable;
 
 import elemental2.dom.Node;
 
-/** An interface to provide different implementations for a column header content */
+/**
+ * An interface to provide different implementations for a column header content
+ *
+ * @author vegegoku
+ * @version $Id: $Id
+ */
 @FunctionalInterface
 public interface HeaderElementSupplier {
   /**
+   * asElement.
+   *
    * @param columnTitle String column title
-   * @return the {@link Node} representing the column header content
+   * @return the {@link elemental2.dom.Node} representing the column header content
    */
   Node asElement(String columnTitle);
 }

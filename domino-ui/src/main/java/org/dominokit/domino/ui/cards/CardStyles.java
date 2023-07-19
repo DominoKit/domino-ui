@@ -15,19 +15,38 @@
  */
 package org.dominokit.domino.ui.cards;
 
-/** Default CSS classes for {@link Card} */
-public class CardStyles {
+import org.dominokit.domino.ui.style.CssClass;
 
-  /** CSS class for card */
-  public static final String CARD = "card";
-  /** CSS class for card header */
-  public static final String HEADER = "header";
-  /** CSS class for card header actions */
-  public static final String HEADER_ACTIONS = "header-actions";
-  /** CSS class for card body */
-  public static final String BODY = "body";
-  /** CSS class for card header action icon */
-  public static final String ACTION_ICON = "action-icon";
-  /** CSS class for card to fit its content */
-  public static final String FIT_CONTENT = "fit-content";
+/**
+ * Default CSS classes for {@link org.dominokit.domino.ui.cards.Card}
+ *
+ * @author vegegoku
+ * @version $Id: $Id
+ */
+public interface CardStyles {
+
+  /** Constant <code>dui_card</code> */
+  CssClass dui_card = () -> "dui-card";
+  /** Constant <code>dui_card_header_bottom</code> */
+  CssClass dui_card_header_bottom = () -> "dui-card-header-bottom";
+  /** Constant <code>dui_card_main_title</code> */
+  CssClass dui_card_main_title = () -> "dui-card-main-title";
+  /** Constant <code>dui_card_title</code> */
+  CssClass dui_card_title = () -> "dui-card-title";
+  /** Constant <code>dui_card_description</code> */
+  CssClass dui_card_description = () -> "dui-card-description";
+  /** Constant <code>dui_card_header</code> */
+  CssClass dui_card_header = () -> "dui-card-header";
+  /** Constant <code>dui_card_main_header</code> */
+  CssClass dui_card_main_header = () -> "dui-card-main-header";
+  /** Constant <code>dui_card_sub_header</code> */
+  CssClass dui_card_sub_header = () -> "dui-card-subheader";
+  /** Constant <code>dui_card_logo</code> */
+  CssClass dui_card_logo = () -> "dui-card-logo";
+  /** Constant <code>dui_card_icon</code> */
+  CssClass dui_card_icon = () -> "dui-card-icon";
+  /** Constant <code>dui_card_body</code> */
+  CssClass dui_card_body = () -> "dui-card-body";
+  /** Constant <code>dui_card_header_filler</code> */
+  CssClass dui_card_header_filler = () -> "dui-card-header-filler";
 }

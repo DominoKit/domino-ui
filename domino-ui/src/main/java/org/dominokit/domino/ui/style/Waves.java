@@ -17,52 +17,73 @@ package org.dominokit.domino.ui.style;
 
 import static elemental2.dom.DomGlobal.window;
 import static java.util.Objects.nonNull;
-import static org.jboss.elemento.Elements.div;
-import static org.jboss.elemento.EventType.mousedown;
+import static org.dominokit.domino.ui.events.EventType.mousedown;
+import static org.dominokit.domino.ui.utils.ElementsFactory.elements;
 
-import elemental2.dom.*;
+import elemental2.dom.DOMRect;
+import elemental2.dom.Element;
+import elemental2.dom.Event;
+import elemental2.dom.EventListener;
+import elemental2.dom.MouseEvent;
 import jsinterop.base.Js;
 import jsinterop.base.JsPropertyMap;
+import org.dominokit.domino.ui.IsElement;
+import org.dominokit.domino.ui.elements.DivElement;
 import org.dominokit.domino.ui.utils.DominoElement;
 import org.gwtproject.timer.client.Timer;
-import org.jboss.elemento.IsElement;
 
-/** Adds the required events to add waves for a target element */
-public class Waves implements IsElement<HTMLElement> {
+/**
+ * Adds the required events to add waves for a target element
+ *
+ * @author vegegoku
+ * @version $Id: $Id
+ */
+public class Waves implements IsElement<Element> {
 
-  private final DominoElement<? extends HTMLElement> target;
-  private DominoElement<HTMLDivElement> ripple;
+  private final DivElement target;
+  DivElement ripple;
   private JsPropertyMap<String> rippleStyle;
   private Timer delayTimer;
   private Timer removeTimer;
   private final int duration = 750;
   private final WavesEventListener wavesEventListener = new WavesEventListener();
 
-  public Waves(HTMLElement target) {
-    this(DominoElement.of(target));
+  /**
+   * Constructor for Waves.
+   *
+   * @param target a {@link elemental2.dom.Element} object
+   */
+  public Waves(Element target) {
+    this(elements.elementOf(target));
   }
 
-  public Waves(DominoElement<? extends HTMLElement> target) {
-    this.target = target;
+  /**
+   * Constructor for Waves.
+   *
+   * @param target a {@link org.dominokit.domino.ui.utils.DominoElement} object
+   */
+  public Waves(DominoElement<? extends Element> target) {
+    this.target = elements.div().addCss("dui-wave-sentinel");
+    elements.elementOf(target).addCss("dui-waves-target").appendChild(this.target);
   }
 
   /**
    * Creates waves for a specific target element
    *
-   * @param target the {@link HTMLElement} to add waves to
+   * @param target the {@link elemental2.dom.Element} to add waves to
    * @return new instance
    */
-  public static Waves create(HTMLElement target) {
+  public static Waves create(Element target) {
     return new Waves(target);
   }
 
   /**
    * Creates waves for a specific target element
    *
-   * @param target the {@link DominoElement} to add waves to
+   * @param target the {@link org.dominokit.domino.ui.utils.DominoElement} to add waves to
    * @return new instance
    */
-  public static Waves create(DominoElement<? extends HTMLElement> target) {
+  public static Waves create(DominoElement<? extends Element> target) {
     return new Waves(target);
   }
 
@@ -76,6 +97,7 @@ public class Waves implements IsElement<HTMLElement> {
   /** Removes the event listeners that adds waves */
   public void removeWaves() {
     target.removeEventListener(mousedown.getName(), wavesEventListener);
+    this.target.remove();
   }
 
   private boolean isTargetDisabled() {
@@ -95,7 +117,7 @@ public class Waves implements IsElement<HTMLElement> {
                 new Timer() {
                   @Override
                   public void run() {
-                    ripple.removeCss("waves-rippling");
+                    ripple.removeCss("dui-waves-rippling");
                     ripple.remove();
                   }
                 };
@@ -122,11 +144,11 @@ public class Waves implements IsElement<HTMLElement> {
 
   /** {@inheritDoc} */
   @Override
-  public HTMLElement element() {
+  public Element element() {
     return target.element();
   }
 
-  private ElementOffset offset(HTMLElement target) {
+  private ElementOffset offset(Element target) {
     Element docElem = target.ownerDocument.documentElement;
     DOMRect box = target.getBoundingClientRect();
     ElementOffset position = new ElementOffset();
@@ -151,7 +173,7 @@ public class Waves implements IsElement<HTMLElement> {
 
       stopCurrentWave();
 
-      ripple = DominoElement.of(div()).addCss("waves-ripple", "waves-rippling");
+      ripple = elements.div().addCss("dui-waves-ripple", "dui-waves-rippling");
       target.appendChild(ripple);
 
       ElementOffset position = offset(target.element());
@@ -171,11 +193,11 @@ public class Waves implements IsElement<HTMLElement> {
 
       rippleStyle.set("top", relativeY + "px");
       rippleStyle.set("left", relativeX + "px");
-      ripple.addCss("waves-notransition");
+      ripple.addCss("dui-waves-notransition");
 
       ripple.setAttribute("style", convertStyle(rippleStyle));
 
-      ripple.removeCss("waves-notransition");
+      ripple.removeCss("dui-waves-notransition");
 
       rippleStyle.set("-webkit-transform", scale + " " + translate);
       rippleStyle.set("-moz-transform", scale + " " + translate);

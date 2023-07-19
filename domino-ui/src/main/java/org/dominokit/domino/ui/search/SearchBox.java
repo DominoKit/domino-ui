@@ -16,40 +16,53 @@
 package org.dominokit.domino.ui.search;
 
 import static java.util.Objects.nonNull;
+import static org.dominokit.domino.ui.search.SearchStyles.dui_quick_search;
 
 import elemental2.dom.Event;
 import elemental2.dom.EventListener;
 import elemental2.dom.HTMLDivElement;
 import java.util.HashSet;
 import java.util.Set;
-import jsinterop.base.Js;
+import org.dominokit.domino.ui.config.HasComponentConfig;
+import org.dominokit.domino.ui.config.SearchConfig;
+import org.dominokit.domino.ui.elements.DivElement;
 import org.dominokit.domino.ui.forms.TextBox;
-import org.dominokit.domino.ui.icons.BaseIcon;
-import org.dominokit.domino.ui.icons.Icons;
-import org.dominokit.domino.ui.keyboard.KeyboardEvents;
+import org.dominokit.domino.ui.i18n.HasLabels;
+import org.dominokit.domino.ui.i18n.QuickSearchLabels;
+import org.dominokit.domino.ui.icons.Icon;
+import org.dominokit.domino.ui.icons.lib.Icons;
+import org.dominokit.domino.ui.keyboard.KeyboardEventOptions;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
-import org.dominokit.domino.ui.utils.DominoElement;
-import org.dominokit.domino.ui.utils.ElementUtil;
+import org.dominokit.domino.ui.utils.ChildHandler;
+import org.dominokit.domino.ui.utils.PostfixAddOn;
+import org.dominokit.domino.ui.utils.PrefixAddOn;
 import org.gwtproject.timer.client.Timer;
-import org.jboss.elemento.EventType;
 
-/** A simple search box that is triggered while the user is typing */
-public class SearchBox extends BaseDominoElement<HTMLDivElement, SearchBox> {
+/**
+ * A simple search box that is triggered while the user is typing
+ *
+ * @author vegegoku
+ * @version $Id: $Id
+ */
+public class SearchBox extends BaseDominoElement<HTMLDivElement, SearchBox>
+    implements HasLabels<QuickSearchLabels>, HasComponentConfig<SearchConfig> {
 
-  private String searchToolTip = "Search";
-  private String clearSearchToolTip = "Clear search";
-
-  private int autoSearchDelay = 200;
-  private DominoElement<HTMLDivElement> root = DominoElement.div().css("search-box");
+  private int autoSearchDelay;
+  private DivElement root;
   private final TextBox textBox;
   private boolean autoSearch = true;
   private Timer autoSearchTimer;
   private EventListener autoSearchEventListener;
-  private final BaseIcon<?> searchIcon;
-  private final BaseIcon<?> clearIcon;
+  private final Icon<?> searchIcon;
+  private final Icon<?> clearIcon;
 
   private Set<SearchListener> searchListeners = new HashSet<>();
 
+  /**
+   * create.
+   *
+   * @return a {@link org.dominokit.domino.ui.search.SearchBox} object
+   */
   public static SearchBox create() {
     return new SearchBox();
   }
@@ -57,48 +70,43 @@ public class SearchBox extends BaseDominoElement<HTMLDivElement, SearchBox> {
   /** creates a new instance */
   public SearchBox() {
     init(this);
+    this.autoSearchDelay = getConfig().getAutoSearchDelay();
+    root = div().addCss(dui_quick_search);
     searchIcon =
-        Icons.ALL
-            .magnify_mdi()
+        Icons.magnify()
             .clickable()
             .addClickListener(
                 evt -> {
                   autoSearchTimer.cancel();
                   doSearch();
                 })
-            .setTooltip(searchToolTip);
+            .setTooltip(getLabels().defaultQuickSearchPlaceHolder());
 
     clearIcon =
-        Icons.ALL
-            .window_close_mdi()
-            .setAttribute("tabindex", "0")
-            .setAttribute("aria-expanded", "true")
-            .setAttribute("href", "#")
+        Icons.close()
             .clickable()
-            .setTooltip(clearSearchToolTip)
+            .setTooltip(getLabels().defaultQuickSearchClearToolTip())
             .addClickListener(
                 evt -> {
                   clearSearch();
                   focusSearchBox();
                 });
 
-    KeyboardEvents.listenOnKeyDown(clearIcon)
-        .onEnter(
-            evt -> {
-              clearSearch();
-              focusSearchBox();
-            },
-            KeyboardEvents.KeyboardEventOptions.create()
-                .setPreventDefault(true)
-                .setStopPropagation(true));
+    clearIcon.onKeyDown(
+        keyEvents ->
+            keyEvents.onEnter(
+                KeyboardEventOptions.create().setPreventDefault(true).setStopPropagation(true),
+                evt -> {
+                  clearSearch();
+                  focusSearchBox();
+                }));
 
     textBox =
         TextBox.create()
-            .floating()
-            .setPlaceholder(searchToolTip)
-            .addLeftAddOn(searchIcon)
-            .addRightAddOn(clearIcon)
-            .setMarginBottom("0px");
+            .setPlaceholder(getLabels().defaultQuickSearchPlaceHolder())
+            .appendChild(PrefixAddOn.of(searchIcon))
+            .appendChild(PostfixAddOn.of(clearIcon))
+            .addCss(dui_m_0);
 
     root.appendChild(textBox.element());
 
@@ -124,14 +132,35 @@ public class SearchBox extends BaseDominoElement<HTMLDivElement, SearchBox> {
     getTextBox().getInputElement().element().focus();
   }
 
-  /** Clears the search box and trigger the search with an empty token */
-  public void clearSearch() {
+  /**
+   * Clears the search box and trigger the search with an empty token
+   *
+   * @return a {@link org.dominokit.domino.ui.search.SearchBox} object
+   */
+  public SearchBox clearSearch() {
+    return clearSearch(false);
+  }
+  /**
+   * Clears the search box and trigger the search with an empty token
+   *
+   * @param silent a boolean
+   * @return a {@link org.dominokit.domino.ui.search.SearchBox} object
+   */
+  public SearchBox clearSearch(boolean silent) {
     textBox.clear();
     autoSearchTimer.cancel();
-    doSearch();
+    if (!silent) {
+      doSearch();
+    }
+    return this;
   }
 
   /** @return boolean, true if the auto search is enabled */
+  /**
+   * isAutoSearch.
+   *
+   * @return a boolean
+   */
   public boolean isAutoSearch() {
     return autoSearch;
   }
@@ -154,60 +183,42 @@ public class SearchBox extends BaseDominoElement<HTMLDivElement, SearchBox> {
       autoSearchTimer.cancel();
     }
 
-    textBox.addEventListener(
-        EventType.keypress.getName(),
-        evt -> {
-          if (ElementUtil.isEnterKey(Js.uncheckedCast(evt))) {
-            doSearch();
-          }
-        });
+    textBox.onKeyPress(keyEvents -> keyEvents.onEnter(evt -> doSearch()));
 
     return this;
   }
 
   /** @return int search delay in milliseconds */
+  /**
+   * Getter for the field <code>autoSearchDelay</code>.
+   *
+   * @return a int
+   */
   public int getAutoSearchDelay() {
     return autoSearchDelay;
   }
 
   /** @param autoSearchDelayInMillies int auto search delay in milliseconds */
-  public void setAutoSearchDelay(int autoSearchDelayInMillies) {
-    this.autoSearchDelay = autoSearchDelayInMillies;
-  }
-
-  private void doSearch() {
-    searchListeners.forEach(searchListener -> searchListener.onSearch(textBox.getValue()));
-  }
-
   /**
-   * Set the search icon tooltip
+   * Setter for the field <code>autoSearchDelay</code>.
    *
-   * @param searchToolTip String
-   * @return same action instance
+   * @param autoSearchDelayInMillies a int
+   * @return a {@link org.dominokit.domino.ui.search.SearchBox} object
    */
-  public SearchBox setSearchToolTip(String searchToolTip) {
-    this.searchToolTip = searchToolTip;
-    searchIcon.setTooltip(searchToolTip);
-    textBox.setPlaceholder(searchToolTip);
+  public SearchBox setAutoSearchDelay(int autoSearchDelayInMillies) {
+    this.autoSearchDelay = autoSearchDelayInMillies;
     return this;
   }
 
-  /**
-   * Set the clear search icon tooltip
-   *
-   * @param clearSearchToolTip String
-   * @return same action instance
-   */
-  public SearchBox setClearSearchToolTip(String clearSearchToolTip) {
-    this.clearSearchToolTip = clearSearchToolTip;
-    clearIcon.setTooltip(clearSearchToolTip);
+  private SearchBox doSearch() {
+    searchListeners.forEach(searchListener -> searchListener.onSearch(textBox.getValue()));
     return this;
   }
 
   /**
    * Adds a search listener to the search box component
    *
-   * @param searchListener {@link SearchListener}
+   * @param searchListener {@link org.dominokit.domino.ui.search.SearchBox.SearchListener}
    * @return same instance
    */
   public SearchBox addSearchListener(SearchListener searchListener) {
@@ -220,7 +231,7 @@ public class SearchBox extends BaseDominoElement<HTMLDivElement, SearchBox> {
   /**
    * Removes a search listener from the search box component
    *
-   * @param searchListener {@link SearchListener}
+   * @param searchListener {@link org.dominokit.domino.ui.search.SearchBox.SearchListener}
    * @return same instance
    */
   public SearchBox removeSearchListener(SearchListener searchListener) {
@@ -240,32 +251,54 @@ public class SearchBox extends BaseDominoElement<HTMLDivElement, SearchBox> {
     return this;
   }
 
-  /** @return String tooltip of the search icon */
-  public String getSearchToolTip() {
-    return searchToolTip;
-  }
-
-  /** @return String tooltip of the clear search icon */
-  public String getClearSearchToolTip() {
-    return clearSearchToolTip;
-  }
-
   /** @return The search {@link TextBox} */
+  /**
+   * Getter for the field <code>textBox</code>.
+   *
+   * @return a {@link org.dominokit.domino.ui.forms.TextBox} object
+   */
   public TextBox getTextBox() {
     return textBox;
   }
 
-  /** @return the search {@link BaseIcon} */
-  public BaseIcon<?> getSearchIcon() {
+  /** @return The search {@link TextBox} */
+  /**
+   * withTextBox.
+   *
+   * @param handler a {@link org.dominokit.domino.ui.utils.ChildHandler} object
+   * @return a {@link org.dominokit.domino.ui.search.SearchBox} object
+   */
+  public SearchBox withTextBox(ChildHandler<SearchBox, TextBox> handler) {
+    handler.apply(this, textBox);
+    return this;
+  }
+
+  /** @return the search {@link Icon} */
+  /**
+   * Getter for the field <code>searchIcon</code>.
+   *
+   * @return a {@link org.dominokit.domino.ui.icons.Icon} object
+   */
+  public Icon<?> getSearchIcon() {
     return searchIcon;
   }
 
-  /** @return the clear search {@link BaseIcon} */
-  public BaseIcon<?> getClearIcon() {
+  /** @return the clear search {@link Icon} */
+  /**
+   * Getter for the field <code>clearIcon</code>.
+   *
+   * @return a {@link org.dominokit.domino.ui.icons.Icon} object
+   */
+  public Icon<?> getClearIcon() {
     return clearIcon;
   }
 
   /** @return a set of {@link SearchListener}s */
+  /**
+   * Getter for the field <code>searchListeners</code>.
+   *
+   * @return a {@link java.util.Set} object
+   */
   public Set<SearchListener> getSearchListeners() {
     return searchListeners;
   }

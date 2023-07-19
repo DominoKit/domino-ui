@@ -15,16 +15,39 @@
  */
 package org.dominokit.domino.ui.tree;
 
-/** Default CSS classes for {@link Tree} */
-public class TreeStyles {
-  /** CSS class for tree title */
-  public static final String TITLE = "title";
-  /** CSS class for tree header */
-  public static final String HEADER = "header";
-  /** CSS class for tree header */
-  public static final String MENU_HEADER = "menu-header";
-  /** CSS class for tree list */
-  public static final String LIST = "list";
-  /** CSS class for tree menu */
-  public static final String MENU = "menu";
+import org.dominokit.domino.ui.style.CssClass;
+
+/**
+ * Default CSS classes for {@link org.dominokit.domino.ui.tree.Tree}
+ *
+ * @author vegegoku
+ * @version $Id: $Id
+ */
+public interface TreeStyles {
+  /** Constant <code>dui_tree</code> */
+  CssClass dui_tree = () -> "dui-tree";
+  /** Constant <code>dui_tree_body</code> */
+  CssClass dui_tree_body = () -> "dui-tree-body";
+  /** Constant <code>dui_tree_nav</code> */
+  CssClass dui_tree_nav = () -> "dui-tree-nav";
+  /** Constant <code>dui_tree_header</code> */
+  CssClass dui_tree_header = () -> "dui-tree-header";
+  /** Constant <code>dui_tree_header_item</code> */
+  CssClass dui_tree_header_item = () -> "dui-tree-header-item";
+  /** Constant <code>dui_tree_item_close</code> */
+  CssClass dui_tree_item_close = () -> "dui-tree-item-close";
+  /** Constant <code>dui_tree_item_icon</code> */
+  CssClass dui_tree_item_icon = () -> "dui-tree-item-icon";
+  /** Constant <code>dui_tree_item_text</code> */
+  CssClass dui_tree_item_text = () -> "dui-tree-item-text";
+  /** Constant <code>dui_tree_item_filler</code> */
+  CssClass dui_tree_item_filler = () -> "dui-tree-item-filler";
+  /** Constant <code>dui_tree_content_item</code> */
+  CssClass dui_tree_content_item = () -> "dui-tree-content-item";
+  /** Constant <code>dui_tree_item_content</code> */
+  CssClass dui_tree_item_content = () -> "dui-tree-item-content";
+  /** Constant <code>dui_tree_anchor</code> */
+  CssClass dui_tree_anchor = () -> "dui-tree-anchor";
+  /** Constant <code>dui_tree_item</code> */
+  CssClass dui_tree_item = () -> "dui-tree-item";
 }

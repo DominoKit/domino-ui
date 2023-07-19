@@ -15,11 +15,15 @@
  */
 package org.dominokit.domino.ui.datatable.events;
 
-import org.dominokit.domino.ui.datatable.plugins.BodyScrollPlugin;
+import org.dominokit.domino.ui.datatable.plugins.pagination.BodyScrollPlugin;
 
 /**
- * This event will be fired by the {@link BodyScrollPlugin} for scrollable table body whenever the
- * scroll reaches the top or the bottom
+ * This event will be fired by the {@link
+ * org.dominokit.domino.ui.datatable.plugins.pagination.BodyScrollPlugin} for scrollable table body
+ * whenever the scroll reaches the top or the bottom
+ *
+ * @author vegegoku
+ * @version $Id: $Id
  */
 public class BodyScrollEvent implements TableEvent {
 
@@ -29,6 +33,13 @@ public class BodyScrollEvent implements TableEvent {
   private final BodyScrollPlugin.ScrollPosition scrollPosition;
 
   /** @param scrollPosition a {@link BodyScrollPlugin.ScrollPosition} */
+  /**
+   * Constructor for BodyScrollEvent.
+   *
+   * @param scrollPosition a {@link
+   *     org.dominokit.domino.ui.datatable.plugins.pagination.BodyScrollPlugin.ScrollPosition}
+   *     object
+   */
   public BodyScrollEvent(BodyScrollPlugin.ScrollPosition scrollPosition) {
     this.scrollPosition = scrollPosition;
   }
@@ -40,6 +51,13 @@ public class BodyScrollEvent implements TableEvent {
   }
 
   /** @return {@link BodyScrollPlugin.ScrollPosition} */
+  /**
+   * Getter for the field <code>scrollPosition</code>.
+   *
+   * @return a {@link
+   *     org.dominokit.domino.ui.datatable.plugins.pagination.BodyScrollPlugin.ScrollPosition}
+   *     object
+   */
   public BodyScrollPlugin.ScrollPosition getScrollPosition() {
     return scrollPosition;
   }

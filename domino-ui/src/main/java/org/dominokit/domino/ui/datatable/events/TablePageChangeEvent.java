@@ -17,7 +17,12 @@ package org.dominokit.domino.ui.datatable.events;
 
 import org.dominokit.domino.ui.pagination.HasPagination;
 
-/** This event will be fired when the page of the data table is changed */
+/**
+ * This event will be fired when the page of the data table is changed
+ *
+ * @author vegegoku
+ * @version $Id: $Id
+ */
 public class TablePageChangeEvent implements TableEvent {
 
   /** A constant string to define a unique type for this event */
@@ -27,8 +32,11 @@ public class TablePageChangeEvent implements TableEvent {
   private final HasPagination pagination;
 
   /**
+   * Constructor for TablePageChangeEvent.
+   *
    * @param page int, the new page
-   * @param pagination the {@link HasPagination} which is the component that changed the page.
+   * @param pagination the {@link org.dominokit.domino.ui.pagination.HasPagination} which is the
+   *     component that changed the page.
    */
   public TablePageChangeEvent(int page, HasPagination pagination) {
     this.page = page;
@@ -36,11 +44,21 @@ public class TablePageChangeEvent implements TableEvent {
   }
 
   /** @return int, the new page */
+  /**
+   * Getter for the field <code>page</code>.
+   *
+   * @return a int
+   */
   public int getPage() {
     return page;
   }
 
   /** @return the {@link HasPagination} which is the component that changed the page. */
+  /**
+   * Getter for the field <code>pagination</code>.
+   *
+   * @return a {@link org.dominokit.domino.ui.pagination.HasPagination} object
+   */
   public HasPagination getPagination() {
     return pagination;
   }

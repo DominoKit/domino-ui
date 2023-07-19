@@ -15,14 +15,11 @@
  */
 package org.dominokit.domino.ui.datatable.events;
 
-import org.dominokit.domino.ui.datatable.DataTable;
-
 /**
  * This event will be fired when the date table bordered is changed
  *
- * <p>{@link DataTable#bordered()}
- *
- * <p>{@link DataTable#noBorder()}
+ * @author vegegoku
+ * @version $Id: $Id
  */
 public class TableBorderedEvent implements TableEvent {
 
@@ -31,10 +28,20 @@ public class TableBorderedEvent implements TableEvent {
 
   private final boolean bordered;
 
+  /**
+   * Constructor for TableBorderedEvent.
+   *
+   * @param bordered a boolean
+   */
   public TableBorderedEvent(boolean bordered) {
     this.bordered = bordered;
   }
 
+  /**
+   * isBordered.
+   *
+   * @return a boolean
+   */
   public boolean isBordered() {
     return bordered;
   }

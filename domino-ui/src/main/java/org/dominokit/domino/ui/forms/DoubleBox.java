@@ -16,24 +16,39 @@
 package org.dominokit.domino.ui.forms;
 
 import java.util.function.Function;
-import org.dominokit.domino.ui.utils.DominoUIConfig;
 
-/** A component that has an input to take/provide Double value */
+/**
+ * A component that has an input to take/provide Double value
+ *
+ * @author vegegoku
+ * @version $Id: $Id
+ */
 public class DoubleBox extends NumberBox<DoubleBox, Double> {
 
   /** @return a new instance without a label */
+  /**
+   * create.
+   *
+   * @return a {@link org.dominokit.domino.ui.forms.DoubleBox} object
+   */
   public static DoubleBox create() {
     return new DoubleBox();
   }
 
   /** @return a new instance with a label */
+  /**
+   * create.
+   *
+   * @param label a {@link java.lang.String} object
+   * @return a {@link org.dominokit.domino.ui.forms.DoubleBox} object
+   */
   public static DoubleBox create(String label) {
     return new DoubleBox(label);
   }
 
   /** Creates a DoubleBox with empty label */
   public DoubleBox() {
-    this("");
+    setDefaultValue(0.0);
   }
 
   /**
@@ -42,19 +57,14 @@ public class DoubleBox extends NumberBox<DoubleBox, Double> {
    * @param label String
    */
   public DoubleBox(String label) {
-    super(label);
-  }
-
-  /** {@inheritDoc} */
-  @Override
-  protected void clearValue(boolean silent) {
-    value(0.0, silent);
+    this();
+    setLabel(label);
   }
 
   /** {@inheritDoc} */
   @Override
   protected Function<String, Double> defaultValueParser() {
-    return DominoUIConfig.INSTANCE.getNumberParsers().doubleParser(this);
+    return getConfig().getNumberParsers().doubleParser(this);
   }
 
   /** {@inheritDoc} */

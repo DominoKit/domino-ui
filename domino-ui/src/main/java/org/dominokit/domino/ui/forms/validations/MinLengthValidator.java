@@ -15,28 +15,64 @@
  */
 package org.dominokit.domino.ui.forms.validations;
 
+import elemental2.dom.HTMLElement;
 import elemental2.dom.HTMLInputElement;
-import jsinterop.base.Js;
-import org.dominokit.domino.ui.forms.AbstractValueBox;
+import org.dominokit.domino.ui.forms.HasInputElement;
+import org.dominokit.domino.ui.i18n.FormsLabels;
+import org.dominokit.domino.ui.utils.DominoUIConfig;
+import org.dominokit.domino.ui.utils.HasMinMaxLength;
 import org.dominokit.domino.ui.utils.HasValidation;
 
-/** A predefined validator that validate the minimum value of a field */
-public class MinLengthValidator implements HasValidation.Validator {
+/**
+ * A predefined validator that validate the minimum value of a field
+ *
+ * @author vegegoku
+ * @version $Id: $Id
+ */
+public class MinLengthValidator<T, E extends HTMLElement> implements HasValidation.Validator<T> {
 
-  private AbstractValueBox valueBox;
+  private HasInputElement<T, E> inputElement;
+  private final FormsLabels labels = DominoUIConfig.CONFIG.getDominoUILabels();
 
-  /** @param valueBox the {@link AbstractValueBox} we are attaching this validator to */
-  public MinLengthValidator(AbstractValueBox valueBox) {
-    this.valueBox = valueBox;
+  /** @param inputElement the {@link HasInputElement} we are attaching this validator to */
+  /**
+   * Constructor for MinLengthValidator.
+   *
+   * @param inputElement a {@link org.dominokit.domino.ui.forms.HasInputElement} object
+   */
+  public MinLengthValidator(HasInputElement<T, E> inputElement) {
+    this.inputElement = inputElement;
   }
 
   /** {@inheritDoc} */
   @Override
-  public ValidationResult isValid() {
-    if (Js.<HTMLInputElement>uncheckedCast(valueBox.getInputElement().element())
-        .validity
-        .tooShort) {
-      return ValidationResult.invalid(valueBox.getMinLengthErrorMessage());
+  public ValidationResult isValid(T input) {
+    if (inputElement.getInputElement().element() instanceof HTMLInputElement) {
+      return validateHTMLInput();
+    } else {
+      return validateHTMLElement();
+    }
+  }
+
+  private ValidationResult validateHTMLInput() {
+    if (((HTMLInputElement) this.inputElement.getInputElement().element()).validity.tooShort) {
+      if (this.inputElement instanceof HasMinMaxLength) {
+        HasMinMaxLength<T> hasLength = (HasMinMaxLength<T>) this.inputElement;
+        return ValidationResult.invalid(
+            labels.getMinErrorMessage(hasLength.getMinLength(), hasLength.getLength()));
+      }
+    }
+    return ValidationResult.valid();
+  }
+
+  private ValidationResult validateHTMLElement() {
+    if (this.inputElement instanceof HasMinMaxLength) {
+      HasMinMaxLength<T> hasLength = (HasMinMaxLength<T>) this.inputElement;
+      int length = hasLength.getLength();
+      if (length < hasLength.getMinLength()) {
+        return ValidationResult.invalid(
+            labels.getMinErrorMessage(hasLength.getMinLength(), hasLength.getLength()));
+      }
     }
     return ValidationResult.valid();
   }
