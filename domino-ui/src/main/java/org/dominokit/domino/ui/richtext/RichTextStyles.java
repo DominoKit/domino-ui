@@ -18,7 +18,7 @@ package org.dominokit.domino.ui.richtext;
 import org.dominokit.domino.ui.style.CssClass;
 
 public interface RichTextStyles {
-  CssClass dui_rich_text = () -> "dui-rich-text-editable";
+  CssClass dui_rich_text = () -> "dui-rich-text";
   CssClass dui_rich_text_editable = () -> "dui-rich-text-editable";
   CssClass dui_rich_text_toolbars = () -> "dui-rich-text-toolbars";
 }

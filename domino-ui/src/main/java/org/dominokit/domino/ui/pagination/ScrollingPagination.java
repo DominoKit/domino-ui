@@ -17,7 +17,6 @@ package org.dominokit.domino.ui.pagination;
 
 import static java.util.Objects.nonNull;
 
-import elemental2.dom.DomGlobal;
 import java.util.stream.IntStream;
 import org.dominokit.domino.ui.icons.lib.Icons;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
@@ -262,7 +261,6 @@ public class ScrollingPagination extends BasePagination<ScrollingPagination> {
   /** {@inheritDoc} */
   @Override
   protected void moveToPage(int page, boolean silent) {
-    DomGlobal.console.info(page);
     PagerNavItem oldPage = activePage;
     if (page > 0 && page <= pagesCount) {
 
