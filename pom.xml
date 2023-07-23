@@ -303,9 +303,9 @@
 
                     <!-- Configure branches -->
                     <gitFlowConfig>
-                        <productionBranch>master</productionBranch>
+                        <productionBranch>1.x.x</productionBranch>
                         <!-- default is develop, but we use development -->
-                        <developmentBranch>development</developmentBranch>
+                        <developmentBranch>1.x.x-development</developmentBranch>
                     </gitFlowConfig>
                 </configuration>
             </plugin>
