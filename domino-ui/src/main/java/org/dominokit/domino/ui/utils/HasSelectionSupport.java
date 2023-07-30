@@ -34,15 +34,6 @@ public interface HasSelectionSupport<T> {
    */
   List<T> getSelectedItems();
 
-  /** @deprecated use {@link #getRows()} */
-  /**
-   * getItems.
-   *
-   * @return a {@link java.util.List} object
-   */
-  @Deprecated
-  List<T> getItems();
-
   /** @return a List of all selected and not selected items */
   /**
    * getRows.

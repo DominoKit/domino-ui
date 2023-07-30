@@ -130,7 +130,14 @@ public class TabsPanel extends BaseDominoElement<HTMLDivElement, TabsPanel>
               tab.getTabPanel().element(), tabs.get(index + 1).getTabPanel().element());
         }
 
-        tab.getClickableElement().addEventListener("click", evt -> activateTab(tab));
+        tab.getClickableElement()
+            .addEventListener(
+                "click",
+                evt -> {
+                  evt.preventDefault();
+                  evt.stopPropagation();
+                  activateTab(tab);
+                });
         tab.setParent(this);
       }
       return this;

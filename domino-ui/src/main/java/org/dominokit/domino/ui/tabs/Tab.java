@@ -63,7 +63,8 @@ public class Tab extends BaseDominoElement<HTMLLIElement, Tab>
         li().addCss(dui_tab_item)
             .appendChild(
                 tabAnchorElement =
-                    a().addCss(dui_tab_anchor)
+                    a().removeAttribute("href")
+                        .addCss(dui_tab_anchor)
                         .appendChild(tabHeader = div().addCss(dui_tab_header)));
     init(this);
     closeIcon =

@@ -705,6 +705,16 @@ public class AppLayout extends BaseDominoElement<HTMLDivElement, AppLayout>
     return this;
   }
 
+  public AppLayout withLeftDrawerToggle(ChildHandler<AppLayout, PrefixAddOn<HTMLElement>> handler) {
+    handler.apply(this, leftDrawerToggle.get());
+    return this;
+  }
+
+  public AppLayout setLeftDrawerToggleVisible(boolean visible) {
+    leftDrawerToggle.get().toggleDisplay(visible);
+    return this;
+  }
+
   /**
    * isLeftDrawerOpen.
    *

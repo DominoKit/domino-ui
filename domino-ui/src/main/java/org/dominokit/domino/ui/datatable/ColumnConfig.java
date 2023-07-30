@@ -238,17 +238,6 @@ public class ColumnConfig<T> implements ElementsFactory, DataTableStyles {
 
   /** @return the {@link HeaderElementSupplier} of the column */
   /**
-   * getHeaderElement.
-   *
-   * @return a {@link org.dominokit.domino.ui.datatable.HeaderElementSupplier} object
-   */
-  @Deprecated
-  public HeaderElementSupplier getHeaderElement() {
-    return getHeaderElementSupplier();
-  }
-
-  /** @return the {@link HeaderElementSupplier} of the column */
-  /**
    * Getter for the field <code>headerElementSupplier</code>.
    *
    * @return a {@link org.dominokit.domino.ui.datatable.HeaderElementSupplier} object

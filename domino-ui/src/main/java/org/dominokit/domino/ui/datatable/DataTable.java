@@ -517,14 +517,6 @@ public class DataTable<T> extends BaseDominoElement<HTMLDivElement, DataTable<T>
   /** @return a {@link List} of {@link TableRow}s including the child rows */
   /** {@inheritDoc} */
   @Override
-  @Deprecated
-  public List<TableRow<T>> getItems() {
-    return getRows();
-  }
-
-  /** @return a {@link List} of {@link TableRow}s including the child rows */
-  /** {@inheritDoc} */
-  @Override
   public List<TableRow<T>> getRows() {
     return tableRows;
   }

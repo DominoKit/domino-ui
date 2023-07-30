@@ -26,7 +26,6 @@ import org.dominokit.domino.ui.elements.OListElement;
 import org.dominokit.domino.ui.icons.lib.Icons;
 import org.dominokit.domino.ui.style.CssClass;
 import org.dominokit.domino.ui.style.GenericCss;
-import org.dominokit.domino.ui.style.SpacingCss;
 import org.dominokit.domino.ui.utils.*;
 import org.gwtproject.core.client.Scheduler;
 import org.gwtproject.timer.client.Timer;
@@ -94,8 +93,7 @@ public class Carousel extends BaseDominoElement<HTMLDivElement, Carousel> {
                         .setAttribute("role", "button")
                         .appendChild(
                             Icons.chevron_right()
-                                .addCss(
-                                    GenericCss.dui_vertical_center, SpacingCss.dui_font_size_12))
+                                .addCss(GenericCss.dui_vertical_center, dui_font_size_12))
                         .addEventListener(
                             "click",
                             evt -> {

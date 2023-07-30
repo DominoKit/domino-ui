@@ -17,6 +17,7 @@ package org.dominokit.domino.ui.dialogs;
 
 import org.dominokit.domino.ui.style.CompositeCssClass;
 import org.dominokit.domino.ui.style.CssClass;
+import org.dominokit.domino.ui.style.ReplaceCssClass;
 
 /**
  * Constants for dialogs css classes names
@@ -25,30 +26,12 @@ import org.dominokit.domino.ui.style.CssClass;
  * @version $Id: $Id
  */
 public interface DialogStyles {
-  /** Constant <code>MESSAGE_DIALOG="message-dialog"</code> */
-  String MESSAGE_DIALOG = "message-dialog";
-  /** Constant <code>DIALOG_BUTTON="dialog-button"</code> */
-  String DIALOG_BUTTON = "dialog-button";
-  /** Constant <code>MESSAGE_ICON="message-icon"</code> */
-  String MESSAGE_ICON = "message-icon";
 
   /** Constant <code>dui_modal</code> */
   CssClass dui_modal = () -> "dui-dialog";
   /** Constant <code>dui_modal_box</code> */
   CssClass dui_modal_box = () -> "dui-dialog-box";
 
-  CompositeCssClass dui_dialog_left_sheet =
-      /** Constant <code>dui_dialog_left_sheet</code> */
-      CompositeCssClass.of(() -> "dui-side-sheet", () -> "dui-left-sheet");
-  CompositeCssClass dui_dialog_right_sheet =
-      /** Constant <code>dui_dialog_right_sheet</code> */
-      CompositeCssClass.of(() -> "dui-side-sheet", () -> "dui-right-sheet");
-  CompositeCssClass dui_dialog_top_sheet =
-      /** Constant <code>dui_dialog_top_sheet</code> */
-      CompositeCssClass.of(() -> "dui-horizontal-sheet", () -> "dui-top-sheet");
-  CompositeCssClass dui_dialog_bottom_sheet =
-      /** Constant <code>dui_dialog_bottom_sheet</code> */
-      CompositeCssClass.of(() -> "dui-horizontal-sheet", () -> "dui-bottom-sheet");
   /** Constant <code>dui_no_transition</code> */
   CssClass dui_no_transition = () -> "dui-no-transition";
 
@@ -75,4 +58,43 @@ public interface DialogStyles {
   CssClass dui_window = () -> "dui-window";
   /** Constant <code>dui_maximized</code> */
   CssClass dui_maximized = () -> "dui-maximized";
+
+  CssClass dui_left_sheet =
+      new ReplaceCssClass(
+              CompositeCssClass.of(
+                  CompositeCssClass.of(() -> "dui-side-sheet", () -> "dui-right-sheet"),
+                  CompositeCssClass.of(() -> "dui-horizontal-sheet", () -> "dui-top-sheet"),
+                  CompositeCssClass.of(() -> "dui-horizontal-sheet", () -> "dui-bottom-sheet")))
+          .replaceWith(CompositeCssClass.of(() -> "dui-side-sheet", () -> "dui-left-sheet"));
+
+  CssClass dui_right_sheet =
+      new ReplaceCssClass(
+              CompositeCssClass.of(
+                  CompositeCssClass.of(() -> "dui-side-sheet", () -> "dui-left-sheet"),
+                  CompositeCssClass.of(() -> "dui-horizontal-sheet", () -> "dui-top-sheet"),
+                  CompositeCssClass.of(() -> "dui-horizontal-sheet", () -> "dui-bottom-sheet")))
+          .replaceWith(CompositeCssClass.of(() -> "dui-side-sheet", () -> "dui-right-sheet"));
+  CssClass dui_top_sheet =
+      new ReplaceCssClass(
+              CompositeCssClass.of(
+                  CompositeCssClass.of(() -> "dui-side-sheet", () -> "dui-left-sheet"),
+                  CompositeCssClass.of(() -> "dui-side-sheet", () -> "dui-right-sheet"),
+                  CompositeCssClass.of(() -> "dui-horizontal-sheet", () -> "dui-bottom-sheet")))
+          .replaceWith(CompositeCssClass.of(() -> "dui-horizontal-sheet", () -> "dui-top-sheet"));
+  CssClass dui_bottom_sheet =
+      new ReplaceCssClass(
+              CompositeCssClass.of(
+                  CompositeCssClass.of(() -> "dui-side-sheet", () -> "dui-left-sheet"),
+                  CompositeCssClass.of(() -> "dui-side-sheet", () -> "dui-right-sheet"),
+                  CompositeCssClass.of(() -> "dui-horizontal-sheet", () -> "dui-top-sheet")))
+          .replaceWith(
+              CompositeCssClass.of(() -> "dui-horizontal-sheet", () -> "dui-bottom-sheet"));
+  CssClass dui_no_sheet =
+      new ReplaceCssClass(
+              CompositeCssClass.of(
+                  CompositeCssClass.of(() -> "dui-side-sheet", () -> "dui-left-sheet"),
+                  CompositeCssClass.of(() -> "dui-side-sheet", () -> "dui-right-sheet"),
+                  CompositeCssClass.of(() -> "dui-horizontal-sheet", () -> "dui-bottom-sheet"),
+                  CompositeCssClass.of(() -> "dui-horizontal-sheet", () -> "dui-top-sheet")))
+          .replaceWith(CssClass.NONE);
 }

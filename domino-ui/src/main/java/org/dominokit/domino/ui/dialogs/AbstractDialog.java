@@ -62,7 +62,6 @@ public class AbstractDialog<T extends AbstractDialog<T>>
 
   private SwapCssClass stretchWidthCss = SwapCssClass.of(DialogSize.MEDIUM.getWidthStyle());
   private SwapCssClass stretchHeightCss = SwapCssClass.of(DialogSize.MEDIUM.getHeightStyle());
-  private SwapCssClass dialogType = SwapCssClass.of(DialogType.DEFAULT.style);
 
   private Transition openTransition = Transition.FADE_IN;
   private Transition closeTransition = Transition.FADE_OUT;
@@ -386,13 +385,14 @@ public class AbstractDialog<T extends AbstractDialog<T>>
   }
 
   /**
-   * setType.
-   *
+   * @deprecated use {@link #addCss(org.dominokit.domino.ui.style.CssClass...)} with {@link
+   *     DialogType} or the styles from {@link DialogStyles} setType.
    * @param type {@link org.dominokit.domino.ui.dialogs.DialogType}
    * @return same Dialog instance
    */
+  @Deprecated
   public T setType(DialogType type) {
-    addCss(dialogType.replaceWith(type.style));
+    addCss(type);
     return (T) this;
   }
 
@@ -621,6 +621,10 @@ public class AbstractDialog<T extends AbstractDialog<T>>
   public T withContentFooter() {
     contentFooter.get();
     return (T) this;
+  }
+
+  public boolean isOpen() {
+    return this.open;
   }
 
   /** A function to implement a listener to be called when open the dialog */
