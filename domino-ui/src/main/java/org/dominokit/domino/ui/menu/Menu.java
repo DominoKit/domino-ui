@@ -1451,7 +1451,7 @@ public class Menu<V> extends BaseDominoElement<HTMLDivElement, Menu<V>>
    * @return a boolean
    */
   public boolean isDropDown() {
-    return dropDown;
+    return dropDown || isContextMenu();
   }
 
   private void setDropDown(boolean dropdown) {

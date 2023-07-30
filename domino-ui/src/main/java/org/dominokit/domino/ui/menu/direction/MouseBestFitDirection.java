@@ -16,6 +16,7 @@
 package org.dominokit.domino.ui.menu.direction;
 
 import static elemental2.dom.DomGlobal.window;
+import static java.util.Objects.isNull;
 import static org.dominokit.domino.ui.style.SpacingCss.dui_flex_col_reverse;
 import static org.dominokit.domino.ui.utils.ElementsFactory.elements;
 import static org.dominokit.domino.ui.utils.Unit.px;
@@ -48,31 +49,35 @@ public class MouseBestFitDirection implements DropDirection {
   @Override
   public void position(Element source, Element target) {
     dui_flex_col_reverse.remove(source);
-    DOMRect sourceRect = source.getBoundingClientRect();
-    int innerWidth = window.innerWidth;
-    int innerHeight = window.innerHeight;
-
-    double sourceHeight = sourceRect.height;
-    double downSpace = innerHeight - mouseEvent.clientY;
-    double sourceWidth = sourceRect.width;
-    double rightSpace = innerWidth - mouseEvent.clientX;
-
-    if (hasSpaceOnRightSide(sourceWidth, rightSpace)) {
-      if (hasSpaceBelow(sourceHeight, downSpace)) {
-        positionBottomRight(source, sourceHeight);
-      } else {
-        positionTopRight(source, sourceHeight);
-      }
+    if (isNull(mouseEvent)) {
+      DropDirection.BEST_MIDDLE_DOWN_UP.position(source, target);
     } else {
-      if (hasSpaceBelow(sourceHeight, downSpace)) {
-        positionBottomLeft(source, sourceHeight, sourceWidth);
+      DOMRect sourceRect = source.getBoundingClientRect();
+      int innerWidth = window.innerWidth;
+      int innerHeight = window.innerHeight;
+
+      double sourceHeight = sourceRect.height;
+      double downSpace = innerHeight - mouseEvent.clientY;
+      double sourceWidth = sourceRect.width;
+      double rightSpace = innerWidth - mouseEvent.clientX;
+
+      if (hasSpaceOnRightSide(sourceWidth, rightSpace)) {
+        if (hasSpaceBelow(sourceHeight, downSpace)) {
+          positionBottomRight(source, sourceHeight);
+        } else {
+          positionTopRight(source, sourceHeight);
+        }
       } else {
-        positionTopLeft(source, sourceHeight, sourceWidth);
+        if (hasSpaceBelow(sourceHeight, downSpace)) {
+          positionBottomLeft(source, sourceHeight, sourceWidth);
+        } else {
+          positionTopLeft(source, sourceHeight, sourceWidth);
+        }
       }
+      elements
+          .elementOf(source)
+          .setCssProperty("--dui-menu-drop-min-width", target.getBoundingClientRect().width + "px");
     }
-    elements
-        .elementOf(source)
-        .setCssProperty("--dui-menu-drop-min-width", target.getBoundingClientRect().width + "px");
   }
 
   private void positionBottomRight(Element source, double sourceHeight) {
