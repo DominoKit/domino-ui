@@ -15,22 +15,21 @@
  */
 package org.dominokit.domino.ui.themes;
 
-import static java.util.Objects.isNull;
-
-import elemental2.dom.DomGlobal;
-import elemental2.webstorage.WebStorageWindow;
-import java.util.*;
-import java.util.stream.Collectors;
+import elemental2.dom.Element;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Optional;
+import org.dominokit.domino.ui.IsElement;
 import org.dominokit.domino.ui.utils.ElementsFactory;
 
-public class DominoThemeManager implements ElementsFactory {
+public class ElementThemeManager implements ElementsFactory {
 
-  public static final DominoThemeManager INSTANCE = new DominoThemeManager();
+  public static final ElementThemeManager INSTANCE = new ElementThemeManager();
 
   private final Map<String, IsDominoTheme> byCategory = new HashMap<>();
   private final Map<String, IsDominoTheme> registeredThemes = new HashMap<>();
 
-  private DominoThemeManager() {
+  private ElementThemeManager() {
     registerTheme(DominoThemeDefault.INSTANCE);
     registerTheme(DominoThemeLight.INSTANCE);
     registerTheme(DominoThemeDark.INSTANCE);
@@ -55,58 +54,37 @@ public class DominoThemeManager implements ElementsFactory {
     registerTheme(DominoThemeAccent.BLUE_GREY);
   }
 
-  public DominoThemeManager apply(IsDominoTheme theme) {
+  public ElementThemeManager apply(IsDominoTheme theme, IsElement<? extends Element> target) {
+    return apply(theme, target.element());
+  }
+
+  public ElementThemeManager apply(IsDominoTheme theme, Element target) {
     if (byCategory.containsKey(theme.getCategory())) {
-      byCategory.get(theme.getCategory()).cleanup();
+      byCategory.get(theme.getCategory()).cleanup(target);
     }
 
     byCategory.put(theme.getCategory(), theme);
-    theme.apply();
-    updateUserThemes();
+    theme.apply(target);
     return INSTANCE;
   }
 
-  public DominoThemeManager remove(String themeName) {
+  public ElementThemeManager remove(String themeName, IsElement<? extends Element> target) {
+    return remove(themeName, target.element());
+  }
+
+  public ElementThemeManager remove(String themeName, Element target) {
     Optional<IsDominoTheme> theme =
         byCategory.values().stream().filter(t -> t.getName().equals(themeName)).findFirst();
     theme.ifPresent(
         t -> {
-          t.cleanup();
+          t.cleanup(target);
           byCategory.remove(t.getCategory());
         });
-    updateUserThemes();
     return INSTANCE;
   }
 
-  public DominoThemeManager registerTheme(IsDominoTheme theme) {
+  public ElementThemeManager registerTheme(IsDominoTheme theme) {
     registeredThemes.put(theme.getName(), theme);
-    return INSTANCE;
-  }
-
-  private void updateUserThemes() {
-    WebStorageWindow.of(DomGlobal.window)
-        .localStorage
-        .setItem(
-            "dui-user-themes",
-            byCategory.values().stream()
-                .map(IsDominoTheme::getName)
-                .collect(Collectors.joining(",")));
-  }
-
-  public DominoThemeManager applyUserThemes() {
-    String themes = WebStorageWindow.of(DomGlobal.window).localStorage.getItem("dui-user-themes");
-    if (isNull(themes) || themes.isEmpty()) {
-      apply(DominoThemeDefault.INSTANCE);
-      apply(DominoThemeLight.INSTANCE);
-      apply(DominoThemeAccent.TEAL);
-    } else {
-      Arrays.asList(themes.split(","))
-          .forEach(
-              themeName -> {
-                Optional.ofNullable(registeredThemes.get(themeName))
-                    .ifPresent(isDominoTheme -> apply(registeredThemes.get(themeName)));
-              });
-    }
     return INSTANCE;
   }
 }

@@ -24,6 +24,7 @@ import org.dominokit.domino.ui.icons.Icon;
 import org.dominokit.domino.ui.style.BooleanCssClass;
 import org.dominokit.domino.ui.style.GenericCss;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
+import org.dominokit.domino.ui.utils.ChildHandler;
 import org.dominokit.domino.ui.utils.HasClickableElement;
 
 /**
@@ -48,7 +49,6 @@ public class BreadcrumbItem extends BaseDominoElement<HTMLLIElement, BreadcrumbI
   private final AnchorElement anchorElement;
   private Text textElement;
   private Icon<?> icon;
-  private boolean active = false;
 
   /**
    * Constructor for BreadcrumbItem.
@@ -58,11 +58,10 @@ public class BreadcrumbItem extends BaseDominoElement<HTMLLIElement, BreadcrumbI
   protected BreadcrumbItem(String text) {
     element = li();
     init(this);
-    anchorElement = a();
+    anchorElement = a().removeHref();
     this.textElement = text(text);
     this.anchorElement.appendChild(textElement);
     element.appendChild(anchorElement);
-    anchorElement.setAttribute("tabindex", "0");
   }
 
   /**
@@ -173,5 +172,10 @@ public class BreadcrumbItem extends BaseDominoElement<HTMLLIElement, BreadcrumbI
    */
   public boolean isActive() {
     return dui_active.isAppliedTo(this);
+  }
+
+  public BreadcrumbItem withAnchor(ChildHandler<BreadcrumbItem, AnchorElement> handler) {
+    handler.apply(this, anchorElement);
+    return this;
   }
 }

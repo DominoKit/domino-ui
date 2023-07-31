@@ -181,7 +181,7 @@
     --dui-tab-header-align-items:center;
 }
 
-.dui-tabs .dui-postfix-addon {
+.dui-tabs-nav .dui-postfix-addon {
     order: var(--dui-order-last);
     margin-left: var(--dui-spc-4);
     align-self: center;

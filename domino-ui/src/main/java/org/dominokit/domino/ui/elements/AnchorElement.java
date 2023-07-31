@@ -15,6 +15,8 @@
  */
 package org.dominokit.domino.ui.elements;
 
+import static java.util.Objects.isNull;
+
 import elemental2.dom.HTMLAnchorElement;
 
 /**
@@ -41,5 +43,19 @@ public class AnchorElement extends BaseElement<HTMLAnchorElement, AnchorElement>
    */
   public AnchorElement(HTMLAnchorElement element) {
     super(element);
+  }
+
+  public AnchorElement setHref(String href) {
+    if (isNull(href) || href.trim().isEmpty()) {
+      removeAttribute("href");
+    } else {
+      setAttribute("href", href);
+    }
+    return this;
+  }
+
+  public AnchorElement removeHref() {
+    removeAttribute("href");
+    return this;
   }
 }

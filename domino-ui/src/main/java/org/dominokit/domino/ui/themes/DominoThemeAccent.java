@@ -15,6 +15,7 @@
  */
 package org.dominokit.domino.ui.themes;
 
+import elemental2.dom.Element;
 import org.dominokit.domino.ui.style.CssClass;
 import org.dominokit.domino.ui.style.DominoCss;
 import org.dominokit.domino.ui.utils.ElementsFactory;
@@ -56,17 +57,17 @@ public class DominoThemeAccent implements IsDominoTheme, ElementsFactory, Domino
   }
 
   @Override
-  public void apply() {
-    body().addCss(accentCss);
+  public void apply(Element element) {
+    elementOf(element).addCss(accentCss);
   }
 
   @Override
-  public void cleanup() {
-    body().removeCss(accentCss);
+  public void cleanup(Element element) {
+    elementOf(element).removeCss(accentCss);
   }
 
   @Override
-  public boolean isApplied() {
-    return accentCss.isAppliedTo(body());
+  public boolean isApplied(Element element) {
+    return accentCss.isAppliedTo(element);
   }
 }

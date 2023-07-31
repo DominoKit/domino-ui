@@ -15,11 +15,10 @@
  */
 package org.dominokit.domino.ui.themes;
 
+import elemental2.dom.Element;
 import org.dominokit.domino.ui.style.CssClass;
-import org.dominokit.domino.ui.style.DominoCss;
-import org.dominokit.domino.ui.utils.ElementsFactory;
 
-public class DominoThemeLight implements IsDominoTheme, ElementsFactory, DominoCss {
+public class DominoThemeLight implements IsDominoTheme {
 
   public static final IsDominoTheme INSTANCE = new DominoThemeLight();
 
@@ -36,17 +35,17 @@ public class DominoThemeLight implements IsDominoTheme, ElementsFactory, DominoC
   }
 
   @Override
-  public void apply() {
-    body().addCss(dui_theme_light);
+  public void apply(Element element) {
+    elementOf(element).addCss(dui_theme_light);
   }
 
   @Override
-  public void cleanup() {
-    body().removeCss(dui_theme_light);
+  public void cleanup(Element element) {
+    elementOf(element).removeCss(dui_theme_light);
   }
 
   @Override
-  public boolean isApplied() {
-    return dui_theme_light.isAppliedTo(body());
+  public boolean isApplied(Element element) {
+    return dui_theme_light.isAppliedTo(element);
   }
 }

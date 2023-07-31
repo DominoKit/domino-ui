@@ -51,6 +51,8 @@
     max-width: 100%;
 }
 
+
+
 .dui-layout-has-header {
     --dui-header-height: var(--dui-layout-header-height);
 }
@@ -134,6 +136,11 @@
     z-index: var(--dui-header-z-index);
     /*--dui-element-z-index:var(--dui-header-z-index);*/
     box-shadow: var(--dui-box-shadow-2);
+}
+
+.dui-layout-header > .dui-nav-bar {
+    background-color: var(--dui-accent);
+    color: var(--dui-clr-white);
 }
 
 .dui-shrink-content.dui-left-open > .dui-layout-body > .dui-layout-header {
