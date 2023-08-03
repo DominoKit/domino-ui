@@ -24,13 +24,13 @@ fieldset.dui {
     background-color: inherit;
 }
 
-.dui-form-field[readonly] .dui-field-input-wrapper {
+.dui-form-field[readonly]:not(.dui-form-checkbox):not(.dui-form-switch):not(.dui-form-radio-group) .dui-field-input-wrapper {
     border: var(--dui-form-field-readonly-border);
 }
 .dui-form-field[readonly] .dui-field-input{
     border: var(--dui-form-field-input-readonly-border);
 }
-.dui-form-field[readonly] .dui-field-input-wrapper {
+.dui-form-field[readonly]:not(.dui-form-checkbox):not(.dui-form-switch):not(.dui-form-radio-group) .dui-field-input-wrapper {
     background-color: var(--dui-form-field-readonly-background);
 }
 
