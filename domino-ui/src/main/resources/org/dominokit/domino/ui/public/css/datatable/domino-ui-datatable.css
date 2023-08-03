@@ -617,6 +617,7 @@ table th[class*="col-"] {
 
 .table-responsive thead:not([class*="bg-"]),
 .table-responsive thead tr:not([class*="bg-"]),
+.table-responsive table:not(.table-striped) tbody tr:not([class*="bg-"]),
 .table-responsive tbody:not([class*="bg-"]) {
     background-color: white;
 }
