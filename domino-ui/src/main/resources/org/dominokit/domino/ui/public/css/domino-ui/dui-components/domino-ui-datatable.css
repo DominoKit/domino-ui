@@ -48,6 +48,10 @@
     background-color: var(--dui-datatable-row-hover-bg-color);
 }
 
+.dui-datatable-responsive:not(.dui-datatable-striped) tbody .dui-datatable-row {
+    background-color:var(--dui-bg, var(--dui-clr-dominant));
+}
+
 .dui-datatable-striped tbody .dui-datatable-row:nth-child(even) {
     background-color: var(--dui-datatable-even-bg-color);
 }
