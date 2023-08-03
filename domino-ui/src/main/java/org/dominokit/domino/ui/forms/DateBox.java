@@ -516,11 +516,13 @@ public class DateBox extends TextInputFormField<DateBox, HTMLInputElement, Date>
   /** {@inheritDoc} */
   @Override
   public void onDateSelectionChanged(Date date) {
-    if (silentSelection == false) {
-      clearInvalid();
-      withValue(date);
+    if (!isDisabled() && !isReadOnly()) {
+      if (silentSelection == false) {
+        clearInvalid();
+        withValue(date);
+      }
+      this.popover.close();
     }
-    this.popover.close();
   }
 
   /**

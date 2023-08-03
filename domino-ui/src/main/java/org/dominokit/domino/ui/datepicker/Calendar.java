@@ -291,9 +291,11 @@ public class Calendar extends BaseDominoElement<HTMLDivElement, Calendar>
   public Calendar setDate(Date date) {
     Date oldDate = this.date;
     this.date = date;
-    onDateViewUpdate(this.date);
-    onDateSelectionChanged(this.date);
-    triggerChangeListeners(oldDate, this.date);
+    if (nonNull(date)) {
+      onDateViewUpdate(this.date);
+      onDateSelectionChanged(this.date);
+      triggerChangeListeners(oldDate, this.date);
+    }
     return this;
   }
 

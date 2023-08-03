@@ -423,7 +423,9 @@ public class TimeBox extends TextInputFormField<TimeBox, HTMLInputElement, Date>
     withTimeSelectionToggleListeners(
         false,
         field -> {
-          this.timePicker.setDate(this.value);
+          if (nonNull(this.value)) {
+            this.timePicker.setDate(this.value);
+          }
         });
   }
 
@@ -453,11 +455,13 @@ public class TimeBox extends TextInputFormField<TimeBox, HTMLInputElement, Date>
   /** {@inheritDoc} */
   @Override
   public void onTimeSelectionChanged(Date date) {
-    if (silentSelection == false) {
-      clearInvalid();
-      withValue(date);
+    if (!isDisabled() && !isReadOnly()) {
+      if (silentSelection == false) {
+        clearInvalid();
+        withValue(date);
+      }
+      this.popover.close();
     }
-    this.popover.close();
   }
 
   /**
