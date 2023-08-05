@@ -480,6 +480,10 @@ public class AbstractDialog<T extends AbstractDialog<T>>
     return (T) this;
   }
 
+  public DivElement getModalElement() {
+    return modalElement;
+  }
+
   /**
    * withHeader.
    *

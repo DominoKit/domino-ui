@@ -2102,3 +2102,7 @@ hr.dui {
 .dui-fg-color-5 {
     color: var(--dui-color-5);
 }
+
+.dui.dui-dialog.waitMe_container {
+    transform: translateY(var(--dui-dialog-default-top-translate));
+}

@@ -82,7 +82,6 @@ public abstract class Icon<T extends Icon<T>> extends BaseDominoElement<HTMLElem
     }
     setAttribute("tabindex", "0");
     setAttribute("aria-expanded", "true");
-    setAttribute("href", "#");
     return (T) this;
   }
 
@@ -99,7 +98,6 @@ public abstract class Icon<T extends Icon<T>> extends BaseDominoElement<HTMLElem
       GenericCss.dui_clickable.remove(this);
       removeAttribute("tabindex");
       removeAttribute("aria-expanded");
-      removeAttribute("href");
       removeWaves();
     }
     return (T) this;
