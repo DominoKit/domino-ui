@@ -153,7 +153,11 @@ public abstract class AbstractSelect<
     if (!optionsMenu.getSelection().isEmpty()) {
       V oldValue = getValue();
       optionsMenu.withPauseSelectionListenersToggle(
-          true, field -> optionsMenu.getSelection().forEach(AbstractMenuItem::deselect));
+          true,
+          field -> {
+            List<AbstractMenuItem<T>> selection = optionsMenu.getSelection();
+            new ArrayList<>(selection).forEach(AbstractMenuItem::deselect);
+          });
 
       if (!silent) {
         optionsMenu.triggerDeselectionListeners(null, new ArrayList<>());

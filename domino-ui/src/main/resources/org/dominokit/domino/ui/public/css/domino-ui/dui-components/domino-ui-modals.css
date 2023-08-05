@@ -183,7 +183,6 @@
 .dui-dialog-header:empty,
 .dui-dialog-content:empty,
 .dui-dialog-content-header:empty,
-.dui-dialog-body:empty,
 .dui-dialog-footer:empty{
     display: none;
 }

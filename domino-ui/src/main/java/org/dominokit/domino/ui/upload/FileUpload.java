@@ -317,6 +317,9 @@ public class FileUpload extends BaseDominoElement<HTMLDivElement, FileUpload>
   }
 
   private void addFilePreview(File file) {
+    if (isMultiUpload()) {
+      removeFileItems();
+    }
     FileItem fileItem = FileItem.create(file, new UploadOptions(), filePreviewFactory);
 
     fileItemHandlers.forEach(handler -> handler.handle(fileItem));
@@ -359,6 +362,10 @@ public class FileUpload extends BaseDominoElement<HTMLDivElement, FileUpload>
   public FileUpload setMultiUpload(boolean multiUpload) {
     hiddenFileInput.element().multiple = multiUpload;
     return this;
+  }
+
+  public boolean isMultiUpload() {
+    return hiddenFileInput.element().multiple;
   }
 
   /**
