@@ -28,9 +28,6 @@ import elemental2.dom.Element;
  * <pre>
  *     someDominoElement.elevate(Elevation.LEVEL_3)
  *     </pre>
- *
- * @author vegegoku
- * @version $Id: $Id
  */
 public enum Elevation {
   NONE("elevation-none"),

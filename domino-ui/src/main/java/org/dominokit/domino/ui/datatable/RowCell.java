@@ -26,8 +26,6 @@ import org.dominokit.domino.ui.utils.DominoElement;
  * row and column which it is part of
  *
  * @param <T> the type of the data table records
- * @author vegegoku
- * @version $Id: $Id
  */
 public class RowCell<T> {
 

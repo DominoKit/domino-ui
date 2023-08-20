@@ -32,9 +32,6 @@ import org.gwtproject.timer.client.Timer;
  *
  * <p>Customize the component can be done by overwriting classes provided by {@link
  * org.dominokit.domino.ui.loaders.LoaderStyles}
- *
- * @author vegegoku
- * @version $Id: $Id
  */
 public class Loader {
 

@@ -20,12 +20,7 @@ import org.dominokit.domino.ui.IsElement;
 import org.dominokit.domino.ui.elements.DivElement;
 import org.dominokit.domino.ui.utils.DominoElement;
 
-/**
- * A none loader implementation
- *
- * @author vegegoku
- * @version $Id: $Id
- */
+/** A none loader implementation */
 public class NoneLoader extends BaseLoader<NoneLoader> implements IsElement<HTMLDivElement> {
 
   private final DivElement content =

@@ -25,12 +25,7 @@ import jsinterop.base.Js;
 import org.dominokit.domino.ui.DominoElementAdapter;
 import org.dominokit.domino.ui.IsElement;
 
-/**
- * Style class.
- *
- * @author vegegoku
- * @version $Id: $Id
- */
+/** Style class. */
 public class Style<E extends Element> implements DominoStyle<E, Style<E>> {
 
   public final CSSStyleDeclaration style;

@@ -28,8 +28,6 @@ import org.dominokit.domino.ui.utils.ElementHandler;
  * A base implementation for Icon
  *
  * @param <T> the type of the icon
- * @author vegegoku
- * @version $Id: $Id
  */
 public abstract class Icon<T extends Icon<T>> extends BaseDominoElement<HTMLElement, T>
     implements CanApplyOnChildren<T, Icon<?>> {

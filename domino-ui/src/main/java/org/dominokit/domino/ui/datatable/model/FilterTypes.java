@@ -15,12 +15,7 @@
  */
 package org.dominokit.domino.ui.datatable.model;
 
-/**
- * An enum of filter types
- *
- * @author vegegoku
- * @version $Id: $Id
- */
+/** An enum of filter types */
 public enum FilterTypes {
   STRING,
   INTEGER,

@@ -17,12 +17,7 @@ package org.dominokit.domino.ui.elements;
 
 import elemental2.dom.HTMLEmbedElement;
 
-/**
- * EmbedElement class.
- *
- * @author vegegoku
- * @version $Id: $Id
- */
+/** EmbedElement class. */
 public class EmbedElement extends BaseElement<HTMLEmbedElement, EmbedElement> {
   /**
    * of.

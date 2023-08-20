@@ -18,12 +18,7 @@ package org.dominokit.domino.ui.timepicker;
 import java.util.Date;
 import org.gwtproject.i18n.shared.cldr.DateTimeFormatInfo;
 
-/**
- * TimePickerViewListener interface.
- *
- * @author vegegoku
- * @version $Id: $Id
- */
+/** TimePickerViewListener interface. */
 public interface TimePickerViewListener {
   /**
    * onUpdatePickerView.

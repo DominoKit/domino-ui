@@ -17,12 +17,7 @@ package org.dominokit.domino.ui.pagination;
 
 import org.dominokit.domino.ui.style.CssClass;
 
-/**
- * PaginationStyles interface.
- *
- * @author vegegoku
- * @version $Id: $Id
- */
+/** PaginationStyles interface. */
 public interface PaginationStyles {
   /** Constant <code>dui_pager</code> */
   CssClass dui_pager = () -> "dui-pager";

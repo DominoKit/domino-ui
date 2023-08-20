@@ -21,12 +21,7 @@ import elemental2.dom.Window;
 import jsinterop.annotations.JsPackage;
 import jsinterop.annotations.JsType;
 
-/**
- * Extending {@link elemental2.dom.Window} to add functionality missing from elemental2
- *
- * @author vegegoku
- * @version $Id: $Id
- */
+/** Extending {@link elemental2.dom.Window} to add functionality missing from elemental2 */
 @JsType(isNative = true, namespace = JsPackage.GLOBAL, name = "window")
 public class DominoWindow extends Window {
   /**

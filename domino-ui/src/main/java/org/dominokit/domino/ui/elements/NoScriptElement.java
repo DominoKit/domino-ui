@@ -17,12 +17,7 @@ package org.dominokit.domino.ui.elements;
 
 import elemental2.dom.HTMLElement;
 
-/**
- * NoScriptElement class.
- *
- * @author vegegoku
- * @version $Id: $Id
- */
+/** NoScriptElement class. */
 public class NoScriptElement extends BaseElement<HTMLElement, NoScriptElement> {
   /**
    * of.

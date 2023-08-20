@@ -23,12 +23,7 @@ import java.util.function.Supplier;
 import java.util.stream.Collectors;
 import javax.lang.model.element.Modifier;
 
-/**
- * MdiIconsSourceWriter class.
- *
- * @author vegegoku
- * @version $Id: $Id
- */
+/** MdiIconsSourceWriter class. */
 public class MdiIconsSourceWriter {
   /** Constant <code>RESERVED_KEYWORDS</code> */
   public static final Set<String> RESERVED_KEYWORDS =

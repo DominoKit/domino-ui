@@ -38,8 +38,6 @@ import org.dominokit.domino.ui.utils.*;
  *
  * @see BaseDominoElement
  * @see HasBackground
- * @author vegegoku
- * @version $Id: $Id
  */
 public class Badge extends BaseDominoElement<HTMLElement, Badge> {
   private final Text textNode = ElementsFactory.elements.text();

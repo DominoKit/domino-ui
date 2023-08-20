@@ -19,12 +19,7 @@ import java.util.function.Supplier;
 import org.dominokit.domino.ui.icons.Icon;
 import org.dominokit.domino.ui.icons.lib.Icons;
 
-/**
- * SpinConfig interface.
- *
- * @author vegegoku
- * @version $Id: $Id
- */
+/** SpinConfig interface. */
 public interface SpinConfig extends ComponentConfig {
 
   /**

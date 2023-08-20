@@ -25,8 +25,6 @@ import org.dominokit.domino.ui.forms.BigDecimalBox;
  * org.dominokit.domino.ui.forms.BigDecimalBox} component
  *
  * @param <T> type of data table records
- * @author vegegoku
- * @version $Id: $Id
  */
 public class DecimalHeaderFilter<T> extends DelayedHeaderFilterInput<BigDecimalBox, T, BigDecimal> {
 

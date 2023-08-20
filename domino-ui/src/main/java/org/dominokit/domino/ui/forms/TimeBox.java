@@ -35,12 +35,7 @@ import org.dominokit.domino.ui.utils.*;
 import org.gwtproject.i18n.shared.cldr.DateTimeFormatInfo;
 import org.gwtproject.i18n.shared.cldr.impl.DateTimeFormatInfo_factory;
 
-/**
- * TimeBox class.
- *
- * @author vegegoku
- * @version $Id: $Id
- */
+/** TimeBox class. */
 public class TimeBox extends TextInputFormField<TimeBox, HTMLInputElement, Date>
     implements HasLabels<TimePickerLabels>, TimePickerViewListener {
 

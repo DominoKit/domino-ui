@@ -17,12 +17,7 @@ package org.dominokit.domino.ui.notifications;
 
 import org.dominokit.domino.ui.style.CssClass;
 
-/**
- * Default CSS classes for {@link org.dominokit.domino.ui.notifications.Notification}
- *
- * @author vegegoku
- * @version $Id: $Id
- */
+/** Default CSS classes for {@link org.dominokit.domino.ui.notifications.Notification} */
 public interface NotificationStyles {
 
   /** Constant <code>dui_notification</code> */

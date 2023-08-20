@@ -15,12 +15,7 @@
  */
 package org.dominokit.domino.ui.config;
 
-/**
- * ProgressBarConfig interface.
- *
- * @author vegegoku
- * @version $Id: $Id
- */
+/** ProgressBarConfig interface. */
 public interface ProgressBarConfig extends ComponentConfig {
 
   /**

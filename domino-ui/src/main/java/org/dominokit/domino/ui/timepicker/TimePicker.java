@@ -32,12 +32,7 @@ import org.gwtproject.i18n.shared.DateTimeFormat;
 import org.gwtproject.i18n.shared.cldr.DateTimeFormatInfo;
 import org.gwtproject.i18n.shared.cldr.impl.DateTimeFormatInfo_factory;
 
-/**
- * TimePicker class.
- *
- * @author vegegoku
- * @version $Id: $Id
- */
+/** TimePicker class. */
 public class TimePicker extends BaseDominoElement<HTMLDivElement, TimePicker>
     implements IsTimePicker, TimePickerStyles, HasChangeListeners<TimePicker, Date> {
 

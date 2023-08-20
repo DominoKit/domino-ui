@@ -34,12 +34,7 @@ import org.dominokit.domino.ui.typography.BlockHeader;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
 import org.dominokit.domino.ui.utils.ChildHandler;
 
-/**
- * DefaultFilePreview class.
- *
- * @author vegegoku
- * @version $Id: $Id
- */
+/** DefaultFilePreview class. */
 public class DefaultFilePreview extends BaseDominoElement<HTMLElement, DefaultFilePreview>
     implements IsFilePreview<Thumbnail>,
         HasComponentConfig<UploadConfig>,

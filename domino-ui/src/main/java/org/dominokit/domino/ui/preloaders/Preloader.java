@@ -20,12 +20,7 @@ import org.dominokit.domino.ui.IsElement;
 import org.dominokit.domino.ui.elements.DivElement;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
 
-/**
- * A component to show a loading indicator with different sizes and colors
- *
- * @author vegegoku
- * @version $Id: $Id
- */
+/** A component to show a loading indicator with different sizes and colors */
 public class Preloader extends BaseDominoElement<HTMLDivElement, Preloader>
     implements IsElement<HTMLDivElement>, PreloaderStyles {
 

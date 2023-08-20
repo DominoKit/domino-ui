@@ -20,12 +20,7 @@ import org.dominokit.domino.ui.datatable.TableRow;
 import org.dominokit.domino.ui.style.CssClass;
 import org.dominokit.domino.ui.utils.ComponentMeta;
 
-/**
- * RowMarkerMeta class.
- *
- * @author vegegoku
- * @version $Id: $Id
- */
+/** RowMarkerMeta class. */
 public class RowMarkerMeta<T> implements ComponentMeta {
 
   /** Constant <code>DOMINO_ROW_MARKER_META="domino-row-marker-meta"</code> */

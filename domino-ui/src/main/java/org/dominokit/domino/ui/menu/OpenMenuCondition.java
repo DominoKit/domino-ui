@@ -15,12 +15,7 @@
  */
 package org.dominokit.domino.ui.menu;
 
-/**
- * OpenMenuCondition interface.
- *
- * @author vegegoku
- * @version $Id: $Id
- */
+/** OpenMenuCondition interface. */
 public interface OpenMenuCondition<V> {
   /**
    * check.

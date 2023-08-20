@@ -43,8 +43,6 @@ import org.dominokit.domino.ui.utils.HasChangeListeners;
  * @see BaseDominoElement
  * @see HasBackground
  * @see BreadcrumbItem
- * @author vegegoku
- * @version $Id: $Id
  */
 public class Breadcrumb extends BaseDominoElement<HTMLOListElement, Breadcrumb>
     implements HasChangeListeners<Breadcrumb, BreadcrumbItem> {

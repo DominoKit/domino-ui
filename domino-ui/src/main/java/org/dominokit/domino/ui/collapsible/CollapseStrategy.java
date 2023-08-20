@@ -17,12 +17,7 @@ package org.dominokit.domino.ui.collapsible;
 
 import elemental2.dom.Element;
 
-/**
- * CollapseStrategy interface.
- *
- * @author vegegoku
- * @version $Id: $Id
- */
+/** CollapseStrategy interface. */
 public interface CollapseStrategy {
 
   /**

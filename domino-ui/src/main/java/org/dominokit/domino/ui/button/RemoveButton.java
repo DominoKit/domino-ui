@@ -20,12 +20,7 @@ import org.dominokit.domino.ui.elements.ButtonElement;
 import org.dominokit.domino.ui.style.GenericCss;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
 
-/**
- * RemoveButton class.
- *
- * @author vegegoku
- * @version $Id: $Id
- */
+/** RemoveButton class. */
 public class RemoveButton extends BaseDominoElement<HTMLButtonElement, RemoveButton> {
 
   private ButtonElement button;

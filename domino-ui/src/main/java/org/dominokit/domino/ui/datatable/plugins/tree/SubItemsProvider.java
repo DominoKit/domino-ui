@@ -23,8 +23,6 @@ import java.util.function.Consumer;
  * A functional interface to supply record children
  *
  * @param <T> Type of table records.
- * @author vegegoku
- * @version $Id: $Id
  */
 @FunctionalInterface
 public interface SubItemsProvider<T> {

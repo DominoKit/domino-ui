@@ -21,9 +21,6 @@ import org.dominokit.domino.ui.datatable.plugins.pagination.BodyScrollPlugin;
  * This event will be fired by the {@link
  * org.dominokit.domino.ui.datatable.plugins.pagination.BodyScrollPlugin} for scrollable table body
  * whenever the scroll reaches the top or the bottom
- *
- * @author vegegoku
- * @version $Id: $Id
  */
 public class BodyScrollEvent implements TableEvent {
 

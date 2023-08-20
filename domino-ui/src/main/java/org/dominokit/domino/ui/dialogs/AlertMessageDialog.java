@@ -28,12 +28,7 @@ import org.dominokit.domino.ui.utils.FooterContent;
 import org.dominokit.domino.ui.utils.LazyChild;
 import org.dominokit.domino.ui.utils.NullLazyChild;
 
-/**
- * AlertMessageDialog class.
- *
- * @author vegegoku
- * @version $Id: $Id
- */
+/** AlertMessageDialog class. */
 public class AlertMessageDialog extends AbstractDialog<AlertMessageDialog> {
 
   private Button confirmButton;

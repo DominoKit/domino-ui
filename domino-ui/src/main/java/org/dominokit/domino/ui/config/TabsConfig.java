@@ -19,12 +19,7 @@ import java.util.function.Supplier;
 import org.dominokit.domino.ui.icons.Icon;
 import org.dominokit.domino.ui.icons.lib.Icons;
 
-/**
- * TabsConfig interface.
- *
- * @author vegegoku
- * @version $Id: $Id
- */
+/** TabsConfig interface. */
 public interface TabsConfig extends ComponentConfig {
 
   /**

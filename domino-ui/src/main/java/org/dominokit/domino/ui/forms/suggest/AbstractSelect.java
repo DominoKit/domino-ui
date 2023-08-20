@@ -40,12 +40,7 @@ import org.dominokit.domino.ui.menu.direction.DropDirection;
 import org.dominokit.domino.ui.style.BooleanCssClass;
 import org.dominokit.domino.ui.utils.*;
 
-/**
- * Abstract AbstractSelect class.
- *
- * @author vegegoku
- * @version $Id: $Id
- */
+/** Abstract AbstractSelect class. */
 public abstract class AbstractSelect<
         T,
         V,

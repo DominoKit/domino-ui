@@ -15,12 +15,7 @@
  */
 package org.dominokit.domino.ui.utils;
 
-/**
- * HasMinMaxValue interface.
- *
- * @author vegegoku
- * @version $Id: $Id
- */
+/** HasMinMaxValue interface. */
 public interface HasMinMaxValue<T, V> {
   /** Constant <code>MAX_VALUE="max"</code> */
   String MAX_VALUE = "max";

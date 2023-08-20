@@ -17,12 +17,7 @@ package org.dominokit.domino.ui.elements;
 
 import elemental2.dom.HTMLMeterElement;
 
-/**
- * MeterElement class.
- *
- * @author vegegoku
- * @version $Id: $Id
- */
+/** MeterElement class. */
 public class MeterElement extends BaseElement<HTMLMeterElement, MeterElement> {
   /**
    * of.

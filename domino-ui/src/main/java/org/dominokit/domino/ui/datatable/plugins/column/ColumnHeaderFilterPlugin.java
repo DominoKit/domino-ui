@@ -37,8 +37,6 @@ import org.dominokit.domino.ui.style.Style;
  * This plugin adds header filters to table columns headers
  *
  * @param <T> the type of the data table records
- * @author vegegoku
- * @version $Id: $Id
  */
 public class ColumnHeaderFilterPlugin<T> implements DataTablePlugin<T> {
 

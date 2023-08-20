@@ -26,12 +26,7 @@ import java.util.function.Supplier;
 import jsinterop.base.Js;
 import org.dominokit.domino.ui.events.HasDefaultEventOptions;
 
-/**
- * KeyboardKeyListener class.
- *
- * @author vegegoku
- * @version $Id: $Id
- */
+/** KeyboardKeyListener class. */
 public class KeyboardKeyListener implements EventListener, AcceptKeyEvents {
 
   /** Constant <code>ESCAPE="escape"</code> */

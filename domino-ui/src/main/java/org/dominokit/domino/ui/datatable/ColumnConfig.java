@@ -38,8 +38,6 @@ import org.dominokit.domino.ui.utils.*;
  * Class to define a column in the data table
  *
  * @param <T> the type of the data table records
- * @author vegegoku
- * @version $Id: $Id
  */
 public class ColumnConfig<T> implements ElementsFactory, DataTableStyles {
 

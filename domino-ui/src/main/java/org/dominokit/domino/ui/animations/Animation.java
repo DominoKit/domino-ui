@@ -43,8 +43,6 @@ import org.gwtproject.timer.client.Timer;
  * </pre>
  *
  * @see <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/animation">Animation on MDN</a>
- * @author vegegoku
- * @version $Id: $Id
  */
 public class Animation {
 

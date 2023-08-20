@@ -23,12 +23,7 @@ import elemental2.dom.NodeList;
 import jsinterop.base.Js;
 import org.dominokit.domino.ui.events.EventType;
 
-/**
- * A utility class that close all opened popus based on a selector
- *
- * @author vegegoku
- * @version $Id: $Id
- */
+/** A utility class that close all opened popus based on a selector */
 public class PopupsCloser {
 
   /** Constant <code>DOMINO_UI_AUTO_CLOSABLE="domino-ui-auto-closable"</code> */

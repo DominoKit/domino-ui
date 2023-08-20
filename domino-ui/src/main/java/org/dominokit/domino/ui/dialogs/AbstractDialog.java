@@ -33,12 +33,7 @@ import org.dominokit.domino.ui.icons.Icon;
 import org.dominokit.domino.ui.style.SwapCssClass;
 import org.dominokit.domino.ui.utils.*;
 
-/**
- * AbstractDialog class.
- *
- * @author vegegoku
- * @version $Id: $Id
- */
+/** AbstractDialog class. */
 public class AbstractDialog<T extends AbstractDialog<T>>
     extends BaseDominoElement<HTMLDivElement, T>
     implements DialogStyles, IsPopup<T>, HasComponentConfig<ZIndexConfig> {

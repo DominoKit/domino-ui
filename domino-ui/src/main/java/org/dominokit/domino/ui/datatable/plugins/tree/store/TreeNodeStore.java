@@ -21,12 +21,7 @@ import java.util.function.Consumer;
 import org.dominokit.domino.ui.datatable.events.SearchEvent;
 import org.dominokit.domino.ui.datatable.events.SortEvent;
 
-/**
- * TreeNodeStore interface.
- *
- * @author vegegoku
- * @version $Id: $Id
- */
+/** TreeNodeStore interface. */
 public interface TreeNodeStore<T> {
   /**
    * getNodeChildren.

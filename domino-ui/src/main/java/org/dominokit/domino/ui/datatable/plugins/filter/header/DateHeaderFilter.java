@@ -29,8 +29,6 @@ import org.dominokit.domino.ui.forms.DateBox;
  * org.dominokit.domino.ui.forms.DateBox} component
  *
  * @param <T> type of data table records
- * @author vegegoku
- * @version $Id: $Id
  */
 public class DateHeaderFilter<T> implements ColumnHeaderFilterPlugin.HeaderFilter<T> {
 

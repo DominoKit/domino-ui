@@ -17,12 +17,7 @@ package org.dominokit.domino.ui.elements;
 
 import elemental2.dom.HTMLParamElement;
 
-/**
- * ParamElement class.
- *
- * @author vegegoku
- * @version $Id: $Id
- */
+/** ParamElement class. */
 public class ParamElement extends BaseElement<HTMLParamElement, ParamElement> {
   /**
    * of.

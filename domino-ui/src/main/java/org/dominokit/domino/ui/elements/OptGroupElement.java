@@ -17,12 +17,7 @@ package org.dominokit.domino.ui.elements;
 
 import elemental2.dom.HTMLOptGroupElement;
 
-/**
- * OptGroupElement class.
- *
- * @author vegegoku
- * @version $Id: $Id
- */
+/** OptGroupElement class. */
 public class OptGroupElement extends BaseElement<HTMLOptGroupElement, OptGroupElement> {
   /**
    * of.

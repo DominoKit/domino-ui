@@ -25,12 +25,7 @@ import org.dominokit.domino.ui.forms.validations.MaxLengthValidator;
 import org.dominokit.domino.ui.forms.validations.MinLengthValidator;
 import org.dominokit.domino.ui.utils.*;
 
-/**
- * Abstract CountableInputFormField class.
- *
- * @author vegegoku
- * @version $Id: $Id
- */
+/** Abstract CountableInputFormField class. */
 public abstract class CountableInputFormField<
         T extends InputFormField<T, E, V>, E extends HTMLElement, V>
     extends InputFormField<T, E, V>

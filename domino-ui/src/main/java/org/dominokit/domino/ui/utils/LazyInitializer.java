@@ -15,12 +15,7 @@
  */
 package org.dominokit.domino.ui.utils;
 
-/**
- * LazyInitializer class.
- *
- * @author vegegoku
- * @version $Id: $Id
- */
+/** LazyInitializer class. */
 public class LazyInitializer extends BaseLazyInitializer<LazyInitializer> {
 
   /**

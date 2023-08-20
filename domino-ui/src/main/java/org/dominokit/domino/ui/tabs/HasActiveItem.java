@@ -19,8 +19,6 @@ package org.dominokit.domino.ui.tabs;
  * Components that can have a single active item should implement this interface
  *
  * @param <T> the type of the item that can be activated/deactivated
- * @author vegegoku
- * @version $Id: $Id
  */
 public interface HasActiveItem<T> {
   /**

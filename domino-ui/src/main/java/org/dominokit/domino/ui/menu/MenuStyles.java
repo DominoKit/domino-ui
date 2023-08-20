@@ -17,12 +17,7 @@ package org.dominokit.domino.ui.menu;
 
 import org.dominokit.domino.ui.style.CssClass;
 
-/**
- * MenuStyles interface.
- *
- * @author vegegoku
- * @version $Id: $Id
- */
+/** MenuStyles interface. */
 public interface MenuStyles {
 
   /** Constant <code>dui_menu</code> */

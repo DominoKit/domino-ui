@@ -29,12 +29,7 @@ import org.dominokit.domino.ui.elements.DivElement;
 import org.dominokit.domino.ui.style.BooleanCssClass;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
 
-/**
- * StepperTrack class.
- *
- * @author vegegoku
- * @version $Id: $Id
- */
+/** StepperTrack class. */
 public class StepperTrack extends BaseDominoElement<HTMLDivElement, StepperTrack>
     implements StepperStyles, HasComponentConfig<StepperConfig> {
   private final DivElement root;

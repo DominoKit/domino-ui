@@ -17,12 +17,7 @@ package org.dominokit.domino.ui.utils;
 
 import elemental2.dom.MutationRecord;
 
-/**
- * AttachDetachCallback interface.
- *
- * @author vegegoku
- * @version $Id: $Id
- */
+/** AttachDetachCallback interface. */
 @FunctionalInterface
 public interface AttachDetachCallback {
   /**

@@ -34,8 +34,6 @@ import org.dominokit.domino.ui.utils.ChildHandler;
  *
  * @see BaseDominoElement
  * @see FileUpload
- * @author vegegoku
- * @version $Id: $Id
  */
 public class FileItem extends BaseDominoElement<HTMLElement, FileItem> {
 

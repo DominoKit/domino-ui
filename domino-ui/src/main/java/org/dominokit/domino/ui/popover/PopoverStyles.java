@@ -17,12 +17,7 @@ package org.dominokit.domino.ui.popover;
 
 import org.dominokit.domino.ui.style.CssClass;
 
-/**
- * Default CSS classes for {@link org.dominokit.domino.ui.popover.Popover}
- *
- * @author vegegoku
- * @version $Id: $Id
- */
+/** Default CSS classes for {@link org.dominokit.domino.ui.popover.Popover} */
 public interface PopoverStyles {
 
   /** Constant <code>dui_popover_arrow</code> */

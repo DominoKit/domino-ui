@@ -25,12 +25,7 @@ import org.dominokit.domino.ui.forms.suggest.SelectOption;
 import org.dominokit.domino.ui.utils.ChildHandler;
 import org.dominokit.domino.ui.utils.DominoElement;
 
-/**
- * An advanced pagination implementation
- *
- * @author vegegoku
- * @version $Id: $Id
- */
+/** An advanced pagination implementation */
 public class AdvancedPagination extends BasePagination<AdvancedPagination> {
 
   private Select<Integer> pagesSelect;

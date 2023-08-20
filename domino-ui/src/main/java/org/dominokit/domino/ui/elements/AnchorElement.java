@@ -19,12 +19,7 @@ import static java.util.Objects.isNull;
 
 import elemental2.dom.HTMLAnchorElement;
 
-/**
- * AnchorElement class.
- *
- * @author vegegoku
- * @version $Id: $Id
- */
+/** AnchorElement class. */
 public class AnchorElement extends BaseElement<HTMLAnchorElement, AnchorElement> {
   /**
    * of.

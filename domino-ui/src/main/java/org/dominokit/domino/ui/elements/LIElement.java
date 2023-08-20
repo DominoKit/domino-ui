@@ -17,12 +17,7 @@ package org.dominokit.domino.ui.elements;
 
 import elemental2.dom.HTMLLIElement;
 
-/**
- * LIElement class.
- *
- * @author vegegoku
- * @version $Id: $Id
- */
+/** LIElement class. */
 public class LIElement extends BaseElement<HTMLLIElement, LIElement> {
   /**
    * of.

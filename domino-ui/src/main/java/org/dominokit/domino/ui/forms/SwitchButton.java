@@ -30,12 +30,7 @@ import org.dominokit.domino.ui.utils.Checkable;
 import org.dominokit.domino.ui.utils.DominoElement;
 import org.dominokit.domino.ui.utils.LazyChild;
 
-/**
- * A component that can switch between two boolean values with different labels
- *
- * @author vegegoku
- * @version $Id: $Id
- */
+/** A component that can switch between two boolean values with different labels */
 public class SwitchButton extends InputFormField<SwitchButton, HTMLInputElement, Boolean>
     implements Checkable<SwitchButton> {
 

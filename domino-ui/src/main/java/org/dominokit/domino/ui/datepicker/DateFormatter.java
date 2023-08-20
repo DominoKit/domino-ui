@@ -19,12 +19,7 @@ import java.util.Date;
 import org.gwtproject.i18n.shared.DateTimeFormat;
 import org.gwtproject.i18n.shared.cldr.DateTimeFormatInfo;
 
-/**
- * DateFormatter interface.
- *
- * @author vegegoku
- * @version $Id: $Id
- */
+/** DateFormatter interface. */
 public interface DateFormatter {
 
   /** Constant <code>DEFAULT</code> */

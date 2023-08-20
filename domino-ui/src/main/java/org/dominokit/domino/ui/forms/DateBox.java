@@ -32,12 +32,7 @@ import org.dominokit.domino.ui.utils.*;
 import org.gwtproject.i18n.shared.cldr.DateTimeFormatInfo;
 import org.gwtproject.i18n.shared.cldr.impl.DateTimeFormatInfo_factory;
 
-/**
- * DateBox class.
- *
- * @author vegegoku
- * @version $Id: $Id
- */
+/** DateBox class. */
 public class DateBox extends TextInputFormField<DateBox, HTMLInputElement, Date>
     implements HasLabels<CalendarLabels>, CalendarViewListener {
 

@@ -25,8 +25,6 @@ import org.dominokit.domino.ui.pagination.ScrollingPagination;
  * the data table and fires {@link TablePageChangeEvent} when ever the page is changed
  *
  * @param <T> the type of the data table records
- * @author vegegoku
- * @version $Id: $Id
  */
 public class ScrollingPaginationPlugin<T> implements DataTablePlugin<T> {
 

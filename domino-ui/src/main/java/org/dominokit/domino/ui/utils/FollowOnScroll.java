@@ -21,12 +21,7 @@ import static org.dominokit.domino.ui.utils.ElementsFactory.elements;
 import elemental2.dom.Element;
 import elemental2.dom.EventListener;
 
-/**
- * FollowOnScroll class.
- *
- * @author vegegoku
- * @version $Id: $Id
- */
+/** FollowOnScroll class. */
 public class FollowOnScroll {
 
   private final EventListener repositionListener;

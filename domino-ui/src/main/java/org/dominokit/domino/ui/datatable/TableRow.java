@@ -28,12 +28,7 @@ import org.dominokit.domino.ui.style.BooleanCssClass;
 import org.dominokit.domino.ui.utils.*;
 import org.dominokit.domino.ui.utils.HasSelectionHandler.SelectionHandler;
 
-/**
- * TableRow class.
- *
- * @author vegegoku
- * @version $Id: $Id
- */
+/** TableRow class. */
 public class TableRow<T> extends BaseDominoElement<HTMLTableRowElement, TableRow<T>>
     implements Selectable<TableRow<T>>,
         HasSelectionListeners<TableRow<T>, TableRow<T>, TableRow<T>>,

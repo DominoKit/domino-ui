@@ -15,12 +15,7 @@
  */
 package org.dominokit.domino.ui.i18n;
 
-/**
- * SearchLabels interface.
- *
- * @author vegegoku
- * @version $Id: $Id
- */
+/** SearchLabels interface. */
 public interface SearchLabels extends Labels {
   /**
    * getStartTyping.

@@ -15,12 +15,7 @@
  */
 package org.dominokit.domino.ui.i18n;
 
-/**
- * PaginationLabels interface.
- *
- * @author vegegoku
- * @version $Id: $Id
- */
+/** PaginationLabels interface. */
 public interface PaginationLabels extends Labels {
   /**
    * getPaginationCountLabel.

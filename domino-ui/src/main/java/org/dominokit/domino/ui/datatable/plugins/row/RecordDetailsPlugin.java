@@ -46,8 +46,6 @@ import org.dominokit.domino.ui.utils.ComponentMeta;
  * record beneath the row itself
  *
  * @param <T> the type of the data table records
- * @author vegegoku
- * @version $Id: $Id
  */
 public class RecordDetailsPlugin<T> implements DataTablePlugin<T> {
 

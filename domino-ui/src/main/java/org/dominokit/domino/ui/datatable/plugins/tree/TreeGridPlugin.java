@@ -35,12 +35,7 @@ import org.dominokit.domino.ui.utils.ComponentMeta;
 import org.dominokit.domino.ui.utils.DominoElement;
 import org.dominokit.domino.ui.utils.Unit;
 
-/**
- * TreeGridPlugin class.
- *
- * @author vegegoku
- * @version $Id: $Id
- */
+/** TreeGridPlugin class. */
 public class TreeGridPlugin<T>
     implements DataTablePlugin<T>, HasPluginConfig<T, TreeGridPlugin<T>, TreePluginConfig<T>> {
 

@@ -15,12 +15,7 @@
  */
 package org.dominokit.domino.ui.style;
 
-/**
- * DisplayCss interface.
- *
- * @author vegegoku
- * @version $Id: $Id
- */
+/** DisplayCss interface. */
 public interface DisplayCss {
   /** Constant <code>dui_image_responsive</code> */
   CssClass dui_image_responsive = () -> "dui-image-responsive";

@@ -15,12 +15,7 @@
  */
 package org.dominokit.domino.ui.tree;
 
-/**
- * An enum representing what toggles the tree item
- *
- * @author vegegoku
- * @version $Id: $Id
- */
+/** An enum representing what toggles the tree item */
 public enum ToggleTarget {
   /** any element inside the item */
   ANY("tgl-any"),

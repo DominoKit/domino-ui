@@ -28,8 +28,6 @@ import org.dominokit.domino.ui.utils.BaseDominoElement;
  * <p>This component makes sure that the label and the icon fits together
  *
  * @see BaseDominoElement
- * @author vegegoku
- * @version $Id: $Id
  */
 public class LabeledIcon extends WavesElement<HTMLElement, LabeledIcon> {
 

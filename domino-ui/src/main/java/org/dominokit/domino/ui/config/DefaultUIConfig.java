@@ -15,10 +15,5 @@
  */
 package org.dominokit.domino.ui.config;
 
-/**
- * DefaultUIConfig class.
- *
- * @author vegegoku
- * @version $Id: $Id
- */
+/** DefaultUIConfig class. */
 public class DefaultUIConfig implements UIConfig {}

@@ -17,12 +17,7 @@ package org.dominokit.domino.ui.elements;
 
 import elemental2.dom.HTMLTextAreaElement;
 
-/**
- * TextAreaElement class.
- *
- * @author vegegoku
- * @version $Id: $Id
- */
+/** TextAreaElement class. */
 public class TextAreaElement extends BaseElement<HTMLTextAreaElement, TextAreaElement> {
   /**
    * of.

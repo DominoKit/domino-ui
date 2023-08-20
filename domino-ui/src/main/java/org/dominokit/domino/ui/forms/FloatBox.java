@@ -18,12 +18,7 @@ package org.dominokit.domino.ui.forms;
 import elemental2.core.JsNumber;
 import java.util.function.Function;
 
-/**
- * A component that has an input to take/provide float value
- *
- * @author vegegoku
- * @version $Id: $Id
- */
+/** A component that has an input to take/provide float value */
 public class FloatBox extends NumberBox<FloatBox, Float> {
 
   /** @return a new instance without a label */

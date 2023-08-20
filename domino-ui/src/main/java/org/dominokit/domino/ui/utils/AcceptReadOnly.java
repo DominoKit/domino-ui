@@ -19,8 +19,6 @@ package org.dominokit.domino.ui.utils;
  * A component that can have a readonly mode should implement this interface
  *
  * @param <T> the type of the class implementing this interface
- * @author vegegoku
- * @version $Id: $Id
  */
 public interface AcceptReadOnly<T> {
   /**

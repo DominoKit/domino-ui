@@ -24,8 +24,6 @@ import org.dominokit.domino.ui.forms.FloatBox;
  * org.dominokit.domino.ui.forms.FloatBox} component
  *
  * @param <T> type of data table records
- * @author vegegoku
- * @version $Id: $Id
  */
 public class FloatHeaderFilter<T> extends DelayedHeaderFilterInput<FloatBox, T, Float> {
 

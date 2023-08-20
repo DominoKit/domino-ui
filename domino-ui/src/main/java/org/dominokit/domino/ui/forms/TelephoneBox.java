@@ -15,12 +15,7 @@
  */
 package org.dominokit.domino.ui.forms;
 
-/**
- * A component to input phone numbers
- *
- * @author vegegoku
- * @version $Id: $Id
- */
+/** A component to input phone numbers */
 public class TelephoneBox extends CustomInputBox<TelephoneBox> {
 
   /** Constructor for TelephoneBox. */

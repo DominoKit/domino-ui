@@ -40,12 +40,7 @@ import org.dominokit.domino.ui.utils.LazyChild;
 import org.dominokit.domino.ui.utils.PrefixAddOn;
 import org.dominokit.domino.ui.utils.Selectable;
 
-/**
- * Chip class.
- *
- * @author vegegoku
- * @version $Id: $Id
- */
+/** Chip class. */
 public class Chip extends BaseDominoElement<HTMLDivElement, Chip>
     implements HasSelectionListeners<Chip, Chip, Chip>, Selectable<Chip>, AcceptDisable<Chip> {
 

@@ -20,12 +20,7 @@ import org.dominokit.domino.ui.IsElement;
 import org.dominokit.domino.ui.elements.DivElement;
 import org.dominokit.domino.ui.utils.DominoElement;
 
-/**
- * Round bounce loader implementation
- *
- * @author vegegoku
- * @version $Id: $Id
- */
+/** Round bounce loader implementation */
 public class RoundBounceLoader extends BaseLoader<RoundBounceLoader>
     implements IsElement<HTMLDivElement> {
 

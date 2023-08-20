@@ -15,12 +15,7 @@
  */
 package org.dominokit.domino.ui.keyboard;
 
-/**
- * HasKeyboardEvents interface.
- *
- * @author vegegoku
- * @version $Id: $Id
- */
+/** HasKeyboardEvents interface. */
 public interface HasKeyboardEvents<T> {
 
   /**

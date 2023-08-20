@@ -22,19 +22,12 @@ import org.dominokit.domino.ui.utils.ChildHandler;
 import org.dominokit.domino.ui.utils.LazyChild;
 
 /**
- * A layout which is a 12 columns grid based with a required content section and 4 other optional
- * sections Header, Footer, Left and Right.
+ * <div id="dui-class-docs"> A layout which is a 12 columns grid based with a required content
+ * section and 4 other optional sections Header, Footer, Left and Right.
  *
- * <p>More information can be found in <a
- * href="https://developer.mozilla.org/en-US/docs/Learn/CSS/CSS_layout/Grids">MDN official
- * documentation</a>
- *
- * <p>Customize the component can be done by overwriting classes provided by {@link
- * org.dominokit.domino.ui.grid.GridStyles}
- *
- * @see BaseDominoElement
- * @author vegegoku
- * @version $Id: $Id
+ * <p>More information can be found in <a class="dui dui-decoration-none dui-fg-blue"
+ * target="_blank" href="https://developer.mozilla.org/en-US/docs/Learn/CSS/CSS_layout/Grids">MDN
+ * official documentation</a> </div>
  */
 public class GridLayout extends BaseDominoElement<HTMLDivElement, GridLayout>
     implements GridStyles {

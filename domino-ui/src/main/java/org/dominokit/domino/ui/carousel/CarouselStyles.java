@@ -17,12 +17,7 @@ package org.dominokit.domino.ui.carousel;
 
 import org.dominokit.domino.ui.style.CssClass;
 
-/**
- * Default CSS classes for {@link org.dominokit.domino.ui.carousel.Carousel}
- *
- * @author vegegoku
- * @version $Id: $Id
- */
+/** Default CSS classes for {@link org.dominokit.domino.ui.carousel.Carousel} */
 public interface CarouselStyles {
 
   /** Constant <code>carousel</code> */

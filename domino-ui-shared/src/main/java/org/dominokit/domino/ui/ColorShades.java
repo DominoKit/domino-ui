@@ -17,12 +17,7 @@ package org.dominokit.domino.ui;
 
 import java.lang.annotation.*;
 
-/**
- * Specify shades for a specific color to be used by {@link org.dominokit.domino.ui.ColorInfo}
- *
- * @author vegegoku
- * @version $Id: $Id
- */
+/** Specify shades for a specific color to be used by {@link org.dominokit.domino.ui.ColorInfo} */
 @Retention(RetentionPolicy.SOURCE)
 @Target(ElementType.PACKAGE)
 @Documented

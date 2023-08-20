@@ -23,12 +23,7 @@ import org.dominokit.domino.ui.utils.DominoUIConfig;
 import org.dominokit.domino.ui.utils.HasMinMaxLength;
 import org.dominokit.domino.ui.utils.HasValidation;
 
-/**
- * A predefined validator that validate the minimum value of a field
- *
- * @author vegegoku
- * @version $Id: $Id
- */
+/** A predefined validator that validate the minimum value of a field */
 public class MinLengthValidator<T, E extends HTMLElement> implements HasValidation.Validator<T> {
 
   private HasInputElement<T, E> inputElement;

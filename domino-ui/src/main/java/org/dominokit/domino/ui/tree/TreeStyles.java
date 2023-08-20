@@ -17,12 +17,7 @@ package org.dominokit.domino.ui.tree;
 
 import org.dominokit.domino.ui.style.CssClass;
 
-/**
- * Default CSS classes for {@link org.dominokit.domino.ui.tree.Tree}
- *
- * @author vegegoku
- * @version $Id: $Id
- */
+/** Default CSS classes for {@link org.dominokit.domino.ui.tree.Tree} */
 public interface TreeStyles {
   /** Constant <code>dui_tree</code> */
   CssClass dui_tree = () -> "dui-tree";

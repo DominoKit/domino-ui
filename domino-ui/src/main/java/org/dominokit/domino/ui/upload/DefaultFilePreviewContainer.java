@@ -20,12 +20,7 @@ import org.dominokit.domino.ui.grid.Row;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
 import org.dominokit.domino.ui.utils.ChildHandler;
 
-/**
- * DefaultFilePreviewContainer class.
- *
- * @author vegegoku
- * @version $Id: $Id
- */
+/** DefaultFilePreviewContainer class. */
 public class DefaultFilePreviewContainer
     extends BaseDominoElement<HTMLDivElement, DefaultFilePreviewContainer>
     implements FilePreviewContainer<HTMLDivElement, DefaultFilePreviewContainer>, FileUploadStyles {

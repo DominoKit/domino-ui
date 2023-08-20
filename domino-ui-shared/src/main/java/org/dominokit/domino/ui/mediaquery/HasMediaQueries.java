@@ -15,12 +15,7 @@
  */
 package org.dominokit.domino.ui.mediaquery;
 
-/**
- * HasMediaQueries interface.
- *
- * @author vegegoku
- * @version $Id: $Id
- */
+/** HasMediaQueries interface. */
 public interface HasMediaQueries<T> {
 
   /**

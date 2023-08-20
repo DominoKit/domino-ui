@@ -20,12 +20,7 @@ import org.dominokit.domino.ui.icons.Icon;
 import org.dominokit.domino.ui.icons.lib.Icons;
 import org.dominokit.domino.ui.style.SpacingCss;
 
-/**
- * PinColumnsConfig class.
- *
- * @author vegegoku
- * @version $Id: $Id
- */
+/** PinColumnsConfig class. */
 public class PinColumnsConfig implements PluginConfig {
   private boolean showPinIcon = false;
   private boolean showPinMenu = false;

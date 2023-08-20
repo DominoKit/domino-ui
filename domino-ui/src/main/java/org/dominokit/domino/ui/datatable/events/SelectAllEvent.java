@@ -17,12 +17,7 @@ package org.dominokit.domino.ui.datatable.events;
 
 import org.dominokit.domino.ui.datatable.SelectionCondition;
 
-/**
- * SelectAllEvent class.
- *
- * @author vegegoku
- * @version $Id: $Id
- */
+/** SelectAllEvent class. */
 public class SelectAllEvent<T> implements TableEvent {
 
   /** Constant <code>SELECT_ALL_EVENT="dui-table-select-all-event"</code> */

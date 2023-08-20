@@ -19,8 +19,6 @@ package org.dominokit.domino.ui.utils;
  * A component that can have a name should implement this interface
  *
  * @param <T>
- * @author vegegoku
- * @version $Id: $Id
  */
 public interface HasName<T> {
   /** @return String component name */

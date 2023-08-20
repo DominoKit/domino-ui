@@ -28,12 +28,7 @@ import java.util.Optional;
 import org.dominokit.domino.ui.IsElement;
 import org.dominokit.domino.ui.elements.*;
 
-/**
- * ElementsFactory interface.
- *
- * @author vegegoku
- * @version $Id: $Id
- */
+/** ElementsFactory interface. */
 public interface ElementsFactoryDelegate {
 
   default Optional<DominoElement<Element>> byId(String id) {

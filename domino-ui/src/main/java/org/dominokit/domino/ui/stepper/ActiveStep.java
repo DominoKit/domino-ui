@@ -15,12 +15,7 @@
  */
 package org.dominokit.domino.ui.stepper;
 
-/**
- * ActiveStep class.
- *
- * @author vegegoku
- * @version $Id: $Id
- */
+/** ActiveStep class. */
 public class ActiveStep implements StepState {
   /** {@inheritDoc} */
   @Override

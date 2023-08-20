@@ -18,12 +18,7 @@ package org.dominokit.domino.ui.forms;
 import java.math.BigDecimal;
 import java.util.function.Function;
 
-/**
- * A component that has an input to take/provide BigDecimal value
- *
- * @author vegegoku
- * @version $Id: $Id
- */
+/** A component that has an input to take/provide BigDecimal value */
 public class BigDecimalBox extends NumberBox<BigDecimalBox, BigDecimal> {
 
   /** @return a new instance without a label */

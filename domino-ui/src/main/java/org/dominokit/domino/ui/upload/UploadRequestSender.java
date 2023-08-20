@@ -18,12 +18,7 @@ package org.dominokit.domino.ui.upload;
 import elemental2.dom.FormData;
 import elemental2.dom.XMLHttpRequest;
 
-/**
- * An interface for sending the upload request
- *
- * @author vegegoku
- * @version $Id: $Id
- */
+/** An interface for sending the upload request */
 public interface UploadRequestSender {
   /**
    * onReady.

@@ -20,8 +20,6 @@ package org.dominokit.domino.ui.utils;
  * CompleteHandler.onComplete after finish executing the logic to finalize the process.
  *
  * @param <T> the field
- * @author vegegoku
- * @version $Id: $Id
  */
 @FunctionalInterface
 public interface AsyncHandler<T> {

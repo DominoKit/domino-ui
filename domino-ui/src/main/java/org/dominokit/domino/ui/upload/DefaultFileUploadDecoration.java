@@ -25,12 +25,7 @@ import org.dominokit.domino.ui.icons.Icon;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
 import org.dominokit.domino.ui.utils.LazyChild;
 
-/**
- * DefaultFileUploadDecoration class.
- *
- * @author vegegoku
- * @version $Id: $Id
- */
+/** DefaultFileUploadDecoration class. */
 public class DefaultFileUploadDecoration
     extends BaseDominoElement<HTMLDivElement, DefaultFileUploadDecoration>
     implements FileUploadStyles {

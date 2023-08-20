@@ -15,12 +15,7 @@
  */
 package org.dominokit.domino.ui.utils;
 
-/**
- * This interface is used to implement multi-select capability to a component
- *
- * @author vegegoku
- * @version $Id: $Id
- */
+/** This interface is used to implement multi-select capability to a component */
 public interface HasMultiSelectionSupport<T extends HasMultiSelectionSupport<T>> {
   /** @return boolean, true if the component supports multi-selection, otherwise false */
   /**

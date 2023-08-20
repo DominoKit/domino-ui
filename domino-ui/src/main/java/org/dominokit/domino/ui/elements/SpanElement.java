@@ -17,12 +17,7 @@ package org.dominokit.domino.ui.elements;
 
 import elemental2.dom.HTMLElement;
 
-/**
- * SpanElement class.
- *
- * @author vegegoku
- * @version $Id: $Id
- */
+/** SpanElement class. */
 public class SpanElement extends BaseElement<HTMLElement, SpanElement> {
   /**
    * of.

@@ -17,12 +17,7 @@ package org.dominokit.domino.ui.collapsible;
 
 import org.dominokit.domino.ui.animations.Transition;
 
-/**
- * AnimationCollapseOptions class.
- *
- * @author vegegoku
- * @version $Id: $Id
- */
+/** AnimationCollapseOptions class. */
 public class AnimationCollapseOptions {
 
   private Transition showTransition;

@@ -35,8 +35,6 @@ import org.dominokit.domino.ui.utils.DominoDom;
  * this plugin allows resizing columns of a data table
  *
  * @param <T> the type of data table records
- * @author vegegoku
- * @version $Id: $Id
  */
 public class ResizeColumnsPlugin<T>
     implements DataTablePlugin<T>, HasPluginConfig<T, ResizeColumnsPlugin<T>, ResizeColumnsConfig> {

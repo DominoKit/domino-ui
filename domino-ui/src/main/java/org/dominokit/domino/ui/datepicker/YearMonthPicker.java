@@ -21,12 +21,7 @@ import org.dominokit.domino.ui.spin.HSpinSelect;
 import org.dominokit.domino.ui.spin.SpinItem;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
 
-/**
- * YearMonthPicker class.
- *
- * @author vegegoku
- * @version $Id: $Id
- */
+/** YearMonthPicker class. */
 public class YearMonthPicker extends BaseDominoElement<HTMLDivElement, YearMonthPicker>
     implements CalendarStyles, CalendarViewListener {
 

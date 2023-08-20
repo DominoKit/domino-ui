@@ -32,8 +32,6 @@ import jsinterop.base.Js;
  *
  * @see <a href="https://developer.mozilla.org/en-US/docs/Web/API/ResizeObserver">MDN
  *     ResizeObserver</a>
- * @author vegegoku
- * @version $Id: $Id
  */
 @JsType(isNative = true, namespace = JsPackage.GLOBAL)
 public class ResizeObserver {

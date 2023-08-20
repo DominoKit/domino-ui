@@ -23,8 +23,6 @@ import org.dominokit.domino.ui.utils.BaseDominoElement;
  * A component provides an item inside a {@link org.dominokit.domino.ui.spin.SpinSelect}
  *
  * @param <T> the type of the object inside the item
- * @author vegegoku
- * @version $Id: $Id
  */
 public class SpinItem<T> extends BaseDominoElement<HTMLDivElement, SpinItem<T>>
     implements SpinStyles {

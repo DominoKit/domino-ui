@@ -17,12 +17,7 @@ package org.dominokit.domino.ui.style;
 
 import elemental2.dom.Element;
 
-/**
- * CssProperty class.
- *
- * @author vegegoku
- * @version $Id: $Id
- */
+/** CssProperty class. */
 public class CssProperty implements IsCssProperty {
   private final String name;
   private final String value;

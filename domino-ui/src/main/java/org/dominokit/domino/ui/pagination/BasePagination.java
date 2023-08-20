@@ -33,8 +33,6 @@ import org.dominokit.domino.ui.utils.HasChangeListeners;
  * Base implementation for pagination
  *
  * @param <T> the type of the pagination
- * @author vegegoku
- * @version $Id: $Id
  */
 public abstract class BasePagination<T extends BasePagination<T>>
     extends BaseDominoElement<HTMLElement, T>

@@ -20,12 +20,7 @@ import org.dominokit.domino.ui.IsElement;
 import org.dominokit.domino.ui.elements.DivElement;
 import org.dominokit.domino.ui.utils.DominoElement;
 
-/**
- * Facebook loader implementation
- *
- * @author vegegoku
- * @version $Id: $Id
- */
+/** Facebook loader implementation */
 public class FacebookLoader extends BaseLoader<FacebookLoader>
     implements IsElement<HTMLDivElement> {
 

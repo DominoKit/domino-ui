@@ -26,12 +26,7 @@ import java.util.stream.Collectors;
 import org.dominokit.domino.ui.chips.Chip;
 import org.dominokit.domino.ui.forms.FormsStyles;
 
-/**
- * TagBox class.
- *
- * @author vegegoku
- * @version $Id: $Id
- */
+/** TagBox class. */
 public class TagBox<V> extends AbstractSuggestBox<V, List<V>, Chip, TagOption<V>, TagBox<V>> {
 
   private List<TagOption<V>> selectedOptions = new ArrayList<>();

@@ -35,8 +35,6 @@ import org.gwtproject.i18n.shared.cldr.NumberConstants;
  *
  * @param <T> The type of the class extending from this base class
  * @param <V> The Numeric type of the component value
- * @author vegegoku
- * @version $Id: $Id
  */
 public abstract class NumberBox<T extends NumberBox<T, V>, V extends Number>
     extends InputFormField<T, HTMLInputElement, V>

@@ -27,9 +27,6 @@ import org.dominokit.domino.ui.animations.Transition;
 /**
  * An implementation of {@link org.dominokit.domino.ui.collapsible.CollapseStrategy} that uses the
  * css display property to hide/show the collapsible element
- *
- * @author vegegoku
- * @version $Id: $Id
  */
 public class AnimationCollapseStrategy implements CollapseStrategy {
 

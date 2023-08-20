@@ -43,8 +43,6 @@ import org.dominokit.domino.ui.icons.lib.Icons;
  * this plugin allows reordering and moving records in a data table
  *
  * @param <T> the type of data table records
- * @author vegegoku
- * @version $Id: $Id
  */
 public class DragDropPlugin<T> implements DataTablePlugin<T> {
 

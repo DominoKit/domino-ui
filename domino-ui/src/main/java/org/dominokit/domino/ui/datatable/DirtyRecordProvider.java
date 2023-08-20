@@ -21,8 +21,6 @@ package org.dominokit.domino.ui.datatable;
  * the original record if saved or will be reverted if the edit is canceled
  *
  * @param <T> the type of the data table records
- * @author vegegoku
- * @version $Id: $Id
  */
 @FunctionalInterface
 public interface DirtyRecordProvider<T> {

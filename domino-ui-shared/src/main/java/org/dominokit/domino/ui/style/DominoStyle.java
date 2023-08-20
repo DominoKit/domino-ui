@@ -18,12 +18,7 @@ package org.dominokit.domino.ui.style;
 import elemental2.dom.Element;
 import java.util.function.Predicate;
 
-/**
- * DominoStyle interface.
- *
- * @author vegegoku
- * @version $Id: $Id
- */
+/** DominoStyle interface. */
 public interface DominoStyle<E extends Element, R> {
   /**
    * setCssProperty.

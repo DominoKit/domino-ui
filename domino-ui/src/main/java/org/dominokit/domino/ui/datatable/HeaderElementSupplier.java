@@ -17,12 +17,7 @@ package org.dominokit.domino.ui.datatable;
 
 import elemental2.dom.Node;
 
-/**
- * An interface to provide different implementations for a column header content
- *
- * @author vegegoku
- * @version $Id: $Id
- */
+/** An interface to provide different implementations for a column header content */
 @FunctionalInterface
 public interface HeaderElementSupplier {
   /**

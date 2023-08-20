@@ -17,12 +17,7 @@ package org.dominokit.domino.ui.datatable.plugins.column;
 
 import org.dominokit.domino.ui.datatable.plugins.PluginConfig;
 
-/**
- * ResizeColumnsConfig class.
- *
- * @author vegegoku
- * @version $Id: $Id
- */
+/** ResizeColumnsConfig class. */
 public class ResizeColumnsConfig implements PluginConfig {
 
   private boolean clipContent = false;

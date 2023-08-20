@@ -20,12 +20,7 @@ import org.dominokit.domino.ui.IsElement;
 import org.dominokit.domino.ui.elements.DivElement;
 import org.dominokit.domino.ui.utils.DominoElement;
 
-/**
- * Win8 linear loader implementation
- *
- * @author vegegoku
- * @version $Id: $Id
- */
+/** Win8 linear loader implementation */
 public class Win8LinearLoader extends BaseLoader<Win8LinearLoader>
     implements IsElement<HTMLDivElement> {
 

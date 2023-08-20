@@ -25,12 +25,7 @@ import org.dominokit.domino.ui.utils.ChildHandler;
 import org.dominokit.domino.ui.utils.FooterContent;
 import org.dominokit.domino.ui.utils.LazyChild;
 
-/**
- * A special dialog component that introduce a confirm/reject actions
- *
- * @author vegegoku
- * @version $Id: $Id
- */
+/** A special dialog component that introduce a confirm/reject actions */
 public class ConfirmationDialog extends AbstractDialog<ConfirmationDialog> {
   private Button confirmButton;
   private Button rejectButton;

@@ -67,8 +67,6 @@ import org.dominokit.domino.ui.utils.PrefixAddOn;
  * <p>The pin menu and pin icon are both configurable and are disabled by default.
  *
  * @param <T>
- * @author vegegoku
- * @version $Id: $Id
  */
 public class PinColumnsPlugin<T>
     implements DataTablePlugin<T>, HasPluginConfig<T, PinColumnsPlugin<T>, PinColumnsConfig> {

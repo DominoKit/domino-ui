@@ -24,8 +24,6 @@ import org.dominokit.domino.ui.utils.SwipeUtil;
  * A component provides vertical spin
  *
  * @param <T> the type of the object inside the spin
- * @author vegegoku
- * @version $Id: $Id
  */
 public class VSpinSelect<T> extends SpinSelect<T, VSpinSelect<T>> {
 

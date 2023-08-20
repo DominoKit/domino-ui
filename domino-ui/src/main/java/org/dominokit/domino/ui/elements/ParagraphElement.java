@@ -17,12 +17,7 @@ package org.dominokit.domino.ui.elements;
 
 import elemental2.dom.HTMLParagraphElement;
 
-/**
- * ParagraphElement class.
- *
- * @author vegegoku
- * @version $Id: $Id
- */
+/** ParagraphElement class. */
 public class ParagraphElement extends BaseElement<HTMLParagraphElement, ParagraphElement> {
   /**
    * of.

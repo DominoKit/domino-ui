@@ -15,12 +15,7 @@
  */
 package org.dominokit.domino.ui.utils;
 
-/**
- * HasType interface.
- *
- * @author vegegoku
- * @version $Id: $Id
- */
+/** HasType interface. */
 public interface HasType {
   /**
    * getType.

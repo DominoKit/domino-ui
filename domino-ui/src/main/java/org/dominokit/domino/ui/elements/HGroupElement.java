@@ -17,12 +17,7 @@ package org.dominokit.domino.ui.elements;
 
 import elemental2.dom.HTMLElement;
 
-/**
- * HGroupElement class.
- *
- * @author vegegoku
- * @version $Id: $Id
- */
+/** HGroupElement class. */
 public class HGroupElement extends BaseElement<HTMLElement, HGroupElement> {
   /**
    * of.

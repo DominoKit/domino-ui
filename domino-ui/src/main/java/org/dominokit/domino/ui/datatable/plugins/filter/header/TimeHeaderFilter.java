@@ -29,8 +29,6 @@ import org.dominokit.domino.ui.forms.TimeBox;
  * org.dominokit.domino.ui.forms.TimeBox} component
  *
  * @param <T> type of data table records
- * @author vegegoku
- * @version $Id: $Id
  */
 public class TimeHeaderFilter<T> implements ColumnHeaderFilterPlugin.HeaderFilter<T> {
 

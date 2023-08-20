@@ -24,8 +24,6 @@ import org.dominokit.domino.ui.events.EventType;
  * this plugin attach a handler to listen for double click event on data table rows
  *
  * @param <T> the type of data table records
- * @author vegegoku
- * @version $Id: $Id
  */
 public class DoubleClickPlugin<T> implements DataTablePlugin<T> {
 

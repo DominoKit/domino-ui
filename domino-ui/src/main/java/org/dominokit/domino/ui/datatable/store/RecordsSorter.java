@@ -23,8 +23,6 @@ import org.dominokit.domino.ui.datatable.plugins.pagination.SortDirection;
  * org.dominokit.domino.ui.datatable.store.LocalListDataStore}
  *
  * @param <T> the type of the data table records
- * @author vegegoku
- * @version $Id: $Id
  */
 @FunctionalInterface
 public interface RecordsSorter<T> {

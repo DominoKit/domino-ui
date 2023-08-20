@@ -32,8 +32,6 @@ import org.dominokit.domino.ui.forms.suggest.SelectOption;
  *
  * @param <T> type of data table records
  * @param <E> the enum type
- * @author vegegoku
- * @version $Id: $Id
  */
 public class EnumHeaderFilter<T, E extends Enum>
     implements ColumnHeaderFilterPlugin.HeaderFilter<T> {

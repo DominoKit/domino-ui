@@ -24,12 +24,7 @@ import org.dominokit.domino.ui.utils.ChildHandler;
 import org.dominokit.domino.ui.utils.FooterContent;
 import org.dominokit.domino.ui.utils.LazyChild;
 
-/**
- * A wrapper component for <strong>blockquote</strong> HTML tag
- *
- * @author vegegoku
- * @version $Id: $Id
- */
+/** A wrapper component for <strong>blockquote</strong> HTML tag */
 public class Blockquote extends BaseDominoElement<HTMLElement, Blockquote> {
 
   private final BlockquoteElement element;

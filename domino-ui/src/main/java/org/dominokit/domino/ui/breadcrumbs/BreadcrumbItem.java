@@ -39,8 +39,6 @@ import org.dominokit.domino.ui.utils.HasClickableElement;
  * @see Breadcrumb
  * @see BaseDominoElement
  * @see HasClickableElement
- * @author vegegoku
- * @version $Id: $Id
  */
 public class BreadcrumbItem extends BaseDominoElement<HTMLLIElement, BreadcrumbItem>
     implements HasClickableElement {

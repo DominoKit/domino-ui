@@ -24,12 +24,7 @@ import elemental2.dom.DOMRect;
 import elemental2.dom.Element;
 import org.dominokit.domino.ui.style.Style;
 
-/**
- * TopRightDropDirection class.
- *
- * @author vegegoku
- * @version $Id: $Id
- */
+/** TopRightDropDirection class. */
 public class TopRightDropDirection implements DropDirection {
   /** {@inheritDoc} */
   @Override

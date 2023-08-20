@@ -58,9 +58,6 @@ import org.dominokit.domino.ui.utils.*;
  *                         .appendChild(Paragraph.create("SAMPLE_TEXT"))
  *         );
  * </pre>
- *
- * @author vegegoku
- * @version $Id: $Id
  */
 public class TabsPanel extends BaseDominoElement<HTMLDivElement, TabsPanel>
     implements IsElement<HTMLDivElement>, TabStyles {

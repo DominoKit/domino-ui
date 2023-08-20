@@ -17,12 +17,7 @@ package org.dominokit.domino.ui.style;
 
 import elemental2.dom.Element;
 
-/**
- * ToggleCssClass class.
- *
- * @author vegegoku
- * @version $Id: $Id
- */
+/** ToggleCssClass class. */
 public class ToggleCssClass implements CssClass {
 
   private final CssClass cssClass;

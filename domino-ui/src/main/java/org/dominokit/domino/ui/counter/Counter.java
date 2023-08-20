@@ -26,9 +26,6 @@ import org.gwtproject.timer.client.Timer;
  *
  * <p>e.g : count from 0 to 100 by 1 increment every 1 second and log the count to the console
  * </pre>
- *
- * @author vegegoku
- * @version $Id: $Id
  */
 public class Counter {
 

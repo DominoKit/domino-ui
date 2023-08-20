@@ -72,12 +72,7 @@ import elemental2.svg.SVGCircleElement;
 import elemental2.svg.SVGElement;
 import elemental2.svg.SVGLineElement;
 
-/**
- * DomElements interface.
- *
- * @author vegegoku
- * @version $Id: $Id
- */
+/** DomElements interface. */
 public interface DomElements {
 
   /** Constant <code>SVGNS="http://www.w3.org/2000/svg"</code> */

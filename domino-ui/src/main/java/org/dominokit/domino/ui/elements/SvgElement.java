@@ -17,12 +17,7 @@ package org.dominokit.domino.ui.elements;
 
 import elemental2.svg.SVGElement;
 
-/**
- * SvgElement class.
- *
- * @author vegegoku
- * @version $Id: $Id
- */
+/** SvgElement class. */
 public class SvgElement extends BaseElement<SVGElement, SvgElement> {
   /**
    * of.

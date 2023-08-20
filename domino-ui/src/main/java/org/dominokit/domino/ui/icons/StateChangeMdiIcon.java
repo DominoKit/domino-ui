@@ -15,12 +15,7 @@
  */
 package org.dominokit.domino.ui.icons;
 
-/**
- * StateChangeMdiIcon class.
- *
- * @author vegegoku
- * @version $Id: $Id
- */
+/** StateChangeMdiIcon class. */
 public class StateChangeMdiIcon extends StateChangeIcon<MdiIcon, StateChangeMdiIcon> {
 
   /**

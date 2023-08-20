@@ -15,12 +15,7 @@
  */
 package org.dominokit.domino.ui.i18n;
 
-/**
- * QuickSearchLabels interface.
- *
- * @author vegegoku
- * @version $Id: $Id
- */
+/** QuickSearchLabels interface. */
 public interface QuickSearchLabels extends Labels {
 
   /**

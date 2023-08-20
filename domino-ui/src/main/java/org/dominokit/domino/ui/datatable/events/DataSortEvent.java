@@ -21,9 +21,6 @@ import org.dominokit.domino.ui.datatable.plugins.pagination.SortDirection;
  * This event will be fired by the {@link
  * org.dominokit.domino.ui.datatable.plugins.pagination.SortPlugin} or the {@link
  * org.dominokit.domino.ui.datatable.DataTable} when the sort is by the data store.
- *
- * @author vegegoku
- * @version $Id: $Id
  */
 public class DataSortEvent implements TableEvent {
 

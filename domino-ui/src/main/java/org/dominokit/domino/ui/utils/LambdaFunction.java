@@ -15,12 +15,7 @@
  */
 package org.dominokit.domino.ui.utils;
 
-/**
- * LambdaFunction interface.
- *
- * @author vegegoku
- * @version $Id: $Id
- */
+/** LambdaFunction interface. */
 @FunctionalInterface
 public interface LambdaFunction {
   /** apply. */

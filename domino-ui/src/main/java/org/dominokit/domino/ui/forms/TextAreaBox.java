@@ -29,12 +29,7 @@ import org.dominokit.domino.ui.utils.PostfixAddOn;
 import org.dominokit.domino.ui.utils.PrefixAddOn;
 import org.dominokit.domino.ui.utils.PrimaryAddOn;
 
-/**
- * TextAreaBox class.
- *
- * @author vegegoku
- * @version $Id: $Id
- */
+/** TextAreaBox class. */
 public class TextAreaBox extends CountableInputFormField<TextAreaBox, HTMLTextAreaElement, String> {
 
   private EventListener autosizeListener = evt -> adjustHeight();

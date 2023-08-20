@@ -17,12 +17,7 @@ package org.dominokit.domino.ui.cards;
 
 import org.dominokit.domino.ui.style.CssClass;
 
-/**
- * Default CSS classes for {@link org.dominokit.domino.ui.cards.Card}
- *
- * @author vegegoku
- * @version $Id: $Id
- */
+/** Default CSS classes for {@link org.dominokit.domino.ui.cards.Card} */
 public interface CardStyles {
 
   /** Constant <code>dui_card</code> */

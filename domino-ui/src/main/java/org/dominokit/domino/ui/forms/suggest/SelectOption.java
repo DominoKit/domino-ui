@@ -19,12 +19,7 @@ import org.dominokit.domino.ui.elements.DivElement;
 import org.dominokit.domino.ui.menu.AbstractMenuItem;
 import org.dominokit.domino.ui.menu.MenuItem;
 
-/**
- * SelectOption class.
- *
- * @author vegegoku
- * @version $Id: $Id
- */
+/** SelectOption class. */
 public class SelectOption<V> extends Option<V, DivElement, SelectOption<V>> {
 
   /**

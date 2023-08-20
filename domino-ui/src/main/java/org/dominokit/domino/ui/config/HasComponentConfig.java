@@ -17,12 +17,7 @@ package org.dominokit.domino.ui.config;
 
 import org.dominokit.domino.ui.utils.DominoUIConfig;
 
-/**
- * HasComponentConfig interface.
- *
- * @author vegegoku
- * @version $Id: $Id
- */
+/** HasComponentConfig interface. */
 public interface HasComponentConfig<T extends ComponentConfig> {
   /**
    * getConfig.

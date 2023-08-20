@@ -17,12 +17,7 @@ package org.dominokit.domino.ui.style;
 
 import org.dominokit.domino.ui.themes.Theme;
 
-/**
- * ColorScheme interface.
- *
- * @author vegegoku
- * @version $Id: $Id
- */
+/** ColorScheme interface. */
 public interface ColorScheme {
 
   /**

@@ -37,8 +37,6 @@ import org.dominokit.domino.ui.utils.BaseDominoElement;
  * org.dominokit.domino.ui.popover.PopoverStyles}
  *
  * @see BaseDominoElement
- * @author vegegoku
- * @version $Id: $Id
  */
 public class Popover extends BasePopover<Popover> {
 

@@ -28,9 +28,6 @@ import org.dominokit.domino.ui.utils.ElementUtil;
 /**
  * A component that show up in a specific position on the screen only when the user scrolls down and
  * allow the user to click it to scroll to the top of the page
- *
- * @author vegegoku
- * @version $Id: $Id
  */
 public class ScrollTop extends Button implements ButtonStyles {
 

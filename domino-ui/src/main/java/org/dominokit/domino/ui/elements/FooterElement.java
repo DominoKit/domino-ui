@@ -17,12 +17,7 @@ package org.dominokit.domino.ui.elements;
 
 import elemental2.dom.HTMLElement;
 
-/**
- * FooterElement class.
- *
- * @author vegegoku
- * @version $Id: $Id
- */
+/** FooterElement class. */
 public class FooterElement extends BaseElement<HTMLElement, FooterElement> {
   /**
    * of.

@@ -18,12 +18,7 @@ package org.dominokit.domino.ui.utils;
 import elemental2.dom.Element;
 import org.dominokit.domino.ui.IsElement;
 
-/**
- * PrimaryAddOn class.
- *
- * @author vegegoku
- * @version $Id: $Id
- */
+/** PrimaryAddOn class. */
 public class PrimaryAddOn<T extends Element> extends BaseDominoElement<T, PrimaryAddOn<T>> {
 
   private DominoElement<T> element;

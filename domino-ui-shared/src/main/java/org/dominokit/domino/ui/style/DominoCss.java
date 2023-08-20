@@ -15,10 +15,5 @@
  */
 package org.dominokit.domino.ui.style;
 
-/**
- * DominoCss interface.
- *
- * @author vegegoku
- * @version $Id: $Id
- */
+/** DominoCss interface. */
 public interface DominoCss extends DisplayCss, ColorsCss, SpacingCss, GenericCss {}

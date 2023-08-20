@@ -15,12 +15,7 @@
  */
 package org.dominokit.domino.ui.utils;
 
-/**
- * A component that should provide handlers for keyboard events should implement this interface
- *
- * @author vegegoku
- * @version $Id: $Id
- */
+/** A component that should provide handlers for keyboard events should implement this interface */
 public interface KeyboardHandlers {
 
   /** a function to handle the Escape key */

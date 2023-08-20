@@ -23,9 +23,6 @@ import java.lang.annotation.*;
  * shades for each {@link org.dominokit.domino.ui.ColorInfo} , a theme-xxx.css for each {@link
  * org.dominokit.domino.ui.ColorInfo}, A xxx-color.css for each, and an optional html page to demo
  * the generated styles.
- *
- * @author vegegoku
- * @version $Id: $Id
  */
 @Retention(RetentionPolicy.SOURCE)
 @Target(ElementType.PACKAGE)

@@ -18,12 +18,7 @@ package org.dominokit.domino.ui.utils;
 import elemental2.dom.Element;
 import org.dominokit.domino.ui.IsElement;
 
-/**
- * PostfixAddOn class.
- *
- * @author vegegoku
- * @version $Id: $Id
- */
+/** PostfixAddOn class. */
 public class PostfixAddOn<T extends Element> extends BaseDominoElement<T, PostfixAddOn<T>> {
 
   private DominoElement<T> element;

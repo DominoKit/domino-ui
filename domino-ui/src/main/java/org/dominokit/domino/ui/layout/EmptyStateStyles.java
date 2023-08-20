@@ -17,12 +17,7 @@ package org.dominokit.domino.ui.layout;
 
 import org.dominokit.domino.ui.style.CssClass;
 
-/**
- * EmptyStateStyles interface.
- *
- * @author vegegoku
- * @version $Id: $Id
- */
+/** EmptyStateStyles interface. */
 public interface EmptyStateStyles {
 
   /** Constant <code>dui_empty_state</code> */

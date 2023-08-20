@@ -26,12 +26,7 @@ import org.dominokit.domino.ui.utils.HasPostfix;
 import org.dominokit.domino.ui.utils.HasPrefix;
 import org.dominokit.domino.ui.utils.LazyChild;
 
-/**
- * Abstract TextInputFormField class.
- *
- * @author vegegoku
- * @version $Id: $Id
- */
+/** Abstract TextInputFormField class. */
 public abstract class TextInputFormField<
         T extends InputFormField<T, E, V>, E extends HTMLInputElement, V>
     extends CountableInputFormField<T, E, V> implements HasPostfix<T>, HasPrefix<T> {

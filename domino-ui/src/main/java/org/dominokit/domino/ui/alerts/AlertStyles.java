@@ -17,12 +17,7 @@ package org.dominokit.domino.ui.alerts;
 
 import org.dominokit.domino.ui.style.CssClass;
 
-/**
- * Default CSS classes for {@link org.dominokit.domino.ui.alerts.Alert}
- *
- * @author vegegoku
- * @version $Id: $Id
- */
+/** Default CSS classes for {@link org.dominokit.domino.ui.alerts.Alert} */
 public interface AlertStyles {
 
   /** Constant <code>dui_alert</code> */

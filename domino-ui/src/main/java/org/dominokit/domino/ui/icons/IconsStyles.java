@@ -18,12 +18,7 @@ package org.dominokit.domino.ui.icons;
 import org.dominokit.domino.ui.style.CssClass;
 import org.dominokit.domino.ui.style.ToggleCssClass;
 
-/**
- * IconsStyles class.
- *
- * @author vegegoku
- * @version $Id: $Id
- */
+/** IconsStyles class. */
 public class IconsStyles {
   /** Constant <code>dui_mdi</code> */
   public static final CssClass dui_mdi = () -> "mdi";

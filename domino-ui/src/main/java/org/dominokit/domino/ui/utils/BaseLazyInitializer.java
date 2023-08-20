@@ -19,12 +19,7 @@ import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 
-/**
- * Abstract BaseLazyInitializer class.
- *
- * @author vegegoku
- * @version $Id: $Id
- */
+/** Abstract BaseLazyInitializer class. */
 public abstract class BaseLazyInitializer<T extends BaseLazyInitializer<T>> {
 
   private LambdaFunction function;

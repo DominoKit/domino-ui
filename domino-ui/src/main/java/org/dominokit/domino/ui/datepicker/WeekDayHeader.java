@@ -22,12 +22,7 @@ import org.dominokit.domino.ui.menu.direction.DropDirection;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
 import org.gwtproject.i18n.shared.cldr.DateTimeFormatInfo;
 
-/**
- * WeekDayHeader class.
- *
- * @author vegegoku
- * @version $Id: $Id
- */
+/** WeekDayHeader class. */
 public class WeekDayHeader extends BaseDominoElement<HTMLDivElement, WeekDayHeader>
     implements CalendarStyles, CalendarViewListener {
 

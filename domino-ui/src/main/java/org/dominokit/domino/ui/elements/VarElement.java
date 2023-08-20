@@ -17,12 +17,7 @@ package org.dominokit.domino.ui.elements;
 
 import elemental2.dom.HTMLElement;
 
-/**
- * VarElement class.
- *
- * @author vegegoku
- * @version $Id: $Id
- */
+/** VarElement class. */
 public class VarElement extends BaseElement<HTMLElement, VarElement> {
   /**
    * of.

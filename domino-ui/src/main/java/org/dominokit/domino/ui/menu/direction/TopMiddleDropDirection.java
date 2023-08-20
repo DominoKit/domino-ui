@@ -24,12 +24,7 @@ import elemental2.dom.DOMRect;
 import elemental2.dom.Element;
 import org.dominokit.domino.ui.style.Style;
 
-/**
- * TopMiddleDropDirection class.
- *
- * @author vegegoku
- * @version $Id: $Id
- */
+/** TopMiddleDropDirection class. */
 public class TopMiddleDropDirection implements DropDirection {
   /** {@inheritDoc} */
   @Override

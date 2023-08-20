@@ -24,12 +24,7 @@ import org.dominokit.domino.ui.style.CssClass;
 import org.dominokit.domino.ui.style.HasCssClass;
 import org.dominokit.domino.ui.style.SwapCssClass;
 
-/**
- * <a href="https://materialdesignicons.com/">MDI</a> icons implementation
- *
- * @author vegegoku
- * @version $Id: $Id
- */
+/** <a href="https://materialdesignicons.com/">MDI</a> icons implementation */
 public class MdiIcon extends Icon<MdiIcon> implements CanChangeIcon<MdiIcon> {
 
   private MdiMeta metaInfo;

@@ -15,12 +15,7 @@
  */
 package org.dominokit.domino.ui.style;
 
-/**
- * SpacingCss interface.
- *
- * @author vegegoku
- * @version $Id: $Id
- */
+/** SpacingCss interface. */
 public interface SpacingCss {
 
   /** Constant <code>dui_filler</code> */

@@ -49,8 +49,6 @@ import org.dominokit.domino.ui.utils.LazyChild;
  *
  * @see BaseDominoElement
  * @see HasName
- * @author vegegoku
- * @version $Id: $Id
  */
 public class FileUpload extends BaseDominoElement<HTMLDivElement, FileUpload>
     implements HasName<FileUpload>,

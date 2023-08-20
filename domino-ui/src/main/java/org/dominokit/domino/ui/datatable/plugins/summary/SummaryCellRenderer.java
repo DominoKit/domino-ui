@@ -23,8 +23,6 @@ import elemental2.dom.Node;
  * and rendered in the table
  *
  * @param <T> the type of the data table records
- * @author vegegoku
- * @version $Id: $Id
  */
 @FunctionalInterface
 public interface SummaryCellRenderer<T, S> {

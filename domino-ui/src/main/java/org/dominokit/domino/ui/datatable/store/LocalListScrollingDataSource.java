@@ -36,8 +36,6 @@ import org.dominokit.domino.ui.datatable.plugins.pagination.BodyScrollPlugin;
  * the data table
  *
  * @param <T> the type of the data table records
- * @author vegegoku
- * @version $Id: $Id
  */
 public class LocalListScrollingDataSource<T> implements DataStore<T> {
 

@@ -15,12 +15,7 @@
  */
 package org.dominokit.domino.ui.icons;
 
-/**
- * ToggleMdiIcon class.
- *
- * @author vegegoku
- * @version $Id: $Id
- */
+/** ToggleMdiIcon class. */
 public class ToggleMdiIcon extends ToggleIcon<MdiIcon, ToggleMdiIcon> {
 
   /**

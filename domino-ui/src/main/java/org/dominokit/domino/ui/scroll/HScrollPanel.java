@@ -22,9 +22,6 @@ import org.dominokit.domino.ui.utils.BaseDominoElement;
 /**
  * A component that wraps the {@link elemental2.dom.HTMLDivElement} to make it horizontally
  * scrollable by default
- *
- * @author vegegoku
- * @version $Id: $Id
  */
 public class HScrollPanel extends BaseDominoElement<HTMLDivElement, HScrollPanel> {
 

@@ -21,12 +21,7 @@ import elemental2.dom.Element;
 import java.util.Optional;
 import org.dominokit.domino.ui.IsElement;
 
-/**
- * DisableUtil class.
- *
- * @author vegegoku
- * @version $Id: $Id
- */
+/** DisableUtil class. */
 public class DisableUtil {
 
   /** Constant <code>FOCUSABLE_ELEMENTS="a, button, embed, iframe, label, audio["{trunked}</code> */

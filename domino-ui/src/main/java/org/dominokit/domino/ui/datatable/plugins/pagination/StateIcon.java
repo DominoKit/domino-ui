@@ -17,12 +17,7 @@ package org.dominokit.domino.ui.datatable.plugins.pagination;
 
 import org.dominokit.domino.ui.icons.*;
 
-/**
- * StateIcon class.
- *
- * @author vegegoku
- * @version $Id: $Id
- */
+/** StateIcon class. */
 public class StateIcon extends StateChangeIcon<IconWrapper, StateIcon> {
 
   /**

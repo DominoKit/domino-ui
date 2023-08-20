@@ -19,8 +19,6 @@ package org.dominokit.domino.ui.utils;
  * Components that can have a placeholder should implement this interface
  *
  * @param <T> the type of the class implementing this interface
- * @author vegegoku
- * @version $Id: $Id
  */
 public interface HasPlaceHolder<T> {
   /** @return String placeholder of the component */

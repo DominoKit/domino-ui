@@ -34,10 +34,12 @@ import org.dominokit.domino.ui.style.ToggleCssClass;
 import org.dominokit.domino.ui.utils.*;
 
 /**
- * AppLayout class.
+ * <div id="dui-class-docs">
  *
- * @author vegegoku
- * @version $Id: $Id
+ * <p>A component that provides feature rich main application layout that includes, Navigation bar,
+ * left drawer, right drawer, footer and main content panel.
+ *
+ * <p></div>
  */
 public class AppLayout extends BaseDominoElement<HTMLDivElement, AppLayout>
     implements AppLayoutStyles {

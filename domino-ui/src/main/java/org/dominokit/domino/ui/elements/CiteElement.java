@@ -17,12 +17,7 @@ package org.dominokit.domino.ui.elements;
 
 import elemental2.dom.HTMLElement;
 
-/**
- * CiteElement class.
- *
- * @author vegegoku
- * @version $Id: $Id
- */
+/** CiteElement class. */
 public class CiteElement extends BaseElement<HTMLElement, CiteElement> {
   /**
    * of.

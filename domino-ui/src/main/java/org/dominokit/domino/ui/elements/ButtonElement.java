@@ -17,12 +17,7 @@ package org.dominokit.domino.ui.elements;
 
 import elemental2.dom.HTMLButtonElement;
 
-/**
- * ButtonElement class.
- *
- * @author vegegoku
- * @version $Id: $Id
- */
+/** ButtonElement class. */
 public class ButtonElement extends BaseElement<HTMLButtonElement, ButtonElement> {
   /**
    * of.

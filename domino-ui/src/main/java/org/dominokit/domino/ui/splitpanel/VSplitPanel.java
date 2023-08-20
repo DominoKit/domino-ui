@@ -20,8 +20,6 @@ package org.dominokit.domino.ui.splitpanel;
  *
  * @see BaseSplitPanel
  * @see HasSplitPanels
- * @author vegegoku
- * @version $Id: $Id
  */
 public class VSplitPanel extends BaseSplitPanel<VSplitPanel, VSplitter>
     implements HasSplitPanels, SplitStyles {

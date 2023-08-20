@@ -29,8 +29,6 @@ import org.dominokit.domino.ui.style.CssClass;
  * This plugin adds a thin colored border to the left of a row based on custom criteria
  *
  * @param <T> the type of the data table records
- * @author vegegoku
- * @version $Id: $Id
  */
 public class RowMarkerPlugin<T> implements DataTablePlugin<T>, DataTableStyles {
 

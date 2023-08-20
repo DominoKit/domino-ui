@@ -21,12 +21,7 @@ import elemental2.dom.Element;
 import java.util.function.Supplier;
 import org.dominokit.domino.ui.IsElement;
 
-/**
- * LazyChild class.
- *
- * @author vegegoku
- * @version $Id: $Id
- */
+/** LazyChild class. */
 public class LazyChild<T extends IsElement<?>> extends BaseLazyInitializer<LazyChild<T>> {
 
   private T element;

@@ -15,12 +15,7 @@
  */
 package org.dominokit.domino.ui.datatable.plugins.pagination;
 
-/**
- * Enum listing possible sort direction
- *
- * @author vegegoku
- * @version $Id: $Id
- */
+/** Enum listing possible sort direction */
 public enum SortDirection {
   ASC,
   DESC,

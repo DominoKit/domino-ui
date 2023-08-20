@@ -17,12 +17,7 @@ package org.dominokit.domino.ui.elements;
 
 import elemental2.dom.HTMLElement;
 
-/**
- * TimeElement class.
- *
- * @author vegegoku
- * @version $Id: $Id
- */
+/** TimeElement class. */
 public class TimeElement extends BaseElement<HTMLElement, TimeElement> {
   /**
    * of.

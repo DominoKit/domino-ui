@@ -32,8 +32,6 @@ import org.dominokit.domino.ui.utils.*;
  * @see HasSelectionHandler
  * @see HasDeselectionHandler
  * @see AcceptDisable
- * @author vegegoku
- * @version $Id: $Id
  */
 public class ChipsGroup extends BaseDominoElement<HTMLDivElement, ChipsGroup>
     implements AcceptDisable<ChipsGroup>, HasSelectionListeners<ChipsGroup, Chip, List<Chip>> {

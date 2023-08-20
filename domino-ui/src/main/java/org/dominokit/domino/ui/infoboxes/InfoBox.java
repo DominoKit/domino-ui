@@ -33,8 +33,6 @@ import org.dominokit.domino.ui.utils.*;
  *
  * @see BaseDominoElement
  * @see HasBackground
- * @author vegegoku
- * @version $Id: $Id
  */
 public class InfoBox extends BaseDominoElement<HTMLDivElement, InfoBox> implements InfoBoxStyles {
 

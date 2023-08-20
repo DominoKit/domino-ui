@@ -24,9 +24,6 @@ import elemental2.dom.HTMLElement;
  * changed
  *
  * <p>e.g remove the column name a from a list of columns
- *
- * @author vegegoku
- * @version $Id: $Id
  */
 public class DefaultColumnShowHideListener implements ColumnShowHideListener {
 

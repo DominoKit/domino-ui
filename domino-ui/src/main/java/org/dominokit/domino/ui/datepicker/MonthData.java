@@ -18,12 +18,7 @@ package org.dominokit.domino.ui.datepicker;
 import elemental2.core.JsDate;
 import java.util.Date;
 
-/**
- * MonthData class.
- *
- * @author vegegoku
- * @version $Id: $Id
- */
+/** MonthData class. */
 public class MonthData {
 
   private final int daysCount;

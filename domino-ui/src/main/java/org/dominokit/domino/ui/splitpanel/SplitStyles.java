@@ -17,12 +17,7 @@ package org.dominokit.domino.ui.splitpanel;
 
 import org.dominokit.domino.ui.style.CssClass;
 
-/**
- * Default CSS classes for {@link org.dominokit.domino.ui.splitpanel.SplitPanel}
- *
- * @author vegegoku
- * @version $Id: $Id
- */
+/** Default CSS classes for {@link org.dominokit.domino.ui.splitpanel.SplitPanel} */
 public interface SplitStyles {
 
   /** Constant <code>dui_split_layout</code> */

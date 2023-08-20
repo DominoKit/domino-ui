@@ -19,12 +19,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-/**
- * DominoCSSRule class.
- *
- * @author vegegoku
- * @version $Id: $Id
- */
+/** DominoCSSRule class. */
 public class DominoCSSRule {
 
   private final String selector;

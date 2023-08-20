@@ -21,8 +21,6 @@ import elemental2.dom.*;
  * A class that can wrap any HTMLElement as domino component
  *
  * @param <E> the type of the wrapped element
- * @author vegegoku
- * @version $Id: $Id
  */
 public class DominoElement<E extends Element> extends BaseDominoElement<E, DominoElement<E>> {
 

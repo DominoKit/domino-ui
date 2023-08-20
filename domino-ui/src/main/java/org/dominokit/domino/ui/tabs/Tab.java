@@ -36,12 +36,7 @@ import org.dominokit.domino.ui.utils.ChildHandler;
 import org.dominokit.domino.ui.utils.HasClickableElement;
 import org.dominokit.domino.ui.utils.LazyChild;
 
-/**
- * A component for a single Tab in the {@link org.dominokit.domino.ui.tabs.TabsPanel}
- *
- * @author vegegoku
- * @version $Id: $Id
- */
+/** A component for a single Tab in the {@link org.dominokit.domino.ui.tabs.TabsPanel} */
 public class Tab extends BaseDominoElement<HTMLLIElement, Tab>
     implements HasClickableElement, HasComponentConfig<TabsConfig>, TabStyles {
 

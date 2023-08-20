@@ -21,12 +21,7 @@ import org.dominokit.domino.ui.icons.lib.Icons;
 import org.dominokit.domino.ui.style.ColorsCss;
 import org.dominokit.domino.ui.style.SpacingCss;
 
-/**
- * SkippedStep class.
- *
- * @author vegegoku
- * @version $Id: $Id
- */
+/** SkippedStep class. */
 public class SkippedStep implements StepState {
   /** {@inheritDoc} */
   @Override

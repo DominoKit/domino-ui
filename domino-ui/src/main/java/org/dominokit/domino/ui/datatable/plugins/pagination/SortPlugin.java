@@ -36,8 +36,6 @@ import org.dominokit.domino.ui.utils.DominoElement;
  * This plugin adds sort capability to column headers on click
  *
  * @param <T> the type of the data table records
- * @author vegegoku
- * @version $Id: $Id
  */
 public class SortPlugin<T>
     implements DataTablePlugin<T>, HasPluginConfig<T, SortPlugin<T>, SortPluginConfig> {

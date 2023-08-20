@@ -22,9 +22,6 @@ import org.dominokit.domino.ui.utils.BaseDominoElement;
 /**
  * A component that wraps the {@link elemental2.dom.HTMLDivElement} to make it auto horizontally
  * scrollable when the content exceeds the component fixed width
- *
- * @author vegegoku
- * @version $Id: $Id
  */
 public class AutoHScrollPanel extends BaseDominoElement<HTMLDivElement, AutoHScrollPanel> {
 

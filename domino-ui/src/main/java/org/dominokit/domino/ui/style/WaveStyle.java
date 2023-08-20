@@ -15,12 +15,7 @@
  */
 package org.dominokit.domino.ui.style;
 
-/**
- * An enum representing the wave styles supported
- *
- * @author vegegoku
- * @version $Id: $Id
- */
+/** An enum representing the wave styles supported */
 public enum WaveStyle implements HasCssClass {
   FLOAT(() -> "dui-waves-float"),
   CIRCLE(() -> "dui-waves-circle"),

@@ -20,8 +20,6 @@ package org.dominokit.domino.ui.utils;
  *
  * @see org.dominokit.domino.ui.collapsible.Collapsible
  * @param <T> the type of the component implementing this interface
- * @author vegegoku
- * @version $Id: $Id
  */
 public interface IsCollapsible<T> {
 

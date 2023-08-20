@@ -17,12 +17,7 @@ package org.dominokit.domino.ui.elements;
 
 import elemental2.dom.HTMLElement;
 
-/**
- * IElement class.
- *
- * @author vegegoku
- * @version $Id: $Id
- */
+/** IElement class. */
 public class IElement extends BaseElement<HTMLElement, IElement> {
   /**
    * of.

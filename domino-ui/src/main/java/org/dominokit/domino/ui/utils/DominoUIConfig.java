@@ -28,9 +28,6 @@ import org.dominokit.domino.ui.i18n.DominoUILabels;
  * This class provides global configuration for form fields
  *
  * <p>These configurations should be set before creating the form fields
- *
- * @author vegegoku
- * @version $Id: $Id
  */
 public class DominoUIConfig {
 

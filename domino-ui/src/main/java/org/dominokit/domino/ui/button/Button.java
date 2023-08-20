@@ -24,9 +24,6 @@ import org.dominokit.domino.ui.icons.Icon;
  *
  * <p>this class provide a set of factory methods to create simple buttons with different styles and
  * a combination of a text and icon. example
- *
- * @author vegegoku
- * @version $Id: $Id
  */
 public class Button extends BaseButton<HTMLButtonElement, Button> {
 

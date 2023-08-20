@@ -17,12 +17,7 @@ package org.dominokit.domino.ui.i18n;
 
 import org.dominokit.domino.ui.utils.DominoUIConfig;
 
-/**
- * HasLabels interface.
- *
- * @author vegegoku
- * @version $Id: $Id
- */
+/** HasLabels interface. */
 public interface HasLabels<T extends Labels> {
 
   /**

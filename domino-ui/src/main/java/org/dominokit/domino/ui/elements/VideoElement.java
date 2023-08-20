@@ -17,12 +17,7 @@ package org.dominokit.domino.ui.elements;
 
 import elemental2.dom.HTMLVideoElement;
 
-/**
- * VideoElement class.
- *
- * @author vegegoku
- * @version $Id: $Id
- */
+/** VideoElement class. */
 public class VideoElement extends BaseElement<HTMLVideoElement, VideoElement> {
   /**
    * of.

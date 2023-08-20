@@ -19,12 +19,7 @@ import static java.util.Objects.nonNull;
 
 import elemental2.dom.Element;
 
-/**
- * AutoSwapCssClass class.
- *
- * @author vegegoku
- * @version $Id: $Id
- */
+/** AutoSwapCssClass class. */
 public class AutoSwapCssClass implements CssClass {
 
   private CssClass first = CssClass.NONE;

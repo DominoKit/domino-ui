@@ -23,12 +23,7 @@ import org.dominokit.domino.ui.upload.DefaultFilePreviewContainer;
 import org.dominokit.domino.ui.upload.FilePreviewContainer;
 import org.dominokit.domino.ui.upload.FilePreviewFactory;
 
-/**
- * UploadConfig interface.
- *
- * @author vegegoku
- * @version $Id: $Id
- */
+/** UploadConfig interface. */
 public interface UploadConfig extends ComponentConfig {
 
   /**

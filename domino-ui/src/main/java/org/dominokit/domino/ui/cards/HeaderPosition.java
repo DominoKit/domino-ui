@@ -15,12 +15,7 @@
  */
 package org.dominokit.domino.ui.cards;
 
-/**
- * HeaderPosition class.
- *
- * @author vegegoku
- * @version $Id: $Id
- */
+/** HeaderPosition class. */
 public enum HeaderPosition {
   TOP,
   BOTTOM;

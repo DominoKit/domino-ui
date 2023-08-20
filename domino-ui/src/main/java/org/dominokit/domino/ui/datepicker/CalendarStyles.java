@@ -17,12 +17,7 @@ package org.dominokit.domino.ui.datepicker;
 
 import org.dominokit.domino.ui.style.CssClass;
 
-/**
- * CalendarStyles interface.
- *
- * @author vegegoku
- * @version $Id: $Id
- */
+/** CalendarStyles interface. */
 public interface CalendarStyles {
 
   /** Constant <code>dui_calendar_day</code> */

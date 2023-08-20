@@ -21,12 +21,7 @@ import org.dominokit.domino.ui.icons.lib.Icons;
 import org.dominokit.domino.ui.style.ColorsCss;
 import org.dominokit.domino.ui.style.SpacingCss;
 
-/**
- * ErrorStep class.
- *
- * @author vegegoku
- * @version $Id: $Id
- */
+/** ErrorStep class. */
 public class ErrorStep implements StepState {
   /** {@inheritDoc} */
   @Override

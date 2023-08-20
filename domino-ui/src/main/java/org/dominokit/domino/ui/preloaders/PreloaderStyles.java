@@ -17,12 +17,7 @@ package org.dominokit.domino.ui.preloaders;
 
 import org.dominokit.domino.ui.style.CssClass;
 
-/**
- * A constants class for different preloader sizes
- *
- * @author vegegoku
- * @version $Id: $Id
- */
+/** A constants class for different preloader sizes */
 public interface PreloaderStyles {
   /** Constant <code>dui_preloader</code> */
   CssClass dui_preloader = () -> "dui-preloader";

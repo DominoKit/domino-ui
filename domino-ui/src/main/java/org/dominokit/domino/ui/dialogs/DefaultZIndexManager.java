@@ -28,12 +28,7 @@ import org.dominokit.domino.ui.config.HasComponentConfig;
 import org.dominokit.domino.ui.config.ZIndexConfig;
 import org.dominokit.domino.ui.utils.IsPopup;
 
-/**
- * DefaultZIndexManager class.
- *
- * @author vegegoku
- * @version $Id: $Id
- */
+/** DefaultZIndexManager class. */
 public class DefaultZIndexManager implements ZIndexManager, HasComponentConfig<ZIndexConfig> {
 
   /** Constant <code>INSTANCE</code> */

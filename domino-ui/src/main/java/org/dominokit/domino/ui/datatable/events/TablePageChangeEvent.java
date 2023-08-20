@@ -17,12 +17,7 @@ package org.dominokit.domino.ui.datatable.events;
 
 import org.dominokit.domino.ui.pagination.HasPagination;
 
-/**
- * This event will be fired when the page of the data table is changed
- *
- * @author vegegoku
- * @version $Id: $Id
- */
+/** This event will be fired when the page of the data table is changed */
 public class TablePageChangeEvent implements TableEvent {
 
   /** A constant string to define a unique type for this event */

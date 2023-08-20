@@ -22,12 +22,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.function.Supplier;
 
-/**
- * Options for controlling the upload
- *
- * @author vegegoku
- * @version $Id: $Id
- */
+/** Options for controlling the upload */
 public class UploadOptions {
 
   private String url;

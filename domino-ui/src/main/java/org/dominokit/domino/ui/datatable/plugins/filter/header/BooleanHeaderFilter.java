@@ -30,8 +30,6 @@ import org.dominokit.domino.ui.forms.suggest.SelectOption;
  * org.dominokit.domino.ui.forms.suggest.Select} component
  *
  * @param <T> type of data table records
- * @author vegegoku
- * @version $Id: $Id
  */
 public class BooleanHeaderFilter<T> implements ColumnHeaderFilterPlugin.HeaderFilter<T> {
 

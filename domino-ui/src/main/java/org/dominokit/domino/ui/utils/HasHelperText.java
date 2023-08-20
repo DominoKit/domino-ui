@@ -19,8 +19,6 @@ package org.dominokit.domino.ui.utils;
  * Component that can have a helper text should implement this interface
  *
  * @param <T> the type of the class implementing this interface
- * @author vegegoku
- * @version $Id: $Id
  */
 public interface HasHelperText<T> {
   /**

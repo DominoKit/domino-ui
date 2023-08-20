@@ -28,12 +28,7 @@ import org.dominokit.domino.ui.utils.ChildHandler;
 import org.dominokit.domino.ui.utils.DominoElement;
 import org.dominokit.domino.ui.utils.ElementUtil;
 
-/**
- * Abstract InputFormField class.
- *
- * @author vegegoku
- * @version $Id: $Id
- */
+/** Abstract InputFormField class. */
 public abstract class InputFormField<T extends InputFormField<T, E, V>, E extends HTMLElement, V>
     extends AbstractFormElement<T, V> implements HasInputElement<T, E> {
 

@@ -31,8 +31,6 @@ import org.dominokit.domino.ui.utils.LazyChild;
  * BlockHeaderStyles}
  *
  * @see BaseDominoElement
- * @author vegegoku
- * @version $Id: $Id
  */
 public class BlockHeader extends BaseDominoElement<HTMLDivElement, BlockHeader>
     implements BlockHeaderStyles {

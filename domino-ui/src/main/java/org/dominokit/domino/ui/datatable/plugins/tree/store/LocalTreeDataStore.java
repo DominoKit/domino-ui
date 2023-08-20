@@ -25,12 +25,7 @@ import org.dominokit.domino.ui.datatable.plugins.tree.SubItemsProvider;
 import org.dominokit.domino.ui.datatable.plugins.tree.TreeNodeChildrenAware;
 import org.dominokit.domino.ui.datatable.store.LocalListDataStore;
 
-/**
- * LocalTreeDataStore class.
- *
- * @author vegegoku
- * @version $Id: $Id
- */
+/** LocalTreeDataStore class. */
 public class LocalTreeDataStore<T> extends LocalListDataStore<T> implements TreeNodeStore<T> {
   private Map<T, LocalListDataStore<T>> childrenStore = new HashMap<>();
   private final SubItemsProvider<T> subItemsProvider;

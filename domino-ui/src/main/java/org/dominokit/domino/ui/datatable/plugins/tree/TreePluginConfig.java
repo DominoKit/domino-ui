@@ -29,12 +29,7 @@ import org.dominokit.domino.ui.icons.ToggleIcon;
 import org.dominokit.domino.ui.icons.ToggleMdiIcon;
 import org.dominokit.domino.ui.icons.lib.Icons;
 
-/**
- * TreePluginConfig class.
- *
- * @author vegegoku
- * @version $Id: $Id
- */
+/** TreePluginConfig class. */
 public class TreePluginConfig<T> implements PluginConfig {
 
   /** Constant <code>DEFAULT_INDENT=20</code> */

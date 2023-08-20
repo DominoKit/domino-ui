@@ -43,8 +43,6 @@ import org.dominokit.domino.ui.utils.LazyChild;
  *
  * @see BaseDominoElement
  * @see Carousel
- * @author vegegoku
- * @version $Id: $Id
  */
 public class Slide extends BaseDominoElement<HTMLDivElement, Slide> {
 

@@ -20,12 +20,7 @@ import static java.util.Objects.nonNull;
 import elemental2.dom.HTMLInputElement;
 import org.dominokit.domino.ui.utils.DominoElement;
 
-/**
- * Abstract BaseTextBox class.
- *
- * @author vegegoku
- * @version $Id: $Id
- */
+/** Abstract BaseTextBox class. */
 public abstract class BaseTextBox<T extends BaseTextBox<T>>
     extends TextInputFormField<T, HTMLInputElement, String> {
 

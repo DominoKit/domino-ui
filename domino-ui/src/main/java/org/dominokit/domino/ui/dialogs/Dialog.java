@@ -15,12 +15,7 @@
  */
 package org.dominokit.domino.ui.dialogs;
 
-/**
- * Dialog class.
- *
- * @author vegegoku
- * @version $Id: $Id
- */
+/** Dialog class. */
 public class Dialog extends AbstractDialog<Dialog> {
   /** Constructor for Dialog. */
   public Dialog() {}

@@ -35,8 +35,6 @@ import org.dominokit.domino.ui.utils.*;
  * @param <T> the type of the value object inside the item
  * @see ListGroup
  * @see BaseDominoElement
- * @author vegegoku
- * @version $Id: $Id
  */
 public class ListItem<T> extends BaseDominoElement<HTMLLIElement, ListItem<T>>
     implements Selectable<ListItem<T>>,

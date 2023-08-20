@@ -45,8 +45,6 @@ import org.dominokit.domino.ui.utils.PostfixAddOn;
  * org.dominokit.domino.ui.datatable.plugins.header.HeaderActionElement}(s) to it
  *
  * @param <T> the type of the data table records
- * @author vegegoku
- * @version $Id: $Id
  */
 public class HeaderBarPlugin<T> implements DataTablePlugin<T> {
 

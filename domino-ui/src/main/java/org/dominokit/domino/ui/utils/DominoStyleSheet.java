@@ -25,12 +25,7 @@ import java.util.Map;
 import java.util.Optional;
 import jsinterop.base.Js;
 
-/**
- * DominoStyleSheet class.
- *
- * @author vegegoku
- * @version $Id: $Id
- */
+/** DominoStyleSheet class. */
 public class DominoStyleSheet {
 
   private Map<String, DominoCSSRule> cssRules = new HashMap<>();

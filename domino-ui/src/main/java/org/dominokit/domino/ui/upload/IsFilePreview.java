@@ -19,12 +19,7 @@ import elemental2.dom.HTMLElement;
 import org.dominokit.domino.ui.IsElement;
 import org.dominokit.domino.ui.utils.ChildHandler;
 
-/**
- * IsFilePreview interface.
- *
- * @author vegegoku
- * @version $Id: $Id
- */
+/** IsFilePreview interface. */
 public interface IsFilePreview<T> extends IsElement<HTMLElement> {
   /**
    * onUploadFailed.

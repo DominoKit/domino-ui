@@ -17,12 +17,7 @@ package org.dominokit.domino.ui.elements;
 
 import elemental2.dom.HTMLOutputElement;
 
-/**
- * OutputElement class.
- *
- * @author vegegoku
- * @version $Id: $Id
- */
+/** OutputElement class. */
 public class OutputElement extends BaseElement<HTMLOutputElement, OutputElement> {
   /**
    * of.

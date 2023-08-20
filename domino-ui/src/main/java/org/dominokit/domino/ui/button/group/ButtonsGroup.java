@@ -29,9 +29,6 @@ import org.dominokit.domino.ui.utils.BaseDominoElement;
  *
  * <p>This component wraps a set of different Buttons into one group the grouped buttons can be
  * aligned horizontally or vertically and the group can apply some properties to all grouped button
- *
- * @author vegegoku
- * @version $Id: $Id
  */
 public class ButtonsGroup extends BaseDominoElement<HTMLElement, ButtonsGroup> {
 

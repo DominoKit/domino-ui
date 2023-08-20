@@ -15,12 +15,7 @@
  */
 package org.dominokit.domino.ui.i18n;
 
-/**
- * FormsLabels interface.
- *
- * @author vegegoku
- * @version $Id: $Id
- */
+/** FormsLabels interface. */
 public interface FormsLabels extends Labels {
 
   /**

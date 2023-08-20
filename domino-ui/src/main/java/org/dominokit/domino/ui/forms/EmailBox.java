@@ -25,8 +25,6 @@ import org.dominokit.domino.ui.elements.OptionElement;
  *
  * @see <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/email">Email input
  *     on MDN</a>
- * @author vegegoku
- * @version $Id: $Id
  */
 public class EmailBox extends BaseTextBox<EmailBox> implements HasInputDataList<EmailBox> {
 

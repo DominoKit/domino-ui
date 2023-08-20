@@ -17,12 +17,7 @@ package org.dominokit.domino.ui.elements;
 
 import elemental2.dom.HTMLOptionElement;
 
-/**
- * OptionElement class.
- *
- * @author vegegoku
- * @version $Id: $Id
- */
+/** OptionElement class. */
 public class OptionElement extends BaseElement<HTMLOptionElement, OptionElement> {
   /**
    * of.

@@ -22,9 +22,6 @@ import java.util.Map;
  * Defines draggable elements.
  *
  * <p>Each drag source has a list of draggable elements (i.e. can be dragged and dropped)
- *
- * @author vegegoku
- * @version $Id: $Id
  */
 public class DragSource {
 

@@ -15,12 +15,7 @@
  */
 package org.dominokit.domino.ui.config;
 
-/**
- * SearchConfig interface.
- *
- * @author vegegoku
- * @version $Id: $Id
- */
+/** SearchConfig interface. */
 public interface SearchConfig extends ComponentConfig {
 
   /**

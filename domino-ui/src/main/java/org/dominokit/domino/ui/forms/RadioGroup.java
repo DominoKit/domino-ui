@@ -31,8 +31,6 @@ import org.dominokit.domino.ui.utils.ChildHandler;
  * only one Radio can be checked from this radio group.
  *
  * @param <T> The type of the RadioGroup value
- * @author vegegoku
- * @version $Id: $Id
  */
 public class RadioGroup<T> extends AbstractFormElement<RadioGroup<T>, T> {
 

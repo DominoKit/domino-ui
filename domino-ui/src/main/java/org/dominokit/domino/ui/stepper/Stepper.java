@@ -25,12 +25,7 @@ import org.dominokit.domino.ui.elements.DivElement;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
 import org.dominokit.domino.ui.utils.ChildHandler;
 
-/**
- * Stepper class.
- *
- * @author vegegoku
- * @version $Id: $Id
- */
+/** Stepper class. */
 public class Stepper extends BaseDominoElement<HTMLDivElement, Stepper>
     implements StepperStyles, HasComponentConfig<StepperConfig> {
   private final DivElement root;

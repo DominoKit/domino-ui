@@ -37,9 +37,6 @@ import org.gwtproject.timer.client.Timer;
  *
  * <p>also the component provide callback and a type ahead delay, and provides a close button to
  * hide the component </pre>
- *
- * @author vegegoku
- * @version $Id: $Id
  */
 public class Search extends BaseDominoElement<HTMLDivElement, Search>
     implements HasLabels<SearchLabels>, SearchStyles {

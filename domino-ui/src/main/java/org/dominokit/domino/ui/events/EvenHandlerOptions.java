@@ -15,10 +15,5 @@
  */
 package org.dominokit.domino.ui.events;
 
-/**
- * EvenHandlerOptions interface.
- *
- * @author vegegoku
- * @version $Id: $Id
- */
+/** EvenHandlerOptions interface. */
 public interface EvenHandlerOptions {}

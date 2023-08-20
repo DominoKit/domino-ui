@@ -41,8 +41,6 @@ import org.gwtproject.timer.client.Timer;
  *
  * @see BaseDominoElement
  * @see CarouselStyles
- * @author vegegoku
- * @version $Id: $Id
  */
 public class Carousel extends BaseDominoElement<HTMLDivElement, Carousel> {
   /** Constant <code>NEXT="next"</code> */

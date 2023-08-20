@@ -17,12 +17,7 @@ package org.dominokit.domino.ui.elements;
 
 import elemental2.dom.HTMLScriptElement;
 
-/**
- * ScriptElement class.
- *
- * @author vegegoku
- * @version $Id: $Id
- */
+/** ScriptElement class. */
 public class ScriptElement extends BaseElement<HTMLScriptElement, ScriptElement> {
   /**
    * of.

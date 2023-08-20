@@ -18,12 +18,7 @@ package org.dominokit.domino.ui.utils;
 import elemental2.dom.Element;
 import org.dominokit.domino.ui.IsElement;
 
-/**
- * SubheaderAddon class.
- *
- * @author vegegoku
- * @version $Id: $Id
- */
+/** SubheaderAddon class. */
 public class SubheaderAddon<T extends Element> extends BaseDominoElement<T, SubheaderAddon<T>> {
 
   private DominoElement<T> element;

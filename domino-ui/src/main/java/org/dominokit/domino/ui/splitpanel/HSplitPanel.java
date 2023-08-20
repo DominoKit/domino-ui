@@ -20,8 +20,6 @@ package org.dominokit.domino.ui.splitpanel;
  *
  * @see BaseSplitPanel
  * @see HasSplitPanels
- * @author vegegoku
- * @version $Id: $Id
  */
 public class HSplitPanel extends BaseSplitPanel<HSplitPanel, HSplitter>
     implements HasSplitPanels, SplitStyles {

@@ -19,12 +19,7 @@ import elemental2.dom.Node;
 import org.dominokit.domino.ui.events.HasDefaultEventOptions;
 import org.dominokit.domino.ui.utils.LazyInitializer;
 
-/**
- * KeyboardEvents class.
- *
- * @author vegegoku
- * @version $Id: $Id
- */
+/** KeyboardEvents class. */
 public class KeyboardEvents<T extends Node>
     implements HasDefaultEventOptions<KeyboardEventOptions> {
 

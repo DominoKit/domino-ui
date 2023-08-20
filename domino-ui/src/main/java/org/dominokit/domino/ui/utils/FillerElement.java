@@ -18,12 +18,7 @@ package org.dominokit.domino.ui.utils;
 import elemental2.dom.HTMLElement;
 import org.dominokit.domino.ui.elements.SpanElement;
 
-/**
- * FillerElement class.
- *
- * @author vegegoku
- * @version $Id: $Id
- */
+/** FillerElement class. */
 public class FillerElement extends BaseDominoElement<HTMLElement, FillerElement> {
 
   private SpanElement element;

@@ -28,9 +28,6 @@ import org.dominokit.domino.ui.utils.DominoElement;
  *
  * <p>Each drop zone has a list of drop targets that accept drop event. Each drop target has a
  * listener that will be called when a drop event happens passing the id of the element
- *
- * @author vegegoku
- * @version $Id: $Id
  */
 public class DropZone {
 

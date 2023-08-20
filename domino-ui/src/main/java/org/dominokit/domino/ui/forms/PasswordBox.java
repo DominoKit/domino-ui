@@ -15,12 +15,7 @@
  */
 package org.dominokit.domino.ui.forms;
 
-/**
- * PasswordBox class.
- *
- * @author vegegoku
- * @version $Id: $Id
- */
+/** PasswordBox class. */
 public class PasswordBox extends BaseTextBox<PasswordBox> {
 
   /**

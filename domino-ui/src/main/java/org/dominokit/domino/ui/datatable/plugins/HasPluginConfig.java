@@ -17,12 +17,7 @@ package org.dominokit.domino.ui.datatable.plugins;
 
 import java.util.function.Consumer;
 
-/**
- * HasPluginConfig interface.
- *
- * @author vegegoku
- * @version $Id: $Id
- */
+/** HasPluginConfig interface. */
 public interface HasPluginConfig<R, T extends DataTablePlugin<R>, C extends PluginConfig> {
 
   /**

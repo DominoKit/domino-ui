@@ -22,12 +22,7 @@ import org.dominokit.domino.ui.datatable.DataTable;
 import org.dominokit.domino.ui.datatable.TableRow;
 import org.dominokit.domino.ui.utils.ComponentMeta;
 
-/**
- * TreeStateMeta class.
- *
- * @author vegegoku
- * @version $Id: $Id
- */
+/** TreeStateMeta class. */
 public class TreeStateMeta<T> implements ComponentMeta {
 
   /** Constant <code>TREE_STATE_TABLE_META="tree-state-table-meta"</code> */

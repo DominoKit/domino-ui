@@ -21,12 +21,7 @@ import elemental2.dom.*;
 import java.util.Date;
 import jsinterop.base.Js;
 
-/**
- * A utility class to register swap events listeners on elements
- *
- * @author vegegoku
- * @version $Id: $Id
- */
+/** A utility class to register swap events listeners on elements */
 public class SwipeUtil {
 
   /**

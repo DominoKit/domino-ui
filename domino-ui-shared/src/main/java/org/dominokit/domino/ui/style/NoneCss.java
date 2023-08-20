@@ -18,12 +18,7 @@ package org.dominokit.domino.ui.style;
 import elemental2.dom.Element;
 import org.dominokit.domino.ui.IsElement;
 
-/**
- * NoneCss class.
- *
- * @author vegegoku
- * @version $Id: $Id
- */
+/** NoneCss class. */
 public class NoneCss implements CssClass {
   /** {@inheritDoc} */
   @Override

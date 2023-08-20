@@ -25,8 +25,6 @@ import org.dominokit.domino.ui.datatable.events.TableEventListener;
  * org.dominokit.domino.ui.datatable.plugins.header.HeaderBarPlugin}
  *
  * @param <T> the type of the data table records
- * @author vegegoku
- * @version $Id: $Id
  */
 public interface HeaderActionElement<T> extends TableEventListener {
   /**

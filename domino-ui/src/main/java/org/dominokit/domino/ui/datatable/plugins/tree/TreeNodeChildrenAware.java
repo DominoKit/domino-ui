@@ -15,12 +15,7 @@
  */
 package org.dominokit.domino.ui.datatable.plugins.tree;
 
-/**
- * TreeNodeChildrenAware interface.
- *
- * @author vegegoku
- * @version $Id: $Id
- */
+/** TreeNodeChildrenAware interface. */
 public interface TreeNodeChildrenAware<T> {
   /**
    * hasChildren.

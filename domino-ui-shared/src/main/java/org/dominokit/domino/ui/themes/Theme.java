@@ -23,12 +23,7 @@ import java.util.List;
 import org.dominokit.domino.ui.style.ColorScheme;
 import org.dominokit.domino.ui.style.Style;
 
-/**
- * Theme class.
- *
- * @author vegegoku
- * @version $Id: $Id
- */
+/** Theme class. */
 public class Theme {
 
   private static List<ThemeChangeHandler> themeChangeHandlers = new ArrayList<>();

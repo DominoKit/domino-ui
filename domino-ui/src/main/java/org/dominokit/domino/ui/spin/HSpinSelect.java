@@ -24,8 +24,6 @@ import org.dominokit.domino.ui.utils.SwipeUtil;
  * A component provides horizontal spin
  *
  * @param <T> the type of the object inside the spin
- * @author vegegoku
- * @version $Id: $Id
  */
 public class HSpinSelect<T> extends SpinSelect<T, HSpinSelect<T>> {
 

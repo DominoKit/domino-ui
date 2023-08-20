@@ -15,12 +15,7 @@
  */
 package org.dominokit.domino.ui.forms;
 
-/**
- * TextBox class.
- *
- * @author vegegoku
- * @version $Id: $Id
- */
+/** TextBox class. */
 public class TextBox extends BaseTextBox<TextBox> {
 
   /**

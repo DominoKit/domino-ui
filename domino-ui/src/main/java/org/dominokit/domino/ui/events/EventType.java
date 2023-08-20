@@ -20,8 +20,6 @@ package org.dominokit.domino.ui.events;
  *
  * @see <a
  *     href="https://developer.mozilla.org/en-US/docs/Web/Events">https://developer.mozilla.org/en-US/docs/Web/Events</a>
- * @author vegegoku
- * @version $Id: $Id
  */
 public interface EventType {
 

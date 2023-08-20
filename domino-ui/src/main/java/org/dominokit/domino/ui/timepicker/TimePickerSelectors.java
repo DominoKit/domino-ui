@@ -27,12 +27,7 @@ import org.dominokit.domino.ui.menu.AbstractMenuItem;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
 import org.dominokit.domino.ui.utils.ChildHandler;
 
-/**
- * TimePickerSelectors class.
- *
- * @author vegegoku
- * @version $Id: $Id
- */
+/** TimePickerSelectors class. */
 public class TimePickerSelectors extends BaseDominoElement<HTMLDivElement, TimePickerSelectors>
     implements TimePickerStyles, TimePickerViewListener {
 

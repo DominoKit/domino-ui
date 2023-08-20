@@ -23,8 +23,6 @@ import java.util.List;
  * new data is applied
  *
  * @param <T> the type of the data records in the table
- * @author vegegoku
- * @version $Id: $Id
  */
 public class OnBeforeDataChangeEvent<T> implements TableEvent {
 

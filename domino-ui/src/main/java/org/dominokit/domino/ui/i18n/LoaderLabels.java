@@ -15,12 +15,7 @@
  */
 package org.dominokit.domino.ui.i18n;
 
-/**
- * LoaderLabels interface.
- *
- * @author vegegoku
- * @version $Id: $Id
- */
+/** LoaderLabels interface. */
 public interface LoaderLabels extends Labels {
 
   /**

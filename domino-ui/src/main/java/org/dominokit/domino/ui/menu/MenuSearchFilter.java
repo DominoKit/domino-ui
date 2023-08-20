@@ -15,12 +15,7 @@
  */
 package org.dominokit.domino.ui.menu;
 
-/**
- * MenuSearchFilter interface.
- *
- * @author vegegoku
- * @version $Id: $Id
- */
+/** MenuSearchFilter interface. */
 public interface MenuSearchFilter {
   /**
    * onSearch.

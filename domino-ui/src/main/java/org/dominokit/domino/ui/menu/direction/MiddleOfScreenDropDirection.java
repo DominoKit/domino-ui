@@ -24,12 +24,7 @@ import elemental2.dom.DOMRect;
 import elemental2.dom.Element;
 import org.dominokit.domino.ui.style.Style;
 
-/**
- * MiddleOfScreenDropDirection class.
- *
- * @author vegegoku
- * @version $Id: $Id
- */
+/** MiddleOfScreenDropDirection class. */
 public class MiddleOfScreenDropDirection implements DropDirection {
   /** {@inheritDoc} */
   @Override

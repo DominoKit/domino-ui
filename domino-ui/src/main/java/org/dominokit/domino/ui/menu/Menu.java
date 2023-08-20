@@ -55,8 +55,6 @@ import org.dominokit.domino.ui.utils.*;
  * The base component to create a menu like UI.
  *
  * @param <V> The type of the menu items value
- * @author vegegoku
- * @version $Id: $Id
  */
 public class Menu<V> extends BaseDominoElement<HTMLDivElement, Menu<V>>
     implements HasSelectionListeners<Menu<V>, AbstractMenuItem<V>, List<AbstractMenuItem<V>>>,

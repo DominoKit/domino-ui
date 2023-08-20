@@ -19,12 +19,7 @@ import org.dominokit.domino.ui.style.CompositeCssClass;
 import org.dominokit.domino.ui.style.CssClass;
 import org.dominokit.domino.ui.style.ReplaceCssClass;
 
-/**
- * Constants for dialogs css classes names
- *
- * @author vegegoku
- * @version $Id: $Id
- */
+/** Constants for dialogs css classes names */
 public interface DialogStyles {
 
   /** Constant <code>dui_modal</code> */

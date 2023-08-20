@@ -18,12 +18,7 @@ package org.dominokit.domino.ui.tree;
 import org.dominokit.domino.ui.icons.MdiIcon;
 import org.dominokit.domino.ui.icons.StateChangeMdiIcon;
 
-/**
- * TreeItemIcon class.
- *
- * @author vegegoku
- * @version $Id: $Id
- */
+/** TreeItemIcon class. */
 public class TreeItemIcon {
 
   /** Constant <code>STATE_COLLAPSED="dui-tree-collapsed"</code> */

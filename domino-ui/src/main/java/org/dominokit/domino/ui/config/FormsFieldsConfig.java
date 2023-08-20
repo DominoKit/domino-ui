@@ -28,12 +28,7 @@ import org.dominokit.domino.ui.forms.IntegerBox;
 import org.dominokit.domino.ui.forms.LongBox;
 import org.dominokit.domino.ui.forms.ShortBox;
 
-/**
- * FormsFieldsConfig interface.
- *
- * @author vegegoku
- * @version $Id: $Id
- */
+/** FormsFieldsConfig interface. */
 public interface FormsFieldsConfig extends ComponentConfig, CalendarConfig {
 
   /**

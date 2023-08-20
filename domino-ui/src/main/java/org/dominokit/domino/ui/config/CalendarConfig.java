@@ -19,12 +19,7 @@ import java.util.function.Supplier;
 import org.dominokit.domino.ui.icons.Icon;
 import org.dominokit.domino.ui.icons.lib.Icons;
 
-/**
- * CalendarConfig interface.
- *
- * @author vegegoku
- * @version $Id: $Id
- */
+/** CalendarConfig interface. */
 public interface CalendarConfig extends ComponentConfig {
 
   /**

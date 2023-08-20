@@ -17,12 +17,7 @@ package org.dominokit.domino.ui.forms;
 
 import java.util.function.Function;
 
-/**
- * A component that has an input to take/provide Double value
- *
- * @author vegegoku
- * @version $Id: $Id
- */
+/** A component that has an input to take/provide Double value */
 public class DoubleBox extends NumberBox<DoubleBox, Double> {
 
   /** @return a new instance without a label */

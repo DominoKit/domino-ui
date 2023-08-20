@@ -25,12 +25,7 @@ import org.dominokit.domino.ui.elements.OptionElement;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
 import org.dominokit.domino.ui.utils.DominoId;
 
-/**
- * HasInputDataList interface.
- *
- * @author vegegoku
- * @version $Id: $Id
- */
+/** HasInputDataList interface. */
 public interface HasInputDataList<T extends HasInputElement<?, ?>> {
 
   /**

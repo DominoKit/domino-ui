@@ -17,12 +17,7 @@ package org.dominokit.domino.ui.elements;
 
 import elemental2.dom.HTMLTableSectionElement;
 
-/**
- * TFootElement class.
- *
- * @author vegegoku
- * @version $Id: $Id
- */
+/** TFootElement class. */
 public class TFootElement extends BaseElement<HTMLTableSectionElement, TFootElement> {
   /**
    * of.

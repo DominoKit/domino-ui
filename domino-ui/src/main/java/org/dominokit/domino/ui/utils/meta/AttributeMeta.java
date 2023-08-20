@@ -19,12 +19,7 @@ import java.util.Optional;
 import org.dominokit.domino.ui.utils.ComponentMeta;
 import org.dominokit.domino.ui.utils.HasMeta;
 
-/**
- * AttributeMeta class.
- *
- * @author vegegoku
- * @version $Id: $Id
- */
+/** AttributeMeta class. */
 public class AttributeMeta<T> implements ComponentMeta {
 
   private String key;

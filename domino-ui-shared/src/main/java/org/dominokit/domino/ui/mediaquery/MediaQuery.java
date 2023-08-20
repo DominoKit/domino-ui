@@ -48,9 +48,6 @@ import jsinterop.base.Js;
  *   <li>{@code min-width} is between 768px and 992px, the size is small
  *   <li>{@code min-width} is less than 768px, the size is X small
  * </ul>
- *
- * @author vegegoku
- * @version $Id: $Id
  */
 public class MediaQuery {
 

@@ -22,8 +22,6 @@ import org.dominokit.domino.ui.datatable.events.SearchEvent;
  * org.dominokit.domino.ui.datatable.store.LocalListDataStore} records
  *
  * @param <T> the type of the datatable records
- * @author vegegoku
- * @version $Id: $Id
  */
 @FunctionalInterface
 public interface SearchFilter<T> {

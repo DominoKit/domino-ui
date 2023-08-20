@@ -20,12 +20,7 @@ import java.util.List;
 import java.util.Optional;
 import org.dominokit.domino.ui.utils.ComponentMeta;
 
-/**
- * ColumnHeaderMeta class.
- *
- * @author vegegoku
- * @version $Id: $Id
- */
+/** ColumnHeaderMeta class. */
 public class ColumnHeaderMeta implements ComponentMeta {
 
   /** Constant <code>DOMINO_COLUMN_HEADER_META="domino-column-header-meta"</code> */

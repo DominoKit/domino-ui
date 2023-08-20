@@ -20,12 +20,7 @@ import org.dominokit.domino.ui.collapsible.CollapseStrategy;
 import org.dominokit.domino.ui.collapsible.TreeHeightCollapseStrategy;
 import org.dominokit.domino.ui.tree.TreeItem;
 
-/**
- * TreeConfig interface.
- *
- * @author vegegoku
- * @version $Id: $Id
- */
+/** TreeConfig interface. */
 public interface TreeConfig extends ComponentConfig {
 
   /**

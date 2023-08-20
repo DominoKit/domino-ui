@@ -17,12 +17,7 @@ package org.dominokit.domino.ui.utils;
 
 import elemental2.core.JsDate;
 
-/**
- * DominoId class.
- *
- * @author vegegoku
- * @version $Id: $Id
- */
+/** DominoId class. */
 public class DominoId {
 
   private static final String DEFAULT_PREFIX = "dui-";

@@ -17,12 +17,7 @@ package org.dominokit.domino.ui.elements;
 
 import elemental2.svg.SVGLineElement;
 
-/**
- * LineElement class.
- *
- * @author vegegoku
- * @version $Id: $Id
- */
+/** LineElement class. */
 public class LineElement extends BaseElement<SVGLineElement, LineElement> {
   /**
    * of.

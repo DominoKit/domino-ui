@@ -18,12 +18,7 @@ package org.dominokit.domino.ui.style;
 import static org.dominokit.domino.ui.style.ColorsCss.*;
 import static org.dominokit.domino.ui.style.GenericCss.*;
 
-/**
- * Color interface.
- *
- * @author vegegoku
- * @version $Id: $Id
- */
+/** Color interface. */
 public interface Color {
 
   /**

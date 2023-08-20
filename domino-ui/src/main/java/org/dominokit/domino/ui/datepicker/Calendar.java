@@ -28,12 +28,7 @@ import org.dominokit.domino.ui.utils.LazyChild;
 import org.gwtproject.i18n.shared.cldr.DateTimeFormatInfo;
 import org.gwtproject.i18n.shared.cldr.impl.DateTimeFormatInfo_factory;
 
-/**
- * Calendar class.
- *
- * @author vegegoku
- * @version $Id: $Id
- */
+/** Calendar class. */
 public class Calendar extends BaseDominoElement<HTMLDivElement, Calendar>
     implements CalendarStyles, IsCalendar, HasChangeListeners<Calendar, Date> {
 

@@ -17,12 +17,7 @@ package org.dominokit.domino.ui.elements;
 
 import elemental2.dom.HTMLTableColElement;
 
-/**
- * ColGroupElement class.
- *
- * @author vegegoku
- * @version $Id: $Id
- */
+/** ColGroupElement class. */
 public class ColGroupElement extends BaseElement<HTMLTableColElement, ColGroupElement> {
   /**
    * of.

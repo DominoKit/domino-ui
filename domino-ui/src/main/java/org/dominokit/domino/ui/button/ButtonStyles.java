@@ -17,12 +17,7 @@ package org.dominokit.domino.ui.button;
 
 import org.dominokit.domino.ui.style.CssClass;
 
-/**
- * A constants class to reference css classes used in Button components
- *
- * @author vegegoku
- * @version $Id: $Id
- */
+/** A constants class to reference css classes used in Button components */
 public interface ButtonStyles {
   /** Constant <code>dui_button</code> */
   CssClass dui_button = () -> "dui-btn";

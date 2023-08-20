@@ -15,10 +15,5 @@
  */
 package org.dominokit.domino.ui.config;
 
-/**
- * ComponentConfig interface.
- *
- * @author vegegoku
- * @version $Id: $Id
- */
+/** ComponentConfig interface. */
 public interface ComponentConfig {}

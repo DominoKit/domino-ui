@@ -27,9 +27,6 @@ import org.dominokit.domino.ui.elements.SpanElement;
 /**
  * An implementation og the {@link org.dominokit.domino.ui.menu.AbstractMenuItem} for a menu item
  * that can have a main text and a description {@inheritDoc}
- *
- * @author vegegoku
- * @version $Id: $Id
  */
 public class MenuItem<V> extends AbstractMenuItem<V> {
 

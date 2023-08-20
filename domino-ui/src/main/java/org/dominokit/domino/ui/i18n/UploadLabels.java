@@ -15,12 +15,7 @@
  */
 package org.dominokit.domino.ui.i18n;
 
-/**
- * UploadLabels interface.
- *
- * @author vegegoku
- * @version $Id: $Id
- */
+/** UploadLabels interface. */
 public interface UploadLabels extends Labels {
 
   /**

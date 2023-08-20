@@ -20,12 +20,7 @@ import org.dominokit.domino.ui.datepicker.DateFormatter;
 import org.gwtproject.i18n.shared.DateTimeFormat;
 import org.gwtproject.i18n.shared.cldr.DateTimeFormatInfo;
 
-/**
- * TimeFormatter interface.
- *
- * @author vegegoku
- * @version $Id: $Id
- */
+/** TimeFormatter interface. */
 public interface TimeFormatter {
 
   /** Constant <code>DEFAULT</code> */

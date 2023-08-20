@@ -17,12 +17,7 @@ package org.dominokit.domino.ui;
 
 import elemental2.dom.Element;
 
-/**
- * IsElement interface.
- *
- * @author vegegoku
- * @version $Id: $Id
- */
+/** IsElement interface. */
 public interface IsElement<E extends Element> {
   /**
    * element.

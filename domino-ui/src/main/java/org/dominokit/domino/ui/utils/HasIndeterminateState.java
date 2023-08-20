@@ -15,12 +15,7 @@
  */
 package org.dominokit.domino.ui.utils;
 
-/**
- * HasIndeterminateState interface.
- *
- * @author vegegoku
- * @version $Id: $Id
- */
+/** HasIndeterminateState interface. */
 public interface HasIndeterminateState<T> {
 
   /**

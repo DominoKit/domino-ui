@@ -18,12 +18,7 @@ package org.dominokit.domino.ui.config;
 import org.dominokit.domino.ui.dialogs.DefaultZIndexManager;
 import org.dominokit.domino.ui.dialogs.ZIndexManager;
 
-/**
- * ZIndexConfig interface.
- *
- * @author vegegoku
- * @version $Id: $Id
- */
+/** ZIndexConfig interface. */
 public interface ZIndexConfig extends ComponentConfig {
 
   /**

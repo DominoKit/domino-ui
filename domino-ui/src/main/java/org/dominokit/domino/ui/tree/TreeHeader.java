@@ -27,12 +27,7 @@ import org.dominokit.domino.ui.utils.ChildHandler;
 import org.dominokit.domino.ui.utils.LazyChild;
 import org.dominokit.domino.ui.utils.PostfixAddOn;
 
-/**
- * TreeHeader class.
- *
- * @author vegegoku
- * @version $Id: $Id
- */
+/** TreeHeader class. */
 public class TreeHeader extends BaseDominoElement<HTMLDivElement, TreeHeader>
     implements TreeStyles {
 

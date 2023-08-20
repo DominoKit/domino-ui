@@ -15,12 +15,7 @@
  */
 package org.dominokit.domino.ui.style;
 
-/**
- * WavesStyles interface.
- *
- * @author vegegoku
- * @version $Id: $Id
- */
+/** WavesStyles interface. */
 public interface WavesStyles {
   /** Constant <code>dui_waves_float</code> */
   CssClass dui_waves_float = () -> "dui-waves-float";

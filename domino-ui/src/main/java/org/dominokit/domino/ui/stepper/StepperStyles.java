@@ -17,12 +17,7 @@ package org.dominokit.domino.ui.stepper;
 
 import org.dominokit.domino.ui.style.CssClass;
 
-/**
- * A constants class for Steppers css classes names
- *
- * @author vegegoku
- * @version $Id: $Id
- */
+/** A constants class for Steppers css classes names */
 public interface StepperStyles {
 
   /** Constant <code>dui_stepper</code> */

@@ -15,12 +15,7 @@
  */
 package org.dominokit.domino.ui.utils;
 
-/**
- * HasAttributes interface.
- *
- * @author vegegoku
- * @version $Id: $Id
- */
+/** HasAttributes interface. */
 public interface HasAttributes<T> {
   /**
    * setAttribute.

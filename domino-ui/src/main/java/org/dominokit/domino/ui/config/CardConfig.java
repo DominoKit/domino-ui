@@ -22,12 +22,7 @@ import org.dominokit.domino.ui.icons.ToggleIcon;
 import org.dominokit.domino.ui.icons.ToggleMdiIcon;
 import org.dominokit.domino.ui.icons.lib.Icons;
 
-/**
- * CardConfig interface.
- *
- * @author vegegoku
- * @version $Id: $Id
- */
+/** CardConfig interface. */
 public interface CardConfig extends ComponentConfig {
 
   /**

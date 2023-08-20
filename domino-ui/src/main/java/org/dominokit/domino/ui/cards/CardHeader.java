@@ -26,12 +26,7 @@ import org.dominokit.domino.ui.elements.SmallElement;
 import org.dominokit.domino.ui.icons.Icon;
 import org.dominokit.domino.ui.utils.*;
 
-/**
- * CardHeader class.
- *
- * @author vegegoku
- * @version $Id: $Id
- */
+/** CardHeader class. */
 public class CardHeader extends BaseDominoElement<HTMLDivElement, CardHeader> {
 
   private DivElement element;

@@ -109,12 +109,7 @@ import org.dominokit.domino.ui.elements.VarElement;
 import org.dominokit.domino.ui.elements.VideoElement;
 import org.dominokit.domino.ui.elements.WBRElement;
 
-/**
- * ElementsFactory interface.
- *
- * @author vegegoku
- * @version $Id: $Id
- */
+/** ElementsFactory interface. */
 public interface ElementsFactory {
 
   /** Constant <code>elements</code> */

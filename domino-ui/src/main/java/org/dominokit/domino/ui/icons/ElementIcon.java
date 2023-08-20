@@ -20,12 +20,7 @@ import org.dominokit.domino.ui.IsElement;
 import org.dominokit.domino.ui.style.CssClass;
 import org.dominokit.domino.ui.style.SwapCssClass;
 
-/**
- * Url icon implementation
- *
- * @author vegegoku
- * @version $Id: $Id
- */
+/** Url icon implementation */
 public class ElementIcon extends Icon<ElementIcon> implements CanChangeIcon<ElementIcon> {
 
   private final IsElement<? extends HTMLElement> element;

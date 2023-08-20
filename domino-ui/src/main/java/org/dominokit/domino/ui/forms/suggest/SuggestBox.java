@@ -20,12 +20,7 @@ import static java.util.Objects.nonNull;
 import java.util.Objects;
 import org.dominokit.domino.ui.IsElement;
 
-/**
- * SuggestBox class.
- *
- * @author vegegoku
- * @version $Id: $Id
- */
+/** SuggestBox class. */
 public class SuggestBox<V, E extends IsElement<?>, O extends Option<V, E, O>>
     extends AbstractSuggestBox<V, V, E, O, SuggestBox<V, E, O>> {
 

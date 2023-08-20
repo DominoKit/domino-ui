@@ -25,12 +25,7 @@ import org.dominokit.domino.ui.events.EventType;
 import org.gwtproject.i18n.shared.cldr.LocaleInfo;
 import org.gwtproject.i18n.shared.cldr.NumberConstants;
 
-/**
- * A general purpose utility class
- *
- * @author vegegoku
- * @version $Id: $Id
- */
+/** A general purpose utility class */
 public class ElementUtil {
 
   /** The default {@link NumberConstants} to format numbers */

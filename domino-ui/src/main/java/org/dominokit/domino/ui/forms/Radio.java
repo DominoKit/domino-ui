@@ -35,8 +35,6 @@ import org.gwtproject.safehtml.shared.SafeHtml;
  * A component that represent a single option in a {@link org.dominokit.domino.ui.forms.RadioGroup}
  *
  * @param <T> The type fo the radio value
- * @author vegegoku
- * @version $Id: $Id
  */
 public class Radio<T> extends BaseDominoElement<HTMLDivElement, Radio<T>>
     implements HasType,

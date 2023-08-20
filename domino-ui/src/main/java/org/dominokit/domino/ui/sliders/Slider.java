@@ -41,9 +41,6 @@ import org.dominokit.domino.ui.utils.HasChangeListeners;
 /**
  * A component with min/max value and its value can be changed by sliding a pointer through the
  * component </pre>
- *
- * @author vegegoku
- * @version $Id: $Id
  */
 public class Slider extends BaseDominoElement<HTMLDivElement, Slider>
     implements HasChangeListeners<Slider, Double>, SliderStyles {

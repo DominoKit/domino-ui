@@ -15,12 +15,7 @@
  */
 package org.dominokit.domino.ui.keyboard;
 
-/**
- * KeyEventsConsumer interface.
- *
- * @author vegegoku
- * @version $Id: $Id
- */
+/** KeyEventsConsumer interface. */
 @FunctionalInterface
 public interface KeyEventsConsumer {
 

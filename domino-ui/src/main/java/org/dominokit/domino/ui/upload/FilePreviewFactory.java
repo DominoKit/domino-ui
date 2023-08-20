@@ -15,12 +15,7 @@
  */
 package org.dominokit.domino.ui.upload;
 
-/**
- * FilePreviewFactory interface.
- *
- * @author vegegoku
- * @version $Id: $Id
- */
+/** FilePreviewFactory interface. */
 public interface FilePreviewFactory {
   /** Constant <code>UNITS</code> */
   String[] UNITS = {"KB", "MB", "GB", "TB"};

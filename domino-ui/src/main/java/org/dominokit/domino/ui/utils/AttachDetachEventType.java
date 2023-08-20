@@ -15,12 +15,7 @@
  */
 package org.dominokit.domino.ui.utils;
 
-/**
- * AttachDetachEventType class.
- *
- * @author vegegoku
- * @version $Id: $Id
- */
+/** AttachDetachEventType class. */
 public class AttachDetachEventType {
 
   /**

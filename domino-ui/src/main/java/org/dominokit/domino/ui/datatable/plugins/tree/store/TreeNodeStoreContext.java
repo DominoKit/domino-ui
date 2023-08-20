@@ -18,12 +18,7 @@ package org.dominokit.domino.ui.datatable.plugins.tree.store;
 import org.dominokit.domino.ui.datatable.events.SearchEvent;
 import org.dominokit.domino.ui.datatable.events.SortEvent;
 
-/**
- * TreeNodeStoreContext class.
- *
- * @author vegegoku
- * @version $Id: $Id
- */
+/** TreeNodeStoreContext class. */
 public class TreeNodeStoreContext<T> {
 
   private final T parent;

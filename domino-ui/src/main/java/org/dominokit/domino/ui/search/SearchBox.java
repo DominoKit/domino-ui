@@ -38,12 +38,7 @@ import org.dominokit.domino.ui.utils.PostfixAddOn;
 import org.dominokit.domino.ui.utils.PrefixAddOn;
 import org.gwtproject.timer.client.Timer;
 
-/**
- * A simple search box that is triggered while the user is typing
- *
- * @author vegegoku
- * @version $Id: $Id
- */
+/** A simple search box that is triggered while the user is typing */
 public class SearchBox extends BaseDominoElement<HTMLDivElement, SearchBox>
     implements HasLabels<QuickSearchLabels>, HasComponentConfig<SearchConfig> {
 

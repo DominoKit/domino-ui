@@ -22,12 +22,7 @@ import elemental2.dom.HTMLElement;
 import elemental2.dom.HTMLStyleElement;
 import java.util.Optional;
 
-/**
- * DynamicStyleSheet class.
- *
- * @author vegegoku
- * @version $Id: $Id
- */
+/** DynamicStyleSheet class. */
 public class DynamicStyleSheet<E extends HTMLElement, D extends BaseDominoElement<E, D>> {
 
   private final String cssPrefix;

@@ -59,8 +59,6 @@ import org.dominokit.domino.ui.utils.TreeParent;
  * @see CanActivate
  * @see CanDeactivate
  * @see HasClickableElement
- * @author vegegoku
- * @version $Id: $Id
  */
 public class TreeItem<T> extends BaseDominoElement<HTMLLIElement, TreeItem<T>>
     implements TreeParent<T>,

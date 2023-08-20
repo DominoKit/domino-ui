@@ -17,12 +17,7 @@ package org.dominokit.domino.ui.elements;
 
 import elemental2.dom.HTMLElement;
 
-/**
- * AddressElement class.
- *
- * @author vegegoku
- * @version $Id: $Id
- */
+/** AddressElement class. */
 public class AddressElement extends BaseElement<HTMLElement, AddressElement> {
   /**
    * of.

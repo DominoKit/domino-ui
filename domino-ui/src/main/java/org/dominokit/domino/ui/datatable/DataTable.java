@@ -34,8 +34,6 @@ import org.dominokit.domino.ui.utils.*;
  * The data table component
  *
  * @param <T> the type of the data table records
- * @author vegegoku
- * @version $Id: $Id
  */
 public class DataTable<T> extends BaseDominoElement<HTMLDivElement, DataTable<T>>
     implements HasSelectionSupport<TableRow<T>>,

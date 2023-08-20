@@ -17,12 +17,7 @@ package org.dominokit.domino.ui.elements;
 
 import elemental2.dom.HTMLFieldSetElement;
 
-/**
- * FieldSetElement class.
- *
- * @author vegegoku
- * @version $Id: $Id
- */
+/** FieldSetElement class. */
 public class FieldSetElement extends BaseElement<HTMLFieldSetElement, FieldSetElement> {
   /**
    * of.

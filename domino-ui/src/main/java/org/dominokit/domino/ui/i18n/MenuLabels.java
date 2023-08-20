@@ -15,12 +15,7 @@
  */
 package org.dominokit.domino.ui.i18n;
 
-/**
- * MenuLabels interface.
- *
- * @author vegegoku
- * @version $Id: $Id
- */
+/** MenuLabels interface. */
 public interface MenuLabels extends Labels {
   /**
    * getCreateMissingLabel.

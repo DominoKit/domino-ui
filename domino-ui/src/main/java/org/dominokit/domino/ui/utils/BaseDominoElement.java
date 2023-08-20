@@ -83,8 +83,6 @@ import org.slf4j.LoggerFactory;
  * @param <E> The type of the HTML element of the component extending from this class
  * @param <T> The type of the component extending from this class
  * @see DominoElement
- * @author vegegoku
- * @version $Id: $Id
  */
 public abstract class BaseDominoElement<E extends Element, T extends IsElement<E>>
     implements IsElement<E>,

@@ -44,8 +44,6 @@ import org.dominokit.domino.ui.utils.BaseDominoElement;
  *
  * @see BaseDominoElement
  * @see Cloneable
- * @author vegegoku
- * @version $Id: $Id
  */
 public class Column extends BaseDominoElement<HTMLElement, Column>
     implements Cloneable, GridStyles {

@@ -15,12 +15,7 @@
  */
 package org.dominokit.domino.ui.style;
 
-/**
- * GenericCss interface.
- *
- * @author vegegoku
- * @version $Id: $Id
- */
+/** GenericCss interface. */
 public interface GenericCss {
   /** Constant <code>dui</code> */
   CssClass dui = () -> "dui";

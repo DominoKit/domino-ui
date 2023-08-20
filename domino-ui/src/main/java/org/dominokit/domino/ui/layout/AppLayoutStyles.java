@@ -17,12 +17,7 @@ package org.dominokit.domino.ui.layout;
 
 import org.dominokit.domino.ui.style.CssClass;
 
-/**
- * AppLayoutStyles interface.
- *
- * @author vegegoku
- * @version $Id: $Id
- */
+/** AppLayoutStyles interface. */
 public interface AppLayoutStyles {
 
   /** Constant <code>dui_layout</code> */

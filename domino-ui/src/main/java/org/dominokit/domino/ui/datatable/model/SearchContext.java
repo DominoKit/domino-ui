@@ -27,8 +27,6 @@ import org.dominokit.domino.ui.datatable.events.SearchEvent;
  * A class to represent the current search and filter state of the datatable
  *
  * @param <T> the type of data table records
- * @author vegegoku
- * @version $Id: $Id
  */
 public class SearchContext<T> {
 

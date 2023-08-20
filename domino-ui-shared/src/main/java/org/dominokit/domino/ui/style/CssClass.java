@@ -22,12 +22,7 @@ import java.util.Arrays;
 import java.util.Objects;
 import org.dominokit.domino.ui.IsElement;
 
-/**
- * CssClass interface.
- *
- * @author vegegoku
- * @version $Id: $Id
- */
+/** CssClass interface. */
 public interface CssClass {
 
   /** Constant <code>NONE</code> */

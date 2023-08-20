@@ -30,12 +30,7 @@ import org.dominokit.domino.ui.utils.ChildHandler;
 import org.dominokit.domino.ui.utils.FollowOnScroll;
 import org.dominokit.domino.ui.utils.IsPopup;
 
-/**
- * Abstract BasePopover class.
- *
- * @author vegegoku
- * @version $Id: $Id
- */
+/** Abstract BasePopover class. */
 public abstract class BasePopover<T extends BasePopover<T>>
     extends BaseDominoElement<HTMLDivElement, T>
     implements IsPopup<T>,

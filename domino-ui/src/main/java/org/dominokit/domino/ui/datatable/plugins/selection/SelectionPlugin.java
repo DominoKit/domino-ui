@@ -44,8 +44,6 @@ import org.dominokit.domino.ui.utils.Selectable;
  * selection.
  *
  * @param <T> the type of the data table records
- * @author vegegoku
- * @version $Id: $Id
  */
 public class SelectionPlugin<T> implements DataTablePlugin<T> {
   private Selectable<TableRow<T>> selectedRow;

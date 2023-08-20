@@ -24,12 +24,7 @@ import org.dominokit.domino.ui.style.BooleanCssClass;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
 import org.gwtproject.i18n.shared.cldr.DateTimeFormatInfo;
 
-/**
- * CalendarDay class.
- *
- * @author vegegoku
- * @version $Id: $Id
- */
+/** CalendarDay class. */
 public class CalendarDay extends BaseDominoElement<HTMLDivElement, CalendarDay>
     implements CalendarStyles {
 

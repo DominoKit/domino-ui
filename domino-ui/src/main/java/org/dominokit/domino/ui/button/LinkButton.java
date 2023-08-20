@@ -20,12 +20,7 @@ import org.dominokit.domino.ui.elements.AnchorElement;
 import org.dominokit.domino.ui.icons.Icon;
 import org.dominokit.domino.ui.utils.ChildHandler;
 
-/**
- * LinkButton class.
- *
- * @author vegegoku
- * @version $Id: $Id
- */
+/** LinkButton class. */
 public class LinkButton extends BaseButton<HTMLAnchorElement, LinkButton> {
 
   private AnchorElement anchorElement;

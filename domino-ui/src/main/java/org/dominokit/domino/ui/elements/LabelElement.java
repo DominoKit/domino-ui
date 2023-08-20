@@ -17,12 +17,7 @@ package org.dominokit.domino.ui.elements;
 
 import elemental2.dom.HTMLLabelElement;
 
-/**
- * LabelElement class.
- *
- * @author vegegoku
- * @version $Id: $Id
- */
+/** LabelElement class. */
 public class LabelElement extends BaseElement<HTMLLabelElement, LabelElement> {
   /**
    * of.

@@ -22,12 +22,7 @@ import org.dominokit.domino.ui.elements.SpanElement;
 import org.dominokit.domino.ui.layout.NavBar;
 import org.dominokit.domino.ui.utils.*;
 
-/**
- * MessageDialog class.
- *
- * @author vegegoku
- * @version $Id: $Id
- */
+/** MessageDialog class. */
 public class MessageDialog extends AbstractDialog<MessageDialog> {
 
   private Button confirmButton;

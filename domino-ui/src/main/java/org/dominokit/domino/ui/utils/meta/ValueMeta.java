@@ -19,12 +19,7 @@ import java.util.Optional;
 import org.dominokit.domino.ui.utils.ComponentMeta;
 import org.dominokit.domino.ui.utils.HasMeta;
 
-/**
- * ValueMeta class.
- *
- * @author vegegoku
- * @version $Id: $Id
- */
+/** ValueMeta class. */
 public class ValueMeta<T> implements ComponentMeta {
 
   /** Constant <code>VALUE_META="dui-value-meta"</code> */
