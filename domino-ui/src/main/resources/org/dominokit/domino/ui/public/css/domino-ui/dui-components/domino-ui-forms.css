@@ -119,8 +119,6 @@ fieldset.dui {
     line-height: var(--dui-form-field-prefix-line-height);
 }
 
-.dui-form-radio,
-.dui-form-checkbox,
 .dui-field-input {
     order: 30;
 }

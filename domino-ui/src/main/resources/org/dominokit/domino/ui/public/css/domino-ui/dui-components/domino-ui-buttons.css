@@ -20,8 +20,8 @@
     border-radius: var(--dui-btn-border-radius);
     box-shadow: var(--dui-btn-box-shadow);
     transition: var(--dui-btn-transition);
-    background-color: var(--dui-accent, buttonface);
-    --dui-btn-bg: var(--dui-accent, buttonface);
+    background-color: var(--dui-btn-bg-clr, var(--dui-accent, buttonface));
+    --dui-btn-bg: var(--dui-bg, var(--dui-accent, buttonface));
     color: var(--dui-clr-white);
     text-decoration: none;
     width: fit-content;
@@ -62,11 +62,13 @@ fieldset[disabled] .dui-btn {
     opacity: var(--dui-btn-disabled-opacity);
 }
 
+.dui.dui-btn.dui-ctx:hover,
+.dui.dui-btn.dui-ctx:focus,
 .dui.dui-btn:focus,
 .dui.dui-btn:hover {
     outline-offset: var(--dui-btn-focus-outline-offset);
     outline: var(--dui-bg-l-4, var(--dui-accent-l-4)) var(--dui-btn-focus-outline-style) var(--dui-btn-focus-outline-width);
-    background-color: var(--dui-bg-l-4, var(--dui-accent-l-4));
+    background-color: var(--dui-btn-hover-bg-clr, var(--dui-accent-l-4));
     color: var(--dui-btn-hover-color);
     box-shadow: var(--dui-btn-focus-box-shadow);
     --dui-btn-bg: var(--dui-bg-l-4, var(--dui-accent-l-4));
@@ -75,6 +77,15 @@ fieldset[disabled] .dui-btn {
 .dui-btn:hover,
 .dui-btn:focus {
     text-decoration: none;
+}
+
+.dui.dui-btn.dui-ctx {
+    --dui-btn-bg-clr: var(--dui-bg);
+    --dui-btn-hover-bg-clr: var(--dui-bg-l-4);
+}
+.dui-btn-group.dui-ctx {
+    --dui-btn-bg-clr: var(--dui-bg);
+    --dui-btn-hover-bg-clr: var(--dui-bg-l-4);
 }
 .dui-btn-group .dui-btn:hover,
 .dui-btn-group .dui-btn:focus {

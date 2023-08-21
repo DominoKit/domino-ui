@@ -528,6 +528,10 @@ public class Card extends BaseDominoElement<HTMLDivElement, Card>
       collapseElement.remove();
       body.getCollapsible().getStrategy().cleanup(body.element());
     }
+    body.addCollapseListener(
+        () -> collapseHandlers.forEach(handler -> handler.onCollapsed(Card.this)));
+    body.addExpandListener(() -> expandHandlers.forEach(handler -> handler.onExpanded(Card.this)));
+
     return this;
   }
 

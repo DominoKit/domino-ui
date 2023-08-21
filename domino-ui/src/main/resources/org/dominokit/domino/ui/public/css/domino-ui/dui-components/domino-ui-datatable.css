@@ -49,7 +49,7 @@
 }
 
 .dui-datatable-responsive:not(.dui-datatable-striped) tbody .dui-datatable-row {
-    background-color:var(--dui-bg, var(--dui-clr-dominant));
+    background-color:var(--dui-bg-clr, var(--dui-bg, var(--dui-clr-dominant)));
 }
 
 .dui-datatable-striped tbody .dui-datatable-row:nth-child(even) {

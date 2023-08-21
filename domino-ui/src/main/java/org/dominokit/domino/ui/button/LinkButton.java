@@ -106,7 +106,7 @@ public class LinkButton extends BaseButton<HTMLAnchorElement, LinkButton> {
   /** {@inheritDoc} */
   @Override
   protected AnchorElement createButtonElement() {
-    return anchorElement = a();
+    return anchorElement = a().removeHref();
   }
 
   public LinkButton withAnchorElement(ChildHandler<LinkButton, AnchorElement> handler) {
