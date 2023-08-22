@@ -88,6 +88,8 @@ fieldset.dui {
 .dui-hide-label.dui-field-label,
 .dui-field-label:empty {
     display: none;
+    width: auto;
+    min-width: auto;
 }
 
 .dui-field-label {
@@ -179,7 +181,7 @@ fieldset.dui {
 
 .dui-form-radio-group .dui-field-input-wrapper,
 .dui-form-checkbox .dui-field-input-wrapper {
-    border: none;
+    border: 1px solid transparent;
 }
 
 .dui-field-input {
