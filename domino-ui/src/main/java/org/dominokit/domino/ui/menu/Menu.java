@@ -131,7 +131,11 @@ public class Menu<V> extends BaseDominoElement<HTMLDivElement, Menu<V>>
               targets.get(elementOf(Js.<HTMLElement>uncheckedCast(evt.target)).getDominoId());
         }
         if (isAutoOpen()) {
-          open(evt);
+          if (isOpened() && !isContextMenu()) {
+            close();
+          } else {
+            open(evt);
+          }
         }
       };
   private final DivElement backArrowContainer;
@@ -388,9 +392,9 @@ public class Menu<V> extends BaseDominoElement<HTMLDivElement, Menu<V>>
    * Appends a menu item to this menu
    *
    * @param menuGroup {@link org.dominokit.domino.ui.menu.MenuItemsGroup}
-   * @return same menu instance
    * @param groupHandler a {@link org.dominokit.domino.ui.menu.Menu.MenuItemsGroupHandler} object
    * @param <I> a I class
+   * @return same menu instance
    */
   public <I extends AbstractMenuItem<V>> Menu<V> appendGroup(
       MenuItemsGroup<V> menuGroup, MenuItemsGroupHandler<V, I> groupHandler) {
@@ -433,8 +437,8 @@ public class Menu<V> extends BaseDominoElement<HTMLDivElement, Menu<V>>
   /**
    * Appends a separator item to this menu, separator will show up as a simple border.
    *
-   * @return same menu instance
    * @param separator a {@link org.dominokit.domino.ui.utils.Separator} object
+   * @return same menu instance
    */
   public Menu<V> appendChild(Separator separator) {
     this.menuItemsList.appendChild(separator.addCss(dui_menu_separator));

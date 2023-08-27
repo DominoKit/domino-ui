@@ -197,8 +197,6 @@ public interface ElementsFactory {
     return delegate().picture();
   }
 
-  // ------------------ content sectioning
-
   /**
    * address.
    *
@@ -280,8 +278,6 @@ public interface ElementsFactory {
   default SectionElement section() {
     return delegate().section();
   }
-
-  // ------------------------------------------------------ text content
 
   /**
    * blockquote.
@@ -419,8 +415,6 @@ public interface ElementsFactory {
   default UListElement ul() {
     return delegate().ul();
   }
-
-  // ------------------------------------------------------ inline text semantics
 
   /**
    * a.
@@ -632,8 +626,6 @@ public interface ElementsFactory {
     return delegate().wbr();
   }
 
-  // ------------------------------------------------------ image and multimedia
-
   /**
    * area.
    *
@@ -697,8 +689,6 @@ public interface ElementsFactory {
   default VideoElement video() {
     return delegate().video();
   }
-
-  // ------------------------------------------------------ embedded content
 
   /**
    * canvas.
@@ -764,8 +754,6 @@ public interface ElementsFactory {
     return delegate().source();
   }
 
-  // ------------------------------------------------------ scripting
-
   /**
    * noscript.
    *
@@ -784,8 +772,6 @@ public interface ElementsFactory {
     return delegate().script();
   }
 
-  // ------------------------------------------------------ demarcating edits
-
   /**
    * del.
    *
@@ -803,8 +789,6 @@ public interface ElementsFactory {
   default InsElement ins() {
     return delegate().ins();
   }
-
-  // ------------------------------------------------------ table content
 
   /**
    * caption.
@@ -895,8 +879,6 @@ public interface ElementsFactory {
   default TableRowElement tr() {
     return delegate().tr();
   }
-
-  // ------------------------------------------------------ forms
 
   /**
    * button.

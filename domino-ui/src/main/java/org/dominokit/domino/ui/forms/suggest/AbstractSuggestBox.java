@@ -456,7 +456,6 @@ public abstract class AbstractSuggestBox<
     return (C) this;
   }
 
-  // Should be abstract
   /**
    * doSetValue.
    *

@@ -550,15 +550,6 @@ public class DataTable<T> extends BaseDominoElement<HTMLDivElement, DataTable<T>
   public List<T> getDirtyRecords() {
     return getRows().stream().map(TableRow::getDirtyRecord).collect(Collectors.toList());
   }
-  //
-  //    @Override
-  //    public void onSelectionChange(TableRow<T> source) {
-  //
-  //        selectionChangeListeners.forEach(
-  //                selectionChangeListener ->
-  //                        selectionChangeListener.onSelectionChanged(getSelectedItems(),
-  // getSelectedRecords()));
-  //    }
 
   /**
    * {@inheritDoc}

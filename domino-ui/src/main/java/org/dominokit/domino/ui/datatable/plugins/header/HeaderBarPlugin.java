@@ -445,7 +445,11 @@ public class HeaderBarPlugin<T> implements DataTablePlugin<T> {
 
       columnsIcon.addClickListener(
           evt -> {
-            dropDownMenu.open();
+            if (dropDownMenu.isOpened()) {
+              dropDownMenu.close();
+            } else {
+              dropDownMenu.open();
+            }
             evt.stopPropagation();
           });
       return columnsIcon.element();

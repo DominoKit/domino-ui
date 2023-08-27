@@ -22,8 +22,6 @@ import org.dominokit.domino.ui.config.UIConfig;
 import org.dominokit.domino.ui.i18n.DefaultDominoUILabels;
 import org.dominokit.domino.ui.i18n.DominoUILabels;
 
-// import org.dominokit.domino.ui.tree.TreeItem;
-
 /**
  * This class provides global configuration for form fields
  *

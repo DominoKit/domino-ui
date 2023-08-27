@@ -113,8 +113,6 @@ public interface ElementsFactoryDelegate {
     return new PictureElement(dom.picture());
   }
 
-  // ------------------ content sectioning
-
   /**
    * address.
    *
@@ -196,8 +194,6 @@ public interface ElementsFactoryDelegate {
   default SectionElement section() {
     return new SectionElement(dom.section());
   }
-
-  // ------------------------------------------------------ text content
 
   /**
    * blockquote.
@@ -335,8 +331,6 @@ public interface ElementsFactoryDelegate {
   default UListElement ul() {
     return new UListElement(dom.ul());
   }
-
-  // ------------------------------------------------------ inline text semantics
 
   /**
    * a.
@@ -556,8 +550,6 @@ public interface ElementsFactoryDelegate {
     return new WBRElement(dom.wbr());
   }
 
-  // ------------------------------------------------------ image and multimedia
-
   /**
    * area.
    *
@@ -621,8 +613,6 @@ public interface ElementsFactoryDelegate {
   default VideoElement video() {
     return new VideoElement(dom.video());
   }
-
-  // ------------------------------------------------------ embedded content
 
   /**
    * canvas.
@@ -688,8 +678,6 @@ public interface ElementsFactoryDelegate {
     return new SourceElement(dom.source());
   }
 
-  // ------------------------------------------------------ scripting
-
   /**
    * noscript.
    *
@@ -708,8 +696,6 @@ public interface ElementsFactoryDelegate {
     return new ScriptElement(dom.script());
   }
 
-  // ------------------------------------------------------ demarcating edits
-
   /**
    * del.
    *
@@ -727,8 +713,6 @@ public interface ElementsFactoryDelegate {
   default InsElement ins() {
     return new InsElement(dom.ins());
   }
-
-  // ------------------------------------------------------ table content
 
   /**
    * caption.
@@ -819,8 +803,6 @@ public interface ElementsFactoryDelegate {
   default TableRowElement tr() {
     return new TableRowElement(dom.tr());
   }
-
-  // ------------------------------------------------------ forms
 
   /**
    * button.

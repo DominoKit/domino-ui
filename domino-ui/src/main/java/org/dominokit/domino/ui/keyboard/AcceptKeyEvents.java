@@ -37,7 +37,6 @@ public interface AcceptKeyEvents {
    */
   AcceptKeyEvents onBackspace(KeyboardEventOptions options, EventListener backspaceHandler);
 
-  // ---------------- handlers ----------------
   /**
    * On escape button pressed
    *

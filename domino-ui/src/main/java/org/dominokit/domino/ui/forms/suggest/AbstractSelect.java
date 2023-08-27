@@ -449,7 +449,6 @@ public abstract class AbstractSelect<
    */
   protected abstract C withOption(O option, boolean silent);
 
-  // Should be abstract
   /**
    * doSetValue.
    *

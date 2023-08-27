@@ -86,8 +86,6 @@ public interface DropDirection {
   /** Constant <code>TOP_RIGHT</code> */
   DropDirection TOP_RIGHT = new TopRightDropDirection();
 
-  // -------------------------
-
   /** Constant <code>dui_dd_bottom_left</code> */
   CssClass dui_dd_bottom_left = () -> "dui-dd-bottom-left";
   /** Constant <code>dui_dd_bottom_middle</code> */

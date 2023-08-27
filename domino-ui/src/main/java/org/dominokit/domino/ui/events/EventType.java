@@ -23,19 +23,16 @@ package org.dominokit.domino.ui.events;
  */
 public interface EventType {
 
-  // Network Events
   /** Constant <code>online</code> */
   EventType online = () -> "online";
   /** Constant <code>offline</code> */
   EventType offline = () -> "offline";
 
-  // Focus Events
   /** Constant <code>focus</code> */
   EventType focus = () -> "focus";
   /** Constant <code>blur</code> */
   EventType blur = () -> "blur";
 
-  // Session History Events
   /** Constant <code>pagehide</code> */
   EventType pagehide = () -> "pagehide";
   /** Constant <code>pageshow</code> */
@@ -43,19 +40,16 @@ public interface EventType {
   /** Constant <code>popstate</code> */
   EventType popstate = () -> "popstate";
 
-  // Form Events
   /** Constant <code>reset</code> */
   EventType reset = () -> "reset";
   /** Constant <code>submit</code> */
   EventType submit = () -> "submit";
 
-  // Printing Events
   /** Constant <code>beforeprint</code> */
   EventType beforeprint = () -> "beforeprint";
   /** Constant <code>afterprint</code> */
   EventType afterprint = () -> "afterprint";
 
-  // Text Composition Events
   /** Constant <code>compositionstart</code> */
   EventType compositionstart = () -> "compositionstart";
   /** Constant <code>compositionupdate</code> */
@@ -63,7 +57,6 @@ public interface EventType {
   /** Constant <code>compositionend</code> */
   EventType compositionend = () -> "compositionend";
 
-  // View Events
   /** Constant <code>fullscreenchange</code> */
   EventType fullscreenchange = () -> "fullscreenchange";
   /** Constant <code>fullscreenerror</code> */
@@ -73,7 +66,6 @@ public interface EventType {
   /** Constant <code>scroll</code> */
   EventType scroll = () -> "scroll";
 
-  // Clipboard Events
   /** Constant <code>cut</code> */
   EventType cut = () -> "cut";
   /** Constant <code>copy</code> */
@@ -81,7 +73,6 @@ public interface EventType {
   /** Constant <code>paste</code> */
   EventType paste = () -> "paste";
 
-  // Keyboard Events
   /** Constant <code>keydown</code> */
   EventType keydown = () -> "keydown";
   /** Constant <code>keypress</code> */
@@ -89,7 +80,6 @@ public interface EventType {
   /** Constant <code>keyup</code> */
   EventType keyup = () -> "keyup";
 
-  // Mouse Events
   /** Constant <code>mouseenter</code> */
   EventType mouseenter = () -> "mouseenter";
   /** Constant <code>mouseover</code> */
@@ -119,7 +109,6 @@ public interface EventType {
   /** Constant <code>pointerlockerror</code> */
   EventType pointerlockerror = () -> "pointerlockerror";
 
-  // Drag & Drop Events
   /** Constant <code>dragstart</code> */
   EventType dragstart = () -> "dragstart";
   /** Constant <code>drag</code> */
@@ -135,7 +124,6 @@ public interface EventType {
   /** Constant <code>drop</code> */
   EventType drop = () -> "drop";
 
-  // Touch Events
   /** Constant <code>touchcancel</code> */
   EventType touchcancel = () -> "touchcancel";
   /** Constant <code>touchend</code> */
@@ -145,7 +133,6 @@ public interface EventType {
   /** Constant <code>touchstart</code> */
   EventType touchstart = () -> "touchstart";
 
-  // Value Change Events
   /** Constant <code>hashchange</code> */
   EventType hashchange = () -> "hashchange";
   /** Constant <code>input</code> */
@@ -157,7 +144,6 @@ public interface EventType {
   /** Constant <code>search</code> */
   EventType search = () -> "search";
 
-  // Uncategorized Events
   /** Constant <code>invalid</code> */
   EventType invalid = () -> "invalid";
   /** Constant <code>show</code> */
@@ -169,11 +155,9 @@ public interface EventType {
   /** Constant <code>storage</code> */
   EventType storage = () -> "storage";
 
-  // Window Events
   /** Constant <code>load</code> */
   EventType load = () -> "load";
 
-  // Page Visibility API Events
   /** Constant <code>visibilitychange</code> */
   EventType visibilitychange = () -> "visibilitychange";
 

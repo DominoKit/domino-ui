@@ -66,14 +66,6 @@ public class RowCell<T> {
     DominoElement<HTMLTableCellElement> cellElement = elements.elementOf(cellInfo.getElement());
     cellElement.clearElement();
 
-    //    if (nonNull(columnConfig.getMinWidth())) {
-    //      columnConfig.getHeadElement().style().setMinWidth(columnConfig.getMinWidth());
-    //    }
-    //
-    //    if (nonNull(columnConfig.getMaxWidth())) {
-    //      columnConfig.getHeadElement().style().setMaxWidth(columnConfig.getMaxWidth());
-    //    }
-
     if (nonNull(columnConfig.getTextAlign())) {
       cellElement.addCss(columnConfig.getTextAlign());
     }

@@ -127,8 +127,6 @@ public class Row extends BaseDominoElement<HTMLDivElement, Row> implements GridS
     return this;
   }
 
-  // =========================
-
   /**
    * span1.
    *

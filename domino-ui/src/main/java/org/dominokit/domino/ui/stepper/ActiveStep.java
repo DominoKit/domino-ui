@@ -19,17 +19,11 @@ package org.dominokit.domino.ui.stepper;
 public class ActiveStep implements StepState {
   /** {@inheritDoc} */
   @Override
-  public void apply(StepTracker tracker) {
-    //    tracker.addCss(dui_accent_accent_d_2);
-  }
+  public void apply(StepTracker tracker) {}
 
   /** {@inheritDoc} */
   @Override
-  public void cleanUp(StepTracker tracker) {
-    //    tracker
-    //        .removeCss(dui_accent_accent_d_2)
-    //        .withTrackerNode((parent1, node) -> node.removeCss(dui_accent_accent_d_2));
-  }
+  public void cleanUp(StepTracker tracker) {}
 
   /** {@inheritDoc} */
   @Override
