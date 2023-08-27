@@ -107,9 +107,6 @@ public class TextHeaderFilter<T> extends DelayedHeaderFilterInput<TextBox, T, St
   /** {@inheritDoc} */
   @Override
   public void clear() {
-    textBox.withPausedChangeListeners(
-        field -> {
-          textBox.clear();
-        });
+    textBox.withPausedChangeListeners(field -> textBox.clear());
   }
 }
