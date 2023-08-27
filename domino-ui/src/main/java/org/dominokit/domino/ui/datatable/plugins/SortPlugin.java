@@ -63,13 +63,30 @@ public class SortPlugin<T>
           .getHeaderLayout()
           .appendChild(FlexItem.create().setOrder(100).appendChild(sortContainer.sortElement));
       column.getHeadElement().addCss(Styles.cursor_pointer, Styles.disable_selection);
+
+      final boolean[] moving = new boolean[] {false};
+      column
+          .getHeadElement()
+          .addEventListener(
+              EventType.mousemove.getName(),
+              evt -> {
+                moving[0] = true;
+              })
+          .addEventListener(
+              EventType.mousedown.getName(),
+              evt -> {
+                moving[0] = false;
+              });
       column
           .getHeadElement()
           .addEventListener(
               EventType.click.getName(),
               evt -> {
-                updateStyles(sortContainer);
-                fireSortEvent(currentContainer.sortDirection, column);
+                if (!moving[0]) {
+                  updateStyles(sortContainer);
+                  fireSortEvent(currentContainer.sortDirection, column);
+                }
+                moving[0] = false;
               });
     }
   }
