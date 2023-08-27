@@ -358,6 +358,24 @@ public class CheckBox extends InputFormField<CheckBox, HTMLInputElement, Boolean
     return this;
   }
 
+  public CheckBox withLabel(ChildHandler<CheckBox, LabelElement> handler) {
+    handler.apply(this, checkLabelElement);
+    return this;
+  }
+
+  public CheckBox withLabelTextElement(ChildHandler<CheckBox, SpanElement> handler) {
+    handler.apply(this, checkLabelTextElement.get());
+    return this;
+  }
+
+  public LabelElement getCheckLabelElement() {
+    return checkLabelElement;
+  }
+
+  public LazyChild<SpanElement> getCheckLabelTextElement() {
+    return checkLabelTextElement;
+  }
+
   private static class CheckBoxAutoValidator extends AutoValidator {
 
     private CheckBox checkBox;
