@@ -45,6 +45,8 @@ import java.util.stream.Collectors;
 import jsinterop.base.Js;
 import org.dominokit.domino.ui.DominoElementAdapter;
 import org.dominokit.domino.ui.IsElement;
+import org.dominokit.domino.ui.animations.TransitionListener;
+import org.dominokit.domino.ui.animations.TransitionListeners;
 import org.dominokit.domino.ui.collapsible.CollapseStrategy;
 import org.dominokit.domino.ui.collapsible.Collapsible;
 import org.dominokit.domino.ui.config.UIConfig;
@@ -140,6 +142,8 @@ public abstract class BaseDominoElement<E extends Element, T extends IsElement<E
   private final List<Consumer<T>> onRemoveHandlers = new ArrayList<>();
   private final Map<String, ComponentMeta> metaObjects = new HashMap<>();
 
+  private TransitionListeners<E, T> transitionListeners;
+
   /**
    * initialize the component using its root element giving it a unique id, a {@link
    * org.dominokit.domino.ui.style.Style} and also initialize a {@link
@@ -171,6 +175,7 @@ public abstract class BaseDominoElement<E extends Element, T extends IsElement<E
         };
     keyEventsInitializer =
         new LazyInitializer(() -> keyboardEvents = new KeyboardEvents<>(this.element()));
+    transitionListeners = TransitionListeners.of(element);
   }
 
   private boolean hasDominoId() {
@@ -2368,6 +2373,36 @@ public abstract class BaseDominoElement<E extends Element, T extends IsElement<E
   @SuppressWarnings("unchecked")
   public T removeBeforeExpandListener(Collapsible.ExpandHandler handler) {
     getCollapsible().removeBeforeExpandHandler(handler);
+    return (T) this;
+  }
+
+  public T onTransitionStart(TransitionListener<? super T> listener) {
+    transitionListeners.onTransitionStart(listener);
+    return (T) this;
+  }
+
+  public T removeTransitionStartListener(TransitionListener<? super T> listener) {
+    transitionListeners.removeTransitionStartListener(listener);
+    return (T) this;
+  }
+
+  public T onTransitionCancel(TransitionListener<? super T> listener) {
+    transitionListeners.onTransitionCancel(listener);
+    return (T) this;
+  }
+
+  public T removeTransitionCancelListener(TransitionListener<? super T> listener) {
+    transitionListeners.removeTransitionCancelListener(listener);
+    return (T) this;
+  }
+
+  public T onTransitionEnd(TransitionListener<? super T> listener) {
+    transitionListeners.onTransitionEnd(listener);
+    return (T) this;
+  }
+
+  public T removeTransitionEndListener(TransitionListener<? super T> listener) {
+    transitionListeners.removeTransitionEndListener(listener);
     return (T) this;
   }
 
