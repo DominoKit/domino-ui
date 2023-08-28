@@ -22,8 +22,6 @@ public interface SpacingCss {
   CssClass dui_filler = () -> "dui-filler";
   /** Constant <code>dui_hide_label</code> */
   CssClass dui_hide_label = () -> "dui-hide-label";
-  /** Constant <code>dui_bottom_0_5</code> */
-  CssClass dui_bottom_0 = () -> "dui-bottom-0";
 
   CssClass dui_bottom_0_5 = () -> "dui-bottom-0_5";
   /** Constant <code>dui_bottom_1</code> */
