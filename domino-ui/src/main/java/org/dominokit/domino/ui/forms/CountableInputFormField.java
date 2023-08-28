@@ -160,6 +160,11 @@ public abstract class CountableInputFormField<
     return (T) this;
   }
 
+  @Override
+  public T clear(boolean silent) {
+    super.clear(silent);
+    return updateCounter(getLength(), getMaxCount());
+  }
   /**
    * Getter for the field <code>counterElement</code>.
    *
