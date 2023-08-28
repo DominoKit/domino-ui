@@ -18,6 +18,7 @@ package org.dominokit.domino.ui.utils;
 import static elemental2.dom.DomGlobal.document;
 
 import elemental2.dom.CSSStyleSheet;
+import elemental2.dom.DomGlobal;
 import elemental2.dom.HTMLElement;
 import elemental2.dom.HTMLStyleElement;
 import java.util.Optional;
@@ -61,7 +62,8 @@ public class DynamicStyleSheet<E extends HTMLElement, D extends BaseDominoElemen
    */
   public DominoCSSRule insertRule(String cssClass) {
     String ruleName = cssPrefix + cssClass;
-    String selector = "." + cssPrefix + target.getDominoId() + " ." + ruleName;
+    String selector =
+        "." + cssPrefix + target.getDominoId() + " ." + cssPrefix + DomGlobal.CSS.escape(cssClass);
 
     DominoCSSRule dominoCSSRule = new DominoCSSRule(selector, ruleName);
     dominoStyleSheet.addCssRule(dominoCSSRule);
