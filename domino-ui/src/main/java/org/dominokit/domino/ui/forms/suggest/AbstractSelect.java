@@ -102,7 +102,11 @@ public abstract class AbstractSelect<
             Icons.chevron_down()
                 .addCss(dui_form_select_drop_arrow)
                 .clickable()
-                .addClickListener(evt -> openOptionMenu())));
+                .addClickListener(
+                    evt -> {
+                      evt.stopPropagation();
+                      openOptionMenu();
+                    })));
 
     appendChild(
         PrimaryAddOn.of(
@@ -120,7 +124,11 @@ public abstract class AbstractSelect<
     if (isReadOnly() || isDisabled()) {
       return;
     }
-    optionsMenu.open(true);
+    if (optionsMenu.isOpened() && !optionsMenu.isContextMenu()) {
+      optionsMenu.close();
+    } else {
+      optionsMenu.open(true);
+    }
   }
 
   /**
