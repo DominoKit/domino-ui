@@ -22,6 +22,7 @@ import elemental2.dom.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import org.dominokit.domino.ui.IsElement;
 import org.dominokit.domino.ui.animations.Animation;
 import org.dominokit.domino.ui.animations.Transition;
 import org.dominokit.domino.ui.config.HasComponentConfig;
@@ -48,6 +49,7 @@ public class AbstractDialog<T extends AbstractDialog<T>>
   private boolean autoClose = true;
   private Element firstFocusElement;
   private Element lastFocusElement;
+  private Element defaultFocusElement;
   private Element activeElementBeforeOpen;
   private List<Element> focusElements = new ArrayList<>();
   private boolean open = false;
@@ -287,7 +289,26 @@ public class AbstractDialog<T extends AbstractDialog<T>>
     activeElementBeforeOpen = DominoDom.document.activeElement;
     getConfig().getZindexManager().onPopupOpen(this);
     element.removeCss(dui_hidden);
-    if (nonNull(firstFocusElement) && isAutoFocus()) {
+    updateFocus();
+    triggerExpandListeners((T) this);
+    this.open = true;
+  }
+
+  private void updateFocus() {
+    if (isAutoFocus()) {
+      if (nonNull(getDefaultFocusElement())) {
+        getDefaultFocusElement().focus();
+        if (!Objects.equals(DominoDom.document.activeElement, getDefaultFocusElement())) {
+          findAndFocus();
+        }
+      } else {
+        findAndFocus();
+      }
+    }
+  }
+
+  private void findAndFocus() {
+    if (nonNull(firstFocusElement)) {
       firstFocusElement.focus();
       if (!Objects.equals(DominoDom.document.activeElement, firstFocusElement)) {
         if (nonNull(lastFocusElement)) {
@@ -295,8 +316,6 @@ public class AbstractDialog<T extends AbstractDialog<T>>
         }
       }
     }
-    triggerExpandListeners((T) this);
-    this.open = true;
   }
 
   private void initFocusElements(HTMLElement element) {
@@ -619,6 +638,20 @@ public class AbstractDialog<T extends AbstractDialog<T>>
    */
   public T withContentFooter() {
     contentFooter.get();
+    return (T) this;
+  }
+
+  public Element getDefaultFocusElement() {
+    return defaultFocusElement;
+  }
+
+  public T setDefaultFocusElement(Element defaultFocusElement) {
+    this.defaultFocusElement = defaultFocusElement;
+    return (T) this;
+  }
+
+  public T setDefaultFocusElement(IsElement<?> defaultFocusElement) {
+    this.defaultFocusElement = defaultFocusElement.element();
     return (T) this;
   }
 
