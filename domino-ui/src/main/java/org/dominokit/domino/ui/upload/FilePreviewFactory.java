@@ -26,5 +26,5 @@ public interface FilePreviewFactory {
    * @param fileItem a {@link org.dominokit.domino.ui.upload.FileItem} object
    * @return a {@link org.dominokit.domino.ui.upload.IsFilePreview} object
    */
-  IsFilePreview<?> forFile(FileItem fileItem);
+  IsFilePreview<?> forFile(FileItem fileItem, FileUpload fileUpload);
 }

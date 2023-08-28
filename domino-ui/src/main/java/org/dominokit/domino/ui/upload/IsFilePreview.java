@@ -21,6 +21,7 @@ import org.dominokit.domino.ui.utils.ChildHandler;
 
 /** IsFilePreview interface. */
 public interface IsFilePreview<T> extends IsElement<HTMLElement> {
+
   /**
    * onUploadFailed.
    *

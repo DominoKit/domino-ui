@@ -318,7 +318,7 @@ public class FileUpload extends BaseDominoElement<HTMLDivElement, FileUpload>
     if (isMultiUpload()) {
       removeFileItems();
     }
-    FileItem fileItem = FileItem.create(file, new UploadOptions(), filePreviewFactory);
+    FileItem fileItem = FileItem.create(file, new UploadOptions(), filePreviewFactory, this);
 
     fileItemHandlers.forEach(handler -> handler.handle(fileItem));
 
