@@ -61,12 +61,12 @@ public interface HasCollapseListeners<T> {
   }
 
   /**
-   * removeCExpandListener.
+   * removeExpandListener.
    *
    * @param expandListener {@link org.dominokit.domino.ui.utils.HasCollapseListeners.ExpandListener}
    * @return same implementing class instance
    */
-  default T removeCExpandListener(ExpandListener<? super T> expandListener) {
+  default T removeExpandListener(ExpandListener<? super T> expandListener) {
     getExpandListeners().remove(expandListener);
     return (T) this;
   }
