@@ -21,6 +21,8 @@ public interface DisplayCss {
   CssClass dui_image_responsive = () -> "dui-image-responsive";
   /** Constant <code>dui_reversed</code> */
   CssClass dui_reversed = () -> "dui-reversed";
+  /** Constant <code>dui_undimmed</code> */
+  CssClass dui_undimmed = () -> "dui-undimmed";
   /** Constant <code>dui_opacity_0</code> */
   CssClass dui_opacity_0 = () -> "dui-opacity-0";
   /** Constant <code>dui_opacity_5</code> */
