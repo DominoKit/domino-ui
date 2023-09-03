@@ -107,6 +107,7 @@ public class TimeBox extends TextInputFormField<TimeBox, HTMLInputElement, Date>
     this.pattern = dateTimeFormatInfo.timeFormatFull();
     this.popover =
         Popover.create(this.getWrapperElement())
+            .setOpenCondition(() -> isEnabled() && !isReadOnly())
             .setOpenOnClick(this.openOnClick)
             .setPosition(BEST_MIDDLE_DOWN_UP)
             .appendChild(this.timePicker)
@@ -267,7 +268,7 @@ public class TimeBox extends TextInputFormField<TimeBox, HTMLInputElement, Date>
   }
 
   private void doOpen() {
-    if (isEnabled()) {
+    if (isEnabled() && !isReadOnly()) {
       popover.open();
     }
   }

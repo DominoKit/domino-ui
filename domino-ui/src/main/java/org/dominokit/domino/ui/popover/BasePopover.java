@@ -15,10 +15,12 @@
  */
 package org.dominokit.domino.ui.popover;
 
+import static java.util.Objects.isNull;
 import static org.dominokit.domino.ui.collapsible.Collapsible.DUI_COLLAPSED;
 
 import elemental2.dom.*;
 import java.util.Objects;
+import java.util.function.Supplier;
 import jsinterop.base.Js;
 import org.dominokit.domino.ui.config.HasComponentConfig;
 import org.dominokit.domino.ui.config.ZIndexConfig;
@@ -50,6 +52,7 @@ public abstract class BasePopover<T extends BasePopover<T>>
   private boolean closeOthers = true;
   protected final EventListener closeListener;
   private final FollowOnScroll followOnScroll;
+  private Supplier<Boolean> openCondition = () -> true;
 
   /**
    * Constructor for BasePopover.
@@ -106,7 +109,7 @@ public abstract class BasePopover<T extends BasePopover<T>>
   /** {@inheritDoc} */
   @Override
   public T expand() {
-    if (isEnabled()) {
+    if (isEnabled() && (isNull(openCondition.get()) || openCondition.get())) {
       if (closeOthers) {
         closeOthers(getDominoId());
       }
@@ -293,6 +296,11 @@ public abstract class BasePopover<T extends BasePopover<T>>
    */
   public T closeOnScroll(boolean closeOnScroll) {
     setAttribute("d-close-on-scroll", closeOnScroll);
+    return (T) this;
+  }
+
+  public T setOpenCondition(Supplier<Boolean> openCondition) {
+    this.openCondition = openCondition;
     return (T) this;
   }
 

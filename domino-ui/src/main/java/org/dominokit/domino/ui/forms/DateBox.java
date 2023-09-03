@@ -136,6 +136,7 @@ public class DateBox extends TextInputFormField<DateBox, HTMLInputElement, Date>
     this.pattern = dateTimeFormatInfo.dateFormatFull();
     this.popover =
         Popover.create(this.getWrapperElement())
+            .setOpenCondition(() -> isEnabled() && !isReadOnly())
             .setOpenOnClick(this.openOnClick)
             .setPosition(BEST_MIDDLE_DOWN_UP)
             .appendChild(this.calendar)
@@ -330,7 +331,7 @@ public class DateBox extends TextInputFormField<DateBox, HTMLInputElement, Date>
   }
 
   private void doOpen() {
-    if (isEnabled()) {
+    if (isEnabled() && !isReadOnly()) {
       popover.open();
     }
   }
