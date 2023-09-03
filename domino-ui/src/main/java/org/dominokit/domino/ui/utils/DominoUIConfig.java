@@ -35,6 +35,7 @@ public class DominoUIConfig {
   private DominoUILabels dominoUILabels = new DefaultDominoUILabels();
   private UIConfig uiConfig = new DefaultUIConfig();
   private ElementsFactoryDelegate elementsFactoryDelegate = new ElementsFactoryDelegate() {};
+  private boolean closePopupOnBlur;
 
   /** Constructor for DominoUIConfig. */
   protected DominoUIConfig() {}
@@ -89,5 +90,13 @@ public class DominoUIConfig {
 
   public void setElementsFactory(ElementsFactoryDelegate elementsFactoryDelegate) {
     this.elementsFactoryDelegate = elementsFactoryDelegate;
+  }
+
+  public void setClosePopupOnBlur(boolean closePopupOnBlur) {
+    this.closePopupOnBlur = closePopupOnBlur;
+  }
+
+  public boolean isClosePopupOnBlur() {
+    return this.closePopupOnBlur;
   }
 }

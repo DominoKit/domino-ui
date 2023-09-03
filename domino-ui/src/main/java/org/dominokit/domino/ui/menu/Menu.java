@@ -146,6 +146,9 @@ public class Menu<V> extends BaseDominoElement<HTMLDivElement, Menu<V>>
   private boolean fitToTargetWidth = false;
   private boolean centerOnSmallScreens = false;
 
+  private EventListener lostFocusListener;
+  private boolean closeOnBlur = DominoUIConfig.CONFIG.isClosePopupOnBlur();
+
   /**
    * create.
    *
@@ -301,6 +304,30 @@ public class Menu<V> extends BaseDominoElement<HTMLDivElement, Menu<V>>
               .addEventListener("touchend", this::backToParent)
               .addEventListener("touchstart", Event::stopPropagation);
         });
+
+    lostFocusListener =
+        evt -> {
+          if (isDropDown() && isCloseOnBlur()) {
+            DomGlobal.setTimeout(
+                p0 -> {
+                  Element e = DomGlobal.document.activeElement;
+                  if (getTarget().isPresent()) {
+                    Element target = getTarget().get().getTargetElement().element();
+                    if (!(target.contains(e)
+                        || e.equals(target)
+                        || this.element().contains(e)
+                        || e.equals(this.element()))) {
+                      close();
+                    }
+                  } else {
+                    if (!(this.element().contains(e) || e.equals(this.element()))) {
+                      close();
+                    }
+                  }
+                },
+                0);
+          }
+        };
   }
 
   private void onAddMissingElement() {
@@ -1078,6 +1105,7 @@ public class Menu<V> extends BaseDominoElement<HTMLDivElement, Menu<V>>
         menuHeader.get().insertFirst(backArrowContainer);
       }
       show();
+      DomGlobal.document.body.addEventListener("blur", lostFocusListener, true);
     }
   }
 
@@ -1263,6 +1291,7 @@ public class Menu<V> extends BaseDominoElement<HTMLDivElement, Menu<V>>
                 menuTarget -> {
                   menuTarget.getTargetElement().element().focus();
                 });
+        DomGlobal.document.body.removeEventListener("blur", lostFocusListener, true);
         if (isSearchable()) {
           searchBox.get().clearSearch();
         }
@@ -1544,6 +1573,15 @@ public class Menu<V> extends BaseDominoElement<HTMLDivElement, Menu<V>>
       return this;
     }
     this.openMenuCondition = openMenuCondition;
+    return this;
+  }
+
+  public boolean isCloseOnBlur() {
+    return closeOnBlur;
+  }
+
+  public Menu<V> setCloseOnBlur(boolean closeOnBlur) {
+    this.closeOnBlur = closeOnBlur;
     return this;
   }
 

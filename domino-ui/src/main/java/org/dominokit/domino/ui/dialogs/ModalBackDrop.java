@@ -94,7 +94,7 @@ public class ModalBackDrop extends BaseDominoElement<HTMLDivElement, ModalBackDr
   }
 
   /**
-   * Close all currently open {@link org.dominokit.domino.ui.popover.Popover}s
+   * Close all currently open {@link org.dominokit.domino.ui.popover.Popover}
    *
    * @param sourceId a {@link java.lang.String} object
    */
