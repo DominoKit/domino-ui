@@ -92,6 +92,7 @@
     padding: var(--dui-tree-item-anchor-padding);
     border-radius: var(--dui-tree-item-anchor-radius);
     text-decoration: var(--dui-tree-anchor-text-decoration);
+    cursor: pointer;
 }
 
 .dui[class*="dui-bg-"] .dui-tree-anchor:hover,
