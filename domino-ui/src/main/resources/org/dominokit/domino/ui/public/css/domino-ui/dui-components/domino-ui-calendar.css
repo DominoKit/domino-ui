@@ -186,7 +186,7 @@
     order: 20;
     padding: var(--dui-calendar-header-padding);
     background-color: var(--dui-accent);
-    color: var(--dui-text-color, var(--dui-calendar-header-text-color));
+    color: var(--dui-calendar-header-text-color, var(--dui-clr-white));
     border-width: var(--dui-calendar-header-border-width);
     border-style: var(--dui-calendar-header-border-style);
     border-color: var(--dui-accent-l-2);

@@ -74,7 +74,7 @@
     top: 0;
 }
 
-.dui-active .dui-tab-anchor:before {
+.dui-tab-item.dui-active > .dui-tab-anchor:before {
     transform: scaleX(1);
 }
 

@@ -602,8 +602,8 @@ public abstract class BaseDominoElement<E extends Element, T extends IsElement<E
   }
 
   /**
-   * Execute the handler if the component is already attached to the dom, if not execute it when the
-   * component is attached.
+   * Execute the handler only once if the component is already attached to the dom, if not execute
+   * it every time the component is attached.
    *
    * @param handler {@link java.lang.Runnable} to be executed
    * @return same component instance
@@ -615,6 +615,23 @@ public abstract class BaseDominoElement<E extends Element, T extends IsElement<E
     } else {
       onAttached(mutationRecord -> handler.run());
     }
+    dominoUuidInitializer.apply();
+    return (T) this;
+  }
+
+  /**
+   * Execute the handler if the component is already attached to the dom, then execute it everytime
+   * it is attached again to the dom.
+   *
+   * @param handler {@link java.lang.Runnable} to be executed
+   * @return same component instance
+   */
+  @Editor.Ignore
+  public T nowAndWhenAttached(Runnable handler) {
+    if (isAttached()) {
+      handler.run();
+    }
+    onAttached(mutationRecord -> handler.run());
     dominoUuidInitializer.apply();
     return (T) this;
   }
@@ -633,8 +650,8 @@ public abstract class BaseDominoElement<E extends Element, T extends IsElement<E
           observer.unobserve(element());
           observer.disconnect();
         });
-    onAttached(
-        mutationRecord -> {
+    nowAndWhenAttached(
+        () -> {
           ResizeObserver resizeObserver =
               new ResizeObserver(
                   entries -> {

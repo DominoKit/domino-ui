@@ -340,7 +340,6 @@ public interface ElementsFactoryDelegate {
   default AnchorElement a() {
     return new AnchorElement(dom.a())
         .setAttribute("tabindex", "0")
-        .setAttribute("href", "#")
         .setAttribute("aria-expanded", "true");
   }
 

@@ -42,9 +42,9 @@
     z-index: 1;
 }
 
-.dui-datatable-hover tbody .dui-datatable-row:hover,
-.dui-datatable-hover tbody .dui-datatable-row:nth-child(odd):hover,
-.dui-datatable-hover tbody .dui-datatable-row:nth-child(even):hover {
+.dui-datatable-hover tbody .dui-datatable-row:not(.dui-datatable-row-editable):hover,
+.dui-datatable-hover tbody .dui-datatable-row:nth-child(odd):not(.dui-datatable-row-editable):hover,
+.dui-datatable-hover tbody .dui-datatable-row:nth-child(even):not(.dui-datatable-row-editable):hover {
     background-color: var(--dui-datatable-row-hover-bg-color);
 }
 
