@@ -301,7 +301,7 @@
                     <gitFlowConfig>
                         <productionBranch>master</productionBranch>
                         <!-- default is develop, but we use development -->
-                        <developmentBranch>2.0-development</developmentBranch>
+                        <developmentBranch>development</developmentBranch>
                     </gitFlowConfig>
                 </configuration>
             </plugin>
