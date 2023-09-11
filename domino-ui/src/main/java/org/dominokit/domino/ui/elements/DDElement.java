@@ -17,12 +17,7 @@ package org.dominokit.domino.ui.elements;
 
 import elemental2.dom.HTMLElement;
 
-/**
- * DDElement class.
- *
- * @author vegegoku
- * @version $Id: $Id
- */
+/** DDElement class. */
 public class DDElement extends BaseElement<HTMLElement, DDElement> {
   /**
    * of.

@@ -24,12 +24,7 @@ import java.util.stream.Collectors;
 import org.dominokit.domino.ui.IsElement;
 import org.dominokit.domino.ui.mediaquery.MediaQuery;
 
-/**
- * XSmallCss class.
- *
- * @author vegegoku
- * @version $Id: $Id
- */
+/** XSmallCss class. */
 public class XSmallCss implements CssClass {
 
   private Set<CssClass> cssClasses = new HashSet<>();

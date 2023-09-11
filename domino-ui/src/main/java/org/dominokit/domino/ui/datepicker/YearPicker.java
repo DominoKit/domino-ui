@@ -21,12 +21,7 @@ import org.dominokit.domino.ui.elements.DivElement;
 import org.dominokit.domino.ui.style.BooleanCssClass;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
 
-/**
- * YearPicker class.
- *
- * @author vegegoku
- * @version $Id: $Id
- */
+/** YearPicker class. */
 public class YearPicker extends BaseDominoElement<HTMLDivElement, YearPicker>
     implements CalendarStyles {
 

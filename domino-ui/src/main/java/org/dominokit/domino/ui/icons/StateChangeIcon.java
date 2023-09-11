@@ -25,12 +25,7 @@ import org.dominokit.domino.ui.style.CompositeCssClass;
 import org.dominokit.domino.ui.style.SwapCssClass;
 import org.dominokit.domino.ui.utils.ElementHandler;
 
-/**
- * Abstract StateChangeIcon class.
- *
- * @author vegegoku
- * @version $Id: $Id
- */
+/** Abstract StateChangeIcon class. */
 public abstract class StateChangeIcon<I extends Icon<I>, T extends StateChangeIcon<I, T>>
     extends Icon<T> {
   protected final I defaultIcon;

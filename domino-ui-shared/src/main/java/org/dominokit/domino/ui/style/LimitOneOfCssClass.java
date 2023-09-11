@@ -21,12 +21,7 @@ import java.util.Collection;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-/**
- * LimitOneOfCssClass class.
- *
- * @author vegegoku
- * @version $Id: $Id
- */
+/** LimitOneOfCssClass class. */
 public class LimitOneOfCssClass implements CssClass {
 
   private final CompositeCssClass allowedClasses;

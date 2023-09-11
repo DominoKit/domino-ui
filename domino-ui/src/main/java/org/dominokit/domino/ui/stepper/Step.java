@@ -28,12 +28,7 @@ import org.dominokit.domino.ui.utils.BaseDominoElement;
 import org.dominokit.domino.ui.utils.ChildHandler;
 import org.dominokit.domino.ui.utils.LazyChild;
 
-/**
- * Step class.
- *
- * @author vegegoku
- * @version $Id: $Id
- */
+/** Step class. */
 public class Step extends BaseDominoElement<HTMLDivElement, Step>
     implements StepperStyles, HasComponentConfig<StepperConfig> {
 

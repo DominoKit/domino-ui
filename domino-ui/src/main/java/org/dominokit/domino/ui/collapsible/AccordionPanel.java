@@ -30,8 +30,6 @@ import org.dominokit.domino.ui.utils.*;
  * clicks on the panel header
  *
  * @see Accordion
- * @author vegegoku
- * @version $Id: $Id
  */
 public class AccordionPanel extends BaseDominoElement<HTMLDivElement, AccordionPanel>
     implements IsCollapsible<AccordionPanel>,

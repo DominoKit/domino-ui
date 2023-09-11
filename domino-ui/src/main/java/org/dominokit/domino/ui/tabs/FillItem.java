@@ -24,9 +24,6 @@ import org.dominokit.domino.ui.utils.BaseDominoElement;
 /**
  * A component that adds a space between {@link org.dominokit.domino.ui.tabs.Tab}s in the {@link
  * org.dominokit.domino.ui.tabs.TabsPanel}
- *
- * @author vegegoku
- * @version $Id: $Id
  */
 public class FillItem extends BaseDominoElement<HTMLLIElement, FillItem> {
 

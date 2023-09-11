@@ -18,12 +18,7 @@ package org.dominokit.domino.ui.icons;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Meta data for a {@link org.dominokit.domino.ui.icons.MdiIcon}
- *
- * @author vegegoku
- * @version $Id: $Id
- */
+/** Meta data for a {@link org.dominokit.domino.ui.icons.MdiIcon} */
 public class MdiMeta {
 
   private final String name;

@@ -18,12 +18,7 @@ package org.dominokit.domino.ui.tabs;
 import org.dominokit.domino.ui.style.CssClass;
 import org.dominokit.domino.ui.style.HasCssClass;
 
-/**
- * An enum to list possible values for tabs align
- *
- * @author vegegoku
- * @version $Id: $Id
- */
+/** An enum to list possible values for tabs align */
 public enum HeaderDirection implements HasCssClass {
   /** Tabs headers will be aligned to the left of the tab panel */
   DEFAULT(CssClass.NONE),

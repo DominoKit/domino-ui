@@ -17,12 +17,7 @@ package org.dominokit.domino.ui.elements;
 
 import elemental2.dom.HTMLTableCellElement;
 
-/**
- * TDElement class.
- *
- * @author vegegoku
- * @version $Id: $Id
- */
+/** TDElement class. */
 public class TDElement extends BaseElement<HTMLTableCellElement, TDElement> {
   /**
    * of.

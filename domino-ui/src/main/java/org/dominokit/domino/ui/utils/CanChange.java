@@ -19,12 +19,7 @@ import elemental2.dom.Event;
 import java.util.Optional;
 import java.util.function.Consumer;
 
-/**
- * CanChange interface.
- *
- * @author vegegoku
- * @version $Id: $Id
- */
+/** CanChange interface. */
 public interface CanChange {
   /**
    * onChange.

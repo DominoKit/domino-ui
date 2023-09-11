@@ -21,12 +21,7 @@ import elemental2.dom.Element;
 import org.dominokit.domino.ui.utils.DominoElement;
 import org.dominokit.domino.ui.utils.HasWavesElement;
 
-/**
- * A utility class for configuring waves for a specific element
- *
- * @author vegegoku
- * @version $Id: $Id
- */
+/** A utility class for configuring waves for a specific element */
 public class WavesSupport implements HasWaveEffect<WavesSupport> {
 
   private static final CssClass dui_waves_effect = () -> "dui-waves-effect";

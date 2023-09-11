@@ -32,8 +32,6 @@ import org.dominokit.domino.ui.utils.HasMultiSelectionSupport;
  * This class is responsible for configuring the data table
  *
  * @param <T> the type of the data table records
- * @author vegegoku
- * @version $Id: $Id
  */
 public class TableConfig<T>
     implements HasMultiSelectionSupport<TableConfig<T>>, DataTableStyles, DominoCss {

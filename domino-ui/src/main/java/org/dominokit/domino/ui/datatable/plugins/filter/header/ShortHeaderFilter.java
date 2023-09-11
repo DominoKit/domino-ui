@@ -24,8 +24,6 @@ import org.dominokit.domino.ui.forms.ShortBox;
  * org.dominokit.domino.ui.forms.ShortBox} component
  *
  * @param <T> type of data table records
- * @author vegegoku
- * @version $Id: $Id
  */
 public class ShortHeaderFilter<T> extends DelayedHeaderFilterInput<ShortBox, T, Short> {
 

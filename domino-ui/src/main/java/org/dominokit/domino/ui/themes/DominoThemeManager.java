@@ -21,8 +21,9 @@ import elemental2.dom.DomGlobal;
 import elemental2.webstorage.WebStorageWindow;
 import java.util.*;
 import java.util.stream.Collectors;
+import org.dominokit.domino.ui.utils.ElementsFactory;
 
-public class DominoThemeManager {
+public class DominoThemeManager implements ElementsFactory {
 
   public static final DominoThemeManager INSTANCE = new DominoThemeManager();
 

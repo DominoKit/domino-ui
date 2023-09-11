@@ -17,12 +17,7 @@ package org.dominokit.domino.ui.elements;
 
 import elemental2.dom.HTMLTrackElement;
 
-/**
- * TrackElement class.
- *
- * @author vegegoku
- * @version $Id: $Id
- */
+/** TrackElement class. */
 public class TrackElement extends BaseElement<HTMLTrackElement, TrackElement> {
   /**
    * of.

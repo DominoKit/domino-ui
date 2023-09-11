@@ -20,12 +20,7 @@ import static java.util.Objects.nonNull;
 import java.util.HashSet;
 import java.util.Set;
 
-/**
- * CalendarInitConfig class.
- *
- * @author vegegoku
- * @version $Id: $Id
- */
+/** CalendarInitConfig class. */
 public class CalendarInitConfig {
 
   private final Set<CalendarPlugin> plugins = new HashSet<>();

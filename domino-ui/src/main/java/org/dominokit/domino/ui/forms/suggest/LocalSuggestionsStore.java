@@ -28,8 +28,6 @@ import org.dominokit.domino.ui.IsElement;
  * Suggestion from a local List
  *
  * @param <T> The type of the SuggestBox value
- * @author vegegoku
- * @version $Id: $Id
  */
 public class LocalSuggestionsStore<T, E extends IsElement<?>, O extends Option<T, E, O>>
     implements SuggestionsStore<T, E, O> {

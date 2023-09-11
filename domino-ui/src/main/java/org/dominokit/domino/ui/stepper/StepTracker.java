@@ -27,12 +27,7 @@ import org.dominokit.domino.ui.utils.ChildHandler;
 import org.dominokit.domino.ui.utils.PostfixAddOn;
 import org.dominokit.domino.ui.utils.PrefixAddOn;
 
-/**
- * StepTracker class.
- *
- * @author vegegoku
- * @version $Id: $Id
- */
+/** StepTracker class. */
 public class StepTracker extends BaseDominoElement<HTMLDivElement, StepTracker>
     implements StepperStyles {
 

@@ -38,8 +38,6 @@ import org.dominokit.domino.ui.utils.BaseDominoElement;
  * </pre>
  *
  * @see BaseDominoElement
- * @author vegegoku
- * @version $Id: $Id
  */
 public class Pager extends BaseDominoElement<HTMLElement, Pager>
     implements PaginationStyles, HasLabels<PaginationLabels> {

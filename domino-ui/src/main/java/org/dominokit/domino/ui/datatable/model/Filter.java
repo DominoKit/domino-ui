@@ -22,9 +22,6 @@ import java.util.Objects;
 /**
  * This class represent a data table data filter which can be used to apply queries and filters on
  * data by the data store
- *
- * @author vegegoku
- * @version $Id: $Id
  */
 public class Filter {
 

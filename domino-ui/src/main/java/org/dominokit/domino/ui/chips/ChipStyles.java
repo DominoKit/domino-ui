@@ -17,12 +17,7 @@ package org.dominokit.domino.ui.chips;
 
 import org.dominokit.domino.ui.style.CssClass;
 
-/**
- * Default CSS classes for {@link org.dominokit.domino.ui.chips.Chip}
- *
- * @author vegegoku
- * @version $Id: $Id
- */
+/** Default CSS classes for {@link org.dominokit.domino.ui.chips.Chip} */
 public class ChipStyles {
   /** CSS class for chip */
   public static final CssClass dui_chip = () -> "dui-chip";

@@ -17,12 +17,7 @@ package org.dominokit.domino.ui.elements;
 
 import elemental2.dom.HTMLTableSectionElement;
 
-/**
- * THeadElement class.
- *
- * @author vegegoku
- * @version $Id: $Id
- */
+/** THeadElement class. */
 public class THeadElement extends BaseElement<HTMLTableSectionElement, THeadElement> {
   /**
    * of.

@@ -17,12 +17,7 @@ package org.dominokit.domino.ui.elements;
 
 import elemental2.dom.HTMLElement;
 
-/**
- * WBRElement class.
- *
- * @author vegegoku
- * @version $Id: $Id
- */
+/** WBRElement class. */
 public class WBRElement extends BaseElement<HTMLElement, WBRElement> {
   /**
    * of.

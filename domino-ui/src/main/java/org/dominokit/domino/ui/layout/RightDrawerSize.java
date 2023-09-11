@@ -17,12 +17,7 @@ package org.dominokit.domino.ui.layout;
 
 import org.dominokit.domino.ui.style.CssClass;
 
-/**
- * RightDrawerSize class.
- *
- * @author vegegoku
- * @version $Id: $Id
- */
+/** RightDrawerSize class. */
 public enum RightDrawerSize {
   XSMALL(AppLayoutStyles.dui_right_xsmall),
   SMALL(AppLayoutStyles.dui_right_small),

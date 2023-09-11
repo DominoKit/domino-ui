@@ -17,12 +17,7 @@ package org.dominokit.domino.ui.elements;
 
 import elemental2.dom.HTMLLegendElement;
 
-/**
- * LegendElement class.
- *
- * @author vegegoku
- * @version $Id: $Id
- */
+/** LegendElement class. */
 public class LegendElement extends BaseElement<HTMLLegendElement, LegendElement> {
   /**
    * of.

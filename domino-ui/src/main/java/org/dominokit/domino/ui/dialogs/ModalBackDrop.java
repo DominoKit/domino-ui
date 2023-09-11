@@ -34,9 +34,6 @@ import org.dominokit.domino.ui.utils.PopupsCloser;
  *
  * <p>this class can track the overlay across the page and all opened modals and it adjust its
  * position whenever a modal is opened or closed
- *
- * @author vegegoku
- * @version $Id: $Id
  */
 public class ModalBackDrop extends BaseDominoElement<HTMLDivElement, ModalBackDrop>
     implements HasComponentConfig<ZIndexConfig> {
@@ -97,7 +94,7 @@ public class ModalBackDrop extends BaseDominoElement<HTMLDivElement, ModalBackDr
   }
 
   /**
-   * Close all currently open {@link org.dominokit.domino.ui.popover.Popover}s
+   * Close all currently open {@link org.dominokit.domino.ui.popover.Popover}
    *
    * @param sourceId a {@link java.lang.String} object
    */

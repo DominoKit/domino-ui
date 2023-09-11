@@ -22,9 +22,6 @@ import org.dominokit.domino.ui.utils.BaseDominoElement;
 /**
  * A component that wraps the {@link elemental2.dom.HTMLDivElement} to make it auto vertically
  * scrollable when the content exceeds the component fixed height
- *
- * @author vegegoku
- * @version $Id: $Id
  */
 public class AutoVScrollPanel extends BaseDominoElement<HTMLDivElement, AutoVScrollPanel> {
 

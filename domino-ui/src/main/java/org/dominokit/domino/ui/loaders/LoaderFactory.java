@@ -15,12 +15,7 @@
  */
 package org.dominokit.domino.ui.loaders;
 
-/**
- * A factory for creating loaders based on their type
- *
- * @author vegegoku
- * @version $Id: $Id
- */
+/** A factory for creating loaders based on their type */
 public class LoaderFactory {
 
   /**

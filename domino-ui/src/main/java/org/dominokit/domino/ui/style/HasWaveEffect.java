@@ -19,8 +19,6 @@ package org.dominokit.domino.ui.style;
  * An interface provides waves effects
  *
  * @param <T> the type of the component implementing this
- * @author vegegoku
- * @version $Id: $Id
  */
 public interface HasWaveEffect<T> {
   /**

@@ -21,12 +21,7 @@ import static org.dominokit.domino.ui.style.SpacingCss.dui_flex_col_reverse;
 import elemental2.dom.DOMRect;
 import elemental2.dom.Element;
 
-/**
- * BestFitSideDropDirection class.
- *
- * @author vegegoku
- * @version $Id: $Id
- */
+/** BestFitSideDropDirection class. */
 public class BestFitSideDropDirection implements DropDirection {
 
   /** {@inheritDoc} */

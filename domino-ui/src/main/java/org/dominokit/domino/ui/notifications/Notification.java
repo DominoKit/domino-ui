@@ -38,8 +38,6 @@ import org.dominokit.domino.ui.utils.LazyChild;
  * NotificationStyles} </pre>
  *
  * @see BaseDominoElement
- * @author vegegoku
- * @version $Id: $Id
  */
 public class Notification extends BaseDominoElement<HTMLDivElement, Notification>
     implements NotificationStyles {

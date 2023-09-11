@@ -17,12 +17,7 @@ package org.dominokit.domino.ui.utils;
 
 import static java.util.Objects.isNull;
 
-/**
- * MatchHighlighter class.
- *
- * @author vegegoku
- * @version $Id: $Id
- */
+/** MatchHighlighter class. */
 public class MatchHighlighter {
 
   private static final String prefix = "<mark>";

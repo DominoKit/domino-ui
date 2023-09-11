@@ -26,12 +26,7 @@ import org.dominokit.domino.ui.layout.NavBar;
 import org.dominokit.domino.ui.utils.ChildHandler;
 import org.dominokit.domino.ui.utils.LazyChild;
 
-/**
- * MenuItemsGroup class.
- *
- * @author vegegoku
- * @version $Id: $Id
- */
+/** MenuItemsGroup class. */
 public class MenuItemsGroup<V> extends AbstractMenuItem<V> {
 
   private final Menu<V> menu;

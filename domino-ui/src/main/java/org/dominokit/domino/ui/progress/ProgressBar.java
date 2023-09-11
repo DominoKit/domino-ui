@@ -28,8 +28,6 @@ import org.dominokit.domino.ui.utils.DominoUIConfig;
  * org.dominokit.domino.ui.progress.Progress} </pre>
  *
  * @see Progress
- * @author vegegoku
- * @version $Id: $Id
  */
 public class ProgressBar extends BaseDominoElement<HTMLDivElement, ProgressBar>
     implements ProgressStyles, HasComponentConfig<ProgressBarConfig> {

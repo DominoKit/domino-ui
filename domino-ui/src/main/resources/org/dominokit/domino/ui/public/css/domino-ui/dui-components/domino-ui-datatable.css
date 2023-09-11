@@ -42,10 +42,14 @@
     z-index: 1;
 }
 
-.dui-datatable-hover tbody .dui-datatable-row:hover,
-.dui-datatable-hover tbody .dui-datatable-row:nth-child(odd):hover,
-.dui-datatable-hover tbody .dui-datatable-row:nth-child(even):hover {
+.dui-datatable-hover tbody .dui-datatable-row:not(.dui-datatable-row-editable):hover,
+.dui-datatable-hover tbody .dui-datatable-row:nth-child(odd):not(.dui-datatable-row-editable):hover,
+.dui-datatable-hover tbody .dui-datatable-row:nth-child(even):not(.dui-datatable-row-editable):hover {
     background-color: var(--dui-datatable-row-hover-bg-color);
+}
+
+.dui-datatable-responsive:not(.dui-datatable-striped) tbody .dui-datatable-row {
+    background-color:var(--dui-bg-clr, var(--dui-bg, var(--dui-clr-dominant)));
 }
 
 .dui-datatable-striped tbody .dui-datatable-row:nth-child(even) {

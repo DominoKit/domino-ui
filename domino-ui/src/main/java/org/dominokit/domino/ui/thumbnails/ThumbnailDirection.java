@@ -19,12 +19,7 @@ import org.dominokit.domino.ui.style.CssClass;
 import org.dominokit.domino.ui.style.HasCssClass;
 import org.dominokit.domino.ui.style.SpacingCss;
 
-/**
- * ThumbnailDirection class.
- *
- * @author vegegoku
- * @version $Id: $Id
- */
+/** ThumbnailDirection class. */
 public enum ThumbnailDirection implements HasCssClass {
   ROW(SpacingCss.dui_flex_row),
   ROW_REVERSE(SpacingCss.dui_flex_row_reverse),

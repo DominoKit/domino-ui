@@ -27,12 +27,7 @@ import org.dominokit.domino.ui.elements.TableRowElement;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
 import org.dominokit.domino.ui.utils.DominoElement;
 
-/**
- * SummaryRow class.
- *
- * @author vegegoku
- * @version $Id: $Id
- */
+/** SummaryRow class. */
 public class SummaryRow<T, S> extends BaseDominoElement<HTMLTableRowElement, SummaryRow<T, S>>
     implements DataTableStyles {
   private S record;

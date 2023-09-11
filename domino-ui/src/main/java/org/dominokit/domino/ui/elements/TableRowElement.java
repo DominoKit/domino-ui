@@ -17,12 +17,7 @@ package org.dominokit.domino.ui.elements;
 
 import elemental2.dom.HTMLTableRowElement;
 
-/**
- * TableRowElement class.
- *
- * @author vegegoku
- * @version $Id: $Id
- */
+/** TableRowElement class. */
 public class TableRowElement extends BaseElement<HTMLTableRowElement, TableRowElement> {
   /**
    * of.

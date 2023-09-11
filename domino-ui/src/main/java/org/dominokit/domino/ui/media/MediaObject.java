@@ -32,8 +32,6 @@ import org.dominokit.domino.ui.utils.LazyChild;
  * org.dominokit.domino.ui.media.MediaStyles}
  *
  * @see BaseDominoElement
- * @author vegegoku
- * @version $Id: $Id
  */
 public class MediaObject extends BaseDominoElement<HTMLDivElement, MediaObject>
     implements MediaStyles {

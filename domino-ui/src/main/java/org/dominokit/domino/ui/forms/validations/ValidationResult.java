@@ -15,12 +15,7 @@
  */
 package org.dominokit.domino.ui.forms.validations;
 
-/**
- * This class represent the result of a single validation logic
- *
- * @author vegegoku
- * @version $Id: $Id
- */
+/** This class represent the result of a single validation logic */
 public class ValidationResult {
 
   private String errorMessage;

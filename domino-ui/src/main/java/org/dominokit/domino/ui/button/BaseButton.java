@@ -44,8 +44,6 @@ import org.dominokit.domino.ui.utils.LazyChild;
  * button
  *
  * @param <B> The button subclass being wrapped
- * @author vegegoku
- * @version $Id: $Id
  */
 public abstract class BaseButton<E extends HTMLElement, B extends BaseButton<E, B>>
     extends WavesElement<HTMLElement, B>

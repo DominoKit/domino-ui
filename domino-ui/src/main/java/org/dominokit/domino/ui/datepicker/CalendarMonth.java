@@ -22,12 +22,7 @@ import java.util.Date;
 import org.dominokit.domino.ui.elements.DivElement;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
 
-/**
- * CalendarMonth class.
- *
- * @author vegegoku
- * @version $Id: $Id
- */
+/** CalendarMonth class. */
 public class CalendarMonth extends BaseDominoElement<HTMLDivElement, CalendarMonth>
     implements CalendarStyles, CalendarViewListener {
 

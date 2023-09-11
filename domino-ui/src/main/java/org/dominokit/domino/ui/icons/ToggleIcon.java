@@ -21,12 +21,7 @@ import org.dominokit.domino.ui.style.AutoSwapCssClass;
 import org.dominokit.domino.ui.style.CompositeCssClass;
 import org.dominokit.domino.ui.utils.ElementHandler;
 
-/**
- * Abstract ToggleIcon class.
- *
- * @author vegegoku
- * @version $Id: $Id
- */
+/** Abstract ToggleIcon class. */
 public abstract class ToggleIcon<I extends Icon<I>, T extends ToggleIcon<I, T>> extends Icon<T> {
   protected final I primary;
   protected final I toggle;

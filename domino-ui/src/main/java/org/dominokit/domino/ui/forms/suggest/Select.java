@@ -20,12 +20,7 @@ import static java.util.Objects.nonNull;
 import java.util.Objects;
 import org.dominokit.domino.ui.elements.DivElement;
 
-/**
- * Select class.
- *
- * @author vegegoku
- * @version $Id: $Id
- */
+/** Select class. */
 public class Select<V> extends AbstractSelect<V, V, DivElement, SelectOption<V>, Select<V>> {
 
   private SelectOption<V> selectedOption;

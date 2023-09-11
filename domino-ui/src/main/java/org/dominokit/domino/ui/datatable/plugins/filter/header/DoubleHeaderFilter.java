@@ -24,8 +24,6 @@ import org.dominokit.domino.ui.forms.DoubleBox;
  * org.dominokit.domino.ui.forms.DoubleBox} component
  *
  * @param <T> type of data table records
- * @author vegegoku
- * @version $Id: $Id
  */
 public class DoubleHeaderFilter<T> extends DelayedHeaderFilterInput<DoubleBox, T, Double> {
 

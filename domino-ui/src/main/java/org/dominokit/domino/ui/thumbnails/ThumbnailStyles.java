@@ -17,12 +17,7 @@ package org.dominokit.domino.ui.thumbnails;
 
 import org.dominokit.domino.ui.style.CssClass;
 
-/**
- * Default CSS styles for {@link org.dominokit.domino.ui.thumbnails.Thumbnail}
- *
- * @author vegegoku
- * @version $Id: $Id
- */
+/** Default CSS styles for {@link org.dominokit.domino.ui.thumbnails.Thumbnail} */
 public interface ThumbnailStyles {
   /** Constant <code>dui_thumbnail</code> */
   CssClass dui_thumbnail = () -> "dui-thumbnail";

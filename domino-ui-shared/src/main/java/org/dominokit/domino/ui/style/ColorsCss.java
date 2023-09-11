@@ -15,12 +15,7 @@
  */
 package org.dominokit.domino.ui.style;
 
-/**
- * ColorsCss interface.
- *
- * @author vegegoku
- * @version $Id: $Id
- */
+/** ColorsCss interface. */
 public interface ColorsCss {
 
   CssClass dui_fg_color = () -> "dui-fg-color";

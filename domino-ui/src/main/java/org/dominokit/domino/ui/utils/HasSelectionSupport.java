@@ -21,8 +21,6 @@ import java.util.List;
  * Components that needs to support selection of items can implement this interface
  *
  * @param <T> the type of items being selected
- * @author vegegoku
- * @version $Id: $Id
  */
 public interface HasSelectionSupport<T> {
 
@@ -33,15 +31,6 @@ public interface HasSelectionSupport<T> {
    * @return a {@link java.util.List} object
    */
   List<T> getSelectedItems();
-
-  /** @deprecated use {@link #getRows()} */
-  /**
-   * getItems.
-   *
-   * @return a {@link java.util.List} object
-   */
-  @Deprecated
-  List<T> getItems();
 
   /** @return a List of all selected and not selected items */
   /**

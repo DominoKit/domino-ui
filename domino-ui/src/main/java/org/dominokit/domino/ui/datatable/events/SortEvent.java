@@ -23,8 +23,6 @@ import org.dominokit.domino.ui.datatable.plugins.pagination.SortDirection;
  * header
  *
  * @param <T> the type of the table records
- * @author vegegoku
- * @version $Id: $Id
  */
 public class SortEvent<T> implements TableEvent {
 

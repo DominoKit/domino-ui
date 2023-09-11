@@ -21,9 +21,6 @@ import static java.util.Objects.nonNull;
 /**
  * An implementation of {@link org.dominokit.domino.ui.menu.AbstractMenuItem} that can take custom
  * content
- *
- * @author vegegoku
- * @version $Id: $Id
  */
 public class CustomMenuItem<V> extends AbstractMenuItem<V> {
 

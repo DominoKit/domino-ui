@@ -17,12 +17,7 @@ package org.dominokit.domino.ui.grid;
 
 import org.dominokit.domino.ui.style.CssClass;
 
-/**
- * Default CSS classes for {@link org.dominokit.domino.ui.grid.GridLayout}
- *
- * @author vegegoku
- * @version $Id: $Id
- */
+/** Default CSS classes for {@link org.dominokit.domino.ui.grid.GridLayout} */
 public interface GridStyles {
   /** CSS style for a grid column */
   CssClass dui_grid_col = () -> "dui-grid-col";

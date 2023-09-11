@@ -19,12 +19,7 @@ import java.util.Objects;
 import java.util.Optional;
 import org.dominokit.domino.ui.utils.ComponentMeta;
 
-/**
- * RowRendererMeta class.
- *
- * @author vegegoku
- * @version $Id: $Id
- */
+/** RowRendererMeta class. */
 public class RowRendererMeta<T> implements ComponentMeta {
 
   /** Constant <code>TABLE_ROW_RENDERER_META="table-row-renderer-meta"</code> */

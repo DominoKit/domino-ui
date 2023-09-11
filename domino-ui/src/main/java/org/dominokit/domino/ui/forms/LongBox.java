@@ -17,12 +17,7 @@ package org.dominokit.domino.ui.forms;
 
 import java.util.function.Function;
 
-/**
- * A component that has an input to take/provide Long value
- *
- * @author vegegoku
- * @version $Id: $Id
- */
+/** A component that has an input to take/provide Long value */
 public class LongBox extends NumberBox<LongBox, Long> {
 
   /** @return a new instance without a label */

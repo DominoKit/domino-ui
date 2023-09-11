@@ -15,13 +15,6 @@
  */
 package org.dominokit.domino.ui.utils;
 
-import static elemental2.dom.DomGlobal.document;
-import static java.util.Objects.isNull;
-import static java.util.Objects.nonNull;
-import static jsinterop.base.Js.cast;
-import static org.dominokit.domino.ui.utils.DomElements.dom;
-
-import elemental2.dom.DomGlobal;
 import elemental2.dom.Element;
 import elemental2.dom.Text;
 import java.util.Optional;
@@ -116,23 +109,18 @@ import org.dominokit.domino.ui.elements.VarElement;
 import org.dominokit.domino.ui.elements.VideoElement;
 import org.dominokit.domino.ui.elements.WBRElement;
 
-/**
- * ElementsFactory interface.
- *
- * @author vegegoku
- * @version $Id: $Id
- */
+/** ElementsFactory interface. */
 public interface ElementsFactory {
 
   /** Constant <code>elements</code> */
   ElementsFactory elements = new ElementsFactory() {};
 
+  default ElementsFactoryDelegate delegate() {
+    return DominoUIConfig.CONFIG.getElementsFactory();
+  }
+
   default Optional<DominoElement<Element>> byId(String id) {
-    Element elementById = document.getElementById(id);
-    if (nonNull(elementById)) {
-      return Optional.of(elementOf(elementById));
-    }
-    return Optional.empty();
+    return delegate().byId(id);
   }
 
   /**
@@ -144,7 +132,7 @@ public interface ElementsFactory {
    * @return a E object
    */
   default <E extends Element> E create(String element, Class<E> type) {
-    return cast(document.createElement(element));
+    return delegate().create(element, type);
   }
 
   /**
@@ -155,7 +143,7 @@ public interface ElementsFactory {
    * @return the {@link org.dominokit.domino.ui.utils.DominoElement} wrapping the provided element
    */
   default <E extends Element> DominoElement<E> elementOf(E element) {
-    return new DominoElement<>(element);
+    return delegate().elementOf(element);
   }
 
   /**
@@ -167,7 +155,7 @@ public interface ElementsFactory {
    * @param <T> a T class
    */
   default <T extends Element, E extends IsElement<T>> DominoElement<T> elementOf(E element) {
-    return new DominoElement<>(element.element());
+    return delegate().elementOf(element);
   }
 
   /**
@@ -176,7 +164,7 @@ public interface ElementsFactory {
    * @return a {@link java.lang.String} object
    */
   default String getUniqueId() {
-    return DominoId.unique();
+    return delegate().getUniqueId();
   }
 
   /**
@@ -186,7 +174,7 @@ public interface ElementsFactory {
    * @return a {@link java.lang.String} object
    */
   default String getUniqueId(String prefix) {
-    return DominoId.unique(prefix);
+    return delegate().getUniqueId(prefix);
   }
 
   /** @return a {@link DominoElement} wrapping the document {@link HTMLBodyElement} */
@@ -196,7 +184,7 @@ public interface ElementsFactory {
    * @return a {@link org.dominokit.domino.ui.elements.BodyElement} object
    */
   default BodyElement body() {
-    return new BodyElement(dom.body());
+    return delegate().body();
   }
 
   /** @return a new {@link HTMLDivElement} wrapped as a {@link DominoElement} */
@@ -206,10 +194,8 @@ public interface ElementsFactory {
    * @return a {@link org.dominokit.domino.ui.elements.PictureElement} object
    */
   default PictureElement picture() {
-    return new PictureElement(dom.picture());
+    return delegate().picture();
   }
-
-  // ------------------ content sectioning
 
   /**
    * address.
@@ -217,7 +203,7 @@ public interface ElementsFactory {
    * @return a {@link org.dominokit.domino.ui.elements.AddressElement} object
    */
   default AddressElement address() {
-    return new AddressElement(dom.address());
+    return delegate().address();
   }
 
   /**
@@ -226,7 +212,7 @@ public interface ElementsFactory {
    * @return a {@link org.dominokit.domino.ui.elements.ArticleElement} object
    */
   default ArticleElement article() {
-    return new ArticleElement(dom.article());
+    return delegate().article();
   }
 
   /**
@@ -235,7 +221,7 @@ public interface ElementsFactory {
    * @return a {@link org.dominokit.domino.ui.elements.AsideElement} object
    */
   default AsideElement aside() {
-    return new AsideElement(dom.aside());
+    return delegate().aside();
   }
 
   /**
@@ -244,7 +230,7 @@ public interface ElementsFactory {
    * @return a {@link org.dominokit.domino.ui.elements.FooterElement} object
    */
   default FooterElement footer() {
-    return new FooterElement(dom.footer());
+    return delegate().footer();
   }
 
   /**
@@ -254,7 +240,7 @@ public interface ElementsFactory {
    * @return a {@link org.dominokit.domino.ui.elements.HeadingElement} object
    */
   default HeadingElement h(int n) {
-    return new HeadingElement(dom.h(n));
+    return delegate().h(n);
   }
 
   /**
@@ -263,7 +249,7 @@ public interface ElementsFactory {
    * @return a {@link org.dominokit.domino.ui.elements.HeaderElement} object
    */
   default HeaderElement header() {
-    return new HeaderElement(dom.header());
+    return delegate().header();
   }
 
   /**
@@ -272,7 +258,7 @@ public interface ElementsFactory {
    * @return a {@link org.dominokit.domino.ui.elements.HGroupElement} object
    */
   default HGroupElement hgroup() {
-    return new HGroupElement(dom.hgroup());
+    return delegate().hgroup();
   }
 
   /**
@@ -281,7 +267,7 @@ public interface ElementsFactory {
    * @return a {@link org.dominokit.domino.ui.elements.NavElement} object
    */
   default NavElement nav() {
-    return new NavElement(dom.nav());
+    return delegate().nav();
   }
 
   /**
@@ -290,10 +276,8 @@ public interface ElementsFactory {
    * @return a {@link org.dominokit.domino.ui.elements.SectionElement} object
    */
   default SectionElement section() {
-    return new SectionElement(dom.section());
+    return delegate().section();
   }
-
-  // ------------------------------------------------------ text content
 
   /**
    * blockquote.
@@ -301,7 +285,7 @@ public interface ElementsFactory {
    * @return a {@link org.dominokit.domino.ui.elements.BlockquoteElement} object
    */
   default BlockquoteElement blockquote() {
-    return new BlockquoteElement(dom.blockquote());
+    return delegate().blockquote();
   }
 
   /**
@@ -310,7 +294,7 @@ public interface ElementsFactory {
    * @return a {@link org.dominokit.domino.ui.elements.DDElement} object
    */
   default DDElement dd() {
-    return new DDElement(dom.dd());
+    return delegate().dd();
   }
 
   /**
@@ -319,7 +303,7 @@ public interface ElementsFactory {
    * @return a {@link org.dominokit.domino.ui.elements.DivElement} object
    */
   default DivElement div() {
-    return new DivElement(dom.div());
+    return delegate().div();
   }
 
   /**
@@ -328,7 +312,7 @@ public interface ElementsFactory {
    * @return a {@link org.dominokit.domino.ui.elements.DListElement} object
    */
   default DListElement dl() {
-    return new DListElement(dom.dl());
+    return delegate().dl();
   }
 
   /**
@@ -337,7 +321,7 @@ public interface ElementsFactory {
    * @return a {@link org.dominokit.domino.ui.elements.DTElement} object
    */
   default DTElement dt() {
-    return new DTElement(dom.dt());
+    return delegate().dt();
   }
 
   /**
@@ -346,7 +330,7 @@ public interface ElementsFactory {
    * @return a {@link org.dominokit.domino.ui.elements.FigCaptionElement} object
    */
   default FigCaptionElement figcaption() {
-    return new FigCaptionElement(dom.figcaption());
+    return delegate().figcaption();
   }
 
   /**
@@ -355,7 +339,7 @@ public interface ElementsFactory {
    * @return a {@link org.dominokit.domino.ui.elements.FigureElement} object
    */
   default FigureElement figure() {
-    return new FigureElement(dom.figure());
+    return delegate().figure();
   }
 
   /**
@@ -364,7 +348,7 @@ public interface ElementsFactory {
    * @return a {@link org.dominokit.domino.ui.elements.HRElement} object
    */
   default HRElement hr() {
-    return new HRElement(dom.hr());
+    return delegate().hr();
   }
 
   /**
@@ -373,7 +357,7 @@ public interface ElementsFactory {
    * @return a {@link org.dominokit.domino.ui.elements.LIElement} object
    */
   default LIElement li() {
-    return new LIElement(dom.li());
+    return delegate().li();
   }
 
   /**
@@ -383,7 +367,7 @@ public interface ElementsFactory {
    */
   @SuppressWarnings("all")
   default MainElement main() {
-    return new MainElement(dom.main());
+    return delegate().main();
   }
 
   /**
@@ -392,7 +376,7 @@ public interface ElementsFactory {
    * @return a {@link org.dominokit.domino.ui.elements.OListElement} object
    */
   default OListElement ol() {
-    return new OListElement(dom.ol());
+    return delegate().ol();
   }
 
   /**
@@ -401,7 +385,7 @@ public interface ElementsFactory {
    * @return a {@link org.dominokit.domino.ui.elements.ParagraphElement} object
    */
   default ParagraphElement p() {
-    return new ParagraphElement(dom.p());
+    return delegate().p();
   }
 
   /**
@@ -411,7 +395,7 @@ public interface ElementsFactory {
    * @return a {@link org.dominokit.domino.ui.elements.ParagraphElement} object
    */
   default ParagraphElement p(String text) {
-    return new ParagraphElement(dom.p()).setTextContent(text);
+    return delegate().p(text);
   }
 
   /**
@@ -420,7 +404,7 @@ public interface ElementsFactory {
    * @return a {@link org.dominokit.domino.ui.elements.PreElement} object
    */
   default PreElement pre() {
-    return new PreElement(dom.pre());
+    return delegate().pre();
   }
 
   /**
@@ -429,10 +413,8 @@ public interface ElementsFactory {
    * @return a {@link org.dominokit.domino.ui.elements.UListElement} object
    */
   default UListElement ul() {
-    return new UListElement(dom.ul());
+    return delegate().ul();
   }
-
-  // ------------------------------------------------------ inline text semantics
 
   /**
    * a.
@@ -440,10 +422,7 @@ public interface ElementsFactory {
    * @return a {@link org.dominokit.domino.ui.elements.AnchorElement} object
    */
   default AnchorElement a() {
-    return new AnchorElement(dom.a())
-        .setAttribute("tabindex", "0")
-        .setAttribute("href", "#")
-        .setAttribute("aria-expanded", "true");
+    return delegate().a();
   }
 
   /**
@@ -453,9 +432,7 @@ public interface ElementsFactory {
    * @return a {@link org.dominokit.domino.ui.elements.AnchorElement} object
    */
   default AnchorElement a(String href) {
-    return new AnchorElement(dom.a())
-        .setAttribute("href", href)
-        .setAttribute("aria-expanded", "true");
+    return delegate().a(href);
   }
 
   /**
@@ -466,10 +443,7 @@ public interface ElementsFactory {
    * @return a {@link org.dominokit.domino.ui.elements.AnchorElement} object
    */
   default AnchorElement a(String href, String target) {
-    return new AnchorElement(dom.a())
-        .setAttribute("href", href)
-        .setAttribute("target", target)
-        .setAttribute("aria-expanded", "true");
+    return delegate().a(href, target);
   }
 
   /**
@@ -478,7 +452,7 @@ public interface ElementsFactory {
    * @return a {@link org.dominokit.domino.ui.elements.ABBRElement} object
    */
   default ABBRElement abbr() {
-    return new ABBRElement(dom.abbr());
+    return delegate().abbr();
   }
 
   /**
@@ -487,7 +461,7 @@ public interface ElementsFactory {
    * @return a {@link org.dominokit.domino.ui.elements.BElement} object
    */
   default BElement b() {
-    return new BElement(dom.b());
+    return delegate().b();
   }
 
   /**
@@ -496,7 +470,7 @@ public interface ElementsFactory {
    * @return a {@link org.dominokit.domino.ui.elements.BRElement} object
    */
   default BRElement br() {
-    return new BRElement(dom.br());
+    return delegate().br();
   }
 
   /**
@@ -505,7 +479,7 @@ public interface ElementsFactory {
    * @return a {@link org.dominokit.domino.ui.elements.CiteElement} object
    */
   default CiteElement cite() {
-    return new CiteElement(dom.cite());
+    return delegate().cite();
   }
 
   /**
@@ -514,7 +488,7 @@ public interface ElementsFactory {
    * @return a {@link org.dominokit.domino.ui.elements.CodeElement} object
    */
   default CodeElement code() {
-    return new CodeElement(dom.code());
+    return delegate().code();
   }
 
   /**
@@ -523,7 +497,7 @@ public interface ElementsFactory {
    * @return a {@link org.dominokit.domino.ui.elements.DFNElement} object
    */
   default DFNElement dfn() {
-    return new DFNElement(dom.dfn());
+    return delegate().dfn();
   }
 
   /**
@@ -532,7 +506,7 @@ public interface ElementsFactory {
    * @return a {@link org.dominokit.domino.ui.elements.EMElement} object
    */
   default EMElement em() {
-    return new EMElement(dom.em());
+    return delegate().em();
   }
 
   /**
@@ -541,7 +515,7 @@ public interface ElementsFactory {
    * @return a {@link org.dominokit.domino.ui.elements.IElement} object
    */
   default IElement i() {
-    return new IElement(dom.i());
+    return delegate().i();
   }
 
   /**
@@ -550,7 +524,7 @@ public interface ElementsFactory {
    * @return a {@link org.dominokit.domino.ui.elements.KBDElement} object
    */
   default KBDElement kbd() {
-    return new KBDElement(dom.kbd());
+    return delegate().kbd();
   }
 
   /**
@@ -559,7 +533,7 @@ public interface ElementsFactory {
    * @return a {@link org.dominokit.domino.ui.elements.MarkElement} object
    */
   default MarkElement mark() {
-    return new MarkElement(dom.mark());
+    return delegate().mark();
   }
 
   /**
@@ -568,7 +542,7 @@ public interface ElementsFactory {
    * @return a {@link org.dominokit.domino.ui.elements.QuoteElement} object
    */
   default QuoteElement q() {
-    return new QuoteElement(dom.q());
+    return delegate().q();
   }
 
   /**
@@ -577,7 +551,7 @@ public interface ElementsFactory {
    * @return a {@link org.dominokit.domino.ui.elements.SmallElement} object
    */
   default SmallElement small() {
-    return new SmallElement(dom.small());
+    return delegate().small();
   }
 
   /**
@@ -586,7 +560,7 @@ public interface ElementsFactory {
    * @return a {@link org.dominokit.domino.ui.elements.SpanElement} object
    */
   default SpanElement span() {
-    return new SpanElement(dom.span());
+    return delegate().span();
   }
 
   /**
@@ -595,7 +569,7 @@ public interface ElementsFactory {
    * @return a {@link org.dominokit.domino.ui.elements.StrongElement} object
    */
   default StrongElement strong() {
-    return new StrongElement(dom.strong());
+    return delegate().strong();
   }
 
   /**
@@ -604,7 +578,7 @@ public interface ElementsFactory {
    * @return a {@link org.dominokit.domino.ui.elements.SubElement} object
    */
   default SubElement sub() {
-    return new SubElement(dom.sub());
+    return delegate().sub();
   }
 
   /**
@@ -613,7 +587,7 @@ public interface ElementsFactory {
    * @return a {@link org.dominokit.domino.ui.elements.SupElement} object
    */
   default SupElement sup() {
-    return new SupElement(dom.sup());
+    return delegate().sup();
   }
 
   /**
@@ -622,7 +596,7 @@ public interface ElementsFactory {
    * @return a {@link org.dominokit.domino.ui.elements.TimeElement} object
    */
   default TimeElement time() {
-    return new TimeElement(dom.time());
+    return delegate().time();
   }
 
   /**
@@ -631,7 +605,7 @@ public interface ElementsFactory {
    * @return a {@link org.dominokit.domino.ui.elements.UElement} object
    */
   default UElement u() {
-    return new UElement(dom.u());
+    return delegate().u();
   }
 
   /**
@@ -640,7 +614,7 @@ public interface ElementsFactory {
    * @return a {@link org.dominokit.domino.ui.elements.VarElement} object
    */
   default VarElement var() {
-    return new VarElement(dom.var());
+    return delegate().var();
   }
 
   /**
@@ -649,10 +623,8 @@ public interface ElementsFactory {
    * @return a {@link org.dominokit.domino.ui.elements.WBRElement} object
    */
   default WBRElement wbr() {
-    return new WBRElement(dom.wbr());
+    return delegate().wbr();
   }
-
-  // ------------------------------------------------------ image and multimedia
 
   /**
    * area.
@@ -660,7 +632,7 @@ public interface ElementsFactory {
    * @return a {@link org.dominokit.domino.ui.elements.AreaElement} object
    */
   default AreaElement area() {
-    return new AreaElement(dom.area());
+    return delegate().area();
   }
 
   /**
@@ -669,7 +641,7 @@ public interface ElementsFactory {
    * @return a {@link org.dominokit.domino.ui.elements.AudioElement} object
    */
   default AudioElement audio() {
-    return new AudioElement(dom.audio());
+    return delegate().audio();
   }
 
   /**
@@ -678,7 +650,7 @@ public interface ElementsFactory {
    * @return a {@link org.dominokit.domino.ui.elements.ImageElement} object
    */
   default ImageElement img() {
-    return new ImageElement(dom.img());
+    return delegate().img();
   }
 
   /**
@@ -688,7 +660,7 @@ public interface ElementsFactory {
    * @return a {@link org.dominokit.domino.ui.elements.ImageElement} object
    */
   default ImageElement img(String src) {
-    return new ImageElement(dom.img(src));
+    return delegate().img(src);
   }
 
   /**
@@ -697,7 +669,7 @@ public interface ElementsFactory {
    * @return a {@link org.dominokit.domino.ui.elements.MapElement} object
    */
   default MapElement map() {
-    return new MapElement(dom.map());
+    return delegate().map();
   }
 
   /**
@@ -706,7 +678,7 @@ public interface ElementsFactory {
    * @return a {@link org.dominokit.domino.ui.elements.TrackElement} object
    */
   default TrackElement track() {
-    return new TrackElement(dom.track());
+    return delegate().track();
   }
 
   /**
@@ -715,10 +687,8 @@ public interface ElementsFactory {
    * @return a {@link org.dominokit.domino.ui.elements.VideoElement} object
    */
   default VideoElement video() {
-    return new VideoElement(dom.video());
+    return delegate().video();
   }
-
-  // ------------------------------------------------------ embedded content
 
   /**
    * canvas.
@@ -726,7 +696,7 @@ public interface ElementsFactory {
    * @return a {@link org.dominokit.domino.ui.elements.CanvasElement} object
    */
   default CanvasElement canvas() {
-    return new CanvasElement(dom.canvas());
+    return delegate().canvas();
   }
 
   /**
@@ -735,7 +705,7 @@ public interface ElementsFactory {
    * @return a {@link org.dominokit.domino.ui.elements.EmbedElement} object
    */
   default EmbedElement embed() {
-    return new EmbedElement(dom.embed());
+    return delegate().embed();
   }
 
   /**
@@ -744,7 +714,7 @@ public interface ElementsFactory {
    * @return a {@link org.dominokit.domino.ui.elements.IFrameElement} object
    */
   default IFrameElement iframe() {
-    return new IFrameElement(dom.iframe());
+    return delegate().iframe();
   }
 
   /**
@@ -754,7 +724,7 @@ public interface ElementsFactory {
    * @return a {@link org.dominokit.domino.ui.elements.IFrameElement} object
    */
   default IFrameElement iframe(String src) {
-    return iframe().setAttribute("src", src);
+    return delegate().iframe(src);
   }
 
   /**
@@ -763,7 +733,7 @@ public interface ElementsFactory {
    * @return a {@link org.dominokit.domino.ui.elements.ObjectElement} object
    */
   default ObjectElement object() {
-    return new ObjectElement(dom.object());
+    return delegate().object();
   }
 
   /**
@@ -772,7 +742,7 @@ public interface ElementsFactory {
    * @return a {@link org.dominokit.domino.ui.elements.ParamElement} object
    */
   default ParamElement param() {
-    return new ParamElement(dom.param());
+    return delegate().param();
   }
 
   /**
@@ -781,10 +751,8 @@ public interface ElementsFactory {
    * @return a {@link org.dominokit.domino.ui.elements.SourceElement} object
    */
   default SourceElement source() {
-    return new SourceElement(dom.source());
+    return delegate().source();
   }
-
-  // ------------------------------------------------------ scripting
 
   /**
    * noscript.
@@ -792,7 +760,7 @@ public interface ElementsFactory {
    * @return a {@link org.dominokit.domino.ui.elements.NoScriptElement} object
    */
   default NoScriptElement noscript() {
-    return new NoScriptElement(dom.noscript());
+    return delegate().noscript();
   }
 
   /**
@@ -801,10 +769,8 @@ public interface ElementsFactory {
    * @return a {@link org.dominokit.domino.ui.elements.ScriptElement} object
    */
   default ScriptElement script() {
-    return new ScriptElement(dom.script());
+    return delegate().script();
   }
-
-  // ------------------------------------------------------ demarcating edits
 
   /**
    * del.
@@ -812,7 +778,7 @@ public interface ElementsFactory {
    * @return a {@link org.dominokit.domino.ui.elements.DelElement} object
    */
   default DelElement del() {
-    return new DelElement(dom.del());
+    return delegate().del();
   }
 
   /**
@@ -821,10 +787,8 @@ public interface ElementsFactory {
    * @return a {@link org.dominokit.domino.ui.elements.InsElement} object
    */
   default InsElement ins() {
-    return new InsElement(dom.ins());
+    return delegate().ins();
   }
-
-  // ------------------------------------------------------ table content
 
   /**
    * caption.
@@ -832,7 +796,7 @@ public interface ElementsFactory {
    * @return a {@link org.dominokit.domino.ui.elements.TableCaptionElement} object
    */
   default TableCaptionElement caption() {
-    return new TableCaptionElement(dom.caption());
+    return delegate().caption();
   }
 
   /**
@@ -841,7 +805,7 @@ public interface ElementsFactory {
    * @return a {@link org.dominokit.domino.ui.elements.ColElement} object
    */
   default ColElement col() {
-    return new ColElement(dom.col());
+    return delegate().col();
   }
 
   /**
@@ -850,7 +814,7 @@ public interface ElementsFactory {
    * @return a {@link org.dominokit.domino.ui.elements.ColGroupElement} object
    */
   default ColGroupElement colgroup() {
-    return new ColGroupElement(dom.colgroup());
+    return delegate().colgroup();
   }
 
   /**
@@ -859,7 +823,7 @@ public interface ElementsFactory {
    * @return a {@link org.dominokit.domino.ui.elements.TableElement} object
    */
   default TableElement table() {
-    return new TableElement(dom.table());
+    return delegate().table();
   }
 
   /**
@@ -868,7 +832,7 @@ public interface ElementsFactory {
    * @return a {@link org.dominokit.domino.ui.elements.TBodyElement} object
    */
   default TBodyElement tbody() {
-    return new TBodyElement(dom.tbody());
+    return delegate().tbody();
   }
 
   /**
@@ -877,7 +841,7 @@ public interface ElementsFactory {
    * @return a {@link org.dominokit.domino.ui.elements.TDElement} object
    */
   default TDElement td() {
-    return new TDElement(dom.td());
+    return delegate().td();
   }
 
   /**
@@ -886,7 +850,7 @@ public interface ElementsFactory {
    * @return a {@link org.dominokit.domino.ui.elements.TFootElement} object
    */
   default TFootElement tfoot() {
-    return new TFootElement(dom.tfoot());
+    return delegate().tfoot();
   }
 
   /**
@@ -895,7 +859,7 @@ public interface ElementsFactory {
    * @return a {@link org.dominokit.domino.ui.elements.THElement} object
    */
   default THElement th() {
-    return new THElement(dom.th());
+    return delegate().th();
   }
 
   /**
@@ -904,7 +868,7 @@ public interface ElementsFactory {
    * @return a {@link org.dominokit.domino.ui.elements.THeadElement} object
    */
   default THeadElement thead() {
-    return new THeadElement(dom.thead());
+    return delegate().thead();
   }
 
   /**
@@ -913,10 +877,8 @@ public interface ElementsFactory {
    * @return a {@link org.dominokit.domino.ui.elements.TableRowElement} object
    */
   default TableRowElement tr() {
-    return new TableRowElement(dom.tr());
+    return delegate().tr();
   }
-
-  // ------------------------------------------------------ forms
 
   /**
    * button.
@@ -924,7 +886,7 @@ public interface ElementsFactory {
    * @return a {@link org.dominokit.domino.ui.elements.ButtonElement} object
    */
   default ButtonElement button() {
-    return new ButtonElement(dom.button());
+    return delegate().button();
   }
 
   /**
@@ -933,7 +895,7 @@ public interface ElementsFactory {
    * @return a {@link org.dominokit.domino.ui.elements.DataListElement} object
    */
   default DataListElement datalist() {
-    return new DataListElement(dom.datalist());
+    return delegate().datalist();
   }
 
   /**
@@ -942,7 +904,7 @@ public interface ElementsFactory {
    * @return a {@link org.dominokit.domino.ui.elements.FieldSetElement} object
    */
   default FieldSetElement fieldset() {
-    return new FieldSetElement(dom.fieldset());
+    return delegate().fieldset();
   }
 
   /**
@@ -951,7 +913,7 @@ public interface ElementsFactory {
    * @return a {@link org.dominokit.domino.ui.elements.FormElement} object
    */
   default FormElement form() {
-    return new FormElement(dom.form());
+    return delegate().form();
   }
 
   /**
@@ -961,7 +923,7 @@ public interface ElementsFactory {
    * @return a {@link org.dominokit.domino.ui.elements.InputElement} object
    */
   default InputElement input(InputType type) {
-    return input(type.name());
+    return delegate().input(type);
   }
 
   /**
@@ -971,7 +933,7 @@ public interface ElementsFactory {
    * @return a {@link org.dominokit.domino.ui.elements.InputElement} object
    */
   default InputElement input(String type) {
-    return new InputElement(dom.input(type));
+    return delegate().input(type);
   }
 
   /**
@@ -980,7 +942,7 @@ public interface ElementsFactory {
    * @return a {@link org.dominokit.domino.ui.elements.LabelElement} object
    */
   default LabelElement label() {
-    return new LabelElement(dom.label());
+    return delegate().label();
   }
 
   /**
@@ -990,7 +952,7 @@ public interface ElementsFactory {
    * @return a {@link org.dominokit.domino.ui.elements.LabelElement} object
    */
   default LabelElement label(String text) {
-    return label().textContent(text);
+    return delegate().label(text);
   }
 
   /**
@@ -999,7 +961,7 @@ public interface ElementsFactory {
    * @return a {@link org.dominokit.domino.ui.elements.LegendElement} object
    */
   default LegendElement legend() {
-    return new LegendElement(dom.legend());
+    return delegate().legend();
   }
 
   /**
@@ -1008,7 +970,7 @@ public interface ElementsFactory {
    * @return a {@link org.dominokit.domino.ui.elements.MeterElement} object
    */
   default MeterElement meter() {
-    return new MeterElement(dom.meter());
+    return delegate().meter();
   }
 
   /**
@@ -1017,7 +979,7 @@ public interface ElementsFactory {
    * @return a {@link org.dominokit.domino.ui.elements.OptGroupElement} object
    */
   default OptGroupElement optgroup() {
-    return new OptGroupElement(dom.optgroup());
+    return delegate().optgroup();
   }
 
   /**
@@ -1026,7 +988,7 @@ public interface ElementsFactory {
    * @return a {@link org.dominokit.domino.ui.elements.OptionElement} object
    */
   default OptionElement option() {
-    return new OptionElement(dom.option());
+    return delegate().option();
   }
 
   /**
@@ -1035,7 +997,7 @@ public interface ElementsFactory {
    * @return a {@link org.dominokit.domino.ui.elements.OutputElement} object
    */
   default OutputElement output() {
-    return new OutputElement(dom.output());
+    return delegate().output();
   }
 
   /**
@@ -1044,7 +1006,7 @@ public interface ElementsFactory {
    * @return a {@link org.dominokit.domino.ui.elements.ProgressElement} object
    */
   default ProgressElement progress() {
-    return new ProgressElement(dom.progress());
+    return delegate().progress();
   }
 
   /**
@@ -1053,7 +1015,7 @@ public interface ElementsFactory {
    * @return a {@link org.dominokit.domino.ui.elements.SelectElement} object
    */
   default SelectElement select_() {
-    return new SelectElement(dom.select_());
+    return delegate().select_();
   }
 
   /**
@@ -1062,7 +1024,7 @@ public interface ElementsFactory {
    * @return a {@link org.dominokit.domino.ui.elements.TextAreaElement} object
    */
   default TextAreaElement textarea() {
-    return new TextAreaElement(dom.textarea());
+    return delegate().textarea();
   }
 
   /**
@@ -1071,7 +1033,7 @@ public interface ElementsFactory {
    * @return a {@link org.dominokit.domino.ui.elements.SvgElement} object
    */
   default SvgElement svg() {
-    return new SvgElement(dom.svg());
+    return delegate().svg();
   }
 
   /**
@@ -1083,11 +1045,7 @@ public interface ElementsFactory {
    * @return a {@link org.dominokit.domino.ui.elements.CircleElement} object
    */
   default CircleElement circle(double cx, double cy, double r) {
-    CircleElement circle = new CircleElement(dom.circle());
-    circle.setAttribute("cx", cx);
-    circle.setAttribute("cy", cy);
-    circle.setAttribute("r", r);
-    return circle;
+    return delegate().circle(cx, cy, r);
   }
 
   /**
@@ -1100,12 +1058,7 @@ public interface ElementsFactory {
    * @return a {@link org.dominokit.domino.ui.elements.LineElement} object
    */
   default LineElement line(double x1, double y1, double x2, double y2) {
-    LineElement circle = new LineElement(dom.line());
-    circle.setAttribute("x1", x1);
-    circle.setAttribute("y1", y1);
-    circle.setAttribute("x2", x2);
-    circle.setAttribute("y2", y2);
-    return circle;
+    return delegate().line(x1, y1, x2, y2);
   }
 
   /** @return new empty {@link Text} node */
@@ -1115,7 +1068,7 @@ public interface ElementsFactory {
    * @return a {@link elemental2.dom.Text} object
    */
   default Text text() {
-    return DomGlobal.document.createTextNode("");
+    return delegate().text();
   }
 
   /**
@@ -1125,9 +1078,6 @@ public interface ElementsFactory {
    * @return new {@link elemental2.dom.Text} node with the provided text content
    */
   default Text text(String content) {
-    if (isNull(content) || content.isEmpty()) {
-      return text();
-    }
-    return DomGlobal.document.createTextNode(content);
+    return delegate().text(content);
   }
 }

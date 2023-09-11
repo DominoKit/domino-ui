@@ -25,9 +25,6 @@ import org.dominokit.domino.ui.utils.*;
 /**
  * A component that indicate that other components or parts of the page has no content currently to
  * display
- *
- * @author vegegoku
- * @version $Id: $Id
  */
 public class EmptyState extends BaseDominoElement<HTMLDivElement, EmptyState>
     implements EmptyStateStyles {

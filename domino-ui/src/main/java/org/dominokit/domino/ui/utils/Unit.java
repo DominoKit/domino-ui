@@ -17,12 +17,7 @@ package org.dominokit.domino.ui.utils;
 
 import static java.util.Objects.isNull;
 
-/**
- * An enum representing the css units
- *
- * @author vegegoku
- * @version $Id: $Id
- */
+/** An enum representing the css units */
 public enum Unit {
   px(value -> value + "px", Constants.parser(2)),
   q(value -> value + "q", Constants.parser(1)),

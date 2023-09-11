@@ -19,12 +19,7 @@ import static org.dominokit.domino.ui.style.GenericCss.*;
 
 import org.dominokit.domino.ui.style.CssClass;
 
-/**
- * An enum to list modal possible zises
- *
- * @author vegegoku
- * @version $Id: $Id
- */
+/** An enum to list modal possible zises */
 public enum DialogSize implements IsDialogSize {
   /** Very small modal with smaller width */
   VERY_SMALL(dui_w_xsmall, dui_h_xsmall),

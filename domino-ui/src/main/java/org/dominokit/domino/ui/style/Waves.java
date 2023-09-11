@@ -32,12 +32,7 @@ import org.dominokit.domino.ui.elements.DivElement;
 import org.dominokit.domino.ui.utils.DominoElement;
 import org.gwtproject.timer.client.Timer;
 
-/**
- * Adds the required events to add waves for a target element
- *
- * @author vegegoku
- * @version $Id: $Id
- */
+/** Adds the required events to add waves for a target element */
 public class Waves implements IsElement<Element> {
 
   private final DivElement target;

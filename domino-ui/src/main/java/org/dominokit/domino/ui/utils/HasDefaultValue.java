@@ -15,12 +15,7 @@
  */
 package org.dominokit.domino.ui.utils;
 
-/**
- * HasDefaultValue interface.
- *
- * @author vegegoku
- * @version $Id: $Id
- */
+/** HasDefaultValue interface. */
 public interface HasDefaultValue<T, V> {
 
   /** @return V the default value to be set when the instance is cleared */

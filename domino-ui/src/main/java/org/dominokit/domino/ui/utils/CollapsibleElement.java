@@ -17,12 +17,7 @@ package org.dominokit.domino.ui.utils;
 
 import java.util.Set;
 
-/**
- * CollapsibleElement interface.
- *
- * @author vegegoku
- * @version $Id: $Id
- */
+/** CollapsibleElement interface. */
 public interface CollapsibleElement<T> {
 
   /**

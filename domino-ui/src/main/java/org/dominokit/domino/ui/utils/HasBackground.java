@@ -21,8 +21,6 @@ import org.dominokit.domino.ui.style.Color;
  * Components that can have a background should implement this interface
  *
  * @param <T> The type of the component that implements this interface
- * @author vegegoku
- * @version $Id: $Id
  */
 @FunctionalInterface
 public interface HasBackground<T> {

@@ -17,12 +17,7 @@ package org.dominokit.domino.ui.elements;
 
 import elemental2.dom.HTMLTableColElement;
 
-/**
- * ColElement class.
- *
- * @author vegegoku
- * @version $Id: $Id
- */
+/** ColElement class. */
 public class ColElement extends BaseElement<HTMLTableColElement, ColElement> {
   /**
    * of.

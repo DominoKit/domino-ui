@@ -26,9 +26,6 @@ import org.dominokit.domino.ui.utils.PostfixAddOn;
 /**
  * A component that open a pop-up that acts like a window with close/maximize/minimize controls and
  * can be dragged across the page
- *
- * @author vegegoku
- * @version $Id: $Id
  */
 public class Window extends AbstractDialog<Window> {
 

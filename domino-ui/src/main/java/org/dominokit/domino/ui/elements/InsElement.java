@@ -17,12 +17,7 @@ package org.dominokit.domino.ui.elements;
 
 import elemental2.dom.HTMLModElement;
 
-/**
- * InsElement class.
- *
- * @author vegegoku
- * @version $Id: $Id
- */
+/** InsElement class. */
 public class InsElement extends BaseElement<HTMLModElement, InsElement> {
   /**
    * of.

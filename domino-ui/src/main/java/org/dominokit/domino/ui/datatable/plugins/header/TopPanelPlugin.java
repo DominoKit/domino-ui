@@ -26,8 +26,6 @@ import org.dominokit.domino.ui.datatable.plugins.DataTablePlugin;
  * This abstract plugin attach custom content to the data table top panel
  *
  * @param <T> the type of the data table records
- * @author vegegoku
- * @version $Id: $Id
  */
 public abstract class TopPanelPlugin<T> implements DataTablePlugin<T>, IsElement<HTMLElement> {
 

@@ -29,12 +29,7 @@ import org.dominokit.domino.ui.icons.Icon;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
 import org.gwtproject.i18n.shared.cldr.DateTimeFormatInfo;
 
-/**
- * CalendarSelectors class.
- *
- * @author vegegoku
- * @version $Id: $Id
- */
+/** CalendarSelectors class. */
 public class CalendarSelectors extends BaseDominoElement<HTMLDivElement, CalendarSelectors>
     implements CalendarStyles, HasComponentConfig<CalendarConfig>, CalendarViewListener {
 

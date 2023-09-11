@@ -20,9 +20,6 @@ import org.dominokit.domino.ui.utils.ApplyFunction;
 /**
  * A class to wrap an {@link org.dominokit.domino.ui.utils.ApplyFunction} and provide the ability to
  * attach/remove it from a component
- *
- * @author vegegoku
- * @version $Id: $Id
  */
 public abstract class AutoValidator {
   protected ApplyFunction autoValidate;

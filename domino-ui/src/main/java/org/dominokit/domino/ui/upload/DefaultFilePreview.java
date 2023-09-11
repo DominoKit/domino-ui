@@ -34,12 +34,7 @@ import org.dominokit.domino.ui.typography.BlockHeader;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
 import org.dominokit.domino.ui.utils.ChildHandler;
 
-/**
- * DefaultFilePreview class.
- *
- * @author vegegoku
- * @version $Id: $Id
- */
+/** DefaultFilePreview class. */
 public class DefaultFilePreview extends BaseDominoElement<HTMLElement, DefaultFilePreview>
     implements IsFilePreview<Thumbnail>,
         HasComponentConfig<UploadConfig>,
@@ -62,13 +57,16 @@ public class DefaultFilePreview extends BaseDominoElement<HTMLElement, DefaultFi
       CompositeCssClass.of(dui_border, dui_border_solid, dui_border_warning);
   private final Progress progress;
 
+  private final FileUpload fileUpload;
+
   /**
    * Constructor for DefaultFilePreview.
    *
    * @param fileItem a {@link org.dominokit.domino.ui.upload.FileItem} object
    */
-  public DefaultFilePreview(FileItem fileItem) {
+  public DefaultFilePreview(FileItem fileItem, FileUpload fileUpload) {
     this.fileItem = fileItem;
+    this.fileUpload = fileUpload;
     this.thumbnail =
         Thumbnail.create()
             .addCss(dui_min_h_64, dui_w_full, dui_file_preview)
@@ -152,7 +150,7 @@ public class DefaultFilePreview extends BaseDominoElement<HTMLElement, DefaultFi
     SwapCssClass failedCss = statusMessageCss.replaceWith(dui_fg_error);
     messageElement.addCss(failedCss).setTextContent(error).setTooltip(error);
     cancelIcon.hide();
-    uploadIcon.show();
+    uploadIcon.toggleDisplay(!this.fileUpload.isAutoUpload());
     removeIcon.show();
     progressBar.addCss(failedCss);
     addCss(statusCss.replaceWith(failedBorder));
@@ -164,7 +162,7 @@ public class DefaultFilePreview extends BaseDominoElement<HTMLElement, DefaultFi
     SwapCssClass successCss = statusMessageCss.replaceWith(dui_fg_success);
     messageElement.addCss(successCss).setTextContent(getLabels().getDefaultUploadSuccessMessage());
     cancelIcon.hide();
-    uploadIcon.show();
+    uploadIcon.toggleDisplay(!this.fileUpload.isAutoUpload());
     removeIcon.show();
     progressBar.setValue(this.fileItem.getFile().size);
     progressBar.addCss(successCss);
@@ -175,7 +173,7 @@ public class DefaultFilePreview extends BaseDominoElement<HTMLElement, DefaultFi
   @Override
   public void onUploadCompleted() {
     cancelIcon.hide();
-    uploadIcon.show();
+    uploadIcon.toggleDisplay(!this.fileUpload.isAutoUpload());
     removeIcon.show();
   }
 
@@ -193,7 +191,7 @@ public class DefaultFilePreview extends BaseDominoElement<HTMLElement, DefaultFi
         .addCss(cancelledCss)
         .setTextContent(getLabels().getDefaultUploadCanceledMessage());
     cancelIcon.hide();
-    uploadIcon.show();
+    uploadIcon.toggleDisplay(!this.fileUpload.isAutoUpload());
     removeIcon.show();
     progressBar.addCss(cancelledCss);
     addCss(statusCss.replaceWith(canceledBorder));
@@ -212,7 +210,7 @@ public class DefaultFilePreview extends BaseDominoElement<HTMLElement, DefaultFi
   @Override
   public void onReset() {
     cancelIcon.hide();
-    uploadIcon.show();
+    uploadIcon.toggleDisplay(!this.fileUpload.isAutoUpload());
     removeIcon.show();
     messageElement.removeCss(statusMessageCss).clearElement();
     removeCss(statusCss);

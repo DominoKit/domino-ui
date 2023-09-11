@@ -20,9 +20,6 @@ import org.dominokit.domino.ui.style.CssClass;
 /**
  * Default CSS classes for {@link org.dominokit.domino.ui.spin.SpinSelect} and {@link
  * org.dominokit.domino.ui.spin.SpinItem}
- *
- * @author vegegoku
- * @version $Id: $Id
  */
 public interface SpinStyles {
 

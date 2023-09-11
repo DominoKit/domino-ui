@@ -17,12 +17,7 @@ package org.dominokit.domino.ui.elements;
 
 import elemental2.dom.HTMLCanvasElement;
 
-/**
- * CanvasElement class.
- *
- * @author vegegoku
- * @version $Id: $Id
- */
+/** CanvasElement class. */
 public class CanvasElement extends BaseElement<HTMLCanvasElement, CanvasElement> {
   /**
    * of.

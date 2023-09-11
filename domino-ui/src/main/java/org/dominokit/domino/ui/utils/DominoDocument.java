@@ -20,12 +20,7 @@ import elemental2.dom.HTMLDocument;
 import jsinterop.annotations.JsPackage;
 import jsinterop.annotations.JsType;
 
-/**
- * Extending {@link elemental2.dom.HTMLDocument} to add functionality missing from elemental2
- *
- * @author vegegoku
- * @version $Id: $Id
- */
+/** Extending {@link elemental2.dom.HTMLDocument} to add functionality missing from elemental2 */
 @JsType(isNative = true, name = "Document", namespace = JsPackage.GLOBAL)
 public class DominoDocument extends HTMLDocument {
   /**

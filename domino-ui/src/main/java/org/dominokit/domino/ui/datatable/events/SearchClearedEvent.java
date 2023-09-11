@@ -25,9 +25,6 @@ package org.dominokit.domino.ui.datatable.events;
  * <p>{@link org.dominokit.domino.ui.datatable.plugins.header.HeaderBarPlugin.SearchTableAction}
  *
  * <p>{@link org.dominokit.domino.ui.datatable.model.SearchContext}
- *
- * @author vegegoku
- * @version $Id: $Id
  */
 public class SearchClearedEvent implements TableEvent {
 

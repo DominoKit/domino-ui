@@ -19,7 +19,7 @@ import static java.util.Objects.nonNull;
 
 import org.dominokit.domino.ui.animations.Animation;
 import org.dominokit.domino.ui.animations.Transition;
-import org.dominokit.domino.ui.button.LinkButton;
+import org.dominokit.domino.ui.button.Button;
 import org.dominokit.domino.ui.elements.SpanElement;
 import org.dominokit.domino.ui.icons.Icon;
 import org.dominokit.domino.ui.layout.NavBar;
@@ -28,15 +28,10 @@ import org.dominokit.domino.ui.utils.FooterContent;
 import org.dominokit.domino.ui.utils.LazyChild;
 import org.dominokit.domino.ui.utils.NullLazyChild;
 
-/**
- * AlertMessageDialog class.
- *
- * @author vegegoku
- * @version $Id: $Id
- */
+/** AlertMessageDialog class. */
 public class AlertMessageDialog extends AbstractDialog<AlertMessageDialog> {
 
-  private LinkButton confirmButton;
+  private Button confirmButton;
 
   private MessageHandler confirmHandler = (dialog) -> {};
 
@@ -156,7 +151,7 @@ public class AlertMessageDialog extends AbstractDialog<AlertMessageDialog> {
 
   private void appendButtons() {
     confirmButton =
-        LinkButton.create(labels.dialogOk())
+        Button.create(labels.dialogOk())
             .addCss(dui_min_w_32)
             .addClickListener(
                 evt -> {
@@ -187,7 +182,7 @@ public class AlertMessageDialog extends AbstractDialog<AlertMessageDialog> {
    *
    * @return a {@link org.dominokit.domino.ui.button.LinkButton} object
    */
-  public LinkButton getConfirmButton() {
+  public Button getConfirmButton() {
     return confirmButton;
   }
 
@@ -198,8 +193,7 @@ public class AlertMessageDialog extends AbstractDialog<AlertMessageDialog> {
    * @param handler a {@link org.dominokit.domino.ui.utils.ChildHandler} object
    * @return a {@link org.dominokit.domino.ui.dialogs.AlertMessageDialog} object
    */
-  public AlertMessageDialog withConfirmButton(
-      ChildHandler<AlertMessageDialog, LinkButton> handler) {
+  public AlertMessageDialog withConfirmButton(ChildHandler<AlertMessageDialog, Button> handler) {
     handler.apply(this, confirmButton);
     return this;
   }

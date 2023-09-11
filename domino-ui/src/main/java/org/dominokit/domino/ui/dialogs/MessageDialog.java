@@ -17,20 +17,15 @@ package org.dominokit.domino.ui.dialogs;
 
 import static java.util.Objects.nonNull;
 
-import org.dominokit.domino.ui.button.LinkButton;
+import org.dominokit.domino.ui.button.Button;
 import org.dominokit.domino.ui.elements.SpanElement;
 import org.dominokit.domino.ui.layout.NavBar;
 import org.dominokit.domino.ui.utils.*;
 
-/**
- * MessageDialog class.
- *
- * @author vegegoku
- * @version $Id: $Id
- */
+/** MessageDialog class. */
 public class MessageDialog extends AbstractDialog<MessageDialog> {
 
-  private LinkButton confirmButton;
+  private Button confirmButton;
 
   private MessageHandler confirmHandler = (dialog) -> {};
 
@@ -127,7 +122,7 @@ public class MessageDialog extends AbstractDialog<MessageDialog> {
 
   private void appendButtons() {
     confirmButton =
-        LinkButton.create(labels.dialogOk())
+        Button.create(labels.dialogOk())
             .addCss(dui_min_w_32)
             .addClickListener(
                 evt -> {
@@ -156,9 +151,9 @@ public class MessageDialog extends AbstractDialog<MessageDialog> {
   /**
    * Getter for the field <code>confirmButton</code>.
    *
-   * @return a {@link org.dominokit.domino.ui.button.LinkButton} object
+   * @return a {@link org.dominokit.domino.ui.button.Button} object
    */
-  public LinkButton getConfirmButton() {
+  public Button getConfirmButton() {
     return confirmButton;
   }
 
@@ -169,7 +164,7 @@ public class MessageDialog extends AbstractDialog<MessageDialog> {
    * @param handler a {@link org.dominokit.domino.ui.utils.ChildHandler} object
    * @return a {@link org.dominokit.domino.ui.dialogs.MessageDialog} object
    */
-  public MessageDialog withConfirmButton(ChildHandler<MessageDialog, LinkButton> handler) {
+  public MessageDialog withConfirmButton(ChildHandler<MessageDialog, Button> handler) {
     handler.apply(this, confirmButton);
     return this;
   }

@@ -17,7 +17,7 @@ package org.dominokit.domino.ui.dialogs;
 
 import static java.util.Objects.nonNull;
 
-import org.dominokit.domino.ui.button.LinkButton;
+import org.dominokit.domino.ui.button.Button;
 import org.dominokit.domino.ui.elements.SpanElement;
 import org.dominokit.domino.ui.icons.lib.Icons;
 import org.dominokit.domino.ui.layout.NavBar;
@@ -25,15 +25,10 @@ import org.dominokit.domino.ui.utils.ChildHandler;
 import org.dominokit.domino.ui.utils.FooterContent;
 import org.dominokit.domino.ui.utils.LazyChild;
 
-/**
- * A special dialog component that introduce a confirm/reject actions
- *
- * @author vegegoku
- * @version $Id: $Id
- */
+/** A special dialog component that introduce a confirm/reject actions */
 public class ConfirmationDialog extends AbstractDialog<ConfirmationDialog> {
-  private LinkButton confirmButton;
-  private LinkButton rejectButton;
+  private Button confirmButton;
+  private Button rejectButton;
 
   private ConfirmHandler confirmHandler = (dialog) -> {};
   private RejectHandler rejectHandler = AbstractDialog::close;
@@ -130,7 +125,7 @@ public class ConfirmationDialog extends AbstractDialog<ConfirmationDialog> {
 
   private void appendButtons() {
     rejectButton =
-        LinkButton.create(Icons.cancel(), labels.dialogConfirmationReject())
+        Button.create(Icons.cancel(), labels.dialogConfirmationReject())
             .addCss(dui_min_w_32, dui_error, dui_m_r_0_5)
             .addClickListener(
                 evt -> {
@@ -140,7 +135,7 @@ public class ConfirmationDialog extends AbstractDialog<ConfirmationDialog> {
                 });
 
     confirmButton =
-        LinkButton.create(Icons.check(), labels.dialogConfirmationAccept())
+        Button.create(Icons.check(), labels.dialogConfirmationAccept())
             .addCss(dui_min_w_32, dui_success, dui_m_l_0_5)
             .addClickListener(
                 evt -> {
@@ -181,9 +176,9 @@ public class ConfirmationDialog extends AbstractDialog<ConfirmationDialog> {
   /**
    * Getter for the field <code>confirmButton</code>.
    *
-   * @return a {@link org.dominokit.domino.ui.button.LinkButton} object
+   * @return a {@link org.dominokit.domino.ui.button.Button} object
    */
-  public LinkButton getConfirmButton() {
+  public Button getConfirmButton() {
     return confirmButton;
   }
 
@@ -191,9 +186,9 @@ public class ConfirmationDialog extends AbstractDialog<ConfirmationDialog> {
   /**
    * Getter for the field <code>rejectButton</code>.
    *
-   * @return a {@link org.dominokit.domino.ui.button.LinkButton} object
+   * @return a {@link org.dominokit.domino.ui.button.Button} object
    */
-  public LinkButton getRejectButton() {
+  public Button getRejectButton() {
     return rejectButton;
   }
 
@@ -204,8 +199,7 @@ public class ConfirmationDialog extends AbstractDialog<ConfirmationDialog> {
    * @param handler a {@link org.dominokit.domino.ui.utils.ChildHandler} object
    * @return a {@link org.dominokit.domino.ui.dialogs.ConfirmationDialog} object
    */
-  public ConfirmationDialog withConfirmButton(
-      ChildHandler<ConfirmationDialog, LinkButton> handler) {
+  public ConfirmationDialog withConfirmButton(ChildHandler<ConfirmationDialog, Button> handler) {
     handler.apply(this, confirmButton);
     return this;
   }
@@ -217,7 +211,7 @@ public class ConfirmationDialog extends AbstractDialog<ConfirmationDialog> {
    * @param handler a {@link org.dominokit.domino.ui.utils.ChildHandler} object
    * @return a {@link org.dominokit.domino.ui.dialogs.ConfirmationDialog} object
    */
-  public ConfirmationDialog withRejectButton(ChildHandler<ConfirmationDialog, LinkButton> handler) {
+  public ConfirmationDialog withRejectButton(ChildHandler<ConfirmationDialog, Button> handler) {
     handler.apply(this, rejectButton);
     return this;
   }

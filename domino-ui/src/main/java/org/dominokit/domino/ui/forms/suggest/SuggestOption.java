@@ -21,12 +21,7 @@ import org.dominokit.domino.ui.menu.MenuItem;
 import org.dominokit.domino.ui.utils.meta.AttributeMeta;
 import org.dominokit.domino.ui.utils.meta.ValueMeta;
 
-/**
- * SuggestOption class.
- *
- * @author vegegoku
- * @version $Id: $Id
- */
+/** SuggestOption class. */
 public class SuggestOption<V> extends Option<V, SpanElement, SuggestOption<V>> {
   /** Constant <code>DUI_OPTION_KEY="dui_option_key"</code> */
   public static final String DUI_OPTION_KEY = "dui_option_key";

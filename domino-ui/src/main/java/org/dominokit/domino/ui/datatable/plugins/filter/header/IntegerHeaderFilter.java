@@ -24,8 +24,6 @@ import org.dominokit.domino.ui.forms.IntegerBox;
  * org.dominokit.domino.ui.forms.IntegerBox} component
  *
  * @param <T> type of data table records
- * @author vegegoku
- * @version $Id: $Id
  */
 public class IntegerHeaderFilter<T> extends DelayedHeaderFilterInput<IntegerBox, T, Integer> {
 

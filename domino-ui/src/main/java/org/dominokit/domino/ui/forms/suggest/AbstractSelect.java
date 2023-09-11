@@ -40,12 +40,7 @@ import org.dominokit.domino.ui.menu.direction.DropDirection;
 import org.dominokit.domino.ui.style.BooleanCssClass;
 import org.dominokit.domino.ui.utils.*;
 
-/**
- * Abstract AbstractSelect class.
- *
- * @author vegegoku
- * @version $Id: $Id
- */
+/** Abstract AbstractSelect class. */
 public abstract class AbstractSelect<
         T,
         V,
@@ -107,7 +102,11 @@ public abstract class AbstractSelect<
             Icons.chevron_down()
                 .addCss(dui_form_select_drop_arrow)
                 .clickable()
-                .addClickListener(evt -> openOptionMenu())));
+                .addClickListener(
+                    evt -> {
+                      evt.stopPropagation();
+                      openOptionMenu();
+                    })));
 
     appendChild(
         PrimaryAddOn.of(
@@ -125,7 +124,11 @@ public abstract class AbstractSelect<
     if (isReadOnly() || isDisabled()) {
       return;
     }
-    optionsMenu.open(true);
+    if (optionsMenu.isOpened() && !optionsMenu.isContextMenu()) {
+      optionsMenu.close();
+    } else {
+      optionsMenu.open(true);
+    }
   }
 
   /**
@@ -153,7 +156,11 @@ public abstract class AbstractSelect<
     if (!optionsMenu.getSelection().isEmpty()) {
       V oldValue = getValue();
       optionsMenu.withPauseSelectionListenersToggle(
-          true, field -> optionsMenu.getSelection().forEach(AbstractMenuItem::deselect));
+          true,
+          field -> {
+            List<AbstractMenuItem<T>> selection = optionsMenu.getSelection();
+            new ArrayList<>(selection).forEach(AbstractMenuItem::deselect);
+          });
 
       if (!silent) {
         optionsMenu.triggerDeselectionListeners(null, new ArrayList<>());
@@ -450,7 +457,6 @@ public abstract class AbstractSelect<
    */
   protected abstract C withOption(O option, boolean silent);
 
-  // Should be abstract
   /**
    * doSetValue.
    *

@@ -28,8 +28,6 @@ import org.dominokit.domino.ui.utils.ChildHandler;
  * records
  *
  * @param <T> the type of the data table records
- * @author vegegoku
- * @version $Id: $Id
  */
 public class EmptyStatePlugin<T> implements DataTablePlugin<T> {
 

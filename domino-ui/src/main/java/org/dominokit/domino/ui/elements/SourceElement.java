@@ -17,12 +17,7 @@ package org.dominokit.domino.ui.elements;
 
 import elemental2.dom.HTMLSourceElement;
 
-/**
- * SourceElement class.
- *
- * @author vegegoku
- * @version $Id: $Id
- */
+/** SourceElement class. */
 public class SourceElement extends BaseElement<HTMLSourceElement, SourceElement> {
   /**
    * of.

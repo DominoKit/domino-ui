@@ -20,9 +20,6 @@ import elemental2.dom.HTMLElement;
 /**
  * Obeserving an element Attach/Detach cycle should return an implementation of this interface that
  * holds information about the element being observed
- *
- * @author vegegoku
- * @version $Id: $Id
  */
 public interface ElementObserver {
   /** @return String unique attach/detach id assigned to the element */

@@ -15,12 +15,7 @@
  */
 package org.dominokit.domino.ui.datatable.events;
 
-/**
- * This event will be fired when the date table bordered is changed
- *
- * @author vegegoku
- * @version $Id: $Id
- */
+/** This event will be fired when the date table bordered is changed */
 public class TableBorderedEvent implements TableEvent {
 
   /** A constant string to define a unique type for this event */

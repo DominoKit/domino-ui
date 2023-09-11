@@ -31,8 +31,6 @@ import org.dominokit.domino.ui.utils.ElementsFactory;
  * while building the data table
  *
  * @param <T> the type of the datatable records
- * @author vegegoku
- * @version $Id: $Id
  */
 public interface DataTablePlugin<T>
     extends TableEventListener, Comparable<DataTablePlugin<T>>, ElementsFactory, DominoCss {

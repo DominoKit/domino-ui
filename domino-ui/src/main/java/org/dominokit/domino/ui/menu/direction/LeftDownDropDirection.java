@@ -24,12 +24,7 @@ import elemental2.dom.DOMRect;
 import elemental2.dom.Element;
 import org.dominokit.domino.ui.style.Style;
 
-/**
- * LeftDownDropDirection class.
- *
- * @author vegegoku
- * @version $Id: $Id
- */
+/** LeftDownDropDirection class. */
 public class LeftDownDropDirection implements DropDirection {
   /** {@inheritDoc} */
   @Override

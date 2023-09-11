@@ -19,12 +19,7 @@ import java.util.function.Supplier;
 import org.dominokit.domino.ui.icons.Icon;
 import org.dominokit.domino.ui.icons.lib.Icons;
 
-/**
- * TimePickerConfig interface.
- *
- * @author vegegoku
- * @version $Id: $Id
- */
+/** TimePickerConfig interface. */
 public interface TimePickerConfig extends ComponentConfig {
   /**
    * defaultTimeBoxIcon.

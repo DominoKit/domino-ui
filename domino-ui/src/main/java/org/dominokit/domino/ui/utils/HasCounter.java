@@ -15,12 +15,7 @@
  */
 package org.dominokit.domino.ui.utils;
 
-/**
- * HasCounter interface.
- *
- * @author vegegoku
- * @version $Id: $Id
- */
+/** HasCounter interface. */
 public interface HasCounter<T> {
   /**
    * updateCounter.

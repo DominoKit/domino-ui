@@ -21,12 +21,7 @@ import org.dominokit.domino.ui.datatable.DataTable;
 import org.dominokit.domino.ui.datatable.TableConfig;
 import org.dominokit.domino.ui.datatable.TableRow;
 
-/**
- * TreeChildRowAppender class.
- *
- * @author vegegoku
- * @version $Id: $Id
- */
+/** TreeChildRowAppender class. */
 public class TreeChildRowAppender<T> implements TableConfig.RowAppender<T> {
 
   private final TreePluginConfig<T> config;

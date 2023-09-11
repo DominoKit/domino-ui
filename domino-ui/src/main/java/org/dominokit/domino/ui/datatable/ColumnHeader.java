@@ -26,12 +26,7 @@ import org.dominokit.domino.ui.elements.THElement;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
 import org.dominokit.domino.ui.utils.ChildHandler;
 
-/**
- * ColumnHeader class.
- *
- * @author vegegoku
- * @version $Id: $Id
- */
+/** ColumnHeader class. */
 public class ColumnHeader extends BaseDominoElement<HTMLTableCellElement, ColumnHeader>
     implements DataTableStyles {
 

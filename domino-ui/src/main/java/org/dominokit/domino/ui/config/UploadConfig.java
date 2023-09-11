@@ -18,17 +18,9 @@ package org.dominokit.domino.ui.config;
 import java.util.function.Supplier;
 import org.dominokit.domino.ui.icons.Icon;
 import org.dominokit.domino.ui.icons.lib.Icons;
-import org.dominokit.domino.ui.upload.DefaultFilePreview;
-import org.dominokit.domino.ui.upload.DefaultFilePreviewContainer;
-import org.dominokit.domino.ui.upload.FilePreviewContainer;
-import org.dominokit.domino.ui.upload.FilePreviewFactory;
+import org.dominokit.domino.ui.upload.*;
 
-/**
- * UploadConfig interface.
- *
- * @author vegegoku
- * @version $Id: $Id
- */
+/** UploadConfig interface. */
 public interface UploadConfig extends ComponentConfig {
 
   /**
@@ -64,7 +56,12 @@ public interface UploadConfig extends ComponentConfig {
    * @return a {@link org.dominokit.domino.ui.upload.FilePreviewFactory} object
    */
   default FilePreviewFactory getFilePreviewFactory() {
-    return DefaultFilePreview::new;
+    return new FilePreviewFactory() {
+      @Override
+      public IsFilePreview<?> forFile(FileItem fileItem, FileUpload fileUpload) {
+        return new DefaultFilePreview(fileItem, fileUpload);
+      }
+    };
   }
 
   /**

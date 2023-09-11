@@ -24,12 +24,7 @@ import org.dominokit.domino.ui.datatable.store.RecordsSorter;
 import org.dominokit.domino.ui.datatable.store.SearchFilter;
 import org.dominokit.domino.ui.pagination.HasPagination;
 
-/**
- * SubItemsStore class.
- *
- * @author vegegoku
- * @version $Id: $Id
- */
+/** SubItemsStore class. */
 public class SubItemsStore<T> extends LocalListDataStore<T> {
 
   private final LocalTreeDataStore<T> parent;

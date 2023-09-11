@@ -15,12 +15,7 @@
  */
 package org.dominokit.domino.ui.timepicker;
 
-/**
- * TimeStyle class.
- *
- * @author vegegoku
- * @version $Id: $Id
- */
+/** TimeStyle class. */
 public enum TimeStyle {
   _12,
   _24;

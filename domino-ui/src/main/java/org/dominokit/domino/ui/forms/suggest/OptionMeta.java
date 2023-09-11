@@ -20,12 +20,7 @@ import org.dominokit.domino.ui.IsElement;
 import org.dominokit.domino.ui.utils.ComponentMeta;
 import org.dominokit.domino.ui.utils.HasMeta;
 
-/**
- * OptionMeta class.
- *
- * @author vegegoku
- * @version $Id: $Id
- */
+/** OptionMeta class. */
 public class OptionMeta<V, C extends IsElement<?>, O extends Option<V, C, O>>
     implements ComponentMeta {
 

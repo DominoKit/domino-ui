@@ -22,8 +22,6 @@ import org.dominokit.domino.ui.IsElement;
  * A component that can have child elements should implement this interface
  *
  * @param <T> the type of the component implementing this interface
- * @author vegegoku
- * @version $Id: $Id
  */
 public interface HasChildren<T> {
   /**

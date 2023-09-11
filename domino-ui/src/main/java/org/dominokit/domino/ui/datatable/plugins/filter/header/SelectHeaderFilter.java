@@ -31,9 +31,6 @@ import org.dominokit.domino.ui.forms.suggest.SelectOption;
  * A Single option select column header filter component that is rendered as a {@link
  * org.dominokit.domino.ui.forms.suggest.Select} component * @param <T&gt; type of data table
  * records
- *
- * @author vegegoku
- * @version $Id: $Id
  */
 public class SelectHeaderFilter<T> implements ColumnHeaderFilterPlugin.HeaderFilter<T> {
 

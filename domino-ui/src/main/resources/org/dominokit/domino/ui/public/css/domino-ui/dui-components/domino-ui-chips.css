@@ -11,8 +11,12 @@
     align-items: center;
     vertical-align: var(--dui-chip-vertical-align);
     border-color: var(--dui-bg-clr, var(--dui-chip-border-color));
-    color: var(--dui-text-color, var(--dui-accent-fg-clr));
+    color: var(--dui-accent-fg-clr, var(--dui-text-color));
+}
 
+.dui-chip:not([class*="dui-bg"]) {
+    --dui-bg: var(--dui-accent, var(--dui-bg, var(--dui-chip-background)));
+    --dui-bg-d-2: var(--dui-accent-d-2, var(--dui-bg-d-2, var(--dui-chip-background)));
 }
 
 .dui-chip[disabled] {

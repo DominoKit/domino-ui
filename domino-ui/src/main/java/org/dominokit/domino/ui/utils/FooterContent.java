@@ -18,12 +18,7 @@ package org.dominokit.domino.ui.utils;
 import elemental2.dom.Element;
 import org.dominokit.domino.ui.IsElement;
 
-/**
- * FooterContent class.
- *
- * @author vegegoku
- * @version $Id: $Id
- */
+/** FooterContent class. */
 public class FooterContent<T extends Element> extends BaseDominoElement<T, FooterContent<T>> {
 
   private DominoElement<T> element;

@@ -17,12 +17,7 @@ package org.dominokit.domino.ui.elements;
 
 import elemental2.dom.HTMLAreaElement;
 
-/**
- * AreaElement class.
- *
- * @author vegegoku
- * @version $Id: $Id
- */
+/** AreaElement class. */
 public class AreaElement extends BaseElement<HTMLAreaElement, AreaElement> {
   /**
    * of.

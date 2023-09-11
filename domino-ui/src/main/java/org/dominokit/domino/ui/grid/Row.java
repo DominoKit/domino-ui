@@ -33,13 +33,6 @@ import org.dominokit.domino.ui.utils.BaseDominoElement;
  *
  * <p>More information can be found in <a
  * href="https://developer.mozilla.org/en-US/docs/Web/CSS/grid-row">MDN official documentation</a>
- *
- * <p>Customize the component can be done by overwriting classes provided by {@link
- * org.dominokit.domino.ui.grid.GridStyles} </pre>
- *
- * @see BaseDominoElement
- * @author vegegoku
- * @version $Id: $Id
  */
 public class Row extends BaseDominoElement<HTMLDivElement, Row> implements GridStyles {
 
@@ -133,8 +126,6 @@ public class Row extends BaseDominoElement<HTMLDivElement, Row> implements GridS
     row.appendChild(column.element());
     return this;
   }
-
-  // =========================
 
   /**
    * span1.
@@ -457,7 +448,6 @@ public class Row extends BaseDominoElement<HTMLDivElement, Row> implements GridS
   }
 
   /**
-   * {@inheritDoc}
    *
    * {@inheritDoc
    */

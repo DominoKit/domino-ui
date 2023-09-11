@@ -17,12 +17,7 @@ package org.dominokit.domino.ui.breadcrumbs;
 
 import org.dominokit.domino.ui.style.CssClass;
 
-/**
- * Default CSS classes for {@link org.dominokit.domino.ui.breadcrumbs.Breadcrumb}
- *
- * @author vegegoku
- * @version $Id: $Id
- */
+/** Default CSS classes for {@link org.dominokit.domino.ui.breadcrumbs.Breadcrumb} */
 public interface BreadcrumbStyles {
   /** Constant <code>dui_breadcrumb</code> */
   CssClass dui_breadcrumb = () -> "dui-breadcrumb";

@@ -45,6 +45,8 @@ import java.util.stream.Collectors;
 import jsinterop.base.Js;
 import org.dominokit.domino.ui.DominoElementAdapter;
 import org.dominokit.domino.ui.IsElement;
+import org.dominokit.domino.ui.animations.TransitionListener;
+import org.dominokit.domino.ui.animations.TransitionListeners;
 import org.dominokit.domino.ui.collapsible.CollapseStrategy;
 import org.dominokit.domino.ui.collapsible.Collapsible;
 import org.dominokit.domino.ui.config.UIConfig;
@@ -83,8 +85,6 @@ import org.slf4j.LoggerFactory;
  * @param <E> The type of the HTML element of the component extending from this class
  * @param <T> The type of the component extending from this class
  * @see DominoElement
- * @author vegegoku
- * @version $Id: $Id
  */
 public abstract class BaseDominoElement<E extends Element, T extends IsElement<E>>
     implements IsElement<E>,
@@ -142,6 +142,8 @@ public abstract class BaseDominoElement<E extends Element, T extends IsElement<E
   private final List<Consumer<T>> onRemoveHandlers = new ArrayList<>();
   private final Map<String, ComponentMeta> metaObjects = new HashMap<>();
 
+  private TransitionListeners<E, T> transitionListeners;
+
   /**
    * initialize the component using its root element giving it a unique id, a {@link
    * org.dominokit.domino.ui.style.Style} and also initialize a {@link
@@ -173,6 +175,7 @@ public abstract class BaseDominoElement<E extends Element, T extends IsElement<E
         };
     keyEventsInitializer =
         new LazyInitializer(() -> keyboardEvents = new KeyboardEvents<>(this.element()));
+    transitionListeners = TransitionListeners.of(element);
   }
 
   private boolean hasDominoId() {
@@ -599,8 +602,8 @@ public abstract class BaseDominoElement<E extends Element, T extends IsElement<E
   }
 
   /**
-   * Execute the handler if the component is already attached to the dom, if not execute it when the
-   * component is attached.
+   * Execute the handler only once if the component is already attached to the dom, if not execute
+   * it every time the component is attached.
    *
    * @param handler {@link java.lang.Runnable} to be executed
    * @return same component instance
@@ -612,6 +615,23 @@ public abstract class BaseDominoElement<E extends Element, T extends IsElement<E
     } else {
       onAttached(mutationRecord -> handler.run());
     }
+    dominoUuidInitializer.apply();
+    return (T) this;
+  }
+
+  /**
+   * Execute the handler if the component is already attached to the dom, then execute it everytime
+   * it is attached again to the dom.
+   *
+   * @param handler {@link java.lang.Runnable} to be executed
+   * @return same component instance
+   */
+  @Editor.Ignore
+  public T nowAndWhenAttached(Runnable handler) {
+    if (isAttached()) {
+      handler.run();
+    }
+    onAttached(mutationRecord -> handler.run());
     dominoUuidInitializer.apply();
     return (T) this;
   }
@@ -630,8 +650,8 @@ public abstract class BaseDominoElement<E extends Element, T extends IsElement<E
           observer.unobserve(element());
           observer.disconnect();
         });
-    onAttached(
-        mutationRecord -> {
+    nowAndWhenAttached(
+        () -> {
           ResizeObserver resizeObserver =
               new ResizeObserver(
                   entries -> {
@@ -2370,6 +2390,36 @@ public abstract class BaseDominoElement<E extends Element, T extends IsElement<E
   @SuppressWarnings("unchecked")
   public T removeBeforeExpandListener(Collapsible.ExpandHandler handler) {
     getCollapsible().removeBeforeExpandHandler(handler);
+    return (T) this;
+  }
+
+  public T onTransitionStart(TransitionListener<? super T> listener) {
+    transitionListeners.onTransitionStart(listener);
+    return (T) this;
+  }
+
+  public T removeTransitionStartListener(TransitionListener<? super T> listener) {
+    transitionListeners.removeTransitionStartListener(listener);
+    return (T) this;
+  }
+
+  public T onTransitionCancel(TransitionListener<? super T> listener) {
+    transitionListeners.onTransitionCancel(listener);
+    return (T) this;
+  }
+
+  public T removeTransitionCancelListener(TransitionListener<? super T> listener) {
+    transitionListeners.removeTransitionCancelListener(listener);
+    return (T) this;
+  }
+
+  public T onTransitionEnd(TransitionListener<? super T> listener) {
+    transitionListeners.onTransitionEnd(listener);
+    return (T) this;
+  }
+
+  public T removeTransitionEndListener(TransitionListener<? super T> listener) {
+    transitionListeners.removeTransitionEndListener(listener);
     return (T) this;
   }
 

@@ -21,9 +21,6 @@ import org.dominokit.domino.ui.utils.BaseDominoElement;
 
 /**
  * A component that wraps the {@link elemental2.dom.HTMLDivElement} to make it scrollable by default
- *
- * @author vegegoku
- * @version $Id: $Id
  */
 public class ScrollPanel extends BaseDominoElement<HTMLDivElement, ScrollPanel> {
 

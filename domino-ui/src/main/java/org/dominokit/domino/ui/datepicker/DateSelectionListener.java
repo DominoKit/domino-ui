@@ -15,12 +15,7 @@
  */
 package org.dominokit.domino.ui.datepicker;
 
-/**
- * DateSelectionListener interface.
- *
- * @author vegegoku
- * @version $Id: $Id
- */
+/** DateSelectionListener interface. */
 public interface DateSelectionListener {
   /**
    * onDaySelected.

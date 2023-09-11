@@ -22,12 +22,7 @@ import org.dominokit.domino.ui.datatable.plugins.PluginConfig;
 import org.dominokit.domino.ui.icons.Icon;
 import org.dominokit.domino.ui.icons.lib.Icons;
 
-/**
- * SortPluginConfig class.
- *
- * @author vegegoku
- * @version $Id: $Id
- */
+/** SortPluginConfig class. */
 public class SortPluginConfig implements PluginConfig {
   private boolean triStateSort = false;
   private Supplier<Icon<?>> ascendingIcon = Icons::sort_ascending;

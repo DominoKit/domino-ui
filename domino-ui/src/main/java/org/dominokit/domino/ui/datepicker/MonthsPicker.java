@@ -22,12 +22,7 @@ import org.dominokit.domino.ui.style.BooleanCssClass;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
 import org.gwtproject.i18n.shared.cldr.DateTimeFormatInfo;
 
-/**
- * MonthsPicker class.
- *
- * @author vegegoku
- * @version $Id: $Id
- */
+/** MonthsPicker class. */
 public class MonthsPicker extends BaseDominoElement<HTMLDivElement, MonthsPicker>
     implements CalendarStyles, CalendarViewListener {
 

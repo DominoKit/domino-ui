@@ -19,9 +19,7 @@ import static java.util.Objects.nonNull;
 import static org.dominokit.domino.ui.datatable.DataTableStyles.dui_datatable_column_filter;
 
 import elemental2.dom.HTMLElement;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import org.dominokit.domino.ui.IsElement;
 import org.dominokit.domino.ui.datatable.*;
 import org.dominokit.domino.ui.datatable.ColumnHeader;
@@ -37,13 +35,16 @@ import org.dominokit.domino.ui.style.Style;
  * This plugin adds header filters to table columns headers
  *
  * @param <T> the type of the data table records
- * @author vegegoku
- * @version $Id: $Id
  */
 public class ColumnHeaderFilterPlugin<T> implements DataTablePlugin<T> {
 
-  private final Map<String, HeaderFilter> headerFilters = new HashMap<>();
   private TableRowElement filtersRowElement = elements.tr();
+  private DataTable<T> datatable;
+
+  @Override
+  public void init(DataTable<T> dataTable) {
+    this.datatable = dataTable;
+  }
 
   /**
    * Create a new instance
@@ -90,12 +91,6 @@ public class ColumnHeaderFilterPlugin<T> implements DataTablePlugin<T> {
                     meta.getHeaderFilter().init(dataTable.getSearchContext(), columnConfig);
                     th.appendChild(meta.getHeaderFilter());
                   });
-          if (headerFilters.containsKey(columnConfig.getName())) {
-            headerFilters
-                .get(columnConfig.getName())
-                .init(dataTable.getSearchContext(), columnConfig);
-            th.appendChild(headerFilters.get(columnConfig.getName()));
-          }
           ColumnHeaderMeta.get(columnConfig)
               .ifPresent(columnHeaderMeta -> columnHeaderMeta.addExtraHeadElement(th));
 
@@ -123,28 +118,21 @@ public class ColumnHeaderFilterPlugin<T> implements DataTablePlugin<T> {
     }
   }
 
-  /**
-   * Adds a new header filter to the plugin
-   *
-   * @param columnName String, the name of the column we are adding the header filter to.
-   * @param headerFilter the {@link
-   *     org.dominokit.domino.ui.datatable.plugins.column.ColumnHeaderFilterPlugin.HeaderFilter}
-   * @return same instance
-   * @deprecated use {@link
-   *     org.dominokit.domino.ui.datatable.ColumnConfig#applyMeta(org.dominokit.domino.ui.utils.ComponentMeta)}
-   *     and pass {@link org.dominokit.domino.ui.datatable.plugins.column.ColumnFilterMeta}
-   */
-  @Deprecated
-  public ColumnHeaderFilterPlugin<T> addHeaderFilter(String columnName, HeaderFilter headerFilter) {
-    headerFilters.put(columnName, headerFilter);
-    return this;
-  }
-
   /** {@inheritDoc} */
   @Override
   public void handleEvent(TableEvent event) {
     if (SearchClearedEvent.SEARCH_EVENT_CLEARED.equals(event.getType())) {
-      headerFilters.values().forEach(HeaderFilter::clear);
+      this.datatable
+          .getTableConfig()
+          .getFlattenColumns()
+          .forEach(
+              col -> {
+                ColumnFilterMeta.get(col)
+                    .ifPresent(
+                        meta -> {
+                          meta.getHeaderFilter().clear();
+                        });
+              });
     }
   }
 

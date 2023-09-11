@@ -38,8 +38,6 @@ import org.dominokit.domino.ui.utils.HasPlaceHolder;
  * @param <B> the type of the component that extends from {@link
  *     org.dominokit.domino.ui.forms.InputFormField} and is wrapped in the implementation
  * @param <T> the type of the data table records
- * @author vegegoku
- * @version $Id: $Id
  */
 public abstract class DelayedHeaderFilterInput<
         B extends InputFormField<B, HTMLInputElement, V>, T, V>

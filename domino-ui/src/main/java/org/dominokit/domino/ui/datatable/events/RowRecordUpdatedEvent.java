@@ -21,8 +21,6 @@ import org.dominokit.domino.ui.datatable.TableRow;
  * This event will be fired when the record of a specific row in the table has its record updated
  *
  * @param <T> the type of the record
- * @author vegegoku
- * @version $Id: $Id
  */
 public class RowRecordUpdatedEvent<T> implements TableEvent {
 

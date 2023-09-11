@@ -51,6 +51,8 @@
     max-width: 100%;
 }
 
+
+
 .dui-layout-has-header {
     --dui-header-height: var(--dui-layout-header-height);
 }
@@ -136,6 +138,11 @@
     box-shadow: var(--dui-box-shadow-2);
 }
 
+.dui-layout-header > .dui-nav-bar {
+    background-color: var(--dui-accent);
+    color: var(--dui-clr-white);
+}
+
 .dui-shrink-content.dui-left-open > .dui-layout-body > .dui-layout-header {
     padding-left: calc(var(--dui-header-padding) * var(--dui-layout-shrink-header));
 }
@@ -217,7 +224,6 @@
     background-color: var(--dui-layout-content-background);
     color: var(--dui-layout-content-color);
     transition: padding-left var(--dui-layout-transitions-duration) ease-in-out;
-    /*overflow-y: visible;*/
 }
 
 .dui-layout-footer-fixed .dui-layout-content {
@@ -227,9 +233,11 @@
 
 body.dui > .dui-layout,
 body.dui > .dui-layout-body {
-    height: calc(100vh);
-    width: calc(100vw);
-    max-height: calc(100vh);
+    height: 100vh;
+    height: 100dvh;
+    width: 100vw;
+    max-height: 100vh;
+    max-height: 100dvh;
     max-width: calc(100vw);
 }
 

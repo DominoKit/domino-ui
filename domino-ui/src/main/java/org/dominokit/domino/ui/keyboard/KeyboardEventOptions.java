@@ -17,12 +17,7 @@ package org.dominokit.domino.ui.keyboard;
 
 import org.dominokit.domino.ui.events.EvenHandlerOptions;
 
-/**
- * KeyboardEventOptions class.
- *
- * @author vegegoku
- * @version $Id: $Id
- */
+/** KeyboardEventOptions class. */
 public class KeyboardEventOptions implements EvenHandlerOptions {
   boolean preventDefault = false;
   boolean stopPropagation = false;

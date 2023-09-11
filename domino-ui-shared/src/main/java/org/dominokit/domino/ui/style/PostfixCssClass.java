@@ -17,12 +17,7 @@ package org.dominokit.domino.ui.style;
 
 import elemental2.dom.Element;
 
-/**
- * PostfixCssClass class.
- *
- * @author vegegoku
- * @version $Id: $Id
- */
+/** PostfixCssClass class. */
 public class PostfixCssClass implements CssClass {
   private final String baseCssName;
 

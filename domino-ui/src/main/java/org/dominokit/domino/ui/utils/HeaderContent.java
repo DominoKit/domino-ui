@@ -18,12 +18,7 @@ package org.dominokit.domino.ui.utils;
 import elemental2.dom.Element;
 import org.dominokit.domino.ui.IsElement;
 
-/**
- * HeaderContent class.
- *
- * @author vegegoku
- * @version $Id: $Id
- */
+/** HeaderContent class. */
 public class HeaderContent<T extends Element> extends BaseDominoElement<T, HeaderContent<T>> {
 
   private DominoElement<T> element;

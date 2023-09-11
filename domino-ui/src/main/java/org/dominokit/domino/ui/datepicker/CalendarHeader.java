@@ -23,12 +23,7 @@ import org.dominokit.domino.ui.elements.DivElement;
 import org.dominokit.domino.ui.elements.SpanElement;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
 
-/**
- * CalendarHeader class.
- *
- * @author vegegoku
- * @version $Id: $Id
- */
+/** CalendarHeader class. */
 public class CalendarHeader extends BaseDominoElement<HTMLDivElement, CalendarHeader>
     implements CalendarStyles, CalendarViewListener {
 

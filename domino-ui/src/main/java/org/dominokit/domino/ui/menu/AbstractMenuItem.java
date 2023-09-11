@@ -39,8 +39,6 @@ import org.gwtproject.editor.client.TakesValue;
  * The base implementation for {@link org.dominokit.domino.ui.menu.Menu} items
  *
  * @param <V> The type of the menu item value
- * @author vegegoku
- * @version $Id: $Id
  */
 public class AbstractMenuItem<V> extends BaseDominoElement<HTMLLIElement, AbstractMenuItem<V>>
     implements HasSelectionHandler<AbstractMenuItem<V>, AbstractMenuItem<V>>,

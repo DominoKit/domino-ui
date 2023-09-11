@@ -19,12 +19,7 @@ import elemental2.dom.CustomEvent;
 import elemental2.dom.CustomEventInit;
 import jsinterop.base.Js;
 
-/**
- * CustomEvents class.
- *
- * @author vegegoku
- * @version $Id: $Id
- */
+/** CustomEvents class. */
 public class CustomEvents {
 
   /**

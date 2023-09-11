@@ -17,12 +17,7 @@ package org.dominokit.domino.ui.forms;
 
 import org.dominokit.domino.ui.style.CssClass;
 
-/**
- * FormsStyles interface.
- *
- * @author vegegoku
- * @version $Id: $Id
- */
+/** FormsStyles interface. */
 public interface FormsStyles {
 
   /** Constant <code>dui_form_field</code> */

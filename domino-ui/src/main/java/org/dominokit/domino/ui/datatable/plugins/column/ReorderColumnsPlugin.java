@@ -29,8 +29,6 @@ import org.dominokit.domino.ui.icons.lib.Icons;
  * this plugin allows reordering columns of a data table
  *
  * @param <T> the type of data table records
- * @author vegegoku
- * @version $Id: $Id
  */
 public class ReorderColumnsPlugin<T> implements DataTablePlugin<T> {
 

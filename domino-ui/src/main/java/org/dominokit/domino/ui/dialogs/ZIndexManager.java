@@ -19,12 +19,7 @@ import java.util.Deque;
 import java.util.Optional;
 import org.dominokit.domino.ui.utils.IsPopup;
 
-/**
- * ZIndexManager interface.
- *
- * @author vegegoku
- * @version $Id: $Id
- */
+/** ZIndexManager interface. */
 public interface ZIndexManager {
 
   /** @return return the next z-index value */

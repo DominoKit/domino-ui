@@ -28,12 +28,7 @@ import org.dominokit.domino.ui.utils.BaseDominoElement;
 import org.dominokit.domino.ui.utils.ChildHandler;
 import org.dominokit.domino.ui.utils.MatchHighlighter;
 
-/**
- * Abstract Option class.
- *
- * @author vegegoku
- * @version $Id: $Id
- */
+/** Abstract Option class. */
 public abstract class Option<V, C extends IsElement<?>, O extends Option<V, C, O>>
     extends BaseDominoElement<Element, Option<V, C, O>> {
 

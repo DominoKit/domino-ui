@@ -17,12 +17,7 @@ package org.dominokit.domino.ui.elements;
 
 import elemental2.dom.HTMLProgressElement;
 
-/**
- * ProgressElement class.
- *
- * @author vegegoku
- * @version $Id: $Id
- */
+/** ProgressElement class. */
 public class ProgressElement extends BaseElement<HTMLProgressElement, ProgressElement> {
   /**
    * of.

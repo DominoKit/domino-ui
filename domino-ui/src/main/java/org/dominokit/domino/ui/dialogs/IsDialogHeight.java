@@ -17,12 +17,7 @@ package org.dominokit.domino.ui.dialogs;
 
 import org.dominokit.domino.ui.style.CssClass;
 
-/**
- * IsDialogHeight interface.
- *
- * @author vegegoku
- * @version $Id: $Id
- */
+/** IsDialogHeight interface. */
 public interface IsDialogHeight {
   /**
    * getHeightStyle.

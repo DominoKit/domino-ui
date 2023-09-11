@@ -19,12 +19,7 @@ import java.util.Arrays;
 import java.util.Map;
 import java.util.Optional;
 
-/**
- * HasMeta interface.
- *
- * @author vegegoku
- * @version $Id: $Id
- */
+/** HasMeta interface. */
 public interface HasMeta<T> {
 
   /**

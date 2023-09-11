@@ -27,8 +27,6 @@ import org.dominokit.domino.ui.utils.DominoUIConfig;
  * @param <T> the type of the loader
  * @see BaseDominoElement
  * @see IsLoader
- * @author vegegoku
- * @version $Id: $Id
  */
 public abstract class BaseLoader<T extends BaseLoader<T>>
     extends BaseDominoElement<HTMLDivElement, T>

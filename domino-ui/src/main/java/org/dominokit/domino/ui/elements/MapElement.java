@@ -17,12 +17,7 @@ package org.dominokit.domino.ui.elements;
 
 import elemental2.dom.HTMLMapElement;
 
-/**
- * MapElement class.
- *
- * @author vegegoku
- * @version $Id: $Id
- */
+/** MapElement class. */
 public class MapElement extends BaseElement<HTMLMapElement, MapElement> {
   /**
    * of.

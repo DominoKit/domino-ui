@@ -41,7 +41,7 @@ import org.dominokit.domino.ui.utils.HasChangeListeners;
  * @param <T> the type of the object inside the spin
  * @param <S> the type of the spin
  */
-abstract class SpinSelect<T, S extends SpinSelect<T, S>>
+public abstract class SpinSelect<T, S extends SpinSelect<T, S>>
     extends BaseDominoElement<HTMLDivElement, S>
     implements SpinStyles, HasChangeListeners<S, T>, HasComponentConfig<SpinConfig> {
 

@@ -18,12 +18,7 @@ package org.dominokit.domino.ui.utils;
 import java.util.function.Supplier;
 import org.dominokit.domino.ui.IsElement;
 
-/**
- * NullLazyChild class.
- *
- * @author vegegoku
- * @version $Id: $Id
- */
+/** NullLazyChild class. */
 public class NullLazyChild<T extends IsElement<?>> extends LazyChild<T> {
 
   /**

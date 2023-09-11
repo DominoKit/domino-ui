@@ -27,12 +27,7 @@ import java.util.function.Consumer;
 import java.util.stream.Collectors;
 import org.dominokit.domino.ui.forms.InputFormField;
 
-/**
- * A utility that provides masking feature on input elements based on pattern and regex
- *
- * @author vegegoku
- * @version $Id: $Id
- */
+/** A utility that provides masking feature on input elements based on pattern and regex */
 public class Mask {
 
   private final HTMLInputElement element;

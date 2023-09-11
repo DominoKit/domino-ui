@@ -22,8 +22,6 @@ import org.gwtproject.editor.client.Editor;
  * Components that need to use the auto validation feature should implement this interface
  *
  * @param <T> the type of the class implementing this interface
- * @author vegegoku
- * @version $Id: $Id
  */
 public interface HasAutoValidation<T> {
 

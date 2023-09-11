@@ -20,12 +20,7 @@ import java.util.Optional;
 import org.dominokit.domino.ui.datatable.ColumnConfig;
 import org.dominokit.domino.ui.utils.ComponentMeta;
 
-/**
- * SummaryMeta class.
- *
- * @author vegegoku
- * @version $Id: $Id
- */
+/** SummaryMeta class. */
 public class SummaryMeta<T, S> implements ComponentMeta {
 
   /** Constant <code>COLUMN_SUMMARY_META="column-summary-meta"</code> */

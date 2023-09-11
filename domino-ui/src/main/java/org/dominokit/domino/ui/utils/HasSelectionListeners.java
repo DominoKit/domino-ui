@@ -25,8 +25,6 @@ import java.util.Set;
  * @param <T> the type of the class implementing this interface
  * @param <V> the type of the component value
  * @param <S> the type of selected value
- * @author vegegoku
- * @version $Id: $Id
  */
 public interface HasSelectionListeners<T, V, S> {
 

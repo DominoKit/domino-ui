@@ -18,12 +18,7 @@ package org.dominokit.domino.ui.loaders;
 import elemental2.dom.HTMLDivElement;
 import org.dominokit.domino.ui.utils.DominoElement;
 
-/**
- * An interface represents loader effect implementation
- *
- * @author vegegoku
- * @version $Id: $Id
- */
+/** An interface represents loader effect implementation */
 public interface IsLoader {
 
   /** @param text the loading text to set */

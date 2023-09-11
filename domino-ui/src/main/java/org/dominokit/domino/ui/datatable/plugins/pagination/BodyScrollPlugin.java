@@ -26,8 +26,6 @@ import org.dominokit.domino.ui.datatable.plugins.DataTablePlugin;
  * table body scroll reaches the top of the bottom
  *
  * @param <T> the type of the data table records
- * @author vegegoku
- * @version $Id: $Id
  */
 public class BodyScrollPlugin<T> implements DataTablePlugin<T> {
 

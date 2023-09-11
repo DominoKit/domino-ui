@@ -17,12 +17,7 @@ package org.dominokit.domino.ui.upload;
 
 import org.dominokit.domino.ui.style.CssClass;
 
-/**
- * FileUploadStyles interface.
- *
- * @author vegegoku
- * @version $Id: $Id
- */
+/** FileUploadStyles interface. */
 public interface FileUploadStyles {
   /** Constant <code>dui_file_upload</code> */
   CssClass dui_file_upload = () -> "dui-file-upload";

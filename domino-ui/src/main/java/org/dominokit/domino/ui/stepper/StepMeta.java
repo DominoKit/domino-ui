@@ -19,12 +19,7 @@ import java.util.Optional;
 import org.dominokit.domino.ui.utils.ComponentMeta;
 import org.dominokit.domino.ui.utils.HasMeta;
 
-/**
- * StepMeta class.
- *
- * @author vegegoku
- * @version $Id: $Id
- */
+/** StepMeta class. */
 public class StepMeta implements ComponentMeta {
   /** Constant <code>DUI_STEP_META="dui-step-meta"</code> */
   public static final String DUI_STEP_META = "dui-step-meta";

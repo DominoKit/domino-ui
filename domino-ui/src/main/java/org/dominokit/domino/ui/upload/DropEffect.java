@@ -21,9 +21,6 @@ package org.dominokit.domino.ui.upload;
  * <p>More information can be found in <a
  * href="https://developer.mozilla.org/en-US/docs/Web/API/DataTransfer/dropEffect">MDN official
  * documentation</a>
- *
- * @author vegegoku
- * @version $Id: $Id
  */
 public enum DropEffect {
   COPY("copy"),

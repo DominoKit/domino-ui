@@ -36,8 +36,6 @@ import org.dominokit.domino.ui.utils.DominoElement;
  * This plugin adds sort capability to column headers on click
  *
  * @param <T> the type of the data table records
- * @author vegegoku
- * @version $Id: $Id
  */
 public class SortPlugin<T>
     implements DataTablePlugin<T>, HasPluginConfig<T, SortPlugin<T>, SortPluginConfig> {
@@ -59,16 +57,31 @@ public class SortPlugin<T>
     if (column.isSortable()) {
       SortContext sortContext = new SortContext(column.getSortKey(), config);
       sortContainers.put(column.getSortKey(), sortContext);
-
+      final boolean[] moving = new boolean[] {false};
       column.appendChild(div().addCss(dui_order_100).appendChild(sortContext.sortElement));
       column.getHeadElement().addCss(dui_cursor_pointer, dui_disable_text_select);
       column
           .getHeadElement()
           .addEventListener(
+              EventType.mousemove.getName(),
+              evt -> {
+                moving[0] = true;
+              })
+          .addEventListener(
+              EventType.mousedown.getName(),
+              evt -> {
+                moving[0] = false;
+              });
+      column
+          .getHeadElement()
+          .addEventListener(
               EventType.click.getName(),
               evt -> {
-                updateSort(sortContext);
-                fireSortEvent(currentSortContext.sortDirection, column);
+                if (!moving[0]) {
+                  updateSort(sortContext);
+                  fireSortEvent(currentSortContext.sortDirection, column);
+                }
+                moving[0] = false;
               });
     }
   }

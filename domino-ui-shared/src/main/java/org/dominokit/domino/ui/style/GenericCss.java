@@ -15,12 +15,7 @@
  */
 package org.dominokit.domino.ui.style;
 
-/**
- * GenericCss interface.
- *
- * @author vegegoku
- * @version $Id: $Id
- */
+/** GenericCss interface. */
 public interface GenericCss {
   /** Constant <code>dui</code> */
   CssClass dui = () -> "dui";
@@ -38,6 +33,7 @@ public interface GenericCss {
   CssClass dui_primary =
       new ReplaceCssClass(
               CompositeCssClass.of(
+                  () -> "dui-ctx",
                   () -> "dui-info",
                   () -> "dui-warning",
                   () -> "dui-error",
@@ -45,11 +41,12 @@ public interface GenericCss {
                   () -> "dui-dominant",
                   () -> "dui-secondary",
                   () -> "dui-success"))
-          .replaceWith(() -> "dui-primary");
+          .replaceWith(CompositeCssClass.of(() -> "dui-ctx", () -> "dui-primary"));
   /** Constant <code>dui_secondary</code> */
   CssClass dui_secondary =
       new ReplaceCssClass(
               CompositeCssClass.of(
+                  () -> "dui-ctx",
                   () -> "dui-info",
                   () -> "dui-warning",
                   () -> "dui-error",
@@ -57,11 +54,12 @@ public interface GenericCss {
                   () -> "dui-dominant",
                   () -> "dui-primary",
                   () -> "dui-success"))
-          .replaceWith(() -> "dui-secondary");
+          .replaceWith(CompositeCssClass.of(() -> "dui-ctx", () -> "dui-secondary"));
   /** Constant <code>dui_dominant</code> */
   CssClass dui_dominant =
       new ReplaceCssClass(
               CompositeCssClass.of(
+                  () -> "dui-ctx",
                   () -> "dui-info",
                   () -> "dui-warning",
                   () -> "dui-error",
@@ -69,11 +67,12 @@ public interface GenericCss {
                   () -> "dui-secondary",
                   () -> "dui-primary",
                   () -> "dui-success"))
-          .replaceWith(() -> "dui-dominant");
+          .replaceWith(CompositeCssClass.of(() -> "dui-ctx", () -> "dui-dominant"));
   /** Constant <code>dui_accent</code> */
   CssClass dui_accent =
       new ReplaceCssClass(
               CompositeCssClass.of(
+                  () -> "dui-ctx",
                   () -> "dui-info",
                   () -> "dui-warning",
                   () -> "dui-error",
@@ -81,11 +80,12 @@ public interface GenericCss {
                   () -> "dui-secondary",
                   () -> "dui-primary",
                   () -> "dui-success"))
-          .replaceWith(() -> "dui-accent");
+          .replaceWith(CompositeCssClass.of(() -> "dui-ctx", () -> "dui-accent"));
   /** Constant <code>dui_success</code> */
   CssClass dui_success =
       new ReplaceCssClass(
               CompositeCssClass.of(
+                  () -> "dui-ctx",
                   () -> "dui-info",
                   () -> "dui-warning",
                   () -> "dui-error",
@@ -93,11 +93,12 @@ public interface GenericCss {
                   () -> "dui-dominant",
                   () -> "dui-secondary",
                   () -> "dui-primary"))
-          .replaceWith(() -> "dui-success");
+          .replaceWith(CompositeCssClass.of(() -> "dui-ctx", () -> "dui-success"));
   /** Constant <code>dui_info</code> */
   CssClass dui_info =
       new ReplaceCssClass(
               CompositeCssClass.of(
+                  () -> "dui-ctx",
                   () -> "dui-success",
                   () -> "dui-warning",
                   () -> "dui-error",
@@ -105,11 +106,12 @@ public interface GenericCss {
                   () -> "dui-dominant",
                   () -> "dui-secondary",
                   () -> "dui-primary"))
-          .replaceWith(() -> "dui-info");
+          .replaceWith(CompositeCssClass.of(() -> "dui-ctx", () -> "dui-info"));
   /** Constant <code>dui_warning</code> */
   CssClass dui_warning =
       new ReplaceCssClass(
               CompositeCssClass.of(
+                  () -> "dui-ctx",
                   () -> "dui-success",
                   () -> "dui-info",
                   () -> "dui-error",
@@ -117,11 +119,12 @@ public interface GenericCss {
                   () -> "dui-dominant",
                   () -> "dui-secondary",
                   () -> "dui-primary"))
-          .replaceWith(() -> "dui-warning");
+          .replaceWith(CompositeCssClass.of(() -> "dui-ctx", () -> "dui-warning"));
   /** Constant <code>dui_error</code> */
   CssClass dui_error =
       new ReplaceCssClass(
               CompositeCssClass.of(
+                  () -> "dui-ctx",
                   () -> "dui-success",
                   () -> "dui-info",
                   () -> "dui-warning",
@@ -129,52 +132,52 @@ public interface GenericCss {
                   () -> "dui-dominant",
                   () -> "dui-secondary",
                   () -> "dui-primary"))
-          .replaceWith(() -> "dui-error");
+          .replaceWith(CompositeCssClass.of(() -> "dui-ctx", () -> "dui-error"));
 
   /** Constant <code>dui_red</code> */
-  CssClass dui_red = () -> "dui-red";
+  CssClass dui_red = CompositeCssClass.of(() -> "dui-ctx", () -> "dui-red");
   /** Constant <code>dui_pink</code> */
-  CssClass dui_pink = () -> "dui-pink";
+  CssClass dui_pink = CompositeCssClass.of(() -> "dui-ctx", () -> "dui-pink");
   /** Constant <code>dui_purple</code> */
-  CssClass dui_purple = () -> "dui-purple";
+  CssClass dui_purple = CompositeCssClass.of(() -> "dui-ctx", () -> "dui-purple");
   /** Constant <code>dui_deep_purple</code> */
-  CssClass dui_deep_purple = () -> "dui-deep-purple";
+  CssClass dui_deep_purple = CompositeCssClass.of(() -> "dui-ctx", () -> "dui-deep-purple");
   /** Constant <code>dui_indigo</code> */
-  CssClass dui_indigo = () -> "dui-indigo";
+  CssClass dui_indigo = CompositeCssClass.of(() -> "dui-ctx", () -> "dui-indigo");
   /** Constant <code>dui_blue</code> */
-  CssClass dui_blue = () -> "dui-blue";
+  CssClass dui_blue = CompositeCssClass.of(() -> "dui-ctx", () -> "dui-blue");
   /** Constant <code>dui_light_blue</code> */
-  CssClass dui_light_blue = () -> "dui-light-blue";
+  CssClass dui_light_blue = CompositeCssClass.of(() -> "dui-ctx", () -> "dui-light-blue");
   /** Constant <code>dui_cyan</code> */
-  CssClass dui_cyan = () -> "dui-cyan";
+  CssClass dui_cyan = CompositeCssClass.of(() -> "dui-ctx", () -> "dui-cyan");
   /** Constant <code>dui_teal</code> */
-  CssClass dui_teal = () -> "dui-teal";
+  CssClass dui_teal = CompositeCssClass.of(() -> "dui-ctx", () -> "dui-teal");
   /** Constant <code>dui_green</code> */
-  CssClass dui_green = () -> "dui-green";
+  CssClass dui_green = CompositeCssClass.of(() -> "dui-ctx", () -> "dui-green");
   /** Constant <code>dui_light_green</code> */
-  CssClass dui_light_green = () -> "dui-light-green";
+  CssClass dui_light_green = CompositeCssClass.of(() -> "dui-ctx", () -> "dui-light-green");
   /** Constant <code>dui_lime</code> */
-  CssClass dui_lime = () -> "dui-lime";
+  CssClass dui_lime = CompositeCssClass.of(() -> "dui-ctx", () -> "dui-lime");
   /** Constant <code>dui_yellow</code> */
-  CssClass dui_yellow = () -> "dui-yellow";
+  CssClass dui_yellow = CompositeCssClass.of(() -> "dui-ctx", () -> "dui-yellow");
   /** Constant <code>dui_amber</code> */
-  CssClass dui_amber = () -> "dui-amber";
+  CssClass dui_amber = CompositeCssClass.of(() -> "dui-ctx", () -> "dui-amber");
   /** Constant <code>dui_orange</code> */
-  CssClass dui_orange = () -> "dui-orange";
+  CssClass dui_orange = CompositeCssClass.of(() -> "dui-ctx", () -> "dui-orange");
   /** Constant <code>dui_deep_orange</code> */
-  CssClass dui_deep_orange = () -> "dui-deep-orange";
+  CssClass dui_deep_orange = CompositeCssClass.of(() -> "dui-ctx", () -> "dui-deep-orange");
   /** Constant <code>dui_brown</code> */
-  CssClass dui_brown = () -> "dui-brown";
+  CssClass dui_brown = CompositeCssClass.of(() -> "dui-ctx", () -> "dui-brown");
   /** Constant <code>dui_grey</code> */
-  CssClass dui_grey = () -> "dui-grey";
+  CssClass dui_grey = CompositeCssClass.of(() -> "dui-ctx", () -> "dui-grey");
   /** Constant <code>dui_blue_grey</code> */
-  CssClass dui_blue_grey = () -> "dui-blue-grey";
+  CssClass dui_blue_grey = CompositeCssClass.of(() -> "dui-ctx", () -> "dui-blue-grey");
   /** Constant <code>dui_white</code> */
-  CssClass dui_white = () -> "dui-white";
+  CssClass dui_white = CompositeCssClass.of(() -> "dui-ctx", () -> "dui-white");
   /** Constant <code>dui_black</code> */
-  CssClass dui_black = () -> "dui-black";
+  CssClass dui_black = CompositeCssClass.of(() -> "dui-ctx", () -> "dui-black");
   /** Constant <code>dui_transparent</code> */
-  CssClass dui_transparent = () -> "dui-transparent";
+  CssClass dui_transparent = CompositeCssClass.of(() -> "dui-ctx", () -> "dui-transparent");
 
   /** Constant <code>dui_bg</code> */
   CssClass dui_bg = () -> "dui-bg";

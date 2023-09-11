@@ -24,9 +24,6 @@ import org.dominokit.domino.ui.utils.ChildHandler;
  * A Button with dropdown menu component
  *
  * <p>This Button component will open a dropdown menu when clicked by default
- *
- * @author vegegoku
- * @version $Id: $Id
  */
 public class DropdownButton<T extends BaseButton<?, T>, V>
     extends BaseDominoElement<HTMLElement, DropdownButton<T, V>> implements IsButton<T> {
@@ -62,8 +59,6 @@ public class DropdownButton<T extends BaseButton<?, T>, V>
         .setAttribute("aria-haspopup", true)
         .setAttribute("aria-expanded", true)
         .setAttribute("type", "button");
-    //    this.menu.setTargetElement(button).setMenuAppendTarget(body().element());
-    this.button.addClickListener(evt -> this.menu.open());
     this.button.setDropMenu(this.menu);
     init(this);
   }

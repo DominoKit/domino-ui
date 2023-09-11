@@ -17,12 +17,7 @@ package org.dominokit.domino.ui.datatable.model;
 
 import java.util.Objects;
 
-/**
- * A class to define filter operators, each operator is a simple name string
- *
- * @author vegegoku
- * @version $Id: $Id
- */
+/** A class to define filter operators, each operator is a simple name string */
 public class Operator {
 
   /** Constant <code>isEqualTo</code> */

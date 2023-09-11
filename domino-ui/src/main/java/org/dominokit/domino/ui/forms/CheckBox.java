@@ -26,12 +26,7 @@ import org.dominokit.domino.ui.elements.SpanElement;
 import org.dominokit.domino.ui.style.BooleanCssClass;
 import org.dominokit.domino.ui.utils.*;
 
-/**
- * A checkbox component that takes/provide a boolean value
- *
- * @author vegegoku
- * @version $Id: $Id
- */
+/** A checkbox component that takes/provide a boolean value */
 public class CheckBox extends InputFormField<CheckBox, HTMLInputElement, Boolean>
     implements Checkable<CheckBox>, HasIndeterminateState<CheckBox> {
 
@@ -361,6 +356,24 @@ public class CheckBox extends InputFormField<CheckBox, HTMLInputElement, Boolean
   public CheckBox setName(String name) {
     getInputElement().element().name = name;
     return this;
+  }
+
+  public CheckBox withLabel(ChildHandler<CheckBox, LabelElement> handler) {
+    handler.apply(this, checkLabelElement);
+    return this;
+  }
+
+  public CheckBox withLabelTextElement(ChildHandler<CheckBox, SpanElement> handler) {
+    handler.apply(this, checkLabelTextElement.get());
+    return this;
+  }
+
+  public LabelElement getCheckLabelElement() {
+    return checkLabelElement;
+  }
+
+  public LazyChild<SpanElement> getCheckLabelTextElement() {
+    return checkLabelTextElement;
   }
 
   private static class CheckBoxAutoValidator extends AutoValidator {

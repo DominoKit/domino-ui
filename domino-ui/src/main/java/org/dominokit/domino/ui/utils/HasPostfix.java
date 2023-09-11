@@ -15,12 +15,7 @@
  */
 package org.dominokit.domino.ui.utils;
 
-/**
- * HasPostfix interface.
- *
- * @author vegegoku
- * @version $Id: $Id
- */
+/** HasPostfix interface. */
 public interface HasPostfix<T> {
 
   /**

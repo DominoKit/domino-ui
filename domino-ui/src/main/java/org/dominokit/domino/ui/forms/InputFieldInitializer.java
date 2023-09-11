@@ -29,12 +29,7 @@ import org.dominokit.domino.ui.utils.ElementsFactory;
 import org.dominokit.domino.ui.utils.HasCounter;
 import org.dominokit.domino.ui.utils.HasMinMaxLength;
 
-/**
- * InputFieldInitializer class.
- *
- * @author vegegoku
- * @version $Id: $Id
- */
+/** InputFieldInitializer class. */
 public class InputFieldInitializer<T extends FormElement<T, V>, V, E extends HTMLElement>
     implements HasComponentConfig<FormsFieldsConfig> {
 

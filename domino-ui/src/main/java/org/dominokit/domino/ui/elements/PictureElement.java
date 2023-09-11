@@ -17,12 +17,7 @@ package org.dominokit.domino.ui.elements;
 
 import elemental2.dom.HTMLPictureElement;
 
-/**
- * PictureElement class.
- *
- * @author vegegoku
- * @version $Id: $Id
- */
+/** PictureElement class. */
 public class PictureElement extends BaseElement<HTMLPictureElement, PictureElement> {
   /**
    * of.

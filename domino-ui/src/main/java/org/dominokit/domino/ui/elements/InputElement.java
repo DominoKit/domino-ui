@@ -18,12 +18,7 @@ package org.dominokit.domino.ui.elements;
 import elemental2.dom.HTMLInputElement;
 import org.dominokit.domino.ui.IsElement;
 
-/**
- * InputElement class.
- *
- * @author vegegoku
- * @version $Id: $Id
- */
+/** InputElement class. */
 public class InputElement extends BaseElement<HTMLInputElement, InputElement> {
   /**
    * of.

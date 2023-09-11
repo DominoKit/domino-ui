@@ -17,12 +17,7 @@ package org.dominokit.domino.ui.elements;
 
 import elemental2.dom.HTMLAudioElement;
 
-/**
- * AudioElement class.
- *
- * @author vegegoku
- * @version $Id: $Id
- */
+/** AudioElement class. */
 public class AudioElement extends BaseElement<HTMLAudioElement, AudioElement> {
   /**
    * of.

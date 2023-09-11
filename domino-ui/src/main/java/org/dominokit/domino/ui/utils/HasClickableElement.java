@@ -20,9 +20,6 @@ import elemental2.dom.HTMLElement;
 /**
  * Component that can be clicked or has a child element that can be clicked should implement this
  * interface
- *
- * @author vegegoku
- * @version $Id: $Id
  */
 @FunctionalInterface
 public interface HasClickableElement {

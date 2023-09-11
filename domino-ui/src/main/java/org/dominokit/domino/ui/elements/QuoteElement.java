@@ -17,12 +17,7 @@ package org.dominokit.domino.ui.elements;
 
 import elemental2.dom.HTMLQuoteElement;
 
-/**
- * QuoteElement class.
- *
- * @author vegegoku
- * @version $Id: $Id
- */
+/** QuoteElement class. */
 public class QuoteElement extends BaseElement<HTMLQuoteElement, QuoteElement> {
   /**
    * of.

@@ -18,12 +18,7 @@ package org.dominokit.domino.ui.style;
 import elemental2.dom.Element;
 import org.dominokit.domino.ui.IsElement;
 
-/**
- * BooleanCssClass class.
- *
- * @author vegegoku
- * @version $Id: $Id
- */
+/** BooleanCssClass class. */
 public class BooleanCssClass implements CssClass {
 
   private CssClass cssClass;

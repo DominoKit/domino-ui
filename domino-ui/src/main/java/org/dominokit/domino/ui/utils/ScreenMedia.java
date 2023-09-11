@@ -18,9 +18,6 @@ package org.dominokit.domino.ui.utils;
 /**
  * an enum that lists a set css classes that controls the visibility of the element based on screen
  * media
- *
- * @author vegegoku
- * @version $Id: $Id
  */
 public enum ScreenMedia {
   /**

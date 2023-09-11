@@ -17,12 +17,7 @@ package org.dominokit.domino.ui.datatable;
 
 import org.dominokit.domino.ui.style.CssClass;
 
-/**
- * constants class for DataTable css classes names
- *
- * @author vegegoku
- * @version $Id: $Id
- */
+/** constants class for DataTable css classes names */
 public interface DataTableStyles {
   /** Constant <code>dui_datatable</code> */
   CssClass dui_datatable = () -> "dui-datatable";

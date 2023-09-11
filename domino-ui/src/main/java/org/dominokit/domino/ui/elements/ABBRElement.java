@@ -17,12 +17,7 @@ package org.dominokit.domino.ui.elements;
 
 import elemental2.dom.HTMLElement;
 
-/**
- * ABBRElement class.
- *
- * @author vegegoku
- * @version $Id: $Id
- */
+/** ABBRElement class. */
 public class ABBRElement extends BaseElement<HTMLElement, ABBRElement> {
   /**
    * of.

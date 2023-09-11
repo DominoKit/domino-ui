@@ -15,12 +15,7 @@
  */
 package org.dominokit.domino.ui.style;
 
-/**
- * An interface marks the component as has style
- *
- * @author vegegoku
- * @version $Id: $Id
- */
+/** An interface marks the component as has style */
 public interface IsCss {
 
   /** @return the style value */

@@ -15,12 +15,7 @@
  */
 package org.dominokit.domino.ui.i18n;
 
-/**
- * TimePickerLabels interface.
- *
- * @author vegegoku
- * @version $Id: $Id
- */
+/** TimePickerLabels interface. */
 public interface TimePickerLabels extends Labels {
   /**
    * hour.

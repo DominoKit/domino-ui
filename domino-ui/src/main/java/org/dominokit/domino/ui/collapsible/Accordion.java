@@ -34,8 +34,6 @@ import org.dominokit.domino.ui.utils.BaseDominoElement;
  * panel to be open at once.
  *
  * @see AccordionPanel
- * @author vegegoku
- * @version $Id: $Id
  */
 public class Accordion extends BaseDominoElement<HTMLDivElement, Accordion>
     implements CollapsibleStyles {

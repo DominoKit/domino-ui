@@ -17,12 +17,7 @@ package org.dominokit.domino.ui.config;
 
 import org.dominokit.domino.ui.stepper.StepState;
 
-/**
- * StepperConfig interface.
- *
- * @author vegegoku
- * @version $Id: $Id
- */
+/** StepperConfig interface. */
 public interface StepperConfig extends ComponentConfig {
 
   /**

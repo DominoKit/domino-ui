@@ -21,12 +21,7 @@ import org.dominokit.domino.ui.elements.DivElement;
 import org.dominokit.domino.ui.style.GenericCss;
 import org.dominokit.domino.ui.utils.DominoElement;
 
-/**
- * IOS loader implementation
- *
- * @author vegegoku
- * @version $Id: $Id
- */
+/** IOS loader implementation */
 public class IosLoader extends BaseLoader<IosLoader> implements IsElement<HTMLDivElement> {
 
   private final DivElement progress1 = div().addCss(wait_me_progress_elem_1, dui_loader_darker);

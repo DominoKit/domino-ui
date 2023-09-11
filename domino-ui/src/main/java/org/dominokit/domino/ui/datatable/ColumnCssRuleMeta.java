@@ -25,12 +25,7 @@ import org.dominokit.domino.ui.utils.ComponentMeta;
 import org.dominokit.domino.ui.utils.DominoCSSRule;
 import org.dominokit.domino.ui.utils.DynamicStyleSheet;
 
-/**
- * ColumnCssRuleMeta class.
- *
- * @author vegegoku
- * @version $Id: $Id
- */
+/** ColumnCssRuleMeta class. */
 public class ColumnCssRuleMeta<T> implements ComponentMeta {
 
   /** Constant <code>COLUMN_CSS_RULE_META="column-css-rule-meta"</code> */

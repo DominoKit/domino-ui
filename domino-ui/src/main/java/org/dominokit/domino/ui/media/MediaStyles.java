@@ -17,12 +17,7 @@ package org.dominokit.domino.ui.media;
 
 import org.dominokit.domino.ui.style.CssClass;
 
-/**
- * Default CSS classes for {@link org.dominokit.domino.ui.media.MediaObject}
- *
- * @author vegegoku
- * @version $Id: $Id
- */
+/** Default CSS classes for {@link org.dominokit.domino.ui.media.MediaObject} */
 public interface MediaStyles {
 
   /** Constant <code>dui_media</code> */

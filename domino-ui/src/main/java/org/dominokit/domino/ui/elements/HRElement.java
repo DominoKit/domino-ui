@@ -17,12 +17,7 @@ package org.dominokit.domino.ui.elements;
 
 import elemental2.dom.HTMLHRElement;
 
-/**
- * HRElement class.
- *
- * @author vegegoku
- * @version $Id: $Id
- */
+/** HRElement class. */
 public class HRElement extends BaseElement<HTMLHRElement, HRElement> {
   /**
    * of.

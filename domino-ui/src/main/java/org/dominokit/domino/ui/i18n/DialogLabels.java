@@ -15,12 +15,7 @@
  */
 package org.dominokit.domino.ui.i18n;
 
-/**
- * DialogLabels interface.
- *
- * @author vegegoku
- * @version $Id: $Id
- */
+/** DialogLabels interface. */
 public interface DialogLabels extends Labels {
   /**
    * dialogConfirmationReject.

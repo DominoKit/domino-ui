@@ -15,12 +15,7 @@
  */
 package org.dominokit.domino.ui.collapsible;
 
-/**
- * CollapsibleHandlers interface.
- *
- * @author vegegoku
- * @version $Id: $Id
- */
+/** CollapsibleHandlers interface. */
 public interface CollapsibleHandlers {
 
   /**

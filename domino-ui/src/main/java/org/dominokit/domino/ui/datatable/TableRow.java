@@ -28,12 +28,7 @@ import org.dominokit.domino.ui.style.BooleanCssClass;
 import org.dominokit.domino.ui.utils.*;
 import org.dominokit.domino.ui.utils.HasSelectionHandler.SelectionHandler;
 
-/**
- * TableRow class.
- *
- * @author vegegoku
- * @version $Id: $Id
- */
+/** TableRow class. */
 public class TableRow<T> extends BaseDominoElement<HTMLTableRowElement, TableRow<T>>
     implements Selectable<TableRow<T>>,
         HasSelectionListeners<TableRow<T>, TableRow<T>, TableRow<T>>,
@@ -103,7 +98,7 @@ public class TableRow<T> extends BaseDominoElement<HTMLTableRowElement, TableRow
   }
 
   private TableRow<T> doSelect(boolean selectChildren) {
-    if (!hasFalg(DataTable.DATA_TABLE_ROW_FILTERED)) {
+    if (!hasFlag(DataTable.DATA_TABLE_ROW_FILTERED)) {
       this.selected = true;
       if (selectChildren) {
         getChildren().forEach(TableRow::select);
@@ -343,18 +338,6 @@ public class TableRow<T> extends BaseDominoElement<HTMLTableRowElement, TableRow
    */
   public void removeFlag(String name) {
     flags.remove(name);
-  }
-
-  /** @deprecated use {@link #hasFlag} */
-  /**
-   * hasFalg.
-   *
-   * @param name a {@link java.lang.String} object
-   * @return a boolean
-   */
-  @Deprecated
-  public boolean hasFalg(String name) {
-    return flags.containsKey(name);
   }
 
   /**

@@ -15,12 +15,7 @@
  */
 package org.dominokit.domino.ui.splitpanel;
 
-/**
- * An interface provides information about size in split panels
- *
- * @author vegegoku
- * @version $Id: $Id
- */
+/** An interface provides information about size in split panels */
 public interface HasSplitPanels {
   /**
    * onResizeStart.

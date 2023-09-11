@@ -36,12 +36,7 @@ import org.dominokit.domino.ui.icons.ToggleMdiIcon;
 import org.dominokit.domino.ui.style.BooleanCssClass;
 import org.dominokit.domino.ui.utils.*;
 
-/**
- * Card class.
- *
- * @author vegegoku
- * @version $Id: $Id
- */
+/** Card class. */
 public class Card extends BaseDominoElement<HTMLDivElement, Card>
     implements CardStyles, CollapsibleElement<Card>, HasComponentConfig<CardConfig> {
   private DivElement element;
@@ -533,6 +528,10 @@ public class Card extends BaseDominoElement<HTMLDivElement, Card>
       collapseElement.remove();
       body.getCollapsible().getStrategy().cleanup(body.element());
     }
+    body.addCollapseListener(
+        () -> collapseHandlers.forEach(handler -> handler.onCollapsed(Card.this)));
+    body.addExpandListener(() -> expandHandlers.forEach(handler -> handler.onExpanded(Card.this)));
+
     return this;
   }
 

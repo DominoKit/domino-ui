@@ -21,12 +21,7 @@ import jsinterop.annotations.JsType;
 import jsinterop.base.Js;
 import jsinterop.base.JsPropertyMap;
 
-/**
- * ResizeObserverOptions class.
- *
- * @author vegegoku
- * @version $Id: $Id
- */
+/** ResizeObserverOptions class. */
 @JsType(isNative = true, namespace = JsPackage.GLOBAL)
 public class ResizeObserverOptions {
 

@@ -15,12 +15,7 @@
  */
 package org.dominokit.domino.ui.pagination;
 
-/**
- * An interface providing component with pagination
- *
- * @author vegegoku
- * @version $Id: $Id
- */
+/** An interface providing component with pagination */
 public interface HasPagination<T extends HasPagination<T>> {
   /**
    * Go to a specific page number

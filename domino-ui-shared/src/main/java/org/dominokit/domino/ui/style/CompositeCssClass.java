@@ -23,12 +23,7 @@ import java.util.Set;
 import java.util.stream.Collectors;
 import org.dominokit.domino.ui.IsElement;
 
-/**
- * CompositeCssClass class.
- *
- * @author vegegoku
- * @version $Id: $Id
- */
+/** CompositeCssClass class. */
 public class CompositeCssClass implements CssClass {
 
   private Set<CssClass> cssClasses = new HashSet<>();

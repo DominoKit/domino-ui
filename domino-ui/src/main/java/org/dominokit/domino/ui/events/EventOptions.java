@@ -17,12 +17,7 @@ package org.dominokit.domino.ui.events;
 
 import elemental2.dom.AddEventListenerOptions;
 
-/**
- * EventOptions class.
- *
- * @author vegegoku
- * @version $Id: $Id
- */
+/** EventOptions class. */
 public class EventOptions {
   private final AddEventListenerOptions options;
 

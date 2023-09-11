@@ -32,14 +32,15 @@ import org.dominokit.domino.ui.icons.lib.Icons;
 import org.dominokit.domino.ui.menu.Menu;
 import org.dominokit.domino.ui.menu.direction.BestSideUpDownDropDirection;
 import org.dominokit.domino.ui.popover.Tooltip;
-import org.dominokit.domino.ui.utils.*;
+import org.dominokit.domino.ui.utils.ComponentMeta;
+import org.dominokit.domino.ui.utils.DominoElement;
+import org.dominokit.domino.ui.utils.ElementsFactory;
+import org.dominokit.domino.ui.utils.ScreenMedia;
 
 /**
  * Class to define a column in the data table
  *
  * @param <T> the type of the data table records
- * @author vegegoku
- * @version $Id: $Id
  */
 public class ColumnConfig<T> implements ElementsFactory, DataTableStyles {
 
@@ -234,17 +235,6 @@ public class ColumnConfig<T> implements ElementsFactory, DataTableStyles {
   public ColumnConfig<T> setHeaderTextAlign(CellTextAlign headerCellTextAlign) {
     this.headerCellTextAlign = headerCellTextAlign;
     return this;
-  }
-
-  /** @return the {@link HeaderElementSupplier} of the column */
-  /**
-   * getHeaderElement.
-   *
-   * @return a {@link org.dominokit.domino.ui.datatable.HeaderElementSupplier} object
-   */
-  @Deprecated
-  public HeaderElementSupplier getHeaderElement() {
-    return getHeaderElementSupplier();
   }
 
   /** @return the {@link HeaderElementSupplier} of the column */
@@ -1011,24 +1001,6 @@ public class ColumnConfig<T> implements ElementsFactory, DataTableStyles {
   }
 
   private ColumnHeader createColumnElement(TableConfig<T> tableConfig) {
-
-    //        flexLayout = FlexLayout.create().setAlignItems(FlexAlign.CENTER);
-    //        if (isDrawTitle() && nonNull(getTitle())) {
-    //            flexLayout.appendChild(
-    //                    div().css("dui-th-title-wrapper")
-    //                            .addCss(SpacingCss.dui_order_50)
-    //                            .appendChild(getHeaderElementSupplier().asElement(getTitle())));
-    //
-    //            flexLayout.appendChild(
-    //                    div().addCss(() -> "dui-th-filler", dui_order_60, dui_grow_1)
-    //            );
-    //        }
-
-    //        flexLayout
-    //                .appendChild(menuIcon.addCss(dui_font_size_4)
-    //                        .clickable()
-    //                        .removeWaves()
-    //                        .addCss(dui_order_last_1));
     if (isDrawTitle() && nonNull(getTitle())) {
       this.headElement = ColumnHeader.create(getHeaderElementSupplier().asElement(getTitle()));
     } else {

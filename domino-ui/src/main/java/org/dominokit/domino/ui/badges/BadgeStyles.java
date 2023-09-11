@@ -17,12 +17,7 @@ package org.dominokit.domino.ui.badges;
 
 import org.dominokit.domino.ui.style.CssClass;
 
-/**
- * Default CSS classes for {@link org.dominokit.domino.ui.badges.Badge}
- *
- * @author vegegoku
- * @version $Id: $Id
- */
+/** Default CSS classes for {@link org.dominokit.domino.ui.badges.Badge} */
 public interface BadgeStyles {
 
   /** CSS class for badge */

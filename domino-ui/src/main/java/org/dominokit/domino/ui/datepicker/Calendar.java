@@ -28,12 +28,7 @@ import org.dominokit.domino.ui.utils.LazyChild;
 import org.gwtproject.i18n.shared.cldr.DateTimeFormatInfo;
 import org.gwtproject.i18n.shared.cldr.impl.DateTimeFormatInfo_factory;
 
-/**
- * Calendar class.
- *
- * @author vegegoku
- * @version $Id: $Id
- */
+/** Calendar class. */
 public class Calendar extends BaseDominoElement<HTMLDivElement, Calendar>
     implements CalendarStyles, IsCalendar, HasChangeListeners<Calendar, Date> {
 
@@ -291,9 +286,11 @@ public class Calendar extends BaseDominoElement<HTMLDivElement, Calendar>
   public Calendar setDate(Date date) {
     Date oldDate = this.date;
     this.date = date;
-    onDateViewUpdate(this.date);
-    onDateSelectionChanged(this.date);
-    triggerChangeListeners(oldDate, this.date);
+    if (nonNull(date)) {
+      onDateViewUpdate(this.date);
+      onDateSelectionChanged(this.date);
+      triggerChangeListeners(oldDate, this.date);
+    }
     return this;
   }
 

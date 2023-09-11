@@ -26,12 +26,7 @@ import java.util.Set;
 import java.util.stream.Collectors;
 import org.dominokit.domino.ui.elements.DivElement;
 
-/**
- * MultiSelect class.
- *
- * @author vegegoku
- * @version $Id: $Id
- */
+/** MultiSelect class. */
 public class MultiSelect<V>
     extends AbstractSelect<V, List<V>, DivElement, SelectOption<V>, MultiSelect<V>> {
 

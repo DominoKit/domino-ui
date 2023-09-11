@@ -21,12 +21,7 @@ import org.dominokit.domino.ui.datatable.ColumnConfig;
 import org.dominokit.domino.ui.utils.ComponentMeta;
 import org.dominokit.domino.ui.utils.DominoElement;
 
-/**
- * ColumnFilterMeta class.
- *
- * @author vegegoku
- * @version $Id: $Id
- */
+/** ColumnFilterMeta class. */
 public class ColumnFilterMeta<T> implements ComponentMeta {
 
   /** Constant <code>DOMINO_COLUMN_HEADER_FILTER_META="domino-column-header-filter-meta"</code> */

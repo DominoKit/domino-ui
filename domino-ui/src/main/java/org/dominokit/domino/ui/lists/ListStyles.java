@@ -20,9 +20,6 @@ import org.dominokit.domino.ui.style.CssClass;
 /**
  * Default CSS classes for {@link org.dominokit.domino.ui.lists.ListGroup} and {@link
  * org.dominokit.domino.ui.lists.ListItem}
- *
- * @author vegegoku
- * @version $Id: $Id
  */
 public interface ListStyles {
   /** Constant <code>dui_list_group</code> */

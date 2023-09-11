@@ -23,8 +23,6 @@ import org.dominokit.domino.ui.datatable.plugins.pagination.SortDirection;
  * This event is fired whenever the data in the data table is changed including the sort
  *
  * @param <T> the type of the data table records
- * @author vegegoku
- * @version $Id: $Id
  */
 public class DataChangedEvent<T> {
   private final List<T> newData;

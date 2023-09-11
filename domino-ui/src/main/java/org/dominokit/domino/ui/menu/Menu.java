@@ -55,8 +55,6 @@ import org.dominokit.domino.ui.utils.*;
  * The base component to create a menu like UI.
  *
  * @param <V> The type of the menu items value
- * @author vegegoku
- * @version $Id: $Id
  */
 public class Menu<V> extends BaseDominoElement<HTMLDivElement, Menu<V>>
     implements HasSelectionListeners<Menu<V>, AbstractMenuItem<V>, List<AbstractMenuItem<V>>>,
@@ -133,7 +131,11 @@ public class Menu<V> extends BaseDominoElement<HTMLDivElement, Menu<V>>
               targets.get(elementOf(Js.<HTMLElement>uncheckedCast(evt.target)).getDominoId());
         }
         if (isAutoOpen()) {
-          open(evt);
+          if (isOpened() && !isContextMenu()) {
+            close();
+          } else {
+            open(evt);
+          }
         }
       };
   private final DivElement backArrowContainer;
@@ -143,6 +145,9 @@ public class Menu<V> extends BaseDominoElement<HTMLDivElement, Menu<V>>
   private Set<OnAddItemHandler<V>> onAddItemHandlers = new HashSet<>();
   private boolean fitToTargetWidth = false;
   private boolean centerOnSmallScreens = false;
+
+  private EventListener lostFocusListener;
+  private boolean closeOnBlur = DominoUIConfig.CONFIG.isClosePopupOnBlur();
 
   /**
    * create.
@@ -299,6 +304,30 @@ public class Menu<V> extends BaseDominoElement<HTMLDivElement, Menu<V>>
               .addEventListener("touchend", this::backToParent)
               .addEventListener("touchstart", Event::stopPropagation);
         });
+
+    lostFocusListener =
+        evt -> {
+          if (isDropDown() && isCloseOnBlur()) {
+            DomGlobal.setTimeout(
+                p0 -> {
+                  Element e = DomGlobal.document.activeElement;
+                  if (getTarget().isPresent()) {
+                    Element target = getTarget().get().getTargetElement().element();
+                    if (!(target.contains(e)
+                        || e.equals(target)
+                        || this.element().contains(e)
+                        || e.equals(this.element()))) {
+                      close();
+                    }
+                  } else {
+                    if (!(this.element().contains(e) || e.equals(this.element()))) {
+                      close();
+                    }
+                  }
+                },
+                0);
+          }
+        };
   }
 
   private void onAddMissingElement() {
@@ -390,9 +419,9 @@ public class Menu<V> extends BaseDominoElement<HTMLDivElement, Menu<V>>
    * Appends a menu item to this menu
    *
    * @param menuGroup {@link org.dominokit.domino.ui.menu.MenuItemsGroup}
-   * @return same menu instance
    * @param groupHandler a {@link org.dominokit.domino.ui.menu.Menu.MenuItemsGroupHandler} object
    * @param <I> a I class
+   * @return same menu instance
    */
   public <I extends AbstractMenuItem<V>> Menu<V> appendGroup(
       MenuItemsGroup<V> menuGroup, MenuItemsGroupHandler<V, I> groupHandler) {
@@ -435,8 +464,8 @@ public class Menu<V> extends BaseDominoElement<HTMLDivElement, Menu<V>>
   /**
    * Appends a separator item to this menu, separator will show up as a simple border.
    *
-   * @return same menu instance
    * @param separator a {@link org.dominokit.domino.ui.utils.Separator} object
+   * @return same menu instance
    */
   public Menu<V> appendChild(Separator separator) {
     this.menuItemsList.appendChild(separator.addCss(dui_menu_separator));
@@ -1076,6 +1105,7 @@ public class Menu<V> extends BaseDominoElement<HTMLDivElement, Menu<V>>
         menuHeader.get().insertFirst(backArrowContainer);
       }
       show();
+      DomGlobal.document.body.addEventListener("blur", lostFocusListener, true);
     }
   }
 
@@ -1261,6 +1291,7 @@ public class Menu<V> extends BaseDominoElement<HTMLDivElement, Menu<V>>
                 menuTarget -> {
                   menuTarget.getTargetElement().element().focus();
                 });
+        DomGlobal.document.body.removeEventListener("blur", lostFocusListener, true);
         if (isSearchable()) {
           searchBox.get().clearSearch();
         }
@@ -1451,7 +1482,7 @@ public class Menu<V> extends BaseDominoElement<HTMLDivElement, Menu<V>>
    * @return a boolean
    */
   public boolean isDropDown() {
-    return dropDown;
+    return dropDown || isContextMenu();
   }
 
   private void setDropDown(boolean dropdown) {
@@ -1542,6 +1573,15 @@ public class Menu<V> extends BaseDominoElement<HTMLDivElement, Menu<V>>
       return this;
     }
     this.openMenuCondition = openMenuCondition;
+    return this;
+  }
+
+  public boolean isCloseOnBlur() {
+    return closeOnBlur;
+  }
+
+  public Menu<V> setCloseOnBlur(boolean closeOnBlur) {
+    this.closeOnBlur = closeOnBlur;
     return this;
   }
 

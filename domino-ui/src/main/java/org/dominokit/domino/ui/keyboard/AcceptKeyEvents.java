@@ -17,12 +17,7 @@ package org.dominokit.domino.ui.keyboard;
 
 import elemental2.dom.EventListener;
 
-/**
- * AcceptKeyEvents interface.
- *
- * @author vegegoku
- * @version $Id: $Id
- */
+/** AcceptKeyEvents interface. */
 public interface AcceptKeyEvents {
 
   /**
@@ -42,7 +37,6 @@ public interface AcceptKeyEvents {
    */
   AcceptKeyEvents onBackspace(KeyboardEventOptions options, EventListener backspaceHandler);
 
-  // ---------------- handlers ----------------
   /**
    * On escape button pressed
    *

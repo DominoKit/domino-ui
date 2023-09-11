@@ -34,8 +34,6 @@ import org.dominokit.domino.ui.utils.ChildHandler;
  *
  * @see BaseDominoElement
  * @see FileUpload
- * @author vegegoku
- * @version $Id: $Id
  */
 public class FileItem extends BaseDominoElement<HTMLElement, FileItem> {
 
@@ -56,6 +54,8 @@ public class FileItem extends BaseDominoElement<HTMLElement, FileItem> {
 
   private IsFilePreview<?> filePreview;
 
+  private final FileUpload fileUpload;
+
   /**
    * create.
    *
@@ -65,8 +65,8 @@ public class FileItem extends BaseDominoElement<HTMLElement, FileItem> {
    * @param previewFactory a {@link org.dominokit.domino.ui.upload.FilePreviewFactory} object
    */
   public static FileItem create(
-      File file, UploadOptions options, FilePreviewFactory previewFactory) {
-    return new FileItem(file, options, previewFactory);
+      File file, UploadOptions options, FilePreviewFactory previewFactory, FileUpload fileUpload) {
+    return new FileItem(file, options, previewFactory, fileUpload);
   }
   /**
    * create.
@@ -75,8 +75,9 @@ public class FileItem extends BaseDominoElement<HTMLElement, FileItem> {
    * @return new instance
    * @param previewFactory a {@link org.dominokit.domino.ui.upload.FilePreviewFactory} object
    */
-  public static FileItem create(File file, FilePreviewFactory previewFactory) {
-    return new FileItem(file, new UploadOptions(), previewFactory);
+  public static FileItem create(
+      File file, FilePreviewFactory previewFactory, FileUpload fileUpload) {
+    return new FileItem(file, new UploadOptions(), previewFactory, fileUpload);
   }
 
   /**
@@ -86,11 +87,13 @@ public class FileItem extends BaseDominoElement<HTMLElement, FileItem> {
    * @param options a {@link org.dominokit.domino.ui.upload.UploadOptions} object
    * @param previewFactory a {@link org.dominokit.domino.ui.upload.FilePreviewFactory} object
    */
-  public FileItem(File file, UploadOptions options, FilePreviewFactory previewFactory) {
+  public FileItem(
+      File file, UploadOptions options, FilePreviewFactory previewFactory, FileUpload fileUpload) {
     this.file = file;
     this.options = options;
     this.fileName = file.name;
-    this.filePreview = previewFactory.forFile(this);
+    this.fileUpload = fileUpload;
+    this.filePreview = previewFactory.forFile(this, fileUpload);
 
     init(this);
   }
@@ -475,6 +478,10 @@ public class FileItem extends BaseDominoElement<HTMLElement, FileItem> {
       filePreview.onUploadFailed(
           "File is too large, maximum file size is " + formatSize(options.getMaxFileSize()));
     }
+  }
+
+  public FileUpload getFileUpload() {
+    return fileUpload;
   }
 
   /** A handler to be called when the file is removed */

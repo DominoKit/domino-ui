@@ -17,12 +17,7 @@ package org.dominokit.domino.ui.datatable;
 
 import org.dominokit.domino.ui.utils.DominoCSSRule;
 
-/**
- * ColumnCssRule class.
- *
- * @author vegegoku
- * @version $Id: $Id
- */
+/** ColumnCssRule class. */
 public class ColumnCssRule {
 
   private final String key;

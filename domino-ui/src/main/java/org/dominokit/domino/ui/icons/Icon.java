@@ -28,8 +28,6 @@ import org.dominokit.domino.ui.utils.ElementHandler;
  * A base implementation for Icon
  *
  * @param <T> the type of the icon
- * @author vegegoku
- * @version $Id: $Id
  */
 public abstract class Icon<T extends Icon<T>> extends BaseDominoElement<HTMLElement, T>
     implements CanApplyOnChildren<T, Icon<?>> {
@@ -82,7 +80,6 @@ public abstract class Icon<T extends Icon<T>> extends BaseDominoElement<HTMLElem
     }
     setAttribute("tabindex", "0");
     setAttribute("aria-expanded", "true");
-    setAttribute("href", "#");
     return (T) this;
   }
 
@@ -99,7 +96,6 @@ public abstract class Icon<T extends Icon<T>> extends BaseDominoElement<HTMLElem
       GenericCss.dui_clickable.remove(this);
       removeAttribute("tabindex");
       removeAttribute("aria-expanded");
-      removeAttribute("href");
       removeWaves();
     }
     return (T) this;

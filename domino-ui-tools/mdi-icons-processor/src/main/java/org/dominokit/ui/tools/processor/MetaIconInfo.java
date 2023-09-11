@@ -21,12 +21,7 @@ import java.util.List;
 import org.dominokit.jackson.annotation.JSONMapper;
 
 @JSONMapper
-/**
- * MetaIconInfo class.
- *
- * @author vegegoku
- * @version $Id: $Id
- */
+/** MetaIconInfo class. */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class MetaIconInfo {
   @JsonIgnore private String id;

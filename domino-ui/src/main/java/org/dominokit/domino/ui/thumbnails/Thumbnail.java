@@ -37,8 +37,6 @@ import org.dominokit.domino.ui.utils.LazyChild;
  * org.dominokit.domino.ui.thumbnails.ThumbnailStyles}
  *
  * @see BaseDominoElement
- * @author vegegoku
- * @version $Id: $Id
  */
 public class Thumbnail extends BaseDominoElement<HTMLDivElement, Thumbnail>
     implements ThumbnailStyles {

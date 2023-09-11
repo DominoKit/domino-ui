@@ -18,12 +18,7 @@ package org.dominokit.domino.ui.utils;
 import elemental2.dom.Element;
 import org.dominokit.domino.ui.IsElement;
 
-/**
- * PrefixAddOn class.
- *
- * @author vegegoku
- * @version $Id: $Id
- */
+/** PrefixAddOn class. */
 public class PrefixAddOn<T extends Element> extends BaseDominoElement<T, PrefixAddOn<T>> {
 
   private DominoElement<T> element;

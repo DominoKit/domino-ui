@@ -32,12 +32,7 @@ import org.dominokit.domino.ui.utils.*;
 import org.gwtproject.i18n.shared.cldr.DateTimeFormatInfo;
 import org.gwtproject.i18n.shared.cldr.impl.DateTimeFormatInfo_factory;
 
-/**
- * DateBox class.
- *
- * @author vegegoku
- * @version $Id: $Id
- */
+/** DateBox class. */
 public class DateBox extends TextInputFormField<DateBox, HTMLInputElement, Date>
     implements HasLabels<CalendarLabels>, CalendarViewListener {
 
@@ -141,6 +136,7 @@ public class DateBox extends TextInputFormField<DateBox, HTMLInputElement, Date>
     this.pattern = dateTimeFormatInfo.dateFormatFull();
     this.popover =
         Popover.create(this.getWrapperElement())
+            .setOpenCondition(() -> isEnabled() && !isReadOnly())
             .setOpenOnClick(this.openOnClick)
             .setPosition(BEST_MIDDLE_DOWN_UP)
             .appendChild(this.calendar)
@@ -335,7 +331,7 @@ public class DateBox extends TextInputFormField<DateBox, HTMLInputElement, Date>
   }
 
   private void doOpen() {
-    if (isEnabled()) {
+    if (isEnabled() && !isReadOnly()) {
       popover.open();
     }
   }
@@ -516,11 +512,13 @@ public class DateBox extends TextInputFormField<DateBox, HTMLInputElement, Date>
   /** {@inheritDoc} */
   @Override
   public void onDateSelectionChanged(Date date) {
-    if (silentSelection == false) {
-      clearInvalid();
-      withValue(date);
+    if (!isDisabled() && !isReadOnly()) {
+      if (silentSelection == false) {
+        clearInvalid();
+        withValue(date);
+      }
+      this.popover.close();
     }
-    this.popover.close();
   }
 
   /**

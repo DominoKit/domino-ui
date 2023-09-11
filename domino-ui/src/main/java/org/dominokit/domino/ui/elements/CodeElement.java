@@ -17,12 +17,7 @@ package org.dominokit.domino.ui.elements;
 
 import elemental2.dom.HTMLElement;
 
-/**
- * CodeElement class.
- *
- * @author vegegoku
- * @version $Id: $Id
- */
+/** CodeElement class. */
 public class CodeElement extends BaseElement<HTMLElement, CodeElement> {
   /**
    * of.

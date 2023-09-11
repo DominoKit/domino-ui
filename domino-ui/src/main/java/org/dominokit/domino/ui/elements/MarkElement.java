@@ -17,12 +17,7 @@ package org.dominokit.domino.ui.elements;
 
 import elemental2.dom.HTMLElement;
 
-/**
- * MarkElement class.
- *
- * @author vegegoku
- * @version $Id: $Id
- */
+/** MarkElement class. */
 public class MarkElement extends BaseElement<HTMLElement, MarkElement> {
   /**
    * of.

@@ -15,27 +15,21 @@
  */
 package org.dominokit.domino.ui.popover;
 
+import static java.util.Objects.isNull;
 import static org.dominokit.domino.ui.collapsible.Collapsible.DUI_COLLAPSED;
 
 import elemental2.dom.*;
 import java.util.Objects;
+import java.util.function.Supplier;
 import jsinterop.base.Js;
 import org.dominokit.domino.ui.config.HasComponentConfig;
 import org.dominokit.domino.ui.config.ZIndexConfig;
 import org.dominokit.domino.ui.elements.DivElement;
 import org.dominokit.domino.ui.events.EventType;
 import org.dominokit.domino.ui.menu.direction.DropDirection;
-import org.dominokit.domino.ui.utils.BaseDominoElement;
-import org.dominokit.domino.ui.utils.ChildHandler;
-import org.dominokit.domino.ui.utils.FollowOnScroll;
-import org.dominokit.domino.ui.utils.IsPopup;
+import org.dominokit.domino.ui.utils.*;
 
-/**
- * Abstract BasePopover class.
- *
- * @author vegegoku
- * @version $Id: $Id
- */
+/** Abstract BasePopover class. */
 public abstract class BasePopover<T extends BasePopover<T>>
     extends BaseDominoElement<HTMLDivElement, T>
     implements IsPopup<T>,
@@ -55,6 +49,9 @@ public abstract class BasePopover<T extends BasePopover<T>>
   private boolean closeOthers = true;
   protected final EventListener closeListener;
   private final FollowOnScroll followOnScroll;
+  private Supplier<Boolean> openCondition = () -> true;
+  private EventListener lostFocusListener;
+  private boolean closeOnBlur = DominoUIConfig.CONFIG.isClosePopupOnBlur();
 
   /**
    * Constructor for BasePopover.
@@ -84,11 +81,17 @@ public abstract class BasePopover<T extends BasePopover<T>>
           evt.preventDefault();
           evt.stopPropagation();
         });
-    elementOf(targetElement).onDetached(mutationRecord -> close());
+    elementOf(targetElement)
+        .onDetached(
+            mutationRecord -> {
+              close();
+              DomGlobal.document.body.removeEventListener("blur", lostFocusListener, true);
+            });
 
     onDetached(
         mutationRecord -> {
           body().removeEventListener(EventType.keydown.getName(), closeListener);
+          DomGlobal.document.body.removeEventListener("blur", lostFocusListener, true);
         });
     addCollapseListener(this::doClose);
     closeAllListener =
@@ -99,6 +102,22 @@ public abstract class BasePopover<T extends BasePopover<T>>
           }
         };
     setAttribute(DUI_COLLAPSED, "true");
+    lostFocusListener =
+        evt -> {
+          if (isCloseOnBlur()) {
+            DomGlobal.setTimeout(
+                p0 -> {
+                  Element e = DomGlobal.document.activeElement;
+                  if (!(targetElement.contains(e)
+                      || e.equals(targetElement)
+                      || this.element().contains(e)
+                      || e.equals(this.element()))) {
+                    close();
+                  }
+                },
+                0);
+          }
+        };
   }
 
   /**
@@ -111,7 +130,7 @@ public abstract class BasePopover<T extends BasePopover<T>>
   /** {@inheritDoc} */
   @Override
   public T expand() {
-    if (isEnabled()) {
+    if (isEnabled() && (isNull(openCondition.get()) || openCondition.get())) {
       if (closeOthers) {
         closeOthers(getDominoId());
       }
@@ -139,6 +158,7 @@ public abstract class BasePopover<T extends BasePopover<T>>
     if (!isCloseOnScroll()) {
       followOnScroll.start();
     }
+    DomGlobal.document.body.addEventListener("blur", lostFocusListener, true);
   }
 
   private void doPosition() {
@@ -298,6 +318,20 @@ public abstract class BasePopover<T extends BasePopover<T>>
    */
   public T closeOnScroll(boolean closeOnScroll) {
     setAttribute("d-close-on-scroll", closeOnScroll);
+    return (T) this;
+  }
+
+  public T setOpenCondition(Supplier<Boolean> openCondition) {
+    this.openCondition = openCondition;
+    return (T) this;
+  }
+
+  public boolean isCloseOnBlur() {
+    return closeOnBlur;
+  }
+
+  public T setCloseOnBlur(boolean closeOnBlur) {
+    this.closeOnBlur = closeOnBlur;
     return (T) this;
   }
 

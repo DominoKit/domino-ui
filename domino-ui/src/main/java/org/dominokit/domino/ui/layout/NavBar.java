@@ -25,12 +25,7 @@ import org.dominokit.domino.ui.elements.NavElement;
 import org.dominokit.domino.ui.elements.SmallElement;
 import org.dominokit.domino.ui.utils.*;
 
-/**
- * NavBar class.
- *
- * @author vegegoku
- * @version $Id: $Id
- */
+/** NavBar class. */
 public class NavBar extends BaseDominoElement<HTMLElement, NavBar> {
   private NavElement root;
   private HeadingElement title;

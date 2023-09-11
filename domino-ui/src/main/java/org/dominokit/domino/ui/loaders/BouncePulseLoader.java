@@ -20,12 +20,7 @@ import org.dominokit.domino.ui.IsElement;
 import org.dominokit.domino.ui.elements.DivElement;
 import org.dominokit.domino.ui.utils.DominoElement;
 
-/**
- * Bounce pulse loader implementation
- *
- * @author vegegoku
- * @version $Id: $Id
- */
+/** Bounce pulse loader implementation */
 public class BouncePulseLoader extends BaseLoader<BouncePulseLoader>
     implements IsElement<HTMLDivElement> {
 

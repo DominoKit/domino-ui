@@ -17,12 +17,7 @@ package org.dominokit.domino.ui.timepicker;
 
 import java.util.Date;
 
-/**
- * TimeSelectionListener interface.
- *
- * @author vegegoku
- * @version $Id: $Id
- */
+/** TimeSelectionListener interface. */
 public interface TimeSelectionListener {
   /**
    * onDaySelected.

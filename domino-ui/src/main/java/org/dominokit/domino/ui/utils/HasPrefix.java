@@ -15,12 +15,7 @@
  */
 package org.dominokit.domino.ui.utils;
 
-/**
- * HasPrefix interface.
- *
- * @author vegegoku
- * @version $Id: $Id
- */
+/** HasPrefix interface. */
 public interface HasPrefix<T> {
   /**
    * setPrefix.

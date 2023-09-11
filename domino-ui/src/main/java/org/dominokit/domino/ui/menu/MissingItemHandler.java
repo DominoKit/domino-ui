@@ -19,8 +19,6 @@ package org.dominokit.domino.ui.menu;
  * A functional interface to handle missing items when search is applied
  *
  * @param <T> The type of the menu on which the search was applied
- * @author vegegoku
- * @version $Id: $Id
  */
 @FunctionalInterface
 public interface MissingItemHandler<T> {

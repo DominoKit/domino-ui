@@ -17,12 +17,7 @@ package org.dominokit.domino.ui.elements;
 
 import elemental2.svg.SVGCircleElement;
 
-/**
- * CircleElement class.
- *
- * @author vegegoku
- * @version $Id: $Id
- */
+/** CircleElement class. */
 public class CircleElement extends BaseElement<SVGCircleElement, CircleElement> {
   /**
    * of.

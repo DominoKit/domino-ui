@@ -17,12 +17,7 @@ package org.dominokit.domino.ui.elements;
 
 import elemental2.dom.HTMLElement;
 
-/**
- * AsideElement class.
- *
- * @author vegegoku
- * @version $Id: $Id
- */
+/** AsideElement class. */
 public class AsideElement extends BaseElement<HTMLElement, AsideElement> {
   /**
    * of.

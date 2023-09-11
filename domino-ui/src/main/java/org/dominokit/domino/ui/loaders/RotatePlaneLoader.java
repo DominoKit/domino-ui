@@ -20,12 +20,7 @@ import org.dominokit.domino.ui.IsElement;
 import org.dominokit.domino.ui.elements.DivElement;
 import org.dominokit.domino.ui.utils.DominoElement;
 
-/**
- * Rotate plane loader implementation
- *
- * @author vegegoku
- * @version $Id: $Id
- */
+/** Rotate plane loader implementation */
 public class RotatePlaneLoader extends BaseLoader<RotatePlaneLoader>
     implements IsElement<HTMLDivElement> {
 

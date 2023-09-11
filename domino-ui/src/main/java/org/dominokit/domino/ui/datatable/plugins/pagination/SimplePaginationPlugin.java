@@ -25,8 +25,6 @@ import org.dominokit.domino.ui.pagination.SimplePagination;
  * the data table and fires {@link TablePageChangeEvent} when ever the page is changed
  *
  * @param <T> the type of the data table records
- * @author vegegoku
- * @version $Id: $Id
  */
 public class SimplePaginationPlugin<T> implements DataTablePlugin<T> {
 

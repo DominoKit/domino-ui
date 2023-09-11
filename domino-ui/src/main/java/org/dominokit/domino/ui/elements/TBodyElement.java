@@ -17,12 +17,7 @@ package org.dominokit.domino.ui.elements;
 
 import elemental2.dom.HTMLTableSectionElement;
 
-/**
- * TBodyElement class.
- *
- * @author vegegoku
- * @version $Id: $Id
- */
+/** TBodyElement class. */
 public class TBodyElement extends BaseElement<HTMLTableSectionElement, TBodyElement> {
   /**
    * of.

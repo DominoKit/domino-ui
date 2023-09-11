@@ -17,12 +17,7 @@ package org.dominokit.domino.ui.loaders;
 
 import org.dominokit.domino.ui.style.CssClass;
 
-/**
- * Default CSS classes for {@link org.dominokit.domino.ui.loaders.Loader}
- *
- * @author vegegoku
- * @version $Id: $Id
- */
+/** Default CSS classes for {@link org.dominokit.domino.ui.loaders.Loader} */
 public interface LoaderStyles {
 
   /** Constant <code>dui_loader</code> */

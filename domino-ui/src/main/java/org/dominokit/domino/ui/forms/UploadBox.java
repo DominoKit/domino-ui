@@ -27,12 +27,7 @@ import org.dominokit.domino.ui.elements.SpanElement;
 import org.dominokit.domino.ui.icons.lib.Icons;
 import org.dominokit.domino.ui.utils.*;
 
-/**
- * Abstract TextInputFormField class.
- *
- * @author vegegoku
- * @version $Id: $Id
- */
+/** Abstract TextInputFormField class. */
 public class UploadBox extends InputFormField<UploadBox, HTMLInputElement, List<File>>
     implements HasPostfix<UploadBox>, HasPrefix<UploadBox> {
 

@@ -19,8 +19,6 @@ package org.dominokit.domino.ui.datatable.store;
  * A listener interface to handle {@link org.dominokit.domino.ui.datatable.store.DataChangedEvent}
  *
  * @param <T> the type of the data table records
- * @author vegegoku
- * @version $Id: $Id
  */
 @FunctionalInterface
 public interface StoreDataChangeListener<T> {

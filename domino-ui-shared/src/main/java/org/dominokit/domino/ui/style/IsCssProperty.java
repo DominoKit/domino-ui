@@ -18,12 +18,7 @@ package org.dominokit.domino.ui.style;
 import elemental2.dom.Element;
 import org.dominokit.domino.ui.IsElement;
 
-/**
- * IsCssProperty interface.
- *
- * @author vegegoku
- * @version $Id: $Id
- */
+/** IsCssProperty interface. */
 public interface IsCssProperty {
   /**
    * apply.

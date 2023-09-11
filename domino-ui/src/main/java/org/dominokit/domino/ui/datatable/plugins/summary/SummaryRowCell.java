@@ -28,8 +28,6 @@ import org.dominokit.domino.ui.utils.DominoElement;
  * cell row and column which it is part of
  *
  * @param <T> the type of the data table records
- * @author vegegoku
- * @version $Id: $Id
  */
 public class SummaryRowCell<T, S> {
 

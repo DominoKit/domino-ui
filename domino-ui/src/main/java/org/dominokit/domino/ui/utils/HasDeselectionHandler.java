@@ -19,8 +19,6 @@ package org.dominokit.domino.ui.utils;
  * a component that can be deselected should implement this interface
  *
  * @param <T> the type of the component implementing this interface
- * @author vegegoku
- * @version $Id: $Id
  */
 public interface HasDeselectionHandler<T> {
   /**

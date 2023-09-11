@@ -45,8 +45,6 @@ import org.dominokit.domino.ui.utils.PostfixAddOn;
  * org.dominokit.domino.ui.datatable.plugins.header.HeaderActionElement}(s) to it
  *
  * @param <T> the type of the data table records
- * @author vegegoku
- * @version $Id: $Id
  */
 public class HeaderBarPlugin<T> implements DataTablePlugin<T> {
 
@@ -447,7 +445,11 @@ public class HeaderBarPlugin<T> implements DataTablePlugin<T> {
 
       columnsIcon.addClickListener(
           evt -> {
-            dropDownMenu.open();
+            if (dropDownMenu.isOpened()) {
+              dropDownMenu.close();
+            } else {
+              dropDownMenu.open();
+            }
             evt.stopPropagation();
           });
       return columnsIcon.element();

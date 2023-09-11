@@ -23,12 +23,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 import org.dominokit.domino.ui.IsElement;
 
-/**
- * MultiSuggestBox class.
- *
- * @author vegegoku
- * @version $Id: $Id
- */
+/** MultiSuggestBox class. */
 public class MultiSuggestBox<V, E extends IsElement<?>, O extends Option<V, E, O>>
     extends AbstractSuggestBox<V, List<V>, E, O, MultiSuggestBox<V, E, O>> {
 

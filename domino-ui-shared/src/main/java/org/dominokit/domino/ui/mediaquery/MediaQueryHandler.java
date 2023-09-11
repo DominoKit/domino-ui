@@ -16,12 +16,7 @@
 package org.dominokit.domino.ui.mediaquery;
 
 @FunctionalInterface
-/**
- * MediaQueryHandler interface.
- *
- * @author vegegoku
- * @version $Id: $Id
- */
+/** MediaQueryHandler interface. */
 public interface MediaQueryHandler<T> {
   /**
    * onMedia.

@@ -31,12 +31,7 @@ import org.dominokit.domino.ui.style.CompositeCssClass;
 import org.dominokit.domino.ui.style.CssClass;
 import org.dominokit.domino.ui.utils.DominoElement;
 
-/**
- * NotificationPosition class.
- *
- * @author vegegoku
- * @version $Id: $Id
- */
+/** NotificationPosition class. */
 public class NotificationPosition {
   private static CompositeCssClass topPositions =
       CompositeCssClass.of(dui_ntf_top_left, dui_ntf_top_right, dui_ntf_top_middle);

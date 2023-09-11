@@ -19,12 +19,7 @@ import java.util.Date;
 import java.util.Set;
 import org.gwtproject.i18n.shared.cldr.DateTimeFormatInfo;
 
-/**
- * IsCalendar interface.
- *
- * @author vegegoku
- * @version $Id: $Id
- */
+/** IsCalendar interface. */
 public interface IsCalendar {
   /**
    * getDate.

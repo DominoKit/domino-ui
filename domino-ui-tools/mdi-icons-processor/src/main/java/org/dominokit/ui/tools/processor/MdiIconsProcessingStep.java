@@ -31,12 +31,7 @@ import org.apache.commons.io.IOUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-/**
- * MdiIconsProcessingStep class.
- *
- * @author vegegoku
- * @version $Id: $Id
- */
+/** MdiIconsProcessingStep class. */
 public class MdiIconsProcessingStep {
 
   private static final String MDI_VERSION = "v7.2.96";

@@ -37,8 +37,6 @@ import org.dominokit.domino.ui.pagination.HasPagination;
  * sorting
  *
  * @param <T> the type of the data table records
- * @author vegegoku
- * @version $Id: $Id
  */
 public class LocalListDataStore<T> implements DataStore<T> {
 

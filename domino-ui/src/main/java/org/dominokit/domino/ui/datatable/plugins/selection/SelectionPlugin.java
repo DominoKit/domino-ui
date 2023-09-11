@@ -21,11 +21,13 @@ import static java.util.Objects.nonNull;
 import static org.dominokit.domino.ui.datatable.DataTableStyles.dui_datatable_row_selected;
 import static org.dominokit.domino.ui.forms.FormsStyles.dui_form_select_check_box;
 
+import elemental2.dom.DomGlobal;
 import elemental2.dom.Element;
 import elemental2.dom.HTMLElement;
 import elemental2.dom.MouseEvent;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.function.Supplier;
 import jsinterop.base.Js;
@@ -44,8 +46,6 @@ import org.dominokit.domino.ui.utils.Selectable;
  * selection.
  *
  * @param <T> the type of the data table records
- * @author vegegoku
- * @version $Id: $Id
  */
 public class SelectionPlugin<T> implements DataTablePlugin<T> {
   private Selectable<TableRow<T>> selectedRow;
@@ -128,9 +128,12 @@ public class SelectionPlugin<T> implements DataTablePlugin<T> {
             "click",
             evt -> {
               if (selectionCondition.isAllowSelection(dataTable, cell.getTableRow())) {
+                DomGlobal.console.info("isSelected  = " + cell.getTableRow().isSelected());
                 if (cell.getTableRow().isSelected()) {
+                  DomGlobal.console.info("De-Selecting row : <");
                   cell.getTableRow().deselect();
                 } else {
+                  DomGlobal.console.info("Selecting row : >");
                   cell.getTableRow().select();
                 }
               }
@@ -139,7 +142,7 @@ public class SelectionPlugin<T> implements DataTablePlugin<T> {
         .addSelectionListener(
             (source, row) -> {
               if (selectionCondition.isAllowSelection(dataTable, cell.getTableRow())) {
-                if (nonNull(this.selectedRow)) {
+                if (nonNull(this.selectedRow) && !Objects.equals(this.selectedRow, row)) {
                   this.selectedRow.deselect();
                 }
                 this.selectedRow = row;

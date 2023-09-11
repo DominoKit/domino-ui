@@ -41,8 +41,6 @@ import org.dominokit.domino.ui.IsElement;
  * @param <V> The element type
  * @see IsElement
  * @see EventListener
- * @author vegegoku
- * @version $Id: $Id
  */
 public class KeyboardNavigation<V extends IsElement<?>> implements EventListener {
 

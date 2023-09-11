@@ -15,12 +15,7 @@
  */
 package org.dominokit.domino.ui.stepper;
 
-/**
- * StepState interface.
- *
- * @author vegegoku
- * @version $Id: $Id
- */
+/** StepState interface. */
 public interface StepState extends StepperStyles {
   /** Constant <code>ACTIVE</code> */
   StepState ACTIVE = new ActiveStep();

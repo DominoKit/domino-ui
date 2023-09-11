@@ -17,12 +17,7 @@ package org.dominokit.domino.ui.elements;
 
 import elemental2.dom.HTMLHeadingElement;
 
-/**
- * HeadingElement class.
- *
- * @author vegegoku
- * @version $Id: $Id
- */
+/** HeadingElement class. */
 public class HeadingElement extends BaseElement<HTMLHeadingElement, HeadingElement> {
   /**
    * of.

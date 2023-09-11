@@ -19,8 +19,6 @@ package org.dominokit.domino.ui.utils;
  * Components that has a requirement to have a min and max length can implement this interface
  *
  * @param <T> The type of the class implementing this interface
- * @author vegegoku
- * @version $Id: $Id
  */
 public interface HasLength<T> {
   /**

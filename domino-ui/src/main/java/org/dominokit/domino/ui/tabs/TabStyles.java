@@ -17,12 +17,7 @@ package org.dominokit.domino.ui.tabs;
 
 import org.dominokit.domino.ui.style.CssClass;
 
-/**
- * Constants class for Tabs component css classes names
- *
- * @author vegegoku
- * @version $Id: $Id
- */
+/** Constants class for Tabs component css classes names */
 public interface TabStyles {
   /** Constant <code>dui_tabs_nav</code> */
   CssClass dui_tabs_nav = () -> "dui-tabs-nav";

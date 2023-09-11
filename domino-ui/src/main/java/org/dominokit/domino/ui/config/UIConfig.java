@@ -15,12 +15,7 @@
  */
 package org.dominokit.domino.ui.config;
 
-/**
- * UIConfig interface.
- *
- * @author vegegoku
- * @version $Id: $Id
- */
+/** UIConfig interface. */
 public interface UIConfig
     extends FormsFieldsConfig,
         ZIndexConfig,

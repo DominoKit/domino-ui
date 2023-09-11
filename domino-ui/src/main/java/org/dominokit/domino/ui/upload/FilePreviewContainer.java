@@ -18,12 +18,7 @@ package org.dominokit.domino.ui.upload;
 import elemental2.dom.HTMLElement;
 import org.dominokit.domino.ui.IsElement;
 
-/**
- * FilePreviewContainer interface.
- *
- * @author vegegoku
- * @version $Id: $Id
- */
+/** FilePreviewContainer interface. */
 public interface FilePreviewContainer<E extends HTMLElement, T extends FilePreviewContainer<E, T>>
     extends IsElement<E> {
 

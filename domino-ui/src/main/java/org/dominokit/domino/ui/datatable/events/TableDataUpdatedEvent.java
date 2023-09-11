@@ -21,8 +21,6 @@ import java.util.List;
  * This event will be fired after the data in the table is changed
  *
  * @param <T> the type of the table records
- * @author vegegoku
- * @version $Id: $Id
  */
 public class TableDataUpdatedEvent<T> implements TableEvent {
 

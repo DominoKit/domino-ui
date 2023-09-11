@@ -34,8 +34,6 @@ import org.dominokit.domino.ui.utils.*;
  * The data table component
  *
  * @param <T> the type of the data table records
- * @author vegegoku
- * @version $Id: $Id
  */
 public class DataTable<T> extends BaseDominoElement<HTMLDivElement, DataTable<T>>
     implements HasSelectionSupport<TableRow<T>>,
@@ -517,14 +515,6 @@ public class DataTable<T> extends BaseDominoElement<HTMLDivElement, DataTable<T>
   /** @return a {@link List} of {@link TableRow}s including the child rows */
   /** {@inheritDoc} */
   @Override
-  @Deprecated
-  public List<TableRow<T>> getItems() {
-    return getRows();
-  }
-
-  /** @return a {@link List} of {@link TableRow}s including the child rows */
-  /** {@inheritDoc} */
-  @Override
   public List<TableRow<T>> getRows() {
     return tableRows;
   }
@@ -560,15 +550,6 @@ public class DataTable<T> extends BaseDominoElement<HTMLDivElement, DataTable<T>
   public List<T> getDirtyRecords() {
     return getRows().stream().map(TableRow::getDirtyRecord).collect(Collectors.toList());
   }
-  //
-  //    @Override
-  //    public void onSelectionChange(TableRow<T> source) {
-  //
-  //        selectionChangeListeners.forEach(
-  //                selectionChangeListener ->
-  //                        selectionChangeListener.onSelectionChanged(getSelectedItems(),
-  // getSelectedRecords()));
-  //    }
 
   /**
    * {@inheritDoc}

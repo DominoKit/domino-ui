@@ -20,12 +20,7 @@ import static java.util.Objects.nonNull;
 import java.util.stream.IntStream;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
 
-/**
- * A simple pagination implementation
- *
- * @author vegegoku
- * @version $Id: $Id
- */
+/** A simple pagination implementation */
 public class SimplePagination extends BasePagination<SimplePagination> {
 
   /** @return new instance */

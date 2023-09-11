@@ -21,6 +21,9 @@ import elemental2.dom.DomGlobal;
 import elemental2.dom.Event;
 import elemental2.dom.HTMLDivElement;
 import elemental2.dom.HTMLElement;
+import java.util.HashSet;
+import java.util.Set;
+import org.dominokit.domino.ui.animations.TransitionListeners;
 import org.dominokit.domino.ui.elements.AsideElement;
 import org.dominokit.domino.ui.elements.DivElement;
 import org.dominokit.domino.ui.elements.HeaderElement;
@@ -34,10 +37,12 @@ import org.dominokit.domino.ui.style.ToggleCssClass;
 import org.dominokit.domino.ui.utils.*;
 
 /**
- * AppLayout class.
+ * <div id="dui-class-docs">
  *
- * @author vegegoku
- * @version $Id: $Id
+ * <p>A component that provides feature rich main application layout that includes, Navigation bar,
+ * left drawer, right drawer, footer and main content panel.
+ *
+ * <p></div>
  */
 public class AppLayout extends BaseDominoElement<HTMLDivElement, AppLayout>
     implements AppLayoutStyles {
@@ -63,6 +68,11 @@ public class AppLayout extends BaseDominoElement<HTMLDivElement, AppLayout>
 
   public SwapCssClass LEFT_DRAWER_SIZE = new SwapCssClass(dui_left_medium);
   public SwapCssClass RIGHT_DRAWER_SIZE = new SwapCssClass(dui_right_medium);
+
+  public Set<ChildHandler<AppLayout, SectionElement>> leftDrawerOpenHandlers = new HashSet<>();
+  public Set<ChildHandler<AppLayout, SectionElement>> leftDrawerCloseHandlers = new HashSet<>();
+  public Set<ChildHandler<AppLayout, SectionElement>> rightDrawerOpenHandlers = new HashSet<>();
+  public Set<ChildHandler<AppLayout, SectionElement>> rightDrawerCloseHandlers = new HashSet<>();
 
   /**
    * create.
@@ -105,6 +115,25 @@ public class AppLayout extends BaseDominoElement<HTMLDivElement, AppLayout>
         LazyChild.of(
                 section().addCss(dui_left_drawer).addClickListener(Event::stopPropagation), layout)
             .whenInitialized(leftDrawerToggle::get);
+    leftDrawer.whenInitialized(
+        () -> {
+          TransitionListeners.of(leftDrawer.element())
+              .onTransitionStart(
+                  target -> {
+                    if (dui_left_open.isAppliedTo(layout)) {
+                      leftDrawerOpenHandlers.forEach(
+                          handler -> handler.apply(this, leftDrawer.get()));
+                    }
+                  })
+              .onTransitionEnd(
+                  target -> {
+                    if (!dui_left_open.isAppliedTo(layout)) {
+                      leftDrawerCloseHandlers.forEach(
+                          handler -> handler.apply(this, leftDrawer.get()));
+                    }
+                  });
+        });
+
     leftDrawerContent = LazyChild.of(aside().addCss(dui_layout_menu), leftDrawer);
 
     rightDrawerToggle = initRightDrawerToggle(rightToggleIcon);
@@ -112,6 +141,25 @@ public class AppLayout extends BaseDominoElement<HTMLDivElement, AppLayout>
         LazyChild.of(
                 section().addCss(dui_right_drawer).addClickListener(Event::stopPropagation), layout)
             .whenInitialized(rightDrawerToggle::get);
+
+    rightDrawer.whenInitialized(
+        () -> {
+          TransitionListeners.of(rightDrawer.element())
+              .onTransitionStart(
+                  target -> {
+                    if (dui_right_open.isAppliedTo(layout)) {
+                      rightDrawerOpenHandlers.forEach(
+                          handler -> handler.apply(this, rightDrawer.get()));
+                    }
+                  })
+              .onTransitionEnd(
+                  target -> {
+                    if (!dui_right_open.isAppliedTo(layout)) {
+                      rightDrawerCloseHandlers.forEach(
+                          handler -> handler.apply(this, rightDrawer.get()));
+                    }
+                  });
+        });
     rightDrawerContent = LazyChild.of(section().addCss(dui_layout_menu), rightDrawer);
     overlay = LazyChild.of(div().addCss(GenericCss.dui_overlay), layout);
 
@@ -705,6 +753,16 @@ public class AppLayout extends BaseDominoElement<HTMLDivElement, AppLayout>
     return this;
   }
 
+  public AppLayout withLeftDrawerToggle(ChildHandler<AppLayout, PrefixAddOn<HTMLElement>> handler) {
+    handler.apply(this, leftDrawerToggle.get());
+    return this;
+  }
+
+  public AppLayout setLeftDrawerToggleVisible(boolean visible) {
+    leftDrawerToggle.get().toggleDisplay(visible);
+    return this;
+  }
+
   /**
    * isLeftDrawerOpen.
    *
@@ -721,6 +779,46 @@ public class AppLayout extends BaseDominoElement<HTMLDivElement, AppLayout>
    */
   public boolean isRightDrawerOpen() {
     return dui_right_open.isAppliedTo(layout);
+  }
+
+  public AppLayout onLeftDrawerOpen(ChildHandler<AppLayout, SectionElement> handler) {
+    leftDrawerOpenHandlers.add(handler);
+    return this;
+  }
+
+  public AppLayout removeLeftDrawerOpenListener(ChildHandler<AppLayout, SectionElement> handler) {
+    leftDrawerOpenHandlers.remove(handler);
+    return this;
+  }
+
+  public AppLayout onLeftDrawerClosed(ChildHandler<AppLayout, SectionElement> handler) {
+    leftDrawerCloseHandlers.add(handler);
+    return this;
+  }
+
+  public AppLayout removeLeftDrawerCloseListener(ChildHandler<AppLayout, SectionElement> handler) {
+    leftDrawerCloseHandlers.remove(handler);
+    return this;
+  }
+
+  public AppLayout onRightDrawerOpen(ChildHandler<AppLayout, SectionElement> handler) {
+    rightDrawerOpenHandlers.add(handler);
+    return this;
+  }
+
+  public AppLayout removeRightDrawerOpenListener(ChildHandler<AppLayout, SectionElement> handler) {
+    rightDrawerOpenHandlers.remove(handler);
+    return this;
+  }
+
+  public AppLayout onRightDrawerClosed(ChildHandler<AppLayout, SectionElement> handler) {
+    rightDrawerCloseHandlers.add(handler);
+    return this;
+  }
+
+  public AppLayout removeRightDrawerCloseListener(ChildHandler<AppLayout, SectionElement> handler) {
+    rightDrawerCloseHandlers.remove(handler);
+    return this;
   }
 
   /** {@inheritDoc} */

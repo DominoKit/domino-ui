@@ -26,8 +26,6 @@ import org.dominokit.domino.ui.forms.validations.ValidationResult;
  * and rendered in the table
  *
  * @param <T> the type of the data table records
- * @author vegegoku
- * @version $Id: $Id
  */
 @FunctionalInterface
 public interface CellRenderer<T> {

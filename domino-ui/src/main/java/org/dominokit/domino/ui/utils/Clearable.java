@@ -17,12 +17,7 @@ package org.dominokit.domino.ui.utils;
 
 import org.gwtproject.editor.client.Editor;
 
-/**
- * Clearable interface.
- *
- * @author vegegoku
- * @version $Id: $Id
- */
+/** Clearable interface. */
 public interface Clearable<T> {
 
   /**

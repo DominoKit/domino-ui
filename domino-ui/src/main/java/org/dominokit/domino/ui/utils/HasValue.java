@@ -20,8 +20,6 @@ package org.dominokit.domino.ui.utils;
  *
  * @param <T> the type of the class implementing this interface
  * @param <V> the type of the component value
- * @author vegegoku
- * @version $Id: $Id
  */
 public interface HasValue<T, V> {
   /**

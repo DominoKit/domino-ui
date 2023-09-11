@@ -37,8 +37,6 @@ import org.dominokit.domino.ui.utils.ComponentMeta;
  * This plugin renders the table rows in groups.
  *
  * @param <T> the type of the data table records
- * @author vegegoku
- * @version $Id: $Id
  */
 public class GroupingPlugin<T> implements DataTablePlugin<T>, TableConfig.RowAppender<T> {
 

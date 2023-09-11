@@ -24,9 +24,6 @@ import org.dominokit.domino.ui.utils.DominoElement;
 /**
  * this class attach an {@link org.dominokit.domino.ui.forms.FormElement#autoValidate()} } to a
  * component and bind the validation the {@link org.dominokit.domino.ui.events.EventType#blur}
- *
- * @author vegegoku
- * @version $Id: $Id
  */
 public class InputAutoValidator<E extends HTMLElement> extends AutoValidator {
 

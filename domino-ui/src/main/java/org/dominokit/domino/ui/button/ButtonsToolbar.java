@@ -25,9 +25,6 @@ import org.dominokit.domino.ui.utils.BaseDominoElement;
  * a component for a toolbar that has many buttons
  *
  * <p>This class is used to group buttons in a set of groups to form a toolbar
- *
- * @author vegegoku
- * @version $Id: $Id
  */
 public class ButtonsToolbar extends BaseDominoElement<HTMLDivElement, ButtonsToolbar> {
 

@@ -32,8 +32,6 @@ import org.dominokit.domino.ui.utils.DominoElement;
  * @param <T> The type of the component extending from this class
  * @see TelephoneBox
  * @see EmailBox
- * @author vegegoku
- * @version $Id: $Id
  */
 public abstract class CustomInputBox<T extends CustomInputBox<T>>
     extends TextInputFormField<T, HTMLInputElement, String> implements HasInputDataList<T> {

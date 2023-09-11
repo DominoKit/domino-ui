@@ -15,12 +15,7 @@
  */
 package org.dominokit.domino.ui.timepicker;
 
-/**
- * TimePeriod class.
- *
- * @author vegegoku
- * @version $Id: $Id
- */
+/** TimePeriod class. */
 public enum TimePeriod {
   AM,
   PM

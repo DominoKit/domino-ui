@@ -27,8 +27,6 @@ import org.dominokit.domino.ui.utils.BaseDominoElement;
  * A wrapper component for split panels
  *
  * @see BaseDominoElement
- * @author vegegoku
- * @version $Id: $Id
  */
 public class SplitPanel extends BaseDominoElement<HTMLDivElement, SplitPanel>
     implements SplitStyles {

@@ -22,8 +22,6 @@ import org.dominokit.domino.ui.datatable.TableRow;
  * org.dominokit.domino.ui.datatable.plugins.row.RecordDetailsPlugin} when a record is expanded
  *
  * @param <T> the type of the record.
- * @author vegegoku
- * @version $Id: $Id
  */
 public class ExpandRecordEvent<T> implements TableEvent {
 

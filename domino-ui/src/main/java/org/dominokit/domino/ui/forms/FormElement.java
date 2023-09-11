@@ -26,8 +26,6 @@ import org.gwtproject.editor.client.TakesValue;
  *
  * @param <T> The type of the component implementing this interface
  * @param <V> The type of the component value
- * @author vegegoku
- * @version $Id: $Id
  */
 public interface FormElement<T, V>
     extends HasName<T>,

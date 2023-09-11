@@ -40,12 +40,7 @@ import org.dominokit.domino.ui.menu.direction.DropDirection;
 import org.dominokit.domino.ui.style.BooleanCssClass;
 import org.dominokit.domino.ui.utils.*;
 
-/**
- * Abstract AbstractSuggestBox class.
- *
- * @author vegegoku
- * @version $Id: $Id
- */
+/** Abstract AbstractSuggestBox class. */
 public abstract class AbstractSuggestBox<
         T,
         V,
@@ -461,7 +456,6 @@ public abstract class AbstractSuggestBox<
     return (C) this;
   }
 
-  // Should be abstract
   /**
    * doSetValue.
    *

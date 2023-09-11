@@ -19,8 +19,6 @@ package org.dominokit.domino.ui.utils;
  * Components that can have a label should implement this interface
  *
  * @param <T> the type of the implementing class
- * @author vegegoku
- * @version $Id: $Id
  */
 public interface HasLabel<T> {
 

@@ -18,10 +18,7 @@ package org.dominokit.domino.ui.tree;
 import static java.util.Objects.isNull;
 import static java.util.Objects.nonNull;
 
-import elemental2.dom.Element;
-import elemental2.dom.EventListener;
-import elemental2.dom.HTMLAnchorElement;
-import elemental2.dom.HTMLLIElement;
+import elemental2.dom.*;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
@@ -59,8 +56,6 @@ import org.dominokit.domino.ui.utils.TreeParent;
  * @see CanActivate
  * @see CanDeactivate
  * @see HasClickableElement
- * @author vegegoku
- * @version $Id: $Id
  */
 public class TreeItem<T> extends BaseDominoElement<HTMLLIElement, TreeItem<T>>
     implements TreeParent<T>,
@@ -120,7 +115,8 @@ public class TreeItem<T> extends BaseDominoElement<HTMLLIElement, TreeItem<T>>
         li().addCss(dui_tree_item)
             .appendChild(
                 anchorElement =
-                    a().addCss(dui_tree_anchor)
+                    a().removeHref()
+                        .addCss(dui_tree_anchor)
                         .appendChild(contentElement = div().addCss(dui_tree_item_content)))
             .appendChild(subTree = ul().addCss(dui_tree_nav).hide());
     this.textElement = LazyChild.of(span().addCss(dui_tree_item_text), contentElement);
@@ -291,8 +287,12 @@ public class TreeItem<T> extends BaseDominoElement<HTMLLIElement, TreeItem<T>>
       this.activeTreeItem = null;
       triggerDeselectionListeners(source, this);
     }
-    getParent().ifPresent(itemParent -> itemParent.setActiveItem(this));
-    triggerSelectionListeners(this, this);
+    if (getParent().isPresent()) {
+      getParent().get().setActiveItem(this);
+      triggerSelectionListeners(this, this);
+    } else {
+      getTreeRoot().setActiveItem(this);
+    }
   }
 
   /**
@@ -621,8 +621,8 @@ public class TreeItem<T> extends BaseDominoElement<HTMLLIElement, TreeItem<T>>
     return !subItems.isEmpty();
   }
 
-  void setParent(TreeParent<T> parentMenu) {
-    this.parent = parentMenu;
+  void setParent(TreeParent<T> parentTree) {
+    this.parent = parentTree;
   }
 
   /** @return the title of the item */

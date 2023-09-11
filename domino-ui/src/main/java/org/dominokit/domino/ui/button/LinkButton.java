@@ -18,14 +18,12 @@ package org.dominokit.domino.ui.button;
 import elemental2.dom.HTMLAnchorElement;
 import org.dominokit.domino.ui.elements.AnchorElement;
 import org.dominokit.domino.ui.icons.Icon;
+import org.dominokit.domino.ui.utils.ChildHandler;
 
-/**
- * LinkButton class.
- *
- * @author vegegoku
- * @version $Id: $Id
- */
+/** LinkButton class. */
 public class LinkButton extends BaseButton<HTMLAnchorElement, LinkButton> {
+
+  private AnchorElement anchorElement;
 
   /**
    * creates a Button without a text and with {@link
@@ -108,6 +106,21 @@ public class LinkButton extends BaseButton<HTMLAnchorElement, LinkButton> {
   /** {@inheritDoc} */
   @Override
   protected AnchorElement createButtonElement() {
-    return a();
+    return anchorElement = a().removeHref();
+  }
+
+  public LinkButton withAnchorElement(ChildHandler<LinkButton, AnchorElement> handler) {
+    handler.apply(this, anchorElement);
+    return this;
+  }
+
+  public LinkButton setHref(String href) {
+    anchorElement.setHref(href);
+    return this;
+  }
+
+  public LinkButton removeHref() {
+    anchorElement.removeHref();
+    return this;
   }
 }

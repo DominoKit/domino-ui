@@ -30,9 +30,6 @@ import org.dominokit.domino.ui.utils.IsCollapsible;
  *
  * <p>Collapsible component can wrap any element to provide functionality to show and hide the
  * wrapped element also it allows attaching callbacks when the element is shown/hidden
- *
- * @author vegegoku
- * @version $Id: $Id
  */
 public class Collapsible implements IsElement<Element>, IsCollapsible<Collapsible> {
 

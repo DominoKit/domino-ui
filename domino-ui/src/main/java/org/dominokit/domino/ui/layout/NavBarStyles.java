@@ -17,12 +17,7 @@ package org.dominokit.domino.ui.layout;
 
 import org.dominokit.domino.ui.style.CssClass;
 
-/**
- * NavBarStyles interface.
- *
- * @author vegegoku
- * @version $Id: $Id
- */
+/** NavBarStyles interface. */
 public interface NavBarStyles {
 
   /** Constant <code>dui_nav_bar</code> */

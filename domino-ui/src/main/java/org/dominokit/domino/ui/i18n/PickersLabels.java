@@ -15,12 +15,7 @@
  */
 package org.dominokit.domino.ui.i18n;
 
-/**
- * PickersLabels interface.
- *
- * @author vegegoku
- * @version $Id: $Id
- */
+/** PickersLabels interface. */
 public interface PickersLabels extends Labels {
 
   /**

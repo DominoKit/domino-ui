@@ -21,12 +21,7 @@ import org.dominokit.domino.ui.menu.MenuItem;
 import org.dominokit.domino.ui.utils.meta.AttributeMeta;
 import org.dominokit.domino.ui.utils.meta.ValueMeta;
 
-/**
- * TagOption class.
- *
- * @author vegegoku
- * @version $Id: $Id
- */
+/** TagOption class. */
 public class TagOption<V> extends Option<V, Chip, TagOption<V>> {
   /** Constant <code>DUI_OPTION_KEY="dui_option_key"</code> */
   public static final String DUI_OPTION_KEY = "dui_option_key";

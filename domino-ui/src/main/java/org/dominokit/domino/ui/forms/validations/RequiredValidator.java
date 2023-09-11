@@ -18,12 +18,7 @@ package org.dominokit.domino.ui.forms.validations;
 import org.dominokit.domino.ui.forms.FormElement;
 import org.dominokit.domino.ui.utils.HasValidation;
 
-/**
- * A predefined validator that validates a required field as not empty
- *
- * @author vegegoku
- * @version $Id: $Id
- */
+/** A predefined validator that validates a required field as not empty */
 public class RequiredValidator<T> implements HasValidation.Validator<T> {
 
   private FormElement element;

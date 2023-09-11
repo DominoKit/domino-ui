@@ -17,12 +17,7 @@ package org.dominokit.domino.ui.elements;
 
 import elemental2.dom.HTMLQuoteElement;
 
-/**
- * BlockquoteElement class.
- *
- * @author vegegoku
- * @version $Id: $Id
- */
+/** BlockquoteElement class. */
 public class BlockquoteElement extends BaseElement<HTMLQuoteElement, BlockquoteElement> {
   /**
    * of.

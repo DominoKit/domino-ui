@@ -19,10 +19,7 @@ import static java.util.Objects.nonNull;
 
 import elemental2.dom.HTMLElement;
 import elemental2.dom.HTMLTableCellElement;
-import elemental2.dom.Node;
 import java.util.*;
-import java.util.function.Function;
-import java.util.function.Supplier;
 import java.util.stream.Collectors;
 import jsinterop.base.Js;
 import org.dominokit.domino.ui.datatable.*;
@@ -38,12 +35,7 @@ import org.dominokit.domino.ui.utils.ComponentMeta;
 import org.dominokit.domino.ui.utils.DominoElement;
 import org.dominokit.domino.ui.utils.Unit;
 
-/**
- * TreeGridPlugin class.
- *
- * @author vegegoku
- * @version $Id: $Id
- */
+/** TreeGridPlugin class. */
 public class TreeGridPlugin<T>
     implements DataTablePlugin<T>, HasPluginConfig<T, TreeGridPlugin<T>, TreePluginConfig<T>> {
 
@@ -458,62 +450,6 @@ public class TreeGridPlugin<T>
         expandedCount = 0;
         break;
     }
-  }
-
-  /** @deprecated use {@link TreePluginConfig#setParentRowCellsSupplier(ParentRowCellsSupplier)} */
-  /**
-   * setParentRowCellsSupplier.
-   *
-   * @param parentRowCellsSupplier a {@link
-   *     org.dominokit.domino.ui.datatable.plugins.tree.TreeGridPlugin.ParentRowCellsSupplier}
-   *     object
-   * @return a {@link org.dominokit.domino.ui.datatable.plugins.tree.TreeGridPlugin} object
-   */
-  @Deprecated
-  public TreeGridPlugin<T> setParentRowCellsSupplier(
-      ParentRowCellsSupplier<T> parentRowCellsSupplier) {
-    this.config.setParentRowCellsSupplier(parentRowCellsSupplier);
-    return this;
-  }
-
-  /** @deprecated use {@link TreePluginConfig#setLeafIconSupplier(Supplier)} */
-  /**
-   * setLeafIconSupplier.
-   *
-   * @param leafIconSupplier a {@link java.util.function.Supplier} object
-   * @return a {@link org.dominokit.domino.ui.datatable.plugins.tree.TreeGridPlugin} object
-   */
-  @Deprecated
-  public TreeGridPlugin<T> setLeafIconSupplier(Supplier<Icon<?>> leafIconSupplier) {
-    config.setLeafIconSupplier(leafIconSupplier);
-    return this;
-  }
-
-  /** @deprecated use {@link TreePluginConfig#setIndent(int)} */
-  /**
-   * setIndent.
-   *
-   * @param indent a int
-   * @return a {@link org.dominokit.domino.ui.datatable.plugins.tree.TreeGridPlugin} object
-   */
-  @Deprecated
-  public TreeGridPlugin<T> setIndent(int indent) {
-    config.setIndent(indent);
-    return this;
-  }
-
-  /** @deprecated use {@link TreePluginConfig#setIndentColumnElementSupplier(Function)} */
-  /**
-   * setIndentColumnElementSupplier.
-   *
-   * @param indentColumnElementSupplier a {@link java.util.function.Function} object
-   * @return a {@link org.dominokit.domino.ui.datatable.plugins.tree.TreeGridPlugin} object
-   */
-  @Deprecated
-  public TreeGridPlugin<T> setIndentColumnElementSupplier(
-      Function<TableRow<T>, Node> indentColumnElementSupplier) {
-    config.setIndentColumnElementSupplier(indentColumnElementSupplier);
-    return this;
   }
 
   private boolean hasChildren(Optional<Collection<T>> items) {

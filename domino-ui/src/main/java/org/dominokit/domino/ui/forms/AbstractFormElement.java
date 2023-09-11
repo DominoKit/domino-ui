@@ -36,12 +36,7 @@ import org.dominokit.domino.ui.style.BooleanCssClass;
 import org.dominokit.domino.ui.utils.*;
 import org.gwtproject.editor.client.EditorError;
 
-/**
- * Abstract AbstractFormElement class.
- *
- * @author vegegoku
- * @version $Id: $Id
- */
+/** Abstract AbstractFormElement class. */
 public abstract class AbstractFormElement<T extends AbstractFormElement<T, V>, V>
     extends BaseDominoElement<HTMLFieldSetElement, T>
     implements FormElement<T, V>, HasComponentConfig<FormsFieldsConfig>, FormsStyles {

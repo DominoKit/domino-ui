@@ -15,12 +15,7 @@
  */
 package org.dominokit.domino.ui.icons;
 
-/**
- * CanChangeIcon interface.
- *
- * @author vegegoku
- * @version $Id: $Id
- */
+/** CanChangeIcon interface. */
 public interface CanChangeIcon<T extends Icon<T>> {
 
   /**

@@ -23,12 +23,7 @@ import java.util.Optional;
 import org.dominokit.domino.ui.style.Style;
 import org.dominokit.domino.ui.utils.DominoCSSRule;
 
-/**
- * ColumnUtils class.
- *
- * @author vegegoku
- * @version $Id: $Id
- */
+/** ColumnUtils class. */
 public class ColumnUtils {
 
   /**

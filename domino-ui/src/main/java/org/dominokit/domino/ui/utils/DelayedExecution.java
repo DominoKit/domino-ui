@@ -17,12 +17,7 @@ package org.dominokit.domino.ui.utils;
 
 import org.gwtproject.timer.client.Timer;
 
-/**
- * A utility class that allow execution of logic after a specific delay
- *
- * @author vegegoku
- * @version $Id: $Id
- */
+/** A utility class that allow execution of logic after a specific delay */
 public class DelayedExecution {
 
   /**

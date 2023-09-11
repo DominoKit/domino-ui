@@ -21,12 +21,7 @@ import org.dominokit.domino.ui.menu.Menu;
 import org.dominokit.domino.ui.menu.MenuTarget;
 import org.dominokit.domino.ui.utils.ComponentMeta;
 
-/**
- * RowContextMenuMeta class.
- *
- * @author vegegoku
- * @version $Id: $Id
- */
+/** RowContextMenuMeta class. */
 public class RowContextMenuMeta<T> implements ComponentMeta {
   /** Constant <code>ROW_CONTEXT_MENU_META="row-context-menu-meta"</code> */
   public static final String ROW_CONTEXT_MENU_META = "row-context-menu-meta";

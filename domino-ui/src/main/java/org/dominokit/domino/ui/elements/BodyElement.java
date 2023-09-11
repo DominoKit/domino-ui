@@ -17,12 +17,7 @@ package org.dominokit.domino.ui.elements;
 
 import elemental2.dom.HTMLBodyElement;
 
-/**
- * BodyElement class.
- *
- * @author vegegoku
- * @version $Id: $Id
- */
+/** BodyElement class. */
 public class BodyElement extends BaseElement<HTMLBodyElement, BodyElement> {
   /**
    * of.

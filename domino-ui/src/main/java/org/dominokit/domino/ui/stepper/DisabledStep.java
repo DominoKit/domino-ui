@@ -21,12 +21,7 @@ import org.dominokit.domino.ui.icons.lib.Icons;
 import org.dominokit.domino.ui.style.ColorsCss;
 import org.dominokit.domino.ui.style.SpacingCss;
 
-/**
- * DisabledStep class.
- *
- * @author vegegoku
- * @version $Id: $Id
- */
+/** DisabledStep class. */
 public class DisabledStep implements StepState {
   /** {@inheritDoc} */
   @Override

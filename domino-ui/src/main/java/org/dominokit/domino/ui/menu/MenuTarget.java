@@ -25,12 +25,7 @@ import org.dominokit.domino.ui.utils.ComponentMeta;
 import org.dominokit.domino.ui.utils.DominoElement;
 import org.dominokit.domino.ui.utils.HasMeta;
 
-/**
- * MenuTarget class.
- *
- * @author vegegoku
- * @version $Id: $Id
- */
+/** MenuTarget class. */
 public class MenuTarget implements HasMeta<MenuTarget> {
 
   private final Element targetElement;

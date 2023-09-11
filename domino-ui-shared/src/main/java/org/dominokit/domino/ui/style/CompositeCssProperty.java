@@ -21,12 +21,7 @@ import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 
-/**
- * CompositeCssProperty class.
- *
- * @author vegegoku
- * @version $Id: $Id
- */
+/** CompositeCssProperty class. */
 public class CompositeCssProperty implements IsCssProperty {
 
   private Set<CssProperty> cssProperties = new HashSet<>();

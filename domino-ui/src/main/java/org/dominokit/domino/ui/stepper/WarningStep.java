@@ -21,12 +21,7 @@ import org.dominokit.domino.ui.icons.lib.Icons;
 import org.dominokit.domino.ui.style.ColorsCss;
 import org.dominokit.domino.ui.style.SpacingCss;
 
-/**
- * WarningStep class.
- *
- * @author vegegoku
- * @version $Id: $Id
- */
+/** WarningStep class. */
 public class WarningStep implements StepState {
   /** {@inheritDoc} */
   @Override

@@ -381,7 +381,7 @@
     --dui-form-field-disabled-border-color: var(--dui-clr-grey-l-2);
     --dui-form-field-readonly-background: var(--dui-accent-l-5);
     --dui-form-field-readonly-border-color: var(--dui-accent-l-5);
-    --dui-form-field-readonly-color: var(--dui-color-5);
+    --dui-form-field-readonly-color: var(--dui-color-1);
     --dui-file-upload-background: var(--dui-accent-l-5);
     --dui-calender-select-bg: var(--dui-accent-l-5);
     --dui-calender-select-hover-bg: var(--dui-accent-l-3);

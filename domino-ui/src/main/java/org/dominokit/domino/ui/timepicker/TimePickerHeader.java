@@ -21,12 +21,7 @@ import org.dominokit.domino.ui.elements.DivElement;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
 import org.dominokit.domino.ui.utils.ChildHandler;
 
-/**
- * TimePickerHeader class.
- *
- * @author vegegoku
- * @version $Id: $Id
- */
+/** TimePickerHeader class. */
 public class TimePickerHeader extends BaseDominoElement<HTMLDivElement, TimePickerHeader>
     implements TimePickerStyles, TimePickerViewListener {
 

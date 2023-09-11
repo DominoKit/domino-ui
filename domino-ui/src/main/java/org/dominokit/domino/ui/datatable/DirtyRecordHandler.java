@@ -20,8 +20,6 @@ package org.dominokit.domino.ui.datatable;
  * with the current values from editable cells
  *
  * @param <T> the type of the data table records
- * @author vegegoku
- * @version $Id: $Id
  */
 @FunctionalInterface
 public interface DirtyRecordHandler<T> {

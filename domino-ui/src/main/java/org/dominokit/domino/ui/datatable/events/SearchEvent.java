@@ -31,9 +31,6 @@ import org.dominokit.domino.ui.datatable.model.Filter;
  * <p>{@link org.dominokit.domino.ui.datatable.store.SearchFilter}
  *
  * <p>{@link org.dominokit.domino.ui.datatable.model.SearchContext}
- *
- * @author vegegoku
- * @version $Id: $Id
  */
 public class SearchEvent implements TableEvent {
 

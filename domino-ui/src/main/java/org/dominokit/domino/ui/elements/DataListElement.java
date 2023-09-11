@@ -17,12 +17,7 @@ package org.dominokit.domino.ui.elements;
 
 import elemental2.dom.HTMLDataListElement;
 
-/**
- * DataListElement class.
- *
- * @author vegegoku
- * @version $Id: $Id
- */
+/** DataListElement class. */
 public class DataListElement extends BaseElement<HTMLDataListElement, DataListElement> {
   /**
    * of.

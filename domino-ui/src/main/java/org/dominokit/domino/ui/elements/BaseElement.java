@@ -19,12 +19,7 @@ import elemental2.dom.Element;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
 import org.dominokit.domino.ui.utils.DominoElement;
 
-/**
- * Abstract BaseElement class.
- *
- * @author vegegoku
- * @version $Id: $Id
- */
+/** Abstract BaseElement class. */
 public abstract class BaseElement<E extends Element, T extends BaseElement<E, T>>
     extends BaseDominoElement<E, T> {
 

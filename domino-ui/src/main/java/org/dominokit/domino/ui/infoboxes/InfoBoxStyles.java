@@ -17,12 +17,7 @@ package org.dominokit.domino.ui.infoboxes;
 
 import org.dominokit.domino.ui.style.CssClass;
 
-/**
- * Default CSS classes for {@link org.dominokit.domino.ui.infoboxes.InfoBox}
- *
- * @author vegegoku
- * @version $Id: $Id
- */
+/** Default CSS classes for {@link org.dominokit.domino.ui.infoboxes.InfoBox} */
 public interface InfoBoxStyles {
 
   /** Constant <code>dui_info_box</code> */

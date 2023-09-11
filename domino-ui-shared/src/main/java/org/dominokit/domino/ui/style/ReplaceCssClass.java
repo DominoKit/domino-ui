@@ -19,12 +19,7 @@ import static java.util.Objects.nonNull;
 
 import elemental2.dom.Element;
 
-/**
- * ReplaceCssClass class.
- *
- * @author vegegoku
- * @version $Id: $Id
- */
+/** ReplaceCssClass class. */
 public class ReplaceCssClass implements CssClass {
 
   private CssClass original = CssClass.NONE;

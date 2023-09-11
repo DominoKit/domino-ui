@@ -25,8 +25,6 @@ import org.dominokit.domino.ui.utils.BaseDominoElement;
  * A component that can show the progress for one or more operation
  *
  * @see ProgressBar
- * @author vegegoku
- * @version $Id: $Id
  */
 public class Progress extends BaseDominoElement<HTMLDivElement, Progress>
     implements ProgressStyles {

@@ -25,8 +25,6 @@ import org.gwtproject.editor.client.Editor;
  * Component that can be validated should implement this interface
  *
  * @param <T> the type of the component implementing this interface
- * @author vegegoku
- * @version $Id: $Id
  */
 public interface HasValidation<T> extends HasAutoValidation<T> {
 

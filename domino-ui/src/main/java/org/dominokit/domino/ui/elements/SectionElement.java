@@ -17,12 +17,7 @@ package org.dominokit.domino.ui.elements;
 
 import elemental2.dom.HTMLElement;
 
-/**
- * SectionElement class.
- *
- * @author vegegoku
- * @version $Id: $Id
- */
+/** SectionElement class. */
 public class SectionElement extends BaseElement<HTMLElement, SectionElement> {
   /**
    * of.

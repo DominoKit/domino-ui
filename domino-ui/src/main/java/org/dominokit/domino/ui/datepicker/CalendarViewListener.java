@@ -18,12 +18,7 @@ package org.dominokit.domino.ui.datepicker;
 import java.util.Date;
 import org.gwtproject.i18n.shared.cldr.DateTimeFormatInfo;
 
-/**
- * CalendarViewListener interface.
- *
- * @author vegegoku
- * @version $Id: $Id
- */
+/** CalendarViewListener interface. */
 public interface CalendarViewListener {
   /**
    * onUpdateCalendarView.

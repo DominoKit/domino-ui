@@ -17,12 +17,7 @@ package org.dominokit.domino.ui.elements;
 
 import elemental2.dom.HTMLTableCaptionElement;
 
-/**
- * TableCaptionElement class.
- *
- * @author vegegoku
- * @version $Id: $Id
- */
+/** TableCaptionElement class. */
 public class TableCaptionElement extends BaseElement<HTMLTableCaptionElement, TableCaptionElement> {
   /**
    * of.

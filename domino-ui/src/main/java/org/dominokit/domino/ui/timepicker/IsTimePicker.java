@@ -21,12 +21,7 @@ import org.dominokit.domino.ui.i18n.HasLabels;
 import org.dominokit.domino.ui.i18n.TimePickerLabels;
 import org.gwtproject.i18n.shared.cldr.DateTimeFormatInfo;
 
-/**
- * IsTimePicker interface.
- *
- * @author vegegoku
- * @version $Id: $Id
- */
+/** IsTimePicker interface. */
 public interface IsTimePicker extends HasLabels<TimePickerLabels> {
   /**
    * getDate.

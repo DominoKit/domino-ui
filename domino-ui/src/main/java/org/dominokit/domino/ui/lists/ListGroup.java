@@ -50,8 +50,6 @@ import org.dominokit.domino.ui.utils.HasSelectionListeners;
  *
  * @param <T> the type of the value object inside the element
  * @see BaseDominoElement
- * @author vegegoku
- * @version $Id: $Id
  */
 public class ListGroup<T> extends BaseDominoElement<HTMLUListElement, ListGroup<T>>
     implements HasSelectionListeners<ListGroup<T>, T, List<T>>, ListStyles {

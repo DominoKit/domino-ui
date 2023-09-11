@@ -15,12 +15,7 @@
  */
 package org.dominokit.domino.ui.datatable.model;
 
-/**
- * An enum for the {@link org.dominokit.domino.ui.datatable.model.Filter} category
- *
- * @author vegegoku
- * @version $Id: $Id
- */
+/** An enum for the {@link org.dominokit.domino.ui.datatable.model.Filter} category */
 public enum Category {
   /** A search field */
   SEARCH,

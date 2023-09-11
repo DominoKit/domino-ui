@@ -20,8 +20,6 @@ package org.dominokit.domino.ui.datatable;
  * or not
  *
  * @param <T> The type of the data table records
- * @author vegegoku
- * @version $Id: $Id
  */
 public interface SelectionCondition<T> {
   /**

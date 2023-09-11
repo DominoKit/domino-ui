@@ -72,12 +72,7 @@ import elemental2.svg.SVGCircleElement;
 import elemental2.svg.SVGElement;
 import elemental2.svg.SVGLineElement;
 
-/**
- * DomElements interface.
- *
- * @author vegegoku
- * @version $Id: $Id
- */
+/** DomElements interface. */
 public interface DomElements {
 
   /** Constant <code>SVGNS="http://www.w3.org/2000/svg"</code> */
@@ -128,8 +123,6 @@ public interface DomElements {
   default HTMLPictureElement picture() {
     return create("picture", HTMLPictureElement.class);
   }
-
-  // ------------------------------------------------------ content sectioning
 
   /**
    * address.
@@ -212,8 +205,6 @@ public interface DomElements {
   default HTMLElement section() {
     return create("section", HTMLElement.class);
   }
-
-  // ------------------------------------------------------ text content
 
   /**
    * blockquote.
@@ -340,8 +331,6 @@ public interface DomElements {
   default HTMLUListElement ul() {
     return create("ul", HTMLUListElement.class);
   }
-
-  // ------------------------------------------------------ inline text semantics
 
   /**
    * a.
@@ -532,8 +521,6 @@ public interface DomElements {
     return create("wbr", HTMLElement.class);
   }
 
-  // ------------------------------------------------------ image and multimedia
-
   /**
    * area.
    *
@@ -599,8 +586,6 @@ public interface DomElements {
   default HTMLVideoElement video() {
     return create("video", HTMLVideoElement.class);
   }
-
-  // ------------------------------------------------------ embedded content
 
   /**
    * canvas.
@@ -668,8 +653,6 @@ public interface DomElements {
     return create("source", HTMLSourceElement.class);
   }
 
-  // ------------------------------------------------------ scripting
-
   /**
    * noscript.
    *
@@ -688,8 +671,6 @@ public interface DomElements {
     return create("script", HTMLScriptElement.class);
   }
 
-  // ------------------------------------------------------ demarcating edits
-
   /**
    * del.
    *
@@ -707,8 +688,6 @@ public interface DomElements {
   default HTMLModElement ins() {
     return create("ins", HTMLModElement.class);
   }
-
-  // ------------------------------------------------------ table content
 
   /**
    * caption.
@@ -799,8 +778,6 @@ public interface DomElements {
   default HTMLTableRowElement tr() {
     return create("tr", HTMLTableRowElement.class);
   }
-
-  // ------------------------------------------------------ forms
 
   /**
    * button.

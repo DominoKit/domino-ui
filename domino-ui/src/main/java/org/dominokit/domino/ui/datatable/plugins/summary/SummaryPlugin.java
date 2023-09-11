@@ -24,12 +24,7 @@ import org.dominokit.domino.ui.datatable.plugins.DataTablePlugin;
 import org.dominokit.domino.ui.elements.TFootElement;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
 
-/**
- * SummaryPlugin class.
- *
- * @author vegegoku
- * @version $Id: $Id
- */
+/** SummaryPlugin class. */
 public class SummaryPlugin<T, S> implements DataTablePlugin<T> {
 
   private List<TableRow<S>> summaryRows = new ArrayList<>();

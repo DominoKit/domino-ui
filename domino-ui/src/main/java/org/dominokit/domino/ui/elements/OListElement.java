@@ -17,12 +17,7 @@ package org.dominokit.domino.ui.elements;
 
 import elemental2.dom.HTMLOListElement;
 
-/**
- * OListElement class.
- *
- * @author vegegoku
- * @version $Id: $Id
- */
+/** OListElement class. */
 public class OListElement extends BaseElement<HTMLOListElement, OListElement> {
   /**
    * of.

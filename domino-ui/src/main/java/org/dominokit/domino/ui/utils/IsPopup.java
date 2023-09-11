@@ -15,12 +15,7 @@
  */
 package org.dominokit.domino.ui.utils;
 
-/**
- * IsPopup interface.
- *
- * @author vegegoku
- * @version $Id: $Id
- */
+/** IsPopup interface. */
 public interface IsPopup<T> {
   /**
    * open.

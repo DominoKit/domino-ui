@@ -35,12 +35,7 @@ import org.dominokit.domino.ui.utils.*;
 import org.gwtproject.i18n.shared.cldr.DateTimeFormatInfo;
 import org.gwtproject.i18n.shared.cldr.impl.DateTimeFormatInfo_factory;
 
-/**
- * TimeBox class.
- *
- * @author vegegoku
- * @version $Id: $Id
- */
+/** TimeBox class. */
 public class TimeBox extends TextInputFormField<TimeBox, HTMLInputElement, Date>
     implements HasLabels<TimePickerLabels>, TimePickerViewListener {
 
@@ -112,6 +107,7 @@ public class TimeBox extends TextInputFormField<TimeBox, HTMLInputElement, Date>
     this.pattern = dateTimeFormatInfo.timeFormatFull();
     this.popover =
         Popover.create(this.getWrapperElement())
+            .setOpenCondition(() -> isEnabled() && !isReadOnly())
             .setOpenOnClick(this.openOnClick)
             .setPosition(BEST_MIDDLE_DOWN_UP)
             .appendChild(this.timePicker)
@@ -272,7 +268,7 @@ public class TimeBox extends TextInputFormField<TimeBox, HTMLInputElement, Date>
   }
 
   private void doOpen() {
-    if (isEnabled()) {
+    if (isEnabled() && !isReadOnly()) {
       popover.open();
     }
   }
@@ -423,7 +419,9 @@ public class TimeBox extends TextInputFormField<TimeBox, HTMLInputElement, Date>
     withTimeSelectionToggleListeners(
         false,
         field -> {
-          this.timePicker.setDate(this.value);
+          if (nonNull(this.value)) {
+            this.timePicker.setDate(this.value);
+          }
         });
   }
 
@@ -453,11 +451,13 @@ public class TimeBox extends TextInputFormField<TimeBox, HTMLInputElement, Date>
   /** {@inheritDoc} */
   @Override
   public void onTimeSelectionChanged(Date date) {
-    if (silentSelection == false) {
-      clearInvalid();
-      withValue(date);
+    if (!isDisabled() && !isReadOnly()) {
+      if (silentSelection == false) {
+        clearInvalid();
+        withValue(date);
+      }
+      this.popover.close();
     }
-    this.popover.close();
   }
 
   /**

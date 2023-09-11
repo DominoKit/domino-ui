@@ -25,8 +25,6 @@ import org.dominokit.domino.ui.pagination.AdvancedPagination;
  * the data table and fires {@link TablePageChangeEvent} when ever the page is changed
  *
  * @param <T> the type of the data table records
- * @author vegegoku
- * @version $Id: $Id
  */
 public class AdvancedPaginationPlugin<T> implements DataTablePlugin<T> {
 

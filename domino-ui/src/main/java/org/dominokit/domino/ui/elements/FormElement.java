@@ -17,12 +17,7 @@ package org.dominokit.domino.ui.elements;
 
 import elemental2.dom.HTMLFormElement;
 
-/**
- * FormElement class.
- *
- * @author vegegoku
- * @version $Id: $Id
- */
+/** FormElement class. */
 public class FormElement extends BaseElement<HTMLFormElement, FormElement> {
   /**
    * of.

@@ -15,12 +15,7 @@
  */
 package org.dominokit.domino.ui.utils;
 
-/**
- * InputType class.
- *
- * @author vegegoku
- * @version $Id: $Id
- */
+/** InputType class. */
 public enum InputType {
   button,
   checkbox,

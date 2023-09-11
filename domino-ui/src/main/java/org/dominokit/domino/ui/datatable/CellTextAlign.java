@@ -20,12 +20,7 @@ import static org.dominokit.domino.ui.style.SpacingCss.*;
 import org.dominokit.domino.ui.style.CssClass;
 import org.dominokit.domino.ui.style.HasCssClass;
 
-/**
- * CellTextAlign class.
- *
- * @author vegegoku
- * @version $Id: $Id
- */
+/** CellTextAlign class. */
 public enum CellTextAlign implements HasCssClass {
   LEFT(dui_text_left),
   RIGHT(dui_text_right),

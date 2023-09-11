@@ -15,12 +15,7 @@
  */
 package org.dominokit.domino.ui.datepicker;
 
-/**
- * CalendarPlugin interface.
- *
- * @author vegegoku
- * @version $Id: $Id
- */
+/** CalendarPlugin interface. */
 public interface CalendarPlugin {
   /**
    * onCalendarDayAdded.

@@ -17,12 +17,7 @@ package org.dominokit.domino.ui.grid;
 
 import org.dominokit.domino.ui.utils.ApplyFunction;
 
-/**
- * An enum representing the size of a section in {@link org.dominokit.domino.ui.grid.GridLayout}
- *
- * @author vegegoku
- * @version $Id: $Id
- */
+/** An enum representing the size of a section in {@link org.dominokit.domino.ui.grid.GridLayout} */
 public enum SectionSpan {
   _0(0),
   _1(1),

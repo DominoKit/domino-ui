@@ -51,8 +51,6 @@ import org.dominokit.domino.ui.utils.*;
  * @see BaseDominoElement
  * @see HasBackground
  * @see Color
- * @author vegegoku
- * @version $Id: $Id
  */
 public class Alert extends BaseDominoElement<HTMLDivElement, Alert> {
 

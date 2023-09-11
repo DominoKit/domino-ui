@@ -17,12 +17,7 @@ package org.dominokit.domino.ui.icons;
 
 import elemental2.dom.HTMLElement;
 
-/**
- * IconWrapper class.
- *
- * @author vegegoku
- * @version $Id: $Id
- */
+/** IconWrapper class. */
 public class IconWrapper extends Icon<IconWrapper> {
 
   private final Icon<?> icon;

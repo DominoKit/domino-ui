@@ -23,12 +23,7 @@ import java.util.Set;
 import java.util.stream.Collectors;
 import org.dominokit.domino.ui.IsElement;
 
-/**
- * MediaQueryCss class.
- *
- * @author vegegoku
- * @version $Id: $Id
- */
+/** MediaQueryCss class. */
 public class MediaQueryCss implements CssClass {
 
   private Set<CssClass> cssClasses = new HashSet<>();

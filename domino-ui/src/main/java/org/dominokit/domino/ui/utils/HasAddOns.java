@@ -15,12 +15,7 @@
  */
 package org.dominokit.domino.ui.utils;
 
-/**
- * HasAddOns interface.
- *
- * @author vegegoku
- * @version $Id: $Id
- */
+/** HasAddOns interface. */
 public interface HasAddOns<T> {
   /**
    * appendChild.

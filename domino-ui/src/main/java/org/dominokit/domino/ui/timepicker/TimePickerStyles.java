@@ -17,12 +17,7 @@ package org.dominokit.domino.ui.timepicker;
 
 import org.dominokit.domino.ui.style.CssClass;
 
-/**
- * TimePickerStyles interface.
- *
- * @author vegegoku
- * @version $Id: $Id
- */
+/** TimePickerStyles interface. */
 public interface TimePickerStyles {
   /** Constant <code>dui_time_picker</code> */
   CssClass dui_time_picker = () -> "dui-time-picker";

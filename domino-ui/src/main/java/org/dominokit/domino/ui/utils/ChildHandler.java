@@ -15,12 +15,7 @@
  */
 package org.dominokit.domino.ui.utils;
 
-/**
- * ChildHandler interface.
- *
- * @author vegegoku
- * @version $Id: $Id
- */
+/** ChildHandler interface. */
 public interface ChildHandler<P, C> {
   /**
    * apply.

@@ -20,9 +20,6 @@ import org.dominokit.domino.ui.style.CssClass;
 /**
  * CSS style names for {@link org.dominokit.domino.ui.collapsible.Accordion} and {@link
  * org.dominokit.domino.ui.collapsible.AccordionPanel}
- *
- * @author vegegoku
- * @version $Id: $Id
  */
 public interface CollapsibleStyles {
 

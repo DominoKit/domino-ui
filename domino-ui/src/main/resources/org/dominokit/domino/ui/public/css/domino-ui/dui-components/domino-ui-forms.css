@@ -3,7 +3,6 @@ fieldset.dui {
 }
 
 .dui-form-field {
-    /*position: relative;*/
     display: flex;
     justify-content: center;
     flex-direction: var(--dui-form-field-direction, column);
@@ -24,13 +23,13 @@ fieldset.dui {
     background-color: inherit;
 }
 
-.dui-form-field[readonly] .dui-field-input-wrapper {
+.dui-form-field[readonly]:not(.dui-undimmed):not(.dui-form-checkbox):not(.dui-form-switch):not(.dui-form-radio-group) .dui-field-input-wrapper {
     border: var(--dui-form-field-readonly-border);
 }
-.dui-form-field[readonly] .dui-field-input{
+.dui-form-field[readonly]:not(.dui-undimmed) .dui-field-input{
     border: var(--dui-form-field-input-readonly-border);
 }
-.dui-form-field[readonly] .dui-field-input-wrapper {
+.dui-form-field[readonly]:not(.dui-undimmed):not(.dui-form-checkbox):not(.dui-form-switch):not(.dui-form-radio-group) .dui-field-input-wrapper {
     background-color: var(--dui-form-field-readonly-background);
 }
 
@@ -38,8 +37,11 @@ fieldset.dui {
     overflow: visible;
 }
 
-.dui-form-field[readonly] .dui:not(.dui-field-error):not(.dui-field-helper) {
+.dui-form-field[readonly]:not(.dui-undimmed) .dui:not(.dui-field-error):not(.dui-field-helper) {
     color: var(--dui-form-field-readonly-color);
+}
+
+.dui-form-field[readonly] .dui:not(.dui-field-error):not(.dui-field-helper) {
     cursor: var(--dui-form-field-readonly-cursor);
 }
 
@@ -88,6 +90,8 @@ fieldset.dui {
 .dui-hide-label.dui-field-label,
 .dui-field-label:empty {
     display: none;
+    width: auto;
+    min-width: auto;
 }
 
 .dui-field-label {
@@ -119,8 +123,6 @@ fieldset.dui {
     line-height: var(--dui-form-field-prefix-line-height);
 }
 
-.dui-form-radio,
-.dui-form-checkbox,
 .dui-field-input {
     order: 30;
 }
@@ -181,7 +183,7 @@ fieldset.dui {
 
 .dui-form-radio-group .dui-field-input-wrapper,
 .dui-form-checkbox .dui-field-input-wrapper {
-    border: none;
+    border: 1px solid transparent;
 }
 
 .dui-field-input {

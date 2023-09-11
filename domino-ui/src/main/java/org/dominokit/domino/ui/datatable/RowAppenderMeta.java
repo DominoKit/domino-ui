@@ -19,12 +19,7 @@ import java.util.Objects;
 import java.util.Optional;
 import org.dominokit.domino.ui.utils.ComponentMeta;
 
-/**
- * RowAppenderMeta class.
- *
- * @author vegegoku
- * @version $Id: $Id
- */
+/** RowAppenderMeta class. */
 public class RowAppenderMeta<T> implements ComponentMeta {
 
   /** Constant <code>TABLE_ROW_APPENDER_META="table-row-appender-meta"</code> */

@@ -15,15 +15,44 @@
  */
 package org.dominokit.domino.ui.themes;
 
-public interface IsDominoTheme {
+import elemental2.dom.Element;
+import org.dominokit.domino.ui.IsElement;
+import org.dominokit.domino.ui.style.DominoCss;
+import org.dominokit.domino.ui.utils.ElementsFactory;
+
+public interface IsDominoTheme extends ElementsFactory, DominoCss {
 
   String getName();
 
   String getCategory();
 
-  void apply();
+  default void apply(IsElement<? extends Element> target) {
+    apply(target.element());
+  }
 
-  void cleanup();
+  default void cleanup(IsElement<? extends Element> target) {
+    cleanup(target.element());
+  }
 
-  boolean isApplied();
+  default boolean isApplied(IsElement<? extends Element> target) {
+    return isApplied(target.element());
+  }
+
+  default void apply() {
+    apply(body().element());
+  };
+
+  default void cleanup() {
+    cleanup(body().element());
+  }
+
+  default boolean isApplied() {
+    return isApplied(body().element());
+  }
+
+  void apply(Element target);
+
+  void cleanup(Element target);
+
+  boolean isApplied(Element target);
 }

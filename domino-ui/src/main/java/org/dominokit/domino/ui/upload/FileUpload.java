@@ -49,8 +49,6 @@ import org.dominokit.domino.ui.utils.LazyChild;
  *
  * @see BaseDominoElement
  * @see HasName
- * @author vegegoku
- * @version $Id: $Id
  */
 public class FileUpload extends BaseDominoElement<HTMLDivElement, FileUpload>
     implements HasName<FileUpload>,
@@ -317,7 +315,10 @@ public class FileUpload extends BaseDominoElement<HTMLDivElement, FileUpload>
   }
 
   private void addFilePreview(File file) {
-    FileItem fileItem = FileItem.create(file, new UploadOptions(), filePreviewFactory);
+    if (isMultiUpload()) {
+      removeFileItems();
+    }
+    FileItem fileItem = FileItem.create(file, new UploadOptions(), filePreviewFactory, this);
 
     fileItemHandlers.forEach(handler -> handler.handle(fileItem));
 
@@ -359,6 +360,10 @@ public class FileUpload extends BaseDominoElement<HTMLDivElement, FileUpload>
   public FileUpload setMultiUpload(boolean multiUpload) {
     hiddenFileInput.element().multiple = multiUpload;
     return this;
+  }
+
+  public boolean isMultiUpload() {
+    return hiddenFileInput.element().multiple;
   }
 
   /**

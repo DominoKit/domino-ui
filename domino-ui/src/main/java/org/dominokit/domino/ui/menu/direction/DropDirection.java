@@ -19,12 +19,7 @@ import elemental2.dom.Element;
 import elemental2.dom.Event;
 import org.dominokit.domino.ui.style.CssClass;
 
-/**
- * DropDirection interface.
- *
- * @author vegegoku
- * @version $Id: $Id
- */
+/** DropDirection interface. */
 public interface DropDirection {
   /**
    * init.
@@ -90,8 +85,6 @@ public interface DropDirection {
 
   /** Constant <code>TOP_RIGHT</code> */
   DropDirection TOP_RIGHT = new TopRightDropDirection();
-
-  // -------------------------
 
   /** Constant <code>dui_dd_bottom_left</code> */
   CssClass dui_dd_bottom_left = () -> "dui-dd-bottom-left";

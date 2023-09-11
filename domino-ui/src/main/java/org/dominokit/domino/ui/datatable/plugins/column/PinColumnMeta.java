@@ -25,12 +25,7 @@ import org.dominokit.domino.ui.datatable.ColumnHeaderMeta;
 import org.dominokit.domino.ui.utils.ComponentMeta;
 import org.dominokit.domino.ui.utils.DominoCSSRule;
 
-/**
- * PinColumnMeta class.
- *
- * @author vegegoku
- * @version $Id: $Id
- */
+/** PinColumnMeta class. */
 public class PinColumnMeta implements ComponentMeta, PinColumnFunction {
 
   private final PinDirection direction;

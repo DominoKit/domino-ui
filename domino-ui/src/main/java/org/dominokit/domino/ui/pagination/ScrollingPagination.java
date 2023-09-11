@@ -21,12 +21,7 @@ import java.util.stream.IntStream;
 import org.dominokit.domino.ui.icons.lib.Icons;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
 
-/**
- * A scrolling pagination implementation
- *
- * @author vegegoku
- * @version $Id: $Id
- */
+/** A scrolling pagination implementation */
 public class ScrollingPagination extends BasePagination<ScrollingPagination> {
 
   private final int windowSize;

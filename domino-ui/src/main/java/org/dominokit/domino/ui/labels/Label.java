@@ -30,8 +30,6 @@ import org.dominokit.domino.ui.utils.HasContent;
  * @see BaseDominoElement
  * @see HasBackground
  * @see HasContent
- * @author vegegoku
- * @version $Id: $Id
  */
 public class Label extends BaseDominoElement<HTMLElement, Label> {
 
