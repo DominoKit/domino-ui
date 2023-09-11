@@ -297,11 +297,15 @@
                          since everything set in the file can't be overwritten via command line -->
                     <versionDigitToIncrement>${bump.digit}</versionDigitToIncrement>
 
+                    <!-- Execute mvn verify before release -->
+                    <preReleaseGoals>verify</preReleaseGoals>
+                    <preHotfixGoals>verify</preHotfixGoals>
+
                     <!-- Configure branches -->
                     <gitFlowConfig>
                         <productionBranch>master</productionBranch>
                         <!-- default is develop, but we use development -->
-                        <developmentBranch>development</developmentBranch>
+                        <developmentBranch>2.0-development</developmentBranch>
                     </gitFlowConfig>
                 </configuration>
             </plugin>
