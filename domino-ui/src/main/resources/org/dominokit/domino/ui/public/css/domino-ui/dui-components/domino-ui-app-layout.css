@@ -224,7 +224,6 @@
     background-color: var(--dui-layout-content-background);
     color: var(--dui-layout-content-color);
     transition: padding-left var(--dui-layout-transitions-duration) ease-in-out;
-    /*overflow-y: visible;*/
 }
 
 .dui-layout-footer-fixed .dui-layout-content {
