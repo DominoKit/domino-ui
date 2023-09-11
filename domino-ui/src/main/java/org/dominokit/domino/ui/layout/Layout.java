@@ -22,12 +22,9 @@ import static org.jboss.elemento.Elements.div;
 import elemental2.dom.*;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.OptionalInt;
 import java.util.function.Consumer;
-import jsinterop.base.Js;
 import org.dominokit.domino.ui.icons.BaseIcon;
 import org.dominokit.domino.ui.mediaquery.MediaQuery;
-import org.dominokit.domino.ui.modals.ModalBackDrop;
 import org.dominokit.domino.ui.style.ColorScheme;
 import org.dominokit.domino.ui.style.Style;
 import org.dominokit.domino.ui.themes.Theme;
@@ -142,70 +139,6 @@ public class Layout extends BaseDominoElement<HTMLDivElement, Layout> {
     getRightPanel().setZIndex(config().getZindexManager().getNextZIndex());
     getNavigationBar().setZIndex(config().getZindexManager().getNextZIndex());
     getLeftPanel().setZIndex(config().getZindexManager().getNextZIndex());
-
-    config()
-        .getZindexManager()
-        .addZIndexListener(
-            (zInfo) -> {
-              OptionalInt minModalZIndex =
-                  document.body.querySelectorAll(".modal").asList().stream()
-                      .mapToInt(e -> DominoElement.of(Js.<HTMLElement>uncheckedCast(e)).getZIndex())
-                      .filter(value -> value > -1)
-                      .min();
-              if (ModalBackDrop.INSTANCE.isAttached()) {
-                getRightPanel()
-                    .setZIndex(
-                        Math.max(
-                            1,
-                            ModalBackDrop.INSTANCE.getZIndex()
-                                - (config().getZindexIncrement() * 2)));
-                getNavigationBar()
-                    .setZIndex(
-                        Math.max(
-                            1, ModalBackDrop.INSTANCE.getZIndex() - config().getZindexIncrement()));
-                if (DominoElement.body().containsCss("l-panel-span-up")) {
-                  getLeftPanel()
-                      .setZIndex(
-                          Math.max(
-                              1,
-                              ModalBackDrop.INSTANCE.getZIndex() - config().getZindexIncrement()));
-                } else {
-                  getLeftPanel()
-                      .setZIndex(
-                          Math.max(
-                              1,
-                              ModalBackDrop.INSTANCE.getZIndex()
-                                  - (config().getZindexIncrement() * 2)));
-                }
-              } else if (minModalZIndex.isPresent()) {
-                getRightPanel()
-                    .setZIndex(
-                        Math.max(
-                            1, minModalZIndex.getAsInt() - (config().getZindexIncrement() * 2)));
-                getNavigationBar()
-                    .setZIndex(
-                        Math.max(1, minModalZIndex.getAsInt() - config().getZindexIncrement()));
-                if (DominoElement.body().containsCss("l-panel-span-up")) {
-                  getLeftPanel()
-                      .setZIndex(
-                          Math.max(1, minModalZIndex.getAsInt() - config().getZindexIncrement()));
-                } else {
-                  getLeftPanel()
-                      .setZIndex(
-                          Math.max(
-                              1, minModalZIndex.getAsInt() - (config().getZindexIncrement() * 2)));
-                }
-              } else {
-                Integer sidePanelsIndex = config().getZindexManager().getNextZIndex();
-                getRightPanel().setZIndex(sidePanelsIndex);
-                getNavigationBar().setZIndex(config().getZindexManager().getNextZIndex());
-                if (DominoElement.body().containsCss("l-panel-span-up")) {
-                  getLeftPanel().setZIndex(config().getZindexManager().getNextZIndex());
-                } else {
-                  getLeftPanel().setZIndex(sidePanelsIndex);
-                }
-              }
-            });
   }
 
   /** @return new Layout instance without a title in the header */

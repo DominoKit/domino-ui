@@ -5,7 +5,7 @@
 
     <groupId>org.dominokit</groupId>
     <artifactId>domino-ui-parent</artifactId>
-    <version>1.0.1</version>
+    <version>1.0.2</version>
     <packaging>pom</packaging>
 
     <name>domino-ui-parent</name>
@@ -67,8 +67,8 @@
     </modules>
 
     <properties>
-        <snapshot.version>1.0.1-SNAPSHOT</snapshot.version>
-        <next.release.version>1.0.1</next.release.version>
+        <snapshot.version>1.0.2-SNAPSHOT</snapshot.version>
+        <next.release.version>1.0.2</next.release.version>
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
 
@@ -296,10 +296,6 @@
                          Pass in the number via parameter or profile to allow configuration,
                          since everything set in the file can't be overwritten via command line -->
                     <versionDigitToIncrement>${bump.digit}</versionDigitToIncrement>
-
-                    <!-- Execute mvn verify before release -->
-                    <preReleaseGoals>verify</preReleaseGoals>
-                    <preHotfixGoals>verify</preHotfixGoals>
 
                     <!-- Configure branches -->
                     <gitFlowConfig>

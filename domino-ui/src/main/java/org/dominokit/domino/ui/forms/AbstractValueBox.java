@@ -81,6 +81,13 @@ public abstract class AbstractValueBox<
     return (T) this;
   }
 
+  @Override
+  public T clear(boolean silent) {
+    super.clear(silent);
+    updateCharacterCount();
+    return (T) this;
+  }
+
   /** Updates the character count based on field string value */
   protected void updateCharacterCount() {
     if (maxLength > 0 || minLength > 0) {
