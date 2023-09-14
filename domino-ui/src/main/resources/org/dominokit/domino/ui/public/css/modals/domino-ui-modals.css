@@ -51,6 +51,10 @@ body.modal-open {
     outline: 0;
     -webkit-box-shadow: 0 3px 9px rgba(0, 0, 0, .5);
     box-shadow: 0 3px 9px rgba(0, 0, 0, .5);
+    max-height: calc(100vh);
+}
+
+.modal:not([class*="-sheet"]) .modal-content {
     max-height: calc(100vh - 60px);
 }
 
