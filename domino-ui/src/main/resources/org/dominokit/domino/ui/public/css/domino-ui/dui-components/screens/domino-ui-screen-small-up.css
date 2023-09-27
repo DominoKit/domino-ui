@@ -1,3 +1,117 @@
 @media screen and (min-width: 768px){
+    .dui.dui-hide-on-small-and-up,
+    .dui.dui-hide-on-small-and-up.dui-block,
+    .dui.dui-hide-on-small-and-up.dui-block-full,
+    .dui.dui-hide-on-small-and-up.dui-inline-block,
+    .dui.dui-hide-on-small-and-up.dui-inline,
+    .dui.dui-hide-on-small-and-up.dui-flex,
+    .dui.dui-hide-on-small-and-up.dui-inline-flex,
+    .dui.dui-hide-on-small-and-up.dui-table,
+    .dui.dui-hide-on-small-and-up.dui-inline-table,
+    .dui.dui-hide-on-small-and-up.dui-table-caption,
+    .dui.dui-hide-on-small-and-up.dui-table-cell,
+    .dui.dui-hide-on-small-and-up.dui-table-column,
+    .dui.dui-hide-on-small-and-up.dui-table-column-group,
+    .dui.dui-hide-on-small-and-up.dui-table-footer-group,
+    .dui.dui-hide-on-small-and-up.dui-table-header-group,
+    .dui.dui-hide-on-small-and-up.dui-table-row-group,
+    .dui.dui-hide-on-small-and-up.dui-table-row,
+    .dui.dui-hide-on-small-and-up.dui-flow-root,
+    .dui.dui-hide-on-small-and-up.dui-grid,
+    .dui.dui-hide-on-small-and-up.dui-inline-grid,
+    .dui.dui-hide-on-small-and-up.dui-contents,
+    .dui.dui-hide-on-small-and-up.dui-list-item,
+    .dui.dui-hide-on-small-and-up.dui-hidden {
+        display: none;
+    }
 
+    /* -------------------------------- */
+    .dui.dui-show-on-small-and-up {
+        display: block;
+    }
+
+    .dui.dui-show-on-small-and-up.dui-block {
+        display: block;
+    }
+
+    .dui.dui-show-on-small-and-up.dui-block-full {
+        display: block;
+        width: 100%;
+    }
+
+    .dui.dui-show-on-small-and-up.dui-inline-block {
+        display: inline-block;
+    }
+
+    .dui.dui-show-on-small-and-up.dui-inline {
+        display: inline;
+    }
+
+    .dui.dui-show-on-small-and-up.dui-flex {
+        display: flex;
+    }
+
+    .dui.dui-show-on-small-and-up.dui-inline-flex {
+        display: inline-flex;
+    }
+
+    .dui.dui-show-on-small-and-up.dui-table {
+        display: table;
+    }
+
+    .dui.dui-show-on-small-and-up.dui-inline-table {
+        display: inline-table;
+    }
+
+    .dui.dui-show-on-small-and-up.dui-table-caption {
+        display: table-caption;
+    }
+
+    .dui.dui-show-on-small-and-up.dui-table-cell {
+        display: table-cell;
+    }
+
+    .dui.dui-show-on-small-and-up.dui-table-column {
+        display: table-column;
+    }
+
+    .dui.dui-show-on-small-and-up.dui-table-column-group {
+        display: table-column-group;
+    }
+
+    .dui.dui-show-on-small-and-up.dui-table-footer-group {
+        display: table-footer-group;
+    }
+
+    .dui.dui-show-on-small-and-up.dui-table-header-group {
+        display: table-header-group;
+    }
+
+    .dui.dui-show-on-small-and-up.dui-table-row-group {
+        display: table-row-group;
+    }
+
+    .dui.dui-show-on-small-and-up.dui-table-row {
+        display: table-row;
+    }
+
+    .dui.dui-show-on-small-and-up.dui-flow-root {
+        display: flow-root;
+    }
+
+    .dui.dui-show-on-small-and-up.dui-grid {
+        display: grid;
+    }
+
+    .dui.dui-show-on-small-and-up.dui-inline-grid {
+        display: inline-grid;
+    }
+
+    .dui.dui-show-on-small-and-up.dui-contents {
+        display: contents;
+    }
+
+    .dui.dui-show-on-small-and-up.dui-list-item {
+        display: list-item;
+    }
 }

@@ -37,7 +37,7 @@
     }
 
     .dui-dialog.dui-h-xs{
-        --dui-dialog-xsmall-height: 95%;
+        --dui-dialog-xsmall-and-down-height: 95%;
     }
 
     .dui-dialog.dui-w-sm{
@@ -70,5 +70,121 @@
 
     .dui-dialog.dui-h-xl{
         --dui-dialog-xlarge-height: 95%;
+    }
+
+    .dui.dui-hide-on-xsmall-and-down,
+    .dui.dui-hide-on-xsmall-and-down.dui-block,
+    .dui.dui-hide-on-xsmall-and-down.dui-block-full,
+    .dui.dui-hide-on-xsmall-and-down.dui-inline-block,
+    .dui.dui-hide-on-xsmall-and-down.dui-inline,
+    .dui.dui-hide-on-xsmall-and-down.dui-flex,
+    .dui.dui-hide-on-xsmall-and-down.dui-inline-flex,
+    .dui.dui-hide-on-xsmall-and-down.dui-table,
+    .dui.dui-hide-on-xsmall-and-down.dui-inline-table,
+    .dui.dui-hide-on-xsmall-and-down.dui-table-caption,
+    .dui.dui-hide-on-xsmall-and-down.dui-table-cell,
+    .dui.dui-hide-on-xsmall-and-down.dui-table-column,
+    .dui.dui-hide-on-xsmall-and-down.dui-table-column-group,
+    .dui.dui-hide-on-xsmall-and-down.dui-table-footer-group,
+    .dui.dui-hide-on-xsmall-and-down.dui-table-header-group,
+    .dui.dui-hide-on-xsmall-and-down.dui-table-row-group,
+    .dui.dui-hide-on-xsmall-and-down.dui-table-row,
+    .dui.dui-hide-on-xsmall-and-down.dui-flow-root,
+    .dui.dui-hide-on-xsmall-and-down.dui-grid,
+    .dui.dui-hide-on-xsmall-and-down.dui-inline-grid,
+    .dui.dui-hide-on-xsmall-and-down.dui-contents,
+    .dui.dui-hide-on-xsmall-and-down.dui-list-item,
+    .dui.dui-hide-on-xsmall-and-down.dui-hidden {
+        display: none;
+    }
+
+    /* -------------------------------- */
+    .dui.dui-show-on-xsmall-and-down {
+        display: block;
+    }
+
+    .dui.dui-show-on-xsmall-and-down.dui-block {
+        display: block;
+    }
+
+    .dui.dui-show-on-xsmall-and-down.dui-block-full {
+        display: block;
+        width: 100%;
+    }
+
+    .dui.dui-show-on-xsmall-and-down.dui-inline-block {
+        display: inline-block;
+    }
+
+    .dui.dui-show-on-xsmall-and-down.dui-inline {
+        display: inline;
+    }
+
+    .dui.dui-show-on-xsmall-and-down.dui-flex {
+        display: flex;
+    }
+
+    .dui.dui-show-on-xsmall-and-down.dui-inline-flex {
+        display: inline-flex;
+    }
+
+    .dui.dui-show-on-xsmall-and-down.dui-table {
+        display: table;
+    }
+
+    .dui.dui-show-on-xsmall-and-down.dui-inline-table {
+        display: inline-table;
+    }
+
+    .dui.dui-show-on-xsmall-and-down.dui-table-caption {
+        display: table-caption;
+    }
+
+    .dui.dui-show-on-xsmall-and-down.dui-table-cell {
+        display: table-cell;
+    }
+
+    .dui.dui-show-on-xsmall-and-down.dui-table-column {
+        display: table-column;
+    }
+
+    .dui.dui-show-on-xsmall-and-down.dui-table-column-group {
+        display: table-column-group;
+    }
+
+    .dui.dui-show-on-xsmall-and-down.dui-table-footer-group {
+        display: table-footer-group;
+    }
+
+    .dui.dui-show-on-xsmall-and-down.dui-table-header-group {
+        display: table-header-group;
+    }
+
+    .dui.dui-show-on-xsmall-and-down.dui-table-row-group {
+        display: table-row-group;
+    }
+
+    .dui.dui-show-on-xsmall-and-down.dui-table-row {
+        display: table-row;
+    }
+
+    .dui.dui-show-on-xsmall-and-down.dui-flow-root {
+        display: flow-root;
+    }
+
+    .dui.dui-show-on-xsmall-and-down.dui-grid {
+        display: grid;
+    }
+
+    .dui.dui-show-on-xsmall-and-down.dui-inline-grid {
+        display: inline-grid;
+    }
+
+    .dui.dui-show-on-xsmall-and-down.dui-contents {
+        display: contents;
+    }
+
+    .dui.dui-show-on-xsmall-and-down.dui-list-item {
+        display: list-item;
     }
 }

@@ -22,7 +22,6 @@ import elemental2.dom.Element;
 import elemental2.dom.HTMLDivElement;
 import org.dominokit.domino.ui.button.RemoveButton;
 import org.dominokit.domino.ui.elements.DivElement;
-import org.dominokit.domino.ui.style.Color;
 import org.dominokit.domino.ui.utils.*;
 
 /**
@@ -49,8 +48,6 @@ import org.dominokit.domino.ui.utils.*;
  * </pre>
  *
  * @see BaseDominoElement
- * @see HasBackground
- * @see Color
  */
 public class Alert extends BaseDominoElement<HTMLDivElement, Alert> {
 

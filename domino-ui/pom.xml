@@ -75,6 +75,12 @@
             <artifactId>domino-slf4j-logger</artifactId>
             <version>1.0.2</version>
         </dependency>
+        <dependency>
+            <groupId>org.dominokit</groupId>
+            <artifactId>domino-ui-docs</artifactId>
+            <version>${project.version}</version>
+            <scope>test</scope>
+        </dependency>
     </dependencies>
 
     <build>

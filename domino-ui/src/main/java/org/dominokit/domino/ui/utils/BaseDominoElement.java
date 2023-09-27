@@ -1898,7 +1898,7 @@ public abstract class BaseDominoElement<E extends Element, T extends IsElement<E
   public T hideOn(ScreenMedia screenMedia) {
     removeHideOn();
     this.hideOn = screenMedia;
-    addCss("hide-on-" + this.hideOn.getStyle());
+    addCss("dui-hide-on-" + this.hideOn.getStyle());
 
     return element;
   }
@@ -1911,7 +1911,7 @@ public abstract class BaseDominoElement<E extends Element, T extends IsElement<E
   @Editor.Ignore
   public T removeHideOn() {
     if (nonNull(hideOn)) {
-      removeCss("hide-on-" + hideOn.getStyle());
+      removeCss("dui-hide-on-" + hideOn.getStyle());
     }
 
     return element;
@@ -1927,7 +1927,7 @@ public abstract class BaseDominoElement<E extends Element, T extends IsElement<E
   public T showOn(ScreenMedia screenMedia) {
     removeShowOn();
     this.showOn = screenMedia;
-    addCss("show-on-" + this.showOn.getStyle());
+    addCss("dui-show-on-" + this.showOn.getStyle());
     return element;
   }
 
@@ -1939,7 +1939,7 @@ public abstract class BaseDominoElement<E extends Element, T extends IsElement<E
   @Editor.Ignore
   public T removeShowOn() {
     if (nonNull(showOn)) {
-      removeCss("show-on-" + showOn.getStyle());
+      removeCss("dui-show-on-" + showOn.getStyle());
     }
 
     return element;
@@ -2098,6 +2098,21 @@ public abstract class BaseDominoElement<E extends Element, T extends IsElement<E
   @Editor.Ignore
   public T apply(ElementHandler<T> elementHandler) {
     elementHandler.handleElement(element);
+    return element;
+  }
+
+  /**
+   * Applies a function to the component only if the condition returns true.
+   *
+   * @param elementHandler {@link org.dominokit.domino.ui.utils.ElementHandler}
+   * @param condition a Predicate to test for the apply condition.
+   * @return same component
+   */
+  @Editor.Ignore
+  public T applyIf(Predicate<T> condition, ElementHandler<T> elementHandler) {
+    if (condition.test((T) this)) {
+      elementHandler.handleElement(element);
+    }
     return element;
   }
 
