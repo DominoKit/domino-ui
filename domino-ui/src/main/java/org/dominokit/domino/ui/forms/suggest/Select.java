@@ -82,11 +82,11 @@ public class Select<V> extends AbstractSelect<V, V, DivElement, SelectOption<V>,
   /** {@inheritDoc} */
   @Override
   protected void onOptionSelected(SelectOption<V> option) {
-    withOption(option);
-    updateTextValue();
     if (nonNull(this.selectedOption)) {
       onOptionDeselected(this.selectedOption);
     }
+    withOption(option);
+    updateTextValue();
     this.selectedOption = option;
     fieldInput.appendChild(option);
   }
