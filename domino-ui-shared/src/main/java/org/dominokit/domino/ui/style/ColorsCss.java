@@ -24,6 +24,7 @@ public interface ColorsCss {
   CssClass dui_fg_color_3 = () -> "dui-fg-color-3";
   CssClass dui_fg_color_4 = () -> "dui-fg-color-4";
   CssClass dui_fg_color_5 = () -> "dui-fg-color-5";
+  CssClass dui_fg_color_accent = () -> "dui-fg-color-accent";
 
   /** Constant <code>dui_fg_dominant_l_5</code> */
   CssClass dui_fg_dominant_l_5 = () -> "dui-fg-dominant-l-5";

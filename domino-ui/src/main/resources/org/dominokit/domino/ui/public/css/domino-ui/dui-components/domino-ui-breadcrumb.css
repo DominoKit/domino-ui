@@ -16,7 +16,7 @@
 
 .dui-breadcrumb > li.dui,
 .dui-breadcrumb > li.dui a.dui{
-    color: var(--dui-fg, var(--dui-accent));
+    color: var(--dui-fg, var(--dui-color));
 }
 
 .dui-breadcrumb > li.dui + li.dui:before {

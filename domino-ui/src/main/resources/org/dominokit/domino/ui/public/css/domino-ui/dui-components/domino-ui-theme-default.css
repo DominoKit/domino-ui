@@ -2101,6 +2101,11 @@ hr.dui {
     color: var(--dui-color-5);
 }
 
+.dui-fg-color-accent {
+    --dui-fg:var(--dui-accent-clr);
+    color: var(--dui-accent-clr);
+}
+
 .dui.dui-dialog.waitMe_container {
     transform: translateY(var(--dui-dialog-default-top-translate));
 }
