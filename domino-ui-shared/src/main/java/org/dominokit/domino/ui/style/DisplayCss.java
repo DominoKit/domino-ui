@@ -53,53 +53,72 @@ public interface DisplayCss {
   CssClass dui_opacity_95 = () -> "dui-opacity-95";
   /** Constant <code>dui_opacity_100</code> */
   CssClass dui_opacity_100 = () -> "dui-opacity-100";
+
   /** Constant <code>dui_block</code> */
-  CssClass dui_block = () -> "dui-block";
+  CssClass dui_block = ReplaceCssClass.of(AggregatedCss.dui_display).replaceWith(() -> "dui-block");
   /** Constant <code>dui_block_full</code> */
-  CssClass dui_block_full = () -> "dui-block-full";
+  CssClass dui_block_full =
+      ReplaceCssClass.of(AggregatedCss.dui_display).replaceWith(() -> "dui-block-full");
   /** Constant <code>dui_inline_block</code> */
-  CssClass dui_inline_block = () -> "dui-inline-block";
+  CssClass dui_inline_block =
+      ReplaceCssClass.of(AggregatedCss.dui_display).replaceWith(() -> "dui-inline-block");
   /** Constant <code>dui_inline</code> */
-  CssClass dui_inline = () -> "dui-inline";
+  CssClass dui_inline =
+      ReplaceCssClass.of(AggregatedCss.dui_display).replaceWith(() -> "dui-inline");
   /** Constant <code>dui_flex</code> */
-  CssClass dui_flex = () -> "dui-flex";
+  CssClass dui_flex = ReplaceCssClass.of(AggregatedCss.dui_display).replaceWith(() -> "dui-flex");
   /** Constant <code>dui_inline_flex</code> */
-  CssClass dui_inline_flex = () -> "dui-inline-flex";
+  CssClass dui_inline_flex =
+      ReplaceCssClass.of(AggregatedCss.dui_display).replaceWith(() -> "dui-inline-flex");
+
+  /** Constant <code>dui_table</code> */
+  CssClass dui_table = ReplaceCssClass.of(AggregatedCss.dui_display).replaceWith(() -> "dui-table");
+  /** Constant <code>dui_inline_table</code> */
+  CssClass dui_inline_table =
+      ReplaceCssClass.of(AggregatedCss.dui_display).replaceWith(() -> "dui-inline-table");
+  /** Constant <code>dui_table_caption</code> */
+  CssClass dui_table_caption =
+      ReplaceCssClass.of(AggregatedCss.dui_display).replaceWith(() -> "dui-table-caption");
+  /** Constant <code>dui_table_cell</code> */
+  CssClass dui_table_cell =
+      ReplaceCssClass.of(AggregatedCss.dui_display).replaceWith(() -> "dui-table-cell");
+  /** Constant <code>dui_table_column</code> */
+  CssClass dui_table_column =
+      ReplaceCssClass.of(AggregatedCss.dui_display).replaceWith(() -> "dui-table-column");
+  /** Constant <code>dui_table_column_group</code> */
+  CssClass dui_table_column_group =
+      ReplaceCssClass.of(AggregatedCss.dui_display).replaceWith(() -> "dui-table-column-group");
+  /** Constant <code>dui_table_footer_group</code> */
+  CssClass dui_table_footer_group =
+      ReplaceCssClass.of(AggregatedCss.dui_display).replaceWith(() -> "dui-table-footer-group");
+  /** Constant <code>dui_table_header_group</code> */
+  CssClass dui_table_header_group =
+      ReplaceCssClass.of(AggregatedCss.dui_display).replaceWith(() -> "dui-table-header-group");
+  /** Constant <code>dui_table_row_group</code> */
+  CssClass dui_table_row_group =
+      ReplaceCssClass.of(AggregatedCss.dui_display).replaceWith(() -> "dui-table-row-group");
+  /** Constant <code>dui_table_row</code> */
+  CssClass dui_table_row =
+      ReplaceCssClass.of(AggregatedCss.dui_display).replaceWith(() -> "dui-table-row");
+  /** Constant <code>dui_flow_root</code> */
+  CssClass dui_flow_root =
+      ReplaceCssClass.of(AggregatedCss.dui_display).replaceWith(() -> "dui-flow-root");
+  /** Constant <code>dui_grid</code> */
+  CssClass dui_grid = ReplaceCssClass.of(AggregatedCss.dui_display).replaceWith(() -> "dui-grid");
+  /** Constant <code>dui_inline_grid</code> */
+  CssClass dui_inline_grid =
+      ReplaceCssClass.of(AggregatedCss.dui_display).replaceWith(() -> "dui-inline-grid");
+  /** Constant <code>dui_contents</code> */
+  CssClass dui_contents =
+      ReplaceCssClass.of(AggregatedCss.dui_display).replaceWith(() -> "dui-contents");
+  /** Constant <code>dui_list_item</code> */
+  CssClass dui_list_item =
+      ReplaceCssClass.of(AggregatedCss.dui_display).replaceWith(() -> "dui-list-item");
+
   /** Constant <code>dui_flex_responsive</code> */
   CssClass dui_flex_responsive = () -> "dui-flex-responsive";
   /** Constant <code>dui_flex_responsive_reverse</code> */
   CssClass dui_flex_responsive_reverse = () -> "dui-flex-responsive-reverse";
-
-  /** Constant <code>dui_table</code> */
-  CssClass dui_table = () -> "dui-table";
-  /** Constant <code>dui_inline_table</code> */
-  CssClass dui_inline_table = () -> "dui-inline-table";
-  /** Constant <code>dui_table_caption</code> */
-  CssClass dui_table_caption = () -> "dui-table-caption";
-  /** Constant <code>dui_table_cell</code> */
-  CssClass dui_table_cell = () -> "dui-table-cell";
-  /** Constant <code>dui_table_column</code> */
-  CssClass dui_table_column = () -> "dui-table-column";
-  /** Constant <code>dui_table_column_group</code> */
-  CssClass dui_table_column_group = () -> "dui-table-column-group";
-  /** Constant <code>dui_table_footer_group</code> */
-  CssClass dui_table_footer_group = () -> "dui-table-footer-group";
-  /** Constant <code>dui_table_header_group</code> */
-  CssClass dui_table_header_group = () -> "dui-table-header-group";
-  /** Constant <code>dui_table_row_group</code> */
-  CssClass dui_table_row_group = () -> "dui-table-row-group";
-  /** Constant <code>dui_table_row</code> */
-  CssClass dui_table_row = () -> "dui-table-row";
-  /** Constant <code>dui_flow_root</code> */
-  CssClass dui_flow_root = () -> "dui-flow-root";
-  /** Constant <code>dui_grid</code> */
-  CssClass dui_grid = () -> "dui-grid";
-  /** Constant <code>dui_inline_grid</code> */
-  CssClass dui_inline_grid = () -> "dui-inline-grid";
-  /** Constant <code>dui_contents</code> */
-  CssClass dui_contents = () -> "dui-contents";
-  /** Constant <code>dui_list_item</code> */
-  CssClass dui_list_item = () -> "dui-list-item";
   /** Constant <code>dui_hidden</code> */
   CssClass dui_hidden = () -> "dui-hidden";
   /** Constant <code>dui_float_right</code> */
