@@ -28,6 +28,8 @@ import org.dominokit.domino.ui.datatable.plugins.DataTablePlugin;
 import org.dominokit.domino.ui.datatable.plugins.HasPluginConfig;
 import org.dominokit.domino.ui.datatable.plugins.tree.events.TreeRowCollapsedEvent;
 import org.dominokit.domino.ui.datatable.plugins.tree.events.TreeRowExpandedEvent;
+import org.dominokit.domino.ui.datatable.plugins.tree.events.TreeRowOnBeforeCollapseEvent;
+import org.dominokit.domino.ui.datatable.plugins.tree.events.TreeRowOnBeforeExpandEvent;
 import org.dominokit.domino.ui.elements.DivElement;
 import org.dominokit.domino.ui.icons.Icon;
 import org.dominokit.domino.ui.icons.ToggleIcon;
@@ -80,7 +82,8 @@ public class TreeGridPlugin<T>
    * @param row {@link org.dominokit.domino.ui.datatable.TableRow} to be expanded
    * @param recursive boolean, if true will recursively expand the row children
    */
-  public final void expandRow(TableRow<T> row, boolean recursive) {
+  public void expandRow(TableRow<T> row, boolean recursive) {
+    this.dataTable.fireTableEvent(new TreeRowOnBeforeExpandEvent<>(row));
     if (config.isLazy()) {
       TreeGridRowSubItemsMeta.get(row)
           .ifPresent(
@@ -119,6 +122,7 @@ public class TreeGridPlugin<T>
       if (row.isRoot()) {
         increment();
       }
+      this.dataTable.fireTableEvent(new TreeRowExpandedEvent<>(row));
     }
   }
 
@@ -221,7 +225,7 @@ public class TreeGridPlugin<T>
    *
    * @param row {@link org.dominokit.domino.ui.datatable.TableRow} to be expanded
    */
-  public final void expandRow(TableRow<T> row) {
+  public void expandRow(TableRow<T> row) {
     expandRow(row, true);
   }
 
@@ -231,7 +235,7 @@ public class TreeGridPlugin<T>
    *
    * @param recursive boolean, if true will recursively expand the row children
    */
-  public final void expandAllRows(boolean recursive) {
+  public void expandAllRows(boolean recursive) {
     dataTable.getRows().forEach(tableRow -> expandRow(tableRow, recursive));
   }
 
@@ -240,12 +244,12 @@ public class TreeGridPlugin<T>
    *
    * @param row {@link org.dominokit.domino.ui.datatable.TableRow} to be collapsed
    */
-  public final void collapseRow(TableRow<T> row) {
+  public void collapseRow(TableRow<T> row) {
     collapse(row);
   }
 
   /** Collapse all table row */
-  public final void collapseAllRows() {
+  public void collapseAllRows() {
     dataTable.getRows().forEach(this::collapseRow);
   }
 
@@ -273,6 +277,7 @@ public class TreeGridPlugin<T>
   }
 
   private void collapse(TableRow<T> row) {
+    this.dataTable.fireTableEvent(new TreeRowOnBeforeCollapseEvent<>(row));
     Optional<TreeGridRowToggleIcon> iconMeta = row.getMeta(TREE_GRID_ROW_TOGGLE_ICON);
     iconMeta.ifPresent(
         meta -> {
