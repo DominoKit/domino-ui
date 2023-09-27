@@ -796,6 +796,14 @@ public abstract class AbstractSelect<
     return (C) this;
   }
 
+  @Override
+  public C hide() {
+    if (optionsMenu.isOpened()) {
+      optionsMenu.close();
+    }
+    return super.hide();
+  }
+
   public interface MissingOptionHandler<T, E extends IsElement<?>, V, O extends Option<V, E, O>> {
     void onMissingItem(T component, String token, Consumer<Option<V, E, O>> onComplete);
   }
