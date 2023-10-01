@@ -754,6 +754,9 @@ public abstract class AbstractSelect<
     findOption(option)
         .ifPresent(
             found -> {
+              if (Objects.equals(getValue(), option.getValue())) {
+                clear();
+              }
               option.remove();
               optionsMenu.removeItem(found.getMenuItem());
             });

@@ -77,6 +77,9 @@ public class Select<V> extends AbstractSelect<V, V, DivElement, SelectOption<V>,
       this.selectedOption.remove();
     }
     this.selectedOption = option;
+    if (nonNull(selectedOption)) {
+      optionsMenu.select(selectedOption.getMenuItem(), true);
+    }
   }
 
   /** {@inheritDoc} */
