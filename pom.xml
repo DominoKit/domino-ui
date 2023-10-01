@@ -64,7 +64,6 @@
         <module>domino-ui-shared</module>
         <module>domino-ui-tools</module>
         <module>domino-ui-webjar</module>
-        <module>domino-ui-docs</module>
     </modules>
 
     <properties>
@@ -88,6 +87,7 @@
         <gwt.version>2.10.0</gwt.version>
         <jackson.apt.version>1.0.0-RC3</jackson.apt.version>
         <gwt.i18n.version>1.0.1</gwt.i18n.version>
+        <domino.doc.tool.version>HEAD-SNAPSHOT</domino.doc.tool.version>
     </properties>
 
     <dependencyManagement>
@@ -227,13 +227,13 @@
                             <goal>jar</goal>
                         </goals>
                         <configuration>
-                            <doclet>org.dominokit.domino.ui.internal.docs.DominoUiDoclet</doclet>
+                            <doclet>org.dominokit.doctool.DominoUiDoclet</doclet>
 
                             <!-- <docletPath>/path/to/doccheck.jar</docletPath> -->
                             <docletArtifact>
                                 <groupId>org.dominokit</groupId>
-                                <artifactId>domino-ui-docs</artifactId>
-                                <version>${project.version}</version>
+                                <artifactId>domino-doc-tool</artifactId>
+                                <version>${domino.doc.tool.version}</version>
                             </docletArtifact>
                             <useStandardDocletOptions>false</useStandardDocletOptions>
                             <additionalOptions>

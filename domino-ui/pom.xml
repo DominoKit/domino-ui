@@ -77,8 +77,8 @@
         </dependency>
         <dependency>
             <groupId>org.dominokit</groupId>
-            <artifactId>domino-ui-docs</artifactId>
-            <version>${project.version}</version>
+            <artifactId>domino-doc-tool</artifactId>
+            <version>${domino.doc.tool.version}</version>
             <scope>test</scope>
         </dependency>
     </dependencies>

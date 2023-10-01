@@ -18,7 +18,7 @@ import java.io.IOException;
 import java.util.Arrays;
 import javax.tools.DocumentationTool;
 import javax.tools.ToolProvider;
-import org.dominokit.domino.ui.internal.docs.DominoUiDoclet;
+import org.dominokit.doctool.DominoUiDoclet;
 import org.junit.Test;
 
 public class DocletTest {
