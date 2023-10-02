@@ -227,7 +227,7 @@
                             <goal>jar</goal>
                         </goals>
                         <configuration>
-                            <doclet>org.dominokit.doctool.DominoUiDoclet</doclet>
+                            <doclet>org.dominokit.doctool.DominoDocsDoclet</doclet>
 
                             <!-- <docletPath>/path/to/doccheck.jar</docletPath> -->
                             <docletArtifact>

@@ -41,7 +41,7 @@ import org.dominokit.domino.ui.utils.LazyChild;
  * A base component to implement buttons
  *
  * <p>this class provides commons functionality and methods used in different implementations of a
- * button
+ * button</p>
  *
  * @param <B> The button subclass being wrapped
  */
@@ -106,23 +106,24 @@ public abstract class BaseButton<E extends HTMLElement, B extends BaseButton<E, 
     setIcon(icon);
   }
 
-  /** {@inheritDoc} */
+  /** @hidden {@inheritDoc} */
   @Override
   public Element getAppendTarget() {
     return bodyElement.element();
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Update the button text
+   * @return an instance of B implementation extending from BaseButton
+   */
   @Override
   public B setTextContent(String text) {
     return setText(text);
   }
 
   /**
-   * setText.
-   *
-   * @param text a {@link java.lang.String} object
-   * @return a B object
+   * Update the button text
+   * @return an instance of B implementation extending from BaseButton
    */
   public B setText(String text) {
     textElement.get().setTextContent(text);
@@ -132,8 +133,7 @@ public abstract class BaseButton<E extends HTMLElement, B extends BaseButton<E, 
   /**
    * {@inheritDoc}
    *
-   * <p>return the clickable {@link HTMLElement} of this component, which the component button
-   * element.
+   * @return the element that will receive click events when click listeners ar added to this component
    */
   @Override
   public HTMLElement getClickableElement() {
@@ -141,10 +141,9 @@ public abstract class BaseButton<E extends HTMLElement, B extends BaseButton<E, 
   }
 
   /**
-   * changes the button to a circle button by applying {@link
-   * org.dominokit.domino.ui.button.ButtonStyles#dui_circle}
+   * changes the button to a circle button by applying <code>dui_circle</code> css style
    *
-   * @return same instance
+   * @return same Button instance.
    */
   public B circle() {
     buttonElement.addCss(ButtonStyles.dui_circle);

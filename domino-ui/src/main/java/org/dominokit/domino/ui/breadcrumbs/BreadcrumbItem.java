@@ -28,17 +28,10 @@ import org.dominokit.domino.ui.utils.ChildHandler;
 import org.dominokit.domino.ui.utils.HasClickableElement;
 
 /**
- * A component for {@link org.dominokit.domino.ui.breadcrumbs.Breadcrumb} location.
+ * A component used within {@link Breadcrumb} and represent a navigation path taken to reach a specific page and view.
  *
- * <p>This component provides basic styles of a location and functionalities that allows switching
- * between location statuses
- *
- * <p>Customize the component can be done by overwriting classes provided by {@link
- * BreadcrumbStyles}
- *
- * @see Breadcrumb
- * @see BaseDominoElement
- * @see HasClickableElement
+ * <p>Clicking a BreadcrumbItem would trigger change listeners defined on the Breadcrumb,
+ * the library user can use them to navigate the user to different views or pages.</p>
  */
 public class BreadcrumbItem extends BaseDominoElement<HTMLLIElement, BreadcrumbItem>
     implements HasClickableElement {
@@ -49,11 +42,11 @@ public class BreadcrumbItem extends BaseDominoElement<HTMLLIElement, BreadcrumbI
   private Icon<?> icon;
 
   /**
-   * Constructor for BreadcrumbItem.
+   * Creates a BreadcrumbItem with a text
    *
-   * @param text a {@link java.lang.String} object
+   * @param text The label text for the BreadcrumbItem
    */
-  protected BreadcrumbItem(String text) {
+  public BreadcrumbItem(String text) {
     element = li();
     init(this);
     anchorElement = a().removeHref();
@@ -63,41 +56,54 @@ public class BreadcrumbItem extends BaseDominoElement<HTMLLIElement, BreadcrumbI
   }
 
   /**
-   * Constructor for BreadcrumbItem.
+   * Creates a BreadcrumbItem with a text and icon
    *
-   * @param text a {@link java.lang.String} object
-   * @param icon a {@link org.dominokit.domino.ui.icons.Icon} object
+   * @param text The label text for the BreadcrumbItem
+   * @param icon An {@link org.dominokit.domino.ui.icons.Icon} that prefix the BreadcrumbItem labels
    */
-  protected BreadcrumbItem(String text, Icon<?> icon) {
+  public BreadcrumbItem(String text, Icon<?> icon) {
+    this(text);
+    this.icon = icon;
+    this.anchorElement.insertFirst(icon);
+  }
+
+
+  /**
+   * Creates a BreadcrumbItem with a text and icon
+   *
+   * @param icon An {@link org.dominokit.domino.ui.icons.Icon} that prefix the BreadcrumbItem labels
+   * @param text The label text for the BreadcrumbItem
+   */
+  public BreadcrumbItem(Icon<?> icon, String text) {
     this(text);
     this.icon = icon;
     this.anchorElement.insertFirst(icon);
   }
 
   /**
-   * Creates location with text content
+   * Factory method to create a BreadcrumbItem with a text
    *
-   * @param text the content of the item
-   * @return new instance
+   * @param text The label text for the BreadcrumbItem
+   * @return new BreadcrumbItem instance
    */
   public static BreadcrumbItem create(String text) {
     return new BreadcrumbItem(text);
   }
 
+
   /**
-   * Creates item with text content and icon
+   * Factory method to create a BreadcrumbItem with a text and icon
    *
-   * @param icon the {@link org.dominokit.domino.ui.icons.Icon} of the item
-   * @param text the content of the item
-   * @return new instance
+   * @param icon An {@link org.dominokit.domino.ui.icons.Icon} that prefix the BreadcrumbItem labels
+   * @param text The label text for the BreadcrumbItem
+   * @return new BreadcrumbItem instance
    */
   public static BreadcrumbItem create(Icon<?> icon, String text) {
     return new BreadcrumbItem(text, icon);
   }
 
   /**
-   * Sets item as active, customizing the active style can be done by overwriting {@link
-   * GenericCss#dui_active} CSS class
+   * Apply the active style to this BreadcrumbItem instance
    *
    * @return same instance
    */
@@ -107,7 +113,7 @@ public class BreadcrumbItem extends BaseDominoElement<HTMLLIElement, BreadcrumbI
   }
 
   /**
-   * Sets item as inactive
+   * Remove the active style from this BreadcrumbItem instance
    *
    * @return same instance
    */
@@ -116,62 +122,49 @@ public class BreadcrumbItem extends BaseDominoElement<HTMLLIElement, BreadcrumbI
     return this;
   }
 
-  /**
-   * If true, sets the status to active, otherwise sets the status to inactive
-   *
-   * @param active the boolean to set the status
-   * @return same instance
-   * @deprecated This method should be no longer used directly. Use {@link
-   *     Breadcrumb#setActiveItem(BreadcrumbItem)} instead
-   */
-  @Deprecated
-  public BreadcrumbItem setActive(boolean active) {
-    addCss(BooleanCssClass.of(dui_active, active));
-    return this;
-  }
 
-  /** {@inheritDoc} */
+  /** @hidden {@inheritDoc} */
   @Override
   public HTMLLIElement element() {
     return element.element();
   }
 
-  /** {@inheritDoc} */
+  /**
+   * @return the element instance within this component that would receive the clicks when we register a click event listener directly to the BreadcrumbItem
+   */
   @Override
   public HTMLAnchorElement getClickableElement() {
     return anchorElement.element();
   }
 
-  /** @return the {@link Text} content */
   /**
-   * Getter for the field <code>textElement</code>.
    *
-   * @return a {@link elemental2.dom.Text} object
+   * @return a {@link elemental2.dom.Text} node for this BreadcrumbItem label text
    */
   public Text getTextElement() {
     return textElement;
   }
 
-  /** @return the {@link Icon} */
   /**
-   * Getter for the field <code>icon</code>.
    *
-   * @return a {@link org.dominokit.domino.ui.icons.Icon} object
+   * @return The {@link org.dominokit.domino.ui.icons.Icon} of this BreadcrumbItem instance if present or null.
    */
   public Icon<?> getIcon() {
     return icon;
   }
 
-  /** @return true if the item is active, false otherwise */
   /**
-   * isActive.
-   *
-   * @return a boolean
+   * @return <b>true</b> if the item is active, <b>false</b> otherwise.
    */
   public boolean isActive() {
     return dui_active.isAppliedTo(this);
   }
 
+  /**
+   * Use to customize the AnchorElement of this BreadcrumbItem instance without breaking the fluent API chain.
+   * @param handler A {@link ChildHandler} that will apply the desired customization, holds a reference to both the BreadcrumbItem and the AnchorElement
+   * @return same BreadcrumbItem instance
+   */
   public BreadcrumbItem withAnchor(ChildHandler<BreadcrumbItem, AnchorElement> handler) {
     handler.apply(this, anchorElement);
     return this;
