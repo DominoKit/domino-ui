@@ -259,12 +259,12 @@ public class TagBox<V> extends AbstractSuggestBox<V, List<V>, Chip, TagOption<V>
   /** {@inheritDoc} */
   @Override
   public TagBox<V> setReadOnly(boolean readOnly) {
-    this.getInputElement().setReadOnly(true);
+    this.getInputElement().setReadOnly(readOnly);
     getSelectedOptions()
         .forEach(
             option -> {
               option.getComponent().setRemovable(!readOnly && isRemovable());
-              option.getComponent().setReadOnly(true);
+              option.getComponent().setReadOnly(readOnly);
             });
     return super.setReadOnly(readOnly);
   }
