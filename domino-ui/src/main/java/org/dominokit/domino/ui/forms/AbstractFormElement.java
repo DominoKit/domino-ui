@@ -20,6 +20,7 @@ import static java.util.Objects.nonNull;
 
 import elemental2.dom.HTMLElement;
 import elemental2.dom.HTMLFieldSetElement;
+import elemental2.dom.Text;
 import java.util.*;
 import java.util.function.Function;
 import java.util.stream.Collectors;
@@ -93,6 +94,8 @@ public abstract class AbstractFormElement<T extends AbstractFormElement<T, V>, V
   private boolean focusValidationPaused = false;
   private boolean emptyAsNull;
 
+  private Text labelText = text();
+
   protected V defaultValue;
   private boolean showRequiredIndicator = true;
 
@@ -107,6 +110,7 @@ public abstract class AbstractFormElement<T extends AbstractFormElement<T, V>, V
                         .addCss(dui_field_body)
                         .appendChild(wrapperElement = div().addCss(dui_input_wrapper)));
     labelElement = LazyChild.of(label().addCss(dui_field_label), formElement);
+    labelElement.whenInitialized(() -> labelElement.element().appendChild(labelText));
     messagesWrapper = LazyChild.of(div().addCss(dui_messages_wrapper), bodyElement);
     helperTextElement = LazyChild.of(span().addCss(dui_field_helper), messagesWrapper);
     errorElementSupplier =
@@ -375,7 +379,8 @@ public abstract class AbstractFormElement<T extends AbstractFormElement<T, V>, V
    */
   @Override
   public T setLabel(String label) {
-    labelElement.get().setTextContent(label);
+    labelElement.get();
+    labelText.textContent = label;
     return (T) this;
   }
 
