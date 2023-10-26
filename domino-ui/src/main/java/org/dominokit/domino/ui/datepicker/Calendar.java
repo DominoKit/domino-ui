@@ -137,6 +137,7 @@ public class Calendar extends BaseDominoElement<HTMLDivElement, Calendar>
           onDateViewUpdate(updatedDate);
           calendarMonth.show();
           yearMonthPicker.hide();
+          this.date = updatedDate;
         });
 
     this.root.addEventListener(
