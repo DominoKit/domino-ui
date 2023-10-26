@@ -46,9 +46,10 @@ public class BodyScrollPlugin<T> implements DataTablePlugin<T> {
           }
           int offsetHeight = new Double(scrollElement.offsetHeight).intValue();
           int scrollHeight = new Double(scrollElement.scrollHeight).intValue();
+          int clientHeight = new Double(scrollElement.clientHeight).intValue();
 
           if (JsMath.abs(offsetHeight) + JsMath.abs(scrollTop)
-              == new Double(scrollHeight).intValue()) {
+              == new Double(scrollHeight + (offsetHeight - clientHeight)).intValue()) {
             dataTable.fireTableEvent(new BodyScrollEvent(ScrollPosition.BOTTOM));
           }
         });
