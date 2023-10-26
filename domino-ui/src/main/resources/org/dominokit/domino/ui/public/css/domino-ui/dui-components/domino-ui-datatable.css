@@ -52,6 +52,10 @@
     background-color:var(--dui-bg-clr, var(--dui-bg, var(--dui-clr-dominant)));
 }
 
+.dui-datatable-responsive:not(.dui-datatable-striped) tbody .dui-datatable-row.dui-datatable-row-selected{
+    background-color: var(--dui-datatable-even-bg-color);
+}
+
 .dui-datatable-striped tbody .dui-datatable-row:nth-child(even) {
     background-color: var(--dui-datatable-even-bg-color);
 }
@@ -129,6 +133,11 @@
 
 .dui-datatable-row-selected.dui-datatable-row.dui-odd,
 .dui-datatable-row-selected.dui-datatable-row.dui-even {
+    --dui-datatable-even-bg-color: var(--dui-datatable-row-stripped-selected-bg-color);
+    --dui-datatable-odd-bg-color: var(--dui-datatable-row-stripped-selected-bg-color);
+}
+
+.dui-datatable-responsive:not(.dui-datatable-striped) tbody .dui-datatable-row-selected.dui-datatable-row {
     --dui-datatable-even-bg-color: var(--dui-datatable-row-selected-bg-color);
     --dui-datatable-odd-bg-color: var(--dui-datatable-row-selected-bg-color);
 }
