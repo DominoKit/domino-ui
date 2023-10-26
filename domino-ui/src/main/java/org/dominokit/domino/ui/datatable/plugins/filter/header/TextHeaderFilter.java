@@ -102,6 +102,15 @@ public class TextHeaderFilter<T> extends DelayedHeaderFilterInput<TextBox, T, St
   }
 
   /**
+   * Gets the TextBox used in the header filter.
+   *
+   * @return The TextBox element.
+   */
+  public TextBox getTextBox() {
+    return textBox;
+  }
+
+  /**
    * Gets the filter type of the header filter.
    *
    * @return The filter type.
