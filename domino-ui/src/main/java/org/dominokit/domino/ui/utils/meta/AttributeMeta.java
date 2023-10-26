@@ -19,29 +19,35 @@ import java.util.Optional;
 import org.dominokit.domino.ui.utils.ComponentMeta;
 import org.dominokit.domino.ui.utils.HasMeta;
 
-/** AttributeMeta class. */
+/**
+ * The {@code AttributeMeta} class represents metadata associated with a component or element in the
+ * DOM. It allows for storing key-value pairs of metadata where the key is a string and the value
+ * can be of any type.
+ *
+ * @param <T> The type of the value stored as metadata.
+ */
 public class AttributeMeta<T> implements ComponentMeta {
 
   private String key;
   private final T value;
 
   /**
-   * of.
+   * Creates a new instance of {@code AttributeMeta} with the specified key and value.
    *
-   * @param key a {@link java.lang.String} object
-   * @param value a T object
-   * @param <T> a T class
-   * @return a {@link org.dominokit.domino.ui.utils.meta.AttributeMeta} object
+   * @param key The key associated with the metadata.
+   * @param value The value to store as metadata.
+   * @param <T> The type of the value.
+   * @return An {@code AttributeMeta} instance with the specified key and value.
    */
   public static <T> AttributeMeta<T> of(String key, T value) {
     return new AttributeMeta<>(key, value);
   }
 
   /**
-   * Constructor for AttributeMeta.
+   * Constructs an {@code AttributeMeta} instance with the given key and value.
    *
-   * @param key a {@link java.lang.String} object
-   * @param value a T object
+   * @param key The key associated with the metadata.
+   * @param value The value to store as metadata.
    */
   public AttributeMeta(String key, T value) {
     this.key = key;
@@ -49,27 +55,32 @@ public class AttributeMeta<T> implements ComponentMeta {
   }
 
   /**
-   * get.
+   * Retrieves a metadata item with the specified key from a component that implements {@code
+   * HasMeta}.
    *
-   * @param key a {@link java.lang.String} object
-   * @param component a {@link org.dominokit.domino.ui.utils.HasMeta} object
-   * @param <T> a T class
-   * @return a {@link java.util.Optional} object
+   * @param key The key of the metadata item to retrieve.
+   * @param component The component or element that stores metadata.
+   * @param <T> The type of the value stored as metadata.
+   * @return An optional containing the metadata item if found, or an empty optional if not found.
    */
   public static <T> Optional<AttributeMeta<T>> get(String key, HasMeta<?> component) {
     return component.getMeta(key);
   }
 
   /**
-   * Getter for the field <code>value</code>.
+   * Gets the value stored as metadata.
    *
-   * @return a T object
+   * @return The value associated with this metadata item.
    */
   public T getValue() {
     return value;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Gets the key associated with this metadata item.
+   *
+   * @return The key of the metadata item.
+   */
   @Override
   public String getKey() {
     return key;

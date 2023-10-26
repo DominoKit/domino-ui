@@ -18,41 +18,49 @@ package org.dominokit.domino.ui.loaders;
 import elemental2.dom.HTMLDivElement;
 import org.dominokit.domino.ui.utils.DominoElement;
 
-/** An interface represents loader effect implementation */
+/**
+ * The interface for loader components that provide loading animations. Loaders are visual elements
+ * that indicate the progress of an operation or task.
+ *
+ * <p>Usage example:
+ *
+ * <pre>
+ * IsLoader loader = new SomeLoaderImplementation();
+ * loader.setSize("50px", "50px");
+ * DOM.appendChild(loader.getElement());
+ * </pre>
+ */
 public interface IsLoader {
 
-  /** @param text the loading text to set */
   /**
-   * setLoadingText.
+   * Sets the loading text for the loader.
    *
-   * @param text a {@link java.lang.String} object
+   * @param text The text to display as loading text.
    */
   default void setLoadingText(String text) {}
 
-  /** @return The root loader element */
   /**
-   * getElement.
+   * Gets the HTMLDivElement element associated with this loader.
    *
-   * @return a {@link elemental2.dom.HTMLDivElement} object
+   * @return The HTMLDivElement element of the loader.
    */
   HTMLDivElement getElement();
 
   /**
-   * Sets the size of the loader
+   * Sets the size of the loader element.
    *
-   * @param width the width css property
-   * @param height the height css property
+   * @param width The width of the loader.
+   * @param height The height of the loader.
    */
   void setSize(String width, String height);
 
-  /** Removes the loading text */
+  /** Removes the loading text from the loader. */
   void removeLoadingText();
 
-  /** @return The content element */
   /**
-   * getContentElement.
+   * Gets the content element of the loader wrapped in a DominoElement.
    *
-   * @return a {@link org.dominokit.domino.ui.utils.DominoElement} object
+   * @return The content element of the loader.
    */
   DominoElement<HTMLDivElement> getContentElement();
 }

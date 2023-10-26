@@ -26,15 +26,22 @@ import org.dominokit.domino.ui.style.BooleanCssClass;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
 
 /**
- * A component which provides a simple navigation between a list of elements using next/previous
- * elements
+ * The `Pager` class provides pagination controls for navigating between pages. It includes options
+ * for going to the next and previous pages, as well as customizing the appearance and behavior of
+ * the pager.
  *
- * <p>For example:
+ * <p>Usage example:
  *
  * <pre>
- *     Pager.create()
- *          .onNext(() -> DomGlobal.console.info("Going to next page."))
- *          .onPrevious(() -> DomGlobal.console.info("Going to previous page."))
+ * Pager pager = Pager.create()
+ *     .onNext(() -> {
+ *         // Handle next page action
+ *     })
+ *     .onPrevious(() -> {
+ *         // Handle previous page action
+ *     })
+ *     .disableNext() // Disable the next page button
+ *     .showArrows(); // Show arrow icons for navigation
  * </pre>
  *
  * @see BaseDominoElement
@@ -57,7 +64,6 @@ public class Pager extends BaseDominoElement<HTMLElement, Pager>
   private boolean allowNext = true;
   private boolean allowPrev = true;
 
-  /** Constructor for Pager. */
   public Pager() {
     EventListener goNext =
         evt -> {
@@ -95,21 +101,20 @@ public class Pager extends BaseDominoElement<HTMLElement, Pager>
     init(this);
   }
 
-  /** @return new instance */
   /**
-   * create.
+   * Creates a new instance of `Pager`.
    *
-   * @return a {@link org.dominokit.domino.ui.pagination.Pager} object
+   * @return A new `Pager` instance.
    */
   public static Pager create() {
     return new Pager();
   }
 
   /**
-   * Sets the handler that will be called when next element is clicked
+   * Sets a callback to be executed when the "Next" button is clicked.
    *
-   * @param nextCallback the {@link org.dominokit.domino.ui.pagination.Pager.PagerChangeCallback}
-   * @return same instance
+   * @param nextCallback The callback to execute.
+   * @return This `Pager` instance for method chaining.
    */
   public Pager onNext(PagerChangeCallback nextCallback) {
     this.onNext = nextCallback;
@@ -117,11 +122,10 @@ public class Pager extends BaseDominoElement<HTMLElement, Pager>
   }
 
   /**
-   * Sets the handler that will be called when previous element is clicked
+   * Sets a callback to be executed when the "Previous" button is clicked.
    *
-   * @param previousCallback the {@link
-   *     org.dominokit.domino.ui.pagination.Pager.PagerChangeCallback}
-   * @return same instance
+   * @param previousCallback The callback to execute.
+   * @return This `Pager` instance for method chaining.
    */
   public Pager onPrevious(PagerChangeCallback previousCallback) {
     this.onPrev = previousCallback;
@@ -129,9 +133,9 @@ public class Pager extends BaseDominoElement<HTMLElement, Pager>
   }
 
   /**
-   * Disables the next element
+   * Disables the "Next" button, preventing navigation to the next page.
    *
-   * @return same instance
+   * @return This `Pager` instance for method chaining.
    */
   public Pager disableNext() {
     this.allowNext = false;
@@ -140,9 +144,9 @@ public class Pager extends BaseDominoElement<HTMLElement, Pager>
   }
 
   /**
-   * Disables the previous element
+   * Disables the "Previous" button, preventing navigation to the previous page.
    *
-   * @return same instance
+   * @return This `Pager` instance for method chaining.
    */
   public Pager disablePrevious() {
     this.allowPrev = false;
@@ -151,9 +155,9 @@ public class Pager extends BaseDominoElement<HTMLElement, Pager>
   }
 
   /**
-   * Enables the next element
+   * Enables the "Next" button, allowing navigation to the next page.
    *
-   * @return same instance
+   * @return This `Pager` instance for method chaining.
    */
   public Pager enableNext() {
     this.allowNext = true;
@@ -162,9 +166,9 @@ public class Pager extends BaseDominoElement<HTMLElement, Pager>
   }
 
   /**
-   * Enables the previous element
+   * Enables the "Previous" button, allowing navigation to the previous page.
    *
-   * @return same instance
+   * @return This `Pager` instance for method chaining.
    */
   public Pager enablePrevious() {
     this.allowPrev = true;
@@ -173,10 +177,10 @@ public class Pager extends BaseDominoElement<HTMLElement, Pager>
   }
 
   /**
-   * Sets the text of the next element
+   * Sets the text displayed on the "Next" button.
    *
-   * @param text the new text
-   * @return same instance
+   * @param text The text to display.
+   * @return This `Pager` instance for method chaining.
    */
   public Pager nextText(String text) {
     nextText.textContent = text;
@@ -184,10 +188,10 @@ public class Pager extends BaseDominoElement<HTMLElement, Pager>
   }
 
   /**
-   * Sets the text of the previous element
+   * Sets the text displayed on the "Previous" button.
    *
-   * @param text the new text
-   * @return same instance
+   * @param text The text to display.
+   * @return This `Pager` instance for method chaining.
    */
   public Pager previousText(String text) {
     prevText.textContent = text;
@@ -195,9 +199,9 @@ public class Pager extends BaseDominoElement<HTMLElement, Pager>
   }
 
   /**
-   * Shows arrows next to the navigation elements
+   * Shows arrow icons for navigation on the "Next" and "Previous" buttons.
    *
-   * @return same instance
+   * @return This `Pager` instance for method chaining.
    */
   public Pager showArrows() {
     prevArrow.expand();
@@ -206,9 +210,9 @@ public class Pager extends BaseDominoElement<HTMLElement, Pager>
   }
 
   /**
-   * hides arrows next to the navigation elements
+   * Hides arrow icons for navigation on the "Next" and "Previous" buttons.
    *
-   * @return same instance
+   * @return This `Pager` instance for method chaining.
    */
   public Pager hideArrows() {
     prevArrow.collapse();
@@ -217,10 +221,10 @@ public class Pager extends BaseDominoElement<HTMLElement, Pager>
   }
 
   /**
-   * setShowArrows.
+   * Sets whether to show or hide arrow icons for navigation on the "Next" and "Previous" buttons.
    *
-   * @param show a boolean
-   * @return a {@link org.dominokit.domino.ui.pagination.Pager} object
+   * @param show `true` to show the arrows, `false` to hide them.
+   * @return This `Pager` instance for method chaining.
    */
   public Pager setShowArrows(boolean show) {
     prevArrow.toggleDisplay(show);
@@ -229,10 +233,11 @@ public class Pager extends BaseDominoElement<HTMLElement, Pager>
   }
 
   /**
-   * spread.
+   * Spreads the "Previous" and "Next" buttons apart if `spread` is `true`, or brings them closer
+   * together if `spread` is `false`.
    *
-   * @param spread a boolean
-   * @return a {@link org.dominokit.domino.ui.pagination.Pager} object
+   * @param spread `true` to spread the buttons apart, `false` to bring them closer together.
+   * @return This `Pager` instance for method chaining.
    */
   public Pager spread(boolean spread) {
     BooleanCssClass.of(dui_navigator_previous, spread).apply(prevElement);
@@ -240,14 +245,19 @@ public class Pager extends BaseDominoElement<HTMLElement, Pager>
     return this;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * @dominokit-site-ignore {@inheritDoc}
+   *     <p>Retrieves the underlying HTML element associated with this Pager.
+   * @return The HTML element representing this Pager.
+   */
   @Override
   public HTMLElement element() {
     return element.element();
   }
 
-  /** A handler that will be called when the navigation is changed */
+  /** Callback interface for pager change events. */
   public interface PagerChangeCallback {
+    /** Called when a pager change event occurs. */
     void onChange();
   }
 }

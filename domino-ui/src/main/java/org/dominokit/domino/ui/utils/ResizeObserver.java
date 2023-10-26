@@ -13,6 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package org.dominokit.domino.ui.utils;
 
 import elemental2.core.JsArray;
@@ -24,39 +25,42 @@ import jsinterop.annotations.JsType;
 import jsinterop.base.Js;
 
 /**
- * This class allows us to listen to the elements size changes
+ * The {@code ResizeObserver} class is used to observe changes to the dimensions of DOM elements. It
+ * allows you to track and respond to changes in the size of an element, such as when it is resized
+ * by the user or when its content changes dynamically.
  *
- * <p>the class will register a {@link
- * org.dominokit.domino.ui.utils.ResizeObserver.ResizeObserverCallbackFn} on the element to be
- * called when its size is changed
- *
- * @see <a href="https://developer.mozilla.org/en-US/docs/Web/API/ResizeObserver">MDN
- *     ResizeObserver</a>
+ * <p>This class is designed to work with the Resize Observer API, which is used for observing
+ * changes to the dimensions of elements.
  */
 @JsType(isNative = true, namespace = JsPackage.GLOBAL)
 public class ResizeObserver {
-  /** disconnect. */
+
+  /**
+   * Disconnects the {@code ResizeObserver} instance, stopping it from tracking changes in element
+   * sizes.
+   */
   public native void disconnect();
 
   /**
-   * observe.
+   * Begins observing the specified {@link Element} for size changes with optional configuration
+   * options.
    *
-   * @param target a {@link elemental2.dom.Element} object
-   * @param options a {@link org.dominokit.domino.ui.utils.ResizeObserverOptions} object
+   * @param target The DOM element to observe for size changes.
+   * @param options Optional configuration options for the observation.
    */
   public native void observe(Element target, ResizeObserverOptions options);
 
   /**
-   * unobserve.
+   * Stops observing the specified {@link Element} for size changes.
    *
-   * @param target a {@link elemental2.dom.Element} object
+   * @param target The DOM element to stop observing.
    */
   public native void unobserve(Element target);
 
   /**
-   * observe.
+   * Begins observing the specified {@link Element} for size changes with default options.
    *
-   * @param target a {@link elemental2.dom.Element} object
+   * @param target The DOM element to observe for size changes.
    */
   @JsOverlay
   public final void observe(Element target) {
@@ -65,10 +69,26 @@ public class ResizeObserver {
     observe(target, options);
   }
 
+  /**
+   * A functional interface representing a callback function to be invoked when size changes are
+   * observed.
+   */
   @JsFunction
   public interface ResizeObserverCallbackFn {
+    /**
+     * Invoked when size changes are observed on the observed elements.
+     *
+     * @param entries An array of {@link ResizeObserverEntry} objects describing the observed size
+     *     changes.
+     */
     void onInvoke(JsArray<ResizeObserverEntry> entries);
 
+    /**
+     * Invoked when size changes are observed on the observed elements.
+     *
+     * @param entries An array of {@link ResizeObserverEntry} objects describing the observed size
+     *     changes.
+     */
     @JsOverlay
     default void onInvoke(ResizeObserverEntry[] entries) {
       onInvoke(Js.<JsArray<ResizeObserverEntry>>uncheckedCast(entries));
@@ -76,10 +96,9 @@ public class ResizeObserver {
   }
 
   /**
-   * Constructor for ResizeObserver.
+   * Constructs a {@code ResizeObserver} instance with the specified callback function.
    *
-   * @param callback a {@link org.dominokit.domino.ui.utils.ResizeObserver.ResizeObserverCallbackFn}
-   *     object
+   * @param callback The callback function to be invoked when size changes are observed.
    */
   public ResizeObserver(ResizeObserver.ResizeObserverCallbackFn callback) {}
 }

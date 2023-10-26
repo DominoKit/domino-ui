@@ -22,14 +22,41 @@ import org.dominokit.domino.ui.richtext.ForegroundColorPicker;
 import org.dominokit.domino.ui.richtext.RichTextCommand;
 import org.dominokit.domino.ui.utils.DominoDom;
 
+/**
+ * Represents a UI component for setting the foreground color (text color) of the selected text
+ * within a rich text editor.
+ *
+ * <p>The ForeColorCommand extends {@link RichTextCommand} and provides a mechanism to change the
+ * text color of the selected text within a rich text editable div element. It integrates with
+ * {@link ForegroundColorPicker} to allow the user to select a color and then applies the chosen
+ * color to the selected text.
+ *
+ * <p><b>Usage Example:</b>
+ *
+ * <pre>{@code
+ * DivElement editableDiv = DivElement.create();
+ * ForeColorCommand foreColorCommand = ForeColorCommand.create(editableDiv);
+ * }</pre>
+ */
 public class ForeColorCommand extends RichTextCommand<ForeColorCommand> {
 
   private ColorPickerButton foregroundColorPicker;
 
+  /**
+   * Factory method to create a new instance of ForeColorCommand.
+   *
+   * @param editableElement The div element where the rich text is edited.
+   * @return A new instance of ForeColorCommand.
+   */
   public static ForeColorCommand create(DivElement editableElement) {
     return new ForeColorCommand(editableElement);
   }
 
+  /**
+   * Constructs a new ForeColorCommand instance for the specified editable element.
+   *
+   * @param editableElement The div element where the rich text is edited.
+   */
   public ForeColorCommand(DivElement editableElement) {
     super(editableElement);
     this.foregroundColorPicker =
@@ -41,11 +68,21 @@ public class ForeColorCommand extends RichTextCommand<ForeColorCommand> {
     init(this);
   }
 
+  /**
+   * @dominokit-site-ignore {@inheritDoc}
+   *     <p>Returns the main HTMLElement of this command, which is the foreground color picker
+   *     element.
+   * @return The HTMLElement of the foreground color picker.
+   */
   @Override
   public HTMLElement element() {
     return foregroundColorPicker.element();
   }
 
+  /**
+   * Executes the command, setting the foreground color (text color) for the currently selected text
+   * within the editable div element.
+   */
   @Override
   protected void execute() {
     getSelectedRange()

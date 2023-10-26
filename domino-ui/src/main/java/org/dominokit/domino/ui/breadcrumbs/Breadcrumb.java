@@ -27,7 +27,6 @@ import java.util.Set;
 import org.dominokit.domino.ui.elements.OListElement;
 import org.dominokit.domino.ui.icons.Icon;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
-import org.dominokit.domino.ui.utils.HasBackground;
 import org.dominokit.domino.ui.utils.HasChangeListeners;
 
 /**
@@ -35,6 +34,9 @@ import org.dominokit.domino.ui.utils.HasChangeListeners;
  *
  * <p>This component displays locations with the ability to navigate between them and highlighting
  * the current one, each location can have text and icon with a click listener.
+ *
+ * @see HasChangeListeners
+ * @see BaseDominoElement
  */
 public class Breadcrumb extends BaseDominoElement<HTMLOListElement, Breadcrumb>
     implements HasChangeListeners<Breadcrumb, BreadcrumbItem> {
@@ -46,9 +48,7 @@ public class Breadcrumb extends BaseDominoElement<HTMLOListElement, Breadcrumb>
 
   private boolean changeListenersPaused = false;
 
-  /**
-   * Creates an empty breadcrumb instance
-   */
+  /** Creates an empty breadcrumb instance */
   public Breadcrumb() {
     element = ol().addCss(dui_breadcrumb);
     init(this);
@@ -79,8 +79,8 @@ public class Breadcrumb extends BaseDominoElement<HTMLOListElement, Breadcrumb>
   }
 
   /**
-   * Creates a new {@link BreadcrumbItem} with the provided <b>icon</b>, <b>text</b>, and <b>click</b> listener
-   * and add it to the current breadcrumb instance
+   * Creates a new {@link BreadcrumbItem} with the provided <b>icon</b>, <b>text</b>, and
+   * <b>click</b> listener and add it to the current breadcrumb instance
    *
    * @param icon the {@link org.dominokit.domino.ui.icons.Icon} of the location
    * @param text the label of the location
@@ -98,7 +98,7 @@ public class Breadcrumb extends BaseDominoElement<HTMLOListElement, Breadcrumb>
   /**
    * Adds provided {@link BreadcrumbItem}s to the current Breadcrumb instance
    *
-   * @param items the {@link org.dominokit.domino.ui.breadcrumbs.BreadcrumbItem}s  to be added
+   * @param items the {@link org.dominokit.domino.ui.breadcrumbs.BreadcrumbItem}s to be added
    * @return same breadcrumb instance
    */
   public Breadcrumb appendChild(BreadcrumbItem... items) {
@@ -106,10 +106,11 @@ public class Breadcrumb extends BaseDominoElement<HTMLOListElement, Breadcrumb>
   }
 
   /**
-   * Adds the provided {@link org.dominokit.domino.ui.breadcrumbs.BreadcrumbItem}s then activate the last item
-   * and checks the silent flag to decide on calling the change listeners.
+   * Adds the provided {@link org.dominokit.domino.ui.breadcrumbs.BreadcrumbItem}s then activate the
+   * last item and checks the silent flag to decide on calling the change listeners.
    *
-   * @param silent boolean, if <b>true</b> to ignore the change listeners, otherwise change listeners will be triggered.
+   * @param silent boolean, if <b>true</b> to ignore the change listeners, otherwise change
+   *     listeners will be triggered.
    * @param items the {@link org.dominokit.domino.ui.breadcrumbs.BreadcrumbItem}s to be added
    * @return same breadcrumb instance
    */
@@ -122,7 +123,8 @@ public class Breadcrumb extends BaseDominoElement<HTMLOListElement, Breadcrumb>
   }
 
   /**
-   * Adds the provided {@link org.dominokit.domino.ui.breadcrumbs.BreadcrumbItem} to the current breadcrumb instance
+   * Adds the provided {@link org.dominokit.domino.ui.breadcrumbs.BreadcrumbItem} to the current
+   * breadcrumb instance
    *
    * @param item the {@link org.dominokit.domino.ui.breadcrumbs.BreadcrumbItem} to be added
    * @return same breadcrumb instance
@@ -181,7 +183,8 @@ public class Breadcrumb extends BaseDominoElement<HTMLOListElement, Breadcrumb>
   }
 
   /**
-   * Set the active breadcrumb item and ignore the change listeners if the <b>silent</b> flag is <b>true</b>.
+   * Set the active breadcrumb item and ignore the change listeners if the <b>silent</b> flag is
+   * <b>true</b>.
    *
    * @param item The item be set as active one
    * @param silent boolean, if true dont trigger change handlers
@@ -220,7 +223,7 @@ public class Breadcrumb extends BaseDominoElement<HTMLOListElement, Breadcrumb>
   /**
    * If true, then activating a breadcrumb item will remove the tailing ones.
    *
-   * <p>Default to <b>false</b></p>
+   * <p>Default to <b>false</b>
    *
    * <p>Example:
    *
@@ -236,7 +239,8 @@ public class Breadcrumb extends BaseDominoElement<HTMLOListElement, Breadcrumb>
    *       <strong>D</strong>
    * </ul>
    *
-   * @param removeTail <b>true</b> to enable remove tail on item activation, <b>false</b> to disable it.
+   * @param removeTail <b>true</b> to enable remove tail on item activation, <b>false</b> to disable
+   *     it.
    * @return same breadcrumb instance
    */
   public Breadcrumb setRemoveActiveTailItem(boolean removeTail) {
@@ -256,104 +260,76 @@ public class Breadcrumb extends BaseDominoElement<HTMLOListElement, Breadcrumb>
     return this;
   }
 
-  /** @hidden {@inheritDoc} */
+  /** @dominokit-site-ignore {@inheritDoc} */
   @Override
   public HTMLOListElement element() {
     return element.element();
   }
 
-  /**
-   *
-   * @return a current active {@link org.dominokit.domino.ui.breadcrumbs.BreadcrumbItem}
-   */
+  /** @return a current active {@link org.dominokit.domino.ui.breadcrumbs.BreadcrumbItem} */
   public BreadcrumbItem getActiveItem() {
     return activeItem;
   }
 
-  /**
-   * @return a List of all breadcrumb items currently available in the breadcrumb instance.
-   */
+  /** @return a List of all breadcrumb items currently available in the breadcrumb instance. */
   public List<BreadcrumbItem> getItems() {
     return items;
   }
 
-  /**
-   * Adds a listener that will be triggered when the active breadcrumb item is changed.
-   * @param changeListener {@link org.dominokit.domino.ui.utils.HasChangeListeners.ChangeListener}
-   * @return same breadcrumb instance
-   */
+  /** @dominokit-site-ignore {@inheritDoc} {@link HasChangeListeners} */
   @Override
   public Breadcrumb addChangeListener(ChangeListener<? super BreadcrumbItem> changeListener) {
     changeListeners.add(changeListener);
     return this;
   }
 
-  /**
-   * Removes an already registered change listener
-   * @param changeListener {@link org.dominokit.domino.ui.utils.HasChangeListeners.ChangeListener}
-   * @return same breadcrumb instance
-   */
+  /** @dominokit-site-ignore {@inheritDoc} {@link HasChangeListeners} */
   @Override
   public Breadcrumb removeChangeListener(ChangeListener<? super BreadcrumbItem> changeListener) {
     changeListeners.remove(changeListener);
     return this;
   }
 
-  /**
-   * Checks if the breadcrumb already has the provided change listener registered.
-   * @param changeListener {@link org.dominokit.domino.ui.utils.HasChangeListeners.ChangeListener}
-   * @return same breadcrumb instance
-   */
+  /** @dominokit-site-ignore {@inheritDoc} {@link HasChangeListeners} */
   @Override
   public boolean hasChangeListener(ChangeListener<? super BreadcrumbItem> changeListener) {
     return changeListeners.contains(changeListener);
   }
 
-  /**
-   * Once called change listeners will not be triggered when the active breadcrumb item is changed until <b>resumeChangeListeners</b>
-   * is called.
-   * @return same breadcrumb instance
-   */
+  /** @dominokit-site-ignore {@inheritDoc} {@link HasChangeListeners} */
   @Override
   public Breadcrumb pauseChangeListeners() {
     this.changeListenersPaused = true;
     return this;
   }
 
-  /**
-   * revert the effect of <b>pauseChangeListeners</b>
-   * @return same breadcrumb instance
-   */
+  /** @dominokit-site-ignore {@inheritDoc} {@link HasChangeListeners} */
   @Override
   public Breadcrumb resumeChangeListeners() {
     this.changeListenersPaused = false;
     return this;
   }
 
-  /**
-   * Pause ore resume change listeners based on the provided flag
-   * @param toggle boolean, <b>true</b> to pause the change listeners, <b>false</b> to resume the change listeners.
-   * @return same breadcrumb instance
-   */
+  /** @dominokit-site-ignore {@inheritDoc} {@link HasChangeListeners} */
   @Override
   public Breadcrumb togglePauseChangeListeners(boolean toggle) {
     this.changeListenersPaused = toggle;
     return this;
   }
 
-  /** {@inheritDoc} */
+  /** @dominokit-site-ignore {@inheritDoc} {@link HasChangeListeners} */
   @Override
   public Set<ChangeListener<? super BreadcrumbItem>> getChangeListeners() {
     return changeListeners;
   }
 
-  /** {@inheritDoc} */
+  /** @dominokit-site-ignore {@inheritDoc} {@link HasChangeListeners} */
   @Override
   public boolean isChangeListenersPaused() {
     return this.changeListenersPaused;
   }
 
-  /** {@inheritDoc} */
+  /** @dominokit-site-ignore {@inheritDoc} {@link HasChangeListeners} */
   @Override
   public Breadcrumb triggerChangeListeners(BreadcrumbItem oldValue, BreadcrumbItem newValue) {
     changeListeners.forEach(changeListener -> changeListener.onValueChanged(oldValue, newValue));

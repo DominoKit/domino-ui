@@ -17,22 +17,37 @@ package org.dominokit.domino.ui.elements;
 
 import elemental2.dom.HTMLScriptElement;
 
-/** ScriptElement class. */
+/**
+ * Represents an HTML <script> element wrapper.
+ *
+ * <p>The HTML <script> element is used to embed or reference an executable script within an HTML or
+ * XHTML document. This class provides a Java-based way to create, manipulate, and control the
+ * behavior of <script> elements in web applications. Example usage:
+ *
+ * <pre>
+ * HTMLScriptElement scriptElement = ...;  // Obtain a <script> element from somewhere
+ * ScriptElement script = ScriptElement.of(scriptElement);
+ * </pre>
+ *
+ * @see <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/script">MDN Web Docs
+ *     (script)</a>
+ */
 public class ScriptElement extends BaseElement<HTMLScriptElement, ScriptElement> {
+
   /**
-   * of.
+   * Creates a new {@link ScriptElement} instance by wrapping the provided HTML <script> element.
    *
-   * @param e a {@link elemental2.dom.HTMLScriptElement} object
-   * @return a {@link org.dominokit.domino.ui.elements.ScriptElement} object
+   * @param e The HTML <script> element to wrap.
+   * @return A new {@link ScriptElement} instance wrapping the provided element.
    */
   public static ScriptElement of(HTMLScriptElement e) {
     return new ScriptElement(e);
   }
 
   /**
-   * Constructor for ScriptElement.
+   * Constructs a {@link ScriptElement} instance by wrapping the provided HTML <script> element.
    *
-   * @param element a {@link elemental2.dom.HTMLScriptElement} object
+   * @param element The HTML <script> element to wrap.
    */
   public ScriptElement(HTMLScriptElement element) {
     super(element);

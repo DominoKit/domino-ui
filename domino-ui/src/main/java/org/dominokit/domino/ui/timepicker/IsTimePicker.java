@@ -21,75 +21,91 @@ import org.dominokit.domino.ui.i18n.HasLabels;
 import org.dominokit.domino.ui.i18n.TimePickerLabels;
 import org.gwtproject.i18n.shared.cldr.DateTimeFormatInfo;
 
-/** IsTimePicker interface. */
+/**
+ * Defines the behavior and properties of a time picker component. Implementations of this interface
+ * should provide the functionality to select and display time.
+ *
+ * <p><b>Example Usage:</b>
+ *
+ * <pre>
+ * IsTimePicker timePicker = ...; // Some implementation of IsTimePicker
+ * Date selectedDate = timePicker.getDate();
+ * String formattedTime = timePicker.formattedTime();
+ * </pre>
+ *
+ * @see TimePickerLabels
+ * @see HasLabels
+ * @see DateTimeFormatInfo
+ */
 public interface IsTimePicker extends HasLabels<TimePickerLabels> {
+
   /**
-   * getDate.
+   * Retrieves the selected date and time from the time picker.
    *
-   * @return a {@link java.util.Date} object
+   * @return the {@link Date} representing the selected time
    */
   Date getDate();
 
   /**
-   * getDateTimeFormatInfo.
+   * Retrieves the date and time format information used by the time picker.
    *
-   * @return a {@link org.gwtproject.i18n.shared.cldr.DateTimeFormatInfo} object
+   * @return the {@link DateTimeFormatInfo} used for formatting date and time
    */
   DateTimeFormatInfo getDateTimeFormatInfo();
 
   /**
-   * bindTimePickerViewListener.
+   * Binds a {@link TimePickerViewListener} to listen for time picker related events.
    *
-   * @param listener a {@link org.dominokit.domino.ui.timepicker.TimePickerViewListener} object
+   * @param listener the listener to be added
    */
   void bindTimePickerViewListener(TimePickerViewListener listener);
 
   /**
-   * unbindTimePickerViewListener.
+   * Unbinds a previously bound {@link TimePickerViewListener}.
    *
-   * @param listener a {@link org.dominokit.domino.ui.timepicker.TimePickerViewListener} object
+   * @param listener the listener to be removed
    */
   void unbindTimePickerViewListener(TimePickerViewListener listener);
 
   /**
-   * getTimeSelectionListeners.
+   * Retrieves all the time selection listeners currently bound to the time picker.
    *
-   * @return a {@link java.util.Set} object
+   * @return a set of {@link TimeSelectionListener} bound to the time picker
    */
   Set<TimeSelectionListener> getTimeSelectionListeners();
 
   /**
-   * getTimeStyle.
+   * Retrieves the time style of the time picker.
    *
-   * @return a {@link org.dominokit.domino.ui.timepicker.TimeStyle} object
+   * @return the {@link TimeStyle} of the time picker
    */
   TimeStyle getTimeStyle();
 
   /**
-   * isPm.
+   * Checks if the current time is in the PM.
    *
-   * @return a boolean
+   * @return {@code true} if the selected time is PM, otherwise {@code false}
    */
   boolean isPm();
 
   /**
-   * is24Hours.
+   * Checks if the time picker is in 24 hours format.
    *
-   * @return a boolean
+   * @return {@code true} if the time picker is in 24 hours format, otherwise {@code false}
    */
   boolean is24Hours();
 
   /**
-   * isShowSeconds.
+   * Checks if the time picker displays seconds.
    *
-   * @return a boolean
+   * @return {@code true} if the time picker shows seconds, otherwise {@code false}
    */
   boolean isShowSeconds();
 
   /**
-   * formattedTime.
+   * Retrieves the formatted time string based on the current selection and format settings.
    *
-   * @return a {@link java.lang.String} object
+   * @return a formatted time string
    */
   String formattedTime();
 }

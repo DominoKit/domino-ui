@@ -13,59 +13,76 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package org.dominokit.domino.ui.datatable.plugins.summary;
 
 import elemental2.dom.HTMLTableCellElement;
 import elemental2.dom.Node;
 
 /**
- * An implementation of this interface will determine in how a table cell content will be displayed
- * and rendered in the table
+ * The {@code SummaryCellRenderer} functional interface is used for rendering summary cells in a
+ * DataTable's summary row.
  *
- * @param <T> the type of the data table records
+ * @param <T> The type of data in the DataTable.
+ * @param <S> The type of data in the summary row.
  */
 @FunctionalInterface
 public interface SummaryCellRenderer<T, S> {
+
   /**
-   * Takes a cell info to determine what content to append to the cell element
+   * Renders a summary cell as a DOM Node based on the provided {@link SummaryCellInfo}.
    *
-   * @param summaryCellInfo {@link
-   *     org.dominokit.domino.ui.datatable.plugins.summary.SummaryCellRenderer.SummaryCellInfo}
-   * @return the {@link elemental2.dom.Node} to be appended to the table cell element
+   * @param summaryCellInfo The information about the summary cell to be rendered.
+   * @return The rendered summary cell as a DOM Node.
    */
   Node asElement(SummaryCellInfo<T, S> summaryCellInfo);
 
   /**
-   * A class containing all information required about a cell in a data table
+   * The {@code SummaryCellInfo} class encapsulates information about a summary cell in a
+   * DataTable's summary row.
    *
-   * @param <T> the type of the data table records
+   * @param <T> The type of data in the DataTable.
+   * @param <S> The type of data in the summary row.
    */
   class SummaryCellInfo<T, S> {
     private final SummaryRow<T, S> summaryRow;
     private final HTMLTableCellElement element;
 
     /**
-     * Creates an instance with the row that the belongs to and the cell html element
+     * Creates a new instance of {@code SummaryCellInfo} with the provided summary row and HTML
+     * table cell element.
      *
-     * @param summaryRow {@link SummaryRow}
-     * @param element {@link HTMLTableCellElement} the td element
+     * @param summaryRow The summary row containing the summary cell.
+     * @param element The HTML table cell element representing the summary cell.
      */
     public SummaryCellInfo(SummaryRow<T, S> summaryRow, HTMLTableCellElement element) {
       this.summaryRow = summaryRow;
       this.element = element;
     }
 
-    /** @return the {@link SummaryRow} the cell belongs to */
+    /**
+     * Gets the summary row containing the summary cell.
+     *
+     * @return The summary row.
+     */
     public SummaryRow<T, S> getSummaryRow() {
       return summaryRow;
     }
 
-    /** @return the {@link HTMLTableCellElement}, the td element */
+    /**
+     * Gets the HTML table cell element representing the summary cell.
+     *
+     * @return The HTML table cell element.
+     */
     public HTMLTableCellElement getElement() {
       return element;
     }
 
-    /** @return T the record instance being rendered on the row this belongs to. */
+    /**
+     * Gets the summary record associated with the summary cell.
+     *
+     * @return The summary record.
+     */
     public S getRecord() {
       return summaryRow.getRecord();
     }

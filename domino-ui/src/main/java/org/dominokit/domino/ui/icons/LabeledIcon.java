@@ -20,35 +20,31 @@ import static org.dominokit.domino.ui.icons.IconsStyles.*;
 import elemental2.dom.HTMLElement;
 import org.dominokit.domino.ui.elements.SpanElement;
 import org.dominokit.domino.ui.style.WavesElement;
-import org.dominokit.domino.ui.utils.BaseDominoElement;
 
 /**
- * Icon with a label
- *
- * <p>This component makes sure that the label and the icon fits together
- *
- * @see BaseDominoElement
+ * A component that combines an icon and a text label, allowing you to create labeled icons with
+ * different positions.
  */
 public class LabeledIcon extends WavesElement<HTMLElement, LabeledIcon> {
 
   private final SpanElement element;
 
   /**
-   * Constructor for LabeledIcon.
+   * Creates a labeled icon with the provided icon and text, positioned to the left.
    *
-   * @param icon a {@link org.dominokit.domino.ui.icons.Icon} object
-   * @param text a {@link java.lang.String} object
+   * @param icon The icon to display.
+   * @param text The text label to display.
    */
   public LabeledIcon(Icon<?> icon, String text) {
     this(icon, text, IconPosition.LEFT);
   }
 
   /**
-   * Constructor for LabeledIcon.
+   * Creates a labeled icon with the provided icon, text, and specified position.
    *
-   * @param icon a {@link org.dominokit.domino.ui.icons.Icon} object
-   * @param text a {@link java.lang.String} object
-   * @param position a {@link org.dominokit.domino.ui.icons.LabeledIcon.IconPosition} object
+   * @param icon The icon to display.
+   * @param text The text label to display.
+   * @param position The position of the icon relative to the text label.
    */
   public LabeledIcon(Icon<?> icon, String text, IconPosition position) {
     element =
@@ -61,44 +57,47 @@ public class LabeledIcon extends WavesElement<HTMLElement, LabeledIcon> {
   }
 
   /**
-   * Creates an icon with a label text
+   * Creates a new instance of a labeled icon with the provided icon and text, positioned to the
+   * left.
    *
-   * @param icon the {@link org.dominokit.domino.ui.icons.Icon}
-   * @param text the label of the icon
-   * @return new instance
+   * @param icon The icon to display.
+   * @param text The text label to display.
+   * @return A new instance of LabeledIcon.
    */
   public static LabeledIcon create(Icon<?> icon, String text) {
     return new LabeledIcon(icon, text);
   }
 
   /**
-   * Creates an icon with a label text with providing the position of the icon to either left or
-   * right
+   * Creates a new instance of a labeled icon with the provided icon, text, and specified position.
    *
-   * @param icon the {@link org.dominokit.domino.ui.icons.Icon}
-   * @param text the label of the icon
-   * @param position the {@link org.dominokit.domino.ui.icons.LabeledIcon.IconPosition}
-   * @return new instance
+   * @param icon The icon to display.
+   * @param text The text label to display.
+   * @param position The position of the icon relative to the text label.
+   * @return A new instance of LabeledIcon.
    */
   public static LabeledIcon create(Icon<?> icon, String text, IconPosition position) {
     return new LabeledIcon(icon, text, position);
   }
 
-  /** {@inheritDoc} */
+  /** @dominokit-site-ignore {@inheritDoc} */
   @Override
   public HTMLElement element() {
     return element.element();
   }
 
-  /** An enum representing the position of the icon related to the label */
+  /**
+   * Enumeration of icon positions, allowing you to specify whether the icon should be on the left
+   * or right of the text label.
+   */
   public enum IconPosition {
-    /** position the icon to the left */
+    /** The icon is positioned to the left of the text label. */
     LEFT(
         (labeledIcon) -> {
           labeledIcon.addCss(dui_reversed);
         }),
 
-    /** position the icon to the right */
+    /** The icon is positioned to the right of the text label. */
     RIGHT(
         (labeledIcon) -> {
           dui_reversed.remove(labeledIcon);
@@ -111,17 +110,23 @@ public class LabeledIcon extends WavesElement<HTMLElement, LabeledIcon> {
     }
 
     /**
-     * Position the elements
+     * Applies the specified position to the labeled icon.
      *
-     * @param labeledIcon the ${@link LabeledIcon} to apply the position on
+     * @param labeledIcon The labeled icon to apply the position to.
      */
     public void apply(LabeledIcon labeledIcon) {
       elementsPlacement.apply(labeledIcon);
     }
   }
 
+  /** A functional interface for specifying the placement of elements within the labeled icon. */
   @FunctionalInterface
   public interface ElementsPlacement {
+    /**
+     * Applies the placement of elements within the labeled icon.
+     *
+     * @param labeledIcon The labeled icon to apply the placement to.
+     */
     void apply(LabeledIcon labeledIcon);
   }
 }

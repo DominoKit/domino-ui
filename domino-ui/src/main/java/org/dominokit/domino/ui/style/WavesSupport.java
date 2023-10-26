@@ -21,7 +21,20 @@ import elemental2.dom.Element;
 import org.dominokit.domino.ui.utils.DominoElement;
 import org.dominokit.domino.ui.utils.HasWavesElement;
 
-/** A utility class for configuring waves for a specific element */
+/**
+ * Provides support for the Waves (ripple) effect on elements.
+ *
+ * <p>This class encapsulates the logic for adding, modifying, and removing the Waves effect from
+ * any given element.
+ *
+ * <p><b>Usage Example:</b>
+ *
+ * <pre>
+ * Element someElement = ...;
+ * WavesSupport wavesSupport = WavesSupport.addFor(someElement);
+ * wavesSupport.setWaveStyle(WaveStyle.RIPPLE);
+ * </pre>
+ */
 public class WavesSupport implements HasWaveEffect<WavesSupport> {
 
   private static final CssClass dui_waves_effect = () -> "dui-waves-effect";
@@ -29,36 +42,50 @@ public class WavesSupport implements HasWaveEffect<WavesSupport> {
   private final Waves wavesElement;
   private final SwapCssClass waveClass = SwapCssClass.of(WaveStyle.RIPPLE);
 
+  /**
+   * Private constructor for initializing WavesSupport with a {@link HasWavesElement}.
+   *
+   * @param targetElement target element that implements {@link HasWavesElement}.
+   */
   private WavesSupport(HasWavesElement targetElement) {
     this(targetElement.getWavesElement());
   }
 
+  /**
+   * Private constructor for initializing WavesSupport with a DOM {@link Element}.
+   *
+   * @param targetElement target DOM element.
+   */
   private WavesSupport(Element targetElement) {
     this.element = elements.elementOf(targetElement);
     wavesElement = Waves.create(this.element);
   }
 
   /**
-   * Adds waves support for a specific element
+   * Adds Waves effect for the provided {@link HasWavesElement} and initializes it.
    *
-   * @param element the {@link org.dominokit.domino.ui.utils.HasWavesElement}
-   * @return new instance
+   * @param element the target element that implements {@link HasWavesElement}.
+   * @return an instance of {@link WavesSupport}.
    */
   public static WavesSupport addFor(HasWavesElement element) {
     return new WavesSupport(element).initWaves();
   }
 
   /**
-   * Adds waves support for a specific element
+   * Adds Waves effect for the provided DOM {@link Element} and initializes it.
    *
-   * @param element the {@link elemental2.dom.HTMLElement}
-   * @return new instance
+   * @param element the target DOM element.
+   * @return an instance of {@link WavesSupport}.
    */
   public static WavesSupport addFor(Element element) {
     return new WavesSupport(element).initWaves();
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Initializes the Waves (ripple) effect on the element.
+   *
+   * @return the current instance of {@link WavesSupport} for chaining.
+   */
   @Override
   public WavesSupport initWaves() {
     if (!hasWavesEffect()) {
@@ -72,7 +99,12 @@ public class WavesSupport implements HasWaveEffect<WavesSupport> {
     return dui_waves_effect.isAppliedTo(element);
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Sets the style of the Waves (ripple) effect on the element.
+   *
+   * @param waveStyle the desired {@link WaveStyle}.
+   * @return the current instance of {@link WavesSupport} for chaining.
+   */
   @Override
   public WavesSupport setWaveStyle(WaveStyle waveStyle) {
     if (!hasWavesEffect()) {
@@ -82,7 +114,11 @@ public class WavesSupport implements HasWaveEffect<WavesSupport> {
     return this;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Removes the Waves (ripple) effect from the element.
+   *
+   * @return the current instance of {@link WavesSupport} for chaining.
+   */
   @Override
   public WavesSupport removeWaves() {
     dui_waves_effect.remove(element);
@@ -100,9 +136,9 @@ public class WavesSupport implements HasWaveEffect<WavesSupport> {
   }
 
   /**
-   * Getter for the field <code>element</code>.
+   * Gets the {@link DominoElement} associated with this WavesSupport.
    *
-   * @return a {@link org.dominokit.domino.ui.utils.DominoElement} object
+   * @return the {@link DominoElement} instance.
    */
   public DominoElement<Element> getElement() {
     return element;

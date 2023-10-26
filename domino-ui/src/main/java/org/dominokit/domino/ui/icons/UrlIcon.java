@@ -18,15 +18,30 @@ package org.dominokit.domino.ui.icons;
 import org.dominokit.domino.ui.style.CssClass;
 import org.dominokit.domino.ui.style.SwapCssClass;
 
-/** Url icon implementation */
+/**
+ * Represents an icon loaded from a URL. It can change its appearance by switching to another
+ * URL-based icon.
+ */
 public class UrlIcon extends Icon<UrlIcon> implements CanChangeIcon<UrlIcon> {
 
   private final String url;
 
+  /**
+   * Constructs a UrlIcon with the given URL and icon name.
+   *
+   * @param url The URL of the icon image.
+   * @param name The name of the icon.
+   */
   private UrlIcon(String url, String name) {
     this(url, () -> name);
   }
 
+  /**
+   * Constructs a UrlIcon with the given URL and icon name defined as a CssClass.
+   *
+   * @param url The URL of the icon image.
+   * @param name The name of the icon as a CssClass.
+   */
   private UrlIcon(String url, CssClass name) {
     this.url = url;
     this.name = SwapCssClass.of(name);
@@ -35,23 +50,33 @@ public class UrlIcon extends Icon<UrlIcon> implements CanChangeIcon<UrlIcon> {
   }
 
   /**
-   * Creates an icon with a specific {@code url} and a name
+   * Creates a new UrlIcon instance with the provided URL and icon name.
    *
-   * @param url the url of the icon to load from
-   * @param name the name of the icon
-   * @return new instance
+   * @param url The URL of the icon image.
+   * @param name The name of the icon.
+   * @return A new UrlIcon instance.
    */
   public static UrlIcon create(String url, String name) {
     return new UrlIcon(url, name);
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Creates a new UrlIcon instance with the same URL and icon name as this UrlIcon.
+   *
+   * @return A new UrlIcon instance.
+   */
   @Override
   public UrlIcon copy() {
     return new UrlIcon(url, name);
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Changes the icon to another UrlIcon by removing the current CSS class name and adding the CSS
+   * class name of the provided UrlIcon.
+   *
+   * @param icon The UrlIcon to change to.
+   * @return The same UrlIcon instance after changing the icon.
+   */
   @Override
   public UrlIcon changeTo(UrlIcon icon) {
     removeCss(getName());

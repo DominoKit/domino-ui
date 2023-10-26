@@ -13,6 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package org.dominokit.domino.ui.datatable.store;
 
 import static java.util.Objects.nonNull;
@@ -32,11 +33,10 @@ import org.dominokit.domino.ui.datatable.plugins.pagination.SortDirection;
 import org.dominokit.domino.ui.pagination.HasPagination;
 
 /**
- * An implementation of the {@link org.dominokit.domino.ui.datatable.store.DataStore} that wraps an
- * in-memory/local list of records allowing the data table to use features like pagination and
- * sorting
+ * The {@code LocalListDataStore} class represents a local data store for a DataTable, where data is
+ * loaded and managed within the client-side application.
  *
- * @param <T> the type of the data table records
+ * @param <T> The type of data representing the records in the data table.
  */
 public class LocalListDataStore<T> implements DataStore<T> {
 
@@ -81,16 +81,19 @@ public class LocalListDataStore<T> implements DataStore<T> {
         }
       };
 
-  /** Creates an instance initialized with empty list */
+  /**
+   * Constructs a new {@code LocalListDataStore} with an empty original data list and filtered data
+   * list.
+   */
   public LocalListDataStore() {
     this.original = new ArrayList<>();
     this.filtered = new ArrayList<>();
   }
 
   /**
-   * Creates an instance initialized with a custom list of data
+   * Constructs a new {@code LocalListDataStore} with the provided data as the original data list.
    *
-   * @param data {@link java.util.List} of records
+   * @param data The list of data records.
    */
   public LocalListDataStore(List<T> data) {
     this.original = data;
@@ -98,10 +101,10 @@ public class LocalListDataStore<T> implements DataStore<T> {
   }
 
   /**
-   * sets new data list overriding the existing one, and clears all filters, then loads it in the
-   * data table
+   * Sets the data for this data store. Clears the original and filtered data lists and loads the
+   * new data.
    *
-   * @param data the new {@link java.util.List} of records
+   * @param data The list of data records.
    */
   public void setData(List<T> data) {
     this.original.clear();
@@ -112,22 +115,19 @@ public class LocalListDataStore<T> implements DataStore<T> {
   }
 
   /**
-   * Getter for the field <code>searchFilter</code>.
+   * Gets the search filter used for filtering records.
    *
-   * @return a reference to the current applied {@link
-   *     org.dominokit.domino.ui.datatable.store.SearchFilter} if exists, otherwise return null
+   * @return The search filter.
    */
   public SearchFilter<T> getSearchFilter() {
     return searchFilter;
   }
 
   /**
-   * Sets a search filter, when ever the data store receives a {@link
-   * org.dominokit.domino.ui.datatable.events.SearchEvent} it will use this search filter to filter
-   * the data list
+   * Sets the search filter used for filtering records.
    *
-   * @param searchFilter {@link org.dominokit.domino.ui.datatable.store.SearchFilter}
-   * @return same instance
+   * @param searchFilter The search filter.
+   * @return This data store instance.
    */
   public LocalListDataStore<T> setSearchFilter(SearchFilter<T> searchFilter) {
     this.searchFilter = searchFilter;
@@ -135,11 +135,10 @@ public class LocalListDataStore<T> implements DataStore<T> {
   }
 
   /**
-   * Setter for the field <code>autoSort</code>.
+   * Sets whether auto-sorting is enabled for this data store.
    *
-   * @param autoSort if true the data store will automatically sort the data list before loading it
-   *     into the data table
-   * @return same instance
+   * @param autoSort {@code true} to enable auto-sorting, {@code false} otherwise.
+   * @return This data store instance.
    */
   public LocalListDataStore<T> setAutoSort(boolean autoSort) {
     this.autoSort = autoSort;
@@ -147,10 +146,10 @@ public class LocalListDataStore<T> implements DataStore<T> {
   }
 
   /**
-   * set the default column name to initially sort the data list by.
+   * Sets the column key for auto-sorting.
    *
-   * @param autoSortBy String, the name of initial sort column
-   * @return same instance
+   * @param autoSortBy The column key for auto-sorting.
+   * @return This data store instance.
    */
   public LocalListDataStore<T> setAutoSortBy(String autoSortBy) {
     this.autoSortBy = autoSortBy;
@@ -158,53 +157,51 @@ public class LocalListDataStore<T> implements DataStore<T> {
   }
 
   /**
-   * set the default sort direction to initially sort the data list by.
+   * Sets the sorting direction for auto-sorting.
    *
-   * @param autoSortDirection {@link
-   *     org.dominokit.domino.ui.datatable.plugins.pagination.SortDirection}
-   * @return same instance
+   * @param autoSortDirection The sorting direction for auto-sorting.
+   * @return This data store instance.
    */
   public LocalListDataStore<T> setAutoSortDirection(SortDirection autoSortDirection) {
     this.autoSortDirection = autoSortDirection;
     return this;
   }
 
-  /** @return the {@link HasPagination} component used in this data store */
   /**
-   * Getter for the field <code>pagination</code>.
+   * Gets the pagination component associated with this data store.
    *
-   * @return a {@link org.dominokit.domino.ui.pagination.HasPagination} object
+   * @return The pagination component.
    */
   public HasPagination getPagination() {
     return pagination;
   }
 
   /**
-   * set the pagination component to be used by the data store
+   * Sets the pagination component for this data store.
    *
-   * @param pagination {@link org.dominokit.domino.ui.pagination.HasPagination}
-   * @return same instance
+   * @param pagination The pagination component.
+   * @return This data store instance.
    */
   public LocalListDataStore<T> setPagination(HasPagination pagination) {
     this.pagination = pagination;
     return this;
   }
 
-  /** @return the {@link RecordsSorter} used in this data store */
   /**
-   * Getter for the field <code>recordsSorter</code>.
+   * Gets the records sorter used for sorting records.
    *
-   * @return a {@link org.dominokit.domino.ui.datatable.store.RecordsSorter} object
+   * @return The records sorter.
    */
   public RecordsSorter<T> getRecordsSorter() {
     return recordsSorter;
   }
 
   /**
-   * Sets the records sorting for this data store
+   * Sets the records sorter used for sorting records. Also sets the sorting function to the default
+   * list sorting.
    *
-   * @param recordsSorter {@link org.dominokit.domino.ui.datatable.store.RecordsSorter}
-   * @return same instance
+   * @param recordsSorter The records sorter.
+   * @return This data store instance.
    */
   public LocalListDataStore<T> setRecordsSorter(RecordsSorter<T> recordsSorter) {
     setRecordsSorter(recordsSorter, List::sort);
@@ -212,12 +209,11 @@ public class LocalListDataStore<T> implements DataStore<T> {
   }
 
   /**
-   * Setter for the field <code>recordsSorter</code>.
+   * Sets the records sorter used for sorting records along with a custom sorting function.
    *
-   * @param recordsSorter a {@link org.dominokit.domino.ui.datatable.store.RecordsSorter} object
-   * @param sortFunction a {@link
-   *     org.dominokit.domino.ui.datatable.store.LocalListDataStore.SortFunction} object
-   * @return a {@link org.dominokit.domino.ui.datatable.store.LocalListDataStore} object
+   * @param recordsSorter The records sorter.
+   * @param sortFunction The custom sorting function.
+   * @return This data store instance.
    */
   public LocalListDataStore<T> setRecordsSorter(
       RecordsSorter<T> recordsSorter, SortFunction<T> sortFunction) {
@@ -226,36 +222,52 @@ public class LocalListDataStore<T> implements DataStore<T> {
     return this;
   }
 
+  /**
+   * An interface for defining custom sorting logic for records.
+   *
+   * @param <T> The type of data representing the records in the data store.
+   */
   public interface SortFunction<T> {
+    /**
+     * Sorts a list of items using a custom comparator.
+     *
+     * @param items The list of items to be sorted.
+     * @param comparator The comparator used for sorting.
+     */
     void sort(List<T> items, Comparator<T> comparator);
   }
 
+  /** Updates the pagination based on the total number of original records. */
   private void updatePagination() {
     if (nonNull(getPagination()) && nonNull(original)) {
       this.getPagination().updatePagesByTotalCount(this.original.size());
     }
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Registers a data change listener to be notified when data changes.
+   *
+   * @param dataChangeListener The data change listener to register.
+   */
   @Override
   public void onDataChanged(StoreDataChangeListener<T> dataChangeListener) {
     listeners.add(dataChangeListener);
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Removes a registered data change listener.
+   *
+   * @param dataChangeListener The data change listener to remove.
+   */
   @Override
   public void removeDataChangeListener(StoreDataChangeListener<T> dataChangeListener) {
     listeners.remove(dataChangeListener);
   }
 
   /**
-   * {@inheritDoc} this store will listen to the following events
+   * Handles various table-related events such as search, sort, pagination, and record manipulation.
    *
-   * <pre>SearchEvent</pre>
-   *
-   * <pre>SortEvent</pre>
-   *
-   * <pre>TablePageChangeEvent</pre>
+   * @param event The table event to handle.
    */
   @Override
   public void handleEvent(TableEvent event) {
@@ -278,6 +290,11 @@ public class LocalListDataStore<T> implements DataStore<T> {
     }
   }
 
+  /**
+   * Handles the event when a record is dragged out of the data store.
+   *
+   * @param event The record dragged out event.
+   */
   private void handleDraggedOutEvent(RecordDraggedOutEvent<T> event) {
     T rowToRemove = event.getDraggedOutRecord();
 
@@ -286,6 +303,11 @@ public class LocalListDataStore<T> implements DataStore<T> {
     fireUpdate(true);
   }
 
+  /**
+   * Handles the event when a record is dropped onto another record.
+   *
+   * @param event The record dropped event.
+   */
   private void handleDropEvent(RecordDroppedEvent<T> event) {
     T movedRow = event.getDroppedRecord();
     T targetRow = event.getTargetRecord();
@@ -296,9 +318,9 @@ public class LocalListDataStore<T> implements DataStore<T> {
   }
 
   /**
-   * onSearchChanged.
+   * Handles the event when a search is performed.
    *
-   * @param event a {@link org.dominokit.domino.ui.datatable.events.SearchEvent} object
+   * @param event The search event.
    */
   public void onSearchChanged(SearchEvent event) {
     if (nonNull(getSearchFilter())) {
@@ -314,6 +336,11 @@ public class LocalListDataStore<T> implements DataStore<T> {
     }
   }
 
+  /**
+   * Handles the event when a sorting action is performed.
+   *
+   * @param event The sort event.
+   */
   private void onSortChanged(SortEvent<T> event) {
     if (nonNull(this.getRecordsSorter())) {
       setLastSort(event);
@@ -323,45 +350,45 @@ public class LocalListDataStore<T> implements DataStore<T> {
   }
 
   /**
-   * Setter for the field <code>lastSort</code>.
+   * Sets the last sorting event.
    *
-   * @param event a {@link org.dominokit.domino.ui.datatable.events.SortEvent} object
+   * @param event The last sort event.
    */
   protected void setLastSort(SortEvent<T> event) {
     this.lastSort = event;
   }
 
   /**
-   * Getter for the field <code>lastSort</code>.
+   * Gets the last sorting event.
    *
-   * @return a {@link org.dominokit.domino.ui.datatable.events.SortEvent} object
+   * @return The last sort event.
    */
   public SortEvent<T> getLastSort() {
     return lastSort;
   }
 
   /**
-   * Setter for the field <code>lastSearch</code>.
+   * Sets the last search event.
    *
-   * @param event a {@link org.dominokit.domino.ui.datatable.events.SearchEvent} object
+   * @param event The last search event.
    */
   protected void setLastSearch(SearchEvent event) {
     this.lastSearch = event;
   }
 
   /**
-   * Getter for the field <code>lastSearch</code>.
+   * Gets the last search event.
    *
-   * @return a {@link org.dominokit.domino.ui.datatable.events.SearchEvent} object
+   * @return The last search event.
    */
   public SearchEvent getLastSearch() {
     return this.lastSearch;
   }
 
   /**
-   * sort.
+   * Sorts the filtered records based on the given sorting event.
    *
-   * @param event a {@link org.dominokit.domino.ui.datatable.events.SortEvent} object
+   * @param event The sorting event containing sort information.
    */
   public void sort(SortEvent<T> event) {
     getSortFunction()
@@ -372,16 +399,18 @@ public class LocalListDataStore<T> implements DataStore<T> {
   }
 
   /**
-   * Getter for the field <code>sortFunction</code>.
+   * Gets the sort function used for sorting records.
    *
-   * @return a {@link org.dominokit.domino.ui.datatable.store.LocalListDataStore.SortFunction}
-   *     object
+   * @return The sort function.
    */
   public SortFunction<T> getSortFunction() {
     return this.sortFunction;
   }
 
-  /** loadFirstPage. */
+  /**
+   * Loads the first page of data if pagination is enabled and updates the data store. This method
+   * is typically called when search or sorting criteria change.
+   */
   protected void loadFirstPage() {
     if (nonNull(getPagination())) {
       getPagination().updatePagesByTotalCount(filtered.size());
@@ -389,11 +418,18 @@ public class LocalListDataStore<T> implements DataStore<T> {
     fireUpdate(true);
   }
 
+  /**
+   * Handles the event when the active page in pagination changes, triggering a data update. This
+   * method is called when pagination is enabled.
+   */
   private void onPageChanged() {
     fireUpdate(true);
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Initiates the data loading process. This method is typically called to initially load or reload
+   * the data. It triggers a data update.
+   */
   @Override
   public void load() {
     fireUpdate(true);
@@ -401,60 +437,66 @@ public class LocalListDataStore<T> implements DataStore<T> {
   }
 
   /**
-   * isAutoSort.
+   * Checks if auto-sorting is enabled.
    *
-   * @return a boolean
+   * @return {@code true} if auto-sort is enabled, {@code false} otherwise.
    */
   public boolean isAutoSort() {
     return autoSort;
   }
 
   /**
-   * Getter for the field <code>autoSortBy</code>.
+   * Gets the key used for auto-sorting.
    *
-   * @return a {@link java.lang.String} object
+   * @return The key used for auto-sorting.
    */
   public String getAutoSortBy() {
     return autoSortBy;
   }
 
   /**
-   * Getter for the field <code>autoSortDirection</code>.
+   * Gets the auto-sort direction.
    *
-   * @return a {@link org.dominokit.domino.ui.datatable.plugins.pagination.SortDirection} object
+   * @return The auto-sort direction (ascending or descending).
    */
   public SortDirection getAutoSortDirection() {
     return autoSortDirection;
   }
 
   /**
-   * isAutoSortApplied.
+   * Checks if auto-sort has been applied.
    *
-   * @return a boolean
+   * @return {@code true} if auto-sort has been applied, {@code false} otherwise.
    */
   public boolean isAutoSortApplied() {
     return autoSortApplied;
   }
 
   /**
-   * Setter for the field <code>sortFunction</code>.
+   * Sets a custom sort function to be used for sorting records.
    *
-   * @param sortFunction a {@link
-   *     org.dominokit.domino.ui.datatable.store.LocalListDataStore.SortFunction} object
+   * @param sortFunction The custom sort function.
    */
   public void setSortFunction(SortFunction<T> sortFunction) {
     this.sortFunction = sortFunction;
   }
 
   /**
-   * Setter for the field <code>autoSortApplied</code>.
+   * Sets whether auto-sort has been applied.
    *
-   * @param autoSortApplied a boolean
+   * @param autoSortApplied {@code true} if auto-sort has been applied, {@code false} otherwise.
    */
   protected void setAutoSortApplied(boolean autoSortApplied) {
     this.autoSortApplied = autoSortApplied;
   }
 
+  /**
+   * Fires a data update event to all registered data change listeners. Optionally, applies sorting
+   * to the updated data.
+   *
+   * @param applySort {@code true} to apply sorting to the updated data, {@code false} to skip
+   *     sorting.
+   */
   private void fireUpdate(boolean applySort) {
     List<T> updateRecords = getUpdateRecords();
     if (applySort) {
@@ -484,6 +526,12 @@ public class LocalListDataStore<T> implements DataStore<T> {
     }
   }
 
+  /**
+   * Retrieves the subset of records that need to be updated based on the current pagination
+   * settings. If pagination is disabled, it returns a copy of the entire filtered list.
+   *
+   * @return A list of records to be updated.
+   */
   private List<T> getUpdateRecords() {
     if (nonNull(getPagination())) {
       int fromIndex = getPagination().getPageSize() * (getPagination().activePage() - 1);
@@ -495,9 +543,9 @@ public class LocalListDataStore<T> implements DataStore<T> {
   }
 
   /**
-   * adds a single record to the current list and updates the data table accordingly
+   * Adds a single record to the data store, updating both the original and filtered lists.
    *
-   * @param record T the new record being added
+   * @param record The record to be added.
    */
   public void addRecord(T record) {
     original.add(record);
@@ -506,9 +554,9 @@ public class LocalListDataStore<T> implements DataStore<T> {
   }
 
   /**
-   * removes a single record from the current list and updates the data table accordingly
+   * Removes a single record from the data store, updating both the original and filtered lists.
    *
-   * @param record T the record being removed
+   * @param record The record to be removed.
    */
   public void removeRecord(T record) {
     if (original.contains(record)) {
@@ -519,29 +567,30 @@ public class LocalListDataStore<T> implements DataStore<T> {
   }
 
   /**
-   * updates existing record from the current list and updates the data table accordingly
+   * Updates a single record in the data store by replacing it with a new record, updating both the
+   * original and filtered lists.
    *
-   * @param record T the record being updated
+   * @param record The new record to replace the existing record.
    */
   public void updateRecord(T record) {
     updateRecord(original.indexOf(record), record);
   }
 
   /**
-   * updates a single record at a specific index in the current list and updates the data table
-   * accordingly
+   * Updates a single record in the data store at a specified index, updating both the original and
+   * filtered lists.
    *
-   * @param record T the record being updated
-   * @param index the index of the record to be updated
+   * @param index The index of the record to be updated.
+   * @param record The new record to replace the existing record.
    */
   public void updateRecord(int index, T record) {
     internalUpdate(index, record, true);
   }
 
   /**
-   * updates existing records from the current list and updates the data table accordingly
+   * Updates multiple records in the data store, updating both the original and filtered lists.
    *
-   * @param records records to be updated
+   * @param records A collection of new records to replace the existing records.
    */
   public void updateRecords(Collection<T> records) {
     for (T record : records) {
@@ -551,13 +600,11 @@ public class LocalListDataStore<T> implements DataStore<T> {
   }
 
   /**
-   * updates records from the current list starting from a specific index and updates the data table
-   * accordingly
+   * Updates multiple records in the data store starting from a specified index, updating both the
+   * original and filtered lists.
    *
-   * <p>While updating the records, if the index is out of range then the process will stop.
-   *
-   * @param records records to be updated
-   * @param startIndex a int
+   * @param startIndex The starting index for updating records.
+   * @param records A collection of new records to replace the existing records.
    */
   public void updateRecords(int startIndex, Collection<T> records) {
     for (T record : records) {
@@ -569,6 +616,14 @@ public class LocalListDataStore<T> implements DataStore<T> {
     load();
   }
 
+  /**
+   * Internal method to update a single record at a specified index, updating both the original and
+   * filtered lists.
+   *
+   * @param index The index of the record to be updated.
+   * @param record The new record to replace the existing record.
+   * @param load Specifies whether to trigger a data load after the update.
+   */
   private void internalUpdate(int index, T record, boolean load) {
     if (index >= 0 && index < original.size()) {
       T oldRecord = original.get(index);
@@ -583,9 +638,9 @@ public class LocalListDataStore<T> implements DataStore<T> {
   }
 
   /**
-   * adds a list of records to the current list and updates the data table accordingly
+   * Adds multiple records to the data store, updating both the original and filtered lists.
    *
-   * @param records {@link java.util.Collection} of records
+   * @param records A collection of records to be added.
    */
   public void addRecords(Collection<T> records) {
     original.addAll(records);
@@ -593,11 +648,12 @@ public class LocalListDataStore<T> implements DataStore<T> {
     setData(newData);
   }
 
-  /** @deprecated use {@link #removeRecords} */
   /**
-   * removeRecord.
+   * Deprecated method to remove multiple records from the data store, updating both the original
+   * and filtered lists.
    *
-   * @param records a {@link java.util.Collection} object
+   * @param records A collection of records to be removed.
+   * @deprecated Use {@link #removeRecords(Collection)} instead.
    */
   @Deprecated
   public void removeRecord(Collection<T> records) {
@@ -607,9 +663,9 @@ public class LocalListDataStore<T> implements DataStore<T> {
   }
 
   /**
-   * removes a list of records from the current list and updates the data table accordingly
+   * Removes multiple records from the data store, updating both the original and filtered lists.
    *
-   * @param records {@link java.util.Collection} of records
+   * @param records A collection of records to be removed.
    */
   public void removeRecords(Collection<T> records) {
     original.removeAll(records);
@@ -617,55 +673,53 @@ public class LocalListDataStore<T> implements DataStore<T> {
     load();
   }
 
-  /** @return an immutable list obtained from the data records from the data store */
   /**
-   * getRecords.
+   * Retrieves a copy of the original list of records stored in the data store.
    *
-   * @return a {@link java.util.List} object
+   * @return A list of original records.
    */
   public List<T> getRecords() {
     return new ArrayList<>(original);
   }
 
   /**
-   * getFilteredRecords.
+   * Retrieves a copy of the filtered list of records in the data store, which represents the
+   * current view based on search and pagination settings.
    *
-   * @return an immutable list obtained from the data records from the data store that match the
-   *     current applied filters
+   * @return A list of filtered records.
    */
   public List<T> getFilteredRecords() {
     return new ArrayList<>(filtered);
   }
 
-  /** @param dragDropRecordActions the {@link DragDropRecordActions} handler */
   /**
-   * Setter for the field <code>dragDropRecordActions</code>.
+   * Sets the actions for drag-and-drop operations on records within the data store.
    *
-   * @param dragDropRecordActions a {@link
-   *     org.dominokit.domino.ui.datatable.store.LocalListDataStore.DragDropRecordActions} object
+   * @param dragDropRecordActions The implementation of drag-and-drop actions for records.
    */
   public void setDragDropRecordActions(DragDropRecordActions<T> dragDropRecordActions) {
     this.dragDropRecordActions = dragDropRecordActions;
   }
 
   /**
-   * An interface that allows applying actions on a record such as moving and removing it
+   * An interface defining actions for handling drag-and-drop operations on records within the data
+   * store.
    *
-   * @param <T> the type of the data table records
+   * @param <T> The type of records in the data store.
    */
   public interface DragDropRecordActions<T> {
     /**
-     * On record gets dropped to a target
+     * Invoked when a record is dropped onto a target record within the data store.
      *
-     * @param droppedRecord the record to be moved
-     * @param target the target record to move to
+     * @param droppedRecord The record that was dropped.
+     * @param target The target record onto which the dropped record was placed.
      */
     void onDropped(T droppedRecord, T target);
 
     /**
-     * On record gets dragged out
+     * Invoked when a record is dragged out of the data store.
      *
-     * @param draggedOutRecord the record to remove
+     * @param draggedOutRecord The record that was dragged out.
      */
     void onDraggedOut(T draggedOutRecord);
   }

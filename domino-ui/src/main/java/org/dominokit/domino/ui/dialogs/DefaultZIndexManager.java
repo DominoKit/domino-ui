@@ -28,10 +28,20 @@ import org.dominokit.domino.ui.config.HasComponentConfig;
 import org.dominokit.domino.ui.config.ZIndexConfig;
 import org.dominokit.domino.ui.utils.IsPopup;
 
-/** DefaultZIndexManager class. */
+/**
+ * Default implementation of the {@link ZIndexManager} for managing z-index values of popups and
+ * modals. It provides utilities for handling stacking order to ensure the correct display of
+ * overlay components.
+ *
+ * <p><b>Usage:</b>
+ *
+ * <pre>
+ * DefaultZIndexManager.INSTANCE.onPopupOpen(somePopup);
+ * </pre>
+ */
 public class DefaultZIndexManager implements ZIndexManager, HasComponentConfig<ZIndexConfig> {
 
-  /** Constant <code>INSTANCE</code> */
+  /** A singleton instance of {@link DefaultZIndexManager}. */
   public static final ZIndexManager INSTANCE = new DefaultZIndexManager();
 
   private Integer currentZIndex;
@@ -39,7 +49,11 @@ public class DefaultZIndexManager implements ZIndexManager, HasComponentConfig<Z
 
   private final List<ZIndexListener> listeners = new ArrayList<>();
 
-  /** {@inheritDoc} */
+  /**
+   * Calculates and returns the next z-index value.
+   *
+   * @return the next z-index value
+   */
   @Override
   public Integer getNextZIndex() {
     if (isNull(currentZIndex)) {
@@ -49,7 +63,12 @@ public class DefaultZIndexManager implements ZIndexManager, HasComponentConfig<Z
     return currentZIndex;
   }
 
-  /** {@inheritDoc} Also attach the modal backdrop if not attached */
+  /**
+   * Handler for when a popup is opened. Adjusts z-index values and ensures modals are correctly
+   * stacked.
+   *
+   * @param popup the popup that was opened
+   */
   @Override
   public void onPopupOpen(IsPopup<?> popup) {
     if (popup.isModal()) {
@@ -67,7 +86,11 @@ public class DefaultZIndexManager implements ZIndexManager, HasComponentConfig<Z
         listener -> listener.onZIndexChange(new ZIndexListener.ZIndexInfo(popup, modals)));
   }
 
-  /** {@inheritDoc} Also remove the modal backdrop when modal remain open */
+  /**
+   * Handler for when a popup is closed. Adjusts z-index values and updates modal stacking.
+   *
+   * @param popup the popup that was closed
+   */
   @Override
   public void onPopupClose(IsPopup<?> popup) {
     if (popup.isModal()) {
@@ -86,13 +109,21 @@ public class DefaultZIndexManager implements ZIndexManager, HasComponentConfig<Z
     }
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Returns the top level modal if any.
+   *
+   * @return an {@link Optional} containing the top level modal, or empty if none exists
+   */
   @Override
   public Optional<IsPopup<?>> getTopLevelModal() {
     return Optional.ofNullable(modals.peek());
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Adds a listener to be notified of z-index changes.
+   *
+   * @param listener the {@link ZIndexListener} to add
+   */
   @Override
   public void addZIndexListener(ZIndexListener listener) {
     if (nonNull(listener)) {
@@ -100,7 +131,11 @@ public class DefaultZIndexManager implements ZIndexManager, HasComponentConfig<Z
     }
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Removes a z-index change listener.
+   *
+   * @param listener the {@link ZIndexListener} to remove
+   */
   @Override
   public void removeZIndexListener(ZIndexListener listener) {
     if (nonNull(listener)) {

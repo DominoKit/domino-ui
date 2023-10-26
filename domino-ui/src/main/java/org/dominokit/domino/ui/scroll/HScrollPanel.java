@@ -20,30 +20,46 @@ import org.dominokit.domino.ui.elements.DivElement;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
 
 /**
- * A component that wraps the {@link elemental2.dom.HTMLDivElement} to make it horizontally
- * scrollable by default
+ * Represents a horizontal scrollable panel component.
+ *
+ * <p>The {@code HScrollPanel} class provides a simple way to create a horizontal scrollable panel.
+ * It extends {@link BaseDominoElement} and encapsulates a root {@link DivElement} with CSS styles
+ * applied to enable horizontal scrolling.
+ *
+ * <p><b>Usage Example:</b>
+ *
+ * <pre>
+ * HScrollPanel hScrollPanel = HScrollPanel.create();
+ * // Add content to the horizontal scroll panel
+ * hScrollPanel.appendChild(someContentElement);
+ * </pre>
+ *
+ * @see BaseDominoElement
  */
 public class HScrollPanel extends BaseDominoElement<HTMLDivElement, HScrollPanel> {
 
   private DivElement root;
 
-  /** @return new HScrollPanel instance */
   /**
-   * create.
+   * Factory method to create a new instance of HScrollPanel.
    *
-   * @return a {@link org.dominokit.domino.ui.scroll.HScrollPanel} object
+   * @return A new instance of HScrollPanel.
    */
   public static HScrollPanel create() {
     return new HScrollPanel();
   }
 
-  /** Constructor for HScrollPanel. */
+  /** Constructs a new HScrollPanel instance. */
   public HScrollPanel() {
     root = div().addCss(dui_overflow_x_scroll);
     init(this);
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Returns the main HTMLElement of this horizontal scroll panel, which is the root div element.
+   *
+   * @return The HTMLElement of the root div element.
+   */
   @Override
   public HTMLDivElement element() {
     return root.element();

@@ -15,12 +15,15 @@
  */
 package org.dominokit.domino.ui.i18n;
 
-/** MenuLabels interface. */
+/**
+ * The {@code MenuLabels} interface provides labels and messages related to menu items and options.
+ */
 public interface MenuLabels extends Labels {
+
   /**
-   * getCreateMissingLabel.
+   * Gets the label for creating a missing item.
    *
-   * @return a {@link java.lang.String} object
+   * @return A {@code String} representing the label for creating a missing item.
    */
   default String getCreateMissingLabel() {
     return "Create ";

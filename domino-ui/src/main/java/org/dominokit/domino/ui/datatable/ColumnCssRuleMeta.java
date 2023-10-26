@@ -13,6 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package org.dominokit.domino.ui.datatable;
 
 import elemental2.dom.HTMLDivElement;
@@ -25,17 +26,28 @@ import org.dominokit.domino.ui.utils.ComponentMeta;
 import org.dominokit.domino.ui.utils.DominoCSSRule;
 import org.dominokit.domino.ui.utils.DynamicStyleSheet;
 
-/** ColumnCssRuleMeta class. */
+/**
+ * Represents the metadata of CSS rules associated with columns in a data table. This class provides
+ * a mechanism to manage and retrieve custom styles associated with individual columns in the data
+ * table. Each column can be identified using a key and can have its own CSS styling.
+ */
 public class ColumnCssRuleMeta<T> implements ComponentMeta {
 
-  /** Constant <code>COLUMN_CSS_RULE_META="column-css-rule-meta"</code> */
+  /** The meta key for the column CSS rule. */
   public static final String COLUMN_CSS_RULE_META = "column-css-rule-meta";
-  /** Constant <code>DEFAULT_RULE="COLUMN-DEFAULT-CSS-RULE"</code> */
+
+  /** The key for the default CSS rule. */
   public static final String DEFAULT_RULE = "COLUMN-DEFAULT-CSS-RULE";
 
   private final Map<String, DominoCSSRule> cssRules = new HashMap<>();
   private final DynamicStyleSheet<HTMLDivElement, DataTable<T>> dynamicStyleSheet;
 
+  /**
+   * Creates an instance of {@link ColumnCssRuleMeta} for the specified dynamic style sheet.
+   *
+   * @param dynamicStyleSheet The dynamic style sheet associated with the data table.
+   * @return The created {@link ColumnCssRuleMeta} instance.
+   */
   static <T> ColumnCssRuleMeta<T> of(
       DynamicStyleSheet<HTMLDivElement, DataTable<T>> dynamicStyleSheet) {
     return new ColumnCssRuleMeta<>(dynamicStyleSheet);
@@ -46,22 +58,21 @@ public class ColumnCssRuleMeta<T> implements ComponentMeta {
   }
 
   /**
-   * get.
+   * Retrieves the CSS rule meta associated with the given column.
    *
-   * @param column a {@link org.dominokit.domino.ui.datatable.ColumnConfig} object
-   * @param <T> a T class
-   * @return a {@link java.util.Optional} object
+   * @param column The column to get its CSS rule meta.
+   * @return The CSS rule meta associated with the column if present; otherwise Optional.empty().
    */
   public static <T> Optional<ColumnCssRuleMeta<T>> get(ColumnConfig<?> column) {
     return column.getMeta(COLUMN_CSS_RULE_META);
   }
 
   /**
-   * addRule.
+   * Adds a CSS rule to the column meta.
    *
-   * @param key a {@link java.lang.String} object
-   * @param cssClass a {@link java.lang.String} object
-   * @return a {@link org.dominokit.domino.ui.datatable.ColumnCssRuleMeta} object
+   * @param key The key associated with the CSS rule.
+   * @param cssClass The CSS class rule to be added.
+   * @return The current {@link ColumnCssRuleMeta} instance.
    */
   public ColumnCssRuleMeta<T> addRule(String key, String cssClass) {
     DominoCSSRule dominoCSSRule = dynamicStyleSheet.insertRule(cssClass);
@@ -70,10 +81,11 @@ public class ColumnCssRuleMeta<T> implements ComponentMeta {
   }
 
   /**
-   * getColumnCssRule.
+   * Retrieves the {@link ColumnCssRule} associated with the specified key.
    *
-   * @param key a {@link java.lang.String} object
-   * @return a {@link java.util.Optional} object
+   * @param key The key to retrieve its associated CSS rule.
+   * @return The {@link ColumnCssRule} associated with the key if present; otherwise
+   *     Optional.empty().
    */
   public Optional<ColumnCssRule> getColumnCssRule(String key) {
     if (cssRules.containsKey(key)) {
@@ -88,9 +100,9 @@ public class ColumnCssRuleMeta<T> implements ComponentMeta {
   }
 
   /**
-   * cssRules.
+   * Retrieves all the CSS rules associated with the columns in the data table.
    *
-   * @return a {@link java.util.Collection} object
+   * @return A collection of {@link ColumnCssRule} representing all the CSS rules.
    */
   public Collection<ColumnCssRule> cssRules() {
     return cssRules.keySet().stream()
@@ -100,7 +112,11 @@ public class ColumnCssRuleMeta<T> implements ComponentMeta {
         .collect(Collectors.toList());
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Returns the key associated with the column CSS rule meta.
+   *
+   * @return The key associated with the column CSS rule meta.
+   */
   @Override
   public String getKey() {
     return COLUMN_CSS_RULE_META;

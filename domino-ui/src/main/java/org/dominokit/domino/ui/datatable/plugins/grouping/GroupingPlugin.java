@@ -13,6 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package org.dominokit.domino.ui.datatable.plugins.grouping;
 
 import static java.util.Objects.nonNull;
@@ -34,9 +35,32 @@ import org.dominokit.domino.ui.icons.lib.Icons;
 import org.dominokit.domino.ui.utils.ComponentMeta;
 
 /**
- * This plugin renders the table rows in groups.
+ * The {@code GroupingPlugin} class provides the functionality to group data in a {@link DataTable}
+ * based on a grouping criteria. It allows expanding and collapsing groups of rows, making it easier
+ * to navigate and manage large datasets.
  *
- * @param <T> the type of the data table records
+ * <p><strong>Usage example:</strong>
+ *
+ * <pre>
+ * DataTable<Person> dataTable = ... // Create a DataTable instance
+ * GroupingPlugin<Person> groupingPlugin = new GroupingPlugin<>(new GroupSupplier<Person>() {
+ *     {@literal @}Override
+ *     public String getRecordGroupId(TableRow<Person> tableRow) {
+ *         return tableRow.getModel().getCountry(); // Grouping criteria based on the 'country' field
+ *     }
+ * }, new CellRenderer<Person>() {
+ *     {@literal @}Override
+ *     public void render(CellInfo<Person> cellInfo) {
+ *         // Custom rendering for the group header cell
+ *         cellInfo.getElement().textContent = "Group: " + cellInfo.getModel().getCountry();
+ *     }
+ * });
+ *
+ * // Initialize and add the grouping plugin to the DataTable
+ * dataTable.addPlugin(groupingPlugin);
+ * </pre>
+ *
+ * @param <T> The data type of the DataTable.
  */
 public class GroupingPlugin<T> implements DataTablePlugin<T>, TableConfig.RowAppender<T> {
 
@@ -47,29 +71,31 @@ public class GroupingPlugin<T> implements DataTablePlugin<T>, TableConfig.RowApp
       () -> ToggleMdiIcon.create(Icons.minus_box(), Icons.plus_box());
 
   /**
-   * Create an instance with custom group supplier and group cell renderer
+   * Creates a new {@code GroupingPlugin} instance with the given group supplier and group renderer.
    *
-   * @param groupSupplier the {@link
-   *     org.dominokit.domino.ui.datatable.plugins.grouping.GroupingPlugin.GroupSupplier}
-   * @param groupRenderer the {@link org.dominokit.domino.ui.datatable.CellRenderer}
+   * @param groupSupplier The supplier for grouping records.
+   * @param groupRenderer The cell renderer for rendering group headers.
    */
   public GroupingPlugin(GroupSupplier<T> groupSupplier, CellRenderer<T> groupRenderer) {
     this.groupSupplier = groupSupplier;
     this.groupRenderer = groupRenderer;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Initializes the grouping plugin and adds it to the DataTable.
+   *
+   * @param dataTable The DataTable instance to which this plugin will be added.
+   */
   @Override
   public void init(DataTable<T> dataTable) {
     dataTable.getTableConfig().setRowAppender(this);
   }
 
   /**
-   * Changes the group expand icon
+   * Sets the group expanded/collapse icon supplier for the group headers.
    *
-   * @param groupExpandedIconSupplier Supplier of {@link org.dominokit.domino.ui.icons.Icon} to
-   *     change the icon
-   * @return same plugin instance
+   * @param groupExpandedIconSupplier The supplier for the group expanded/collapse icon.
+   * @return This {@code GroupingPlugin} instance for method chaining.
    */
   public GroupingPlugin<T> setGroupExpandedCollapseIcon(
       Supplier<ToggleIcon<?, ?>> groupExpandedIconSupplier) {
@@ -78,10 +104,10 @@ public class GroupingPlugin<T> implements DataTablePlugin<T>, TableConfig.RowApp
   }
 
   /**
-   * {@inheritDoc}
+   * Appends a row to the DataTable. Handles grouping of rows based on the group criteria.
    *
-   * <p>the plugin will create a group based on the GroupSupplier and will append rows to the first
-   * group matching the criteria
+   * @param dataTable The DataTable instance.
+   * @param tableRow The TableRow to append.
    */
   @Override
   public void appendRow(DataTable<T> dataTable, TableRow<T> tableRow) {
@@ -122,7 +148,7 @@ public class GroupingPlugin<T> implements DataTablePlugin<T>, TableConfig.RowApp
     }
   }
 
-  /** Expands all the current groups in the data table */
+  /** Expands all groups in the DataTable. */
   public void expandAll() {
     for (DataGroup<T> dataGroup : dataGroups.values()) {
       if (!dataGroup.expanded) {
@@ -132,7 +158,7 @@ public class GroupingPlugin<T> implements DataTablePlugin<T>, TableConfig.RowApp
     }
   }
 
-  /** Collapse all the current groups in the data table */
+  /** Collapses all groups in the DataTable. */
   public void collapseAll() {
     for (DataGroup<T> dataGroup : dataGroups.values()) {
       if (dataGroup.expanded) {
@@ -143,15 +169,19 @@ public class GroupingPlugin<T> implements DataTablePlugin<T>, TableConfig.RowApp
   }
 
   /**
-   * Getter for the field <code>dataGroups</code>.
+   * Retrieves the data groups created by this plugin.
    *
-   * @return a {@link java.util.Map} object
+   * @return A map of data groups.
    */
   public Map<String, DataGroup<T>> getDataGroups() {
     return dataGroups;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Handles events triggered on the DataTable.
+   *
+   * @param event The TableEvent to handle.
+   */
   @Override
   public void handleEvent(TableEvent event) {
     if (event.getType().equalsIgnoreCase(OnBeforeDataChangeEvent.ON_BEFORE_DATA_CHANGE)) {
@@ -159,8 +189,13 @@ public class GroupingPlugin<T> implements DataTablePlugin<T>, TableConfig.RowApp
     }
   }
 
+  /**
+   * The {@code DataGroup} class represents a group of data rows in the DataTable. It is used for
+   * grouping and rendering data rows as a single group.
+   */
   public static class DataGroup<T> implements ComponentMeta {
 
+    /** The key for identifying {@code DataGroup} instances in TableRow metadata. */
     private static final String KEY = "dataGroup";
 
     private List<TableRow<T>> groupRows = new ArrayList<>();
@@ -170,50 +205,98 @@ public class GroupingPlugin<T> implements DataTablePlugin<T>, TableConfig.RowApp
     private ToggleIcon<?, ?> groupIconSupplier;
     private CellRenderer<T> groupRenderer;
 
+    /**
+     * Creates a new {@code DataGroup} instance with the given lastRow and cellInfo.
+     *
+     * @param lastRow The last TableRow in the group.
+     * @param cellInfo The CellInfo containing the group cell element.
+     */
     public DataGroup(TableRow<T> lastRow, CellRenderer.CellInfo<T> cellInfo) {
       this.lastRow = lastRow;
       this.cellInfo = cellInfo;
       addRow(lastRow);
     }
 
+    /**
+     * Retrieves a {@code DataGroup} associated with the given TableRow, if available.
+     *
+     * @param <T> The data type of the TableRow.
+     * @param tableRow The TableRow for which to retrieve the associated DataGroup.
+     * @return An Optional containing the associated DataGroup, or an empty Optional if not found.
+     */
     public static <T> Optional<DataGroup<T>> fromRow(TableRow<T> tableRow) {
       return tableRow.getMeta(KEY);
     }
 
+    /** Toggles the visibility of the group's rows (expanding/collapsing the group). */
     public void toggleGroup() {
       expanded = !expanded;
       groupRows.forEach(tableRow -> elements.elementOf(tableRow.element()).toggleDisplay(expanded));
     }
 
+    /**
+     * Adds a TableRow to the group and updates its styling.
+     *
+     * @param tableRow The TableRow to add to the group.
+     */
     public void addRow(TableRow<T> tableRow) {
       groupRows.add(tableRow);
       tableRow.addCss(isOdd(tableRow) ? dui_odd : dui_even);
       tableRow.applyMeta(this);
     }
 
+    /**
+     * Sets the group expanded/collapse icon supplier for the group headers.
+     *
+     * @param groupIconSupplier The supplier for the group expanded/collapse icon.
+     * @return This {@code DataGroup} instance for method chaining.
+     */
     private DataGroup<T> setGroupIconSupplier(ToggleIcon<?, ?> groupIconSupplier) {
       this.groupIconSupplier = groupIconSupplier;
       return this;
     }
 
+    /**
+     * Retrieves the group's expanded/collapse icon supplier.
+     *
+     * @return The group icon supplier.
+     */
     private ToggleIcon<?, ?> getGroupIconSupplier() {
       return this.groupIconSupplier;
     }
 
+    /**
+     * Sets the group renderer for rendering the group header cell.
+     *
+     * @param groupRenderer The group renderer.
+     * @return This {@code DataGroup} instance for method chaining.
+     */
     private DataGroup<T> setGroupRenderer(CellRenderer<T> groupRenderer) {
       this.groupRenderer = groupRenderer;
       return this;
     }
 
+    /**
+     * Retrieves the key for identifying {@code DataGroup} instances in TableRow metadata.
+     *
+     * @return The identifying key.
+     */
     @Override
     public String getKey() {
       return KEY;
     }
 
+    /**
+     * Checks if the TableRow is an odd row within the group.
+     *
+     * @param tableRow The TableRow to check.
+     * @return True if the TableRow is odd, false otherwise.
+     */
     private boolean isOdd(TableRow<T> tableRow) {
       return groupRows.indexOf(tableRow) % 2 > 0;
     }
 
+    /** Renders the group header cell with the provided group icon and group renderer. */
     public void render() {
       elements
           .elementOf(cellInfo.getElement())
@@ -232,17 +315,18 @@ public class GroupingPlugin<T> implements DataTablePlugin<T>, TableConfig.RowApp
   }
 
   /**
-   * this interface is to provide an implementation to define each row group
+   * A functional interface for supplying group criteria for DataTable rows.
    *
-   * @param <T> the type of the table row record
+   * @param <T> The type of data in the DataTable.
    */
   @FunctionalInterface
   public interface GroupSupplier<T> {
+
     /**
-     * determines the row group
+     * Gets the group criteria for a TableRow.
      *
-     * @param tableRow the {@link TableRow}
-     * @return String group name the table row belongs to
+     * @param tableRow The TableRow for which to determine the group criteria.
+     * @return The group criteria.
      */
     String getRecordGroupId(TableRow<T> tableRow);
   }

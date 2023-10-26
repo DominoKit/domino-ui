@@ -20,19 +20,36 @@ import static org.dominokit.domino.ui.style.SpacingCss.*;
 import org.dominokit.domino.ui.style.CssClass;
 import org.dominokit.domino.ui.style.HasCssClass;
 
-/** An enum representing the direction of the items inside the flex layout */
+/**
+ * The {@code FlexDirection} enum represents different flex direction behaviors.
+ *
+ * <p>It provides options for controlling the main axis direction of flex containers and flex items.
+ */
 public enum FlexDirection implements HasCssClass {
+  /** The main axis direction is left to right. */
   LEFT_TO_RIGHT(dui_flex_row),
+
+  /** The main axis direction is right to left. */
   RIGHT_TO_LEFT(dui_flex_row_reverse),
+
+  /** The main axis direction is top to bottom. */
   TOP_TO_BOTTOM(dui_flex_col),
+
+  /** The main axis direction is bottom to top. */
   BOTTOM_TO_TOP(dui_flex_col_reverse);
 
   private final CssClass style;
 
+  /**
+   * Constructs a new {@code FlexDirection} enum value with the associated CSS class.
+   *
+   * @param style The CSS class representing the flex direction behavior.
+   */
   FlexDirection(CssClass style) {
     this.style = style;
   }
 
+  /** {@inheritDoc} */
   @Override
   public CssClass getCssClass() {
     return style;

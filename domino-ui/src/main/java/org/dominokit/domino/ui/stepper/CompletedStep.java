@@ -21,9 +21,19 @@ import org.dominokit.domino.ui.icons.lib.Icons;
 import org.dominokit.domino.ui.style.ColorsCss;
 import org.dominokit.domino.ui.style.SpacingCss;
 
-/** CompletedStep class. */
+/**
+ * A concrete implementation of the {@link StepState} interface representing a completed step in a
+ * stepper component. Completed steps are typically used to indicate steps that have been
+ * successfully finished or validated.
+ */
 public class CompletedStep implements StepState {
-  /** {@inheritDoc} */
+
+  /**
+   * {@inheritDoc} This implementation applies visual styling and an icon to the provided {@link
+   * StepTracker} to indicate the completion of the step.
+   *
+   * @param tracker The {@link StepTracker} to which the completed step state is applied.
+   */
   @Override
   public void apply(StepTracker tracker) {
     tracker
@@ -35,7 +45,12 @@ public class CompletedStep implements StepState {
                     .addCss(dui_success));
   }
 
-  /** {@inheritDoc} */
+  /**
+   * {@inheritDoc} This implementation cleans up the visual styling and icon from the provided
+   * {@link StepTracker} when the step is no longer completed.
+   *
+   * @param tracker The {@link StepTracker} from which the completed step state is removed.
+   */
   @Override
   public void cleanUp(StepTracker tracker) {
     tracker
@@ -43,7 +58,12 @@ public class CompletedStep implements StepState {
         .withTrackerNode((parent1, node) -> node.clearElement().removeCss(dui_success));
   }
 
-  /** {@inheritDoc} */
+  /**
+   * {@inheritDoc} Returns the key associated with the completed step state, which is typically
+   * "COMPLETED."
+   *
+   * @return The key "COMPLETED."
+   */
   @Override
   public String getKey() {
     return "COMPLETED";

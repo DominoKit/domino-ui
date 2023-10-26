@@ -13,49 +13,57 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package org.dominokit.domino.ui.utils;
 
-/** HasMinMaxLength interface. */
+/**
+ * The {@code HasMinMaxLength} interface defines methods for managing minimum and maximum length
+ * constraints on a component's input or content.
+ *
+ * @param <T> The type of the component that can have minimum and maximum length constraints.
+ */
 public interface HasMinMaxLength<T> {
-  /** Constant <code>MAX_LENGTH="maxlength"</code> */
+
+  /** The name of the attribute for specifying maximum length. */
   String MAX_LENGTH = "maxlength";
-  /** Constant <code>MIN_LENGTH="minlength"</code> */
+
+  /** The name of the attribute for specifying minimum length. */
   String MIN_LENGTH = "minlength";
 
   /**
-   * getMaxLength.
+   * Gets the maximum length constraint for the component's input or content.
    *
-   * @return a int
+   * @return The maximum length constraint.
    */
   int getMaxLength();
 
   /**
-   * setMaxLength.
+   * Sets the maximum length constraint for the component's input or content.
    *
-   * @param maxLength a int
-   * @return a T object
+   * @param maxLength The maximum length constraint to set.
+   * @return The component with the maximum length constraint set.
    */
   T setMaxLength(int maxLength);
 
   /**
-   * getMinLength.
+   * Gets the minimum length constraint for the component's input or content.
    *
-   * @return a int
+   * @return The minimum length constraint.
    */
   int getMinLength();
 
   /**
-   * setMinLength.
+   * Sets the minimum length constraint for the component's input or content.
    *
-   * @param minLength a int
-   * @return a T object
+   * @param minLength The minimum length constraint to set.
+   * @return The component with the minimum length constraint set.
    */
   T setMinLength(int minLength);
 
   /**
-   * getLength.
+   * Gets the length of the component's input or content.
    *
-   * @return a int
+   * @return The length of the component's input or content.
    */
   int getLength();
 }

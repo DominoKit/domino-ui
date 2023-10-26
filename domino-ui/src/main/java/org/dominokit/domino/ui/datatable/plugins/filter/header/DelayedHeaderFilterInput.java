@@ -13,6 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package org.dominokit.domino.ui.datatable.plugins.filter.header;
 
 import static java.util.Objects.nonNull;
@@ -31,13 +32,13 @@ import org.dominokit.domino.ui.utils.DelayedTextInput;
 import org.dominokit.domino.ui.utils.HasPlaceHolder;
 
 /**
- * An abstract implementation of the {@link
- * org.dominokit.domino.ui.datatable.plugins.column.ColumnHeaderFilterPlugin.HeaderFilter} for text
- * input based filters that add a delay for triggering the search while the user is typing
+ * The DelayedHeaderFilterInput class provides a header filter input field with delayed search
+ * functionality. It allows users to input filter criteria and performs a delayed search based on
+ * the user's input.
  *
- * @param <B> the type of the component that extends from {@link
- *     org.dominokit.domino.ui.forms.InputFormField} and is wrapped in the implementation
- * @param <T> the type of the data table records
+ * @param <B> The type of the input field.
+ * @param <T> The type of data in the DataTable.
+ * @param <V> The type of filter value.
  */
 public abstract class DelayedHeaderFilterInput<
         B extends InputFormField<B, HTMLInputElement, V>, T, V>
@@ -45,19 +46,15 @@ public abstract class DelayedHeaderFilterInput<
   private B input;
   private DelayedTextInput delayedTextInput;
 
-  /**
-   * A constructor that initialized with a default placeholder
-   *
-   * <pre>Search</pre>
-   */
+  /** Creates a new instance of DelayedHeaderFilterInput with a default placeholder. */
   public DelayedHeaderFilterInput() {
     this("Search");
   }
 
   /**
-   * A constructor to specify a custom placeholder
+   * Creates a new instance of DelayedHeaderFilterInput with a specified placeholder.
    *
-   * @param placeHolder String
+   * @param placeHolder The placeholder text for the input field.
    */
   public DelayedHeaderFilterInput(String placeHolder) {
     input = createValueBox();
@@ -70,7 +67,12 @@ public abstract class DelayedHeaderFilterInput<
     delayedTextInput = DelayedTextInput.create(getInputElement(), 200);
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Initializes the header filter input and sets up the delayed search functionality.
+   *
+   * @param searchContext The search context for filtering data.
+   * @param columnConfig The column configuration for filtering.
+   */
   @Override
   public void init(SearchContext<T> searchContext, ColumnConfig<T> columnConfig) {
     searchContext.addBeforeSearchHandler(
@@ -93,57 +95,55 @@ public abstract class DelayedHeaderFilterInput<
         });
   }
 
-  /** @return the {@link HTMLInputElement} wrapped inside the ValueBox component */
   /**
-   * getInputElement.
+   * Gets the HTML input element used for filtering.
    *
-   * @return a {@link elemental2.dom.HTMLInputElement} object
+   * @return The HTML input element.
    */
   protected abstract HTMLInputElement getInputElement();
 
-  /** @return a new instance of the wrapped component type */
   /**
-   * createValueBox.
+   * Creates the input field for filtering.
    *
-   * @return a B object
+   * @return The created input field instance.
    */
   protected abstract B createValueBox();
 
-  /** @return boolean, true if the wrapped component is empty */
   /**
-   * isEmpty.
+   * Checks if the input field is empty.
    *
-   * @return a boolean
+   * @return {@code true} if the input field is empty, {@code false} otherwise.
    */
   protected abstract boolean isEmpty();
 
-  /** @return String value of the wrapped component */
   /**
-   * getValue.
+   * Gets the value from the input field as a string.
    *
-   * @return a {@link java.lang.String} object
+   * @return The value from the input field as a string.
    */
   protected abstract String getValue();
 
-  /** @return The type of the filter */
   /**
-   * getType.
+   * Gets the filter type for the input field.
    *
-   * @return a {@link org.dominokit.domino.ui.datatable.model.FilterTypes} object
+   * @return The filter type for the input field.
    */
   protected abstract FilterTypes getType();
 
-  /** @return the wrapped component instance */
   /**
-   * getField.
+   * Gets the input field instance.
    *
-   * @return a B object
+   * @return The input field instance.
    */
   public B getField() {
     return input;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * @dominokit-site-ignore {@inheritDoc}
+   *     <p>Gets the HTMLElement representing the input field.
+   * @return The HTMLElement representing the input field.
+   */
   @Override
   public HTMLElement element() {
     return input.element();

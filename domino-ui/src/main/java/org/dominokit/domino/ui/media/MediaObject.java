@@ -26,12 +26,19 @@ import org.dominokit.domino.ui.utils.ChildHandler;
 import org.dominokit.domino.ui.utils.LazyChild;
 
 /**
- * A component to display media such as images, video and audio
+ * Represents a media object commonly used for displaying media content with an optional header and
+ * descriptions.
  *
- * <p>Customize the component can be done by overwriting classes provided by {@link
- * org.dominokit.domino.ui.media.MediaStyles}
+ * <p>It allows configuration for left and right media objects alongside a central media body.
  *
- * @see BaseDominoElement
+ * <p><b>Usage:</b>
+ *
+ * <pre>
+ * MediaObject media = MediaObject.create()
+ *    .setHeader("Sample Header")
+ *    .setLeftMedia(someElement)
+ *    .setRightMedia(someOtherElement);
+ * </pre>
  */
 public class MediaObject extends BaseDominoElement<HTMLDivElement, MediaObject>
     implements MediaStyles {
@@ -43,7 +50,7 @@ public class MediaObject extends BaseDominoElement<HTMLDivElement, MediaObject>
   private final LazyChild<DivElement> mediaBody;
   private final LazyChild<HeadingElement> mediaHeader;
 
-  /** Constructor for MediaObject. */
+  /** Creates a new instance of {@link MediaObject}. */
   public MediaObject() {
     element = div().addCss(dui_media);
     leftMedia = LazyChild.of(div().addCss(dui_media_object, dui_media_left), element);
@@ -53,27 +60,30 @@ public class MediaObject extends BaseDominoElement<HTMLDivElement, MediaObject>
     init(this);
   }
 
-  /** @return new instance */
   /**
-   * create.
+   * Creates a new instance of {@link MediaObject}.
    *
-   * @return a {@link org.dominokit.domino.ui.media.MediaObject} object
+   * @return The newly created media object.
    */
   public static MediaObject create() {
     return new MediaObject();
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Retrieves the target element where new content can be appended.
+   *
+   * @return The HTML element of the media body.
+   */
   @Override
   public HTMLElement getAppendTarget() {
     return mediaBody.get().element();
   }
 
   /**
-   * Sets the header title of the media object
+   * Sets the header text for the media object.
    *
-   * @param header the header text
-   * @return same instance
+   * @param header The header text.
+   * @return The current media object instance.
    */
   public MediaObject setHeader(String header) {
     mediaHeader.get().setTextContent(header);
@@ -81,10 +91,10 @@ public class MediaObject extends BaseDominoElement<HTMLDivElement, MediaObject>
   }
 
   /**
-   * Sets the media node at the left of this component
+   * Sets the left media content using a node.
    *
-   * @param content A media {@link elemental2.dom.Node}
-   * @return same instance
+   * @param content The node to be set as left media content.
+   * @return The current media object instance.
    */
   public MediaObject setLeftMedia(Node content) {
     leftMedia.get().clearElement().appendChild(content);
@@ -92,21 +102,20 @@ public class MediaObject extends BaseDominoElement<HTMLDivElement, MediaObject>
   }
 
   /**
-   * Same as {@link org.dominokit.domino.ui.media.MediaObject#setLeftMedia(Node)} but uses {@link
-   * org.dominokit.domino.ui.IsElement} wrapper
+   * Sets the left media content using an {@link IsElement}.
    *
-   * @param element A media {@link org.dominokit.domino.ui.IsElement}
-   * @return same instance
+   * @param element The element to be set as left media content.
+   * @return The current media object instance.
    */
   public MediaObject setLeftMedia(IsElement<?> element) {
     return setLeftMedia(element.element());
   }
 
   /**
-   * Sets the media node at the right of this component
+   * Sets the right media content using a node.
    *
-   * @param content A media {@link elemental2.dom.Node}
-   * @return same instance
+   * @param content The node to be set as right media content.
+   * @return The current media object instance.
    */
   public MediaObject setRightMedia(Node content) {
     rightMedia.get().clearElement().appendChild(content);
@@ -114,61 +123,56 @@ public class MediaObject extends BaseDominoElement<HTMLDivElement, MediaObject>
   }
 
   /**
-   * Same as {@link org.dominokit.domino.ui.media.MediaObject#setRightMedia(Node)} but uses {@link
-   * org.dominokit.domino.ui.IsElement} wrapper
+   * Sets the right media content using an {@link IsElement}.
    *
-   * @param element A media {@link org.dominokit.domino.ui.IsElement}
-   * @return same instance
+   * @param element The element to be set as right media content.
+   * @return The current media object instance.
    */
   public MediaObject setRightMedia(IsElement<?> element) {
     return setRightMedia(element.element());
   }
 
-  /** @return The media element body */
   /**
-   * Getter for the field <code>mediaBody</code>.
+   * Retrieves the media body of the media object.
    *
-   * @return a {@link org.dominokit.domino.ui.elements.DivElement} object
+   * @return The div element of the media body.
    */
   public DivElement getMediaBody() {
     return mediaBody.get();
   }
 
-  /** @return The media header element */
   /**
-   * Getter for the field <code>mediaHeader</code>.
+   * Retrieves the header of the media object.
    *
-   * @return a {@link org.dominokit.domino.ui.elements.HeadingElement} object
+   * @return The heading element of the media header.
    */
   public HeadingElement getMediaHeader() {
     return mediaHeader.get();
   }
 
-  /** @return The left media element */
   /**
-   * Getter for the field <code>leftMedia</code>.
+   * Retrieves the left media content of the media object.
    *
-   * @return a {@link org.dominokit.domino.ui.elements.DivElement} object
+   * @return The div element of the left media content.
    */
   public DivElement getLeftMedia() {
     return leftMedia.get();
   }
 
-  /** @return The right media element */
   /**
-   * Getter for the field <code>rightMedia</code>.
+   * Retrieves the right media content of the media object.
    *
-   * @return a {@link org.dominokit.domino.ui.elements.DivElement} object
+   * @return The div element of the right media content.
    */
   public DivElement getRightMedia() {
     return rightMedia.get();
   }
 
   /**
-   * withHeader.
+   * Configures the media header using a handler.
    *
-   * @param handler a {@link org.dominokit.domino.ui.utils.ChildHandler} object
-   * @return a {@link org.dominokit.domino.ui.media.MediaObject} object
+   * @param handler A handler that accepts the current media object instance and its media header.
+   * @return The current media object instance.
    */
   public MediaObject withHeader(ChildHandler<MediaObject, HeadingElement> handler) {
     handler.apply(this, mediaHeader.get());
@@ -176,10 +180,10 @@ public class MediaObject extends BaseDominoElement<HTMLDivElement, MediaObject>
   }
 
   /**
-   * withMediaBody.
+   * Configures the media body using a handler.
    *
-   * @param handler a {@link org.dominokit.domino.ui.utils.ChildHandler} object
-   * @return a {@link org.dominokit.domino.ui.media.MediaObject} object
+   * @param handler A handler that accepts the current media object instance and its media body.
+   * @return The current media object instance.
    */
   public MediaObject withMediaBody(ChildHandler<MediaObject, DivElement> handler) {
     handler.apply(this, mediaBody.get());
@@ -187,10 +191,11 @@ public class MediaObject extends BaseDominoElement<HTMLDivElement, MediaObject>
   }
 
   /**
-   * withLeftMedia.
+   * Configures the left media content using a handler.
    *
-   * @param handler a {@link org.dominokit.domino.ui.utils.ChildHandler} object
-   * @return a {@link org.dominokit.domino.ui.media.MediaObject} object
+   * @param handler A handler that accepts the current media object instance and its left media
+   *     content.
+   * @return The current media object instance.
    */
   public MediaObject withLeftMedia(ChildHandler<MediaObject, DivElement> handler) {
     handler.apply(this, leftMedia.get());
@@ -198,17 +203,22 @@ public class MediaObject extends BaseDominoElement<HTMLDivElement, MediaObject>
   }
 
   /**
-   * withRightMedia.
+   * Configures the right media content using a handler.
    *
-   * @param handler a {@link org.dominokit.domino.ui.utils.ChildHandler} object
-   * @return a {@link org.dominokit.domino.ui.media.MediaObject} object
+   * @param handler A handler that accepts the current media object instance and its right media
+   *     content.
+   * @return The current media object instance.
    */
   public MediaObject withRightMedia(ChildHandler<MediaObject, DivElement> handler) {
     handler.apply(this, rightMedia.get());
     return this;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Retrieves the root element of the media object.
+   *
+   * @return The root {@link HTMLDivElement} of this media object.
+   */
   @Override
   public HTMLDivElement element() {
     return element.element();

@@ -25,28 +25,33 @@ import org.dominokit.domino.ui.elements.OptionElement;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
 import org.dominokit.domino.ui.utils.DominoId;
 
-/** HasInputDataList interface. */
+/**
+ * The {@code HasInputDataList} interface provides methods for working with data lists associated
+ * with input elements.
+ *
+ * @param <T> The concrete type implementing this interface.
+ */
 public interface HasInputDataList<T extends HasInputElement<?, ?>> {
 
   /**
-   * getDataListElement.
+   * Gets the data list element associated with the input.
    *
-   * @return a {@link org.dominokit.domino.ui.elements.DataListElement} object
+   * @return The {@link DataListElement}.
    */
   DataListElement getDataListElement();
 
   /**
-   * getDataListOptions.
+   * Gets a map of data list options.
    *
-   * @return a {@link java.util.Map} object
+   * @return A map of data list option values to {@link OptionElement} instances.
    */
   Map<String, OptionElement> getDataListOptions();
 
   /**
-   * bindDataList.
+   * Binds the data list to the component's input element.
    *
-   * @param component a T object
-   * @return a T object
+   * @param component The component to bind the data list to.
+   * @return The updated instance of the concrete type implementing this interface.
    */
   default T bindDataList(T component) {
     String listId = DominoId.unique();
@@ -57,10 +62,10 @@ public interface HasInputDataList<T extends HasInputElement<?, ?>> {
   }
 
   /**
-   * unbindDataList.
+   * Unbinds the data list from the component's input element.
    *
-   * @param component a T object
-   * @return a T object
+   * @param component The component to unbind the data list from.
+   * @return The updated instance of the concrete type implementing this interface.
    */
   default T unbindDataList(T component) {
     component.getInputElement().removeAttribute("list");
@@ -69,10 +74,10 @@ public interface HasInputDataList<T extends HasInputElement<?, ?>> {
   }
 
   /**
-   * setDataListEnabled.
+   * Enables or disables the data list for the component's input element.
    *
-   * @param state a boolean
-   * @return a T object
+   * @param state {@code true} to enable, {@code false} to disable.
+   * @return The updated instance of the concrete type implementing this interface.
    */
   default T setDataListEnabled(boolean state) {
     if (state) {
@@ -83,11 +88,10 @@ public interface HasInputDataList<T extends HasInputElement<?, ?>> {
   }
 
   /**
-   * Adds a String value as a suggested value {@link org.dominokit.domino.ui.elements.OptionElement}
-   * for this input
+   * Adds a data list option.
    *
-   * @param dataListOption a {@link java.lang.String} object
-   * @return same implementing component instance
+   * @param dataListOption The value of the data list option to add.
+   * @return The updated instance of the concrete type implementing this interface.
    */
   default T addDataListOption(String dataListOption) {
     OptionElement optionElement = elements.option().setAttribute("value", dataListOption);
@@ -97,11 +101,10 @@ public interface HasInputDataList<T extends HasInputElement<?, ?>> {
   }
 
   /**
-   * Adds a List of String values as a suggested values {@link elemental2.dom.HTMLOptionElement} for
-   * this input
+   * Sets the data list values from a list of strings.
    *
-   * @param dataListValues List of String
-   * @return same implementing component instance
+   * @param dataListValues The list of data list values to set.
+   * @return The updated instance of the concrete type implementing this interface.
    */
   default T setDataListValues(List<String> dataListValues) {
     clearDataListOptions();
@@ -110,11 +113,10 @@ public interface HasInputDataList<T extends HasInputElement<?, ?>> {
   }
 
   /**
-   * Removes a suggested value {@link org.dominokit.domino.ui.elements.OptionElement} from this
-   * input
+   * Removes a data list value.
    *
-   * @param dataListValue String
-   * @return same implementing component instance
+   * @param dataListValue The data list value to remove.
+   * @return The updated instance of the concrete type implementing this interface.
    */
   default T removeDataListValue(String dataListValue) {
     if (this.getDataListOptions().containsKey(dataListValue)) {
@@ -124,20 +126,19 @@ public interface HasInputDataList<T extends HasInputElement<?, ?>> {
     return (T) this;
   }
 
-  /** @return a List of all suggested values of this component */
   /**
-   * getDataListValues.
+   * Gets a collection of data list values.
    *
-   * @return a {@link java.util.Collection} object
+   * @return A collection of data list values.
    */
   default Collection<String> getDataListValues() {
     return getDataListOptions().keySet();
   }
 
   /**
-   * removes all suggested values
+   * Clears all data list options.
    *
-   * @return same implementing component
+   * @return The updated instance of the concrete type implementing this interface.
    */
   default T clearDataListOptions() {
     getDataListOptions().values().forEach(BaseDominoElement::remove);

@@ -32,7 +32,14 @@ import org.gwtproject.i18n.shared.DateTimeFormat;
 import org.gwtproject.i18n.shared.cldr.DateTimeFormatInfo;
 import org.gwtproject.i18n.shared.cldr.impl.DateTimeFormatInfo_factory;
 
-/** TimePicker class. */
+/**
+ * A time picker component that allows selecting and displaying time values.
+ *
+ * <p>The TimePicker can be configured to display time in either 12-hour or 24-hour format and
+ * optionally show seconds.
+ *
+ * @see BaseDominoElement
+ */
 public class TimePicker extends BaseDominoElement<HTMLDivElement, TimePicker>
     implements IsTimePicker, TimePickerStyles, HasChangeListeners<TimePicker, Date> {
 
@@ -50,34 +57,37 @@ public class TimePicker extends BaseDominoElement<HTMLDivElement, TimePicker>
   private TimeStyle timeStyle = TimeStyle._12;
   private boolean showSeconds;
 
-  /** Constructor for TimePicker. */
+  /**
+   * Constructs a new TimePicker instance with the current date and default date time format
+   * information.
+   */
   public TimePicker() {
     this(new Date(), DateTimeFormatInfo_factory.create());
   }
 
   /**
-   * Constructor for TimePicker.
+   * Constructs a new TimePicker instance with the specified date.
    *
-   * @param date a {@link java.util.Date} object
+   * @param date The initial date to be displayed in the time picker.
    */
   public TimePicker(Date date) {
     this(date, DateTimeFormatInfo_factory.create());
   }
 
   /**
-   * Constructor for TimePicker.
+   * Constructs a new TimePicker instance with the specified date time format information.
    *
-   * @param dateTimeFormatInfo a {@link org.gwtproject.i18n.shared.cldr.DateTimeFormatInfo} object
+   * @param dateTimeFormatInfo The DateTimeFormatInfo to be used for formatting time.
    */
   public TimePicker(DateTimeFormatInfo dateTimeFormatInfo) {
     this(new Date(), dateTimeFormatInfo);
   }
 
   /**
-   * Constructor for TimePicker.
+   * Constructs a new TimePicker instance with the specified date and date time format information.
    *
-   * @param date a {@link java.util.Date} object
-   * @param dateTimeFormatInfo a {@link org.gwtproject.i18n.shared.cldr.DateTimeFormatInfo} object
+   * @param date The initial date to be displayed in the time picker.
+   * @param dateTimeFormatInfo The DateTimeFormatInfo to be used for formatting time.
    */
   public TimePicker(Date date, DateTimeFormatInfo dateTimeFormatInfo) {
     this.date = date;
@@ -110,40 +120,41 @@ public class TimePicker extends BaseDominoElement<HTMLDivElement, TimePicker>
   }
 
   /**
-   * create.
+   * Creates a new TimePicker instance with the specified date.
    *
-   * @param date a {@link java.util.Date} object
-   * @return a {@link org.dominokit.domino.ui.timepicker.TimePicker} object
+   * @param date The initial date to be displayed in the time picker.
+   * @return A new TimePicker instance.
    */
   public static TimePicker create(Date date) {
     return new TimePicker(date, DateTimeFormatInfo_factory.create());
   }
 
   /**
-   * create.
+   * Creates a new TimePicker instance with the specified date time format information.
    *
-   * @param dateTimeFormatInfo a {@link org.gwtproject.i18n.shared.cldr.DateTimeFormatInfo} object
-   * @return a {@link org.dominokit.domino.ui.timepicker.TimePicker} object
+   * @param dateTimeFormatInfo The DateTimeFormatInfo to be used for formatting time.
+   * @return A new TimePicker instance.
    */
   public static TimePicker create(DateTimeFormatInfo dateTimeFormatInfo) {
     return new TimePicker(new Date(), dateTimeFormatInfo);
   }
 
   /**
-   * create.
+   * Creates a new TimePicker instance with the specified date and date time format information.
    *
-   * @param date a {@link java.util.Date} object
-   * @param dateTimeFormatInfo a {@link org.gwtproject.i18n.shared.cldr.DateTimeFormatInfo} object
-   * @return a {@link org.dominokit.domino.ui.timepicker.TimePicker} object
+   * @param date The initial date to be displayed in the time picker.
+   * @param dateTimeFormatInfo The DateTimeFormatInfo to be used for formatting time.
+   * @return A new TimePicker instance.
    */
   public static TimePicker create(Date date, DateTimeFormatInfo dateTimeFormatInfo) {
     return new TimePicker(date, dateTimeFormatInfo);
   }
 
   /**
-   * create.
+   * Creates a new TimePicker instance with the current date and default date time format
+   * information.
    *
-   * @return a {@link org.dominokit.domino.ui.timepicker.TimePicker} object
+   * @return A new TimePicker instance.
    */
   public static TimePicker create() {
     return new TimePicker();
@@ -153,23 +164,31 @@ public class TimePicker extends BaseDominoElement<HTMLDivElement, TimePicker>
     new ArrayList<>(viewListeners).forEach(listener -> listener.onUpdatePickerView(updatedDate));
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Gets the HTMLDivElement element representing the TimePicker.
+   *
+   * @return The root HTMLDivElement element.
+   */
   @Override
   public HTMLDivElement element() {
     return root.element();
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Gets the selected date and time.
+   *
+   * @return The selected date and time.
+   */
   @Override
   public Date getDate() {
     return this.date;
   }
 
   /**
-   * Setter for the field <code>date</code>.
+   * Sets the selected date and time.
    *
-   * @param date a {@link java.util.Date} object
-   * @return a {@link org.dominokit.domino.ui.timepicker.TimePicker} object
+   * @param date The date and time to set.
+   * @return This TimePicker instance.
    */
   public TimePicker setDate(Date date) {
     this.date = date;
@@ -177,17 +196,21 @@ public class TimePicker extends BaseDominoElement<HTMLDivElement, TimePicker>
     return this;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Gets the DateTimeFormatInfo used for formatting time.
+   *
+   * @return The DateTimeFormatInfo.
+   */
   @Override
   public DateTimeFormatInfo getDateTimeFormatInfo() {
     return this.dateTimeFormatInfo;
   }
 
   /**
-   * Setter for the field <code>dateTimeFormatInfo</code>.
+   * Sets the DateTimeFormatInfo used for formatting time.
    *
-   * @param dateTimeFormatInfo a {@link org.gwtproject.i18n.shared.cldr.DateTimeFormatInfo} object
-   * @return a {@link org.dominokit.domino.ui.timepicker.TimePicker} object
+   * @param dateTimeFormatInfo The DateTimeFormatInfo to set.
+   * @return This TimePicker instance.
    */
   public TimePicker setDateTimeFormatInfo(DateTimeFormatInfo dateTimeFormatInfo) {
     this.dateTimeFormatInfo = dateTimeFormatInfo;
@@ -195,7 +218,11 @@ public class TimePicker extends BaseDominoElement<HTMLDivElement, TimePicker>
     return this;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Binds a TimePickerViewListener to this TimePicker instance.
+   *
+   * @param listener The TimePickerViewListener to bind.
+   */
   @Override
   public void bindTimePickerViewListener(TimePickerViewListener listener) {
     if (nonNull(listener)) {
@@ -203,7 +230,11 @@ public class TimePicker extends BaseDominoElement<HTMLDivElement, TimePicker>
     }
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Unbinds a TimePickerViewListener from this TimePicker instance.
+   *
+   * @param listener The TimePickerViewListener to unbind.
+   */
   @Override
   public void unbindTimePickerViewListener(TimePickerViewListener listener) {
     if (nonNull(listener)) {
@@ -211,17 +242,21 @@ public class TimePicker extends BaseDominoElement<HTMLDivElement, TimePicker>
     }
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Gets a set of TimeSelectionListeners.
+   *
+   * @return A set of TimeSelectionListeners.
+   */
   @Override
   public Set<TimeSelectionListener> getTimeSelectionListeners() {
     return timeSelectionListeners;
   }
 
   /**
-   * addTimeSelectionListener.
+   * Adds a TimeSelectionListener to this TimePicker instance.
    *
-   * @param listener a {@link org.dominokit.domino.ui.timepicker.TimeSelectionListener} object
-   * @return a {@link org.dominokit.domino.ui.timepicker.TimePicker} object
+   * @param listener The TimeSelectionListener to add.
+   * @return This TimePicker instance.
    */
   public TimePicker addTimeSelectionListener(TimeSelectionListener listener) {
     if (nonNull(listener)) {
@@ -231,10 +266,10 @@ public class TimePicker extends BaseDominoElement<HTMLDivElement, TimePicker>
   }
 
   /**
-   * removeTimeSelectionListener.
+   * Removes a TimeSelectionListener from this TimePicker instance.
    *
-   * @param listener a {@link org.dominokit.domino.ui.timepicker.TimeSelectionListener} object
-   * @return a {@link org.dominokit.domino.ui.timepicker.TimePicker} object
+   * @param listener The TimeSelectionListener to remove.
+   * @return This TimePicker instance.
    */
   public TimePicker removeTimeSelectionListener(TimeSelectionListener listener) {
     if (nonNull(listener)) {
@@ -243,40 +278,67 @@ public class TimePicker extends BaseDominoElement<HTMLDivElement, TimePicker>
     return this;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Pauses change listeners to prevent triggering change events.
+   *
+   * @return This TimePicker instance.
+   */
   @Override
   public TimePicker pauseChangeListeners() {
     this.changeListenersPaused = true;
     return this;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Resumes change listeners to allow triggering change events.
+   *
+   * @return This TimePicker instance.
+   */
   @Override
   public TimePicker resumeChangeListeners() {
     this.changeListenersPaused = false;
     return this;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Toggles the state of change listeners.
+   *
+   * @param toggle True to pause change listeners, false to resume.
+   * @return This TimePicker instance.
+   */
   @Override
   public TimePicker togglePauseChangeListeners(boolean toggle) {
     this.changeListenersPaused = toggle;
     return this;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Gets a set of ChangeListeners for monitoring value changes.
+   *
+   * @return A set of ChangeListeners.
+   */
   @Override
   public Set<ChangeListener<? super Date>> getChangeListeners() {
     return changeListeners;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Checks if change listeners are currently paused.
+   *
+   * @return True if change listeners are paused, false otherwise.
+   */
   @Override
   public boolean isChangeListenersPaused() {
     return this.changeListenersPaused;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Triggers change listeners when the selected date and time value changes.
+   *
+   * @param oldValue The old date and time value.
+   * @param newValue The new date and time value.
+   * @return This TimePicker instance.
+   */
   @Override
   public TimePicker triggerChangeListeners(Date oldValue, Date newValue) {
     if (!this.changeListenersPaused) {
@@ -286,17 +348,21 @@ public class TimePicker extends BaseDominoElement<HTMLDivElement, TimePicker>
     return this;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Gets the time style used for displaying time (12-hour or 24-hour format).
+   *
+   * @return The time style.
+   */
   @Override
   public TimeStyle getTimeStyle() {
     return timeStyle;
   }
 
   /**
-   * Setter for the field <code>timeStyle</code>.
+   * Sets the time style used for displaying time (12-hour or 24-hour format).
    *
-   * @param timeStyle a {@link org.dominokit.domino.ui.timepicker.TimeStyle} object
-   * @return a {@link org.dominokit.domino.ui.timepicker.TimePicker} object
+   * @param timeStyle The time style to set.
+   * @return This TimePicker instance.
    */
   public TimePicker setTimeStyle(TimeStyle timeStyle) {
     this.timeStyle = timeStyle;
@@ -304,32 +370,40 @@ public class TimePicker extends BaseDominoElement<HTMLDivElement, TimePicker>
     return this;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Checks if the selected time is in PM.
+   *
+   * @return True if the selected time is in PM, false if it's in AM.
+   */
   @Override
   public boolean isPm() {
     return !is24Hours() && this.date.getHours() > 11;
   }
 
   /**
-   * is24Hours.
+   * Checks if the time style is set to 24-hour format.
    *
-   * @return a boolean
+   * @return True if the time style is set to 24-hour format, false for 12-hour format.
    */
   public boolean is24Hours() {
     return TimeStyle._24 == this.timeStyle;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Checks if seconds are displayed in the time picker.
+   *
+   * @return True if seconds are displayed, false otherwise.
+   */
   @Override
   public boolean isShowSeconds() {
     return this.showSeconds;
   }
 
   /**
-   * Setter for the field <code>showSeconds</code>.
+   * Sets whether to display seconds in the time picker.
    *
-   * @param showSeconds a boolean
-   * @return a {@link org.dominokit.domino.ui.timepicker.TimePicker} object
+   * @param showSeconds True to display seconds, false otherwise.
+   * @return This TimePicker instance.
    */
   public TimePicker setShowSeconds(boolean showSeconds) {
     this.showSeconds = showSeconds;
@@ -337,7 +411,11 @@ public class TimePicker extends BaseDominoElement<HTMLDivElement, TimePicker>
     return this;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Formats the selected time according to the current settings.
+   *
+   * @return The formatted time as a string.
+   */
   @Override
   public String formattedTime() {
     if (is24Hours()) {
@@ -360,9 +438,9 @@ public class TimePicker extends BaseDominoElement<HTMLDivElement, TimePicker>
   }
 
   /**
-   * withHeader.
+   * Retrieves the header element of the TimePicker.
    *
-   * @return a {@link org.dominokit.domino.ui.timepicker.TimePicker} object
+   * @return The header element.
    */
   public TimePicker withHeader() {
     header.get();
@@ -370,10 +448,10 @@ public class TimePicker extends BaseDominoElement<HTMLDivElement, TimePicker>
   }
 
   /**
-   * withHeader.
+   * Configures the header element of the TimePicker using a ChildHandler.
    *
-   * @param handler a {@link org.dominokit.domino.ui.utils.ChildHandler} object
-   * @return a {@link org.dominokit.domino.ui.timepicker.TimePicker} object
+   * @param handler The ChildHandler to configure the header element.
+   * @return This TimePicker instance.
    */
   public TimePicker withHeader(ChildHandler<TimePicker, TimePickerHeader> handler) {
     handler.apply(this, header.get());
@@ -381,9 +459,9 @@ public class TimePicker extends BaseDominoElement<HTMLDivElement, TimePicker>
   }
 
   /**
-   * withFooter.
+   * Retrieves the footer element of the TimePicker.
    *
-   * @return a {@link org.dominokit.domino.ui.timepicker.TimePicker} object
+   * @return The footer element.
    */
   public TimePicker withFooter() {
     footer.get();
@@ -391,10 +469,10 @@ public class TimePicker extends BaseDominoElement<HTMLDivElement, TimePicker>
   }
 
   /**
-   * withFooter.
+   * Configures the footer element of the TimePicker using a ChildHandler.
    *
-   * @param handler a {@link org.dominokit.domino.ui.utils.ChildHandler} object
-   * @return a {@link org.dominokit.domino.ui.timepicker.TimePicker} object
+   * @param handler The ChildHandler to configure the footer element.
+   * @return This TimePicker instance.
    */
   public TimePicker withFooter(ChildHandler<TimePicker, DivElement> handler) {
     handler.apply(this, footer.get());
@@ -402,10 +480,10 @@ public class TimePicker extends BaseDominoElement<HTMLDivElement, TimePicker>
   }
 
   /**
-   * withBody.
+   * Configures the body of the TimePicker using a ChildHandler.
    *
-   * @param handler a {@link org.dominokit.domino.ui.utils.ChildHandler} object
-   * @return a {@link org.dominokit.domino.ui.timepicker.TimePicker} object
+   * @param handler The ChildHandler to configure the body.
+   * @return This TimePicker instance.
    */
   public TimePicker withBody(ChildHandler<TimePicker, DivElement> handler) {
     handler.apply(this, body);
@@ -413,10 +491,10 @@ public class TimePicker extends BaseDominoElement<HTMLDivElement, TimePicker>
   }
 
   /**
-   * withSelectors.
+   * Configures the selectors of the TimePicker using a ChildHandler.
    *
-   * @param handler a {@link org.dominokit.domino.ui.utils.ChildHandler} object
-   * @return a {@link org.dominokit.domino.ui.timepicker.TimePicker} object
+   * @param handler The ChildHandler to configure the selectors.
+   * @return This TimePicker instance.
    */
   public TimePicker withSelectors(ChildHandler<TimePicker, TimePickerSelectors> handler) {
     handler.apply(this, selectors);

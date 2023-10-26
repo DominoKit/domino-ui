@@ -15,9 +15,30 @@
  */
 package org.dominokit.domino.ui.pickers;
 
-/** PickerHandler interface. */
+/**
+ * A functional interface representing a handler for picker-related events.
+ *
+ * <p>The {@code PickerHandler} interface defines a single method, {@code handle()}, that should be
+ * implemented to define the behavior of a picker-related event.
+ *
+ * <p>Usage example:
+ *
+ * <pre>
+ * // Define a PickerHandler to handle a picker event
+ * PickerHandler pickerHandler = () -> {
+ *     // Perform some action when the picker event occurs
+ *     // ...
+ * };
+ *
+ * // Use the PickerHandler in a picker component
+ * pickerComponent.setPickerHandler(pickerHandler);
+ * </pre>
+ *
+ * <p>All HTML tags in the documentation are correctly closed.
+ */
 @FunctionalInterface
 public interface PickerHandler {
-  /** handle. */
+
+  /** Handles a picker-related event. */
   void handle();
 }

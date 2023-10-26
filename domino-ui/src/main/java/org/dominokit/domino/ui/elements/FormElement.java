@@ -17,22 +17,38 @@ package org.dominokit.domino.ui.elements;
 
 import elemental2.dom.HTMLFormElement;
 
-/** FormElement class. */
+/**
+ * Represents a <form> HTML element wrapper.
+ *
+ * <p>The <form> tag is used to create an HTML form for user input. Forms are commonly used for
+ * collecting user input, such as login forms, registration forms, and search forms. This class
+ * provides a convenient way to create, manipulate, and control the behavior of <form> elements,
+ * making it easier to use them in Java-based web applications. Example usage:
+ *
+ * <pre>
+ * HTMLFormElement formElement = ...;  // Obtain a <form> element from somewhere
+ * FormElement form = FormElement.of(formElement);
+ * </pre>
+ *
+ * @see <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/form">MDN Web Docs (form
+ *     element)</a>
+ */
 public class FormElement extends BaseElement<HTMLFormElement, FormElement> {
+
   /**
-   * of.
+   * Creates a new {@link FormElement} instance by wrapping the provided HTML <form> element.
    *
-   * @param e a {@link elemental2.dom.HTMLFormElement} object
-   * @return a {@link org.dominokit.domino.ui.elements.FormElement} object
+   * @param e The HTML <form> element.
+   * @return A new {@link FormElement} instance wrapping the provided element.
    */
   public static FormElement of(HTMLFormElement e) {
     return new FormElement(e);
   }
 
   /**
-   * Constructor for FormElement.
+   * Constructs a {@link FormElement} instance by wrapping the provided HTML <form> element.
    *
-   * @param element a {@link elemental2.dom.HTMLFormElement} object
+   * @param element The HTML <form> element to wrap.
    */
   public FormElement(HTMLFormElement element) {
     super(element);

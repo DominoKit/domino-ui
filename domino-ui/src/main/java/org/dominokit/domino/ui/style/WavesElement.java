@@ -20,29 +20,57 @@ import org.dominokit.domino.ui.IsElement;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
 
 /**
- * An abstract element that provides waves support
+ * An abstract representation of an element that supports the Waves (ripple) effect.
  *
- * @param <E> the type of the root element
- * @param <T> the type of the waves element
+ * <p>This class extends the functionality of {@link BaseDominoElement} to include support for the
+ * Waves effect, which is commonly used in material design for interactive elements.
+ *
+ * <p><b>Usage Example:</b>
+ *
+ * <pre>
+ * public class CustomButton extends WavesElement&lt;HTMLButtonElement, CustomButton&gt; {
+ *     // Implementation of the CustomButton
+ * }
+ *
+ * CustomButton button = new CustomButton();
+ * button.initWaves();
+ * </pre>
+ *
+ * @param <E> the type of the root HTML element of this component
+ * @param <T> the type of the component
+ * @see BaseDominoElement
  */
 public abstract class WavesElement<E extends HTMLElement, T extends IsElement<E>>
     extends BaseDominoElement<E, T> implements HasWaveEffect<T> {
 
-  /** {@inheritDoc} */
+  /**
+   * Initializes the element with its associated DOM representation and sets up the Waves (ripple)
+   * effect for the element.
+   *
+   * @param element the domino-ui representation of the element
+   */
   @Override
   public void init(T element) {
     super.init(element);
     wavesSupport = WavesSupport.addFor(this.getWavesElement());
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Initializes the Waves (ripple) effect on this element.
+   *
+   * @return the current instance for chaining
+   */
   @Override
   public T initWaves() {
     wavesSupport.initWaves();
     return element;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Removes the Waves (ripple) effect from this element.
+   *
+   * @return the current instance for chaining
+   */
   @Override
   public T removeWaves() {
     wavesSupport.removeWaves();

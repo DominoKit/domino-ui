@@ -37,8 +37,12 @@ import org.dominokit.domino.ui.style.ToggleCssClass;
 import org.dominokit.domino.ui.utils.*;
 
 /**
- * A component that provides feature rich main application layout that includes, Navigation bar,
- * left drawer, right drawer, footer and main content panel.
+ * The <b>AppLayout</b> class represents the main layout structure for a web application. It
+ * provides options for creating a responsive layout with a navigation bar, content area, and
+ * drawers.
+ *
+ * @see NavBar
+ * @see BaseDominoElement
  */
 public class AppLayout extends BaseDominoElement<HTMLDivElement, AppLayout>
     implements AppLayoutStyles {
@@ -71,25 +75,25 @@ public class AppLayout extends BaseDominoElement<HTMLDivElement, AppLayout>
   public Set<ChildHandler<AppLayout, SectionElement>> rightDrawerCloseHandlers = new HashSet<>();
 
   /**
-   * create.
+   * Creates a new instance of <b>AppLayout</b> with default settings.
    *
-   * @return a {@link org.dominokit.domino.ui.layout.AppLayout} object
+   * @return A new <b>AppLayout</b> instance.
    */
   public static AppLayout create() {
     return new AppLayout();
   }
 
   /**
-   * create.
+   * Creates a new instance of <b>AppLayout</b> with a specified title.
    *
-   * @param title a {@link java.lang.String} object
-   * @return a {@link org.dominokit.domino.ui.layout.AppLayout} object
+   * @param title The title to be displayed in the navigation bar.
+   * @return A new <b>AppLayout</b> instance.
    */
   public static AppLayout create(String title) {
     return new AppLayout(title);
   }
 
-  /** Constructor for AppLayout. */
+  /** Constructs an <b>AppLayout</b> with default settings. */
   public AppLayout() {
     layout =
         div()
@@ -210,9 +214,10 @@ public class AppLayout extends BaseDominoElement<HTMLDivElement, AppLayout>
   }
 
   /**
-   * Constructor for AppLayout.
+   * Creates a new instance of <b>AppLayout</b> with a specified title.
    *
-   * @param title a {@link java.lang.String} object
+   * @param title The title to be displayed in the navigation bar.
+   * @return A new <b>AppLayout</b> instance.
    */
   public AppLayout(String title) {
     this();
@@ -220,100 +225,100 @@ public class AppLayout extends BaseDominoElement<HTMLDivElement, AppLayout>
   }
 
   /**
-   * Getter for the field <code>layout</code>.
+   * Retrieves the layout element of this <b>AppLayout<b>.
    *
-   * @return a {@link org.dominokit.domino.ui.elements.DivElement} object
+   * @return The layout element as a <b>DivElement<b>.
    */
   public DivElement getLayout() {
     return layout;
   }
 
   /**
-   * Getter for the field <code>body</code>.
+   * Retrieves the body section element of this <b>AppLayout<b>.
    *
-   * @return a {@link org.dominokit.domino.ui.elements.SectionElement} object
+   * @return The body section element as a <b>SectionElement<b>.
    */
   public SectionElement getBody() {
     return body;
   }
 
   /**
-   * Getter for the field <code>content</code>.
+   * Retrieves the content section element of this <b>AppLayout<b>.
    *
-   * @return a {@link org.dominokit.domino.ui.elements.SectionElement} object
+   * @return The content section element as a <b>SectionElement<b>.
    */
   public SectionElement getContent() {
     return content;
   }
 
   /**
-   * Getter for the field <code>navBar</code>.
+   * Retrieves the navigation bar associated with this <b>AppLayout<b>.
    *
-   * @return a {@link org.dominokit.domino.ui.layout.NavBar} object
+   * @return The navigation bar as a <b>NavBar</b> instance.
    */
   public NavBar getNavBar() {
     return navBar.get();
   }
 
   /**
-   * Getter for the field <code>header</code>.
+   * Retrieves the header element of this <b>AppLayout<b>.
    *
-   * @return a {@link org.dominokit.domino.ui.elements.HeaderElement} object
+   * @return The header element as a <b>HeaderElement<b>.
    */
   public HeaderElement getHeader() {
     return header.get();
   }
 
   /**
-   * Getter for the field <code>footer</code>.
+   * Retrieves the footer section element of this <b>AppLayout<b>.
    *
-   * @return a {@link org.dominokit.domino.ui.elements.SectionElement} object
+   * @return The footer section element as a <b>SectionElement<b>.
    */
   public SectionElement getFooter() {
     return footer.get();
   }
 
   /**
-   * Getter for the field <code>leftDrawer</code>.
+   * Retrieves the left drawer section element of this <b>AppLayout<b>.
    *
-   * @return a {@link org.dominokit.domino.ui.elements.SectionElement} object
+   * @return The left drawer section element as a <b>SectionElement<b>.
    */
   public SectionElement getLeftDrawer() {
     return leftDrawer.get();
   }
 
   /**
-   * Getter for the field <code>leftDrawerContent</code>.
+   * Retrieves the content of the left drawer as an <b>AsideElement<b>.
    *
-   * @return a {@link org.dominokit.domino.ui.elements.AsideElement} object
+   * @return The left drawer content as an <b>AsideElement<b>.
    */
   public AsideElement getLeftDrawerContent() {
     return leftDrawerContent.get();
   }
 
   /**
-   * Getter for the field <code>rightDrawer</code>.
+   * Retrieves the right drawer section element of this <b>AppLayout<b>.
    *
-   * @return a {@link org.dominokit.domino.ui.elements.SectionElement} object
+   * @return The right drawer section element as a <b>SectionElement<b>.
    */
   public SectionElement getRightDrawer() {
     return rightDrawer.get();
   }
 
   /**
-   * Getter for the field <code>rightDrawerContent</code>.
+   * Retrieves the content of the right drawer as a <b>SectionElement<b>.
    *
-   * @return a {@link org.dominokit.domino.ui.elements.SectionElement} object
+   * @return The right drawer content as a <b>SectionElement<b>.
    */
   public SectionElement getRightDrawerContent() {
     return rightDrawerContent.get();
   }
 
   /**
-   * withLayout.
+   * Configures the layout element using a custom handler.
    *
-   * @param handler a {@link org.dominokit.domino.ui.utils.ChildHandler} object
-   * @return a {@link org.dominokit.domino.ui.layout.AppLayout} object
+   * @param handler The handler for configuring the layout.
+   * @return This <b>AppLayout</b> instance for method chaining.
    */
   public AppLayout withLayout(ChildHandler<AppLayout, DivElement> handler) {
     handler.apply(this, layout);
@@ -321,10 +326,10 @@ public class AppLayout extends BaseDominoElement<HTMLDivElement, AppLayout>
   }
 
   /**
-   * withBody.
+   * Configures the body section element using a custom handler.
    *
-   * @param handler a {@link org.dominokit.domino.ui.utils.ChildHandler} object
-   * @return a {@link org.dominokit.domino.ui.layout.AppLayout} object
+   * @param handler The handler for configuring the body section.
+   * @return This <b>AppLayout</b> instance for method chaining.
    */
   public AppLayout withBody(ChildHandler<AppLayout, SectionElement> handler) {
     handler.apply(this, body);
@@ -332,10 +337,10 @@ public class AppLayout extends BaseDominoElement<HTMLDivElement, AppLayout>
   }
 
   /**
-   * withContent.
+   * Configures the content section element using a custom handler.
    *
-   * @param handler a {@link org.dominokit.domino.ui.utils.ChildHandler} object
-   * @return a {@link org.dominokit.domino.ui.layout.AppLayout} object
+   * @param handler The handler for configuring the content section.
+   * @return This <b>AppLayout</b> instance for method chaining.
    */
   public AppLayout withContent(ChildHandler<AppLayout, SectionElement> handler) {
     handler.apply(this, content);
@@ -343,10 +348,10 @@ public class AppLayout extends BaseDominoElement<HTMLDivElement, AppLayout>
   }
 
   /**
-   * withNavBar.
+   * Configures the navigation bar using a custom handler.
    *
-   * @param handler a {@link org.dominokit.domino.ui.utils.ChildHandler} object
-   * @return a {@link org.dominokit.domino.ui.layout.AppLayout} object
+   * @param handler The handler for configuring the navigation bar.
+   * @return This <b>AppLayout</b> instance for method chaining.
    */
   public AppLayout withNavBar(ChildHandler<AppLayout, NavBar> handler) {
     handler.apply(this, navBar.get());
@@ -354,10 +359,10 @@ public class AppLayout extends BaseDominoElement<HTMLDivElement, AppLayout>
   }
 
   /**
-   * withHeader.
+   * Configures the header element using a custom handler.
    *
-   * @param handler a {@link org.dominokit.domino.ui.utils.ChildHandler} object
-   * @return a {@link org.dominokit.domino.ui.layout.AppLayout} object
+   * @param handler The handler for configuring the header element.
+   * @return This <b>AppLayout</b> instance for method chaining.
    */
   public AppLayout withHeader(ChildHandler<AppLayout, HeaderElement> handler) {
     handler.apply(this, header.get());
@@ -365,10 +370,10 @@ public class AppLayout extends BaseDominoElement<HTMLDivElement, AppLayout>
   }
 
   /**
-   * withFooter.
+   * Configures the footer section element using a custom handler.
    *
-   * @param handler a {@link org.dominokit.domino.ui.utils.ChildHandler} object
-   * @return a {@link org.dominokit.domino.ui.layout.AppLayout} object
+   * @param handler The handler for configuring the footer section.
+   * @return This <b>AppLayout</b> instance for method chaining.
    */
   public AppLayout withFooter(ChildHandler<AppLayout, SectionElement> handler) {
     handler.apply(this, footer.get());
@@ -376,10 +381,10 @@ public class AppLayout extends BaseDominoElement<HTMLDivElement, AppLayout>
   }
 
   /**
-   * withLeftDrawer.
+   * Configures the left drawer section element using a custom handler.
    *
-   * @param handler a {@link org.dominokit.domino.ui.utils.ChildHandler} object
-   * @return a {@link org.dominokit.domino.ui.layout.AppLayout} object
+   * @param handler The handler for configuring the left drawer section.
+   * @return This <b>AppLayout</b> instance for method chaining.
    */
   public AppLayout withLeftDrawer(ChildHandler<AppLayout, SectionElement> handler) {
     handler.apply(this, leftDrawer.get());
@@ -387,10 +392,10 @@ public class AppLayout extends BaseDominoElement<HTMLDivElement, AppLayout>
   }
 
   /**
-   * withRightDrawer.
+   * Configures the right drawer section element using a custom handler.
    *
-   * @param handler a {@link org.dominokit.domino.ui.utils.ChildHandler} object
-   * @return a {@link org.dominokit.domino.ui.layout.AppLayout} object
+   * @param handler The handler for configuring the right drawer section.
+   * @return This <b>AppLayout</b> instance for method chaining.
    */
   public AppLayout withRightDrawer(ChildHandler<AppLayout, SectionElement> handler) {
     handler.apply(this, rightDrawer.get());
@@ -398,10 +403,10 @@ public class AppLayout extends BaseDominoElement<HTMLDivElement, AppLayout>
   }
 
   /**
-   * withLeftDrawerContent.
+   * Configures the content of the left drawer using a custom handler.
    *
-   * @param handler a {@link org.dominokit.domino.ui.utils.ChildHandler} object
-   * @return a {@link org.dominokit.domino.ui.layout.AppLayout} object
+   * @param handler The handler for configuring the left drawer content.
+   * @return This <b>AppLayout</b> instance for method chaining.
    */
   public AppLayout withLeftDrawerContent(ChildHandler<AppLayout, AsideElement> handler) {
     handler.apply(this, leftDrawerContent.get());
@@ -409,10 +414,10 @@ public class AppLayout extends BaseDominoElement<HTMLDivElement, AppLayout>
   }
 
   /**
-   * withRightDrawerContent.
+   * Configures the content of the right drawer using a custom handler.
    *
-   * @param handler a {@link org.dominokit.domino.ui.utils.ChildHandler} object
-   * @return a {@link org.dominokit.domino.ui.layout.AppLayout} object
+   * @param handler The handler for configuring the right drawer content.
+   * @return This <b>AppLayout</b> instance for method chaining.
    */
   public AppLayout withRightDrawerContent(ChildHandler<AppLayout, SectionElement> handler) {
     handler.apply(this, rightDrawerContent.get());
@@ -420,9 +425,9 @@ public class AppLayout extends BaseDominoElement<HTMLDivElement, AppLayout>
   }
 
   /**
-   * withNavBar.
+   * Retrieves and initializes the navigation bar.
    *
-   * @return a {@link org.dominokit.domino.ui.layout.AppLayout} object
+   * @return This <b>AppLayout</b> instance for method chaining.
    */
   public AppLayout withNavBar() {
     navBar.get();
@@ -430,9 +435,9 @@ public class AppLayout extends BaseDominoElement<HTMLDivElement, AppLayout>
   }
 
   /**
-   * withHeader.
+   * Retrieves and initializes the header element.
    *
-   * @return a {@link org.dominokit.domino.ui.layout.AppLayout} object
+   * @return This <b>AppLayout</b> instance for method chaining.
    */
   public AppLayout withHeader() {
     header.get();
@@ -440,9 +445,9 @@ public class AppLayout extends BaseDominoElement<HTMLDivElement, AppLayout>
   }
 
   /**
-   * withFooter.
+   * Retrieves and initializes the footer section element.
    *
-   * @return a {@link org.dominokit.domino.ui.layout.AppLayout} object
+   * @return This <b>AppLayout</b> instance for method chaining.
    */
   public AppLayout withFooter() {
     footer.get();
@@ -450,9 +455,9 @@ public class AppLayout extends BaseDominoElement<HTMLDivElement, AppLayout>
   }
 
   /**
-   * withLeftDrawer.
+   * Retrieves and initializes the left drawer section element.
    *
-   * @return a {@link org.dominokit.domino.ui.layout.AppLayout} object
+   * @return This <b>AppLayout</b> instance for method chaining.
    */
   public AppLayout withLeftDrawer() {
     leftDrawer.get();
@@ -460,9 +465,9 @@ public class AppLayout extends BaseDominoElement<HTMLDivElement, AppLayout>
   }
 
   /**
-   * withRightDrawer.
+   * Retrieves and initializes the right drawer section element.
    *
-   * @return a {@link org.dominokit.domino.ui.layout.AppLayout} object
+   * @return This <b>AppLayout</b> instance for method chaining.
    */
   public AppLayout withRightDrawer() {
     rightDrawer.get();
@@ -470,9 +475,9 @@ public class AppLayout extends BaseDominoElement<HTMLDivElement, AppLayout>
   }
 
   /**
-   * withLeftDrawerContent.
+   * Retrieves and initializes the content of the left drawer.
    *
-   * @return a {@link org.dominokit.domino.ui.layout.AppLayout} object
+   * @return This <b>AppLayout</b> instance for method chaining.
    */
   public AppLayout withLeftDrawerContent() {
     leftDrawerContent.get();
@@ -480,9 +485,9 @@ public class AppLayout extends BaseDominoElement<HTMLDivElement, AppLayout>
   }
 
   /**
-   * withRightDrawerContent.
+   * Retrieves and initializes the content of the right drawer.
    *
-   * @return a {@link org.dominokit.domino.ui.layout.AppLayout} object
+   * @return This <b>AppLayout</b> instance for method chaining.
    */
   public AppLayout withRightDrawerContent() {
     rightDrawerContent.get();
@@ -490,10 +495,10 @@ public class AppLayout extends BaseDominoElement<HTMLDivElement, AppLayout>
   }
 
   /**
-   * setLeftDrawerSize.
+   * Sets the size of the left drawer.
    *
-   * @param size a {@link org.dominokit.domino.ui.layout.LeftDrawerSize} object
-   * @return a {@link org.dominokit.domino.ui.layout.AppLayout} object
+   * @param size The size of the left drawer.
+   * @return This <b>AppLayout</b> instance for method chaining.
    */
   public AppLayout setLeftDrawerSize(LeftDrawerSize size) {
     layout.addCss(LEFT_DRAWER_SIZE.replaceWith(size.getCssClass()));
@@ -501,10 +506,10 @@ public class AppLayout extends BaseDominoElement<HTMLDivElement, AppLayout>
   }
 
   /**
-   * setRightDrawerSize.
+   * Sets the size of the right drawer.
    *
-   * @param size a {@link org.dominokit.domino.ui.layout.RightDrawerSize} object
-   * @return a {@link org.dominokit.domino.ui.layout.AppLayout} object
+   * @param size The size of the right drawer.
+   * @return This <b>AppLayout</b> instance for method chaining.
    */
   public AppLayout setRightDrawerSize(RightDrawerSize size) {
     layout.addCss(RIGHT_DRAWER_SIZE.replaceWith(size.getCssClass()));
@@ -512,9 +517,9 @@ public class AppLayout extends BaseDominoElement<HTMLDivElement, AppLayout>
   }
 
   /**
-   * toggleLeftDrawerSpanUp.
+   * Toggles the left drawer to display with a span-up effect.
    *
-   * @return a {@link org.dominokit.domino.ui.layout.AppLayout} object
+   * @return This <b>AppLayout</b> instance for method chaining.
    */
   public AppLayout toggleLeftDrawerSpanUp() {
     layout.addCss(ToggleCssClass.of(dui_left_span_up));
@@ -522,10 +527,10 @@ public class AppLayout extends BaseDominoElement<HTMLDivElement, AppLayout>
   }
 
   /**
-   * setLeftDrawerSpanUp.
+   * Sets whether the left drawer should display with a span-up effect.
    *
-   * @param spanUp a boolean
-   * @return a {@link org.dominokit.domino.ui.layout.AppLayout} object
+   * @param spanUp <b>true</b> to enable the span-up effect, <b>false</b> to disable it.
+   * @return This <b>AppLayout</b> instance for method chaining.
    */
   public AppLayout setLeftDrawerSpanUp(boolean spanUp) {
     layout.addCss(BooleanCssClass.of(dui_left_span_up, spanUp));
@@ -533,9 +538,9 @@ public class AppLayout extends BaseDominoElement<HTMLDivElement, AppLayout>
   }
 
   /**
-   * toggleLeftDrawerSpanDown.
+   * Toggles the left drawer to display with a span-down effect.
    *
-   * @return a {@link org.dominokit.domino.ui.layout.AppLayout} object
+   * @return This <b>AppLayout</b> instance for method chaining.
    */
   public AppLayout toggleLeftDrawerSpanDown() {
     layout.addCss(ToggleCssClass.of(dui_left_span_down));
@@ -543,10 +548,10 @@ public class AppLayout extends BaseDominoElement<HTMLDivElement, AppLayout>
   }
 
   /**
-   * setLeftDrawerSpanDown.
+   * Sets whether the left drawer should display with a span-down effect.
    *
-   * @param spanDown a boolean
-   * @return a {@link org.dominokit.domino.ui.layout.AppLayout} object
+   * @param spanDown <b>true</b> to enable the span-down effect, <b>false</b> to disable it.
+   * @return This <b>AppLayout</b> instance for method chaining.
    */
   public AppLayout setLeftDrawerSpanDown(boolean spanDown) {
     layout.addCss(BooleanCssClass.of(dui_left_span_down, spanDown));
@@ -554,9 +559,9 @@ public class AppLayout extends BaseDominoElement<HTMLDivElement, AppLayout>
   }
 
   /**
-   * toggleShrinkContent.
+   * Toggles the content to shrink when drawers are opened.
    *
-   * @return a {@link org.dominokit.domino.ui.layout.AppLayout} object
+   * @return This <b>AppLayout</b> instance for method chaining.
    */
   public AppLayout toggleShrinkContent() {
     layout.addCss(ToggleCssClass.of(dui_shrink_content));
@@ -564,10 +569,10 @@ public class AppLayout extends BaseDominoElement<HTMLDivElement, AppLayout>
   }
 
   /**
-   * setShrinkContent.
+   * Sets whether the content should shrink when drawers are opened.
    *
-   * @param shrink a boolean
-   * @return a {@link org.dominokit.domino.ui.layout.AppLayout} object
+   * @param shrink <b>true</b> to enable content shrinking, <b>false</b> to disable it.
+   * @return This <b>AppLayout</b> instance for method chaining.
    */
   public AppLayout setShrinkContent(boolean shrink) {
     layout.addCss(BooleanCssClass.of(dui_shrink_content, shrink));
@@ -575,9 +580,9 @@ public class AppLayout extends BaseDominoElement<HTMLDivElement, AppLayout>
   }
 
   /**
-   * toggleLeftOverlay.
+   * Toggles the left overlay effect.
    *
-   * @return a {@link org.dominokit.domino.ui.layout.AppLayout} object
+   * @return This <b>AppLayout</b> instance for method chaining.
    */
   public AppLayout toggleLeftOverlay() {
     overlay.get();
@@ -586,9 +591,9 @@ public class AppLayout extends BaseDominoElement<HTMLDivElement, AppLayout>
   }
 
   /**
-   * toggleRightOverlay.
+   * Toggles the right overlay effect.
    *
-   * @return a {@link org.dominokit.domino.ui.layout.AppLayout} object
+   * @return This <b>AppLayout</b> instance for method chaining.
    */
   public AppLayout toggleRightOverlay() {
     overlay.get();
@@ -597,9 +602,9 @@ public class AppLayout extends BaseDominoElement<HTMLDivElement, AppLayout>
   }
 
   /**
-   * toggleLeftDrawer.
+   * Toggles the left drawer open or closed.
    *
-   * @return a {@link org.dominokit.domino.ui.layout.AppLayout} object
+   * @return This <b>AppLayout</b> instance for method chaining.
    */
   public AppLayout toggleLeftDrawer() {
     layout.addCss(ToggleCssClass.of(dui_left_open));
@@ -607,9 +612,9 @@ public class AppLayout extends BaseDominoElement<HTMLDivElement, AppLayout>
   }
 
   /**
-   * toggleRightDrawer.
+   * Toggles the right drawer open or closed.
    *
-   * @return a {@link org.dominokit.domino.ui.layout.AppLayout} object
+   * @return This <b>AppLayout</b> instance for method chaining.
    */
   public AppLayout toggleRightDrawer() {
     layout.addCss(ToggleCssClass.of(dui_right_open));
@@ -617,9 +622,9 @@ public class AppLayout extends BaseDominoElement<HTMLDivElement, AppLayout>
   }
 
   /**
-   * toggleFixedFooter.
+   * Toggles the fixed footer layout.
    *
-   * @return a {@link org.dominokit.domino.ui.layout.AppLayout} object
+   * @return This <b>AppLayout</b> instance for method chaining.
    */
   public AppLayout toggleFixedFooter() {
     layout.addCss(ToggleCssClass.of(dui_footer_fixed));
@@ -627,10 +632,10 @@ public class AppLayout extends BaseDominoElement<HTMLDivElement, AppLayout>
   }
 
   /**
-   * setFixedFooter.
+   * Sets whether the footer should be fixed or not.
    *
-   * @param fixed a boolean
-   * @return a {@link org.dominokit.domino.ui.layout.AppLayout} object
+   * @param fixed <b>true</b> to fix the footer, <b>false</b> to unfix it.
+   * @return This <b>AppLayout</b> instance for method chaining.
    */
   public AppLayout setFixedFooter(boolean fixed) {
     layout.addCss(BooleanCssClass.of(dui_footer_fixed, fixed));
@@ -638,9 +643,9 @@ public class AppLayout extends BaseDominoElement<HTMLDivElement, AppLayout>
   }
 
   /**
-   * showLeftDrawer.
+   * Shows the left drawer.
    *
-   * @return a {@link org.dominokit.domino.ui.layout.AppLayout} object
+   * @return This <b>AppLayout</b> instance for method chaining.
    */
   public AppLayout showLeftDrawer() {
     layout.addCss(dui_left_open);
@@ -648,9 +653,9 @@ public class AppLayout extends BaseDominoElement<HTMLDivElement, AppLayout>
   }
 
   /**
-   * hideLeftDrawer.
+   * Hides the left drawer.
    *
-   * @return a {@link org.dominokit.domino.ui.layout.AppLayout} object
+   * @return This <b>AppLayout</b> instance for method chaining.
    */
   public AppLayout hideLeftDrawer() {
     dui_left_open.remove(layout);
@@ -658,9 +663,9 @@ public class AppLayout extends BaseDominoElement<HTMLDivElement, AppLayout>
   }
 
   /**
-   * showRightDrawer.
+   * Shows the right drawer.
    *
-   * @return a {@link org.dominokit.domino.ui.layout.AppLayout} object
+   * @return This <b>AppLayout</b> instance for method chaining.
    */
   public AppLayout showRightDrawer() {
     layout.addCss(dui_right_open);
@@ -668,9 +673,9 @@ public class AppLayout extends BaseDominoElement<HTMLDivElement, AppLayout>
   }
 
   /**
-   * hideRightDrawer.
+   * Hides the right drawer.
    *
-   * @return a {@link org.dominokit.domino.ui.layout.AppLayout} object
+   * @return This <b>AppLayout</b> instance for method chaining.
    */
   public AppLayout hideRightDrawer() {
     dui_right_open.remove(layout);
@@ -678,10 +683,10 @@ public class AppLayout extends BaseDominoElement<HTMLDivElement, AppLayout>
   }
 
   /**
-   * setLeftDrawerToggleIcon.
+   * Sets the icon for the left drawer toggle button.
    *
-   * @param icon a {@link org.dominokit.domino.ui.icons.Icon} object
-   * @return a {@link org.dominokit.domino.ui.layout.AppLayout} object
+   * @param icon The icon to set.
+   * @return This <b>AppLayout</b> instance for method chaining.
    */
   public AppLayout setLeftDrawerToggleIcon(Icon<?> icon) {
     if (leftDrawerToggle.isInitialized()) {
@@ -694,10 +699,10 @@ public class AppLayout extends BaseDominoElement<HTMLDivElement, AppLayout>
   }
 
   /**
-   * setRightDrawerToggleIcon.
+   * Sets the icon for the right drawer toggle button.
    *
-   * @param icon a {@link org.dominokit.domino.ui.icons.Icon} object
-   * @return a {@link org.dominokit.domino.ui.layout.AppLayout} object
+   * @param icon The icon to set.
+   * @return This <b>AppLayout</b> instance for method chaining.
    */
   public AppLayout setRightDrawerToggleIcon(Icon<?> icon) {
     if (rightDrawerToggle.isInitialized()) {
@@ -710,10 +715,10 @@ public class AppLayout extends BaseDominoElement<HTMLDivElement, AppLayout>
   }
 
   /**
-   * Setter for the field <code>autoCloseLeftDrawer</code>.
+   * Sets whether the left drawer should automatically close when clicking outside it.
    *
-   * @param autoCloseLeftDrawer a boolean
-   * @return a {@link org.dominokit.domino.ui.layout.AppLayout} object
+   * @param autoCloseLeftDrawer <b>true</b> to enable auto-closing, <b>false</b> to disable it.
+   * @return This <b>AppLayout</b> instance for method chaining.
    */
   public AppLayout setAutoCloseLeftDrawer(boolean autoCloseLeftDrawer) {
     this.autoCloseLeftDrawer = autoCloseLeftDrawer;
@@ -721,10 +726,10 @@ public class AppLayout extends BaseDominoElement<HTMLDivElement, AppLayout>
   }
 
   /**
-   * setFixLeftDrawer.
+   * Sets the left drawer to be fixed or unfixed, depending on the provided boolean.
    *
-   * @param fixed a boolean
-   * @return a {@link org.dominokit.domino.ui.layout.AppLayout} object
+   * @param fixed <b>true</b> to fix the left drawer, <b>false</b> to unfix it.
+   * @return This <b>AppLayout</b> instance for method chaining.
    */
   public AppLayout setFixLeftDrawer(boolean fixed) {
     if (fixed) {
@@ -739,85 +744,149 @@ public class AppLayout extends BaseDominoElement<HTMLDivElement, AppLayout>
   }
 
   /**
-   * Setter for the field <code>autoCloseRightDrawer</code>.
+   * Sets whether the right drawer should automatically close when clicking outside it.
    *
-   * @param autoCloseRightDrawer a boolean
-   * @return a {@link org.dominokit.domino.ui.layout.AppLayout} object
+   * @param autoCloseRightDrawer <b>true</b> to enable auto-closing, <b>false</b> to disable it.
+   * @return This <b>AppLayout</b> instance for method chaining.
    */
   public AppLayout setAutoCloseRightDrawer(boolean autoCloseRightDrawer) {
     this.autoCloseRightDrawer = autoCloseRightDrawer;
     return this;
   }
 
+  /**
+   * Configures the left drawer toggle button using the provided handler.
+   *
+   * @param handler The handler for configuring the left drawer toggle button.
+   * @return This <b>AppLayout</b> instance for method chaining.
+   */
   public AppLayout withLeftDrawerToggle(ChildHandler<AppLayout, PrefixAddOn<HTMLElement>> handler) {
     handler.apply(this, leftDrawerToggle.get());
     return this;
   }
 
+  /**
+   * Sets the visibility of the left drawer toggle button.
+   *
+   * @param visible <b>true</b> to make the toggle button visible, <b>false</b> to hide it.
+   * @return This <b>AppLayout</b> instance for method chaining.
+   */
   public AppLayout setLeftDrawerToggleVisible(boolean visible) {
     leftDrawerToggle.get().toggleDisplay(visible);
     return this;
   }
 
   /**
-   * isLeftDrawerOpen.
+   * Checks whether the left drawer is currently open.
    *
-   * @return a boolean
+   * @return <b>true</b> if the left drawer is open, <b>false</b> otherwise.
    */
   public boolean isLeftDrawerOpen() {
     return dui_left_open.isAppliedTo(layout);
   }
 
   /**
-   * isRightDrawerOpen.
+   * Checks whether the right drawer is currently open.
    *
-   * @return a boolean
+   * @return <b>true</b> if the right drawer is open, <b>false</b> otherwise.
    */
   public boolean isRightDrawerOpen() {
     return dui_right_open.isAppliedTo(layout);
   }
 
+  /**
+   * Registers a listener to be called when the left drawer is opened.
+   *
+   * @param handler The handler to be called when the left drawer is opened.
+   * @return This <b>AppLayout</b> instance for method chaining.
+   */
   public AppLayout onLeftDrawerOpen(ChildHandler<AppLayout, SectionElement> handler) {
     leftDrawerOpenHandlers.add(handler);
     return this;
   }
 
+  /**
+   * Removes a listener that was previously registered to be called when the left drawer is opened.
+   *
+   * @param handler The handler to be removed from the list of listeners.
+   * @return This <b>AppLayout</b> instance for method chaining.
+   */
   public AppLayout removeLeftDrawerOpenListener(ChildHandler<AppLayout, SectionElement> handler) {
     leftDrawerOpenHandlers.remove(handler);
     return this;
   }
 
+  /**
+   * Registers a listener to be called when the left drawer is closed.
+   *
+   * @param handler The handler to be called when the left drawer is closed.
+   * @return This <b>AppLayout</b> instance for method chaining.
+   */
   public AppLayout onLeftDrawerClosed(ChildHandler<AppLayout, SectionElement> handler) {
     leftDrawerCloseHandlers.add(handler);
     return this;
   }
 
+  /**
+   * Removes a listener that was previously registered to be called when the left drawer is closed.
+   *
+   * @param handler The handler to be removed from the list of listeners.
+   * @return This <b>AppLayout</b> instance for method chaining.
+   */
   public AppLayout removeLeftDrawerCloseListener(ChildHandler<AppLayout, SectionElement> handler) {
     leftDrawerCloseHandlers.remove(handler);
     return this;
   }
 
+  /**
+   * Registers a listener to be called when the right drawer is opened.
+   *
+   * @param handler The handler to be called when the right drawer is opened.
+   * @return This <b>AppLayout</b> instance for method chaining.
+   */
   public AppLayout onRightDrawerOpen(ChildHandler<AppLayout, SectionElement> handler) {
     rightDrawerOpenHandlers.add(handler);
     return this;
   }
 
+  /**
+   * Removes a listener that was previously registered to be called when the right drawer is opened.
+   *
+   * @param handler The handler to be removed from the list of listeners.
+   * @return This <b>AppLayout</b> instance for method chaining.
+   */
   public AppLayout removeRightDrawerOpenListener(ChildHandler<AppLayout, SectionElement> handler) {
     rightDrawerOpenHandlers.remove(handler);
     return this;
   }
 
+  /**
+   * Registers a listener to be called when the right drawer is closed.
+   *
+   * @param handler The handler to be called when the right drawer is closed.
+   * @return This <b>AppLayout</b> instance for method chaining.
+   */
   public AppLayout onRightDrawerClosed(ChildHandler<AppLayout, SectionElement> handler) {
     rightDrawerCloseHandlers.add(handler);
     return this;
   }
 
+  /**
+   * Removes a listener that was previously registered to be called when the right drawer is closed.
+   *
+   * @param handler The handler to be removed from the list of listeners.
+   * @return This <b>AppLayout</b> instance for method chaining.
+   */
   public AppLayout removeRightDrawerCloseListener(ChildHandler<AppLayout, SectionElement> handler) {
     rightDrawerCloseHandlers.remove(handler);
     return this;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * @dominokit-site-ignore {@inheritDoc}
+   *     <p>Gets the HTMLDivElement representing the layout.
+   * @return The HTMLDivElement representing the layout.
+   */
   @Override
   public HTMLDivElement element() {
     return layout.element();

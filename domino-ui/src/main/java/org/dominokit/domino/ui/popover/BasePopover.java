@@ -29,7 +29,29 @@ import org.dominokit.domino.ui.events.EventType;
 import org.dominokit.domino.ui.menu.direction.DropDirection;
 import org.dominokit.domino.ui.utils.*;
 
-/** Abstract BasePopover class. */
+/**
+ * The base class for creating popovers in the Domino UI framework. Popovers are small overlays that
+ * can be displayed next to an HTML element and often contain additional information or actions.
+ * This class provides the core functionality for creating and managing popovers.
+ *
+ * <p>Usage Example:
+ *
+ * <pre>
+ * // Create a new popover attached to an HTML element
+ * Element targetElement = document.getElementById("popover-target");
+ * BasePopover&lt;MyPopover&gt; popover = new MyPopover(targetElement);
+ *
+ * // Customize the popover
+ * popover.withHeader(header -&gt; header.setTextContent("Popover Header"));
+ * popover.withBody(body -&gt; body.setTextContent("Popover Content"));
+ *
+ * // Show the popover
+ * popover.expand();
+ * </pre>
+ *
+ * @param <T> The type of the popover class that extends {@code BasePopover}.
+ * @see BaseDominoElement
+ */
 public abstract class BasePopover<T extends BasePopover<T>>
     extends BaseDominoElement<HTMLDivElement, T>
     implements IsPopup<T>,
@@ -54,9 +76,10 @@ public abstract class BasePopover<T extends BasePopover<T>>
   private boolean closeOnBlur = DominoUIConfig.CONFIG.isClosePopupOnBlur();
 
   /**
-   * Constructor for BasePopover.
+   * Constructs a new BasePopover associated with the provided target element. BasePopover is the
+   * base class for creating popovers in the Domino UI framework.
    *
-   * @param target a {@link elemental2.dom.Element} object
+   * @param target The HTML element to which the popover will be attached.
    */
   public BasePopover(Element target) {
     this.targetElement = target;
@@ -121,13 +144,20 @@ public abstract class BasePopover<T extends BasePopover<T>>
   }
 
   /**
-   * Getter for the field <code>closeListener</code>.
+   * Gets the EventListener responsible for closing the popover when certain events occur.
    *
-   * @return a {@link elemental2.dom.EventListener} object
+   * <p>Subclasses should override this method to provide a custom EventListener that defines the
+   * popover's close behavior.
+   *
+   * @return The EventListener for closing the popover.
    */
   protected abstract EventListener getCloseListener();
 
-  /** {@inheritDoc} */
+  /**
+   * Expands the popover, displaying it on the screen.
+   *
+   * @return The current instance of the popover.
+   */
   @Override
   public T expand() {
     if (isEnabled() && (isNull(openCondition.get()) || openCondition.get())) {
@@ -142,15 +172,18 @@ public abstract class BasePopover<T extends BasePopover<T>>
   }
 
   /**
-   * open.
+   * Opens the popover, making it visible on the screen.
    *
-   * @return a T object
+   * @return The instance of the popover after opening.
    */
   public T open() {
     return expand();
   }
 
-  /** doOpen. */
+  /**
+   * Internal method to perform the opening of the popover. It appends the popover's root element to
+   * the body, positions the popover, and starts monitoring for scroll events (if applicable).
+   */
   protected void doOpen() {
     body().appendChild(root.element());
     super.expand();
@@ -161,23 +194,24 @@ public abstract class BasePopover<T extends BasePopover<T>>
     DomGlobal.document.body.addEventListener("blur", lostFocusListener, true);
   }
 
+  /** Positions the popover element based on the specified or default drop direction. */
   private void doPosition() {
     doPosition(this.popupPosition);
   }
 
   /**
-   * doPosition.
+   * Positions the popover element based on the provided drop direction.
    *
-   * @param position a {@link org.dominokit.domino.ui.menu.direction.DropDirection} object
+   * @param position The drop direction to position the popover.
    */
   protected void doPosition(DropDirection position) {
     popupPosition.position(root.element(), targetElement);
   }
 
   /**
-   * Closes the popover
+   * Closes the popover, hiding it from view.
    *
-   * @return a T object
+   * @return The instance of the popover after closing.
    */
   public T close() {
     collapse();
@@ -185,14 +219,17 @@ public abstract class BasePopover<T extends BasePopover<T>>
   }
 
   /**
-   * closeOthers.
+   * Closes other popovers that are currently open, except for the one with the specified source ID.
    *
-   * @param sourceId a {@link java.lang.String} object
-   * @return a T object
+   * @param sourceId The unique identifier of the popover to exclude from closing others.
+   * @return The instance of the popover after closing others.
    */
   protected abstract T closeOthers(String sourceId);
 
-  /** doClose. */
+  /**
+   * Internal method to perform the closing of the popover. It stops monitoring scroll events,
+   * removes the popover element, and triggers collapse listeners.
+   */
   protected void doClose() {
     followOnScroll.stop();
     element().remove();
@@ -201,31 +238,41 @@ public abstract class BasePopover<T extends BasePopover<T>>
     triggerCollapseListeners((T) this);
   }
 
-  /** {@inheritDoc} */
+  /**
+   * {@inheritDoc} Returns whether the popover is modal. Popovers are not modal by default.
+   *
+   * @return {@code false} since popovers are not modal by default.
+   */
   @Override
   public boolean isModal() {
     return false;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * {@inheritDoc} Returns whether the popover should automatically close. Popovers are set to close
+   * automatically by default.
+   *
+   * @return {@code true} since popovers are set to close automatically by default.
+   */
   @Override
   public boolean isAutoClose() {
     return true;
   }
 
   /**
-   * Closes the popover and remove it completely from the target element so it will not be shown
-   * again
+   * Discards the popover by closing it. This method is equivalent to calling the {@link #close()}
+   * method. It is provided for convenience to explicitly indicate the intention to discard the
+   * popover.
    */
   public void discard() {
     close();
   }
 
   /**
-   * Sets the position of the popover related to the target element
+   * Sets the position of the popover relative to its target element.
    *
-   * @param position the {@link org.dominokit.domino.ui.menu.direction.DropDirection}
-   * @return same instance
+   * @param position The desired position of the popover.
+   * @return The current instance of the popover.
    */
   public T setPosition(DropDirection position) {
     this.popupPosition.cleanup(this.element());
@@ -234,10 +281,10 @@ public abstract class BasePopover<T extends BasePopover<T>>
   }
 
   /**
-   * Sets if other popovers should be closed when open this one
+   * Specifies whether the popover should automatically close when other popovers are opened.
    *
-   * @param closeOthers true to close all popovers when this on is opened, false otherwise
-   * @return same instance
+   * @param closeOthers {@code true} to close other popovers, {@code false} to keep them open.
+   * @return The current instance of the popover.
    */
   public T setCloseOthers(boolean closeOthers) {
     this.closeOthers = closeOthers;
@@ -245,19 +292,19 @@ public abstract class BasePopover<T extends BasePopover<T>>
   }
 
   /**
-   * getArrowElement.
+   * Gets the element representing the arrow of the popover.
    *
-   * @return a {@link org.dominokit.domino.ui.elements.DivElement} object
+   * @return The arrow element of the popover.
    */
   public DivElement getArrowElement() {
     return arrow;
   }
 
   /**
-   * withArrow.
+   * Sets the content of the popover's arrow element.
    *
-   * @param handler a {@link org.dominokit.domino.ui.utils.ChildHandler} object
-   * @return a T object
+   * @param handler A function to customize the arrow element.
+   * @return The current instance of the popover.
    */
   public T withArrow(ChildHandler<T, DivElement> handler) {
     handler.apply((T) this, arrow);
@@ -265,19 +312,19 @@ public abstract class BasePopover<T extends BasePopover<T>>
   }
 
   /**
-   * getHeaderElement.
+   * Gets the element representing the header of the popover.
    *
-   * @return a {@link org.dominokit.domino.ui.elements.DivElement} object
+   * @return The header element of the popover.
    */
   public DivElement getHeaderElement() {
     return header;
   }
 
   /**
-   * withHeader.
+   * Sets the content of the popover's header element.
    *
-   * @param handler a {@link org.dominokit.domino.ui.utils.ChildHandler} object
-   * @return a T object
+   * @param handler A function to customize the header element.
+   * @return The current instance of the popover.
    */
   public T withHeader(ChildHandler<T, DivElement> handler) {
     handler.apply((T) this, header);
@@ -285,80 +332,110 @@ public abstract class BasePopover<T extends BasePopover<T>>
   }
 
   /**
-   * Getter for the field <code>body</code>.
+   * Gets the body element of the popover.
    *
-   * @return a {@link org.dominokit.domino.ui.elements.DivElement} object
+   * @return The body element of the popover.
    */
   public DivElement getBody() {
     return body;
   }
 
   /**
-   * withBody.
+   * Sets the content of the popover's body element.
    *
-   * @param handler a {@link org.dominokit.domino.ui.utils.ChildHandler} object
-   * @return a T object
+   * @param handler A function to customize the body element.
+   * @return The current instance of the popover.
    */
   public T withBody(ChildHandler<T, DivElement> handler) {
     handler.apply((T) this, body);
     return (T) this;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Gets the HTML element to which the popover's content should be appended.
+   *
+   * @return The HTML element to which the popover's content should be appended.
+   */
   @Override
   public HTMLElement getAppendTarget() {
     return body.element();
   }
 
   /**
-   * Sets if the popover should be closed if scrolling
+   * Sets whether the popover should be closed automatically when the user scrolls the page.
    *
-   * @param closeOnScroll true to close on scroll, false otherwise
-   * @return same instance
+   * @param closeOnScroll {@code true} to enable automatic closing on page scroll, {@code false}
+   *     otherwise.
+   * @return The updated instance of the popover.
    */
   public T closeOnScroll(boolean closeOnScroll) {
     setAttribute("d-close-on-scroll", closeOnScroll);
     return (T) this;
   }
 
+  /**
+   * Sets a condition supplier that determines whether the popover should be opened. The popover
+   * will only open if the condition provided by the supplier evaluates to {@code true}.
+   *
+   * @param openCondition The supplier that provides the open condition.
+   * @return The updated instance of the popover.
+   */
   public T setOpenCondition(Supplier<Boolean> openCondition) {
     this.openCondition = openCondition;
     return (T) this;
   }
 
+  /**
+   * Checks if the popover should be closed when the user clicks outside of it (loses focus).
+   *
+   * @return {@code true} if the popover should be closed on blur, {@code false} otherwise.
+   */
   public boolean isCloseOnBlur() {
     return closeOnBlur;
   }
 
+  /**
+   * Specifies whether the popover should automatically close when the user clicks outside of it.
+   *
+   * @param closeOnBlur {@code true} to close on blur, {@code false} to keep it open.
+   * @return The current instance of the popover.
+   */
   public T setCloseOnBlur(boolean closeOnBlur) {
     this.closeOnBlur = closeOnBlur;
     return (T) this;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Gets the DOM element representing the popover.
+   *
+   * @return The DOM element of the popover.
+   */
   @Override
   public HTMLDivElement element() {
     return root.element();
   }
 
-  /** @return true if close on scrolling, false otherwise */
   /**
-   * isCloseOnScroll.
+   * Checks if the popover should automatically close when the user scrolls the page.
    *
-   * @return a boolean
+   * @return {@code true} if the popover should close on page scroll, {@code false} otherwise.
    */
   public boolean isCloseOnScroll() {
     return hasAttribute("d-close-on-scroll")
         && getAttribute("d-close-on-scroll").equalsIgnoreCase("true");
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Checks if the follower (popover) is currently open.
+   *
+   * @return {@code true} if the follower is open, {@code false} otherwise.
+   */
   @Override
   public boolean isFollowerOpen() {
     return isAttached();
   }
 
-  /** {@inheritDoc} */
+  /** Positions the follower (popover) relative to its target element. */
   @Override
   public void positionFollower() {
     doPosition();

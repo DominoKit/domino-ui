@@ -27,6 +27,22 @@ import org.dominokit.domino.ui.forms.TextBox;
 import org.dominokit.domino.ui.icons.lib.Icons;
 import org.dominokit.domino.ui.richtext.RichTextCommand;
 
+/**
+ * Represents a UI command to insert an image from a link within a rich text editor.
+ *
+ * <p>The {@code InsertImageLinkCommand} extends {@link RichTextCommand} and allows users to insert
+ * an image from a link at the current selection position in a rich text editable div element. The
+ * command is represented by a button combined with image and link icons. Clicking on this button
+ * opens a confirmation dialog that contains a textbox to input the image link. Confirming the
+ * dialog inserts the image from the provided link at the current selection.
+ *
+ * <p><b>Usage Example:</b>
+ *
+ * <pre>{@code
+ * DivElement editableDiv = DivElement.create();
+ * InsertImageLinkCommand insertImageLinkCommand = InsertImageLinkCommand.create(editableDiv);
+ * }</pre>
+ */
 public class InsertImageLinkCommand extends RichTextCommand<InsertImageLinkCommand> {
 
   private final ConfirmationDialog dialog;
@@ -34,10 +50,21 @@ public class InsertImageLinkCommand extends RichTextCommand<InsertImageLinkComma
   private Button button;
   private Range range;
 
+  /**
+   * Factory method to create a new instance of InsertImageLinkCommand.
+   *
+   * @param editableElement The div element where the rich text is edited.
+   * @return A new instance of InsertImageLinkCommand.
+   */
   public static InsertImageLinkCommand create(DivElement editableElement) {
     return new InsertImageLinkCommand(editableElement);
   }
 
+  /**
+   * Constructs a new InsertImageLinkCommand instance for the specified editable div element.
+   *
+   * @param editableElement The div element where the rich text is edited.
+   */
   public InsertImageLinkCommand(DivElement editableElement) {
     super(editableElement);
     this.dialog =
@@ -81,11 +108,21 @@ public class InsertImageLinkCommand extends RichTextCommand<InsertImageLinkComma
     init(this);
   }
 
+  /**
+   * @dominokit-site-ignore {@inheritDoc}
+   *     <p>Returns the main HTMLElement of this command, which is the button used to open the image
+   *     link insertion dialog.
+   * @return The HTMLElement of the button.
+   */
   @Override
   public HTMLElement element() {
     return button.element();
   }
 
+  /**
+   * Executes the command, inserting the image from the provided link at the current selection
+   * position within the editable div element.
+   */
   @Override
   protected void execute() {
     if (nonNull(range)) {

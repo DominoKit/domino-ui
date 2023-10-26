@@ -13,21 +13,27 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package org.dominokit.domino.ui.datatable;
 
 import org.dominokit.domino.ui.utils.DominoCSSRule;
 
-/** ColumnCssRule class. */
+/**
+ * Represents a CSS rule associated with a specific column in a data table. This class provides a
+ * mechanism to associate custom styles with individual columns in the data table. Each column can
+ * be uniquely identified using a key and can have its own CSS styling through a {@link
+ * DominoCSSRule}.
+ */
 public class ColumnCssRule {
 
   private final String key;
   private final DominoCSSRule cssRule;
 
   /**
-   * Constructor for ColumnCssRule.
+   * Constructs a new {@link ColumnCssRule} instance with the specified key and CSS rule.
    *
-   * @param key a {@link java.lang.String} object
-   * @param cssRule a {@link org.dominokit.domino.ui.utils.DominoCSSRule} object
+   * @param key A unique identifier for the column associated with this CSS rule.
+   * @param cssRule A {@link DominoCSSRule} object representing the CSS styling for the column.
    */
   public ColumnCssRule(String key, DominoCSSRule cssRule) {
     this.key = key;
@@ -35,18 +41,18 @@ public class ColumnCssRule {
   }
 
   /**
-   * Getter for the field <code>key</code>.
+   * Retrieves the unique key associated with the column for this CSS rule.
    *
-   * @return a {@link java.lang.String} object
+   * @return the column key.
    */
   public String getKey() {
     return key;
   }
 
   /**
-   * Getter for the field <code>cssRule</code>.
+   * Retrieves the {@link DominoCSSRule} object representing the CSS styling for the column.
    *
-   * @return a {@link org.dominokit.domino.ui.utils.DominoCSSRule} object
+   * @return the CSS rule for the column.
    */
   public DominoCSSRule getCssRule() {
     return cssRule;

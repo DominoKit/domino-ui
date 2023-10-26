@@ -13,6 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package org.dominokit.domino.ui.datatable.plugins.pagination;
 
 import org.dominokit.domino.ui.datatable.DataTable;
@@ -21,30 +22,34 @@ import org.dominokit.domino.ui.datatable.plugins.DataTablePlugin;
 import org.dominokit.domino.ui.pagination.AdvancedPagination;
 
 /**
- * This plugin attach an {@link org.dominokit.domino.ui.pagination.AdvancedPagination} component to
- * the data table and fires {@link TablePageChangeEvent} when ever the page is changed
+ * A plugin for adding advanced pagination functionality to a DataTable.
  *
- * @param <T> the type of the data table records
+ * @param <T> The type of data in the DataTable.
  */
 public class AdvancedPaginationPlugin<T> implements DataTablePlugin<T> {
 
   private AdvancedPagination pagination;
 
-  /** Creates and instance with default page size of 10 */
+  /** Initializes the plugin with a default page size of 10. */
   public AdvancedPaginationPlugin() {
     this(10);
   }
 
   /**
-   * Creates and instance with a custom page size
+   * Initializes the plugin with a specified page size.
    *
-   * @param pageSize int, Page size
+   * @param pageSize The number of items per page.
    */
   public AdvancedPaginationPlugin(int pageSize) {
     this.pagination = AdvancedPagination.create(0, pageSize);
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Adds the advanced pagination component to the DataTable and registers a change listener to
+   * handle page change events.
+   *
+   * @param dataTable The DataTable instance to which this plugin is applied.
+   */
   @Override
   public void onAfterAddTable(DataTable<T> dataTable) {
     dataTable.appendChild(pagination);
@@ -53,11 +58,10 @@ public class AdvancedPaginationPlugin<T> implements DataTablePlugin<T> {
             dataTable.fireTableEvent(new TablePageChangeEvent(pageNumber, pagination)));
   }
 
-  /** @return the {@link AdvancedPagination} wrapped in this plugin */
   /**
-   * Getter for the field <code>pagination</code>.
+   * Gets the AdvancedPagination instance used by this plugin.
    *
-   * @return a {@link org.dominokit.domino.ui.pagination.AdvancedPagination} object
+   * @return The AdvancedPagination instance.
    */
   public AdvancedPagination getPagination() {
     return pagination;

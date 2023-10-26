@@ -26,58 +26,64 @@ import java.util.stream.Collectors;
 import org.dominokit.domino.ui.chips.Chip;
 import org.dominokit.domino.ui.forms.FormsStyles;
 
-/** TagBox class. */
+/**
+ * A versatile input field that allows users to select multiple tags from a list of suggestions.
+ *
+ * @param <V> The type of data associated with the selected tags.
+ */
 public class TagBox<V> extends AbstractSuggestBox<V, List<V>, Chip, TagOption<V>, TagBox<V>> {
 
   private List<TagOption<V>> selectedOptions = new ArrayList<>();
   private boolean removable;
 
   /**
-   * create.
+   * Creates a new instance of TagBox with the provided SuggestionsStore.
    *
-   * @param store a {@link org.dominokit.domino.ui.forms.suggest.SuggestionsStore} object
-   * @param <V> a V class
-   * @return a {@link org.dominokit.domino.ui.forms.suggest.TagBox} object
+   * @param store The SuggestionsStore that provides suggestions for this TagBox.
+   * @return A new instance of TagBox.
    */
   public static <V> TagBox<V> create(SuggestionsStore<V, Chip, TagOption<V>> store) {
     return new TagBox<>(store);
   }
 
   /**
-   * create.
+   * Creates a new instance of TagBox with a default input mapper.
    *
-   * @param inputMapper a {@link java.util.function.Function} object
-   * @param <V> a V class
-   * @return a {@link org.dominokit.domino.ui.forms.suggest.TagBox} object
+   * @param inputMapper A function to map input strings to tag values.
+   * @return A new instance of TagBox.
    */
   public static <V> TagBox<V> create(Function<String, V> inputMapper) {
     return new TagBox<V>(createDefaultStore(inputMapper));
   }
 
   /**
-   * create.
+   * Creates a new instance of TagBox with a label and a default input mapper.
    *
-   * @param label a {@link java.lang.String} object
-   * @param inputMapper a {@link java.util.function.Function} object
-   * @param <V> a V class
-   * @return a {@link org.dominokit.domino.ui.forms.suggest.TagBox} object
+   * @param label The label to display for the TagBox.
+   * @param inputMapper A function to map input strings to tag values.
+   * @return A new instance of TagBox.
    */
   public static <V> TagBox<V> create(String label, Function<String, V> inputMapper) {
     return new TagBox<V>(label, createDefaultStore(inputMapper));
   }
 
   /**
-   * create.
+   * Creates a new instance of TagBox with a label and the provided SuggestionsStore.
    *
-   * @param label a {@link java.lang.String} object
-   * @param store a {@link org.dominokit.domino.ui.forms.suggest.SuggestionsStore} object
-   * @param <V> a V class
-   * @return a {@link org.dominokit.domino.ui.forms.suggest.TagBox} object
+   * @param label The label to display for the TagBox.
+   * @param store The SuggestionsStore that provides suggestions for this TagBox.
+   * @return A new instance of TagBox.
    */
   public static <V> TagBox<V> create(String label, SuggestionsStore<V, Chip, TagOption<V>> store) {
     return new TagBox<>(label, store);
   }
 
+  /**
+   * Creates a default SuggestionsStore for TagBox using the provided input mapper.
+   *
+   * @param inputMapper A function to map input strings to tag values.
+   * @return A default SuggestionsStore for TagBox.
+   */
   private static <V> LocalSuggestionsStore<V, Chip, TagOption<V>> createDefaultStore(
       Function<String, V> inputMapper) {
     return new LocalSuggestionsStore<V, Chip, TagOption<V>>()
@@ -88,9 +94,9 @@ public class TagBox<V> extends AbstractSuggestBox<V, List<V>, Chip, TagOption<V>
   }
 
   /**
-   * Constructor for TagBox.
+   * Creates a new instance of TagBox with the provided SuggestionsStore.
    *
-   * @param store a {@link org.dominokit.domino.ui.forms.suggest.SuggestionsStore} object
+   * @param store The SuggestionsStore that provides suggestions for this TagBox.
    */
   public TagBox(SuggestionsStore<V, Chip, TagOption<V>> store) {
     super(store);
@@ -106,17 +112,21 @@ public class TagBox<V> extends AbstractSuggestBox<V, List<V>, Chip, TagOption<V>
   }
 
   /**
-   * Constructor for TagBox.
+   * Creates a new instance of TagBox with a label and the provided SuggestionsStore.
    *
-   * @param label a {@link java.lang.String} object
-   * @param store a {@link org.dominokit.domino.ui.forms.suggest.SuggestionsStore} object
+   * @param label The label to display for the TagBox.
+   * @param store The SuggestionsStore that provides suggestions for this TagBox.
    */
   public TagBox(String label, SuggestionsStore<V, Chip, TagOption<V>> store) {
     this(store);
     setLabel(label);
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Sets the value of the TagBox using a list of values.
+   *
+   * @param values The list of tag values to set as selected options.
+   */
   @Override
   protected void doSetValue(List<V> values) {
     clearValue(false);
@@ -143,10 +153,10 @@ public class TagBox<V> extends AbstractSuggestBox<V, List<V>, Chip, TagOption<V>
   }
 
   /**
-   * Setter for the field <code>removable</code>.
+   * Sets whether the tags are removable.
    *
-   * @param removable a boolean
-   * @return a {@link org.dominokit.domino.ui.forms.suggest.TagBox} object
+   * @param removable `true` to allow removing tags, `false` otherwise.
+   * @return The updated TagBox instance.
    */
   public TagBox<V> setRemovable(boolean removable) {
     this.selectedOptions.forEach(option -> option.setRemovable(removable));
@@ -155,21 +165,29 @@ public class TagBox<V> extends AbstractSuggestBox<V, List<V>, Chip, TagOption<V>
   }
 
   /**
-   * isRemovable.
+   * Checks if tags are removable.
    *
-   * @return a boolean
+   * @return `true` if tags are removable, `false` otherwise.
    */
   public boolean isRemovable() {
     return removable;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Retrieves the list of selected tag values.
+   *
+   * @return The list of selected tag values.
+   */
   @Override
   public List<V> getValue() {
     return selectedOptions.stream().map(TagOption::getValue).collect(Collectors.toList());
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Handles the selection of a tag option.
+   *
+   * @param option The tag option that was selected.
+   */
   @Override
   public void onOptionSelected(TagOption<V> option) {
     if (nonNull(this.selectedOptions) && this.selectedOptions.contains(option)) {
@@ -188,9 +206,10 @@ public class TagBox<V> extends AbstractSuggestBox<V, List<V>, Chip, TagOption<V>
   }
 
   /**
-   * doSetOption.
+   * Adds a tag option to the TagBox.
    *
-   * @param option a {@link org.dominokit.domino.ui.forms.suggest.TagOption} object
+   * @param option The tag option to add.
+   * @return The updated TagBox instance.
    */
   protected void doSetOption(TagOption<V> option) {
     if (isNull(this.selectedOptions)) {
@@ -199,7 +218,11 @@ public class TagBox<V> extends AbstractSuggestBox<V, List<V>, Chip, TagOption<V>
     this.selectedOptions.add(option);
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Handles the deselection of a tag option.
+   *
+   * @param option The tag option that was deselected.
+   */
   @Override
   public void onOptionDeselected(TagOption<V> option) {
     List<V> oldValue = getValue();
@@ -218,7 +241,7 @@ public class TagBox<V> extends AbstractSuggestBox<V, List<V>, Chip, TagOption<V>
     option.unbindTarget();
   }
 
-  /** {@inheritDoc} */
+  /** Handles the "Backspace" key event. */
   @Override
   protected void onBackspace() {
     if (!selectedOptions.isEmpty()) {
@@ -226,13 +249,22 @@ public class TagBox<V> extends AbstractSuggestBox<V, List<V>, Chip, TagOption<V>
     }
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Sets the behavior of a tag option before applying a missing option.
+   *
+   * @param option The tag option before applying a missing option.
+   */
   @Override
   protected void onBeforeApplyMissingOption(TagOption<V> option) {
     option.setRemovable(isRemovable());
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Clears the value of the TagBox.
+   *
+   * @param silent Whether to clear the value silently.
+   * @return The updated TagBox instance.
+   */
   @Override
   protected TagBox<V> clearValue(boolean silent) {
     if (!selectedOptions.isEmpty()) {
@@ -256,7 +288,12 @@ public class TagBox<V> extends AbstractSuggestBox<V, List<V>, Chip, TagOption<V>
     return this;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Sets the read-only state of the TagBox.
+   *
+   * @param readOnly `true` to set the TagBox as read-only, `false` otherwise.
+   * @return The updated TagBox instance.
+   */
   @Override
   public TagBox<V> setReadOnly(boolean readOnly) {
     this.getInputElement().setReadOnly(readOnly);
@@ -269,7 +306,12 @@ public class TagBox<V> extends AbstractSuggestBox<V, List<V>, Chip, TagOption<V>
     return super.setReadOnly(readOnly);
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Sets the disabled state of the TagBox.
+   *
+   * @param disabled `true` to set the TagBox as disabled, `false` otherwise.
+   * @return The updated TagBox instance.
+   */
   @Override
   public TagBox<V> setDisabled(boolean disabled) {
     this.getInputElement().setDisabled(disabled);
@@ -283,15 +325,19 @@ public class TagBox<V> extends AbstractSuggestBox<V, List<V>, Chip, TagOption<V>
   }
 
   /**
-   * Getter for the field <code>selectedOptions</code>.
+   * Retrieves a list of selected tag options.
    *
-   * @return a {@link java.util.List} object
+   * @return The list of selected tag options.
    */
   public List<TagOption<V>> getSelectedOptions() {
     return new ArrayList<>(selectedOptions);
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Retrieves the string representation of the selected tag values.
+   *
+   * @return The string representation of the selected tag values.
+   */
   @Override
   public String getStringValue() {
     if (nonNull(this.selectedOptions) && !this.selectedOptions.isEmpty()) {

@@ -16,6 +16,7 @@
 package org.dominokit.domino.ui.dialogs;
 
 import static elemental2.dom.DomGlobal.document;
+import static elemental2.dom.DomGlobal.window;
 import static java.util.Objects.nonNull;
 
 import elemental2.dom.*;
@@ -34,7 +35,30 @@ import org.dominokit.domino.ui.icons.Icon;
 import org.dominokit.domino.ui.style.SwapCssClass;
 import org.dominokit.domino.ui.utils.*;
 
-/** AbstractDialog class. */
+/**
+ * The AbstractDialog class is the base class for creating dialog boxes in the Domino-UI framework.
+ * It provides various customization options and utility methods for creating and managing dialog
+ * boxes.
+ *
+ * <p><b>Usage Example:</b>
+ *
+ * <pre>
+ * AbstractDialog dialog = new AbstractDialog()
+ *     .setTitle("Example Dialog")
+ *     .appendChild(new Text("This is a sample dialog box."))
+ *     .setAutoClose(true)
+ *     .open();
+ * </pre>
+ *
+ * @param <T> The concrete subclass of the <b>AbstractDialog</b>.
+ * @see DialogStyles
+ * @see IsPopup
+ * @see HasComponentConfig
+ * @see DialogLabels
+ * @see Transition
+ * @see ZIndexConfig
+ * @see BaseDominoElement
+ */
 public class AbstractDialog<T extends AbstractDialog<T>>
     extends BaseDominoElement<HTMLDivElement, T>
     implements DialogStyles, IsPopup<T>, HasComponentConfig<ZIndexConfig> {
@@ -70,7 +94,7 @@ public class AbstractDialog<T extends AbstractDialog<T>>
 
   protected DialogLabels labels = DominoUIConfig.CONFIG.getDominoUILabels();
 
-  /** Constructor for AbstractDialog. */
+  /** Constructs a new instance of {@code AbstractDialog}. */
   public AbstractDialog() {
     element =
         div()
@@ -107,7 +131,6 @@ public class AbstractDialog<T extends AbstractDialog<T>>
         });
   }
 
-  /** Force the tab to navigate inside the modal dialog only */
   void addTabIndexHandler() {
     element()
         .addEventListener(
@@ -158,19 +181,19 @@ public class AbstractDialog<T extends AbstractDialog<T>>
   }
 
   /**
-   * Getter for the field <code>openTransition</code>.
+   * Gets the transition used when opening the dialog.
    *
-   * @return a {@link org.dominokit.domino.ui.animations.Transition} object
+   * @return The open transition.
    */
   public Transition getOpenTransition() {
     return openTransition;
   }
 
   /**
-   * Setter for the field <code>openTransition</code>.
+   * Sets the transition used when opening the dialog.
    *
-   * @param openTransition a {@link org.dominokit.domino.ui.animations.Transition} object
-   * @return a T object
+   * @param openTransition The open transition to set.
+   * @return This dialog instance for method chaining.
    */
   public T setOpenTransition(Transition openTransition) {
     this.openTransition = openTransition;
@@ -178,19 +201,19 @@ public class AbstractDialog<T extends AbstractDialog<T>>
   }
 
   /**
-   * Getter for the field <code>closeTransition</code>.
+   * Gets the transition used when closing the dialog.
    *
-   * @return a {@link org.dominokit.domino.ui.animations.Transition} object
+   * @return The close transition.
    */
   public Transition getCloseTransition() {
     return closeTransition;
   }
 
   /**
-   * Setter for the field <code>closeTransition</code>.
+   * Sets the transition used when closing the dialog.
    *
-   * @param closeTransition a {@link org.dominokit.domino.ui.animations.Transition} object
-   * @return a T object
+   * @param closeTransition The close transition to set.
+   * @return This dialog instance for method chaining.
    */
   public T setCloseTransition(Transition closeTransition) {
     this.closeTransition = closeTransition;
@@ -198,19 +221,19 @@ public class AbstractDialog<T extends AbstractDialog<T>>
   }
 
   /**
-   * Getter for the field <code>transitionDuration</code>.
+   * Gets the duration of the open/close animation transition in milliseconds.
    *
-   * @return a int
+   * @return The transition duration in milliseconds.
    */
   public int getTransitionDuration() {
     return transitionDuration;
   }
 
   /**
-   * Setter for the field <code>transitionDuration</code>.
+   * Sets the duration of the open/close animation transition in milliseconds.
    *
-   * @param transitionDuration a int
-   * @return a T object
+   * @param transitionDuration The transition duration in milliseconds to set.
+   * @return This dialog instance for method chaining.
    */
   public T setTransitionDuration(int transitionDuration) {
     this.transitionDuration = transitionDuration;
@@ -218,19 +241,19 @@ public class AbstractDialog<T extends AbstractDialog<T>>
   }
 
   /**
-   * isAnimate.
+   * Checks if animations are enabled for opening and closing the dialog.
    *
-   * @return a boolean
+   * @return {@code true} if animations are enabled, {@code false} otherwise.
    */
   public boolean isAnimate() {
     return animate;
   }
 
   /**
-   * Setter for the field <code>animate</code>.
+   * Enables or disables animations for opening and closing the dialog.
    *
-   * @param animate a boolean
-   * @return a T object
+   * @param animate {@code true} to enable animations, {@code false} to disable.
+   * @return This dialog instance for method chaining.
    */
   public T setAnimate(boolean animate) {
     this.animate = animate;
@@ -238,10 +261,10 @@ public class AbstractDialog<T extends AbstractDialog<T>>
   }
 
   /**
-   * {@inheritDoc}
+   * Enables or disables the automatic closing of the dialog when clicking outside of it.
    *
-   * @param autoClose a boolean
-   * @return a T object
+   * @param autoClose {@code true} to enable auto-closing, {@code false} to disable.
+   * @return This dialog instance for method chaining.
    */
   public T setAutoClose(boolean autoClose) {
     this.autoClose = autoClose;
@@ -249,10 +272,12 @@ public class AbstractDialog<T extends AbstractDialog<T>>
   }
 
   /**
-   * {@inheritDoc}
+   * Enables or disables the automatic appending and removing of the dialog element to/from the
+   * document body.
    *
-   * @param autoAppendAndRemove a boolean
-   * @return a T object
+   * @param autoAppendAndRemove {@code true} to enable auto-append and auto-remove, {@code false} to
+   *     disable.
+   * @return This dialog instance for method chaining.
    */
   public T setAutoAppendAndRemove(boolean autoAppendAndRemove) {
     this.autoAppendAndRemove = autoAppendAndRemove;
@@ -260,9 +285,9 @@ public class AbstractDialog<T extends AbstractDialog<T>>
   }
 
   /**
-   * {@inheritDoc}
+   * Opens the dialog box, making it visible to the user.
    *
-   * @return a T object
+   * @return This dialog instance for method chaining.
    */
   public T open() {
     if (isEnabled()) {
@@ -281,6 +306,7 @@ public class AbstractDialog<T extends AbstractDialog<T>>
 
   private void doOpen() {
     element.removeCssProperty("z-index");
+    element.setCssProperty("top", Unit.px.of(window.pageYOffset));
     if (autoAppendAndRemove) {
       element().remove();
       document.body.appendChild(element());
@@ -334,9 +360,9 @@ public class AbstractDialog<T extends AbstractDialog<T>>
   }
 
   /**
-   * {@inheritDoc}
+   * Closes the dialog box, making it invisible to the user.
    *
-   * @return a T object
+   * @return This dialog instance for method chaining.
    */
   public T close() {
     if (this.open) {
@@ -367,20 +393,19 @@ public class AbstractDialog<T extends AbstractDialog<T>>
   }
 
   /**
-   * isAutoClose.
+   * Checks if the dialog is set to automatically close when clicking outside of it.
    *
-   * @return boolean
-   * @see #setAutoClose(boolean)
+   * @return {@code true} if auto-close is enabled, {@code false} otherwise.
    */
   public boolean isAutoClose() {
     return autoClose;
   }
 
   /**
-   * setStretchWidth.
+   * Sets the width of the dialog to stretch according to the specified size.
    *
-   * @param size {@link org.dominokit.domino.ui.dialogs.DialogSize}
-   * @return same Dialog instance
+   * @param size The dialog width size.
+   * @return This dialog instance for method chaining.
    */
   public T setStretchWidth(IsDialogWidth size) {
     addCss(stretchWidthCss.replaceWith(size.getWidthStyle()));
@@ -388,10 +413,10 @@ public class AbstractDialog<T extends AbstractDialog<T>>
   }
 
   /**
-   * setStretchHeight.
+   * Sets the height of the dialog to stretch according to the specified size.
    *
-   * @param size {@link org.dominokit.domino.ui.dialogs.DialogSize}
-   * @return same Dialog instance
+   * @param size The dialog height size.
+   * @return This dialog instance for method chaining.
    */
   public T setStretchHeight(IsDialogHeight size) {
     addCss(stretchHeightCss.replaceWith(size.getHeightStyle()));
@@ -399,6 +424,7 @@ public class AbstractDialog<T extends AbstractDialog<T>>
   }
 
   /**
+   * @dominokit-site-ignore
    * @deprecated use {@link #addCss(org.dominokit.domino.ui.style.CssClass...)} with {@link
    *     DialogType} or the styles from {@link DialogStyles} setType.
    * @param type {@link org.dominokit.domino.ui.dialogs.DialogType}
@@ -410,44 +436,40 @@ public class AbstractDialog<T extends AbstractDialog<T>>
     return (T) this;
   }
 
-  /** @return boolean, true if this modal will show an overlay to block the content behind it. */
   /**
-   * isModal.
+   * Checks if the dialog is modal, i.e., if it blocks interactions with the rest of the page.
    *
-   * @return a boolean
+   * @return {@code true} if the dialog is modal, {@code false} otherwise.
    */
   public boolean isModal() {
     return modal;
   }
 
   /**
-   * Setter for the field <code>modal</code>.
+   * Sets whether the dialog should be modal, blocking interactions with the rest of the page.
    *
-   * @param modal boolean,true to make this modal show an overlay to block the content behind it
-   *     when it is open
-   * @return same dialog instance
+   * @param modal {@code true} to make the dialog modal, {@code false} otherwise.
+   * @return This dialog instance for method chaining.
    */
   public T setModal(boolean modal) {
     this.modal = modal;
     return (T) this;
   }
 
-  /** @return boolean, true if the modal should auto-focus first focusable element when opened. */
   /**
-   * isAutoFocus.
+   * Checks if the dialog is set to automatically focus on the first focusable element when opened.
    *
-   * @return a boolean
+   * @return {@code true} if auto-focus is enabled, {@code false} otherwise.
    */
   public boolean isAutoFocus() {
     return autoFocus;
   }
 
   /**
-   * Setter for the field <code>autoFocus</code>.
+   * Sets whether the dialog should automatically focus on the first focusable element when opened.
    *
-   * @param autoFocus boolean, true if the modal should auto-focus first focusable element when
-   *     opened.
-   * @return same dialog instance
+   * @param autoFocus {@code true} to enable auto-focus, {@code false} to disable.
+   * @return This dialog instance for method chaining.
    */
   public T setAutoFocus(boolean autoFocus) {
     this.autoFocus = autoFocus;
@@ -473,36 +495,42 @@ public class AbstractDialog<T extends AbstractDialog<T>>
   }
 
   /**
-   * appendChild.
+   * Appends a child element to the dialog's header.
    *
-   * @param element a {@link org.dominokit.domino.ui.utils.HeaderContent} object
-   * @return a T object
+   * @param element The child element to append.
+   * @return This dialog instance for method chaining.
    */
   public T appendChild(HeaderContent<?> element) {
+
     contentHeader.get().appendChild(element);
     return (T) this;
   }
 
   /**
-   * appendChild.
+   * Appends a child element to the dialog's footer.
    *
-   * @param element a {@link org.dominokit.domino.ui.utils.FooterContent} object
-   * @return a T object
+   * @param element The child element to append.
+   * @return This dialog instance for method chaining.
    */
   public T appendChild(FooterContent<?> element) {
     contentFooter.get().appendChild(element);
     return (T) this;
   }
 
+  /**
+   * Gets the modal element of the dialog, which is the overlay behind the content.
+   *
+   * @return The modal element.
+   */
   public DivElement getModalElement() {
     return modalElement;
   }
 
   /**
-   * withHeader.
+   * Allows customization of the dialog's header using a {@code ChildHandler}.
    *
-   * @param handler a {@link org.dominokit.domino.ui.utils.ChildHandler} object
-   * @return a T object
+   * @param handler The handler for customizing the header.
+   * @return This dialog instance for method chaining.
    */
   public T withHeader(ChildHandler<T, DivElement> handler) {
     handler.apply((T) this, headerElement.get());
@@ -510,19 +538,19 @@ public class AbstractDialog<T extends AbstractDialog<T>>
   }
 
   /**
-   * getHeader.
+   * Gets the header element of the dialog.
    *
-   * @return a {@link org.dominokit.domino.ui.elements.DivElement} object
+   * @return The header element.
    */
   public DivElement getHeader() {
     return headerElement.get();
   }
 
   /**
-   * setIcon.
+   * Sets the icon for the dialog panel.
    *
-   * @param icon a {@link org.dominokit.domino.ui.icons.Icon} object
-   * @return a T object
+   * @param icon The icon to set.
+   * @return This dialog instance for method chaining.
    */
   public T setIcon(Icon<?> icon) {
     panelIcon.remove();
@@ -532,29 +560,10 @@ public class AbstractDialog<T extends AbstractDialog<T>>
   }
 
   /**
-   * withIcon.
+   * Allows customization of the dialog's content body using a {@code ChildHandler}.
    *
-   * @param icon a {@link org.dominokit.domino.ui.icons.Icon} object
-   * @return a T object
-   */
-  public T withIcon(Icon<?> icon) {
-    return setIcon(icon);
-  }
-
-  /**
-   * getContentBody.
-   *
-   * @return a {@link org.dominokit.domino.ui.elements.DivElement} object
-   */
-  public DivElement getContentBody() {
-    return bodyElement;
-  }
-
-  /**
-   * withContentBody.
-   *
-   * @param handler a {@link org.dominokit.domino.ui.utils.ChildHandler} object
-   * @return a T object
+   * @param handler The handler for customizing the content body.
+   * @return This dialog instance for method chaining.
    */
   public T withContentBody(ChildHandler<T, DivElement> handler) {
     handler.apply((T) this, bodyElement);
@@ -562,19 +571,19 @@ public class AbstractDialog<T extends AbstractDialog<T>>
   }
 
   /**
-   * Getter for the field <code>contentElement</code>.
+   * Gets the body element of the dialog.
    *
-   * @return a {@link org.dominokit.domino.ui.elements.DivElement} object
+   * @return The body element.
    */
-  public DivElement getContentElement() {
-    return contentElement;
+  public DivElement getContentBody() {
+    return bodyElement;
   }
 
   /**
-   * withContentElement.
+   * Allows customization of the dialog's content element using a {@code ChildHandler}.
    *
-   * @param handler a {@link org.dominokit.domino.ui.utils.ChildHandler} object
-   * @return a T object
+   * @param handler The handler for customizing the content element.
+   * @return This dialog instance for method chaining.
    */
   public T withContentElement(ChildHandler<T, DivElement> handler) {
     handler.apply((T) this, contentElement);
@@ -582,19 +591,19 @@ public class AbstractDialog<T extends AbstractDialog<T>>
   }
 
   /**
-   * Getter for the field <code>contentHeader</code>.
+   * Gets the content element of the dialog.
    *
-   * @return a {@link org.dominokit.domino.ui.elements.DivElement} object
+   * @return The content element.
    */
-  public DivElement getContentHeader() {
-    return contentHeader.get();
+  public DivElement getContentElement() {
+    return contentElement;
   }
 
   /**
-   * withContentHeader.
+   * Allows customization of the dialog's content header using a {@code ChildHandler}.
    *
-   * @param handler a {@link org.dominokit.domino.ui.utils.ChildHandler} object
-   * @return a T object
+   * @param handler The handler for customizing the content header.
+   * @return This dialog instance for method chaining.
    */
   public T withContentHeader(ChildHandler<T, DivElement> handler) {
     handler.apply((T) this, contentHeader.get());
@@ -602,29 +611,19 @@ public class AbstractDialog<T extends AbstractDialog<T>>
   }
 
   /**
-   * withContentHeader.
+   * Gets the content header element of the dialog.
    *
-   * @return a T object
+   * @return The content header element.
    */
-  public T withContentHeader() {
-    contentHeader.get();
-    return (T) this;
+  public DivElement getContentHeader() {
+    return contentHeader.get();
   }
 
   /**
-   * Getter for the field <code>contentFooter</code>.
+   * Allows customization of the dialog's content footer using a {@code ChildHandler}.
    *
-   * @return a {@link org.dominokit.domino.ui.elements.DivElement} object
-   */
-  public DivElement getContentFooter() {
-    return contentFooter.get();
-  }
-
-  /**
-   * withContentFooter.
-   *
-   * @param handler a {@link org.dominokit.domino.ui.utils.ChildHandler} object
-   * @return a T object
+   * @param handler The handler for customizing the content footer.
+   * @return This dialog instance for method chaining.
    */
   public T withContentFooter(ChildHandler<T, DivElement> handler) {
     handler.apply((T) this, contentFooter.get());
@@ -632,43 +631,65 @@ public class AbstractDialog<T extends AbstractDialog<T>>
   }
 
   /**
-   * withContentFooter.
+   * Gets the content footer element of the dialog.
    *
-   * @return a T object
+   * @return The content footer element.
    */
-  public T withContentFooter() {
-    contentFooter.get();
-    return (T) this;
+  public DivElement getContentFooter() {
+    return contentFooter.get();
   }
 
+  /**
+   * Gets the default element to focus on when the dialog is opened.
+   *
+   * @return The default focus element.
+   */
   public Element getDefaultFocusElement() {
     return defaultFocusElement;
   }
 
+  /**
+   * Sets the default element to focus on when the dialog is opened.
+   *
+   * @param defaultFocusElement The default focus element to set.
+   * @return This dialog instance for method chaining.
+   */
   public T setDefaultFocusElement(Element defaultFocusElement) {
     this.defaultFocusElement = defaultFocusElement;
     return (T) this;
   }
 
+  /**
+   * Sets the default element to focus on when the dialog is opened.
+   *
+   * @param defaultFocusElement The default focus element to set.
+   * @return This dialog instance for method chaining.
+   */
   public T setDefaultFocusElement(IsElement<?> defaultFocusElement) {
     this.defaultFocusElement = defaultFocusElement.element();
     return (T) this;
   }
 
+  /**
+   * Checks if the dialog is currently open.
+   *
+   * @return {@code true} if the dialog is open, {@code false} otherwise.
+   */
   public boolean isOpen() {
     return this.open;
   }
 
-  /** A function to implement a listener to be called when open the dialog */
+  /** A functional interface for handling dialog open events. */
   @FunctionalInterface
   public interface OpenHandler {
+    /** Handles the dialog open event. */
     void onOpen();
   }
 
-  /** An interface to implement handlers for closing a dialog */
+  /** A functional interface for handling dialog close events. */
   @FunctionalInterface
   public interface CloseHandler {
-    /** Will be called when the dialog is closed */
+    /** Handles the dialog close event. */
     void onClose();
   }
 }

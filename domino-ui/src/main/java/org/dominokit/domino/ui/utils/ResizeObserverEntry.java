@@ -21,12 +21,37 @@ import elemental2.dom.Element;
 import jsinterop.annotations.JsPackage;
 import jsinterop.annotations.JsType;
 
-/** ResizeObserverEntry class. */
+/**
+ * The {@code ResizeObserverEntry} class represents an entry for the {@link ResizeObserver}. It
+ * contains information about the observed element's dimensions and properties after a resize or
+ * change event.
+ *
+ * <p>This class is part of the Resize Observer API, which is used for observing changes to the
+ * dimensions of elements. For more information about the Resize Observer API, refer to the <a
+ * href="https://developer.mozilla.org/en-US/docs/Web/API/ResizeObserverEntry" target="_blank">MDN
+ * documentation</a>.
+ */
 @JsType(isNative = true, namespace = JsPackage.GLOBAL)
 public class ResizeObserverEntry {
 
+  /**
+   * An array of {@link ResizeObserverSize} objects representing the size of the observed element's
+   * border box after the resize event.
+   */
   public JsArray<ResizeObserverSize> borderBoxSize;
+
+  /**
+   * An array of {@link ResizeObserverSize} objects representing the size of the observed element's
+   * content box after the resize event.
+   */
   public JsArray<ResizeObserverSize> contentBoxSize;
+
+  /**
+   * A {@link DOMRect} object representing the size and position of the observed element's content
+   * box after the resize event.
+   */
   public DOMRect contentRect;
+
+  /** The DOM {@link Element} that was observed and triggered the resize event. */
   public Element target;
 }

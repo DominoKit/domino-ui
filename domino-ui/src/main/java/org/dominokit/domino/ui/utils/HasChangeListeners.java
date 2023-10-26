@@ -13,24 +13,25 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package org.dominokit.domino.ui.utils;
 
 import java.util.Set;
 
 /**
- * Components that has a value that can be changed and need to define listeners for the changes
- * should implement this interface
+ * The {@code HasChangeListeners} interface defines methods for managing change listeners and
+ * handling changes in a value of type {@code V}.
  *
- * @param <T> the type of the class implementing this interface
- * @param <V> the type of the component value
+ * @param <T> The type of object implementing this interface.
+ * @param <V> The type of the value that can change and be observed.
  */
 public interface HasChangeListeners<T, V> {
 
   /**
-   * addChangeListener.
+   * Adds a change listener to the set of listeners.
    *
-   * @param changeListener {@link org.dominokit.domino.ui.utils.HasChangeListeners.ChangeListener}
-   * @return same implementing class instance
+   * @param changeListener The {@link ChangeListener} to be added.
+   * @return The modified object of type {@code T} with the change listener added.
    */
   default T addChangeListener(ChangeListener<? super V> changeListener) {
     getChangeListeners().add(changeListener);
@@ -38,10 +39,10 @@ public interface HasChangeListeners<T, V> {
   }
 
   /**
-   * removeChangeListener.
+   * Removes a change listener from the set of listeners.
    *
-   * @param changeListener {@link org.dominokit.domino.ui.utils.HasChangeListeners.ChangeListener}
-   * @return same implementing class instance
+   * @param changeListener The {@link ChangeListener} to be removed.
+   * @return The modified object of type {@code T} with the change listener removed.
    */
   default T removeChangeListener(ChangeListener<? super V> changeListener) {
     getChangeListeners().remove(changeListener);
@@ -49,44 +50,43 @@ public interface HasChangeListeners<T, V> {
   }
 
   /**
-   * Checks if a component has the specified ChangeHandler
+   * Checks if a change listener is present in the set of listeners.
    *
-   * @param changeListener {@link org.dominokit.domino.ui.utils.HasChangeListeners.ChangeListener}
-   * @return same implementing class instance
+   * @param changeListener The {@link ChangeListener} to be checked.
+   * @return {@code true} if the change listener is present, {@code false} otherwise.
    */
   default boolean hasChangeListener(ChangeListener<? super V> changeListener) {
     return getChangeListeners().contains(changeListener);
   }
 
   /**
-   * Disable change listeners
+   * Pauses change listeners.
    *
-   * @return same component instance
+   * @return The modified object of type {@code T} with change listeners paused.
    */
   T pauseChangeListeners();
 
   /**
-   * Enables change listeners
+   * Resumes change listeners.
    *
-   * @return same component instance
+   * @return The modified object of type {@code T} with change listeners resumed.
    */
   T resumeChangeListeners();
 
   /**
-   * Disable/Enable change listeners
+   * Toggles the pause state of change listeners.
    *
-   * @param toggle boolean, true to pause the change listeners, false to enable them
-   * @return same component instance
+   * @param toggle {@code true} to pause change listeners, {@code false} to resume.
+   * @return The modified object of type {@code T} with the change listener pause state toggled.
    */
   T togglePauseChangeListeners(boolean toggle);
 
   /**
-   * Execute a handler while toggling the change handlers state, revert the state back to its
-   * original value after executing the handler
+   * Executes a handler with change listeners paused, then resumes change listeners.
    *
-   * @param toggle boolean, true to pause the change listeners, false to enable them
-   * @return same component instance
-   * @param handler a {@link org.dominokit.domino.ui.utils.Handler} object
+   * @param toggle {@code true} to pause change listeners, {@code false} to resume.
+   * @param handler The {@link Handler} to be executed.
+   * @return The modified object of type {@code T} with change listeners handled accordingly.
    */
   default T withPauseChangeListenersToggle(boolean toggle, Handler<T> handler) {
     boolean oldState = isChangeListenersPaused();
@@ -100,11 +100,10 @@ public interface HasChangeListeners<T, V> {
   }
 
   /**
-   * Execute a handler while toggling the change handlers state, revert the state back to its
-   * original value after executing the handler
+   * Executes a handler with change listeners paused, then resumes change listeners.
    *
-   * @return same component instance
-   * @param handler a {@link org.dominokit.domino.ui.utils.Handler} object
+   * @param handler The {@link Handler} to be executed.
+   * @return The modified object of type {@code T} with change listeners handled accordingly.
    */
   default T withPausedChangeListeners(Handler<T> handler) {
     boolean oldState = isChangeListenersPaused();
@@ -118,12 +117,11 @@ public interface HasChangeListeners<T, V> {
   }
 
   /**
-   * Execute a handler while toggling the change handlers state, revert the state back to its
-   * original value after the AsyncHandler.onComplete is called
+   * Executes an asynchronous handler with change listeners paused, then resumes change listeners.
    *
-   * @param toggle boolean, true to pause the change listeners, false to enable them
-   * @return same component instance
-   * @param handler a {@link org.dominokit.domino.ui.utils.AsyncHandler} object
+   * @param toggle {@code true} to pause change listeners, {@code false} to resume.
+   * @param handler The {@link AsyncHandler} to be executed.
+   * @return The modified object of type {@code T} with change listeners handled asynchronously.
    */
   default T withPauseChangeListenersToggleAsync(boolean toggle, AsyncHandler<T> handler) {
     boolean oldState = isChangeListenersPaused();
@@ -138,11 +136,10 @@ public interface HasChangeListeners<T, V> {
   }
 
   /**
-   * Execute a handler while toggling the change handlers state, revert the state back to its
-   * original value after the AsyncHandler.onComplete is called
+   * Executes an asynchronous handler with change listeners paused, then resumes change listeners.
    *
-   * @return same component instance
-   * @param handler a {@link org.dominokit.domino.ui.utils.AsyncHandler} object
+   * @param handler The {@link AsyncHandler} to be executed.
+   * @return The modified object of type {@code T} with change listeners handled asynchronously.
    */
   default T withPausedChangeListenersAsync(AsyncHandler<T> handler) {
     boolean oldState = isChangeListenersPaused();
@@ -157,35 +154,41 @@ public interface HasChangeListeners<T, V> {
   }
 
   /**
-   * getChangeListeners.
+   * Retrieves the set of change listeners.
    *
-   * @return a {@link java.util.Set} object
+   * @return A {@link Set} of {@link ChangeListener} objects.
    */
   Set<ChangeListener<? super V>> getChangeListeners();
 
   /**
-   * isChangeListenersPaused.
+   * Checks if change listeners are currently paused.
    *
-   * @return a boolean
+   * @return {@code true} if change listeners are paused, {@code false} otherwise.
    */
   boolean isChangeListenersPaused();
 
   /**
-   * triggerChangeListeners.
+   * Triggers change listeners with the old and new values.
    *
-   * @param oldValue a V object
-   * @param newValue a V object
-   * @return a T object
+   * @param oldValue The old value before the change.
+   * @param newValue The new value after the change.
+   * @return The modified object of type {@code T} with change listeners triggered.
    */
   T triggerChangeListeners(V oldValue, V newValue);
 
-  /** @param <V> the type of the component value */
+  /**
+   * The functional interface representing a change listener.
+   *
+   * @param <V> The type of the value that can change and be observed.
+   */
   @FunctionalInterface
   interface ChangeListener<V> {
+
     /**
-     * Will be called whenever the component value is changed
+     * Invoked when the observed value has changed.
      *
-     * @param newValue V the new value of the component
+     * @param oldValue The old value before the change.
+     * @param newValue The new value after the change.
      */
     void onValueChanged(V oldValue, V newValue);
   }

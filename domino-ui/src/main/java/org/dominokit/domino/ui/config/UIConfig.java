@@ -21,7 +21,6 @@ public interface UIConfig
         ZIndexConfig,
         AccordionConfig,
         CardConfig,
-        CollapseConfig,
         ProgressBarConfig,
         SearchConfig,
         SpinConfig,

@@ -13,62 +13,71 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package org.dominokit.domino.ui.utils;
 
-/** IsPopup interface. */
+/**
+ * An interface representing a popup component that can be opened and closed.
+ *
+ * @param <T> The type of the component that implements this interface.
+ */
 public interface IsPopup<T> {
+
   /**
-   * open.
+   * Opens the popup.
    *
-   * @return a T object
+   * @return The component instance after opening.
    */
   T open();
 
   /**
-   * close.
+   * Closes the popup.
    *
-   * @return a T object
+   * @return The component instance after closing.
    */
   T close();
 
   /**
-   * isModal.
+   * Checks if the popup is modal.
    *
-   * @return a boolean
+   * @return {@code true} if the popup is modal, {@code false} otherwise.
    */
   boolean isModal();
 
   /**
-   * isAutoClose.
+   * Checks if the popup is set to auto-close.
    *
-   * @return a boolean
+   * @return {@code true} if auto-close is enabled, {@code false} otherwise.
    */
   boolean isAutoClose();
 
   /**
-   * isDialog.
+   * Checks if the popup is a dialog.
    *
-   * @return a boolean
+   * @return {@code true} if the popup is a dialog, {@code false} otherwise.
    */
   default boolean isDialog() {
     return false;
   }
 
   /**
-   * setZIndex.
+   * Sets the z-index of the popup.
    *
-   * @param zIndex a int
-   * @return a T object
+   * @param zIndex The z-index value to set.
+   * @return The component instance after setting the z-index.
    */
   T setZIndex(int zIndex);
 
   /**
-   * getZIndex.
+   * Gets the current z-index of the popup.
    *
-   * @return a int
+   * @return The current z-index value.
    */
   int getZIndex();
 
-  /** stealFocus. */
+  /**
+   * Steals focus for the popup. This method is empty by default and can be overridden by
+   * implementing classes.
+   */
   default void stealFocus() {}
 }

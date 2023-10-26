@@ -13,59 +13,77 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package org.dominokit.domino.ui.style;
 
 import elemental2.dom.Element;
 
-/** CssProperty class. */
+/**
+ * Represents a single CSS property which consists of a name and its associated value. The property
+ * can be applied or removed from a DOM {@link Element}.
+ */
 public class CssProperty implements IsCssProperty {
+
+  /** The name of the CSS property */
   private final String name;
+
+  /** The value of the CSS property */
   private final String value;
 
   /**
-   * of.
+   * Creates a new {@link CssProperty} instance with the specified name and value.
    *
-   * @param name a {@link java.lang.String} object.
-   * @param value a {@link java.lang.String} object.
-   * @return a {@link org.dominokit.domino.ui.style.CssProperty} object.
+   * @param name The name of the CSS property.
+   * @param value The value of the CSS property.
+   * @return A new {@link CssProperty} instance.
    */
   public static CssProperty of(String name, String value) {
     return new CssProperty(name, value);
   }
 
+  /**
+   * Constructs a {@link CssProperty} with a specified name and value.
+   *
+   * @param name The name of the CSS property.
+   * @param value The value of the CSS property.
+   */
   private CssProperty(String name, String value) {
     this.name = name;
     this.value = value;
   }
 
   /**
-   * Getter for the field <code>name</code>.
+   * Returns the name of the CSS property.
    *
-   * @return a {@link java.lang.String} object.
+   * @return The name of the CSS property.
    */
   public String getName() {
     return name;
   }
 
   /**
-   * Getter for the field <code>value</code>.
+   * Returns the value of the CSS property.
    *
-   * @return a {@link java.lang.String} object.
+   * @return The value of the CSS property.
    */
   public String getValue() {
     return value;
   }
 
   /**
-   * apply.
+   * Applies this CSS property to the specified DOM {@link Element}.
    *
-   * @param element a {@link elemental2.dom.Element} object.
+   * @param element The DOM element to which the CSS property will be applied.
    */
   public void apply(Element element) {
     Style.of(element).setCssProperty(name, value);
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Removes this CSS property from the specified DOM {@link Element}.
+   *
+   * @param element The DOM element from which the CSS property will be removed.
+   */
   @Override
   public void remove(Element element) {
     Style.of(element).removeCssProperty(name);

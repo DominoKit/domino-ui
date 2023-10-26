@@ -13,43 +13,44 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package org.dominokit.domino.ui.utils;
 
 /**
- * Components that has a requirement to have a min and max length can implement this interface
+ * The {@code HasLength} interface defines methods for setting and getting the maximum and minimum
+ * lengths of a component.
  *
- * @param <T> The type of the class implementing this interface
+ * @param <T> The type of the component that can have length constraints.
  */
 public interface HasLength<T> {
+
   /**
-   * setMaxLength.
+   * Sets the maximum length for the component's input value.
    *
-   * @param maxLength int max allowed length
-   * @return same implementation instance
+   * @param maxLength The maximum length to set.
+   * @return The component with the updated maximum length constraint.
    */
   T setMaxLength(int maxLength);
 
-  /** @return int max allowed length */
   /**
-   * getMaxLength.
+   * Gets the maximum length constraint for the component's input value.
    *
-   * @return a int
+   * @return The maximum length constraint for the component.
    */
   int getMaxLength();
 
   /**
-   * setMinLength.
+   * Sets the minimum length for the component's input value.
    *
-   * @param minLength int min allowed length
-   * @return same implementation instance
+   * @param minLength The minimum length to set.
+   * @return The component with the updated minimum length constraint.
    */
   T setMinLength(int minLength);
 
-  /** @return int min allowed length */
   /**
-   * getMinLength.
+   * Gets the minimum length constraint for the component's input value.
    *
-   * @return a int
+   * @return The minimum length constraint for the component.
    */
   int getMinLength();
 }

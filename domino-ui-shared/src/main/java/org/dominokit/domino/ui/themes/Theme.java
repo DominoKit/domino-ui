@@ -13,6 +13,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+/**
+ * The Theme class represents a color theme for a user interface. It provides a set of predefined
+ * color schemes and allows changing the current theme dynamically.
+ */
 package org.dominokit.domino.ui.themes;
 
 import static elemental2.dom.DomGlobal.document;
@@ -23,88 +27,68 @@ import java.util.List;
 import org.dominokit.domino.ui.style.ColorScheme;
 import org.dominokit.domino.ui.style.Style;
 
-/** Theme class. */
 public class Theme {
 
   private static List<ThemeChangeHandler> themeChangeHandlers = new ArrayList<>();
 
-  /** Constant <code>RED</code> */
+  /** Predefined color scheme: Red. */
   public static final ColorScheme RED = ColorScheme.RED;
 
-  /** Constant <code>PINK</code> */
+  /** Predefined color scheme: Pink. */
   public static final ColorScheme PINK = ColorScheme.PINK;
 
-  /** Constant <code>PURPLE</code> */
+  /** Predefined color scheme: Purple. */
   public static final ColorScheme PURPLE = ColorScheme.PURPLE;
 
-  /** Constant <code>DEEP_PURPLE</code> */
   public static final ColorScheme DEEP_PURPLE = ColorScheme.DEEP_PURPLE;
 
-  /** Constant <code>INDIGO</code> */
   public static final ColorScheme INDIGO = ColorScheme.INDIGO;
 
-  /** Constant <code>BLUE</code> */
   public static final ColorScheme BLUE = ColorScheme.BLUE;
 
-  /** Constant <code>LIGHT_BLUE</code> */
   public static final ColorScheme LIGHT_BLUE = ColorScheme.LIGHT_BLUE;
 
-  /** Constant <code>CYAN</code> */
   public static final ColorScheme CYAN = ColorScheme.CYAN;
 
-  /** Constant <code>TEAL</code> */
   public static final ColorScheme TEAL = ColorScheme.TEAL;
 
-  /** Constant <code>GREEN</code> */
   public static final ColorScheme GREEN = ColorScheme.GREEN;
 
-  /** Constant <code>LIGHT_GREEN</code> */
   public static final ColorScheme LIGHT_GREEN = ColorScheme.LIGHT_GREEN;
 
-  /** Constant <code>LIME</code> */
   public static final ColorScheme LIME = ColorScheme.LIME;
 
-  /** Constant <code>YELLOW</code> */
   public static final ColorScheme YELLOW = ColorScheme.YELLOW;
 
-  /** Constant <code>AMBER</code> */
   public static final ColorScheme AMBER = ColorScheme.AMBER;
 
-  /** Constant <code>ORANGE</code> */
   public static final ColorScheme ORANGE = ColorScheme.ORANGE;
 
-  /** Constant <code>DEEP_ORANGE</code> */
   public static final ColorScheme DEEP_ORANGE = ColorScheme.DEEP_ORANGE;
 
-  /** Constant <code>BROWN</code> */
   public static final ColorScheme BROWN = ColorScheme.BROWN;
 
-  /** Constant <code>GREY</code> */
   public static final ColorScheme GREY = ColorScheme.GREY;
 
-  /** Constant <code>BLUE_GREY</code> */
   public static final ColorScheme BLUE_GREY = ColorScheme.BLUE_GREY;
 
-  /** Constant <code>BLACK</code> */
   public static final ColorScheme BLACK = ColorScheme.BLACK;
 
-  /** Constant <code>WHITE</code> */
   public static final ColorScheme WHITE = ColorScheme.WHITE;
 
-  /** Constant <code>TRANSPARENT</code> */
   public static final ColorScheme TRANSPARENT = ColorScheme.TRANSPARENT;
 
   private final ColorScheme scheme;
   private final String themeStyle;
   private final String name;
 
-  /** Constant <code>currentTheme</code> */
+  /** The currently active theme. */
   public static Theme currentTheme = new Theme(ColorScheme.RED);
 
   /**
-   * Constructor for Theme.
+   * Creates a new Theme instance with the specified color scheme.
    *
-   * @param scheme a {@link org.dominokit.domino.ui.style.ColorScheme} object.
+   * @param scheme The color scheme for this theme.
    */
   public Theme(ColorScheme scheme) {
     this.scheme = scheme;
@@ -113,53 +97,51 @@ public class Theme {
   }
 
   /**
-   * Getter for the field <code>scheme</code>.
+   * Gets the color scheme associated with this theme.
    *
-   * @return a {@link org.dominokit.domino.ui.style.ColorScheme} object.
+   * @return The color scheme.
    */
   public ColorScheme getScheme() {
     return scheme;
   }
 
   /**
-   * Getter for the field <code>themeStyle</code>.
+   * Gets the CSS class representing the theme's style.
    *
-   * @return a {@link java.lang.String} object.
+   * @return The CSS class.
    */
   public String getThemeStyle() {
     return themeStyle;
   }
 
   /**
-   * Getter for the field <code>name</code>.
+   * Gets the name of the theme.
    *
-   * @return a {@link java.lang.String} object.
+   * @return The name of the theme.
    */
   public String getName() {
     return name;
   }
 
   /**
-   * addThemeChangeHandler.
+   * Adds a theme change handler to be notified when the theme changes.
    *
-   * @param themeChangeHandler a {@link org.dominokit.domino.ui.themes.Theme.ThemeChangeHandler}
-   *     object.
+   * @param themeChangeHandler The theme change handler to add.
    */
   public static void addThemeChangeHandler(ThemeChangeHandler themeChangeHandler) {
     themeChangeHandlers.add(themeChangeHandler);
   }
 
   /**
-   * removeThemeChangeHandler.
+   * Removes a theme change handler.
    *
-   * @param themeChangeHandler a {@link org.dominokit.domino.ui.themes.Theme.ThemeChangeHandler}
-   *     object.
+   * @param themeChangeHandler The theme change handler to remove.
    */
   public static void removeThemeChangeHandler(ThemeChangeHandler themeChangeHandler) {
     themeChangeHandlers.remove(themeChangeHandler);
   }
 
-  /** apply. */
+  /** Applies this theme to the document's body element, changing the UI's color scheme. */
   public void apply() {
     Theme oldTheme = currentTheme;
     if (nonNull(currentTheme)) document.body.classList.remove(currentTheme.themeStyle);
@@ -169,8 +151,15 @@ public class Theme {
         themeChangeHandler -> themeChangeHandler.onThemeChanged(oldTheme, this));
   }
 
+  /** A functional interface for handling theme change events. */
   @FunctionalInterface
   public interface ThemeChangeHandler {
+    /**
+     * Called when the theme changes.
+     *
+     * @param oldTheme The previous theme.
+     * @param newTheme The new theme.
+     */
     void onThemeChanged(Theme oldTheme, Theme newTheme);
   }
 }

@@ -13,29 +13,34 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package org.dominokit.domino.ui.utils;
 
 /**
- * A Component that can have a value should implement this interface
+ * The {@code HasValue} interface defines methods for setting and getting a value of a generic type
+ * {@code V}.
  *
- * @param <T> the type of the class implementing this interface
- * @param <V> the type of the component value
+ * @param <T> The type of the object that implements this interface.
+ * @param <V> The type of the value.
  */
 public interface HasValue<T, V> {
+
   /**
-   * withValue.
+   * Sets the value to the specified value.
    *
-   * @param value V to set as a value of the component
-   * @return same implementing component instance
+   * @param value The value to set.
+   * @return The object after setting the value.
    */
   T withValue(V value);
 
   /**
-   * withValue.
+   * Sets the value to the specified value and optionally does it silently (without triggering
+   * events or listeners).
    *
-   * @param value V to set as a value of the component
-   * @param silent boolean if true set the value without triggering change handlers
-   * @return same implementing component instance
+   * @param value The value to set.
+   * @param silent {@code true} to set the value silently (without triggering events or listeners),
+   *     {@code false} otherwise.
+   * @return The object after setting the value.
    */
   T withValue(V value, boolean silent);
 }

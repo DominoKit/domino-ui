@@ -20,7 +20,22 @@ import org.dominokit.domino.ui.IsElement;
 import org.dominokit.domino.ui.elements.DivElement;
 import org.dominokit.domino.ui.utils.DominoElement;
 
-/** Win8 loader implementation */
+/**
+ * A loader component that displays an animation resembling the Windows 8 loading animation.
+ *
+ * <p>The Win8Loader displays an animation that resembles the loading animation used in Windows 8.
+ * It consists of a series of circular progress bars that move in a circular motion in a continuous
+ * loop, giving the appearance of a loading animation.
+ *
+ * <p>Example usage:
+ *
+ * <pre>
+ * Win8Loader loader = Win8Loader.create();
+ * loader.setLoadingText("Loading...");
+ * // Add the loader to a container element
+ * container.appendChild(loader.element());
+ * </pre>
+ */
 public class Win8Loader extends BaseLoader<Win8Loader> implements IsElement<HTMLDivElement> {
 
   private final DivElement progress1 =
@@ -52,45 +67,62 @@ public class Win8Loader extends BaseLoader<Win8Loader> implements IsElement<HTML
   private final DivElement element =
       div().addCss(wait_me).style("background: var(--dui-loader-background);").appendChild(content);
 
-  /** Constructor for Win8Loader. */
+  /** Initializes a new instance of the {@code Win8Loader} class. */
   public Win8Loader() {
     init(this);
   }
 
   /**
-   * create.
+   * Creates a new instance of the {@code Win8Loader} class.
    *
-   * @return a {@link org.dominokit.domino.ui.loaders.Win8Loader} object
+   * @return A new {@code Win8Loader} instance.
    */
   public static Win8Loader create() {
     return new Win8Loader();
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Sets the loading text to be displayed by the loader.
+   *
+   * @param text The text to display as loading text.
+   */
   @Override
   public void setLoadingText(String text) {
     loadingText.textContent = text;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Sets the size of the loader.
+   *
+   * @param width The width of the loader.
+   * @param height The height of the loader.
+   */
   @Override
   public void setSize(String width, String height) {
     onAttached(mutationRecord -> loader.setWidth(width).setHeight(height));
   }
 
-  /** {@inheritDoc} */
+  /** Removes the loading text from the loader. */
   @Override
   public void removeLoadingText() {
     onAttached(mutationRecord -> loadingText.remove());
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Gets the content element of the loader.
+   *
+   * @return A {@code DominoElement} representing the content element.
+   */
   @Override
   public DominoElement<HTMLDivElement> getContentElement() {
     return content.toDominoElement();
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Gets the HTMLDivElement element associated with this loader.
+   *
+   * @return The HTMLDivElement element of the loader.
+   */
   @Override
   public HTMLDivElement element() {
     return element.element();

@@ -13,6 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package org.dominokit.domino.ui.datatable.plugins.column;
 
 import static java.util.Objects.nonNull;
@@ -32,31 +33,44 @@ import org.dominokit.domino.ui.elements.TableRowElement;
 import org.dominokit.domino.ui.style.Style;
 
 /**
- * This plugin adds header filters to table columns headers
+ * A DataTable plugin that adds header filters to the DataTable. Header filters are used to filter
+ * data in the DataTable based on the values in the column headers.
  *
- * @param <T> the type of the data table records
+ * @param <T> The type of data in the DataTable.
  */
 public class ColumnHeaderFilterPlugin<T> implements DataTablePlugin<T> {
 
+  /** The HTML element that contains the header filters. */
   private TableRowElement filtersRowElement = elements.tr();
+
+  /** The DataTable instance to which this plugin is attached. */
   private DataTable<T> datatable;
 
+  /**
+   * Initializes the ColumnHeaderFilterPlugin for a specific DataTable instance.
+   *
+   * @param dataTable The DataTable to which this plugin is attached.
+   */
   @Override
   public void init(DataTable<T> dataTable) {
     this.datatable = dataTable;
   }
 
   /**
-   * Create a new instance
+   * Creates a new instance of the ColumnHeaderFilterPlugin.
    *
-   * @param <T> the type of the data table records
-   * @return new instance
+   * @param <T> The type of data in the DataTable.
+   * @return A new ColumnHeaderFilterPlugin instance.
    */
   public static <T> ColumnHeaderFilterPlugin<T> create() {
     return new ColumnHeaderFilterPlugin<>();
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Adds header filters to the DataTable after the headers have been added.
+   *
+   * @param dataTable The DataTable to which the header filters are added.
+   */
   @Override
   public void onAfterAddHeaders(DataTable<T> dataTable) {
     TableConfig<T> tableConfig = dataTable.getTableConfig();
@@ -118,7 +132,11 @@ public class ColumnHeaderFilterPlugin<T> implements DataTablePlugin<T> {
     }
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Handles table events, such as clearing the filters when a search is cleared.
+   *
+   * @param event The table event to handle.
+   */
   @Override
   public void handleEvent(TableEvent event) {
     if (SearchClearedEvent.SEARCH_EVENT_CLEARED.equals(event.getType())) {
@@ -136,46 +154,42 @@ public class ColumnHeaderFilterPlugin<T> implements DataTablePlugin<T> {
     }
   }
 
-  /** @return The table row element that contains the header filters components */
   /**
-   * Getter for the field <code>filtersRowElement</code>.
+   * Gets the HTML element that contains the header filters.
    *
-   * @return a {@link org.dominokit.domino.ui.elements.TableRowElement} object
+   * @return The TableRowElement containing the header filters.
    */
   public TableRowElement getFiltersRowElement() {
     return filtersRowElement;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Specifies the order in which this plugin should be executed. Plugins with lower order values
+   * are executed first.
+   *
+   * @return The order value for this plugin.
+   */
   @Override
   public int order() {
     return 110;
   }
 
   /**
-   * An interface for implementing HeaderFilters
+   * An interface for defining header filters that can be used with the ColumnHeaderFilterPlugin.
    *
-   * @param <T> the type of data table records
+   * @param <T> The type of data in the DataTable.
    */
   public interface HeaderFilter<T> extends IsElement<HTMLElement> {
+
     /**
-     * Initializes the header filter with the data table search context and the column config to
-     * which the filter is being added
+     * Initializes the header filter with the search context and column configuration.
      *
-     * <p>this will be called by the {@link ColumnHeaderFilterPlugin}
-     *
-     * @param searchContext {@link SearchContext}
-     * @param columnConfig {@link ColumnConfig}
+     * @param searchContext The search context for the DataTable.
+     * @param columnConfig The configuration of the column to which the filter is attached.
      */
     void init(SearchContext<T> searchContext, ColumnConfig<T> columnConfig);
 
-    /**
-     * Clears the header filter component value
-     *
-     * <p>
-     *
-     * <p>this will be called by the {@link ColumnHeaderFilterPlugin}
-     */
+    /** Clears the header filter, resetting it to its initial state. */
     void clear();
   }
 }

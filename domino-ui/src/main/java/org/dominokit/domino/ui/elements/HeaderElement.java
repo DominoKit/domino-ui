@@ -17,22 +17,39 @@ package org.dominokit.domino.ui.elements;
 
 import elemental2.dom.HTMLElement;
 
-/** HeaderElement class. */
+/**
+ * Represents a <header> HTML element wrapper.
+ *
+ * <p>The <header> tag is used to define a container for introductory content or a set of
+ * navigational links in a document. It often contains the site logo, site title, site navigation,
+ * or other key information about the webpage. This class provides a convenient way to create,
+ * manipulate, and control the behavior of <header> elements, making it easier to use them in
+ * Java-based web applications. Example usage:
+ *
+ * <pre>
+ * HTMLElement headerElement = ...;  // Obtain a <header> element from somewhere
+ * HeaderElement header = HeaderElement.of(headerElement);
+ * </pre>
+ *
+ * @see <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/header">MDN Web Docs
+ *     (header element)</a>
+ */
 public class HeaderElement extends BaseElement<HTMLElement, HeaderElement> {
+
   /**
-   * of.
+   * Creates a new {@link HeaderElement} instance by wrapping the provided HTML <header> element.
    *
-   * @param e a {@link elemental2.dom.HTMLElement} object
-   * @return a {@link org.dominokit.domino.ui.elements.HeaderElement} object
+   * @param e The HTML <header> element.
+   * @return A new {@link HeaderElement} instance wrapping the provided element.
    */
   public static HeaderElement of(HTMLElement e) {
     return new HeaderElement(e);
   }
 
   /**
-   * Constructor for HeaderElement.
+   * Constructs a {@link HeaderElement} instance by wrapping the provided HTML <header> element.
    *
-   * @param element a {@link elemental2.dom.HTMLElement} object
+   * @param element The HTML <header> element to wrap.
    */
   public HeaderElement(HTMLElement element) {
     super(element);

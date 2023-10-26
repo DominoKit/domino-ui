@@ -19,13 +19,18 @@ import java.util.function.Supplier;
 import org.dominokit.domino.ui.collapsible.CollapseStrategy;
 import org.dominokit.domino.ui.collapsible.HeightCollapseStrategy;
 
-/** AccordionConfig interface. */
+/**
+ * Implementations of this interface can be used to configure defaults for {@link
+ * org.dominokit.domino.ui.collapsible.Accordion} component
+ */
 public interface AccordionConfig extends ComponentConfig {
 
   /**
-   * getDefaultAccordionCollapseStrategySupplier.
+   * Use this method to define the default CollapseStrategy for accordions
    *
-   * @return a {@link java.util.function.Supplier} object
+   * <p>Defaults to : {@code HeightCollapseStrategy}
+   *
+   * @return a {@code Supplier<CollapseStrategy>}
    */
   default Supplier<CollapseStrategy> getDefaultAccordionCollapseStrategySupplier() {
     return HeightCollapseStrategy::new;

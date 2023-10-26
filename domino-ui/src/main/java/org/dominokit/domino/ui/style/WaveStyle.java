@@ -15,21 +15,48 @@
  */
 package org.dominokit.domino.ui.style;
 
-/** An enum representing the wave styles supported */
+/**
+ * Enum representing various styles for the Waves (ripple) effect.
+ *
+ * <p>This enumeration allows easy definition and use of different visual styles for the Waves
+ * effect in the UI.
+ *
+ * <p><b>Usage Example:</b>
+ *
+ * <pre>
+ * element.addCss(WaveStyle.CIRCLE);
+ * </pre>
+ */
 public enum WaveStyle implements HasCssClass {
+
+  /** Represents a floating wave effect. */
   FLOAT(() -> "dui-waves-float"),
+
+  /** Represents a circular wave effect. */
   CIRCLE(() -> "dui-waves-circle"),
+
+  /** Represents a ripple wave effect. */
   RIPPLE(() -> "dui-waves-ripple"),
+
+  /** Represents a block wave effect. */
   BLOCK(() -> "dui-waves-block");
 
   private final CssClass style;
 
+  /**
+   * Private constructor for defining a specific wave style.
+   *
+   * @param style the CSS class associated with the wave style.
+   */
   WaveStyle(CssClass style) {
     this.style = style;
   }
 
-  /** @return the css style of the wave style */
-  /** {@inheritDoc} */
+  /**
+   * Retrieves the CSS class associated with the specific wave style.
+   *
+   * @return the {@link CssClass} representing the wave style.
+   */
   @Override
   public CssClass getCssClass() {
     return style;

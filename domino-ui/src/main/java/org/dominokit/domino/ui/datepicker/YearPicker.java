@@ -21,7 +21,20 @@ import org.dominokit.domino.ui.elements.DivElement;
 import org.dominokit.domino.ui.style.BooleanCssClass;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
 
-/** YearPicker class. */
+/**
+ * Represents a picker for selecting a specific year.
+ *
+ * <p>The year picker provides a grid of years centered around a reference year, allowing the user
+ * to pick a year either by clicking on it or by navigating using the associated calendar.
+ *
+ * <p><b>Usage Example:</b>
+ *
+ * <pre>
+ * YearPicker picker = YearPicker.create(calendarInstance, 2023);
+ * </pre>
+ *
+ * @see BaseDominoElement
+ */
 public class YearPicker extends BaseDominoElement<HTMLDivElement, YearPicker>
     implements CalendarStyles {
 
@@ -30,10 +43,10 @@ public class YearPicker extends BaseDominoElement<HTMLDivElement, YearPicker>
   private final IsCalendar calendar;
 
   /**
-   * Constructor for YearPicker.
+   * Creates a new year picker centered around the specified reference year.
    *
-   * @param calendar a {@link org.dominokit.domino.ui.datepicker.IsCalendar} object
-   * @param referenceYear a int
+   * @param calendar The {@link IsCalendar} instance that this picker is associated with.
+   * @param referenceYear The year around which the picker will center its display.
    */
   public YearPicker(IsCalendar calendar, int referenceYear) {
     this.referenceYear = referenceYear;
@@ -69,11 +82,11 @@ public class YearPicker extends BaseDominoElement<HTMLDivElement, YearPicker>
   }
 
   /**
-   * create.
+   * Factory method to create a new year picker.
    *
-   * @param calendar a {@link org.dominokit.domino.ui.datepicker.IsCalendar} object
-   * @param referenceYear a int
-   * @return a {@link org.dominokit.domino.ui.datepicker.YearPicker} object
+   * @param calendar The {@link IsCalendar} instance to associate with the picker.
+   * @param referenceYear The year around which the picker will center its display.
+   * @return a new instance of {@link YearPicker}.
    */
   public static YearPicker create(IsCalendar calendar, int referenceYear) {
     return new YearPicker(calendar, referenceYear);
@@ -88,15 +101,19 @@ public class YearPicker extends BaseDominoElement<HTMLDivElement, YearPicker>
   }
 
   /**
-   * Getter for the field <code>referenceYear</code>.
+   * Returns the reference year around which this picker centers its display.
    *
-   * @return a int
+   * @return the reference year.
    */
   public int getReferenceYear() {
     return referenceYear;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Returns the root {@link HTMLDivElement} of this year picker.
+   *
+   * @return the root {@link HTMLDivElement}.
+   */
   @Override
   public HTMLDivElement element() {
     return root.element();

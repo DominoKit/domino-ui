@@ -13,54 +13,60 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package org.dominokit.domino.ui.style;
 
 import static java.util.Objects.nonNull;
 
 import elemental2.dom.Element;
 
-/** ReplaceCssClass class. */
+/**
+ * A utility class for replacing one CSS class with another on an HTML element.
+ *
+ * <p>This class allows you to replace an original CSS class with a replacement CSS class on an HTML
+ * element.
+ */
 public class ReplaceCssClass implements CssClass {
 
   private CssClass original = CssClass.NONE;
   private CssClass replacement = CssClass.NONE;
 
   /**
-   * of.
+   * Creates a new instance of ReplaceCssClass with no initial styles.
    *
-   * @return a {@link org.dominokit.domino.ui.style.ReplaceCssClass} object.
+   * @return a new ReplaceCssClass instance
    */
   public static ReplaceCssClass of() {
     return new ReplaceCssClass();
   }
 
   /**
-   * of.
+   * Creates a new instance of ReplaceCssClass with an initial style.
    *
-   * @param initialStyle a {@link org.dominokit.domino.ui.style.CssClass} object.
-   * @return a {@link org.dominokit.domino.ui.style.ReplaceCssClass} object.
+   * @param initialStyle the initial CSS class to be replaced
+   * @return a new ReplaceCssClass instance
    */
   public static ReplaceCssClass of(CssClass initialStyle) {
     return new ReplaceCssClass(initialStyle);
   }
 
   /**
-   * of.
+   * Creates a new instance of ReplaceCssClass with a CSS class string.
    *
-   * @param cssClass a {@link java.lang.String} object.
-   * @return a {@link org.dominokit.domino.ui.style.ReplaceCssClass} object.
+   * @param cssClass the CSS class string to be replaced
+   * @return a new ReplaceCssClass instance
    */
   public static ReplaceCssClass of(String cssClass) {
     return new ReplaceCssClass(cssClass);
   }
 
-  /** Constructor for ReplaceCssClass. */
+  /** Constructs a default ReplaceCssClass instance with no initial styles. */
   public ReplaceCssClass() {}
 
   /**
-   * Constructor for ReplaceCssClass.
+   * Constructs a ReplaceCssClass instance with an initial style.
    *
-   * @param initialStyle a {@link org.dominokit.domino.ui.style.CssClass} object.
+   * @param initialStyle the initial CSS class to be replaced
    */
   public ReplaceCssClass(CssClass initialStyle) {
     this.original = initialStyle;
@@ -68,9 +74,9 @@ public class ReplaceCssClass implements CssClass {
   }
 
   /**
-   * Constructor for ReplaceCssClass.
+   * Constructs a ReplaceCssClass instance with a CSS class string.
    *
-   * @param cssClass a {@link java.lang.String} object.
+   * @param cssClass the CSS class string to be replaced
    */
   public ReplaceCssClass(String cssClass) {
     this.original = () -> cssClass;
@@ -78,10 +84,10 @@ public class ReplaceCssClass implements CssClass {
   }
 
   /**
-   * replaceWith.
+   * Sets the replacement CSS class.
    *
-   * @param replacement a {@link org.dominokit.domino.ui.style.CssClass} object.
-   * @return a {@link org.dominokit.domino.ui.style.ReplaceCssClass} object.
+   * @param replacement the replacement CSS class
+   * @return this instance for chaining
    */
   public ReplaceCssClass replaceWith(CssClass replacement) {
     this.replacement = replacement;
@@ -89,10 +95,10 @@ public class ReplaceCssClass implements CssClass {
   }
 
   /**
-   * replaceWith.
+   * Sets the replacement CSS class from an object that has a CSS class.
    *
-   * @param replacement a {@link org.dominokit.domino.ui.style.HasCssClass} object.
-   * @return a {@link org.dominokit.domino.ui.style.ReplaceCssClass} object.
+   * @param replacement the object with a CSS class
+   * @return this instance for chaining
    */
   public ReplaceCssClass replaceWith(HasCssClass replacement) {
     if (nonNull(replacement)) {
@@ -101,7 +107,11 @@ public class ReplaceCssClass implements CssClass {
     return this;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Removes the replacement CSS class from the HTML element.
+   *
+   * @param element the HTML element to remove the replacement class from
+   */
   @Override
   public void remove(Element element) {
     if (nonNull(replacement)) {
@@ -109,7 +119,11 @@ public class ReplaceCssClass implements CssClass {
     }
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Applies the replacement CSS class to the HTML element while removing the original class.
+   *
+   * @param element the HTML element to apply the replacement class to
+   */
   @Override
   public void apply(Element element) {
     if (nonNull(replacement)) {
@@ -119,24 +133,28 @@ public class ReplaceCssClass implements CssClass {
   }
 
   /**
-   * Getter for the field <code>original</code>.
+   * Gets the original CSS class.
    *
-   * @return a {@link org.dominokit.domino.ui.style.CssClass} object.
+   * @return the original CSS class
    */
   public CssClass getOriginal() {
     return original;
   }
 
   /**
-   * Getter for the field <code>replacement</code>.
+   * Gets the replacement CSS class.
    *
-   * @return a {@link org.dominokit.domino.ui.style.CssClass} object.
+   * @return the replacement CSS class
    */
   public CssClass getReplacement() {
     return replacement;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Gets the CSS class string of the replacement class.
+   *
+   * @return the CSS class string of the replacement class
+   */
   @Override
   public String getCssClass() {
     return replacement.getCssClass();

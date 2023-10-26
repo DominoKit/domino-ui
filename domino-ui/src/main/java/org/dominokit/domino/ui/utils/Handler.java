@@ -13,20 +13,25 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package org.dominokit.domino.ui.utils;
 
 /**
- * a Generic function to apply some logic on a field without triggering validation
+ * The {@code Handler} functional interface represents a single-argument operation that takes an
+ * input of type {@code T} and performs an action on it.
  *
- * @param <T> the field
+ * <p>This functional interface is often used as a callback mechanism to handle or process objects
+ * of a specific type {@code T}.
+ *
+ * @param <T> The type of the input argument.
  */
 @FunctionalInterface
 public interface Handler<T> {
-  /** @param field T the field we apply the logic on */
+
   /**
-   * apply.
+   * Performs an operation on the given input of type {@code T}.
    *
-   * @param field a T object
+   * @param field The input of type {@code T} on which the operation is performed.
    */
   void apply(T field);
 }

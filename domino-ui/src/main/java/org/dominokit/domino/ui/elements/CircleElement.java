@@ -17,22 +17,36 @@ package org.dominokit.domino.ui.elements;
 
 import elemental2.svg.SVGCircleElement;
 
-/** CircleElement class. */
+/**
+ * Represents an SVG circle (`<circle>`) element wrapper.
+ *
+ * <p>This class provides a convenient way to create, manipulate, and control the behavior of SVG
+ * circle elements. Example usage:
+ *
+ * <pre>{@code
+ * SVGCircleElement svgElement = ...;  // Obtain a <circle> element from somewhere
+ * CircleElement circleElement = CircleElement.of(svgElement);
+ * }</pre>
+ *
+ * @see <a href="https://developer.mozilla.org/en-US/docs/Web/SVG/Element/circle">MDN Web Docs
+ *     (circle element)</a>
+ */
 public class CircleElement extends BaseElement<SVGCircleElement, CircleElement> {
+
   /**
-   * of.
+   * Creates a new {@link CircleElement} instance by wrapping the provided SVG circle element.
    *
-   * @param e a {@link elemental2.svg.SVGCircleElement} object
-   * @return a {@link org.dominokit.domino.ui.elements.CircleElement} object
+   * @param e The SVG circle element.
+   * @return A new {@link CircleElement} instance wrapping the provided element.
    */
   public static CircleElement of(SVGCircleElement e) {
     return new CircleElement(e);
   }
 
   /**
-   * Constructor for CircleElement.
+   * Constructs a {@link CircleElement} instance by wrapping the provided SVG circle element.
    *
-   * @param element a {@link elemental2.svg.SVGCircleElement} object
+   * @param element The SVG circle element to wrap.
    */
   public CircleElement(SVGCircleElement element) {
     super(element);

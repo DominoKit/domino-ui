@@ -17,25 +17,42 @@ package org.dominokit.domino.ui.layout;
 
 import org.dominokit.domino.ui.style.CssClass;
 
-/** LeftDrawerSize class. */
+/**
+ * The {@code LeftDrawerSize} enum represents different size options for the left drawer in an
+ * application layout.
+ */
 public enum LeftDrawerSize {
+
+  /** Represents the extra-small size for the left drawer. */
   XSMALL(AppLayoutStyles.dui_left_xsmall),
+
+  /** Represents the small size for the left drawer. */
   SMALL(AppLayoutStyles.dui_left_small),
+
+  /** Represents the medium size for the left drawer. */
   MEDIUM(AppLayoutStyles.dui_left_medium),
+
+  /** Represents the large size for the left drawer. */
   LARGE(AppLayoutStyles.dui_left_large),
-  XLARGE(AppLayoutStyles.dui_left_xlarge),
-  ;
+
+  /** Represents the extra-large size for the left drawer. */
+  XLARGE(AppLayoutStyles.dui_left_xlarge);
 
   private CssClass cssClass;
 
+  /**
+   * Constructs a {@code LeftDrawerSize} enum with the associated CSS class.
+   *
+   * @param cssClass The CSS class associated with the size.
+   */
   LeftDrawerSize(CssClass cssClass) {
     this.cssClass = cssClass;
   }
 
   /**
-   * Getter for the field <code>cssClass</code>.
+   * Gets the CSS class associated with the left drawer size.
    *
-   * @return a {@link org.dominokit.domino.ui.style.CssClass} object
+   * @return The CSS class associated with the size.
    */
   public CssClass getCssClass() {
     return cssClass;

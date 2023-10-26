@@ -13,6 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package org.dominokit.domino.ui.datatable.plugins.menu;
 
 import java.util.Optional;
@@ -22,21 +23,32 @@ import org.dominokit.domino.ui.datatable.plugins.DataTablePlugin;
 import org.dominokit.domino.ui.menu.Menu;
 import org.dominokit.domino.ui.menu.MenuTarget;
 
-/** RowContextMenuPlugin class. */
+/**
+ * A plugin for adding row context menus to a DataTable.
+ *
+ * @param <T> The type of data in the DataTable.
+ */
 public class RowContextMenuPlugin<T> implements DataTablePlugin<T> {
 
   private final Menu<?> menu;
 
   /**
-   * Constructor for RowContextMenuPlugin.
+   * Creates a new {@link RowContextMenuPlugin} instance with the specified context menu.
    *
-   * @param menu a {@link org.dominokit.domino.ui.menu.Menu} object
+   * @param menu The context menu to be associated with the rows.
    */
   public RowContextMenuPlugin(Menu<?> menu) {
     this.menu = menu;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * {@inheritDoc}
+   *
+   * <p>Adds the context menu to the specified row when a new row is added to the DataTable.
+   *
+   * @param dataTable The DataTable to which this plugin is applied.
+   * @param tableRow The TableRow to which the context menu is added.
+   */
   @Override
   public void onRowAdded(DataTable<T> dataTable, TableRow<T> tableRow) {
     this.menu.addTarget(
@@ -44,9 +56,9 @@ public class RowContextMenuPlugin<T> implements DataTablePlugin<T> {
   }
 
   /**
-   * getRowContextMenuMeta.
+   * Gets the context menu associated with this plugin.
    *
-   * @return a {@link java.util.Optional} object
+   * @return An {@link Optional} containing the context menu if set, or empty otherwise.
    */
   public Optional<RowContextMenuMeta<T>> getRowContextMenuMeta() {
     return RowContextMenuMeta.get(this.menu);

@@ -22,6 +22,8 @@ import static org.dominokit.domino.ui.utils.Unit.px;
 
 import elemental2.dom.DOMRect;
 import elemental2.dom.Element;
+import elemental2.dom.HTMLElement;
+import jsinterop.base.Js;
 import org.dominokit.domino.ui.style.Style;
 
 /** TopLeftDropDirection class. */
@@ -38,16 +40,29 @@ public class TopLeftDropDirection implements DropDirection {
     if (availableSpace < sourceRect.width) {
       delta = sourceRect.width - availableSpace;
     }
+    double baseLeft = targetRect.left;
+    if (target instanceof HTMLElement) {
+      baseLeft = Math.min(targetRect.left, Js.<HTMLElement>uncheckedCast(target).offsetLeft);
+    }
 
     Style.of(source)
         .style
         .setProperty("top", px.of((targetRect.top + window.pageYOffset) - sourceRect.height - 1));
+
+    Style.of(source).style.setProperty("left", px.of(targetRect.left));
+
+    dui_dd_top_left.apply(source);
+    elements.elementOf(source).setCssProperty("--dui-menu-drop-min-width", targetRect.width + "px");
+
+    DOMRect newRect = source.getBoundingClientRect();
     Style.of(source)
         .style
         .setProperty(
-            "left", px.of(targetRect.left - (sourceRect.width - targetRect.width) + delta));
-    dui_dd_top_left.apply(source);
-    elements.elementOf(source).setCssProperty("--dui-menu-drop-min-width", targetRect.width + "px");
+            "left",
+            px.of(
+                (targetRect.left - (newRect.left - targetRect.left))
+                    - (sourceRect.width - targetRect.width)
+                    + delta));
   }
 
   /** {@inheritDoc} */

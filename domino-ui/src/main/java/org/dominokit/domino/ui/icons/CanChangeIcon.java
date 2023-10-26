@@ -13,16 +13,23 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package org.dominokit.domino.ui.icons;
 
-/** CanChangeIcon interface. */
+/**
+ * The {@code CanChangeIcon} interface defines a contract for changing the icon of a component to a
+ * new icon.
+ *
+ * @param <T> The type of the concrete class that implements this interface, typically an icon
+ *     component.
+ */
 public interface CanChangeIcon<T extends Icon<T>> {
 
   /**
-   * Change the icon to another icon
+   * Changes the current icon to a new icon represented by the provided replacement.
    *
-   * @param replacement the new {@link org.dominokit.domino.ui.icons.Icon}
-   * @return same instance
+   * @param replacement The new icon to replace the current icon with.
+   * @return The updated instance of the concrete class with the new icon applied.
    */
   T changeTo(T replacement);
 }

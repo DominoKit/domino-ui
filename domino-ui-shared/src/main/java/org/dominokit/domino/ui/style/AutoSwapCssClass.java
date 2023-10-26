@@ -13,59 +13,71 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package org.dominokit.domino.ui.style;
 
 import static java.util.Objects.nonNull;
 
 import elemental2.dom.Element;
 
-/** AutoSwapCssClass class. */
+/**
+ * Represents a CSS class handler with an automatic swap mechanism between two CSS classes.
+ *
+ * <p>The {@code AutoSwapCssClass} allows for automatic swapping between two specified CSS classes
+ * whenever {@link #apply(Element)} is called. This can be useful for toggling between two styles
+ * without the need for additional logic.
+ *
+ * @see CssClass
+ */
 public class AutoSwapCssClass implements CssClass {
 
   private CssClass first = CssClass.NONE;
   private CssClass second = CssClass.NONE;
 
   /**
-   * of.
+   * Factory method to create an instance of {@code AutoSwapCssClass} with two {@link CssClass}
+   * objects.
    *
-   * @param first a {@link org.dominokit.domino.ui.style.CssClass} object.
-   * @param second a {@link org.dominokit.domino.ui.style.CssClass} object.
-   * @return a {@link org.dominokit.domino.ui.style.AutoSwapCssClass} object.
+   * @param first The first CSS class.
+   * @param second The second CSS class.
+   * @return An instance of {@code AutoSwapCssClass}.
    */
   public static AutoSwapCssClass of(CssClass first, CssClass second) {
     return new AutoSwapCssClass(first, second);
   }
 
   /**
-   * of.
+   * Factory method to create an instance of {@code AutoSwapCssClass} with two {@link HasCssClass}
+   * objects.
    *
-   * @param first a {@link org.dominokit.domino.ui.style.HasCssClass} object.
-   * @param second a {@link org.dominokit.domino.ui.style.HasCssClass} object.
-   * @return a {@link org.dominokit.domino.ui.style.AutoSwapCssClass} object.
+   * @param first The first CSS class holder.
+   * @param second The second CSS class holder.
+   * @return An instance of {@code AutoSwapCssClass}.
    */
   public static AutoSwapCssClass of(HasCssClass first, HasCssClass second) {
     return new AutoSwapCssClass(first.getCssClass(), second.getCssClass());
   }
 
   /**
-   * of.
+   * Factory method to create an instance of {@code AutoSwapCssClass} with two strings representing
+   * CSS classes.
    *
-   * @param first a {@link java.lang.String} object.
-   * @param second a {@link java.lang.String} object.
-   * @return a {@link org.dominokit.domino.ui.style.AutoSwapCssClass} object.
+   * @param first The first CSS class as a string.
+   * @param second The second CSS class as a string.
+   * @return An instance of {@code AutoSwapCssClass}.
    */
   public static AutoSwapCssClass of(String first, String second) {
     return new AutoSwapCssClass(first, second);
   }
 
-  /** Constructor for AutoSwapCssClass. */
+  /** Default constructor. */
   public AutoSwapCssClass() {}
 
   /**
-   * Constructor for AutoSwapCssClass.
+   * Constructs an {@code AutoSwapCssClass} with two {@link CssClass} objects.
    *
-   * @param first a {@link org.dominokit.domino.ui.style.CssClass} object.
-   * @param second a {@link org.dominokit.domino.ui.style.CssClass} object.
+   * @param first The first CSS class.
+   * @param second The second CSS class.
    */
   public AutoSwapCssClass(CssClass first, CssClass second) {
     this.first = first;
@@ -73,17 +85,21 @@ public class AutoSwapCssClass implements CssClass {
   }
 
   /**
-   * Constructor for AutoSwapCssClass.
+   * Constructs an {@code AutoSwapCssClass} with two strings representing CSS classes.
    *
-   * @param first a {@link java.lang.String} object.
-   * @param second a {@link java.lang.String} object.
+   * @param first The first CSS class as a string.
+   * @param second The second CSS class as a string.
    */
   public AutoSwapCssClass(String first, String second) {
     this.first = () -> first;
     this.second = () -> second;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Removes both CSS classes from the provided {@link Element}.
+   *
+   * @param element The DOM element from which the CSS classes should be removed.
+   */
   @Override
   public void remove(Element element) {
     if (nonNull(first)) {
@@ -95,7 +111,14 @@ public class AutoSwapCssClass implements CssClass {
     }
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Swaps the two CSS classes and applies the "current" one to the provided {@link Element}.
+   *
+   * <p>This will remove the current CSS class and apply the other one. On subsequent calls, the two
+   * classes will keep swapping.
+   *
+   * @param element The DOM element to which the CSS class should be applied.
+   */
   @Override
   public void apply(Element element) {
     first.remove(element);
@@ -106,24 +129,28 @@ public class AutoSwapCssClass implements CssClass {
   }
 
   /**
-   * Getter for the field <code>first</code>.
+   * Returns the first (or current) CSS class.
    *
-   * @return a {@link org.dominokit.domino.ui.style.CssClass} object.
+   * @return The first CSS class.
    */
   public CssClass getFirst() {
     return first;
   }
 
   /**
-   * Getter for the field <code>second</code>.
+   * Returns the second (or swapped) CSS class.
    *
-   * @return a {@link org.dominokit.domino.ui.style.CssClass} object.
+   * @return The second CSS class.
    */
   public CssClass getSecond() {
     return second;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Returns the current CSS class as a string.
+   *
+   * @return The CSS class string.
+   */
   @Override
   public String getCssClass() {
     return first.getCssClass();

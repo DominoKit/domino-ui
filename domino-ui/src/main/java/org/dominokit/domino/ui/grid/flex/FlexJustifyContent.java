@@ -20,30 +20,50 @@ import static org.dominokit.domino.ui.style.SpacingCss.*;
 import org.dominokit.domino.ui.style.CssClass;
 import org.dominokit.domino.ui.style.HasCssClass;
 
-/** An enum representing how content is distributed inside the layout */
+/**
+ * The {@code FlexJustifyContent} enum represents different options for justifying content within a
+ * flex container.
+ *
+ * <p>It provides options for controlling how space is distributed between and around flex items
+ * along the main axis within a flex container.
+ */
 public enum FlexJustifyContent implements HasCssClass {
-  /** At the start of the layout */
+  /** Aligns content at the start of the main axis. */
   START(dui_justify_start),
-  /** At the end of the layout */
+
+  /** Aligns content at the end of the main axis. */
   END(dui_justify_end),
-  /** At the center of the layout */
+
+  /** Centers content along the main axis. */
   CENTER(dui_justify_center),
+
   /**
-   * Evenly distributed over all the content; first item at the start and last item at the end of
-   * the layout
+   * Distributes space evenly between flex items along the main axis, with no space at the start and
+   * end.
    */
   SPACE_BETWEEN(dui_justify_between),
-  /** Evenly distributed over all the content */
+
+  /**
+   * Distributes space evenly around flex items along the main axis, including space at the start
+   * and end.
+   */
   SPACE_AROUND(dui_justify_around),
-  /** Evenly distributed over all the content with the same spacing between all items */
+
+  /** Distributes space evenly between and around flex items along the main axis. */
   SPACE_EVENLY(dui_justify_evenly);
 
   private final CssClass style;
 
+  /**
+   * Constructs a new {@code FlexJustifyContent} enum value with the associated CSS class.
+   *
+   * @param style The CSS class representing the justification option for flex content.
+   */
   FlexJustifyContent(CssClass style) {
     this.style = style;
   }
 
+  /** {@inheritDoc} */
   @Override
   public CssClass getCssClass() {
     return style;

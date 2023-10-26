@@ -13,6 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package org.dominokit.domino.ui.utils;
 
 import static java.util.Objects.isNull;
@@ -36,11 +37,10 @@ import jsinterop.base.Js;
 import org.dominokit.domino.ui.IsElement;
 
 /**
- * A helper class to ease the keyboard navigation of a menu
+ * The `KeyboardNavigation` class provides a convenient way to handle keyboard navigation within a
+ * list of elements.
  *
- * @param <V> The element type
- * @see IsElement
- * @see EventListener
+ * @param <V> The type of elements to navigate.
  */
 public class KeyboardNavigation<V extends IsElement<?>> implements EventListener {
 
@@ -59,30 +59,30 @@ public class KeyboardNavigation<V extends IsElement<?>> implements EventListener
   private EventOptions spaceOptions = new EventOptions(true, true);
 
   /**
-   * Constructor for KeyboardNavigation.
+   * Creates a new `KeyboardNavigation` instance for the given list of items.
    *
-   * @param items a {@link java.util.List} object
+   * @param items The list of items to navigate.
    */
   public KeyboardNavigation(List<V> items) {
     this.items = items;
   }
 
   /**
-   * Creates new navigation for a menu contains a list of items
+   * Creates a new `KeyboardNavigation` instance for the given list of items.
    *
-   * @param items the items of the menu
-   * @param <V> the element type
-   * @return new instance
+   * @param items The list of items to navigate.
+   * @param <V> The type of elements to navigate.
+   * @return A new `KeyboardNavigation` instance.
    */
   public static <V extends IsElement<?>> KeyboardNavigation<V> create(List<V> items) {
     return new KeyboardNavigation<>(items);
   }
 
   /**
-   * Sets a handler which will be called when an item gets focused
+   * Sets the focus handler for the keyboard navigation.
    *
-   * @param focusHandler A {@link org.dominokit.domino.ui.utils.KeyboardNavigation.FocusHandler}
-   * @return same instance
+   * @param focusHandler The focus handler to set.
+   * @return This `KeyboardNavigation` instance.
    */
   public KeyboardNavigation<V> onFocus(FocusHandler<V> focusHandler) {
     this.focusHandler = focusHandler;
@@ -90,11 +90,10 @@ public class KeyboardNavigation<V extends IsElement<?>> implements EventListener
   }
 
   /**
-   * Sets a handler which will be called when an item gets selected
+   * Sets the select handler for the keyboard navigation.
    *
-   * @param selectHandler A {@link
-   *     org.dominokit.domino.ui.utils.KeyboardNavigation.ItemNavigationHandler}
-   * @return same instance
+   * @param selectHandler The select handler to set.
+   * @return This `KeyboardNavigation` instance.
    */
   public KeyboardNavigation<V> onSelect(ItemNavigationHandler<V> selectHandler) {
     this.selectHandler = selectHandler;
@@ -102,10 +101,10 @@ public class KeyboardNavigation<V extends IsElement<?>> implements EventListener
   }
 
   /**
-   * Sets a handler which will be called when escape key is pressed
+   * Sets the escape handler for the keyboard navigation.
    *
-   * @param escapeHandler A {@link org.dominokit.domino.ui.utils.KeyboardNavigation.EscapeHandler}
-   * @return same instance
+   * @param escapeHandler The escape handler to set.
+   * @return This `KeyboardNavigation` instance.
    */
   public KeyboardNavigation<V> onEscape(EscapeHandler escapeHandler) {
     this.escapeHandler = escapeHandler;
@@ -113,17 +112,21 @@ public class KeyboardNavigation<V extends IsElement<?>> implements EventListener
   }
 
   /**
-   * Adds a condition which evaluates if an item should be focused or not
+   * Sets the focus condition for determining whether an element should receive focus.
    *
-   * @param focusCondition a condition returns true if an item should be focused, false otherwise
-   * @return same instance
+   * @param focusCondition The focus condition to set.
+   * @return This `KeyboardNavigation` instance.
    */
   public KeyboardNavigation<V> focusCondition(FocusCondition<V> focusCondition) {
     this.focusCondition = focusCondition;
     return this;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Handles keyboard events and navigates through the list of items accordingly.
+   *
+   * @param evt The keyboard event.
+   */
   @Override
   public void handleEvent(Event evt) {
     KeyboardEvent keyboardEvent = (KeyboardEvent) evt;
@@ -177,11 +180,10 @@ public class KeyboardNavigation<V extends IsElement<?>> implements EventListener
   }
 
   /**
-   * A handler to be called when the user press enter key
+   * Sets the enter handler for handling Enter key presses.
    *
-   * @param enterHandler {@link
-   *     org.dominokit.domino.ui.utils.KeyboardNavigation.ItemNavigationHandler}
-   * @return same navigation instance
+   * @param enterHandler The enter handler to set.
+   * @return This `KeyboardNavigation` instance.
    */
   public KeyboardNavigation<V> setEnterHandler(ItemNavigationHandler<V> enterHandler) {
     this.enterHandler = enterHandler;
@@ -189,11 +191,10 @@ public class KeyboardNavigation<V extends IsElement<?>> implements EventListener
   }
 
   /**
-   * A handler to be called when the user press tab key
+   * Sets the tab handler for handling Tab key presses.
    *
-   * @param tabHandler {@link
-   *     org.dominokit.domino.ui.utils.KeyboardNavigation.ItemNavigationHandler}
-   * @return same navigation instance
+   * @param tabHandler The tab handler to set.
+   * @return This `KeyboardNavigation` instance.
    */
   public KeyboardNavigation<V> setTabHandler(ItemNavigationHandler<V> tabHandler) {
     this.tabHandler = tabHandler;
@@ -201,11 +202,10 @@ public class KeyboardNavigation<V extends IsElement<?>> implements EventListener
   }
 
   /**
-   * A handler to be called when the user press sapce key
+   * Sets the space handler for handling Space key presses.
    *
-   * @param spaceHandler {@link
-   *     org.dominokit.domino.ui.utils.KeyboardNavigation.ItemNavigationHandler}
-   * @return same navigation instance
+   * @param spaceHandler The space handler to set.
+   * @return This `KeyboardNavigation` instance.
    */
   public KeyboardNavigation<V> setSpaceHandler(ItemNavigationHandler<V> spaceHandler) {
     this.spaceHandler = spaceHandler;
@@ -213,10 +213,10 @@ public class KeyboardNavigation<V extends IsElement<?>> implements EventListener
   }
 
   /**
-   * Set global stopPropagation and preventDefault for all navigation keyboard events
+   * Sets the global options for event handling.
    *
-   * @param globalOptions {@link org.dominokit.domino.ui.utils.KeyboardNavigation.EventOptions}
-   * @return same navigation instance
+   * @param globalOptions The global event options to set.
+   * @return This `KeyboardNavigation` instance.
    */
   public KeyboardNavigation<V> setGlobalOptions(EventOptions globalOptions) {
     this.globalOptions = globalOptions;
@@ -224,10 +224,10 @@ public class KeyboardNavigation<V extends IsElement<?>> implements EventListener
   }
 
   /**
-   * Set global stopPropagation and preventDefault for enter key events
+   * Sets the enter options for handling Enter key presses.
    *
-   * @param enterOptions {@link org.dominokit.domino.ui.utils.KeyboardNavigation.EventOptions}
-   * @return same navigation instance
+   * @param enterOptions The enter event options to set.
+   * @return This `KeyboardNavigation` instance.
    */
   public KeyboardNavigation<V> setEnterOptions(EventOptions enterOptions) {
     this.enterOptions = enterOptions;
@@ -235,10 +235,10 @@ public class KeyboardNavigation<V extends IsElement<?>> implements EventListener
   }
 
   /**
-   * Set global stopPropagation and preventDefault for tab key events
+   * Sets the tab options for handling Tab key presses.
    *
-   * @param tabOptions {@link org.dominokit.domino.ui.utils.KeyboardNavigation.EventOptions}
-   * @return same navigation instance
+   * @param tabOptions The tab event options to set.
+   * @return This `KeyboardNavigation` instance.
    */
   public KeyboardNavigation<V> setTabOptions(EventOptions tabOptions) {
     this.tabOptions = tabOptions;
@@ -246,10 +246,10 @@ public class KeyboardNavigation<V extends IsElement<?>> implements EventListener
   }
 
   /**
-   * Set global stopPropagation and preventDefault for space key events
+   * Sets the space options for handling Space key presses.
    *
-   * @param spaceOptions {@link org.dominokit.domino.ui.utils.KeyboardNavigation.EventOptions}
-   * @return same navigation instance
+   * @param spaceOptions The space event options to set.
+   * @return This `KeyboardNavigation` instance.
    */
   public KeyboardNavigation<V> setSpaceOptions(EventOptions spaceOptions) {
     this.spaceOptions = spaceOptions;
@@ -257,9 +257,9 @@ public class KeyboardNavigation<V extends IsElement<?>> implements EventListener
   }
 
   /**
-   * Force focus next focusable item based on the provided item
+   * Focuses on the next item in the list.
    *
-   * @param item Base item to focus the next item based on
+   * @param item The current item.
    */
   public void focusNext(V item) {
     int nextIndex = items.indexOf(item) + 1;
@@ -279,10 +279,10 @@ public class KeyboardNavigation<V extends IsElement<?>> implements EventListener
   }
 
   /**
-   * isLastFocusableItem.
+   * Checks if the given item is the last focusable item in the list.
    *
-   * @param item The item to check if is the last focusable item in the items list
-   * @return boolean, true if the item is the last focusable item
+   * @param item The item to check.
+   * @return `true` if the item is the last focusable item, `false` otherwise.
    */
   public boolean isLastFocusableItem(V item) {
     int nextIndex = items.indexOf(item) + 1;
@@ -300,7 +300,7 @@ public class KeyboardNavigation<V extends IsElement<?>> implements EventListener
             && !ElementsFactory.elements.elementOf(itemToFocus.element()).isHidden();
   }
 
-  /** apply focus on the top most focusable item */
+  /** Focuses on the first focusable item in the list. */
   public void focusTopFocusableItem() {
     for (V item : items) {
       if (shouldFocus(item)) {
@@ -310,6 +310,7 @@ public class KeyboardNavigation<V extends IsElement<?>> implements EventListener
     }
   }
 
+  /** Focuses on the last focusable item in the list. */
   private void focusBottomFocusableItem() {
     for (int i = items.size() - 1; i >= 0; i--) {
       V itemToFocus = items.get(i);
@@ -321,9 +322,9 @@ public class KeyboardNavigation<V extends IsElement<?>> implements EventListener
   }
 
   /**
-   * Focus the focusable item that is before the provided item.
+   * Focuses on the previous item in the list.
    *
-   * @param item The item to base focus on
+   * @param item The current item.
    */
   public void focusPrevious(V item) {
     int nextIndex = items.indexOf(item) - 1;
@@ -346,9 +347,9 @@ public class KeyboardNavigation<V extends IsElement<?>> implements EventListener
   }
 
   /**
-   * Focuses an item at a specific {@code index}
+   * Focuses on the item at the specified index in the list.
    *
-   * @param index the index of the item
+   * @param index The index of the item to focus.
    */
   public void focusAt(int index) {
     if (!items.isEmpty()) {
@@ -368,11 +369,11 @@ public class KeyboardNavigation<V extends IsElement<?>> implements EventListener
   }
 
   /**
-   * registerNavigationHandler.
+   * Registers a custom navigation handler for a specific key code.
    *
-   * @param keyCode String keyboard key code
-   * @param navigationHandler the navigation handler to be registered
-   * @return same instance
+   * @param keyCode The key code for which to register the handler.
+   * @param navigationHandler The navigation handler to register.
+   * @return This `KeyboardNavigation` instance.
    */
   public KeyboardNavigation<V> registerNavigationHandler(
       String keyCode, ItemNavigationHandler<V> navigationHandler) {
@@ -384,11 +385,11 @@ public class KeyboardNavigation<V extends IsElement<?>> implements EventListener
   }
 
   /**
-   * removeNavigationHandler.
+   * Removes a custom navigation handler for a specific key code.
    *
-   * @param keyCode String keyboard key code
-   * @param navigationHandler the navigation handler to be removed
-   * @return same instance
+   * @param keyCode The key code for which to remove the handler.
+   * @param navigationHandler The navigation handler to remove.
+   * @return This `KeyboardNavigation` instance.
    */
   public KeyboardNavigation<V> removeNavigationHandler(
       String keyCode, ItemNavigationHandler<V> navigationHandler) {
@@ -399,67 +400,75 @@ public class KeyboardNavigation<V extends IsElement<?>> implements EventListener
   }
 
   /**
-   * Focus handler to be called when an item gets focused
+   * A functional interface for handling focus on items.
    *
-   * @param <V> the item type
+   * @param <V> The type of elements to focus.
    */
   @FunctionalInterface
   public interface FocusHandler<V> {
     /**
-     * Will be called when {@code item} gets focused
+     * Handles focusing on the given item.
      *
-     * @param item the focused item
+     * @param item The item to focus.
      */
     void doFocus(V item);
   }
 
   /**
-   * Selection handler to be called when an item gets selected
+   * A functional interface for handling item navigation.
    *
-   * @param <V> the item type
+   * @param <V> The type of elements to navigate.
    */
   @FunctionalInterface
   public interface ItemNavigationHandler<V> {
     /**
-     * Will be called when {@code item} gets selected
+     * Handles item navigation based on a keyboard event.
      *
-     * @param item the selected item
+     * @param event The keyboard event.
+     * @param item The item to navigate.
      */
     void onItemNavigation(KeyboardEvent event, V item);
   }
 
-  /** Escape handler to be called when escape key is pressed */
+  /** A functional interface for handling Escape key presses. */
   @FunctionalInterface
   public interface EscapeHandler {
-    /** Will be called when the escape key is pressed */
+    /** Handles Escape key presses. */
     void onEscape();
   }
 
   /**
-   * A condition which evaluates if an item should be focused or not
+   * A functional interface for defining a focus condition for items.
    *
-   * @param <V> the item type
+   * @param <V> The type of elements to focus.
    */
   @FunctionalInterface
   public interface FocusCondition<V> {
     /**
-     * Returns true if the item should be focused, false otherwise
+     * Checks if the given item should receive focus.
      *
-     * @param item the item
-     * @return true if the item should be focused, false otherwise
+     * @param item The item to check.
+     * @return `true` if the item should receive focus, `false` otherwise.
      */
     boolean shouldFocus(V item);
   }
 
+  /** Represents event options for handling keyboard events. */
   private interface EventExecutor {
     void execute();
   }
 
-  /** A utilty class to define stopPropagation and preventDefault options for an event */
+  /** Represents event options for handling keyboard events. */
   public static final class EventOptions {
     private boolean preventDefault;
     private boolean stopPropagation;
 
+    /**
+     * Creates a new `EventOptions` instance with the specified options.
+     *
+     * @param preventDefault Indicates whether to prevent the default behavior of the event.
+     * @param stopPropagation Indicates whether to stop the propagation of the event.
+     */
     public EventOptions(boolean preventDefault, boolean stopPropagation) {
       this.preventDefault = preventDefault;
       this.stopPropagation = stopPropagation;

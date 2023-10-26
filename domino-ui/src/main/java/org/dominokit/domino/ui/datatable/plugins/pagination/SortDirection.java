@@ -13,11 +13,40 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package org.dominokit.domino.ui.datatable.plugins.pagination;
 
-/** Enum listing possible sort direction */
+/**
+ * The {@code SortDirection} enum represents the sorting directions used in sorting operations. It
+ * provides three possible sorting directions: - {@link SortDirection#ASC ASC} for ascending sorting
+ * order. - {@link SortDirection#DESC DESC} for descending sorting order. - {@link
+ * SortDirection#NONE NONE} when no sorting is applied.
+ *
+ * <p>This enum is typically used in conjunction with sorting operations in a {@link
+ * org.dominokit.domino.ui.datatable.DataTable} to indicate the desired sorting direction for
+ * columns or data.
+ *
+ * @see org.dominokit.domino.ui.datatable.plugins.pagination.SortPlugin
+ */
 public enum SortDirection {
+  /**
+   * Represents ascending sorting order.
+   *
+   * @see org.dominokit.domino.ui.datatable.plugins.pagination.SortPlugin
+   */
   ASC,
+
+  /**
+   * Represents descending sorting order.
+   *
+   * @see org.dominokit.domino.ui.datatable.plugins.pagination.SortPlugin
+   */
   DESC,
+
+  /**
+   * Represents no sorting.
+   *
+   * @see org.dominokit.domino.ui.datatable.plugins.pagination.SortPlugin
+   */
   NONE
 }

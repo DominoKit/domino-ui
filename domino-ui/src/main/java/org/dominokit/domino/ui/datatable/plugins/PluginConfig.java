@@ -15,5 +15,9 @@
  */
 package org.dominokit.domino.ui.datatable.plugins;
 
-/** PluginConfig interface. */
+/**
+ * The {@code PluginConfig} interface serves as a marker interface for configuration objects used
+ * with DataTable plugins. It does not define any methods or properties but is used to indicate that
+ * a class is intended to be a configuration object for DataTable plugins.
+ */
 public interface PluginConfig {}

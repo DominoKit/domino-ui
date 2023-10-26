@@ -25,9 +25,23 @@ import org.dominokit.domino.ui.utils.DominoElement;
 import org.dominokit.domino.ui.utils.ElementHandler;
 
 /**
- * A base implementation for Icon
+ * The {@code Icon} class provides a base for creating icons in a UI component.
  *
- * @param <T> the type of the icon
+ * <p>This class allows creating and customizing icons for use in UI components. It provides methods
+ * to set the icon's name, make it clickable, and add click listeners.
+ *
+ * <p>Usage Example:
+ *
+ * <pre>
+ * Icon icon = Icon.create("fas fa-star");
+ * icon.setClickable(true);
+ * icon.addClickListener(evt -> {
+ *     // Handle icon click event
+ * });
+ * </pre>
+ *
+ * @param <T> The type of the concrete icon class.
+ * @see BaseDominoElement
  */
 public abstract class Icon<T extends Icon<T>> extends BaseDominoElement<HTMLElement, T>
     implements CanApplyOnChildren<T, Icon<?>> {
@@ -35,24 +49,28 @@ public abstract class Icon<T extends Icon<T>> extends BaseDominoElement<HTMLElem
   protected DominoElement<HTMLElement> icon;
   protected SwapCssClass name = SwapCssClass.of();
 
-  /** @return The name of the icon */
   /**
-   * Getter for the field <code>name</code>.
+   * Gets the name of the icon.
    *
-   * @return a {@link java.lang.String} object
+   * @return The name of the icon.
    */
   public String getName() {
     return name.getCssClass();
   }
 
   /**
-   * Copy the same icon and return a new instance
+   * Creates a copy of the icon.
    *
-   * @return the new copied instance
+   * @return A new icon instance with the same properties.
    */
   public abstract T copy();
 
-  /** {@inheritDoc} */
+  /**
+   * Adds a click listener to the icon element.
+   *
+   * @param listener The event listener to be added.
+   * @return The icon instance with the click listener added.
+   */
   @Override
   public T addClickListener(EventListener listener) {
     this.icon.addEventListener(EventType.click.getName(), listener);
@@ -60,18 +78,19 @@ public abstract class Icon<T extends Icon<T>> extends BaseDominoElement<HTMLElem
   }
 
   /**
-   * Adds a clickable style to the icon
+   * Makes the icon clickable, allowing it to receive click events.
    *
-   * @return same instance
+   * @return The icon instance with clickability enabled.
    */
   public T clickable() {
     return clickable(true);
   }
+
   /**
-   * Adds a clickable style to the icon
+   * Makes the icon clickable, allowing it to receive click events.
    *
-   * @return same instance
-   * @param withWaves a boolean
+   * @param withWaves Whether to add waves effect to the click.
+   * @return The icon instance with clickability enabled.
    */
   public T clickable(boolean withWaves) {
     addCss(dui_clickable);
@@ -84,10 +103,10 @@ public abstract class Icon<T extends Icon<T>> extends BaseDominoElement<HTMLElem
   }
 
   /**
-   * Sets if the icon should have clickable style or not
+   * Sets the clickability of the icon.
    *
-   * @param clickable true to set it as clickable, false otherwise
-   * @return same instance
+   * @param clickable {@code true} to make the icon clickable, {@code false} otherwise.
+   * @return The icon instance with the clickability set.
    */
   public T setClickable(boolean clickable) {
     if (clickable) {
@@ -101,14 +120,19 @@ public abstract class Icon<T extends Icon<T>> extends BaseDominoElement<HTMLElem
     return (T) this;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Iterates through the child elements and applies a handler to each icon.
+   *
+   * @param handler The handler to apply to each child icon.
+   * @return The icon instance with the handler applied.
+   */
   @Override
   public T forEachChild(ElementHandler<Icon<?>> handler) {
     handler.handleElement(this);
     return (T) this;
   }
 
-  /** {@inheritDoc} */
+  /** @dominokit-site-ignore {@inheritDoc} */
   @Override
   public HTMLElement element() {
     return icon.element();

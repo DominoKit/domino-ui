@@ -13,16 +13,29 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package org.dominokit.domino.ui.mediaquery;
 
+/**
+ * Represents a handler for media query events. This is designed to respond to different media query
+ * breakpoints and take appropriate actions on the provided element based on the active breakpoint.
+ *
+ * <p>This interface is intended to be used alongside the {@code HasMediaQueries} interface to
+ * ensure responsive behavior across various device sizes.
+ *
+ * @param <T> The type of the element on which the media query is being applied.
+ * @see HasMediaQueries
+ */
 @FunctionalInterface
-/** MediaQueryHandler interface. */
 public interface MediaQueryHandler<T> {
+
   /**
-   * onMedia.
+   * Invoked when the specified media query breakpoint is active. The method should contain the
+   * logic for updating or manipulating the provided element based on the active breakpoint.
    *
-   * @param element a T object.
-   * @return a {@link org.dominokit.domino.ui.mediaquery.MediaQuery.MediaQueryListener} object.
+   * @param element The element on which the media query is being applied.
+   * @return A {@link MediaQuery.MediaQueryListener} instance which listens to changes in the media
+   *     query.
    */
   MediaQuery.MediaQueryListener onMedia(T element);
 }

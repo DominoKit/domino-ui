@@ -21,62 +21,65 @@ import org.dominokit.domino.ui.datatable.ColumnConfig;
 import org.dominokit.domino.ui.utils.ComponentMeta;
 import org.dominokit.domino.ui.utils.DominoElement;
 
-/** ColumnFilterMeta class. */
+/**
+ * Represents metadata associated with a column filter in a DataTable's header.
+ *
+ * @param <T> The type of data in the column.
+ */
 public class ColumnFilterMeta<T> implements ComponentMeta {
 
-  /** Constant <code>DOMINO_COLUMN_HEADER_FILTER_META="domino-column-header-filter-meta"</code> */
+  /** The key used to identify this metadata. */
   public static final String DOMINO_COLUMN_HEADER_FILTER_META = "domino-column-header-filter-meta";
 
   private ColumnHeaderFilterPlugin.HeaderFilter<T> headerFilter;
   private DominoElement<HTMLTableCellElement> headerElement;
 
   /**
-   * Constructor for ColumnFilterMeta.
+   * Creates a new ColumnFilterMeta instance with the given header filter.
    *
-   * @param headerFilter a {@link
-   *     org.dominokit.domino.ui.datatable.plugins.column.ColumnHeaderFilterPlugin.HeaderFilter}
-   *     object
+   * @param headerFilter The header filter associated with the column.
    */
   public ColumnFilterMeta(ColumnHeaderFilterPlugin.HeaderFilter<T> headerFilter) {
     this.headerFilter = headerFilter;
   }
 
   /**
-   * of.
+   * Creates a new ColumnFilterMeta instance with the given header filter.
    *
-   * @param headerFilter a {@link
-   *     org.dominokit.domino.ui.datatable.plugins.column.ColumnHeaderFilterPlugin.HeaderFilter}
-   *     object
-   * @param <T> a T class
-   * @return a {@link org.dominokit.domino.ui.datatable.plugins.column.ColumnFilterMeta} object
+   * @param <T> The type of data in the column.
+   * @param headerFilter The header filter associated with the column.
+   * @return A new ColumnFilterMeta instance.
    */
   public static <T> ColumnFilterMeta<T> of(ColumnHeaderFilterPlugin.HeaderFilter<T> headerFilter) {
     return new ColumnFilterMeta<>(headerFilter);
   }
 
-  /** {@inheritDoc} */
+  /**
+   * {@inheritDoc} Returns the key used to identify this metadata, which is {@value
+   * DOMINO_COLUMN_HEADER_FILTER_META}.
+   *
+   * @return The metadata key.
+   */
   @Override
   public String getKey() {
     return DOMINO_COLUMN_HEADER_FILTER_META;
   }
 
   /**
-   * get.
+   * Retrieves the ColumnFilterMeta associated with the specified column configuration.
    *
-   * @param column a {@link org.dominokit.domino.ui.datatable.ColumnConfig} object
-   * @param <T> a T class
-   * @return a {@link java.util.Optional} object
+   * @param <T> The type of data in the column.
+   * @param column The column configuration to retrieve the metadata from.
+   * @return An optional ColumnFilterMeta instance if found; otherwise, an empty optional.
    */
   public static <T> Optional<ColumnFilterMeta<T>> get(ColumnConfig<T> column) {
     return column.getMeta(DOMINO_COLUMN_HEADER_FILTER_META);
   }
 
   /**
-   * Getter for the field <code>headerFilter</code>.
+   * Retrieves the header filter associated with this ColumnFilterMeta.
    *
-   * @return a {@link
-   *     org.dominokit.domino.ui.datatable.plugins.column.ColumnHeaderFilterPlugin.HeaderFilter}
-   *     object
+   * @return The header filter.
    */
   public ColumnHeaderFilterPlugin.HeaderFilter<T> getHeaderFilter() {
     return headerFilter;

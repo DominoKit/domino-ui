@@ -18,27 +18,48 @@ package org.dominokit.domino.ui.tabs;
 import org.dominokit.domino.ui.style.CssClass;
 import org.dominokit.domino.ui.style.SpacingCss;
 
-/** An enum to list possible values for tabs align */
+/**
+ * Represents the alignment options available for tabs.
+ *
+ * <p>This enum provides alignment options for positioning the tabs. Each alignment option
+ * corresponds to a specific CSS class that will be applied to align the tabs.
+ *
+ * <p><b>Usage Example:</b>
+ *
+ * <pre>
+ * TabsPanel tabsPanel = new TabsPanel();
+ * tabsPanel.setAlignment(TabsAlign.CENTER);
+ * </pre>
+ *
+ * @see TabsPanel
+ * @see CssClass
+ */
 public enum TabsAlign {
-  /** Tabs headers will be aligned to the left of the tab panel */
+
+  /** Represents tabs aligned to the start. */
   START(SpacingCss.dui_justify_start),
-  /** Tabs headers will be aligned to the center of the tab panel */
+
+  /** Represents tabs aligned to the center. */
   CENTER(SpacingCss.dui_justify_center),
-  /** Tabs headers will be aligned to the right of the tab panel */
+
+  /** Represents tabs aligned to the end. */
   END(SpacingCss.dui_justify_end);
 
   private final CssClass align;
 
-  /** @param align String css class name for the tab align */
+  /**
+   * Creates a {@link TabsAlign} enum instance with the specified alignment.
+   *
+   * @param align the CSS class representing the alignment
+   */
   TabsAlign(CssClass align) {
     this.align = align;
   }
 
-  /** @return String css class name for the tab align */
   /**
-   * Getter for the field <code>align</code>.
+   * Returns the {@link CssClass} associated with this alignment option.
    *
-   * @return a {@link org.dominokit.domino.ui.style.CssClass} object
+   * @return the CSS class for the alignment
    */
   public CssClass getAlign() {
     return align;

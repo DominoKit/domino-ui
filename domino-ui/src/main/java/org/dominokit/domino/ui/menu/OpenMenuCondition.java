@@ -15,13 +15,28 @@
  */
 package org.dominokit.domino.ui.menu;
 
-/** OpenMenuCondition interface. */
+/**
+ * Functional interface for defining a condition under which a menu should be opened.
+ *
+ * <p>This interface allows for custom logic to decide whether a menu should be opened or not. For
+ * example, you can conditionally prevent a menu from opening based on certain criteria. Usage:
+ *
+ * <pre>{@code
+ * menu.setOpenCondition(menuInstance -> {
+ *   // Open menu only if a certain condition is met
+ *   return someConditionCheck();
+ * });
+ * }</pre>
+ *
+ * @param <V> The type of the item's value in the menu
+ */
 public interface OpenMenuCondition<V> {
+
   /**
-   * check.
+   * This method is invoked to check whether the menu should be opened.
    *
-   * @param menu a {@link org.dominokit.domino.ui.menu.Menu} object
-   * @return a boolean
+   * @param menu The menu for which the condition is being checked
+   * @return {@code true} if the menu should be opened, {@code false} otherwise
    */
   boolean check(Menu<V> menu);
 }

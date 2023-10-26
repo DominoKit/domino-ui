@@ -17,69 +17,92 @@ package org.dominokit.domino.ui.forms;
 
 import java.util.function.Function;
 
-/** A component that has an input to take/provide Short value */
+/** A specialized {@link NumberBox} for handling short integer values. */
 public class ShortBox extends NumberBox<ShortBox, Short> {
 
-  /** @return a new instance without a label */
   /**
-   * create.
+   * Creates a new instance of ShortBox with a default value set to 0.
    *
-   * @return a {@link org.dominokit.domino.ui.forms.ShortBox} object
+   * @return A new instance of ShortBox.
    */
   public static ShortBox create() {
     return new ShortBox();
   }
 
   /**
-   * create.
+   * Creates a new instance of ShortBox with the given label.
    *
-   * @param label String
-   * @return new instance with a label
+   * @param label The label to be used for the ShortBox.
+   * @return A new instance of ShortBox.
    */
   public static ShortBox create(String label) {
     return new ShortBox(label);
   }
 
-  /** Create instance without a label */
+  /** Default constructor. Sets the default value of the box to 0. */
   public ShortBox() {
     setDefaultValue((short) 0);
   }
 
   /**
-   * Create an instance with a label
+   * Constructor with a label.
    *
-   * @param label String
+   * @param label The label to be used for the ShortBox.
    */
   public ShortBox(String label) {
     this();
     setLabel(label);
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Provides the default parser for parsing string values to shorts.
+   *
+   * @return The function to parse string values into short values.
+   */
   @Override
   protected Function<String, Short> defaultValueParser() {
     return getConfig().getNumberParsers().shortParser(this);
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Returns the maximum representable value for a short.
+   *
+   * @return The maximum short value, {@link Short#MAX_VALUE}.
+   */
   @Override
   protected Short defaultMaxValue() {
     return Short.MAX_VALUE;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Returns the minimum representable value for a short.
+   *
+   * @return The minimum short value, {@link Short#MIN_VALUE}.
+   */
   @Override
   protected Short defaultMinValue() {
     return Short.MIN_VALUE;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Determines if the provided value exceeds the given maximum value.
+   *
+   * @param maxValue The maximum allowable value.
+   * @param value The value to check.
+   * @return True if the value exceeds the maximum, false otherwise.
+   */
   @Override
   protected boolean isExceedMaxValue(Short maxValue, Short value) {
     return value > maxValue;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Determines if the provided value is lower than the given minimum value.
+   *
+   * @param minValue The minimum allowable value.
+   * @param value The value to check.
+   * @return True if the value is lower than the minimum, false otherwise.
+   */
   @Override
   protected boolean isLowerThanMinValue(Short minValue, Short value) {
     return value < minValue;

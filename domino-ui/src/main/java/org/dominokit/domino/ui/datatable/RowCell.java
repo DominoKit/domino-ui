@@ -13,6 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package org.dominokit.domino.ui.datatable;
 
 import static java.util.Objects.nonNull;
@@ -22,45 +23,49 @@ import elemental2.dom.HTMLTableCellElement;
 import org.dominokit.domino.ui.utils.DominoElement;
 
 /**
- * This class represent a single cell in a data table row and it contains information about the cell
- * row and column which it is part of
+ * The {@code RowCell} class represents a cell within a data table row. It encapsulates the cell's
+ * rendering logic and provides methods to update the content of the cell based on the associated
+ * column configuration and cell data.
  *
- * @param <T> the type of the data table records
+ * @param <T> The type of data contained in the cell.
  */
 public class RowCell<T> {
 
+  /** The column configuration associated with this cell. */
   private final ColumnConfig<T> columnConfig;
+
+  /**
+   * Information about the cell, including its parent row and the HTML element representing the
+   * cell.
+   */
   private final CellRenderer.CellInfo<T> cellInfo;
+
+  /** The default cell renderer used when no custom renderer is specified. */
   private CellRenderer<T> defaultCellRenderer = cell -> elements.text();
 
   /**
-   * Creates and initialize an instance with the cell info and column info
+   * Constructs a new {@code RowCell} with the given cell information and column configuration.
    *
-   * @param cellInfo the {@link org.dominokit.domino.ui.datatable.CellRenderer.CellInfo} information
-   *     about this cell
-   * @param columnConfig the {@link org.dominokit.domino.ui.datatable.ColumnConfig} the column this
-   *     cell is part of
+   * @param cellInfo Information about the cell.
+   * @param columnConfig The column configuration associated with this cell.
    */
   public RowCell(CellRenderer.CellInfo<T> cellInfo, ColumnConfig<T> columnConfig) {
     this.columnConfig = columnConfig;
     this.cellInfo = cellInfo;
   }
 
-  /** @return the {@link ColumnConfig} the column this cell is part of */
   /**
-   * Getter for the field <code>columnConfig</code>.
+   * Gets the column configuration associated with this cell.
    *
-   * @return a {@link org.dominokit.domino.ui.datatable.ColumnConfig} object
+   * @return The column configuration of this cell.
    */
   public ColumnConfig<T> getColumnConfig() {
     return columnConfig;
   }
 
   /**
-   * This method will force update the cell which might result on clearing all it content and
-   * rerender them again with any updated data this is useful when for example changing a field
-   * value in the records instance and we want to reflect the change to the cell that renders the
-   * field.
+   * Updates the content of the cell based on the associated column configuration and cell data.
+   * This method should be called whenever the cell's content needs to be refreshed.
    */
   public void updateCell() {
     DominoElement<HTMLTableCellElement> cellElement = elements.elementOf(cellInfo.getElement());
@@ -89,11 +94,11 @@ public class RowCell<T> {
     }
   }
 
-  /** @return the {@link CellRenderer.CellInfo} information about this cell */
   /**
-   * Getter for the field <code>cellInfo</code>.
+   * Gets the information about the cell, including its parent row and the HTML element representing
+   * the cell.
    *
-   * @return a {@link org.dominokit.domino.ui.datatable.CellRenderer.CellInfo} object
+   * @return Information about the cell.
    */
   public CellRenderer.CellInfo<T> getCellInfo() {
     return cellInfo;

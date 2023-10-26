@@ -28,6 +28,22 @@ import org.dominokit.domino.ui.icons.lib.Icons;
 import org.dominokit.domino.ui.richtext.RichTextCommand;
 import org.dominokit.domino.ui.utils.DOMParser;
 
+/**
+ * Represents a UI command to insert HTML content within a rich text editor.
+ *
+ * <p>The {@code InsertHtmlCommand} extends {@link RichTextCommand} and provides the ability to
+ * insert HTML content at the current selection position in a rich text editable div element. The
+ * command is represented by a button with an appropriate icon. Clicking on this button opens a
+ * confirmation dialog, allowing the user to input the desired HTML. Confirming this dialog results
+ * in the provided HTML being inserted at the selected position.
+ *
+ * <p><b>Usage Example:</b>
+ *
+ * <pre>{@code
+ * DivElement editableDiv = DivElement.create();
+ * InsertHtmlCommand insertHtmlCommand = InsertHtmlCommand.create(editableDiv);
+ * }</pre>
+ */
 public class InsertHtmlCommand extends RichTextCommand<InsertHtmlCommand> {
 
   private final ConfirmationDialog dialog;
@@ -36,10 +52,21 @@ public class InsertHtmlCommand extends RichTextCommand<InsertHtmlCommand> {
   private Button button;
   private Range range;
 
+  /**
+   * Factory method to create a new instance of InsertHtmlCommand.
+   *
+   * @param editableElement The div element where the rich text is edited.
+   * @return A new instance of InsertHtmlCommand.
+   */
   public static InsertHtmlCommand create(DivElement editableElement) {
     return new InsertHtmlCommand(editableElement);
   }
 
+  /**
+   * Constructs a new InsertHtmlCommand instance for the specified editable div element.
+   *
+   * @param editableElement The div element where the rich text is edited.
+   */
   public InsertHtmlCommand(DivElement editableElement) {
     super(editableElement);
     this.editableElement = editableElement;
@@ -81,11 +108,21 @@ public class InsertHtmlCommand extends RichTextCommand<InsertHtmlCommand> {
     init(this);
   }
 
+  /**
+   * @dominokit-site-ignore {@inheritDoc}
+   *     <p>Returns the main HTMLElement of this command, which is the button used to open the HTML
+   *     insertion dialog.
+   * @return The HTMLElement of the button.
+   */
   @Override
   public HTMLElement element() {
     return button.element();
   }
 
+  /**
+   * Executes the command, inserting the provided HTML content at the current selection position
+   * within the editable div element.
+   */
   @Override
   protected void execute() {
     getSelectedRange()

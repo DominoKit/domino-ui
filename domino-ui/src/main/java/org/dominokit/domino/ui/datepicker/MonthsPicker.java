@@ -13,6 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package org.dominokit.domino.ui.datepicker;
 
 import elemental2.dom.HTMLDivElement;
@@ -22,7 +23,19 @@ import org.dominokit.domino.ui.style.BooleanCssClass;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
 import org.gwtproject.i18n.shared.cldr.DateTimeFormatInfo;
 
-/** MonthsPicker class. */
+/**
+ * Represents a visual component for picking months. The component displays all the months in a
+ * year, and users can select any month by clicking on it.
+ *
+ * <p><b>Usage Example:</b>
+ *
+ * <pre>
+ * IsCalendar calendar = ...; // Implementation of IsCalendar
+ * MonthsPicker picker = MonthsPicker.create(calendar);
+ * </pre>
+ *
+ * @see BaseDominoElement
+ */
 public class MonthsPicker extends BaseDominoElement<HTMLDivElement, MonthsPicker>
     implements CalendarStyles, CalendarViewListener {
 
@@ -30,9 +43,9 @@ public class MonthsPicker extends BaseDominoElement<HTMLDivElement, MonthsPicker
   private final IsCalendar calendar;
 
   /**
-   * Constructor for MonthsPicker.
+   * Constructs a new MonthsPicker for the provided calendar.
    *
-   * @param calendar a {@link org.dominokit.domino.ui.datepicker.IsCalendar} object
+   * @param calendar The calendar reference used by this MonthsPicker.
    */
   public MonthsPicker(IsCalendar calendar) {
     this.calendar = calendar;
@@ -43,15 +56,21 @@ public class MonthsPicker extends BaseDominoElement<HTMLDivElement, MonthsPicker
   }
 
   /**
-   * create.
+   * Factory method to create a new MonthsPicker for the provided calendar.
    *
-   * @param isCalendar a {@link org.dominokit.domino.ui.datepicker.IsCalendar} object
-   * @return a {@link org.dominokit.domino.ui.datepicker.MonthsPicker} object
+   * @param isCalendar The calendar reference.
+   * @return A new instance of MonthsPicker.
    */
   public static MonthsPicker create(IsCalendar isCalendar) {
     return new MonthsPicker(isCalendar);
   }
 
+  /**
+   * Updates the view of the MonthsPicker to reflect any changes in the calendar or the date-time
+   * format.
+   *
+   * @return The updated MonthsPicker.
+   */
   MonthsPicker updateView() {
     this.root.clearElement();
     String[] months = this.calendar.getDateTimeFormatInfo().monthsShort();
@@ -83,21 +102,42 @@ public class MonthsPicker extends BaseDominoElement<HTMLDivElement, MonthsPicker
     return this;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Listener method for when the date-time format changes. It updates the MonthsPicker view
+   * accordingly.
+   *
+   * @param dateTimeFormatInfo The new date-time format information.
+   */
   @Override
   public void onDateTimeFormatInfoChanged(DateTimeFormatInfo dateTimeFormatInfo) {
     updateView();
   }
 
+  /**
+   * Checks if a given month (by index) is the current month.
+   *
+   * @param counter The month's index (0-based).
+   * @return True if it's the current month, false otherwise.
+   */
   private boolean isCurrentMonth(int counter) {
     return new Date().getMonth() == counter;
   }
 
+  /**
+   * Checks if a given month (by index) is the selected month in the calendar.
+   *
+   * @param counter The month's index (0-based).
+   * @return True if it's the selected month, false otherwise.
+   */
   private boolean isSelectedMonth(int counter) {
     return counter == this.calendar.getDate().getMonth();
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Returns the root element of the MonthsPicker.
+   *
+   * @return The root HTMLDivElement element.
+   */
   @Override
   public HTMLDivElement element() {
     return root.element();

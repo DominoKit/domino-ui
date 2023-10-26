@@ -17,22 +17,40 @@ package org.dominokit.domino.ui.elements;
 
 import elemental2.dom.HTMLTableCellElement;
 
-/** THElement class. */
+/**
+ * Represents an HTML <th> element wrapper.
+ * <p>
+ * The HTML <th> element defines a header cell in an HTML <table>. It is used to represent a column header in a table.
+ * This class provides a Java-based way to create, manipulate, and control the behavior of <th> elements in web
+ * applications.
+ * </p>
+ *
+ * Example usage:
+ * <pre>
+ * {@code
+ * HTMLTableCellElement thElement = ...;  // Obtain a <th> element from somewhere
+ * THElement th = THElement.of(thElement);
+ * }
+ * </pre>
+ *
+ * @see <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/th">MDN Web Docs (th)</a>
+ */
 public class THElement extends BaseElement<HTMLTableCellElement, THElement> {
+
   /**
-   * of.
+   * Creates a new {@link THElement} instance by wrapping the provided HTML <th> element.
    *
-   * @param e a {@link elemental2.dom.HTMLTableCellElement} object
-   * @return a {@link org.dominokit.domino.ui.elements.THElement} object
+   * @param e The HTML <th> element to wrap.
+   * @return A new {@link THElement} instance wrapping the provided element.
    */
   public static THElement of(HTMLTableCellElement e) {
     return new THElement(e);
   }
 
   /**
-   * Constructor for THElement.
+   * Constructs a {@link THElement} instance by wrapping the provided HTML <th> element.
    *
-   * @param element a {@link elemental2.dom.HTMLTableCellElement} object
+   * @param element The HTML <th> element to wrap.
    */
   public THElement(HTMLTableCellElement element) {
     super(element);

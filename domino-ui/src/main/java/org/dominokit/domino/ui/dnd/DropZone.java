@@ -24,20 +24,26 @@ import org.dominokit.domino.ui.IsElement;
 import org.dominokit.domino.ui.utils.DominoElement;
 
 /**
- * Define a drop zone.
+ * A manager for drop targets in a Drag-and-Drop system.
  *
- * <p>Each drop zone has a list of drop targets that accept drop event. Each drop target has a
- * listener that will be called when a drop event happens passing the id of the element
+ * <p>The DropZone class allows the easy addition and removal of drop targets. It provides
+ * functionality to manage the dropping of dragged elements on registered targets. Example usage:
+ *
+ * <pre>
+ * DropZone zone = new DropZone();
+ * zone.addDropTarget(myHtmlElement, draggableId -> DomGlobal.console.info("Dropped: " + draggableId));
+ * </pre>
  */
 public class DropZone {
 
+  /** Map containing the drop targets. */
   private final Map<HTMLElement, DropTarget> dropTargets = new HashMap<>();
 
   /**
-   * Adds {@code element} as a valid drop target
+   * Registers an {@link HTMLElement} as a drop target with a specified {@link DropListener}.
    *
-   * @param element the valid drop target
-   * @param dropListener listener to be called when a drop happens
+   * @param element the HTML element to register as a drop target
+   * @param dropListener the listener that will be invoked upon a drop event
    */
   public void addDropTarget(HTMLElement element, DropListener dropListener) {
     if (!dropTargets.containsKey(element)) {
@@ -46,19 +52,19 @@ public class DropZone {
   }
 
   /**
-   * Adds {@code element} as a valid drop target
+   * Registers an {@link IsElement} as a drop target with a specified {@link DropListener}.
    *
-   * @param element the valid drop target
-   * @param dropListener listener to be called when a drop happens
+   * @param element the IsElement to register as a drop target
+   * @param dropListener the listener that will be invoked upon a drop event
    */
   public void addDropTarget(IsElement<? extends HTMLElement> element, DropListener dropListener) {
     addDropTarget(element.element(), dropListener);
   }
 
   /**
-   * removeDropTarget.
+   * Unregisters an {@link HTMLElement} from being a drop target.
    *
-   * @param element a {@link elemental2.dom.HTMLElement} object
+   * @param element the HTML element to unregister as a drop target
    */
   public void removeDropTarget(HTMLElement element) {
     if (dropTargets.containsKey(element)) {
@@ -68,21 +74,29 @@ public class DropZone {
   }
 
   /**
-   * removeDropTarget.
+   * Unregisters an {@link IsElement} from being a drop target.
    *
-   * @param element a {@link org.dominokit.domino.ui.IsElement} object
+   * @param element the IsElement to unregister as a drop target
    */
   public void removeDropTarget(IsElement<? extends HTMLElement> element) {
     removeDropTarget(element.element());
   }
 
-  /** Listener to be called when a drop event gets fired */
+  /**
+   * A functional interface representing a drop listener. This will be triggered when an item is
+   * dropped onto a registered target.
+   */
   @FunctionalInterface
   public interface DropListener {
-    /** @param draggableId the draggable element id */
+    /**
+     * Called when a draggable element is dropped.
+     *
+     * @param draggableId the ID of the dropped element
+     */
     void onDrop(String draggableId);
   }
 
+  /** Inner class representing a drop target. */
   private static class DropTarget {
 
     private static final String DRAG_OVER = "drag-over";
@@ -92,6 +106,12 @@ public class DropZone {
     private final EventListener onDragLeave;
     private final EventListener onDrop;
 
+    /**
+     * Constructs a new {@link DropTarget} with the given element and drop listener.
+     *
+     * @param element the HTML element to be registered as a drop target
+     * @param dropListener the listener to be invoked upon a drop event
+     */
     public DropTarget(HTMLElement element, DropListener dropListener) {
       this.element = elements.elementOf(element);
       this.dropListener = dropListener;
@@ -103,6 +123,12 @@ public class DropZone {
       element.addEventListener("drop", onDrop);
     }
 
+    /**
+     * Handles the drop event, calling the drop listener and removing any styles applied during drag
+     * over.
+     *
+     * @param evt the drag event
+     */
     private void onDrop(Event evt) {
       evt.preventDefault();
       element.removeCss(DRAG_OVER);
@@ -111,16 +137,27 @@ public class DropZone {
       dropListener.onDrop(draggableId);
     }
 
+    /**
+     * Handles the drag leave event, removing any styles applied during drag over.
+     *
+     * @param evt the drag event
+     */
     private void onDragLeave(Event evt) {
       evt.preventDefault();
       element.removeCss(DRAG_OVER);
     }
 
+    /**
+     * Handles the drag over event, applying a style to indicate the drag over state.
+     *
+     * @param evt the drag event
+     */
     private void onDragOver(Event evt) {
       evt.preventDefault();
       element.addCss(DRAG_OVER);
     }
 
+    /** Detaches this drop target, ensuring no further events will be listened to. */
     public void detach() {
       element.removeEventListener("dragover", onDragOver);
       element.removeEventListener("dragleave", onDragLeave);

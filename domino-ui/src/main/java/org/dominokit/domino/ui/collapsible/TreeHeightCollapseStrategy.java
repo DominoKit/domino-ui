@@ -28,21 +28,18 @@ import org.dominokit.domino.ui.utils.DominoId;
 import org.dominokit.domino.ui.utils.IsCollapsible;
 
 /**
- * An implementation of {@link org.dominokit.domino.ui.collapsible.CollapseStrategy} that uses the
- * css display property to hide/show the collapsible element
+ * An implementation of {@link org.dominokit.domino.ui.collapsible.CollapseStrategy} that is meant
+ * to be used with the {@link org.dominokit.domino.ui.tree.Tree} component
  */
 public class TreeHeightCollapseStrategy implements CollapseStrategy, CollapsibleStyles {
 
-  /** Constant <code>EXPAND_COLLAPSE_HEIGHT_VAR="--dui-tree-item-expand-collapse-height-"</code> */
-  public static final String EXPAND_COLLAPSE_HEIGHT_VAR = "--dui-tree-item-expand-collapse-height-";
-  /** Constant <code>DUI_COLLAPSED_HEIGHT="dui-collapsed-height"</code> */
-  public static final String DUI_COLLAPSED_HEIGHT = "dui-collapsed-height";
-  /** Constant <code>DUI_EXPANDED_HEIGHT="dui-expanded-height"</code> */
-  public static final String DUI_EXPANDED_HEIGHT = "dui-expanded-height";
-  /** Constant <code>DUI_EXPAND_COLLAPSE_VAR="dui-expand-collapse-var"</code> */
-  public static final String DUI_EXPAND_COLLAPSE_VAR = "dui-expand-collapse-var";
+  private static final String EXPAND_COLLAPSE_HEIGHT_VAR =
+      "--dui-tree-item-expand-collapse-height-";
+  private static final String DUI_COLLAPSED_HEIGHT = "dui-collapsed-height";
+  private static final String DUI_EXPANDED_HEIGHT = "dui-expanded-height";
+  private static final String DUI_EXPAND_COLLAPSE_VAR = "dui-expand-collapse-var";
 
-  private final CollapseDuration transition;
+  private final CollapsibleDuration transition;
   private final String heightVar;
   private CollapsibleHandlers handlers;
   private final TreeItem<?> treeItem;
@@ -53,16 +50,16 @@ public class TreeHeightCollapseStrategy implements CollapseStrategy, Collapsible
    * @param treeItem a {@link org.dominokit.domino.ui.tree.TreeItem} object
    */
   public TreeHeightCollapseStrategy(TreeItem<?> treeItem) {
-    this(treeItem, CollapseDuration._300ms);
+    this(treeItem, CollapsibleDuration._300ms);
   }
 
   /**
    * Constructor for TreeHeightCollapseStrategy.
    *
    * @param treeItem a {@link org.dominokit.domino.ui.tree.TreeItem} object
-   * @param transition a {@link org.dominokit.domino.ui.collapsible.CollapseDuration} object
+   * @param transition a {@link CollapsibleDuration} object
    */
-  public TreeHeightCollapseStrategy(TreeItem<?> treeItem, CollapseDuration transition) {
+  public TreeHeightCollapseStrategy(TreeItem<?> treeItem, CollapsibleDuration transition) {
     this.treeItem = treeItem;
     this.transition = transition;
     this.heightVar = DominoId.unique(EXPAND_COLLAPSE_HEIGHT_VAR);
@@ -70,7 +67,7 @@ public class TreeHeightCollapseStrategy implements CollapseStrategy, Collapsible
     this.treeItem.setCssProperty("height", "var(" + this.heightVar + ", auto)");
   }
 
-  /** {@inheritDoc} */
+  /** @dominokit-site-ignore {@inheritDoc} */
   @Override
   public void init(Element element, CollapsibleHandlers handlers) {
     this.handlers = handlers;
@@ -84,14 +81,14 @@ public class TreeHeightCollapseStrategy implements CollapseStrategy, Collapsible
     element.setAttribute(DUI_COLLAPSED, true);
   }
 
-  /** {@inheritDoc} */
+  /** @dominokit-site-ignore {@inheritDoc} */
   @Override
   public void cleanup(Element element) {
     elements.elementOf(element).addCss(dui_height_collapsed_overflow).addCss(transition.getStyle());
     element.removeAttribute("dom-ui-collapse-height");
   }
 
-  /** {@inheritDoc} */
+  /** @dominokit-site-ignore {@inheritDoc} */
   @Override
   public void expand(Element element) {
     treeItem.nowOrWhenAttached(
@@ -147,7 +144,7 @@ public class TreeHeightCollapseStrategy implements CollapseStrategy, Collapsible
     }
   }
 
-  /** {@inheritDoc} */
+  /** @dominokit-site-ignore {@inheritDoc} */
   @Override
   public void collapse(Element element) {
     treeItem.setCssProperty(this.heightVar, getActualHeight() + "px");

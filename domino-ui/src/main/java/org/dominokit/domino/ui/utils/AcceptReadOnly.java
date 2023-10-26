@@ -16,25 +16,27 @@
 package org.dominokit.domino.ui.utils;
 
 /**
- * A component that can have a readonly mode should implement this interface
+ * The {@code AcceptReadOnly} interface defines methods for setting and checking the read-only state
+ * of an object. Objects implementing this interface can be marked as read-only, which typically
+ * means that they cannot be modified or edited by user interactions.
  *
- * @param <T> the type of the class implementing this interface
+ * @param <T> The type of object that can be marked as read-only or checked for read-only status.
  */
 public interface AcceptReadOnly<T> {
+
   /**
-   * setReadOnly.
+   * Sets the read-only state of the object.
    *
-   * @param readOnly boolean, if true switch the component to readonly mode, otherwise switch out
-   *     off readonly mode
-   * @return same instance of the implementing class
+   * @param readOnly {@code true} to mark the object as read-only, {@code false} to mark it as
+   *     editable.
+   * @return The object after setting the read-only state.
    */
   T setReadOnly(boolean readOnly);
 
-  /** @return boolean, if true then the component is in readonly mode, otherwise it is not. */
   /**
-   * isReadOnly.
+   * Checks if the object is currently in a read-only state.
    *
-   * @return a boolean
+   * @return {@code true} if the object is read-only, {@code false} if it is editable.
    */
   boolean isReadOnly();
 }

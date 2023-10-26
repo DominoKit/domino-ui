@@ -13,6 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package org.dominokit.domino.ui.utils;
 
 import static org.dominokit.domino.ui.utils.SwipeUtil.SwipeDirection.*;
@@ -21,15 +22,26 @@ import elemental2.dom.*;
 import java.util.Date;
 import jsinterop.base.Js;
 
-/** A utility class to register swap events listeners on elements */
+/**
+ * The {@code SwipeUtil} class provides utility methods for adding swipe event listeners to HTML
+ * elements. It allows you to detect swipe gestures in different directions (left, right, up, and
+ * down) on touch-enabled devices.
+ *
+ * <p>Swipe gestures are a common interaction pattern on mobile devices, and this utility simplifies
+ * the process of adding swipe event listeners to handle such gestures.
+ *
+ * @see HTMLElement
+ * @see EventListener
+ * @see SwipeDirection
+ */
 public class SwipeUtil {
 
   /**
-   * Adds a swap listener on an element
+   * Adds a swipe event listener to the specified HTML element.
    *
-   * @param direction {@link org.dominokit.domino.ui.utils.SwipeUtil.SwipeDirection}
-   * @param element the target {@link elemental2.dom.HTMLElement}
-   * @param listener {@link elemental2.dom.EventListener}
+   * @param direction The desired swipe direction (e.g., {@link SwipeDirection#LEFT}).
+   * @param element The HTML element to attach the swipe listener to.
+   * @param listener The event listener to invoke when the swipe gesture occurs.
    */
   public static void addSwipeListener(
       SwipeDirection direction, HTMLElement element, EventListener listener) {
@@ -107,20 +119,24 @@ public class SwipeUtil {
     double startTime;
   }
 
-  /** Predefined swap directions */
+  /** An enumeration of swipe directions. */
   public enum SwipeDirection {
-    /** Swipe from right to left */
+    /** Represents a left swipe gesture. */
     LEFT("left"),
-    /** Swipe from left to right */
-    RIGHT("RIGHT"),
-    /** Swipe from down to up */
-    UP("UP"),
-    /** Swipe from up to down */
-    DOWN("DOWN");
+    /** Represents a right swipe gesture. */
+    RIGHT("right"),
+    /** Represents an up swipe gesture. */
+    UP("up"),
+    /** Represents a down swipe gesture. */
+    DOWN("down");
 
     String direction;
 
-    /** @param direction String */
+    /**
+     * Creates a new {@code SwipeDirection} enum constant with the specified direction string.
+     *
+     * @param direction The direction string (e.g., "left").
+     */
     SwipeDirection(String direction) {
       this.direction = direction;
     }

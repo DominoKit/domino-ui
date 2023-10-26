@@ -70,9 +70,6 @@ public interface DisplayCss {
   /** @hidden Constant <code>dui_inline_flex</code> */
   CssClass dui_inline_flex =
       ReplaceCssClass.of(AggregatedCss.dui_display).replaceWith(() -> "dui-inline-flex");
-  CssClass dui_flex_responsive = () -> "dui-flex-responsive";
-  /** @hidden Constant <code>dui_flex_responsive_reverse</code> */
-  CssClass dui_flex_responsive_reverse = () -> "dui-flex-responsive-reverse";
 
   /** @hidden Constant <code>dui_table</code> */
   CssClass dui_table = ReplaceCssClass.of(AggregatedCss.dui_display).replaceWith(() -> "dui-table");
@@ -117,6 +114,12 @@ public interface DisplayCss {
   /** @hidden Constant <code>dui_list_item</code> */
   CssClass dui_list_item =
       ReplaceCssClass.of(AggregatedCss.dui_display).replaceWith(() -> "dui-list-item");
+
+  /** @hidden Constant <code>dui_flex_responsive</code> */
+  CssClass dui_flex_responsive = () -> "dui-flex-responsive";
+  /** @hidden Constant <code>dui_flex_responsive_reverse</code> */
+  CssClass dui_flex_responsive_reverse = () -> "dui-flex-responsive-reverse";
+  /** @hidden Constant <code>dui_hidden</code> */
   CssClass dui_hidden = () -> "dui-hidden";
   /** @hidden Constant <code>dui_float_right</code> */
   CssClass dui_float_right = () -> "dui-float-right";

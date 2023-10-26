@@ -17,22 +17,36 @@ package org.dominokit.domino.ui.elements;
 
 import elemental2.dom.HTMLElement;
 
-/** ABBRElement class. */
+/**
+ * Represents an abbreviation HTML element (`<abbr>`) wrapper.
+ *
+ * <p>This class facilitates the creation and manipulation of the abbreviation HTML element. Example
+ * usage:
+ *
+ * <pre>{@code
+ * HTMLElement htmlElement = ...;  // Obtain an abbreviation element from somewhere
+ * ABBRElement abbrElement = ABBRElement.of(htmlElement);
+ * }</pre>
+ *
+ * @see <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/abbr">MDN Web Docs (abbr
+ *     element)</a>
+ */
 public class ABBRElement extends BaseElement<HTMLElement, ABBRElement> {
+
   /**
-   * of.
+   * Creates a new {@link ABBRElement} from the given HTML element.
    *
-   * @param e a {@link elemental2.dom.HTMLElement} object
-   * @return a {@link org.dominokit.domino.ui.elements.ABBRElement} object
+   * @param e The abbreviation HTML element.
+   * @return A new {@link ABBRElement} wrapping the provided element.
    */
   public static ABBRElement of(HTMLElement e) {
     return new ABBRElement(e);
   }
 
   /**
-   * Constructor for ABBRElement.
+   * Constructs an {@link ABBRElement} by wrapping the provided abbreviation HTML element.
    *
-   * @param element a {@link elemental2.dom.HTMLElement} object
+   * @param element The abbreviation HTML element to wrap.
    */
   public ABBRElement(HTMLElement element) {
     super(element);

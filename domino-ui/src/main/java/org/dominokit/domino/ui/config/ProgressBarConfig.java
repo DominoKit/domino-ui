@@ -15,26 +15,35 @@
  */
 package org.dominokit.domino.ui.config;
 
-/** ProgressBarConfig interface. */
+/**
+ * Implementations of this interface can be used to configure defaults for {@link
+ * org.dominokit.domino.ui.progress.ProgressBar} component
+ */
 public interface ProgressBarConfig extends ComponentConfig {
 
   /**
-   * getDefaultProgressExpression.
+   * Use this method to define the default progress expression.
    *
-   * @return a {@link java.lang.String} object
+   * <p>Defaults to : {@code {percent}%}
+   *
+   * <p>Can use the following variables in the expression <b>{percent}</b>, <b>{value}</b>,
+   * <b>{maxValue}</b>
+   *
+   * @return Expression text.
    */
   default String getDefaultProgressExpression() {
     return "{percent}%";
   }
 
   /**
-   * evaluateProgressBarExpression.
+   * Use this method to define the default implementation to evaluate the progress expression with
+   * the provided progress values.
    *
-   * @param expression a {@link java.lang.String} object
-   * @param percent a int
-   * @param value a double
-   * @param maxValue a double
-   * @return a {@link java.lang.String} object
+   * @param expression The text expression from {@code getDefaultProgressExpression()}
+   * @param percent integer percent of the current progress state.
+   * @param value double value of the current progress state.
+   * @param maxValue the double maximum value the progress can reach.
+   * @return an evaluated progress text representing the progress status.
    */
   default String evaluateProgressBarExpression(
       String expression, int percent, double value, double maxValue) {

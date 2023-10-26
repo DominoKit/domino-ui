@@ -28,71 +28,94 @@ import org.dominokit.domino.ui.forms.IntegerBox;
 import org.dominokit.domino.ui.forms.LongBox;
 import org.dominokit.domino.ui.forms.ShortBox;
 
-/** FormsFieldsConfig interface. */
+/**
+ * Implementations of this interface can be used to configure defaults for form fields components
+ */
 public interface FormsFieldsConfig extends ComponentConfig, CalendarConfig {
 
   /**
-   * getRequiredIndicator.
+   * Use this method to define the default element to be used as a required indicator in form
+   * fields.
    *
-   * @return a supplier of {@link elemental2.dom.Node}, this should return a new Node instance
-   *     everytime it is call and that will be used as a required field indicator the default will
-   *     supply a text node of <b>*</b>
+   * <p>Defaults to : <b>*</b>
+   *
+   * @return a {@code Supplier<HTMLElement>}, the supplier should return a new Node instance
+   *     everytime it is called.
    */
   default Supplier<HTMLElement> getRequiredIndicator() {
     return () -> elements.span().textContent("*").element();
   }
 
-  /** @return a boolean representing if the errors position should be fixed */
   /**
-   * isFixErrorsPosition.
+   * Use this method to define the default behavior for fixing the error messages space below the
+   * field, so it is always reserved, or it should only be available when there is errors.
    *
-   * @return a boolean
+   * <p>Defaults to : <b>false</b>
+   *
+   * @return a boolean, <b>true</b> Errors element will take a fixed space even if no errors
+   *     reported, <b>false</b> Errors element will only take space when the field has errors.
    */
   default boolean isFixErrorsPosition() {
     return false;
   }
 
-  /** @return true if press enter key will move the focus to the next input field if exists */
   /**
-   * isFocusNextFieldOnEnter.
+   * Use this method to define the default behavior for form field to focus on next field on enter
+   * key press or not.
    *
-   * @return a boolean
+   * <p>Defaults to : <b>false</b>
+   *
+   * @return a boolean, <b>true</b> Press enter on a field will move the focus to the next field,
+   *     <b>false</b> Press enter on a field will not move the focus to the next field.
    */
   default boolean isFocusNextFieldOnEnter() {
     return false;
   }
 
   /**
-   * isSpellCheckEnabled.
+   * Use this method to enable/disable spellcheck for input fields by default.
    *
-   * @return a boolean
+   * <p>Defaults to : <b>false</b>
+   *
+   * @return a boolean, <b>true</b> Enables spellcheck for input fields by default, <b>false</b>
+   *     Disables spellcheck for input fields by default.
    */
   default boolean isSpellCheckEnabled() {
     return false;
   }
 
   /**
-   * isFixedLabelSpace.
+   * Use this method to configure fixed the label space even if the field does not have a label.
    *
-   * @return a boolean
+   * <p>Defaults to : <b>true</b>
+   *
+   * @return a boolean, <b>true</b> The space for the field label will be preserved even if the
+   *     field does not have a label, <b>false</b> The space for the field label will not be
+   *     preserved when the field does not have a label.
    */
   default boolean isFixedLabelSpace() {
     return true;
   }
 
   /**
-   * getNumberParsers.
+   * Use this method to define the default implementation for {@link NumberParsers} for number
+   * fields.
    *
-   * @return a {@link org.dominokit.domino.ui.config.FormsFieldsConfig.NumberParsers} object
+   * <p>Defaults to : {@link NumberParsers}
+   *
+   * @return A NumberParsers implementation.
    */
   default NumberParsers getNumberParsers() {
     return new NumberParsers() {};
   }
 
   /**
-   * isFormFieldFloatLabelLeft.
+   * Use this method to define the default position of the field label, top or left
    *
-   * @return a boolean
+   * <p>Defaults to : <b>false</b>
+   *
+   * @return A boolean, <b>true</b> to position the label on the left side of the field,
+   *     <b>false</b> position the label on the top of the field.
    */
   default boolean isFormFieldFloatLabelLeft() {
     return false;

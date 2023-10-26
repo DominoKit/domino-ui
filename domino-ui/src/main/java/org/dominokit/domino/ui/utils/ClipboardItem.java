@@ -20,6 +20,13 @@ import elemental2.dom.Blob;
 import jsinterop.annotations.JsPackage;
 import jsinterop.annotations.JsType;
 
+/**
+ * Represents an item that can be added to the clipboard. This class is a native JavaScript class
+ * used for clipboard operations.
+ *
+ * @see <a href="https://developer.mozilla.org/en-US/docs/Web/API/ClipboardItem">MDN
+ *     Documentation</a>
+ */
 @JsType(isNative = true, namespace = JsPackage.GLOBAL)
 public class ClipboardItem {
   public ClipboardItem(JsArray<String> mimeTypes, Blob blob) {};

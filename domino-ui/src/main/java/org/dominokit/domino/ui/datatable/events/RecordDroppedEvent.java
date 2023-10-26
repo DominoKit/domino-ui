@@ -13,53 +13,58 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package org.dominokit.domino.ui.datatable.events;
 
 /**
- * This event will be fired when a record gets dropped
+ * The {@code RecordDroppedEvent} class represents an event that is fired when a record is dropped
+ * onto another record in a DataTable.
  *
- * @param <T> the type of the record
+ * @param <T> the type of data in the DataTable
+ * @see org.dominokit.domino.ui.datatable.events.TableEvent
  */
 public class RecordDroppedEvent<T> implements TableEvent {
 
-  /** Constant <code>RECORD_DROPPED="record-dropped"</code> */
+  /** The event type for the record-dropped event. */
   public static final String RECORD_DROPPED = "record-dropped";
 
   private final T droppedRecord;
   private final T targetRecord;
 
   /**
-   * Constructor for RecordDroppedEvent.
+   * Creates a new {@code RecordDroppedEvent} with the specified dropped and target records.
    *
-   * @param droppedRecord a T object
-   * @param targetRecord a T object
+   * @param droppedRecord the record that was dropped
+   * @param targetRecord the record onto which the dropped record was placed
    */
   public RecordDroppedEvent(T droppedRecord, T targetRecord) {
     this.droppedRecord = droppedRecord;
     this.targetRecord = targetRecord;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Retrieves the type of this event.
+   *
+   * @return the event type
+   */
   @Override
   public String getType() {
     return RECORD_DROPPED;
   }
 
-  /** @return the dropped record */
   /**
-   * Getter for the field <code>droppedRecord</code>.
+   * Retrieves the dropped record.
    *
-   * @return a T object
+   * @return the dropped record
    */
   public T getDroppedRecord() {
     return droppedRecord;
   }
 
-  /** @return the target record */
   /**
-   * Getter for the field <code>targetRecord</code>.
+   * Retrieves the target record onto which the dropped record was placed.
    *
-   * @return a T object
+   * @return the target record
    */
   public T getTargetRecord() {
     return targetRecord;

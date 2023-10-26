@@ -17,22 +17,38 @@ package org.dominokit.domino.ui.elements;
 
 import elemental2.dom.HTMLElement;
 
-/** FooterElement class. */
+/**
+ * Represents a <footer> HTML element wrapper.
+ *
+ * <p>The <footer> tag is used to define a footer for a document or section. A footer typically
+ * contains information about the author, copyright, contact details, and other metadata about the
+ * content. This class provides a convenient way to create, manipulate, and control the behavior of
+ * <footer> elements, making it easier to use them in Java-based web applications. Example usage:
+ *
+ * <pre>
+ * HTMLElement footerElement = ...;  // Obtain a <footer> element from somewhere
+ * FooterElement footer = FooterElement.of(footerElement);
+ * </pre>
+ *
+ * @see <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/footer">MDN Web Docs
+ *     (footer element)</a>
+ */
 public class FooterElement extends BaseElement<HTMLElement, FooterElement> {
+
   /**
-   * of.
+   * Creates a new {@link FooterElement} instance by wrapping the provided HTML <footer> element.
    *
-   * @param e a {@link elemental2.dom.HTMLElement} object
-   * @return a {@link org.dominokit.domino.ui.elements.FooterElement} object
+   * @param e The HTML <footer> element.
+   * @return A new {@link FooterElement} instance wrapping the provided element.
    */
   public static FooterElement of(HTMLElement e) {
     return new FooterElement(e);
   }
 
   /**
-   * Constructor for FooterElement.
+   * Constructs a {@link FooterElement} instance by wrapping the provided HTML <footer> element.
    *
-   * @param element a {@link elemental2.dom.HTMLElement} object
+   * @param element The HTML <footer> element to wrap.
    */
   public FooterElement(HTMLElement element) {
     super(element);

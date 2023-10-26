@@ -16,22 +16,47 @@
 package org.dominokit.domino.ui.tabs;
 
 /**
- * Components that can have a single active item should implement this interface
+ * Represents an entity that can have an active item.
  *
- * @param <T> the type of the item that can be activated/deactivated
+ * <p>This interface ensures that the implementing classes have the capability to maintain and
+ * manipulate an active item of a specific type.
+ *
+ * <p><b>Usage Example:</b>
+ *
+ * <pre>
+ * public class MyTabsPanel implements HasActiveItem<Tab> {
+ *
+ *     private Tab activeTab;
+ *
+ *     @Override
+ *     public Tab getActiveItem() {
+ *         return activeTab;
+ *     }
+ *
+ *     @Override
+ *     public void setActiveItem(Tab activeTab) {
+ *         this.activeTab = activeTab;
+ *     }
+ * }
+ * </pre>
+ *
+ * @param <T> the type of the active item
+ * @see Tab
+ * @see TabsPanel
  */
 public interface HasActiveItem<T> {
+
   /**
-   * getActiveItem.
+   * Returns the currently active item.
    *
-   * @return a T object
+   * @return the active item
    */
   T getActiveItem();
 
   /**
-   * setActiveItem.
+   * Sets the provided item as the active item.
    *
-   * @param activeItem a T object
+   * @param activeItem the item to be set as active
    */
   void setActiveItem(T activeItem);
 }

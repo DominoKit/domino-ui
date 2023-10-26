@@ -15,41 +15,57 @@
  */
 package org.dominokit.domino.ui.forms;
 
-/** PasswordBox class. */
+/**
+ * Represents a password input form field. This class extends from {@link BaseTextBox} and is
+ * specifically tailored for password input.
+ *
+ * <p>Usage example:
+ *
+ * <pre>
+ * PasswordBox defaultPasswordBox = PasswordBox.create();
+ * PasswordBox labeledPasswordBox = PasswordBox.create("Enter your password:");
+ * </pre>
+ *
+ * @see BaseTextBox
+ */
 public class PasswordBox extends BaseTextBox<PasswordBox> {
 
   /**
-   * create.
+   * Factory method to create a new instance of {@link PasswordBox}.
    *
-   * @return a {@link org.dominokit.domino.ui.forms.PasswordBox} object
+   * @return a new instance of PasswordBox
    */
   public static PasswordBox create() {
     return new PasswordBox();
   }
 
   /**
-   * create.
+   * Factory method to create a new instance of {@link PasswordBox} with a label.
    *
-   * @param label a {@link java.lang.String} object
-   * @return a {@link org.dominokit.domino.ui.forms.PasswordBox} object
+   * @param label the label for the password box
+   * @return a new instance of PasswordBox with the provided label
    */
   public static PasswordBox create(String label) {
     return new PasswordBox(label);
   }
 
-  /** Constructor for PasswordBox. */
+  /** Default constructor. Initializes the password box. */
   public PasswordBox() {}
 
   /**
-   * Constructor for PasswordBox.
+   * Constructor that initializes the password box with the given label.
    *
-   * @param label a {@link java.lang.String} object
+   * @param label the label for the password box
    */
   public PasswordBox(String label) {
     super(label);
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Retrieves the input type for the password box, which is "password". {@inheritDoc}
+   *
+   * @return the string "password"
+   */
   @Override
   public String getType() {
     return "password";

@@ -13,45 +13,51 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package org.dominokit.domino.ui.utils;
 
-/** HasIndeterminateState interface. */
+/**
+ * The {@code HasIndeterminateState} interface defines methods for managing the indeterminate state
+ * of a component.
+ *
+ * @param <T> The type of the component that can have an indeterminate state.
+ */
 public interface HasIndeterminateState<T> {
 
   /**
-   * Change the component to its indeterminate state
+   * Sets the component to an indeterminate state.
    *
-   * @return same component instance
+   * @return The component in the indeterminate state.
    */
   T indeterminate();
 
   /**
-   * Change the component to its indeterminate state
+   * Sets the component to a determinate state.
    *
-   * @return same component instance
+   * @return The component in the determinate state.
    */
   T determinate();
 
   /**
-   * toggleIndeterminate.
+   * Toggles the indeterminate state of the component.
    *
-   * @param indeterminate boolean, if true set the state to indeterminate otherwise determinate
-   * @return same component instance
+   * @param indeterminate {@code true} to set the component to an indeterminate state, {@code false}
+   *     to set it to a determinate state.
+   * @return The component with the updated indeterminate state.
    */
   T toggleIndeterminate(boolean indeterminate);
 
   /**
-   * Change the component to its unchecked/checked state
+   * Toggles the indeterminate state of the component.
    *
-   * @return same component instance
+   * @return The component with the updated indeterminate state.
    */
   T toggleIndeterminate();
 
-  /** @return boolean, true if the component is checked, otherwise false */
   /**
-   * isChecked.
+   * Checks if the component is in a checked state.
    *
-   * @return a boolean
+   * @return {@code true} if the component is checked, {@code false} otherwise.
    */
   boolean isChecked();
 }

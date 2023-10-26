@@ -867,7 +867,6 @@ body.dui {
     --dui-form-field-wrapper-radius: 5px;
     --dui-form-field-wrapper-gap: 5px;
     --dui-form-field-border: 1px solid var(--dui-form-field-border-color);
-    --dui-form-field-placeholder-color: var(--dui-color-1);
     --dui-form-field-invalid-border-color: var(--dui-clr-red);
 
 
@@ -1209,7 +1208,7 @@ body.dui {
 
     --dui-calendar-days-header-border-width: 0 0 1px 0;
     --dui-calendar-days-header-border-style: solid;
-    --dui-calendar-day-header-font: var(--dui-font-normal-600);
+    --dui-calendar-day-header-font: var(--dui-font-normal-500);
     --dui-calendar-day-header-min-width: var(--dui-spc-8);
     --dui-calendar-day-header-min-height: var(--dui-spc-8);
     --dui-calendar-day-header-padding: 0 0 var(--dui-spc-2) 0;

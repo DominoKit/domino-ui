@@ -13,6 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package org.dominokit.domino.ui.datatable.plugins.pagination;
 
 import static java.util.Objects.nonNull;
@@ -33,9 +34,10 @@ import org.dominokit.domino.ui.icons.IconWrapper;
 import org.dominokit.domino.ui.utils.DominoElement;
 
 /**
- * This plugin adds sort capability to column headers on click
+ * A plugin for adding sorting functionality to a DataTable. This plugin allows users to click on
+ * the table headers to sort the data in ascending or descending order.
  *
- * @param <T> the type of the data table records
+ * @param <T> The type of data in the DataTable.
  */
 public class SortPlugin<T>
     implements DataTablePlugin<T>, HasPluginConfig<T, SortPlugin<T>, SortPluginConfig> {
@@ -45,13 +47,22 @@ public class SortPlugin<T>
   private DataTable<T> dataTable;
   private SortPluginConfig config = new SortPluginConfig();
 
-  /** {@inheritDoc} */
+  /**
+   * Initializes the plugin with the DataTable instance.
+   *
+   * @param dataTable The DataTable instance to which this plugin is applied.
+   */
   @Override
   public void init(DataTable<T> dataTable) {
     this.dataTable = dataTable;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Adds sorting functionality to the table header columns that are marked as sortable.
+   *
+   * @param dataTable The DataTable instance to which this plugin is applied.
+   * @param column The column configuration to which sorting functionality is added.
+   */
   @Override
   public void onHeaderAdded(DataTable<T> dataTable, ColumnConfig<T> column) {
     if (column.isSortable()) {
@@ -96,11 +107,10 @@ public class SortPlugin<T>
   }
 
   /**
-   * manually sort the table by the specified column and fires the {@link
-   * org.dominokit.domino.ui.datatable.events.SortEvent}
+   * Sorts the table data in the specified direction for the given column.
    *
-   * @param direction the {@link org.dominokit.domino.ui.datatable.plugins.pagination.SortDirection}
-   * @param column the sort {@link org.dominokit.domino.ui.datatable.ColumnConfig}
+   * @param direction The sorting direction (ascending or descending).
+   * @param column The column to be sorted.
    */
   public void sort(SortDirection direction, ColumnConfig<T> column) {
     SortContext sortContext = sortContainers.get(column.getSortKey());
@@ -109,11 +119,21 @@ public class SortPlugin<T>
     fireSortEvent(direction, column);
   }
 
+  /**
+   * Fires a SortEvent to notify listeners of a sorting operation.
+   *
+   * @param direction The sorting direction.
+   * @param column The column being sorted.
+   */
   private void fireSortEvent(SortDirection direction, ColumnConfig<T> column) {
     dataTable.fireTableEvent(new SortEvent<>(direction, column));
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Handles sorting-related events, such as DataSortEvent.
+   *
+   * @param event The event to handle.
+   */
   @Override
   public void handleEvent(TableEvent event) {
     if (DataSortEvent.EVENT.equalsIgnoreCase(event.getType())) {
@@ -127,29 +147,40 @@ public class SortPlugin<T>
     }
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Sets the configuration for this plugin.
+   *
+   * @param config The SortPluginConfig to set.
+   * @return This SortPlugin instance for method chaining.
+   */
   @Override
   public SortPlugin<T> setConfig(SortPluginConfig config) {
     this.config = config;
     return this;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Gets the current configuration for this plugin.
+   *
+   * @return The SortPluginConfig.
+   */
   @Override
   public SortPluginConfig getConfig() {
     return config;
   }
 
   /**
-   * {@inheritDoc}
+   * Configures the SortPlugin using a consumer that modifies the configuration settings.
    *
-   * <p>Use to update the configuration in the current plugin configuration
+   * @param handler The consumer to apply configuration changes.
+   * @return This SortPlugin instance for method chaining.
    */
   public SortPlugin<T> configure(Consumer<SortPluginConfig> handler) {
     handler.accept(config);
     return this;
   }
 
+  /** A helper class for managing the sorting state of a column. */
   private static class SortContext {
     private final String columnName;
     private SortPluginConfig config;
@@ -172,11 +203,17 @@ public class SortPlugin<T>
       }
     }
 
+    /** Clears the sorting state of the column. */
     public void clear() {
       sortDirection = SortDirection.NONE;
       sortIcon.setState(sortDirection.name());
     }
 
+    /**
+     * Updates the sorting state of the column, optionally flipping the sort direction.
+     *
+     * @param flip Whether to flip the sort direction.
+     */
     public void update(boolean flip) {
       if (flip) {
         if (sortDirection.NONE.equals(sortDirection)) {

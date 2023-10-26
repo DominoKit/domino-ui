@@ -22,6 +22,21 @@ import java.util.function.Consumer;
 import org.dominokit.domino.ui.IsElement;
 import org.dominokit.domino.ui.utils.DominoElement;
 
+/**
+ * Represents an element that can be dragged by users.
+ *
+ * <p>This utility makes any given element draggable and provides an interface for interacting with
+ * the drag-and-drop process.
+ *
+ * <p>Example usage:
+ *
+ * <pre>
+ * Draggable&lt;MyElement&gt; draggable = Draggable.of(myElementInstance);
+ * draggable.detach(); // To stop the element from being draggable
+ * </pre>
+ *
+ * @param <E> the type of the draggable element which should implement {@link IsElement}
+ */
 public class Draggable<E extends IsElement<? extends HTMLElement>> {
 
   private final String id;
@@ -29,19 +44,52 @@ public class Draggable<E extends IsElement<? extends HTMLElement>> {
   private final EventListener eventListener;
   private final Consumer<E> dragStartListener;
 
+  /**
+   * Creates a draggable instance for the specified element.
+   *
+   * @param element the element to be made draggable
+   * @param <E> the type of the element
+   * @return a new Draggable instance
+   */
   public static <E extends IsElement<? extends HTMLElement>> Draggable<E> of(E element) {
     return new Draggable<>(element);
   }
 
+  /**
+   * Creates a draggable instance for the specified element with a drag start listener.
+   *
+   * @param element the element to be made draggable
+   * @param dragStartListener listener for the drag start event
+   * @param <E> the type of the element
+   * @return a new Draggable instance
+   */
   public static <E extends IsElement<? extends HTMLElement>> Draggable<E> of(
       E element, Consumer<E> dragStartListener) {
     return new Draggable<>(element, dragStartListener);
   }
 
+  /**
+   * Creates a draggable instance for the specified element with a unique identifier.
+   *
+   * @param id unique identifier for the draggable element
+   * @param element the element to be made draggable
+   * @param <E> the type of the element
+   * @return a new Draggable instance
+   */
   public static <E extends IsElement<? extends HTMLElement>> Draggable<E> of(String id, E element) {
     return new Draggable<>(id, element);
   }
 
+  /**
+   * Creates a draggable instance for the specified element with a unique identifier and drag start
+   * listener.
+   *
+   * @param id unique identifier for the draggable element
+   * @param element the element to be made draggable
+   * @param dragStartListener listener for the drag start event
+   * @param <E> the type of the element
+   * @return a new Draggable instance
+   */
   public static <E extends IsElement<? extends HTMLElement>> Draggable<E> of(
       String id, E element, Consumer<E> dragStartListener) {
     return new Draggable<>(id, element, dragStartListener);
@@ -77,11 +125,17 @@ public class Draggable<E extends IsElement<? extends HTMLElement>> {
     dragStartListener.accept(draggable);
   }
 
+  /** Detaches the draggable feature from the element. */
   public void detach() {
     element.element().draggable = false;
     element.element().removeEventListener("dragstart", eventListener);
   }
 
+  /**
+   * Returns the unique identifier of the draggable element.
+   *
+   * @return the unique identifier
+   */
   public String getId() {
     return id;
   }

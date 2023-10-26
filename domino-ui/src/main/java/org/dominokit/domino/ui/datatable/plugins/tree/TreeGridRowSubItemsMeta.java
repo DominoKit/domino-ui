@@ -13,6 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package org.dominokit.domino.ui.datatable.plugins.tree;
 
 import static java.util.Objects.nonNull;
@@ -27,22 +28,29 @@ import org.dominokit.domino.ui.datatable.plugins.tree.store.TreeNodeStoreContext
 import org.dominokit.domino.ui.datatable.store.DataStore;
 import org.dominokit.domino.ui.utils.ComponentMeta;
 
-/** TreeGridRowSubItemsMeta class. */
+/**
+ * The {@code TreeGridRowSubItemsMeta} class provides metadata and utilities for managing sub-items
+ * in a tree grid. It is used in conjunction with the TreeGridPlugin to enable hierarchical data
+ * rendering in a DataTable.
+ *
+ * @param <T> The type of data records in the DataTable.
+ */
 public class TreeGridRowSubItemsMeta<T> implements ComponentMeta {
 
-  /** Constant <code>TREE_GRID_ROW_SUB_ITEMS_META="tree-grid-row-sub-items-meta"</code> */
+  /** A constant representing the key for accessing this metadata in a TableRow. */
   public static final String TREE_GRID_ROW_SUB_ITEMS_META = "tree-grid-row-sub-items-meta";
 
   private final TreePluginConfig<T> config;
   private Collection<T> records;
 
   /**
-   * of.
+   * Static factory method to create an instance of {@code TreeGridRowSubItemsMeta} with the
+   * specified configuration and records.
    *
-   * @param config a {@link org.dominokit.domino.ui.datatable.plugins.tree.TreePluginConfig} object
-   * @param records a {@link java.util.Collection} object
-   * @param <T> a T class
-   * @return a {@link org.dominokit.domino.ui.datatable.plugins.tree.TreeGridRowSubItemsMeta} object
+   * @param <T> The type of data records in the DataTable.
+   * @param config The configuration for the TreeGridPlugin.
+   * @param records The collection of sub-items records.
+   * @return A new instance of {@code TreeGridRowSubItemsMeta}.
    */
   public static <T> TreeGridRowSubItemsMeta<T> of(
       TreePluginConfig<T> config, Collection<T> records) {
@@ -50,30 +58,32 @@ public class TreeGridRowSubItemsMeta<T> implements ComponentMeta {
   }
 
   /**
-   * of.
+   * Static factory method to create an instance of {@code TreeGridRowSubItemsMeta} with the
+   * specified configuration.
    *
-   * @param config a {@link org.dominokit.domino.ui.datatable.plugins.tree.TreePluginConfig} object
-   * @param <T> a T class
-   * @return a {@link org.dominokit.domino.ui.datatable.plugins.tree.TreeGridRowSubItemsMeta} object
+   * @param <T> The type of data records in the DataTable.
+   * @param config The configuration for the TreeGridPlugin.
+   * @return A new instance of {@code TreeGridRowSubItemsMeta}.
    */
   public static <T> TreeGridRowSubItemsMeta<T> of(TreePluginConfig<T> config) {
     return new TreeGridRowSubItemsMeta<>(config);
   }
 
   /**
-   * Constructor for TreeGridRowSubItemsMeta.
+   * Creates a new instance of {@code TreeGridRowSubItemsMeta} with the specified configuration and
+   * records.
    *
-   * @param config a {@link org.dominokit.domino.ui.datatable.plugins.tree.TreePluginConfig} object
+   * @param config The configuration for the TreeGridPlugin.
+   * @param records The collection of sub-items records.
    */
   public TreeGridRowSubItemsMeta(TreePluginConfig<T> config) {
     this.config = config;
   }
 
   /**
-   * Constructor for TreeGridRowSubItemsMeta.
+   * Creates a new instance of {@code TreeGridRowSubItemsMeta} with the specified configuration.
    *
-   * @param config a {@link org.dominokit.domino.ui.datatable.plugins.tree.TreePluginConfig} object
-   * @param records a {@link java.util.Collection} object
+   * @param config The configuration for the TreeGridPlugin.
    */
   public TreeGridRowSubItemsMeta(TreePluginConfig<T> config, Collection<T> records) {
     this.config = config;
@@ -81,22 +91,23 @@ public class TreeGridRowSubItemsMeta<T> implements ComponentMeta {
   }
 
   /**
-   * get.
+   * Gets the {@code TreeGridRowSubItemsMeta} instance associated with the provided TableRow.
    *
-   * @param row a {@link org.dominokit.domino.ui.datatable.TableRow} object
-   * @param <T> a T class
-   * @return a {@link java.util.Optional} object
+   * @param <T> The type of data records in the DataTable.
+   * @param row The TableRow for which to retrieve the metadata.
+   * @return An optional containing the {@code TreeGridRowSubItemsMeta} instance, if available.
    */
   public static <T> Optional<TreeGridRowSubItemsMeta<T>> get(TableRow<T> row) {
     return row.getMeta(TREE_GRID_ROW_SUB_ITEMS_META);
   }
 
   /**
-   * Getter for the field <code>records</code>.
+   * Retrieves the sub-items records associated with the provided TableRow and invokes a consumer to
+   * process them.
    *
-   * @param row a {@link org.dominokit.domino.ui.datatable.TableRow} object
-   * @param recordsConsumer a {@link java.util.function.Consumer} object
-   * @return a {@link org.dominokit.domino.ui.datatable.plugins.tree.TreeGridRowSubItemsMeta} object
+   * @param row The TableRow for which to retrieve the sub-items records.
+   * @param recordsConsumer The consumer function to process the retrieved records.
+   * @return The current {@code TreeGridRowSubItemsMeta} instance.
    */
   public TreeGridRowSubItemsMeta<T> getRecords(
       TableRow<T> row, Consumer<Optional<Collection<T>>> recordsConsumer) {
@@ -118,10 +129,10 @@ public class TreeGridRowSubItemsMeta<T> implements ComponentMeta {
   }
 
   /**
-   * hasChildren.
+   * Checks if the provided TableRow has children records.
    *
-   * @param row a {@link org.dominokit.domino.ui.datatable.TableRow} object
-   * @return a boolean
+   * @param row The TableRow to check for children records.
+   * @return {@code true} if the TableRow has children records, {@code false} otherwise.
    */
   @SuppressWarnings("unchecked")
   public boolean hasChildren(TableRow<T> row) {
@@ -136,15 +147,19 @@ public class TreeGridRowSubItemsMeta<T> implements ComponentMeta {
   }
 
   /**
-   * loaded.
+   * Checks if the sub-items records have been loaded.
    *
-   * @return a boolean
+   * @return {@code true} if the sub-items records have been loaded, {@code false} otherwise.
    */
   public boolean loaded() {
     return nonNull(records);
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Gets the key associated with this metadata.
+   *
+   * @return The key for accessing this metadata.
+   */
   @Override
   public String getKey() {
     return TREE_GRID_ROW_SUB_ITEMS_META;

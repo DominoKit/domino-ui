@@ -13,6 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package org.dominokit.domino.ui.datepicker;
 
 import static java.util.Objects.isNull;
@@ -23,7 +24,18 @@ import org.dominokit.domino.ui.elements.DivElement;
 import org.dominokit.domino.ui.elements.SpanElement;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
 
-/** CalendarHeader class. */
+/**
+ * Represents the header of a calendar which displays the currently selected date.
+ *
+ * <p>Usage example:
+ *
+ * <pre>
+ * IsCalendar calendar = ... // create or obtain an instance of IsCalendar
+ * CalendarHeader header = new CalendarHeader(calendar);
+ * </pre>
+ *
+ * @see BaseDominoElement
+ */
 public class CalendarHeader extends BaseDominoElement<HTMLDivElement, CalendarHeader>
     implements CalendarStyles, CalendarViewListener {
 
@@ -34,9 +46,9 @@ public class CalendarHeader extends BaseDominoElement<HTMLDivElement, CalendarHe
   private SpanElement montAndYearElement;
 
   /**
-   * Constructor for CalendarHeader.
+   * Constructs a CalendarHeader associated with the provided calendar.
    *
-   * @param calendar a {@link org.dominokit.domino.ui.datepicker.IsCalendar} object
+   * @param calendar the calendar for which this header is being created
    */
   public CalendarHeader(IsCalendar calendar) {
     this.calendar = calendar;
@@ -65,22 +77,30 @@ public class CalendarHeader extends BaseDominoElement<HTMLDivElement, CalendarHe
   }
 
   /**
-   * create.
+   * Factory method to create a new instance of CalendarHeader.
    *
-   * @param calendar a {@link org.dominokit.domino.ui.datepicker.IsCalendar} object
-   * @return a {@link org.dominokit.domino.ui.datepicker.CalendarHeader} object
+   * @param calendar the associated calendar
+   * @return a new instance of CalendarHeader
    */
   public static CalendarHeader create(IsCalendar calendar) {
     return new CalendarHeader(calendar);
   }
 
-  /** {@inheritDoc} */
+  /**
+   * {@inheritDoc}
+   *
+   * <p>Returns the root element representing the entire calendar header.
+   */
   @Override
   public HTMLDivElement element() {
     return root.element();
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Updates the displayed date when a date selection changes.
+   *
+   * @param date the new selected date
+   */
   @Override
   public void onDateSelectionChanged(Date date) {
     if (isNull(date)) {
@@ -90,6 +110,11 @@ public class CalendarHeader extends BaseDominoElement<HTMLDivElement, CalendarHe
     }
   }
 
+  /**
+   * Updates the header view to display the provided date details.
+   *
+   * @param date the date to be displayed in the header
+   */
   private void updateView(Date date) {
     int year = date.getYear();
     int month = date.getMonth();

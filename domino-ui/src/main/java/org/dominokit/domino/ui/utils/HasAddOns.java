@@ -13,31 +13,38 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package org.dominokit.domino.ui.utils;
 
-/** HasAddOns interface. */
+/**
+ * The {@code HasAddOns} interface defines methods for appending various types of add-ons to an
+ * object of type {@code T}.
+ *
+ * @param <T> The type to which add-ons can be appended.
+ */
 public interface HasAddOns<T> {
+
   /**
-   * appendChild.
+   * Appends a prefix add-on to the object of type {@code T}.
    *
-   * @param prefix a {@link org.dominokit.domino.ui.utils.PrefixAddOn} object
-   * @return a T object
+   * @param prefix The {@code PrefixAddOn} to append as a prefix add-on.
+   * @return The modified object of type {@code T} with the prefix add-on appended.
    */
   T appendChild(PrefixAddOn<?> prefix);
 
   /**
-   * appendChild.
+   * Appends a postfix add-on to the object of type {@code T}.
    *
-   * @param addon a {@link org.dominokit.domino.ui.utils.PostfixAddOn} object
-   * @return a T object
+   * @param addon The {@code PostfixAddOn} to append as a postfix add-on.
+   * @return The modified object of type {@code T} with the postfix add-on appended.
    */
   T appendChild(PostfixAddOn<?> addon);
 
   /**
-   * appendChild.
+   * Appends a primary add-on to the object of type {@code T}.
    *
-   * @param addon a {@link org.dominokit.domino.ui.utils.PrimaryAddOn} object
-   * @return a T object
+   * @param addon The {@code PrimaryAddOn} to append as a primary add-on.
+   * @return The modified object of type {@code T} with the primary add-on appended.
    */
   T appendChild(PrimaryAddOn<?> addon);
 }

@@ -17,19 +17,26 @@ package org.dominokit.domino.ui.forms.suggest;
 
 import org.dominokit.domino.ui.IsElement;
 
-/** HasSuggestOptions interface. */
+/**
+ * An interface for components that can handle the selection and deselection of suggestion options.
+ *
+ * @param <T> The type of data associated with the suggestion options.
+ * @param <E> The type of UI element that represents the suggestion options.
+ * @param <O> The type of suggestion options.
+ */
 public interface HasSuggestOptions<T, E extends IsElement<?>, O extends Option<T, E, O>> {
+
   /**
-   * onOptionSelected.
+   * Handles the selection of a suggestion option.
    *
-   * @param suggestion a O object
+   * @param suggestion The suggestion option that was selected.
    */
   void onOptionSelected(O suggestion);
 
   /**
-   * onOptionDeselected.
+   * Handles the deselection of a suggestion option.
    *
-   * @param suggestion a O object
+   * @param suggestion The suggestion option that was deselected.
    */
   void onOptionDeselected(O suggestion);
 }

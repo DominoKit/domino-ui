@@ -29,6 +29,24 @@ import org.gwtproject.editor.client.LeafValueEditor;
 import org.gwtproject.editor.client.TakesValue;
 import org.gwtproject.safehtml.shared.SafeHtmlBuilder;
 
+/**
+ * A Rich Text Editor component that provides a user-friendly interface for editing and formatting
+ * text content, including commands for text manipulation and styling.
+ *
+ * <p><b>Usage Example:</b>
+ *
+ * <pre>{@code
+ * RichTextEditor editor = RichTextEditor.create();
+ * editor.setValue("Sample text");
+ * }</pre>
+ *
+ * @see RichTextStyles
+ * @see HasLabels
+ * @see TakesValue
+ * @see LeafValueEditor
+ * @see HasValue
+ * @see BaseDominoElement
+ */
 public class RichTextEditor extends BaseDominoElement<HTMLDivElement, RichTextEditor>
     implements HasLabels<RichTextLabels>,
         RichTextStyles,
@@ -41,10 +59,16 @@ public class RichTextEditor extends BaseDominoElement<HTMLDivElement, RichTextEd
   private final DivElement toolbars;
   private Counter fontSize = new Counter(3, 1, 7);
 
+  /**
+   * Factory method to create a new instance of {@link RichTextEditor}.
+   *
+   * @return a new instance of {@link RichTextEditor}
+   */
   public static RichTextEditor create() {
     return new RichTextEditor();
   }
 
+  /** Constructs a new {@link RichTextEditor} with default configuration and commands. */
   public RichTextEditor() {
     editableElement = div().addCss(dui_rich_text_editable);
     this.root =
@@ -112,34 +136,79 @@ public class RichTextEditor extends BaseDominoElement<HTMLDivElement, RichTextEd
     init(this);
   }
 
+  /**
+   * Sets the value of the rich text editor and returns the editor instance for chaining.
+   *
+   * <p>This is a convenient method that internally calls {@link #setValue(String)}
+   *
+   * @param value The text value to be set in the editor.
+   * @return The current RichTextEditor instance for chaining.
+   */
   @Override
   public RichTextEditor withValue(String value) {
     setValue(value);
     return this;
   }
 
+  /**
+   * Sets the value of the rich text editor with an option to remain silent and returns the editor
+   * instance for chaining.
+   *
+   * <p>This method internally calls {@link #setValue(String)}. The {@code silent} parameter is
+   * currently not being used, and its functionality might be implemented in future versions.
+   *
+   * @param value The text value to be set in the editor.
+   * @param silent A flag to indicate if the operation should remain silent (currently not being
+   *     used).
+   * @return The current RichTextEditor instance for chaining.
+   */
   @Override
   public RichTextEditor withValue(String value, boolean silent) {
     setValue(value);
     return this;
   }
 
+  /**
+   * Sets the content inside the rich text editor.
+   *
+   * <p>The provided string is treated as HTML, and it's safely injected into the editor's content
+   * area.
+   *
+   * @param s The HTML content to be set in the editor.
+   */
   @Override
   public void setValue(String s) {
     editableElement.setInnerHtml(
         new SafeHtmlBuilder().appendHtmlConstant(s).toSafeHtml().asString());
   }
 
+  /**
+   * Retrieves the current content of the rich text editor treated as HTML.
+   *
+   * @return The editor's current content as an HTML string.
+   */
   @Override
   public String getValue() {
     return editableElement.element().innerHTML;
   }
 
+  /**
+   * Customizes the editable element of the RichTextEditor.
+   *
+   * @param handler The handler to apply customizations.
+   * @return The current instance for chaining.
+   */
   public RichTextEditor withEditableElement(ChildHandler<RichTextEditor, DivElement> handler) {
     handler.apply(this, editableElement);
     return this;
   }
 
+  /**
+   * Customizes the toolbars of the RichTextEditor.
+   *
+   * @param handler The handler to apply customizations.
+   * @return The current instance for chaining.
+   */
   public RichTextEditor withToolbars(ChildHandler<RichTextEditor, DivElement> handler) {
     handler.apply(this, toolbars);
     return this;

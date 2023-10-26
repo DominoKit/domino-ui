@@ -13,31 +13,48 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package org.dominokit.domino.ui.datepicker;
 
 import java.util.Date;
 import org.gwtproject.i18n.shared.cldr.DateTimeFormatInfo;
 
-/** CalendarViewListener interface. */
+/**
+ * Represents a listener for the calendar view. The listener is notified about various events
+ * related to the calendar view such as date selection change, calendar view updates, and changes in
+ * date-time format info.
+ *
+ * <p><b>Usage Example:</b>
+ *
+ * <pre>
+ * CalendarViewListener listener = new CalendarViewListener() {
+ *     &#64;Override
+ *     public void onDateSelectionChanged(Date date) {
+ *         System.out.println("Selected date changed: " + date);
+ *     }
+ * };
+ * </pre>
+ */
 public interface CalendarViewListener {
+
   /**
-   * onUpdateCalendarView.
+   * Called whenever the calendar view is updated.
    *
-   * @param date a {@link java.util.Date} object
+   * @param date The current date being viewed/selected in the calendar.
    */
   default void onUpdateCalendarView(Date date) {}
 
   /**
-   * onDateSelectionChanged.
+   * Called whenever the date selection in the calendar changes.
    *
-   * @param date a {@link java.util.Date} object
+   * @param date The newly selected date.
    */
   default void onDateSelectionChanged(Date date) {}
 
   /**
-   * onDateTimeFormatInfoChanged.
+   * Called whenever the date-time format information changes.
    *
-   * @param dateTimeFormatInfo a {@link org.gwtproject.i18n.shared.cldr.DateTimeFormatInfo} object
+   * @param dateTimeFormatInfo The new date-time format information.
    */
   default void onDateTimeFormatInfoChanged(DateTimeFormatInfo dateTimeFormatInfo) {}
 }

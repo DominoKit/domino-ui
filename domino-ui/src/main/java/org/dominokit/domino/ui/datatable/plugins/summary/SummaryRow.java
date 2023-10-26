@@ -13,6 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package org.dominokit.domino.ui.datatable.plugins.summary;
 
 import elemental2.dom.HTMLTableCellElement;
@@ -27,7 +28,14 @@ import org.dominokit.domino.ui.elements.TableRowElement;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
 import org.dominokit.domino.ui.utils.DominoElement;
 
-/** SummaryRow class. */
+/**
+ * The {@code SummaryRow} class represents a summary row in a {@link DataTable}. Summary rows
+ * provide aggregate information about the data in the table.
+ *
+ * @param <T> The type of data in the DataTable.
+ * @param <S> The type of data in the summary row.
+ * @see BaseDominoElement
+ */
 public class SummaryRow<T, S> extends BaseDominoElement<HTMLTableRowElement, SummaryRow<T, S>>
     implements DataTableStyles {
   private S record;
@@ -38,11 +46,11 @@ public class SummaryRow<T, S> extends BaseDominoElement<HTMLTableRowElement, Sum
   private SummaryRowRenderer<T, S> rowRenderer = new DefaultSummaryRowRenderer<>();
 
   /**
-   * Constructor for SummaryRow.
+   * Constructs a new SummaryRow instance.
    *
-   * @param record a S object
-   * @param index a int
-   * @param dataTable a {@link org.dominokit.domino.ui.datatable.DataTable} object
+   * @param record The summary record to be displayed in the row.
+   * @param index The index of the summary row.
+   * @param dataTable The DataTable to which this summary row belongs.
    */
   public SummaryRow(S record, int index, DataTable<T> dataTable) {
     this.record = record;
@@ -52,76 +60,79 @@ public class SummaryRow<T, S> extends BaseDominoElement<HTMLTableRowElement, Sum
   }
 
   /**
-   * Setter for the field <code>record</code>.
+   * Sets the summary record to be displayed in the summary row.
    *
-   * @param record a S object
+   * @param record The summary record.
    */
   public void setRecord(S record) {
     this.record = record;
   }
 
   /**
-   * Getter for the field <code>record</code>.
+   * Gets the summary record displayed in the summary row.
    *
-   * @return a S object
+   * @return The summary record.
    */
   public S getRecord() {
     return record;
   }
 
   /**
-   * Getter for the field <code>dataTable</code>.
+   * Gets the DataTable to which this summary row belongs.
    *
-   * @return a {@link org.dominokit.domino.ui.datatable.DataTable} object
+   * @return The DataTable instance.
    */
   public DataTable<T> getDataTable() {
     return dataTable;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Gets the HTML representation of the summary row.
+   *
+   * @return The HTMLTableRowElement of the summary row.
+   */
   @Override
   public HTMLTableRowElement element() {
     return element.element();
   }
 
   /**
-   * addCell.
+   * Adds a summary cell to the summary row.
    *
-   * @param rowCell a {@link org.dominokit.domino.ui.datatable.plugins.summary.SummaryRowCell}
-   *     object
+   * @param rowCell The summary cell to add.
    */
   public void addCell(SummaryRowCell<T, S> rowCell) {
     rowCells.put(rowCell.getColumnConfig().getName(), rowCell);
   }
 
   /**
-   * getCell.
+   * Gets a summary cell by its column name.
    *
-   * @param name a {@link java.lang.String} object
-   * @return a {@link org.dominokit.domino.ui.datatable.plugins.summary.SummaryRowCell} object
+   * @param name The name of the column associated with the summary cell.
+   * @return The SummaryRowCell instance.
    */
   public SummaryRowCell<T, S> getCell(String name) {
     return rowCells.get(name);
   }
 
   /**
-   * Getter for the field <code>index</code>.
+   * Gets the index of the summary row.
    *
-   * @return a int
+   * @return The index of the summary row.
    */
   public int getIndex() {
     return index;
   }
 
-  /** updateRow. */
+  /** Updates the summary row with the current summary record. */
   public void updateRow() {
     updateRow(this.record);
   }
 
   /**
-   * updateRow.
+   * Updates the summary row with the specified summary record.
    *
-   * @param record a S object
+   * @param record The summary record to update the row with.
    */
   public void updateRow(S record) {
     this.record = record;
@@ -129,34 +140,40 @@ public class SummaryRow<T, S> extends BaseDominoElement<HTMLTableRowElement, Sum
   }
 
   /**
-   * Getter for the field <code>rowCells</code>.
+   * Gets an unmodifiable map of summary cells in the summary row.
    *
-   * @return a {@link java.util.Map} object
+   * @return An unmodifiable map of summary cells.
    */
   public Map<String, SummaryRowCell<T, S>> getRowCells() {
     return Collections.unmodifiableMap(rowCells);
   }
 
-  /** render. */
+  /** Renders the summary row based on the DataTable's column configuration. */
   public void render() {
     rowRenderer.render(dataTable, this);
   }
 
   /**
-   * An interface to implement listeners for Table row changes
+   * The {@code RowListener} interface represents a listener for changes to a {@code SummaryRow}.
    *
-   * @param <T> the type of the data table records
+   * @param <T> The type of data in the DataTable.
+   * @param <S> The type of data in the summary row.
    */
   @FunctionalInterface
   public interface RowListener<T, S> {
-    /** @param summaryRow the changed {@link SummaryRow} */
+
+    /**
+     * Called when a change occurs in a SummaryRow.
+     *
+     * @param summaryRow The SummaryRow instance that has changed.
+     */
     void onChange(SummaryRow<T, S> summaryRow);
   }
 
   /**
-   * renderCell.
+   * Renders a summary cell for a specific column configuration and adds it to the summary row.
    *
-   * @param columnConfig a {@link org.dominokit.domino.ui.datatable.ColumnConfig} object
+   * @param columnConfig The {@link ColumnConfig} associated with the summary cell to be rendered.
    */
   public void renderCell(ColumnConfig<T> columnConfig) {
     TDElement cellElement = td().addCss(dui_datatable_td);
@@ -184,7 +201,19 @@ public class SummaryRow<T, S> extends BaseDominoElement<HTMLTableRowElement, Sum
     columnConfig.addShowHideListener(DefaultColumnShowHideListener.of(cellElement.element()));
   }
 
+  /**
+   * Renders a summary row based on the DataTable's column configuration.
+   *
+   * @param <T> The type of data in the DataTable.
+   * @param <S> The type of data in the summary row.
+   */
   public interface SummaryRowRenderer<T, S> {
+    /**
+     * Renders the summary row.
+     *
+     * @param dataTable The DataTable to which the summary row belongs.
+     * @param summaryRow The SummaryRow to render.
+     */
     void render(DataTable<T> dataTable, SummaryRow<T, S> summaryRow);
   }
 

@@ -19,7 +19,11 @@ import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 
-/** Abstract BaseLazyInitializer class. */
+/**
+ * A base class for lazy initialization of objects.
+ *
+ * @param <T> The type of the subclass extending BaseLazyInitializer.
+ */
 public abstract class BaseLazyInitializer<T extends BaseLazyInitializer<T>> {
 
   private LambdaFunction function;
@@ -31,9 +35,9 @@ public abstract class BaseLazyInitializer<T extends BaseLazyInitializer<T>> {
   private Set<LambdaFunction> doOnReset = new HashSet<>();
 
   /**
-   * Constructor for BaseLazyInitializer.
+   * Constructs a BaseLazyInitializer with the given LambdaFunction.
    *
-   * @param function a {@link org.dominokit.domino.ui.utils.LambdaFunction} object
+   * @param function The LambdaFunction to initialize the object.
    */
   public BaseLazyInitializer(LambdaFunction function) {
     this.function = function;
@@ -52,9 +56,9 @@ public abstract class BaseLazyInitializer<T extends BaseLazyInitializer<T>> {
   }
 
   /**
-   * apply.
+   * Applies the lazy initialization logic.
    *
-   * @return a T object
+   * @return This BaseLazyInitializer instance.
    */
   public T apply() {
     if (!initialized) {
@@ -70,10 +74,10 @@ public abstract class BaseLazyInitializer<T extends BaseLazyInitializer<T>> {
   }
 
   /**
-   * ifInitialized.
+   * Executes the given LambdaFunction if the object has already been initialized.
    *
-   * @param lambdaFunction a {@link org.dominokit.domino.ui.utils.LambdaFunction} object
-   * @return a T object
+   * @param lambdaFunction The LambdaFunction to execute if initialized.
+   * @return This BaseLazyInitializer instance.
    */
   public T ifInitialized(LambdaFunction lambdaFunction) {
     if (isInitialized()) {
@@ -83,10 +87,11 @@ public abstract class BaseLazyInitializer<T extends BaseLazyInitializer<T>> {
   }
 
   /**
-   * whenInitialized.
+   * Executes the provided LambdaFunctions when the object has been initialized. If the object has
+   * not been initialized yet, stores the functions for future execution.
    *
-   * @param functions a {@link org.dominokit.domino.ui.utils.LambdaFunction} object
-   * @return a T object
+   * @param functions The LambdaFunctions to execute when initialized.
+   * @return This BaseLazyInitializer instance.
    */
   public T whenInitialized(LambdaFunction... functions) {
     if (isInitialized()) {
@@ -100,10 +105,11 @@ public abstract class BaseLazyInitializer<T extends BaseLazyInitializer<T>> {
   }
 
   /**
-   * doOnce.
+   * Executes the given LambdaFunction once when the object is initialized. If the object has
+   * already been initialized, the function is executed immediately.
    *
-   * @param function a {@link org.dominokit.domino.ui.utils.LambdaFunction} object
-   * @return a T object
+   * @param function The LambdaFunction to execute once.
+   * @return This BaseLazyInitializer instance.
    */
   public T doOnce(LambdaFunction function) {
     if (isInitialized()) {
@@ -115,10 +121,10 @@ public abstract class BaseLazyInitializer<T extends BaseLazyInitializer<T>> {
   }
 
   /**
-   * onReset.
+   * Adds a LambdaFunction to be executed when the object is reset.
    *
-   * @param function a {@link org.dominokit.domino.ui.utils.LambdaFunction} object
-   * @return a T object
+   * @param function The LambdaFunction to execute on reset.
+   * @return This BaseLazyInitializer instance.
    */
   public T onReset(LambdaFunction function) {
     doOnReset.add(function);
@@ -126,15 +132,18 @@ public abstract class BaseLazyInitializer<T extends BaseLazyInitializer<T>> {
   }
 
   /**
-   * isInitialized.
+   * Checks if the object has been initialized.
    *
-   * @return a boolean
+   * @return True if the object has been initialized, false otherwise.
    */
   public boolean isInitialized() {
     return initialized;
   }
 
-  /** reset. */
+  /**
+   * Resets the object to its initial state, allowing it to be initialized again. Executes
+   * registered onReset LambdaFunctions.
+   */
   public void reset() {
     if (isInitialized()) {
       this.function = this.originalFunction;

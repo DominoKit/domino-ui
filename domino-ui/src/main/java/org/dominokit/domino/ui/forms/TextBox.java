@@ -15,41 +15,60 @@
  */
 package org.dominokit.domino.ui.forms;
 
-/** TextBox class. */
+/**
+ * Represents a text input form field. This class extends from {@link BaseTextBox} and provides a
+ * simple way to handle text input.
+ *
+ * <p>Usage example:
+ *
+ * <pre>
+ * TextBox defaultTextBox = new TextBox();
+ * TextBox labeledTextBox = new TextBox("Enter some text:");
+ * </pre>
+ *
+ * @see BaseTextBox
+ * @see TextInputFormField
+ * @see CountableInputFormField
+ * @see InputFormField
+ */
 public class TextBox extends BaseTextBox<TextBox> {
 
   /**
-   * create.
+   * Factory method to create a new instance of {@link TextBox}.
    *
-   * @return a {@link org.dominokit.domino.ui.forms.TextBox} object
+   * @return a new instance of TextBox
    */
   public static TextBox create() {
     return new TextBox();
   }
 
   /**
-   * create.
+   * Factory method to create a new instance of {@link TextBox} with a label.
    *
-   * @param label a {@link java.lang.String} object
-   * @return a {@link org.dominokit.domino.ui.forms.TextBox} object
+   * @param label the label for the text box
+   * @return a new instance of TextBox with the provided label
    */
   public static TextBox create(String label) {
     return new TextBox(label);
   }
 
-  /** Constructor for TextBox. */
+  /** Default constructor. Initializes the text box. */
   public TextBox() {}
 
   /**
-   * Constructor for TextBox.
+   * Constructor that initializes the text box with the given label.
    *
-   * @param label a {@link java.lang.String} object
+   * @param label the label for the text box
    */
   public TextBox(String label) {
     super(label);
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Retrieves the input type for the text box, which is "text". {@inheritDoc}
+   *
+   * @return the string "text"
+   */
   @Override
   public String getType() {
     return "text";

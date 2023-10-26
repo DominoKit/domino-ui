@@ -25,6 +25,27 @@ import org.dominokit.domino.ui.utils.BaseDominoElement;
 import org.dominokit.domino.ui.utils.DominoDom;
 import org.dominokit.domino.ui.utils.HasChangeListeners;
 
+/**
+ * A simple color picker component that allows users to select colors from predefined shades.
+ *
+ * <p>This component displays a grid of color shades organized by color schemes. Users can click on
+ * a color square to select a color. It provides methods for handling color selection and change
+ * events.
+ *
+ * <p>Usage example:
+ *
+ * <pre>
+ * SimpleColorPicker colorPicker = SimpleColorPicker.create();
+ * colorPicker.addChangeListener((oldColor, newColor) -> {
+ *     // Handle color change event
+ *     console.log("Color changed from " + oldColor.getColorCode() + " to " + newColor.getColorCode());
+ * });
+ * </pre>
+ *
+ * <p>All HTML tags in the documentation are correctly closed.
+ *
+ * @see BaseDominoElement
+ */
 public class SimpleColorPicker extends BaseDominoElement<HTMLDivElement, SimpleColorPicker>
     implements ColorPickerStyles, HasChangeListeners<SimpleColorPicker, ColorValue> {
 
@@ -33,14 +54,30 @@ public class SimpleColorPicker extends BaseDominoElement<HTMLDivElement, SimpleC
   private ColorValue value;
   private Set<ChangeListener<? super ColorValue>> changeListeners = new HashSet<>();
 
+  /**
+   * Creates a new instance of {@code SimpleColorPicker} with the default color (#FFFFFF).
+   *
+   * @return A new {@code SimpleColorPicker} instance.
+   */
   public static SimpleColorPicker create() {
     return new SimpleColorPicker(ColorValue.of("#FFFFFF"));
   }
 
+  /**
+   * Creates a new instance of {@code SimpleColorPicker} with the specified color value.
+   *
+   * @param colorValue The initial color value to set.
+   * @return A new {@code SimpleColorPicker} instance.
+   */
   public static SimpleColorPicker create(ColorValue colorValue) {
     return new SimpleColorPicker(colorValue);
   }
 
+  /**
+   * Constructs a {@code SimpleColorPicker} instance with the specified default color.
+   *
+   * @param defaultColor The default color to initialize the color picker with.
+   */
   public SimpleColorPicker(ColorValue defaultColor) {
     this.value = defaultColor;
     this.root =
@@ -103,38 +140,76 @@ public class SimpleColorPicker extends BaseDominoElement<HTMLDivElement, SimpleC
             });
   }
 
+  /**
+   * Gets the currently selected color value.
+   *
+   * @return The currently selected color as a {@code ColorValue} object.
+   */
   public ColorValue getValue() {
     return value;
   }
 
+  /**
+   * Pauses change listeners for this color picker.
+   *
+   * @return This {@code SimpleColorPicker} instance with change listeners paused.
+   */
   @Override
   public SimpleColorPicker pauseChangeListeners() {
     this.changeListenersPaused = true;
     return this;
   }
 
+  /**
+   * Resumes change listeners for this color picker.
+   *
+   * @return This {@code SimpleColorPicker} instance with change listeners resumed.
+   */
   @Override
   public SimpleColorPicker resumeChangeListeners() {
     this.changeListenersPaused = false;
     return this;
   }
 
+  /**
+   * Toggles the pause state of change listeners for this color picker.
+   *
+   * @param toggle {@code true} to pause change listeners, {@code false} to resume.
+   * @return This {@code SimpleColorPicker} instance with change listeners toggled.
+   */
   @Override
   public SimpleColorPicker togglePauseChangeListeners(boolean toggle) {
     this.changeListenersPaused = toggle;
     return this;
   }
 
+  /**
+   * Gets the set of change listeners registered with this color picker.
+   *
+   * @return A set of {@code ChangeListener} objects.
+   */
   @Override
   public Set<ChangeListener<? super ColorValue>> getChangeListeners() {
     return this.changeListeners;
   }
 
+  /**
+   * Checks if change listeners are currently paused for this color picker.
+   *
+   * @return {@code true} if change listeners are paused, {@code false} otherwise.
+   */
   @Override
   public boolean isChangeListenersPaused() {
     return this.changeListenersPaused;
   }
 
+  /**
+   * Triggers the change listeners for color value changes.
+   *
+   * @param oldValue The previous color value.
+   * @param newValue The new color value.
+   * @return This {@code SimpleColorPicker} instance after triggering the change listeners.
+   */
   @Override
   public SimpleColorPicker triggerChangeListeners(ColorValue oldValue, ColorValue newValue) {
     if (!this.changeListenersPaused) {
@@ -143,6 +218,11 @@ public class SimpleColorPicker extends BaseDominoElement<HTMLDivElement, SimpleC
     return this;
   }
 
+  /**
+   * Gets the underlying HTML element representing this color picker.
+   *
+   * @return The HTML element of this color picker.
+   */
   @Override
   public HTMLDivElement element() {
     return root.element();

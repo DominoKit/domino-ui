@@ -19,55 +19,65 @@ import java.util.Optional;
 import org.dominokit.domino.ui.utils.ComponentMeta;
 import org.dominokit.domino.ui.utils.HasMeta;
 
-/** ValueMeta class. */
+/**
+ * The {@code ValueMeta} class represents metadata associated with a component or element in the DOM
+ * that stores a single value. It allows for storing and retrieving a value associated with a
+ * component or element.
+ *
+ * @param <T> The type of the value stored as metadata.
+ */
 public class ValueMeta<T> implements ComponentMeta {
 
-  /** Constant <code>VALUE_META="dui-value-meta"</code> */
   public static final String VALUE_META = "dui-value-meta";
 
   private final T value;
 
   /**
-   * of.
+   * Creates a new instance of {@code ValueMeta} with the specified value.
    *
-   * @param value a T object
-   * @param <T> a T class
-   * @return a {@link org.dominokit.domino.ui.utils.meta.ValueMeta} object
+   * @param value The value to store as metadata.
+   * @param <T> The type of the value.
+   * @return An {@code ValueMeta} instance with the specified value.
    */
   public static <T> ValueMeta<T> of(T value) {
     return new ValueMeta<>(value);
   }
 
   /**
-   * Constructor for ValueMeta.
+   * Constructs an {@code ValueMeta} instance with the given value.
    *
-   * @param value a T object
+   * @param value The value to store as metadata.
    */
   public ValueMeta(T value) {
     this.value = value;
   }
 
   /**
-   * get.
+   * Retrieves a {@code ValueMeta} item from a component that implements {@code HasMeta}.
    *
-   * @param component a {@link org.dominokit.domino.ui.utils.HasMeta} object
-   * @param <T> a T class
-   * @return a {@link java.util.Optional} object
+   * @param component The component or element that stores the {@code ValueMeta} item.
+   * @param <T> The type of the value stored as metadata.
+   * @return An optional containing the {@code ValueMeta} item if found, or an empty optional if not
+   *     found.
    */
   public static <T> Optional<ValueMeta<T>> get(HasMeta<?> component) {
     return component.getMeta(VALUE_META);
   }
 
   /**
-   * Getter for the field <code>value</code>.
+   * Gets the value stored as metadata.
    *
-   * @return a T object
+   * @return The value associated with this metadata item.
    */
   public T getValue() {
     return value;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Gets the key associated with this metadata item.
+   *
+   * @return The key of the metadata item.
+   */
   @Override
   public String getKey() {
     return VALUE_META;

@@ -23,6 +23,22 @@ import java.util.*;
 import java.util.stream.Collectors;
 import org.dominokit.domino.ui.utils.ElementsFactory;
 
+/**
+ * Manages the themes for Domino UI components.
+ *
+ * <p>Provides capabilities to apply, remove, register and manage themes persistently using
+ * WebStorage. It also allows applying user-preferred themes.
+ *
+ * <p><b>Usage Example:</b>
+ *
+ * <pre>{@code
+ * DominoThemeManager manager = DominoThemeManager.INSTANCE;
+ * manager.apply(MyCustomTheme.INSTANCE);
+ * }</pre>
+ *
+ * @see IsDominoTheme
+ * @see ElementsFactory
+ */
 public class DominoThemeManager implements ElementsFactory {
 
   public static final DominoThemeManager INSTANCE = new DominoThemeManager();
@@ -55,6 +71,12 @@ public class DominoThemeManager implements ElementsFactory {
     registerTheme(DominoThemeAccent.BLUE_GREY);
   }
 
+  /**
+   * Applies the specified theme and stores the user preference in local storage.
+   *
+   * @param theme the theme to be applied
+   * @return the {@link DominoThemeManager} instance
+   */
   public DominoThemeManager apply(IsDominoTheme theme) {
     if (byCategory.containsKey(theme.getCategory())) {
       byCategory.get(theme.getCategory()).cleanup();
@@ -66,6 +88,12 @@ public class DominoThemeManager implements ElementsFactory {
     return INSTANCE;
   }
 
+  /**
+   * Removes the theme with the specified name.
+   *
+   * @param themeName the name of the theme to be removed
+   * @return the {@link DominoThemeManager} instance
+   */
   public DominoThemeManager remove(String themeName) {
     Optional<IsDominoTheme> theme =
         byCategory.values().stream().filter(t -> t.getName().equals(themeName)).findFirst();
@@ -78,11 +106,18 @@ public class DominoThemeManager implements ElementsFactory {
     return INSTANCE;
   }
 
+  /**
+   * Registers a new theme, making it available for future use.
+   *
+   * @param theme the theme to be registered
+   * @return the {@link DominoThemeManager} instance
+   */
   public DominoThemeManager registerTheme(IsDominoTheme theme) {
     registeredThemes.put(theme.getName(), theme);
     return INSTANCE;
   }
 
+  /** Updates user themes in the local storage. */
   private void updateUserThemes() {
     WebStorageWindow.of(DomGlobal.window)
         .localStorage
@@ -93,6 +128,12 @@ public class DominoThemeManager implements ElementsFactory {
                 .collect(Collectors.joining(",")));
   }
 
+  /**
+   * Applies the user preferred themes stored in local storage. If none found, it applies the
+   * default themes.
+   *
+   * @return the {@link DominoThemeManager} instance
+   */
   public DominoThemeManager applyUserThemes() {
     String themes = WebStorageWindow.of(DomGlobal.window).localStorage.getItem("dui-user-themes");
     if (isNull(themes) || themes.isEmpty()) {

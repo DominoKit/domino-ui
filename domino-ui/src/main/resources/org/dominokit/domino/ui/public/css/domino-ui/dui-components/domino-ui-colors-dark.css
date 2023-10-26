@@ -384,6 +384,8 @@
     --dui-menu-border-color: var(--dui-clr-accent-d-3);
     --dui-dialog-header-border-color:var(--dui-accent-d-4);
     --dui-pager-active-page-color: var(--dui-color);
+    --dui-pager-active-focus-page-color: var(--dui-color);
+    --dui-pager-active-hover-page-color: var(--dui-color);
     --dui-form-field-border-color: var(--dui-clr-dominant-l-3);
     --dui-thumbnail-border-color: var(--dui-accent-d-4);
     --dui-thumbnail-border-active-color: var(--dui-accent-d-3);
@@ -395,6 +397,7 @@
     --dui-form-field-readonly-background: var(--dui-clr-dominant-l-1);
     --dui-form-field-readonly-border-color: var(--dui-clr-dominant);
     --dui-form-field-readonly-color: var(--dui-color-1);
+    --dui-form-field-placeholder-color: var(--dui-color-1);
     --dui-file-upload-background: var(--dui-accent-d-3);
     --dui-calender-select-bg: var(--dui-accent-d-4);
     --dui-calender-select-hover-bg: var(--dui-accent-d-2);

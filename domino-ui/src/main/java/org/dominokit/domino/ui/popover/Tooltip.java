@@ -27,18 +27,20 @@ import jsinterop.base.Js;
 import org.dominokit.domino.ui.IsElement;
 import org.dominokit.domino.ui.animations.Transition;
 import org.dominokit.domino.ui.collapsible.AnimationCollapseStrategy;
-import org.dominokit.domino.ui.collapsible.CollapseDuration;
+import org.dominokit.domino.ui.collapsible.CollapsibleDuration;
 import org.dominokit.domino.ui.dialogs.ModalBackDrop;
 import org.dominokit.domino.ui.events.EventType;
-import org.dominokit.domino.ui.utils.BaseDominoElement;
 
 /**
- * A component for showing content on top of another element in different locations.
+ * Represents a Tooltip which is a brief, informative message that appears when a user interacts
+ * with an element in a graphical user interface (GUI). Tooltips are usually initiated in one of two
+ * ways: through a mouse-hover gesture or through a keyboard-hover gesture.
  *
- * <p>Customize the component can be done by overwriting classes provided by {@link
- * org.dominokit.domino.ui.popover.PopoverStyles}
+ * <p>Usage example:
  *
- * @see BaseDominoElement
+ * <pre>
+ * Tooltip.create(element, "This is a tooltip");
+ * </pre>
  */
 public class Tooltip extends BasePopover<Tooltip> {
 
@@ -55,54 +57,54 @@ public class Tooltip extends BasePopover<Tooltip> {
   private boolean closeOnEscape = true;
 
   /**
-   * create.
+   * Creates a tooltip with the specified target element and text.
    *
-   * @param target a {@link elemental2.dom.Element} object
-   * @param text a {@link java.lang.String} object
-   * @return a {@link org.dominokit.domino.ui.popover.Tooltip} object
+   * @param target The target element.
+   * @param text The text of the tooltip.
+   * @return The created tooltip.
    */
   public static Tooltip create(Element target, String text) {
     return new Tooltip(target, elements.text(text));
   }
 
   /**
-   * create.
+   * Creates a tooltip with the specified target element and text.
    *
-   * @param target a {@link org.dominokit.domino.ui.IsElement} object
-   * @param text a {@link java.lang.String} object
-   * @return a {@link org.dominokit.domino.ui.popover.Tooltip} object
+   * @param target The target element.
+   * @param text The text of the tooltip.
+   * @return The created tooltip.
    */
   public static Tooltip create(IsElement<? extends Element> target, String text) {
     return new Tooltip(target.element(), elements.text(text));
   }
 
   /**
-   * create.
+   * Creates a tooltip with the specified target element and content node.
    *
-   * @param target a {@link elemental2.dom.Element} object
-   * @param content a {@link elemental2.dom.Node} object
-   * @return a {@link org.dominokit.domino.ui.popover.Tooltip} object
+   * @param target The target element.
+   * @param content The content node of the tooltip.
+   * @return The created tooltip.
    */
   public static Tooltip create(Element target, Node content) {
     return new Tooltip(target, content);
   }
 
   /**
-   * create.
+   * Creates a tooltip with the specified target element and content node.
    *
-   * @param target a {@link org.dominokit.domino.ui.IsElement} object
-   * @param content a {@link elemental2.dom.Node} object
-   * @return a {@link org.dominokit.domino.ui.popover.Tooltip} object
+   * @param target The target element.
+   * @param content The content node of the tooltip.
+   * @return The created tooltip.
    */
   public static Tooltip create(IsElement<? extends Element> target, Node content) {
     return new Tooltip(target.element(), content);
   }
 
   /**
-   * Constructor for Tooltip.
+   * Constructor for creating a tooltip with the specified target element and content node.
    *
-   * @param target a {@link elemental2.dom.Element} object
-   * @param content a {@link elemental2.dom.Node} object
+   * @param target The target element.
+   * @param content The content node of the tooltip.
    */
   public Tooltip(Element target, Node content) {
     super(target);
@@ -117,33 +119,44 @@ public class Tooltip extends BasePopover<Tooltip> {
             expand();
           }
         };
+    addEventListener("click", closeListener);
     targetElement.addEventListener(EventType.mouseenter.getName(), showListener, false);
-    targetElement.addEventListener(EventType.mouseleave.getName(), closeListener, false);
+    //    targetElement.addEventListener(EventType.mouseleave.getName(), closeListener, false);
     removeHandler =
         tooltip -> {
           targetElement.removeEventListener(EventType.mouseenter.getName(), showListener);
-          targetElement.removeEventListener(EventType.mouseleave.getName(), closeListener);
+          //          targetElement.removeEventListener(EventType.mouseleave.getName(),
+          // closeListener);
         };
     setCollapseStrategy(
         new AnimationCollapseStrategy(
-            Transition.FADE_IN, Transition.FADE_OUT, CollapseDuration._300ms));
+            Transition.FADE_IN, Transition.FADE_OUT, CollapsibleDuration._300ms));
     addCollapseListener(() -> removeEventListener(DUI_REMOVE_TOOLTIPS, closeAllListener));
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Retrieves the event listener responsible for closing the tooltip.
+   *
+   * @return An {@link EventListener} for the close event.
+   */
   @Override
   protected EventListener getCloseListener() {
     return evt -> closeOthers("");
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Closes other tooltips, excluding the tooltip identified by the provided source ID.
+   *
+   * @param sourceId The ID of the tooltip that should remain open.
+   * @return The current tooltip instance.
+   */
   @Override
   protected Tooltip closeOthers(String sourceId) {
     ModalBackDrop.INSTANCE.closeTooltips(sourceId);
     return this;
   }
 
-  /** {@inheritDoc} */
+  /** Performs the actions required to open this tooltip. */
   @Override
   protected void doOpen() {
     super.doOpen();
@@ -153,7 +166,7 @@ public class Tooltip extends BasePopover<Tooltip> {
     }
   }
 
-  /** Removes the tooltip */
+  /** Detaches the tooltip from the DOM. */
   public void detach() {
     removeHandler.accept(this);
     remove();

@@ -15,17 +15,33 @@
  */
 package org.dominokit.domino.ui.stepper;
 
-/** ActiveStep class. */
+/**
+ * A concrete implementation of the {@link StepState} interface representing an active step in a
+ * stepper component. Active steps typically indicate the currently selected or in-progress step and
+ * may have different behavior and appearance.
+ */
 public class ActiveStep implements StepState {
-  /** {@inheritDoc} */
+
+  /**
+   * {@inheritDoc} This implementation does not make any specific changes to the provided {@link
+   * StepTracker} for an active step.
+   */
   @Override
   public void apply(StepTracker tracker) {}
 
-  /** {@inheritDoc} */
+  /**
+   * {@inheritDoc} This implementation does not clean up any changes on the provided {@link
+   * StepTracker} for an active step.
+   */
   @Override
   public void cleanUp(StepTracker tracker) {}
 
-  /** {@inheritDoc} */
+  /**
+   * {@inheritDoc} Returns the key associated with the active step state, which is typically
+   * "ACTIVE."
+   *
+   * @return The key "ACTIVE."
+   */
   @Override
   public String getKey() {
     return "ACTIVE";

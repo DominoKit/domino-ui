@@ -18,33 +18,34 @@ package org.dominokit.domino.ui.utils;
 import org.gwtproject.editor.client.Editor;
 
 /**
- * Components that can be enabled/disabled should implement this interface
+ * The {@code AcceptDisable} interface defines methods for enabling, disabling, and checking the
+ * enabled state of an object. This interface is typically used with UI components to control their
+ * interaction state, such as enabling or disabling user input.
  *
- * @param <T> the type of the component implementing this interface
+ * @param <T> The type of object that can be enabled or disabled.
  */
 public interface AcceptDisable<T> {
 
   /**
-   * Set the component as enabled
+   * Enables the object, allowing it to interact with user input and other actions.
    *
-   * @return same implementing component
+   * @return The object after enabling.
    */
   @Editor.Ignore
   T enable();
 
   /**
-   * Set the component as disabled
+   * Disables the object, preventing it from interacting with user input and other actions.
    *
-   * @return same implementing component
+   * @return The object after disabling.
    */
   @Editor.Ignore
   T disable();
 
-  /** @return boolean, true if component is enabled else false */
   /**
-   * isEnabled.
+   * Checks if the object is currently enabled.
    *
-   * @return a boolean
+   * @return {@code true} if the object is enabled, {@code false} if it is disabled.
    */
   @Editor.Ignore
   boolean isEnabled();

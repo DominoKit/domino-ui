@@ -44,6 +44,8 @@ import org.dominokit.domino.ui.utils.*;
  *          .appendChild("Well done! ")
  *          .appendChild("You successfully read this important alert message.")
  * </pre>
+ *
+ * @see BaseDominoElement
  */
 public class Alert extends BaseDominoElement<HTMLDivElement, Alert> {
 
@@ -147,7 +149,7 @@ public class Alert extends BaseDominoElement<HTMLDivElement, Alert> {
    * Alert message from the dom.
    *
    * @param dismissible <b>true</b> to show the close button, <b>false</b> to hide the close button
-   * @return same Alert instance
+   * @return Same Alert instance
    */
   public Alert setDismissible(boolean dismissible) {
     if (dismissible) {
@@ -160,7 +162,7 @@ public class Alert extends BaseDominoElement<HTMLDivElement, Alert> {
   /**
    * A shortcut method for <b>setDismissible(true)</b>
    *
-   * @return same Alert instance
+   * @return Same Alert instance
    */
   public Alert dismissible() {
     removeButton.get();
@@ -170,7 +172,7 @@ public class Alert extends BaseDominoElement<HTMLDivElement, Alert> {
   /**
    * Shortcut method for <b>setDismissible(false)</b>
    *
-   * @return same Alert instance
+   * @return Same Alert instance
    */
   public Alert unDismissible() {
     removeButton.remove();
@@ -201,7 +203,7 @@ public class Alert extends BaseDominoElement<HTMLDivElement, Alert> {
    * the same effect as <b>getCloseButton()</b>
    *
    * @param handler a {@link org.dominokit.domino.ui.utils.ChildHandler} object
-   * @return same Alert instance.
+   * @return Same Alert instance.
    */
   public Alert withCloseButton(ChildHandler<Alert, RemoveButton> handler) {
     handler.apply(this, removeButton.get());
@@ -211,20 +213,20 @@ public class Alert extends BaseDominoElement<HTMLDivElement, Alert> {
   /**
    * This will be effectively same as <b>setDismissible(true)</b>
    *
-   * @return a Alert object
+   * @return Same Alert instance
    */
   public Alert withCloseButton() {
     removeButton.get();
     return this;
   }
 
-  /** @hidden {@inheritDoc} */
+  /** @dominokit-site-ignore {@inheritDoc} */
   @Override
   public Element getAppendTarget() {
     return bodyElement.element();
   }
 
-  /** @hidden {@inheritDoc} */
+  /** @dominokit-site-ignore {@inheritDoc} */
   @Override
   public HTMLDivElement element() {
     return element.element();

@@ -21,9 +21,18 @@ import org.dominokit.domino.ui.icons.lib.Icons;
 import org.dominokit.domino.ui.style.ColorsCss;
 import org.dominokit.domino.ui.style.SpacingCss;
 
-/** WarningStep class. */
+/**
+ * Represents a "Warning" step in a stepper component. Warning steps indicate that there is a
+ * warning or caution associated with this step. This step state applies visual changes to the
+ * StepTracker when it is in the "Warning" state. It displays a specific icon and styling to
+ * indicate that the step has a warning.
+ */
 public class WarningStep implements StepState {
-  /** {@inheritDoc} */
+  /**
+   * Applies visual changes to the StepTracker when it is in the "Warning" state.
+   *
+   * @param tracker The StepTracker to which the "Warning" step state is applied.
+   */
   @Override
   public void apply(StepTracker tracker) {
     tracker
@@ -36,7 +45,11 @@ public class WarningStep implements StepState {
                     .addCss(dui_warning));
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Cleans up any applied visual changes when the step is no longer in the "Warning" state.
+   *
+   * @param tracker The StepTracker from which the "Warning" step state is removed.
+   */
   @Override
   public void cleanUp(StepTracker tracker) {
     tracker
@@ -44,7 +57,11 @@ public class WarningStep implements StepState {
         .withTrackerNode((parent1, node) -> node.clearElement().removeCss(dui_warning));
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Gets the key associated with the "Warning" step state, typically "WARNING."
+   *
+   * @return The key "WARNING."
+   */
   @Override
   public String getKey() {
     return "WARNING";

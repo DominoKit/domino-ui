@@ -21,35 +21,45 @@ import org.dominokit.domino.ui.utils.DominoUIConfig;
 import org.dominokit.domino.ui.utils.SwipeUtil;
 
 /**
- * A component provides horizontal spin
+ * This class represents a horizontal spin select component. It allows users to cycle through a set
+ * of items in a horizontal fashion.
  *
- * @param <T> the type of the object inside the spin
+ * <p><b>Usage:</b>
+ *
+ * <pre>
+ * HSpinSelect&lt;String&gt; spinSelect = HSpinSelect.create();
+ * spinSelect.addItem("Item 1");
+ * spinSelect.addItem("Item 2");
+ * // Add more items as needed...
+ * </pre>
+ *
+ * @param <T> The type of the items in this spin select.
  */
 public class HSpinSelect<T> extends SpinSelect<T, HSpinSelect<T>> {
 
   /**
-   * Creates new instance
+   * Creates a new HSpinSelect with default back and forward icons.
    *
-   * @param <T> the type of the object inside the spin
-   * @return new instance
+   * @param <T> the type of the items
+   * @return a new instance of HSpinSelect
    */
   public static <T> HSpinSelect<T> create() {
     return new HSpinSelect<>();
   }
 
   /**
-   * Creates new instance with back/forward icons
+   * Creates a new HSpinSelect with the provided back and forward icons.
    *
-   * @param backIcon the back {@link org.dominokit.domino.ui.icons.Icon}
-   * @param forwardIcon the forward {@link org.dominokit.domino.ui.icons.Icon}
-   * @param <T> the type of the object inside the spin
-   * @return new instance
+   * @param backIcon the back icon to use
+   * @param forwardIcon the forward icon to use
+   * @param <T> the type of the items
+   * @return a new instance of HSpinSelect
    */
   public static <T> HSpinSelect<T> create(Icon<?> backIcon, Icon<?> forwardIcon) {
     return new HSpinSelect<>(backIcon, forwardIcon);
   }
 
-  /** Constructor for HSpinSelect. */
+  /** Default constructor that initializes the HSpinSelect with default back and forward icons. */
   public HSpinSelect() {
     this(
         DominoUIConfig.CONFIG.getUIConfig().getDefaultBackIconSupplier().get(),
@@ -57,10 +67,10 @@ public class HSpinSelect<T> extends SpinSelect<T, HSpinSelect<T>> {
   }
 
   /**
-   * Constructor for HSpinSelect.
+   * Constructor that initializes the HSpinSelect with the provided back and forward icons.
    *
-   * @param backIcon a {@link org.dominokit.domino.ui.icons.Icon} object
-   * @param forwardIcon a {@link org.dominokit.domino.ui.icons.Icon} object
+   * @param backIcon the back icon to use
+   * @param forwardIcon the forward icon to use
    */
   public HSpinSelect(Icon<?> backIcon, Icon<?> forwardIcon) {
     super(backIcon, forwardIcon);
@@ -71,7 +81,12 @@ public class HSpinSelect<T> extends SpinSelect<T, HSpinSelect<T>> {
         SwipeUtil.SwipeDirection.LEFT, contentPanel.element(), evt -> moveForward());
   }
 
-  /** {@inheritDoc} */
+  /**
+   * {@inheritDoc}
+   *
+   * <p>This implementation adjusts the width of the items based on the current bounding rect of the
+   * content panel.
+   */
   @Override
   protected void fixElementsWidth() {
     DOMRect boundingClientRect = contentPanel.getBoundingClientRect();
@@ -82,7 +97,12 @@ public class HSpinSelect<T> extends SpinSelect<T, HSpinSelect<T>> {
         spinItem -> spinItem.setWidth(((boundingClientRect.width / totalWidth) * 100) + "%"));
   }
 
-  /** {@inheritDoc} */
+  /**
+   * {@inheritDoc}
+   *
+   * <p>This implementation sets the transform property to translate the content horizontally based
+   * on the given offset.
+   */
   @Override
   protected void setTransformProperty(double offset) {
     contentPanel.setCssProperty("transform", "translate3d(-" + offset + "%, 0px, 0px)");

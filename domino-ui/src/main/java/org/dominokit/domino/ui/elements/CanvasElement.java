@@ -17,22 +17,36 @@ package org.dominokit.domino.ui.elements;
 
 import elemental2.dom.HTMLCanvasElement;
 
-/** CanvasElement class. */
+/**
+ * Represents a canvas (`<canvas>`) HTML element wrapper.
+ *
+ * <p>This class provides a convenient way to create, manipulate, and control the behavior of canvas
+ * HTML elements. Example usage:
+ *
+ * <pre>
+ * HTMLCanvasElement htmlElement = ...;  // Obtain a <canvas> element from somewhere
+ * CanvasElement canvasElement = CanvasElement.of(htmlElement);
+ * </pre>
+ *
+ * @see <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/canvas">MDN Web Docs
+ *     (canvas element)</a>
+ */
 public class CanvasElement extends BaseElement<HTMLCanvasElement, CanvasElement> {
+
   /**
-   * of.
+   * Creates a new {@link CanvasElement} instance by wrapping the provided canvas HTML element.
    *
-   * @param e a {@link elemental2.dom.HTMLCanvasElement} object
-   * @return a {@link org.dominokit.domino.ui.elements.CanvasElement} object
+   * @param e The canvas HTML element.
+   * @return A new {@link CanvasElement} instance wrapping the provided element.
    */
   public static CanvasElement of(HTMLCanvasElement e) {
     return new CanvasElement(e);
   }
 
   /**
-   * Constructor for CanvasElement.
+   * Constructs a {@link CanvasElement} instance by wrapping the provided canvas HTML element.
    *
-   * @param element a {@link elemental2.dom.HTMLCanvasElement} object
+   * @param element The canvas HTML element to wrap.
    */
   public CanvasElement(HTMLCanvasElement element) {
     super(element);

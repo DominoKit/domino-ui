@@ -15,14 +15,27 @@
  */
 package org.dominokit.domino.ui.menu;
 
-/** MenuSearchFilter interface. */
+/**
+ * An interface to define search filter logic for menu items in a {@link Menu}.
+ *
+ * <p><strong>Usage example:</strong>
+ *
+ * <pre>{@code
+ * CustomMenuItem<String> menuItem = CustomMenuItem.create();
+ * menuItem.setSearchFilter((token, caseSensitive) -> {
+ *     // Your search logic here.
+ *     return token.equalsIgnoreCase("example");
+ * });
+ * }</pre>
+ */
 public interface MenuSearchFilter {
+
   /**
-   * onSearch.
+   * Evaluates the provided search token against menu items or related content.
    *
-   * @param token a {@link java.lang.String} object
-   * @param caseSensitive a boolean
-   * @return a boolean
+   * @param token the search token
+   * @param caseSensitive indicates if the search should be case sensitive or not
+   * @return true if the search condition is met; false otherwise
    */
   boolean onSearch(String token, boolean caseSensitive);
 }

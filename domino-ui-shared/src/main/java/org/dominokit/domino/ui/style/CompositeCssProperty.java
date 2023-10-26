@@ -13,6 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package org.dominokit.domino.ui.style;
 
 import elemental2.dom.Element;
@@ -21,56 +22,69 @@ import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 
-/** CompositeCssProperty class. */
+/**
+ * Represents a composite of multiple CSS properties. This enables applying or removing multiple CSS
+ * properties on a DOM {@link Element} in a single operation.
+ */
 public class CompositeCssProperty implements IsCssProperty {
 
+  /** A set containing all the CSS properties of this composite */
   private Set<CssProperty> cssProperties = new HashSet<>();
 
   /**
-   * of.
+   * Creates a new {@link CompositeCssProperty} instance with the specified collection of CSS
+   * properties.
    *
-   * @param cssProperties a {@link java.util.Collection} object.
-   * @return a {@link org.dominokit.domino.ui.style.CompositeCssProperty} object.
+   * @param cssProperties A collection of {@link CssProperty} objects.
+   * @return A new {@link CompositeCssProperty} instance.
    */
   public static CompositeCssProperty of(Collection<CssProperty> cssProperties) {
     return new CompositeCssProperty(cssProperties);
   }
 
   /**
-   * of.
+   * Creates a new {@link CompositeCssProperty} instance with the specified CSS properties.
    *
-   * @param cssProperties a {@link org.dominokit.domino.ui.style.CssProperty} object.
-   * @return a {@link org.dominokit.domino.ui.style.CompositeCssProperty} object.
+   * @param cssProperties The CSS properties to include in the composite.
+   * @return A new {@link CompositeCssProperty} instance.
    */
   public static CompositeCssProperty of(CssProperty... cssProperties) {
     return new CompositeCssProperty(cssProperties);
   }
 
   /**
-   * Constructor for CompositeCssProperty.
+   * Constructs a {@link CompositeCssProperty} with a collection of CSS properties.
    *
-   * @param cssProperties a {@link java.util.Collection} object.
+   * @param cssProperties A collection of {@link CssProperty} objects to include in the composite.
    */
   public CompositeCssProperty(Collection<CssProperty> cssProperties) {
     this.cssProperties.addAll(cssProperties);
   }
 
   /**
-   * Constructor for CompositeCssProperty.
+   * Constructs a {@link CompositeCssProperty} with the specified CSS properties.
    *
-   * @param cssProperties a {@link org.dominokit.domino.ui.style.CssProperty} object.
+   * @param cssProperties The CSS properties to include in the composite.
    */
   public CompositeCssProperty(CssProperty... cssProperties) {
     this(Arrays.asList(cssProperties));
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Applies all CSS properties of this composite to the specified DOM {@link Element}.
+   *
+   * @param element The DOM element to which the composite of CSS properties will be applied.
+   */
   @Override
   public void apply(Element element) {
     cssProperties.forEach(cssProperty -> cssProperty.apply(element));
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Removes all CSS properties of this composite from the specified DOM {@link Element}.
+   *
+   * @param element The DOM element from which the composite of CSS properties will be removed.
+   */
   @Override
   public void remove(Element element) {
     cssProperties.forEach(cssProperty -> cssProperty.remove(element));

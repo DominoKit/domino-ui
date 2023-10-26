@@ -13,6 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package org.dominokit.domino.ui.datatable.plugins.pagination;
 
 import org.dominokit.domino.ui.datatable.DataTable;
@@ -21,40 +22,44 @@ import org.dominokit.domino.ui.datatable.plugins.DataTablePlugin;
 import org.dominokit.domino.ui.pagination.ScrollingPagination;
 
 /**
- * This plugin attach an {@link org.dominokit.domino.ui.pagination.ScrollingPagination} component to
- * the data table and fires {@link TablePageChangeEvent} when ever the page is changed
+ * A plugin for adding scrolling pagination functionality to a DataTable.
  *
- * @param <T> the type of the data table records
+ * @param <T> The type of data in the DataTable.
  */
 public class ScrollingPaginationPlugin<T> implements DataTablePlugin<T> {
 
   private ScrollingPagination pagination;
 
-  /** Creates and instance with default page size of 10 */
+  /** Initializes the plugin with a default page size of 10 and a default window size of 10. */
   public ScrollingPaginationPlugin() {
     this(10);
   }
 
   /**
-   * Constructor for ScrollingPaginationPlugin.
+   * Initializes the plugin with a specified page size and a default window size of 10.
    *
-   * @param pageSize a int
+   * @param pageSize The number of items per page.
    */
   public ScrollingPaginationPlugin(int pageSize) {
     this(pageSize, 10);
   }
 
   /**
-   * Creates and instance with a custom page size
+   * Initializes the plugin with a specified page size and window size.
    *
-   * @param pageSize int, Page size
-   * @param windowSize a int
+   * @param pageSize The number of items per page.
+   * @param windowSize The number of pages to display in the pagination window.
    */
   public ScrollingPaginationPlugin(int pageSize, int windowSize) {
     this.pagination = ScrollingPagination.create(0, pageSize, windowSize);
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Adds the scrolling pagination component to the DataTable and registers a change listener to
+   * handle page change events.
+   *
+   * @param dataTable The DataTable instance to which this plugin is applied.
+   */
   @Override
   public void onAfterAddTable(DataTable<T> dataTable) {
     dataTable.appendChild(pagination);
@@ -63,11 +68,10 @@ public class ScrollingPaginationPlugin<T> implements DataTablePlugin<T> {
             dataTable.fireTableEvent(new TablePageChangeEvent(pageNumber, pagination)));
   }
 
-  /** @return The {@link ScrollingPagination} component wrapped in this plugin */
   /**
-   * Getter for the field <code>pagination</code>.
+   * Gets the ScrollingPagination instance used by this plugin.
    *
-   * @return a {@link org.dominokit.domino.ui.pagination.ScrollingPagination} object
+   * @return The ScrollingPagination instance.
    */
   public ScrollingPagination getPagination() {
     return pagination;

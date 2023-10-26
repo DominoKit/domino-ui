@@ -25,6 +25,11 @@ import org.dominokit.domino.ui.icons.Icon;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
 import org.dominokit.domino.ui.utils.ChildHandler;
 
+/**
+ * Represents a navigation item within a pager, typically used for pagination controls.
+ *
+ * @see BaseDominoElement
+ */
 class PagerNavItem extends BaseDominoElement<HTMLLIElement, PagerNavItem>
     implements PaginationStyles {
 
@@ -33,10 +38,10 @@ class PagerNavItem extends BaseDominoElement<HTMLLIElement, PagerNavItem>
   private final int page;
 
   /**
-   * create.
+   * Creates a PagerNavItem from a given HTML Node.
    *
-   * @param node a {@link elemental2.dom.Node} object
-   * @return a {@link org.dominokit.domino.ui.pagination.PagerNavItem} object
+   * @param node The HTML Node to create the PagerNavItem from.
+   * @return A new PagerNavItem instance.
    */
   public static PagerNavItem create(Node node) {
     return new PagerNavItem(-1)
@@ -45,10 +50,10 @@ class PagerNavItem extends BaseDominoElement<HTMLLIElement, PagerNavItem>
   }
 
   /**
-   * create.
+   * Creates a PagerNavItem from a given IsElement instance.
    *
-   * @param element a {@link org.dominokit.domino.ui.IsElement} object
-   * @return a {@link org.dominokit.domino.ui.pagination.PagerNavItem} object
+   * @param element The IsElement instance to create the PagerNavItem from.
+   * @return A new PagerNavItem instance.
    */
   public static PagerNavItem create(IsElement<?> element) {
     return new PagerNavItem(-1)
@@ -57,10 +62,10 @@ class PagerNavItem extends BaseDominoElement<HTMLLIElement, PagerNavItem>
   }
 
   /**
-   * nav.
+   * Creates a PagerNavItem with a navigation icon.
    *
-   * @param icon a {@link org.dominokit.domino.ui.icons.Icon} object
-   * @return a {@link org.dominokit.domino.ui.pagination.PagerNavItem} object
+   * @param icon The Icon instance to be used as the navigation icon.
+   * @return A new PagerNavItem instance with the provided navigation icon.
    */
   public static PagerNavItem nav(Icon<?> icon) {
     return new PagerNavItem(-1)
@@ -69,10 +74,10 @@ class PagerNavItem extends BaseDominoElement<HTMLLIElement, PagerNavItem>
   }
 
   /**
-   * page.
+   * Creates a PagerNavItem with a numeric page.
    *
-   * @param page a int
-   * @return a {@link org.dominokit.domino.ui.pagination.PagerNavItem} object
+   * @param page The numeric page value.
+   * @return A new PagerNavItem instance representing the specified page.
    */
   public static PagerNavItem page(int page) {
     return new PagerNavItem(page)
@@ -82,18 +87,18 @@ class PagerNavItem extends BaseDominoElement<HTMLLIElement, PagerNavItem>
   }
 
   /**
-   * create.
+   * Creates an empty PagerNavItem.
    *
-   * @return a {@link org.dominokit.domino.ui.pagination.PagerNavItem} object
+   * @return A new PagerNavItem instance.
    */
   public static PagerNavItem create() {
     return new PagerNavItem(-1);
   }
 
   /**
-   * Constructor for PagerNavItem.
+   * Constructs a PagerNavItem with a given page number.
    *
-   * @param page a int
+   * @param page The numeric page value associated with this navigation item.
    */
   public PagerNavItem(int page) {
     this.page = page;
@@ -114,19 +119,19 @@ class PagerNavItem extends BaseDominoElement<HTMLLIElement, PagerNavItem>
   }
 
   /**
-   * Getter for the field <code>link</code>.
+   * Gets the anchor element associated with this PagerNavItem.
    *
-   * @return a {@link org.dominokit.domino.ui.elements.AnchorElement} object
+   * @return The AnchorElement of this PagerNavItem.
    */
   public AnchorElement getLink() {
     return link;
   }
 
   /**
-   * withLink.
+   * Applies a handler to the anchor element of this PagerNavItem.
    *
-   * @param handler a {@link org.dominokit.domino.ui.utils.ChildHandler} object
-   * @return a {@link org.dominokit.domino.ui.pagination.PagerNavItem} object
+   * @param handler The ChildHandler to apply to the anchor element.
+   * @return This PagerNavItem instance.
    */
   public PagerNavItem withLink(ChildHandler<PagerNavItem, AnchorElement> handler) {
     handler.apply(this, link);
@@ -134,9 +139,9 @@ class PagerNavItem extends BaseDominoElement<HTMLLIElement, PagerNavItem>
   }
 
   /**
-   * Getter for the field <code>page</code>.
+   * Gets the page number associated with this PagerNavItem.
    *
-   * @return a int
+   * @return The numeric page value.
    */
   public int getPage() {
     return page;

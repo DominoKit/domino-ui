@@ -19,27 +19,46 @@ import elemental2.dom.CustomEvent;
 import elemental2.dom.CustomEventInit;
 import jsinterop.base.Js;
 
-/** CustomEvents class. */
+/**
+ * The {@code CustomEvents} class provides utility methods for creating custom events.
+ *
+ * <p>Custom events allow you to define and dispatch your own events with custom data and
+ * properties.
+ *
+ * <p><strong>Usage Examples:</strong>
+ *
+ * <pre>
+ * // Create a custom event without details
+ * CustomEvent&lt;Void&gt; eventWithoutDetails = CustomEvents.create("customEventWithoutDetails");
+ *
+ * // Create a custom event with details
+ * String eventData = "Custom event data";
+ * CustomEvent&lt;String&gt; eventWithDetails = CustomEvents.create("customEventWithDetails", eventData);
+ * </pre>
+ *
+ * <p>The {@code CustomEvents} class includes methods for creating custom events with and without
+ * details.
+ */
 public class CustomEvents {
 
   /**
-   * create.
+   * Creates a custom event without details.
    *
-   * @param name a {@link java.lang.String} object
-   * @param <T> a T class
-   * @return a {@link elemental2.dom.CustomEvent} object
+   * @param name The name of the custom event.
+   * @param <T> The type of event details (use {@code Void} if no details are needed).
+   * @return A custom event instance without details.
    */
   public static <T> CustomEvent<T> create(String name) {
     return new CustomEvent<>(name);
   }
 
   /**
-   * create.
+   * Creates a custom event with details.
    *
-   * @param name a {@link java.lang.String} object
-   * @param details a T object
-   * @param <T> a T class
-   * @return a {@link elemental2.dom.CustomEvent} object
+   * @param name The name of the custom event.
+   * @param details The event details.
+   * @param <T> The type of event details.
+   * @return A custom event instance with details.
    */
   public static <T> CustomEvent<T> create(String name, T details) {
     CustomEventInit<T> initOptions = Js.uncheckedCast(CustomEventInit.create());

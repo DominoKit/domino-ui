@@ -20,25 +20,38 @@ import static org.dominokit.domino.ui.style.SpacingCss.*;
 import org.dominokit.domino.ui.style.CssClass;
 import org.dominokit.domino.ui.style.HasCssClass;
 
-/** Am enum representing the alignment of flex */
+/**
+ * The {@code FlexAlignSelf} enum represents different alignment behaviors for individual flex
+ * items.
+ *
+ * <p>It provides options for controlling the alignment of individual flex items along the cross
+ * axis within a flex container.
+ */
 public enum FlexAlign implements HasCssClass {
-  /** The alignment will be at the start of the layout */
+
+  /** Aligns the item to the start of the cross axis. */
   START(dui_items_start),
-  /** The alignment will be at the end of the layout */
+  /** Aligns the item to the end of the cross axis. */
   END(dui_items_end),
-  /** The alignment will be at the center of the layout */
+  /** Centers the item along the cross axis. */
   CENTER(dui_items_center),
-  /** The alignment will cover all the layout */
+  /** Stretches the item to fill the cross axis. */
   STRETCH(dui_items_stretch),
-  /** The alignment will be based on the original alignment */
+  /** Aligns the item's baseline with the baseline of the parent item. */
   BASE_LINE(dui_items_baseline);
 
   private final CssClass style;
 
+  /**
+   * Constructs a new {@code FlexAlignSelf} enum value with the associated CSS class.
+   *
+   * @param style The CSS class representing the alignment behavior for flex items.
+   */
   FlexAlign(CssClass style) {
     this.style = style;
   }
 
+  /** {@inheritDoc} */
   @Override
   public CssClass getCssClass() {
     return style;

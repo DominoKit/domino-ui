@@ -17,22 +17,38 @@ package org.dominokit.domino.ui.elements;
 
 import elemental2.dom.HTMLElement;
 
-/** FigureElement class. */
+/**
+ * Represents a <figure> HTML element wrapper.
+ *
+ * <p>The <figure> tag is used to group and represent content that is referenced from the main
+ * content, often with a caption or legend. This class provides a convenient way to create,
+ * manipulate, and control the behavior of <figure> elements, making it easier to use them in
+ * Java-based web applications. Example usage:
+ *
+ * <pre>{@code
+ * HTMLElement figureElement = ...;  // Obtain a <figure> element from somewhere
+ * FigureElement figure = FigureElement.of(figureElement);
+ * }</pre>
+ *
+ * @see <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/figure">MDN Web Docs
+ *     (figure element)</a>
+ */
 public class FigureElement extends BaseElement<HTMLElement, FigureElement> {
+
   /**
-   * of.
+   * Creates a new {@link FigureElement} instance by wrapping the provided HTML <figure> element.
    *
-   * @param e a {@link elemental2.dom.HTMLElement} object
-   * @return a {@link org.dominokit.domino.ui.elements.FigureElement} object
+   * @param e The HTML <figure> element.
+   * @return A new {@link FigureElement} instance wrapping the provided element.
    */
   public static FigureElement of(HTMLElement e) {
     return new FigureElement(e);
   }
 
   /**
-   * Constructor for FigureElement.
+   * Constructs a {@link FigureElement} instance by wrapping the provided HTML <figure> element.
    *
-   * @param element a {@link elemental2.dom.HTMLElement} object
+   * @param element The HTML <figure> element to wrap.
    */
   public FigureElement(HTMLElement element) {
     super(element);

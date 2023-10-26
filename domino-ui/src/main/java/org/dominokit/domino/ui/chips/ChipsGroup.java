@@ -21,17 +21,11 @@ import org.dominokit.domino.ui.elements.DivElement;
 import org.dominokit.domino.ui.utils.*;
 
 /**
- * This component provides a group of {@link org.dominokit.domino.ui.chips.Chip} which handles the
- * selection behaviour between them.
+ * This component groups a set of {@link org.dominokit.domino.ui.chips.Chip}s and controls the
+ * selection behavior of grouped chips
  *
- * <p>This component will handle the switching between all the chips configured, so that one chip
- * will be select at one time
- *
+ * @see HasSelectionListeners
  * @see BaseDominoElement
- * @see Chip
- * @see HasSelectionHandler
- * @see HasDeselectionHandler
- * @see AcceptDisable
  */
 public class ChipsGroup extends BaseDominoElement<HTMLDivElement, ChipsGroup>
     implements AcceptDisable<ChipsGroup>, HasSelectionListeners<ChipsGroup, Chip, List<Chip>> {
@@ -48,30 +42,29 @@ public class ChipsGroup extends BaseDominoElement<HTMLDivElement, ChipsGroup>
       new HashSet<>();
   private boolean selectionListenersPaused = false;
 
-  /** Constructor for ChipsGroup. */
+  /** Creates and empty chips group */
   public ChipsGroup() {
     root = div();
     init(this);
   }
 
-  /** @return new instance */
   /**
-   * create.
+   * Factory method to create an empty chips group
    *
-   * @return a {@link org.dominokit.domino.ui.chips.ChipsGroup} object
+   * @return new ChipsGroup instance
    */
   public static ChipsGroup create() {
     return new ChipsGroup();
   }
 
   /**
-   * Adds new {@link org.dominokit.domino.ui.chips.Chip}
+   * Adds a {@link org.dominokit.domino.ui.chips.Chip} to this chips group
    *
-   * <p>This will set the chip as selectable and adds selection/deselection handler to handle the
-   * switching between all the chips.
+   * <p>This will automatically set the chip as selectable and adds selection/deselection handler to
+   * handle the switching between all the chips.
    *
-   * @param chip the new {@link org.dominokit.domino.ui.chips.Chip} to add
-   * @return same instance
+   * @param chip the {@link org.dominokit.domino.ui.chips.Chip} to be added to the group
+   * @return same ChipsGroup instance
    */
   public ChipsGroup appendChild(Chip chip) {
     chip.setSelectable(true);
@@ -112,44 +105,44 @@ public class ChipsGroup extends BaseDominoElement<HTMLDivElement, ChipsGroup>
     return this;
   }
 
-  /** {@inheritDoc} */
+  /** Enables chips selection */
   @Override
   public ChipsGroup enable() {
     chips.forEach(Chip::enable);
     return this;
   }
 
-  /** {@inheritDoc} */
+  /** Disables chips selection */
   @Override
   public ChipsGroup disable() {
     chips.forEach(Chip::disable);
     return this;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Use to check if this group chips selection is enabled
+   *
+   * @return boolean, <b>true</b> if selection is enabled, <b>false</b> if selection is not enabled
+   */
   @Override
   public boolean isEnabled() {
     return chips.stream().allMatch(Chip::isEnabled);
   }
 
-  /** @return The current selected chip */
-  /**
-   * Getter for the field <code>selectedChips</code>.
-   *
-   * @return a {@link java.util.List} object
-   */
+  /** @return a {@link java.util.List} of currently selected chips in this group */
   public List<Chip> getSelectedChips() {
     return selectedChips;
   }
 
-  /** {@inheritDoc} */
+  /** @dominokit-site-ignore {@inheritDoc} */
   @Override
   public HTMLDivElement element() {
     return root.element();
   }
 
   /**
-   * Selects a chip at an {@code index}
+   * Selects a chip at provided index {@code index} only if the index within the acceptable range,
+   * otherwise ignore.
    *
    * @param index the index of the chip to select
    * @return same instance
@@ -161,56 +154,51 @@ public class ChipsGroup extends BaseDominoElement<HTMLDivElement, ChipsGroup>
     return this;
   }
 
-  /** @return All the chips added to this group */
-  /**
-   * Getter for the field <code>chips</code>.
-   *
-   * @return a {@link java.util.List} object
-   */
+  /** @return a {@link java.util.List} of all chips in this group. */
   public List<Chip> getChips() {
     return chips;
   }
 
-  /** {@inheritDoc} */
+  /** @dominokit-site-ignore {@inheritDoc} */
   @Override
   public ChipsGroup pauseSelectionListeners() {
     this.selectionListenersPaused = true;
     return this;
   }
 
-  /** {@inheritDoc} */
+  /** @dominokit-site-ignore {@inheritDoc} */
   @Override
   public ChipsGroup resumeSelectionListeners() {
     this.selectionListenersPaused = false;
     return this;
   }
 
-  /** {@inheritDoc} */
+  /** @dominokit-site-ignore {@inheritDoc} */
   @Override
   public ChipsGroup togglePauseSelectionListeners(boolean toggle) {
     this.selectionListenersPaused = toggle;
     return this;
   }
 
-  /** {@inheritDoc} */
+  /** {@dominokit-site-ignore @inheritDoc} */
   @Override
   public Set<SelectionListener<? super Chip, ? super List<Chip>>> getSelectionListeners() {
     return selectionListeners;
   }
 
-  /** {@inheritDoc} */
+  /** @dominokit-site-ignore {@inheritDoc} */
   @Override
   public Set<SelectionListener<? super Chip, ? super List<Chip>>> getDeselectionListeners() {
     return deselectionListeners;
   }
 
-  /** {@inheritDoc} */
+  /** @dominokit-site-ignore {@inheritDoc} */
   @Override
   public boolean isSelectionListenersPaused() {
     return this.selectionListenersPaused;
   }
 
-  /** {@inheritDoc} */
+  /** @dominokit-site-ignore {@inheritDoc} */
   @Override
   public ChipsGroup triggerSelectionListeners(Chip source, List<Chip> selection) {
     selectionListeners.forEach(
@@ -219,7 +207,7 @@ public class ChipsGroup extends BaseDominoElement<HTMLDivElement, ChipsGroup>
     return this;
   }
 
-  /** {@inheritDoc} */
+  /** @dominokit-site-ignore {@inheritDoc} */
   @Override
   public ChipsGroup triggerDeselectionListeners(Chip source, List<Chip> selection) {
     deselectionListeners.forEach(
@@ -228,26 +216,27 @@ public class ChipsGroup extends BaseDominoElement<HTMLDivElement, ChipsGroup>
     return this;
   }
 
-  /** {@inheritDoc} */
+  /** @dominokit-site-ignore {@inheritDoc} */
   @Override
   public List<Chip> getSelection() {
     return selectedChips;
   }
 
   /**
-   * isMultiSelect.
+   * Use to check if this group allows the selection of multiple chips at the same time.
    *
-   * @return a boolean
+   * @return a boolean, <b>true</b> multi-select is enabled, <b>false</b> multi-select is disabled
    */
   public boolean isMultiSelect() {
     return multiSelect;
   }
 
   /**
-   * Setter for the field <code>multiSelect</code>.
+   * Enable/Disable multi-selection based on the provided flag.
    *
-   * @param multiSelect a boolean
-   * @return a {@link org.dominokit.domino.ui.chips.ChipsGroup} object
+   * @param multiSelect a boolean, <b>true</b> enables multi-selection, <b>false</b> disable
+   *     multi-selection
+   * @return same ChipsGroup instance
    */
   public ChipsGroup setMultiSelect(boolean multiSelect) {
     this.multiSelect = multiSelect;
@@ -259,19 +248,21 @@ public class ChipsGroup extends BaseDominoElement<HTMLDivElement, ChipsGroup>
   }
 
   /**
-   * isRemovable.
+   * Check if the chips in this group are removable or not.
    *
-   * @return a boolean
+   * @return a boolean, <b>true</b> the chips in this group are removable, <b>false</b> the chips in
+   *     this group are not removable
    */
   public boolean isRemovable() {
     return removable;
   }
 
   /**
-   * Setter for the field <code>removable</code>.
+   * Set all chips in this group to removable or not based on the provided flag.
    *
-   * @param removable a boolean
-   * @return a {@link org.dominokit.domino.ui.chips.ChipsGroup} object
+   * @param removable a boolean, <b>true</b> set all chips in this group to be removable,
+   *     <b>false</b> set all chips in this group to be not removable.
+   * @return same ChipsGroup instance
    */
   public ChipsGroup setRemovable(boolean removable) {
     this.removable = removable;

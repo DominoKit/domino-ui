@@ -13,19 +13,21 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package org.dominokit.domino.ui.utils;
 
 /**
- * A component that can have a selected item should implement this interface
+ * The {@code HasSelectSupport} interface defines a method for retrieving the selected item in a
+ * component.
  *
- * @param <T> the type of the item
+ * @param <T> The type of the selected item.
  */
 public interface HasSelectSupport<T> {
-  /** @return the T item that is currently selected */
+
   /**
-   * getSelectedItem.
+   * Gets the selected item in the component.
    *
-   * @return a T object
+   * @return The selected item.
    */
   T getSelectedItem();
 }

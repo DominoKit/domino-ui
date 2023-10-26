@@ -13,55 +13,59 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package org.dominokit.domino.ui.style;
 
 import elemental2.dom.Element;
 
-/** ToggleCssClass class. */
+/** A utility class for toggling a CSS class on an HTML element. */
 public class ToggleCssClass implements CssClass {
 
   private final CssClass cssClass;
 
   /**
-   * of.
+   * Creates a new instance of ToggleCssClass with the given CSS class.
    *
-   * @param cssClass a {@link org.dominokit.domino.ui.style.CssClass} object.
-   * @return a {@link org.dominokit.domino.ui.style.ToggleCssClass} object.
+   * @param cssClass The CSS class to toggle.
    */
   public static ToggleCssClass of(CssClass cssClass) {
     return new ToggleCssClass(cssClass);
   }
 
   /**
-   * of.
+   * Creates a new instance of ToggleCssClass with the CSS class from the provided HasCssClass
+   * instance.
    *
-   * @param cssClass a {@link org.dominokit.domino.ui.style.HasCssClass} object.
-   * @return a {@link org.dominokit.domino.ui.style.ToggleCssClass} object.
+   * @param cssClass The HasCssClass instance containing the CSS class to toggle.
    */
   public static ToggleCssClass of(HasCssClass cssClass) {
     return new ToggleCssClass(cssClass.getCssClass());
   }
 
   /**
-   * of.
+   * Creates a new instance of ToggleCssClass with the given CSS class.
    *
-   * @param cssClass a {@link java.lang.String} object.
-   * @return a {@link org.dominokit.domino.ui.style.ToggleCssClass} object.
+   * @param cssClass The CSS class to toggle.
    */
   public static ToggleCssClass of(String cssClass) {
     return new ToggleCssClass(() -> cssClass);
   }
 
   /**
-   * Constructor for ToggleCssClass.
+   * Constructs a new ToggleCssClass instance with the given CSS class.
    *
-   * @param cssClass a {@link org.dominokit.domino.ui.style.CssClass} object.
+   * @param cssClass The CSS class to toggle.
    */
   public ToggleCssClass(CssClass cssClass) {
     this.cssClass = cssClass;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Toggles the CSS class on the given HTML element. If the class is already applied, it will be
+   * removed; otherwise, it will be added.
+   *
+   * @param element The HTML element on which to toggle the CSS class.
+   */
   @Override
   public void apply(Element element) {
     if (element.classList.contains(getCssClass())) {
@@ -71,7 +75,11 @@ public class ToggleCssClass implements CssClass {
     }
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Gets the CSS class represented by this ToggleCssClass instance.
+   *
+   * @return The CSS class to toggle.
+   */
   @Override
   public String getCssClass() {
     return cssClass.getCssClass();

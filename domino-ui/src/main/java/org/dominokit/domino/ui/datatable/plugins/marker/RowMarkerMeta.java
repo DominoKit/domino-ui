@@ -13,6 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package org.dominokit.domino.ui.datatable.plugins.marker;
 
 import java.util.Optional;
@@ -20,55 +21,67 @@ import org.dominokit.domino.ui.datatable.TableRow;
 import org.dominokit.domino.ui.style.CssClass;
 import org.dominokit.domino.ui.utils.ComponentMeta;
 
-/** RowMarkerMeta class. */
+/**
+ * A meta-information class that holds the marker CSS class for a table row in the DataTable.
+ *
+ * @param <T> The type of data in the DataTable.
+ */
 public class RowMarkerMeta<T> implements ComponentMeta {
 
-  /** Constant <code>DOMINO_ROW_MARKER_META="domino-row-marker-meta"</code> */
+  /** The key used to identify this meta-information in the TableRow. */
   public static final String DOMINO_ROW_MARKER_META = "domino-row-marker-meta";
 
   private CssClass markerCssClass;
 
   /**
-   * Constructor for RowMarkerMeta.
+   * Creates a new {@link RowMarkerMeta} instance with the specified marker CSS class.
    *
-   * @param markerCssClass a {@link org.dominokit.domino.ui.style.CssClass} object
+   * @param markerCssClass The CSS class representing the row marker.
    */
   public RowMarkerMeta(CssClass markerCssClass) {
     this.markerCssClass = markerCssClass;
   }
 
   /**
-   * of.
+   * Static factory method to create a new {@link RowMarkerMeta} instance with the specified marker
+   * CSS class.
    *
-   * @param markerCssClass a {@link org.dominokit.domino.ui.style.CssClass} object
-   * @param <T> a T class
-   * @return a {@link org.dominokit.domino.ui.datatable.plugins.marker.RowMarkerMeta} object
+   * @param <T> The type of data in the DataTable.
+   * @param markerCssClass The CSS class representing the row marker.
+   * @return A new {@link RowMarkerMeta} instance.
    */
   public static <T> RowMarkerMeta<T> of(CssClass markerCssClass) {
     return new RowMarkerMeta<>(markerCssClass);
   }
 
-  /** {@inheritDoc} */
+  /**
+   * {@inheritDoc}
+   *
+   * <p>Returns the key used to identify this meta-information.
+   *
+   * @return The key, which is {@link #DOMINO_ROW_MARKER_META}.
+   */
   @Override
   public String getKey() {
     return DOMINO_ROW_MARKER_META;
   }
 
   /**
-   * get.
+   * Retrieves the {@link RowMarkerMeta} instance associated with the specified table row.
    *
-   * @param row a {@link org.dominokit.domino.ui.datatable.TableRow} object
-   * @param <T> a T class
-   * @return a {@link java.util.Optional} object
+   * @param <T> The type of data in the DataTable.
+   * @param row The TableRow for which to retrieve the marker meta-information.
+   * @return An {@link Optional} containing the {@link RowMarkerMeta} instance if present, or empty
+   *     otherwise.
    */
   public static <T> Optional<RowMarkerMeta<T>> get(TableRow<T> row) {
     return row.getMeta(DOMINO_ROW_MARKER_META);
   }
 
   /**
-   * Getter for the field <code>markerCssClass</code>.
+   * Gets the CSS class representing the row marker.
    *
-   * @return a {@link org.dominokit.domino.ui.style.CssClass} object
+   * @return The CSS class representing the row marker.
    */
   public CssClass getMarkerCssClass() {
     return markerCssClass;

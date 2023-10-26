@@ -30,7 +30,18 @@ import org.dominokit.domino.ui.utils.Checkable;
 import org.dominokit.domino.ui.utils.DominoElement;
 import org.dominokit.domino.ui.utils.LazyChild;
 
-/** A component that can switch between two boolean values with different labels */
+/**
+ * A customizable SwitchButton component.
+ *
+ * <p>This component provides a switchable button that can be toggled between ON and OFF states.
+ *
+ * <pre>
+ * Usage:
+ * SwitchButton button = SwitchButton.create("Label", "Off", "On");
+ * </pre>
+ *
+ * @see InputFormField
+ */
 public class SwitchButton extends InputFormField<SwitchButton, HTMLInputElement, Boolean>
     implements Checkable<SwitchButton> {
 
@@ -42,43 +53,43 @@ public class SwitchButton extends InputFormField<SwitchButton, HTMLInputElement,
   private SpanElement trackElement;
 
   /**
-   * create.
+   * Factory method to create a {@link SwitchButton} with specified label, off and on titles.
    *
-   * @param label String label describing the switch
-   * @param offTitle String label for the OFF state
-   * @param onTitle String label for the ON state
-   * @return new SwitchButton instance
+   * @param label the label of the switch button
+   * @param offTitle the title when switch is OFF
+   * @param onTitle the title when switch is ON
+   * @return a new {@link SwitchButton} instance
    */
   public static SwitchButton create(String label, String offTitle, String onTitle) {
     return new SwitchButton(label, offTitle, onTitle);
   }
 
   /**
-   * create.
+   * Factory method to create a {@link SwitchButton} with specified label and on/off title.
    *
-   * @param label String label describing the switch
-   * @param onOffTitle String label for the OFF state
-   * @return new SwitchButton instance
+   * @param label the label of the switch button
+   * @param onOffTitle the title for both ON and OFF states
+   * @return a new {@link SwitchButton} instance
    */
   public static SwitchButton create(String label, String onOffTitle) {
     return new SwitchButton(label, onOffTitle);
   }
 
   /**
-   * create.
+   * Factory method to create a {@link SwitchButton} with no initial settings.
    *
-   * @return a {@link org.dominokit.domino.ui.forms.SwitchButton} object
+   * @return a new {@link SwitchButton} instance
    */
   public static SwitchButton create() {
     return new SwitchButton();
   }
 
   /**
-   * Constructor for SwitchButton.
+   * Constructor to initialize the {@link SwitchButton} with a label, off title, and on title.
    *
-   * @param label String label describing the switch
-   * @param offTitle String label for the OFF state
-   * @param onTitle String label for the ON state
+   * @param label the label of the switch button
+   * @param offTitle the title when switch is OFF
+   * @param onTitle the title when switch is ON
    */
   public SwitchButton(String label, String offTitle, String onTitle) {
     this(label);
@@ -87,28 +98,27 @@ public class SwitchButton extends InputFormField<SwitchButton, HTMLInputElement,
   }
 
   /**
-   * Constructor for SwitchButton.
+   * Constructor to initialize the {@link SwitchButton} with a label and on/off title.
    *
-   * @param label String label describing the switch
-   * @param onOffTitle String label for the ON/OFF state
+   * @param label the label of the switch button
+   * @param onOffTitle the title for both ON and OFF states
    */
   public SwitchButton(String label, String onOffTitle) {
     this(label);
     setOffTitle(onOffTitle);
   }
 
-  /** @param label String label describing the switch */
   /**
-   * Constructor for SwitchButton.
+   * Constructor to initialize the {@link SwitchButton} with a label.
    *
-   * @param label a {@link java.lang.String} object
+   * @param label the label of the switch button
    */
   public SwitchButton(String label) {
     this();
     setLabel(label);
   }
 
-  /** Creates a switch without a label */
+  /** Default constructor to initialize the {@link SwitchButton} with default settings. */
   public SwitchButton() {
     addCss(dui_switch);
     DivElement fieldInput = div().addCss(dui_field_input);
@@ -131,19 +141,32 @@ public class SwitchButton extends InputFormField<SwitchButton, HTMLInputElement,
     labelElement.get();
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Returns the type of the SwitchButton as a "checkbox".
+   *
+   * @return String representing the type "checkbox".
+   */
   @Override
   public String getType() {
     return "checkbox";
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Creates an input element of the given type and adds a CSS class to it.
+   *
+   * @param type the type of the input element to be created.
+   * @return DominoElement wrapping the created input element.
+   */
   @Override
   protected DominoElement<HTMLInputElement> createInputElement(String type) {
     return input(type).addCss(dui_hidden_input).toDominoElement();
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Provides an event consumer for handling change events.
+   *
+   * @return Optional containing a Consumer for the change event.
+   */
   @Override
   public Optional<Consumer<Event>> onChange() {
     return Optional.of(
@@ -154,34 +177,59 @@ public class SwitchButton extends InputFormField<SwitchButton, HTMLInputElement,
         });
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Toggles the checked state of the SwitchButton.
+   *
+   * @param silent if true, does not notify the change listeners.
+   * @return the current instance of {@link SwitchButton}.
+   */
   @Override
   public SwitchButton toggleChecked(boolean silent) {
     withValue(!isChecked(), silent);
     return this;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Toggles the checked state of the SwitchButton.
+   *
+   * @return the current instance of {@link SwitchButton}.
+   */
   @Override
   public SwitchButton toggleChecked() {
     withValue(!isChecked());
     return this;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Sets the checked state of the SwitchButton to the provided state.
+   *
+   * @param checkedState desired checked state.
+   * @param silent if true, does not notify the change listeners.
+   * @return the current instance of {@link SwitchButton}.
+   */
   @Override
   public SwitchButton toggleChecked(boolean checkedState, boolean silent) {
     withValue(checkedState, silent);
     return this;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Returns the default value for the SwitchButton.
+   *
+   * @return the default value which is false if null.
+   */
   @Override
   public Boolean getDefaultValue() {
     return isNull(defaultValue) ? false : defaultValue;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Sets the value of the SwitchButton.
+   *
+   * @param value the desired value.
+   * @param silent if true, does not notify the change listeners.
+   * @return the current instance of {@link SwitchButton}.
+   */
   @Override
   public SwitchButton withValue(Boolean value, boolean silent) {
     if (isNull(value)) {
@@ -191,26 +239,44 @@ public class SwitchButton extends InputFormField<SwitchButton, HTMLInputElement,
     return this;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Sets the SwitchButton to a checked state.
+   *
+   * @return the current instance of {@link SwitchButton}.
+   */
   @Override
   public SwitchButton check() {
     return check(isChangeListenersPaused());
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Sets the SwitchButton to an unchecked state.
+   *
+   * @return the current instance of {@link SwitchButton}.
+   */
   @Override
   public SwitchButton uncheck() {
     return uncheck(isChangeListenersPaused());
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Sets the SwitchButton to a checked state.
+   *
+   * @param silent if true, does not notify the change listeners.
+   * @return the current instance of {@link SwitchButton}.
+   */
   @Override
   public SwitchButton check(boolean silent) {
     toggleChecked(true, silent);
     return this;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Sets the SwitchButton to an unchecked state.
+   *
+   * @param silent if true, does not notify the change listeners.
+   * @return the current instance of {@link SwitchButton}.
+   */
   @Override
   public SwitchButton uncheck(boolean silent) {
     toggleChecked(false, silent);
@@ -218,10 +284,10 @@ public class SwitchButton extends InputFormField<SwitchButton, HTMLInputElement,
   }
 
   /**
-   * Setter for the field <code>onTitle</code>.
+   * Sets the title for the "on" state of the SwitchButton.
    *
-   * @param onTitle String title for the ON switch state
-   * @return same SwitchButton instance
+   * @param onTitle the title to be set for the "on" state.
+   * @return the current instance of {@link SwitchButton}.
    */
   public SwitchButton setOnTitle(String onTitle) {
     if (nonNull(onTitle) && !onTitle.isEmpty()) {
@@ -234,10 +300,10 @@ public class SwitchButton extends InputFormField<SwitchButton, HTMLInputElement,
   }
 
   /**
-   * Setter for the field <code>offTitle</code>.
+   * Sets the title for the "off" state of the SwitchButton.
    *
-   * @param offTitle String title for the OFF switch state
-   * @return same SwitchButton instance
+   * @param offTitle the title to be set for the "off" state.
+   * @return the current instance of {@link SwitchButton}.
    */
   public SwitchButton setOffTitle(String offTitle) {
     if (nonNull(offTitle) && !offTitle.isEmpty()) {
@@ -249,67 +315,99 @@ public class SwitchButton extends InputFormField<SwitchButton, HTMLInputElement,
     return this;
   }
 
-  /** @return HTMLLabelElement */
   /**
-   * Getter for the field <code>offLabelElement</code>.
+   * Gets a lazy child representing the "off" label element of the SwitchButton.
    *
-   * @return a {@link org.dominokit.domino.ui.utils.LazyChild} object
+   * @return the LazyChild for the "off" label element.
    */
   public LazyChild<LabelElement> getOffLabelElement() {
     return offLabelElement;
   }
 
+  /**
+   * Checks if the "on" title is empty.
+   *
+   * @return true if the "on" title is null or empty, false otherwise.
+   */
   private boolean isOnTitleEmpty() {
     return isNull(onTitle) || onTitle.isEmpty();
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Creates an auto validator for the SwitchButton.
+   *
+   * @param autoValidate the ApplyFunction to be applied for auto-validation.
+   * @return an instance of {@link AutoValidator} for the SwitchButton.
+   */
   @Override
   public AutoValidator createAutoValidator(ApplyFunction autoValidate) {
     return new SwitchButtonAutoValidator(this, autoValidate);
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Gets the value of the SwitchButton as a Boolean.
+   *
+   * @return the Boolean value representing the checked state of the SwitchButton.
+   */
   @Override
   public Boolean getValue() {
     return isChecked();
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Checks if the SwitchButton is in a checked state.
+   *
+   * @return true if the SwitchButton is checked, false otherwise.
+   */
   @Override
   public boolean isChecked() {
     return getInputElement().element().checked;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Checks if the SwitchButton is empty (unchecked).
+   *
+   * @return true if the SwitchButton is empty, false otherwise.
+   */
   @Override
   public boolean isEmpty() {
     return !isChecked();
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Checks if the SwitchButton is empty, ignoring spaces.
+   *
+   * @return true if the SwitchButton is empty, false otherwise.
+   */
   @Override
   public boolean isEmptyIgnoreSpaces() {
     return isEmpty();
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Gets the value of the SwitchButton as a string.
+   *
+   * @return a string representation of the Boolean value.
+   */
   @Override
   public String getStringValue() {
     return Boolean.toString(getValue());
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Sets the value of the SwitchButton.
+   *
+   * @param value the desired value.
+   */
   @Override
   protected void doSetValue(Boolean value) {
     withPauseChangeListenersToggle(true, field -> getInputElement().element().checked = value);
   }
 
   /**
-   * The SwitchButton will stretch the left label pushing the switch and the right label to the
-   * right keeping the left label on the left
+   * Adds a CSS class to make the SwitchButton grow in size.
    *
-   * @return same SwitchButton instance
+   * @return the current instance of {@link SwitchButton}.
    */
   public SwitchButton grow() {
     addCss(BooleanCssClass.of(dui_switch_grow, true));
@@ -317,9 +415,9 @@ public class SwitchButton extends InputFormField<SwitchButton, HTMLInputElement,
   }
 
   /**
-   * reverse the effect if {@link #grow()}
+   * Removes the CSS class that makes the SwitchButton grow in size.
    *
-   * @return same SwitchButton instance
+   * @return the current instance of {@link SwitchButton}.
    */
   public SwitchButton ungrow() {
     addCss(BooleanCssClass.of(dui_switch_grow, false));
@@ -327,10 +425,11 @@ public class SwitchButton extends InputFormField<SwitchButton, HTMLInputElement,
   }
 
   /**
-   * switch between {@link #grow()} if true and {@link #ungrow()} if false
+   * Adds or removes the CSS class to make the SwitchButton grow in size based on the provided
+   * boolean.
    *
-   * @return same SwitchButton instance
-   * @param grow a boolean
+   * @param grow true to add the CSS class and make the SwitchButton grow, false to remove it.
+   * @return the current instance of {@link SwitchButton}.
    */
   public SwitchButton grow(boolean grow) {
     addCss(BooleanCssClass.of(dui_switch_grow, grow));
@@ -338,10 +437,9 @@ public class SwitchButton extends InputFormField<SwitchButton, HTMLInputElement,
   }
 
   /**
-   * Will force SwitchButton labels closer to the switch track , in case of {@link #grow()} the
-   * right label will be pushed to the right closer to the track
+   * Adds a CSS class to condense the labels of the SwitchButton.
    *
-   * @return same SwitchButton instance
+   * @return the current instance of {@link SwitchButton}.
    */
   public SwitchButton condenseLabels() {
     addCss(BooleanCssClass.of(dui_switch_condense, true));
@@ -349,9 +447,9 @@ public class SwitchButton extends InputFormField<SwitchButton, HTMLInputElement,
   }
 
   /**
-   * reverse the effect if {@link #condenseLabels()}
+   * Removes the CSS class that condenses the labels of the SwitchButton.
    *
-   * @return same SwitchButton instance
+   * @return the current instance of {@link SwitchButton}.
    */
   public SwitchButton uncondenseLabels() {
     addCss(BooleanCssClass.of(dui_switch_condense, false));
@@ -359,29 +457,40 @@ public class SwitchButton extends InputFormField<SwitchButton, HTMLInputElement,
   }
 
   /**
-   * switch between {@link #condenseLabels()} if true and {@link #uncondenseLabels()} if false
+   * Adds or removes the CSS class to condense the labels of the SwitchButton based on the provided
+   * boolean.
    *
-   * @return same SwitchButton instance
-   * @param grow a boolean
+   * @param grow true to add the CSS class and condense the labels, false to remove it.
+   * @return the current instance of {@link SwitchButton}.
    */
   public SwitchButton condenseLabels(boolean grow) {
     addCss(BooleanCssClass.of(dui_switch_condense, grow));
     return this;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Gets the name attribute of the SwitchButton's input element.
+   *
+   * @return the name attribute value.
+   */
   @Override
   public String getName() {
     return getInputElement().element().name;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Sets the name attribute of the SwitchButton's input element.
+   *
+   * @param name the name attribute to be set.
+   * @return the current instance of {@link SwitchButton}.
+   */
   @Override
   public SwitchButton setName(String name) {
     getInputElement().element().name = name;
     return this;
   }
 
+  /** A private inner class for implementing auto-validation for the SwitchButton. */
   private static class SwitchButtonAutoValidator extends AutoValidator {
 
     private SwitchButton switchButton;

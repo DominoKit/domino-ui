@@ -13,27 +13,33 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package org.dominokit.domino.ui.utils;
 
 import java.util.Arrays;
 import java.util.Map;
 import java.util.Optional;
 
-/** HasMeta interface. */
+/**
+ * The {@code HasMeta} interface defines methods for managing metadata associated with a component.
+ *
+ * @param <T> The type of the component that can have metadata.
+ */
 public interface HasMeta<T> {
 
   /**
-   * getMetaObjects.
+   * Gets a map of metadata objects associated with the component, where each metadata object is
+   * identified by a unique key.
    *
-   * @return a {@link java.util.Map} object
+   * @return A map of metadata objects associated with the component.
    */
   Map<String, ComponentMeta> getMetaObjects();
 
   /**
-   * applyMeta.
+   * Applies a single metadata object to the component.
    *
-   * @param meta a {@link org.dominokit.domino.ui.utils.ComponentMeta} object
-   * @return a T object
+   * @param meta The metadata object to apply.
+   * @return The component with the applied metadata object.
    */
   default T applyMeta(ComponentMeta meta) {
     getMetaObjects().put(meta.getKey(), meta);
@@ -41,10 +47,10 @@ public interface HasMeta<T> {
   }
 
   /**
-   * applyMeta.
+   * Applies multiple metadata objects to the component.
    *
-   * @param metas a {@link org.dominokit.domino.ui.utils.ComponentMeta} object
-   * @return a T object
+   * @param metas An array of metadata objects to apply.
+   * @return The component with the applied metadata objects.
    */
   default T applyMeta(ComponentMeta... metas) {
     Arrays.asList(metas).forEach(meta -> getMetaObjects().put(meta.getKey(), meta));
@@ -52,11 +58,12 @@ public interface HasMeta<T> {
   }
 
   /**
-   * getMeta.
+   * Gets a metadata object associated with the component by its unique key.
    *
-   * @param key a {@link java.lang.String} object
-   * @param <E> a E class
-   * @return a {@link java.util.Optional} object
+   * @param <E> The type of the metadata object.
+   * @param key The unique key of the metadata object to retrieve.
+   * @return An {@code Optional} containing the metadata object, or an empty {@code Optional} if not
+   *     found.
    */
   @SuppressWarnings("all")
   default <E extends ComponentMeta> Optional<E> getMeta(String key) {
@@ -64,10 +71,10 @@ public interface HasMeta<T> {
   }
 
   /**
-   * removeMeta.
+   * Removes a metadata object associated with the component by its unique key.
    *
-   * @param key a {@link java.lang.String} object
-   * @return a T object
+   * @param key The unique key of the metadata object to remove.
+   * @return The component with the specified metadata object removed.
    */
   default T removeMeta(String key) {
     getMetaObjects().remove(key);

@@ -15,66 +15,71 @@
  */
 package org.dominokit.domino.ui.keyboard;
 
-/** HasKeyboardEvents interface. */
+/**
+ * The {@code HasKeyboardEvents} interface provides methods for registering and handling keyboard
+ * events. Implementing classes should use this interface to manage keyboard event listeners.
+ *
+ * @param <T> The type of the implementing class.
+ */
 public interface HasKeyboardEvents<T> {
 
   /**
-   * onKeyDown.
+   * Registers an event listener to be called when a key is pressed down.
    *
-   * @param onKeyDown a {@link org.dominokit.domino.ui.keyboard.KeyEventsConsumer} object
-   * @return a T object
+   * @param onKeyDown The {@link KeyEventsConsumer} to call when a key is pressed down.
+   * @return The instance of type {@code T} for method chaining.
    */
   T onKeyDown(KeyEventsConsumer onKeyDown);
 
   /**
-   * stopOnKeyDown.
+   * Stops listening for key press down events.
    *
-   * @return a T object
+   * @return The instance of type {@code T} for method chaining.
    */
   T stopOnKeyDown();
 
   /**
-   * onKeyUp.
+   * Registers an event listener to be called when a key is released.
    *
-   * @param onKeyUp a {@link org.dominokit.domino.ui.keyboard.KeyEventsConsumer} object
-   * @return a T object
+   * @param onKeyUp The {@link KeyEventsConsumer} to call when a key is released.
+   * @return The instance of type {@code T} for method chaining.
    */
   T onKeyUp(KeyEventsConsumer onKeyUp);
 
   /**
-   * stopOnKeyUp.
+   * Stops listening for key release events.
    *
-   * @return a T object
+   * @return The instance of type {@code T} for method chaining.
    */
   T stopOnKeyUp();
 
   /**
-   * onKeyPress.
+   * Registers an event listener to be called when a key is pressed and held down.
    *
-   * @param onKeyPress a {@link org.dominokit.domino.ui.keyboard.KeyEventsConsumer} object
-   * @return a T object
+   * @param onKeyPress The {@link KeyEventsConsumer} to call when a key is pressed and held down.
+   * @return The instance of type {@code T} for method chaining.
    */
   T onKeyPress(KeyEventsConsumer onKeyPress);
 
   /**
-   * stopOnKeyPress.
+   * Stops listening for key press and hold events.
    *
-   * @return a T object
+   * @return The instance of type {@code T} for method chaining.
    */
   T stopOnKeyPress();
 
   /**
-   * getKeyboardEventsOptions.
+   * Gets the keyboard event options associated with this instance.
    *
-   * @return a {@link org.dominokit.domino.ui.keyboard.KeyboardEventOptions} object
+   * @return The {@link KeyboardEventOptions} associated with this instance.
    */
   KeyboardEventOptions getKeyboardEventsOptions();
 
   /**
-   * Sets the default {@link org.dominokit.domino.ui.keyboard.KeyboardEventOptions}
+   * Sets the default keyboard event options for this instance.
    *
-   * @param defaultOptions the default {@link org.dominokit.domino.ui.keyboard.KeyboardEventOptions}
-   * @return same instance
+   * @param defaultOptions The {@link KeyboardEventOptions} to set as default.
+   * @return The instance of type {@code T} for method chaining.
    */
   T setDefaultOptions(KeyboardEventOptions defaultOptions);
 }

@@ -37,8 +37,12 @@
     background-color: var(--dui-pager-page-link-active-background, var(--dui-accent));
 }
 
+.dui-page-link.dui-active:focus {
+    color: var(--dui-pager-active-focus-page-color);
+}
+
 .dui-page-link.dui-active:hover {
-    color: var(--dui-color-5);
+    color: var(--dui-pager-active-hover-page-color);
 }
 
 .dui-pager-item {

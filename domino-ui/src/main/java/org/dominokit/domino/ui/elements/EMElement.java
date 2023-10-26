@@ -17,22 +17,37 @@ package org.dominokit.domino.ui.elements;
 
 import elemental2.dom.HTMLElement;
 
-/** EMElement class. */
+/**
+ * Represents an <em> HTML element wrapper.
+ *
+ * <p>The <em> tag defines emphasized text. This class provides a convenient way to create,
+ * manipulate, and control the behavior of <em> elements, making it easier to use them in Java-based
+ * web applications. Example usage:
+ *
+ * <pre>
+ * HTMLElement htmlElement = ...;  // Obtain an <em> element from somewhere
+ * EMElement emElement = EMElement.of(htmlElement);
+ * </pre>
+ *
+ * @see <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/em">MDN Web Docs (em
+ *     element)</a>
+ */
 public class EMElement extends BaseElement<HTMLElement, EMElement> {
+
   /**
-   * of.
+   * Creates a new {@link EMElement} instance by wrapping the provided HTML <em> element.
    *
-   * @param e a {@link elemental2.dom.HTMLElement} object
-   * @return a {@link org.dominokit.domino.ui.elements.EMElement} object
+   * @param e The HTML <em> element.
+   * @return A new {@link EMElement} instance wrapping the provided element.
    */
   public static EMElement of(HTMLElement e) {
     return new EMElement(e);
   }
 
   /**
-   * Constructor for EMElement.
+   * Constructs a {@link EMElement} instance by wrapping the provided HTML <em> element.
    *
-   * @param element a {@link elemental2.dom.HTMLElement} object
+   * @param element The HTML <em> element to wrap.
    */
   public EMElement(HTMLElement element) {
     super(element);

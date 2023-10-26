@@ -13,6 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package org.dominokit.domino.ui.datatable.plugins.summary;
 
 import org.dominokit.domino.ui.datatable.DataTable;
@@ -23,39 +24,53 @@ import org.dominokit.domino.ui.layout.EmptyState;
 import org.dominokit.domino.ui.utils.ChildHandler;
 
 /**
- * This plugin attache a pre-defined {@link org.dominokit.domino.ui.layout.EmptyState} component
- * elements to the data table when the data table has no records, and remove it when there is
- * records
+ * The {@code EmptyStatePlugin} class is a plugin for a {@link DataTable} that displays an empty
+ * state message when the table has no data.
  *
- * @param <T> the type of the data table records
+ * <p>This plugin provides an empty state message with an icon and a title, and it automatically
+ * shows the empty state when the table has no data rows and hides it when there is data available
+ * in the table.
+ *
+ * <p>Usage example:
+ *
+ * <pre>
+ * DataTable<MyData> dataTable = DataTable.create();
+ * dataTable.addPlugin(EmptyStatePlugin.create(Icons.warning(), "No Data Available"));
+ * </pre>
+ *
+ * @param <T> The type of data in the DataTable.
+ * @see DataTable
+ * @see EmptyState
+ * @see Icon
+ * @see TableDataUpdatedEvent
  */
 public class EmptyStatePlugin<T> implements DataTablePlugin<T> {
 
   private EmptyState emptyState;
 
   /**
-   * create.
+   * Creates and returns a new instance of {@code EmptyStatePlugin} with the provided icon and
+   * title.
    *
-   * @param icon a {@link org.dominokit.domino.ui.icons.Icon} object
-   * @param title a {@link java.lang.String} object
-   * @param <T> a T class
-   * @return a {@link org.dominokit.domino.ui.datatable.plugins.summary.EmptyStatePlugin} object
+   * @param <T> The type of data in the DataTable.
+   * @param emptyStateIcon The icon to display in the empty state.
+   * @param title The title to display in the empty state.
+   * @return A new {@code EmptyStatePlugin} instance.
    */
-  public static <T> EmptyStatePlugin<T> create(Icon<?> icon, String title) {
-    return new EmptyStatePlugin<>(icon, title);
+  public static <T> EmptyStatePlugin<T> create(Icon<?> emptyStateIcon, String title) {
+    return new EmptyStatePlugin<>(emptyStateIcon, title);
   }
 
   /**
-   * Create an instance with custom icon and title
+   * Creates a new instance of {@code EmptyStatePlugin} with the provided icon and title.
    *
-   * @param emptyStateIcon the {@link org.dominokit.domino.ui.icons.Icon} of the empty state
-   * @param title String, the title of the empty state
+   * @param emptyStateIcon The icon to display in the empty state.
+   * @param title The title to display in the empty state.
    */
   public EmptyStatePlugin(Icon<?> emptyStateIcon, String title) {
     emptyState = EmptyState.create(emptyStateIcon).setTitle(title).addCss(dui_accent_grey);
   }
 
-  /** {@inheritDoc} */
   @Override
   public void onAfterAddTable(DataTable dataTable) {
     dataTable.addTableEventListener(
@@ -71,21 +86,20 @@ public class EmptyStatePlugin<T> implements DataTablePlugin<T> {
     dataTable.element().appendChild(emptyState.element());
   }
 
-  /** @return the {@link EmptyState} component instance of this plugin */
   /**
-   * Getter for the field <code>emptyState</code>.
+   * Gets the empty state element.
    *
-   * @return a {@link org.dominokit.domino.ui.layout.EmptyState} object
+   * @return The empty state element.
    */
   public EmptyState getEmptyState() {
     return emptyState;
   }
 
   /**
-   * withEmptyState.
+   * Allows customizing the empty state using a handler.
    *
-   * @param handler a {@link org.dominokit.domino.ui.utils.ChildHandler} object
-   * @return a {@link org.dominokit.domino.ui.datatable.plugins.summary.EmptyStatePlugin} object
+   * @param handler The handler to customize the empty state.
+   * @return This {@code EmptyStatePlugin} instance for method chaining.
    */
   public EmptyStatePlugin<T> withEmptyState(ChildHandler<EmptyStatePlugin<T>, EmptyState> handler) {
     handler.apply(this, emptyState);

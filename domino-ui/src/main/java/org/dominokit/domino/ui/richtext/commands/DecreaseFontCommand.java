@@ -23,15 +23,44 @@ import org.dominokit.domino.ui.richtext.RichTextCommand;
 import org.dominokit.domino.ui.utils.Counter;
 import org.dominokit.domino.ui.utils.DominoDom;
 
+/**
+ * Represents a UI component for decreasing the font size of the selected text within a rich text
+ * editor.
+ *
+ * <p>The DecreaseFontCommand extends {@link RichTextCommand} and provides a mechanism to decrease
+ * the font size of the selected text within a rich text editable div element. It utilizes a {@link
+ * Counter} to keep track of the current font size and decrease it upon command execution.
+ *
+ * <p><b>Usage Example:</b>
+ *
+ * <pre>{@code
+ * DivElement editableDiv = DivElement.create();
+ * Counter fontSizeCounter = Counter.create(3);
+ * DecreaseFontCommand decreaseFontCommand = DecreaseFontCommand.create(editableDiv, fontSizeCounter);
+ * }</pre>
+ */
 public class DecreaseFontCommand extends RichTextCommand<DecreaseFontCommand> {
 
   private final Counter fontSize;
   private Button button;
 
+  /**
+   * Factory method to create a new instance of DecreaseFontCommand.
+   *
+   * @param editableElement The div element where the rich text is edited.
+   * @param fontSize The counter to keep track of the font size.
+   * @return A new instance of DecreaseFontCommand.
+   */
   public static DecreaseFontCommand create(DivElement editableElement, Counter fontSize) {
     return new DecreaseFontCommand(editableElement, fontSize);
   }
 
+  /**
+   * Constructs a new DecreaseFontCommand instance for the specified editable element.
+   *
+   * @param editableElement The div element where the rich text is edited.
+   * @param fontSize The counter to keep track of the font size.
+   */
   public DecreaseFontCommand(DivElement editableElement, Counter fontSize) {
     super(editableElement);
     this.fontSize = fontSize;
@@ -42,11 +71,21 @@ public class DecreaseFontCommand extends RichTextCommand<DecreaseFontCommand> {
     init(this);
   }
 
+  /**
+   * @dominokit-site-ignore {@inheritDoc}
+   *     <p>Returns the main HTMLElement of this command, which is the button for decreasing the
+   *     font size.
+   * @return The HTMLElement of the decrease font size button.
+   */
   @Override
   public HTMLElement element() {
     return button.element();
   }
 
+  /**
+   * Executes the command, decreasing the font size of the currently selected text within the
+   * editable div element.
+   */
   @Override
   protected void execute() {
     getSelectedRange()

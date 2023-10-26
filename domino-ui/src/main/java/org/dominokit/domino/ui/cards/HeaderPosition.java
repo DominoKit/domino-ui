@@ -15,8 +15,10 @@
  */
 package org.dominokit.domino.ui.cards;
 
-/** HeaderPosition class. */
+/** An enum representing the card header position */
 public enum HeaderPosition {
+  /** Places the card header at the top above the body */
   TOP,
+  /** Places the card header at the bottom below the body */
   BOTTOM;
 }

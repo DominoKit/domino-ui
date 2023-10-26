@@ -27,16 +27,42 @@ import org.dominokit.domino.ui.menu.direction.DropDirection;
 import org.dominokit.domino.ui.richtext.RichTextCommand;
 import org.dominokit.domino.ui.utils.DominoDom;
 
+/**
+ * Represents a UI component for setting the heading style of the selected text within a rich text
+ * editor.
+ *
+ * <p>The HeadingCommand extends {@link RichTextCommand} and provides a mechanism to format the
+ * selected text within a rich text editable div element as a specific heading. It presents the user
+ * with a dropdown menu from which they can select a desired heading style (from H1 to H6).
+ *
+ * <p><b>Usage Example:</b>
+ *
+ * <pre>{@code
+ * DivElement editableDiv = DivElement.create();
+ * HeadingCommand headingCommand = HeadingCommand.create(editableDiv);
+ * }</pre>
+ */
 public class HeadingCommand extends RichTextCommand<HeadingCommand> {
 
   private Button mainButton;
   private String heading = "<h1>";
   private ButtonsGroup button;
 
+  /**
+   * Factory method to create a new instance of HeadingCommand.
+   *
+   * @param editableElement The div element where the rich text is edited.
+   * @return A new instance of HeadingCommand.
+   */
   public static HeadingCommand create(DivElement editableElement) {
     return new HeadingCommand(editableElement);
   }
 
+  /**
+   * Constructs a new HeadingCommand instance for the specified editable element.
+   *
+   * @param editableElement The div element where the rich text is edited.
+   */
   public HeadingCommand(DivElement editableElement) {
     super(editableElement);
     this.button =
@@ -100,11 +126,20 @@ public class HeadingCommand extends RichTextCommand<HeadingCommand> {
     init(this);
   }
 
+  /**
+   * @dominokit-site-ignore {@inheritDoc}
+   *     <p>Returns the main HTMLElement of this command, which is the heading button group.
+   * @return The HTMLElement of the heading button group.
+   */
   @Override
   public HTMLElement element() {
     return button.element();
   }
 
+  /**
+   * Executes the command, setting the heading style for the currently selected text within the
+   * editable div element.
+   */
   @Override
   protected void execute() {
     getSelectedRange()

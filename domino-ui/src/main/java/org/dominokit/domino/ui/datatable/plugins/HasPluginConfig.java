@@ -13,33 +13,42 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package org.dominokit.domino.ui.datatable.plugins;
 
 import java.util.function.Consumer;
 
-/** HasPluginConfig interface. */
+/**
+ * The {@code HasPluginConfig} interface is implemented by classes that allow configuring a
+ * DataTablePlugin with a specific configuration. It provides methods to set, get, and configure the
+ * plugin's configuration.
+ *
+ * @param <R> The type of data table records.
+ * @param <T> The type of DataTablePlugin to configure.
+ * @param <C> The type of configuration for the DataTablePlugin.
+ */
 public interface HasPluginConfig<R, T extends DataTablePlugin<R>, C extends PluginConfig> {
 
   /**
-   * setConfig.
+   * Sets the configuration for the DataTablePlugin.
    *
-   * @param config a C object
-   * @return a T object
+   * @param config The configuration to set.
+   * @return The DataTablePlugin with the updated configuration.
    */
   T setConfig(C config);
 
   /**
-   * getConfig.
+   * Gets the configuration for the DataTablePlugin.
    *
-   * @return a C object
+   * @return The configuration for the DataTablePlugin.
    */
   C getConfig();
 
   /**
-   * Use to update the configuration in the current plugin configuration
+   * Configures the DataTablePlugin using the provided handler.
    *
-   * @param handler {@link java.util.function.Consumer} of {@link C}
-   * @return same plugin instance.
+   * @param handler The consumer function to configure the DataTablePlugin's configuration.
+   * @return The DataTablePlugin with the updated configuration.
    */
   default T configure(Consumer<C> handler) {
     handler.accept(getConfig());

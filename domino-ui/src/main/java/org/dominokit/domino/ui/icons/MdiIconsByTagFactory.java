@@ -18,12 +18,27 @@ package org.dominokit.domino.ui.icons;
 import java.util.List;
 import java.util.function.Supplier;
 
-/** MdiIconsByTagFactory interface. */
+/**
+ * An interface for a factory that provides Material Design Icons (MDI) icons based on tags. This
+ * factory allows you to obtain a list of suppliers, each of which can provide an instance of an MDI
+ * icon.
+ *
+ * <p>Usage Example:
+ *
+ * <pre>
+ * MdiIconsByTagFactory factory = MyMdiIconsFactory.getInstance();
+ * List<Supplier<MdiIcon>> iconSuppliers = factory.icons();
+ * </pre>
+ *
+ * In the above example, you can obtain a list of MDI icon suppliers using the factory.
+ */
 public interface MdiIconsByTagFactory {
+
   /**
-   * icons.
+   * Returns a list of suppliers, each of which can provide an instance of an MDI icon based on a
+   * tag.
    *
-   * @return a {@link java.util.List} object
+   * @return A list of {@link Supplier} objects, each supplying an {@link MdiIcon} instance.
    */
   List<Supplier<MdiIcon>> icons();
 }

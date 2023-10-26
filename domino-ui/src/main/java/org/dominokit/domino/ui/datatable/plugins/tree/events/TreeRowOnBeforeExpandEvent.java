@@ -13,45 +13,49 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package org.dominokit.domino.ui.datatable.plugins.tree.events;
 
 import org.dominokit.domino.ui.datatable.TableRow;
 import org.dominokit.domino.ui.datatable.events.TableEvent;
 
 /**
- * This event will be fired by the {@link
- * org.dominokit.domino.ui.datatable.plugins.row.RecordDetailsPlugin} when a record is expanded
+ * An event that represents the occurrence of a row expanding before it actually expands. This event
+ * is triggered when a tree row is about to be expanded.
  *
- * @param <T> the type of the record.
+ * @param <T> The type of data in the DataTable.
  */
 public class TreeRowOnBeforeExpandEvent<T> implements TableEvent {
 
-  /** A constant string to define a unique type for this event */
+  /** The type of this event, which is {@code TREE_ROW_ON_BEFORE_EXPAND_EVENT}. */
   public static final String TREE_ROW_ON_BEFORE_EXPAND_EVENT = "tree-row-on-before-expand-event";
 
+  /** The table row associated with this event. */
   private final TableRow<T> tableRow;
 
-  /** @param tableRow the {@link TableRow} being expanded */
   /**
-   * Constructor for TreeRowExpandedEvent.
+   * Creates a new {@code TreeRowOnBeforeExpandEvent} with the given table row.
    *
-   * @param tableRow a {@link TableRow} object
+   * @param tableRow The table row associated with this event.
    */
   public TreeRowOnBeforeExpandEvent(TableRow<T> tableRow) {
     this.tableRow = tableRow;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Gets the type of this event, which is {@code TREE_ROW_ON_BEFORE_EXPAND_EVENT}.
+   *
+   * @return The type of this event.
+   */
   @Override
   public String getType() {
     return TREE_ROW_ON_BEFORE_EXPAND_EVENT;
   }
 
-  /** @return the {@link TableRow} being expanded */
   /**
-   * Getter for the field <code>tableRow</code>.
+   * Gets the table row associated with this event.
    *
-   * @return a {@link TableRow} object
+   * @return The table row associated with this event.
    */
   public TableRow<T> getTableRow() {
     return tableRow;

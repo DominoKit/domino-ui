@@ -37,12 +37,12 @@ import org.dominokit.domino.ui.utils.DominoElement;
 import org.dominokit.domino.ui.utils.LazyChild;
 
 /**
- * A component for an element for {@link org.dominokit.domino.ui.carousel.Carousel}
+ * A slide component used with {@link org.dominokit.domino.ui.carousel.Carousel}
  *
- * <p>Images can be added to the component with the ability to add label and description
+ * <p>The component provide the means to create an image slide with different types of image
+ * elements or components
  *
  * @see BaseDominoElement
- * @see Carousel
  */
 public class Slide extends BaseDominoElement<HTMLDivElement, Slide> {
 
@@ -67,54 +67,57 @@ public class Slide extends BaseDominoElement<HTMLDivElement, Slide> {
   }
 
   /**
-   * Constructor for Slide.
+   * Creates an image slide from the provided image url
    *
-   * @param imageSrc a {@link java.lang.String} object
+   * @param imageSrc The string image source that will be used as the value for the img tag src
+   *     attribute.
    */
   public Slide(String imageSrc) {
     this(elements.img(imageSrc).element());
   }
 
   /**
-   * Constructor for Slide.
+   * Creates an image slide from the provided image element
    *
-   * @param image a {@link elemental2.dom.HTMLImageElement} object
+   * @param image The {@link elemental2.dom.HTMLImageElement} element to be used for the slide
    */
   public Slide(HTMLImageElement image) {
     this((HTMLElement) image);
   }
 
   /**
-   * Constructor for Slide.
+   * Creates an image slide from the provided picture element
    *
-   * @param pictureElement a {@link elemental2.dom.HTMLPictureElement} object
+   * @param pictureElement The {@link elemental2.dom.HTMLPictureElement} element to be used for the
+   *     slide.
    */
   public Slide(HTMLPictureElement pictureElement) {
     this((HTMLElement) pictureElement);
   }
 
   /**
-   * Constructor for Slide.
+   * Creates an image slide from the provided image component
    *
-   * @param image a {@link org.dominokit.domino.ui.elements.ImageElement} object
+   * @param image The {@link ImageElement} element to be used for the slide.
    */
   public Slide(ImageElement image) {
     this(image.element());
   }
 
   /**
-   * Constructor for Slide.
+   * Creates an image slide from the provided picture component
    *
-   * @param pictureElement a {@link org.dominokit.domino.ui.elements.PictureElement} object
+   * @param pictureElement The {@link PictureElement} element to be used for the slide.
    */
   public Slide(PictureElement pictureElement) {
     this(pictureElement.element());
   }
 
   /**
-   * Creates new slide with image source
+   * Factory method to create an image slide from the provided image url
    *
-   * @param imageSrc the url for the image
+   * @param imageSrc The string image source that will be used as the value for the img tag src
+   *     attribute.
    * @return new instance
    */
   public static Slide create(String imageSrc) {
@@ -122,9 +125,9 @@ public class Slide extends BaseDominoElement<HTMLDivElement, Slide> {
   }
 
   /**
-   * Creates new slide with {@link elemental2.dom.HTMLImageElement}
+   * Factory method to create an image slide from the provided image element
    *
-   * @param image the {@link elemental2.dom.HTMLImageElement}
+   * @param image The {@link elemental2.dom.HTMLImageElement} element to be used for the slide
    * @return new instance
    */
   public static Slide create(HTMLImageElement image) {
@@ -132,9 +135,10 @@ public class Slide extends BaseDominoElement<HTMLDivElement, Slide> {
   }
 
   /**
-   * Creates new slide with {@link elemental2.dom.HTMLPictureElement}
+   * Factory method to create an image slide from the provided picture element
    *
-   * @param pictureElement the {@link elemental2.dom.HTMLPictureElement}
+   * @param pictureElement The {@link elemental2.dom.HTMLPictureElement} element to be used for the
+   *     slide.
    * @return new instance
    */
   public static Slide create(HTMLPictureElement pictureElement) {
@@ -142,9 +146,9 @@ public class Slide extends BaseDominoElement<HTMLDivElement, Slide> {
   }
 
   /**
-   * Creates new slide with {@link org.dominokit.domino.ui.elements.ImageElement}
+   * Factory method to create an image slide from the provided image component
    *
-   * @param image the {@link org.dominokit.domino.ui.elements.ImageElement}
+   * @param image The {@link ImageElement} element to be used for the slide.
    * @return new instance
    */
   public static Slide create(ImageElement image) {
@@ -152,16 +156,16 @@ public class Slide extends BaseDominoElement<HTMLDivElement, Slide> {
   }
 
   /**
-   * Creates new slide with {@link org.dominokit.domino.ui.elements.PictureElement}
+   * Factory method to create an image slide from the provided picture component
    *
-   * @param pictureElement the {@link org.dominokit.domino.ui.elements.PictureElement}
+   * @param pictureElement The {@link PictureElement} element to be used for the slide.
    * @return new instance
    */
   public static Slide create(PictureElement pictureElement) {
     return new Slide(pictureElement);
   }
 
-  /** {@inheritDoc} */
+  /** @dominokit-site-ignore {@inheritDoc} */
   @Override
   public HTMLDivElement element() {
     return slideElement.element();
@@ -169,54 +173,54 @@ public class Slide extends BaseDominoElement<HTMLDivElement, Slide> {
 
   /**
    * Activates this slide. This will add {@link org.dominokit.domino.ui.style.GenericCss#dui_active}
-   * style to the slide
+   * style to the slide This method is a shortcut for <b>setActive(true)</b>
    *
-   * @return same instance
+   * @return same slide instance
    */
   public Slide activate() {
     setActive(true);
     return this;
   }
 
+  /**
+   * Deactivate this slide. This will remove {@link
+   * org.dominokit.domino.ui.style.GenericCss#dui_active} style from the slide This method is a
+   * shortcut for <b>setActive(false)</b>
+   */
   void deActivate() {
     setActive(false);
   }
 
   /**
-   * Sets the slide to active without changing the styles
+   * Change the style active state
    *
-   * @param active a boolean that indicates this slide is active
+   * @param active a boolean, <b>true</b> to make the slide active, <b>false</b> make the slide
+   *     inactive.
    */
   public void setActive(boolean active) {
     indicatorElement.addCss(BooleanCssClass.of(dui_active, active));
     addCss(BooleanCssClass.of(dui_active, active));
   }
 
-  /** @return True if this slide is active, false otherwise */
   /**
-   * isActive.
+   * Use to check if the slide is currently active or not.
    *
-   * @return a boolean
+   * @return a boolean, <b>true</b> if the slide is active, <b>false</b> if the slide is not active.
    */
   public boolean isActive() {
     return dui_active.isAppliedTo(element());
   }
 
-  /** @return The indicator element */
-  /**
-   * Getter for the field <code>indicatorElement</code>.
-   *
-   * @return a {@link org.dominokit.domino.ui.utils.DominoElement} object
-   */
+  /** @return This slide indicator element attached to the carousel slides indicators. */
   public DominoElement<HTMLLIElement> getIndicatorElement() {
     return elementOf(indicatorElement);
   }
 
   /**
-   * setLabel.
+   * Sets the slide title
    *
-   * @param text a {@link java.lang.String} object
-   * @return a {@link org.dominokit.domino.ui.carousel.Slide} object
+   * @param text the slide title text.
+   * @return same slide instance
    */
   public Slide setLabel(String text) {
     slideLabelElement.get().textContent(text);
@@ -224,53 +228,47 @@ public class Slide extends BaseDominoElement<HTMLDivElement, Slide> {
   }
 
   /**
-   * setDescription.
+   * sets the slide description text
    *
-   * @param text a {@link java.lang.String} object
-   * @return a {@link org.dominokit.domino.ui.carousel.Slide} object
+   * @param text slide description text
+   * @return same slide instance
    */
   public Slide setDescription(String text) {
     slideDescriptionElement.get().textContent(text);
     return this;
   }
 
-  /** @return The slide label element */
-  /**
-   * Getter for the field <code>slideLabelElement</code>.
-   *
-   * @return a {@link org.dominokit.domino.ui.elements.HeadingElement} object
-   */
+  /** @return The {@link org.dominokit.domino.ui.elements.HeadingElement} of the slide title. */
   public HeadingElement getSlideLabelElement() {
     return slideLabelElement.get();
   }
 
-  /** @return The slide label element */
   /**
-   * withSlideLabelElement.
+   * Use to apply customizations to the slide title element without breaking the fluent API chain.
    *
-   * @param handler a {@link org.dominokit.domino.ui.utils.ChildHandler} object
-   * @return a {@link org.dominokit.domino.ui.carousel.Slide} object
+   * @param handler The {@link org.dominokit.domino.ui.utils.ChildHandler} applying the
+   *     customizations
+   * @return same carousel instance
    */
   public Slide withSlideLabelElement(ChildHandler<Slide, HeadingElement> handler) {
     handler.apply(this, slideLabelElement.get());
     return this;
   }
 
-  /** @return The slide description element */
   /**
-   * Getter for the field <code>slideDescriptionElement</code>.
-   *
-   * @return a {@link org.dominokit.domino.ui.elements.ParagraphElement} object
+   * @return The {@link org.dominokit.domino.ui.elements.ParagraphElement} of the slide description.
    */
   public ParagraphElement getSlideDescriptionElement() {
     return slideDescriptionElement.get();
   }
 
   /**
-   * withSlideDescriptionElement.
+   * Use to apply customizations to the slide description element without breaking the fluent API
+   * chain.
    *
-   * @param handler a {@link org.dominokit.domino.ui.utils.ChildHandler} object
-   * @return a {@link org.dominokit.domino.ui.carousel.Slide} object
+   * @param handler The {@link org.dominokit.domino.ui.utils.ChildHandler} applying the
+   *     customizations
+   * @return same carousel instance
    */
   public Slide withSlideDescriptionElement(ChildHandler<Slide, ParagraphElement> handler) {
     handler.apply(this, slideDescriptionElement.get());
@@ -278,32 +276,27 @@ public class Slide extends BaseDominoElement<HTMLDivElement, Slide> {
   }
 
   /**
-   * withSlideCaptionElement.
+   * Use to apply customizations to the slide caption element which holds the title and description
+   * without breaking the fluent API chain.
    *
-   * @param handler a {@link org.dominokit.domino.ui.utils.ChildHandler} object
-   * @return a {@link org.dominokit.domino.ui.carousel.Slide} object
+   * @param handler The {@link org.dominokit.domino.ui.utils.ChildHandler} applying the
+   *     customizations
+   * @return same carousel instance
    */
   public Slide withSlideCaptionElement(ChildHandler<Slide, DivElement> handler) {
     handler.apply(this, captionElement.get());
     return this;
   }
 
-  /** @return The slide caption element */
   /**
-   * Getter for the field <code>captionElement</code>.
-   *
-   * @return a {@link org.dominokit.domino.ui.elements.DivElement} object
+   * @return The {@link org.dominokit.domino.ui.elements.DivElement} that holds the title and
+   *     description elements
    */
   public DivElement getCaptionElement() {
     return captionElement.get();
   }
 
-  /** @return The image element */
-  /**
-   * Getter for the field <code>imageElement</code>.
-   *
-   * @return a {@link org.dominokit.domino.ui.utils.DominoElement} object
-   */
+  /** @return The element of the image of this slide. */
   public DominoElement<HTMLElement> getImageElement() {
     return elementOf(imageElement);
   }

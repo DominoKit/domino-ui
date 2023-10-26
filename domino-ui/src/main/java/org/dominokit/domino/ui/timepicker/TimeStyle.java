@@ -15,8 +15,11 @@
  */
 package org.dominokit.domino.ui.timepicker;
 
-/** TimeStyle class. */
+/** An enum representing different time styles. */
 public enum TimeStyle {
+  /** 12-hour time style (e.g., 1:00 PM). */
   _12,
+
+  /** 24-hour time style (e.g., 13:00). */
   _24;
 }

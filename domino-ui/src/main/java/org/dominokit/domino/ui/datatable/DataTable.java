@@ -31,20 +31,25 @@ import org.dominokit.domino.ui.style.BooleanCssClass;
 import org.dominokit.domino.ui.utils.*;
 
 /**
- * The data table component
+ * Represents a flexible and feature-rich data table for displaying and interacting with data. The
+ * DataTable provides features like column configurations, event listeners, row selection, row
+ * filtering, etc. for working with both tabular data and hierarchical data structures.
  *
- * @param <T> the type of the data table records
+ * @param <T> the type of data to be displayed in the table
+ * @see BaseDominoElement
  */
 public class DataTable<T> extends BaseDominoElement<HTMLDivElement, DataTable<T>>
     implements HasSelectionSupport<TableRow<T>>,
         HasSelectionListeners<DataTable<T>, TableRow<T>, List<TableRow<T>>>,
         DataTableStyles {
 
-  /** Use this constant to register a table event listener that listen to all events */
+  /** Constant used for wildcard event listeners. */
   public static final String ANY = "*";
-  /** Use this constant as flag value to check if a row in the data tables have been filtered out */
+
+  /** CSS class to indicate that a data table row is filtered. */
   public static final String DATA_TABLE_ROW_FILTERED = "data-table-row-filtered";
 
+  /** Prefix used for parent selector CSS. */
   private static final String PARENT_SELECTOR_PREFIX = "dui-dt-";
 
   private final DataStore<T> dataStore;
@@ -81,10 +86,10 @@ public class DataTable<T> extends BaseDominoElement<HTMLDivElement, DataTable<T>
       deselectionListeners = new HashSet<>();
 
   /**
-   * Creates a new data table instance
+   * Constructs a DataTable with the provided table configuration and data store.
    *
-   * @param tableConfig the {@link org.dominokit.domino.ui.datatable.TableConfig}
-   * @param dataStore the {@link org.dominokit.domino.ui.datatable.store.DataStore}
+   * @param tableConfig Configuration details of the table.
+   * @param dataStore Data storage handler to fetch and manipulate data for the table.
    */
   public DataTable(TableConfig<T> tableConfig, DataStore<T> dataStore) {
     tableElement = table().addCss(dui_datatable, dui_datatable_width_full);
@@ -138,6 +143,7 @@ public class DataTable<T> extends BaseDominoElement<HTMLDivElement, DataTable<T>
     addCss(dui_datatable_hover, dui_datatable_striped);
   }
 
+  /** Initializes dynamic style sheet configurations for the table columns. */
   private void initDynamicStyleSheet() {
     this.dynamicStyleSheet = new DynamicStyleSheet<>(PARENT_SELECTOR_PREFIX, this);
     tableConfig
@@ -157,14 +163,19 @@ public class DataTable<T> extends BaseDominoElement<HTMLDivElement, DataTable<T>
   }
 
   /**
-   * Getter for the field <code>dataStore</code>.
+   * Returns the data store associated with this data table.
    *
-   * @return a {@link org.dominokit.domino.ui.datatable.store.DataStore} object
+   * @return the associated DataStore instance.
    */
   public DataStore<T> getDataStore() {
     return dataStore;
   }
 
+  /**
+   * Initializes and sets up the data table UI components, plugins, and listeners.
+   *
+   * @return the initialized DataTable instance.
+   */
   private DataTable<T> init() {
     tableConfig
         .getPlugins()
@@ -208,9 +219,9 @@ public class DataTable<T> extends BaseDominoElement<HTMLDivElement, DataTable<T>
   }
 
   /**
-   * redraw.
+   * Redraws the data table by updating the headers and reloading the data.
    *
-   * @return a {@link org.dominokit.domino.ui.datatable.DataTable} object
+   * @return the current DataTable instance
    */
   public DataTable<T> redraw() {
     tableConfig.onBeforeHeaders(this);
@@ -221,9 +232,9 @@ public class DataTable<T> extends BaseDominoElement<HTMLDivElement, DataTable<T>
   }
 
   /**
-   * Force loading the data into the table
+   * Loads the data into the data table.
    *
-   * @return Same datatable instance
+   * @return the current DataTable instance
    */
   public DataTable<T> load() {
     this.dataStore.load();
@@ -231,10 +242,10 @@ public class DataTable<T> extends BaseDominoElement<HTMLDivElement, DataTable<T>
   }
 
   /**
-   * Set the table data
+   * Sets the provided data to the data table.
    *
-   * @param data {@link java.util.List} of T
-   * @return Same datatable instance
+   * @param data the list of data to be set
+   * @return the current DataTable instance
    */
   public DataTable<T> setData(List<T> data) {
     this.data = data;
@@ -247,10 +258,10 @@ public class DataTable<T> extends BaseDominoElement<HTMLDivElement, DataTable<T>
   }
 
   /**
-   * Appends more records to the current data list of the table
+   * Appends the provided data to the existing data in the table.
    *
-   * @param newData {@link java.util.List} of T
-   * @return Same datatable instance
+   * @param newData the new data to be appended
+   * @return the current DataTable instance
    */
   public DataTable<T> appendData(List<T> newData) {
     if (nonNull(this.data)) {
@@ -262,6 +273,12 @@ public class DataTable<T> extends BaseDominoElement<HTMLDivElement, DataTable<T>
     return this;
   }
 
+  /**
+   * Adds rows to the data table based on the provided data and starting index.
+   *
+   * @param data the list of data to be added as rows
+   * @param initialIndex the starting index for the new rows
+   */
   private void addRows(List<T> data, int initialIndex) {
     tableConfig.getColumns().forEach(ColumnConfig::clearShowHideListeners);
 
@@ -276,21 +293,20 @@ public class DataTable<T> extends BaseDominoElement<HTMLDivElement, DataTable<T>
     tableConfig.getPlugins().forEach(plugin -> plugin.onAllRowsAdded(DataTable.this));
   }
 
-  /** @return the {@link Collection} of T that is the current data in the table */
   /**
-   * Getter for the field <code>data</code>.
+   * Returns the current data present in the table.
    *
-   * @return a {@link java.util.Collection} object
+   * @return the collection of data in the table
    */
   public Collection<T> getData() {
     return data;
   }
 
   /**
-   * setCondensed.
+   * Sets the condensed style for the data table.
    *
-   * @param condensed a boolean
-   * @return a {@link org.dominokit.domino.ui.datatable.DataTable} object
+   * @param condensed a boolean indicating whether to enable the condensed style
+   * @return the current DataTable instance
    */
   public DataTable<T> setCondensed(boolean condensed) {
     this.addCss(BooleanCssClass.of(dui_datatable_condensed, condensed));
@@ -298,19 +314,19 @@ public class DataTable<T> extends BaseDominoElement<HTMLDivElement, DataTable<T>
   }
 
   /**
-   * isCondensed.
+   * Checks if the data table has a condensed style.
    *
-   * @return a boolean
+   * @return a boolean indicating if the table is condensed
    */
   public boolean isCondensed() {
     return dui_datatable_condensed.isAppliedTo(this);
   }
 
   /**
-   * setHover.
+   * Enables or disables the hover effect for the data table rows.
    *
-   * @param hover a boolean
-   * @return a {@link org.dominokit.domino.ui.datatable.DataTable} object
+   * @param hover a boolean indicating whether to enable the hover effect
+   * @return the current DataTable instance
    */
   public DataTable<T> setHover(boolean hover) {
     this.addCss(BooleanCssClass.of(dui_datatable_hover, hover));
@@ -318,19 +334,19 @@ public class DataTable<T> extends BaseDominoElement<HTMLDivElement, DataTable<T>
   }
 
   /**
-   * isHover.
+   * Checks if the hover effect is enabled for the data table rows.
    *
-   * @return a boolean
+   * @return a boolean indicating if the hover effect is enabled
    */
   public boolean isHover() {
     return dui_datatable_hover.isAppliedTo(this);
   }
 
   /**
-   * setBordered.
+   * Sets the bordered style for the data table.
    *
-   * @param bordered a boolean
-   * @return a {@link org.dominokit.domino.ui.datatable.DataTable} object
+   * @param bordered a boolean indicating whether to enable the bordered style
+   * @return the current DataTable instance
    */
   public DataTable<T> setBordered(boolean bordered) {
     this.addCss(BooleanCssClass.of(dui_datatable_bordered, bordered));
@@ -338,19 +354,19 @@ public class DataTable<T> extends BaseDominoElement<HTMLDivElement, DataTable<T>
   }
 
   /**
-   * isBordered.
+   * Checks if the data table has a bordered style.
    *
-   * @return a boolean
+   * @return a boolean indicating if the table is bordered
    */
   public boolean isBordered() {
     return dui_datatable_bordered.isAppliedTo(this);
   }
 
   /**
-   * setStriped.
+   * Sets the striped style for the data table rows.
    *
-   * @param striped a boolean
-   * @return a {@link org.dominokit.domino.ui.datatable.DataTable} object
+   * @param striped a boolean indicating whether to enable the striped style
+   * @return the current DataTable instance
    */
   public DataTable<T> setStriped(boolean striped) {
     this.addCss(BooleanCssClass.of(dui_datatable_striped, striped));
@@ -358,18 +374,18 @@ public class DataTable<T> extends BaseDominoElement<HTMLDivElement, DataTable<T>
   }
 
   /**
-   * isStriped.
+   * Checks if the striped style is enabled for the data table rows.
    *
-   * @return a boolean
+   * @return a boolean indicating if the striped style is enabled
    */
   public boolean isStriped() {
     return dui_datatable_striped.isAppliedTo(this);
   }
 
   /**
-   * Render all table rows in editable mode
+   * Initiates the edit mode for all rows in the data table.
    *
-   * @return same DataTable instance
+   * @return the current DataTable instance
    */
   public DataTable<T> edit() {
     getRows().forEach(TableRow::edit);
@@ -377,9 +393,9 @@ public class DataTable<T> extends BaseDominoElement<HTMLDivElement, DataTable<T>
   }
 
   /**
-   * Saves all editable table rows changes
+   * Saves any edits made to all rows in the data table.
    *
-   * @return same DataTable instance
+   * @return the current DataTable instance
    */
   public DataTable<T> save() {
     getRows().forEach(TableRow::save);
@@ -387,70 +403,69 @@ public class DataTable<T> extends BaseDominoElement<HTMLDivElement, DataTable<T>
   }
 
   /**
-   * Cancel editing of all table rows
+   * Cancels the edit mode and discards any unsaved changes for all rows in the data table.
    *
-   * @return same DataTable instance
+   * @return the current DataTable instance
    */
   public DataTable<T> cancelEditing() {
     getRows().forEach(TableRow::cancelEditing);
     return this;
   }
 
-  /** @return the {@link HTMLTableElement} wrapped as {@link DominoElement} */
   /**
-   * tableElement.
+   * Retrieves the main table element associated with the data table.
    *
-   * @return a {@link org.dominokit.domino.ui.elements.TableElement} object
+   * @return the table element
    */
   public TableElement tableElement() {
     return tableElement;
   }
 
-  /** @return the {@link HTMLTableSectionElement} -tbody- wrapped as {@link DominoElement} */
   /**
-   * bodyElement.
+   * Retrieves the body element of the table, which contains the data rows.
    *
-   * @return a {@link org.dominokit.domino.ui.elements.TBodyElement} object
+   * @return the table body element
    */
   public TBodyElement bodyElement() {
     return tbody;
   }
 
-  /** @return the {@link HTMLTableSectionElement} -thead- wrapped as {@link DominoElement} */
   /**
-   * headerElement.
+   * Retrieves the header element of the table, which contains the column headers.
    *
-   * @return a {@link org.dominokit.domino.ui.elements.THeadElement} object
+   * @return the table header element
    */
   public THeadElement headerElement() {
     return thead;
   }
 
-  /** @return the {@link HTMLTableSectionElement} -tfoot- wrapped as {@link DominoElement} */
   /**
-   * footerElement.
+   * Retrieves the footer element of the table, which might contain summary rows or other additional
+   * information.
    *
-   * @return a {@link org.dominokit.domino.ui.elements.TFootElement} object
+   * @return the table footer element
    */
   public TFootElement footerElement() {
     return tfoot;
   }
 
-  /** @return the applied {@link TableConfig} of this table */
   /**
-   * Getter for the field <code>tableConfig</code>.
+   * Retrieves the configuration object associated with the data table, which defines columns,
+   * plugins, and other table settings.
    *
-   * @return a {@link org.dominokit.domino.ui.datatable.TableConfig} object
+   * @return the table configuration object
    */
   public TableConfig<T> getTableConfig() {
     return tableConfig;
   }
 
   /**
-   * Immediately filter the current table rows using the the specified filter
+   * Applies a provided filter to each row in the data table. Rows that pass the filter remain
+   * visible, while rows that fail the filter are marked as filtered and potentially hidden or
+   * styled differently.
    *
-   * @param rowFilter {@link org.dominokit.domino.ui.datatable.DataTable.LocalRowFilter}
-   * @return Same datatable instance
+   * @param rowFilter the filter to apply to each row in the table
+   * @return the current DataTable instance
    */
   public DataTable<T> filterRows(LocalRowFilter<T> rowFilter) {
     tableRows.forEach(
@@ -470,9 +485,9 @@ public class DataTable<T> extends BaseDominoElement<HTMLDivElement, DataTable<T>
   }
 
   /**
-   * Clear all filtration applied using {@link #filterRows(LocalRowFilter)}
+   * Removes any previously applied filters, making all rows visible.
    *
-   * @return Same datatable instance
+   * @return the current DataTable instance
    */
   public DataTable<T> clearRowFilters() {
     tableRows.stream()
@@ -486,24 +501,30 @@ public class DataTable<T> extends BaseDominoElement<HTMLDivElement, DataTable<T>
     return this;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Retrieves the root element associated with the data table.
+   *
+   * @return the root element of the data table
+   */
   @Override
   public HTMLDivElement element() {
     return root.element();
   }
 
-  /** @return */
-  /** {@inheritDoc} */
+  /**
+   * Retrieves a list of all the table rows that are currently selected.
+   *
+   * @return a list of selected table rows
+   */
   @Override
   public List<TableRow<T>> getSelectedItems() {
     return tableRows.stream().filter(TableRow::isSelected).collect(Collectors.toList());
   }
 
-  /** @return a {@link List} of the currently selected records including a row selected children */
   /**
-   * getSelectedRecords.
+   * Retrieves a list of the records associated with the table rows that are currently selected.
    *
-   * @return a {@link java.util.List} object
+   * @return a list of records corresponding to selected table rows
    */
   public List<T> getSelectedRecords() {
     return tableRows.stream()
@@ -512,27 +533,29 @@ public class DataTable<T> extends BaseDominoElement<HTMLDivElement, DataTable<T>
         .collect(Collectors.toList());
   }
 
-  /** @return a {@link List} of {@link TableRow}s including the child rows */
-  /** {@inheritDoc} */
+  /**
+   * Retrieves a list of all the table rows.
+   *
+   * @return a list of all table rows
+   */
   @Override
   public List<TableRow<T>> getRows() {
     return tableRows;
   }
 
   /**
-   * getRootRows.
+   * Retrieves a list of all the root table rows.
    *
-   * @return a {@link java.util.List} object
+   * @return a list of root table rows
    */
   public List<TableRow<T>> getRootRows() {
     return getRows().stream().filter(TableRow::isRoot).collect(Collectors.toList());
   }
 
-  /** @return a {@link List} of {@link TableRow}s excluding the child rows */
   /**
-   * getRecords.
+   * Retrieves a list of records associated with the root table rows.
    *
-   * @return a {@link java.util.List} object
+   * @return a list of records corresponding to root table rows
    */
   public List<T> getRecords() {
     return getRows().stream()
@@ -541,31 +564,26 @@ public class DataTable<T> extends BaseDominoElement<HTMLDivElement, DataTable<T>
         .collect(Collectors.toList());
   }
 
-  /** @return a {@link List} of {@link TableRow}s that are being edited and still not saved */
   /**
-   * getDirtyRecords.
+   * Retrieves a list of records that have been modified.
    *
-   * @return a {@link java.util.List} object
+   * @return a list of modified records
    */
   public List<T> getDirtyRecords() {
     return getRows().stream().map(TableRow::getDirtyRecord).collect(Collectors.toList());
   }
 
-  /**
-   * {@inheritDoc}
-   *
-   * <p>Select all table rows
-   */
+  /** Selects all rows in the table, without any conditions. */
   @Override
   public void selectAll() {
     selectAll((table, tableRow) -> true);
   }
 
   /**
-   * Select all table rows that match a condition
+   * Selects all rows in the table that meet the provided selection condition.
    *
-   * @return Same datatable instance
-   * @param selectionCondition a {@link org.dominokit.domino.ui.datatable.SelectionCondition} object
+   * @param selectionCondition the condition determining which rows should be selected
+   * @return the current DataTable instance
    */
   public DataTable<T> selectAll(SelectionCondition<T> selectionCondition) {
     if (tableConfig.isMultiSelect() && !tableRows.isEmpty()) {
@@ -584,21 +602,17 @@ public class DataTable<T> extends BaseDominoElement<HTMLDivElement, DataTable<T>
     return this;
   }
 
-  /**
-   * {@inheritDoc}
-   *
-   * <p>Deselect all table rows
-   */
+  /** Deselects all rows in the table, without any conditions. */
   @Override
   public void deselectAll() {
     deselectAll((table, tableRow) -> true);
   }
 
   /**
-   * Deselect all table rows that match a condition
+   * Deselects all rows in the table that meet the provided selection condition.
    *
-   * @return Same datatable instance
-   * @param selectionCondition a {@link org.dominokit.domino.ui.datatable.SelectionCondition} object
+   * @param selectionCondition the condition determining which rows should be deselected
+   * @return the current DataTable instance
    */
   public DataTable<T> deselectAll(SelectionCondition<T> selectionCondition) {
     if (!tableRows.isEmpty()) {
@@ -619,54 +633,89 @@ public class DataTable<T> extends BaseDominoElement<HTMLDivElement, DataTable<T>
     return this;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Determines if the table rows are selectable.
+   *
+   * @return true if selectable, false otherwise
+   */
   @Override
   public boolean isSelectable() {
     return this.selectable;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Pauses the execution of selection listeners.
+   *
+   * @return the current DataTable instance
+   */
   @Override
   public DataTable<T> pauseSelectionListeners() {
     this.selectionListenersPaused = true;
     return this;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Resumes the execution of selection listeners.
+   *
+   * @return the current DataTable instance
+   */
   @Override
   public DataTable<T> resumeSelectionListeners() {
     this.selectionListenersPaused = false;
     return this;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Toggles the pausing of selection listeners based on the provided value.
+   *
+   * @param toggle true to pause the listeners, false to resume
+   * @return the current DataTable instance
+   */
   @Override
   public DataTable<T> togglePauseSelectionListeners(boolean toggle) {
     this.selectionListenersPaused = toggle;
     return this;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Retrieves the set of selection listeners.
+   *
+   * @return a set of selection listeners
+   */
   @Override
   public Set<SelectionListener<? super TableRow<T>, ? super List<TableRow<T>>>>
       getSelectionListeners() {
     return this.selectionListeners;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Retrieves the set of deselection listeners.
+   *
+   * @return a set of deselection listeners
+   */
   @Override
   public Set<SelectionListener<? super TableRow<T>, ? super List<TableRow<T>>>>
       getDeselectionListeners() {
     return this.deselectionListeners;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Determines if the selection listeners are currently paused.
+   *
+   * @return true if the listeners are paused, false otherwise
+   */
   @Override
   public boolean isSelectionListenersPaused() {
     return this.selectionListenersPaused;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Triggers the registered selection listeners.
+   *
+   * @param source the source TableRow that caused the selection change
+   * @param selection the list of currently selected rows
+   * @return the current DataTable instance
+   */
   @Override
   public DataTable<T> triggerSelectionListeners(TableRow<T> source, List<TableRow<T>> selection) {
     if (!this.selectionListenersPaused) {
@@ -677,7 +726,13 @@ public class DataTable<T> extends BaseDominoElement<HTMLDivElement, DataTable<T>
     return this;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Triggers the registered deselection listeners.
+   *
+   * @param source the source TableRow that caused the deselection
+   * @param selection the list of currently selected rows
+   * @return the current DataTable instance
+   */
   @Override
   public DataTable<T> triggerDeselectionListeners(TableRow<T> source, List<TableRow<T>> selection) {
     if (!this.selectionListenersPaused) {
@@ -688,18 +743,22 @@ public class DataTable<T> extends BaseDominoElement<HTMLDivElement, DataTable<T>
     return this;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Retrieves the currently selected table rows.
+   *
+   * @return a list of selected table rows
+   */
   @Override
   public List<TableRow<T>> getSelection() {
     return getSelectedItems();
   }
 
   /**
-   * Adds a table event listener by event type
+   * Registers a table event listener for the specified event type.
    *
-   * @param type String type of the event
-   * @param listener {@link org.dominokit.domino.ui.datatable.events.TableEventListener}
-   * @return Same datatable instance
+   * @param type the event type
+   * @param listener the listener to be added
+   * @return the current DataTable instance
    */
   public DataTable<T> addTableEventListener(String type, TableEventListener listener) {
     if (!events.containsKey(type)) {
@@ -710,11 +769,11 @@ public class DataTable<T> extends BaseDominoElement<HTMLDivElement, DataTable<T>
   }
 
   /**
-   * Removes a table event listener by event type
+   * Removes a registered table event listener for the specified event type.
    *
-   * @param type String type of the event
-   * @param listener {@link org.dominokit.domino.ui.datatable.events.TableEventListener}
-   * @return Same datatable instance
+   * @param type the event type
+   * @param listener the listener to be removed
+   * @return the current DataTable instance
    */
   public DataTable<T> removeTableListener(String type, TableEventListener listener) {
     if (events.containsKey(type)) {
@@ -724,10 +783,10 @@ public class DataTable<T> extends BaseDominoElement<HTMLDivElement, DataTable<T>
   }
 
   /**
-   * Manually fire a table event
+   * Fires a specified table event.
    *
-   * @param tableEvent {@link org.dominokit.domino.ui.datatable.events.TableEvent}
-   * @return Same datatable instance
+   * @param tableEvent the event to fire
+   * @return the current DataTable instance
    */
   public DataTable<T> fireTableEvent(TableEvent tableEvent) {
     if (events.containsKey(tableEvent.getType())) {
@@ -738,22 +797,20 @@ public class DataTable<T> extends BaseDominoElement<HTMLDivElement, DataTable<T>
     return this;
   }
 
-  /** @return the current {@link SearchContext} of the data table */
   /**
-   * Getter for the field <code>searchContext</code>.
+   * Retrieves the current search context.
    *
-   * @return a {@link org.dominokit.domino.ui.datatable.model.SearchContext} object
+   * @return the current search context
    */
   public SearchContext<T> getSearchContext() {
     return searchContext;
   }
 
   /**
-   * Setter for the field <code>removeRecordsHandler</code>.
+   * Sets the handler for removing records.
    *
-   * @param removeRecordsHandler a {@link
-   *     org.dominokit.domino.ui.datatable.DataTable.RemoveRowsHandler} object
-   * @return a {@link org.dominokit.domino.ui.datatable.DataTable} object
+   * @param removeRecordsHandler the handler to set
+   * @return the current DataTable instance
    */
   public DataTable<T> setRemoveRecordsHandler(RemoveRowsHandler<T> removeRecordsHandler) {
     if (nonNull(removeRecordsHandler)) {
@@ -763,15 +820,21 @@ public class DataTable<T> extends BaseDominoElement<HTMLDivElement, DataTable<T>
   }
 
   /**
-   * Getter for the field <code>dynamicStyleSheet</code>.
+   * Retrieves the dynamic style sheet associated with the DataTable.
    *
-   * @return a {@link org.dominokit.domino.ui.utils.DynamicStyleSheet} object
+   * @return the dynamic style sheet
    */
   public DynamicStyleSheet<HTMLDivElement, DataTable<T>> getDynamicStyleSheet() {
     return dynamicStyleSheet;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Appends a given node to the table. If a dynamic stylesheet is set, it will also append the
+   * style element of that stylesheet to the root element.
+   *
+   * @param node the node to be appended
+   * @return the current DataTable instance
+   */
   @Override
   public DataTable<T> appendChild(Node node) {
     super.appendChild(node);
@@ -781,7 +844,13 @@ public class DataTable<T> extends BaseDominoElement<HTMLDivElement, DataTable<T>
     return this;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Appends a given text as a text node to the table. If a dynamic stylesheet is set, it will also
+   * append the style element of that stylesheet to the root element.
+   *
+   * @param text the text to be appended as a text node
+   * @return the current DataTable instance
+   */
   @Override
   public DataTable<T> appendChild(String text) {
     super.appendChild(text);
@@ -791,27 +860,60 @@ public class DataTable<T> extends BaseDominoElement<HTMLDivElement, DataTable<T>
     return this;
   }
 
+  /**
+   * Provides direct access to the table element to apply custom configurations.
+   *
+   * @param handler the handler that defines the operations to be performed on the table element
+   * @return the current DataTable instance
+   */
   public DataTable<T> withTable(ChildHandler<DataTable<T>, TableElement> handler) {
     handler.apply(this, tableElement);
     return this;
   }
 
+  /**
+   * Provides direct access to the table body element to apply custom configurations.
+   *
+   * @param handler the handler that defines the operations to be performed on the table body
+   *     element
+   * @return the current DataTable instance
+   */
   public DataTable<T> withTableBody(ChildHandler<DataTable<T>, TBodyElement> handler) {
     handler.apply(this, tbody);
     return this;
   }
 
+  /**
+   * Provides direct access to the table footer element to apply custom configurations.
+   *
+   * @param handler the handler that defines the operations to be performed on the table footer
+   *     element
+   * @return the current DataTable instance
+   */
   public DataTable<T> withTableFooter(ChildHandler<DataTable<T>, TFootElement> handler) {
     handler.apply(this, tfoot);
     return this;
   }
 
+  /**
+   * Provides direct access to the table head element to apply custom configurations.
+   *
+   * @param handler the handler that defines the operations to be performed on the table head
+   *     element
+   * @return the current DataTable instance
+   */
   public DataTable<T> withTableHead(ChildHandler<DataTable<T>, THeadElement> handler) {
     handler.apply(this, thead);
     return this;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Appends a given element to the table. If a dynamic stylesheet is set, it will also append the
+   * style element of that stylesheet to the root element.
+   *
+   * @param isElement the element to be appended
+   * @return the current DataTable instance
+   */
   @Override
   public DataTable<T> appendChild(IsElement<?> isElement) {
     super.appendChild(isElement);
@@ -822,33 +924,47 @@ public class DataTable<T> extends BaseDominoElement<HTMLDivElement, DataTable<T>
   }
 
   /**
-   * Listens to changes in the table rows selection
+   * Represents a listener for selection changes in the table.
    *
-   * @param <T> the type of the data table records
+   * @param <T> the type of data in the table
    */
   @FunctionalInterface
   public interface SelectionChangeListener<T> {
     /**
-     * @param selectedTableRows {@link List} of {@link TableRow}s that has that are selected
-     * @param selectedRecords {@link List} of T records of the rows being selected
+     * Invoked when the selection in the table changes.
+     *
+     * @param selectedTableRows the currently selected table rows
+     * @param selectedRecords the records associated with the selected rows
      */
     void onSelectionChanged(List<TableRow<T>> selectedTableRows, List<T> selectedRecords);
   }
 
   /**
-   * Use implement Table row filter
+   * Represents a filter for local rows in the table.
    *
-   * @param <T> the type of the data table records
+   * @param <T> the type of data in the table
    */
   public interface LocalRowFilter<T> {
     /**
-     * @param tableRow {@link TableRow}
-     * @return boolean, true if the table row should be hidden else false.
+     * Determines whether a table row should be filtered.
+     *
+     * @param tableRow the table row to evaluate
+     * @return true if the row should be included in the filtered set, false otherwise
      */
     boolean filter(TableRow<T> tableRow);
   }
 
+  /**
+   * Represents a handler for removing rows from the table.
+   *
+   * @param <T> the type of data in the table
+   */
   public interface RemoveRowsHandler<T> {
+    /**
+     * Handles the removal of rows from the table.
+     *
+     * @param table the table from which rows should be removed
+     */
     void removeRows(DataTable<T> table);
   }
 }

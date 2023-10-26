@@ -17,15 +17,27 @@ package org.dominokit.domino.ui.utils;
 
 import org.gwtproject.timer.client.Timer;
 
-/** A utility class that allow execution of logic after a specific delay */
+/**
+ * The {@code DelayedExecution} class provides a simple utility for executing actions with a
+ * specified delay using GWT Timer.
+ *
+ * <p>Example Usage:
+ *
+ * <pre>
+ * DelayedExecution.execute(() -> {
+ *   // Perform some action after a delay of 1000 milliseconds (1 second).
+ *   // This action is specified using a lambda expression.
+ *   // You can replace this with your custom action.
+ * }, 1000);
+ * </pre>
+ */
 public class DelayedExecution {
 
   /**
-   * execute.
+   * Executes the specified {@code delayedAction} after the specified {@code delay} in milliseconds.
    *
-   * @param delayedAction a {@link org.dominokit.domino.ui.utils.DelayedExecution.DelayedAction}
-   *     object
-   * @param delay a int
+   * @param delayedAction The action to be executed after the delay.
+   * @param delay The delay in milliseconds before executing the action.
    */
   public static void execute(DelayedAction delayedAction, int delay) {
     new Timer() {
@@ -36,10 +48,10 @@ public class DelayedExecution {
     }.schedule(delay);
   }
 
-  /** A function to implement the action to be taken for {@link DelayedTextInput} */
+  /** A functional interface representing an action to be executed after a delay. */
   @FunctionalInterface
   public interface DelayedAction {
-    /** */
+    /** Performs the action that should be executed after the delay. */
     void doAction();
   }
 }

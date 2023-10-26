@@ -16,11 +16,8 @@
 package org.dominokit.domino.ui.upload;
 
 /**
- * An enum representing the drop effect
- *
- * <p>More information can be found in <a
- * href="https://developer.mozilla.org/en-US/docs/Web/API/DataTransfer/dropEffect">MDN official
- * documentation</a>
+ * An enumeration of drop effects that can be used in drag-and-drop operations. Each effect
+ * represents a specific behavior when data is dragged and dropped onto a target element.
  */
 public enum DropEffect {
   COPY("copy"),
@@ -28,17 +25,22 @@ public enum DropEffect {
   LINK("link"),
   NONE("none");
 
+  /** The string representation of the drop effect. */
   private final String effect;
 
+  /**
+   * Constructs a DropEffect enum with the specified effect string.
+   *
+   * @param effect The string representation of the drop effect.
+   */
   DropEffect(String effect) {
     this.effect = effect;
   }
 
-  /** @return the effect */
   /**
-   * Getter for the field <code>effect</code>.
+   * Gets the string representation of the drop effect.
    *
-   * @return a {@link java.lang.String} object
+   * @return The string representation of the drop effect.
    */
   public String getEffect() {
     return effect;

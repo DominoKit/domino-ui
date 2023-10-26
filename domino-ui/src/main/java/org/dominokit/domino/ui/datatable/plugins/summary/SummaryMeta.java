@@ -13,6 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package org.dominokit.domino.ui.datatable.plugins.summary;
 
 import java.util.Objects;
@@ -20,33 +21,40 @@ import java.util.Optional;
 import org.dominokit.domino.ui.datatable.ColumnConfig;
 import org.dominokit.domino.ui.utils.ComponentMeta;
 
-/** SummaryMeta class. */
+/**
+ * The {@code SummaryMeta} class represents metadata associated with a summary column in a
+ * DataTable. It contains information about the summary cell renderer and whether the summary should
+ * be skipped.
+ *
+ * @param <T> The type of data in the DataTable.
+ * @param <S> The type of data in the summary row.
+ */
 public class SummaryMeta<T, S> implements ComponentMeta {
 
-  /** Constant <code>COLUMN_SUMMARY_META="column-summary-meta"</code> */
+  /** The unique key for identifying summary metadata associated with a column. */
   public static final String COLUMN_SUMMARY_META = "column-summary-meta";
 
   private SummaryCellRenderer<T, S> cellRenderer;
   private boolean skip = false;
 
   /**
-   * of.
+   * Creates a new instance of {@code SummaryMeta} with the provided summary cell renderer.
    *
-   * @param cellRenderer a {@link
-   *     org.dominokit.domino.ui.datatable.plugins.summary.SummaryCellRenderer} object
-   * @param <T> a T class
-   * @param <S> a S class
-   * @return a {@link org.dominokit.domino.ui.datatable.plugins.summary.SummaryMeta} object
+   * @param cellRenderer The summary cell renderer to be associated with the summary column.
+   * @param <T> The type of data in the DataTable.
+   * @param <S> The type of data in the summary row.
+   * @return A new instance of {@code SummaryMeta} with the specified summary cell renderer.
+   * @throws NullPointerException if {@code cellRenderer} is {@code null}.
    */
   public static <T, S> SummaryMeta<T, S> of(SummaryCellRenderer<T, S> cellRenderer) {
     return new SummaryMeta<>(cellRenderer);
   }
 
   /**
-   * Constructor for SummaryMeta.
+   * Creates a new instance of {@code SummaryMeta} with the provided summary cell renderer.
    *
-   * @param cellRenderer a {@link
-   *     org.dominokit.domino.ui.datatable.plugins.summary.SummaryCellRenderer} object
+   * @param cellRenderer The summary cell renderer to be associated with the summary column.
+   * @throws NullPointerException if {@code cellRenderer} is {@code null}.
    */
   public SummaryMeta(SummaryCellRenderer<T, S> cellRenderer) {
     Objects.requireNonNull(cellRenderer, "Summary cell renderer cant be null.");
@@ -54,32 +62,32 @@ public class SummaryMeta<T, S> implements ComponentMeta {
   }
 
   /**
-   * get.
+   * Retrieves the summary metadata associated with a given column configuration.
    *
-   * @param column a {@link org.dominokit.domino.ui.datatable.ColumnConfig} object
-   * @param <T> a T class
-   * @param <S> a S class
-   * @return a {@link java.util.Optional} object
+   * @param <T> The type of data in the DataTable.
+   * @param <S> The type of data in the summary row.
+   * @param column The {@link ColumnConfig} for which to retrieve the summary metadata.
+   * @return An {@link Optional} containing the {@code SummaryMeta} if found, or an empty {@code
+   *     Optional} if not found.
    */
   public static <T, S> Optional<SummaryMeta<T, S>> get(ColumnConfig<?> column) {
     return column.getMeta(COLUMN_SUMMARY_META);
   }
 
   /**
-   * Getter for the field <code>cellRenderer</code>.
+   * Retrieves the summary cell renderer associated with the summary column.
    *
-   * @return a {@link org.dominokit.domino.ui.datatable.plugins.summary.SummaryCellRenderer} object
+   * @return The summary cell renderer.
    */
   public SummaryCellRenderer<T, S> getCellRenderer() {
     return cellRenderer;
   }
 
   /**
-   * Setter for the field <code>cellRenderer</code>.
+   * Sets the summary cell renderer for the summary column.
    *
-   * @param cellRenderer a {@link
-   *     org.dominokit.domino.ui.datatable.plugins.summary.SummaryCellRenderer} object
-   * @return a {@link org.dominokit.domino.ui.datatable.plugins.summary.SummaryMeta} object
+   * @param cellRenderer The summary cell renderer to be associated with the summary column.
+   * @return This {@code SummaryMeta} instance for method chaining.
    */
   public SummaryMeta<T, S> setCellRenderer(SummaryCellRenderer<T, S> cellRenderer) {
     this.cellRenderer = cellRenderer;
@@ -87,26 +95,30 @@ public class SummaryMeta<T, S> implements ComponentMeta {
   }
 
   /**
-   * isSkip.
+   * Checks if the summary column should be skipped.
    *
-   * @return a boolean
+   * @return {@code true} if the summary column should be skipped, {@code false} otherwise.
    */
   public boolean isSkip() {
     return skip;
   }
 
   /**
-   * Setter for the field <code>skip</code>.
+   * Sets whether the summary column should be skipped.
    *
-   * @param skip a boolean
-   * @return a {@link org.dominokit.domino.ui.datatable.plugins.summary.SummaryMeta} object
+   * @param skip {@code true} to skip the summary column, {@code false} to include it.
+   * @return This {@code SummaryMeta} instance for method chaining.
    */
   public SummaryMeta<T, S> setSkip(boolean skip) {
     this.skip = skip;
     return this;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * {@inheritDoc}
+   *
+   * @return The unique key for identifying summary metadata associated with a column.
+   */
   @Override
   public String getKey() {
     return COLUMN_SUMMARY_META;

@@ -24,10 +24,15 @@ import org.dominokit.domino.ui.utils.BaseDominoElement;
 import org.dominokit.domino.ui.utils.DominoUIConfig;
 
 /**
- * A component to show the progress for a single operation within a {@link
- * org.dominokit.domino.ui.progress.Progress} </pre>
+ * Represents a visual progress bar element.
  *
- * @see Progress
+ * <p>Usage example:
+ *
+ * <pre>
+ * ProgressBar bar = ProgressBar.create(100).setValue(50).showText();
+ * </pre>
+ *
+ * @see BaseDominoElement
  */
 public class ProgressBar extends BaseDominoElement<HTMLDivElement, ProgressBar>
     implements ProgressStyles, HasComponentConfig<ProgressBarConfig> {
@@ -40,26 +45,20 @@ public class ProgressBar extends BaseDominoElement<HTMLDivElement, ProgressBar>
 
   private Progress parent;
 
-  /** @param maxValue int max value of the operation progress */
   /**
-   * Constructor for ProgressBar.
+   * Constructs a progress bar with the specified max value.
    *
-   * @param maxValue a int
+   * @param maxValue The maximum value of the progress bar.
    */
   public ProgressBar(int maxValue) {
     this(maxValue, DominoUIConfig.CONFIG.getUIConfig().getDefaultProgressExpression());
   }
 
   /**
-   * Constructor for ProgressBar.
+   * Constructs a progress bar with the specified max value and text expression.
    *
-   * @param maxValue int max value of the operation progress
-   * @param textExpression String that contains the parameter one or all of the parameters
-   *     <b>percent</b>,<b>value</b>,<b>maxValue</b>
-   *     <p>example
-   *     <pre>
-   *                                                                       "Finished {percent}% of the items - {value}/{maxValue}"
-   *                                                                   </pre>
+   * @param maxValue The maximum value of the progress bar.
+   * @param textExpression The text expression for the progress bar.
    */
   public ProgressBar(int maxValue, String textExpression) {
     element = div().addCss(dui_progress_bar).setAttribute("role", "progressbar");
@@ -70,16 +69,20 @@ public class ProgressBar extends BaseDominoElement<HTMLDivElement, ProgressBar>
   }
 
   /**
-   * create.
+   * Factory method to create a progress bar with the specified max value.
    *
-   * @param maxValue int max value of the operation progress
-   * @return new ProgressBar instance
+   * @param maxValue The maximum value of the progress bar.
+   * @return A new progress bar instance.
    */
   public static ProgressBar create(int maxValue) {
     return new ProgressBar(maxValue);
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Returns the root HTMLDivElement for this progress bar.
+   *
+   * @return The root HTMLDivElement.
+   */
   @Override
   public HTMLDivElement element() {
     return element.element();
@@ -89,20 +92,14 @@ public class ProgressBar extends BaseDominoElement<HTMLDivElement, ProgressBar>
     this.parent = parent;
   }
 
-  /** @return double current progress value */
-  /**
-   * Getter for the field <code>value</code>.
-   *
-   * @return a double
-   */
   public double getValue() {
     return value;
   }
 
   /**
-   * Make progress text visible on the ProgressBar
+   * Display the progress bar's value as text.
    *
-   * @return same Progressbar instance
+   * @return The current progress bar instance.
    */
   public ProgressBar showText() {
     this.showText = true;
@@ -111,10 +108,10 @@ public class ProgressBar extends BaseDominoElement<HTMLDivElement, ProgressBar>
   }
 
   /**
-   * Setter for the field <code>value</code>.
+   * Set the progress bar's current value.
    *
-   * @param value double value of progress
-   * @return same Progressbar instance
+   * @param value The new value for the progress bar.
+   * @return The current progress bar instance.
    */
   public ProgressBar setValue(double value) {
     if (value >= 0 && value <= maxValue) {
@@ -133,9 +130,11 @@ public class ProgressBar extends BaseDominoElement<HTMLDivElement, ProgressBar>
   }
 
   /**
-   * Adds an animation effect to the ProgressBar
+   * Animates the progress bar by applying a striped style and activating it.
    *
-   * @return same ProgressBar instance
+   * <p>This method will make the progress bar visually animated.
+   *
+   * @return The current progress bar instance.
    */
   public ProgressBar animate() {
     striped();
@@ -144,30 +143,31 @@ public class ProgressBar extends BaseDominoElement<HTMLDivElement, ProgressBar>
   }
 
   /**
-   * Apply the {@link org.dominokit.domino.ui.style.GenericCss#dui_striped}
+   * Applies a striped style to the progress bar.
    *
-   * @return same Progressbar instance
+   * <p>The striped style adds visual stripes across the progress bar.
+   *
+   * @return The current progress bar instance.
    */
   public ProgressBar striped() {
     dui_striped.apply(this);
     return this;
   }
 
-  /** @return double max value */
   /**
-   * Getter for the field <code>maxValue</code>.
+   * Retrieves the maximum value for the progress bar.
    *
-   * @return a double
+   * @return The maximum value of the progress bar.
    */
   public double getMaxValue() {
     return maxValue;
   }
 
   /**
-   * Setter for the field <code>maxValue</code>.
+   * Set the progress bar's maximum value.
    *
-   * @param maxValue double
-   * @return same ProgressBar instance
+   * @param maxValue The new maximum value for the progress bar.
+   * @return The current progress bar instance.
    */
   public ProgressBar setMaxValue(double maxValue) {
     this.maxValue = maxValue;
@@ -176,16 +176,13 @@ public class ProgressBar extends BaseDominoElement<HTMLDivElement, ProgressBar>
   }
 
   /**
-   * textExpression.
+   * Sets a new text expression for the progress bar and then displays the text.
    *
-   * @param expression String that contains the parameter one or all of the parameters
-   *     <b>percent</b>,<b>value</b>,<b>maxValue</b>
-   *     <p>example
-   *     <pre>
-   *                                                               "Finished {percent}% of the items - {value}/{maxValue}"
-   *                                                           </pre>
+   * <p>The text expression is a string that can be evaluated to produce the desired text on the
+   * progress bar. The updated text is shown after setting the new expression.
    *
-   * @return same ProgressBar instance
+   * @param expression The new text expression to be set.
+   * @return The current progress bar instance.
    */
   public ProgressBar textExpression(String expression) {
     this.textExpression = expression;
@@ -193,7 +190,11 @@ public class ProgressBar extends BaseDominoElement<HTMLDivElement, ProgressBar>
     return this;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Removes the progress bar from its parent.
+   *
+   * @return The current progress bar instance.
+   */
   @Override
   public ProgressBar remove() {
     Optional.ofNullable(parent).ifPresent(progress -> progress.removeBar(this));

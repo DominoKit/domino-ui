@@ -20,25 +20,31 @@ import org.dominokit.domino.ui.IsElement;
 import org.dominokit.domino.ui.utils.ComponentMeta;
 import org.dominokit.domino.ui.utils.HasMeta;
 
-/** OptionMeta class. */
+/**
+ * Represents the metadata associated with an option in a suggest box.
+ *
+ * @param <V> The type of value associated with the option.
+ * @param <C> The type of component associated with the option.
+ * @param <O> The type of the option itself.
+ */
 public class OptionMeta<V, C extends IsElement<?>, O extends Option<V, C, O>>
     implements ComponentMeta {
 
-  /** Constant <code>OPTION_META="dui-suggest-option-meta"</code> */
+  /** The key used to store and retrieve option metadata. */
   public static final String OPTION_META = "dui-suggest-option-meta";
 
   private final C component;
   private final O option;
 
   /**
-   * of.
+   * Creates and returns an {@code OptionMeta} instance with the specified component and option.
    *
-   * @param component a C object
-   * @param option a O object
-   * @param <V> a V class
-   * @param <C> a C class
-   * @param <O> a O class
-   * @return a {@link org.dominokit.domino.ui.forms.suggest.OptionMeta} object
+   * @param <V> The type of value associated with the option.
+   * @param <C> The type of component associated with the option.
+   * @param <O> The type of the option itself.
+   * @param component The component associated with the option.
+   * @param option The option itself.
+   * @return An {@code OptionMeta} instance.
    */
   public static <V, C extends IsElement<?>, O extends Option<V, C, O>> OptionMeta<V, C, O> of(
       C component, O option) {
@@ -46,10 +52,10 @@ public class OptionMeta<V, C extends IsElement<?>, O extends Option<V, C, O>>
   }
 
   /**
-   * Constructor for OptionMeta.
+   * Creates an instance of {@code OptionMeta} with the given component and option.
    *
-   * @param component a C object
-   * @param option a O object
+   * @param component The component associated with the option.
+   * @param option The option itself.
    */
   public OptionMeta(C component, O option) {
     this.component = component;
@@ -57,13 +63,14 @@ public class OptionMeta<V, C extends IsElement<?>, O extends Option<V, C, O>>
   }
 
   /**
-   * get.
+   * Retrieves the {@code OptionMeta} associated with a component that supports metadata.
    *
-   * @param component a {@link org.dominokit.domino.ui.utils.HasMeta} object
-   * @param <V> a V class
-   * @param <C> a C class
-   * @param <O> a O class
-   * @return a {@link java.util.Optional} object
+   * @param <V> The type of value associated with the option.
+   * @param <C> The type of component associated with the option.
+   * @param <O> The type of the option itself.
+   * @param component The component for which to retrieve the option metadata.
+   * @return An {@code Optional} containing the {@code OptionMeta}, or an empty {@code Optional} if
+   *     not found.
    */
   public static <V, C extends IsElement<?>, O extends Option<V, C, O>>
       Optional<OptionMeta<V, C, O>> get(HasMeta<?> component) {
@@ -71,24 +78,28 @@ public class OptionMeta<V, C extends IsElement<?>, O extends Option<V, C, O>>
   }
 
   /**
-   * Getter for the field <code>component</code>.
+   * Gets the component associated with this option metadata.
    *
-   * @return a C object
+   * @return The component associated with the option.
    */
   public C getComponent() {
     return component;
   }
 
   /**
-   * Getter for the field <code>option</code>.
+   * Gets the option itself.
    *
-   * @return a O object
+   * @return The option.
    */
   public O getOption() {
     return option;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Retrieves the key associated with this option metadata.
+   *
+   * @return The key used to store and retrieve option metadata.
+   */
   @Override
   public String getKey() {
     return OPTION_META;

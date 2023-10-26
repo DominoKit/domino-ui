@@ -25,115 +25,119 @@ import org.dominokit.domino.ui.style.DominoCss;
 import org.dominokit.domino.ui.utils.ElementsFactory;
 
 /**
- * An interface for implementing datatable plugins
+ * The {@code DataTablePlugin} interface represents a plugin that can be added to a DataTable to
+ * extend its functionality. DataTable plugins can respond to various DataTable events and customize
+ * the behavior of the DataTable.
  *
- * <p>the methods in this interface are all hood methods that will be called on specific places
- * while building the data table
+ * <p><strong>Usage Example:</strong>
  *
- * @param <T> the type of the datatable records
+ * <pre>
+ * public class MyDataTablePlugin implements DataTablePlugin<MyDataModel> {
+ *
+ *     {@literal @}Override
+ *     public void init(DataTable<MyDataModel> dataTable) {
+ *         // Initialize the plugin for the given DataTable
+ *     }
+ *
+ *     // Other override methods to respond to DataTable events and customize behavior
+ * }
+ * </pre>
+ *
+ * @param <T> The type of data displayed in the DataTable.
  */
 public interface DataTablePlugin<T>
     extends TableEventListener, Comparable<DataTablePlugin<T>>, ElementsFactory, DominoCss {
 
   /**
-   * this method is used to initialise the plugin with the datatable instance
+   * Initializes the DataTablePlugin for the given DataTable. This method is called when the plugin
+   * is added to the DataTable.
    *
-   * @param dataTable the {@link org.dominokit.domino.ui.datatable.DataTable} we are attaching this
-   *     plugin to.
+   * @param dataTable The DataTable instance to which this plugin is added.
    */
   default void init(DataTable<T> dataTable) {}
 
   /**
-   * This well be called once the table is initialized and before it is appended to the dom
+   * Called before adding the DataTable to the container. Useful for custom initialization.
    *
-   * @param dataTable the {@link org.dominokit.domino.ui.datatable.DataTable} we are attaching this
-   *     plugin to.
+   * @param dataTable The DataTable instance.
    */
   default void onBeforeAddTable(DataTable<T> dataTable) {}
 
   /**
-   * This method will be called right before adding all columns headers elements to the table
+   * Called before adding the DataTable headers to the container. Useful for custom header
+   * initialization.
    *
-   * @param dataTable the {@link org.dominokit.domino.ui.datatable.DataTable} we are attaching this
-   *     plugin to.
+   * @param dataTable The DataTable instance.
    */
   default void onBeforeAddHeaders(DataTable<T> dataTable) {}
 
   /**
-   * This method will be called right after adding all columns headers elements to the table
+   * Called after adding the DataTable headers to the container.
    *
-   * @param dataTable the {@link org.dominokit.domino.ui.datatable.DataTable} we are attaching this
-   *     plugin to.
+   * @param dataTable The DataTable instance.
    */
   default void onAfterAddHeaders(DataTable<T> dataTable) {}
 
   /**
-   * This method will be called right after adding a column header element to the table
+   * Called when a header is added to the DataTable.
    *
-   * @param dataTable the {@link org.dominokit.domino.ui.datatable.DataTable} we are attaching this
-   *     plugin to.
-   * @param column the {@link org.dominokit.domino.ui.datatable.ColumnConfig} of the column we added
-   *     the header for.
+   * @param dataTable The DataTable instance.
+   * @param column The ColumnConfig for the added header.
    */
   default void onHeaderAdded(DataTable<T> dataTable, ColumnConfig<T> column) {}
 
   /**
-   * This method will be called right after adding body element to the table
+   * Called after adding the DataTable body to the container.
    *
-   * @param dataTable the {@link org.dominokit.domino.ui.datatable.DataTable} we are attaching this
-   *     plugin to.
+   * @param dataTable The DataTable instance.
    */
   default void onBodyAdded(DataTable<T> dataTable) {}
 
   /**
-   * This method will be called right before adding a row to the table
+   * Called before adding a row to the DataTable. Useful for custom row initialization.
    *
-   * @param dataTable the {@link org.dominokit.domino.ui.datatable.DataTable} we are attaching this
-   *     plugin to.
-   * @param tableRow the {@link org.dominokit.domino.ui.datatable.TableRow} we are about to add
+   * @param dataTable The DataTable instance.
+   * @param tableRow The TableRow being added.
    */
   default void onBeforeAddRow(DataTable<T> dataTable, TableRow<T> tableRow) {}
 
   /**
-   * This method will be called right after adding a row to the table
+   * Called when a row is added to the DataTable.
    *
-   * @param dataTable the {@link org.dominokit.domino.ui.datatable.DataTable} we are attaching this
-   *     plugin to.
-   * @param tableRow the {@link org.dominokit.domino.ui.datatable.TableRow} added
+   * @param dataTable The DataTable instance.
+   * @param tableRow The TableRow that was added.
    */
   default void onRowAdded(DataTable<T> dataTable, TableRow<T> tableRow) {}
 
   /**
-   * This method will be called right after all rows are added to the table
+   * Called after all rows are added to the DataTable.
    *
-   * @param dataTable the {@link org.dominokit.domino.ui.datatable.DataTable} we are attaching this
-   *     plugin to.
+   * @param dataTable The DataTable instance.
    */
   default void onAllRowsAdded(DataTable<T> dataTable) {}
 
   /**
-   * This method will be called right after adding the table element to its root element
+   * Called after adding the DataTable to the container. Useful for custom post-initialization.
    *
-   * @param dataTable the {@link org.dominokit.domino.ui.datatable.DataTable} we are attaching this
-   *     plugin to.
+   * @param dataTable The DataTable instance.
    */
   default void onAfterAddTable(DataTable<T> dataTable) {}
 
   /**
-   * onBeforeAddCell.
+   * Called before adding a cell to the DataTable. Useful for custom cell initialization.
    *
-   * @param dataTable a {@link org.dominokit.domino.ui.datatable.DataTable} object
-   * @param tableRow a {@link org.dominokit.domino.ui.datatable.TableRow} object
-   * @param rowCell a {@link org.dominokit.domino.ui.datatable.RowCell} object
+   * @param dataTable The DataTable instance.
+   * @param tableRow The TableRow to which the cell belongs.
+   * @param rowCell The RowCell being added.
    */
   default void onBeforeAddCell(DataTable<T> dataTable, TableRow<T> tableRow, RowCell<T> rowCell) {}
 
   /**
-   * onAfterAddCell.
+   * Called after adding a cell to the DataTable.
    *
-   * @param dataTable a {@link org.dominokit.domino.ui.datatable.DataTable} object
-   * @param tableRow a {@link org.dominokit.domino.ui.datatable.TableRow} object
-   * @param rowCell a {@link org.dominokit.domino.ui.datatable.RowCell} object
+   * @param dataTable The DataTable instance.
+   * @param tableRow The TableRow to which the cell belongs.
+   * @param rowCell The RowCell that was added.
    */
   default void onAfterAddCell(DataTable<T> dataTable, TableRow<T> tableRow, RowCell<T> rowCell) {}
 
@@ -141,39 +145,46 @@ public interface DataTablePlugin<T>
   @Override
   default void handleEvent(TableEvent event) {}
 
-  /** @return boolean, true if the plugin should use the plugins utility column else false */
   /**
-   * requiresUtilityColumn.
+   * Indicates whether the plugin requires a utility column in the DataTable. Default is {@code
+   * false}.
    *
-   * @return a boolean
+   * @return {@code true} if a utility column is required, {@code false} otherwise.
    */
   default boolean requiresUtilityColumn() {
     return false;
   }
 
   /**
-   * order.
+   * Specifies the order in which the plugin should be executed. Plugins are executed in ascending
+   * order of their order values. The default order value is 100.
    *
-   * @return a int
+   * @return The order value for plugin execution.
    */
   default int order() {
     return 100;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * {@inheritDoc}
+   *
+   * <p>Compares this DataTablePlugin with another DataTablePlugin based on their execution order.
+   *
+   * @param o The DataTablePlugin to compare to.
+   * @return A negative integer, zero, or a positive integer if this DataTablePlugin is less than,
+   *     equal to, or greater than the specified DataTablePlugin in terms of execution order.
+   */
   @Override
   default int compareTo(DataTablePlugin<T> o) {
     return Integer.compare(this.order(), o.order());
   }
 
   /**
-   * getUtilityElements.
+   * Provides utility elements that can be added to a cell based on the plugin's logic.
    *
-   * @param dataTable {@link org.dominokit.domino.ui.datatable.DataTable}
-   * @param cellInfo {@link org.dominokit.domino.ui.datatable.CellRenderer.CellInfo}
-   * @return return an {@link java.util.Optional} {@link java.util.List} of {@link
-   *     elemental2.dom.HTMLElement}s to be used as part of the plugins utility column, elements
-   *     returned from this method will be rendered as flex items inside the utility cell.
+   * @param dataTable The DataTable instance.
+   * @param cellInfo Information about the cell.
+   * @return An optional list of HTMLElements representing utility elements to be added to the cell.
    */
   default Optional<List<HTMLElement>> getUtilityElements(
       DataTable<T> dataTable, CellRenderer.CellInfo<T> cellInfo) {
@@ -181,9 +192,9 @@ public interface DataTablePlugin<T>
   }
 
   /**
-   * Will be called when the footer element is appended to the table element
+   * Called after adding the DataTable footer to the container.
    *
-   * @param datatable {@link org.dominokit.domino.ui.datatable.DataTable}
+   * @param datatable The DataTable instance.
    */
   default void onFooterAdded(DataTable<T> datatable) {}
 }

@@ -36,7 +36,33 @@ import org.dominokit.domino.ui.style.BooleanCssClass;
 import org.dominokit.domino.ui.utils.*;
 import org.gwtproject.editor.client.EditorError;
 
-/** Abstract AbstractFormElement class. */
+/**
+ * An abstract base class for form elements in the Domino UI framework.
+ *
+ * <p>AbstractFormElement provides common functionality for form elements, including validation,
+ * error handling, labeling, and more. It can be extended to create specific form elements with
+ * custom behavior.
+ *
+ * <p>Usage Example:
+ *
+ * <pre>
+ * // Create a custom form element by extending AbstractFormElement
+ * public class MyCustomFormElement extends AbstractFormElement&lt;MyCustomFormElement, String&gt; {
+ *
+ *     public MyCustomFormElement() {
+ *         // Initialize and configure the form element
+ *         // ...
+ *     }
+ *
+ *     // Implement any additional methods and behaviors specific to your custom form element
+ *     // ...
+ * }
+ * </pre>
+ *
+ * @param <T> The concrete form element type.
+ * @param <V> The type of the form element's value.
+ * @see BaseDominoElement
+ */
 public abstract class AbstractFormElement<T extends AbstractFormElement<T, V>, V>
     extends BaseDominoElement<HTMLFieldSetElement, T>
     implements FormElement<T, V>, HasComponentConfig<FormsFieldsConfig>, FormsStyles {
@@ -70,7 +96,7 @@ public abstract class AbstractFormElement<T extends AbstractFormElement<T, V>, V
   protected V defaultValue;
   private boolean showRequiredIndicator = true;
 
-  /** Constructor for AbstractFormElement. */
+  /** Creates a new instance of AbstractFormElement. */
   public AbstractFormElement() {
     formElement =
         fieldset()
@@ -94,66 +120,100 @@ public abstract class AbstractFormElement<T extends AbstractFormElement<T, V>, V
     setLabelFloatLeft(getConfig().isFormFieldFloatLabelLeft());
   }
 
-  /**
-   * initRequiredIndicator.
-   *
-   * @return a {@link org.dominokit.domino.ui.utils.LazyChild} object
-   */
   protected LazyChild<DominoElement<HTMLElement>> initRequiredIndicator() {
     return LazyChild.of(
         elementOf(getConfig().getRequiredIndicator().get()).addCss(dui_field_required_indicator),
         labelElement);
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Returns the HTML representation of this form element.
+   *
+   * @return The HTML fieldset element representing the form element.
+   */
   @Override
   public HTMLFieldSetElement element() {
     return formElement.element();
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Sets the "for" attribute of the label element to associate it with an HTML element by its ID.
+   *
+   * @param id The ID of the HTML element to associate with the label.
+   * @return This form element instance.
+   */
   @Override
   public T labelForId(String id) {
     labelElement.doOnce(() -> labelElement.element().setAttribute("for", id));
     return (T) this;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Groups this form element with a FieldsGrouping instance.
+   *
+   * @param fieldsGrouping The FieldsGrouping instance to group this form element with.
+   * @return This form element instance.
+   */
   @Override
   public T groupBy(FieldsGrouping fieldsGrouping) {
     fieldsGrouping.addFormElement(this);
     return (T) this;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Ungroups this form element from a FieldsGrouping instance.
+   *
+   * @param fieldsGrouping The FieldsGrouping instance to ungroup this form element from.
+   * @return This form element instance.
+   */
   @Override
   public T ungroup(FieldsGrouping fieldsGrouping) {
     fieldsGrouping.removeFormElement(this);
     return (T) this;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Appends a prefix add-on to the form element.
+   *
+   * @param addon The prefix add-on to append.
+   * @return This form element instance.
+   */
   @Override
   public T appendChild(PrefixAddOn<?> addon) {
     wrapperElement.appendChild(elementOf(addon));
     return (T) this;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Appends a postfix add-on to the form element.
+   *
+   * @param addon The postfix add-on to append.
+   * @return This form element instance.
+   */
   @Override
   public T appendChild(PostfixAddOn<?> addon) {
     wrapperElement.appendChild(elementOf(addon));
     return (T) this;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Appends a primary add-on to the form element.
+   *
+   * @param addon The primary add-on to append.
+   * @return This form element instance.
+   */
   @Override
   public T appendChild(PrimaryAddOn<?> addon) {
     wrapperElement.appendChild(elementOf(addon).addCss(dui_add_on, dui_add_on_mandatory));
     return (T) this;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Sets whether auto-validation is enabled for this form element.
+   *
+   * @param autoValidation True to enable auto-validation, false to disable it.
+   * @return This form element instance.
+   */
   @Override
   public T setAutoValidation(boolean autoValidation) {
     if (autoValidation) {
@@ -171,13 +231,21 @@ public abstract class AbstractFormElement<T extends AbstractFormElement<T, V>, V
     return (T) this;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Checks if auto-validation is enabled for this form element.
+   *
+   * @return True if auto-validation is enabled, false otherwise.
+   */
   @Override
   public boolean isAutoValidation() {
     return autoValidate;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Performs auto-validation on this form element.
+   *
+   * @return This form element instance.
+   */
   @Override
   public T autoValidate() {
     if (isAutoValidation()) {
@@ -186,68 +254,111 @@ public abstract class AbstractFormElement<T extends AbstractFormElement<T, V>, V
     return (T) this;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Pauses form element validations.
+   *
+   * @return This form element instance.
+   */
   @Override
   public T pauseValidations() {
     this.validationsPaused = true;
     return (T) this;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Resumes form element validations.
+   *
+   * @return This form element instance.
+   */
   @Override
   public T resumeValidations() {
     this.validationsPaused = false;
     return (T) this;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Checks if form element validations are paused.
+   *
+   * @return True if validations are paused, false otherwise.
+   */
   @Override
   public boolean isValidationsPaused() {
     return validationsPaused;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Toggles pause state for form element validations.
+   *
+   * @param toggle True to pause validations, false to resume them.
+   * @return This form element instance.
+   */
   @Override
   public T togglePauseValidations(boolean toggle) {
     this.validationsPaused = toggle;
     return (T) this;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Pauses focus-based form element validations.
+   *
+   * @return This form element instance.
+   */
   @Override
   public T pauseFocusValidations() {
     this.focusValidationPaused = true;
     return (T) this;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Resumes focus-based form element validations.
+   *
+   * @return This form element instance.
+   */
   @Override
   public T resumeFocusValidations() {
     this.focusValidationPaused = false;
     return (T) this;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Toggles pause state for focus-based form element validations.
+   *
+   * @param toggle True to pause focus validations, false to resume them.
+   * @return This form element instance.
+   */
   @Override
   public T togglePauseFocusValidations(boolean toggle) {
     this.focusValidationPaused = toggle;
     return (T) this;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Checks if focus-based form element validations are paused.
+   *
+   * @return True if focus validations are paused, false otherwise.
+   */
   @Override
   public boolean isFocusValidationsPaused() {
     return this.focusValidationPaused;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Sets the helper text for this form element.
+   *
+   * @param helperText The helper text to set.
+   * @return This form element instance.
+   */
   @Override
   public T setHelperText(String helperText) {
     helperTextElement.get().setTextContent(helperText);
     return (T) this;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Gets the helper text of this form element.
+   *
+   * @return The helper text of this form element.
+   */
   @Override
   public String getHelperText() {
     if (helperTextElement.isInitialized()) {
@@ -256,14 +367,23 @@ public abstract class AbstractFormElement<T extends AbstractFormElement<T, V>, V
     return "";
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Sets the label for this form element.
+   *
+   * @param label The label to set.
+   * @return This form element instance.
+   */
   @Override
   public T setLabel(String label) {
     labelElement.get().setTextContent(label);
     return (T) this;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Gets the label of this form element.
+   *
+   * @return The label of this form element.
+   */
   @Override
   public String getLabel() {
     if (labelElement.isInitialized()) {
@@ -273,17 +393,22 @@ public abstract class AbstractFormElement<T extends AbstractFormElement<T, V>, V
   }
 
   /**
-   * setLabelFloatLeft.
+   * Sets whether the label should float to the left when a value is entered.
    *
-   * @param floatLeft a boolean
-   * @return a T object
+   * @param floatLeft True to make the label float to the left, false otherwise.
+   * @return This form element instance.
    */
   public T setLabelFloatLeft(boolean floatLeft) {
     addCss(BooleanCssClass.of(dui_form_label_float_left, floatLeft));
     return (T) this;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Validates this form element and returns the validation result.
+   *
+   * @param formElement The form element to validate.
+   * @return The validation result.
+   */
   @Override
   public ValidationResult validate(T formElement) {
     if (!validationsPaused) {
@@ -293,17 +418,16 @@ public abstract class AbstractFormElement<T extends AbstractFormElement<T, V>, V
     }
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Gets the set of validators associated with this form element.
+   *
+   * @return The set of validators.
+   */
   @Override
   public Set<Validator<T>> getValidators() {
     return validators;
   }
 
-  /**
-   * Runs all the validated over the FormElement if it is enabled and fail-fast
-   *
-   * @return the {@link org.dominokit.domino.ui.forms.validations.ValidationResult}
-   */
   protected ValidationResult doValidate() {
     element.clearInvalid();
     if (!element.isEnabled()) {
@@ -319,14 +443,24 @@ public abstract class AbstractFormElement<T extends AbstractFormElement<T, V>, V
     return ValidationResult.valid();
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Invalidates this form element with a custom error message.
+   *
+   * @param errorMessage The error message to display.
+   * @return This form element instance.
+   */
   @Override
   public T invalidate(String errorMessage) {
     invalidate(Collections.singletonList(errorMessage));
     return (T) this;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Invalidates this form element with a list of custom error messages.
+   *
+   * @param errorMessages The list of error messages to display.
+   * @return This form element instance.
+   */
   @Override
   public T invalidate(List<String> errorMessages) {
     removeErrors();
@@ -352,20 +486,33 @@ public abstract class AbstractFormElement<T extends AbstractFormElement<T, V>, V
     dui_field_invalid.remove(this);
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Gets the list of error messages associated with this form element.
+   *
+   * @return The list of error messages.
+   */
   @Override
   public List<String> getErrors() {
     return errors;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Clears any invalid state and error messages from this form element.
+   *
+   * @return This form element instance.
+   */
   @Override
   public T clearInvalid() {
     removeErrors();
     return (T) this;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Sets whether this form element is required.
+   *
+   * @param required True to make this form element required, false otherwise.
+   * @return This form element instance.
+   */
   @Override
   public T setRequired(boolean required) {
     this.required = required;
@@ -375,10 +522,10 @@ public abstract class AbstractFormElement<T extends AbstractFormElement<T, V>, V
   }
 
   /**
-   * Setter for the field <code>showRequiredIndicator</code>.
+   * Sets whether to show the required indicator for this form element.
    *
-   * @param state a boolean
-   * @return a T object
+   * @param state True to show the required indicator, false to hide it.
+   * @return This form element instance.
    */
   public T setShowRequiredIndicator(boolean state) {
     this.showRequiredIndicator = state;
@@ -394,15 +541,22 @@ public abstract class AbstractFormElement<T extends AbstractFormElement<T, V>, V
   }
 
   /**
-   * isShowRequiredIndicator.
+   * Checks if the required indicator should be shown for this form element.
    *
-   * @return a boolean
+   * @return True if the required indicator is shown, false otherwise.
    */
   public boolean isShowRequiredIndicator() {
     return this.showRequiredIndicator;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Sets whether this form element is required and provides a custom error message for the required
+   * validation.
+   *
+   * @param required True to make this form element required, false otherwise.
+   * @param message The custom error message to display when the field is required.
+   * @return This form element instance.
+   */
   @Override
   public T setRequired(boolean required, String message) {
     setRequired(required);
@@ -410,26 +564,43 @@ public abstract class AbstractFormElement<T extends AbstractFormElement<T, V>, V
     return (T) this;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Checks if this form element is required.
+   *
+   * @return True if this form element is required, false otherwise.
+   */
   @Override
   public boolean isRequired() {
     return required;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Sets the error message to display when this form element is required but not filled.
+   *
+   * @param requiredErrorMessage The required error message.
+   * @return This form element instance.
+   */
   @Override
   public T setRequiredErrorMessage(String requiredErrorMessage) {
     this.requiredErrorMessage = requiredErrorMessage;
     return (T) this;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Gets the error message to display when this form element is required but not filled.
+   *
+   * @return The required error message.
+   */
   @Override
   public String getRequiredErrorMessage() {
     return isNull(requiredErrorMessage) ? labels.requiredErrorMessage() : requiredErrorMessage;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Displays errors associated with this form element based on a list of EditorError instances.
+   *
+   * @param errors The list of EditorError instances.
+   */
   @Override
   public void showErrors(List<EditorError> errors) {
     List<String> editorErrors =
@@ -445,164 +616,218 @@ public abstract class AbstractFormElement<T extends AbstractFormElement<T, V>, V
     }
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Sets whether error messages should be fixed in position.
+   *
+   * @param fixErrorsPosition True to fix error messages in position, false otherwise.
+   * @return This form element instance.
+   */
   @Override
   public T fixErrorsPosition(boolean fixErrorsPosition) {
     addCss(BooleanCssClass.of(dui_fixed_errors, fixErrorsPosition));
     return (T) this;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Pauses change listeners for this form element.
+   *
+   * @return This form element instance.
+   */
   @Override
   public T pauseChangeListeners() {
     this.changeListenersPaused = true;
     return (T) this;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Resumes change listeners for this form element.
+   *
+   * @return This form element instance.
+   */
   @Override
   public T resumeChangeListeners() {
     this.changeListenersPaused = false;
     return (T) this;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Gets the set of change listeners associated with this form element.
+   *
+   * @return The set of change listeners.
+   */
   @Override
   public Set<ChangeListener<? super V>> getChangeListeners() {
     return changeListeners;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Checks if change listeners for this form element are paused.
+   *
+   * @return True if change listeners are paused, false otherwise.
+   */
   @Override
   public boolean isChangeListenersPaused() {
     return changeListenersPaused;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Toggles pause state for change listeners for this form element.
+   *
+   * @param toggle True to pause change listeners, false to resume them.
+   * @return This form element instance.
+   */
   @Override
   public T togglePauseChangeListeners(boolean toggle) {
     this.changeListenersPaused = toggle;
     return (T) this;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Pauses clear listeners for this form element.
+   *
+   * @return This form element instance.
+   */
   @Override
   public T pauseClearListeners() {
     this.clearListenersPaused = true;
     return (T) this;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Resumes clear listeners for this form element.
+   *
+   * @return This form element instance.
+   */
   @Override
   public T resumeClearListeners() {
     this.clearListenersPaused = false;
     return (T) this;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Toggles pause state for clear listeners for this form element.
+   *
+   * @param toggle True to pause clear listeners, false to resume them.
+   * @return This form element instance.
+   */
   @Override
   public T togglePauseClearListeners(boolean toggle) {
     this.clearListenersPaused = toggle;
     return (T) this;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Gets the set of clear listeners associated with this form element.
+   *
+   * @return The set of clear listeners.
+   */
   @Override
   public Set<ClearListener<? super V>> getClearListeners() {
     return clearListeners;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Checks if clear listeners for this form element are paused.
+   *
+   * @return True if clear listeners are paused, false otherwise.
+   */
   @Override
   public boolean isClearListenersPaused() {
     return clearListenersPaused;
   }
 
   /**
-   * Setter for the field <code>emptyAsNull</code>.
+   * Sets whether empty values should be treated as null values.
    *
-   * @param emptyAsNull boolean, if true empty value will be considered null otherwise its normal
-   *     empty String
-   * @return same TextBox instance
+   * @param emptyAsNull True to treat empty values as null, false otherwise.
+   * @return This form element instance.
    */
   public T setEmptyAsNull(boolean emptyAsNull) {
     this.emptyAsNull = emptyAsNull;
     return (T) this;
   }
 
-  /** @return boolean, true is {@link #setEmptyAsNull(boolean)} */
   /**
-   * isEmptyAsNull.
+   * Checks if empty values are treated as null values.
    *
-   * @return a boolean
+   * @return True if empty values are treated as null, false otherwise.
    */
   public boolean isEmptyAsNull() {
     return emptyAsNull;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Sets the default value for this form element.
+   *
+   * @param defaultValue The default value to set.
+   * @return This form element instance.
+   */
   @Override
   public T setDefaultValue(V defaultValue) {
     this.defaultValue = defaultValue;
     return (T) this;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Gets the default value for this form element.
+   *
+   * @return The default value.
+   */
   @Override
   public V getDefaultValue() {
     return defaultValue;
   }
 
   /**
-   * Getter for the field <code>bodyElement</code>.
+   * Gets the body element of this form element.
    *
-   * @return a {@link org.dominokit.domino.ui.elements.DivElement} object
+   * @return The body element.
    */
   public DivElement getBodyElement() {
     return bodyElement;
   }
 
   /**
-   * Getter for the field <code>labelElement</code>.
+   * Gets the label element of this form element.
    *
-   * @return a {@link org.dominokit.domino.ui.elements.LabelElement} object
+   * @return The label element.
    */
   public LabelElement getLabelElement() {
     return labelElement.get();
   }
 
   /**
-   * Getter for the field <code>wrapperElement</code>.
+   * Gets the wrapper element of this form element.
    *
-   * @return a {@link org.dominokit.domino.ui.elements.DivElement} object
+   * @return The wrapper element.
    */
   public DivElement getWrapperElement() {
     return wrapperElement;
   }
 
   /**
-   * getMessagesWrapperElement.
+   * Gets the messages wrapper element of this form element.
    *
-   * @return a {@link org.dominokit.domino.ui.elements.DivElement} object
+   * @return The messages wrapper element.
    */
   public DivElement getMessagesWrapperElement() {
     return messagesWrapper.get();
   }
 
   /**
-   * Getter for the field <code>helperTextElement</code>.
+   * Gets the helper text element of this form element.
    *
-   * @return a {@link org.dominokit.domino.ui.elements.SpanElement} object
+   * @return The helper text element.
    */
   public SpanElement getHelperTextElement() {
     return helperTextElement.get();
   }
 
   /**
-   * withBody.
+   * Applies a custom child handler to the body element of this form element.
    *
-   * @param handler a {@link org.dominokit.domino.ui.utils.ChildHandler} object
-   * @return a T object
+   * @param handler The child handler to apply.
+   * @return This form element instance.
    */
   public T withBody(ChildHandler<T, DivElement> handler) {
     handler.apply((T) this, bodyElement);
@@ -610,9 +835,10 @@ public abstract class AbstractFormElement<T extends AbstractFormElement<T, V>, V
   }
 
   /**
-   * withLabel.
+   * Initializes and retrieves the label element associated with this form element. Use this method
+   * when you want to customize or manipulate the label element.
    *
-   * @return a T object
+   * @return This form element instance.
    */
   public T withLabel() {
     labelElement.get();
@@ -620,10 +846,10 @@ public abstract class AbstractFormElement<T extends AbstractFormElement<T, V>, V
   }
 
   /**
-   * withLabel.
+   * Applies a custom child handler to the label element of this form element.
    *
-   * @param handler a {@link org.dominokit.domino.ui.utils.ChildHandler} object
-   * @return a T object
+   * @param handler The child handler to apply.
+   * @return This form element instance.
    */
   public T withLabel(ChildHandler<T, LabelElement> handler) {
     handler.apply((T) this, labelElement.get());
@@ -631,10 +857,10 @@ public abstract class AbstractFormElement<T extends AbstractFormElement<T, V>, V
   }
 
   /**
-   * withWrapper.
+   * Applies a custom child handler to the wrapper element of this form element.
    *
-   * @param handler a {@link org.dominokit.domino.ui.utils.ChildHandler} object
-   * @return a T object
+   * @param handler The child handler to apply.
+   * @return This form element instance.
    */
   public T withWrapper(ChildHandler<T, DivElement> handler) {
     handler.apply((T) this, wrapperElement);
@@ -642,9 +868,10 @@ public abstract class AbstractFormElement<T extends AbstractFormElement<T, V>, V
   }
 
   /**
-   * withMessagesWrapper.
+   * Initializes and retrieves the messages wrapper element associated with this form element. Use
+   * this method when you want to customize or manipulate the messages wrapper element.
    *
-   * @return a T object
+   * @return This form element instance.
    */
   public T withMessagesWrapper() {
     messagesWrapper.get();
@@ -652,10 +879,10 @@ public abstract class AbstractFormElement<T extends AbstractFormElement<T, V>, V
   }
 
   /**
-   * withMessagesWrapper.
+   * Applies a custom child handler to the messages wrapper element of this form element.
    *
-   * @param handler a {@link org.dominokit.domino.ui.utils.ChildHandler} object
-   * @return a T object
+   * @param handler The child handler to apply.
+   * @return This form element instance.
    */
   public T withMessagesWrapper(ChildHandler<T, DivElement> handler) {
     handler.apply((T) this, messagesWrapper.get());
@@ -663,9 +890,10 @@ public abstract class AbstractFormElement<T extends AbstractFormElement<T, V>, V
   }
 
   /**
-   * withHelperText.
+   * Initializes and retrieves the helper text element associated with this form element. Use this
+   * method when you want to customize or manipulate the helper text element.
    *
-   * @return a T object
+   * @return This form element instance.
    */
   public T withHelperText() {
     helperTextElement.get();
@@ -673,10 +901,10 @@ public abstract class AbstractFormElement<T extends AbstractFormElement<T, V>, V
   }
 
   /**
-   * withHelperText.
+   * Applies a custom child handler to the helper text element of this form element.
    *
-   * @param handler a {@link org.dominokit.domino.ui.utils.ChildHandler} object
-   * @return a T object
+   * @param handler The child handler to apply.
+   * @return This form element instance.
    */
   public T withHelperText(ChildHandler<T, SpanElement> handler) {
     handler.apply((T) this, helperTextElement.get());
@@ -684,27 +912,27 @@ public abstract class AbstractFormElement<T extends AbstractFormElement<T, V>, V
   }
 
   /**
-   * requiredElement.
+   * Gets the required element associated with this form element.
    *
-   * @return a {@link org.dominokit.domino.ui.utils.LazyChild} object
+   * @return The required element.
    */
   public LazyChild<DominoElement<HTMLElement>> requiredElement() {
     return requiredElement;
   }
 
   /**
-   * messagesWrapper.
+   * Gets the messages wrapper element associated with this form element.
    *
-   * @return a {@link org.dominokit.domino.ui.utils.LazyChild} object
+   * @return The messages wrapper element.
    */
   public LazyChild<DivElement> messagesWrapper() {
     return messagesWrapper;
   }
 
   /**
-   * labelElement.
+   * Gets the label element associated with this form element.
    *
-   * @return a {@link org.dominokit.domino.ui.utils.LazyChild} object
+   * @return The label element.
    */
   public LazyChild<LabelElement> labelElement() {
     return labelElement;

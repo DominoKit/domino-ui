@@ -19,77 +19,102 @@ import java.util.Deque;
 import java.util.Optional;
 import org.dominokit.domino.ui.utils.IsPopup;
 
-/** ZIndexManager interface. */
+/**
+ * Manages z-index values and the order of popups within an application.
+ *
+ * <p>Example usage:
+ *
+ * <pre>{@code
+ * ZIndexManager manager = ...; // Obtain an implementation
+ * manager.onPopupOpen(myPopup);
+ * Integer zIndex = manager.getNextZIndex();
+ * }</pre>
+ */
 public interface ZIndexManager {
 
-  /** @return return the next z-index value */
   /**
-   * getNextZIndex.
+   * Returns the next available z-index value.
    *
-   * @return a {@link java.lang.Integer} object
+   * @return the next z-index
    */
   Integer getNextZIndex();
 
   /**
-   * Whenever a pop is opened this need to be called, the implementation for this should adjust the
-   * opened modals and backdrop elements z-index.
+   * Notifies the manager that a popup has been opened.
    *
-   * @param popup the popup to be shown next
+   * @param popup the opened popup
    */
   void onPopupOpen(IsPopup<?> popup);
 
   /**
-   * Whenever a pop is closed this need to be called, the implementation for this should adjust the
-   * opened modals and backdrop elements z-index.
+   * Notifies the manager that a popup has been closed.
    *
-   * @param popup the popup to be closed
+   * @param popup the closed popup
    */
   void onPopupClose(IsPopup<?> popup);
 
-  /** @return The last opened modal popup. */
   /**
-   * getTopLevelModal.
+   * Retrieves the top-level modal currently managed.
    *
-   * @return a {@link java.util.Optional} object
+   * @return an optional top-level modal
    */
   Optional<IsPopup<?>> getTopLevelModal();
 
   /**
-   * Adds a new {@link org.dominokit.domino.ui.dialogs.ZIndexManager.ZIndexListener}
+   * Adds a listener to observe z-index changes.
    *
-   * @param listener {@link org.dominokit.domino.ui.dialogs.ZIndexManager.ZIndexListener}
+   * @param listener the listener to add
    */
   void addZIndexListener(ZIndexListener listener);
 
   /**
-   * Removes a {@link org.dominokit.domino.ui.dialogs.ZIndexManager.ZIndexListener}
+   * Removes a z-index change listener.
    *
-   * @param listener {@link org.dominokit.domino.ui.dialogs.ZIndexManager.ZIndexListener}
+   * @param listener the listener to remove
    */
   void removeZIndexListener(ZIndexListener listener);
 
-  /**
-   * A listener to be called when the zIndexManager assign z-index values to different elements, if
-   * the {@link #getNextZIndex()} is called more than once from the same context it should return
-   * all the assigned z-index values.
-   */
+  /** Functional interface for listening to changes in z-index values. */
   @FunctionalInterface
   interface ZIndexListener {
+
+    /**
+     * Callback method for when the z-index changes.
+     *
+     * @param zIndexInfo the information regarding the z-index change
+     */
     void onZIndexChange(ZIndexInfo zIndexInfo);
 
+    /** Class to provide information about a z-index change event. */
     class ZIndexInfo {
       private final IsPopup<?> popup;
       private final Deque<IsPopup<?>> modals;
 
+      /**
+       * Constructs a ZIndexInfo instance.
+       *
+       * @param popup the popup related to the event
+       * @param modals the modals currently being managed
+       */
       public ZIndexInfo(IsPopup<?> popup, Deque<IsPopup<?>> modals) {
         this.popup = popup;
         this.modals = modals;
       }
 
+      /**
+       * Returns the popup related to the z-index change event.
+       *
+       * @return the popup
+       */
       public IsPopup<?> getPopup() {
         return popup;
       }
 
+      /**
+       * Returns the list of modals currently being managed.
+       *
+       * @return the modals
+       */
       public Deque<IsPopup<?>> getModals() {
         return modals;
       }

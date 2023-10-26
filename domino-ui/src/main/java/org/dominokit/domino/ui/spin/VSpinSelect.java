@@ -21,35 +21,45 @@ import org.dominokit.domino.ui.utils.DominoUIConfig;
 import org.dominokit.domino.ui.utils.SwipeUtil;
 
 /**
- * A component provides vertical spin
+ * Represents a vertical spin select component, allowing users to cycle through a set of items in a
+ * vertical manner.
  *
- * @param <T> the type of the object inside the spin
+ * <p><b>Usage:</b>
+ *
+ * <pre>
+ * VSpinSelect&lt;String&gt; spinSelect = VSpinSelect.create();
+ * spinSelect.addItem("Item 1");
+ * spinSelect.addItem("Item 2");
+ * // Add more items as needed...
+ * </pre>
+ *
+ * @param <T> The type of the items in this spin select.
  */
 public class VSpinSelect<T> extends SpinSelect<T, VSpinSelect<T>> {
 
   /**
-   * Creates new instance
+   * Creates a new VSpinSelect with default up and down icons.
    *
-   * @param <T> the type of the object inside the spin
-   * @return new instance
+   * @param <T> the type of the items
+   * @return a new instance of VSpinSelect
    */
   public static <T> VSpinSelect<T> create() {
     return new VSpinSelect<>();
   }
 
   /**
-   * Creates new instance with back/forward icons
+   * Creates a new VSpinSelect with the provided up and down icons.
    *
-   * @param backIcon the back {@link org.dominokit.domino.ui.icons.Icon}
-   * @param forwardIcon the forward {@link org.dominokit.domino.ui.icons.Icon}
-   * @param <T> the type of the object inside the spin
-   * @return new instance
+   * @param upIcon the up icon to use
+   * @param downIcon the down icon to use
+   * @param <T> the type of the items
+   * @return a new instance of VSpinSelect
    */
-  public static <T> VSpinSelect<T> create(Icon<?> backIcon, Icon<?> forwardIcon) {
-    return new VSpinSelect<>(backIcon, forwardIcon);
+  public static <T> VSpinSelect<T> create(Icon<?> upIcon, Icon<?> downIcon) {
+    return new VSpinSelect<>(upIcon, downIcon);
   }
 
-  /** Constructor for VSpinSelect. */
+  /** Default constructor that initializes the VSpinSelect with default up and down icons. */
   public VSpinSelect() {
     this(
         DominoUIConfig.CONFIG.getUIConfig().getDefaultUpIconSupplier().get(),
@@ -57,13 +67,13 @@ public class VSpinSelect<T> extends SpinSelect<T, VSpinSelect<T>> {
   }
 
   /**
-   * Constructor for VSpinSelect.
+   * Constructor that initializes the VSpinSelect with the provided up and down icons.
    *
-   * @param backIcon a {@link org.dominokit.domino.ui.icons.Icon} object
-   * @param forwardIcon a {@link org.dominokit.domino.ui.icons.Icon} object
+   * @param upIcon the up icon to use
+   * @param downIcon the down icon to use
    */
-  public VSpinSelect(Icon<?> backIcon, Icon<?> forwardIcon) {
-    super(backIcon, forwardIcon);
+  public VSpinSelect(Icon<?> upIcon, Icon<?> downIcon) {
+    super(upIcon, downIcon);
     addCss(dui_spin_vertical);
     SwipeUtil.addSwipeListener(
         SwipeUtil.SwipeDirection.DOWN, contentPanel.element(), evt -> moveBack());
@@ -71,13 +81,23 @@ public class VSpinSelect<T> extends SpinSelect<T, VSpinSelect<T>> {
         SwipeUtil.SwipeDirection.UP, contentPanel.element(), evt -> moveForward());
   }
 
-  /** {@inheritDoc} */
+  /**
+   * {@inheritDoc}
+   *
+   * <p>This implementation sets the transform property to translate the content vertically based on
+   * the given offset.
+   */
   @Override
   protected void setTransformProperty(double offset) {
     contentPanel.setCssProperty("transform", "translate3d(0px, -" + offset + "%, 0px)");
   }
 
-  /** {@inheritDoc} */
+  /**
+   * {@inheritDoc}
+   *
+   * <p>This implementation adjusts the height of the items based on the current bounding rect of
+   * the content panel.
+   */
   @Override
   protected void fixElementsWidth() {
     DOMRect boundingClientRect = contentPanel.getBoundingClientRect();

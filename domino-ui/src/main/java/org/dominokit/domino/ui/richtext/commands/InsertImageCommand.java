@@ -27,6 +27,22 @@ import org.dominokit.domino.ui.icons.lib.Icons;
 import org.dominokit.domino.ui.richtext.RichTextCommand;
 import org.dominokit.domino.ui.utils.URL;
 
+/**
+ * Represents a UI command to insert an image within a rich text editor.
+ *
+ * <p>The {@code InsertImageCommand} extends {@link RichTextCommand} and provides the ability to
+ * insert an image at the current selection position in a rich text editable div element. The
+ * command is represented by a button with an appropriate icon. Clicking on this button opens a
+ * confirmation dialog that contains an upload box. Users can select an image through this upload
+ * box. Confirming the dialog inserts the selected image at the current position.
+ *
+ * <p><b>Usage Example:</b>
+ *
+ * <pre>{@code
+ * DivElement editableDiv = DivElement.create();
+ * InsertImageCommand insertImageCommand = InsertImageCommand.create(editableDiv);
+ * }</pre>
+ */
 public class InsertImageCommand extends RichTextCommand<InsertImageCommand> {
 
   private final ConfirmationDialog dialog;
@@ -35,10 +51,21 @@ public class InsertImageCommand extends RichTextCommand<InsertImageCommand> {
   private Range range;
   private String url;
 
+  /**
+   * Factory method to create a new instance of InsertImageCommand.
+   *
+   * @param editableElement The div element where the rich text is edited.
+   * @return A new instance of InsertImageCommand.
+   */
   public static InsertImageCommand create(DivElement editableElement) {
     return new InsertImageCommand(editableElement);
   }
 
+  /**
+   * Constructs a new InsertImageCommand instance for the specified editable div element.
+   *
+   * @param editableElement The div element where the rich text is edited.
+   */
   public InsertImageCommand(DivElement editableElement) {
     super(editableElement);
     this.dialog =
@@ -92,14 +119,23 @@ public class InsertImageCommand extends RichTextCommand<InsertImageCommand> {
     init(this);
   }
 
+  /**
+   * @dominokit-site-ignore {@inheritDoc}
+   *     <p>Returns the main HTMLElement of this command, which is the button used to open the image
+   *     insertion dialog.
+   * @return The HTMLElement of the button.
+   */
   @Override
   public HTMLElement element() {
     return button.element();
   }
 
+  /**
+   * Executes the command, inserting the selected image at the current selection position within the
+   * editable div element.
+   */
   @Override
   protected void execute() {
-    DomGlobal.console.info(this.url);
     if (nonNull(range)) {
       if (nonNull(this.url)) {
         getSelectedRange()

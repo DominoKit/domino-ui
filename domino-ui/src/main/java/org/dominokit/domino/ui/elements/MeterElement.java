@@ -17,22 +17,37 @@ package org.dominokit.domino.ui.elements;
 
 import elemental2.dom.HTMLMeterElement;
 
-/** MeterElement class. */
+/**
+ * Represents an HTML <meter> element wrapper.
+ *
+ * <p>The HTML <meter> element represents a scalar measurement within a known range or a fractional
+ * value. This class provides a convenient way to create, manipulate, and control the behavior of
+ * <meter> elements in Java-based web applications. Example usage:
+ *
+ * <pre>{@code
+ * HTMLMeterElement meterElement = ...;  // Obtain a <meter> element from somewhere
+ * MeterElement meter = MeterElement.of(meterElement);
+ * }</pre>
+ *
+ * @see <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/meter">MDN Web Docs
+ *     (meter)</a>
+ */
 public class MeterElement extends BaseElement<HTMLMeterElement, MeterElement> {
+
   /**
-   * of.
+   * Creates a new {@link MeterElement} instance by wrapping the provided HTML <meter> element.
    *
-   * @param e a {@link elemental2.dom.HTMLMeterElement} object
-   * @return a {@link org.dominokit.domino.ui.elements.MeterElement} object
+   * @param e The HTML <meter> element to wrap.
+   * @return A new {@link MeterElement} instance wrapping the provided element.
    */
   public static MeterElement of(HTMLMeterElement e) {
     return new MeterElement(e);
   }
 
   /**
-   * Constructor for MeterElement.
+   * Constructs a {@link MeterElement} instance by wrapping the provided HTML <meter> element.
    *
-   * @param element a {@link elemental2.dom.HTMLMeterElement} object
+   * @param element The HTML <meter> element to wrap.
    */
   public MeterElement(HTMLMeterElement element) {
     super(element);

@@ -13,35 +13,39 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package org.dominokit.domino.ui.datatable;
 
 import java.util.Objects;
 import java.util.Optional;
 import org.dominokit.domino.ui.utils.ComponentMeta;
 
-/** RowAppenderMeta class. */
+/**
+ * A meta information class for storing a row appender in a data table row.
+ *
+ * @param <T> The type of data in the data table.
+ */
 public class RowAppenderMeta<T> implements ComponentMeta {
 
-  /** Constant <code>TABLE_ROW_APPENDER_META="table-row-appender-meta"</code> */
   public static final String TABLE_ROW_APPENDER_META = "table-row-appender-meta";
 
   private final TableConfig.RowAppender<T> rowAppender;
 
   /**
-   * of.
+   * Creates a new instance of {@code RowAppenderMeta} with the provided row appender.
    *
-   * @param rowAppender a {@link org.dominokit.domino.ui.datatable.TableConfig.RowAppender} object
-   * @param <T> a T class
-   * @return a {@link org.dominokit.domino.ui.datatable.RowAppenderMeta} object
+   * @param <T> The type of data in the data table.
+   * @param rowAppender The row appender to store.
+   * @return A new {@code RowAppenderMeta<T>} instance with the provided row appender.
    */
   public static <T> RowAppenderMeta<T> of(TableConfig.RowAppender<T> rowAppender) {
     return new RowAppenderMeta<>(rowAppender);
   }
 
   /**
-   * Constructor for RowAppenderMeta.
+   * Creates a new instance of {@code RowAppenderMeta} with the provided row appender.
    *
-   * @param rowAppender a {@link org.dominokit.domino.ui.datatable.TableConfig.RowAppender} object
+   * @param rowAppender The row appender to store.
    */
   public RowAppenderMeta(TableConfig.RowAppender<T> rowAppender) {
     Objects.requireNonNull(rowAppender, "RowAppender cant be null.");
@@ -49,26 +53,33 @@ public class RowAppenderMeta<T> implements ComponentMeta {
   }
 
   /**
-   * get.
+   * Retrieves a {@code RowAppenderMeta} instance associated with a specific data table row.
    *
-   * @param row a {@link org.dominokit.domino.ui.datatable.TableRow} object
-   * @param <T> a T class
-   * @return a {@link java.util.Optional} object
+   * @param <T> The type of data in the data table.
+   * @param row The data table row.
+   * @return An optional containing the {@code RowAppenderMeta} instance if found, or an empty
+   *     optional if not found.
    */
   public static <T> Optional<RowAppenderMeta<T>> get(TableRow<T> row) {
     return row.getMeta(TABLE_ROW_APPENDER_META);
   }
 
   /**
-   * Getter for the field <code>rowAppender</code>.
+   * Gets the stored row appender.
    *
-   * @return a {@link org.dominokit.domino.ui.datatable.TableConfig.RowAppender} object
+   * @return The row appender.
    */
   public TableConfig.RowAppender<T> getRowAppender() {
     return rowAppender;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * {@inheritDoc}
+   *
+   * <p>Returns the key that identifies the type of metadata associated with this class.
+   *
+   * @return The key for identifying metadata of this type.
+   */
   @Override
   public String getKey() {
     return TABLE_ROW_APPENDER_META;

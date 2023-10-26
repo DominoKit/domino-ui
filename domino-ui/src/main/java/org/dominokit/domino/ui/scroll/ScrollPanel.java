@@ -20,29 +20,46 @@ import org.dominokit.domino.ui.elements.DivElement;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
 
 /**
- * A component that wraps the {@link elemental2.dom.HTMLDivElement} to make it scrollable by default
+ * Represents a scrollable panel component.
+ *
+ * <p>The {@code ScrollPanel} class provides a simple way to create a scrollable panel. It extends
+ * {@link BaseDominoElement} and encapsulates a root {@link DivElement} with CSS styles applied to
+ * enable scrolling.
+ *
+ * <p><b>Usage Example:</b>
+ *
+ * <pre>
+ * ScrollPanel scrollPanel = ScrollPanel.create();
+ * // Add content to the scroll panel
+ * scrollPanel.appendChild(someContentElement);
+ * </pre>
+ *
+ * @see BaseDominoElement
  */
 public class ScrollPanel extends BaseDominoElement<HTMLDivElement, ScrollPanel> {
 
   private DivElement root;
 
-  /** @return new AutoHScrollPanel instance */
   /**
-   * create.
+   * Factory method to create a new instance of ScrollPanel.
    *
-   * @return a {@link org.dominokit.domino.ui.scroll.ScrollPanel} object
+   * @return A new instance of ScrollPanel.
    */
   public static ScrollPanel create() {
     return new ScrollPanel();
   }
 
-  /** Constructor for ScrollPanel. */
+  /** Constructs a new ScrollPanel instance. */
   public ScrollPanel() {
     root = div().addCss(dui_overflow_scroll);
     init(this);
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Returns the main HTMLElement of this scroll panel, which is the root div element.
+   *
+   * @return The HTMLElement of the root div element.
+   */
   @Override
   public HTMLDivElement element() {
     return root.element();

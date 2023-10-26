@@ -47,6 +47,8 @@ public class Code {
    * <pre>pre</pre>
    *
    * <p>element
+   *
+   * @see BaseDominoElement
    */
   public static class Block extends BaseDominoElement<HTMLPreElement, Block> {
     private final PreElement element;
@@ -90,6 +92,8 @@ public class Code {
    * <pre>code</pre>
    *
    * <p>element
+   *
+   * @see BaseDominoElement
    */
   public static class Statement extends BaseDominoElement<HTMLElement, Statement> {
     private final DominoElement<HTMLElement> element;

@@ -15,12 +15,17 @@
  */
 package org.dominokit.domino.ui.utils;
 
-/** Bindable interface. */
+/**
+ * An interface for objects that can be bound to an owner object of type T.
+ *
+ * @param <T> The type of the owner object to which this object can be bound.
+ */
 public interface Bindable<T> {
+
   /**
-   * bindTo.
+   * Binds this object to an owner of type T.
    *
-   * @param owner a T object
+   * @param owner The owner object to which this object will be bound.
    */
   void bindTo(T owner);
 }

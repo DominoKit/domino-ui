@@ -27,7 +27,12 @@ import org.dominokit.domino.ui.utils.ChildHandler;
 import org.dominokit.domino.ui.utils.PostfixAddOn;
 import org.dominokit.domino.ui.utils.PrefixAddOn;
 
-/** StepTracker class. */
+/**
+ * Represents a tracker within a step in a stepper component. This tracker displays the state of the
+ * step. It can be customized with additional content and styles.
+ *
+ * @see BaseDominoElement
+ */
 public class StepTracker extends BaseDominoElement<HTMLDivElement, StepTracker>
     implements StepperStyles {
 
@@ -39,8 +44,9 @@ public class StepTracker extends BaseDominoElement<HTMLDivElement, StepTracker>
   private final Set<TrackerListener> listeners = new HashSet<>();
   private StepState state;
   private String key;
+  private StepperTrack parent;
 
-  /** Constructor for StepTracker. */
+  /** Creates a new {@link StepTracker} with default settings. */
   public StepTracker() {
     root =
         div()
@@ -56,10 +62,20 @@ public class StepTracker extends BaseDominoElement<HTMLDivElement, StepTracker>
     setState(uiconfig().getDefaultStepState());
   }
 
+  void bind(StepperTrack parent) {
+    this.parent = parent;
+  }
+
+  @Override
+  public StepTracker remove() {
+    this.parent.removeTracker(this);
+    return super.remove();
+  }
+
   /**
-   * Constructor for StepTracker.
+   * Creates a new {@link StepTracker} with a custom key.
    *
-   * @param key a {@link java.lang.String} object
+   * @param key The custom key for the tracker.
    */
   public StepTracker(String key) {
     this();
@@ -67,29 +83,29 @@ public class StepTracker extends BaseDominoElement<HTMLDivElement, StepTracker>
   }
 
   /**
-   * create.
+   * Factory method to create a new instance of {@link StepTracker} with default settings.
    *
-   * @return a {@link org.dominokit.domino.ui.stepper.StepTracker} object
+   * @return A new instance of {@link StepTracker}.
    */
   public static StepTracker create() {
     return new StepTracker();
   }
 
   /**
-   * create.
+   * Factory method to create a new instance of {@link StepTracker} with a custom key.
    *
-   * @param key a {@link java.lang.String} object
-   * @return a {@link org.dominokit.domino.ui.stepper.StepTracker} object
+   * @param key The custom key for the tracker.
+   * @return A new instance of {@link StepTracker} with the specified key.
    */
   public static StepTracker create(String key) {
     return new StepTracker(key);
   }
 
   /**
-   * withTrackerNode.
+   * Configures the tracker node using a child handler.
    *
-   * @param handler a {@link org.dominokit.domino.ui.utils.ChildHandler} object
-   * @return a {@link org.dominokit.domino.ui.stepper.StepTracker} object
+   * @param handler The handler to configure the tracker node.
+   * @return This {@link StepTracker} instance.
    */
   public StepTracker withTrackerNode(ChildHandler<StepTracker, DivElement> handler) {
     handler.apply(this, trackerNode);
@@ -97,10 +113,10 @@ public class StepTracker extends BaseDominoElement<HTMLDivElement, StepTracker>
   }
 
   /**
-   * withTrackerLine.
+   * Configures the tracker line using a child handler.
    *
-   * @param handler a {@link org.dominokit.domino.ui.utils.ChildHandler} object
-   * @return a {@link org.dominokit.domino.ui.stepper.StepTracker} object
+   * @param handler The handler to configure the tracker line.
+   * @return This {@link StepTracker} instance.
    */
   public StepTracker withTrackerLine(ChildHandler<StepTracker, DivElement> handler) {
     handler.apply(this, trackerLine);
@@ -108,36 +124,45 @@ public class StepTracker extends BaseDominoElement<HTMLDivElement, StepTracker>
   }
 
   /**
-   * Getter for the field <code>trackerNode</code>.
+   * Retrieves the tracker node element.
    *
-   * @return a {@link org.dominokit.domino.ui.elements.DivElement} object
+   * @return The tracker node element.
    */
   public DivElement getTrackerNode() {
     return trackerNode;
   }
 
   /**
-   * Getter for the field <code>trackerLine</code>.
+   * Retrieves the tracker line element.
    *
-   * @return a {@link org.dominokit.domino.ui.elements.DivElement} object
+   * @return The tracker line element.
    */
   public DivElement getTrackerLine() {
     return trackerLine;
   }
 
+  /**
+   * Activates the step tracker, indicating that the step is active. This method adds the active CSS
+   * class.
+   */
   void activate() {
     this.addCss(dui_active);
   }
 
+  /**
+   * Deactivates the step tracker, indicating that the step is not active. This method removes the
+   * active CSS class.
+   */
   void deactivate() {
     this.removeCss(dui_active);
   }
 
   /**
-   * addStateListener.
+   * Adds a state listener to this step tracker. The listener will be notified when the state
+   * changes.
    *
-   * @param listener a {@link org.dominokit.domino.ui.stepper.StepTracker.TrackerListener} object
-   * @return a {@link org.dominokit.domino.ui.stepper.StepTracker} object
+   * @param listener The state listener to add.
+   * @return This {@link StepTracker} instance.
    */
   public StepTracker addStateListener(TrackerListener listener) {
     if (nonNull(listener)) {
@@ -147,10 +172,10 @@ public class StepTracker extends BaseDominoElement<HTMLDivElement, StepTracker>
   }
 
   /**
-   * removeStateListener.
+   * Removes a state listener from this step tracker.
    *
-   * @param listener a {@link org.dominokit.domino.ui.stepper.StepTracker.TrackerListener} object
-   * @return a {@link org.dominokit.domino.ui.stepper.StepTracker} object
+   * @param listener The state listener to remove.
+   * @return This {@link StepTracker} instance.
    */
   public StepTracker removeStateListener(TrackerListener listener) {
     if (nonNull(listener)) {
@@ -160,19 +185,19 @@ public class StepTracker extends BaseDominoElement<HTMLDivElement, StepTracker>
   }
 
   /**
-   * Getter for the field <code>state</code>.
+   * Retrieves the current state of the step tracker.
    *
-   * @return a {@link org.dominokit.domino.ui.stepper.StepState} object
+   * @return The current state of the step tracker.
    */
   public StepState getState() {
     return state;
   }
 
   /**
-   * Setter for the field <code>state</code>.
+   * Sets the state of the step tracker to the specified state.
    *
-   * @param state a {@link org.dominokit.domino.ui.stepper.StepState} object
-   * @return a {@link org.dominokit.domino.ui.stepper.StepTracker} object
+   * @param state The state to set.
+   * @return This {@link StepTracker} instance.
    */
   public StepTracker setState(StepState state) {
     if (nonNull(this.state)) {
@@ -189,10 +214,10 @@ public class StepTracker extends BaseDominoElement<HTMLDivElement, StepTracker>
   }
 
   /**
-   * withContent.
+   * Configures the content of the step tracker using a child handler.
    *
-   * @param handler a {@link org.dominokit.domino.ui.utils.ChildHandler} object
-   * @return a {@link org.dominokit.domino.ui.stepper.StepTracker} object
+   * @param handler The handler to configure the content.
+   * @return This {@link StepTracker} instance.
    */
   public StepTracker withContent(ChildHandler<StepTracker, DivElement> handler) {
     handler.apply(this, trackerContent);
@@ -200,10 +225,10 @@ public class StepTracker extends BaseDominoElement<HTMLDivElement, StepTracker>
   }
 
   /**
-   * appendChild.
+   * Appends a postfix add-on to the step tracker.
    *
-   * @param postfixAddOn a {@link org.dominokit.domino.ui.utils.PostfixAddOn} object
-   * @return a {@link org.dominokit.domino.ui.stepper.StepTracker} object
+   * @param postfixAddOn The postfix add-on to append.
+   * @return This {@link StepTracker} instance.
    */
   public StepTracker appendChild(PostfixAddOn<?> postfixAddOn) {
     this.trackerChain.appendChild(postfixAddOn);
@@ -211,10 +236,10 @@ public class StepTracker extends BaseDominoElement<HTMLDivElement, StepTracker>
   }
 
   /**
-   * appendChild.
+   * Appends a prefix add-on to the step tracker.
    *
-   * @param prefixAddOn a {@link org.dominokit.domino.ui.utils.PrefixAddOn} object
-   * @return a {@link org.dominokit.domino.ui.stepper.StepTracker} object
+   * @param prefixAddOn The prefix add-on to append.
+   * @return This {@link StepTracker} instance.
    */
   public StepTracker appendChild(PrefixAddOn<?> prefixAddOn) {
     this.trackerChain.appendChild(prefixAddOn);
@@ -234,33 +259,40 @@ public class StepTracker extends BaseDominoElement<HTMLDivElement, StepTracker>
   }
 
   /**
-   * Getter for the field <code>key</code>.
+   * Retrieves the custom key associated with this step tracker.
    *
-   * @return a {@link java.lang.String} object
+   * @return The custom key.
    */
   public String getKey() {
     return key;
   }
 
   /**
-   * Setter for the field <code>key</code>.
+   * Sets a custom key for this step tracker.
    *
-   * @param key a {@link java.lang.String} object
+   * @param key The custom key to set.
    */
   public void setKey(String key) {
     this.key = key;
   }
 
   /**
-   * isActive.
+   * Checks if this step tracker is active.
    *
-   * @return a boolean
+   * @return {@code true} if the step tracker is active, {@code false} otherwise.
    */
   public boolean isActive() {
     return dui_active.isAppliedTo(this);
   }
 
+  /** Listener interface to handle state changes in a step tracker. */
   public interface TrackerListener {
+    /**
+     * Called when the state of the step tracker changes.
+     *
+     * @param tracker The step tracker whose state has changed.
+     * @param state The new state of the step tracker.
+     */
     void onStateChanged(StepTracker tracker, StepState state);
   }
 }

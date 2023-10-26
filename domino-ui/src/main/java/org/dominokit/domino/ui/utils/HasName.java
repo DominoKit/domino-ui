@@ -13,27 +13,28 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package org.dominokit.domino.ui.utils;
 
 /**
- * A component that can have a name should implement this interface
+ * The {@code HasName} interface defines methods for getting and setting the name of a component.
  *
- * @param <T>
+ * @param <T> The type of the component that can have a name.
  */
 public interface HasName<T> {
-  /** @return String component name */
+
   /**
-   * getName.
+   * Gets the name of the component.
    *
-   * @return a {@link java.lang.String} object
+   * @return The name of the component.
    */
   String getName();
 
   /**
-   * setName.
+   * Sets the name of the component.
    *
-   * @param name String component name
-   * @return same implementing class
+   * @param name The name to set for the component.
+   * @return The component with the updated name.
    */
   T setName(String name);
 }

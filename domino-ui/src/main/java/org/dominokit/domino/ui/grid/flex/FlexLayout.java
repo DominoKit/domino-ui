@@ -25,18 +25,26 @@ import org.dominokit.domino.ui.style.SwapCssClass;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
 
 /**
- * A component which provides an abstract level of the CSS flex layout which will inherit the styles
- * for the CSS flex by default
+ * The {@code FlexLayout} class represents a flexible layout container that uses CSS Flexbox.
  *
- * <p>More information can be found in <a
- * href="https://developer.mozilla.org/en-US/docs/Web/CSS/flex">MDN official documentation</a>
+ * <p>It allows you to create complex layouts by distributing space and aligning items in a more
+ * efficient way. This class provides methods to control the flex direction, wrapping, alignment,
+ * and gap between items.
  *
- * <p>For example:
+ * <p>Usage Example:
  *
  * <pre>
- *     FlexLayout.create()
- *               .appendChild(FlexItem.create())
- *               .appendChild(FlexItem.create());
+ * FlexLayout flexLayout = FlexLayout.create()
+ *     .setDirection(FlexDirection.ROW)
+ *     .setWrap(FlexWrap.WRAP)
+ *     .setJustifyContent(FlexJustifyContent.CENTER)
+ *     .setAlignItems(FlexAlign.CENTER);
+ *
+ * FlexItem<?> flexItem1 = // Create and configure a FlexItem
+ * FlexItem<?> flexItem2 = // Create and configure another FlexItem
+ *
+ * flexLayout.appendChild(flexItem1);
+ * flexLayout.appendChild(flexItem2);
  * </pre>
  *
  * @see BaseDominoElement
@@ -50,25 +58,26 @@ public class FlexLayout extends BaseDominoElement<HTMLDivElement, FlexLayout> {
   private SwapCssClass flexJustifyContent = SwapCssClass.of();
   private SwapCssClass flexAlign = SwapCssClass.of();
 
+  /** Constructs a new {@code FlexLayout} instance. */
   public FlexLayout() {
     this.element = div().addCss(dui_flex);
     init(this);
   }
 
   /**
-   * Creates a new layout
+   * Creates a new instance of the {@code FlexLayout} class.
    *
-   * @return new instance
+   * @return A new {@code FlexLayout} instance.
    */
   public static FlexLayout create() {
     return new FlexLayout();
   }
 
   /**
-   * Sets the direction of the flex items inside the layout
+   * Sets the flex direction of the layout.
    *
-   * @param direction the new {@link FlexDirection}
-   * @return same instance
+   * @param direction The flex direction to set.
+   * @return This {@code FlexLayout} instance for method chaining.
    */
   public FlexLayout setDirection(FlexDirection direction) {
     this.flexDirection.replaceWith(direction).apply(this);
@@ -76,10 +85,10 @@ public class FlexLayout extends BaseDominoElement<HTMLDivElement, FlexLayout> {
   }
 
   /**
-   * Sets the type of wrap of the elements inside this layout
+   * Sets the flex wrapping behavior of the layout.
    *
-   * @param wrap the {@link FlexWrap}
-   * @return same instance
+   * @param wrap The flex wrap behavior to set.
+   * @return This {@code FlexLayout} instance for method chaining.
    */
   public FlexLayout setWrap(FlexWrap wrap) {
     this.flexWrap.replaceWith(wrap).apply(this);
@@ -87,11 +96,11 @@ public class FlexLayout extends BaseDominoElement<HTMLDivElement, FlexLayout> {
   }
 
   /**
-   * Sets the direction and the wrap in this layout
+   * Sets both the flex direction and flex wrapping behavior of the layout.
    *
-   * @param direction the {@link FlexDirection}
-   * @param wrap the {@link FlexWrap}
-   * @return same instance
+   * @param direction The flex direction to set.
+   * @param wrap The flex wrap behavior to set.
+   * @return This {@code FlexLayout} instance for method chaining.
    */
   public FlexLayout setFlow(FlexDirection direction, FlexWrap wrap) {
     setDirection(direction);
@@ -100,10 +109,10 @@ public class FlexLayout extends BaseDominoElement<HTMLDivElement, FlexLayout> {
   }
 
   /**
-   * Sets the type of spaces between the items inside this layout
+   * Sets the alignment of items along the main axis of the layout.
    *
-   * @param justifyContent the {@link FlexJustifyContent}
-   * @return same instance
+   * @param justifyContent The alignment value to set.
+   * @return This {@code FlexLayout} instance for method chaining.
    */
   public FlexLayout setJustifyContent(FlexJustifyContent justifyContent) {
     this.flexJustifyContent.replaceWith(justifyContent).apply(this);
@@ -111,10 +120,10 @@ public class FlexLayout extends BaseDominoElement<HTMLDivElement, FlexLayout> {
   }
 
   /**
-   * Sets the alignment of the items inside this layout
+   * Sets the alignment of items along the cross axis of the layout.
    *
-   * @param alignItems the {@link FlexAlign}
-   * @return same instance
+   * @param alignItems The alignment value to set.
+   * @return This {@code FlexLayout} instance for method chaining.
    */
   public FlexLayout setAlignItems(FlexAlign alignItems) {
     this.flexAlign.replaceWith(alignItems).apply(this);
@@ -122,10 +131,10 @@ public class FlexLayout extends BaseDominoElement<HTMLDivElement, FlexLayout> {
   }
 
   /**
-   * Adds new flex item
+   * Appends a {@code FlexItem} to the layout.
    *
-   * @param flexItem the new {@link FlexItem} to add
-   * @return same instance
+   * @param flexItem The {@code FlexItem} to append.
+   * @return This {@code FlexLayout} instance for method chaining.
    */
   public FlexLayout appendChild(FlexItem<?> flexItem) {
     flexItems.add(flexItem);
@@ -134,10 +143,10 @@ public class FlexLayout extends BaseDominoElement<HTMLDivElement, FlexLayout> {
   }
 
   /**
-   * Inserts a new flex item at the beginning of this layout
+   * Inserts a {@code FlexItem} at the beginning of the layout.
    *
-   * @param flexItem the new {@link FlexItem} to add
-   * @return same instance
+   * @param flexItem The {@code FlexItem} to insert.
+   * @return This {@code FlexLayout} instance for method chaining.
    */
   public FlexLayout insertFirst(FlexItem<?> flexItem) {
     if (!flexItems.isEmpty()) {
@@ -147,11 +156,11 @@ public class FlexLayout extends BaseDominoElement<HTMLDivElement, FlexLayout> {
   }
 
   /**
-   * Adds a new flex item before an {@code existingItem}
+   * Inserts a {@code FlexItem} before an existing item in the layout.
    *
-   * @param flexItem the new {@link FlexItem} to add
-   * @param existingItem the existing {@link FlexItem}
-   * @return same instance
+   * @param flexItem The {@code FlexItem} to insert.
+   * @param existingItem The existing {@code FlexItem} before which the new item should be inserted.
+   * @return This {@code FlexLayout} instance for method chaining.
    */
   public FlexLayout appendChildBefore(FlexItem<?> flexItem, FlexItem<?> existingItem) {
     if (flexItems.contains(existingItem)) {
@@ -162,10 +171,10 @@ public class FlexLayout extends BaseDominoElement<HTMLDivElement, FlexLayout> {
   }
 
   /**
-   * Adds a gap between all flex items of this flex layout
+   * Sets the gap between items in the layout.
    *
-   * @param gap String css value to be used as a gap between the flex items
-   * @return same instance
+   * @param gap The gap size as a CSS value (e.g., "20px").
+   * @return This {@code FlexLayout} instance for method chaining.
    */
   public FlexLayout setGap(String gap) {
     if (isNull(gap) || gap.isEmpty()) {
@@ -176,16 +185,20 @@ public class FlexLayout extends BaseDominoElement<HTMLDivElement, FlexLayout> {
   }
 
   /**
-   * removes the gap between the flex items of this flex layout
+   * Removes the gap between items in the layout.
    *
-   * @return same instance
+   * @return This {@code FlexLayout} instance for method chaining.
    */
   public FlexLayout removeGap() {
     removeCssProperty("gap");
     return this;
   }
 
-  /** @return All the flex items */
+  /**
+   * Retrieves a list of {@code FlexItem}s added to the layout.
+   *
+   * @return A list of {@code FlexItem}s.
+   */
   public List<FlexItem<?>> getFlexItems() {
     return flexItems;
   }

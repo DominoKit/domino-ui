@@ -30,6 +30,23 @@ import org.dominokit.domino.ui.pickers.SimpleColorPicker;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
 import org.dominokit.domino.ui.utils.ChildHandler;
 
+/**
+ * An abstract button component designed to allow color selection using {@link SimpleColorPicker}.
+ *
+ * <p>This component provides a UI button with a dropdown color picker allowing users to select a
+ * color. It can be extended to further customize the behavior and appearance of the color button.
+ *
+ * <p><b>Usage Example:</b>
+ *
+ * <pre>
+ * BackgroundColorPicker pickerButton = BackgroundColorPicker.create();
+ * pickerButton.addChangeListener(color -> {
+ *     // do something with the selected color
+ * });
+ * </pre>
+ *
+ * @see BaseDominoElement
+ */
 public abstract class ColorPickerButton extends BaseDominoElement<HTMLElement, ColorPickerButton>
     implements ColorPickerStyles {
 
@@ -37,6 +54,7 @@ public abstract class ColorPickerButton extends BaseDominoElement<HTMLElement, C
   private final SimpleColorPicker colorPicker;
   private Button mainButton;
 
+  /** Initializes the ColorPickerButton with its UI components. */
   public ColorPickerButton() {
     this.root =
         ButtonsGroup.create(
@@ -58,27 +76,63 @@ public abstract class ColorPickerButton extends BaseDominoElement<HTMLElement, C
     init(this);
   }
 
+  /**
+   * Invoked when a color is selected from the picker.
+   *
+   * @param newValue The newly selected color.
+   */
   protected abstract void onColorSelected(ColorValue newValue);
 
+  /**
+   * Create the button that will display the currently selected color.
+   *
+   * @return The button with a visual representation of the current color.
+   */
   public abstract Button makeIndicatorButton();
 
+  /**
+   * Provides the default color for the color picker.
+   *
+   * @return The default color in hex format.
+   */
   protected abstract String getDefaultColor();
 
+  /**
+   * Allows further customization of the internal {@link SimpleColorPicker}.
+   *
+   * @param handler A handler to apply customizations to the internal color picker.
+   * @return The current {@link ColorPickerButton} instance.
+   */
   public ColorPickerButton withColorPicker(
       ChildHandler<ColorPickerButton, SimpleColorPicker> handler) {
     handler.apply(this, colorPicker);
     return this;
   }
 
+  /**
+   * Retrieves the clickable element of the button.
+   *
+   * @return The element that is clickable.
+   */
   @Override
   public Element getClickableElement() {
     return mainButton.element();
   }
 
+  /**
+   * Retrieves the internal {@link SimpleColorPicker} instance.
+   *
+   * @return The current {@link SimpleColorPicker} instance.
+   */
   public SimpleColorPicker getColorPicker() {
     return colorPicker;
   }
 
+  /**
+   * @dominokit-site-ignore {@inheritDoc}
+   *     <p>Returns the root element of the button.
+   * @return The root {@link HTMLElement} of the button.
+   */
   @Override
   public HTMLElement element() {
     return root.element();

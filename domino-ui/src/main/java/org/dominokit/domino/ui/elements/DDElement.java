@@ -17,22 +17,46 @@ package org.dominokit.domino.ui.elements;
 
 import elemental2.dom.HTMLElement;
 
-/** DDElement class. */
+/**
+ * Represents a `
+ * <dd>` HTML element wrapper.
+ *
+ *     <p>The `
+ * <dd>` tag specifies a description or value in a description list (`
+ *
+ *     <dl>
+ *       `) element. It is typically used in conjunction with `
+ *       <dt>` (term) elements to define terms and their corresponding descriptions. This class
+ *           provides a convenient way to create, manipulate, and control the behavior of `
+ *       <dd>` elements, making it easier to use them in Java-based web applications. Example usage:
+ *           <pre>
+ * HTMLElement htmlElement = ...;  // Obtain a <dd> element from somewhere
+ * DDElement ddElement = DDElement.of(htmlElement);
+ * </pre>
+ *
+ * @see <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/dd">MDN Web Docs (dd
+ *     element)</a>
+ */
 public class DDElement extends BaseElement<HTMLElement, DDElement> {
+
   /**
-   * of.
+   * Creates a new {@link DDElement} instance by wrapping the provided HTML `
+   * <dd>` element.
    *
-   * @param e a {@link elemental2.dom.HTMLElement} object
-   * @return a {@link org.dominokit.domino.ui.elements.DDElement} object
+   * @param e The HTML `
+   *     <dd>` element.
+   * @return A new {@link DDElement} instance wrapping the provided element.
    */
   public static DDElement of(HTMLElement e) {
     return new DDElement(e);
   }
 
   /**
-   * Constructor for DDElement.
+   * Constructs a {@link DDElement} instance by wrapping the provided HTML `
+   * <dd>` element.
    *
-   * @param element a {@link elemental2.dom.HTMLElement} object
+   * @param element The HTML `
+   *     <dd>` element to wrap.
    */
   public DDElement(HTMLElement element) {
     super(element);

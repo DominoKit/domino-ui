@@ -17,22 +17,37 @@ package org.dominokit.domino.ui.elements;
 
 import elemental2.dom.HTMLElement;
 
-/** KBDElement class. */
+/**
+ * Represents an HTML <kbd> element wrapper.
+ *
+ * <p>The HTML <kbd> element is used to define keyboard input. This class provides a convenient way
+ * to create, manipulate, and control the behavior of <kbd> elements in Java-based web applications.
+ * Example usage:
+ *
+ * <pre>{@code
+ * HTMLElement kbdElement = ...;  // Obtain a <kbd> element from somewhere
+ * KBDElement kbd = KBDElement.of(kbdElement);
+ * }</pre>
+ *
+ * @see <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/kbd">MDN Web Docs
+ *     (kbd)</a>
+ */
 public class KBDElement extends BaseElement<HTMLElement, KBDElement> {
+
   /**
-   * of.
+   * Creates a new {@link KBDElement} instance by wrapping the provided HTML <kbd> element.
    *
-   * @param e a {@link elemental2.dom.HTMLElement} object
-   * @return a {@link org.dominokit.domino.ui.elements.KBDElement} object
+   * @param e The HTML <kbd> element to wrap.
+   * @return A new {@link KBDElement} instance wrapping the provided element.
    */
   public static KBDElement of(HTMLElement e) {
     return new KBDElement(e);
   }
 
   /**
-   * Constructor for KBDElement.
+   * Constructs a {@link KBDElement} instance by wrapping the provided HTML <kbd> element.
    *
-   * @param element a {@link elemental2.dom.HTMLElement} object
+   * @param element The HTML <kbd> element to wrap.
    */
   public KBDElement(HTMLElement element) {
     super(element);

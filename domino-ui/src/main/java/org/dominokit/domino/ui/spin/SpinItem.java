@@ -20,9 +20,16 @@ import org.dominokit.domino.ui.elements.DivElement;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
 
 /**
- * A component provides an item inside a {@link org.dominokit.domino.ui.spin.SpinSelect}
+ * Represents an individual item in a spinning selection component.
  *
- * @param <T> the type of the object inside the item
+ * <p><b>Usage:</b>
+ *
+ * <pre>
+ * SpinItem&lt;String&gt; item = SpinItem.create("example");
+ * </pre>
+ *
+ * @param <T> The type of the value represented by this item.
+ * @see BaseDominoElement
  */
 public class SpinItem<T> extends BaseDominoElement<HTMLDivElement, SpinItem<T>>
     implements SpinStyles {
@@ -31,9 +38,9 @@ public class SpinItem<T> extends BaseDominoElement<HTMLDivElement, SpinItem<T>>
   private final DivElement element;
 
   /**
-   * Constructor for SpinItem.
+   * Constructs a new SpinItem with the given value.
    *
-   * @param value a T object
+   * @param value The value represented by this item.
    */
   public SpinItem(T value) {
     this.value = value;
@@ -51,27 +58,32 @@ public class SpinItem<T> extends BaseDominoElement<HTMLDivElement, SpinItem<T>>
   }
 
   /**
-   * Creates new instance with a value
+   * Static factory method to create a new instance of {@link SpinItem}.
    *
-   * @param value the value
-   * @param <T> the type of the object inside the item
-   * @return new instance
+   * @param <T> The type of the value represented by this item.
+   * @param value The value to create a SpinItem for.
+   * @return A new instance of {@link SpinItem} representing the given value.
    */
   public static <T> SpinItem<T> create(T value) {
     return new SpinItem<>(value);
   }
 
-  /** @return the value of the item */
   /**
-   * Getter for the field <code>value</code>.
+   * Gets the value represented by this item.
    *
-   * @return a T object
+   * @return The value of this item.
    */
   public T getValue() {
     return value;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * {@inheritDoc}
+   *
+   * <p>Overridden to return the HTMLDivElement associated with this {@link SpinItem}.
+   *
+   * @return The HTMLDivElement for this item.
+   */
   @Override
   public HTMLDivElement element() {
     return element.element();

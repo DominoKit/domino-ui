@@ -22,22 +22,30 @@ import org.dominokit.domino.ui.utils.BaseDominoElement;
 import org.dominokit.domino.ui.utils.DominoUIConfig;
 
 /**
- * Base loader implementation
+ * An abstract base class for implementing loader components. Loaders are visual elements that
+ * indicate the progress of an operation or task.
  *
- * @param <T> the type of the loader
+ * <p>Subclasses of this class should provide custom loader implementations.
+ *
+ * @param <T> The concrete loader type extending {@code BaseLoader}.
  * @see BaseDominoElement
- * @see IsLoader
  */
 public abstract class BaseLoader<T extends BaseLoader<T>>
     extends BaseDominoElement<HTMLDivElement, T>
     implements IsLoader, IsElement<HTMLDivElement>, LoaderStyles {
 
+  /** The labels used for loader text, retrieved from the DominoUIConfig. */
   protected final LoaderLabels labels = DominoUIConfig.CONFIG.getDominoUILabels();
 
+  /** The HTMLDivElement used for displaying loading text. */
   protected HTMLDivElement loadingText =
       div().addCss(dui_loader, wait_me_text).textContent(labels.loading()).element();
 
-  /** {@inheritDoc} */
+  /**
+   * Gets the HTMLDivElement element associated with this loader.
+   *
+   * @return The HTMLDivElement element of the loader.
+   */
   @Override
   public HTMLDivElement getElement() {
     return element();

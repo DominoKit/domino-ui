@@ -19,27 +19,38 @@ import static java.util.Objects.isNull;
 import static java.util.Objects.nonNull;
 
 /**
- * An implementation of {@link org.dominokit.domino.ui.menu.AbstractMenuItem} that can take custom
- * content
+ * A custom menu item that extends the {@link AbstractMenuItem} with the capability to apply custom
+ * search filters to menu items.
+ *
+ * <p><strong>Usage example:</strong>
+ *
+ * <pre>
+ * CustomMenuItem<String> menuItem = CustomMenuItem.create();
+ * menuItem.setSearchFilter((token, caseSensitive) -> token.equals("example"));
+ * </pre>
+ *
+ * @param <V> the type parameter for the value associated with the menu item.
  */
 public class CustomMenuItem<V> extends AbstractMenuItem<V> {
 
   private MenuSearchFilter searchFilter = (token, caseSensitive) -> false;
 
   /**
-   * create.
+   * Creates a new instance of {@link CustomMenuItem}.
    *
-   * @param <V> a V class
-   * @return a {@link org.dominokit.domino.ui.menu.CustomMenuItem} object
+   * @return a new instance of {@link CustomMenuItem}
    */
   public static <V> CustomMenuItem<V> create() {
     return new CustomMenuItem<>();
   }
 
   /**
-   * {@inheritDoc}
+   * Invoked during a search operation. Displays the menu item if the token is found using the
+   * provided {@link MenuSearchFilter}.
    *
-   * <p>match the search token with both the text and description of the menu item
+   * @param token the search token
+   * @param caseSensitive indicates if the search should be case sensitive or not
+   * @return true if the token matches; false otherwise
    */
   @Override
   public boolean onSearch(String token, boolean caseSensitive) {
@@ -60,19 +71,19 @@ public class CustomMenuItem<V> extends AbstractMenuItem<V> {
   }
 
   /**
-   * Getter for the field <code>searchFilter</code>.
+   * Retrieves the current {@link MenuSearchFilter} used for search operations.
    *
-   * @return a {@link org.dominokit.domino.ui.menu.MenuSearchFilter} object
+   * @return the current {@link MenuSearchFilter}
    */
   public MenuSearchFilter getSearchFilter() {
     return searchFilter;
   }
 
   /**
-   * Setter for the field <code>searchFilter</code>.
+   * Sets the {@link MenuSearchFilter} to be used during search operations.
    *
-   * @param searchFilter a {@link org.dominokit.domino.ui.menu.MenuSearchFilter} object
-   * @return a {@link org.dominokit.domino.ui.menu.CustomMenuItem} object
+   * @param searchFilter the search filter to set
+   * @return this {@link CustomMenuItem} instance for chaining
    */
   public CustomMenuItem<V> setSearchFilter(MenuSearchFilter searchFilter) {
     if (nonNull(searchFilter)) {

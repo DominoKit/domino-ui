@@ -17,69 +17,92 @@ package org.dominokit.domino.ui.forms;
 
 import java.util.function.Function;
 
-/** A component that has an input to take/provide Integer value */
+/** A specialized {@link NumberBox} for handling integer values. */
 public class IntegerBox extends NumberBox<IntegerBox, Integer> {
 
-  /** @return a new instance without a label */
   /**
-   * create.
+   * Creates a new instance of IntegerBox with default value set to 0.
    *
-   * @return a {@link org.dominokit.domino.ui.forms.IntegerBox} object
+   * @return A new instance of IntegerBox.
    */
   public static IntegerBox create() {
     return new IntegerBox();
   }
 
   /**
-   * create.
+   * Creates a new instance of IntegerBox with the given label.
    *
-   * @param label String
-   * @return new instance with a label
+   * @param label The label to be used for the IntegerBox.
+   * @return A new instance of IntegerBox.
    */
   public static IntegerBox create(String label) {
     return new IntegerBox(label);
   }
 
-  /** Create instance without a label */
+  /** Default constructor. Sets the default value of the box to 0. */
   public IntegerBox() {
     setDefaultValue(0);
   }
 
   /**
-   * Create an instance with a label
+   * Constructor with a label.
    *
-   * @param label String
+   * @param label The label to be used for the IntegerBox.
    */
   public IntegerBox(String label) {
     this();
     setLabel(label);
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Provides the default parser for parsing string values to integers.
+   *
+   * @return The function to parse string values into integer values.
+   */
   @Override
   protected Function<String, Integer> defaultValueParser() {
     return getConfig().getNumberParsers().integerParser(this);
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Returns the maximum representable value for an integer.
+   *
+   * @return The maximum integer value, {@link Integer#MAX_VALUE}.
+   */
   @Override
   protected Integer defaultMaxValue() {
     return Integer.MAX_VALUE;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Returns the minimum representable value for an integer.
+   *
+   * @return The minimum integer value, {@link Integer#MIN_VALUE}.
+   */
   @Override
   protected Integer defaultMinValue() {
     return Integer.MIN_VALUE;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Determines if the provided value exceeds the given maximum value.
+   *
+   * @param maxValue The maximum allowable value.
+   * @param value The value to check.
+   * @return True if the value exceeds the maximum, false otherwise.
+   */
   @Override
   protected boolean isExceedMaxValue(Integer maxValue, Integer value) {
     return value > maxValue;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Determines if the provided value is lower than the given minimum value.
+   *
+   * @param minValue The minimum allowable value.
+   * @param value The value to check.
+   * @return True if the value is lower than the minimum, false otherwise.
+   */
   @Override
   protected boolean isLowerThanMinValue(Integer minValue, Integer value) {
     return value < minValue;

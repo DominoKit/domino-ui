@@ -187,7 +187,7 @@
     align-self: center;
 }
 
-.dui-tabs .dui-prefix-addon {
+.dui-tabs-nav .dui-prefix-addon {
     order: var(--dui-order-first);
     margin-right: var(--dui-spc-4);
     align-self: center;

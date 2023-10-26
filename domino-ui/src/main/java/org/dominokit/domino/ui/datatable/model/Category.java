@@ -13,12 +13,34 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package org.dominokit.domino.ui.datatable.model;
 
-/** An enum for the {@link org.dominokit.domino.ui.datatable.model.Filter} category */
+/**
+ * The {@code Category} enum represents different categories or types of filters that can be applied
+ * in a DataTable.
+ *
+ * <p>Filters in a DataTable can be categorized into two main categories:
+ *
+ * <ul>
+ *   <li>SEARCH: This category is used for filters that are applied to the DataTable's search
+ *       functionality. Filters in this category are typically used to search for specific data
+ *       within the DataTable.
+ *   <li>HEADER_FILTER: This category is used for filters that are applied to the DataTable's header
+ *       columns. Filters in this category are typically used to filter data based on
+ *       column-specific criteria, such as filtering by date, number, or text within a specific
+ *       column.
+ * </ul>
+ *
+ * <p>You can use these categories to classify and organize filters within your DataTable, making it
+ * easier to manage and apply different types of filters to your data.
+ *
+ * @see org.dominokit.domino.ui.datatable.model.Filter
+ */
 public enum Category {
-  /** A search field */
+  /** The {@code SEARCH} category for filters applied to the DataTable's search functionality. */
   SEARCH,
-  /** A column header filter */
+
+  /** The {@code HEADER_FILTER} category for filters applied to the DataTable's header columns. */
   HEADER_FILTER
 }

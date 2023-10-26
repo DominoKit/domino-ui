@@ -15,22 +15,25 @@
  */
 package org.dominokit.domino.ui.i18n;
 
-/** PickersLabels interface. */
+/**
+ * The {@code PickersLabels} interface provides labels and messages related to date and time
+ * pickers.
+ */
 public interface PickersLabels extends Labels {
 
   /**
-   * clear.
+   * Gets the label for the "CLEAR" button in date and time pickers.
    *
-   * @return a {@link java.lang.String} object
+   * @return A {@code String} representing the label for the "CLEAR" button.
    */
   default String clear() {
     return "CLEAR";
   }
 
   /**
-   * now.
+   * Gets the label for the "NOW" button in date and time pickers.
    *
-   * @return a {@link java.lang.String} object
+   * @return A {@code String} representing the label for the "NOW" button.
    */
   default String now() {
     return "NOW";

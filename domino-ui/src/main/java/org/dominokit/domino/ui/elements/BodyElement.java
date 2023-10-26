@@ -17,22 +17,37 @@ package org.dominokit.domino.ui.elements;
 
 import elemental2.dom.HTMLBodyElement;
 
-/** BodyElement class. */
+/**
+ * Represents a body HTML element (`<body>`) wrapper.
+ *
+ * <p>This class offers a convenient mechanism to create, manipulate, and control the behavior of
+ * body HTML elements. Example usage:
+ *
+ * <pre>
+ * HTMLBodyElement htmlElement = ...;  // Obtain a <body> element from somewhere
+ * BodyElement body = BodyElement.of(htmlElement);
+ * </pre>
+ *
+ * @see <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/body">MDN Web Docs (body
+ *     element)</a>
+ */
 public class BodyElement extends BaseElement<HTMLBodyElement, BodyElement> {
+
   /**
-   * of.
+   * Creates a new {@link BodyElement} by wrapping the provided body HTML element.
    *
-   * @param e a {@link elemental2.dom.HTMLBodyElement} object
-   * @return a {@link org.dominokit.domino.ui.elements.BodyElement} object
+   * @param e The body HTML element.
+   * @return A new {@link BodyElement} that wraps the provided element.
    */
   public static BodyElement of(HTMLBodyElement e) {
     return new BodyElement(e);
   }
 
   /**
-   * Constructor for BodyElement.
+   * Constructs a {@link BodyElement} by wrapping the provided body HTML element. Also sets the CSS
+   * property `--dui-z-index` to "10" for the body element.
    *
-   * @param element a {@link elemental2.dom.HTMLBodyElement} object
+   * @param element The body HTML element to wrap.
    */
   public BodyElement(HTMLBodyElement element) {
     super(element);

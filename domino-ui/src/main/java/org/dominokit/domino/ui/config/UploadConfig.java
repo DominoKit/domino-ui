@@ -20,54 +20,63 @@ import org.dominokit.domino.ui.icons.Icon;
 import org.dominokit.domino.ui.icons.lib.Icons;
 import org.dominokit.domino.ui.upload.*;
 
-/** UploadConfig interface. */
+/**
+ * Implementations of this interface can be used to configure defaults for {@link FileUpload}
+ * component
+ */
 public interface UploadConfig extends ComponentConfig {
 
   /**
-   * getDefaultUploadIcon.
+   * Use this method to define the default upload icon
    *
-   * @return a {@link java.util.function.Supplier} object
+   * <p>Defaults to : {@code upload}
+   *
+   * @return a {@code Supplier<Icon<?>>}
    */
   default Supplier<Icon<?>> getDefaultUploadIcon() {
     return Icons::upload;
   }
 
   /**
-   * getDefaultRemoveIcon.
+   * Use this method to define the default remove file item icon
    *
-   * @return a {@link java.util.function.Supplier} object
+   * <p>Defaults to : {@code trash_can}
+   *
+   * @return a {@code Supplier<Icon<?>>}
    */
   default Supplier<Icon<?>> getDefaultRemoveIcon() {
     return Icons::trash_can;
   }
 
   /**
-   * getDefaultCancelIcon.
+   * Use this method to define the default cancel upload icon
    *
-   * @return a {@link java.util.function.Supplier} object
+   * <p>Defaults to : {@code cancel}
+   *
+   * @return a {@code Supplier<Icon<?>>}
    */
   default Supplier<Icon<?>> getDefaultCancelIcon() {
     return Icons::cancel;
   }
 
   /**
-   * getFilePreviewFactory.
+   * Use this method to define the default implementation for {@link FilePreviewFactory}
    *
-   * @return a {@link org.dominokit.domino.ui.upload.FilePreviewFactory} object
+   * <p>Defaults to : {@code DefaultFilePreview}
+   *
+   * @return a {@code FilePreviewFactory}
    */
   default FilePreviewFactory getFilePreviewFactory() {
-    return new FilePreviewFactory() {
-      @Override
-      public IsFilePreview<?> forFile(FileItem fileItem, FileUpload fileUpload) {
-        return new DefaultFilePreview(fileItem, fileUpload);
-      }
-    };
+    return DefaultFilePreview::new;
   }
 
   /**
-   * getDefaultFilePreviewContainer.
+   * Use this method to define the default container that will be used to host file previews
+   * elements
    *
-   * @return a {@link java.util.function.Supplier} object
+   * <p>Defaults to : {@code DefaultFilePreviewContainer}
+   *
+   * @return a {@code Supplier<FilePreviewContainer<?, ?>>}
    */
   default Supplier<FilePreviewContainer<?, ?>> getDefaultFilePreviewContainer() {
     return DefaultFilePreviewContainer::new;

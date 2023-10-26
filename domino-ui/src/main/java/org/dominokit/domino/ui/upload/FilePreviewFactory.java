@@ -15,16 +15,23 @@
  */
 package org.dominokit.domino.ui.upload;
 
-/** FilePreviewFactory interface. */
+/**
+ * The {@code FilePreviewFactory} interface represents a factory for creating file preview
+ * components associated with a file upload. Implementations of this interface provide the ability
+ * to create custom file preview components based on a {@link FileItem} and a {@link FileUpload}
+ * instance.
+ */
 public interface FilePreviewFactory {
-  /** Constant <code>UNITS</code> */
+
+  /** An array of units used for formatting file sizes. */
   String[] UNITS = {"KB", "MB", "GB", "TB"};
 
   /**
-   * forFile.
+   * Creates a file preview component for the specified {@link FileItem} and {@link FileUpload}.
    *
-   * @param fileItem a {@link org.dominokit.domino.ui.upload.FileItem} object
-   * @return a {@link org.dominokit.domino.ui.upload.IsFilePreview} object
+   * @param fileItem The {@link FileItem} for which the preview is to be created.
+   * @param fileUpload The {@link FileUpload} instance associated with the file item.
+   * @return An implementation of {@link IsFilePreview} representing the file preview component.
    */
   IsFilePreview<?> forFile(FileItem fileItem, FileUpload fileUpload);
 }

@@ -22,25 +22,26 @@ import elemental2.dom.Node;
 import org.dominokit.domino.ui.forms.validations.ValidationResult;
 
 /**
- * An implementation of this interface will determine in how a table cell content will be displayed
- * and rendered in the table
+ * A functional interface representing the renderer responsible for rendering a cell within the data
+ * table.
  *
- * @param <T> the type of the data table records
+ * @param <T> the type of data contained within the table row.
  */
 @FunctionalInterface
 public interface CellRenderer<T> {
+
   /**
-   * Takes a cell info to determine what content to append to the cell element
+   * Converts the given cell information into a displayable Node element.
    *
-   * @param cellInfo {@link org.dominokit.domino.ui.datatable.CellRenderer.CellInfo}
-   * @return the {@link elemental2.dom.Node} to be appended to the table cell element
+   * @param cellInfo information about the cell being rendered.
+   * @return the Node representation of the cell content.
    */
   Node asElement(CellInfo<T> cellInfo);
 
   /**
-   * A class containing all information required about a cell in a data table
+   * Represents the detailed information of a specific cell in the data table.
    *
-   * @param <T> the type of the data table records
+   * @param <T> the type of data contained within the table row.
    */
   class CellInfo<T> {
     private final TableRow<T> tableRow;
@@ -49,36 +50,47 @@ public interface CellRenderer<T> {
     private CellValidator cellValidator = ValidationResult::valid;
 
     /**
-     * Creates an instance with the row that the belongs to and the cell html element
+     * Creates a new cell information instance.
      *
-     * @param tableRow {@link TableRow}
-     * @param element {@link HTMLTableCellElement} the td element
+     * @param tableRow the table row containing the cell.
+     * @param element the HTML element representation of the cell.
      */
     public CellInfo(TableRow<T> tableRow, HTMLTableCellElement element) {
       this.tableRow = tableRow;
       this.element = element;
     }
 
-    /** @return the {@link TableRow} the cell belongs to */
+    /**
+     * Returns the table row containing the cell.
+     *
+     * @return the table row.
+     */
     public TableRow<T> getTableRow() {
       return tableRow;
     }
 
-    /** @return the {@link HTMLTableCellElement}, the td element */
+    /**
+     * Returns the HTML element representation of the cell.
+     *
+     * @return the cell element.
+     */
     public HTMLTableCellElement getElement() {
       return element;
     }
 
-    /** @return T the record instance being rendered on the row this belong to. */
+    /**
+     * Returns the data record associated with the table row containing the cell.
+     *
+     * @return the data record.
+     */
     public T getRecord() {
       return tableRow.getRecord();
     }
 
     /**
-     * For editable data table this will update the dirty record instance with the new fields values
-     * in the row being edited
+     * Invokes the handler for updating a dirty record.
      *
-     * @param dirtyRecord T, the current dirty record instance in the table row
+     * @param dirtyRecord the updated record.
      */
     public void updateDirtyRecord(T dirtyRecord) {
       if (nonNull(dirtyRecordHandler)) {
@@ -87,9 +99,9 @@ public interface CellRenderer<T> {
     }
 
     /**
-     * for editable cell this will validate the cell field
+     * Validates the cell's content.
      *
-     * @return the {@link ValidationResult}
+     * @return the validation result.
      */
     public ValidationResult validate() {
       if (nonNull(cellValidator)) {
@@ -99,18 +111,18 @@ public interface CellRenderer<T> {
     }
 
     /**
-     * set the handler to update the dirty record
+     * Sets the handler responsible for updating dirty records.
      *
-     * @param dirtyRecordHandler {@link DirtyRecordHandler}
+     * @param dirtyRecordHandler the handler to be set.
      */
     public void setDirtyRecordHandler(DirtyRecordHandler<T> dirtyRecordHandler) {
       this.dirtyRecordHandler = dirtyRecordHandler;
     }
 
     /**
-     * for editable cells set the validator to validate the cell value when edited
+     * Sets the validator for the cell's content.
      *
-     * @param cellValidator {@link CellValidator}
+     * @param cellValidator the validator to be set.
      */
     public void setCellValidator(CellValidator cellValidator) {
       this.cellValidator = cellValidator;

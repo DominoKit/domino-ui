@@ -61,6 +61,7 @@ public class Animation {
 
   /**
    * Creates a new Animation instance for the provided element.
+   *
    * @param element an {@link Element} to be animated
    */
   public Animation(Element element) {
@@ -68,7 +69,8 @@ public class Animation {
   }
 
   /**
-   * Creates a new Animation instance for the provided element and specify the duration, delay and the if it will be an infinite animation or not.
+   * Creates a new Animation instance for the provided element and specify the duration, delay and
+   * the if it will be an infinite animation or not.
    *
    * @param element an {@link elemental2.dom.Element} to be animated
    * @param duration int duration of animation in milliseconds
@@ -154,8 +156,8 @@ public class Animation {
    * Sets the animation to repeat for a specific number of times or until {@link
    * org.dominokit.domino.ui.animations.Animation#stop()} is called.
    *
-   * @param repeatCount double, The number of times the animation to be repeated, Example
-   *     <b>2.5</b> repeats the animation 2 times and a half
+   * @param repeatCount double, The number of times the animation to be repeated, Example <b>2.5</b>
+   *     repeats the animation 2 times and a half
    * @return same instance
    */
   public Animation repeat(double repeatCount) {
@@ -246,7 +248,8 @@ public class Animation {
    * Stops the animation and calls the registered {@link
    * org.dominokit.domino.ui.animations.Animation.CompleteCallback} only if silent is set to false.
    *
-   * @param silent boolean, <b>true</b> to ignore the callback when animation completed, <b>false</b> to execute the callback.
+   * @param silent boolean, <b>true</b> to ignore the callback when animation completed,
+   *     <b>false</b> to execute the callback.
    */
   public void stop(boolean silent) {
     element.removeCss(transition.getStyle());

@@ -17,29 +17,29 @@ package org.dominokit.domino.ui.collapsible;
 
 import org.dominokit.domino.ui.animations.Transition;
 
-/** AnimationCollapseOptions class. */
+/** A class to provide animation collapse/expand animation configuration options */
 public class AnimationCollapseOptions {
 
   private Transition showTransition;
   private Transition hideTransition;
-  private CollapseDuration showDuration;
-  private CollapseDuration hideDuration;
+  private CollapsibleDuration showDuration;
+  private CollapsibleDuration hideDuration;
   private int showDelay = 0;
 
   /**
-   * Getter for the field <code>showTransition</code>.
-   *
-   * @return a {@link org.dominokit.domino.ui.animations.Transition} object
+   * @return The {@link org.dominokit.domino.ui.animations.Transition} used to animation the element
+   *     when it is being shown/expanded
    */
   public Transition getShowTransition() {
     return showTransition;
   }
 
   /**
-   * Setter for the field <code>showTransition</code>.
+   * The {@link org.dominokit.domino.ui.animations.Transition} to be used to animation the element
+   * when it is being shown/expanded
    *
-   * @param showTransition a {@link org.dominokit.domino.ui.animations.Transition} object
-   * @return a {@link org.dominokit.domino.ui.collapsible.AnimationCollapseOptions} object
+   * @param showTransition a {@link org.dominokit.domino.ui.animations.Transition}
+   * @return Same AnimationCollapseOptions instance
    */
   public AnimationCollapseOptions setShowTransition(Transition showTransition) {
     this.showTransition = showTransition;
@@ -47,79 +47,71 @@ public class AnimationCollapseOptions {
   }
 
   /**
-   * Getter for the field <code>hideTransition</code>.
-   *
-   * @return a {@link org.dominokit.domino.ui.animations.Transition} object
+   * @return The {@link org.dominokit.domino.ui.animations.Transition} used to animation the element
+   *     when it is being hidden/collapsed
    */
   public Transition getHideTransition() {
     return hideTransition;
   }
 
   /**
-   * Setter for the field <code>hideTransition</code>.
+   * The {@link org.dominokit.domino.ui.animations.Transition} to be used to animation the element
+   * when it is being hidden/collapsed
    *
-   * @param hideTransition a {@link org.dominokit.domino.ui.animations.Transition} object
-   * @return a {@link org.dominokit.domino.ui.collapsible.AnimationCollapseOptions} object
+   * @param hideTransition a {@link org.dominokit.domino.ui.animations.Transition}
+   * @return Same AnimationCollapseOptions instance
    */
   public AnimationCollapseOptions setHideTransition(Transition hideTransition) {
     this.hideTransition = hideTransition;
     return this;
   }
 
-  /**
-   * Getter for the field <code>showDuration</code>.
-   *
-   * @return a {@link org.dominokit.domino.ui.collapsible.CollapseDuration} object
-   */
-  public CollapseDuration getShowDuration() {
+  /** @return The show/expand animation duration, {@link CollapsibleDuration} */
+  public CollapsibleDuration getShowDuration() {
     return showDuration;
   }
 
   /**
-   * Setter for the field <code>showDuration</code>.
+   * Sets the show/expand animation duration
    *
-   * @param showDuration a {@link org.dominokit.domino.ui.collapsible.CollapseDuration} object
-   * @return a {@link org.dominokit.domino.ui.collapsible.AnimationCollapseOptions} object
+   * @param showDuration The duration, one of enums provided byt {@link CollapsibleDuration}
+   * @return Same AnimationCollapseOptions instance
    */
-  public AnimationCollapseOptions setShowDuration(CollapseDuration showDuration) {
+  public AnimationCollapseOptions setShowDuration(CollapsibleDuration showDuration) {
     this.showDuration = showDuration;
     return this;
   }
 
-  /**
-   * Getter for the field <code>hideDuration</code>.
-   *
-   * @return a {@link org.dominokit.domino.ui.collapsible.CollapseDuration} object
-   */
-  public CollapseDuration getHideDuration() {
+  /** @return The hide/collapse animation duration, {@link CollapsibleDuration} */
+  public CollapsibleDuration getHideDuration() {
     return hideDuration;
   }
 
   /**
-   * Setter for the field <code>hideDuration</code>.
+   * Sets the hide/collapse animation duration
    *
-   * @param hideDuration a {@link org.dominokit.domino.ui.collapsible.CollapseDuration} object
-   * @return a {@link org.dominokit.domino.ui.collapsible.AnimationCollapseOptions} object
+   * @param hideDuration The duration, one of enums provided byt {@link CollapsibleDuration}
+   * @return Same AnimationCollapseOptions instance
    */
-  public AnimationCollapseOptions setHideDuration(CollapseDuration hideDuration) {
+  public AnimationCollapseOptions setHideDuration(CollapsibleDuration hideDuration) {
     this.hideDuration = hideDuration;
     return this;
   }
 
   /**
-   * Getter for the field <code>showDelay</code>.
-   *
-   * @return a int
+   * @return An int number representing the delay in milliseconds to wait before show/expand
+   *     animation is started after we show/expand the element.
    */
   public int getShowDelay() {
     return showDelay;
   }
 
   /**
-   * Setter for the field <code>showDelay</code>.
+   * Sets the delay in milliseconds to wait before show/expand animation is started after we
+   * show/expand the element.
    *
-   * @param showDelay a int
-   * @return a {@link org.dominokit.domino.ui.collapsible.AnimationCollapseOptions} object
+   * @param showDelay The delay in milliseconds
+   * @return Same AnimationCollapseOptions instance
    */
   public AnimationCollapseOptions setShowDelay(int showDelay) {
     this.showDelay = showDelay;

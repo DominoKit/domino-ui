@@ -13,6 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package org.dominokit.domino.ui.datatable.plugins.summary;
 
 import static java.util.Objects.nonNull;
@@ -24,10 +25,11 @@ import org.dominokit.domino.ui.datatable.ColumnConfig;
 import org.dominokit.domino.ui.utils.DominoElement;
 
 /**
- * This class represent a single cell in a data table row, and it contains information about the
- * cell row and column which it is part of
+ * Represents a cell within a summary row of a DataTable, containing a specific column's summary
+ * data.
  *
- * @param <T> the type of the data table records
+ * @param <T> The type of data displayed in the DataTable.
+ * @param <S> The type of data used for summary calculations.
  */
 public class SummaryRowCell<T, S> {
 
@@ -36,12 +38,11 @@ public class SummaryRowCell<T, S> {
   private SummaryCellRenderer<T, S> defaultCellRenderer = cell -> elements.text();
 
   /**
-   * Creates and initialize an instance with the cell info and column info
+   * Constructs a new {@code SummaryRowCell} for the given column configuration and summary cell
+   * info.
    *
-   * @param cellInfo the {@link org.dominokit.domino.ui.datatable.CellRenderer.CellInfo} information
-   *     about this cell
-   * @param columnConfig the {@link org.dominokit.domino.ui.datatable.ColumnConfig} the column this
-   *     cell is part of
+   * @param cellInfo The summary cell information associated with this cell.
+   * @param columnConfig The column configuration associated with this cell.
    */
   public SummaryRowCell(
       SummaryCellRenderer.SummaryCellInfo<T, S> cellInfo, ColumnConfig<T> columnConfig) {
@@ -49,21 +50,18 @@ public class SummaryRowCell<T, S> {
     this.cellInfo = cellInfo;
   }
 
-  /** @return the {@link ColumnConfig} the column this cell is part of */
   /**
-   * Getter for the field <code>columnConfig</code>.
+   * Gets the column configuration associated with this summary cell.
    *
-   * @return a {@link org.dominokit.domino.ui.datatable.ColumnConfig} object
+   * @return The {@link ColumnConfig} associated with this summary cell.
    */
   public ColumnConfig<T> getColumnConfig() {
     return columnConfig;
   }
 
   /**
-   * This method will force update the cell which might result on clearing all it content and
-   * rerender them again with any updated data this is useful when for example changing a field
-   * value in the record instance, and we want to reflect the change to the cell that renders the
-   * field.
+   * Updates the content of this summary cell based on its associated column configuration and
+   * summary data.
    */
   public void updateCell() {
     DominoElement<HTMLTableCellElement> cellElement = elements.elementOf(cellInfo.getElement());
@@ -93,13 +91,10 @@ public class SummaryRowCell<T, S> {
     }
   }
 
-  /** @return the {@link CellRenderer.CellInfo} information about this cell */
   /**
-   * Getter for the field <code>cellInfo</code>.
+   * Gets the summary cell information associated with this cell.
    *
-   * @return a {@link
-   *     org.dominokit.domino.ui.datatable.plugins.summary.SummaryCellRenderer.SummaryCellInfo}
-   *     object
+   * @return The {@link SummaryCellRenderer.SummaryCellInfo} associated with this cell.
    */
   public SummaryCellRenderer.SummaryCellInfo<T, S> getCellInfo() {
     return cellInfo;

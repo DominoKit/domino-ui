@@ -25,15 +25,16 @@ import org.dominokit.domino.ui.style.BooleanCssClass;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
 
 /**
- * a component to group a set of buttons and align them horizontally or vertically, by default buttons will be aligned horizontally.
+ * a component to group a set of buttons and align them horizontally or vertically, by default
+ * buttons will be aligned horizontally.
+ *
+ * @see BaseDominoElement
  */
 public class ButtonsGroup extends BaseDominoElement<HTMLElement, ButtonsGroup> {
 
   private DivElement groupElement;
 
-  /**
-   * Creates an empty ButtonsGroup
-   */
+  /** Creates an empty ButtonsGroup */
   public ButtonsGroup() {
     groupElement = div().addCss(dui_button_group).setAttribute("role", "group");
     init(this);
@@ -42,7 +43,8 @@ public class ButtonsGroup extends BaseDominoElement<HTMLElement, ButtonsGroup> {
   /**
    * Creates a ButtonsGroup that holds the provided buttons
    *
-   * @param buttons The set of {@link org.dominokit.domino.ui.button.IsButton} components to be appended to the ButtonsGroup
+   * @param buttons The set of {@link org.dominokit.domino.ui.button.IsButton} components to be
+   *     appended to the ButtonsGroup
    */
   public ButtonsGroup(IsButton<?>... buttons) {
     this();
@@ -61,7 +63,8 @@ public class ButtonsGroup extends BaseDominoElement<HTMLElement, ButtonsGroup> {
   /**
    * Factory method to create a ButtonsGroup that holds the provided buttons
    *
-   * @param buttons The set of {@link org.dominokit.domino.ui.button.IsButton} components to be appended to the ButtonsGroup
+   * @param buttons The set of {@link org.dominokit.domino.ui.button.IsButton} components to be
+   *     appended to the ButtonsGroup
    * @return A {@link org.dominokit.domino.ui.button.group.ButtonsGroup}
    */
   public static ButtonsGroup create(IsButton<?>... buttons) {
@@ -79,16 +82,18 @@ public class ButtonsGroup extends BaseDominoElement<HTMLElement, ButtonsGroup> {
     return this;
   }
 
-  /** @hidden {@inheritDoc} */
+  /** @dominokit-site-ignore {@inheritDoc} */
   @Override
   public HTMLElement element() {
     return groupElement.element();
   }
 
   /**
-   * Aligns the buttons within this ButtonsGroup instance vertically if the provided flag is true, otherwise revert to default alignment -Horizontally-.
+   * Aligns the buttons within this ButtonsGroup instance vertically if the provided flag is true,
+   * otherwise revert to default alignment -Horizontally-.
    *
-   * @param vertical a boolean, <b>true</b> to align the buttons vertically, <b>false</b> revert to horizontal default alignment
+   * @param vertical a boolean, <b>true</b> to align the buttons vertically, <b>false</b> revert to
+   *     horizontal default alignment
    * @return same ButtonsGroup instance
    */
   public ButtonsGroup setVertical(boolean vertical) {
@@ -106,8 +111,8 @@ public class ButtonsGroup extends BaseDominoElement<HTMLElement, ButtonsGroup> {
   }
 
   /**
-   * Remove the vertical alignment and switch to the horizontal default alignment
-   * this is same as calling <b>setVertical(false)</b>
+   * Remove the vertical alignment and switch to the horizontal default alignment this is same as
+   * calling <b>setVertical(false)</b>
    *
    * @return same ButtonsGroup instance
    */

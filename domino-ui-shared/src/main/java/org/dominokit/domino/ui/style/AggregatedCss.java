@@ -15,29 +15,85 @@
  */
 package org.dominokit.domino.ui.style;
 
+/**
+ * A collection of predefined CSS classes to be used across the application.
+ *
+ * <p>This class provides a set of static {@link CssClass} definitions that encapsulate various
+ * commonly used CSS styles. By using these definitions, you can ensure consistency and reduce the
+ * chance of typos.
+ *
+ * @see CssClass
+ */
 class AggregatedCss {
 
+  /** Represents the CSS class for block display. */
   static CssClass dui_block = () -> "dui-block";
+
+  /** Represents the CSS class for full-width block display. */
   static CssClass dui_block_full = () -> "dui-block-full";
+
+  /** Represents the CSS class for inline-block display. */
   static CssClass dui_inline_block = () -> "dui-inline-block";
+
+  /** Represents the CSS class for inline display. */
   static CssClass dui_inline = () -> "dui-inline";
+
+  /** Represents the CSS class for flexible box layout. */
   static CssClass dui_flex = () -> "dui-flex";
+
+  /** Represents the CSS class for inline flexible box layout. */
   static CssClass dui_inline_flex = () -> "dui-inline-flex";
+
+  /** Represents the CSS class for table display. */
   static CssClass dui_table = () -> "dui-table";
+
+  /** Represents the CSS class for inline table display. */
   static CssClass dui_inline_table = () -> "dui-inline-table";
+
+  /** Represents the CSS class for table caption elements. */
   static CssClass dui_table_caption = () -> "dui-table-caption";
+
+  /** Represents the CSS class for table cell elements. */
   static CssClass dui_table_cell = () -> "dui-table-cell";
+
+  /** Represents the CSS class for table column elements. */
   static CssClass dui_table_column = () -> "dui-table-column";
+
+  /** Represents the CSS class for table column group elements. */
   static CssClass dui_table_column_group = () -> "dui-table-column-group";
+
+  /** Represents the CSS class for table footer group elements. */
   static CssClass dui_table_footer_group = () -> "dui-table-footer-group";
+
+  /** Represents the CSS class for table header group elements. */
   static CssClass dui_table_header_group = () -> "dui-table-header-group";
+
+  /** Represents the CSS class for table row group elements. */
   static CssClass dui_table_row_group = () -> "dui-table-row-group";
+
+  /** Represents the CSS class for table row elements. */
   static CssClass dui_table_row = () -> "dui-table-row";
+
+  /** Represents the CSS class for block formatting context creation. */
   static CssClass dui_flow_root = () -> "dui-flow-root";
+
+  /** Represents the CSS class for grid layout. */
   static CssClass dui_grid = () -> "dui-grid";
+
+  /** Represents the CSS class for inline grid layout. */
   static CssClass dui_inline_grid = () -> "dui-inline-grid";
+
+  /** Represents the CSS class for replacing element's children with their contents. */
   static CssClass dui_contents = () -> "dui-contents";
+
+  /** Represents the CSS class for list item elements. */
   static CssClass dui_list_item = () -> "dui-list-item";
+
+  /**
+   * Aggregates multiple CSS classes into a composite class for display-related styles.
+   *
+   * @see CompositeCssClass
+   */
   static CompositeCssClass dui_display =
       CompositeCssClass.of(
           dui_block,

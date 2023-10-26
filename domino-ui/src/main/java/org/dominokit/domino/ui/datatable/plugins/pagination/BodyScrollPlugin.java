@@ -13,6 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package org.dominokit.domino.ui.datatable.plugins.pagination;
 
 import elemental2.core.JsMath;
@@ -22,14 +23,17 @@ import org.dominokit.domino.ui.datatable.events.BodyScrollEvent;
 import org.dominokit.domino.ui.datatable.plugins.DataTablePlugin;
 
 /**
- * This plugin fires {@link org.dominokit.domino.ui.datatable.events.BodyScrollEvent} whenever the
- * table body scroll reaches the top of the bottom
+ * A plugin for handling body scroll events in a DataTable.
  *
- * @param <T> the type of the data table records
+ * @param <T> The type of data in the DataTable.
  */
 public class BodyScrollPlugin<T> implements DataTablePlugin<T> {
 
-  /** {@inheritDoc} */
+  /**
+   * Initializes the plugin and adds scroll event listeners to the DataTable's body.
+   *
+   * @param dataTable The DataTable instance to which this plugin is applied.
+   */
   @Override
   public void onBodyAdded(DataTable<T> dataTable) {
     HTMLTableElement scrollElement = dataTable.tableElement().element();
@@ -50,11 +54,11 @@ public class BodyScrollPlugin<T> implements DataTablePlugin<T> {
         });
   }
 
-  /** An enum to specify the postion of the scroll */
+  /** An enum representing the scroll position in the DataTable's body. */
   public enum ScrollPosition {
-    /** The scroll reached the top */
+    /** Represents the top scroll position. */
     TOP,
-    /** The scroll reached the bottom */
+    /** Represents the bottom scroll position. */
     BOTTOM
   }
 }

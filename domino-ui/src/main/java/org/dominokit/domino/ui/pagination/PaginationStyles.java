@@ -17,28 +17,16 @@ package org.dominokit.domino.ui.pagination;
 
 import org.dominokit.domino.ui.style.CssClass;
 
-/** PaginationStyles interface. */
 public interface PaginationStyles {
-  /** Constant <code>dui_pager</code> */
   CssClass dui_pager = () -> "dui-pager";
-  /** Constant <code>dui_pager_list</code> */
   CssClass dui_pager_list = () -> "dui-pager-list";
-  /** Constant <code>dui_pager_item</code> */
   CssClass dui_pager_item = () -> "dui-pager-item";
-  /** Constant <code>dui_page_link</code> */
   CssClass dui_page_link = () -> "dui-page-link";
-  /** Constant <code>dui_page_icon</code> */
   CssClass dui_page_icon = () -> "dui-page-icon";
-  /** Constant <code>dui_navigator_nav</code> */
   CssClass dui_navigator_nav = () -> "dui-navigator-nav";
-  /** Constant <code>dui_page_count</code> */
   CssClass dui_page_count = () -> "dui-page-count";
-  /** Constant <code>dui_navigator</code> */
   CssClass dui_navigator = () -> "dui-navigator";
-  /** Constant <code>dui_navigator_next</code> */
   CssClass dui_navigator_next = () -> "dui-navigator-next";
-  /** Constant <code>dui_navigator_previous</code> */
   CssClass dui_navigator_previous = () -> "dui-navigator-previous";
-  /** Constant <code>dui_pagination_select</code> */
   CssClass dui_pagination_select = () -> "dui-pagination-select";
 }

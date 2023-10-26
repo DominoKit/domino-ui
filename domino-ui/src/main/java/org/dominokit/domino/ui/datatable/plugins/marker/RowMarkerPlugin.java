@@ -13,6 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package org.dominokit.domino.ui.datatable.plugins.marker;
 
 import static java.util.Objects.nonNull;
@@ -26,26 +27,53 @@ import org.dominokit.domino.ui.datatable.plugins.DataTablePlugin;
 import org.dominokit.domino.ui.style.CssClass;
 
 /**
- * This plugin adds a thin colored border to the left of a row based on custom criteria
+ * A DataTable plugin that adds row markers based on the provided {@link MarkerColor} function.
  *
- * @param <T> the type of the data table records
+ * @param <T> The type of data in the DataTable.
  */
 public class RowMarkerPlugin<T> implements DataTablePlugin<T>, DataTableStyles {
 
   private final MarkerColor<T> markerColor;
 
-  /** {@inheritDoc} */
+  /**
+   * Creates a new {@link RowMarkerPlugin} with the specified marker color function.
+   *
+   * @param markerColor The function that determines the marker color for each row.
+   */
+  public RowMarkerPlugin(MarkerColor<T> markerColor) {
+    this.markerColor = markerColor;
+  }
+
+  /**
+   * {@inheritDoc}
+   *
+   * <p>Adds the CSS class for row markers to the DataTable before adding it.
+   *
+   * @param dataTable The DataTable to which this plugin is applied.
+   */
   @Override
   public void onBeforeAddTable(DataTable<T> dataTable) {
     dataTable.addCss(dui_datatable_row_marker);
   }
 
-  /** {@inheritDoc} */
+  /**
+   * {@inheritDoc}
+   *
+   * <p>Sets the marker style for the newly added row.
+   *
+   * @param dataTable The DataTable to which this plugin is applied.
+   * @param tableRow The newly added TableRow.
+   */
   @Override
   public void onRowAdded(DataTable<T> dataTable, TableRow<T> tableRow) {
     setStyle(tableRow);
   }
 
+  /**
+   * Sets the CSS style for the specified table row based on the marker color function.
+   *
+   * @param tableRow The TableRow for which to set the style.
+   */
   private void setStyle(TableRow<T> tableRow) {
     CssClass color = markerColor.getColor(tableRow);
     RowMarkerMeta.get(tableRow).ifPresent(meta -> meta.getMarkerCssClass().remove(tableRow));
@@ -55,7 +83,13 @@ public class RowMarkerPlugin<T> implements DataTablePlugin<T>, DataTableStyles {
     }
   }
 
-  /** {@inheritDoc} */
+  /**
+   * {@inheritDoc}
+   *
+   * <p>Handles row record updated events by updating the row marker style.
+   *
+   * @param event The table event to handle.
+   */
   @Override
   public void handleEvent(TableEvent event) {
     if (RowRecordUpdatedEvent.RECORD_UPDATED.equals(event.getType())) {
@@ -64,33 +98,31 @@ public class RowMarkerPlugin<T> implements DataTablePlugin<T>, DataTableStyles {
   }
 
   /**
-   * creates an instance with a custom marker color
+   * {@inheritDoc}
    *
-   * @param markerColor {@link
-   *     org.dominokit.domino.ui.datatable.plugins.marker.RowMarkerPlugin.MarkerColor}
+   * <p>Specifies the order in which this plugin should be executed. It has the highest order value
+   * to ensure that it runs last.
+   *
+   * @return The order value, set to {@link Integer#MAX_VALUE}.
    */
-  public RowMarkerPlugin(MarkerColor<T> markerColor) {
-    this.markerColor = markerColor;
-  }
-
-  /** {@inheritDoc} */
   @Override
   public int order() {
     return Integer.MAX_VALUE;
   }
 
   /**
-   * An interface to implement different color markers
+   * Functional interface for determining the marker color for a row.
    *
-   * @param <T> the type of the table row record
+   * @param <T> The type of data in the DataTable.
    */
   @FunctionalInterface
   public interface MarkerColor<T> {
+
     /**
-     * determines the Color scheme from the cell info
+     * Returns the marker color CSS class for the specified table row.
      *
-     * @param tableRow {@link TableRow}
-     * @return String color value
+     * @param tableRow The TableRow for which to determine the marker color.
+     * @return The CSS class representing the marker color for the row.
      */
     CssClass getColor(TableRow<T> tableRow);
   }

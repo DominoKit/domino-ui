@@ -13,6 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package org.dominokit.domino.ui.utils;
 
 import java.util.List;
@@ -23,117 +24,112 @@ import org.dominokit.domino.ui.tree.TreeItem;
 import org.dominokit.domino.ui.tree.TreeItemFilter;
 
 /**
- * An interface representing a parent tree item
+ * The {@code TreeParent} interface represents a parent node in a tree structure.
  *
- * @param <T> the type of the object
+ * @param <T> The type of data associated with tree items.
  */
 public interface TreeParent<T> {
-  /** @return The current active value */
+
   /**
-   * getActiveItem.
+   * Gets the currently active tree item within this parent.
    *
-   * @return a {@link org.dominokit.domino.ui.tree.TreeItem} object
+   * @return The active tree item, or {@code null} if none is active.
    */
   TreeItem<T> getActiveItem();
 
   /**
-   * Activates the item representing the value
+   * Sets the active tree item within this parent.
    *
-   * @param activeItem the value of the item to activate
+   * @param activeItem The tree item to set as active.
    */
   void setActiveItem(TreeItem<T> activeItem);
 
   /**
-   * Activates the item representing the value
+   * Sets the active tree item within this parent and optionally suppresses events.
    *
-   * @param activeItem the value of the item to activate
-   * @param silent true to not notify listeners
+   * @param activeItem The tree item to set as active.
+   * @param silent {@code true} to suppress events, {@code false} otherwise.
    */
   void setActiveItem(TreeItem<T> activeItem, boolean silent);
 
-  /** @return The {@link Tree} */
   /**
-   * getTreeRoot.
+   * Gets the root of the tree structure to which this parent belongs.
    *
-   * @return a {@link org.dominokit.domino.ui.tree.Tree} object
+   * @return The root tree.
    */
   Tree<T> getTreeRoot();
 
-  /** @return true if automatic expanding is enabled when finding items in search */
   /**
-   * isAutoExpandFound.
+   * Checks if auto-expand of found items is enabled.
    *
-   * @return a boolean
+   * @return {@code true} if auto-expand is enabled, {@code false} otherwise.
    */
   boolean isAutoExpandFound();
 
   /**
-   * Expands the tree item
+   * Expands the current node.
    *
-   * @return same instance
+   * @return This tree parent after expansion.
    */
   TreeParent<T> expandNode();
 
   /**
-   * Expands the tree item
+   * Expands the current node and optionally expands its parent node.
    *
-   * @param expandParent true to expand the parent of the item
-   * @return same instance
+   * @param expandParent {@code true} to expand the parent, {@code false} otherwise.
+   * @return This tree parent after expansion.
    */
   TreeParent<T> expandNode(boolean expandParent);
 
-  /** Activates the item */
+  /** Activates the current tree parent. */
   void activate();
 
   /**
-   * Activates the item
+   * Activates the current tree parent and optionally activates its parent node.
    *
-   * @param activateParent true to activate parent
+   * @param activateParent {@code true} to activate the parent, {@code false} otherwise.
    */
   void activate(boolean activateParent);
 
-  /** @return the parent item */
   /**
-   * getParent.
+   * Gets the parent tree parent, if one exists.
    *
-   * @return a {@link java.util.Optional} object
+   * @return An optional containing the parent tree parent, or an empty optional if none exists.
    */
   Optional<TreeParent<T>> getParent();
 
   /**
-   * Removes item
+   * Removes the specified tree item from this tree parent.
    *
-   * @param item the item value
+   * @param item The tree item to remove.
    */
   void removeItem(TreeItem<T> item);
 
-  /** @return the children of this item */
   /**
-   * getSubItems.
+   * Gets a list of sub-items contained within this tree parent.
    *
-   * @return a {@link java.util.List} object
+   * @return A list of sub-items.
    */
   List<TreeItem<T>> getSubItems();
 
-  /** @return the {@link TreeItemFilter} */
   /**
-   * getFilter.
+   * Gets the filter used to filter tree items within this parent.
    *
-   * @return a {@link org.dominokit.domino.ui.tree.TreeItemFilter} object
+   * @return The tree item filter.
    */
   TreeItemFilter<TreeItem<T>> getFilter();
 
   /**
-   * getSubTree.
+   * Gets the underlying sub-tree element of this parent.
    *
-   * @return a {@link org.dominokit.domino.ui.elements.UListElement} object
+   * @return The sub-tree element.
    */
   UListElement getSubTree();
 
   /**
-   * getValue.
+   * Gets the value associated with this tree parent.
    *
-   * @return a T object
+   * @return The value.
    */
   T getValue();
 }

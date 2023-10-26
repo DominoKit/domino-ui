@@ -13,11 +13,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package org.dominokit.domino.ui.utils;
 
 import static java.util.Objects.isNull;
 
-/** An enum representing the css units */
+/** The {@code Unit} enum represents various units used in css. */
 public enum Unit {
   px(value -> value + "px", Constants.parser(2)),
   q(value -> value + "q", Constants.parser(1)),
@@ -38,43 +39,56 @@ public enum Unit {
   private final UnitFormatter unitFormatter;
   private final UnitParser unitParser;
 
+  /**
+   * Creates a new {@code Unit} with the specified formatting and parsing functions.
+   *
+   * @param unitFormatter The function to format a value with this unit.
+   * @param unitParser The function to parse a value with this unit.
+   */
   Unit(UnitFormatter unitFormatter, UnitParser unitParser) {
     this.unitFormatter = unitFormatter;
     this.unitParser = unitParser;
   }
 
   /**
-   * Formats the number based on the unit
+   * Formats a numeric value with this unit.
    *
-   * @param value the number value
-   * @return the formatted string value
+   * @param value The numeric value to format.
+   * @return The formatted string with the unit.
    */
   public String of(Number value) {
     return unitFormatter.format(value);
   }
 
   /**
-   * Parses the string based on the unit
+   * Parses a string value with this unit and returns a numeric value.
    *
-   * @param value the string value
-   * @return the number value
+   * @param value The string value to parse.
+   * @return The parsed numeric value.
    */
   public Number parse(String value) {
     return unitParser.parse(value);
   }
 
-  /** A formatter for formatting the number value based on the unit */
+  /** Functional interface for formatting numeric values with units. */
   @FunctionalInterface
   public interface UnitFormatter {
     String format(Number value);
   }
-  /** A formatter for formatting the number value based on the unit */
+
+  /** Functional interface for parsing string values with units. */
   @FunctionalInterface
   public interface UnitParser {
     Number parse(String value);
   }
 
   private static class Constants {
+    /**
+     * Creates a unit parser based on the number of characters to remove from the end of the string.
+     *
+     * @param numOfChars The number of characters to remove.
+     * @return The unit parser function.
+     */
     private static UnitParser parser(int numOfChars) {
       return value ->
           isNull(value) ? 0 : Double.parseDouble(value.substring(0, value.length() - numOfChars));

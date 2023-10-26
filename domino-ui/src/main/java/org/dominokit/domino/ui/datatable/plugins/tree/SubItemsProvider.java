@@ -13,6 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package org.dominokit.domino.ui.datatable.plugins.tree;
 
 import java.util.Collection;
@@ -20,17 +21,20 @@ import java.util.Optional;
 import java.util.function.Consumer;
 
 /**
- * A functional interface to supply record children
+ * A functional interface for providing sub-items for a given parent item.
  *
- * @param <T> Type of table records.
+ * @param <T> The type of items in the hierarchy.
  */
 @FunctionalInterface
 public interface SubItemsProvider<T> {
+
   /**
-   * getSubItems.
+   * Provides sub-items for a given parent item and passes them to the specified items consumer.
    *
-   * @param parent a T object
-   * @param itemsConsumer a {@link java.util.function.Consumer} object
+   * @param parent The parent item for which sub-items are requested.
+   * @param itemsConsumer A consumer that receives the sub-items as an optional collection. If there
+   *     are sub-items, the collection should be wrapped in an Optional and passed to the consumer.
+   *     If there are no sub-items, an empty Optional should be passed.
    */
   void getSubItems(T parent, Consumer<Optional<Collection<T>>> itemsConsumer);
 }

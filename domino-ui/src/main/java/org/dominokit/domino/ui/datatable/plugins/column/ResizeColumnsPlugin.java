@@ -13,6 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package org.dominokit.domino.ui.datatable.plugins.column;
 
 import static org.dominokit.domino.ui.datatable.DataTableStyles.dui_column_resizer;
@@ -32,9 +33,9 @@ import org.dominokit.domino.ui.utils.DominoCSSRule;
 import org.dominokit.domino.ui.utils.DominoDom;
 
 /**
- * this plugin allows resizing columns of a data table
+ * A DataTable plugin that allows users to resize column widths via drag-and-drop.
  *
- * @param <T> the type of data table records
+ * @param <T> The data type of the DataTable.
  */
 public class ResizeColumnsPlugin<T>
     implements DataTablePlugin<T>, HasPluginConfig<T, ResizeColumnsPlugin<T>, ResizeColumnsConfig> {
@@ -42,7 +43,11 @@ public class ResizeColumnsPlugin<T>
   private ResizeColumnsConfig config = new ResizeColumnsConfig();
   private DataTable<T> datatable;
 
-  /** {@inheritDoc} */
+  /**
+   * Initializes the plugin and prepares columns for resizing.
+   *
+   * @param dataTable The DataTable to which this plugin is applied.
+   */
   @Override
   public void init(DataTable<T> dataTable) {
     this.datatable = dataTable;
@@ -67,7 +72,13 @@ public class ResizeColumnsPlugin<T>
                     }));
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Handles the addition of a header to the DataTable and enables column resizing via
+   * drag-and-drop.
+   *
+   * @param dataTable The DataTable to which the header is added.
+   * @param column The ColumnConfig representing the column to which the header is added.
+   */
   @Override
   public void onHeaderAdded(DataTable<T> dataTable, ColumnConfig<T> column) {
     ResizeColumnMeta.get(column)
@@ -175,6 +186,13 @@ public class ResizeColumnsPlugin<T>
             });
   }
 
+  /**
+   * Resizes the specified column with the given metadata and difference value.
+   *
+   * @param col The ColumnConfig to resize.
+   * @param meta The ResizeColumnMeta containing column resize metadata.
+   * @param diff The difference in width to apply to the column.
+   */
   private void resizeColumn(ColumnConfig<T> col, ResizeColumnMeta meta, double diff) {
     DomGlobal.requestAnimationFrame(
         timestamp -> {
@@ -216,7 +234,13 @@ public class ResizeColumnsPlugin<T>
         });
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Handles actions before adding a cell to the DataTable.
+   *
+   * @param dataTable The DataTable.
+   * @param tableRow The TableRow where the cell is added.
+   * @param rowCell The RowCell to be added.
+   */
   @Override
   public void onBeforeAddCell(DataTable<T> dataTable, TableRow<T> tableRow, RowCell<T> rowCell) {
     if (config.isClipContent()) {
@@ -224,14 +248,23 @@ public class ResizeColumnsPlugin<T>
     }
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Sets the configuration for the ResizeColumnsPlugin.
+   *
+   * @param config The ResizeColumnsConfig to set.
+   * @return The ResizeColumnsPlugin instance.
+   */
   @Override
   public ResizeColumnsPlugin<T> setConfig(ResizeColumnsConfig config) {
     this.config = config;
     return this;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Gets the current configuration of the ResizeColumnsPlugin.
+   *
+   * @return The current ResizeColumnsConfig.
+   */
   @Override
   public ResizeColumnsConfig getConfig() {
     return config;

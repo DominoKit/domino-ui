@@ -13,24 +13,30 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package org.dominokit.domino.ui.utils;
 
-/** HasDefaultValue interface. */
+/**
+ * The {@code HasDefaultValue} interface defines methods for managing default values associated with
+ * a component.
+ *
+ * @param <T> The type of the component that can have a default value.
+ * @param <V> The type of the default value.
+ */
 public interface HasDefaultValue<T, V> {
 
-  /** @return V the default value to be set when the instance is cleared */
   /**
-   * getDefaultValue.
+   * Gets the default value associated with the component.
    *
-   * @return a V object
+   * @return The default value.
    */
   V getDefaultValue();
 
   /**
-   * setDefaultValue.
+   * Sets the default value for the component.
    *
-   * @param defaultValue The default value to be used when the instance is created or cleared
-   * @return same instance
+   * @param defaultValue The default value to be set.
+   * @return The component with the default value set.
    */
   T setDefaultValue(V defaultValue);
 }

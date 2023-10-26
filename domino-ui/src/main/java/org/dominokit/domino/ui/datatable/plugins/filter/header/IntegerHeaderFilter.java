@@ -13,6 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package org.dominokit.domino.ui.datatable.plugins.filter.header;
 
 import elemental2.dom.HTMLInputElement;
@@ -20,81 +21,99 @@ import org.dominokit.domino.ui.datatable.model.FilterTypes;
 import org.dominokit.domino.ui.forms.IntegerBox;
 
 /**
- * Integer number column header filter component that is rendered as a {@link
- * org.dominokit.domino.ui.forms.IntegerBox} component
+ * The IntegerHeaderFilter class provides a header filter for filtering integer values.
  *
- * @param <T> type of data table records
+ * @param <T> The type of data in the DataTable.
  */
 public class IntegerHeaderFilter<T> extends DelayedHeaderFilterInput<IntegerBox, T, Integer> {
 
   private IntegerBox integerBox;
 
-  /** Default constructor */
+  /** Creates a new instance of IntegerHeaderFilter with default placeholder. */
   public IntegerHeaderFilter() {}
 
   /**
-   * Create and instance with custom placeholder
+   * Creates a new instance of IntegerHeaderFilter with a custom placeholder.
    *
-   * @param placeholder String
+   * @param placeholder The custom placeholder to display in the filter.
    */
   public IntegerHeaderFilter(String placeholder) {
     super(placeholder);
   }
 
   /**
-   * create a new instance
+   * Creates a new instance of IntegerHeaderFilter.
    *
-   * @param <T> a T class
-   * @return a {@link org.dominokit.domino.ui.datatable.plugins.filter.header.IntegerHeaderFilter}
-   *     object
+   * @param <T> The type of data in the DataTable.
+   * @return A new instance of IntegerHeaderFilter.
    */
   public static <T> IntegerHeaderFilter<T> create() {
     return new IntegerHeaderFilter<>();
   }
 
   /**
-   * creates a new instance with custom placeholder
+   * Creates a new instance of IntegerHeaderFilter with a custom placeholder.
    *
-   * @param placeholder String
-   * @param <T> type of the data table records
-   * @return new instance
+   * @param <T> The type of data in the DataTable.
+   * @param placeholder The custom placeholder to display in the filter.
+   * @return A new instance of IntegerHeaderFilter with a custom placeholder.
    */
   public static <T> IntegerHeaderFilter<T> create(String placeholder) {
     return new IntegerHeaderFilter<>(placeholder);
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Gets the HTML input element used in the header filter.
+   *
+   * @return The HTML input element.
+   */
   @Override
   protected HTMLInputElement getInputElement() {
     return integerBox.getInputElement().element();
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Creates the IntegerBox value box for the header filter.
+   *
+   * @return The IntegerBox value box.
+   */
   @Override
   protected IntegerBox createValueBox() {
     this.integerBox = IntegerBox.create();
     return this.integerBox;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Checks if the header filter input is empty.
+   *
+   * @return {@code true} if the input is empty, {@code false} otherwise.
+   */
   @Override
   protected boolean isEmpty() {
     return this.integerBox.isEmptyIgnoreSpaces();
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Gets the value of the header filter input as a string.
+   *
+   * @return The value of the input as a string.
+   */
   @Override
   protected String getValue() {
     return this.integerBox.getValue() + "";
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Gets the type of the header filter, which is INTEGER.
+   *
+   * @return The filter type as FilterTypes.INTEGER.
+   */
   @Override
   protected FilterTypes getType() {
     return FilterTypes.INTEGER;
   }
 
-  /** {@inheritDoc} */
+  /** Clears the header filter by resetting the input. */
   @Override
   public void clear() {
     integerBox.withPausedChangeListeners(
@@ -104,11 +123,10 @@ public class IntegerHeaderFilter<T> extends DelayedHeaderFilterInput<IntegerBox,
         });
   }
 
-  /** @return the {@link IntegerBox} wrapped in this component */
   /**
-   * Getter for the field <code>integerBox</code>.
+   * Gets the IntegerBox value box used in the header filter.
    *
-   * @return a {@link org.dominokit.domino.ui.forms.IntegerBox} object
+   * @return The IntegerBox value box.
    */
   public IntegerBox getIntegerBox() {
     return integerBox;

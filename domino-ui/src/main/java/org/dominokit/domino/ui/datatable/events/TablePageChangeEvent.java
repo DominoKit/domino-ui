@@ -13,52 +13,61 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package org.dominokit.domino.ui.datatable.events;
 
 import org.dominokit.domino.ui.pagination.HasPagination;
 
-/** This event will be fired when the page of the data table is changed */
+/**
+ * The {@code TablePageChangeEvent} class represents an event that occurs when the page in a
+ * DataTable changes.
+ */
 public class TablePageChangeEvent implements TableEvent {
 
-  /** A constant string to define a unique type for this event */
+  /** The event type for the table page change event. */
   public static final String PAGINATION_EVENT = "table-page-change";
 
+  /** The new page number. */
   private final int page;
+
+  /** The pagination component associated with the DataTable. */
   private final HasPagination pagination;
 
   /**
-   * Constructor for TablePageChangeEvent.
+   * Constructs a new {@code TablePageChangeEvent} with the specified page number and pagination
+   * component.
    *
-   * @param page int, the new page
-   * @param pagination the {@link org.dominokit.domino.ui.pagination.HasPagination} which is the
-   *     component that changed the page.
+   * @param page the new page number
+   * @param pagination the pagination component associated with the DataTable
    */
   public TablePageChangeEvent(int page, HasPagination pagination) {
     this.page = page;
     this.pagination = pagination;
   }
 
-  /** @return int, the new page */
   /**
-   * Getter for the field <code>page</code>.
+   * Gets the new page number.
    *
-   * @return a int
+   * @return the new page number
    */
   public int getPage() {
     return page;
   }
 
-  /** @return the {@link HasPagination} which is the component that changed the page. */
   /**
-   * Getter for the field <code>pagination</code>.
+   * Gets the pagination component associated with the DataTable.
    *
-   * @return a {@link org.dominokit.domino.ui.pagination.HasPagination} object
+   * @return the pagination component
    */
   public HasPagination getPagination() {
     return pagination;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Retrieves the type of this event.
+   *
+   * @return the event type
+   */
   @Override
   public String getType() {
     return PAGINATION_EVENT;

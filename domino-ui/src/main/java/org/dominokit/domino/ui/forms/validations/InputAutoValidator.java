@@ -22,19 +22,24 @@ import org.dominokit.domino.ui.utils.ApplyFunction;
 import org.dominokit.domino.ui.utils.DominoElement;
 
 /**
- * this class attach an {@link org.dominokit.domino.ui.forms.FormElement#autoValidate()} } to a
- * component and bind the validation the {@link org.dominokit.domino.ui.events.EventType#blur}
+ * An auto validator for input elements, which triggers validation on the "blur" event.
+ *
+ * @param <E> The type of the HTML element associated with the input.
  */
 public class InputAutoValidator<E extends HTMLElement> extends AutoValidator {
 
+  /** The input element to validate. */
   private final DominoElement<E> inputElement;
+
+  /** The event listener for the "blur" event that triggers validation. */
   private final EventListener eventListener;
 
   /**
-   * Constructor for InputAutoValidator.
+   * Creates a new {@code InputAutoValidator} with the provided auto validation function and input
+   * element.
    *
-   * @param autoValidate {@link org.dominokit.domino.ui.utils.ApplyFunction}
-   * @param inputElement a {@link org.dominokit.domino.ui.utils.DominoElement} object
+   * @param autoValidate The function to perform auto validation.
+   * @param inputElement The input element to validate.
    */
   public InputAutoValidator(ApplyFunction autoValidate, DominoElement<E> inputElement) {
     super(autoValidate);
@@ -42,13 +47,13 @@ public class InputAutoValidator<E extends HTMLElement> extends AutoValidator {
     eventListener = evt -> autoValidate.apply();
   }
 
-  /** {@inheritDoc} */
+  /** Attaches the auto validator by adding the "blur" event listener to the input element. */
   @Override
   public void attach() {
     inputElement.addEventListener("blur", eventListener);
   }
 
-  /** {@inheritDoc} */
+  /** Removes the auto validator by removing the "blur" event listener from the input element. */
   @Override
   public void remove() {
     inputElement.removeEventListener("blur", eventListener);

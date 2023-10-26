@@ -13,21 +13,23 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package org.dominokit.domino.ui.datatable;
 
 /**
- * implementations of this interface will save changes from the dirty record into the original
- * record
+ * The {@code SaveDirtyRecordHandler} functional interface defines a contract for handling the
+ * saving of a dirty (modified) record compared to its original version in a data table.
  *
- * @param <T> the type of data table records
+ * @param <T> The type of data representing the record.
  */
 @FunctionalInterface
 public interface SaveDirtyRecordHandler<T> {
+
   /**
-   * saveDirtyRecord.
+   * Handles the saving of a dirty record compared to its original version.
    *
-   * @param originalRecord T the record in the table row
-   * @param dirtyRecord T the dirty record that has changes
+   * @param originalRecord The original, unmodified record.
+   * @param dirtyRecord The modified (dirty) record to be saved.
    */
   void saveDirtyRecord(T originalRecord, T dirtyRecord);
 }

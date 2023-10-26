@@ -15,7 +15,27 @@
  */
 package org.dominokit.domino.ui.i18n;
 
-/** DominoUILabels interface. */
+/**
+ * The {@code DominoUILabels} interface defines a collection of sub-label interfaces for various UI
+ * components. It consolidates all these sub-label interfaces into a single interface to provide a
+ * unified way to access labels for different parts of the UI.
+ *
+ * <p>Developers can implement this interface to provide custom labels for various UI components by
+ * implementing the sub-label interfaces.
+ *
+ * @see QuickSearchLabels
+ * @see FormsLabels
+ * @see MenuLabels
+ * @see DialogLabels
+ * @see LoaderLabels
+ * @see PaginationLabels
+ * @see SearchLabels
+ * @see UploadLabels
+ * @see PickersLabels
+ * @see CalendarLabels
+ * @see RichTextLabels
+ * @see TimePickerLabels
+ */
 public interface DominoUILabels
     extends QuickSearchLabels,
         FormsLabels,

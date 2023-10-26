@@ -20,53 +20,61 @@ import java.util.List;
 import java.util.Optional;
 import org.dominokit.domino.ui.utils.ComponentMeta;
 
-/** ColumnHeaderMeta class. */
+/**
+ * Meta information for column headers in a data table. This class allows adding and retrieving
+ * additional column headers to be displayed in the table header.
+ */
 public class ColumnHeaderMeta implements ComponentMeta {
 
-  /** Constant <code>DOMINO_COLUMN_HEADER_META="domino-column-header-meta"</code> */
+  /** The key used for identifying the column header meta information. */
   public static final String DOMINO_COLUMN_HEADER_META = "domino-column-header-meta";
 
   private List<ColumnHeader> extraHeadElements = new ArrayList<>();
 
   /**
-   * create.
+   * Creates a new {@link ColumnHeaderMeta} instance.
    *
-   * @return a {@link org.dominokit.domino.ui.datatable.ColumnHeaderMeta} object
+   * @return The created {@link ColumnHeaderMeta} instance.
    */
   public static ColumnHeaderMeta create() {
     return new ColumnHeaderMeta();
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Retrieves the key used for identifying this component's meta information.
+   *
+   * @return The meta information key.
+   */
   @Override
   public String getKey() {
     return DOMINO_COLUMN_HEADER_META;
   }
 
   /**
-   * get.
+   * Retrieves the column header meta information associated with a specific column.
    *
-   * @param column a {@link org.dominokit.domino.ui.datatable.ColumnConfig} object
-   * @return a {@link java.util.Optional} object
+   * @param column The column for which to retrieve the header meta information.
+   * @return An optional {@link ColumnHeaderMeta} instance if available, otherwise an empty
+   *     optional.
    */
   public static Optional<ColumnHeaderMeta> get(ColumnConfig<?> column) {
     return column.getMeta(DOMINO_COLUMN_HEADER_META);
   }
 
   /**
-   * Getter for the field <code>extraHeadElements</code>.
+   * Retrieves a list of additional column header elements.
    *
-   * @return a {@link java.util.List} object
+   * @return A list of {@link ColumnHeader} instances representing additional column headers.
    */
   public List<ColumnHeader> getExtraHeadElements() {
     return extraHeadElements;
   }
 
   /**
-   * addExtraHeadElement.
+   * Adds an additional column header element to the meta information.
    *
-   * @param extraHeadElement a {@link org.dominokit.domino.ui.datatable.ColumnHeader} object
-   * @return a {@link org.dominokit.domino.ui.datatable.ColumnHeaderMeta} object
+   * @param extraHeadElement The {@link ColumnHeader} to add.
+   * @return The current {@link ColumnHeaderMeta} instance.
    */
   public ColumnHeaderMeta addExtraHeadElement(ColumnHeader extraHeadElement) {
     this.extraHeadElements.add(extraHeadElement);

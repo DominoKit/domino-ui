@@ -13,6 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package org.dominokit.domino.ui.utils;
 
 import static elemental2.dom.DomGlobal.document;
@@ -21,17 +22,16 @@ import static org.dominokit.domino.ui.utils.ElementsFactory.elements;
 import elemental2.dom.Element;
 import elemental2.dom.EventListener;
 
-/** FollowOnScroll class. */
+/** A utility class for handling follow-on-scroll behavior. */
 public class FollowOnScroll {
 
   private final EventListener repositionListener;
 
   /**
-   * Constructor for FollowOnScroll.
+   * Constructs a new FollowOnScroll instance.
    *
-   * @param targetElement a {@link elemental2.dom.Element} object
-   * @param scrollFollower a {@link org.dominokit.domino.ui.utils.FollowOnScroll.ScrollFollower}
-   *     object
+   * @param targetElement The target element that the follower will follow as it scrolls.
+   * @param scrollFollower The ScrollFollower instance responsible for tracking the follower.
    */
   public FollowOnScroll(Element targetElement, ScrollFollower scrollFollower) {
     repositionListener =
@@ -43,19 +43,27 @@ public class FollowOnScroll {
     elements.elementOf(targetElement).onDetached(mutationRecord -> stop());
   }
 
-  /** start. */
+  /** Starts listening to scroll events to reposition the follower. */
   public void start() {
     document.addEventListener("scroll", repositionListener, true);
   }
 
-  /** stop. */
+  /** Stops listening to scroll events, halting the follow-on-scroll behavior. */
   public void stop() {
     document.removeEventListener("scroll", repositionListener, true);
   }
 
+  /** An interface for defining a ScrollFollower that tracks the follower's state and position. */
   public interface ScrollFollower {
+
+    /**
+     * Checks if the follower is currently open.
+     *
+     * @return {@code true} if the follower is open, {@code false} otherwise.
+     */
     boolean isFollowerOpen();
 
+    /** Positions the follower based on the scrolling behavior. */
     void positionFollower();
   }
 }

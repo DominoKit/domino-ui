@@ -26,7 +26,8 @@ import org.dominokit.domino.ui.utils.*;
 /**
  * Displays a label that fits within other components and elements.
  *
- * <p>The component will auto-fit within other elements and will float to the right by default, and will show at the top right if appended to icons.
+ * <p>The component will auto-fit within other elements and will float to the right by default, and
+ * will show at the top right if appended to icons.
  *
  * <p>Example:
  *
@@ -34,6 +35,7 @@ import org.dominokit.domino.ui.utils.*;
  *     Badge.create("label")
  * </pre>
  *
+ * @see BaseDominoElement
  */
 public class Badge extends BaseDominoElement<HTMLElement, Badge> {
   private final Text textNode = ElementsFactory.elements.text();
@@ -52,9 +54,7 @@ public class Badge extends BaseDominoElement<HTMLElement, Badge> {
     return badge;
   }
 
-  /**
-   * Creates an empty badge instance.
-   */
+  /** Creates an empty badge instance. */
   public Badge() {
     element = span().addCss(dui_badge);
     removeButton = LazyChild.of(RemoveButton.create().addClickListener(evt -> remove()), element);
@@ -62,17 +62,19 @@ public class Badge extends BaseDominoElement<HTMLElement, Badge> {
     appendChild(textNode);
   }
 
-  /** @hidden {@inheritDoc} */
+  /** @dominokit-site-ignore {@inheritDoc} */
   @Override
   public HTMLElement element() {
     return element.element();
   }
 
   /**
-   * Sets the badge as removable or not, removable badges will have a close button, clicking the close button will remove the badge from the dom.
+   * Sets the badge as removable or not, removable badges will have a close button, clicking the
+   * close button will remove the badge from the dom.
    *
-   * @param removable <b>true</b> to set it as removable and show the close button, <b>false</b> the badge is not removable and close button will be removed.
-   * @return same instance
+   * @param removable <b>true</b> to set it as removable and show the close button, <b>false</b> the
+   *     badge is not removable and close button will be removed.
+   * @return Same badge instance
    */
   public Badge setRemovable(boolean removable) {
     if (removable) {
@@ -83,10 +85,10 @@ public class Badge extends BaseDominoElement<HTMLElement, Badge> {
   }
 
   /**
-   * Shortcut method for <b>setRemovable(true)</b>
-   * Sets the alert to closable and a close button will be added.
+   * Shortcut method for <b>setRemovable(true)</b> Sets the alert to closable and a close button
+   * will be added.
    *
-   * @return same instance
+   * @return Same badge instance
    */
   public Badge removable() {
     removeButton.get();
@@ -97,7 +99,7 @@ public class Badge extends BaseDominoElement<HTMLElement, Badge> {
    * Sets the alert to not closable and the close button will be removed if exists, the alert can be
    * removed programmatically using {@link org.dominokit.domino.ui.alerts.Alert#remove()}
    *
-   * @return same instance
+   * @return Same badge instance
    */
   public Badge unRemovable() {
     removeButton.remove();
@@ -114,8 +116,8 @@ public class Badge extends BaseDominoElement<HTMLElement, Badge> {
   }
 
   /**
-   * Use to get a reference to the close button, calling this will assume the badge should be removable
-   * and will add the remove button to the badge
+   * Use to get a reference to the close button, calling this will assume the badge should be
+   * removable and will add the remove button to the badge
    *
    * @return the close button element
    */
@@ -124,11 +126,12 @@ public class Badge extends BaseDominoElement<HTMLElement, Badge> {
   }
 
   /**
-   * Use to customize the close button without breaking the fluent API chain.
-   * using this method will produce the same behavior as the <b>getCloseButton</b> method,
-   * it will add the remove button to the badge
+   * Use to customize the close button without breaking the fluent API chain. using this method will
+   * produce the same behavior as the <b>getCloseButton</b> method, it will add the remove button to
+   * the badge
    *
-   * @param handler a {@link org.dominokit.domino.ui.utils.ChildHandler} to applied on the remove button
+   * @param handler a {@link org.dominokit.domino.ui.utils.ChildHandler} to applied on the remove
+   *     button
    * @return same badge instance
    */
   public Badge withCloseButton(ChildHandler<Badge, RemoveButton> handler) {

@@ -17,22 +17,37 @@ package org.dominokit.domino.ui.elements;
 
 import elemental2.dom.HTMLOptionElement;
 
-/** OptionElement class. */
+/**
+ * Represents an HTML <option> element wrapper.
+ *
+ * <p>The HTML <option> element represents an individual choice in a <select> element. This class
+ * provides a convenient way to create, manipulate, and control the behavior of <option> elements in
+ * Java-based web applications. Example usage:
+ *
+ * <pre>
+ * HTMLOptionElement optionElement = ...;  // Obtain an <option> element from somewhere
+ * OptionElement option = OptionElement.of(optionElement);
+ * </pre>
+ *
+ * @see <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/option">MDN Web Docs
+ *     (option)</a>
+ */
 public class OptionElement extends BaseElement<HTMLOptionElement, OptionElement> {
+
   /**
-   * of.
+   * Creates a new {@link OptionElement} instance by wrapping the provided HTML <option> element.
    *
-   * @param e a {@link elemental2.dom.HTMLOptionElement} object
-   * @return a {@link org.dominokit.domino.ui.elements.OptionElement} object
+   * @param e The HTML <option> element to wrap.
+   * @return A new {@link OptionElement} instance wrapping the provided element.
    */
   public static OptionElement of(HTMLOptionElement e) {
     return new OptionElement(e);
   }
 
   /**
-   * Constructor for OptionElement.
+   * Constructs a {@link OptionElement} instance by wrapping the provided HTML <option> element.
    *
-   * @param element a {@link elemental2.dom.HTMLOptionElement} object
+   * @param element The HTML <option> element to wrap.
    */
   public OptionElement(HTMLOptionElement element) {
     super(element);

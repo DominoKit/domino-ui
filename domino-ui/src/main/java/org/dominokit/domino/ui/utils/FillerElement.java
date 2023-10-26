@@ -18,27 +18,48 @@ package org.dominokit.domino.ui.utils;
 import elemental2.dom.HTMLElement;
 import org.dominokit.domino.ui.elements.SpanElement;
 
-/** FillerElement class. */
+/**
+ * A utility class for creating a filler element to add spacing or fill space in UI layouts.
+ *
+ * <p>This class extends {@link BaseDominoElement} and provides a way to create a filler element
+ * that can be used to add space or fill space in UI layouts.
+ *
+ * <p>Usage example:
+ *
+ * <pre>
+ * // Create a filler element
+ * FillerElement fillerElement = FillerElement.create();
+ *
+ * // Add the filler element to a container or layout
+ * someContainer.appendChild(fillerElement.element());
+ * </pre>
+ *
+ * @see BaseDominoElement
+ */
 public class FillerElement extends BaseDominoElement<HTMLElement, FillerElement> {
 
   private SpanElement element;
 
   /**
-   * create.
+   * Creates and returns a new {@code FillerElement} instance.
    *
-   * @return a {@link org.dominokit.domino.ui.utils.FillerElement} object
+   * @return A new {@code FillerElement} instance.
    */
   public static FillerElement create() {
     return new FillerElement();
   }
 
-  /** Constructor for FillerElement. */
+  /** Creates a new {@code FillerElement}. */
   public FillerElement() {
     element = span().addCss(dui_grow_1);
     init(this);
   }
 
-  /** {@inheritDoc} */
+  /**
+   * @dominokit-site-ignore {@inheritDoc}
+   *     <p>Gets the underlying {@link HTMLElement} of the filler element.
+   * @return The underlying {@link HTMLElement}.
+   */
   @Override
   public HTMLElement element() {
     return element.element();

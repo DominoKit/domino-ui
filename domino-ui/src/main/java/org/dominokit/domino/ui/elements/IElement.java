@@ -17,22 +17,37 @@ package org.dominokit.domino.ui.elements;
 
 import elemental2.dom.HTMLElement;
 
-/** IElement class. */
+/**
+ * Represents an HTML IElement element (<i>) wrapper.
+ *
+ * <p>The HTML <i> element represents a span of text in an alternate voice or mood, or otherwise
+ * offset from the normal prose in a manner indicating a different quality of text. This class
+ * provides a convenient way to create, manipulate, and control the behavior of <i> elements in
+ * Java-based web applications. Example usage:
+ *
+ * <pre>{@code
+ * HTMLElement iElement = ...;  // Obtain an <i> element from somewhere
+ * IElement i = IElement.of(iElement);
+ * }</pre>
+ *
+ * @see <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/i">MDN Web Docs (i)</a>
+ */
 public class IElement extends BaseElement<HTMLElement, IElement> {
+
   /**
-   * of.
+   * Creates a new {@link IElement} instance by wrapping the provided HTML <i> element.
    *
-   * @param e a {@link elemental2.dom.HTMLElement} object
-   * @return a {@link org.dominokit.domino.ui.elements.IElement} object
+   * @param e The HTML <i> element.
+   * @return A new {@link IElement} instance wrapping the provided element.
    */
   public static IElement of(HTMLElement e) {
     return new IElement(e);
   }
 
   /**
-   * Constructor for IElement.
+   * Constructs a {@link IElement} instance by wrapping the provided HTML <i> element.
    *
-   * @param element a {@link elemental2.dom.HTMLElement} object
+   * @param element The HTML <i> element to wrap.
    */
   public IElement(HTMLElement element) {
     super(element);

@@ -15,13 +15,18 @@
  */
 package org.dominokit.domino.ui.utils;
 
-/** ChildHandler interface. */
+/**
+ * A functional interface for handling child elements in a parent-child relationship.
+ *
+ * @param <P> The type of the parent element.
+ * @param <C> The type of the child element.
+ */
 public interface ChildHandler<P, C> {
   /**
-   * apply.
+   * Applies the handler logic to the parent and child elements.
    *
-   * @param parent a P object
-   * @param self a C object
+   * @param parent The parent element.
+   * @param self The child element.
    */
   void apply(P parent, C self);
 }

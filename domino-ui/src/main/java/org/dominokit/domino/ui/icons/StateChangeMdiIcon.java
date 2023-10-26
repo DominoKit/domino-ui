@@ -15,29 +15,35 @@
  */
 package org.dominokit.domino.ui.icons;
 
-/** StateChangeMdiIcon class. */
+/**
+ * A StateChangeIcon implementation for Material Design Icons (MDI) icons. This icon can change its
+ * state to display different MDI icons.
+ */
 public class StateChangeMdiIcon extends StateChangeIcon<MdiIcon, StateChangeMdiIcon> {
 
   /**
-   * create.
+   * Creates a new StateChangeMdiIcon with the specified default MDI icon.
    *
-   * @param defaultIcon a {@link org.dominokit.domino.ui.icons.MdiIcon} object
-   * @return a {@link org.dominokit.domino.ui.icons.StateChangeMdiIcon} object
+   * @param defaultIcon The default MDI icon to be displayed initially.
    */
   public static StateChangeMdiIcon create(MdiIcon defaultIcon) {
     return new StateChangeMdiIcon(defaultIcon);
   }
 
   /**
-   * Constructor for StateChangeMdiIcon.
+   * Constructs a new StateChangeMdiIcon with the default MDI icon.
    *
-   * @param defaultIcon a {@link org.dominokit.domino.ui.icons.MdiIcon} object
+   * @param defaultIcon The default MDI icon to be displayed initially.
    */
   public StateChangeMdiIcon(MdiIcon defaultIcon) {
     super(defaultIcon);
   }
 
-  /** {@inheritDoc} */
+  /**
+   * {@inheritDoc} Creates a copy of the StateChangeMdiIcon along with its states.
+   *
+   * @return A new StateChangeMdiIcon instance that is a copy of the original.
+   */
   @Override
   public StateChangeMdiIcon copy() {
     StateChangeMdiIcon copy = new StateChangeMdiIcon(defaultIcon.copy());
@@ -46,10 +52,10 @@ public class StateChangeMdiIcon extends StateChangeIcon<MdiIcon, StateChangeMdiI
   }
 
   /**
-   * Sets the type of rotate applied to the icon
+   * Sets the rotation state for the default icon and all state icons.
    *
-   * @param mdiRotate the {@link org.dominokit.domino.ui.icons.MdiIcon.MdiRotate}
-   * @return same instance
+   * @param mdiRotate The rotation state to set.
+   * @return The StateChangeMdiIcon instance for method chaining.
    */
   public StateChangeMdiIcon setRotate(MdiIcon.MdiRotate mdiRotate) {
     defaultIcon.setRotate(mdiRotate);
@@ -58,9 +64,9 @@ public class StateChangeMdiIcon extends StateChangeIcon<MdiIcon, StateChangeMdiI
   }
 
   /**
-   * Rotates the icon with 45 degrees
+   * Rotates the default icon and all state icons by 45 degrees.
    *
-   * @return same instance
+   * @return The StateChangeMdiIcon instance for method chaining.
    */
   public StateChangeMdiIcon rotate45() {
     defaultIcon.rotate45();
@@ -69,9 +75,9 @@ public class StateChangeMdiIcon extends StateChangeIcon<MdiIcon, StateChangeMdiI
   }
 
   /**
-   * Rotates the icon with 90 degrees
+   * Rotates the default icon and all state icons by 90 degrees.
    *
-   * @return same instance
+   * @return The StateChangeMdiIcon instance for method chaining.
    */
   public StateChangeMdiIcon rotate90() {
     defaultIcon.rotate90();
@@ -80,9 +86,9 @@ public class StateChangeMdiIcon extends StateChangeIcon<MdiIcon, StateChangeMdiI
   }
 
   /**
-   * Rotates the icon with 135 degrees
+   * Rotates the default icon and all state icons by 135 degrees.
    *
-   * @return same instance
+   * @return The StateChangeMdiIcon instance for method chaining.
    */
   public StateChangeMdiIcon rotate135() {
     defaultIcon.rotate135();
@@ -91,9 +97,9 @@ public class StateChangeMdiIcon extends StateChangeIcon<MdiIcon, StateChangeMdiI
   }
 
   /**
-   * Rotates the icon with 180 degrees
+   * Rotates the default icon and all state icons by 180 degrees.
    *
-   * @return same instance
+   * @return The StateChangeMdiIcon instance for method chaining.
    */
   public StateChangeMdiIcon rotate180() {
     defaultIcon.rotate180();
@@ -102,9 +108,9 @@ public class StateChangeMdiIcon extends StateChangeIcon<MdiIcon, StateChangeMdiI
   }
 
   /**
-   * Rotates the icon with 225 degrees
+   * Rotates the default icon and all state icons by 225 degrees.
    *
-   * @return same instance
+   * @return The StateChangeMdiIcon instance for method chaining.
    */
   public StateChangeMdiIcon rotate225() {
     defaultIcon.rotate225();
@@ -113,9 +119,9 @@ public class StateChangeMdiIcon extends StateChangeIcon<MdiIcon, StateChangeMdiI
   }
 
   /**
-   * Rotates the icon with 270 degrees
+   * Rotates the default icon and all state icons by 270 degrees.
    *
-   * @return same instance
+   * @return The StateChangeMdiIcon instance for method chaining.
    */
   public StateChangeMdiIcon rotate270() {
     defaultIcon.rotate270();
@@ -124,9 +130,9 @@ public class StateChangeMdiIcon extends StateChangeIcon<MdiIcon, StateChangeMdiI
   }
 
   /**
-   * Rotates the icon with 315 degrees
+   * Rotates the default icon and all state icons by 315 degrees.
    *
-   * @return same instance
+   * @return The StateChangeMdiIcon instance for method chaining.
    */
   public StateChangeMdiIcon rotate315() {
     defaultIcon.rotate315();
@@ -135,9 +141,9 @@ public class StateChangeMdiIcon extends StateChangeIcon<MdiIcon, StateChangeMdiI
   }
 
   /**
-   * Sets rotate to the default value
+   * Resets the rotation state for the default icon and all state icons.
    *
-   * @return same instance
+   * @return The StateChangeMdiIcon instance for method chaining.
    */
   public StateChangeMdiIcon rotateNone() {
     defaultIcon.rotateNone();
@@ -146,10 +152,10 @@ public class StateChangeMdiIcon extends StateChangeIcon<MdiIcon, StateChangeMdiI
   }
 
   /**
-   * Flips the icon either horizontally or vertically
+   * Sets the flip state for the default icon and all state icons.
    *
-   * @param mdiFlip the {@link org.dominokit.domino.ui.icons.MdiIcon.MdiFlip}
-   * @return same instance
+   * @param mdiFlip The flip state to set.
+   * @return The StateChangeMdiIcon instance for method chaining.
    */
   public StateChangeMdiIcon setFlip(MdiIcon.MdiFlip mdiFlip) {
     defaultIcon.setFlip(mdiFlip);
@@ -158,9 +164,9 @@ public class StateChangeMdiIcon extends StateChangeIcon<MdiIcon, StateChangeMdiI
   }
 
   /**
-   * Flips the icon vertically
+   * Flips the default icon and all state icons vertically.
    *
-   * @return same instance
+   * @return The StateChangeMdiIcon instance for method chaining.
    */
   public StateChangeMdiIcon flipV() {
     defaultIcon.flipV();
@@ -169,9 +175,9 @@ public class StateChangeMdiIcon extends StateChangeIcon<MdiIcon, StateChangeMdiI
   }
 
   /**
-   * Flips the icon horizontally
+   * Flips the default icon and all state icons horizontally.
    *
-   * @return same instance
+   * @return The StateChangeMdiIcon instance for method chaining.
    */
   public StateChangeMdiIcon flipH() {
     defaultIcon.flipH();
@@ -180,9 +186,9 @@ public class StateChangeMdiIcon extends StateChangeIcon<MdiIcon, StateChangeMdiI
   }
 
   /**
-   * Removes the flip
+   * Resets the flip state for the default icon and all state icons.
    *
-   * @return same instance
+   * @return The StateChangeMdiIcon instance for method chaining.
    */
   public StateChangeMdiIcon flipNone() {
     defaultIcon.flipNone();
@@ -191,10 +197,10 @@ public class StateChangeMdiIcon extends StateChangeIcon<MdiIcon, StateChangeMdiI
   }
 
   /**
-   * Sets if the icon should spin
+   * Sets the spin state for the default icon and all state icons.
    *
-   * @param spin true to spin the icon, false otherwise
-   * @return same instance
+   * @param spin True to enable spinning, false to disable it.
+   * @return The StateChangeMdiIcon instance for method chaining.
    */
   public StateChangeMdiIcon setSpin(boolean spin) {
     defaultIcon.setSpin(spin);
@@ -203,9 +209,9 @@ public class StateChangeMdiIcon extends StateChangeIcon<MdiIcon, StateChangeMdiI
   }
 
   /**
-   * Spins the icon
+   * Enables spinning for the default icon and all state icons.
    *
-   * @return same instance
+   * @return The StateChangeMdiIcon instance for method chaining.
    */
   public StateChangeMdiIcon spin() {
     defaultIcon.spin();
@@ -214,9 +220,9 @@ public class StateChangeMdiIcon extends StateChangeIcon<MdiIcon, StateChangeMdiI
   }
 
   /**
-   * Removes the spinning of the icon
+   * Disables spinning for the default icon and all state icons.
    *
-   * @return same instance
+   * @return The StateChangeMdiIcon instance for method chaining.
    */
   public StateChangeMdiIcon noSpin() {
     defaultIcon.noSpin();
@@ -225,10 +231,10 @@ public class StateChangeMdiIcon extends StateChangeIcon<MdiIcon, StateChangeMdiI
   }
 
   /**
-   * Sets if the icon is active or not
+   * Sets the active state for the default icon and all state icons.
    *
-   * @param active true to activate the icon, false otherwise
-   * @return same instance
+   * @param active True to set the icons as active, false to set them as inactive.
+   * @return The StateChangeMdiIcon instance for method chaining.
    */
   public StateChangeMdiIcon setActive(boolean active) {
     defaultIcon.setActive(active);
@@ -237,9 +243,9 @@ public class StateChangeMdiIcon extends StateChangeIcon<MdiIcon, StateChangeMdiI
   }
 
   /**
-   * Activate the icon
+   * Sets the default icon and all state icons as active.
    *
-   * @return same instance
+   * @return The StateChangeMdiIcon instance for method chaining.
    */
   public StateChangeMdiIcon active() {
     defaultIcon.active();
@@ -248,9 +254,9 @@ public class StateChangeMdiIcon extends StateChangeIcon<MdiIcon, StateChangeMdiI
   }
 
   /**
-   * Marks the icon as inactive
+   * Sets the default icon and all state icons as inactive.
    *
-   * @return same instance
+   * @return The StateChangeMdiIcon instance for method chaining.
    */
   public StateChangeMdiIcon inactive() {
     defaultIcon.inactive();
@@ -259,10 +265,10 @@ public class StateChangeMdiIcon extends StateChangeIcon<MdiIcon, StateChangeMdiI
   }
 
   /**
-   * Sets the contrast of the icon
+   * Sets the contrast state for the default icon and all state icons.
    *
-   * @param mdiContrast the {@link org.dominokit.domino.ui.icons.MdiIcon.MdiContrast}
-   * @return same instance
+   * @param mdiContrast The contrast state to set.
+   * @return The StateChangeMdiIcon instance for method chaining.
    */
   public StateChangeMdiIcon setContrast(MdiIcon.MdiContrast mdiContrast) {
     defaultIcon.setContrast(mdiContrast);
@@ -271,9 +277,9 @@ public class StateChangeMdiIcon extends StateChangeIcon<MdiIcon, StateChangeMdiI
   }
 
   /**
-   * Sets the contrast as light
+   * Sets the default icon and all state icons to have a light contrast.
    *
-   * @return same instance
+   * @return The StateChangeMdiIcon instance for method chaining.
    */
   public StateChangeMdiIcon light() {
     defaultIcon.light();
@@ -282,9 +288,9 @@ public class StateChangeMdiIcon extends StateChangeIcon<MdiIcon, StateChangeMdiI
   }
 
   /**
-   * Sets the contrast as dark
+   * Sets the default icon and all state icons to have a dark contrast.
    *
-   * @return same instance
+   * @return The StateChangeMdiIcon instance for method chaining.
    */
   public StateChangeMdiIcon dark() {
     defaultIcon.dark();
@@ -293,9 +299,9 @@ public class StateChangeMdiIcon extends StateChangeIcon<MdiIcon, StateChangeMdiI
   }
 
   /**
-   * Removes the contrast
+   * Resets the contrast state for the default icon and all state icons.
    *
-   * @return same instance
+   * @return The StateChangeMdiIcon instance for method chaining.
    */
   public StateChangeMdiIcon noContrast() {
     defaultIcon.noContrast();

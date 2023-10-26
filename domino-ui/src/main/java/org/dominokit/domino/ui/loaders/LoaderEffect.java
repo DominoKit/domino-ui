@@ -15,21 +15,65 @@
  */
 package org.dominokit.domino.ui.loaders;
 
-/** an Enum to list available effects for {@link org.dominokit.domino.ui.loaders.Loader} */
+/**
+ * Represents different visual effects that can be used with a loader.
+ *
+ * <p>Each enum constant corresponds to a unique loading effect. The specific visual appearance and
+ * behavior of each effect is determined by the implementation in the respective loader.
+ *
+ * <p><b>Usage:</b>
+ *
+ * <pre>
+ * LoaderEffect effect = LoaderEffect.BOUNCE;
+ * Loader loader = Loader.create(someElement, effect);
+ * </pre>
+ *
+ * @author [Your Name]
+ */
 public enum LoaderEffect {
+
+  /** Represents a bouncing effect. */
   BOUNCE,
+
+  /** Represents a rotating plane effect. */
   ROTATE_PLANE,
+
+  /** Represents a stretching effect. */
   STRETCH,
+
+  /** Represents an orbit effect. */
   ORBIT,
+
+  /** Represents a round bounce effect. */
   ROUND_BOUNCE,
+
+  /** Represents the Windows 8 loader effect. */
   WIN8,
+
+  /** Represents the linear Windows 8 loader effect. */
   WIN8_LINEAR,
+
+  /** Represents an iOS-style loader effect. */
   IOS,
+
+  /** Represents a Facebook-style loader effect. */
   FACEBOOK,
+
+  /** Represents a continuous rotation effect. */
   ROTATION,
+
+  /** Represents a timer effect. */
   TIMER,
+
+  /** Represents a pulsing effect. */
   PULSE,
+
+  /** Represents a progress bar effect. */
   PROGRESS_BAR,
+
+  /** Represents a bouncing pulse effect. */
   BOUNCE_PULSE,
+
+  /** Represents no effect. */
   NONE;
 }

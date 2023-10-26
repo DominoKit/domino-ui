@@ -13,6 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package org.dominokit.domino.ui.datatable.plugins.filter.header;
 
 import elemental2.dom.HTMLInputElement;
@@ -21,81 +22,100 @@ import org.dominokit.domino.ui.datatable.model.FilterTypes;
 import org.dominokit.domino.ui.forms.BigDecimalBox;
 
 /**
- * BigDecimal column header filter component that is rendered as a {@link
- * org.dominokit.domino.ui.forms.BigDecimalBox} component
+ * The DecimalHeaderFilter class provides a header filter for decimal values in a DataTable. It
+ * allows users to filter data based on decimal values.
  *
- * @param <T> type of data table records
+ * @param <T> The type of data in the DataTable.
  */
 public class DecimalHeaderFilter<T> extends DelayedHeaderFilterInput<BigDecimalBox, T, BigDecimal> {
 
   private BigDecimalBox decimalBox;
 
-  /** Constructor for DecimalHeaderFilter. */
+  /** Creates a new instance of the DecimalHeaderFilter with an empty constructor. */
   public DecimalHeaderFilter() {}
 
   /**
-   * Create and instance with custom placeholder
+   * Creates a new instance of the DecimalHeaderFilter with a specified placeholder.
    *
-   * @param placeholder String
+   * @param placeholder The placeholder text for the input field.
    */
   public DecimalHeaderFilter(String placeholder) {
     super(placeholder);
   }
 
   /**
-   * create a new instance
+   * Creates a new instance of the DecimalHeaderFilter with default settings.
    *
-   * @param <T> a T class
-   * @return a {@link org.dominokit.domino.ui.datatable.plugins.filter.header.DecimalHeaderFilter}
-   *     object
+   * @param <T> The type of data in the DataTable.
+   * @return A new DecimalHeaderFilter instance.
    */
   public static <T> DecimalHeaderFilter<T> create() {
     return new DecimalHeaderFilter<>();
   }
 
   /**
-   * creates a new instance with custom placeholder
+   * Creates a new instance of the DecimalHeaderFilter with a specified placeholder.
    *
-   * @param placeholder String
-   * @param <T> type of the data table records
-   * @return new instance
+   * @param <T> The type of data in the DataTable.
+   * @param placeholder The placeholder text for the input field.
+   * @return A new DecimalHeaderFilter instance with a custom placeholder.
    */
   public static <T> DecimalHeaderFilter<T> create(String placeholder) {
     return new DecimalHeaderFilter<>(placeholder);
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Gets the HTML input element used for filtering decimal values.
+   *
+   * @return The HTML input element.
+   */
   @Override
   protected HTMLInputElement getInputElement() {
     return decimalBox.getInputElement().element();
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Creates the BigDecimalBox for handling decimal values.
+   *
+   * @return The created BigDecimalBox instance.
+   */
   @Override
   protected BigDecimalBox createValueBox() {
     this.decimalBox = BigDecimalBox.create();
     return this.decimalBox;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Checks if the BigDecimalBox is empty.
+   *
+   * @return {@code true} if the BigDecimalBox is empty, {@code false} otherwise.
+   */
   @Override
   protected boolean isEmpty() {
     return this.decimalBox.isEmptyIgnoreSpaces();
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Gets the value from the BigDecimalBox as a string.
+   *
+   * @return The value as a string.
+   */
   @Override
   protected String getValue() {
     return this.decimalBox.getValue() + "";
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Gets the filter type for decimal values.
+   *
+   * @return The filter type for decimal values.
+   */
   @Override
   protected FilterTypes getType() {
     return FilterTypes.DECIMAL;
   }
 
-  /** {@inheritDoc} */
+  /** Clears the DecimalHeaderFilter by resetting the BigDecimalBox and the input field's value. */
   @Override
   public void clear() {
     decimalBox.withPausedChangeListeners(
@@ -105,11 +125,10 @@ public class DecimalHeaderFilter<T> extends DelayedHeaderFilterInput<BigDecimalB
         });
   }
 
-  /** @return the {@link BigDecimalBox} wrapped inside this filter component */
   /**
-   * Getter for the field <code>decimalBox</code>.
+   * Gets the BigDecimalBox instance used for filtering decimal values.
    *
-   * @return a {@link org.dominokit.domino.ui.forms.BigDecimalBox} object
+   * @return The BigDecimalBox instance.
    */
   public BigDecimalBox getDecimalBox() {
     return decimalBox;

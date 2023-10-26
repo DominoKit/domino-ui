@@ -15,12 +15,16 @@
  */
 package org.dominokit.domino.ui.i18n;
 
-/** CalendarLabels interface. */
+/**
+ * The {@code CalendarLabels} interface extends the {@link Labels} interface and provides additional
+ * methods for retrieving localized calendar-related labels.
+ */
 public interface CalendarLabels extends Labels {
+
   /**
-   * calendarInvalidDateFormat.
+   * Returns the localized label for the "Invalid date format" message related to calendar input.
    *
-   * @return a {@link java.lang.String} object
+   * @return The localized label for "Invalid date format".
    */
   default String calendarInvalidDateFormat() {
     return "Invalid date format";

@@ -340,7 +340,7 @@ textarea.dui-field-input {
     position: relative;
     align-items: center;
     gap: var(--dui-form-field-checkbox-gap);
-    overflow-y: hidden;
+    overflow: hidden;
     padding: var(--dui-form-field-checkbox-label-padding);
     min-height: var(--dui-form-field-checkbox-label-min-height);
 }

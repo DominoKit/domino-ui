@@ -13,20 +13,22 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package org.dominokit.domino.ui.utils;
 
 /**
- * A component that can have text content should implement this interface
+ * The {@code HasContent} interface defines a method for setting content for an element.
  *
- * @param <T> the type of the component implementing this interface
+ * @param <T> The type of the element that can have content set.
  */
 @FunctionalInterface
 public interface HasContent<T> {
+
   /**
-   * setContent.
+   * Sets the content for the element.
    *
-   * @param content String text content
-   * @return same implementing component
+   * @param content The content to be set.
+   * @return The element with the specified content set.
    */
   T setContent(String content);
 }

@@ -13,21 +13,21 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package org.dominokit.domino.ui.datatable;
 
 /**
- * Implementations of this interface will receive an instance of the row dirty record to update it
- * with the current values from editable cells
+ * A functional interface for handling updates to dirty records in a data table.
  *
- * @param <T> the type of the data table records
+ * @param <T> The type of the dirty record.
  */
 @FunctionalInterface
 public interface DirtyRecordHandler<T> {
-  /** @param dirty T a dirty copy of the table row record */
+
   /**
-   * onUpdateDirtyRecord.
+   * Called when a dirty record is updated.
    *
-   * @param dirty a T object
+   * @param dirty The updated dirty record.
    */
   void onUpdateDirtyRecord(T dirty);
 }

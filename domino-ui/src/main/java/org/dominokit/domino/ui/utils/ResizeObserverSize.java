@@ -13,15 +13,28 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package org.dominokit.domino.ui.utils;
 
 import jsinterop.annotations.JsPackage;
 import jsinterop.annotations.JsType;
 
-/** ResizeObserverSize class. */
+/**
+ * The {@code ResizeObserverSize} class represents the size of an element in the context of a {@link
+ * ResizeObserver} observation. It provides information about both the block size (height) and the
+ * inline size (width) of the observed element.
+ *
+ * <p>This class is part of the Resize Observer API, which is used for observing changes to the
+ * dimensions of elements. For more information about the Resize Observer API, refer to the <a
+ * href="https://developer.mozilla.org/en-US/docs/Web/API/ResizeObserver" target="_blank">MDN
+ * documentation</a>.
+ */
 @JsType(isNative = true, namespace = JsPackage.GLOBAL)
 public class ResizeObserverSize {
 
+  /** The block size (height) of the observed element. */
   public double blockSize;
+
+  /** The inline size (width) of the observed element. */
   public double inlineSize;
 }

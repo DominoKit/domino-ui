@@ -15,12 +15,41 @@
  */
 package org.dominokit.domino.ui.events;
 
-/** HasDefaultEventOptions interface. */
-public interface HasDefaultEventOptions<T extends EvenHandlerOptions> {
+/**
+ * The {@code HasDefaultEventOptions} interface represents an element or component that provides
+ * default event handler options.
+ *
+ * @param <T> The type of event handler options.
+ *     <p><strong>Usage Example:</strong>
+ *     <pre>
+ * // Create a custom element with default event handler options
+ * public class MyElement implements HasDefaultEventOptions<MyEventHandlerOptions> {
+ *     // Implementation of other methods and properties
+ *
+ *     {@literal @}Override
+ *     public MyEventHandlerOptions getOptions() {
+ *         // Provide default event handler options for this element
+ *         return new MyEventHandlerOptions();
+ *     }
+ * }
+ *
+ * // Usage of the custom element
+ * MyElement myElement = new MyElement();
+ * EventListener listener = event -> {
+ *     // Handle the event
+ * };
+ * myElement.addEventListener(EventType.click.getName(), listener, myElement.getOptions());
+ * </pre>
+ *     <p>Implementing classes should provide default event handler options by overriding the {@code
+ *     getOptions} method.
+ * @see EventHandlerOptions
+ */
+public interface HasDefaultEventOptions<T extends EventHandlerOptions> {
+
   /**
-   * getOptions.
+   * Gets the default event handler options for this element or component.
    *
-   * @return a T object
+   * @return The default event handler options.
    */
   T getOptions();
 }

@@ -20,14 +20,24 @@ import org.dominokit.domino.ui.IsElement;
 import org.dominokit.domino.ui.elements.DivElement;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
 
-/** A component to show a loading indicator with different sizes and colors */
+/**
+ * Represents a visual preloader or spinner used to indicate the loading state of a component or
+ * page.
+ *
+ * <p>Usage example:
+ *
+ * <pre>
+ * Preloader preloader = Preloader.create();
+ * </pre>
+ *
+ * @see BaseDominoElement
+ */
 public class Preloader extends BaseDominoElement<HTMLDivElement, Preloader>
     implements IsElement<HTMLDivElement>, PreloaderStyles {
 
   private final DivElement root;
 
-  /** */
-  /** Constructor for Preloader. */
+  /** Default constructor creating a new instance of the preloader. */
   public Preloader() {
     this.root =
         div()
@@ -46,26 +56,29 @@ public class Preloader extends BaseDominoElement<HTMLDivElement, Preloader>
     init(this);
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Returns the root HTMLDivElement for this preloader.
+   *
+   * @return The root HTMLDivElement.
+   */
   @Override
   public HTMLDivElement element() {
     return root.element();
   }
 
-  /** @return new Preloader instance */
   /**
-   * create.
+   * Factory method to create a new instance of the preloader.
    *
-   * @return a {@link org.dominokit.domino.ui.preloaders.Preloader} object
+   * @return A new Preloader instance.
    */
   public static Preloader create() {
     return new Preloader();
   }
 
   /**
-   * removes the loader from the dom tree
+   * Stops and removes the preloader from the DOM.
    *
-   * @return same Preloader instance
+   * @return The current preloader instance.
    */
   public Preloader stop() {
     element().remove();

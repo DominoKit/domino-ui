@@ -30,27 +30,29 @@ import org.dominokit.domino.ui.utils.BaseDominoElement;
 import org.dominokit.domino.ui.utils.PopupsCloser;
 
 /**
- * A utility class to show overlays that blocks the content behind a modal dialog.
+ * Represents the backdrop for modals to show overlays that blocks the content behind a modal
+ * dialog.
  *
- * <p>this class can track the overlay across the page and all opened modals and it adjust its
- * position whenever a modal is opened or closed
+ * <p>This class provides functionalities to manage and handle popovers, tooltips, and modals
+ * backdrop in the UI, it can track the overlay across the page and all opened modals and it adjust
+ * its position whenever a modal is opened or closed
+ *
+ * @see HasComponentConfig
+ * @see BaseDominoElement
  */
 public class ModalBackDrop extends BaseDominoElement<HTMLDivElement, ModalBackDrop>
     implements HasComponentConfig<ZIndexConfig> {
 
-  /** Constant <code>DUI_REMOVE_POPOVERS="dui-remove-popovers"</code> */
   public static final String DUI_REMOVE_POPOVERS = "dui-remove-popovers";
-  /** Constant <code>DUI_REMOVE_TOOLTIPS="dui-remove-tooltips"</code> */
   public static final String DUI_REMOVE_TOOLTIPS = "dui-remove-tooltips";
 
-  /** Constant <code>INSTANCE</code> */
   public static final ModalBackDrop INSTANCE = new ModalBackDrop();
 
   private CssClass dui_dialog_backdrop = () -> "dui-dialog-backdrop";
 
-  /** The single instance of the overlay backdrop element */
   private DivElement element;
 
+  /** Private constructor to ensure singleton pattern. */
   private ModalBackDrop() {
     element = div();
     element.addCss(dui_dialog_backdrop);
@@ -94,29 +96,30 @@ public class ModalBackDrop extends BaseDominoElement<HTMLDivElement, ModalBackDr
   }
 
   /**
-   * Close all currently open {@link org.dominokit.domino.ui.popover.Popover}
+   * Closes all popovers without a specific selection attribute.
    *
-   * @param sourceId a {@link java.lang.String} object
+   * @param sourceId The ID of the source element that triggers the closure.
    */
   public void closePopovers(String sourceId) {
     closePopovers(sourceId, null);
   }
 
   /**
-   * Close all currently open {@link org.dominokit.domino.ui.popover.Popover}s
+   * Closes all tooltips associated with a given source ID.
    *
-   * @param sourceId a {@link java.lang.String} object
+   * @param sourceId The ID of the source element that triggers the closure.
    */
   public void closeTooltips(String sourceId) {
     body()
         .querySelectorAll(".dui-tooltip")
         .forEach(e -> e.dispatchEvent(closeTooltipEvent(sourceId)));
   }
+
   /**
-   * Close all currently open {@link org.dominokit.domino.ui.popover.Popover}s
+   * Closes popovers based on the selection attribute.
    *
-   * @param sourceId a {@link java.lang.String} object
-   * @param selectAttribute a {@link java.lang.String} object
+   * @param sourceId The ID of the source element that triggers the closure.
+   * @param selectAttribute The attribute to select which popovers to close.
    */
   public void closePopovers(String sourceId, String selectAttribute) {
     body().querySelectorAll(".dui-popover").stream()
@@ -143,17 +146,13 @@ public class ModalBackDrop extends BaseDominoElement<HTMLDivElement, ModalBackDr
     return new CustomEvent<>(DUI_REMOVE_TOOLTIPS, initOptions);
   }
 
-  /**
-   * Automatically close all {@link org.dominokit.domino.ui.popover.Popover}s when the page is
-   * scrolled
-   */
+  /** Closes popovers on scroll event. */
   public void onScrollClosePopovers() {
     body()
         .querySelectorAll(".dui-popover[d-close-on-scroll='true']")
         .forEach(BaseDominoElement::remove);
   }
 
-  /** {@inheritDoc} */
   @Override
   public HTMLDivElement element() {
     return element.element();

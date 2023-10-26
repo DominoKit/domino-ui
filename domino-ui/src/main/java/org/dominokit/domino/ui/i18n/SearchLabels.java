@@ -15,12 +15,24 @@
  */
 package org.dominokit.domino.ui.i18n;
 
-/** SearchLabels interface. */
+/**
+ * The {@code SearchLabels} interface provides labels for search-related components and messages.
+ *
+ * <p>Usage Example:
+ *
+ * <pre><code>
+ * SearchComponent searchComponent = new SearchComponent();
+ * searchComponent.setPlaceholder(searchLabels.getStartTyping());
+ * </code></pre>
+ *
+ * @see Labels
+ */
 public interface SearchLabels extends Labels {
+
   /**
-   * getStartTyping.
+   * Gets the default placeholder text for a search input.
    *
-   * @return a {@link java.lang.String} object
+   * @return The default placeholder text.
    */
   default String getStartTyping() {
     return "START TYPING...";

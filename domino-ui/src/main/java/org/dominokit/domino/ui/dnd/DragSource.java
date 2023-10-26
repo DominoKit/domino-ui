@@ -19,29 +19,42 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * Defines draggable elements.
+ * Manages a collection of draggable elements providing functionality to add and remove them.
  *
- * <p>Each drag source has a list of draggable elements (i.e. can be dragged and dropped)
+ * <p>This class maintains a map of draggable elements and offers methods to dynamically manage
+ * which elements are draggable at a given time. Example usage:
+ *
+ * <pre>
+ * DragSource source = new DragSource();
+ * Draggable&lt;MyElement&gt; draggable = Draggable.of(myElementInstance);
+ * source.addDraggable(draggable);
+ * source.removeDraggable(draggable.getId());
+ * </pre>
  */
 public class DragSource {
 
+  /** Constant representing a CSS class used to denote an element is currently being dragged. */
   static final String DRAGGING = "dragging";
 
+  /** Map of draggable elements indexed by their ID. */
   private final Map<String, Draggable> draggables = new HashMap<>();
 
   /**
-   * Defines element as draggable
+   * Adds a new {@link Draggable} element to the manager.
    *
-   * @param draggable the element
+   * @param draggable the draggable element to be added
    */
   public void addDraggable(Draggable<?> draggable) {
     draggables.put(draggable.getId(), draggable);
   }
 
   /**
-   * removeDraggable.
+   * Removes a {@link Draggable} element from the manager using its ID.
    *
-   * @param id a {@link java.lang.String} object
+   * <p>If an element with the provided ID is found, it is first detached (made non-draggable) and
+   * then removed from the manager.
+   *
+   * @param id the unique identifier of the draggable element to be removed
    */
   public void removeDraggable(String id) {
     if (draggables.containsKey(id)) {

@@ -13,6 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package org.dominokit.domino.ui.datatable.plugins.pagination;
 
 import static java.util.Objects.nonNull;
@@ -22,7 +23,9 @@ import org.dominokit.domino.ui.datatable.plugins.PluginConfig;
 import org.dominokit.domino.ui.icons.Icon;
 import org.dominokit.domino.ui.icons.lib.Icons;
 
-/** SortPluginConfig class. */
+/**
+ * Configuration class for the SortPlugin that allows customization of sorting behavior and icons.
+ */
 public class SortPluginConfig implements PluginConfig {
   private boolean triStateSort = false;
   private Supplier<Icon<?>> ascendingIcon = Icons::sort_ascending;
@@ -31,19 +34,19 @@ public class SortPluginConfig implements PluginConfig {
   private boolean showIconOnSortedColumnOnly = false;
 
   /**
-   * isTriStateSort.
+   * Checks if tri-state sorting is enabled.
    *
-   * @return a boolean
+   * @return {@code true} if tri-state sorting is enabled, {@code false} otherwise.
    */
   public boolean isTriStateSort() {
     return triStateSort;
   }
 
   /**
-   * Setter for the field <code>triStateSort</code>.
+   * Sets whether tri-state sorting is enabled.
    *
-   * @param triStateSort a boolean
-   * @return a {@link org.dominokit.domino.ui.datatable.plugins.pagination.SortPluginConfig} object
+   * @param triStateSort {@code true} to enable tri-state sorting, {@code false} to disable.
+   * @return This SortPluginConfig instance for method chaining.
    */
   public SortPluginConfig setTriStateSort(boolean triStateSort) {
     this.triStateSort = triStateSort;
@@ -51,19 +54,19 @@ public class SortPluginConfig implements PluginConfig {
   }
 
   /**
-   * Getter for the field <code>ascendingIcon</code>.
+   * Gets the supplier for the ascending sorting icon.
    *
-   * @return a {@link java.util.function.Supplier} object
+   * @return The supplier for the ascending sorting icon.
    */
   public Supplier<Icon<?>> getAscendingIcon() {
     return ascendingIcon;
   }
 
   /**
-   * Setter for the field <code>ascendingIcon</code>.
+   * Sets the supplier for the ascending sorting icon.
    *
-   * @param ascendingIcon a {@link java.util.function.Supplier} object
-   * @return a {@link org.dominokit.domino.ui.datatable.plugins.pagination.SortPluginConfig} object
+   * @param ascendingIcon The supplier for the ascending sorting icon.
+   * @return This SortPluginConfig instance for method chaining.
    */
   public SortPluginConfig setAscendingIcon(Supplier<Icon<?>> ascendingIcon) {
     if (nonNull(ascendingIcon)) {
@@ -73,19 +76,19 @@ public class SortPluginConfig implements PluginConfig {
   }
 
   /**
-   * Getter for the field <code>descendingIcon</code>.
+   * Gets the supplier for the descending sorting icon.
    *
-   * @return a {@link java.util.function.Supplier} object
+   * @return The supplier for the descending sorting icon.
    */
   public Supplier<Icon<?>> getDescendingIcon() {
     return descendingIcon;
   }
 
   /**
-   * Setter for the field <code>descendingIcon</code>.
+   * Sets the supplier for the descending sorting icon.
    *
-   * @param descendingIcon a {@link java.util.function.Supplier} object
-   * @return a {@link org.dominokit.domino.ui.datatable.plugins.pagination.SortPluginConfig} object
+   * @param descendingIcon The supplier for the descending sorting icon.
+   * @return This SortPluginConfig instance for method chaining.
    */
   public SortPluginConfig setDescendingIcon(Supplier<Icon<?>> descendingIcon) {
     if (nonNull(descendingIcon)) {
@@ -95,19 +98,19 @@ public class SortPluginConfig implements PluginConfig {
   }
 
   /**
-   * Getter for the field <code>unsortedIcon</code>.
+   * Gets the supplier for the unsorted icon.
    *
-   * @return a {@link java.util.function.Supplier} object
+   * @return The supplier for the unsorted icon.
    */
   public Supplier<Icon<?>> getUnsortedIcon() {
     return unsortedIcon;
   }
 
   /**
-   * Setter for the field <code>unsortedIcon</code>.
+   * Sets the supplier for the unsorted icon.
    *
-   * @param unsortedIcon a {@link java.util.function.Supplier} object
-   * @return a {@link org.dominokit.domino.ui.datatable.plugins.pagination.SortPluginConfig} object
+   * @param unsortedIcon The supplier for the unsorted icon.
+   * @return This SortPluginConfig instance for method chaining.
    */
   public SortPluginConfig setUnsortedIcon(Supplier<Icon<?>> unsortedIcon) {
     if (nonNull(unsortedIcon)) {
@@ -117,19 +120,20 @@ public class SortPluginConfig implements PluginConfig {
   }
 
   /**
-   * isShowIconOnSortedColumnOnly.
+   * Checks if icons are displayed only on the sorted column.
    *
-   * @return a boolean
+   * @return {@code true} if icons are displayed only on the sorted column, {@code false} otherwise.
    */
   public boolean isShowIconOnSortedColumnOnly() {
     return showIconOnSortedColumnOnly;
   }
 
   /**
-   * Setter for the field <code>showIconOnSortedColumnOnly</code>.
+   * Sets whether icons should be displayed only on the sorted column.
    *
-   * @param showIconOnSortedColumnOnly a boolean
-   * @return a {@link org.dominokit.domino.ui.datatable.plugins.pagination.SortPluginConfig} object
+   * @param showIconOnSortedColumnOnly {@code true} to display icons only on the sorted column,
+   *     {@code false} otherwise.
+   * @return This SortPluginConfig instance for method chaining.
    */
   public SortPluginConfig setShowIconOnSortedColumnOnly(boolean showIconOnSortedColumnOnly) {
     this.showIconOnSortedColumnOnly = showIconOnSortedColumnOnly;

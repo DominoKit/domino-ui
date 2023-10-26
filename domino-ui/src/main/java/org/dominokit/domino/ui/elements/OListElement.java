@@ -17,22 +17,50 @@ package org.dominokit.domino.ui.elements;
 
 import elemental2.dom.HTMLOListElement;
 
-/** OListElement class. */
+/**
+ * Represents an HTML
+ *
+ * <ol>
+ *   (ordered list) element wrapper.
+ *   <p>The HTML
+ *   <ol>
+ *     element is used to create ordered lists, where list items are numbered sequentially. This
+ *     class provides a convenient way to create, manipulate, and control the behavior of
+ *     <ol>
+ *       elements in Java-based web applications. Example usage:
+ *       <pre>{@code
+ * HTMLOListElement olElement = ...;  // Obtain an <ol> element from somewhere
+ * OListElement olList = OListElement.of(olElement);
+ * }</pre>
+ *
+ * @see <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/ol">MDN Web Docs (ol)</a>
+ */
 public class OListElement extends BaseElement<HTMLOListElement, OListElement> {
+
   /**
-   * of.
+   * Creates a new {@link OListElement} instance by wrapping the provided HTML
    *
-   * @param e a {@link elemental2.dom.HTMLOListElement} object
-   * @return a {@link org.dominokit.domino.ui.elements.OListElement} object
+   * <ol>
+   *   element.
+   *
+   * @param e The HTML
+   *     <ol>
+   *       element to wrap.
+   * @return A new {@link OListElement} instance wrapping the provided element.
    */
   public static OListElement of(HTMLOListElement e) {
     return new OListElement(e);
   }
 
   /**
-   * Constructor for OListElement.
+   * Constructs a {@link OListElement} instance by wrapping the provided HTML
    *
-   * @param element a {@link elemental2.dom.HTMLOListElement} object
+   * <ol>
+   *   element.
+   *
+   * @param element The HTML
+   *     <ol>
+   *       element to wrap.
    */
   public OListElement(HTMLOListElement element) {
     super(element);

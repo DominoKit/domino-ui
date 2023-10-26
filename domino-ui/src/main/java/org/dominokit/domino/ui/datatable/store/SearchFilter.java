@@ -13,24 +13,28 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package org.dominokit.domino.ui.datatable.store;
 
 import org.dominokit.domino.ui.datatable.events.SearchEvent;
 
 /**
- * An interface to write implementation for filtering {@link
- * org.dominokit.domino.ui.datatable.store.LocalListDataStore} records
+ * The {@code SearchFilter} functional interface defines a contract for filtering records during a
+ * search operation in a data table.
  *
- * @param <T> the type of the datatable records
+ * @param <T> The type of data representing the records in the data table.
  */
 @FunctionalInterface
 public interface SearchFilter<T> {
+
   /**
-   * Filters a record based on the search filters
+   * Determines whether a record should be included in the search results based on the provided
+   * search event and the record's data.
    *
-   * @param event {@link org.dominokit.domino.ui.datatable.events.SearchEvent}
-   * @param record T the record being checked
-   * @return boolean, true if the record match the search criteria otherwise false.
+   * @param event The search event containing search criteria.
+   * @param record The record to be filtered.
+   * @return {@code true} if the record should be included in the search results, {@code false}
+   *     otherwise.
    */
   boolean filterRecord(SearchEvent event, T record);
 }

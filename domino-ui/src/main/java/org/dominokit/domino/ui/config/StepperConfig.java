@@ -17,13 +17,18 @@ package org.dominokit.domino.ui.config;
 
 import org.dominokit.domino.ui.stepper.StepState;
 
-/** StepperConfig interface. */
+/**
+ * Implementations of this interface can be used to configure defaults for {@link
+ * org.dominokit.domino.ui.stepper.Stepper} component
+ */
 public interface StepperConfig extends ComponentConfig {
 
   /**
-   * getDefaultStepState.
+   * Use this method to define the default StepState for Stepper steps
    *
-   * @return a {@link org.dominokit.domino.ui.stepper.StepState} object
+   * <p>Defaults to : {@code StepState.INACTIVE}
+   *
+   * @return a {@link StepState}
    */
   default StepState getDefaultStepState() {
     return StepState.INACTIVE;

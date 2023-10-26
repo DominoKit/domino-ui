@@ -17,22 +17,62 @@ package org.dominokit.domino.ui.elements;
 
 import elemental2.dom.HTMLHeadingElement;
 
-/** HeadingElement class. */
+/**
+ * Represents an HTML heading element (e.g.,
+ *
+ * <h1>,
+ *
+ * <h2>,
+ *
+ * <h3>,
+ *
+ * <h4>,
+ *
+ * <h5>,
+ *
+ * <h6>) wrapper.
+ *
+ * <p>HTML heading elements are used to define headings for sections of a document or webpage. They
+ * are used to provide structure and hierarchy to the content. This class provides a convenient way
+ * to create, manipulate, and control the behavior of heading elements in Java-based web
+ * applications. Example usage:
+ *
+ * <pre>
+ * HTMLHeadingElement headingElement = ...;  // Obtain an HTML heading element from somewhere
+ * HeadingElement heading = HeadingElement.of(headingElement);
+ * </pre>
+ *
+ * @see <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/Heading_Elements">MDN Web
+ *     Docs (Heading Elements)</a>
+ */
 public class HeadingElement extends BaseElement<HTMLHeadingElement, HeadingElement> {
+
   /**
-   * of.
+   * Creates a new {@link HeadingElement} instance by wrapping the provided HTML heading element.
    *
-   * @param e a {@link elemental2.dom.HTMLHeadingElement} object
-   * @return a {@link org.dominokit.domino.ui.elements.HeadingElement} object
+   * @param e The HTML heading element (e.g.,
+   *     <h1>,
+   *     <h2>,
+   *     <h3>,
+   *     <h4>,
+   *     <h5>,
+   *     <h6>).
+   * @return A new {@link HeadingElement} instance wrapping the provided element.
    */
   public static HeadingElement of(HTMLHeadingElement e) {
     return new HeadingElement(e);
   }
 
   /**
-   * Constructor for HeadingElement.
+   * Constructs a {@link HeadingElement} instance by wrapping the provided HTML heading element.
    *
-   * @param element a {@link elemental2.dom.HTMLHeadingElement} object
+   * @param element The HTML heading element (e.g.,
+   *     <h1>,
+   *     <h2>,
+   *     <h3>,
+   *     <h4>,
+   *     <h5>,
+   *     <h6>) to wrap.
    */
   public HeadingElement(HTMLHeadingElement element) {
     super(element);

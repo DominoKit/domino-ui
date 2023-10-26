@@ -18,8 +18,21 @@ package org.dominokit.domino.ui.splitpanel;
 import elemental2.dom.MouseEvent;
 import elemental2.dom.TouchEvent;
 
+/**
+ * Represents a horizontal splitter used to resize adjacent panels in a horizontal split layout.
+ *
+ * <p>The HSplitter is positioned between two horizontal panels and allows users to drag and adjust
+ * the width of the panels.
+ */
 class HSplitter extends BaseSplitter<HSplitter> {
 
+  /**
+   * Creates a new horizontal splitter.
+   *
+   * @param left the left panel in the split layout
+   * @param right the right panel in the split layout
+   * @param hSplitPanel the horizontal split panel that holds the two sub-panels
+   */
   HSplitter(SplitPanel left, SplitPanel right, HasSplitPanels hSplitPanel) {
     super(left, right, hSplitPanel);
     init(this);
@@ -27,23 +40,45 @@ class HSplitter extends BaseSplitter<HSplitter> {
     handleElement.addCss(dui_horizontal);
   }
 
+  /**
+   * Factory method to create a new instance of {@link HSplitter}.
+   *
+   * @param left the left panel to be associated with the splitter
+   * @param right the right panel to be associated with the splitter
+   * @param hSplitPanel the horizontal split panel
+   * @return a new instance of HSplitter
+   */
   static HSplitter create(SplitPanel left, SplitPanel right, HSplitPanel hSplitPanel) {
     return new HSplitter(left, right, hSplitPanel);
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Returns the x-coordinate of the touch event.
+   *
+   * @param event the touch event
+   * @return the x-coordinate of the touch point
+   */
   @Override
   protected double touchPosition(TouchEvent event) {
     return event.touches.getAt(0).clientX;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Returns the x-coordinate of the mouse event.
+   *
+   * @param event the mouse event
+   * @return the x-coordinate of the mouse cursor
+   */
   @Override
   protected double mousePosition(MouseEvent event) {
     return event.clientX;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Gets the width of the splitter.
+   *
+   * @return the width of the splitter
+   */
   @Override
   public double getSize() {
     return element.getBoundingClientRect().width;

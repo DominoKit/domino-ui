@@ -17,22 +17,37 @@ package org.dominokit.domino.ui.elements;
 
 import elemental2.dom.HTMLTableRowElement;
 
-/** TableRowElement class. */
+/**
+ * Represents an HTML <tr> (table row) element wrapper.
+ *
+ * <p>The HTML <tr> element is used to define a row in an HTML table. It can contain one or more
+ * table data cells (<td>) and/or table header cells (<th>) within it. This class provides a
+ * Java-based way to create, manipulate, and control the behavior of <tr> elements in web
+ * applications. Example usage:
+ *
+ * <pre>{@code
+ * HTMLTableRowElement rowElement = ...;  // Obtain a <tr> element from somewhere
+ * TableRowElement row = TableRowElement.of(rowElement);
+ * }</pre>
+ *
+ * @see <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/tr">MDN Web Docs (tr)</a>
+ */
 public class TableRowElement extends BaseElement<HTMLTableRowElement, TableRowElement> {
+
   /**
-   * of.
+   * Creates a new {@link TableRowElement} instance by wrapping the provided HTML <tr> element.
    *
-   * @param e a {@link elemental2.dom.HTMLTableRowElement} object
-   * @return a {@link org.dominokit.domino.ui.elements.TableRowElement} object
+   * @param e The HTML <tr> element to wrap.
+   * @return A new {@link TableRowElement} instance wrapping the provided element.
    */
   public static TableRowElement of(HTMLTableRowElement e) {
     return new TableRowElement(e);
   }
 
   /**
-   * Constructor for TableRowElement.
+   * Constructs a {@link TableRowElement} instance by wrapping the provided HTML <tr> element.
    *
-   * @param element a {@link elemental2.dom.HTMLTableRowElement} object
+   * @param element The HTML <tr> element to wrap.
    */
   public TableRowElement(HTMLTableRowElement element) {
     super(element);

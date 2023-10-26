@@ -17,22 +17,42 @@ package org.dominokit.domino.ui.elements;
 
 import elemental2.dom.HTMLTableElement;
 
-/** TableElement class. */
+/**
+ * Represents an HTML <table> element wrapper.
+ * <p>
+ * The HTML <table> element is used to create tables to organize and display data in tabular form. It can
+ * contain various elements like <caption>, <thead>, <tfoot>, <tbody>, <tr>, <th>, and <td> to structure
+ * the table.
+ * This class provides a Java-based way to create, manipulate, and control the behavior of <table> elements
+ * in web applications.
+ * </p>
+ *
+ * Example usage:
+ * <pre>
+ * {@code
+ * HTMLTableElement tableElement = ...;  // Obtain a <table> element from somewhere
+ * TableElement table = TableElement.of(tableElement);
+ * }
+ * </pre>
+ *
+ * @see <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/table">MDN Web Docs (table)</a>
+ */
 public class TableElement extends BaseElement<HTMLTableElement, TableElement> {
+
   /**
-   * of.
+   * Creates a new {@link TableElement} instance by wrapping the provided HTML <table> element.
    *
-   * @param e a {@link elemental2.dom.HTMLTableElement} object
-   * @return a {@link org.dominokit.domino.ui.elements.TableElement} object
+   * @param e The HTML <table> element to wrap.
+   * @return A new {@link TableElement} instance wrapping the provided element.
    */
   public static TableElement of(HTMLTableElement e) {
     return new TableElement(e);
   }
 
   /**
-   * Constructor for TableElement.
+   * Constructs a {@link TableElement} instance by wrapping the provided HTML <table> element.
    *
-   * @param element a {@link elemental2.dom.HTMLTableElement} object
+   * @param element The HTML <table> element to wrap.
    */
   public TableElement(HTMLTableElement element) {
     super(element);

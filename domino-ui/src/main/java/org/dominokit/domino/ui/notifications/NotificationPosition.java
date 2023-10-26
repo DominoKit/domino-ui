@@ -31,7 +31,20 @@ import org.dominokit.domino.ui.style.CompositeCssClass;
 import org.dominokit.domino.ui.style.CssClass;
 import org.dominokit.domino.ui.utils.DominoElement;
 
-/** NotificationPosition class. */
+/**
+ * Utility class for managing and updating the positions of notifications on the screen.
+ *
+ * <p>This class provides functionality to automatically adjust the position offsets of
+ * notifications based on their designated positions (e.g., top left, bottom right) to ensure that
+ * they do not overlap.
+ *
+ * <p>Usage Example:
+ *
+ * <pre>
+ * CssClass newPosition = NotificationStyles.dui_ntf_top_left;
+ * NotificationPosition.updatePositions(newPosition);
+ * </pre>
+ */
 public class NotificationPosition {
   private static CompositeCssClass topPositions =
       CompositeCssClass.of(dui_ntf_top_left, dui_ntf_top_right, dui_ntf_top_middle);
@@ -39,9 +52,14 @@ public class NotificationPosition {
       CompositeCssClass.of(dui_ntf_bottom_left, dui_ntf_bottom_right, dui_ntf_bottom_middle);
 
   /**
-   * updatePositions.
+   * Adjusts the position offsets of all notifications that share the same position.
    *
-   * @param notificationPosition a {@link org.dominokit.domino.ui.style.CssClass} object
+   * <p>The method iterates over all notifications having the same position and adjusts their
+   * position offsets to prevent overlaps. Position offsets are adjusted differently based on
+   * whether the notifications are positioned at the top or bottom of the screen.
+   *
+   * @param notificationPosition The CSS class representing the position of the notifications to
+   *     adjust.
    */
   public static void updatePositions(CssClass notificationPosition) {
     List<Element> samePositionNotifications =
@@ -61,7 +79,6 @@ public class NotificationPosition {
         DominoElement<Element> wrapper = elements.elementOf(samePositionNotifications.get(i));
         DominoElement<Element> e =
             elements.elementOf(samePositionNotifications.get(i).firstElementChild);
-        DomGlobal.console.info("ORDER : " + wrapper.getAttribute("order"));
         e.setCssProperty("--dui-ntf-position-offset", nextOffset + "px");
         DOMRect domRect = e.getBoundingClientRect();
         nextOffset += domRect.bottom - domRect.top + 16;

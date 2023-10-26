@@ -20,7 +20,21 @@ import org.dominokit.domino.ui.IsElement;
 import org.dominokit.domino.ui.elements.DivElement;
 import org.dominokit.domino.ui.utils.DominoElement;
 
-/** Timer loader implementation */
+/**
+ * A loader component that displays a timer-based animation.
+ *
+ * <p>The TimerLoader displays an animation with timer-based progress. It is often used to indicate
+ * loading or processing that is time-based. This loader consists of a timer-based progress bar.
+ *
+ * <p>Example usage:
+ *
+ * <pre>
+ * TimerLoader loader = TimerLoader.create();
+ * loader.setLoadingText("Loading...");
+ * // Add the loader to a container element
+ * container.appendChild(loader.element());
+ * </pre>
+ */
 public class TimerLoader extends BaseLoader<TimerLoader> implements IsElement<HTMLDivElement> {
 
   private final DivElement progress1 = div().addCss(wait_me_progress_elem_1, dui_loader_darker);
@@ -41,45 +55,62 @@ public class TimerLoader extends BaseLoader<TimerLoader> implements IsElement<HT
   private final DivElement element =
       div().addCss(wait_me).style("background: var(--dui-loader-background);").appendChild(content);
 
-  /** Constructor for TimerLoader. */
+  /** Initializes a new instance of the {@code TimerLoader} class. */
   public TimerLoader() {
     init(this);
   }
 
   /**
-   * create.
+   * Creates a new instance of the {@code TimerLoader} class.
    *
-   * @return a {@link org.dominokit.domino.ui.loaders.TimerLoader} object
+   * @return A new {@code TimerLoader} instance.
    */
   public static TimerLoader create() {
     return new TimerLoader();
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Sets the loading text to be displayed by the loader.
+   *
+   * @param text The text to display as loading text.
+   */
   @Override
   public void setLoadingText(String text) {
     loadingText.textContent = text;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Sets the size of the loader.
+   *
+   * @param width The width of the loader.
+   * @param height The height of the loader.
+   */
   @Override
   public void setSize(String width, String height) {
     onAttached(mutationRecord -> loader.setWidth(width).setHeight(height));
   }
 
-  /** {@inheritDoc} */
+  /** Removes the loading text from the loader. */
   @Override
   public void removeLoadingText() {
     onAttached(mutationRecord -> loadingText.remove());
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Gets the content element of the loader.
+   *
+   * @return A {@code DominoElement} representing the content element.
+   */
   @Override
   public DominoElement<HTMLDivElement> getContentElement() {
     return content.toDominoElement();
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Gets the HTMLDivElement element associated with this loader.
+   *
+   * @return The HTMLDivElement element of the loader.
+   */
   @Override
   public HTMLDivElement element() {
     return element.element();

@@ -19,13 +19,18 @@ import java.util.function.Supplier;
 import org.dominokit.domino.ui.icons.Icon;
 import org.dominokit.domino.ui.icons.lib.Icons;
 
-/** TabsConfig interface. */
+/**
+ * Implementations of this interface can be used to configure defaults for {@link
+ * org.dominokit.domino.ui.tabs.TabsPanel} component
+ */
 public interface TabsConfig extends ComponentConfig {
 
   /**
-   * getDefaultTabCloseIcon.
+   * Use this method to define the default tab close icon
    *
-   * @return a {@link java.util.function.Supplier} object
+   * <p>Defaults to : {@code close}
+   *
+   * @return a {@code Supplier<Icon<?>>}
    */
   default Supplier<Icon<?>> getDefaultTabCloseIcon() {
     return Icons::close;

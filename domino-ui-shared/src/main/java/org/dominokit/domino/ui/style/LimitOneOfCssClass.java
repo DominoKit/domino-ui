@@ -21,45 +21,48 @@ import java.util.Collection;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-/** LimitOneOfCssClass class. */
+/**
+ * A class for managing a set of allowed CSS classes and ensuring that only one of them is active at
+ * a time on a DOM element.
+ */
 public class LimitOneOfCssClass implements CssClass {
 
   private final CompositeCssClass allowedClasses;
   private CssClass active = CssClass.NONE;
 
   /**
-   * of.
+   * Creates a new instance of LimitOneOfCssClass with the specified allowed CSS classes.
    *
-   * @param allowedClasses a {@link org.dominokit.domino.ui.style.CssClass} object.
-   * @return a {@link org.dominokit.domino.ui.style.LimitOneOfCssClass} object.
+   * @param allowedClasses An array of allowed CSS classes.
+   * @return A new LimitOneOfCssClass instance.
    */
   public static LimitOneOfCssClass of(CssClass... allowedClasses) {
     return new LimitOneOfCssClass(allowedClasses);
   }
 
   /**
-   * of.
+   * Creates a new instance of LimitOneOfCssClass with the specified allowed CSS class names.
    *
-   * @param allowedClasses a {@link java.lang.String} object.
-   * @return a {@link org.dominokit.domino.ui.style.LimitOneOfCssClass} object.
+   * @param allowedClasses An array of allowed CSS class names.
+   * @return A new LimitOneOfCssClass instance.
    */
   public static LimitOneOfCssClass of(String... allowedClasses) {
     return new LimitOneOfCssClass(allowedClasses);
   }
 
   /**
-   * Constructor for LimitOneOfCssClass.
+   * Constructs a LimitOneOfCssClass instance with the specified allowed CSS classes.
    *
-   * @param allowedClasses a {@link org.dominokit.domino.ui.style.CssClass} object.
+   * @param allowedClasses An array of allowed CSS classes.
    */
   public LimitOneOfCssClass(CssClass... allowedClasses) {
     this.allowedClasses = CompositeCssClass.of(allowedClasses);
   }
 
   /**
-   * Constructor for LimitOneOfCssClass.
+   * Constructs a LimitOneOfCssClass instance with the specified allowed CSS class names.
    *
-   * @param allowedClasses a {@link java.lang.String} object.
+   * @param allowedClasses An array of allowed CSS class names.
    */
   public LimitOneOfCssClass(String... allowedClasses) {
     this.allowedClasses =
@@ -68,19 +71,19 @@ public class LimitOneOfCssClass implements CssClass {
   }
 
   /**
-   * Constructor for LimitOneOfCssClass.
+   * Constructs a LimitOneOfCssClass instance with the specified allowed CSS classes.
    *
-   * @param allowedClasses a {@link java.util.Collection} object.
+   * @param allowedClasses A collection of allowed CSS classes.
    */
   public LimitOneOfCssClass(Collection<CssClass> allowedClasses) {
     this.allowedClasses = CompositeCssClass.of(allowedClasses);
   }
 
   /**
-   * use.
+   * Sets the active CSS class from the allowed classes.
    *
-   * @param activated a {@link org.dominokit.domino.ui.style.CssClass} object.
-   * @return a {@link org.dominokit.domino.ui.style.LimitOneOfCssClass} object.
+   * @param activated The CSS class to activate.
+   * @return This LimitOneOfCssClass instance.
    */
   public LimitOneOfCssClass use(CssClass activated) {
     if (this.allowedClasses.contains(activated)) {
@@ -90,10 +93,10 @@ public class LimitOneOfCssClass implements CssClass {
   }
 
   /**
-   * use.
+   * Sets the active CSS class from the allowed classes based on an object implementing HasCssClass.
    *
-   * @param activated a {@link org.dominokit.domino.ui.style.HasCssClass} object.
-   * @return a {@link org.dominokit.domino.ui.style.LimitOneOfCssClass} object.
+   * @param activated The object implementing HasCssClass whose CSS class should be activated.
+   * @return This LimitOneOfCssClass instance.
    */
   public LimitOneOfCssClass use(HasCssClass activated) {
     if (this.allowedClasses.contains(activated.getCssClass())) {
@@ -102,13 +105,21 @@ public class LimitOneOfCssClass implements CssClass {
     return this;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Removes the allowed CSS classes from the given DOM element.
+   *
+   * @param element The DOM element from which to remove the allowed CSS classes.
+   */
   @Override
   public void remove(Element element) {
     allowedClasses.remove(element);
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Applies the active CSS class to the given DOM element if it is in the list of allowed classes.
+   *
+   * @param element The DOM element to which to apply the active CSS class.
+   */
   @Override
   public void apply(Element element) {
     if (allowedClasses.contains(active)) {
@@ -118,19 +129,20 @@ public class LimitOneOfCssClass implements CssClass {
   }
 
   /**
-   * Getter for the field <code>allowedClasses</code>.
+   * Gets the composite CSS class containing the allowed classes.
    *
-   * @return a {@link org.dominokit.domino.ui.style.CompositeCssClass} object.
+   * @return The composite CSS class containing the allowed classes.
    */
   public CompositeCssClass getAllowedClasses() {
     return allowedClasses;
   }
 
   /**
-   * Getter for the field <code>active</code>.
+   * Retrieves the active CSS class applied to a DOM element.
    *
-   * @param element a {@link elemental2.dom.Element} object.
-   * @return a {@link java.util.Optional} object.
+   * @param element The DOM element for which to find the active CSS class.
+   * @return An optional containing the active CSS class if found, or an empty optional if none is
+   *     found.
    */
   public Optional<CssClass> getActive(Element element) {
     return CompositeCssClass.of(element).getCssClasses().stream()
@@ -138,7 +150,11 @@ public class LimitOneOfCssClass implements CssClass {
         .findFirst();
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Gets the CSS class name of the currently active CSS class.
+   *
+   * @return The CSS class name of the currently active CSS class.
+   */
   @Override
   public String getCssClass() {
     return active.getCssClass();

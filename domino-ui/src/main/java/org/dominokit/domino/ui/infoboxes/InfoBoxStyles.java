@@ -17,23 +17,30 @@ package org.dominokit.domino.ui.infoboxes;
 
 import org.dominokit.domino.ui.style.CssClass;
 
-/** Default CSS classes for {@link org.dominokit.domino.ui.infoboxes.InfoBox} */
+/** The interface containing CSS classes for styling InfoBoxes. */
 public interface InfoBoxStyles {
 
-  /** Constant <code>dui_info_box</code> */
+  /** Represents the CSS class for the root InfoBox element. */
   CssClass dui_info_box = () -> "dui-info-box";
-  /** Constant <code>dui_info_flipped</code> */
+
+  /** Represents the CSS class for the flipped InfoBox. */
   CssClass dui_info_flipped = () -> "dui-info-flipped";
-  /** Constant <code>dui_info_icon</code> */
+
+  /** Represents the CSS class for the icon container in the InfoBox. */
   CssClass dui_info_icon = () -> "dui-info-icon";
-  /** Constant <code>dui_info_content</code> */
+
+  /** Represents the CSS class for the content container in the InfoBox. */
   CssClass dui_info_content = () -> "dui-info-content";
-  /** Constant <code>dui_info_title</code> */
+
+  /** Represents the CSS class for the title container in the InfoBox. */
   CssClass dui_info_title = () -> "dui-info-title";
-  /** Constant <code>dui_info_value</code> */
+
+  /** Represents the CSS class for the value container in the InfoBox. */
   CssClass dui_info_value = () -> "dui-info-value";
-  /** Constant <code>dui_info_hover_zoom</code> */
+
+  /** Represents the CSS class for the zoom hover effect in the InfoBox. */
   CssClass dui_info_hover_zoom = () -> "dui-info-hover-zoom";
-  /** Constant <code>dui_info_hover_expand</code> */
+
+  /** Represents the CSS class for the expand hover effect in the InfoBox. */
   CssClass dui_info_hover_expand = () -> "dui-info-hover-expand";
 }

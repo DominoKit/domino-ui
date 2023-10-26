@@ -22,14 +22,41 @@ import org.dominokit.domino.ui.icons.lib.Icons;
 import org.dominokit.domino.ui.richtext.RichTextCommand;
 import org.dominokit.domino.ui.utils.DominoDom;
 
+/**
+ * Represents a UI command to apply full justification formatting to the selected text or paragraph
+ * within a rich text editor.
+ *
+ * <p>The {@code JustifyFullCommand} extends {@link RichTextCommand} and provides users the ability
+ * to justify the text across the full width of its container. The command is represented by a
+ * button with a full justification icon. When this button is clicked, it applies full justification
+ * to the currently selected text or paragraphs.
+ *
+ * <p><b>Usage Example:</b>
+ *
+ * <pre>{@code
+ * DivElement editableDiv = DivElement.create();
+ * JustifyFullCommand justifyFullCommand = JustifyFullCommand.create(editableDiv);
+ * }</pre>
+ */
 public class JustifyFullCommand extends RichTextCommand<JustifyFullCommand> {
 
   private Button button;
 
+  /**
+   * Factory method to create a new instance of JustifyFullCommand.
+   *
+   * @param editableElement The div element where the rich text is edited.
+   * @return A new instance of JustifyFullCommand.
+   */
   public static JustifyFullCommand create(DivElement editableElement) {
     return new JustifyFullCommand(editableElement);
   }
 
+  /**
+   * Constructs a new JustifyFullCommand instance for the specified editable div element.
+   *
+   * @param editableElement The div element where the rich text is edited.
+   */
   public JustifyFullCommand(DivElement editableElement) {
     super(editableElement);
     this.button =
@@ -39,11 +66,21 @@ public class JustifyFullCommand extends RichTextCommand<JustifyFullCommand> {
     init(this);
   }
 
+  /**
+   * @dominokit-site-ignore {@inheritDoc}
+   *     <p>Returns the main HTMLElement of this command, which is the button used to apply the full
+   *     justification formatting.
+   * @return The HTMLElement of the button.
+   */
   @Override
   public HTMLElement element() {
     return button.element();
   }
 
+  /**
+   * Executes the command, applying full justification formatting to the selected text or paragraph
+   * in the editable div element.
+   */
   @Override
   protected void execute() {
     getSelectedRange()

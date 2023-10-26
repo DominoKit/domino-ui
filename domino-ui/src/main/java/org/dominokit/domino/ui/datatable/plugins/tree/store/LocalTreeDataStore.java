@@ -25,17 +25,28 @@ import org.dominokit.domino.ui.datatable.plugins.tree.SubItemsProvider;
 import org.dominokit.domino.ui.datatable.plugins.tree.TreeNodeChildrenAware;
 import org.dominokit.domino.ui.datatable.store.LocalListDataStore;
 
-/** LocalTreeDataStore class. */
+/**
+ * An implementation of the {@link TreeNodeStore} that uses local data to populate tree structured
+ * records.
+ *
+ * <p><b>Usage:</b>
+ *
+ * <pre>
+ * SubItemsProvider provider = ...; // Implement or get an instance of SubItemsProvider
+ * LocalTreeDataStore store = new LocalTreeDataStore(provider);
+ * </pre>
+ *
+ * @param <T> the type of data record
+ */
 public class LocalTreeDataStore<T> extends LocalListDataStore<T> implements TreeNodeStore<T> {
   private Map<T, LocalListDataStore<T>> childrenStore = new HashMap<>();
   private final SubItemsProvider<T> subItemsProvider;
   private final TreeNodeChildrenAware<T> treeNodeChildrenAware;
 
   /**
-   * Constructor for LocalTreeDataStore.
+   * Constructs a {@link LocalTreeDataStore} with a sub-items provider.
    *
-   * @param subItemsProvider a {@link
-   *     org.dominokit.domino.ui.datatable.plugins.tree.SubItemsProvider} object
+   * @param subItemsProvider the provider of sub-items
    */
   public LocalTreeDataStore(SubItemsProvider<T> subItemsProvider) {
     this.subItemsProvider = subItemsProvider;
@@ -43,12 +54,10 @@ public class LocalTreeDataStore<T> extends LocalListDataStore<T> implements Tree
   }
 
   /**
-   * Constructor for LocalTreeDataStore.
+   * Constructs a {@link LocalTreeDataStore} with a sub-items provider and a node children checker.
    *
-   * @param subItemsProvider a {@link
-   *     org.dominokit.domino.ui.datatable.plugins.tree.SubItemsProvider} object
-   * @param treeNodeChildrenAware a {@link
-   *     org.dominokit.domino.ui.datatable.plugins.tree.TreeNodeChildrenAware} object
+   * @param subItemsProvider the provider of sub-items
+   * @param treeNodeChildrenAware checker to determine if a node has children
    */
   public LocalTreeDataStore(
       SubItemsProvider<T> subItemsProvider, TreeNodeChildrenAware<T> treeNodeChildrenAware) {
@@ -57,11 +66,10 @@ public class LocalTreeDataStore<T> extends LocalListDataStore<T> implements Tree
   }
 
   /**
-   * Constructor for LocalTreeDataStore.
+   * Constructs a {@link LocalTreeDataStore} with initial records and a sub-items provider.
    *
-   * @param records a {@link java.util.List} object
-   * @param subItemsProvider a {@link
-   *     org.dominokit.domino.ui.datatable.plugins.tree.SubItemsProvider} object
+   * @param records the initial records
+   * @param subItemsProvider the provider of sub-items
    */
   public LocalTreeDataStore(List<T> records, SubItemsProvider<T> subItemsProvider) {
     super(records);
@@ -70,13 +78,12 @@ public class LocalTreeDataStore<T> extends LocalListDataStore<T> implements Tree
   }
 
   /**
-   * Constructor for LocalTreeDataStore.
+   * Constructs a {@link LocalTreeDataStore} with initial records, a sub-items provider, and a node
+   * children checker.
    *
-   * @param records a {@link java.util.List} object
-   * @param subItemsProvider a {@link
-   *     org.dominokit.domino.ui.datatable.plugins.tree.SubItemsProvider} object
-   * @param treeNodeChildrenAware a {@link
-   *     org.dominokit.domino.ui.datatable.plugins.tree.TreeNodeChildrenAware} object
+   * @param records the initial records
+   * @param subItemsProvider the provider of sub-items
+   * @param treeNodeChildrenAware checker to determine if a node has children
    */
   public LocalTreeDataStore(
       List<T> records,
@@ -87,7 +94,13 @@ public class LocalTreeDataStore<T> extends LocalListDataStore<T> implements Tree
     this.treeNodeChildrenAware = treeNodeChildrenAware;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Handles changes in search criteria. It filters the records based on the search event and
+   * updates the store with the filtered results. If there was a previous sorting operation, it will
+   * re-sort the filtered results.
+   *
+   * @param event the search event containing search details
+   */
   @Override
   public void onSearchChanged(SearchEvent event) {
     if (nonNull(getSearchFilter())) {
@@ -103,14 +116,26 @@ public class LocalTreeDataStore<T> extends LocalListDataStore<T> implements Tree
     }
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Sets the data for the tree store. This will replace the current data and clear the children
+   * store.
+   *
+   * @param data the new list of data to be set
+   */
   @Override
   public void setData(List<T> data) {
     super.setData(data);
     this.childrenStore.clear();
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Retrieves the children of a given parent node. If the children for the specified parent node
+   * are not yet loaded, it fetches them using the sub-items provider and stores them in a local
+   * cache. The children are then passed to the provided consumer.
+   *
+   * @param context the context providing details about the parent node and any previous operations
+   * @param itemsConsumer a consumer to accept the children once they are retrieved
+   */
   @Override
   public void getNodeChildren(
       TreeNodeStoreContext<T> context, Consumer<Optional<Collection<T>>> itemsConsumer) {
@@ -142,7 +167,13 @@ public class LocalTreeDataStore<T> extends LocalListDataStore<T> implements Tree
     }
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Determines if the specified record has children. This determination is made based on the
+   * treeNodeChildrenAware provided during instantiation.
+   *
+   * @param record the data record to check for children
+   * @return true if the record has children, false otherwise
+   */
   @Override
   public boolean hasChildren(T record) {
     return this.treeNodeChildrenAware.hasChildren(record);

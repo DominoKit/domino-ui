@@ -17,22 +17,40 @@ package org.dominokit.domino.ui.elements;
 
 import elemental2.dom.HTMLQuoteElement;
 
-/** BlockquoteElement class. */
+/**
+ * Represents a blockquote HTML element (`
+ *
+ * <blockquote>
+ *
+ * `) wrapper.
+ *
+ * <p>The class offers a convenient mechanism to create, manipulate, and control the behavior of
+ * blockquote HTML elements. Example usage:
+ *
+ * <pre>{@code
+ * HTMLQuoteElement htmlElement = ...;  // Obtain a <blockquote> element from somewhere
+ * BlockquoteElement blockquote = BlockquoteElement.of(htmlElement);
+ * }</pre>
+ *
+ * @see <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/blockquote">MDN Web Docs
+ *     (blockquote element)</a>
+ */
 public class BlockquoteElement extends BaseElement<HTMLQuoteElement, BlockquoteElement> {
+
   /**
-   * of.
+   * Creates a new {@link BlockquoteElement} by wrapping the provided blockquote HTML element.
    *
-   * @param e a {@link elemental2.dom.HTMLQuoteElement} object
-   * @return a {@link org.dominokit.domino.ui.elements.BlockquoteElement} object
+   * @param e The blockquote HTML element.
+   * @return A new {@link BlockquoteElement} that wraps the provided element.
    */
   public static BlockquoteElement of(HTMLQuoteElement e) {
     return new BlockquoteElement(e);
   }
 
   /**
-   * Constructor for BlockquoteElement.
+   * Constructs an {@link BlockquoteElement} by wrapping the provided blockquote HTML element.
    *
-   * @param element a {@link elemental2.dom.HTMLQuoteElement} object
+   * @param element The blockquote HTML element to wrap.
    */
   public BlockquoteElement(HTMLQuoteElement element) {
     super(element);

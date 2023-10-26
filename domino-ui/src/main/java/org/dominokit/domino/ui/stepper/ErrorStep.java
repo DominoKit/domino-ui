@@ -21,9 +21,19 @@ import org.dominokit.domino.ui.icons.lib.Icons;
 import org.dominokit.domino.ui.style.ColorsCss;
 import org.dominokit.domino.ui.style.SpacingCss;
 
-/** ErrorStep class. */
+/**
+ * A concrete implementation of the {@link StepState} interface representing an error state in a
+ * stepper component. Error steps are typically used to indicate steps that have encountered an
+ * error or validation issue.
+ */
 public class ErrorStep implements StepState {
-  /** {@inheritDoc} */
+
+  /**
+   * {@inheritDoc} This implementation applies visual styling and an error icon to the provided
+   * {@link StepTracker} to indicate that the step has encountered an error.
+   *
+   * @param tracker The {@link StepTracker} to which the error step state is applied.
+   */
   @Override
   public void apply(StepTracker tracker) {
     tracker
@@ -36,7 +46,12 @@ public class ErrorStep implements StepState {
                     .addCss(dui_error));
   }
 
-  /** {@inheritDoc} */
+  /**
+   * {@inheritDoc} This implementation cleans up the visual styling and icon from the provided
+   * {@link StepTracker} when the step is no longer in an error state.
+   *
+   * @param tracker The {@link StepTracker} from which the error step state is removed.
+   */
   @Override
   public void cleanUp(StepTracker tracker) {
     tracker
@@ -44,7 +59,11 @@ public class ErrorStep implements StepState {
         .withTrackerNode((parent1, node) -> node.clearElement().removeCss(dui_error));
   }
 
-  /** {@inheritDoc} */
+  /**
+   * {@inheritDoc} Returns the key associated with the error step state, which is typically "ERROR."
+   *
+   * @return The key "ERROR."
+   */
   @Override
   public String getKey() {
     return "ERROR";

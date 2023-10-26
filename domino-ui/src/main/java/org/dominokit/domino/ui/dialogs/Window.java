@@ -24,8 +24,18 @@ import org.dominokit.domino.ui.layout.NavBar;
 import org.dominokit.domino.ui.utils.PostfixAddOn;
 
 /**
- * A component that open a pop-up that acts like a window with close/maximize/minimize controls and
- * can be dragged across the page
+ * Represents a draggable and resizable window dialog. This class provides functionality to create
+ * window dialogs with maximization, restore, and close features.
+ *
+ * <p><b>Usage:</b>
+ *
+ * <pre>
+ * Window myWindow = Window.create("Sample Title");
+ * myWindow.show();
+ * </pre>
+ *
+ * @author [Your Name]
+ * @see AbstractDialog
  */
 public class Window extends AbstractDialog<Window> {
 
@@ -54,20 +64,19 @@ public class Window extends AbstractDialog<Window> {
   private NavBar navHeader;
 
   /**
-   * create.
+   * Factory method to create a new instance of the window with a title.
    *
-   * @param title String window title
-   * @return new Window instance
+   * @param title The title of the window.
+   * @return A new instance of the Window.
    */
   public static Window create(String title) {
     return new Window(title);
   }
 
-  /** @param title String window title */
   /**
-   * Constructor for Window.
+   * Constructs a new Window instance with the provided title.
    *
-   * @param title a {@link java.lang.String} object
+   * @param title The title of the window.
    */
   public Window(String title) {
     super();
@@ -247,21 +256,20 @@ public class Window extends AbstractDialog<Window> {
     body().addEventsListener(stopMoveListener, "mouseup", "touchend");
   }
 
-  /** @return boolean, true if this window can be dragged across the screen */
   /**
-   * isDraggable.
+   * Checks if the window is draggable.
    *
-   * @return a boolean
+   * @return {@code true} if the window is draggable, {@code false} otherwise.
    */
   public boolean isDraggable() {
     return draggable;
   }
 
   /**
-   * Setter for the field <code>draggable</code>.
+   * Sets the window's draggability.
    *
-   * @param draggable boolean true to make this window instance draggable
-   * @return same Window instance
+   * @param draggable {@code true} to make the window draggable, {@code false} otherwise.
+   * @return The current instance of the Window.
    */
   public Window setDraggable(boolean draggable) {
     this.draggable = draggable;
@@ -269,9 +277,9 @@ public class Window extends AbstractDialog<Window> {
   }
 
   /**
-   * Stretch the window to cover the full screen
+   * Maximizes the window.
    *
-   * @return same Window instance
+   * @return The current instance of the Window.
    */
   public Window maximize() {
     maximizing = true;
@@ -285,9 +293,9 @@ public class Window extends AbstractDialog<Window> {
   }
 
   /**
-   * If maximized restore the Window to its original size
+   * Restores the window to its original size.
    *
-   * @return same Window instance
+   * @return The current instance of the Window.
    */
   public Window restore() {
     restoreIcon.collapse();
@@ -300,10 +308,9 @@ public class Window extends AbstractDialog<Window> {
   }
 
   /**
-   * Make the position of the Window fixed allowing the content of the page to scroll while the
-   * window stay in its position
+   * Sets the window to a fixed position.
    *
-   * @return same Window instance
+   * @return The current instance of the Window.
    */
   public Window setFixed() {
     addCss(dui_fixed);
@@ -312,52 +319,49 @@ public class Window extends AbstractDialog<Window> {
     return this;
   }
 
-  /** @return boolean, true if the Window is maximized */
   /**
-   * isMaximized.
+   * Checks if the window is maximized.
    *
-   * @return a boolean
+   * @return {@code true} if the window is maximized, {@code false} otherwise.
    */
   public boolean isMaximized() {
     return maximized;
   }
 
-  /** @return the double left position of the window */
   /**
-   * Getter for the field <code>windowLeft</code>.
+   * Gets the left position of the window.
    *
-   * @return a double
+   * @return The left position of the window.
    */
   public double getWindowLeft() {
     return windowLeft;
   }
 
   /**
-   * Setter for the field <code>windowLeft</code>.
+   * Sets the left position of the window.
    *
-   * @param windowLeft double window left position
-   * @return same Window instance
+   * @param windowLeft The left position value to set.
+   * @return The current instance of the Window.
    */
   public Window setWindowLeft(double windowLeft) {
     this.windowLeft = windowLeft;
     return this;
   }
 
-  /** @return double top position of the window */
   /**
-   * Getter for the field <code>windowTop</code>.
+   * Gets the top position of the window.
    *
-   * @return a double
+   * @return The top position of the window.
    */
   public double getWindowTop() {
     return windowTop;
   }
 
   /**
-   * Setter for the field <code>windowTop</code>.
+   * Sets the top position of the window.
    *
-   * @param windowTop double top position of the window
-   * @return same Window instance
+   * @param windowTop The top position value to set.
+   * @return The current instance of the Window.
    */
   public Window setWindowTop(double windowTop) {
     this.windowTop = windowTop;
@@ -369,9 +373,9 @@ public class Window extends AbstractDialog<Window> {
   }
 
   /**
-   * Hides the resize controls from the title bar
+   * Hides the resizing icons of the window.
    *
-   * @return same Window instance
+   * @return The current instance of the Window.
    */
   public Window hideResizing() {
     restoreIcon.collapse();
@@ -380,10 +384,10 @@ public class Window extends AbstractDialog<Window> {
   }
 
   /**
-   * setTitle.
+   * Sets the title of the window.
    *
-   * @param title a {@link java.lang.String} object
-   * @return a {@link org.dominokit.domino.ui.dialogs.Window} object
+   * @param title The new title for the window.
+   * @return The current instance of the Window.
    */
   public Window setTitle(String title) {
     navHeader.setTitle(title);
@@ -391,9 +395,9 @@ public class Window extends AbstractDialog<Window> {
   }
 
   /**
-   * Show the resize controls in the title bar
+   * Shows the resizing icons of the window.
    *
-   * @return same Window instance
+   * @return The current instance of the Window.
    */
   public Window showResizing() {
     if (maximized) {
@@ -407,9 +411,9 @@ public class Window extends AbstractDialog<Window> {
   }
 
   /**
-   * Hides the close control from the title bar
+   * Hides the closing icon of the window.
    *
-   * @return same Window instance
+   * @return The current instance of the Window.
    */
   public Window hideClosing() {
     closeIcon.collapse();
@@ -417,40 +421,37 @@ public class Window extends AbstractDialog<Window> {
   }
 
   /**
-   * Show the close control in the title bar
+   * Shows the closing icon of the window.
    *
-   * @return same Window instance
+   * @return The current instance of the Window.
    */
   public Window showClosing() {
     closeIcon.expand();
     return this;
   }
 
-  /** @return the {@link MdiIcon} of the restore window size control */
   /**
-   * Getter for the field <code>restoreIcon</code>.
+   * Gets the restore icon of the window.
    *
-   * @return a {@link org.dominokit.domino.ui.icons.MdiIcon} object
+   * @return The restore {@link MdiIcon} of the window.
    */
   public MdiIcon getRestoreIcon() {
     return restoreIcon;
   }
 
-  /** @return the {@link MdiIcon} of the maximize window size control */
   /**
-   * Getter for the field <code>maximizeIcon</code>.
+   * Gets the maximize icon of the window.
    *
-   * @return a {@link org.dominokit.domino.ui.icons.MdiIcon} object
+   * @return The maximize {@link MdiIcon} of the window.
    */
   public MdiIcon getMaximizeIcon() {
     return maximizeIcon;
   }
 
-  /** @return the {@link MdiIcon} of the close window control */
   /**
-   * Getter for the field <code>closeIcon</code>.
+   * Gets the close icon of the window.
    *
-   * @return a {@link org.dominokit.domino.ui.icons.MdiIcon} object
+   * @return The close {@link MdiIcon} of the window.
    */
   public MdiIcon getCloseIcon() {
     return closeIcon;

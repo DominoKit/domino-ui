@@ -28,10 +28,16 @@ import org.dominokit.domino.ui.utils.DominoElement;
 import org.gwtproject.timer.client.Timer;
 
 /**
- * A component which provides a loader mask on a target element
+ * The Loader class is responsible for displaying loading animations on a target DOM element.
  *
- * <p>Customize the component can be done by overwriting classes provided by {@link
- * org.dominokit.domino.ui.loaders.LoaderStyles}
+ * <p><b>Usage:</b>
+ *
+ * <pre>
+ * Loader loader = Loader.create(someElement, LoaderEffect.SOME_EFFECT);
+ * loader.start();
+ * // ... do some work
+ * loader.stop();
+ * </pre>
  */
 public class Loader {
 
@@ -47,27 +53,33 @@ public class Loader {
   private SwapCssClass loadingPosition = SwapCssClass.of(LoadingTextPosition.MIDDLE.style);
 
   /**
-   * Creates a loader for a target element with an effect
+   * Static factory method to create a Loader instance.
    *
-   * @param target the target element
-   * @param effect the {@link org.dominokit.domino.ui.loaders.LoaderEffect}
-   * @return new instance
+   * @param target The target HTMLElement where the loader will be shown.
+   * @param effect The loading effect to be applied.
+   * @return A new Loader instance.
    */
   public static Loader create(HTMLElement target, LoaderEffect effect) {
     return new Loader(target, effect);
   }
 
   /**
-   * Creates a loader for a target element with an effect
+   * Static factory method to create a Loader instance.
    *
-   * @param target the target element
-   * @param effect the {@link org.dominokit.domino.ui.loaders.LoaderEffect}
-   * @return new instance
+   * @param target The target IsElement where the loader will be shown.
+   * @param effect The loading effect to be applied.
+   * @return A new Loader instance.
    */
   public static Loader create(IsElement<?> target, LoaderEffect effect) {
     return new Loader(target.element(), effect);
   }
 
+  /**
+   * Private constructor for the Loader class.
+   *
+   * @param target The target Element where the loader will be shown.
+   * @param type The type of loader effect to be applied.
+   */
   private Loader(Element target, LoaderEffect type) {
     this.target = elements.elementOf(target);
     this.loaderElement = LoaderFactory.make(type);
@@ -75,20 +87,19 @@ public class Loader {
   }
 
   /**
-   * Starts the loading, the loader will keep loading until {@link
-   * org.dominokit.domino.ui.loaders.Loader#stop()} is called
+   * Start the loader without any timeout.
    *
-   * @return same instance
+   * @return The current Loader instance.
    */
   public Loader start() {
     return start(0);
   }
+
   /**
-   * Starts the loading, the loader will keep loading until {@link
-   * org.dominokit.domino.ui.loaders.Loader#stop()} is called
+   * Start the loader with a specified timeout.
    *
-   * @param timeout int delay in milliseconds before automatically stopping the loader.
-   * @return same instance
+   * @param timeout The time in milliseconds after which the loader should stop automatically.
+   * @return The current Loader instance.
    */
   public Loader start(int timeout) {
     stop();
@@ -119,9 +130,9 @@ public class Loader {
   }
 
   /**
-   * Stops the loading
+   * Stops the loader.
    *
-   * @return same instance
+   * @return The current Loader instance.
    */
   public Loader stop() {
     if (started) {
@@ -137,10 +148,10 @@ public class Loader {
   }
 
   /**
-   * Sets a loading text which will be shown when the loader starts loading
+   * Set the text to be displayed during loading.
    *
-   * @param text the loading text
-   * @return same instance
+   * @param text The loading text.
+   * @return The current Loader instance.
    */
   public Loader setLoadingText(String text) {
     loaderElement.setLoadingText(text);
@@ -148,11 +159,11 @@ public class Loader {
   }
 
   /**
-   * Sets the width and height for the loader
+   * Set the size for the loader.
    *
-   * @param width the width
-   * @param height the height
-   * @return same instance
+   * @param width Width of the loader.
+   * @param height Height of the loader.
+   * @return The current Loader instance.
    */
   public Loader setSize(String width, String height) {
     this.width = width;
@@ -161,32 +172,30 @@ public class Loader {
   }
 
   /**
-   * Removes the loading text when loader is shown
+   * Configure the loader to remove the loading text.
    *
-   * @param removeLoadingText true to remove the loading text, false otherwise
-   * @return same instance
+   * @param removeLoadingText Whether to remove the loading text or not.
+   * @return The current Loader instance.
    */
   public Loader setRemoveLoadingText(boolean removeLoadingText) {
     this.removeLoadingText = removeLoadingText;
     return this;
   }
 
-  /** @return True if the loader is started, false otherwise */
   /**
-   * isStarted.
+   * Check if the loader has started.
    *
-   * @return a boolean
+   * @return {@code true} if the loader is running, otherwise {@code false}.
    */
   public boolean isStarted() {
     return started;
   }
 
   /**
-   * Sets the position of the loading text
+   * Set the position for the loading text.
    *
-   * @param loadingTextPosition the {@link
-   *     org.dominokit.domino.ui.loaders.Loader.LoadingTextPosition}
-   * @return same instance
+   * @param loadingTextPosition The desired position for the loading text.
+   * @return The current Loader instance.
    */
   public Loader setLoadingTextPosition(LoadingTextPosition loadingTextPosition) {
     this.loaderElement
@@ -195,17 +204,16 @@ public class Loader {
     return this;
   }
 
-  /** @return The loader element */
   /**
-   * Getter for the field <code>loaderElement</code>.
+   * Get the current loader element being used.
    *
-   * @return a {@link org.dominokit.domino.ui.loaders.IsLoader} object
+   * @return The loader element.
    */
   public IsLoader getLoaderElement() {
     return loaderElement;
   }
 
-  /** An enum representing the position of the loading text based on the loader effect */
+  /** Enum to represent the possible positions for the loading text. */
   public enum LoadingTextPosition {
     TOP(LoaderStyles.loading_top),
     MIDDLE(CompositeCssClass.of(loading_middle, dui_vertical_center)),
@@ -213,11 +221,20 @@ public class Loader {
 
     private final CssClass style;
 
+    /**
+     * Constructor for LoadingTextPosition.
+     *
+     * @param style The style to apply for the position.
+     */
     LoadingTextPosition(CssClass style) {
       this.style = style;
     }
 
-    /** @return The css style of the position */
+    /**
+     * Get the CSS style associated with the position.
+     *
+     * @return The style.
+     */
     public CssClass getStyle() {
       return style;
     }

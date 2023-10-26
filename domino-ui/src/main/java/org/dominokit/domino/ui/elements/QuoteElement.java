@@ -17,22 +17,61 @@ package org.dominokit.domino.ui.elements;
 
 import elemental2.dom.HTMLQuoteElement;
 
-/** QuoteElement class. */
+/**
+ * Represents an HTML
+ *
+ * <blockquote>
+ *
+ * or <q> element wrapper.
+ *
+ * <p>The HTML
+ *
+ * <blockquote>
+ *
+ * and <q> elements are used for defining inline quotations or quotations that extend beyond one
+ * line. This class provides a Java-based way to create, manipulate, and control the behavior of
+ *
+ * <blockquote>
+ *
+ * and <q> elements in web applications. Example usage:
+ *
+ * <pre>
+ * HTMLQuoteElement quoteElement = ...;  // Obtain a <blockquote> or <q> element from somewhere
+ * QuoteElement quote = QuoteElement.of(quoteElement);
+ * </pre>
+ *
+ * @see <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/blockquote">MDN Web Docs
+ *     (blockquote)</a>
+ * @see <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/q">MDN Web Docs (q)</a>
+ */
 public class QuoteElement extends BaseElement<HTMLQuoteElement, QuoteElement> {
+
   /**
-   * of.
+   * Creates a new {@link QuoteElement} instance by wrapping the provided HTML
    *
-   * @param e a {@link elemental2.dom.HTMLQuoteElement} object
-   * @return a {@link org.dominokit.domino.ui.elements.QuoteElement} object
+   * <blockquote>
+   *
+   * or <q> element.
+   *
+   * @param e The HTML
+   *     <blockquote>
+   *     or <q> element to wrap.
+   * @return A new {@link QuoteElement} instance wrapping the provided element.
    */
   public static QuoteElement of(HTMLQuoteElement e) {
     return new QuoteElement(e);
   }
 
   /**
-   * Constructor for QuoteElement.
+   * Constructs a {@link QuoteElement} instance by wrapping the provided HTML
    *
-   * @param element a {@link elemental2.dom.HTMLQuoteElement} object
+   * <blockquote>
+   *
+   * or <q> element.
+   *
+   * @param element The HTML
+   *     <blockquote>
+   *     or <q> element to wrap.
    */
   public QuoteElement(HTMLQuoteElement element) {
     super(element);

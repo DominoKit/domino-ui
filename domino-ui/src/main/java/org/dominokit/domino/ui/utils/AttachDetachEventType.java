@@ -15,24 +15,24 @@
  */
 package org.dominokit.domino.ui.utils;
 
-/** AttachDetachEventType class. */
+/** A utility class for generating event types related to attaching and detaching elements. */
 public class AttachDetachEventType {
 
   /**
-   * attachedType.
+   * Generates an event type for an attached element.
    *
-   * @param element a {@link org.dominokit.domino.ui.utils.HasAttributes} object
-   * @return a {@link java.lang.String} object
+   * @param element The element that has been attached.
+   * @return A string representing the event type for attached elements.
    */
   public static String attachedType(HasAttributes<?> element) {
     return "dui-attached-" + element.getAttribute(BaseDominoElement.ATTACH_UID_KEY);
   }
 
   /**
-   * detachedType.
+   * Generates an event type for a detached element.
    *
-   * @param element a {@link org.dominokit.domino.ui.utils.HasAttributes} object
-   * @return a {@link java.lang.String} object
+   * @param element The element that has been detached.
+   * @return A string representing the event type for detached elements.
    */
   public static String detachedType(HasAttributes<?> element) {
     return "dui-detached-" + element.getAttribute(BaseDominoElement.DETACH_UID_KEY);

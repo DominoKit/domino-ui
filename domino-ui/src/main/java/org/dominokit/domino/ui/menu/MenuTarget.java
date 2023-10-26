@@ -25,7 +25,17 @@ import org.dominokit.domino.ui.utils.ComponentMeta;
 import org.dominokit.domino.ui.utils.DominoElement;
 import org.dominokit.domino.ui.utils.HasMeta;
 
-/** MenuTarget class. */
+/**
+ * Represents a target for the menu in the UI. This class wraps a target DOM {@link Element} to be
+ * used as a menu target in a Domino UI application.
+ *
+ * <p><b>Usage example:</b>
+ *
+ * <pre>
+ * Element myElement = ... // some DOM element
+ * MenuTarget menuTarget = MenuTarget.of(myElement);
+ * </pre>
+ */
 public class MenuTarget implements HasMeta<MenuTarget> {
 
   private final Element targetElement;
@@ -33,42 +43,59 @@ public class MenuTarget implements HasMeta<MenuTarget> {
   private final Map<String, ComponentMeta> metaObjects = new HashMap<>();
 
   /**
-   * of.
+   * Factory method to create an instance of {@link MenuTarget} using the given DOM {@link Element}.
    *
-   * @param element a {@link elemental2.dom.Element} object
-   * @return a {@link org.dominokit.domino.ui.menu.MenuTarget} object
+   * @param element the target DOM element
+   * @return a new instance of {@link MenuTarget}
    */
   public static MenuTarget of(Element element) {
     return new MenuTarget(element);
   }
 
   /**
-   * Constructor for MenuTarget.
+   * Constructs a new {@link MenuTarget} for the provided target DOM {@link Element}.
    *
-   * @param targetElement a {@link elemental2.dom.Element} object
+   * @param targetElement the target DOM element
    */
   public MenuTarget(Element targetElement) {
     this.targetElement = targetElement;
   }
 
   /**
-   * Getter for the field <code>targetElement</code>.
+   * Retrieves the wrapped target DOM {@link Element} as a {@link DominoElement}.
    *
-   * @return a {@link org.dominokit.domino.ui.utils.DominoElement} object
+   * @return the target {@link DominoElement}
    */
   public DominoElement<Element> getTargetElement() {
     return elements.elementOf(targetElement);
   }
 
+  /**
+   * Sets an observer for the target's attach/detach events.
+   *
+   * @param targetDetachObserver the observer callback
+   */
   void setTargetDetachObserver(AttachDetachCallback targetDetachObserver) {
     this.targetDetachObserver = targetDetachObserver;
   }
 
+  /**
+   * Retrieves the observer set for the target's attach/detach events.
+   *
+   * @return the observer callback
+   */
   AttachDetachCallback getTargetDetachObserver() {
     return targetDetachObserver;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * {@inheritDoc}
+   *
+   * <p>Returns a map of meta objects associated with this menu target.
+   *
+   * @return a map where the key is a string identifier and the value is the associated {@link
+   *     ComponentMeta} object.
+   */
   @Override
   public Map<String, ComponentMeta> getMetaObjects() {
     return metaObjects;

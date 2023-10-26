@@ -13,42 +13,48 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package org.dominokit.domino.ui.utils;
 
 import elemental2.dom.Element;
 import org.dominokit.domino.ui.IsElement;
 
-/** FooterContent class. */
+/**
+ * A utility class for creating footer content elements.
+ *
+ * @param <T> The type of the underlying DOM element.
+ * @see BaseDominoElement
+ */
 public class FooterContent<T extends Element> extends BaseDominoElement<T, FooterContent<T>> {
 
   private DominoElement<T> element;
 
   /**
-   * of.
+   * Creates a new {@code FooterContent} instance from the given element.
    *
-   * @param element a T object
-   * @param <T> a T class
-   * @return a {@link org.dominokit.domino.ui.utils.FooterContent} object
+   * @param <T> The type of the underlying DOM element.
+   * @param element The element to be used as footer content.
+   * @return A new {@code FooterContent} instance.
    */
   public static <T extends Element> FooterContent<T> of(T element) {
     return new FooterContent<>(element);
   }
 
   /**
-   * of.
+   * Creates a new {@code FooterContent} instance from the given IsElement.
    *
-   * @param element a {@link org.dominokit.domino.ui.IsElement} object
-   * @param <T> a T class
-   * @return a {@link org.dominokit.domino.ui.utils.FooterContent} object
+   * @param <T> The type of the underlying DOM element.
+   * @param element The IsElement to be used as footer content.
+   * @return A new {@code FooterContent} instance.
    */
   public static <T extends Element> FooterContent<T> of(IsElement<T> element) {
     return new FooterContent<>(element);
   }
 
   /**
-   * Constructor for FooterContent.
+   * Creates a new {@code FooterContent} instance from the given element.
    *
-   * @param element a T object
+   * @param element The element to be used as footer content.
    */
   public FooterContent(T element) {
     this.element = elementOf(element);
@@ -56,15 +62,19 @@ public class FooterContent<T extends Element> extends BaseDominoElement<T, Foote
   }
 
   /**
-   * Constructor for FooterContent.
+   * Creates a new {@code FooterContent} instance from the given IsElement.
    *
-   * @param element a {@link org.dominokit.domino.ui.IsElement} object
+   * @param element The IsElement to be used as footer content.
    */
   public FooterContent(IsElement<T> element) {
     this(element.element());
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Retrieves the underlying DOM element representing the footer content.
+   *
+   * @return The underlying DOM element.
+   */
   @Override
   public T element() {
     return element.element();

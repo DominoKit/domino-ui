@@ -15,15 +15,28 @@
  */
 package org.dominokit.domino.ui.dialogs;
 
-/** Dialog class. */
+/**
+ * A concrete implementation of {@link AbstractDialog} to represent a generic dialog. This class
+ * provides an easy way to create and manage a dialog window.
+ *
+ * <p><b>Usage:</b>
+ *
+ * <pre>
+ * Dialog dialog = Dialog.create();
+ * dialog.open();
+ * </pre>
+ *
+ * @see AbstractDialog
+ */
 public class Dialog extends AbstractDialog<Dialog> {
-  /** Constructor for Dialog. */
+
+  /** Default constructor for the {@link Dialog}. */
   public Dialog() {}
 
   /**
-   * create.
+   * Creates a new instance of {@link Dialog}.
    *
-   * @return a {@link org.dominokit.domino.ui.dialogs.Dialog} object
+   * @return a new {@link Dialog} instance
    */
   public static Dialog create() {
     return new Dialog();

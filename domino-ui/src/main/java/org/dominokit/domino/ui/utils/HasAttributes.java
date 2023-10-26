@@ -15,40 +15,46 @@
  */
 package org.dominokit.domino.ui.utils;
 
-/** HasAttributes interface. */
+/**
+ * The {@code HasAttributes} interface defines methods for setting and getting attributes on an
+ * object of type {@code T}.
+ *
+ * @param <T> The type on which attributes can be set and retrieved.
+ */
 public interface HasAttributes<T> {
+
   /**
-   * setAttribute.
+   * Sets a boolean attribute with the specified name on the object of type {@code T}.
    *
-   * @param name a {@link java.lang.String} object
-   * @param value a boolean
-   * @return a T object
+   * @param name The name of the attribute to set.
+   * @param value The boolean value to set for the attribute.
+   * @return The modified object of type {@code T} with the attribute set.
    */
   T setAttribute(String name, boolean value);
 
   /**
-   * setAttribute.
+   * Sets a double attribute with the specified name on the object of type {@code T}.
    *
-   * @param name a {@link java.lang.String} object
-   * @param value a double
-   * @return a T object
+   * @param name The name of the attribute to set.
+   * @param value The double value to set for the attribute.
+   * @return The modified object of type {@code T} with the attribute set.
    */
   T setAttribute(String name, double value);
 
   /**
-   * setAttribute.
+   * Sets a string attribute with the specified name on the object of type {@code T}.
    *
-   * @param name a {@link java.lang.String} object
-   * @param value a {@link java.lang.String} object
-   * @return a T object
+   * @param name The name of the attribute to set.
+   * @param value The string value to set for the attribute.
+   * @return The modified object of type {@code T} with the attribute set.
    */
   T setAttribute(String name, String value);
 
   /**
-   * getAttribute.
+   * Gets the value of the attribute with the specified name from the object of type {@code T}.
    *
-   * @param name a {@link java.lang.String} object
-   * @return a {@link java.lang.String} object
+   * @param name The name of the attribute to retrieve.
+   * @return The value of the attribute as a string, or {@code null} if the attribute is not set.
    */
   String getAttribute(String name);
 }

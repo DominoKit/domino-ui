@@ -28,7 +28,15 @@ import org.dominokit.domino.ui.utils.BaseDominoElement;
 import org.dominokit.domino.ui.utils.ChildHandler;
 import org.dominokit.domino.ui.utils.MatchHighlighter;
 
-/** Abstract Option class. */
+/**
+ * The base class for suggestion options used in suggestion components. It provides functionality
+ * for creating and managing suggestion options, such as components and menu items.
+ *
+ * @param <V> The type of value associated with the suggestion option.
+ * @param <C> The type of component used in the suggestion option.
+ * @param <O> The type of the suggestion option itself.
+ * @see BaseDominoElement
+ */
 public abstract class Option<V, C extends IsElement<?>, O extends Option<V, C, O>>
     extends BaseDominoElement<Element, Option<V, C, O>> {
 
@@ -40,12 +48,12 @@ public abstract class Option<V, C extends IsElement<?>, O extends Option<V, C, O
   protected HasSuggestOptions<V, C, O> target;
 
   /**
-   * Constructor for Option.
+   * Constructs an Option with the provided key, value, component, and menu item.
    *
-   * @param key a {@link java.lang.String} object
-   * @param value a V object
-   * @param component a C object
-   * @param menuItem a {@link org.dominokit.domino.ui.menu.AbstractMenuItem} object
+   * @param key The unique key of the option.
+   * @param value The value associated with the option.
+   * @param component The component representing the option.
+   * @param menuItem The menu item corresponding to the option.
    */
   public Option(String key, V value, C component, AbstractMenuItem<V> menuItem) {
     this.key = key;
@@ -59,14 +67,12 @@ public abstract class Option<V, C extends IsElement<?>, O extends Option<V, C, O
   }
 
   /**
-   * Constructor for Option.
+   * Constructs an Option with the provided key, value, and component using supplier functions.
    *
-   * @param key a {@link java.lang.String} object
-   * @param value a V object
-   * @param componentSupplier a {@link org.dominokit.domino.ui.forms.suggest.Option.OptionSupplier}
-   *     object
-   * @param menuItemSupplier a {@link org.dominokit.domino.ui.forms.suggest.Option.OptionSupplier}
-   *     object
+   * @param key The unique key of the option.
+   * @param value The value associated with the option.
+   * @param componentSupplier A supplier function for creating the component.
+   * @param menuItemSupplier A supplier function for creating the menu item.
    */
   public Option(
       String key,
@@ -84,46 +90,47 @@ public abstract class Option<V, C extends IsElement<?>, O extends Option<V, C, O
   }
 
   /**
-   * Getter for the field <code>component</code>.
+   * Gets the component associated with this option.
    *
-   * @return a C object
+   * @return The component representing this option.
    */
   public C getComponent() {
     return component;
   }
 
   /**
-   * Getter for the field <code>menuItem</code>.
+   * Gets the menu item associated with this option.
    *
-   * @return a {@link org.dominokit.domino.ui.menu.AbstractMenuItem} object
+   * @return The menu item corresponding to this option.
    */
   public AbstractMenuItem<V> getMenuItem() {
     return menuItem;
   }
 
   /**
-   * Getter for the field <code>key</code>.
+   * Gets the unique key of this option.
    *
-   * @return a {@link java.lang.String} object
+   * @return The unique key of this option.
    */
   public String getKey() {
     return key;
   }
 
   /**
-   * Getter for the field <code>value</code>.
+   * Gets the value associated with this option.
    *
-   * @return a V object
+   * @return The value associated with this option.
    */
   public V getValue() {
     return value;
   }
-
   /**
-   * withMenuItem.
+   * Attaches a menu item to this option using a handler function. The handler function allows
+   * customizing the menu item associated with this option.
    *
-   * @param handler a {@link org.dominokit.domino.ui.utils.ChildHandler} object
-   * @return a O object
+   * @param handler A handler function that takes this option and the menu item and applies
+   *     customizations.
+   * @return This option instance for method chaining.
    */
   public O withMenuItem(ChildHandler<O, AbstractMenuItem<V>> handler) {
     handler.apply((O) this, menuItem);
@@ -131,27 +138,33 @@ public abstract class Option<V, C extends IsElement<?>, O extends Option<V, C, O
   }
 
   /**
-   * withComponent.
+   * Attaches a component to this option using a handler function. The handler function allows
+   * customizing the component associated with this option.
    *
-   * @param handler a {@link org.dominokit.domino.ui.utils.ChildHandler} object
-   * @return a O object
+   * @param handler A handler function that takes this option and the component and applies
+   *     customizations.
+   * @return This option instance for method chaining.
    */
   public O withComponent(ChildHandler<O, C> handler) {
     handler.apply((O) this, component);
     return (O) this;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Returns the DOM element of the component associated with this option.
+   *
+   * @return The DOM element of the component.
+   */
   @Override
   public Element element() {
     return component.element();
   }
 
   /**
-   * setSearchable.
+   * Sets whether the menu item of this option is searchable.
    *
-   * @param searchable a boolean
-   * @return a O object
+   * @param searchable {@code true} to make the menu item searchable, {@code false} otherwise.
+   * @return This option instance for method chaining.
    */
   public O setSearchable(boolean searchable) {
     this.menuItem.setSearchable(searchable);
@@ -159,9 +172,9 @@ public abstract class Option<V, C extends IsElement<?>, O extends Option<V, C, O
   }
 
   /**
-   * highlight.
+   * Highlights the menu item of this option based on a search term.
    *
-   * @param displayValue a {@link java.lang.String} object
+   * @param displayValue The search term to highlight within the menu item.
    */
   public void highlight(String displayValue) {
     if (nonNull(displayValue) && displayValue.length() > 0) {
@@ -170,10 +183,10 @@ public abstract class Option<V, C extends IsElement<?>, O extends Option<V, C, O
   }
 
   /**
-   * bindTo.
+   * Binds this option to a target that implements {@link HasSuggestOptions}.
    *
-   * @param target a {@link org.dominokit.domino.ui.forms.suggest.HasSuggestOptions} object
-   * @return a O object
+   * @param target The target to bind this option to.
+   * @return This option instance for method chaining.
    */
   public O bindTo(HasSuggestOptions<V, C, O> target) {
     this.target = target;
@@ -181,9 +194,9 @@ public abstract class Option<V, C extends IsElement<?>, O extends Option<V, C, O
   }
 
   /**
-   * unbindTarget.
+   * Unbinds this option from its target.
    *
-   * @return a O object
+   * @return This option instance for method chaining.
    */
   public O unbindTarget() {
     this.target = null;
@@ -191,14 +204,21 @@ public abstract class Option<V, C extends IsElement<?>, O extends Option<V, C, O
   }
 
   /**
-   * Getter for the field <code>target</code>.
+   * Gets the target to which this option is bound.
    *
-   * @return a {@link org.dominokit.domino.ui.forms.suggest.HasSuggestOptions} object
+   * @return The target to which this option is bound.
    */
   public HasSuggestOptions<V, C, O> getTarget() {
     return target;
   }
 
+  /**
+   * Highlights text within a DOM node based on a search term. This method recursively traverses
+   * child nodes of the given node to apply highlighting to text nodes.
+   *
+   * @param node The DOM node to apply highlighting to.
+   * @param searchTerm The search term used for highlighting.
+   */
   private void highlightNode(Node node, String searchTerm) {
     cleanHighlight(node);
     if (node.nodeType == DomGlobal.document.TEXT_NODE) {
@@ -213,6 +233,12 @@ public abstract class Option<V, C extends IsElement<?>, O extends Option<V, C, O
     }
   }
 
+  /**
+   * Cleans up any existing highlighting within a DOM node. This method is used to remove previously
+   * applied highlighting before re-highlighting.
+   *
+   * @param node The DOM node to clean up highlighting from.
+   */
   private void cleanHighlight(Node node) {
     if (node.nodeType == DomGlobal.document.ELEMENT_NODE) {
       if (node.nodeName.equalsIgnoreCase("mark")) {
@@ -229,17 +255,36 @@ public abstract class Option<V, C extends IsElement<?>, O extends Option<V, C, O
     }
   }
 
+  /**
+   * Functional interface for supplying an instance of a type {@code T} based on a key and a value.
+   *
+   * @param <T> The type of object to be created.
+   * @param <V> The type of the value used for creating the object.
+   */
   public interface OptionSupplier<T, V> {
+
+    /**
+     * Creates and returns an instance of type {@code T} based on the provided key and value.
+     *
+     * @param key The key used for creating the object.
+     * @param value The value used for creating the object.
+     * @return An instance of type {@code T}.
+     */
     T get(String key, V value);
   }
 
-  /** {@inheritDoc} */
   @Override
   public String toString() {
     return "Option{" + "key='" + key + '\'' + '}';
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Compares this Option to another object for equality. Two Options are considered equal if they
+   * have the same key.
+   *
+   * @param o The object to compare to this Option.
+   * @return {@code true} if the objects are equal, {@code false} otherwise.
+   */
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
@@ -248,7 +293,11 @@ public abstract class Option<V, C extends IsElement<?>, O extends Option<V, C, O
     return Objects.equals(key, option.key);
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Computes a hash code for this Option based on its key.
+   *
+   * @return The hash code for this Option.
+   */
   @Override
   public int hashCode() {
     return Objects.hash(key);

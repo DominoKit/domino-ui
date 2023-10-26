@@ -13,6 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package org.dominokit.domino.ui.datatable.plugins.menu;
 
 import java.util.Optional;
@@ -21,39 +22,43 @@ import org.dominokit.domino.ui.menu.Menu;
 import org.dominokit.domino.ui.menu.MenuTarget;
 import org.dominokit.domino.ui.utils.ComponentMeta;
 
-/** RowContextMenuMeta class. */
+/**
+ * A metadata class for associating context menus with table rows in a DataTable.
+ *
+ * @param <T> The type of data in the DataTable.
+ */
 public class RowContextMenuMeta<T> implements ComponentMeta {
-  /** Constant <code>ROW_CONTEXT_MENU_META="row-context-menu-meta"</code> */
+
   public static final String ROW_CONTEXT_MENU_META = "row-context-menu-meta";
 
   private final TableRow<T> tableRow;
 
   /**
-   * Constructor for RowContextMenuMeta.
+   * Creates a new {@link RowContextMenuMeta} instance for the specified table row.
    *
-   * @param tableRow a {@link org.dominokit.domino.ui.datatable.TableRow} object
+   * @param tableRow The TableRow to associate with the context menu.
    */
   public RowContextMenuMeta(TableRow<T> tableRow) {
     this.tableRow = tableRow;
   }
 
   /**
-   * of.
+   * Creates a new {@link RowContextMenuMeta} instance for the specified table row.
    *
-   * @param tableRow a {@link org.dominokit.domino.ui.datatable.TableRow} object
-   * @param <T> a T class
-   * @return a {@link org.dominokit.domino.ui.datatable.plugins.menu.RowContextMenuMeta} object
+   * @param <T> The type of data in the DataTable.
+   * @param tableRow The TableRow to associate with the context menu.
+   * @return A new {@link RowContextMenuMeta} instance.
    */
   public static <T> RowContextMenuMeta<T> of(TableRow<T> tableRow) {
     return new RowContextMenuMeta<>(tableRow);
   }
 
   /**
-   * get.
+   * Gets the context menu metadata associated with a menu.
    *
-   * @param menu a {@link org.dominokit.domino.ui.menu.Menu} object
-   * @param <T> a T class
-   * @return a {@link java.util.Optional} object
+   * @param <T> The type of data in the DataTable.
+   * @param menu The context menu to retrieve metadata from.
+   * @return An {@link Optional} containing the context menu metadata if found, or empty otherwise.
    */
   public static <T> Optional<RowContextMenuMeta<T>> get(Menu<?> menu) {
     Optional<MenuTarget> target = menu.getTarget();
@@ -64,15 +69,19 @@ public class RowContextMenuMeta<T> implements ComponentMeta {
   }
 
   /**
-   * Getter for the field <code>tableRow</code>.
+   * Gets the TableRow associated with this context menu.
    *
-   * @return a {@link org.dominokit.domino.ui.datatable.TableRow} object
+   * @return The TableRow associated with the context menu.
    */
   public TableRow<T> getTableRow() {
     return tableRow;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Gets the key used for identifying this metadata.
+   *
+   * @return The key for this metadata.
+   */
   @Override
   public String getKey() {
     return ROW_CONTEXT_MENU_META;

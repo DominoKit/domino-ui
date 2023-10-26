@@ -23,23 +23,35 @@ import org.dominokit.domino.ui.utils.DominoUIConfig;
 import org.dominokit.domino.ui.utils.HasMinMaxLength;
 import org.dominokit.domino.ui.utils.HasValidation;
 
-/** A predefined validator that validate the minimum value of a field */
+/**
+ * A validator for checking the maximum length of input values in various HTML input elements.
+ *
+ * @param <T> The type of the input value.
+ * @param <E> The type of the HTML element associated with the input.
+ */
 public class MaxLengthValidator<T, E extends HTMLElement> implements HasValidation.Validator<T> {
 
+  /** The input element to be validated. */
   private HasInputElement<T, E> inputElement;
+
+  /** The labels for form validation messages. */
   private final FormsLabels labels = DominoUIConfig.CONFIG.getDominoUILabels();
 
-  /** @param inputElement the {@link HasInputElement} we are attaching this validator to */
   /**
-   * Constructor for MaxLengthValidator.
+   * Creates a new {@code MaxLengthValidator} with the provided input element.
    *
-   * @param inputElement a {@link org.dominokit.domino.ui.forms.HasInputElement} object
+   * @param inputElement The input element to be validated.
    */
   public MaxLengthValidator(HasInputElement<T, E> inputElement) {
     this.inputElement = inputElement;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Validates the input value against the maximum length.
+   *
+   * @param input The input value to be validated.
+   * @return A {@code ValidationResult} indicating whether the input value is valid or not.
+   */
   @Override
   public ValidationResult isValid(T input) {
     if (inputElement.getInputElement().element() instanceof HTMLInputElement) {
@@ -49,6 +61,11 @@ public class MaxLengthValidator<T, E extends HTMLElement> implements HasValidati
     }
   }
 
+  /**
+   * Validates the input value for HTML input elements.
+   *
+   * @return A {@code ValidationResult} indicating whether the input value is valid or not.
+   */
   private ValidationResult validateHTMLInput() {
     if (((HTMLInputElement) this.inputElement.getInputElement().element()).validity.tooLong) {
       if (this.inputElement instanceof HasMinMaxLength) {
@@ -60,6 +77,11 @@ public class MaxLengthValidator<T, E extends HTMLElement> implements HasValidati
     return ValidationResult.valid();
   }
 
+  /**
+   * Validates the input value for non-HTML input elements.
+   *
+   * @return A {@code ValidationResult} indicating whether the input value is valid or not.
+   */
   private ValidationResult validateHTMLElement() {
     if (this.inputElement instanceof HasMinMaxLength) {
       HasMinMaxLength<T> hasLength = (HasMinMaxLength<T>) this.inputElement;

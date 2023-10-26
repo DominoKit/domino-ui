@@ -17,22 +17,38 @@ package org.dominokit.domino.ui.elements;
 
 import elemental2.dom.HTMLDivElement;
 
-/** DivElement class. */
+/**
+ * Represents a `<div>` HTML element wrapper.
+ *
+ * <p>The `<div>` tag is a generic container used to group other HTML elements together and apply
+ * styles or scripting to them. This class provides a convenient way to create, manipulate, and
+ * control the behavior of `<div>` elements, making it easier to use them in Java-based web
+ * applications. Example usage:
+ *
+ * <pre>
+ * HTMLDivElement htmlElement = ...;  // Obtain a <div> element from somewhere
+ * DivElement divElement = DivElement.of(htmlElement);
+ * </pre>
+ *
+ * @see <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/div">MDN Web Docs (div
+ *     element)</a>
+ */
 public class DivElement extends BaseElement<HTMLDivElement, DivElement> {
+
   /**
-   * of.
+   * Creates a new {@link DivElement} instance by wrapping the provided HTML `<div>` element.
    *
-   * @param e a {@link elemental2.dom.HTMLDivElement} object
-   * @return a {@link org.dominokit.domino.ui.elements.DivElement} object
+   * @param e The HTML `<div>` element.
+   * @return A new {@link DivElement} instance wrapping the provided element.
    */
   public static DivElement of(HTMLDivElement e) {
     return new DivElement(e);
   }
 
   /**
-   * Constructor for DivElement.
+   * Constructs a {@link DivElement} instance by wrapping the provided HTML `<div>` element.
    *
-   * @param element a {@link elemental2.dom.HTMLDivElement} object
+   * @param element The HTML `<div>` element to wrap.
    */
   public DivElement(HTMLDivElement element) {
     super(element);

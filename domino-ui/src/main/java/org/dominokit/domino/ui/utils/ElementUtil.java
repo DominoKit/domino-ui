@@ -13,6 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package org.dominokit.domino.ui.utils;
 
 import static java.util.Objects.nonNull;
@@ -25,19 +26,19 @@ import org.dominokit.domino.ui.events.EventType;
 import org.gwtproject.i18n.shared.cldr.LocaleInfo;
 import org.gwtproject.i18n.shared.cldr.NumberConstants;
 
-/** A general purpose utility class */
+/** A utility class for working with HTML elements and events in the DOM. */
 public class ElementUtil {
 
-  /** The default {@link NumberConstants} to format numbers */
+  /** Locale-specific number constants used for formatting numbers and currency. */
   static final NumberConstants numberConstants = LocaleInfo.getCurrentLocale().getNumberConstants();
 
-  /** Constant <code>DUI_EVENT_SCROLL_TOP="dui-event-scroll-top"</code> */
+  /** Custom event name for triggering a scroll to the top of the page. */
   public static final String DUI_EVENT_SCROLL_TOP = "dui-event-scroll-top";
 
   /**
-   * Removes all the children of the element
+   * Clears all child elements from the specified HTML element.
    *
-   * @param element {@link elemental2.dom.Element}
+   * @param element The HTML element to clear.
    */
   public static void clear(Element element) {
     if (nonNull(element)) {
@@ -48,93 +49,92 @@ public class ElementUtil {
   }
 
   /**
-   * Removes all the children of the element
+   * Clears all child elements from the specified IsElement.
    *
-   * @param element {@link org.dominokit.domino.ui.IsElement}
+   * @param element The IsElement to clear.
    */
   public static void clear(IsElement<?> element) {
     clear(element.element());
   }
 
   /**
-   * isKeyOf.
+   * Checks if the given key code matches the key in the provided KeyboardEvent.
    *
-   * @param keyCode String keyboard key code
-   * @param keyboardEvent {@link elemental2.dom.KeyboardEvent}
-   * @return boolean, true if the KeyCode is same as the key of the KeyboradEvent
+   * @param keyCode The key code to compare.
+   * @param keyboardEvent The KeyboardEvent to check against.
+   * @return {@code true} if the key code matches, {@code false} otherwise.
    */
   public static boolean isKeyOf(String keyCode, KeyboardEvent keyboardEvent) {
     return keyCode.equalsIgnoreCase(keyboardEvent.key);
   }
 
   /**
-   * isEnterKey.
+   * Checks if the key in the provided KeyboardEvent is the Enter key.
    *
-   * @param keyboardEvent {@link elemental2.dom.KeyboardEvent}
-   * @return boolean, true if the Key pressed is Enter key
+   * @param keyboardEvent The KeyboardEvent to check.
+   * @return {@code true} if the key is Enter, {@code false} otherwise.
    */
   public static boolean isEnterKey(KeyboardEvent keyboardEvent) {
     return isKeyOf("enter", keyboardEvent);
   }
 
   /**
-   * isSpaceKey.
+   * Checks if the key in the provided KeyboardEvent is the Space key.
    *
-   * @param keyboardEvent {@link elemental2.dom.KeyboardEvent}
-   * @return boolean, true if the Key pressed is Space key
+   * @param keyboardEvent The KeyboardEvent to check.
+   * @return {@code true} if the key is Space, {@code false} otherwise.
    */
   public static boolean isSpaceKey(KeyboardEvent keyboardEvent) {
     return isKeyOf("space", keyboardEvent);
   }
 
   /**
-   * isArrowDown.
+   * Checks if the key in the provided KeyboardEvent is the Arrow Down key.
    *
-   * @param keyboardEvent {@link elemental2.dom.KeyboardEvent}
-   * @return boolean, true if the Key pressed is Arrow down key
+   * @param keyboardEvent The KeyboardEvent to check.
+   * @return {@code true} if the key is Arrow Down, {@code false} otherwise.
    */
   public static boolean isArrowDown(KeyboardEvent keyboardEvent) {
     return isKeyOf("ArrowDown", keyboardEvent);
   }
 
   /**
-   * isArrowUp.
+   * Checks if the key in the provided KeyboardEvent is the Arrow Up key.
    *
-   * @param keyboardEvent {@link elemental2.dom.KeyboardEvent}
-   * @return boolean, true if the Key pressed is Arrow up key
+   * @param keyboardEvent The KeyboardEvent to check.
+   * @return {@code true} if the key is Arrow Up, {@code false} otherwise.
    */
   public static boolean isArrowUp(KeyboardEvent keyboardEvent) {
     return isKeyOf("ArrowUp", keyboardEvent);
   }
 
   /**
-   * isTabKey.
+   * Checks if the key in the provided KeyboardEvent is the Tab key.
    *
-   * @param keyboardEvent {@link elemental2.dom.KeyboardEvent}
-   * @return boolean, true if the Key pressed is Tab key
+   * @param keyboardEvent The KeyboardEvent to check.
+   * @return {@code true} if the key is Tab, {@code false} otherwise.
    */
   public static boolean isTabKey(KeyboardEvent keyboardEvent) {
     return isKeyOf("tab", keyboardEvent);
   }
 
   /**
-   * isEscapeKey.
+   * Checks if the key in the provided KeyboardEvent is the Escape key.
    *
-   * @param keyboardEvent {@link elemental2.dom.KeyboardEvent}
-   * @return boolean, true if the Key pressed is Escape key
+   * @param keyboardEvent The KeyboardEvent to check.
+   * @return {@code true} if the key is Escape, {@code false} otherwise.
    */
   public static boolean isEscapeKey(KeyboardEvent keyboardEvent) {
     return isKeyOf("escape", keyboardEvent);
   }
 
   /**
-   * Registers a callback when an element is appended to the document body. Note that the callback
-   * will be called only once, if the element is appended more than once a new callback should be
-   * registered.
+   * Registers an observer to be notified when an HTML element is attached to the DOM.
    *
-   * @param element the {@link elemental2.dom.HTMLElement} which is going to be added to the body
-   * @param callback {@link org.dominokit.domino.ui.utils.AttachDetachCallback}
-   * @return an Optional {@link org.dominokit.domino.ui.utils.ElementObserver}
+   * @param element The HTMLElement to observe.
+   * @param callback The callback to be invoked when the element is attached.
+   * @return An {@link Optional} containing the {@link ElementObserver}, or empty if the element is
+   *     null.
    */
   public static Optional<ElementObserver> onAttach(
       HTMLElement element, AttachDetachCallback callback) {
@@ -145,21 +145,21 @@ public class ElementUtil {
   }
 
   /**
-   * withBodyObserverPaused.
+   * Pauses the body observer to prevent it from triggering unnecessary events.
    *
-   * @param handler a {@link java.lang.Runnable} object
+   * @param handler The runnable to be executed while the observer is paused.
    */
   public static void withBodyObserverPaused(Runnable handler) {
     BodyObserver.pauseFor(handler);
   }
 
   /**
-   * {@link #onAttach(HTMLElement, AttachDetachCallback)}
+   * Registers an observer to be notified when an IsElement is attached to the DOM.
    *
-   * @param element the {@link org.dominokit.domino.ui.IsElement} which is going to be added to the
-   *     body
-   * @param callback {@link org.dominokit.domino.ui.utils.AttachDetachCallback}
-   * @return an Optional {@link org.dominokit.domino.ui.utils.ElementObserver}
+   * @param element The IsElement to observe.
+   * @param callback The callback to be invoked when the element is attached.
+   * @return An {@link Optional} containing the {@link ElementObserver}, or empty if the element is
+   *     null.
    */
   public static Optional<ElementObserver> onAttach(
       IsElement<?> element, AttachDetachCallback callback) {
@@ -169,20 +169,18 @@ public class ElementUtil {
     return Optional.empty();
   }
 
-  /** startObserving. */
+  /** Starts observing the body for attach and detach events. */
   public static void startObserving() {
     BodyObserver.startObserving();
   }
 
   /**
-   * Registers a callback when an element is removed from the document body. Note that the callback
-   * will be called only once, if the element is removed and re-appended a new callback should be
-   * registered.
+   * Registers an observer to be notified when an HTMLElement is detached from the DOM.
    *
-   * @param element the {@link elemental2.dom.HTMLElement} which is going to be removed from the
-   *     body
-   * @param callback {@link org.dominokit.domino.ui.utils.AttachDetachCallback}
-   * @return an Optional {@link org.dominokit.domino.ui.utils.ElementObserver}
+   * @param element The HTMLElement to observe.
+   * @param callback The callback to be invoked when the element is detached.
+   * @return An {@link Optional} containing the {@link ElementObserver}, or empty if the element is
+   *     null.
    */
   public static Optional<ElementObserver> onDetach(
       HTMLElement element, AttachDetachCallback callback) {
@@ -193,12 +191,12 @@ public class ElementUtil {
   }
 
   /**
-   * {@link #onDetach(HTMLElement, AttachDetachCallback)}
+   * Registers an observer to be notified when an IsElement is detached from the DOM.
    *
-   * @param element the {@link elemental2.dom.HTMLElement} which is going to be removed from the
-   *     body
-   * @param callback {@link org.dominokit.domino.ui.utils.AttachDetachCallback}
-   * @return an Optional {@link org.dominokit.domino.ui.utils.ElementObserver}
+   * @param element The IsElement to observe.
+   * @param callback The callback to be invoked when the element is detached.
+   * @return An {@link Optional} containing the {@link ElementObserver}, or empty if the element is
+   *     null.
    */
   public static Optional<ElementObserver> onDetach(
       IsElement<?> element, AttachDetachCallback callback) {
@@ -208,11 +206,17 @@ public class ElementUtil {
     return Optional.empty();
   }
 
+  /**
+   * Checks if the provided key is the minus sign key according to the current locale.
+   *
+   * @param key The key to check.
+   * @return {@code true} if the key matches the minus sign, {@code false} otherwise.
+   */
   private static boolean isMinusKey(String key) {
     return numberConstants.minusSign().equals(key);
   }
 
-  /** Scroll the document body to the top of the page */
+  /** Scrolls the page to the top. */
   public static void scrollTop() {
     DomGlobal.document.body.scrollTop = 0;
     DomGlobal.document.documentElement.scrollTop = 0;
@@ -223,30 +227,29 @@ public class ElementUtil {
   }
 
   /**
-   * Scrolls the document to the specified element, making the element visible on the screen
+   * Scrolls to the specified IsElement.
    *
-   * @param isElement {@link org.dominokit.domino.ui.IsElement}
+   * @param isElement The IsElement to scroll to.
    */
   public static void scrollToElement(IsElement<?> isElement) {
     scrollToElement(isElement.element());
   }
 
   /**
-   * Scrolls the document to the specified element, making the element visible on the screen
+   * Scrolls to the specified HTML element.
    *
-   * @param element {@link elemental2.dom.HTMLElement}
+   * @param element The HTML element to scroll to.
    */
   public static void scrollToElement(Element element) {
     element.scrollIntoView();
   }
 
   /**
-   * Creates an {@link elemental2.dom.HTMLAnchorElement} that opens it target link in a new browser
-   * tab
+   * Creates an HTML anchor element that opens a link in a new tab when clicked.
    *
-   * @param text String link text
-   * @param targetUrl String link target url
-   * @return new {@link elemental2.dom.HTMLAnchorElement} instance
+   * @param text The text content of the anchor.
+   * @param targetUrl The URL to open in a new tab.
+   * @return An {@link HTMLAnchorElement} with the specified text and click behavior.
    */
   public static HTMLAnchorElement openInNewTabLink(String text, String targetUrl) {
     return elements
@@ -257,10 +260,10 @@ public class ElementUtil {
   }
 
   /**
-   * Scrolls a parent to make child visible in the browser window
+   * Scrolls the parent element to bring a child element into view.
    *
-   * @param child {@link elemental2.dom.Element}
-   * @param parent {@link elemental2.dom.Element}
+   * @param child The child element.
+   * @param parent The parent element to scroll.
    */
   public static void scrollIntoParent(Element child, Element parent) {
 

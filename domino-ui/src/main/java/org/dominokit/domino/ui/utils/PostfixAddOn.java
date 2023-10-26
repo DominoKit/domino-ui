@@ -13,42 +13,46 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package org.dominokit.domino.ui.utils;
 
 import elemental2.dom.Element;
 import org.dominokit.domino.ui.IsElement;
 
-/** PostfixAddOn class. */
+/**
+ * The {@code PostfixAddOn} class represents an add-on that is placed after an element. It is used
+ * for adding visual elements or decorations after the main element. This class extends {@link
+ * BaseDominoElement} and is designed to work with DOM elements.
+ *
+ * @param <T> The type of the DOM element to which the postfix add-on is added.
+ * @see BaseDominoElement
+ */
 public class PostfixAddOn<T extends Element> extends BaseDominoElement<T, PostfixAddOn<T>> {
 
   private DominoElement<T> element;
 
   /**
-   * of.
+   * Creates a {@code PostfixAddOn} instance with the specified DOM element.
    *
-   * @param element a T object
-   * @param <T> a T class
-   * @return a {@link org.dominokit.domino.ui.utils.PostfixAddOn} object
+   * @param element The DOM element to which the postfix add-on is added.
    */
   public static <T extends Element> PostfixAddOn<T> of(T element) {
     return new PostfixAddOn<>(element);
   }
 
   /**
-   * of.
+   * Creates a {@code PostfixAddOn} instance with the specified {@link IsElement}.
    *
-   * @param element a {@link org.dominokit.domino.ui.IsElement} object
-   * @param <T> a T class
-   * @return a {@link org.dominokit.domino.ui.utils.PostfixAddOn} object
+   * @param element The {@link IsElement} to which the postfix add-on is added.
    */
   public static <T extends Element> PostfixAddOn<T> of(IsElement<T> element) {
     return new PostfixAddOn<>(element);
   }
 
   /**
-   * Constructor for PostfixAddOn.
+   * Constructs a {@code PostfixAddOn} instance with the specified DOM element.
    *
-   * @param element a T object
+   * @param element The DOM element to which the postfix add-on is added.
    */
   public PostfixAddOn(T element) {
     this.element = elementOf(element);
@@ -57,15 +61,19 @@ public class PostfixAddOn<T extends Element> extends BaseDominoElement<T, Postfi
   }
 
   /**
-   * Constructor for PostfixAddOn.
+   * Constructs a {@code PostfixAddOn} instance with the specified {@link IsElement}.
    *
-   * @param element a {@link org.dominokit.domino.ui.IsElement} object
+   * @param element The {@link IsElement} to which the postfix add-on is added.
    */
   public PostfixAddOn(IsElement<T> element) {
     this(element.element());
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Gets the DOM element to which the postfix add-on is added.
+   *
+   * @return The DOM element.
+   */
   @Override
   public T element() {
     return element.element();

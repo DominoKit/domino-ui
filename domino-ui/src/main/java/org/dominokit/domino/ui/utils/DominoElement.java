@@ -18,19 +18,19 @@ package org.dominokit.domino.ui.utils;
 import elemental2.dom.*;
 
 /**
- * A class that can wrap any HTMLElement as domino component
+ * A utility class for working with DOM elements that extends the capabilities of {@link
+ * BaseDominoElement}.
  *
- * @param <E> the type of the wrapped element
+ * @param <E> The type of the wrapped DOM element.
  */
 public class DominoElement<E extends Element> extends BaseDominoElement<E, DominoElement<E>> {
 
   private final E wrappedElement;
 
-  /** @param element the E element extending from {@link HTMLElement} */
   /**
-   * Constructor for DominoElement.
+   * Constructs a new {@code DominoElement} with the specified DOM element.
    *
-   * @param element a E object
+   * @param element The DOM element to wrap.
    */
   public DominoElement(E element) {
     this.wrappedElement = element;
@@ -38,7 +38,11 @@ public class DominoElement<E extends Element> extends BaseDominoElement<E, Domin
     addCss(dui);
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Gets the wrapped DOM element.
+   *
+   * @return The wrapped DOM element.
+   */
   @Override
   public E element() {
     return wrappedElement;

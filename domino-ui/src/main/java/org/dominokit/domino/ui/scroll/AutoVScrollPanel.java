@@ -20,30 +20,47 @@ import org.dominokit.domino.ui.elements.DivElement;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
 
 /**
- * A component that wraps the {@link elemental2.dom.HTMLDivElement} to make it auto vertically
- * scrollable when the content exceeds the component fixed height
+ * Represents a vertical auto-scrollable panel component.
+ *
+ * <p>The {@code AutoVScrollPanel} class provides a way to create a vertical scrollable panel that
+ * automatically adds a vertical scrollbar when needed based on the content's dimensions. It extends
+ * {@link BaseDominoElement} and encapsulates a root {@link DivElement} with CSS styles applied to
+ * enable automatic vertical scrolling.
+ *
+ * <p><b>Usage Example:</b>
+ *
+ * <pre>
+ * AutoVScrollPanel autoVScrollPanel = AutoVScrollPanel.create();
+ * // Add content to the vertical auto-scrollable panel
+ * autoVScrollPanel.appendChild(someVerticalContentElement);
+ * </pre>
+ *
+ * @see BaseDominoElement
  */
 public class AutoVScrollPanel extends BaseDominoElement<HTMLDivElement, AutoVScrollPanel> {
 
   private DivElement root;
 
-  /** @return new AutoVScrollPanel instance */
   /**
-   * create.
+   * Factory method to create a new instance of AutoVScrollPanel.
    *
-   * @return a {@link org.dominokit.domino.ui.scroll.AutoVScrollPanel} object
+   * @return A new instance of AutoVScrollPanel.
    */
   public static AutoVScrollPanel create() {
     return new AutoVScrollPanel();
   }
 
-  /** Constructor for AutoVScrollPanel. */
+  /** Constructs a new AutoVScrollPanel instance. */
   public AutoVScrollPanel() {
     root = div().addCss(dui_overflow_y_auto);
     init(this);
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Returns the main HTMLElement of this vertical auto-scroll panel, which is the root div element.
+   *
+   * @return The HTMLElement of the root div element.
+   */
   @Override
   public HTMLDivElement element() {
     return root.element();

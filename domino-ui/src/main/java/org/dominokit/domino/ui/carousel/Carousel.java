@@ -33,14 +33,10 @@ import org.gwtproject.timer.client.Timer;
 /**
  * A slideshow component for cycling through elements.
  *
- * <p>The component provides APIs for going through all the elements by next/previous indicators.
- * Also, it provides automatic sliding with configurable duration.
- *
- * <p>Customize the component can be done by overwriting classes provided by {@link
- * org.dominokit.domino.ui.carousel.CarouselStyles}
+ * <p>The component provides the means needed to go through a set of elements using next/previous
+ * buttons or automatically switch between them with configurable duration.
  *
  * @see BaseDominoElement
- * @see CarouselStyles
  */
 public class Carousel extends BaseDominoElement<HTMLDivElement, Carousel> {
   /** Constant <code>NEXT="next"</code> */
@@ -65,7 +61,7 @@ public class Carousel extends BaseDominoElement<HTMLDivElement, Carousel> {
   private int autoSlideDuration = 3000;
   private boolean attached = false;
 
-  /** Constructor for Carousel. */
+  /** Creates and empty Carousel */
   public Carousel() {
 
     element =
@@ -141,7 +137,7 @@ public class Carousel extends BaseDominoElement<HTMLDivElement, Carousel> {
   }
 
   /**
-   * Creates new carousel
+   * Factory method to create an empty Carousel
    *
    * @return new instance
    */
@@ -150,11 +146,10 @@ public class Carousel extends BaseDominoElement<HTMLDivElement, Carousel> {
   }
 
   /**
-   * Adds new {@link org.dominokit.domino.ui.carousel.Slide}, event listeners will be added to the
-   * slide for removing the motion styles
+   * Adds new {@link org.dominokit.domino.ui.carousel.Slide} to this Carousel
    *
-   * @param slide a {@link org.dominokit.domino.ui.carousel.Slide} to be added
-   * @return same instance
+   * @param slide The {@link org.dominokit.domino.ui.carousel.Slide} to be added
+   * @return same carousel instance
    */
   public Carousel appendChild(Slide slide) {
     getIndicatorsElement().appendChild(slide.getIndicatorElement().element());
@@ -264,7 +259,7 @@ public class Carousel extends BaseDominoElement<HTMLDivElement, Carousel> {
   /**
    * Slides through items every {@code slideDuration}
    *
-   * @param slideDuration the time between slide between each element
+   * @param slideDuration The duration to wait before moving the next slide
    * @return same instance
    */
   public Carousel startAutoSlide(int slideDuration) {
@@ -291,37 +286,34 @@ public class Carousel extends BaseDominoElement<HTMLDivElement, Carousel> {
     return this;
   }
 
-  /** {@inheritDoc} */
+  /** @dominokit-site-ignore {@inheritDoc} */
   @Override
   public HTMLDivElement element() {
     return element.element();
   }
 
-  /** @return the indicator element */
   /**
-   * Getter for the field <code>indicatorsElement</code>.
-   *
-   * @return a {@link org.dominokit.domino.ui.elements.OListElement} object
+   * @return The {@link org.dominokit.domino.ui.elements.OListElement} holding the slides indicators
    */
   public OListElement getIndicatorsElement() {
     return indicatorsElement;
   }
 
-  /** @return the slides element which has all the slides */
   /**
-   * Getter for the field <code>slidesElement</code>.
-   *
-   * @return a {@link org.dominokit.domino.ui.elements.DivElement} object
+   * @return a {@link org.dominokit.domino.ui.elements.DivElement} that holds all the slides
+   *     elements
    */
   public DivElement getSlidesElement() {
     return slidesElement;
   }
 
   /**
-   * withSlidesElement.
+   * Use to apply customizations to the element containing all the slides without breaking the
+   * fluent API chain.
    *
-   * @param handler a {@link org.dominokit.domino.ui.utils.ChildHandler} object
-   * @return a {@link org.dominokit.domino.ui.carousel.Carousel} object
+   * @param handler The {@link org.dominokit.domino.ui.utils.ChildHandler} applying the
+   *     customizations
+   * @return same carousel instance
    */
   public Carousel withSlidesElement(ChildHandler<Carousel, DivElement> handler) {
     handler.apply(this, slidesElement);
@@ -329,10 +321,12 @@ public class Carousel extends BaseDominoElement<HTMLDivElement, Carousel> {
   }
 
   /**
-   * withIndicatorsElement.
+   * Use to apply customizations to the element holding the slides indicators without breaking the
+   * fluent API chain.
    *
-   * @param handler a {@link org.dominokit.domino.ui.utils.ChildHandler} object
-   * @return a {@link org.dominokit.domino.ui.carousel.Carousel} object
+   * @param handler The {@link org.dominokit.domino.ui.utils.ChildHandler} applying the
+   *     customizations
+   * @return same carousel instance
    */
   public Carousel withIndicatorsElement(ChildHandler<Carousel, OListElement> handler) {
     handler.apply(this, indicatorsElement);
@@ -340,10 +334,11 @@ public class Carousel extends BaseDominoElement<HTMLDivElement, Carousel> {
   }
 
   /**
-   * withPreviousElement.
+   * Use to apply customizations to the previous slide button without breaking the fluent API chain.
    *
-   * @param handler a {@link org.dominokit.domino.ui.utils.ChildHandler} object
-   * @return a {@link org.dominokit.domino.ui.carousel.Carousel} object
+   * @param handler The {@link org.dominokit.domino.ui.utils.ChildHandler} applying the
+   *     customizations
+   * @return same carousel instance
    */
   public Carousel withPreviousElement(ChildHandler<Carousel, AnchorElement> handler) {
     handler.apply(this, prevElement);
@@ -351,32 +346,23 @@ public class Carousel extends BaseDominoElement<HTMLDivElement, Carousel> {
   }
 
   /**
-   * withNextElement.
+   * Use to apply customizations to the next slide button without breaking the fluent API chain.
    *
-   * @param handler a {@link org.dominokit.domino.ui.utils.ChildHandler} object
-   * @return a {@link org.dominokit.domino.ui.carousel.Carousel} object
+   * @param handler The {@link org.dominokit.domino.ui.utils.ChildHandler} applying the
+   *     customizations
+   * @return same carousel instance
    */
   public Carousel withNextElement(ChildHandler<Carousel, AnchorElement> handler) {
     handler.apply(this, nextElement);
     return this;
   }
 
-  /** @return All the added slides */
-  /**
-   * Getter for the field <code>slides</code>.
-   *
-   * @return a {@link java.util.List} object
-   */
+  /** @return a {@link java.util.List} of all slides in this carousel */
   public List<Slide> getSlides() {
     return slides;
   }
 
-  /** @return the currently active slide */
-  /**
-   * Getter for the field <code>activeSlide</code>.
-   *
-   * @return a {@link org.dominokit.domino.ui.carousel.Slide} object
-   */
+  /** @return The current active {@link org.dominokit.domino.ui.carousel.Slide} component */
   public Slide getActiveSlide() {
     return activeSlide;
   }

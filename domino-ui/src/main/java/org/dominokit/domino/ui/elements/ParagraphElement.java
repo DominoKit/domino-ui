@@ -17,22 +17,48 @@ package org.dominokit.domino.ui.elements;
 
 import elemental2.dom.HTMLParagraphElement;
 
-/** ParagraphElement class. */
+/**
+ * Represents an HTML
+ *
+ * <p>element wrapper.
+ *
+ * <p>The HTML
+ *
+ * <p>element represents a paragraph of text. It is a block-level element that typically contains
+ * plain text but can also contain other HTML elements, such as links, images, and more. This class
+ * provides a convenient way to create, manipulate, and control the behavior of
+ *
+ * <p>elements in Java-based web applications. Example usage:
+ *
+ * <pre>
+ * HTMLParagraphElement paragraphElement = ...;  // Obtain a <p> element from somewhere
+ * ParagraphElement paragraph = ParagraphElement.of(paragraphElement);
+ * </pre>
+ *
+ * @see <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/p">MDN Web Docs (p)</a>
+ */
 public class ParagraphElement extends BaseElement<HTMLParagraphElement, ParagraphElement> {
+
   /**
-   * of.
+   * Creates a new {@link ParagraphElement} instance by wrapping the provided HTML
    *
-   * @param e a {@link elemental2.dom.HTMLParagraphElement} object
-   * @return a {@link org.dominokit.domino.ui.elements.ParagraphElement} object
+   * <p>element.
+   *
+   * @param e The HTML
+   *     <p>element to wrap.
+   * @return A new {@link ParagraphElement} instance wrapping the provided element.
    */
   public static ParagraphElement of(HTMLParagraphElement e) {
     return new ParagraphElement(e);
   }
 
   /**
-   * Constructor for ParagraphElement.
+   * Constructs a {@link ParagraphElement} instance by wrapping the provided HTML
    *
-   * @param element a {@link elemental2.dom.HTMLParagraphElement} object
+   * <p>element.
+   *
+   * @param element The HTML
+   *     <p>element to wrap.
    */
   public ParagraphElement(HTMLParagraphElement element) {
     super(element);

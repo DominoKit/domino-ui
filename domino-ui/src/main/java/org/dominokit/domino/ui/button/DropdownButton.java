@@ -23,7 +23,9 @@ import org.dominokit.domino.ui.utils.ChildHandler;
 /**
  * A Button with dropdown menu component
  *
- * <p>This Button component will open a dropdown menu when clicked by default
+ * <p>By default this Button component will open a dropdown menu when clicked
+ *
+ * @see BaseDominoElement
  */
 public class DropdownButton<T extends BaseButton<?, T>, V>
     extends BaseDominoElement<HTMLElement, DropdownButton<T, V>> implements IsButton<T> {
@@ -32,13 +34,13 @@ public class DropdownButton<T extends BaseButton<?, T>, V>
   private Menu<V> menu;
 
   /**
-   * create.
+   * Factory method to create a DropdownButton button from the provided button and menu
    *
-   * @param button a T object
-   * @param menu a {@link org.dominokit.domino.ui.menu.Menu} object
+   * @param button The button to be used as dropdown menu target
+   * @param menu The {@link org.dominokit.domino.ui.menu.Menu} to be used as a dropdown menu
    * @param <T> a T class
    * @param <V> a V class
-   * @return a {@link org.dominokit.domino.ui.button.DropdownButton} object
+   * @return new {@link org.dominokit.domino.ui.button.DropdownButton} instance
    */
   public static <T extends BaseButton<?, T>, V> DropdownButton<T, V> create(
       T button, Menu<V> menu) {
@@ -46,10 +48,10 @@ public class DropdownButton<T extends BaseButton<?, T>, V>
   }
 
   /**
-   * Creates a Dropdown button from a button and a menu
+   * Creates a DropdownButton from a button and a menu
    *
-   * @param button a T object
-   * @param menu a {@link org.dominokit.domino.ui.menu.Menu} object
+   * @param button The button to be used as dropdown menu target
+   * @param menu The {@link org.dominokit.domino.ui.menu.Menu} to be used as a dropdown menu
    */
   public DropdownButton(T button, Menu<V> menu) {
     this.button = button;
@@ -63,29 +65,22 @@ public class DropdownButton<T extends BaseButton<?, T>, V>
     init(this);
   }
 
-  /**
-   * Getter for the field <code>button</code>.
-   *
-   * @return a T object
-   */
+  /** @return The button component of this DropdownButton instance. */
   public T getButton() {
     return button;
   }
 
-  /**
-   * Getter for the field <code>menu</code>.
-   *
-   * @return a {@link org.dominokit.domino.ui.menu.Menu} object
-   */
+  /** @return The menu component of this DropdownButton instance */
   public Menu<V> getMenu() {
     return menu;
   }
 
   /**
-   * withButton.
+   * Use to apply customization to the button component of this DropdownButton instance without
+   * breaking the fluent API chain. {@link ChildHandler}
    *
-   * @param handler a {@link org.dominokit.domino.ui.utils.ChildHandler} object
-   * @return a {@link org.dominokit.domino.ui.button.DropdownButton} object
+   * @param handler a {@link ChildHandler} that applies the customization.
+   * @return same DropdownButton instance
    */
   public DropdownButton<T, V> withButton(ChildHandler<DropdownButton<T, V>, T> handler) {
     handler.apply(this, button);
@@ -93,23 +88,24 @@ public class DropdownButton<T extends BaseButton<?, T>, V>
   }
 
   /**
-   * withMenu.
+   * Use to apply customization to the menu component of this DropdownButton instance without
+   * breaking the fluent API chain. {@link ChildHandler}
    *
-   * @param handler a {@link org.dominokit.domino.ui.utils.ChildHandler} object
-   * @return a {@link org.dominokit.domino.ui.button.DropdownButton} object
+   * @param handler a {@link ChildHandler} that applies the customization.
+   * @return same DropdownButton instance
    */
   public DropdownButton<T, V> withMenu(ChildHandler<DropdownButton<T, V>, Menu<V>> handler) {
     handler.apply(this, menu);
     return this;
   }
 
-  /** {@inheritDoc} */
+  /** @dominokit-site-ignore {@inheritDoc} */
   @Override
   public HTMLElement element() {
     return button.element();
   }
 
-  /** {@inheritDoc} */
+  /** @dominokit-site-ignore {@inheritDoc} */
   @Override
   public T asButton() {
     return button;

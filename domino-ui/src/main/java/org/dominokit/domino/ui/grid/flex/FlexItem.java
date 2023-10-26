@@ -23,20 +23,11 @@ import org.dominokit.domino.ui.style.SwapCssClass;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
 
 /**
- * A component which provides an abstract level of the CSS flex item which will inherit the styles
- * for the CSS flex item by default
+ * The {@code FlexItem} class represents a flex item that can be used within a flex container to
+ * control its layout properties.
  *
- * <p>More information can be found in <a
- * href="https://developer.mozilla.org/en-US/docs/Web/CSS/flex">MDN official documentation</a>
- *
- * <p>For example:
- *
- * <pre>
- *     FlexItem.create();
- * </pre>
- *
+ * @param <T> The type of the HTML element associated with the flex item.
  * @see BaseDominoElement
- * @see FlexLayout
  */
 public class FlexItem<T extends HTMLElement> extends BaseDominoElement<T, FlexItem<T>> {
 
@@ -47,70 +38,57 @@ public class FlexItem<T extends HTMLElement> extends BaseDominoElement<T, FlexIt
   private String flexBasis;
   private SwapCssClass alignSelf = SwapCssClass.of();
 
+  /** Creates a new {@code FlexItem} with a default root element, which is a <div> element. */
   public FlexItem() {
     this((T) elements.div().element());
   }
 
+  /**
+   * Creates a new {@code FlexItem} with the specified root element.
+   *
+   * @param root The root element associated with the flex item.
+   */
   public FlexItem(T root) {
     element = root;
     init(this);
   }
 
   /**
-   * Creates new flex item with empty content
+   * Creates a new {@code FlexItem} with a default root element of type {@code HTMLDivElement}.
    *
-   * @return new instance
+   * @return A new {@code FlexItem} instance.
    */
   public static FlexItem<HTMLDivElement> create() {
     return new FlexItem<>();
   }
 
   /**
-   * @deprecated use {@link #of(HTMLElement)} Creates new flex item with {@code element} inside it
-   * @param element the child element
-   * @return new instance
-   */
-  @Deprecated
-  public static <T extends HTMLElement> FlexItem<T> from(T element) {
-    return new FlexItem<>(element);
-  }
-
-  /**
-   * @deprecated use {@link #of(IsElement)} Creates new flex item with {@code element} inside it
-   * @param element the child element
-   * @return new instance
-   */
-  @Deprecated
-  public static <T extends HTMLElement> FlexItem<T> from(IsElement<T> element) {
-    return new FlexItem<>(element.element());
-  }
-
-  /**
-   * Creates new flex item with {@code element} inside it
+   * Creates a new {@code FlexItem} with the specified root element.
    *
-   * @param element the child element
-   * @return new instance
+   * @param element The root element associated with the flex item.
+   * @param <T> The type of the HTML element.
+   * @return A new {@code FlexItem} instance.
    */
   public static <T extends HTMLElement> FlexItem<T> of(T element) {
     return new FlexItem<>(element);
   }
 
   /**
-   * Creates new flex item with {@code element} inside it
+   * Creates a new {@code FlexItem} from an {@code IsElement} instance.
    *
-   * @param element the child element
-   * @return new instance
+   * @param element The {@code IsElement} instance to create a {@code FlexItem} from.
+   * @param <T> The type of the HTML element.
+   * @return A new {@code FlexItem} instance.
    */
   public static <T extends HTMLElement> FlexItem<T> of(IsElement<T> element) {
     return new FlexItem<>(element.element());
   }
 
   /**
-   * Sets the order of this item inside the layout, the order of the item calculates the position of
-   * the item inside the layout
+   * Sets the order property for the flex item.
    *
-   * @param order the position of the item inside the layout
-   * @return same instance
+   * @param order The order value.
+   * @return This {@code FlexItem} instance.
    */
   public FlexItem<T> setOrder(int order) {
     this.order = order;
@@ -118,20 +96,20 @@ public class FlexItem<T extends HTMLElement> extends BaseDominoElement<T, FlexIt
     return this;
   }
 
-  /** @return The order of this item */
+  /**
+   * Gets the order property of the flex item.
+   *
+   * @return The order value.
+   */
   public int getOrder() {
     return order;
   }
 
   /**
-   * Sets the grow of this item
+   * Sets the flex-grow property for the flex item.
    *
-   * <p>More information can be found in <a
-   * href="https://developer.mozilla.org/en-US/docs/Web/CSS/flex-grow">MDN official
-   * documentation</a>
-   *
-   * @param flexGrow the value of the grow of this item
-   * @return same instance
+   * @param flexGrow The flex-grow value.
+   * @return This {@code FlexItem} instance.
    */
   public FlexItem<T> setFlexGrow(int flexGrow) {
     this.flexGrow = flexGrow;
@@ -140,14 +118,10 @@ public class FlexItem<T extends HTMLElement> extends BaseDominoElement<T, FlexIt
   }
 
   /**
-   * Sets the shrink of this item
+   * Sets the flex-shrink property for the flex item.
    *
-   * <p>More information can be found in <a
-   * href="https://developer.mozilla.org/en-US/docs/Web/CSS/flex-shrink">MDN official
-   * documentation</a>
-   *
-   * @param flexShrink the value of the shrink of this item
-   * @return same instance
+   * @param flexShrink The flex-shrink value.
+   * @return This {@code FlexItem} instance.
    */
   public FlexItem<T> setFlexShrink(int flexShrink) {
     this.flexShrink = flexShrink;
@@ -156,14 +130,10 @@ public class FlexItem<T extends HTMLElement> extends BaseDominoElement<T, FlexIt
   }
 
   /**
-   * Sets the basis of this item
+   * Sets the flex-basis property for the flex item.
    *
-   * <p>More information can be found in <a
-   * href="https://developer.mozilla.org/en-US/docs/Web/CSS/flex-basis">MDN official
-   * documentation</a>
-   *
-   * @param flexBasis the value of the basis of this item
-   * @return same instance
+   * @param flexBasis The flex-basis value as a CSS string.
+   * @return This {@code FlexItem} instance.
    */
   public FlexItem<T> setFlexBasis(String flexBasis) {
     this.flexBasis = flexBasis;
@@ -172,10 +142,10 @@ public class FlexItem<T extends HTMLElement> extends BaseDominoElement<T, FlexIt
   }
 
   /**
-   * Sets the alignment of this item inside the layout
+   * Sets the align-self property for the flex item.
    *
-   * @param alignSelf the {@link FlexAlign}
-   * @return same instance
+   * @param alignSelf The {@code FlexAlignSelf} value to set.
+   * @return This {@code FlexItem} instance.
    */
   public FlexItem<T> setAlignSelf(FlexAlignSelf alignSelf) {
     this.alignSelf.replaceWith(alignSelf).apply(this);
@@ -183,31 +153,47 @@ public class FlexItem<T extends HTMLElement> extends BaseDominoElement<T, FlexIt
   }
 
   /**
-   * Sets if the alignment of this item should be automatic
+   * Sets the align-self property to 'auto' for the flex item.
    *
-   * @return same instance
+   * @return This {@code FlexItem} instance.
    */
   public FlexItem<T> setAutoAlign() {
     setAlignSelf(FlexAlignSelf.AUTO);
     return this;
   }
 
-  /** @return The grow of this item */
+  /**
+   * Gets the flex-grow property of the flex item.
+   *
+   * @return The flex-grow value.
+   */
   public int getFlexGrow() {
     return flexGrow;
   }
 
-  /** @return The shrink of this item */
+  /**
+   * Gets the flex-shrink property of the flex item.
+   *
+   * @return The flex-shrink value.
+   */
   public int getFlexShrink() {
     return flexShrink;
   }
 
-  /** @return The basis of this item */
+  /**
+   * Gets the flex-basis property of the flex item.
+   *
+   * @return The flex-basis value as a CSS string.
+   */
   public String getFlexBasis() {
     return flexBasis;
   }
 
-  /** @return The alignment of this item */
+  /**
+   * Gets the align-self property of the flex item.
+   *
+   * @return The {@code CssClass} representing the align-self value.
+   */
   public CssClass getAlignSelf() {
     return alignSelf;
   }

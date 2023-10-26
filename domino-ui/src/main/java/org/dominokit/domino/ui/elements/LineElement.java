@@ -17,22 +17,37 @@ package org.dominokit.domino.ui.elements;
 
 import elemental2.svg.SVGLineElement;
 
-/** LineElement class. */
+/**
+ * Represents an SVG <line> element wrapper.
+ *
+ * <p>The SVG <line> element is used to create a line in an SVG graphic. This class provides a
+ * convenient way to create, manipulate, and control the behavior of <line> elements in Java-based
+ * web applications. Example usage:
+ *
+ * <pre>
+ * SVGLineElement lineElement = ...;  // Obtain a <line> element from somewhere
+ * LineElement line = LineElement.of(lineElement);
+ * </pre>
+ *
+ * @see <a href="https://developer.mozilla.org/en-US/docs/Web/SVG/Element/line">MDN Web Docs
+ *     (line)</a>
+ */
 public class LineElement extends BaseElement<SVGLineElement, LineElement> {
+
   /**
-   * of.
+   * Creates a new {@link LineElement} instance by wrapping the provided SVG <line> element.
    *
-   * @param e a {@link elemental2.svg.SVGLineElement} object
-   * @return a {@link org.dominokit.domino.ui.elements.LineElement} object
+   * @param e The SVG <line> element to wrap.
+   * @return A new {@link LineElement} instance wrapping the provided element.
    */
   public static LineElement of(SVGLineElement e) {
     return new LineElement(e);
   }
 
   /**
-   * Constructor for LineElement.
+   * Constructs a {@link LineElement} instance by wrapping the provided SVG <line> element.
    *
-   * @param element a {@link elemental2.svg.SVGLineElement} object
+   * @param element The SVG <line> element to wrap.
    */
   public LineElement(SVGLineElement element) {
     super(element);

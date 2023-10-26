@@ -32,9 +32,19 @@ import org.gwtproject.editor.client.TakesValue;
 import org.gwtproject.safehtml.shared.SafeHtml;
 
 /**
- * A component that represent a single option in a {@link org.dominokit.domino.ui.forms.RadioGroup}
+ * The `Radio` class represents a radio button element in a Domino UI form.
  *
- * @param <T> The type fo the radio value
+ * <p>Radio buttons are typically used to allow users to make a single selection from a list of
+ * options. A radio button can have a label and optional helper text.
+ *
+ * <p>Usage Example:
+ *
+ * <pre> Radio&lt;String&gt; radio = Radio.create("option1", "Option 1");
+ * radio.setHelperText("Select option 1"); radio.addValueChangeHandler(value -> {
+ * Window.alert("Selected value: " + value); }); </pre>
+ *
+ * @param <T> The type of value associated with the radio button.
+ * @see BaseDominoElement
  */
 public class Radio<T> extends BaseDominoElement<HTMLDivElement, Radio<T>>
     implements HasType,
@@ -58,11 +68,12 @@ public class Radio<T> extends BaseDominoElement<HTMLDivElement, Radio<T>>
 
   private Set<ChangeListener<? super Boolean>> changeListeners = new LinkedHashSet<>();
   private boolean changeListenersPaused = false;
+
   /**
-   * Creates an instance for the specified value with a label
+   * Creates a new `Radio` instance with the specified value and label.
    *
-   * @param value T
-   * @param label String
+   * @param value The value associated with the radio button.
+   * @param label The label text for the radio button.
    */
   public Radio(T value, String label) {
 
@@ -98,45 +109,51 @@ public class Radio<T> extends BaseDominoElement<HTMLDivElement, Radio<T>>
   }
 
   /**
-   * Creates an instance for the specified value without a label, the label will be the
-   * String.valueOf(value)
+   * Creates a new `Radio` instance with the specified value and a label generated from the value.
    *
-   * @param value T
+   * @param value The value associated with the radio button.
    */
   public Radio(T value) {
     this(value, String.valueOf(value));
   }
 
   /**
-   * Creates an instance for the specified value with a label
+   * Creates a new `Radio` instance with the specified value and label.
    *
-   * @param value T
-   * @param label String
-   * @param <E> the type of the value
-   * @return new Radio instance
+   * @param <E> The type of value associated with the radio button.
+   * @param value The value associated with the radio button.
+   * @param label The label text for the radio button.
+   * @return A new `Radio` instance.
    */
   public static <E> Radio<E> create(E value, String label) {
     return new Radio<>(value, label);
   }
 
   /**
-   * Creates an instance for the specified value without a label, the label will be the
-   * String.valueOf(value)
+   * Creates a new `Radio` instance with the specified value and a label generated from the value.
    *
-   * @param value T
-   * @param <E> the type of value
-   * @return new Radio instance
+   * @param <E> The type of value associated with the radio button.
+   * @param value The value associated with the radio button.
+   * @return A new `Radio` instance.
    */
   public static <E> Radio<E> create(E value) {
     return new Radio<>(value);
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Gets the type of the radio button input, which is always "radio".
+   *
+   * @return The type of the radio button input, which is "radio".
+   */
   @Override
   public String getType() {
     return "radio";
   }
 
+  /**
+   * Links the label of the radio button to its input field by setting the "for" attribute of the
+   * label element to the "id" of the input element if not already set.
+   */
   private void linkLabelToField() {
     DominoElement<HTMLInputElement> asDominoElement = elementOf(inputElement);
     if (!asDominoElement.hasAttribute("id")) {
@@ -145,54 +162,102 @@ public class Radio<T> extends BaseDominoElement<HTMLDivElement, Radio<T>>
     labelElement.setAttribute("for", asDominoElement.getAttribute("id"));
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Checks the radio button, triggering change listeners if not in a paused state.
+   *
+   * @return This `Radio` instance.
+   */
   @Override
   public Radio<T> check() {
     return check(isChangeListenersPaused());
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Unchecks the radio button, triggering change listeners if not in a paused state.
+   *
+   * @return This `Radio` instance.
+   */
   @Override
   public Radio<T> uncheck() {
     return uncheck(isChangeListenersPaused());
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Checks the radio button, optionally suppressing change listener events if `silent` is true.
+   *
+   * @param silent If true, change listener events will not be triggered.
+   * @return This `Radio` instance.
+   */
   @Override
   public Radio<T> check(boolean silent) {
     return setChecked(true, silent);
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Unchecks the radio button, optionally suppressing change listener events if `silent` is true.
+   *
+   * @param silent If true, change listener events will not be triggered.
+   * @return This `Radio` instance.
+   */
   @Override
   public Radio<T> uncheck(boolean silent) {
     return setChecked(false, silent);
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Unchecks the radio button by setting its checked state to false internally.
+   *
+   * @return This `Radio` instance.
+   */
   Radio<T> uncheckSelf() {
     inputElement.element().checked = false;
     return this;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Toggles the checked state of the radio button, optionally suppressing change listener events if
+   * `silent` is true.
+   *
+   * @param silent If true, change listener events will not be triggered.
+   * @return This `Radio` instance.
+   */
   @Override
   public Radio<T> toggleChecked(boolean silent) {
     return setChecked(!isChecked(), silent);
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Toggles the checked state of the radio button to the specified `checkedState`, optionally
+   * suppressing change listener events if `silent` is true.
+   *
+   * @param checkedState The desired checked state.
+   * @param silent If true, change listener events will not be triggered.
+   * @return This `Radio` instance.
+   */
   @Override
   public Radio<T> toggleChecked(boolean checkedState, boolean silent) {
     return setChecked(checkedState, silent);
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Toggles the checked state of the radio button, optionally suppressing change listener events if
+   * not in a paused state.
+   *
+   * @return This `Radio` instance.
+   */
   @Override
   public Radio<T> toggleChecked() {
     return setChecked(!isChecked(), isChangeListenersPaused());
   }
 
+  /**
+   * Sets the checked state of the radio button to the specified `value`, optionally suppressing
+   * change listener events if `silent` is true.
+   *
+   * @param value The desired checked state.
+   * @param silent If true, change listener events will not be triggered.
+   * @return This `Radio` instance.
+   */
   private Radio<T> setChecked(boolean value, boolean silent) {
     boolean oldState = isChecked();
     if (value == oldState) {
@@ -220,103 +285,149 @@ public class Radio<T> extends BaseDominoElement<HTMLDivElement, Radio<T>>
     return this;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Checks if the radio button is currently checked.
+   *
+   * @return True if the radio button is checked, false otherwise.
+   */
   @Override
   public boolean isChecked() {
     return inputElement.element().checked;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Gets the DOM element representing this radio button.
+   *
+   * @return The DOM element of this radio button.
+   */
   @Override
   public HTMLDivElement element() {
     return radioElement.element();
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Gets the name of the radio button's input element.
+   *
+   * @return The name of the radio button's input element.
+   */
   String getName() {
     return inputElement.element().name;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Sets the name attribute of the radio button's input element.
+   *
+   * @param name The name to set.
+   * @return This `Radio` instance.
+   */
   Radio<T> setName(String name) {
     inputElement.element().name = name;
     return this;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Sets the value of the radio button and optionally triggers change listeners.
+   *
+   * @param value The value to set.
+   * @return This `Radio` instance.
+   */
   @Override
   public Radio<T> withValue(T value) {
     return withValue(value, isChangeListenersPaused());
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Sets the value of the radio button and optionally triggers change listeners.
+   *
+   * @param value The value to set.
+   * @param silent If `true`, change listeners won't be triggered.
+   * @return This `Radio` instance.
+   */
   @Override
   public Radio<T> withValue(T value, boolean silent) {
     setValue(value);
     return this;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Sets the value of the radio button.
+   *
+   * @param value The value to set.
+   */
   @Override
   public void setValue(T value) {
     this.value = value;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Gets the current value of the radio button.
+   *
+   * @return The current value of the radio button.
+   */
   @Override
   public T getValue() {
     return this.value;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Sets the label of the radio button.
+   *
+   * @param label The label text to set.
+   * @return This `Radio` instance.
+   */
   @Override
   public Radio<T> setLabel(String label) {
     labelElement.textContent(label);
     return this;
   }
 
-  /** @param safeHtml {@link SafeHtml} to be used as a label */
   /**
-   * setLabel.
+   * Sets the label of the radio button with HTML content provided as SafeHtml.
    *
-   * @param safeHtml a {@link org.gwtproject.safehtml.shared.SafeHtml} object
-   * @return a {@link org.dominokit.domino.ui.forms.Radio} object
+   * @param safeHtml The SafeHtml content to set as the label.
+   * @return This `Radio` instance.
    */
   public Radio<T> setLabel(SafeHtml safeHtml) {
     labelElement.clearElement().setInnerHtml(safeHtml.asString());
     return this;
   }
 
-  /** @param node {@link Node} to be used as a label */
   /**
-   * setLabel.
+   * Sets the label of the radio button with a custom DOM Node element.
    *
-   * @param node a {@link elemental2.dom.Node} object
-   * @return a {@link org.dominokit.domino.ui.forms.Radio} object
+   * @param node The DOM Node element to set as the label.
+   * @return This `Radio` instance.
    */
   public Radio<T> setLabel(Node node) {
     elementOf(labelElement).clearElement().appendChild(node);
     return this;
   }
 
-  /** @param element {@link IsElement} to be used as a label */
   /**
-   * setLabel.
+   * Sets the label of the radio button with an IsElement instance.
    *
-   * @param element a {@link org.dominokit.domino.ui.IsElement} object
-   * @return a {@link org.dominokit.domino.ui.forms.Radio} object
+   * @param element The IsElement instance whose element will be set as the label.
+   * @return This `Radio` instance.
    */
   public Radio<T> setLabel(IsElement<?> element) {
     return setLabel(element.element());
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Gets the text content of the radio button's label.
+   *
+   * @return The text content of the radio button's label.
+   */
   @Override
   public String getLabel() {
     return labelElement.element().textContent;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Enables the radio button for user interaction.
+   *
+   * @return This `Radio` instance.
+   */
   @Override
   public Radio<T> enable() {
     radioElement.enable();
@@ -324,7 +435,11 @@ public class Radio<T> extends BaseDominoElement<HTMLDivElement, Radio<T>>
     return this;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Disables the radio button, preventing user interaction.
+   *
+   * @return This `Radio` instance.
+   */
   @Override
   public Radio<T> disable() {
     radioElement.disable();
@@ -332,49 +447,70 @@ public class Radio<T> extends BaseDominoElement<HTMLDivElement, Radio<T>>
     return this;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Retrieves the helper text associated with this radio button.
+   *
+   * @return The helper text.
+   */
   @Override
   public String getHelperText() {
     return noteElement.get().getTextContent();
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Sets the helper text for this radio button.
+   *
+   * @param text The helper text to set.
+   * @return This `Radio` instance.
+   */
   @Override
   public Radio<T> setHelperText(String text) {
     noteElement.get().setTextContent(text);
     return this;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Checks if the radio button is enabled for user interaction.
+   *
+   * @return `true` if the radio button is enabled, `false` otherwise.
+   */
   @Override
   public boolean isEnabled() {
     return !(inputElement.isDisabled() || radioElement.isDisabled() || radioGroup.isDisabled());
   }
 
-  /** @param radioGroup {@link RadioGroup} this radio belongs to */
+  /**
+   * Associates a radio group with this radio button.
+   *
+   * @param radioGroup The radio group to associate.
+   */
   void setGroup(RadioGroup<? super T> radioGroup) {
     this.radioGroup = radioGroup;
   }
 
   /**
-   * {@inheritDoc}
+   * Retrieves the input element associated with this radio button.
    *
-   * @return a {@link org.dominokit.domino.ui.utils.DominoElement} object
+   * @return The input element.
    */
   public DominoElement<HTMLInputElement> getInputElement() {
     return inputElement.toDominoElement();
   }
 
   /**
-   * {@inheritDoc}
+   * Retrieves the string representation of the current value of this radio button.
    *
-   * @return a {@link java.lang.String} object
+   * @return The string representation of the value.
    */
   public String getStringValue() {
     return String.valueOf(getValue());
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Sets focus on the radio button element if it's not disabled.
+   *
+   * @return This `Radio` instance.
+   */
   @Override
   public Radio<T> focus() {
     if (!isDisabled()) {
@@ -388,7 +524,11 @@ public class Radio<T> extends BaseDominoElement<HTMLDivElement, Radio<T>>
     return this;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Removes focus from the radio button element.
+   *
+   * @return This `Radio` instance.
+   */
   @Override
   public Radio<T> unfocus() {
     if (!isAttached()) {
@@ -403,7 +543,11 @@ public class Radio<T> extends BaseDominoElement<HTMLDivElement, Radio<T>>
     return this;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Checks if the radio button element is currently focused.
+   *
+   * @return `true` if the radio button is focused, `false` otherwise.
+   */
   @Override
   public boolean isFocused() {
     if (nonNull(DomGlobal.document.activeElement)) {
@@ -414,7 +558,12 @@ public class Radio<T> extends BaseDominoElement<HTMLDivElement, Radio<T>>
     return false;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Associates the given `id` with the label element for accessibility purposes.
+   *
+   * @param id The `id` to associate with the label.
+   * @return This `Radio` instance.
+   */
   @Override
   public Radio<T> labelForId(String id) {
     DominoElement<HTMLInputElement> asDominoElement = elementOf(inputElement);
@@ -425,47 +574,73 @@ public class Radio<T> extends BaseDominoElement<HTMLDivElement, Radio<T>>
     return this;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Pauses change listeners for this radio button.
+   *
+   * @return This `Radio` instance.
+   */
   @Override
   public Radio<T> pauseChangeListeners() {
     this.changeListenersPaused = true;
     return this;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Resumes change listeners for this radio button.
+   *
+   * @return This `Radio` instance.
+   */
   @Override
   public Radio<T> resumeChangeListeners() {
     this.changeListenersPaused = false;
     return this;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Toggles the pause state of change listeners for this radio button.
+   *
+   * @param toggle `true` to pause change listeners, `false` to resume.
+   * @return This `Radio` instance.
+   */
   @Override
   public Radio<T> togglePauseChangeListeners(boolean toggle) {
     this.changeListenersPaused = toggle;
     return this;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Retrieves the set of change listeners associated with this radio button.
+   *
+   * @return The set of change listeners.
+   */
   @Override
   public Set<ChangeListener<? super Boolean>> getChangeListeners() {
     return changeListeners;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Checks if change listeners for this radio button are currently paused.
+   *
+   * @return `true` if change listeners are paused, `false` otherwise.
+   */
   @Override
   public boolean isChangeListenersPaused() {
     return this.changeListenersPaused;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Triggers change listeners for this radio button with the given old and new values.
+   *
+   * @param oldValue The old value.
+   * @param newValue The new value.
+   * @return This `Radio` instance.
+   */
   @Override
   public Radio<T> triggerChangeListeners(Boolean oldValue, Boolean newValue) {
     changeListeners.forEach(listener -> listener.onValueChanged(oldValue, newValue));
     return this;
   }
 
-  /** {@inheritDoc} */
   @Override
   public Radio<T> setReadOnly(boolean readOnly) {
     getInputElement().setReadOnly(readOnly);
@@ -473,46 +648,47 @@ public class Radio<T> extends BaseDominoElement<HTMLDivElement, Radio<T>>
   }
 
   /**
-   * Getter for the field <code>fieldInput</code>.
+   * Retrieves the field input element associated with this radio button.
    *
-   * @return a {@link org.dominokit.domino.ui.elements.DivElement} object
+   * @return The field input element.
    */
   public DivElement getFieldInput() {
     return fieldInput;
   }
 
   /**
-   * Getter for the field <code>labelElement</code>.
+   * Retrieves the label element associated with this radio button.
    *
-   * @return a {@link org.dominokit.domino.ui.elements.LabelElement} object
+   * @return The label element.
    */
   public LabelElement getLabelElement() {
     return labelElement;
   }
 
   /**
-   * Getter for the field <code>noteElement</code>.
+   * Retrieves the note element associated with this radio button.
    *
-   * @return a {@link org.dominokit.domino.ui.elements.SmallElement} object
+   * @return The note element.
    */
   public SmallElement getNoteElement() {
     return noteElement.get();
   }
 
   /**
-   * Getter for the field <code>radioGroup</code>.
+   * Retrieves the radio group to which this radio button belongs.
    *
-   * @return a {@link org.dominokit.domino.ui.forms.RadioGroup} object
+   * @return The radio group.
    */
   public RadioGroup<? super T> getRadioGroup() {
     return radioGroup;
   }
 
   /**
-   * withFieldInput.
+   * Allows customization of the field input element associated with this radio button using a child
+   * handler.
    *
-   * @param handler a {@link org.dominokit.domino.ui.utils.ChildHandler} object
-   * @return a T object
+   * @param handler The child handler for the field input element.
+   * @return This `Radio` instance.
    */
   public T withFieldInput(ChildHandler<Radio<T>, DivElement> handler) {
     handler.apply(this, fieldInput);
@@ -520,10 +696,11 @@ public class Radio<T> extends BaseDominoElement<HTMLDivElement, Radio<T>>
   }
 
   /**
-   * withLabelElement.
+   * Allows customization of the label element associated with this radio button using a child
+   * handler.
    *
-   * @param handler a {@link org.dominokit.domino.ui.utils.ChildHandler} object
-   * @return a T object
+   * @param handler The child handler for the label element.
+   * @return This `Radio` instance.
    */
   public T withLabelElement(ChildHandler<Radio<T>, LabelElement> handler) {
     handler.apply(this, labelElement);
@@ -531,10 +708,11 @@ public class Radio<T> extends BaseDominoElement<HTMLDivElement, Radio<T>>
   }
 
   /**
-   * withNoteElement.
+   * Allows customization of the note element associated with this radio button using a child
+   * handler.
    *
-   * @param handler a {@link org.dominokit.domino.ui.utils.ChildHandler} object
-   * @return a T object
+   * @param handler The child handler for the note element.
+   * @return This `Radio` instance.
    */
   public T withNoteElement(ChildHandler<Radio<T>, SmallElement> handler) {
     handler.apply(this, noteElement.get());
@@ -542,10 +720,11 @@ public class Radio<T> extends BaseDominoElement<HTMLDivElement, Radio<T>>
   }
 
   /**
-   * withRadioGroup.
+   * Allows customization of the radio group to which this radio button belongs using a child
+   * handler.
    *
-   * @param handler a {@link org.dominokit.domino.ui.utils.ChildHandler} object
-   * @return a T object
+   * @param handler The child handler for the radio group.
+   * @return This `Radio` instance.
    */
   public T withRadioGroup(ChildHandler<Radio<T>, RadioGroup<? super T>> handler) {
     handler.apply(this, radioGroup);

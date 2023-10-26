@@ -17,13 +17,14 @@ package org.dominokit.domino.ui.utils;
 
 import elemental2.dom.MutationRecord;
 
-/** AttachDetachCallback interface. */
+/** A functional interface for attaching and detaching callback methods to observe DOM mutations. */
 @FunctionalInterface
 public interface AttachDetachCallback {
+
   /**
-   * onObserved.
+   * Invoked when observed DOM mutations occur.
    *
-   * @param mutationRecord a {@link elemental2.dom.MutationRecord} object
+   * @param mutationRecord The mutation record containing information about the DOM mutations.
    */
   void onObserved(MutationRecord mutationRecord);
 }

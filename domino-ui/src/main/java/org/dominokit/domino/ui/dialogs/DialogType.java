@@ -19,8 +19,10 @@ import org.dominokit.domino.ui.style.CssClass;
 import org.dominokit.domino.ui.style.HasCssClass;
 
 /**
- * @deprecated use {@link #addCss(org.dominokit.domino.ui.style.CssClass...)} with {@link
- *     DialogType} or the styles from {@link DialogStyles} setType. An enum to list modal types
+ * @deprecated use
+ *     <pre>addCss(CssClass...)</pre>
+ *     with {@link DialogType} or the styles from {@link DialogStyles} setType. An enum to list
+ *     modal types
  */
 @Deprecated
 public enum DialogType implements DialogStyles, HasCssClass {

@@ -15,24 +15,42 @@
  */
 package org.dominokit.domino.ui.tree;
 
-/** An enum representing what toggles the tree item */
+/**
+ * An enumeration representing the toggle target for a tree item in a UI tree.
+ *
+ * <p>The toggle target specifies where a tree item can be clicked to toggle its state.
+ *
+ * @see TreeItem
+ */
 public enum ToggleTarget {
-  /** any element inside the item */
+
+  /**
+   * Represents the "Any" toggle target style. Clicking anywhere on the tree item can toggle its
+   * state.
+   */
   ANY("tgl-any"),
-  /** the icon of the item */
+
+  /**
+   * Represents the "Icon" toggle target style. Clicking the icon of the tree item can toggle its
+   * state.
+   */
   ICON("tgl-icon");
 
   private final String style;
 
+  /**
+   * Creates a new ToggleTarget instance with the specified style.
+   *
+   * @param style The style associated with this toggle target.
+   */
   ToggleTarget(String style) {
     this.style = style;
   }
 
-  /** @return the CSS style */
   /**
-   * Getter for the field <code>style</code>.
+   * Gets the style associated with this toggle target.
    *
-   * @return a {@link java.lang.String} object
+   * @return The style string representing this toggle target.
    */
   public String getStyle() {
     return style;

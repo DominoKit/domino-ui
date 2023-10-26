@@ -20,7 +20,27 @@ import org.dominokit.domino.ui.style.CssClass;
 import org.dominokit.domino.ui.style.DominoCss;
 import org.dominokit.domino.ui.utils.ElementsFactory;
 
+/**
+ * Represents the accent themes for Domino UI components.
+ *
+ * <p>This class provides predefined accent themes and methods to apply, check, and remove these
+ * accent themes on a specific UI element.
+ *
+ * <p><b>Usage Example:</b>
+ *
+ * <pre>{@code
+ * DominoThemeAccent accentTheme = DominoThemeAccent.RED;
+ * accentTheme.apply(myElement);
+ * }</pre>
+ *
+ * @see IsDominoTheme
+ * @see CssClass
+ * @see ElementsFactory
+ * @see DominoCss
+ */
 public class DominoThemeAccent implements IsDominoTheme, ElementsFactory, DominoCss {
+
+  // Predefined accent themes.
   public static final IsDominoTheme RED = new DominoThemeAccent(dui_accent_red);
   public static final IsDominoTheme PINK = new DominoThemeAccent(dui_accent_pink);
   public static final IsDominoTheme PURPLE = new DominoThemeAccent(dui_accent_purple);
@@ -40,32 +60,66 @@ public class DominoThemeAccent implements IsDominoTheme, ElementsFactory, Domino
   public static final IsDominoTheme BROWN = new DominoThemeAccent(dui_accent_brown);
   public static final IsDominoTheme GREY = new DominoThemeAccent(dui_accent_grey);
   public static final IsDominoTheme BLUE_GREY = new DominoThemeAccent(dui_accent_blue_grey);
+
+  /** CSS class representing the specific accent theme. */
   private final CssClass accentCss;
 
+  /**
+   * Constructor to create an accent theme with the specified CSS class.
+   *
+   * @param accentCss the CSS class for the accent theme.
+   */
   private DominoThemeAccent(CssClass accentCss) {
     this.accentCss = accentCss;
   }
 
+  /**
+   * Retrieves the name of the accent theme.
+   *
+   * @return accent theme name as a string.
+   */
   @Override
   public String getName() {
     return "dui-theme-accent-" + accentCss.getCssClass().replace("dui-accent-", "");
   }
 
+  /**
+   * Retrieves the category of the accent theme.
+   *
+   * @return accent theme category as a string. All accent themes are categorized under
+   *     "dui-theme-accent".
+   */
   @Override
   public String getCategory() {
     return "dui-theme-accent";
   }
 
+  /**
+   * Applies the accent theme to the specified element.
+   *
+   * @param element target element to apply the accent theme on.
+   */
   @Override
   public void apply(Element element) {
     elementOf(element).addCss(accentCss);
   }
 
+  /**
+   * Removes the accent theme from the specified element.
+   *
+   * @param element target element to remove the accent theme from.
+   */
   @Override
   public void cleanup(Element element) {
     elementOf(element).removeCss(accentCss);
   }
 
+  /**
+   * Checks if the accent theme is applied to the specified element.
+   *
+   * @param element the target element to check.
+   * @return {@code true} if the accent theme is applied, otherwise {@code false}.
+   */
   @Override
   public boolean isApplied(Element element) {
     return accentCss.isAppliedTo(element);

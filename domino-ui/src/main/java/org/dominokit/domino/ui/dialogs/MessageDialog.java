@@ -22,7 +22,20 @@ import org.dominokit.domino.ui.elements.SpanElement;
 import org.dominokit.domino.ui.layout.NavBar;
 import org.dominokit.domino.ui.utils.*;
 
-/** MessageDialog class. */
+/**
+ * A dialog component for displaying messages to the user. It provides a convenient way to present
+ * information or prompt the user for a confirmation.
+ *
+ * <p><b>Usage:</b>
+ *
+ * <pre>
+ * MessageDialog.create("Title", "This is the message")
+ *     .onConfirm(dialog -> {
+ *         // handle confirmation
+ *     })
+ *     .open();
+ * </pre>
+ */
 public class MessageDialog extends AbstractDialog<MessageDialog> {
 
   private Button confirmButton;
@@ -32,38 +45,41 @@ public class MessageDialog extends AbstractDialog<MessageDialog> {
   private LazyChild<SpanElement> messageElement;
   private LazyChild<NavBar> navHeader;
 
-  /** @return new instance with empty title */
   /**
-   * create.
+   * Factory method for creating a new instance of {@link MessageDialog} without a title and
+   * message.
    *
-   * @return a {@link org.dominokit.domino.ui.dialogs.MessageDialog} object
+   * @return A new instance of {@link MessageDialog}
    */
   public static MessageDialog create() {
     return new MessageDialog();
   }
 
   /**
-   * create.
+   * Factory method for creating a new instance of {@link MessageDialog} with a title.
    *
-   * @param title String
-   * @return new instance with custom title
+   * @param title The title of the dialog
+   * @return A new instance of {@link MessageDialog}
    */
   public static MessageDialog create(String title) {
     return new MessageDialog(title);
   }
 
   /**
-   * create.
+   * Factory method for creating a new instance of {@link MessageDialog} with a title and message.
    *
-   * @param title String
-   * @return new instance with custom title
-   * @param message a {@link java.lang.String} object
+   * @param title The title of the dialog
+   * @param message The message to display in the dialog
+   * @return A new instance of {@link MessageDialog}
    */
   public static MessageDialog create(String title, String message) {
     return new MessageDialog(title, message);
   }
 
-  /** creates new instance with empty title */
+  /**
+   * Default constructor for creating a new instance of {@link MessageDialog} without title and
+   * message.
+   */
   public MessageDialog() {
     messageElement = LazyChild.of(span(), contentElement);
     navHeader = LazyChild.of(NavBar.create().addCss(dui_dialog_nav), headerElement);
@@ -74,23 +90,21 @@ public class MessageDialog extends AbstractDialog<MessageDialog> {
     setAutoClose(false);
   }
 
-  /** @param title String creates new instance with custom title */
   /**
-   * Constructor for MessageDialog.
+   * Constructs a new instance of {@link MessageDialog} with a title.
    *
-   * @param title a {@link java.lang.String} object
+   * @param title The title of the dialog
    */
   public MessageDialog(String title) {
     this();
     navHeader.get().setTitle(title);
   }
 
-  /** @param title String creates new instance with custom title */
   /**
-   * Constructor for MessageDialog.
+   * Constructs a new instance of {@link MessageDialog} with a title and message.
    *
-   * @param title a {@link java.lang.String} object
-   * @param message a {@link java.lang.String} object
+   * @param title The title of the dialog
+   * @param message The message to display in the dialog
    */
   public MessageDialog(String title, String message) {
     this(title);
@@ -98,10 +112,10 @@ public class MessageDialog extends AbstractDialog<MessageDialog> {
   }
 
   /**
-   * setTitle.
+   * Sets the title for the {@link MessageDialog}.
    *
-   * @param title a {@link java.lang.String} object
-   * @return a {@link org.dominokit.domino.ui.dialogs.MessageDialog} object
+   * @param title The title of the dialog
+   * @return Current instance for chaining
    */
   public MessageDialog setTitle(String title) {
     navHeader.get().setTitle(title);
@@ -109,10 +123,10 @@ public class MessageDialog extends AbstractDialog<MessageDialog> {
   }
 
   /**
-   * setMessage.
+   * Sets the message for the {@link MessageDialog}.
    *
-   * @param message a {@link java.lang.String} object
-   * @return a {@link org.dominokit.domino.ui.dialogs.MessageDialog} object
+   * @param message The message to display in the dialog
+   * @return Current instance for chaining
    */
   public MessageDialog setMessage(String message) {
     messageElement.remove();
@@ -137,32 +151,30 @@ public class MessageDialog extends AbstractDialog<MessageDialog> {
   }
 
   /**
-   * Sets the handler for the confirm action
+   * Set a handler to be called when the dialog is confirmed.
    *
-   * @param handler {@link org.dominokit.domino.ui.dialogs.MessageDialog.MessageHandler}
-   * @return same ConfirmationDialog instance
+   * @param handler The {@link MessageHandler} to handle the confirmation event
+   * @return Current instance for chaining
    */
   public MessageDialog onConfirm(MessageHandler handler) {
     this.confirmHandler = handler;
     return this;
   }
 
-  /** @return the confirmation {@link Button} */
   /**
-   * Getter for the field <code>confirmButton</code>.
+   * Returns the confirm button of the dialog.
    *
-   * @return a {@link org.dominokit.domino.ui.button.Button} object
+   * @return The {@link Button} used for confirming the dialog
    */
   public Button getConfirmButton() {
     return confirmButton;
   }
 
-  /** @return the confirmation {@link Button} */
   /**
-   * withConfirmButton.
+   * Apply custom modifications to the confirm button of the dialog.
    *
-   * @param handler a {@link org.dominokit.domino.ui.utils.ChildHandler} object
-   * @return a {@link org.dominokit.domino.ui.dialogs.MessageDialog} object
+   * @param handler The handler to modify the confirm button
+   * @return Current instance for chaining
    */
   public MessageDialog withConfirmButton(ChildHandler<MessageDialog, Button> handler) {
     handler.apply(this, confirmButton);
@@ -170,19 +182,24 @@ public class MessageDialog extends AbstractDialog<MessageDialog> {
   }
 
   /**
-   * withNavHeader.
+   * Apply custom modifications to the navigation header of the dialog.
    *
-   * @param handler a {@link org.dominokit.domino.ui.utils.ChildHandler} object
-   * @return a {@link org.dominokit.domino.ui.dialogs.MessageDialog} object
+   * @param handler The handler to modify the navigation header
+   * @return Current instance for chaining
    */
   public MessageDialog withNavHeader(ChildHandler<MessageDialog, NavBar> handler) {
     handler.apply(this, navHeader.get());
     return this;
   }
 
-  /** An interface to implement Confirm action handlers */
+  /** Functional interface to handle confirmation events on the {@link MessageDialog}. */
   @FunctionalInterface
   public interface MessageHandler {
+    /**
+     * Called when the {@link MessageDialog} is confirmed.
+     *
+     * @param dialog The {@link MessageDialog} that was confirmed
+     */
     void onConfirm(MessageDialog dialog);
   }
 }

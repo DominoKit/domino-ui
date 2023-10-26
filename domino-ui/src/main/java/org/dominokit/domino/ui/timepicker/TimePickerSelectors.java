@@ -19,15 +19,17 @@ import static java.util.Objects.nonNull;
 
 import elemental2.dom.HTMLDivElement;
 import java.util.Date;
-import java.util.stream.Collectors;
 import org.dominokit.domino.ui.elements.DivElement;
 import org.dominokit.domino.ui.forms.suggest.Select;
 import org.dominokit.domino.ui.forms.suggest.SelectOption;
-import org.dominokit.domino.ui.menu.AbstractMenuItem;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
 import org.dominokit.domino.ui.utils.ChildHandler;
 
-/** TimePickerSelectors class. */
+/**
+ * TimePickerSelectors class.
+ *
+ * @see BaseDominoElement
+ */
 public class TimePickerSelectors extends BaseDominoElement<HTMLDivElement, TimePickerSelectors>
     implements TimePickerStyles, TimePickerViewListener {
 
@@ -152,20 +154,24 @@ public class TimePickerSelectors extends BaseDominoElement<HTMLDivElement, TimeP
   }
 
   private void updateHours() {
-    this.hoursSelect
-        .removeAllOptions()
-        .apply(
-            self -> {
-              if (this.timePicker.is24Hours()) {
-                for (int i = 0; i < 24; i++) {
-                  self.appendChild(SelectOption.create(String.valueOf(i), i, zeroPadded(i)));
-                }
-              } else {
-                for (int i = 1; i <= 12; i++) {
-                  self.appendChild(SelectOption.create(String.valueOf(i), i, zeroPadded(i)));
-                }
-              }
-            });
+    this.hoursSelect.withPausedChangeListeners(
+        field -> {
+          field
+              .clear(true)
+              .removeAllOptions()
+              .apply(
+                  self -> {
+                    if (this.timePicker.is24Hours()) {
+                      for (int i = 0; i < 24; i++) {
+                        self.appendChild(SelectOption.create(String.valueOf(i), i, zeroPadded(i)));
+                      }
+                    } else {
+                      for (int i = 1; i <= 12; i++) {
+                        self.appendChild(SelectOption.create(String.valueOf(i), i, zeroPadded(i)));
+                      }
+                    }
+                  });
+        });
   }
 
   private String zeroPadded(int hour) {
@@ -212,18 +218,7 @@ public class TimePickerSelectors extends BaseDominoElement<HTMLDivElement, TimeP
     }
     this.hoursSelect.withPausedChangeListeners(
         field -> {
-          LOGGER.info(
-              "Is found "
-                  + hour
-                  + ": "
-                  + this.date.getHours()
-                  + " : "
-                  + field.findOptionByValue(hour).isPresent()
-                  + " "
-                  + field.getOptionsMenu().getMenuItems().stream()
-                      .map(AbstractMenuItem::getValue)
-                      .map(String::valueOf)
-                      .collect(Collectors.joining(",")));
+          field.clear(true);
           field.selectByValue(hour);
         });
   }

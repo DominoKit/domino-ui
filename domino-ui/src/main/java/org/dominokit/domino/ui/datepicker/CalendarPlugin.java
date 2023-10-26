@@ -13,21 +13,27 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package org.dominokit.domino.ui.datepicker;
 
-/** CalendarPlugin interface. */
+/**
+ * A plugin interface for customizing the behavior and appearance of a calendar.
+ *
+ * <p>Plugins can be added to a calendar to extend its functionality and respond to events.
+ */
 public interface CalendarPlugin {
+
   /**
-   * onCalendarDayAdded.
+   * Invoked when a calendar day is added to the calendar view.
    *
-   * @param calendarDay a {@link org.dominokit.domino.ui.datepicker.CalendarDay} object
+   * @param calendarDay The calendar day that was added
    */
   default void onCalendarDayAdded(CalendarDay calendarDay) {}
 
   /**
-   * onInit.
+   * Invoked when the calendar is initialized.
    *
-   * @param calendar a {@link org.dominokit.domino.ui.datepicker.Calendar} object
+   * @param calendar The calendar that is being initialized
    */
   default void onInit(Calendar calendar) {}
 }

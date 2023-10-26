@@ -23,8 +23,19 @@ import org.dominokit.domino.ui.events.EventType;
 import org.gwtproject.timer.client.Timer;
 
 /**
- * A component that wraps an {@link elemental2.dom.HTMLInputElement} and performs an action when the
- * user stops typing in the input after a configurable delay </pre>
+ * The {@code DelayedTextInput} class provides a utility for capturing text input events in an HTML
+ * input element and triggering actions with a specified delay.
+ *
+ * <p>Example Usage:
+ *
+ * <pre>
+ * HTMLInputElement inputElement = // Get the input element from the DOM
+ * DelayedTextInput delayedTextInput = DelayedTextInput.create(inputElement, 1000, () -> {
+ *   // Perform an action after a delay of 1000 milliseconds (1 second) when text input changes.
+ *   // This action is specified using a lambda expression.
+ *   // You can replace this with your custom action.
+ * });
+ * </pre>
  */
 public class DelayedTextInput {
 
@@ -35,12 +46,13 @@ public class DelayedTextInput {
   private DelayedAction onEnterAction = () -> delayedAction.doAction();
 
   /**
-   * create.
+   * Creates a {@code DelayedTextInput} instance for the given HTML input element with a specified
+   * delay and an action to execute on text input changes.
    *
-   * @param inputElement {@link elemental2.dom.HTMLInputElement}
-   * @param delay int delay in milli-seconds
-   * @param delayedAction {@link org.dominokit.domino.ui.utils.DelayedTextInput.DelayedAction}
-   * @return new instance
+   * @param inputElement The HTML input element to monitor for text input changes.
+   * @param delay The delay in milliseconds before triggering the action.
+   * @param delayedAction The action to execute when text input changes after the specified delay.
+   * @return A {@code DelayedTextInput} instance.
    */
   public static DelayedTextInput create(
       HTMLInputElement inputElement, int delay, DelayedAction delayedAction) {
@@ -48,33 +60,35 @@ public class DelayedTextInput {
   }
 
   /**
-   * create.
+   * Creates a {@code DelayedTextInput} instance for the given HTML input element with a specified
+   * delay.
    *
-   * @param inputElement {@link elemental2.dom.HTMLInputElement}
-   * @param delay int delay in milli-seconds
-   * @return new instance
+   * @param inputElement The HTML input element to monitor for text input changes.
+   * @param delay The delay in milliseconds before triggering the action.
+   * @return A {@code DelayedTextInput} instance.
    */
   public static DelayedTextInput create(HTMLInputElement inputElement, int delay) {
     return new DelayedTextInput(inputElement, delay);
   }
 
   /**
-   * create.
+   * Creates a {@code DelayedTextInput} instance for the given DominoElement with a specified delay.
    *
-   * @param inputElement {@link elemental2.dom.HTMLInputElement} wrapped as {@link
-   *     org.dominokit.domino.ui.utils.DominoElement}
-   * @param delay int delay in milli-seconds
-   * @return new instance
+   * @param inputElement The DominoElement wrapping the HTML input element to monitor for text input
+   *     changes.
+   * @param delay The delay in milliseconds before triggering the action.
+   * @return A {@code DelayedTextInput} instance.
    */
   public static DelayedTextInput create(DominoElement<HTMLInputElement> inputElement, int delay) {
     return create(inputElement.element(), delay);
   }
 
   /**
-   * Constructor for DelayedTextInput.
+   * Constructs a {@code DelayedTextInput} instance for the given HTML input element with a
+   * specified delay.
    *
-   * @param inputElement {@link elemental2.dom.HTMLInputElement}
-   * @param delay int delay in milli-seconds
+   * @param inputElement The HTML input element to monitor for text input changes.
+   * @param delay The delay in milliseconds before triggering the action.
    */
   public DelayedTextInput(HTMLInputElement inputElement, int delay) {
     this.inputElement = inputElement;
@@ -83,11 +97,12 @@ public class DelayedTextInput {
   }
 
   /**
-   * Constructor for DelayedTextInput.
+   * Constructs a {@code DelayedTextInput} instance for the given HTML input element with a
+   * specified delay and an action to execute on text input changes.
    *
-   * @param inputElement {@link elemental2.dom.HTMLInputElement}
-   * @param delay int delay in milli-seconds
-   * @param delayedAction {@link org.dominokit.domino.ui.utils.DelayedTextInput.DelayedAction}
+   * @param inputElement The HTML input element to monitor for text input changes.
+   * @param delay The delay in milliseconds before triggering the action.
+   * @param delayedAction The action to execute when text input changes after the specified delay.
    */
   public DelayedTextInput(HTMLInputElement inputElement, int delay, DelayedAction delayedAction) {
     this.inputElement = inputElement;
@@ -97,7 +112,6 @@ public class DelayedTextInput {
     prepare();
   }
 
-  /** Initialize the component and the delay timer */
   protected void prepare() {
     autoActionTimer =
         new Timer() {
@@ -124,32 +138,30 @@ public class DelayedTextInput {
   }
 
   /**
-   * Setter for the field <code>delayedAction</code>.
+   * Sets the action to be executed after the specified delay when text input changes.
    *
-   * @param delayedAction {@link org.dominokit.domino.ui.utils.DelayedTextInput.DelayedAction} that
-   *     will be executed when the user stop typing
-   * @return same instance
+   * @param delayedAction The action to execute when text input changes after the specified delay.
+   * @return This {@code DelayedTextInput} instance.
    */
   public DelayedTextInput setDelayedAction(DelayedAction delayedAction) {
     this.delayedAction = delayedAction;
     return this;
   }
-  /** @return the {@link DelayedAction} that will be executed when the user press Enter key */
+
   /**
-   * Getter for the field <code>onEnterAction</code>.
+   * Gets the action to be executed when the Enter key is pressed after the specified delay.
    *
-   * @return a {@link org.dominokit.domino.ui.utils.DelayedTextInput.DelayedAction} object
+   * @return The action to execute when Enter key is pressed.
    */
   public DelayedAction getOnEnterAction() {
     return onEnterAction;
   }
 
   /**
-   * Setter for the field <code>onEnterAction</code>.
+   * Sets the action to be executed when the Enter key is pressed after the specified delay.
    *
-   * @param onEnterAction {@link org.dominokit.domino.ui.utils.DelayedTextInput.DelayedAction} that
-   *     will be executed when the user press Enter key
-   * @return same instance
+   * @param onEnterAction The action to execute when Enter key is pressed.
+   * @return This {@code DelayedTextInput} instance.
    */
   public DelayedTextInput setOnEnterAction(DelayedAction onEnterAction) {
     if (isNull(onEnterAction)) {
@@ -162,29 +174,27 @@ public class DelayedTextInput {
   }
 
   /**
-   * Getter for the field <code>delay</code>.
+   * Gets the current delay in milliseconds before triggering the action.
    *
-   * @return int delay in milli-seconds before executing the {@link
-   *     org.dominokit.domino.ui.utils.DelayedTextInput.DelayedAction} after the user stops typing
+   * @return The delay in milliseconds.
    */
   public int getDelay() {
     return delay;
   }
 
   /**
-   * Setter for the field <code>delay</code>.
+   * Sets the delay in milliseconds before triggering the action.
    *
-   * @param delay int delay in milli-seconds before executing the {@link
-   *     org.dominokit.domino.ui.utils.DelayedTextInput.DelayedAction} after the user stops typing
+   * @param delay The delay in milliseconds.
    */
   public void setDelay(int delay) {
     this.delay = delay;
   }
 
-  /** A function to implement the action to be taken for {@link DelayedTextInput} */
+  /** A functional interface representing an action to be executed after a delay. */
   @FunctionalInterface
   public interface DelayedAction {
-    /** */
+    /** Performs the action that should be executed after the delay. */
     void doAction();
   }
 }

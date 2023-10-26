@@ -13,6 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package org.dominokit.domino.ui.utils;
 
 import java.util.List;
@@ -22,34 +23,34 @@ import org.dominokit.domino.ui.forms.validations.ValidationResult;
 import org.gwtproject.editor.client.Editor;
 
 /**
- * Component that can be validated should implement this interface
+ * The {@code HasValidation} interface defines methods for performing validation on a target object.
  *
- * @param <T> the type of the component implementing this interface
+ * @param <T> The type of the target object to be validated.
  */
 public interface HasValidation<T> extends HasAutoValidation<T> {
 
   /**
-   * validate the component and fail-fast with first error
+   * Validates the target object and returns the validation result.
    *
-   * @return same implementing component
-   * @param target a T object
+   * @param target The target object to be validated.
+   * @return The validation result.
    */
   @Editor.Ignore
   ValidationResult validate(T target);
 
   /**
-   * getValidators.
+   * Gets the set of validators associated with this object.
    *
-   * @return a {@link java.util.Set} object
+   * @return The set of validators.
    */
   Set<Validator<T>> getValidators();
 
   /**
-   * Run all the validators and return all errors
+   * Validates the target object using all associated validators and returns a list of validation
+   * results. Clears any previous validation errors and invalidates the object if validation fails.
    *
-   * @return All {@link org.dominokit.domino.ui.forms.validations.ValidationResult}s, default to a
-   *     single validation result
-   * @param target a T object
+   * @param target The target object to be validated.
+   * @return A list of validation results.
    */
   @Editor.Ignore
   default List<ValidationResult> validateAll(T target) {
@@ -71,10 +72,10 @@ public interface HasValidation<T> extends HasAutoValidation<T> {
   }
 
   /**
-   * addValidator.
+   * Adds a validator to the set of associated validators.
    *
-   * @param validator {@link org.dominokit.domino.ui.utils.HasValidation.Validator}
-   * @return same implementing component
+   * @param validator The validator to be added.
+   * @return This object after adding the validator.
    */
   @Editor.Ignore
   default T addValidator(Validator<T> validator) {
@@ -83,10 +84,10 @@ public interface HasValidation<T> extends HasAutoValidation<T> {
   }
 
   /**
-   * removeValidator.
+   * Removes a validator from the set of associated validators.
    *
-   * @param validator {@link org.dominokit.domino.ui.utils.HasValidation.Validator}
-   * @return same implementing component
+   * @param validator The validator to be removed.
+   * @return This object after removing the validator.
    */
   @Editor.Ignore
   default T removeValidator(Validator<T> validator) {
@@ -95,11 +96,11 @@ public interface HasValidation<T> extends HasAutoValidation<T> {
   }
 
   /**
-   * addOrRemoveValidator.
+   * Adds or removes a validator based on the given state.
    *
-   * @param validator a {@link org.dominokit.domino.ui.utils.HasValidation.Validator} object
-   * @param state a boolean
-   * @return a T object
+   * @param validator The validator to be added or removed.
+   * @param state A boolean value indicating whether to add or remove the validator.
+   * @return This object after adding or removing the validator.
    */
   default T addOrRemoveValidator(Validator<T> validator, boolean state) {
     if (state) {
@@ -111,10 +112,10 @@ public interface HasValidation<T> extends HasAutoValidation<T> {
   }
 
   /**
-   * hasValidator.
+   * Checks if a validator is associated with this object.
    *
-   * @param validator {@link org.dominokit.domino.ui.utils.HasValidation.Validator}
-   * @return same implementing component
+   * @param validator The validator to be checked.
+   * @return {@code true} if the validator is associated; {@code false} otherwise.
    */
   @Editor.Ignore
   default boolean hasValidator(Validator<T> validator) {
@@ -122,105 +123,104 @@ public interface HasValidation<T> extends HasAutoValidation<T> {
   }
 
   /**
-   * Mark the component as invalid with the specified error message
+   * Marks the object as invalid with the specified error message.
    *
-   * @param errorMessage String
-   * @return same implementing component
+   * @param errorMessage The error message to be set.
+   * @return This object after marking it as invalid.
    */
   @Editor.Ignore
   T invalidate(String errorMessage);
 
   /**
-   * Mark the component as invalid with a list of error messages
+   * Marks the object as invalid with the specified list of error messages.
    *
-   * @param errorMessages {@link java.util.List} of String error messages
-   * @return same implementing component
+   * @param errorMessages The list of error messages to be set.
+   * @return This object after marking it as invalid.
    */
   @Editor.Ignore
   T invalidate(List<String> errorMessages);
 
-  /** @return a List of String error messages */
   /**
-   * getErrors.
+   * Gets the list of validation errors associated with this object.
    *
-   * @return a {@link java.util.List} object
+   * @return The list of validation errors.
    */
   @Editor.Ignore
   List<String> getErrors();
 
   /**
-   * Removes all error messages and mark the component as valid
+   * Clears any previous validation errors on this object.
    *
-   * @return same implementing component
+   * @return This object after clearing validation errors.
    */
   @Editor.Ignore
   T clearInvalid();
 
   /**
-   * Disable validations
+   * Pauses all validation on this object.
    *
-   * @return same component instance
+   * @return This object after pausing validation.
    */
   T pauseValidations();
 
   /**
-   * Enables validations
+   * Resumes validation on this object after pausing.
    *
-   * @return same component instance
+   * @return This object after resuming validation.
    */
   T resumeValidations();
 
   /**
-   * Disable/Enable validations
+   * Toggles the pause state of validation on this object.
    *
-   * @param toggle boolean, true to pause the changvalidations, false to enable them
-   * @return same component instance
+   * @param toggle {@code true} to pause validation, {@code false} to resume.
+   * @return This object after toggling the pause state of validation.
    */
   T togglePauseValidations(boolean toggle);
 
   /**
-   * isValidationsPaused.
+   * Checks if validation is currently paused on this object.
    *
-   * @return a boolean
+   * @return {@code true} if validation is paused; {@code false} otherwise.
    */
   boolean isValidationsPaused();
 
   /**
-   * Disable validations
+   * Pauses focus-related validations on this object.
    *
-   * @return same component instance
+   * @return This object after pausing focus-related validations.
    */
   T pauseFocusValidations();
 
   /**
-   * Enables validations
+   * Resumes focus-related validations on this object after pausing.
    *
-   * @return same component instance
+   * @return This object after resuming focus-related validations.
    */
   T resumeFocusValidations();
 
   /**
-   * Disable/Enable validations
+   * Toggles the pause state of focus-related validations on this object.
    *
-   * @param toggle boolean, true to pause the changvalidations, false to enable them
-   * @return same component instance
+   * @param toggle {@code true} to pause focus-related validations, {@code false} to resume.
+   * @return This object after toggling the pause state of focus-related validations.
    */
   T togglePauseFocusValidations(boolean toggle);
 
   /**
-   * isFocusValidationsPaused.
+   * Checks if focus-related validations are currently paused on this object.
    *
-   * @return a boolean
+   * @return {@code true} if focus-related validations are paused; {@code false} otherwise.
    */
   boolean isFocusValidationsPaused();
 
   /**
-   * Execute a handler while toggling the validations state, revert the state back to its original
-   * value after executing the handler
+   * Executes a specified action with the option to pause validations before and resume after the
+   * action.
    *
-   * @param toggle boolean, true to pause thevalidations, false to enable them
-   * @return same component instance
-   * @param handler a {@link org.dominokit.domino.ui.utils.Handler} object
+   * @param toggle {@code true} to pause validations, {@code false} to resume.
+   * @param handler The handler to execute the action.
+   * @return This object after executing the action.
    */
   default T withPauseValidationsToggle(boolean toggle, Handler<T> handler) {
     boolean oldState = isValidationsPaused();
@@ -234,12 +234,12 @@ public interface HasValidation<T> extends HasAutoValidation<T> {
   }
 
   /**
-   * Execute a handler while toggling the validations state, revert the state back to its original
-   * value after the AsyncHandler.onComplete is called
+   * Executes a specified action asynchronously with the option to pause validations before and
+   * resume after the action.
    *
-   * @param toggle boolean, true to pause the validations, false to enable them
-   * @return same component instance
-   * @param handler a {@link org.dominokit.domino.ui.utils.AsyncHandler} object
+   * @param toggle {@code true} to pause validations, {@code false} to resume.
+   * @param handler The asynchronous handler to execute the action.
+   * @return This object after executing the action.
    */
   default T withPauseValidationsToggleAsync(boolean toggle, AsyncHandler<T> handler) {
     boolean oldState = isValidationsPaused();
@@ -254,12 +254,12 @@ public interface HasValidation<T> extends HasAutoValidation<T> {
   }
 
   /**
-   * Execute a handler while toggling the validations state, revert the state back to its original
-   * value after executing the handler
+   * Executes a specified action with the option to pause focus-related validations before and
+   * resume after the action.
    *
-   * @param toggle boolean, true to pause thevalidations, false to enable them
-   * @return same component instance
-   * @param handler a {@link org.dominokit.domino.ui.utils.Handler} object
+   * @param toggle {@code true} to pause focus-related validations, {@code false} to resume.
+   * @param handler The handler to execute the action.
+   * @return This object after executing the action.
    */
   default T withPauseFocusValidationsToggle(boolean toggle, Handler<T> handler) {
     boolean oldState = isFocusValidationsPaused();
@@ -273,12 +273,12 @@ public interface HasValidation<T> extends HasAutoValidation<T> {
   }
 
   /**
-   * Execute a handler while toggling the validations state, revert the state back to its original
-   * value after the AsyncHandler.onComplete is called
+   * Executes a specified action asynchronously with the option to pause focus-related validations
+   * before and resume after the action.
    *
-   * @param toggle boolean, true to pause the validations, false to enable them
-   * @return same component instance
-   * @param handler a {@link org.dominokit.domino.ui.utils.AsyncHandler} object
+   * @param toggle {@code true} to pause focus-related validations, {@code false} to resume.
+   * @param handler The asynchronous handler to execute the action.
+   * @return This object after executing the action.
    */
   default T withPauseFocusValidationsToggleAsync(boolean toggle, AsyncHandler<T> handler) {
     boolean oldState = isFocusValidationsPaused();
@@ -292,10 +292,21 @@ public interface HasValidation<T> extends HasAutoValidation<T> {
     return (T) this;
   }
 
-  /** An interface to implement validators */
+  /**
+   * The {@code Validator} interface defines a method for performing validation on a component and
+   * returning a validation result.
+   *
+   * @param <T> The type of the component to be validated.
+   */
   @FunctionalInterface
   interface Validator<T> {
-    /** @return a {@link ValidationResult} */
+
+    /**
+     * Validates the component and returns the validation result.
+     *
+     * @param component The component to be validated.
+     * @return The validation result.
+     */
     ValidationResult isValid(T component);
   }
 }

@@ -13,6 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package org.dominokit.domino.ui.datatable.plugins.filter.header;
 
 import elemental2.dom.HTMLInputElement;
@@ -20,81 +21,97 @@ import org.dominokit.domino.ui.datatable.model.FilterTypes;
 import org.dominokit.domino.ui.forms.ShortBox;
 
 /**
- * Short number column header filter component that is rendered as a {@link
- * org.dominokit.domino.ui.forms.ShortBox} component
+ * The ShortHeaderFilter class provides a header filter for filtering short values.
  *
- * @param <T> type of data table records
+ * @param <T> The type of data in the DataTable.
  */
 public class ShortHeaderFilter<T> extends DelayedHeaderFilterInput<ShortBox, T, Short> {
 
   private ShortBox shortBox;
 
-  /** Default constructor */
+  /** Creates a new instance of ShortHeaderFilter with no placeholder. */
   public ShortHeaderFilter() {}
 
   /**
-   * Create and instance with custom placeholder
+   * Creates a new instance of ShortHeaderFilter with a custom placeholder.
    *
-   * @param placeholder String
+   * @param placeholder The custom placeholder text.
    */
   public ShortHeaderFilter(String placeholder) {
     super(placeholder);
   }
 
   /**
-   * create a new instance
+   * Creates a new instance of ShortHeaderFilter.
    *
-   * @param <T> a T class
-   * @return a {@link org.dominokit.domino.ui.datatable.plugins.filter.header.ShortHeaderFilter}
-   *     object
+   * @return The ShortHeaderFilter instance.
    */
   public static <T> ShortHeaderFilter<T> create() {
     return new ShortHeaderFilter<>();
   }
 
   /**
-   * creates a new instance with custom placeholder
+   * Creates a new instance of ShortHeaderFilter with a custom placeholder.
    *
-   * @param placeholder String
-   * @param <T> type of the data table records
-   * @return new instance
+   * @param placeholder The custom placeholder text.
+   * @return The ShortHeaderFilter instance.
    */
   public static <T> ShortHeaderFilter<T> create(String placeholder) {
     return new ShortHeaderFilter<>(placeholder);
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Gets the HTMLInputElement used in the header filter.
+   *
+   * @return The HTMLInputElement element.
+   */
   @Override
   protected HTMLInputElement getInputElement() {
     return shortBox.getInputElement().element();
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Creates the ShortBox value box used in the header filter.
+   *
+   * @return The ShortBox element.
+   */
   @Override
   protected ShortBox createValueBox() {
     this.shortBox = ShortBox.create();
     return this.shortBox;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Checks if the header filter input is empty.
+   *
+   * @return True if the input is empty, false otherwise.
+   */
   @Override
   protected boolean isEmpty() {
     return this.shortBox.isEmptyIgnoreSpaces();
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Gets the value of the header filter input as a string.
+   *
+   * @return The value of the input as a string.
+   */
   @Override
   protected String getValue() {
     return this.shortBox.getValue() + "";
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Gets the filter type of the header filter.
+   *
+   * @return The filter type.
+   */
   @Override
   protected FilterTypes getType() {
     return FilterTypes.SHORT;
   }
 
-  /** {@inheritDoc} */
+  /** Clears the header filter by setting the input value to an empty string. */
   @Override
   public void clear() {
     shortBox.withPausedChangeListeners(
@@ -104,11 +121,10 @@ public class ShortHeaderFilter<T> extends DelayedHeaderFilterInput<ShortBox, T, 
         });
   }
 
-  /** @return the {@link ShortBox} wrapped in this component */
   /**
-   * Getter for the field <code>shortBox</code>.
+   * Gets the ShortBox used in the header filter.
    *
-   * @return a {@link org.dominokit.domino.ui.forms.ShortBox} object
+   * @return The ShortBox element.
    */
   public ShortBox getShortBox() {
     return shortBox;

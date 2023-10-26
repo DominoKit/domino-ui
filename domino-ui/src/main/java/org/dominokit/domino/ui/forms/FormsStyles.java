@@ -17,102 +17,147 @@ package org.dominokit.domino.ui.forms;
 
 import org.dominokit.domino.ui.style.CssClass;
 
-/** FormsStyles interface. */
+/**
+ * The `FormsStyles` interface provides a set of CSS classes that can be used to style form elements
+ * and components within Domino UI forms.
+ */
 public interface FormsStyles {
 
-  /** Constant <code>dui_form_field</code> */
+  /** CSS class for a form field container. */
   CssClass dui_form_field = () -> "dui-form-field";
-  /** Constant <code>dui_field_label</code> */
+
+  /** CSS class for a field label. */
   CssClass dui_field_label = () -> "dui-field-label";
-  /** Constant <code>dui_form_label_float_left</code> */
+
+  /** CSS class for a floating left-aligned form label. */
   CssClass dui_form_label_float_left = () -> "dui-form-label-float-left";
-  /** Constant <code>dui_field_body</code> */
+
+  /** CSS class for the body of a form field. */
   CssClass dui_field_body = () -> "dui-form-field-body";
-  /** Constant <code>dui_input_wrapper</code> */
+
+  /** CSS class for the wrapper of an input element. */
   CssClass dui_input_wrapper = () -> "dui-field-input-wrapper";
-  /** Constant <code>dui_add_on</code> */
+
+  /** CSS class for an input add-on. */
   CssClass dui_add_on = () -> "dui-field-addon";
-  /** Constant <code>dui_add_on_left</code> */
+
+  /** CSS class for a left-aligned input add-on. */
   CssClass dui_add_on_left = () -> "dui-field-addon-left";
-  /** Constant <code>dui_add_on_right</code> */
+
+  /** CSS class for a right-aligned input add-on. */
   CssClass dui_add_on_right = () -> "dui-field-addon-right";
-  /** Constant <code>dui_add_on_mandatory</code> */
+
+  /** CSS class for a mandatory input add-on. */
   CssClass dui_add_on_mandatory = () -> "dui-field-addon-mandatory";
-  /** Constant <code>dui_field_prefix</code> */
+
+  /** CSS class for a prefix element within a form field. */
   CssClass dui_field_prefix = () -> "dui-field-prefix";
-  /** Constant <code>dui_field_postfix</code> */
+
+  /** CSS class for a postfix element within a form field. */
   CssClass dui_field_postfix = () -> "dui-field-postfix";
-  /** Constant <code>dui_field_input</code> */
+
+  /** CSS class for the main input element within a form field. */
   CssClass dui_field_input = () -> "dui-field-input";
-  /** Constant <code>du_field_counter</code> */
+
+  /** CSS class for a field counter. */
   CssClass du_field_counter = () -> "dui-field-counter";
-  /** Constant <code>dui_messages_wrapper</code> */
+
+  /** CSS class for the wrapper of messages within a form field. */
   CssClass dui_messages_wrapper = () -> "dui-field-messages-wrapper";
-  /** Constant <code>dui_field_helper</code> */
+
+  /** CSS class for a field helper text. */
   CssClass dui_field_helper = () -> "dui-field-helper";
-  /** Constant <code>dui_field_error</code> */
+
+  /** CSS class for a field error message. */
   CssClass dui_field_error = () -> "dui-field-error";
-  /** Constant <code>dui_field_required_indicator</code> */
+
+  /** CSS class for indicating a required field. */
   CssClass dui_field_required_indicator = () -> "dui-field-required-indicator";
-  /** Constant <code>dui_fixed_errors</code> */
+
+  /** CSS class for fixed error messages within a form field. */
   CssClass dui_fixed_errors = () -> "dui-form-messages-fixed";
-  /** Constant <code>dui_field_invalid</code> */
+
+  /** CSS class for marking a field as invalid. */
   CssClass dui_field_invalid = () -> "dui-field-invalid";
-  /** Constant <code>dui_hidden_input</code> */
+
+  /** CSS class for a hidden input element within a form field. */
   CssClass dui_hidden_input = () -> "dui-field-input-hidden";
 
-  /** Constant <code>dui_switch</code> */
+  /** CSS class for a form switch component. */
   CssClass dui_switch = () -> "dui-form-switch";
-  /** Constant <code>di_switch_off_label</code> */
+
+  /** CSS class for the label of an off-state switch. */
   CssClass di_switch_off_label = () -> "dui-switch-off-label";
-  /** Constant <code>dui_switch_on_label</code> */
+
+  /** CSS class for the label of an on-state switch. */
   CssClass dui_switch_on_label = () -> "dui-switch-on-label";
-  /** Constant <code>dui_switch_track</code> */
+
+  /** CSS class for the track of a switch component. */
   CssClass dui_switch_track = () -> "dui-switch-track";
-  /** Constant <code>dui_field_placeholder</code> */
+
+  /** CSS class for a form field placeholder. */
   CssClass dui_field_placeholder = () -> "dui-field-placeholder";
-  /** Constant <code>dui_form_select</code> */
+
+  /** CSS class for a form select component. */
   CssClass dui_form_select = () -> "dui-form-select";
-  /** Constant <code>dui_form_select_clear</code> */
+
+  /** CSS class for the clear button of a form select component. */
   CssClass dui_form_select_clear = () -> "dui-form-select-clear";
-  /** Constant <code>dui_form_select_drop_arrow</code> */
+
+  /** CSS class for the drop arrow of a form select component. */
   CssClass dui_form_select_drop_arrow = () -> "dui-form-select-drop-arrow";
-  /** Constant <code>dui_select_menu</code> */
+
+  /** CSS class for a select menu. */
   CssClass dui_select_menu = () -> "dui-select-menu";
 
-  /** Constant <code>dui_form_radio_group</code> */
+  /** CSS class for a radio button group within a form. */
   CssClass dui_form_radio_group = () -> "dui-form-radio-group";
-  /** Constant <code>dui_form_radio</code> */
+
+  /** CSS class for a radio button within a radio group. */
   CssClass dui_form_radio = () -> "dui-form-radio";
-  /** Constant <code>dui_form_radio_label</code> */
+
+  /** CSS class for a label of a radio button. */
   CssClass dui_form_radio_label = () -> "dui-radio-label";
-  /** Constant <code>dui_form_radio_note</code> */
+
+  /** CSS class for a note associated with a radio button. */
   CssClass dui_form_radio_note = () -> "dui-form-radio-note";
-  /** Constant <code>dui_form_radio_group_vertical</code> */
+
+  /** CSS class for a vertically aligned radio button group. */
   CssClass dui_form_radio_group_vertical = () -> "dui-form-radio-group-vertical";
-  /** Constant <code>dui_form_radio_group_gap</code> */
+
+  /** CSS class for specifying the gap between radio buttons within a group. */
   CssClass dui_form_radio_group_gap = () -> "dui-form-radio-gap";
 
-  /** Constant <code>dui_form_check_box</code> */
+  /** CSS class for a checkbox within a form. */
   CssClass dui_form_check_box = () -> "dui-form-checkbox";
-  /** Constant <code>dui_form_select_check_box</code> */
+
+  /** CSS class for a checkbox within a select component. */
   CssClass dui_form_select_check_box = () -> "dui-form-select-checkbox";
-  /** Constant <code>dui_check_box_label</code> */
+
+  /** CSS class for the label of a checkbox. */
   CssClass dui_check_box_label = () -> "dui-checkbox-label";
-  /** Constant <code>dui_check_box_indeterminate</code> */
+
+  /** CSS class for an indeterminate checkbox state. */
   CssClass dui_check_box_indeterminate = () -> "dui-form-checkbox-indeterminate";
-  /** Constant <code>dui_check_box_filled</code> */
+
+  /** CSS class for a filled checkbox. */
   CssClass dui_check_box_filled = () -> "dui-form-checkbox-filled";
-  /** Constant <code>dui_switch_grow</code> */
+
+  /** CSS class for expanding switch labels. */
   CssClass dui_switch_grow = () -> "dui-switch-grow";
-  /** Constant <code>dui_switch_condense</code> */
+
+  /** CSS class for condensing switch labels. */
   CssClass dui_switch_condense = () -> "dui-switch-condense-labels";
-  /** Constant <code>dui_form_tags_input</code> */
+
+  /** CSS class for a tags input component within a form. */
   CssClass dui_form_tags_input = () -> "dui-form-tags-input";
-  /** Constant <code>dui_form_text_area</code> */
+
+  /** CSS class for a text area within a form. */
   CssClass dui_form_text_area = () -> "dui-form-text-area";
-  /** Constant <code>dui_form_text_area_header</code> */
+
+  /** CSS class for the header of a text area. */
   CssClass dui_form_text_area_header = () -> "dui-form-text-area-header";
-  /** Constant <code>dui_form_text_area_gap</code> */
+
+  /** CSS class for specifying the gap within a text area. */
   CssClass dui_form_text_area_gap = () -> "dui-text-area-gap";
 }

@@ -17,22 +17,37 @@ package org.dominokit.domino.ui.elements;
 
 import elemental2.dom.HTMLElement;
 
-/** WBRElement class. */
+/**
+ * Represents an HTML <wbr> (Word Break Opportunity) element wrapper.
+ *
+ * <p>The HTML <wbr> element represents a word break opportunity—a position within text where the
+ * browser may optionally break a line, though its line-breaking rules would not otherwise create a
+ * break at that location. Example usage:
+ *
+ * <pre>{@code
+ * HTMLElement wbrElement = ...;  // Obtain a <wbr> element from somewhere
+ * WBRElement wbr = WBRElement.of(wbrElement);
+ * }</pre>
+ *
+ * @see <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/wbr">MDN Web Docs
+ *     (wbr)</a>
+ */
 public class WBRElement extends BaseElement<HTMLElement, WBRElement> {
+
   /**
-   * of.
+   * Creates a new {@link WBRElement} instance by wrapping the provided HTML <wbr> element.
    *
-   * @param e a {@link elemental2.dom.HTMLElement} object
-   * @return a {@link org.dominokit.domino.ui.elements.WBRElement} object
+   * @param e The HTML <wbr> element to wrap.
+   * @return A new {@link WBRElement} instance wrapping the provided element.
    */
   public static WBRElement of(HTMLElement e) {
     return new WBRElement(e);
   }
 
   /**
-   * Constructor for WBRElement.
+   * Constructs a {@link WBRElement} instance by wrapping the provided HTML <wbr> element.
    *
-   * @param element a {@link elemental2.dom.HTMLElement} object
+   * @param element The HTML <wbr> element to wrap.
    */
   public WBRElement(HTMLElement element) {
     super(element);

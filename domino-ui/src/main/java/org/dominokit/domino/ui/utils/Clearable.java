@@ -17,22 +17,26 @@ package org.dominokit.domino.ui.utils;
 
 import org.gwtproject.editor.client.Editor;
 
-/** Clearable interface. */
+/**
+ * An interface for objects that can be cleared, optionally with a silent flag.
+ *
+ * @param <T> The type of the object that can be cleared.
+ */
 public interface Clearable<T> {
 
   /**
-   * Clears the field value and trigger the change handlers
+   * Clears the object.
    *
-   * @return same implementing component instance
+   * @return The cleared object of type {@code T}.
    */
   @Editor.Ignore
   T clear();
 
   /**
-   * Clears the field value and only triggers the change handlers if silent flag is true
+   * Clears the object with an optional silent flag.
    *
-   * @param silent boolean, if false clear the value without triggering the change handlers
-   * @return same implementing component instance
+   * @param silent {@code true} to clear the object silently, {@code false} otherwise.
+   * @return The cleared object of type {@code T}.
    */
   @Editor.Ignore
   T clear(boolean silent);

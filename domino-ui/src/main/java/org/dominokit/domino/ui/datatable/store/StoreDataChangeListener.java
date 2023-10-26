@@ -16,16 +16,18 @@
 package org.dominokit.domino.ui.datatable.store;
 
 /**
- * A listener interface to handle {@link org.dominokit.domino.ui.datatable.store.DataChangedEvent}
+ * The {@code StoreDataChangeListener} functional interface defines a contract for handling data
+ * change events in a data store used by a data table.
  *
- * @param <T> the type of the data table records
+ * @param <T> The type of data representing the records in the data table.
  */
 @FunctionalInterface
 public interface StoreDataChangeListener<T> {
+
   /**
-   * Handles the data change event
+   * Called when the data in the data store changes.
    *
-   * @param dataChangedEvent {@link org.dominokit.domino.ui.datatable.store.DataChangedEvent}
+   * @param dataChangedEvent The event containing information about the data change.
    */
   void onDataChanged(DataChangedEvent<T> dataChangedEvent);
 }

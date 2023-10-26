@@ -32,7 +32,16 @@ import org.dominokit.domino.ui.utils.*;
 import org.gwtproject.i18n.shared.cldr.DateTimeFormatInfo;
 import org.gwtproject.i18n.shared.cldr.impl.DateTimeFormatInfo_factory;
 
-/** DateBox class. */
+/**
+ * DateBox is a custom form field for date input with various configuration options. It utilizes a
+ * popover with a calendar picker for selecting dates.
+ *
+ * <p>Usage example:
+ *
+ * <pre>
+ * DateBox dateBox = DateBox.create("Birth date);
+ * </pre>
+ */
 public class DateBox extends TextInputFormField<DateBox, HTMLInputElement, Date>
     implements HasLabels<CalendarLabels>, CalendarViewListener {
 
@@ -47,70 +56,69 @@ public class DateBox extends TextInputFormField<DateBox, HTMLInputElement, Date>
   private String pattern;
   private boolean parseStrict;
 
-  /** Constructor for DateBox. */
+  /** Creates a new DateBox with the current date and default configuration. */
   public DateBox() {
     this(new Date(), new CalendarInitConfig());
   }
 
   /**
-   * Constructor for DateBox.
+   * Creates a new DateBox with a label and the current date using default configuration.
    *
-   * @param label a {@link java.lang.String} object
+   * @param label The label for the DateBox
    */
   public DateBox(String label) {
     this(label, new Date(), new CalendarInitConfig());
   }
 
   /**
-   * Constructor for DateBox.
+   * Creates a new DateBox with the specified date using default configuration.
    *
-   * @param date a {@link java.util.Date} object
+   * @param date The initial date value for the DateBox
    */
   public DateBox(Date date) {
     this(date, new CalendarInitConfig());
   }
 
   /**
-   * Constructor for DateBox.
+   * Creates a new DateBox with a label and the specified date using default configuration.
    *
-   * @param label a {@link java.lang.String} object
-   * @param date a {@link java.util.Date} object
+   * @param label The label for the DateBox
+   * @param date The initial date value for the DateBox
    */
   public DateBox(String label, Date date) {
     this(label, date, new CalendarInitConfig());
   }
 
   /**
-   * Constructor for DateBox.
+   * Creates a new DateBox with the specified date and calendar initialization configuration.
    *
-   * @param date a {@link java.util.Date} object
-   * @param calendarInitConfig a {@link org.dominokit.domino.ui.datepicker.CalendarInitConfig}
-   *     object
+   * @param date The initial date value for the DateBox
+   * @param calendarInitConfig The calendar initialization configuration
    */
   public DateBox(Date date, CalendarInitConfig calendarInitConfig) {
     this(date, DateTimeFormatInfo_factory.create(), calendarInitConfig);
   }
 
   /**
-   * Constructor for DateBox.
+   * Creates a new DateBox with a label, the specified date, and calendar initialization
+   * configuration.
    *
-   * @param label a {@link java.lang.String} object
-   * @param date a {@link java.util.Date} object
-   * @param calendarInitConfig a {@link org.dominokit.domino.ui.datepicker.CalendarInitConfig}
-   *     object
+   * @param label The label for the DateBox
+   * @param date The initial date value for the DateBox
+   * @param calendarInitConfig The calendar initialization configuration
    */
   public DateBox(String label, Date date, CalendarInitConfig calendarInitConfig) {
     this(label, date, DateTimeFormatInfo_factory.create(), calendarInitConfig);
   }
 
   /**
-   * Constructor for DateBox.
+   * Creates a new DateBox with a label, the specified date, date-time format information, and
+   * calendar initialization configuration.
    *
-   * @param label a {@link java.lang.String} object
-   * @param date a {@link java.util.Date} object
-   * @param dateTimeFormatInfo a {@link org.gwtproject.i18n.shared.cldr.DateTimeFormatInfo} object
-   * @param calendarInitConfig a {@link org.dominokit.domino.ui.datepicker.CalendarInitConfig}
-   *     object
+   * @param label The label for the DateBox
+   * @param date The initial date value for the DateBox
+   * @param dateTimeFormatInfo The date-time format information
+   * @param calendarInitConfig The calendar initialization configuration
    */
   public DateBox(
       String label,
@@ -122,12 +130,12 @@ public class DateBox extends TextInputFormField<DateBox, HTMLInputElement, Date>
   }
 
   /**
-   * Constructor for DateBox.
+   * Creates a new DateBox with the specified date, date-time format information, and calendar
+   * initialization configuration.
    *
-   * @param date a {@link java.util.Date} object
-   * @param dateTimeFormatInfo a {@link org.gwtproject.i18n.shared.cldr.DateTimeFormatInfo} object
-   * @param calendarInitConfig a {@link org.dominokit.domino.ui.datepicker.CalendarInitConfig}
-   *     object
+   * @param date The initial date value for the DateBox
+   * @param dateTimeFormatInfo The date-time format information
+   * @param calendarInitConfig The calendar initialization configuration
    */
   public DateBox(
       Date date, DateTimeFormatInfo dateTimeFormatInfo, CalendarInitConfig calendarInitConfig) {
@@ -213,78 +221,77 @@ public class DateBox extends TextInputFormField<DateBox, HTMLInputElement, Date>
   }
 
   /**
-   * create.
+   * Creates a new DateBox with the current date and default configuration.
    *
-   * @return a {@link org.dominokit.domino.ui.forms.DateBox} object
+   * @return A new DateBox instance
    */
   public static DateBox create() {
     return new DateBox(new Date(), new CalendarInitConfig());
   }
 
   /**
-   * create.
+   * Creates a new DateBox with a label and the current date using default configuration.
    *
-   * @param label a {@link java.lang.String} object
-   * @return a {@link org.dominokit.domino.ui.forms.DateBox} object
+   * @param label The label for the DateBox
+   * @return A new DateBox instance
    */
   public static DateBox create(String label) {
     return new DateBox(label, new Date(), new CalendarInitConfig());
   }
 
   /**
-   * create.
+   * Creates a new DateBox with the specified date using default configuration.
    *
-   * @param date a {@link java.util.Date} object
-   * @return a {@link org.dominokit.domino.ui.forms.DateBox} object
+   * @param date The initial date value for the DateBox
+   * @return A new DateBox instance
    */
   public static DateBox create(Date date) {
     return new DateBox(date, new CalendarInitConfig());
   }
 
   /**
-   * create.
+   * Creates a new DateBox with a label and the specified date using default configuration.
    *
-   * @param label a {@link java.lang.String} object
-   * @param date a {@link java.util.Date} object
-   * @return a {@link org.dominokit.domino.ui.forms.DateBox} object
+   * @param label The label for the DateBox
+   * @param date The initial date value for the DateBox
+   * @return A new DateBox instance
    */
   public static DateBox create(String label, Date date) {
     return new DateBox(label, date, new CalendarInitConfig());
   }
 
   /**
-   * create.
+   * Creates a new DateBox with the specified date and calendar initialization configuration.
    *
-   * @param date a {@link java.util.Date} object
-   * @param calendarInitConfig a {@link org.dominokit.domino.ui.datepicker.CalendarInitConfig}
-   *     object
-   * @return a {@link org.dominokit.domino.ui.forms.DateBox} object
+   * @param date The initial date value for the DateBox
+   * @param calendarInitConfig The calendar initialization configuration
+   * @return A new DateBox instance
    */
   public static DateBox create(Date date, CalendarInitConfig calendarInitConfig) {
     return new DateBox(date, DateTimeFormatInfo_factory.create(), calendarInitConfig);
   }
 
   /**
-   * create.
+   * Creates a new DateBox with a label, the specified date, and calendar initialization
+   * configuration.
    *
-   * @param label a {@link java.lang.String} object
-   * @param date a {@link java.util.Date} object
-   * @param calendarInitConfig a {@link org.dominokit.domino.ui.datepicker.CalendarInitConfig}
-   *     object
-   * @return a {@link org.dominokit.domino.ui.forms.DateBox} object
+   * @param label The label for the DateBox
+   * @param date The initial date value for the DateBox
+   * @param calendarInitConfig The calendar initialization configuration
+   * @return A new DateBox instance
    */
   public static DateBox create(String label, Date date, CalendarInitConfig calendarInitConfig) {
     return new DateBox(label, date, DateTimeFormatInfo_factory.create(), calendarInitConfig);
   }
 
   /**
-   * create.
+   * Creates a new DateBox with a specified date, date-time format information, and calendar
+   * initialization configuration.
    *
-   * @param date a {@link java.util.Date} object
-   * @param dateTimeFormatInfo a {@link org.gwtproject.i18n.shared.cldr.DateTimeFormatInfo} object
-   * @param calendarInitConfig a {@link org.dominokit.domino.ui.datepicker.CalendarInitConfig}
-   *     object
-   * @return a {@link org.dominokit.domino.ui.forms.DateBox} object
+   * @param date The initial date value for the DateBox
+   * @param dateTimeFormatInfo The date-time format information
+   * @param calendarInitConfig The calendar initialization configuration
+   * @return A new DateBox instance
    */
   public static DateBox create(
       Date date, DateTimeFormatInfo dateTimeFormatInfo, CalendarInitConfig calendarInitConfig) {
@@ -292,35 +299,35 @@ public class DateBox extends TextInputFormField<DateBox, HTMLInputElement, Date>
   }
 
   /**
-   * create.
+   * Creates a new DateBox with default date-time format information and the current date.
    *
-   * @param dateTimeFormatInfo a {@link org.gwtproject.i18n.shared.cldr.DateTimeFormatInfo} object
-   * @return a {@link org.dominokit.domino.ui.forms.DateBox} object
+   * @param dateTimeFormatInfo The date-time format information
+   * @return A new DateBox instance
    */
   public static DateBox create(DateTimeFormatInfo dateTimeFormatInfo) {
     return new DateBox(new Date(), dateTimeFormatInfo, new CalendarInitConfig());
   }
 
   /**
-   * create.
+   * Creates a new DateBox with a label, default date-time format information, and the current date.
    *
-   * @param label a {@link java.lang.String} object
-   * @param dateTimeFormatInfo a {@link org.gwtproject.i18n.shared.cldr.DateTimeFormatInfo} object
-   * @return a {@link org.dominokit.domino.ui.forms.DateBox} object
+   * @param label The label for the DateBox
+   * @param dateTimeFormatInfo The date-time format information
+   * @return A new DateBox instance
    */
   public static DateBox create(String label, DateTimeFormatInfo dateTimeFormatInfo) {
     return new DateBox(label, new Date(), dateTimeFormatInfo, new CalendarInitConfig());
   }
 
   /**
-   * create.
+   * Creates a new DateBox with a label, specified date, date-time format information, and calendar
+   * initialization configuration.
    *
-   * @param label a {@link java.lang.String} object
-   * @param date a {@link java.util.Date} object
-   * @param dateTimeFormatInfo a {@link org.gwtproject.i18n.shared.cldr.DateTimeFormatInfo} object
-   * @param calendarInitConfig a {@link org.dominokit.domino.ui.datepicker.CalendarInitConfig}
-   *     object
-   * @return a {@link org.dominokit.domino.ui.forms.DateBox} object
+   * @param label The label for the DateBox
+   * @param date The initial date value for the DateBox
+   * @param dateTimeFormatInfo The date-time format information
+   * @param calendarInitConfig The calendar initialization configuration
+   * @return A new DateBox instance
    */
   public static DateBox create(
       String label,
@@ -330,6 +337,7 @@ public class DateBox extends TextInputFormField<DateBox, HTMLInputElement, Date>
     return new DateBox(label, date, dateTimeFormatInfo, calendarInitConfig);
   }
 
+  /** Opens the popover associated with this DateBox if it is enabled and not read-only. */
   private void doOpen() {
     if (isEnabled() && !isReadOnly()) {
       popover.open();
@@ -337,9 +345,9 @@ public class DateBox extends TextInputFormField<DateBox, HTMLInputElement, Date>
   }
 
   /**
-   * close.
+   * Closes the popover associated with this DateBox.
    *
-   * @return a {@link org.dominokit.domino.ui.forms.DateBox} object
+   * @return This DateBox instance with the popover closed
    */
   public DateBox close() {
     popover.close();
@@ -347,10 +355,19 @@ public class DateBox extends TextInputFormField<DateBox, HTMLInputElement, Date>
   }
 
   /**
-   * Sets the {@link org.dominokit.domino.ui.datepicker.Pattern} of the field
+   * Sets the date pattern for formatting the displayed date value based on a predefined pattern.
    *
-   * @param pattern the new {@link org.dominokit.domino.ui.datepicker.Pattern}
-   * @return same instance
+   * <p>The predefined patterns are:
+   *
+   * <ul>
+   *   <li>FULL: Full date pattern
+   *   <li>LONG: Long date pattern
+   *   <li>MEDIUM: Medium date pattern
+   *   <li>SHORT: Short date pattern
+   * </ul>
+   *
+   * @param pattern The predefined pattern for formatting the date value
+   * @return This DateBox instance with the new date pattern applied
    */
   public DateBox setPattern(Pattern pattern) {
     switch (pattern) {
@@ -368,15 +385,15 @@ public class DateBox extends TextInputFormField<DateBox, HTMLInputElement, Date>
   }
 
   /**
-   * {@inheritDoc}
+   * Sets the custom date pattern for formatting the displayed date value.
    *
-   * <p>Sets a custom pattern.
+   * <p>The date pattern should follow the conventions of the date format used in the {@link
+   * DateTimeFormatInfo} associated with this DateBox.
    *
-   * <p>More information of defining the pattern can be found under <a
-   *
-   * <p>href="http://www.gwtproject.org/javadoc/latest/com/google/gwt/i18n/client/DateTimeFormat.html">GWT
-   * DateTimeFormat</a>
+   * @param pattern The custom date pattern (e.g., "MM/dd/yyyy")
+   * @return This DateBox instance with the new custom date pattern applied
    */
+  @Override
   public DateBox setPattern(String pattern) {
     if (!Objects.equals(this.pattern, pattern)) {
       this.pattern = pattern;
@@ -395,7 +412,6 @@ public class DateBox extends TextInputFormField<DateBox, HTMLInputElement, Date>
     return formatter.format(this.pattern, dateTimeFormatInfo, date);
   }
 
-  /** {@inheritDoc} */
   @Override
   protected DominoElement<HTMLInputElement> createInputElement(String type) {
     return input(type).addCss(dui_field_input).toDominoElement();
@@ -410,10 +426,10 @@ public class DateBox extends TextInputFormField<DateBox, HTMLInputElement, Date>
   }
 
   /**
-   * setPopoverPosition.
+   * Sets the position of the popover when it opens.
    *
-   * @param position a {@link org.dominokit.domino.ui.menu.direction.DropDirection} object
-   * @return a {@link org.dominokit.domino.ui.forms.DateBox} object
+   * @param position The desired position of the popover
+   * @return This DateBox instance with the popover position set
    */
   public DateBox setPopoverPosition(DropDirection position) {
     if (nonNull(position)) {
@@ -423,11 +439,12 @@ public class DateBox extends TextInputFormField<DateBox, HTMLInputElement, Date>
   }
 
   /**
-   * withOpenOnFocusToggleListeners.
+   * Adds a listener to toggle the "openOnFocus" behavior of this DateBox when it receives focus.
    *
-   * @param toggle a boolean
-   * @param handler a {@link org.dominokit.domino.ui.utils.Handler} object
-   * @return a {@link org.dominokit.domino.ui.forms.DateBox} object
+   * @param toggle If true, the "openOnFocus" behavior will be enabled; if false, it will be
+   *     disabled.
+   * @param handler A handler that will be invoked when the toggle state changes.
+   * @return This DateBox instance with the listener added.
    */
   public DateBox withOpenOnFocusToggleListeners(boolean toggle, Handler<DateBox> handler) {
     boolean oldState = this.openOnFocus;
@@ -441,11 +458,14 @@ public class DateBox extends TextInputFormField<DateBox, HTMLInputElement, Date>
   }
 
   /**
-   * withPausedOpenOnFocusListeners.
+   * Adds a listener to toggle the "openOnFocus" behavior of this DateBox when it receives focus,
+   * with the option to pause the toggle state temporarily.
    *
-   * @param toggle a boolean
-   * @param handler a {@link org.dominokit.domino.ui.utils.AsyncHandler} object
-   * @return a {@link org.dominokit.domino.ui.forms.DateBox} object
+   * @param toggle If true, the "openOnFocus" behavior will be enabled; if false, it will be
+   *     disabled.
+   * @param handler An asynchronous handler that will be invoked when the toggle state changes.
+   * @return This DateBox instance with the listener added.
+   * @throws Exception If an exception occurs during the asynchronous handler execution.
    */
   public DateBox withPausedOpenOnFocusListeners(boolean toggle, AsyncHandler<DateBox> handler) {
     boolean oldState = this.openOnFocus;
@@ -470,7 +490,6 @@ public class DateBox extends TextInputFormField<DateBox, HTMLInputElement, Date>
     return this;
   }
 
-  /** {@inheritDoc} */
   @Override
   protected void doSetValue(Date value) {
     this.value = value;
@@ -491,25 +510,42 @@ public class DateBox extends TextInputFormField<DateBox, HTMLInputElement, Date>
         getFormatted(this.value, this.calendar.getDateTimeFormatInfo());
   }
 
-  /** {@inheritDoc} */
+  /**
+   * {@inheritDoc} Returns the string value of the underlying input element.
+   *
+   * @return The string value of the input element.
+   */
   @Override
   public String getStringValue() {
     return getInputElement().element().value;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * {@inheritDoc} Returns the type of the input element, which is always "text" for a DateBox.
+   *
+   * @return The string "text."
+   */
   @Override
   public String getType() {
     return "text";
   }
 
-  /** {@inheritDoc} */
+  /**
+   * {@inheritDoc} Returns the selected date value of this DateBox.
+   *
+   * @return The selected date value.
+   */
   @Override
   public Date getValue() {
     return this.value;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * {@inheritDoc} Called when the date selection in the calendar view changes. It clears any
+   * validation errors, sets the selected date value, and closes the popover.
+   *
+   * @param date The selected date.
+   */
   @Override
   public void onDateSelectionChanged(Date date) {
     if (!isDisabled() && !isReadOnly()) {
@@ -522,45 +558,50 @@ public class DateBox extends TextInputFormField<DateBox, HTMLInputElement, Date>
   }
 
   /**
-   * getDateTimeFormat.
+   * Retrieves the date-time format information associated with this DateBox.
    *
-   * @return a {@link org.gwtproject.i18n.shared.cldr.DateTimeFormatInfo} object
+   * @return The date-time format information
    */
   public DateTimeFormatInfo getDateTimeFormat() {
     return this.calendar.getDateTimeFormatInfo();
   }
 
   /**
-   * setDateTimeFormat.
+   * Sets the date-time format information for this DateBox.
    *
-   * @param dateTimeFormatInfo a {@link org.gwtproject.i18n.shared.cldr.DateTimeFormatInfo} object
-   * @return a {@link org.dominokit.domino.ui.forms.DateBox} object
+   * @param dateTimeFormatInfo The date-time format information to set
+   * @return This DateBox instance with the new date-time format information
    */
   public DateBox setDateTimeFormat(DateTimeFormatInfo dateTimeFormatInfo) {
     this.calendar.setDateTimeFormatInfo(dateTimeFormatInfo);
     return this;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * {@inheritDoc} Called when the date-time format information is changed. It updates the string
+   * value of the input element according to the new date-time format information.
+   *
+   * @param dateTimeFormatInfo The new date-time format information.
+   */
   @Override
   public void onDateTimeFormatInfoChanged(DateTimeFormatInfo dateTimeFormatInfo) {
     updateStringValue();
   }
 
   /**
-   * isOpenOnFocus.
+   * Checks if the DateBox is set to open the popover on focus.
    *
-   * @return a boolean
+   * @return True if the popover opens on focus, false otherwise
    */
   public boolean isOpenOnFocus() {
     return openOnFocus;
   }
 
   /**
-   * Setter for the field <code>openOnFocus</code>.
+   * Sets whether the DateBox should open the popover on focus.
    *
-   * @param openOnFocus a boolean
-   * @return a {@link org.dominokit.domino.ui.forms.DateBox} object
+   * @param openOnFocus True to open the popover on focus, false to disable
+   * @return This DateBox instance with the updated setting
    */
   public DateBox setOpenOnFocus(boolean openOnFocus) {
     this.openOnFocus = openOnFocus;
@@ -568,19 +609,19 @@ public class DateBox extends TextInputFormField<DateBox, HTMLInputElement, Date>
   }
 
   /**
-   * isParseStrict.
+   * Checks if the DateBox is set to parse date values strictly.
    *
-   * @return a boolean
+   * @return True if strict date parsing is enabled, false otherwise
    */
   public boolean isParseStrict() {
     return parseStrict;
   }
 
   /**
-   * Setter for the field <code>parseStrict</code>.
+   * Sets whether the DateBox should parse date values strictly.
    *
-   * @param parseStrict a boolean
-   * @return a {@link org.dominokit.domino.ui.forms.DateBox} object
+   * @param parseStrict True to enable strict date parsing, false to disable
+   * @return This DateBox instance with the updated setting
    */
   public DateBox setParseStrict(boolean parseStrict) {
     this.parseStrict = parseStrict;
@@ -588,19 +629,19 @@ public class DateBox extends TextInputFormField<DateBox, HTMLInputElement, Date>
   }
 
   /**
-   * isOpenOnClick.
+   * Checks if the DateBox is set to open the popover on click.
    *
-   * @return a boolean
+   * @return True if the popover opens on click, false otherwise
    */
   public boolean isOpenOnClick() {
     return openOnClick;
   }
 
   /**
-   * Setter for the field <code>openOnClick</code>.
+   * Sets whether the DateBox should open the popover on click.
    *
-   * @param openOnClick a boolean
-   * @return a {@link org.dominokit.domino.ui.forms.DateBox} object
+   * @param openOnClick True to open the popover on click, false to disable
+   * @return This DateBox instance with the updated setting
    */
   public DateBox setOpenOnClick(boolean openOnClick) {
     this.openOnClick = openOnClick;
@@ -609,10 +650,10 @@ public class DateBox extends TextInputFormField<DateBox, HTMLInputElement, Date>
   }
 
   /**
-   * withCalendar.
+   * Provides access to the DateBox's calendar for additional customization.
    *
-   * @param handler a {@link org.dominokit.domino.ui.utils.ChildHandler} object
-   * @return a {@link org.dominokit.domino.ui.forms.DateBox} object
+   * @param handler The handler to apply to the calendar
+   * @return This DateBox instance with the calendar configured
    */
   public DateBox withCalendar(ChildHandler<DateBox, Calendar> handler) {
     handler.apply(this, this.calendar);
@@ -620,10 +661,10 @@ public class DateBox extends TextInputFormField<DateBox, HTMLInputElement, Date>
   }
 
   /**
-   * withPopover.
+   * Provides access to the DateBox's popover for additional customization.
    *
-   * @param handler a {@link org.dominokit.domino.ui.utils.ChildHandler} object
-   * @return a {@link org.dominokit.domino.ui.forms.DateBox} object
+   * @param handler The handler to apply to the popover
+   * @return This DateBox instance with the popover configured
    */
   public DateBox withPopover(ChildHandler<DateBox, Popover> handler) {
     handler.apply(this, this.popover);

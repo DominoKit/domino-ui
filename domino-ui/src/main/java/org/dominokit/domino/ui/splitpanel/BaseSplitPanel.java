@@ -23,10 +23,20 @@ import org.dominokit.domino.ui.utils.BaseDominoElement;
 import org.dominokit.domino.ui.utils.ChildHandler;
 
 /**
- * Abstract implementation for a split panel
+ * Represents the base class for split panels which allow a UI to be divided into multiple panels
+ * with resize capabilities.
  *
- * @param <T> the type of the split panel
- * @param <S> the type of the splitter
+ * <p>Usage example:
+ *
+ * <pre>
+ * BaseSplitPanel splitPanel = new YourConcreteSplitPanel();
+ * splitPanel.appendChild(new YourSplitPanelType());
+ * // ... additional configurations
+ * </pre>
+ *
+ * @param <T> The specific type of the split panel
+ * @param <S> The specific type of the splitter
+ * @see BaseDominoElement
  */
 abstract class BaseSplitPanel<T extends BaseSplitPanel<T, S>, S extends BaseSplitter>
     extends BaseDominoElement<HTMLDivElement, T> implements HasSize, HasSplitPanels, SplitStyles {
@@ -38,13 +48,17 @@ abstract class BaseSplitPanel<T extends BaseSplitPanel<T, S>, S extends BaseSpli
   private double firstSize = 0;
   private double secondSize = 0;
 
-  /** Constructor for BaseSplitPanel. */
+  /** Creates a new base split panel. */
   public BaseSplitPanel() {
     element = div().addCss(dui_split_layout);
     init((T) this);
     element.onAttached(mutationRecord -> updatePanelsSize());
   }
 
+  /**
+   * Updates the sizes of the panels based on the current configuration. It calculates the required
+   * size for each panel taking into account the splitter size share and sets the appropriate size.
+   */
   private void updatePanelsSize() {
     double mainPanelSize = getSize();
     String splitterPanelShare = getSplittersSizeShare();
@@ -57,23 +71,43 @@ abstract class BaseSplitPanel<T extends BaseSplitPanel<T, S>, S extends BaseSpli
   }
 
   /**
-   * getSplittersSizeShare.
+   * Calculates and returns the size share for the splitters based on the number of panels. The
+   * calculation uses the CSS variable for the splitter size to determine how much space the
+   * splitters occupy.
    *
-   * @return a {@link java.lang.String} object
+   * @return the calculated size share in CSS format.
    */
   public String getSplittersSizeShare() {
     int n = panels.size();
     return "(var(--dui-split-layout-splitter-size)*" + (n - 1) + "/" + n + ")";
   }
 
-  /** {@inheritDoc} */
+  /**
+   * {@inheritDoc}
+   *
+   * <p>This implementation captures the starting sizes of the two provided panels which will be
+   * resized.
+   *
+   * @param first The first panel involved in the resizing.
+   * @param second The second panel involved in the resizing.
+   */
   @Override
   public void onResizeStart(SplitPanel first, SplitPanel second) {
     this.firstSize = Math.round(getPanelSize(first));
     this.secondSize = Math.round(getPanelSize(second));
   }
 
-  /** {@inheritDoc} */
+  /**
+   * {@inheritDoc}
+   *
+   * <p>This implementation performs the resizing of the two provided panels based on the specified
+   * size difference. The resizing is subject to constraints such as minimum and maximum sizes or
+   * percentages.
+   *
+   * @param first The first panel to be resized.
+   * @param second The second panel to be resized.
+   * @param sizeDiff The size difference used for resizing.
+   */
   @Override
   public void resizePanels(SplitPanel first, SplitPanel second, double sizeDiff) {
 
@@ -113,26 +147,27 @@ abstract class BaseSplitPanel<T extends BaseSplitPanel<T, S>, S extends BaseSpli
   }
 
   /**
-   * getPanelSize.
+   * Retrieves the size of the provided panel. The actual implementation will be provided by
+   * subclasses.
    *
-   * @param panel a {@link org.dominokit.domino.ui.splitpanel.SplitPanel} object
-   * @return a double
+   * @param panel The panel whose size is to be retrieved.
+   * @return the size of the panel.
    */
   protected abstract double getPanelSize(SplitPanel panel);
 
   /**
-   * setPanelSize.
+   * Sets the size of the provided panel. The actual implementation will be provided by subclasses.
    *
-   * @param panel a {@link org.dominokit.domino.ui.splitpanel.SplitPanel} object
-   * @param size a {@link java.lang.String} object
+   * @param panel The panel whose size is to be set.
+   * @param size The new size to be set, in CSS format.
    */
   protected abstract void setPanelSize(SplitPanel panel, String size);
 
   /**
-   * Adds a new panel
+   * Appends the given {@link SplitPanel} to the current split panel layout.
    *
-   * @param panel the {@link org.dominokit.domino.ui.splitpanel.SplitPanel} to add
-   * @return same instance
+   * @param panel the panel to append
+   * @return the current instance of {@link T}
    */
   public T appendChild(SplitPanel panel) {
     panels.add(panel);
@@ -154,21 +189,32 @@ abstract class BaseSplitPanel<T extends BaseSplitPanel<T, S>, S extends BaseSpli
   }
 
   /**
-   * createSplitter.
+   * Creates and returns a splitter element used between two panels. This method is intended to be
+   * implemented by subclasses to provide a concrete representation and behavior for the splitter
+   * based on the context in which it will be used.
    *
-   * @param first a {@link org.dominokit.domino.ui.splitpanel.SplitPanel} object
-   * @param second a {@link org.dominokit.domino.ui.splitpanel.SplitPanel} object
-   * @param mainPanel a {@link org.dominokit.domino.ui.splitpanel.HasSplitPanels} object
-   * @return a S object
+   * <p>Example Usage:
+   *
+   * <pre>
+   * @Override
+   * protected MySplitter createSplitter(SplitPanel first, SplitPanel second, HasSplitPanels mainPanel) {
+   *     return new MySplitter(first, second, mainPanel);
+   * }
+   * </pre>
+   *
+   * @param first The first panel that the splitter will be between.
+   * @param second The second panel that the splitter will be between.
+   * @param mainPanel The main panel in which both panels and the splitter reside.
+   * @return the created splitter element.
    */
   protected abstract S createSplitter(
       SplitPanel first, SplitPanel second, HasSplitPanels mainPanel);
 
   /**
-   * withSplitters.
+   * Allows customization of the splitters contained within this split panel.
    *
-   * @param handler a {@link org.dominokit.domino.ui.utils.ChildHandler} object
-   * @return a T object
+   * @param handler the handler to manipulate the splitters
+   * @return the current instance of {@link T}
    */
   public T withSplitters(ChildHandler<T, List<S>> handler) {
     handler.apply((T) this, splitters);

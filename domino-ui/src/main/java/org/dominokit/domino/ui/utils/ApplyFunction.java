@@ -15,9 +15,12 @@
  */
 package org.dominokit.domino.ui.utils;
 
-/** ApplyFunction interface. */
+/**
+ * The {@code ApplyFunction} functional interface defines a single method, {@link #apply()}, that
+ * represents an action to be applied.
+ */
 @FunctionalInterface
 public interface ApplyFunction {
-  /** apply. */
+  /** Applies the action defined by this functional interface. */
   void apply();
 }

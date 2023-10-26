@@ -15,48 +15,62 @@
  */
 package org.dominokit.domino.ui.i18n;
 
-/** TimePickerLabels interface. */
+/**
+ * The {@code TimePickerLabels} interface provides labels for time picker components and messages.
+ *
+ * <p>Usage Example:
+ *
+ * <pre><code>
+ * TimePicker timePicker = new TimePicker();
+ * timePicker.setHourLabel(timePickerLabels.hour());
+ * timePicker.setMinuteLabel(timePickerLabels.minute());
+ * timePicker.setSecondLabel(timePickerLabels.seconds());
+ * </code></pre>
+ *
+ * @see Labels
+ */
 public interface TimePickerLabels extends Labels {
+
   /**
-   * hour.
+   * Gets the label for the "Hour" field in the time picker.
    *
-   * @return a {@link java.lang.String} object
+   * @return The label for the "Hour" field.
    */
   default String hour() {
     return "Hour";
   }
 
   /**
-   * minute.
+   * Gets the label for the "Minutes" field in the time picker.
    *
-   * @return a {@link java.lang.String} object
+   * @return The label for the "Minutes" field.
    */
   default String minute() {
     return "Minutes";
   }
 
   /**
-   * seconds.
+   * Gets the label for the "Seconds" field in the time picker.
    *
-   * @return a {@link java.lang.String} object
+   * @return The label for the "Seconds" field.
    */
   default String seconds() {
     return "Seconds";
   }
 
   /**
-   * ampm.
+   * Gets the label for the "AM/PM" field in the time picker.
    *
-   * @return a {@link java.lang.String} object
+   * @return The label for the "AM/PM" field.
    */
   default String ampm() {
     return "AM/PM";
   }
 
   /**
-   * timePickerInvalidTimeFormat.
+   * Gets the error message for an invalid time format in the time picker.
    *
-   * @return a {@link java.lang.String} object
+   * @return The error message for an invalid time format.
    */
   default String timePickerInvalidTimeFormat() {
     return "Invalid time format";

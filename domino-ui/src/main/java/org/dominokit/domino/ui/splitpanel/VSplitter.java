@@ -18,30 +18,65 @@ package org.dominokit.domino.ui.splitpanel;
 import elemental2.dom.MouseEvent;
 import elemental2.dom.TouchEvent;
 
+/**
+ * Represents a vertical splitter used to resize adjacent panels in a vertical split layout.
+ *
+ * <p>The VSplitter is positioned between two vertical panels and allows users to drag and adjust
+ * the height of the panels.
+ */
 class VSplitter extends BaseSplitter<VSplitter> {
 
+  /**
+   * Creates a new vertical splitter.
+   *
+   * @param top the top panel in the split layout
+   * @param bottom the bottom panel in the split layout
+   * @param vSplitPanel the vertical split panel that holds the two sub-panels
+   */
   VSplitter(SplitPanel top, SplitPanel bottom, HasSplitPanels vSplitPanel) {
     super(top, bottom, vSplitPanel);
     init(this);
     handleElement.addCss(dui_vertical);
   }
 
+  /**
+   * Factory method to create a new instance of {@link VSplitter}.
+   *
+   * @param top the top panel to be associated with the splitter
+   * @param bottom the bottom panel to be associated with the splitter
+   * @param vSplitPanel the vertical split panel
+   * @return a new instance of VSplitter
+   */
   static VSplitter create(SplitPanel top, SplitPanel bottom, HasSplitPanels vSplitPanel) {
     return new VSplitter(top, bottom, vSplitPanel);
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Returns the y-coordinate of the mouse event.
+   *
+   * @param event the mouse event
+   * @return the y-coordinate of the mouse cursor
+   */
   public double mousePosition(MouseEvent event) {
     return event.clientY;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Returns the y-coordinate of the touch event.
+   *
+   * @param event the touch event
+   * @return the y-coordinate of the touch point
+   */
   @Override
   protected double touchPosition(TouchEvent event) {
     return event.touches.getAt(0).clientY;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Gets the height of the splitter.
+   *
+   * @return the height of the splitter
+   */
   @Override
   public double getSize() {
     return element.getBoundingClientRect().height;

@@ -20,30 +20,46 @@ import org.dominokit.domino.ui.elements.DivElement;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
 
 /**
- * A component that wraps the {@link elemental2.dom.HTMLDivElement} to make it vertically scrollable
- * by default
+ * Represents a vertical scrollable panel component.
+ *
+ * <p>The {@code VScrollPanel} class provides a simple way to create a vertical scrollable panel. It
+ * extends {@link BaseDominoElement} and encapsulates a root {@link DivElement} with CSS styles
+ * applied to enable vertical scrolling.
+ *
+ * <p><b>Usage Example:</b>
+ *
+ * <pre>
+ * VScrollPanel vScrollPanel = VScrollPanel.create();
+ * // Add content to the vertical scroll panel
+ * vScrollPanel.appendChild(someContentElement);
+ * </pre>
+ *
+ * @see BaseDominoElement
  */
 public class VScrollPanel extends BaseDominoElement<HTMLDivElement, VScrollPanel> {
 
   private DivElement root;
 
-  /** @return new AutoHScrollPanel instance */
   /**
-   * create.
+   * Factory method to create a new instance of VScrollPanel.
    *
-   * @return a {@link org.dominokit.domino.ui.scroll.VScrollPanel} object
+   * @return A new instance of VScrollPanel.
    */
   public static VScrollPanel create() {
     return new VScrollPanel();
   }
 
-  /** Constructor for VScrollPanel. */
+  /** Constructs a new VScrollPanel instance. */
   public VScrollPanel() {
     root = div().addCss(dui_overflow_y_scroll);
     init(this);
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Returns the main HTMLElement of this vertical scroll panel, which is the root div element.
+   *
+   * @return The HTMLElement of the root div element.
+   */
   @Override
   public HTMLDivElement element() {
     return root.element();

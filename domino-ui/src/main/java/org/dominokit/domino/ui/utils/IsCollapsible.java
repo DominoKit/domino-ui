@@ -13,58 +13,56 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package org.dominokit.domino.ui.utils;
 
 /**
- * A component that can be shown/hidden should implement this interface
+ * An interface representing a collapsible component that can be expanded or collapsed.
  *
- * @see org.dominokit.domino.ui.collapsible.Collapsible
- * @param <T> the type of the component implementing this interface
+ * @param <T> The type of the component that implements this interface.
  */
 public interface IsCollapsible<T> {
 
   /**
-   * Show the component
+   * Expands the collapsible component, making its content visible.
    *
-   * @return same component instance
+   * @return The component instance after expansion.
    */
   T expand();
 
   /**
-   * Hides the component
+   * Collapses the collapsible component, hiding its content.
    *
-   * @return same component instance
+   * @return The component instance after collapse.
    */
   T collapse();
 
   /**
-   * if the component is visible then hide it, otherwise show it
+   * Toggles the collapse/expand state of the component.
    *
-   * @return same component instance
+   * @return The component instance after toggling.
    */
   T toggleCollapse();
 
   /**
-   * Show/hides the component based on the provided flag
+   * Sets the collapse/expand state of the component based on the provided state.
    *
-   * @param state boolean, if true show the component, if false hide it
-   * @return same component instance
+   * @param state {@code true} to collapse, {@code false} to expand.
+   * @return The component instance after setting the state.
    */
   T toggleCollapse(boolean state);
 
-  /** @return boolean, true if the component is collapsed */
   /**
-   * isCollapsed.
+   * Checks if the component is currently in a collapsed state.
    *
-   * @return a boolean
+   * @return {@code true} if collapsed, {@code false} if expanded.
    */
   boolean isCollapsed();
 
-  /** @return boolean, true if the component is expanded */
   /**
-   * isExpanded.
+   * Checks if the component is currently in an expanded state.
    *
-   * @return a boolean
+   * @return {@code true} if expanded, {@code false} if collapsed.
    */
   default boolean isExpanded() {
     return !isCollapsed();

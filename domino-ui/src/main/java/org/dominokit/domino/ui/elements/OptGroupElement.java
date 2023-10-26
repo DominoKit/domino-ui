@@ -17,22 +17,38 @@ package org.dominokit.domino.ui.elements;
 
 import elemental2.dom.HTMLOptGroupElement;
 
-/** OptGroupElement class. */
+/**
+ * Represents an HTML <optgroup> (option group) element wrapper.
+ *
+ * <p>The HTML <optgroup> element is used to group together related options within a <select>
+ * element. This class provides a convenient way to create, manipulate, and control the behavior of
+ * <optgroup> elements in Java-based web applications. Example usage:
+ *
+ * <pre>
+ * HTMLOptGroupElement optGroupElement = ...;  // Obtain an <optgroup> element from somewhere
+ * OptGroupElement optGroup = OptGroupElement.of(optGroupElement);
+ * </pre>
+ *
+ * @see <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/optgroup">MDN Web Docs
+ *     (optgroup)</a>
+ */
 public class OptGroupElement extends BaseElement<HTMLOptGroupElement, OptGroupElement> {
+
   /**
-   * of.
+   * Creates a new {@link OptGroupElement} instance by wrapping the provided HTML <optgroup>
+   * element.
    *
-   * @param e a {@link elemental2.dom.HTMLOptGroupElement} object
-   * @return a {@link org.dominokit.domino.ui.elements.OptGroupElement} object
+   * @param e The HTML <optgroup> element to wrap.
+   * @return A new {@link OptGroupElement} instance wrapping the provided element.
    */
   public static OptGroupElement of(HTMLOptGroupElement e) {
     return new OptGroupElement(e);
   }
 
   /**
-   * Constructor for OptGroupElement.
+   * Constructs a {@link OptGroupElement} instance by wrapping the provided HTML <optgroup> element.
    *
-   * @param element a {@link elemental2.dom.HTMLOptGroupElement} object
+   * @param element The HTML <optgroup> element to wrap.
    */
   public OptGroupElement(HTMLOptGroupElement element) {
     super(element);

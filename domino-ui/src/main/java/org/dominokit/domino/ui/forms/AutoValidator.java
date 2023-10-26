@@ -18,25 +18,32 @@ package org.dominokit.domino.ui.forms;
 import org.dominokit.domino.ui.utils.ApplyFunction;
 
 /**
- * A class to wrap an {@link org.dominokit.domino.ui.utils.ApplyFunction} and provide the ability to
- * attach/remove it from a component
+ * The base class for auto-validation functionality in form elements. AutoValidators are used to
+ * automatically trigger validation when certain events occur in a form field.
  */
 public abstract class AutoValidator {
+
+  /** The function to be executed for auto-validation. */
   protected ApplyFunction autoValidate;
 
-  /** @param autoValidate {@link ApplyFunction} */
   /**
-   * Constructor for AutoValidator.
+   * Constructs a new {@code AutoValidator} with the specified auto-validation function.
    *
-   * @param autoValidate a {@link org.dominokit.domino.ui.utils.ApplyFunction} object
+   * @param autoValidate The function to be executed for auto-validation.
    */
   public AutoValidator(ApplyFunction autoValidate) {
     this.autoValidate = autoValidate;
   }
 
-  /** Attach the {@link org.dominokit.domino.ui.utils.ApplyFunction} to the component */
+  /**
+   * Attaches the auto-validation behavior to the form element. This method should be implemented by
+   * subclasses to specify when and how auto-validation is triggered.
+   */
   public void attach() {}
 
-  /** Remove the {@link org.dominokit.domino.ui.utils.ApplyFunction} from the component */
+  /**
+   * Removes the auto-validation behavior from the form element. This method should be implemented
+   * by subclasses to remove any event listeners or resources associated with auto-validation.
+   */
   public void remove() {}
 }

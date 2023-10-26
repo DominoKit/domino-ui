@@ -17,22 +17,37 @@ package org.dominokit.domino.ui.elements;
 
 import elemental2.dom.HTMLTableColElement;
 
-/** ColElement class. */
+/**
+ * Represents a `<col>` HTML element wrapper.
+ *
+ * <p>The `<col>` tag is used with the `<colgroup>` element to specify column properties for an HTML
+ * table. This class offers a convenient way to create, manipulate, and control the behavior of
+ * `<col>` elements, facilitating their use in Java-based web applications. Example usage:
+ *
+ * <pre>
+ * HTMLTableColElement htmlElement = ...;  // Obtain a <col> element from somewhere
+ * ColElement colElement = ColElement.of(htmlElement);
+ * </pre>
+ *
+ * @see <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/col">MDN Web Docs (col
+ *     element)</a>
+ */
 public class ColElement extends BaseElement<HTMLTableColElement, ColElement> {
+
   /**
-   * of.
+   * Creates a new {@link ColElement} instance by wrapping the provided HTML `<col>` element.
    *
-   * @param e a {@link elemental2.dom.HTMLTableColElement} object
-   * @return a {@link org.dominokit.domino.ui.elements.ColElement} object
+   * @param e The HTML `<col>` element.
+   * @return A new {@link ColElement} instance wrapping the provided element.
    */
   public static ColElement of(HTMLTableColElement e) {
     return new ColElement(e);
   }
 
   /**
-   * Constructor for ColElement.
+   * Constructs a {@link ColElement} instance by wrapping the provided HTML `<col>` element.
    *
-   * @param element a {@link elemental2.dom.HTMLTableColElement} object
+   * @param element The HTML `<col>` element to wrap.
    */
   public ColElement(HTMLTableColElement element) {
     super(element);

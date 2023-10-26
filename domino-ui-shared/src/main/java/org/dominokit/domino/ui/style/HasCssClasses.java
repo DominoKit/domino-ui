@@ -15,12 +15,13 @@
  */
 package org.dominokit.domino.ui.style;
 
-/** HasCssClasses interface. */
+/** An interface for classes that can provide an array of CSS classes. */
 public interface HasCssClasses {
+
   /**
-   * getCssClasses.
+   * Gets an array of CSS classes associated with the implementing object.
    *
-   * @return an array of {@link org.dominokit.domino.ui.style.CssClass} objects.
+   * @return An array of CSS classes.
    */
   CssClass[] getCssClasses();
 }

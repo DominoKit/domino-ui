@@ -13,27 +13,30 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package org.dominokit.domino.ui.utils;
 
 /**
- * A component that can receive click interactions should implement this interface
+ * The {@code HasClickHandler} interface defines methods for adding click event handlers to an
+ * element.
  *
- * @param <T> the type of the component implementing this interface
+ * @param <T> The type of the element that can have click event handlers.
  */
 public interface HasClickHandler<T> {
 
   /**
-   * addClickHandler.
+   * Adds a click event handler to the element.
    *
-   * @param clickHandler {@link org.dominokit.domino.ui.utils.HasClickHandler.ClickHandler}
-   * @return same implementing component
+   * @param clickHandler The click event handler to be added.
+   * @return The element with the click event handler added.
    */
   T addClickHandler(ClickHandler clickHandler);
 
-  /** A function to handle click events */
+  /** Functional interface for handling click events. */
   @FunctionalInterface
   interface ClickHandler {
-    /** called when the component is clicked */
+
+    /** Called when a click event occurs on the associated element. */
     void onClick();
   }
 }

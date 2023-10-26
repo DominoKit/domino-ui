@@ -15,14 +15,22 @@
  */
 package org.dominokit.domino.ui.keyboard;
 
-/** KeyEventsConsumer interface. */
+/**
+ * The {@code KeyEventsConsumer} functional interface represents a consumer of key events. It
+ * accepts an {@link AcceptKeyEvents} instance, allowing for the registration of key event handlers.
+ *
+ * <p>This functional interface is typically used to add key event handlers to user interface
+ * elements.
+ *
+ * @see AcceptKeyEvents
+ */
 @FunctionalInterface
 public interface KeyEventsConsumer {
 
   /**
-   * accept.
+   * Accepts an {@link AcceptKeyEvents} instance, enabling the registration of key event handlers.
    *
-   * @param keyEvents a {@link org.dominokit.domino.ui.keyboard.AcceptKeyEvents} object
+   * @param keyEvents The {@link AcceptKeyEvents} instance used to register key event handlers.
    */
   void accept(AcceptKeyEvents keyEvents);
 }

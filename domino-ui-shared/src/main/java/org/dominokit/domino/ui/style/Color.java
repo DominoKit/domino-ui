@@ -13,64 +13,28 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package org.dominokit.domino.ui.style;
 
 import static org.dominokit.domino.ui.style.ColorsCss.*;
 import static org.dominokit.domino.ui.style.GenericCss.*;
 
-/** Color interface. */
 public interface Color {
 
-  /**
-   * getCss.
-   *
-   * @return a {@link org.dominokit.domino.ui.style.CssClass} object.
-   */
   CssClass getCss();
 
-  /**
-   * getName.
-   *
-   * @return a {@link java.lang.String} object.
-   */
   String getName();
 
-  /**
-   * getBackground.
-   *
-   * @return a {@link org.dominokit.domino.ui.style.CssClass} object.
-   */
   CssClass getBackground();
 
-  /**
-   * getForeground.
-   *
-   * @return a {@link org.dominokit.domino.ui.style.CssClass} object.
-   */
   CssClass getForeground();
 
-  /**
-   * getBorderColor.
-   *
-   * @return a {@link org.dominokit.domino.ui.style.CssClass} object.
-   */
   CssClass getBorderColor();
 
-  /**
-   * getAccentColor.
-   *
-   * @return a {@link org.dominokit.domino.ui.style.CssClass} object.
-   */
   CssClass getAccentColor();
 
-  /**
-   * getUtilityColor.
-   *
-   * @return a {@link org.dominokit.domino.ui.style.CssClass} object.
-   */
   CssClass getContextColor();
 
-  /** Constant <code>DOMINANT</code> */
   Color DOMINANT =
       new Color() {
         @Override
@@ -109,7 +73,6 @@ public interface Color {
         }
       };
 
-  /** Constant <code>DOMINANT_LIGHTEN_1</code> */
   Color DOMINANT_LIGHTEN_1 =
       new Color() {
         @Override
@@ -148,7 +111,6 @@ public interface Color {
         }
       };
 
-  /** Constant <code>DOMINANT_LIGHTEN_2</code> */
   Color DOMINANT_LIGHTEN_2 =
       new Color() {
         @Override
@@ -187,7 +149,6 @@ public interface Color {
         }
       };
 
-  /** Constant <code>DOMINANT_LIGHTEN_3</code> */
   Color DOMINANT_LIGHTEN_3 =
       new Color() {
         @Override
@@ -226,7 +187,6 @@ public interface Color {
         }
       };
 
-  /** Constant <code>DOMINANT_LIGHTEN_4</code> */
   Color DOMINANT_LIGHTEN_4 =
       new Color() {
         @Override
@@ -265,7 +225,6 @@ public interface Color {
         }
       };
 
-  /** Constant <code>DOMINANT_LIGHTEN_5</code> */
   Color DOMINANT_LIGHTEN_5 =
       new Color() {
         @Override
@@ -304,7 +263,6 @@ public interface Color {
         }
       };
 
-  /** Constant <code>DOMINANT_DARKEN_1</code> */
   Color DOMINANT_DARKEN_1 =
       new Color() {
         @Override
@@ -343,7 +301,6 @@ public interface Color {
         }
       };
 
-  /** Constant <code>DOMINANT_DARKEN_2</code> */
   Color DOMINANT_DARKEN_2 =
       new Color() {
         @Override
@@ -382,7 +339,6 @@ public interface Color {
         }
       };
 
-  /** Constant <code>DOMINANT_DARKEN_3</code> */
   Color DOMINANT_DARKEN_3 =
       new Color() {
         @Override
@@ -421,7 +377,6 @@ public interface Color {
         }
       };
 
-  /** Constant <code>DOMINANT_DARKEN_4</code> */
   Color DOMINANT_DARKEN_4 =
       new Color() {
         @Override
@@ -460,7 +415,6 @@ public interface Color {
         }
       };
 
-  /** Constant <code>ACCENT</code> */
   Color ACCENT =
       new Color() {
         @Override
@@ -499,7 +453,6 @@ public interface Color {
         }
       };
 
-  /** Constant <code>ACCENT_LIGHTEN_1</code> */
   Color ACCENT_LIGHTEN_1 =
       new Color() {
         @Override
@@ -538,7 +491,6 @@ public interface Color {
         }
       };
 
-  /** Constant <code>ACCENT_LIGHTEN_2</code> */
   Color ACCENT_LIGHTEN_2 =
       new Color() {
         @Override
@@ -577,7 +529,6 @@ public interface Color {
         }
       };
 
-  /** Constant <code>ACCENT_LIGHTEN_3</code> */
   Color ACCENT_LIGHTEN_3 =
       new Color() {
         @Override
@@ -616,7 +567,6 @@ public interface Color {
         }
       };
 
-  /** Constant <code>ACCENT_LIGHTEN_4</code> */
   Color ACCENT_LIGHTEN_4 =
       new Color() {
         @Override
@@ -655,7 +605,6 @@ public interface Color {
         }
       };
 
-  /** Constant <code>ACCENT_LIGHTEN_5</code> */
   Color ACCENT_LIGHTEN_5 =
       new Color() {
         @Override
@@ -694,7 +643,6 @@ public interface Color {
         }
       };
 
-  /** Constant <code>ACCENT_DARKEN_1</code> */
   Color ACCENT_DARKEN_1 =
       new Color() {
         @Override
@@ -733,7 +681,6 @@ public interface Color {
         }
       };
 
-  /** Constant <code>ACCENT_DARKEN_2</code> */
   Color ACCENT_DARKEN_2 =
       new Color() {
         @Override
@@ -772,7 +719,6 @@ public interface Color {
         }
       };
 
-  /** Constant <code>ACCENT_DARKEN_3</code> */
   Color ACCENT_DARKEN_3 =
       new Color() {
         @Override
@@ -811,7 +757,6 @@ public interface Color {
         }
       };
 
-  /** Constant <code>ACCENT_DARKEN_4</code> */
   Color ACCENT_DARKEN_4 =
       new Color() {
         @Override
@@ -850,7 +795,6 @@ public interface Color {
         }
       };
 
-  /** Constant <code>PRIMARY</code> */
   Color PRIMARY =
       new Color() {
         @Override
@@ -889,7 +833,6 @@ public interface Color {
         }
       };
 
-  /** Constant <code>PRIMARY_LIGHTEN_1</code> */
   Color PRIMARY_LIGHTEN_1 =
       new Color() {
         @Override
@@ -928,7 +871,6 @@ public interface Color {
         }
       };
 
-  /** Constant <code>PRIMARY_LIGHTEN_2</code> */
   Color PRIMARY_LIGHTEN_2 =
       new Color() {
         @Override
@@ -967,7 +909,6 @@ public interface Color {
         }
       };
 
-  /** Constant <code>PRIMARY_LIGHTEN_3</code> */
   Color PRIMARY_LIGHTEN_3 =
       new Color() {
         @Override
@@ -1006,7 +947,6 @@ public interface Color {
         }
       };
 
-  /** Constant <code>PRIMARY_LIGHTEN_4</code> */
   Color PRIMARY_LIGHTEN_4 =
       new Color() {
         @Override
@@ -1045,7 +985,6 @@ public interface Color {
         }
       };
 
-  /** Constant <code>PRIMARY_LIGHTEN_5</code> */
   Color PRIMARY_LIGHTEN_5 =
       new Color() {
         @Override
@@ -1084,7 +1023,6 @@ public interface Color {
         }
       };
 
-  /** Constant <code>PRIMARY_DARKEN_1</code> */
   Color PRIMARY_DARKEN_1 =
       new Color() {
         @Override
@@ -1123,7 +1061,6 @@ public interface Color {
         }
       };
 
-  /** Constant <code>PRIMARY_DARKEN_2</code> */
   Color PRIMARY_DARKEN_2 =
       new Color() {
         @Override
@@ -1162,7 +1099,6 @@ public interface Color {
         }
       };
 
-  /** Constant <code>PRIMARY_DARKEN_3</code> */
   Color PRIMARY_DARKEN_3 =
       new Color() {
         @Override
@@ -1201,7 +1137,6 @@ public interface Color {
         }
       };
 
-  /** Constant <code>PRIMARY_DARKEN_4</code> */
   Color PRIMARY_DARKEN_4 =
       new Color() {
         @Override
@@ -1240,7 +1175,6 @@ public interface Color {
         }
       };
 
-  /** Constant <code>SECONDARY</code> */
   Color SECONDARY =
       new Color() {
         @Override
@@ -1279,7 +1213,6 @@ public interface Color {
         }
       };
 
-  /** Constant <code>SECONDARY_LIGHTEN_1</code> */
   Color SECONDARY_LIGHTEN_1 =
       new Color() {
         @Override
@@ -1318,7 +1251,6 @@ public interface Color {
         }
       };
 
-  /** Constant <code>SECONDARY_LIGHTEN_2</code> */
   Color SECONDARY_LIGHTEN_2 =
       new Color() {
         @Override
@@ -1357,7 +1289,6 @@ public interface Color {
         }
       };
 
-  /** Constant <code>SECONDARY_LIGHTEN_3</code> */
   Color SECONDARY_LIGHTEN_3 =
       new Color() {
         @Override
@@ -1396,7 +1327,6 @@ public interface Color {
         }
       };
 
-  /** Constant <code>SECONDARY_LIGHTEN_4</code> */
   Color SECONDARY_LIGHTEN_4 =
       new Color() {
         @Override
@@ -1435,7 +1365,6 @@ public interface Color {
         }
       };
 
-  /** Constant <code>SECONDARY_LIGHTEN_5</code> */
   Color SECONDARY_LIGHTEN_5 =
       new Color() {
         @Override
@@ -1474,7 +1403,6 @@ public interface Color {
         }
       };
 
-  /** Constant <code>SECONDARY_DARKEN_1</code> */
   Color SECONDARY_DARKEN_1 =
       new Color() {
         @Override
@@ -1513,7 +1441,6 @@ public interface Color {
         }
       };
 
-  /** Constant <code>SECONDARY_DARKEN_2</code> */
   Color SECONDARY_DARKEN_2 =
       new Color() {
         @Override
@@ -1552,7 +1479,6 @@ public interface Color {
         }
       };
 
-  /** Constant <code>SECONDARY_DARKEN_3</code> */
   Color SECONDARY_DARKEN_3 =
       new Color() {
         @Override
@@ -1591,7 +1517,6 @@ public interface Color {
         }
       };
 
-  /** Constant <code>SECONDARY_DARKEN_4</code> */
   Color SECONDARY_DARKEN_4 =
       new Color() {
         @Override
@@ -1630,7 +1555,6 @@ public interface Color {
         }
       };
 
-  /** Constant <code>SUCCESS</code> */
   Color SUCCESS =
       new Color() {
         @Override
@@ -1669,7 +1593,6 @@ public interface Color {
         }
       };
 
-  /** Constant <code>SUCCESS_LIGHTEN_1</code> */
   Color SUCCESS_LIGHTEN_1 =
       new Color() {
         @Override
@@ -1708,7 +1631,6 @@ public interface Color {
         }
       };
 
-  /** Constant <code>SUCCESS_LIGHTEN_2</code> */
   Color SUCCESS_LIGHTEN_2 =
       new Color() {
         @Override
@@ -1747,7 +1669,6 @@ public interface Color {
         }
       };
 
-  /** Constant <code>SUCCESS_LIGHTEN_3</code> */
   Color SUCCESS_LIGHTEN_3 =
       new Color() {
         @Override
@@ -1786,7 +1707,6 @@ public interface Color {
         }
       };
 
-  /** Constant <code>SUCCESS_LIGHTEN_4</code> */
   Color SUCCESS_LIGHTEN_4 =
       new Color() {
         @Override
@@ -1825,7 +1745,6 @@ public interface Color {
         }
       };
 
-  /** Constant <code>SUCCESS_LIGHTEN_5</code> */
   Color SUCCESS_LIGHTEN_5 =
       new Color() {
         @Override
@@ -1864,7 +1783,6 @@ public interface Color {
         }
       };
 
-  /** Constant <code>SUCCESS_DARKEN_1</code> */
   Color SUCCESS_DARKEN_1 =
       new Color() {
         @Override
@@ -1903,7 +1821,6 @@ public interface Color {
         }
       };
 
-  /** Constant <code>SUCCESS_DARKEN_2</code> */
   Color SUCCESS_DARKEN_2 =
       new Color() {
         @Override
@@ -1942,7 +1859,6 @@ public interface Color {
         }
       };
 
-  /** Constant <code>SUCCESS_DARKEN_3</code> */
   Color SUCCESS_DARKEN_3 =
       new Color() {
         @Override
@@ -1981,7 +1897,6 @@ public interface Color {
         }
       };
 
-  /** Constant <code>SUCCESS_DARKEN_4</code> */
   Color SUCCESS_DARKEN_4 =
       new Color() {
         @Override
@@ -2020,7 +1935,6 @@ public interface Color {
         }
       };
 
-  /** Constant <code>WARNING</code> */
   Color WARNING =
       new Color() {
         @Override
@@ -2059,7 +1973,6 @@ public interface Color {
         }
       };
 
-  /** Constant <code>WARNING_LIGHTEN_1</code> */
   Color WARNING_LIGHTEN_1 =
       new Color() {
         @Override
@@ -2098,7 +2011,6 @@ public interface Color {
         }
       };
 
-  /** Constant <code>WARNING_LIGHTEN_2</code> */
   Color WARNING_LIGHTEN_2 =
       new Color() {
         @Override
@@ -2137,7 +2049,6 @@ public interface Color {
         }
       };
 
-  /** Constant <code>WARNING_LIGHTEN_3</code> */
   Color WARNING_LIGHTEN_3 =
       new Color() {
         @Override
@@ -2176,7 +2087,6 @@ public interface Color {
         }
       };
 
-  /** Constant <code>WARNING_LIGHTEN_4</code> */
   Color WARNING_LIGHTEN_4 =
       new Color() {
         @Override
@@ -2215,7 +2125,6 @@ public interface Color {
         }
       };
 
-  /** Constant <code>WARNING_LIGHTEN_5</code> */
   Color WARNING_LIGHTEN_5 =
       new Color() {
         @Override
@@ -2254,7 +2163,6 @@ public interface Color {
         }
       };
 
-  /** Constant <code>WARNING_DARKEN_1</code> */
   Color WARNING_DARKEN_1 =
       new Color() {
         @Override
@@ -2293,7 +2201,6 @@ public interface Color {
         }
       };
 
-  /** Constant <code>WARNING_DARKEN_2</code> */
   Color WARNING_DARKEN_2 =
       new Color() {
         @Override
@@ -2332,7 +2239,6 @@ public interface Color {
         }
       };
 
-  /** Constant <code>WARNING_DARKEN_3</code> */
   Color WARNING_DARKEN_3 =
       new Color() {
         @Override
@@ -2371,7 +2277,6 @@ public interface Color {
         }
       };
 
-  /** Constant <code>WARNING_DARKEN_4</code> */
   Color WARNING_DARKEN_4 =
       new Color() {
         @Override
@@ -2410,7 +2315,6 @@ public interface Color {
         }
       };
 
-  /** Constant <code>INFO</code> */
   Color INFO =
       new Color() {
         @Override
@@ -2449,7 +2353,6 @@ public interface Color {
         }
       };
 
-  /** Constant <code>INFO_LIGHTEN_1</code> */
   Color INFO_LIGHTEN_1 =
       new Color() {
         @Override
@@ -2488,7 +2391,6 @@ public interface Color {
         }
       };
 
-  /** Constant <code>INFO_LIGHTEN_2</code> */
   Color INFO_LIGHTEN_2 =
       new Color() {
         @Override
@@ -2527,7 +2429,6 @@ public interface Color {
         }
       };
 
-  /** Constant <code>INFO_LIGHTEN_3</code> */
   Color INFO_LIGHTEN_3 =
       new Color() {
         @Override
@@ -2566,7 +2467,6 @@ public interface Color {
         }
       };
 
-  /** Constant <code>INFO_LIGHTEN_4</code> */
   Color INFO_LIGHTEN_4 =
       new Color() {
         @Override
@@ -2605,7 +2505,6 @@ public interface Color {
         }
       };
 
-  /** Constant <code>INFO_LIGHTEN_5</code> */
   Color INFO_LIGHTEN_5 =
       new Color() {
         @Override
@@ -2644,7 +2543,6 @@ public interface Color {
         }
       };
 
-  /** Constant <code>INFO_DARKEN_1</code> */
   Color INFO_DARKEN_1 =
       new Color() {
         @Override
@@ -2683,7 +2581,6 @@ public interface Color {
         }
       };
 
-  /** Constant <code>INFO_DARKEN_2</code> */
   Color INFO_DARKEN_2 =
       new Color() {
         @Override
@@ -2722,7 +2619,6 @@ public interface Color {
         }
       };
 
-  /** Constant <code>INFO_DARKEN_3</code> */
   Color INFO_DARKEN_3 =
       new Color() {
         @Override
@@ -2761,7 +2657,6 @@ public interface Color {
         }
       };
 
-  /** Constant <code>INFO_DARKEN_4</code> */
   Color INFO_DARKEN_4 =
       new Color() {
         @Override
@@ -2800,7 +2695,6 @@ public interface Color {
         }
       };
 
-  /** Constant <code>ERROR</code> */
   Color ERROR =
       new Color() {
         @Override
@@ -2839,7 +2733,6 @@ public interface Color {
         }
       };
 
-  /** Constant <code>ERROR_LIGHTEN_1</code> */
   Color ERROR_LIGHTEN_1 =
       new Color() {
         @Override
@@ -2878,7 +2771,6 @@ public interface Color {
         }
       };
 
-  /** Constant <code>ERROR_LIGHTEN_2</code> */
   Color ERROR_LIGHTEN_2 =
       new Color() {
         @Override
@@ -2917,7 +2809,6 @@ public interface Color {
         }
       };
 
-  /** Constant <code>ERROR_LIGHTEN_3</code> */
   Color ERROR_LIGHTEN_3 =
       new Color() {
         @Override
@@ -2956,7 +2847,6 @@ public interface Color {
         }
       };
 
-  /** Constant <code>ERROR_LIGHTEN_4</code> */
   Color ERROR_LIGHTEN_4 =
       new Color() {
         @Override
@@ -2995,7 +2885,6 @@ public interface Color {
         }
       };
 
-  /** Constant <code>ERROR_LIGHTEN_5</code> */
   Color ERROR_LIGHTEN_5 =
       new Color() {
         @Override
@@ -3034,7 +2923,6 @@ public interface Color {
         }
       };
 
-  /** Constant <code>ERROR_DARKEN_1</code> */
   Color ERROR_DARKEN_1 =
       new Color() {
         @Override
@@ -3073,7 +2961,6 @@ public interface Color {
         }
       };
 
-  /** Constant <code>ERROR_DARKEN_2</code> */
   Color ERROR_DARKEN_2 =
       new Color() {
         @Override
@@ -3112,7 +2999,6 @@ public interface Color {
         }
       };
 
-  /** Constant <code>ERROR_DARKEN_3</code> */
   Color ERROR_DARKEN_3 =
       new Color() {
         @Override
@@ -3151,7 +3037,6 @@ public interface Color {
         }
       };
 
-  /** Constant <code>ERROR_DARKEN_4</code> */
   Color ERROR_DARKEN_4 =
       new Color() {
         @Override
@@ -3190,7 +3075,6 @@ public interface Color {
         }
       };
 
-  /** Constant <code>RED</code> */
   Color RED =
       new Color() {
         @Override
@@ -3229,7 +3113,6 @@ public interface Color {
         }
       };
 
-  /** Constant <code>RED_LIGHTEN_1</code> */
   Color RED_LIGHTEN_1 =
       new Color() {
         @Override
@@ -3268,7 +3151,6 @@ public interface Color {
         }
       };
 
-  /** Constant <code>RED_LIGHTEN_2</code> */
   Color RED_LIGHTEN_2 =
       new Color() {
         @Override
@@ -3307,7 +3189,6 @@ public interface Color {
         }
       };
 
-  /** Constant <code>RED_LIGHTEN_3</code> */
   Color RED_LIGHTEN_3 =
       new Color() {
         @Override
@@ -3346,7 +3227,6 @@ public interface Color {
         }
       };
 
-  /** Constant <code>RED_LIGHTEN_4</code> */
   Color RED_LIGHTEN_4 =
       new Color() {
         @Override
@@ -3385,7 +3265,6 @@ public interface Color {
         }
       };
 
-  /** Constant <code>RED_LIGHTEN_5</code> */
   Color RED_LIGHTEN_5 =
       new Color() {
         @Override
@@ -3424,7 +3303,6 @@ public interface Color {
         }
       };
 
-  /** Constant <code>RED_DARKEN_1</code> */
   Color RED_DARKEN_1 =
       new Color() {
         @Override
@@ -3463,7 +3341,6 @@ public interface Color {
         }
       };
 
-  /** Constant <code>RED_DARKEN_2</code> */
   Color RED_DARKEN_2 =
       new Color() {
         @Override
@@ -3502,7 +3379,6 @@ public interface Color {
         }
       };
 
-  /** Constant <code>RED_DARKEN_3</code> */
   Color RED_DARKEN_3 =
       new Color() {
         @Override
@@ -3541,7 +3417,6 @@ public interface Color {
         }
       };
 
-  /** Constant <code>RED_DARKEN_4</code> */
   Color RED_DARKEN_4 =
       new Color() {
         @Override
@@ -3580,7 +3455,6 @@ public interface Color {
         }
       };
 
-  /** Constant <code>PINK</code> */
   Color PINK =
       new Color() {
         @Override
@@ -3619,7 +3493,6 @@ public interface Color {
         }
       };
 
-  /** Constant <code>PINK_LIGHTEN_1</code> */
   Color PINK_LIGHTEN_1 =
       new Color() {
         @Override
@@ -3658,7 +3531,6 @@ public interface Color {
         }
       };
 
-  /** Constant <code>PINK_LIGHTEN_2</code> */
   Color PINK_LIGHTEN_2 =
       new Color() {
         @Override
@@ -3697,7 +3569,6 @@ public interface Color {
         }
       };
 
-  /** Constant <code>PINK_LIGHTEN_3</code> */
   Color PINK_LIGHTEN_3 =
       new Color() {
         @Override
@@ -3736,7 +3607,6 @@ public interface Color {
         }
       };
 
-  /** Constant <code>PINK_LIGHTEN_4</code> */
   Color PINK_LIGHTEN_4 =
       new Color() {
         @Override
@@ -3775,7 +3645,6 @@ public interface Color {
         }
       };
 
-  /** Constant <code>PINK_LIGHTEN_5</code> */
   Color PINK_LIGHTEN_5 =
       new Color() {
         @Override
@@ -3814,7 +3683,6 @@ public interface Color {
         }
       };
 
-  /** Constant <code>PINK_DARKEN_1</code> */
   Color PINK_DARKEN_1 =
       new Color() {
         @Override
@@ -3853,7 +3721,6 @@ public interface Color {
         }
       };
 
-  /** Constant <code>PINK_DARKEN_2</code> */
   Color PINK_DARKEN_2 =
       new Color() {
         @Override
@@ -3892,7 +3759,6 @@ public interface Color {
         }
       };
 
-  /** Constant <code>PINK_DARKEN_3</code> */
   Color PINK_DARKEN_3 =
       new Color() {
         @Override
@@ -3931,7 +3797,6 @@ public interface Color {
         }
       };
 
-  /** Constant <code>PINK_DARKEN_4</code> */
   Color PINK_DARKEN_4 =
       new Color() {
         @Override
@@ -3970,7 +3835,6 @@ public interface Color {
         }
       };
 
-  /** Constant <code>PURPLE</code> */
   Color PURPLE =
       new Color() {
         @Override
@@ -4009,7 +3873,6 @@ public interface Color {
         }
       };
 
-  /** Constant <code>PURPLE_LIGHTEN_1</code> */
   Color PURPLE_LIGHTEN_1 =
       new Color() {
         @Override
@@ -4048,7 +3911,6 @@ public interface Color {
         }
       };
 
-  /** Constant <code>PURPLE_LIGHTEN_2</code> */
   Color PURPLE_LIGHTEN_2 =
       new Color() {
         @Override
@@ -4087,7 +3949,6 @@ public interface Color {
         }
       };
 
-  /** Constant <code>PURPLE_LIGHTEN_3</code> */
   Color PURPLE_LIGHTEN_3 =
       new Color() {
         @Override
@@ -4126,7 +3987,6 @@ public interface Color {
         }
       };
 
-  /** Constant <code>PURPLE_LIGHTEN_4</code> */
   Color PURPLE_LIGHTEN_4 =
       new Color() {
         @Override
@@ -4165,7 +4025,6 @@ public interface Color {
         }
       };
 
-  /** Constant <code>PURPLE_LIGHTEN_5</code> */
   Color PURPLE_LIGHTEN_5 =
       new Color() {
         @Override
@@ -4204,7 +4063,6 @@ public interface Color {
         }
       };
 
-  /** Constant <code>PURPLE_DARKEN_1</code> */
   Color PURPLE_DARKEN_1 =
       new Color() {
         @Override
@@ -4243,7 +4101,6 @@ public interface Color {
         }
       };
 
-  /** Constant <code>PURPLE_DARKEN_2</code> */
   Color PURPLE_DARKEN_2 =
       new Color() {
         @Override
@@ -4282,7 +4139,6 @@ public interface Color {
         }
       };
 
-  /** Constant <code>PURPLE_DARKEN_3</code> */
   Color PURPLE_DARKEN_3 =
       new Color() {
         @Override
@@ -4321,7 +4177,6 @@ public interface Color {
         }
       };
 
-  /** Constant <code>PURPLE_DARKEN_4</code> */
   Color PURPLE_DARKEN_4 =
       new Color() {
         @Override
@@ -4360,7 +4215,6 @@ public interface Color {
         }
       };
 
-  /** Constant <code>DEEP_PURPLE</code> */
   Color DEEP_PURPLE =
       new Color() {
         @Override
@@ -4399,7 +4253,6 @@ public interface Color {
         }
       };
 
-  /** Constant <code>DEEP_PURPLE_LIGHTEN_1</code> */
   Color DEEP_PURPLE_LIGHTEN_1 =
       new Color() {
         @Override
@@ -4438,7 +4291,6 @@ public interface Color {
         }
       };
 
-  /** Constant <code>DEEP_PURPLE_LIGHTEN_2</code> */
   Color DEEP_PURPLE_LIGHTEN_2 =
       new Color() {
         @Override
@@ -4477,7 +4329,6 @@ public interface Color {
         }
       };
 
-  /** Constant <code>DEEP_PURPLE_LIGHTEN_3</code> */
   Color DEEP_PURPLE_LIGHTEN_3 =
       new Color() {
         @Override
@@ -4516,7 +4367,6 @@ public interface Color {
         }
       };
 
-  /** Constant <code>DEEP_PURPLE_LIGHTEN_4</code> */
   Color DEEP_PURPLE_LIGHTEN_4 =
       new Color() {
         @Override
@@ -4555,7 +4405,6 @@ public interface Color {
         }
       };
 
-  /** Constant <code>DEEP_PURPLE_LIGHTEN_5</code> */
   Color DEEP_PURPLE_LIGHTEN_5 =
       new Color() {
         @Override
@@ -4594,7 +4443,6 @@ public interface Color {
         }
       };
 
-  /** Constant <code>DEEP_PURPLE_DARKEN_1</code> */
   Color DEEP_PURPLE_DARKEN_1 =
       new Color() {
         @Override
@@ -4633,7 +4481,6 @@ public interface Color {
         }
       };
 
-  /** Constant <code>DEEP_PURPLE_DARKEN_2</code> */
   Color DEEP_PURPLE_DARKEN_2 =
       new Color() {
         @Override
@@ -4672,7 +4519,6 @@ public interface Color {
         }
       };
 
-  /** Constant <code>DEEP_PURPLE_DARKEN_3</code> */
   Color DEEP_PURPLE_DARKEN_3 =
       new Color() {
         @Override
@@ -4711,7 +4557,6 @@ public interface Color {
         }
       };
 
-  /** Constant <code>DEEP_PURPLE_DARKEN_4</code> */
   Color DEEP_PURPLE_DARKEN_4 =
       new Color() {
         @Override
@@ -4750,7 +4595,6 @@ public interface Color {
         }
       };
 
-  /** Constant <code>INDIGO</code> */
   Color INDIGO =
       new Color() {
         @Override
@@ -4789,7 +4633,6 @@ public interface Color {
         }
       };
 
-  /** Constant <code>INDIGO_LIGHTEN_1</code> */
   Color INDIGO_LIGHTEN_1 =
       new Color() {
         @Override
@@ -4828,7 +4671,6 @@ public interface Color {
         }
       };
 
-  /** Constant <code>INDIGO_LIGHTEN_2</code> */
   Color INDIGO_LIGHTEN_2 =
       new Color() {
         @Override
@@ -4867,7 +4709,6 @@ public interface Color {
         }
       };
 
-  /** Constant <code>INDIGO_LIGHTEN_3</code> */
   Color INDIGO_LIGHTEN_3 =
       new Color() {
         @Override
@@ -4906,7 +4747,6 @@ public interface Color {
         }
       };
 
-  /** Constant <code>INDIGO_LIGHTEN_4</code> */
   Color INDIGO_LIGHTEN_4 =
       new Color() {
         @Override
@@ -4945,7 +4785,6 @@ public interface Color {
         }
       };
 
-  /** Constant <code>INDIGO_LIGHTEN_5</code> */
   Color INDIGO_LIGHTEN_5 =
       new Color() {
         @Override
@@ -4984,7 +4823,6 @@ public interface Color {
         }
       };
 
-  /** Constant <code>INDIGO_DARKEN_1</code> */
   Color INDIGO_DARKEN_1 =
       new Color() {
         @Override
@@ -5023,7 +4861,6 @@ public interface Color {
         }
       };
 
-  /** Constant <code>INDIGO_DARKEN_2</code> */
   Color INDIGO_DARKEN_2 =
       new Color() {
         @Override
@@ -5062,7 +4899,6 @@ public interface Color {
         }
       };
 
-  /** Constant <code>INDIGO_DARKEN_3</code> */
   Color INDIGO_DARKEN_3 =
       new Color() {
         @Override
@@ -5101,7 +4937,6 @@ public interface Color {
         }
       };
 
-  /** Constant <code>INDIGO_DARKEN_4</code> */
   Color INDIGO_DARKEN_4 =
       new Color() {
         @Override
@@ -5140,7 +4975,6 @@ public interface Color {
         }
       };
 
-  /** Constant <code>BLUE</code> */
   Color BLUE =
       new Color() {
         @Override
@@ -5179,7 +5013,6 @@ public interface Color {
         }
       };
 
-  /** Constant <code>BLUE_LIGHTEN_1</code> */
   Color BLUE_LIGHTEN_1 =
       new Color() {
         @Override
@@ -5218,7 +5051,6 @@ public interface Color {
         }
       };
 
-  /** Constant <code>BLUE_LIGHTEN_2</code> */
   Color BLUE_LIGHTEN_2 =
       new Color() {
         @Override
@@ -5257,7 +5089,6 @@ public interface Color {
         }
       };
 
-  /** Constant <code>BLUE_LIGHTEN_3</code> */
   Color BLUE_LIGHTEN_3 =
       new Color() {
         @Override
@@ -5296,7 +5127,6 @@ public interface Color {
         }
       };
 
-  /** Constant <code>BLUE_LIGHTEN_4</code> */
   Color BLUE_LIGHTEN_4 =
       new Color() {
         @Override
@@ -5335,7 +5165,6 @@ public interface Color {
         }
       };
 
-  /** Constant <code>BLUE_LIGHTEN_5</code> */
   Color BLUE_LIGHTEN_5 =
       new Color() {
         @Override
@@ -5374,7 +5203,6 @@ public interface Color {
         }
       };
 
-  /** Constant <code>BLUE_DARKEN_1</code> */
   Color BLUE_DARKEN_1 =
       new Color() {
         @Override
@@ -5413,7 +5241,6 @@ public interface Color {
         }
       };
 
-  /** Constant <code>BLUE_DARKEN_2</code> */
   Color BLUE_DARKEN_2 =
       new Color() {
         @Override
@@ -5452,7 +5279,6 @@ public interface Color {
         }
       };
 
-  /** Constant <code>BLUE_DARKEN_3</code> */
   Color BLUE_DARKEN_3 =
       new Color() {
         @Override
@@ -5491,7 +5317,6 @@ public interface Color {
         }
       };
 
-  /** Constant <code>BLUE_DARKEN_4</code> */
   Color BLUE_DARKEN_4 =
       new Color() {
         @Override
@@ -5530,7 +5355,6 @@ public interface Color {
         }
       };
 
-  /** Constant <code>LIGHT_BLUE</code> */
   Color LIGHT_BLUE =
       new Color() {
         @Override
@@ -5569,7 +5393,6 @@ public interface Color {
         }
       };
 
-  /** Constant <code>LIGHT_BLUE_LIGHTEN_1</code> */
   Color LIGHT_BLUE_LIGHTEN_1 =
       new Color() {
         @Override
@@ -5608,7 +5431,6 @@ public interface Color {
         }
       };
 
-  /** Constant <code>LIGHT_BLUE_LIGHTEN_2</code> */
   Color LIGHT_BLUE_LIGHTEN_2 =
       new Color() {
         @Override
@@ -5647,7 +5469,6 @@ public interface Color {
         }
       };
 
-  /** Constant <code>LIGHT_BLUE_LIGHTEN_3</code> */
   Color LIGHT_BLUE_LIGHTEN_3 =
       new Color() {
         @Override
@@ -5686,7 +5507,6 @@ public interface Color {
         }
       };
 
-  /** Constant <code>LIGHT_BLUE_LIGHTEN_4</code> */
   Color LIGHT_BLUE_LIGHTEN_4 =
       new Color() {
         @Override
@@ -5725,7 +5545,6 @@ public interface Color {
         }
       };
 
-  /** Constant <code>LIGHT_BLUE_LIGHTEN_5</code> */
   Color LIGHT_BLUE_LIGHTEN_5 =
       new Color() {
         @Override
@@ -5764,7 +5583,6 @@ public interface Color {
         }
       };
 
-  /** Constant <code>LIGHT_BLUE_DARKEN_1</code> */
   Color LIGHT_BLUE_DARKEN_1 =
       new Color() {
         @Override
@@ -5803,7 +5621,6 @@ public interface Color {
         }
       };
 
-  /** Constant <code>LIGHT_BLUE_DARKEN_2</code> */
   Color LIGHT_BLUE_DARKEN_2 =
       new Color() {
         @Override
@@ -5842,7 +5659,6 @@ public interface Color {
         }
       };
 
-  /** Constant <code>LIGHT_BLUE_DARKEN_3</code> */
   Color LIGHT_BLUE_DARKEN_3 =
       new Color() {
         @Override
@@ -5881,7 +5697,6 @@ public interface Color {
         }
       };
 
-  /** Constant <code>LIGHT_BLUE_DARKEN_4</code> */
   Color LIGHT_BLUE_DARKEN_4 =
       new Color() {
         @Override
@@ -5920,7 +5735,6 @@ public interface Color {
         }
       };
 
-  /** Constant <code>CYAN</code> */
   Color CYAN =
       new Color() {
         @Override
@@ -5959,7 +5773,6 @@ public interface Color {
         }
       };
 
-  /** Constant <code>CYAN_LIGHTEN_1</code> */
   Color CYAN_LIGHTEN_1 =
       new Color() {
         @Override
@@ -5998,7 +5811,6 @@ public interface Color {
         }
       };
 
-  /** Constant <code>CYAN_LIGHTEN_2</code> */
   Color CYAN_LIGHTEN_2 =
       new Color() {
         @Override
@@ -6037,7 +5849,6 @@ public interface Color {
         }
       };
 
-  /** Constant <code>CYAN_LIGHTEN_3</code> */
   Color CYAN_LIGHTEN_3 =
       new Color() {
         @Override
@@ -6076,7 +5887,6 @@ public interface Color {
         }
       };
 
-  /** Constant <code>CYAN_LIGHTEN_4</code> */
   Color CYAN_LIGHTEN_4 =
       new Color() {
         @Override
@@ -6115,7 +5925,6 @@ public interface Color {
         }
       };
 
-  /** Constant <code>CYAN_LIGHTEN_5</code> */
   Color CYAN_LIGHTEN_5 =
       new Color() {
         @Override
@@ -6154,7 +5963,6 @@ public interface Color {
         }
       };
 
-  /** Constant <code>CYAN_DARKEN_1</code> */
   Color CYAN_DARKEN_1 =
       new Color() {
         @Override
@@ -6193,7 +6001,6 @@ public interface Color {
         }
       };
 
-  /** Constant <code>CYAN_DARKEN_2</code> */
   Color CYAN_DARKEN_2 =
       new Color() {
         @Override
@@ -6232,7 +6039,6 @@ public interface Color {
         }
       };
 
-  /** Constant <code>CYAN_DARKEN_3</code> */
   Color CYAN_DARKEN_3 =
       new Color() {
         @Override
@@ -6271,7 +6077,6 @@ public interface Color {
         }
       };
 
-  /** Constant <code>CYAN_DARKEN_4</code> */
   Color CYAN_DARKEN_4 =
       new Color() {
         @Override
@@ -6310,7 +6115,6 @@ public interface Color {
         }
       };
 
-  /** Constant <code>TEAL</code> */
   Color TEAL =
       new Color() {
         @Override
@@ -6349,7 +6153,6 @@ public interface Color {
         }
       };
 
-  /** Constant <code>TEAL_LIGHTEN_1</code> */
   Color TEAL_LIGHTEN_1 =
       new Color() {
         @Override
@@ -6388,7 +6191,6 @@ public interface Color {
         }
       };
 
-  /** Constant <code>TEAL_LIGHTEN_2</code> */
   Color TEAL_LIGHTEN_2 =
       new Color() {
         @Override
@@ -6427,7 +6229,6 @@ public interface Color {
         }
       };
 
-  /** Constant <code>TEAL_LIGHTEN_3</code> */
   Color TEAL_LIGHTEN_3 =
       new Color() {
         @Override
@@ -6466,7 +6267,6 @@ public interface Color {
         }
       };
 
-  /** Constant <code>TEAL_LIGHTEN_4</code> */
   Color TEAL_LIGHTEN_4 =
       new Color() {
         @Override
@@ -6505,7 +6305,6 @@ public interface Color {
         }
       };
 
-  /** Constant <code>TEAL_LIGHTEN_5</code> */
   Color TEAL_LIGHTEN_5 =
       new Color() {
         @Override
@@ -6544,7 +6343,6 @@ public interface Color {
         }
       };
 
-  /** Constant <code>TEAL_DARKEN_1</code> */
   Color TEAL_DARKEN_1 =
       new Color() {
         @Override
@@ -6583,7 +6381,6 @@ public interface Color {
         }
       };
 
-  /** Constant <code>TEAL_DARKEN_2</code> */
   Color TEAL_DARKEN_2 =
       new Color() {
         @Override
@@ -6622,7 +6419,6 @@ public interface Color {
         }
       };
 
-  /** Constant <code>TEAL_DARKEN_3</code> */
   Color TEAL_DARKEN_3 =
       new Color() {
         @Override
@@ -6661,7 +6457,6 @@ public interface Color {
         }
       };
 
-  /** Constant <code>TEAL_DARKEN_4</code> */
   Color TEAL_DARKEN_4 =
       new Color() {
         @Override
@@ -6700,7 +6495,6 @@ public interface Color {
         }
       };
 
-  /** Constant <code>GREEN</code> */
   Color GREEN =
       new Color() {
         @Override
@@ -6739,7 +6533,6 @@ public interface Color {
         }
       };
 
-  /** Constant <code>GREEN_LIGHTEN_1</code> */
   Color GREEN_LIGHTEN_1 =
       new Color() {
         @Override
@@ -6778,7 +6571,6 @@ public interface Color {
         }
       };
 
-  /** Constant <code>GREEN_LIGHTEN_2</code> */
   Color GREEN_LIGHTEN_2 =
       new Color() {
         @Override
@@ -6817,7 +6609,6 @@ public interface Color {
         }
       };
 
-  /** Constant <code>GREEN_LIGHTEN_3</code> */
   Color GREEN_LIGHTEN_3 =
       new Color() {
         @Override
@@ -6856,7 +6647,6 @@ public interface Color {
         }
       };
 
-  /** Constant <code>GREEN_LIGHTEN_4</code> */
   Color GREEN_LIGHTEN_4 =
       new Color() {
         @Override
@@ -6895,7 +6685,6 @@ public interface Color {
         }
       };
 
-  /** Constant <code>GREEN_LIGHTEN_5</code> */
   Color GREEN_LIGHTEN_5 =
       new Color() {
         @Override
@@ -6934,7 +6723,6 @@ public interface Color {
         }
       };
 
-  /** Constant <code>GREEN_DARKEN_1</code> */
   Color GREEN_DARKEN_1 =
       new Color() {
         @Override
@@ -6973,7 +6761,6 @@ public interface Color {
         }
       };
 
-  /** Constant <code>GREEN_DARKEN_2</code> */
   Color GREEN_DARKEN_2 =
       new Color() {
         @Override
@@ -7012,7 +6799,6 @@ public interface Color {
         }
       };
 
-  /** Constant <code>GREEN_DARKEN_3</code> */
   Color GREEN_DARKEN_3 =
       new Color() {
         @Override
@@ -7051,7 +6837,6 @@ public interface Color {
         }
       };
 
-  /** Constant <code>GREEN_DARKEN_4</code> */
   Color GREEN_DARKEN_4 =
       new Color() {
         @Override
@@ -7090,7 +6875,6 @@ public interface Color {
         }
       };
 
-  /** Constant <code>LIGHT_GREEN</code> */
   Color LIGHT_GREEN =
       new Color() {
         @Override
@@ -7129,7 +6913,6 @@ public interface Color {
         }
       };
 
-  /** Constant <code>LIGHT_GREEN_LIGHTEN_1</code> */
   Color LIGHT_GREEN_LIGHTEN_1 =
       new Color() {
         @Override
@@ -7168,7 +6951,6 @@ public interface Color {
         }
       };
 
-  /** Constant <code>LIGHT_GREEN_LIGHTEN_2</code> */
   Color LIGHT_GREEN_LIGHTEN_2 =
       new Color() {
         @Override
@@ -7207,7 +6989,6 @@ public interface Color {
         }
       };
 
-  /** Constant <code>LIGHT_GREEN_LIGHTEN_3</code> */
   Color LIGHT_GREEN_LIGHTEN_3 =
       new Color() {
         @Override
@@ -7246,7 +7027,6 @@ public interface Color {
         }
       };
 
-  /** Constant <code>LIGHT_GREEN_LIGHTEN_4</code> */
   Color LIGHT_GREEN_LIGHTEN_4 =
       new Color() {
         @Override
@@ -7285,7 +7065,6 @@ public interface Color {
         }
       };
 
-  /** Constant <code>LIGHT_GREEN_LIGHTEN_5</code> */
   Color LIGHT_GREEN_LIGHTEN_5 =
       new Color() {
         @Override
@@ -7324,7 +7103,6 @@ public interface Color {
         }
       };
 
-  /** Constant <code>LIGHT_GREEN_DARKEN_1</code> */
   Color LIGHT_GREEN_DARKEN_1 =
       new Color() {
         @Override
@@ -7363,7 +7141,6 @@ public interface Color {
         }
       };
 
-  /** Constant <code>LIGHT_GREEN_DARKEN_2</code> */
   Color LIGHT_GREEN_DARKEN_2 =
       new Color() {
         @Override
@@ -7402,7 +7179,6 @@ public interface Color {
         }
       };
 
-  /** Constant <code>LIGHT_GREEN_DARKEN_3</code> */
   Color LIGHT_GREEN_DARKEN_3 =
       new Color() {
         @Override
@@ -7441,7 +7217,6 @@ public interface Color {
         }
       };
 
-  /** Constant <code>LIGHT_GREEN_DARKEN_4</code> */
   Color LIGHT_GREEN_DARKEN_4 =
       new Color() {
         @Override
@@ -7480,7 +7255,6 @@ public interface Color {
         }
       };
 
-  /** Constant <code>LIME</code> */
   Color LIME =
       new Color() {
         @Override
@@ -7519,7 +7293,6 @@ public interface Color {
         }
       };
 
-  /** Constant <code>LIME_LIGHTEN_1</code> */
   Color LIME_LIGHTEN_1 =
       new Color() {
         @Override
@@ -7558,7 +7331,6 @@ public interface Color {
         }
       };
 
-  /** Constant <code>LIME_LIGHTEN_2</code> */
   Color LIME_LIGHTEN_2 =
       new Color() {
         @Override
@@ -7597,7 +7369,6 @@ public interface Color {
         }
       };
 
-  /** Constant <code>LIME_LIGHTEN_3</code> */
   Color LIME_LIGHTEN_3 =
       new Color() {
         @Override
@@ -7636,7 +7407,6 @@ public interface Color {
         }
       };
 
-  /** Constant <code>LIME_LIGHTEN_4</code> */
   Color LIME_LIGHTEN_4 =
       new Color() {
         @Override
@@ -7675,7 +7445,6 @@ public interface Color {
         }
       };
 
-  /** Constant <code>LIME_LIGHTEN_5</code> */
   Color LIME_LIGHTEN_5 =
       new Color() {
         @Override
@@ -7714,7 +7483,6 @@ public interface Color {
         }
       };
 
-  /** Constant <code>LIME_DARKEN_1</code> */
   Color LIME_DARKEN_1 =
       new Color() {
         @Override
@@ -7753,7 +7521,6 @@ public interface Color {
         }
       };
 
-  /** Constant <code>LIME_DARKEN_2</code> */
   Color LIME_DARKEN_2 =
       new Color() {
         @Override
@@ -7792,7 +7559,6 @@ public interface Color {
         }
       };
 
-  /** Constant <code>LIME_DARKEN_3</code> */
   Color LIME_DARKEN_3 =
       new Color() {
         @Override
@@ -7831,7 +7597,6 @@ public interface Color {
         }
       };
 
-  /** Constant <code>LIME_DARKEN_4</code> */
   Color LIME_DARKEN_4 =
       new Color() {
         @Override
@@ -7870,7 +7635,6 @@ public interface Color {
         }
       };
 
-  /** Constant <code>YELLOW</code> */
   Color YELLOW =
       new Color() {
         @Override
@@ -7909,7 +7673,6 @@ public interface Color {
         }
       };
 
-  /** Constant <code>YELLOW_LIGHTEN_1</code> */
   Color YELLOW_LIGHTEN_1 =
       new Color() {
         @Override
@@ -7948,7 +7711,6 @@ public interface Color {
         }
       };
 
-  /** Constant <code>YELLOW_LIGHTEN_2</code> */
   Color YELLOW_LIGHTEN_2 =
       new Color() {
         @Override
@@ -7987,7 +7749,6 @@ public interface Color {
         }
       };
 
-  /** Constant <code>YELLOW_LIGHTEN_3</code> */
   Color YELLOW_LIGHTEN_3 =
       new Color() {
         @Override
@@ -8026,7 +7787,6 @@ public interface Color {
         }
       };
 
-  /** Constant <code>YELLOW_LIGHTEN_4</code> */
   Color YELLOW_LIGHTEN_4 =
       new Color() {
         @Override
@@ -8065,7 +7825,6 @@ public interface Color {
         }
       };
 
-  /** Constant <code>YELLOW_LIGHTEN_5</code> */
   Color YELLOW_LIGHTEN_5 =
       new Color() {
         @Override
@@ -8104,7 +7863,6 @@ public interface Color {
         }
       };
 
-  /** Constant <code>YELLOW_DARKEN_1</code> */
   Color YELLOW_DARKEN_1 =
       new Color() {
         @Override
@@ -8143,7 +7901,6 @@ public interface Color {
         }
       };
 
-  /** Constant <code>YELLOW_DARKEN_2</code> */
   Color YELLOW_DARKEN_2 =
       new Color() {
         @Override
@@ -8182,7 +7939,6 @@ public interface Color {
         }
       };
 
-  /** Constant <code>YELLOW_DARKEN_3</code> */
   Color YELLOW_DARKEN_3 =
       new Color() {
         @Override
@@ -8221,7 +7977,6 @@ public interface Color {
         }
       };
 
-  /** Constant <code>YELLOW_DARKEN_4</code> */
   Color YELLOW_DARKEN_4 =
       new Color() {
         @Override
@@ -8260,7 +8015,6 @@ public interface Color {
         }
       };
 
-  /** Constant <code>AMBER</code> */
   Color AMBER =
       new Color() {
         @Override
@@ -8299,7 +8053,6 @@ public interface Color {
         }
       };
 
-  /** Constant <code>AMBER_LIGHTEN_1</code> */
   Color AMBER_LIGHTEN_1 =
       new Color() {
         @Override
@@ -8338,7 +8091,6 @@ public interface Color {
         }
       };
 
-  /** Constant <code>AMBER_LIGHTEN_2</code> */
   Color AMBER_LIGHTEN_2 =
       new Color() {
         @Override
@@ -8377,7 +8129,6 @@ public interface Color {
         }
       };
 
-  /** Constant <code>AMBER_LIGHTEN_3</code> */
   Color AMBER_LIGHTEN_3 =
       new Color() {
         @Override
@@ -8416,7 +8167,6 @@ public interface Color {
         }
       };
 
-  /** Constant <code>AMBER_LIGHTEN_4</code> */
   Color AMBER_LIGHTEN_4 =
       new Color() {
         @Override
@@ -8455,7 +8205,6 @@ public interface Color {
         }
       };
 
-  /** Constant <code>AMBER_LIGHTEN_5</code> */
   Color AMBER_LIGHTEN_5 =
       new Color() {
         @Override
@@ -8494,7 +8243,6 @@ public interface Color {
         }
       };
 
-  /** Constant <code>AMBER_DARKEN_1</code> */
   Color AMBER_DARKEN_1 =
       new Color() {
         @Override
@@ -8533,7 +8281,6 @@ public interface Color {
         }
       };
 
-  /** Constant <code>AMBER_DARKEN_2</code> */
   Color AMBER_DARKEN_2 =
       new Color() {
         @Override
@@ -8572,7 +8319,6 @@ public interface Color {
         }
       };
 
-  /** Constant <code>AMBER_DARKEN_3</code> */
   Color AMBER_DARKEN_3 =
       new Color() {
         @Override
@@ -8611,7 +8357,6 @@ public interface Color {
         }
       };
 
-  /** Constant <code>AMBER_DARKEN_4</code> */
   Color AMBER_DARKEN_4 =
       new Color() {
         @Override
@@ -8650,7 +8395,6 @@ public interface Color {
         }
       };
 
-  /** Constant <code>ORANGE</code> */
   Color ORANGE =
       new Color() {
         @Override
@@ -8689,7 +8433,6 @@ public interface Color {
         }
       };
 
-  /** Constant <code>ORANGE_LIGHTEN_1</code> */
   Color ORANGE_LIGHTEN_1 =
       new Color() {
         @Override
@@ -8728,7 +8471,6 @@ public interface Color {
         }
       };
 
-  /** Constant <code>ORANGE_LIGHTEN_2</code> */
   Color ORANGE_LIGHTEN_2 =
       new Color() {
         @Override
@@ -8767,7 +8509,6 @@ public interface Color {
         }
       };
 
-  /** Constant <code>ORANGE_LIGHTEN_3</code> */
   Color ORANGE_LIGHTEN_3 =
       new Color() {
         @Override
@@ -8806,7 +8547,6 @@ public interface Color {
         }
       };
 
-  /** Constant <code>ORANGE_LIGHTEN_4</code> */
   Color ORANGE_LIGHTEN_4 =
       new Color() {
         @Override
@@ -8845,7 +8585,6 @@ public interface Color {
         }
       };
 
-  /** Constant <code>ORANGE_LIGHTEN_5</code> */
   Color ORANGE_LIGHTEN_5 =
       new Color() {
         @Override
@@ -8884,7 +8623,6 @@ public interface Color {
         }
       };
 
-  /** Constant <code>ORANGE_DARKEN_1</code> */
   Color ORANGE_DARKEN_1 =
       new Color() {
         @Override
@@ -8923,7 +8661,6 @@ public interface Color {
         }
       };
 
-  /** Constant <code>ORANGE_DARKEN_2</code> */
   Color ORANGE_DARKEN_2 =
       new Color() {
         @Override
@@ -8962,7 +8699,6 @@ public interface Color {
         }
       };
 
-  /** Constant <code>ORANGE_DARKEN_3</code> */
   Color ORANGE_DARKEN_3 =
       new Color() {
         @Override
@@ -9001,7 +8737,6 @@ public interface Color {
         }
       };
 
-  /** Constant <code>ORANGE_DARKEN_4</code> */
   Color ORANGE_DARKEN_4 =
       new Color() {
         @Override
@@ -9040,7 +8775,6 @@ public interface Color {
         }
       };
 
-  /** Constant <code>DEEP_ORANGE</code> */
   Color DEEP_ORANGE =
       new Color() {
         @Override
@@ -9079,7 +8813,6 @@ public interface Color {
         }
       };
 
-  /** Constant <code>DEEP_ORANGE_LIGHTEN_1</code> */
   Color DEEP_ORANGE_LIGHTEN_1 =
       new Color() {
         @Override
@@ -9118,7 +8851,6 @@ public interface Color {
         }
       };
 
-  /** Constant <code>DEEP_ORANGE_LIGHTEN_2</code> */
   Color DEEP_ORANGE_LIGHTEN_2 =
       new Color() {
         @Override
@@ -9157,7 +8889,6 @@ public interface Color {
         }
       };
 
-  /** Constant <code>DEEP_ORANGE_LIGHTEN_3</code> */
   Color DEEP_ORANGE_LIGHTEN_3 =
       new Color() {
         @Override
@@ -9196,7 +8927,6 @@ public interface Color {
         }
       };
 
-  /** Constant <code>DEEP_ORANGE_LIGHTEN_4</code> */
   Color DEEP_ORANGE_LIGHTEN_4 =
       new Color() {
         @Override
@@ -9235,7 +8965,6 @@ public interface Color {
         }
       };
 
-  /** Constant <code>DEEP_ORANGE_LIGHTEN_5</code> */
   Color DEEP_ORANGE_LIGHTEN_5 =
       new Color() {
         @Override
@@ -9274,7 +9003,6 @@ public interface Color {
         }
       };
 
-  /** Constant <code>DEEP_ORANGE_DARKEN_1</code> */
   Color DEEP_ORANGE_DARKEN_1 =
       new Color() {
         @Override
@@ -9313,7 +9041,6 @@ public interface Color {
         }
       };
 
-  /** Constant <code>DEEP_ORANGE_DARKEN_2</code> */
   Color DEEP_ORANGE_DARKEN_2 =
       new Color() {
         @Override
@@ -9352,7 +9079,6 @@ public interface Color {
         }
       };
 
-  /** Constant <code>DEEP_ORANGE_DARKEN_3</code> */
   Color DEEP_ORANGE_DARKEN_3 =
       new Color() {
         @Override
@@ -9391,7 +9117,6 @@ public interface Color {
         }
       };
 
-  /** Constant <code>DEEP_ORANGE_DARKEN_4</code> */
   Color DEEP_ORANGE_DARKEN_4 =
       new Color() {
         @Override
@@ -9430,7 +9155,6 @@ public interface Color {
         }
       };
 
-  /** Constant <code>BROWN</code> */
   Color BROWN =
       new Color() {
         @Override
@@ -9469,7 +9193,6 @@ public interface Color {
         }
       };
 
-  /** Constant <code>BROWN_LIGHTEN_1</code> */
   Color BROWN_LIGHTEN_1 =
       new Color() {
         @Override
@@ -9508,7 +9231,6 @@ public interface Color {
         }
       };
 
-  /** Constant <code>BROWN_LIGHTEN_2</code> */
   Color BROWN_LIGHTEN_2 =
       new Color() {
         @Override
@@ -9547,7 +9269,6 @@ public interface Color {
         }
       };
 
-  /** Constant <code>BROWN_LIGHTEN_3</code> */
   Color BROWN_LIGHTEN_3 =
       new Color() {
         @Override
@@ -9586,7 +9307,6 @@ public interface Color {
         }
       };
 
-  /** Constant <code>BROWN_LIGHTEN_4</code> */
   Color BROWN_LIGHTEN_4 =
       new Color() {
         @Override
@@ -9625,7 +9345,6 @@ public interface Color {
         }
       };
 
-  /** Constant <code>BROWN_LIGHTEN_5</code> */
   Color BROWN_LIGHTEN_5 =
       new Color() {
         @Override
@@ -9664,7 +9383,6 @@ public interface Color {
         }
       };
 
-  /** Constant <code>BROWN_DARKEN_1</code> */
   Color BROWN_DARKEN_1 =
       new Color() {
         @Override
@@ -9703,7 +9421,6 @@ public interface Color {
         }
       };
 
-  /** Constant <code>BROWN_DARKEN_2</code> */
   Color BROWN_DARKEN_2 =
       new Color() {
         @Override
@@ -9742,7 +9459,6 @@ public interface Color {
         }
       };
 
-  /** Constant <code>BROWN_DARKEN_3</code> */
   Color BROWN_DARKEN_3 =
       new Color() {
         @Override
@@ -9781,7 +9497,6 @@ public interface Color {
         }
       };
 
-  /** Constant <code>BROWN_DARKEN_4</code> */
   Color BROWN_DARKEN_4 =
       new Color() {
         @Override
@@ -9820,7 +9535,6 @@ public interface Color {
         }
       };
 
-  /** Constant <code>GREY</code> */
   Color GREY =
       new Color() {
         @Override
@@ -9859,7 +9573,6 @@ public interface Color {
         }
       };
 
-  /** Constant <code>GREY_LIGHTEN_1</code> */
   Color GREY_LIGHTEN_1 =
       new Color() {
         @Override
@@ -9898,7 +9611,6 @@ public interface Color {
         }
       };
 
-  /** Constant <code>GREY_LIGHTEN_2</code> */
   Color GREY_LIGHTEN_2 =
       new Color() {
         @Override
@@ -9937,7 +9649,6 @@ public interface Color {
         }
       };
 
-  /** Constant <code>GREY_LIGHTEN_3</code> */
   Color GREY_LIGHTEN_3 =
       new Color() {
         @Override
@@ -9976,7 +9687,6 @@ public interface Color {
         }
       };
 
-  /** Constant <code>GREY_LIGHTEN_4</code> */
   Color GREY_LIGHTEN_4 =
       new Color() {
         @Override
@@ -10015,7 +9725,6 @@ public interface Color {
         }
       };
 
-  /** Constant <code>GREY_LIGHTEN_5</code> */
   Color GREY_LIGHTEN_5 =
       new Color() {
         @Override
@@ -10054,7 +9763,6 @@ public interface Color {
         }
       };
 
-  /** Constant <code>GREY_DARKEN_1</code> */
   Color GREY_DARKEN_1 =
       new Color() {
         @Override
@@ -10093,7 +9801,6 @@ public interface Color {
         }
       };
 
-  /** Constant <code>GREY_DARKEN_2</code> */
   Color GREY_DARKEN_2 =
       new Color() {
         @Override
@@ -10132,7 +9839,6 @@ public interface Color {
         }
       };
 
-  /** Constant <code>GREY_DARKEN_3</code> */
   Color GREY_DARKEN_3 =
       new Color() {
         @Override
@@ -10171,7 +9877,6 @@ public interface Color {
         }
       };
 
-  /** Constant <code>GREY_DARKEN_4</code> */
   Color GREY_DARKEN_4 =
       new Color() {
         @Override
@@ -10210,7 +9915,6 @@ public interface Color {
         }
       };
 
-  /** Constant <code>BLUE_GREY</code> */
   Color BLUE_GREY =
       new Color() {
         @Override
@@ -10249,7 +9953,6 @@ public interface Color {
         }
       };
 
-  /** Constant <code>BLUE_GREY_LIGHTEN_1</code> */
   Color BLUE_GREY_LIGHTEN_1 =
       new Color() {
         @Override
@@ -10288,7 +9991,6 @@ public interface Color {
         }
       };
 
-  /** Constant <code>BLUE_GREY_LIGHTEN_2</code> */
   Color BLUE_GREY_LIGHTEN_2 =
       new Color() {
         @Override
@@ -10327,7 +10029,6 @@ public interface Color {
         }
       };
 
-  /** Constant <code>BLUE_GREY_LIGHTEN_3</code> */
   Color BLUE_GREY_LIGHTEN_3 =
       new Color() {
         @Override
@@ -10366,7 +10067,6 @@ public interface Color {
         }
       };
 
-  /** Constant <code>BLUE_GREY_LIGHTEN_4</code> */
   Color BLUE_GREY_LIGHTEN_4 =
       new Color() {
         @Override
@@ -10405,7 +10105,6 @@ public interface Color {
         }
       };
 
-  /** Constant <code>BLUE_GREY_LIGHTEN_5</code> */
   Color BLUE_GREY_LIGHTEN_5 =
       new Color() {
         @Override
@@ -10444,7 +10143,6 @@ public interface Color {
         }
       };
 
-  /** Constant <code>BLUE_GREY_DARKEN_1</code> */
   Color BLUE_GREY_DARKEN_1 =
       new Color() {
         @Override
@@ -10483,7 +10181,6 @@ public interface Color {
         }
       };
 
-  /** Constant <code>BLUE_GREY_DARKEN_2</code> */
   Color BLUE_GREY_DARKEN_2 =
       new Color() {
         @Override
@@ -10522,7 +10219,6 @@ public interface Color {
         }
       };
 
-  /** Constant <code>BLUE_GREY_DARKEN_3</code> */
   Color BLUE_GREY_DARKEN_3 =
       new Color() {
         @Override
@@ -10561,7 +10257,6 @@ public interface Color {
         }
       };
 
-  /** Constant <code>BLUE_GREY_DARKEN_4</code> */
   Color BLUE_GREY_DARKEN_4 =
       new Color() {
         @Override
@@ -10600,7 +10295,6 @@ public interface Color {
         }
       };
 
-  /** Constant <code>WHITE</code> */
   Color WHITE =
       new Color() {
         @Override
@@ -10639,7 +10333,6 @@ public interface Color {
         }
       };
 
-  /** Constant <code>WHITE_LIGHTEN_1</code> */
   Color WHITE_LIGHTEN_1 =
       new Color() {
         @Override
@@ -10678,7 +10371,6 @@ public interface Color {
         }
       };
 
-  /** Constant <code>WHITE_LIGHTEN_2</code> */
   Color WHITE_LIGHTEN_2 =
       new Color() {
         @Override
@@ -10717,7 +10409,6 @@ public interface Color {
         }
       };
 
-  /** Constant <code>WHITE_LIGHTEN_3</code> */
   Color WHITE_LIGHTEN_3 =
       new Color() {
         @Override
@@ -10756,7 +10447,6 @@ public interface Color {
         }
       };
 
-  /** Constant <code>WHITE_LIGHTEN_4</code> */
   Color WHITE_LIGHTEN_4 =
       new Color() {
         @Override
@@ -10795,7 +10485,6 @@ public interface Color {
         }
       };
 
-  /** Constant <code>WHITE_LIGHTEN_5</code> */
   Color WHITE_LIGHTEN_5 =
       new Color() {
         @Override
@@ -10834,7 +10523,6 @@ public interface Color {
         }
       };
 
-  /** Constant <code>WHITE_DARKEN_1</code> */
   Color WHITE_DARKEN_1 =
       new Color() {
         @Override
@@ -10873,7 +10561,6 @@ public interface Color {
         }
       };
 
-  /** Constant <code>WHITE_DARKEN_2</code> */
   Color WHITE_DARKEN_2 =
       new Color() {
         @Override
@@ -10912,7 +10599,6 @@ public interface Color {
         }
       };
 
-  /** Constant <code>WHITE_DARKEN_3</code> */
   Color WHITE_DARKEN_3 =
       new Color() {
         @Override
@@ -10951,7 +10637,6 @@ public interface Color {
         }
       };
 
-  /** Constant <code>WHITE_DARKEN_4</code> */
   Color WHITE_DARKEN_4 =
       new Color() {
         @Override
@@ -10990,7 +10675,6 @@ public interface Color {
         }
       };
 
-  /** Constant <code>BLACK</code> */
   Color BLACK =
       new Color() {
         @Override
@@ -11029,7 +10713,6 @@ public interface Color {
         }
       };
 
-  /** Constant <code>BLACK_LIGHTEN_1</code> */
   Color BLACK_LIGHTEN_1 =
       new Color() {
         @Override
@@ -11068,7 +10751,6 @@ public interface Color {
         }
       };
 
-  /** Constant <code>BLACK_LIGHTEN_2</code> */
   Color BLACK_LIGHTEN_2 =
       new Color() {
         @Override
@@ -11107,7 +10789,6 @@ public interface Color {
         }
       };
 
-  /** Constant <code>BLACK_LIGHTEN_3</code> */
   Color BLACK_LIGHTEN_3 =
       new Color() {
         @Override
@@ -11146,7 +10827,6 @@ public interface Color {
         }
       };
 
-  /** Constant <code>BLACK_LIGHTEN_4</code> */
   Color BLACK_LIGHTEN_4 =
       new Color() {
         @Override
@@ -11185,7 +10865,6 @@ public interface Color {
         }
       };
 
-  /** Constant <code>BLACK_LIGHTEN_5</code> */
   Color BLACK_LIGHTEN_5 =
       new Color() {
         @Override
@@ -11224,7 +10903,6 @@ public interface Color {
         }
       };
 
-  /** Constant <code>BLACK_DARKEN_1</code> */
   Color BLACK_DARKEN_1 =
       new Color() {
         @Override
@@ -11263,7 +10941,6 @@ public interface Color {
         }
       };
 
-  /** Constant <code>BLACK_DARKEN_2</code> */
   Color BLACK_DARKEN_2 =
       new Color() {
         @Override
@@ -11302,7 +10979,6 @@ public interface Color {
         }
       };
 
-  /** Constant <code>BLACK_DARKEN_3</code> */
   Color BLACK_DARKEN_3 =
       new Color() {
         @Override
@@ -11341,7 +11017,6 @@ public interface Color {
         }
       };
 
-  /** Constant <code>BLACK_DARKEN_4</code> */
   Color BLACK_DARKEN_4 =
       new Color() {
         @Override
@@ -11380,7 +11055,6 @@ public interface Color {
         }
       };
 
-  /** Constant <code>TRANSPARENT</code> */
   Color TRANSPARENT =
       new Color() {
         @Override
@@ -11419,7 +11093,6 @@ public interface Color {
         }
       };
 
-  /** Constant <code>TRANSPARENT_LIGHTEN_1</code> */
   Color TRANSPARENT_LIGHTEN_1 =
       new Color() {
         @Override
@@ -11458,7 +11131,6 @@ public interface Color {
         }
       };
 
-  /** Constant <code>TRANSPARENT_LIGHTEN_2</code> */
   Color TRANSPARENT_LIGHTEN_2 =
       new Color() {
         @Override
@@ -11497,7 +11169,6 @@ public interface Color {
         }
       };
 
-  /** Constant <code>TRANSPARENT_LIGHTEN_3</code> */
   Color TRANSPARENT_LIGHTEN_3 =
       new Color() {
         @Override
@@ -11536,7 +11207,6 @@ public interface Color {
         }
       };
 
-  /** Constant <code>TRANSPARENT_LIGHTEN_4</code> */
   Color TRANSPARENT_LIGHTEN_4 =
       new Color() {
         @Override
@@ -11575,7 +11245,6 @@ public interface Color {
         }
       };
 
-  /** Constant <code>TRANSPARENT_LIGHTEN_5</code> */
   Color TRANSPARENT_LIGHTEN_5 =
       new Color() {
         @Override
@@ -11614,7 +11283,6 @@ public interface Color {
         }
       };
 
-  /** Constant <code>TRANSPARENT_DARKEN_1</code> */
   Color TRANSPARENT_DARKEN_1 =
       new Color() {
         @Override
@@ -11653,7 +11321,6 @@ public interface Color {
         }
       };
 
-  /** Constant <code>TRANSPARENT_DARKEN_2</code> */
   Color TRANSPARENT_DARKEN_2 =
       new Color() {
         @Override
@@ -11692,7 +11359,6 @@ public interface Color {
         }
       };
 
-  /** Constant <code>TRANSPARENT_DARKEN_3</code> */
   Color TRANSPARENT_DARKEN_3 =
       new Color() {
         @Override
@@ -11731,7 +11397,6 @@ public interface Color {
         }
       };
 
-  /** Constant <code>TRANSPARENT_DARKEN_4</code> */
   Color TRANSPARENT_DARKEN_4 =
       new Color() {
         @Override
@@ -11770,12 +11435,6 @@ public interface Color {
         }
       };
 
-  /**
-   * of.
-   *
-   * @param name a {@link java.lang.String} object.
-   * @return a {@link org.dominokit.domino.ui.style.Color} object.
-   */
   static Color of(String name) {
     switch (name) {
       case "RED":

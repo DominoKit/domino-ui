@@ -13,38 +13,39 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package org.dominokit.domino.ui.utils;
 
 import java.util.Optional;
 import java.util.Set;
 
 /**
- * Components that has a value that can be selectiond and need to define listeners for the
- * selections should implement this interface
+ * The {@code HasSelectionListeners} interface defines methods for adding and removing selection
+ * listeners to a component that can be selected and deselected, and for handling selection and
+ * deselection events.
  *
- * @param <T> the type of the class implementing this interface
- * @param <V> the type of the component value
- * @param <S> the type of selected value
+ * @param <T> The type of the component to which selection listeners can be added or removed.
+ * @param <V> The type of the source of selection events.
+ * @param <S> The type of the selection value.
  */
 public interface HasSelectionListeners<T, V, S> {
 
   /**
-   * addSelectionListener.
+   * Adds a selection listener to the component.
    *
-   * @param selectionListener {@link
-   *     org.dominokit.domino.ui.utils.HasSelectionListeners.SelectionListener}
-   * @return same implementing class instance
+   * @param selectionListener The selection listener to be added.
+   * @return The component with the added selection listener.
    */
   default T addSelectionListener(SelectionListener<? super V, ? super S> selectionListener) {
     getSelectionListeners().add(selectionListener);
     return (T) this;
   }
+
   /**
-   * addDeselectionListener.
+   * Adds a deselection listener to the component.
    *
-   * @param selectionListener {@link
-   *     org.dominokit.domino.ui.utils.HasSelectionListeners.SelectionListener}
-   * @return same implementing class instance
+   * @param selectionListener The deselection listener to be added.
+   * @return The component with the added deselection listener.
    */
   default T addDeselectionListener(SelectionListener<? super V, ? super S> selectionListener) {
     getDeselectionListeners().add(selectionListener);
@@ -52,11 +53,10 @@ public interface HasSelectionListeners<T, V, S> {
   }
 
   /**
-   * addSelectionDeselectionListener.
+   * Adds a selection and deselection listener to the component.
    *
-   * @param listener a {@link org.dominokit.domino.ui.utils.HasSelectionListeners.SelectionListener}
-   *     object
-   * @return a T object
+   * @param listener The selection and deselection listener to be added.
+   * @return The component with the added listener.
    */
   default T addSelectionDeselectionListener(SelectionListener<? super V, ? super S> listener) {
     addDeselectionListener(listener);
@@ -65,11 +65,10 @@ public interface HasSelectionListeners<T, V, S> {
   }
 
   /**
-   * removeSelectionListener.
+   * Removes a selection listener from the component.
    *
-   * @param selectionListener {@link
-   *     org.dominokit.domino.ui.utils.HasSelectionListeners.SelectionListener}
-   * @return same implementing class instance
+   * @param selectionListener The selection listener to be removed.
+   * @return The component with the selection listener removed.
    */
   default T removeSelectionListener(SelectionListener<? super V, ? super S> selectionListener) {
     getSelectionListeners().remove(selectionListener);
@@ -77,11 +76,10 @@ public interface HasSelectionListeners<T, V, S> {
   }
 
   /**
-   * removeDeselectionListener.
+   * Removes a deselection listener from the component.
    *
-   * @param selectionListener {@link
-   *     org.dominokit.domino.ui.utils.HasSelectionListeners.SelectionListener}
-   * @return same implementing class instance
+   * @param selectionListener The deselection listener to be removed.
+   * @return The component with the deselection listener removed.
    */
   default T removeDeselectionListener(SelectionListener<? super V, ? super S> selectionListener) {
     getDeselectionListeners().remove(selectionListener);
@@ -89,22 +87,20 @@ public interface HasSelectionListeners<T, V, S> {
   }
 
   /**
-   * Checks if a component has the specified SelectionHandler
+   * Checks if the component has a selection listener.
    *
-   * @param selectionListener {@link
-   *     org.dominokit.domino.ui.utils.HasSelectionListeners.SelectionListener}
-   * @return same implementing class instance
+   * @param selectionListener The selection listener to check.
+   * @return {@code true} if the component has the selection listener, {@code false} otherwise.
    */
   default boolean hasSelectionListener(SelectionListener<? super V, ? super S> selectionListener) {
     return getSelectionListeners().contains(selectionListener);
   }
 
   /**
-   * Checks if a component has the specified SelectionHandler
+   * Checks if the component has a deselection listener.
    *
-   * @param selectionListener {@link
-   *     org.dominokit.domino.ui.utils.HasSelectionListeners.SelectionListener}
-   * @return same implementing class instance
+   * @param selectionListener The deselection listener to check.
+   * @return {@code true} if the component has the deselection listener, {@code false} otherwise.
    */
   default boolean hasDeselectionListener(
       SelectionListener<? super V, ? super S> selectionListener) {
@@ -112,34 +108,33 @@ public interface HasSelectionListeners<T, V, S> {
   }
 
   /**
-   * Disable selection listeners
+   * Pauses selection listeners for the component.
    *
-   * @return same component instance
+   * @return The component with selection listeners paused.
    */
   T pauseSelectionListeners();
 
   /**
-   * Enables selection listeners
+   * Resumes selection listeners for the component.
    *
-   * @return same component instance
+   * @return The component with selection listeners resumed.
    */
   T resumeSelectionListeners();
 
   /**
-   * Disable/Enable selection listeners
+   * Toggles the pause state of selection listeners for the component.
    *
-   * @param toggle boolean, true to pause the selection listeners, false to enable them
-   * @return same component instance
+   * @param toggle {@code true} to pause, {@code false} to resume.
+   * @return The component with selection listeners paused or resumed based on the toggle value.
    */
   T togglePauseSelectionListeners(boolean toggle);
 
   /**
-   * Execute a handler while toggling the selection handlers state, revert the state back to its
-   * original value after executing the handler
+   * Executes a handler with selection listeners paused, then restores the previous pause state.
    *
-   * @param toggle boolean, true to pause the selection listeners, false to enable them
-   * @return same component instance
-   * @param handler a {@link org.dominokit.domino.ui.utils.Handler} object
+   * @param toggle {@code true} to pause, {@code false} to resume.
+   * @param handler The handler to execute.
+   * @return The component with selection listeners paused or resumed based on the toggle value.
    */
   default T withPauseSelectionListenersToggle(boolean toggle, Handler<T> handler) {
     boolean oldState = isSelectionListenersPaused();
@@ -153,12 +148,12 @@ public interface HasSelectionListeners<T, V, S> {
   }
 
   /**
-   * Execute a handler while toggling the selection handlers state, revert the state back to its
-   * original value after the AsyncHandler.onComplete is called
+   * Executes an asynchronous handler with selection listeners paused, then restores the previous
+   * pause state.
    *
-   * @param toggle boolean, true to pause the selection listeners, false to enable them
-   * @return same component instance
-   * @param handler a {@link org.dominokit.domino.ui.utils.AsyncHandler} object
+   * @param toggle {@code true} to pause, {@code false} to resume.
+   * @param handler The asynchronous handler to execute.
+   * @return The component with selection listeners paused or resumed based on the toggle value.
    */
   default T withPauseSelectionListenersToggleAsync(boolean toggle, AsyncHandler<T> handler) {
     boolean oldState = isSelectionListenersPaused();
@@ -173,62 +168,65 @@ public interface HasSelectionListeners<T, V, S> {
   }
 
   /**
-   * getSelectionListeners.
+   * Gets the set of selection listeners for the component.
    *
-   * @return a {@link java.util.Set} object
+   * @return The set of selection listeners.
    */
   Set<SelectionListener<? super V, ? super S>> getSelectionListeners();
 
   /**
-   * getDeselectionListeners.
+   * Gets the set of deselection listeners for the component.
    *
-   * @return a {@link java.util.Set} object
+   * @return The set of deselection listeners.
    */
   Set<SelectionListener<? super V, ? super S>> getDeselectionListeners();
 
   /**
-   * isSelectionListenersPaused.
+   * Checks if selection listeners for the component are paused.
    *
-   * @return a boolean
+   * @return {@code true} if selection listeners are paused, {@code false} otherwise.
    */
   boolean isSelectionListenersPaused();
 
   /**
-   * triggerSelectionListeners.
+   * Triggers selection listeners for the component.
    *
-   * @param source a V object
-   * @param selection a S object
-   * @return a T object
+   * @param source The source of the selection event.
+   * @param selection The selection value.
+   * @return The component with selection listeners triggered.
    */
   T triggerSelectionListeners(V source, S selection);
 
   /**
-   * triggerDeselectionListeners.
+   * Triggers deselection listeners for the component.
    *
-   * @param source a V object
-   * @param selection a S object
-   * @return a T object
+   * @param source The source of the deselection event.
+   * @param selection The selection value.
+   * @return The component with deselection listeners triggered.
    */
   T triggerDeselectionListeners(V source, S selection);
 
   /**
-   * getSelection.
+   * Gets the current selection value of the component.
    *
-   * @return a S object
+   * @return The current selection value.
    */
   S getSelection();
 
   /**
-   * @param <V> the type of the component value
-   * @param <S> the type of the selected value
+   * A functional interface for handling selection and deselection events of a component.
+   *
+   * @param <V> The type of the source of the event.
+   * @param <S> The type of the selection value.
    */
   @FunctionalInterface
   interface SelectionListener<V, S> {
+
     /**
-     * Will be called whenever the component value is selectiond
+     * Called when a selection or deselection event occurs in the component.
      *
-     * @param source V item that has its selection changed
-     * @param selection The current selected item(s)
+     * @param source The source of the event.
+     * @param selection The selection or deselection value.
      */
     void onSelectionChanged(Optional<V> source, S selection);
   }

@@ -13,55 +13,62 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package org.dominokit.domino.ui.datatable.events;
 
 import java.util.List;
 
 /**
- * This event will be fired after the data in the table is changed
+ * The {@code TableDataUpdatedEvent} class represents an event that occurs when the data in a
+ * DataTable is updated.
  *
- * @param <T> the type of the table records
+ * @param <T> the type of data in the DataTable
  */
 public class TableDataUpdatedEvent<T> implements TableEvent {
 
-  /** A constant string to define a unique type for this event */
+  /** The event type for the table data updated event. */
   public static final String DATA_UPDATED = "table-data-updated";
 
+  /** The updated data in the DataTable. */
   private final List<T> data;
+
+  /** The total count of data in the DataTable. */
   private final int totalCount;
 
   /**
-   * Constructor for TableDataUpdatedEvent.
+   * Constructs a new {@code TableDataUpdatedEvent} with the specified data and total count.
    *
-   * @param data {@link java.util.List} of the new data records
-   * @param totalCount int, the total count of the data
+   * @param data the updated data in the DataTable
+   * @param totalCount the total count of data in the DataTable
    */
   public TableDataUpdatedEvent(List<T> data, int totalCount) {
     this.data = data;
     this.totalCount = totalCount;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Retrieves the type of this event.
+   *
+   * @return the event type
+   */
   @Override
   public String getType() {
     return DATA_UPDATED;
   }
 
-  /** @return {@link List} of the new data records */
   /**
-   * Getter for the field <code>data</code>.
+   * Gets the updated data in the DataTable.
    *
-   * @return a {@link java.util.List} object
+   * @return the updated data
    */
   public List<T> getData() {
     return data;
   }
 
-  /** @return int, the total count of the data */
   /**
-   * Getter for the field <code>totalCount</code>.
+   * Gets the total count of data in the DataTable.
    *
-   * @return a int
+   * @return the total count of data
    */
   public int getTotalCount() {
     return totalCount;

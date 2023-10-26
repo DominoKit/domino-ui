@@ -13,25 +13,27 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package org.dominokit.domino.ui.datatable.store;
 
 import java.util.Comparator;
 import org.dominokit.domino.ui.datatable.plugins.pagination.SortDirection;
 
 /**
- * An interface to implement the sort mechanism for a {@link
- * org.dominokit.domino.ui.datatable.store.LocalListDataStore}
+ * The {@code RecordsSorter} functional interface defines a contract for providing a comparator for
+ * sorting records in a data table.
  *
- * @param <T> the type of the data table records
+ * @param <T> The type of data representing the records in the data table.
  */
 @FunctionalInterface
 public interface RecordsSorter<T> {
+
   /**
-   * onSortChange.
+   * Provides a comparator for sorting records based on the specified sorting criteria.
    *
-   * @param sortBy String sort column name
-   * @param sortDirection {@link org.dominokit.domino.ui.datatable.plugins.pagination.SortDirection}
-   * @return a {@link java.util.Comparator} to sort the records
+   * @param sortBy The name of the field by which the records should be sorted.
+   * @param sortDirection The sorting direction (ascending or descending).
+   * @return A comparator for sorting records.
    */
   Comparator<T> onSortChange(String sortBy, SortDirection sortDirection);
 }

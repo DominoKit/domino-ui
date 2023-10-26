@@ -13,6 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package org.dominokit.domino.ui.datatable.plugins.header;
 
 import elemental2.dom.Element;
@@ -21,29 +22,34 @@ import org.dominokit.domino.ui.datatable.events.TableEvent;
 import org.dominokit.domino.ui.datatable.events.TableEventListener;
 
 /**
- * An interface to implement header action elements for the {@link
- * org.dominokit.domino.ui.datatable.plugins.header.HeaderBarPlugin}
+ * An interface for defining elements that can be used as actions in the header of a DataTable.
  *
- * @param <T> the type of the data table records
+ * @param <T> The type of data in the DataTable.
  */
 public interface HeaderActionElement<T> extends TableEventListener {
+
   /**
-   * initialize the element for this action
+   * Converts the header action element into an HTML element.
    *
-   * @param dataTable the {@link org.dominokit.domino.ui.datatable.DataTable} we are attaching the
-   *     plugin to
-   * @return the {@link elemental2.dom.Node} representing this action element
+   * @param dataTable The DataTable to which this header action belongs.
+   * @return The HTML element representing the header action.
    */
   Element asElement(DataTable<T> dataTable);
 
-  /** {@inheritDoc} */
+  /**
+   * {@inheritDoc}
+   *
+   * <p>This default implementation does nothing when handling table events.
+   *
+   * @param event The table event to handle.
+   */
   @Override
   default void handleEvent(TableEvent event) {}
 
   /**
-   * Customize the styles for this action container
+   * Apply additional styles to the container element if needed.
    *
-   * @param container the flex item parent container of this action
+   * @param container The container element to which styles can be applied.
    */
   default void applyStyles(Element container) {}
 }

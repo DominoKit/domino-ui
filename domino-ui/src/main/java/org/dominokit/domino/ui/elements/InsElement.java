@@ -17,22 +17,38 @@ package org.dominokit.domino.ui.elements;
 
 import elemental2.dom.HTMLModElement;
 
-/** InsElement class. */
+/**
+ * Represents an HTML <ins> element wrapper.
+ *
+ * <p>The HTML <ins> element is used to represent content that has been inserted into a document,
+ * typically by underlining the inserted text. This class provides a convenient way to create,
+ * manipulate, and control the behavior of <ins> elements in Java-based web applications. Example
+ * usage:
+ *
+ * <pre>
+ * HTMLModElement insElement = ...;  // Obtain an <ins> element from somewhere
+ * InsElement ins = InsElement.of(insElement);
+ * </pre>
+ *
+ * @see <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/ins">MDN Web Docs
+ *     (ins)</a>
+ */
 public class InsElement extends BaseElement<HTMLModElement, InsElement> {
+
   /**
-   * of.
+   * Creates a new {@link InsElement} instance by wrapping the provided HTML <ins> element.
    *
-   * @param e a {@link elemental2.dom.HTMLModElement} object
-   * @return a {@link org.dominokit.domino.ui.elements.InsElement} object
+   * @param e The HTML <ins> element to wrap.
+   * @return A new {@link InsElement} instance wrapping the provided element.
    */
   public static InsElement of(HTMLModElement e) {
     return new InsElement(e);
   }
 
   /**
-   * Constructor for InsElement.
+   * Constructs a {@link InsElement} instance by wrapping the provided HTML <ins> element.
    *
-   * @param element a {@link elemental2.dom.HTMLModElement} object
+   * @param element The HTML <ins> element to wrap.
    */
   public InsElement(HTMLModElement element) {
     super(element);

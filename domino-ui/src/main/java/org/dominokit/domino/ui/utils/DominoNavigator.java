@@ -19,9 +19,17 @@ import elemental2.dom.Navigator;
 import jsinterop.annotations.JsPackage;
 import jsinterop.annotations.JsType;
 
+/** A custom wrapper for the {@link Navigator} class with additional functionality. */
 @JsType(isNative = true, namespace = JsPackage.GLOBAL, name = "Navigator")
 public class DominoNavigator extends Navigator {
+
+  /** The Clipboard object for working with the system clipboard. */
   public Clipboard clipboard;
 
+  /**
+   * Gets the Clipboard object for working with the system clipboard.
+   *
+   * @return The Clipboard object.
+   */
   public native Clipboard getClipboard();
 }

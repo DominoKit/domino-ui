@@ -38,52 +38,80 @@ import org.dominokit.domino.ui.utils.ElementUtil;
 import org.dominokit.domino.ui.utils.PrefixAddOn;
 
 /**
- * This plugin allow the user to pin a specific column or columns to the right or left of the table.
- * pinned columns will not scroll horizontally with the table.
+ * This plugin allows users to pin specific columns to the right or left of a {@link
+ * org.dominokit.domino.ui.datatable.DataTable}. Pinned columns remain fixed when scrolling
+ * horizontally, making it easier to view important data while scrolling through a large dataset.
  *
- * <p>pinning a column to the left will also pin all columns that are to the left of that column to
- * left too pinning a column to the right will also pin all columns that are to the right of that
- * column to the right. pinning a column in a column group will pin all columns in that group.
+ * <p>When you pin a column to the left, all columns to the left of the pinned column will also be
+ * pinned to the left. Similarly, pinning a column to the right will cause all columns to the right
+ * to be pinned to the right.
  *
- * <p>to pin a column to the left apply a {@link
- * org.dominokit.domino.ui.datatable.plugins.column.PinColumnMeta} to the column with left direction
- *
- * <pre>
- *     <code>
- *     tableConfig.addColumn(ColumnConfig.create("name", "label").applyMeta(PinColumnMeta.left()))
- *     </code>
- * </pre>
- *
- * <p>to pin a column to the left apply a {@link
- * org.dominokit.domino.ui.datatable.plugins.column.PinColumnMeta} to the column with right
- * direction
+ * <p>To pin a column to the left, use {@link
+ * org.dominokit.domino.ui.datatable.plugins.column.PinColumnMeta#left()} when configuring the
+ * column:
  *
  * <pre>
- *     <code>
- *     tableConfig.addColumn(ColumnConfig.create("name", "label").applyMeta(PinColumnMeta.right()))
- *     </code>
+ * tableConfig.addColumn(ColumnConfig.create("name", "Label").applyMeta(PinColumnMeta.left()));
  * </pre>
  *
- * <p>The pin menu and pin icon are both configurable and are disabled by default.
+ * <p>To pin a column to the right, use {@link
+ * org.dominokit.domino.ui.datatable.plugins.column.PinColumnMeta#right()}:
  *
- * @param <T>
+ * <pre>
+ * tableConfig.addColumn(ColumnConfig.create("name", "Label").applyMeta(PinColumnMeta.right()));
+ * </pre>
+ *
+ * <p>This plugin provides the ability to configure the pinning behavior, including
+ * enabling/disabling pinning icons and menus, and customizing the icon visuals.
+ *
+ * <p><strong>Customization:</strong> You can customize the pin icons using {@link
+ * org.dominokit.domino.ui.icons.Icon} objects. By default, pin icons are taken from the {@link
+ * org.dominokit.domino.ui.icons.lib.Icons} class.
+ *
+ * <p><strong>Pin Menu:</strong> This plugin provides an optional pinning menu that can be shown
+ * when a column's header is right-clicked. The menu allows users to easily pin/unpin columns.
+ *
+ * <p>This plugin listens to various DataTable events such as column resizing and updates to ensure
+ * that pinned columns stay in the correct position.
+ *
+ * <p><strong>Notes:</strong> - Pinning a column to the left will also pin all columns to the left
+ * of that column. - Pinning a column to the right will also pin all columns to the right of that
+ * column. - Pinned columns do not scroll horizontally with the table.
+ *
+ * @param <T> The type of data in the DataTable.
+ * @see org.dominokit.domino.ui.datatable.plugins.column.PinColumnMeta
+ * @see org.dominokit.domino.ui.icons.Icon
+ * @see org.dominokit.domino.ui.icons.lib.Icons
  */
 public class PinColumnsPlugin<T>
     implements DataTablePlugin<T>, HasPluginConfig<T, PinColumnsPlugin<T>, PinColumnsConfig> {
 
-  /** Constant <code>PIN_COLUMNS_CSS_RULE="PIN-COLUMNS-CSS-RULE"</code> */
+  /** The CSS rule applied to pinned columns. */
   public static final String PIN_COLUMNS_CSS_RULE = "PIN-COLUMNS-CSS-RULE";
 
+  /** The DataTable instance to which this plugin is attached. */
   private DataTable<T> datatable;
 
+  /** The icon used for pinning columns to the left. */
   private Icon<?> pinLeftIcon;
+
+  /** The icon used for pinning columns to the right. */
   private Icon<?> pinRightIcon;
+
+  /** The configuration for this plugin. */
   private PinColumnsConfig config = PinColumnsConfig.of();
 
+  /** The currently pinned column to the left. */
   private ColumnConfig<T> pinLeftColumn;
+
+  /** The currently pinned column to the right. */
   private ColumnConfig<T> pinRightColumn;
 
-  /** {@inheritDoc} */
+  /**
+   * Initializes the PinColumnsPlugin for a specific DataTable instance.
+   *
+   * @param dataTable The DataTable to which this plugin is attached.
+   */
   @Override
   public void init(DataTable<T> dataTable) {
     this.datatable = dataTable;
@@ -108,7 +136,13 @@ public class PinColumnsPlugin<T>
     this.datatable.onAttached(mutationRecord -> pinColumns());
   }
 
-  /** {@inheritDoc} */
+  /**
+   * This method is called after headers are added to the DataTable. It handles pinning and
+   * unpinning columns based on the configuration provided. It also sets the z-index of the header
+   * element.
+   *
+   * @param dataTable The {@link DataTable} to which headers are added.
+   */
   @Override
   public void onAfterAddHeaders(DataTable<T> dataTable) {
     dataTable
@@ -192,9 +226,9 @@ public class PinColumnsPlugin<T>
   }
 
   /**
-   * Setter for the field <code>pinRightColumn</code>.
+   * Sets the right pin for the specified column and updates the pinned columns accordingly.
    *
-   * @param pinRightColumn a {@link org.dominokit.domino.ui.datatable.ColumnConfig} object
+   * @param pinRightColumn The {@link ColumnConfig} to be pinned on the right.
    */
   public void setPinRightColumn(ColumnConfig<T> pinRightColumn) {
     this.datatable.nowOrWhenAttached(
@@ -217,9 +251,10 @@ public class PinColumnsPlugin<T>
   }
 
   /**
-   * unpinColumn.
+   * Unpins the specified column. If the column is pinned on the left, it will unpin left columns;
+   * if it is pinned on the right, it will unpin right columns.
    *
-   * @param column a {@link org.dominokit.domino.ui.datatable.ColumnConfig} object
+   * @param column The {@link ColumnConfig} to be unpinned.
    */
   public void unpinColumn(ColumnConfig<T> column) {
     if (PinColumnMeta.isPinLeft(column)) {
@@ -231,7 +266,7 @@ public class PinColumnsPlugin<T>
     }
   }
 
-  /** unpinLeftColumns. */
+  /** Unpins all left-pinned columns. */
   public void unpinLeftColumns() {
     onBeforeSetPinColumn();
     datatable.getTableConfig().getColumnsGrouped().stream()
@@ -244,7 +279,7 @@ public class PinColumnsPlugin<T>
     applyPinnedColumns();
   }
 
-  /** unpinRightColumns. */
+  /** Unpins all right-pinned columns. */
   public void unpinRightColumns() {
     onBeforeSetPinColumn();
     datatable.getTableConfig().getColumnsGrouped().stream()
@@ -258,9 +293,9 @@ public class PinColumnsPlugin<T>
   }
 
   /**
-   * Setter for the field <code>pinLeftColumn</code>.
+   * Sets the left pin for the specified column and updates the pinned columns accordingly.
    *
-   * @param pinLeftColumn a {@link org.dominokit.domino.ui.datatable.ColumnConfig} object
+   * @param pinLeftColumn The {@link ColumnConfig} to be pinned on the left.
    */
   public void setPinLeftColumn(ColumnConfig<T> pinLeftColumn) {
     this.datatable.nowOrWhenAttached(
@@ -281,6 +316,11 @@ public class PinColumnsPlugin<T>
         });
   }
 
+  /**
+   * Pins columns on the left side based on the provided pinned column configuration.
+   *
+   * @param pinLeftColumn The {@link ColumnConfig} to be pinned on the left.
+   */
   private void pinColumnsLeft(ColumnConfig<T> pinLeftColumn) {
     List<ColumnConfig<T>> columns = datatable.getTableConfig().getColumnsGrouped();
     int columnIndex = columns.indexOf(pinLeftColumn.getGrandParent());
@@ -331,6 +371,11 @@ public class PinColumnsPlugin<T>
     }
   }
 
+  /**
+   * Pins columns on the right side based on the provided pinned column configuration.
+   *
+   * @param pinRightColumn The {@link ColumnConfig} to be pinned on the right.
+   */
   private void pinColumnsRight(ColumnConfig<T> pinRightColumn) {
     List<ColumnConfig<T>> columns = datatable.getTableConfig().getColumnsGrouped();
     int columnIndex = columns.indexOf(pinRightColumn.getGrandParent());
@@ -379,7 +424,14 @@ public class PinColumnsPlugin<T>
     }
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Handles the given {@link org.dominokit.domino.ui.datatable.events.TableEvent} by applying
+   * pinned columns when certain events occur. This method listens for events such as table border
+   * updates, record updates, and column resizing to ensure pinned columns remain correctly
+   * positioned.
+   *
+   * @param event The {@link org.dominokit.domino.ui.datatable.events.TableEvent} to handle.
+   */
   @Override
   public void handleEvent(TableEvent event) {
     switch (event.getType()) {
@@ -404,16 +456,28 @@ public class PinColumnsPlugin<T>
     }
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Applies pinned columns when all rows are added to the DataTable.
+   *
+   * @param dataTable The DataTable to which this plugin is attached.
+   */
   @Override
   public void onAllRowsAdded(DataTable<T> dataTable) {
     applyPinnedColumns();
   }
 
+  /**
+   * Applies pinned columns to the DataTable. This method is called to ensure that pinned columns
+   * stay in the correct position.
+   */
   private void applyPinnedColumns() {
     pinColumns();
   }
 
+  /**
+   * Pins columns based on the current configuration and DataTable state. This method is responsible
+   * for determining which columns to pin and updating their positions.
+   */
   private void pinColumns() {
     onBeforeSetPinColumn();
     if (datatable.isAttached()) {
@@ -424,6 +488,10 @@ public class PinColumnsPlugin<T>
     }
   }
 
+  /**
+   * Pins columns for a DataTable that is currently attached to the DOM. This method calculates the
+   * positions of pinned columns and ensures they remain correctly positioned.
+   */
   private void pinColumnsForAttachedTable() {
     ElementUtil.withBodyObserverPaused(
         () -> {
@@ -457,9 +525,10 @@ public class PinColumnsPlugin<T>
   }
 
   /**
-   * {@inheritDoc}
+   * Sets the configuration for this plugin.
    *
-   * <p>Set the configuration for this plugin instance
+   * @param config The {@link PinColumnsConfig} configuration to set.
+   * @return This {@link PinColumnsPlugin} instance for method chaining.
    */
   @Override
   public PinColumnsPlugin<T> setConfig(PinColumnsConfig config) {
@@ -467,7 +536,11 @@ public class PinColumnsPlugin<T>
     return this;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Retrieves the current configuration for this plugin.
+   *
+   * @return The current {@link PinColumnsConfig} configuration.
+   */
   @Override
   public PinColumnsConfig getConfig() {
     return config;

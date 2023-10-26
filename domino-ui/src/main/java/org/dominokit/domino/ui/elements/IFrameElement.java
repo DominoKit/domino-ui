@@ -17,22 +17,37 @@ package org.dominokit.domino.ui.elements;
 
 import elemental2.dom.HTMLIFrameElement;
 
-/** IFrameElement class. */
+/**
+ * Represents an HTML IFrameElement element (<iframe>) wrapper.
+ *
+ * <p>The HTML <iframe> element represents a nested browsing context, embedding another HTML page
+ * into the current one. This class provides a convenient way to create, manipulate, and control the
+ * behavior of <iframe> elements in Java-based web applications. Example usage:
+ *
+ * <pre>
+ * HTMLIFrameElement iframeElement = ...;  // Obtain an <iframe> element from somewhere
+ * IFrameElement iframe = IFrameElement.of(iframeElement);
+ * </pre>
+ *
+ * @see <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/iframe">MDN Web Docs
+ *     (iframe)</a>
+ */
 public class IFrameElement extends BaseElement<HTMLIFrameElement, IFrameElement> {
+
   /**
-   * of.
+   * Creates a new {@link IFrameElement} instance by wrapping the provided HTML <iframe> element.
    *
-   * @param e a {@link elemental2.dom.HTMLIFrameElement} object
-   * @return a {@link org.dominokit.domino.ui.elements.IFrameElement} object
+   * @param e The HTML <iframe> element.
+   * @return A new {@link IFrameElement} instance wrapping the provided element.
    */
   public static IFrameElement of(HTMLIFrameElement e) {
     return new IFrameElement(e);
   }
 
   /**
-   * Constructor for IFrameElement.
+   * Constructs an {@link IFrameElement} instance by wrapping the provided HTML <iframe> element.
    *
-   * @param element a {@link elemental2.dom.HTMLIFrameElement} object
+   * @param element The HTML <iframe> element to wrap.
    */
   public IFrameElement(HTMLIFrameElement element) {
     super(element);

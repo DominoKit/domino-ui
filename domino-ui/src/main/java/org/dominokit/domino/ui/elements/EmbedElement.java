@@ -17,22 +17,38 @@ package org.dominokit.domino.ui.elements;
 
 import elemental2.dom.HTMLEmbedElement;
 
-/** EmbedElement class. */
+/**
+ * Represents an `<embed>` HTML element wrapper.
+ *
+ * <p>The `<embed>` tag defines a container for an external application or interactive content, such
+ * as a plugin. This class provides a convenient way to create, manipulate, and control the behavior
+ * of `<embed>` elements, making it easier to use them in Java-based web applications. Example
+ * usage:
+ *
+ * <pre>
+ * HTMLEmbedElement htmlElement = ...;  // Obtain an <embed> element from somewhere
+ * EmbedElement embedElement = EmbedElement.of(htmlElement);
+ * </pre>
+ *
+ * @see <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/embed">MDN Web Docs
+ *     (embed element)</a>
+ */
 public class EmbedElement extends BaseElement<HTMLEmbedElement, EmbedElement> {
+
   /**
-   * of.
+   * Creates a new {@link EmbedElement} instance by wrapping the provided HTML `<embed>` element.
    *
-   * @param e a {@link elemental2.dom.HTMLEmbedElement} object
-   * @return a {@link org.dominokit.domino.ui.elements.EmbedElement} object
+   * @param e The HTML `<embed>` element.
+   * @return A new {@link EmbedElement} instance wrapping the provided element.
    */
   public static EmbedElement of(HTMLEmbedElement e) {
     return new EmbedElement(e);
   }
 
   /**
-   * Constructor for EmbedElement.
+   * Constructs a {@link EmbedElement} instance by wrapping the provided HTML `<embed>` element.
    *
-   * @param element a {@link elemental2.dom.HTMLEmbedElement} object
+   * @param element The HTML `<embed>` element to wrap.
    */
   public EmbedElement(HTMLEmbedElement element) {
     super(element);

@@ -20,30 +20,48 @@ import org.dominokit.domino.ui.elements.DivElement;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
 
 /**
- * A component that wraps the {@link elemental2.dom.HTMLDivElement} to make it auto horizontally
- * scrollable when the content exceeds the component fixed width
+ * Represents a horizontal auto-scrollable panel component.
+ *
+ * <p>The {@code AutoHScrollPanel} class provides a way to create a horizontal scrollable panel that
+ * automatically adds a horizontal scrollbar when needed based on the content's dimensions. It
+ * extends {@link BaseDominoElement} and encapsulates a root {@link DivElement} with CSS styles
+ * applied to enable automatic horizontal scrolling.
+ *
+ * <p><b>Usage Example:</b>
+ *
+ * <pre>
+ * AutoHScrollPanel autoHScrollPanel = AutoHScrollPanel.create();
+ * // Add content to the horizontal auto-scrollable panel
+ * autoHScrollPanel.appendChild(someHorizontalContentElement);
+ * </pre>
+ *
+ * @see BaseDominoElement
  */
 public class AutoHScrollPanel extends BaseDominoElement<HTMLDivElement, AutoHScrollPanel> {
 
   private DivElement root;
 
-  /** @return new AutoHScrollPanel instance */
   /**
-   * create.
+   * Factory method to create a new instance of AutoHScrollPanel.
    *
-   * @return a {@link org.dominokit.domino.ui.scroll.AutoHScrollPanel} object
+   * @return A new instance of AutoHScrollPanel.
    */
   public static AutoHScrollPanel create() {
     return new AutoHScrollPanel();
   }
 
-  /** Constructor for AutoHScrollPanel. */
+  /** Constructs a new AutoHScrollPanel instance. */
   public AutoHScrollPanel() {
     root = div().addCss(dui_overflow_x_auto);
     init(this);
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Returns the main HTMLElement of this horizontal auto-scroll panel, which is the root div
+   * element.
+   *
+   * @return The HTMLElement of the root div element.
+   */
   @Override
   public HTMLDivElement element() {
     return root.element();

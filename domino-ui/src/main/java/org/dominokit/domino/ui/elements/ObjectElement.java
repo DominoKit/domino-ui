@@ -17,22 +17,38 @@ package org.dominokit.domino.ui.elements;
 
 import elemental2.dom.HTMLObjectElement;
 
-/** ObjectElement class. */
+/**
+ * Represents an HTML <object> element wrapper.
+ *
+ * <p>The HTML <object> element is used to embed external resources such as images, videos, audio,
+ * or other multimedia content into an HTML document. This class provides a convenient way to
+ * create, manipulate, and control the behavior of <object> elements in Java-based web applications.
+ * Example usage:
+ *
+ * <pre>
+ * HTMLObjectElement objectElement = ...;  // Obtain an <object> element from somewhere
+ * ObjectElement object = ObjectElement.of(objectElement);
+ * </pre>
+ *
+ * @see <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/object">MDN Web Docs
+ *     (object)</a>
+ */
 public class ObjectElement extends BaseElement<HTMLObjectElement, ObjectElement> {
+
   /**
-   * of.
+   * Creates a new {@link ObjectElement} instance by wrapping the provided HTML <object> element.
    *
-   * @param e a {@link elemental2.dom.HTMLObjectElement} object
-   * @return a {@link org.dominokit.domino.ui.elements.ObjectElement} object
+   * @param e The HTML <object> element to wrap.
+   * @return A new {@link ObjectElement} instance wrapping the provided element.
    */
   public static ObjectElement of(HTMLObjectElement e) {
     return new ObjectElement(e);
   }
 
   /**
-   * Constructor for ObjectElement.
+   * Constructs a {@link ObjectElement} instance by wrapping the provided HTML <object> element.
    *
-   * @param element a {@link elemental2.dom.HTMLObjectElement} object
+   * @param element The HTML <object> element to wrap.
    */
   public ObjectElement(HTMLObjectElement element) {
     super(element);

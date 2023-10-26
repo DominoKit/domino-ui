@@ -28,7 +28,13 @@ import org.dominokit.domino.ui.style.BooleanCssClass;
 import org.dominokit.domino.ui.utils.*;
 import org.dominokit.domino.ui.utils.HasSelectionHandler.SelectionHandler;
 
-/** TableRow class. */
+/**
+ * Represents a table row containing data and provides functionalities for handling selection,
+ * editing, and rendering.
+ *
+ * @param <T> The type of the data object for this row.
+ * @see BaseDominoElement
+ */
 public class TableRow<T> extends BaseDominoElement<HTMLTableRowElement, TableRow<T>>
     implements Selectable<TableRow<T>>,
         HasSelectionListeners<TableRow<T>, TableRow<T>, TableRow<T>>,
@@ -57,11 +63,11 @@ public class TableRow<T> extends BaseDominoElement<HTMLTableRowElement, TableRow
   private boolean selectable;
 
   /**
-   * Constructor for TableRow.
+   * Constructs a table row with the given record, index, and parent table.
    *
-   * @param record a T object
-   * @param index a int
-   * @param dataTable a {@link org.dominokit.domino.ui.datatable.DataTable} object
+   * @param record The data record for this row.
+   * @param index The index of this row.
+   * @param dataTable The parent table containing this row.
    */
   public TableRow(T record, int index, DataTable<T> dataTable) {
     this.record = record;
@@ -72,31 +78,37 @@ public class TableRow<T> extends BaseDominoElement<HTMLTableRowElement, TableRow
   }
 
   /**
-   * Setter for the field <code>record</code>.
+   * Sets the data record for this row.
    *
-   * @param record a T object
+   * @param record The data record to be set.
    */
   public void setRecord(T record) {
     this.record = record;
   }
 
-  /**
-   * getDirtyRecord.
-   *
-   * @return a T object
-   */
+  /** @return A modified record containing changes made to the row. */
   public T getDirtyRecord() {
     T dirtyRecord = dataTable.getTableConfig().getDirtyRecordProvider().createDirtyRecord(record);
     getRowCells().forEach((s, rowCell) -> rowCell.getCellInfo().updateDirtyRecord(dirtyRecord));
     return dirtyRecord;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Selects the current row and, by default, its child rows if they exist.
+   *
+   * @return The current instance of TableRow for chaining purposes.
+   */
   @Override
   public TableRow<T> select() {
     return doSelect(true);
   }
 
+  /**
+   * Handles the selection logic for the row.
+   *
+   * @param selectChildren Whether to select child rows.
+   * @return The current instance of TableRow for chaining purposes.
+   */
   private TableRow<T> doSelect(boolean selectChildren) {
     if (!hasFlag(DataTable.DATA_TABLE_ROW_FILTERED)) {
       this.selected = true;
@@ -116,16 +128,32 @@ public class TableRow<T> extends BaseDominoElement<HTMLTableRowElement, TableRow
     return this;
   }
 
+  /**
+   * Checks if the current row should be selected based on the state of its child rows.
+   *
+   * @return true if all child rows are selected, false otherwise.
+   */
   private boolean shouldBeSelected() {
     return getChildren().stream().allMatch(TableRow::isSelected);
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Deselects the current row and its child and parent rows by default.
+   *
+   * @return The current instance of TableRow for chaining purposes.
+   */
   @Override
   public TableRow<T> deselect() {
     return doDeselect(true, true);
   }
 
+  /**
+   * Handles the deselection logic for the row.
+   *
+   * @param deselectParent Whether to deselect the parent row.
+   * @param deselectChildren Whether to deselect child rows.
+   * @return The current instance of TableRow for chaining purposes.
+   */
   private TableRow<T> doDeselect(boolean deselectParent, boolean deselectChildren) {
     this.selected = false;
     if (deselectChildren) {
@@ -139,47 +167,78 @@ public class TableRow<T> extends BaseDominoElement<HTMLTableRowElement, TableRow
     return this;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Pauses the firing of selection listeners.
+   *
+   * @return The current instance of TableRow for chaining purposes.
+   */
   @Override
   public TableRow<T> pauseSelectionListeners() {
     this.selectionListenersPaused = true;
     return this;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Resumes the firing of selection listeners.
+   *
+   * @return The current instance of TableRow for chaining purposes.
+   */
   @Override
   public TableRow<T> resumeSelectionListeners() {
     this.selectionListenersPaused = false;
     return this;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Toggles the state of selection listeners between paused and active.
+   *
+   * @param toggle The desired state of the listeners.
+   * @return The current instance of TableRow for chaining purposes.
+   */
   @Override
   public TableRow<T> togglePauseSelectionListeners(boolean toggle) {
     this.selectionListenersPaused = toggle;
     return this;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Retrieves the set of selection listeners attached to the row.
+   *
+   * @return A set of selection listeners.
+   */
   @Override
   public Set<SelectionListener<? super TableRow<T>, ? super TableRow<T>>> getSelectionListeners() {
     return this.selectionListeners;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Retrieves the set of deselection listeners attached to the row.
+   *
+   * @return A set of deselection listeners.
+   */
   @Override
   public Set<SelectionListener<? super TableRow<T>, ? super TableRow<T>>>
       getDeselectionListeners() {
     return this.deselectionListeners;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Checks if selection listeners are currently paused.
+   *
+   * @return true if listeners are paused, false otherwise.
+   */
   @Override
   public boolean isSelectionListenersPaused() {
     return this.selectionListenersPaused;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Triggers all active selection listeners attached to the row.
+   *
+   * @param source The source row that triggered the listeners.
+   * @param selection The row that was selected.
+   * @return The current instance of TableRow for chaining purposes.
+   */
   @Override
   public TableRow<T> triggerSelectionListeners(TableRow<T> source, TableRow<T> selection) {
     if (!this.selectionListenersPaused) {
@@ -192,7 +251,13 @@ public class TableRow<T> extends BaseDominoElement<HTMLTableRowElement, TableRow
     return this;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Triggers all active deselection listeners attached to the row.
+   *
+   * @param source The source row that triggered the listeners.
+   * @param selection The row that was deselected.
+   * @return The current instance of TableRow for chaining purposes.
+   */
   @Override
   public TableRow<T> triggerDeselectionListeners(TableRow<T> source, TableRow<T> selection) {
     if (!this.selectionListenersPaused) {
@@ -205,7 +270,11 @@ public class TableRow<T> extends BaseDominoElement<HTMLTableRowElement, TableRow
     return this;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Retrieves the selection state of the row.
+   *
+   * @return The current row if it's selected, null otherwise.
+   */
   @Override
   public TableRow<T> getSelection() {
     if (isSelected()) {
@@ -214,20 +283,34 @@ public class TableRow<T> extends BaseDominoElement<HTMLTableRowElement, TableRow
     return null;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Checks if the row can be selected.
+   *
+   * @return true if the row is selectable, false otherwise.
+   */
   @Override
   public boolean isSelectable() {
     return this.selectable;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Sets the selectable state of the row.
+   *
+   * @param selectable The desired selectable state.
+   * @return The current instance of TableRow for chaining purposes.
+   */
   @Override
   public TableRow<T> setSelectable(boolean selectable) {
     this.selectable = selectable;
     return this;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Sets the selected state of the row and triggers the relevant selection/deselection logic.
+   *
+   * @param selected The desired selected state.
+   * @return The current instance of TableRow for chaining purposes.
+   */
   @Override
   public TableRow<T> setSelected(boolean selected) {
     this.selected = selected;
@@ -239,154 +322,173 @@ public class TableRow<T> extends BaseDominoElement<HTMLTableRowElement, TableRow
     return this;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Sets the selected state of the row with an option to suppress triggering the listeners.
+   *
+   * @param selected The desired selected state.
+   * @param silent If true, suppresses triggering the listeners; otherwise, they're triggered.
+   * @return The current instance of TableRow for chaining purposes.
+   */
   @Override
   public TableRow<T> setSelected(boolean selected, boolean silent) {
     withPauseSelectionListenersToggle(silent, tableRow -> tableRow.setSelected(selected));
     return this;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Selects the row with an option to suppress triggering the listeners.
+   *
+   * @param silent If true, suppresses triggering the listeners; otherwise, they're triggered.
+   * @return The current instance of TableRow for chaining purposes.
+   */
   @Override
   public TableRow<T> select(boolean silent) {
     return setSelected(true, silent);
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Deselects the row with an option to suppress triggering the listeners.
+   *
+   * @param silent If true, suppresses triggering the listeners; otherwise, they're triggered.
+   * @return The current instance of TableRow for chaining purposes.
+   */
   @Override
   public TableRow<T> deselect(boolean silent) {
     return setSelected(true, silent);
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Checks if the row is currently selected.
+   *
+   * @return true if the row is selected, false otherwise.
+   */
   @Override
   public boolean isSelected() {
     return selected;
   }
 
   /**
-   * Getter for the field <code>record</code>.
+   * Retrieves the record/data associated with the row.
    *
-   * @return a T object
+   * @return The data/record of type T.
    */
   public T getRecord() {
     return record;
   }
 
   /**
-   * Getter for the field <code>dataTable</code>.
+   * Retrieves the data table to which this row belongs.
    *
-   * @return a {@link org.dominokit.domino.ui.datatable.DataTable} object
+   * @return The parent DataTable instance.
    */
   public DataTable<T> getDataTable() {
     return dataTable;
   }
 
   /**
-   * addRowListener.
+   * Adds a listener to this row which will be notified when the row data is updated.
    *
-   * @param listener a {@link org.dominokit.domino.ui.datatable.TableRow.RowListener} object
+   * @param listener The listener to be added.
    */
   public void addRowListener(RowListener<T> listener) {
     listeners.add(listener);
   }
 
   /**
-   * removeListener.
+   * Removes a specified listener from this row.
    *
-   * @param listener a {@link org.dominokit.domino.ui.datatable.TableRow.RowListener} object
+   * @param listener The listener to be removed.
    */
   public void removeListener(RowListener<T> listener) {
     listeners.remove(listener);
   }
 
-  /** fireUpdate. */
+  /** Notifies all listeners that the row data has been updated. */
   public void fireUpdate() {
     listeners.forEach(listener -> listener.onChange(TableRow.this));
   }
 
-  /** {@inheritDoc} */
   @Override
   public HTMLTableRowElement element() {
     return element;
   }
 
   /**
-   * setFlag.
+   * Sets a flag associated with a specific name.
    *
-   * @param name a {@link java.lang.String} object
-   * @param value a {@link java.lang.String} object
+   * @param name The name of the flag.
+   * @param value The value associated with the flag.
    */
   public void setFlag(String name, String value) {
     flags.put(name, value);
   }
 
   /**
-   * getFlag.
+   * Retrieves the value of a flag associated with a specific name.
    *
-   * @param name a {@link java.lang.String} object
-   * @return a {@link java.lang.String} object
+   * @param name The name of the flag.
+   * @return The value associated with the flag, or null if the flag doesn't exist.
    */
   public String getFlag(String name) {
     return flags.get(name);
   }
 
   /**
-   * removeFlag.
+   * Removes a flag associated with a specific name.
    *
-   * @param name a {@link java.lang.String} object
+   * @param name The name of the flag.
    */
   public void removeFlag(String name) {
     flags.remove(name);
   }
 
   /**
-   * hasFlag.
+   * Checks if a specific flag is set.
    *
-   * @param name a {@link java.lang.String} object
-   * @return a boolean
+   * @param name The name of the flag.
+   * @return true if the flag is set, false otherwise.
    */
   public boolean hasFlag(String name) {
     return flags.containsKey(name);
   }
 
   /**
-   * addCell.
+   * Adds a cell to the row.
    *
-   * @param rowCell a {@link org.dominokit.domino.ui.datatable.RowCell} object
+   * @param rowCell The cell to be added.
    */
   public void addCell(RowCell<T> rowCell) {
     rowCells.put(rowCell.getColumnConfig().getName(), rowCell);
   }
 
   /**
-   * getCell.
+   * Retrieves a cell associated with a specific name.
    *
-   * @param name a {@link java.lang.String} object
-   * @return a {@link org.dominokit.domino.ui.datatable.RowCell} object
+   * @param name The name of the cell.
+   * @return The cell associated with the name, or null if the cell doesn't exist.
    */
   public RowCell<T> getCell(String name) {
     return rowCells.get(name);
   }
 
   /**
-   * Getter for the field <code>index</code>.
+   * Retrieves the index of the row in the data table.
    *
-   * @return a int
+   * @return The index of the row.
    */
   public int getIndex() {
     return index;
   }
 
-  /** updateRow. */
+  /** Updates the row with the current record. */
   public void updateRow() {
     updateRow(this.record);
   }
 
   /**
-   * updateRow.
+   * Updates the row with a new record and notifies any listeners.
    *
-   * @param record a T object
+   * @param record The new record to be set in the row.
    */
   public void updateRow(T record) {
     this.record = record;
@@ -396,11 +498,13 @@ public class TableRow<T> extends BaseDominoElement<HTMLTableRowElement, TableRow
         new TableDataUpdatedEvent<>(
             new ArrayList<>(dataTable.getData()), dataTable.getData().size()));
   }
-
   /**
-   * validate.
+   * Validates the content of each cell in the row. It uses the validation mechanism provided by the
+   * cell's info. If any cell's content is invalid, the method will return the first encountered
+   * invalid result.
    *
-   * @return a {@link org.dominokit.domino.ui.forms.validations.ValidationResult} object
+   * @return A {@link ValidationResult} indicating the result of the validation. It returns invalid
+   *     if at least one cell is invalid, otherwise returns valid.
    */
   public ValidationResult validate() {
     Optional<ValidationResult> first =
@@ -416,15 +520,19 @@ public class TableRow<T> extends BaseDominoElement<HTMLTableRowElement, TableRow
   }
 
   /**
-   * Getter for the field <code>rowCells</code>.
+   * Retrieves an unmodifiable map of the row's cells indexed by their names.
    *
-   * @return a {@link java.util.Map} object
+   * @return An unmodifiable map of {@link RowCell} objects.
    */
   public Map<String, RowCell<T>> getRowCells() {
     return Collections.unmodifiableMap(rowCells);
   }
 
-  /** render. */
+  /**
+   * Renders the row. The method first checks if a specialized renderer is available for this
+   * specific row (through {@link RowRendererMeta}). If one is present, it uses that. Otherwise, it
+   * defaults to the general row renderer.
+   */
   public void render() {
     Optional<RowRendererMeta<T>> rendererMeta = RowRendererMeta.get(this);
     if (rendererMeta.isPresent()) {
@@ -435,23 +543,35 @@ public class TableRow<T> extends BaseDominoElement<HTMLTableRowElement, TableRow
   }
 
   /**
-   * An interface to implement listeners for Table row changes
+   * Interface to listen for changes on a TableRow.
    *
-   * @param <T> the type of the data table records
+   * @param <T> The type of the data object for the row.
    */
   @FunctionalInterface
   public interface RowListener<T> {
-    /** @param tableRow the changed {@link TableRow} */
+
+    /**
+     * Called when the TableRow data changes.
+     *
+     * @param tableRow The row that has changed.
+     */
     void onChange(TableRow<T> tableRow);
   }
 
-  /** Convert the row the editable mode */
+  /**
+   * Initiates the edit mode for this row, making its content editable. It then updates the row's
+   * display to reflect this editable state.
+   */
   public void edit() {
     setEditable(true);
     updateRow();
   }
 
-  /** Save the editable row changes and switch to normal mode */
+  /**
+   * Attempts to save the edited content of the row to the underlying data table. If the current
+   * row's content passes validation, it triggers the associated save handler of the table
+   * configuration and then updates the row's state to reflect that it's no longer in edit mode.
+   */
   public void save() {
     if (validate().isValid()) {
       dataTable
@@ -463,32 +583,41 @@ public class TableRow<T> extends BaseDominoElement<HTMLTableRowElement, TableRow
     }
   }
 
-  /** Cancel the current edit operation and switch to the normal mode */
+  /**
+   * Cancels the editing mode for the row, reverting any unsaved changes. The row's display is then
+   * updated to reflect this non-editable state.
+   */
   public void cancelEditing() {
     this.setEditable(false);
     updateRow();
   }
 
-  /** @return boolean, true if the row is editable, otherwise false */
   /**
-   * isEditable.
+   * Checks if the row is currently in edit mode.
    *
-   * @return a boolean
+   * @return A boolean indicating if the row is editable.
    */
   public boolean isEditable() {
     return editable;
   }
 
-  /** @param editable boolean, true if this row should be editable, otherwise it is not */
+  /**
+   * Updates the editable state of the row and applies corresponding CSS styles.
+   *
+   * @param editable A boolean indicating the desired editable state.
+   */
   private void setEditable(boolean editable) {
     this.editable = editable;
     addCss(BooleanCssClass.of(dui_datatable_row_editable, editable));
   }
 
   /**
-   * renderCell.
+   * Renders a specific cell within this row according to the given column configuration. This
+   * method takes care of the cell's styling, visibility, and other attributes based on the provided
+   * {@link ColumnConfig}. It also handles cell creation, applying media rules, styles, and
+   * integrating with any additional plugins from the table configuration.
    *
-   * @param columnConfig a {@link org.dominokit.domino.ui.datatable.ColumnConfig} object
+   * @param columnConfig The configuration information for the column to which this cell belongs.
    */
   public void renderCell(ColumnConfig<T> columnConfig) {
     HTMLTableCellElement cellElement = td().addCss(dui_datatable_td).element();
@@ -526,76 +655,84 @@ public class TableRow<T> extends BaseDominoElement<HTMLTableRowElement, TableRow
   }
 
   /**
-   * Getter for the field <code>parent</code>.
+   * Retrieves the parent row of this row. If this row doesn't have a parent, it returns null.
    *
-   * @return a {@link org.dominokit.domino.ui.datatable.TableRow} object
+   * @return The parent {@link TableRow} or null if it doesn't have a parent.
    */
   public TableRow<T> getParent() {
     return parent;
   }
 
   /**
-   * Setter for the field <code>parent</code>.
+   * Sets a parent row for this row.
    *
-   * @param parent a {@link org.dominokit.domino.ui.datatable.TableRow} object
+   * @param parent The {@link TableRow} to be set as the parent.
    */
   public void setParent(TableRow<T> parent) {
     this.parent = parent;
   }
 
   /**
-   * Getter for the field <code>children</code>.
+   * Retrieves a list of child rows associated with this row.
    *
-   * @return a {@link java.util.List} object
+   * @return A list of child {@link TableRow}s.
    */
   public List<TableRow<T>> getChildren() {
     return children;
   }
 
   /**
-   * Setter for the field <code>children</code>.
+   * Checks if this row has any child rows.
    *
-   * @param children a {@link java.util.List} object
-   */
-  public void setChildren(List<TableRow<T>> children) {
-    if (nonNull(children)) {
-      this.children = children;
-    }
-  }
-
-  /**
-   * isParent.
-   *
-   * @return a boolean
+   * @return A boolean indicating if the row has children.
    */
   public boolean isParent() {
     return !getChildren().isEmpty();
   }
 
   /**
-   * isChild.
+   * Checks if this row has a parent row.
    *
-   * @return a boolean
+   * @return A boolean indicating if the row is a child.
    */
   public boolean isChild() {
     return nonNull(parent);
   }
 
   /**
-   * isRoot.
+   * Determines if the row is the root, meaning it has no parent.
    *
-   * @return a boolean
+   * @return A boolean indicating if the row is a root row.
    */
   public boolean isRoot() {
     return isNull(parent);
   }
 
+  /**
+   * Represents a function to render a TableRow.
+   *
+   * @param <T> The type of the data object for the row.
+   */
   public interface RowRenderer<T> {
+
+    /**
+     * Render the specified TableRow in the given DataTable.
+     *
+     * @param dataTable The parent table containing the row.
+     * @param tableRow The row to be rendered.
+     */
     void render(DataTable<T> dataTable, TableRow<T> tableRow);
   }
 
+  /** Default implementation of the RowRenderer interface. */
   private static class DefaultRowRenderer<T> implements RowRenderer<T> {
 
+    /**
+     * Render the specified TableRow in the given DataTable using the default rendering logic.
+     *
+     * @param dataTable The parent table containing the row.
+     * @param tableRow The row to be rendered.
+     */
     @Override
     public void render(DataTable<T> dataTable, TableRow<T> tableRow) {
       dataTable.getTableConfig().getColumns().forEach(tableRow::renderCell);
