@@ -25,6 +25,7 @@ import elemental2.dom.MouseEvent;
 import jsinterop.base.Js;
 import org.dominokit.domino.ui.datatable.*;
 import org.dominokit.domino.ui.datatable.events.ColumnResizedEvent;
+import org.dominokit.domino.ui.datatable.events.ColumnResizingEvent;
 import org.dominokit.domino.ui.datatable.plugins.DataTablePlugin;
 import org.dominokit.domino.ui.datatable.plugins.HasPluginConfig;
 import org.dominokit.domino.ui.elements.DivElement;
@@ -42,6 +43,9 @@ public class ResizeColumnsPlugin<T>
 
   private ResizeColumnsConfig config = new ResizeColumnsConfig();
   private DataTable<T> datatable;
+
+  private ColumnConfig<T> resizingColumn;
+  private boolean resizing = false;
 
   /**
    * Initializes the plugin and prepares columns for resizing.
@@ -126,7 +130,7 @@ public class ResizeColumnsPlugin<T>
                                 double currentPosition = mouseEvent.clientX;
                                 double diff = currentPosition - meta.getStartPosition();
 
-                                dataTable.fireTableEvent(ColumnResizedEvent.of(column, diff));
+                                dataTable.fireTableEvent(ColumnResizingEvent.of(column, diff));
                               });
                     };
 
@@ -137,6 +141,8 @@ public class ResizeColumnsPlugin<T>
                       if (mouseEvent.buttons == 1) {
                         mouseEvent.stopPropagation();
                         mouseEvent.preventDefault();
+                        this.resizingColumn = column;
+                        this.resizing = true;
                         column
                             .getGrandParent()
                             .applyAndOnSubColumns(
@@ -155,23 +161,27 @@ public class ResizeColumnsPlugin<T>
                     });
                 EventListener stopResizing =
                     evt -> {
-                      ResizeColumnMeta.get(column)
-                          .ifPresent(
-                              meta -> {
-                                MouseEvent mouseEvent = Js.uncheckedCast(evt);
-                                double currentPosition = mouseEvent.clientX;
-                                double diff = currentPosition - meta.getStartPosition();
+                      evt.stopPropagation();
+                      if (column.equals(this.resizingColumn) && resizing) {
+                        this.resizing = false;
+                        ResizeColumnMeta.get(column)
+                            .ifPresent(
+                                meta -> {
+                                  MouseEvent mouseEvent = Js.uncheckedCast(evt);
+                                  double currentPosition = mouseEvent.clientX;
+                                  double diff = currentPosition - meta.getStartPosition();
 
-                                dataTable.fireTableEvent(ColumnResizedEvent.of(column, diff, true));
-                              });
+                                  dataTable.fireTableEvent(
+                                      ColumnResizedEvent.of(column, diff, true));
+                                });
 
-                      DominoDom.document.body.removeEventListener(
-                          EventType.mousemove.getName(), resizeListener);
+                        DominoDom.document.body.removeEventListener(
+                            EventType.mousemove.getName(), resizeListener);
+                      }
                     };
 
                 this.datatable.onAttached(
                     mutationRecord -> {
-                      resizeElement.addEventListener(EventType.mouseup.getName(), stopResizing);
                       DominoDom.document.body.addEventListener(
                           EventType.mouseup.getName(), stopResizing);
                     });

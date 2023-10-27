@@ -1212,6 +1212,19 @@ public class ColumnConfig<T> implements ElementsFactory, DataTableStyles {
     return this;
   }
 
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    ColumnConfig<?> that = (ColumnConfig<?>) o;
+    return Objects.equals(name, that.name);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(name);
+  }
+
   /**
    * Removes the specified child element from the header element of this column.
    *
