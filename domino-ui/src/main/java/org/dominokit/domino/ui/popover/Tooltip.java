@@ -121,12 +121,11 @@ public class Tooltip extends BasePopover<Tooltip> {
         };
     addEventListener("click", closeListener);
     targetElement.addEventListener(EventType.mouseenter.getName(), showListener, false);
-    //    targetElement.addEventListener(EventType.mouseleave.getName(), closeListener, false);
+    targetElement.addEventListener(EventType.mouseleave.getName(), closeListener, false);
     removeHandler =
         tooltip -> {
           targetElement.removeEventListener(EventType.mouseenter.getName(), showListener);
-          //          targetElement.removeEventListener(EventType.mouseleave.getName(),
-          // closeListener);
+          targetElement.removeEventListener(EventType.mouseleave.getName(), closeListener);
         };
     setCollapseStrategy(
         new AnimationCollapseStrategy(
