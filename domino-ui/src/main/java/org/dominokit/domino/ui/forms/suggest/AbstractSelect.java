@@ -798,6 +798,79 @@ public abstract class AbstractSelect<
   }
 
   /**
+   * Deselects the option at the specified index within the select component.
+   *
+   * @param index The index of the option to deselect.
+   * @return an instance of the concrete class.
+   */
+  public C deselectAt(int index) {
+    deselectAt(index, isChangeListenersPaused());
+    return (C) this;
+  }
+
+  /**
+   * Deselects the option at the specified index within the select component. Optionally, it can
+   * notify listeners based on the provided silent flag.
+   *
+   * @param index The index of the option to deselect.
+   * @param silent If true, change listeners will not be notified.
+   * @return an instance of the concrete class.
+   */
+  public C deselectAt(int index, boolean silent) {
+    findOptionByIndex(index).ifPresent(o -> onOptionDeselected(o, silent));
+    return (C) this;
+  }
+
+  /**
+   * Deselects the option associated with the specified key within the select component. Optionally,
+   * it can notify listeners based on the provided silent flag.
+   *
+   * @param key The key of the option to deselect.
+   * @return an instance of the concrete class.
+   */
+  public C deselectByKey(String key) {
+    deselectByKey(key, isChangeListenersPaused());
+    return (C) this;
+  }
+
+  /**
+   * Deselects the option associated with the specified key within the select component. Optionally,
+   * it can notify listeners based on the provided silent flag.
+   *
+   * @param key The key of the option to deselect.
+   * @param silent If true, change listeners will not be notified.
+   * @return an instance of the concrete class.
+   */
+  public C deselectByKey(String key, boolean silent) {
+    findOptionByKey(key).ifPresent(o -> onOptionDeselected(o, silent));
+    return (C) this;
+  }
+
+  /**
+   * Deselects the option with the specified value within the select component.
+   *
+   * @param value The value of the option to deselect.
+   * @return an instance of the concrete class.
+   */
+  public C deselectByValue(T value) {
+    deselectByValue(value, isChangeListenersPaused());
+    return (C) this;
+  }
+
+  /**
+   * Deselects the option with the specified value within the select component. Optionally, it can
+   * notify listeners based on the provided silent flag.
+   *
+   * @param value The value of the option to deselect.
+   * @param silent If true, change listeners will not be notified.
+   * @return an instance of the concrete class.
+   */
+  public C deselectByValue(T value, boolean silent) {
+    findOptionByValue(value).ifPresent(o -> onOptionDeselected(o, silent));
+    return (C) this;
+  }
+
+  /**
    * Checks if the select component contains an option with the specified key.
    *
    * @param key The key to search for.
