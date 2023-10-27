@@ -674,7 +674,7 @@ public class LocalListDataStore<T> implements DataStore<T> {
   }
 
   /**
-   * Retrieves a copy of the original list of records stored in the data store.
+   * Retrieves a copy of records stored in the data store.
    *
    * @return A list of original records.
    */

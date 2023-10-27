@@ -73,6 +73,15 @@ public class LocalListScrollingDataSource<T> implements DataStore<T> {
   }
 
   /**
+   * Retrieves a copy of records stored in the data store.
+   *
+   * @return A list of original records.
+   */
+  public List<T> getRecords() {
+    return new ArrayList<>(original);
+  }
+
+  /**
    * Gets the search filter currently set for this data source.
    *
    * @return The search filter instance, or {@code null} if no search filter is set.
