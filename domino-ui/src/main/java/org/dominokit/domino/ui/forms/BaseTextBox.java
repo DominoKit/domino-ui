@@ -97,7 +97,7 @@ public abstract class BaseTextBox<T extends BaseTextBox<T>>
    * Retrieves the value of the base text box. If the value is empty and is set to be treated as
    * null, this method will return null.
    *
-   * <p>{@inheritDoc}
+   * <p>
    *
    * @return the current value of the base text box or null if the value is empty and treated as
    *     null

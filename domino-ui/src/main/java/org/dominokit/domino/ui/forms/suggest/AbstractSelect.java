@@ -743,7 +743,7 @@ public abstract class AbstractSelect<
    * @return an instance of the concrete class.
    */
   public C selectAt(int index, boolean silent) {
-    findOptionByIndex(index).ifPresent(o -> onOptionDeselected(o, silent));
+    findOptionByIndex(index).ifPresent(o -> onOptionSelected(o, silent));
     return (C) this;
   }
 
