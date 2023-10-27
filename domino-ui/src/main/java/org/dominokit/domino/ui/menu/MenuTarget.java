@@ -40,6 +40,7 @@ public class MenuTarget implements HasMeta<MenuTarget> {
 
   private final Element targetElement;
   private AttachDetachCallback targetDetachObserver;
+  private AttachDetachCallback targetAttachObserver;
   private final Map<String, ComponentMeta> metaObjects = new HashMap<>();
 
   /**
@@ -86,6 +87,24 @@ public class MenuTarget implements HasMeta<MenuTarget> {
    */
   AttachDetachCallback getTargetDetachObserver() {
     return targetDetachObserver;
+  }
+
+  /**
+   * Sets an observer for the target's attach/detach events.
+   *
+   * @param targetDetachObserver the observer callback
+   */
+  void setTargetAttachObserver(AttachDetachCallback targetAttachObserver) {
+    this.targetAttachObserver = targetAttachObserver;
+  }
+
+  /**
+   * Retrieves the observer set for the target's attach/detach events.
+   *
+   * @return the observer callback
+   */
+  AttachDetachCallback getTargetAttachObserver() {
+    return targetAttachObserver;
   }
 
   /**

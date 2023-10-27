@@ -1287,6 +1287,7 @@ public class Menu<V> extends BaseDominoElement<HTMLDivElement, Menu<V>>
                       isContextMenu() ? EventType.contextmenu.getName() : EventType.click.getName(),
                       openListener);
               target.getTargetElement().removeDetachObserver(menuTarget.getTargetDetachObserver());
+              target.getTargetElement().removeAttachObserver(menuTarget.getTargetAttachObserver());
             });
     this.targets.clear();
     return addTarget(menuTarget);
@@ -1309,7 +1310,14 @@ public class Menu<V> extends BaseDominoElement<HTMLDivElement, Menu<V>>
 
             this.targets.remove(menuTarget.getTargetElement().getDominoId());
           });
+
+      menuTarget.setTargetAttachObserver(
+          mutationRecord -> {
+            this.targets.put(menuTarget.getTargetElement().getDominoId(), menuTarget);
+          });
+
       elementOf(menuTarget.getTargetElement()).onDetached(menuTarget.getTargetDetachObserver());
+      elementOf(menuTarget.getTargetElement()).onAttached(menuTarget.getTargetAttachObserver());
     }
     if (!this.targets.isEmpty()) {
       applyTargetListeners(menuTarget);
