@@ -20,7 +20,6 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import org.dominokit.domino.ui.datatable.DataTable;
-import org.dominokit.domino.ui.datatable.TableRow;
 import org.dominokit.domino.ui.datatable.plugins.DataTablePlugin;
 import org.dominokit.domino.ui.elements.TFootElement;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
@@ -43,7 +42,7 @@ import org.dominokit.domino.ui.utils.BaseDominoElement;
  */
 public class SummaryPlugin<T, S> implements DataTablePlugin<T> {
 
-  private List<TableRow<S>> summaryRows = new ArrayList<>();
+  private List<SummaryRow<T, S>> summaryRows = new ArrayList<>();
   private DataTable<T> dataTable;
   private TFootElement footer;
 
@@ -82,6 +81,7 @@ public class SummaryPlugin<T, S> implements DataTablePlugin<T> {
       SummaryRow<T, S> summaryRow = new SummaryRow<>(recordsList.get(i), i, this.dataTable);
       summaryRow.render();
       footer.appendChild(summaryRow);
+      summaryRows.add(summaryRow);
     }
     return this;
   }
