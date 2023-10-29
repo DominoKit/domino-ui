@@ -122,11 +122,10 @@ public class AbstractDialog<T extends AbstractDialog<T>>
     openAnimation = Animation.create(element);
     closeAnimation = Animation.create(element);
 
-    modalElement.addClickListener(Event::stopPropagation);
-
     modalElement.addClickListener(
         evt -> {
           evt.stopPropagation();
+          ModalBackDrop.INSTANCE.closePopovers("");
           PopupsCloser.close();
         });
   }
