@@ -21,13 +21,17 @@ import elemental2.dom.HTMLTableElement;
 import org.dominokit.domino.ui.datatable.DataTable;
 import org.dominokit.domino.ui.datatable.events.BodyScrollEvent;
 import org.dominokit.domino.ui.datatable.plugins.DataTablePlugin;
+import org.dominokit.domino.ui.datatable.plugins.HasPluginConfig;
 
 /**
  * A plugin for handling body scroll events in a DataTable.
  *
  * @param <T> The type of data in the DataTable.
  */
-public class BodyScrollPlugin<T> implements DataTablePlugin<T> {
+public class BodyScrollPlugin<T>
+    implements DataTablePlugin<T>, HasPluginConfig<T, BodyScrollPlugin<T>, BodyScrollPluginConfig> {
+
+  private BodyScrollPluginConfig config = new BodyScrollPluginConfig(0);
 
   /**
    * Initializes the plugin and adds scroll event listeners to the DataTable's body.
@@ -49,10 +53,28 @@ public class BodyScrollPlugin<T> implements DataTablePlugin<T> {
           int clientHeight = new Double(scrollElement.clientHeight).intValue();
 
           if (JsMath.abs(offsetHeight) + JsMath.abs(scrollTop)
-              == new Double(scrollHeight + (offsetHeight - clientHeight)).intValue()) {
+              >= new Double(scrollHeight + (offsetHeight - clientHeight)).intValue()
+                  - config.getOffset()) {
             dataTable.fireTableEvent(new BodyScrollEvent(ScrollPosition.BOTTOM));
           }
         });
+  }
+
+  /**
+   * Sets up the plugin configuration.
+   *
+   * @param config The plugin configuration.
+   */
+  @Override
+  public BodyScrollPlugin<T> setConfig(BodyScrollPluginConfig config) {
+    this.config = config;
+    return this;
+  }
+
+  /** @return the plugin configuration */
+  @Override
+  public BodyScrollPluginConfig getConfig() {
+    return this.config;
   }
 
   /** An enum representing the scroll position in the DataTable's body. */
