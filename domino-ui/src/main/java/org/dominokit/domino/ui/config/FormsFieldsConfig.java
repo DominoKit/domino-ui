@@ -110,6 +110,19 @@ public interface FormsFieldsConfig extends ComponentConfig, CalendarConfig {
   }
 
   /**
+   * Use this method to configure if pressing tab while select field is focused will move the focus
+   * to the select arrow addon or not.
+   *
+   * <p>Defaults to : <b>false</b>
+   *
+   * @return a boolean, <b>true</b> to enable focus on select arrow by pressing tab, <b>false</b>
+   *     disable focus on select arrow when pressing tab.
+   */
+  default boolean isTabFocusSelectArrowEnabled() {
+    return false;
+  }
+
+  /**
    * Use this method to define the default position of the field label, top or left
    *
    * <p>Defaults to : <b>false</b>

@@ -15,6 +15,7 @@
  */
 package org.dominokit.domino.ui.forms.suggest;
 
+import static java.util.Objects.isNull;
 import static java.util.Objects.nonNull;
 
 import java.util.Objects;
@@ -105,7 +106,7 @@ public class Select<V> extends AbstractSelect<V, V, DivElement, SelectOption<V>,
   @Override
   public Select<V> withOption(SelectOption<V> option, boolean silent) {
     V oldValue = getValue();
-    if (!Objects.equals(option.getValue(), oldValue)) {
+    if (!Objects.equals(option.getValue(), oldValue) || isNull(oldValue)) {
       doSetOption(option);
 
       updateTextValue();

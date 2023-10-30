@@ -129,11 +129,21 @@ public abstract class AbstractSelect<
             Icons.chevron_down()
                 .addCss(dui_form_select_drop_arrow)
                 .clickable()
+                .setAttribute("tabindex", getConfig().isTabFocusSelectArrowEnabled() ? "0" : "-1")
+                .setAttribute(
+                    "aria-expanded", getConfig().isTabFocusSelectArrowEnabled() ? "true" : "false")
                 .addClickListener(
                     evt -> {
                       evt.stopPropagation();
                       openOptionMenu();
-                    })));
+                    })
+                .onKeyPress(
+                    keyEvents ->
+                        keyEvents.onEnter(
+                            evt -> {
+                              evt.stopPropagation();
+                              openOptionMenu();
+                            }))));
 
     appendChild(
         PrimaryAddOn.of(
