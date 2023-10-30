@@ -501,7 +501,9 @@ public class DateBox extends TextInputFormField<DateBox, HTMLInputElement, Date>
     withDateSelectionToggleListeners(
         false,
         field -> {
-          this.calendar.setDate(this.value);
+          if (nonNull(this.value)) {
+            this.calendar.setDate(this.value);
+          }
         });
   }
 
