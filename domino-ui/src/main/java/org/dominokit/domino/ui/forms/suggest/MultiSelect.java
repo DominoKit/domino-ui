@@ -204,6 +204,9 @@ public class MultiSelect<V>
       this.selectedOptions = new HashSet<>();
     }
     this.selectedOptions.add(option);
+    if (nonNull(option)) {
+      optionsMenu.select(option.getMenuItem(), true);
+    }
   }
 
   /**

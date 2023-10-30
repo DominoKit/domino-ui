@@ -45,6 +45,7 @@ import org.gwtproject.safehtml.shared.SafeHtmlBuilder;
  * @see TakesValue
  * @see LeafValueEditor
  * @see HasValue
+ * @see RichTextCommand
  * @see BaseDominoElement
  */
 public class RichTextEditor extends BaseDominoElement<HTMLDivElement, RichTextEditor>
