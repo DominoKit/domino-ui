@@ -26,6 +26,7 @@
 .dui-split-layout-splitter,
 .dui-split-panel {
     position: relative;
+    overflow: hidden;
     -webkit-user-select: none;
     -moz-user-select: none;
     -ms-user-select: none;
