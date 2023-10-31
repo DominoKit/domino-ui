@@ -26,7 +26,10 @@ import org.dominokit.domino.ui.datatable.events.BodyScrollEvent;
  *
  * @param <T> the type of the data table records
  */
-public class BodyScrollPlugin<T> implements DataTablePlugin<T> {
+public class BodyScrollPlugin<T>
+    implements DataTablePlugin<T>, HasPluginConfig<T, BodyScrollPlugin<T>, BodyScrollPluginConfig> {
+
+  private BodyScrollPluginConfig config = new BodyScrollPluginConfig(0);
 
   /** {@inheritDoc} */
   @Override
@@ -41,12 +44,31 @@ public class BodyScrollPlugin<T> implements DataTablePlugin<T> {
           }
           int offsetHeight = new Double(scrollElement.offsetHeight).intValue();
           int scrollHeight = new Double(scrollElement.scrollHeight).intValue();
+          int clientHeight = new Double(scrollElement.clientHeight).intValue();
 
           if (JsMath.abs(offsetHeight) + JsMath.abs(scrollTop)
-              == new Double(scrollHeight).intValue()) {
+              >= new Double(scrollHeight + (offsetHeight - clientHeight)).intValue()
+                  - config.getOffset()) {
             dataTable.fireTableEvent(new BodyScrollEvent(ScrollPosition.BOTTOM));
           }
         });
+  }
+
+  /**
+   * Sets up the plugin configuration.
+   *
+   * @param config The plugin configuration.
+   */
+  @Override
+  public BodyScrollPlugin<T> setConfig(BodyScrollPluginConfig config) {
+    this.config = config;
+    return this;
+  }
+
+  /** @return the plugin configuration */
+  @Override
+  public BodyScrollPluginConfig getConfig() {
+    return this.config;
   }
 
   /** An enum to specify the postion of the scroll */

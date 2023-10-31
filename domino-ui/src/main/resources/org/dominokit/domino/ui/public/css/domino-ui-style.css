@@ -2658,6 +2658,7 @@ a {
     -ms-box-shadow: -2px 2px 5px rgba(0, 0, 0, 0.1);
     box-shadow: -2px 2px 5px rgba(0, 0, 0, 0.1);
     overflow: hidden;
+    overflow-y: scroll;
     -moz-transition: 0.5s;
     -o-transition: 0.5s;
     -webkit-transition: 0.5s;

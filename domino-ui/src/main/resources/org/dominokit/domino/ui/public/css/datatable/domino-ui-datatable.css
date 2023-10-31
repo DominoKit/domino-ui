@@ -344,6 +344,8 @@ table th[class*="col-"] {
 .table-bordered {
 }
 
+.table-hover.table-striped > tbody > tr:hover:nth-child(odd):not([class*="details-tr"]):not([class*="bg-"]),
+.table-hover.table-striped > tbody > tr:hover:nth-child(even):not([class*="details-tr"]):not([class*="bg-"]),
 .table-hover > tbody > tr:hover:not([class*="details-tr"]):not([class*="bg-"]) {
     background-color: #f5f5f5;
 }
