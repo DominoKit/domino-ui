@@ -22,7 +22,7 @@ import elemental2.dom.HTMLElement;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
 import org.dominokit.domino.ui.utils.DominoElement;
 
-/** The component that contains the left pabel and right panel of the {@link Layout} */
+/** The component that contains the left panel and right panel of the {@link Layout} */
 public class Section extends BaseDominoElement<HTMLElement, Section> {
 
   HTMLElement section;
@@ -38,7 +38,6 @@ public class Section extends BaseDominoElement<HTMLElement, Section> {
             .id("rightsidebar")
             .css(LayoutStyles.RIGHT_SIDEBAR)
             .css(LayoutStyles.OVERLAY_OPEN)
-            .style("height: calc(100vh - 70px); overflow-y: scroll;")
             .element();
 
     section = DominoElement.of(section()).add(leftSide).add(rightSide).element();
