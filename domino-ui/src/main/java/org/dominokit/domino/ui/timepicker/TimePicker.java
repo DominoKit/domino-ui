@@ -113,10 +113,15 @@ public class TimePicker extends BaseDominoElement<HTMLDivElement, TimePicker>
           this.date = updatedTime;
           onTimeViewUpdate(updatedTime);
           triggerChangeListeners(oldTime, this.date);
-          timeSelectionListeners.forEach(listener -> listener.onDaySelected(oldTime, this.date));
+          onTimeSelectionChanged(this.date);
+          timeSelectionListeners.forEach(listener -> listener.onTimeSelected(oldTime, this.date));
         });
 
     onTimeViewUpdate(this.date);
+  }
+
+  private void onTimeSelectionChanged(Date date) {
+    new ArrayList<>(viewListeners).forEach(listener -> listener.onTimeSelectionChanged(date));
   }
 
   /**
@@ -214,8 +219,13 @@ public class TimePicker extends BaseDominoElement<HTMLDivElement, TimePicker>
    */
   public TimePicker setDateTimeFormatInfo(DateTimeFormatInfo dateTimeFormatInfo) {
     this.dateTimeFormatInfo = dateTimeFormatInfo;
-    onTimeViewUpdate(this.date);
+    onDateTimeFormatChanged();
     return this;
+  }
+
+  private void onDateTimeFormatChanged() {
+    new ArrayList<>(viewListeners)
+        .forEach(listener -> listener.onDateTimeFormatInfoChanged(getDateTimeFormatInfo()));
   }
 
   /**

@@ -26,5 +26,5 @@ public interface TimeSelectionListener {
    * @param oldDate The previously selected date.
    * @param newDate The newly selected date.
    */
-  void onDaySelected(Date oldDate, Date newDate);
+  void onTimeSelected(Date oldDate, Date newDate);
 }

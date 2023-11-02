@@ -501,7 +501,6 @@ public class TimeBox extends TextInputFormField<TimeBox, HTMLInputElement, Date>
         clearInvalid();
         withValue(date);
       }
-      this.popover.close();
     }
   }
 
