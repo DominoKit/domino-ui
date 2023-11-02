@@ -76,6 +76,7 @@ public class CalendarMonth extends BaseDominoElement<HTMLDivElement, CalendarMon
 
   private void updateView() {
     this.root.clearElement();
+    int firstDayOfTheWeek = this.calendar.getDateTimeFormatInfo().firstDayOfTheWeek();
     Date tempDate = new Date(this.date.getYear(), this.date.getMonth(), 1);
 
     int monthFirstDay = tempDate.getDay() == 0 ? 7 : tempDate.getDay();
@@ -85,17 +86,26 @@ public class CalendarMonth extends BaseDominoElement<HTMLDivElement, CalendarMon
             .addCss(dui_month_days_header)
             .apply(
                 daysHeader -> {
-                  for (int i = 0; i < 7; i++) {
-                    daysHeader.appendChild(WeekDayHeader.create(this.calendar, i));
+                  int index = firstDayOfTheWeek;
+                  while (index != -1) {
+                    daysHeader.appendChild(WeekDayHeader.create(this.calendar, index));
+                    index = index + 1;
+                    if (index > 6) {
+                      index = 0;
+                    }
+                    if (index == firstDayOfTheWeek) {
+                      index = -1;
+                    }
                   }
                 }));
     this.monthData = new MonthData(this.date);
     MonthData monthBefore = monthData.getMonthBefore();
     MonthData monthAfter = monthData.getMonthAfter();
 
-    int diff = monthFirstDay + 1;
+    int offset = Math.abs(monthFirstDay - firstDayOfTheWeek);
+    int diff = offset + 1;
     int[] currentDaysCounter = new int[] {0};
-    int[] monthBeforeDaysCounter = new int[] {monthBefore.getDaysCount() - monthFirstDay + 1};
+    int[] monthBeforeDaysCounter = new int[] {monthBefore.getDaysCount() - offset + 1};
     int[] monthAfterDaysCounter = new int[] {1};
 
     int[] index = new int[] {0};
@@ -107,7 +117,7 @@ public class CalendarMonth extends BaseDominoElement<HTMLDivElement, CalendarMon
                   daysRow -> {
                     for (int day = 0; day < 7; day++) {
                       CalendarDay calendarDay;
-                      if (index[0] < monthFirstDay) {
+                      if (index[0] < offset) {
                         calendarDay =
                             CalendarDay.create(
                                 this.calendar,
@@ -118,7 +128,7 @@ public class CalendarMonth extends BaseDominoElement<HTMLDivElement, CalendarMon
                                 day,
                                 false);
                         monthBeforeDaysCounter[0] = monthBeforeDaysCounter[0] + 1;
-                      } else if (index[0] >= monthFirstDay
+                      } else if (index[0] >= offset
                           && index[0] < (monthData.getDaysCount() + diff - 1)) {
                         calendarDay =
                             CalendarDay.create(
