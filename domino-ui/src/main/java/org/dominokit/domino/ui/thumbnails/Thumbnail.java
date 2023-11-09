@@ -31,16 +31,27 @@ import org.dominokit.domino.ui.utils.HeaderContent;
 import org.dominokit.domino.ui.utils.LazyChild;
 
 /**
- * A component which provides a showcase for images and any other elements with extra caption
+ * A component that represents a thumbnail, often used to display condensed content. It provides a
+ * way to display a small representation of an extended card or media object. It's flexible enough
+ * to be used in both image and non-image content.
  *
- * <p>Customize the component can be done by overwriting classes provided by {@link
- * org.dominokit.domino.ui.thumbnails.ThumbnailStyles}
+ * <p><b>Usage Example:</b>
  *
+ * <pre>
+ * Thumbnail thumbnail = Thumbnail.create()
+ *    .appendChild(someImageElement)
+ *    .withTitle(titleHandler)
+ *    .withBody(bodyHandler);
+ * </pre>
+ *
+ * @see BaseDominoElement
+ * @see ThumbnailStyles
  * @see BaseDominoElement
  */
 public class Thumbnail extends BaseDominoElement<HTMLDivElement, Thumbnail>
     implements ThumbnailStyles {
 
+  // Main thumbnail component elements
   private final DivElement element;
   private final DivElement head;
   private final LazyChild<DivElement> title;
@@ -49,9 +60,10 @@ public class Thumbnail extends BaseDominoElement<HTMLDivElement, Thumbnail>
   private final LazyChild<DivElement> tail;
   private final LazyChild<DivElement> footer;
 
+  // For swapping between different thumbnail directions (like horizontal vs vertical)
   private SwapCssClass directionCss = SwapCssClass.of();
 
-  /** Constructor for Thumbnail. */
+  /** Initializes the Thumbnail component with default structure and styles. */
   public Thumbnail() {
     this.element =
         div()
@@ -68,27 +80,30 @@ public class Thumbnail extends BaseDominoElement<HTMLDivElement, Thumbnail>
     init(this);
   }
 
-  /** @return new instnace */
   /**
-   * create.
+   * Factory method to create a new Thumbnail instance.
    *
-   * @return a {@link org.dominokit.domino.ui.thumbnails.Thumbnail} object
+   * @return a new Thumbnail instance.
    */
   public static Thumbnail create() {
     return new Thumbnail();
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Returns the HTMLElement where new child elements should be appended.
+   *
+   * @return the main body HTMLElement of the thumbnail.
+   */
   @Override
   public HTMLElement getAppendTarget() {
     return body.element();
   }
 
   /**
-   * setDirection.
+   * Sets the visual direction of the thumbnail.
    *
-   * @param direction a {@link org.dominokit.domino.ui.thumbnails.ThumbnailDirection} object
-   * @return a {@link org.dominokit.domino.ui.thumbnails.Thumbnail} object
+   * @param direction the direction the thumbnail should take. This affects its visual appearance.
+   * @return the current Thumbnail instance for method chaining.
    */
   public Thumbnail setDirection(ThumbnailDirection direction) {
     addCss(directionCss.replaceWith(direction));
@@ -96,17 +111,23 @@ public class Thumbnail extends BaseDominoElement<HTMLDivElement, Thumbnail>
   }
 
   /**
-   * appendChild.
+   * Appends an image to the thumbnail and applies the necessary styling.
    *
-   * @param img a {@link elemental2.dom.HTMLImageElement} object
-   * @return a {@link org.dominokit.domino.ui.thumbnails.Thumbnail} object
+   * @param img the image element to be appended.
+   * @return the current Thumbnail instance for method chaining.
    */
   public Thumbnail appendChild(HTMLImageElement img) {
     elements.elementOf(img).addCss(dui_thumbnail_img);
     return super.appendChild(img);
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Appends a child element to the thumbnail. If the child is an image or picture, it applies the
+   * necessary styling.
+   *
+   * @param element the element to be appended.
+   * @return the current Thumbnail instance for method chaining.
+   */
   public Thumbnail appendChild(IsElement<?> element) {
     if (element.element() instanceof HTMLImageElement
         || element.element() instanceof HTMLPictureElement) {
@@ -115,7 +136,13 @@ public class Thumbnail extends BaseDominoElement<HTMLDivElement, Thumbnail>
     return super.appendChild(element);
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Appends a child node to the thumbnail. If the node is an image or picture, it applies the
+   * necessary styling.
+   *
+   * @param node the node to be appended.
+   * @return the current Thumbnail instance for method chaining.
+   */
   public Thumbnail appendChild(Node node) {
     if (node instanceof HTMLImageElement || node instanceof HTMLPictureElement) {
       elements.elementOf(Js.<HTMLElement>uncheckedCast(node)).addCss(dui_thumbnail_img);
@@ -123,17 +150,21 @@ public class Thumbnail extends BaseDominoElement<HTMLDivElement, Thumbnail>
     return super.appendChild(node);
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Returns the main div element representing the thumbnail.
+   *
+   * @return the main HTMLDivElement of the thumbnail.
+   */
   @Override
   public HTMLDivElement element() {
     return element.element();
   }
 
   /**
-   * withHeader.
+   * Applies the provided handler to the header of the thumbnail.
    *
-   * @param handler a {@link org.dominokit.domino.ui.utils.ChildHandler} object
-   * @return a {@link org.dominokit.domino.ui.thumbnails.Thumbnail} object
+   * @param handler the handler that will be applied to the thumbnail header.
+   * @return the current Thumbnail instance for method chaining.
    */
   public Thumbnail withHeader(ChildHandler<Thumbnail, DivElement> handler) {
     handler.apply(this, head);
@@ -141,10 +172,10 @@ public class Thumbnail extends BaseDominoElement<HTMLDivElement, Thumbnail>
   }
 
   /**
-   * withTitle.
+   * Applies the provided handler to the title of the thumbnail.
    *
-   * @param handler a {@link org.dominokit.domino.ui.utils.ChildHandler} object
-   * @return a {@link org.dominokit.domino.ui.thumbnails.Thumbnail} object
+   * @param handler the handler that will be applied to the thumbnail title.
+   * @return the current Thumbnail instance for method chaining.
    */
   public Thumbnail withTitle(ChildHandler<Thumbnail, DivElement> handler) {
     handler.apply(this, title.get());
@@ -152,9 +183,9 @@ public class Thumbnail extends BaseDominoElement<HTMLDivElement, Thumbnail>
   }
 
   /**
-   * withTitle.
+   * Ensures the title element is initialized.
    *
-   * @return a {@link org.dominokit.domino.ui.thumbnails.Thumbnail} object
+   * @return the current Thumbnail instance for method chaining.
    */
   public Thumbnail withTitle() {
     title.get();
@@ -162,10 +193,10 @@ public class Thumbnail extends BaseDominoElement<HTMLDivElement, Thumbnail>
   }
 
   /**
-   * withTail.
+   * Applies the provided handler to the tail of the thumbnail.
    *
-   * @param handler a {@link org.dominokit.domino.ui.utils.ChildHandler} object
-   * @return a {@link org.dominokit.domino.ui.thumbnails.Thumbnail} object
+   * @param handler the handler that will be applied to the thumbnail tail.
+   * @return the current Thumbnail instance for method chaining.
    */
   public Thumbnail withTail(ChildHandler<Thumbnail, DivElement> handler) {
     handler.apply(this, tail.get());
@@ -173,9 +204,9 @@ public class Thumbnail extends BaseDominoElement<HTMLDivElement, Thumbnail>
   }
 
   /**
-   * withTail.
+   * Ensures the tail element is initialized.
    *
-   * @return a {@link org.dominokit.domino.ui.thumbnails.Thumbnail} object
+   * @return the current Thumbnail instance for method chaining.
    */
   public Thumbnail withTail() {
     tail.get();
@@ -183,10 +214,10 @@ public class Thumbnail extends BaseDominoElement<HTMLDivElement, Thumbnail>
   }
 
   /**
-   * appendChild.
+   * Appends the provided footer content to the footer of the thumbnail.
    *
-   * @param footerContent a {@link org.dominokit.domino.ui.utils.FooterContent} object
-   * @return a {@link org.dominokit.domino.ui.thumbnails.Thumbnail} object
+   * @param footerContent the footer content to be appended.
+   * @return the current Thumbnail instance for method chaining.
    */
   public Thumbnail appendChild(FooterContent<?> footerContent) {
     footer.get().appendChild(footerContent);
@@ -194,10 +225,10 @@ public class Thumbnail extends BaseDominoElement<HTMLDivElement, Thumbnail>
   }
 
   /**
-   * appendChild.
+   * Appends the provided header content to the title of the thumbnail.
    *
-   * @param headerContent a {@link org.dominokit.domino.ui.utils.HeaderContent} object
-   * @return a {@link org.dominokit.domino.ui.thumbnails.Thumbnail} object
+   * @param headerContent the header content to be appended.
+   * @return the current Thumbnail instance for method chaining.
    */
   public Thumbnail appendChild(HeaderContent<?> headerContent) {
     title.get().appendChild(headerContent);
@@ -205,10 +236,10 @@ public class Thumbnail extends BaseDominoElement<HTMLDivElement, Thumbnail>
   }
 
   /**
-   * withFooter.
+   * Applies the provided handler to the footer of the thumbnail.
    *
-   * @param handler a {@link org.dominokit.domino.ui.utils.ChildHandler} object
-   * @return a {@link org.dominokit.domino.ui.thumbnails.Thumbnail} object
+   * @param handler the handler that will be applied to the thumbnail footer.
+   * @return the current Thumbnail instance for method chaining.
    */
   public Thumbnail withFooter(ChildHandler<Thumbnail, DivElement> handler) {
     handler.apply(this, footer.get());
@@ -216,9 +247,9 @@ public class Thumbnail extends BaseDominoElement<HTMLDivElement, Thumbnail>
   }
 
   /**
-   * withFooter.
+   * Ensures the footer element is initialized.
    *
-   * @return a {@link org.dominokit.domino.ui.thumbnails.Thumbnail} object
+   * @return the current Thumbnail instance for method chaining.
    */
   public Thumbnail withFooter() {
     footer.get();
@@ -226,10 +257,10 @@ public class Thumbnail extends BaseDominoElement<HTMLDivElement, Thumbnail>
   }
 
   /**
-   * withBody.
+   * Applies the provided handler to the body of the thumbnail.
    *
-   * @param handler a {@link org.dominokit.domino.ui.utils.ChildHandler} object
-   * @return a {@link org.dominokit.domino.ui.thumbnails.Thumbnail} object
+   * @param handler the handler that will be applied to the thumbnail body.
+   * @return the current Thumbnail instance for method chaining.
    */
   public Thumbnail withBody(ChildHandler<Thumbnail, DivElement> handler) {
     handler.apply(this, body);
@@ -237,45 +268,45 @@ public class Thumbnail extends BaseDominoElement<HTMLDivElement, Thumbnail>
   }
 
   /**
-   * getHeader.
+   * Returns the header div element of the thumbnail.
    *
-   * @return a {@link org.dominokit.domino.ui.elements.DivElement} object
+   * @return the header div element.
    */
   public DivElement getHeader() {
     return head;
   }
 
   /**
-   * Getter for the field <code>title</code>.
+   * Returns the title div element of the thumbnail.
    *
-   * @return a {@link org.dominokit.domino.ui.elements.DivElement} object
+   * @return the title div element.
    */
   public DivElement getTitle() {
     return title.get();
   }
 
   /**
-   * Getter for the field <code>body</code>.
+   * Returns the body div element of the thumbnail.
    *
-   * @return a {@link org.dominokit.domino.ui.elements.DivElement} object
+   * @return the body div element.
    */
   public DivElement getBody() {
     return body;
   }
 
   /**
-   * Getter for the field <code>tail</code>.
+   * Returns the tail div element of the thumbnail.
    *
-   * @return a {@link org.dominokit.domino.ui.elements.DivElement} object
+   * @return the tail div element.
    */
   public DivElement getTail() {
     return tail.get();
   }
 
   /**
-   * Getter for the field <code>footer</code>.
+   * Returns the footer div element of the thumbnail.
    *
-   * @return a {@link org.dominokit.domino.ui.elements.DivElement} object
+   * @return the footer div element.
    */
   public DivElement getFooter() {
     return footer.get();

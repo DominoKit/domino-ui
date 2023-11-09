@@ -17,243 +17,261 @@ package org.dominokit.domino.ui.keyboard;
 
 import elemental2.dom.EventListener;
 
-/** AcceptKeyEvents interface. */
+/**
+ * The {@code AcceptKeyEvents} interface defines methods for handling keyboard events.
+ * Implementations of this interface can register event listeners for specific keyboard keys and
+ * combinations.
+ *
+ * <p><strong>Usage Example:</strong>
+ *
+ * <pre>{@code
+ * AcceptKeyEvents acceptKeyEvents = new SomeAcceptKeyEventsImplementation();
+ * acceptKeyEvents.onEnter(event -> {
+ *     // Handle Enter key press event
+ * });
+ * acceptKeyEvents.onBackspace(event -> {
+ *     // Handle Backspace key press event
+ * });
+ * }</pre>
+ */
 public interface AcceptKeyEvents {
 
   /**
-   * On ctrl + backspace buttons pressed
+   * Registers an event listener to be called when the Backspace key is pressed.
    *
-   * @param backspaceHandler the {@link elemental2.dom.EventListener} to call
-   * @return same instance
+   * @param backspaceHandler The {@link elemental2.dom.EventListener} to call when the event occurs.
+   * @return The same instance of {@code AcceptKeyEvents}.
    */
   AcceptKeyEvents onBackspace(EventListener backspaceHandler);
 
   /**
-   * On ctrl + backspace buttons pressed with options
+   * Registers an event listener to be called when the Backspace key is pressed with options.
    *
-   * @param options the {@link org.dominokit.domino.ui.keyboard.KeyboardEventOptions}
-   * @param backspaceHandler the {@link elemental2.dom.EventListener} to call
-   * @return same instance
+   * @param options The {@link org.dominokit.domino.ui.keyboard.KeyboardEventOptions}.
+   * @param backspaceHandler The {@link elemental2.dom.EventListener} to call when the event occurs.
+   * @return The same instance of {@code AcceptKeyEvents}.
    */
   AcceptKeyEvents onBackspace(KeyboardEventOptions options, EventListener backspaceHandler);
 
   /**
-   * On escape button pressed
+   * Registers an event listener to be called when the Escape key is pressed.
    *
-   * @param escapeHandler the {@link elemental2.dom.EventListener} to call
-   * @return same instance
+   * @param escapeHandler The {@link elemental2.dom.EventListener} to call when the event occurs.
+   * @return The same instance of {@code AcceptKeyEvents}.
    */
   AcceptKeyEvents onEscape(EventListener escapeHandler);
 
   /**
-   * On escape button pressed with {@code options}
+   * Registers an event listener to be called when the Escape key is pressed with options.
    *
-   * @param options the {@link org.dominokit.domino.ui.keyboard.KeyboardEventOptions}
-   * @param escapeHandler the {@link elemental2.dom.EventListener} to call
-   * @return same instance
+   * @param options The {@link org.dominokit.domino.ui.keyboard.KeyboardEventOptions}.
+   * @param escapeHandler The {@link elemental2.dom.EventListener} to call when the event occurs.
+   * @return The same instance of {@code AcceptKeyEvents}.
    */
   AcceptKeyEvents onEscape(KeyboardEventOptions options, EventListener escapeHandler);
 
   /**
-   * On arrow up or arrow down buttons pressed
+   * Registers an event listener to be called when the arrow up or arrow down keys are pressed.
    *
-   * @param arrowDownHandler the {@link elemental2.dom.EventListener} to call
-   * @return same instance
+   * @param arrowDownHandler The {@link elemental2.dom.EventListener} to call when the event occurs.
+   * @return The same instance of {@code AcceptKeyEvents}.
    */
   AcceptKeyEvents onArrowUpDown(EventListener arrowDownHandler);
 
   /**
-   * On arrow up or arrow down buttons pressed with options
+   * Registers an event listener to be called when the arrow up or arrow down keys are pressed with
+   * options.
    *
-   * @param options the {@link org.dominokit.domino.ui.keyboard.KeyboardEventOptions}
-   * @param arrowDownHandler the {@link elemental2.dom.EventListener} to call
-   * @return same instance
+   * @param options The {@link org.dominokit.domino.ui.keyboard.KeyboardEventOptions}.
+   * @param arrowDownHandler The {@link elemental2.dom.EventListener} to call when the event occurs.
+   * @return The same instance of {@code AcceptKeyEvents}.
    */
   AcceptKeyEvents onArrowUpDown(KeyboardEventOptions options, EventListener arrowDownHandler);
 
   /**
-   * On arrow down button pressed
+   * Registers an event listener to be called when the arrow down key is pressed.
    *
-   * @param arrowDownHandler the {@link elemental2.dom.EventListener} to call
-   * @return same instance
+   * @param arrowDownHandler The {@link elemental2.dom.EventListener} to call when the event occurs.
+   * @return The same instance of {@code AcceptKeyEvents}.
    */
   AcceptKeyEvents onArrowDown(EventListener arrowDownHandler);
 
   /**
-   * On arrow down button pressed with options
+   * Registers an event listener to be called when the arrow down key is pressed with options.
    *
-   * @param options the {@link org.dominokit.domino.ui.keyboard.KeyboardEventOptions}
-   * @param arrowDownHandler the {@link elemental2.dom.EventListener} to call
-   * @return same instance
+   * @param options The {@link org.dominokit.domino.ui.keyboard.KeyboardEventOptions}.
+   * @param arrowDownHandler The {@link elemental2.dom.EventListener} to call when the event occurs.
+   * @return The same instance of {@code AcceptKeyEvents}.
    */
   AcceptKeyEvents onArrowDown(KeyboardEventOptions options, EventListener arrowDownHandler);
 
   /**
-   * On arrow up button pressed with options
+   * Registers an event listener to be called when the arrow up key is pressed.
    *
-   * @param arrowUpHandler the {@link elemental2.dom.EventListener} to call
-   * @return same instance
+   * @param arrowUpHandler The {@link elemental2.dom.EventListener} to call when the event occurs.
+   * @return The same instance of {@code AcceptKeyEvents}.
    */
   AcceptKeyEvents onArrowUp(EventListener arrowUpHandler);
 
   /**
-   * On arrow up button pressed with options
+   * Registers an event listener to be called when the arrow up key is pressed with options.
    *
-   * @param options the {@link org.dominokit.domino.ui.keyboard.KeyboardEventOptions}
-   * @param arrowUpHandler the {@link elemental2.dom.EventListener} to call
-   * @return same instance
+   * @param options The {@link org.dominokit.domino.ui.keyboard.KeyboardEventOptions}.
+   * @param arrowUpHandler The {@link elemental2.dom.EventListener} to call when the event occurs.
+   * @return The same instance of {@code AcceptKeyEvents}.
    */
   AcceptKeyEvents onArrowUp(KeyboardEventOptions options, EventListener arrowUpHandler);
 
   /**
-   * On arrow right button pressed with options
+   * Registers an event listener to be called when the arrow right key is pressed.
    *
-   * @param arrowUpHandler the {@link elemental2.dom.EventListener} to call
-   * @return same instance
+   * @param arrowUpHandler The {@link elemental2.dom.EventListener} to call when the event occurs.
+   * @return The same instance of {@code AcceptKeyEvents}.
    */
   AcceptKeyEvents onArrowRight(EventListener arrowUpHandler);
 
   /**
-   * On arrow right button pressed with options
+   * Registers an event listener to be called when the arrow right key is pressed with options.
    *
-   * @param options the {@link org.dominokit.domino.ui.keyboard.KeyboardEventOptions}
-   * @param arrowUpHandler the {@link elemental2.dom.EventListener} to call
-   * @return same instance
+   * @param options The {@link org.dominokit.domino.ui.keyboard.KeyboardEventOptions}.
+   * @param arrowUpHandler The {@link elemental2.dom.EventListener} to call when the event occurs.
+   * @return The same instance of {@code AcceptKeyEvents}.
    */
   AcceptKeyEvents onArrowRight(KeyboardEventOptions options, EventListener arrowUpHandler);
 
   /**
-   * On arrow right button pressed with options
+   * Registers an event listener to be called when the arrow left key is pressed.
    *
-   * @param arrowUpHandler the {@link elemental2.dom.EventListener} to call
-   * @return same instance
+   * @param arrowUpHandler The {@link elemental2.dom.EventListener} to call when the event occurs.
+   * @return The same instance of {@code AcceptKeyEvents}.
    */
   AcceptKeyEvents onArrowLeft(EventListener arrowUpHandler);
 
   /**
-   * On arrow right button pressed with options
+   * Registers an event listener to be called when the arrow left key is pressed with options.
    *
-   * @param options the {@link org.dominokit.domino.ui.keyboard.KeyboardEventOptions}
-   * @param arrowUpHandler the {@link elemental2.dom.EventListener} to call
-   * @return same instance
+   * @param options The {@link org.dominokit.domino.ui.keyboard.KeyboardEventOptions}.
+   * @param arrowUpHandler The {@link elemental2.dom.EventListener} to call when the event occurs.
+   * @return The same instance of {@code AcceptKeyEvents}.
    */
   AcceptKeyEvents onArrowLeft(KeyboardEventOptions options, EventListener arrowUpHandler);
 
   /**
-   * On enter button pressed
+   * Registers an event listener to be called when the Enter key is pressed.
    *
-   * @param enterHandler the {@link elemental2.dom.EventListener} to call
-   * @return same instance
+   * @param enterHandler The {@link elemental2.dom.EventListener} to call when the event occurs.
+   * @return The same instance of {@code AcceptKeyEvents}.
    */
   AcceptKeyEvents onEnter(EventListener enterHandler);
 
   /**
-   * On enter button pressed with options
+   * Registers an event listener to be called when the Enter key is pressed with options.
    *
-   * @param options the {@link org.dominokit.domino.ui.keyboard.KeyboardEventOptions}
-   * @param enterHandler the {@link elemental2.dom.EventListener} to call
-   * @return same instance
+   * @param options The {@link org.dominokit.domino.ui.keyboard.KeyboardEventOptions}.
+   * @param enterHandler The {@link elemental2.dom.EventListener} to call when the event occurs.
+   * @return The same instance of {@code AcceptKeyEvents}.
    */
   AcceptKeyEvents onEnter(KeyboardEventOptions options, EventListener enterHandler);
 
   /**
-   * On delete button pressed
+   * Registers an event listener to be called when the Delete key is pressed.
    *
-   * @param deleteHandler the {@link elemental2.dom.EventListener} to call
-   * @return same instance
+   * @param deleteHandler The {@link elemental2.dom.EventListener} to call when the event occurs.
+   * @return The same instance of {@code AcceptKeyEvents}.
    */
   AcceptKeyEvents onDelete(EventListener deleteHandler);
 
   /**
-   * On delete button pressed with options
+   * Registers an event listener to be called when the cntrl + Delete key is pressed with options.
    *
-   * @param options the {@link org.dominokit.domino.ui.keyboard.KeyboardEventOptions}
-   * @param deleteHandler the {@link elemental2.dom.EventListener} to call
-   * @return same instance
+   * @param options The {@link org.dominokit.domino.ui.keyboard.KeyboardEventOptions}.
+   * @param deleteHandler The {@link elemental2.dom.EventListener} to call when the event occurs.
+   * @return The same instance of {@code AcceptKeyEvents}.
    */
   AcceptKeyEvents onDelete(KeyboardEventOptions options, EventListener deleteHandler);
 
   /**
-   * On space button pressed
+   * Registers an event listener to be called when the cntrl + Space key is pressed.
    *
-   * @param spaceHandler the {@link elemental2.dom.EventListener} to call
-   * @return same instance
+   * @param spaceHandler The {@link elemental2.dom.EventListener} to call when the event occurs.
+   * @return The same instance of {@code AcceptKeyEvents}.
    */
   AcceptKeyEvents onSpace(EventListener spaceHandler);
 
   /**
-   * On space button pressed with options
+   * Registers an event listener to be called when the cntrl + Space key is pressed with options.
    *
-   * @param options the {@link org.dominokit.domino.ui.keyboard.KeyboardEventOptions}
-   * @param spaceHandler the {@link elemental2.dom.EventListener} to call
-   * @return same instance
+   * @param options The {@link org.dominokit.domino.ui.keyboard.KeyboardEventOptions}.
+   * @param spaceHandler The {@link elemental2.dom.EventListener} to call when the event occurs.
+   * @return The same instance of {@code AcceptKeyEvents}.
    */
   AcceptKeyEvents onSpace(KeyboardEventOptions options, EventListener spaceHandler);
 
   /**
-   * On tab button pressed
+   * Registers an event listener to be called when the cntrl + Tab key is pressed.
    *
-   * @param tabHandler the {@link elemental2.dom.EventListener} to call
-   * @return same instance
+   * @param tabHandler The {@link elemental2.dom.EventListener} to call when the event occurs.
+   * @return The same instance of {@code AcceptKeyEvents}.
    */
   AcceptKeyEvents onTab(EventListener tabHandler);
 
   /**
-   * On tab button pressed with options
+   * Registers an event listener to be called when the cntrl + Tab key is pressed with options.
    *
-   * @param options the {@link org.dominokit.domino.ui.keyboard.KeyboardEventOptions}
-   * @param tabHandler the {@link elemental2.dom.EventListener} to call
-   * @return same instance
+   * @param options The {@link org.dominokit.domino.ui.keyboard.KeyboardEventOptions}.
+   * @param tabHandler The {@link elemental2.dom.EventListener} to call when the event occurs.
+   * @return The same instance of {@code AcceptKeyEvents}.
    */
   AcceptKeyEvents onTab(KeyboardEventOptions options, EventListener tabHandler);
 
   /**
-   * On key button pressed with options
+   * Registers an event listener be called when ctrl + a specific key is pressed with options.
    *
-   * @param options the {@link org.dominokit.domino.ui.keyboard.KeyboardEventOptions}
-   * @param handler the {@link elemental2.dom.EventListener} to call
-   * @return same instance
-   * @param key a {@link java.lang.String} object
+   * @param key A {@link java.lang.String} representing the key to listen for.
+   * @param options The {@link org.dominokit.domino.ui.keyboard.KeyboardEventOptions}.
+   * @param handler The {@link elemental2.dom.EventListener} to call when the event occurs.
+   * @return The same instance of {@code AcceptKeyEvents}.
    */
   AcceptKeyEvents on(String key, KeyboardEventOptions options, EventListener handler);
 
   /**
-   * On key button pressed
+   * Registers an event listener be called when ctrl + a specific key is pressed.
    *
-   * @param handler the {@link elemental2.dom.EventListener} to call
-   * @return same instance
-   * @param key a {@link java.lang.String} object
+   * @param key A {@link java.lang.String} representing the key to listen for.
+   * @param handler The {@link elemental2.dom.EventListener} to call when the event occurs.
+   * @return The same instance of {@code AcceptKeyEvents}.
    */
   AcceptKeyEvents on(String key, EventListener handler);
+
   /**
-   * On key pressed with options
+   * Registers an event listener be called when ctrl + any key is pressed with options.
    *
-   * @param options the {@link org.dominokit.domino.ui.keyboard.KeyboardEventOptions}
-   * @param handler the {@link elemental2.dom.EventListener} to call
-   * @return same instance
+   * @param options The {@link org.dominokit.domino.ui.keyboard.KeyboardEventOptions}.
+   * @param handler The {@link elemental2.dom.EventListener} to call when the event occurs.
+   * @return The same instance of {@code AcceptKeyEvents}.
    */
   AcceptKeyEvents any(KeyboardEventOptions options, EventListener handler);
 
   /**
-   * On key pressed
+   * Registers an event listener be called when ctrl + any key is pressed.
    *
-   * @param handler the {@link elemental2.dom.EventListener} to call
-   * @return same instance
+   * @param handler The {@link elemental2.dom.EventListener} to call when the event occurs.
+   * @return The same instance of {@code AcceptKeyEvents}.
    */
   AcceptKeyEvents any(EventListener handler);
 
   /**
-   * clearAll.
+   * Clears all registered event listeners.
    *
-   * @return a {@link org.dominokit.domino.ui.keyboard.AcceptKeyEvents} object
+   * @return The same instance of {@code AcceptKeyEvents}.
    */
   AcceptKeyEvents clearAll();
 
   /**
-   * clear.
+   * Clears the event listener for a specific key.
    *
-   * @param key a {@link java.lang.String} object
-   * @return a {@link org.dominokit.domino.ui.keyboard.AcceptKeyEvents} object
+   * @param key A {@link java.lang.String} representing the key to clear the event listener for.
+   * @return The same instance of {@code AcceptKeyEvents}.
    */
   AcceptKeyEvents clear(String key);
 }

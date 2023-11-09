@@ -21,15 +21,42 @@ import org.dominokit.domino.ui.richtext.FontPicker;
 import org.dominokit.domino.ui.richtext.RichTextCommand;
 import org.dominokit.domino.ui.utils.DominoDom;
 
+/**
+ * Represents a UI component for setting the font name of the selected text within a rich text
+ * editor.
+ *
+ * <p>The FontNameCommand extends {@link RichTextCommand} and provides a mechanism to change the
+ * font name of the selected text within a rich text editable div element. It integrates with {@link
+ * FontPicker} to present the user with available font options and then applies the chosen font to
+ * the selected text.
+ *
+ * <p><b>Usage Example:</b>
+ *
+ * <pre>{@code
+ * DivElement editableDiv = DivElement.create();
+ * FontNameCommand fontNameCommand = FontNameCommand.create(editableDiv);
+ * }</pre>
+ */
 public class FontNameCommand extends RichTextCommand<FontNameCommand> {
 
   private String fontName;
   private FontPicker fontPicker;
 
+  /**
+   * Factory method to create a new instance of FontNameCommand.
+   *
+   * @param editableElement The div element where the rich text is edited.
+   * @return A new instance of FontNameCommand.
+   */
   public static FontNameCommand create(DivElement editableElement) {
     return new FontNameCommand(editableElement);
   }
 
+  /**
+   * Constructs a new FontNameCommand instance for the specified editable element.
+   *
+   * @param editableElement The div element where the rich text is edited.
+   */
   public FontNameCommand(DivElement editableElement) {
     super(editableElement);
     this.fontPicker =
@@ -46,11 +73,20 @@ public class FontNameCommand extends RichTextCommand<FontNameCommand> {
     init(this);
   }
 
+  /**
+   * @dominokit-site-ignore {@inheritDoc}
+   *     <p>Returns the main HTMLElement of this command, which is the font picker element.
+   * @return The HTMLElement of the font picker.
+   */
   @Override
   public HTMLElement element() {
     return fontPicker.element();
   }
 
+  /**
+   * Executes the command, setting the font name for the currently selected text within the editable
+   * div element.
+   */
   @Override
   protected void execute() {
     getSelectedRange()

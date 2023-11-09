@@ -15,5 +15,23 @@
  */
 package org.dominokit.domino.ui.dialogs;
 
-/** IsDialogSize interface. */
+/**
+ * Represents a dialog's dimension by combining its width and height attributes.
+ *
+ * <p>Implementing this interface allows a dialog to have both width and height styles, enabling
+ * consistent sizing across different dialogs.
+ *
+ * <p><b>Usage:</b>
+ *
+ * <pre>
+ * class CustomDialog implements IsDialogSize {
+ *     // Implement methods...
+ * }
+ *
+ * CustomDialog dialog = new CustomDialog();
+ * </pre>
+ *
+ * @see IsDialogWidth
+ * @see IsDialogHeight
+ */
 public interface IsDialogSize extends IsDialogWidth, IsDialogHeight {}

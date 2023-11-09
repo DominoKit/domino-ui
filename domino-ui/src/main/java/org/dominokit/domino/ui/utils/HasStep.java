@@ -13,23 +13,29 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package org.dominokit.domino.ui.utils;
 
-/** HasStep interface. */
+/**
+ * The {@code HasStep} interface defines methods for getting and setting a step value.
+ *
+ * @param <T> The type of the implementing class.
+ * @param <V> The type of the step value.
+ */
 public interface HasStep<T, V> {
 
   /**
-   * getStep.
+   * Gets the step value.
    *
-   * @return a V object
+   * @return The step value.
    */
   V getStep();
 
   /**
-   * setStep.
+   * Sets the step value.
    *
-   * @param step a V object
-   * @return a T object
+   * @param step The step value to set.
+   * @return The implementing class instance.
    */
   T setStep(V step);
 }

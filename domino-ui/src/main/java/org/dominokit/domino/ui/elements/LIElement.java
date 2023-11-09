@@ -17,22 +17,46 @@ package org.dominokit.domino.ui.elements;
 
 import elemental2.dom.HTMLLIElement;
 
-/** LIElement class. */
+/**
+ * Represents an HTML
+ * <li>(list item) element wrapper.
+ *
+ *     <p>The HTML
+ * <li>element represents a list item within an ordered list (
+ *
+ *     <ol>
+ *       ), an unordered list (
+ *       <ul>
+ *         ), or a menu list (<menu>). This class provides a convenient way to create, manipulate,
+ *         and control the behavior of
+ *         <li>elements in Java-based web applications. Example usage:
+ *             <pre>
+ * HTMLLIElement liElement = ...;  // Obtain an <li> element from somewhere
+ * LIElement li = LIElement.of(liElement);
+ * </pre>
+ *
+ * @see <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/li">MDN Web Docs (li)</a>
+ */
 public class LIElement extends BaseElement<HTMLLIElement, LIElement> {
+
   /**
-   * of.
+   * Creates a new {@link LIElement} instance by wrapping the provided HTML
+   * <li>element.
    *
-   * @param e a {@link elemental2.dom.HTMLLIElement} object
-   * @return a {@link org.dominokit.domino.ui.elements.LIElement} object
+   * @param e The HTML
+   *     <li>element to wrap.
+   * @return A new {@link LIElement} instance wrapping the provided element.
    */
   public static LIElement of(HTMLLIElement e) {
     return new LIElement(e);
   }
 
   /**
-   * Constructor for LIElement.
+   * Constructs a {@link LIElement} instance by wrapping the provided HTML
+   * <li>element.
    *
-   * @param element a {@link elemental2.dom.HTMLLIElement} object
+   * @param element The HTML
+   *     <li>element to wrap.
    */
   public LIElement(HTMLLIElement element) {
     super(element);

@@ -25,7 +25,25 @@ import org.dominokit.domino.ui.utils.ChildHandler;
 import org.dominokit.domino.ui.utils.FooterContent;
 import org.dominokit.domino.ui.utils.LazyChild;
 
-/** A special dialog component that introduce a confirm/reject actions */
+/**
+ * A dialog for displaying confirmation messages and getting user confirmation.
+ *
+ * <p>This dialog allows you to display a confirmation message to the user and get their response
+ * (either confirmation or rejection). It provides buttons for confirming and rejecting the action
+ * and can be customized with a title and message.
+ *
+ * <p>Usage example:
+ *
+ * <pre>
+ * ConfirmationDialog.create("Delete Item", "Are you sure you want to delete this item?")
+ *   .onConfirm(dialog -&gt; {
+ *     // Handle the confirmation logic here
+ *     dialog.close();
+ *   })
+ *   .onReject(dialog -&gt; dialog.close())
+ *   .open();
+ * </pre>
+ */
 public class ConfirmationDialog extends AbstractDialog<ConfirmationDialog> {
   private Button confirmButton;
   private Button rejectButton;
@@ -35,38 +53,31 @@ public class ConfirmationDialog extends AbstractDialog<ConfirmationDialog> {
   private LazyChild<SpanElement> messageElement;
   private LazyChild<NavBar> navHeader;
 
-  /** @return new instance with empty title */
-  /**
-   * create.
-   *
-   * @return a {@link org.dominokit.domino.ui.dialogs.ConfirmationDialog} object
-   */
+  /** Creates a new confirmation dialog with default settings. */
   public static ConfirmationDialog create() {
     return new ConfirmationDialog();
   }
 
   /**
-   * create.
+   * Creates a new confirmation dialog with a specified title.
    *
-   * @param title String
-   * @return new instance with custom title
+   * @param title The title of the confirmation dialog.
    */
   public static ConfirmationDialog create(String title) {
     return new ConfirmationDialog(title);
   }
 
   /**
-   * create.
+   * Creates a new confirmation dialog with a specified title and message.
    *
-   * @param title String
-   * @return new instance with custom title
-   * @param message a {@link java.lang.String} object
+   * @param title The title of the confirmation dialog.
+   * @param message The message to display in the dialog.
    */
   public static ConfirmationDialog create(String title, String message) {
     return new ConfirmationDialog(title, message);
   }
 
-  /** creates new instance with empty title */
+  /** Creates a new empty {@code ConfirmationDialog} instance. */
   public ConfirmationDialog() {
     messageElement = LazyChild.of(span(), contentElement);
     navHeader = LazyChild.of(NavBar.create().addCss(dui_dialog_nav), headerElement);
@@ -77,23 +88,21 @@ public class ConfirmationDialog extends AbstractDialog<ConfirmationDialog> {
     setAutoClose(false);
   }
 
-  /** @param title String creates new instance with custom title */
   /**
-   * Constructor for ConfirmationDialog.
+   * Creates a new {@code ConfirmationDialog} instance with the specified title.
    *
-   * @param title a {@link java.lang.String} object
+   * @param title The title to set for the dialog.
    */
   public ConfirmationDialog(String title) {
     this();
     navHeader.get().setTitle(title);
   }
 
-  /** @param title String creates new instance with custom title */
   /**
-   * Constructor for ConfirmationDialog.
+   * Creates a new {@code ConfirmationDialog} instance with the specified title and message.
    *
-   * @param title a {@link java.lang.String} object
-   * @param message a {@link java.lang.String} object
+   * @param title The title to set for the dialog.
+   * @param message The message to display in the dialog.
    */
   public ConfirmationDialog(String title, String message) {
     this(title);
@@ -101,10 +110,10 @@ public class ConfirmationDialog extends AbstractDialog<ConfirmationDialog> {
   }
 
   /**
-   * setTitle.
+   * Sets the title of the dialog.
    *
-   * @param title a {@link java.lang.String} object
-   * @return a {@link org.dominokit.domino.ui.dialogs.ConfirmationDialog} object
+   * @param title The title to set for the dialog.
+   * @return This {@code ConfirmationDialog} instance for method chaining.
    */
   public ConfirmationDialog setTitle(String title) {
     navHeader.get().setTitle(title);
@@ -112,10 +121,10 @@ public class ConfirmationDialog extends AbstractDialog<ConfirmationDialog> {
   }
 
   /**
-   * setMessage.
+   * Sets the message to be displayed in the dialog.
    *
-   * @param message a {@link java.lang.String} object
-   * @return a {@link org.dominokit.domino.ui.dialogs.ConfirmationDialog} object
+   * @param message The message to display in the dialog.
+   * @return This {@code ConfirmationDialog} instance for method chaining.
    */
   public ConfirmationDialog setMessage(String message) {
     messageElement.remove();
@@ -151,10 +160,10 @@ public class ConfirmationDialog extends AbstractDialog<ConfirmationDialog> {
   }
 
   /**
-   * Sets the handler for the confirm action
+   * Sets the action to be performed when the confirm button is clicked.
    *
-   * @param confirmHandler {@link org.dominokit.domino.ui.dialogs.ConfirmationDialog.ConfirmHandler}
-   * @return same ConfirmationDialog instance
+   * @param confirmHandler The action to be executed on confirmation.
+   * @return This {@code ConfirmationDialog} instance for method chaining.
    */
   public ConfirmationDialog onConfirm(ConfirmHandler confirmHandler) {
     this.confirmHandler = confirmHandler;
@@ -162,54 +171,50 @@ public class ConfirmationDialog extends AbstractDialog<ConfirmationDialog> {
   }
 
   /**
-   * Sets the handler for the reject action
+   * Sets the action to be performed when the reject button is clicked.
    *
-   * @param rejectHandler {@link org.dominokit.domino.ui.dialogs.ConfirmationDialog.RejectHandler}
-   * @return same ConfirmationDialog instance
+   * @param rejectHandler The action to be executed on rejection.
+   * @return This {@code ConfirmationDialog} instance for method chaining.
    */
   public ConfirmationDialog onReject(RejectHandler rejectHandler) {
     this.rejectHandler = rejectHandler;
     return this;
   }
 
-  /** @return the confirmation {@link Button} */
   /**
-   * Getter for the field <code>confirmButton</code>.
+   * Retrieves the confirm button of the dialog.
    *
-   * @return a {@link org.dominokit.domino.ui.button.Button} object
+   * @return The confirm button.
    */
   public Button getConfirmButton() {
     return confirmButton;
   }
 
-  /** @return the reject {@link Button} */
   /**
-   * Getter for the field <code>rejectButton</code>.
+   * Retrieves the reject button of the dialog.
    *
-   * @return a {@link org.dominokit.domino.ui.button.Button} object
+   * @return The reject button.
    */
   public Button getRejectButton() {
     return rejectButton;
   }
 
-  /** @return the confirmation {@link Button} */
   /**
-   * withConfirmButton.
+   * Configures the confirm button of the dialog using a handler for customization.
    *
-   * @param handler a {@link org.dominokit.domino.ui.utils.ChildHandler} object
-   * @return a {@link org.dominokit.domino.ui.dialogs.ConfirmationDialog} object
+   * @param handler The handler to customize the confirm button.
+   * @return This {@code ConfirmationDialog} instance for method chaining.
    */
   public ConfirmationDialog withConfirmButton(ChildHandler<ConfirmationDialog, Button> handler) {
     handler.apply(this, confirmButton);
     return this;
   }
 
-  /** @return the reject {@link Button} */
   /**
-   * withRejectButton.
+   * Configures the reject button of the dialog using a handler for customization.
    *
-   * @param handler a {@link org.dominokit.domino.ui.utils.ChildHandler} object
-   * @return a {@link org.dominokit.domino.ui.dialogs.ConfirmationDialog} object
+   * @param handler The handler to customize the reject button.
+   * @return This {@code ConfirmationDialog} instance for method chaining.
    */
   public ConfirmationDialog withRejectButton(ChildHandler<ConfirmationDialog, Button> handler) {
     handler.apply(this, rejectButton);
@@ -217,34 +222,34 @@ public class ConfirmationDialog extends AbstractDialog<ConfirmationDialog> {
   }
 
   /**
-   * withNavHeader.
+   * Configures the header of the dialog using a handler for customization.
    *
-   * @param handler a {@link org.dominokit.domino.ui.utils.ChildHandler} object
-   * @return a {@link org.dominokit.domino.ui.dialogs.ConfirmationDialog} object
+   * @param handler The handler to customize the dialog header.
+   * @return This {@code ConfirmationDialog} instance for method chaining.
    */
   public ConfirmationDialog withNavHeader(ChildHandler<ConfirmationDialog, NavBar> handler) {
     handler.apply(this, navHeader.get());
     return this;
   }
 
-  /** An interface to implement Confirm action handlers */
+  /** Functional interface for handling confirmation actions in the {@code ConfirmationDialog}. */
   @FunctionalInterface
   public interface ConfirmHandler {
     /**
-     * called when the confirm button is clicked
+     * Called when the confirmation action is performed.
      *
-     * @param dialog the {@link ConfirmationDialog} from which the action is triggered
+     * @param dialog The {@code ConfirmationDialog} instance.
      */
     void onConfirm(ConfirmationDialog dialog);
   }
 
-  /** An interface to implement Reject action handlers */
+  /** Functional interface for handling rejection actions in the {@code ConfirmationDialog}. */
   @FunctionalInterface
   public interface RejectHandler {
     /**
-     * called when the reject button is clicked
+     * Called when the reject action is performed.
      *
-     * @param dialog the {@link ConfirmationDialog} from which the action is triggered
+     * @param dialog The {@code ConfirmationDialog} instance.
      */
     void onReject(ConfirmationDialog dialog);
   }

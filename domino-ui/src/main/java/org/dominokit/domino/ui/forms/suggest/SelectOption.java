@@ -19,68 +19,84 @@ import org.dominokit.domino.ui.elements.DivElement;
 import org.dominokit.domino.ui.menu.AbstractMenuItem;
 import org.dominokit.domino.ui.menu.MenuItem;
 
-/** SelectOption class. */
+/**
+ * Represents a selectable option within a dropdown menu or suggestion list.
+ *
+ * <p>This class extends the {@link Option} class and is designed for use with a {@link SuggestBox}
+ * or similar components to represent selectable options.
+ *
+ * <p>Usage Example:
+ *
+ * <pre>{@code
+ * SelectOption<String> option = SelectOption.create("1", "Option 1", "This is the first option");
+ * }</pre>
+ *
+ * @param <V> The type of the option's value.
+ */
 public class SelectOption<V> extends Option<V, DivElement, SelectOption<V>> {
 
   /**
-   * create.
+   * Creates a new SelectOption with the provided key, value, and text.
    *
-   * @param key a {@link java.lang.String} object
-   * @param value a V object
-   * @param text a {@link java.lang.String} object
-   * @param <V> a V class
-   * @return a {@link org.dominokit.domino.ui.forms.suggest.SelectOption} object
+   * @param <V> The type of the option's value.
+   * @param key The unique key for the option.
+   * @param value The value associated with the option.
+   * @param text The text to display for the option.
+   * @return A new SelectOption instance.
    */
   public static <V> SelectOption<V> create(String key, V value, String text) {
     return new SelectOption<>(key, value, text);
   }
 
   /**
-   * create.
+   * Creates a new SelectOption with the provided value, using the value itself as the key and text.
    *
-   * @param value a V object
-   * @param <V> a V class
-   * @return a {@link org.dominokit.domino.ui.forms.suggest.SelectOption} object
+   * @param <V> The type of the option's value.
+   * @param value The value associated with the option.
+   * @return A new SelectOption instance.
    */
   public static <V> SelectOption<V> create(V value) {
     return new SelectOption<>(String.valueOf(value), value, String.valueOf(value));
   }
 
   /**
-   * create.
+   * Creates a new SelectOption with the provided value, key, and text.
    *
-   * @param value a V object
-   * @param text a {@link java.lang.String} object
-   * @param <V> a V class
-   * @return a {@link org.dominokit.domino.ui.forms.suggest.SelectOption} object
+   * @param <V> The type of the option's value.
+   * @param value The value associated with the option.
+   * @param text The text to display for the option.
+   * @return A new SelectOption instance.
    */
   public static <V> SelectOption<V> create(V value, String text) {
     return new SelectOption<>(String.valueOf(value), value, text);
   }
 
   /**
-   * create.
+   * Creates a new SelectOption with the provided key, value, text, and description.
    *
-   * @param key a {@link java.lang.String} object
-   * @param value a V object
-   * @param text a {@link java.lang.String} object
-   * @param description a {@link java.lang.String} object
-   * @param <V> a V class
-   * @return a {@link org.dominokit.domino.ui.forms.suggest.SelectOption} object
+   * @param <V> The type of the option's value.
+   * @param key The unique key for the option.
+   * @param value The value associated with the option.
+   * @param text The text to display for the option.
+   * @param description The description for the option.
+   * @return A new SelectOption instance.
    */
   public static <V> SelectOption<V> create(String key, V value, String text, String description) {
     return new SelectOption<>(key, value, text, description);
   }
 
   /**
-   * create.
+   * Creates a new SelectOption with the provided key, value, and custom component and menu item
+   * suppliers.
    *
-   * @param key a {@link java.lang.String} object
-   * @param value a V object
-   * @param componentSupplier a OptionSupplier object
-   * @param menuItemSupplier a OptionSupplier object
-   * @param <V> a V class
-   * @return a {@link org.dominokit.domino.ui.forms.suggest.SelectOption} object
+   * @param <V> The type of the option's value.
+   * @param key The unique key for the option.
+   * @param value The value associated with the option.
+   * @param componentSupplier A custom supplier for creating the component (DivElement) for the
+   *     option.
+   * @param menuItemSupplier A custom supplier for creating the menu item (AbstractMenuItem) for the
+   *     option.
+   * @return A new SelectOption instance with custom component and menu item.
    */
   public static <V> SelectOption<V> create(
       String key,
@@ -91,12 +107,12 @@ public class SelectOption<V> extends Option<V, DivElement, SelectOption<V>> {
   }
 
   /**
-   * Constructor for SelectOption.
+   * Creates a new SelectOption with the provided key, value, text, and description.
    *
-   * @param key a {@link java.lang.String} object
-   * @param value a V object
-   * @param text a {@link java.lang.String} object
-   * @param description a {@link java.lang.String} object
+   * @param key The unique key for the option.
+   * @param value The value associated with the option.
+   * @param text The text to display for the option.
+   * @param description The description for the option.
    */
   public SelectOption(String key, V value, String text, String description) {
     super(
@@ -107,23 +123,24 @@ public class SelectOption<V> extends Option<V, DivElement, SelectOption<V>> {
   }
 
   /**
-   * Constructor for SelectOption.
+   * Creates a new SelectOption with the provided key, value, and text.
    *
-   * @param key a {@link java.lang.String} object
-   * @param value a V object
-   * @param text a {@link java.lang.String} object
+   * @param key The unique key for the option.
+   * @param value The value associated with the option.
+   * @param text The text to display for the option.
    */
   public SelectOption(String key, V value, String text) {
     super(key, value, elements.div().textContent(text).addCss(dui_m_r_1), MenuItem.create(text));
   }
 
   /**
-   * Constructor for SelectOption.
+   * Creates a new SelectOption with the provided key, value, component supplier, and menu item
+   * supplier.
    *
-   * @param key a {@link java.lang.String} object
-   * @param value a V object
-   * @param componentSupplier a OptionSupplier object
-   * @param menuItemSupplier a OptionSupplier object
+   * @param key The unique key for the option.
+   * @param value The value associated with the option.
+   * @param componentSupplier The supplier for the option's component.
+   * @param menuItemSupplier The supplier for the option's menu item.
    */
   public SelectOption(
       String key,

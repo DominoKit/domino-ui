@@ -13,6 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package org.dominokit.domino.ui.datatable.plugins.pagination;
 
 import elemental2.core.JsMath;
@@ -20,16 +21,23 @@ import elemental2.dom.HTMLTableElement;
 import org.dominokit.domino.ui.datatable.DataTable;
 import org.dominokit.domino.ui.datatable.events.BodyScrollEvent;
 import org.dominokit.domino.ui.datatable.plugins.DataTablePlugin;
+import org.dominokit.domino.ui.datatable.plugins.HasPluginConfig;
 
 /**
- * This plugin fires {@link org.dominokit.domino.ui.datatable.events.BodyScrollEvent} whenever the
- * table body scroll reaches the top of the bottom
+ * A plugin for handling body scroll events in a DataTable.
  *
- * @param <T> the type of the data table records
+ * @param <T> The type of data in the DataTable.
  */
-public class BodyScrollPlugin<T> implements DataTablePlugin<T> {
+public class BodyScrollPlugin<T>
+    implements DataTablePlugin<T>, HasPluginConfig<T, BodyScrollPlugin<T>, BodyScrollPluginConfig> {
 
-  /** {@inheritDoc} */
+  private BodyScrollPluginConfig config = new BodyScrollPluginConfig(0);
+
+  /**
+   * Initializes the plugin and adds scroll event listeners to the DataTable's body.
+   *
+   * @param dataTable The DataTable instance to which this plugin is applied.
+   */
   @Override
   public void onBodyAdded(DataTable<T> dataTable) {
     HTMLTableElement scrollElement = dataTable.tableElement().element();
@@ -42,19 +50,38 @@ public class BodyScrollPlugin<T> implements DataTablePlugin<T> {
           }
           int offsetHeight = new Double(scrollElement.offsetHeight).intValue();
           int scrollHeight = new Double(scrollElement.scrollHeight).intValue();
+          int clientHeight = new Double(scrollElement.clientHeight).intValue();
 
           if (JsMath.abs(offsetHeight) + JsMath.abs(scrollTop)
-              == new Double(scrollHeight).intValue()) {
+              >= new Double(scrollHeight + (offsetHeight - clientHeight)).intValue()
+                  - config.getOffset()) {
             dataTable.fireTableEvent(new BodyScrollEvent(ScrollPosition.BOTTOM));
           }
         });
   }
 
-  /** An enum to specify the postion of the scroll */
+  /**
+   * Sets up the plugin configuration.
+   *
+   * @param config The plugin configuration.
+   */
+  @Override
+  public BodyScrollPlugin<T> setConfig(BodyScrollPluginConfig config) {
+    this.config = config;
+    return this;
+  }
+
+  /** @return the plugin configuration */
+  @Override
+  public BodyScrollPluginConfig getConfig() {
+    return this.config;
+  }
+
+  /** An enum representing the scroll position in the DataTable's body. */
   public enum ScrollPosition {
-    /** The scroll reached the top */
+    /** Represents the top scroll position. */
     TOP,
-    /** The scroll reached the bottom */
+    /** Represents the bottom scroll position. */
     BOTTOM
   }
 }

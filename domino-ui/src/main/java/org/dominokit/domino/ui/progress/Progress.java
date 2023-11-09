@@ -22,9 +22,18 @@ import org.dominokit.domino.ui.elements.DivElement;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
 
 /**
- * A component that can show the progress for one or more operation
+ * Represents a visual progress component that can have multiple progress bars.
  *
- * @see ProgressBar
+ * <p>Usage example:
+ *
+ * <pre>
+ * Progress progress = Progress.create();
+ * ProgressBar bar1 = new ProgressBar(100);
+ * ProgressBar bar2 = new ProgressBar(150);
+ * progress.appendChild(bar1).appendChild(bar2);
+ * </pre>
+ *
+ * @see BaseDominoElement
  */
 public class Progress extends BaseDominoElement<HTMLDivElement, Progress>
     implements ProgressStyles {
@@ -32,29 +41,26 @@ public class Progress extends BaseDominoElement<HTMLDivElement, Progress>
   private DivElement element;
   private final List<ProgressBar> progressBars = new ArrayList<>();
 
-  /** */
-  /** Constructor for Progress. */
+  /** Creates a new Progress instance. */
   public Progress() {
     element = div().addCss(dui_progress);
     init(this);
   }
 
-  /** @return new Progress instance */
   /**
-   * create.
+   * Static factory method to create a new instance of Progress.
    *
-   * @return a {@link org.dominokit.domino.ui.progress.Progress} object
+   * @return a new instance of {@link Progress}
    */
   public static Progress create() {
     return new Progress();
   }
 
   /**
-   * appendChild.
+   * Appends a {@link ProgressBar} to this progress component.
    *
-   * @param bar {@link org.dominokit.domino.ui.progress.ProgressBar} to be appended to this progress
-   *     instance, each progress can have multiple ProgressBars
-   * @return same Progress instance
+   * @param bar the progress bar to be added
+   * @return the current Progress instance
    */
   public Progress appendChild(ProgressBar bar) {
     element.appendChild(bar.element());
@@ -70,6 +76,12 @@ public class Progress extends BaseDominoElement<HTMLDivElement, Progress>
     return element.element();
   }
 
+  /**
+   * Calculates the width of the progress bar based on its value.
+   *
+   * @param value the value of the progress
+   * @return the calculated width as a string
+   */
   String calculateWidth(double value) {
     return String.valueOf(
         new Double(
@@ -77,6 +89,11 @@ public class Progress extends BaseDominoElement<HTMLDivElement, Progress>
             .intValue());
   }
 
+  /**
+   * Removes the specified {@link ProgressBar} from the progress component.
+   *
+   * @param progressBar the progress bar to be removed
+   */
   void removeBar(ProgressBar progressBar) {
     this.progressBars.remove(progressBar);
   }

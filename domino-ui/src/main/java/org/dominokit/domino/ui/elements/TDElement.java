@@ -17,22 +17,38 @@ package org.dominokit.domino.ui.elements;
 
 import elemental2.dom.HTMLTableCellElement;
 
-/** TDElement class. */
+/**
+ * Represents an HTML <td> (table cell) element wrapper.
+ *
+ * <p>The HTML <td> element defines a cell of a table that contains data. It is used to create
+ * individual cells within a table row (<tr>) and contains the actual data or content of the cell.
+ * The content of a <td> element can include text, images, links, and other HTML elements. This
+ * class provides a Java-based way to create, manipulate, and control the behavior of <td> elements
+ * in web applications. Example usage:
+ *
+ * <pre>
+ * HTMLTableCellElement tdElement = ...;  // Obtain a <td> element from somewhere
+ * TDElement td = TDElement.of(tdElement);
+ * </pre>
+ *
+ * @see <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/td">MDN Web Docs (td)</a>
+ */
 public class TDElement extends BaseElement<HTMLTableCellElement, TDElement> {
+
   /**
-   * of.
+   * Creates a new {@link TDElement} instance by wrapping the provided HTML <td> element.
    *
-   * @param e a {@link elemental2.dom.HTMLTableCellElement} object
-   * @return a {@link org.dominokit.domino.ui.elements.TDElement} object
+   * @param e The HTML <td> element to wrap.
+   * @return A new {@link TDElement} instance wrapping the provided element.
    */
   public static TDElement of(HTMLTableCellElement e) {
     return new TDElement(e);
   }
 
   /**
-   * Constructor for TDElement.
+   * Constructs a {@link TDElement} instance by wrapping the provided HTML <td> element.
    *
-   * @param element a {@link elemental2.dom.HTMLTableCellElement} object
+   * @param element The HTML <td> element to wrap.
    */
   public TDElement(HTMLTableCellElement element) {
     super(element);

@@ -17,22 +17,37 @@ package org.dominokit.domino.ui.elements;
 
 import elemental2.dom.HTMLLegendElement;
 
-/** LegendElement class. */
+/**
+ * Represents an HTML <legend> element wrapper.
+ *
+ * <p>The HTML <legend> element represents a caption for the content of a <fieldset> element. This
+ * class provides a convenient way to create, manipulate, and control the behavior of <legend>
+ * elements in Java-based web applications. Example usage:
+ *
+ * <pre>
+ * HTMLLegendElement legendElement = ...;  // Obtain a <legend> element from somewhere
+ * LegendElement legend = LegendElement.of(legendElement);
+ * </pre>
+ *
+ * @see <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/legend">MDN Web Docs
+ *     (legend)</a>
+ */
 public class LegendElement extends BaseElement<HTMLLegendElement, LegendElement> {
+
   /**
-   * of.
+   * Creates a new {@link LegendElement} instance by wrapping the provided HTML <legend> element.
    *
-   * @param e a {@link elemental2.dom.HTMLLegendElement} object
-   * @return a {@link org.dominokit.domino.ui.elements.LegendElement} object
+   * @param e The HTML <legend> element to wrap.
+   * @return A new {@link LegendElement} instance wrapping the provided element.
    */
   public static LegendElement of(HTMLLegendElement e) {
     return new LegendElement(e);
   }
 
   /**
-   * Constructor for LegendElement.
+   * Constructs a {@link LegendElement} instance by wrapping the provided HTML <legend> element.
    *
-   * @param element a {@link elemental2.dom.HTMLLegendElement} object
+   * @param element The HTML <legend> element to wrap.
    */
   public LegendElement(HTMLLegendElement element) {
     super(element);

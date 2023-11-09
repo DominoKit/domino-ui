@@ -13,27 +13,43 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package org.dominokit.domino.ui.utils;
 
-/** HasCounter interface. */
+/**
+ * The {@code HasCounter} interface defines methods for managing counters and formatting their
+ * display.
+ *
+ * @param <T> The type of the component that can have a counter.
+ */
 public interface HasCounter<T> {
+
   /**
-   * updateCounter.
+   * Updates the counter and displays it with a maximum count.
    *
-   * @param count a int
-   * @param maxCount a int
-   * @return a T object
+   * @param count The current count.
+   * @param maxCount The maximum count allowed.
+   * @return The component with the counter updated.
    */
   T updateCounter(int count, int maxCount);
 
   /**
-   * getMaxCount.
+   * Gets the maximum count allowed for the component.
    *
-   * @return a int
+   * @return The maximum count allowed.
    */
   int getMaxCount();
 
+  /** A functional interface for formatting the count and maximum count for display. */
   interface CountFormatter {
+
+    /**
+     * Formats the count and maximum count for display.
+     *
+     * @param count The current count.
+     * @param maxCount The maximum count allowed.
+     * @return A formatted string representing the count and maximum count.
+     */
     String format(int count, int maxCount);
   }
 }

@@ -15,41 +15,52 @@
  */
 package org.dominokit.domino.ui.stepper;
 
-/** StepState interface. */
+/**
+ * Represents the state of a step within a stepper component. Implementations of this interface
+ * define the behavior and appearance of steps in different states.
+ */
 public interface StepState extends StepperStyles {
-  /** Constant <code>ACTIVE</code> */
+
+  /** A predefined step state representing an active step. */
   StepState ACTIVE = new ActiveStep();
-  /** Constant <code>INACTIVE</code> */
+
+  /** A predefined step state representing an inactive step. */
   StepState INACTIVE = new InactiveStep();
-  /** Constant <code>COMPLETED</code> */
+
+  /** A predefined step state representing a completed step. */
   StepState COMPLETED = new CompletedStep();
-  /** Constant <code>DISABLED</code> */
+
+  /** A predefined step state representing a disabled step. */
   StepState DISABLED = new DisabledStep();
-  /** Constant <code>ERROR</code> */
+
+  /** A predefined step state representing a step with an error. */
   StepState ERROR = new ErrorStep();
-  /** Constant <code>WARNING</code> */
+
+  /** A predefined step state representing a step with a warning. */
   StepState WARNING = new WarningStep();
-  /** Constant <code>SKIPPED</code> */
+
+  /** A predefined step state representing a skipped step. */
   StepState SKIPPED = new SkippedStep();
 
   /**
-   * apply.
+   * Applies the behavior and appearance of this step state to the specified step tracker.
    *
-   * @param tracker a {@link org.dominokit.domino.ui.stepper.StepTracker} object
+   * @param tracker The step tracker to apply the state to.
    */
   void apply(StepTracker tracker);
 
   /**
-   * cleanUp.
+   * Cleans up any changes made by this step state on the specified step tracker.
    *
-   * @param tracker a {@link org.dominokit.domino.ui.stepper.StepTracker} object
+   * @param tracker The step tracker to clean up.
    */
   void cleanUp(StepTracker tracker);
 
   /**
-   * getKey.
+   * Retrieves a key associated with this step state, which can be used for identification or
+   * comparison purposes.
    *
-   * @return a {@link java.lang.String} object
+   * @return The key associated with this step state.
    */
   String getKey();
 }

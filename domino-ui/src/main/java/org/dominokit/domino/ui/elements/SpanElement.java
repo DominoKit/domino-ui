@@ -17,22 +17,39 @@ package org.dominokit.domino.ui.elements;
 
 import elemental2.dom.HTMLElement;
 
-/** SpanElement class. */
+/**
+ * Represents an HTML <span> element wrapper.
+ *
+ * <p>The HTML <span> element is a generic inline container for phrasing content, which does not
+ * inherently represent anything. It can be used to group elements for styling purposes or to apply
+ * CSS styles and classes to a specific portion of text. This class provides a Java-based way to
+ * create, manipulate, and control the behavior of <span> elements in web applications. Example
+ * usage:
+ *
+ * <pre>
+ * HTMLElement spanElement = ...;  // Obtain a <span> element from somewhere
+ * SpanElement span = SpanElement.of(spanElement);
+ * </pre>
+ *
+ * @see <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/span">MDN Web Docs
+ *     (span)</a>
+ */
 public class SpanElement extends BaseElement<HTMLElement, SpanElement> {
+
   /**
-   * of.
+   * Creates a new {@link SpanElement} instance by wrapping the provided HTML <span> element.
    *
-   * @param e a {@link elemental2.dom.HTMLElement} object
-   * @return a {@link org.dominokit.domino.ui.elements.SpanElement} object
+   * @param e The HTML <span> element to wrap.
+   * @return A new {@link SpanElement} instance wrapping the provided element.
    */
   public static SpanElement of(HTMLElement e) {
     return new SpanElement(e);
   }
 
   /**
-   * Constructor for SpanElement.
+   * Constructs a {@link SpanElement} instance by wrapping the provided HTML <span> element.
    *
-   * @param element a {@link elemental2.dom.HTMLElement} object
+   * @param element The HTML <span> element to wrap.
    */
   public SpanElement(HTMLElement element) {
     super(element);

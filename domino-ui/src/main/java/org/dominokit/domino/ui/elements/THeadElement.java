@@ -17,22 +17,42 @@ package org.dominokit.domino.ui.elements;
 
 import elemental2.dom.HTMLTableSectionElement;
 
-/** THeadElement class. */
+/**
+ * Represents an HTML <thead> element wrapper.
+ * <p>
+ * The HTML <thead> element defines a header for an HTML <table> element. It contains information about the table's
+ * column headers. Typically, the content inside a <thead> element consists of one or more <tr> (table row) elements,
+ * each containing <th> (table header cell) elements representing the column headers.
+ * This class provides a Java-based way to create, manipulate, and control the behavior of <thead> elements in web
+ * applications.
+ * </p>
+ *
+ * Example usage:
+ * <pre>
+ * {@code
+ * HTMLTableSectionElement theadElement = ...;  // Obtain a <thead> element from somewhere
+ * THeadElement thead = THeadElement.of(theadElement);
+ * }
+ * </pre>
+ *
+ * @see <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/thead">MDN Web Docs (thead)</a>
+ */
 public class THeadElement extends BaseElement<HTMLTableSectionElement, THeadElement> {
+
   /**
-   * of.
+   * Creates a new {@link THeadElement} instance by wrapping the provided HTML <thead> element.
    *
-   * @param e a {@link elemental2.dom.HTMLTableSectionElement} object
-   * @return a {@link org.dominokit.domino.ui.elements.THeadElement} object
+   * @param e The HTML <thead> element to wrap.
+   * @return A new {@link THeadElement} instance wrapping the provided element.
    */
   public static THeadElement of(HTMLTableSectionElement e) {
     return new THeadElement(e);
   }
 
   /**
-   * Constructor for THeadElement.
+   * Constructs a {@link THeadElement} instance by wrapping the provided HTML <thead> element.
    *
-   * @param element a {@link elemental2.dom.HTMLTableSectionElement} object
+   * @param element The HTML <thead> element to wrap.
    */
   public THeadElement(HTMLTableSectionElement element) {
     super(element);

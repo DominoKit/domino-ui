@@ -17,22 +17,37 @@ package org.dominokit.domino.ui.elements;
 
 import elemental2.dom.HTMLElement;
 
-/** VarElement class. */
+/**
+ * Represents an HTML <var> element wrapper.
+ *
+ * <p>The HTML <var> element represents the name of a variable in a mathematical expression or a
+ * programming context. It is typically used to format variables or indicate that a particular text
+ * or content represents a variable. Example usage:
+ *
+ * <pre>
+ * HTMLElement varElement = ...;  // Obtain a <var> element from somewhere
+ * VarElement var = VarElement.of(varElement);
+ * </pre>
+ *
+ * @see <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/var">MDN Web Docs
+ *     (var)</a>
+ */
 public class VarElement extends BaseElement<HTMLElement, VarElement> {
+
   /**
-   * of.
+   * Creates a new {@link VarElement} instance by wrapping the provided HTML <var> element.
    *
-   * @param e a {@link elemental2.dom.HTMLElement} object
-   * @return a {@link org.dominokit.domino.ui.elements.VarElement} object
+   * @param e The HTML <var> element to wrap.
+   * @return A new {@link VarElement} instance wrapping the provided element.
    */
   public static VarElement of(HTMLElement e) {
     return new VarElement(e);
   }
 
   /**
-   * Constructor for VarElement.
+   * Constructs a {@link VarElement} instance by wrapping the provided HTML <var> element.
    *
-   * @param element a {@link elemental2.dom.HTMLElement} object
+   * @param element The HTML <var> element to wrap.
    */
   public VarElement(HTMLElement element) {
     super(element);

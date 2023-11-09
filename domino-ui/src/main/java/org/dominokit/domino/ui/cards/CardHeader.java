@@ -26,7 +26,11 @@ import org.dominokit.domino.ui.elements.SmallElement;
 import org.dominokit.domino.ui.icons.Icon;
 import org.dominokit.domino.ui.utils.*;
 
-/** CardHeader class. */
+/**
+ * The component is used as {@link Card} header
+ *
+ * @see BaseDominoElement
+ */
 public class CardHeader extends BaseDominoElement<HTMLDivElement, CardHeader> {
 
   private DivElement element;
@@ -40,9 +44,9 @@ public class CardHeader extends BaseDominoElement<HTMLDivElement, CardHeader> {
   private LazyChild<Icon<?>> cardIcon = NullLazyChild.of();
 
   /**
-   * create.
+   * Factory method to create empty CardHeader.
    *
-   * @return a {@link org.dominokit.domino.ui.cards.CardHeader} object
+   * @return new {@link org.dominokit.domino.ui.cards.CardHeader} instance
    */
   public static CardHeader create() {
     return new CardHeader();
@@ -63,9 +67,9 @@ public class CardHeader extends BaseDominoElement<HTMLDivElement, CardHeader> {
   }
 
   /**
-   * Constructor for CardHeader.
+   * Creates a CardHeader with a title.
    *
-   * @param title a {@link java.lang.String} object
+   * @param title The card header title text
    */
   public CardHeader(String title) {
     this();
@@ -73,10 +77,10 @@ public class CardHeader extends BaseDominoElement<HTMLDivElement, CardHeader> {
   }
 
   /**
-   * Constructor for CardHeader.
+   * Creates a CardHeader with a title and description.
    *
-   * @param title a {@link java.lang.String} object
-   * @param description a {@link java.lang.String} object
+   * @param title The card header title text
+   * @param description The card header description text
    */
   public CardHeader(String title, String description) {
     this(title);
@@ -84,18 +88,19 @@ public class CardHeader extends BaseDominoElement<HTMLDivElement, CardHeader> {
   }
 
   /**
-   * Getter for the field <code>mainHeader</code>.
+   * This will initialize the CardHeader main container if not yet initialized.
    *
-   * @return a {@link org.dominokit.domino.ui.elements.DivElement} object
+   * @return The {@link org.dominokit.domino.ui.elements.DivElement} representing the CardHeader
+   *     main container.
    */
   public DivElement getMainHeader() {
     return mainHeader.get();
   }
 
   /**
-   * withMainHeader.
+   * This will initialize the CardHeader main container if not yet initialized.
    *
-   * @return a {@link org.dominokit.domino.ui.cards.CardHeader} object
+   * @return same CardHeader instance
    */
   public CardHeader withMainHeader() {
     mainHeader.get();
@@ -103,10 +108,12 @@ public class CardHeader extends BaseDominoElement<HTMLDivElement, CardHeader> {
   }
 
   /**
-   * withMainHeader.
+   * Use to apply customization on the CardHeader main container element without breaking the fluent
+   * API chain. This will initialize and append the card header if not yet initialized.
    *
-   * @param handler a {@link org.dominokit.domino.ui.utils.ChildHandler} object
-   * @return a {@link org.dominokit.domino.ui.cards.CardHeader} object
+   * @param handler The {@link org.dominokit.domino.ui.utils.ChildHandler} applying the
+   *     customizations.
+   * @return same CardHeader instance
    */
   public CardHeader withMainHeader(ChildHandler<CardHeader, DivElement> handler) {
     handler.apply(this, mainHeader.get());
@@ -114,18 +121,19 @@ public class CardHeader extends BaseDominoElement<HTMLDivElement, CardHeader> {
   }
 
   /**
-   * Getter for the field <code>subHeader</code>.
+   * This will initialize the CardHeader sub-header container if not yet initialized.
    *
-   * @return a {@link org.dominokit.domino.ui.elements.DivElement} object
+   * @return The {@link org.dominokit.domino.ui.elements.DivElement} representing the Card
+   *     sub-header container
    */
   public DivElement getSubHeader() {
     return subHeader.get();
   }
 
   /**
-   * withSubHeader.
+   * This will initialize the CardHeader sub-header container if not yet initialized.
    *
-   * @return a {@link org.dominokit.domino.ui.cards.CardHeader} object
+   * @return same CardHeader instance
    */
   public CardHeader withSubHeader() {
     subHeader.get();
@@ -133,10 +141,12 @@ public class CardHeader extends BaseDominoElement<HTMLDivElement, CardHeader> {
   }
 
   /**
-   * withSubHeader.
+   * Use to apply customization on the Card sub-header container element without breaking the fluent
+   * API chain. This will initialize and append the card header if not yet initialized.
    *
-   * @param handler a {@link org.dominokit.domino.ui.utils.ChildHandler} object
-   * @return a {@link org.dominokit.domino.ui.cards.CardHeader} object
+   * @param handler The {@link org.dominokit.domino.ui.utils.ChildHandler} applying the
+   *     customizations.
+   * @return same CardHeader instance
    */
   public CardHeader withSubHeader(ChildHandler<CardHeader, DivElement> handler) {
     handler.apply(this, subHeader.get());
@@ -144,10 +154,11 @@ public class CardHeader extends BaseDominoElement<HTMLDivElement, CardHeader> {
   }
 
   /**
-   * Setter for the field <code>title</code>.
+   * Sets the CardHeader title, this will initialize and append the main header container if not yet
+   * initialized.
    *
-   * @param title a {@link java.lang.String} object
-   * @return a {@link org.dominokit.domino.ui.cards.CardHeader} object
+   * @param title The CardHeader title text
+   * @return same CardHeader instance
    */
   public CardHeader setTitle(String title) {
     mainTitle.get().setTextContent(title);
@@ -155,10 +166,11 @@ public class CardHeader extends BaseDominoElement<HTMLDivElement, CardHeader> {
   }
 
   /**
-   * Setter for the field <code>description</code>.
+   * Sets the CardHeader description, this will initialize and append the description container if
+   * not yet initialized.
    *
-   * @param text a {@link java.lang.String} object
-   * @return a {@link org.dominokit.domino.ui.cards.CardHeader} object
+   * @param text The CardHeader description text
+   * @return same CardHeader instance
    */
   public CardHeader setDescription(String text) {
     description.get().setTextContent(text);
@@ -166,18 +178,19 @@ public class CardHeader extends BaseDominoElement<HTMLDivElement, CardHeader> {
   }
 
   /**
+   * this will initialize and append the CardHeader title container if not yet initialized.
    * getTitleElement.
    *
-   * @return a {@link org.dominokit.domino.ui.elements.DivElement} object
+   * @return The {@link org.dominokit.domino.ui.elements.DivElement} of the CardHeader title.
    */
   public DivElement getTitleElement() {
     return title.get();
   }
 
   /**
-   * withTitle.
+   * This will initialize and append the CardHeader title container if not yet initialized.
    *
-   * @return a {@link org.dominokit.domino.ui.cards.CardHeader} object
+   * @return same CardHeader instance
    */
   public CardHeader withTitle() {
     title.get();
@@ -185,10 +198,12 @@ public class CardHeader extends BaseDominoElement<HTMLDivElement, CardHeader> {
   }
 
   /**
-   * withTitle.
+   * Use to apply customization on the CardHeader title element without breaking the fluent API
+   * chain. This will initialize and append the card title element if not yet initialized.
    *
-   * @param handler a {@link org.dominokit.domino.ui.utils.ChildHandler} object
-   * @return a {@link org.dominokit.domino.ui.cards.CardHeader} object
+   * @param handler The {@link org.dominokit.domino.ui.utils.ChildHandler} applying the
+   *     customizations.
+   * @return same CardHeader instance
    */
   public CardHeader withTitle(ChildHandler<CardHeader, DivElement> handler) {
     handler.apply(this, title.get());
@@ -196,18 +211,19 @@ public class CardHeader extends BaseDominoElement<HTMLDivElement, CardHeader> {
   }
 
   /**
-   * getMainTitleElement.
+   * This will initialize and append the CardHeader main title container if not yet initialized.
    *
-   * @return a {@link org.dominokit.domino.ui.elements.HeadingElement} object
+   * @return The {@link org.dominokit.domino.ui.elements.HeadingElement} of the CardHeader main
+   *     title
    */
   public HeadingElement getMainTitleElement() {
     return mainTitle.get();
   }
 
   /**
-   * withMainTitle.
+   * This will initialize and append the CardHeader main title container if not yet initialized.
    *
-   * @return a {@link org.dominokit.domino.ui.cards.CardHeader} object
+   * @return same CardHeader instance
    */
   public CardHeader withMainTitle() {
     mainTitle.get();
@@ -215,10 +231,11 @@ public class CardHeader extends BaseDominoElement<HTMLDivElement, CardHeader> {
   }
 
   /**
-   * withMainTitle.
+   * Sets the CardHeader main title. This will initialize and append the card header main title
+   * element if not yet initialized.
    *
-   * @param title a {@link java.lang.String} object
-   * @return a {@link org.dominokit.domino.ui.cards.CardHeader} object
+   * @param title The card main title text
+   * @return same CardHeader instance
    */
   public CardHeader withMainTitle(String title) {
     setTitle(title);
@@ -226,10 +243,12 @@ public class CardHeader extends BaseDominoElement<HTMLDivElement, CardHeader> {
   }
 
   /**
-   * withMainTitle.
+   * Use to apply customization on the CardHeader main title element without breaking the fluent API
+   * chain. This will initialize and append the card header if not yet initialized.
    *
-   * @param handler a {@link org.dominokit.domino.ui.utils.ChildHandler} object
-   * @return a {@link org.dominokit.domino.ui.cards.CardHeader} object
+   * @param handler The {@link org.dominokit.domino.ui.utils.ChildHandler} applying the
+   *     customizations.
+   * @return same CardHeader instance
    */
   public CardHeader withMainTitle(ChildHandler<CardHeader, HeadingElement> handler) {
     handler.apply(this, mainTitle.get());
@@ -237,18 +256,18 @@ public class CardHeader extends BaseDominoElement<HTMLDivElement, CardHeader> {
   }
 
   /**
-   * getDescriptionElement.
+   * This will initialize and append the card header description element if not yet initialized.
    *
-   * @return a {@link org.dominokit.domino.ui.elements.SmallElement} object
+   * @return The {@link org.dominokit.domino.ui.elements.SmallElement} of the CardHeader description
    */
   public SmallElement getDescriptionElement() {
     return description.get();
   }
 
   /**
-   * withDescription.
+   * This will initialize and append the card header description element if not yet initialized.
    *
-   * @return a {@link org.dominokit.domino.ui.cards.CardHeader} object
+   * @return same CardHeader instance
    */
   public CardHeader withDescription() {
     description.get();
@@ -256,10 +275,11 @@ public class CardHeader extends BaseDominoElement<HTMLDivElement, CardHeader> {
   }
 
   /**
-   * withDescription.
+   * Sets the CardHeader description. This will initialize and append the card header description
+   * element if not yet initialized.
    *
-   * @param description a {@link java.lang.String} object
-   * @return a {@link org.dominokit.domino.ui.cards.CardHeader} object
+   * @param description The CardHeader description text
+   * @return same CardHeader instance
    */
   public CardHeader withDescription(String description) {
     setDescription(description);
@@ -267,10 +287,13 @@ public class CardHeader extends BaseDominoElement<HTMLDivElement, CardHeader> {
   }
 
   /**
-   * withDescription.
+   * Use to apply customization on the CardHeader description element without breaking the fluent
+   * API chain. This will initialize and append the card header description element if not yet
+   * initialized.
    *
-   * @param handler a {@link org.dominokit.domino.ui.utils.ChildHandler} object
-   * @return a {@link org.dominokit.domino.ui.cards.CardHeader} object
+   * @param handler The {@link org.dominokit.domino.ui.utils.ChildHandler} applying the
+   *     customizations.
+   * @return same CardHeader instance
    */
   public CardHeader withDescription(ChildHandler<CardHeader, SmallElement> handler) {
     handler.apply(this, description.get());
@@ -278,20 +301,22 @@ public class CardHeader extends BaseDominoElement<HTMLDivElement, CardHeader> {
   }
 
   /**
-   * Setter for the field <code>logo</code>.
+   * Sets the CardHeader logo This will initialize and append the card header logo element if not
+   * yet initialized.
    *
-   * @param img a {@link elemental2.dom.HTMLImageElement} object
-   * @return a {@link org.dominokit.domino.ui.cards.CardHeader} object
+   * @param img The {@link elemental2.dom.HTMLImageElement} to be used as CardHeader logo.
+   * @return same CardHeader instance
    */
   public CardHeader setLogo(HTMLImageElement img) {
     return setLogo(ImageElement.of(img));
   }
 
   /**
-   * Setter for the field <code>logo</code>.
+   * Sets the CardHeader logo This will initialize and append the card header logo element if not
+   * yet initialized.
    *
-   * @param img a {@link org.dominokit.domino.ui.elements.ImageElement} object
-   * @return a {@link org.dominokit.domino.ui.cards.CardHeader} object
+   * @param img The {@link ImageElement} to be used as CardHeader logo.
+   * @return same CardHeader instance
    */
   public CardHeader setLogo(ImageElement img) {
     logo.remove();
@@ -301,28 +326,29 @@ public class CardHeader extends BaseDominoElement<HTMLDivElement, CardHeader> {
   }
 
   /**
-   * Getter for the field <code>logo</code>.
+   * This will initialize and append the card header logo element if not yet initialized.
    *
-   * @return a {@link org.dominokit.domino.ui.elements.ImageElement} object
+   * @return The {@link ImageElement} of the CardHeader logo
    */
   public ImageElement getLogo() {
     return logo.get();
   }
 
   /**
-   * withLogo.
+   * Sets the CardHeader logo This will initialize and append the card header logo element if not
+   * yet initialized.
    *
-   * @param img a {@link elemental2.dom.HTMLImageElement} object
-   * @return a {@link org.dominokit.domino.ui.cards.CardHeader} object
+   * @param img The {@link HTMLImageElement} to be used as CardHeader logo.
+   * @return same CardHeader instance
    */
   public CardHeader withLogo(HTMLImageElement img) {
     return setLogo(img);
   }
 
   /**
-   * withLogo.
+   * This will initialize and append the card header logo element if not yet initialized.
    *
-   * @return a {@link org.dominokit.domino.ui.cards.CardHeader} object
+   * @return same CardHeader instance
    */
   public CardHeader withLogo() {
     logo.get();
@@ -330,10 +356,12 @@ public class CardHeader extends BaseDominoElement<HTMLDivElement, CardHeader> {
   }
 
   /**
-   * withLogo.
+   * Use to apply customization on the CardHeader logo element without breaking the fluent API
+   * chain. This will initialize and append the card header logo element if not yet initialized.
    *
-   * @param handler a {@link org.dominokit.domino.ui.utils.ChildHandler} object
-   * @return a {@link org.dominokit.domino.ui.cards.CardHeader} object
+   * @param handler The {@link org.dominokit.domino.ui.utils.ChildHandler} applying the
+   *     customizations.
+   * @return same CardHeader instance
    */
   public CardHeader withLogo(ChildHandler<CardHeader, ImageElement> handler) {
     handler.apply(this, logo.get());
@@ -341,10 +369,11 @@ public class CardHeader extends BaseDominoElement<HTMLDivElement, CardHeader> {
   }
 
   /**
-   * setIcon.
+   * Sets the CardHeader icon, CardHeader icon fits between the logo and the title. This will
+   * initialize and append the card header icon if not yet initialized.
    *
-   * @param icon a {@link org.dominokit.domino.ui.icons.Icon} object
-   * @return a {@link org.dominokit.domino.ui.cards.CardHeader} object
+   * @param icon a {@link Icon} to be used as card logo.
+   * @return same Card instance
    */
   public CardHeader setIcon(Icon<?> icon) {
     cardIcon.remove();
@@ -354,19 +383,20 @@ public class CardHeader extends BaseDominoElement<HTMLDivElement, CardHeader> {
   }
 
   /**
-   * getIcon.
+   * This will initialize and append the card header icon if not yet initialized.
    *
-   * @return a {@link org.dominokit.domino.ui.icons.Icon} object
+   * @return The {@link Icon} of this CardHeader instance
    */
   public Icon<?> getIcon() {
     return cardIcon.get();
   }
 
   /**
-   * withIcon.
+   * Sets the card header icon, card header icon fits between the logo and the title. This will
+   * initialize and append the card header icon if not yet initialized.
    *
-   * @param icon a {@link org.dominokit.domino.ui.icons.Icon} object
-   * @return a {@link org.dominokit.domino.ui.cards.CardHeader} object
+   * @param icon a {@link Icon} to be used as card header icon.
+   * @return same CardHeader instance
    */
   public CardHeader withIcon(Icon<?> icon) {
     setIcon(icon);
@@ -374,9 +404,9 @@ public class CardHeader extends BaseDominoElement<HTMLDivElement, CardHeader> {
   }
 
   /**
-   * withIcon.
+   * This will initialize and append the card header icon if not yet initialized.
    *
-   * @return a {@link org.dominokit.domino.ui.cards.CardHeader} object
+   * @return same CardHeader instance
    */
   public CardHeader withIcon() {
     cardIcon.get();
@@ -384,10 +414,12 @@ public class CardHeader extends BaseDominoElement<HTMLDivElement, CardHeader> {
   }
 
   /**
-   * withIcon.
+   * Use to apply customization on the CardHeader icon element without breaking the fluent API
+   * chain. This will initialize and append the card header icon element if not yet initialized.
    *
-   * @param handler a {@link org.dominokit.domino.ui.utils.ChildHandler} object
-   * @return a {@link org.dominokit.domino.ui.cards.CardHeader} object
+   * @param handler The {@link org.dominokit.domino.ui.utils.ChildHandler} applying the
+   *     customizations.
+   * @return same Card instance
    */
   public CardHeader withIcon(ChildHandler<CardHeader, Icon<?>> handler) {
     handler.apply(this, cardIcon.get());
@@ -395,10 +427,10 @@ public class CardHeader extends BaseDominoElement<HTMLDivElement, CardHeader> {
   }
 
   /**
-   * appendChild.
+   * Appends an element to the right side of the card header.
    *
-   * @param postfixAddOn a {@link org.dominokit.domino.ui.utils.PostfixAddOn} object
-   * @return a {@link org.dominokit.domino.ui.cards.CardHeader} object
+   * @param postfixAddOn A {@link org.dominokit.domino.ui.utils.PostfixAddOn} wrapped element
+   * @return same CardHeader instance
    */
   public CardHeader appendChild(PostfixAddOn<?> postfixAddOn) {
     mainHeader.get().appendChild(postfixAddOn);
@@ -406,17 +438,17 @@ public class CardHeader extends BaseDominoElement<HTMLDivElement, CardHeader> {
   }
 
   /**
-   * appendChild.
+   * Appends an element to the left side of the card header, between the logo and the title.
    *
-   * @param prefixAddOn a {@link org.dominokit.domino.ui.utils.PrefixAddOn} object
-   * @return a {@link org.dominokit.domino.ui.cards.CardHeader} object
+   * @param prefixAddOn A {@link org.dominokit.domino.ui.utils.PrefixAddOn} wrapped element
+   * @return same card instance
    */
   public CardHeader appendChild(PrefixAddOn<?> prefixAddOn) {
     mainHeader.get().appendChild(prefixAddOn);
     return this;
   }
 
-  /** {@inheritDoc} */
+  /** @dominokit-site-ignore {@inheritDoc} */
   @Override
   public HTMLDivElement element() {
     return element.element();

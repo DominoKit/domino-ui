@@ -26,14 +26,43 @@ import org.dominokit.domino.ui.elements.DivElement;
 import org.dominokit.domino.ui.icons.lib.Icons;
 import org.dominokit.domino.ui.richtext.RichTextCommand;
 
+/**
+ * Represents a UI command to remove formatting from the selected text in the rich text editor.
+ *
+ * <p>The {@code RemoveFormatCommand} extends {@link RichTextCommand} and provides users with the
+ * ability to remove any inline formatting (like bold, italic, underline, color, etc.) from the
+ * selected text in the rich text editor. The command is visually represented by a button with a
+ * format removal icon.
+ *
+ * <p>Once clicked, the button will clear any formatting on the selected text, reverting it back to
+ * the default style.
+ *
+ * <p><b>Usage Example:</b>
+ *
+ * <pre>{@code
+ * DivElement editableDiv = DivElement.create();
+ * RemoveFormatCommand removeFormatCommand = RemoveFormatCommand.create(editableDiv);
+ * }</pre>
+ */
 public class RemoveLinkCommand extends RichTextCommand<RemoveLinkCommand> {
 
   private Button button;
 
+  /**
+   * Factory method to create a new instance of RemoveFormatCommand.
+   *
+   * @param editableElement The div element where the rich text is edited.
+   * @return A new instance of RemoveFormatCommand.
+   */
   public static RemoveLinkCommand create(DivElement editableElement) {
     return new RemoveLinkCommand(editableElement);
   }
 
+  /**
+   * Constructs a new RemoveFormatCommand instance for the specified editable div element.
+   *
+   * @param editableElement The div element where the rich text is edited.
+   */
   public RemoveLinkCommand(DivElement editableElement) {
     super(editableElement);
 
@@ -48,11 +77,21 @@ public class RemoveLinkCommand extends RichTextCommand<RemoveLinkCommand> {
     init(this);
   }
 
+  /**
+   * @dominokit-site-ignore {@inheritDoc}
+   *     <p>Returns the main HTMLElement of this command, which is the button used to trigger the
+   *     format removal action.
+   * @return The HTMLElement of the button.
+   */
   @Override
   public HTMLElement element() {
     return button.element();
   }
 
+  /**
+   * Executes the remove format command, stripping the selected text in the rich text editor of its
+   * formatting.
+   */
   @Override
   protected void execute() {
     getSelectedRange()

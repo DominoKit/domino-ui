@@ -13,6 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package org.dominokit.domino.ui.datepicker;
 
 import static java.util.Objects.nonNull;
@@ -20,28 +21,41 @@ import static java.util.Objects.nonNull;
 import java.util.HashSet;
 import java.util.Set;
 
-/** CalendarInitConfig class. */
+/**
+ * Represents the initialization configuration for a calendar.
+ *
+ * <p>It supports adding and removing plugins that can modify the behavior and appearance of the
+ * calendar.
+ *
+ * <p>Usage example:
+ *
+ * <pre>
+ * CalendarInitConfig config = CalendarInitConfig.create()
+ *     .addPlugin(new SamplePlugin())
+ *     .removePlugin(anotherPlugin);
+ * </pre>
+ */
 public class CalendarInitConfig {
 
   private final Set<CalendarPlugin> plugins = new HashSet<>();
 
-  /** Constructor for CalendarInitConfig. */
+  /** Constructs an empty calendar initialization configuration. */
   public CalendarInitConfig() {}
 
   /**
-   * create.
+   * Factory method to create a new instance of CalendarInitConfig.
    *
-   * @return a {@link org.dominokit.domino.ui.datepicker.CalendarInitConfig} object
+   * @return a new instance of CalendarInitConfig
    */
   public static CalendarInitConfig create() {
     return new CalendarInitConfig();
   }
 
   /**
-   * addPlugin.
+   * Adds a plugin to the calendar configuration.
    *
-   * @param plugin a {@link org.dominokit.domino.ui.datepicker.CalendarPlugin} object
-   * @return a {@link org.dominokit.domino.ui.datepicker.CalendarInitConfig} object
+   * @param plugin the plugin to be added
+   * @return the current instance of CalendarInitConfig, for chaining method calls
    */
   public CalendarInitConfig addPlugin(CalendarPlugin plugin) {
     if (nonNull(plugin)) {
@@ -51,10 +65,10 @@ public class CalendarInitConfig {
   }
 
   /**
-   * removePlugin.
+   * Removes a plugin from the calendar configuration.
    *
-   * @param plugin a {@link org.dominokit.domino.ui.datepicker.CalendarPlugin} object
-   * @return a {@link org.dominokit.domino.ui.datepicker.CalendarInitConfig} object
+   * @param plugin the plugin to be removed
+   * @return the current instance of CalendarInitConfig, for chaining method calls
    */
   public CalendarInitConfig removePlugin(CalendarPlugin plugin) {
     if (nonNull(plugin)) {
@@ -64,9 +78,9 @@ public class CalendarInitConfig {
   }
 
   /**
-   * Getter for the field <code>plugins</code>.
+   * Retrieves the set of plugins associated with the calendar configuration.
    *
-   * @return a {@link java.util.Set} object
+   * @return a set of CalendarPlugin objects
    */
   public Set<CalendarPlugin> getPlugins() {
     return plugins;

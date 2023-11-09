@@ -13,6 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package org.dominokit.domino.ui.datatable.plugins.selection;
 
 import static java.util.Collections.singletonList;
@@ -21,7 +22,6 @@ import static java.util.Objects.nonNull;
 import static org.dominokit.domino.ui.datatable.DataTableStyles.dui_datatable_row_selected;
 import static org.dominokit.domino.ui.forms.FormsStyles.dui_form_select_check_box;
 
-import elemental2.dom.DomGlobal;
 import elemental2.dom.Element;
 import elemental2.dom.HTMLElement;
 import elemental2.dom.MouseEvent;
@@ -41,11 +41,12 @@ import org.dominokit.domino.ui.icons.lib.Icons;
 import org.dominokit.domino.ui.utils.Selectable;
 
 /**
- * This plugin allow selecting/deselecting single or multiple rows based on the {@link
- * TableConfig#isMultiSelect()} and fires table selection change events when the user changes the
- * selection.
+ * The `SelectionPlugin` class is a DataTable plugin that provides selection functionality for table
+ * rows. It allows users to select one or multiple rows, and it provides options for customizing the
+ * selection behavior.
  *
- * @param <T> the type of the data table records
+ * @param <T> The type of data in the DataTable rows.
+ * @see DataTablePlugin
  */
 public class SelectionPlugin<T> implements DataTablePlugin<T> {
   private Selectable<TableRow<T>> selectedRow;
@@ -57,27 +58,37 @@ public class SelectionPlugin<T> implements DataTablePlugin<T> {
   private List<T> oldSelection = new ArrayList<>();
   private boolean retainSelectionOnDataChange = false;
 
-  /** creates an instance with default configurations */
+  /** Creates a new `SelectionPlugin` with default settings. */
   public SelectionPlugin() {}
 
   /**
-   * create an instance that changes the selected row background color and use a custom selection
-   * indicator icon
+   * Creates a new `SelectionPlugin` with a custom single select indicator element.
    *
-   * @param singleSelectIndicator {@link elemental2.dom.HTMLElement} to use a selection indicator
+   * @param singleSelectIndicator A supplier for the single select indicator element.
    */
   public SelectionPlugin(Supplier<Element> singleSelectIndicator) {
     this();
     this.singleSelectIndicator = singleSelectIndicator;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Indicates whether this plugin requires a utility column in the DataTable. It returns `true`
+   * since it adds selection checkboxes to utility columns.
+   *
+   * @return `true` since this plugin requires a utility column.
+   */
   @Override
   public boolean requiresUtilityColumn() {
     return true;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Returns a list of utility elements to be added to utility columns for a specific cell.
+   *
+   * @param dataTable The DataTable to which this plugin is applied.
+   * @param cellInfo The cell information containing the cell content and metadata.
+   * @return An optional list of utility elements, empty if none.
+   */
   @Override
   public Optional<List<HTMLElement>> getUtilityElements(
       DataTable<T> dataTable, CellRenderer.CellInfo<T> cellInfo) {
@@ -96,13 +107,24 @@ public class SelectionPlugin<T> implements DataTablePlugin<T> {
     return Optional.empty();
   }
 
-  /** {@inheritDoc} */
+  /**
+   * This method is called after the DataTable has been added, allowing the plugin to access and
+   * reference the DataTable.
+   *
+   * @param dataTable The DataTable instance to which this plugin is applied.
+   */
   @Override
   public void onAfterAddTable(DataTable<T> dataTable) {
     this.datatable = dataTable;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Handles the addition of headers to the DataTable. In this case, it adds the selection indicator
+   * to the utility column header.
+   *
+   * @param dataTable The DataTable to which this plugin is applied.
+   * @param column The column configuration to which the header is added.
+   */
   @Override
   public void onHeaderAdded(DataTable<T> dataTable, ColumnConfig<T> column) {
     if (column.isUtilityColumn()) {
@@ -115,10 +137,22 @@ public class SelectionPlugin<T> implements DataTablePlugin<T> {
     }
   }
 
+  /**
+   * Creates the selection indicator element for a single selection.
+   *
+   * @return The selection indicator element.
+   */
   private Element createSingleSelectHeader() {
     return singleSelectIndicator.get();
   }
 
+  /**
+   * Creates the selection indicator element for a single selection cell.
+   *
+   * @param dataTable The DataTable to which this plugin is applied.
+   * @param cell The cell information containing the cell content and metadata.
+   * @return The selection indicator element for a single selection cell.
+   */
   private Element createSingleSelectCell(DataTable<T> dataTable, CellRenderer.CellInfo<T> cell) {
     Element clonedIndicator = Js.uncheckedCast(singleSelectIndicator.get());
     elementOf(clonedIndicator).addCss(dui_fg_accent);
@@ -128,12 +162,9 @@ public class SelectionPlugin<T> implements DataTablePlugin<T> {
             "click",
             evt -> {
               if (selectionCondition.isAllowSelection(dataTable, cell.getTableRow())) {
-                DomGlobal.console.info("isSelected  = " + cell.getTableRow().isSelected());
                 if (cell.getTableRow().isSelected()) {
-                  DomGlobal.console.info("De-Selecting row : <");
                   cell.getTableRow().deselect();
                 } else {
-                  DomGlobal.console.info("Selecting row : >");
                   cell.getTableRow().select();
                 }
               }
@@ -161,6 +192,13 @@ public class SelectionPlugin<T> implements DataTablePlugin<T> {
     return clonedIndicator;
   }
 
+  /**
+   * Creates the selection indicator element for a multi-selection cell.
+   *
+   * @param dataTable The DataTable to which this plugin is applied.
+   * @param cell The cell information containing the cell content and metadata.
+   * @return The selection indicator element for a multi-selection cell.
+   */
   private HTMLElement createMultiSelectCell(DataTable<T> dataTable, CellRenderer.CellInfo<T> cell) {
     CheckBox checkBox = createCheckBox(Optional.ofNullable(cell.getTableRow()));
 
@@ -214,6 +252,12 @@ public class SelectionPlugin<T> implements DataTablePlugin<T> {
     return checkBox.setAttribute("order", "20").element();
   }
 
+  /**
+   * Gets the index of the first selected row for use with shift-click selection.
+   *
+   * @param dataTable The DataTable to which this plugin is applied.
+   * @return The index of the first selected row.
+   */
   private int getStartSelectionIndex(DataTable<T> dataTable) {
     if (nonNull(lastSelected)) {
       return lastSelected.getIndex();
@@ -226,16 +270,34 @@ public class SelectionPlugin<T> implements DataTablePlugin<T> {
     }
   }
 
+  /**
+   * Selects a row in the DataTable.
+   *
+   * @param dataTable The DataTable to which this plugin is applied.
+   * @param tableRow The row to select.
+   */
   private void selectRow(DataTable<T> dataTable, TableRow<T> tableRow) {
     tableRow.select();
     tableRow.addCss(dui_datatable_row_selected);
   }
 
+  /**
+   * Deselects a row in the DataTable.
+   *
+   * @param dataTable The DataTable to which this plugin is applied.
+   * @param tableRow The row to deselect.
+   */
   private void deselectRow(DataTable<T> dataTable, TableRow<T> tableRow) {
     tableRow.deselect();
     tableRow.removeCss(dui_datatable_row_selected);
   }
 
+  /**
+   * Creates the selection indicator element for a multi-selection header.
+   *
+   * @param dataTable The DataTable to which this plugin is applied.
+   * @return The selection indicator element for a multi-selection header.
+   */
   private HTMLElement createMultiSelectHeader(DataTable<T> dataTable) {
     CheckBox checkBox = createCheckBox(Optional.empty());
     checkBox.addChangeListener(
@@ -266,10 +328,10 @@ public class SelectionPlugin<T> implements DataTablePlugin<T> {
   }
 
   /**
-   * Change the single selection indicator icon
+   * Sets the single selection indicator using a supplier of icons.
    *
-   * @param singleSelectIcon {@link org.dominokit.domino.ui.icons.Icon}
-   * @return same plugin instance
+   * @param singleSelectIcon A supplier for the single selection indicator icon.
+   * @return This `SelectionPlugin` instance for method chaining.
    */
   public SelectionPlugin<T> setSingleSelectIcon(Supplier<Icon<?>> singleSelectIcon) {
     this.singleSelectIndicator = () -> singleSelectIcon.get().element();
@@ -283,10 +345,10 @@ public class SelectionPlugin<T> implements DataTablePlugin<T> {
   }
 
   /**
-   * Set a condition to use to determine if a row should be selectable or not
+   * Sets the selection condition for rows in the DataTable.
    *
-   * @param selectionCondition {@link org.dominokit.domino.ui.datatable.SelectionCondition}
-   * @return Same plugin instance
+   * @param selectionCondition A function that determines whether a row is selectable.
+   * @return This `SelectionPlugin` instance for method chaining.
    */
   public SelectionPlugin<T> setSelectionCondition(SelectionCondition<T> selectionCondition) {
     if (nonNull(selectionCondition)) {
@@ -296,19 +358,23 @@ public class SelectionPlugin<T> implements DataTablePlugin<T> {
   }
 
   /**
-   * If set to true any record that was originally selected, will remain selected after data change
-   * if it is present in the ew data set
+   * Sets whether to retain row selection on data changes in the DataTable.
    *
-   * @param retainSelectionOnDataChange boolean , true to retain selection and false to ignore old
-   *     selection
-   * @return Same plugin instance
+   * @param retainSelectionOnDataChange `true` to retain row selection, `false` otherwise.
+   * @return This `SelectionPlugin` instance for method chaining.
    */
   public SelectionPlugin<T> setRetainSelectionOnDataChange(boolean retainSelectionOnDataChange) {
     this.retainSelectionOnDataChange = retainSelectionOnDataChange;
     return this;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Handles the addition of a row to the DataTable. If selection retention is enabled and the row
+   * was previously selected, it re-selects the row.
+   *
+   * @param dataTable The DataTable to which this plugin is applied.
+   * @param tableRow The row to be added.
+   */
   @Override
   public void onRowAdded(DataTable<T> dataTable, TableRow<T> tableRow) {
     if (retainSelectionOnDataChange) {
@@ -323,7 +389,11 @@ public class SelectionPlugin<T> implements DataTablePlugin<T> {
     }
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Handles DataTable events, specifically retaining the selection on data change events.
+   *
+   * @param event The DataTable event.
+   */
   @Override
   public void handleEvent(TableEvent event) {
     if (retainSelectionOnDataChange) {
@@ -334,11 +404,10 @@ public class SelectionPlugin<T> implements DataTablePlugin<T> {
   }
 
   /**
-   * A setter to give the user the ability to customize the selection checkbox
+   * Sets a custom CheckBox creator for multi-selection cells.
    *
-   * @param checkBoxCreator {@link java.util.function.Supplier} of {@link
-   *     org.dominokit.domino.ui.forms.CheckBox}
-   * @return same plugin instance
+   * @param checkBoxCreator A custom CheckBox creator.
+   * @return This `SelectionPlugin` instance for method chaining.
    */
   public SelectionPlugin<T> setCheckBoxCreator(CheckBoxCreator<T> checkBoxCreator) {
     if (nonNull(checkBoxCreator)) {
@@ -347,6 +416,11 @@ public class SelectionPlugin<T> implements DataTablePlugin<T> {
     return this;
   }
 
+  /**
+   * Functional interface for creating a CheckBox for a row.
+   *
+   * @param <T> The type of data in the DataTable rows.
+   */
   public interface CheckBoxCreator<T> {
     CheckBox get(Optional<TableRow<T>> row);
   }

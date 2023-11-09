@@ -16,30 +16,33 @@
 package org.dominokit.domino.ui.style;
 
 /**
- * An interface provides waves effects
+ * Represents an object that can have a wave effect applied to it.
  *
- * @param <T> the type of the component implementing this
+ * <p>Implementations of this interface can initialize, set styles, and remove wave effects.
+ *
+ * @param <T> the type of the implementing object, allowing for method chaining
  */
 public interface HasWaveEffect<T> {
+
   /**
-   * Initializes the waves functionality
+   * Initializes the wave effect on the implementing object.
    *
-   * @return same instance
+   * @return the current instance of the implementing object for method chaining
    */
   T initWaves();
 
   /**
-   * Applies the waves style
+   * Sets the style of the wave effect on the implementing object.
    *
-   * @param type the {@link org.dominokit.domino.ui.style.WaveStyle}
-   * @return same instance
+   * @param type the desired style of the wave effect
+   * @return the current instance of the implementing object for method chaining
    */
   T setWaveStyle(WaveStyle type);
 
   /**
-   * Removes the waves support
+   * Removes the wave effect from the implementing object.
    *
-   * @return same instance
+   * @return the current instance of the implementing object for method chaining
    */
   T removeWaves();
 }

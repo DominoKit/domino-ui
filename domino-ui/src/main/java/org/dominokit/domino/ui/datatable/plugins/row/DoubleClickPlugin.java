@@ -13,6 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package org.dominokit.domino.ui.datatable.plugins.row;
 
 import org.dominokit.domino.ui.datatable.DataTable;
@@ -21,25 +22,34 @@ import org.dominokit.domino.ui.datatable.plugins.DataTablePlugin;
 import org.dominokit.domino.ui.events.EventType;
 
 /**
- * this plugin attach a handler to listen for double click event on data table rows
+ * The {@code DoubleClickPlugin} class is a DataTable plugin that adds double-click event handling
+ * for table rows. It allows you to specify a custom double-click handler using the {@link
+ * DoubleClickHandler} functional interface.
  *
- * @param <T> the type of data table records
+ * @param <T> The type of data in the DataTable rows.
+ * @see DataTablePlugin
+ * @see TableRow
  */
 public class DoubleClickPlugin<T> implements DataTablePlugin<T> {
 
   private DoubleClickHandler<T> handler;
 
   /**
-   * creates a new instance
+   * Creates a new {@code DoubleClickPlugin} with the provided double-click handler.
    *
-   * @param handler the {@link
-   *     org.dominokit.domino.ui.datatable.plugins.row.DoubleClickPlugin.DoubleClickHandler}
+   * @param handler The double-click handler to be executed when a row is double-clicked.
    */
   public DoubleClickPlugin(DoubleClickHandler<T> handler) {
     this.handler = handler;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Adds double-click event handling for newly added table rows. When a row is double-clicked, the
+   * double-click handler {@link DoubleClickHandler#onDoubleClick(TableRow)} is executed.
+   *
+   * @param dataTable The DataTable to which this plugin is applied.
+   * @param tableRow The table row to which the double-click event handling is added.
+   */
   @Override
   public void onRowAdded(DataTable<T> dataTable, TableRow<T> tableRow) {
     tableRow.addCss(dui_cursor_pointer);
@@ -47,16 +57,16 @@ public class DoubleClickPlugin<T> implements DataTablePlugin<T> {
   }
 
   /**
-   * An interface to handle row double click event
+   * A functional interface for handling row double-click events.
    *
-   * @param <T> the type of the row record
+   * @param <T> The type of data in the DataTable rows.
    */
   @FunctionalInterface
   public interface DoubleClickHandler<T> {
     /**
-     * to handle the event
+     * Handles a row double-click event.
      *
-     * @param tableRow the {@link TableRow} being double clicked
+     * @param tableRow The table row that was double-clicked.
      */
     void onDoubleClick(TableRow<T> tableRow);
   }

@@ -19,27 +19,48 @@ import static java.util.Objects.isNull;
 
 import elemental2.dom.HTMLAnchorElement;
 
-/** AnchorElement class. */
+/**
+ * Represents an anchor HTML element (`<a>`) wrapper.
+ *
+ * <p>This class provides a convenient way to create, manipulate, and control the behavior of anchor
+ * HTML elements. Example usage:
+ *
+ * <pre>
+ * HTMLAnchorElement htmlElement = ...;  // Obtain an anchor element from somewhere
+ * AnchorElement anchorElement = AnchorElement.of(htmlElement).setHref("https://example.com");
+ * </pre>
+ *
+ * @see <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a">MDN Web Docs (anchor
+ *     element)</a>
+ */
 public class AnchorElement extends BaseElement<HTMLAnchorElement, AnchorElement> {
+
   /**
-   * of.
+   * Creates a new {@link AnchorElement} by wrapping the provided anchor HTML element.
    *
-   * @param e a {@link elemental2.dom.HTMLAnchorElement} object
-   * @return a {@link org.dominokit.domino.ui.elements.AnchorElement} object
+   * @param e The anchor HTML element.
+   * @return A new {@link AnchorElement} that wraps the provided element.
    */
   public static AnchorElement of(HTMLAnchorElement e) {
     return new AnchorElement(e);
   }
 
   /**
-   * Constructor for AnchorElement.
+   * Constructs an {@link AnchorElement} by wrapping the provided anchor HTML element.
    *
-   * @param element a {@link elemental2.dom.HTMLAnchorElement} object
+   * @param element The anchor HTML element to wrap.
    */
   public AnchorElement(HTMLAnchorElement element) {
     super(element);
   }
 
+  /**
+   * Sets the "href" attribute for the anchor element. If the provided href is null or empty, it
+   * will remove the "href" attribute.
+   *
+   * @param href The URL the anchor element should link to.
+   * @return The current {@link AnchorElement} instance.
+   */
   public AnchorElement setHref(String href) {
     if (isNull(href) || href.trim().isEmpty()) {
       removeAttribute("href");
@@ -49,6 +70,11 @@ public class AnchorElement extends BaseElement<HTMLAnchorElement, AnchorElement>
     return this;
   }
 
+  /**
+   * Removes the "href" attribute from the anchor element.
+   *
+   * @return The current {@link AnchorElement} instance.
+   */
   public AnchorElement removeHref() {
     removeAttribute("href");
     return this;

@@ -17,25 +17,41 @@ package org.dominokit.domino.ui.layout;
 
 import org.dominokit.domino.ui.style.CssClass;
 
-/** RightDrawerSize class. */
+/**
+ * The {@code RightDrawerSize} enum represents different sizes for the right drawer in an
+ * application layout.
+ */
 public enum RightDrawerSize {
+  /** Extra-small right drawer size. */
   XSMALL(AppLayoutStyles.dui_right_xsmall),
+
+  /** Small right drawer size. */
   SMALL(AppLayoutStyles.dui_right_small),
+
+  /** Medium right drawer size. */
   MEDIUM(AppLayoutStyles.dui_right_medium),
+
+  /** Large right drawer size. */
   LARGE(AppLayoutStyles.dui_right_large),
-  XLARGE(AppLayoutStyles.dui_right_xlarge),
-  ;
+
+  /** Extra-large right drawer size. */
+  XLARGE(AppLayoutStyles.dui_right_xlarge);
 
   private CssClass cssClass;
 
+  /**
+   * Creates a {@code RightDrawerSize} enum value with the associated CSS class.
+   *
+   * @param cssClass The CSS class associated with the right drawer size.
+   */
   RightDrawerSize(CssClass cssClass) {
     this.cssClass = cssClass;
   }
 
   /**
-   * Getter for the field <code>cssClass</code>.
+   * Gets the CSS class associated with the right drawer size.
    *
-   * @return a {@link org.dominokit.domino.ui.style.CssClass} object
+   * @return The CSS class associated with the right drawer size.
    */
   public CssClass getCssClass() {
     return cssClass;

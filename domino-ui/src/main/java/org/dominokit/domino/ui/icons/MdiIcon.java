@@ -24,30 +24,60 @@ import org.dominokit.domino.ui.style.CssClass;
 import org.dominokit.domino.ui.style.HasCssClass;
 import org.dominokit.domino.ui.style.SwapCssClass;
 
-/** <a href="https://materialdesignicons.com/">MDI</a> icons implementation */
+/**
+ * An icon component for Material Design Icons (MDI) that allows you to customize its appearance and
+ * behavior.
+ */
 public class MdiIcon extends Icon<MdiIcon> implements CanChangeIcon<MdiIcon> {
 
   private MdiMeta metaInfo;
   private SwapCssClass rotateClass = new SwapCssClass();
   private SwapCssClass contrastClass = new SwapCssClass();
 
+  /**
+   * Creates an MdiIcon with the provided HTML element as its icon representation.
+   *
+   * @param icon The HTML element to use as the icon.
+   */
   private MdiIcon(HTMLElement icon) {
     this.icon = elementOf(icon);
     init(this);
   }
 
+  /**
+   * Creates an MdiIcon with the specified MDI icon name.
+   *
+   * @param icon The name of the MDI icon to display (e.g., "mdi-home").
+   */
   private MdiIcon(String icon) {
     this(icon, new MdiMeta(icon.replace("mdi-", "")));
   }
 
+  /**
+   * Creates an MdiIcon with the specified MDI icon represented as a CSS class.
+   *
+   * @param icon The CSS class representing the MDI icon (e.g., IconsStyles.mdi_home).
+   */
   private MdiIcon(CssClass icon) {
     this(icon, new MdiMeta(icon.getCssClass().replace("mdi-", "")));
   }
 
+  /**
+   * Creates an MdiIcon with the specified MDI icon name and metadata.
+   *
+   * @param icon The name of the MDI icon to display (e.g., "mdi-home").
+   * @param mdiMeta The metadata associated with the MDI icon.
+   */
   private MdiIcon(String icon, MdiMeta mdiMeta) {
     this(() -> icon, mdiMeta);
   }
 
+  /**
+   * Creates an MdiIcon with the specified MDI icon represented as a CSS class and metadata.
+   *
+   * @param icon The CSS class representing the MDI icon (e.g., IconsStyles.mdi_home).
+   * @param mdiMeta The metadata associated with the MDI icon.
+   */
   private MdiIcon(CssClass icon, MdiMeta mdiMeta) {
     this();
     this.addCss(icon);
@@ -55,52 +85,58 @@ public class MdiIcon extends Icon<MdiIcon> implements CanChangeIcon<MdiIcon> {
     this.metaInfo = mdiMeta;
   }
 
+  /** Creates a blank MdiIcon with no initial icon representation. */
   private MdiIcon() {
     this.icon = i().addCss(dui, dui_mdi).toDominoElement();
     init(this);
   }
 
   /**
-   * Creates a new empty mdi icon
+   * Creates a new instance of an MdiIcon with a blank icon representation.
    *
-   * @return new instance
+   * @return A new instance of MdiIcon.
    */
   public static MdiIcon create() {
     return new MdiIcon();
   }
 
   /**
-   * Creates a new icon
+   * Creates a new instance of an MdiIcon with the specified MDI icon name.
    *
-   * @param icon the name of the icon
-   * @return new instance
+   * @param icon The name of the MDI icon to display (e.g., "mdi-home").
+   * @return A new instance of MdiIcon.
    */
   public static MdiIcon create(String icon) {
     return new MdiIcon(icon);
   }
 
   /**
-   * Creates a new icon
+   * Creates a new instance of an MdiIcon with the specified MDI icon represented as a CSS class.
    *
-   * @param icon the name of the icon
-   * @return new instance
+   * @param icon The CSS class representing the MDI icon (e.g., IconsStyles.mdi_home).
+   * @return A new instance of MdiIcon.
    */
   public static MdiIcon create(CssClass icon) {
     return new MdiIcon(icon);
   }
 
   /**
-   * Creates a new icon with meta
+   * Creates a new instance of an MdiIcon with the specified MDI icon name and metadata.
    *
-   * @param icon the icon name
-   * @param meta the {@link org.dominokit.domino.ui.icons.MdiMeta}
-   * @return new instance
+   * @param icon The name of the MDI icon to display (e.g., "mdi-home").
+   * @param meta The metadata associated with the MDI icon.
+   * @return A new instance of MdiIcon.
    */
   public static MdiIcon create(String icon, MdiMeta meta) {
     return new MdiIcon(icon, meta);
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Creates a copy of the current MdiIcon instance. The copy will have the same icon name and
+   * styles as the original icon.
+   *
+   * @return A new MdiIcon instance that is a copy of the current icon.
+   */
   @Override
   public MdiIcon copy() {
     MdiIcon mdiIcon = MdiIcon.create(this.getName());
@@ -108,7 +144,14 @@ public class MdiIcon extends Icon<MdiIcon> implements CanChangeIcon<MdiIcon> {
         SwapCssClass.of(CompositeCssClass.of(mdiIcon)).replaceWith(CompositeCssClass.of(this)));
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Changes the appearance of the current MdiIcon to match another MdiIcon. This method replaces
+   * the CSS classes and styles of the current icon with those of the specified icon, making the
+   * current icon visually identical to the new one.
+   *
+   * @param icon The MdiIcon to change to.
+   * @return The current MdiIcon instance with its appearance updated to match the specified icon.
+   */
   @Override
   public MdiIcon changeTo(MdiIcon icon) {
     this.name.replaceWith(icon.name.getCurrent()).apply(this);
@@ -117,10 +160,10 @@ public class MdiIcon extends Icon<MdiIcon> implements CanChangeIcon<MdiIcon> {
   }
 
   /**
-   * Sets the type of rotate applied to the icon
+   * Sets the rotation of the MdiIcon to the specified rotation type.
    *
-   * @param mdiRotate the {@link org.dominokit.domino.ui.icons.MdiIcon.MdiRotate}
-   * @return same instance
+   * @param mdiRotate The rotation type to apply.
+   * @return The MdiIcon instance.
    */
   public MdiIcon setRotate(MdiRotate mdiRotate) {
     addCss(rotateClass.replaceWith(mdiRotate));
@@ -128,72 +171,72 @@ public class MdiIcon extends Icon<MdiIcon> implements CanChangeIcon<MdiIcon> {
   }
 
   /**
-   * Rotates the icon with 45 degrees
+   * Rotates the MdiIcon by 45 degrees.
    *
-   * @return same instance
+   * @return The MdiIcon instance.
    */
   public MdiIcon rotate45() {
     return setRotate(MdiRotate.rotate45);
   }
 
   /**
-   * Rotates the icon with 90 degrees
+   * Rotates the MdiIcon by 90 degrees.
    *
-   * @return same instance
+   * @return The MdiIcon instance.
    */
   public MdiIcon rotate90() {
     return setRotate(MdiRotate.rotate90);
   }
 
   /**
-   * Rotates the icon with 135 degrees
+   * Rotates the MdiIcon by 135 degrees.
    *
-   * @return same instance
+   * @return The MdiIcon instance.
    */
   public MdiIcon rotate135() {
     return setRotate(MdiRotate.rotate135);
   }
 
   /**
-   * Rotates the icon with 180 degrees
+   * Rotates the MdiIcon by 180 degrees.
    *
-   * @return same instance
+   * @return The MdiIcon instance.
    */
   public MdiIcon rotate180() {
     return setRotate(MdiRotate.rotate180);
   }
 
   /**
-   * Rotates the icon with 225 degrees
+   * Rotates the MdiIcon by 225 degrees.
    *
-   * @return same instance
+   * @return The MdiIcon instance.
    */
   public MdiIcon rotate225() {
     return setRotate(MdiRotate.rotate225);
   }
 
   /**
-   * Rotates the icon with 270 degrees
+   * Rotates the MdiIcon by 270 degrees.
    *
-   * @return same instance
+   * @return The MdiIcon instance.
    */
   public MdiIcon rotate270() {
     return setRotate(MdiRotate.rotate270);
   }
 
   /**
-   * Rotates the icon with 315 degrees
+   * Rotates the MdiIcon by 315 degrees.
    *
-   * @return same instance
+   * @return The MdiIcon instance.
    */
   public MdiIcon rotate315() {
     return setRotate(MdiRotate.rotate315);
   }
 
   /**
-   * Sets the rotate to the default value
+   * Resets the rotation of the MdiIcon to its default state.
    *
-   * @return same instance
+   * @return The MdiIcon instance.
    */
   public MdiIcon rotateNone() {
     rotateClass.remove(this);
@@ -201,10 +244,10 @@ public class MdiIcon extends Icon<MdiIcon> implements CanChangeIcon<MdiIcon> {
   }
 
   /**
-   * Flips the icon either horizontally or vertically
+   * Sets the flip style of the MdiIcon to the specified flip type.
    *
-   * @param mdiFlip the {@link org.dominokit.domino.ui.icons.MdiIcon.MdiFlip}
-   * @return same instance
+   * @param mdiFlip The flip type to apply.
+   * @return The MdiIcon instance.
    */
   public MdiIcon setFlip(MdiFlip mdiFlip) {
     addCss(mdiFlip);
@@ -212,27 +255,27 @@ public class MdiIcon extends Icon<MdiIcon> implements CanChangeIcon<MdiIcon> {
   }
 
   /**
-   * Flips the icon vertically
+   * Flips the MdiIcon vertically.
    *
-   * @return same instance
+   * @return The MdiIcon instance.
    */
   public MdiIcon flipV() {
     return setFlip(MdiFlip.flipV);
   }
 
   /**
-   * Flips the icon horizontally
+   * Flips the MdiIcon horizontally.
    *
-   * @return same instance
+   * @return The MdiIcon instance.
    */
   public MdiIcon flipH() {
     return setFlip(MdiFlip.flipH);
   }
 
   /**
-   * Removes the flip
+   * Resets the flip style of the MdiIcon to its default state.
    *
-   * @return same instance
+   * @return The MdiIcon instance.
    */
   public MdiIcon flipNone() {
     mdi_flip_v.remove(this);
@@ -241,10 +284,10 @@ public class MdiIcon extends Icon<MdiIcon> implements CanChangeIcon<MdiIcon> {
   }
 
   /**
-   * Sets if the icon should spin
+   * Sets the spinning behavior of the MdiIcon.
    *
-   * @param spin true to spin the icon, false otherwise
-   * @return same instance
+   * @param spin {@code true} to enable spinning, {@code false} to disable it.
+   * @return The MdiIcon instance.
    */
   public MdiIcon setSpin(boolean spin) {
     addCss(BooleanCssClass.of(mdi_spin, spin));
@@ -252,28 +295,28 @@ public class MdiIcon extends Icon<MdiIcon> implements CanChangeIcon<MdiIcon> {
   }
 
   /**
-   * Spins the icon
+   * Enables spinning for the MdiIcon.
    *
-   * @return same instance
+   * @return The MdiIcon instance.
    */
   public MdiIcon spin() {
     return setSpin(true);
   }
 
   /**
-   * Removes the spinning of the icon
+   * Disables spinning for the MdiIcon.
    *
-   * @return same instance
+   * @return The MdiIcon instance.
    */
   public MdiIcon noSpin() {
     return setSpin(false);
   }
 
   /**
-   * Sets if the icon is active or not
+   * Sets the active state of the MdiIcon.
    *
-   * @param active true to activate the icon, false otherwise
-   * @return same instance
+   * @param active {@code true} to set the icon as active, {@code false} to set it as inactive.
+   * @return The MdiIcon instance.
    */
   public MdiIcon setActive(boolean active) {
     addCss(BooleanCssClass.of(mdi_inactive, !active));
@@ -281,28 +324,28 @@ public class MdiIcon extends Icon<MdiIcon> implements CanChangeIcon<MdiIcon> {
   }
 
   /**
-   * Activate the icon
+   * Sets the MdiIcon as active.
    *
-   * @return same instance
+   * @return The MdiIcon instance.
    */
   public MdiIcon active() {
     return setActive(true);
   }
 
   /**
-   * Marks the icon as inactive
+   * Sets the MdiIcon as inactive.
    *
-   * @return same instance
+   * @return The MdiIcon instance.
    */
   public MdiIcon inactive() {
     return setActive(false);
   }
 
   /**
-   * Sets the contrast of the icon
+   * Sets the contrast style of the MdiIcon to the specified contrast type.
    *
-   * @param mdiContrast the {@link org.dominokit.domino.ui.icons.MdiIcon.MdiContrast}
-   * @return same instance
+   * @param mdiContrast The contrast type to apply.
+   * @return The MdiIcon instance.
    */
   public MdiIcon setContrast(MdiContrast mdiContrast) {
     addCss(contrastClass.replaceWith(mdiContrast));
@@ -310,40 +353,40 @@ public class MdiIcon extends Icon<MdiIcon> implements CanChangeIcon<MdiIcon> {
   }
 
   /**
-   * Sets the contrast as light
+   * Sets the MdiIcon as light contrast.
    *
-   * @return same instance
+   * @return The MdiIcon instance.
    */
   public MdiIcon light() {
     return setContrast(MdiContrast.light);
   }
 
   /**
-   * Sets the contrast as dark
+   * Sets the MdiIcon as dark contrast.
    *
-   * @return same instance
+   * @return The MdiIcon instance.
    */
   public MdiIcon dark() {
     return setContrast(MdiContrast.dark);
   }
 
   /**
-   * Removes the contrast
+   * Resets the contrast style of the MdiIcon to its default state.
    *
-   * @return same instance
+   * @return The MdiIcon instance.
    */
   public MdiIcon noContrast() {
     contrastClass.remove(this);
     return this;
   }
 
-  /** {@inheritDoc} */
+  /** @dominokit-site-ignore {@inheritDoc} */
   @Override
   public HTMLElement element() {
     return icon.element();
   }
 
-  /** An enum representing the rotation degree of the icon */
+  /** Enumeration of MDI icon rotation types. */
   public enum MdiRotate implements HasCssClass {
     rotate45(IconsStyles.mdi_rotate_45),
     rotate90(IconsStyles.mdi_rotate_90),
@@ -359,13 +402,13 @@ public class MdiIcon extends Icon<MdiIcon> implements CanChangeIcon<MdiIcon> {
       this.style = style;
     }
 
-    /** @return The style of the rotation */
+    /** {@inheritDoc} */
     public CssClass getCssClass() {
       return style;
     }
   }
 
-  /** An enum representing the flip of the icon */
+  /** Enumeration of MDI icon flip types. */
   public enum MdiFlip implements HasCssClass {
     flipV(mdi_flip_v),
     flipH(IconsStyles.mdi_flip_h);
@@ -376,23 +419,17 @@ public class MdiIcon extends Icon<MdiIcon> implements CanChangeIcon<MdiIcon> {
       this.style = style;
     }
 
-    /** @return The style of the flip */
+    /** {@inheritDoc} */
     public CssClass getCssClass() {
       return style;
     }
   }
 
-  /** @return The {@link MdiMeta} of the icon */
-  /**
-   * Getter for the field <code>metaInfo</code>.
-   *
-   * @return a {@link org.dominokit.domino.ui.icons.MdiMeta} object
-   */
   public MdiMeta getMetaInfo() {
     return metaInfo;
   }
 
-  /** An enum representing the contrast of the icon */
+  /** Enumeration of MDI icon contrast types. */
   public enum MdiContrast implements HasCssClass {
     light(IconsStyles.mdi_light),
     dark(IconsStyles.mdi_dark);
@@ -403,7 +440,7 @@ public class MdiIcon extends Icon<MdiIcon> implements CanChangeIcon<MdiIcon> {
       this.style = style;
     }
 
-    /** @return The style of the contrast */
+    /** {@inheritDoc} */
     public CssClass getCssClass() {
       return style;
     }

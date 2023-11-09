@@ -25,7 +25,30 @@ import org.dominokit.domino.ui.forms.validations.MaxLengthValidator;
 import org.dominokit.domino.ui.forms.validations.MinLengthValidator;
 import org.dominokit.domino.ui.utils.*;
 
-/** Abstract CountableInputFormField class. */
+/**
+ * The `CountableInputFormField` class is an abstract class that extends the `InputFormField` class
+ * and provides functionality for input fields with character counters, minimum and maximum lengths,
+ * and placeholders.
+ *
+ * <p>Usage Example:
+ *
+ * <pre>
+ * // Create a CountableInputFormField for text input
+ * CountableInputFormField&lt;TextBox, HTMLInputElement, String&gt; inputField =
+ *     new TextBox()
+ *         .setPlaceholder("Enter text")
+ *         .setMaxLength(100)
+ *         .setMinLength(5)
+ *         .withCounterElement();
+ *
+ * // Set a custom count formatter
+ * inputField.setCountFormatter((count, maxCount) -&gt; count + " / " + maxCount);
+ * </pre>
+ *
+ * @param <T> The type of the implementing subclass.
+ * @param <E> The type of the HTML element.
+ * @param <V> The type of the field's value.
+ */
 public abstract class CountableInputFormField<
         T extends InputFormField<T, E, V>, E extends HTMLElement, V>
     extends InputFormField<T, E, V>
@@ -36,10 +59,18 @@ public abstract class CountableInputFormField<
   private MinLengthValidator<T, E> minLengthValidator;
   private MaxLengthValidator<T, E> maxLengthValidator;
 
-  /** Constructor for CountableInputFormField. */
+  /** Creates a new `CountableInputFormField` instance. */
   public CountableInputFormField() {}
 
-  /** {@inheritDoc} */
+  // Methods
+
+  /**
+   * Updates the character counter based on the current input length and maximum count.
+   *
+   * @param count The current input length.
+   * @param maxCount The maximum input length allowed.
+   * @return This `CountableInputFormField` instance.
+   */
   @Override
   public T updateCounter(int count, int maxCount) {
     if (maxCount > 0) {
@@ -57,20 +88,15 @@ public abstract class CountableInputFormField<
     return counterElement.get();
   }
 
-  /**
-   * initCounterElement.
-   *
-   * @return a {@link org.dominokit.domino.ui.utils.LazyChild} object
-   */
   protected LazyChild<SpanElement> initCounterElement() {
     return counterElement = LazyChild.of(span().addCss(du_field_counter), wrapperElement);
   }
 
   /**
-   * Setter for the field <code>countFormatter</code>.
+   * Sets a custom formatter for the character counter.
    *
-   * @param formatter a CountFormatter object
-   * @return a T object
+   * @param formatter The custom formatter for the character counter.
+   * @return This `CountableInputFormField` instance.
    */
   public T setCountFormatter(CountFormatter formatter) {
     this.countFormatter = formatter;
@@ -80,7 +106,11 @@ public abstract class CountableInputFormField<
     return (T) this;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Gets the maximum character count allowed for the input field.
+   *
+   * @return The maximum character count allowed.
+   */
   @Override
   public int getMaxLength() {
     if (getInputElement().hasAttribute(MAX_LENGTH)) {
@@ -89,7 +119,12 @@ public abstract class CountableInputFormField<
     return -1;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Sets the maximum character count allowed for the input field.
+   *
+   * @param maxLength The maximum character count allowed.
+   * @return This `CountableInputFormField` instance.
+   */
   @Override
   public T setMaxLength(int maxLength) {
     if (maxLength < 0) {
@@ -105,7 +140,11 @@ public abstract class CountableInputFormField<
     return (T) this;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Gets the current input length.
+   *
+   * @return The current input length.
+   */
   @Override
   public int getLength() {
     String stringValue = getStringValue();
@@ -115,7 +154,11 @@ public abstract class CountableInputFormField<
     return 0;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Gets the minimum character count allowed for the input field.
+   *
+   * @return The minimum character count allowed.
+   */
   @Override
   public int getMinLength() {
     if (getInputElement().hasAttribute(MIN_LENGTH)) {
@@ -124,7 +167,12 @@ public abstract class CountableInputFormField<
     return -1;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Sets the minimum character count allowed for the input field.
+   *
+   * @param minLength The minimum character count allowed.
+   * @return This `CountableInputFormField` instance.
+   */
   @Override
   public T setMinLength(int minLength) {
     if (minLength < 0) {
@@ -141,43 +189,63 @@ public abstract class CountableInputFormField<
     return (T) this;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Gets the maximum character count allowed for the input field (alias for getMaxLength).
+   *
+   * @return The maximum character count allowed.
+   */
   @Override
   public int getMaxCount() {
     return getMaxLength();
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Gets the placeholder text for the input field.
+   *
+   * @return The placeholder text.
+   */
   @Override
   public String getPlaceholder() {
     return getInputElement().getAttribute("placeholder");
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Sets the placeholder text for the input field.
+   *
+   * @param placeholder The placeholder text to set.
+   * @return This `CountableInputFormField` instance.
+   */
   @Override
   public T setPlaceholder(String placeholder) {
     getInputElement().setAttribute("placeholder", placeholder);
     return (T) this;
   }
 
+  /**
+   * Clears the input field's value and updates the character counter.
+   *
+   * @param silent {@code true} to clear the field silently, {@code false} otherwise.
+   * @return This `CountableInputFormField` instance.
+   */
   @Override
   public T clear(boolean silent) {
     super.clear(silent);
     return updateCounter(getLength(), getMaxCount());
   }
+
   /**
-   * Getter for the field <code>counterElement</code>.
+   * Gets the character counter element associated with the input field.
    *
-   * @return a {@link org.dominokit.domino.ui.elements.SpanElement} object
+   * @return The character counter element as a `SpanElement`.
    */
   public SpanElement getCounterElement() {
     return getCountElement();
   }
 
   /**
-   * withCounterElement.
+   * Initializes and retrieves the character counter element for the input field.
    *
-   * @return a T object
+   * @return This `CountableInputFormField` instance.
    */
   public T withCounterElement() {
     getCountElement();
@@ -185,10 +253,11 @@ public abstract class CountableInputFormField<
   }
 
   /**
-   * withCounterElement.
+   * Initializes and retrieves the character counter element for the input field and applies the
+   * specified handler to it.
    *
-   * @param handler a {@link org.dominokit.domino.ui.utils.ChildHandler} object
-   * @return a T object
+   * @param handler The handler to apply to the character counter element.
+   * @return This `CountableInputFormField` instance.
    */
   public T withCounterElement(ChildHandler<T, SpanElement> handler) {
     handler.apply((T) this, getCountElement());

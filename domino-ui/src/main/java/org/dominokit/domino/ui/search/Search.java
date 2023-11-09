@@ -19,7 +19,7 @@ import elemental2.dom.HTMLDivElement;
 import jsinterop.base.Js;
 import org.dominokit.domino.ui.animations.Transition;
 import org.dominokit.domino.ui.collapsible.AnimationCollapseStrategy;
-import org.dominokit.domino.ui.collapsible.CollapseDuration;
+import org.dominokit.domino.ui.collapsible.CollapsibleDuration;
 import org.dominokit.domino.ui.elements.DivElement;
 import org.dominokit.domino.ui.elements.InputElement;
 import org.dominokit.domino.ui.events.EventType;
@@ -32,11 +32,35 @@ import org.dominokit.domino.ui.utils.ElementUtil;
 import org.gwtproject.timer.client.Timer;
 
 /**
- * A search component that can fit into another component with fixed height, this component will be
- * hidden by default and can be revealed by a trigger.
+ * The `Search` class provides a search bar component with various functionality options.
  *
- * <p>also the component provide callback and a type ahead delay, and provides a close button to
- * hide the component </pre>
+ * <p>Usage Example:
+ *
+ * <pre>
+ * // Create a search bar without auto search
+ * Search searchBar = Search.create();
+ *
+ * // Create a search bar with auto search
+ * Search autoSearchBar = Search.create(true);
+ *
+ * // Open the search bar
+ * searchBar.open();
+ *
+ * // Close the search bar
+ * searchBar.close();
+ *
+ * // Set a search handler to be executed on search action
+ * searchBar.onSearch(searchToken -> {
+ *     // Perform search operation with the provided search token
+ * });
+ *
+ * // Set a close handler to be executed on closing the search bar
+ * searchBar.onClose(() -> {
+ *     // Handle the search bar closing event
+ * });
+ * </pre>
+ *
+ * @see BaseDominoElement
  */
 public class Search extends BaseDominoElement<HTMLDivElement, Search>
     implements HasLabels<SearchLabels>, SearchStyles {
@@ -50,10 +74,9 @@ public class Search extends BaseDominoElement<HTMLDivElement, Search>
   private Timer autoSearchTimer;
 
   /**
-   * Constructor for Search.
+   * Constructs a new `Search` instance with the given autoSearch setting.
    *
-   * @param autoSearch boolean, true to trigger the search while the user is typing with 200ms
-   *     delay, false to trigger the search only when the user press ENTER
+   * @param autoSearch `true` to enable auto search, `false` to disable it.
    */
   public Search(boolean autoSearch) {
     this.autoSearch = autoSearch;
@@ -115,33 +138,32 @@ public class Search extends BaseDominoElement<HTMLDivElement, Search>
 
     setCollapseStrategy(
         new AnimationCollapseStrategy(
-            Transition.FADE_IN, Transition.FADE_OUT, CollapseDuration._300ms));
+            Transition.FADE_IN, Transition.FADE_OUT, CollapsibleDuration._300ms));
   }
 
-  /** @return new Search instance */
   /**
-   * create.
+   * Creates a new `Search` instance with auto search disabled.
    *
-   * @return a {@link org.dominokit.domino.ui.search.Search} object
+   * @return A new `Search` instance.
    */
   public static Search create() {
     return new Search(false);
   }
 
   /**
-   * create.
+   * Creates a new `Search` instance with the specified auto search setting.
    *
-   * @param autoSearch boolean, true to trigger the search while the user is typing with 200ms delay
-   * @return new Search instance
+   * @param autoSearch `true` to enable auto search, `false` to disable it.
+   * @return A new `Search` instance.
    */
   public static Search create(boolean autoSearch) {
     return new Search(autoSearch);
   }
 
   /**
-   * Show the search if it is hidden
+   * Opens the search bar, making it visible and focused.
    *
-   * @return same Search instance
+   * @return The current `Search` instance.
    */
   public Search open() {
     expand();
@@ -151,9 +173,9 @@ public class Search extends BaseDominoElement<HTMLDivElement, Search>
   }
 
   /**
-   * Hides the search if it is open
+   * Closes the search bar, making it hidden.
    *
-   * @return same Search instance
+   * @return The current `Search` instance.
    */
   public Search close() {
     collapse();
@@ -163,10 +185,10 @@ public class Search extends BaseDominoElement<HTMLDivElement, Search>
   }
 
   /**
-   * onSearch.
+   * Sets the search handler to be executed when a search is performed.
    *
-   * @param handler {@link org.dominokit.domino.ui.search.Search.SearchHandler}
-   * @return same Search instance
+   * @param handler The search handler.
+   * @return The current `Search` instance.
    */
   public Search onSearch(SearchHandler handler) {
     this.searchHandler = handler;
@@ -174,10 +196,10 @@ public class Search extends BaseDominoElement<HTMLDivElement, Search>
   }
 
   /**
-   * onClose.
+   * Sets the close handler to be executed when the search bar is closed.
    *
-   * @param handler {@link org.dominokit.domino.ui.search.Search.SearchCloseHandler}
-   * @return same Search instance
+   * @param handler The close handler.
+   * @return The current `Search` instance.
    */
   public Search onClose(SearchCloseHandler handler) {
     this.closeHandler = handler;
@@ -185,61 +207,56 @@ public class Search extends BaseDominoElement<HTMLDivElement, Search>
   }
 
   /**
-   * setSearchPlaceHolder.
+   * Sets the placeholder text for the search input field.
    *
-   * @param placeHolder String placeholder text for the search input
-   * @return same Search instance
+   * @param placeHolder The placeholder text.
+   * @return The current `Search` instance.
    */
   public Search setSearchPlaceHolder(String placeHolder) {
     searchInput.setAttribute("placeholder", placeHolder);
     return this;
   }
 
-  /** @return boolean, true if auto search is enabled */
   /**
-   * isAutoSearch.
+   * Checks if auto search is enabled.
    *
-   * @return a boolean
+   * @return `true` if auto search is enabled, `false` otherwise.
    */
   public boolean isAutoSearch() {
     return autoSearch;
   }
 
-  /** @return the {@link SearchHandler} */
   /**
-   * Getter for the field <code>searchHandler</code>.
+   * Gets the search handler associated with this search bar.
    *
-   * @return a {@link org.dominokit.domino.ui.search.Search.SearchHandler} object
+   * @return The search handler.
    */
   public SearchHandler getSearchHandler() {
     return searchHandler;
   }
 
-  /** @param searchHandler {@link SearchHandler} */
   /**
-   * Setter for the field <code>searchHandler</code>.
+   * Sets the search handler for this search bar.
    *
-   * @param searchHandler a {@link org.dominokit.domino.ui.search.Search.SearchHandler} object
+   * @param searchHandler The search handler.
    */
   public void setSearchHandler(SearchHandler searchHandler) {
     this.searchHandler = searchHandler;
   }
 
-  /** @return the {@link SearchCloseHandler} */
   /**
-   * Getter for the field <code>closeHandler</code>.
+   * Gets the close handler associated with this search bar.
    *
-   * @return a {@link org.dominokit.domino.ui.search.Search.SearchCloseHandler} object
+   * @return The close handler.
    */
   public SearchCloseHandler getCloseHandler() {
     return closeHandler;
   }
 
-  /** @param closeHandler {@link SearchCloseHandler} */
   /**
-   * Setter for the field <code>closeHandler</code>.
+   * Sets the close handler for this search bar.
    *
-   * @param closeHandler a {@link org.dominokit.domino.ui.search.Search.SearchCloseHandler} object
+   * @param closeHandler The close handler.
    */
   public void setCloseHandler(SearchCloseHandler closeHandler) {
     this.closeHandler = closeHandler;
@@ -252,26 +269,31 @@ public class Search extends BaseDominoElement<HTMLDivElement, Search>
   }
 
   /**
-   * getInputElement.
+   * Gets the input element of the search bar.
    *
-   * @return the {@link elemental2.dom.HTMLInputElement} of this search component wrapped as {@link
-   *     org.dominokit.domino.ui.utils.DominoElement}
+   * @return The input element.
    */
   public InputElement getInputElement() {
     return searchInput;
   }
 
-  /** A functional interface to implement the search logic */
+  /** A functional interface for handling search actions. */
   @FunctionalInterface
   public interface SearchHandler {
-    /** @param searchToken String value of the search input */
+
+    /**
+     * Handles a search action.
+     *
+     * @param searchToken The search token or query.
+     */
     void onSearch(String searchToken);
   }
 
-  /** A functional interface to handle closing of the Search component */
+  /** A functional interface for handling search bar close actions. */
   @FunctionalInterface
   public interface SearchCloseHandler {
-    /** Will be called when the search is closed */
+
+    /** Handles the search bar close action. */
     void onClose();
   }
 }

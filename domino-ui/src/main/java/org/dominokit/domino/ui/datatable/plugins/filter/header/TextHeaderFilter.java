@@ -13,6 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package org.dominokit.domino.ui.datatable.plugins.filter.header;
 
 import elemental2.dom.HTMLInputElement;
@@ -20,91 +21,106 @@ import org.dominokit.domino.ui.datatable.model.FilterTypes;
 import org.dominokit.domino.ui.forms.TextBox;
 
 /**
- * String column header filter component that is rendered as a {@link
- * org.dominokit.domino.ui.forms.TextBox} component
+ * The TextHeaderFilter class provides a header filter for filtering text values.
  *
- * @param <T> type of data table records
+ * @param <T> The type of data in the DataTable.
  */
 public class TextHeaderFilter<T> extends DelayedHeaderFilterInput<TextBox, T, String> {
 
   private TextBox textBox;
 
-  /** Default constructor */
+  /** Creates a new instance of TextHeaderFilter with no placeholder. */
   public TextHeaderFilter() {}
 
   /**
-   * Create and instance with custom placeholder
+   * Creates a new instance of TextHeaderFilter with a custom placeholder.
    *
-   * @param placeholder String
+   * @param placeholder The custom placeholder text.
    */
   public TextHeaderFilter(String placeholder) {
     super(placeholder);
   }
 
   /**
-   * create a new instance
+   * Creates a new instance of TextHeaderFilter.
    *
-   * @param <T> a T class
-   * @return a {@link org.dominokit.domino.ui.datatable.plugins.filter.header.TextHeaderFilter}
-   *     object
+   * @return The TextHeaderFilter instance.
    */
   public static <T> TextHeaderFilter<T> create() {
     return new TextHeaderFilter<>();
   }
 
   /**
-   * creates a new instance with custom placeholder
+   * Creates a new instance of TextHeaderFilter with a custom placeholder.
    *
-   * @param placeholder String
-   * @param <T> type of the data table records
-   * @return new instance
+   * @param placeholder The custom placeholder text.
+   * @return The TextHeaderFilter instance.
    */
   public static <T> TextHeaderFilter<T> create(String placeholder) {
     return new TextHeaderFilter<>(placeholder);
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Gets the HTMLInputElement used in the header filter.
+   *
+   * @return The HTMLInputElement element.
+   */
   @Override
   protected HTMLInputElement getInputElement() {
     return this.textBox.getInputElement().element();
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Creates the TextBox value box used in the header filter.
+   *
+   * @return The TextBox element.
+   */
   @Override
   protected TextBox createValueBox() {
     this.textBox = TextBox.create();
     return this.textBox;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Checks if the header filter input is empty.
+   *
+   * @return True if the input is empty, false otherwise.
+   */
   @Override
   protected boolean isEmpty() {
     return this.textBox.isEmptyIgnoreSpaces();
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Gets the value of the header filter input as a string.
+   *
+   * @return The value of the input as a string.
+   */
   @Override
   protected String getValue() {
     return this.textBox.getValue();
   }
 
-  /** @return the {@link TextBox} wrapped in this component */
   /**
-   * Getter for the field <code>textBox</code>.
+   * Gets the TextBox used in the header filter.
    *
-   * @return a {@link org.dominokit.domino.ui.forms.TextBox} object
+   * @return The TextBox element.
    */
   public TextBox getTextBox() {
     return textBox;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Gets the filter type of the header filter.
+   *
+   * @return The filter type.
+   */
   @Override
   protected FilterTypes getType() {
     return FilterTypes.STRING;
   }
 
-  /** {@inheritDoc} */
+  /** Clears the header filter by calling the clear method on the TextBox. */
   @Override
   public void clear() {
     textBox.withPausedChangeListeners(field -> textBox.clear());

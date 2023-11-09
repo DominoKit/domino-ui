@@ -18,13 +18,17 @@ package org.dominokit.domino.ui.upload;
 import elemental2.dom.FormData;
 import elemental2.dom.XMLHttpRequest;
 
-/** An interface for sending the upload request */
+/**
+ * The {@code UploadRequestSender} interface defines a contract for sending upload requests using an
+ * XML HTTP request (XHR) object with associated form data.
+ */
 public interface UploadRequestSender {
+
   /**
-   * onReady.
+   * Called when the XHR request is ready to be sent with the provided form data.
    *
-   * @param request the request to be sent
-   * @param formData the {@link elemental2.dom.FormData} to be sent in the request
+   * @param request The {@link XMLHttpRequest} object used to send the request.
+   * @param formData The {@link FormData} object containing the data to be sent in the request.
    */
   void onReady(XMLHttpRequest request, FormData formData);
 }

@@ -20,59 +20,80 @@ import static java.util.Objects.nonNull;
 import java.util.stream.IntStream;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
 
-/** A simple pagination implementation */
+/**
+ * SimplePagination is a basic implementation of pagination controls in Domino UI. It allows users
+ * to navigate through a list of pages with next, previous, and direct page navigation options. This
+ * class extends {@link BasePagination} to provide common pagination functionality.
+ *
+ * <p><strong>Usage Example:</strong>
+ *
+ * <pre>
+ * SimplePagination pagination = SimplePagination.create(5, 10)
+ *     .addPageChangeListener(new HasPagination.PaginationPageChangeListener() {
+ *         {@literal @}Override
+ *         public void onPageChanged(int pageNumber) {
+ *             // Handle page change event
+ *         }
+ *     });
+ * </pre>
+ */
 public class SimplePagination extends BasePagination<SimplePagination> {
 
-  /** @return new instance */
   /**
-   * create.
+   * Creates a new instance of SimplePagination with default settings (0 pages and a page size of
+   * 10).
    *
-   * @return a {@link org.dominokit.domino.ui.pagination.SimplePagination} object
+   * @return A new SimplePagination instance.
    */
   public static SimplePagination create() {
     return new SimplePagination();
   }
 
   /**
-   * create.
+   * Creates a new instance of SimplePagination with the specified number of pages and a default
+   * page size of 10.
    *
-   * @param pages the number of pages
-   * @return new instance
+   * @param pages The total number of pages.
+   * @return A new SimplePagination instance.
    */
   public static SimplePagination create(int pages) {
     return new SimplePagination(pages);
   }
 
   /**
-   * create.
+   * Creates a new instance of SimplePagination with the specified number of pages and page size.
    *
-   * @param pages the number of pages
-   * @param pageSize the page size
-   * @return new instance
+   * @param pages The total number of pages.
+   * @param pageSize The number of items per page.
+   * @return A new SimplePagination instance.
    */
   public static SimplePagination create(int pages, int pageSize) {
     return new SimplePagination(pages, pageSize);
   }
 
-  /** Constructor for SimplePagination. */
+  /**
+   * Creates a new instance of SimplePagination with default settings (0 pages and a page size of
+   * 10).
+   */
   public SimplePagination() {
     this(0);
   }
 
   /**
-   * Constructor for SimplePagination.
+   * Creates a new instance of SimplePagination with the specified number of pages and a default
+   * page size of 10.
    *
-   * @param pages a int
+   * @param pages The total number of pages.
    */
   public SimplePagination(int pages) {
     this(pages, 10);
   }
 
   /**
-   * Constructor for SimplePagination.
+   * Creates a new instance of SimplePagination with the specified number of pages and page size.
    *
-   * @param pages a int
-   * @param pageSize a int
+   * @param pages The total number of pages.
+   * @param pageSize The number of items per page.
    */
   public SimplePagination(int pages, int pageSize) {
     this.pagesCount = pages;
@@ -94,13 +115,26 @@ public class SimplePagination extends BasePagination<SimplePagination> {
     updatePages(pages, pageSize);
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Updates the pagination with the specified number of pages.
+   *
+   * @param pages The new total number of pages.
+   * @param silent If true, change listeners won't be triggered.
+   * @return The SimplePagination instance.
+   */
   @Override
   public SimplePagination updatePages(int pages, boolean silent) {
     return updatePages(pages, pageSize, silent);
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Updates the pagination with the specified number of pages and page size.
+   *
+   * @param pages The new total number of pages.
+   * @param pageSize The new page size.
+   * @param silent If true, change listeners won't be triggered.
+   * @return The SimplePagination instance.
+   */
   @Override
   public SimplePagination updatePages(int pages, int pageSize, boolean silent) {
     this.pageSize = pageSize;
@@ -143,12 +177,24 @@ public class SimplePagination extends BasePagination<SimplePagination> {
     return this;
   }
 
+  /**
+   * Clears all the page elements in the pagination component.
+   *
+   * @implNote This method removes all page elements from the pagination.
+   */
   private void clearPages() {
     allPages.forEach(BaseDominoElement::remove);
     allPages.clear();
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Moves the pagination to the specified page.
+   *
+   * @param page The page number to move to.
+   * @param silent If {@code true}, change listeners won't be triggered; otherwise, they will.
+   * @implNote This method updates the active page, triggers change listeners if not silent, and
+   *     enables/disables next and previous page navigation based on the current page.
+   */
   @Override
   protected void moveToPage(int page, boolean silent) {
     PagerNavItem oldPage = activePage;

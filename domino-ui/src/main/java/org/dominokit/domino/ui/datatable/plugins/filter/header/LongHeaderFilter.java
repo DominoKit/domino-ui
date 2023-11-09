@@ -13,6 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package org.dominokit.domino.ui.datatable.plugins.filter.header;
 
 import elemental2.dom.HTMLInputElement;
@@ -20,81 +21,99 @@ import org.dominokit.domino.ui.datatable.model.FilterTypes;
 import org.dominokit.domino.ui.forms.LongBox;
 
 /**
- * Long column header filter component that is rendered as a {@link
- * org.dominokit.domino.ui.forms.LongBox} component
+ * The LongHeaderFilter class provides a header filter for filtering long values.
  *
- * @param <T> type of data table records
+ * @param <T> The type of data in the DataTable.
  */
 public class LongHeaderFilter<T> extends DelayedHeaderFilterInput<LongBox, T, Long> {
 
   private LongBox longBox;
 
-  /** Default constructor */
+  /** Creates a new instance of LongHeaderFilter with default placeholder. */
   public LongHeaderFilter() {}
 
   /**
-   * Create and instance with custom placeholder
+   * Creates a new instance of LongHeaderFilter with a custom placeholder.
    *
-   * @param placeholder String
+   * @param placeholder The custom placeholder to display in the filter.
    */
   public LongHeaderFilter(String placeholder) {
     super(placeholder);
   }
 
   /**
-   * create a new instance
+   * Creates a new instance of LongHeaderFilter.
    *
-   * @param <T> a T class
-   * @return a {@link org.dominokit.domino.ui.datatable.plugins.filter.header.LongHeaderFilter}
-   *     object
+   * @param <T> The type of data in the DataTable.
+   * @return A new instance of LongHeaderFilter.
    */
   public static <T> LongHeaderFilter<T> create() {
     return new LongHeaderFilter<>();
   }
 
   /**
-   * creates a new instance with custom placeholder
+   * Creates a new instance of LongHeaderFilter with a custom placeholder.
    *
-   * @param placeholder String
-   * @param <T> type of the data table records
-   * @return new instance
+   * @param <T> The type of data in the DataTable.
+   * @param placeholder The custom placeholder to display in the filter.
+   * @return A new instance of LongHeaderFilter with a custom placeholder.
    */
   public static <T> LongHeaderFilter<T> create(String placeholder) {
     return new LongHeaderFilter<>(placeholder);
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Gets the HTML input element used in the header filter.
+   *
+   * @return The HTML input element.
+   */
   @Override
   protected HTMLInputElement getInputElement() {
     return longBox.getInputElement().element();
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Creates the LongBox value box for the header filter.
+   *
+   * @return The LongBox value box.
+   */
   @Override
   protected LongBox createValueBox() {
     this.longBox = LongBox.create();
     return this.longBox;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Checks if the header filter input is empty.
+   *
+   * @return {@code true} if the input is empty, {@code false} otherwise.
+   */
   @Override
   protected boolean isEmpty() {
     return this.longBox.isEmptyIgnoreSpaces();
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Gets the value of the header filter input as a string.
+   *
+   * @return The value of the input as a string.
+   */
   @Override
   protected String getValue() {
     return this.longBox.getValue() + "";
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Gets the type of the header filter, which is LONG.
+   *
+   * @return The filter type as FilterTypes.LONG.
+   */
   @Override
   protected FilterTypes getType() {
     return FilterTypes.LONG;
   }
 
-  /** {@inheritDoc} */
+  /** Clears the header filter by resetting the input. */
   @Override
   public void clear() {
     longBox.withPausedChangeListeners(
@@ -104,11 +123,10 @@ public class LongHeaderFilter<T> extends DelayedHeaderFilterInput<LongBox, T, Lo
         });
   }
 
-  /** @return the {@link LongBox} wrapped in this component */
   /**
-   * Getter for the field <code>longBox</code>.
+   * Gets the LongBox value box used in the header filter.
    *
-   * @return a {@link org.dominokit.domino.ui.forms.LongBox} object
+   * @return The LongBox value box.
    */
   public LongBox getLongBox() {
     return longBox;

@@ -17,22 +17,38 @@ package org.dominokit.domino.ui.elements;
 
 import elemental2.dom.HTMLTableSectionElement;
 
-/** TBodyElement class. */
+/**
+ * Represents an HTML <tbody> (table body) element wrapper.
+ *
+ * <p>The HTML <tbody> element is used to group a set of table rows (<tr>) together in a table. It
+ * is often used to separate the header and footer sections of a table from the main content. This
+ * class provides a Java-based way to create, manipulate, and control the behavior of <tbody>
+ * elements in web applications. Example usage:
+ *
+ * <pre>
+ * HTMLTableSectionElement tbodyElement = ...;  // Obtain a <tbody> element from somewhere
+ * TBodyElement tbody = TBodyElement.of(tbodyElement);
+ * </pre>
+ *
+ * @see <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/tbody">MDN Web Docs
+ *     (tbody)</a>
+ */
 public class TBodyElement extends BaseElement<HTMLTableSectionElement, TBodyElement> {
+
   /**
-   * of.
+   * Creates a new {@link TBodyElement} instance by wrapping the provided HTML <tbody> element.
    *
-   * @param e a {@link elemental2.dom.HTMLTableSectionElement} object
-   * @return a {@link org.dominokit.domino.ui.elements.TBodyElement} object
+   * @param e The HTML <tbody> element to wrap.
+   * @return A new {@link TBodyElement} instance wrapping the provided element.
    */
   public static TBodyElement of(HTMLTableSectionElement e) {
     return new TBodyElement(e);
   }
 
   /**
-   * Constructor for TBodyElement.
+   * Constructs a {@link TBodyElement} instance by wrapping the provided HTML <tbody> element.
    *
-   * @param element a {@link elemental2.dom.HTMLTableSectionElement} object
+   * @param element The HTML <tbody> element to wrap.
    */
   public TBodyElement(HTMLTableSectionElement element) {
     super(element);

@@ -13,15 +13,21 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package org.dominokit.domino.ui.datatable.plugins.tree;
 
-/** TreeNodeChildrenAware interface. */
+/**
+ * An interface to indicate whether a specific item in a tree structure has children.
+ *
+ * @param <T> The type of items in the tree.
+ */
 public interface TreeNodeChildrenAware<T> {
+
   /**
-   * hasChildren.
+   * Checks if the specified item has children.
    *
-   * @param record a T object
-   * @return a boolean
+   * @param record The item to check for children.
+   * @return {@code true} if the item has children, {@code false} otherwise.
    */
   boolean hasChildren(T record);
 }

@@ -13,35 +13,44 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package org.dominokit.domino.ui.datatable.events;
 
-/** This event will be fired when the date table bordered is changed */
+/**
+ * The {@code TableBorderedEvent} class represents an event that occurs when toggling the border of
+ * a DataTable.
+ */
 public class TableBorderedEvent implements TableEvent {
 
-  /** A constant string to define a unique type for this event */
+  /** The event type for the table bordered event. */
   public static final String TABLE_BORDERED_EVENT = "table-bordered-event";
 
+  /** A flag indicating whether the table is bordered or not. */
   private final boolean bordered;
 
   /**
-   * Constructor for TableBorderedEvent.
+   * Constructs a new {@code TableBorderedEvent} with the specified bordered flag.
    *
-   * @param bordered a boolean
+   * @param bordered {@code true} if the table should have borders, {@code false} otherwise
    */
   public TableBorderedEvent(boolean bordered) {
     this.bordered = bordered;
   }
 
   /**
-   * isBordered.
+   * Checks if the table is bordered.
    *
-   * @return a boolean
+   * @return {@code true} if the table is bordered, {@code false} otherwise
    */
   public boolean isBordered() {
     return bordered;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Retrieves the type of this event.
+   *
+   * @return the event type
+   */
   @Override
   public String getType() {
     return TABLE_BORDERED_EVENT;

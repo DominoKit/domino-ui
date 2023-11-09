@@ -149,7 +149,28 @@
     display: list-item;
 }
 
-.dui.dui-hidden {
+.dui.dui-hidden,
+.dui.dui-block.dui-hidden,
+.dui.dui-block-full.dui-hidden,
+.dui.dui-inline-block.dui-hidden,
+.dui.dui-inline.dui-hidden,
+.dui.dui-flex.dui-hidden,
+.dui.dui-inline-flex.dui-hidden,
+.dui.dui-table.dui-hidden,
+.dui.dui-inline-table.dui-hidden,
+.dui.dui-table-caption.dui-hidden,
+.dui.dui-table-cell.dui-hidden,
+.dui.dui-table-column.dui-hidden,
+.dui.dui-table-column-group.dui-hidden,
+.dui.dui-table-footer-group.dui-hidden,
+.dui.dui-table-header-group.dui-hidden,
+.dui.dui-table-row-group.dui-hidden,
+.dui.dui-table-row.dui-hidden,
+.dui.dui-flow-root.dui-hidden,
+.dui.dui-grid.dui-hidden,
+.dui.dui-inline-grid.dui-hidden,
+.dui.dui-contents.dui-hidden,
+.dui.dui-list-item.dui-hidden {
     display: none;
 }
 

@@ -18,35 +18,66 @@ package org.dominokit.domino.ui.style;
 import elemental2.dom.Element;
 import org.dominokit.domino.ui.IsElement;
 
-/** NoneCss class. */
+/**
+ * An implementation of the {@link CssClass} interface that represents an empty or "none" CSS class.
+ * This class does not apply any CSS class to an element and always returns an empty string as the
+ * CSS class name.
+ */
 public class NoneCss implements CssClass {
-  /** {@inheritDoc} */
+
+  /**
+   * Retrieves an empty string as the CSS class name.
+   *
+   * @return An empty string.
+   */
   @Override
   public String getCssClass() {
     return "";
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Applies no CSS class to the specified DOM element.
+   *
+   * @param element The DOM element to which no CSS class is applied.
+   */
   @Override
   public void apply(Element element) {}
 
-  /** {@inheritDoc} */
+  /**
+   * Indicates that no CSS class is applied to the specified DOM element.
+   *
+   * @param element The DOM element to check for the presence of CSS classes.
+   * @return Always returns {@code false}.
+   */
   @Override
   public boolean isAppliedTo(Element element) {
     return false;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Indicates that no CSS class is applied to the specified IsElement instance.
+   *
+   * @param element The IsElement instance to check for the presence of CSS classes.
+   * @return Always returns {@code false}.
+   */
   @Override
   public boolean isAppliedTo(IsElement<?> element) {
     return false;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Removes no CSS class from the specified DOM element.
+   *
+   * @param element The DOM element from which no CSS class is removed.
+   */
   @Override
   public void remove(Element element) {}
 
-  /** {@inheritDoc} */
+  /**
+   * Removes no CSS class from the specified IsElement instance.
+   *
+   * @param element The IsElement instance from which no CSS class is removed.
+   */
   @Override
   public void remove(IsElement<?> element) {}
 }

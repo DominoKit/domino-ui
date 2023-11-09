@@ -17,25 +17,28 @@ package org.dominokit.domino.ui.datatable.plugins.column;
 
 import org.dominokit.domino.ui.datatable.plugins.PluginConfig;
 
-/** ResizeColumnsConfig class. */
+/**
+ * Configuration class for the ResizeColumnsPlugin, which allows users to configure the behavior of
+ * column resizing.
+ */
 public class ResizeColumnsConfig implements PluginConfig {
 
   private boolean clipContent = false;
 
   /**
-   * isClipContent.
+   * Checks if content clipping is enabled for column resizing.
    *
-   * @return a boolean
+   * @return {@code true} if content clipping is enabled, {@code false} otherwise.
    */
   public boolean isClipContent() {
     return clipContent;
   }
 
   /**
-   * Setter for the field <code>clipContent</code>.
+   * Sets whether to enable content clipping during column resizing.
    *
-   * @param clipContent a boolean
-   * @return a {@link org.dominokit.domino.ui.datatable.plugins.column.ResizeColumnsConfig} object
+   * @param clipContent {@code true} to enable content clipping, {@code false} to disable it.
+   * @return The ResizeColumnsConfig instance with the updated configuration.
    */
   public ResizeColumnsConfig setClipContent(boolean clipContent) {
     this.clipContent = clipContent;

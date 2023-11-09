@@ -13,56 +13,67 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package org.dominokit.domino.ui.datepicker;
 
 import java.util.Date;
 import org.gwtproject.i18n.shared.DateTimeFormat;
 import org.gwtproject.i18n.shared.cldr.DateTimeFormatInfo;
 
-/** DateFormatter interface. */
+/**
+ * Represents a formatter for handling date values. This interface allows the parsing and formatting
+ * of date strings based on specific patterns and localization information.
+ *
+ * <p><b>Usage Example:</b>
+ *
+ * <pre>
+ * DateTimeFormatInfo formatInfo = ...; // Get appropriate format info
+ * String formattedDate = DateFormatter.DEFAULT.format("yyyy-MM-dd", formatInfo, new Date());
+ * </pre>
+ */
 public interface DateFormatter {
 
-  /** Constant <code>DEFAULT</code> */
+  /** A default formatter instance for general use. */
   DateFormatter DEFAULT = new DefaultFormatter();
 
   /**
-   * parse the date string with strict formatting, if the date string does not match the date
-   * pattern this method should throw {@link java.lang.IllegalArgumentException}
+   * Parses the provided date string using the specified pattern and date-time format information.
+   * This method is strict and will throw exceptions if the format isn't strictly adhered to.
    *
-   * @param pattern String date pattern
-   * @param dtfi {@link org.gwtproject.i18n.shared.cldr.DateTimeFormatInfo}
-   * @param dateString String date value
-   * @return Date
+   * @param pattern The date pattern to use.
+   * @param dtfi The date-time format information.
+   * @param dateString The date string to parse.
+   * @return A parsed Date object.
    */
   Date parseStrict(String pattern, DateTimeFormatInfo dtfi, String dateString);
 
   /**
-   * parse the date string and produce a {@link java.util.Date} object
+   * Parses the provided date string using the specified pattern and date-time format information.
    *
-   * @param pattern String date pattern
-   * @param dtfi {@link org.gwtproject.i18n.shared.cldr.DateTimeFormatInfo}
-   * @param dateString String date value
-   * @return Date
+   * @param pattern The date pattern to use.
+   * @param dtfi The date-time format information.
+   * @param dateString The date string to parse.
+   * @return A parsed Date object.
    */
   Date parse(String pattern, DateTimeFormatInfo dtfi, String dateString);
 
   /**
-   * Convert a date object into a date string with the specified pattern and {@link
-   * DateTimeFormatInfo}
+   * Formats the provided date based on the specified pattern and date-time format information.
    *
-   * @param pattern String date pattern
-   * @param dtfi {@link org.gwtproject.i18n.shared.cldr.DateTimeFormatInfo}
-   * @param date {@link java.util.Date}
-   * @return String formatted date
+   * @param pattern The date pattern to use.
+   * @param dtfi The date-time format information.
+   * @param date The date to format.
+   * @return A formatted date string.
    */
   String format(String pattern, DateTimeFormatInfo dtfi, Date date);
 
   /**
-   * An internal implementation of the {@link DateFormatter} that used GWT {@link DateTimeFormat} to
-   * format and parse the date.
+   * Default implementation of the {@link DateFormatter} interface, which utilizes the {@link
+   * DateTimeFormat} for its operations.
    */
   class DefaultFormatter extends DateTimeFormat implements DateFormatter {
 
+    /** Constructs the default formatter based on the predefined short date format. */
     protected DefaultFormatter() {
       super(DateTimeFormat.getFormat(PredefinedFormat.DATE_SHORT).getPattern());
     }
@@ -72,11 +83,13 @@ public interface DateFormatter {
     public Date parseStrict(String pattern, DateTimeFormatInfo dtfi, String value) {
       return getFormat(pattern, dtfi).parseStrict(value);
     }
+
     /** {@inheritDoc} */
     @Override
     public Date parse(String pattern, DateTimeFormatInfo dtfi, String value) {
       return getFormat(pattern, dtfi).parse(value);
     }
+
     /** {@inheritDoc} */
     @Override
     public String format(String pattern, DateTimeFormatInfo dtfi, Date date) {

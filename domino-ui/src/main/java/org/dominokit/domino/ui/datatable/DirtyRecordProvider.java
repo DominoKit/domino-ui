@@ -13,22 +13,23 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package org.dominokit.domino.ui.datatable;
 
 /**
- * Implementations of this interface should return a dirty copy of a record from data table row to
- * be used for editable data tables, all changes applied to the dirty record will be reflected to
- * the original record if saved or will be reverted if the edit is canceled
+ * The {@code DirtyRecordProvider} functional interface defines a contract for creating a dirty
+ * (modified) record based on the original record.
  *
- * @param <T> the type of the data table records
+ * @param <T> The type of data representing the records in the data table.
  */
 @FunctionalInterface
 public interface DirtyRecordProvider<T> {
+
   /**
-   * createDirtyRecord.
+   * Creates a dirty (modified) record based on the original record.
    *
-   * @param original T the original record from the table row
-   * @return T a copy of the original record.
+   * @param original The original record that needs to be modified.
+   * @return The modified (dirty) record.
    */
   T createDirtyRecord(T original);
 }

@@ -32,7 +32,11 @@ import org.dominokit.domino.ui.elements.DivElement;
 import org.dominokit.domino.ui.utils.DominoElement;
 import org.gwtproject.timer.client.Timer;
 
-/** Adds the required events to add waves for a target element */
+/**
+ * Provides a ripple (or "wave") effect on a given DOM element.
+ *
+ * <p>The ripple effect is typically used in material design to indicate user interaction.
+ */
 public class Waves implements IsElement<Element> {
 
   private final DivElement target;
@@ -44,18 +48,21 @@ public class Waves implements IsElement<Element> {
   private final WavesEventListener wavesEventListener = new WavesEventListener();
 
   /**
-   * Constructor for Waves.
+   * Constructs a wave effect wrapper for a given target.
    *
-   * @param target a {@link elemental2.dom.Element} object
+   * @param target The DOM element on which the ripple effect will be applied.
    */
   public Waves(Element target) {
     this(elements.elementOf(target));
   }
 
   /**
-   * Constructor for Waves.
+   * Constructs a wave effect wrapper for a given {@link DominoElement}.
    *
-   * @param target a {@link org.dominokit.domino.ui.utils.DominoElement} object
+   * <p>This constructor wraps the target in a sentinel div which is then used to handle the ripple
+   * effect. The sentinel div is appended as a child to the target element.
+   *
+   * @param target The {@link DominoElement} on which the ripple effect will be applied.
    */
   public Waves(DominoElement<? extends Element> target) {
     this.target = elements.div().addCss("dui-wave-sentinel");
@@ -63,33 +70,41 @@ public class Waves implements IsElement<Element> {
   }
 
   /**
-   * Creates waves for a specific target element
+   * Factory method for creating a wave effect for a given target.
    *
-   * @param target the {@link elemental2.dom.Element} to add waves to
-   * @return new instance
+   * @param target The DOM element target.
+   * @return A new {@link Waves} instance.
    */
   public static Waves create(Element target) {
     return new Waves(target);
   }
 
   /**
-   * Creates waves for a specific target element
+   * Factory method to create a {@link Waves} instance for a given {@link DominoElement}.
    *
-   * @param target the {@link org.dominokit.domino.ui.utils.DominoElement} to add waves to
-   * @return new instance
+   * <p>This method provides a more expressive way to construct a `Waves` object compared to using
+   * the direct constructor.
+   *
+   * @param target The {@link DominoElement} on which the ripple effect will be applied.
+   * @return A new {@link Waves} instance associated with the provided target.
    */
   public static Waves create(DominoElement<? extends Element> target) {
     return new Waves(target);
   }
 
-  /** Initialize the required event listeners for waves */
+  /** Initializes the wave effect on the target. */
   public void initWaves() {
     if (isTargetDisabled()) return;
 
     target.addEventListener(mousedown.getName(), wavesEventListener);
   }
 
-  /** Removes the event listeners that adds waves */
+  /**
+   * Removes the wave (ripple) effect from the target element.
+   *
+   * <p>This method detaches the wave event listener from the target and subsequently removes the
+   * sentinel div (used for the ripple effect) from the DOM.
+   */
   public void removeWaves() {
     target.removeEventListener(mousedown.getName(), wavesEventListener);
     this.target.remove();
@@ -157,6 +172,7 @@ public class Waves implements IsElement<Element> {
     private double left = 0;
   }
 
+  /** Represents an event listener to trigger and manage the wave effect on the target. */
   private final class WavesEventListener implements EventListener {
 
     @Override

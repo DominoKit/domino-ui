@@ -18,7 +18,10 @@ package org.dominokit.domino.ui.icons;
 import java.util.ArrayList;
 import java.util.List;
 
-/** Meta data for a {@link org.dominokit.domino.ui.icons.MdiIcon} */
+/**
+ * Represents metadata for a Material Design Icon (MDI). This class contains information about the
+ * icon's name, codepoint, aliases, tags, author, and version.
+ */
 public class MdiMeta {
 
   private final String name;
@@ -29,14 +32,14 @@ public class MdiMeta {
   private final String version;
 
   /**
-   * Constructor for MdiMeta.
+   * Constructs an instance of {@code MdiMeta} with the specified metadata.
    *
-   * @param name a {@link java.lang.String} object
-   * @param codepoint a {@link java.lang.String} object
-   * @param aliases a {@link java.util.List} object
-   * @param tags a {@link java.util.List} object
-   * @param author a {@link java.lang.String} object
-   * @param version a {@link java.lang.String} object
+   * @param name The name of the MDI icon.
+   * @param codepoint The codepoint representing the icon in Unicode.
+   * @param aliases A list of aliases for the icon.
+   * @param tags A list of tags associated with the icon.
+   * @param author The author or source of the icon.
+   * @param version The version of the icon.
    */
   public MdiMeta(
       String name,
@@ -53,65 +56,65 @@ public class MdiMeta {
     this.version = version;
   }
 
+  /**
+   * Constructs an instance of {@code MdiMeta} with the specified name. This constructor initializes
+   * the other metadata fields with empty values or empty lists.
+   *
+   * @param name The name of the MDI icon.
+   */
   MdiMeta(String name) {
     this(name, "", new ArrayList<>(), new ArrayList<>(), "", "");
   }
 
-  /** @return the name of the icon */
   /**
-   * Getter for the field <code>name</code>.
+   * Gets the name of the MDI icon.
    *
-   * @return a {@link java.lang.String} object
+   * @return The name of the icon.
    */
   public String getName() {
     return name;
   }
 
-  /** @return The code point of the icon */
   /**
-   * Getter for the field <code>codepoint</code>.
+   * Gets the Unicode codepoint representing the MDI icon.
    *
-   * @return a {@link java.lang.String} object
+   * @return The codepoint as a string.
    */
   public String getCodepoint() {
     return codepoint;
   }
 
-  /** @return the list of aliases of the icon */
   /**
-   * Getter for the field <code>aliases</code>.
+   * Gets a list of aliases for the MDI icon.
    *
-   * @return a {@link java.util.List} object
+   * @return A list of alias names.
    */
   public List<String> getAliases() {
     return aliases;
   }
 
-  /** @return The list of the tags */
   /**
-   * Getter for the field <code>tags</code>.
+   * Gets a list of tags associated with the MDI icon.
    *
-   * @return a {@link java.util.List} object
+   * @return A list of tag names.
    */
   public List<String> getTags() {
     return tags;
   }
 
-  /** @return The author */
   /**
-   * Getter for the field <code>author</code>.
+   * Gets the author or source of the MDI icon.
    *
-   * @return a {@link java.lang.String} object
+   * @return The author's name or source information.
    */
   public String getAuthor() {
     return author;
   }
 
-  /** @return The version */
   /**
-   * Getter for the field <code>version</code>.
+   * Gets the version of the MDI icon.
    *
-   * @return a {@link java.lang.String} object
+   * @return The icon's version information.
    */
   public String getVersion() {
     return version;

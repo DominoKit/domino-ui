@@ -5,7 +5,7 @@
 
     <groupId>org.dominokit</groupId>
     <artifactId>domino-ui-parent</artifactId>
-    <version>2.0.0-RC3</version>
+    <version>2.0.0-RC4</version>
     <packaging>pom</packaging>
 
     <name>domino-ui-parent</name>
@@ -68,9 +68,9 @@
 
     <properties>
         <snapshot.version>HEAD-SNAPSHOT</snapshot.version>
-        <next.release.version>2.0.0-RC3</next.release.version>
-        <maven.compiler.source>1.8</maven.compiler.source>
-        <maven.compiler.target>1.8</maven.compiler.target>
+        <next.release.version>2.0.0-RC4</next.release.version>
+        <maven.compiler.source>11</maven.compiler.source>
+        <maven.compiler.target>11</maven.compiler.target>
 
         <maven.compiler.plugin>3.11.0</maven.compiler.plugin>
         <maven.source.plugin>3.0.1</maven.source.plugin>
@@ -85,8 +85,9 @@
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <elemental2.version>1.1.0</elemental2.version>
         <gwt.version>2.10.0</gwt.version>
-        <jackson.apt.version>1.0.0-RC3</jackson.apt.version>
+        <jackson.apt.version>1.0.0</jackson.apt.version>
         <gwt.i18n.version>1.0.1</gwt.i18n.version>
+        <domino.doc.tool.version>1.0.0</domino.doc.tool.version>
     </properties>
 
     <dependencyManagement>
@@ -150,7 +151,7 @@
             <dependency>
                 <groupId>com.google.guava</groupId>
                 <artifactId>guava</artifactId>
-                <version>31.0.1-jre</version>
+                <version>32.0.1-jre</version>
             </dependency>
             <dependency>
                 <groupId>org.dominokit</groupId>
@@ -195,7 +196,7 @@
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>${maven.compiler.plugin}</version>
                 <configuration>
-                    <release>8</release>
+                    <release>11</release>
                 </configuration>
             </plugin>
             <plugin>
@@ -217,14 +218,43 @@
                 <version>${maven.javadoc.plugin}</version>
                 <configuration>
                     <failOnError>false</failOnError>
-                    <source>8</source>
+                    <release>11</release>
                 </configuration>
                 <executions>
+                    <execution>
+                        <id>site-docs</id>
+                        <goals>
+                            <goal>jar</goal>
+                        </goals>
+                        <configuration>
+                            <doclet>org.dominokit.doctool.DominoDocsDoclet</doclet>
+
+                            <!-- <docletPath>/path/to/doccheck.jar</docletPath> -->
+                            <docletArtifact>
+                                <groupId>org.dominokit</groupId>
+                                <artifactId>domino-doc-tool</artifactId>
+                                <version>${domino.doc.tool.version}</version>
+                            </docletArtifact>
+                            <useStandardDocletOptions>false</useStandardDocletOptions>
+                            <additionalOptions>
+                                <additionalOption>-duidocsdir</additionalOption>
+                                <additionalOption>'${project.build.directory}/apidocs/'</additionalOption>
+                                <additionalOption>-duidocsurl</additionalOption>
+                                <additionalOption>'https://www.javadoc.io/doc/org.dominokit/domino-ui/latest/'</additionalOption>
+                            </additionalOptions>
+                            <destDir>${project.build.directory}/sitedocs/</destDir>
+                        </configuration>
+                    </execution>
                     <execution>
                         <id>attach-javadocs</id>
                         <goals>
                             <goal>jar</goal>
                         </goals>
+                        <configuration>
+                            <addStylesheets>
+                                <addStylesheet>docs/jdocs.css</addStylesheet>
+                            </addStylesheets>
+                        </configuration>
                     </execution>
                 </executions>
             </plugin>

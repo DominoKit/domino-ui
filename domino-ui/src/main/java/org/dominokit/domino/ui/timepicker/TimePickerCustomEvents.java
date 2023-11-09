@@ -20,20 +20,18 @@ import elemental2.dom.CustomEventInit;
 import jsinterop.base.Js;
 import jsinterop.base.JsPropertyMap;
 
+/** Utility class for creating and handling custom events related to time picker. */
 class TimePickerCustomEvents {
 
-  /**
-   * Constant <code>DUI_TIMEPICKER_TIME_SELECTION_CHANGED="dui-timepicker-time-selection-changed"
-   * </code>
-   */
+  /** The name of the custom event for time selection change. */
   public static final String DUI_TIMEPICKER_TIME_SELECTION_CHANGED =
       "dui-timepicker-time-selection-changed";
 
   /**
-   * timeSelectionChanged.
+   * Creates a custom event for time selection change.
    *
-   * @param timestamp a {@link java.lang.Long} object
-   * @return a {@link elemental2.dom.CustomEvent} object
+   * @param timestamp The timestamp representing the selected time.
+   * @return A custom event for time selection change.
    */
   public static CustomEvent<JsPropertyMap<Double>> timeSelectionChanged(Long timestamp) {
     CustomEventInit<JsPropertyMap<Double>> initOptions = Js.uncheckedCast(CustomEventInit.create());
@@ -45,6 +43,7 @@ class TimePickerCustomEvents {
     return new CustomEvent<>(DUI_TIMEPICKER_TIME_SELECTION_CHANGED, initOptions);
   }
 
+  /** A data class to hold the data from a custom event related to time selection change. */
   public static class UpdateTimeEventData {
 
     private final long timestamp;
@@ -54,10 +53,21 @@ class TimePickerCustomEvents {
       this.timestamp = detail.get("timestamp").longValue();
     }
 
+    /**
+     * Creates an instance of UpdateTimeEventData from a custom event.
+     *
+     * @param event The custom event.
+     * @return An instance of UpdateTimeEventData.
+     */
     public static UpdateTimeEventData of(CustomEvent<?> event) {
       return new UpdateTimeEventData(Js.uncheckedCast(event));
     }
 
+    /**
+     * Gets the timestamp representing the selected time.
+     *
+     * @return The timestamp.
+     */
     public long getTimestamp() {
       return timestamp;
     }

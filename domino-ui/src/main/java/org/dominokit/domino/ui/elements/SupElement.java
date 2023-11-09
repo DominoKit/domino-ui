@@ -17,22 +17,39 @@ package org.dominokit.domino.ui.elements;
 
 import elemental2.dom.HTMLElement;
 
-/** SupElement class. */
+/**
+ * Represents an HTML <sup> element wrapper.
+ *
+ * <p>The HTML <sup> element is used to specify text that should be displayed as superscript.
+ * Superscript text appears half a character above the normal line, and is often smaller than the
+ * surrounding text. Superscript text is typically used for footnotes or exponent numbers. This
+ * class provides a Java-based way to create, manipulate, and control the behavior of <sup> elements
+ * in web applications. Example usage:
+ *
+ * <pre>
+ * HTMLElement supElement = ...;  // Obtain a <sup> element from somewhere
+ * SupElement sup = SupElement.of(supElement);
+ * </pre>
+ *
+ * @see <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/sup">MDN Web Docs
+ *     (sup)</a>
+ */
 public class SupElement extends BaseElement<HTMLElement, SupElement> {
+
   /**
-   * of.
+   * Creates a new {@link SupElement} instance by wrapping the provided HTML <sup> element.
    *
-   * @param e a {@link elemental2.dom.HTMLElement} object
-   * @return a {@link org.dominokit.domino.ui.elements.SupElement} object
+   * @param e The HTML <sup> element to wrap.
+   * @return A new {@link SupElement} instance wrapping the provided element.
    */
   public static SupElement of(HTMLElement e) {
     return new SupElement(e);
   }
 
   /**
-   * Constructor for SupElement.
+   * Constructs a {@link SupElement} instance by wrapping the provided HTML <sup> element.
    *
-   * @param element a {@link elemental2.dom.HTMLElement} object
+   * @param element The HTML <sup> element to wrap.
    */
   public SupElement(HTMLElement element) {
     super(element);

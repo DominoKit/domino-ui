@@ -13,6 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package org.dominokit.domino.ui.datatable.events;
 
 import java.util.List;
@@ -21,50 +22,41 @@ import org.dominokit.domino.ui.datatable.model.Category;
 import org.dominokit.domino.ui.datatable.model.Filter;
 
 /**
- * This event is fired when ever the search filters of the data table are changed, it is fired from
- * the following locations :
+ * The {@code SearchEvent} class represents an event that is fired when a search is performed in a
+ * DataTable.
  *
- * <p>{@link org.dominokit.domino.ui.datatable.store.LocalListDataStore}
- *
- * <p>{@link org.dominokit.domino.ui.datatable.store.LocalListScrollingDataSource}
- *
- * <p>{@link org.dominokit.domino.ui.datatable.store.SearchFilter}
- *
- * <p>{@link org.dominokit.domino.ui.datatable.model.SearchContext}
+ * @see org.dominokit.domino.ui.datatable.events.TableEvent
  */
 public class SearchEvent implements TableEvent {
 
-  /** A constant string to define a unique type for this event */
   public static final String SEARCH_EVENT = "table-search";
 
+  /** A list of filters associated with the search event. */
   private final List<Filter> filters;
 
-  /** @param filters the {@link List} of {@link Filter}s that are being applied */
   /**
-   * Constructor for SearchEvent.
+   * Constructs a new {@code SearchEvent} with the specified list of filters.
    *
-   * @param filters a {@link java.util.List} object
+   * @param filters a list of filters
    */
   public SearchEvent(List<Filter> filters) {
     this.filters = filters;
   }
 
-  /** @return the {@link List} of {@link Filter}s that are being applied */
   /**
-   * Getter for the field <code>filters</code>.
+   * Retrieves the list of filters associated with this search event.
    *
-   * @return a {@link java.util.List} object
+   * @return the list of filters
    */
   public List<Filter> getFilters() {
     return filters;
   }
 
   /**
-   * getByCategory.
+   * Retrieves a list of filters by their category.
    *
-   * @param category {@link org.dominokit.domino.ui.datatable.model.Category}
-   * @return a List of {@link org.dominokit.domino.ui.datatable.model.Filter}s of the specified
-   *     category
+   * @param category the category to filter by
+   * @return a list of filters that belong to the specified category
    */
   public List<Filter> getByCategory(Category category) {
     return filters.stream()
@@ -72,7 +64,11 @@ public class SearchEvent implements TableEvent {
         .collect(Collectors.toList());
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Retrieves the type of this event.
+   *
+   * @return the event type
+   */
   @Override
   public String getType() {
     return SEARCH_EVENT;

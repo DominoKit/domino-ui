@@ -13,12 +13,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package org.dominokit.domino.ui.datatable.plugins.tree.store;
 
 import org.dominokit.domino.ui.datatable.events.SearchEvent;
 import org.dominokit.domino.ui.datatable.events.SortEvent;
 
-/** TreeNodeStoreContext class. */
 public class TreeNodeStoreContext<T> {
 
   private final T parent;
@@ -26,11 +26,12 @@ public class TreeNodeStoreContext<T> {
   private final SortEvent<T> lastSort;
 
   /**
-   * Constructor for TreeNodeStoreContext.
+   * Constructs a TreeNodeStoreContext with the provided parent, last search event, and last sort
+   * event.
    *
-   * @param parent a T object
-   * @param lastSearch a {@link org.dominokit.domino.ui.datatable.events.SearchEvent} object
-   * @param lastSort a {@link org.dominokit.domino.ui.datatable.events.SortEvent} object
+   * @param parent The parent node for which children are being fetched.
+   * @param lastSearch The last search event that occurred.
+   * @param lastSort The last sort event that occurred.
    */
   public TreeNodeStoreContext(T parent, SearchEvent lastSearch, SortEvent<T> lastSort) {
     this.parent = parent;
@@ -39,27 +40,27 @@ public class TreeNodeStoreContext<T> {
   }
 
   /**
-   * Getter for the field <code>parent</code>.
+   * Gets the parent node for which children are being fetched.
    *
-   * @return a T object
+   * @return The parent node.
    */
   public T getParent() {
     return parent;
   }
 
   /**
-   * Getter for the field <code>lastSearch</code>.
+   * Gets the last search event that occurred.
    *
-   * @return a {@link org.dominokit.domino.ui.datatable.events.SearchEvent} object
+   * @return The last search event.
    */
   public SearchEvent getLastSearch() {
     return lastSearch;
   }
 
   /**
-   * Getter for the field <code>lastSort</code>.
+   * Gets the last sort event that occurred.
    *
-   * @return a {@link org.dominokit.domino.ui.datatable.events.SortEvent} object
+   * @return The last sort event.
    */
   public SortEvent<T> getLastSort() {
     return lastSort;

@@ -13,6 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package org.dominokit.domino.ui.datatable.plugins.filter.header;
 
 import elemental2.dom.HTMLElement;
@@ -25,27 +26,28 @@ import org.dominokit.domino.ui.datatable.plugins.column.ColumnHeaderFilterPlugin
 import org.dominokit.domino.ui.forms.TimeBox;
 
 /**
- * Date column header filter component that is rendered as a {@link
- * org.dominokit.domino.ui.forms.TimeBox} component
+ * The {@code TimeHeaderFilter} class provides a header filter for filtering time values in a
+ * DataTable.
  *
- * @param <T> type of data table records
+ * @param <T> The type of data in the DataTable.
  */
 public class TimeHeaderFilter<T> implements ColumnHeaderFilterPlugin.HeaderFilter<T> {
 
   private TimeBox timeBox;
 
   /**
-   * Static factory to create a new instance
+   * Creates a new instance of {@code TimeHeaderFilter} with the default placeholder text "Search".
    *
-   * @param <T> the type of the data table records
-   * @return new instance
+   * @return A new {@code TimeHeaderFilter} instance.
    */
   public static <T> TimeHeaderFilter<T> create() {
     return new TimeHeaderFilter<>();
   }
 
-  /** @see TimeHeaderFilter#create() */
-  /** Constructor for TimeHeaderFilter. */
+  /**
+   * Creates a new instance of {@code TimeHeaderFilter} with the default placeholder text "Search".
+   * The created instance allows users to filter time values in a DataTable.
+   */
   public TimeHeaderFilter() {
     this.timeBox =
         TimeBox.create()
@@ -62,17 +64,23 @@ public class TimeHeaderFilter<T> implements ColumnHeaderFilterPlugin.HeaderFilte
                 });
   }
 
-  /** @return the {@link TimeBox} wrapped in this filter component */
   /**
-   * Getter for the field <code>timeBox</code>.
+   * Gets the TimeBox element used in the header filter.
    *
-   * @return a {@link org.dominokit.domino.ui.forms.TimeBox} object
+   * @return The TimeBox element configured for filtering time values.
    */
   public TimeBox getTimeBox() {
     return timeBox;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Initializes the header filter by adding a BeforeSearchHandler and a change listener. When the
+   * search is performed, it adds a filter based on the selected time value or removes the filter if
+   * the TimeBox is empty.
+   *
+   * @param searchContext The search context of the DataTable.
+   * @param columnConfig The column configuration of the DataTable.
+   */
   @Override
   public void init(SearchContext<T> searchContext, ColumnConfig<T> columnConfig) {
     searchContext.addBeforeSearchHandler(
@@ -91,7 +99,7 @@ public class TimeHeaderFilter<T> implements ColumnHeaderFilterPlugin.HeaderFilte
     timeBox.addChangeListener((oldValue, value) -> searchContext.fireSearchEvent());
   }
 
-  /** {@inheritDoc} */
+  /** Clears the header filter by invoking the clear method on the TimeBox element. */
   @Override
   public void clear() {
     timeBox.withPausedChangeListeners(
@@ -100,7 +108,11 @@ public class TimeHeaderFilter<T> implements ColumnHeaderFilterPlugin.HeaderFilte
         });
   }
 
-  /** {@inheritDoc} */
+  /**
+   * @dominokit-site-ignore {@inheritDoc} Gets the HTMLElement representing the header filter
+   *     element, which is the TimeBox element.
+   * @return The TimeBox element used for filtering time values in the header.
+   */
   @Override
   public HTMLElement element() {
     return timeBox.element();

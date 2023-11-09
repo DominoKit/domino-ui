@@ -23,7 +23,12 @@ import elemental2.dom.HTMLElement;
 import elemental2.dom.HTMLStyleElement;
 import java.util.Optional;
 
-/** DynamicStyleSheet class. */
+/**
+ * Represents a dynamic style sheet that can be used to create and manage CSS rules dynamically.
+ *
+ * @param <E> The type of the HTML element.
+ * @param <D> The type of the Domino UI element.
+ */
 public class DynamicStyleSheet<E extends HTMLElement, D extends BaseDominoElement<E, D>> {
 
   private final String cssPrefix;
@@ -33,10 +38,10 @@ public class DynamicStyleSheet<E extends HTMLElement, D extends BaseDominoElemen
   private DominoStyleSheet dominoStyleSheet = new DominoStyleSheet();
 
   /**
-   * Constructor for DynamicStyleSheet.
+   * Constructs a new {@code DynamicStyleSheet} instance.
    *
-   * @param cssPrefix a {@link java.lang.String} object
-   * @param target a D object
+   * @param cssPrefix The CSS prefix to use for the dynamic stylesheet.
+   * @param target The target Domino UI element to associate the stylesheet with.
    */
   public DynamicStyleSheet(String cssPrefix, D target) {
     this.cssPrefix = cssPrefix;
@@ -49,16 +54,16 @@ public class DynamicStyleSheet<E extends HTMLElement, D extends BaseDominoElemen
     target.addCss(cssPrefix + target.getDominoId());
   }
 
-  /** flush. */
+  /** Flushes the dynamic stylesheet into the associated {@code HTMLStyleElement}. */
   public void flush() {
     dominoStyleSheet.flushInto(styleElement);
   }
 
   /**
-   * insertRule.
+   * Inserts a new CSS rule into the dynamic stylesheet.
    *
-   * @param cssClass a {@link java.lang.String} object
-   * @return a {@link org.dominokit.domino.ui.utils.DominoCSSRule} object
+   * @param cssClass The CSS class name for the rule.
+   * @return The {@code DominoCSSRule} instance representing the inserted rule.
    */
   public DominoCSSRule insertRule(String cssClass) {
     String ruleName = cssPrefix + cssClass;
@@ -71,37 +76,37 @@ public class DynamicStyleSheet<E extends HTMLElement, D extends BaseDominoElemen
   }
 
   /**
-   * removeRule.
+   * Removes a CSS rule from the dynamic stylesheet.
    *
-   * @param cssRule a {@link org.dominokit.domino.ui.utils.DominoCSSRule} object
+   * @param cssRule The {@code DominoCSSRule} instance representing the rule to remove.
    */
   public void removeRule(DominoCSSRule cssRule) {
     dominoStyleSheet.removeRule(cssRule);
   }
 
   /**
-   * Getter for the field <code>styleElement</code>.
+   * Gets the {@code HTMLStyleElement} associated with this dynamic stylesheet.
    *
-   * @return a {@link elemental2.dom.HTMLStyleElement} object
+   * @return The {@code HTMLStyleElement} instance.
    */
   public HTMLStyleElement getStyleElement() {
     return styleElement;
   }
 
   /**
-   * Getter for the field <code>styleSheet</code>.
+   * Gets the {@code CSSStyleSheet} associated with this dynamic stylesheet.
    *
-   * @return a {@link elemental2.dom.CSSStyleSheet} object
+   * @return The {@code CSSStyleSheet} instance.
    */
   public CSSStyleSheet getStyleSheet() {
     return styleSheet;
   }
 
   /**
-   * getCssStyleRule.
+   * Retrieves a CSS rule from the dynamic stylesheet based on its selector.
    *
-   * @param selector a {@link java.lang.String} object
-   * @return a {@link java.util.Optional} object
+   * @param selector The CSS selector to search for.
+   * @return An optional {@code DominoCSSRule} instance representing the found rule (if any).
    */
   public Optional<DominoCSSRule> getCssStyleRule(String selector) {
     return dominoStyleSheet.get(selector);

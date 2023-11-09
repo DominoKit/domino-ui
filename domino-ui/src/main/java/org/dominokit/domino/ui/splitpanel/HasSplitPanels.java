@@ -15,22 +15,47 @@
  */
 package org.dominokit.domino.ui.splitpanel;
 
-/** An interface provides information about size in split panels */
+/**
+ * Represents an object that manages multiple split panels and their resizing behavior.
+ *
+ * <p>Usage example:
+ *
+ * <pre>{@code
+ * public class ResizableLayout implements HasSplitPanels {
+ *
+ *     @Override
+ *     public void onResizeStart(SplitPanel first, SplitPanel second) {
+ *         // Initialization logic when resizing starts
+ *     }
+ *
+ *     @Override
+ *     public void resizePanels(SplitPanel first, SplitPanel second, double sizeDiff) {
+ *         // Logic to adjust panel sizes
+ *     }
+ * }
+ * }</pre>
+ *
+ * <p>Any class that implements this interface should manage the behavior of split panels during
+ * resizing operations.
+ */
 public interface HasSplitPanels {
+
   /**
-   * onResizeStart.
+   * Called when the resizing of panels begins. This method can be used to perform any necessary
+   * initialization or setup before the actual resizing takes place.
    *
-   * @param first a {@link org.dominokit.domino.ui.splitpanel.SplitPanel} object
-   * @param second a {@link org.dominokit.domino.ui.splitpanel.SplitPanel} object
+   * @param first the first split panel involved in the resizing
+   * @param second the second split panel involved in the resizing
    */
   void onResizeStart(SplitPanel first, SplitPanel second);
 
   /**
-   * resizePanels.
+   * Adjusts the sizes of the provided split panels based on the difference in size specified by
+   * {@code sizeDiff}.
    *
-   * @param first a {@link org.dominokit.domino.ui.splitpanel.SplitPanel} object
-   * @param second a {@link org.dominokit.domino.ui.splitpanel.SplitPanel} object
-   * @param sizeDiff a double
+   * @param first the first split panel to be resized
+   * @param second the second split panel to be resized
+   * @param sizeDiff the difference in size to be applied during resizing
    */
   void resizePanels(SplitPanel first, SplitPanel second, double sizeDiff);
 }

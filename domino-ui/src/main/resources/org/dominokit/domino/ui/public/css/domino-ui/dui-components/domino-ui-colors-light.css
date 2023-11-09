@@ -370,6 +370,8 @@
     --dui-menu-border-color: var(--dui-clr-accent-l-3);
     --dui-dialog-header-border-color: var(--dui-accent-l-4);
     --dui-pager-active-page-color: var(--dui-clr-white);
+    --dui-pager-active-focus-page-color: var(--dui-clr-black);
+    --dui-pager-active-hover-page-color: var(--dui-clr-black);
     --dui-form-field-border-color: var(--dui-accent-l-3);
     --dui-accent-text-color: var(--dui-clr-white);
     --dui-thumbnail-border-color: var(--dui-accent-l-4);
@@ -382,6 +384,7 @@
     --dui-form-field-readonly-background: var(--dui-accent-l-5);
     --dui-form-field-readonly-border-color: var(--dui-accent-l-5);
     --dui-form-field-readonly-color: var(--dui-color-1);
+    --dui-form-field-placeholder-color: var(--dui-color-4);
     --dui-file-upload-background: var(--dui-accent-l-5);
     --dui-calender-select-bg: var(--dui-accent-l-5);
     --dui-calender-select-hover-bg: var(--dui-accent-l-3);
@@ -397,7 +400,8 @@
     --dui-clickable-box-shadow: 0 0 0 0 rgb(0 0 0 / 40%), 0 0 0 5px rgb(0 0 0 / 8%);
     --dui-datatable-even-bg-color: var(--dui-accent-l-5);
     --dui-datatable-odd-bg-color: var(--dui-clr-white);
-    --dui-datatable-row-selected-bg-color: var(--dui-accent-l-2);
+    --dui-datatable-row-selected-bg-color: var(--dui-accent-l-4);
+    --dui-datatable-row-stripped-selected-bg-color: var(--dui-accent-l-2);
     --dui-datatable-row-hover-bg-color: var(--dui-accent-l-3);
     --dui-datatable-header-hover-bg-color: var(--dui-accent-l-5);
     --dui-datatable-border-color: var(--dui-accent-l-4);

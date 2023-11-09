@@ -18,863 +18,879 @@ package org.dominokit.domino.ui.style;
 import elemental2.dom.Element;
 import java.util.function.Predicate;
 
-/** DominoStyle interface. */
+/**
+ * Interface to represent the various CSS styles that can be applied to a DOM {@link Element}. It
+ * provides a fluent API for applying and manipulating the styles of elements.
+ *
+ * @param <E> The type of DOM element this style applies to.
+ * @param <R> The return type after applying a style, typically an instance of the element's type or
+ *     a subclass.
+ */
 public interface DominoStyle<E extends Element, R> {
+
   /**
-   * setCssProperty.
+   * Sets a CSS property with the given name and string value.
    *
-   * @param name a {@link java.lang.String} object.
-   * @param value a {@link java.lang.String} object.
-   * @return a R object.
+   * @param name The name of the CSS property.
+   * @param value The string value for the CSS property.
+   * @return The updated style.
    */
   R setCssProperty(String name, String value);
 
   /**
-   * setCssProperty.
+   * Sets a CSS property with the given name and {@link Number} value.
    *
-   * @param name a {@link java.lang.String} object.
-   * @param value a {@link java.lang.Number} object.
-   * @return a R object.
+   * @param name The name of the CSS property.
+   * @param value The {@link Number} value for the CSS property.
+   * @return The updated style.
    */
   R setCssProperty(String name, Number value);
 
   /**
-   * setCssProperty.
+   * Sets a CSS property with the given name and integer value.
    *
-   * @param name a {@link java.lang.String} object.
-   * @param value a int.
-   * @return a R object.
+   * @param name The name of the CSS property.
+   * @param value The integer value for the CSS property.
+   * @return The updated style.
    */
   R setCssProperty(String name, int value);
 
   /**
-   * setCssProperty.
+   * Sets a CSS property with the given name and double value.
    *
-   * @param name a {@link java.lang.String} object.
-   * @param value a double.
-   * @return a R object.
+   * @param name The name of the CSS property.
+   * @param value The double value for the CSS property.
+   * @return The updated style.
    */
   R setCssProperty(String name, double value);
 
   /**
-   * setCssProperty.
+   * Sets a CSS property with the given name and short value.
    *
-   * @param name a {@link java.lang.String} object.
-   * @param value a short.
-   * @return a R object.
+   * @param name The name of the CSS property.
+   * @param value The short value for the CSS property.
+   * @return The updated style.
    */
   R setCssProperty(String name, short value);
 
   /**
-   * setCssProperty.
+   * Sets a CSS property with the given name and float value.
    *
-   * @param name a {@link java.lang.String} object.
-   * @param value a float.
-   * @return a R object.
+   * @param name The name of the CSS property.
+   * @param value The float value for the CSS property.
+   * @return The updated style.
    */
   R setCssProperty(String name, float value);
 
   /**
-   * setCssProperty.
+   * Sets a CSS property with the given name and boolean value.
    *
-   * @param name a {@link java.lang.String} object.
-   * @param value a boolean.
-   * @return a R object.
+   * @param name The name of the CSS property.
+   * @param value The boolean value for the CSS property.
+   * @return The updated style.
    */
   R setCssProperty(String name, boolean value);
 
   /**
-   * setCssProperty.
+   * Sets a CSS property with the given name and value. Additionally, allows to mark the property as
+   * important.
    *
-   * @param name a {@link java.lang.String} object.
-   * @param value a {@link java.lang.String} object.
-   * @param important a boolean.
-   * @return a R object.
+   * @param name The name of the CSS property.
+   * @param value The string value for the CSS property.
+   * @param important If true, the property will be marked as important in the style.
+   * @return The updated style.
    */
   R setCssProperty(String name, String value, boolean important);
 
   /**
-   * setOrRemoveCssProperty.
+   * Sets or removes a CSS property based on the result of the provided predicate.
    *
-   * @param name a {@link java.lang.String} object.
-   * @param value a {@link java.lang.String} object.
-   * @param predicate a {@link java.util.function.Predicate} object.
-   * @return a R object.
+   * @param name The name of the CSS property.
+   * @param value The string value for the CSS property.
+   * @param predicate A predicate to determine if the property should be set or removed.
+   * @return The updated style if the predicate returns true; otherwise, the original style without
+   *     the property.
    */
   R setOrRemoveCssProperty(String name, String value, Predicate<R> predicate);
 
   /**
-   * removeCssProperty.
+   * Removes the CSS property with the given name.
    *
-   * @param name a {@link java.lang.String} object.
-   * @return a R object.
+   * @param name The name of the CSS property to be removed.
+   * @return The updated style without the specified property.
    */
   R removeCssProperty(String name);
 
   /**
-   * addCss.
+   * Adds a CSS class to the element.
    *
-   * @param cssClass a {@link java.lang.String} object.
-   * @return a R object.
+   * @param cssClass The CSS class to add.
+   * @return The updated style.
    */
   R addCss(String cssClass);
 
   /**
-   * addCss.
+   * Adds one or more CSS classes to the style.
    *
-   * @param cssClasses a {@link java.lang.String} object.
-   * @return a R object.
+   * @param cssClasses The array of CSS class names to be added.
+   * @return The updated style with the added CSS classes.
    */
   R addCss(String... cssClasses);
 
   /**
-   * addCss.
+   * Adds a CSS class to the style using a {@code CssClass} object.
    *
-   * @param cssClass a {@link org.dominokit.domino.ui.style.CssClass} object.
-   * @return a R object.
+   * @param cssClass The {@link CssClass} object representing the CSS class to be added.
+   * @return The updated style with the added CSS class.
    */
   R addCss(CssClass cssClass);
 
   /**
-   * addCss.
+   * Adds a CSS class to the style using an object that implements the {@code HasCssClass}
+   * interface.
    *
-   * @param hasCssClass a {@link org.dominokit.domino.ui.style.HasCssClass} object.
-   * @return a R object.
+   * @param hasCssClass The {@link HasCssClass} object providing the CSS class to be added.
+   * @return The updated style with the added CSS class.
    */
   R addCss(HasCssClass hasCssClass);
 
   /**
-   * addCss.
+   * Adds multiple CSS classes to the style using an array of {@code CssClass} objects.
    *
-   * @param cssClasses a {@link org.dominokit.domino.ui.style.CssClass} object.
-   * @return a R object.
+   * @param cssClasses An array of {@link CssClass} objects representing the CSS classes to be
+   *     added.
+   * @return The updated style with the added CSS classes.
    */
   R addCss(CssClass... cssClasses);
 
   /**
-   * addCss.
+   * Adds multiple CSS classes to the style using an object that implements the {@code
+   * HasCssClasses} interface.
    *
-   * @param hasCssClasses a {@link org.dominokit.domino.ui.style.HasCssClasses} object.
-   * @return a R object.
+   * @param hasCssClasses The {@link HasCssClasses} object providing the collection of CSS classes
+   *     to be added.
+   * @return The updated style with the added CSS classes.
    */
   R addCss(HasCssClasses hasCssClasses);
 
   /**
-   * removeCss.
+   * Removes a CSS class from the element.
    *
-   * @param cssClass a {@link java.lang.String} object.
-   * @return a R object.
+   * @param cssClass The CSS class to remove.
+   * @return The updated style.
    */
   R removeCss(String cssClass);
 
   /**
-   * removeCss.
+   * Removes a specific CSS class from the style using a {@code CssClass} object.
    *
-   * @param cssClass a {@link org.dominokit.domino.ui.style.CssClass} object.
-   * @return a R object.
+   * @param cssClass The {@link CssClass} object representing the CSS class to be removed.
+   * @return The updated style with the removed CSS class.
    */
   R removeCss(CssClass cssClass);
 
   /**
-   * removeCss.
+   * Removes a specific CSS class from the style using an object that implements the {@code
+   * HasCssClass} interface.
    *
-   * @param cssClass a {@link org.dominokit.domino.ui.style.HasCssClass} object.
-   * @return a R object.
+   * @param cssClass The {@link HasCssClass} object providing the CSS class to be removed.
+   * @return The updated style with the removed CSS class.
    */
   R removeCss(HasCssClass cssClass);
 
   /**
-   * removeCss.
+   * Removes multiple CSS classes from the style using an array of class names.
    *
-   * @param cssClasses a {@link java.lang.String} object.
-   * @return a R object.
+   * @param cssClasses An array of strings representing the CSS classes to be removed.
+   * @return The updated style with the removed CSS classes.
    */
   R removeCss(String... cssClasses);
 
   /**
-   * removeCss.
+   * Removes multiple CSS classes from the style using an array of {@code CssClass} objects.
    *
-   * @param cssClasses a {@link java.lang.String} object.
-   * @return a R object.
+   * @param cssClasses An array of {@link CssClass} objects representing the CSS classes to be
+   *     removed.
+   * @return The updated style with the removed CSS classes.
    */
   R removeCss(CssClass... cssClasses);
 
   /**
-   * replaceCss.
+   * Replaces a CSS class with another one.
    *
-   * @param cssClass a {@link java.lang.String} object.
-   * @param replacementClass a {@link java.lang.String} object.
-   * @return a R object.
+   * @param cssClass The CSS class to be replaced.
+   * @param replacementClass The CSS class that will replace the old one.
+   * @return The updated style.
    */
   R replaceCss(String cssClass, String replacementClass);
 
   /**
-   * setBorder.
+   * Sets the border style of the element.
    *
-   * @param border a {@link java.lang.String} object.
-   * @return a R object.
+   * @param border The border style.
+   * @return The updated style.
    */
   R setBorder(String border);
 
   /**
-   * setBorderColor.
+   * Sets the border color of the element.
    *
-   * @param borderColor a {@link java.lang.String} object.
-   * @return a R object.
+   * @param borderColor The color value for the border.
+   * @return The updated style with the set border color.
    */
   R setBorderColor(String borderColor);
 
   /**
-   * setWidth.
+   * Sets the width of the element.
    *
-   * @param width a {@link java.lang.String} object.
-   * @return a R object.
+   * @param width The width value.
+   * @return The updated style with the set width.
    */
   R setWidth(String width);
 
   /**
-   * setWidth.
+   * Sets the width of the element with the option to make it important.
    *
-   * @param width a {@link java.lang.String} object.
-   * @param important a boolean.
-   * @return a R object.
+   * @param width The width value.
+   * @param important If true, the width is set as "!important".
+   * @return The updated style with the set width.
    */
   R setWidth(String width, boolean important);
 
   /**
-   * setMinWidth.
+   * Sets the minimum width of the element.
    *
-   * @param width a {@link java.lang.String} object.
-   * @return a R object.
+   * @param width The minimum width value.
+   * @return The updated style with the set minimum width.
    */
   R setMinWidth(String width);
 
   /**
-   * setMinWidth.
+   * Sets the minimum width of the element with the option to make it important.
    *
-   * @param width a {@link java.lang.String} object.
-   * @param important a boolean.
-   * @return a R object.
+   * @param width The minimum width value.
+   * @param important If true, the minimum width is set as "!important".
+   * @return The updated style with the set minimum width.
    */
   R setMinWidth(String width, boolean important);
 
   /**
-   * setMaxWidth.
+   * Sets the maximum width of the element.
    *
-   * @param width a {@link java.lang.String} object.
-   * @return a R object.
+   * @param width The maximum width value.
+   * @return The updated style with the set maximum width.
    */
   R setMaxWidth(String width);
 
   /**
-   * setMaxWidth.
+   * Sets the maximum width of the element with the option to make it important.
    *
-   * @param width a {@link java.lang.String} object.
-   * @param important a boolean.
-   * @return a R object.
+   * @param width The maximum width value.
+   * @param important If true, the maximum width is set as "!important".
+   * @return The updated style with the set maximum width.
    */
   R setMaxWidth(String width, boolean important);
 
   /**
-   * setHeight.
+   * Sets the height of the element.
    *
-   * @param height a {@link java.lang.String} object.
-   * @return a R object.
+   * @param height The height value.
+   * @return The updated style with the set height.
    */
   R setHeight(String height);
 
   /**
-   * setHeight.
+   * Sets the height of the element with the option to make it important.
    *
-   * @param height a {@link java.lang.String} object.
-   * @param important a boolean.
-   * @return a R object.
+   * @param height The height value.
+   * @param important If true, the height is set as "!important".
+   * @return The updated style with the set height.
    */
   R setHeight(String height, boolean important);
 
   /**
-   * setMinHeight.
+   * Sets the minimum height of the element.
    *
-   * @param height a {@link java.lang.String} object.
-   * @return a R object.
+   * @param height The minimum height value.
+   * @return The updated style with the set minimum height.
    */
   R setMinHeight(String height);
 
   /**
-   * setMinHeight.
+   * Sets the minimum height of the element with the option to make it important.
    *
-   * @param height a {@link java.lang.String} object.
-   * @param important a boolean.
-   * @return a R object.
+   * @param height The minimum height value.
+   * @param important If true, the minimum height is set as "!important".
+   * @return The updated style with the set minimum height.
    */
   R setMinHeight(String height, boolean important);
 
   /**
-   * setMaxHeight.
+   * Sets the maximum height of the element.
    *
-   * @param height a {@link java.lang.String} object.
-   * @return a R object.
+   * @param height The maximum height value.
+   * @return The updated style with the set maximum height.
    */
   R setMaxHeight(String height);
 
   /**
-   * setMaxHeight.
+   * Sets the maximum height of the element with the option to make it important.
    *
-   * @param height a {@link java.lang.String} object.
-   * @param important a boolean.
-   * @return a R object.
+   * @param height The maximum height value.
+   * @param important If true, the maximum height is set as "!important".
+   * @return The updated style with the set maximum height.
    */
   R setMaxHeight(String height, boolean important);
 
   /**
-   * setTextAlign.
+   * Sets the text alignment of the element.
    *
-   * @param textAlign a {@link java.lang.String} object.
-   * @return a R object.
+   * @param textAlign The text alignment value.
+   * @return The updated style with the set text alignment.
    */
   R setTextAlign(String textAlign);
 
   /**
-   * setTextAlign.
+   * Sets the text alignment of the element with the option to make it important.
    *
-   * @param textAlign a {@link java.lang.String} object.
-   * @param important a boolean.
-   * @return a R object.
+   * @param textAlign The text alignment value.
+   * @param important If true, the text alignment is set as "!important".
+   * @return The updated style with the set text alignment.
    */
   R setTextAlign(String textAlign, boolean important);
 
   /**
-   * setColor.
+   * Sets the text color of the element.
    *
-   * @param color a {@link java.lang.String} object.
-   * @return a R object.
+   * @param color The text color value.
+   * @return The updated style with the set text color.
    */
   R setColor(String color);
 
   /**
-   * setColor.
+   * Sets the text color of the element with the option to make it important.
    *
-   * @param color a {@link java.lang.String} object.
-   * @param important a boolean.
-   * @return a R object.
+   * @param color The text color value.
+   * @param important If true, the text color is set as "!important".
+   * @return The updated style with the set text color.
    */
   R setColor(String color, boolean important);
 
   /**
-   * setBackgroundColor.
+   * Sets the background color of the element.
    *
-   * @param color a {@link java.lang.String} object.
-   * @return a R object.
+   * @param color The background color value.
+   * @return The updated style with the set background color.
    */
   R setBackgroundColor(String color);
 
   /**
-   * setBackgroundColor.
+   * Sets the background color of the element with the option to make it important.
    *
-   * @param color a {@link java.lang.String} object.
-   * @param important a boolean.
-   * @return a R object.
+   * @param color The background color value.
+   * @param important If true, the background color is set as "!important".
+   * @return The updated style with the set background color.
    */
   R setBackgroundColor(String color, boolean important);
 
   /**
-   * setMargin.
+   * Sets the margin of the element.
    *
-   * @param margin a {@link java.lang.String} object.
-   * @return a R object.
+   * @param margin The margin value.
+   * @return The updated style with the set margin.
    */
   R setMargin(String margin);
 
   /**
-   * setMargin.
+   * Sets the margin value for all sides of the element with the option to make it important.
    *
-   * @param margin a {@link java.lang.String} object.
-   * @param important a boolean.
-   * @return a R object.
+   * @param margin The margin value to set for all sides.
+   * @param important If true, the margin value is set as "!important" for all sides.
+   * @return The updated style with the set margin value for all sides.
    */
   R setMargin(String margin, boolean important);
 
   /**
-   * setMarginTop.
+   * Sets the top margin value of the element.
    *
-   * @param margin a {@link java.lang.String} object.
-   * @return a R object.
+   * @param margin The top margin value to set.
+   * @return The updated style with the set top margin value.
    */
   R setMarginTop(String margin);
 
   /**
-   * setMarginTop.
+   * Sets the top margin value of the element with the option to make it important.
    *
-   * @param margin a {@link java.lang.String} object.
-   * @param important a boolean.
-   * @return a R object.
+   * @param margin The top margin value to set.
+   * @param important If true, the top margin value is set as "!important".
+   * @return The updated style with the set top margin value.
    */
   R setMarginTop(String margin, boolean important);
 
   /**
-   * setMarginBottom.
+   * Sets the bottom margin value of the element.
    *
-   * @param margin a {@link java.lang.String} object.
-   * @return a R object.
+   * @param margin The bottom margin value to set.
+   * @return The updated style with the set bottom margin value.
    */
   R setMarginBottom(String margin);
 
   /**
-   * setMarginBottom.
+   * Sets the bottom margin value of the element with the option to make it important.
    *
-   * @param margin a {@link java.lang.String} object.
-   * @param important a boolean.
-   * @return a R object.
+   * @param margin The bottom margin value to set.
+   * @param important If true, the bottom margin value is set as "!important".
+   * @return The updated style with the set bottom margin value.
    */
   R setMarginBottom(String margin, boolean important);
 
   /**
-   * setMarginLeft.
+   * Sets the left margin value of the element.
    *
-   * @param margin a {@link java.lang.String} object.
-   * @return a R object.
+   * @param margin The left margin value to set.
+   * @return The updated style with the set left margin value.
    */
   R setMarginLeft(String margin);
 
   /**
-   * setMarginLeft.
+   * Sets the left margin value of the element with the option to make it important.
    *
-   * @param margin a {@link java.lang.String} object.
-   * @param important a boolean.
-   * @return a R object.
+   * @param margin The left margin value to set.
+   * @param important If true, the left margin value is set as "!important".
+   * @return The updated style with the set left margin value.
    */
   R setMarginLeft(String margin, boolean important);
 
   /**
-   * setMarginRight.
+   * Sets the right margin value of the element.
    *
-   * @param margin a {@link java.lang.String} object.
-   * @return a R object.
+   * @param margin The right margin value to set.
+   * @return The updated style with the set right margin value.
    */
   R setMarginRight(String margin);
 
   /**
-   * setMarginRight.
+   * Sets the right margin value of the element with the option to make it important.
    *
-   * @param margin a {@link java.lang.String} object.
-   * @param important a boolean.
-   * @return a R object.
+   * @param margin The right margin value to set.
+   * @param important If true, the right margin value is set as "!important".
+   * @return The updated style with the set right margin value.
    */
   R setMarginRight(String margin, boolean important);
 
   /**
-   * setPaddingRight.
+   * Sets the right padding of the element.
    *
-   * @param padding a {@link java.lang.String} object.
-   * @return a R object.
+   * @param padding The padding value for the right side.
+   * @return The updated style with the set right padding.
    */
   R setPaddingRight(String padding);
 
   /**
-   * setPaddingRight.
+   * Sets the right padding of the element with the option to make it important.
    *
-   * @param padding a {@link java.lang.String} object.
-   * @param important a boolean.
-   * @return a R object.
+   * @param padding The padding value for the right side.
+   * @param important If true, the right padding is set as "!important".
+   * @return The updated style with the set right padding.
    */
   R setPaddingRight(String padding, boolean important);
 
   /**
-   * setPaddingLeft.
+   * Sets the left padding value of the element.
    *
-   * @param padding a {@link java.lang.String} object.
-   * @return a R object.
+   * @param padding The left padding value to set.
+   * @return The updated style with the set left padding value.
    */
   R setPaddingLeft(String padding);
 
   /**
-   * setPaddingLeft.
+   * Sets the left padding value of the element with the option to make it important.
    *
-   * @param padding a {@link java.lang.String} object.
-   * @param important a boolean.
-   * @return a R object.
+   * @param padding The left padding value to set.
+   * @param important If true, the left padding value is set as "!important".
+   * @return The updated style with the set left padding value.
    */
   R setPaddingLeft(String padding, boolean important);
 
   /**
-   * setPaddingBottom.
+   * Sets the bottom padding value of the element.
    *
-   * @param padding a {@link java.lang.String} object.
-   * @return a R object.
+   * @param padding The bottom padding value to set.
+   * @return The updated style with the set bottom padding value.
    */
   R setPaddingBottom(String padding);
 
   /**
-   * setPaddingBottom.
+   * Sets the bottom padding value of the element with the option to make it important.
    *
-   * @param padding a {@link java.lang.String} object.
-   * @param important a boolean.
-   * @return a R object.
+   * @param padding The bottom padding value to set.
+   * @param important If true, the bottom padding value is set as "!important".
+   * @return The updated style with the set bottom padding value.
    */
   R setPaddingBottom(String padding, boolean important);
 
   /**
-   * setPaddingTop.
+   * Sets the top padding value of the element.
    *
-   * @param padding a {@link java.lang.String} object.
-   * @return a R object.
+   * @param padding The top padding value to set.
+   * @return The updated style with the set top padding value.
    */
   R setPaddingTop(String padding);
 
   /**
-   * setPaddingTop.
+   * Sets the top padding value of the element with the option to make it important.
    *
-   * @param padding a {@link java.lang.String} object.
-   * @param important a boolean.
-   * @return a R object.
+   * @param padding The top padding value to set.
+   * @param important If true, the top padding value is set as "!important".
+   * @return The updated style with the set top padding value.
    */
   R setPaddingTop(String padding, boolean important);
 
   /**
-   * setPadding.
+   * Sets the padding value for all sides of the element.
    *
-   * @param padding a {@link java.lang.String} object.
-   * @return a R object.
+   * @param padding The padding value to set for all sides.
+   * @return The updated style with the set padding value.
    */
   R setPadding(String padding);
 
   /**
-   * setPadding.
+   * Sets the padding value for all sides of the element with the option to make it important.
    *
-   * @param padding a {@link java.lang.String} object.
-   * @param important a boolean.
-   * @return a R object.
+   * @param padding The padding value to set for all sides.
+   * @param important If true, the padding value is set as "!important".
+   * @return The updated style with the set padding value.
    */
   R setPadding(String padding, boolean important);
 
   /**
-   * setDisplay.
+   * Sets the display property of the element.
    *
-   * @param display a {@link java.lang.String} object.
-   * @return a R object.
+   * @param display The value for the display property.
+   * @return The updated style with the set display property.
    */
   R setDisplay(String display);
 
   /**
-   * setDisplay.
+   * Sets the display property of the element with the option to make it important.
    *
-   * @param display a {@link java.lang.String} object.
-   * @param important a boolean.
-   * @return a R object.
+   * @param display The value for the display property.
+   * @param important If true, the display property is set as "!important".
+   * @return The updated style with the set display property.
    */
   R setDisplay(String display, boolean important);
 
   /**
-   * setFontSize.
+   * Sets the font size property of the element.
    *
-   * @param fontSize a {@link java.lang.String} object.
-   * @return a R object.
+   * @param fontSize The value for the font size property.
+   * @return The updated style with the set font size property.
    */
   R setFontSize(String fontSize);
 
   /**
-   * setFontSize.
+   * Sets the font size property of the element with the option to make it important.
    *
-   * @param fontSize a {@link java.lang.String} object.
-   * @param important a boolean.
-   * @return a R object.
+   * @param fontSize The value for the font size property.
+   * @param important If true, the font size property is set as "!important".
+   * @return The updated style with the set font size property.
    */
   R setFontSize(String fontSize, boolean important);
 
   /**
-   * setFloat.
+   * Sets the CSS float property of the element.
    *
-   * @param cssFloat a {@link java.lang.String} object.
-   * @return a R object.
+   * @param cssFloat The value for the CSS float property.
+   * @return The updated style with the set CSS float property.
    */
   R setFloat(String cssFloat);
 
   /**
-   * setFloat.
+   * Sets the CSS float property of the element with the option to make it important.
    *
-   * @param cssFloat a {@link java.lang.String} object.
-   * @param important a boolean.
-   * @return a R object.
+   * @param cssFloat The value for the CSS float property.
+   * @param important If true, the CSS float property is set as "!important".
+   * @return The updated style with the set CSS float property.
    */
   R setFloat(String cssFloat, boolean important);
 
   /**
-   * setLineHeight.
+   * Sets the line height property of the element.
    *
-   * @param lineHeight a {@link java.lang.String} object.
-   * @return a R object.
+   * @param lineHeight The value for the line height property.
+   * @return The updated style with the set line height property.
    */
   R setLineHeight(String lineHeight);
 
   /**
-   * setLineHeight.
+   * Sets the line height property of the element with the option to make it important.
    *
-   * @param lineHeight a {@link java.lang.String} object.
-   * @param important a boolean.
-   * @return a R object.
+   * @param lineHeight The value for the line height property.
+   * @param important If true, the line height property is set as "!important".
+   * @return The updated style with the set line height property.
    */
   R setLineHeight(String lineHeight, boolean important);
 
   /**
-   * setOverFlow.
+   * Sets the overflow property of the element.
    *
-   * @param overFlow a {@link java.lang.String} object.
-   * @return a R object.
+   * @param overFlow The value for the overflow property.
+   * @return The updated style with the set overflow property.
    */
   R setOverFlow(String overFlow);
 
   /**
-   * setOverFlow.
+   * Sets the overflow property of the element with the option to make it important.
    *
-   * @param overFlow a {@link java.lang.String} object.
-   * @param important a boolean.
-   * @return a R object.
+   * @param overFlow The value for the overflow property.
+   * @param important If true, the overflow property is set as "!important".
+   * @return The updated style with the set overflow property.
    */
   R setOverFlow(String overFlow, boolean important);
 
   /**
-   * setCursor.
+   * Sets the cursor property of the element.
    *
-   * @param cursor a {@link java.lang.String} object.
-   * @return a R object.
+   * @param cursor The value for the cursor property.
+   * @return The updated style with the set cursor property.
    */
   R setCursor(String cursor);
 
   /**
-   * setCursor.
+   * Sets the cursor property of the element with the option to make it important.
    *
-   * @param cursor a {@link java.lang.String} object.
-   * @param important a boolean.
-   * @return a R object.
+   * @param cursor The value for the cursor property.
+   * @param important If true, the cursor property is set as "!important".
+   * @return The updated style with the set cursor property.
    */
   R setCursor(String cursor, boolean important);
 
   /**
-   * setPosition.
+   * Sets the position property of the element.
    *
-   * @param position a {@link java.lang.String} object.
-   * @return a R object.
+   * @param position The value for the position property.
+   * @return The updated style with the set position property.
    */
   R setPosition(String position);
 
   /**
-   * setPosition.
+   * Sets the position property of the element with the option to make it important.
    *
-   * @param position a {@link java.lang.String} object.
-   * @param important a boolean.
-   * @return a R object.
+   * @param position The value for the position property.
+   * @param important If true, the position property is set as "!important".
+   * @return The updated style with the set position property.
    */
   R setPosition(String position, boolean important);
 
   /**
-   * setLeft.
+   * Sets the left property of the element.
    *
-   * @param left a {@link java.lang.String} object.
-   * @return a R object.
+   * @param left The value for the left property.
+   * @return The updated style with the set left property.
    */
   R setLeft(String left);
 
   /**
-   * setLeft.
+   * Sets the left property of the element with the option to make it important.
    *
-   * @param left a {@link java.lang.String} object.
-   * @param important a boolean.
-   * @return a R object.
+   * @param left The value for the left property.
+   * @param important If true, the left property is set as "!important".
+   * @return The updated style with the set left property.
    */
   R setLeft(String left, boolean important);
 
   /**
-   * setRight.
+   * Sets the right property of the element.
    *
-   * @param right a {@link java.lang.String} object.
-   * @return a R object.
+   * @param right The value for the right property.
+   * @return The updated style with the set right property.
    */
   R setRight(String right);
 
   /**
-   * setRight.
+   * Sets the right property of the element with the option to make it important.
    *
-   * @param right a {@link java.lang.String} object.
-   * @param important a boolean.
-   * @return a R object.
+   * @param right The value for the right property.
+   * @param important If true, the right property is set as "!important".
+   * @return The updated style with the set right property.
    */
   R setRight(String right, boolean important);
 
   /**
-   * setTop.
+   * Sets the top property of the element.
    *
-   * @param top a {@link java.lang.String} object.
-   * @return a R object.
+   * @param top The value for the top property.
+   * @return The updated style with the set top property.
    */
   R setTop(String top);
 
   /**
-   * setTop.
+   * Sets the top property of the element with the option to make it important.
    *
-   * @param top a {@link java.lang.String} object.
-   * @param important a boolean.
-   * @return a R object.
+   * @param top The value for the top property.
+   * @param important If true, the top property is set as "!important".
+   * @return The updated style with the set top property.
    */
   R setTop(String top, boolean important);
 
   /**
-   * setBottom.
+   * Sets the bottom property of the element.
    *
-   * @param bottom a {@link java.lang.String} object.
-   * @return a R object.
+   * @param bottom The value for the bottom property.
+   * @return The updated style with the set bottom property.
    */
   R setBottom(String bottom);
 
   /**
-   * setBottom.
+   * Sets the bottom property of the element with the option to make it important.
    *
-   * @param bottom a {@link java.lang.String} object.
-   * @param important a boolean.
-   * @return a R object.
+   * @param bottom The value for the bottom property.
+   * @param important If true, the bottom property is set as "!important".
+   * @return The updated style with the set bottom property.
    */
   R setBottom(String bottom, boolean important);
 
   /**
-   * setZIndex.
+   * Sets the z-index property of the element.
    *
-   * @param zindex a int.
-   * @return a R object.
+   * @param zIndex The value for the z-index property.
+   * @return The updated style with the set z-index property.
    */
   R setZIndex(int zindex);
 
   /**
-   * setOpacity.
+   * Sets the opacity property of the element.
    *
-   * @param opacity a double.
-   * @return a R object.
+   * @param opacity The value for the opacity property (a double between 0.0 and 1.0).
+   * @return The updated style with the set opacity property.
    */
   R setOpacity(double opacity);
 
   /**
-   * setOpacity.
+   * Sets the opacity property of the element with the option to make it important.
    *
-   * @param opacity a double.
-   * @param important a boolean.
-   * @return a R object.
+   * @param opacity The value for the opacity property (a double between 0.0 and 1.0).
+   * @param important If true, the opacity property is set as "!important".
+   * @return The updated style with the set opacity property.
    */
   R setOpacity(double opacity, boolean important);
 
   /**
-   * containsCss.
+   * Checks if the element contains a given CSS class.
    *
-   * @param cssClass a {@link java.lang.String} object.
-   * @return a boolean.
+   * @param cssClass The CSS class to check for.
+   * @return true if the element contains the given CSS class, false otherwise.
    */
   boolean containsCss(String cssClass);
 
   /**
-   * alignCenter.
+   * Aligns the element's content to the center.
    *
-   * @return a R object.
+   * @return The updated style with content aligned to the center.
    */
   R alignCenter();
 
   /**
-   * alignRight.
+   * Aligns the element's content to the right.
    *
-   * @return a R object.
+   * @return The updated style with content aligned to the right.
    */
   R alignRight();
 
   /**
-   * cssText.
+   * Sets the CSS text for the element.
    *
-   * @param cssText a {@link java.lang.String} object.
-   * @return a R object.
+   * @param cssText The CSS text to set for the element.
+   * @return The updated style with the specified CSS text.
    */
   R cssText(String cssText);
 
   /**
-   * cssClassesCount.
+   * Returns the count of CSS classes applied to the element.
    *
-   * @return a int.
+   * @return The count of CSS classes applied.
    */
   int cssClassesCount();
 
   /**
-   * cssClassByIndex.
+   * Returns the CSS class at the specified index applied to the element.
    *
-   * @param index a int.
-   * @return a {@link java.lang.String} object.
+   * @param index The index of the CSS class to retrieve.
+   * @return The CSS class at the specified index.
    */
   String cssClassByIndex(int index);
 
   /**
-   * setPointerEvents.
+   * Sets the pointer-events property for the element.
    *
-   * @param pointerEvents a {@link java.lang.String} object.
-   * @return a R object.
+   * @param pointerEvents The value for the pointer-events property.
+   * @return The updated style with the set pointer-events property.
    */
   R setPointerEvents(String pointerEvents);
 
   /**
-   * setAlignItems.
+   * Sets the align-items property for the element.
    *
-   * @param alignItems a {@link java.lang.String} object.
-   * @return a R object.
+   * @param alignItems The value for the align-items property.
+   * @return The updated style with the set align-items property.
    */
   R setAlignItems(String alignItems);
 
   /**
-   * setOverFlowY.
+   * Sets the overflow-y property for the element.
    *
-   * @param overflow a {@link java.lang.String} object.
-   * @return a R object.
+   * @param overflow The value for the overflow-y property.
+   * @return The updated style with the set overflow-y property.
    */
   R setOverFlowY(String overflow);
 
   /**
-   * setOverFlowY.
+   * Sets the overflow-y property for the element with the option to make it important.
    *
-   * @param overflow a {@link java.lang.String} object.
-   * @param important a boolean.
-   * @return a R object.
+   * @param overflow The value for the overflow-y property.
+   * @param important If true, the overflow-y property is set as "!important".
+   * @return The updated style with the set overflow-y property.
    */
   R setOverFlowY(String overflow, boolean important);
 
   /**
-   * setOverFlowX.
+   * Sets the overflow-x property for the element.
    *
-   * @param overflow a {@link java.lang.String} object.
-   * @return a R object.
+   * @param overflow The value for the overflow-x property.
+   * @return The updated style with the set overflow-x property.
    */
   R setOverFlowX(String overflow);
 
   /**
-   * setOverFlowX.
+   * Sets the overflow-x property for the element with the option to make it important.
    *
-   * @param overflow a {@link java.lang.String} object.
-   * @param important a boolean.
-   * @return a R object.
+   * @param overflow The value for the overflow-x property.
+   * @param important If true, the overflow-x property is set as "!important".
+   * @return The updated style with the set overflow-x property.
    */
   R setOverFlowX(String overflow, boolean important);
 
   /**
-   * setBoxShadow.
+   * Sets the box-shadow property for the element.
    *
-   * @param boxShadow a {@link java.lang.String} object.
-   * @return a R object.
+   * @param boxShadow The value for the box-shadow property.
+   * @return The updated style with the set box-shadow property.
    */
   R setBoxShadow(String boxShadow);
 
   /**
-   * setTransitionDuration.
+   * Sets the transition-duration property for the element.
    *
-   * @param transactionDuration a {@link java.lang.String} object.
-   * @return a R object.
+   * @param transactionDuration The value for the transition-duration property.
+   * @return The updated style with the set transition-duration property.
    */
   R setTransitionDuration(String transactionDuration);
 
   /**
-   * setFlex.
+   * Sets the flex property for the element.
    *
-   * @param flex a {@link java.lang.String} object.
-   * @return a R object.
+   * @param flex The value for the flex property.
+   * @return The updated style with the set flex property.
    */
   R setFlex(String flex);
 }

@@ -23,18 +23,15 @@ import org.dominokit.domino.ui.icons.Icon;
  * a simple button component
  *
  * <p>this class provide a set of factory methods to create simple buttons with different styles and
- * a combination of a text and icon. example
+ * a combination of a text and icon.
  */
 public class Button extends BaseButton<HTMLButtonElement, Button> {
 
-  /**
-   * creates a Button without a text and with {@link
-   * org.dominokit.domino.ui.style.Elevation#LEVEL_1}
-   */
+  /** Creates an empty button */
   public Button() {}
 
   /**
-   * create a Button with a text and with {@link org.dominokit.domino.ui.style.Elevation#LEVEL_1}
+   * create a Button with a text.
    *
    * @param text String, the button text
    */
@@ -43,7 +40,7 @@ public class Button extends BaseButton<HTMLButtonElement, Button> {
   }
 
   /**
-   * creates a Button with an icon and {@link org.dominokit.domino.ui.style.Elevation#LEVEL_1}
+   * Creates a Button with an icon
    *
    * @param icon The button icon
    */
@@ -52,17 +49,17 @@ public class Button extends BaseButton<HTMLButtonElement, Button> {
   }
 
   /**
-   * Constructor for Button.
+   * Creates button with text and icon
    *
-   * @param text a {@link java.lang.String} object
-   * @param icon a {@link org.dominokit.domino.ui.icons.Icon} object
+   * @param text The button text
+   * @param icon The button icon
    */
   public Button(String text, Icon<?> icon) {
     super(text, icon);
   }
 
   /**
-   * creats a Button using {@link org.dominokit.domino.ui.button.Button#Button()}
+   * Factory method to create empty button
    *
    * @return new Button instance
    */
@@ -71,9 +68,9 @@ public class Button extends BaseButton<HTMLButtonElement, Button> {
   }
 
   /**
-   * create a button using {@link org.dominokit.domino.ui.button.Button#Button(String)}
+   * Factory method to create a button with a text.
    *
-   * @param text String button text
+   * @param text The button text
    * @return new Button instance
    */
   public static Button create(String text) {
@@ -81,10 +78,9 @@ public class Button extends BaseButton<HTMLButtonElement, Button> {
   }
 
   /**
-   * creates a Button with an icon by calling {@link
-   * org.dominokit.domino.ui.button.Button#Button(Icon)}
+   * Factory method to create a button with an icon.
    *
-   * @param icon {@link org.dominokit.domino.ui.icons.Icon}, the button icon
+   * @param icon the button icon
    * @return new Button instance
    */
   public static Button create(Icon<?> icon) {
@@ -92,30 +88,28 @@ public class Button extends BaseButton<HTMLButtonElement, Button> {
   }
 
   /**
-   * creates a Button with an icon by calling {@link
-   * org.dominokit.domino.ui.button.Button#Button(Icon)}
+   * Factory method to create button with a text and icon.
    *
-   * @param icon {@link org.dominokit.domino.ui.icons.Icon}, the button icon
-   * @return new Button instance
    * @param text a {@link java.lang.String} object
+   * @param icon the button icon
+   * @return new Button instance
    */
   public static Button create(String text, Icon<?> icon) {
     return new Button(text, icon);
   }
 
   /**
-   * creates a Button with an icon by calling {@link
-   * org.dominokit.domino.ui.button.Button#Button(Icon)}
+   * Factory method to create button with a text and icon.
    *
-   * @param icon {@link org.dominokit.domino.ui.icons.Icon}, the button icon
-   * @return new Button instance
+   * @param icon the button icon
    * @param text a {@link java.lang.String} object
+   * @return new Button instance
    */
   public static Button create(Icon<?> icon, String text) {
     return new Button(text, icon);
   }
 
-  /** {@inheritDoc} */
+  /** @dominokit-site-ignore {@inheritDoc} */
   @Override
   protected ButtonElement createButtonElement() {
     return button();

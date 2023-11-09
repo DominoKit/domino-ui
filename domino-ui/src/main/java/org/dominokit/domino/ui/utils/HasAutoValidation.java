@@ -13,48 +13,50 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package org.dominokit.domino.ui.utils;
 
 import org.dominokit.domino.ui.forms.AutoValidator;
 import org.gwtproject.editor.client.Editor;
 
 /**
- * Components that need to use the auto validation feature should implement this interface
+ * The {@code HasAutoValidation} interface defines methods for enabling and configuring
+ * auto-validation behavior for an object of type {@code T}.
  *
- * @param <T> the type of the class implementing this interface
+ * @param <T> The type on which auto-validation can be configured and performed.
  */
 public interface HasAutoValidation<T> {
 
   /**
-   * setAutoValidation.
+   * Sets whether auto-validation should be enabled for the object of type {@code T}.
    *
-   * @param autoValidation boolean, true to enable auto validation, false to disable it
-   * @return T the instance of the implementing class
+   * @param autoValidation {@code true} to enable auto-validation, {@code false} to disable it.
+   * @return The modified object of type {@code T} with auto-validation configured.
    */
   @Editor.Ignore
   T setAutoValidation(boolean autoValidation);
 
-  /** @return boolean, true if auto validation is enabled, otherwise false */
   /**
-   * isAutoValidation.
+   * Checks if auto-validation is currently enabled for the object of type {@code T}.
    *
-   * @return a boolean
+   * @return {@code true} if auto-validation is enabled, {@code false} otherwise.
    */
   @Editor.Ignore
   boolean isAutoValidation();
 
   /**
-   * autoValidate.
+   * Manually triggers the auto-validation process for the object of type {@code T}.
    *
-   * @return a T object
+   * @return The modified object of type {@code T} after auto-validation.
    */
   T autoValidate();
 
   /**
-   * Create an AutoValidator that will automatically validate the component when it loses focus
+   * Creates an instance of {@link AutoValidator} with the provided {@code autoValidate} function,
+   * which can be used to perform custom auto-validation logic.
    *
-   * @param autoValidate {@link org.dominokit.domino.ui.utils.ApplyFunction}
-   * @return same component instance
+   * @param autoValidate The {@link ApplyFunction} representing the custom auto-validation logic.
+   * @return An {@link AutoValidator} instance for custom auto-validation.
    */
   AutoValidator createAutoValidator(ApplyFunction autoValidate);
 }

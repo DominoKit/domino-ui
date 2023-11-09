@@ -13,81 +13,121 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package org.dominokit.domino.ui.utils;
 
 import java.util.function.Supplier;
 import org.dominokit.domino.ui.IsElement;
 
-/** NullLazyChild class. */
+/**
+ * The {@code NullLazyChild} class represents a lazy-initialized child element that always returns
+ * null. This class is typically used when you need a placeholder or null object for a child
+ * element.
+ *
+ * @param <T> The type of child element.
+ */
 public class NullLazyChild<T extends IsElement<?>> extends LazyChild<T> {
 
   /**
-   * of.
+   * Creates a new instance of {@code NullLazyChild}.
    *
-   * @param <T> a T class
-   * @return a {@link org.dominokit.domino.ui.utils.NullLazyChild} object
+   * @param <T> The type of child element.
+   * @return A new instance of {@code NullLazyChild}.
    */
   public static <T extends IsElement<?>> NullLazyChild<T> of() {
     return new NullLazyChild<T>();
   }
 
-  /** Constructor for NullLazyChild. */
+  /**
+   * Constructs a new {@code NullLazyChild} instance with a null child element and a null parent
+   * supplier.
+   */
   public NullLazyChild() {
     super((T) null, (Supplier<IsElement<?>>) null);
   }
 
   /**
-   * get.
+   * Always returns null. This method is used to obtain the child element, which is always null in
+   * this case.
    *
-   * @return a T object
+   * @return Always returns null.
    */
   public T get() {
     return null;
   }
 
   /**
-   * remove.
+   * Returns the current instance of {@code NullLazyChild}. No action is performed.
    *
-   * @return a {@link org.dominokit.domino.ui.utils.NullLazyChild} object
+   * @return The current instance of {@code NullLazyChild}.
    */
   public NullLazyChild<T> remove() {
     return this;
   }
 
   /**
-   * element.
+   * Always returns null. This method is used to obtain the child element, which is always null in
+   * this case.
    *
-   * @return a T object
+   * @return Always returns null.
    */
   public T element() {
     return null;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Overrides the {@code onReset} method and returns the current instance of {@code NullLazyChild}.
+   * No action is performed.
+   *
+   * @param function A lambda function that is not used.
+   * @return The current instance of {@code NullLazyChild}.
+   */
   @Override
   public LazyChild<T> onReset(LambdaFunction function) {
     return this;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Overrides the {@code doOnce} method and returns the current instance of {@code NullLazyChild}.
+   * No action is performed.
+   *
+   * @param function A lambda function that is not used.
+   * @return The current instance of {@code NullLazyChild}.
+   */
   @Override
   public LazyChild<T> doOnce(LambdaFunction function) {
     return this;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Overrides the {@code whenInitialized} method and returns the current instance of {@code
+   * NullLazyChild}. No action is performed.
+   *
+   * @param functions An array of lambda functions that are not used.
+   * @return The current instance of {@code NullLazyChild}.
+   */
   @Override
   public LazyChild<T> whenInitialized(LambdaFunction... functions) {
     return this;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Always returns {@code false}. This method is used to check if the lazy child is initialized,
+   * which is never the case here.
+   *
+   * @return Always returns {@code false}.
+   */
   @Override
   public boolean isInitialized() {
     return false;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Returns the current instance of {@code NullLazyChild}. No action is performed.
+   *
+   * @param state A boolean value (true or false) that is not used.
+   * @return The current instance of {@code NullLazyChild}.
+   */
   public NullLazyChild<T> initOrRemove(boolean state) {
     return this;
   }

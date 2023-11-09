@@ -17,22 +17,36 @@ package org.dominokit.domino.ui.elements;
 
 import elemental2.dom.HTMLElement;
 
-/** AddressElement class. */
+/**
+ * Represents an address HTML element (`<address>`) wrapper.
+ *
+ * <p>This class provides a convenient way to create and manipulate the address HTML element.
+ * Example usage:
+ *
+ * <pre>
+ * HTMLElement htmlElement = ...;  // Obtain an address element from somewhere
+ * AddressElement addressElement = AddressElement.of(htmlElement);
+ * </pre>
+ *
+ * @see <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/address">MDN Web Docs
+ *     (address element)</a>
+ */
 public class AddressElement extends BaseElement<HTMLElement, AddressElement> {
+
   /**
-   * of.
+   * Creates a new {@link AddressElement} by wrapping the provided HTML element.
    *
-   * @param e a {@link elemental2.dom.HTMLElement} object
-   * @return a {@link org.dominokit.domino.ui.elements.AddressElement} object
+   * @param e The address HTML element.
+   * @return A new {@link AddressElement} that wraps the provided element.
    */
   public static AddressElement of(HTMLElement e) {
     return new AddressElement(e);
   }
 
   /**
-   * Constructor for AddressElement.
+   * Constructs an {@link AddressElement} by wrapping the provided address HTML element.
    *
-   * @param element a {@link elemental2.dom.HTMLElement} object
+   * @param element The address HTML element to wrap.
    */
   public AddressElement(HTMLElement element) {
     super(element);

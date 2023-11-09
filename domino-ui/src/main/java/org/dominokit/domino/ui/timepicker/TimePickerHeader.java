@@ -21,7 +21,13 @@ import org.dominokit.domino.ui.elements.DivElement;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
 import org.dominokit.domino.ui.utils.ChildHandler;
 
-/** TimePickerHeader class. */
+/**
+ * The header component for a time picker.
+ *
+ * <p>This component displays the selected time and updates it when the time selection changes.
+ *
+ * @see BaseDominoElement
+ */
 public class TimePickerHeader extends BaseDominoElement<HTMLDivElement, TimePickerHeader>
     implements TimePickerStyles, TimePickerViewListener {
 
@@ -30,9 +36,9 @@ public class TimePickerHeader extends BaseDominoElement<HTMLDivElement, TimePick
   private final DivElement formattedTimeElement;
 
   /**
-   * Constructor for TimePickerHeader.
+   * Constructs a new TimePickerHeader for the given time picker.
    *
-   * @param timePicker a {@link org.dominokit.domino.ui.timepicker.IsTimePicker} object
+   * @param timePicker The time picker associated with this header.
    */
   public TimePickerHeader(IsTimePicker timePicker) {
     this.timePicker = timePicker;
@@ -47,33 +53,41 @@ public class TimePickerHeader extends BaseDominoElement<HTMLDivElement, TimePick
   }
 
   /**
-   * create.
+   * Creates a new TimePickerHeader for the given time picker.
    *
-   * @param timePicker a {@link org.dominokit.domino.ui.timepicker.IsTimePicker} object
-   * @return a {@link org.dominokit.domino.ui.timepicker.TimePickerHeader} object
+   * @param timePicker The time picker associated with this header.
+   * @return A new TimePickerHeader instance.
    */
   public static TimePickerHeader create(IsTimePicker timePicker) {
     return new TimePickerHeader(timePicker);
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Updates the displayed time when the time selection view is updated.
+   *
+   * @param date The new date and time selected.
+   */
   @Override
   public void onUpdatePickerView(Date date) {
     this.formattedTimeElement.textContent(this.timePicker.formattedTime());
   }
 
   /**
-   * withTimeTextElement.
+   * Provides a handler to customize the time text element in the header.
    *
-   * @param handler a {@link org.dominokit.domino.ui.utils.ChildHandler} object
-   * @return a {@link org.dominokit.domino.ui.timepicker.TimePickerHeader} object
+   * @param handler The handler for customizing the time text element.
+   * @return This TimePickerHeader instance.
    */
   public TimePickerHeader withTimeTextElement(ChildHandler<TimePickerHeader, DivElement> handler) {
     handler.apply(this, formattedTimeElement);
     return this;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Gets the HTMLDivElement element representing the TimePickerHeader.
+   *
+   * @return The root HTMLDivElement element.
+   */
   @Override
   public HTMLDivElement element() {
     return root.element();

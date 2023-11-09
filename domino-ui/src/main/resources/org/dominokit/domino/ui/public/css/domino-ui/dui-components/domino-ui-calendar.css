@@ -74,6 +74,9 @@
     width: 100%;
     text-align: center;
     padding: var(--dui-calendar-day-header-name-padding);
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
 }
 
 .dui-calendar-day-number {

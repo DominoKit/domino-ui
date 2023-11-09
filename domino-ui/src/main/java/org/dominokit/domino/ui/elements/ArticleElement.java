@@ -17,22 +17,36 @@ package org.dominokit.domino.ui.elements;
 
 import elemental2.dom.HTMLElement;
 
-/** ArticleElement class. */
+/**
+ * Represents an article HTML element (`<article>`) wrapper.
+ *
+ * <p>The class provides a convenient way to create, manipulate, and control the behavior of article
+ * HTML elements. Example usage:
+ *
+ * <pre>
+ * HTMLElement htmlElement = ...;  // Obtain an article element from somewhere
+ * ArticleElement articleElement = ArticleElement.of(htmlElement);
+ * </pre>
+ *
+ * @see <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/article">MDN Web Docs
+ *     (article element)</a>
+ */
 public class ArticleElement extends BaseElement<HTMLElement, ArticleElement> {
+
   /**
-   * of.
+   * Creates a new {@link ArticleElement} by wrapping the provided article HTML element.
    *
-   * @param e a {@link elemental2.dom.HTMLElement} object
-   * @return a {@link org.dominokit.domino.ui.elements.ArticleElement} object
+   * @param e The article HTML element.
+   * @return A new {@link ArticleElement} that wraps the provided element.
    */
   public static ArticleElement of(HTMLElement e) {
     return new ArticleElement(e);
   }
 
   /**
-   * Constructor for ArticleElement.
+   * Constructs an {@link ArticleElement} by wrapping the provided article HTML element.
    *
-   * @param element a {@link elemental2.dom.HTMLElement} object
+   * @param element The article HTML element to wrap.
    */
   public ArticleElement(HTMLElement element) {
     super(element);

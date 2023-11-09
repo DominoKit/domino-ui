@@ -13,6 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package org.dominokit.domino.ui.datatable.plugins.header;
 
 import static java.util.Objects.nonNull;
@@ -23,13 +24,20 @@ import org.dominokit.domino.ui.datatable.DataTable;
 import org.dominokit.domino.ui.datatable.plugins.DataTablePlugin;
 
 /**
- * This abstract plugin attach custom content to the data table top panel
+ * An abstract class that provides a plugin mechanism for adding a top panel element to a DataTable.
  *
- * @param <T> the type of the data table records
+ * @param <T> The type of data in the DataTable.
  */
 public abstract class TopPanelPlugin<T> implements DataTablePlugin<T>, IsElement<HTMLElement> {
 
-  /** {@inheritDoc} */
+  /**
+   * {@inheritDoc}
+   *
+   * <p>This method is called before adding the DataTable to the DOM. It appends the top panel
+   * element, if not null, to the DataTable's element.
+   *
+   * @param dataTable The DataTable to which this top panel belongs.
+   */
   @Override
   public void onBeforeAddTable(DataTable<T> dataTable) {
     if (nonNull(element())) {

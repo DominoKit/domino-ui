@@ -15,33 +15,45 @@
  */
 package org.dominokit.domino.ui.i18n;
 
-/** UploadLabels interface. */
+/**
+ * The {@code UploadLabels} interface provides labels and messages for file upload components.
+ *
+ * <p>Usage Example:
+ *
+ * <pre><code>
+ * UploadButton uploadButton = UploadButton.create();
+ * uploadButton.setSuccessMessage(uploadLabels.getDefaultUploadSuccessMessage());
+ * uploadButton.setCanceledMessage(uploadLabels.getDefaultUploadCanceledMessage());
+ * </code></pre>
+ *
+ * @see Labels
+ */
 public interface UploadLabels extends Labels {
 
   /**
-   * getDefaultUploadSuccessMessage.
+   * Gets the default success message for a file upload completion.
    *
-   * @return a {@link java.lang.String} object
+   * @return The default success message.
    */
   default String getDefaultUploadSuccessMessage() {
     return "Upload completed.";
   }
 
   /**
-   * getDefaultUploadCanceledMessage.
+   * Gets the default message for a canceled file upload.
    *
-   * @return a {@link java.lang.String} object
+   * @return The default canceled message.
    */
   default String getDefaultUploadCanceledMessage() {
     return "Upload canceled.";
   }
 
   /**
-   * getMaxFileErrorMessage.
+   * Gets an error message for exceeding the maximum allowed uploads.
    *
-   * @param maxFiles a int
-   * @param current a int
-   * @return a {@link java.lang.String} object
+   * @param maxFiles The maximum allowed uploads.
+   * @param current The current number of uploads.
+   * @return The error message for exceeding the maximum allowed uploads.
    */
   default String getMaxFileErrorMessage(int maxFiles, int current) {
     return "The maximum allowed uploads is : " + maxFiles + ", You have " + current;

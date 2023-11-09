@@ -15,25 +15,38 @@
  */
 package org.dominokit.domino.ui.grid;
 
-/** An enum representing the number of columns a row can have */
+/** An enumeration representing different column counts for a grid system. */
 public enum Columns {
+  /** Represents a 12-column grid system. */
   _12(12),
+
+  /** Represents a 16-column grid system. */
   _16(16),
+
+  /** Represents an 18-column grid system. */
   _18(18),
+
+  /** Represents a 24-column grid system. */
   _24(24),
+
+  /** Represents a 32-column grid system. */
   _32(32);
 
   private int count;
 
+  /**
+   * Constructs a Columns enum value with the specified column count.
+   *
+   * @param count The number of columns in the grid system.
+   */
   Columns(int count) {
     this.count = count;
   }
 
-  /** @return The number of columns */
   /**
-   * Getter for the field <code>count</code>.
+   * Gets the number of columns in the grid system represented by this enum value.
    *
-   * @return a int
+   * @return The column count.
    */
   public int getCount() {
     return count;

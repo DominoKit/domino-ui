@@ -20,49 +20,47 @@ import org.dominokit.domino.ui.elements.AnchorElement;
 import org.dominokit.domino.ui.icons.Icon;
 import org.dominokit.domino.ui.utils.ChildHandler;
 
-/** LinkButton class. */
+/**
+ * This component is a Link being rendered as a button and provide the means to set the link href
+ * attribute.
+ */
 public class LinkButton extends BaseButton<HTMLAnchorElement, LinkButton> {
 
   private AnchorElement anchorElement;
 
-  /**
-   * creates a Button without a text and with {@link
-   * org.dominokit.domino.ui.style.Elevation#LEVEL_1}
-   */
+  /** Creates an empty LinkButton */
   public LinkButton() {}
 
-  /** @param text String, the button text */
   /**
-   * Constructor for LinkButton.
+   * Creates a LinkButton with text
    *
-   * @param text a {@link java.lang.String} object
+   * @param text String, the button text
    */
   public LinkButton(String text) {
     super(text);
   }
 
-  /** @param icon The button icon */
   /**
-   * Constructor for LinkButton.
+   * Creates a LinkButton with icon
    *
-   * @param icon a {@link org.dominokit.domino.ui.icons.Icon} object
+   * @param icon The button icon
    */
   public LinkButton(Icon<?> icon) {
     super(icon);
   }
 
   /**
-   * Constructor for LinkButton.
+   * Creates a LinkButton with icon and text
    *
-   * @param icon a {@link org.dominokit.domino.ui.icons.Icon} object
-   * @param text a {@link java.lang.String} object
+   * @param icon The button icon
+   * @param text the button text
    */
   public LinkButton(Icon<?> icon, String text) {
     super(text, icon);
   }
 
   /**
-   * creats a Button using {@link org.dominokit.domino.ui.button.Button#Button()}
+   * Factory method to create an empty LinkButton
    *
    * @return new Button instance
    */
@@ -71,7 +69,7 @@ public class LinkButton extends BaseButton<HTMLAnchorElement, LinkButton> {
   }
 
   /**
-   * create a button using {@link org.dominokit.domino.ui.button.Button#Button(String)}
+   * Factory method to create a LinkButton with text
    *
    * @param text String button text
    * @return new Button instance
@@ -81,8 +79,7 @@ public class LinkButton extends BaseButton<HTMLAnchorElement, LinkButton> {
   }
 
   /**
-   * creates a Button with an icon by calling {@link
-   * org.dominokit.domino.ui.button.Button#Button(Icon)}
+   * Factory method to create a LinkButton with icon
    *
    * @param icon {@link org.dominokit.domino.ui.icons.Icon}, the button icon
    * @return new Button instance
@@ -92,33 +89,50 @@ public class LinkButton extends BaseButton<HTMLAnchorElement, LinkButton> {
   }
 
   /**
-   * creates a Button with an icon by calling {@link
-   * org.dominokit.domino.ui.button.LinkButton#LinkButton(Icon)}
+   * Factory method to create a LinkButton with text and icon.
    *
    * @param icon {@link org.dominokit.domino.ui.icons.Icon}, the button icon
-   * @return new Button instance
    * @param text a {@link java.lang.String} object
+   * @return new Button instance
    */
   public static LinkButton create(Icon<?> icon, String text) {
     return new LinkButton(icon, text);
   }
 
-  /** {@inheritDoc} */
+  /** @dominokit-site-ignore {@inheritDoc} */
   @Override
   protected AnchorElement createButtonElement() {
     return anchorElement = a().removeHref();
   }
 
+  /**
+   * Use to apply customization to the AnchorElement component of this LinkButton instance without
+   * breaking the fluent API chain. {@link ChildHandler}
+   *
+   * @param handler a {@link ChildHandler} that applies the customization.
+   * @return same LinkButton instance
+   */
   public LinkButton withAnchorElement(ChildHandler<LinkButton, AnchorElement> handler) {
     handler.apply(this, anchorElement);
     return this;
   }
 
+  /**
+   * Sets the href attribute for this LinkButton AnchorElement
+   *
+   * @param href the href attribute value
+   * @return same LinkButton instance
+   */
   public LinkButton setHref(String href) {
     anchorElement.setHref(href);
     return this;
   }
 
+  /**
+   * clears the href attribute for this LinkButton AnchorElement
+   *
+   * @return same LinkButton instance
+   */
   public LinkButton removeHref() {
     anchorElement.removeHref();
     return this;

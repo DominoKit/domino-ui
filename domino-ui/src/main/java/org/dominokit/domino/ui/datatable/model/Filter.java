@@ -13,6 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package org.dominokit.domino.ui.datatable.model;
 
 import java.util.ArrayList;
@@ -20,8 +21,15 @@ import java.util.List;
 import java.util.Objects;
 
 /**
- * This class represent a data table data filter which can be used to apply queries and filters on
- * data by the data store
+ * The {@code Filter} class represents a filter that can be applied to a DataTable.
+ *
+ * <p>A filter consists of several properties including the field name, filter type, operator,
+ * values, and category. These properties are used to define and configure the filter's behavior.
+ *
+ * <p>{@code Filter} objects are typically used to filter data in a DataTable based on certain
+ * criteria.
+ *
+ * @see org.dominokit.domino.ui.datatable.DataTable
  */
 public class Filter {
 
@@ -32,13 +40,12 @@ public class Filter {
   private Category category;
 
   /**
-   * Creates a Filter of {@link org.dominokit.domino.ui.datatable.model.FilterTypes#STRING} and
-   * {@link org.dominokit.domino.ui.datatable.model.Operator#like}
+   * Creates a new filter with the specified field name, value, and category.
    *
-   * @param field String, the name if field
-   * @param value String, the value of the filter
-   * @param category the {@link org.dominokit.domino.ui.datatable.model.Category} of the filter
-   * @return new Filter instance
+   * @param field The name of the field to filter on.
+   * @param value The filter value.
+   * @param category The category of the filter.
+   * @return A new {@code Filter} instance.
    */
   public static Filter create(String field, String value, Category category) {
     List<String> values = new ArrayList<>();
@@ -47,13 +54,13 @@ public class Filter {
   }
 
   /**
-   * Creates a Filter with {@link org.dominokit.domino.ui.datatable.model.Operator#like}
+   * Creates a new filter with the specified field name, value, category, and filter type.
    *
-   * @param field String, the name if field
-   * @param value String, the value of the filter
-   * @param category the {@link org.dominokit.domino.ui.datatable.model.Category} of the filter
-   * @param type the {@link org.dominokit.domino.ui.datatable.model.FilterTypes}
-   * @return new Filter instance
+   * @param field The name of the field to filter on.
+   * @param value The filter value.
+   * @param category The category of the filter.
+   * @param type The filter type.
+   * @return A new {@code Filter} instance.
    */
   public static Filter create(String field, String value, Category category, FilterTypes type) {
     List<String> values = new ArrayList<>();
@@ -62,10 +69,10 @@ public class Filter {
   }
 
   /**
-   * Creates a List of Filters initialized with a single filter
+   * Initializes a list of filters with the provided filter.
    *
-   * @param filter {@link org.dominokit.domino.ui.datatable.model.Filter}
-   * @return new Filters list that contains the filters
+   * @param filter The filter to initialize the list with.
+   * @return A list of filters containing the specified filter.
    */
   public static List<Filter> initListWith(Filter filter) {
     List<Filter> filters = new ArrayList<>();
@@ -74,13 +81,14 @@ public class Filter {
   }
 
   /**
-   * creates a new filter
+   * Creates a new {@code Filter} instance with the specified field name, filter type, operator,
+   * values, and category.
    *
-   * @param fieldName String, the name if field
-   * @param type the {@link org.dominokit.domino.ui.datatable.model.FilterTypes}
-   * @param operator the {@link org.dominokit.domino.ui.datatable.model.Operator}
-   * @param values List of values
-   * @param category the {@link org.dominokit.domino.ui.datatable.model.Category} of the filter
+   * @param fieldName The name of the field to filter on.
+   * @param type The filter type.
+   * @param operator The filter operator.
+   * @param values The filter values.
+   * @param category The category of the filter.
    */
   public Filter(
       String fieldName,
@@ -95,107 +103,104 @@ public class Filter {
     this.category = category;
   }
 
-  /** @return String, the field name */
   /**
-   * Getter for the field <code>fieldName</code>.
+   * Gets the name of the field to filter on.
    *
-   * @return a {@link java.lang.String} object
+   * @return The field name.
    */
   public String getFieldName() {
     return fieldName;
   }
 
-  /** @return {@link FilterTypes} */
   /**
-   * Getter for the field <code>type</code>.
+   * Gets the filter type.
    *
-   * @return a {@link org.dominokit.domino.ui.datatable.model.FilterTypes} object
+   * @return The filter type.
    */
   public FilterTypes getType() {
     return type;
   }
 
-  /** @return the {@link Operator} */
   /**
-   * Getter for the field <code>operator</code>.
+   * Gets the filter operator.
    *
-   * @return a {@link org.dominokit.domino.ui.datatable.model.Operator} object
+   * @return The filter operator.
    */
   public Operator getOperator() {
     return operator;
   }
 
-  /** @return List of String values of the filter */
   /**
-   * Getter for the field <code>values</code>.
+   * Gets the filter values.
    *
-   * @return a {@link java.util.List} object
+   * @return The filter values.
    */
   public List<String> getValues() {
     return values;
   }
 
-  /** @return the {@link Category} */
   /**
-   * Getter for the field <code>category</code>.
+   * Gets the category of the filter.
    *
-   * @return a {@link org.dominokit.domino.ui.datatable.model.Category} object
+   * @return The filter category.
    */
   public Category getCategory() {
     return category;
   }
 
-  /** @param fieldName the field name to be set */
   /**
-   * Setter for the field <code>fieldName</code>.
+   * Sets the name of the field to filter on.
    *
-   * @param fieldName a {@link java.lang.String} object
+   * @param fieldName The field name.
    */
   public void setFieldName(String fieldName) {
     this.fieldName = fieldName;
   }
 
-  /** @param type the type to be set */
   /**
-   * Setter for the field <code>type</code>.
+   * Sets the filter type.
    *
-   * @param type a {@link org.dominokit.domino.ui.datatable.model.FilterTypes} object
+   * @param type The filter type.
    */
   public void setType(FilterTypes type) {
     this.type = type;
   }
 
-  /** @param operator the operator to be set */
   /**
-   * Setter for the field <code>operator</code>.
+   * Sets the filter operator.
    *
-   * @param operator a {@link org.dominokit.domino.ui.datatable.model.Operator} object
+   * @param operator The filter operator.
    */
   public void setOperator(Operator operator) {
     this.operator = operator;
   }
 
-  /** @param values the values to be set */
   /**
-   * Setter for the field <code>values</code>.
+   * Sets the filter values.
    *
-   * @param values a {@link java.util.List} object
+   * @param values The filter values.
    */
   public void setValues(List<String> values) {
     this.values = values;
   }
 
-  /** @param category the category to be set */
   /**
-   * Setter for the field <code>category</code>.
+   * Sets the category of the filter.
    *
-   * @param category a {@link org.dominokit.domino.ui.datatable.model.Category} object
+   * @param category The filter category.
    */
   public void setCategory(Category category) {
     this.category = category;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Compares this filter to the specified object. The result is {@code true} if and only if the
+   * argument is not {@code null} and is a {@code Filter} object with the same field name and
+   * category as this filter.
+   *
+   * @param o The object to compare this filter against.
+   * @return {@code true} if the given object is equal to this filter; {@code false} otherwise.
+   */
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
@@ -205,7 +210,11 @@ public class Filter {
         && getCategory() == filter.getCategory();
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Computes a hash code for this filter based on its field name and category.
+   *
+   * @return A hash code for this filter.
+   */
   @Override
   public int hashCode() {
     return Objects.hash(getFieldName(), getCategory());

@@ -13,14 +13,16 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package org.dominokit.domino.ui.utils;
 
-/** HasType interface. */
+/** The {@code HasType} interface defines a method for retrieving the type of an object. */
 public interface HasType {
+
   /**
-   * getType.
+   * Gets the type of the object.
    *
-   * @return a {@link java.lang.String} object
+   * @return The type of the object.
    */
   String getType();
 }

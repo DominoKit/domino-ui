@@ -17,22 +17,37 @@ package org.dominokit.domino.ui.elements;
 
 import elemental2.svg.SVGElement;
 
-/** SvgElement class. */
+/**
+ * Represents an HTML <svg> element wrapper.
+ *
+ * <p>The HTML <svg> element is used to create scalable vector graphics in web pages. It allows you
+ * to create and manipulate vector images that can be scaled (resized) without a loss in quality.
+ * This class provides a Java-based way to create, manipulate, and control the behavior of <svg>
+ * elements in web applications. Example usage:
+ *
+ * <pre>
+ * SVGElement svgElement = ...;  // Obtain an <svg> element from somewhere
+ * SvgElement svg = SvgElement.of(svgElement);
+ * </pre>
+ *
+ * @see <a href="https://developer.mozilla.org/en-US/docs/Web/SVG">MDN Web Docs (SVG)</a>
+ */
 public class SvgElement extends BaseElement<SVGElement, SvgElement> {
+
   /**
-   * of.
+   * Creates a new {@link SvgElement} instance by wrapping the provided HTML <svg> element.
    *
-   * @param e a {@link elemental2.svg.SVGElement} object
-   * @return a {@link org.dominokit.domino.ui.elements.SvgElement} object
+   * @param e The HTML <svg> element to wrap.
+   * @return A new {@link SvgElement} instance wrapping the provided element.
    */
   public static SvgElement of(SVGElement e) {
     return new SvgElement(e);
   }
 
   /**
-   * Constructor for SvgElement.
+   * Constructs a {@link SvgElement} instance by wrapping the provided HTML <svg> element.
    *
-   * @param element a {@link elemental2.svg.SVGElement} object
+   * @param element The HTML <svg> element to wrap.
    */
   public SvgElement(SVGElement element) {
     super(element);

@@ -29,13 +29,13 @@ public class DisplayCollapseStrategy implements CollapseStrategy, CollapsibleSty
 
   private CollapsibleHandlers handlers;
 
-  /** {@inheritDoc} */
+  /** @dominokit-site-ignore {@inheritDoc} */
   @Override
   public void init(Element element, CollapsibleHandlers handlers) {
     this.handlers = handlers;
   }
 
-  /** {@inheritDoc} */
+  /** @dominokit-site-ignore {@inheritDoc} */
   @Override
   public void expand(Element element) {
     elements.elementOf(element).removeCss(dui_hidden).removeAttribute(DUI_COLLAPSED);
@@ -43,7 +43,7 @@ public class DisplayCollapseStrategy implements CollapseStrategy, CollapsibleSty
     this.handlers.onExpandCompleted().run();
   }
 
-  /** {@inheritDoc} */
+  /** @dominokit-site-ignore {@inheritDoc} */
   @Override
   public void collapse(Element element) {
     this.handlers.onBeforeCollapse().run();

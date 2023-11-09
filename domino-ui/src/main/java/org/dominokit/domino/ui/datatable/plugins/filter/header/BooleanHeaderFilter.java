@@ -13,6 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package org.dominokit.domino.ui.datatable.plugins.filter.header;
 
 import elemental2.dom.HTMLElement;
@@ -26,51 +27,52 @@ import org.dominokit.domino.ui.forms.suggest.Select;
 import org.dominokit.domino.ui.forms.suggest.SelectOption;
 
 /**
- * Boolean column header filter component that is rendered as a {@link
- * org.dominokit.domino.ui.forms.suggest.Select} component
+ * The BooleanHeaderFilter class provides a header filter for boolean (true/false) columns in a
+ * DataTable. It allows users to filter data based on boolean values.
  *
- * @param <T> type of data table records
+ * @param <T> The type of data in the DataTable.
  */
 public class BooleanHeaderFilter<T> implements ColumnHeaderFilterPlugin.HeaderFilter<T> {
 
   private final Select<String> select;
 
   /**
-   * Creates an instance with default labels <b>ALL</b>,</b><b>Yes</b>,<b>No</b>
+   * Creates a new instance of the BooleanHeaderFilter with default labels for true, false, and both
+   * options.
    *
-   * @param <T> the data table records type
-   * @return new instance
+   * @param <T> The type of data in the DataTable.
+   * @return A new BooleanHeaderFilter instance.
    */
   public static <T> BooleanHeaderFilter<T> create() {
     return new BooleanHeaderFilter<>();
   }
+
   /**
-   * Creates an instance with specified labels
+   * Creates a new instance of the BooleanHeaderFilter with custom labels for true, false, and both
+   * options.
    *
-   * @param trueLabel String, the label for the Yes option
-   * @param falseLabel String, the label for the No option
-   * @param bothLabel String, the label for the ALL option
-   * @param <T> the data table records type
-   * @return new instance
+   * @param <T> The type of data in the DataTable.
+   * @param trueLabel The label for the "true" option.
+   * @param falseLabel The label for the "false" option.
+   * @param bothLabel The label for the "both" option.
+   * @return A new BooleanHeaderFilter instance with custom labels.
    */
   public static <T> BooleanHeaderFilter<T> create(
       String trueLabel, String falseLabel, String bothLabel) {
     return new BooleanHeaderFilter<>(trueLabel, falseLabel, bothLabel);
   }
 
-  /** @see BooleanHeaderFilter#create() */
-  /** Constructor for BooleanHeaderFilter. */
+  /** Initializes a new BooleanHeaderFilter with default labels ("Yes", "No", "ALL"). */
   public BooleanHeaderFilter() {
     this("Yes", "No", "ALL");
   }
 
   /**
-   * Constructor for BooleanHeaderFilter.
+   * Initializes a new BooleanHeaderFilter with custom labels for true, false, and both options.
    *
-   * @see BooleanHeaderFilter#create(String, String, String)
-   * @param trueLabel String, the label for the Yes option
-   * @param falseLabel String, the label for the No option
-   * @param bothLabel String, the label for the ALL option
+   * @param trueLabel The label for the "true" option.
+   * @param falseLabel The label for the "false" option.
+   * @param bothLabel The label for the "both" option.
    */
   public BooleanHeaderFilter(String trueLabel, String falseLabel, String bothLabel) {
     select =
@@ -84,7 +86,12 @@ public class BooleanHeaderFilter<T> implements ColumnHeaderFilterPlugin.HeaderFi
     select.styler(style -> style.setMarginBottom("0px"));
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Initializes the BooleanHeaderFilter and sets up filtering behavior.
+   *
+   * @param searchContext The search context for the DataTable.
+   * @param columnConfig The configuration for the column being filtered.
+   */
   @Override
   public void init(SearchContext<T> searchContext, ColumnConfig<T> columnConfig) {
     searchContext.addBeforeSearchHandler(
@@ -103,7 +110,7 @@ public class BooleanHeaderFilter<T> implements ColumnHeaderFilterPlugin.HeaderFi
     select.addChangeListener((oldOption, option) -> searchContext.fireSearchEvent());
   }
 
-  /** {@inheritDoc} */
+  /** Clears the BooleanHeaderFilter by resetting the Select value to the default option. */
   @Override
   public void clear() {
     select.withPausedChangeListeners(
@@ -112,17 +119,20 @@ public class BooleanHeaderFilter<T> implements ColumnHeaderFilterPlugin.HeaderFi
         });
   }
 
-  /** {@inheritDoc} */
+  /**
+   * @dominokit-site-ignore {@inheritDoc}
+   *     <p>Gets the HTML element representing the BooleanHeaderFilter.
+   * @return The HTML element.
+   */
   @Override
   public HTMLElement element() {
     return select.element();
   }
 
-  /** @return the {@link Select} component wrapped in this filter */
   /**
-   * Getter for the field <code>select</code>.
+   * Gets the Select instance used for filtering boolean values.
    *
-   * @return a {@link org.dominokit.domino.ui.forms.suggest.Select} object
+   * @return The Select instance.
    */
   public Select<String> getSelect() {
     return select;

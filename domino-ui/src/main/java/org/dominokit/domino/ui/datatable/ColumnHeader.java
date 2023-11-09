@@ -26,7 +26,12 @@ import org.dominokit.domino.ui.elements.THElement;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
 import org.dominokit.domino.ui.utils.ChildHandler;
 
-/** ColumnHeader class. */
+/**
+ * Represents the header of a column in a data table. This component allows for customization of the
+ * header's title and body content.
+ *
+ * @see BaseDominoElement
+ */
 public class ColumnHeader extends BaseDominoElement<HTMLTableCellElement, ColumnHeader>
     implements DataTableStyles {
 
@@ -35,35 +40,35 @@ public class ColumnHeader extends BaseDominoElement<HTMLTableCellElement, Column
   private SpanElement titleEelement;
 
   /**
-   * create.
+   * Creates a {@link ColumnHeader} with a string title.
    *
-   * @param title a {@link java.lang.String} object
-   * @return a {@link org.dominokit.domino.ui.datatable.ColumnHeader} object
+   * @param title The text title for the header.
+   * @return The created {@link ColumnHeader} instance.
    */
   public static ColumnHeader create(String title) {
     return new ColumnHeader(title);
   }
 
   /**
-   * create.
+   * Creates a {@link ColumnHeader} with a node title.
    *
-   * @param title a {@link elemental2.dom.Node} object
-   * @return a {@link org.dominokit.domino.ui.datatable.ColumnHeader} object
+   * @param title The node representation for the title.
+   * @return The created {@link ColumnHeader} instance.
    */
   public static ColumnHeader create(Node title) {
     return new ColumnHeader(title);
   }
 
   /**
-   * create.
+   * Creates an empty {@link ColumnHeader}.
    *
-   * @return a {@link org.dominokit.domino.ui.datatable.ColumnHeader} object
+   * @return The created empty {@link ColumnHeader} instance.
    */
   public static ColumnHeader create() {
     return new ColumnHeader();
   }
 
-  /** Constructor for ColumnHeader. */
+  /** Default constructor initializing the header's DOM structure. */
   public ColumnHeader() {
     this.element =
         th().addCss(dui_datatable_th)
@@ -76,9 +81,9 @@ public class ColumnHeader extends BaseDominoElement<HTMLTableCellElement, Column
   }
 
   /**
-   * Constructor for ColumnHeader.
+   * Constructor initializing the header with a string title.
    *
-   * @param title a {@link java.lang.String} object
+   * @param title The text title for the header.
    */
   public ColumnHeader(String title) {
     this();
@@ -88,9 +93,9 @@ public class ColumnHeader extends BaseDominoElement<HTMLTableCellElement, Column
   }
 
   /**
-   * Constructor for ColumnHeader.
+   * Constructor initializing the header with a node title.
    *
-   * @param title a {@link elemental2.dom.Node} object
+   * @param title The node representation for the title.
    */
   public ColumnHeader(Node title) {
     this();
@@ -100,20 +105,20 @@ public class ColumnHeader extends BaseDominoElement<HTMLTableCellElement, Column
   }
 
   /**
-   * setTitle.
+   * Sets the title of the column header using a string.
    *
-   * @param title a {@link java.lang.String} object
-   * @return a {@link org.dominokit.domino.ui.datatable.ColumnHeader} object
+   * @param title The text title to set.
+   * @return The current {@link ColumnHeader} instance.
    */
   public ColumnHeader setTitle(String title) {
     return setTitle(text(title));
   }
 
   /**
-   * setTitle.
+   * Sets the title of the column header using a node.
    *
-   * @param title a {@link elemental2.dom.Node} object
-   * @return a {@link org.dominokit.domino.ui.datatable.ColumnHeader} object
+   * @param title The node representation of the title to set.
+   * @return The current {@link ColumnHeader} instance.
    */
   public ColumnHeader setTitle(Node title) {
     this.titleEelement.clearElement().appendChild(title);
@@ -121,10 +126,10 @@ public class ColumnHeader extends BaseDominoElement<HTMLTableCellElement, Column
   }
 
   /**
-   * withBody.
+   * Provides a way to customize the body of the header.
    *
-   * @param handler a {@link org.dominokit.domino.ui.utils.ChildHandler} object
-   * @return a {@link org.dominokit.domino.ui.datatable.ColumnHeader} object
+   * @param handler A handler for the body customization.
+   * @return The current {@link ColumnHeader} instance.
    */
   public ColumnHeader withBody(ChildHandler<ColumnHeader, DivElement> handler) {
     handler.apply(this, body);
@@ -132,23 +137,31 @@ public class ColumnHeader extends BaseDominoElement<HTMLTableCellElement, Column
   }
 
   /**
-   * withTitle.
+   * Provides a way to customize the title of the header.
    *
-   * @param handler a {@link org.dominokit.domino.ui.utils.ChildHandler} object
-   * @return a {@link org.dominokit.domino.ui.datatable.ColumnHeader} object
+   * @param handler A handler for the title customization.
+   * @return The current {@link ColumnHeader} instance.
    */
   public ColumnHeader withTitle(ChildHandler<ColumnHeader, SpanElement> handler) {
     handler.apply(this, titleEelement);
     return this;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Retrieves the DOM element to which child components are appended.
+   *
+   * @return The DOM element target.
+   */
   @Override
   public Element getAppendTarget() {
     return body.element();
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Retrieves the primary DOM element representing the column header.
+   *
+   * @return The {@link HTMLTableCellElement} representation of the header.
+   */
   @Override
   public HTMLTableCellElement element() {
     return element.element();

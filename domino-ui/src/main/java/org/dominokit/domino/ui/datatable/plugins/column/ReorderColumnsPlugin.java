@@ -26,9 +26,9 @@ import org.dominokit.domino.ui.icons.Icon;
 import org.dominokit.domino.ui.icons.lib.Icons;
 
 /**
- * this plugin allows reordering columns of a data table
+ * A DataTable plugin that allows columns to be reordered via drag-and-drop.
  *
- * @param <T> the type of data table records
+ * @param <T> The type of data displayed in the DataTable.
  */
 public class ReorderColumnsPlugin<T> implements DataTablePlugin<T> {
 
@@ -36,7 +36,13 @@ public class ReorderColumnsPlugin<T> implements DataTablePlugin<T> {
   private final DragSource dragSource = new DragSource();
   private Supplier<Icon<?>> headerIconSupplier = Icons::drag_vertical;
 
-  /** {@inheritDoc} */
+  /**
+   * Handles the addition of a header to the DataTable and enables column reordering via
+   * drag-and-drop.
+   *
+   * @param dataTable The DataTable to which the header is added.
+   * @param column The ColumnConfig representing the column to which the header is added.
+   */
   @Override
   public void onHeaderAdded(DataTable<T> dataTable, ColumnConfig<T> column) {
     if (!column.isUtilityColumn()) {
@@ -56,11 +62,10 @@ public class ReorderColumnsPlugin<T> implements DataTablePlugin<T> {
     }
   }
 
-  /** @param headerIconSupplier header icon supplier */
   /**
-   * Setter for the field <code>headerIconSupplier</code>.
+   * Sets a custom supplier for the header icon used for column reordering.
    *
-   * @param headerIconSupplier a {@link java.util.function.Supplier} object
+   * @param headerIconSupplier A supplier for the header icon.
    */
   public void setHeaderIconSupplier(Supplier<Icon<?>> headerIconSupplier) {
     this.headerIconSupplier = headerIconSupplier;

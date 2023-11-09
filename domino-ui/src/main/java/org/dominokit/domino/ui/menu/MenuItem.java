@@ -25,8 +25,10 @@ import org.dominokit.domino.ui.elements.SmallElement;
 import org.dominokit.domino.ui.elements.SpanElement;
 
 /**
- * An implementation og the {@link org.dominokit.domino.ui.menu.AbstractMenuItem} for a menu item
- * that can have a main text and a description {@inheritDoc}
+ * Represents a menu item that can be added to a menu. Each menu item can have a text and an
+ * optional description.
+ *
+ * @param <V> the type of value associated with this menu item
  */
 public class MenuItem<V> extends AbstractMenuItem<V> {
 
@@ -34,32 +36,30 @@ public class MenuItem<V> extends AbstractMenuItem<V> {
   private SpanElement textElement;
 
   /**
-   * create.
+   * Creates a menu item with the specified text.
    *
-   * @param text a {@link java.lang.String} object
-   * @param <V> a V class
-   * @return a {@link org.dominokit.domino.ui.menu.MenuItem} object
+   * @param text the text for the menu item
+   * @return the created menu item
    */
   public static <V> MenuItem<V> create(String text) {
     return new MenuItem<>(text);
   }
 
   /**
-   * create.
+   * Creates a menu item with the specified text and description.
    *
-   * @param text a {@link java.lang.String} object
-   * @param description a {@link java.lang.String} object
-   * @param <V> a V class
-   * @return a {@link org.dominokit.domino.ui.menu.MenuItem} object
+   * @param text the text for the menu item
+   * @param description the description for the menu item
+   * @return the created menu item
    */
   public static <V> MenuItem<V> create(String text, String description) {
     return new MenuItem<>(text, description);
   }
 
   /**
-   * Constructor for MenuItem.
+   * Constructs a menu item with the specified text.
    *
-   * @param text a {@link java.lang.String} object
+   * @param text the text for the menu item
    */
   public MenuItem(String text) {
     if (nonNull(text) && !text.isEmpty()) {
@@ -69,10 +69,10 @@ public class MenuItem<V> extends AbstractMenuItem<V> {
   }
 
   /**
-   * Constructor for MenuItem.
+   * Constructs a menu item with the specified text and description.
    *
-   * @param text a {@link java.lang.String} object
-   * @param description a {@link java.lang.String} object
+   * @param text the text for the menu item
+   * @param description the description for the menu item
    */
   public MenuItem(String text, String description) {
     this(text);
@@ -83,30 +83,30 @@ public class MenuItem<V> extends AbstractMenuItem<V> {
     }
   }
 
-  /** @return The description element */
   /**
-   * Getter for the field <code>descriptionElement</code>.
+   * Retrieves the description element of the menu item.
    *
-   * @return a {@link org.dominokit.domino.ui.elements.SmallElement} object
+   * @return the description element
    */
   public SmallElement getDescriptionElement() {
     return descriptionElement;
   }
 
-  /** @return the main text element */
   /**
-   * Getter for the field <code>textElement</code>.
+   * Retrieves the text element of the menu item.
    *
-   * @return a {@link org.dominokit.domino.ui.elements.SpanElement} object
+   * @return the text element
    */
   public SpanElement getTextElement() {
     return textElement;
   }
 
   /**
-   * {@inheritDoc}
+   * Searches for a given token in the text and description of the menu item.
    *
-   * <p>match the search token with both the text and description of the menu item
+   * @param token the search token
+   * @param caseSensitive indicates if the search should be case-sensitive
+   * @return true if the menu item contains the token, false otherwise
    */
   @Override
   public boolean onSearch(String token, boolean caseSensitive) {
@@ -126,6 +126,13 @@ public class MenuItem<V> extends AbstractMenuItem<V> {
     return false;
   }
 
+  /**
+   * Determines if the menu item's text or description contains the specified token.
+   *
+   * @param token the search token
+   * @param caseSensitive indicates if the search should be case-sensitive
+   * @return true if the menu item contains the token, false otherwise
+   */
   private boolean containsToken(String token, boolean caseSensitive) {
     String textContent =
         Arrays.asList(Optional.ofNullable(textElement), Optional.ofNullable(descriptionElement))

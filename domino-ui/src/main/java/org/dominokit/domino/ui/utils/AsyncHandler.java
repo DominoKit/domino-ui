@@ -16,24 +16,27 @@
 package org.dominokit.domino.ui.utils;
 
 /**
- * a Generic function to apply some logic to any component the caller must call the
- * CompleteHandler.onComplete after finish executing the logic to finalize the process.
+ * An asynchronous handler interface for performing actions asynchronously and notifying completion.
  *
- * @param <T> the field
+ * @param <T> The type of the field or resource that the handler operates on.
  */
 @FunctionalInterface
 public interface AsyncHandler<T> {
-  /** @param field T the field we apply the logic on */
+
   /**
-   * apply.
+   * Applies the asynchronous operation to the specified field or resource and registers a
+   * completion handler to be called when the operation is complete.
    *
-   * @param field a T object
-   * @param handler a {@link org.dominokit.domino.ui.utils.AsyncHandler.CompleteHandler} object
+   * @param field The field or resource on which the asynchronous operation is applied.
+   * @param handler The completion handler to be invoked when the operation is complete.
    */
   void apply(T field, CompleteHandler handler);
 
+  /** A functional interface for handling the completion of asynchronous operations. */
   @FunctionalInterface
   interface CompleteHandler {
+
+    /** Called when an asynchronous operation is complete. */
     void onComplete();
   }
 }

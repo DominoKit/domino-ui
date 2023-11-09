@@ -13,27 +13,29 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package org.dominokit.domino.ui.utils;
 
 /**
- * Component that can have a helper text should implement this interface
+ * The {@code HasHelperText} interface defines methods for setting and getting helper text for a
+ * component.
  *
- * @param <T> the type of the class implementing this interface
+ * @param <T> The type of the component that can have helper text.
  */
 public interface HasHelperText<T> {
+
   /**
-   * setHelperText.
+   * Sets the helper text for the component.
    *
-   * @param helperText String
-   * @return same implementing class instance
+   * @param helperText The helper text to be set.
+   * @return The component with the helper text set.
    */
   T setHelperText(String helperText);
 
-  /** @return String helper text of the component */
   /**
-   * getHelperText.
+   * Gets the helper text currently associated with the component.
    *
-   * @return a {@link java.lang.String} object
+   * @return The current helper text for the component.
    */
   String getHelperText();
 }

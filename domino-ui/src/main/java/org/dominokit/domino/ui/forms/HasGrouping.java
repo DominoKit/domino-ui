@@ -20,63 +20,61 @@ import org.dominokit.domino.ui.utils.*;
 import org.gwtproject.editor.client.Editor;
 
 /**
- * Components that can be grouped by a {@link org.dominokit.domino.ui.forms.FieldsGrouping} should
- * implement this interface
+ * The {@code HasGrouping} interface provides methods to group and ungroup form fields, perform
+ * validations, and handle errors.
  *
- * @param <T> the type of the component implementing this interface
+ * @param <T> The concrete type implementing this interface.
  */
 public interface HasGrouping<T>
     extends AcceptDisable<T>, AcceptReadOnly<T>, IsRequired<T>, HasValidation<T>, Clearable<T> {
 
   /**
-   * Adds the component to the specified fields group
+   * Groups this form element by adding it to the specified {@link FieldsGrouping}.
    *
-   * @param fieldsGrouping {@link org.dominokit.domino.ui.forms.FieldsGrouping}
-   * @return same implementing component instance
+   * @param fieldsGrouping The {@link FieldsGrouping} to group by.
+   * @return The updated instance of the concrete type implementing this interface.
    */
   @Editor.Ignore
   T groupBy(FieldsGrouping fieldsGrouping);
 
   /**
-   * remove the component from the specified fields group
+   * Ungroups this form element by removing it from the specified {@link FieldsGrouping}.
    *
-   * @param fieldsGrouping {@link org.dominokit.domino.ui.forms.FieldsGrouping}
-   * @return same implementing component instance
+   * @param fieldsGrouping The {@link FieldsGrouping} to ungroup from.
+   * @return The updated instance of the concrete type implementing this interface.
    */
   @Editor.Ignore
   T ungroup(FieldsGrouping fieldsGrouping);
 
-  /** @return boolean, true if the component value is empty */
   /**
-   * isEmpty.
+   * Checks if this form element is empty.
    *
-   * @return a boolean
+   * @return {@code true} if the form element is empty, {@code false} otherwise.
    */
   @Editor.Ignore
   boolean isEmpty();
 
-  /** @return boolean, true if the component value is empty after trimming spaces */
   /**
-   * isEmptyIgnoreSpaces.
+   * Checks if this form element is empty, ignoring spaces.
    *
-   * @return a boolean
+   * @return {@code true} if the form element is empty (ignoring spaces), {@code false} otherwise.
    */
   @Editor.Ignore
   boolean isEmptyIgnoreSpaces();
 
   /**
-   * fixErrorsPosition.
+   * Sets whether to fix errors position for this form element.
    *
-   * @param fixErrorsPosition a boolean
-   * @return a T object
+   * @param fixErrorsPosition {@code true} to fix errors position, {@code false} otherwise.
+   * @return The updated instance of the concrete type implementing this interface.
    */
   @Editor.Ignore
   T fixErrorsPosition(boolean fixErrorsPosition);
 
   /**
-   * validate.
+   * Validates this form element and returns the validation result.
    *
-   * @return a {@link org.dominokit.domino.ui.forms.validations.ValidationResult} object
+   * @return The {@link ValidationResult} of the validation.
    */
   default ValidationResult validate() {
     return validate((T) this);

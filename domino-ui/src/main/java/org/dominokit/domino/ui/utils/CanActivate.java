@@ -15,8 +15,16 @@
  */
 package org.dominokit.domino.ui.utils;
 
-/** A component that can be activated should implement this interface */
+/**
+ * The {@code CanActivate} interface represents an entity that can be activated. Classes or
+ * components implementing this interface should provide an implementation for the {@link
+ * #activate()} method to define the activation behavior.
+ */
 public interface CanActivate {
-  /** Activates the component */
+
+  /**
+   * Activates the entity, performing necessary actions or operations. The specific behavior of
+   * activation is defined by the implementing class.
+   */
   void activate();
 }

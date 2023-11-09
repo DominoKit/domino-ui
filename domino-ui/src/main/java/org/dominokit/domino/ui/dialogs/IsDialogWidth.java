@@ -17,12 +17,35 @@ package org.dominokit.domino.ui.dialogs;
 
 import org.dominokit.domino.ui.style.CssClass;
 
-/** IsDialogWidth interface. */
+/**
+ * Represents the width styling of a dialog.
+ *
+ * <p>By implementing this interface, a dialog can define its width styling. This allows for
+ * consistent width management across different dialog implementations.
+ *
+ * <p><b>Usage:</b>
+ *
+ * <pre>
+ * class CustomDialog implements IsDialogWidth {
+ *
+ *     @Override
+ *     public CssClass getWidthStyle() {
+ *         return CssClass.of("custom-dialog-width");
+ *     }
+ * }
+ *
+ * CustomDialog dialog = new CustomDialog();
+ * CssClass widthStyle = dialog.getWidthStyle();
+ * </pre>
+ *
+ * @see CssClass
+ */
 public interface IsDialogWidth {
+
   /**
-   * getWidthStyle.
+   * Retrieves the width style of the dialog.
    *
-   * @return a {@link org.dominokit.domino.ui.style.CssClass} object
+   * @return The {@link CssClass} representing the width style of the dialog.
    */
   CssClass getWidthStyle();
 }

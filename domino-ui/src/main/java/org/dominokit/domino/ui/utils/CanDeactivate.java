@@ -15,8 +15,13 @@
  */
 package org.dominokit.domino.ui.utils;
 
-/** A component that can be deactivated should implement this interface */
+/**
+ * The {@code CanDeactivate} interface represents an entity that can be deactivated. Classes or
+ * components implementing this interface should provide an implementation for the {@link
+ * #deactivate()} method to handle the deactivation logic.
+ */
 public interface CanDeactivate {
-  /** Deactivate the component */
+
+  /** Performs the deactivation logic for the entity implementing this interface. */
   void deactivate();
 }

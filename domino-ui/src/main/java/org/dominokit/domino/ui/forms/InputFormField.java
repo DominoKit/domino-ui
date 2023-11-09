@@ -28,13 +28,25 @@ import org.dominokit.domino.ui.utils.ChildHandler;
 import org.dominokit.domino.ui.utils.DominoElement;
 import org.dominokit.domino.ui.utils.ElementUtil;
 
-/** Abstract InputFormField class. */
+/**
+ * An abstract base class for input form fields in Domino UI. InputFormField represents form fields
+ * that accept user input through an HTML input element.
+ *
+ * @param <T> The concrete type of the InputFormField.
+ * @param <E> The type of the HTML input element.
+ * @param <V> The type of the input field's value.
+ * @see AbstractFormElement
+ * @see HasInputElement
+ */
 public abstract class InputFormField<T extends InputFormField<T, E, V>, E extends HTMLElement, V>
     extends AbstractFormElement<T, V> implements HasInputElement<T, E> {
 
   private DominoElement<E> inputElement;
 
-  /** Constructor for InputFormField. */
+  /**
+   * Constructs a new InputFormField instance. Initializes and configures the HTML input element for
+   * user input.
+   */
   public InputFormField() {
     inputElement = createInputElement(getType());
     inputElement.setAttribute("spellcheck", getConfig().isSpellCheckEnabled());
@@ -44,40 +56,62 @@ public abstract class InputFormField<T extends InputFormField<T, E, V>, E extend
   }
 
   /**
-   * createInputElement.
+   * Creates and returns a DominoElement representing the HTML input element.
    *
-   * @param type a {@link java.lang.String} object
-   * @return a {@link org.dominokit.domino.ui.utils.DominoElement} object
+   * @param type The type of the input element, such as "text" or "password".
+   * @return A DominoElement representing the HTML input element.
    */
   protected abstract DominoElement<E> createInputElement(String type);
 
-  /** {@inheritDoc} */
+  /**
+   * Retrieves the HTML input element associated with this form field.
+   *
+   * @return The HTML input element.
+   */
   @Override
   public DominoElement<E> getInputElement() {
     return inputElement;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Checks if the input field is empty (has no value).
+   *
+   * @return {@code true} if the input field is empty, {@code false} otherwise.
+   */
   @Override
   public boolean isEmpty() {
     String stringValue = getStringValue();
     return isNull(stringValue) || stringValue.isEmpty();
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Checks if the input field is empty when ignoring leading and trailing spaces.
+   *
+   * @return {@code true} if the input field is empty, {@code false} otherwise.
+   */
   @Override
   public boolean isEmptyIgnoreSpaces() {
     String stringValue = getStringValue();
     return isEmpty() || stringValue.trim().isEmpty();
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Clears the input field's value.
+   *
+   * @return This InputFormField instance.
+   */
   @Override
   public T clear() {
     return clear(isClearListenersPaused() || isChangeListenersPaused());
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Clears the input field's value.
+   *
+   * @param silent {@code true} to clear the field silently without triggering listeners, {@code
+   *     false} otherwise.
+   * @return This InputFormField instance.
+   */
   @Override
   public T clear(boolean silent) {
     V oldValue = getValue();
@@ -90,13 +124,24 @@ public abstract class InputFormField<T extends InputFormField<T, E, V>, E extend
     return (T) this;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Creates and returns an InputAutoValidator for automatic input validation.
+   *
+   * @param autoValidate The function to apply for auto-validation.
+   * @return An InputAutoValidator instance.
+   */
   @Override
   public AutoValidator createAutoValidator(ApplyFunction autoValidate) {
     return new InputAutoValidator<>(autoValidate, getInputElement());
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Triggers change listeners when the input field's value changes.
+   *
+   * @param oldValue The old value before the change.
+   * @param newValue The new value after the change.
+   * @return This InputFormField instance.
+   */
   @Override
   public T triggerChangeListeners(V oldValue, V newValue) {
     getChangeListeners()
@@ -104,20 +149,37 @@ public abstract class InputFormField<T extends InputFormField<T, E, V>, E extend
     return (T) this;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Triggers clear listeners when the input field's value is cleared.
+   *
+   * @param oldValue The old value before clearing.
+   * @return This InputFormField instance.
+   */
   @Override
   public T triggerClearListeners(V oldValue) {
     getClearListeners().forEach(clearListener -> clearListener.onValueCleared(oldValue));
     return (T) this;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Sets the value of the input field.
+   *
+   * @param value The value to set.
+   * @return This InputFormField instance.
+   */
   @Override
   public T withValue(V value) {
     return withValue(value, isChangeListenersPaused());
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Sets the value of the input field and optionally triggers change listeners.
+   *
+   * @param value The value to set.
+   * @param silent {@code true} to set the value silently without triggering change listeners,
+   *     {@code false} otherwise.
+   * @return This InputFormField instance.
+   */
   @Override
   public T withValue(V value, boolean silent) {
     V oldValue = getValue();
@@ -132,58 +194,92 @@ public abstract class InputFormField<T extends InputFormField<T, E, V>, E extend
   }
 
   /**
-   * doSetValue.
+   * Sets the value of the input field.
    *
-   * @param value a V object
+   * @param value The value to set.
    */
   protected abstract void doSetValue(V value);
 
-  /** {@inheritDoc} */
+  /**
+   * Checks if the input field is enabled.
+   *
+   * @return {@code true} if the input field is enabled, {@code false} if disabled.
+   */
   @Override
   public boolean isEnabled() {
     return !isDisabled();
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Checks if the input field is disabled.
+   *
+   * @return {@code true} if the input field is disabled, {@code false} if enabled.
+   */
   @Override
   public boolean isDisabled() {
     return super.isDisabled() || getInputElement().isDisabled();
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Enables the input field.
+   *
+   * @return This InputFormField instance.
+   */
   @Override
   public T enable() {
     getInputElement().enable();
     return super.enable();
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Disables the input field.
+   *
+   * @return This InputFormField instance.
+   */
   @Override
   public T disable() {
     getInputElement().disable();
     return super.disable();
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Sets the input field to read-only mode.
+   *
+   * @param readOnly {@code true} to set the input field as read-only, {@code false} to make it
+   *     editable.
+   * @return This InputFormField instance.
+   */
   @Override
   public T setReadOnly(boolean readOnly) {
     getInputElement().setReadOnly(readOnly);
     return super.setReadOnly(readOnly);
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Checks if the input field is in read-only mode.
+   *
+   * @return {@code true} if the input field is in read-only mode, {@code false} if it is editable.
+   */
   @Override
   public boolean isReadOnly() {
     return super.isReadOnly() || getInputElement().isReadOnly();
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Sets the value of the input field.
+   *
+   * @param value The value to set.
+   */
   @Override
   public void setValue(V value) {
     withValue(value);
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Focuses on the input field.
+   *
+   * @return This InputFormField instance.
+   */
   @Override
   public T focus() {
     if (!isDisabled()) {
@@ -197,7 +293,11 @@ public abstract class InputFormField<T extends InputFormField<T, E, V>, E extend
     return (T) this;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Removes focus from the input field.
+   *
+   * @return This InputFormField instance.
+   */
   @Override
   public T unfocus() {
     if (!isAttached()) {
@@ -212,7 +312,11 @@ public abstract class InputFormField<T extends InputFormField<T, E, V>, E extend
     return (T) this;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Checks if the input field is currently focused.
+   *
+   * @return {@code true} if the input field is focused, {@code false} otherwise.
+   */
   @Override
   public boolean isFocused() {
     if (nonNull(DomGlobal.document.activeElement)) {
@@ -224,10 +328,10 @@ public abstract class InputFormField<T extends InputFormField<T, E, V>, E extend
   }
 
   /**
-   * withInputElement.
+   * Allows customization and manipulation of the input element.
    *
-   * @param handler a {@link org.dominokit.domino.ui.utils.ChildHandler} object
-   * @return a T object
+   * @param handler The handler function for customizing the input element.
+   * @return This InputFormField instance.
    */
   public T withInputElement(ChildHandler<T, DominoElement<E>> handler) {
     handler.apply((T) this, getInputElement());

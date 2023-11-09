@@ -20,30 +20,47 @@ import org.dominokit.domino.ui.elements.DivElement;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
 
 /**
- * A component that wraps the {@link elemental2.dom.HTMLDivElement} to make it auto scrollable when
- * the content exceeds the component fixed width or height
+ * Represents an auto-scrollable panel component.
+ *
+ * <p>The {@code AutoScrollPanel} class provides a way to create a scrollable panel that
+ * automatically adds scrollbars when needed based on the content's dimensions. It extends {@link
+ * BaseDominoElement} and encapsulates a root {@link DivElement} with CSS styles applied to enable
+ * automatic scrolling.
+ *
+ * <p><b>Usage Example:</b>
+ *
+ * <pre>
+ * AutoScrollPanel autoScrollPanel = AutoScrollPanel.create();
+ * // Add content to the auto-scrollable panel
+ * autoScrollPanel.appendChild(someContentElement);
+ * </pre>
+ *
+ * @see BaseDominoElement
  */
 public class AutoScrollPanel extends BaseDominoElement<HTMLDivElement, AutoScrollPanel> {
 
   private DivElement root;
 
-  /** @return new AutoScrollPanel instance */
   /**
-   * create.
+   * Factory method to create a new instance of AutoScrollPanel.
    *
-   * @return a {@link org.dominokit.domino.ui.scroll.AutoScrollPanel} object
+   * @return A new instance of AutoScrollPanel.
    */
   public static AutoScrollPanel create() {
     return new AutoScrollPanel();
   }
 
-  /** Constructor for AutoScrollPanel. */
+  /** Constructs a new AutoScrollPanel instance. */
   public AutoScrollPanel() {
     root = div().addCss(dui_overflow_auto);
     init(this);
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Returns the main HTMLElement of this auto-scroll panel, which is the root div element.
+   *
+   * @return The HTMLElement of the root div element.
+   */
   @Override
   public HTMLDivElement element() {
     return root.element();

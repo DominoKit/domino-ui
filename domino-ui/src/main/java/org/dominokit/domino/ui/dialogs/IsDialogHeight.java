@@ -17,12 +17,32 @@ package org.dominokit.domino.ui.dialogs;
 
 import org.dominokit.domino.ui.style.CssClass;
 
-/** IsDialogHeight interface. */
+/**
+ * Represents an object that can provide a height style for dialogs. Implementing classes can use
+ * this interface to define specific height styles.
+ *
+ * <p><b>Usage:</b>
+ *
+ * <pre>
+ * public class MyDialogHeight implements IsDialogHeight {
+ *     @Override
+ *     public CssClass getHeightStyle() {
+ *         return CssClass.of("my-dialog-height-class");
+ *     }
+ * }
+ *
+ * IsDialogHeight myHeight = new MyDialogHeight();
+ * CssClass css = myHeight.getHeightStyle();
+ * </pre>
+ *
+ * @see CssClass
+ */
 public interface IsDialogHeight {
+
   /**
-   * getHeightStyle.
+   * Retrieves the height style as a {@link CssClass}.
    *
-   * @return a {@link org.dominokit.domino.ui.style.CssClass} object
+   * @return the {@link CssClass} representing the height style
    */
   CssClass getHeightStyle();
 }

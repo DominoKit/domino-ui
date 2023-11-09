@@ -13,6 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package org.dominokit.domino.ui.datatable.plugins.filter.header;
 
 import elemental2.dom.HTMLElement;
@@ -27,11 +28,10 @@ import org.dominokit.domino.ui.forms.suggest.Select;
 import org.dominokit.domino.ui.forms.suggest.SelectOption;
 
 /**
- * Enum column header filter component that is rendered as a {@link
- * org.dominokit.domino.ui.forms.suggest.Select} component
+ * The EnumHeaderFilter class provides a header filter for filtering values from an Enum.
  *
- * @param <T> type of data table records
- * @param <E> the enum type
+ * @param <T> The type of data in the DataTable.
+ * @param <E> The type of Enum to filter.
  */
 public class EnumHeaderFilter<T, E extends Enum>
     implements ColumnHeaderFilterPlugin.HeaderFilter<T> {
@@ -39,35 +39,35 @@ public class EnumHeaderFilter<T, E extends Enum>
   private final Select<String> select;
 
   /**
-   * Creates a filter from an array of enum values and default label <b>ALL</b> for all option
+   * Creates a new instance of EnumHeaderFilter with default labels.
    *
-   * @param values Array of enum values
-   * @param <T> type of data table records
-   * @param <E> the enum type
-   * @return new instance
+   * @param values The Enum values to display in the filter.
+   * @param <T> The type of data in the DataTable.
+   * @param <E> The type of Enum to filter.
+   * @return A new instance of EnumHeaderFilter.
    */
   public static <T, E extends Enum> EnumHeaderFilter<T, E> create(E[] values) {
     return new EnumHeaderFilter<>(values, "ALL");
   }
 
   /**
-   * Creates a filter from an array of enum values and a custom label for all option
+   * Creates a new instance of EnumHeaderFilter with custom labels.
    *
-   * @param values Array of enum values
-   * @param <T> type of data table records
-   * @param <E> the enum type
-   * @return new instance
-   * @param allLabel a {@link java.lang.String} object
+   * @param values The Enum values to display in the filter.
+   * @param allLabel The label to use for the "All" option in the filter.
+   * @param <T> The type of data in the DataTable.
+   * @param <E> The type of Enum to filter.
+   * @return A new instance of EnumHeaderFilter with custom labels.
    */
   public static <T, E extends Enum> EnumHeaderFilter<T, E> create(E[] values, String allLabel) {
     return new EnumHeaderFilter<>(values, allLabel);
   }
 
   /**
-   * Creates a filter from an array of enum values and a custom label for all option
+   * Creates a new instance of EnumHeaderFilter with custom labels.
    *
-   * @param values Array of enum values
-   * @param allLabel a {@link java.lang.String} object
+   * @param values The Enum values to display in the filter.
+   * @param allLabel The label to use for the "All" option in the filter.
    */
   public EnumHeaderFilter(E[] values, String allLabel) {
     select =
@@ -84,7 +84,12 @@ public class EnumHeaderFilter<T, E extends Enum>
     select.styler(style -> style.setMarginBottom("0px"));
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Initializes the header filter and adds search functionality.
+   *
+   * @param searchContext The search context for filtering.
+   * @param columnConfig The column configuration to filter.
+   */
   @Override
   public void init(SearchContext<T> searchContext, ColumnConfig<T> columnConfig) {
     searchContext.addBeforeSearchHandler(
@@ -103,7 +108,7 @@ public class EnumHeaderFilter<T, E extends Enum>
     select.addChangeListener((oldOption, option) -> searchContext.fireSearchEvent());
   }
 
-  /** {@inheritDoc} */
+  /** Clears the header filter. */
   @Override
   public void clear() {
     select.withPausedChangeListeners(
@@ -112,17 +117,20 @@ public class EnumHeaderFilter<T, E extends Enum>
         });
   }
 
-  /** {@inheritDoc} */
+  /**
+   * @dominokit-site-ignore {@inheritDoc}
+   *     <p>Gets the HTML element representing the header filter.
+   * @return The HTML element of the header filter.
+   */
   @Override
   public HTMLElement element() {
     return select.element();
   }
 
-  /** @return the {@link Select} wrapped in this component */
   /**
-   * Getter for the field <code>select</code>.
+   * Gets the Select component used in the header filter.
    *
-   * @return a {@link org.dominokit.domino.ui.forms.suggest.Select} object
+   * @return The Select component.
    */
   public Select<String> getSelect() {
     return select;

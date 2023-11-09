@@ -13,117 +13,102 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package org.dominokit.domino.ui.utils;
 
 /**
- * an enum that lists a set css classes that controls the visibility of the element based on screen
- * media
+ * The {@code ScreenMedia} enum represents different screen media query states that can be used for
+ * responsive web design. These media query states are typically used in conjunction with CSS to
+ * apply styles based on the screen size.
+ *
+ * <p>This enum provides constants for various screen media query states, making it easier to work
+ * with responsive design in the Domino UI framework.
+ *
+ * <p>The available screen media query states are:
+ *
+ * <ul>
+ *   <li>{@link #XSMALL_ONLY}: For extra-small screens only.
+ *   <li>{@link #XSMALL_AND_UP}: For extra-small screens and larger.
+ *   <li>{@link #SMALL_ONLY}: For small screens only.
+ *   <li>{@link #SMALL_AND_DOWN}: For small screens and smaller.
+ *   <li>{@link #SMALL_AND_UP}: For small screens and larger.
+ *   <li>{@link #MEDIUM_ONLY}: For medium screens only.
+ *   <li>{@link #MEDIUM_AND_DOWN}: For medium screens and smaller.
+ *   <li>{@link #MEDIUM_AND_UP}: For medium screens and larger.
+ *   <li>{@link #LARGE_ONLY}: For large screens only.
+ *   <li>{@link #LARGE_AND_DOWN}: For large screens and smaller.
+ *   <li>{@link #LARGE_AND_UP}: For large screens and larger.
+ *   <li>{@link #XLARGE_ONLY}: For extra-large screens only.
+ *   <li>{@link #XLARGE_AND_DOWN}: For extra-large screens and smaller.
+ *   <li>{@link #XLARGE_AND_UP}: For extra-large screens and larger.
+ * </ul>
+ *
+ * <p>Each enum constant corresponds to a specific screen media query state and provides a {@code
+ * style} that can be used in CSS classes or styles to apply responsive design.
+ *
+ * <p>For more information about responsive design and media queries, refer to the <a
+ * href="https://developer.mozilla.org/en-US/docs/Web/CSS/Media_Queries" target="_blank">MDN
+ * documentation</a>.
  */
 public enum ScreenMedia {
-  /**
-   * The component will be visible for very small screens only
-   *
-   * <pre>max-width: 768px</pre>
-   */
+
+  /** For extra-small screens only. */
   XSMALL_ONLY("xsmall-only"),
-  /**
-   * The component will be visible for very small screens and larger screens, in short all screens
-   */
+
+  /** For extra-small screens and larger. */
   XSMALL_AND_UP("xsmall-and-up"),
-  /**
-   * The component will be visible for small screens only
-   *
-   * <pre>width between 768px and 992px</pre>
-   */
+
+  /** For small screens only. */
   SMALL_ONLY("small-only"),
-  /**
-   * The component will be visible for small and very small screens only
-   *
-   * <pre>max-width: 992px</pre>
-   */
+
+  /** For small screens and smaller. */
   SMALL_AND_DOWN("small-and-down"),
-  /**
-   * The component will be visible for all screen except very small screens
-   *
-   * <pre>min-width: 768px</pre>
-   */
+
+  /** For small screens and larger. */
   SMALL_AND_UP("small-and-up"),
 
-  /**
-   * The component will be visible for small and medium size screens only
-   *
-   * <pre>width between 992px and 1200px</pre>
-   */
+  /** For medium screens only. */
   MEDIUM_ONLY("medium-only"),
 
-  /**
-   * The component will be visible for medium, small and very small screens only
-   *
-   * <pre>max width 1200px</pre>
-   */
+  /** For medium screens and smaller. */
   MEDIUM_AND_DOWN("medium-and-down"),
 
-  /**
-   * The component will be visible for medium and larger screens only
-   *
-   * <pre>min width 992px</pre>
-   */
+  /** For medium screens and larger. */
   MEDIUM_AND_UP("medium-and-up"),
 
-  /**
-   * The component will be visible for large screens only
-   *
-   * <pre>width between 1200px and 1800px</pre>
-   */
+  /** For large screens only. */
   LARGE_ONLY("large-only"),
 
-  /**
-   * The component will be visible for large, medium, small and x-small screens only
-   *
-   * <pre>max width 1800px</pre>
-   */
+  /** For large screens and smaller. */
   LARGE_AND_DOWN("large-and-down"),
 
-  /**
-   * The component will be visible for large and larger screens only
-   *
-   * <pre>min width 1200px</pre>
-   */
+  /** For large screens and larger. */
   LARGE_AND_UP("large-and-up"),
 
-  /**
-   * The component will be visible for x-large screens only
-   *
-   * <pre>min width 1800px</pre>
-   */
+  /** For extra-large screens only. */
   XLARGE_ONLY("xlarge-only"),
 
-  /**
-   * The component will be visible for x-large and smaller screens only
-   *
-   * <pre>max width 1800px</pre>
-   */
+  /** For extra-large screens and smaller. */
   XLARGE_AND_DOWN("xlarge-and-down"),
 
-  /**
-   * The component will be visible for x-large or larger screens
-   *
-   * <pre>min width 1800px</pre>
-   */
+  /** For extra-large screens and larger. */
   XLARGE_AND_UP("xlarge-and-up");
 
   private String style;
 
-  /** @param style String css class name for the screen media */
+  /**
+   * Creates a new {@code ScreenMedia} enum constant with the specified CSS style class.
+   *
+   * @param style The CSS style class representing the screen media query state.
+   */
   ScreenMedia(String style) {
     this.style = style;
   }
 
-  /** @return String css class name for the screen media */
   /**
-   * Getter for the field <code>style</code>.
+   * Retrieves the CSS style class associated with this screen media query state.
    *
-   * @return a {@link java.lang.String} object
+   * @return The CSS style class representing the screen media query state.
    */
   public String getStyle() {
     return style;

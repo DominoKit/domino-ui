@@ -17,22 +17,36 @@ package org.dominokit.domino.ui.elements;
 
 import elemental2.dom.HTMLHRElement;
 
-/** HRElement class. */
+/**
+ * Represents an HTML HRElement element (<hr>) wrapper.
+ *
+ * <p>The HTML <hr> element represents a thematic break between paragraph-level elements. It is
+ * often used to separate content. This class provides a convenient way to create, manipulate, and
+ * control the behavior of <hr> elements in Java-based web applications. Example usage:
+ *
+ * <pre>
+ * HTMLHRElement hrElement = ...;  // Obtain an <hr> element from somewhere
+ * HRElement hr = HRElement.of(hrElement);
+ * </pre>
+ *
+ * @see <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/hr">MDN Web Docs (hr)</a>
+ */
 public class HRElement extends BaseElement<HTMLHRElement, HRElement> {
+
   /**
-   * of.
+   * Creates a new {@link HRElement} instance by wrapping the provided HTML <hr> element.
    *
-   * @param e a {@link elemental2.dom.HTMLHRElement} object
-   * @return a {@link org.dominokit.domino.ui.elements.HRElement} object
+   * @param e The HTML <hr> element.
+   * @return A new {@link HRElement} instance wrapping the provided element.
    */
   public static HRElement of(HTMLHRElement e) {
     return new HRElement(e);
   }
 
   /**
-   * Constructor for HRElement.
+   * Constructs a {@link HRElement} instance by wrapping the provided HTML <hr> element.
    *
-   * @param element a {@link elemental2.dom.HTMLHRElement} object
+   * @param element The HTML <hr> element to wrap.
    */
   public HRElement(HTMLHRElement element) {
     super(element);

@@ -22,14 +22,41 @@ import org.dominokit.domino.ui.icons.lib.Icons;
 import org.dominokit.domino.ui.richtext.RichTextCommand;
 import org.dominokit.domino.ui.utils.DominoDom;
 
+/**
+ * Represents a UI command to apply the italic formatting to the selected text within a rich text
+ * editor.
+ *
+ * <p>The {@code ItalicCommand} extends {@link RichTextCommand} and offers users the ability to make
+ * selected text italic in a rich text editable div element. The command is depicted by a button
+ * with an italic icon. Clicking this button will apply the italic formatting to the currently
+ * selected text.
+ *
+ * <p><b>Usage Example:</b>
+ *
+ * <pre>{@code
+ * DivElement editableDiv = DivElement.create();
+ * ItalicCommand italicCommand = ItalicCommand.create(editableDiv);
+ * }</pre>
+ */
 public class ItalicCommand extends RichTextCommand<ItalicCommand> {
 
   private Button button;
 
+  /**
+   * Factory method to create a new instance of ItalicCommand.
+   *
+   * @param editableElement The div element where the rich text is edited.
+   * @return A new instance of ItalicCommand.
+   */
   public static ItalicCommand create(DivElement editableElement) {
     return new ItalicCommand(editableElement);
   }
 
+  /**
+   * Constructs a new ItalicCommand instance for the specified editable div element.
+   *
+   * @param editableElement The div element where the rich text is edited.
+   */
   public ItalicCommand(DivElement editableElement) {
     super(editableElement);
     this.button =
@@ -39,11 +66,21 @@ public class ItalicCommand extends RichTextCommand<ItalicCommand> {
     init(this);
   }
 
+  /**
+   * @dominokit-site-ignore {@inheritDoc}
+   *     <p>Returns the main HTMLElement of this command, which is the button used to apply the
+   *     italic formatting.
+   * @return The HTMLElement of the button.
+   */
   @Override
   public HTMLElement element() {
     return button.element();
   }
 
+  /**
+   * Executes the command, applying italic formatting to the selected text in the editable div
+   * element.
+   */
   @Override
   protected void execute() {
     getSelectedRange()

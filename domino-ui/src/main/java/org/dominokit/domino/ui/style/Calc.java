@@ -15,36 +15,41 @@
  */
 package org.dominokit.domino.ui.style;
 
-/** A utility class for creating {@code calc} CSS property */
+/**
+ * A utility class for constructing the {@code calc} CSS property expressions.
+ *
+ * <p>This class provides static methods to create common arithmetic {@code calc} expressions like
+ * addition and subtraction.
+ */
 public class Calc {
 
   /**
-   * Creates calc by subtracting left from right
+   * Constructs a {@code calc} expression that represents the subtraction of two values.
    *
-   * @param left the left value
-   * @param right the right value
-   * @return the string CSS property
+   * @param left the minuend (the number from which another number is to be subtracted)
+   * @param right the subtrahend (the number to be subtracted from another number)
+   * @return the resulting {@code calc} expression in the form "calc(left - right)"
    */
   public static String sub(String left, String right) {
     return "calc(" + left + " - " + right + ")";
   }
 
   /**
-   * Creates calc by summation left from right
+   * Constructs a {@code calc} expression that represents the addition of two values.
    *
-   * @param left the left value
-   * @param right the right value
-   * @return the string CSS property
+   * @param left the first value to be added
+   * @param right the second value to be added
+   * @return the resulting {@code calc} expression in the form "calc(left + right)"
    */
   public static String sum(String left, String right) {
     return "calc(" + left + " + " + right + ")";
   }
 
   /**
-   * Creates calc with a size
+   * Wraps the provided size or formula within a {@code calc} expression.
    *
-   * @param size the formulate string value
-   * @return the string CSS property
+   * @param size the size or formula string to be wrapped
+   * @return the resulting {@code calc} expression in the form "calc(size)"
    */
   public static String of(String size) {
     return "calc(" + size + ")";

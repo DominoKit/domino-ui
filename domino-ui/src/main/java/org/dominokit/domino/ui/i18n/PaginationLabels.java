@@ -15,31 +15,33 @@
  */
 package org.dominokit.domino.ui.i18n;
 
-/** PaginationLabels interface. */
+/** The {@code PaginationLabels} interface provides labels and messages related to pagination. */
 public interface PaginationLabels extends Labels {
+
   /**
-   * getPaginationCountLabel.
+   * Gets the label indicating the current page and the total number of pages.
    *
-   * @param pagesCount a int
-   * @return a {@link java.lang.String} object
+   * @param pagesCount The total number of pages.
+   * @return A {@code String} representing the label indicating the current page and total pages
+   *     count.
    */
   default String getPaginationCountLabel(int pagesCount) {
     return " of " + pagesCount + " Pages";
   }
 
   /**
-   * getPreviousLabel.
+   * Gets the label for the "Previous" pagination button.
    *
-   * @return a {@link java.lang.String} object
+   * @return A {@code String} representing the label for the "Previous" button.
    */
   default String getPreviousLabel() {
     return "Previous";
   }
 
   /**
-   * getNextLabel.
+   * Gets the label for the "Next" pagination button.
    *
-   * @return a {@link java.lang.String} object
+   * @return A {@code String} representing the label for the "Next" button.
    */
   default String getNextLabel() {
     return "Next";

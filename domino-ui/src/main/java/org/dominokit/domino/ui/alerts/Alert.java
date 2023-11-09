@@ -22,13 +22,13 @@ import elemental2.dom.Element;
 import elemental2.dom.HTMLDivElement;
 import org.dominokit.domino.ui.button.RemoveButton;
 import org.dominokit.domino.ui.elements.DivElement;
-import org.dominokit.domino.ui.style.Color;
 import org.dominokit.domino.ui.utils.*;
 
 /**
- * Displays messages on the screen.
+ * Displays a none floating message anywhere in the page, the message can be permanent or
+ * dismissible
  *
- * <p>This component provides four basic types of severity:
+ * <p>This component can be themed based on context, for example:
  *
  * <ul>
  *   <li>Success
@@ -37,10 +37,7 @@ import org.dominokit.domino.ui.utils.*;
  *   <li>Error
  * </ul>
  *
- * <p>Customize the component can be done by overwriting classes provided by {@link
- * org.dominokit.domino.ui.alerts.AlertStyles}
- *
- * <p>For example:
+ * <p>Example:
  *
  * <pre>
  *     Alert.success()
@@ -49,17 +46,17 @@ import org.dominokit.domino.ui.utils.*;
  * </pre>
  *
  * @see BaseDominoElement
- * @see HasBackground
- * @see Color
  */
 public class Alert extends BaseDominoElement<HTMLDivElement, Alert> {
 
-  private boolean dismissible = false;
   private final DivElement element;
   private final DivElement bodyElement;
   private LazyChild<RemoveButton> removeButton;
 
-  /** Constructor for Alert. */
+  /**
+   * Creates an Alert message without assuming a specific context, context can be applied by adding
+   * a context css class like <b>dui_success, dui_error, dui_info, .. etc</b>
+   */
   public Alert() {
     element = div().addCss(dui_alert).appendChild(bodyElement = div().addCss(dui_alert_body));
     removeButton = LazyChild.of(RemoveButton.create().addClickListener(evt -> remove()), element);
@@ -68,83 +65,91 @@ public class Alert extends BaseDominoElement<HTMLDivElement, Alert> {
   }
 
   /**
-   * Creates alert with default style
+   * Factory method to create an Alert message without assuming a specific context, context can be
+   * applied by adding a context css class like <b>dui_success, dui_error, dui_info, .. etc</b>
    *
-   * @return new alert instance
+   * @return new Alert instance
    */
   public static Alert create() {
     return new Alert();
   }
 
   /**
-   * Creates alert with primary context
+   * Factory method to create an Alert with primary context, primary context will set the message
+   * background to the theme primary context color
    *
-   * @return new alert instance
+   * @return new Alert instance
    */
   public static Alert primary() {
     return create().addCss(dui_primary);
   }
 
   /**
-   * Creates alert with secondary context
+   * Factory method to create an Alert with secondary context, primary context will set the message
+   * background to the theme secondary context color
    *
-   * @return new alert instance
+   * @return new Alert instance
    */
   public static Alert secondary() {
     return create().addCss(dui_secondary);
   }
 
   /**
-   * Creates alert with dominant context
+   * Factory method to create an Alert with dominant context, primary context will set the message
+   * background to the theme dominant context color
    *
-   * @return new alert instance
+   * @return new Alert instance
    */
   public static Alert dominant() {
     return create().addCss(dui_dominant);
   }
 
   /**
-   * Creates alert with success context
+   * Factory method to create an Alert with success context, primary context will set the message
+   * background to the theme success context color
    *
-   * @return new alert instance
+   * @return new Alert instance
    */
   public static Alert success() {
     return create().addCss(dui_success);
   }
 
   /**
-   * Creates alert with info context
+   * Factory method to create an Alert with info context, primary context will set the message
+   * background to the theme info context color
    *
-   * @return new alert instance
+   * @return new Alert instance
    */
   public static Alert info() {
     return create().addCss(dui_info);
   }
 
   /**
-   * Creates alert with warning context
+   * Factory method to create an Alert with warning context, primary context will set the message
+   * background to the theme warning context color
    *
-   * @return new alert instance
+   * @return new Alert instance
    */
   public static Alert warning() {
     return create().addCss(dui_warning);
   }
 
   /**
-   * Creates alert with error context
+   * Factory method to create an Alert with error context, primary context will set the message
+   * background to the theme error context color
    *
-   * @return new alert instance
+   * @return new Alert instance
    */
   public static Alert error() {
     return create().addCss(dui_error);
   }
 
   /**
-   * Passing true means that the alert will be closable and a close button will be added to the
-   * element to hide it
+   * Use to show or hide the Alert message close button, clicking the close button will remove the
+   * Alert message from the dom.
    *
-   * @param dismissible true to set it as closable, false otherwise
-   * @return same instance
+   * @param dismissible <b>true</b> to show the close button, <b>false</b> to hide the close button
+   * @return Same Alert instance
    */
   public Alert setDismissible(boolean dismissible) {
     if (dismissible) {
@@ -155,40 +160,37 @@ public class Alert extends BaseDominoElement<HTMLDivElement, Alert> {
   }
 
   /**
-   * Sets the alert to closable and a close button will be added to the element to hide it
+   * A shortcut method for <b>setDismissible(true)</b>
    *
-   * @return same instance
+   * @return Same Alert instance
    */
   public Alert dismissible() {
-    dismissible = true;
     removeButton.get();
     return this;
   }
 
   /**
-   * Sets the alert to not closable and the close button will be removed if exist, the alert can be
-   * hidden programmatically using {@link org.dominokit.domino.ui.alerts.Alert#remove()}
+   * Shortcut method for <b>setDismissible(false)</b>
    *
-   * @return same instance
+   * @return Same Alert instance
    */
   public Alert unDismissible() {
-    dismissible = false;
     removeButton.remove();
     return this;
   }
 
-  /** @return true if the alert is closable, false otherwise */
   /**
-   * isDismissible.
+   * Use to check if the Alert instance is dismissible or not.
    *
-   * @return a boolean
+   * @return true if the alert is dismissible, false otherwise
    */
   public boolean isDismissible() {
-    return dismissible;
+    return removeButton.isInitialized();
   }
 
   /**
-   * Returns the close button for customization
+   * When this method is called, it is assumed the button will be customized for a dismissible alert
+   * and so the alert will be marked as dismissible.
    *
    * @return the close button element
    */
@@ -197,10 +199,11 @@ public class Alert extends BaseDominoElement<HTMLDivElement, Alert> {
   }
 
   /**
-   * withCloseButton.
+   * Applies customization on the close button without breaking the fluent API chain, this will have
+   * the same effect as <b>getCloseButton()</b>
    *
    * @param handler a {@link org.dominokit.domino.ui.utils.ChildHandler} object
-   * @return a {@link org.dominokit.domino.ui.alerts.Alert} object
+   * @return Same Alert instance.
    */
   public Alert withCloseButton(ChildHandler<Alert, RemoveButton> handler) {
     handler.apply(this, removeButton.get());
@@ -208,22 +211,22 @@ public class Alert extends BaseDominoElement<HTMLDivElement, Alert> {
   }
 
   /**
-   * withCloseButton.
+   * This will be effectively same as <b>setDismissible(true)</b>
    *
-   * @return a {@link org.dominokit.domino.ui.alerts.Alert} object
+   * @return Same Alert instance
    */
   public Alert withCloseButton() {
     removeButton.get();
     return this;
   }
 
-  /** {@inheritDoc} */
+  /** @dominokit-site-ignore {@inheritDoc} */
   @Override
   public Element getAppendTarget() {
     return bodyElement.element();
   }
 
-  /** {@inheritDoc} */
+  /** @dominokit-site-ignore {@inheritDoc} */
   @Override
   public HTMLDivElement element() {
     return element.element();

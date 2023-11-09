@@ -13,33 +13,34 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package org.dominokit.domino.ui.utils;
 
 /**
- * Components that can be focused should implement this interface
+ * An interface for elements that can be focused, unfocused, and checked for focus state.
  *
- * @param <T> the type of the class implementing this interface
+ * @param <T> The type of the element implementing this interface.
  */
 public interface Focusable<T> {
+
   /**
-   * focus the component
+   * Sets focus on the element.
    *
-   * @return same implementing class
+   * @return The instance of the element after focus has been set.
    */
   T focus();
 
   /**
-   * remove the focus from the component
+   * Removes focus from the element.
    *
-   * @return same implementing class
+   * @return The instance of the element after focus has been removed.
    */
   T unfocus();
 
-  /** @return boolean, true if the component is focused */
   /**
-   * isFocused.
+   * Checks if the element is currently focused.
    *
-   * @return a boolean
+   * @return {@code true} if the element is focused, {@code false} otherwise.
    */
   boolean isFocused();
 }

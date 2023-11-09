@@ -17,22 +17,51 @@ package org.dominokit.domino.ui.elements;
 
 import elemental2.dom.HTMLDListElement;
 
-/** DListElement class. */
+/**
+ * Represents a `
+ *
+ * <dl>
+ *   ` (description list) HTML element wrapper.
+ *   <p>The `
+ *   <dl>
+ *     ` tag is used to create a description list that consists of term-description pairs. This
+ *     class provides a convenient way to create, manipulate, and control the behavior of `
+ *     <dl>
+ *       ` elements, making it easier to use them in Java-based web applications. Example usage:
+ *       <pre>
+ * HTMLDListElement htmlElement = ...;  // Obtain a <dl> element from somewhere
+ * DListElement dlElement = DListElement.of(htmlElement);
+ * </pre>
+ *
+ * @see <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/dl">MDN Web Docs (dl
+ *     element)</a>
+ */
 public class DListElement extends BaseElement<HTMLDListElement, DListElement> {
+
   /**
-   * of.
+   * Creates a new {@link DListElement} instance by wrapping the provided HTML `
    *
-   * @param e a {@link elemental2.dom.HTMLDListElement} object
-   * @return a {@link org.dominokit.domino.ui.elements.DListElement} object
+   * <dl>
+   *   ` element.
+   *
+   * @param e The HTML `
+   *     <dl>
+   *       ` element.
+   * @return A new {@link DListElement} instance wrapping the provided element.
    */
   public static DListElement of(HTMLDListElement e) {
     return new DListElement(e);
   }
 
   /**
-   * Constructor for DListElement.
+   * Constructs a {@link DListElement} instance by wrapping the provided HTML `
    *
-   * @param element a {@link elemental2.dom.HTMLDListElement} object
+   * <dl>
+   *   ` element.
+   *
+   * @param element The HTML `
+   *     <dl>
+   *       ` element to wrap.
    */
   public DListElement(HTMLDListElement element) {
     super(element);

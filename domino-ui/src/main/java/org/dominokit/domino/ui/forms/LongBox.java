@@ -17,69 +17,92 @@ package org.dominokit.domino.ui.forms;
 
 import java.util.function.Function;
 
-/** A component that has an input to take/provide Long value */
+/** A specialized {@link NumberBox} for handling long integer values. */
 public class LongBox extends NumberBox<LongBox, Long> {
 
-  /** @return a new instance without a label */
   /**
-   * create.
+   * Creates a new instance of LongBox with default value set to 0.
    *
-   * @return a {@link org.dominokit.domino.ui.forms.LongBox} object
+   * @return A new instance of LongBox.
    */
   public static LongBox create() {
     return new LongBox();
   }
 
   /**
-   * create.
+   * Creates a new instance of LongBox with the given label.
    *
-   * @param label String
-   * @return new instance with a label
+   * @param label The label to be used for the LongBox.
+   * @return A new instance of LongBox.
    */
   public static LongBox create(String label) {
     return new LongBox(label);
   }
 
-  /** Create instance without a label */
+  /** Default constructor. Sets the default value of the box to 0. */
   public LongBox() {
     setDefaultValue(0L);
   }
 
   /**
-   * Create an instance with a label
+   * Constructor with a label.
    *
-   * @param label String
+   * @param label The label to be used for the LongBox.
    */
   public LongBox(String label) {
     this();
     setLabel(label);
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Provides the default parser for parsing string values to long integers.
+   *
+   * @return The function to parse string values into long values.
+   */
   @Override
   protected Function<String, Long> defaultValueParser() {
     return getConfig().getNumberParsers().longParser(this);
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Returns the maximum representable value for a long integer.
+   *
+   * @return The maximum long value, {@link Long#MAX_VALUE}.
+   */
   @Override
   protected Long defaultMaxValue() {
     return Long.MAX_VALUE;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Returns the minimum representable value for a long integer.
+   *
+   * @return The minimum long value, {@link Long#MIN_VALUE}.
+   */
   @Override
   protected Long defaultMinValue() {
     return Long.MIN_VALUE;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Determines if the provided value exceeds the given maximum value.
+   *
+   * @param maxValue The maximum allowable value.
+   * @param value The value to check.
+   * @return True if the value exceeds the maximum, false otherwise.
+   */
   @Override
   protected boolean isExceedMaxValue(Long maxValue, Long value) {
     return value > maxValue;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Determines if the provided value is lower than the given minimum value.
+   *
+   * @param minValue The minimum allowable value.
+   * @param value The value to check.
+   * @return True if the value is lower than the minimum, false otherwise.
+   */
   @Override
   protected boolean isLowerThanMinValue(Long minValue, Long value) {
     return value < minValue;

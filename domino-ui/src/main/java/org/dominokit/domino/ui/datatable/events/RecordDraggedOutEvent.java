@@ -13,40 +13,46 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package org.dominokit.domino.ui.datatable.events;
 
 /**
- * This event will be fired when a record gets dragged out
+ * The {@code RecordDraggedOutEvent} class represents an event that is fired when a record is
+ * dragged out of a DataTable.
  *
- * @param <T> the type of the record
+ * @param <T> the type of data in the DataTable
+ * @see org.dominokit.domino.ui.datatable.events.TableEvent
  */
 public class RecordDraggedOutEvent<T> implements TableEvent {
 
-  /** Constant <code>RECORD_DRAGGED_OUT="record-dragged-out"</code> */
+  /** The event type for the record-dragged-out event. */
   public static final String RECORD_DRAGGED_OUT = "record-dragged-out";
 
   private final T draggedOutRecord;
 
   /**
-   * Constructor for RecordDraggedOutEvent.
+   * Creates a new {@code RecordDraggedOutEvent} with the specified dragged out record.
    *
-   * @param draggedOutRecord a T object
+   * @param draggedOutRecord the record that was dragged out
    */
   public RecordDraggedOutEvent(T draggedOutRecord) {
     this.draggedOutRecord = draggedOutRecord;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Retrieves the type of this event.
+   *
+   * @return the event type
+   */
   @Override
   public String getType() {
     return RECORD_DRAGGED_OUT;
   }
 
-  /** @return dragged out record */
   /**
-   * Getter for the field <code>draggedOutRecord</code>.
+   * Retrieves the record that was dragged out of the DataTable.
    *
-   * @return a T object
+   * @return the dragged out record
    */
   public T getDraggedOutRecord() {
     return draggedOutRecord;

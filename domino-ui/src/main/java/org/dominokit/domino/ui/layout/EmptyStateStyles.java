@@ -17,15 +17,21 @@ package org.dominokit.domino.ui.layout;
 
 import org.dominokit.domino.ui.style.CssClass;
 
-/** EmptyStateStyles interface. */
+/**
+ * The {@code EmptyStateStyles} interface provides CSS classes for styling elements within an empty
+ * state component.
+ */
 public interface EmptyStateStyles {
 
-  /** Constant <code>dui_empty_state</code> */
+  /** Represents the CSS class for the main empty state container. */
   CssClass dui_empty_state = () -> "dui-empty-state";
-  /** Constant <code>dui_empty_state_title</code> */
+
+  /** Represents the CSS class for the title of the empty state. */
   CssClass dui_empty_state_title = () -> "dui-empty-state-title";
-  /** Constant <code>dui_empty_state_description</code> */
+
+  /** Represents the CSS class for the description text of the empty state. */
   CssClass dui_empty_state_description = () -> "dui-empty-state-description";
-  /** Constant <code>dui_empty_state_icon</code> */
+
+  /** Represents the CSS class for the icon displayed in the empty state. */
   CssClass dui_empty_state_icon = () -> "dui-empty-state-icon";
 }

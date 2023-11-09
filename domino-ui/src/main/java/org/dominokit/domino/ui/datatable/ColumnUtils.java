@@ -13,6 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package org.dominokit.domino.ui.datatable;
 
 import static java.util.Objects.nonNull;
@@ -23,15 +24,15 @@ import java.util.Optional;
 import org.dominokit.domino.ui.style.Style;
 import org.dominokit.domino.ui.utils.DominoCSSRule;
 
-/** ColumnUtils class. */
+/** Utility class for working with columns in a data table. */
 public class ColumnUtils {
 
   /**
-   * fixElementWidth.
+   * Adjusts the width of an HTML element based on the best-fit width configuration of a column.
    *
-   * @param column a {@link org.dominokit.domino.ui.datatable.ColumnConfig} object
-   * @param element a {@link elemental2.dom.HTMLElement} object
-   * @param <T> a T class
+   * @param <T> The data type of the column.
+   * @param column The column configuration.
+   * @param element The HTML element to adjust the width of.
    */
   public static <T> void fixElementWidth(ColumnConfig<T> column, HTMLElement element) {
     bestFitWidth(column)
@@ -64,11 +65,11 @@ public class ColumnUtils {
   }
 
   /**
-   * fixElementWidth.
+   * Adjusts the width of an HTML element based on the configuration of a data table.
    *
-   * @param table a {@link org.dominokit.domino.ui.datatable.DataTable} object
-   * @param element a {@link elemental2.dom.HTMLElement} object
-   * @param <T> a T class
+   * @param <T> The data type of the data table.
+   * @param table The data table.
+   * @param element The HTML element to adjust the width of.
    */
   public static <T> void fixElementWidth(DataTable<T> table, HTMLElement element) {
 
@@ -85,9 +86,12 @@ public class ColumnUtils {
   }
 
   /**
-   * @param columnConfig String value of preferred width to be used for a column from its width.
-   *     min-width, max-width or default none
-   * @return same TableConfig instance
+   * Retrieves the best-fit width configuration for a column.
+   *
+   * @param <T> The data type of the column.
+   * @param columnConfig The column configuration.
+   * @return An {@link Optional} containing the best-fit width as a string, or an empty optional if
+   *     no best-fit width is found.
    */
   private static <T> Optional<String> bestFitWidth(ColumnConfig<T> columnConfig) {
     if (nonNull(columnConfig.getWidth()) && !columnConfig.getWidth().isEmpty()) {

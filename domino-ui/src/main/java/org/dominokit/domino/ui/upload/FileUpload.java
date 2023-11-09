@@ -45,10 +45,43 @@ import org.dominokit.domino.ui.utils.HasName;
 import org.dominokit.domino.ui.utils.LazyChild;
 
 /**
- * A component for uploading files (photos, documents or any other file type) from local storage
+ * The `FileUpload` class provides a user interface for uploading files to a server. It allows users
+ * to select and upload one or multiple files, with options for customization and configuration.
  *
+ * <p>Usage example:
+ *
+ * <pre>
+ * // Create a FileUpload component
+ * FileUpload fileUpload = FileUpload.create();
+ *
+ * // Set the maximum number of allowed uploads
+ * fileUpload.setMaxAllowedUploads(5);
+ *
+ * // Set a custom request sender for handling file uploads
+ * fileUpload.setRequestSender(myCustomRequestSender);
+ *
+ * // Enable auto-upload (files are uploaded automatically after selection)
+ * fileUpload.autoUpload();
+ *
+ * // Set the accepted file types
+ * fileUpload.accept("image/*,application/pdf");
+ *
+ * // Add an event handler for when a file is added
+ * fileUpload.onAddFile(fileItem -> {
+ *     // Handle the added fileItem
+ * });
+ *
+ * // Set a custom decoration for the component
+ * fileUpload.setDecoration(myCustomDecorationElement);
+ * </pre>
+ *
+ * @see FileItem
+ * @see FilePreviewFactory
+ * @see FilePreviewContainer
+ * @see UploadOptions
+ * @see UploadRequestSender
+ * @see DropEffect
  * @see BaseDominoElement
- * @see HasName
  */
 public class FileUpload extends BaseDominoElement<HTMLDivElement, FileUpload>
     implements HasName<FileUpload>,
@@ -56,7 +89,6 @@ public class FileUpload extends BaseDominoElement<HTMLDivElement, FileUpload>
         HasComponentConfig<UploadConfig>,
         HasLabels<UploadLabels> {
 
-  /** Constant <code>DEFAULT_SUCCESS_CODES</code> */
   public static final Supplier<List<Integer>> DEFAULT_SUCCESS_CODES =
       () -> Arrays.asList(200, 201, 202, 203, 204, 205, 206, 207, 208, 226);
 
@@ -76,62 +108,58 @@ public class FileUpload extends BaseDominoElement<HTMLDivElement, FileUpload>
 
   private DropEffect dropEffect;
 
-  /** @return new instance */
   /**
-   * create.
+   * Creates a new instance of the `FileUpload` component.
    *
-   * @return a {@link org.dominokit.domino.ui.upload.FileUpload} object
+   * @return A new `FileUpload` instance.
    */
   public static FileUpload create() {
     return new FileUpload();
   }
 
-  /** @return new instance */
   /**
-   * create.
+   * Creates a new instance of the `FileUpload` component with a custom file preview factory and
+   * file preview container.
    *
-   * @param filePreviewFactory a {@link org.dominokit.domino.ui.upload.FilePreviewFactory} object
-   * @param filePreviewContainer a {@link org.dominokit.domino.ui.upload.FilePreviewContainer}
-   *     object
-   * @return a {@link org.dominokit.domino.ui.upload.FileUpload} object
+   * @param filePreviewFactory The file preview factory to use.
+   * @param filePreviewContainer The file preview container to use.
+   * @return A new `FileUpload` instance with the specified factory and container.
    */
   public static FileUpload create(
       FilePreviewFactory filePreviewFactory, FilePreviewContainer<?, ?> filePreviewContainer) {
     return new FileUpload(filePreviewFactory, filePreviewContainer);
   }
 
-  /** @return new instance */
   /**
-   * create.
+   * Creates a new instance of the `FileUpload` component with a default file preview factory and a
+   * custom file preview container.
    *
-   * @param filePreviewContainer a {@link org.dominokit.domino.ui.upload.FilePreviewContainer}
-   *     object
-   * @return a {@link org.dominokit.domino.ui.upload.FileUpload} object
+   * @param filePreviewContainer The file preview container to use.
+   * @return A new `FileUpload` instance with the default factory and the specified container.
    */
   public static FileUpload create(FilePreviewContainer<?, ?> filePreviewContainer) {
     return new FileUpload(CONFIG.getUIConfig().getFilePreviewFactory(), filePreviewContainer);
   }
 
-  /** @return new instance */
   /**
-   * create.
+   * Creates a new instance of the `FileUpload` component with a custom file preview factory and the
+   * default file preview container.
    *
-   * @param filePreviewFactory a {@link org.dominokit.domino.ui.upload.FilePreviewFactory} object
-   * @return a {@link org.dominokit.domino.ui.upload.FileUpload} object
+   * @param filePreviewFactory The file preview factory to use.
+   * @return A new `FileUpload` instance with the specified factory and the default container.
    */
   public static FileUpload create(FilePreviewFactory filePreviewFactory) {
     return new FileUpload(filePreviewFactory);
   }
 
-  /** @return new instance */
   /**
-   * create.
+   * Creates a new instance of the `FileUpload` component with a custom file preview factory, file
+   * preview container, and decoration element.
    *
-   * @param filePreviewFactory a {@link org.dominokit.domino.ui.upload.FilePreviewFactory} object
-   * @param filePreviewContainer a {@link org.dominokit.domino.ui.upload.FilePreviewContainer}
-   *     object
-   * @param decoration a {@link org.dominokit.domino.ui.IsElement} object
-   * @return a {@link org.dominokit.domino.ui.upload.FileUpload} object
+   * @param filePreviewFactory The file preview factory to use.
+   * @param filePreviewContainer The file preview container to use.
+   * @param decoration The decoration element to use.
+   * @return A new `FileUpload` instance with the specified factory, container, and decoration.
    */
   public static FileUpload create(
       FilePreviewFactory filePreviewFactory,
@@ -140,12 +168,29 @@ public class FileUpload extends BaseDominoElement<HTMLDivElement, FileUpload>
     return new FileUpload(filePreviewFactory, filePreviewContainer, decoration);
   }
 
+  /** Creates a new instance of the `FileUpload` component with default configurations. */
+  public FileUpload() {
+    this(
+        CONFIG.getUIConfig().getFilePreviewFactory(),
+        CONFIG.getUIConfig().getDefaultFilePreviewContainer().get());
+  }
+
   /**
-   * Constructor for FileUpload.
+   * Creates a new instance of the `FileUpload` component with a custom file preview factory and the
+   * default file preview container.
    *
-   * @param filePreviewFactory a {@link org.dominokit.domino.ui.upload.FilePreviewFactory} object
-   * @param filePreviewContainer a {@link org.dominokit.domino.ui.upload.FilePreviewContainer}
-   *     object
+   * @param filePreviewFactory The file preview factory to use.
+   */
+  public FileUpload(FilePreviewFactory filePreviewFactory) {
+    this(filePreviewFactory, CONFIG.getUIConfig().getDefaultFilePreviewContainer().get());
+  }
+
+  /**
+   * Creates a new instance of the `FileUpload` component with a custom file preview factory and
+   * file preview container.
+   *
+   * @param filePreviewFactory The file preview factory to use.
+   * @param filePreviewContainer The file preview container to use.
    */
   public FileUpload(
       FilePreviewFactory filePreviewFactory, FilePreviewContainer<?, ?> filePreviewContainer) {
@@ -207,12 +252,12 @@ public class FileUpload extends BaseDominoElement<HTMLDivElement, FileUpload>
   }
 
   /**
-   * Constructor for FileUpload.
+   * Creates a new instance of the `FileUpload` component with a custom file preview factory, file
+   * preview container, and decoration element.
    *
-   * @param filePreviewFactory a {@link org.dominokit.domino.ui.upload.FilePreviewFactory} object
-   * @param filePreviewContainer a {@link org.dominokit.domino.ui.upload.FilePreviewContainer}
-   *     object
-   * @param decoration a {@link org.dominokit.domino.ui.IsElement} object
+   * @param filePreviewFactory The file preview factory to use.
+   * @param filePreviewContainer The file preview container to use.
+   * @param decoration The decoration element to use.
    */
   public FileUpload(
       FilePreviewFactory filePreviewFactory,
@@ -223,36 +268,23 @@ public class FileUpload extends BaseDominoElement<HTMLDivElement, FileUpload>
   }
 
   /**
-   * Constructor for FileUpload.
+   * Sets a custom decoration element for the `FileUpload` component using an {@link IsElement}
+   * instance. The decoration element is typically used to enhance or style the appearance of the
+   * component.
    *
-   * @param filePreviewFactory a {@link org.dominokit.domino.ui.upload.FilePreviewFactory} object
-   */
-  public FileUpload(FilePreviewFactory filePreviewFactory) {
-    this(filePreviewFactory, CONFIG.getUIConfig().getDefaultFilePreviewContainer().get());
-  }
-
-  /** Constructor for FileUpload. */
-  public FileUpload() {
-    this(
-        CONFIG.getUIConfig().getFilePreviewFactory(),
-        CONFIG.getUIConfig().getDefaultFilePreviewContainer().get());
-  }
-
-  /**
-   * Setter for the field <code>decoration</code>.
-   *
-   * @param decoration a {@link org.dominokit.domino.ui.IsElement} object
-   * @return a {@link org.dominokit.domino.ui.upload.FileUpload} object
+   * @param decoration The decoration element provided as an {@link IsElement} instance.
+   * @return The current `FileUpload` instance for method chaining.
    */
   public FileUpload setDecoration(IsElement<?> decoration) {
     return setDecoration(decoration.element());
   }
 
   /**
-   * Setter for the field <code>decoration</code>.
+   * Sets a custom decoration element for the `FileUpload` component using a native {@link Element}.
+   * The decoration element is typically used to enhance or style the appearance of the component.
    *
-   * @param decoration a {@link elemental2.dom.Element} object
-   * @return a {@link org.dominokit.domino.ui.upload.FileUpload} object
+   * @param decoration The decoration element provided as a native {@link Element}.
+   * @return The current `FileUpload` instance for method chaining.
    */
   public FileUpload setDecoration(Element decoration) {
     if (nonNull(this.decoration) && this.decoration.isInitialized()) {
@@ -267,28 +299,28 @@ public class FileUpload extends BaseDominoElement<HTMLDivElement, FileUpload>
   }
 
   /**
-   * Setter for the field <code>maxAllowedUploads</code>.
+   * Sets the maximum number of allowed uploads.
    *
-   * @param maxAllowedUploads a int
+   * @param maxAllowedUploads The maximum number of allowed uploads.
    */
   public void setMaxAllowedUploads(int maxAllowedUploads) {
     this.maxAllowedUploads = maxAllowedUploads;
   }
 
   /**
-   * Getter for the field <code>maxAllowedUploads</code>.
+   * Gets the maximum number of allowed uploads.
    *
-   * @return a int
+   * @return The maximum number of allowed uploads.
    */
   public int getMaxAllowedUploads() {
     return maxAllowedUploads;
   }
 
   /**
-   * Sets the sender of the upload request when the request is ready to be sent
+   * Sets a custom request sender for handling file uploads.
    *
-   * @param requestSender the {@link org.dominokit.domino.ui.upload.UploadRequestSender}
-   * @return same instance
+   * @param requestSender The custom request sender.
+   * @return The current `FileUpload` instance for method chaining.
    */
   public FileUpload setRequestSender(UploadRequestSender requestSender) {
     if (nonNull(requestSender)) {
@@ -297,10 +329,19 @@ public class FileUpload extends BaseDominoElement<HTMLDivElement, FileUpload>
     return this;
   }
 
+  /**
+   * Adds a CSS class to the root element to indicate that a file is being dragged over the
+   * component.
+   */
   private void addHover() {
     root.addCss("dui-hovered");
   }
 
+  /**
+   * Uploads a list of files to the server.
+   *
+   * @param files The list of files to upload.
+   */
   public void uploadFiles(FileList files) {
     for (int i = 0; i < files.length; i++) {
       File file = files.item(i);
@@ -309,11 +350,16 @@ public class FileUpload extends BaseDominoElement<HTMLDivElement, FileUpload>
     hiddenFileInput.element().value = "";
   }
 
-  /** Sends the requests for uploading all files */
+  /** Uploads all added files to the server. */
   public void uploadAllFiles() {
     addedFileItems.forEach(fileItem -> fileItem.upload(requestSender));
   }
 
+  /**
+   * Adds a file preview for the given file and handles its actions.
+   *
+   * @param file The file to create a preview for.
+   */
   private void addFilePreview(File file) {
     if (isMultiUpload()) {
       removeFileItems();
@@ -341,6 +387,7 @@ public class FileUpload extends BaseDominoElement<HTMLDivElement, FileUpload>
     }
   }
 
+  /** Removes the CSS class indicating that a file is being dragged over the component. */
   private void removeHover() {
     root.removeCss("dui-hovered");
   }
@@ -352,27 +399,31 @@ public class FileUpload extends BaseDominoElement<HTMLDivElement, FileUpload>
   }
 
   /**
-   * Enables multiple files upload
+   * Sets whether the component allows multiple file uploads.
    *
-   * @return same instance
-   * @param multiUpload a boolean
+   * @param multiUpload Set to `true` to allow multiple file uploads, `false` otherwise.
+   * @return The current `FileUpload` instance for method chaining.
    */
   public FileUpload setMultiUpload(boolean multiUpload) {
     hiddenFileInput.element().multiple = multiUpload;
     return this;
   }
 
+  /**
+   * Checks if the component allows multiple file uploads.
+   *
+   * @return `true` if multiple file uploads are allowed, `false` otherwise.
+   */
   public boolean isMultiUpload() {
     return hiddenFileInput.element().multiple;
   }
 
   /**
-   * accept.
+   * Sets the accepted file types for file selection.
    *
-   * @see <a href='https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/accept'>MDN docs for
-   *     accept attribute</a> Sets the accepted files extensions
-   * @param acceptedFiles a comma separated string containing all the accepted file extensions
-   * @return same instance
+   * @param acceptedFiles A comma-separated list of accepted file types (e.g.,
+   *     "image/*,application/pdf").
+   * @return The current `FileUpload` instance for method chaining.
    */
   public FileUpload accept(String acceptedFiles) {
     hiddenFileInput.element().accept = acceptedFiles;
@@ -380,22 +431,20 @@ public class FileUpload extends BaseDominoElement<HTMLDivElement, FileUpload>
   }
 
   /**
-   * accept.
+   * Sets the accepted file types for file selection from a collection of accepted file types.
    *
-   * @see <a href='https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/accept'>MDN docs for
-   *     accept attribute</a> Sets the accepted files extensions
-   * @param acceptedFiles a comma separated string containing all the accepted file extensions
-   * @return same instance
+   * @param acceptedFiles A collection of accepted file types.
+   * @return The current `FileUpload` instance for method chaining.
    */
   public FileUpload accept(Collection<String> acceptedFiles) {
     return accept(String.join(",", acceptedFiles));
   }
 
   /**
-   * Sets a handler to be called when file is added
+   * Adds a handler for when a file is added to the component.
    *
-   * @param fileItemHandler a {@link org.dominokit.domino.ui.upload.FileUpload.FileItemHandler}
-   * @return same instance
+   * @param fileItemHandler The file item handler to add.
+   * @return The current `FileUpload` instance for method chaining.
    */
   public FileUpload onAddFile(FileItemHandler fileItemHandler) {
     fileItemHandlers.add(fileItemHandler);
@@ -403,9 +452,9 @@ public class FileUpload extends BaseDominoElement<HTMLDivElement, FileUpload>
   }
 
   /**
-   * Sets that the file should be automatically uploaded when the user adds it
+   * Enables auto-upload mode, where files are uploaded automatically after selection.
    *
-   * @return same instance
+   * @return The current `FileUpload` instance for method chaining.
    */
   public FileUpload autoUpload() {
     this.autoUpload = true;
@@ -413,11 +462,9 @@ public class FileUpload extends BaseDominoElement<HTMLDivElement, FileUpload>
   }
 
   /**
-   * Sets that the file should be uploaded only when calling {@link
-   * FileUpload#uploadFiles(FileList)} or {@link
-   * org.dominokit.domino.ui.upload.FileUpload#uploadAllFiles()}
+   * Enables manual-upload mode, where files are not automatically uploaded after selection.
    *
-   * @return same instance
+   * @return The current `FileUpload` instance for method chaining.
    */
   public FileUpload manualUpload() {
     this.autoUpload = false;
@@ -425,51 +472,47 @@ public class FileUpload extends BaseDominoElement<HTMLDivElement, FileUpload>
   }
 
   /**
-   * Setter for the field <code>autoUpload</code>.
+   * Sets the upload mode for the component.
    *
-   * @param autoUpload a boolean
-   * @return a {@link org.dominokit.domino.ui.upload.FileUpload} object
+   * @param autoUpload Set to `true` for auto-upload mode, `false` for manual-upload mode.
+   * @return The current `FileUpload` instance for method chaining.
    */
   public FileUpload setAutoUpload(boolean autoUpload) {
     this.autoUpload = autoUpload;
     return this;
   }
 
-  /** @return the hidden file input element */
   /**
-   * getInputElement.
+   * Gets the input element used for selecting files.
    *
-   * @return a {@link org.dominokit.domino.ui.elements.InputElement} object
+   * @return The input element for file selection.
    */
   public InputElement getInputElement() {
     return hiddenFileInput;
   }
 
-  /** @return the files container */
   /**
-   * Getter for the field <code>filesContainer</code>.
+   * Gets the container element that holds the added file items.
    *
-   * @return a {@link org.dominokit.domino.ui.utils.DominoElement} object
+   * @return The container element for added file items.
    */
   public DominoElement<HTMLElement> getFilesContainer() {
     return (DominoElement<HTMLElement>) filesContainer;
   }
 
-  /** @return the added file items */
   /**
-   * Getter for the field <code>addedFileItems</code>.
+   * Gets the list of added file items.
    *
-   * @return a {@link java.util.List} object
+   * @return A list of added file items.
    */
   public List<FileItem> getAddedFileItems() {
     return addedFileItems;
   }
 
-  /** @return the added file items */
   /**
-   * Getter for the field <code>addedFileItems</code>.
+   * Removes all added file items from the component.
    *
-   * @return a {@link java.util.List} object
+   * @return The current `FileUpload` instance for method chaining.
    */
   public FileUpload removeFileItems() {
     addedFileItems.forEach(FileItem::remove);
@@ -477,54 +520,62 @@ public class FileUpload extends BaseDominoElement<HTMLDivElement, FileUpload>
     return this;
   }
 
-  /** @return all {@link FileItemHandler} defined */
   /**
-   * getOnAddFileHandlers.
+   * Gets a list of file item handlers that are executed when a file is added to the component.
    *
-   * @return a {@link java.util.List} object
+   * @return A list of file item handlers.
    */
   public List<FileItemHandler> getOnAddFileHandlers() {
     return fileItemHandlers;
   }
 
-  /** @return true if auto upload is set, false otherwise */
   /**
-   * isAutoUpload.
+   * Checks if the component is in auto-upload mode.
    *
-   * @return a boolean
+   * @return `true` if the component is in auto-upload mode, `false` otherwise.
    */
   public boolean isAutoUpload() {
     return autoUpload;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Retrieves the name attribute of the hidden file input element associated with this `FileUpload`
+   * component. The name attribute is used when submitting the uploaded file(s) as part of a form.
+   *
+   * @return The name attribute of the hidden file input element.
+   */
   @Override
   public String getName() {
     return hiddenFileInput.element().name;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Sets the name attribute for the hidden file input element associated with this `FileUpload`
+   * component. The name attribute is used when submitting the uploaded file(s) as part of a form.
+   *
+   * @param name The name to be set as the name attribute.
+   * @return The current `FileUpload` instance for method chaining.
+   */
   @Override
   public FileUpload setName(String name) {
     hiddenFileInput.element().name = name;
     return this;
   }
 
-  /** @return the {@link DropEffect} configured */
   /**
-   * Getter for the field <code>dropEffect</code>.
+   * Gets the current drop effect for file drag-and-drop operations.
    *
-   * @return a {@link java.util.Optional} object
+   * @return An optional drop effect, or `null` if not set.
    */
   public Optional<DropEffect> getDropEffect() {
     return Optional.ofNullable(dropEffect);
   }
 
   /**
-   * Sets the drop effect
+   * Sets the drop effect for file drag-and-drop operations.
    *
-   * @param dropEffect the {@link org.dominokit.domino.ui.upload.DropEffect}
-   * @return same instance
+   * @param dropEffect The drop effect to set.
+   * @return The current `FileUpload` instance for method chaining.
    */
   public FileUpload setDropEffect(DropEffect dropEffect) {
     if (nonNull(dropEffect)) {
@@ -533,10 +584,17 @@ public class FileUpload extends BaseDominoElement<HTMLDivElement, FileUpload>
     return this;
   }
 
-  /** A handler to be called when file is added */
+  /**
+   * A functional interface for handling file items when they are added to the `FileUpload`
+   * component.
+   */
   @FunctionalInterface
   public interface FileItemHandler {
-    /** @param fileItem the added {@link FileItem} */
+    /**
+     * Handles a file item.
+     *
+     * @param fileItem The file item to handle.
+     */
     void handle(FileItem fileItem);
   }
 }

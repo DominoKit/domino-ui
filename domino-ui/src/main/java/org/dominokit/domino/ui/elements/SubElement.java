@@ -17,22 +17,39 @@ package org.dominokit.domino.ui.elements;
 
 import elemental2.dom.HTMLElement;
 
-/** SubElement class. */
+/**
+ * Represents an HTML <sub> element wrapper.
+ *
+ * <p>The HTML <sub> element is used to specify text that should be displayed as subscript.
+ * Subscript text appears half a character below the normal line, and is often smaller than the
+ * surrounding text. Subscript text is typically used in mathematical or chemical formulas. This
+ * class provides a Java-based way to create, manipulate, and control the behavior of <sub> elements
+ * in web applications. Example usage:
+ *
+ * <pre>{@code
+ * HTMLElement subElement = ...;  // Obtain a <sub> element from somewhere
+ * SubElement sub = SubElement.of(subElement);
+ * }</pre>
+ *
+ * @see <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/sub">MDN Web Docs
+ *     (sub)</a>
+ */
 public class SubElement extends BaseElement<HTMLElement, SubElement> {
+
   /**
-   * of.
+   * Creates a new {@link SubElement} instance by wrapping the provided HTML <sub> element.
    *
-   * @param e a {@link elemental2.dom.HTMLElement} object
-   * @return a {@link org.dominokit.domino.ui.elements.SubElement} object
+   * @param e The HTML <sub> element to wrap.
+   * @return A new {@link SubElement} instance wrapping the provided element.
    */
   public static SubElement of(HTMLElement e) {
     return new SubElement(e);
   }
 
   /**
-   * Constructor for SubElement.
+   * Constructs a {@link SubElement} instance by wrapping the provided HTML <sub> element.
    *
-   * @param element a {@link elemental2.dom.HTMLElement} object
+   * @param element The HTML <sub> element to wrap.
    */
   public SubElement(HTMLElement element) {
     super(element);

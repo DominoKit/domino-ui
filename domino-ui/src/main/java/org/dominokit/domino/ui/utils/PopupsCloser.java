@@ -13,6 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package org.dominokit.domino.ui.utils;
 
 import static elemental2.dom.DomGlobal.document;
@@ -23,14 +24,19 @@ import elemental2.dom.NodeList;
 import jsinterop.base.Js;
 import org.dominokit.domino.ui.events.EventType;
 
-/** A utility class that close all opened popus based on a selector */
+/**
+ * The {@code PopupsCloser} class provides a utility for closing popups and elements that are marked
+ * as auto-closable. It listens for click and touch events and automatically closes elements marked
+ * as auto-closable.
+ */
 public class PopupsCloser {
 
-  /** Constant <code>DOMINO_UI_AUTO_CLOSABLE="domino-ui-auto-closable"</code> */
+  /** The CSS class name used to mark elements as auto-closable. */
   public static final String DOMINO_UI_AUTO_CLOSABLE = "domino-ui-auto-closable";
 
   private static boolean touchMoved;
 
+  /** Initializes the PopupsCloser by adding event listeners for click and touch events. */
   static {
     document.addEventListener(EventType.click.getName(), evt -> close());
     document.addEventListener(EventType.touchmove.getName(), evt -> touchMoved = true);
@@ -44,15 +50,15 @@ public class PopupsCloser {
         });
   }
 
-  /** close. */
+  /** Closes all auto-closable elements marked with the default CSS class name. */
   public static void close() {
     close(DOMINO_UI_AUTO_CLOSABLE);
   }
 
   /**
-   * Close all popups that matches the provided selector
+   * Closes all auto-closable elements marked with the specified CSS class name.
    *
-   * @param selector a {@link java.lang.String} object
+   * @param selector The CSS class name used to select auto-closable elements.
    */
   public static void close(String selector) {
     NodeList<Element> elementsByName = document.body.querySelectorAll("[" + selector + "]");

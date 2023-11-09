@@ -17,22 +17,37 @@ package org.dominokit.domino.ui.elements;
 
 import elemental2.dom.HTMLElement;
 
-/** StrongElement class. */
+/**
+ * Represents an HTML <strong> element wrapper.
+ *
+ * <p>The HTML <strong> element is used to give text strong importance, and is typically displayed
+ * in a bold font. This class provides a Java-based way to create, manipulate, and control the
+ * behavior of <strong> elements in web applications. Example usage:
+ *
+ * <pre>{@code
+ * HTMLElement strongElement = ...;  // Obtain a <strong> element from somewhere
+ * StrongElement strong = StrongElement.of(strongElement);
+ * }</pre>
+ *
+ * @see <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/strong">MDN Web Docs
+ *     (strong)</a>
+ */
 public class StrongElement extends BaseElement<HTMLElement, StrongElement> {
+
   /**
-   * of.
+   * Creates a new {@link StrongElement} instance by wrapping the provided HTML <strong> element.
    *
-   * @param e a {@link elemental2.dom.HTMLElement} object
-   * @return a {@link org.dominokit.domino.ui.elements.StrongElement} object
+   * @param e The HTML <strong> element to wrap.
+   * @return A new {@link StrongElement} instance wrapping the provided element.
    */
   public static StrongElement of(HTMLElement e) {
     return new StrongElement(e);
   }
 
   /**
-   * Constructor for StrongElement.
+   * Constructs a {@link StrongElement} instance by wrapping the provided HTML <strong> element.
    *
-   * @param element a {@link elemental2.dom.HTMLElement} object
+   * @param element The HTML <strong> element to wrap.
    */
   public StrongElement(HTMLElement element) {
     super(element);

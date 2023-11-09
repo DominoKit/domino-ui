@@ -15,14 +15,29 @@
  */
 package org.dominokit.domino.ui.loaders;
 
-/** A factory for creating loaders based on their type */
+/**
+ * Factory class responsible for creating instances of different types of loaders.
+ *
+ * <p>The {@link LoaderFactory} provides a unified method to create loader instances based on the
+ * desired visual effect as defined in the {@link LoaderEffect} enum.
+ *
+ * <p><b>Usage:</b>
+ *
+ * <pre>
+ * LoaderEffect effect = LoaderEffect.BOUNCE;
+ * IsLoader loader = LoaderFactory.make(effect);
+ * </pre>
+ *
+ * @author [Your Name]
+ */
 public class LoaderFactory {
 
   /**
-   * make.
+   * Creates a new loader instance based on the specified loader effect.
    *
-   * @param type a {@link org.dominokit.domino.ui.loaders.LoaderEffect} object
-   * @return a {@link org.dominokit.domino.ui.loaders.IsLoader} object
+   * @param type The desired {@link LoaderEffect}.
+   * @return An instance of the loader corresponding to the specified effect. Returns an instance of
+   *     {@code NoneLoader} if an unrecognized effect is provided.
    */
   public static IsLoader make(LoaderEffect type) {
     switch (type) {

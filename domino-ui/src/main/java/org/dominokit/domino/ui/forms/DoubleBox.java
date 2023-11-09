@@ -17,76 +17,102 @@ package org.dominokit.domino.ui.forms;
 
 import java.util.function.Function;
 
-/** A component that has an input to take/provide Double value */
+/** A specialized {@link NumberBox} for handling double-precision floating point values. */
 public class DoubleBox extends NumberBox<DoubleBox, Double> {
 
-  /** @return a new instance without a label */
   /**
-   * create.
+   * Creates a new instance of DoubleBox with a default value set to 0.0.
    *
-   * @return a {@link org.dominokit.domino.ui.forms.DoubleBox} object
+   * @return A new instance of DoubleBox.
    */
   public static DoubleBox create() {
     return new DoubleBox();
   }
 
-  /** @return a new instance with a label */
   /**
-   * create.
+   * Creates a new instance of DoubleBox with the given label.
    *
-   * @param label a {@link java.lang.String} object
-   * @return a {@link org.dominokit.domino.ui.forms.DoubleBox} object
+   * @param label The label to be used for the DoubleBox.
+   * @return A new instance of DoubleBox.
    */
   public static DoubleBox create(String label) {
     return new DoubleBox(label);
   }
 
-  /** Creates a DoubleBox with empty label */
+  /** Default constructor. Sets the default value of the box to 0.0. */
   public DoubleBox() {
     setDefaultValue(0.0);
   }
 
   /**
-   * Creates a DoubleBox with a label
+   * Constructor with a label.
    *
-   * @param label String
+   * @param label The label to be used for the DoubleBox.
    */
   public DoubleBox(String label) {
     this();
     setLabel(label);
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Provides the default parser for parsing string values to doubles.
+   *
+   * @return The function to parse string values into double values.
+   */
   @Override
   protected Function<String, Double> defaultValueParser() {
     return getConfig().getNumberParsers().doubleParser(this);
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Specifies that this box supports decimal values.
+   *
+   * @return True since double values have decimal separators.
+   */
   @Override
   protected boolean hasDecimalSeparator() {
     return true;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Determines if the provided value exceeds the given maximum value.
+   *
+   * @param maxValue The maximum allowable value.
+   * @param value The value to check.
+   * @return True if the value exceeds the maximum, false otherwise.
+   */
   @Override
   protected boolean isExceedMaxValue(Double maxValue, Double value) {
     return value.compareTo(maxValue) > 0;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Determines if the provided value is lower than the given minimum value.
+   *
+   * @param minValue The minimum allowable value.
+   * @param value The value to check.
+   * @return True if the value is lower than the minimum, false otherwise.
+   */
   @Override
   protected boolean isLowerThanMinValue(Double minValue, Double value) {
     return value.compareTo(minValue) < 0;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Returns the maximum representable value for a double.
+   *
+   * @return The maximum double value, {@link Double#MAX_VALUE}.
+   */
   @Override
   protected Double defaultMaxValue() {
     return Double.MAX_VALUE;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Returns the minimum representable value for a double.
+   *
+   * @return A value representing negative infinity, {@link Double#NEGATIVE_INFINITY}.
+   */
   @Override
   protected Double defaultMinValue() {
     return Double.NEGATIVE_INFINITY;

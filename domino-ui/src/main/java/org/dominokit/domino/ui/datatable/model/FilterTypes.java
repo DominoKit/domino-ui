@@ -15,17 +15,47 @@
  */
 package org.dominokit.domino.ui.datatable.model;
 
-/** An enum of filter types */
+/**
+ * The {@code FilterTypes} enum represents different filter types that can be used in a DataTable
+ * filter.
+ *
+ * <p>Each filter type corresponds to a specific data type and defines how data should be filtered
+ * based on that type. For example, the {@code STRING} filter type is used for text-based filtering,
+ * while {@code INTEGER} is used for integer-based filtering.
+ *
+ * @see org.dominokit.domino.ui.datatable.model.Filter
+ */
 public enum FilterTypes {
+  /** Represents a string-based filter type, used for text-based filtering. */
   STRING,
+
+  /** Represents an integer-based filter type, used for integer-based filtering. */
   INTEGER,
+
+  /** Represents a long-based filter type, used for long-based filtering. */
   LONG,
+
+  /** Represents a double-based filter type, used for double-based filtering. */
   DOUBLE,
+
+  /** Represents a short-based filter type, used for short-based filtering. */
   SHORT,
+
+  /** Represents a float-based filter type, used for float-based filtering. */
   FLOAT,
+
+  /** Represents a decimal-based filter type, used for decimal-based filtering. */
   DECIMAL,
+
+  /** Represents a boolean-based filter type, used for boolean-based filtering. */
   BOOLEAN,
+
+  /** Represents a date-based filter type, used for date-based filtering. */
   DATE,
+
+  /** Represents a time-based filter type, used for time-based filtering. */
   TIME,
+
+  /** Represents an enum-based filter type, used for enum-based filtering. */
   ENUM
 }

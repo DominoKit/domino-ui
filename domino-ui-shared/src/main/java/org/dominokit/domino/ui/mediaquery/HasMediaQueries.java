@@ -13,128 +13,139 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package org.dominokit.domino.ui.mediaquery;
 
-/** HasMediaQueries interface. */
+/**
+ * An interface representing an object capable of responding to various media query breakpoints. It
+ * allows the attachment of specific handlers for each breakpoint, ensuring responsive behavior
+ * across different device sizes.
+ *
+ * @param <T> The type of the implementing class.
+ */
 public interface HasMediaQueries<T> {
 
   /**
-   * onXSmall.
+   * Attaches a handler for the "extra small" media query breakpoint.
    *
-   * @param handler a {@link org.dominokit.domino.ui.mediaquery.MediaQueryHandler} object.
-   * @return a T object.
+   * @param handler The handler to be invoked at this breakpoint.
+   * @return The instance of the object implementing this interface.
    */
   T onXSmall(MediaQueryHandler<T> handler);
 
   /**
-   * onXSmallAndDown.
+   * Attaches a handler for devices that fall within the "extra small and down" media query
+   * breakpoint.
    *
-   * @param handler a {@link org.dominokit.domino.ui.mediaquery.MediaQueryHandler} object.
-   * @return a T object.
+   * @param handler The handler to be invoked for this breakpoint.
+   * @return The instance of the object implementing this interface.
    */
   T onXSmallAndDown(MediaQueryHandler<T> handler);
 
   /**
-   * onXSmallAndUp.
+   * Attaches a handler for devices that fall within the "extra small and up" media query
+   * breakpoint.
    *
-   * @param handler a {@link org.dominokit.domino.ui.mediaquery.MediaQueryHandler} object.
-   * @return a T object.
+   * @param handler The handler to be invoked for this breakpoint.
+   * @return The instance of the object implementing this interface.
    */
   T onXSmallAndUp(MediaQueryHandler<T> handler);
 
   /**
-   * onSmall.
+   * Attaches a handler for the "small" media query breakpoint.
    *
-   * @param handler a {@link org.dominokit.domino.ui.mediaquery.MediaQueryHandler} object.
-   * @return a T object.
+   * @param handler The handler to be invoked at this breakpoint.
+   * @return The instance of the object implementing this interface.
    */
   T onSmall(MediaQueryHandler<T> handler);
 
   /**
-   * onSmallAndDown.
+   * Attaches a handler for devices that fall within the "small and down" media query breakpoint.
    *
-   * @param handler a {@link org.dominokit.domino.ui.mediaquery.MediaQueryHandler} object.
-   * @return a T object.
+   * @param handler The handler to be invoked for this breakpoint.
+   * @return The instance of the object implementing this interface.
    */
   T onSmallAndDown(MediaQueryHandler<T> handler);
 
   /**
-   * onSmallAndUp.
+   * Attaches a handler for devices that fall within the "small and up" media query breakpoint.
    *
-   * @param handler a {@link org.dominokit.domino.ui.mediaquery.MediaQueryHandler} object.
-   * @return a T object.
+   * @param handler The handler to be invoked for this breakpoint.
+   * @return The instance of the object implementing this interface.
    */
   T onSmallAndUp(MediaQueryHandler<T> handler);
 
   /**
-   * onMedium.
+   * Attaches a handler for the "medium" media query breakpoint.
    *
-   * @param handler a {@link org.dominokit.domino.ui.mediaquery.MediaQueryHandler} object.
-   * @return a T object.
+   * @param handler The handler to be invoked at this breakpoint.
+   * @return The instance of the object implementing this interface.
    */
   T onMedium(MediaQueryHandler<T> handler);
 
   /**
-   * onMediumAndDown.
+   * Attaches a handler for devices that fall within the "medium and down" media query breakpoint.
    *
-   * @param handler a {@link org.dominokit.domino.ui.mediaquery.MediaQueryHandler} object.
-   * @return a T object.
+   * @param handler The handler to be invoked for this breakpoint.
+   * @return The instance of the object implementing this interface.
    */
   T onMediumAndDown(MediaQueryHandler<T> handler);
 
   /**
-   * onMediumAndUp.
+   * Attaches a handler for devices that fall within the "medium and up" media query breakpoint.
    *
-   * @param handler a {@link org.dominokit.domino.ui.mediaquery.MediaQueryHandler} object.
-   * @return a T object.
+   * @param handler The handler to be invoked for this breakpoint.
+   * @return The instance of the object implementing this interface.
    */
   T onMediumAndUp(MediaQueryHandler<T> handler);
 
   /**
-   * onLarge.
+   * Attaches a handler for the "large" media query breakpoint.
    *
-   * @param handler a {@link org.dominokit.domino.ui.mediaquery.MediaQueryHandler} object.
-   * @return a T object.
+   * @param handler The handler to be invoked at this breakpoint.
+   * @return The instance of the object implementing this interface.
    */
   T onLarge(MediaQueryHandler<T> handler);
 
   /**
-   * onLargeAndDown.
+   * Attaches a handler for devices that fall within the "large and down" media query breakpoint.
    *
-   * @param handler a {@link org.dominokit.domino.ui.mediaquery.MediaQueryHandler} object.
-   * @return a T object.
+   * @param handler The handler to be invoked for this breakpoint.
+   * @return The instance of the object implementing this interface.
    */
   T onLargeAndDown(MediaQueryHandler<T> handler);
 
   /**
-   * onLargeAndUp.
+   * Attaches a handler for devices that fall within the "large and up" media query breakpoint.
    *
-   * @param handler a {@link org.dominokit.domino.ui.mediaquery.MediaQueryHandler} object.
-   * @return a T object.
+   * @param handler The handler to be invoked for this breakpoint.
+   * @return The instance of the object implementing this interface.
    */
   T onLargeAndUp(MediaQueryHandler<T> handler);
 
   /**
-   * onXLarge.
+   * Attaches a handler for the "extra large" media query breakpoint.
    *
-   * @param handler a {@link org.dominokit.domino.ui.mediaquery.MediaQueryHandler} object.
-   * @return a T object.
+   * @param handler The handler to be invoked at this breakpoint.
+   * @return The instance of the object implementing this interface.
    */
   T onXLarge(MediaQueryHandler<T> handler);
 
   /**
-   * onXLargeAndDown.
+   * Attaches a handler for devices that fall within the "extra large and down" media query
+   * breakpoint.
    *
-   * @param handler a {@link org.dominokit.domino.ui.mediaquery.MediaQueryHandler} object.
-   * @return a T object.
+   * @param handler The handler to be invoked for this breakpoint.
+   * @return The instance of the object implementing this interface.
    */
   T onXLargeAndDown(MediaQueryHandler<T> handler);
 
   /**
-   * onXLargeAndUp.
+   * Attaches a handler for devices that fall within the "extra large and up" media query
+   * breakpoint.
    *
-   * @param handler a {@link org.dominokit.domino.ui.mediaquery.MediaQueryHandler} object.
-   * @return a T object.
+   * @param handler The handler to be invoked for this breakpoint.
+   * @return The instance of the object implementing this interface.
    */
   T onXLargeAndUp(MediaQueryHandler<T> handler);
 }

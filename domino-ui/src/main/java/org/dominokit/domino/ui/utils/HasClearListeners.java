@@ -13,24 +13,25 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package org.dominokit.domino.ui.utils;
 
 import java.util.Set;
 
 /**
- * Components that has a value that can be changed and need to define listeners for the changes
- * should implement this interface
+ * The {@code HasClearListeners} interface defines methods for managing clear listeners on an
+ * object.
  *
- * @param <T> the type of the class implementing this interface
- * @param <V> the type of the component value
+ * @param <T> The type of object implementing this interface.
+ * @param <V> The type of the value that can be cleared.
  */
 public interface HasClearListeners<T, V> {
 
   /**
-   * addClearListener.
+   * Adds a clear listener to the object.
    *
-   * @param clearListener {@link org.dominokit.domino.ui.utils.HasClearListeners.ClearListener}
-   * @return same implementing class instance
+   * @param clearListener The clear listener to be added.
+   * @return The modified object of type {@code T} with the clear listener added.
    */
   default T addClearListener(ClearListener<? super V> clearListener) {
     getClearListeners().add(clearListener);
@@ -38,10 +39,10 @@ public interface HasClearListeners<T, V> {
   }
 
   /**
-   * removeClearListener.
+   * Removes a clear listener from the object.
    *
-   * @param clearListener {@link org.dominokit.domino.ui.utils.HasClearListeners.ClearListener}
-   * @return same implementing class instance
+   * @param clearListener The clear listener to be removed.
+   * @return The modified object of type {@code T} with the clear listener removed.
    */
   default T removeClearListener(ClearListener<? super V> clearListener) {
     getClearListeners().remove(clearListener);
@@ -49,58 +50,57 @@ public interface HasClearListeners<T, V> {
   }
 
   /**
-   * Checks if a component has the specified ChangeHandler
+   * Checks if the object has a specific clear listener.
    *
-   * @param clearListener {@link org.dominokit.domino.ui.utils.HasClearListeners.ClearListener}
-   * @return same implementing class instance
+   * @param clearListener The clear listener to check.
+   * @return {@code true} if the clear listener is registered, {@code false} otherwise.
    */
   default boolean hasClearListener(ClearListener<? super V> clearListener) {
     return getClearListeners().contains(clearListener);
   }
 
   /**
-   * getClearListeners.
+   * Retrieves the set of clear listeners registered on the object.
    *
-   * @return a {@link java.util.Set} object
+   * @return A set of clear listeners.
    */
   Set<ClearListener<? super V>> getClearListeners();
 
   /**
-   * isClearListenersPaused.
+   * Checks if clear listeners are currently paused.
    *
-   * @return a boolean
+   * @return {@code true} if clear listeners are paused, {@code false} otherwise.
    */
   boolean isClearListenersPaused();
 
   /**
-   * Disable change listeners
+   * Pauses clear listeners.
    *
-   * @return same component instance
+   * @return The modified object of type {@code T} with clear listeners paused.
    */
   T pauseClearListeners();
 
   /**
-   * Enables change listeners
+   * Resumes clear listeners.
    *
-   * @return same component instance
+   * @return The modified object of type {@code T} with clear listeners resumed.
    */
   T resumeClearListeners();
 
   /**
-   * Disable/Enable change listeners
+   * Toggles the pause state of clear listeners.
    *
-   * @param toggle boolean, true to pause the change listeners, false to enable them
-   * @return same component instance
+   * @param toggle {@code true} to pause clear listeners, {@code false} to resume them.
+   * @return The modified object of type {@code T} with clear listeners paused or resumed.
    */
   T togglePauseClearListeners(boolean toggle);
 
   /**
-   * Execute a handler while toggling the change handlers state, revert the state back to its
-   * original value after executing the handler
+   * Executes a specified action while toggling the pause state of clear listeners.
    *
-   * @param toggle boolean, true to pause the change listeners, false to enable them
-   * @return same component instance
-   * @param handler a {@link org.dominokit.domino.ui.utils.Handler} object
+   * @param toggle {@code true} to pause clear listeners, {@code false} to resume them.
+   * @param handler The handler to apply while clear listeners are toggled.
+   * @return The modified object of type {@code T} with clear listeners paused or resumed.
    */
   default T withPauseClearListenersToggle(boolean toggle, Handler<T> handler) {
     boolean oldState = isClearListenersPaused();
@@ -114,12 +114,11 @@ public interface HasClearListeners<T, V> {
   }
 
   /**
-   * Execute a handler while toggling the change handlers state, revert the state back to its
-   * original value after the AsyncHandler.onComplete is called
+   * Executes an asynchronous action while toggling the pause state of clear listeners.
    *
-   * @param toggle boolean, true to pause the change listeners, false to enable them
-   * @return same component instance
-   * @param handler a {@link org.dominokit.domino.ui.utils.AsyncHandler} object
+   * @param toggle {@code true} to pause clear listeners, {@code false} to resume them.
+   * @param handler The asynchronous handler to apply while clear listeners are toggled.
+   * @return The modified object of type {@code T} with clear listeners paused or resumed.
    */
   default T withPauseClearListenersToggle(boolean toggle, AsyncHandler<T> handler) {
     boolean oldState = isClearListenersPaused();
@@ -134,20 +133,24 @@ public interface HasClearListeners<T, V> {
   }
 
   /**
-   * triggerClearListeners.
+   * Triggers clear listeners with the old value that has been cleared.
    *
-   * @param oldValue a V object
-   * @return a T object
+   * @param oldValue The old value that has been cleared.
    */
   T triggerClearListeners(V oldValue);
 
-  /** @param <V> the type of the component value */
+  /**
+   * Functional interface for a clear listener.
+   *
+   * @param <V> The type of the value that can be cleared.
+   */
   @FunctionalInterface
   interface ClearListener<V> {
+
     /**
-     * Will be called whenever the component value is changed
+     * Called when a value is cleared.
      *
-     * @param oldValue V the new value of the component
+     * @param oldValue The old value that has been cleared.
      */
     void onValueCleared(V oldValue);
   }

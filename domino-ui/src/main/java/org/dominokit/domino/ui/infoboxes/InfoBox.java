@@ -24,15 +24,29 @@ import org.dominokit.domino.ui.style.*;
 import org.dominokit.domino.ui.utils.*;
 
 /**
- * Container for displaying information with icons
+ * Represents an informational box component that displays icon, title, and value information.
  *
- * <p>This component provides a container which allows showing information with icons and effects
+ * <p>This class allows you to create and customize information boxes for displaying various types
+ * of information. You can set an icon, title, and value to be displayed within the box.
+ * Additionally, you can customize the hover effect and flip the box if needed.
  *
- * <p>Customize the component can be done by overwriting classes provided by {@link
- * org.dominokit.domino.ui.infoboxes.InfoBoxStyles} </pre>
+ * <p>Example usage:
+ *
+ * <pre>
+ * // Create an InfoBox with an icon, title, and value
+ * InfoBox infoBox = InfoBox.create(icon, "Title", "Value");
+ *
+ * // Customize the hover effect
+ * infoBox.setHoverEffect(InfoBox.HoverEffect.EXPAND);
+ *
+ * // Flip the InfoBox
+ * infoBox.setFlipped(true);
+ *
+ * // Add the InfoBox to a parent element
+ * Document.get().getBody().appendChild(infoBox.element());
+ * </pre>
  *
  * @see BaseDominoElement
- * @see HasBackground
  */
 public class InfoBox extends BaseDominoElement<HTMLDivElement, InfoBox> implements InfoBoxStyles {
 
@@ -45,7 +59,7 @@ public class InfoBox extends BaseDominoElement<HTMLDivElement, InfoBox> implemen
 
   private SwapCssClass hoverEffect = SwapCssClass.of(HoverEffect.NONE.effectStyle);
 
-  /** Constructor for InfoBox. */
+  /** Creates a new InfoBox with default settings. */
   public InfoBox() {
     root = div().addCss(dui_info_box, hoverEffect);
     iconContainer = LazyChild.of(div().addCss(dui_info_icon), root);
@@ -56,9 +70,9 @@ public class InfoBox extends BaseDominoElement<HTMLDivElement, InfoBox> implemen
   }
 
   /**
-   * Constructor for InfoBox.
+   * Creates a new InfoBox with the provided icon.
    *
-   * @param icon a {@link org.dominokit.domino.ui.IsElement} object
+   * @param icon The icon element to be displayed.
    */
   public InfoBox(IsElement<HTMLElement> icon) {
     this();
@@ -66,10 +80,10 @@ public class InfoBox extends BaseDominoElement<HTMLDivElement, InfoBox> implemen
   }
 
   /**
-   * Constructor for InfoBox.
+   * Creates a new InfoBox with the provided icon and title.
    *
-   * @param icon a {@link org.dominokit.domino.ui.IsElement} object
-   * @param title a {@link java.lang.String} object
+   * @param icon The icon element to be displayed.
+   * @param title The title to be displayed in the InfoBox.
    */
   public InfoBox(IsElement<HTMLElement> icon, String title) {
     this(icon);
@@ -77,11 +91,11 @@ public class InfoBox extends BaseDominoElement<HTMLDivElement, InfoBox> implemen
   }
 
   /**
-   * Constructor for InfoBox.
+   * Creates a new InfoBox with the provided icon, title, and value.
    *
-   * @param icon a {@link org.dominokit.domino.ui.IsElement} object
-   * @param title a {@link java.lang.String} object
-   * @param value a {@link java.lang.String} object
+   * @param icon The icon element to be displayed.
+   * @param title The title to be displayed in the InfoBox.
+   * @param value The value to be displayed in the InfoBox.
    */
   public InfoBox(IsElement<HTMLElement> icon, String title, String value) {
     this(icon, title);
@@ -89,109 +103,109 @@ public class InfoBox extends BaseDominoElement<HTMLDivElement, InfoBox> implemen
   }
 
   /**
-   * Creates info box with icon, title and value
+   * Creates a new InfoBox with an icon, title, and value.
    *
-   * @param icon The {@link org.dominokit.domino.ui.icons.Icon}
-   * @param title the title
-   * @param value the value
-   * @return new instance
+   * @param icon The icon to be displayed.
+   * @param title The title to be displayed in the InfoBox.
+   * @param value The value to be displayed in the InfoBox.
+   * @return A new InfoBox instance.
    */
   public static InfoBox create(Icon<?> icon, String title, String value) {
     return new InfoBox(icon, title, value);
   }
 
   /**
-   * Creates info box with icon, title and value
+   * Creates a new InfoBox with the provided icon, title, and value.
    *
-   * @param icon The {@link org.dominokit.domino.ui.icons.Icon}
-   * @param title the title
-   * @param value the value
-   * @return new instance
+   * @param icon The icon to be displayed.
+   * @param title The title to be displayed in the InfoBox.
+   * @param value The value to be displayed in the InfoBox.
+   * @return A new InfoBox instance.
    */
   public static InfoBox create(IsElement<HTMLElement> icon, String title, String value) {
     return new InfoBox(icon, title, value);
   }
 
   /**
-   * Creates info box with icon element, title and value
+   * Creates a new InfoBox with the provided icon, title, and value.
    *
-   * @param icon The {@link elemental2.dom.HTMLElement} icon
-   * @param title the title
-   * @param value the value
-   * @return new instance
+   * @param icon The icon to be displayed.
+   * @param title The title to be displayed in the InfoBox.
+   * @param value The value to be displayed in the InfoBox.
+   * @return A new InfoBox instance.
    */
   public static InfoBox create(HTMLElement icon, String title, String value) {
     return new InfoBox(elements.elementOf(icon), title, value);
   }
 
   /**
-   * Creates info box with icon and title
+   * Creates a new InfoBox with the provided icon and title.
    *
-   * @param icon The {@link elemental2.dom.HTMLElement} icon
-   * @param title the title
-   * @return new instance
+   * @param icon The icon to be displayed.
+   * @param title The title to be displayed in the InfoBox.
+   * @return A new InfoBox instance.
    */
   public static InfoBox create(HTMLElement icon, String title) {
     return new InfoBox(elements.elementOf(icon), title);
   }
 
   /**
-   * Creates info box with icon and title
+   * Creates a new InfoBox with the provided icon and title.
    *
-   * @param icon The {@link elemental2.dom.HTMLElement} icon
-   * @param title the title
-   * @return new instance
+   * @param icon The icon to be displayed.
+   * @param title The title to be displayed in the InfoBox.
+   * @return A new InfoBox instance.
    */
   public static InfoBox create(IsElement<HTMLElement> icon, String title) {
     return new InfoBox(elements.elementOf(icon), title);
   }
 
   /**
-   * Creates info box with icon and title
+   * Creates a new InfoBox with the provided icon and title.
    *
-   * @param icon The {@link org.dominokit.domino.ui.icons.Icon}
-   * @param title the title
-   * @return new instance
+   * @param icon The icon to be displayed.
+   * @param title The title to be displayed in the InfoBox.
+   * @return A new InfoBox instance.
    */
   public static InfoBox create(Icon<?> icon, String title) {
     return new InfoBox(icon, title);
   }
 
   /**
-   * Creates info box with icon and title
+   * Creates a new InfoBox with the provided icon.
    *
-   * @param icon The {@link org.dominokit.domino.ui.icons.Icon}
-   * @return new instance
+   * @param icon The icon to be displayed.
+   * @return A new InfoBox instance.
    */
   public static InfoBox create(Icon<?> icon) {
     return new InfoBox(icon);
   }
 
   /**
-   * Creates info box with icon and title
+   * Creates a new InfoBox with the provided icon.
    *
-   * @param icon The {@link org.dominokit.domino.ui.IsElement}
-   * @return new instance
+   * @param icon The icon to be displayed.
+   * @return A new InfoBox instance.
    */
   public static InfoBox create(IsElement<HTMLElement> icon) {
     return new InfoBox(icon);
   }
 
   /**
-   * Creates info box with icon and title
+   * Creates a new InfoBox with the provided icon.
    *
-   * @param icon The {@link elemental2.dom.HTMLElement}
-   * @return new instance
+   * @param icon The icon to be displayed.
+   * @return A new InfoBox instance.
    */
   public static InfoBox create(HTMLElement icon) {
     return new InfoBox(elements.elementOf(icon));
   }
 
   /**
-   * Sets the hover effect
+   * Sets the hover effect style for the InfoBox.
    *
-   * @param effect the {@link org.dominokit.domino.ui.infoboxes.InfoBox.HoverEffect}
-   * @return same instance
+   * @param effect The hover effect style to apply.
+   * @return This InfoBox instance.
    */
   public InfoBox setHoverEffect(HoverEffect effect) {
     addCss(hoverEffect.replaceWith(effect.effectStyle));
@@ -199,10 +213,10 @@ public class InfoBox extends BaseDominoElement<HTMLDivElement, InfoBox> implemen
   }
 
   /**
-   * setFlipped.
+   * Sets whether the InfoBox is flipped.
    *
-   * @param flipped a boolean
-   * @return a {@link org.dominokit.domino.ui.infoboxes.InfoBox} object
+   * @param flipped {@code true} to flip the InfoBox, {@code false} otherwise.
+   * @return This InfoBox instance.
    */
   public InfoBox setFlipped(boolean flipped) {
     addCss(BooleanCssClass.of(dui_info_flipped, flipped));
@@ -210,10 +224,10 @@ public class InfoBox extends BaseDominoElement<HTMLDivElement, InfoBox> implemen
   }
 
   /**
-   * Sets the icon
+   * Sets the icon for the InfoBox.
    *
-   * @param element the {@link elemental2.dom.HTMLElement} icon
-   * @return same instance
+   * @param element The icon element to be displayed.
+   * @return This InfoBox instance.
    */
   public InfoBox setIcon(IsElement<HTMLElement> element) {
     iconContainer.get().clearElement().appendChild(element);
@@ -221,10 +235,10 @@ public class InfoBox extends BaseDominoElement<HTMLDivElement, InfoBox> implemen
   }
 
   /**
-   * Sets the value
+   * Sets the informational value for the InfoBox.
    *
-   * @param value the new value
-   * @return same instance
+   * @param value The value to be displayed in the InfoBox.
+   * @return This InfoBox instance.
    */
   public InfoBox setInfo(String value) {
     infoElement.get().setTextContent(value);
@@ -232,98 +246,90 @@ public class InfoBox extends BaseDominoElement<HTMLDivElement, InfoBox> implemen
   }
 
   /**
-   * Sets the title
+   * Sets the title for the InfoBox.
    *
-   * @param title the new title
-   * @return same instance
+   * @param title The title to be displayed in the InfoBox.
+   * @return This InfoBox instance.
    */
   public InfoBox setTitle(String title) {
     titleElement.get().setTextContent(title);
     return this;
   }
 
-  /** @return The icon element */
   /**
-   * getIcon.
+   * Gets the icon element in the InfoBox.
    *
-   * @return a {@link org.dominokit.domino.ui.elements.DivElement} object
+   * @return The icon element.
    */
   public DivElement getIcon() {
     return (DivElement) iconContainer.get();
   }
 
-  /** @return The icon element */
   /**
-   * withIcon.
+   * Configures the InfoBox with an icon using a handler.
    *
-   * @param handler a {@link org.dominokit.domino.ui.utils.ChildHandler} object
-   * @return a {@link org.dominokit.domino.ui.infoboxes.InfoBox} object
+   * @param handler The handler to configure the icon.
+   * @return This InfoBox instance.
    */
   public InfoBox withIcon(ChildHandler<InfoBox, DivElement> handler) {
     handler.apply(this, iconContainer.get());
     return this;
   }
 
-  /** @return The title element */
   /**
-   * getTitle.
+   * Gets the title element in the InfoBox.
    *
-   * @return a {@link org.dominokit.domino.ui.elements.DivElement} object
+   * @return The title element.
    */
   public DivElement getTitle() {
     return titleElement.get();
   }
 
-  /** @return The title element */
   /**
-   * withTitle.
+   * Configures the InfoBox with a title using a handler.
    *
-   * @param handler a {@link org.dominokit.domino.ui.utils.ChildHandler} object
-   * @return a {@link org.dominokit.domino.ui.infoboxes.InfoBox} object
+   * @param handler The handler to configure the title.
+   * @return This InfoBox instance.
    */
   public InfoBox withTitle(ChildHandler<InfoBox, DivElement> handler) {
     handler.apply(this, titleElement.get());
     return this;
   }
 
-  /** @return The title element */
   /**
-   * withTitle.
+   * Configures the InfoBox with a title.
    *
-   * @return a {@link org.dominokit.domino.ui.infoboxes.InfoBox} object
+   * @return This InfoBox instance.
    */
   public InfoBox withTitle() {
     titleElement.get();
     return this;
   }
 
-  /** @return The value element */
   /**
-   * getInfo.
+   * Gets the informational value element in the InfoBox.
    *
-   * @return a {@link org.dominokit.domino.ui.elements.DivElement} object
+   * @return The value element.
    */
   public DivElement getInfo() {
     return infoElement.get();
   }
 
-  /** @return The value element */
   /**
-   * withInfo.
+   * Configures the InfoBox with an informational value.
    *
-   * @return a {@link org.dominokit.domino.ui.infoboxes.InfoBox} object
+   * @return This InfoBox instance.
    */
   public InfoBox withInfo() {
     infoElement.get();
     return this;
   }
 
-  /** @return The value element */
   /**
-   * withInfo.
+   * Configures the InfoBox with an informational value using a handler.
    *
-   * @param handler a {@link org.dominokit.domino.ui.utils.ChildHandler} object
-   * @return a {@link org.dominokit.domino.ui.infoboxes.InfoBox} object
+   * @param handler The handler to configure the informational value.
+   * @return This InfoBox instance.
    */
   public InfoBox withInfo(ChildHandler<InfoBox, DivElement> handler) {
     handler.apply(this, infoElement.get());
@@ -331,18 +337,18 @@ public class InfoBox extends BaseDominoElement<HTMLDivElement, InfoBox> implemen
   }
 
   /**
-   * getContent.
+   * Gets the content element of the InfoBox.
    *
-   * @return a {@link org.dominokit.domino.ui.elements.DivElement} object
+   * @return The content element.
    */
   public DivElement getContent() {
     return contentElement.get();
   }
 
   /**
-   * withContent.
+   * Configures the InfoBox with content.
    *
-   * @return a {@link org.dominokit.domino.ui.infoboxes.InfoBox} object
+   * @return This InfoBox instance.
    */
   public InfoBox withContent() {
     contentElement.get();
@@ -350,10 +356,10 @@ public class InfoBox extends BaseDominoElement<HTMLDivElement, InfoBox> implemen
   }
 
   /**
-   * withContent.
+   * Configures the InfoBox with content using a handler.
    *
-   * @param handler a {@link org.dominokit.domino.ui.utils.ChildHandler} object
-   * @return a {@link org.dominokit.domino.ui.infoboxes.InfoBox} object
+   * @param handler The handler to configure the content.
+   * @return This InfoBox instance.
    */
   public InfoBox withContent(ChildHandler<InfoBox, DivElement> handler) {
     handler.apply(this, contentElement.get());
@@ -366,10 +372,15 @@ public class InfoBox extends BaseDominoElement<HTMLDivElement, InfoBox> implemen
     return root.element();
   }
 
-  /** An enum representing the hover effect */
+  /** Enumeration of hover effect styles for the InfoBox. */
   public enum HoverEffect {
+    /** The InfoBox zooms in on hover. */
     ZOOM(dui_info_hover_zoom),
+
+    /** The InfoBox expands on hover. */
     EXPAND(dui_info_hover_expand),
+
+    /** No hover effect is applied to the InfoBox. */
     NONE(CssClass.NONE);
 
     private final CssClass effectStyle;

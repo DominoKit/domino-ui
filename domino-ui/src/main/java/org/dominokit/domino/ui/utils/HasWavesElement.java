@@ -13,18 +13,22 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package org.dominokit.domino.ui.utils;
 
 import elemental2.dom.Element;
 
-/** A component that can have Waves effect should implement this interface */
+/**
+ * The {@code HasWavesElement} interface defines a method to retrieve an Elemental2 {@code Element}
+ * that is associated with waves effect.
+ */
 @FunctionalInterface
 public interface HasWavesElement {
-  /** @return the {@link HTMLElement} that has the wave effect */
+
   /**
-   * getWavesElement.
+   * Gets the Elemental2 {@code Element} associated with waves effect.
    *
-   * @return a {@link elemental2.dom.Element} object
+   * @return The Elemental2 {@code Element} associated with waves effect.
    */
   Element getWavesElement();
 }

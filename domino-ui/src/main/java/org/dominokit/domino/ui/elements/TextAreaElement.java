@@ -17,22 +17,40 @@ package org.dominokit.domino.ui.elements;
 
 import elemental2.dom.HTMLTextAreaElement;
 
-/** TextAreaElement class. */
+/**
+ * Represents an HTML <textarea> element wrapper.
+ *
+ * <p>The HTML <textarea> element defines a multi-line text input control that allows users to enter
+ * plain text or multiline text data. It is often used within HTML forms to collect user input. The
+ * content inside a <textarea> element is typically displayed in a multiline text box where users
+ * can enter or edit text. This class provides a Java-based way to create, manipulate, and control
+ * the behavior of <textarea> elements in web applications. Example usage:
+ *
+ * <pre>
+ * HTMLTextAreaElement textareaElement = ...;  // Obtain a <textarea> element from somewhere
+ * TextAreaElement textarea = TextAreaElement.of(textareaElement);
+ * </pre>
+ *
+ * @see <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/textarea">MDN Web Docs
+ *     (textarea)</a>
+ */
 public class TextAreaElement extends BaseElement<HTMLTextAreaElement, TextAreaElement> {
+
   /**
-   * of.
+   * Creates a new {@link TextAreaElement} instance by wrapping the provided HTML <textarea>
+   * element.
    *
-   * @param e a {@link elemental2.dom.HTMLTextAreaElement} object
-   * @return a {@link org.dominokit.domino.ui.elements.TextAreaElement} object
+   * @param e The HTML <textarea> element to wrap.
+   * @return A new {@link TextAreaElement} instance wrapping the provided element.
    */
   public static TextAreaElement of(HTMLTextAreaElement e) {
     return new TextAreaElement(e);
   }
 
   /**
-   * Constructor for TextAreaElement.
+   * Constructs a {@link TextAreaElement} instance by wrapping the provided HTML <textarea> element.
    *
-   * @param element a {@link elemental2.dom.HTMLTextAreaElement} object
+   * @param element The HTML <textarea> element to wrap.
    */
   public TextAreaElement(HTMLTextAreaElement element) {
     super(element);

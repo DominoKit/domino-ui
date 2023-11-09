@@ -19,52 +19,73 @@ import java.util.Optional;
 import org.dominokit.domino.ui.utils.ComponentMeta;
 import org.dominokit.domino.ui.utils.HasMeta;
 
-/** StepMeta class. */
+/**
+ * Represents the metadata associated with a {@link Step} component.
+ *
+ * <p>This metadata can be used to store and retrieve additional information or properties about a
+ * step component.
+ *
+ * <p>Usage example:
+ *
+ * <pre>
+ * Step step = new Step("Sample");
+ * StepMeta meta = StepMeta.of(step);
+ * </pre>
+ */
 public class StepMeta implements ComponentMeta {
-  /** Constant <code>DUI_STEP_META="dui-step-meta"</code> */
+
   public static final String DUI_STEP_META = "dui-step-meta";
 
   private final Step step;
 
   /**
-   * Constructor for StepMeta.
+   * Creates a new StepMeta instance for a given step.
    *
-   * @param step a {@link org.dominokit.domino.ui.stepper.Step} object
+   * @param step the step associated with this metadata
    */
   public StepMeta(Step step) {
     this.step = step;
   }
 
   /**
-   * of.
+   * Factory method to create a new StepMeta instance for a given step.
    *
-   * @param step a {@link org.dominokit.domino.ui.stepper.Step} object
-   * @return a {@link org.dominokit.domino.ui.stepper.StepMeta} object
+   * @param step the step for which metadata needs to be created
+   * @return a new StepMeta instance
    */
   public static StepMeta of(Step step) {
     return new StepMeta(step);
   }
 
   /**
-   * get.
+   * Retrieves the StepMeta associated with a given component if present.
    *
-   * @param component a {@link org.dominokit.domino.ui.utils.HasMeta} object
-   * @return a {@link java.util.Optional} object
+   * @param component the component to retrieve metadata for
+   * @return an Optional containing the associated StepMeta, or empty if not present
    */
   public static Optional<StepMeta> get(HasMeta<?> component) {
     return component.getMeta(DUI_STEP_META);
   }
 
   /**
-   * Getter for the field <code>step</code>.
+   * Retrieves the {@link Step} associated with this metadata.
    *
-   * @return a {@link org.dominokit.domino.ui.stepper.Step} object
+   * @return the associated step
    */
   public Step getStep() {
     return step;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * {@inheritDoc}
+   *
+   * <p>Returns the key used to identify this specific step metadata.
+   *
+   * <p>This key is unique for the StepMeta class and is used to store and retrieve the metadata
+   * associated with a {@link Step}.
+   *
+   * @return the unique key for the step metadata
+   */
   @Override
   public String getKey() {
     return DUI_STEP_META;

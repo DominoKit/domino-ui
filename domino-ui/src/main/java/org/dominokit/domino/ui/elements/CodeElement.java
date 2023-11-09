@@ -17,22 +17,38 @@ package org.dominokit.domino.ui.elements;
 
 import elemental2.dom.HTMLElement;
 
-/** CodeElement class. */
+/**
+ * Represents a `<code>` HTML element wrapper.
+ * <p>
+ * The `<code>` tag is used to define a piece of computer code. Text surrounded by `<code>` tags is typically displayed in the browser's default monospace font. This class offers a convenient way to create, manipulate, and control the behavior of `<code>` elements, facilitating their use in Java-based web applications.
+ * </p>
+ *
+ * Example usage:
+ * <pre>
+ * {@code
+ * HTMLElement htmlElement = ...;  // Obtain a <code> element from somewhere
+ * CodeElement codeElement = CodeElement.of(htmlElement);
+ * }
+ * </pre>
+ *
+ * @see <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/code">MDN Web Docs (code element)</a>
+ */
 public class CodeElement extends BaseElement<HTMLElement, CodeElement> {
+
   /**
-   * of.
+   * Creates a new {@link CodeElement} instance by wrapping the provided HTML `<code>` element.
    *
-   * @param e a {@link elemental2.dom.HTMLElement} object
-   * @return a {@link org.dominokit.domino.ui.elements.CodeElement} object
+   * @param e The HTML `<code>` element.
+   * @return A new {@link CodeElement} instance wrapping the provided element.
    */
   public static CodeElement of(HTMLElement e) {
     return new CodeElement(e);
   }
 
   /**
-   * Constructor for CodeElement.
+   * Constructs a {@link CodeElement} instance by wrapping the provided HTML `<code>` element.
    *
-   * @param element a {@link elemental2.dom.HTMLElement} object
+   * @param element The HTML `<code>` element to wrap.
    */
   public CodeElement(HTMLElement element) {
     super(element);

@@ -20,20 +20,23 @@ import static java.util.Objects.nonNull;
 import java.util.Objects;
 import org.dominokit.domino.ui.IsElement;
 
-/** SuggestBox class. */
+/**
+ * A single-select suggestion box that allows users to select an option from a list of suggestions.
+ *
+ * @param <V> The type of data associated with the selected option.
+ * @param <E> The type of the suggest box's element.
+ * @param <O> The type of the option within the suggest box.
+ */
 public class SuggestBox<V, E extends IsElement<?>, O extends Option<V, E, O>>
     extends AbstractSuggestBox<V, V, E, O, SuggestBox<V, E, O>> {
 
   private O selectedOption;
 
   /**
-   * create.
+   * Creates a new instance of SuggestBox with the provided SuggestionsStore.
    *
-   * @param store a {@link org.dominokit.domino.ui.forms.suggest.SuggestionsStore} object
-   * @param <V> a V class
-   * @param <E> a E class
-   * @param <O> a O class
-   * @return a {@link org.dominokit.domino.ui.forms.suggest.SuggestBox} object
+   * @param store The SuggestionsStore that provides suggestions for this single-select suggest box.
+   * @return A new instance of SuggestBox.
    */
   public static <V, E extends IsElement<?>, O extends Option<V, E, O>> SuggestBox<V, E, O> create(
       SuggestionsStore<V, E, O> store) {
@@ -41,14 +44,11 @@ public class SuggestBox<V, E extends IsElement<?>, O extends Option<V, E, O>>
   }
 
   /**
-   * create.
+   * Creates a new instance of SuggestBox with a label and the provided SuggestionsStore.
    *
-   * @param label a {@link java.lang.String} object
-   * @param store a {@link org.dominokit.domino.ui.forms.suggest.SuggestionsStore} object
-   * @param <V> a V class
-   * @param <E> a E class
-   * @param <O> a O class
-   * @return a {@link org.dominokit.domino.ui.forms.suggest.SuggestBox} object
+   * @param label The label to display for the single-select suggest box.
+   * @param store The SuggestionsStore that provides suggestions for this single-select suggest box.
+   * @return A new instance of SuggestBox.
    */
   public static <V, E extends IsElement<?>, O extends Option<V, E, O>> SuggestBox<V, E, O> create(
       String label, SuggestionsStore<V, E, O> store) {
@@ -56,19 +56,19 @@ public class SuggestBox<V, E extends IsElement<?>, O extends Option<V, E, O>>
   }
 
   /**
-   * Constructor for SuggestBox.
+   * Creates a new instance of SuggestBox with the provided SuggestionsStore.
    *
-   * @param store a {@link org.dominokit.domino.ui.forms.suggest.SuggestionsStore} object
+   * @param store The SuggestionsStore that provides suggestions for this single-select suggest box.
    */
   public SuggestBox(SuggestionsStore<V, E, O> store) {
     super(store);
   }
 
   /**
-   * Constructor for SuggestBox.
+   * Creates a new instance of SuggestBox with a label and the provided SuggestionsStore.
    *
-   * @param label a {@link java.lang.String} object
-   * @param store a {@link org.dominokit.domino.ui.forms.suggest.SuggestionsStore} object
+   * @param label The label to display for the single-select suggest box.
+   * @param store The SuggestionsStore that provides suggestions for this single-select suggest box.
    */
   public SuggestBox(String label, SuggestionsStore<V, E, O> store) {
     super(store);
@@ -76,15 +76,20 @@ public class SuggestBox<V, E extends IsElement<?>, O extends Option<V, E, O>>
   }
 
   /**
-   * doSetValue.
+   * Sets the selected value for the single-select suggest box.
    *
-   * @param value a V object
+   * @param value The value to set as the selected option.
    */
+  @Override
   protected void doSetValue(V value) {
     store.find(value, this::applyOptionValue);
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Retrieves the currently selected value.
+   *
+   * @return The selected value.
+   */
   @Override
   public V getValue() {
     if (nonNull(selectedOption)) {
@@ -93,7 +98,7 @@ public class SuggestBox<V, E extends IsElement<?>, O extends Option<V, E, O>>
     return null;
   }
 
-  /** {@inheritDoc} */
+  /** Handles the "Backspace" key event. */
   @Override
   protected void onBackspace() {
     if (nonNull(selectedOption)) {
@@ -102,7 +107,11 @@ public class SuggestBox<V, E extends IsElement<?>, O extends Option<V, E, O>>
     }
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Handles the selection of a suggestion option.
+   *
+   * @param option The suggestion option that was selected.
+   */
   @Override
   public void onOptionSelected(O option) {
     withOption(option);
@@ -114,21 +123,21 @@ public class SuggestBox<V, E extends IsElement<?>, O extends Option<V, E, O>>
   }
 
   /**
-   * withOption.
+   * Adds a suggestion option to the single-select suggest box.
    *
-   * @param option a O object
-   * @return a {@link org.dominokit.domino.ui.forms.suggest.SuggestBox} object
+   * @param option The suggestion option to add.
+   * @return The updated SuggestBox instance.
    */
   public SuggestBox<V, E, O> withOption(O option) {
     return withOption(option, isChangeListenersPaused());
   }
 
   /**
-   * withOption.
+   * Adds a suggestion option to the single-select suggest box.
    *
-   * @param option a O object
-   * @param silent a boolean
-   * @return a {@link org.dominokit.domino.ui.forms.suggest.SuggestBox} object
+   * @param option The suggestion option to add.
+   * @param silent Whether to trigger change listeners silently.
+   * @return The updated SuggestBox instance.
    */
   public SuggestBox<V, E, O> withOption(O option, boolean silent) {
     V oldValue = getValue();
@@ -142,11 +151,16 @@ public class SuggestBox<V, E extends IsElement<?>, O extends Option<V, E, O>>
     return this;
   }
 
+  /** Updates the text value of the input element. */
   private void updateTextValue() {
     getInputElement().element().value = getStringValue();
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Handles the deselection of a suggestion option.
+   *
+   * @param option The suggestion option that was deselected.
+   */
   @Override
   public void onOptionDeselected(O option) {
     option.remove();
@@ -160,7 +174,12 @@ public class SuggestBox<V, E extends IsElement<?>, O extends Option<V, E, O>>
         });
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Clears the value of the single-select suggest box.
+   *
+   * @param silent Whether to clear the value silently.
+   * @return The updated SuggestBox instance.
+   */
   @Override
   protected SuggestBox<V, E, O> clearValue(boolean silent) {
     if (nonNull(selectedOption)) {
@@ -180,7 +199,11 @@ public class SuggestBox<V, E extends IsElement<?>, O extends Option<V, E, O>>
     return this;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Retrieves the string representation of the selected value.
+   *
+   * @return The string representation of the selected value.
+   */
   @Override
   public String getStringValue() {
     if (nonNull(this.selectedOption)) {
@@ -189,7 +212,7 @@ public class SuggestBox<V, E extends IsElement<?>, O extends Option<V, E, O>>
     return null;
   }
 
-  /** {@inheritDoc} */
+  /** Handles actions to be performed after an option is selected. */
   @Override
   protected void onAfterOptionSelected() {}
 }

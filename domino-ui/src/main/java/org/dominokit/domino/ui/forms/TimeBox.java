@@ -35,7 +35,19 @@ import org.dominokit.domino.ui.utils.*;
 import org.gwtproject.i18n.shared.cldr.DateTimeFormatInfo;
 import org.gwtproject.i18n.shared.cldr.impl.DateTimeFormatInfo_factory;
 
-/** TimeBox class. */
+/**
+ * Represents a time input form field with the capability to pick a time.
+ *
+ * <p>Usage example:
+ *
+ * <pre>
+ * TimeBox defaultTimeBox = TimeBox.create();
+ * TimeBox labeledTimeBox = TimeBox.create("Choose a time:");
+ * </pre>
+ *
+ * @see TextInputFormField
+ * @see TimePickerViewListener
+ */
 public class TimeBox extends TextInputFormField<TimeBox, HTMLInputElement, Date>
     implements HasLabels<TimePickerLabels>, TimePickerViewListener {
 
@@ -50,45 +62,45 @@ public class TimeBox extends TextInputFormField<TimeBox, HTMLInputElement, Date>
   private String pattern;
   private boolean parseStrict;
 
-  /** Constructor for TimeBox. */
+  /** Constructs a TimeBox with the current date set. */
   public TimeBox() {
     this(new Date());
   }
 
   /**
-   * Constructor for TimeBox.
+   * Constructs a TimeBox with the given label and current date set.
    *
-   * @param label a {@link java.lang.String} object
+   * @param label the label for the time box
    */
   public TimeBox(String label) {
     this(label, new Date());
   }
 
   /**
-   * Constructor for TimeBox.
+   * Constructs a TimeBox with the specified date set.
    *
-   * @param date a {@link java.util.Date} object
+   * @param date the initial date to be set
    */
   public TimeBox(Date date) {
     this(date, DateTimeFormatInfo_factory.create());
   }
 
   /**
-   * Constructor for TimeBox.
+   * Constructs a TimeBox with the specified label and date.
    *
-   * @param label a {@link java.lang.String} object
-   * @param date a {@link java.util.Date} object
+   * @param label the label for the time box
+   * @param date the initial date to be set
    */
   public TimeBox(String label, Date date) {
     this(label, date, DateTimeFormatInfo_factory.create());
   }
 
   /**
-   * Constructor for TimeBox.
+   * Constructs a TimeBox with the specified label, date, and date format information.
    *
-   * @param label a {@link java.lang.String} object
-   * @param date a {@link java.util.Date} object
-   * @param dateTimeFormatInfo a {@link org.gwtproject.i18n.shared.cldr.DateTimeFormatInfo} object
+   * @param label the label for the time box
+   * @param date the initial date to be set
+   * @param dateTimeFormatInfo the date format information
    */
   public TimeBox(String label, Date date, DateTimeFormatInfo dateTimeFormatInfo) {
     this(date, dateTimeFormatInfo);
@@ -96,10 +108,10 @@ public class TimeBox extends TextInputFormField<TimeBox, HTMLInputElement, Date>
   }
 
   /**
-   * Constructor for TimeBox.
+   * Constructs a TimeBox with the specified date and date format information.
    *
-   * @param date a {@link java.util.Date} object
-   * @param dateTimeFormatInfo a {@link org.gwtproject.i18n.shared.cldr.DateTimeFormatInfo} object
+   * @param date the initial date to be set
+   * @param dateTimeFormatInfo the date format information
    */
   public TimeBox(Date date, DateTimeFormatInfo dateTimeFormatInfo) {
     this.value = date;
@@ -184,84 +196,89 @@ public class TimeBox extends TextInputFormField<TimeBox, HTMLInputElement, Date>
   }
 
   /**
-   * create.
+   * Factory method to create a new instance of {@link TimeBox} with the current date set.
    *
-   * @return a {@link org.dominokit.domino.ui.forms.TimeBox} object
+   * @return a new instance of TimeBox
    */
   public static TimeBox create() {
     return new TimeBox(new Date());
   }
 
   /**
-   * create.
+   * Factory method to create a new instance of {@link TimeBox} with the specified label and current
+   * date set.
    *
-   * @param label a {@link java.lang.String} object
-   * @return a {@link org.dominokit.domino.ui.forms.TimeBox} object
+   * @param label the label for the time box
+   * @return a new instance of TimeBox
    */
   public static TimeBox create(String label) {
     return new TimeBox(label, new Date());
   }
 
   /**
-   * create.
+   * Factory method to create a new instance of {@link TimeBox} with the specified date.
    *
-   * @param date a {@link java.util.Date} object
-   * @return a {@link org.dominokit.domino.ui.forms.TimeBox} object
+   * @param date the date to set
+   * @return a new instance of TimeBox
    */
   public static TimeBox create(Date date) {
     return new TimeBox(date, DateTimeFormatInfo_factory.create());
   }
 
   /**
-   * create.
+   * Factory method to create a new instance of {@link TimeBox} with the specified label and date.
    *
-   * @param label a {@link java.lang.String} object
-   * @param date a {@link java.util.Date} object
-   * @return a {@link org.dominokit.domino.ui.forms.TimeBox} object
+   * @param label the label for the time box
+   * @param date the date to set
+   * @return a new instance of TimeBox
    */
   public static TimeBox create(String label, Date date) {
     return new TimeBox(label, date, DateTimeFormatInfo_factory.create());
   }
 
   /**
-   * create.
+   * Factory method to create a new instance of {@link TimeBox} with the specified date and date
+   * format information.
    *
-   * @param date a {@link java.util.Date} object
-   * @param dateTimeFormatInfo a {@link org.gwtproject.i18n.shared.cldr.DateTimeFormatInfo} object
-   * @return a {@link org.dominokit.domino.ui.forms.TimeBox} object
+   * @param date the date to set
+   * @param dateTimeFormatInfo the date format information
+   * @return a new instance of TimeBox
    */
   public static TimeBox create(Date date, DateTimeFormatInfo dateTimeFormatInfo) {
     return new TimeBox(date, dateTimeFormatInfo);
   }
 
   /**
-   * create.
+   * Factory method to create a new instance of {@link TimeBox} with the specified date format
+   * information.
    *
-   * @param dateTimeFormatInfo a {@link org.gwtproject.i18n.shared.cldr.DateTimeFormatInfo} object
-   * @return a {@link org.dominokit.domino.ui.forms.TimeBox} object
+   * @param dateTimeFormatInfo the date format information
+   * @return a new instance of TimeBox
    */
   public static TimeBox create(DateTimeFormatInfo dateTimeFormatInfo) {
     return new TimeBox(new Date(), dateTimeFormatInfo);
   }
 
   /**
-   * create.
+   * Factory method to create a new instance of {@link TimeBox} with the specified label and date
+   * format information.
    *
-   * @param label a {@link java.lang.String} object
-   * @param dateTimeFormatInfo a {@link org.gwtproject.i18n.shared.cldr.DateTimeFormatInfo} object
-   * @return a {@link org.dominokit.domino.ui.forms.TimeBox} object
+   * @param label the label for the time box
+   * @param dateTimeFormatInfo the date format information
+   * @return a new instance of TimeBox
    */
   public static TimeBox create(String label, DateTimeFormatInfo dateTimeFormatInfo) {
     return new TimeBox(label, new Date(), dateTimeFormatInfo);
   }
 
   /**
-   * create.
+   * Factory method to create a new instance of {@link TimeBox} with the specified label, date, and
+   * date format information.
    *
-   * @param label a {@link java.lang.String} object
-   * @param date a {@link java.util.Date} object
-   * @param dateTimeFormatInfo a {@link org.gwtproject.i18n.shared.cldr.DateTimeFormatInfo} object
-   * @return a {@link org.dominokit.domino.ui.forms.TimeBox} object
+   * @param label the label for the time box
+   * @param date the date to set
+   * @param dateTimeFormatInfo the date format information
+   * @return a new instance of TimeBox
    */
   public static TimeBox create(String label, Date date, DateTimeFormatInfo dateTimeFormatInfo) {
     return new TimeBox(label, date, dateTimeFormatInfo);
@@ -274,9 +291,9 @@ public class TimeBox extends TextInputFormField<TimeBox, HTMLInputElement, Date>
   }
 
   /**
-   * close.
+   * Closes the associated popover.
    *
-   * @return a {@link org.dominokit.domino.ui.forms.TimeBox} object
+   * @return the current instance of {@link TimeBox}
    */
   public TimeBox close() {
     popover.close();
@@ -284,10 +301,10 @@ public class TimeBox extends TextInputFormField<TimeBox, HTMLInputElement, Date>
   }
 
   /**
-   * Sets the {@link org.dominokit.domino.ui.datepicker.Pattern} of the field
+   * Sets the pattern for time formatting.
    *
-   * @param pattern the new {@link org.dominokit.domino.ui.datepicker.Pattern}
-   * @return same instance
+   * @param pattern the {@link Pattern} to set
+   * @return the current instance of {@link TimeBox}
    */
   public TimeBox setPattern(Pattern pattern) {
     switch (pattern) {
@@ -305,14 +322,10 @@ public class TimeBox extends TextInputFormField<TimeBox, HTMLInputElement, Date>
   }
 
   /**
-   * {@inheritDoc}
+   * Sets the custom pattern for time formatting.
    *
-   * <p>Sets a custom pattern.
-   *
-   * <p>More information of defining the pattern can be found under <a
-   *
-   * <p>href="http://www.gwtproject.org/javadoc/latest/com/google/gwt/i18n/client/DateTimeFormat.html">GWT
-   * DateTimeFormat</a>
+   * @param pattern the custom pattern string
+   * @return the current instance of {@link TimeBox}
    */
   public TimeBox setPattern(String pattern) {
     if (!Objects.equals(this.pattern, pattern)) {
@@ -332,7 +345,6 @@ public class TimeBox extends TextInputFormField<TimeBox, HTMLInputElement, Date>
     return formatter.format(this.pattern, dateTimeFormatInfo, date);
   }
 
-  /** {@inheritDoc} */
   @Override
   protected DominoElement<HTMLInputElement> createInputElement(String type) {
     return input(type).addCss(dui_field_input).toDominoElement();
@@ -347,10 +359,10 @@ public class TimeBox extends TextInputFormField<TimeBox, HTMLInputElement, Date>
   }
 
   /**
-   * setPopoverPosition.
+   * Sets the position of the popover.
    *
-   * @param position a {@link org.dominokit.domino.ui.menu.direction.DropDirection} object
-   * @return a {@link org.dominokit.domino.ui.forms.TimeBox} object
+   * @param position the {@link DropDirection} position
+   * @return the current instance of {@link TimeBox}
    */
   public TimeBox setPopoverPosition(DropDirection position) {
     if (nonNull(position)) {
@@ -360,11 +372,11 @@ public class TimeBox extends TextInputFormField<TimeBox, HTMLInputElement, Date>
   }
 
   /**
-   * withOpenOnFocusToggleListeners.
+   * Temporarily toggles the "open on focus" state and applies the given handler.
    *
-   * @param toggle a boolean
-   * @param handler a {@link org.dominokit.domino.ui.utils.Handler} object
-   * @return a {@link org.dominokit.domino.ui.forms.TimeBox} object
+   * @param toggle desired temporary state
+   * @param handler the handler to be applied
+   * @return the current instance of {@link TimeBox}
    */
   public TimeBox withOpenOnFocusToggleListeners(boolean toggle, Handler<TimeBox> handler) {
     boolean oldState = this.openOnFocus;
@@ -378,11 +390,12 @@ public class TimeBox extends TextInputFormField<TimeBox, HTMLInputElement, Date>
   }
 
   /**
-   * withPausedOpenOnFocusListeners.
+   * Temporarily toggles the "open on focus" state, applies the asynchronous handler, and then
+   * reverts to the original state once the handler has completed.
    *
-   * @param toggle a boolean
-   * @param handler a {@link org.dominokit.domino.ui.utils.AsyncHandler} object
-   * @return a {@link org.dominokit.domino.ui.forms.TimeBox} object
+   * @param toggle desired temporary state
+   * @param handler the asynchronous handler to be applied
+   * @return the current instance of {@link TimeBox}
    */
   public TimeBox withPausedOpenOnFocusListeners(boolean toggle, AsyncHandler<TimeBox> handler) {
     boolean oldState = this.openOnFocus;
@@ -396,6 +409,13 @@ public class TimeBox extends TextInputFormField<TimeBox, HTMLInputElement, Date>
     return this;
   }
 
+  /**
+   * Temporarily toggles the silent time selection and applies the given handler.
+   *
+   * @param toggle desired temporary state
+   * @param handler the handler to be applied
+   * @return the current instance of {@link TimeBox}
+   */
   private TimeBox withTimeSelectionToggleListeners(boolean toggle, Handler<TimeBox> handler) {
     boolean oldState = this.silentSelection;
     this.silentSelection = toggle;
@@ -407,7 +427,11 @@ public class TimeBox extends TextInputFormField<TimeBox, HTMLInputElement, Date>
     return this;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Sets the value of the TimeBox and updates the visual display accordingly.
+   *
+   * @param value the date value to be set
+   */
   @Override
   protected void doSetValue(Date value) {
     this.value = value;
@@ -425,30 +449,51 @@ public class TimeBox extends TextInputFormField<TimeBox, HTMLInputElement, Date>
         });
   }
 
+  /**
+   * Gets the formatted string representation of the current time value.
+   *
+   * @return the formatted time string
+   */
   private void updateStringValue() {
     getInputElement().element().value =
         getFormatted(this.value, this.timePicker.getDateTimeFormatInfo());
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Retrieves the string representation of the current value in the input field.
+   *
+   * @return the string value
+   */
   @Override
   public String getStringValue() {
     return getInputElement().element().value;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Retrieves the type of the input field.
+   *
+   * @return the string "text"
+   */
   @Override
   public String getType() {
     return "text";
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Retrieves the current date value set in the TimeBox.
+   *
+   * @return the current date value
+   */
   @Override
   public Date getValue() {
     return this.value;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Handles changes in time selection.
+   *
+   * @param date the newly selected date
+   */
   @Override
   public void onTimeSelectionChanged(Date date) {
     if (!isDisabled() && !isReadOnly()) {
@@ -456,50 +501,53 @@ public class TimeBox extends TextInputFormField<TimeBox, HTMLInputElement, Date>
         clearInvalid();
         withValue(date);
       }
-      this.popover.close();
     }
   }
 
   /**
-   * getDateTimeFormat.
+   * Retrieves the current date-time format information.
    *
-   * @return a {@link org.gwtproject.i18n.shared.cldr.DateTimeFormatInfo} object
+   * @return the current {@link DateTimeFormatInfo}
    */
   public DateTimeFormatInfo getDateTimeFormat() {
     return this.timePicker.getDateTimeFormatInfo();
   }
 
   /**
-   * setDateTimeFormat.
+   * Sets the date-time format information for the TimeBox.
    *
-   * @param dateTimeFormatInfo a {@link org.gwtproject.i18n.shared.cldr.DateTimeFormatInfo} object
-   * @return a {@link org.dominokit.domino.ui.forms.TimeBox} object
+   * @param dateTimeFormatInfo the {@link DateTimeFormatInfo} to set
+   * @return the current instance of {@link TimeBox}
    */
   public TimeBox setDateTimeFormat(DateTimeFormatInfo dateTimeFormatInfo) {
     this.timePicker.setDateTimeFormatInfo(dateTimeFormatInfo);
     return this;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Handles changes in the date-time format information and updates the string value.
+   *
+   * @param dateTimeFormatInfo the updated {@link DateTimeFormatInfo}
+   */
   @Override
   public void onDateTimeFormatInfoChanged(DateTimeFormatInfo dateTimeFormatInfo) {
     updateStringValue();
   }
 
   /**
-   * isOpenOnFocus.
+   * Checks if the TimeBox is set to open on focus.
    *
-   * @return a boolean
+   * @return true if set to open on focus, false otherwise.
    */
   public boolean isOpenOnFocus() {
     return openOnFocus;
   }
 
   /**
-   * Setter for the field <code>openOnFocus</code>.
+   * Configures the TimeBox to open on focus.
    *
-   * @param openOnFocus a boolean
-   * @return a {@link org.dominokit.domino.ui.forms.TimeBox} object
+   * @param openOnFocus true to open on focus, false otherwise.
+   * @return the current instance of {@link TimeBox}
    */
   public TimeBox setOpenOnFocus(boolean openOnFocus) {
     this.openOnFocus = openOnFocus;
@@ -507,19 +555,19 @@ public class TimeBox extends TextInputFormField<TimeBox, HTMLInputElement, Date>
   }
 
   /**
-   * isParseStrict.
+   * Checks if parsing is strict.
    *
-   * @return a boolean
+   * @return true if strict parsing, false otherwise.
    */
   public boolean isParseStrict() {
     return parseStrict;
   }
 
   /**
-   * Setter for the field <code>parseStrict</code>.
+   * Configures whether parsing should be strict.
    *
-   * @param parseStrict a boolean
-   * @return a {@link org.dominokit.domino.ui.forms.TimeBox} object
+   * @param parseStrict true for strict parsing, false otherwise.
+   * @return the current instance of {@link TimeBox}
    */
   public TimeBox setParseStrict(boolean parseStrict) {
     this.parseStrict = parseStrict;
@@ -527,19 +575,19 @@ public class TimeBox extends TextInputFormField<TimeBox, HTMLInputElement, Date>
   }
 
   /**
-   * isOpenOnClick.
+   * Checks if the TimeBox is set to open on click.
    *
-   * @return a boolean
+   * @return true if the TimeBox opens on click, false otherwise.
    */
   public boolean isOpenOnClick() {
     return openOnClick;
   }
 
   /**
-   * Setter for the field <code>openOnClick</code>.
+   * Sets the behavior of the TimeBox to open on click or not.
    *
-   * @param openOnClick a boolean
-   * @return a {@link org.dominokit.domino.ui.forms.TimeBox} object
+   * @param openOnClick true if the TimeBox should open on click, false otherwise.
+   * @return the current instance of {@link TimeBox}
    */
   public TimeBox setOpenOnClick(boolean openOnClick) {
     this.openOnClick = openOnClick;
@@ -548,10 +596,10 @@ public class TimeBox extends TextInputFormField<TimeBox, HTMLInputElement, Date>
   }
 
   /**
-   * withTimePicker.
+   * Applies a handler to the {@link TimePicker} associated with this TimeBox.
    *
-   * @param handler a {@link org.dominokit.domino.ui.utils.ChildHandler} object
-   * @return a {@link org.dominokit.domino.ui.forms.TimeBox} object
+   * @param handler the handler to be applied to the {@link TimePicker}
+   * @return the current instance of {@link TimeBox}
    */
   public TimeBox withTimePicker(ChildHandler<TimeBox, TimePicker> handler) {
     handler.apply(this, this.timePicker);
@@ -559,10 +607,10 @@ public class TimeBox extends TextInputFormField<TimeBox, HTMLInputElement, Date>
   }
 
   /**
-   * withPopover.
+   * Applies a handler to the {@link Popover} associated with this TimeBox.
    *
-   * @param handler a {@link org.dominokit.domino.ui.utils.ChildHandler} object
-   * @return a {@link org.dominokit.domino.ui.forms.TimeBox} object
+   * @param handler the handler to be applied to the {@link Popover}
+   * @return the current instance of {@link TimeBox}
    */
   public TimeBox withPopover(ChildHandler<TimeBox, Popover> handler) {
     handler.apply(this, this.popover);

@@ -15,21 +15,38 @@
  */
 package org.dominokit.domino.ui.stepper;
 
-/** InactiveStep class. */
+/**
+ * Represents an inactive step in a stepper component. Inactive steps are used to indicate steps
+ * that are not currently active or selected. This step state does not apply any visual changes or
+ * clean-up actions to the StepTracker.
+ */
 public class InactiveStep implements StepState {
-  /** {@inheritDoc} */
+
+  /**
+   * Does not apply any visual changes to the StepTracker when in an inactive state.
+   *
+   * @param tracker The StepTracker to which the inactive step state is applied.
+   */
   @Override
   public void apply(StepTracker tracker) {
     //    tracker.addCss(ColorsCss.dui_accent_accent_l_2);
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Does not perform any clean-up actions when the step is no longer in an inactive state.
+   *
+   * @param tracker The StepTracker from which the inactive step state is removed.
+   */
   @Override
   public void cleanUp(StepTracker tracker) {
     //    tracker.removeCss(ColorsCss.dui_accent_accent_l_2);
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Gets the key associated with the inactive step state, typically "INACTIVE."
+   *
+   * @return The key "INACTIVE."
+   */
   @Override
   public String getKey() {
     return "INACTIVE";

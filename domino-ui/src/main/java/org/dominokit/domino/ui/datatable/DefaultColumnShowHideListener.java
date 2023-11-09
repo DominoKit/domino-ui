@@ -13,6 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package org.dominokit.domino.ui.datatable;
 
 import static org.dominokit.domino.ui.utils.ElementsFactory.elements;
@@ -20,10 +21,8 @@ import static org.dominokit.domino.ui.utils.ElementsFactory.elements;
 import elemental2.dom.HTMLElement;
 
 /**
- * This implementation is default to show/hide any element whenever the table column visibility is
- * changed
- *
- * <p>e.g remove the column name a from a list of columns
+ * A default implementation of the {@link ColumnShowHideListener} interface for showing and hiding
+ * columns in a data table.
  */
 public class DefaultColumnShowHideListener implements ColumnShowHideListener {
 
@@ -31,55 +30,60 @@ public class DefaultColumnShowHideListener implements ColumnShowHideListener {
   private boolean permanent = false;
 
   /**
-   * Create an instance initialized with any custom element
+   * Creates a new instance of DefaultColumnShowHideListener with the specified HTML element.
    *
-   * @param element {@link elemental2.dom.HTMLElement}
-   * @return new {@link org.dominokit.domino.ui.datatable.DefaultColumnShowHideListener}
+   * @param element The HTML element associated with this listener.
    */
   public static DefaultColumnShowHideListener of(HTMLElement element) {
     return new DefaultColumnShowHideListener(element);
   }
 
   /**
-   * Create an instance initialized with any custom element and make it permanent
+   * Creates a new instance of DefaultColumnShowHideListener with the specified HTML element and
+   * permanence flag.
    *
-   * @param element {@link elemental2.dom.HTMLElement}
-   * @param permanent boolean, if true make this listener permanent so it wont be removed when the
-   *     listeners are cleared
-   * @return new {@link org.dominokit.domino.ui.datatable.DefaultColumnShowHideListener}
+   * @param element The HTML element associated with this listener.
+   * @param permanent A flag indicating whether the column should be permanently shown or hidden.
    */
   public static DefaultColumnShowHideListener of(HTMLElement element, boolean permanent) {
     return new DefaultColumnShowHideListener(element, permanent);
   }
 
   /**
-   * Create an instance initialized with any custom element
+   * Constructs a DefaultColumnShowHideListener with the specified HTML element.
    *
-   * @param element {@link elemental2.dom.HTMLElement}
+   * @param element The HTML element associated with this listener.
    */
   public DefaultColumnShowHideListener(HTMLElement element) {
     this.element = element;
   }
 
   /**
-   * Create an instance initialized with any custom element and make it permanent
+   * Constructs a DefaultColumnShowHideListener with the specified HTML element and permanence flag.
    *
-   * @param element {@link elemental2.dom.HTMLElement}
-   * @param permanent boolean, if true make this listener permanent so it wont be removed when the
-   *     listeners are cleared
+   * @param element The HTML element associated with this listener.
+   * @param permanent A flag indicating whether the column should be permanently shown or hidden.
    */
   public DefaultColumnShowHideListener(HTMLElement element, boolean permanent) {
     this.element = element;
     this.permanent = permanent;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Shows or hides the associated HTML element based on the visibility flag.
+   *
+   * @param visible A flag indicating whether the column should be visible or hidden.
+   */
   @Override
   public void onShowHide(boolean visible) {
     elements.elementOf(element).toggleDisplay(visible);
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Checks if the column should be permanently shown or hidden.
+   *
+   * @return {@code true} if the column is permanent, {@code false} otherwise.
+   */
   @Override
   public boolean isPermanent() {
     return permanent;

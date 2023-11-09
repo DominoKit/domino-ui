@@ -13,22 +13,29 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package org.dominokit.domino.ui.utils;
 
-/** HasPrefix interface. */
+/**
+ * The {@code HasPrefix} interface defines methods for getting and setting a prefix text for a
+ * component.
+ *
+ * @param <T> The type of the component that can have a prefix.
+ */
 public interface HasPrefix<T> {
+
   /**
-   * setPrefix.
+   * Sets a prefix text for the component.
    *
-   * @param prefix a {@link java.lang.String} object
-   * @return a T object
+   * @param prefix The prefix text to set for the component.
+   * @return The component with the updated prefix text.
    */
   T setPrefix(String prefix);
 
   /**
-   * getPrefix.
+   * Gets the prefix text of the component.
    *
-   * @return a {@link java.lang.String} object
+   * @return The prefix text of the component.
    */
   String getPrefix();
 }

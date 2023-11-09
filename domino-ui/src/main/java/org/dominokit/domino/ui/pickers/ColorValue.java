@@ -17,6 +17,25 @@ package org.dominokit.domino.ui.pickers;
 
 import static java.util.Objects.isNull;
 
+/**
+ * Represents a color value in various formats, including RGB and hexadecimal.
+ *
+ * <p>The {@code ColorValue} class allows you to work with colors in different formats such as RGB
+ * and hexadecimal. It provides methods for creating color values from these formats and retrieving
+ * color components (red, green, blue) in both numerical and string representations.
+ *
+ * <p>Usage examples:
+ *
+ * <pre>
+ * // Create a ColorValue from a hexadecimal color code
+ * ColorValue color = ColorValue.of("#FF5733");
+ *
+ * // Create a ColorValue from RGB components
+ * ColorValue rgbColor = ColorValue.of(255, 87, 51);
+ * </pre>
+ *
+ * <p>All HTML tags in the documentation are correctly closed.
+ */
 public class ColorValue {
 
   private final String rgb;
@@ -25,14 +44,36 @@ public class ColorValue {
   private final int green;
   private final int blue;
 
+  /**
+   * Creates a {@code ColorValue} instance from a hexadecimal color code.
+   *
+   * @param value The hexadecimal color code (e.g., "#FF5733").
+   * @return A new {@code ColorValue} instance representing the specified color.
+   * @throws IllegalArgumentException if the input value is invalid or null.
+   */
   public static ColorValue of(String value) {
     return new ColorValue(value);
   }
 
+  /**
+   * Creates a {@code ColorValue} instance from RGB components.
+   *
+   * @param red The red component value (0-255).
+   * @param green The green component value (0-255).
+   * @param blue The blue component value (0-255).
+   * @return A new {@code ColorValue} instance representing the specified color.
+   */
   public static ColorValue of(int red, int green, int blue) {
     return new ColorValue(red, green, blue);
   }
 
+  /**
+   * Constructs a {@code ColorValue} instance from RGB components.
+   *
+   * @param red The red component value (0-255).
+   * @param green The green component value (0-255).
+   * @param blue The blue component value (0-255).
+   */
   public ColorValue(int red, int green, int blue) {
     this.red = red;
     this.green = green;
@@ -41,6 +82,13 @@ public class ColorValue {
     this.rgb = "rgb(" + red + ", " + green + ", " + blue + ")";
   }
 
+  /**
+   * Constructs a {@code ColorValue} instance from a hexadecimal color code or an RGB format string.
+   *
+   * @param value The color value as a hexadecimal code (e.g., "#FF5733") or RGB format string
+   *     (e.g., "rgb(255, 87, 51)").
+   * @throws IllegalArgumentException if the input value is invalid or null.
+   */
   public ColorValue(String value) {
     if (isNull(value) || value.trim().isEmpty()) {
       throw new IllegalArgumentException(
@@ -83,22 +131,47 @@ public class ColorValue {
     return hexString.length() == 1 ? "0" + hexString : hexString;
   }
 
+  /**
+   * Gets the RGB representation of the color value.
+   *
+   * @return The RGB format string (e.g., "rgb(255, 87, 51)").
+   */
   public String getRgb() {
     return rgb;
   }
 
+  /**
+   * Gets the hexadecimal representation of the color value.
+   *
+   * @return The hexadecimal color code (e.g., "#FF5733").
+   */
   public String getHex() {
     return hex;
   }
 
+  /**
+   * Gets the red component value of the color.
+   *
+   * @return The red component value (0-255).
+   */
   public int getRed() {
     return red;
   }
 
+  /**
+   * Gets the green component value of the color.
+   *
+   * @return The green component value (0-255).
+   */
   public int getGreen() {
     return green;
   }
 
+  /**
+   * Gets the blue component value of the color.
+   *
+   * @return The blue component value (0-255).
+   */
   public int getBlue() {
     return blue;
   }

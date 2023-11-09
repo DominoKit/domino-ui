@@ -13,39 +13,46 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package org.dominokit.domino.ui.utils;
 
 /**
- * A component that has items to be selected/deselected should implement this interface
+ * The {@code HasSelectionHandler} interface defines methods for adding and removing selection
+ * handlers to a component that represents a selection action.
  *
- * @param <T> the type of the component implementing this interface
- * @param <V> the type of the Value being selected
+ * @param <T> The type of the component to which a selection handler can be added or removed.
+ * @param <V> The type of the value that is selected.
  */
 public interface HasSelectionHandler<T, V> {
+
   /**
-   * Adds a Selection handler to the component
+   * Adds a selection handler to the component.
    *
-   * @param selectionHandler {@link org.dominokit.domino.ui.utils.Selectable.SelectionHandler}
-   * @return same implementing component instance
+   * @param selectionHandler The selection handler to be added.
+   * @return The component with the added selection handler.
    */
   T addSelectionHandler(SelectionHandler<V> selectionHandler);
 
   /**
-   * removeSelectionHandler.
+   * Removes a selection handler from the component.
    *
-   * @param selectionHandler a {@link
-   *     org.dominokit.domino.ui.utils.HasSelectionHandler.SelectionHandler} object
-   * @return a T object
+   * @param selectionHandler The selection handler to be removed.
+   * @return The component with the selection handler removed.
    */
   T removeSelectionHandler(SelectionHandler<V> selectionHandler);
 
   /**
-   * A function to implement logic to be executed when a component being selected
+   * A functional interface for handling selection events of a component.
    *
-   * @param <V> the type of the selected value
+   * @param <V> The type of the value that is selected.
    */
   interface SelectionHandler<V> {
-    /** @param value the selected value */
+
+    /**
+     * Called when a selection event occurs in the component.
+     *
+     * @param value The value that is selected.
+     */
     void onSelection(V value);
   }
 }

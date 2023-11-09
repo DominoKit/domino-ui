@@ -15,12 +15,30 @@
  */
 package org.dominokit.domino.ui.splitpanel;
 
-/** HasSize interface. */
+/**
+ * Represents an object that has a measurable size.
+ *
+ * <p>Usage example:
+ *
+ * <pre>
+ * public class Panel implements HasSize {
+ *     private double width;
+ *
+ *     @Override
+ *     public double getSize() {
+ *         return width;
+ *     }
+ * }
+ * </pre>
+ *
+ * <p>Any class that implements this interface should provide the logic to return its size.
+ */
 public interface HasSize {
+
   /**
-   * getSize.
+   * Retrieves the size of the object.
    *
-   * @return a double
+   * @return the size as a double.
    */
   double getSize();
 }

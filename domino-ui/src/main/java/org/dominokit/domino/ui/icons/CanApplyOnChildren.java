@@ -13,17 +13,25 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package org.dominokit.domino.ui.icons;
 
 import org.dominokit.domino.ui.utils.ElementHandler;
 
-/** CanApplyOnChildren interface. */
+/**
+ * The {@code CanApplyOnChildren} interface defines a contract for applying a handler to child
+ * elements of a specific type.
+ *
+ * @param <T> The type of the concrete class that implements this interface.
+ * @param <C> The type of child elements that the handler will be applied to.
+ */
 public interface CanApplyOnChildren<T, C> {
+
   /**
-   * forEachChild.
+   * Iterates through the child elements and applies a handler to each of them.
    *
-   * @param handler a {@link org.dominokit.domino.ui.utils.ElementHandler} object
-   * @return a T object
+   * @param handler The handler to apply to each child element.
+   * @return The instance of the concrete class with the handler applied to its children.
    */
   T forEachChild(ElementHandler<C> handler);
 }

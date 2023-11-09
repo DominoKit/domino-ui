@@ -25,6 +25,14 @@ import org.gwtproject.timer.client.Timer;
  * notified through a handler everytime the count it changed
  *
  * <p>e.g : count from 0 to 100 by 1 increment every 1 second and log the count to the console
+ *
+ * <pre>
+ *     Counter.countFrom(0)
+ *          .countTo(100)
+ *          .every(1000) // Interval in milliseconds
+ *          .incrementBy(1)
+ *          .onCount(count-> DomGlobal.console.info("counting:"+count))
+ *          .startCounting()
  * </pre>
  */
 public class Counter {
@@ -49,7 +57,7 @@ public class Counter {
   }
 
   /**
-   * static factory to create a new counter instance with count start
+   * Factory method to create a new counter instance with a starting value
    *
    * @param countFrom int
    * @return {@link org.dominokit.domino.ui.counter.Counter.CanCountTo}
@@ -92,7 +100,7 @@ public class Counter {
     timer.scheduleRepeating(interval);
   }
 
-  /** An interface to define a handler to be called after each count */
+  /** Use to add an implementation of a handler to be called after each count */
   @FunctionalInterface
   public interface CountHandler {
     /** @param count int the current counter value */

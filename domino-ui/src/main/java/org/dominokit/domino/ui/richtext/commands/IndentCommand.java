@@ -22,14 +22,39 @@ import org.dominokit.domino.ui.icons.lib.Icons;
 import org.dominokit.domino.ui.richtext.RichTextCommand;
 import org.dominokit.domino.ui.utils.DominoDom;
 
+/**
+ * Represents a UI command to increase the indentation within a rich text editor.
+ *
+ * <p>The IndentCommand extends {@link RichTextCommand} and provides the ability to increment the
+ * indentation of the selected text or block in a rich text editable div element. The command is
+ * represented by a button with an icon indicating increasing indentation.
+ *
+ * <p><b>Usage Example:</b>
+ *
+ * <pre>{@code
+ * DivElement editableDiv = DivElement.create();
+ * IndentCommand indentCommand = IndentCommand.create(editableDiv);
+ * }</pre>
+ */
 public class IndentCommand extends RichTextCommand<IndentCommand> {
 
   private Button button;
 
+  /**
+   * Factory method to create a new instance of IndentCommand.
+   *
+   * @param editableElement The div element where the rich text is edited.
+   * @return A new instance of IndentCommand.
+   */
   public static IndentCommand create(DivElement editableElement) {
     return new IndentCommand(editableElement);
   }
 
+  /**
+   * Constructs a new IndentCommand instance for the specified editable div element.
+   *
+   * @param editableElement The div element where the rich text is edited.
+   */
   public IndentCommand(DivElement editableElement) {
     super(editableElement);
     this.button =
@@ -39,11 +64,21 @@ public class IndentCommand extends RichTextCommand<IndentCommand> {
     init(this);
   }
 
+  /**
+   * @dominokit-site-ignore {@inheritDoc}
+   *     <p>Returns the main HTMLElement of this command, which is the button used to increase the
+   *     indentation.
+   * @return The HTMLElement of the button.
+   */
   @Override
   public HTMLElement element() {
     return button.element();
   }
 
+  /**
+   * Executes the command, increasing the indentation of the selected text or block within the
+   * editable div element.
+   */
   @Override
   protected void execute() {
     getSelectedRange()

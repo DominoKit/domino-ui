@@ -22,6 +22,22 @@ import java.util.Optional;
 import org.dominokit.domino.ui.IsElement;
 import org.dominokit.domino.ui.utils.ElementsFactory;
 
+/**
+ * Manages themes on a per-element basis for Domino UI components.
+ *
+ * <p>This class offers methods to apply, remove, and register themes targeting specific UI
+ * elements.
+ *
+ * <p><b>Usage Example:</b>
+ *
+ * <pre>{@code
+ * ElementThemeManager manager = ElementThemeManager.INSTANCE;
+ * manager.apply(MyCustomTheme.INSTANCE, myElement);
+ * }</pre>
+ *
+ * @see IsDominoTheme
+ * @see ElementsFactory
+ */
 public class ElementThemeManager implements ElementsFactory {
 
   public static final ElementThemeManager INSTANCE = new ElementThemeManager();
@@ -54,10 +70,24 @@ public class ElementThemeManager implements ElementsFactory {
     registerTheme(DominoThemeAccent.BLUE_GREY);
   }
 
+  /**
+   * Applies the specified theme to a target element represented as {@link IsElement}.
+   *
+   * @param theme the theme to be applied
+   * @param target the target element to apply the theme on
+   * @return the {@link ElementThemeManager} instance
+   */
   public ElementThemeManager apply(IsDominoTheme theme, IsElement<? extends Element> target) {
     return apply(theme, target.element());
   }
 
+  /**
+   * Applies the specified theme to a target {@link Element}.
+   *
+   * @param theme the theme to be applied
+   * @param target the target element to apply the theme on
+   * @return the {@link ElementThemeManager} instance
+   */
   public ElementThemeManager apply(IsDominoTheme theme, Element target) {
     if (byCategory.containsKey(theme.getCategory())) {
       byCategory.get(theme.getCategory()).cleanup(target);
@@ -68,10 +98,25 @@ public class ElementThemeManager implements ElementsFactory {
     return INSTANCE;
   }
 
+  /**
+   * Removes the theme with the specified name from a target element represented as {@link
+   * IsElement}.
+   *
+   * @param themeName the name of the theme to be removed
+   * @param target the target element to remove the theme from
+   * @return the {@link ElementThemeManager} instance
+   */
   public ElementThemeManager remove(String themeName, IsElement<? extends Element> target) {
     return remove(themeName, target.element());
   }
 
+  /**
+   * Removes the theme with the specified name from a target {@link Element}.
+   *
+   * @param themeName the name of the theme to be removed
+   * @param target the target element to remove the theme from
+   * @return the {@link ElementThemeManager} instance
+   */
   public ElementThemeManager remove(String themeName, Element target) {
     Optional<IsDominoTheme> theme =
         byCategory.values().stream().filter(t -> t.getName().equals(themeName)).findFirst();
@@ -83,6 +128,12 @@ public class ElementThemeManager implements ElementsFactory {
     return INSTANCE;
   }
 
+  /**
+   * Registers a new theme, making it available for future use.
+   *
+   * @param theme the theme to be registered
+   * @return the {@link ElementThemeManager} instance
+   */
   public ElementThemeManager registerTheme(IsDominoTheme theme) {
     registeredThemes.put(theme.getName(), theme);
     return INSTANCE;

@@ -13,20 +13,22 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package org.dominokit.domino.ui.datatable.events;
 
 import java.util.List;
 
 /**
- * This event will be fired by the {@link org.dominokit.domino.ui.datatable.DataTable} right before
- * the data in the table is changed to allow other plugins to apply any cleanup required before the
- * new data is applied
+ * The {@code OnBeforeDataChangeEvent} class represents an event that is fired before the data in a
+ * DataTable is changed. It provides information about the new data, total count, and whether the
+ * data is being appended.
  *
- * @param <T> the type of the data records in the table
+ * @param <T> the type of data in the DataTable
+ * @see org.dominokit.domino.ui.datatable.events.TableEvent
  */
 public class OnBeforeDataChangeEvent<T> implements TableEvent {
 
-  /** A constant string to define a unique type for this event */
+  /** The event type for the on-before-data-change event. */
   public static final String ON_BEFORE_DATA_CHANGE = "table-on-before-data-change";
 
   private final List<T> data;
@@ -34,12 +36,12 @@ public class OnBeforeDataChangeEvent<T> implements TableEvent {
   private boolean isAppend = false;
 
   /**
-   * Constructor for OnBeforeDataChangeEvent.
+   * Creates a new {@code OnBeforeDataChangeEvent} with the specified data, total count, and append
+   * flag.
    *
-   * @param data {@link java.util.List} of new data
-   * @param totalCount int, the total count for the new data
-   * @param isAppend boolean, true if the new data will be appended to old data, otherwise it will
-   *     replace the old data.
+   * @param data the new data to be set in the DataTable
+   * @param totalCount the total count of data in the DataTable
+   * @param isAppend {@code true} if the data is being appended, {@code false} otherwise
    */
   public OnBeforeDataChangeEvent(List<T> data, int totalCount, boolean isAppend) {
     this.data = data;
@@ -47,37 +49,38 @@ public class OnBeforeDataChangeEvent<T> implements TableEvent {
     this.isAppend = isAppend;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Retrieves the type of this event.
+   *
+   * @return the event type
+   */
   @Override
   public String getType() {
     return ON_BEFORE_DATA_CHANGE;
   }
 
-  /** @return {@link List} of the new data */
   /**
-   * Getter for the field <code>data</code>.
+   * Retrieves the new data that will be set in the DataTable.
    *
-   * @return a {@link java.util.List} object
+   * @return the new data
    */
   public List<T> getData() {
     return data;
   }
 
-  /** @return int, the total count of the new data */
   /**
-   * Getter for the field <code>totalCount</code>.
+   * Retrieves the total count of data in the DataTable.
    *
-   * @return a int
+   * @return the total count
    */
   public int getTotalCount() {
     return totalCount;
   }
 
   /**
-   * isAppend.
+   * Checks if the data is being appended.
    *
-   * @return boolean, true if the new data will be appended to old data otherwise new data replaces
-   *     old data.
+   * @return {@code true} if the data is being appended, {@code false} otherwise
    */
   public boolean isAppend() {
     return isAppend;

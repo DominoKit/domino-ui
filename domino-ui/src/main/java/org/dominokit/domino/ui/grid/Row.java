@@ -28,11 +28,9 @@ import org.dominokit.domino.ui.style.PostfixCssClass;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
 
 /**
- * A component which provides an abstract level of the CSS grid row which will inherit the styles
- * for the CSS grid row by default
+ * Represents a row in a grid layout.
  *
- * <p>More information can be found in <a
- * href="https://developer.mozilla.org/en-US/docs/Web/CSS/grid-row">MDN official documentation</a>
+ * @see BaseDominoElement
  */
 public class Row extends BaseDominoElement<HTMLDivElement, Row> implements GridStyles {
 
@@ -41,9 +39,9 @@ public class Row extends BaseDominoElement<HTMLDivElement, Row> implements GridS
   private PostfixCssClass rowColumns = PostfixCssClass.of("dui-row", _12.getCount());
 
   /**
-   * Constructor for Row.
+   * Constructs a new row with the specified number of columns.
    *
-   * @param columns a {@link org.dominokit.domino.ui.grid.Columns} object
+   * @param columns The number of columns in the row.
    */
   public Row(Columns columns) {
     this.row = div().addCss(dui_grid_row, rowColumns.postfix(columns.getCount()));
@@ -51,65 +49,64 @@ public class Row extends BaseDominoElement<HTMLDivElement, Row> implements GridS
   }
 
   /**
-   * Creates a grid row with default 12 columns
+   * Creates a new row with 12 columns.
    *
-   * @return new instance of {@link org.dominokit.domino.ui.grid.Row}
+   * @return A new row with 12 columns.
    */
   public static Row create() {
     return new Row(_12);
   }
 
   /**
-   * Creates a grid row with 12 columns
+   * Creates a new row with 12 columns.
    *
-   * @return new instance of {@link org.dominokit.domino.ui.grid.Row}
+   * @return A new row with 12 columns.
    */
   public static Row of12Columns() {
     return new Row(_12);
   }
 
   /**
-   * Creates a grid row with 16 columns
+   * Creates a new row with 16 columns.
    *
-   * @return new instance of {@link org.dominokit.domino.ui.grid.Row}
+   * @return A new row with 16 columns.
    */
   public static Row of16Columns() {
     return new Row(_16);
   }
 
   /**
-   * Creates a grid row with 18 columns
+   * Creates a new row with 18 columns.
    *
-   * @return new instance of {@link org.dominokit.domino.ui.grid.Row}
+   * @return A new row with 18 columns.
    */
   public static Row of18Columns() {
     return new Row(_18);
   }
 
   /**
-   * Creates a grid row with 24 columns
+   * Creates a new row with 24 columns.
    *
-   * @return new instance of {@link org.dominokit.domino.ui.grid.Row}
+   * @return A new row with 24 columns.
    */
   public static Row of24Columns() {
     return new Row(_24);
   }
 
   /**
-   * Creates a grid row with 32 columns
+   * Creates a new row with 32 columns.
    *
-   * @return new instance of {@link org.dominokit.domino.ui.grid.Row}
+   * @return A new row with 32 columns.
    */
   public static Row of32Columns() {
     return new Row(_32);
   }
 
   /**
-   * Sets the spaces between columns inside the row
+   * Sets the gap between elements in the row.
    *
-   * @param gap the string value of the space in <a
-   *     href="https://developer.mozilla.org/en-US/docs/Web/CSS/gap">CSS gap format</a>
-   * @return same instance
+   * @param gap The gap value to set.
+   * @return This Row instance.
    */
   public Row setGap(String gap) {
     setCssProperty("grid-gap", gap);
@@ -117,10 +114,10 @@ public class Row extends BaseDominoElement<HTMLDivElement, Row> implements GridS
   }
 
   /**
-   * Adds new column
+   * Appends a column to the row.
    *
-   * @param column A new {@link org.dominokit.domino.ui.grid.Column} to add
-   * @return same instance
+   * @param column The column to append.
+   * @return This Row instance.
    */
   public Row appendChild(Column column) {
     row.appendChild(column.element());
@@ -128,328 +125,329 @@ public class Row extends BaseDominoElement<HTMLDivElement, Row> implements GridS
   }
 
   /**
-   * span1.
+   * Appends a column with a span of 1 to the row, containing the provided content.
    *
-   * @param content a {@link org.dominokit.domino.ui.IsElement} object
-   * @return a {@link org.dominokit.domino.ui.grid.Row} object
+   * @param content The content to be placed in the column.
+   * @return This Row instance.
    */
   public Row span1(IsElement<?> content) {
     return appendChild(Column.span1().appendChild(content));
   }
 
   /**
-   * span2.
+   * Appends a column with a span of 2 to the row, containing the provided content.
    *
-   * @param content a {@link org.dominokit.domino.ui.IsElement} object
-   * @return a {@link org.dominokit.domino.ui.grid.Row} object
+   * @param content The content to be placed in the column.
+   * @return This Row instance.
    */
   public Row span2(IsElement<?> content) {
     return appendChild(Column.span2().appendChild(content));
   }
 
   /**
-   * span3.
+   * Appends a column with a span of 3 to the row, containing the provided content.
    *
-   * @param content a {@link org.dominokit.domino.ui.IsElement} object
-   * @return a {@link org.dominokit.domino.ui.grid.Row} object
+   * @param content The content to be placed in the column.
+   * @return This Row instance.
    */
   public Row span3(IsElement<?> content) {
     return appendChild(Column.span3().appendChild(content));
   }
 
   /**
-   * span4.
+   * Appends a column with a span of 4 to the row, containing the provided content.
    *
-   * @param content a {@link org.dominokit.domino.ui.IsElement} object
-   * @return a {@link org.dominokit.domino.ui.grid.Row} object
+   * @param content The content to be placed in the column.
+   * @return This Row instance.
    */
   public Row span4(IsElement<?> content) {
     return appendChild(Column.span4().appendChild(content));
   }
 
   /**
-   * span5.
+   * Appends a column with a span of 5 to the row, containing the provided content.
    *
-   * @param content a {@link org.dominokit.domino.ui.IsElement} object
-   * @return a {@link org.dominokit.domino.ui.grid.Row} object
+   * @param content The content to be placed in the column.
+   * @return This Row instance.
    */
   public Row span5(IsElement<?> content) {
     return appendChild(Column.span5().appendChild(content));
   }
 
   /**
-   * span6.
+   * Appends a column with a span of 6 to the row, containing the provided content.
    *
-   * @param content a {@link org.dominokit.domino.ui.IsElement} object
-   * @return a {@link org.dominokit.domino.ui.grid.Row} object
+   * @param content The content to be placed in the column.
+   * @return This Row instance.
    */
   public Row span6(IsElement<?> content) {
     return appendChild(Column.span6().appendChild(content));
   }
 
   /**
-   * span7.
+   * Appends a column with a span of 7 to the row, containing the provided content.
    *
-   * @param content a {@link org.dominokit.domino.ui.IsElement} object
-   * @return a {@link org.dominokit.domino.ui.grid.Row} object
+   * @param content The content to be placed in the column.
+   * @return This Row instance.
    */
   public Row span7(IsElement<?> content) {
     return appendChild(Column.span7().appendChild(content));
   }
 
   /**
-   * span8.
+   * Appends a column with a span of 8 to the row, containing the provided content.
    *
-   * @param content a {@link org.dominokit.domino.ui.IsElement} object
-   * @return a {@link org.dominokit.domino.ui.grid.Row} object
+   * @param content The content to be placed in the column.
+   * @return This Row instance.
    */
   public Row span8(IsElement<?> content) {
     return appendChild(Column.span8().appendChild(content));
   }
 
   /**
-   * span9.
+   * Appends a column with a span of 9 to the row, containing the provided content.
    *
-   * @param content a {@link org.dominokit.domino.ui.IsElement} object
-   * @return a {@link org.dominokit.domino.ui.grid.Row} object
+   * @param content The content to be placed in the column.
+   * @return This Row instance.
    */
   public Row span9(IsElement<?> content) {
     return appendChild(Column.span9().appendChild(content));
   }
 
   /**
-   * span10.
+   * Appends a column with a span of 10 to the row, containing the provided content.
    *
-   * @param content a {@link org.dominokit.domino.ui.IsElement} object
-   * @return a {@link org.dominokit.domino.ui.grid.Row} object
+   * @param content The content to be placed in the column.
+   * @return This Row instance.
    */
   public Row span10(IsElement<?> content) {
     return appendChild(Column.span10().appendChild(content));
   }
 
   /**
-   * span11.
+   * Appends a column with a span of 11 to the row, containing the provided content.
    *
-   * @param content a {@link org.dominokit.domino.ui.IsElement} object
-   * @return a {@link org.dominokit.domino.ui.grid.Row} object
+   * @param content The content to be placed in the column.
+   * @return This Row instance.
    */
   public Row span11(IsElement<?> content) {
     return appendChild(Column.span11().appendChild(content));
   }
 
   /**
-   * span12.
+   * Appends a column with a span of 12 to the row, containing the provided content.
    *
-   * @param content a {@link org.dominokit.domino.ui.IsElement} object
-   * @return a {@link org.dominokit.domino.ui.grid.Row} object
+   * @param content The content to be placed in the column.
+   * @return This Row instance.
    */
   public Row span12(IsElement<?> content) {
     return appendChild(Column.span12().appendChild(content));
   }
 
   /**
-   * span13.
+   * Appends a column with a span of 13 to the row, containing the provided content.
    *
-   * @param content a {@link org.dominokit.domino.ui.IsElement} object
-   * @return a {@link org.dominokit.domino.ui.grid.Row} object
+   * @param content The content to be placed in the column.
+   * @return This Row instance.
    */
   public Row span13(IsElement<?> content) {
     return appendChild(Column.span13().appendChild(content));
   }
 
   /**
-   * span14.
+   * Appends a column with a span of 14 to the row, containing the provided content.
    *
-   * @param content a {@link org.dominokit.domino.ui.IsElement} object
-   * @return a {@link org.dominokit.domino.ui.grid.Row} object
+   * @param content The content to be placed in the column.
+   * @return This Row instance.
    */
   public Row span14(IsElement<?> content) {
     return appendChild(Column.span14().appendChild(content));
   }
 
   /**
-   * span15.
+   * Appends a column with a span of 15 to the row, containing the provided content.
    *
-   * @param content a {@link org.dominokit.domino.ui.IsElement} object
-   * @return a {@link org.dominokit.domino.ui.grid.Row} object
+   * @param content The content to be placed in the column.
+   * @return This Row instance.
    */
   public Row span15(IsElement<?> content) {
     return appendChild(Column.span15().appendChild(content));
   }
 
   /**
-   * span16.
+   * Appends a column with a span of 16 to the row, containing the provided content.
    *
-   * @param content a {@link org.dominokit.domino.ui.IsElement} object
-   * @return a {@link org.dominokit.domino.ui.grid.Row} object
+   * @param content The content to be placed in the column.
+   * @return This Row instance.
    */
   public Row span16(IsElement<?> content) {
     return appendChild(Column.span16().appendChild(content));
   }
 
   /**
-   * span17.
+   * Appends a column with a span of 17 to the row, containing the provided content.
    *
-   * @param content a {@link org.dominokit.domino.ui.IsElement} object
-   * @return a {@link org.dominokit.domino.ui.grid.Row} object
+   * @param content The content to be placed in the column.
+   * @return This Row instance.
    */
   public Row span17(IsElement<?> content) {
     return appendChild(Column.span17().appendChild(content));
   }
 
   /**
-   * span18.
+   * Appends a column with a span of 18 to the row, containing the provided content.
    *
-   * @param content a {@link org.dominokit.domino.ui.IsElement} object
-   * @return a {@link org.dominokit.domino.ui.grid.Row} object
+   * @param content The content to be placed in the column.
+   * @return This Row instance.
    */
   public Row span18(IsElement<?> content) {
     return appendChild(Column.span18().appendChild(content));
   }
 
   /**
-   * span19.
+   * Appends a column with a span of 19 to the row, containing the provided content.
    *
-   * @param content a {@link org.dominokit.domino.ui.IsElement} object
-   * @return a {@link org.dominokit.domino.ui.grid.Row} object
+   * @param content The content to be placed in the column.
+   * @return This Row instance.
    */
   public Row span19(IsElement<?> content) {
     return appendChild(Column.span19().appendChild(content));
   }
 
   /**
-   * span20.
+   * Appends a column with a span of 20 to the row, containing the provided content.
    *
-   * @param content a {@link org.dominokit.domino.ui.IsElement} object
-   * @return a {@link org.dominokit.domino.ui.grid.Row} object
+   * @param content The content to be placed in the column.
+   * @return This Row instance.
    */
   public Row span20(IsElement<?> content) {
     return appendChild(Column.span20().appendChild(content));
   }
 
   /**
-   * span21.
+   * Appends a column with a span of 21 to the row, containing the provided content.
    *
-   * @param content a {@link org.dominokit.domino.ui.IsElement} object
-   * @return a {@link org.dominokit.domino.ui.grid.Row} object
+   * @param content The content to be placed in the column.
+   * @return This Row instance.
    */
   public Row span21(IsElement<?> content) {
     return appendChild(Column.span21().appendChild(content));
   }
 
   /**
-   * span22.
+   * Appends a column with a span of 22 to the row, containing the provided content.
    *
-   * @param content a {@link org.dominokit.domino.ui.IsElement} object
-   * @return a {@link org.dominokit.domino.ui.grid.Row} object
+   * @param content The content to be placed in the column.
+   * @return This Row instance.
    */
   public Row span22(IsElement<?> content) {
     return appendChild(Column.span22().appendChild(content));
   }
 
   /**
-   * span23.
+   * Appends a column with a span of 23 to the row, containing the provided content.
    *
-   * @param content a {@link org.dominokit.domino.ui.IsElement} object
-   * @return a {@link org.dominokit.domino.ui.grid.Row} object
+   * @param content The content to be placed in the column.
+   * @return This Row instance.
    */
   public Row span23(IsElement<?> content) {
     return appendChild(Column.span23().appendChild(content));
   }
 
   /**
-   * span24.
+   * Appends a column with a span of 24 to the row, containing the provided content.
    *
-   * @param content a {@link org.dominokit.domino.ui.IsElement} object
-   * @return a {@link org.dominokit.domino.ui.grid.Row} object
+   * @param content The content to be placed in the column.
+   * @return This Row instance.
    */
   public Row span24(IsElement<?> content) {
     return appendChild(Column.span24().appendChild(content));
   }
 
   /**
-   * span25.
+   * Appends a column with a span of 25 to the row, containing the provided content.
    *
-   * @param content a {@link org.dominokit.domino.ui.IsElement} object
-   * @return a {@link org.dominokit.domino.ui.grid.Row} object
+   * @param content The content to be placed in the column.
+   * @return This Row instance.
    */
   public Row span25(IsElement<?> content) {
     return appendChild(Column.span25().appendChild(content));
   }
 
   /**
-   * span26.
+   * Appends a column with a span of 26 to the row, containing the provided content.
    *
-   * @param content a {@link org.dominokit.domino.ui.IsElement} object
-   * @return a {@link org.dominokit.domino.ui.grid.Row} object
+   * @param content The content to be placed in the column.
+   * @return This Row instance.
    */
   public Row span26(IsElement<?> content) {
     return appendChild(Column.span26().appendChild(content));
   }
 
   /**
-   * span27.
+   * Appends a column with a span of 27 to the row, containing the provided content.
    *
-   * @param content a {@link org.dominokit.domino.ui.IsElement} object
-   * @return a {@link org.dominokit.domino.ui.grid.Row} object
+   * @param content The content to be placed in the column.
+   * @return This Row instance.
    */
   public Row span27(IsElement<?> content) {
     return appendChild(Column.span27().appendChild(content));
   }
 
   /**
-   * span28.
+   * Appends a column with a span of 28 to the row, containing the provided content.
    *
-   * @param content a {@link org.dominokit.domino.ui.IsElement} object
-   * @return a {@link org.dominokit.domino.ui.grid.Row} object
+   * @param content The content to be placed in the column.
+   * @return This Row instance.
    */
   public Row span28(IsElement<?> content) {
     return appendChild(Column.span28().appendChild(content));
   }
 
   /**
-   * span29.
+   * Appends a column with a span of 29 to the row, containing the provided content.
    *
-   * @param content a {@link org.dominokit.domino.ui.IsElement} object
-   * @return a {@link org.dominokit.domino.ui.grid.Row} object
+   * @param content The content to be placed in the column.
+   * @return This Row instance.
    */
   public Row span29(IsElement<?> content) {
     return appendChild(Column.span29().appendChild(content));
   }
 
   /**
-   * span30.
+   * Appends a column with a span of 30 to the row, containing the provided content.
    *
-   * @param content a {@link org.dominokit.domino.ui.IsElement} object
-   * @return a {@link org.dominokit.domino.ui.grid.Row} object
+   * @param content The content to be placed in the column.
+   * @return This Row instance.
    */
   public Row span30(IsElement<?> content) {
     return appendChild(Column.span30().appendChild(content));
   }
 
   /**
-   * span31.
+   * Appends a column with a span of 31 to the row, containing the provided content.
    *
-   * @param content a {@link org.dominokit.domino.ui.IsElement} object
-   * @return a {@link org.dominokit.domino.ui.grid.Row} object
+   * @param content The content to be placed in the column.
+   * @return This Row instance.
    */
   public Row span31(IsElement<?> content) {
     return appendChild(Column.span31().appendChild(content));
   }
 
   /**
-   * span32.
+   * Appends a column with a span of 32 to the row, containing the provided content.
    *
-   * @param content a {@link org.dominokit.domino.ui.IsElement} object
-   * @return a {@link org.dominokit.domino.ui.grid.Row} object
+   * @param content The content to be placed in the column.
+   * @return This Row instance.
    */
   public Row span32(IsElement<?> content) {
     return appendChild(Column.span32().appendChild(content));
   }
 
   /**
+   * {@inheritDoc} Returns the underlying HTMLDivElement of this Row.
    *
-   * {@inheritDoc
+   * @return The HTMLDivElement element representing this Row.
    */
   @Override
   public HTMLDivElement element() {

@@ -13,24 +13,35 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package org.dominokit.domino.ui.datatable.events;
 
 import org.dominokit.domino.ui.datatable.SelectionCondition;
 
-/** SelectAllEvent class. */
+/**
+ * The {@code SelectAllEvent} class represents an event that occurs when selecting or deselecting
+ * all items in a DataTable.
+ *
+ * @param <T> the type of items in the DataTable
+ * @see org.dominokit.domino.ui.datatable.events.TableEvent
+ * @see org.dominokit.domino.ui.datatable.SelectionCondition
+ */
 public class SelectAllEvent<T> implements TableEvent {
 
-  /** Constant <code>SELECT_ALL_EVENT="dui-table-select-all-event"</code> */
+  /** The event type for the select all event. */
   public static final String SELECT_ALL_EVENT = "dui-table-select-all-event";
 
+  /** A boolean flag indicating whether to select all items or deselect all items. */
   private final boolean selectAll;
+
+  /** The selection condition to be applied when selecting or deselecting all items. */
   private final SelectionCondition<T> selectionCondition;
 
   /**
-   * Constructor for SelectAllEvent.
+   * Constructs a new {@code SelectAllEvent} with the specified parameters.
    *
-   * @param selectAll a boolean
-   * @param selectionCondition a {@link org.dominokit.domino.ui.datatable.SelectionCondition} object
+   * @param selectAll {@code true} to select all items, {@code false} to deselect all items
+   * @param selectionCondition the selection condition to be applied
    */
   public SelectAllEvent(boolean selectAll, SelectionCondition<T> selectionCondition) {
     this.selectAll = selectAll;
@@ -38,12 +49,12 @@ public class SelectAllEvent<T> implements TableEvent {
   }
 
   /**
-   * of.
+   * Creates a new instance of {@code SelectAllEvent} with the specified parameters.
    *
-   * @param selectDeselect a boolean
-   * @param selectionCondition a {@link org.dominokit.domino.ui.datatable.SelectionCondition} object
-   * @param <T> a T class
-   * @return a {@link org.dominokit.domino.ui.datatable.events.SelectAllEvent} object
+   * @param <T> the type of items in the DataTable
+   * @param selectDeselect {@code true} to select all items, {@code false} to deselect all items
+   * @param selectionCondition the selection condition to be applied
+   * @return a new instance of {@code SelectAllEvent}
    */
   public static final <T> SelectAllEvent of(
       boolean selectDeselect, SelectionCondition<T> selectionCondition) {
@@ -51,24 +62,28 @@ public class SelectAllEvent<T> implements TableEvent {
   }
 
   /**
-   * isSelectAll.
+   * Checks whether the event represents selecting all items.
    *
-   * @return a boolean
+   * @return {@code true} if selecting all items, {@code false} if deselecting all items
    */
   public boolean isSelectAll() {
     return selectAll;
   }
 
   /**
-   * Getter for the field <code>selectionCondition</code>.
+   * Retrieves the selection condition to be applied.
    *
-   * @return a {@link org.dominokit.domino.ui.datatable.SelectionCondition} object
+   * @return the selection condition
    */
   public SelectionCondition<T> getSelectionCondition() {
     return selectionCondition;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Retrieves the type of this event.
+   *
+   * @return the event type
+   */
   @Override
   public String getType() {
     return SELECT_ALL_EVENT;

@@ -34,7 +34,14 @@ import org.dominokit.domino.ui.typography.BlockHeader;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
 import org.dominokit.domino.ui.utils.ChildHandler;
 
-/** DefaultFilePreview class. */
+/**
+ * Represents a default file preview component for file uploads.
+ *
+ * <p>This component displays information about the uploaded file, including its name, size, and
+ * provides actions for file upload, removal, and cancellation.
+ *
+ * @see BaseDominoElement
+ */
 public class DefaultFilePreview extends BaseDominoElement<HTMLElement, DefaultFilePreview>
     implements IsFilePreview<Thumbnail>,
         HasComponentConfig<UploadConfig>,
@@ -60,9 +67,10 @@ public class DefaultFilePreview extends BaseDominoElement<HTMLElement, DefaultFi
   private final FileUpload fileUpload;
 
   /**
-   * Constructor for DefaultFilePreview.
+   * Constructs a new {@code DefaultFilePreview} instance.
    *
-   * @param fileItem a {@link org.dominokit.domino.ui.upload.FileItem} object
+   * @param fileItem The associated {@link FileItem} representing the file to be previewed.
+   * @param fileUpload The parent {@link FileUpload} instance to which this preview belongs.
    */
   public DefaultFilePreview(FileItem fileItem, FileUpload fileUpload) {
     this.fileItem = fileItem;
@@ -144,7 +152,11 @@ public class DefaultFilePreview extends BaseDominoElement<HTMLElement, DefaultFi
         });
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Called when an upload operation fails.
+   *
+   * @param error The error message describing the failure.
+   */
   @Override
   public void onUploadFailed(String error) {
     SwapCssClass failedCss = statusMessageCss.replaceWith(dui_fg_error);
@@ -156,7 +168,7 @@ public class DefaultFilePreview extends BaseDominoElement<HTMLElement, DefaultFi
     addCss(statusCss.replaceWith(failedBorder));
   }
 
-  /** {@inheritDoc} */
+  /** Called when an upload operation is successful. */
   @Override
   public void onUploadSuccess() {
     SwapCssClass successCss = statusMessageCss.replaceWith(dui_fg_success);
@@ -169,7 +181,7 @@ public class DefaultFilePreview extends BaseDominoElement<HTMLElement, DefaultFi
     addCss(statusCss.replaceWith(successBorder));
   }
 
-  /** {@inheritDoc} */
+  /** Called when an upload operation is completed. */
   @Override
   public void onUploadCompleted() {
     cancelIcon.hide();
@@ -177,13 +189,17 @@ public class DefaultFilePreview extends BaseDominoElement<HTMLElement, DefaultFi
     removeIcon.show();
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Called to update the progress of an ongoing upload operation.
+   *
+   * @param progress The progress value as a percentage (0.0 to 100.0).
+   */
   @Override
   public void onUploadProgress(double progress) {
     progressBar.setValue(progress);
   }
 
-  /** {@inheritDoc} */
+  /** Called when an upload operation is canceled. */
   @Override
   public void onUploadCanceled() {
     SwapCssClass cancelledCss = statusMessageCss.replaceWith(dui_fg_warning);
@@ -197,7 +213,7 @@ public class DefaultFilePreview extends BaseDominoElement<HTMLElement, DefaultFi
     addCss(statusCss.replaceWith(canceledBorder));
   }
 
-  /** {@inheritDoc} */
+  /** Called when an upload operation is started. */
   @Override
   public void onUploadStarted() {
     cancelIcon.show();
@@ -206,7 +222,7 @@ public class DefaultFilePreview extends BaseDominoElement<HTMLElement, DefaultFi
     messageElement.removeCss(statusMessageCss).clearElement();
   }
 
-  /** {@inheritDoc} */
+  /** Called when the file preview is reset. */
   @Override
   public void onReset() {
     cancelIcon.hide();
@@ -219,20 +235,30 @@ public class DefaultFilePreview extends BaseDominoElement<HTMLElement, DefaultFi
   }
 
   /**
-   * Getter for the field <code>thumbnail</code>.
+   * Retrieves the thumbnail associated with this file preview.
    *
-   * @return a {@link org.dominokit.domino.ui.thumbnails.Thumbnail} object
+   * @return The {@link Thumbnail} element representing the file preview.
    */
   public Thumbnail getThumbnail() {
     return thumbnail;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * @dominokit-site-ignore {@inheritDoc}
+   *     <p>Retrieves the HTML element of this file preview.
+   * @return The {@link HTMLElement} representing this file preview.
+   */
   @Override
   public HTMLElement element() {
     return thumbnail.element();
   }
 
+  /**
+   * Configures the component with a child handler.
+   *
+   * @param handler The child handler to configure the component with.
+   * @return This {@code DefaultFilePreview} instance for method chaining.
+   */
   @Override
   public IsFilePreview<Thumbnail> withComponent(
       ChildHandler<IsFilePreview<Thumbnail>, Thumbnail> handler) {

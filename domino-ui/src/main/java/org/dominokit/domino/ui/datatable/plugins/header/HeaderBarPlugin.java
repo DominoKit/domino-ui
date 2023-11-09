@@ -13,6 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package org.dominokit.domino.ui.datatable.plugins.header;
 
 import static java.util.Objects.nonNull;
@@ -41,10 +42,27 @@ import org.dominokit.domino.ui.utils.ChildHandler;
 import org.dominokit.domino.ui.utils.PostfixAddOn;
 
 /**
- * This plugin attach an action bar to the table and adds {@link
- * org.dominokit.domino.ui.datatable.plugins.header.HeaderActionElement}(s) to it
+ * The HeaderBarPlugin class provides a customizable header bar for a DataTable with various actions
+ * such as condensing, expanding, toggling stripes, borders, hover effect, clearing filters, and
+ * showing/hiding columns.
  *
- * @param <T> the type of the data table records
+ * <p>Usage Example:
+ *
+ * <pre>
+ * HeaderBarPlugin<MyData> headerBar = new HeaderBarPlugin<>("My Table", "Description");
+ * headerBar.addActionElement(new HeaderBarPlugin.CondenseTableAction<>());
+ * headerBar.addActionElement(new HeaderBarPlugin.StripesTableAction<>());
+ * headerBar.addActionElement(new HeaderBarPlugin.BordersTableAction<>());
+ * headerBar.addActionElement(new HeaderBarPlugin.HoverTableAction<>());
+ * headerBar.addActionElement(new HeaderBarPlugin.ClearSearch<>());
+ * headerBar.addActionElement(new HeaderBarPlugin.SearchTableAction<>());
+ * headerBar.addActionElement(new HeaderBarPlugin.ShowHideColumnsAction<>());
+ *
+ * DataTable<MyData> dataTable = DataTable.create(data);
+ * dataTable.addPlugin(headerBar);
+ * </pre>
+ *
+ * @param <T> The data type of the DataTable
  */
 public class HeaderBarPlugin<T> implements DataTablePlugin<T> {
 
@@ -52,19 +70,19 @@ public class HeaderBarPlugin<T> implements DataTablePlugin<T> {
   private final List<HeaderActionElement<T>> actionElements = new ArrayList<>();
 
   /**
-   * creates an instance with a custom title
+   * Creates a HeaderBarPlugin with the specified title and an empty description.
    *
-   * @param title String title of the header bar
+   * @param title The title to be displayed in the header bar.
    */
   public HeaderBarPlugin(String title) {
     this(title, "");
   }
 
   /**
-   * creates an instance with a custom and description
+   * Creates a HeaderBarPlugin with the specified title and description.
    *
-   * @param title String title of the header bar
-   * @param description String description of the header bar
+   * @param title The title to be displayed in the header bar.
+   * @param description The description to be displayed in the header bar.
    */
   public HeaderBarPlugin(String title, String description) {
     this.navBar = NavBar.create(title).addCss(dui_datatable_nav_bar);
@@ -73,7 +91,14 @@ public class HeaderBarPlugin<T> implements DataTablePlugin<T> {
     }
   }
 
-  /** {@inheritDoc} */
+  /**
+   * {@inheritDoc}
+   *
+   * <p>This method is called before adding the DataTable to the DOM. It adds the header bar and
+   * action elements to the DataTable.
+   *
+   * @param dataTable The DataTable to which the header bar and action elements will be added.
+   */
   @Override
   public void onBeforeAddTable(DataTable<T> dataTable) {
     actionElements.forEach(
@@ -82,11 +107,10 @@ public class HeaderBarPlugin<T> implements DataTablePlugin<T> {
   }
 
   /**
-   * Adds a new header action to this header bar
+   * Adds an action element to the header bar.
    *
-   * @param headerActionElement the {@link
-   *     org.dominokit.domino.ui.datatable.plugins.header.HeaderActionElement}
-   * @return same plugin instance
+   * @param headerActionElement The HeaderActionElement to be added to the header bar.
+   * @return This HeaderBarPlugin instance for method chaining.
    */
   public HeaderBarPlugin<T> addActionElement(HeaderActionElement<T> headerActionElement) {
     actionElements.add(headerActionElement);
@@ -94,15 +118,24 @@ public class HeaderBarPlugin<T> implements DataTablePlugin<T> {
   }
 
   /**
-   * a Predefined {@link HeaderActionElement} that condense/expand the data table rows
+   * An implementation of the {@link HeaderActionElement} that allows condensing and expanding the
+   * DataTable.
    *
-   * @param <T> the type of the data table records
+   * @param <T> The type of data in the DataTable.
    */
   public static class CondenseTableAction<T> implements HeaderActionElement<T> {
     private String condenseToolTip = "Condense";
     private String expandToolTip = "Expand";
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     *
+     * <p>Creates an element that represents a toggle button for condensing and expanding the
+     * DataTable.
+     *
+     * @param dataTable The DataTable to apply the condense/expand action to.
+     * @return The created HTML element representing the condense/expand button.
+     */
     @Override
     public Element asElement(DataTable<T> dataTable) {
       ToggleIcon<?, ?> condenseIcon =
@@ -121,10 +154,10 @@ public class HeaderBarPlugin<T> implements DataTablePlugin<T> {
     }
 
     /**
-     * Changes the condense icon tooltip
+     * Sets the tooltip text for the condense action button.
      *
-     * @param condenseToolTip String
-     * @return same acton instance
+     * @param condenseToolTip The tooltip text for the condense action.
+     * @return This {@code CondenseTableAction} instance for method chaining.
      */
     public CondenseTableAction<T> setCondenseToolTip(String condenseToolTip) {
       this.condenseToolTip = condenseToolTip;
@@ -132,10 +165,10 @@ public class HeaderBarPlugin<T> implements DataTablePlugin<T> {
     }
 
     /**
-     * Changes the expand icon tooltip
+     * Sets the tooltip text for the expand action button.
      *
-     * @param expandToolTip String
-     * @return same acton instance
+     * @param expandToolTip The tooltip text for the expand action.
+     * @return This {@code CondenseTableAction} instance for method chaining.
      */
     public CondenseTableAction<T> setExpandToolTip(String expandToolTip) {
       this.expandToolTip = expandToolTip;
@@ -144,16 +177,23 @@ public class HeaderBarPlugin<T> implements DataTablePlugin<T> {
   }
 
   /**
-   * A predefined action to toggle stripes on data table rows
+   * An implementation of the {@link HeaderActionElement} that allows toggling table stripes.
    *
-   * @param <T> the type of the data table records
+   * @param <T> The type of data in the DataTable.
    */
   public static class StripesTableAction<T> implements HeaderActionElement<T> {
 
     private String noStripsToolTip = "No stripes";
     private String stripsToolTip = "Stripes";
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     *
+     * <p>Creates an element that represents a toggle button for showing or hiding table stripes.
+     *
+     * @param dataTable The DataTable to apply the stripes action to.
+     * @return The created HTML element representing the stripes toggle button.
+     */
     @Override
     public Element asElement(DataTable<T> dataTable) {
       ToggleIcon<?, ?> stripesIcon =
@@ -172,10 +212,10 @@ public class HeaderBarPlugin<T> implements DataTablePlugin<T> {
     }
 
     /**
-     * Changes the no strips icon tooltip
+     * Sets the tooltip text for the "No Stripes" action button.
      *
-     * @param noStripsToolTip String
-     * @return same acton instance
+     * @param noStripsToolTip The tooltip text for the "No Stripes" action.
+     * @return This {@code StripesTableAction} instance for method chaining.
      */
     public StripesTableAction<T> setNoStripsToolTip(String noStripsToolTip) {
       this.noStripsToolTip = noStripsToolTip;
@@ -183,10 +223,10 @@ public class HeaderBarPlugin<T> implements DataTablePlugin<T> {
     }
 
     /**
-     * Changes the strips icon tooltip
+     * Sets the tooltip text for the "Stripes" action button.
      *
-     * @param stripsToolTip String
-     * @return same acton instance
+     * @param stripsToolTip The tooltip text for the "Stripes" action.
+     * @return This {@code StripesTableAction} instance for method chaining.
      */
     public StripesTableAction<T> setStripsToolTip(String stripsToolTip) {
       this.stripsToolTip = stripsToolTip;
@@ -195,16 +235,23 @@ public class HeaderBarPlugin<T> implements DataTablePlugin<T> {
   }
 
   /**
-   * A predefined action to toggle borders on data table rows
+   * An implementation of the {@link HeaderActionElement} that allows toggling table borders.
    *
-   * @param <T> the type of the data table records
+   * @param <T> The type of data in the DataTable.
    */
   public static class BordersTableAction<T> implements HeaderActionElement<T> {
 
     private String borderedToolTip = "Bordered";
     private String noBordersToolTip = "No borders";
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     *
+     * <p>Creates an element that represents a toggle button for showing or hiding table borders.
+     *
+     * @param dataTable The DataTable to apply the borders action to.
+     * @return The created HTML element representing the borders toggle button.
+     */
     @Override
     public Element asElement(DataTable<T> dataTable) {
       ToggleIcon<?, ?> bordersIcon =
@@ -223,10 +270,10 @@ public class HeaderBarPlugin<T> implements DataTablePlugin<T> {
     }
 
     /**
-     * Changes the borders icon tooltip
+     * Sets the tooltip text for the "Bordered" action button.
      *
-     * @param borderedToolTip String
-     * @return same acton instance
+     * @param borderedToolTip The tooltip text for the "Bordered" action.
+     * @return This {@code BordersTableAction} instance for method chaining.
      */
     public BordersTableAction<T> setBorderedToolTip(String borderedToolTip) {
       this.borderedToolTip = borderedToolTip;
@@ -234,10 +281,10 @@ public class HeaderBarPlugin<T> implements DataTablePlugin<T> {
     }
 
     /**
-     * Changes the no borders icon tooltip
+     * Sets the tooltip text for the "No Borders" action button.
      *
-     * @param noBordersToolTip String
-     * @return same acton instance
+     * @param noBordersToolTip The tooltip text for the "No Borders" action.
+     * @return This {@code BordersTableAction} instance for method chaining.
      */
     public BordersTableAction<T> setNoBordersToolTip(String noBordersToolTip) {
       this.noBordersToolTip = noBordersToolTip;
@@ -246,16 +293,24 @@ public class HeaderBarPlugin<T> implements DataTablePlugin<T> {
   }
 
   /**
-   * A predefined action to toggle hover on data table rows
+   * An implementation of the {@link HeaderActionElement} that allows toggling table hover effect.
    *
-   * @param <T> the type of the data table records
+   * @param <T> The type of data in the DataTable.
    */
   public static class HoverTableAction<T> implements HeaderActionElement<T> {
 
     private String hoverToolTip = "Hover";
     private String noHoverToolTip = "No Hover";
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     *
+     * <p>Creates an element that represents a toggle button for enabling or disabling table hover
+     * effect.
+     *
+     * @param dataTable The DataTable to apply the hover action to.
+     * @return The created HTML element representing the hover toggle button.
+     */
     @Override
     public Element asElement(DataTable<T> dataTable) {
 
@@ -274,10 +329,10 @@ public class HeaderBarPlugin<T> implements DataTablePlugin<T> {
     }
 
     /**
-     * Changes the hover icon tooltip
+     * Sets the tooltip text for the "Hover" action button.
      *
-     * @param hoverToolTip String
-     * @return same acton instance
+     * @param hoverToolTip The tooltip text for the "Hover" action.
+     * @return This {@code HoverTableAction} instance for method chaining.
      */
     public HoverTableAction<T> setHoverToolTip(String hoverToolTip) {
       this.hoverToolTip = hoverToolTip;
@@ -285,10 +340,10 @@ public class HeaderBarPlugin<T> implements DataTablePlugin<T> {
     }
 
     /**
-     * Changes the no hover icon tooltip
+     * Sets the tooltip text for the "No Hover" action button.
      *
-     * @param noHoverToolTip String
-     * @return same acton instance
+     * @param noHoverToolTip The tooltip text for the "No Hover" action.
+     * @return This {@code HoverTableAction} instance for method chaining.
      */
     public HoverTableAction<T> setNoHoverToolTip(String noHoverToolTip) {
       this.noHoverToolTip = noHoverToolTip;
@@ -297,15 +352,23 @@ public class HeaderBarPlugin<T> implements DataTablePlugin<T> {
   }
 
   /**
-   * A predefined action to clear data table search
+   * An implementation of the {@link HeaderActionElement} that allows clearing filters in a
+   * DataTable.
    *
-   * @param <T> the type of the data table records
+   * @param <T> The type of data in the DataTable.
    */
   public static class ClearSearch<T> implements HeaderActionElement<T> {
 
     private String clearFiltersToolTip = "Clear filters";
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     *
+     * <p>Creates an element that represents a button to clear filters in a DataTable.
+     *
+     * @param dataTable The DataTable from which to clear filters.
+     * @return The created HTML element representing the clear filters button.
+     */
     @Override
     public Element asElement(DataTable<T> dataTable) {
 
@@ -320,10 +383,10 @@ public class HeaderBarPlugin<T> implements DataTablePlugin<T> {
     }
 
     /**
-     * Changes the clear filters icon tooltip
+     * Sets the tooltip text for the "Clear Filters" action button.
      *
-     * @param clearFiltersToolTip String
-     * @return same acton instance
+     * @param clearFiltersToolTip The tooltip text for the "Clear Filters" action.
+     * @return This {@code ClearSearch} instance for method chaining.
      */
     public ClearSearch<T> setClearFiltersToolTip(String clearFiltersToolTip) {
       this.clearFiltersToolTip = clearFiltersToolTip;
@@ -332,16 +395,20 @@ public class HeaderBarPlugin<T> implements DataTablePlugin<T> {
   }
 
   /**
-   * A predefined action to add a search box the data table
+   * An implementation of the {@link HeaderActionElement} that provides search functionality for a
+   * DataTable.
    *
-   * @param <T> the type of the data table records
+   * @param <T> The type of data in the DataTable.
    */
   public static class SearchTableAction<T> implements HeaderActionElement<T> {
 
     private DataTable<T> dataTable;
     private final SearchBox searchBox;
 
-    /** creates a new instance */
+    /**
+     * Creates a new instance of the {@code SearchTableAction}. Initializes a search box with
+     * automatic search and adds a search listener to trigger searches.
+     */
     public SearchTableAction() {
       this.searchBox = SearchBox.create().addCss(dui_datatable_search_box);
       searchBox.setAutoSearch(true);
@@ -355,12 +422,19 @@ public class HeaderBarPlugin<T> implements DataTablePlugin<T> {
       this.dataTable.getSearchContext().fireSearchEvent();
     }
 
-    /** Clears the search */
+    /** Clears the search box. */
     public void clear() {
       searchBox.clearSearch();
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     *
+     * <p>Handles events related to search, particularly clearing the search box when the search is
+     * cleared.
+     *
+     * @param event The table event to handle.
+     */
     @Override
     public void handleEvent(TableEvent event) {
       if (SearchClearedEvent.SEARCH_EVENT_CLEARED.equals(event.getType())) {
@@ -368,7 +442,15 @@ public class HeaderBarPlugin<T> implements DataTablePlugin<T> {
       }
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     *
+     * <p>Creates an element representing the search box and adds listeners to handle searching and
+     * clearing.
+     *
+     * @param dataTable The DataTable to which this action element belongs.
+     * @return The created HTML element representing the search box.
+     */
     @Override
     public Element asElement(DataTable<T> dataTable) {
       this.dataTable = dataTable;
@@ -383,12 +465,24 @@ public class HeaderBarPlugin<T> implements DataTablePlugin<T> {
       return searchBox.element();
     }
 
+    /**
+     * {@inheritDoc}
+     *
+     * <p>Applies styles to the search box element.
+     *
+     * @param self The element representing the search box.
+     */
     @Override
     public void applyStyles(Element self) {
       elements.elementOf(self).addCss(dui_grow_1);
     }
 
-    /** @return the search box */
+    /**
+     * Configures the search box with a custom handler using method chaining.
+     *
+     * @param handler The custom handler to apply to the search box.
+     * @return This {@code SearchTableAction} instance for method chaining.
+     */
     public SearchTableAction<T> withSearchBox(
         ChildHandler<SearchTableAction<T>, SearchBox> handler) {
       handler.apply(this, searchBox);
@@ -397,13 +491,22 @@ public class HeaderBarPlugin<T> implements DataTablePlugin<T> {
   }
 
   /**
-   * A predefined action to add a drop down to the data table that allow selecting which columns be
-   * shown/hidden
+   * An implementation of the {@link HeaderActionElement} that provides the ability to show/hide
+   * columns in a DataTable.
    *
-   * @param <T> the type of the data table records
+   * @param <T> The type of data in the DataTable.
    */
   public static class ShowHideColumnsAction<T> implements HeaderActionElement<T> {
-    /** {@inheritDoc} */
+
+    /**
+     * {@inheritDoc}
+     *
+     * <p>Creates an element representing a button that allows users to show/hide columns. When
+     * clicked, a dropdown menu appears, providing options to show or hide individual columns.
+     *
+     * @param dataTable The DataTable to which this action element belongs.
+     * @return The created HTML element representing the show/hide columns button.
+     */
     @Override
     public Element asElement(DataTable<T> dataTable) {
       Icon<?> columnsIcon = Icons.view_column().clickable();
@@ -459,7 +562,13 @@ public class HeaderBarPlugin<T> implements DataTablePlugin<T> {
       return !column.isUtilityColumn();
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     *
+     * <p>This method does not handle any specific events.
+     *
+     * @param event The table event to handle.
+     */
     @Override
     public void handleEvent(TableEvent event) {}
   }

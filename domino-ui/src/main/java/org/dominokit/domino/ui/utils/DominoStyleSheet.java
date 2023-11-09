@@ -25,61 +25,61 @@ import java.util.Map;
 import java.util.Optional;
 import jsinterop.base.Js;
 
-/** DominoStyleSheet class. */
+/** Represents a style sheet containing CSS rules and provides methods to manipulate them. */
 public class DominoStyleSheet {
 
   private Map<String, DominoCSSRule> cssRules = new HashMap<>();
 
   /**
-   * Getter for the field <code>cssRules</code>.
+   * Gets the map of CSS rules contained in this style sheet.
    *
-   * @return a {@link java.util.Map} object
+   * @return The map of CSS rules.
    */
   public Map<String, DominoCSSRule> getCssRules() {
     return cssRules;
   }
 
   /**
-   * Setter for the field <code>cssRules</code>.
+   * Sets the map of CSS rules for this style sheet.
    *
-   * @param cssRules a {@link java.util.Map} object
+   * @param cssRules The map of CSS rules to set.
    */
   public void setCssRules(Map<String, DominoCSSRule> cssRules) {
     this.cssRules = cssRules;
   }
 
   /**
-   * addCssRule.
+   * Adds a CSS rule to this style sheet.
    *
-   * @param rule a {@link org.dominokit.domino.ui.utils.DominoCSSRule} object
+   * @param rule The CSS rule to add.
    */
   public void addCssRule(DominoCSSRule rule) {
     cssRules.put(rule.getSelector(), rule);
   }
 
   /**
-   * removeRule.
+   * Removes a CSS rule from this style sheet.
    *
-   * @param rule a {@link org.dominokit.domino.ui.utils.DominoCSSRule} object
+   * @param rule The CSS rule to remove.
    */
   public void removeRule(DominoCSSRule rule) {
     cssRules.remove(rule.getSelector());
   }
 
   /**
-   * get.
+   * Gets a CSS rule by its selector.
    *
-   * @param selector a {@link java.lang.String} object
-   * @return a {@link java.util.Optional} object
+   * @param selector The CSS selector of the rule to retrieve.
+   * @return An {@link Optional} containing the CSS rule if found, or empty if not found.
    */
   public Optional<DominoCSSRule> get(String selector) {
     return Optional.ofNullable(cssRules.get(selector));
   }
 
   /**
-   * flushInto.
+   * Flushes the CSS rules contained in this style sheet into an HTMLStyleElement.
    *
-   * @param style a {@link elemental2.dom.HTMLStyleElement} object
+   * @param style The HTMLStyleElement to flush the CSS rules into.
    */
   public void flushInto(HTMLStyleElement style) {
     DomGlobal.setTimeout(

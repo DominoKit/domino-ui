@@ -20,7 +20,21 @@ import org.dominokit.domino.ui.IsElement;
 import org.dominokit.domino.ui.elements.DivElement;
 import org.dominokit.domino.ui.utils.DominoElement;
 
-/** Progress bar loader implementation */
+/**
+ * A loader component that displays a progress bar animation.
+ *
+ * <p>The ProgressBarLoader displays an animation consisting of a moving progress bar. It is often
+ * used to indicate loading or processing.
+ *
+ * <p>Example usage:
+ *
+ * <pre>
+ * ProgressBarLoader loader = ProgressBarLoader.create();
+ * loader.setLoadingText("Loading...");
+ * // Add the loader to a container element
+ * container.appendChild(loader.element());
+ * </pre>
+ */
 public class ProgressBarLoader extends BaseLoader<ProgressBarLoader>
     implements IsElement<HTMLDivElement> {
 
@@ -38,45 +52,62 @@ public class ProgressBarLoader extends BaseLoader<ProgressBarLoader>
   private final DivElement element =
       div().addCss(wait_me).style("background: var(--dui-loader-background);").appendChild(content);
 
-  /** Constructor for ProgressBarLoader. */
+  /** Initializes a new instance of the {@code ProgressBarLoader} class. */
   public ProgressBarLoader() {
     init(this);
   }
 
   /**
-   * create.
+   * Creates a new instance of the {@code ProgressBarLoader} class.
    *
-   * @return a {@link org.dominokit.domino.ui.loaders.ProgressBarLoader} object
+   * @return A new {@code ProgressBarLoader} instance.
    */
   public static ProgressBarLoader create() {
     return new ProgressBarLoader();
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Sets the loading text to be displayed by the loader.
+   *
+   * @param text The text to display as loading text.
+   */
   @Override
   public void setLoadingText(String text) {
     loadingText.textContent = text;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Sets the size of the loader.
+   *
+   * @param width The width of the loader.
+   * @param height The height of the loader.
+   */
   @Override
   public void setSize(String width, String height) {
     onAttached(mutationRecord -> loader.setWidth(width).setHeight(height));
   }
 
-  /** {@inheritDoc} */
+  /** Removes the loading text from the loader. */
   @Override
   public void removeLoadingText() {
     onAttached(mutationRecord -> loadingText.remove());
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Gets the content element of the loader.
+   *
+   * @return A {@code DominoElement} representing the content element.
+   */
   @Override
   public DominoElement<HTMLDivElement> getContentElement() {
     return content.toDominoElement();
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Gets the HTMLDivElement element associated with this loader.
+   *
+   * @return The HTMLDivElement element of the loader.
+   */
   @Override
   public HTMLDivElement element() {
     return element.element();

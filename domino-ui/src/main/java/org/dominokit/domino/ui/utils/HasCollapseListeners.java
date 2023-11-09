@@ -13,24 +13,24 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package org.dominokit.domino.ui.utils;
 
 import java.util.Set;
 
 /**
- * Components that has a value that can be changed and need to define listeners for the changes
- * should implement this interface
+ * The {@code HasCollapseListeners} interface defines methods for adding and managing collapse and
+ * expand event listeners to an element.
  *
- * @param <T> the type of the class implementing this interface
+ * @param <T> The type of the element that can have collapse and expand event listeners.
  */
 public interface HasCollapseListeners<T> {
 
   /**
-   * addCollapseListener.
+   * Adds a collapse event listener to the element.
    *
-   * @param collapseListener {@link
-   *     org.dominokit.domino.ui.utils.HasCollapseListeners.CollapseListener}
-   * @return same implementing class instance
+   * @param collapseListener The collapse event listener to be added.
+   * @return The element with the collapse event listener added.
    */
   default T addCollapseListener(CollapseListener<? super T> collapseListener) {
     getCollapseListeners().add(collapseListener);
@@ -38,10 +38,10 @@ public interface HasCollapseListeners<T> {
   }
 
   /**
-   * addExpandListener.
+   * Adds an expand event listener to the element.
    *
-   * @param expandListener {@link org.dominokit.domino.ui.utils.HasCollapseListeners.ExpandListener}
-   * @return same implementing class instance
+   * @param expandListener The expand event listener to be added.
+   * @return The element with the expand event listener added.
    */
   default T addExpandListener(ExpandListener<? super T> expandListener) {
     getExpandListeners().add(expandListener);
@@ -49,11 +49,10 @@ public interface HasCollapseListeners<T> {
   }
 
   /**
-   * removeCollapseListener.
+   * Removes a collapse event listener from the element.
    *
-   * @param collapseListener {@link
-   *     org.dominokit.domino.ui.utils.HasCollapseListeners.CollapseListener}
-   * @return same implementing class instance
+   * @param collapseListener The collapse event listener to be removed.
+   * @return The element with the collapse event listener removed.
    */
   default T removeCollapseListener(CollapseListener<? super T> collapseListener) {
     getCollapseListeners().remove(collapseListener);
@@ -61,10 +60,10 @@ public interface HasCollapseListeners<T> {
   }
 
   /**
-   * removeExpandListener.
+   * Removes an expand event listener from the element.
    *
-   * @param expandListener {@link org.dominokit.domino.ui.utils.HasCollapseListeners.ExpandListener}
-   * @return same implementing class instance
+   * @param expandListener The expand event listener to be removed.
+   * @return The element with the expand event listener removed.
    */
   default T removeExpandListener(ExpandListener<? super T> expandListener) {
     getExpandListeners().remove(expandListener);
@@ -72,54 +71,59 @@ public interface HasCollapseListeners<T> {
   }
 
   /**
-   * Checks if a component has the specified ChangeHandler
+   * Checks if the element has a collapse event listener.
    *
-   * @param collapseListener {@link
-   *     org.dominokit.domino.ui.utils.HasCollapseListeners.CollapseListener}
-   * @return same implementing class instance
+   * @param collapseListener The collapse event listener to be checked.
+   * @return {@code true} if the element has the specified collapse event listener, {@code false}
+   *     otherwise.
    */
   default boolean hasCollapseListener(CollapseListener<? super T> collapseListener) {
     return getCollapseListeners().contains(collapseListener);
   }
+
   /**
-   * Checks if a component has the specified ChangeHandler
+   * Checks if the element has an expand event listener.
    *
-   * @param expandListener {@link org.dominokit.domino.ui.utils.HasCollapseListeners.ExpandListener}
-   * @return same implementing class instance
+   * @param expandListener The expand event listener to be checked.
+   * @return {@code true} if the element has the specified expand event listener, {@code false}
+   *     otherwise.
    */
   default boolean hasExpandListener(ExpandListener<? super T> expandListener) {
     return getExpandListeners().contains(expandListener);
   }
 
   /**
-   * Disable change listeners
+   * Pauses all collapse event listeners associated with the element.
    *
-   * @return same component instance
+   * @return The element with its collapse event listeners paused.
    */
   T pauseCollapseListeners();
 
   /**
-   * Enables change listeners
+   * Resumes all pause collapse event listeners associated with the element.
    *
-   * @return same component instance
+   * @return The element with its collapse event listeners resumed.
    */
   T resumeCollapseListeners();
 
   /**
-   * Disable/Enable change listeners
+   * Toggles the pause state of collapse event listeners associated with the element.
    *
-   * @param toggle boolean, true to pause the change listeners, false to enable them
-   * @return same component instance
+   * @param toggle {@code true} to pause the listeners, {@code false} to resume them.
+   * @return The element with its collapse event listeners paused or resumed based on the toggle
+   *     parameter.
    */
   T togglePauseCollapseListeners(boolean toggle);
 
   /**
-   * Execute a handler while toggling the change handlers state, revert the state back to its
-   * original value after executing the handler
+   * Executes a given action while temporarily pausing the collapse event listeners, then resumes
+   * their state.
    *
-   * @param toggle boolean, true to pause the change listeners, false to enable them
-   * @return same component instance
-   * @param handler a {@link org.dominokit.domino.ui.utils.Handler} object
+   * @param toggle {@code true} to pause the listeners during the action, {@code false} to resume
+   *     them afterward.
+   * @param handler The action to execute.
+   * @return The element with its collapse event listeners paused during the action and resumed
+   *     afterward.
    */
   default T withPauseCollapseListenersToggle(boolean toggle, Handler<T> handler) {
     boolean oldState = isCollapseListenersPaused();
@@ -133,12 +137,14 @@ public interface HasCollapseListeners<T> {
   }
 
   /**
-   * Execute a handler while toggling the change handlers state, revert the state back to its
-   * original value after the AsyncHandler.onComplete is called
+   * Executes a given asynchronous action while temporarily pausing the collapse event listeners,
+   * then resumes their state.
    *
-   * @param toggle boolean, true to pause the change listeners, false to enable them
-   * @return same component instance
-   * @param handler a {@link org.dominokit.domino.ui.utils.AsyncHandler} object
+   * @param toggle {@code true} to pause the listeners during the action, {@code false} to resume
+   *     them afterward.
+   * @param handler The asynchronous action to execute.
+   * @return The element with its collapse event listeners paused during the action and resumed
+   *     afterward.
    */
   default T withPauseCollapseListenersToggle(boolean toggle, AsyncHandler<T> handler) {
     boolean oldState = isCollapseListenersPaused();
@@ -153,60 +159,70 @@ public interface HasCollapseListeners<T> {
   }
 
   /**
-   * getCollapseListeners.
+   * Gets a set of all collapse event listeners associated with the element.
    *
-   * @return a {@link java.util.Set} object
+   * @return A set of collapse event listeners.
    */
   Set<CollapseListener<? super T>> getCollapseListeners();
 
   /**
-   * getExpandListeners.
+   * Gets a set of all expand event listeners associated with the element.
    *
-   * @return a {@link java.util.Set} object
+   * @return A set of expand event listeners.
    */
   Set<ExpandListener<? super T>> getExpandListeners();
 
   /**
-   * isCollapseListenersPaused.
+   * Checks if the collapse event listeners are currently paused.
    *
-   * @return a boolean
+   * @return {@code true} if the collapse event listeners are paused, {@code false} otherwise.
    */
   boolean isCollapseListenersPaused();
 
   /**
-   * triggerCollapseListeners.
+   * Triggers all collapse event listeners associated with the element.
    *
-   * @param component a T object
-   * @return a T object
+   * @param component The component that triggered the listeners.
+   * @return The element with its collapse event listeners triggered.
    */
   T triggerCollapseListeners(T component);
 
   /**
-   * triggerExpandListeners.
+   * Triggers all expand event listeners associated with the element.
    *
-   * @param component a T object
-   * @return a T object
+   * @param component The component that triggered the listeners.
+   * @return The element with its expand event listeners triggered.
    */
   T triggerExpandListeners(T component);
 
-  /** @param <T> the type of the component */
+  /**
+   * Functional interface for handling collapse events.
+   *
+   * @param <T> The type of the component that triggered the event.
+   */
   @FunctionalInterface
   interface CollapseListener<T> {
+
     /**
-     * Will be called whenever the component is collapsed/expanded
+     * Called when a collapse event occurs on the associated element.
      *
-     * @param component The collapsed/expanded component
+     * @param component The component that triggered the event.
      */
     void onCollapsed(T component);
   }
 
-  /** @param <T> the type of the component */
+  /**
+   * Functional interface for handling expand events.
+   *
+   * @param <T> The type of the component that triggered the event.
+   */
   @FunctionalInterface
   interface ExpandListener<T> {
+
     /**
-     * Will be called whenever the component is collapsed/expanded
+     * Called when an expand event occurs on the associated element.
      *
-     * @param component The collapsed/expanded component
+     * @param component The component that triggered the event.
      */
     void onExpanded(T component);
   }

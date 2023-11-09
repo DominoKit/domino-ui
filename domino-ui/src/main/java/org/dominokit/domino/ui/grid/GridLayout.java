@@ -22,12 +22,24 @@ import org.dominokit.domino.ui.utils.ChildHandler;
 import org.dominokit.domino.ui.utils.LazyChild;
 
 /**
- * <div id="dui-class-docs"> A layout which is a 12 columns grid based with a required content
- * section and 4 other optional sections Header, Footer, Left and Right.
+ * A flexible grid layout container that allows arranging content in a grid-like fashion. <br>
+ * You can define sections within the grid and set spans for headers, footers, left panels, and
+ * right panels.
  *
- * <p>More information can be found in <a class="dui dui-decoration-none dui-fg-blue"
- * target="_blank" href="https://developer.mozilla.org/en-US/docs/Learn/CSS/CSS_layout/Grids">MDN
- * official documentation</a> </div>
+ * <p>Example Usage:
+ *
+ * <pre>
+ * GridLayout gridLayout = GridLayout.create()
+ *     .setGap("10px")
+ *     .setHeaderSpan(SectionSpan.of(1, 3))
+ *     .setLeftSpan(SectionSpan.of(2, 1, 1), true, true)
+ *     .withContent(contentElement -> {
+ *         // Add content to the main content area
+ *     });
+ * RootPanel.get().appendChild(gridLayout);
+ * </pre>
+ *
+ * @see BaseDominoElement
  */
 public class GridLayout extends BaseDominoElement<HTMLDivElement, GridLayout>
     implements GridStyles {
@@ -40,7 +52,11 @@ public class GridLayout extends BaseDominoElement<HTMLDivElement, GridLayout>
   private final LazyChild<DivElement> rightElement;
   private final GridLayoutEditor editor = new GridLayoutEditor();
 
-  /** Constructor for GridLayout. */
+  /**
+   * Creates a new instance of the GridLayout with default settings. <br>
+   * The grid layout is initialized with an empty content area and no sections. You can further
+   * configure the layout by adding sections and setting spans.
+   */
   public GridLayout() {
     element =
         div().addCss(dui_layout_grid).appendChild(contentElement = div().addCss(dui_grid_content));
@@ -57,27 +73,21 @@ public class GridLayout extends BaseDominoElement<HTMLDivElement, GridLayout>
   }
 
   /**
-   * Creates a new layout
+   * Creates a new instance of the GridLayout with default settings. <br>
+   * The grid layout is initialized with an empty content area and no sections. You can further
+   * configure the layout by adding sections and setting spans.
    *
-   * @return new instance
+   * @return A new instance of the GridLayout.
    */
   public static GridLayout create() {
     return new GridLayout();
   }
 
   /**
-   * Sets the spaces between the sections
+   * Sets the gap between grid items.
    *
-   * <p>For example:
-   *
-   * <pre>
-   *     GridLayout.create()
-   *               .setGap("1px 2px")
-   * </pre>
-   *
-   * @param gap the string value of the space in <a
-   *     href="https://developer.mozilla.org/en-US/docs/Web/CSS/gap">CSS gap format</a>
-   * @return same instance
+   * @param gap The gap between grid items, e.g., "10px".
+   * @return This GridLayout instance for method chaining.
    */
   public GridLayout setGap(String gap) {
     setCssProperty("grid-gap", gap);
@@ -85,10 +95,11 @@ public class GridLayout extends BaseDominoElement<HTMLDivElement, GridLayout>
   }
 
   /**
-   * Change the size of the header section, changing the header can be to cover up to 6 rows
+   * Sets the span for the header section within the grid layout. Use {@link SectionSpan} to specify
+   * the span.
    *
-   * @param sectionSpan the number of rows to cover
-   * @return same instance
+   * @param sectionSpan The span for the header section.
+   * @return This GridLayout instance for method chaining.
    */
   public GridLayout setHeaderSpan(SectionSpan sectionSpan) {
     sectionSpan.ifSpanOrElse(
@@ -103,9 +114,9 @@ public class GridLayout extends BaseDominoElement<HTMLDivElement, GridLayout>
   }
 
   /**
-   * Hides the header section
+   * Hides the header section within the grid layout.
    *
-   * @return same instance
+   * @return This GridLayout instance for method chaining.
    */
   public GridLayout hideHeader() {
     editor.removeHeader();
@@ -115,15 +126,13 @@ public class GridLayout extends BaseDominoElement<HTMLDivElement, GridLayout>
   }
 
   /**
-   * Change the size of the right section, changing the right section can be to cover up to 6
-   * columns
+   * Sets the span for the right section within the grid layout. Use {@link SectionSpan} to specify
+   * the span.
    *
-   * @param sectionSpan the number of columns to cover
-   * @param spanUp true to make the right section sized to the top of the layout even if the header
-   *     exists, false to position it based on the header
-   * @param spanDown true to make the right section sized to the bottom of the layout even if the
-   *     footer exists, false to position it based on the footer
-   * @return same instance
+   * @param sectionSpan The span for the right section.
+   * @param spanUp Whether to span up.
+   * @param spanDown Whether to span down.
+   * @return This GridLayout instance for method chaining.
    */
   public GridLayout setRightSpan(SectionSpan sectionSpan, boolean spanUp, boolean spanDown) {
     sectionSpan.ifSpanOrElse(
@@ -136,14 +145,19 @@ public class GridLayout extends BaseDominoElement<HTMLDivElement, GridLayout>
     return this;
   }
 
+  /**
+   * Checks if the footer section is attached to the grid layout.
+   *
+   * @return {@code true} if the footer section is attached, {@code false} otherwise.
+   */
   private boolean hasFooter() {
     return footerElement.element().isAttached();
   }
 
   /**
-   * Hides the right section
+   * Hides the right section within the grid layout.
    *
-   * @return same instance
+   * @return This GridLayout instance for method chaining.
    */
   public GridLayout hideRight() {
     editor.removeRight();
@@ -153,14 +167,13 @@ public class GridLayout extends BaseDominoElement<HTMLDivElement, GridLayout>
   }
 
   /**
-   * Change the size of the left section, changing the left section can be to cover up to 6 columns
+   * Sets the span for the left section within the grid layout. Use {@link SectionSpan} to specify
+   * the span.
    *
-   * @param sectionSpan the number of columns to cover
-   * @param spanUp true to make the left section sized to the top of the layout even if the header
-   *     exists, false to position it based on the header
-   * @param spanDown true to make the left section sized to the bottom of the layout even if the
-   *     footer exists, false to position it based on the footer
-   * @return same instance
+   * @param sectionSpan The span for the left section.
+   * @param spanUp Whether to span up.
+   * @param spanDown Whether to span down.
+   * @return This GridLayout instance for method chaining.
    */
   public GridLayout setLeftSpan(SectionSpan sectionSpan, boolean spanUp, boolean spanDown) {
     sectionSpan.ifSpanOrElse(
@@ -174,9 +187,9 @@ public class GridLayout extends BaseDominoElement<HTMLDivElement, GridLayout>
   }
 
   /**
-   * Hides the left section
+   * Hides the left section within the grid layout.
    *
-   * @return same instance
+   * @return This GridLayout instance for method chaining.
    */
   public GridLayout hideLeft() {
     editor.removeLeft();
@@ -186,10 +199,11 @@ public class GridLayout extends BaseDominoElement<HTMLDivElement, GridLayout>
   }
 
   /**
-   * Change the size of the footer section, changing the footer section can be to cover up to 6 rows
+   * Sets the span for the footer section within the grid layout. Use {@link SectionSpan} to specify
+   * the span.
    *
-   * @param sectionSpan the number of rows to cover
-   * @return same instance
+   * @param sectionSpan The span for the footer section.
+   * @return This GridLayout instance for method chaining.
    */
   public GridLayout setFooterSpan(SectionSpan sectionSpan) {
     sectionSpan.ifSpanOrElse(
@@ -204,9 +218,9 @@ public class GridLayout extends BaseDominoElement<HTMLDivElement, GridLayout>
   }
 
   /**
-   * Hides the footer section
+   * Hides the footer section within the grid layout.
    *
-   * @return same instance
+   * @return This GridLayout instance for method chaining.
    */
   public GridLayout hideFooter() {
     editor.removeFooter();
@@ -215,60 +229,73 @@ public class GridLayout extends BaseDominoElement<HTMLDivElement, GridLayout>
     return this;
   }
 
+  /**
+   * Checks if the header section is attached to the grid layout.
+   *
+   * @return {@code true} if the header section is attached, {@code false} otherwise.
+   */
   private boolean hasHeader() {
     return headerElement.element().isAttached();
   }
 
+  /**
+   * Checks if the left section is attached to the grid layout.
+   *
+   * @return {@code true} if the left section is attached, {@code false} otherwise.
+   */
   private boolean hasLeft() {
     return leftElement.element().isAttached();
   }
 
+  /**
+   * Checks if the right section is attached to the grid layout.
+   *
+   * @return {@code true} if the right section is attached, {@code false} otherwise.
+   */
   private boolean hasRight() {
     return rightElement.element().isAttached();
   }
 
-  /** {@inheritDoc} */
+  /** @dominokit-site-ignore {@inheritDoc} */
   @Override
   public HTMLDivElement element() {
     return element.element();
   }
 
-  /** @return The content section */
   /**
-   * Getter for the field <code>contentElement</code>.
+   * Gets the content element within the grid layout.
    *
-   * @return a {@link org.dominokit.domino.ui.elements.DivElement} object
+   * @return The content element.
    */
   public DivElement getContentElement() {
     return contentElement;
   }
 
   /**
-   * withContent.
+   * Allows customization of the content element within the grid layout.
    *
-   * @param handler a {@link org.dominokit.domino.ui.utils.ChildHandler} object
-   * @return a {@link org.dominokit.domino.ui.grid.GridLayout} object
+   * @param handler The child handler for the content element.
+   * @return This GridLayout instance for method chaining.
    */
   public GridLayout withContent(ChildHandler<GridLayout, DivElement> handler) {
     handler.apply(this, contentElement);
     return this;
   }
 
-  /** @return The header section */
   /**
-   * Getter for the field <code>headerElement</code>.
+   * Gets the header element within the grid layout.
    *
-   * @return a {@link org.dominokit.domino.ui.elements.DivElement} object
+   * @return The header element.
    */
   public DivElement getHeaderElement() {
     return headerElement.get();
   }
 
   /**
-   * withHeader.
+   * Allows customization of the header element within the grid layout.
    *
-   * @param handler a {@link org.dominokit.domino.ui.utils.ChildHandler} object
-   * @return a {@link org.dominokit.domino.ui.grid.GridLayout} object
+   * @param handler The child handler for the header element.
+   * @return This GridLayout instance for method chaining.
    */
   public GridLayout withHeader(ChildHandler<GridLayout, DivElement> handler) {
     DivElement header = headerElement.get();
@@ -277,21 +304,20 @@ public class GridLayout extends BaseDominoElement<HTMLDivElement, GridLayout>
     return this;
   }
 
-  /** @return The footer section */
   /**
-   * Getter for the field <code>footerElement</code>.
+   * Gets the footer element within the grid layout.
    *
-   * @return a {@link org.dominokit.domino.ui.elements.DivElement} object
+   * @return The footer element.
    */
   public DivElement getFooterElement() {
     return footerElement.get();
   }
 
   /**
-   * withFooter.
+   * Allows customization of the footer element within the grid layout.
    *
-   * @param handler a {@link org.dominokit.domino.ui.utils.ChildHandler} object
-   * @return a {@link org.dominokit.domino.ui.grid.GridLayout} object
+   * @param handler The child handler for the footer element.
+   * @return This GridLayout instance for method chaining.
    */
   public GridLayout withFooter(ChildHandler<GridLayout, DivElement> handler) {
     DivElement footer = footerElement.get();
@@ -300,21 +326,20 @@ public class GridLayout extends BaseDominoElement<HTMLDivElement, GridLayout>
     return this;
   }
 
-  /** @return The left section */
   /**
-   * Getter for the field <code>leftElement</code>.
+   * Gets the left panel element within the grid layout.
    *
-   * @return a {@link org.dominokit.domino.ui.elements.DivElement} object
+   * @return The left panel element.
    */
   public DivElement getLeftElement() {
     return leftElement.get();
   }
 
   /**
-   * withLeftPanel.
+   * Allows customization of the left panel element within the grid layout.
    *
-   * @param handler a {@link org.dominokit.domino.ui.utils.ChildHandler} object
-   * @return a {@link org.dominokit.domino.ui.grid.GridLayout} object
+   * @param handler The child handler for the left panel element.
+   * @return This GridLayout instance for method chaining.
    */
   public GridLayout withLeftPanel(ChildHandler<GridLayout, DivElement> handler) {
     DivElement left = leftElement.get();
@@ -323,21 +348,20 @@ public class GridLayout extends BaseDominoElement<HTMLDivElement, GridLayout>
     return this;
   }
 
-  /** @return The right section */
   /**
-   * Getter for the field <code>rightElement</code>.
+   * Gets the right panel element within the grid layout.
    *
-   * @return a {@link org.dominokit.domino.ui.elements.DivElement} object
+   * @return The right panel element.
    */
   public DivElement getRightElement() {
     return rightElement.get();
   }
 
   /**
-   * withRightPanel.
+   * Allows customization of the right panel element within the grid layout.
    *
-   * @param handler a {@link org.dominokit.domino.ui.utils.ChildHandler} object
-   * @return a {@link org.dominokit.domino.ui.grid.GridLayout} object
+   * @param handler The child handler for the right panel element.
+   * @return This GridLayout instance for method chaining.
    */
   public GridLayout withRightPanel(ChildHandler<GridLayout, DivElement> handler) {
     DivElement right = rightElement.get();

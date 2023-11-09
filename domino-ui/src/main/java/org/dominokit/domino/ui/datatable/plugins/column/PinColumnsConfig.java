@@ -13,6 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package org.dominokit.domino.ui.datatable.plugins.column;
 
 import org.dominokit.domino.ui.datatable.plugins.PluginConfig;
@@ -20,26 +21,40 @@ import org.dominokit.domino.ui.icons.Icon;
 import org.dominokit.domino.ui.icons.lib.Icons;
 import org.dominokit.domino.ui.style.SpacingCss;
 
-/** PinColumnsConfig class. */
+/**
+ * Configuration class for the PinColumnsPlugin in a DataTable. This class allows you to customize
+ * the behavior and appearance of pinned columns.
+ *
+ * @see org.dominokit.domino.ui.datatable.plugins.column.PinColumnsPlugin
+ * @see org.dominokit.domino.ui.datatable.plugins.PluginConfig
+ */
 public class PinColumnsConfig implements PluginConfig {
   private boolean showPinIcon = false;
   private boolean showPinMenu = false;
 
+  /** Icon used for pinning columns to the left side of the DataTable. */
   private Icon<?> pinLeftIcon = Icons.pin().addCss(SpacingCss.dui_font_size_4);
+
+  /** Icon used for pinning columns to the right side of the DataTable. */
   private Icon<?> pinRightIcon = Icons.pin().addCss(SpacingCss.dui_font_size_4);
 
+  /** Text label for the "Pin Left" action in the column menu. */
   private String pinLeftText = "Pin left";
+
+  /** Text label for the "Pin Right" action in the column menu. */
   private String pinRightText = "Pin right";
+
+  /** Text label for the "Unpin" action in the column menu. */
   private String unpinText = "Unpin";
 
-  /** Constructor for PinColumnsConfig. */
+  /** Default constructor for PinColumnsConfig. */
   public PinColumnsConfig() {}
 
   /**
-   * Constructor for PinColumnsConfig.
+   * Constructor for PinColumnsConfig with options to show pin icon and pin menu.
    *
-   * @param showPinIcon a boolean
-   * @param showPinMenu a boolean
+   * @param showPinIcon True to show pin icons, false otherwise.
+   * @param showPinMenu True to show the pin menu, false otherwise.
    */
   public PinColumnsConfig(boolean showPinIcon, boolean showPinMenu) {
     this.showPinIcon = showPinIcon;
@@ -47,39 +62,39 @@ public class PinColumnsConfig implements PluginConfig {
   }
 
   /**
-   * of.
+   * Creates a new PinColumnsConfig instance with default settings.
    *
-   * @return a {@link org.dominokit.domino.ui.datatable.plugins.column.PinColumnsConfig} object
+   * @return A new PinColumnsConfig instance.
    */
   public static PinColumnsConfig of() {
     return new PinColumnsConfig();
   }
 
   /**
-   * of.
+   * Creates a new PinColumnsConfig instance with the specified settings.
    *
-   * @param showPinIcon a boolean
-   * @param showPinMenu a boolean
-   * @return a {@link org.dominokit.domino.ui.datatable.plugins.column.PinColumnsConfig} object
+   * @param showPinIcon True to show pin icons, false otherwise.
+   * @param showPinMenu True to show the pin menu, false otherwise.
+   * @return A new PinColumnsConfig instance with the specified settings.
    */
   public static PinColumnsConfig of(boolean showPinIcon, boolean showPinMenu) {
     return new PinColumnsConfig(showPinIcon, showPinMenu);
   }
 
   /**
-   * isShowPinIcon.
+   * Checks if pin icons are shown.
    *
-   * @return a boolean
+   * @return True if pin icons are shown, false otherwise.
    */
   public boolean isShowPinIcon() {
     return showPinIcon;
   }
 
   /**
-   * Setter for the field <code>showPinIcon</code>.
+   * Sets whether to show pin icons.
    *
-   * @param showPinIcon a boolean
-   * @return a {@link org.dominokit.domino.ui.datatable.plugins.column.PinColumnsConfig} object
+   * @param showPinIcon True to show pin icons, false otherwise.
+   * @return The PinColumnsConfig instance for method chaining.
    */
   public PinColumnsConfig setShowPinIcon(boolean showPinIcon) {
     this.showPinIcon = showPinIcon;
@@ -87,19 +102,19 @@ public class PinColumnsConfig implements PluginConfig {
   }
 
   /**
-   * isShowPinMenu.
+   * Checks if the pin menu is shown.
    *
-   * @return a boolean
+   * @return True if the pin menu is shown, false otherwise.
    */
   public boolean isShowPinMenu() {
     return showPinMenu;
   }
 
   /**
-   * Setter for the field <code>showPinMenu</code>.
+   * Sets whether to show the pin menu.
    *
-   * @param showPinMenu a boolean
-   * @return a {@link org.dominokit.domino.ui.datatable.plugins.column.PinColumnsConfig} object
+   * @param showPinMenu True to show the pin menu, false otherwise.
+   * @return The PinColumnsConfig instance for method chaining.
    */
   public PinColumnsConfig setShowPinMenu(boolean showPinMenu) {
     this.showPinMenu = showPinMenu;
@@ -107,73 +122,73 @@ public class PinColumnsConfig implements PluginConfig {
   }
 
   /**
-   * Getter for the field <code>pinLeftText</code>.
+   * Gets the text label for the "Pin Left" action in the column menu.
    *
-   * @return a {@link java.lang.String} object
+   * @return The text label for "Pin Left."
    */
   public String getPinLeftText() {
     return pinLeftText;
   }
 
   /**
-   * Setter for the field <code>pinLeftText</code>.
+   * Sets the text label for the "Pin Left" action in the column menu.
    *
-   * @param pinLeftText a {@link java.lang.String} object
+   * @param pinLeftText The text label for "Pin Left."
    */
   public void setPinLeftText(String pinLeftText) {
     this.pinLeftText = pinLeftText;
   }
 
   /**
-   * Getter for the field <code>pinRightText</code>.
+   * Gets the text label for the "Pin Right" action in the column menu.
    *
-   * @return a {@link java.lang.String} object
+   * @return The text label for "Pin Right."
    */
   public String getPinRightText() {
     return pinRightText;
   }
 
   /**
-   * Setter for the field <code>pinRightText</code>.
+   * Sets the text label for the "Pin Right" action in the column menu.
    *
-   * @param pinRightText a {@link java.lang.String} object
+   * @param pinRightText The text label for "Pin Right."
    */
   public void setPinRightText(String pinRightText) {
     this.pinRightText = pinRightText;
   }
 
   /**
-   * Getter for the field <code>unpinText</code>.
+   * Gets the text label for the "Unpin" action in the column menu.
    *
-   * @return a {@link java.lang.String} object
+   * @return The text label for "Unpin."
    */
   public String getUnpinText() {
     return unpinText;
   }
 
   /**
-   * Setter for the field <code>unpinText</code>.
+   * Sets the text label for the "Unpin" action in the column menu.
    *
-   * @param unpinText a {@link java.lang.String} object
+   * @param unpinText The text label for "Unpin."
    */
   public void setUnpinText(String unpinText) {
     this.unpinText = unpinText;
   }
 
   /**
-   * Getter for the field <code>pinLeftIcon</code>.
+   * Gets the icon used for pinning columns to the left side of the DataTable.
    *
-   * @return a {@link org.dominokit.domino.ui.icons.Icon} object
+   * @return The pin left icon.
    */
   public Icon<?> getPinLeftIcon() {
     return pinLeftIcon;
   }
 
   /**
-   * Setter for the field <code>pinLeftIcon</code>.
+   * Sets the icon used for pinning columns to the left side of the DataTable.
    *
-   * @param pinLeftIcon a {@link org.dominokit.domino.ui.icons.Icon} object
-   * @return a {@link org.dominokit.domino.ui.datatable.plugins.column.PinColumnsConfig} object
+   * @param pinLeftIcon The pin left icon.
+   * @return The PinColumnsConfig instance for method chaining.
    */
   public PinColumnsConfig setPinLeftIcon(Icon<?> pinLeftIcon) {
     this.pinLeftIcon = pinLeftIcon;
@@ -181,19 +196,19 @@ public class PinColumnsConfig implements PluginConfig {
   }
 
   /**
-   * Getter for the field <code>pinRightIcon</code>.
+   * Gets the icon used for pinning columns to the right side of the DataTable.
    *
-   * @return a {@link org.dominokit.domino.ui.icons.Icon} object
+   * @return The pin right icon.
    */
   public Icon<?> getPinRightIcon() {
     return pinRightIcon;
   }
 
   /**
-   * Setter for the field <code>pinRightIcon</code>.
+   * Sets the icon used for pinning columns to the right side of the DataTable.
    *
-   * @param pinRightIcon a {@link org.dominokit.domino.ui.icons.Icon} object
-   * @return a {@link org.dominokit.domino.ui.datatable.plugins.column.PinColumnsConfig} object
+   * @param pinRightIcon The pin right icon.
+   * @return The PinColumnsConfig instance for method chaining.
    */
   public PinColumnsConfig setPinRightIcon(Icon<?> pinRightIcon) {
     this.pinRightIcon = pinRightIcon;

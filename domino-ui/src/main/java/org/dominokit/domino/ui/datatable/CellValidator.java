@@ -13,18 +13,23 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package org.dominokit.domino.ui.datatable;
 
 import org.dominokit.domino.ui.forms.validations.ValidationResult;
 
-/** Implementations of this interface will validate an editable cell */
+/**
+ * A functional interface representing a validator for a data table cell. This interface defines the
+ * validation behavior for individual cells in a data table. Implementing this interface allows for
+ * custom validation logic to be applied to cell values.
+ */
 @FunctionalInterface
 public interface CellValidator {
-  /** @return the {@link ValidationResult} */
+
   /**
-   * onValidate.
+   * Executes the validation logic for a cell.
    *
-   * @return a {@link org.dominokit.domino.ui.forms.validations.ValidationResult} object
+   * @return a {@link ValidationResult} object indicating the result of the validation.
    */
   ValidationResult onValidate();
 }

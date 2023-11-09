@@ -13,15 +13,20 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package org.dominokit.domino.ui.utils;
 
-/** Utility class to deal with text operations */
+/**
+ * The {@code TextUtil} class provides utility methods for working with text and strings. It
+ * includes methods for manipulating text, such as capitalizing the first letter of a string.
+ */
 public class TextUtil {
+
   /**
-   * firstLetterToUpper.
+   * Capitalizes the first letter of a given input string.
    *
-   * @param input String
-   * @return same String with first letter capitalized
+   * @param input The input string to capitalize the first letter of.
+   * @return A new string with the first letter capitalized.
    */
   public static String firstLetterToUpper(String input) {
     return input.substring(0, 1).toUpperCase() + input.substring(1);

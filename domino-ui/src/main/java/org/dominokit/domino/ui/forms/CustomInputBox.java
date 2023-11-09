@@ -27,11 +27,16 @@ import org.dominokit.domino.ui.utils.ApplyFunction;
 import org.dominokit.domino.ui.utils.DominoElement;
 
 /**
- * A Base implementation for special type components with text input
+ * Represents a customizable input box that can be associated with a list of pre-defined options.
  *
- * @param <T> The type of the component extending from this class
- * @see TelephoneBox
- * @see EmailBox
+ * <p>Usage example:
+ *
+ * <pre>
+ * CustomInputBox customInput = new CustomInputBox("Label");
+ * customInput.setType("text");
+ * </pre>
+ *
+ * @param <T> the type of the derived class, used for method chaining
  */
 public abstract class CustomInputBox<T extends CustomInputBox<T>>
     extends TextInputFormField<T, HTMLInputElement, String> implements HasInputDataList<T> {
@@ -39,7 +44,7 @@ public abstract class CustomInputBox<T extends CustomInputBox<T>>
   private Map<String, OptionElement> dataListOptions;
   private boolean emptyAsNull;
 
-  /** Creates an instance of the specified type with a label */
+  /** Default constructor that initializes the data list element and its options. */
   public CustomInputBox() {
     this.dataListElement = datalist();
     this.dataListOptions = new HashMap<>();
@@ -47,27 +52,28 @@ public abstract class CustomInputBox<T extends CustomInputBox<T>>
   }
 
   /**
-   * Creates an instance of the specified type with a label
+   * Constructor that initializes the input box with the given label.
    *
-   * @param label String
+   * @param label the label for the input box
    */
   public CustomInputBox(String label) {
     this();
     setLabel(label);
   }
 
+  /** Internal method to initialize and bind the data list. */
   private void init() {
     bindDataList((T) this);
     setAutoValidation(true);
   }
 
-  /** {@inheritDoc} */
+  /** Creates the input element for the custom input box. {@inheritDoc} */
   @Override
   protected DominoElement<HTMLInputElement> createInputElement(String type) {
     return input(type).addCss(dui_field_input).toDominoElement();
   }
 
-  /** {@inheritDoc} */
+  /** Sets the value of the custom input box. {@inheritDoc} */
   @Override
   protected void doSetValue(String value) {
     if (nonNull(value)) {
@@ -77,7 +83,7 @@ public abstract class CustomInputBox<T extends CustomInputBox<T>>
     }
   }
 
-  /** {@inheritDoc} */
+  /** Retrieves the value of the custom input box. {@inheritDoc} */
   @Override
   public String getValue() {
     String value = getInputElement().element().value;
@@ -88,51 +94,55 @@ public abstract class CustomInputBox<T extends CustomInputBox<T>>
   }
 
   /**
-   * Sets the type for the HTMLInputElement of this component
+   * Sets the type for the input element.
    *
-   * @param type String
-   * @return same implementing component instance
+   * @param type the type for the input element
+   * @return the current instance, allowing for method chaining
    */
   public T setType(String type) {
     getInputElement().element().type = type;
     return (T) this;
   }
 
-  /** {@inheritDoc} */
+  /** Retrieves the string representation of the value in the custom input box. {@inheritDoc} */
   @Override
   public String getStringValue() {
     return getValue();
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Determines whether to consider an empty value as null.
+   *
+   * @param emptyAsNull true if an empty value should be considered null; false otherwise
+   * @return the current instance, allowing for method chaining
+   */
   public T setEmptyAsNull(boolean emptyAsNull) {
     this.emptyAsNull = emptyAsNull;
     return (T) this;
   }
 
-  /** @return boolean, if true empty value will be treated as null otherwise it is empty string */
   /**
-   * isEmptyAsNull.
+   * Checks if the custom input box considers an empty value as null.
    *
-   * @return a boolean
+   * @return true if an empty value is considered null; false otherwise
    */
   public boolean isEmptyAsNull() {
     return emptyAsNull;
   }
 
-  /** {@inheritDoc} */
+  /** Creates an auto-validator for the custom input box. {@inheritDoc} */
   @Override
   public AutoValidator createAutoValidator(ApplyFunction autoValidate) {
     return new InputAutoValidator(autoValidate, getInputElement());
   }
 
-  /** {@inheritDoc} */
+  /** Retrieves the data list element associated with the custom input box. {@inheritDoc} */
   @Override
   public DataListElement getDataListElement() {
     return dataListElement;
   }
 
-  /** {@inheritDoc} */
+  /** Retrieves the data list options for the custom input box. {@inheritDoc} */
   @Override
   public Map<String, OptionElement> getDataListOptions() {
     return dataListOptions;

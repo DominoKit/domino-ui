@@ -18,35 +18,39 @@ package org.dominokit.domino.ui.style;
 import elemental2.dom.Element;
 import org.dominokit.domino.ui.IsElement;
 
-/** IsCssProperty interface. */
+/**
+ * An interface for defining CSS properties and their behavior. Implementations of this interface
+ * can apply and remove CSS properties on DOM elements.
+ */
 public interface IsCssProperty {
+
   /**
-   * apply.
+   * Applies the defined CSS property to the given DOM element.
    *
-   * @param element a {@link elemental2.dom.Element} object
+   * @param element The DOM element to apply the CSS property to.
    */
   void apply(Element element);
 
   /**
-   * apply.
+   * Default method to apply the CSS property to an {@link IsElement}.
    *
-   * @param element a {@link org.dominokit.domino.ui.IsElement} object
+   * @param element The {@link IsElement} to apply the CSS property to.
    */
   default void apply(IsElement<?> element) {
     apply(element.element());
   }
 
   /**
-   * remove.
+   * Removes the defined CSS property from the given DOM element.
    *
-   * @param element a {@link elemental2.dom.Element} object
+   * @param element The DOM element to remove the CSS property from.
    */
   void remove(Element element);
 
   /**
-   * remove.
+   * Default method to remove the CSS property from an {@link IsElement}.
    *
-   * @param element a {@link org.dominokit.domino.ui.IsElement} object
+   * @param element The {@link IsElement} to remove the CSS property from.
    */
   default void remove(IsElement<?> element) {
     remove(element.element());

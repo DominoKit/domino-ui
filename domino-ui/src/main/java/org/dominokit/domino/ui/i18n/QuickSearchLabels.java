@@ -15,22 +15,26 @@
  */
 package org.dominokit.domino.ui.i18n;
 
-/** QuickSearchLabels interface. */
+/**
+ * The {@code QuickSearchLabels} interface provides labels and messages related to quick search
+ * functionality.
+ */
 public interface QuickSearchLabels extends Labels {
 
   /**
-   * defaultQuickSearchPlaceHolder.
+   * Gets the default placeholder text for the quick search input field.
    *
-   * @return a {@link java.lang.String} object
+   * @return A {@code String} representing the default placeholder text for the quick search input
+   *     field.
    */
   default String defaultQuickSearchPlaceHolder() {
     return "Search";
   }
 
   /**
-   * defaultQuickSearchClearToolTip.
+   * Gets the default tooltip text for the "Clear search" action in quick search.
    *
-   * @return a {@link java.lang.String} object
+   * @return A {@code String} representing the default tooltip text for the "Clear search" action.
    */
   default String defaultQuickSearchClearToolTip() {
     return "Clear search";

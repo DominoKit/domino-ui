@@ -21,13 +21,42 @@ import jsinterop.annotations.JsPackage;
 import jsinterop.annotations.JsType;
 import jsinterop.base.Any;
 
+/**
+ * A class for interacting with the clipboard to read and write data.
+ *
+ * @see <a href="https://developer.mozilla.org/en-US/docs/Web/API/Clipboard_API" target="_blank">MDN
+ *     Documentation</a>
+ */
 @JsType(isNative = true, namespace = JsPackage.GLOBAL)
 public class Clipboard {
+
+  /**
+   * Reads data from the clipboard.
+   *
+   * @return A promise that resolves to a list of ClipboardItem objects.
+   */
   public native Promise<JsArray<ClipboardItem>> read();
 
+  /**
+   * Reads text data from the clipboard.
+   *
+   * @return A promise that resolves to the text data from the clipboard.
+   */
   public native Promise<String> readText();
 
+  /**
+   * Writes data to the clipboard.
+   *
+   * @param item The ClipboardItem to write to the clipboard.
+   * @return A promise that resolves when the data is successfully written to the clipboard.
+   */
   public native Promise<Any> write(ClipboardItem item);
 
-  public native Promise<Any> writeText(String item);
+  /**
+   * Writes text data to the clipboard.
+   *
+   * @param text The text data to write to the clipboard.
+   * @return A promise that resolves when the text data is successfully written to the clipboard.
+   */
+  public native Promise<Any> writeText(String text);
 }

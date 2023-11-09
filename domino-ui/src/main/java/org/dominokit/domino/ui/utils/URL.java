@@ -19,9 +19,28 @@ import elemental2.dom.Blob;
 import jsinterop.annotations.JsPackage;
 import jsinterop.annotations.JsType;
 
+/**
+ * The {@code URL} class provides utility methods for working with URLs in the browser. This class
+ * is based on the JavaScript URL API.
+ *
+ * @see <a href="https://developer.mozilla.org/en-US/docs/Web/API/URL">MDN Web API Reference -
+ *     URL</a>
+ */
 @JsType(isNative = true, namespace = JsPackage.GLOBAL)
 public class URL {
+
+  /**
+   * Creates a URL for a given {@link Blob} object.
+   *
+   * @param blob The {@link Blob} object for which a URL is created.
+   * @return A string representing the URL of the {@link Blob}.
+   */
   public static native String createObjectURL(Blob blob);
 
+  /**
+   * Revokes a previously created object URL.
+   *
+   * @param url The URL to be revoked.
+   */
   public static native void revokeObjectURL(String url);
 }

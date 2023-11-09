@@ -19,34 +19,31 @@ import elemental2.dom.HTMLElement;
 import org.dominokit.domino.ui.elements.SpanElement;
 import org.dominokit.domino.ui.style.CssClass;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
-import org.dominokit.domino.ui.utils.HasBackground;
-import org.dominokit.domino.ui.utils.HasContent;
 
 /**
- * A component for showing headings in different sizes and colors
+ * The {@code Label} class represents a simple label element for displaying text.
  *
- * <p>For example:
+ * <p>It provides a way to create and customize labels in a DOM structure.
  *
  * @see BaseDominoElement
- * @see HasBackground
- * @see HasContent
  */
 public class Label extends BaseDominoElement<HTMLElement, Label> {
 
-  /** Constant <code>dui_label</code> */
+  /** A CSS class representing the label: {@code dui-label}. */
   public static CssClass dui_label = () -> "dui-label";
 
   private final SpanElement element;
 
+  /** Constructs a new empty {@code Label}. */
   private Label() {
     element = span().addCss(dui_label);
     init(this);
   }
 
   /**
-   * Constructor for Label.
+   * Constructs a new {@code Label} with the specified text content.
    *
-   * @param text a {@link java.lang.String} object
+   * @param text The text content of the label.
    */
   public Label(String text) {
     this();
@@ -54,26 +51,26 @@ public class Label extends BaseDominoElement<HTMLElement, Label> {
   }
 
   /**
-   * Creates with content and no type
+   * Creates a new {@code Label} with the specified text content.
    *
-   * @param text the text content
-   * @return new instance
+   * @param text The text content of the label.
+   * @return A new {@code Label} instance.
    */
   public static Label create(String text) {
     return new Label(text);
   }
 
-  /** {@inheritDoc} */
+  /** @dominokit-site-ignore {@inheritDoc} */
   @Override
   public HTMLElement element() {
     return element.element();
   }
 
   /**
-   * {@inheritDoc}
+   * Sets the text content of the label.
    *
-   * @param text a {@link java.lang.String} object
-   * @return a {@link org.dominokit.domino.ui.labels.Label} object
+   * @param text The text content to set.
+   * @return This {@code Label} instance for method chaining.
    */
   public Label setText(String text) {
     element.setTextContent(text);

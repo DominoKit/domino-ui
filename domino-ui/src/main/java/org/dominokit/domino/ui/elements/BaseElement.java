@@ -19,17 +19,36 @@ import elemental2.dom.Element;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
 import org.dominokit.domino.ui.utils.DominoElement;
 
-/** Abstract BaseElement class. */
+/**
+ * The {@code BaseElement} class is an abstract base class for creating wrapper elements that
+ * provide type-safe access to DOM elements. It extends {@link BaseDominoElement} and is used to
+ * create specific element wrapper classes within the {@code org.dominokit.domino.ui.elements}
+ * package.
+ *
+ * <p><strong>Usage Example:</strong>
+ *
+ * <pre>
+ * // Create a new instance of a specific element wrapper
+ * MyElement myElement = MyElement.of(element);
+ *
+ * // Access and manipulate the wrapped DOM element
+ * myElement.setTextContent("Hello, World!");
+ * myElement.addCss("custom-class");
+ * </pre>
+ *
+ * @param <E> The type of the wrapped DOM element.
+ * @param <T> The concrete subclass type.
+ * @see BaseDominoElement
+ */
 public abstract class BaseElement<E extends Element, T extends BaseElement<E, T>>
     extends BaseDominoElement<E, T> {
 
   private final E wrappedElement;
 
-  /** @param element the E element extending from {@link Element} */
   /**
-   * Constructor for BaseElement.
+   * Constructs a new {@code BaseElement} with the provided DOM element.
    *
-   * @param element a E object
+   * @param element The DOM element to wrap.
    */
   public BaseElement(E element) {
     this.wrappedElement = element;
@@ -38,15 +57,19 @@ public abstract class BaseElement<E extends Element, T extends BaseElement<E, T>
   }
 
   /**
-   * toDominoElement.
+   * Converts the wrapped DOM element into a {@link DominoElement} for easier manipulation.
    *
-   * @return a {@link org.dominokit.domino.ui.utils.DominoElement} object
+   * @return A {@code DominoElement} wrapping the wrapped DOM element.
    */
   public DominoElement<E> toDominoElement() {
     return elementOf(wrappedElement);
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Retrieves the wrapped DOM element.
+   *
+   * @return The wrapped DOM element.
+   */
   @Override
   public E element() {
     return wrappedElement;

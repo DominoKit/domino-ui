@@ -15,43 +15,55 @@
  */
 package org.dominokit.domino.ui.forms;
 
-/** A component to input phone numbers */
+/**
+ * Represents a telephone input box that accepts telephone numbers.
+ *
+ * <p>Usage example:
+ *
+ * <pre>
+ * TelephoneBox boxWithoutLabel = TelephoneBox.create();
+ * TelephoneBox boxWithLabel = TelephoneBox.create("Phone Number:");
+ * </pre>
+ *
+ * @see CustomInputBox
+ */
 public class TelephoneBox extends CustomInputBox<TelephoneBox> {
 
-  /** Constructor for TelephoneBox. */
+  /** Default constructor to create a telephone input box without any label. */
   public TelephoneBox() {}
 
-  /** @param label String */
   /**
-   * Constructor for TelephoneBox.
+   * Constructor that initializes the telephone input box with the given label.
    *
-   * @param label a {@link java.lang.String} object
+   * @param label the label for the telephone input box
    */
   public TelephoneBox(String label) {
     super(label);
   }
 
-  /** @return new TelephoneBox instance */
   /**
-   * create.
+   * Static factory method to create a telephone input box without any label.
    *
-   * @return a {@link org.dominokit.domino.ui.forms.TelephoneBox} object
+   * @return a new instance of {@link TelephoneBox}
    */
   public static TelephoneBox create() {
     return new TelephoneBox();
   }
 
   /**
-   * create.
+   * Static factory method to create a telephone input box with the given label.
    *
-   * @param label String
-   * @return new TelephoneBox instance
+   * @param label the label for the telephone input box
+   * @return a new instance of {@link TelephoneBox} with the specified label
    */
   public static TelephoneBox create(String label) {
     return new TelephoneBox(label);
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Retrieves the type of the input box, which is set to "tel" to accept telephone numbers.
+   * {@inheritDoc}
+   */
   @Override
   public String getType() {
     return "tel";

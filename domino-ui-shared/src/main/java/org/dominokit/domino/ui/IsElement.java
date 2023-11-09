@@ -17,12 +17,18 @@ package org.dominokit.domino.ui;
 
 import elemental2.dom.Element;
 
-/** IsElement interface. */
+/**
+ * The {@code IsElement} interface represents an element that can be associated with an underlying
+ * DOM element.
+ *
+ * @param <E> The type of the underlying DOM element.
+ */
 public interface IsElement<E extends Element> {
+
   /**
-   * element.
+   * Gets the underlying DOM element associated with this element.
    *
-   * @return a E object.
+   * @return The underlying DOM element.
    */
   E element();
 }

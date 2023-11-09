@@ -17,7 +17,11 @@ package org.dominokit.domino.ui.datatable.events;
 
 import org.dominokit.domino.ui.datatable.ColumnConfig;
 
-/** This event will be fired when a column gets resized */
+/**
+ * This event will be fired when a column gets resized
+ *
+ * <p>Event type: <b>COLUMN_RESIZED -> 'column-resized'</b>
+ */
 public class ColumnResizedEvent implements TableEvent {
   /** Constant <code>COLUMN_RESIZED="column-resized"</code> */
   public static final String COLUMN_RESIZED = "column-resized";
@@ -27,32 +31,32 @@ public class ColumnResizedEvent implements TableEvent {
   private final boolean completed;
 
   /**
-   * of.
+   * Factory method to create a new Event instance
    *
-   * @param column a {@link org.dominokit.domino.ui.datatable.ColumnConfig} object
+   * @param column a {@link org.dominokit.domino.ui.datatable.ColumnConfig}
    * @param sizeDiff a double
-   * @return a {@link org.dominokit.domino.ui.datatable.events.ColumnResizedEvent} object
+   * @return a {@link org.dominokit.domino.ui.datatable.events.ColumnResizedEvent}
    */
   public static ColumnResizedEvent of(ColumnConfig<?> column, double sizeDiff) {
     return new ColumnResizedEvent(column, sizeDiff);
   }
 
   /**
-   * of.
+   * Factory method to create a new Event instance
    *
-   * @param column a {@link org.dominokit.domino.ui.datatable.ColumnConfig} object
+   * @param column a {@link org.dominokit.domino.ui.datatable.ColumnConfig}
    * @param sizeDiff a double
    * @param completed a boolean
-   * @return a {@link org.dominokit.domino.ui.datatable.events.ColumnResizedEvent} object
+   * @return a {@link org.dominokit.domino.ui.datatable.events.ColumnResizedEvent}
    */
   public static ColumnResizedEvent of(ColumnConfig<?> column, double sizeDiff, boolean completed) {
     return new ColumnResizedEvent(column, sizeDiff, completed);
   }
 
   /**
-   * Constructor for ColumnResizedEvent.
+   * Creates a new Event instance
    *
-   * @param column a {@link org.dominokit.domino.ui.datatable.ColumnConfig} object
+   * @param column a {@link org.dominokit.domino.ui.datatable.ColumnConfig}
    * @param sizeDiff a double
    */
   public ColumnResizedEvent(ColumnConfig<?> column, double sizeDiff) {
@@ -60,9 +64,9 @@ public class ColumnResizedEvent implements TableEvent {
   }
 
   /**
-   * Constructor for ColumnResizedEvent.
+   * Creates a new Event instance
    *
-   * @param column a {@link org.dominokit.domino.ui.datatable.ColumnConfig} object
+   * @param column a {@link org.dominokit.domino.ui.datatable.ColumnConfig}
    * @param sizeDiff a double
    * @param completed a boolean
    */
@@ -75,7 +79,7 @@ public class ColumnResizedEvent implements TableEvent {
   /**
    * Getter for the field <code>column</code>.
    *
-   * @return a {@link org.dominokit.domino.ui.datatable.ColumnConfig} object
+   * @return a {@link org.dominokit.domino.ui.datatable.ColumnConfig}
    */
   public ColumnConfig<?> getColumn() {
     return column;

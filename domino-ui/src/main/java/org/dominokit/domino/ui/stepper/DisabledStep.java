@@ -21,9 +21,19 @@ import org.dominokit.domino.ui.icons.lib.Icons;
 import org.dominokit.domino.ui.style.ColorsCss;
 import org.dominokit.domino.ui.style.SpacingCss;
 
-/** DisabledStep class. */
+/**
+ * A concrete implementation of the {@link StepState} interface representing a disabled step in a
+ * stepper component. Disabled steps are typically used to indicate steps that cannot be interacted
+ * with or completed.
+ */
 public class DisabledStep implements StepState {
-  /** {@inheritDoc} */
+
+  /**
+   * {@inheritDoc} This implementation applies visual styling and an icon to the provided {@link
+   * StepTracker} to indicate that the step is disabled.
+   *
+   * @param tracker The {@link StepTracker} to which the disabled step state is applied.
+   */
   @Override
   public void apply(StepTracker tracker) {
     tracker
@@ -35,7 +45,12 @@ public class DisabledStep implements StepState {
                     .addCss(dui_grey));
   }
 
-  /** {@inheritDoc} */
+  /**
+   * {@inheritDoc} This implementation cleans up the visual styling and icon from the provided
+   * {@link StepTracker} when the step is no longer disabled.
+   *
+   * @param tracker The {@link StepTracker} from which the disabled step state is removed.
+   */
   @Override
   public void cleanUp(StepTracker tracker) {
     tracker
@@ -43,7 +58,12 @@ public class DisabledStep implements StepState {
         .withTrackerNode((parent1, node) -> node.clearElement().removeCss(dui_grey));
   }
 
-  /** {@inheritDoc} */
+  /**
+   * {@inheritDoc} Returns the key associated with the disabled step state, which is typically
+   * "DISABLED."
+   *
+   * @return The key "DISABLED."
+   */
   @Override
   public String getKey() {
     return "DISABLED";

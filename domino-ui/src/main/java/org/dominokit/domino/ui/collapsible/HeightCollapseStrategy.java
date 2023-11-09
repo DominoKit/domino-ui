@@ -29,38 +29,35 @@ import org.dominokit.domino.ui.utils.IsCollapsible;
 
 /**
  * An implementation of {@link org.dominokit.domino.ui.collapsible.CollapseStrategy} that uses the
- * css display property to hide/show the collapsible element
+ * height to hide/show the collapsible element
  */
 public class HeightCollapseStrategy implements CollapseStrategy, CollapsibleStyles {
 
-  /** Constant <code>EXPAND_COLLAPSE_HEIGHT_VAR="--dui-element-expand-collapse-height-"</code> */
-  public static final String EXPAND_COLLAPSE_HEIGHT_VAR = "--dui-element-expand-collapse-height-";
-  /** Constant <code>DUI_EXPANDED_HEIGHT="dui-expanded-height"</code> */
-  public static final String DUI_EXPANDED_HEIGHT = "dui-expanded-height";
-  /** Constant <code>DUI_EXPAND_COLLAPSE_VAR="dui-expand-collapse-var"</code> */
-  public static final String DUI_EXPAND_COLLAPSE_VAR = "dui-expand-collapse-var";
+  private static final String EXPAND_COLLAPSE_HEIGHT_VAR = "--dui-element-expand-collapse-height-";
+  private static final String DUI_EXPANDED_HEIGHT = "dui-expanded-height";
+  private static final String DUI_EXPAND_COLLAPSE_VAR = "dui-expand-collapse-var";
 
-  private final CollapseDuration transition;
+  private final CollapsibleDuration transition;
   private final String heightVar;
   private CollapsibleHandlers handlers;
   private DominoElement<Element> target;
 
-  /** Constructor for HeightCollapseStrategy. */
+  /** Create a HeightCollapseStrategy with a default duration of 300ms */
   public HeightCollapseStrategy() {
-    this(CollapseDuration._300ms);
+    this(CollapsibleDuration._300ms);
   }
 
   /**
-   * Constructor for HeightCollapseStrategy.
+   * Create a HeightCollapseStrategy with the provided duration
    *
-   * @param transition a {@link org.dominokit.domino.ui.collapsible.CollapseDuration} object
+   * @param transition The height animation {@link CollapsibleDuration}
    */
-  public HeightCollapseStrategy(CollapseDuration transition) {
+  public HeightCollapseStrategy(CollapsibleDuration transition) {
     this.transition = transition;
     this.heightVar = DominoId.unique(EXPAND_COLLAPSE_HEIGHT_VAR);
   }
 
-  /** {@inheritDoc} */
+  /** @dominokit-site-ignore {@inheritDoc} */
   @Override
   public void init(Element element, CollapsibleHandlers handlers) {
     this.target = elements.elementOf(element);
@@ -70,14 +67,14 @@ public class HeightCollapseStrategy implements CollapseStrategy, CollapsibleStyl
     this.target.addCss(dui_height_collapsed_overflow).addCss(transition.getStyle());
   }
 
-  /** {@inheritDoc} */
+  /** @dominokit-site-ignore {@inheritDoc} */
   @Override
   public void cleanup(Element element) {
     elements.elementOf(element).addCss(dui_height_collapsed_overflow).addCss(transition.getStyle());
     element.removeAttribute("dom-ui-collapse-height");
   }
 
-  /** {@inheritDoc} */
+  /** @dominokit-site-ignore {@inheritDoc} */
   @Override
   public void expand(Element element) {
     this.target.nowOrWhenAttached(
@@ -142,7 +139,7 @@ public class HeightCollapseStrategy implements CollapseStrategy, CollapsibleStyl
     }
   }
 
-  /** {@inheritDoc} */
+  /** @dominokit-site-ignore {@inheritDoc} */
   @Override
   public void collapse(Element element) {
     boolean disableAnimation = dui_transition_none.isAppliedTo(this.target);

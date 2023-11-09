@@ -20,38 +20,70 @@ import static java.util.Objects.nonNull;
 import elemental2.dom.HTMLInputElement;
 import org.dominokit.domino.ui.utils.DominoElement;
 
-/** Abstract BaseTextBox class. */
+/**
+ * Represents a base text box component that provides foundational behaviors and attributes for text
+ * input form fields.
+ *
+ * <p>Usage example:
+ *
+ * <pre>
+ * BaseTextBox&lt;?&gt; boxWithoutLabel = new BaseTextBox&lt;&gt;();
+ * BaseTextBox&lt;?&gt; boxWithLabel = new BaseTextBox&lt;&gt;("Input Label:");
+ * </pre>
+ *
+ * @param <T> the type of the implementing class, used for method chaining
+ * @see TextInputFormField
+ */
 public abstract class BaseTextBox<T extends BaseTextBox<T>>
     extends TextInputFormField<T, HTMLInputElement, String> {
 
-  /** Constructor for BaseTextBox. */
+  /** Default constructor to create a base text box with a default empty value. */
   public BaseTextBox() {
     setDefaultValue("");
   }
 
   /**
-   * Constructor for BaseTextBox.
+   * Constructor that initializes the base text box with the given label.
    *
-   * @param label a {@link java.lang.String} object
+   * @param label the label for the base text box
    */
   public BaseTextBox(String label) {
     this();
     setLabel(label);
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Creates an input element of the specified type and applies default CSS for the base text box.
+   *
+   * <p>{@inheritDoc}
+   *
+   * @param type the type attribute of the input element
+   * @return a new instance of {@link DominoElement} of {@link HTMLInputElement} type
+   */
   @Override
   protected DominoElement<HTMLInputElement> createInputElement(String type) {
     return input(type).addCss(dui_field_input).toDominoElement();
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Retrieves the string value of the base text box, which is the text input from the user.
+   * {@inheritDoc}
+   *
+   * @return the current value of the base text box
+   */
   @Override
   public String getStringValue() {
     return getValue();
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Sets the value of the base text box. If the provided value is null, the value will be set to an
+   * empty string.
+   *
+   * <p>{@inheritDoc}
+   *
+   * @param value the value to be set to the base text box
+   */
   @Override
   protected void doSetValue(String value) {
     if (nonNull(value)) {
@@ -61,7 +93,15 @@ public abstract class BaseTextBox<T extends BaseTextBox<T>>
     }
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Retrieves the value of the base text box. If the value is empty and is set to be treated as
+   * null, this method will return null.
+   *
+   * <p>
+   *
+   * @return the current value of the base text box or null if the value is empty and treated as
+   *     null
+   */
   @Override
   public String getValue() {
     String value = getInputElement().element().value;

@@ -13,27 +13,29 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package org.dominokit.domino.ui.utils;
 
 /**
- * Components that can have a placeholder should implement this interface
+ * The {@code HasPlaceholder} interface defines methods for getting and setting the placeholder text
+ * of a component.
  *
- * @param <T> the type of the class implementing this interface
+ * @param <T> The type of the component that can have a placeholder.
  */
 public interface HasPlaceHolder<T> {
-  /** @return String placeholder of the component */
+
   /**
-   * getPlaceholder.
+   * Gets the placeholder text of the component.
    *
-   * @return a {@link java.lang.String} object
+   * @return The placeholder text of the component.
    */
   String getPlaceholder();
 
   /**
-   * setPlaceholder.
+   * Sets the placeholder text for the component.
    *
-   * @param placeholder String placeholder
-   * @return same implementing class instance
+   * @param placeholder The placeholder text to set for the component.
+   * @return The component with the updated placeholder text.
    */
   T setPlaceholder(String placeholder);
 }

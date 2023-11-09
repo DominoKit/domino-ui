@@ -13,36 +13,36 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package org.dominokit.domino.ui.utils;
 
 /**
- * Components that can have a label should implement this interface
+ * The {@code HasLabel} interface defines methods for managing the label of a component.
  *
- * @param <T> the type of the implementing class
+ * @param <T> The type of the component that can have a label.
  */
 public interface HasLabel<T> {
 
   /**
-   * setLabel.
+   * Sets the label for the component.
    *
-   * @param label String component label
-   * @return same implementing class instance
+   * @param label The label text to set.
+   * @return The component with the updated label.
    */
   T setLabel(String label);
 
-  /** @return String component label */
   /**
-   * getLabel.
+   * Gets the label text of the component.
    *
-   * @return a {@link java.lang.String} object
+   * @return The label text of the component.
    */
   String getLabel();
 
   /**
-   * labelForId.
+   * Associates the label with an HTML element by specifying its ID.
    *
-   * @param id a {@link java.lang.String} object
-   * @return a T object
+   * @param id The ID of the HTML element to associate with the label.
+   * @return The component with the label associated with the specified HTML element.
    */
   T labelForId(String id);
 }

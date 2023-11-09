@@ -21,11 +21,11 @@ import org.gwtproject.editor.client.LeafValueEditor;
 import org.gwtproject.editor.client.TakesValue;
 
 /**
- * Components that needs to be form elements and required to support editors frameworks should
- * implement this interface
+ * The {@code FormElement} interface represents a form element with various attributes and
+ * behaviors.
  *
- * @param <T> The type of the component implementing this interface
- * @param <V> The type of the component value
+ * @param <T> The concrete type implementing this interface.
+ * @param <V> The value type associated with the form element.
  */
 public interface FormElement<T, V>
     extends HasName<T>,

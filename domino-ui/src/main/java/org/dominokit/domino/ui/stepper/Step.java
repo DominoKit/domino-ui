@@ -28,7 +28,19 @@ import org.dominokit.domino.ui.utils.BaseDominoElement;
 import org.dominokit.domino.ui.utils.ChildHandler;
 import org.dominokit.domino.ui.utils.LazyChild;
 
-/** Step class. */
+/**
+ * Represents an individual step within a Stepper.
+ *
+ * <p>Usage example:
+ *
+ * <pre>
+ * Step step = Step.create("Step 1")
+ *              .withHeader((step, header) -> ...)
+ *              .withContent((step, content) -> ...);
+ * </pre>
+ *
+ * @see BaseDominoElement
+ */
 public class Step extends BaseDominoElement<HTMLDivElement, Step>
     implements StepperStyles, HasComponentConfig<StepperConfig> {
 
@@ -41,9 +53,9 @@ public class Step extends BaseDominoElement<HTMLDivElement, Step>
   private Stepper stepper;
 
   /**
-   * Constructor for Step.
+   * Constructs a new step with the provided title.
    *
-   * @param title a {@link java.lang.String} object
+   * @param title the title for the step
    */
   public Step(String title) {
     this.state = getConfig().getDefaultStepState();
@@ -61,25 +73,33 @@ public class Step extends BaseDominoElement<HTMLDivElement, Step>
   }
 
   /**
-   * create.
+   * Factory method to create a new step.
    *
-   * @param title a {@link java.lang.String} object
-   * @return a {@link org.dominokit.domino.ui.stepper.Step} object
+   * @param title the title for the step
+   * @return a new Step instance
    */
   public static Step create(String title) {
     return new Step(title);
   }
 
+  /**
+   * Updates the state of this step based on the given tracker.
+   *
+   * <p>This method is primarily for internal use to keep the state of the step in sync with the
+   * associated tracker.
+   *
+   * @param tracker the step tracker
+   */
   private void setStepState(StepTracker tracker) {
     this.state = tracker.getState();
     addCss(BooleanCssClass.of(dui_active, tracker.isActive()));
   }
 
   /**
-   * withHeader.
+   * Configures the header of this step using the given handler.
    *
-   * @param handler a {@link org.dominokit.domino.ui.utils.ChildHandler} object
-   * @return a {@link org.dominokit.domino.ui.stepper.Step} object
+   * @param handler the handler to customize the header
+   * @return the current step instance for chaining
    */
   public Step withHeader(ChildHandler<Step, NavBar> handler) {
     handler.apply(this, stepHeader);
@@ -87,10 +107,10 @@ public class Step extends BaseDominoElement<HTMLDivElement, Step>
   }
 
   /**
-   * withFooter.
+   * Configures the footer of this step using the given handler.
    *
-   * @param handler a {@link org.dominokit.domino.ui.utils.ChildHandler} object
-   * @return a {@link org.dominokit.domino.ui.stepper.Step} object
+   * @param handler the handler to customize the footer
+   * @return the current step instance for chaining
    */
   public Step withFooter(ChildHandler<Step, DivElement> handler) {
     handler.apply(this, stepFooter.get());
@@ -98,10 +118,10 @@ public class Step extends BaseDominoElement<HTMLDivElement, Step>
   }
 
   /**
-   * withContent.
+   * Configures the content of this step using the given handler.
    *
-   * @param handler a {@link org.dominokit.domino.ui.utils.ChildHandler} object
-   * @return a {@link org.dominokit.domino.ui.stepper.Step} object
+   * @param handler the handler to customize the content
+   * @return the current step instance for chaining
    */
   public Step withContent(ChildHandler<Step, DivElement> handler) {
     handler.apply(this, stepContent);
@@ -109,10 +129,10 @@ public class Step extends BaseDominoElement<HTMLDivElement, Step>
   }
 
   /**
-   * withTracker.
+   * Configures the step tracker of this step using the given handler.
    *
-   * @param handler a {@link org.dominokit.domino.ui.utils.ChildHandler} object
-   * @return a {@link org.dominokit.domino.ui.stepper.Step} object
+   * @param handler the handler to customize the step tracker
+   * @return the current step instance for chaining
    */
   public Step withTracker(ChildHandler<Step, StepTracker> handler) {
     handler.apply(this, stepTracker);
@@ -120,71 +140,87 @@ public class Step extends BaseDominoElement<HTMLDivElement, Step>
   }
 
   /**
-   * Getter for the field <code>stepTracker</code>.
+   * Returns the tracker associated with this step.
    *
-   * @return a {@link org.dominokit.domino.ui.stepper.StepTracker} object
+   * @return the associated step tracker
    */
   public StepTracker getStepTracker() {
     return stepTracker;
   }
 
+  /**
+   * Binds this step to a specific {@link Stepper}.
+   *
+   * <p>This method associates the step with a stepper, allowing it to be managed and controlled by
+   * that stepper.
+   *
+   * @param stepper the stepper to bind this step to
+   */
   void bindToStepper(Stepper stepper) {
     this.stepper = stepper;
     setState(this.state);
   }
 
   /**
-   * Setter for the field <code>state</code>.
+   * Sets the current state of this step.
    *
-   * @param state a {@link org.dominokit.domino.ui.stepper.StepState} object
-   * @return a {@link org.dominokit.domino.ui.stepper.Step} object
+   * <p>This method updates the state of the step and reflects any associated changes on the step
+   * tracker.
+   *
+   * @param state the new state for the step
+   * @return the current step instance for chaining
    */
   public Step setState(StepState state) {
     this.stepTracker.setState(state);
     return this;
   }
 
+  /**
+   * Unbinds this step from its associated {@link Stepper}.
+   *
+   * <p>After calling this method, the step is no longer controlled by any stepper.
+   */
   void unbindStepper() {
     this.stepper = null;
   }
 
   /**
-   * next.
+   * Advances to the next step.
    *
-   * @return a {@link org.dominokit.domino.ui.stepper.Step} object
+   * @return the updated step
    */
   public Step next() {
     return next(0);
   }
 
   /**
-   * next.
+   * Navigates to the next step with a specific number of steps to skip.
    *
-   * @param skip a int
-   * @return a {@link org.dominokit.domino.ui.stepper.Step} object
+   * <p>This method delegates the navigation to the associated {@link Stepper}.
+   *
+   * @param skip the number of steps to skip
+   * @return the current step instance for chaining
    */
   public Step next(int skip) {
     return next(skip, (deactivated, activated) -> {});
   }
 
   /**
-   * next.
+   * Navigates to the next step with a provided consumer for managing step trackers.
    *
-   * @param consumer a {@link org.dominokit.domino.ui.stepper.StepperTrack.StepTrackersConsumer}
-   *     object
-   * @return a {@link org.dominokit.domino.ui.stepper.Step} object
+   * @param consumer the consumer that gets notified about deactivated and activated trackers
+   * @return the current step instance for chaining
    */
   public Step next(StepperTrack.StepTrackersConsumer consumer) {
     return next(0, consumer);
   }
 
   /**
-   * next.
+   * Navigates to the next step with a specific number of steps to skip and a consumer.
    *
-   * @param skip a int
-   * @param consumer a {@link org.dominokit.domino.ui.stepper.StepperTrack.StepTrackersConsumer}
-   *     object
-   * @return a {@link org.dominokit.domino.ui.stepper.Step} object
+   * @param skip the number of steps to skip
+   * @param consumer the consumer for the step trackers
+   * @return the current step instance for chaining
    */
   public Step next(int skip, StepperTrack.StepTrackersConsumer consumer) {
     if (nonNull(this.stepper)) {
@@ -194,42 +230,40 @@ public class Step extends BaseDominoElement<HTMLDivElement, Step>
   }
 
   /**
-   * prev.
+   * Navigates to the previous step.
    *
-   * @return a {@link org.dominokit.domino.ui.stepper.Step} object
+   * @return the current step instance for chaining
    */
   public Step prev() {
     return prev(0);
   }
 
   /**
-   * prev.
+   * Navigates to the previous step with a provided consumer for managing step trackers.
    *
-   * @param consumer a {@link org.dominokit.domino.ui.stepper.StepperTrack.StepTrackersConsumer}
-   *     object
-   * @return a {@link org.dominokit.domino.ui.stepper.Step} object
+   * @param consumer the consumer for the step trackers
+   * @return the current step instance for chaining
    */
   public Step prev(StepperTrack.StepTrackersConsumer consumer) {
     return prev(0, consumer);
   }
 
   /**
-   * prev.
+   * Navigates to the previous step with a specific number of steps to skip.
    *
-   * @param skip a int
-   * @return a {@link org.dominokit.domino.ui.stepper.Step} object
+   * @param skip the number of steps to skip
+   * @return the current step instance for chaining
    */
   public Step prev(int skip) {
     return prev(skip, (deactivated, activated) -> {});
   }
 
   /**
-   * prev.
+   * Navigates to the previous step with a specific number of steps to skip and a consumer.
    *
-   * @param skip a int
-   * @param consumer a {@link org.dominokit.domino.ui.stepper.StepperTrack.StepTrackersConsumer}
-   *     object
-   * @return a {@link org.dominokit.domino.ui.stepper.Step} object
+   * @param skip the number of steps to skip
+   * @param consumer the consumer for the step trackers
+   * @return the current step instance for chaining
    */
   public Step prev(int skip, StepperTrack.StepTrackersConsumer consumer) {
     if (nonNull(this.stepper)) {
@@ -239,12 +273,12 @@ public class Step extends BaseDominoElement<HTMLDivElement, Step>
   }
 
   /**
-   * finish.
+   * Completes the step and triggers any finish-related actions using the provided state and
+   * consumer.
    *
-   * @param finishState a {@link org.dominokit.domino.ui.stepper.StepState} object
-   * @param consumer a {@link org.dominokit.domino.ui.stepper.StepperTrack.StepTrackersConsumer}
-   *     object
-   * @return a {@link org.dominokit.domino.ui.stepper.Step} object
+   * @param finishState the state to set upon finishing
+   * @param consumer the consumer for the step trackers
+   * @return the current step instance for chaining
    */
   public Step finish(StepState finishState, StepperTrack.StepTrackersConsumer consumer) {
     if (nonNull(this.stepper)) {
@@ -254,23 +288,31 @@ public class Step extends BaseDominoElement<HTMLDivElement, Step>
   }
 
   /**
-   * finish.
+   * Completes the step using the provided state.
    *
-   * @param finishState a {@link org.dominokit.domino.ui.stepper.StepState} object
-   * @return a {@link org.dominokit.domino.ui.stepper.Step} object
+   * @param finishState the state to set upon finishing
+   * @return the current step instance for chaining
    */
   public Step finish(StepState finishState) {
     finish(finishState, (deactivated, activated) -> {});
     return this;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Retrieves the underlying element representation of the step.
+   *
+   * @return the step's element
+   */
   @Override
   public HTMLDivElement element() {
     return root.element();
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Returns the element to which new children will be appended.
+   *
+   * @return the append target element
+   */
   @Override
   public Element getAppendTarget() {
     return stepContent.element();

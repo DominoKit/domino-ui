@@ -16,70 +16,72 @@
 package org.dominokit.domino.ui.utils;
 
 /**
- * A Component that needs to have a toggle state (checked/unchecked) should implement this interface
+ * The {@code Checkable} interface represents an entity that can be checked or unchecked.
  *
- * @param <T> The type of the component implementing this interface
+ * @param <T> The type implementing the interface.
  */
 public interface Checkable<T> {
+
   /**
-   * Change the component to its checked state
+   * Checks the entity.
    *
-   * @return same component instance
+   * @return The updated entity.
    */
   T check();
 
   /**
-   * Change the component to its unchecked state
+   * Unchecks the entity.
    *
-   * @return same component instance
+   * @return The updated entity.
    */
   T uncheck();
 
   /**
-   * Change the component to its checked state without triggering change handlers
+   * Checks or unchecks the entity based on the given {@code checkedState} parameter.
    *
-   * @param silent boolean, if true dont trigger change handlers
-   * @return same component instance
+   * @param silent A flag indicating whether to perform the action silently (without triggering
+   *     events).
+   * @return The updated entity.
    */
   T check(boolean silent);
 
   /**
-   * Change the component to its unchecked state with optionally triggering change handlers
+   * Checks or unchecks the entity based on the given {@code checkedState} parameter.
    *
-   * @param silent boolean, if true dont trigger change handlers
-   * @return same component instance
+   * @param silent A flag indicating whether to perform the action silently (without triggering
+   *     events).
+   * @return The updated entity.
    */
   T uncheck(boolean silent);
 
   /**
-   * Change the component to its unchecked/checked state with optionally triggering change handlers
+   * Toggles the checked state of the entity.
    *
-   * @param silent boolean, if true dont trigger change handlers
-   * @return same component instance
+   * @param silent A flag indicating whether to perform the action silently (without triggering
+   *     events).
+   * @return The updated entity.
    */
   T toggleChecked(boolean silent);
-
   /**
-   * Change the component to its unchecked/checked state with optionally triggering change handlers
+   * Toggles the checked state of the entity based on the given {@code checkedState} parameter.
    *
-   * @param silent boolean, if true dont trigger change handlers
-   * @return same component instance
-   * @param checkedState a boolean
+   * @param checkedState The state to set (true for checked, false for unchecked).
+   * @param silent A flag indicating whether to perform the action silently (without triggering
+   *     events).
+   * @return The updated entity.
    */
   T toggleChecked(boolean checkedState, boolean silent);
 
   /**
-   * Change the component to its unchecked/checked state
+   * Toggles the checked state of the entity.
    *
-   * @return same component instance
+   * @return The updated entity.
    */
   T toggleChecked();
-
-  /** @return boolean, true if the component is checked, otherwise false */
   /**
-   * isChecked.
+   * Checks if the entity is in a checked state.
    *
-   * @return a boolean
+   * @return {@code true} if the entity is checked, {@code false} otherwise.
    */
   boolean isChecked();
 }

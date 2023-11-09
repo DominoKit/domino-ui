@@ -13,42 +13,56 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package org.dominokit.domino.ui.utils;
 
 import elemental2.dom.Element;
 import org.dominokit.domino.ui.IsElement;
 
-/** SubheaderAddon class. */
+/**
+ * The {@code SubheaderAddon} class represents a subheader addon element that can be used to enhance
+ * the appearance and functionality of a UI component. It extends the {@link BaseDominoElement}
+ * class and provides methods for creating and manipulating subheader addon elements.
+ *
+ * <p>Subheader addons are typically used to provide additional information or actions related to
+ * the main content of a UI component.
+ *
+ * @param <T> The type of the underlying HTML element.
+ * @see BaseDominoElement
+ * @see Element
+ * @see IsElement
+ */
 public class SubheaderAddon<T extends Element> extends BaseDominoElement<T, SubheaderAddon<T>> {
 
   private DominoElement<T> element;
 
   /**
-   * of.
+   * Creates a new {@code SubheaderAddon} instance from the given HTML element.
    *
-   * @param element a T object
-   * @param <T> a T class
-   * @return a {@link org.dominokit.domino.ui.utils.SubheaderAddon} object
+   * @param element The HTML element to use as the subheader addon.
+   * @return A new {@code SubheaderAddon} instance.
    */
   public static <T extends Element> SubheaderAddon<T> of(T element) {
     return new SubheaderAddon<>(element);
   }
 
   /**
-   * of.
+   * Creates a new {@code SubheaderAddon} instance from the given {@link IsElement} object.
    *
-   * @param element a {@link org.dominokit.domino.ui.IsElement} object
-   * @param <T> a T class
-   * @return a {@link org.dominokit.domino.ui.utils.SubheaderAddon} object
+   * @param element The {@link IsElement} object to use as the subheader addon.
+   * @return A new {@code SubheaderAddon} instance.
    */
   public static <T extends Element> SubheaderAddon<T> of(IsElement<T> element) {
     return new SubheaderAddon<>(element);
   }
 
   /**
-   * Constructor for SubheaderAddon.
+   * Creates a new {@code SubheaderAddon} instance with the specified HTML element.
    *
-   * @param element a T object
+   * <p>This constructor initializes the subheader addon element and adds the necessary CSS class to
+   * style it.
+   *
+   * @param element The HTML element to use as the subheader addon.
    */
   public SubheaderAddon(T element) {
     this.element = elementOf(element);
@@ -57,15 +71,19 @@ public class SubheaderAddon<T extends Element> extends BaseDominoElement<T, Subh
   }
 
   /**
-   * Constructor for SubheaderAddon.
+   * Creates a new {@code SubheaderAddon} instance from the given {@link IsElement} object.
    *
-   * @param element a {@link org.dominokit.domino.ui.IsElement} object
+   * @param element The {@link IsElement} object to use as the subheader addon.
    */
   public SubheaderAddon(IsElement<T> element) {
     this(element.element());
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Retrieves the underlying HTML element associated with this subheader addon.
+   *
+   * @return The HTML element used as the subheader addon.
+   */
   @Override
   public T element() {
     return element.element();

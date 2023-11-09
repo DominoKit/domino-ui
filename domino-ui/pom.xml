@@ -6,7 +6,7 @@
     <parent>
         <groupId>org.dominokit</groupId>
         <artifactId>domino-ui-parent</artifactId>
-        <version>2.0.0-RC3</version>
+        <version>2.0.0-RC4</version>
     </parent>
 
     <artifactId>domino-ui</artifactId>
@@ -75,6 +75,12 @@
             <artifactId>domino-slf4j-logger</artifactId>
             <version>1.0.2</version>
         </dependency>
+        <dependency>
+            <groupId>org.dominokit</groupId>
+            <artifactId>domino-doc-tool</artifactId>
+            <version>${domino.doc.tool.version}</version>
+            <scope>test</scope>
+        </dependency>
     </dependencies>
 
     <build>
@@ -120,14 +126,8 @@
 
                             <cssExcludes>
                                 <cssExclude>domino-ui.css</cssExclude>
-                                <!--                                <cssExclude>domino-ui-domino-ui-colors.css</cssExclude>-->
                                 <cssExclude>loaders/domino-ui-waitMe.css</cssExclude>
-                                <!--                                <cssExclude>domino-ui-grid.css</cssExclude>-->
-                                <!--                                <cssExclude>material-icons.css</cssExclude>-->
                                 <cssExclude>**/*.min.css</cssExclude>
-                                <!--                                <cssExclude>**/themes/*.css</cssExclude>-->
-                                <!--                                <cssExclude>domino-ui-waves.css</cssExclude>-->
-                                <!--                                <cssExclude>domino-ui-style.css</cssExclude>-->
                             </cssExcludes>
 
                             <webappSourceDir>${build.directory}/classes</webappSourceDir>

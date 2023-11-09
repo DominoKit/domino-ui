@@ -13,79 +13,119 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package org.dominokit.domino.ui.datatable.model;
 
 import java.util.Objects;
 
-/** A class to define filter operators, each operator is a simple name string */
+/**
+ * The {@code Operator} class represents different filter operators that can be used for filtering
+ * data in a DataTable.
+ *
+ * <p>Operators define how the filtering operation should be performed, such as equality,
+ * comparison, and pattern matching. Each operator has a name associated with it, which is used to
+ * identify the type of operation.
+ *
+ * @see org.dominokit.domino.ui.datatable.model.Filter
+ */
 public class Operator {
-
-  /** Constant <code>isEqualTo</code> */
+  /** Represents the "equals" operator, used for equality comparison. */
   public static final Operator isEqualTo = new Operator("equals");
-  /** Constant <code>notEquals</code> */
+
+  /** Represents the "notEquals" operator, used for inequality comparison. */
   public static final Operator notEquals = new Operator("notEquals");
-  /** Constant <code>startsWith</code> */
+
+  /** Represents the "startsWith" operator, used for prefix matching. */
   public static final Operator startsWith = new Operator("startsWith");
-  /** Constant <code>endsWith</code> */
+
+  /** Represents the "endsWith" operator, used for suffix matching. */
   public static final Operator endsWith = new Operator("endsWith");
-  /** Constant <code>lessThan</code> */
+
+  /** Represents the "lessThan" operator, used for less than comparison. */
   public static final Operator lessThan = new Operator("lessThan");
-  /** Constant <code>lessThanOrEquals</code> */
+
+  /** Represents the "lessThanOrEquals" operator, used for less than or equal to comparison. */
   public static final Operator lessThanOrEquals = new Operator("lessThanOrEquals");
-  /** Constant <code>greaterThan</code> */
+
+  /** Represents the "greaterThan" operator, used for greater than comparison. */
   public static final Operator greaterThan = new Operator("greaterThan");
-  /** Constant <code>greaterThanOrEquals</code> */
+
+  /**
+   * Represents the "greaterThanOrEquals" operator, used for greater than or equal to comparison.
+   */
   public static final Operator greaterThanOrEquals = new Operator("greaterThanOrEquals");
-  /** Constant <code>between</code> */
+
+  /** Represents the "between" operator, used for range comparison. */
   public static final Operator between = new Operator("between");
-  /** Constant <code>is_Null</code> */
+
+  /** Represents the "isNull" operator, used for checking if a value is null. */
   public static final Operator is_Null = new Operator("isNull");
-  /** Constant <code>isNotNull</code> */
+
+  /** Represents the "isNotNull" operator, used for checking if a value is not null. */
   public static final Operator isNotNull = new Operator("isNotNull");
-  /** Constant <code>isRankedFirst</code> */
+
+  /** Represents the "isRankedFirst" operator, used for checking if a value is ranked first. */
   public static final Operator isRankedFirst = new Operator("isRankedFirst");
-  /** Constant <code>isRankedLast</code> */
+
+  /** Represents the "isRankedLast" operator, used for checking if a value is ranked last. */
   public static final Operator isRankedLast = new Operator("isRankedLast");
-  /** Constant <code>isInTop</code> */
+
+  /** Represents the "isInTop" operator, used for checking if a value is in the top. */
   public static final Operator isInTop = new Operator("isInTop");
-  /** Constant <code>isInBottom</code> */
+
+  /** Represents the "isInBottom" operator, used for checking if a value is in the bottom. */
   public static final Operator isInBottom = new Operator("isInBottom");
-  /** Constant <code>isContains</code> */
+
+  /** Represents the "contains" operator, used for checking if a value contains another value. */
   public static final Operator isContains = new Operator("contains");
-  /** Constant <code>containsAll</code> */
+
+  /**
+   * Represents the "containsAll" operator, used for checking if a value contains all specified
+   * values.
+   */
   public static final Operator containsAll = new Operator("containsAll");
-  /** Constant <code>notContains</code> */
+
+  /**
+   * Represents the "notContains" operator, used for checking if a value does not contain another
+   * value.
+   */
   public static final Operator notContains = new Operator("notContains");
-  /** Constant <code>containsAny</code> */
+
+  /**
+   * Represents the "containsAny" operator, used for checking if a value contains any of the
+   * specified values.
+   */
   public static final Operator containsAny = new Operator("containsAny");
-  /** Constant <code>like</code> */
+
+  /** Represents the "like" operator, used for pattern matching using wildcard characters. */
   public static final Operator like = new Operator("like");
-  /** Constant <code>notLike</code> */
+
+  /**
+   * Represents the "notLike" operator, used for pattern matching using wildcard characters with
+   * negation.
+   */
   public static final Operator notLike = new Operator("notLike");
 
   private final String name;
 
-  /** @param name String, the operator name */
   /**
-   * Constructor for Operator.
+   * Constructs a new {@code Operator} with the given name.
    *
-   * @param name a {@link java.lang.String} object
+   * @param name the name of the operator
    */
   public Operator(String name) {
     this.name = name;
   }
 
-  /** @return String, the operator name */
   /**
-   * Getter for the field <code>name</code>.
+   * Gets the name of the operator.
    *
-   * @return a {@link java.lang.String} object
+   * @return the name of the operator
    */
   public String getName() {
     return name;
   }
 
-  /** {@inheritDoc} */
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
@@ -94,7 +134,6 @@ public class Operator {
     return Objects.equals(getName(), operator.getName());
   }
 
-  /** {@inheritDoc} */
   @Override
   public int hashCode() {
     return Objects.hash(getName());

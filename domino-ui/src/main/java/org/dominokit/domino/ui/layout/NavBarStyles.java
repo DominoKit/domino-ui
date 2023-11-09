@@ -17,19 +17,27 @@ package org.dominokit.domino.ui.layout;
 
 import org.dominokit.domino.ui.style.CssClass;
 
-/** NavBarStyles interface. */
+/**
+ * The {@code NavBarStyles} interface provides CSS classes for styling elements within a navigation
+ * bar (navbar) component.
+ */
 public interface NavBarStyles {
 
-  /** Constant <code>dui_nav_bar</code> */
+  /** Represents the CSS class for the main navigation bar container. */
   CssClass dui_nav_bar = () -> "dui-nav-bar";
-  /** Constant <code>dui_nav_add_on</code> */
+
+  /** Represents the CSS class for the navigation bar add-on or extension. */
   CssClass dui_nav_add_on = () -> "dui-nav-addon";
-  /** Constant <code>dui_nav_title</code> */
+
+  /** Represents the CSS class for the navigation bar title. */
   CssClass dui_nav_title = () -> "dui-nav-title";
-  /** Constant <code>dui_nav_body</code> */
+
+  /** Represents the CSS class for the navigation bar body content. */
   CssClass dui_nav_body = () -> "dui-nav-body";
-  /** Constant <code>dui_nav_utility</code> */
+
+  /** Represents the CSS class for the navigation bar utility section. */
   CssClass dui_nav_utility = () -> "dui-nav-utility";
-  /** Constant <code>dui_nav_description</code> */
+
+  /** Represents the CSS class for the navigation bar description text. */
   CssClass dui_nav_description = () -> "dui-nav-description";
 }

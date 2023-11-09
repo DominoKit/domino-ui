@@ -13,6 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package org.dominokit.domino.ui.datatable.plugins.tree;
 
 import static java.util.Objects.nonNull;
@@ -28,6 +29,8 @@ import org.dominokit.domino.ui.datatable.plugins.DataTablePlugin;
 import org.dominokit.domino.ui.datatable.plugins.HasPluginConfig;
 import org.dominokit.domino.ui.datatable.plugins.tree.events.TreeRowCollapsedEvent;
 import org.dominokit.domino.ui.datatable.plugins.tree.events.TreeRowExpandedEvent;
+import org.dominokit.domino.ui.datatable.plugins.tree.events.TreeRowOnBeforeCollapseEvent;
+import org.dominokit.domino.ui.datatable.plugins.tree.events.TreeRowOnBeforeExpandEvent;
 import org.dominokit.domino.ui.elements.DivElement;
 import org.dominokit.domino.ui.icons.Icon;
 import org.dominokit.domino.ui.icons.ToggleIcon;
@@ -35,19 +38,37 @@ import org.dominokit.domino.ui.utils.ComponentMeta;
 import org.dominokit.domino.ui.utils.DominoElement;
 import org.dominokit.domino.ui.utils.Unit;
 
-/** TreeGridPlugin class. */
+/**
+ * The TreeGridPlugin is a DataTable plugin that allows you to create hierarchical tables with
+ * expandable/collapsible rows. It provides functionality to expand and collapse rows, making it
+ * easy to display tree-like data structures in your DataTable. This plugin adds a utility column to
+ * the DataTable for expand/collapse icons in each row.
+ *
+ * <p>Usage example:
+ *
+ * <pre>
+ * TreeGridPlugin<MyData> treeGridPlugin = new TreeGridPlugin<>();
+ * treeGridPlugin.expandAllRows(true);
+ *
+ * DataTable<MyData> dataTable = DataTable.create();
+ * dataTable.addPlugin(treeGridPlugin);
+ * </pre>
+ *
+ * All rows in the DataTable can be expanded or collapsed at once using the expandAllRows and
+ * collapseAllRows methods. You can also expand or collapse individual rows using the expandRow and
+ * collapseRow methods.
+ */
 public class TreeGridPlugin<T>
     implements DataTablePlugin<T>, HasPluginConfig<T, TreeGridPlugin<T>, TreePluginConfig<T>> {
 
-  /** Constant <code>TREE_GRID_ROW_LEVEL="tree-grid-row-level"</code> */
   public static final String TREE_GRID_ROW_LEVEL = "tree-grid-row-level";
-  /** Constant <code>TREE_GRID_ROW_TOGGLE_ICON="tree-grid-row-toggle-icon"</code> */
+
   public static final String TREE_GRID_ROW_TOGGLE_ICON = "tree-grid-row-toggle-icon";
-  /** Constant <code>TREE_GRID_EXPAND_COLLAPSE="plugin-utility-column"</code> */
+
   public static final String TREE_GRID_EXPAND_COLLAPSE = "plugin-utility-column";
-  /** Constant <code>BASE_PADDING=10</code> */
+
   public static final int BASE_PADDING = 10;
-  /** Constant <code>ICON_ORDER="10"</code> */
+
   public static final String ICON_ORDER = "10";
 
   private ToggleIcon<?, ?> headerIcon;
@@ -55,32 +76,43 @@ public class TreeGridPlugin<T>
   private DataTable<T> dataTable;
   private TreePluginConfig<T> config;
 
-  /** Constructor for TreeGridPlugin. */
+  /** Constructs a new TreeGridPlugin with default configuration. */
   public TreeGridPlugin() {
     config = new TreePluginConfig<>();
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Initializes the TreeGridPlugin with the given DataTable. This method is called by the DataTable
+   * when the plugin is added. It sets up the necessary configuration and applies the TreeStateMeta
+   * to keep track of the tree state.
+   *
+   * @param dataTable The DataTable to which this plugin is being added.
+   */
   @Override
   public void init(DataTable<T> dataTable) {
     this.dataTable = dataTable;
     this.dataTable.applyMeta(TreeStateMeta.create());
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Indicates whether this plugin requires a utility column in the DataTable. The utility column is
+   * used to display expand/collapse icons for tree rows.
+   *
+   * @return {@code true} if a utility column is required, {@code false} otherwise.
+   */
   @Override
   public boolean requiresUtilityColumn() {
     return true;
   }
 
   /**
-   * If the row has children it will expand the row, and based on recursive value it might also
-   * expand its children sub-children
+   * Expands a specific row in the DataTable.
    *
-   * @param row {@link org.dominokit.domino.ui.datatable.TableRow} to be expanded
-   * @param recursive boolean, if true will recursively expand the row children
+   * @param row The TableRow to expand.
+   * @param recursive Whether to recursively expand child rows.
    */
-  public final void expandRow(TableRow<T> row, boolean recursive) {
+  public void expandRow(TableRow<T> row, boolean recursive) {
+    this.dataTable.fireTableEvent(new TreeRowOnBeforeExpandEvent<>(row));
     if (config.isLazy()) {
       TreeGridRowSubItemsMeta.get(row)
           .ifPresent(
@@ -119,10 +151,18 @@ public class TreeGridPlugin<T>
       if (row.isRoot()) {
         increment();
       }
+      this.dataTable.fireTableEvent(new TreeRowExpandedEvent<>(row));
     }
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Handles the event when a new row is added to the DataTable. If the TreeGridPlugin is not
+   * configured as lazy, it adds the children of the row to the table. If the added row was
+   * previously expanded, it ensures that the child rows are visible as well.
+   *
+   * @param dataTable The DataTable to which the row is added.
+   * @param tableRow The TableRow that was added.
+   */
   @Override
   public void onRowAdded(DataTable<T> dataTable, TableRow<T> tableRow) {
     if (!config.isLazy()) {
@@ -139,12 +179,23 @@ public class TreeGridPlugin<T>
             });
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Handles the event when all rows are added to the DataTable. This method is called after all
+   * rows have been added.
+   *
+   * @param dataTable The DataTable to which rows are added.
+   */
   @Override
   public void onAllRowsAdded(DataTable<T> dataTable) {
     TreeStateMeta.get(this.dataTable).ifPresent(TreeStateMeta::onAllRowsAdded);
   }
 
+  /**
+   * Adds child rows to the given parent TableRow based on the TreeGridRowSubItemsMeta information.
+   * If the parent row already has children, the new child rows are added after the existing ones.
+   *
+   * @param tableRow The parent TableRow to which child rows are added.
+   */
   private void addRowChildren(TableRow<T> tableRow) {
     TreeGridRowSubItemsMeta.get(tableRow)
         .ifPresent(
@@ -198,10 +249,23 @@ public class TreeGridPlugin<T>
             });
   }
 
+  /**
+   * Checks if a TableRow is odd relative to its parent.
+   *
+   * @param subRow The TableRow to check.
+   * @param parent The parent TableRow.
+   * @return {@code true} if the subRow is odd, {@code false} otherwise.
+   */
   private boolean isOdd(TableRow<T> subRow, TableRow<T> parent) {
     return !dui_odd.isAppliedTo(subRow.element().previousElementSibling);
   }
 
+  /**
+   * Applies the indentation to a TableRow based on its level in the tree hierarchy. The indentation
+   * is determined by the TreeGridPlugin's configuration.
+   *
+   * @param tableRow The TableRow to which the indentation is applied.
+   */
   private void applyIndent(TableRow<T> tableRow) {
     TreeGridRowLevel treeGridRowLevel =
         tableRow
@@ -217,38 +281,47 @@ public class TreeGridPlugin<T>
   }
 
   /**
-   * If the row has children it will expand the row and recursively expand the row children
+   * Expands a specific row in the DataTable with recursive expansion of child rows.
    *
-   * @param row {@link org.dominokit.domino.ui.datatable.TableRow} to be expanded
+   * @param row The TableRow to expand.
    */
-  public final void expandRow(TableRow<T> row) {
+  public void expandRow(TableRow<T> row) {
     expandRow(row, true);
   }
 
   /**
-   * Expand all table rows, and based on recursive value it might also recursively expand all
-   * children
+   * Expands all rows in the DataTable. If "recursive" is set to true, child rows will also be
+   * expanded.
    *
-   * @param recursive boolean, if true will recursively expand the row children
+   * @param recursive If true, child rows will also be expanded; otherwise, only the parent rows are
+   *     expanded.
    */
-  public final void expandAllRows(boolean recursive) {
+  public void expandAllRows(boolean recursive) {
     dataTable.getRows().forEach(tableRow -> expandRow(tableRow, recursive));
   }
 
   /**
-   * If the row has children it will collapse the row.
+   * Collapses a specific row in the DataTable, hiding its child rows if any.
    *
-   * @param row {@link org.dominokit.domino.ui.datatable.TableRow} to be collapsed
+   * @param row The TableRow to collapse.
    */
-  public final void collapseRow(TableRow<T> row) {
+  public void collapseRow(TableRow<T> row) {
     collapse(row);
   }
 
-  /** Collapse all table row */
-  public final void collapseAllRows() {
+  /** Collapses all rows in the DataTable, hiding child rows if any. */
+  public void collapseAllRows() {
     dataTable.getRows().forEach(this::collapseRow);
   }
 
+  /**
+   * Expands a specific TableRow, making it visible, and optionally expanding its child rows
+   * recursively.
+   *
+   * @param row The TableRow to expand.
+   * @param recursive If true, child rows are expanded recursively; otherwise, only the direct child
+   *     rows are expanded.
+   */
   private void expand(TableRow<T> row, boolean recursive) {
     showRow(row);
     for (TableRow<T> child : row.getChildren()) {
@@ -268,11 +341,24 @@ public class TreeGridPlugin<T>
         });
   }
 
+  /**
+   * Makes a TableRow visible by displaying it in the DataTable.
+   *
+   * @param row The TableRow to show.
+   */
   private void showRow(TableRow<T> row) {
     row.show();
   }
 
+  /**
+   * Collapses a specific TableRow, hiding it, and optionally collapsing its child rows recursively.
+   *
+   * @param row The TableRow to collapse.
+   * @param recursive If true, child rows are collapsed recursively; otherwise, only the direct
+   *     child rows are collapsed.
+   */
   private void collapse(TableRow<T> row) {
+    this.dataTable.fireTableEvent(new TreeRowOnBeforeCollapseEvent<>(row));
     Optional<TreeGridRowToggleIcon> iconMeta = row.getMeta(TREE_GRID_ROW_TOGGLE_ICON);
     iconMeta.ifPresent(
         meta -> {
@@ -302,6 +388,7 @@ public class TreeGridPlugin<T>
     this.dataTable.fireTableEvent(new TreeRowCollapsedEvent<>(row));
   }
 
+  /** Increments the count of expanded rows and toggles the header icon if needed. */
   private void increment() {
     expandedCount++;
     if (!headerIcon.isToggled()) {
@@ -309,6 +396,9 @@ public class TreeGridPlugin<T>
     }
   }
 
+  /**
+   * Decrements the count of expanded rows and toggles the header icon if all rows are collapsed.
+   */
   private void decrement() {
     expandedCount--;
     if (expandedCount == 0 && headerIcon.isToggled()) {
@@ -316,6 +406,12 @@ public class TreeGridPlugin<T>
     }
   }
 
+  /**
+   * Gets the DOM element of the cell associated with a TableRow.
+   *
+   * @param subRow The TableRow for which the cell element is retrieved.
+   * @return A DominoElement representing the cell element.
+   */
   private DominoElement<HTMLTableCellElement> getRowCellElement(TableRow<T> subRow) {
     return elements.elementOf(
         subRow
@@ -325,7 +421,13 @@ public class TreeGridPlugin<T>
             .getElement());
   }
 
-  /** Adds the expand/collapse/leaf icons to the plugins utility columns cells {@inheritDoc} */
+  /**
+   * Generates utility elements to be displayed in a cell of the DataTable.
+   *
+   * @param dataTable The DataTable instance.
+   * @param cellInfo Information about the cell.
+   * @return A list of utility elements to be displayed in the cell.
+   */
   @Override
   public Optional<List<HTMLElement>> getUtilityElements(
       DataTable<T> dataTable, CellRenderer.CellInfo<T> cellInfo) {
@@ -362,6 +464,12 @@ public class TreeGridPlugin<T>
     return Optional.of(elementsList);
   }
 
+  /**
+   * Initializes the utility elements for a leaf node in the tree.
+   *
+   * @param elements A list of utility elements to which the leaf icon will be added.
+   * @param tableRow The TableRow representing the leaf node.
+   */
   private void initLeaf(List<HTMLElement> elements, TableRow<T> tableRow) {
     Icon<?> icon = config.getLeafIconSupplier().get().addCss("dt-tree-grid-leaf");
     icon.setAttribute("order", ICON_ORDER);
@@ -369,6 +477,12 @@ public class TreeGridPlugin<T>
     elements.add(icon.element());
   }
 
+  /**
+   * Initializes the utility elements for a parent node in the tree.
+   *
+   * @param elements A list of utility elements to which the expand/collapse icon will be added.
+   * @param tableRow The TableRow representing the parent node.
+   */
   private void initParent(List<HTMLElement> elements, TableRow<T> tableRow) {
     ToggleIcon<?, ?> icon = initExpandCollapseIcons(tableRow);
     icon.setAttribute("order", ICON_ORDER);
@@ -376,6 +490,12 @@ public class TreeGridPlugin<T>
     elements.add(icon.element());
   }
 
+  /**
+   * Initializes the expand/collapse icon for a parent node in the tree.
+   *
+   * @param tableRow The TableRow representing the parent node.
+   * @return The initialized ToggleIcon for expand/collapse functionality.
+   */
   private ToggleIcon<?, ?> initExpandCollapseIcons(TableRow<T> tableRow) {
     ToggleIcon<?, ?> icon;
     icon = config.getExpandToggleIconSupplier().get().clickable();
@@ -391,7 +511,12 @@ public class TreeGridPlugin<T>
     return icon;
   }
 
-  /** Adds the Expand all/collapse all to the plugins utility column header {@inheritDoc} */
+  /**
+   * Handles the event when a header is added to the DataTable.
+   *
+   * @param dataTable The DataTable instance.
+   * @param column The ColumnConfig that was added as a header.
+   */
   @Override
   public void onHeaderAdded(DataTable<T> dataTable, ColumnConfig<T> column) {
     if (column.isUtilityColumn()) {
@@ -411,7 +536,12 @@ public class TreeGridPlugin<T>
     }
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Handles the event before adding a row to the DataTable.
+   *
+   * @param dataTable The DataTable instance.
+   * @param tableRow The TableRow to be added.
+   */
   @Override
   public void onBeforeAddRow(DataTable<T> dataTable, TableRow<T> tableRow) {
     if (config.isLazy()) {
@@ -434,7 +564,12 @@ public class TreeGridPlugin<T>
     }
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Handles table-related events such as sorting, searching, data updates, and pagination. Updates
+   * the header icon and resets the expanded count if necessary.
+   *
+   * @param event The table event to handle.
+   */
   @Override
   public void handleEvent(TableEvent event) {
     switch (event.getType()) {
@@ -452,33 +587,49 @@ public class TreeGridPlugin<T>
     }
   }
 
+  /**
+   * Checks if a collection of items has children.
+   *
+   * @param items The collection of items to check.
+   * @return {@code true} if the collection is present and not empty; otherwise, {@code false}.
+   */
   private boolean hasChildren(Optional<Collection<T>> items) {
     return items.isPresent() && !items.get().isEmpty();
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Sets the configuration for the TreeGridPlugin.
+   *
+   * @param config The configuration to set.
+   * @return The TreeGridPlugin instance.
+   */
   @Override
   public TreeGridPlugin<T> setConfig(TreePluginConfig<T> config) {
     this.config = config;
     return this;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Retrieves the current configuration of the TreeGridPlugin.
+   *
+   * @return The current TreePluginConfig instance.
+   */
   @Override
   public TreePluginConfig<T> getConfig() {
     return config;
   }
 
   /**
-   * Functional interface to provide the cells to be rendered in a parent row
+   * Functional interface for supplying parent row cells.
    *
-   * @param <T> Type of the table records
+   * @param <T> The data type of the DataTable.
    */
   @FunctionalInterface
   public interface ParentRowCellsSupplier<T> {
     List<RowCell<T>> get(DataTable<T> dataTable, TableRow<T> tableRow);
   }
 
+  /** Inner class representing the level of a tree grid row. */
   private static class TreeGridRowLevel implements ComponentMeta {
     private final int level;
 
@@ -492,6 +643,7 @@ public class TreeGridPlugin<T>
     }
   }
 
+  /** Inner class representing the toggle icon for a tree grid row. */
   private static class TreeGridRowToggleIcon implements ComponentMeta {
     private final Icon<?> icon;
 

@@ -17,22 +17,37 @@ package org.dominokit.domino.ui.elements;
 
 import elemental2.dom.HTMLOutputElement;
 
-/** OutputElement class. */
+/**
+ * Represents an HTML <output> element wrapper.
+ *
+ * <p>The HTML <output> element represents the result of a calculation or user action. This class
+ * provides a convenient way to create, manipulate, and control the behavior of <output> elements in
+ * Java-based web applications. Example usage:
+ *
+ * <pre>
+ * HTMLOutputElement outputElement = ...;  // Obtain an <output> element from somewhere
+ * OutputElement output = OutputElement.of(outputElement);
+ * </pre>
+ *
+ * @see <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/output">MDN Web Docs
+ *     (output)</a>
+ */
 public class OutputElement extends BaseElement<HTMLOutputElement, OutputElement> {
+
   /**
-   * of.
+   * Creates a new {@link OutputElement} instance by wrapping the provided HTML <output> element.
    *
-   * @param e a {@link elemental2.dom.HTMLOutputElement} object
-   * @return a {@link org.dominokit.domino.ui.elements.OutputElement} object
+   * @param e The HTML <output> element to wrap.
+   * @return A new {@link OutputElement} instance wrapping the provided element.
    */
   public static OutputElement of(HTMLOutputElement e) {
     return new OutputElement(e);
   }
 
   /**
-   * Constructor for OutputElement.
+   * Constructs an {@link OutputElement} instance by wrapping the provided HTML <output> element.
    *
-   * @param element a {@link elemental2.dom.HTMLOutputElement} object
+   * @param element The HTML <output> element to wrap.
    */
   public OutputElement(HTMLOutputElement element) {
     super(element);

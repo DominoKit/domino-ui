@@ -17,13 +17,15 @@ package org.dominokit.domino.ui.datatable.plugins.column;
 
 import org.dominokit.domino.ui.datatable.ColumnConfig;
 
+/** The functional interface for pinning columns in a DataTable. */
 interface PinColumnFunction {
+
   /**
-   * pin.
+   * Pins a column to a specified position in a DataTable.
    *
-   * @param column a {@link org.dominokit.domino.ui.datatable.ColumnConfig} object
-   * @param position a double
-   * @return a double
+   * @param column The column to be pinned.
+   * @param position The position to which the column should be pinned.
+   * @return The new position of the column after pinning.
    */
   double pin(ColumnConfig<?> column, double position);
 }

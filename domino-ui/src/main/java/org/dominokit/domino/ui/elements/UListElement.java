@@ -17,22 +17,50 @@ package org.dominokit.domino.ui.elements;
 
 import elemental2.dom.HTMLUListElement;
 
-/** UListElement class. */
+/**
+ * Represents an HTML
+ *
+ * <ul>
+ *   element wrapper.
+ *   <p>The HTML
+ *   <ul>
+ *     element is used to create an unordered list of items. Each item in the list is represented by
+ *     an
+ *     <li>(list item) element, which can contain text, images, links, or other HTML elements.
+ *         Example usage:
+ *         <pre>
+ * HTMLUListElement ulElement = ...;  // Obtain a <ul> element from somewhere
+ * UListElement ulList = UListElement.of(ulElement);
+ * </pre>
+ *
+ * @see <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/ul">MDN Web Docs (ul)</a>
+ */
 public class UListElement extends BaseElement<HTMLUListElement, UListElement> {
+
   /**
-   * of.
+   * Creates a new {@link UListElement} instance by wrapping the provided HTML
    *
-   * @param e a {@link elemental2.dom.HTMLUListElement} object
-   * @return a {@link org.dominokit.domino.ui.elements.UListElement} object
+   * <ul>
+   *   element.
+   *
+   * @param e The HTML
+   *     <ul>
+   *       element to wrap.
+   * @return A new {@link UListElement} instance wrapping the provided element.
    */
   public static UListElement of(HTMLUListElement e) {
     return new UListElement(e);
   }
 
   /**
-   * Constructor for UListElement.
+   * Constructs a {@link UListElement} instance by wrapping the provided HTML
    *
-   * @param element a {@link elemental2.dom.HTMLUListElement} object
+   * <ul>
+   *   element.
+   *
+   * @param element The HTML
+   *     <ul>
+   *       element to wrap.
    */
   public UListElement(HTMLUListElement element) {
     super(element);

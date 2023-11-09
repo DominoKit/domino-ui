@@ -13,6 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package org.dominokit.domino.ui.datatable.plugins.tree;
 
 import static java.util.Objects.isNull;
@@ -29,10 +30,14 @@ import org.dominokit.domino.ui.icons.ToggleIcon;
 import org.dominokit.domino.ui.icons.ToggleMdiIcon;
 import org.dominokit.domino.ui.icons.lib.Icons;
 
-/** TreePluginConfig class. */
+/**
+ * Configuration class for the TreeGridPlugin, which adds tree-like functionality to a DataTable.
+ *
+ * @param <T> The data type of the DataTable.
+ */
 public class TreePluginConfig<T> implements PluginConfig {
 
-  /** Constant <code>DEFAULT_INDENT=20</code> */
+  /** The default indentation value for tree grid rows. */
   public static final int DEFAULT_INDENT = 20;
 
   private boolean lazy = false;
@@ -43,23 +48,23 @@ public class TreePluginConfig<T> implements PluginConfig {
   private Function<TableRow<T>, Node> indentColumnElementSupplier = tableRow -> elements.text();
   private int indent = DEFAULT_INDENT;
 
-  /** Constructor for TreePluginConfig. */
+  /** Constructs a new TreePluginConfig with default settings. */
   public TreePluginConfig() {}
 
   /**
-   * isLazy.
+   * Checks if lazy loading of child rows is enabled.
    *
-   * @return a boolean
+   * @return {@code true} if lazy loading is enabled; otherwise, {@code false}.
    */
   public boolean isLazy() {
     return lazy;
   }
 
   /**
-   * Setter for the field <code>lazy</code>.
+   * Sets whether lazy loading of child rows should be enabled.
    *
-   * @param lazy a boolean
-   * @return a {@link org.dominokit.domino.ui.datatable.plugins.tree.TreePluginConfig} object
+   * @param lazy {@code true} to enable lazy loading; {@code false} to disable it.
+   * @return The TreePluginConfig instance.
    */
   public TreePluginConfig<T> setLazy(boolean lazy) {
     this.lazy = lazy;
@@ -67,23 +72,19 @@ public class TreePluginConfig<T> implements PluginConfig {
   }
 
   /**
-   * Getter for the field <code>parentRowCellsSupplier</code>.
+   * Retrieves the supplier for parent row cells.
    *
-   * @return a {@link
-   *     org.dominokit.domino.ui.datatable.plugins.tree.TreeGridPlugin.ParentRowCellsSupplier}
-   *     object
+   * @return The supplier for parent row cells.
    */
   public TreeGridPlugin.ParentRowCellsSupplier<T> getParentRowCellsSupplier() {
     return parentRowCellsSupplier;
   }
 
   /**
-   * Set a supplier that provides cells to be rendered in a parent row cells, this can be used to
-   * provide a custom UI for parent rows
+   * Sets the supplier for parent row cells.
    *
-   * @param parentRowCellsSupplier {@link
-   *     org.dominokit.domino.ui.datatable.plugins.tree.TreeGridPlugin.ParentRowCellsSupplier}
-   * @return Same config instance
+   * @param parentRowCellsSupplier The supplier for parent row cells.
+   * @return The TreePluginConfig instance.
    */
   public TreePluginConfig<T> setParentRowCellsSupplier(
       TreeGridPlugin.ParentRowCellsSupplier<T> parentRowCellsSupplier) {
@@ -92,20 +93,19 @@ public class TreePluginConfig<T> implements PluginConfig {
   }
 
   /**
-   * Getter for the field <code>expandToggleIconSupplier</code>.
+   * Retrieves the supplier for the expand/collapse toggle icon.
    *
-   * @return a {@link java.util.function.Supplier} object
+   * @return The supplier for the expand/collapse toggle icon.
    */
   public Supplier<ToggleIcon<?, ?>> getExpandToggleIconSupplier() {
     return expandToggleIconSupplier;
   }
 
   /**
-   * Sets a supplier for a custom expand icon instead of the default one
+   * Sets the supplier for the expand/collapse toggle icon.
    *
-   * @param expandIconSupplier {@link java.util.function.Supplier} of {@link
-   *     org.dominokit.domino.ui.icons.Icon}
-   * @return Same config instance
+   * @param expandIconSupplier The supplier for the expand/collapse toggle icon.
+   * @return The TreePluginConfig instance.
    */
   public TreePluginConfig<T> setExpandToggleIconSupplier(
       Supplier<ToggleIcon<?, ?>> expandIconSupplier) {
@@ -119,20 +119,19 @@ public class TreePluginConfig<T> implements PluginConfig {
   }
 
   /**
-   * Getter for the field <code>leafIconSupplier</code>.
+   * Retrieves the supplier for the leaf icon.
    *
-   * @return a {@link java.util.function.Supplier} object
+   * @return The supplier for the leaf icon.
    */
   public Supplier<Icon<?>> getLeafIconSupplier() {
     return leafIconSupplier;
   }
 
   /**
-   * Sets a supplier for a custom leaf row icon instead of the default one
+   * Sets the supplier for the leaf icon.
    *
-   * @param leafIconSupplier {@link java.util.function.Supplier} of {@link
-   *     org.dominokit.domino.ui.icons.Icon}
-   * @return Same config instance
+   * @param leafIconSupplier The supplier for the leaf icon.
+   * @return The TreePluginConfig instance.
    */
   public TreePluginConfig<T> setLeafIconSupplier(Supplier<Icon<?>> leafIconSupplier) {
     if (isNull(leafIconSupplier)) {
@@ -144,21 +143,19 @@ public class TreePluginConfig<T> implements PluginConfig {
   }
 
   /**
-   * Getter for the field <code>indentColumnElementSupplier</code>.
+   * Retrieves the supplier for the indent column element.
    *
-   * @return a {@link java.util.function.Function} object
+   * @return The supplier for the indent column element.
    */
   public Function<TableRow<T>, Node> getIndentColumnElementSupplier() {
     return indentColumnElementSupplier;
   }
 
   /**
-   * Sets a supplier of elements to be appended to the tree grid indent column as part of the
-   * utility columns cells
+   * Sets the supplier for the indent column element.
    *
-   * @param indentColumnElementSupplier {@link java.util.function.Function} that takes a {@link
-   *     org.dominokit.domino.ui.datatable.TableRow} and return a {@link elemental2.dom.Node}
-   * @return same config instance
+   * @param indentColumnElementSupplier The supplier for the indent column element.
+   * @return The TreePluginConfig instance.
    */
   public TreePluginConfig<T> setIndentColumnElementSupplier(
       Function<TableRow<T>, Node> indentColumnElementSupplier) {
@@ -167,19 +164,19 @@ public class TreePluginConfig<T> implements PluginConfig {
   }
 
   /**
-   * Getter for the field <code>indent</code>.
+   * Retrieves the indentation value for tree grid rows.
    *
-   * @return a int
+   * @return The indentation value.
    */
   public int getIndent() {
     return indent;
   }
 
   /**
-   * Sets indent value to be added for each tree gird level
+   * Sets the indentation value for tree grid rows.
    *
-   * @param indent int
-   * @return Same config instance
+   * @param indent The indentation value.
+   * @return The TreePluginConfig instance.
    */
   public TreePluginConfig<T> setIndent(int indent) {
     if (indent < 0) {

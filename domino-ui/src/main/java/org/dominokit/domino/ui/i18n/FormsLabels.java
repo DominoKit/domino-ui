@@ -15,35 +15,40 @@
  */
 package org.dominokit.domino.ui.i18n;
 
-/** FormsLabels interface. */
+/**
+ * The {@code FormsLabels} interface provides labels and messages related to form validation and
+ * input fields. It extends the {@link Labels} interface, which provides common labels.
+ */
 public interface FormsLabels extends Labels {
 
   /**
-   * requiredErrorMessage.
+   * Gets the error message to display when a required field is not filled.
    *
-   * @return a {@link java.lang.String} object
+   * @return The error message for a required field.
    */
   default String requiredErrorMessage() {
     return "* This field is required.";
   }
 
   /**
-   * getMinErrorMessage.
+   * Gets the error message to display when the input length is less than the specified minimum
+   * length.
    *
-   * @param minLength a int
-   * @param length a int
-   * @return a {@link java.lang.String} object
+   * @param minLength The minimum allowed length.
+   * @param length The current length of the input.
+   * @return The error message for input length less than the minimum.
    */
   default String getMinErrorMessage(int minLength, int length) {
     return "Minimum length is " + minLength + " , current length is : " + length;
   }
 
   /**
-   * getMaxErrorMessage.
+   * Gets the error message to display when the input length is greater than the specified maximum
+   * length.
    *
-   * @param maxLength a int
-   * @param length a int
-   * @return a {@link java.lang.String} object
+   * @param maxLength The maximum allowed length.
+   * @param length The current length of the input.
+   * @return The error message for input length greater than the maximum.
    */
   default String getMaxErrorMessage(int maxLength, int length) {
     return "Maximum length is " + maxLength + " , current length is : " + length;

@@ -13,6 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package org.dominokit.domino.ui.icons;
 
 import elemental2.dom.HTMLElement;
@@ -20,15 +21,31 @@ import org.dominokit.domino.ui.IsElement;
 import org.dominokit.domino.ui.style.CssClass;
 import org.dominokit.domino.ui.style.SwapCssClass;
 
-/** Url icon implementation */
+/**
+ * The {@code ElementIcon} class represents an icon that wraps an existing {@link IsElement}
+ * instance.
+ */
 public class ElementIcon extends Icon<ElementIcon> implements CanChangeIcon<ElementIcon> {
 
   private final IsElement<? extends HTMLElement> element;
 
+  /**
+   * Creates a new {@code ElementIcon} instance with the provided {@link IsElement} and icon name.
+   *
+   * @param element The {@link IsElement} to wrap as an icon.
+   * @param name The CSS class name representing the icon.
+   */
   private ElementIcon(IsElement<? extends HTMLElement> element, String name) {
     this(element, () -> name);
   }
 
+  /**
+   * Creates a new {@code ElementIcon} instance with the provided {@link IsElement} and icon CSS
+   * class.
+   *
+   * @param element The {@link IsElement} to wrap as an icon.
+   * @param name The {@link CssClass} representing the icon.
+   */
   private ElementIcon(IsElement<? extends HTMLElement> element, CssClass name) {
     this.element = element;
     this.name = SwapCssClass.of(name);
@@ -37,23 +54,33 @@ public class ElementIcon extends Icon<ElementIcon> implements CanChangeIcon<Elem
   }
 
   /**
-   * Creates an icon with a specific {@code url} and a name
+   * Creates a new {@code ElementIcon} instance with the provided {@link IsElement} and icon name.
    *
-   * @param element the element to use as an icon
-   * @param name the name of the icon
-   * @return new instance
+   * @param element The {@link IsElement} to wrap as an icon.
+   * @param name The CSS class name representing the icon.
+   * @return A new {@code ElementIcon} instance.
    */
   public static ElementIcon create(IsElement<? extends HTMLElement> element, String name) {
     return new ElementIcon(element, name);
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Creates a new {@code ElementIcon} instance that is a copy of this icon.
+   *
+   * @return A new {@code ElementIcon} instance with the same {@link IsElement} and icon
+   *     representation.
+   */
   @Override
   public ElementIcon copy() {
     return new ElementIcon(element, name);
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Changes the icon representation to the provided {@code icon}.
+   *
+   * @param icon The {@code ElementIcon} to change to.
+   * @return This {@code ElementIcon} instance after changing the icon representation.
+   */
   @Override
   public ElementIcon changeTo(ElementIcon icon) {
     removeCss(getName());

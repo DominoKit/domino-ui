@@ -13,6 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package org.dominokit.domino.ui.datepicker;
 
 import static java.util.Objects.isNull;
@@ -22,7 +23,14 @@ import java.util.Date;
 import org.dominokit.domino.ui.elements.DivElement;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
 
-/** CalendarMonth class. */
+/**
+ * Represents a month view in the calendar component.
+ *
+ * <p>It displays the days of a month, provides functionality for selecting days, and interacts with
+ * calendar plugins to customize the behavior and appearance of the month view.
+ *
+ * @see BaseDominoElement
+ */
 public class CalendarMonth extends BaseDominoElement<HTMLDivElement, CalendarMonth>
     implements CalendarStyles, CalendarViewListener {
 
@@ -34,9 +42,9 @@ public class CalendarMonth extends BaseDominoElement<HTMLDivElement, CalendarMon
   private CalendarDay selectedDay;
 
   /**
-   * Constructor for CalendarMonth.
+   * Creates a new month view for the given calendar.
    *
-   * @param calendar a {@link org.dominokit.domino.ui.datepicker.IsCalendar} object
+   * @param calendar The calendar this month view is associated with
    */
   public CalendarMonth(IsCalendar calendar) {
     this.calendar = calendar;
@@ -48,10 +56,10 @@ public class CalendarMonth extends BaseDominoElement<HTMLDivElement, CalendarMon
   }
 
   /**
-   * create.
+   * Factory method to create a new instance of CalendarMonth.
    *
-   * @param calendar a {@link org.dominokit.domino.ui.datepicker.IsCalendar} object
-   * @return a {@link org.dominokit.domino.ui.datepicker.CalendarMonth} object
+   * @param calendar The calendar to associate with the month view
+   * @return A new instance of CalendarMonth
    */
   public static CalendarMonth create(IsCalendar calendar) {
     return new CalendarMonth(calendar);
@@ -68,6 +76,7 @@ public class CalendarMonth extends BaseDominoElement<HTMLDivElement, CalendarMon
 
   private void updateView() {
     this.root.clearElement();
+    int firstDayOfTheWeek = this.calendar.getDateTimeFormatInfo().firstDayOfTheWeek();
     Date tempDate = new Date(this.date.getYear(), this.date.getMonth(), 1);
 
     int monthFirstDay = tempDate.getDay() == 0 ? 7 : tempDate.getDay();
@@ -77,17 +86,26 @@ public class CalendarMonth extends BaseDominoElement<HTMLDivElement, CalendarMon
             .addCss(dui_month_days_header)
             .apply(
                 daysHeader -> {
-                  for (int i = 0; i < 7; i++) {
-                    daysHeader.appendChild(WeekDayHeader.create(this.calendar, i));
+                  int index = firstDayOfTheWeek;
+                  while (index != -1) {
+                    daysHeader.appendChild(WeekDayHeader.create(this.calendar, index));
+                    index = index + 1;
+                    if (index > 6) {
+                      index = 0;
+                    }
+                    if (index == firstDayOfTheWeek) {
+                      index = -1;
+                    }
                   }
                 }));
     this.monthData = new MonthData(this.date);
     MonthData monthBefore = monthData.getMonthBefore();
     MonthData monthAfter = monthData.getMonthAfter();
 
-    int diff = monthFirstDay + 1;
+    int offset = Math.abs(monthFirstDay - firstDayOfTheWeek);
+    int diff = offset + 1;
     int[] currentDaysCounter = new int[] {0};
-    int[] monthBeforeDaysCounter = new int[] {monthBefore.getDaysCount() - monthFirstDay + 1};
+    int[] monthBeforeDaysCounter = new int[] {monthBefore.getDaysCount() - offset + 1};
     int[] monthAfterDaysCounter = new int[] {1};
 
     int[] index = new int[] {0};
@@ -99,7 +117,7 @@ public class CalendarMonth extends BaseDominoElement<HTMLDivElement, CalendarMon
                   daysRow -> {
                     for (int day = 0; day < 7; day++) {
                       CalendarDay calendarDay;
-                      if (index[0] < monthFirstDay) {
+                      if (index[0] < offset) {
                         calendarDay =
                             CalendarDay.create(
                                 this.calendar,
@@ -110,7 +128,7 @@ public class CalendarMonth extends BaseDominoElement<HTMLDivElement, CalendarMon
                                 day,
                                 false);
                         monthBeforeDaysCounter[0] = monthBeforeDaysCounter[0] + 1;
-                      } else if (index[0] >= monthFirstDay
+                      } else if (index[0] >= offset
                           && index[0] < (monthData.getDaysCount() + diff - 1)) {
                         calendarDay =
                             CalendarDay.create(
@@ -159,19 +177,33 @@ public class CalendarMonth extends BaseDominoElement<HTMLDivElement, CalendarMon
     }
   }
 
-  /** {@inheritDoc} */
+  /**
+   * {@inheritDoc}
+   *
+   * <p>Returns the root element of the month view.
+   *
+   * @return The root element of the month view
+   */
   @Override
   public HTMLDivElement element() {
     return this.root.element();
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Listener method triggered when the calendar view is updated.
+   *
+   * @param date The new date to be reflected in the calendar view
+   */
   @Override
   public void onUpdateCalendarView(Date date) {
     setDate(date);
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Listener method triggered when a new date is selected.
+   *
+   * @param date The newly selected date
+   */
   @Override
   public void onDateSelectionChanged(Date date) {
     setDate(date);

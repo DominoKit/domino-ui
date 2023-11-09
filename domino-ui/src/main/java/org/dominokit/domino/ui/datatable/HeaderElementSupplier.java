@@ -13,18 +13,20 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package org.dominokit.domino.ui.datatable;
 
 import elemental2.dom.Node;
 
-/** An interface to provide different implementations for a column header content */
+/** A functional interface for supplying header elements in a data table. */
 @FunctionalInterface
 public interface HeaderElementSupplier {
+
   /**
-   * asElement.
+   * Provides a header element based on the given column title.
    *
-   * @param columnTitle String column title
-   * @return the {@link elemental2.dom.Node} representing the column header content
+   * @param columnTitle The title of the column.
+   * @return The header element.
    */
   Node asElement(String columnTitle);
 }

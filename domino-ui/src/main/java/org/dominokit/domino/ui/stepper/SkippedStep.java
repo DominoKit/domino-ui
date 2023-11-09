@@ -21,9 +21,19 @@ import org.dominokit.domino.ui.icons.lib.Icons;
 import org.dominokit.domino.ui.style.ColorsCss;
 import org.dominokit.domino.ui.style.SpacingCss;
 
-/** SkippedStep class. */
+/**
+ * Represents a "Skipped" step in a stepper component. Skipped steps indicate that they have been
+ * skipped in the progression of the stepper. This step state applies visual changes to the
+ * StepTracker when it is in the "Skipped" state. It displays a specific icon and styling to
+ * indicate that the step has been skipped.
+ */
 public class SkippedStep implements StepState {
-  /** {@inheritDoc} */
+
+  /**
+   * Applies visual changes to the StepTracker when it is in the "Skipped" state.
+   *
+   * @param tracker The StepTracker to which the "Skipped" step state is applied.
+   */
   @Override
   public void apply(StepTracker tracker) {
     tracker
@@ -35,7 +45,11 @@ public class SkippedStep implements StepState {
                     .addCss(dui_info));
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Cleans up any applied visual changes when the step is no longer in the "Skipped" state.
+   *
+   * @param tracker The StepTracker from which the "Skipped" step state is removed.
+   */
   @Override
   public void cleanUp(StepTracker tracker) {
     tracker
@@ -43,7 +57,11 @@ public class SkippedStep implements StepState {
         .withTrackerNode((parent1, node) -> node.clearElement().removeCss(dui_info));
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Gets the key associated with the "Skipped" step state, typically "SKIPPED."
+   *
+   * @return The key "SKIPPED."
+   */
   @Override
   public String getKey() {
     return "SKIPPED";

@@ -13,45 +13,50 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package org.dominokit.domino.ui.datatable.plugins.tree.events;
 
 import org.dominokit.domino.ui.datatable.TableRow;
 import org.dominokit.domino.ui.datatable.events.TableEvent;
 
 /**
- * This event will be fired by the {@link
- * org.dominokit.domino.ui.datatable.plugins.row.RecordDetailsPlugin} when a record is expanded
+ * The <code>TreeRowCollapsedEvent</code> class represents an event that is triggered when a
+ * tree-like structure's row is collapsed in a DataTable.
  *
- * @param <T> the type of the record.
+ * @param <T> The type of data stored in the DataTable.
  */
 public class TreeRowCollapsedEvent<T> implements TableEvent {
 
-  /** A constant string to define a unique type for this event */
+  /** The key used to identify this event type. */
   public static final String TREE_ROW_COLLAPSED_EVENT = "tree-row-collapsed-event";
 
+  /** The TableRow associated with this event. */
   private final TableRow<T> tableRow;
 
-  /** @param tableRow the {@link TableRow} being expanded */
   /**
-   * Constructor for TreeRowCollapsedEvent.
+   * Creates a new instance of <code>TreeRowCollapsedEvent</code> with the specified TableRow.
    *
-   * @param tableRow a {@link org.dominokit.domino.ui.datatable.TableRow} object
+   * @param tableRow The TableRow associated with this event.
    */
   public TreeRowCollapsedEvent(TableRow<T> tableRow) {
     this.tableRow = tableRow;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Retrieves the type of this event, which is identified by the constant value {@link
+   * TreeRowCollapsedEvent#TREE_ROW_COLLAPSED_EVENT}.
+   *
+   * @return The type of this event as a string.
+   */
   @Override
   public String getType() {
     return TREE_ROW_COLLAPSED_EVENT;
   }
 
-  /** @return the {@link TableRow} being expanded */
   /**
-   * Getter for the field <code>tableRow</code>.
+   * Retrieves the TableRow associated with this event.
    *
-   * @return a {@link org.dominokit.domino.ui.datatable.TableRow} object
+   * @return The TableRow associated with this event.
    */
   public TableRow<T> getTableRow() {
     return tableRow;

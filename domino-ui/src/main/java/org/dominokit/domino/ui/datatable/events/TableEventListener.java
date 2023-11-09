@@ -13,15 +13,19 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package org.dominokit.domino.ui.datatable.events;
 
-/** An interface to define a new listener for a Table event */
+/**
+ * The {@code TableEventListener} interface defines a contract for classes that can handle table
+ * events. Implementing classes should provide an implementation for the {@code handleEvent} method.
+ */
 public interface TableEventListener {
-  /** @param event the {@link TableEvent} being received */
+
   /**
-   * handleEvent.
+   * Handles a table event.
    *
-   * @param event a {@link org.dominokit.domino.ui.datatable.events.TableEvent} object
+   * @param event the table event to handle
    */
   void handleEvent(TableEvent event);
 }

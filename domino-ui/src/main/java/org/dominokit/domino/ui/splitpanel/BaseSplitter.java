@@ -27,6 +27,21 @@ import org.dominokit.domino.ui.events.EventType;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
 import org.dominokit.domino.ui.utils.ChildHandler;
 
+/**
+ * Represents the base splitter that allows for dynamic resizing of split panels.
+ *
+ * <p>Usage example:
+ *
+ * <pre>
+ * BaseSplitter splitter = new MyConcreteSplitter(panel1, panel2, mainPanel);
+ * splitter.withHandle((splitterInstance, handle) -> handle.addCss("my-handle-css"));
+ * </pre>
+ *
+ * <p>Note: This is an abstract class and must be subclassed to provide specific splitter behavior.
+ *
+ * @param <T> the specific type of splitter extending this base class
+ * @see BaseDominoElement
+ */
 abstract class BaseSplitter<T extends BaseSplitter<?>> extends BaseDominoElement<HTMLDivElement, T>
     implements HasSize, SplitStyles {
 
@@ -36,6 +51,13 @@ abstract class BaseSplitter<T extends BaseSplitter<?>> extends BaseDominoElement
   protected final DivElement handleElement;
   private double initialStartPosition = 0;
 
+  /**
+   * Constructor to create a BaseSplitter.
+   *
+   * @param first the first split panel
+   * @param second the second split panel
+   * @param mainPanel the main panel containing the split panels
+   */
   BaseSplitter(SplitPanel first, SplitPanel second, HasSplitPanels mainPanel) {
     element =
         div()
@@ -97,6 +119,14 @@ abstract class BaseSplitter<T extends BaseSplitter<?>> extends BaseDominoElement
         evt -> body().removeEventListener(EventType.touchmove.getName(), touchResizeListener));
   }
 
+  /**
+   * Resizes the panels based on the given position.
+   *
+   * @param first the first split panel
+   * @param second the second split panel
+   * @param currentPosition the current mouse or touch position
+   * @param mainPanel the main panel containing the split panels
+   */
   private void resize(
       SplitPanel first, SplitPanel second, double currentPosition, HasSplitPanels mainPanel) {
     double diff = currentPosition - initialStartPosition;
@@ -104,31 +134,38 @@ abstract class BaseSplitter<T extends BaseSplitter<?>> extends BaseDominoElement
     mainPanel.resizePanels(first, second, diff);
   }
 
+  /**
+   * Initiates the resize action for the panels.
+   *
+   * @param first the first split panel
+   * @param second the second split panel
+   * @param mainPanel the main panel containing the split panels
+   */
   private void startResize(SplitPanel first, SplitPanel second, HasSplitPanels mainPanel) {
     mainPanel.onResizeStart(first, second);
   }
 
   /**
-   * mousePosition.
+   * Extracts the mouse position from a mouse event. Must be implemented by subclasses.
    *
-   * @param event a {@link elemental2.dom.MouseEvent} object
-   * @return a double
+   * @param event the mouse event
+   * @return the mouse position
    */
   protected abstract double mousePosition(MouseEvent event);
 
   /**
-   * touchPosition.
+   * Extracts the touch position from a touch event. Must be implemented by subclasses.
    *
-   * @param event a {@link elemental2.dom.TouchEvent} object
-   * @return a double
+   * @param event the touch event
+   * @return the touch position
    */
   protected abstract double touchPosition(TouchEvent event);
 
   /**
-   * withHandle.
+   * Allows for customization of the splitter's handle.
    *
-   * @param handler a {@link org.dominokit.domino.ui.utils.ChildHandler} object
-   * @return a T object
+   * @param handler a child handler to customize the handle
+   * @return the instance of the splitter for method chaining
    */
   public T withHandle(ChildHandler<T, DivElement> handler) {
     handler.apply((T) this, handleElement);

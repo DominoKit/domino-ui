@@ -22,22 +22,29 @@ import org.dominokit.domino.ui.icons.ToggleIcon;
 import org.dominokit.domino.ui.icons.ToggleMdiIcon;
 import org.dominokit.domino.ui.icons.lib.Icons;
 
-/** CardConfig interface. */
+/**
+ * Implementations of this interface can be used to configure defaults for {@link
+ * org.dominokit.domino.ui.cards.Card} component
+ */
 public interface CardConfig extends ComponentConfig {
 
   /**
-   * getDefaultCardCollapseStrategySupplier.
+   * Use this method to define the default CollapseStrategy for card body
    *
-   * @return a {@link java.util.function.Supplier} object
+   * <p>Defaults to : {@code HeightCollapseStrategy}
+   *
+   * @return a {@code Supplier<CollapseStrategy>}
    */
   default Supplier<CollapseStrategy> getDefaultCardCollapseStrategySupplier() {
     return HeightCollapseStrategy::new;
   }
 
   /**
-   * getCardCollapseExpandIcon.
+   * Use this method to define the default card expand/collapse icons
    *
-   * @return a {@link java.util.function.Supplier} object
+   * <p>Defaults to : {@code chevron_up, chevron_down}
+   *
+   * @return a {@code Supplier<ToggleIcon<?, ?>>}
    */
   default Supplier<ToggleIcon<?, ?>> getCardCollapseExpandIcon() {
     return () -> ToggleMdiIcon.create(Icons.chevron_up(), Icons.chevron_down());

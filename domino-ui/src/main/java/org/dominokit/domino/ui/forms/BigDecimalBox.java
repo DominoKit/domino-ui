@@ -18,75 +18,107 @@ package org.dominokit.domino.ui.forms;
 import java.math.BigDecimal;
 import java.util.function.Function;
 
-/** A component that has an input to take/provide BigDecimal value */
+/**
+ * A specialized {@link NumberBox} for handling arbitrary-precision decimal values. This box allows
+ * for input and representation of {@link BigDecimal} values.
+ */
 public class BigDecimalBox extends NumberBox<BigDecimalBox, BigDecimal> {
 
-  /** @return a new instance without a label */
   /**
-   * create.
+   * Creates a new instance of BigDecimalBox with a default value set to {@link BigDecimal#ZERO}.
    *
-   * @return a {@link org.dominokit.domino.ui.forms.BigDecimalBox} object
+   * @return A new instance of BigDecimalBox.
    */
   public static BigDecimalBox create() {
     return new BigDecimalBox();
   }
 
   /**
-   * create.
+   * Creates a new instance of BigDecimalBox with the given label.
    *
-   * @param label String
-   * @return new instance with a label
+   * @param label The label to be used for the BigDecimalBox.
+   * @return A new instance of BigDecimalBox.
    */
   public static BigDecimalBox create(String label) {
     return new BigDecimalBox(label);
   }
 
-  /** Create instance without a label */
+  /** Default constructor. Sets the default value of the box to {@link BigDecimal#ZERO}. */
   public BigDecimalBox() {
     setDefaultValue(BigDecimal.ZERO);
   }
 
   /**
-   * Create an instance with a label
+   * Constructor with a label.
    *
-   * @param label String
+   * @param label The label to be used for the BigDecimalBox.
    */
   public BigDecimalBox(String label) {
     this();
     setLabel(label);
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Provides the default parser for parsing string values to {@link BigDecimal}.
+   *
+   * @return The function to parse string values into BigDecimal values.
+   */
   @Override
   protected Function<String, BigDecimal> defaultValueParser() {
     return getConfig().getNumberParsers().bigDecimalParser(this);
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Indicates that this BigDecimalBox supports decimal values.
+   *
+   * @return True, as {@link BigDecimal} values have a decimal separator.
+   */
   @Override
   protected boolean hasDecimalSeparator() {
     return true;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Determines if the provided value exceeds the given maximum value.
+   *
+   * @param maxValue The maximum allowable value.
+   * @param value The value to check.
+   * @return True if the value exceeds the maximum, false otherwise.
+   */
   @Override
   protected boolean isExceedMaxValue(BigDecimal maxValue, BigDecimal value) {
     return value.compareTo(maxValue) > 0;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Determines if the provided value is lower than the given minimum value.
+   *
+   * @param minValue The minimum allowable value.
+   * @param value The value to check.
+   * @return True if the value is lower than the minimum, false otherwise.
+   */
   @Override
   protected boolean isLowerThanMinValue(BigDecimal minValue, BigDecimal value) {
     return value.compareTo(minValue) < 0;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Returns the maximum representable value for a {@link BigDecimal}. Currently, this returns null,
+   * indicating no specific limit.
+   *
+   * @return null, indicating no specific maximum value for {@link BigDecimal}.
+   */
   @Override
   protected BigDecimal defaultMaxValue() {
     return null;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Returns the minimum representable value for a {@link BigDecimal}. Currently, this returns null,
+   * indicating no specific limit.
+   *
+   * @return null, indicating no specific minimum value for {@link BigDecimal}.
+   */
   @Override
   protected BigDecimal defaultMinValue() {
     return null;

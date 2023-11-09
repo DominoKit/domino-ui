@@ -13,27 +13,39 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package org.dominokit.domino.ui.utils;
 
 /**
- * A component that can be removed should implement this interface
+ * The {@code HasRemoveHandler} interface defines methods for adding a remove handler to a
+ * component.
  *
- * @param <T> the type of the component implementing this interface
+ * @param <T> The type of the component to which a remove handler can be added.
  */
 @FunctionalInterface
 public interface HasRemoveHandler<T> {
 
   /**
-   * adds a remove handler to the component
+   * Adds a remove handler to the component.
    *
-   * @param removeHandler {@link org.dominokit.domino.ui.utils.HasRemoveHandler.RemoveHandler}
-   * @return same implementing component
+   * @param removeHandler The remove handler to be added.
+   * @return The component with the added remove handler.
    */
   T addRemoveHandler(RemoveHandler<T> removeHandler);
 
-  /** a function to handle removing of the component */
+  /**
+   * A functional interface for handling remove events of a component.
+   *
+   * @param <T> The type of the component that can be removed.
+   */
+  @FunctionalInterface
   interface RemoveHandler<T> {
-    /** Will be called when the component is being removed */
+
+    /**
+     * Called when the component is removed.
+     *
+     * @param component The component that is being removed.
+     */
     void onRemove(T component);
   }
 }

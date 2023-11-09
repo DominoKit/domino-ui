@@ -25,62 +25,78 @@ import org.dominokit.domino.ui.forms.suggest.SelectOption;
 import org.dominokit.domino.ui.utils.ChildHandler;
 import org.dominokit.domino.ui.utils.DominoElement;
 
-/** An advanced pagination implementation */
+/**
+ * Represents an advanced pagination component that provides various navigation options for moving
+ * between pages. It includes a dropdown select for direct page selection in addition to the
+ * standard navigation buttons.
+ *
+ * <p>Usage Example:
+ *
+ * <pre><code>
+ * AdvancedPagination pagination = AdvancedPagination.create(10, 20);
+ * pagination.addPageChangeListener((oldPage, newPage) -> {
+ *     // Handle page change event
+ * });
+ * HTMLElement paginationElement = pagination.element();
+ * document.body.appendChild(paginationElement);
+ * </code></pre>
+ */
 public class AdvancedPagination extends BasePagination<AdvancedPagination> {
 
   private Select<Integer> pagesSelect;
   private PagerNavItem totalPagesCount;
 
-  /** @return new instance */
   /**
-   * create.
+   * Creates a new instance of {@link AdvancedPagination} with default settings.
    *
-   * @return a {@link org.dominokit.domino.ui.pagination.AdvancedPagination} object
+   * @return A new instance of {@link AdvancedPagination}.
    */
   public static AdvancedPagination create() {
     return new AdvancedPagination();
   }
 
   /**
-   * create.
+   * Creates a new instance of {@link AdvancedPagination} with the specified number of pages.
    *
-   * @param pages the number of pages
-   * @return new instance
+   * @param pages The total number of pages.
+   * @return A new instance of {@link AdvancedPagination}.
    */
   public static AdvancedPagination create(int pages) {
     return new AdvancedPagination(pages);
   }
 
   /**
-   * create.
+   * Creates a new instance of {@link AdvancedPagination} with the specified number of pages and
+   * page size.
    *
-   * @param pages the number of pages
-   * @param pageSize the page size
-   * @return new instance
+   * @param pages The total number of pages.
+   * @param pageSize The number of items per page.
+   * @return A new instance of {@link AdvancedPagination}.
    */
   public static AdvancedPagination create(int pages, int pageSize) {
     return new AdvancedPagination(pages, pageSize);
   }
 
-  /** Constructor for AdvancedPagination. */
+  /** Creates a new instance of {@link AdvancedPagination} with default settings. */
   public AdvancedPagination() {
     this(0, 10);
   }
 
   /**
-   * Constructor for AdvancedPagination.
+   * Creates a new instance of {@link AdvancedPagination} with the specified number of pages.
    *
-   * @param pages a int
+   * @param pages The total number of pages.
    */
   public AdvancedPagination(int pages) {
     this(pages, 10);
   }
 
   /**
-   * Constructor for AdvancedPagination.
+   * Creates a new instance of {@link AdvancedPagination} with the specified number of pages and
+   * page size.
    *
-   * @param pages a int
-   * @param pageSize a int
+   * @param pages The total number of pages.
+   * @param pageSize The number of items per page.
    */
   public AdvancedPagination(int pages, int pageSize) {
     this.pagesCount = pages;
@@ -130,13 +146,28 @@ public class AdvancedPagination extends BasePagination<AdvancedPagination> {
     updatePages(pages, pageSize, isChangeListenersPaused());
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Updates the pagination component with the specified number of pages.
+   *
+   * @param pages The total number of pages.
+   * @param silent If true, the change listeners will not be triggered; otherwise, they will be
+   *     notified.
+   * @return This {@link AdvancedPagination} instance for method chaining.
+   */
   @Override
   public AdvancedPagination updatePages(int pages, boolean silent) {
     return updatePages(pages, pageSize, silent);
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Updates the pagination component with the specified number of pages and page size.
+   *
+   * @param pages The total number of pages.
+   * @param pageSize The number of items per page.
+   * @param silent If true, the change listeners will not be triggered; otherwise, they will be
+   *     notified.
+   * @return This {@link AdvancedPagination} instance for method chaining.
+   */
   @Override
   public AdvancedPagination updatePages(int pages, int pageSize, boolean silent) {
     this.pageSize = pageSize;
@@ -180,7 +211,13 @@ public class AdvancedPagination extends BasePagination<AdvancedPagination> {
     element.onKeyDown(keyEvents -> keyEvents.onEnter(listener));
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Moves the pagination to the specified page.
+   *
+   * @param page The target page number.
+   * @param silent If true, the change listeners will not be triggered; otherwise, they will be
+   *     notified.
+   */
   @Override
   protected void moveToPage(int page, boolean silent) {
     PagerNavItem oldPage = activePage;
@@ -211,19 +248,19 @@ public class AdvancedPagination extends BasePagination<AdvancedPagination> {
   }
 
   /**
-   * Getter for the field <code>pagesSelect</code>.
+   * Gets the Select component used for direct page selection.
    *
-   * @return a {@link org.dominokit.domino.ui.forms.suggest.Select} object
+   * @return The {@link Select} component for page selection.
    */
   public Select<Integer> getPagesSelect() {
     return pagesSelect;
   }
 
   /**
-   * withPagesSelect.
+   * Allows customizing the {@link Select} component used for direct page selection.
    *
-   * @param handler a {@link org.dominokit.domino.ui.utils.ChildHandler} object
-   * @return a {@link org.dominokit.domino.ui.pagination.AdvancedPagination} object
+   * @param handler A {@link ChildHandler} for configuring the {@link Select} component.
+   * @return This {@link AdvancedPagination} instance for method chaining.
    */
   public AdvancedPagination withPagesSelect(
       ChildHandler<AdvancedPagination, Select<Integer>> handler) {

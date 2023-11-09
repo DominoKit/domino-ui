@@ -17,22 +17,37 @@ package org.dominokit.domino.ui.elements;
 
 import elemental2.dom.HTMLElement;
 
-/** DFNElement class. */
+/**
+ * Represents a `<dfn>` HTML element wrapper.
+ *
+ * <p>The `<dfn>` tag represents the defining instance of a term. This class provides a convenient
+ * way to create, manipulate, and control the behavior of `<dfn>` elements, making it easier to use
+ * them in Java-based web applications. Example usage:
+ *
+ * <pre>
+ * HTMLElement htmlElement = ...;  // Obtain a <dfn> element from somewhere
+ * DFNElement dfnElement = DFNElement.of(htmlElement);
+ * </pre>
+ *
+ * @see <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/dfn">MDN Web Docs (dfn
+ *     element)</a>
+ */
 public class DFNElement extends BaseElement<HTMLElement, DFNElement> {
+
   /**
-   * of.
+   * Creates a new {@link DFNElement} instance by wrapping the provided HTML `<dfn>` element.
    *
-   * @param e a {@link elemental2.dom.HTMLElement} object
-   * @return a {@link org.dominokit.domino.ui.elements.DFNElement} object
+   * @param e The HTML `<dfn>` element.
+   * @return A new {@link DFNElement} instance wrapping the provided element.
    */
   public static DFNElement of(HTMLElement e) {
     return new DFNElement(e);
   }
 
   /**
-   * Constructor for DFNElement.
+   * Constructs a {@link DFNElement} instance by wrapping the provided HTML `<dfn>` element.
    *
-   * @param element a {@link elemental2.dom.HTMLElement} object
+   * @param element The HTML `<dfn>` element to wrap.
    */
   public DFNElement(HTMLElement element) {
     super(element);

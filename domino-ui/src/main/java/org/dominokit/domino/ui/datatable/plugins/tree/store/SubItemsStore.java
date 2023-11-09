@@ -13,6 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package org.dominokit.domino.ui.datatable.plugins.tree.store;
 
 import java.util.List;
@@ -24,27 +25,32 @@ import org.dominokit.domino.ui.datatable.store.RecordsSorter;
 import org.dominokit.domino.ui.datatable.store.SearchFilter;
 import org.dominokit.domino.ui.pagination.HasPagination;
 
-/** SubItemsStore class. */
+/**
+ * A data store for sub-items of tree nodes in a DataTable. This store extends the
+ * LocalListDataStore and delegates various data-related operations to the parent
+ * LocalTreeDataStore.
+ *
+ * @param <T> The type of data in the DataTable.
+ */
 public class SubItemsStore<T> extends LocalListDataStore<T> {
 
   private final LocalTreeDataStore<T> parent;
 
   /**
-   * Constructor for SubItemsStore.
+   * Constructs a SubItemsStore with a reference to its parent LocalTreeDataStore.
    *
-   * @param parent a {@link org.dominokit.domino.ui.datatable.plugins.tree.store.LocalTreeDataStore}
-   *     object
+   * @param parent The parent LocalTreeDataStore to delegate data operations to.
    */
   public SubItemsStore(LocalTreeDataStore<T> parent) {
     this.parent = parent;
   }
 
   /**
-   * Constructor for SubItemsStore.
+   * Constructs a SubItemsStore with the provided data and a reference to its parent
+   * LocalTreeDataStore.
    *
-   * @param data a {@link java.util.List} object
-   * @param parent a {@link org.dominokit.domino.ui.datatable.plugins.tree.store.LocalTreeDataStore}
-   *     object
+   * @param data The list of data items.
+   * @param parent The parent LocalTreeDataStore to delegate data operations to.
    */
   public SubItemsStore(List<T> data, LocalTreeDataStore<T> parent) {
     super(data);

@@ -15,41 +15,49 @@
  */
 package org.dominokit.domino.ui.icons;
 
-/** ToggleMdiIcon class. */
+/**
+ * A class that represents a toggleable Material Design Icon (MdiIcon). It allows switching between
+ * two MdiIcons (a primary and a toggle) and provides various methods to customize their appearance
+ * and behavior.
+ */
 public class ToggleMdiIcon extends ToggleIcon<MdiIcon, ToggleMdiIcon> {
 
   /**
-   * create.
+   * Creates a new instance of ToggleMdiIcon with the given primary and toggle MdiIcons.
    *
-   * @param primary a {@link org.dominokit.domino.ui.icons.MdiIcon} object
-   * @param toggle a {@link org.dominokit.domino.ui.icons.MdiIcon} object
-   * @return a {@link org.dominokit.domino.ui.icons.ToggleMdiIcon} object
+   * @param primary The primary MdiIcon to display.
+   * @param toggle The toggle MdiIcon to display when toggled.
+   * @return A new ToggleMdiIcon instance.
    */
   public static ToggleMdiIcon create(MdiIcon primary, MdiIcon toggle) {
     return new ToggleMdiIcon(primary, toggle);
   }
 
   /**
-   * Constructor for ToggleMdiIcon.
+   * Creates a new instance of ToggleMdiIcon with the given primary and toggle MdiIcons.
    *
-   * @param primary a {@link org.dominokit.domino.ui.icons.MdiIcon} object
-   * @param toggle a {@link org.dominokit.domino.ui.icons.MdiIcon} object
+   * @param primary The primary MdiIcon to display.
+   * @param toggle The toggle MdiIcon to display when toggled.
    */
   public ToggleMdiIcon(MdiIcon primary, MdiIcon toggle) {
     super(primary, toggle);
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Creates a copy of the ToggleMdiIcon instance.
+   *
+   * @return A new ToggleMdiIcon instance with copied primary and toggle icons.
+   */
   @Override
   public ToggleMdiIcon copy() {
     return new ToggleMdiIcon(primary.copy(), toggle.copy());
   }
 
   /**
-   * Sets the type of rotate applied to the icon
+   * Sets the rotation for both the primary and toggle MdiIcons.
    *
-   * @param mdiRotate the {@link org.dominokit.domino.ui.icons.MdiIcon.MdiRotate}
-   * @return same instance
+   * @param mdiRotate The rotation to apply to both icons.
+   * @return The ToggleMdiIcon instance for method chaining.
    */
   public ToggleMdiIcon setRotate(MdiIcon.MdiRotate mdiRotate) {
     primary.setRotate(mdiRotate);
@@ -58,9 +66,9 @@ public class ToggleMdiIcon extends ToggleIcon<MdiIcon, ToggleMdiIcon> {
   }
 
   /**
-   * Rotates the icon with 45 degrees
+   * Rotates both the primary and toggle icons 45 degrees.
    *
-   * @return same instance
+   * @return The ToggleMdiIcon instance for method chaining.
    */
   public ToggleMdiIcon rotate45() {
     primary.rotate45();
@@ -69,9 +77,9 @@ public class ToggleMdiIcon extends ToggleIcon<MdiIcon, ToggleMdiIcon> {
   }
 
   /**
-   * Rotates the icon with 90 degrees
+   * Rotates both the primary and toggle icons 90 degrees.
    *
-   * @return same instance
+   * @return The ToggleMdiIcon instance for method chaining.
    */
   public ToggleMdiIcon rotate90() {
     primary.rotate90();
@@ -80,9 +88,9 @@ public class ToggleMdiIcon extends ToggleIcon<MdiIcon, ToggleMdiIcon> {
   }
 
   /**
-   * Rotates the icon with 135 degrees
+   * Rotates both the primary and toggle icons 135 degrees.
    *
-   * @return same instance
+   * @return The ToggleMdiIcon instance for method chaining.
    */
   public ToggleMdiIcon rotate135() {
     primary.rotate135();
@@ -91,9 +99,9 @@ public class ToggleMdiIcon extends ToggleIcon<MdiIcon, ToggleMdiIcon> {
   }
 
   /**
-   * Rotates the icon with 180 degrees
+   * Rotates both the primary and toggle icons 180 degrees.
    *
-   * @return same instance
+   * @return The ToggleMdiIcon instance for method chaining.
    */
   public ToggleMdiIcon rotate180() {
     primary.rotate180();
@@ -102,9 +110,9 @@ public class ToggleMdiIcon extends ToggleIcon<MdiIcon, ToggleMdiIcon> {
   }
 
   /**
-   * Rotates the icon with 225 degrees
+   * Rotates both the primary and toggle icons 225 degrees.
    *
-   * @return same instance
+   * @return The ToggleMdiIcon instance for method chaining.
    */
   public ToggleMdiIcon rotate225() {
     primary.rotate225();
@@ -113,9 +121,9 @@ public class ToggleMdiIcon extends ToggleIcon<MdiIcon, ToggleMdiIcon> {
   }
 
   /**
-   * Rotates the icon with 270 degrees
+   * Rotates both the primary and toggle icons 270 degrees.
    *
-   * @return same instance
+   * @return The ToggleMdiIcon instance for method chaining.
    */
   public ToggleMdiIcon rotate270() {
     primary.rotate270();
@@ -124,9 +132,9 @@ public class ToggleMdiIcon extends ToggleIcon<MdiIcon, ToggleMdiIcon> {
   }
 
   /**
-   * Rotates the icon with 315 degrees
+   * Rotates both the primary and toggle icons 315 degrees.
    *
-   * @return same instance
+   * @return The ToggleMdiIcon instance for method chaining.
    */
   public ToggleMdiIcon rotate315() {
     primary.rotate315();
@@ -135,9 +143,9 @@ public class ToggleMdiIcon extends ToggleIcon<MdiIcon, ToggleMdiIcon> {
   }
 
   /**
-   * Sets rotate to the default value
+   * Resets the rotation for both the primary and toggle icons.
    *
-   * @return same instance
+   * @return The ToggleMdiIcon instance for method chaining.
    */
   public ToggleMdiIcon rotateNone() {
     primary.rotateNone();
@@ -146,10 +154,10 @@ public class ToggleMdiIcon extends ToggleIcon<MdiIcon, ToggleMdiIcon> {
   }
 
   /**
-   * Flips the icon either horizontally or vertically
+   * Sets the flip mode for both the primary and toggle icons.
    *
-   * @param mdiFlip the {@link org.dominokit.domino.ui.icons.MdiIcon.MdiFlip}
-   * @return same instance
+   * @param mdiFlip The flip mode to apply to both icons.
+   * @return The ToggleMdiIcon instance for method chaining.
    */
   public ToggleMdiIcon setFlip(MdiIcon.MdiFlip mdiFlip) {
     primary.setFlip(mdiFlip);
@@ -158,9 +166,9 @@ public class ToggleMdiIcon extends ToggleIcon<MdiIcon, ToggleMdiIcon> {
   }
 
   /**
-   * Flips the icon vertically
+   * Flips both the primary and toggle icons vertically.
    *
-   * @return same instance
+   * @return The ToggleMdiIcon instance for method chaining.
    */
   public ToggleMdiIcon flipV() {
     primary.flipV();
@@ -169,9 +177,9 @@ public class ToggleMdiIcon extends ToggleIcon<MdiIcon, ToggleMdiIcon> {
   }
 
   /**
-   * Flips the icon horizontally
+   * Flips both the primary and toggle icons horizontally.
    *
-   * @return same instance
+   * @return The ToggleMdiIcon instance for method chaining.
    */
   public ToggleMdiIcon flipH() {
     primary.flipH();
@@ -180,9 +188,9 @@ public class ToggleMdiIcon extends ToggleIcon<MdiIcon, ToggleMdiIcon> {
   }
 
   /**
-   * Removes the flip
+   * Resets the flip mode for both the primary and toggle icons.
    *
-   * @return same instance
+   * @return The ToggleMdiIcon instance for method chaining.
    */
   public ToggleMdiIcon flipNone() {
     primary.flipNone();
@@ -191,10 +199,10 @@ public class ToggleMdiIcon extends ToggleIcon<MdiIcon, ToggleMdiIcon> {
   }
 
   /**
-   * Sets if the icon should spin
+   * Sets the spin mode for both the primary and toggle icons.
    *
-   * @param spin true to spin the icon, false otherwise
-   * @return same instance
+   * @param spin True to enable spinning, false to disable it.
+   * @return The ToggleMdiIcon instance for method chaining.
    */
   public ToggleMdiIcon setSpin(boolean spin) {
     primary.setSpin(spin);
@@ -203,9 +211,9 @@ public class ToggleMdiIcon extends ToggleIcon<MdiIcon, ToggleMdiIcon> {
   }
 
   /**
-   * Spins the icon
+   * Enables spinning for both the primary and toggle icons.
    *
-   * @return same instance
+   * @return The ToggleMdiIcon instance for method chaining.
    */
   public ToggleMdiIcon spin() {
     primary.spin();
@@ -214,9 +222,9 @@ public class ToggleMdiIcon extends ToggleIcon<MdiIcon, ToggleMdiIcon> {
   }
 
   /**
-   * Removes the spinning of the icon
+   * Disables spinning for both the primary and toggle icons.
    *
-   * @return same instance
+   * @return The ToggleMdiIcon instance for method chaining.
    */
   public ToggleMdiIcon noSpin() {
     primary.noSpin();
@@ -225,10 +233,10 @@ public class ToggleMdiIcon extends ToggleIcon<MdiIcon, ToggleMdiIcon> {
   }
 
   /**
-   * Sets if the icon is active or not
+   * Sets the active state for both the primary and toggle icons.
    *
-   * @param active true to activate the icon, false otherwise
-   * @return same instance
+   * @param active True to set the icons as active, false to set them as inactive.
+   * @return The ToggleMdiIcon instance for method chaining.
    */
   public ToggleMdiIcon setActive(boolean active) {
     primary.setActive(active);
@@ -237,9 +245,9 @@ public class ToggleMdiIcon extends ToggleIcon<MdiIcon, ToggleMdiIcon> {
   }
 
   /**
-   * Activate the icon
+   * Sets both the primary and toggle icons as active.
    *
-   * @return same instance
+   * @return The ToggleMdiIcon instance for method chaining.
    */
   public ToggleMdiIcon active() {
     primary.active();
@@ -248,9 +256,9 @@ public class ToggleMdiIcon extends ToggleIcon<MdiIcon, ToggleMdiIcon> {
   }
 
   /**
-   * Marks the icon as inactive
+   * Sets both the primary and toggle icons as inactive.
    *
-   * @return same instance
+   * @return The ToggleMdiIcon instance for method chaining.
    */
   public ToggleMdiIcon inactive() {
     primary.inactive();
@@ -259,10 +267,10 @@ public class ToggleMdiIcon extends ToggleIcon<MdiIcon, ToggleMdiIcon> {
   }
 
   /**
-   * Sets the contrast of the icon
+   * Sets the contrast mode for both the primary and toggle icons.
    *
-   * @param mdiContrast the {@link org.dominokit.domino.ui.icons.MdiIcon.MdiContrast}
-   * @return same instance
+   * @param mdiContrast The contrast mode to apply to both icons.
+   * @return The ToggleMdiIcon instance for method chaining.
    */
   public ToggleMdiIcon setContrast(MdiIcon.MdiContrast mdiContrast) {
     primary.setContrast(mdiContrast);
@@ -271,9 +279,9 @@ public class ToggleMdiIcon extends ToggleIcon<MdiIcon, ToggleMdiIcon> {
   }
 
   /**
-   * Sets the contrast as light
+   * Sets both the primary and toggle icons to the light contrast mode.
    *
-   * @return same instance
+   * @return The ToggleMdiIcon instance for method chaining.
    */
   public ToggleMdiIcon light() {
     primary.light();
@@ -282,9 +290,9 @@ public class ToggleMdiIcon extends ToggleIcon<MdiIcon, ToggleMdiIcon> {
   }
 
   /**
-   * Sets the contrast as dark
+   * Sets both the primary and toggle icons to the dark contrast mode.
    *
-   * @return same instance
+   * @return The ToggleMdiIcon instance for method chaining.
    */
   public ToggleMdiIcon dark() {
     primary.dark();
@@ -293,9 +301,9 @@ public class ToggleMdiIcon extends ToggleIcon<MdiIcon, ToggleMdiIcon> {
   }
 
   /**
-   * Removes the contrast
+   * Removes the contrast mode for both the primary and toggle icons.
    *
-   * @return same instance
+   * @return The ToggleMdiIcon instance for method chaining.
    */
   public ToggleMdiIcon noContrast() {
     primary.noContrast();

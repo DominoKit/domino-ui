@@ -17,22 +17,39 @@ package org.dominokit.domino.ui.elements;
 
 import elemental2.dom.HTMLProgressElement;
 
-/** ProgressElement class. */
+/**
+ * Represents an HTML <progress> element wrapper.
+ *
+ * <p>The HTML <progress> element is used to view the completion progress of a task. It is often
+ * used to represent the progress of a download/upload operation, file processing, or any task that
+ * has a measurable progress. This class provides a Java-based way to create, manipulate, and
+ * control the behavior of <progress> elements in web applications. Example usage:
+ *
+ * <pre>
+ * HTMLProgressElement progressElement = ...;  // Obtain a <progress> element from somewhere
+ * ProgressElement progress = ProgressElement.of(progressElement);
+ * </pre>
+ *
+ * @see <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/progress">MDN Web Docs
+ *     (progress)</a>
+ */
 public class ProgressElement extends BaseElement<HTMLProgressElement, ProgressElement> {
+
   /**
-   * of.
+   * Creates a new {@link ProgressElement} instance by wrapping the provided HTML <progress>
+   * element.
    *
-   * @param e a {@link elemental2.dom.HTMLProgressElement} object
-   * @return a {@link org.dominokit.domino.ui.elements.ProgressElement} object
+   * @param e The HTML <progress> element to wrap.
+   * @return A new {@link ProgressElement} instance wrapping the provided element.
    */
   public static ProgressElement of(HTMLProgressElement e) {
     return new ProgressElement(e);
   }
 
   /**
-   * Constructor for ProgressElement.
+   * Constructs a {@link ProgressElement} instance by wrapping the provided HTML <progress> element.
    *
-   * @param element a {@link elemental2.dom.HTMLProgressElement} object
+   * @param element The HTML <progress> element to wrap.
    */
   public ProgressElement(HTMLProgressElement element) {
     super(element);

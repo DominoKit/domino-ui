@@ -16,7 +16,6 @@
 package org.dominokit.domino.ui.forms;
 
 import static java.util.Objects.nonNull;
-import static org.dominokit.domino.ui.utils.ElementsFactory.elements;
 
 import elemental2.dom.HTMLElement;
 import java.util.*;
@@ -27,13 +26,23 @@ import org.dominokit.domino.ui.utils.*;
 import org.dominokit.domino.ui.utils.ApplyFunction;
 
 /**
- * This class can logically group a set of components that implements {@link
- * org.dominokit.domino.ui.forms.HasGrouping} interface
+ * The `FieldsGrouping` class is responsible for grouping and managing a collection of form
+ * elements. It provides various validation and manipulation functions for the grouped elements.
  *
- * <p>The same component can be grouped using multiple FieldGrouping instances
+ * <p>Usage Example:
  *
- * <p>The FieldsGrouping can be used to perform common logic to all grouped component with a single
- * call
+ * <pre>
+ * FieldsGrouping group = FieldsGrouping.create();
+ * TextInputElement usernameInput = TextInputElement.create("Username");
+ * TextInputElement passwordInput = TextInputElement.create("Password");
+ * group.group(usernameInput, passwordInput);
+ * ValidationResult result = group.validate();
+ * if (!result.isValid()) {
+ *     // Handle validation errors
+ *     List<String> errors = group.getErrors();
+ *     // Display error messages to the user
+ * }
+ * </pre>
  */
 public class FieldsGrouping
     implements HasValidation<FieldsGrouping>,
@@ -47,21 +56,20 @@ public class FieldsGrouping
   private boolean validationsPaused = false;
   private boolean focusValidationsPaused = false;
 
-  /** @return a new instance */
   /**
-   * create.
+   * Constructs a new `FieldsGrouping` instance.
    *
-   * @return a {@link org.dominokit.domino.ui.forms.FieldsGrouping} object
+   * @return A new `FieldsGrouping` instance.
    */
   public static FieldsGrouping create() {
     return new FieldsGrouping();
   }
 
   /**
-   * Adds a component that implements {@link org.dominokit.domino.ui.forms.HasGrouping}
+   * Adds a form element to the group.
    *
-   * @param formElement {@link org.dominokit.domino.ui.forms.HasGrouping}
-   * @return same FieldGrouping instance
+   * @param formElement The form element to add to the group.
+   * @return The current `FieldsGrouping` instance for method chaining.
    */
   public FieldsGrouping addFormElement(HasGrouping<?> formElement) {
     formElements.add(formElement);
@@ -69,10 +77,10 @@ public class FieldsGrouping
   }
 
   /**
-   * Adds a component that implements {@link org.dominokit.domino.ui.forms.HasGrouping}
+   * Groups multiple form elements together.
    *
-   * @param formElements a vararg of {@link org.dominokit.domino.ui.forms.HasGrouping}
-   * @return same FieldGrouping instance
+   * @param formElements The form elements to group together.
+   * @return The current `FieldsGrouping` instance for method chaining.
    */
   public FieldsGrouping group(HasGrouping<?>... formElements) {
     if (nonNull(formElements) && formElements.length > 0) {
@@ -84,15 +92,20 @@ public class FieldsGrouping
   }
 
   /**
-   * validate.
+   * Validates all the grouped form elements and returns the validation result.
    *
-   * @return a {@link org.dominokit.domino.ui.forms.validations.ValidationResult} object
+   * @return The validation result.
    */
   public ValidationResult validate() {
     return validate(this);
   }
 
-  /** {@inheritDoc} validate all components grouped by this FieldsGrouping in fail-fast mode */
+  /**
+   * Validates the form elements in the group.
+   *
+   * @param fieldsGrouping The `FieldsGrouping` instance to validate.
+   * @return A `ValidationResult` indicating whether the form elements are valid.
+   */
   @Override
   public ValidationResult validate(FieldsGrouping fieldsGrouping) {
     if (!validationsPaused) {
@@ -113,6 +126,11 @@ public class FieldsGrouping
     return ValidationResult.valid();
   }
 
+  /**
+   * Validates all the form elements in the group.
+   *
+   * @return A boolean value indicating whether all form elements in the group are valid.
+   */
   private boolean validateFields() {
 
     boolean valid = true;
@@ -128,9 +146,9 @@ public class FieldsGrouping
   }
 
   /**
-   * Clears all the grouped components
+   * Clears the values of all form elements in the group.
    *
-   * @return same FieldsGrouping instance
+   * @return The current `FieldsGrouping` instance for method chaining.
    */
   public FieldsGrouping clear() {
     formElements.forEach(HasGrouping::clear);
@@ -138,17 +156,21 @@ public class FieldsGrouping
   }
 
   /**
-   * Clears all the grouped components
+   * Clears the values of all form elements in the group, optionally suppressing events.
    *
-   * @param silent if true clear the fields without triggering the change handlers
-   * @return same FieldsGrouping instance
+   * @param silent If `true`, events will be suppressed; otherwise, events will be fired.
+   * @return The current `FieldsGrouping` instance for method chaining.
    */
   public FieldsGrouping clear(boolean silent) {
     formElements.forEach(hasGrouping -> hasGrouping.clear(silent));
     return this;
   }
 
-  /** {@inheritDoc} Remove all validation messages from all grouped components */
+  /**
+   * Clears invalid values from the form elements in the group.
+   *
+   * @return The current `FieldsGrouping` instance for method chaining.
+   */
   @Override
   public FieldsGrouping clearInvalid() {
     formElements.forEach(HasGrouping::clearInvalid);
@@ -156,14 +178,22 @@ public class FieldsGrouping
     return this;
   }
 
-  /** {@inheritDoc} Invalidate all the grouped components using the provided errorMessage */
+  /**
+   * Invalidates the form elements in the group with a single error message.
+   *
+   * @param errorMessage The error message to associate with the invalid form elements.
+   * @return The current `FieldsGrouping` instance for method chaining.
+   */
   @Override
   public FieldsGrouping invalidate(String errorMessage) {
     return invalidate(Collections.singletonList(errorMessage));
   }
 
   /**
-   * {@inheritDoc} Invalidate all the grouped components using the provided list of errorMessages
+   * Invalidates the form elements in the group with a list of error messages.
+   *
+   * @param errorMessages The list of error messages to associate with the invalid form elements.
+   * @return The current `FieldsGrouping` instance for method chaining.
    */
   @Override
   public FieldsGrouping invalidate(List<String> errorMessages) {
@@ -173,9 +203,10 @@ public class FieldsGrouping
   }
 
   /**
-   * {@inheritDoc}
+   * Sets the read-only state of all form elements in the group.
    *
-   * <p>change the readonly mode for all grouped components
+   * @param readOnly `true` to set form elements as read-only, `false` otherwise.
+   * @return The current `FieldsGrouping` instance for method chaining.
    */
   @Override
   public FieldsGrouping setReadOnly(boolean readOnly) {
@@ -186,16 +217,20 @@ public class FieldsGrouping
     return this;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Checks if all form elements in the group are in read-only state.
+   *
+   * @return `true` if all form elements are read-only, `false` otherwise.
+   */
   @Override
   public boolean isReadOnly() {
     return formElements.stream().allMatch(AcceptReadOnly::isReadOnly);
   }
 
   /**
-   * {@inheritDoc}
+   * Disables all form elements in the group.
    *
-   * <p>Disable all grouped components
+   * @return The current `FieldsGrouping` instance for method chaining.
    */
   @Override
   public FieldsGrouping disable() {
@@ -204,9 +239,9 @@ public class FieldsGrouping
   }
 
   /**
-   * {@inheritDoc}
+   * Enables all form elements in the group.
    *
-   * <p>Enable all grouped components
+   * @return The current `FieldsGrouping` instance for method chaining.
    */
   @Override
   public FieldsGrouping enable() {
@@ -214,35 +249,41 @@ public class FieldsGrouping
     return this;
   }
 
-  /** @return boolean, true if all grouped components are enabled, otherwise false */
-  /** {@inheritDoc} */
+  /**
+   * Checks if all form elements in the group are enabled.
+   *
+   * @return `true` if all form elements are enabled, `false` otherwise.
+   */
   @Override
   public boolean isEnabled() {
     return formElements.stream().allMatch(AcceptDisable::isEnabled);
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Sets the auto-validation state for all form elements in the group.
+   *
+   * @param autoValidation `true` to enable auto-validation, `false` to disable it.
+   * @return The current `FieldsGrouping` instance for method chaining.
+   */
   public FieldsGrouping setAutoValidation(boolean autoValidation) {
     formElements.forEach(formElement -> formElement.setAutoValidation(autoValidation));
     return this;
   }
 
-  /** @return boolean, true if all grouped components has autoValidation enabled */
   /**
-   * isAutoValidation.
+   * Checks if all form elements in the group are set to auto-validate.
    *
-   * @return a boolean
+   * @return `true` if all form elements are set to auto-validate, `false` otherwise.
    */
   public boolean isAutoValidation() {
     return formElements.stream().allMatch(HasAutoValidation::isAutoValidation);
   }
 
   /**
-   * Disable/Enable required for all grouped components
+   * Sets the required state for all form elements in the group.
    *
-   * @param required boolean, if true set all grouped components to required, otherwise to not
-   *     required
-   * @return same FieldsGrouping instance
+   * @param required `true` to set form elements as required, `false` otherwise.
+   * @return The current `FieldsGrouping` instance for method chaining.
    */
   public FieldsGrouping setRequired(boolean required) {
     formElements.forEach(formElement -> formElement.setRequired(required));
@@ -250,70 +291,84 @@ public class FieldsGrouping
   }
 
   /**
-   * Disable/Enable required for all grouped components with a custom required message
+   * Sets the required state for all form elements in the group with a custom error message.
    *
-   * @param required boolean, if true set all grouped components to required, otherwise to not
-   *     required
-   * @param message String required validation message
-   * @return same FieldsGrouping instance
+   * @param required `true` to set form elements as required, `false` otherwise.
+   * @param message The custom error message to display for required form elements.
+   * @return The current `FieldsGrouping` instance for method chaining.
    */
   public FieldsGrouping setRequired(boolean required, String message) {
     formElements.forEach(formElement -> formElement.setRequired(required, message));
     return this;
   }
 
-  /** @return boolean, true if all grouped components are required */
   /**
-   * isRequired.
+   * Checks if all form elements in the group are set as required.
    *
-   * @return a boolean
+   * @return `true` if all form elements are set as required, `false` otherwise.
    */
   public boolean isRequired() {
     return formElements.stream().allMatch(IsRequired::isRequired);
   }
 
-  /** @return the grouped components as a List of {@link HasGrouping} */
   /**
-   * Getter for the field <code>formElements</code>.
+   * Retrieves a list of all form elements within this `FieldsGrouping`.
    *
-   * @return a {@link java.util.List} object
+   * @return A list containing all form elements within this group.
    */
   public List<HasGrouping<?>> getFormElements() {
     return formElements;
   }
 
   /**
-   * {@inheritDoc} Adds a validator to this FieldsGrouping, the validator will be applied to all
-   * grouped elements when {@link #validate(FieldsGrouping)} is called
+   * Adds a custom validator to this `FieldsGrouping`.
    *
-   * @param validator {@link Validator}
-   * @return same FieldsGrouping instance
+   * @param validator The validator to add.
+   * @return The current `FieldsGrouping` instance for method chaining.
    */
   public FieldsGrouping addValidator(Validator<FieldsGrouping> validator) {
     validators.add(validator);
     return this;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Removes a custom validator from this `FieldsGrouping`.
+   *
+   * @param validator The validator to remove.
+   * @return The current `FieldsGrouping` instance for method chaining.
+   */
   @Override
   public FieldsGrouping removeValidator(Validator<FieldsGrouping> validator) {
     validators.remove(validator);
     return this;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Checks if a specific validator is added to this `FieldsGrouping`.
+   *
+   * @param validator The validator to check.
+   * @return `true` if the validator is added, `false` otherwise.
+   */
   @Override
   public boolean hasValidator(Validator<FieldsGrouping> validator) {
     return validators.contains(validator);
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Retrieves a set of all custom validators added to this `FieldsGrouping`.
+   *
+   * @return A set containing all custom validators added to this group.
+   */
   @Override
   public Set<Validator<FieldsGrouping>> getValidators() {
     return validators;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Pauses all form element validations within this `FieldsGrouping`.
+   *
+   * @return The current `FieldsGrouping` instance for method chaining.
+   */
   @Override
   public FieldsGrouping pauseValidations() {
     formElements.forEach(HasValidation::pauseValidations);
@@ -321,7 +376,11 @@ public class FieldsGrouping
     return this;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Resumes all form element validations within this `FieldsGrouping`.
+   *
+   * @return The current `FieldsGrouping` instance for method chaining.
+   */
   @Override
   public FieldsGrouping resumeValidations() {
     formElements.forEach(HasValidation::resumeValidations);
@@ -329,7 +388,12 @@ public class FieldsGrouping
     return this;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Toggles the pause state of form element validations within this `FieldsGrouping`.
+   *
+   * @param toggle `true` to pause form element validations, `false` to resume them.
+   * @return The current `FieldsGrouping` instance for method chaining.
+   */
   @Override
   public FieldsGrouping togglePauseValidations(boolean toggle) {
     formElements.forEach(formElement -> formElement.togglePauseValidations(toggle));
@@ -337,7 +401,12 @@ public class FieldsGrouping
     return this;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Pauses focus-related form element validations within this `FieldsGrouping`. Focus-related
+   * validations are validations that occur when a form element receives or loses focus.
+   *
+   * @return The current `FieldsGrouping` instance for method chaining.
+   */
   @Override
   public FieldsGrouping pauseFocusValidations() {
     this.focusValidationsPaused = true;
@@ -345,7 +414,11 @@ public class FieldsGrouping
     return this;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Resumes focus-related form element validations within this `FieldsGrouping`.
+   *
+   * @return The current `FieldsGrouping` instance for method chaining.
+   */
   @Override
   public FieldsGrouping resumeFocusValidations() {
     this.focusValidationsPaused = false;
@@ -353,7 +426,12 @@ public class FieldsGrouping
     return this;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Toggles the pause state of focus-related form element validations within this `FieldsGrouping`.
+   *
+   * @param toggle `true` to pause focus-related validations, `false` to resume them.
+   * @return The current `FieldsGrouping` instance for method chaining.
+   */
   @Override
   public FieldsGrouping togglePauseFocusValidations(boolean toggle) {
     this.focusValidationsPaused = toggle;
@@ -361,26 +439,45 @@ public class FieldsGrouping
     return this;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Checks if focus-related validations are paused within this `FieldsGrouping`.
+   *
+   * @return `true` if focus-related validations are paused, `false` otherwise.
+   */
   @Override
   public boolean isFocusValidationsPaused() {
     return this.focusValidationsPaused;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Checks if form element validations are paused within this `FieldsGrouping`.
+   *
+   * @return `true` if form element validations are paused, `false` otherwise.
+   */
   @Override
   public boolean isValidationsPaused() {
     return validationsPaused;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Creates and returns an `AutoValidator` with the specified auto-validation function for this
+   * `FieldsGrouping`.
+   *
+   * @param autoValidate The auto-validation function to apply.
+   * @return An `AutoValidator` instance with the provided auto-validation function.
+   */
   @Override
   public AutoValidator createAutoValidator(ApplyFunction autoValidate) {
     formElements.forEach(formElement -> formElement.createAutoValidator(autoValidate));
     return new AutoValidator(autoValidate) {};
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Initiates auto-validation for this `FieldsGrouping`. Auto-validation automatically validates
+   * the form elements within this group based on their current values.
+   *
+   * @return The current `FieldsGrouping` instance for method chaining.
+   */
   @Override
   public FieldsGrouping autoValidate() {
     if (isAutoValidation()) {
@@ -390,10 +487,10 @@ public class FieldsGrouping
   }
 
   /**
-   * Removes a grouped component from this FieldsGrouping
+   * Removes a specific form element from this `FieldsGrouping`.
    *
-   * @param hasGrouping {@link org.dominokit.domino.ui.forms.HasGrouping}
-   * @return same FieldsGrouping instance
+   * @param hasGrouping The form element to remove.
+   * @return The current `FieldsGrouping` instance for method chaining.
    */
   public FieldsGrouping removeFormElement(HasGrouping hasGrouping) {
     formElements.remove(hasGrouping);
@@ -401,26 +498,31 @@ public class FieldsGrouping
   }
 
   /**
-   * Removes all grouped components from this FieldsGrouping
+   * Removes all form elements from this `FieldsGrouping`.
    *
-   * @return same FieldsGrouping insatnce
+   * @return The current `FieldsGrouping` instance for method chaining.
    */
   public FieldsGrouping removeAllFormElements() {
     formElements.clear();
     return this;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Retrieves a list of error messages generated during the validation of form elements within this
+   * `FieldsGrouping`.
+   *
+   * @return A list of error messages as strings.
+   */
   @Override
   public List<String> getErrors() {
     return errors;
   }
 
   /**
-   * onKeyDown.
+   * Registers a key down event listener for all input elements within this `FieldsGrouping`.
    *
-   * @param handler a {@link org.dominokit.domino.ui.keyboard.KeyEventsConsumer} object
-   * @return a {@link org.dominokit.domino.ui.forms.FieldsGrouping} object
+   * @param handler The event handler to execute on key down events.
+   * @return The current `FieldsGrouping` instance for method chaining.
    */
   public FieldsGrouping onKeyDown(KeyEventsConsumer handler) {
     HTMLElement[] elements = getInputElements();
@@ -431,10 +533,10 @@ public class FieldsGrouping
   }
 
   /**
-   * onKeyUp.
+   * Registers a key up event listener for all input elements within this `FieldsGrouping`.
    *
-   * @param handler a {@link org.dominokit.domino.ui.keyboard.KeyEventsConsumer} object
-   * @return a {@link org.dominokit.domino.ui.forms.FieldsGrouping} object
+   * @param handler The event handler to execute on key up events.
+   * @return The current `FieldsGrouping` instance for method chaining.
    */
   public FieldsGrouping onKeyUp(KeyEventsConsumer handler) {
     HTMLElement[] elements = getInputElements();
@@ -445,10 +547,10 @@ public class FieldsGrouping
   }
 
   /**
-   * onKeyPress.
+   * Registers a key press event listener for all input elements within this `FieldsGrouping`.
    *
-   * @param handler a {@link org.dominokit.domino.ui.keyboard.KeyEventsConsumer} object
-   * @return a {@link org.dominokit.domino.ui.forms.FieldsGrouping} object
+   * @param handler The event handler to execute on key press events.
+   * @return The current `FieldsGrouping` instance for method chaining.
    */
   public FieldsGrouping onKeyPress(KeyEventsConsumer handler) {
     HTMLElement[] elements = getInputElements();
@@ -458,6 +560,12 @@ public class FieldsGrouping
     return this;
   }
 
+  /**
+   * Retrieves an array of HTML elements representing the input elements within this
+   * `FieldsGrouping`.
+   *
+   * @return An array of `HTMLElement` objects.
+   */
   private HTMLElement[] getInputElements() {
     HTMLElement[] elements =
         formElements.stream()

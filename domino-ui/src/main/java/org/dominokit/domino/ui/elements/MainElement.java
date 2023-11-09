@@ -17,22 +17,37 @@ package org.dominokit.domino.ui.elements;
 
 import elemental2.dom.HTMLElement;
 
-/** MainElement class. */
+/**
+ * Represents an HTML <main> element wrapper.
+ *
+ * <p>The HTML <main> element represents the main content of a document. This class provides a
+ * convenient way to create, manipulate, and control the behavior of <main> elements in Java-based
+ * web applications. Example usage:
+ *
+ * <pre>
+ * HTMLElement mainElement = ...;  // Obtain a <main> element from somewhere
+ * MainElement main = MainElement.of(mainElement);
+ * </pre>
+ *
+ * @see <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/main">MDN Web Docs
+ *     (main)</a>
+ */
 public class MainElement extends BaseElement<HTMLElement, MainElement> {
+
   /**
-   * of.
+   * Creates a new {@link MainElement} instance by wrapping the provided HTML <main> element.
    *
-   * @param e a {@link elemental2.dom.HTMLElement} object
-   * @return a {@link org.dominokit.domino.ui.elements.MainElement} object
+   * @param e The HTML <main> element to wrap.
+   * @return A new {@link MainElement} instance wrapping the provided element.
    */
   public static MainElement of(HTMLElement e) {
     return new MainElement(e);
   }
 
   /**
-   * Constructor for MainElement.
+   * Constructs a {@link MainElement} instance by wrapping the provided HTML <main> element.
    *
-   * @param element a {@link elemental2.dom.HTMLElement} object
+   * @param element The HTML <main> element to wrap.
    */
   public MainElement(HTMLElement element) {
     super(element);

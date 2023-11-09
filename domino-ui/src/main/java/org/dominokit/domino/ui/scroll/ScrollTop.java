@@ -26,18 +26,37 @@ import org.dominokit.domino.ui.style.ColorsCss;
 import org.dominokit.domino.ui.utils.ElementUtil;
 
 /**
- * A component that show up in a specific position on the screen only when the user scrolls down and
- * allow the user to click it to scroll to the top of the page
+ * Represents a button for scrolling to the top of a web page.
+ *
+ * <p>The {@code ScrollTop} class provides a button component that allows users to quickly scroll to
+ * the top of a web page when clicked. It shows or hides based on the scroll position and provides a
+ * customizable offset for showing the button.
+ *
+ * <p><b>Usage Example:</b>
+ *
+ * <pre>
+ * // Create a scroll to top button with an icon
+ * Icon icon = Icons.arrow_upward();
+ * ScrollTop scrollTopButton = new ScrollTop(icon);
+ *
+ * // Customize the button's position and show offset
+ * scrollTopButton.setBottom(20);
+ * scrollTopButton.setRight(20);
+ * scrollTopButton.setShowOffset(100);
+ *
+ * // Add the button to the document
+ * document.body.appendChild(scrollTopButton.element());
+ * </pre>
  */
 public class ScrollTop extends Button implements ButtonStyles {
 
+  /** The offset at which the button should be shown (default is 60). */
   private int showOffset = 60;
 
-  /** @param icon {@link Icon} to show in the component */
   /**
-   * Constructor for ScrollTop.
+   * Constructs a new ScrollTop button with the specified icon.
    *
-   * @param icon a {@link org.dominokit.domino.ui.icons.Icon} object
+   * @param icon The icon to be displayed on the button.
    */
   public ScrollTop(Icon<?> icon) {
     super(icon);
@@ -60,10 +79,10 @@ public class ScrollTop extends Button implements ButtonStyles {
   }
 
   /**
-   * setBottom.
+   * Sets the bottom position of the ScrollTop button.
    *
-   * @param bottom int bottom position
-   * @return same ScrollTop instance
+   * @param bottom The bottom position in pixels.
+   * @return This ScrollTop instance for method chaining.
    */
   public ScrollTop setBottom(int bottom) {
     style().setBottom(bottom + "px");
@@ -71,10 +90,10 @@ public class ScrollTop extends Button implements ButtonStyles {
   }
 
   /**
-   * setRight.
+   * Sets the right position of the ScrollTop button.
    *
-   * @param right int right position
-   * @return same ScrollTop instance
+   * @param right The right position in pixels.
+   * @return This ScrollTop instance for method chaining.
    */
   public ScrollTop setRight(int right) {
     style().setRight(right + "px");
@@ -82,11 +101,10 @@ public class ScrollTop extends Button implements ButtonStyles {
   }
 
   /**
-   * Setter for the field <code>showOffset</code>.
+   * Sets the show offset for the ScrollTop button.
    *
-   * @param offset int minimum scroll offset that the user needs to scroll before showing this
-   *     component
-   * @return same ScrollTop instance
+   * @param offset The offset at which the button should be shown.
+   * @return This ScrollTop instance for method chaining.
    */
   public ScrollTop setShowOffset(int offset) {
     this.showOffset = offset;
@@ -94,16 +112,20 @@ public class ScrollTop extends Button implements ButtonStyles {
   }
 
   /**
-   * create.
+   * Factory method to create a new instance of ScrollTop with the specified icon.
    *
-   * @param icon {@link org.dominokit.domino.ui.icons.Icon} to show in the component
-   * @return same ScrollTop instance
+   * @param icon The icon to be displayed on the button.
+   * @return A new instance of ScrollTop with the specified icon.
    */
   public static ScrollTop create(Icon<?> icon) {
     return new ScrollTop(icon);
   }
 
-  /** {@inheritDoc} */
+  /**
+   * @dominokit-site-ignore {@inheritDoc}
+   *     <p>Returns the main HTMLElement of this ScrollTop button.
+   * @return The HTMLElement of the ScrollTop button.
+   */
   @Override
   public HTMLElement element() {
     return buttonElement.element();

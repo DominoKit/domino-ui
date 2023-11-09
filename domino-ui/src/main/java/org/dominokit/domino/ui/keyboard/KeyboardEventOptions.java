@@ -15,33 +15,53 @@
  */
 package org.dominokit.domino.ui.keyboard;
 
-import org.dominokit.domino.ui.events.EvenHandlerOptions;
+import org.dominokit.domino.ui.events.EventHandlerOptions;
 
-/** KeyboardEventOptions class. */
-public class KeyboardEventOptions implements EvenHandlerOptions {
+/**
+ * The {@code KeyboardEventOptions} class represents options for configuring keyboard event
+ * handling. These options include settings for preventing default actions, stopping event
+ * propagation, and checking modifier keys.
+ *
+ * <p>Use the {@link #create()} method to create a new instance of {@code KeyboardEventOptions} with
+ * default settings. You can then use the setter methods to customize the options as needed.
+ */
+public class KeyboardEventOptions implements EventHandlerOptions {
+
+  /**
+   * Indicates whether the default action for the keyboard event should be prevented. Default is
+   * {@code false}.
+   */
   boolean preventDefault = false;
+
+  /** Indicates whether event propagation should be stopped. Default is {@code false}. */
   boolean stopPropagation = false;
+
+  /** Indicates whether the Ctrl key should be checked. Default is {@code false}. */
   boolean withCtrlKey;
+
+  /** Indicates whether the Alt key should be checked. Default is {@code false}. */
   boolean withAltKey;
+
+  /** Indicates whether the Shift key should be checked. Default is {@code false}. */
   boolean withShiftKey;
+
+  /** Indicates whether the Meta key should be checked. Default is {@code false}. */
   boolean withMetaKey;
+
   boolean repeating;
 
-  /** @return new instance */
-  /**
-   * create.
-   *
-   * @return a {@link org.dominokit.domino.ui.keyboard.KeyboardEventOptions} object
-   */
+  /** Indicates whether the event is a repeating event. Default is {@code false}. */
+
+  /** Creates a new instance of {@code KeyboardEventOptions} with default settings. */
   public static KeyboardEventOptions create() {
     return new KeyboardEventOptions();
   }
 
   /**
-   * Sets if prevent default behaviour is enabled or not
+   * Sets whether the default action for the keyboard event should be prevented.
    *
-   * @param preventDefault true to prevent default, false otherwise
-   * @return same instance
+   * @param preventDefault {@code true} to prevent the default action, {@code false} otherwise.
+   * @return This {@code KeyboardEventOptions} instance for method chaining.
    */
   public KeyboardEventOptions setPreventDefault(boolean preventDefault) {
     this.preventDefault = preventDefault;
@@ -49,10 +69,10 @@ public class KeyboardEventOptions implements EvenHandlerOptions {
   }
 
   /**
-   * Sets if stop event propagation is enabled or not
+   * Sets whether event propagation should be stopped.
    *
-   * @param stopPropagation true to stop propagation, false otherwise
-   * @return same instance
+   * @param stopPropagation {@code true} to stop event propagation, {@code false} otherwise.
+   * @return This {@code KeyboardEventOptions} instance for method chaining.
    */
   public KeyboardEventOptions setStopPropagation(boolean stopPropagation) {
     this.stopPropagation = stopPropagation;
@@ -60,10 +80,10 @@ public class KeyboardEventOptions implements EvenHandlerOptions {
   }
 
   /**
-   * Setter for the field <code>withCtrlKey</code>.
+   * Sets whether the Ctrl key should be checked.
    *
-   * @param withCtrlKey a boolean
-   * @return a {@link org.dominokit.domino.ui.keyboard.KeyboardEventOptions} object
+   * @param withCtrlKey {@code true} to check the Ctrl key, {@code false} otherwise.
+   * @return This {@code KeyboardEventOptions} instance for method chaining.
    */
   public KeyboardEventOptions setWithCtrlKey(boolean withCtrlKey) {
     this.withCtrlKey = withCtrlKey;
@@ -71,10 +91,10 @@ public class KeyboardEventOptions implements EvenHandlerOptions {
   }
 
   /**
-   * Setter for the field <code>withAltKey</code>.
+   * Sets whether the Alt key should be checked.
    *
-   * @param withAltKey a boolean
-   * @return a {@link org.dominokit.domino.ui.keyboard.KeyboardEventOptions} object
+   * @param withAltKey {@code true} to check the Alt key, {@code false} otherwise.
+   * @return This {@code KeyboardEventOptions} instance for method chaining.
    */
   public KeyboardEventOptions setWithAltKey(boolean withAltKey) {
     this.withAltKey = withAltKey;
@@ -82,10 +102,10 @@ public class KeyboardEventOptions implements EvenHandlerOptions {
   }
 
   /**
-   * Setter for the field <code>withShiftKey</code>.
+   * Sets whether the Shift key should be checked.
    *
-   * @param withShiftKey a boolean
-   * @return a {@link org.dominokit.domino.ui.keyboard.KeyboardEventOptions} object
+   * @param withShiftKey {@code true} to check the Shift key, {@code false} otherwise.
+   * @return This {@code KeyboardEventOptions} instance for method chaining.
    */
   public KeyboardEventOptions setWithShiftKey(boolean withShiftKey) {
     this.withShiftKey = withShiftKey;
@@ -93,10 +113,10 @@ public class KeyboardEventOptions implements EvenHandlerOptions {
   }
 
   /**
-   * Setter for the field <code>withMetaKey</code>.
+   * Sets whether the Meta key should be checked.
    *
-   * @param withMetaKey a boolean
-   * @return a {@link org.dominokit.domino.ui.keyboard.KeyboardEventOptions} object
+   * @param withMetaKey {@code true} to check the Meta key, {@code false} otherwise.
+   * @return This {@code KeyboardEventOptions} instance for method chaining.
    */
   public KeyboardEventOptions setWithMetaKey(boolean withMetaKey) {
     this.withMetaKey = withMetaKey;
@@ -104,10 +124,10 @@ public class KeyboardEventOptions implements EvenHandlerOptions {
   }
 
   /**
-   * Setter for the field <code>repeating</code>.
+   * Sets whether the event is a repeating event.
    *
-   * @param repeating a boolean
-   * @return a {@link org.dominokit.domino.ui.keyboard.KeyboardEventOptions} object
+   * @param repeating {@code true} if the event is repeating, {@code false} otherwise.
+   * @return This {@code KeyboardEventOptions} instance for method chaining.
    */
   public KeyboardEventOptions setRepeating(boolean repeating) {
     this.repeating = repeating;

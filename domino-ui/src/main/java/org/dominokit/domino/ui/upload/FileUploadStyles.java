@@ -17,18 +17,11 @@ package org.dominokit.domino.ui.upload;
 
 import org.dominokit.domino.ui.style.CssClass;
 
-/** FileUploadStyles interface. */
 public interface FileUploadStyles {
-  /** Constant <code>dui_file_upload</code> */
   CssClass dui_file_upload = () -> "dui-file-upload";
-  /** Constant <code>dui_file_upload_input</code> */
   CssClass dui_file_upload_input = () -> "dui-file-upload-input";
-  /** Constant <code>dui_file_upload_messages</code> */
   CssClass dui_file_upload_messages = () -> "dui-file-upload-messages";
-  /** Constant <code>dui_file_preview</code> */
   CssClass dui_file_preview = () -> "dui-file-preview";
-  /** Constant <code>dui_file_preview_container</code> */
   CssClass dui_file_preview_container = () -> "dui-file-preview-container";
-  /** Constant <code>dui_file_upload_decoration</code> */
   CssClass dui_file_upload_decoration = () -> "dui-file-upload-decoration";
 }

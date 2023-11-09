@@ -22,38 +22,38 @@ import org.dominokit.domino.ui.config.UIConfig;
 import org.dominokit.domino.ui.i18n.DefaultDominoUILabels;
 import org.dominokit.domino.ui.i18n.DominoUILabels;
 
-/**
- * This class provides global configuration for form fields
- *
- * <p>These configurations should be set before creating the form fields
- */
+/** Provides configuration options for the Domino UI framework. */
 public class DominoUIConfig {
 
-  /** The DominoFields single INSTANCE for global access. */
+  /** The singleton instance of {@code DominoUIConfig}. */
   public static final DominoUIConfig CONFIG = new DominoUIConfig();
 
   private DominoUILabels dominoUILabels = new DefaultDominoUILabels();
   private UIConfig uiConfig = new DefaultUIConfig();
   private ElementsFactoryDelegate elementsFactoryDelegate = new ElementsFactoryDelegate() {};
+  private SVGFactoryDelegate svgFactoryDelegate = new SVGFactoryDelegate() {};
   private boolean closePopupOnBlur;
 
-  /** Constructor for DominoUIConfig. */
+  /**
+   * Protected constructor to prevent external instantiation. Use the {@code CONFIG} singleton
+   * instance.
+   */
   protected DominoUIConfig() {}
 
   /**
-   * Getter for the field <code>dominoUILabels</code>.
+   * Gets the {@link DominoUILabels} instance used for internationalization and localization.
    *
-   * @return a {@link org.dominokit.domino.ui.i18n.DominoUILabels} object
+   * @return The {@code DominoUILabels} instance.
    */
   public DominoUILabels getDominoUILabels() {
     return dominoUILabels;
   }
 
   /**
-   * Setter for the field <code>dominoUILabels</code>.
+   * Sets the {@link DominoUILabels} instance for internationalization and localization.
    *
-   * @param dominoUILabels a {@link org.dominokit.domino.ui.i18n.DominoUILabels} object
-   * @return a {@link org.dominokit.domino.ui.utils.DominoUIConfig} object
+   * @param dominoUILabels The {@code DominoUILabels} instance to set.
+   * @return This {@code DominoUIConfig} instance for method chaining.
    */
   public DominoUIConfig setDominoUILabels(DominoUILabels dominoUILabels) {
     if (nonNull(dominoUILabels)) {
@@ -63,19 +63,19 @@ public class DominoUIConfig {
   }
 
   /**
-   * getUIConfig.
+   * Gets the {@link UIConfig} instance containing various UI-related configurations.
    *
-   * @return a {@link org.dominokit.domino.ui.config.UIConfig} object
+   * @return The {@code UIConfig} instance.
    */
   public UIConfig getUIConfig() {
     return uiConfig;
   }
 
   /**
-   * setUIConfig.
+   * Sets the {@link UIConfig} instance with UI-related configurations.
    *
-   * @param uiConfig a {@link org.dominokit.domino.ui.config.UIConfig} object
-   * @return a {@link org.dominokit.domino.ui.utils.DominoUIConfig} object
+   * @param uiConfig The {@code UIConfig} instance to set.
+   * @return This {@code DominoUIConfig} instance for method chaining.
    */
   public DominoUIConfig setUIConfig(UIConfig uiConfig) {
     if (nonNull(uiConfig)) {
@@ -84,18 +84,56 @@ public class DominoUIConfig {
     return this;
   }
 
+  /**
+   * Gets the delegate for creating UI elements.
+   *
+   * @return The {@code ElementsFactoryDelegate} instance.
+   */
   public ElementsFactoryDelegate getElementsFactory() {
     return this.elementsFactoryDelegate;
   }
 
+  /**
+   * Sets the delegate for creating UI elements.
+   *
+   * @param elementsFactoryDelegate The {@code ElementsFactoryDelegate} instance to set.
+   */
   public void setElementsFactory(ElementsFactoryDelegate elementsFactoryDelegate) {
     this.elementsFactoryDelegate = elementsFactoryDelegate;
   }
 
+  /**
+   * Gets the delegate for creating UI SVG elements.
+   *
+   * @return The {@code SVGFactoryDelegate} instance.
+   */
+  public SVGFactoryDelegate getSVGFactory() {
+    return this.svgFactoryDelegate;
+  }
+
+  /**
+   * Sets the delegate for creating UI SVG elements.
+   *
+   * @param svgFactoryDelegate The {@code SVGFactoryDelegate} instance to set.
+   */
+  public void setElementsFactory(SVGFactoryDelegate svgFactoryDelegate) {
+    this.svgFactoryDelegate = svgFactoryDelegate;
+  }
+
+  /**
+   * Sets whether popups should be closed when clicking outside of them.
+   *
+   * @param closePopupOnBlur {@code true} to close popups on blur, {@code false} otherwise.
+   */
   public void setClosePopupOnBlur(boolean closePopupOnBlur) {
     this.closePopupOnBlur = closePopupOnBlur;
   }
 
+  /**
+   * Checks if popups should be closed when clicking outside of them.
+   *
+   * @return {@code true} if popups should be closed on blur, {@code false} otherwise.
+   */
   public boolean isClosePopupOnBlur() {
     return this.closePopupOnBlur;
   }

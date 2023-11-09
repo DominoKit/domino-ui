@@ -15,8 +15,14 @@
  */
 package org.dominokit.domino.ui.i18n;
 
-/** Labels interface. */
+/** The {@code Labels} interface provides methods for retrieving localized labels. */
 public interface Labels {
+
+  /**
+   * Returns the localized label for the "Close" action.
+   *
+   * @return The localized label for "Close".
+   */
   default String close() {
     return "Close";
   }

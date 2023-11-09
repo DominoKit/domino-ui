@@ -13,32 +13,37 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package org.dominokit.domino.ui.utils;
 
-/** A component that should provide handlers for keyboard events should implement this interface */
+/** An interface for defining keyboard event handlers. */
 public interface KeyboardHandlers {
 
-  /** a function to handle the Escape key */
+  /** Functional interface for handling the 'Escape' key press event. */
   @FunctionalInterface
   interface EscapeHandler {
+    /** Called when the 'Escape' key is pressed. */
     void onEscape();
   }
 
-  /** a function to handle the Arrow down key */
+  /** Functional interface for handling the 'Arrow Down' key press event. */
   @FunctionalInterface
   interface ArrowDownHandler {
+    /** Called when the 'Arrow Down' key is pressed. */
     void onArrowDown();
   }
 
-  /** a function to handle the Arrow up key */
+  /** Functional interface for handling the 'Arrow Up' key press event. */
   @FunctionalInterface
   interface ArrowUpHandler {
+    /** Called when the 'Arrow Up' key is pressed. */
     void onArrowUp();
   }
 
-  /** a function to handle the Tab key */
+  /** Functional interface for handling the 'Tab' key press event. */
   @FunctionalInterface
   interface TabHandler {
+    /** Called when the 'Tab' key is pressed. */
     void onTab();
   }
 }

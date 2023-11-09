@@ -27,7 +27,17 @@ import org.dominokit.domino.ui.utils.ChildHandler;
 import org.dominokit.domino.ui.utils.LazyChild;
 import org.dominokit.domino.ui.utils.PostfixAddOn;
 
-/** TreeHeader class. */
+/**
+ * A component representing the header of a tree item in a UI tree.
+ *
+ * <p>The {@code TreeHeader} class allows you to create and customize the header of a tree item in a
+ * UI tree. You can set the title and icon for the header, as well as add additional content.
+ *
+ * @see TreeItem
+ * @see Icon
+ * @see PostfixAddOn
+ * @see BaseDominoElement
+ */
 public class TreeHeader extends BaseDominoElement<HTMLDivElement, TreeHeader>
     implements TreeStyles {
 
@@ -37,46 +47,52 @@ public class TreeHeader extends BaseDominoElement<HTMLDivElement, TreeHeader>
   private final LazyChild<SpanElement> textElement;
 
   /**
-   * create.
+   * Creates a new {@code TreeHeader} instance with default settings.
    *
-   * @return a {@link org.dominokit.domino.ui.tree.TreeHeader} object
+   * <p>This factory method creates a tree header without an icon or title.
+   *
+   * @return A new {@code TreeHeader} instance.
    */
   public static TreeHeader create() {
     return new TreeHeader();
   }
 
   /**
-   * create.
+   * Creates a new {@code TreeHeader} instance with the specified icon.
    *
-   * @param icon a {@link org.dominokit.domino.ui.icons.Icon} object
-   * @return a {@link org.dominokit.domino.ui.tree.TreeHeader} object
+   * @param icon The icon to be displayed in the tree header.
+   * @return A new {@code TreeHeader} instance with the specified icon.
    */
   public static TreeHeader create(Icon<?> icon) {
     return new TreeHeader(icon);
   }
 
   /**
-   * create.
+   * Creates a new {@code TreeHeader} instance with the specified title.
    *
-   * @param title a {@link java.lang.String} object
-   * @return a {@link org.dominokit.domino.ui.tree.TreeHeader} object
+   * @param title The title to be displayed in the tree header.
+   * @return A new {@code TreeHeader} instance with the specified title.
    */
   public static TreeHeader create(String title) {
     return new TreeHeader(title);
   }
 
   /**
-   * create.
+   * Creates a new {@code TreeHeader} instance with the specified icon and title.
    *
-   * @param icon a {@link org.dominokit.domino.ui.icons.Icon} object
-   * @param title a {@link java.lang.String} object
-   * @return a {@link org.dominokit.domino.ui.tree.TreeHeader} object
+   * @param icon The icon to be displayed in the tree header.
+   * @param title The title to be displayed in the tree header.
+   * @return A new {@code TreeHeader} instance with the specified icon and title.
    */
   public static TreeHeader create(Icon<?> icon, String title) {
     return new TreeHeader(icon, title);
   }
 
-  /** Constructor for TreeHeader. */
+  /**
+   * Creates a new {@code TreeHeader} instance with default settings.
+   *
+   * <p>This constructor creates a tree header without an icon or title.
+   */
   public TreeHeader() {
     element =
         div()
@@ -91,9 +107,9 @@ public class TreeHeader extends BaseDominoElement<HTMLDivElement, TreeHeader>
   }
 
   /**
-   * Constructor for TreeHeader.
+   * Creates a new {@code TreeHeader} instance with an icon.
    *
-   * @param icon a {@link org.dominokit.domino.ui.icons.Icon} object
+   * @param icon The icon to be displayed in the tree header.
    */
   public TreeHeader(Icon<?> icon) {
     this();
@@ -101,9 +117,9 @@ public class TreeHeader extends BaseDominoElement<HTMLDivElement, TreeHeader>
   }
 
   /**
-   * Constructor for TreeHeader.
+   * Creates a new {@code TreeHeader} instance with a title.
    *
-   * @param title a {@link java.lang.String} object
+   * @param title The title to be displayed in the tree header.
    */
   public TreeHeader(String title) {
     this();
@@ -111,10 +127,10 @@ public class TreeHeader extends BaseDominoElement<HTMLDivElement, TreeHeader>
   }
 
   /**
-   * Constructor for TreeHeader.
+   * Creates a new {@code TreeHeader} instance with an icon and a title.
    *
-   * @param icon a {@link org.dominokit.domino.ui.icons.Icon} object
-   * @param title a {@link java.lang.String} object
+   * @param icon The icon to be displayed in the tree header.
+   * @param title The title to be displayed in the tree header.
    */
   public TreeHeader(Icon<?> icon, String title) {
     this();
@@ -123,10 +139,10 @@ public class TreeHeader extends BaseDominoElement<HTMLDivElement, TreeHeader>
   }
 
   /**
-   * setTitle.
+   * Sets the title for the tree header.
    *
-   * @param title a {@link java.lang.String} object
-   * @return a {@link org.dominokit.domino.ui.tree.TreeHeader} object
+   * @param title The title to be displayed in the tree header.
+   * @return This {@code TreeHeader} instance for method chaining.
    */
   public TreeHeader setTitle(String title) {
     textElement.get().setTextContent(title);
@@ -134,10 +150,10 @@ public class TreeHeader extends BaseDominoElement<HTMLDivElement, TreeHeader>
   }
 
   /**
-   * setIcon.
+   * Sets the icon for the tree header.
    *
-   * @param icon a {@link org.dominokit.domino.ui.icons.Icon} object
-   * @return a {@link org.dominokit.domino.ui.tree.TreeHeader} object
+   * @param icon The icon to be displayed in the tree header.
+   * @return This {@code TreeHeader} instance for method chaining.
    */
   public TreeHeader setIcon(Icon<?> icon) {
     if (nonNull(headerIcon) && headerIcon.isInitialized()) {
@@ -150,10 +166,10 @@ public class TreeHeader extends BaseDominoElement<HTMLDivElement, TreeHeader>
   }
 
   /**
-   * appendChild.
+   * Appends a postfix add-on to the tree header.
    *
-   * @param postfixAddOn a {@link org.dominokit.domino.ui.utils.PostfixAddOn} object
-   * @return a {@link org.dominokit.domino.ui.tree.TreeHeader} object
+   * @param postfixAddOn The postfix add-on to append.
+   * @return This {@code TreeHeader} instance for method chaining.
    */
   public TreeHeader appendChild(PostfixAddOn<?> postfixAddOn) {
     if (nonNull(postfixAddOn)) {
@@ -164,10 +180,10 @@ public class TreeHeader extends BaseDominoElement<HTMLDivElement, TreeHeader>
   }
 
   /**
-   * withContent.
+   * Allows customizing the content of the tree header.
    *
-   * @param handler a {@link org.dominokit.domino.ui.utils.ChildHandler} object
-   * @return a {@link org.dominokit.domino.ui.tree.TreeHeader} object
+   * @param handler A {@link ChildHandler} that provides access to the tree header and its content.
+   * @return This {@code TreeHeader} instance for method chaining.
    */
   public TreeHeader withContent(ChildHandler<TreeHeader, DivElement> handler) {
     handler.apply(this, content);
@@ -175,19 +191,20 @@ public class TreeHeader extends BaseDominoElement<HTMLDivElement, TreeHeader>
   }
 
   /**
-   * Getter for the field <code>content</code>.
+   * Retrieves the content element of the tree header.
    *
-   * @return a {@link org.dominokit.domino.ui.elements.DivElement} object
+   * @return The content element of the tree header.
    */
   public DivElement getContent() {
     return content;
   }
 
   /**
-   * withTitle.
+   * Allows customizing the title element of the tree header.
    *
-   * @param handler a {@link org.dominokit.domino.ui.utils.ChildHandler} object
-   * @return a {@link org.dominokit.domino.ui.tree.TreeHeader} object
+   * @param handler A {@link ChildHandler} that provides access to the tree header and its title
+   *     element.
+   * @return This {@code TreeHeader} instance for method chaining.
    */
   public TreeHeader withTitle(ChildHandler<TreeHeader, SpanElement> handler) {
     handler.apply(this, textElement.get());
@@ -195,9 +212,11 @@ public class TreeHeader extends BaseDominoElement<HTMLDivElement, TreeHeader>
   }
 
   /**
-   * withTitle.
+   * Specifies that the tree header should include a title.
    *
-   * @return a {@link org.dominokit.domino.ui.tree.TreeHeader} object
+   * <p>This method is used to indicate that the tree header should have a title element.
+   *
+   * @return This {@code TreeHeader} instance to allow method chaining.
    */
   public TreeHeader withTitle() {
     textElement.get();
@@ -205,21 +224,29 @@ public class TreeHeader extends BaseDominoElement<HTMLDivElement, TreeHeader>
   }
 
   /**
-   * getTitle.
+   * Retrieves the title element of the tree header.
    *
-   * @return a {@link org.dominokit.domino.ui.elements.SpanElement} object
+   * @return The title element of the tree header.
    */
   public SpanElement getTitle() {
     return textElement.get();
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Gets the target element to which child elements should be appended.
+   *
+   * @return The target element for appending child elements.
+   */
   @Override
   public HTMLElement getAppendTarget() {
     return content.element();
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Retrieves the underlying HTML element for this tree header.
+   *
+   * @return The HTML element representing this tree header.
+   */
   @Override
   public HTMLDivElement element() {
     return element.element();

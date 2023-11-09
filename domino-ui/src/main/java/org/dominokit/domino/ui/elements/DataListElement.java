@@ -17,22 +17,40 @@ package org.dominokit.domino.ui.elements;
 
 import elemental2.dom.HTMLDataListElement;
 
-/** DataListElement class. */
+/**
+ * Represents a `<datalist>` HTML element wrapper.
+ *
+ * <p>The `<datalist>` tag specifies a list of pre-defined options for an `<input>` element. Users
+ * will see a drop-down list of pre-defined options as they input data. This class provides a
+ * convenient way to create, manipulate, and control the behavior of `<datalist>` elements, making
+ * it easier to use them in Java-based web applications. Example usage:
+ *
+ * <pre>{@code
+ * HTMLDataListElement htmlElement = ...;  // Obtain a <datalist> element from somewhere
+ * DataListElement dataListElement = DataListElement.of(htmlElement);
+ * }</pre>
+ *
+ * @see <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/datalist">MDN Web Docs
+ *     (datalist element)</a>
+ */
 public class DataListElement extends BaseElement<HTMLDataListElement, DataListElement> {
+
   /**
-   * of.
+   * Creates a new {@link DataListElement} instance by wrapping the provided HTML `<datalist>`
+   * element.
    *
-   * @param e a {@link elemental2.dom.HTMLDataListElement} object
-   * @return a {@link org.dominokit.domino.ui.elements.DataListElement} object
+   * @param e The HTML `<datalist>` element.
+   * @return A new {@link DataListElement} instance wrapping the provided element.
    */
   public static DataListElement of(HTMLDataListElement e) {
     return new DataListElement(e);
   }
 
   /**
-   * Constructor for DataListElement.
+   * Constructs a {@link DataListElement} instance by wrapping the provided HTML `<datalist>`
+   * element.
    *
-   * @param element a {@link elemental2.dom.HTMLDataListElement} object
+   * @param element The HTML `<datalist>` element to wrap.
    */
   public DataListElement(HTMLDataListElement element) {
     super(element);

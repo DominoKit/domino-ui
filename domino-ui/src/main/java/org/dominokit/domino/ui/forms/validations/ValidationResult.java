@@ -15,28 +15,35 @@
  */
 package org.dominokit.domino.ui.forms.validations;
 
-/** This class represent the result of a single validation logic */
+/**
+ * Represents the result of a validation operation, indicating whether the validation was successful
+ * or not and, if not, providing an error message.
+ */
 public class ValidationResult {
 
+  /** The error message associated with the validation result. */
   private String errorMessage;
+
+  /** A boolean value indicating whether the validation was successful (true) or not (false). */
   private boolean valid;
 
   /**
-   * Creates an instance of a validation result that indicate a <b>valid/invalid</b> state without
-   * an error message
+   * Constructs a new {@code ValidationResult} with the specified validity status and an empty error
+   * message.
    *
-   * @param valid boolean, if true the state is valid otherwise invalid
+   * @param valid A boolean value indicating whether the validation was successful (true) or not
+   *     (false).
    */
   public ValidationResult(boolean valid) {
     this(valid, "");
   }
 
   /**
-   * Creates an instance of a validation result that indicate a <b>valid/invalid</b> state with an
-   * error message
+   * Constructs a new {@code ValidationResult} with the specified validity status and error message.
    *
-   * @param valid boolean, if true the state is valid otherwise invalid
-   * @param errorMessage String error message
+   * @param valid A boolean value indicating whether the validation was successful (true) or not
+   *     (false).
+   * @param errorMessage The error message associated with the validation result.
    */
   public ValidationResult(boolean valid, String errorMessage) {
     this.valid = valid;
@@ -44,40 +51,37 @@ public class ValidationResult {
   }
 
   /**
-   * Creates an instance of a validation result that indicate a <b>valid</b> state
+   * Creates a valid validation result with an empty error message.
    *
-   * @return a {@link org.dominokit.domino.ui.forms.validations.ValidationResult} object
+   * @return A valid validation result.
    */
   public static ValidationResult valid() {
     return new ValidationResult(true);
   }
 
   /**
-   * Creates an instance of a validation result that indicate an <b>invalid</b> state with an error
-   * message
+   * Creates an invalid validation result with the specified error message.
    *
-   * @param errorMessage String error message
-   * @return a {@link org.dominokit.domino.ui.forms.validations.ValidationResult} object
+   * @param errorMessage The error message associated with the validation result.
+   * @return An invalid validation result with the provided error message.
    */
   public static ValidationResult invalid(String errorMessage) {
     return new ValidationResult(false, errorMessage);
   }
 
-  /** @return String error message, empty String for valid results */
   /**
-   * Getter for the field <code>errorMessage</code>.
+   * Gets the error message associated with this validation result.
    *
-   * @return a {@link java.lang.String} object
+   * @return The error message.
    */
   public String getErrorMessage() {
     return errorMessage;
   }
 
-  /** @return boolean, true if there was no errors false if there was errors. */
   /**
-   * isValid.
+   * Checks whether the validation result indicates success (valid) or failure (invalid).
    *
-   * @return a boolean
+   * @return {@code true} if the validation was successful, {@code false} otherwise.
    */
   public boolean isValid() {
     return valid;

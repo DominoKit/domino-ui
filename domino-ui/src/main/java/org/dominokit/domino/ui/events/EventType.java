@@ -16,156 +16,205 @@
 package org.dominokit.domino.ui.events;
 
 /**
- * EventType interface.
+ * The {@code EventType} interface defines a set of common event types that can be used in event
+ * handling. Each event type is represented as a lambda expression that returns the event type name.
  *
- * @see <a
- *     href="https://developer.mozilla.org/en-US/docs/Web/Events">https://developer.mozilla.org/en-US/docs/Web/Events</a>
+ * <p><strong>Usage Example:</strong>
+ *
+ * <pre>
+ * // Register an event listener for the "click" event type
+ * EventListener listener = event -> {
+ *     // Handle the click event
+ * };
+ * element.addEventListener(EventType.click.getName(), listener);
+ * </pre>
  */
 public interface EventType {
 
-  /** Constant <code>online</code> */
+  /** Represents the "online" event type. */
   EventType online = () -> "online";
-  /** Constant <code>offline</code> */
+
+  /** Represents the "offline" event type. */
   EventType offline = () -> "offline";
 
-  /** Constant <code>focus</code> */
+  /** Represents the "focus" event type. */
   EventType focus = () -> "focus";
-  /** Constant <code>blur</code> */
+
+  /** Represents the "blur" event type. */
   EventType blur = () -> "blur";
 
-  /** Constant <code>pagehide</code> */
+  /** Represents the "pagehide" event type. */
   EventType pagehide = () -> "pagehide";
-  /** Constant <code>pageshow</code> */
+
+  /** Represents the "pageshow" event type. */
   EventType pageshow = () -> "pageshow";
-  /** Constant <code>popstate</code> */
+
+  /** Represents the "popstate" event type. */
   EventType popstate = () -> "popstate";
 
-  /** Constant <code>reset</code> */
+  /** Represents the "reset" event type. */
   EventType reset = () -> "reset";
-  /** Constant <code>submit</code> */
+
+  /** Represents the "submit" event type. */
   EventType submit = () -> "submit";
 
-  /** Constant <code>beforeprint</code> */
+  /** Represents the "beforeprint" event type. */
   EventType beforeprint = () -> "beforeprint";
-  /** Constant <code>afterprint</code> */
+
+  /** Represents the "afterprint" event type. */
   EventType afterprint = () -> "afterprint";
 
-  /** Constant <code>compositionstart</code> */
+  /** Represents the "compositionstart" event type. */
   EventType compositionstart = () -> "compositionstart";
-  /** Constant <code>compositionupdate</code> */
+
+  /** Represents the "compositionupdate" event type. */
   EventType compositionupdate = () -> "compositionupdate";
-  /** Constant <code>compositionend</code> */
+
+  /** Represents the "compositionend" event type. */
   EventType compositionend = () -> "compositionend";
 
-  /** Constant <code>fullscreenchange</code> */
+  /** Represents the "fullscreenchange" event type. */
   EventType fullscreenchange = () -> "fullscreenchange";
-  /** Constant <code>fullscreenerror</code> */
+
+  /** Represents the "fullscreenerror" event type. */
   EventType fullscreenerror = () -> "fullscreenerror";
-  /** Constant <code>resize</code> */
+
+  /** Represents the "resize" event type. */
   EventType resize = () -> "resize";
-  /** Constant <code>scroll</code> */
+
+  /** Represents the "scroll" event type. */
   EventType scroll = () -> "scroll";
 
-  /** Constant <code>cut</code> */
+  /** Represents the "cut" event type. */
   EventType cut = () -> "cut";
-  /** Constant <code>copy</code> */
+
+  /** Represents the "copy" event type. */
   EventType copy = () -> "copy";
-  /** Constant <code>paste</code> */
+
+  /** Represents the "paste" event type. */
   EventType paste = () -> "paste";
 
-  /** Constant <code>keydown</code> */
+  /** Represents the "keydown" event type. */
   EventType keydown = () -> "keydown";
-  /** Constant <code>keypress</code> */
+
+  /** Represents the "keypress" event type. */
   EventType keypress = () -> "keypress";
-  /** Constant <code>keyup</code> */
+
+  /** Represents the "keyup" event type. */
   EventType keyup = () -> "keyup";
 
-  /** Constant <code>mouseenter</code> */
+  /** Represents the "mouseenter" event type. */
   EventType mouseenter = () -> "mouseenter";
-  /** Constant <code>mouseover</code> */
+
+  /** Represents the "mouseover" event type. */
   EventType mouseover = () -> "mouseover";
-  /** Constant <code>mousemove</code> */
+
+  /** Represents the "mousemove" event type. */
   EventType mousemove = () -> "mousemove";
-  /** Constant <code>mousedown</code> */
+
+  /** Represents the "mousedown" event type. */
   EventType mousedown = () -> "mousedown";
-  /** Constant <code>mouseup</code> */
+
+  /** Represents the "mouseup" event type. */
   EventType mouseup = () -> "mouseup";
-  /** Constant <code>auxclick</code> */
+
+  /** Represents the "auxclick" event type. */
   EventType auxclick = () -> "auxclick";
-  /** Constant <code>click</code> */
+
+  /** Represents the "click" event type. */
   EventType click = () -> "click";
-  /** Constant <code>dblclick</code> */
+
+  /** Represents the "dblclick" event type. */
   EventType dblclick = () -> "dblclick";
-  /** Constant <code>contextmenu</code> */
+
+  /** Represents the "contextmenu" event type. */
   EventType contextmenu = () -> "contextmenu";
-  /** Constant <code>wheel</code> */
+
+  /** Represents the "wheel" event type. */
   EventType wheel = () -> "wheel";
-  /** Constant <code>mouseleave</code> */
+
+  /** Represents the "mouseleave" event type. */
   EventType mouseleave = () -> "mouseleave";
-  /** Constant <code>mouseout</code> */
+
+  /** Represents the "mouseout" event type. */
   EventType mouseout = () -> "mouseout";
-  /** Constant <code>pointerlockchange</code> */
+
+  /** Represents the "pointerlockchange" event type. */
   EventType pointerlockchange = () -> "pointerlockchange";
-  /** Constant <code>pointerlockerror</code> */
+
+  /** Represents the "pointerlockerror" event type. */
   EventType pointerlockerror = () -> "pointerlockerror";
 
-  /** Constant <code>dragstart</code> */
+  /** Represents the "dragstart" event type. */
   EventType dragstart = () -> "dragstart";
-  /** Constant <code>drag</code> */
+
+  /** Represents the "drag" event type. */
   EventType drag = () -> "drag";
-  /** Constant <code>dragend</code> */
+
+  /** Represents the "dragend" event type. */
   EventType dragend = () -> "dragend";
-  /** Constant <code>dragenter</code> */
+
+  /** Represents the "dragenter" event type. */
   EventType dragenter = () -> "dragenter";
-  /** Constant <code>dragover</code> */
+
+  /** Represents the "dragover" event type. */
   EventType dragover = () -> "dragover";
-  /** Constant <code>dragleave</code> */
+
+  /** Represents the "dragleave" event type. */
   EventType dragleave = () -> "dragleave";
-  /** Constant <code>drop</code> */
+
+  /** Represents the "drop" event type. */
   EventType drop = () -> "drop";
 
-  /** Constant <code>touchcancel</code> */
+  /** Represents the "touchcancel" event type. */
   EventType touchcancel = () -> "touchcancel";
-  /** Constant <code>touchend</code> */
+
+  /** Represents the "touchend" event type. */
   EventType touchend = () -> "touchend";
-  /** Constant <code>touchmove</code> */
+
+  /** Represents the "touchmove" event type. */
   EventType touchmove = () -> "touchmove";
-  /** Constant <code>touchstart</code> */
+
+  /** Represents the "touchstart" event type. */
   EventType touchstart = () -> "touchstart";
 
-  /** Constant <code>hashchange</code> */
+  /** Represents the "hashchange" event type. */
   EventType hashchange = () -> "hashchange";
-  /** Constant <code>input</code> */
+
+  /** Represents the "input" event type. */
   EventType input = () -> "input";
-  /** Constant <code>readystatechange</code> */
+
+  /** Represents the "readystatechange" event type. */
   EventType readystatechange = () -> "readystatechange";
-  /** Constant <code>change</code> */
+
+  /** Represents the "change" event type. */
   EventType change = () -> "change";
-  /** Constant <code>search</code> */
+
+  /** Represents the "search" event type. */
   EventType search = () -> "search";
 
-  /** Constant <code>invalid</code> */
+  /** Represents the "invalid" event type. */
   EventType invalid = () -> "invalid";
-  /** Constant <code>show</code> */
+
+  /** Represents the "show" event type. */
   EventType show = () -> "show";
-  /** Constant <code>message</code> */
+
+  /** Represents the "message" event type. */
   EventType message = () -> "message";
 
-  // Storage Events
-  /** Constant <code>storage</code> */
+  /** Represents the "storage" event type. */
   EventType storage = () -> "storage";
 
-  /** Constant <code>load</code> */
+  /** Represents the "load" event type. */
   EventType load = () -> "load";
 
-  /** Constant <code>visibilitychange</code> */
+  /** Represents the "visibilitychange" event type. */
   EventType visibilitychange = () -> "visibilitychange";
 
-  /** @return the name of the event type. */
   /**
-   * getName.
+   * Retrieves the name of the event type.
    *
-   * @return a {@link java.lang.String} object
+   * @return The name of the event type.
    */
   String getName();
 }

@@ -19,15 +19,27 @@ import elemental2.dom.Node;
 import org.dominokit.domino.ui.events.HasDefaultEventOptions;
 import org.dominokit.domino.ui.utils.LazyInitializer;
 
-/** KeyboardEvents class. */
+/**
+ * The {@code KeyboardEvents} class provides a fluent interface for configuring and managing
+ * keyboard event listeners on a DOM element. It allows you to listen for key events such as
+ * keydown, keyup, and keypress, and provides methods for adding and removing event listeners with
+ * ease.
+ *
+ * <p>Keyboard event listeners can be customized using {@link KeyboardEventOptions} to specify
+ * options like preventing default actions, stopping event propagation, and checking modifier keys.
+ *
+ * @param <T> The type of the DOM element on which the keyboard events will be listened to.
+ */
 public class KeyboardEvents<T extends Node>
     implements HasDefaultEventOptions<KeyboardEventOptions> {
 
-  /** Constant <code>KEYDOWN="keydown"</code> */
+  /** The constant representing the "keydown" event type. */
   public static final String KEYDOWN = "keydown";
-  /** Constant <code>KEYUP="keyup"</code> */
+
+  /** The constant representing the "keyup" event type. */
   public static final String KEYUP = "keyup";
-  /** Constant <code>KEYPRESS="keypress"</code> */
+
+  /** The constant representing the "keypress" event type. */
   public static final String KEYPRESS = "keypress";
 
   private KeyboardEventOptions defaultOptions = KeyboardEventOptions.create();
@@ -42,9 +54,9 @@ public class KeyboardEvents<T extends Node>
   private LazyInitializer keyPressListenerInitializer;
 
   /**
-   * Constructor for KeyboardEvents.
+   * Creates a new instance of {@code KeyboardEvents} for the specified DOM element.
    *
-   * @param element a T object
+   * @param element The DOM element on which keyboard events will be listened to.
    */
   public KeyboardEvents(T element) {
     this.element = element;
@@ -57,10 +69,11 @@ public class KeyboardEvents<T extends Node>
   }
 
   /**
-   * listenOnKeyDown.
+   * Adds a keydown event listener to the element and associates it with the provided {@code
+   * onKeyDown} consumer.
    *
-   * @param onKeyDown a {@link org.dominokit.domino.ui.keyboard.KeyEventsConsumer} object
-   * @return a {@link org.dominokit.domino.ui.keyboard.KeyboardEvents} object
+   * @param onKeyDown The consumer that will receive keydown events.
+   * @return This {@code KeyboardEvents} instance for method chaining.
    */
   public KeyboardEvents<T> listenOnKeyDown(KeyEventsConsumer onKeyDown) {
     keyDownListenerInitializer.apply();
@@ -69,9 +82,9 @@ public class KeyboardEvents<T extends Node>
   }
 
   /**
-   * stopListenOnKeyDown.
+   * Removes the keydown event listener from the element.
    *
-   * @return a {@link org.dominokit.domino.ui.keyboard.KeyboardEvents} object
+   * @return This {@code KeyboardEvents} instance for method chaining.
    */
   public KeyboardEvents<T> stopListenOnKeyDown() {
     element.removeEventListener(KEYDOWN, keyDownListener);
@@ -80,10 +93,11 @@ public class KeyboardEvents<T extends Node>
   }
 
   /**
-   * listenOnKeyUp.
+   * Adds a keyup event listener to the element and associates it with the provided {@code onKeyUp}
+   * consumer.
    *
-   * @param onKeyUp a {@link org.dominokit.domino.ui.keyboard.KeyEventsConsumer} object
-   * @return a {@link org.dominokit.domino.ui.keyboard.KeyboardEvents} object
+   * @param onKeyUp The consumer that will receive keyup events.
+   * @return This {@code KeyboardEvents} instance for method chaining.
    */
   public KeyboardEvents<T> listenOnKeyUp(KeyEventsConsumer onKeyUp) {
     keyUpListenerInitializer.apply();
@@ -92,9 +106,9 @@ public class KeyboardEvents<T extends Node>
   }
 
   /**
-   * stopListenOnKeyUp.
+   * Removes the keyup event listener from the element.
    *
-   * @return a {@link org.dominokit.domino.ui.keyboard.KeyboardEvents} object
+   * @return This {@code KeyboardEvents} instance for method chaining.
    */
   public KeyboardEvents<T> stopListenOnKeyUp() {
     element.removeEventListener(KEYUP, keyUpListener);
@@ -103,10 +117,11 @@ public class KeyboardEvents<T extends Node>
   }
 
   /**
-   * listenOnKeyPress.
+   * Adds a keypress event listener to the element and associates it with the provided {@code
+   * onKeyPress} consumer.
    *
-   * @param onKeyPress a {@link org.dominokit.domino.ui.keyboard.KeyEventsConsumer} object
-   * @return a {@link org.dominokit.domino.ui.keyboard.KeyboardEvents} object
+   * @param onKeyPress The consumer that will receive keypress events.
+   * @return This {@code KeyboardEvents} instance for method chaining.
    */
   public KeyboardEvents<T> listenOnKeyPress(KeyEventsConsumer onKeyPress) {
     keyPressListenerInitializer.apply();
@@ -115,9 +130,9 @@ public class KeyboardEvents<T extends Node>
   }
 
   /**
-   * stopListenOnKeyPress.
+   * Removes the keypress event listener from the element.
    *
-   * @return a {@link org.dominokit.domino.ui.keyboard.KeyboardEvents} object
+   * @return This {@code KeyboardEvents} instance for method chaining.
    */
   public KeyboardEvents<T> stopListenOnKeyPress() {
     element.removeEventListener(KEYPRESS, keyPressListener);
@@ -132,10 +147,10 @@ public class KeyboardEvents<T extends Node>
   }
 
   /**
-   * Sets the default {@link org.dominokit.domino.ui.keyboard.KeyboardEventOptions}
+   * Sets the default keyboard event options for this {@code KeyboardEvents} instance.
    *
-   * @param defaultOptions the default {@link org.dominokit.domino.ui.keyboard.KeyboardEventOptions}
-   * @return same instance
+   * @param defaultOptions The default keyboard event options to set.
+   * @return This {@code KeyboardEvents} instance for method chaining.
    */
   public KeyboardEvents<T> setDefaultOptions(KeyboardEventOptions defaultOptions) {
     this.defaultOptions = defaultOptions;

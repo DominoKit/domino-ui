@@ -28,6 +28,22 @@ import org.dominokit.domino.ui.forms.TextBox;
 import org.dominokit.domino.ui.icons.lib.Icons;
 import org.dominokit.domino.ui.richtext.RichTextCommand;
 
+/**
+ * Represents a UI command to insert a hyperlink within a rich text editor.
+ *
+ * <p>The {@code InsertLinkCommand} extends {@link RichTextCommand} and provides users the ability
+ * to insert a hyperlink at the current selection position in a rich text editable div element. The
+ * command is represented by a button with a link icon. When the button is clicked, a confirmation
+ * dialog opens containing a textbox for users to input the desired URL. Confirming the dialog will
+ * then wrap the current selection with the hyperlink pointing to the entered URL.
+ *
+ * <p><b>Usage Example:</b>
+ *
+ * <pre>{@code
+ * DivElement editableDiv = DivElement.create();
+ * InsertLinkCommand insertLinkCommand = InsertLinkCommand.create(editableDiv);
+ * }</pre>
+ */
 public class InsertLinkCommand extends RichTextCommand<InsertLinkCommand> {
 
   private final ConfirmationDialog dialog;
@@ -35,10 +51,21 @@ public class InsertLinkCommand extends RichTextCommand<InsertLinkCommand> {
   private Button button;
   private Range range;
 
+  /**
+   * Factory method to create a new instance of InsertLinkCommand.
+   *
+   * @param editableElement The div element where the rich text is edited.
+   * @return A new instance of InsertLinkCommand.
+   */
   public static InsertLinkCommand create(DivElement editableElement) {
     return new InsertLinkCommand(editableElement);
   }
 
+  /**
+   * Constructs a new InsertLinkCommand instance for the specified editable div element.
+   *
+   * @param editableElement The div element where the rich text is edited.
+   */
   public InsertLinkCommand(DivElement editableElement) {
     super(editableElement);
     this.dialog =
@@ -76,11 +103,21 @@ public class InsertLinkCommand extends RichTextCommand<InsertLinkCommand> {
     init(this);
   }
 
+  /**
+   * @dominokit-site-ignore {@inheritDoc}
+   *     <p>Returns the main HTMLElement of this command, which is the button used to open the
+   *     hyperlink insertion dialog.
+   * @return The HTMLElement of the button.
+   */
   @Override
   public HTMLElement element() {
     return button.element();
   }
 
+  /**
+   * Executes the command, wrapping the current selection within the editable div element with a
+   * hyperlink pointing to the entered URL.
+   */
   @Override
   protected void execute() {
     if (nonNull(range)) {

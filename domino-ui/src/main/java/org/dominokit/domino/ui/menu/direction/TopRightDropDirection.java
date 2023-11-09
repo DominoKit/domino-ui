@@ -42,9 +42,18 @@ public class TopRightDropDirection implements DropDirection {
     Style.of(source)
         .style
         .setProperty("top", px.of((targetRect.top + window.pageYOffset) - sourceRect.height - 1));
-    Style.of(source).style.setProperty("left", px.of(targetRect.left + window.pageXOffset - delta));
+
+    Style.of(source).style.setProperty("left", px.of(targetRect.left));
+
     dui_dd_top_right.apply(source);
     elements.elementOf(source).setCssProperty("--dui-menu-drop-min-width", targetRect.width + "px");
+    DOMRect newRect = source.getBoundingClientRect();
+    Style.of(source)
+        .style
+        .setProperty(
+            "left",
+            px.of(
+                (targetRect.left - (newRect.left - targetRect.left)) + window.pageXOffset - delta));
   }
 
   /** {@inheritDoc} */

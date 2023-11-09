@@ -17,68 +17,93 @@ package org.dominokit.domino.ui.layout;
 
 import org.dominokit.domino.ui.style.CssClass;
 
-/** AppLayoutStyles interface. */
+/**
+ * The {@code AppLayoutStyles} interface provides CSS classes for styling the elements of an
+ * application layout.
+ */
 public interface AppLayoutStyles {
 
-  /** Constant <code>dui_layout</code> */
+  /** Represents the main layout CSS class. */
   CssClass dui_layout = () -> "dui-layout";
-  /** Constant <code>dui_body</code> */
+
+  /** Represents the CSS class for the main layout body. */
   CssClass dui_body = () -> "dui-layout-body";
-  /** Constant <code>dui_header</code> */
+
+  /** Represents the CSS class for the layout header. */
   CssClass dui_header = () -> "dui-layout-header";
-  /** Constant <code>dui_footer</code> */
+
+  /** Represents the CSS class for the layout footer. */
   CssClass dui_footer = () -> "dui-layout-footer";
-  /** Constant <code>dui_content</code> */
+
+  /** Represents the CSS class for the layout content. */
   CssClass dui_content = () -> "dui-layout-content";
-  /** Constant <code>dui_left_drawer</code> */
+
+  /** Represents the CSS class for the left drawer. */
   CssClass dui_left_drawer = () -> "dui-left-drawer";
-  /** Constant <code>dui_right_drawer</code> */
+
+  /** Represents the CSS class for the right drawer. */
   CssClass dui_right_drawer = () -> "dui-right-drawer";
-  /** Constant <code>dui_has_header</code> */
+
+  /** Represents the CSS class for layouts with a header. */
   CssClass dui_has_header = () -> "dui-layout-has-header";
-  /** Constant <code>dui_has_footer</code> */
+
+  /** Represents the CSS class for layouts with a footer. */
   CssClass dui_has_footer = () -> "dui-layout-has-footer";
-  /** Constant <code>dui_footer_fixed</code> */
+
+  /** Represents the CSS class for a fixed footer in the layout. */
   CssClass dui_footer_fixed = () -> "dui-layout-footer-fixed";
 
-  /** Constant <code>dui_left_open</code> */
+  /** Represents the CSS class for an open left drawer. */
   CssClass dui_left_open = () -> "dui-left-open";
-  /** Constant <code>dui_layout_menu</code> */
+
+  /** Represents the CSS class for the layout menu. */
   CssClass dui_layout_menu = () -> "dui-layout-menu";
 
-  /** Constant <code>dui_left_xsmall</code> */
+  /** Represents the CSS class for an extra-small left drawer. */
   CssClass dui_left_xsmall = () -> "dui-layout-left-drawer-xsm";
-  /** Constant <code>dui_left_small</code> */
+
+  /** Represents the CSS class for a small left drawer. */
   CssClass dui_left_small = () -> "dui-layout-left-drawer-sm";
-  /** Constant <code>dui_left_medium</code> */
+
+  /** Represents the CSS class for a medium-sized left drawer. */
   CssClass dui_left_medium = () -> "dui-layout-left-drawer-md";
-  /** Constant <code>dui_left_large</code> */
+
+  /** Represents the CSS class for a large left drawer. */
   CssClass dui_left_large = () -> "dui-layout-left-drawer-lg";
-  /** Constant <code>dui_left_xlarge</code> */
+
+  /** Represents the CSS class for an extra-large left drawer. */
   CssClass dui_left_xlarge = () -> "dui-layout-left-drawer-xlg";
 
-  /** Constant <code>dui_right_open</code> */
+  /** Represents the CSS class for an open right drawer. */
   CssClass dui_right_open = () -> "dui-right-open";
 
-  /** Constant <code>dui_right_xsmall</code> */
+  /** Represents the CSS class for an extra-small right drawer. */
   CssClass dui_right_xsmall = () -> "dui-layout-right-drawer-xsm";
-  /** Constant <code>dui_right_small</code> */
+
+  /** Represents the CSS class for a small right drawer. */
   CssClass dui_right_small = () -> "dui-layout-right-drawer-sm";
-  /** Constant <code>dui_right_medium</code> */
+
+  /** Represents the CSS class for a medium-sized right drawer. */
   CssClass dui_right_medium = () -> "dui-layout-right-drawer-md";
-  /** Constant <code>dui_right_large</code> */
+
+  /** Represents the CSS class for a large right drawer. */
   CssClass dui_right_large = () -> "dui-layout-right-drawer-lg";
-  /** Constant <code>dui_right_xlarge</code> */
+
+  /** Represents the CSS class for an extra-large right drawer. */
   CssClass dui_right_xlarge = () -> "dui-layout-right-drawer-xlg";
-  /** Constant <code>dui_shrink_content</code> */
+
+  /** Represents the CSS class for shrinking content. */
   CssClass dui_shrink_content = () -> "dui-shrink-content";
-  /** Constant <code>dui_left_span_up</code> */
+
+  /** Represents the CSS class for spanning up the left drawer. */
   CssClass dui_left_span_up = () -> "dui-left-drawer-span-up";
-  /** Constant <code>dui_left_span_down</code> */
+
+  /** Represents the CSS class for spanning down the left drawer. */
   CssClass dui_left_span_down = () -> "dui-left-drawer-span-down";
 
-  /** Constant <code>dui_left_overlay</code> */
+  /** Represents the CSS class for overlaying the left drawer. */
   CssClass dui_left_overlay = () -> "dui-left-overlay";
-  /** Constant <code>dui_right_overlay</code> */
+
+  /** Represents the CSS class for overlaying the right drawer. */
   CssClass dui_right_overlay = () -> "dui-right-overlay";
 }

@@ -13,6 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package org.dominokit.domino.ui.datatable.plugins.tree;
 
 import static java.util.Objects.nonNull;
@@ -21,21 +22,31 @@ import org.dominokit.domino.ui.datatable.DataTable;
 import org.dominokit.domino.ui.datatable.TableConfig;
 import org.dominokit.domino.ui.datatable.TableRow;
 
-/** TreeChildRowAppender class. */
+/**
+ * A custom row appender implementation for appending child rows to a DataTable with tree-like
+ * functionality.
+ *
+ * @param <T> The data type of the DataTable.
+ */
 public class TreeChildRowAppender<T> implements TableConfig.RowAppender<T> {
 
   private final TreePluginConfig<T> config;
 
   /**
-   * Constructor for TreeChildRowAppender.
+   * Constructs a new TreeChildRowAppender with the given configuration.
    *
-   * @param config a {@link org.dominokit.domino.ui.datatable.plugins.tree.TreePluginConfig} object
+   * @param config The configuration for the tree plugin.
    */
   public TreeChildRowAppender(TreePluginConfig<T> config) {
     this.config = config;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Appends a row to the DataTable based on the provided configuration.
+   *
+   * @param dataTable The DataTable to which the row should be appended.
+   * @param tableRow The TableRow to be appended.
+   */
   @Override
   public void appendRow(DataTable<T> dataTable, TableRow<T> tableRow) {
     if (config.isLazy()) {

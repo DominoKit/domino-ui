@@ -17,23 +17,37 @@ package org.dominokit.domino.ui.elements;
 
 import elemental2.dom.HTMLModElement;
 
-/** DelElement class. */
+/**
+ * Represents a `<del>` HTML element wrapper.
+ *
+ * <p>The `<del>` tag defines text that has been deleted from a document. This class provides a
+ * convenient way to create, manipulate, and control the behavior of `<del>` elements, making it
+ * easier to use them in Java-based web applications. Example usage:
+ *
+ * <pre>{@code
+ * HTMLModElement htmlElement = ...;  // Obtain a <del> element from somewhere
+ * DelElement delElement = DelElement.of(htmlElement);
+ * }</pre>
+ *
+ * @see <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/del">MDN Web Docs (del
+ *     element)</a>
+ */
 public class DelElement extends BaseElement<HTMLModElement, DelElement> {
 
   /**
-   * of.
+   * Creates a new {@link DelElement} instance by wrapping the provided HTML `<del>` element.
    *
-   * @param e a {@link elemental2.dom.HTMLModElement} object
-   * @return a {@link org.dominokit.domino.ui.elements.DelElement} object
+   * @param e The HTML `<del>` element.
+   * @return A new {@link DelElement} instance wrapping the provided element.
    */
   public static DelElement of(HTMLModElement e) {
     return new DelElement(e);
   }
 
   /**
-   * Constructor for DelElement.
+   * Constructs a {@link DelElement} instance by wrapping the provided HTML `<del>` element.
    *
-   * @param element a {@link elemental2.dom.HTMLModElement} object
+   * @param element The HTML `<del>` element to wrap.
    */
   public DelElement(HTMLModElement element) {
     super(element);

@@ -13,26 +13,29 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package org.dominokit.domino.ui.utils;
 
 /**
- * a component that can be deselected should implement this interface
+ * The {@code HasDeselectionHandler} interface defines methods for adding deselection handlers to a
+ * component.
  *
- * @param <T> the type of the component implementing this interface
+ * @param <T> The type of the component that can have deselection handlers.
  */
 public interface HasDeselectionHandler<T> {
+
   /**
-   * addDeselectionHandler.
+   * Adds a deselection handler to the component.
    *
-   * @param deselectionHandler {@link
-   *     org.dominokit.domino.ui.utils.HasDeselectionHandler.DeselectionHandler}
-   * @return same implementing component
+   * @param deselectionHandler The deselection handler to be added.
+   * @return The component with the deselection handler added.
    */
   T addDeselectionHandler(DeselectionHandler deselectionHandler);
 
-  /** A function to implement component deselection */
+  /** The {@code DeselectionHandler} interface defines a method to handle deselection events. */
   interface DeselectionHandler {
-    /** called when the component being deselected */
+
+    /** Called when a deselection event occurs. */
     void onDeselection();
   }
 }

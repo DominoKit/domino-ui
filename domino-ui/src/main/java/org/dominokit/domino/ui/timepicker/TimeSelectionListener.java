@@ -17,13 +17,14 @@ package org.dominokit.domino.ui.timepicker;
 
 import java.util.Date;
 
-/** TimeSelectionListener interface. */
+/** A listener interface for events related to time selection. */
 public interface TimeSelectionListener {
+
   /**
-   * onDaySelected.
+   * Called when a time is selected.
    *
-   * @param oldDate a {@link java.util.Date} object
-   * @param newDate a {@link java.util.Date} object
+   * @param oldDate The previously selected date.
+   * @param newDate The newly selected date.
    */
-  void onDaySelected(Date oldDate, Date newDate);
+  void onTimeSelected(Date oldDate, Date newDate);
 }

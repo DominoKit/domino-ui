@@ -31,10 +31,12 @@ import java.util.function.Function;
 import org.dominokit.domino.ui.IsElement;
 
 /**
- * An implementation of {@link org.dominokit.domino.ui.forms.suggest.SuggestionsStore} that provides
- * Suggestion from a local List
+ * A suggestions store implementation that maintains ordered suggestions using a map structure. This
+ * class allows you to manage and filter suggestions based on search criteria.
  *
- * @param <T> The type of the SuggestBox value
+ * @param <T> The type of values associated with the suggestions.
+ * @param <E> The element type used for suggestions.
+ * @param <O> The type of the option element within the store.
  */
 public class OrderedSuggestionsStore<T, E extends IsElement<?>, O extends Option<T, E, O>>
     implements SuggestionsStore<T, E, O> {
@@ -47,27 +49,24 @@ public class OrderedSuggestionsStore<T, E extends IsElement<?>, O extends Option
 
   private Function<T, Optional<O>> optionMapper;
 
-  /** Creates a store initialized with an empty List */
+  /** Creates an empty OrderedSuggestionsStore. */
   public OrderedSuggestionsStore() {
     this(new ArrayList<>());
   }
 
   /**
-   * Creates a store initialized with a List of Suggestions
+   * Creates an OrderedSuggestionsStore with the specified initial suggestions.
    *
-   * @param suggestions List of {@link org.dominokit.domino.ui.forms.suggest.Option}
+   * @param suggestions The initial collection of suggestions to add to the store.
    */
   public OrderedSuggestionsStore(Collection<O> suggestions) {
     suggestions.forEach(s -> this.suggestions.put(s.getKey(), s));
   }
 
   /**
-   * Creates a store initialized with an empty List
+   * Creates a new OrderedSuggestionsStore instance.
    *
-   * @param <T> the type of the SuggestBox value
-   * @return new store instance
-   * @param <E> a E class
-   * @param <O> a O class
+   * @return A new OrderedSuggestionsStore instance.
    */
   public static <T, E extends IsElement<?>, O extends Option<T, E, O>>
       OrderedSuggestionsStore<T, E, O> create() {
@@ -75,13 +74,10 @@ public class OrderedSuggestionsStore<T, E extends IsElement<?>, O extends Option
   }
 
   /**
-   * Creates a store initialized with a List of suggestions
+   * Creates a new OrderedSuggestionsStore instance with the specified suggestions.
    *
-   * @param suggestions List of {@link org.dominokit.domino.ui.forms.suggest.Option}
-   * @param <T> the type of the SuggestBox value
-   * @return new store instance
-   * @param <E> a E class
-   * @param <O> a O class
+   * @param suggestions The initial collection of suggestions to add to the store.
+   * @return A new OrderedSuggestionsStore instance with the provided suggestions.
    */
   public static <T, E extends IsElement<?>, O extends Option<T, E, O>>
       OrderedSuggestionsStore<T, E, O> create(List<O> suggestions) {
@@ -89,14 +85,11 @@ public class OrderedSuggestionsStore<T, E extends IsElement<?>, O extends Option
   }
 
   /**
-   * create.
+   * Creates a new OrderedSuggestionsStore instance with an option mapper and a collection of items.
    *
-   * @param optionMapper a {@link java.util.function.Function} object
-   * @param items a {@link java.util.Collection} object
-   * @param <T> a T class
-   * @param <E> a E class
-   * @param <O> a O class
-   * @return a {@link org.dominokit.domino.ui.forms.suggest.OrderedSuggestionsStore} object
+   * @param optionMapper A function to map items to options.
+   * @param items The collection of items to add to the store.
+   * @return A new OrderedSuggestionsStore instance with the provided option mapper and items.
    */
   public static <T, E extends IsElement<?>, O extends Option<T, E, O>>
       OrderedSuggestionsStore<T, E, O> create(
@@ -107,14 +100,11 @@ public class OrderedSuggestionsStore<T, E extends IsElement<?>, O extends Option
   }
 
   /**
-   * create.
+   * Creates a new OrderedSuggestionsStore instance with an option mapper and an array of items.
    *
-   * @param optionMapper a {@link java.util.function.Function} object
-   * @param items a T object
-   * @param <T> a T class
-   * @param <E> a E class
-   * @param <O> a O class
-   * @return a {@link org.dominokit.domino.ui.forms.suggest.OrderedSuggestionsStore} object
+   * @param optionMapper A function to map items to options.
+   * @param items The array of items to add to the store.
+   * @return A new OrderedSuggestionsStore instance with the provided option mapper and items.
    */
   public static <T, E extends IsElement<?>, O extends Option<T, E, O>>
       OrderedSuggestionsStore<T, E, O> create(Function<T, Optional<O>> optionMapper, T... items) {
@@ -122,13 +112,10 @@ public class OrderedSuggestionsStore<T, E extends IsElement<?>, O extends Option
   }
 
   /**
-   * create.
+   * Creates a new OrderedSuggestionsStore instance with an option mapper.
    *
-   * @param optionMapper a {@link java.util.function.Function} object
-   * @param <T> a T class
-   * @param <E> a E class
-   * @param <O> a O class
-   * @return a {@link org.dominokit.domino.ui.forms.suggest.OrderedSuggestionsStore} object
+   * @param optionMapper A function to map items to options.
+   * @return A new OrderedSuggestionsStore instance with the provided option mapper.
    */
   public static <T, E extends IsElement<?>, O extends Option<T, E, O>>
       OrderedSuggestionsStore<T, E, O> create(Function<T, Optional<O>> optionMapper) {
@@ -138,10 +125,10 @@ public class OrderedSuggestionsStore<T, E extends IsElement<?>, O extends Option
   }
 
   /**
-   * Adds a suggestion the suggestions List
+   * Adds a single suggestion to the store. The suggestion is associated with a unique key.
    *
-   * @param suggestion {@link org.dominokit.domino.ui.forms.suggest.Option}
-   * @return same store instance
+   * @param suggestion The suggestion to add.
+   * @return This OrderedSuggestionsStore instance with the added suggestion.
    */
   public OrderedSuggestionsStore<T, E, O> addSuggestion(O suggestion) {
     suggestions.put(suggestion.getKey(), suggestion);
@@ -149,10 +136,11 @@ public class OrderedSuggestionsStore<T, E extends IsElement<?>, O extends Option
   }
 
   /**
-   * Adds a suggestion the suggestions List
+   * Adds a collection of suggestions to the store. Each suggestion in the collection is associated
+   * with a unique key.
    *
-   * @param suggestions {@link org.dominokit.domino.ui.forms.suggest.Option}
-   * @return same store instance
+   * @param suggestions The collection of suggestions to add.
+   * @return This OrderedSuggestionsStore instance with the added suggestions.
    */
   public OrderedSuggestionsStore<T, E, O> addSuggestions(Collection<O> suggestions) {
     if (nonNull(suggestions)) {
@@ -162,10 +150,11 @@ public class OrderedSuggestionsStore<T, E extends IsElement<?>, O extends Option
   }
 
   /**
-   * Adds a suggestion the suggestions List
+   * Adds an array of suggestions to the store. Each suggestion in the array is associated with a
+   * unique key.
    *
-   * @param suggestions {@link org.dominokit.domino.ui.forms.suggest.Option}
-   * @return same store instance
+   * @param suggestions The array of suggestions to add.
+   * @return This OrderedSuggestionsStore instance with the added suggestions.
    */
   @SafeVarargs
   public final OrderedSuggestionsStore<T, E, O> addSuggestions(O... suggestions) {
@@ -176,10 +165,10 @@ public class OrderedSuggestionsStore<T, E extends IsElement<?>, O extends Option
   }
 
   /**
-   * removeOption.
+   * Removes a specific option from the store based on its unique key.
    *
-   * @param option a O object
-   * @return a {@link org.dominokit.domino.ui.forms.suggest.OrderedSuggestionsStore} object
+   * @param option The option to remove.
+   * @return This OrderedSuggestionsStore instance with the specified option removed.
    */
   public OrderedSuggestionsStore<T, E, O> removeOption(O option) {
     findOption(option).ifPresent(found -> suggestions.remove(found.getKey()));
@@ -187,10 +176,10 @@ public class OrderedSuggestionsStore<T, E extends IsElement<?>, O extends Option
   }
 
   /**
-   * removeOptions.
+   * Removes a collection of options from the store based on their unique keys.
    *
-   * @param options a {@link java.util.Collection} object
-   * @return a {@link org.dominokit.domino.ui.forms.suggest.OrderedSuggestionsStore} object
+   * @param options The collection of options to remove.
+   * @return This OrderedSuggestionsStore instance with the specified options removed.
    */
   public OrderedSuggestionsStore<T, E, O> removeOptions(Collection<O> options) {
     options.forEach(this::removeOption);
@@ -198,10 +187,10 @@ public class OrderedSuggestionsStore<T, E extends IsElement<?>, O extends Option
   }
 
   /**
-   * removeOptions.
+   * Removes an array of options from the store based on their unique keys.
    *
-   * @param options a O object
-   * @return a {@link org.dominokit.domino.ui.forms.suggest.OrderedSuggestionsStore} object
+   * @param options The array of options to remove.
+   * @return This OrderedSuggestionsStore instance with the specified options removed.
    */
   @SafeVarargs
   public final OrderedSuggestionsStore<T, E, O> removeOptions(O... options) {
@@ -210,9 +199,9 @@ public class OrderedSuggestionsStore<T, E extends IsElement<?>, O extends Option
   }
 
   /**
-   * removeAllOptions.
+   * Removes all options from the store.
    *
-   * @return a {@link org.dominokit.domino.ui.forms.suggest.OrderedSuggestionsStore} object
+   * @return This OrderedSuggestionsStore instance with all options removed.
    */
   public OrderedSuggestionsStore<T, E, O> removeAllOptions() {
     suggestions.values().forEach(this::removeOption);
@@ -220,10 +209,10 @@ public class OrderedSuggestionsStore<T, E extends IsElement<?>, O extends Option
   }
 
   /**
-   * findOption.
+   * Finds an option in the store that matches the provided option by comparing their keys.
    *
-   * @param option a O object
-   * @return a {@link java.util.Optional} object
+   * @param option The option to search for.
+   * @return An Optional containing the found option, or empty if not found.
    */
   public Optional<O> findOption(O option) {
     return Optional.ofNullable(option)
@@ -231,20 +220,20 @@ public class OrderedSuggestionsStore<T, E extends IsElement<?>, O extends Option
   }
 
   /**
-   * findOptionByKey.
+   * Finds an option in the store by its unique key.
    *
-   * @param key a {@link java.lang.String} object
-   * @return a {@link java.util.Optional} object
+   * @param key The unique key of the option to find.
+   * @return An Optional containing the found option, or empty if not found.
    */
   public Optional<O> findOptionByKey(String key) {
     return Optional.ofNullable(suggestions.get(key));
   }
 
   /**
-   * findOptionByValue.
+   * Finds an option in the store by its associated value.
    *
-   * @param value a T object
-   * @return a {@link java.util.Optional} object
+   * @param value The value to search for.
+   * @return An Optional containing the found option, or empty if not found.
    */
   public Optional<O> findOptionByValue(T value) {
     return suggestions.values().stream()
@@ -253,30 +242,31 @@ public class OrderedSuggestionsStore<T, E extends IsElement<?>, O extends Option
   }
 
   /**
-   * containsKey.
+   * Checks if the store contains an option with the specified key.
    *
-   * @param key a {@link java.lang.String} object
-   * @return a boolean
+   * @param key The unique key to check for.
+   * @return `true` if the key exists in the store, `false` otherwise.
    */
   public boolean containsKey(String key) {
     return this.suggestions.containsKey(key);
   }
 
   /**
-   * containsValue.
+   * Checks if the store contains an option with the specified value.
    *
-   * @param value a T object
-   * @return a boolean
+   * @param value The value to check for.
+   * @return `true` if the value exists in the store, `false` otherwise.
    */
   public boolean containsValue(T value) {
     return findOptionByValue(value).isPresent();
   }
 
   /**
-   * replace the store suggestions with the provided List
+   * Sets the suggestions in the store to the provided collection of suggestions. This operation
+   * replaces all existing suggestions in the store.
    *
-   * @param suggestions List of new {@link org.dominokit.domino.ui.forms.suggest.Option}
-   * @return same store instance
+   * @param suggestions The collection of suggestions to set.
+   * @return This OrderedSuggestionsStore instance with the updated suggestions.
    */
   public OrderedSuggestionsStore<T, E, O> setSuggestions(Collection<O> suggestions) {
     this.suggestions.clear();
@@ -284,17 +274,23 @@ public class OrderedSuggestionsStore<T, E extends IsElement<?>, O extends Option
     return this;
   }
 
-  /** @return Map of {@link Option} in this store */
   /**
-   * Getter for the field <code>suggestions</code>.
+   * Retrieves a map containing all the suggestions in the store, where each suggestion is
+   * associated with its unique key.
    *
-   * @return a {@link java.util.Map} object
+   * @return A map of suggestions with their keys.
    */
   public Map<String, O> getSuggestions() {
     return suggestions;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Filters the suggestions in the store based on the provided search value and invokes the
+   * provided suggestions handler with the filtered suggestions.
+   *
+   * @param searchValue The search value used for filtering.
+   * @param suggestionsHandler The handler to receive the filtered suggestions.
+   */
   @Override
   public void filter(String searchValue, SuggestionsHandler<T, E, O> suggestionsHandler) {
     List<O> filteredSuggestions = new ArrayList<>();
@@ -306,7 +302,13 @@ public class OrderedSuggestionsStore<T, E extends IsElement<?>, O extends Option
     suggestionsHandler.onSuggestionsReady(filteredSuggestions);
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Searches for a suggestion in the store that matches the provided search value and invokes the
+   * provided handler with the found suggestion.
+   *
+   * @param searchValue The search value used for searching.
+   * @param handler The handler to receive the found suggestion.
+   */
   @Override
   public void find(T searchValue, Consumer<O> handler) {
     if (isNull(searchValue)) {
@@ -321,27 +323,34 @@ public class OrderedSuggestionsStore<T, E extends IsElement<?>, O extends Option
     handler.accept(null);
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Filters a single suggestion based on the provided search value using the configured suggestion
+   * filter.
+   *
+   * @param searchValue The search value used for filtering.
+   * @param suggestItem The suggestion item to filter.
+   * @return `true` if the suggestion passes the filter, `false` otherwise.
+   */
   @Override
   public boolean filterItem(String searchValue, O suggestItem) {
     return suggestionFilter.filter(searchValue, suggestItem);
   }
 
-  /** @return the {@link SuggestionFilter} used by this store */
   /**
-   * Getter for the field <code>suggestionFilter</code>.
+   * Gets the current suggestion filter used for filtering suggestions in the store.
    *
-   * @return a SuggestionFilter object
+   * @return The current suggestion filter.
    */
   public SuggestionFilter<T, E, O> getSuggestionFilter() {
     return suggestionFilter;
   }
 
   /**
-   * Set the logic of matching a SuggestItem with the search text
+   * Sets the suggestion filter used for filtering suggestions in the store. If the provided
+   * suggestion filter is not null, it will replace the current filter.
    *
-   * @param suggestionFilter {@link SuggestionFilter}
-   * @return same store instance
+   * @param suggestionFilter The suggestion filter to set.
+   * @return This OrderedSuggestionsStore instance with the updated suggestion filter.
    */
   public OrderedSuggestionsStore<T, E, O> setSuggestionFilter(
       SuggestionFilter<T, E, O> suggestionFilter) {
@@ -352,10 +361,10 @@ public class OrderedSuggestionsStore<T, E extends IsElement<?>, O extends Option
   }
 
   /**
-   * sets the missing suggestion provider for this store
+   * Sets the missing value provider for handling missing suggestions.
    *
-   * @param missingValueProvider {@link MissingSuggestProvider}
-   * @return same store instance
+   * @param missingValueProvider The missing value provider to set.
+   * @return This OrderedSuggestionsStore instance with the updated missing value provider.
    */
   public OrderedSuggestionsStore<T, E, O> setMissingValueProvider(
       MissingSuggestProvider<T, E, O> missingValueProvider) {
@@ -364,10 +373,10 @@ public class OrderedSuggestionsStore<T, E extends IsElement<?>, O extends Option
   }
 
   /**
-   * Sets the missing entry provider to be used by this store
+   * Sets the missing entry provider for handling missing entries.
    *
-   * @param missingEntryProvider {@link MissingEntryProvider}
-   * @return same store instance
+   * @param missingEntryProvider The missing entry provider to set.
+   * @return This OrderedSuggestionsStore instance with the updated missing entry provider.
    */
   public OrderedSuggestionsStore<T, E, O> setMissingEntryProvider(
       MissingEntryProvider<T, E, O> missingEntryProvider) {
@@ -375,7 +384,12 @@ public class OrderedSuggestionsStore<T, E extends IsElement<?>, O extends Option
     return this;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Gets the missing suggestion provider, which provides missing suggestions based on missing
+   * values.
+   *
+   * @return The missing suggestion provider.
+   */
   @Override
   public MissingSuggestProvider<T, E, O> getMessingSuggestionProvider() {
     if (isNull(missingValueProvider)) {
@@ -384,7 +398,11 @@ public class OrderedSuggestionsStore<T, E extends IsElement<?>, O extends Option
     return missingValueProvider;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Gets the missing entry provider, which provides missing entries based on input values.
+   *
+   * @return The missing entry provider.
+   */
   @Override
   public MissingEntryProvider<T, E, O> getMessingEntryProvider() {
     if (isNull(missingEntryProvider)) {
@@ -394,10 +412,10 @@ public class OrderedSuggestionsStore<T, E extends IsElement<?>, O extends Option
   }
 
   /**
-   * Setter for the field <code>optionMapper</code>.
+   * Sets the option mapper function used for mapping input items to suggestion options.
    *
-   * @param optionMapper a {@link java.util.function.Function} object
-   * @return a {@link org.dominokit.domino.ui.forms.suggest.OrderedSuggestionsStore} object
+   * @param optionMapper The option mapper function to set.
+   * @return This OrderedSuggestionsStore instance with the updated option mapper.
    */
   public OrderedSuggestionsStore<T, E, O> setOptionMapper(Function<T, Optional<O>> optionMapper) {
     this.optionMapper = optionMapper;
@@ -405,10 +423,13 @@ public class OrderedSuggestionsStore<T, E extends IsElement<?>, O extends Option
   }
 
   /**
-   * addItem.
+   * Adds a single item to the store by applying the option mapper function to it. If the option
+   * mapper is not initialized, an IllegalArgumentException is thrown.
    *
-   * @param item a T object
-   * @return a {@link org.dominokit.domino.ui.forms.suggest.OrderedSuggestionsStore} object
+   * @param item The item to add.
+   * @return This OrderedSuggestionsStore instance with the added suggestion if the mapping was
+   *     successful.
+   * @throws IllegalArgumentException If the option mapper is not initialized.
    */
   public OrderedSuggestionsStore<T, E, O> addItem(T item) {
     if (isNull(optionMapper)) {
@@ -420,10 +441,11 @@ public class OrderedSuggestionsStore<T, E extends IsElement<?>, O extends Option
   }
 
   /**
-   * addItem.
+   * Adds a collection of items to the store by applying the option mapper function to each item.
    *
-   * @param items a {@link java.util.Collection} object
-   * @return a {@link org.dominokit.domino.ui.forms.suggest.OrderedSuggestionsStore} object
+   * @param items The collection of items to add.
+   * @return This OrderedSuggestionsStore instance with the added suggestions if the mapping was
+   *     successful for any item.
    */
   public OrderedSuggestionsStore<T, E, O> addItem(Collection<T> items) {
     items.forEach(this::addItem);
@@ -431,10 +453,11 @@ public class OrderedSuggestionsStore<T, E extends IsElement<?>, O extends Option
   }
 
   /**
-   * addItem.
+   * Adds an array of items to the store by applying the option mapper function to each item.
    *
-   * @param items a T object
-   * @return a {@link org.dominokit.domino.ui.forms.suggest.OrderedSuggestionsStore} object
+   * @param items The array of items to add.
+   * @return This OrderedSuggestionsStore instance with the added suggestions if the mapping was
+   *     successful for any item.
    */
   public OrderedSuggestionsStore<T, E, O> addItem(T... items) {
     addItem(Arrays.asList(items));
@@ -442,11 +465,12 @@ public class OrderedSuggestionsStore<T, E extends IsElement<?>, O extends Option
   }
 
   /**
-   * A shortcut method to set bot the MissingSuggestProvider and MissingEntryProvider
+   * Sets the missing suggestion and missing entry providers for handling missing suggestions and
+   * entries.
    *
-   * @param missingSuggestProvider {@link MissingSuggestProvider}
-   * @param missingEntryProvider {@link MissingEntryProvider}
-   * @return same store instance
+   * @param missingSuggestProvider The missing suggestion provider to set.
+   * @param missingEntryProvider The missing entry provider to set.
+   * @return This OrderedSuggestionsStore instance with the updated missing providers.
    */
   public OrderedSuggestionsStore<T, E, O> setMissingHandlers(
       MissingSuggestProvider<T, E, O> missingSuggestProvider,

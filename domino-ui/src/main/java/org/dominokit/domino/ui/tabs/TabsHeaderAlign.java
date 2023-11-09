@@ -19,33 +19,59 @@ import org.dominokit.domino.ui.style.CssClass;
 import org.dominokit.domino.ui.style.GenericCss;
 import org.dominokit.domino.ui.style.HasCssClass;
 
-/** An enum to list possible values for tabs align */
+/**
+ * Enum to represent alignment options available for tab headers.
+ *
+ * <p>This enum defines alignment options for positioning the tab headers. Each alignment option
+ * corresponds to a specific CSS class that will be applied to align the headers accordingly.
+ *
+ * <p><b>Usage Example:</b>
+ *
+ * <pre>
+ * TabsPanel tabsPanel = new TabsPanel();
+ * tabsPanel.setHeaderAlign(TabsHeaderAlign.CENTER);
+ * </pre>
+ *
+ * @see TabsPanel
+ * @see CssClass
+ * @see HasCssClass
+ */
 public enum TabsHeaderAlign implements HasCssClass {
-  /** Tabs headers will be aligned to the left of the tab panel */
+
+  /** Represents left alignment for tab headers. */
   LEFT(GenericCss.dui_left),
-  /** Tabs headers will be aligned to the center of the tab panel */
+
+  /** Represents center alignment for tab headers. */
   CENTER(GenericCss.dui_center),
-  /** Tabs headers will be aligned to the right of the tab panel */
+
+  /** Represents right alignment for tab headers. */
   RIGHT(GenericCss.dui_right);
 
   private final CssClass align;
 
-  /** @param align String css class name for the tab align */
+  /**
+   * Creates a {@link TabsHeaderAlign} enum instance with the specified alignment.
+   *
+   * @param align the CSS class representing the alignment
+   */
   TabsHeaderAlign(CssClass align) {
     this.align = align;
   }
 
-  /** @return String css class name for the tab align */
   /**
-   * Getter for the field <code>align</code>.
+   * Returns the {@link CssClass} associated with this alignment option.
    *
-   * @return a {@link org.dominokit.domino.ui.style.CssClass} object
+   * @return the CSS class for the alignment
    */
   public CssClass getAlign() {
     return align;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Returns the {@link CssClass} associated with this alignment option.
+   *
+   * @return the CSS class for the alignment
+   */
   @Override
   public CssClass getCssClass() {
     return align;

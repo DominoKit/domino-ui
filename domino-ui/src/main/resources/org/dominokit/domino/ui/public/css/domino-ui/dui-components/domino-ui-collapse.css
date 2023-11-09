@@ -73,7 +73,7 @@
     background-color: var(--dui-bg-clr, var(--dui-bg));
 }
 
-.dui-ignore-fg .dui-panel-header.dui-nav-bar {
+.dui-ignore-fg > .dui-panel-header.dui-nav-bar {
     color: var(--dui-text-color);
 }
 .dui-ignore-bg .dui-panel-content {

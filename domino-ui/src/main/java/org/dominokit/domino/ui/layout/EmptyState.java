@@ -23,8 +23,10 @@ import org.dominokit.domino.ui.icons.Icon;
 import org.dominokit.domino.ui.utils.*;
 
 /**
- * A component that indicate that other components or parts of the page has no content currently to
- * display
+ * The {@code EmptyState} class represents a UI component for displaying an empty state with a
+ * title, description, and icon.
+ *
+ * @see BaseDominoElement
  */
 public class EmptyState extends BaseDominoElement<HTMLDivElement, EmptyState>
     implements EmptyStateStyles {
@@ -35,7 +37,7 @@ public class EmptyState extends BaseDominoElement<HTMLDivElement, EmptyState>
 
   private LazyChild<Icon<?>> icon = NullLazyChild.of();
 
-  /** Constructor for EmptyState. */
+  /** Creates a new {@code EmptyState} instance with default settings. */
   public EmptyState() {
     element = div().addCss(dui_empty_state);
     title = LazyChild.of(h(4).addCss(dui_empty_state_title), element);
@@ -44,9 +46,9 @@ public class EmptyState extends BaseDominoElement<HTMLDivElement, EmptyState>
   }
 
   /**
-   * Constructor for EmptyState.
+   * Creates a new {@code EmptyState} instance with the specified title.
    *
-   * @param title a {@link java.lang.String} object
+   * @param title The title to display in the empty state.
    */
   public EmptyState(String title) {
     this();
@@ -54,10 +56,10 @@ public class EmptyState extends BaseDominoElement<HTMLDivElement, EmptyState>
   }
 
   /**
-   * Constructor for EmptyState.
+   * Creates a new {@code EmptyState} instance with the specified title and description.
    *
-   * @param title a {@link java.lang.String} object
-   * @param description a {@link java.lang.String} object
+   * @param title The title to display in the empty state.
+   * @param description The description to display in the empty state.
    */
   public EmptyState(String title, String description) {
     this(title);
@@ -65,10 +67,10 @@ public class EmptyState extends BaseDominoElement<HTMLDivElement, EmptyState>
   }
 
   /**
-   * Constructor for EmptyState.
+   * Creates a new {@code EmptyState} instance with the specified title and icon.
    *
-   * @param title a {@link java.lang.String} object
-   * @param icon a {@link org.dominokit.domino.ui.icons.Icon} object
+   * @param title The title to display in the empty state.
+   * @param icon The icon to display in the empty state.
    */
   public EmptyState(String title, Icon<?> icon) {
     this(title);
@@ -76,22 +78,21 @@ public class EmptyState extends BaseDominoElement<HTMLDivElement, EmptyState>
   }
 
   /**
-   * Constructor for EmptyState.
+   * Creates a new {@code EmptyState} instance with the specified title, description, and icon.
    *
-   * @param title a {@link java.lang.String} object
-   * @param description a {@link java.lang.String} object
-   * @param icon a {@link org.dominokit.domino.ui.icons.Icon} object
+   * @param title The title to display in the empty state.
+   * @param description The description to display in the empty state.
+   * @param icon The icon to display in the empty state.
    */
   public EmptyState(String title, String description, Icon<?> icon) {
     this(title, description);
     setIcon(icon);
   }
 
-  /** @param icon {@link Icon} to indicate empty data */
   /**
-   * Constructor for EmptyState.
+   * Creates a new {@code EmptyState} instance with the specified icon.
    *
-   * @param icon a {@link org.dominokit.domino.ui.icons.Icon} object
+   * @param icon The icon to display in the empty state.
    */
   public EmptyState(Icon<?> icon) {
     this();
@@ -99,73 +100,73 @@ public class EmptyState extends BaseDominoElement<HTMLDivElement, EmptyState>
   }
 
   /**
-   * create.
+   * Creates a new {@code EmptyState} instance with default settings.
    *
-   * @return a {@link org.dominokit.domino.ui.layout.EmptyState} object
+   * @return A new {@code EmptyState} instance.
    */
   public static EmptyState create() {
     return new EmptyState();
   }
 
   /**
-   * create.
+   * Creates a new {@code EmptyState} instance with the specified title.
    *
-   * @param title a {@link java.lang.String} object
-   * @return a {@link org.dominokit.domino.ui.layout.EmptyState} object
+   * @param title The title to display in the empty state.
+   * @return A new {@code EmptyState} instance with the specified title.
    */
   public static EmptyState create(String title) {
     return new EmptyState(title);
   }
 
   /**
-   * create.
+   * Creates a new {@code EmptyState} instance with the specified title and description.
    *
-   * @param title a {@link java.lang.String} object
-   * @param description a {@link java.lang.String} object
-   * @return a {@link org.dominokit.domino.ui.layout.EmptyState} object
+   * @param title The title to display in the empty state.
+   * @param description The description to display in the empty state.
+   * @return A new {@code EmptyState} instance with the specified title and description.
    */
   public static EmptyState create(String title, String description) {
     return new EmptyState(title, description);
   }
 
   /**
-   * create.
+   * Creates a new {@code EmptyState} instance with the specified title and icon.
    *
-   * @param title a {@link java.lang.String} object
-   * @param icon a {@link org.dominokit.domino.ui.icons.Icon} object
-   * @return a {@link org.dominokit.domino.ui.layout.EmptyState} object
+   * @param title The title to display in the empty state.
+   * @param icon The icon to display in the empty state.
+   * @return A new {@code EmptyState} instance with the specified title and icon.
    */
   public static EmptyState create(String title, Icon<?> icon) {
     return new EmptyState(title, icon);
   }
 
   /**
-   * create.
+   * Creates a new {@code EmptyState} instance with the specified title, description, and icon.
    *
-   * @param title a {@link java.lang.String} object
-   * @param description a {@link java.lang.String} object
-   * @param icon a {@link org.dominokit.domino.ui.icons.Icon} object
-   * @return a {@link org.dominokit.domino.ui.layout.EmptyState} object
+   * @param title The title to display in the empty state.
+   * @param description The description to display in the empty state.
+   * @param icon The icon to display in the empty state.
+   * @return A new {@code EmptyState} instance with the specified title, description, and icon.
    */
   public static EmptyState create(String title, String description, Icon<?> icon) {
     return new EmptyState(title, description, icon);
   }
 
   /**
-   * create.
+   * Creates a new {@code EmptyState} instance with the specified icon.
    *
-   * @param icon {@link org.dominokit.domino.ui.icons.Icon} to indicate empty data
-   * @return new EmptyState instance
+   * @param icon The icon to display in the empty state.
+   * @return A new {@code EmptyState} instance with the specified icon.
    */
   public static EmptyState create(Icon<?> icon) {
     return new EmptyState(icon);
   }
 
   /**
-   * Setter for the field <code>title</code>.
+   * Sets the title to display in the empty state.
    *
-   * @param title String to be shown under the icon
-   * @return same EmptyState instance
+   * @param title The title to set.
+   * @return This {@code EmptyState} instance.
    */
   public EmptyState setTitle(String title) {
     this.title.get().setTextContent(title);
@@ -173,10 +174,10 @@ public class EmptyState extends BaseDominoElement<HTMLDivElement, EmptyState>
   }
 
   /**
-   * Setter for the field <code>description</code>.
+   * Sets the description to display in the empty state.
    *
-   * @param description String to be shown under the title with smaller font
-   * @return same EmptyState instance
+   * @param description The description to set.
+   * @return This {@code EmptyState} instance.
    */
   public EmptyState setDescription(String description) {
     this.description.get().setTextContent(description);
@@ -184,10 +185,10 @@ public class EmptyState extends BaseDominoElement<HTMLDivElement, EmptyState>
   }
 
   /**
-   * Setter for the field <code>icon</code>.
+   * Sets the icon to display in the empty state.
    *
-   * @param icon a {@link org.dominokit.domino.ui.icons.Icon} object
-   * @return a {@link org.dominokit.domino.ui.layout.EmptyState} object
+   * @param icon The icon to set.
+   * @return This {@code EmptyState} instance.
    */
   public EmptyState setIcon(Icon<?> icon) {
     this.icon.remove();
@@ -197,37 +198,37 @@ public class EmptyState extends BaseDominoElement<HTMLDivElement, EmptyState>
   }
 
   /**
-   * Getter for the field <code>title</code>.
+   * Gets the title element.
    *
-   * @return a {@link org.dominokit.domino.ui.elements.HeadingElement} object
+   * @return The title element.
    */
   public HeadingElement getTitle() {
     return title.get();
   }
 
   /**
-   * Getter for the field <code>description</code>.
+   * Gets the description element.
    *
-   * @return a {@link org.dominokit.domino.ui.elements.SmallElement} object
+   * @return The description element.
    */
   public SmallElement getDescription() {
     return description.get();
   }
 
   /**
-   * Getter for the field <code>icon</code>.
+   * Gets the icon element.
    *
-   * @return a {@link org.dominokit.domino.ui.icons.Icon} object
+   * @return The icon element.
    */
   public Icon<?> getIcon() {
     return icon.get();
   }
 
   /**
-   * withTitle.
+   * Allows customization of the title element.
    *
-   * @param handler a {@link org.dominokit.domino.ui.utils.ChildHandler} object
-   * @return a {@link org.dominokit.domino.ui.layout.EmptyState} object
+   * @param handler The handler for customizing the title element.
+   * @return This {@code EmptyState} instance.
    */
   public EmptyState withTitle(ChildHandler<EmptyState, HeadingElement> handler) {
     handler.apply(this, title.get());
@@ -235,10 +236,10 @@ public class EmptyState extends BaseDominoElement<HTMLDivElement, EmptyState>
   }
 
   /**
-   * withDescription.
+   * Allows customization of the description element.
    *
-   * @param handler a {@link org.dominokit.domino.ui.utils.ChildHandler} object
-   * @return a {@link org.dominokit.domino.ui.layout.EmptyState} object
+   * @param handler The handler for customizing the description element.
+   * @return This {@code EmptyState} instance.
    */
   public EmptyState withDescription(ChildHandler<EmptyState, SmallElement> handler) {
     handler.apply(this, description.get());
@@ -246,10 +247,10 @@ public class EmptyState extends BaseDominoElement<HTMLDivElement, EmptyState>
   }
 
   /**
-   * withIcon.
+   * Allows customization of the icon element.
    *
-   * @param handler a {@link org.dominokit.domino.ui.utils.ChildHandler} object
-   * @return a {@link org.dominokit.domino.ui.layout.EmptyState} object
+   * @param handler The handler for customizing the icon element.
+   * @return This {@code EmptyState} instance.
    */
   public EmptyState withIcon(ChildHandler<EmptyState, Icon<?>> handler) {
     handler.apply(this, icon.get());

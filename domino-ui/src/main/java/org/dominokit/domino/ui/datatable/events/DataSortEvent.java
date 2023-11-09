@@ -13,55 +13,60 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package org.dominokit.domino.ui.datatable.events;
 
 import org.dominokit.domino.ui.datatable.plugins.pagination.SortDirection;
 
 /**
- * This event will be fired by the {@link
- * org.dominokit.domino.ui.datatable.plugins.pagination.SortPlugin} or the {@link
- * org.dominokit.domino.ui.datatable.DataTable} when the sort is by the data store.
+ * The {@code DataSortEvent} class represents an event that is fired when sorting is applied to a
+ * DataTable. It provides information about the sorted column and the sorting direction.
+ *
+ * @see org.dominokit.domino.ui.datatable.events.TableEvent
+ * @see org.dominokit.domino.ui.datatable.plugins.pagination.SortDirection
  */
 public class DataSortEvent implements TableEvent {
 
-  /** A constant string to define a unique type for this event */
+  /** The event type for data table sort applied event. */
   public static final String EVENT = "data-table-sort-applied-event";
 
   private final String sortColumn;
   private final SortDirection sortDirection;
 
   /**
-   * Constructor for DataSortEvent.
+   * Creates a new {@code DataSortEvent} with the specified sorting direction and sorted column.
    *
-   * @param sortDirection {@link org.dominokit.domino.ui.datatable.plugins.pagination.SortDirection}
-   * @param sortColumn String, the column name that we are using to sort the data by.
+   * @param sortDirection the sorting direction (ascending or descending)
+   * @param sortColumn the name of the sorted column
    */
   public DataSortEvent(SortDirection sortDirection, String sortColumn) {
     this.sortDirection = sortDirection;
     this.sortColumn = sortColumn;
   }
 
-  /** @return String, the sort column name */
   /**
-   * Getter for the field <code>sortColumn</code>.
+   * Retrieves the name of the sorted column.
    *
-   * @return a {@link java.lang.String} object
+   * @return the name of the sorted column
    */
   public String getSortColumn() {
     return sortColumn;
   }
 
-  /** @return {@link SortDirection} */
   /**
-   * Getter for the field <code>sortDirection</code>.
+   * Retrieves the sorting direction (ascending or descending).
    *
-   * @return a {@link org.dominokit.domino.ui.datatable.plugins.pagination.SortDirection} object
+   * @return the sorting direction
    */
   public SortDirection getSortDirection() {
     return sortDirection;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Retrieves the type of this event.
+   *
+   * @return the event type
+   */
   @Override
   public String getType() {
     return EVENT;

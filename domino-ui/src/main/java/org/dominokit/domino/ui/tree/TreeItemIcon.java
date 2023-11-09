@@ -18,26 +18,34 @@ package org.dominokit.domino.ui.tree;
 import org.dominokit.domino.ui.icons.MdiIcon;
 import org.dominokit.domino.ui.icons.StateChangeMdiIcon;
 
-/** TreeItemIcon class. */
+/**
+ * The `TreeItemIcon` class provides a utility for creating a state-changing icon for tree items.
+ * This icon can change its appearance based on the state of the tree item (collapsed, expanded,
+ * leaf, or active).
+ */
 public class TreeItemIcon {
 
-  /** Constant <code>STATE_COLLAPSED="dui-tree-collapsed"</code> */
+  /** The CSS class name for the collapsed state. */
   public static final String STATE_COLLAPSED = "dui-tree-collapsed";
-  /** Constant <code>STATE_EXPANDED="dui-tree-expanded"</code> */
+
+  /** The CSS class name for the expanded state. */
   public static final String STATE_EXPANDED = "dui-tree-expanded";
-  /** Constant <code>STATE_LEAF="dui-tree-leaf"</code> */
+
+  /** The CSS class name for the leaf state. */
   public static final String STATE_LEAF = "dui-tree-leaf";
-  /** Constant <code>STATE_ACTIVE="dui-tree-active"</code> */
+
+  /** The CSS class name for the active state. */
   public static final String STATE_ACTIVE = "dui-tree-active";
 
   /**
-   * of.
+   * Creates a state-changing Material Design Icon (MdiIcon) for a tree item.
    *
-   * @param collapsed a {@link org.dominokit.domino.ui.icons.MdiIcon} object
-   * @param expanded a {@link org.dominokit.domino.ui.icons.MdiIcon} object
-   * @param leaf a {@link org.dominokit.domino.ui.icons.MdiIcon} object
-   * @param active a {@link org.dominokit.domino.ui.icons.MdiIcon} object
-   * @return a {@link org.dominokit.domino.ui.icons.StateChangeMdiIcon} object
+   * @param collapsed The icon to be displayed when the tree item is in a collapsed state.
+   * @param expanded The icon to be displayed when the tree item is in an expanded state.
+   * @param leaf The icon to be displayed when the tree item is a leaf node.
+   * @param active The icon to be displayed when the tree item is active/selected.
+   * @return A state-changing MdiIcon that can display different icons based on the tree item's
+   *     state.
    */
   public static StateChangeMdiIcon of(
       MdiIcon collapsed, MdiIcon expanded, MdiIcon leaf, MdiIcon active) {

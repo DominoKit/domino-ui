@@ -17,22 +17,38 @@ package org.dominokit.domino.ui.elements;
 
 import elemental2.dom.HTMLFieldSetElement;
 
-/** FieldSetElement class. */
+/**
+ * Represents a <fieldset> HTML element wrapper.
+ *
+ * <p>The <fieldset> tag is used to group related form elements within a web form. This class
+ * provides a convenient way to create, manipulate, and control the behavior of <fieldset> elements,
+ * making it easier to use them in Java-based web applications. Example usage:
+ *
+ * <pre>
+ * HTMLFieldSetElement fieldSetElement = ...;  // Obtain a <fieldset> element from somewhere
+ * FieldSetElement fieldSet = FieldSetElement.of(fieldSetElement);
+ * </pre>
+ *
+ * @see <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/fieldset">MDN Web Docs
+ *     (fieldset element)</a>
+ */
 public class FieldSetElement extends BaseElement<HTMLFieldSetElement, FieldSetElement> {
+
   /**
-   * of.
+   * Creates a new {@link FieldSetElement} instance by wrapping the provided HTML <fieldset>
+   * element.
    *
-   * @param e a {@link elemental2.dom.HTMLFieldSetElement} object
-   * @return a {@link org.dominokit.domino.ui.elements.FieldSetElement} object
+   * @param e The HTML <fieldset> element.
+   * @return A new {@link FieldSetElement} instance wrapping the provided element.
    */
   public static FieldSetElement of(HTMLFieldSetElement e) {
     return new FieldSetElement(e);
   }
 
   /**
-   * Constructor for FieldSetElement.
+   * Constructs a {@link FieldSetElement} instance by wrapping the provided HTML <fieldset> element.
    *
-   * @param element a {@link elemental2.dom.HTMLFieldSetElement} object
+   * @param element The HTML <fieldset> element to wrap.
    */
   public FieldSetElement(HTMLFieldSetElement element) {
     super(element);

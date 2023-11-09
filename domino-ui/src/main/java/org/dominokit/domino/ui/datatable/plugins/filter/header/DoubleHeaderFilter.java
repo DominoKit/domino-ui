@@ -13,6 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package org.dominokit.domino.ui.datatable.plugins.filter.header;
 
 import elemental2.dom.HTMLInputElement;
@@ -20,81 +21,100 @@ import org.dominokit.domino.ui.datatable.model.FilterTypes;
 import org.dominokit.domino.ui.forms.DoubleBox;
 
 /**
- * BigDecimal column header filter component that is rendered as a {@link
- * org.dominokit.domino.ui.forms.DoubleBox} component
+ * The DoubleHeaderFilter class provides a header filter input field for filtering double values
+ * with delayed search functionality.
  *
- * @param <T> type of data table records
+ * @param <T> The type of data in the DataTable.
  */
 public class DoubleHeaderFilter<T> extends DelayedHeaderFilterInput<DoubleBox, T, Double> {
 
   private DoubleBox doubleBox;
 
-  /** Default constructor */
+  /** Creates a new instance of DoubleHeaderFilter with a default placeholder. */
   public DoubleHeaderFilter() {}
 
   /**
-   * Create and instance with custom placeholder
+   * Creates a new instance of DoubleHeaderFilter with a specified placeholder.
    *
-   * @param placeholder String
+   * @param placeholder The placeholder text for the input field.
    */
   public DoubleHeaderFilter(String placeholder) {
     super(placeholder);
   }
 
   /**
-   * create a new instance
+   * Creates a new instance of DoubleHeaderFilter.
    *
-   * @param <T> a T class
-   * @return a {@link org.dominokit.domino.ui.datatable.plugins.filter.header.DoubleHeaderFilter}
-   *     object
+   * @param <T> The type of data in the DataTable.
+   * @return A new instance of DoubleHeaderFilter.
    */
   public static <T> DoubleHeaderFilter<T> create() {
     return new DoubleHeaderFilter<>();
   }
 
   /**
-   * creates a new instance with custom placeholder
+   * Creates a new instance of DoubleHeaderFilter with a specified placeholder.
    *
-   * @param placeholder String
-   * @param <T> type of the data table records
-   * @return new instance
+   * @param <T> The type of data in the DataTable.
+   * @param placeholder The placeholder text for the input field.
+   * @return A new instance of DoubleHeaderFilter with the specified placeholder.
    */
   public static <T> DoubleHeaderFilter<T> create(String placeholder) {
     return new DoubleHeaderFilter<>(placeholder);
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Gets the HTML input element used for filtering.
+   *
+   * @return The HTML input element.
+   */
   @Override
   protected HTMLInputElement getInputElement() {
     return doubleBox.getInputElement().element();
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Creates the input field for filtering.
+   *
+   * @return The created input field instance.
+   */
   @Override
   protected DoubleBox createValueBox() {
     this.doubleBox = DoubleBox.create();
     return this.doubleBox;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Checks if the input field is empty.
+   *
+   * @return {@code true} if the input field is empty, {@code false} otherwise.
+   */
   @Override
   protected boolean isEmpty() {
     return this.doubleBox.isEmptyIgnoreSpaces();
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Gets the value from the input field as a string.
+   *
+   * @return The value from the input field as a string.
+   */
   @Override
   protected String getValue() {
     return this.doubleBox.getValue() + "";
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Gets the filter type for the input field.
+   *
+   * @return The filter type for the input field.
+   */
   @Override
   protected FilterTypes getType() {
     return FilterTypes.DOUBLE;
   }
 
-  /** {@inheritDoc} */
+  /** Clears the input field. */
   @Override
   public void clear() {
     doubleBox.withPausedChangeListeners(
@@ -104,11 +124,10 @@ public class DoubleHeaderFilter<T> extends DelayedHeaderFilterInput<DoubleBox, T
         });
   }
 
-  /** @return the {@link DoubleBox} wrapped in this component */
   /**
-   * Getter for the field <code>doubleBox</code>.
+   * Gets the DoubleBox instance used for filtering.
    *
-   * @return a {@link org.dominokit.domino.ui.forms.DoubleBox} object
+   * @return The DoubleBox instance.
    */
   public DoubleBox getDoubleBox() {
     return doubleBox;

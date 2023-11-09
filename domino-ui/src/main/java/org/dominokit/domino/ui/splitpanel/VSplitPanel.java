@@ -16,49 +16,68 @@
 package org.dominokit.domino.ui.splitpanel;
 
 /**
- * A vertical split panel implementation
+ * Represents a vertical split panel which contains two panels separated by a vertical splitter.
  *
- * @see BaseSplitPanel
- * @see HasSplitPanels
+ * <p>This is an extension of the base split panel with specific behavior for vertical layout.
  */
 public class VSplitPanel extends BaseSplitPanel<VSplitPanel, VSplitter>
     implements HasSplitPanels, SplitStyles {
 
-  /** Constructor for VSplitPanel. */
+  /** Creates a new vertical split panel. */
   public VSplitPanel() {
     addCss(dui_vertical);
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Creates a vertical splitter for this split panel.
+   *
+   * @param first the first panel in the split layout
+   * @param second the second panel in the split layout
+   * @param mainPanel the main split panel that holds the two sub-panels
+   * @return a new instance of {@link VSplitter}
+   */
   @Override
   protected VSplitter createSplitter(
       SplitPanel first, SplitPanel second, HasSplitPanels mainPanel) {
     return VSplitter.create(first, second, this);
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Gets the height of the provided split panel.
+   *
+   * @param panel the split panel whose height is to be retrieved
+   * @return the height of the panel
+   */
   @Override
   protected double getPanelSize(SplitPanel panel) {
     return panel.getBoundingClientRect().height;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Sets the height of the provided split panel.
+   *
+   * @param panel the split panel whose height is to be set
+   * @param size the height to be set for the panel
+   */
   @Override
   protected void setPanelSize(SplitPanel panel, String size) {
     panel.style().setHeight(size);
   }
 
-  /** @return new instance */
   /**
-   * create.
+   * Factory method to create a new instance of {@link VSplitPanel}.
    *
-   * @return a {@link org.dominokit.domino.ui.splitpanel.VSplitPanel} object
+   * @return a new instance of VSplitPanel
    */
   public static VSplitPanel create() {
     return new VSplitPanel();
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Gets the height of this vertical split panel.
+   *
+   * @return the height of the split panel
+   */
   @Override
   public double getSize() {
     return getBoundingClientRect().height;

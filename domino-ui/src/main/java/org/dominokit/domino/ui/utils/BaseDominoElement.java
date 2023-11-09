@@ -23,7 +23,6 @@ import elemental2.dom.AddEventListenerOptions;
 import elemental2.dom.CSSStyleDeclaration;
 import elemental2.dom.CustomEvent;
 import elemental2.dom.DOMRect;
-import elemental2.dom.DomGlobal;
 import elemental2.dom.Element;
 import elemental2.dom.Event;
 import elemental2.dom.EventListener;
@@ -76,15 +75,23 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * This is the base implementation for all domino components.
+ * This abstract class represents the base for all DOM elements in the Domino UI framework. It
+ * provides common functionality and features for DOM elements.
  *
- * <p>The class provide common behaviors and functions to interact with any component
+ * <p><strong>Usage Example:</strong>
  *
- * <p>also the class can wrap any html element to treat it as a domino component
+ * <pre>
+ * // Create a new Button element
+ * Button button = Button.create("Click me");
  *
- * @param <E> The type of the HTML element of the component extending from this class
- * @param <T> The type of the component extending from this class
- * @see DominoElement
+ * // Add a click event listener
+ * button.addClickListener(evt -> {
+ *     Window.alert("Button clicked!");
+ * });
+ *
+ * // Append the button to the document body
+ * document.body.appendChild(button.element());
+ * </pre>
  */
 public abstract class BaseDominoElement<E extends Element, T extends IsElement<E>>
     implements IsElement<E>,
@@ -106,32 +113,58 @@ public abstract class BaseDominoElement<E extends Element, T extends IsElement<E
 
   public static final Logger LOGGER = LoggerFactory.getLogger(BaseDominoElement.class);
 
-  /** The name of the attribute that holds a unique id for the component */
   private static final String DOMINO_UUID = "domino-uuid";
 
-  /** Constant <code>ATTACH_UID_KEY="dui-on-attach-uid"</code> */
   public static String ATTACH_UID_KEY = "dui-on-attach-uid";
-  /** Constant <code>DETACH_UID_KEY="dui-on-detach-uid"</code> */
   public static String DETACH_UID_KEY = "dui-on-detach-uid";
 
   @Editor.Ignore protected T element;
+  /** A unique identifier for this DOM element. */
   private String uuid;
+
+  /** A tooltip associated with this DOM element. */
   private Tooltip tooltip;
+
+  /** The collapsible state of this DOM element. */
   private Collapsible collapsible;
+  /** The style of this DOM element. */
   @Editor.Ignore private Style<Element> style;
+
   private LambdaFunction styleInitializer;
+  /** The screen media for hiding this DOM element. */
   private ScreenMedia hideOn;
+
+  /** The screen media for showing this DOM element. */
   private ScreenMedia showOn;
+
+  /** The elevation level of this DOM element. */
   private Elevation elevation;
+
+  /** The Waves support for this DOM element. */
   protected WavesSupport wavesSupport;
+
+  /** A list of attach observers for this DOM element. */
   private List<AttachDetachCallback> attachObservers = new ArrayList<>();
+
+  /** A list of detach observers for this DOM element. */
   private List<AttachDetachCallback> detachObservers = new ArrayList<>();
+
+  /** Optional ResizeObserver for this DOM element. */
   private Optional<ResizeObserver> resizeObserverOptional = Optional.empty();
+
+  /** The keyboard events for this DOM element. */
   private KeyboardEvents<E> keyboardEvents;
+
+  /** A lazy initializer for keyboard events. */
   private LazyInitializer keyEventsInitializer;
+
+  /** Flag to pause collapse listeners. */
   private boolean collapseListenersPaused = false;
 
+  /** Set of collapse listeners for this DOM element. */
   protected Set<CollapseListener<? super T>> collapseListeners = new LinkedHashSet<>();
+
+  /** Set of expand listeners for this DOM element. */
   protected Set<ExpandListener<? super T>> expandListeners = new LinkedHashSet<>();
 
   private LambdaFunction dominoUuidInitializer;
@@ -145,11 +178,9 @@ public abstract class BaseDominoElement<E extends Element, T extends IsElement<E
   private TransitionListeners<E, T> transitionListeners;
 
   /**
-   * initialize the component using its root element giving it a unique id, a {@link
-   * org.dominokit.domino.ui.style.Style} and also initialize a {@link
-   * org.dominokit.domino.ui.collapsible.Collapsible} for the element
+   * Initializes the DOM element with common functionality.
    *
-   * @param element T component root element
+   * @param element The DOM element to be initialized.
    */
   @Editor.Ignore
   protected void init(T element) {
@@ -178,21 +209,31 @@ public abstract class BaseDominoElement<E extends Element, T extends IsElement<E
     transitionListeners = TransitionListeners.of(element);
   }
 
+  /**
+   * Checks if the DOM element has a "domino UUID" attribute.
+   *
+   * @return {@code true} if the element has a "domino UUID" attribute, {@code false} otherwise.
+   */
   private boolean hasDominoId() {
     return hasAttribute(DOMINO_UUID)
         && nonNull(getAttribute(DOMINO_UUID))
         && !getAttribute(DOMINO_UUID).isEmpty();
   }
 
+  /**
+   * Checks if the DOM element has an "id" attribute.
+   *
+   * @return {@code true} if the element has an "id" attribute, {@code false} otherwise.
+   */
   private boolean hasId() {
     return hasAttribute("id") && nonNull(getAttribute("id")) && !getAttribute("id").isEmpty();
   }
 
   /**
-   * sets the element id attribute
+   * Sets the "id" attribute of the DOM element.
    *
-   * @param id String custom id
-   * @return same component
+   * @param id The value to set as the "id" attribute.
+   * @return The modified DOM element.
    */
   public T setId(String id) {
     element().id = id;
@@ -200,9 +241,9 @@ public abstract class BaseDominoElement<E extends Element, T extends IsElement<E
   }
 
   /**
-   * getZIndex.
+   * Gets the "z-index" property of the DOM element.
    *
-   * @return a int
+   * @return The "z-index" property value if present, or -1 if not set.
    */
   public int getZIndex() {
     if (hasAttribute("dui-z-index")) {
@@ -211,7 +252,12 @@ public abstract class BaseDominoElement<E extends Element, T extends IsElement<E
     return -1;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Sets the "z-index" property of the DOM element.
+   *
+   * @param zindex The value to set as the "z-index" property.
+   * @return The modified DOM element.
+   */
   @Override
   public T setZIndex(int zindex) {
     this.setAttribute("dui-z-index", zindex);
@@ -221,10 +267,10 @@ public abstract class BaseDominoElement<E extends Element, T extends IsElement<E
   }
 
   /**
-   * sets the element tabIndex attribute
+   * Sets the "tabindex" attribute of the DOM element.
    *
-   * @param tabIndex int tabIndex
-   * @return same component
+   * @param tabIndex The value to set as the "tabindex" attribute.
+   * @return The modified DOM element.
    */
   public T setTabIndex(int tabIndex) {
     Js.<DominoElementAdapter>uncheckedCast(element()).tabIndex = tabIndex;
@@ -232,20 +278,19 @@ public abstract class BaseDominoElement<E extends Element, T extends IsElement<E
   }
 
   /**
-   * sets the element id attribute
+   * Alias for the {@link #setId(String)} method. Sets the "id" attribute of the DOM element.
    *
-   * @param id String custom id
-   * @return same component
+   * @param id The value to set as the "id" attribute.
+   * @return The modified DOM element.
    */
   public T id(String id) {
     return setId(id);
   }
 
-  /** @return String value of the element id attribute */
   /**
-   * getId.
+   * Gets the "id" attribute of the DOM element.
    *
-   * @return a {@link java.lang.String} object
+   * @return The value of the "id" attribute.
    */
   @Editor.Ignore
   public String getId() {
@@ -253,11 +298,9 @@ public abstract class BaseDominoElement<E extends Element, T extends IsElement<E
   }
 
   /**
-   * {@inheritDoc}
+   * Toggles the collapsible state of this element.
    *
-   * <p>if the component is visible hide it, else show it
-   *
-   * @see Collapsible#toggleCollapse()
+   * @return The modified DOM element.
    */
   @Override
   @Editor.Ignore
@@ -266,7 +309,12 @@ public abstract class BaseDominoElement<E extends Element, T extends IsElement<E
     return element;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Toggles the collapsible state of this element.
+   *
+   * @param state {@code true} to expand, {@code false} to collapse.
+   * @return The modified DOM element.
+   */
   @Override
   @Editor.Ignore
   public T toggleCollapse(boolean state) {
@@ -275,10 +323,9 @@ public abstract class BaseDominoElement<E extends Element, T extends IsElement<E
   }
 
   /**
-   * if the component is visible hide it, else show it
+   * Toggles the display state of this element based on its current visibility.
    *
-   * @return same component
-   * @see Collapsible#toggleCollapse()
+   * @return The modified DOM element.
    */
   @Editor.Ignore
   public T toggleDisplay() {
@@ -291,11 +338,10 @@ public abstract class BaseDominoElement<E extends Element, T extends IsElement<E
   }
 
   /**
-   * toggleDisplay.
+   * Toggles the display state of this element based on the specified state.
    *
-   * @param state boolean, if true show the component otherwise hide it
-   * @return same component
-   * @see Collapsible#toggleCollapse(boolean)
+   * @param state {@code true} to show, {@code false} to hide.
+   * @return The modified DOM element.
    */
   @Editor.Ignore
   public T toggleDisplay(boolean state) {
@@ -308,11 +354,9 @@ public abstract class BaseDominoElement<E extends Element, T extends IsElement<E
   }
 
   /**
-   * {@inheritDoc}
+   * Expands the collapsible element.
    *
-   * <p>Show the item if it is hidden
-   *
-   * @see Collapsible#expand()
+   * @return The modified DOM element.
    */
   @Override
   public T expand() {
@@ -321,11 +365,9 @@ public abstract class BaseDominoElement<E extends Element, T extends IsElement<E
   }
 
   /**
-   * {@inheritDoc}
+   * Collapses the collapsible element.
    *
-   * <p>Hides the item if it is visible
-   *
-   * @see Collapsible#collapse()
+   * @return The modified DOM element.
    */
   @Override
   public T collapse() {
@@ -334,9 +376,9 @@ public abstract class BaseDominoElement<E extends Element, T extends IsElement<E
   }
 
   /**
-   * show.
+   * Shows the element by removing the "hidden" CSS class.
    *
-   * @return a T object
+   * @return The modified DOM element.
    */
   public T show() {
     dui_hidden.remove(this);
@@ -344,9 +386,9 @@ public abstract class BaseDominoElement<E extends Element, T extends IsElement<E
   }
 
   /**
-   * hide.
+   * Hides the element by adding the "hidden" CSS class.
    *
-   * @return a T object
+   * @return The modified DOM element.
    */
   public T hide() {
     addCss(dui_hidden);
@@ -354,50 +396,47 @@ public abstract class BaseDominoElement<E extends Element, T extends IsElement<E
   }
 
   /**
-   * isHidden.
+   * Checks if the element is hidden.
    *
-   * @return a boolean
+   * @return {@code true} if the element is hidden, {@code false} otherwise.
    */
   public boolean isHidden() {
     return dui_hidden.isAppliedTo(this);
   }
 
   /**
-   * isVisible.
+   * Checks if the element is visible.
    *
-   * @return a boolean
+   * @return {@code true} if the element is visible, {@code false} if hidden.
    */
   public boolean isVisible() {
     return !isHidden();
   }
 
   /**
-   * isForceCollapsed.
+   * Checks if the collapsible element is force-collapsed.
    *
-   * @return boolean, true if force hidden is enabled
-   * @see Collapsible#setForceCollapsed(boolean)
+   * @return {@code true} if force-collapsed, {@code false} otherwise.
    */
   public boolean isForceCollapsed() {
     return getCollapsible().isForceCollapsed();
   }
 
   /**
-   * setForceCollapsed.
+   * Sets whether the collapsible element should be force-collapsed.
    *
-   * @param forceCollapsed boolean, true to force hiding the component
-   * @return same component
-   * @see Collapsible#setForceCollapsed(boolean)
+   * @param forceCollapsed {@code true} to force-collapse, {@code false} otherwise.
+   * @return The modified DOM element.
    */
   public T setForceCollapsed(boolean forceCollapsed) {
     getCollapsible().setForceCollapsed(forceCollapsed);
     return element;
   }
 
-  /** @return the {@link Collapsible} of the component */
   /**
-   * Getter for the field <code>collapsible</code>.
+   * Gets the {@link Collapsible} instance associated with this element.
    *
-   * @return a {@link org.dominokit.domino.ui.collapsible.Collapsible} object
+   * @return The {@link Collapsible} instance.
    */
   @Editor.Ignore
   public Collapsible getCollapsible() {
@@ -408,10 +447,10 @@ public abstract class BaseDominoElement<E extends Element, T extends IsElement<E
   }
 
   /**
-   * Change the {@link org.dominokit.domino.ui.collapsible.CollapseStrategy} for the element
+   * Sets the collapse strategy for the collapsible element.
    *
-   * @param strategy the {@link org.dominokit.domino.ui.collapsible.CollapseStrategy}
-   * @return same component
+   * @param strategy The {@link CollapseStrategy} to set.
+   * @return The modified DOM element.
    */
   @Editor.Ignore
   public T setCollapseStrategy(CollapseStrategy strategy) {
@@ -419,46 +458,76 @@ public abstract class BaseDominoElement<E extends Element, T extends IsElement<E
     return (T) this;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Pauses the collapse listeners for this element.
+   *
+   * @return The modified DOM element.
+   */
   @Override
   public T pauseCollapseListeners() {
     this.collapseListenersPaused = true;
     return (T) this;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Resumes the collapse listeners for this element.
+   *
+   * @return The modified DOM element.
+   */
   @Override
   public T resumeCollapseListeners() {
     this.collapseListenersPaused = false;
     return (T) this;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Toggles whether the collapse listeners for this element are paused.
+   *
+   * @param toggle {@code true} to pause, {@code false} to resume.
+   * @return The modified DOM element.
+   */
   @Override
   public T togglePauseCollapseListeners(boolean toggle) {
     this.collapseListenersPaused = toggle;
     return (T) this;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Retrieves the set of {@link CollapseListener}s registered for this element.
+   *
+   * @return A set of {@link CollapseListener} instances.
+   */
   @Override
   public Set<CollapseListener<? super T>> getCollapseListeners() {
     return collapseListeners;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Retrieves the set of {@link ExpandListener}s registered for this element.
+   *
+   * @return A set of {@link ExpandListener} instances.
+   */
   @Override
   public Set<ExpandListener<? super T>> getExpandListeners() {
     return expandListeners;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Checks if the collapse listeners are currently paused.
+   *
+   * @return {@code true} if collapse listeners are paused, {@code false} otherwise.
+   */
   @Override
   public boolean isCollapseListenersPaused() {
     return this.collapseListenersPaused;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Triggers collapse listeners for this element.
+   *
+   * @param component The component that triggered the event.
+   * @return The modified DOM element.
+   */
   @Override
   public T triggerCollapseListeners(T component) {
     if (!this.collapseListenersPaused) {
@@ -467,7 +536,12 @@ public abstract class BaseDominoElement<E extends Element, T extends IsElement<E
     return (T) this;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Triggers expand listeners for this element.
+   *
+   * @param component The component that triggered the event.
+   * @return The modified DOM element.
+   */
   @Override
   public T triggerExpandListeners(T component) {
     if (!this.collapseListenersPaused) {
@@ -477,9 +551,9 @@ public abstract class BaseDominoElement<E extends Element, T extends IsElement<E
   }
 
   /**
-   * removes all the component child nodes
+   * Clears the content of the element returned by {@link #getAppendTarget()}.
    *
-   * @return same component
+   * @return The modified DOM element.
    */
   @Editor.Ignore
   public T clearElement() {
@@ -488,36 +562,49 @@ public abstract class BaseDominoElement<E extends Element, T extends IsElement<E
   }
 
   /**
-   * clearSelf.
+   * Clears the content of the element itself.
    *
-   * @return a T object
+   * @return The modified DOM element.
    */
   public T clearSelf() {
     ElementUtil.clear(element());
     return element;
   }
 
-  /** @return boolean, true if the component is not visible */
-  /** {@inheritDoc} */
+  /**
+   * Checks if the element is collapsed.
+   *
+   * @return {@code true} if the element is collapsed, {@code false} otherwise.
+   */
   @Override
   @Editor.Ignore
   public boolean isCollapsed() {
     return getCollapsible().isCollapsed();
   }
 
-  /** @return the HTML element of type E which is the root element of the component */
   /**
-   * element.
+   * Gets the underlying DOM element represented by this class.
    *
-   * @return a E object
+   * @return The underlying DOM element.
    */
   public abstract E element();
 
   /**
-   * Adds a handler to be called when the component is attached to the DOM tree
+   * Applies the provided function on the raw element of the component
    *
-   * @param attachDetachCallback {@link org.dominokit.domino.ui.utils.AttachDetachCallback}
-   * @return same component
+   * @param handler the {@link ChildHandler} to be applied
+   * @return same component instance
+   */
+  public T withElement(ChildHandler<T, E> handler) {
+    handler.apply((T) this, element());
+    return (T) this;
+  }
+
+  /**
+   * Registers an observer to be notified when this element is attached to the DOM.
+   *
+   * @param attachDetachCallback The observer to be registered.
+   * @return The modified DOM element.
    */
   @Editor.Ignore
   public T onAttached(AttachDetachCallback attachDetachCallback) {
@@ -541,10 +628,10 @@ public abstract class BaseDominoElement<E extends Element, T extends IsElement<E
   }
 
   /**
-   * Adds a handler to be called when the component is removed from the DOM tree
+   * Registers an observer to be notified when this element is detached from the DOM.
    *
-   * @param callback {@link org.dominokit.domino.ui.utils.AttachDetachCallback}
-   * @return same component
+   * @param callback The observer to be registered.
+   * @return The modified DOM element.
    */
   @Editor.Ignore
   public T onDetached(AttachDetachCallback callback) {
@@ -568,10 +655,11 @@ public abstract class BaseDominoElement<E extends Element, T extends IsElement<E
   }
 
   /**
-   * removes the attach {@link org.dominokit.domino.ui.utils.AttachDetachCallback}
+   * Removes an observer that was previously registered to be notified when this element is attached
+   * to the DOM.
    *
-   * @return same component
-   * @param callback a {@link org.dominokit.domino.ui.utils.AttachDetachCallback} object
+   * @param callback The observer to be removed.
+   * @return The modified DOM element.
    */
   public T removeAttachObserver(AttachDetachCallback callback) {
     attachObservers.remove(callback);
@@ -579,34 +667,34 @@ public abstract class BaseDominoElement<E extends Element, T extends IsElement<E
   }
 
   /**
-   * removes the detach {@link org.dominokit.domino.ui.utils.AttachDetachCallback}
+   * Removes an observer that was previously registered to be notified when this element is detached
+   * from the DOM.
    *
-   * @return same component
-   * @param callback a {@link org.dominokit.domino.ui.utils.AttachDetachCallback} object
+   * @param callback The observer to be removed.
+   * @return The modified DOM element.
    */
   public T removeDetachObserver(AttachDetachCallback callback) {
     detachObservers.remove(callback);
     return element;
   }
 
-  /** @return boolean, true if the element is currently attached to the DOM tree */
   /**
-   * isAttached.
+   * Checks if the element is currently attached to the DOM.
    *
-   * @return a boolean
+   * @return {@code true} if the element is attached, {@code false} otherwise.
    */
   @Editor.Ignore
   public boolean isAttached() {
     dominoUuidInitializer.apply();
-    return nonNull(DomGlobal.document.body.querySelector("[domino-uuid='" + uuid + "']"));
+    return element().isConnected;
   }
 
   /**
-   * Execute the handler only once if the component is already attached to the dom, if not execute
-   * it every time the component is attached.
+   * Executes a given handler either immediately if the element is already attached to the DOM or
+   * when it gets attached.
    *
-   * @param handler {@link java.lang.Runnable} to be executed
-   * @return same component instance
+   * @param handler The handler to execute.
+   * @return The modified DOM element.
    */
   @Editor.Ignore
   public T nowOrWhenAttached(Runnable handler) {
@@ -620,11 +708,11 @@ public abstract class BaseDominoElement<E extends Element, T extends IsElement<E
   }
 
   /**
-   * Execute the handler if the component is already attached to the dom, then execute it everytime
-   * it is attached again to the dom.
+   * Executes a given handler when the element is attached to the DOM. If the element is already
+   * attached, the handler is executed immediately.
    *
-   * @param handler {@link java.lang.Runnable} to be executed
-   * @return same component instance
+   * @param handler The handler to execute.
+   * @return The modified DOM element.
    */
   @Editor.Ignore
   public T nowAndWhenAttached(Runnable handler) {
@@ -637,11 +725,10 @@ public abstract class BaseDominoElement<E extends Element, T extends IsElement<E
   }
 
   /**
-   * Register a call back to listen to element size changes, the observation will only start after
-   * the element is attached and will be stopped when the element is detached
+   * Registers a resize handler to be notified when the size of this element changes.
    *
-   * @param resizeHandler {@link org.dominokit.domino.ui.utils.BaseDominoElement.ResizeHandler}
-   * @return same component instance
+   * @param resizeHandler The resize handler to be registered.
+   * @return The modified DOM element.
    */
   @Editor.Ignore
   public T onResize(ResizeHandler<T> resizeHandler) {
@@ -676,11 +763,10 @@ public abstract class BaseDominoElement<E extends Element, T extends IsElement<E
     return (T) this;
   }
 
-  /** @return the {@link Style} of the component */
   /**
-   * style.
+   * Retrieves the style object for this element, allowing manipulation of its styles.
    *
-   * @return a {@link org.dominokit.domino.ui.style.Style} object
+   * @return The style object for this element.
    */
   @Editor.Ignore
   public Style<Element> style() {
@@ -689,10 +775,10 @@ public abstract class BaseDominoElement<E extends Element, T extends IsElement<E
   }
 
   /**
-   * Sets the CSS style of the element.
+   * Sets the CSS styles for this element.
    *
-   * @param style a {@link java.lang.String} object
-   * @return a T object
+   * @param style The CSS styles to apply.
+   * @return The modified DOM element.
    */
   public T style(String style) {
     Js.<DominoElementAdapter>uncheckedCast(element()).style.cssText = style;
@@ -700,19 +786,19 @@ public abstract class BaseDominoElement<E extends Element, T extends IsElement<E
   }
 
   /**
-   * Sets the CSS style of the element.
+   * Retrieves the CSS style declaration for this element.
    *
-   * @return a {@link elemental2.dom.CSSStyleDeclaration} object
+   * @return The CSS style declaration for this element.
    */
   public CSSStyleDeclaration elementStyle() {
     return Js.<DominoElementAdapter>uncheckedCast(element()).style;
   }
 
   /**
-   * css.
+   * Adds one or more CSS classes to this element.
    *
-   * @param cssClass String css class name to add to the component
-   * @return same component
+   * @param cssClass The CSS class or classes to add.
+   * @return The modified DOM element.
    */
   @Editor.Ignore
   public T css(String cssClass) {
@@ -721,10 +807,10 @@ public abstract class BaseDominoElement<E extends Element, T extends IsElement<E
   }
 
   /**
-   * css.
+   * Adds one or more CSS classes to this element.
    *
-   * @param cssClasses String args of css classes names to be added to the component
-   * @return same component
+   * @param cssClasses The array of CSS classes to add.
+   * @return The modified DOM element.
    */
   @Editor.Ignore
   public T css(String... cssClasses) {
@@ -732,7 +818,12 @@ public abstract class BaseDominoElement<E extends Element, T extends IsElement<E
     return element;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Appends a child node to this element.
+   *
+   * @param node The child node to append.
+   * @return The modified DOM element.
+   */
   @Override
   @Editor.Ignore
   public T appendChild(Node node) {
@@ -741,10 +832,10 @@ public abstract class BaseDominoElement<E extends Element, T extends IsElement<E
   }
 
   /**
-   * appendChild.
+   * Appends a text string as a child node to this element.
    *
-   * @param text string to be appended to the component
-   * @return same component
+   * @param text The text string to append.
+   * @return The modified DOM element.
    */
   @Editor.Ignore
   public T appendChild(String text) {
@@ -753,10 +844,10 @@ public abstract class BaseDominoElement<E extends Element, T extends IsElement<E
   }
 
   /**
-   * appendChild.
+   * Appends an element represented by an {@code IsElement} interface to this element.
    *
-   * @param isElement {@link org.dominokit.domino.ui.IsElement} to be appended to the component
-   * @return same component
+   * @param isElement The element to append.
+   * @return The modified DOM element.
    */
   @Editor.Ignore
   public T appendChild(IsElement<?> isElement) {
@@ -765,10 +856,10 @@ public abstract class BaseDominoElement<E extends Element, T extends IsElement<E
   }
 
   /**
-   * prependChild.
+   * Prepends a child node to this element.
    *
-   * @param node {@link elemental2.dom.Node} to be appended to the component
-   * @return same component
+   * @param node The child node to prepend.
+   * @return The modified DOM element.
    */
   @Editor.Ignore
   public T prependChild(Node node) {
@@ -776,10 +867,10 @@ public abstract class BaseDominoElement<E extends Element, T extends IsElement<E
   }
 
   /**
-   * prependChild.
+   * Prepends a text string as a child node to this element.
    *
-   * @param text string to be appended to the component
-   * @return same component
+   * @param text The text string to prepend.
+   * @return The modified DOM element.
    */
   @Editor.Ignore
   public T prependChild(String text) {
@@ -787,10 +878,10 @@ public abstract class BaseDominoElement<E extends Element, T extends IsElement<E
   }
 
   /**
-   * prependChild.
+   * Prepends an element represented by an {@code IsElement} interface to this element.
    *
-   * @param isElement {@link org.dominokit.domino.ui.IsElement} to be appended to the component
-   * @return same component
+   * @param isElement The element to prepend.
+   * @return The modified DOM element.
    */
   @Editor.Ignore
   public T prependChild(IsElement<?> isElement) {
@@ -798,28 +889,28 @@ public abstract class BaseDominoElement<E extends Element, T extends IsElement<E
   }
 
   /**
-   * getAppendTarget.
+   * Retrieves the target element to which child elements should be appended.
    *
-   * @return a {@link elemental2.dom.Element} object
+   * @return The target element for appending child elements.
    */
   public Element getAppendTarget() {
     return element.element();
   }
 
   /**
-   * getStyleTarget.
+   * Retrieves the target element to which styles should be applied.
    *
-   * @return a {@link elemental2.dom.Element} object
+   * @return The target element for applying styles.
    */
   protected Element getStyleTarget() {
     return element.element();
   }
 
   /**
-   * dispatchEvent.
+   * Dispatches an event to this element.
    *
-   * @param evt a {@link elemental2.dom.Event} object
-   * @return a T object
+   * @param evt The event to dispatch.
+   * @return The modified DOM element.
    */
   public T dispatchEvent(Event evt) {
     element().dispatchEvent(evt);
@@ -827,11 +918,10 @@ public abstract class BaseDominoElement<E extends Element, T extends IsElement<E
   }
 
   /**
-   * addClickListener.
+   * Adds a click event listener to this element.
    *
-   * @param listener {@link elemental2.dom.EventListener} to be added to the click event of the
-   *     component clickable element
-   * @return same component
+   * @param listener The click event listener to add.
+   * @return The modified DOM element.
    */
   @Editor.Ignore
   public T addClickListener(EventListener listener) {
@@ -840,12 +930,11 @@ public abstract class BaseDominoElement<E extends Element, T extends IsElement<E
   }
 
   /**
-   * addClickListener.
+   * Adds a click event listener to this element with the option to capture the event.
    *
-   * @param listener {@link elemental2.dom.EventListener} to be added to the click event of the
-   *     component clickable element
-   * @return same component
-   * @param capture a boolean
+   * @param listener The click event listener to add.
+   * @param capture Specifies whether to capture the event during the capturing phase.
+   * @return The modified DOM element.
    */
   @Editor.Ignore
   public T addClickListener(EventListener listener, boolean capture) {
@@ -854,11 +943,11 @@ public abstract class BaseDominoElement<E extends Element, T extends IsElement<E
   }
 
   /**
-   * Adds a listener for the provided event type
+   * Adds a generic event listener to this element.
    *
-   * @param type String event type
-   * @param listener {@link elemental2.dom.EventListener}
-   * @return same component
+   * @param type The type of event to listen for.
+   * @param listener The event listener to add.
+   * @return The modified DOM element.
    */
   @Editor.Ignore
   public T addEventListener(String type, EventListener listener) {
@@ -867,12 +956,12 @@ public abstract class BaseDominoElement<E extends Element, T extends IsElement<E
   }
 
   /**
-   * Adds a listener for the provided event type
+   * Adds a generic event listener to this element with additional options.
    *
-   * @param type String event type
-   * @param listener {@link elemental2.dom.EventListener}
-   * @return same component
-   * @param options a boolean
+   * @param type The type of event to listen for.
+   * @param listener The event listener to add.
+   * @param options The options for configuring the event listener.
+   * @return The modified DOM element.
    */
   @Editor.Ignore
   public T addEventListener(String type, EventListener listener, boolean options) {
@@ -881,11 +970,11 @@ public abstract class BaseDominoElement<E extends Element, T extends IsElement<E
   }
 
   /**
-   * Adds a listener for the provided event type
+   * Adds multiple event listeners to this element for the specified events.
    *
-   * @param listener {@link elemental2.dom.EventListener}
-   * @param events String array of event types
-   * @return same component
+   * @param listener The event listener to add.
+   * @param events The array of event names to listen for.
+   * @return The modified DOM element.
    */
   @Editor.Ignore
   public T addEventsListener(EventListener listener, String... events) {
@@ -899,12 +988,12 @@ public abstract class BaseDominoElement<E extends Element, T extends IsElement<E
   }
 
   /**
-   * Adds a listener for the provided event type
+   * Adds a generic event listener to this element with event options.
    *
-   * @param type String event type
-   * @param listener {@link elemental2.dom.EventListener}
-   * @param options {@link org.dominokit.domino.ui.events.EventOptions}
-   * @return same component
+   * @param type The type of event to listen for.
+   * @param listener The event listener to add.
+   * @param options The event options.
+   * @return The modified DOM element.
    */
   @Editor.Ignore
   public T addEventListener(String type, EventListener listener, EventOptions options) {
@@ -913,12 +1002,12 @@ public abstract class BaseDominoElement<E extends Element, T extends IsElement<E
   }
 
   /**
-   * Adds a listener for the provided event type
+   * Adds a generic event listener to this element with event options.
    *
-   * @param type String event type
-   * @param listener {@link elemental2.dom.EventListener}
-   * @param options {@link elemental2.dom.EventTarget.AddEventListenerOptionsUnionType}
-   * @return same component
+   * @param type The type of event to listen for.
+   * @param listener The event listener to add.
+   * @param options The event options union type.
+   * @return The modified DOM element.
    */
   @Editor.Ignore
   public T addEventListener(
@@ -928,12 +1017,12 @@ public abstract class BaseDominoElement<E extends Element, T extends IsElement<E
   }
 
   /**
-   * Adds a listener for the provided event type
+   * Adds multiple event listeners to this element for the specified events with event options.
    *
-   * @param listener {@link elemental2.dom.EventListener}
-   * @param events String array of event types
-   * @return same component
-   * @param options a boolean
+   * @param listener The event listener to add.
+   * @param options Specifies whether to capture the event during the capturing phase.
+   * @param events The array of event names to listen for.
+   * @return The modified DOM element.
    */
   @Editor.Ignore
   public T addEventsListener(EventListener listener, boolean options, String... events) {
@@ -947,11 +1036,11 @@ public abstract class BaseDominoElement<E extends Element, T extends IsElement<E
   }
 
   /**
-   * Adds a listener for the provided event type
+   * Adds a generic event listener to this element for a specific event type.
    *
-   * @param type {@link org.dominokit.domino.ui.events.EventType}
-   * @param listener {@link elemental2.dom.EventListener}
-   * @return same component
+   * @param type The type of event to listen for.
+   * @param listener The event listener to add.
+   * @return The modified DOM element.
    */
   @Editor.Ignore
   public T addEventListener(EventType type, EventListener listener) {
@@ -960,12 +1049,13 @@ public abstract class BaseDominoElement<E extends Element, T extends IsElement<E
   }
 
   /**
-   * Adds a listener for the provided event type
+   * Adds a generic event listener to this element for a specific event type with additional
+   * options.
    *
-   * @param type {@link org.dominokit.domino.ui.events.EventType}
-   * @param listener {@link elemental2.dom.EventListener}
-   * @return same component
-   * @param options a boolean
+   * @param type The type of event to listen for.
+   * @param listener The event listener to add.
+   * @param options The options for configuring the event listener.
+   * @return The modified DOM element.
    */
   @Editor.Ignore
   public T addEventListener(EventType type, EventListener listener, boolean options) {
@@ -974,12 +1064,12 @@ public abstract class BaseDominoElement<E extends Element, T extends IsElement<E
   }
 
   /**
-   * Adds a listener for the provided event type
+   * Adds a generic event listener to this element for a specific event type with options.
    *
-   * @param type {@link org.dominokit.domino.ui.events.EventType}
-   * @param listener {@link elemental2.dom.EventListener}
-   * @param options {@link elemental2.dom.AddEventListenerOptions}
-   * @return same component
+   * @param type The type of event to listen for.
+   * @param listener The event listener to add.
+   * @param options The event options.
+   * @return The modified DOM element.
    */
   @Editor.Ignore
   public T addEventListener(
@@ -989,12 +1079,13 @@ public abstract class BaseDominoElement<E extends Element, T extends IsElement<E
   }
 
   /**
-   * Adds a listener for the provided event type
+   * Adds a generic event listener to this element for a specific event type with options union
+   * type.
    *
-   * @param type {@link org.dominokit.domino.ui.events.EventType}
-   * @param listener {@link elemental2.dom.EventListener}
-   * @param options {@link elemental2.dom.EventTarget.AddEventListenerOptionsUnionType}
-   * @return same component
+   * @param type The type of event to listen for.
+   * @param listener The event listener to add.
+   * @param options The event options union type.
+   * @return The modified DOM element.
    */
   @Editor.Ignore
   public T addEventListener(
@@ -1006,12 +1097,12 @@ public abstract class BaseDominoElement<E extends Element, T extends IsElement<E
   }
 
   /**
-   * Adds a listener for the provided event type
+   * Adds a generic event listener to this element for a specific event type with event options.
    *
-   * @param type {@link org.dominokit.domino.ui.events.EventType}
-   * @param listener {@link elemental2.dom.EventListener}
-   * @param options {@link elemental2.dom.AddEventListenerOptions}
-   * @return same component
+   * @param type The type of event to listen for.
+   * @param listener The event listener to add.
+   * @param options The event options.
+   * @return The modified DOM element.
    */
   @Editor.Ignore
   public T addEventListener(EventType type, EventListener listener, EventOptions options) {
@@ -1020,11 +1111,11 @@ public abstract class BaseDominoElement<E extends Element, T extends IsElement<E
   }
 
   /**
-   * Removes a listener for the provided event type
+   * Removes a specific event listener from this element for a specific event type.
    *
-   * @param type EventType
-   * @param listener {@link elemental2.dom.EventListener}
-   * @return same component
+   * @param type The type of event for which to remove the listener.
+   * @param listener The event listener to remove.
+   * @return The modified DOM element.
    */
   @Editor.Ignore
   public T removeEventListener(EventType type, EventListener listener) {
@@ -1033,11 +1124,11 @@ public abstract class BaseDominoElement<E extends Element, T extends IsElement<E
   }
 
   /**
-   * Removes a listener for the provided event type
+   * Removes a specific event listener from this element for a specific event type.
    *
-   * @param type String event type
-   * @param listener {@link elemental2.dom.EventListener}
-   * @return same component
+   * @param type The type of event for which to remove the listener.
+   * @param listener The event listener to remove.
+   * @return The modified DOM element.
    */
   @Editor.Ignore
   public T removeEventListener(String type, EventListener listener) {
@@ -1046,12 +1137,13 @@ public abstract class BaseDominoElement<E extends Element, T extends IsElement<E
   }
 
   /**
-   * Removes a listener for the provided event type
+   * Removes a specific event listener from this element for a specific event type with additional
+   * options.
    *
-   * @param type EventType
-   * @param listener {@link elemental2.dom.EventListener}
-   * @param options {@link elemental2.dom.AddEventListenerOptions}
-   * @return same component
+   * @param type The type of event for which to remove the listener.
+   * @param listener The event listener to remove.
+   * @param options The options for removing the event listener.
+   * @return The modified DOM element.
    */
   @Editor.Ignore
   public T removeEventListener(
@@ -1061,12 +1153,13 @@ public abstract class BaseDominoElement<E extends Element, T extends IsElement<E
   }
 
   /**
-   * Removes a listener for the provided event type
+   * Removes a specific event listener from this element for a specific event type with options
+   * union type.
    *
-   * @param type EventType
-   * @param listener {@link elemental2.dom.EventListener}
-   * @param options {@link elemental2.dom.EventTarget.AddEventListenerOptionsUnionType}
-   * @return same component
+   * @param type The type of event for which to remove the listener.
+   * @param listener The event listener to remove.
+   * @param options The options for removing the event listener as a union type.
+   * @return The modified DOM element.
    */
   @Editor.Ignore
   public T removeEventListener(
@@ -1078,12 +1171,13 @@ public abstract class BaseDominoElement<E extends Element, T extends IsElement<E
   }
 
   /**
-   * Removes a listener for the provided event type
+   * Removes a specific event listener from this element for a specific event type with event
+   * options.
    *
-   * @param type EventType
-   * @param listener {@link elemental2.dom.EventListener}
-   * @param options {@link org.dominokit.domino.ui.events.EventOptions}
-   * @return same component
+   * @param type The type of event for which to remove the listener.
+   * @param listener The event listener to remove.
+   * @param options The event options for removing the listener.
+   * @return The modified DOM element.
    */
   @Editor.Ignore
   public T removeEventListener(EventType type, EventListener listener, EventOptions options) {
@@ -1092,11 +1186,11 @@ public abstract class BaseDominoElement<E extends Element, T extends IsElement<E
   }
 
   /**
-   * Insert a child node before another child node
+   * Inserts the specified new node before the specified reference node in this element.
    *
-   * @param newNode {@link elemental2.dom.Node}
-   * @param otherNode {@link elemental2.dom.Node}
-   * @return same component
+   * @param newNode The node to insert.
+   * @param otherNode The node before which the new node will be inserted.
+   * @return The modified DOM element.
    */
   @Editor.Ignore
   @SuppressWarnings("unchecked")
@@ -1106,11 +1200,11 @@ public abstract class BaseDominoElement<E extends Element, T extends IsElement<E
   }
 
   /**
-   * Insert a child node before another child node
+   * Inserts the specified new node before the specified reference element in this element.
    *
-   * @param newNode {@link elemental2.dom.Node}
-   * @param otherNode {@link org.dominokit.domino.ui.utils.BaseDominoElement}
-   * @return same component
+   * @param newNode The node to insert.
+   * @param otherNode The element before which the new node will be inserted.
+   * @return The modified DOM element.
    */
   @Editor.Ignore
   public T insertBefore(
@@ -1120,11 +1214,12 @@ public abstract class BaseDominoElement<E extends Element, T extends IsElement<E
   }
 
   /**
-   * Insert a child in the specified position in the target element
+   * Inserts an element into this element using the specified position.
    *
-   * @param where String position, one of [beforebegin|afterbegin|beforeend|afterend]
-   * @param otherNode {@link org.dominokit.domino.ui.utils.BaseDominoElement}
-   * @return same component
+   * @param where The position where the element should be inserted ("beforebegin", "afterbegin",
+   *     "beforeend", or "afterend").
+   * @param otherNode The element to insert.
+   * @return The modified DOM element.
    */
   @Editor.Ignore
   public T insertAdjacentElement(String where, BaseDominoElement<?, ?> otherNode) {
@@ -1133,11 +1228,12 @@ public abstract class BaseDominoElement<E extends Element, T extends IsElement<E
   }
 
   /**
-   * Insert a child in the specified position in the target element
+   * Inserts an element into this element using the specified position.
    *
-   * @param where String position, one of [beforebegin|afterbegin|beforeend|afterend]
-   * @param e {@link elemental2.dom.Element}
-   * @return same component
+   * @param where The position where the element should be inserted ("beforebegin", "afterbegin",
+   *     "beforeend", or "afterend").
+   * @param e The element to insert.
+   * @return The modified DOM element.
    */
   @Editor.Ignore
   public T insertAdjacentElement(String where, Element e) {
@@ -1146,10 +1242,10 @@ public abstract class BaseDominoElement<E extends Element, T extends IsElement<E
   }
 
   /**
-   * Insert a child right before the begin tag of an element
+   * Inserts an element before the beginning of this element.
    *
-   * @param otherNode {@link org.dominokit.domino.ui.utils.BaseDominoElement}
-   * @return same component
+   * @param otherNode The element to insert.
+   * @return The modified DOM element.
    */
   @Editor.Ignore
   public T insertBeforeBegin(BaseDominoElement<?, ?> otherNode) {
@@ -1158,10 +1254,10 @@ public abstract class BaseDominoElement<E extends Element, T extends IsElement<E
   }
 
   /**
-   * Insert a child right before the begin tag of an element
+   * Inserts an element before the beginning of this element.
    *
-   * @param e {@link elemental2.dom.Element}
-   * @return same component
+   * @param e The element to insert.
+   * @return The modified DOM element.
    */
   @Editor.Ignore
   public T insertBeforeBegin(Element e) {
@@ -1170,10 +1266,10 @@ public abstract class BaseDominoElement<E extends Element, T extends IsElement<E
   }
 
   /**
-   * Insert a child right after the begin tag of an element
+   * Inserts an element after the beginning of this element.
    *
-   * @param otherNode {@link org.dominokit.domino.ui.utils.BaseDominoElement}
-   * @return same component
+   * @param otherNode The element to insert.
+   * @return The modified DOM element.
    */
   @Editor.Ignore
   public T insertAfterBegin(BaseDominoElement<?, ?> otherNode) {
@@ -1182,10 +1278,10 @@ public abstract class BaseDominoElement<E extends Element, T extends IsElement<E
   }
 
   /**
-   * Insert a child right after the begin tag of an element
+   * Inserts an element after the beginning of this element.
    *
-   * @param e {@link elemental2.dom.Element}
-   * @return same component
+   * @param e The element to insert.
+   * @return The modified DOM element.
    */
   @Editor.Ignore
   public T insertAfterBegin(Element e) {
@@ -1194,10 +1290,10 @@ public abstract class BaseDominoElement<E extends Element, T extends IsElement<E
   }
 
   /**
-   * Insert a child right before the end tag of an element
+   * Inserts an element before the end of this element.
    *
-   * @param otherNode {@link org.dominokit.domino.ui.utils.BaseDominoElement}
-   * @return same component
+   * @param otherNode The element to insert.
+   * @return The modified DOM element.
    */
   @Editor.Ignore
   public T insertBeforeEnd(BaseDominoElement<?, ?> otherNode) {
@@ -1206,10 +1302,10 @@ public abstract class BaseDominoElement<E extends Element, T extends IsElement<E
   }
 
   /**
-   * Insert a child right before the end tag of an element
+   * Inserts an element before the end of this element.
    *
-   * @param e {@link elemental2.dom.Element}
-   * @return same component
+   * @param e The element to insert.
+   * @return The modified DOM element.
    */
   @Editor.Ignore
   public T insertBeforeEnd(Element e) {
@@ -1218,10 +1314,10 @@ public abstract class BaseDominoElement<E extends Element, T extends IsElement<E
   }
 
   /**
-   * Insert a child right after the end tag of an element
+   * Inserts an element after the end of this element.
    *
-   * @param otherNode {@link org.dominokit.domino.ui.utils.BaseDominoElement}
-   * @return same component
+   * @param otherNode The element to insert.
+   * @return The modified DOM element.
    */
   @Editor.Ignore
   public T insertAfterEnd(BaseDominoElement<?, ?> otherNode) {
@@ -1230,10 +1326,10 @@ public abstract class BaseDominoElement<E extends Element, T extends IsElement<E
   }
 
   /**
-   * Insert a child right after the end tag of an element
+   * Inserts an element after the end of this element.
    *
-   * @param e {@link elemental2.dom.Element}
-   * @return same component
+   * @param e The element to insert.
+   * @return The modified DOM element.
    */
   @Editor.Ignore
   public T insertAfterEnd(Element e) {
@@ -1242,11 +1338,11 @@ public abstract class BaseDominoElement<E extends Element, T extends IsElement<E
   }
 
   /**
-   * Insert a child node before another child node
+   * Inserts the specified new node before the specified reference element in this element.
    *
-   * @param newNode {@link org.dominokit.domino.ui.utils.BaseDominoElement}
-   * @param otherNode {@link org.dominokit.domino.ui.utils.BaseDominoElement}
-   * @return same component
+   * @param newNode The node to insert.
+   * @param otherNode The element before which the new node will be inserted.
+   * @return The modified DOM element.
    */
   @Editor.Ignore
   public T insertBefore(BaseDominoElement<?, ?> newNode, BaseDominoElement<?, ?> otherNode) {
@@ -1255,11 +1351,11 @@ public abstract class BaseDominoElement<E extends Element, T extends IsElement<E
   }
 
   /**
-   * Insert a child node before another child node
+   * Inserts the specified new node before the specified reference node in this element.
    *
-   * @param newNode {@link org.dominokit.domino.ui.utils.BaseDominoElement}
-   * @param otherNode {@link elemental2.dom.Node}
-   * @return same component
+   * @param newNode The node to insert.
+   * @param otherNode The node before which the new node will be inserted.
+   * @return The modified DOM element.
    */
   @Editor.Ignore
   public T insertBefore(BaseDominoElement<?, ?> newNode, Node otherNode) {
@@ -1268,11 +1364,11 @@ public abstract class BaseDominoElement<E extends Element, T extends IsElement<E
   }
 
   /**
-   * Insert a child node after another child node
+   * Inserts the specified new node after the specified reference node in this element.
    *
-   * @param newNode {@link elemental2.dom.Node}
-   * @param otherNode {@link elemental2.dom.Node}
-   * @return same component
+   * @param newNode The node to insert.
+   * @param otherNode The node after which the new node will be inserted.
+   * @return The modified DOM element.
    */
   @Editor.Ignore
   @SuppressWarnings("unchecked")
@@ -1282,11 +1378,11 @@ public abstract class BaseDominoElement<E extends Element, T extends IsElement<E
   }
 
   /**
-   * Insert a child node after another child node
+   * Inserts the specified new node after the specified reference node in this element.
    *
-   * @param newNode {@link elemental2.dom.Node}
-   * @param otherNode {@link org.dominokit.domino.ui.utils.BaseDominoElement}
-   * @return same component
+   * @param newNode The node to insert.
+   * @param otherNode The node after which the new node will be inserted.
+   * @return The modified DOM element.
    */
   @Editor.Ignore
   public T insertAfter(Node newNode, BaseDominoElement<?, ?> otherNode) {
@@ -1295,11 +1391,11 @@ public abstract class BaseDominoElement<E extends Element, T extends IsElement<E
   }
 
   /**
-   * Insert a child node after another child node
+   * Inserts the specified new node after the specified reference element in this element.
    *
-   * @param newNode {@link org.dominokit.domino.ui.utils.BaseDominoElement}
-   * @param otherNode {@link org.dominokit.domino.ui.utils.BaseDominoElement}
-   * @return same component
+   * @param newNode The node to insert.
+   * @param otherNode The element after which the new node will be inserted.
+   * @return The modified DOM element.
    */
   @Editor.Ignore
   public T insertAfter(BaseDominoElement<?, ?> newNode, BaseDominoElement<?, ?> otherNode) {
@@ -1308,11 +1404,11 @@ public abstract class BaseDominoElement<E extends Element, T extends IsElement<E
   }
 
   /**
-   * Insert a child node after another child node
+   * Inserts the specified new node after the specified reference element in this element.
    *
-   * @param newNode {@link org.dominokit.domino.ui.utils.BaseDominoElement}
-   * @param otherNode {@link elemental2.dom.Node}
-   * @return same component
+   * @param newNode The node to insert.
+   * @param otherNode The element after which the new node will be inserted.
+   * @return The modified DOM element.
    */
   @Editor.Ignore
   public T insertAfter(BaseDominoElement<?, ?> newNode, Node otherNode) {
@@ -1321,10 +1417,10 @@ public abstract class BaseDominoElement<E extends Element, T extends IsElement<E
   }
 
   /**
-   * Insert a node as the first child to this component
+   * Inserts the specified node as the first child of this element.
    *
-   * @param newNode {@link elemental2.dom.Node}
-   * @return same component
+   * @param newNode The node to insert.
+   * @return The modified DOM element.
    */
   @Editor.Ignore
   public T insertFirst(Node newNode) {
@@ -1333,10 +1429,10 @@ public abstract class BaseDominoElement<E extends Element, T extends IsElement<E
   }
 
   /**
-   * Insert a node as the first child to this component
+   * Inserts the specified element as the first child of this element.
    *
-   * @param element {@link org.dominokit.domino.ui.IsElement}
-   * @return same component
+   * @param element The element to insert.
+   * @return The modified DOM element.
    */
   @Editor.Ignore
   public T insertFirst(IsElement<?> element) {
@@ -1344,10 +1440,10 @@ public abstract class BaseDominoElement<E extends Element, T extends IsElement<E
   }
 
   /**
-   * Insert a node as the first child to this component
+   * Inserts the specified new node as the first child of this element.
    *
-   * @param newNode {@link org.dominokit.domino.ui.utils.BaseDominoElement}
-   * @return same component
+   * @param newNode The node to insert.
+   * @return The modified DOM element.
    */
   @Editor.Ignore
   public T insertFirst(BaseDominoElement<?, ?> newNode) {
@@ -1356,9 +1452,11 @@ public abstract class BaseDominoElement<E extends Element, T extends IsElement<E
   }
 
   /**
-   * {@inheritDoc}
+   * Sets the specified attribute to the given value on this element.
    *
-   * <p>Sets a String attribute value on the element
+   * @param name The name of the attribute to set.
+   * @param value The value to set for the attribute.
+   * @return The modified DOM element.
    */
   @Editor.Ignore
   public T setAttribute(String name, String value) {
@@ -1367,11 +1465,11 @@ public abstract class BaseDominoElement<E extends Element, T extends IsElement<E
   }
 
   /**
-   * Sets a boolean attribute value on the element
+   * Sets the specified attribute to the given boolean value on this element.
    *
-   * @param name String attribute name
-   * @param value boolean
-   * @return same component
+   * @param name The name of the attribute to set.
+   * @param value The boolean value to set for the attribute.
+   * @return The modified DOM element.
    */
   @Editor.Ignore
   public T setAttribute(String name, boolean value) {
@@ -1380,11 +1478,11 @@ public abstract class BaseDominoElement<E extends Element, T extends IsElement<E
   }
 
   /**
-   * Sets a double attribute value on the element
+   * Sets the specified attribute to the given double value on this element.
    *
-   * @param name String attribute name
-   * @param value double
-   * @return same component
+   * @param name The name of the attribute to set.
+   * @param value The double value to set for the attribute.
+   * @return The modified DOM element.
    */
   @Editor.Ignore
   public T setAttribute(String name, double value) {
@@ -1392,18 +1490,26 @@ public abstract class BaseDominoElement<E extends Element, T extends IsElement<E
     return element;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Gets the value of the specified attribute on this element.
+   *
+   * @param name The name of the attribute to retrieve.
+   * @return The value of the specified attribute, or an empty string if the attribute is not
+   *     present.
+   */
   @Editor.Ignore
   public String getAttribute(String name) {
     return element().getAttribute(name);
   }
 
   /**
-   * getAttribute.
+   * Gets the value of the specified attribute on this element, or returns the specified default
+   * value if the attribute is not present.
    *
-   * @param name String
-   * @return the String value of the attribute
-   * @param orElseValue a {@link java.lang.String} object
+   * @param name The name of the attribute to retrieve.
+   * @param orElseValue The default value to return if the attribute is not present.
+   * @return The value of the specified attribute, or the default value if the attribute is not
+   *     present.
    */
   @Editor.Ignore
   public String getAttribute(String name, String orElseValue) {
@@ -1413,7 +1519,12 @@ public abstract class BaseDominoElement<E extends Element, T extends IsElement<E
     return orElseValue;
   }
 
-  /** set the readonly attribute value {@inheritDoc} */
+  /**
+   * Sets the "readonly" attribute of this element to make it read-only.
+   *
+   * @param readOnly Whether the element should be read-only.
+   * @return The modified DOM element.
+   */
   @Editor.Ignore
   @Override
   public T setReadOnly(boolean readOnly) {
@@ -1424,7 +1535,11 @@ public abstract class BaseDominoElement<E extends Element, T extends IsElement<E
     }
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Checks if the element has the "readonly" attribute set, making it read-only.
+   *
+   * @return True if the element is read-only, otherwise false.
+   */
   @Editor.Ignore
   @Override
   public boolean isReadOnly() {
@@ -1432,10 +1547,10 @@ public abstract class BaseDominoElement<E extends Element, T extends IsElement<E
   }
 
   /**
-   * removeAttribute.
+   * Removes the specified attribute from this element.
    *
-   * @param name String name of the attribute to be removed
-   * @return same component
+   * @param name The name of the attribute to remove.
+   * @return The modified DOM element.
    */
   @Editor.Ignore
   public T removeAttribute(String name) {
@@ -1444,10 +1559,10 @@ public abstract class BaseDominoElement<E extends Element, T extends IsElement<E
   }
 
   /**
-   * Check of the component has the provided attribute
+   * Checks if the element has the specified attribute.
    *
-   * @param name String
-   * @return boolean, true if the component has the attribute
+   * @param name The name of the attribute to check.
+   * @return True if the element has the specified attribute, otherwise false.
    */
   @Editor.Ignore
   public boolean hasAttribute(String name) {
@@ -1455,10 +1570,10 @@ public abstract class BaseDominoElement<E extends Element, T extends IsElement<E
   }
 
   /**
-   * Check if a provided node a child of the component
+   * Checks if this element contains the specified child element.
    *
-   * @param node {@link org.dominokit.domino.ui.utils.DominoElement}
-   * @return boolean, true if the node is a child of this component
+   * @param node The child element to check for containment.
+   * @return True if this element contains the child element, otherwise false.
    */
   @Editor.Ignore
   public boolean contains(IsElement<? extends Element> node) {
@@ -1466,10 +1581,10 @@ public abstract class BaseDominoElement<E extends Element, T extends IsElement<E
   }
 
   /**
-   * Check if a provided node a child of the component
+   * Checks if this element contains the specified child node.
    *
-   * @param node {@link elemental2.dom.Node}
-   * @return boolean, true if the node is a child of this component
+   * @param node The child node to check for containment.
+   * @return True if this element contains the child node, otherwise false.
    */
   @Editor.Ignore
   public boolean contains(Node node) {
@@ -1477,10 +1592,10 @@ public abstract class BaseDominoElement<E extends Element, T extends IsElement<E
   }
 
   /**
-   * Check if a provided node a direct child of the component
+   * Checks if this element is the direct parent of the specified child node.
    *
-   * @param node {@link elemental2.dom.Node}
-   * @return boolean, true if the node is a direct child of this component
+   * @param node The child node to check for direct parentage.
+   * @return True if this element is the direct parent of the child node, otherwise false.
    */
   public boolean hasDirectChild(Node node) {
     Node parentNode = node.parentNode;
@@ -1491,10 +1606,10 @@ public abstract class BaseDominoElement<E extends Element, T extends IsElement<E
   }
 
   /**
-   * setTextContent.
+   * Sets the text content of this element to the specified string.
    *
-   * @param text String text content
-   * @return same component
+   * @param text The text content to set.
+   * @return The modified DOM element.
    */
   @Editor.Ignore
   public T setTextContent(String text) {
@@ -1503,10 +1618,10 @@ public abstract class BaseDominoElement<E extends Element, T extends IsElement<E
   }
 
   /**
-   * textContent.
+   * Sets the text content of this element to the specified string.
    *
-   * @param text String text content
-   * @return same component
+   * @param text The text content to set.
+   * @return The modified DOM element.
    */
   @Editor.Ignore
   public T textContent(String text) {
@@ -1515,10 +1630,10 @@ public abstract class BaseDominoElement<E extends Element, T extends IsElement<E
   }
 
   /**
-   * textContent.
+   * Sets the text content of this element to the specified integer number.
    *
-   * @param number String text content
-   * @return same component
+   * @param number The integer number to set as text content.
+   * @return The modified DOM element.
    */
   @Editor.Ignore
   public T textContent(int number) {
@@ -1527,10 +1642,10 @@ public abstract class BaseDominoElement<E extends Element, T extends IsElement<E
   }
 
   /**
-   * textContent.
+   * Sets the text content of this element to the specified number.
    *
-   * @param number String text content
-   * @return same component
+   * @param number The number to set as text content.
+   * @return The modified DOM element.
    */
   @Editor.Ignore
   public T textContent(Number number) {
@@ -1539,10 +1654,10 @@ public abstract class BaseDominoElement<E extends Element, T extends IsElement<E
   }
 
   /**
-   * textContent.
+   * Sets the text content of this element to the specified floating-point number.
    *
-   * @param number String text content
-   * @return same component
+   * @param number The floating-point number to set as text content.
+   * @return The modified DOM element.
    */
   @Editor.Ignore
   public T textContent(float number) {
@@ -1551,10 +1666,10 @@ public abstract class BaseDominoElement<E extends Element, T extends IsElement<E
   }
 
   /**
-   * textContent.
+   * Sets the text content of this element to the specified short number.
    *
-   * @param number String text content
-   * @return same component
+   * @param number The short number to set as text content.
+   * @return The modified DOM element.
    */
   @Editor.Ignore
   public T textContent(short number) {
@@ -1563,10 +1678,10 @@ public abstract class BaseDominoElement<E extends Element, T extends IsElement<E
   }
 
   /**
-   * textContent.
+   * Sets the text content of this element to the specified double number.
    *
-   * @param number String text content
-   * @return same component
+   * @param number The double number to set as text content.
+   * @return The modified DOM element.
    */
   @Editor.Ignore
   public T textContent(double number) {
@@ -1575,10 +1690,10 @@ public abstract class BaseDominoElement<E extends Element, T extends IsElement<E
   }
 
   /**
-   * textContent.
+   * Sets the text content of this element to the specified boolean value.
    *
-   * @param bool boolean text content
-   * @return same component
+   * @param bool The boolean value to set as text content.
+   * @return The modified DOM element.
    */
   @Editor.Ignore
   public T textContent(boolean bool) {
@@ -1587,10 +1702,10 @@ public abstract class BaseDominoElement<E extends Element, T extends IsElement<E
   }
 
   /**
-   * setInnerHtml.
+   * Sets the inner HTML of this element to the specified HTML string.
    *
-   * @param html String html text
-   * @return same component
+   * @param html The HTML string to set as the inner HTML of the element.
+   * @return The modified DOM element.
    */
   @Editor.Ignore
   public T setInnerHtml(String html) {
@@ -1599,10 +1714,10 @@ public abstract class BaseDominoElement<E extends Element, T extends IsElement<E
   }
 
   /**
-   * setInnerHtml.
+   * Sets the inner HTML of this element to the specified SafeHtml object.
    *
-   * @param html String html text
-   * @return same component
+   * @param html The SafeHtml object to set as the inner HTML of the element.
+   * @return The modified DOM element.
    */
   @Editor.Ignore
   public T setInnerHtml(SafeHtml html) {
@@ -1610,9 +1725,9 @@ public abstract class BaseDominoElement<E extends Element, T extends IsElement<E
   }
 
   /**
-   * removes the element from the DOM tree
+   * Removes this element from its parent in the DOM.
    *
-   * @return same component
+   * @return The removed DOM element.
    */
   @Editor.Ignore
   public T remove() {
@@ -1623,10 +1738,11 @@ public abstract class BaseDominoElement<E extends Element, T extends IsElement<E
   }
 
   /**
-   * addOnBeforeRemoveListener.
+   * Adds an "onBeforeRemove" listener to this element. The listener will be invoked before the
+   * element is removed.
    *
-   * @param handler a {@link java.util.function.Consumer} object
-   * @return a T object
+   * @param handler The listener to add.
+   * @return The modified DOM element.
    */
   public T addOnBeforeRemoveListener(Consumer<T> handler) {
     if (nonNull(handler)) {
@@ -1636,10 +1752,10 @@ public abstract class BaseDominoElement<E extends Element, T extends IsElement<E
   }
 
   /**
-   * removeOnBeforeRemoveListener.
+   * Removes an "onBeforeRemove" listener from this element.
    *
-   * @param handler a {@link java.util.function.Consumer} object
-   * @return a T object
+   * @param handler The listener to remove.
+   * @return The modified DOM element.
    */
   public T removeOnBeforeRemoveListener(Consumer<T> handler) {
     if (nonNull(handler)) {
@@ -1649,10 +1765,11 @@ public abstract class BaseDominoElement<E extends Element, T extends IsElement<E
   }
 
   /**
-   * addOnRemoveListener.
+   * Adds an "onRemove" listener to this element. The listener will be invoked after the element is
+   * removed.
    *
-   * @param handler a {@link java.util.function.Consumer} object
-   * @return a T object
+   * @param handler The listener to add.
+   * @return The modified DOM element.
    */
   public T addOnRemoveListener(Consumer<T> handler) {
     if (nonNull(handler)) {
@@ -1662,10 +1779,10 @@ public abstract class BaseDominoElement<E extends Element, T extends IsElement<E
   }
 
   /**
-   * removeOnRemoveListener.
+   * Removes an "onRemove" listener from this element.
    *
-   * @param handler a {@link java.util.function.Consumer} object
-   * @return a T object
+   * @param handler The listener to remove.
+   * @return The modified DOM element.
    */
   public T removeOnRemoveListener(Consumer<T> handler) {
     if (nonNull(handler)) {
@@ -1675,10 +1792,10 @@ public abstract class BaseDominoElement<E extends Element, T extends IsElement<E
   }
 
   /**
-   * Removes a child node from this component
+   * Removes the specified child node from this element's list of child nodes.
    *
-   * @param node {@link elemental2.dom.Node}
-   * @return same component
+   * @param node The child node to remove.
+   * @return The modified DOM element.
    */
   @Editor.Ignore
   public T removeChild(Node node) {
@@ -1687,10 +1804,10 @@ public abstract class BaseDominoElement<E extends Element, T extends IsElement<E
   }
 
   /**
-   * Removes a child node from this component
+   * Removes the specified child element from this element's list of child nodes.
    *
-   * @param elementToRemove {@link org.dominokit.domino.ui.IsElement}
-   * @return same component
+   * @param elementToRemove The child element to remove.
+   * @return The modified DOM element.
    */
   @Editor.Ignore
   public T removeChild(IsElement<?> elementToRemove) {
@@ -1698,22 +1815,20 @@ public abstract class BaseDominoElement<E extends Element, T extends IsElement<E
     return element;
   }
 
-  /** @return the {@link NodeList} of the component children nodes */
   /**
-   * childNodes.
+   * Gets a list of child nodes of this element.
    *
-   * @return a {@link elemental2.dom.NodeList} object
+   * @return A NodeList containing the child nodes of this element.
    */
   @Editor.Ignore
   public NodeList<Node> childNodes() {
     return element().childNodes;
   }
 
-  /** @return the {@link NodeList} of the component children nodes */
   /**
-   * childElements.
+   * Gets a list of child elements of this element.
    *
-   * @return a {@link java.util.List} object
+   * @return A list of child elements of this element.
    */
   @Editor.Ignore
   public List<DominoElement<Element>> childElements() {
@@ -1724,55 +1839,50 @@ public abstract class BaseDominoElement<E extends Element, T extends IsElement<E
         .collect(Collectors.toList());
   }
 
-  /** @return the {@link NodeList} of the component children nodes */
   /**
-   * parentNode.
+   * Gets the parent node of this element.
    *
-   * @return a {@link elemental2.dom.Node} object
+   * @return The parent node of this element.
    */
   @Editor.Ignore
   public Node parentNode() {
     return element().parentNode;
   }
 
-  /** @return the first child {@link Node} of the component */
   /**
-   * firstChild.
+   * Gets the first child node of this element.
    *
-   * @return a {@link elemental2.dom.Node} object
+   * @return The first child node of this element.
    */
   @Editor.Ignore
   public Node firstChild() {
     return element().firstChild;
   }
 
-  /** @return the last child {@link Node} of the component */
   /**
-   * lastChild.
+   * Gets the last child node of this element.
    *
-   * @return a {@link elemental2.dom.Node} object
+   * @return The last child node of this element.
    */
   @Editor.Ignore
   public Node lastChild() {
     return element().lastChild;
   }
 
-  /** @return the parent element of the component */
   /**
-   * parent.
+   * Gets the parent element of this element as a {@code DominoElement}.
    *
-   * @return a {@link org.dominokit.domino.ui.utils.DominoElement} object
+   * @return The parent element of this element as a {@code DominoElement}.
    */
   @Editor.Ignore
   public DominoElement<HTMLElement> parent() {
     return elementOf(Js.<HTMLElement>uncheckedCast(element().parentElement));
   }
 
-  /** @return String text content of the component */
   /**
-   * getTextContent.
+   * Gets the text content of this element.
    *
-   * @return a {@link java.lang.String} object
+   * @return The text content of this element.
    */
   @Editor.Ignore
   public String getTextContent() {
@@ -1780,9 +1890,9 @@ public abstract class BaseDominoElement<E extends Element, T extends IsElement<E
   }
 
   /**
-   * un-focus the component
+   * Removes the focus from this element.
    *
-   * @return same component
+   * @return The modified DOM element.
    */
   @Editor.Ignore
   public T blur() {
@@ -1791,11 +1901,10 @@ public abstract class BaseDominoElement<E extends Element, T extends IsElement<E
   }
 
   /**
-   * Setter for the field <code>tooltip</code>.
+   * Sets a tooltip for this element with the specified text and default position (top-middle).
    *
-   * @param text String tooltip
-   * @return same component
-   * @see Tooltip
+   * @param text The text to display in the tooltip.
+   * @return The modified DOM element.
    */
   @Editor.Ignore
   public T setTooltip(String text) {
@@ -1803,12 +1912,11 @@ public abstract class BaseDominoElement<E extends Element, T extends IsElement<E
   }
 
   /**
-   * Setter for the field <code>tooltip</code>.
+   * Sets a tooltip for this element with the specified text and position.
    *
-   * @param text String tooltip
-   * @param position {@link DropDirection}
-   * @return same component
-   * @see Tooltip
+   * @param text The text to display in the tooltip.
+   * @param position The position of the tooltip relative to the element.
+   * @return The modified DOM element.
    */
   @Editor.Ignore
   public T setTooltip(String text, DropDirection position) {
@@ -1816,11 +1924,11 @@ public abstract class BaseDominoElement<E extends Element, T extends IsElement<E
   }
 
   /**
-   * Setter for the field <code>tooltip</code>.
+   * Sets a tooltip for this element with the specified content node and default position
+   * (top-middle).
    *
-   * @param node {@link elemental2.dom.Node} tooltip content
-   * @return same component
-   * @see Tooltip
+   * @param node The content node to display in the tooltip.
+   * @return The modified DOM element.
    */
   @Editor.Ignore
   public T setTooltip(Node node) {
@@ -1828,12 +1936,11 @@ public abstract class BaseDominoElement<E extends Element, T extends IsElement<E
   }
 
   /**
-   * Setter for the field <code>tooltip</code>.
+   * Sets a tooltip for this element with the specified content node and position.
    *
-   * @param node {@link elemental2.dom.Node} tooltip content
-   * @param position {@link DropDirection}
-   * @return same component
-   * @see Tooltip
+   * @param node The content node to display in the tooltip.
+   * @param position The position of the tooltip relative to the element.
+   * @return The modified DOM element.
    */
   @Editor.Ignore
   public T setTooltip(Node node, DropDirection position) {
@@ -1847,9 +1954,9 @@ public abstract class BaseDominoElement<E extends Element, T extends IsElement<E
   }
 
   /**
-   * removes the component {@link org.dominokit.domino.ui.popover.Tooltip}
+   * Removes the tooltip from this element.
    *
-   * @return same component
+   * @return The modified DOM element.
    */
   @Editor.Ignore
   public T removeTooltip() {
@@ -1861,9 +1968,9 @@ public abstract class BaseDominoElement<E extends Element, T extends IsElement<E
   }
 
   /**
-   * {@inheritDoc} by default this return the same component root element
+   * Gets the clickable element associated with this element.
    *
-   * @return a {@link elemental2.dom.Element} object
+   * @return The clickable element associated with this element.
    */
   @Editor.Ignore
   public Element getClickableElement() {
@@ -1871,17 +1978,20 @@ public abstract class BaseDominoElement<E extends Element, T extends IsElement<E
   }
 
   /**
-   * By default this return the component root element
+   * Gets the collapsible element associated with this element.
    *
-   * @return the component {@link elemental2.dom.HTMLElement} that can be shown/hidden with the
-   *     {@link org.dominokit.domino.ui.collapsible.Collapsible}
+   * @return The collapsible element associated with this element.
    */
   @Editor.Ignore
   public Element getCollapsibleElement() {
     return element();
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Gets the waves element associated with this element.
+   *
+   * @return The waves element associated with this element.
+   */
   @Override
   @Editor.Ignore
   public Element getWavesElement() {
@@ -1889,67 +1999,66 @@ public abstract class BaseDominoElement<E extends Element, T extends IsElement<E
   }
 
   /**
-   * hides the item for the provided {@link org.dominokit.domino.ui.utils.ScreenMedia}
+   * Hides the element on the specified screen media.
    *
-   * @param screenMedia {@link org.dominokit.domino.ui.utils.ScreenMedia}
-   * @return same component
+   * @param screenMedia The screen media on which to hide the element.
+   * @return The modified DOM element.
    */
   @Editor.Ignore
   public T hideOn(ScreenMedia screenMedia) {
     removeHideOn();
     this.hideOn = screenMedia;
-    addCss("hide-on-" + this.hideOn.getStyle());
+    addCss("dui-hide-on-" + this.hideOn.getStyle());
 
     return element;
   }
 
   /**
-   * Removes the hideOn bindings
+   * Removes the hide-on screen media styling from the element.
    *
-   * @return same component
+   * @return The modified DOM element.
    */
   @Editor.Ignore
   public T removeHideOn() {
     if (nonNull(hideOn)) {
-      removeCss("hide-on-" + hideOn.getStyle());
+      removeCss("dui-hide-on-" + hideOn.getStyle());
     }
 
     return element;
   }
 
   /**
-   * show the item for the provided {@link org.dominokit.domino.ui.utils.ScreenMedia}
+   * Shows the element on the specified screen media.
    *
-   * @param screenMedia {@link org.dominokit.domino.ui.utils.ScreenMedia}
-   * @return same component
+   * @param screenMedia The screen media on which to show the element.
+   * @return The modified DOM element.
    */
   @Editor.Ignore
   public T showOn(ScreenMedia screenMedia) {
     removeShowOn();
     this.showOn = screenMedia;
-    addCss("show-on-" + this.showOn.getStyle());
+    addCss("dui-show-on-" + this.showOn.getStyle());
     return element;
   }
 
   /**
-   * Removes the showOn bindings
+   * Removes the show-on screen media styling from the element.
    *
-   * @return same component
+   * @return The modified DOM element.
    */
   @Editor.Ignore
   public T removeShowOn() {
     if (nonNull(showOn)) {
-      removeCss("show-on-" + showOn.getStyle());
+      removeCss("dui-show-on-" + showOn.getStyle());
     }
 
     return element;
   }
 
-  /** @return the {@link DOMRect} for the component root element */
   /**
-   * getBoundingClientRect.
+   * Gets the bounding client rectangle of this element.
    *
-   * @return a {@link elemental2.dom.DOMRect} object
+   * @return The bounding client rectangle of this element.
    */
   @Editor.Ignore
   public DOMRect getBoundingClientRect() {
@@ -1957,10 +2066,10 @@ public abstract class BaseDominoElement<E extends Element, T extends IsElement<E
   }
 
   /**
-   * use and instance of the component style to edit it
+   * Applies styles to the element using the provided style editor.
    *
-   * @param styleEditor {@link org.dominokit.domino.ui.utils.BaseDominoElement.StyleEditor}
-   * @return same component
+   * @param styleEditor The style editor to apply styles.
+   * @return The modified DOM element.
    */
   @Editor.Ignore
   public T styler(StyleEditor<Element> styleEditor) {
@@ -1968,7 +2077,12 @@ public abstract class BaseDominoElement<E extends Element, T extends IsElement<E
     return element;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Adds CSS classes to the element.
+   *
+   * @param cssClass The CSS classes to add.
+   * @return The modified DOM element.
+   */
   @Editor.Ignore
   public T addCss(String... cssClass) {
     style().addCss(cssClass);
@@ -1976,10 +2090,10 @@ public abstract class BaseDominoElement<E extends Element, T extends IsElement<E
   }
 
   /**
-   * removeCss.
+   * Removes CSS classes from the element.
    *
-   * @param cssClass String args css classes names
-   * @return same component
+   * @param cssClass The CSS classes to remove.
+   * @return The modified DOM element.
    */
   @Editor.Ignore
   public T removeCss(String... cssClass) {
@@ -1988,10 +2102,10 @@ public abstract class BaseDominoElement<E extends Element, T extends IsElement<E
   }
 
   /**
-   * removeCss.
+   * Removes CSS classes from the element.
    *
-   * @param cssClass String args css classes names
-   * @return same component
+   * @param cssClass The CSS classes to remove.
+   * @return The modified DOM element.
    */
   @Editor.Ignore
   public T removeCss(CssClass... cssClass) {
@@ -1999,14 +2113,24 @@ public abstract class BaseDominoElement<E extends Element, T extends IsElement<E
     return element;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Sets the width of the element.
+   *
+   * @param width The width to set.
+   * @return The modified DOM element.
+   */
   @Editor.Ignore
   public T setWidth(String width) {
     style().setWidth(width);
     return element;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Sets the height of the element.
+   *
+   * @param height The height to set.
+   * @return The modified DOM element.
+   */
   @Editor.Ignore
   public T setHeight(String height) {
     style().setHeight(height);
@@ -2014,10 +2138,10 @@ public abstract class BaseDominoElement<E extends Element, T extends IsElement<E
   }
 
   /**
-   * Check if the element is same provided node
+   * Checks if this element is equal to another node.
    *
-   * @param node Node
-   * @return boolean, true if the provided node is same as this component node
+   * @param node The node to compare.
+   * @return {@code true} if the elements are equal, {@code false} otherwise.
    */
   @Editor.Ignore
   public boolean isEqualNode(Node node) {
@@ -2025,11 +2149,10 @@ public abstract class BaseDominoElement<E extends Element, T extends IsElement<E
   }
 
   /**
-   * Adds default {@link org.dominokit.domino.ui.style.WavesSupport} to this component
+   * Enables Waves effect for this element.
    *
-   * @return same component
+   * @return The modified DOM element.
    */
-  @Editor.Ignore
   public T withWaves() {
     if (isNull(wavesSupport)) {
       this.wavesSupport = WavesSupport.addFor(getWavesElement());
@@ -2038,10 +2161,11 @@ public abstract class BaseDominoElement<E extends Element, T extends IsElement<E
   }
 
   /**
-   * withWaves.
+   * Enables Waves effect for this element and applies additional settings using the provided
+   * handler.
    *
-   * @param handler a {@link org.dominokit.domino.ui.utils.ChildHandler} object
-   * @return a T object
+   * @param handler The handler to apply Waves settings.
+   * @return The modified DOM element.
    */
   public T withWaves(ChildHandler<T, WavesSupport> handler) {
     withWaves();
@@ -2050,9 +2174,9 @@ public abstract class BaseDominoElement<E extends Element, T extends IsElement<E
   }
 
   /**
-   * Removes the {@link org.dominokit.domino.ui.style.WavesSupport} effect for this component
+   * Removes Waves effect from this element.
    *
-   * @return same component
+   * @return The modified DOM element.
    */
   @Editor.Ignore
   public T removeWaves() {
@@ -2063,11 +2187,10 @@ public abstract class BaseDominoElement<E extends Element, T extends IsElement<E
   }
 
   /**
-   * Adds {@link org.dominokit.domino.ui.style.WavesSupport} to this component with a custom
-   * WaveStyler
+   * Enables Waves effect for this element and applies styles using the provided WavesStyler.
    *
-   * @param wavesStyler {@link org.dominokit.domino.ui.utils.BaseDominoElement.WavesStyler}
-   * @return same component
+   * @param wavesStyler The WavesStyler to apply Waves styles.
+   * @return The modified DOM element.
    */
   @Editor.Ignore
   public T withWaves(WavesStyler wavesStyler) {
@@ -2079,10 +2202,10 @@ public abstract class BaseDominoElement<E extends Element, T extends IsElement<E
   }
 
   /**
-   * {@inheritDoc}
+   * Sets the wave style for this element's Waves effect.
    *
-   * @param waveStyle a {@link org.dominokit.domino.ui.style.WaveStyle} object
-   * @return a T object
+   * @param waveStyle The wave style to set.
+   * @return The modified DOM element.
    */
   public T setWaveStyle(WaveStyle waveStyle) {
     wavesSupport.setWaveStyle(waveStyle);
@@ -2090,10 +2213,10 @@ public abstract class BaseDominoElement<E extends Element, T extends IsElement<E
   }
 
   /**
-   * Applies a function on this component
+   * Applies the given element handler to this element.
    *
-   * @param elementHandler {@link org.dominokit.domino.ui.utils.ElementHandler}
-   * @return same component
+   * @param elementHandler The element handler to apply.
+   * @return The modified DOM element.
    */
   @Editor.Ignore
   public T apply(ElementHandler<T> elementHandler) {
@@ -2102,11 +2225,25 @@ public abstract class BaseDominoElement<E extends Element, T extends IsElement<E
   }
 
   /**
-   * setContent.
+   * Applies the given element handler to this element if the specified condition is met.
    *
-   * @param element the {@link org.dominokit.domino.ui.IsElement} content to replace the current
-   *     content
-   * @return same component
+   * @param condition The condition to check before applying the element handler.
+   * @param elementHandler The element handler to apply.
+   * @return The modified DOM element.
+   */
+  @Editor.Ignore
+  public T applyIf(Predicate<T> condition, ElementHandler<T> elementHandler) {
+    if (condition.test((T) this)) {
+      elementHandler.handleElement(element);
+    }
+    return element;
+  }
+
+  /**
+   * Sets the content of this element using another IsElement.
+   *
+   * @param element The IsElement containing the content.
+   * @return The modified DOM element.
    */
   @Editor.Ignore
   public T setContent(IsElement<?> element) {
@@ -2114,10 +2251,10 @@ public abstract class BaseDominoElement<E extends Element, T extends IsElement<E
   }
 
   /**
-   * setContent.
+   * Sets the content of this element to the provided Node, clearing existing content.
    *
-   * @param content the {@link elemental2.dom.Node} content to replace the current content
-   * @return same component
+   * @param content The Node to set as the content.
+   * @return The modified DOM element.
    */
   @Editor.Ignore
   public T setContent(Node content) {
@@ -2126,66 +2263,60 @@ public abstract class BaseDominoElement<E extends Element, T extends IsElement<E
     return element;
   }
 
-  /** @return int count of the component children */
   /**
-   * getElementsCount.
+   * Gets the number of child elements within this element.
    *
-   * @return a int
+   * @return The number of child elements.
    */
   @Editor.Ignore
   public int getElementsCount() {
     return new Double(element().childElementCount).intValue();
   }
 
-  /** @return boolean, true if the component has no children */
   /**
-   * isEmptyElement.
+   * Checks if this element is empty, i.e., it has no child elements and no text content.
    *
-   * @return a boolean
+   * @return {@code true} if the element is empty, {@code false} otherwise.
    */
   @Editor.Ignore
   public boolean isEmptyElement() {
     return getElementsCount() == 0 && (isNull(getTextContent()) || getTextContent().isEmpty());
   }
 
-  /** @return double count of the component children */
   /**
-   * getChildElementCount.
+   * Gets the number of child elements within this element as a double.
    *
-   * @return a double
+   * @return The number of child elements as a double.
    */
   @Editor.Ignore
   public double getChildElementCount() {
     return element().childElementCount;
   }
 
-  /** @return the first {@link Node} in this component */
   /**
-   * getFirstChild.
+   * Gets the first child Node of this element.
    *
-   * @return a {@link elemental2.dom.Node} object
+   * @return The first child Node.
    */
   @Editor.Ignore
   public Node getFirstChild() {
     return element().firstChild;
   }
 
-  /** @return boolean, true if the component has child nodes */
   /**
-   * hasChildNodes.
+   * Checks if this element has child nodes.
    *
-   * @return a boolean
+   * @return {@code true} if the element has child nodes, {@code false} otherwise.
    */
   @Editor.Ignore
   public boolean hasChildNodes() {
     return element().hasChildNodes();
   }
 
-  /** @return String, the assigned unique domino-uuid to the component */
   /**
-   * getDominoId.
+   * Gets the Domino ID of this element.
    *
-   * @return a {@link java.lang.String} object
+   * @return The Domino ID of this element.
    */
   @Editor.Ignore
   public String getDominoId() {
@@ -2194,50 +2325,48 @@ public abstract class BaseDominoElement<E extends Element, T extends IsElement<E
   }
 
   /**
-   * {@inheritDoc}
+   * Disables this element by setting the "disabled" attribute.
    *
-   * @return a T object
+   * @return The modified DOM element.
    */
   @Editor.Ignore
   public T disable() {
     return setDisabled(true);
   }
 
-  /** @return boolean, true if the component is disabled */
   /**
-   * isDisabled.
+   * Checks if this element is disabled.
    *
-   * @return a boolean
+   * @return {@code true} if the element is disabled, {@code false} otherwise.
    */
   public boolean isDisabled() {
     return hasAttribute("disabled");
   }
 
   /**
-   * {@inheritDoc}
+   * Enables this element by removing the "disabled" attribute.
    *
-   * @return a T object
+   * @return The modified DOM element.
    */
   @Editor.Ignore
   public T enable() {
     return setDisabled(false);
   }
 
-  /** @return boolean, true if the component is disabled */
   /**
-   * isEnabled.
+   * Checks if this element is enabled.
    *
-   * @return a boolean
+   * @return {@code true} if the element is enabled, {@code false} otherwise.
    */
   public boolean isEnabled() {
     return !isDisabled();
   }
 
   /**
-   * Disable/Enable the component base on provided flag
+   * Sets the disabled state of this element.
    *
-   * @param disabled boolean, true to disable the component, false to enable it
-   * @return same component
+   * @param disabled {@code true} to disable the element, {@code false} to enable it.
+   * @return The modified DOM element.
    */
   @Editor.Ignore
   public T setDisabled(boolean disabled) {
@@ -2253,20 +2382,20 @@ public abstract class BaseDominoElement<E extends Element, T extends IsElement<E
   }
 
   /**
-   * Adds a box-shadow to the component
+   * Elevates this element to the specified elevation level.
    *
-   * @param level int {@link org.dominokit.domino.ui.style.Elevation} level
-   * @return same component
+   * @param level The elevation level to apply.
+   * @return The modified DOM element.
    */
   public T elevate(int level) {
     return elevate(Elevation.of(level));
   }
 
   /**
-   * Adds a box-shadow to the component
+   * Elevates this element using the specified elevation style.
    *
-   * @param elevation {@link org.dominokit.domino.ui.style.Elevation}
-   * @return same component
+   * @param elevation The elevation style to apply.
+   * @return The modified DOM element.
    */
   @SuppressWarnings("unchecked")
   public T elevate(Elevation elevation) {
@@ -2282,11 +2411,10 @@ public abstract class BaseDominoElement<E extends Element, T extends IsElement<E
   }
 
   /**
-   * addCollapseListener.
+   * Adds a collapse listener to this element.
    *
-   * @param handler {@link org.dominokit.domino.ui.collapsible.Collapsible.CollapseHandler}
-   * @return same component
-   * @see Collapsible#addCollapseHandler(Collapsible.CollapseHandler)
+   * @param handler The collapse handler to add.
+   * @return The modified DOM element.
    */
   @Editor.Ignore
   @SuppressWarnings("unchecked")
@@ -2296,11 +2424,10 @@ public abstract class BaseDominoElement<E extends Element, T extends IsElement<E
   }
 
   /**
-   * addBeforeCollapseListener.
+   * Adds a before-collapse listener to this element.
    *
-   * @param handler {@link org.dominokit.domino.ui.collapsible.Collapsible.CollapseHandler}
-   * @return same component
-   * @see Collapsible#addBeforeCollapseHandler(Collapsible.CollapseHandler)
+   * @param handler The before-collapse handler to add.
+   * @return The modified DOM element.
    */
   @Editor.Ignore
   @SuppressWarnings("unchecked")
@@ -2310,11 +2437,10 @@ public abstract class BaseDominoElement<E extends Element, T extends IsElement<E
   }
 
   /**
-   * removeCollapseListener.
+   * Removes a collapse listener from this element.
    *
-   * @param handler {@link org.dominokit.domino.ui.collapsible.Collapsible.CollapseHandler}
-   * @return same component
-   * @see Collapsible#removeCollapseHandler(Collapsible.CollapseHandler)
+   * @param handler The collapse handler to remove.
+   * @return The modified DOM element.
    */
   @Editor.Ignore
   @SuppressWarnings("unchecked")
@@ -2324,11 +2450,10 @@ public abstract class BaseDominoElement<E extends Element, T extends IsElement<E
   }
 
   /**
-   * removeBeforeCollapseListener.
+   * Removes a before-collapse listener from this element.
    *
-   * @param handler {@link org.dominokit.domino.ui.collapsible.Collapsible.CollapseHandler}
-   * @return same component
-   * @see Collapsible#removeBeforeCollapseHandler(Collapsible.CollapseHandler)
+   * @param handler The before-collapse handler to remove.
+   * @return The modified DOM element.
    */
   @Editor.Ignore
   @SuppressWarnings("unchecked")
@@ -2338,11 +2463,10 @@ public abstract class BaseDominoElement<E extends Element, T extends IsElement<E
   }
 
   /**
-   * addExpandListener.
+   * Adds an expand listener to this element.
    *
-   * @param handler {@link org.dominokit.domino.ui.collapsible.Collapsible.ExpandHandler}
-   * @return same component
-   * @see Collapsible#addExpandHandler(Collapsible.ExpandHandler)
+   * @param handler The expand handler to add.
+   * @return The modified DOM element.
    */
   @Editor.Ignore
   @SuppressWarnings("unchecked")
@@ -2352,11 +2476,10 @@ public abstract class BaseDominoElement<E extends Element, T extends IsElement<E
   }
 
   /**
-   * addBeforeExpandListener.
+   * Adds a before-expand listener to this element.
    *
-   * @param handler {@link org.dominokit.domino.ui.collapsible.Collapsible.ExpandHandler}
-   * @return same component
-   * @see Collapsible#addBeforeExpandHandler(Collapsible.ExpandHandler)
+   * @param handler The before-expand handler to add.
+   * @return The modified DOM element.
    */
   @Editor.Ignore
   @SuppressWarnings("unchecked")
@@ -2366,11 +2489,10 @@ public abstract class BaseDominoElement<E extends Element, T extends IsElement<E
   }
 
   /**
-   * removeExpandListener.
+   * Removes an expand listener from this element.
    *
-   * @param handler {@link org.dominokit.domino.ui.collapsible.Collapsible.ExpandHandler}
-   * @return same component
-   * @see Collapsible#removeExpandHandler(Collapsible.ExpandHandler)
+   * @param handler The expand handler to remove.
+   * @return The modified DOM element.
    */
   @Editor.Ignore
   @SuppressWarnings("unchecked")
@@ -2380,11 +2502,10 @@ public abstract class BaseDominoElement<E extends Element, T extends IsElement<E
   }
 
   /**
-   * removeBeforeExpandListener.
+   * Removes a before-expand listener from this element.
    *
-   * @param handler {@link org.dominokit.domino.ui.collapsible.Collapsible.ExpandHandler}
-   * @return same component
-   * @see Collapsible#removeBeforeExpandHandler(Collapsible.ExpandHandler)
+   * @param handler The before-expand handler to remove.
+   * @return The modified DOM element.
    */
   @Editor.Ignore
   @SuppressWarnings("unchecked")
@@ -2393,113 +2514,203 @@ public abstract class BaseDominoElement<E extends Element, T extends IsElement<E
     return (T) this;
   }
 
+  /**
+   * Adds a transition start listener to this element.
+   *
+   * @param listener The transition listener to add.
+   * @return The modified DOM element.
+   */
   public T onTransitionStart(TransitionListener<? super T> listener) {
     transitionListeners.onTransitionStart(listener);
     return (T) this;
   }
 
+  /**
+   * Removes a transition start listener from this element.
+   *
+   * @param listener The transition listener to remove.
+   * @return The modified DOM element.
+   */
   public T removeTransitionStartListener(TransitionListener<? super T> listener) {
     transitionListeners.removeTransitionStartListener(listener);
     return (T) this;
   }
 
+  /**
+   * Adds a transition cancel listener to this element.
+   *
+   * @param listener The transition listener to add.
+   * @return The modified DOM element.
+   */
   public T onTransitionCancel(TransitionListener<? super T> listener) {
     transitionListeners.onTransitionCancel(listener);
     return (T) this;
   }
 
+  /**
+   * Removes a transition cancel listener from this element.
+   *
+   * @param listener The transition listener to remove.
+   * @return The modified DOM element.
+   */
   public T removeTransitionCancelListener(TransitionListener<? super T> listener) {
     transitionListeners.removeTransitionCancelListener(listener);
     return (T) this;
   }
 
+  /**
+   * Adds a transition end listener to this element.
+   *
+   * @param listener The transition listener to add.
+   * @return The modified DOM element.
+   */
   public T onTransitionEnd(TransitionListener<? super T> listener) {
     transitionListeners.onTransitionEnd(listener);
     return (T) this;
   }
 
+  /**
+   * Removes a transition end listener from this element.
+   *
+   * @param listener The transition listener to remove.
+   * @return The modified DOM element.
+   */
   public T removeTransitionEndListener(TransitionListener<? super T> listener) {
     transitionListeners.removeTransitionEndListener(listener);
     return (T) this;
   }
 
-  /** @return the currently applied {@link Elevation} */
   /**
-   * Getter for the field <code>elevation</code>.
+   * Gets the elevation style applied to this element.
    *
-   * @return a {@link org.dominokit.domino.ui.style.Elevation} object
+   * @return The elevation style.
    */
   public Elevation getElevation() {
     return elevation;
   }
 
-  /** @return the component {@link Tooltip} */
   /**
-   * Getter for the field <code>tooltip</code>.
+   * Gets the tooltip associated with this element.
    *
-   * @return a {@link org.dominokit.domino.ui.popover.Tooltip} object
+   * @return The tooltip element.
    */
   public Tooltip getTooltip() {
     return tooltip;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Sets a CSS property with a string value.
+   *
+   * @param name The name of the CSS property.
+   * @param value The string value to set.
+   * @return The modified DOM element.
+   */
   @Override
   public T setCssProperty(String name, String value) {
     style().setCssProperty(name, value);
     return (T) this;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Sets a CSS property with a numeric value.
+   *
+   * @param name The name of the CSS property.
+   * @param value The numeric value to set.
+   * @return The modified DOM element.
+   */
   @Override
   public T setCssProperty(String name, Number value) {
     style().setCssProperty(name, String.valueOf(value));
     return (T) this;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Sets a CSS property with an integer value.
+   *
+   * @param name The name of the CSS property.
+   * @param value The integer value to set.
+   * @return The modified DOM element.
+   */
   @Override
   public T setCssProperty(String name, int value) {
     style().setCssProperty(name, String.valueOf(value));
     return (T) this;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Sets a CSS property with a double value.
+   *
+   * @param name The name of the CSS property.
+   * @param value The double value to set.
+   * @return The modified DOM element.
+   */
   @Override
   public T setCssProperty(String name, double value) {
     style().setCssProperty(name, String.valueOf(value));
     return (T) this;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Sets a CSS property with a short value.
+   *
+   * @param name The name of the CSS property.
+   * @param value The short value to set.
+   * @return The modified DOM element.
+   */
   @Override
   public T setCssProperty(String name, short value) {
     style().setCssProperty(name, String.valueOf(value));
     return (T) this;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Sets a CSS property with a float value.
+   *
+   * @param name The name of the CSS property.
+   * @param value The float value to set.
+   * @return The modified DOM element.
+   */
   @Override
   public T setCssProperty(String name, float value) {
     style().setCssProperty(name, String.valueOf(value));
     return (T) this;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Sets a CSS property with a boolean value.
+   *
+   * @param name The name of the CSS property.
+   * @param value The boolean value to set.
+   * @return The modified DOM element.
+   */
   @Override
   public T setCssProperty(String name, boolean value) {
     style().setCssProperty(name, String.valueOf(value));
     return (T) this;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Sets a CSS property with a string value and optional !important flag.
+   *
+   * @param name The name of the CSS property.
+   * @param value The string value to set.
+   * @param important Whether to add the !important flag.
+   * @return The modified DOM element.
+   */
   @Override
   public T setCssProperty(String name, String value, boolean important) {
     style().setCssProperty(name, value, important);
     return (T) this;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Sets or removes a CSS property based on a predicate.
+   *
+   * @param name The name of the CSS property.
+   * @param value The string value to set.
+   * @param predicate The predicate to determine whether to set or remove the property.
+   * @return The modified DOM element.
+   */
   @Override
   public T setOrRemoveCssProperty(String name, String value, Predicate<T> predicate) {
     if (predicate.test((T) this)) {
@@ -2510,14 +2721,24 @@ public abstract class BaseDominoElement<E extends Element, T extends IsElement<E
     return (T) this;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Removes a CSS property.
+   *
+   * @param name The name of the CSS property to remove.
+   * @return The modified DOM element.
+   */
   @Override
   public T removeCssProperty(String name) {
     style().removeCssProperty(name);
     return (T) this;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Adds one or more CSS classes to the element.
+   *
+   * @param cssClass One or more CSS classes to add.
+   * @return The modified DOM element.
+   */
   @Editor.Ignore
   @Override
   public T addCss(String cssClass) {
@@ -2525,7 +2746,12 @@ public abstract class BaseDominoElement<E extends Element, T extends IsElement<E
     return (T) this;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Adds a CSS class to the element.
+   *
+   * @param cssClass The CSS class to add.
+   * @return The modified DOM element.
+   */
   @Editor.Ignore
   @Override
   public T addCss(CssClass cssClass) {
@@ -2533,7 +2759,12 @@ public abstract class BaseDominoElement<E extends Element, T extends IsElement<E
     return (T) this;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Adds CSS classes from an object that implements the HasCssClass interface.
+   *
+   * @param hasCssClass An object that implements the HasCssClass interface.
+   * @return The modified DOM element.
+   */
   @Editor.Ignore
   @Override
   public T addCss(HasCssClass hasCssClass) {
@@ -2541,7 +2772,12 @@ public abstract class BaseDominoElement<E extends Element, T extends IsElement<E
     return (T) this;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Adds one or more CSS classes to the element.
+   *
+   * @param cssClasses One or more CSS classes to add.
+   * @return The modified DOM element.
+   */
   @Editor.Ignore
   @Override
   public T addCss(CssClass... cssClasses) {
@@ -2549,7 +2785,12 @@ public abstract class BaseDominoElement<E extends Element, T extends IsElement<E
     return (T) this;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Adds CSS classes from an object that implements the HasCssClasses interface.
+   *
+   * @param hasCssClasses An object that implements the HasCssClasses interface.
+   * @return The modified DOM element.
+   */
   @Editor.Ignore
   @Override
   public T addCss(HasCssClasses hasCssClasses) {
@@ -2557,574 +2798,1010 @@ public abstract class BaseDominoElement<E extends Element, T extends IsElement<E
     return (T) this;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Removes one or more CSS classes from the element.
+   *
+   * @param cssClass One or more CSS classes to remove.
+   * @return The modified DOM element.
+   */
   @Override
   public T removeCss(String cssClass) {
     style().removeCss(cssClass);
     return (T) this;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Removes a CSS class from the element.
+   *
+   * @param cssClass The CSS class to remove.
+   * @return The modified DOM element.
+   */
   @Override
   public T removeCss(CssClass cssClass) {
     style().removeCss(cssClass);
     return (T) this;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Removes CSS classes from an object that implements the HasCssClass interface.
+   *
+   * @param hasCssClass An object that implements the HasCssClass interface.
+   * @return The modified DOM element.
+   */
   @Override
   public T removeCss(HasCssClass hasCssClass) {
     style().removeCss(hasCssClass);
     return (T) this;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Replaces one CSS class with another in the element's class attribute.
+   *
+   * @param cssClass The CSS class to replace.
+   * @param replacementClass The CSS class to replace it with.
+   * @return The modified DOM element.
+   */
   @Override
   public T replaceCss(String cssClass, String replacementClass) {
     style().replaceCss(cssClass, replacementClass);
     return (T) this;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Sets the CSS border property for the element.
+   *
+   * @param border The CSS border property to set.
+   * @return The modified DOM element.
+   */
   @Override
   public T setBorder(String border) {
     style().setBorder(border);
     return (T) this;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Sets the CSS border color property for the element.
+   *
+   * @param borderColor The CSS border color property to set.
+   * @return The modified DOM element.
+   */
   @Override
   public T setBorderColor(String borderColor) {
     style().setBorderColor(borderColor);
     return (T) this;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Sets the width of the element using a CSS style.
+   *
+   * @param width The width value to set.
+   * @param important Whether the style should be marked as !important.
+   * @return The modified DOM element.
+   */
   @Override
   public T setWidth(String width, boolean important) {
     style().setWidth(width, important);
     return (T) this;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Sets the minimum width of the element using a CSS style.
+   *
+   * @param width The minimum width value to set.
+   * @return The modified DOM element.
+   */
   @Override
   public T setMinWidth(String width) {
     style().setMinWidth(width);
     return (T) this;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Sets the minimum width of the element using a CSS style.
+   *
+   * @param width The minimum width value to set.
+   * @param important Whether the style should be marked as !important.
+   * @return The modified DOM element.
+   */
   @Override
   public T setMinWidth(String width, boolean important) {
     style().setMinWidth(width, important);
     return (T) this;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Sets the maximum width of the element using a CSS style.
+   *
+   * @param width The maximum width value to set.
+   * @return The modified DOM element.
+   */
   @Override
   public T setMaxWidth(String width) {
     style().setMaxWidth(width);
     return (T) this;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Sets the maximum width of the element using a CSS style.
+   *
+   * @param width The maximum width value to set.
+   * @param important Whether the style should be marked as !important.
+   * @return The modified DOM element.
+   */
   @Override
   public T setMaxWidth(String width, boolean important) {
     style().setMaxWidth(width, important);
     return (T) this;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Sets the height of the element using a CSS style.
+   *
+   * @param height The height value to set.
+   * @param important Whether the style should be marked as !important.
+   * @return The modified DOM element.
+   */
   @Override
   public T setHeight(String height, boolean important) {
     style().setHeight(height, important);
     return (T) this;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Sets the minimum height of the element using a CSS style.
+   *
+   * @param height The minimum height value to set.
+   * @return The modified DOM element.
+   */
   @Override
   public T setMinHeight(String height) {
     style().setMinHeight(height);
     return (T) this;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Sets the minimum height of the element using a CSS style.
+   *
+   * @param height The minimum height value to set.
+   * @param important Whether the style should be marked as !important.
+   * @return The modified DOM element.
+   */
   @Override
   public T setMinHeight(String height, boolean important) {
     style().setMinHeight(height, important);
     return (T) this;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Sets the maximum height of the element using a CSS style.
+   *
+   * @param height The maximum height value to set.
+   * @return The modified DOM element.
+   */
   @Override
   public T setMaxHeight(String height) {
     style().setMaxHeight(height);
     return (T) this;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Sets the maximum height of the element using a CSS style.
+   *
+   * @param height The maximum height value to set.
+   * @param important Whether the style should be marked as !important.
+   * @return The modified DOM element.
+   */
   @Override
   public T setMaxHeight(String height, boolean important) {
     style().setMaxHeight(height, important);
     return (T) this;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Sets the text alignment of the element using a CSS style.
+   *
+   * @param textAlign The text alignment value to set.
+   * @return The modified DOM element.
+   */
   @Override
   public T setTextAlign(String textAlign) {
     style().setTextAlign(textAlign);
     return (T) this;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Sets the text alignment of the element using a CSS style.
+   *
+   * @param textAlign The text alignment value to set.
+   * @param important Whether the style should be marked as !important.
+   * @return The modified DOM element.
+   */
   @Override
   public T setTextAlign(String textAlign, boolean important) {
     style().setTextAlign(textAlign, important);
     return (T) this;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Sets the text color of the element using a CSS style.
+   *
+   * @param color The text color value to set.
+   * @return The modified DOM element.
+   */
   @Override
   public T setColor(String color) {
     style().setColor(color);
     return (T) this;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Sets the text color of the element using a CSS style.
+   *
+   * @param color The text color value to set.
+   * @param important Whether the style should be marked as !important.
+   * @return The modified DOM element.
+   */
   @Override
   public T setColor(String color, boolean important) {
     style().setColor(color, important);
     return (T) this;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Sets the background color of the element using a CSS style.
+   *
+   * @param color The background color value to set.
+   * @return The modified DOM element.
+   */
   @Override
   public T setBackgroundColor(String color) {
     style().setBackgroundColor(color);
     return (T) this;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Sets the background color of the element using a CSS style.
+   *
+   * @param color The background color value to set.
+   * @param important Whether the style should be marked as !important.
+   * @return The modified DOM element.
+   */
   @Override
   public T setBackgroundColor(String color, boolean important) {
     style().setBackgroundColor(color, important);
     return (T) this;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Sets the margin of the element using a CSS style.
+   *
+   * @param margin The margin value to set.
+   * @return The modified DOM element.
+   */
   @Override
   public T setMargin(String margin) {
     style().setMargin(margin);
     return (T) this;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Sets the margin of the element using a CSS style.
+   *
+   * @param margin The margin value to set.
+   * @param important Whether the style should be marked as !important.
+   * @return The modified DOM element.
+   */
   @Override
   public T setMargin(String margin, boolean important) {
     style().setMargin(margin, important);
     return (T) this;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Sets the top margin of the element using a CSS style.
+   *
+   * @param margin The top margin value to set.
+   * @return The modified DOM element.
+   */
   @Override
   public T setMarginTop(String margin) {
     style().setMarginTop(margin);
     return (T) this;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Sets the top margin of the element using a CSS style.
+   *
+   * @param margin The top margin value to set.
+   * @param important Whether the style should be marked as !important.
+   * @return The modified DOM element.
+   */
   @Override
   public T setMarginTop(String margin, boolean important) {
     style().setMarginTop(margin, important);
     return (T) this;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Sets the bottom margin of the element using a CSS style.
+   *
+   * @param margin The bottom margin value to set.
+   * @return The modified DOM element.
+   */
   @Override
   public T setMarginBottom(String margin) {
     style().setMarginBottom(margin);
     return (T) this;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Sets the bottom margin of the element using a CSS style.
+   *
+   * @param margin The bottom margin value to set.
+   * @param important Whether the style should be marked as !important.
+   * @return The modified DOM element.
+   */
   @Override
   public T setMarginBottom(String margin, boolean important) {
     style().setMarginBottom(margin, important);
     return (T) this;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Sets the left margin of the element using a CSS style.
+   *
+   * @param margin The left margin value to set.
+   * @return The modified DOM element.
+   */
   @Override
   public T setMarginLeft(String margin) {
     style().setMarginLeft(margin);
     return (T) this;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Sets the left margin of the element using a CSS style.
+   *
+   * @param margin The left margin value to set.
+   * @param important Whether the style should be marked as !important.
+   * @return The modified DOM element.
+   */
   @Override
   public T setMarginLeft(String margin, boolean important) {
     style().setMarginLeft(margin, important);
     return (T) this;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Sets the right margin of the element using a CSS style.
+   *
+   * @param margin The right margin value to set.
+   * @return The modified DOM element.
+   */
   @Override
   public T setMarginRight(String margin) {
     style().setMarginRight(margin);
     return (T) this;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Sets the right margin of the element using a CSS style.
+   *
+   * @param margin The right margin value to set.
+   * @param important Whether the style should be marked as !important.
+   * @return The modified DOM element.
+   */
   @Override
   public T setMarginRight(String margin, boolean important) {
     style().setMarginRight(margin, important);
     return (T) this;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Sets the right padding of the element using a CSS style.
+   *
+   * @param padding The right padding value to set.
+   * @return The modified DOM element.
+   */
   @Override
   public T setPaddingRight(String padding) {
     style().setPaddingRight(padding);
     return (T) this;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Sets the right padding of the element using a CSS style.
+   *
+   * @param padding The right padding value to set.
+   * @param important Whether the style should be marked as !important.
+   * @return The modified DOM element.
+   */
   @Override
   public T setPaddingRight(String padding, boolean important) {
     style().setPaddingRight(padding, important);
     return (T) this;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Sets the left padding of the element using a CSS style.
+   *
+   * @param padding The left padding value to set.
+   * @return The modified DOM element.
+   */
   @Override
   public T setPaddingLeft(String padding) {
     style().setPaddingLeft(padding);
     return (T) this;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Sets the left padding of the element using a CSS style.
+   *
+   * @param padding The left padding value to set.
+   * @param important Whether the style should be marked as !important.
+   * @return The modified DOM element.
+   */
   @Override
   public T setPaddingLeft(String padding, boolean important) {
     style().setPaddingLeft(padding, important);
     return (T) this;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Sets the bottom padding of the element using a CSS style.
+   *
+   * @param padding The bottom padding value to set.
+   * @return The modified DOM element.
+   */
   @Override
   public T setPaddingBottom(String padding) {
     style().setPaddingBottom(padding);
     return (T) this;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Sets the bottom padding of the element using a CSS style.
+   *
+   * @param padding The bottom padding value to set.
+   * @param important Whether the style should be marked as !important.
+   * @return The modified DOM element.
+   */
   @Override
   public T setPaddingBottom(String padding, boolean important) {
     style().setPaddingBottom(padding, important);
     return (T) this;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Sets the top padding of the element using a CSS style.
+   *
+   * @param padding The top padding value to set.
+   * @return The modified DOM element.
+   */
   @Override
   public T setPaddingTop(String padding) {
     style().setPaddingTop(padding);
     return (T) this;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Sets the top padding of the element using a CSS style.
+   *
+   * @param padding The top padding value to set.
+   * @param important Whether the style should be marked as !important.
+   * @return The modified DOM element.
+   */
   @Override
   public T setPaddingTop(String padding, boolean important) {
     style().setPaddingTop(padding, important);
     return (T) this;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Sets the padding of the element using a CSS style.
+   *
+   * @param padding The padding value to set.
+   * @return The modified DOM element.
+   */
   @Override
   public T setPadding(String padding) {
     style().setPadding(padding);
     return (T) this;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Sets the padding of the element using a CSS style.
+   *
+   * @param padding The padding value to set.
+   * @param important Whether the style should be marked as !important.
+   * @return The modified DOM element.
+   */
   @Override
   public T setPadding(String padding, boolean important) {
     style().setPadding(padding, important);
     return (T) this;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Sets the CSS `display` property for the element.
+   *
+   * @param display The display property value to set.
+   * @return The modified DOM element.
+   */
   @Override
   public T setDisplay(String display) {
     style().setDisplay(display);
     return (T) this;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Sets the CSS `display` property for the element.
+   *
+   * @param display The display property value to set.
+   * @param important Whether the style should be marked as !important.
+   * @return The modified DOM element.
+   */
   @Override
   public T setDisplay(String display, boolean important) {
     style().setDisplay(display, important);
     return (T) this;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Sets the font size of the element using a CSS style.
+   *
+   * @param fontSize The font size value to set.
+   * @return The modified DOM element.
+   */
   @Override
   public T setFontSize(String fontSize) {
     style().setFontSize(fontSize);
     return (T) this;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Sets the font size of the element using a CSS style.
+   *
+   * @param fontSize The font size value to set.
+   * @param important Whether the style should be marked as !important.
+   * @return The modified DOM element.
+   */
   @Override
   public T setFontSize(String fontSize, boolean important) {
     style().setFontSize(fontSize, important);
     return (T) this;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Sets the CSS `float` property for the element.
+   *
+   * @param cssFloat The float property value to set.
+   * @return The modified DOM element.
+   */
   @Override
   public T setFloat(String cssFloat) {
     style().setFloat(cssFloat);
     return (T) this;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Sets the CSS `float` property for the element.
+   *
+   * @param cssFloat The float property value to set.
+   * @param important Whether the style should be marked as !important.
+   * @return The modified DOM element.
+   */
   @Override
   public T setFloat(String cssFloat, boolean important) {
     style().setFloat(cssFloat, important);
     return (T) this;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Sets the line height of the element using a CSS style.
+   *
+   * @param lineHeight The line height value to set.
+   * @return The modified DOM element.
+   */
   @Override
   public T setLineHeight(String lineHeight) {
     style().setLineHeight(lineHeight);
     return (T) this;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Sets the line height of the element using a CSS style.
+   *
+   * @param lineHeight The line height value to set.
+   * @param important Whether the style should be marked as !important.
+   * @return The modified DOM element.
+   */
   @Override
   public T setLineHeight(String lineHeight, boolean important) {
     style().setLineHeight(lineHeight, important);
     return (T) this;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Sets the CSS `overflow` property for the element.
+   *
+   * @param overFlow The overflow property value to set.
+   * @return The modified DOM element.
+   */
   @Override
   public T setOverFlow(String overFlow) {
     style().setOverFlow(overFlow);
     return (T) this;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Sets the CSS `overflow` property for the element.
+   *
+   * @param overFlow The overflow property value to set.
+   * @param important Whether the style should be marked as !important.
+   * @return The modified DOM element.
+   */
   @Override
   public T setOverFlow(String overFlow, boolean important) {
     style().setOverFlow(overFlow, important);
     return (T) this;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Sets the CSS `cursor` property for the element.
+   *
+   * @param cursor The cursor property value to set.
+   * @return The modified DOM element.
+   */
   @Override
   public T setCursor(String cursor) {
     style().setCursor(cursor);
     return (T) this;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Sets the CSS `cursor` property for the element.
+   *
+   * @param cursor The cursor property value to set.
+   * @param important Whether the style should be marked as !important.
+   * @return The modified DOM element.
+   */
   @Override
   public T setCursor(String cursor, boolean important) {
     style().setCursor(cursor, important);
     return (T) this;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Sets the CSS `position` property for the element.
+   *
+   * @param position The position property value to set.
+   * @return The modified DOM element.
+   */
   @Override
   public T setPosition(String position) {
     style().setPosition(position);
     return (T) this;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Sets the CSS `position` property for the element.
+   *
+   * @param position The position property value to set.
+   * @param important Whether the style should be marked as !important.
+   * @return The modified DOM element.
+   */
   @Override
   public T setPosition(String position, boolean important) {
     style().setPosition(position, important);
     return (T) this;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Sets the CSS `left` property for the element.
+   *
+   * @param left The left property value to set.
+   * @return The modified DOM element.
+   */
   @Override
   public T setLeft(String left) {
     style().setLeft(left);
     return (T) this;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Sets the CSS `left` property for the element.
+   *
+   * @param left The left property value to set.
+   * @param important Whether the style should be marked as !important.
+   * @return The modified DOM element.
+   */
   @Override
   public T setLeft(String left, boolean important) {
     style().setLeft(left, important);
     return (T) this;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Sets the CSS `right` property for the element.
+   *
+   * @param right The right property value to set.
+   * @return The modified DOM element.
+   */
   @Override
   public T setRight(String right) {
     style().setRight(right);
     return (T) this;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Sets the CSS `right` property for the element.
+   *
+   * @param right The right property value to set.
+   * @param important Whether the style should be marked as !important.
+   * @return The modified DOM element.
+   */
   @Override
   public T setRight(String right, boolean important) {
     style().setRight(right, important);
     return (T) this;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Sets the CSS `top` property for the element.
+   *
+   * @param top The top property value to set.
+   * @return The modified DOM element.
+   */
   @Override
   public T setTop(String top) {
     style().setTop(top);
     return (T) this;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Sets the CSS `top` property for the element.
+   *
+   * @param top The top property value to set.
+   * @param important Whether the style should be marked as !important.
+   * @return The modified DOM element.
+   */
   @Override
   public T setTop(String top, boolean important) {
     style().setTop(top, important);
     return (T) this;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Sets the CSS `bottom` property for the element.
+   *
+   * @param bottom The bottom property value to set.
+   * @return The modified DOM element.
+   */
   @Override
   public T setBottom(String bottom) {
     style().setBottom(bottom);
     return (T) this;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Sets the CSS `bottom` property for the element.
+   *
+   * @param bottom The bottom property value to set.
+   * @param important Whether the style should be marked as !important.
+   * @return The modified DOM element.
+   */
   @Override
   public T setBottom(String bottom, boolean important) {
     style().setBottom(bottom, important);
     return (T) this;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Checks if the element contains a CSS class.
+   *
+   * @param cssClass The CSS class name to check.
+   * @return True if the class is found, false otherwise.
+   */
   @Override
   public boolean containsCss(String cssClass) {
     return style().containsCss(cssClass);
   }
 
   /**
-   * hasCssClass.
+   * Checks if the element has a specific CSS class.
    *
-   * @param cssClass a {@link java.lang.String} object
-   * @return a {@link java.util.Optional} object
+   * @param cssClass The CSS class name to check.
+   * @return An optional containing the CSS class name if found, empty otherwise.
    */
   public Optional<String> hasCssClass(String cssClass) {
     return style().containsCss(cssClass) ? Optional.of(cssClass) : Optional.empty();
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Aligns the element's content to the center horizontally.
+   *
+   * @return The modified DOM element.
+   */
   @Override
   public T alignCenter() {
     style().alignCenter();
     return (T) this;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Aligns the element's content to the right horizontally.
+   *
+   * @return The modified DOM element.
+   */
   @Override
   public T alignRight() {
     style().alignRight();
     return (T) this;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Sets the CSS text for the element's style.
+   *
+   * @param cssText The CSS text to set.
+   * @return The modified DOM element.
+   */
   @Override
   public T cssText(String cssText) {
     style().cssText(cssText);
     return (T) this;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Returns the count of CSS classes applied to the element.
+   *
+   * @return The count of CSS classes.
+   */
   @Override
   public int cssClassesCount() {
     return style().cssClassesCount();
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Returns the CSS class name at the specified index.
+   *
+   * @param index The index of the CSS class to retrieve.
+   * @return The CSS class name.
+   */
   @Override
   public String cssClassByIndex(int index) {
     return style().cssClassByIndex(index);
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Sets the CSS `pointer-events` property for the element.
+   *
+   * @param pointerEvents The pointer-events property value to set.
+   * @return The modified DOM element.
+   */
   @Override
   public T setPointerEvents(String pointerEvents) {
     style().setPointerEvents(pointerEvents);
     return (T) this;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Sets the CSS `align-items` property for the element.
+   *
+   * @param alignItems The align-items property value to set.
+   * @return The modified DOM element.
+   */
   @Override
   public T setAlignItems(String alignItems) {
     style().setAlignItems(alignItems);
     return (T) this;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Sets the CSS `overflow-y` property for the element.
+   *
+   * @param overflow The overflow-y property value to set.
+   * @return The modified DOM element.
+   */
   @Override
   public T setOverFlowY(String overflow) {
     style().setOverFlowY(overflow);
     return (T) this;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Sets the CSS `overflow-y` property for the element.
+   *
+   * @param overflow The overflow-y property value to set.
+   * @param important Whether the style should be marked as !important.
+   * @return The modified DOM element.
+   */
   @Override
   public T setOverFlowY(String overflow, boolean important) {
     style().setOverFlowY(overflow, important);
     return (T) this;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Sets the CSS `overflow-x` property for the element.
+   *
+   * @param overflow The overflow-x property value to set.
+   * @return The modified DOM element.
+   */
   @Override
   public T setOverFlowX(String overflow) {
     style().setOverFlowX(overflow);
     return (T) this;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Sets the CSS `overflow-x` property for the element.
+   *
+   * @param overflow The overflow-x property value to set.
+   * @param important Whether the style should be marked as !important.
+   * @return The modified DOM element.
+   */
   @Override
   public T setOverFlowX(String overflow, boolean important) {
     style().setOverFlowX(overflow, important);
     return (T) this;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Sets the CSS `box-shadow` property for the element.
+   *
+   * @param boxShadow The box-shadow property value to set.
+   * @return The modified DOM element.
+   */
   @Override
   public T setBoxShadow(String boxShadow) {
     style().setBoxShadow(boxShadow);
     return (T) this;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Sets the CSS `transition-duration` property for the element.
+   *
+   * @param transactionDuration The transition-duration property value to set.
+   * @return The modified DOM element.
+   */
   @Override
   public T setTransitionDuration(String transactionDuration) {
     style().setTransitionDuration(transactionDuration);
     return (T) this;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Sets the CSS `flex` property for the element.
+   *
+   * @param flex The flex property value to set.
+   * @return The modified DOM element.
+   */
   @Override
   public T setFlex(String flex) {
     style().setFlex(flex);
     return (T) this;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Sets the opacity of the element using a CSS style.
+   *
+   * @param opacity The opacity value to set.
+   * @return The modified DOM element.
+   */
   @Override
   public T setOpacity(double opacity) {
     style().setOpacity(opacity);
     return (T) this;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Sets the opacity of the element using a CSS style.
+   *
+   * @param opacity The opacity value to set.
+   * @param important Whether the style should be marked as !important.
+   * @return The modified DOM element.
+   */
   @Override
   public T setOpacity(double opacity, boolean important) {
     style().setOpacity(opacity, important);
@@ -3132,10 +3809,10 @@ public abstract class BaseDominoElement<E extends Element, T extends IsElement<E
   }
 
   /**
-   * Set this element as the target element for the provided Drop menu
+   * Sets the drop-down menu associated with this element.
    *
-   * @param dropMenu {@link org.dominokit.domino.ui.menu.Menu}
-   * @return same component
+   * @param dropMenu The drop-down menu to set.
+   * @return The modified DOM element.
    */
   public T setDropMenu(Menu<?> dropMenu) {
     if (nonNull(dropMenu)) {
@@ -3145,19 +3822,19 @@ public abstract class BaseDominoElement<E extends Element, T extends IsElement<E
   }
 
   /**
-   * getComputedStyle.
+   * Retrieves the computed CSS style of the element.
    *
-   * @return a {@link elemental2.dom.CSSStyleDeclaration} object
+   * @return The computed CSS style declaration.
    */
   public CSSStyleDeclaration getComputedStyle() {
     return DominoDom.window.getComputedStyle(element());
   }
 
   /**
-   * withComputedStyle.
+   * Applies a handler function to the computed CSS style of the element.
    *
-   * @param handler a {@link org.dominokit.domino.ui.utils.ChildHandler} object
-   * @return a T object
+   * @param handler The handler function to apply.
+   * @return The modified DOM element.
    */
   public T withComputedStyle(ChildHandler<T, CSSStyleDeclaration> handler) {
     handler.apply((T) this, getComputedStyle());
@@ -3165,10 +3842,10 @@ public abstract class BaseDominoElement<E extends Element, T extends IsElement<E
   }
 
   /**
-   * querySelector.
+   * Finds and returns the first DOM element matching the specified CSS selector.
    *
-   * @param selectors a {@link java.lang.String} object
-   * @return a {@link org.dominokit.domino.ui.utils.DominoElement} object
+   * @param selectors The CSS selector to search for.
+   * @return The first matching DOM element, or null if none is found.
    */
   public DominoElement<HTMLElement> querySelector(String selectors) {
     Element element = this.element.element().querySelector(selectors);
@@ -3179,10 +3856,10 @@ public abstract class BaseDominoElement<E extends Element, T extends IsElement<E
   }
 
   /**
-   * querySelectorAll.
+   * Finds and returns all DOM elements matching the specified CSS selector.
    *
-   * @param selectors a {@link java.lang.String} object
-   * @return a {@link java.util.List} object
+   * @param selectors The CSS selector to search for.
+   * @return A list of all matching DOM elements.
    */
   public List<DominoElement<Element>> querySelectorAll(String selectors) {
     NodeList<Element> elements = this.element.element().querySelectorAll(selectors);
@@ -3196,30 +3873,39 @@ public abstract class BaseDominoElement<E extends Element, T extends IsElement<E
   }
 
   /**
-   * config.
+   * Retrieves the configuration settings for Domino UI.
    *
-   * @return a {@link org.dominokit.domino.ui.utils.DominoUIConfig} object
+   * @return The Domino UI configuration.
    */
   protected DominoUIConfig config() {
     return DominoUIConfig.CONFIG;
   }
 
   /**
-   * uiconfig.
+   * Retrieves the UI configuration settings for Domino UI.
    *
-   * @return a {@link org.dominokit.domino.ui.config.UIConfig} object
+   * @return The UI configuration.
    */
   protected UIConfig uiconfig() {
     return DominoUIConfig.CONFIG.getUIConfig();
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Gets the map of meta objects associated with this element.
+   *
+   * @return The map of meta objects.
+   */
   @Override
   public Map<String, ComponentMeta> getMetaObjects() {
     return metaObjects;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Registers an event handler to be executed when a key is pressed down.
+   *
+   * @param onKeyDown The event handler for key down events.
+   * @return The modified DOM element.
+   */
   @Override
   public T onKeyDown(KeyEventsConsumer onKeyDown) {
     keyEventsInitializer.apply();
@@ -3227,7 +3913,11 @@ public abstract class BaseDominoElement<E extends Element, T extends IsElement<E
     return (T) this;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Stops listening to key down events.
+   *
+   * @return The modified DOM element.
+   */
   @Override
   public T stopOnKeyDown() {
     keyEventsInitializer.apply();
@@ -3235,7 +3925,12 @@ public abstract class BaseDominoElement<E extends Element, T extends IsElement<E
     return (T) this;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Registers an event handler to be executed when a key is released.
+   *
+   * @param onKeyUp The event handler for key up events.
+   * @return The modified DOM element.
+   */
   @Override
   public T onKeyUp(KeyEventsConsumer onKeyUp) {
     keyEventsInitializer.apply();
@@ -3243,7 +3938,11 @@ public abstract class BaseDominoElement<E extends Element, T extends IsElement<E
     return (T) this;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Stops listening to key up events.
+   *
+   * @return The modified DOM element.
+   */
   @Override
   public T stopOnKeyUp() {
     keyEventsInitializer.apply();
@@ -3251,7 +3950,12 @@ public abstract class BaseDominoElement<E extends Element, T extends IsElement<E
     return (T) this;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Registers an event handler to be executed when a key is pressed and released.
+   *
+   * @param onKeyPress The event handler for key press events.
+   * @return The modified DOM element.
+   */
   @Override
   public T onKeyPress(KeyEventsConsumer onKeyPress) {
     keyEventsInitializer.apply();
@@ -3259,7 +3963,11 @@ public abstract class BaseDominoElement<E extends Element, T extends IsElement<E
     return (T) this;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Stops listening to key press events.
+   *
+   * @return The modified DOM element.
+   */
   @Override
   public T stopOnKeyPress() {
     keyEventsInitializer.apply();
@@ -3267,14 +3975,23 @@ public abstract class BaseDominoElement<E extends Element, T extends IsElement<E
     return (T) this;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Retrieves the options for keyboard events.
+   *
+   * @return The keyboard event options.
+   */
   @Override
   public KeyboardEventOptions getKeyboardEventsOptions() {
     keyEventsInitializer.apply();
     return keyboardEvents.getOptions();
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Sets the default options for keyboard events.
+   *
+   * @param defaultOptions The default keyboard event options to set.
+   * @return The modified DOM element.
+   */
   @Override
   public T setDefaultOptions(KeyboardEventOptions defaultOptions) {
     keyEventsInitializer.apply();
@@ -3283,42 +4000,57 @@ public abstract class BaseDominoElement<E extends Element, T extends IsElement<E
   }
 
   /**
-   * Getter for the field <code>wavesSupport</code>.
+   * Retrieves the Waves support associated with this element.
    *
-   * @return a {@link org.dominokit.domino.ui.style.WavesSupport} object
+   * @return The Waves support.
    */
   public WavesSupport getWavesSupport() {
     return wavesSupport;
   }
 
   /**
-   * A function to edit a component style
+   * Functional interface for applying styles to an element.
    *
-   * @param <E> The type of the component root html element
+   * @param <E> The type of the element.
    */
   @FunctionalInterface
   public interface StyleEditor<E extends Element> {
-    /** @param style {@link Style} for the component */
+
+    /**
+     * Applies styles to the given element's style.
+     *
+     * @param style The style to apply.
+     */
     void applyStyles(Style<E> style);
   }
 
-  /** a function to add waves effect to a component */
+  /** Functional interface for styling Waves effects. */
   @FunctionalInterface
   public interface WavesStyler {
-    /** @param wavesSupport {@link WavesSupport} */
+
+    /**
+     * Styles the Waves effect using the provided WavesSupport instance.
+     *
+     * @param wavesSupport The WavesSupport instance to style Waves.
+     */
     void styleWaves(WavesSupport wavesSupport);
   }
 
   /**
-   * A function to be called when element is resized
+   * Functional interface for handling element resizing.
    *
-   * @param <T> the type of the component
+   * @param <T> The type of the element.
    */
   @FunctionalInterface
   public interface ResizeHandler<T> {
-    /** @param element the resized element */
-    /** @param observer the {@link ResizeObserver} triggering this event */
-    /** @param entries a {@link JsArray} of {@link ResizeObserverEntry} */
+
+    /**
+     * Handles element resizing.
+     *
+     * @param element The element being resized.
+     * @param observer The ResizeObserver instance.
+     * @param entries The ResizeObserver entries.
+     */
     void onResize(T element, ResizeObserver observer, JsArray<ResizeObserverEntry> entries);
   }
 }

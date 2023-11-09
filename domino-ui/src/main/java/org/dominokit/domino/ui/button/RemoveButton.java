@@ -20,13 +20,19 @@ import org.dominokit.domino.ui.elements.ButtonElement;
 import org.dominokit.domino.ui.style.GenericCss;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
 
-/** RemoveButton class. */
+/**
+ * A special button class that used to create a button with a remove button style same the remove
+ * buttons use in {@link org.dominokit.domino.ui.badges.Badge} and {@link
+ * org.dominokit.domino.ui.chips.Chip}
+ *
+ * @see BaseDominoElement
+ */
 public class RemoveButton extends BaseDominoElement<HTMLButtonElement, RemoveButton> {
 
   private ButtonElement button;
 
   /**
-   * create.
+   * Creates a RemoveButton with the required css classes.
    *
    * @return a {@link org.dominokit.domino.ui.button.RemoveButton} object
    */
@@ -43,7 +49,7 @@ public class RemoveButton extends BaseDominoElement<HTMLButtonElement, RemoveBut
     init(this);
   }
 
-  /** {@inheritDoc} */
+  /** @dominokit-site-ignore {@inheritDoc} */
   @Override
   public HTMLButtonElement element() {
     return button.element();

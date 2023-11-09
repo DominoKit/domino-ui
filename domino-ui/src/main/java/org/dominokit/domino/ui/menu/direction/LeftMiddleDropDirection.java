@@ -34,12 +34,12 @@ public class LeftMiddleDropDirection implements DropDirection {
     DOMRect sourceRect = source.getBoundingClientRect();
 
     double delta = 0;
-    double availableBelowSpace = window.innerHeight - targetRect.top;
+    double availableBelowSpace = window.innerHeight - targetRect.bottom;
     if (availableBelowSpace < (sourceRect.height / 2)) {
       delta = ((sourceRect.height / 2) - availableBelowSpace) * -1;
     }
 
-    double availableUpSpace = targetRect.top - window.pageYOffset;
+    double availableUpSpace = targetRect.top;
     if (availableUpSpace < (sourceRect.height / 2)) {
       delta = ((sourceRect.height / 2) - availableUpSpace);
     }
@@ -54,14 +54,25 @@ public class LeftMiddleDropDirection implements DropDirection {
                     - ((sourceRect.height - targetRect.height) / 2)
                     + delta));
 
-    Style.of(source)
-        .style
-        .setProperty("left", px.of(targetRect.left + window.pageXOffset - sourceRect.width - 1));
+    Style.of(source).style.setProperty("left", px.of(targetRect.left));
+
     dui_dd_left_middle.apply(source);
     elements
         .elementOf(source)
         .setCssProperty("--dui-dd-position-delta", (delta + (targetRect.height / 2)) + "px");
     elements.elementOf(source).setCssProperty("--dui-menu-drop-min-width", targetRect.width + "px");
+
+    DOMRect newRect = source.getBoundingClientRect();
+    Style.of(source)
+        .style
+        .setProperty(
+            "left",
+            px.of(
+                targetRect.left
+                    - (newRect.left - targetRect.left)
+                    + window.pageXOffset
+                    - sourceRect.width
+                    - 9));
   }
 
   /** {@inheritDoc} */

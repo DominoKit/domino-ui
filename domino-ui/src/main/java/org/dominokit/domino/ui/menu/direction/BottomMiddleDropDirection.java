@@ -45,16 +45,21 @@ public class BottomMiddleDropDirection implements DropDirection {
     Style.of(source)
         .style
         .setProperty("top", px.of((targetRect.top + window.pageYOffset) + targetRect.height + 1));
+
+    Style.of(source).style.setProperty("left", px.of(targetRect.left));
+    dui_dd_bottom_middle.apply(source);
+
+    DOMRect newRect = source.getBoundingClientRect();
     Style.of(source)
         .style
         .setProperty(
             "left",
             px.of(
                 targetRect.left
+                    - (newRect.left - targetRect.left)
                     + window.pageXOffset
-                    - ((sourceRect.width - targetRect.width) / 2)
-                    + delta));
-    dui_dd_bottom_middle.apply(source);
+                    - ((newRect.width - targetRect.width) / 2)
+                    - delta));
   }
 
   /** {@inheritDoc} */

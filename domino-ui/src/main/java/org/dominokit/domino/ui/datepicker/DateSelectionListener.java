@@ -15,13 +15,28 @@
  */
 package org.dominokit.domino.ui.datepicker;
 
-/** DateSelectionListener interface. */
+/**
+ * Represents a listener that gets notified when a day is selected in the calendar. The listener
+ * will be provided with both the previously selected day and the newly selected day.
+ *
+ * <p><b>Usage Example:</b>
+ *
+ * <pre>
+ * DateSelectionListener listener = new DateSelectionListener() {
+ *     &#64;Override
+ *     public void onDaySelected(CalendarDay oldDay, CalendarDay newDay) {
+ *         System.out.println("Previous Day: " + oldDay + ", New Day: " + newDay);
+ *     }
+ * };
+ * </pre>
+ */
 public interface DateSelectionListener {
+
   /**
-   * onDaySelected.
+   * Called when a new day is selected in the calendar.
    *
-   * @param oldDay a {@link org.dominokit.domino.ui.datepicker.CalendarDay} object
-   * @param newDay a {@link org.dominokit.domino.ui.datepicker.CalendarDay} object
+   * @param oldDay The previously selected day.
+   * @param newDay The newly selected day.
    */
   void onDaySelected(CalendarDay oldDay, CalendarDay newDay);
 }

@@ -25,35 +25,49 @@ import org.dominokit.domino.ui.icons.Icon;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
 import org.dominokit.domino.ui.utils.LazyChild;
 
-/** DefaultFileUploadDecoration class. */
+/**
+ * Represents the decoration for a default file upload component.
+ *
+ * <p>This decoration includes an icon, title, and description to provide additional context for the
+ * file upload component.
+ *
+ * @see BaseDominoElement
+ */
 public class DefaultFileUploadDecoration
     extends BaseDominoElement<HTMLDivElement, DefaultFileUploadDecoration>
     implements FileUploadStyles {
 
+  /** The root element that holds the decoration elements. */
   private final DivElement root;
+
+  /** LazyChild element for the icon. */
   private LazyChild<Icon<?>> iconElement;
+
+  /** LazyChild element for the title. */
   private LazyChild<HeadingElement> titleElement;
+
+  /** LazyChild element for the description. */
   private LazyChild<SmallElement> descriptionElement;
 
   /**
-   * create.
+   * Creates a new {@code DefaultFileUploadDecoration} instance with default settings.
    *
-   * @return a {@link org.dominokit.domino.ui.upload.DefaultFileUploadDecoration} object
+   * @return A new {@code DefaultFileUploadDecoration} instance.
    */
   public static DefaultFileUploadDecoration create() {
     return new DefaultFileUploadDecoration();
   }
 
-  /** Constructor for DefaultFileUploadDecoration. */
+  /** Constructs a new {@code DefaultFileUploadDecoration} with default settings. */
   public DefaultFileUploadDecoration() {
     root = div().addCss(dui_flex, dui_flex_col, dui_text_center, dui_items_center);
     init(this);
   }
 
   /**
-   * Constructor for DefaultFileUploadDecoration.
+   * Constructs a new {@code DefaultFileUploadDecoration} with the specified icon.
    *
-   * @param icon a {@link org.dominokit.domino.ui.icons.Icon} object
+   * @param icon The icon to set.
    */
   public DefaultFileUploadDecoration(Icon<?> icon) {
     this();
@@ -61,10 +75,10 @@ public class DefaultFileUploadDecoration
   }
 
   /**
-   * Constructor for DefaultFileUploadDecoration.
+   * Constructs a new {@code DefaultFileUploadDecoration} with the specified icon and title.
    *
-   * @param icon a {@link org.dominokit.domino.ui.icons.Icon} object
-   * @param title a {@link java.lang.String} object
+   * @param icon The icon to set.
+   * @param title The title to set.
    */
   public DefaultFileUploadDecoration(Icon<?> icon, String title) {
     this();
@@ -73,11 +87,12 @@ public class DefaultFileUploadDecoration
   }
 
   /**
-   * Constructor for DefaultFileUploadDecoration.
+   * Constructs a new {@code DefaultFileUploadDecoration} with the specified icon, title, and
+   * description.
    *
-   * @param icon a {@link org.dominokit.domino.ui.icons.Icon} object
-   * @param title a {@link java.lang.String} object
-   * @param description a {@link java.lang.String} object
+   * @param icon The icon to set.
+   * @param title The title to set.
+   * @param description The description to set.
    */
   public DefaultFileUploadDecoration(Icon<?> icon, String title, String description) {
     this();
@@ -87,10 +102,10 @@ public class DefaultFileUploadDecoration
   }
 
   /**
-   * setIcon.
+   * Sets the icon for the decoration.
    *
-   * @param icon a {@link org.dominokit.domino.ui.icons.Icon} object
-   * @return a {@link org.dominokit.domino.ui.upload.DefaultFileUploadDecoration} object
+   * @param icon The icon to set.
+   * @return This {@code DefaultFileUploadDecoration} instance for method chaining.
    */
   public DefaultFileUploadDecoration setIcon(Icon<?> icon) {
     if (nonNull(iconElement) && iconElement.isInitialized()) {
@@ -105,10 +120,10 @@ public class DefaultFileUploadDecoration
   }
 
   /**
-   * setTitle.
+   * Sets the title for the decoration.
    *
-   * @param title a {@link java.lang.String} object
-   * @return a {@link org.dominokit.domino.ui.upload.DefaultFileUploadDecoration} object
+   * @param title The title to set.
+   * @return This {@code DefaultFileUploadDecoration} instance for method chaining.
    */
   public DefaultFileUploadDecoration setTitle(String title) {
     if (nonNull(titleElement) && titleElement.isInitialized()) {
@@ -123,10 +138,10 @@ public class DefaultFileUploadDecoration
   }
 
   /**
-   * setDescription.
+   * Sets the description for the decoration.
    *
-   * @param description a {@link java.lang.String} object
-   * @return a {@link org.dominokit.domino.ui.upload.DefaultFileUploadDecoration} object
+   * @param description The description to set.
+   * @return This {@code DefaultFileUploadDecoration} instance for method chaining.
    */
   public DefaultFileUploadDecoration setDescription(String description) {
     if (nonNull(descriptionElement) && descriptionElement.isInitialized()) {
@@ -141,7 +156,11 @@ public class DefaultFileUploadDecoration
     return this;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Retrieves the HTML element of this decoration.
+   *
+   * @return The {@link HTMLDivElement} representing this decoration.
+   */
   @Override
   public HTMLDivElement element() {
     return root.element();

@@ -13,15 +13,20 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package org.dominokit.domino.ui.utils;
 
-/** LazyInitializer class. */
+/**
+ * The {@code LazyInitializer} class is used to lazily initialize an object using a lambda function.
+ * This can help improve performance by deferring the initialization process until the object is
+ * actually needed.
+ */
 public class LazyInitializer extends BaseLazyInitializer<LazyInitializer> {
 
   /**
-   * Constructor for LazyInitializer.
+   * Constructs a new {@code LazyInitializer} instance with the specified lambda function.
    *
-   * @param function a {@link org.dominokit.domino.ui.utils.LambdaFunction} object
+   * @param function The lambda function that performs the lazy initialization when needed.
    */
   public LazyInitializer(LambdaFunction function) {
     super(function);

@@ -30,10 +30,24 @@ import org.dominokit.domino.ui.style.BooleanCssClass;
 import org.dominokit.domino.ui.utils.*;
 
 /**
- * A component which represents an item inside a {@link org.dominokit.domino.ui.lists.ListGroup}
+ * Represents a list item within a {@link ListGroup}. This class provides methods for selecting,
+ * deselecting, and configuring list items.
  *
- * @param <T> the type of the value object inside the item
- * @see ListGroup
+ * <p>Usage example:
+ *
+ * <pre>
+ * ListItem<String> listItem = ListItem.create("Item 1");
+ * listItem.addSelectionListener((source, selection) -> {
+ *     // Handle selection event
+ *     if (selection.isSelected()) {
+ *         // Item is selected
+ *     } else {
+ *         // Item is deselected
+ *     }
+ * });
+ * </pre>
+ *
+ * @param <T> The type of value associated with the list item.
  * @see BaseDominoElement
  */
 public class ListItem<T> extends BaseDominoElement<HTMLLIElement, ListItem<T>>
@@ -55,20 +69,20 @@ public class ListItem<T> extends BaseDominoElement<HTMLLIElement, ListItem<T>>
       new HashSet<>();
 
   /**
-   * create.
+   * Creates a new `ListItem` instance with the specified value.
    *
-   * @param value a T object
-   * @param <T> a T class
-   * @return a {@link org.dominokit.domino.ui.lists.ListItem} object
+   * @param value The value associated with this `ListItem`.
+   * @param <T> The type of the value.
+   * @return A new `ListItem` instance.
    */
   public static <T> ListItem<T> create(T value) {
     return new ListItem<>(value);
   }
 
   /**
-   * Constructor for ListItem.
+   * Constructs a new `ListItem` with the given value.
    *
-   * @param value a T object
+   * @param value The value associated with this `ListItem`.
    */
   public ListItem(T value) {
     this.value = value;
@@ -79,12 +93,21 @@ public class ListItem<T> extends BaseDominoElement<HTMLLIElement, ListItem<T>>
     element.onKeyDown(keyEvents -> keyEvents.onEnter(this::trySelect));
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Binds this `ListItem` to a parent `ListGroup`.
+   *
+   * @param owner The `ListGroup` to which this `ListItem` will be bound.
+   */
   @Override
   public void bindTo(ListGroup<T> owner) {
     this.listGroup = owner;
   }
 
+  /**
+   * Handles the selection of this list item when a click or key event occurs.
+   *
+   * @param evt The event that triggered the selection attempt.
+   */
   private void trySelect(Event evt) {
     evt.stopPropagation();
     evt.preventDefault();
@@ -109,89 +132,132 @@ public class ListItem<T> extends BaseDominoElement<HTMLLIElement, ListItem<T>>
     }
   }
 
+  /**
+   * Checks if the parent {@link ListGroup} allows multi-select.
+   *
+   * @return {@code true} if multi-select is allowed, {@code false} otherwise.
+   */
   private boolean isMultiSelect() {
     return nonNull(listGroup) && listGroup.isMultiSelect();
   }
 
+  /** Selects a range of list items in the parent {@link ListGroup} when multi-select is enabled. */
   private void selectRange() {
     if (nonNull(listGroup)) {
       listGroup.selectRange(this);
     }
   }
 
+  /**
+   * Deselects a range of list items in the parent {@link ListGroup} when multi-select is enabled.
+   */
   private void deselectRange() {
     if (nonNull(listGroup)) {
       listGroup.deselectRange(this);
     }
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Returns the underlying HTML list item element.
+   *
+   * @return The HTML list item element.
+   */
   @Override
   public HTMLLIElement element() {
     return element.element();
   }
 
-  /** @return The value */
   /**
-   * Getter for the field <code>value</code>.
+   * Gets the value associated with this list item.
    *
-   * @return a T object
+   * @return The value associated with the list item.
    */
   public T getValue() {
     return value;
   }
 
-  /** @param value The new value of this item */
   /**
-   * Setter for the field <code>value</code>.
+   * Sets the value associated with this list item.
    *
-   * @param value a T object
+   * @param value The value to set.
    */
   public void setValue(T value) {
     this.value = value;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Pauses the execution of selection listeners for this list item.
+   *
+   * @return This list item instance with selection listeners paused.
+   */
   @Override
   public ListItem<T> pauseSelectionListeners() {
     this.selectionListenersPaused = true;
     return this;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Resumes the execution of selection listeners for this list item.
+   *
+   * @return This list item instance with selection listeners resumed.
+   */
   @Override
   public ListItem<T> resumeSelectionListeners() {
     this.selectionListenersPaused = false;
     return this;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Toggles the pause state of selection listeners for this list item.
+   *
+   * @param toggle {@code true} to pause, {@code false} to resume.
+   * @return This list item instance with selection listeners paused or resumed based on the toggle
+   *     value.
+   */
   @Override
   public ListItem<T> togglePauseSelectionListeners(boolean toggle) {
     this.selectionListenersPaused = toggle;
     return this;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Gets the selection listeners attached to this list item.
+   *
+   * @return A set of selection listeners.
+   */
   @Override
   public Set<SelectionListener<? super ListItem<T>, ? super ListItem<T>>> getSelectionListeners() {
     return this.selectionListeners;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Gets the deselection listeners attached to this list item.
+   *
+   * @return A set of deselection listeners.
+   */
   @Override
   public Set<SelectionListener<? super ListItem<T>, ? super ListItem<T>>>
       getDeselectionListeners() {
     return this.deselectionListeners;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Checks if selection listeners are currently paused for this list item.
+   *
+   * @return {@code true} if selection listeners are paused, {@code false} otherwise.
+   */
   @Override
   public boolean isSelectionListenersPaused() {
     return selectionListenersPaused;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Triggers selection listeners for this list item with the provided source and selection.
+   *
+   * @param source The source of the selection event.
+   * @param selection The selected list item.
+   * @return This list item instance.
+   */
   @Override
   public ListItem<T> triggerSelectionListeners(ListItem<T> source, ListItem<T> selection) {
     selectionListeners.forEach(
@@ -199,7 +265,13 @@ public class ListItem<T> extends BaseDominoElement<HTMLLIElement, ListItem<T>>
     return this;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Triggers deselection listeners for this list item with the provided source and selection.
+   *
+   * @param source The source of the deselection event.
+   * @param selection The deselected list item.
+   * @return This list item instance.
+   */
   @Override
   public ListItem<T> triggerDeselectionListeners(ListItem<T> source, ListItem<T> selection) {
     deselectionListeners.forEach(
@@ -207,25 +279,43 @@ public class ListItem<T> extends BaseDominoElement<HTMLLIElement, ListItem<T>>
     return this;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Gets the currently selected list item.
+   *
+   * @return This list item if it is selected, or {@code null} if it is not selected.
+   */
   @Override
   public ListItem<T> getSelection() {
     return this;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Selects this list item if it is selectable.
+   *
+   * @return This list item instance with the selection state updated.
+   */
   @Override
   public ListItem<T> select() {
     return select(isSelectable());
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Deselects this list item if it is selectable.
+   *
+   * @return This list item instance with the deselection state updated.
+   */
   @Override
   public ListItem<T> deselect() {
     return deselect(isSelectionListenersPaused());
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Selects or deselects this list item based on the provided flag.
+   *
+   * @param silent {@code true} to suppress selection/deselection events, {@code false} to trigger
+   *     them.
+   * @return This list item instance with the selection state updated.
+   */
   @Override
   public ListItem<T> select(boolean silent) {
     if (selectable && isEnabled()) {
@@ -240,7 +330,12 @@ public class ListItem<T> extends BaseDominoElement<HTMLLIElement, ListItem<T>>
     return this;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Deselects this list item if it is selectable, optionally suppressing deselection events.
+   *
+   * @param silent {@code true} to suppress deselection events, {@code false} to trigger them.
+   * @return This list item instance with the deselection state updated.
+   */
   @Override
   public ListItem<T> deselect(boolean silent) {
     if (selectable && isEnabled()) {
@@ -255,33 +350,59 @@ public class ListItem<T> extends BaseDominoElement<HTMLLIElement, ListItem<T>>
     return this;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Checks if this list item is currently selected.
+   *
+   * @return {@code true} if this list item is selected, {@code false} otherwise.
+   */
   @Override
   public boolean isSelected() {
     return dui_selected.isAppliedTo(this);
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Checks if this list item is selectable.
+   *
+   * @return {@code true} if this list item is selectable, {@code false} otherwise.
+   */
   @Override
   public boolean isSelectable() {
     return selectable;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Sets whether this list item is selectable.
+   *
+   * @param selectable {@code true} to make this list item selectable, {@code false} to make it
+   *     non-selectable.
+   * @return This list item instance with the selectability state updated.
+   */
   @Override
   public ListItem<T> setSelectable(boolean selectable) {
     this.selectable = selectable;
     return this;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Sets the selected state of this list item.
+   *
+   * @param selected The new selected state.
+   * @return This list item instance with the selected state updated.
+   */
   @Override
   public ListItem<T> setSelected(boolean selected) {
     addCss(BooleanCssClass.of(dui_selected, selected));
     return this;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Sets the selected state of this list item, optionally suppressing selection/deselection events.
+   *
+   * @param selected The new selected state.
+   * @param silent {@code true} to suppress selection/deselection events, {@code false} to trigger
+   *     them.
+   * @return This list item instance with the selected state updated.
+   */
   @Override
   public ListItem<T> setSelected(boolean selected, boolean silent) {
     if (selected) {

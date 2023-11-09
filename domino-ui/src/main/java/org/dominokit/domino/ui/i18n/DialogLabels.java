@@ -15,30 +15,40 @@
  */
 package org.dominokit.domino.ui.i18n;
 
-/** DialogLabels interface. */
+/**
+ * The {@code DialogLabels} interface defines methods for labels used in dialogs and confirmation
+ * dialogs. It extends the {@link Labels} interface, providing default implementations for common
+ * dialog labels.
+ *
+ * <p>Developers can implement this interface to provide custom labels for dialogs and confirmation
+ * dialogs.
+ *
+ * @see Labels
+ */
 public interface DialogLabels extends Labels {
+
   /**
-   * dialogConfirmationReject.
+   * Gets the label for rejecting a confirmation dialog.
    *
-   * @return a {@link java.lang.String} object
+   * @return The label for rejecting a confirmation dialog.
    */
   default String dialogConfirmationReject() {
     return "No";
   }
 
   /**
-   * dialogConfirmationAccept.
+   * Gets the label for accepting a confirmation dialog.
    *
-   * @return a {@link java.lang.String} object
+   * @return The label for accepting a confirmation dialog.
    */
   default String dialogConfirmationAccept() {
     return "Yes";
   }
 
   /**
-   * dialogOk.
+   * Gets the label for confirming an action in a dialog.
    *
-   * @return a {@link java.lang.String} object
+   * @return The label for confirming an action in a dialog.
    */
   default String dialogOk() {
     return "Ok";

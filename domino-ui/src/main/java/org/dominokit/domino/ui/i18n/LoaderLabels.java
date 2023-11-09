@@ -15,13 +15,15 @@
  */
 package org.dominokit.domino.ui.i18n;
 
-/** LoaderLabels interface. */
+/**
+ * The {@code LoaderLabels} interface provides labels and messages related to loading operations.
+ */
 public interface LoaderLabels extends Labels {
 
   /**
-   * loading.
+   * Gets the label for a loading operation.
    *
-   * @return a {@link java.lang.String} object
+   * @return A {@code String} representing the label for loading.
    */
   default String loading() {
     return "Loading...";

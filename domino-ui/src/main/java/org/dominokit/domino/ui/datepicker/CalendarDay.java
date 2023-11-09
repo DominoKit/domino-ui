@@ -24,7 +24,17 @@ import org.dominokit.domino.ui.style.BooleanCssClass;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
 import org.gwtproject.i18n.shared.cldr.DateTimeFormatInfo;
 
-/** CalendarDay class. */
+/**
+ * Represents a single day in a calendar view.
+ *
+ * <p>Usage example:
+ *
+ * <pre>
+ * CalendarDay day = CalendarDay.create(calendarInstance, new Date(), 5, true);
+ * </pre>
+ *
+ * @see BaseDominoElement
+ */
 public class CalendarDay extends BaseDominoElement<HTMLDivElement, CalendarDay>
     implements CalendarStyles {
 
@@ -36,12 +46,12 @@ public class CalendarDay extends BaseDominoElement<HTMLDivElement, CalendarDay>
   private final SpanElement dayNumber;
 
   /**
-   * Constructor for CalendarDay.
+   * Constructs a calendar day with the specified attributes.
    *
-   * @param calendar a {@link org.dominokit.domino.ui.datepicker.IsCalendar} object
-   * @param date a {@link java.util.Date} object
-   * @param day a int
-   * @param inRange a boolean
+   * @param calendar The parent calendar of this day.
+   * @param date The date this day represents.
+   * @param day The day of the week (1-7).
+   * @param inRange Indicates if the day is within the current month.
    */
   public CalendarDay(IsCalendar calendar, Date date, int day, boolean inRange) {
     this.calendar = calendar;
@@ -73,28 +83,32 @@ public class CalendarDay extends BaseDominoElement<HTMLDivElement, CalendarDay>
   }
 
   /**
-   * create.
+   * Factory method to create a new CalendarDay instance.
    *
-   * @param isCalendar a {@link org.dominokit.domino.ui.datepicker.IsCalendar} object
-   * @param date a {@link java.util.Date} object
-   * @param day a int
-   * @param inRange a boolean
-   * @return a {@link org.dominokit.domino.ui.datepicker.CalendarDay} object
+   * @param isCalendar The parent calendar of this day.
+   * @param date The date this day represents.
+   * @param day The day of the week (1-7).
+   * @param inRange Indicates if the day is within the current month.
+   * @return A new CalendarDay instance.
    */
   public static CalendarDay create(IsCalendar isCalendar, Date date, int day, boolean inRange) {
     return new CalendarDay(isCalendar, date, day, inRange);
   }
 
-  /** {@inheritDoc} */
+  /**
+   * {@inheritDoc}
+   *
+   * <p>Returns the element representing the clickable part of the day, which is the day's number.
+   */
   @Override
   public Element getClickableElement() {
     return dayNumber.element();
   }
 
   /**
-   * isTodayDate.
+   * Checks if the day represents the current date.
    *
-   * @return a boolean
+   * @return true if the day is today's date, false otherwise.
    */
   public boolean isTodayDate() {
     Date date = new Date();
@@ -104,9 +118,9 @@ public class CalendarDay extends BaseDominoElement<HTMLDivElement, CalendarDay>
   }
 
   /**
-   * isSelectedDate.
+   * Checks if the day represents the currently selected date in the calendar.
    *
-   * @return a boolean
+   * @return true if the day is the selected date, false otherwise.
    */
   public boolean isSelectedDate() {
     Date selectedDate = this.calendar.getDate();
@@ -116,63 +130,63 @@ public class CalendarDay extends BaseDominoElement<HTMLDivElement, CalendarDay>
   }
 
   /**
-   * isInMonthRange.
+   * Checks if the day is within the current month.
    *
-   * @return a boolean
+   * @return true if the day is in the current month, false otherwise.
    */
   public boolean isInMonthRange() {
     return inRange;
   }
 
   /**
-   * Getter for the field <code>day</code>.
+   * Retrieves the day of the week (1-7) that this day represents.
    *
-   * @return a int
+   * @return The day of the week.
    */
   public int getDay() {
     return day;
   }
 
   /**
-   * isInRange.
+   * Checks if the day is within the range of valid days for the current month.
    *
-   * @return a boolean
+   * @return true if the day is in range, false otherwise.
    */
   public boolean isInRange() {
     return inRange;
   }
 
   /**
-   * Getter for the field <code>calendar</code>.
+   * Retrieves the parent calendar of this day.
    *
-   * @return a {@link org.dominokit.domino.ui.datepicker.IsCalendar} object
+   * @return The parent calendar.
    */
   public IsCalendar getCalendar() {
     return calendar;
   }
 
   /**
-   * Getter for the field <code>date</code>.
+   * Retrieves the date this day represents.
    *
-   * @return a {@link java.util.Date} object
+   * @return The date.
    */
   public Date getDate() {
     return date;
   }
 
   /**
-   * Getter for the field <code>dayNumber</code>.
+   * Retrieves the span element displaying the day's number.
    *
-   * @return a {@link org.dominokit.domino.ui.elements.SpanElement} object
+   * @return The span element for day number.
    */
   public SpanElement getDayNumber() {
     return dayNumber;
   }
 
   /**
-   * isWeekend.
+   * Checks if the day is a weekend.
    *
-   * @return a boolean
+   * @return true if the day is a weekend, false otherwise.
    */
   public boolean isWeekend() {
     DateTimeFormatInfo dateInfo = this.calendar.getDateTimeFormatInfo();
@@ -185,7 +199,11 @@ public class CalendarDay extends BaseDominoElement<HTMLDivElement, CalendarDay>
     }
   }
 
-  /** {@inheritDoc} */
+  /**
+   * {@inheritDoc}
+   *
+   * <p>Returns the root element representing the entire calendar day.
+   */
   @Override
   public HTMLDivElement element() {
     return this.root.element();

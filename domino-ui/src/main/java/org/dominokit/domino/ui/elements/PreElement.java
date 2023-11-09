@@ -17,22 +17,41 @@ package org.dominokit.domino.ui.elements;
 
 import elemental2.dom.HTMLPreElement;
 
-/** PreElement class. */
+/**
+ * Represents an HTML <pre> element wrapper.
+ * <p>
+ * The HTML <pre> element defines preformatted text. This element is used to display text where whitespace and line breaks
+ * inside the <pre> element are rendered as written. It is often used for displaying code snippets or any text where
+ * formatting is important.
+ * This class provides a Java-based way to create, manipulate, and control the behavior of <pre> elements in web applications.
+ * </p>
+ *
+ * Example usage:
+ * <pre>
+ * {@code
+ * HTMLPreElement preElement = ...;  // Obtain a <pre> element from somewhere
+ * PreElement pre = PreElement.of(preElement);
+ * }
+ * </pre>
+ *
+ * @see <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/pre">MDN Web Docs (pre)</a>
+ */
 public class PreElement extends BaseElement<HTMLPreElement, PreElement> {
+
   /**
-   * of.
+   * Creates a new {@link PreElement} instance by wrapping the provided HTML <pre> element.
    *
-   * @param e a {@link elemental2.dom.HTMLPreElement} object
-   * @return a {@link org.dominokit.domino.ui.elements.PreElement} object
+   * @param e The HTML <pre> element to wrap.
+   * @return A new {@link PreElement} instance wrapping the provided element.
    */
   public static PreElement of(HTMLPreElement e) {
     return new PreElement(e);
   }
 
   /**
-   * Constructor for PreElement.
+   * Constructs a {@link PreElement} instance by wrapping the provided HTML <pre> element.
    *
-   * @param element a {@link elemental2.dom.HTMLPreElement} object
+   * @param element The HTML <pre> element to wrap.
    */
   public PreElement(HTMLPreElement element) {
     super(element);

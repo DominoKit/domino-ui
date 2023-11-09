@@ -21,21 +21,30 @@ import org.dominokit.domino.ui.elements.DataListElement;
 import org.dominokit.domino.ui.elements.OptionElement;
 
 /**
- * A component that has an input to take/provide Email(s) value
+ * Represents an email input form field with optional data list support for autocompletion. This
+ * class extends from {@link BaseTextBox} and implements the {@link HasInputDataList} interface.
  *
- * @see <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/email">Email input
- *     on MDN</a>
+ * <p>Usage example:
+ *
+ * <pre>
+ * EmailBox defaultEmailBox = new EmailBox();
+ * EmailBox labeledEmailBox = new EmailBox("Enter your email:");
+ * </pre>
+ *
+ * @see BaseTextBox
+ * @see HasInputDataList
  */
 public class EmailBox extends BaseTextBox<EmailBox> implements HasInputDataList<EmailBox> {
 
   private DataListElement dataListElement;
   private Map<String, OptionElement> dataListOptions;
 
-  /** Creates a new instance with a label */
+  /** Default constructor. Initializes the email box with data list support. */
   public EmailBox() {
     initDataList();
   }
 
+  /** Initializes the data list for the email box. */
   private void initDataList() {
     this.dataListElement = datalist();
     this.dataListOptions = new HashMap<>();
@@ -43,48 +52,50 @@ public class EmailBox extends BaseTextBox<EmailBox> implements HasInputDataList<
   }
 
   /**
-   * Creates a new instance with a label
+   * Constructor that initializes the email box with the given label and data list support.
    *
-   * @param label String
+   * @param label the label for the email box
    */
   public EmailBox(String label) {
     super(label);
     initDataList();
   }
 
-  /** @return a new instance without a label */
   /**
-   * create.
+   * Factory method to create a new instance of {@link EmailBox}.
    *
-   * @return a {@link org.dominokit.domino.ui.forms.EmailBox} object
+   * @return a new instance of EmailBox
    */
   public static EmailBox create() {
     return new EmailBox();
   }
 
-  /** @return a new instance with a label */
   /**
-   * create.
+   * Factory method to create a new instance of {@link EmailBox} with a label.
    *
-   * @param label a {@link java.lang.String} object
-   * @return a {@link org.dominokit.domino.ui.forms.EmailBox} object
+   * @param label the label for the email box
+   * @return a new instance of EmailBox with the provided label
    */
   public static EmailBox create(String label) {
     return new EmailBox(label);
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Retrieves the input type for the email box, which is "email". {@inheritDoc}
+   *
+   * @return the string "email"
+   */
   @Override
   public String getType() {
     return "email";
   }
 
   /**
-   * setMultiple.
+   * Sets the "multiple" attribute for the email input element. This allows multiple email
+   * addresses.
    *
-   * @param multiple boolean, Whether to allow multiple comma-separated e-mail addresses to be
-   *     entered
-   * @return Same EmailBox instance
+   * @param multiple true to allow multiple email addresses, false otherwise
+   * @return the current EmailBox instance for method chaining
    */
   public EmailBox setMultiple(boolean multiple) {
     if (multiple) {
@@ -95,13 +106,21 @@ public class EmailBox extends BaseTextBox<EmailBox> implements HasInputDataList<
     return this;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Retrieves the data list element associated with the email box. {@inheritDoc}
+   *
+   * @return the {@link DataListElement} instance for the email box
+   */
   @Override
   public DataListElement getDataListElement() {
     return dataListElement;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Retrieves the data list options for the email box. {@inheritDoc}
+   *
+   * @return a map containing the options for the email box's data list
+   */
   @Override
   public Map<String, OptionElement> getDataListOptions() {
     return dataListOptions;

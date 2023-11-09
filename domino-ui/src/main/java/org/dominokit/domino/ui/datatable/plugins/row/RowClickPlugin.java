@@ -13,6 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package org.dominokit.domino.ui.datatable.plugins.row;
 
 import org.dominokit.domino.ui.datatable.DataTable;
@@ -21,25 +22,33 @@ import org.dominokit.domino.ui.datatable.plugins.DataTablePlugin;
 import org.dominokit.domino.ui.events.EventType;
 
 /**
- * This plugin allow adding a listener to single click event on a row
+ * The {@code RowClickPlugin} class is a DataTable plugin that adds click event handling for table
+ * rows. It allows you to specify a custom click handler using the {@link ClickHandler} functional
+ * interface.
  *
- * @param <T> the type of the data table records
+ * @param <T> The type of data in the DataTable rows.
+ * @see DataTablePlugin
+ * @see TableRow
  */
 public class RowClickPlugin<T> implements DataTablePlugin<T> {
   private ClickHandler<T> handler;
 
   /**
-   * Creates a new instance
+   * Creates a new {@code RowClickPlugin} with the provided click handler.
    *
-   * @param handler the {@link
-   *     org.dominokit.domino.ui.datatable.plugins.row.RowClickPlugin.ClickHandler} to handle the
-   *     click event
+   * @param handler The click handler to be executed when a row is clicked.
    */
   public RowClickPlugin(ClickHandler<T> handler) {
     this.handler = handler;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Adds click event handling for newly added table rows. When a row is clicked, the click handler
+   * {@link ClickHandler#onClick(TableRow)} is executed.
+   *
+   * @param dataTable The DataTable to which this plugin is applied.
+   * @param tableRow The table row to which the click event handling is added.
+   */
   @Override
   public void onRowAdded(DataTable<T> dataTable, TableRow<T> tableRow) {
     tableRow.addCss(dui_cursor_pointer);
@@ -47,16 +56,16 @@ public class RowClickPlugin<T> implements DataTablePlugin<T> {
   }
 
   /**
-   * An interface to implement handlers for the click event on a row
+   * A functional interface for handling row click events.
    *
-   * @param <T> the type of the row record
+   * @param <T> The type of data in the DataTable rows.
    */
   @FunctionalInterface
   public interface ClickHandler<T> {
     /**
-     * called when the row is clicked
+     * Handles a row click event.
      *
-     * @param tableRow the clicked {@link TableRow}
+     * @param tableRow The table row that was clicked.
      */
     void onClick(TableRow<T> tableRow);
   }

@@ -17,22 +17,36 @@ package org.dominokit.domino.ui.elements;
 
 import elemental2.dom.HTMLAreaElement;
 
-/** AreaElement class. */
+/**
+ * Represents an area HTML element (`<area>`) wrapper.
+ *
+ * <p>This class provides a convenient way to create, manipulate, and control the behavior of area
+ * HTML elements. Example usage:
+ *
+ * <pre>{@code
+ * HTMLAreaElement htmlElement = ...;  // Obtain an area element from somewhere
+ * AreaElement areaElement = AreaElement.of(htmlElement);
+ * }</pre>
+ *
+ * @see <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/area">MDN Web Docs (area
+ *     element)</a>
+ */
 public class AreaElement extends BaseElement<HTMLAreaElement, AreaElement> {
+
   /**
-   * of.
+   * Creates a new {@link AreaElement} by wrapping the provided area HTML element.
    *
-   * @param e a {@link elemental2.dom.HTMLAreaElement} object
-   * @return a {@link org.dominokit.domino.ui.elements.AreaElement} object
+   * @param e The area HTML element.
+   * @return A new {@link AreaElement} that wraps the provided element.
    */
   public static AreaElement of(HTMLAreaElement e) {
     return new AreaElement(e);
   }
 
   /**
-   * Constructor for AreaElement.
+   * Constructs an {@link AreaElement} by wrapping the provided area HTML element.
    *
-   * @param element a {@link elemental2.dom.HTMLAreaElement} object
+   * @param element The area HTML element to wrap.
    */
   public AreaElement(HTMLAreaElement element) {
     super(element);

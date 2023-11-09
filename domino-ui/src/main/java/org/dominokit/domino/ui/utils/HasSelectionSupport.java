@@ -13,44 +13,44 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package org.dominokit.domino.ui.utils;
 
 import java.util.List;
 
 /**
- * Components that needs to support selection of items can implement this interface
+ * The {@code HasSelectionSupport} interface defines methods for managing selection support in a
+ * component. It provides functionality to retrieve selected items, all rows, and check if the
+ * component is selectable.
  *
- * @param <T> the type of items being selected
+ * @param <T> The type of items that can be selected.
  */
 public interface HasSelectionSupport<T> {
 
-  /** @return a List of all currently selected items */
   /**
-   * getSelectedItems.
+   * Gets the list of selected items in the component.
    *
-   * @return a {@link java.util.List} object
+   * @return A list of selected items.
    */
   List<T> getSelectedItems();
 
-  /** @return a List of all selected and not selected items */
   /**
-   * getRows.
+   * Gets the list of all rows or items in the component.
    *
-   * @return a {@link java.util.List} object
+   * @return A list of all rows or items.
    */
   List<T> getRows();
 
-  /** @return boolean, true if the component allows selection otherwise false. */
   /**
-   * isSelectable.
+   * Checks if the component allows item selection.
    *
-   * @return a boolean
+   * @return {@code true} if the component is selectable, {@code false} otherwise.
    */
   boolean isSelectable();
 
-  /** Select all not selected items */
+  /** Selects all items in the component. Default implementation does nothing. */
   default void selectAll() {}
 
-  /** Deselect all currently selected items */
+  /** Deselects all items in the component. Default implementation does nothing. */
   default void deselectAll() {}
 }

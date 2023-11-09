@@ -17,7 +17,7 @@ package org.dominokit.domino.ui.grid;
 
 import org.dominokit.domino.ui.utils.ApplyFunction;
 
-/** An enum representing the size of a section in {@link org.dominokit.domino.ui.grid.GridLayout} */
+/** An enumeration representing different section spans for grid layout. */
 public enum SectionSpan {
   _0(0),
   _1(1),
@@ -29,25 +29,30 @@ public enum SectionSpan {
 
   private final int value;
 
+  /**
+   * Constructs a SectionSpan with the specified value.
+   *
+   * @param value The numeric value associated with the section span.
+   */
   SectionSpan(int value) {
     this.value = value;
   }
 
-  /** @return the size integer value */
   /**
-   * Getter for the field <code>value</code>.
+   * Gets the numeric value associated with the section span.
    *
-   * @return a int
+   * @return The numeric value.
    */
   public int getValue() {
     return value;
   }
 
   /**
-   * ifSpanOrElse.
+   * Executes the specified function if the section span's value is greater than 0, otherwise,
+   * executes the else function.
    *
-   * @param span a {@link org.dominokit.domino.ui.utils.ApplyFunction} object
-   * @param elseFunction a {@link org.dominokit.domino.ui.utils.ApplyFunction} object
+   * @param span The function to execute if the section span's value is greater than 0.
+   * @param elseFunction The function to execute if the section span's value is 0 or less.
    */
   public void ifSpanOrElse(ApplyFunction span, ApplyFunction elseFunction) {
     if (getValue() > 0) {

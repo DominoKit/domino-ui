@@ -16,17 +16,27 @@
 package org.dominokit.domino.ui.menu;
 
 /**
- * A functional interface to handle missing items when search is applied
+ * Functional interface for handling cases when a specific item is not found in a menu.
  *
- * @param <T> The type of the menu on which the search was applied
+ * <p>For example, you might use this to provide custom actions when a search in a menu doesn't
+ * yield results. Usage:
+ *
+ * <pre>
+ * menu.setMissingItemHandler((token, menu) -> {
+ *   // Handle missing item, e.g., show a message or an option to create a new entry
+ * });
+ * </pre>
+ *
+ * @param <T> The type of the item's value in the menu
  */
 @FunctionalInterface
 public interface MissingItemHandler<T> {
+
   /**
-   * onMissingItem.
+   * This method is invoked when an item is not found in the menu.
    *
-   * @param token String search token
-   * @param menu the target menu
+   * @param token The search token or identifier for the missing item
+   * @param menu The menu where the search was conducted
    */
   void onMissingItem(String token, Menu<T> menu);
 }

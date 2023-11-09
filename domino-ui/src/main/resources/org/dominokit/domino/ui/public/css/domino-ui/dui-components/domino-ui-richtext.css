@@ -13,6 +13,7 @@
     height: var(--dui-spc-full);
     width: 100%;
     outline-width: var(--dui-spc-0);
+    flex-grow: 1;
 }
 
 .dui-rich-text-toolbars {

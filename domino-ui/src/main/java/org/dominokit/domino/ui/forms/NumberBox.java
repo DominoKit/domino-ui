@@ -31,10 +31,19 @@ import org.gwtproject.i18n.shared.cldr.LocaleInfo;
 import org.gwtproject.i18n.shared.cldr.NumberConstants;
 
 /**
- * A Base implementation for form inputs that takes/provide numeric values
+ * An abstract representation of a number input field with various customizations such as min/max
+ * values, prefix/postfix elements, and input validation.
  *
- * @param <T> The type of the class extending from this base class
- * @param <V> The Numeric type of the component value
+ * <p>Usage example:
+ *
+ * <pre>
+ * NumberBox<Double, Double> ageBox = new NumberBox<>("Age");
+ * ageBox.setMinValue(0.0);
+ * ageBox.setMaxValue(150.0);
+ * </pre>
+ *
+ * @param <T> Concrete type of the NumberBox
+ * @param <V> Value type (Number subclass) that this NumberBox supports
  */
 public abstract class NumberBox<T extends NumberBox<T, V>, V extends Number>
     extends InputFormField<T, HTMLInputElement, V>
@@ -52,7 +61,7 @@ public abstract class NumberBox<T extends NumberBox<T, V>, V extends Number>
   private boolean formattingEnabled;
   private String pattern = null;
 
-  /** Create an instance with a label */
+  /** Initializes the number box with default configurations. */
   public NumberBox() {
     super();
     prefixElement = LazyChild.of(div().addCss(dui_field_prefix), wrapperElement);
@@ -69,27 +78,44 @@ public abstract class NumberBox<T extends NumberBox<T, V>, V extends Number>
   }
 
   /**
-   * Create an instance with a label
+   * Initializes the number box with a given label.
    *
-   * @param label String
+   * @param label The label for the number box.
    */
   public NumberBox(String label) {
     this();
     setLabel(label);
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Returns the type of the input field. In this case, a telephone input type is returned.
+   *
+   * @return String representation of the input type.
+   */
   @Override
   public String getType() {
     return "tel";
   }
 
-  /** {@inheritDoc} */
+  /**
+   * {@inheritDoc}
+   *
+   * <p>Creates the HTML input element for the number box.
+   *
+   * @param type Type of the input element.
+   * @return A domino element wrapping the created input element.
+   */
   @Override
   protected DominoElement<HTMLInputElement> createInputElement(String type) {
     return input(type).addCss(dui_field_input).toDominoElement();
   }
 
+  /**
+   * Validates the provided input against standard number formatting.
+   *
+   * @param target The number box being validated.
+   * @return A ValidationResult indicating the success or failure of the validation.
+   */
   private ValidationResult validateInputString(NumberBox<T, V> target) {
     try {
       tryGetValue();
@@ -99,6 +125,12 @@ public abstract class NumberBox<T extends NumberBox<T, V>, V extends Number>
     return ValidationResult.valid();
   }
 
+  /**
+   * Validates that the number box value does not exceed the defined maximum value.
+   *
+   * @param target The number box being validated.
+   * @return A ValidationResult indicating the success or failure of the validation.
+   */
   private ValidationResult validateMaxValue(NumberBox<T, V> target) {
     V value = getValue();
     if (nonNull(value) && isExceedMaxValue(value)) {
@@ -107,6 +139,12 @@ public abstract class NumberBox<T extends NumberBox<T, V>, V extends Number>
     return ValidationResult.valid();
   }
 
+  /**
+   * Validates that the number box value is not less than the defined minimum value.
+   *
+   * @param target The number box being validated.
+   * @return A ValidationResult indicating the success or failure of the validation.
+   */
   private ValidationResult validateMinValue(NumberBox<T, V> target) {
     V value = getValue();
     if (nonNull(value) && isLowerThanMinValue(value)) {
@@ -116,18 +154,20 @@ public abstract class NumberBox<T extends NumberBox<T, V>, V extends Number>
   }
 
   /**
-   * hasDecimalSeparator.
+   * Determines whether the number box input has a decimal separator.
    *
-   * @return a boolean
+   * @return True if a decimal separator is present; otherwise, false.
    */
   protected boolean hasDecimalSeparator() {
     return false;
   }
 
   /**
-   * createKeyMatch.
+   * Constructs a regular expression pattern string to match allowed characters for the number box
+   * based on the locale and the custom pattern (if defined). The pattern will include numbers,
+   * minus sign, decimal separator, and any additional characters from the custom pattern.
    *
-   * @return a {@link java.lang.String} object
+   * @return A string representing the regex pattern.
    */
   protected String createKeyMatch() {
     StringBuilder sB = new StringBuilder();
@@ -149,9 +189,10 @@ public abstract class NumberBox<T extends NumberBox<T, V>, V extends Number>
   }
 
   /**
-   * onKeyPress.
+   * Handles the "keypress" event for the number box. Only allows key presses that match the pattern
+   * created by the {@link #createKeyMatch()} method.
    *
-   * @param event a {@link elemental2.dom.Event} object
+   * @param event The keyboard event associated with the key press.
    */
   protected void onKeyPress(Event event) {
     KeyboardEvent keyboardEvent = Js.uncheckedCast(event);
@@ -159,9 +200,10 @@ public abstract class NumberBox<T extends NumberBox<T, V>, V extends Number>
   }
 
   /**
-   * onPaste.
+   * Handles the "paste" event for the number box. It ensures that pasted value is of a valid
+   * format. If the pasted value is not a valid number, the event is prevented.
    *
-   * @param event a {@link elemental2.dom.Event} object
+   * @param event The clipboard event associated with the paste action.
    */
   protected void onPaste(Event event) {
     ClipboardEvent clipboardEvent = Js.uncheckedCast(event);
@@ -172,10 +214,20 @@ public abstract class NumberBox<T extends NumberBox<T, V>, V extends Number>
     }
   }
 
+  /**
+   * Formats the provided value into a string representation and sets it as the value of the input
+   * element. If the provided value is null, the input element's value is set to an empty string.
+   *
+   * @param value The value to be formatted and set in the input element.
+   */
   private void formatValue(V value) {
     getInputElement().element().value = nonNull(value) ? getNumberFormat().format(value) : "";
   }
 
+  /**
+   * Attempts to retrieve and format the current value of the input element. If the current value is
+   * not a valid number format, no action is taken.
+   */
   private void formatValue() {
     try {
       formatValue(tryGetValue());
@@ -184,7 +236,12 @@ public abstract class NumberBox<T extends NumberBox<T, V>, V extends Number>
     }
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Overrides the parent class method to set the value for this number box. Depending on whether
+   * formatting is enabled or not, it either formats the number or simply converts it to a string.
+   *
+   * @param value The numeric value to be set in this box.
+   */
   @Override
   protected void doSetValue(V value) {
     if (nonNull(value)) {
@@ -198,6 +255,12 @@ public abstract class NumberBox<T extends NumberBox<T, V>, V extends Number>
     }
   }
 
+  /**
+   * Attempts to retrieve the current value of the input element and parse it into a numeric value.
+   * Returns null if the input element's value is empty.
+   *
+   * @return The parsed numeric value or null if the input value is empty.
+   */
   private V tryGetValue() {
     String value = getStringValue();
     if (value.isEmpty()) {
@@ -206,7 +269,12 @@ public abstract class NumberBox<T extends NumberBox<T, V>, V extends Number>
     return parseValue(value);
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Retrieves the current value of this number box. If the value cannot be parsed into a valid
+   * number format, the field is invalidated with an appropriate error message.
+   *
+   * @return The current numeric value or null if the value is not a valid number.
+   */
   @Override
   public V getValue() {
     try {
@@ -218,30 +286,44 @@ public abstract class NumberBox<T extends NumberBox<T, V>, V extends Number>
     }
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Determines if the current value of the input element is empty.
+   *
+   * @return true if the value is empty, false otherwise.
+   */
   @Override
   public boolean isEmpty() {
     String value = getInputElement().element().value;
     return value.isEmpty();
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Determines if the current value of the input element is empty or just contains white spaces.
+   *
+   * @return true if the value is empty or contains only white spaces, false otherwise.
+   */
   @Override
   public boolean isEmptyIgnoreSpaces() {
     String value = getInputElement().element().value;
     return isEmpty() || value.trim().isEmpty();
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Retrieves the current value of this number box as a string.
+   *
+   * @return The current string value of the input element.
+   */
   @Override
   public String getStringValue() {
     return getInputElement().element().value;
   }
 
   /**
-   * {@inheritDoc}
+   * Sets the minimum allowed value for this number box. The provided value will be formatted and
+   * set as the min attribute of the input element.
    *
-   * <p>Sets the minimum allowed value for the field
+   * @param minValue The numeric value to set as the minimum allowable value.
+   * @return This instance, to facilitate method chaining.
    */
   @Override
   public T setMinValue(V minValue) {
@@ -250,9 +332,11 @@ public abstract class NumberBox<T extends NumberBox<T, V>, V extends Number>
   }
 
   /**
-   * {@inheritDoc}
+   * Sets the maximum allowed value for this number box. The provided value will be formatted and
+   * set as the max attribute of the input element.
    *
-   * <p>Sets the maximum allowed value for the field
+   * @param maxValue The numeric value to set as the maximum allowable value.
+   * @return This instance, to facilitate method chaining.
    */
   @Override
   public T setMaxValue(V maxValue) {
@@ -261,12 +345,11 @@ public abstract class NumberBox<T extends NumberBox<T, V>, V extends Number>
   }
 
   /**
-   * {@inheritDoc}
+   * Sets the step value, which determines the legal number intervals, for this number box. The
+   * provided value will be formatted and set as the step attribute of the input element.
    *
-   * <p>Sets the increment step attribute for the field
-   *
-   * @see <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/step">HTML
-   *     attribute: step</a>
+   * @param step The numeric value to set as the step value.
+   * @return This instance, to facilitate method chaining.
    */
   @Override
   public T setStep(V step) {
@@ -274,7 +357,11 @@ public abstract class NumberBox<T extends NumberBox<T, V>, V extends Number>
     return (T) this;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Retrieves the maximum value allowed for this number box.
+   *
+   * @return The current maximum numeric value, or the default maximum value if not set.
+   */
   @Override
   public V getMaxValue() {
     String maxValue = getInputElement().element().max;
@@ -284,7 +371,11 @@ public abstract class NumberBox<T extends NumberBox<T, V>, V extends Number>
     return parseValue(maxValue);
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Retrieves the minimum value allowed for this number box.
+   *
+   * @return The current minimum numeric value, or the default minimum value if not set.
+   */
   @Override
   public V getMinValue() {
     String minValue = getInputElement().element().min;
@@ -294,7 +385,12 @@ public abstract class NumberBox<T extends NumberBox<T, V>, V extends Number>
     return parseValue(minValue);
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Retrieves the current step value of this number box, which determines the legal number
+   * intervals.
+   *
+   * @return The current step numeric value or null if not set.
+   */
   @Override
   public V getStep() {
     String step = getInputElement().element().step;
@@ -305,11 +401,11 @@ public abstract class NumberBox<T extends NumberBox<T, V>, V extends Number>
   }
 
   /**
-   * Setter for the field <code>maxValueErrorMessage</code>.
+   * Sets a custom error message to be displayed when the entered number exceeds the maximum allowed
+   * value.
    *
-   * @param maxValueErrorMessage String error message to display when the field value is greater
-   *     than the maximum value
-   * @return same field instance
+   * @param maxValueErrorMessage The custom error message.
+   * @return This instance, to facilitate method chaining.
    */
   public T setMaxValueErrorMessage(String maxValueErrorMessage) {
     this.maxValueErrorMessage = maxValueErrorMessage;
@@ -317,11 +413,11 @@ public abstract class NumberBox<T extends NumberBox<T, V>, V extends Number>
   }
 
   /**
-   * Setter for the field <code>minValueErrorMessage</code>.
+   * Sets a custom error message to be displayed when the entered number is below the minimum
+   * allowed value.
    *
-   * @param minValueErrorMessage String error message to display when the field value is less than
-   *     the minimum value
-   * @return same field instance
+   * @param minValueErrorMessage The custom error message.
+   * @return This instance, to facilitate method chaining.
    */
   public T setMinValueErrorMessage(String minValueErrorMessage) {
     this.minValueErrorMessage = minValueErrorMessage;
@@ -329,11 +425,10 @@ public abstract class NumberBox<T extends NumberBox<T, V>, V extends Number>
   }
 
   /**
-   * Setter for the field <code>invalidFormatMessage</code>.
+   * Sets a custom error message to be displayed when the entered number format is invalid.
    *
-   * @param invalidFormatMessage String error message to display when the field value does not match
-   *     the field format
-   * @return same field instance
+   * @param invalidFormatMessage The custom error message.
+   * @return This instance, to facilitate method chaining.
    */
   public T setInvalidFormatMessage(String invalidFormatMessage) {
     this.invalidFormatMessage = invalidFormatMessage;
@@ -341,9 +436,10 @@ public abstract class NumberBox<T extends NumberBox<T, V>, V extends Number>
   }
 
   /**
-   * Getter for the field <code>maxValueErrorMessage</code>.
+   * Retrieves the custom error message set for exceeding the maximum value or provides a default
+   * message.
    *
-   * @return String error message to display when the field value is greater than the maximum value
+   * @return The custom or default error message.
    */
   public String getMaxValueErrorMessage() {
     return isNull(maxValueErrorMessage)
@@ -351,11 +447,11 @@ public abstract class NumberBox<T extends NumberBox<T, V>, V extends Number>
         : maxValueErrorMessage;
   }
 
-  /** @return String error message to display when the field value is less than the minimum value */
   /**
-   * Getter for the field <code>minValueErrorMessage</code>.
+   * Retrieves the custom error message set for being below the minimum value or provides a default
+   * message.
    *
-   * @return a {@link java.lang.String} object
+   * @return The custom or default error message.
    */
   public String getMinValueErrorMessage() {
     return isNull(minValueErrorMessage)
@@ -364,21 +460,32 @@ public abstract class NumberBox<T extends NumberBox<T, V>, V extends Number>
   }
 
   /**
-   * Getter for the field <code>invalidFormatMessage</code>.
+   * Retrieves the custom error message set for invalid number format or provides a default message.
    *
-   * @return String error message to display when the field value format does not match the field
-   *     format
+   * @return The custom or default error message.
    */
   public String getInvalidFormatMessage() {
     return isNull(invalidFormatMessage) ? "Invalid number format" : invalidFormatMessage;
   }
 
+  /**
+   * Checks if the provided value exceeds the maximum allowed value.
+   *
+   * @param value The number to check.
+   * @return True if the number exceeds the maximum, otherwise false.
+   */
   private boolean isExceedMaxValue(V value) {
     V maxValue = getMaxValue();
     if (isNull(maxValue)) return false;
     return isExceedMaxValue(maxValue, value);
   }
 
+  /**
+   * Checks if the provided value is below the minimum allowed value.
+   *
+   * @param value The number to check.
+   * @return True if the number is below the minimum, otherwise false.
+   */
   private boolean isLowerThanMinValue(V value) {
     V minValue = getMinValue();
     if (isNull(minValue)) return false;
@@ -386,25 +493,29 @@ public abstract class NumberBox<T extends NumberBox<T, V>, V extends Number>
   }
 
   /**
-   * Enables auto formatting the field value to match the pattern specified by {@link
-   * #setPattern(String)}
+   * Enables the formatting of numbers displayed in the NumberBox.
    *
-   * @return same field instance
+   * @return This instance, to facilitate method chaining.
    */
   public T enableFormatting() {
     return setFormattingEnabled(true);
   }
 
   /**
-   * Disable auto formatting the field value to match the pattern specified by {@link
-   * #setPattern(String)}
+   * Disables the formatting of numbers displayed in the NumberBox.
    *
-   * @return same field instance
+   * @return This instance, to facilitate method chaining.
    */
   public T disableFormatting() {
     return setFormattingEnabled(false);
   }
 
+  /**
+   * Sets whether the formatting of numbers should be enabled or disabled in the NumberBox.
+   *
+   * @param formattingEnabled A boolean indicating whether formatting should be enabled.
+   * @return This instance, to facilitate method chaining.
+   */
   private T setFormattingEnabled(boolean formattingEnabled) {
     this.formattingEnabled = formattingEnabled;
     if (formattingEnabled) {
@@ -417,11 +528,11 @@ public abstract class NumberBox<T extends NumberBox<T, V>, V extends Number>
     return (T) this;
   }
 
-  /** @return a {@link NumberFormat} instance that should be used to format this field */
   /**
-   * getNumberFormat.
+   * Retrieves the current number format used by this NumberBox. If a custom pattern has been set,
+   * that format will be returned; otherwise, the default decimal format will be used.
    *
-   * @return a {@link org.gwtproject.i18n.client.NumberFormat} object
+   * @return The NumberFormat instance corresponding to the current format.
    */
   protected NumberFormat getNumberFormat() {
     if (nonNull(getPattern())) {
@@ -431,21 +542,21 @@ public abstract class NumberBox<T extends NumberBox<T, V>, V extends Number>
     }
   }
 
-  /** @return String pattern used to format the field value */
   /**
-   * Getter for the field <code>pattern</code>.
+   * Retrieves the custom pattern used for number formatting in this NumberBox, if any.
    *
-   * @return a {@link java.lang.String} object
+   * @return The custom pattern string, or null if none has been set.
    */
   public String getPattern() {
     return pattern;
   }
 
   /**
-   * Setter for the field <code>pattern</code>.
+   * Sets a custom pattern for number formatting in this NumberBox. After setting the pattern, the
+   * current value will be reformatted according to the new pattern.
    *
-   * @param pattern String pattern to format the field value
-   * @return same field instance
+   * @param pattern The custom pattern string.
+   * @return This instance, to facilitate method chaining.
    */
   public T setPattern(String pattern) {
     if (!Objects.equals(this.pattern, pattern)) {
@@ -460,10 +571,13 @@ public abstract class NumberBox<T extends NumberBox<T, V>, V extends Number>
   }
 
   /**
-   * parseDouble.
+   * Attempts to parse a given string into a double value, using the current number format. If
+   * parsing fails with the current format and a custom pattern is set, it will try to parse using
+   * the default decimal format.
    *
-   * @param value a {@link java.lang.String} object
-   * @return a double
+   * @param value The string to parse.
+   * @return The parsed double value.
+   * @throws NumberFormatException if the string cannot be parsed into a double.
    */
   public double parseDouble(String value) {
     try {
@@ -476,13 +590,22 @@ public abstract class NumberBox<T extends NumberBox<T, V>, V extends Number>
     }
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Retrieves the placeholder text displayed in the NumberBox when it is empty.
+   *
+   * @return The placeholder text.
+   */
   @Override
   public String getPlaceholder() {
     return getInputElement().element().placeholder;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Sets the placeholder text to be displayed in the NumberBox when it is empty.
+   *
+   * @param placeholder The desired placeholder text.
+   * @return This instance, to facilitate method chaining.
+   */
   @Override
   public T setPlaceholder(String placeholder) {
     getInputElement().element().placeholder = placeholder;
@@ -490,43 +613,44 @@ public abstract class NumberBox<T extends NumberBox<T, V>, V extends Number>
   }
 
   /**
-   * Reads a String value and convert it to the field number type
+   * Parses a given string value into the numeric type (V) of this NumberBox using the current value
+   * parser.
    *
-   * @param value String numeric value
-   * @return E the Numeric value from the input String
+   * @param value The string to be parsed.
+   * @return The parsed numeric value of type V.
    */
   protected V parseValue(String value) {
     return valueParser.apply(value);
   }
 
   /**
-   * defaultValueParser.
+   * Provides the default function used to parse string values into the numeric type (V) of this
+   * NumberBox.
    *
-   * @return a {@link java.util.function.Function} object
+   * @return The default value parsing function.
    */
   protected abstract java.util.function.Function<String, V> defaultValueParser();
 
-  /** @return E numeric max value as a default in case {@link #setMaxValue(Number)} is not called */
   /**
-   * defaultMaxValue.
+   * Provides the default maximum allowed value for this NumberBox.
    *
-   * @return a V object
+   * @return The default maximum value.
    */
   protected abstract V defaultMaxValue();
 
-  /** @return E numeric min value as a default in case {@link #setMinValue(Number)} is not called */
   /**
-   * defaultMinValue.
+   * Provides the default minimum allowed value for this NumberBox.
    *
-   * @return a V object
+   * @return The default minimum value.
    */
   protected abstract V defaultMinValue();
 
   /**
-   * Setter for the field <code>valueParser</code>.
+   * Sets a custom parser function to parse string values into the numeric type (V) of this
+   * NumberBox. If the provided parser is null, the current parser remains unchanged.
    *
-   * @param valueParser a {@link java.util.function.Function} object
-   * @return a T object
+   * @param valueParser The custom value parsing function.
+   * @return This instance, to facilitate method chaining.
    */
   public T setValueParser(java.util.function.Function<String, V> valueParser) {
     if (nonNull(valueParser)) {
@@ -536,37 +660,51 @@ public abstract class NumberBox<T extends NumberBox<T, V>, V extends Number>
   }
 
   /**
-   * Checks if a a given value is actually greater than the maximum allowed value
+   * Determines if a given value exceeds the specified maximum value.
    *
-   * @param maxValue E numeric value
-   * @param value E numeric value
-   * @return boolean, true if the value is greater than maxValue
+   * @param maxValue The maximum value to compare against.
+   * @param value The value to be checked.
+   * @return True if the value exceeds the maximum value; otherwise, false.
    */
   protected abstract boolean isExceedMaxValue(V maxValue, V value);
 
   /**
-   * Checks if a a given value is actually less than the minimum allowed value
+   * Determines if a given value is lower than the specified minimum value.
    *
-   * @param minValue E numeric value
-   * @param value E numeric value
-   * @return boolean, true if the value is less than minValue
+   * @param minValue The minimum value to compare against.
+   * @param value The value to be checked.
+   * @return True if the value is lower than the minimum value; otherwise, false.
    */
   protected abstract boolean isLowerThanMinValue(V minValue, V value);
 
-  /** {@inheritDoc} */
+  /**
+   * Creates an automatic validator for the NumberBox input.
+   *
+   * @param autoValidate A function to be called when automatic validation is triggered.
+   * @return A new instance of the InputAutoValidator for this NumberBox.
+   */
   @Override
   public AutoValidator createAutoValidator(ApplyFunction autoValidate) {
     return new InputAutoValidator(autoValidate, getInputElement());
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Sets the text content for the postfix element.
+   *
+   * @param postfix The desired postfix string.
+   * @return This instance, to facilitate method chaining.
+   */
   @Override
   public T setPostfix(String postfix) {
     postfixElement.get().setTextContent(postfix);
     return (T) this;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Retrieves the text content of the postfix element.
+   *
+   * @return The postfix text.
+   */
   @Override
   public String getPostfix() {
     if (postfixElement.isInitialized()) {
@@ -575,14 +713,23 @@ public abstract class NumberBox<T extends NumberBox<T, V>, V extends Number>
     return "";
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Sets the text content for the prefix element.
+   *
+   * @param prefix The desired prefix string.
+   * @return This instance, to facilitate method chaining.
+   */
   @Override
   public T setPrefix(String prefix) {
     prefixElement.get().setTextContent(prefix);
     return (T) this;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Retrieves the text content of the prefix element.
+   *
+   * @return The prefix text.
+   */
   @Override
   public String getPrefix() {
     if (prefixElement.isInitialized()) {
@@ -592,27 +739,27 @@ public abstract class NumberBox<T extends NumberBox<T, V>, V extends Number>
   }
 
   /**
-   * Getter for the field <code>prefixElement</code>.
+   * Retrieves the prefix element itself.
    *
-   * @return a {@link org.dominokit.domino.ui.elements.DivElement} object
+   * @return The DivElement representing the prefix.
    */
   public DivElement getPrefixElement() {
     return prefixElement.get();
   }
 
   /**
-   * Getter for the field <code>postfixElement</code>.
+   * Retrieves the postfix element itself.
    *
-   * @return a {@link org.dominokit.domino.ui.elements.DivElement} object
+   * @return The DivElement representing the postfix.
    */
   public DivElement getPostfixElement() {
     return postfixElement.get();
   }
 
   /**
-   * withPrefixElement.
+   * Ensures the prefix element is initialized.
    *
-   * @return a T object
+   * @return This instance, to facilitate method chaining.
    */
   public T withPrefixElement() {
     prefixElement.get();
@@ -620,10 +767,11 @@ public abstract class NumberBox<T extends NumberBox<T, V>, V extends Number>
   }
 
   /**
-   * withPrefixElement.
+   * Initializes and applies a handler to the prefix element.
    *
-   * @param handler a {@link org.dominokit.domino.ui.utils.ChildHandler} object
-   * @return a T object
+   * @param handler A function taking the current NumberBox instance and the prefix DivElement, to
+   *     apply custom behavior.
+   * @return This instance, to facilitate method chaining.
    */
   public T withPrefixElement(ChildHandler<T, DivElement> handler) {
     handler.apply((T) this, prefixElement.get());
@@ -631,9 +779,9 @@ public abstract class NumberBox<T extends NumberBox<T, V>, V extends Number>
   }
 
   /**
-   * withPostfixElement.
+   * Ensures the postfix element is initialized.
    *
-   * @return a T object
+   * @return This instance, to facilitate method chaining.
    */
   public T withPostfixElement() {
     postfixElement.get();
@@ -641,23 +789,39 @@ public abstract class NumberBox<T extends NumberBox<T, V>, V extends Number>
   }
 
   /**
-   * withPostfixElement.
+   * Initializes and applies a handler to the postfix element.
    *
-   * @param handler a {@link org.dominokit.domino.ui.utils.ChildHandler} object
-   * @return a T object
+   * @param handler A function taking the current NumberBox instance and the postfix DivElement, to
+   *     apply custom behavior.
+   * @return This instance, to facilitate method chaining.
    */
   public T withPostfixElement(ChildHandler<T, DivElement> handler) {
     handler.apply((T) this, postfixElement.get());
     return (T) this;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Retrieves the name attribute of the input element.
+   *
+   * <p>The name attribute specifies the name for an `<input>` element. The name attribute is used
+   * to reference elements in a JavaScript, or to reference form data after a form is submitted.
+   *
+   * @return The name attribute value.
+   */
   @Override
   public String getName() {
     return getInputElement().element().name;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Sets the name attribute for the input element.
+   *
+   * <p>The name attribute specifies the name for an `<input>` element. This can be beneficial when
+   * sending data to the server or referencing it in scripts.
+   *
+   * @param name The desired name attribute value.
+   * @return This instance, to facilitate method chaining.
+   */
   @Override
   public T setName(String name) {
     getInputElement().element().name = name;

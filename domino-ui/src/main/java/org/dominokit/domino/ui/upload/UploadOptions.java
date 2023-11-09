@@ -22,7 +22,11 @@ import java.util.List;
 import java.util.Optional;
 import java.util.function.Supplier;
 
-/** Options for controlling the upload */
+/**
+ * The {@code UploadOptions} class represents the configuration options for file uploads. It
+ * provides settings such as the target URL for file uploads, the maximum file size allowed, and the
+ * custom XML HTTP request object to use for uploads.
+ */
 public class UploadOptions {
 
   private String url;
@@ -30,14 +34,14 @@ public class UploadOptions {
   private double maxFileSize = Double.MAX_VALUE;
   private Supplier<List<Integer>> successCodesProvider = DEFAULT_SUCCESS_CODES;
 
-  /** Constructor for UploadOptions. */
+  /** Constructs a new {@code UploadOptions} instance with default settings. */
   public UploadOptions() {}
 
   /**
-   * setXMLHttpRequest.
+   * Sets the custom XML HTTP request object to be used for file uploads.
    *
-   * @param xmlHttpRequest a {@link elemental2.dom.XMLHttpRequest} object
-   * @return a {@link org.dominokit.domino.ui.upload.UploadOptions} object
+   * @param xmlHttpRequest The custom {@link XMLHttpRequest} object.
+   * @return This {@code UploadOptions} instance for method chaining.
    */
   public UploadOptions setXMLHttpRequest(XMLHttpRequest xmlHttpRequest) {
     this.xmlHttpRequest = xmlHttpRequest;
@@ -45,29 +49,28 @@ public class UploadOptions {
   }
 
   /**
-   * Getter for the field <code>xmlHttpRequest</code>.
+   * Retrieves the custom XML HTTP request object configured for file uploads.
    *
-   * @return a {@link java.util.Optional} object
+   * @return An optional {@link XMLHttpRequest} object, or empty if not set.
    */
   public Optional<XMLHttpRequest> getXmlHttpRequest() {
     return Optional.ofNullable(xmlHttpRequest);
   }
 
-  /** @return the maximum accepted file size */
   /**
-   * Getter for the field <code>maxFileSize</code>.
+   * Retrieves the maximum allowed file size for uploads.
    *
-   * @return a double
+   * @return The maximum file size in bytes.
    */
   public double getMaxFileSize() {
     return maxFileSize;
   }
 
   /**
-   * Setter for the field <code>maxFileSize</code>.
+   * Sets the maximum allowed file size for uploads.
    *
-   * @param maxFileSize a double
-   * @return a {@link org.dominokit.domino.ui.upload.UploadOptions} object
+   * @param maxFileSize The maximum file size in bytes.
+   * @return This {@code UploadOptions} instance for method chaining.
    */
   public UploadOptions setMaxFileSize(double maxFileSize) {
     this.maxFileSize = maxFileSize;
@@ -75,40 +78,39 @@ public class UploadOptions {
   }
 
   /**
-   * Getter for the field <code>url</code>.
+   * Retrieves the target URL for file uploads.
    *
-   * @return a {@link java.lang.String} object
+   * @return The target URL for uploads.
    */
   public String getUrl() {
     return url;
   }
 
   /**
-   * Setter for the field <code>url</code>.
+   * Sets the target URL for file uploads.
    *
-   * @param url a {@link java.lang.String} object
-   * @return a {@link org.dominokit.domino.ui.upload.UploadOptions} object
+   * @param url The target URL for uploads.
+   * @return This {@code UploadOptions} instance for method chaining.
    */
   public UploadOptions setUrl(String url) {
     this.url = url;
     return this;
   }
 
-  /** @return the success codes provider */
   /**
-   * Getter for the field <code>successCodesProvider</code>.
+   * Retrieves the supplier for the list of success status codes for uploads.
    *
-   * @return a {@link java.util.function.Supplier} object
+   * @return A {@link Supplier} providing a list of success status codes.
    */
   public Supplier<List<Integer>> getSuccessCodesProvider() {
     return successCodesProvider;
   }
 
   /**
-   * Setter for the field <code>successCodesProvider</code>.
+   * Sets the supplier for the list of success status codes for uploads.
    *
-   * @param successCodesProvider a {@link java.util.function.Supplier} object
-   * @return a {@link org.dominokit.domino.ui.upload.UploadOptions} object
+   * @param successCodesProvider A {@link Supplier} providing a list of success status codes.
+   * @return This {@code UploadOptions} instance for method chaining.
    */
   public UploadOptions setSuccessCodesProvider(Supplier<List<Integer>> successCodesProvider) {
     this.successCodesProvider = successCodesProvider;

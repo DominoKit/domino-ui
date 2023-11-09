@@ -17,22 +17,37 @@ package org.dominokit.domino.ui.elements;
 
 import elemental2.dom.HTMLElement;
 
-/** MarkElement class. */
+/**
+ * Represents an HTML <mark> element wrapper.
+ *
+ * <p>The HTML <mark> element represents text that should be marked or highlighted. This class
+ * provides a convenient way to create, manipulate, and control the behavior of <mark> elements in
+ * Java-based web applications. Example usage:
+ *
+ * <pre>
+ * HTMLElement markElement = ...;  // Obtain a <mark> element from somewhere
+ * MarkElement mark = MarkElement.of(markElement);
+ * </pre>
+ *
+ * @see <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/mark">MDN Web Docs
+ *     (mark)</a>
+ */
 public class MarkElement extends BaseElement<HTMLElement, MarkElement> {
+
   /**
-   * of.
+   * Creates a new {@link MarkElement} instance by wrapping the provided HTML <mark> element.
    *
-   * @param e a {@link elemental2.dom.HTMLElement} object
-   * @return a {@link org.dominokit.domino.ui.elements.MarkElement} object
+   * @param e The HTML <mark> element to wrap.
+   * @return A new {@link MarkElement} instance wrapping the provided element.
    */
   public static MarkElement of(HTMLElement e) {
     return new MarkElement(e);
   }
 
   /**
-   * Constructor for MarkElement.
+   * Constructs a {@link MarkElement} instance by wrapping the provided HTML <mark> element.
    *
-   * @param element a {@link elemental2.dom.HTMLElement} object
+   * @param element The HTML <mark> element to wrap.
    */
   public MarkElement(HTMLElement element) {
     super(element);

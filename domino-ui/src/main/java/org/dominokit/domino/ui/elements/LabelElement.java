@@ -17,22 +17,37 @@ package org.dominokit.domino.ui.elements;
 
 import elemental2.dom.HTMLLabelElement;
 
-/** LabelElement class. */
+/**
+ * Represents an HTML <label> element wrapper.
+ *
+ * <p>The HTML <label> element represents a label for an <input>, <textarea>, or <button> element.
+ * This class provides a convenient way to create, manipulate, and control the behavior of <label>
+ * elements in Java-based web applications. Example usage:
+ *
+ * <pre>
+ * HTMLLabelElement labelElement = ...;  // Obtain a <label> element from somewhere
+ * LabelElement label = LabelElement.of(labelElement);
+ * </pre>
+ *
+ * @see <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/label">MDN Web Docs
+ *     (label)</a>
+ */
 public class LabelElement extends BaseElement<HTMLLabelElement, LabelElement> {
+
   /**
-   * of.
+   * Creates a new {@link LabelElement} instance by wrapping the provided HTML <label> element.
    *
-   * @param e a {@link elemental2.dom.HTMLLabelElement} object
-   * @return a {@link org.dominokit.domino.ui.elements.LabelElement} object
+   * @param e The HTML <label> element to wrap.
+   * @return A new {@link LabelElement} instance wrapping the provided element.
    */
   public static LabelElement of(HTMLLabelElement e) {
     return new LabelElement(e);
   }
 
   /**
-   * Constructor for LabelElement.
+   * Constructs a {@link LabelElement} instance by wrapping the provided HTML <label> element.
    *
-   * @param element a {@link elemental2.dom.HTMLLabelElement} object
+   * @param element The HTML <label> element to wrap.
    */
   public LabelElement(HTMLLabelElement element) {
     super(element);

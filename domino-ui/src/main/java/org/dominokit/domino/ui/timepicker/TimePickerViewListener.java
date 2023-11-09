@@ -18,26 +18,27 @@ package org.dominokit.domino.ui.timepicker;
 import java.util.Date;
 import org.gwtproject.i18n.shared.cldr.DateTimeFormatInfo;
 
-/** TimePickerViewListener interface. */
+/** A listener interface for events related to the TimePicker view. */
 public interface TimePickerViewListener {
+
   /**
-   * onUpdatePickerView.
+   * Called when the TimePicker view is updated with a new date.
    *
-   * @param date a {@link java.util.Date} object
+   * @param date The updated date.
    */
   default void onUpdatePickerView(Date date) {}
 
   /**
-   * onTimeSelectionChanged.
+   * Called when the time selection is changed in the TimePicker view.
    *
-   * @param date a {@link java.util.Date} object
+   * @param date The selected date.
    */
   default void onTimeSelectionChanged(Date date) {}
 
   /**
-   * onDateTimeFormatInfoChanged.
+   * Called when the DateTimeFormatInfo in the TimePicker view is changed.
    *
-   * @param dateTimeFormatInfo a {@link org.gwtproject.i18n.shared.cldr.DateTimeFormatInfo} object
+   * @param dateTimeFormatInfo The new DateTimeFormatInfo.
    */
   default void onDateTimeFormatInfoChanged(DateTimeFormatInfo dateTimeFormatInfo) {}
 }

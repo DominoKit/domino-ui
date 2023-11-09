@@ -16,49 +16,68 @@
 package org.dominokit.domino.ui.splitpanel;
 
 /**
- * A horizontal split panel implementation
+ * Represents a horizontal split panel which contains two panels separated by a horizontal splitter.
  *
- * @see BaseSplitPanel
- * @see HasSplitPanels
+ * <p>This is an extension of the base split panel with specific behavior for horizontal layout.
  */
 public class HSplitPanel extends BaseSplitPanel<HSplitPanel, HSplitter>
     implements HasSplitPanels, SplitStyles {
 
-  /** Constructor for HSplitPanel. */
+  /** Creates a new horizontal split panel. */
   public HSplitPanel() {
     addCss(dui_horizontal);
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Creates a horizontal splitter for this split panel.
+   *
+   * @param first the first panel in the split layout
+   * @param second the second panel in the split layout
+   * @param mainPanel the main split panel that holds the two sub-panels
+   * @return a new instance of {@link HSplitter}
+   */
   @Override
   protected HSplitter createSplitter(
       SplitPanel first, SplitPanel second, HasSplitPanels mainPanel) {
     return HSplitter.create(first, second, this);
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Gets the width of the provided split panel.
+   *
+   * @param panel the split panel whose width is to be retrieved
+   * @return the width of the panel
+   */
   @Override
   protected double getPanelSize(SplitPanel panel) {
     return panel.getBoundingClientRect().width;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Sets the width of the provided split panel.
+   *
+   * @param panel the split panel whose width is to be set
+   * @param size the width to be set for the panel
+   */
   @Override
   protected void setPanelSize(SplitPanel panel, String size) {
     panel.style().setWidth(size);
   }
 
-  /** @return new instance */
   /**
-   * create.
+   * Factory method to create a new instance of {@link HSplitPanel}.
    *
-   * @return a {@link org.dominokit.domino.ui.splitpanel.HSplitPanel} object
+   * @return a new instance of HSplitPanel
    */
   public static HSplitPanel create() {
     return new HSplitPanel();
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Gets the width of this horizontal split panel.
+   *
+   * @return the width of the split panel
+   */
   @Override
   public double getSize() {
     return getBoundingClientRect().width;

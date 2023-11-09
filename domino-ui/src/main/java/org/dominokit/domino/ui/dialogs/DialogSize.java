@@ -19,41 +19,65 @@ import static org.dominokit.domino.ui.style.GenericCss.*;
 
 import org.dominokit.domino.ui.style.CssClass;
 
-/** An enum to list modal possible zises */
+/**
+ * Enumerates different sizes for dialogs, providing both width and height styles for each size.
+ *
+ * <p>This allows for a consistent sizing mechanism across different dialogs.
+ *
+ * <p><b>Usage:</b>
+ *
+ * <pre>
+ * DialogSize size = DialogSize.SMALL;
+ * CssClass width = size.getWidthStyle();
+ * CssClass height = size.getHeightStyle();
+ * </pre>
+ *
+ * @see CssClass
+ */
 public enum DialogSize implements IsDialogSize {
-  /** Very small modal with smaller width */
+
+  /** Very small dialog size. */
   VERY_SMALL(dui_w_xsmall, dui_h_xsmall),
-  /** Small modal with small width */
+
+  /** Small dialog size. */
   SMALL(dui_w_small, dui_h_small),
-  /** Medium modal with moderate width */
+
+  /** Medium dialog size. */
   MEDIUM(dui_w_medium, dui_h_medium),
-  /** Large modal with wide width */
+
+  /** Large dialog size. */
   LARGE(dui_w_large, dui_h_large),
-  /** Very large modal with wider width */
+
+  /** Very large dialog size. */
   VERY_LARGE(dui_w_xlarge, dui_h_xlarge);
 
   private CssClass widthStyle;
   private CssClass heightStyle;
 
-  /** @param widthStyle String css style name */
+  /**
+   * Constructs a {@link DialogSize} enum value with specific width and height styles.
+   *
+   * @param widthStyle the {@link CssClass} representing the width style
+   * @param heightStyle the {@link CssClass} representing the height style
+   */
   DialogSize(CssClass widthStyle, CssClass heightStyle) {
     this.widthStyle = widthStyle;
     this.heightStyle = heightStyle;
   }
 
   /**
-   * Getter for the field <code>widthStyle</code>.
+   * Retrieves the width style as a {@link CssClass}.
    *
-   * @return a {@link org.dominokit.domino.ui.style.CssClass} object
+   * @return the {@link CssClass} representing the width style
    */
   public CssClass getWidthStyle() {
     return widthStyle;
   }
 
   /**
-   * Getter for the field <code>heightStyle</code>.
+   * Retrieves the height style as a {@link CssClass}.
    *
-   * @return a {@link org.dominokit.domino.ui.style.CssClass} object
+   * @return the {@link CssClass} representing the height style
    */
   public CssClass getHeightStyle() {
     return heightStyle;

@@ -20,7 +20,22 @@ import org.dominokit.domino.ui.IsElement;
 import org.dominokit.domino.ui.elements.DivElement;
 import org.dominokit.domino.ui.utils.DominoElement;
 
-/** Stretch loader implementation */
+/**
+ * A loader component that displays a stretching animation.
+ *
+ * <p>The StretchLoader displays an animation with multiple stretching elements. It is often used to
+ * indicate loading or processing. This loader consists of a set of elements that stretch and
+ * contract in a vertical direction.
+ *
+ * <p>Example usage:
+ *
+ * <pre>
+ * StretchLoader loader = StretchLoader.create();
+ * loader.setLoadingText("Loading...");
+ * // Add the loader to a container element
+ * container.appendChild(loader.element());
+ * </pre>
+ */
 public class StretchLoader extends BaseLoader<StretchLoader> implements IsElement<HTMLDivElement> {
 
   private final DivElement progress1 = div().addCss(wait_me_progress_elem_1, dui_loader_darker);
@@ -47,45 +62,62 @@ public class StretchLoader extends BaseLoader<StretchLoader> implements IsElemen
   private final DivElement element =
       div().addCss(wait_me).style("background: var(--dui-loader-background);").appendChild(content);
 
-  /** Constructor for StretchLoader. */
+  /** Initializes a new instance of the {@code StretchLoader} class. */
   public StretchLoader() {
     init(this);
   }
 
   /**
-   * create.
+   * Creates a new instance of the {@code StretchLoader} class.
    *
-   * @return a {@link org.dominokit.domino.ui.loaders.StretchLoader} object
+   * @return A new {@code StretchLoader} instance.
    */
   public static StretchLoader create() {
     return new StretchLoader();
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Sets the loading text to be displayed by the loader.
+   *
+   * @param text The text to display as loading text.
+   */
   @Override
   public void setLoadingText(String text) {
     loadingText.textContent = text;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Sets the size of the loader.
+   *
+   * @param width The width of the loader.
+   * @param height The height of the loader.
+   */
   @Override
   public void setSize(String width, String height) {
     onAttached(mutationRecord -> loader.setWidth(width).setHeight(height));
   }
 
-  /** {@inheritDoc} */
+  /** Removes the loading text from the loader. */
   @Override
   public void removeLoadingText() {
     onAttached(mutationRecord -> loadingText.remove());
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Gets the content element of the loader.
+   *
+   * @return A {@code DominoElement} representing the content element.
+   */
   @Override
   public DominoElement<HTMLDivElement> getContentElement() {
     return content.toDominoElement();
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Gets the HTMLDivElement element associated with this loader.
+   *
+   * @return The HTMLDivElement element of the loader.
+   */
   @Override
   public HTMLDivElement element() {
     return element.element();

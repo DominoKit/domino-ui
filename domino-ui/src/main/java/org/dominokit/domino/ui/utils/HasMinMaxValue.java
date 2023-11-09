@@ -13,42 +13,51 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package org.dominokit.domino.ui.utils;
 
-/** HasMinMaxValue interface. */
+/**
+ * The {@code HasMinMaxValue} interface defines methods for managing minimum and maximum value
+ * constraints on a component.
+ *
+ * @param <T> The type of the component that can have minimum and maximum value constraints.
+ * @param <V> The type of the value constraints.
+ */
 public interface HasMinMaxValue<T, V> {
-  /** Constant <code>MAX_VALUE="max"</code> */
+
+  /** The name of the attribute for specifying the maximum value. */
   String MAX_VALUE = "max";
-  /** Constant <code>MIN_VALUE="min"</code> */
+
+  /** The name of the attribute for specifying the minimum value. */
   String MIN_VALUE = "min";
 
   /**
-   * getMaxValue.
+   * Gets the maximum value constraint for the component.
    *
-   * @return a V object
+   * @return The maximum value constraint.
    */
   V getMaxValue();
 
   /**
-   * setMaxValue.
+   * Sets the maximum value constraint for the component.
    *
-   * @param maxValue a V object
-   * @return a T object
+   * @param maxValue The maximum value constraint to set.
+   * @return The component with the maximum value constraint set.
    */
   T setMaxValue(V maxValue);
 
   /**
-   * getMinValue.
+   * Gets the minimum value constraint for the component.
    *
-   * @return a V object
+   * @return The minimum value constraint.
    */
   V getMinValue();
 
   /**
-   * setMinValue.
+   * Sets the minimum value constraint for the component.
    *
-   * @param minLength a V object
-   * @return a T object
+   * @param minValue The minimum value constraint to set.
+   * @return The component with the minimum value constraint set.
    */
-  T setMinValue(V minLength);
+  T setMinValue(V minValue);
 }

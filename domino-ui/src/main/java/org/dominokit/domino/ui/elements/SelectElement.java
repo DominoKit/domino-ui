@@ -17,22 +17,38 @@ package org.dominokit.domino.ui.elements;
 
 import elemental2.dom.HTMLSelectElement;
 
-/** SelectElement class. */
+/**
+ * Represents an HTML <select> element wrapper.
+ *
+ * <p>The HTML <select> element is used to create a drop-down list of options that users can select
+ * from. It allows users to choose one or more options from the list, depending on the select
+ * element's configuration. This class provides a Java-based way to create, manipulate, and control
+ * the behavior of <select> elements in web applications. Example usage:
+ *
+ * <pre>
+ * HTMLSelectElement selectElement = ...;  // Obtain a <select> element from somewhere
+ * SelectElement select = SelectElement.of(selectElement);
+ * </pre>
+ *
+ * @see <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/select">MDN Web Docs
+ *     (select)</a>
+ */
 public class SelectElement extends BaseElement<HTMLSelectElement, SelectElement> {
+
   /**
-   * of.
+   * Creates a new {@link SelectElement} instance by wrapping the provided HTML <select> element.
    *
-   * @param e a {@link elemental2.dom.HTMLSelectElement} object
-   * @return a {@link org.dominokit.domino.ui.elements.SelectElement} object
+   * @param e The HTML <select> element to wrap.
+   * @return A new {@link SelectElement} instance wrapping the provided element.
    */
   public static SelectElement of(HTMLSelectElement e) {
     return new SelectElement(e);
   }
 
   /**
-   * Constructor for SelectElement.
+   * Constructs a {@link SelectElement} instance by wrapping the provided HTML <select> element.
    *
-   * @param element a {@link elemental2.dom.HTMLSelectElement} object
+   * @param element The HTML <select> element to wrap.
    */
   public SelectElement(HTMLSelectElement element) {
     super(element);

@@ -13,16 +13,29 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package org.dominokit.domino.ui.datepicker;
 
-/** Pattern class. */
+/**
+ * Enumerates the different date patterns used for formatting and parsing dates.
+ *
+ * <p><b>Usage Example:</b>
+ *
+ * <pre>
+ * Pattern pattern = Pattern.FULL;
+ * </pre>
+ */
 public enum Pattern {
-  /** A full date format */
+
+  /** Represents a full pattern, usually the most verbose format. */
   FULL,
-  /** A long date format */
+
+  /** Represents a long pattern, a detailed format excluding the most verbose elements. */
   LONG,
-  /** A medium date format */
+
+  /** Represents a medium pattern, less detailed than LONG but more than SHORT. */
   MEDIUM,
-  /** A short date format */
+
+  /** Represents a short pattern, the least verbose format. */
   SHORT
 }

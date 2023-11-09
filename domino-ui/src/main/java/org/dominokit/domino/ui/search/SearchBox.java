@@ -38,7 +38,34 @@ import org.dominokit.domino.ui.utils.PostfixAddOn;
 import org.dominokit.domino.ui.utils.PrefixAddOn;
 import org.gwtproject.timer.client.Timer;
 
-/** A simple search box that is triggered while the user is typing */
+/**
+ * The `SearchBox` class provides a quick search input box with various customization options.
+ *
+ * <p>Usage Example:
+ *
+ * <pre>
+ * // Create a search box with default settings
+ * SearchBox searchBox = SearchBox.create();
+ *
+ * // Add a search listener to handle search actions
+ * searchBox.addSearchListener(searchToken -> {
+ *     // Perform search operation with the provided search token
+ * });
+ *
+ * // Clear the search input box
+ * searchBox.clearSearch();
+ *
+ * // Configure and customize the search box
+ * searchBox.setAutoSearch(true)
+ *         .setAutoSearchDelay(300)
+ *         .withTextBox((searchBoxInstance, textBox) -> {
+ *             // Customize the TextBox component
+ *             textBox.setPlaceholder("Enter search query");
+ *         });
+ * </pre>
+ *
+ * @see BaseDominoElement
+ */
 public class SearchBox extends BaseDominoElement<HTMLDivElement, SearchBox>
     implements HasLabels<QuickSearchLabels>, HasComponentConfig<SearchConfig> {
 
@@ -54,15 +81,15 @@ public class SearchBox extends BaseDominoElement<HTMLDivElement, SearchBox>
   private Set<SearchListener> searchListeners = new HashSet<>();
 
   /**
-   * create.
+   * Creates a new `SearchBox` instance with default settings.
    *
-   * @return a {@link org.dominokit.domino.ui.search.SearchBox} object
+   * @return A new `SearchBox` instance.
    */
   public static SearchBox create() {
     return new SearchBox();
   }
 
-  /** creates a new instance */
+  /** Constructs a new `SearchBox` instance with default settings. */
   public SearchBox() {
     init(this);
     this.autoSearchDelay = getConfig().getAutoSearchDelay();
@@ -128,18 +155,20 @@ public class SearchBox extends BaseDominoElement<HTMLDivElement, SearchBox>
   }
 
   /**
-   * Clears the search box and trigger the search with an empty token
+   * Clears the search input box and triggers a search action.
    *
-   * @return a {@link org.dominokit.domino.ui.search.SearchBox} object
+   * @return The current `SearchBox` instance.
    */
   public SearchBox clearSearch() {
     return clearSearch(false);
   }
+
   /**
-   * Clears the search box and trigger the search with an empty token
+   * Clears the search input box and optionally triggers a search action.
    *
-   * @param silent a boolean
-   * @return a {@link org.dominokit.domino.ui.search.SearchBox} object
+   * @param silent `true` to clear the search box silently (without triggering search), `false` to
+   *     trigger search.
+   * @return The current `SearchBox` instance.
    */
   public SearchBox clearSearch(boolean silent) {
     textBox.clear();
@@ -150,23 +179,20 @@ public class SearchBox extends BaseDominoElement<HTMLDivElement, SearchBox>
     return this;
   }
 
-  /** @return boolean, true if the auto search is enabled */
   /**
-   * isAutoSearch.
+   * Checks if auto search is enabled.
    *
-   * @return a boolean
+   * @return `true` if auto search is enabled, `false` otherwise.
    */
   public boolean isAutoSearch() {
     return autoSearch;
   }
 
   /**
-   * Enable/Disable auto search when enabled the search will be triggered while the user is typing
-   * with a delay otherwise the search will only be triggered when the user click on search or press
-   * Enter
+   * Enables or disables auto search.
    *
-   * @param autoSearch boolean
-   * @return same action instance
+   * @param autoSearch `true` to enable auto search, `false` to disable it.
+   * @return The current `SearchBox` instance.
    */
   public SearchBox setAutoSearch(boolean autoSearch) {
     this.autoSearch = autoSearch;
@@ -183,22 +209,20 @@ public class SearchBox extends BaseDominoElement<HTMLDivElement, SearchBox>
     return this;
   }
 
-  /** @return int search delay in milliseconds */
   /**
-   * Getter for the field <code>autoSearchDelay</code>.
+   * Gets the auto search delay in milliseconds.
    *
-   * @return a int
+   * @return The auto search delay.
    */
   public int getAutoSearchDelay() {
     return autoSearchDelay;
   }
 
-  /** @param autoSearchDelayInMillies int auto search delay in milliseconds */
   /**
-   * Setter for the field <code>autoSearchDelay</code>.
+   * Sets the auto search delay in milliseconds.
    *
-   * @param autoSearchDelayInMillies a int
-   * @return a {@link org.dominokit.domino.ui.search.SearchBox} object
+   * @param autoSearchDelayInMillies The auto search delay in milliseconds.
+   * @return The current `SearchBox` instance.
    */
   public SearchBox setAutoSearchDelay(int autoSearchDelayInMillies) {
     this.autoSearchDelay = autoSearchDelayInMillies;
@@ -211,10 +235,10 @@ public class SearchBox extends BaseDominoElement<HTMLDivElement, SearchBox>
   }
 
   /**
-   * Adds a search listener to the search box component
+   * Adds a search listener to the search box to handle search actions.
    *
-   * @param searchListener {@link org.dominokit.domino.ui.search.SearchBox.SearchListener}
-   * @return same instance
+   * @param searchListener The search listener to add.
+   * @return The current `SearchBox` instance.
    */
   public SearchBox addSearchListener(SearchListener searchListener) {
     if (nonNull(searchListener)) {
@@ -224,10 +248,10 @@ public class SearchBox extends BaseDominoElement<HTMLDivElement, SearchBox>
   }
 
   /**
-   * Removes a search listener from the search box component
+   * Removes a search listener from the search box.
    *
-   * @param searchListener {@link org.dominokit.domino.ui.search.SearchBox.SearchListener}
-   * @return same instance
+   * @param searchListener The search listener to remove.
+   * @return The current `SearchBox` instance.
    */
   public SearchBox removeSearchListener(SearchListener searchListener) {
     if (nonNull(searchListener)) {
@@ -237,62 +261,57 @@ public class SearchBox extends BaseDominoElement<HTMLDivElement, SearchBox>
   }
 
   /**
-   * Remove all search listeners
+   * Clears all search listeners from the search box.
    *
-   * @return same instance
+   * @return The current `SearchBox` instance.
    */
   public SearchBox clearSearchListeners() {
     this.searchListeners.clear();
     return this;
   }
 
-  /** @return The search {@link TextBox} */
   /**
-   * Getter for the field <code>textBox</code>.
+   * Gets the TextBox component associated with this search box.
    *
-   * @return a {@link org.dominokit.domino.ui.forms.TextBox} object
+   * @return The TextBox component.
    */
   public TextBox getTextBox() {
     return textBox;
   }
 
-  /** @return The search {@link TextBox} */
   /**
-   * withTextBox.
+   * Applies customization to the TextBox component within the search box.
    *
-   * @param handler a {@link org.dominokit.domino.ui.utils.ChildHandler} object
-   * @return a {@link org.dominokit.domino.ui.search.SearchBox} object
+   * @param handler A `ChildHandler` that can be used to customize the TextBox.
+   * @return The current `SearchBox` instance.
    */
   public SearchBox withTextBox(ChildHandler<SearchBox, TextBox> handler) {
     handler.apply(this, textBox);
     return this;
   }
 
-  /** @return the search {@link Icon} */
   /**
-   * Getter for the field <code>searchIcon</code>.
+   * Gets the search icon associated with this search box.
    *
-   * @return a {@link org.dominokit.domino.ui.icons.Icon} object
+   * @return The search icon.
    */
   public Icon<?> getSearchIcon() {
     return searchIcon;
   }
 
-  /** @return the clear search {@link Icon} */
   /**
-   * Getter for the field <code>clearIcon</code>.
+   * Gets the clear icon associated with this search box.
    *
-   * @return a {@link org.dominokit.domino.ui.icons.Icon} object
+   * @return The clear icon.
    */
   public Icon<?> getClearIcon() {
     return clearIcon;
   }
 
-  /** @return a set of {@link SearchListener}s */
   /**
-   * Getter for the field <code>searchListeners</code>.
+   * Gets the set of search listeners associated with this search box.
    *
-   * @return a {@link java.util.Set} object
+   * @return A set of search listeners.
    */
   public Set<SearchListener> getSearchListeners() {
     return searchListeners;
@@ -304,10 +323,15 @@ public class SearchBox extends BaseDominoElement<HTMLDivElement, SearchBox>
     return root.element();
   }
 
-  /** A functional interface to implement the search logic in as a search listener */
+  /** A functional interface for handling search actions. */
   @FunctionalInterface
   public interface SearchListener {
-    /** @param token String user input */
+
+    /**
+     * Handles a search action.
+     *
+     * @param token The search token or query.
+     */
     void onSearch(String token);
   }
 }

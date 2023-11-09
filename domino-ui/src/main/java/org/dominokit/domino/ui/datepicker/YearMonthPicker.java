@@ -21,7 +21,17 @@ import org.dominokit.domino.ui.spin.HSpinSelect;
 import org.dominokit.domino.ui.spin.SpinItem;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
 
-/** YearMonthPicker class. */
+/**
+ * Represents the picker for selecting a specific year and month.
+ *
+ * <p><b>Usage Example:</b>
+ *
+ * <pre>
+ * YearMonthPicker picker = YearMonthPicker.create(calendarInstance);
+ * </pre>
+ *
+ * @see BaseDominoElement
+ */
 public class YearMonthPicker extends BaseDominoElement<HTMLDivElement, YearMonthPicker>
     implements CalendarStyles, CalendarViewListener {
 
@@ -31,9 +41,9 @@ public class YearMonthPicker extends BaseDominoElement<HTMLDivElement, YearMonth
   private final IsCalendar calendar;
 
   /**
-   * Constructor for YearMonthPicker.
+   * Creates a new year-month picker for the specified calendar.
    *
-   * @param calendar a {@link org.dominokit.domino.ui.datepicker.IsCalendar} object
+   * @param calendar The {@link IsCalendar} instance that this picker is associated with.
    */
   public YearMonthPicker(IsCalendar calendar) {
     this.calendar = calendar;
@@ -51,10 +61,10 @@ public class YearMonthPicker extends BaseDominoElement<HTMLDivElement, YearMonth
   }
 
   /**
-   * create.
+   * Factory method to create a new year-month picker.
    *
-   * @param calendar a {@link org.dominokit.domino.ui.datepicker.IsCalendar} object
-   * @return a {@link org.dominokit.domino.ui.datepicker.YearMonthPicker} object
+   * @param calendar The {@link IsCalendar} instance to associate with the picker.
+   * @return a new instance of {@link YearMonthPicker}.
    */
   public static YearMonthPicker create(IsCalendar calendar) {
     return new YearMonthPicker(calendar);
@@ -93,7 +103,11 @@ public class YearMonthPicker extends BaseDominoElement<HTMLDivElement, YearMonth
             });
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Displays the year-month picker and updates its view.
+   *
+   * @return the current instance of {@link YearMonthPicker}.
+   */
   @Override
   public YearMonthPicker show() {
     if (!isVisible()) {
@@ -102,7 +116,11 @@ public class YearMonthPicker extends BaseDominoElement<HTMLDivElement, YearMonth
     return super.show();
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Returns the root {@link HTMLDivElement} of this year-month picker.
+   *
+   * @return the root {@link HTMLDivElement}.
+   */
   @Override
   public HTMLDivElement element() {
     return root.element();

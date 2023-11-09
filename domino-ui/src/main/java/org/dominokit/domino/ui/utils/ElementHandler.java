@@ -16,17 +16,17 @@
 package org.dominokit.domino.ui.utils;
 
 /**
- * A function to apply generic logic to a component
+ * A functional interface for handling elements of type {@code T}.
  *
- * @param <T> the type of the component
+ * @param <T> The type of element to be handled.
  */
 @FunctionalInterface
 public interface ElementHandler<T> {
-  /** @param self the T component instance */
+
   /**
-   * handleElement.
+   * Handles the specified element of type {@code T}.
    *
-   * @param self a T object
+   * @param self The element to be handled.
    */
   void handleElement(T self);
 }

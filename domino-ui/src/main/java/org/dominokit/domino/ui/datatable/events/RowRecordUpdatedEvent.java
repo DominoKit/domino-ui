@@ -13,43 +13,48 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package org.dominokit.domino.ui.datatable.events;
 
 import org.dominokit.domino.ui.datatable.TableRow;
 
 /**
- * This event will be fired when the record of a specific row in the table has its record updated
+ * The {@code RowRecordUpdatedEvent} class represents an event that is fired when a record in a
+ * DataTable row is updated.
  *
- * @param <T> the type of the record
+ * @param <T> the type of data in the DataTable
+ * @see org.dominokit.domino.ui.datatable.events.TableEvent
  */
 public class RowRecordUpdatedEvent<T> implements TableEvent {
 
-  /** A constant string to define a unique type for this event */
+  /** The event type for the record-updated event. */
   public static final String RECORD_UPDATED = "record-updated";
 
   private final TableRow<T> tableRow;
 
-  /** @param tableRow the {@link TableRow} being updated */
   /**
-   * Constructor for RowRecordUpdatedEvent.
+   * Creates a new {@code RowRecordUpdatedEvent} with the specified table row.
    *
-   * @param tableRow a {@link org.dominokit.domino.ui.datatable.TableRow} object
+   * @param tableRow the table row containing the updated record
    */
   public RowRecordUpdatedEvent(TableRow<T> tableRow) {
     this.tableRow = tableRow;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Retrieves the type of this event.
+   *
+   * @return the event type
+   */
   @Override
   public String getType() {
     return RECORD_UPDATED;
   }
 
-  /** @return the {@link TableRow} being updated */
   /**
-   * Getter for the field <code>tableRow</code>.
+   * Retrieves the table row containing the updated record.
    *
-   * @return a {@link org.dominokit.domino.ui.datatable.TableRow} object
+   * @return the table row
    */
   public TableRow<T> getTableRow() {
     return tableRow;

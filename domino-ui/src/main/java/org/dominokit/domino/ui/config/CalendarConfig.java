@@ -19,31 +19,40 @@ import java.util.function.Supplier;
 import org.dominokit.domino.ui.icons.Icon;
 import org.dominokit.domino.ui.icons.lib.Icons;
 
-/** CalendarConfig interface. */
+/**
+ * Implementations of this interface can be used to configure defaults for {@link
+ * org.dominokit.domino.ui.datepicker.Calendar} component
+ */
 public interface CalendarConfig extends ComponentConfig {
 
   /**
-   * defaultCalendarNextIcon.
+   * Use this method to define the default icon for calendar next button.
    *
-   * @return a {@link java.util.function.Supplier} object
+   * <p>Defaults to : {@code chevron_right}
+   *
+   * @return a {@code Supplier<Icon<?>>}
    */
   default Supplier<Icon<?>> defaultCalendarNextIcon() {
     return Icons::chevron_right;
   }
 
   /**
-   * defaultCalendarPreviousIcon.
+   * Use this method to define the default icon for calendar previous button.
    *
-   * @return a {@link java.util.function.Supplier} object
+   * <p>Defaults to : {@code chevron_left}
+   *
+   * @return a {@code Supplier<Icon<?>>}
    */
   default Supplier<Icon<?>> defaultCalendarPreviousIcon() {
     return Icons::chevron_left;
   }
 
   /**
-   * defaultDateBoxIcon.
+   * Use this method to define the default icon for a datebox.
    *
-   * @return a {@link java.util.function.Supplier} object
+   * <p>Defaults to : {@code calendar}
+   *
+   * @return a {@code Supplier<Icon<?>>}
    */
   default Supplier<Icon<?>> defaultDateBoxIcon() {
     return Icons::calendar;

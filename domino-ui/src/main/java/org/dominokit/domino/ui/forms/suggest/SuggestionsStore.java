@@ -21,121 +21,131 @@ import java.util.function.Consumer;
 import org.dominokit.domino.ui.IsElement;
 
 /**
- * This interface is used to implement data stores to provide a {@link
- * org.dominokit.domino.ui.forms.suggest.SuggestBox} with its suggestion
+ * An interface representing a store for managing and filtering suggestions for a suggest box or
+ * similar component.
  *
- * <p>The interface can be used to provide suggestions locally or remotely
- *
- * @param <T> the type of the SuggestBox value
- * @see LocalSuggestionsStore
+ * @param <T> The type of the suggestion value.
+ * @param <E> The type of the suggestion element, typically a DOM element.
+ * @param <O> The type of the option representing a suggestion.
  */
 public interface SuggestionsStore<T, E extends IsElement<?>, O extends Option<T, E, O>> {
 
   /**
-   * Takes the current typed text in the SuggestBox and provide a List of matching suggestion
+   * Filters the suggestions based on the provided search value and calls the suggestions handler
+   * with the filtered suggestions.
    *
-   * @param value String text in the SuggestBox
-   * @param suggestionsHandler {@link
-   *     org.dominokit.domino.ui.forms.suggest.SuggestionsStore.SuggestionsHandler}
+   * @param value The search value to filter the suggestions.
+   * @param suggestionsHandler The handler to be called with the filtered suggestions.
    */
   void filter(String value, SuggestionsHandler<T, E, O> suggestionsHandler);
 
   /**
-   * Takes a value of T and find the matching SuggestItem for this value, this is used when we
-   * directly set the value to the SuggestBox to check if it is actually still matching an existing
-   * suggestion
+   * Finds a suggestion based on the provided search value and calls the handler with the found
+   * suggestion.
    *
-   * @param searchValue T
-   * @param handler Consumer of {@link org.dominokit.domino.ui.forms.suggest.Option}
+   * @param searchValue The value to search for in the suggestions.
+   * @param handler The handler to be called with the found suggestion, if any.
    */
   void find(T searchValue, Consumer<O> handler);
 
   /**
-   * Defines how to check a single SuggestItem against the search text, default to SuggestItem
-   * lowercase display text contains the search text
+   * Default method that filters a single suggestion item based on the provided search value.
    *
-   * @param searchValue String
-   * @param suggestItem {@link org.dominokit.domino.ui.forms.suggest.Option}
-   * @return boolean, true if the {@link org.dominokit.domino.ui.forms.suggest.Option} match the
-   *     search text
+   * @param searchValue The value to search for.
+   * @param suggestItem The suggestion item to filter.
+   * @return {@code true} if the suggestion item matches the search value, {@code false} otherwise.
    */
   default boolean filterItem(String searchValue, O suggestItem) {
     return suggestItem.getMenuItem().onSearch(searchValue, false);
   }
 
   /**
-   * getMessingSuggestionProvider.
+   * Default method to provide a missing suggestion based on the missing value.
    *
-   * @return the {@link
-   *     org.dominokit.domino.ui.forms.suggest.SuggestionsStore.MissingSuggestProvider} to handle
-   *     missing suggestions for a value this is default to Optional.empty()
+   * @return An optional containing the missing suggestion, if available.
    */
   default MissingSuggestProvider<T, E, O> getMessingSuggestionProvider() {
     return missingValue -> Optional.empty();
   }
 
   /**
-   * getMessingEntryProvider.
+   * Default method to provide a missing suggestion based on the input value.
    *
-   * @return the {@link org.dominokit.domino.ui.forms.suggest.SuggestionsStore.MissingEntryProvider}
-   *     to handle missing suggestions for a text typed in the SuggestBox this is default to
-   *     Optional.empty()
+   * @return An optional containing the missing suggestion, if available.
    */
   default MissingEntryProvider<T, E, O> getMessingEntryProvider() {
     return missingValue -> Optional.empty();
   }
 
   /**
-   * A function to provide a List of {@link Option} to the {@link SuggestionsStore#filter(String,
-   * SuggestionsHandler)}
+   * A functional interface for handling suggestions.
    *
-   * @param <T> the type of the SuggestBox value
+   * @param <T> The type of the suggestion value.
+   * @param <E> The type of the suggestion element, typically a DOM element.
+   * @param <O> The type of the option representing a suggestion.
    */
   @FunctionalInterface
   interface SuggestionsHandler<T, E extends IsElement<?>, O extends Option<T, E, O>> {
     /**
-     * This should be called once the suggestions are ready to be fed to the SuggestBox
+     * Called when suggestions are ready to be processed.
      *
-     * @param suggestions List of {@link Option}
+     * @param suggestions The list of suggestions to be handled.
      */
     void onSuggestionsReady(List<O> suggestions);
   }
 
-  /** @param <T> The type of the suggest box records */
+  /**
+   * A functional interface for filtering suggestions.
+   *
+   * @param <T> The type of the suggestion value.
+   * @param <E> The type of the suggestion element, typically a DOM element.
+   * @param <O> The type of the option representing a suggestion.
+   */
   @FunctionalInterface
   interface SuggestionFilter<T, E extends IsElement<?>, O extends Option<T, E, O>> {
+    /**
+     * Filters a suggestion based on the provided search value.
+     *
+     * @param searchValue The search value to filter the suggestion.
+     * @param suggestItem The suggestion item to be filtered.
+     * @return {@code true} if the suggestion item matches the search value, {@code false}
+     *     otherwise.
+     */
     boolean filter(String searchValue, O suggestItem);
   }
 
   /**
-   * A function to provide a SuggestItem in case we try to set a value to the suggestBox that does
-   * not match any of the possible suggestions
+   * A functional interface for providing a missing suggestion based on a missing value.
    *
-   * @param <T> the type of the SuggestBox value
+   * @param <T> The type of the missing suggestion value.
+   * @param <E> The type of the suggestion element, typically a DOM element.
+   * @param <O> The type of the option representing a suggestion.
    */
   @FunctionalInterface
   interface MissingSuggestProvider<T, E extends IsElement<?>, O extends Option<T, E, O>> {
     /**
-     * @param missingValue T the value that does not match any suggestion
-     * @return Optional of {@link Option}, this could be an inline created suggestion or
-     *     Optional.empty(), consider invalidating the field in this case
+     * Provides a missing suggestion based on the missing value.
+     *
+     * @param missingValue The missing value for which to provide a suggestion.
+     * @return An optional containing the missing suggestion, if available.
      */
     Optional<O> getMessingSuggestion(T missingValue);
   }
 
   /**
-   * This method is used to implement the logic to handle the case when the user types in the
-   * suggest something that does not match any of the available suggestions
+   * A functional interface for providing a missing suggestion based on an input value.
    *
-   * @param <T> the type of the SuggestBox value
+   * @param <T> The type of the missing suggestion value.
+   * @param <E> The type of the suggestion element, typically a DOM element.
+   * @param <O> The type of the option representing a suggestion.
    */
   @FunctionalInterface
   interface MissingEntryProvider<T, E extends IsElement<?>, O extends Option<T, E, O>> {
     /**
-     * @param inputValue String value represent what is typed in the SuggestBox
-     * @return Optional SuggestItem, this could an inline created item or an Optional of empty which
-     *     in this case will be considered as a null value. also consider invalidating the
-     *     SuggestBox if it should return Optional.empty()
+     * Provides a missing suggestion based on the input value.
+     *
+     * @param inputValue The input value for which to provide a suggestion.
+     * @return An optional containing the missing suggestion, if available.
      */
     Optional<O> getMessingSuggestion(String inputValue);
   }

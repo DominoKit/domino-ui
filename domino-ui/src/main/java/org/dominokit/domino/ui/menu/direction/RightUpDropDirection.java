@@ -48,9 +48,8 @@ public class RightUpDropDirection implements DropDirection {
                     - (sourceRect.height - targetRect.height)
                     + delta));
 
-    Style.of(source)
-        .style
-        .setProperty("left", px.of(targetRect.left + window.pageXOffset + targetRect.width + 1));
+    Style.of(source).style.setProperty("left", px.of(targetRect.left));
+
     dui_dd_right_up.apply(source);
     targetRect = target.getBoundingClientRect();
     sourceRect = source.getBoundingClientRect();
@@ -58,6 +57,16 @@ public class RightUpDropDirection implements DropDirection {
         .elementOf(source)
         .setCssProperty("--dui-dd-position-delta", ((targetRect.top - sourceRect.top)) + "px");
     elements.elementOf(source).setCssProperty("--dui-menu-drop-min-width", targetRect.width + "px");
+    DOMRect newRect = source.getBoundingClientRect();
+    Style.of(source)
+        .style
+        .setProperty(
+            "left",
+            px.of(
+                (targetRect.left - (newRect.left - targetRect.left))
+                    + window.pageXOffset
+                    + targetRect.width
+                    + 9));
   }
 
   /** {@inheritDoc} */

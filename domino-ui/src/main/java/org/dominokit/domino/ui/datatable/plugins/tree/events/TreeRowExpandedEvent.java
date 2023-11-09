@@ -13,45 +13,47 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package org.dominokit.domino.ui.datatable.plugins.tree.events;
 
 import org.dominokit.domino.ui.datatable.TableRow;
 import org.dominokit.domino.ui.datatable.events.TableEvent;
 
 /**
- * This event will be fired by the {@link
- * org.dominokit.domino.ui.datatable.plugins.row.RecordDetailsPlugin} when a record is expanded
+ * An event class representing the expansion of a tree row in a data table.
  *
- * @param <T> the type of the record.
+ * @param <T> The type of data in the table row.
  */
 public class TreeRowExpandedEvent<T> implements TableEvent {
 
-  /** A constant string to define a unique type for this event */
+  /** The event type indicating the expansion of a tree row. */
   public static final String TREE_ROW_EXPANDED_EVENT = "tree-row-expanded-event";
 
   private final TableRow<T> tableRow;
 
-  /** @param tableRow the {@link TableRow} being expanded */
   /**
-   * Constructor for TreeRowExpandedEvent.
+   * Constructs a new TreeRowExpandedEvent.
    *
-   * @param tableRow a {@link org.dominokit.domino.ui.datatable.TableRow} object
+   * @param tableRow The TableRow that was expanded.
    */
   public TreeRowExpandedEvent(TableRow<T> tableRow) {
     this.tableRow = tableRow;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Gets the type of this event, which is {@code TREE_ROW_EXPANDED_EVENT}.
+   *
+   * @return The type of this event.
+   */
   @Override
   public String getType() {
     return TREE_ROW_EXPANDED_EVENT;
   }
 
-  /** @return the {@link TableRow} being expanded */
   /**
-   * Getter for the field <code>tableRow</code>.
+   * Gets the TableRow that was expanded.
    *
-   * @return a {@link org.dominokit.domino.ui.datatable.TableRow} object
+   * @return The TableRow that was expanded.
    */
   public TableRow<T> getTableRow() {
     return tableRow;

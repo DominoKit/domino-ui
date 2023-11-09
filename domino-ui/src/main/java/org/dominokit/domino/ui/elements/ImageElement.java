@@ -17,22 +17,37 @@ package org.dominokit.domino.ui.elements;
 
 import elemental2.dom.HTMLImageElement;
 
-/** ImageElement class. */
+/**
+ * Represents an HTML ImageElement element (<img>) wrapper.
+ *
+ * <p>The HTML <img> element represents an image on a web page. This class provides a convenient way
+ * to create, manipulate, and control the behavior of <img> elements in Java-based web applications.
+ * Example usage:
+ *
+ * <pre>
+ * HTMLImageElement imageElement = ...;  // Obtain an <img> element from somewhere
+ * ImageElement image = ImageElement.of(imageElement);
+ * </pre>
+ *
+ * @see <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/img">MDN Web Docs
+ *     (img)</a>
+ */
 public class ImageElement extends BaseElement<HTMLImageElement, ImageElement> {
+
   /**
-   * of.
+   * Creates a new {@link ImageElement} instance by wrapping the provided HTML <img> element.
    *
-   * @param e a {@link elemental2.dom.HTMLImageElement} object
-   * @return a {@link org.dominokit.domino.ui.elements.ImageElement} object
+   * @param e The HTML <img> element.
+   * @return A new {@link ImageElement} instance wrapping the provided element.
    */
   public static ImageElement of(HTMLImageElement e) {
     return new ImageElement(e);
   }
 
   /**
-   * Constructor for ImageElement.
+   * Constructs an {@link ImageElement} instance by wrapping the provided HTML <img> element.
    *
-   * @param element a {@link elemental2.dom.HTMLImageElement} object
+   * @param element The HTML <img> element to wrap.
    */
   public ImageElement(HTMLImageElement element) {
     super(element);

@@ -17,22 +17,36 @@ package org.dominokit.domino.ui.elements;
 
 import elemental2.dom.HTMLAudioElement;
 
-/** AudioElement class. */
+/**
+ * Represents an audio HTML element (`<audio>`) wrapper.
+ *
+ * <p>The class provides a convenient way to create, manipulate, and control the behavior of audio
+ * HTML elements. Example usage:
+ *
+ * <pre>{@code
+ * HTMLAudioElement htmlElement = ...;  // Obtain an audio element from somewhere
+ * AudioElement audioElement = AudioElement.of(htmlElement);
+ * }</pre>
+ *
+ * @see <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/audio">MDN Web Docs
+ *     (audio element)</a>
+ */
 public class AudioElement extends BaseElement<HTMLAudioElement, AudioElement> {
+
   /**
-   * of.
+   * Creates a new {@link AudioElement} by wrapping the provided audio HTML element.
    *
-   * @param e a {@link elemental2.dom.HTMLAudioElement} object
-   * @return a {@link org.dominokit.domino.ui.elements.AudioElement} object
+   * @param e The audio HTML element.
+   * @return A new {@link AudioElement} that wraps the provided element.
    */
   public static AudioElement of(HTMLAudioElement e) {
     return new AudioElement(e);
   }
 
   /**
-   * Constructor for AudioElement.
+   * Constructs an {@link AudioElement} by wrapping the provided audio HTML element.
    *
-   * @param element a {@link elemental2.dom.HTMLAudioElement} object
+   * @param element The audio HTML element to wrap.
    */
   public AudioElement(HTMLAudioElement element) {
     super(element);

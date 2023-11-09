@@ -17,22 +17,40 @@ package org.dominokit.domino.ui.elements;
 
 import elemental2.dom.HTMLTableColElement;
 
-/** ColGroupElement class. */
+/**
+ * Represents a `<colgroup>` HTML element wrapper.
+ *
+ * <p>The `<colgroup>` tag is used to group one or more `<col>` elements in an HTML table and is
+ * used for applying styles to multiple columns. This class provides a convenient way to create,
+ * manipulate, and control the behavior of `<colgroup>` elements, making it easier to use them in
+ * Java-based web applications. Example usage:
+ *
+ * <pre>{@code
+ * HTMLTableColElement htmlElement = ...;  // Obtain a <colgroup> element from somewhere
+ * ColGroupElement colGroupElement = ColGroupElement.of(htmlElement);
+ * }</pre>
+ *
+ * @see <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/colgroup">MDN Web Docs
+ *     (colgroup element)</a>
+ */
 public class ColGroupElement extends BaseElement<HTMLTableColElement, ColGroupElement> {
+
   /**
-   * of.
+   * Creates a new {@link ColGroupElement} instance by wrapping the provided HTML `<colgroup>`
+   * element.
    *
-   * @param e a {@link elemental2.dom.HTMLTableColElement} object
-   * @return a {@link org.dominokit.domino.ui.elements.ColGroupElement} object
+   * @param e The HTML `<colgroup>` element.
+   * @return A new {@link ColGroupElement} instance wrapping the provided element.
    */
   public static ColGroupElement of(HTMLTableColElement e) {
     return new ColGroupElement(e);
   }
 
   /**
-   * Constructor for ColGroupElement.
+   * Constructs a {@link ColGroupElement} instance by wrapping the provided HTML `<colgroup>`
+   * element.
    *
-   * @param element a {@link elemental2.dom.HTMLTableColElement} object
+   * @param element The HTML `<colgroup>` element to wrap.
    */
   public ColGroupElement(HTMLTableColElement element) {
     super(element);

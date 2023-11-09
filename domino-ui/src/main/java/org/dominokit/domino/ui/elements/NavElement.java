@@ -17,22 +17,37 @@ package org.dominokit.domino.ui.elements;
 
 import elemental2.dom.HTMLElement;
 
-/** NavElement class. */
+/**
+ * Represents an HTML <nav> element wrapper.
+ *
+ * <p>The HTML <nav> element represents a section of a page that contains navigation links or menus.
+ * This class provides a convenient way to create, manipulate, and control the behavior of <nav>
+ * elements in Java-based web applications. Example usage:
+ *
+ * <pre>
+ * HTMLElement navElement = ...;  // Obtain a <nav> element from somewhere
+ * NavElement nav = NavElement.of(navElement);
+ * </pre>
+ *
+ * @see <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/nav">MDN Web Docs
+ *     (nav)</a>
+ */
 public class NavElement extends BaseElement<HTMLElement, NavElement> {
+
   /**
-   * of.
+   * Creates a new {@link NavElement} instance by wrapping the provided HTML <nav> element.
    *
-   * @param e a {@link elemental2.dom.HTMLElement} object
-   * @return a {@link org.dominokit.domino.ui.elements.NavElement} object
+   * @param e The HTML <nav> element to wrap.
+   * @return A new {@link NavElement} instance wrapping the provided element.
    */
   public static NavElement of(HTMLElement e) {
     return new NavElement(e);
   }
 
   /**
-   * Constructor for NavElement.
+   * Constructs a {@link NavElement} instance by wrapping the provided HTML <nav> element.
    *
-   * @param element a {@link elemental2.dom.HTMLElement} object
+   * @param element The HTML <nav> element to wrap.
    */
   public NavElement(HTMLElement element) {
     super(element);

@@ -40,9 +40,21 @@ import org.dominokit.domino.ui.icons.Icon;
 import org.dominokit.domino.ui.icons.lib.Icons;
 
 /**
- * this plugin allows reordering and moving records in a data table
+ * The {@code DragDropPlugin} class is a DataTable plugin that enables drag-and-drop functionality
+ * for table rows. It allows users to drag rows and drop them into other DataTables linked with this
+ * plugin. This class implements the {@link DataTablePlugin} interface and provides methods to
+ * configure the drag-and-drop behavior.
  *
- * @param <T> the type of data table records
+ * <p><strong>Usage Example:</strong>
+ *
+ * <pre>
+ * DataTable&lt;Person&gt; dataTable = DataTable.create(data);
+ * DragDropPlugin&lt;Person&gt; dragDropPlugin = new DragDropPlugin&lt;&gt;();
+ * dragDropPlugin.linkWith(dataTable2); // Link with another DataTable
+ * dataTable.addPlugin(dragDropPlugin);
+ * </pre>
+ *
+ * @param <T> The type of data in the DataTable.
  */
 public class DragDropPlugin<T> implements DataTablePlugin<T> {
 
@@ -56,7 +68,12 @@ public class DragDropPlugin<T> implements DataTablePlugin<T> {
   private Text emptyDropText;
   private final List<DataTable<T>> otherDataTables = new ArrayList<>();
 
-  /** {@inheritDoc} */
+  /**
+   * Initializes the DragDropPlugin with the given DataTable. This method sets up the drag-and-drop
+   * functionality.
+   *
+   * @param dataTable The DataTable to which the drag-and-drop behavior will be added.
+   */
   @Override
   public void init(DataTable<T> dataTable) {
     this.dataTable = dataTable;
@@ -65,6 +82,12 @@ public class DragDropPlugin<T> implements DataTablePlugin<T> {
     initEmptyDropArea(dataTable);
   }
 
+  /**
+   * Initializes the empty drop area within the DataTable. This area is displayed when items can be
+   * dropped.
+   *
+   * @param dataTable The DataTable to which the empty drop area will be added.
+   */
   private void initEmptyDropArea(DataTable<T> dataTable) {
     emptyDropText = elements.text("Drop items here");
     emptyDropArea =
@@ -78,13 +101,23 @@ public class DragDropPlugin<T> implements DataTablePlugin<T> {
     emptyDropRow.hide();
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Indicates whether this plugin requires a utility column in the DataTable.
+   *
+   * @return {@code true} if a utility column is required; otherwise, {@code false}.
+   */
   @Override
   public boolean requiresUtilityColumn() {
     return true;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Returns utility elements for the DataTable cell.
+   *
+   * @param dataTable The DataTable to which the cell belongs.
+   * @param cellInfo Information about the cell.
+   * @return An optional list of utility elements, including the drag-and-drop icon.
+   */
   @Override
   public Optional<List<HTMLElement>> getUtilityElements(
       DataTable<T> dataTable, CellRenderer.CellInfo<T> cellInfo) {
@@ -92,7 +125,12 @@ public class DragDropPlugin<T> implements DataTablePlugin<T> {
         Collections.singletonList(dragDropIconSupplier.get().addCss(dui_row_dnd_grab).element()));
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Handles the addition of a header column in the DataTable.
+   *
+   * @param dataTable The DataTable to which the header is added.
+   * @param column The column configuration.
+   */
   @Override
   public void onHeaderAdded(DataTable<T> dataTable, ColumnConfig<T> column) {
     if (column.isUtilityColumn()) {
@@ -100,7 +138,12 @@ public class DragDropPlugin<T> implements DataTablePlugin<T> {
     }
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Handles the addition of a row in the DataTable.
+   *
+   * @param dataTable The DataTable to which the row is added.
+   * @param tableRow The added row.
+   */
   @Override
   public void onRowAdded(DataTable<T> dataTable, TableRow<T> tableRow) {
     dragSource.addDraggable(Draggable.of(tableRow));
@@ -108,6 +151,13 @@ public class DragDropPlugin<T> implements DataTablePlugin<T> {
         tableRow, draggableId -> moveItem(dataTable, tableRow.getRecord(), draggableId));
   }
 
+  /**
+   * Moves an item within the DataTable or to another DataTable when it is dropped.
+   *
+   * @param dataTable The DataTable containing the item.
+   * @param record The record to be moved.
+   * @param draggableId The unique identifier of the draggable item.
+   */
   private void moveItem(DataTable<T> dataTable, T record, String draggableId) {
     Optional<TableRow<T>> optionalTableRow = find(draggableId, dataTable);
 
@@ -127,7 +177,11 @@ public class DragDropPlugin<T> implements DataTablePlugin<T> {
     }
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Handles events related to the DataTable, such as RecordDraggedOutEvent and RecordDroppedEvent.
+   *
+   * @param event The event to be handled.
+   */
   @Override
   public void handleEvent(TableEvent event) {
     if (event instanceof RecordDraggedOutEvent) {
@@ -138,6 +192,13 @@ public class DragDropPlugin<T> implements DataTablePlugin<T> {
     }
   }
 
+  /**
+   * Finds a TableRow by its unique identifier (draggableId) within a DataTable.
+   *
+   * @param draggableId The unique identifier of the draggable item.
+   * @param dataTable The DataTable in which to search for the TableRow.
+   * @return An Optional containing the TableRow if found; otherwise, an empty Optional.
+   */
   private Optional<TableRow<T>> find(String draggableId, DataTable<T> dataTable) {
     if (nonNull(dataTable.querySelector("[domino-uuid='" + draggableId + "']"))) {
       return dataTable.getRows().stream()
@@ -148,9 +209,9 @@ public class DragDropPlugin<T> implements DataTablePlugin<T> {
   }
 
   /**
-   * Link this plugin with other data table in order to be able to move items from it
+   * Links this plugin with another DataTable, allowing drag-and-drop between them.
    *
-   * @param other the other data table to accept items from it
+   * @param other The DataTable to link with.
    */
   public void linkWith(DataTable<T> other) {
     otherDataTables.add(other);
@@ -159,41 +220,37 @@ public class DragDropPlugin<T> implements DataTablePlugin<T> {
     }
   }
 
-  /** @param emptyDropIconSupplier supplier to create icon for the empty drop area */
   /**
-   * Setter for the field <code>emptyDropIconSupplier</code>.
+   * Sets the supplier for the empty drop area icon.
    *
-   * @param emptyDropIconSupplier a {@link java.util.function.Supplier} object
+   * @param emptyDropIconSupplier A {@link Supplier} that provides an empty drop area {@link Icon}.
    */
   public void setEmptyDropIconSupplier(Supplier<Icon<?>> emptyDropIconSupplier) {
     this.emptyDropIconSupplier = emptyDropIconSupplier;
   }
 
-  /** @param dragDropIconSupplier supplier to create icon for each draggable row */
   /**
-   * Setter for the field <code>dragDropIconSupplier</code>.
+   * Sets the supplier for the drag-and-drop icon displayed in the DataTable.
    *
-   * @param dragDropIconSupplier a {@link java.util.function.Supplier} object
+   * @param dragDropIconSupplier A {@link Supplier} that provides the drag-and-drop {@link Icon}.
    */
   public void setDragDropIconSupplier(Supplier<Icon<?>> dragDropIconSupplier) {
     this.dragDropIconSupplier = dragDropIconSupplier;
   }
 
-  /** @return the element of empty drop */
   /**
-   * Getter for the field <code>emptyDropArea</code>.
+   * Retrieves the empty drop area as a {@link DivElement}.
    *
-   * @return a {@link org.dominokit.domino.ui.elements.DivElement} object
+   * @return The empty drop area as a {@link DivElement}.
    */
   public DivElement getEmptyDropArea() {
     return emptyDropArea;
   }
 
-  /** @param text changes the text of the empty drop area */
   /**
-   * Setter for the field <code>emptyDropText</code>.
+   * Sets the text content for the empty drop area.
    *
-   * @param text a {@link java.lang.String} object
+   * @param text The text to display in the empty drop area.
    */
   public void setEmptyDropText(String text) {
     emptyDropText.textContent = text;

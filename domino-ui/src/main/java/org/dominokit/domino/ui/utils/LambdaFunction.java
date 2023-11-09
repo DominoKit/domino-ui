@@ -13,11 +13,32 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package org.dominokit.domino.ui.utils;
 
-/** LambdaFunction interface. */
+/**
+ * Functional interface representing a lambda function with no arguments and no return value.
+ * Implementations of this interface can be used to define simple one-time operations or actions
+ * that can be invoked via the {@link #apply()} method.
+ *
+ * <p>Example usage:
+ *
+ * <pre>
+ * LambdaFunction myFunction = () -> {
+ *     // Perform some action or operation
+ *     // ...
+ * };
+ *
+ * // Invoke the lambda function
+ * myFunction.apply();
+ * </pre>
+ *
+ * @see <a href="https://docs.oracle.com/javase/tutorial/java/javaOO/lambdaexpressions.html">Lambda
+ *     Expressions</a>
+ */
 @FunctionalInterface
 public interface LambdaFunction {
-  /** apply. */
+
+  /** Performs the defined action or operation represented by this lambda function. */
   void apply();
 }

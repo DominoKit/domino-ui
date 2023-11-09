@@ -17,21 +17,46 @@ package org.dominokit.domino.ui.events;
 
 import elemental2.dom.AddEventListenerOptions;
 
-/** EventOptions class. */
+/**
+ * The {@code EventOptions} class represents options for configuring event listeners.
+ *
+ * <p>Event options include settings for capture, once, and passive behavior.
+ *
+ * <p><strong>Usage Example:</strong>
+ *
+ * <pre>
+ * // Create event options with custom settings
+ * EventOptions customOptions = EventOptions.of(true, false, true)
+ *     .setCapture(true)
+ *     .setOnce(false)
+ *     .setPassive(true);
+ *
+ * // Attach an event listener with the custom event options
+ * myElement.addEventListener(EventType.click.getName(), event -> {
+ *     // Handle the click event
+ * }, customOptions.get());
+ * </pre>
+ *
+ * <p>The {@code EventOptions} class provides methods for configuring event options and obtaining
+ * the underlying {@code AddEventListenerOptions} instance.
+ *
+ * @see EventType
+ * @see EventHandlerOptions
+ */
 public class EventOptions {
   private final AddEventListenerOptions options;
 
-  /** Constructor for EventOptions. */
+  /** Constructs a new {@code EventOptions} instance with default settings. */
   public EventOptions() {
     this.options = AddEventListenerOptions.create();
   }
 
   /**
-   * Constructor for EventOptions.
+   * Constructs a new {@code EventOptions} instance with custom settings.
    *
-   * @param capture a boolean
-   * @param once a boolean
-   * @param passive a boolean
+   * @param capture Whether to use capture phase.
+   * @param once Whether to trigger the event listener at most once.
+   * @param passive Whether the event listener should not prevent the default action.
    */
   public EventOptions(boolean capture, boolean once, boolean passive) {
     this.options = AddEventListenerOptions.create();
@@ -41,31 +66,31 @@ public class EventOptions {
   }
 
   /**
-   * of.
+   * Creates a new {@code EventOptions} instance with default settings.
    *
-   * @return a {@link org.dominokit.domino.ui.events.EventOptions} object
+   * @return A new {@code EventOptions} instance with default settings.
    */
   public static EventOptions of() {
     return new EventOptions();
   }
 
   /**
-   * of.
+   * Creates a new {@code EventOptions} instance with custom settings.
    *
-   * @param capture a boolean
-   * @param once a boolean
-   * @param passive a boolean
-   * @return a {@link org.dominokit.domino.ui.events.EventOptions} object
+   * @param capture Whether to use capture phase.
+   * @param once Whether to trigger the event listener at most once.
+   * @param passive Whether the event listener should not prevent the default action.
+   * @return A new {@code EventOptions} instance with custom settings.
    */
   public static EventOptions of(boolean capture, boolean once, boolean passive) {
     return new EventOptions(capture, once, passive);
   }
 
   /**
-   * setPassive.
+   * Sets the passive behavior for the event listener.
    *
-   * @param passive a boolean
-   * @return a {@link org.dominokit.domino.ui.events.EventOptions} object
+   * @param passive Whether the event listener should not prevent the default action.
+   * @return The updated {@code EventOptions} instance.
    */
   public EventOptions setPassive(boolean passive) {
     options.setPassive(passive);
@@ -73,10 +98,10 @@ public class EventOptions {
   }
 
   /**
-   * setOnce.
+   * Sets the once behavior for the event listener.
    *
-   * @param once a boolean
-   * @return a {@link org.dominokit.domino.ui.events.EventOptions} object
+   * @param once Whether to trigger the event listener at most once.
+   * @return The updated {@code EventOptions} instance.
    */
   public EventOptions setOnce(boolean once) {
     options.setOnce(once);
@@ -84,10 +109,10 @@ public class EventOptions {
   }
 
   /**
-   * setCapture.
+   * Sets the capture phase behavior for the event listener.
    *
-   * @param capture a boolean
-   * @return a {@link org.dominokit.domino.ui.events.EventOptions} object
+   * @param capture Whether to use capture phase.
+   * @return The updated {@code EventOptions} instance.
    */
   public EventOptions setCapture(boolean capture) {
     options.setCapture(capture);
@@ -95,9 +120,9 @@ public class EventOptions {
   }
 
   /**
-   * get.
+   * Gets the underlying {@code AddEventListenerOptions} instance.
    *
-   * @return a {@link elemental2.dom.AddEventListenerOptions} object
+   * @return The {@code AddEventListenerOptions} instance.
    */
   public AddEventListenerOptions get() {
     return options;

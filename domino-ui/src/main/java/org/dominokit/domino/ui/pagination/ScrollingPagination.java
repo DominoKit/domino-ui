@@ -21,7 +21,24 @@ import java.util.stream.IntStream;
 import org.dominokit.domino.ui.icons.lib.Icons;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
 
-/** A scrolling pagination implementation */
+/**
+ * ScrollingPagination provides a pagination component with a scrolling window of page numbers.
+ *
+ * <p>This pagination component allows you to navigate through a large set of pages with a scrolling
+ * window of page numbers. It provides options to show the total record count and next/previous page
+ * sets.
+ *
+ * <p>Usage Example:
+ *
+ * <pre>
+ * ScrollingPagination pagination = ScrollingPagination.create(100, 10, 5);
+ * pagination.showTotalRecordVisible(true);
+ * pagination.showNextPrevSet(true);
+ * pagination.onChange(page -> {
+ *     // Handle page change event
+ * });
+ * </pre>
+ */
 public class ScrollingPagination extends BasePagination<ScrollingPagination> {
 
   private final int windowSize;
@@ -33,79 +50,81 @@ public class ScrollingPagination extends BasePagination<ScrollingPagination> {
   protected PagerNavItem nextSet;
   private final PagerNavItem totalCountNavItem;
 
-  /** @return new instance */
   /**
-   * create.
+   * Creates a ScrollingPagination instance with default settings.
    *
-   * @return a {@link org.dominokit.domino.ui.pagination.ScrollingPagination} object
+   * @return a new ScrollingPagination instance.
    */
   public static ScrollingPagination create() {
     return new ScrollingPagination();
   }
 
   /**
-   * create.
+   * Creates a ScrollingPagination instance with the specified number of pages.
    *
-   * @param pages the number of pages
-   * @return new instance
+   * @param pages The total number of pages.
+   * @return a new ScrollingPagination instance with the given number of pages.
    */
   public static ScrollingPagination create(int pages) {
     return new ScrollingPagination(pages);
   }
 
   /**
-   * create.
+   * Creates a ScrollingPagination instance with the specified number of pages and page size.
    *
-   * @param pages the number of pages
-   * @param pageSize the page size
-   * @return new instance
+   * @param pages The total number of pages.
+   * @param pageSize The number of items per page.
+   * @return a new ScrollingPagination instance with the given number of pages and page size.
    */
   public static ScrollingPagination create(int pages, int pageSize) {
     return new ScrollingPagination(pages, pageSize);
   }
 
   /**
-   * create.
+   * Creates a ScrollingPagination instance with the specified number of pages, page size, and
+   * window size.
    *
-   * @param pages the number of pages
-   * @param pageSize the page size
-   * @param windowSize the number of pages to show in a window
-   * @return new instance
+   * @param pages The total number of pages.
+   * @param pageSize The number of items per page.
+   * @param windowSize The size of the scrolling window.
+   * @return a new ScrollingPagination instance with the given number of pages, page size, and
+   *     window size.
    */
   public static ScrollingPagination create(int pages, int pageSize, int windowSize) {
     return new ScrollingPagination(pages, pageSize, windowSize);
   }
 
-  /** Constructor for ScrollingPagination. */
+  /** Constructs a ScrollingPagination instance with default settings. */
   public ScrollingPagination() {
     this(0, 10, 10);
   }
 
   /**
-   * Constructor for ScrollingPagination.
+   * Constructs a ScrollingPagination instance with the specified number of pages.
    *
-   * @param pages a int
+   * @param pages The total number of pages.
    */
   public ScrollingPagination(int pages) {
     this(pages, 10, 10);
   }
 
   /**
-   * Constructor for ScrollingPagination.
+   * Constructs a ScrollingPagination instance with the specified number of pages and page size.
    *
-   * @param pages a int
-   * @param pageSize a int
+   * @param pages The total number of pages.
+   * @param pageSize The number of items per page.
    */
   public ScrollingPagination(int pages, int pageSize) {
     this(pages, pageSize, 10);
   }
 
   /**
-   * Constructor for ScrollingPagination.
+   * Constructs a ScrollingPagination instance with the specified number of pages, page size, and
+   * window size.
    *
-   * @param pages a int
-   * @param pageSize a int
-   * @param windowSize a int
+   * @param pages The total number of pages.
+   * @param pageSize The number of items per page.
+   * @param windowSize The size of the scrolling window.
    */
   public ScrollingPagination(int pages, int pageSize, int windowSize) {
     this.pagesCount = pages;
@@ -187,13 +206,26 @@ public class ScrollingPagination extends BasePagination<ScrollingPagination> {
     updatePages(pages, pageSize);
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Updates the pagination with the specified number of pages and page size.
+   *
+   * @param pages The total number of pages.
+   * @param silent If true, the change listeners won't be triggered.
+   * @return This ScrollingPagination instance.
+   */
   @Override
   public ScrollingPagination updatePages(int pages, boolean silent) {
     return updatePages(pages, pageSize, silent);
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Updates the pagination with the specified number of pages and page size.
+   *
+   * @param pages The total number of pages.
+   * @param pageSize The number of items per page.
+   * @param silent If true, the change listeners won't be triggered.
+   * @return This ScrollingPagination instance.
+   */
   @Override
   public ScrollingPagination updatePages(int pages, int pageSize, boolean silent) {
     this.pageSize = pageSize;
@@ -248,12 +280,18 @@ public class ScrollingPagination extends BasePagination<ScrollingPagination> {
     return this;
   }
 
+  /** Clears all pages from the pagination. */
   private void clearPages() {
     allPages.forEach(BaseDominoElement::remove);
     allPages.clear();
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Moves to the specified page and triggers change listeners if not silent.
+   *
+   * @param page The target page to move to.
+   * @param silent If true, change listeners won't be triggered.
+   */
   @Override
   protected void moveToPage(int page, boolean silent) {
     PagerNavItem oldPage = activePage;
@@ -292,6 +330,11 @@ public class ScrollingPagination extends BasePagination<ScrollingPagination> {
     }
   }
 
+  /**
+   * Shows the window of pages based on the given page index.
+   *
+   * @param page The current page index.
+   */
   private void showPageWindow(int page) {
     if (page % windowSize == 0) {
       showWindow((page / windowSize) - 1);
@@ -337,21 +380,20 @@ public class ScrollingPagination extends BasePagination<ScrollingPagination> {
     }
   }
 
-  /** @return true if the total number of records is visible, false otherwise */
   /**
-   * isTotalRecordVisible.
+   * Checks if the total record count is visible.
    *
-   * @return a boolean
+   * @return True if the total record count is visible, false otherwise.
    */
   public boolean isTotalRecordVisible() {
     return totalRecordVisible;
   }
 
   /**
-   * Setter for the field <code>totalRecordVisible</code>.
+   * Sets the visibility of the total record count.
    *
-   * @param totalRecordVisible true to show the total number of records
-   * @return same instance
+   * @param totalRecordVisible True to make the total record count visible, false to hide it.
+   * @return This ScrollingPagination instance.
    */
   public ScrollingPagination setTotalRecordVisible(boolean totalRecordVisible) {
     this.totalRecordVisible = totalRecordVisible;
@@ -360,10 +402,10 @@ public class ScrollingPagination extends BasePagination<ScrollingPagination> {
   }
 
   /**
-   * showNextPrevSet.
+   * Shows or hides the previous and next page set navigation.
    *
-   * @param visible a boolean
-   * @return a {@link org.dominokit.domino.ui.pagination.ScrollingPagination} object
+   * @param visible True to show the previous and next page set navigation, false to hide it.
+   * @return This ScrollingPagination instance.
    */
   public ScrollingPagination showNextPrevSet(boolean visible) {
     prevSet.toggleDisplay(visible);

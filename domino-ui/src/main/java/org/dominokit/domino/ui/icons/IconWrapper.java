@@ -17,38 +17,47 @@ package org.dominokit.domino.ui.icons;
 
 import elemental2.dom.HTMLElement;
 
-/** IconWrapper class. */
+/**
+ * A wrapper class for an existing icon, allowing it to be used as an Icon in Domino UI. This class
+ * extends the Icon class and delegates its behavior to the provided icon.
+ */
 public class IconWrapper extends Icon<IconWrapper> {
 
   private final Icon<?> icon;
 
   /**
-   * of.
+   * Creates an IconWrapper for the given icon.
    *
-   * @param icon a {@link org.dominokit.domino.ui.icons.Icon} object
-   * @return a {@link org.dominokit.domino.ui.icons.IconWrapper} object
+   * @param icon The icon to wrap.
    */
   public static IconWrapper of(Icon<?> icon) {
     return new IconWrapper(icon);
   }
 
   /**
-   * Constructor for IconWrapper.
+   * Constructs an IconWrapper with the provided icon.
    *
-   * @param icon a {@link org.dominokit.domino.ui.icons.Icon} object
+   * @param icon The icon to wrap.
    */
   public IconWrapper(Icon<?> icon) {
     this.icon = icon;
     init(this);
   }
 
-  /** {@inheritDoc} */
+  /**
+   * @dominokit-site-ignore {@inheritDoc}
+   * @return The HTML element of the wrapped icon.
+   */
   @Override
   public HTMLElement element() {
     return icon.element();
   }
 
-  /** {@inheritDoc} */
+  /**
+   * {@inheritDoc} Creates a copy of the IconWrapper with a copy of the wrapped icon.
+   *
+   * @return A new IconWrapper instance with a copy of the wrapped icon.
+   */
   @Override
   public IconWrapper copy() {
     return new IconWrapper(icon.copy());

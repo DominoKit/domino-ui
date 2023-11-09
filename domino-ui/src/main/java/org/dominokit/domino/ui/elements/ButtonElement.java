@@ -17,22 +17,36 @@ package org.dominokit.domino.ui.elements;
 
 import elemental2.dom.HTMLButtonElement;
 
-/** ButtonElement class. */
+/**
+ * Represents a button (`<button>`) HTML element wrapper.
+ *
+ * <p>This class provides a convenient way to create, manipulate, and control the behavior of button
+ * HTML elements. Example usage:
+ *
+ * <pre>
+ * HTMLButtonElement htmlElement = ...;  // Obtain a <button> element from somewhere
+ * ButtonElement buttonElement = ButtonElement.of(htmlElement);
+ * </pre>
+ *
+ * @see <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/button">MDN Web Docs
+ *     (button element)</a>
+ */
 public class ButtonElement extends BaseElement<HTMLButtonElement, ButtonElement> {
+
   /**
-   * of.
+   * Creates a new {@link ButtonElement} instance by wrapping the provided button HTML element.
    *
-   * @param e a {@link elemental2.dom.HTMLButtonElement} object
-   * @return a {@link org.dominokit.domino.ui.elements.ButtonElement} object
+   * @param e The button HTML element.
+   * @return A new {@link ButtonElement} instance wrapping the provided element.
    */
   public static ButtonElement of(HTMLButtonElement e) {
     return new ButtonElement(e);
   }
 
   /**
-   * Constructor for ButtonElement.
+   * Constructs a {@link ButtonElement} instance by wrapping the provided button HTML element.
    *
-   * @param element a {@link elemental2.dom.HTMLButtonElement} object
+   * @param element The button HTML element to wrap.
    */
   public ButtonElement(HTMLButtonElement element) {
     super(element);

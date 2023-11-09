@@ -20,7 +20,22 @@ import org.dominokit.domino.ui.IsElement;
 import org.dominokit.domino.ui.elements.DivElement;
 import org.dominokit.domino.ui.utils.DominoElement;
 
-/** Round bounce loader implementation */
+/**
+ * A loader component that displays a round bouncing animation.
+ *
+ * <p>The RoundBounceLoader displays a round bouncing animation with multiple bouncing elements. It
+ * is often used to indicate loading or processing. This loader consists of a set of bouncing
+ * elements arranged in a circular pattern.
+ *
+ * <p>Example usage:
+ *
+ * <pre>
+ * RoundBounceLoader loader = RoundBounceLoader.create();
+ * loader.setLoadingText("Loading...");
+ * // Add the loader to a container element
+ * container.appendChild(loader.element());
+ * </pre>
+ */
 public class RoundBounceLoader extends BaseLoader<RoundBounceLoader>
     implements IsElement<HTMLDivElement> {
 
@@ -62,45 +77,62 @@ public class RoundBounceLoader extends BaseLoader<RoundBounceLoader>
   private final DivElement element =
       div().addCss(wait_me).style("background: var(--dui-loader-background);").appendChild(content);
 
-  /** Constructor for RoundBounceLoader. */
+  /** Initializes a new instance of the {@code RoundBounceLoader} class. */
   public RoundBounceLoader() {
     init(this);
   }
 
   /**
-   * create.
+   * Creates a new instance of the {@code RoundBounceLoader} class.
    *
-   * @return a {@link org.dominokit.domino.ui.loaders.RoundBounceLoader} object
+   * @return A new {@code RoundBounceLoader} instance.
    */
   public static RoundBounceLoader create() {
     return new RoundBounceLoader();
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Sets the loading text to be displayed by the loader.
+   *
+   * @param text The text to display as loading text.
+   */
   @Override
   public void setLoadingText(String text) {
     loadingText.textContent = text;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Sets the size of the loader.
+   *
+   * @param width The width of the loader.
+   * @param height The height of the loader.
+   */
   @Override
   public void setSize(String width, String height) {
     onAttached(mutationRecord -> loader.setWidth(width).setHeight(height));
   }
 
-  /** {@inheritDoc} */
+  /** Removes the loading text from the loader. */
   @Override
   public void removeLoadingText() {
     onAttached(mutationRecord -> loadingText.remove());
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Gets the content element of the loader.
+   *
+   * @return A {@code DominoElement} representing the content element.
+   */
   @Override
   public DominoElement<HTMLDivElement> getContentElement() {
     return content.toDominoElement();
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Gets the HTMLDivElement element associated with this loader.
+   *
+   * @return The HTMLDivElement element of the loader.
+   */
   @Override
   public HTMLDivElement element() {
     return element.element();

@@ -13,6 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package org.dominokit.domino.ui.datatable.plugins.tree;
 
 import java.util.List;
@@ -21,22 +22,31 @@ import org.dominokit.domino.ui.datatable.DataTable;
 import org.dominokit.domino.ui.datatable.RowCell;
 import org.dominokit.domino.ui.datatable.TableRow;
 
-/** TreeGridRowRenderer class. */
+/**
+ * A custom row renderer implementation for rendering parent rows in a DataTable with tree-like
+ * functionality.
+ *
+ * @param <T> The data type of the DataTable.
+ */
 public class TreeGridRowRenderer<T> implements TableRow.RowRenderer<T> {
 
   private final TreeGridPlugin<T> treeGridPlugin;
 
   /**
-   * Constructor for TreeGridRowRenderer.
+   * Constructs a new TreeGridRowRenderer with the given TreeGridPlugin.
    *
-   * @param treeGridPlugin a {@link org.dominokit.domino.ui.datatable.plugins.tree.TreeGridPlugin}
-   *     object
+   * @param treeGridPlugin The TreeGridPlugin associated with this renderer.
    */
   public TreeGridRowRenderer(TreeGridPlugin<T> treeGridPlugin) {
     this.treeGridPlugin = treeGridPlugin;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Renders a row within the DataTable based on the provided configuration.
+   *
+   * @param dataTable The DataTable to which the row belongs.
+   * @param tableRow The TableRow to be rendered.
+   */
   @Override
   public void render(DataTable<T> dataTable, TableRow<T> tableRow) {
     List<ColumnConfig<T>> columns = dataTable.getTableConfig().getColumns();

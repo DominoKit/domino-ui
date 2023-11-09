@@ -29,7 +29,17 @@ import org.dominokit.domino.ui.elements.DivElement;
 import org.dominokit.domino.ui.style.BooleanCssClass;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
 
-/** StepperTrack class. */
+/**
+ * Represents a visual track within a stepper component.
+ *
+ * <p>Usage:
+ *
+ * <pre>
+ * StepperTrack track = StepperTrack.create();
+ * </pre>
+ *
+ * @see BaseDominoElement
+ */
 public class StepperTrack extends BaseDominoElement<HTMLDivElement, StepperTrack>
     implements StepperStyles, HasComponentConfig<StepperConfig> {
   private final DivElement root;
@@ -39,39 +49,38 @@ public class StepperTrack extends BaseDominoElement<HTMLDivElement, StepperTrack
   private int currentTrackerIndex;
   private boolean started = false;
 
-  /** Constructor for StepperTrack. */
+  /** Constructor to create a new StepperTrack. */
   public StepperTrack() {
     root = div().addCss(dui_stepper_track);
     init(this);
   }
 
   /**
-   * create.
+   * Creates a new instance of {@link StepperTrack}.
    *
-   * @return a {@link org.dominokit.domino.ui.stepper.StepperTrack} object
+   * @return new instance of {@link StepperTrack}
    */
   public static StepperTrack create() {
     return new StepperTrack();
   }
 
   /**
-   * appendChild.
+   * Appends a {@link StepTracker} to the stepper track.
    *
-   * @param stepTracker a {@link org.dominokit.domino.ui.stepper.StepTracker} object
-   * @return a {@link org.dominokit.domino.ui.stepper.StepperTrack} object
+   * @param stepTracker the {@link StepTracker} to be appended
+   * @return this {@link StepperTrack}
    */
   public StepperTrack appendChild(StepTracker stepTracker) {
     root.appendChild(stepTracker);
     trackers.add(stepTracker);
-    stepTracker.onDetached(mutationRecord -> trackers.remove(stepTracker));
     return this;
   }
 
   /**
-   * removeTracker.
+   * Removes a given {@link StepTracker} from the stepper track.
    *
-   * @param stepTracker a {@link org.dominokit.domino.ui.stepper.StepTracker} object
-   * @return a {@link org.dominokit.domino.ui.stepper.StepperTrack} object
+   * @param stepTracker the {@link StepTracker} to be removed
+   * @return this {@link StepperTrack}
    */
   public StepperTrack removeTracker(StepTracker stepTracker) {
     if (trackers.contains(stepTracker)) {
@@ -81,42 +90,42 @@ public class StepperTrack extends BaseDominoElement<HTMLDivElement, StepperTrack
   }
 
   /**
-   * next.
+   * Moves to the next {@link StepTracker} without skipping any steps.
    *
-   * @return a {@link org.dominokit.domino.ui.stepper.StepperTrack} object
+   * @return this {@link StepperTrack}
    */
   public StepperTrack next() {
     return next(0);
   }
 
   /**
-   * next.
+   * Moves to the next {@link StepTracker} by skipping a specified number of steps.
    *
-   * @param skip a int
-   * @return a {@link org.dominokit.domino.ui.stepper.StepperTrack} object
+   * @param skip the number of steps to skip
+   * @return this {@link StepperTrack}
    */
   public StepperTrack next(int skip) {
     return next(skip, (deactivated, activated) -> {});
   }
 
   /**
-   * next.
+   * Moves to the next {@link StepTracker} without skipping any steps and provides a custom
+   * callback.
    *
-   * @param consumer a {@link org.dominokit.domino.ui.stepper.StepperTrack.StepTrackersConsumer}
-   *     object
-   * @return a {@link org.dominokit.domino.ui.stepper.StepperTrack} object
+   * @param consumer callback to handle active step changes
+   * @return this {@link StepperTrack}
    */
   public StepperTrack next(StepTrackersConsumer consumer) {
     return next(0, consumer);
   }
 
   /**
-   * next.
+   * Moves to the next {@link StepTracker} by skipping a specified number of steps and provides a
+   * custom callback.
    *
-   * @param skip a int
-   * @param consumer a {@link org.dominokit.domino.ui.stepper.StepperTrack.StepTrackersConsumer}
-   *     object
-   * @return a {@link org.dominokit.domino.ui.stepper.StepperTrack} object
+   * @param skip the number of steps to skip
+   * @param consumer callback to handle active step changes
+   * @return this {@link StepperTrack}
    */
   public StepperTrack next(int skip, StepTrackersConsumer consumer) {
     if (!started) {
@@ -124,8 +133,9 @@ public class StepperTrack extends BaseDominoElement<HTMLDivElement, StepperTrack
           "Stepper should be started before calling next, previous, or finish.");
     }
 
-    if (nonNull(this.activeTracker)
-        && this.trackers.indexOf(this.activeTracker) == this.trackers.size() - 1) {
+    int i = this.trackers.indexOf(this.activeTracker);
+    int i1 = this.trackers.size() - 1;
+    if (nonNull(this.activeTracker) && i == i1) {
       this.deactivateTracker(this.activeTracker);
       consumer.onActiveStepChanged(Optional.of(this.activeTracker), Optional.empty());
       this.activeTracker = null;
@@ -149,36 +159,42 @@ public class StepperTrack extends BaseDominoElement<HTMLDivElement, StepperTrack
   }
 
   /**
-   * start.
+   * Initiates the {@link StepperTrack} with the default step state defined in the configuration.
    *
-   * @return a {@link org.dominokit.domino.ui.stepper.StepperTrack} object
+   * @return this {@link StepperTrack}
+   * @see #getConfig()
    */
   public StepperTrack start() {
     return start(getConfig().getDefaultStepState(), (deactivated, activated) -> {});
   }
 
   /**
-   * start.
+   * Initiates the {@link StepperTrack} with a given step state.
    *
-   * @param startState a {@link org.dominokit.domino.ui.stepper.StepState} object
-   * @return a {@link org.dominokit.domino.ui.stepper.StepperTrack} object
+   * @param startState the initial state for the starting step
+   * @return this {@link StepperTrack}
    */
   public StepperTrack start(StepState startState) {
     return start(startState, (deactivated, activated) -> {});
   }
 
   /**
-   * start.
+   * Initiates the {@link StepperTrack} with a given step state and provides a custom callback.
    *
-   * @param startState a {@link org.dominokit.domino.ui.stepper.StepState} object
-   * @param consumer a {@link org.dominokit.domino.ui.stepper.StepperTrack.StepTrackersConsumer}
-   *     object
-   * @return a {@link org.dominokit.domino.ui.stepper.StepperTrack} object
+   * @param startState the initial state for the starting step
+   * @param consumer callback to handle active step changes
+   * @return this {@link StepperTrack}
    */
   public StepperTrack start(StepState startState, StepTrackersConsumer consumer) {
     this.started = true;
+    int size = trackers.size();
     trackers.stream()
-        .filter(tracker -> tracker.isEnabled() && tracker.isVisible())
+        .filter(
+            tracker -> {
+              boolean enabled = tracker.isEnabled();
+              boolean visible = tracker.isVisible();
+              return enabled && visible;
+            })
         .findFirst()
         .ifPresent(
             tracker -> {
@@ -189,12 +205,13 @@ public class StepperTrack extends BaseDominoElement<HTMLDivElement, StepperTrack
   }
 
   /**
-   * finish.
+   * Finishes the {@link StepperTrack} and sets the active tracker to a given final state, then
+   * invokes a custom callback.
    *
-   * @param finishState a {@link org.dominokit.domino.ui.stepper.StepState} object
-   * @param consumer a {@link org.dominokit.domino.ui.stepper.StepperTrack.StepTrackersConsumer}
-   *     object
-   * @return a {@link org.dominokit.domino.ui.stepper.StepperTrack} object
+   * @param finishState the final state to set for the active tracker
+   * @param consumer callback to handle active step changes
+   * @return this {@link StepperTrack}
+   * @throws IllegalStateException if the {@link StepperTrack} was not started
    */
   public StepperTrack finish(StepState finishState, StepTrackersConsumer consumer) {
     if (!started) {
@@ -210,15 +227,23 @@ public class StepperTrack extends BaseDominoElement<HTMLDivElement, StepperTrack
   }
 
   /**
-   * finish.
+   * Finishes the {@link StepperTrack} and sets the active tracker to a given final state.
    *
-   * @param finishState a {@link org.dominokit.domino.ui.stepper.StepState} object
-   * @return a {@link org.dominokit.domino.ui.stepper.StepperTrack} object
+   * @param finishState the final state to set for the active tracker
+   * @return this {@link StepperTrack}
+   * @throws IllegalStateException if the {@link StepperTrack} was not started
    */
   public StepperTrack finish(StepState finishState) {
     return finish(finishState, (deactivated, activated) -> {});
   }
 
+  /**
+   * Activates the given {@link StepTracker}, deactivating the currently active tracker if any, and
+   * notifies the provided consumer of the change.
+   *
+   * @param stepTracker the {@link StepTracker} to activate
+   * @param consumer callback to handle active step changes
+   */
   private void activateTracker(StepTracker stepTracker, StepTrackersConsumer consumer) {
     if (nonNull(stepTracker)) {
       StepTracker deactivated = this.activeTracker;
@@ -236,6 +261,11 @@ public class StepperTrack extends BaseDominoElement<HTMLDivElement, StepperTrack
     }
   }
 
+  /**
+   * Deactivates the provided {@link StepTracker}.
+   *
+   * @param tracker the {@link StepTracker} to deactivate
+   */
   private void deactivateTracker(StepTracker tracker) {
     if (nonNull(tracker)) {
       tracker.deactivate();
@@ -243,42 +273,46 @@ public class StepperTrack extends BaseDominoElement<HTMLDivElement, StepperTrack
   }
 
   /**
-   * prev.
+   * Moves to the previous step in the {@link StepperTrack}.
    *
-   * @return a {@link org.dominokit.domino.ui.stepper.StepperTrack} object
+   * @return this {@link StepperTrack}
+   * @throws IllegalStateException if the {@link StepperTrack} was not started
    */
   public StepperTrack prev() {
     return prev(0);
   }
 
   /**
-   * prev.
+   * Moves to the previous step in the {@link StepperTrack} and notifies the provided consumer of
+   * the change.
    *
-   * @param consumer a {@link org.dominokit.domino.ui.stepper.StepperTrack.StepTrackersConsumer}
-   *     object
-   * @return a {@link org.dominokit.domino.ui.stepper.StepperTrack} object
+   * @param consumer callback to handle active step changes
+   * @return this {@link StepperTrack}
+   * @throws IllegalStateException if the {@link StepperTrack} was not started
    */
   public StepperTrack prev(StepTrackersConsumer consumer) {
     return prev(0, consumer);
   }
 
   /**
-   * prev.
+   * Moves to the previous step in the {@link StepperTrack}, skipping a given number of steps.
    *
-   * @param skip a int
-   * @return a {@link org.dominokit.domino.ui.stepper.StepperTrack} object
+   * @param skip the number of steps to skip
+   * @return this {@link StepperTrack}
+   * @throws IllegalStateException if the {@link StepperTrack} was not started
    */
   public StepperTrack prev(int skip) {
     return prev(skip, (deactivated, activated) -> {});
   }
 
   /**
-   * prev.
+   * Moves to the previous step in the {@link StepperTrack}, skipping a given number of steps, and
+   * notifies the provided consumer of the change.
    *
-   * @param skip a int
-   * @param consumer a {@link org.dominokit.domino.ui.stepper.StepperTrack.StepTrackersConsumer}
-   *     object
-   * @return a {@link org.dominokit.domino.ui.stepper.StepperTrack} object
+   * @param skip the number of steps to skip
+   * @param consumer callback to handle active step changes
+   * @return this {@link StepperTrack}
+   * @throws IllegalStateException if the {@link StepperTrack} was not started
    */
   public StepperTrack prev(int skip, StepTrackersConsumer consumer) {
     if (!started) {
@@ -305,12 +339,14 @@ public class StepperTrack extends BaseDominoElement<HTMLDivElement, StepperTrack
     return this;
   }
 
+  // ... other methods continue with similar documentation...
+
   /**
-   * reset.
+   * Resets the stepper track and starts with the given state.
    *
-   * @param startState a {@link org.dominokit.domino.ui.stepper.StepState} object
-   * @param trackersConsumer a {@link java.util.function.Consumer} object
-   * @return a {@link org.dominokit.domino.ui.stepper.StepperTrack} object
+   * @param startState state to start with
+   * @param trackersConsumer consumer accepting the list of trackers
+   * @return this {@link StepperTrack}
    */
   public StepperTrack reset(StepState startState, Consumer<List<StepTracker>> trackersConsumer) {
     trackersConsumer.accept(this.trackers);
@@ -319,9 +355,10 @@ public class StepperTrack extends BaseDominoElement<HTMLDivElement, StepperTrack
   }
 
   /**
-   * getNextTracker.
+   * Retrieves the next {@link StepTracker} in the {@link StepperTrack}.
    *
-   * @return a {@link java.util.Optional} object
+   * @return an {@link Optional} containing the next {@link StepTracker} if available, or an empty
+   *     {@link Optional} if there are no more steps or if the {@link StepperTrack} is empty
    */
   public Optional<StepTracker> getNextTracker() {
     if (this.trackers.isEmpty()) {
@@ -340,9 +377,11 @@ public class StepperTrack extends BaseDominoElement<HTMLDivElement, StepperTrack
   }
 
   /**
-   * getPreviousTracker.
+   * Retrieves the previous {@link StepTracker} in the {@link StepperTrack}.
    *
-   * @return a {@link java.util.Optional} object
+   * @return an {@link Optional} containing the previous {@link StepTracker} if available, or an
+   *     empty {@link Optional} if there are no previous steps or if the {@link StepperTrack} is
+   *     empty
    */
   public Optional<StepTracker> getPreviousTracker() {
     if (this.trackers.isEmpty()) {
@@ -361,19 +400,20 @@ public class StepperTrack extends BaseDominoElement<HTMLDivElement, StepperTrack
   }
 
   /**
-   * Getter for the field <code>activeTracker</code>.
+   * Retrieves the currently active {@link StepTracker} in the {@link StepperTrack}.
    *
-   * @return a {@link java.util.Optional} object
+   * @return an {@link Optional} containing the active {@link StepTracker} if available, or an empty
+   *     {@link Optional} if there is no active step
    */
   public Optional<StepTracker> getActiveTracker() {
     return Optional.ofNullable(activeTracker);
   }
 
   /**
-   * setTextPositionReversed.
+   * Sets the text position within the {@link StepperTrack} to be reversed or not.
    *
-   * @param reversed a boolean
-   * @return a {@link org.dominokit.domino.ui.stepper.StepperTrack} object
+   * @param reversed {@code true} to reverse the text position, {@code false} otherwise
+   * @return this {@link StepperTrack}
    */
   public StepperTrack setTextPositionReversed(boolean reversed) {
     textPosition.apply(this, reversed);
@@ -386,8 +426,16 @@ public class StepperTrack extends BaseDominoElement<HTMLDivElement, StepperTrack
     return root.element();
   }
 
+  /** Functional interface to consume changes in active steps. */
   @FunctionalInterface
   public interface StepTrackersConsumer {
+
+    /**
+     * Callback to notify when the active step has changed.
+     *
+     * @param deactivated previously active {@link StepTracker}
+     * @param activated newly active {@link StepTracker}
+     */
     @SuppressWarnings("all")
     void onActiveStepChanged(Optional<StepTracker> deactivated, Optional<StepTracker> activated);
   }

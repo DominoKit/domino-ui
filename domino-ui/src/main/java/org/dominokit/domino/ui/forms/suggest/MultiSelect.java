@@ -26,80 +26,108 @@ import java.util.Set;
 import java.util.stream.Collectors;
 import org.dominokit.domino.ui.elements.DivElement;
 
-/** MultiSelect class. */
+/**
+ * Represents a multi-selection dropdown menu UI component, allowing users to select multiple
+ * options.
+ *
+ * <p><b>Usage example:</b>
+ *
+ * <pre>
+ * MultiSelect&lt;String&gt; multiSelect = MultiSelect.create("Select Items");
+ * multiSelect.withValue("Option1", "Option2");
+ * </pre>
+ *
+ * @param <V> the type of the value represented by each selectable option
+ * @see AbstractSelect
+ */
 public class MultiSelect<V>
     extends AbstractSelect<V, List<V>, DivElement, SelectOption<V>, MultiSelect<V>> {
 
   private Set<SelectOption<V>> selectedOptions = new HashSet<>();
 
   /**
-   * create.
+   * Creates a new instance of {@link MultiSelect} without any predefined label.
    *
-   * @param <V> a V class
-   * @return a {@link org.dominokit.domino.ui.forms.suggest.MultiSelect} object
+   * @param <V> the type of the value
+   * @return a new instance of {@link MultiSelect}
    */
   public static <V> MultiSelect<V> create() {
     return new MultiSelect<>();
   }
 
   /**
-   * create.
+   * Creates a new instance of {@link MultiSelect} with a predefined label.
    *
-   * @param label a {@link java.lang.String} object
-   * @param <V> a V class
-   * @return a {@link org.dominokit.domino.ui.forms.suggest.MultiSelect} object
+   * @param label the label for the {@link MultiSelect}
+   * @param <V> the type of the value
+   * @return a new instance of {@link MultiSelect}
    */
   public static <V> MultiSelect<V> create(String label) {
     return new MultiSelect<>(label);
   }
 
-  /** Constructor for MultiSelect. */
+  /** Default constructor initializing the options menu for multi-selection. */
   public MultiSelect() {
     optionsMenu.setMultiSelect(true);
   }
 
   /**
-   * Constructor for MultiSelect.
+   * Constructor with a predefined label.
    *
-   * @param label a {@link java.lang.String} object
+   * @param label the label for the {@link MultiSelect}
    */
   public MultiSelect(String label) {
     this();
     setLabel(label);
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Converts a single value to a list containing the value.
+   *
+   * @param singleValue the single value
+   * @return a list containing the single value
+   * @see AbstractSelect#asValue(Object)
+   */
   @Override
   protected List<V> asValue(V singleValue) {
     return Arrays.asList(singleValue);
   }
 
   /**
-   * withValue.
+   * Sets the value(s) of this {@link MultiSelect}.
    *
-   * @param value a V object
-   * @return a {@link org.dominokit.domino.ui.forms.suggest.MultiSelect} object
+   * @param value the values to set
+   * @return the current {@link MultiSelect} instance for chaining
    */
   public MultiSelect<V> withValue(V... value) {
     return withValue(isChangeListenersPaused(), value);
   }
 
   /**
-   * withValue.
+   * Sets the value(s) for this {@link MultiSelect} with the ability to silence the change
+   * listeners.
    *
-   * @param silent a boolean
-   * @param value a V object
-   * @return a {@link org.dominokit.domino.ui.forms.suggest.MultiSelect} object
+   * <p>This method allows specifying multiple values and whether the change should notify listeners
+   * or not.
+   *
+   * <p><b>Usage example:</b>
+   *
+   * <pre>
+   * MultiSelect&lt;String&gt; multiSelect = MultiSelect.create("Select Items");
+   * multiSelect.withValue(true, "Option1", "Option2"); // silent set
+   * multiSelect.withValue(false, "Option3", "Option4"); // non-silent set
+   * </pre>
+   *
+   * @param silent if {@code true}, change listeners will not be triggered; if {@code false}, they
+   *     will be triggered
+   * @param value the array of values to set
+   * @return the current {@link MultiSelect} instance for chaining
+   * @see #withValue(Object[])
    */
   public MultiSelect<V> withValue(boolean silent, V... value) {
     return withValue(Arrays.asList(value), silent);
   }
 
-  /**
-   * doSetValue.
-   *
-   * @param value a {@link java.util.List} object
-   */
   protected void doSetValue(List<V> value) {
     withPauseChangeListenersToggle(
         true,
@@ -107,23 +135,34 @@ public class MultiSelect<V>
             value.forEach(
                 v -> {
                   Optional<SelectOption<V>> optionByValue = findOptionByValue(v);
-                  optionByValue.ifPresent(this::onOptionSelected);
+                  optionByValue.ifPresent(
+                      vSelectOption -> onOptionSelected(vSelectOption, isChangeListenersPaused()));
                 }));
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Called when an option is selected.
+   *
+   * @param option the selected option
+   */
   @Override
-  protected void onOptionSelected(SelectOption<V> option) {
+  protected void onOptionSelected(SelectOption<V> option, boolean silent) {
     if (nonNull(this.selectedOptions) && this.selectedOptions.contains(option)) {
       return;
     }
-    withOption(option);
+    withOption(option, silent);
     updateTextValue();
     fieldInput.appendChild(option);
     selectedOptions.add(option);
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Adds an option to the {@link MultiSelect}.
+   *
+   * @param option the option to add
+   * @param silent if true, change listeners will not be triggered
+   * @return the current {@link MultiSelect} instance for chaining
+   */
   @Override
   public MultiSelect<V> withOption(SelectOption<V> option, boolean silent) {
     List<V> oldValue = getValue();
@@ -137,29 +176,45 @@ public class MultiSelect<V>
     return this;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Called when an option is deselected.
+   *
+   * @param option the deselected option
+   */
   @Override
-  protected void onOptionDeselected(SelectOption<V> option) {
+  protected void onOptionDeselected(SelectOption<V> option, boolean silent) {
     List<V> oldValue = getValue();
     if (nonNull(oldValue) && oldValue.contains(option.getValue())) {
       selectedOptions.remove(option);
       option.remove();
-      if (!isChangeListenersPaused()) {
+      if (!silent) {
         triggerChangeListeners(oldValue, getValue());
       }
     }
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Adds an option to the internal set of selected options.
+   *
+   * @param option the option to set
+   */
   @Override
   protected void doSetOption(SelectOption<V> option) {
     if (isNull(this.selectedOptions)) {
       this.selectedOptions = new HashSet<>();
     }
     this.selectedOptions.add(option);
+    if (nonNull(option)) {
+      optionsMenu.select(option.getMenuItem(), true);
+    }
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Retrieves a list of values representing all the selected options.
+   *
+   * @return a list of selected values
+   * @see AbstractSelect#getValue()
+   */
   @Override
   public List<V> getValue() {
     return this.selectedOptions.stream().map(Option::getValue).collect(Collectors.toList());

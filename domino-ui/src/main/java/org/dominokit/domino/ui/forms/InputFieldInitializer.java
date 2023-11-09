@@ -29,7 +29,14 @@ import org.dominokit.domino.ui.utils.ElementsFactory;
 import org.dominokit.domino.ui.utils.HasCounter;
 import org.dominokit.domino.ui.utils.HasMinMaxLength;
 
-/** InputFieldInitializer class. */
+/**
+ * The `InputFieldInitializer` class provides initialization and event handling for input fields
+ * within Domino UI forms.
+ *
+ * @param <T> The type of the form element.
+ * @param <V> The value type of the form element.
+ * @param <E> The type of the HTML element associated with the form element.
+ */
 public class InputFieldInitializer<T extends FormElement<T, V>, V, E extends HTMLElement>
     implements HasComponentConfig<FormsFieldsConfig> {
 
@@ -37,13 +44,13 @@ public class InputFieldInitializer<T extends FormElement<T, V>, V, E extends HTM
   private V oldValue;
 
   /**
-   * create.
+   * Creates a new `InputFieldInitializer` instance for the specified form element.
    *
-   * @param formElement a T object
-   * @param <T> a T class
-   * @param <V> a V class
-   * @param <E> a E class
-   * @return a {@link org.dominokit.domino.ui.forms.InputFieldInitializer} object
+   * @param formElement The form element to initialize.
+   * @param <T> The type of the form element.
+   * @param <V> The value type of the form element.
+   * @param <E> The type of the HTML element associated with the form element.
+   * @return A new `InputFieldInitializer` instance.
    */
   public static <T extends FormElement<T, V>, V, E extends HTMLElement>
       InputFieldInitializer<T, V, E> create(T formElement) {
@@ -51,9 +58,9 @@ public class InputFieldInitializer<T extends FormElement<T, V>, V, E extends HTM
   }
 
   /**
-   * Constructor for InputFieldInitializer.
+   * Creates a new `InputFieldInitializer` instance for the specified form element.
    *
-   * @param formElement a T object
+   * @param formElement The form element to initialize.
    */
   public InputFieldInitializer(T formElement) {
     this.formElement = formElement;
@@ -61,10 +68,11 @@ public class InputFieldInitializer<T extends FormElement<T, V>, V, E extends HTM
   }
 
   /**
-   * init.
+   * Initializes the input field associated with the form element and adds event listeners for
+   * change, focusout, and input events.
    *
-   * @param hasInput a {@link org.dominokit.domino.ui.forms.HasInputElement} object
-   * @return a {@link org.dominokit.domino.ui.forms.InputFieldInitializer} object
+   * @param hasInput The form element that has an input element.
+   * @return The current `InputFieldInitializer` instance.
    */
   public InputFieldInitializer<T, V, E> init(HasInputElement<T, E> hasInput) {
     DominoElement<E> inputElement = hasInput.getInputElement();

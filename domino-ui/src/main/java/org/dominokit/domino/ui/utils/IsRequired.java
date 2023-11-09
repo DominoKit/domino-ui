@@ -13,59 +13,59 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package org.dominokit.domino.ui.utils;
 
 import org.gwtproject.editor.client.Editor;
 
 /**
- * Components that need to have required value validation should implement this interface
+ * An interface representing a component that can be marked as required.
  *
- * @param <T> the type of the component implementing this interface
+ * @param <T> The type of the component that implements this interface.
  */
 public interface IsRequired<T> {
 
   /**
-   * setRequired.
+   * Sets whether the component is required.
    *
-   * @param required boolean, true to make the component value as required
-   * @return same implementing component instance
+   * @param required {@code true} if the component is required, {@code false} otherwise.
+   * @return The component instance after setting the required state.
    */
   @Editor.Ignore
   T setRequired(boolean required);
 
   /**
-   * setRequired.
+   * Sets whether the component is required along with a custom error message.
    *
-   * @param required boolean, true to make the component value required
-   * @param message String to show as error message when the value is missing
-   * @return same implementing component instance
+   * @param required {@code true} if the component is required, {@code false} otherwise.
+   * @param requiredMessage The custom error message to display if the component is empty and
+   *     required.
+   * @return The component instance after setting the required state and error message.
    */
   @Editor.Ignore
   T setRequired(boolean required, String message);
 
-  /** @return boolean, true if the component value is required */
   /**
-   * isRequired.
+   * Checks if the component is required.
    *
-   * @return a boolean
+   * @return {@code true} if the component is required, {@code false} otherwise.
    */
   @Editor.Ignore
   boolean isRequired();
 
   /**
-   * setRequiredErrorMessage.
+   * Sets the error message to display if the component is empty and required.
    *
-   * @param requiredErrorMessage String error message to show when the value is missing
-   * @return same implementing component instance
+   * @param requiredErrorMessage The error message to display.
+   * @return The component instance after setting the error message.
    */
   @Editor.Ignore
   T setRequiredErrorMessage(String requiredErrorMessage);
 
-  /** @return String required error message */
   /**
-   * getRequiredErrorMessage.
+   * Gets the current error message for the required state.
    *
-   * @return a {@link java.lang.String} object
+   * @return The current error message.
    */
   @Editor.Ignore
   String getRequiredErrorMessage();

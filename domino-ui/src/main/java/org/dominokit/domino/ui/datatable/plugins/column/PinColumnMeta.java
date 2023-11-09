@@ -13,6 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package org.dominokit.domino.ui.datatable.plugins.column;
 
 import static org.dominokit.domino.ui.datatable.plugins.column.PinColumnsPlugin.PIN_COLUMNS_CSS_RULE;
@@ -25,112 +26,127 @@ import org.dominokit.domino.ui.datatable.ColumnHeaderMeta;
 import org.dominokit.domino.ui.utils.ComponentMeta;
 import org.dominokit.domino.ui.utils.DominoCSSRule;
 
-/** PinColumnMeta class. */
+/**
+ * A meta class for handling pinned columns in a DataTable. It provides methods and information
+ * related to pinned columns.
+ *
+ * @see org.dominokit.domino.ui.datatable.plugins.column.PinColumnsPlugin
+ */
 public class PinColumnMeta implements ComponentMeta, PinColumnFunction {
 
   private final PinDirection direction;
 
-  /** Constant <code>PIN_COLUMN_META="pin-column-meta"</code> */
+  /** The meta key for PinColumnMeta. */
   public static final String PIN_COLUMN_META = "pin-column-meta";
 
   /**
-   * left.
+   * Creates a new PinColumnMeta instance for pinning columns to the left side of the DataTable.
    *
-   * @return a {@link org.dominokit.domino.ui.datatable.plugins.column.PinColumnMeta} object
+   * @return A PinColumnMeta instance for pinning columns to the left side.
    */
   public static PinColumnMeta left() {
     return new PinColumnMeta(PinDirection.LEFT);
   }
 
   /**
-   * right.
+   * Creates a new PinColumnMeta instance for pinning columns to the right side of the DataTable.
    *
-   * @return a {@link org.dominokit.domino.ui.datatable.plugins.column.PinColumnMeta} object
+   * @return A PinColumnMeta instance for pinning columns to the right side.
    */
   public static PinColumnMeta right() {
     return new PinColumnMeta(PinDirection.RIGHT);
   }
 
   /**
-   * get.
+   * Gets an optional PinColumnMeta for the specified column.
    *
-   * @param column a {@link org.dominokit.domino.ui.datatable.ColumnConfig} object
-   * @return a {@link java.util.Optional} object
+   * @param column The column for which to retrieve the PinColumnMeta.
+   * @return An Optional containing the PinColumnMeta if available, or an empty Optional if not.
    */
   public static Optional<PinColumnMeta> get(ColumnConfig<?> column) {
     return column.getMeta(PIN_COLUMN_META);
   }
 
   /**
-   * isPinLeft.
+   * Checks if the specified column is pinned to the left side.
    *
-   * @param column a {@link org.dominokit.domino.ui.datatable.ColumnConfig} object
-   * @return a boolean
+   * @param column The column to check.
+   * @return True if the column is pinned to the left side, false otherwise.
    */
   public static boolean isPinLeft(ColumnConfig<?> column) {
     return PinColumnMeta.get(column).isPresent() && PinColumnMeta.get(column).get().isLeftPin();
   }
 
   /**
-   * isPinRight.
+   * Checks if the specified column is pinned to the right side.
    *
-   * @param column a {@link org.dominokit.domino.ui.datatable.ColumnConfig} object
-   * @return a boolean
+   * @param column The column to check.
+   * @return True if the column is pinned to the right side, false otherwise.
    */
   public static boolean isPinRight(ColumnConfig<?> column) {
     return PinColumnMeta.get(column).isPresent() && PinColumnMeta.get(column).get().isRightPin();
   }
 
   /**
-   * isPinned.
+   * Checks if the specified column is pinned either to the left or right side.
    *
-   * @param column a {@link org.dominokit.domino.ui.datatable.ColumnConfig} object
-   * @return a boolean
+   * @param column The column to check.
+   * @return True if the column is pinned, false otherwise.
    */
   public static boolean isPinned(ColumnConfig<?> column) {
     return (PinColumnMeta.isPinLeft(column) || PinColumnMeta.isPinRight(column));
   }
 
   /**
-   * Constructor for PinColumnMeta.
+   * Creates a new PinColumnMeta instance with the specified pin direction.
    *
-   * @param direction a {@link
-   *     org.dominokit.domino.ui.datatable.plugins.column.PinColumnMeta.PinDirection} object
+   * @param direction The pin direction.
    */
   public PinColumnMeta(PinDirection direction) {
     this.direction = direction;
   }
 
   /**
-   * isLeftPin.
+   * Checks if the column is pinned to the left side.
    *
-   * @return a boolean
+   * @return True if the column is pinned to the left side, false otherwise.
    */
   public boolean isLeftPin() {
     return PinDirection.LEFT.equals(direction);
   }
 
   /**
-   * isRightPin.
+   * Checks if the column is pinned to the right side.
    *
-   * @return a boolean
+   * @return True if the column is pinned to the right side, false otherwise.
    */
   public boolean isRightPin() {
     return PinDirection.RIGHT.equals(direction);
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Gets the meta key associated with PinColumnMeta.
+   *
+   * @return The meta key.
+   */
   @Override
   public String getKey() {
     return PIN_COLUMN_META;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Pins the specified column at the given position.
+   *
+   * @param column The column to be pinned.
+   * @param position The position at which to pin the column.
+   * @return The new position of the column after pinning.
+   */
   @Override
   public double pin(ColumnConfig<?> column, double position) {
     return direction.pin(column, position);
   }
 
+  /** Enumeration representing the pin direction for columns. */
   public enum PinDirection implements PinColumnFunction {
     LEFT(PinDirection::pinHeaderLeft),
     RIGHT(PinColumnMeta::pinHeaderRight);
@@ -141,6 +157,14 @@ public class PinColumnMeta implements ComponentMeta, PinColumnFunction {
       this.pinColumnFunction = pinColumnFunction;
     }
 
+    /**
+     * Pins the header of the column to the left.
+     *
+     * @param <T> The data type of the column.
+     * @param column The column to be pinned.
+     * @param left The position to pin the column.
+     * @return The new position of the column after pinning.
+     */
     private static <T> double pinHeaderLeft(ColumnConfig<T> column, double left) {
       ColumnCssRuleMeta.get(column)
           .flatMap(cssMeta -> cssMeta.getColumnCssRule(PIN_COLUMNS_CSS_RULE))
@@ -179,12 +203,28 @@ public class PinColumnMeta implements ComponentMeta, PinColumnFunction {
       return left + column.getHeadElement().getBoundingClientRect().width;
     }
 
+    /**
+     * Pins a column to a specified position in a DataTable. Implementing classes must provide the
+     * logic for pinning the column.
+     *
+     * @param column The column to be pinned.
+     * @param position The position to pin the column.
+     * @return The new position of the column after pinning.
+     */
     @Override
     public double pin(ColumnConfig<?> column, double position) {
       return pinColumnFunction.pin(column, position);
     }
   }
 
+  /**
+   * Pins the header of the column to the right.
+   *
+   * @param <T> The data type of the column.
+   * @param column The column to be pinned.
+   * @param right The position to pin the column.
+   * @return The new position of the column after pinning.
+   */
   private static <T> double pinHeaderRight(ColumnConfig<T> column, double right) {
     ColumnCssRuleMeta.get(column)
         .flatMap(cssMeta -> cssMeta.getColumnCssRule(PIN_COLUMNS_CSS_RULE))

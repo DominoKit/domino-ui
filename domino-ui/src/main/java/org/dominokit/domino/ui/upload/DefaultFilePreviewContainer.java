@@ -20,33 +20,55 @@ import org.dominokit.domino.ui.grid.Row;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
 import org.dominokit.domino.ui.utils.ChildHandler;
 
-/** DefaultFilePreviewContainer class. */
+/**
+ * Represents a container for file previews in the default file upload component.
+ *
+ * <p>This container is used to organize and display file previews for uploaded files.
+ *
+ * @see BaseDominoElement
+ */
 public class DefaultFilePreviewContainer
     extends BaseDominoElement<HTMLDivElement, DefaultFilePreviewContainer>
     implements FilePreviewContainer<HTMLDivElement, DefaultFilePreviewContainer>, FileUploadStyles {
 
+  /** The root row element that holds the file previews. */
   private final Row rootRow;
 
-  /** Constructor for DefaultFilePreviewContainer. */
+  /** Constructs a new {@code DefaultFilePreviewContainer}. */
   public DefaultFilePreviewContainer() {
     rootRow = Row.create().addCss(dui_gap_2).addCss(dui_file_preview_container);
     init(this);
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Appends a file preview to the container.
+   *
+   * @param fileItem The file item representing the file to be previewed.
+   * @return This {@code DefaultFilePreviewContainer} instance for method chaining.
+   */
   @Override
   public DefaultFilePreviewContainer appendChild(FileItem fileItem) {
     rootRow.span2(fileItem);
     return this;
   }
 
+  /**
+   * Configures the container with a row.
+   *
+   * @param handler The child handler to configure the container with a row.
+   * @return This {@code DefaultFilePreviewContainer} instance for method chaining.
+   */
   public DefaultFilePreviewContainer withRow(
       ChildHandler<DefaultFilePreviewContainer, Row> handler) {
     handler.apply(this, rootRow);
     return this;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Retrieves the HTML element of this container.
+   *
+   * @return The {@link HTMLDivElement} representing this container.
+   */
   @Override
   public HTMLDivElement element() {
     return rootRow.element();

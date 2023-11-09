@@ -49,13 +49,26 @@ import org.dominokit.domino.ui.utils.PrefixAddOn;
 import org.dominokit.domino.ui.utils.TreeParent;
 
 /**
- * A component representing the tree item
+ * Represents a tree item in a tree structure.
  *
- * @param <T> the type of the value object inside the item
- * @see TreeParent
- * @see CanActivate
- * @see CanDeactivate
- * @see HasClickableElement
+ * <p>TreeItem is a component that can be used to build hierarchical tree structures. Each tree item
+ * can have child tree items, and they can be expanded or collapsed. TreeItem supports icons,
+ * selection, and filtering.
+ *
+ * <p>Usage example:
+ *
+ * <pre>
+ * // Create a tree item with an icon and title
+ * TreeItem<String> treeItem = new TreeItem<>(Icon.create("folder"), "Folder 1");
+ *
+ * // Add child tree items
+ * TreeItem<String> childItem1 = TreeItem.create("Child 1");
+ * TreeItem<String> childItem2 = TreeItem.create("Child 2");
+ * treeItem.appendChild(childItem1);
+ * treeItem.appendChild(childItem2);
+ * </pre>
+ *
+ * @see BaseDominoElement
  */
 public class TreeItem<T> extends BaseDominoElement<HTMLLIElement, TreeItem<T>>
     implements TreeParent<T>,
@@ -110,6 +123,7 @@ public class TreeItem<T> extends BaseDominoElement<HTMLLIElement, TreeItem<T>>
         }
       };
 
+  /** Constructs a new TreeItem instance. */
   private TreeItem() {
     this.element =
         li().addCss(dui_tree_item)
@@ -127,10 +141,10 @@ public class TreeItem<T> extends BaseDominoElement<HTMLLIElement, TreeItem<T>>
   }
 
   /**
-   * Constructor for TreeItem.
+   * Constructs a new TreeItem instance with an icon and title.
    *
-   * @param icon a {@link org.dominokit.domino.ui.icons.Icon} object
-   * @param title a {@link java.lang.String} object
+   * @param icon The icon to be displayed for the tree item.
+   * @param title The title of the tree item.
    */
   public TreeItem(Icon<?> icon, String title) {
     this();
@@ -140,9 +154,9 @@ public class TreeItem<T> extends BaseDominoElement<HTMLLIElement, TreeItem<T>>
   }
 
   /**
-   * Constructor for TreeItem.
+   * Constructs a new TreeItem instance with a title.
    *
-   * @param title a {@link java.lang.String} object
+   * @param title The title of the tree item.
    */
   public TreeItem(String title) {
     this();
@@ -151,9 +165,9 @@ public class TreeItem<T> extends BaseDominoElement<HTMLLIElement, TreeItem<T>>
   }
 
   /**
-   * Constructor for TreeItem.
+   * Constructs a new TreeItem instance with an icon.
    *
-   * @param icon a {@link org.dominokit.domino.ui.icons.Icon} object
+   * @param icon The icon to be displayed for the tree item.
    */
   public TreeItem(Icon<?> icon) {
     this();
@@ -162,10 +176,10 @@ public class TreeItem<T> extends BaseDominoElement<HTMLLIElement, TreeItem<T>>
   }
 
   /**
-   * Constructor for TreeItem.
+   * Constructs a new TreeItem instance with a title and a value.
    *
-   * @param title a {@link java.lang.String} object
-   * @param value a T object
+   * @param title The title of the tree item.
+   * @param value The value associated with the tree item.
    */
   public TreeItem(String title, T value) {
     this(title);
@@ -173,11 +187,11 @@ public class TreeItem<T> extends BaseDominoElement<HTMLLIElement, TreeItem<T>>
   }
 
   /**
-   * Constructor for TreeItem.
+   * Constructs a new TreeItem instance with an icon, title, and a value.
    *
-   * @param icon a {@link org.dominokit.domino.ui.icons.Icon} object
-   * @param title a {@link java.lang.String} object
-   * @param value a T object
+   * @param icon The icon to be displayed for the tree item.
+   * @param title The title of the tree item.
+   * @param value The value associated with the tree item.
    */
   public TreeItem(Icon<?> icon, String title, T value) {
     this(icon, title);
@@ -185,10 +199,10 @@ public class TreeItem<T> extends BaseDominoElement<HTMLLIElement, TreeItem<T>>
   }
 
   /**
-   * Constructor for TreeItem.
+   * Constructs a new TreeItem instance with an icon and a value.
    *
-   * @param icon a {@link org.dominokit.domino.ui.icons.Icon} object
-   * @param value a T object
+   * @param icon The icon to be displayed for the tree item.
+   * @param value The value associated with the tree item.
    */
   public TreeItem(Icon<?> icon, T value) {
     this(icon);
@@ -196,10 +210,10 @@ public class TreeItem<T> extends BaseDominoElement<HTMLLIElement, TreeItem<T>>
   }
 
   /**
-   * Creates new tree item with a title
+   * Creates a new TreeItem instance with the given title.
    *
-   * @param title the title of the item
-   * @return new instance
+   * @param title The title of the tree item.
+   * @return A new TreeItem instance with the specified title.
    */
   public static TreeItem<String> create(String title) {
     TreeItem<String> treeItem = new TreeItem<>(title);
@@ -208,11 +222,11 @@ public class TreeItem<T> extends BaseDominoElement<HTMLLIElement, TreeItem<T>>
   }
 
   /**
-   * Creates new tree item with a title and an icon
+   * Creates a new TreeItem instance with the given icon and title.
    *
-   * @param icon the item's {@link org.dominokit.domino.ui.icons.Icon}
-   * @param title the title of the item
-   * @return new instance
+   * @param icon The icon to be displayed for the tree item.
+   * @param title The title of the tree item.
+   * @return A new TreeItem instance with the specified icon and title.
    */
   public static TreeItem<String> create(Icon<?> icon, String title) {
     TreeItem<String> treeItem = new TreeItem<>(icon, title);
@@ -221,10 +235,10 @@ public class TreeItem<T> extends BaseDominoElement<HTMLLIElement, TreeItem<T>>
   }
 
   /**
-   * Creates new tree item with an icon
+   * Creates a new TreeItem instance with the given icon.
    *
-   * @param icon the item's {@link org.dominokit.domino.ui.icons.Icon}
-   * @return new instance
+   * @param icon The icon to be displayed for the tree item.
+   * @return A new TreeItem instance with the specified icon.
    */
   public static TreeItem<String> create(Icon<?> icon) {
     TreeItem<String> treeItem = new TreeItem<>(icon);
@@ -233,37 +247,37 @@ public class TreeItem<T> extends BaseDominoElement<HTMLLIElement, TreeItem<T>>
   }
 
   /**
-   * Creates new tree item with a title and a value
+   * Creates a new TreeItem instance with the given title and value.
    *
-   * @param title the title of the item
-   * @param value the value of the item
-   * @param <T> the type of the value
-   * @return new instance
+   * @param title The title of the tree item.
+   * @param value The value associated with the tree item.
+   * @param <T> The type of the value.
+   * @return A new TreeItem instance with the specified title and value.
    */
   public static <T> TreeItem<T> create(String title, T value) {
     return new TreeItem<>(title, value);
   }
 
   /**
-   * Creates new tree item with a title, an icon and a value
+   * Creates a new TreeItem instance with the given icon, title, and value.
    *
-   * @param title the title of the item
-   * @param icon the item's {@link org.dominokit.domino.ui.icons.Icon}
-   * @param value the value of the item
-   * @param <T> the type of the value
-   * @return new instance
+   * @param icon The icon to be displayed for the tree item.
+   * @param title The title of the tree item.
+   * @param value The value associated with the tree item.
+   * @param <T> The type of the value.
+   * @return A new TreeItem instance with the specified icon, title, and value.
    */
   public static <T> TreeItem<T> create(Icon<?> icon, String title, T value) {
     return new TreeItem<>(icon, title, value);
   }
 
   /**
-   * Creates new tree item with an icon and a value
+   * Creates a new TreeItem instance with the given icon and value.
    *
-   * @param icon the item's {@link org.dominokit.domino.ui.icons.Icon}
-   * @param value the value of the item
-   * @param <T> the type of the value
-   * @return new instance
+   * @param icon The icon to be displayed for the tree item.
+   * @param value The value associated with the tree item.
+   * @param <T> The type of the value.
+   * @return A new TreeItem instance with the specified icon and value.
    */
   public static <T> TreeItem<T> create(Icon<?> icon, T value) {
     return new TreeItem<>(icon, value);
@@ -296,10 +310,10 @@ public class TreeItem<T> extends BaseDominoElement<HTMLLIElement, TreeItem<T>>
   }
 
   /**
-   * Adds a child item to this one
+   * Appends a child tree item to this tree item.
    *
-   * @param treeItem the child {@link org.dominokit.domino.ui.tree.TreeItem}
-   * @return same instance
+   * @param treeItem The child tree item to append.
+   * @return This tree item with the child tree item appended.
    */
   public TreeItem<T> appendChild(TreeItem<T> treeItem) {
     this.subItems.add(treeItem);
@@ -321,10 +335,10 @@ public class TreeItem<T> extends BaseDominoElement<HTMLLIElement, TreeItem<T>>
   }
 
   /**
-   * appendChild.
+   * Appends a postfix add-on to the content of this tree item.
    *
-   * @param postfixAddOn a {@link org.dominokit.domino.ui.utils.PostfixAddOn} object
-   * @return a {@link org.dominokit.domino.ui.tree.TreeItem} object
+   * @param postfixAddOn The postfix add-on to append.
+   * @return This tree item with the postfix add-on appended.
    */
   public TreeItem<T> appendChild(PostfixAddOn<?> postfixAddOn) {
     contentElement.appendChild(postfixAddOn);
@@ -332,10 +346,10 @@ public class TreeItem<T> extends BaseDominoElement<HTMLLIElement, TreeItem<T>>
   }
 
   /**
-   * appendChild.
+   * Appends a prefix add-on to the content of this tree item.
    *
-   * @param prefixAddOn a {@link org.dominokit.domino.ui.utils.PrefixAddOn} object
-   * @return a {@link org.dominokit.domino.ui.tree.TreeItem} object
+   * @param prefixAddOn The prefix add-on to append.
+   * @return This tree item with the prefix add-on appended.
    */
   public TreeItem<T> appendChild(PrefixAddOn<?> prefixAddOn) {
     contentElement.appendChild(prefixAddOn);
@@ -362,9 +376,9 @@ public class TreeItem<T> extends BaseDominoElement<HTMLLIElement, TreeItem<T>>
   }
 
   /**
-   * Adds new separator
+   * Adds a separator to this tree item.
    *
-   * @return same instance
+   * @return This tree item with a separator added.
    */
   public TreeItem<T> addSeparator() {
     subTree.appendChild(li().addCss(dui_separator));
@@ -372,10 +386,10 @@ public class TreeItem<T> extends BaseDominoElement<HTMLLIElement, TreeItem<T>>
   }
 
   /**
-   * Sets what is the target for toggling an item
+   * Sets the toggle target for this tree item.
    *
-   * @param toggleTarget the {@link org.dominokit.domino.ui.tree.ToggleTarget}
-   * @return same instance
+   * @param toggleTarget The toggle target to set.
+   * @return This tree item with the toggle target set.
    */
   public TreeItem<T> setToggleTarget(ToggleTarget toggleTarget) {
     if (nonNull(toggleTarget)) {
@@ -405,17 +419,21 @@ public class TreeItem<T> extends BaseDominoElement<HTMLLIElement, TreeItem<T>>
     }
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Expands the tree node represented by this tree item.
+   *
+   * @return This tree item with the node expanded.
+   */
   @Override
   public TreeItem<T> expandNode() {
     return show(false);
   }
 
   /**
-   * Shows the item
+   * Shows the tree node represented by this tree item.
    *
-   * @param expandParent true to expand the parent of the item
-   * @return same instance
+   * @param expandParent {@code true} to expand the parent nodes, {@code false} otherwise.
+   * @return This tree item with the node shown.
    */
   public TreeItem<T> show(boolean expandParent) {
     if (isParent()) {
@@ -426,14 +444,25 @@ public class TreeItem<T> extends BaseDominoElement<HTMLLIElement, TreeItem<T>>
     }
     return this;
   }
-
-  /** {@inheritDoc} */
+  /**
+   * Expands the tree node represented by this tree item. If the 'expandParent' parameter is true,
+   * parent nodes will also be expanded. This method returns the current TreeItem instance.
+   *
+   * @param expandParent True to expand parent nodes, false to expand only the current node.
+   * @return The current TreeItem instance.
+   */
   @Override
   public TreeItem<T> expandNode(boolean expandParent) {
     return show(expandParent);
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Toggles the collapse/expand state of the tree item. If the tree item is a parent (i.e., it has
+   * sub-items), it will toggle its collapse/expand state. This method returns the current TreeItem
+   * instance.
+   *
+   * @return The current TreeItem instance.
+   */
   @Override
   public TreeItem<T> toggleCollapse() {
     if (isParent()) {
@@ -442,25 +471,42 @@ public class TreeItem<T> extends BaseDominoElement<HTMLLIElement, TreeItem<T>>
     return this;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Returns the HTML list item element associated with this tree item.
+   *
+   * @return The HTML list item element associated with this tree item.
+   */
   @Override
   public HTMLLIElement element() {
     return element.element();
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Returns the currently active (selected) tree item within the tree structure.
+   *
+   * @return The currently active TreeItem instance.
+   */
   @Override
   public TreeItem<T> getActiveItem() {
     return activeTreeItem;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Returns the root of the tree structure to which this tree item belongs.
+   *
+   * @return The root Tree instance.
+   */
   @Override
   public Tree<T> getTreeRoot() {
     return parent.getTreeRoot();
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Returns an optional parent of this tree item. If the parent exists and is a TreeItem, it
+   * returns an Optional containing the parent; otherwise, it returns an empty Optional.
+   *
+   * @return An Optional containing the parent TreeItem or an empty Optional.
+   */
   @Override
   public Optional<TreeParent<T>> getParent() {
     if (parent instanceof TreeItem) {
@@ -470,13 +516,24 @@ public class TreeItem<T> extends BaseDominoElement<HTMLLIElement, TreeItem<T>>
     }
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Sets the currently active (selected) tree item within the tree structure.
+   *
+   * @param activeItem The TreeItem to set as the active item.
+   */
   @Override
   public void setActiveItem(TreeItem<T> activeItem) {
-    setActiveItem(activeItem, false);
+    setActiveItem(activeItem, isSelectionListenersPaused());
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Sets the currently active (selected) tree item within the tree structure. The 'silent'
+   * parameter allows you to control whether triggering selection and deselection listeners should
+   * be done silently without notifications. This method returns void.
+   *
+   * @param activeItem The TreeItem to set as the active item.
+   * @param silent True to suppress listener notifications; false to trigger listeners.
+   */
   @Override
   public void setActiveItem(TreeItem<T> activeItem, boolean silent) {
     TreeItem<T> source = null;
@@ -501,11 +558,10 @@ public class TreeItem<T> extends BaseDominoElement<HTMLLIElement, TreeItem<T>>
     }
   }
 
-  /** @return A list of tree items representing the path for this item */
   /**
-   * getPath.
+   * Returns the path to this tree item.
    *
-   * @return a {@link java.util.List} object
+   * @return A list of tree items representing the path to this item, starting from the root.
    */
   public List<TreeItem<T>> getPath() {
     List<TreeItem<T>> items = new ArrayList<>();
@@ -522,11 +578,10 @@ public class TreeItem<T> extends BaseDominoElement<HTMLLIElement, TreeItem<T>>
     return items;
   }
 
-  /** @return A list of values representing the path for this item */
   /**
-   * getPathValues.
+   * Returns the values associated with the path to this tree item.
    *
-   * @return a {@link java.util.List} object
+   * @return A list of values representing the path to this item, starting from the root.
    */
   public List<T> getPathValues() {
     List<T> values = new ArrayList<>();
@@ -543,13 +598,21 @@ public class TreeItem<T> extends BaseDominoElement<HTMLLIElement, TreeItem<T>>
     return values;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Activates (selects) this tree item without activating its parent items. This method returns
+   * void.
+   */
   @Override
   public void activate() {
     activate(false);
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Activates (selects) this tree item. If 'activateParent' is true, it also activates its parent
+   * items in the tree structure. This method returns void.
+   *
+   * @param activateParent True to activate parent items, false to activate only this item.
+   */
   @Override
   public void activate(boolean activateParent) {
     addCss(dui_active);
@@ -559,7 +622,11 @@ public class TreeItem<T> extends BaseDominoElement<HTMLLIElement, TreeItem<T>>
     updateIcon(isCollapsed());
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Deactivates (deselects) this tree item and any of its sub-items if it is a parent. If
+   * auto-collapse is enabled in the tree root, it will collapse the tree item as well. This method
+   * returns void.
+   */
   @Override
   public void deactivate() {
     dui_active.remove(this);
@@ -572,17 +639,22 @@ public class TreeItem<T> extends BaseDominoElement<HTMLLIElement, TreeItem<T>>
     updateIcon(isCollapsed());
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Returns the clickable HTML anchor element associated with this tree item.
+   *
+   * @return The clickable HTML anchor element.
+   */
   @Override
   public HTMLAnchorElement getClickableElement() {
     return anchorElement.element();
   }
 
   /**
-   * Sets the icon of the item
+   * Sets the icon for this tree item. If the 'icon' parameter is not null, it replaces the existing
+   * icon with the new one. This method returns the current TreeItem instance.
    *
-   * @param icon the new {@link org.dominokit.domino.ui.icons.Icon}
-   * @return same instance
+   * @param icon The new icon to set.
+   * @return The current TreeItem instance.
    */
   public TreeItem<T> setIcon(Icon<?> icon) {
     if (nonNull(itemIcon)) {
@@ -617,29 +689,38 @@ public class TreeItem<T> extends BaseDominoElement<HTMLLIElement, TreeItem<T>>
     return this;
   }
 
+  /**
+   * Checks if this tree item is a parent (has sub-items).
+   *
+   * @return True if this tree item is a parent, false otherwise.
+   */
   boolean isParent() {
     return !subItems.isEmpty();
   }
 
+  /**
+   * Sets the parent tree node for this tree item.
+   *
+   * @param parentTree The parent tree node.
+   */
   void setParent(TreeParent<T> parentTree) {
     this.parent = parentTree;
   }
 
-  /** @return the title of the item */
   /**
-   * Getter for the field <code>title</code>.
+   * Retrieves the title of this tree item.
    *
-   * @return a {@link java.lang.String} object
+   * @return The title of this tree item.
    */
   public String getTitle() {
     return title;
   }
 
   /**
-   * Filter this item based on the search token
+   * Filters this tree item and its children based on a search token.
    *
-   * @param searchToken the search token
-   * @return true if this item should be shown, false otherwise
+   * @param searchToken The search token to filter by.
+   * @return True if this tree item or any of its children match the search token, false otherwise.
    */
   public boolean filter(String searchToken) {
     boolean found;
@@ -665,13 +746,20 @@ public class TreeItem<T> extends BaseDominoElement<HTMLLIElement, TreeItem<T>>
     }
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Checks if this tree item should be automatically expanded when it's found during a search
+   * operation.
+   *
+   * @return True if this tree item should be automatically expanded when found, false otherwise.
+   */
   @Override
   public boolean isAutoExpandFound() {
     return getTreeRoot().isAutoExpandFound();
   }
 
-  /** Clears the filter applied */
+  /**
+   * Clears the filter applied to this tree item and its children, restoring their original state.
+   */
   public void clearFilter() {
     if (nonNull(originalState)) {
       if (isExpanded() != originalState.expanded) {
@@ -688,10 +776,10 @@ public class TreeItem<T> extends BaseDominoElement<HTMLLIElement, TreeItem<T>>
   }
 
   /**
-   * Filters the children and make sure the filter is applied to all children
+   * Filters the children of this tree item based on a search token.
    *
-   * @param searchToken the search token
-   * @return true of one of the children matches the search token, false otherwise
+   * @param searchToken The search token to filter children by.
+   * @return True if any of the children match the search token, false otherwise.
    */
   public boolean filterChildren(String searchToken) {
     // We use the noneMatch here instead of anyMatch to make sure we are looping all children
@@ -699,7 +787,7 @@ public class TreeItem<T> extends BaseDominoElement<HTMLLIElement, TreeItem<T>>
     return subItems.stream().filter(treeItem -> treeItem.filter(searchToken)).count() > 0;
   }
 
-  /** Collapse all children */
+  /** Collapses all sub-items under this tree item recursively. */
   public void collapseAll() {
     if (isParent() && !isCollapsed()) {
       addCss(dui_transition_none);
@@ -709,7 +797,7 @@ public class TreeItem<T> extends BaseDominoElement<HTMLLIElement, TreeItem<T>>
     }
   }
 
-  /** Expand all children */
+  /** Expands all sub-items under this tree item recursively. */
   public void expandAll() {
     if (isParent() && isCollapsed()) {
       addCss(dui_transition_none);
@@ -719,54 +807,65 @@ public class TreeItem<T> extends BaseDominoElement<HTMLLIElement, TreeItem<T>>
     }
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Retrieves the Waves effect element associated with this tree item.
+   *
+   * @return The Waves effect element.
+   */
   @Override
   public Element getWavesElement() {
     return anchorElement.element();
   }
 
-  /** @return true if this item does not have children, false otherwise */
   /**
-   * isLeaf.
+   * Checks if this tree item is a leaf (has no sub-items).
    *
-   * @return a boolean
+   * @return True if this tree item is a leaf, false otherwise.
    */
   public boolean isLeaf() {
     return subItems.isEmpty();
   }
 
-  /** @return the list of all sub {@link TreeItem} */
-  /** {@inheritDoc} */
+  /**
+   * Gets the list of sub-items under this tree item.
+   *
+   * @return The list of sub-items.
+   */
   @Override
   public List<TreeItem<T>> getSubItems() {
     return subItems;
   }
 
-  /** Selects this item, the item will be shown and activated */
+  /**
+   * Selects (shows and activates) this tree item. This method expands the item and activates it.
+   */
   public void select() {
     this.show(true).activate(true);
   }
 
-  /** @return the value of the item */
   /**
-   * Getter for the field <code>value</code>.
+   * Retrieves the value associated with this tree item.
    *
-   * @return a T object
+   * @return The value associated with this tree item.
    */
   public T getValue() {
     return value;
   }
 
   /**
-   * Sets the value of the item
+   * Sets the value associated with this tree item.
    *
-   * @param value the value
+   * @param value The new value to set.
    */
   public void setValue(T value) {
     this.value = value;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Removes a sub-item from this tree item.
+   *
+   * @param item The sub-item to remove.
+   */
   @Override
   public void removeItem(TreeItem<T> item) {
     if (subItems.contains(item)) {
@@ -779,45 +878,51 @@ public class TreeItem<T> extends BaseDominoElement<HTMLLIElement, TreeItem<T>>
   }
 
   /**
-   * Remove all the TreeItem sub-items.
+   * Clears all sub-items from this tree item.
    *
-   * @return same TreeItem instance
+   * @return The current TreeItem instance after clearing all sub-items.
    */
   public TreeItem<T> clear() {
     new ArrayList<>(subItems).forEach(TreeItem::remove);
     return this;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Removes this tree item from its parent.
+   *
+   * @return The current TreeItem instance after removal.
+   */
   @Override
   public TreeItem<T> remove() {
     getParent().ifPresent(itemParent -> itemParent.removeItem(this));
     return super.remove();
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Retrieves the filter associated with this tree item, which is typically inherited from its
+   * parent.
+   *
+   * @return The filter associated with this tree item.
+   */
   @Override
   public TreeItemFilter<TreeItem<T>> getFilter() {
     return parent.getFilter();
   }
 
-  /** @return The {@link HTMLElement} that contains the title of this TreeItem */
   /**
-   * Getter for the field <code>textElement</code>.
+   * Retrieves the text element associated with this tree item.
    *
-   * @return a {@link org.dominokit.domino.ui.elements.SpanElement} object
+   * @return The text element.
    */
   public SpanElement getTextElement() {
     return textElement.get();
   }
 
   /**
-   * Change the title of a TreeItem, If the TreeItem was created without a value and the title is
-   * used as a value then it will not change when the title is changed to change the value a call to
-   * {@link #setValue(T)} should be called
+   * Sets the title of this tree item and updates the text content of the associated text element.
    *
-   * @param title String title to set
-   * @return same TreeItem instance
+   * @param title The new title to set.
+   * @return The current TreeItem instance.
    */
   public TreeItem<T> setTitle(String title) {
     this.title = title;
@@ -825,16 +930,20 @@ public class TreeItem<T> extends BaseDominoElement<HTMLLIElement, TreeItem<T>>
     return this;
   }
 
-  /** @return the {@link HTMLUListElement} that contains the tree items */
   /**
-   * Getter for the field <code>subTree</code>.
+   * Retrieves the `UListElement` that represents the sub-tree of this tree item.
    *
-   * @return a {@link org.dominokit.domino.ui.elements.UListElement} object
+   * @return The `UListElement` representing the sub-tree.
    */
   public UListElement getSubTree() {
     return subTree;
   }
 
+  /**
+   * Handles changes in the supplied icon for this tree item and its sub-items.
+   *
+   * @param iconSupplier The icon supplier responsible for creating icons.
+   */
   void onSuppliedIconChanged(Tree.TreeItemIconSupplier<T> iconSupplier) {
     Icon<?> icon = iconSupplier.createIcon(this);
     if (nonNull(icon) && isNull(itemIcon)) {
@@ -843,47 +952,78 @@ public class TreeItem<T> extends BaseDominoElement<HTMLLIElement, TreeItem<T>>
     }
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Pauses selection listeners for this tree item.
+   *
+   * @return The current TreeItem instance after pausing selection listeners.
+   */
   @Override
   public TreeItem<T> pauseSelectionListeners() {
     this.selectionListenersPaused = true;
     return this;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Resumes selection listeners for this tree item.
+   *
+   * @return The current TreeItem instance after resuming selection listeners.
+   */
   @Override
   public TreeItem<T> resumeSelectionListeners() {
     this.selectionListenersPaused = false;
     return this;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Toggles the pause state of selection listeners.
+   *
+   * @param toggle True to pause selection listeners, false to resume them.
+   * @return The current TreeItem instance after toggling selection listeners.
+   */
   @Override
   public TreeItem<T> togglePauseSelectionListeners(boolean toggle) {
     this.selectionListenersPaused = toggle;
     return this;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Retrieves the set of selection listeners associated with this tree item.
+   *
+   * @return The set of selection listeners.
+   */
   @Override
   public Set<SelectionListener<? super TreeItem<T>, ? super TreeItem<T>>> getSelectionListeners() {
     return this.selectionListeners;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Retrieves the set of deselection listeners associated with this tree item.
+   *
+   * @return The set of deselection listeners.
+   */
   @Override
   public Set<SelectionListener<? super TreeItem<T>, ? super TreeItem<T>>>
       getDeselectionListeners() {
     return this.deselectionListeners;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Checks if selection listeners for this tree item are currently paused.
+   *
+   * @return True if selection listeners are paused, false otherwise.
+   */
   @Override
   public boolean isSelectionListenersPaused() {
     return this.selectionListenersPaused;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Triggers selection listeners for this tree item when a selection event occurs.
+   *
+   * @param source The source tree item that triggered the event.
+   * @param selection The selected tree item.
+   * @return The current TreeItem instance after triggering selection listeners.
+   */
   @Override
   public TreeItem<T> triggerSelectionListeners(TreeItem<T> source, TreeItem<T> selection) {
     if (!isSelectionListenersPaused()) {
@@ -894,7 +1034,13 @@ public class TreeItem<T> extends BaseDominoElement<HTMLLIElement, TreeItem<T>>
     return this;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Triggers deselection listeners for this tree item when a deselection event occurs.
+   *
+   * @param source The source tree item that triggered the event.
+   * @param selection The deselected tree item.
+   * @return The current TreeItem instance after triggering deselection listeners.
+   */
   @Override
   public TreeItem<T> triggerDeselectionListeners(TreeItem<T> source, TreeItem<T> selection) {
     if (!isSelectionListenersPaused()) {
@@ -905,15 +1051,29 @@ public class TreeItem<T> extends BaseDominoElement<HTMLLIElement, TreeItem<T>>
     return this;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Retrieves the selected tree item. In the context of a single tree item, this method returns the
+   * current tree item itself.
+   *
+   * @return The selected tree item.
+   */
   @Override
   public TreeItem<T> getSelection() {
     return this;
   }
 
+  /**
+   * A private inner class representing the original state of a tree item. This state includes
+   * whether the tree item was expanded or collapsed.
+   */
   private static class OriginalState {
     private boolean expanded;
 
+    /**
+     * Constructs an instance of OriginalState with the specified expanded state.
+     *
+     * @param expanded True if the tree item was expanded, false if it was collapsed.
+     */
     public OriginalState(boolean expanded) {
       this.expanded = expanded;
     }

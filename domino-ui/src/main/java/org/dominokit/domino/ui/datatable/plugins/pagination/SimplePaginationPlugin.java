@@ -13,6 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package org.dominokit.domino.ui.datatable.plugins.pagination;
 
 import org.dominokit.domino.ui.datatable.DataTable;
@@ -21,30 +22,34 @@ import org.dominokit.domino.ui.datatable.plugins.DataTablePlugin;
 import org.dominokit.domino.ui.pagination.SimplePagination;
 
 /**
- * This plugin attach an {@link org.dominokit.domino.ui.pagination.SimplePagination} component to
- * the data table and fires {@link TablePageChangeEvent} when ever the page is changed
+ * A plugin for adding simple pagination functionality to a DataTable.
  *
- * @param <T> the type of the data table records
+ * @param <T> The type of data in the DataTable.
  */
 public class SimplePaginationPlugin<T> implements DataTablePlugin<T> {
 
   private SimplePagination simplePagination;
 
-  /** Creates and instance with default page size of 10 */
+  /** Initializes the plugin with a default page size of 10. */
   public SimplePaginationPlugin() {
     this(10);
   }
 
   /**
-   * Creates and instance with a custom page size
+   * Initializes the plugin with a specified page size.
    *
-   * @param pageSize int, Page size
+   * @param pageSize The number of items per page.
    */
   public SimplePaginationPlugin(int pageSize) {
     this.simplePagination = SimplePagination.create(0, pageSize).markActivePage().gotoPage(1);
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Adds the pagination component to the DataTable and registers a change listener to handle page
+   * change events.
+   *
+   * @param dataTable The DataTable instance to which this plugin is applied.
+   */
   @Override
   public void onAfterAddTable(DataTable<T> dataTable) {
     dataTable.appendChild(simplePagination);
@@ -54,11 +59,10 @@ public class SimplePaginationPlugin<T> implements DataTablePlugin<T> {
             dataTable.fireTableEvent(new TablePageChangeEvent(pageNumber, simplePagination)));
   }
 
-  /** @return the {@link SimplePagination} wrapped in this plugin */
   /**
-   * Getter for the field <code>simplePagination</code>.
+   * Gets the SimplePagination instance used by this plugin.
    *
-   * @return a {@link org.dominokit.domino.ui.pagination.SimplePagination} object
+   * @return The SimplePagination instance.
    */
   public SimplePagination getSimplePagination() {
     return simplePagination;

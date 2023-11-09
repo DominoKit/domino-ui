@@ -13,22 +13,25 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package org.dominokit.domino.ui.utils;
 
 import org.dominokit.domino.ui.style.Color;
 
 /**
- * Components that can have a background should implement this interface
+ * The {@code HasBackground} functional interface defines a method for setting the background color
+ * for an object of type {@code T}.
  *
- * @param <T> The type of the component that implements this interface
+ * @param <T> The type of object on which the background color can be set.
  */
 @FunctionalInterface
 public interface HasBackground<T> {
+
   /**
-   * setBackground.
+   * Sets the background color for the object of type {@code T}.
    *
-   * @param background {@link org.dominokit.domino.ui.style.Color}
-   * @return same implementing component
+   * @param background The {@link Color} representing the background color to be set.
+   * @return The modified object of type {@code T} with the background color set.
    */
   T setBackground(Color background);
 }

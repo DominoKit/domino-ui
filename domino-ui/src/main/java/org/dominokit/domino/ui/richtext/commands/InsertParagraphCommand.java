@@ -22,14 +22,40 @@ import org.dominokit.domino.ui.elements.DivElement;
 import org.dominokit.domino.ui.icons.lib.Icons;
 import org.dominokit.domino.ui.richtext.RichTextCommand;
 
+/**
+ * Represents a UI command to insert a paragraph within a rich text editor.
+ *
+ * <p>The {@code InsertParagraphCommand} extends {@link RichTextCommand} and provides users with the
+ * ability to insert a paragraph at the current selection position in a rich text editable div
+ * element. The command is represented by a button with a paragraph icon. Clicking the button will
+ * wrap the current selection or the current line within a paragraph tag.
+ *
+ * <p><b>Usage Example:</b>
+ *
+ * <pre>{@code
+ * DivElement editableDiv = DivElement.create();
+ * InsertParagraphCommand insertParagraphCommand = InsertParagraphCommand.create(editableDiv);
+ * }</pre>
+ */
 public class InsertParagraphCommand extends RichTextCommand<InsertParagraphCommand> {
 
   private Button button;
 
+  /**
+   * Factory method to create a new instance of InsertParagraphCommand.
+   *
+   * @param editableElement The div element where the rich text is edited.
+   * @return A new instance of InsertParagraphCommand.
+   */
   public static InsertParagraphCommand create(DivElement editableElement) {
     return new InsertParagraphCommand(editableElement);
   }
 
+  /**
+   * Constructs a new InsertParagraphCommand instance for the specified editable div element.
+   *
+   * @param editableElement The div element where the rich text is edited.
+   */
   public InsertParagraphCommand(DivElement editableElement) {
     super(editableElement);
     this.button =
@@ -39,11 +65,21 @@ public class InsertParagraphCommand extends RichTextCommand<InsertParagraphComma
     init(this);
   }
 
+  /**
+   * @dominokit-site-ignore {@inheritDoc}
+   *     <p>Returns the main HTMLElement of this command, which is the button used to insert a
+   *     paragraph.
+   * @return The HTMLElement of the button.
+   */
   @Override
   public HTMLElement element() {
     return button.element();
   }
 
+  /**
+   * Executes the command, wrapping the current selection or the current line within a paragraph tag
+   * in the editable div element.
+   */
   @Override
   protected void execute() {
     getSelectedRange()

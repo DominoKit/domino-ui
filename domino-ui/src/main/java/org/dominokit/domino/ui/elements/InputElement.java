@@ -18,51 +18,67 @@ package org.dominokit.domino.ui.elements;
 import elemental2.dom.HTMLInputElement;
 import org.dominokit.domino.ui.IsElement;
 
-/** InputElement class. */
+/**
+ * Represents an HTML InputElement element (<input>) wrapper.
+ *
+ * <p>The HTML <input> element is used to create interactive controls for web-based forms. This
+ * class provides a convenient way to create, manipulate, and control the behavior of <input>
+ * elements in Java-based web applications. Example usage:
+ *
+ * <pre>{@code
+ * HTMLInputElement inputElement = ...;  // Obtain an <input> element from somewhere
+ * InputElement input = InputElement.of(inputElement);
+ * }</pre>
+ *
+ * @see <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input">MDN Web Docs
+ *     (input)</a>
+ */
 public class InputElement extends BaseElement<HTMLInputElement, InputElement> {
+
   /**
-   * of.
+   * Creates a new {@link InputElement} instance by wrapping the provided HTML <input> element.
    *
-   * @param e a {@link elemental2.dom.HTMLInputElement} object
-   * @return a {@link org.dominokit.domino.ui.elements.InputElement} object
+   * @param e The HTML <input> element.
+   * @return A new {@link InputElement} instance wrapping the provided element.
    */
   public static InputElement of(HTMLInputElement e) {
     return new InputElement(e);
   }
 
   /**
-   * of.
+   * Creates a new {@link InputElement} instance by wrapping the provided {@link IsElement}
+   * instance.
    *
-   * @param e a {@link org.dominokit.domino.ui.IsElement} object
-   * @return a {@link org.dominokit.domino.ui.elements.InputElement} object
+   * @param e The {@link IsElement} instance containing the HTML <input> element.
+   * @return A new {@link InputElement} instance wrapping the provided {@link IsElement}.
    */
   public static InputElement of(IsElement<HTMLInputElement> e) {
     return new InputElement(e.element());
   }
 
   /**
-   * Constructor for InputElement.
+   * Constructs an {@link InputElement} instance by wrapping the provided HTML <input> element.
    *
-   * @param element a {@link elemental2.dom.HTMLInputElement} object
+   * @param element The HTML <input> element to wrap.
    */
   public InputElement(HTMLInputElement element) {
     super(element);
   }
 
   /**
-   * getName.
+   * Gets the name attribute of the input element.
    *
-   * @return a {@link java.lang.String} object
+   * @return The name attribute value.
    */
   public String getName() {
     return element.element().name;
   }
 
   /**
-   * setName.
+   * Sets the name attribute of the input element.
    *
-   * @param name a {@link java.lang.String} object
-   * @return a {@link org.dominokit.domino.ui.elements.InputElement} object
+   * @param name The name attribute value to set.
+   * @return This {@link InputElement} instance for method chaining.
    */
   public InputElement setName(String name) {
     element.element().name = name;

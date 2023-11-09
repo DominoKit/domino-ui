@@ -13,6 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package org.dominokit.domino.ui.datepicker;
 
 import static java.util.Objects.isNull;
@@ -29,7 +30,15 @@ import org.dominokit.domino.ui.icons.Icon;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
 import org.gwtproject.i18n.shared.cldr.DateTimeFormatInfo;
 
-/** CalendarSelectors class. */
+/**
+ * Represents the selectors component in the calendar, which allows users to navigate between
+ * different months.
+ *
+ * <p>The selectors provide icons for previous and next months, and displays the current month and
+ * year.
+ *
+ * @see BaseDominoElement
+ */
 public class CalendarSelectors extends BaseDominoElement<HTMLDivElement, CalendarSelectors>
     implements CalendarStyles, HasComponentConfig<CalendarConfig>, CalendarViewListener {
 
@@ -40,9 +49,9 @@ public class CalendarSelectors extends BaseDominoElement<HTMLDivElement, Calenda
   private Date date = new Date();
 
   /**
-   * Constructor for CalendarSelectors.
+   * Constructs a default calendar selectors with default previous and next icons.
    *
-   * @param calendar a {@link org.dominokit.domino.ui.datepicker.IsCalendar} object
+   * @param calendar the associated calendar instance
    */
   public CalendarSelectors(IsCalendar calendar) {
     this(
@@ -52,11 +61,11 @@ public class CalendarSelectors extends BaseDominoElement<HTMLDivElement, Calenda
   }
 
   /**
-   * Constructor for CalendarSelectors.
+   * Constructs a calendar selectors with custom icons.
    *
-   * @param calendar a {@link org.dominokit.domino.ui.datepicker.IsCalendar} object
-   * @param previousIcon a {@link org.dominokit.domino.ui.icons.Icon} object
-   * @param nextIcon a {@link org.dominokit.domino.ui.icons.Icon} object
+   * @param calendar the associated calendar instance
+   * @param previousIcon the custom icon for previous month
+   * @param nextIcon the custom icon for next month
    */
   public CalendarSelectors(IsCalendar calendar, Icon<?> previousIcon, Icon<?> nextIcon) {
     this.calendar = calendar;
@@ -96,22 +105,22 @@ public class CalendarSelectors extends BaseDominoElement<HTMLDivElement, Calenda
   }
 
   /**
-   * create.
+   * Creates a default calendar selectors.
    *
-   * @param calendar a {@link org.dominokit.domino.ui.datepicker.IsCalendar} object
-   * @return a {@link org.dominokit.domino.ui.datepicker.CalendarSelectors} object
+   * @param calendar the associated calendar instance
+   * @return a new CalendarSelectors instance
    */
   public static CalendarSelectors create(IsCalendar calendar) {
     return new CalendarSelectors(calendar);
   }
 
   /**
-   * create.
+   * Creates a calendar selectors with custom icons.
    *
-   * @param calendar a {@link org.dominokit.domino.ui.datepicker.IsCalendar} object
-   * @param previousIcon a {@link org.dominokit.domino.ui.icons.Icon} object
-   * @param nextIcon a {@link org.dominokit.domino.ui.icons.Icon} object
-   * @return a {@link org.dominokit.domino.ui.datepicker.CalendarSelectors} object
+   * @param calendar the associated calendar instance
+   * @param previousIcon the custom icon for previous month
+   * @param nextIcon the custom icon for next month
+   * @return a new CalendarSelectors instance
    */
   public static CalendarSelectors create(
       IsCalendar calendar, Icon<?> previousIcon, Icon<?> nextIcon) {
@@ -157,7 +166,12 @@ public class CalendarSelectors extends BaseDominoElement<HTMLDivElement, Calenda
     return this;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * This method is called whenever the date time format info changes. It updates the year and month
+   * displayed on the selectors using the provided DateTimeFormatInfo.
+   *
+   * @param dateTimeFormatInfo the new DateTimeFormatInfo
+   */
   @Override
   public void onDateTimeFormatInfoChanged(DateTimeFormatInfo dateTimeFormatInfo) {
     if (nonNull(dateTimeFormatInfo)) {
@@ -168,7 +182,12 @@ public class CalendarSelectors extends BaseDominoElement<HTMLDivElement, Calenda
     }
   }
 
-  /** {@inheritDoc} */
+  /**
+   * This method is called whenever the selected date changes. It updates the date displayed on the
+   * selectors with the new date.
+   *
+   * @param date the new selected date
+   */
   @Override
   public void onDateSelectionChanged(Date date) {
     if (nonNull(date)) {
@@ -177,10 +196,11 @@ public class CalendarSelectors extends BaseDominoElement<HTMLDivElement, Calenda
   }
 
   /**
-   * Setter for the field <code>date</code>.
+   * Sets the date to be displayed on the selectors. If the provided date is null, it sets the date
+   * to the current date.
    *
-   * @param date a {@link java.util.Date} object
-   * @return a {@link org.dominokit.domino.ui.datepicker.CalendarSelectors} object
+   * @param date the date to set
+   * @return this instance for chaining
    */
   public CalendarSelectors setDate(Date date) {
     if (isNull(date)) {
@@ -193,13 +213,22 @@ public class CalendarSelectors extends BaseDominoElement<HTMLDivElement, Calenda
     return this;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Returns the root HTMLDivElement of the CalendarSelectors.
+   *
+   * @return the root HTMLDivElement
+   */
   @Override
   public HTMLDivElement element() {
     return root.element();
   }
 
-  /** {@inheritDoc} */
+  /**
+   * This method is called whenever the calendar view updates. It sets the date on the selectors to
+   * the updated date.
+   *
+   * @param date the updated date
+   */
   @Override
   public void onUpdateCalendarView(Date date) {
     setDate(date);

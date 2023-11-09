@@ -17,7 +17,7 @@ package org.dominokit.domino.ui.utils;
 
 import elemental2.core.JsDate;
 
-/** DominoId class. */
+/** A utility class for generating unique DOM element IDs. */
 public class DominoId {
 
   private static final String DEFAULT_PREFIX = "dui-";
@@ -30,19 +30,19 @@ public class DominoId {
           });
 
   /**
-   * unique.
+   * Generates a unique DOM element ID with the default prefix "dui-".
    *
-   * @return a {@link java.lang.String} object
+   * @return A unique DOM element ID.
    */
   public static String unique() {
     return unique(DEFAULT_PREFIX);
   }
 
   /**
-   * unique.
+   * Generates a unique DOM element ID with the specified prefix.
    *
-   * @param prefix a {@link java.lang.String} object
-   * @return a {@link java.lang.String} object
+   * @param prefix The prefix to prepend to the generated ID.
+   * @return A unique DOM element ID with the specified prefix.
    */
   public static String unique(String prefix) {
     String id = prefix + getSeed() + counter;

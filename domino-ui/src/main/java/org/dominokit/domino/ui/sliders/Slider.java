@@ -39,8 +39,20 @@ import org.dominokit.domino.ui.utils.ChildHandler;
 import org.dominokit.domino.ui.utils.HasChangeListeners;
 
 /**
- * A component with min/max value and its value can be changed by sliding a pointer through the
- * component </pre>
+ * Represents a UI slider component.
+ *
+ * <p>The slider allows users to select a value from a range by moving the slider thumb.
+ *
+ * <pre>
+ * Usage example:
+ *
+ * Slider slider = Slider.create(100, 0, 50); // max: 100, min: 0, initial value: 50
+ * slider.addChangeListener(value -> {
+ *     System.out.println("New value: " + value);
+ * });
+ * </pre>
+ *
+ * @see BaseDominoElement
  */
 public class Slider extends BaseDominoElement<HTMLDivElement, Slider>
     implements HasChangeListeners<Slider, Double>, SliderStyles {
@@ -55,45 +67,44 @@ public class Slider extends BaseDominoElement<HTMLDivElement, Slider>
   private boolean changeListenersPaused;
 
   /**
-   * create.
+   * Creates a slider with a specified maximum value.
    *
-   * @param max double value
-   * @return new Slider instance initialized with the max value and its value is 0, also its min
-   *     value is 0
+   * @param max the maximum value for the slider
+   * @return a new slider instance
    */
   public static Slider create(double max) {
     return create(max, 0, 0);
   }
 
   /**
-   * create.
+   * Creates a slider with a specified maximum and minimum value.
    *
-   * @param max double
-   * @param min double
-   * @return new Slider instance initialized with the max and min values and its value is 0
+   * @param max the maximum value for the slider
+   * @param min the minimum value for the slider
+   * @return a new slider instance
    */
   public static Slider create(double max, double min) {
     return create(max, min, 0);
   }
 
   /**
-   * create.
+   * Creates a slider with specified maximum, minimum, and initial value.
    *
-   * @param max double
-   * @param min double
-   * @param value double
-   * @return new Slider instance initialized with the max and min values and sets its initial value
+   * @param max the maximum value for the slider
+   * @param min the minimum value for the slider
+   * @param value the initial value for the slider
+   * @return a new slider instance
    */
   public static Slider create(double max, double min, double value) {
     return new Slider(max, min, value);
   }
 
   /**
-   * initialize the slider with the max and min values and sets its initial value
+   * Main constructor to create a Slider.
    *
-   * @param max double
-   * @param min double
-   * @param value double
+   * @param max the maximum value
+   * @param min the minimum value
+   * @param value the initial value
    */
   public Slider(double max, double min, double value) {
     root =
@@ -156,46 +167,78 @@ public class Slider extends BaseDominoElement<HTMLDivElement, Slider>
     init(this);
   }
 
+  /**
+   * Calculates the range offset of the slider's thumb based on its current value.
+   *
+   * @return the calculated range offset in pixels
+   */
   private double calculateRangeOffset() {
     int width = input.element().offsetWidth - 15;
     double percent = (getValue() - getMin()) / (getMax() - getMin());
     return percent * width + input.element().offsetLeft;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Pauses the change listeners so they won't get triggered on value changes.
+   *
+   * @return the current slider instance
+   */
   @Override
   public Slider pauseChangeListeners() {
     this.changeListenersPaused = true;
     return this;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Resumes the change listeners so they get triggered on value changes.
+   *
+   * @return the current slider instance
+   */
   @Override
   public Slider resumeChangeListeners() {
     this.changeListenersPaused = false;
     return this;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Toggles the pause state of the change listeners.
+   *
+   * @param toggle if true, pause the listeners, otherwise resume them
+   * @return the current slider instance
+   */
   @Override
   public Slider togglePauseChangeListeners(boolean toggle) {
     this.changeListenersPaused = toggle;
     return this;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Gets the set of change listeners attached to the slider.
+   *
+   * @return the set of change listeners
+   */
   @Override
   public Set<ChangeListener<? super Double>> getChangeListeners() {
     return changeListeners;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Checks if the change listeners are currently paused.
+   *
+   * @return true if listeners are paused, false otherwise
+   */
   @Override
   public boolean isChangeListenersPaused() {
     return this.changeListenersPaused;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Triggers the change listeners manually with given old and new values.
+   *
+   * @param oldValue the previous value
+   * @param newValue the current value
+   * @return the current slider instance
+   */
   @Override
   public Slider triggerChangeListeners(Double oldValue, Double newValue) {
     if (!isChangeListenersPaused()) {
@@ -204,26 +247,30 @@ public class Slider extends BaseDominoElement<HTMLDivElement, Slider>
     return this;
   }
 
+  /** Updates the display value of the slider's thumb based on its current value. */
   private void updateThumbValue() {
     if (withThumb) {
       valueElement.setTextContent(String.valueOf(Double.valueOf(getValue()).intValue()));
     }
   }
 
+  /** Shows the slider's thumb and updates its value display. */
   private void showThumb() {
     thumb.expand();
     updateThumbValue();
   }
 
+  /** Hides the slider's thumb. */
   private void hideThumb() {
     thumb.collapse();
   }
 
   /**
-   * withThumb.
+   * Configures the slider to show its thumb and applies additional customizations using the
+   * provided handler.
    *
-   * @param handler a {@link org.dominokit.domino.ui.utils.ChildHandler} object
-   * @return a {@link org.dominokit.domino.ui.sliders.Slider} object
+   * @param handler a handler that allows customizations of the slider's thumb
+   * @return the current slider instance
    */
   public Slider withThumb(ChildHandler<Slider, SpanElement> handler) {
     setShowThumb(true);
@@ -232,15 +279,16 @@ public class Slider extends BaseDominoElement<HTMLDivElement, Slider>
   }
 
   /**
-   * withThumb.
+   * Configures the slider to show its thumb without any additional customizations.
    *
-   * @return a {@link org.dominokit.domino.ui.sliders.Slider} object
+   * @return the current slider instance
    */
   public Slider withThumb() {
     setShowThumb(true);
     return this;
   }
 
+  /** Evaluates the position of the slider's thumb based on the current value of the slider. */
   private void evaluateThumbPosition() {
     if (mouseDown) {
       thumb.style().setLeft(calculateRangeOffset() + "px");
@@ -248,10 +296,10 @@ public class Slider extends BaseDominoElement<HTMLDivElement, Slider>
   }
 
   /**
-   * setMaxValue.
+   * Sets the maximum value of the slider.
    *
-   * @param max double max value
-   * @return same Slider instance
+   * @param max the maximum value to be set
+   * @return the current slider instance
    */
   public Slider setMaxValue(double max) {
     input.element().max = String.valueOf(max);
@@ -259,10 +307,10 @@ public class Slider extends BaseDominoElement<HTMLDivElement, Slider>
   }
 
   /**
-   * setMinValue.
+   * Sets the minimum value of the slider.
    *
-   * @param min double min value
-   * @return same Slider instance
+   * @param min the minimum value to be set
+   * @return the current slider instance
    */
   public Slider setMinValue(double min) {
     input.element().min = String.valueOf(min);
@@ -270,11 +318,11 @@ public class Slider extends BaseDominoElement<HTMLDivElement, Slider>
   }
 
   /**
-   * setValue.
+   * Sets the value of the slider and optionally triggers change listeners.
    *
-   * @param newValue double value
-   * @param silent boolean, if true change handler wont be triggered
-   * @return same Slider instance
+   * @param newValue the new value to be set
+   * @param silent if true, change listeners won't be triggered
+   * @return the current slider instance
    */
   public Slider setValue(double newValue, boolean silent) {
     double oldValue = getValue();
@@ -287,20 +335,20 @@ public class Slider extends BaseDominoElement<HTMLDivElement, Slider>
   }
 
   /**
-   * setValue.
+   * Sets the value of the slider and triggers change listeners.
    *
-   * @param newValue double value
-   * @return same Slider instance
+   * @param newValue the new value to be set
+   * @return the current slider instance
    */
   public Slider setValue(double newValue) {
     return setValue(newValue, false);
   }
 
   /**
-   * setStep.
+   * Sets the stepping value of the slider.
    *
-   * @param step double value increment while dragging the pointer
-   * @return same Slider instance
+   * @param step the stepping value to be set
+   * @return the current slider instance
    */
   public Slider setStep(double step) {
     input.element().step = String.valueOf(step);
@@ -308,87 +356,111 @@ public class Slider extends BaseDominoElement<HTMLDivElement, Slider>
   }
 
   /**
-   * The slider will allow any value between min and max values without specific increment
+   * Configures the slider to accept any step value.
    *
-   * @return same Slider instance
+   * @return the current slider instance
    */
   public Slider anyStep() {
     input.element().step = "any";
     return this;
   }
 
-  /** @return double max value of this Slider */
   /**
-   * getMax.
+   * Gets the maximum value of the slider.
    *
-   * @return a double
+   * @return the maximum value
    */
   public double getMax() {
     return Double.parseDouble(input.element().max);
   }
 
-  /** @return double min value of this Slider */
   /**
-   * getMin.
+   * Gets the minimum value of the slider.
    *
-   * @return a double
+   * @return the minimum value
    */
   public double getMin() {
     return Double.parseDouble(input.element().min);
   }
 
-  /** @return double value of the Slider */
   /**
-   * getValue.
+   * Gets the current value of the slider.
    *
-   * @return a double
+   * @return the current value
    */
   public double getValue() {
     return input.element().valueAsNumber;
   }
 
   /**
-   * setShowThumb.
+   * Sets whether the slider should show its thumb.
    *
-   * @param withThumb boolean, if true the slider will show a thumb over the pointer that shows the
-   *     slider value while dragging
-   * @return same Slider instance
+   * @param withThumb if true, the thumb will be shown
+   * @return the current slider instance
    */
   public Slider setShowThumb(boolean withThumb) {
     this.withThumb = withThumb;
     return this;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Returns the root HTML div element of the slider.
+   *
+   * @return the root HTML div element
+   */
   @Override
   public HTMLDivElement element() {
     return root.element();
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Adds a change listener to the slider. This listener will be notified of value changes.
+   *
+   * @param changeListener the listener to be added
+   * @return the current slider instance
+   */
   @Override
   public Slider addChangeListener(ChangeListener<? super Double> changeListener) {
     changeListeners.add(changeListener);
     return this;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Removes a specific change listener from the slider.
+   *
+   * @param changeListener the listener to be removed
+   * @return the current slider instance
+   */
   @Override
   public Slider removeChangeListener(ChangeListener<? super Double> changeListener) {
     changeListeners.remove(changeListener);
     return this;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Checks if the slider has the specified change listener.
+   *
+   * @param changeListener the listener to check for
+   * @return true if the listener is present, false otherwise
+   */
   @Override
   public boolean hasChangeListener(ChangeListener<? super Double> changeListener) {
     return changeListeners.contains(changeListener);
   }
 
-  /** A function to implement logic that will be called while dragging the slider pointer */
+  /**
+   * A functional interface to handle slider slide events.
+   *
+   * @author ChatGPT
+   */
   @FunctionalInterface
   public interface SlideHandler {
-    /** @param value double value for the current position of the slider pointer */
+
+    /**
+     * Called when the slider value changes.
+     *
+     * @param value the new value of the slider
+     */
     void onSlide(double value);
   }
 }

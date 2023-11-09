@@ -17,22 +17,38 @@ package org.dominokit.domino.ui.elements;
 
 import elemental2.dom.HTMLElement;
 
-/** TimeElement class. */
+/**
+ * Represents an HTML <time> element wrapper.
+ *
+ * <p>The HTML <time> element represents a specific period in time or a range of time. It is used to
+ * define the machine-readable date and time format for web content. This class provides a
+ * Java-based way to create, manipulate, and control the behavior of <time> elements in web
+ * applications. Example usage:
+ *
+ * <pre>
+ * HTMLElement timeElement = ...;  // Obtain a <time> element from somewhere
+ * TimeElement time = TimeElement.of(timeElement);
+ * </pre>
+ *
+ * @see <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/time">MDN Web Docs
+ *     (time)</a>
+ */
 public class TimeElement extends BaseElement<HTMLElement, TimeElement> {
+
   /**
-   * of.
+   * Creates a new {@link TimeElement} instance by wrapping the provided HTML <time> element.
    *
-   * @param e a {@link elemental2.dom.HTMLElement} object
-   * @return a {@link org.dominokit.domino.ui.elements.TimeElement} object
+   * @param e The HTML <time> element to wrap.
+   * @return A new {@link TimeElement} instance wrapping the provided element.
    */
   public static TimeElement of(HTMLElement e) {
     return new TimeElement(e);
   }
 
   /**
-   * Constructor for TimeElement.
+   * Constructs a {@link TimeElement} instance by wrapping the provided HTML <time> element.
    *
-   * @param element a {@link elemental2.dom.HTMLElement} object
+   * @param element The HTML <time> element to wrap.
    */
   public TimeElement(HTMLElement element) {
     super(element);

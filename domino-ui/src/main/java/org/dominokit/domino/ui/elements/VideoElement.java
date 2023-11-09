@@ -17,22 +17,37 @@ package org.dominokit.domino.ui.elements;
 
 import elemental2.dom.HTMLVideoElement;
 
-/** VideoElement class. */
+/**
+ * Represents an HTML <video> element wrapper.
+ *
+ * <p>The HTML <video> element is used to embed video content in a document, such as a movie clip or
+ * other video streams. It is a container for one or more video tracks, which may include audio,
+ * video, or other text content. Example usage:
+ *
+ * <pre>
+ * HTMLVideoElement videoElement = ...;  // Obtain a <video> element from somewhere
+ * VideoElement video = VideoElement.of(videoElement);
+ * </pre>
+ *
+ * @see <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/video">MDN Web Docs
+ *     (video)</a>
+ */
 public class VideoElement extends BaseElement<HTMLVideoElement, VideoElement> {
+
   /**
-   * of.
+   * Creates a new {@link VideoElement} instance by wrapping the provided HTML <video> element.
    *
-   * @param e a {@link elemental2.dom.HTMLVideoElement} object
-   * @return a {@link org.dominokit.domino.ui.elements.VideoElement} object
+   * @param e The HTML <video> element to wrap.
+   * @return A new {@link VideoElement} instance wrapping the provided element.
    */
   public static VideoElement of(HTMLVideoElement e) {
     return new VideoElement(e);
   }
 
   /**
-   * Constructor for VideoElement.
+   * Constructs a {@link VideoElement} instance by wrapping the provided HTML <video> element.
    *
-   * @param element a {@link elemental2.dom.HTMLVideoElement} object
+   * @param element The HTML <video> element to wrap.
    */
   public VideoElement(HTMLVideoElement element) {
     super(element);

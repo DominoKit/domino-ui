@@ -18,32 +18,76 @@ package org.dominokit.domino.ui.themes;
 import elemental2.dom.Element;
 import org.dominokit.domino.ui.style.CssClass;
 
+/**
+ * Represents the default theme for Domino UI components.
+ *
+ * <p>This class provides methods to apply, check, and remove the default theme on a specific UI
+ * element.
+ *
+ * <p><b>Usage Example:</b>
+ *
+ * <pre>{@code
+ * DominoThemeDefault defaultTheme = DominoThemeDefault.INSTANCE;
+ * defaultTheme.apply(myElement);
+ * }</pre>
+ *
+ * @see IsDominoTheme
+ * @see CssClass
+ */
 public class DominoThemeDefault implements IsDominoTheme {
 
+  /** Singleton instance of {@link DominoThemeDefault}. */
   public static final IsDominoTheme INSTANCE = new DominoThemeDefault();
 
+  /** CSS class representing the default theme. */
   private CssClass dui_theme_default = () -> "dui-theme-default";
 
+  /**
+   * Retrieves the name of the theme.
+   *
+   * @return theme name as a string.
+   */
   @Override
   public String getName() {
     return "dui-default";
   }
 
+  /**
+   * Retrieves the category of the theme.
+   *
+   * @return theme category as a string.
+   */
   @Override
   public String getCategory() {
     return "dui-main-theme";
   }
 
+  /**
+   * Applies the default theme to the specified element.
+   *
+   * @param element target element to apply the theme on.
+   */
   @Override
   public void apply(Element element) {
     elementOf(element).addCss(dui, dui_theme_default);
   }
 
+  /**
+   * Removes the default theme from the specified element.
+   *
+   * @param element target element to remove the theme from.
+   */
   @Override
   public void cleanup(Element element) {
     elementOf(element).removeCss(dui, dui_theme_default);
   }
 
+  /**
+   * Checks if the default theme is applied to the specified element.
+   *
+   * @param element the target element to check.
+   * @return {@code true} if the theme is applied, otherwise {@code false}.
+   */
   @Override
   public boolean isApplied(Element element) {
     return dui_theme_default.isAppliedTo(element);

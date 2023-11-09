@@ -17,13 +17,19 @@ package org.dominokit.domino.ui.i18n;
 
 import org.dominokit.domino.ui.utils.DominoUIConfig;
 
-/** HasLabels interface. */
+/**
+ * The {@code HasLabels} interface is designed to provide access to labels and messages defined in a
+ * specific implementation of the {@link Labels} interface. It allows classes to retrieve labels
+ * without hardcoding them, promoting flexibility and localization.
+ *
+ * @param <T> The type of {@code Labels} interface to retrieve.
+ */
 public interface HasLabels<T extends Labels> {
 
   /**
-   * getLabels.
+   * Gets the instance of the {@link Labels} interface associated with this class.
    *
-   * @return a T object
+   * @return An instance of the {@code Labels} interface providing labels and messages.
    */
   default T getLabels() {
     return (T) DominoUIConfig.CONFIG.getDominoUILabels();

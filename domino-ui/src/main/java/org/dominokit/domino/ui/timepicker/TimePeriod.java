@@ -15,8 +15,11 @@
  */
 package org.dominokit.domino.ui.timepicker;
 
-/** TimePeriod class. */
+/** An enumeration representing the time periods, AM (Ante Meridiem) and PM (Post Meridiem). */
 public enum TimePeriod {
+  /** Represents the AM (Ante Meridiem) time period. */
   AM,
+
+  /** Represents the PM (Post Meridiem) time period. */
   PM
 }

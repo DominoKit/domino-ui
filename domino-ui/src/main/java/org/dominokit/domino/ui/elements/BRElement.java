@@ -17,22 +17,37 @@ package org.dominokit.domino.ui.elements;
 
 import elemental2.dom.HTMLBRElement;
 
-/** BRElement class. */
+/**
+ * Represents a break (`<br>
+ * `) HTML element wrapper.
+ *
+ * <p>This class provides a convenient way to create, manipulate, and control the behavior of break
+ * HTML elements. Example usage:
+ *
+ * <pre>
+ * HTMLBRElement htmlElement = ...;  // Obtain a <br> element from somewhere
+ * BRElement brElement = BRElement.of(htmlElement);
+ * </pre>
+ *
+ * @see <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/br">MDN Web Docs (br
+ *     element)</a>
+ */
 public class BRElement extends BaseElement<HTMLBRElement, BRElement> {
+
   /**
-   * of.
+   * Creates a new {@link BRElement} instance by wrapping the provided break HTML element.
    *
-   * @param e a {@link elemental2.dom.HTMLBRElement} object
-   * @return a {@link org.dominokit.domino.ui.elements.BRElement} object
+   * @param e The break HTML element.
+   * @return A new {@link BRElement} instance wrapping the provided element.
    */
   public static BRElement of(HTMLBRElement e) {
     return new BRElement(e);
   }
 
   /**
-   * Constructor for BRElement.
+   * Constructs a {@link BRElement} instance by wrapping the provided break HTML element.
    *
-   * @param element a {@link elemental2.dom.HTMLBRElement} object
+   * @param element The break HTML element to wrap.
    */
   public BRElement(HTMLBRElement element) {
     super(element);

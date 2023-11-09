@@ -20,23 +20,32 @@ import elemental2.dom.CustomEventInit;
 import jsinterop.base.Js;
 import jsinterop.base.JsPropertyMap;
 
+/**
+ * Utility class to manage and create custom events related to calendar operations.
+ *
+ * <p>Usage example:
+ *
+ * <pre>
+ * CustomEvent event = CalendarCustomEvents.dateSelectionChanged(1634048882000L);
+ * </pre>
+ */
 class CalendarCustomEvents {
 
-  /**
-   * Constant <code>DUI_CALENDAR_DATE_SELECTION_CHANGED="dui-calendar-date-selection-changed"</code>
-   */
+  /** Event fired when the date selection is changed in the calendar. */
   public static final String DUI_CALENDAR_DATE_SELECTION_CHANGED =
       "dui-calendar-date-selection-changed";
-  /** Constant <code>SELECT_YEAR_MONTH="dui-calendar-select-year-month"</code> */
+
+  /** Event fired when year or month is selected in the calendar. */
   public static final String SELECT_YEAR_MONTH = "dui-calendar-select-year-month";
-  /** Constant <code>DATE_NAVIGATION_CHANGED="dui-calendar-date-navigation-changed"</code> */
+
+  /** Event fired when navigating to a different date in the calendar. */
   public static final String DATE_NAVIGATION_CHANGED = "dui-calendar-date-navigation-changed";
 
   /**
-   * dateSelectionChanged.
+   * Creates a custom event for a date selection change.
    *
-   * @param timestamp a {@link java.lang.Long} object
-   * @return a {@link elemental2.dom.CustomEvent} object
+   * @param timestamp The timestamp of the date that was selected.
+   * @return The created custom event.
    */
   public static CustomEvent<JsPropertyMap<Double>> dateSelectionChanged(Long timestamp) {
     CustomEventInit<JsPropertyMap<Double>> initOptions = Js.uncheckedCast(CustomEventInit.create());
@@ -49,9 +58,9 @@ class CalendarCustomEvents {
   }
 
   /**
-   * selectYearMonth.
+   * Creates a custom event indicating a year or month selection.
    *
-   * @return a {@link elemental2.dom.CustomEvent} object
+   * @return The created custom event.
    */
   public static CustomEvent<JsPropertyMap<Double>> selectYearMonth() {
     CustomEventInit<JsPropertyMap<Double>> initOptions = Js.uncheckedCast(CustomEventInit.create());
@@ -61,10 +70,10 @@ class CalendarCustomEvents {
   }
 
   /**
-   * dateNavigationChanged.
+   * Creates a custom event indicating a navigation change to a different date.
    *
-   * @param timestamp a long
-   * @return a {@link elemental2.dom.CustomEvent} object
+   * @param timestamp The timestamp of the new navigated date.
+   * @return The created custom event.
    */
   public static CustomEvent<JsPropertyMap<Double>> dateNavigationChanged(long timestamp) {
     CustomEventInit<JsPropertyMap<Double>> initOptions = Js.uncheckedCast(CustomEventInit.create());
@@ -76,19 +85,36 @@ class CalendarCustomEvents {
     return new CustomEvent<>(DATE_NAVIGATION_CHANGED, initOptions);
   }
 
+  /** Inner class to encapsulate event data related to date updates. */
   public static class UpdateDateEventData {
 
     private final long timestamp;
 
+    /**
+     * Constructor for creating an instance of UpdateDateEventData.
+     *
+     * @param event The custom event from which data will be extracted.
+     */
     public UpdateDateEventData(CustomEvent<JsPropertyMap<Double>> event) {
       JsPropertyMap<Double> detail = event.detail;
       this.timestamp = detail.get("timestamp").longValue();
     }
 
+    /**
+     * Factory method to create an instance of UpdateDateEventData.
+     *
+     * @param event The custom event.
+     * @return An instance of {@link UpdateDateEventData}.
+     */
     public static UpdateDateEventData of(CustomEvent<?> event) {
       return new UpdateDateEventData(Js.uncheckedCast(event));
     }
 
+    /**
+     * Retrieves the timestamp from the event data.
+     *
+     * @return The timestamp.
+     */
     public long getTimestamp() {
       return timestamp;
     }

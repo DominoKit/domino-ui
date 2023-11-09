@@ -13,42 +13,49 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package org.dominokit.domino.ui.utils;
 
 import elemental2.dom.Element;
 import org.dominokit.domino.ui.IsElement;
 
-/** HeaderContent class. */
+/**
+ * The {@code HeaderContent} class is a generic class that extends {@code BaseDominoElement} and
+ * provides utility methods to work with header content elements.
+ *
+ * @param <T> The type of the header content element.
+ * @see BaseDominoElement
+ */
 public class HeaderContent<T extends Element> extends BaseDominoElement<T, HeaderContent<T>> {
 
   private DominoElement<T> element;
 
   /**
-   * of.
+   * Creates a new instance of {@code HeaderContent} with the specified element.
    *
-   * @param element a T object
-   * @param <T> a T class
-   * @return a {@link org.dominokit.domino.ui.utils.HeaderContent} object
+   * @param element The header content element.
+   * @param <T> The type of the header content element.
+   * @return A new {@code HeaderContent} instance.
    */
   public static <T extends Element> HeaderContent<T> of(T element) {
     return new HeaderContent<>(element);
   }
 
   /**
-   * of.
+   * Creates a new instance of {@code HeaderContent} with the specified {@code IsElement}.
    *
-   * @param element a {@link org.dominokit.domino.ui.IsElement} object
-   * @param <T> a T class
-   * @return a {@link org.dominokit.domino.ui.utils.HeaderContent} object
+   * @param element The header content element wrapped in an {@code IsElement}.
+   * @param <T> The type of the header content element.
+   * @return A new {@code HeaderContent} instance.
    */
   public static <T extends Element> HeaderContent<T> of(IsElement<T> element) {
     return new HeaderContent<>(element);
   }
 
   /**
-   * Constructor for HeaderContent.
+   * Creates a new instance of {@code HeaderContent} with the specified element.
    *
-   * @param element a T object
+   * @param element The header content element.
    */
   public HeaderContent(T element) {
     this.element = elementOf(element);
@@ -56,15 +63,19 @@ public class HeaderContent<T extends Element> extends BaseDominoElement<T, Heade
   }
 
   /**
-   * Constructor for HeaderContent.
+   * Creates a new instance of {@code HeaderContent} with the specified {@code IsElement}.
    *
-   * @param element a {@link org.dominokit.domino.ui.IsElement} object
+   * @param element The header content element wrapped in an {@code IsElement}.
    */
   public HeaderContent(IsElement<T> element) {
     this(element.element());
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Returns the header content element associated with this {@code HeaderContent} instance.
+   *
+   * @return The header content element.
+   */
   @Override
   public T element() {
     return element.element();

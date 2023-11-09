@@ -13,6 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package org.dominokit.domino.ui.datatable.plugins.filter.header;
 
 import elemental2.dom.HTMLElement;
@@ -25,27 +26,26 @@ import org.dominokit.domino.ui.datatable.plugins.column.ColumnHeaderFilterPlugin
 import org.dominokit.domino.ui.forms.DateBox;
 
 /**
- * Date column header filter component that is rendered as a {@link
- * org.dominokit.domino.ui.forms.DateBox} component
+ * The DateHeaderFilter class provides a header filter for date columns in a DataTable. It allows
+ * users to filter data based on date values.
  *
- * @param <T> type of data table records
+ * @param <T> The type of data in the DataTable.
  */
 public class DateHeaderFilter<T> implements ColumnHeaderFilterPlugin.HeaderFilter<T> {
 
   private DateBox dateBox;
 
   /**
-   * Static factory to create a new instance
+   * Creates a new instance of the DateHeaderFilter.
    *
-   * @param <T> the type of the data table records
-   * @return new instance
+   * @param <T> The type of data in the DataTable.
+   * @return A new DateHeaderFilter instance.
    */
   public static <T> DateHeaderFilter<T> create() {
     return new DateHeaderFilter<>();
   }
 
-  /** @see DateHeaderFilter#create() */
-  /** Constructor for DateHeaderFilter. */
+  /** Initializes a new DateHeaderFilter. */
   public DateHeaderFilter() {
     this.dateBox =
         DateBox.create()
@@ -62,17 +62,21 @@ public class DateHeaderFilter<T> implements ColumnHeaderFilterPlugin.HeaderFilte
                 });
   }
 
-  /** @return the {@link DateBox} wrapped in this filter component */
   /**
-   * Getter for the field <code>dateBox</code>.
+   * Gets the DateBox instance used for filtering dates.
    *
-   * @return a {@link org.dominokit.domino.ui.forms.DateBox} object
+   * @return The DateBox instance.
    */
   public DateBox getDateBox() {
     return dateBox;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Initializes the DateHeaderFilter and sets up filtering behavior.
+   *
+   * @param searchContext The search context for the DataTable.
+   * @param columnConfig The configuration for the column being filtered.
+   */
   @Override
   public void init(SearchContext<T> searchContext, ColumnConfig<T> columnConfig) {
     searchContext.addBeforeSearchHandler(
@@ -91,7 +95,7 @@ public class DateHeaderFilter<T> implements ColumnHeaderFilterPlugin.HeaderFilte
     dateBox.addChangeListener((oldValue, value) -> searchContext.fireSearchEvent());
   }
 
-  /** {@inheritDoc} */
+  /** Clears the DateHeaderFilter by resetting the DateBox value. */
   @Override
   public void clear() {
     dateBox.withPausedChangeListeners(
@@ -100,7 +104,10 @@ public class DateHeaderFilter<T> implements ColumnHeaderFilterPlugin.HeaderFilte
         });
   }
 
-  /** {@inheritDoc} */
+  /**
+   * @dominokit-site-ignore {@inheritDoc} Gets the HTML element representing the DateHeaderFilter.
+   * @return The HTML element.
+   */
   @Override
   public HTMLElement element() {
     return dateBox.element();

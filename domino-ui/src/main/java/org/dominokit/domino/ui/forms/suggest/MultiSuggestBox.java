@@ -23,20 +23,27 @@ import java.util.List;
 import java.util.stream.Collectors;
 import org.dominokit.domino.ui.IsElement;
 
-/** MultiSuggestBox class. */
+/**
+ * A multi-select suggestion box that allows users to select multiple options from a list of
+ * suggestions.
+ *
+ * @param <V> The type of data associated with the selected options.
+ * @param <E> The type of the suggest box's element.
+ * @param <O> The type of the option within the suggest box.
+ */
 public class MultiSuggestBox<V, E extends IsElement<?>, O extends Option<V, E, O>>
     extends AbstractSuggestBox<V, List<V>, E, O, MultiSuggestBox<V, E, O>> {
 
   private List<O> selectedOptions = new ArrayList<>();
 
   /**
-   * create.
+   * Creates a new MultiSuggestBox instance with the provided SuggestionsStore.
    *
-   * @param store a {@link org.dominokit.domino.ui.forms.suggest.SuggestionsStore} object
-   * @param <V> a V class
-   * @param <E> a E class
-   * @param <O> a O class
-   * @return a {@link org.dominokit.domino.ui.forms.suggest.MultiSuggestBox} object
+   * @param <V> The type of data associated with the selected options.
+   * @param <E> The type of the suggest box's element.
+   * @param <O> The type of the option within the suggest box.
+   * @param store The SuggestionsStore that provides suggestions for this multi-select suggest box.
+   * @return A new instance of MultiSuggestBox.
    */
   public static <V, E extends IsElement<?>, O extends Option<V, E, O>>
       MultiSuggestBox<V, E, O> create(SuggestionsStore<V, E, O> store) {
@@ -44,14 +51,14 @@ public class MultiSuggestBox<V, E extends IsElement<?>, O extends Option<V, E, O
   }
 
   /**
-   * create.
+   * Creates a new MultiSuggestBox instance with a label and the provided SuggestionsStore.
    *
-   * @param label a {@link java.lang.String} object
-   * @param store a {@link org.dominokit.domino.ui.forms.suggest.SuggestionsStore} object
-   * @param <V> a V class
-   * @param <E> a E class
-   * @param <O> a O class
-   * @return a {@link org.dominokit.domino.ui.forms.suggest.MultiSuggestBox} object
+   * @param <V> The type of data associated with the selected options.
+   * @param <E> The type of the suggest box's element.
+   * @param <O> The type of the option within the suggest box.
+   * @param label The label to display for the multi-select suggest box.
+   * @param store The SuggestionsStore that provides suggestions for this multi-select suggest box.
+   * @return A new instance of MultiSuggestBox.
    */
   public static <V, E extends IsElement<?>, O extends Option<V, E, O>>
       MultiSuggestBox<V, E, O> create(String label, SuggestionsStore<V, E, O> store) {
@@ -59,26 +66,25 @@ public class MultiSuggestBox<V, E extends IsElement<?>, O extends Option<V, E, O
   }
 
   /**
-   * Constructor for MultiSuggestBox.
+   * Creates a new instance of MultiSuggestBox with the provided SuggestionsStore.
    *
-   * @param store a {@link org.dominokit.domino.ui.forms.suggest.SuggestionsStore} object
+   * @param store The SuggestionsStore that provides suggestions for this multi-select suggest box.
    */
   public MultiSuggestBox(SuggestionsStore<V, E, O> store) {
     super(store);
   }
 
   /**
-   * Constructor for MultiSuggestBox.
+   * Creates a new instance of MultiSuggestBox with a label and the provided SuggestionsStore.
    *
-   * @param label a {@link java.lang.String} object
-   * @param store a {@link org.dominokit.domino.ui.forms.suggest.SuggestionsStore} object
+   * @param label The label to display for the multi-select suggest box.
+   * @param store The SuggestionsStore that provides suggestions for this multi-select suggest box.
    */
   public MultiSuggestBox(String label, SuggestionsStore<V, E, O> store) {
     super(store);
     setLabel(label);
   }
 
-  /** {@inheritDoc} */
   @Override
   protected void doSetValue(List<V> values) {
     clearValue(false);
@@ -88,13 +94,21 @@ public class MultiSuggestBox<V, E extends IsElement<?>, O extends Option<V, E, O
         });
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Retrieves the currently selected values as a list.
+   *
+   * @return A list of selected values.
+   */
   @Override
   public List<V> getValue() {
     return selectedOptions.stream().map(Option::getValue).collect(Collectors.toList());
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Handles the selection of a suggestion option.
+   *
+   * @param option The suggestion option that was selected.
+   */
   @Override
   public void onOptionSelected(O option) {
     if (nonNull(this.selectedOptions) && this.selectedOptions.contains(option)) {
@@ -107,21 +121,21 @@ public class MultiSuggestBox<V, E extends IsElement<?>, O extends Option<V, E, O
   }
 
   /**
-   * withOption.
+   * Adds a suggestion option to the multi-select suggest box.
    *
-   * @param option a O object
-   * @return a {@link org.dominokit.domino.ui.forms.suggest.MultiSuggestBox} object
+   * @param option The suggestion option to add.
+   * @return The updated MultiSuggestBox instance.
    */
   public MultiSuggestBox<V, E, O> withOption(O option) {
     return withOption(option, isChangeListenersPaused());
   }
 
   /**
-   * withOption.
+   * Adds a suggestion option to the multi-select suggest box.
    *
-   * @param option a O object
-   * @param silent a boolean
-   * @return a {@link org.dominokit.domino.ui.forms.suggest.MultiSuggestBox} object
+   * @param option The suggestion option to add.
+   * @param silent Whether to trigger change listeners silently.
+   * @return The updated MultiSuggestBox instance.
    */
   public MultiSuggestBox<V, E, O> withOption(O option, boolean silent) {
     List<V> oldValue = getValue();
@@ -135,6 +149,11 @@ public class MultiSuggestBox<V, E extends IsElement<?>, O extends Option<V, E, O
     return this;
   }
 
+  /**
+   * Sets the selected options for the multi-select suggest box.
+   *
+   * @param option The suggestion option to add.
+   */
   private void doSetOption(O option) {
     if (isNull(this.selectedOptions)) {
       this.selectedOptions = new ArrayList<>();
@@ -142,7 +161,11 @@ public class MultiSuggestBox<V, E extends IsElement<?>, O extends Option<V, E, O
     this.selectedOptions.add(option);
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Handles the deselection of a suggestion option.
+   *
+   * @param option The suggestion option that was deselected.
+   */
   @Override
   public void onOptionDeselected(O option) {
     List<V> oldValue = getValue();
@@ -161,7 +184,7 @@ public class MultiSuggestBox<V, E extends IsElement<?>, O extends Option<V, E, O
     option.unbindTarget();
   }
 
-  /** {@inheritDoc} */
+  /** Handles the "Backspace" key event. */
   @Override
   protected void onBackspace() {
     if (!selectedOptions.isEmpty()) {
@@ -171,7 +194,12 @@ public class MultiSuggestBox<V, E extends IsElement<?>, O extends Option<V, E, O
     }
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Clears the value of the multi-select suggest box.
+   *
+   * @param silent Whether to clear the value silently.
+   * @return The updated MultiSuggestBox instance.
+   */
   @Override
   protected MultiSuggestBox<V, E, O> clearValue(boolean silent) {
     if (!selectedOptions.isEmpty()) {
@@ -192,7 +220,11 @@ public class MultiSuggestBox<V, E extends IsElement<?>, O extends Option<V, E, O
     return this;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Retrieves the string representation of the selected values.
+   *
+   * @return A comma-separated string of selected values.
+   */
   @Override
   public String getStringValue() {
     if (nonNull(this.selectedOptions) && !this.selectedOptions.isEmpty()) {
@@ -203,7 +235,7 @@ public class MultiSuggestBox<V, E extends IsElement<?>, O extends Option<V, E, O
     return null;
   }
 
-  /** {@inheritDoc} */
+  /** Handles actions to be performed after an option is selected. */
   @Override
   protected void onAfterOptionSelected() {
     getInputElement().element().value = null;

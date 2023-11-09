@@ -30,10 +30,10 @@ import org.dominokit.domino.ui.utils.BaseDominoElement;
 import org.dominokit.domino.ui.utils.ChildHandler;
 
 /**
- * A component representing the upload file
+ * Represents an item in the file upload component that corresponds to a selected file for upload.
+ * It encapsulates the file, upload options, and various event handlers.
  *
  * @see BaseDominoElement
- * @see FileUpload
  */
 public class FileItem extends BaseDominoElement<HTMLElement, FileItem> {
 
@@ -57,23 +57,27 @@ public class FileItem extends BaseDominoElement<HTMLElement, FileItem> {
   private final FileUpload fileUpload;
 
   /**
-   * create.
+   * Creates a new {@code FileItem} instance for the given file, options, file preview factory, and
+   * file upload.
    *
-   * @param file the {@link elemental2.dom.File}
-   * @param options the {@link org.dominokit.domino.ui.upload.UploadOptions}
-   * @return new instance
-   * @param previewFactory a {@link org.dominokit.domino.ui.upload.FilePreviewFactory} object
+   * @param file The file to be associated with this item.
+   * @param options The upload options for this file item.
+   * @param previewFactory The factory for creating the file preview.
+   * @param fileUpload The parent file upload component.
+   * @return A new {@code FileItem} instance.
    */
   public static FileItem create(
       File file, UploadOptions options, FilePreviewFactory previewFactory, FileUpload fileUpload) {
     return new FileItem(file, options, previewFactory, fileUpload);
   }
   /**
-   * create.
+   * Creates a new {@code FileItem} instance for the given file, using the default upload options
+   * and the provided file preview factory and file upload.
    *
-   * @param file the {@link elemental2.dom.File}
-   * @return new instance
-   * @param previewFactory a {@link org.dominokit.domino.ui.upload.FilePreviewFactory} object
+   * @param file The file to be associated with this item.
+   * @param previewFactory The factory for creating the file preview.
+   * @param fileUpload The parent file upload component.
+   * @return A new {@code FileItem} instance.
    */
   public static FileItem create(
       File file, FilePreviewFactory previewFactory, FileUpload fileUpload) {
@@ -81,11 +85,13 @@ public class FileItem extends BaseDominoElement<HTMLElement, FileItem> {
   }
 
   /**
-   * Constructor for FileItem.
+   * Initializes a new {@code FileItem} with the given file, options, file preview factory, and file
+   * upload.
    *
-   * @param file a {@link elemental2.dom.File} object
-   * @param options a {@link org.dominokit.domino.ui.upload.UploadOptions} object
-   * @param previewFactory a {@link org.dominokit.domino.ui.upload.FilePreviewFactory} object
+   * @param file The file to be associated with this item.
+   * @param options The upload options for this file item.
+   * @param previewFactory The factory for creating the file preview.
+   * @param fileUpload The parent file upload component.
    */
   public FileItem(
       File file, UploadOptions options, FilePreviewFactory previewFactory, FileUpload fileUpload) {
@@ -98,42 +104,49 @@ public class FileItem extends BaseDominoElement<HTMLElement, FileItem> {
     init(this);
   }
 
-  /** @return true if the uploaded file is image */
   /**
-   * isImage.
+   * Checks if the file associated with this item is an image.
    *
-   * @return a boolean
+   * @return {@code true} if the file is an image, {@code false} otherwise.
    */
   public boolean isImage() {
     return file.type.startsWith("image");
   }
 
-  /** {@inheritDoc} */
+  /**
+   * @dominokit-site-ignore {@inheritDoc}
+   *     <p>Retrieves the HTML element representing this file item.
+   * @return The HTML element.
+   */
   @Override
   public HTMLElement element() {
     return filePreview.element();
   }
 
-  /** @return the {@link File} */
   /**
-   * Getter for the field <code>file</code>.
+   * Retrieves the file associated with this item.
    *
-   * @return a {@link elemental2.dom.File} object
+   * @return The associated file.
    */
   public File getFile() {
     return file;
   }
 
-  /** @return the size of the file in a readable format */
   /**
-   * readableFileSize.
+   * Converts the file size into a human-readable format.
    *
-   * @return a {@link java.lang.String} object
+   * @return A human-readable string representing the file size.
    */
   public String readableFileSize() {
     return formatSize(file.size);
   }
 
+  /**
+   * Converts the given file size into a human-readable format.
+   *
+   * @param size The file size to be formatted.
+   * @return A human-readable string representing the file size.
+   */
   private String formatSize(double size) {
     int threshold = 1024;
     if (Math.abs(size) < threshold) return size + " B";
@@ -146,16 +159,21 @@ public class FileItem extends BaseDominoElement<HTMLElement, FileItem> {
     return new JsNumber(size).toFixed(1) + " " + UNITS[unitIndex];
   }
 
+  /**
+   * Updates the upload progress and triggers progress handlers.
+   *
+   * @param progress The current upload progress as a double value.
+   */
   private void updateProgress(double progress) {
     filePreview.onUploadProgress(progress);
     progressHandlers.forEach(handler -> handler.onProgress(progress, request));
   }
 
   /**
-   * Adds a handler to be called when removing the file
+   * Adds a handler for the removal of this file item.
    *
-   * @param removeHandler A {@link org.dominokit.domino.ui.upload.FileItem.RemoveFileHandler}
-   * @return same instance
+   * @param removeHandler The handler to be added.
+   * @return This {@code FileItem} instance to allow method chaining.
    */
   public FileItem addRemoveHandler(RemoveFileHandler removeHandler) {
     removeHandlers.add(removeHandler);
@@ -163,10 +181,10 @@ public class FileItem extends BaseDominoElement<HTMLElement, FileItem> {
   }
 
   /**
-   * Adds a handler to be called when an error happens while uploading the file
+   * Adds a handler for upload errors.
    *
-   * @param errorHandler A {@link org.dominokit.domino.ui.upload.FileItem.ErrorHandler}
-   * @return same instance
+   * @param errorHandler The handler to be added.
+   * @return This {@code FileItem} instance to allow method chaining.
    */
   public FileItem addErrorHandler(ErrorHandler errorHandler) {
     errorHandlers.add(errorHandler);
@@ -174,10 +192,10 @@ public class FileItem extends BaseDominoElement<HTMLElement, FileItem> {
   }
 
   /**
-   * Adds a handler to be called when file is uploading providing the progress
+   * Adds a handler for tracking upload progress.
    *
-   * @param progressHandler A {@link org.dominokit.domino.ui.upload.FileItem.ProgressHandler}
-   * @return same instance
+   * @param progressHandler The handler to be added.
+   * @return This {@code FileItem} instance to allow method chaining.
    */
   public FileItem addProgressHandler(ProgressHandler progressHandler) {
     progressHandlers.add(progressHandler);
@@ -185,11 +203,10 @@ public class FileItem extends BaseDominoElement<HTMLElement, FileItem> {
   }
 
   /**
-   * Adds a handler to be called before uploading the file
+   * Adds a handler to be executed before the file upload.
    *
-   * @param beforeUploadHandler\ A {@link
-   *     org.dominokit.domino.ui.upload.FileItem.BeforeUploadHandler}
-   * @return same instance
+   * @param beforeUploadHandler The handler to be added.
+   * @return This {@code FileItem} instance to allow method chaining.
    */
   public FileItem addBeforeUploadHandler(BeforeUploadHandler beforeUploadHandler) {
     beforeUploadHandlers.add(beforeUploadHandler);
@@ -197,11 +214,10 @@ public class FileItem extends BaseDominoElement<HTMLElement, FileItem> {
   }
 
   /**
-   * Adds a handler to be called when the file is uploaded successfully
+   * Adds a handler for successful upload completion.
    *
-   * @param successUploadHandler A {@link
-   *     org.dominokit.domino.ui.upload.FileItem.SuccessUploadHandler}
-   * @return same instance
+   * @param successUploadHandler The handler to be added.
+   * @return This {@code FileItem} instance to allow method chaining.
    */
   public FileItem addSuccessUploadHandler(SuccessUploadHandler successUploadHandler) {
     successUploadHandlers.add(successUploadHandler);
@@ -209,10 +225,10 @@ public class FileItem extends BaseDominoElement<HTMLElement, FileItem> {
   }
 
   /**
-   * Adds a handler to be called when uploading the file is canceled
+   * Adds a handler for cancelling the file upload.
    *
-   * @param cancelHandler A {@link org.dominokit.domino.ui.upload.FileItem.CancelHandler}
-   * @return same instance
+   * @param cancelHandler The handler to be added.
+   * @return This {@code FileItem} instance to allow method chaining.
    */
   public FileItem addCancelHandler(CancelHandler cancelHandler) {
     cancelHandlers.add(cancelHandler);
@@ -220,10 +236,10 @@ public class FileItem extends BaseDominoElement<HTMLElement, FileItem> {
   }
 
   /**
-   * withOptions.
+   * Applies a child handler to set upload options for this file item.
    *
-   * @param handler a {@link org.dominokit.domino.ui.utils.ChildHandler} object
-   * @return a {@link org.dominokit.domino.ui.upload.FileItem} object
+   * @param handler The child handler for configuring upload options.
+   * @return This {@code FileItem} instance to allow method chaining.
    */
   public FileItem withOptions(ChildHandler<FileItem, UploadOptions> handler) {
     handler.apply(this, options);
@@ -231,15 +247,14 @@ public class FileItem extends BaseDominoElement<HTMLElement, FileItem> {
   }
 
   /**
-   * Getter for the field <code>options</code>.
+   * Retrieves the upload options associated with this file item.
    *
-   * @return a {@link org.dominokit.domino.ui.upload.UploadOptions} object
+   * @return The upload options.
    */
   public UploadOptions getOptions() {
     return options;
   }
 
-  /** Uploads the file */
   public void upload() {
     if (nonNull(requestSender)) {
       upload(requestSender);
@@ -248,12 +263,6 @@ public class FileItem extends BaseDominoElement<HTMLElement, FileItem> {
     }
   }
 
-  /**
-   * Uploads the file
-   *
-   * @param requestSender a {@link org.dominokit.domino.ui.upload.UploadRequestSender} to use for
-   *     sending the request
-   */
   public void upload(UploadRequestSender requestSender) {
     this.requestSender = requestSender;
     if (!isExceedsMaxFile() && !uploaded && !isCanceled()) {
@@ -297,31 +306,40 @@ public class FileItem extends BaseDominoElement<HTMLElement, FileItem> {
     }
   }
 
+  /** Resets the state of the file item, clearing canceled and removed flags. */
   private void resetState() {
     canceled = false;
     removed = false;
   }
 
   /**
-   * isExceedsMaxFile.
+   * Checks whether the file size exceeds the maximum allowed size.
    *
-   * @return a boolean
+   * @return {@code true} if the file size exceeds the maximum allowed size, otherwise {@code
+   *     false}.
    */
   public boolean isExceedsMaxFile() {
     return options.getMaxFileSize() > 0 && file.size > options.getMaxFileSize();
   }
 
+  /** Handles the success of the file upload, triggering success-related actions. */
   private void onSuccess() {
     uploaded = true;
     filePreview.onUploadSuccess();
     successUploadHandlers.forEach(handler -> handler.onSuccessUpload(request));
   }
 
+  /** Handles errors during the file upload, triggering error-related actions. */
   private void onError() {
     filePreview.onUploadFailed(getErrorMessage());
     errorHandlers.forEach(handler -> handler.onError(request));
   }
 
+  /**
+   * Retrieves the error message from the upload response or provides a default message.
+   *
+   * @return The error message, or a default message if none is available.
+   */
   private String getErrorMessage() {
     final boolean hasErrorText =
         request.responseType != null
@@ -330,7 +348,11 @@ public class FileItem extends BaseDominoElement<HTMLElement, FileItem> {
     return hasErrorText ? request.responseText : "Error while sending request";
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Removes the file item from the DOM and marks it as removed.
+   *
+   * @return This FileItem instance for method chaining.
+   */
   @Override
   public FileItem remove() {
     super.remove();
@@ -340,89 +362,83 @@ public class FileItem extends BaseDominoElement<HTMLElement, FileItem> {
   }
 
   /**
-   * Sets the url of the server
+   * Sets the URL to which the file will be uploaded.
    *
-   * @param url the server url
-   * @return same instance
+   * @param url The URL to set for the file upload.
+   * @return This FileItem instance for method chaining.
    */
   public FileItem setUrl(String url) {
     options.setUrl(url);
     return this;
   }
 
-  /** @return the file name */
   /**
-   * Getter for the field <code>fileName</code>.
+   * Gets the name of the file.
    *
-   * @return a {@link java.lang.String} object
+   * @return The name of the file.
    */
   public String getFileName() {
     return fileName;
   }
 
   /**
-   * Sets the file name
+   * Sets the name of the file.
    *
-   * @param fileName the new file name
+   * @param fileName The name to set for the file.
    */
   public void setFileName(String fileName) {
     this.fileName = fileName;
   }
 
-  /** @return all the {@link RemoveFileHandler} */
   /**
-   * Getter for the field <code>removeHandlers</code>.
+   * Gets a list of handlers for file removal events.
    *
-   * @return a {@link java.util.List} object
+   * @return A list of RemoveFileHandler instances.
    */
   public List<RemoveFileHandler> getRemoveHandlers() {
     return removeHandlers;
   }
 
-  /** @return all the {@link ErrorHandler} */
   /**
-   * Getter for the field <code>errorHandlers</code>.
+   * Gets a list of handlers for file error events.
    *
-   * @return a {@link java.util.List} object
+   * @return A list of ErrorHandler instances.
    */
   public List<ErrorHandler> getErrorHandlers() {
     return errorHandlers;
   }
 
-  /** @return all the {@link ProgressHandler} */
   /**
-   * Getter for the field <code>progressHandlers</code>.
+   * Gets a list of handlers for file progress events.
    *
-   * @return a {@link java.util.List} object
+   * @return A list of ProgressHandler instances.
    */
   public List<ProgressHandler> getProgressHandlers() {
     return progressHandlers;
   }
 
-  /** @return all the {@link BeforeUploadHandler} */
   /**
-   * Getter for the field <code>beforeUploadHandlers</code>.
+   * Gets a list of handlers for before upload events.
    *
-   * @return a {@link java.util.List} object
+   * @return A list of BeforeUploadHandler instances.
    */
   public List<BeforeUploadHandler> getBeforeUploadHandlers() {
     return beforeUploadHandlers;
   }
 
-  /** @return all the {@link SuccessUploadHandler} */
   /**
-   * Getter for the field <code>successUploadHandlers</code>.
+   * Gets a list of handlers for successful file upload events.
    *
-   * @return a {@link java.util.List} object
+   * @return A list of SuccessUploadHandler instances.
    */
   public List<SuccessUploadHandler> getSuccessUploadHandlers() {
     return successUploadHandlers;
   }
 
   /**
-   * Cancels the upload request
+   * Cancels the file upload by aborting the associated request if it exists.
    *
-   * @return same instance
+   * @return This FileItem instance for method chaining.
    */
   public FileItem cancel() {
     if (request != null) {
@@ -432,47 +448,48 @@ public class FileItem extends BaseDominoElement<HTMLElement, FileItem> {
     return this;
   }
 
-  /** @return all the {@link CancelHandler} */
   /**
-   * Getter for the field <code>cancelHandlers</code>.
+   * Gets a list of handlers for cancel events during file upload.
    *
-   * @return a {@link java.util.List} object
+   * @return A list of CancelHandler instances.
    */
   public List<CancelHandler> getCancelHandlers() {
     return cancelHandlers;
   }
 
-  /** @return true if the upload request is canceled */
   /**
-   * isCanceled.
+   * Checks if the file upload has been canceled.
    *
-   * @return a boolean
+   * @return {@code true} if the file upload has been canceled, otherwise {@code false}.
    */
   public boolean isCanceled() {
     return canceled;
   }
 
-  /** @return true if the file is removed */
   /**
-   * isRemoved.
+   * Checks if the file item has been removed from the DOM.
    *
-   * @return a boolean
+   * @return {@code true} if the file item has been removed, otherwise {@code false}.
    */
   public boolean isRemoved() {
     return removed;
   }
 
-  /** @return true if the file is uploaded */
   /**
-   * isUploaded.
+   * Checks if the file has been successfully uploaded.
    *
-   * @return a boolean
+   * @return {@code true} if the file has been successfully uploaded, otherwise {@code false}.
    */
   public boolean isUploaded() {
     return uploaded;
   }
 
-  /** validateSize. */
+  /**
+   * Validates the size of the file and displays an error message if it exceeds the maximum allowed
+   * size.
+   *
+   * @see #isExceedsMaxFile()
+   */
   public void validateSize() {
     if (isExceedsMaxFile()) {
       filePreview.onUploadFailed(
@@ -480,51 +497,80 @@ public class FileItem extends BaseDominoElement<HTMLElement, FileItem> {
     }
   }
 
+  /**
+   * Gets the parent FileUpload component to which this file item belongs.
+   *
+   * @return The parent FileUpload instance.
+   */
   public FileUpload getFileUpload() {
     return fileUpload;
   }
 
-  /** A handler to be called when the file is removed */
+  /** Functional interface for handling file removal events. */
   @FunctionalInterface
   public interface RemoveFileHandler {
+    /**
+     * Handles the removal of a file.
+     *
+     * @param file The removed file.
+     */
     void onRemoveFile(File file);
   }
 
-  /** A handler to be called when the upload request fails */
+  /** Functional interface for handling file error events. */
   @FunctionalInterface
   public interface ErrorHandler {
+    /**
+     * Handles errors that occur during file upload.
+     *
+     * @param request The XMLHttpRequest associated with the error.
+     */
     void onError(XMLHttpRequest request);
   }
 
-  /** A handler which provides the upload progress */
+  /** Functional interface for handling file progress events. */
   @FunctionalInterface
   public interface ProgressHandler {
     /**
-     * @param loaded the loaded bytes
-     * @param request the request
+     * Handles progress events during file upload.
+     *
+     * @param loaded The number of bytes loaded.
+     * @param request The XMLHttpRequest associated with the progress event.
      */
     void onProgress(double loaded, XMLHttpRequest request);
   }
 
-  /** A handler to be called before uploading the file */
+  /** Functional interface for handling before upload events. */
   @FunctionalInterface
   public interface BeforeUploadHandler {
     /**
-     * @param request the request
-     * @param formData a form data for adding extra information needed
+     * Handles events that occur just before the file upload starts.
+     *
+     * @param request The XMLHttpRequest associated with the upload.
+     * @param formData The FormData containing the file to be uploaded.
      */
     void onBeforeUpload(XMLHttpRequest request, FormData formData);
   }
 
-  /** A handler to be called when the file is successfully uploaded */
+  /** Functional interface for handling successful file upload events. */
   @FunctionalInterface
   public interface SuccessUploadHandler {
+    /**
+     * Handles successful file upload events.
+     *
+     * @param request The XMLHttpRequest associated with the successful upload.
+     */
     void onSuccessUpload(XMLHttpRequest request);
   }
 
-  /** A handler to be called when the upload request is canceled */
+  /** Functional interface for handling file upload cancellation events. */
   @FunctionalInterface
   public interface CancelHandler {
+    /**
+     * Handles file upload cancellation events.
+     *
+     * @param request The XMLHttpRequest associated with the canceled upload.
+     */
     void onCancel(XMLHttpRequest request);
   }
 }

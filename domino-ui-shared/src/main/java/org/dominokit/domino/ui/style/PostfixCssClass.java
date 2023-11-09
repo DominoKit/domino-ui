@@ -13,52 +13,62 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package org.dominokit.domino.ui.style;
 
 import elemental2.dom.Element;
 
-/** PostfixCssClass class. */
+/**
+ * A class that represents a CSS class with optional postfixes that can be dynamically added or
+ * removed from an HTML element. The base CSS class name is combined with a postfix to create the
+ * final CSS class name. Postfixes can be integers or strings.
+ */
 public class PostfixCssClass implements CssClass {
   private final String baseCssName;
 
   private final SwapCssClass swapCssClass;
 
   /**
-   * of.
+   * Creates a new instance of {@link PostfixCssClass} with the specified base CSS class name and an
+   * integer postfix.
    *
-   * @param baseCssName a {@link java.lang.String} object.
-   * @param postfix a int.
-   * @return a {@link org.dominokit.domino.ui.style.PostfixCssClass} object.
+   * @param baseCssName The base CSS class name without any postfix.
+   * @param postfix The integer postfix to append to the base CSS class name.
+   * @return A new {@link PostfixCssClass} instance with the specified base CSS class name and
+   *     integer postfix.
    */
   public static PostfixCssClass of(String baseCssName, int postfix) {
     return new PostfixCssClass(baseCssName, postfix);
   }
 
   /**
-   * of.
+   * Creates a new instance of {@link PostfixCssClass} with the specified base CSS class name and a
+   * string postfix.
    *
-   * @param baseCssName a {@link java.lang.String} object.
-   * @param postfix a {@link java.lang.String} object.
-   * @return a {@link org.dominokit.domino.ui.style.PostfixCssClass} object.
+   * @param baseCssName The base CSS class name without any postfix.
+   * @param postfix The string postfix to append to the base CSS class name.
+   * @return A new {@link PostfixCssClass} instance with the specified base CSS class name and
+   *     string postfix.
    */
   public static PostfixCssClass of(String baseCssName, String postfix) {
     return new PostfixCssClass(baseCssName, postfix);
   }
 
   /**
-   * of.
+   * Creates a new instance of {@link PostfixCssClass} with the specified base CSS class name and no
+   * postfix.
    *
-   * @param baseCssName a {@link java.lang.String} object.
-   * @return a {@link org.dominokit.domino.ui.style.PostfixCssClass} object.
+   * @param baseCssName The base CSS class name without any postfix.
+   * @return A new {@link PostfixCssClass} instance with the specified base CSS class name.
    */
   public static PostfixCssClass of(String baseCssName) {
     return new PostfixCssClass(baseCssName);
   }
 
   /**
-   * Constructor for PostfixCssClass.
+   * Creates a PostfixCssClass with the specified base CSS class name.
    *
-   * @param baseCssName a {@link java.lang.String} object.
+   * @param baseCssName The base CSS class name without any postfix.
    */
   public PostfixCssClass(String baseCssName) {
     this.baseCssName = baseCssName;
@@ -66,10 +76,10 @@ public class PostfixCssClass implements CssClass {
   }
 
   /**
-   * Constructor for PostfixCssClass.
+   * Creates a PostfixCssClass with the specified base CSS class name and integer postfix.
    *
-   * @param baseCssName a {@link java.lang.String} object.
-   * @param postfix a int.
+   * @param baseCssName The base CSS class name without any postfix.
+   * @param postfix The integer postfix to append to the base CSS class name.
    */
   public PostfixCssClass(String baseCssName, int postfix) {
     this.baseCssName = baseCssName;
@@ -77,10 +87,10 @@ public class PostfixCssClass implements CssClass {
   }
 
   /**
-   * Constructor for PostfixCssClass.
+   * Creates a PostfixCssClass with the specified base CSS class name and string postfix.
    *
-   * @param baseCssName a {@link java.lang.String} object.
-   * @param postfix a {@link java.lang.String} object.
+   * @param baseCssName The base CSS class name without any postfix.
+   * @param postfix The string postfix to append to the base CSS class name.
    */
   public PostfixCssClass(String baseCssName, String postfix) {
     this.baseCssName = baseCssName;
@@ -88,10 +98,10 @@ public class PostfixCssClass implements CssClass {
   }
 
   /**
-   * postfix.
+   * Appends an integer postfix to the CSS class name.
    *
-   * @param postfix a int.
-   * @return a {@link org.dominokit.domino.ui.style.PostfixCssClass} object.
+   * @param postfix The integer postfix to append.
+   * @return The PostfixCssClass instance with the updated CSS class name.
    */
   public PostfixCssClass postfix(int postfix) {
     this.swapCssClass.replaceWith(() -> baseCssName + "-" + postfix);
@@ -99,29 +109,41 @@ public class PostfixCssClass implements CssClass {
   }
 
   /**
-   * postfix.
+   * Appends a string postfix to the CSS class name.
    *
-   * @param postfix a {@link java.lang.String} object.
-   * @return a {@link org.dominokit.domino.ui.style.PostfixCssClass} object.
+   * @param postfix The string postfix to append.
+   * @return The PostfixCssClass instance with the updated CSS class name.
    */
   public PostfixCssClass postfix(String postfix) {
     this.swapCssClass.replaceWith(() -> baseCssName + "-" + postfix);
     return this;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Removes the CSS class from the specified HTML element.
+   *
+   * @param element The HTML element from which the CSS class will be removed.
+   */
   @Override
   public void remove(Element element) {
     swapCssClass.remove(element);
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Applies the CSS class to the specified HTML element.
+   *
+   * @param element The HTML element to which the CSS class will be applied.
+   */
   @Override
   public void apply(Element element) {
     swapCssClass.apply(element);
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Retrieves the current CSS class name, which may include the appended postfix.
+   *
+   * @return The current CSS class name.
+   */
   @Override
   public String getCssClass() {
     return swapCssClass.getCssClass();

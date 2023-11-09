@@ -32,11 +32,17 @@ import org.dominokit.domino.ui.utils.ChildHandler;
 import org.dominokit.domino.ui.utils.LazyChild;
 
 /**
- * A component for showing notifications on different position with custom content
+ * Represents a UI notification component.
  *
- * <p>Customize the component can be done by overwriting classes provided by {@link
- * NotificationStyles} </pre>
+ * <p>Usage example:
  *
+ * <pre>
+ * Notification.create("This is a sample message")
+ *             .setPosition(Notification.Position.TOP_RIGHT)
+ *             .show();
+ * </pre>
+ *
+ * @see NotificationStyles
  * @see BaseDominoElement
  */
 public class Notification extends BaseDominoElement<HTMLDivElement, Notification>
@@ -57,7 +63,7 @@ public class Notification extends BaseDominoElement<HTMLDivElement, Notification
   private boolean closed = true;
   private final List<CloseHandler> closeHandlers = new ArrayList<>();
 
-  /** Constructor for Notification. */
+  /** Constructs a default notification instance. */
   public Notification() {
     root =
         div()
@@ -78,10 +84,10 @@ public class Notification extends BaseDominoElement<HTMLDivElement, Notification
   }
 
   /**
-   * Creates a notification for the message with no specific type and default black bacjground.
+   * Creates a new notification with the specified message.
    *
-   * @param message the content message
-   * @return {@link org.dominokit.domino.ui.notifications.Notification}
+   * @param message the message of the notification
+   * @return a new notification instance
    */
   public static Notification create(String message) {
     Notification notification = new Notification();
@@ -90,41 +96,53 @@ public class Notification extends BaseDominoElement<HTMLDivElement, Notification
   }
 
   /**
-   * Creates a notification for the message with no specific type and default black bacjground.
+   * Creates a new default notification.
    *
-   * @return {@link org.dominokit.domino.ui.notifications.Notification}
+   * @return a new notification instance
    */
   public static Notification create() {
     return new Notification();
   }
 
-  /** {@inheritDoc} */
+  /**
+   * {@inheritDoc}
+   *
+   * <p>Returns the main element of this notification to which styles can be applied.
+   *
+   * @return the style target element
+   */
   @Override
   protected HTMLElement getStyleTarget() {
     return element.element();
   }
 
-  /** {@inheritDoc} */
+  /**
+   * {@inheritDoc}
+   *
+   * <p>Returns the main content element of this notification to which additional content can be
+   * appended.
+   *
+   * @return the append target element
+   */
   @Override
   public HTMLElement getAppendTarget() {
     return content.element();
   }
 
-  /** @return {@link DominoElement<HTMLButtonElement>} the close button of the notification. */
   /**
-   * Getter for the field <code>closeButton</code>.
+   * Retrieves the close button of the notification.
    *
-   * @return a {@link org.dominokit.domino.ui.button.RemoveButton} object
+   * @return the close button
    */
   public RemoveButton getCloseButton() {
     return closeButton.get();
   }
 
   /**
-   * Use to show or hide the close button.
+   * Sets whether the notification can be dismissed by the user.
    *
-   * @return {@link org.dominokit.domino.ui.notifications.Notification}
-   * @param dismissible a boolean
+   * @param dismissible true if the notification should be dismissible, false otherwise
+   * @return this notification for chaining
    */
   public Notification setDismissible(boolean dismissible) {
     this.dismissible = dismissible;
@@ -132,22 +150,20 @@ public class Notification extends BaseDominoElement<HTMLDivElement, Notification
     return this;
   }
 
-  /** @return boolean, true if the close button is visible, else false. */
   /**
-   * isDismissible.
+   * Checks if the notification is dismissible by the user.
    *
-   * @return a boolean
+   * @return true if the notification is dismissible, false otherwise
    */
   public boolean isDismissible() {
     return dismissible;
   }
 
   /**
-   * for none infinite notifications, the duration defined how long the notification will remain
-   * visible after the show transition is completed before it is automatically closed.
+   * Sets the duration for which the notification will be displayed.
    *
-   * @param duration in millisecond
-   * @return {@link org.dominokit.domino.ui.notifications.Notification}
+   * @param duration the duration in milliseconds
+   * @return this notification for chaining
    */
   public Notification setDuration(int duration) {
     this.duration = duration;
@@ -155,11 +171,10 @@ public class Notification extends BaseDominoElement<HTMLDivElement, Notification
   }
 
   /**
-   * Defines the animation transition to be applied to show up the notification when {@link
-   * Notification#expand()} is called.
+   * Sets the transition animation when the notification is displayed.
    *
-   * @param inTransition {@link org.dominokit.domino.ui.animations.Transition}
-   * @return {@link org.dominokit.domino.ui.notifications.Notification}
+   * @param inTransition the in-transition animation
+   * @return this notification for chaining
    */
   public Notification inTransition(Transition inTransition) {
     this.inTransition = inTransition;
@@ -167,11 +182,10 @@ public class Notification extends BaseDominoElement<HTMLDivElement, Notification
   }
 
   /**
-   * Defines the animation transition to be applied to close up the notification when {@link
-   * Notification#close()} is called, or the duration ends.
+   * Sets the transition animation when the notification is hidden.
    *
-   * @param outTransition {@link org.dominokit.domino.ui.animations.Transition}
-   * @return {@link org.dominokit.domino.ui.notifications.Notification}
+   * @param outTransition the out-transition animation
+   * @return this notification for chaining
    */
   public Notification outTransition(Transition outTransition) {
     this.outTransition = outTransition;
@@ -179,10 +193,10 @@ public class Notification extends BaseDominoElement<HTMLDivElement, Notification
   }
 
   /**
-   * The text content of the notification
+   * Sets the message content for the notification.
    *
-   * @param message the content message
-   * @return {@link org.dominokit.domino.ui.notifications.Notification}
+   * @param message the message to be displayed
+   * @return this notification for chaining
    */
   public Notification setMessage(String message) {
     this.messageSpan.get().setTextContent(message);
@@ -190,11 +204,10 @@ public class Notification extends BaseDominoElement<HTMLDivElement, Notification
   }
 
   /**
-   * Defines the location in which the notification will show up when {@link
-   * org.dominokit.domino.ui.notifications.Notification#expand()} is called.
+   * Sets the position for the notification on the screen.
    *
-   * @param position {@link org.dominokit.domino.ui.notifications.Notification.Position}
-   * @return {@link org.dominokit.domino.ui.notifications.Notification}
+   * @param position the desired position for the notification
+   * @return this notification for chaining
    */
   public Notification setPosition(Position position) {
     root.addCss(this.position.replaceWith(position.style));
@@ -202,34 +215,44 @@ public class Notification extends BaseDominoElement<HTMLDivElement, Notification
   }
 
   /**
-   * When true, duration will be ignored, and the notification will only close if the {@link
-   * Notification#close()} is called or close button is clicked.
+   * Specifies whether the notification should be displayed indefinitely.
    *
-   * @param infinite true to close manually only, false otherwise
-   * @return {@link org.dominokit.domino.ui.notifications.Notification}
+   * @param infinite true if the notification should be displayed indefinitely, false otherwise
+   * @return this notification for chaining
    */
   public Notification setInfinite(boolean infinite) {
     this.infinite = infinite;
     return this;
   }
 
-  /** @return boolean, true if notification is finite */
   /**
-   * isInfinite.
+   * Checks if the notification is set to be displayed indefinitely.
    *
-   * @return a boolean
+   * @return true if the notification is set to be displayed indefinitely, false otherwise
    */
   public boolean isInfinite() {
     return infinite;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * {@inheritDoc}
+   *
+   * <p>Shows the notification on the screen.
+   *
+   * @return this notification for chaining
+   */
   @Override
   public Notification show() {
     return expand();
   }
 
-  /** {@inheritDoc} */
+  /**
+   * {@inheritDoc}
+   *
+   * <p>Hides the notification from the screen.
+   *
+   * @return this notification for chaining
+   */
   @Override
   public Notification hide() {
     close();
@@ -237,9 +260,9 @@ public class Notification extends BaseDominoElement<HTMLDivElement, Notification
   }
 
   /**
-   * Show up the notification and apply the IN transtion animation.
+   * Displays the notification on the screen using the set animation and updates its position.
    *
-   * @return {@link org.dominokit.domino.ui.notifications.Notification}
+   * @return this notification for chaining
    */
   public Notification expand() {
     this.closed = false;
@@ -260,19 +283,15 @@ public class Notification extends BaseDominoElement<HTMLDivElement, Notification
     return this;
   }
 
-  /**
-   * Closes the notification based on the applied notification position and apply the close
-   * animation.ce trans
-   */
+  /** Closes the notification immediately. */
   public final void close() {
     close(0);
   }
 
   /**
-   * Closes the notification based on the applied notification position and apply the close
-   * animation after the specified duration.
+   * Closes the notification after a specified delay.
    *
-   * @param after time to wait before starting the close animation in milliseconds
+   * @param after the delay in milliseconds after which the notification should be closed
    */
   public final void close(int after) {
     if (!closed) {
@@ -285,6 +304,12 @@ public class Notification extends BaseDominoElement<HTMLDivElement, Notification
     }
   }
 
+  /**
+   * Animates the closing of the notification after a specified delay.
+   *
+   * @param after the delay in milliseconds before initiating the close animation
+   * @param onComplete a runnable that will be executed when the animation is complete
+   */
   private void animateClose(int after, Runnable onComplete) {
     Animation.create(element)
         .delay(after)
@@ -298,21 +323,20 @@ public class Notification extends BaseDominoElement<HTMLDivElement, Notification
         .animate();
   }
 
-  /** @return List of {@link CloseHandler} to be called when a notification is closed. */
   /**
-   * Getter for the field <code>closeHandlers</code>.
+   * Retrieves the list of close handlers associated with the notification.
    *
-   * @return a {@link java.util.List} object
+   * @return a list of close handlers
    */
   public List<CloseHandler> getCloseHandlers() {
     return closeHandlers;
   }
 
   /**
-   * Add a handler to be called when a notification is closed
+   * Adds a close handler to the notification.
    *
-   * @param closeHandler {@link org.dominokit.domino.ui.notifications.Notification.CloseHandler}
-   * @return {@link org.dominokit.domino.ui.notifications.Notification}
+   * @param closeHandler the close handler to be added
+   * @return this notification for chaining
    */
   public Notification addCloseHandler(CloseHandler closeHandler) {
     if (nonNull(closeHandler)) {
@@ -322,11 +346,10 @@ public class Notification extends BaseDominoElement<HTMLDivElement, Notification
   }
 
   /**
-   * Removes a {@link org.dominokit.domino.ui.notifications.Notification.CloseHandler} from the
-   * currently existing close handlers.
+   * Removes a specified close handler from the notification.
    *
-   * @param closeHandler A {@link org.dominokit.domino.ui.notifications.Notification.CloseHandler}
-   * @return {@link org.dominokit.domino.ui.notifications.Notification}
+   * @param closeHandler the close handler to be removed
+   * @return this notification for chaining
    */
   public Notification removeCloseHandler(CloseHandler closeHandler) {
     if (nonNull(closeHandler)) {
@@ -336,43 +359,81 @@ public class Notification extends BaseDominoElement<HTMLDivElement, Notification
   }
 
   /**
-   * withContent.
+   * Adds custom content to the notification.
    *
-   * @param handler a {@link org.dominokit.domino.ui.utils.ChildHandler} object
-   * @return a {@link org.dominokit.domino.ui.notifications.Notification} object
+   * @param handler a handler that will be provided with the notification and its content element
+   * @return this notification for chaining
    */
   public Notification withContent(ChildHandler<Notification, DivElement> handler) {
     handler.apply(this, content);
     return this;
   }
 
-  /** @return {@link HTMLDivElement} the root element that represent this notification instance. */
-  /** {@inheritDoc} */
+  /**
+   * Retrieves the root HTMLDivElement of the notification.
+   *
+   * @return the root HTMLDivElement of the notification
+   */
   @Override
   public HTMLDivElement element() {
     return root.element();
   }
 
-  /** functional interface to handle close event */
+  /**
+   * A functional interface representing handlers that are triggered when a notification is closed.
+   */
   @FunctionalInterface
   public interface CloseHandler {
+    /** Triggered when the notification is closed. */
     void onClose();
   }
 
+  /**
+   * An enumeration representing the possible positions of a notification on the screen.
+   *
+   * <p>Example Usage:
+   *
+   * <pre>
+   * Notification notification = Notification.create("This is a notification");
+   * notification.setPosition(Position.TOP_LEFT);
+   * notification.show();
+   * </pre>
+   */
   public enum Position {
+    /** Represents the top-left position of the screen. */
     TOP_LEFT(NotificationStyles.dui_ntf_top_left),
+
+    /** Represents the top-middle position of the screen. */
     TOP_MIDDLE(NotificationStyles.dui_ntf_top_middle),
+
+    /** Represents the top-right position of the screen. */
     TOP_RIGHT(NotificationStyles.dui_ntf_top_right),
+
+    /** Represents the bottom-left position of the screen. */
     BOTTOM_LEFT(NotificationStyles.dui_ntf_bottom_left),
+
+    /** Represents the bottom-middle position of the screen. */
     BOTTOM_MIDDLE(NotificationStyles.dui_ntf_bottom_middle),
+
+    /** Represents the bottom-right position of the screen. */
     BOTTOM_RIGHT(NotificationStyles.dui_ntf_bottom_right);
 
     private CssClass style;
 
+    /**
+     * Constructs a new {@link Position} enumeration value with the provided style.
+     *
+     * @param style the {@link CssClass} representing the style of the notification's position.
+     */
     Position(CssClass style) {
       this.style = style;
     }
 
+    /**
+     * Retrieves the CSS class representing the style of the notification's position.
+     *
+     * @return the {@link CssClass} of the position.
+     */
     public CssClass getStyle() {
       return style;
     }

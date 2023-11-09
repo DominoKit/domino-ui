@@ -13,98 +13,128 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package org.dominokit.domino.ui.utils;
 
 /**
- * A component that can be selected/deselected should implement this interface
+ * The {@code Selectable} interface represents an object that can be selected or deselected. It
+ * provides methods to manipulate the selection state and query the current selection status.
  *
- * @param <T> the type of the component implementing this interface
+ * <p>Implementing classes or objects that implement this interface should provide mechanisms to
+ * track and manage their selection state.
+ *
+ * <p>This interface defines the following methods to work with selection:
+ *
+ * <ul>
+ *   <li>{@link #select()}: Selects the object.
+ *   <li>{@link #deselect()}: Deselects the object.
+ *   <li>{@link #select(boolean)}: Selects the object, optionally in silent mode (without triggering
+ *       events).
+ *   <li>{@link #deselect(boolean)}: Deselects the object, optionally in silent mode (without
+ *       triggering events).
+ *   <li>{@link #isSelected()}: Checks if the object is currently selected.
+ *   <li>{@link #isSelectable()}: Checks if the object is selectable.
+ *   <li>{@link #setSelectable(boolean)}: Sets the object's selectability status.
+ *   <li>{@link #setSelected(boolean)}: Sets the object as selected or deselected.
+ *   <li>{@link #setSelected(boolean, boolean)}: Sets the object as selected or deselected,
+ *       optionally in silent mode (without triggering events).
+ *   <li>{@link #toggleSelect()}: Toggles the selection state of the object.
+ *   <li>{@link #toggleSelect(boolean)}: Toggles the selection state of the object, optionally in
+ *       silent mode.
+ * </ul>
+ *
+ * <p>Implementing classes should provide proper implementations of these methods to manage
+ * selection and selectability as per their specific requirements.
+ *
+ * @param <T> The type of the object that can be selected or deselected.
  */
 public interface Selectable<T> {
+
   /**
-   * make the component selected
+   * Selects the object.
    *
-   * @return same implementing component instance
+   * @return The reference to the object after selection.
    */
   T select();
 
   /**
-   * Deselect the component if it is already selected
+   * Deselects the object.
    *
-   * @return same implementing component instance
+   * @return The reference to the object after deselection.
    */
   T deselect();
 
   /**
-   * make the component selected without triggering the selection/change handlers
+   * Selects the object, optionally in silent mode (without triggering events).
    *
-   * @return same implementing component instance
-   * @param silent a boolean
+   * @param silent {@code true} to select silently, {@code false} to trigger events.
+   * @return The reference to the object after selection.
    */
   T select(boolean silent);
 
   /**
-   * deselect the component without triggering the selection/change handlers
+   * Deselects the object, optionally in silent mode (without triggering events).
    *
-   * @return same implementing component instance
-   * @param silent a boolean
+   * @param silent {@code true} to deselect silently, {@code false} to trigger events.
+   * @return The reference to the object after deselection.
    */
   T deselect(boolean silent);
 
-  /** @return boolean, true if the component is currently selected */
   /**
-   * isSelected.
+   * Checks if the object is currently selected.
    *
-   * @return a boolean
+   * @return {@code true} if the object is selected, {@code false} otherwise.
    */
   boolean isSelected();
 
   /**
-   * isSelectable.
+   * Checks if the object is selectable.
    *
-   * @return a boolean
+   * @return {@code true} if the object is selectable, {@code false} otherwise.
    */
   boolean isSelectable();
 
   /**
-   * setSelectable.
+   * Sets the object's selectability status.
    *
-   * @param selectable a boolean
-   * @return a T object
+   * @param selectable {@code true} to make the object selectable, {@code false} to make it
+   *     unselectable.
+   * @return The reference to the object after setting selectability.
    */
   T setSelectable(boolean selectable);
 
   /**
-   * setSelected.
+   * Sets the object as selected or deselected.
    *
-   * @param selected a boolean
-   * @return a T object
+   * @param selected {@code true} to select the object, {@code false} to deselect it.
+   * @return The reference to the object after setting the selection state.
    */
   T setSelected(boolean selected);
 
   /**
-   * setSelected.
+   * Sets the object as selected or deselected, optionally in silent mode (without triggering
+   * events).
    *
-   * @param selected a boolean
-   * @param silent a boolean
-   * @return a T object
+   * @param selected {@code true} to select the object, {@code false} to deselect it.
+   * @param silent {@code true} to perform the operation silently, {@code false} to trigger events.
+   * @return The reference to the object after setting the selection state.
    */
   T setSelected(boolean selected, boolean silent);
 
   /**
-   * toggleSelect.
+   * Toggles the selection state of the object.
    *
-   * @return a T object
+   * @return The reference to the object after toggling the selection state.
    */
   default T toggleSelect() {
     return setSelected(!isSelected());
   }
 
   /**
-   * toggleSelect.
+   * Toggles the selection state of the object, optionally in silent mode.
    *
-   * @param silent a boolean
-   * @return a T object
+   * @param silent {@code true} to toggle silently, {@code false} to trigger events.
+   * @return The reference to the object after toggling the selection state.
    */
   default T toggleSelect(boolean silent) {
     return setSelected(!isSelected(), silent);

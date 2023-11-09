@@ -26,7 +26,7 @@ import org.dominokit.domino.ui.animations.Transition;
 
 /**
  * An implementation of {@link org.dominokit.domino.ui.collapsible.CollapseStrategy} that uses the
- * css display property to hide/show the collapsible element
+ * css animations to hide/show the collapsible element
  */
 public class AnimationCollapseStrategy implements CollapseStrategy {
 
@@ -37,21 +37,24 @@ public class AnimationCollapseStrategy implements CollapseStrategy {
   private CollapsibleHandlers handlers;
   private Animation showAnimation;
 
-  /** {@inheritDoc} */
+  /** @dominokit-site-ignore {@inheritDoc} */
   @Override
   public void init(Element element, CollapsibleHandlers handlers) {
     this.handlers = handlers;
   }
 
   /**
-   * Constructor for AnimationCollapseStrategy.
+   * Creates an AnimationCollapseStrategy with the provided transitions and duration
    *
-   * @param showTransition a {@link org.dominokit.domino.ui.animations.Transition} object
-   * @param hideTransition a {@link org.dominokit.domino.ui.animations.Transition} object
-   * @param duration a {@link org.dominokit.domino.ui.collapsible.CollapseDuration} object
+   * @param showTransition The show/expand animation {@link
+   *     org.dominokit.domino.ui.animations.Transition}
+   * @param hideTransition The hide/collapse animation {@link
+   *     org.dominokit.domino.ui.animations.Transition}
+   * @param duration The {@link CollapsibleDuration} to be used for both the show and hide
+   *     animations.
    */
   public AnimationCollapseStrategy(
-      Transition showTransition, Transition hideTransition, CollapseDuration duration) {
+      Transition showTransition, Transition hideTransition, CollapsibleDuration duration) {
     this.options =
         new AnimationCollapseOptions()
             .setShowTransition(showTransition)
@@ -61,12 +64,14 @@ public class AnimationCollapseStrategy implements CollapseStrategy {
   }
 
   /**
-   * Constructor for AnimationCollapseStrategy.
+   * Creates an AnimationCollapseStrategy with the provided transitions and duration
    *
-   * @param transition a {@link org.dominokit.domino.ui.animations.Transition} object
-   * @param duration a {@link org.dominokit.domino.ui.collapsible.CollapseDuration} object
+   * @param transition The show/expand and hide/collapse animation {@link
+   *     org.dominokit.domino.ui.animations.Transition}
+   * @param duration The {@link CollapsibleDuration} to be used for both the show and hide
+   *     animations.
    */
-  public AnimationCollapseStrategy(Transition transition, CollapseDuration duration) {
+  public AnimationCollapseStrategy(Transition transition, CollapsibleDuration duration) {
     this.options =
         new AnimationCollapseOptions()
             .setShowTransition(transition)
@@ -76,15 +81,16 @@ public class AnimationCollapseStrategy implements CollapseStrategy {
   }
 
   /**
-   * Constructor for AnimationCollapseStrategy.
+   * Creates an AnimationCollapseStrategy from the provided AnimationCollapseOptions
    *
-   * @param options a {@link org.dominokit.domino.ui.collapsible.AnimationCollapseOptions} object
+   * @param options The {@link org.dominokit.domino.ui.collapsible.AnimationCollapseOptions} to
+   *     configure the strategy
    */
   public AnimationCollapseStrategy(AnimationCollapseOptions options) {
     this.options = options;
   }
 
-  /** {@inheritDoc} */
+  /** @dominokit-site-ignore {@inheritDoc} */
   @Override
   public void expand(Element element) {
     if (!showing) {
@@ -117,7 +123,7 @@ public class AnimationCollapseStrategy implements CollapseStrategy {
     }
   }
 
-  /** {@inheritDoc} */
+  /** @dominokit-site-ignore {@inheritDoc} */
   @Override
   public void collapse(Element element) {
     Optional.ofNullable(showAnimation).ifPresent(animation -> animation.stop(false));

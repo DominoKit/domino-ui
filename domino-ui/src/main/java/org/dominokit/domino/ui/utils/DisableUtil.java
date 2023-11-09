@@ -21,27 +21,43 @@ import elemental2.dom.Element;
 import java.util.Optional;
 import org.dominokit.domino.ui.IsElement;
 
-/** DisableUtil class. */
+/**
+ * The {@code DisableUtil} class provides utility methods for enabling and disabling HTML elements
+ * and their focusable child elements. It offers the ability to disable elements, making them
+ * non-interactable, and later re-enable them.
+ *
+ * <p>Example Usage:
+ *
+ * <pre>
+ * // Disable a DOMino UI element
+ * IsElement<Element> dominoElement = // Obtain the DOMino UI element
+ * DisableUtil.disable(dominoElement);
+ *
+ * // Enable a DOMino UI element
+ * DisableUtil.enable(dominoElement);
+ * </pre>
+ */
 public class DisableUtil {
 
-  /** Constant <code>FOCUSABLE_ELEMENTS="a, button, embed, iframe, label, audio["{trunked}</code> */
+  /** A comma-separated list of HTML element types considered focusable elements. */
   public static final String FOCUSABLE_ELEMENTS =
       "a, button, embed, iframe, label, audio[controls], video[controls], img[usemap], object[usemap], input, textarea, select, details, [tabindex]";
 
   /**
-   * disable.
+   * Disables the specified {@code IsElement} by making it non-interactable and disabling its
+   * focusable child elements.
    *
-   * @param element a {@link org.dominokit.domino.ui.IsElement} object
-   * @param <E> a E class
+   * @param element The {@code IsElement} to be disabled.
    */
   public static <E extends Element> void disable(IsElement<E> element) {
     Optional.ofNullable(element).ifPresent(e -> disable(e.element()));
   }
 
   /**
-   * disable.
+   * Disables the specified HTML element by making it non-interactable and disabling its focusable
+   * child elements.
    *
-   * @param element a {@link elemental2.dom.Element} object
+   * @param element The HTML element to be disabled.
    */
   public static void disable(Element element) {
     Optional.ofNullable(element)
@@ -82,19 +98,20 @@ public class DisableUtil {
   }
 
   /**
-   * enable.
+   * Enables the specified {@code IsElement} by making it interactable and enabling its focusable
+   * child elements.
    *
-   * @param element a {@link org.dominokit.domino.ui.IsElement} object
-   * @param <E> a E class
+   * @param element The {@code IsElement} to be enabled.
    */
   public static <E extends Element> void enable(IsElement<E> element) {
     Optional.ofNullable(element).ifPresent(e -> enable(e.element()));
   }
 
   /**
-   * enable.
+   * Enables the specified HTML element by making it interactable and enabling its focusable child
+   * elements.
    *
-   * @param element a {@link elemental2.dom.Element} object
+   * @param element The HTML element to be enabled.
    */
   public static void enable(Element element) {
     Optional.ofNullable(element)

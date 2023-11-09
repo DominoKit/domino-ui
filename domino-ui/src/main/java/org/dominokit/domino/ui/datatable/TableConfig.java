@@ -13,6 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package org.dominokit.domino.ui.datatable;
 
 import static java.util.Objects.nonNull;
@@ -22,16 +23,26 @@ import java.util.*;
 import java.util.stream.Collectors;
 import org.dominokit.domino.ui.datatable.plugins.DataTablePlugin;
 import org.dominokit.domino.ui.datatable.plugins.column.ResizeColumnMeta;
-import org.dominokit.domino.ui.datatable.plugins.grouping.GroupingPlugin;
 import org.dominokit.domino.ui.elements.THeadElement;
 import org.dominokit.domino.ui.elements.TableRowElement;
 import org.dominokit.domino.ui.style.DominoCss;
 import org.dominokit.domino.ui.utils.HasMultiSelectionSupport;
 
 /**
- * This class is responsible for configuring the data table
+ * Configuration class for setting up a DataTable.
  *
- * @param <T> the type of the data table records
+ * <p>This class provides mechanisms to define columns, plugins, and many other configurations
+ * needed to draw and interact with a DataTable.
+ *
+ * <h2>Usage example:</h2>
+ *
+ * <pre>
+ * TableConfig&lt;MyData&gt; config = new TableConfig&lt;&gt;();
+ * config.addColumn(ColumnConfig.create("name", "Name").setWidth("100px"))
+ *      .addPlugin(new MyPlugin())
+ *      .setLazyLoad(true);
+ * DataTable&lt;MyData&gt; table = new DataTable&lt;&gt;(config);
+ * </pre>
  */
 public class TableConfig<T>
     implements HasMultiSelectionSupport<TableConfig<T>>, DataTableStyles, DominoCss {
@@ -92,13 +103,10 @@ public class TableConfig<T>
   private UtilityColumnHandler<T> utilityColumnHandler = utilityColumn -> {};
 
   /**
-   * This method will draw the table columns header elements for all columns and append them to the
-   * table head element
+   * Draws headers of the DataTable based on the provided configurations.
    *
-   * @param dataTable the {@link org.dominokit.domino.ui.datatable.DataTable} initialized with this
-   *     configuration
-   * @param thead the {@link org.dominokit.domino.ui.utils.DominoElement} of {@link
-   *     elemental2.dom.HTMLTableSectionElement} that is the table header element
+   * @param dataTable The DataTable for which headers are to be drawn.
+   * @param thead The table header element.
    */
   public void drawHeaders(DataTable<T> dataTable, THeadElement thead) {
     this.dataTable = dataTable;
@@ -118,12 +126,15 @@ public class TableConfig<T>
   }
 
   /**
-   * Draw a record as a row in the data table, row information is obtained from the TableRow
+   * Draws a record (row) in the provided DataTable based on the configuration and applies the
+   * appropriate CSS.
    *
-   * @param dataTable the {@link org.dominokit.domino.ui.datatable.DataTable} initialized with this
-   *     configuration
-   * @param tableRow the {@link org.dominokit.domino.ui.datatable.TableRow} we are adding to the
-   *     table
+   * <p>This method will render the table row, apply a CSS class based on its index (odd or even),
+   * and append it to the DataTable either directly or using the associated RowAppenderMeta. After
+   * the row is added, it will notify all associated plugins.
+   *
+   * @param dataTable The DataTable in which the record is to be drawn.
+   * @param tableRow The table row that represents the record.
    */
   public void drawRecord(DataTable<T> dataTable, TableRow<T> tableRow) {
     tableRow.render();
@@ -143,10 +154,10 @@ public class TableConfig<T>
   }
 
   /**
-   * Adds a configuration for a column in the data table
+   * Adds a column to the configuration.
    *
-   * @param column {@link org.dominokit.domino.ui.datatable.ColumnConfig}
-   * @return same TableConfig instance
+   * @param column Column configuration.
+   * @return Current instance of {@link TableConfig} for chaining.
    */
   public TableConfig<T> addColumn(ColumnConfig<T> column) {
     column.applyMeta(ColumnHeaderMeta.create());
@@ -155,11 +166,10 @@ public class TableConfig<T>
   }
 
   /**
-   * Adds a configuration for a column in the data table as the first column over the existing
-   * columns list
+   * Inserts a new column configuration at the beginning of the list of columns.
    *
-   * @param column {@link org.dominokit.domino.ui.datatable.ColumnConfig}
-   * @return same TableConfig instance
+   * @param column The column configuration to be added.
+   * @return The current instance of {@link TableConfig} for chaining.
    */
   public TableConfig<T> insertColumnFirst(ColumnConfig<T> column) {
     this.columns.add(0, column);
@@ -167,11 +177,10 @@ public class TableConfig<T>
   }
 
   /**
-   * Adds a configuration for a column in the data table as the last column after the existing
-   * columns list
+   * Inserts a new column configuration at the position before the last column in the list.
    *
-   * @param column {@link org.dominokit.domino.ui.datatable.ColumnConfig}
-   * @return same TableConfig instance
+   * @param column The column configuration to be added.
+   * @return The current instance of {@link TableConfig} for chaining.
    */
   public TableConfig<T> insertColumnLast(ColumnConfig<T> column) {
     this.columns.add(this.columns.size() - 1, column);
@@ -179,10 +188,12 @@ public class TableConfig<T>
   }
 
   /**
-   * Adds a new plugin to the data table
+   * Adds a new plugin to the DataTable and checks if a utility column is required by the plugin. If
+   * the plugin requires a utility column and one isn't already added, the utility column is
+   * inserted at the beginning.
    *
-   * @param plugin {@link org.dominokit.domino.ui.datatable.plugins.DataTablePlugin}
-   * @return same TableConfig instance
+   * @param plugin The {@link DataTablePlugin} to be added.
+   * @return The current instance of {@link TableConfig} for chaining.
    */
   public TableConfig<T> addPlugin(DataTablePlugin<T> plugin) {
     this.plugins.add(plugin);
@@ -194,39 +205,40 @@ public class TableConfig<T>
   }
 
   /**
-   * onUtilityColumn.
+   * Sets the handler for utility columns in the DataTable configuration.
    *
-   * @param utilityColumnHandler a {@link
-   *     org.dominokit.domino.ui.datatable.TableConfig.UtilityColumnHandler} object
-   * @return a {@link org.dominokit.domino.ui.datatable.TableConfig} object
+   * @param utilityColumnHandler The handler for utility columns.
+   * @return The current instance of {@link TableConfig} for chaining.
    */
   public TableConfig<T> onUtilityColumn(UtilityColumnHandler<T> utilityColumnHandler) {
     this.utilityColumnHandler = utilityColumnHandler;
     return this;
   }
 
+  /**
+   * An interface that provides a mechanism to handle a utility column.
+   *
+   * @param <T> The type of the data being used in the DataTable.
+   */
   @FunctionalInterface
   public interface UtilityColumnHandler<T> {
     void handle(ColumnConfig<T> utilityColumn);
   }
 
   /**
-   * isFixed.
+   * Checks if the DataTable is in a fixed layout mode.
    *
-   * @return boolean, if true then this table will have a fixed width and wont change the columns
-   *     width when resized, otherwise columns will stretch to match the table root element width
+   * @return {@code true} if the table layout is fixed, {@code false} otherwise.
    */
   public boolean isFixed() {
     return fixed;
   }
 
   /**
-   * Setter for the field <code>fixed</code>.
+   * Sets the DataTable layout mode as fixed or fluid.
    *
-   * @param fixed boolean, if true then this table will have a fixed width and wont change the
-   *     columns width when resized, otherwise columns will stretch to match the table root element
-   *     width
-   * @return same TableConfig instance
+   * @param fixed {@code true} to set the table layout as fixed, {@code false} for fluid.
+   * @return The current instance of {@link TableConfig} for chaining.
    */
   public TableConfig<T> setFixed(boolean fixed) {
     this.fixed = fixed;
@@ -234,22 +246,19 @@ public class TableConfig<T>
   }
 
   /**
-   * isLazyLoad.
+   * Checks if the DataTable is in lazy load mode.
    *
-   * @return boolean, if true the table will only start loading the data from the data store if load
-   *     is called manually, otherwise it will automatically load the data when it is initialized
+   * @return {@code true} if the table is set to lazy load mode, {@code false} otherwise.
    */
   public boolean isLazyLoad() {
     return lazyLoad;
   }
 
   /**
-   * Setter for the field <code>lazyLoad</code>.
+   * Enables or disables the lazy load mode for the DataTable.
    *
-   * @param lazyLoad boolean, if true the table will only start loading the data from the data store
-   *     if load is called manually, otherwise it will automatically load the data when it is
-   *     initialized
-   * @return same TableConfig instance
+   * @param lazyLoad {@code true} to enable lazy load mode, {@code false} to disable.
+   * @return The current instance of {@link TableConfig} for chaining.
    */
   public TableConfig<T> setLazyLoad(boolean lazyLoad) {
     this.lazyLoad = lazyLoad;
@@ -257,58 +266,61 @@ public class TableConfig<T>
   }
 
   /**
-   * Getter for the field <code>fixedBodyHeight</code>.
+   * Retrieves the fixed height for the table body when in fixed layout mode.
    *
-   * @return String, the height of the data table body, this is the value we set with {@link
-   *     #setFixedBodyHeight(String)} not the actual current table body height
+   * @return A string representing the fixed height, e.g., "200px".
    */
   public String getFixedBodyHeight() {
     return fixedBodyHeight;
   }
 
   /**
-   * Setter for the field <code>fixedBodyHeight</code>.
+   * Sets the fixed height for the table body when in fixed layout mode.
    *
-   * @param fixedBodyHeight boolean, if true the height of the table body will be fixed to the
-   *     specified value and while adding records to the table if the total height of rows exceed
-   *     this height scroll bars will show up, otherwise the table body will not fixed and will grow
-   *     to match the rows height and wont show scrollbars
-   * @return same TableConfig instance
+   * @param fixedBodyHeight The height as a string, e.g., "200px".
+   * @return The current instance of {@link TableConfig} for chaining.
    */
   public TableConfig<T> setFixedBodyHeight(String fixedBodyHeight) {
     this.fixedBodyHeight = fixedBodyHeight;
     return this;
   }
 
-  /** @return String default value for a fixed column width */
   /**
-   * Getter for the field <code>fixedDefaultColumnWidth</code>.
+   * Retrieves the default width for columns in the fixed layout mode.
    *
-   * @return a {@link java.lang.String} object
+   * @return A string representing the default column width, e.g., "100px".
    */
   public String getFixedDefaultColumnWidth() {
     return fixedDefaultColumnWidth;
   }
 
   /**
-   * Setter for the field <code>fixedDefaultColumnWidth</code>.
+   * Sets the default width for columns when in fixed layout mode.
    *
-   * @param fixedDefaultColumnWidth String default value to be used as width for the fixed width
-   *     columns
-   * @return same TableConfig instance
+   * @param fixedDefaultColumnWidth The width as a string, e.g., "100px".
+   * @return The current instance of {@link TableConfig} for chaining.
    */
   public TableConfig<T> setFixedDefaultColumnWidth(String fixedDefaultColumnWidth) {
     this.fixedDefaultColumnWidth = fixedDefaultColumnWidth;
     return this;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Checks if the DataTable supports multi-selection.
+   *
+   * @return {@code true} if multi-selection is enabled, {@code false} otherwise.
+   */
   @Override
   public boolean isMultiSelect() {
     return this.multiSelect;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Sets the multi-selection mode for the DataTable.
+   *
+   * @param multiSelect {@code true} to enable multi-selection mode, {@code false} to disable.
+   * @return The current instance of {@link TableConfig} for chaining.
+   */
   @Override
   public TableConfig<T> setMultiSelect(boolean multiSelect) {
     this.multiSelect = multiSelect;
@@ -316,9 +328,9 @@ public class TableConfig<T>
   }
 
   /**
-   * Change the default RowAppender for the data table
+   * Sets the row appender for the DataTable. It is ignored if the provided appender is null.
    *
-   * @param rowAppender {@link org.dominokit.domino.ui.datatable.TableConfig.RowAppender}
+   * @param rowAppender The row appender to set.
    */
   public void setRowAppender(RowAppender<T> rowAppender) {
     if (nonNull(rowAppender)) {
@@ -326,51 +338,46 @@ public class TableConfig<T>
     }
   }
 
-  /** @return the {@link List} of plugins added to the table */
   /**
-   * Getter for the field <code>plugins</code>.
+   * Retrieves the list of plugins attached to the DataTable, sorted in their natural order.
    *
-   * @return a {@link java.util.List} object
+   * @return A sorted list of {@link DataTablePlugin}.
    */
   public List<DataTablePlugin<T>> getPlugins() {
     return plugins.stream().sorted().collect(Collectors.toList());
   }
 
   /**
-   * Run the {@link DataTablePlugin#onBeforeAddHeaders(DataTable)} for all plugin added to the data
-   * table
+   * Notifies the plugins before headers are added to the DataTable.
    *
-   * @param dataTable the {@link DataTable} initialized with this configuration
+   * @param dataTable The DataTable to which the headers are added.
    */
   void onBeforeHeaders(DataTable<T> dataTable) {
     getPlugins().forEach(plugin -> plugin.onBeforeAddHeaders(dataTable));
   }
 
   /**
-   * Run the {@link DataTablePlugin#onAfterAddHeaders(DataTable)} for all plugin added to the data
-   * table
+   * Notifies the plugins after headers are added to the DataTable.
    *
-   * @param dataTable the {@link DataTable} initialized with this configuration
+   * @param dataTable The DataTable to which the headers are added.
    */
   void onAfterHeaders(DataTable<T> dataTable) {
     getPlugins().forEach(plugin -> plugin.onAfterAddHeaders(dataTable));
   }
 
-  /** @return a {@link List} of all non grouping {@link ColumnConfig} added to the table */
   /**
-   * Getter for the field <code>columns</code>.
+   * Retrieves the leaf columns of the DataTable.
    *
-   * @return a {@link java.util.List} object
+   * @return A list of {@link ColumnConfig} representing the leaf columns.
    */
   public List<ColumnConfig<T>> getColumns() {
     return columns.stream().flatMap(col -> col.leafColumns().stream()).collect(Collectors.toList());
   }
 
-  /** @return a {@link List} of all {@link ColumnConfig} added to the table */
   /**
-   * getFlattenColumns.
+   * Retrieves all the columns of the DataTable, including nested columns if any.
    *
-   * @return a {@link java.util.List} object
+   * @return A list of {@link ColumnConfig} representing all columns, flattened.
    */
   public List<ColumnConfig<T>> getFlattenColumns() {
     return columns.stream()
@@ -379,30 +386,29 @@ public class TableConfig<T>
   }
 
   /**
-   * getColumnsGrouped.
+   * Retrieves the columns of the DataTable as grouped.
    *
-   * @return a {@link java.util.List} object
+   * @return A list of {@link ColumnConfig} representing grouped columns.
    */
   public List<ColumnConfig<T>> getColumnsGrouped() {
     return columns;
   }
 
-  /** @return a {@link List} of all currently visible {@link ColumnConfig} of the table */
   /**
-   * getVisibleColumns.
+   * Retrieves only the visible columns of the DataTable.
    *
-   * @return a {@link java.util.List} object
+   * @return A list of {@link ColumnConfig} representing visible columns.
    */
   public List<ColumnConfig<T>> getVisibleColumns() {
     return columns.stream().filter(column -> !column.isHidden()).collect(Collectors.toList());
   }
 
   /**
-   * get a column config by the column name
+   * Retrieves a column configuration by its name.
    *
-   * @param name String name of the column
-   * @return the {@link org.dominokit.domino.ui.datatable.ColumnConfig} if exists otherwise throw
-   *     {@link org.dominokit.domino.ui.datatable.TableConfig.ColumnNofFoundException}
+   * @param name The name of the column to retrieve.
+   * @return The {@link ColumnConfig} associated with the given name.
+   * @throws ColumnNofFoundException If no column is found with the specified name.
    */
   public ColumnConfig<T> getColumnByName(String name) {
     Optional<ColumnConfig<T>> first =
@@ -417,10 +423,10 @@ public class TableConfig<T>
   }
 
   /**
-   * setUtilityColumnTitle.
+   * Sets the title for the utility column.
    *
-   * @param title a {@link java.lang.String} object
-   * @return a {@link org.dominokit.domino.ui.datatable.TableConfig} object
+   * @param title The title to set for the utility column.
+   * @return The current instance of {@link TableConfig} for chaining.
    */
   public TableConfig<T> setUtilityColumnTitle(String title) {
     if (nonNull(title)) {
@@ -429,22 +435,21 @@ public class TableConfig<T>
     return this;
   }
 
-  /** @return the {@link DataTable} initialized with this configuration */
   /**
-   * Getter for the field <code>dataTable</code>.
+   * Retrieves the associated DataTable instance.
    *
-   * @return a {@link org.dominokit.domino.ui.datatable.DataTable} object
+   * @return The {@link DataTable} associated with this configuration.
    */
   public DataTable<T> getDataTable() {
     return dataTable;
   }
 
   /**
-   * sets the dirty record handlers for editable tables
+   * Configures handlers for managing dirty records.
    *
-   * @param dirtyRecordProvider {@link org.dominokit.domino.ui.datatable.DirtyRecordProvider}
-   * @param saveDirtyRecordHandler {@link org.dominokit.domino.ui.datatable.SaveDirtyRecordHandler}
-   * @return same TableConfig istance
+   * @param dirtyRecordProvider The provider to detect dirty records.
+   * @param saveDirtyRecordHandler The handler to save dirty records.
+   * @return The current instance of {@link TableConfig} for chaining.
    */
   public TableConfig<T> setDirtyRecordHandlers(
       DirtyRecordProvider<T> dirtyRecordProvider,
@@ -456,19 +461,19 @@ public class TableConfig<T>
   }
 
   /**
-   * Getter for the field <code>width</code>.
+   * Retrieves the width of the table.
    *
-   * @return a {@link java.lang.String} object
+   * @return The width of the table.
    */
   public String getWidth() {
     return width;
   }
 
   /**
-   * Setter for the field <code>width</code>.
+   * Sets the width of the table.
    *
-   * @param width a {@link java.lang.String} object
-   * @return a {@link org.dominokit.domino.ui.datatable.TableConfig} object
+   * @param width The width to set.
+   * @return The current instance of {@link TableConfig} for chaining.
    */
   public TableConfig<T> setWidth(String width) {
     this.width = width;
@@ -476,19 +481,19 @@ public class TableConfig<T>
   }
 
   /**
-   * Getter for the field <code>maxWidth</code>.
+   * Retrieves the maximum width of the table.
    *
-   * @return a {@link java.lang.String} object
+   * @return The maximum width of the table.
    */
   public String getMaxWidth() {
     return maxWidth;
   }
 
   /**
-   * Setter for the field <code>maxWidth</code>.
+   * Sets the maximum width of the table.
    *
-   * @param maxWidth a {@link java.lang.String} object
-   * @return a {@link org.dominokit.domino.ui.datatable.TableConfig} object
+   * @param maxWidth The maximum width to set.
+   * @return The current instance of {@link TableConfig} for chaining.
    */
   public TableConfig<T> setMaxWidth(String maxWidth) {
     this.maxWidth = maxWidth;
@@ -496,71 +501,82 @@ public class TableConfig<T>
   }
 
   /**
-   * Getter for the field <code>minWidth</code>.
+   * Retrieves the minimum width of the table.
    *
-   * @return a {@link java.lang.String} object
+   * @return The minimum width of the table.
    */
   public String getMinWidth() {
     return minWidth;
   }
 
+  /**
+   * Checks if the header of the table is sticky.
+   *
+   * @return {@code true} if the header is sticky, {@code false} otherwise.
+   */
   public boolean isStickyHeader() {
     return stickyHeader;
   }
 
+  /**
+   * Sets the sticky state of the table header.
+   *
+   * @param stickyHeader {@code true} to make the header sticky, {@code false} to disable.
+   * @return The current instance of {@link TableConfig} for chaining.
+   */
   public TableConfig<T> setStickyHeader(boolean stickyHeader) {
     this.stickyHeader = stickyHeader;
     return this;
   }
 
   /**
-   * Setter for the field <code>minWidth</code>.
+   * Sets the minimum width of the table.
    *
-   * @param minWidth a {@link java.lang.String} object
-   * @return a {@link org.dominokit.domino.ui.datatable.TableConfig} object
+   * @param minWidth The minimum width to set.
+   * @return The current instance of {@link TableConfig} for chaining.
    */
   public TableConfig<T> setMinWidth(String minWidth) {
     this.minWidth = minWidth;
     return this;
   }
 
-  /** @return the {@link DirtyRecordProvider} */
+  /**
+   * Retrieves the provider for dirty records.
+   *
+   * @return The {@link DirtyRecordProvider} for this table.
+   */
   DirtyRecordProvider<T> getDirtyRecordProvider() {
     return dirtyRecordProvider;
   }
 
-  /** @return the {@link SaveDirtyRecordHandler} */
+  /**
+   * Retrieves the handler to save dirty records.
+   *
+   * @return The {@link SaveDirtyRecordHandler} for this table.
+   */
   SaveDirtyRecordHandler<T> getSaveDirtyRecordHandler() {
     return saveDirtyRecordHandler;
   }
 
-  /**
-   * An interface to provide an alternative implementation of how rows should be appended to the
-   * table
-   *
-   * <p>e.g
-   *
-   * <p>The {@link GroupingPlugin} defines an appender that appends a row into the appropriate group
-   * instead of appending row sequentially
-   *
-   * @param <T> the type of the row record
-   */
+  /** A functional interface defining the behavior for appending rows. */
   @FunctionalInterface
   public interface RowAppender<T> {
     /**
-     * Appends a row to the data table
+     * Appends a row to the provided {@link DataTable}.
      *
-     * @param dataTable the {@link DataTable}
-     * @param tableRow the {@link TableRow} being appended
+     * @param dataTable The DataTable to which the row should be appended.
+     * @param tableRow The row to append.
      */
     void appendRow(DataTable<T> dataTable, TableRow<T> tableRow);
   }
 
-  /**
-   * This exception is thrown when performing action that looks up a column by its name but the
-   * column does not exist in the current {@link TableConfig}
-   */
+  /** An exception that's thrown when no column is found by a given name. */
   public static class ColumnNofFoundException extends RuntimeException {
+    /**
+     * Constructs a new exception with the specified column name.
+     *
+     * @param name The name of the column that was not found.
+     */
     public ColumnNofFoundException(String name) {
       super(name);
     }

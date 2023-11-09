@@ -18,27 +18,52 @@ package org.dominokit.domino.ui.tabs;
 import org.dominokit.domino.ui.style.CssClass;
 import org.dominokit.domino.ui.style.HasCssClass;
 
-/** An enum to list possible values for tabs align */
+/**
+ * Enum to represent direction options available for tab headers.
+ *
+ * <p>This enum defines direction options for positioning the tab headers. Each direction option
+ * corresponds to a specific CSS class that will be applied to style the headers according to the
+ * desired direction.
+ *
+ * <p><b>Usage Example:</b>
+ *
+ * <pre>
+ * TabsPanel tabsPanel = new TabsPanel();
+ * tabsPanel.setHeaderDirection(HeaderDirection.VERTICAL);
+ * </pre>
+ *
+ * @see TabsPanel
+ * @see CssClass
+ * @see HasCssClass
+ */
 public enum HeaderDirection implements HasCssClass {
-  /** Tabs headers will be aligned to the left of the tab panel */
+
+  /** Represents the default direction for tab headers. */
   DEFAULT(CssClass.NONE),
+
+  /** Represents vertical direction for tab headers. */
   VERTICAL(TabStyles.dui_vertical_header),
-  /** Tabs headers will be aligned to the center of the tab panel */
+
+  /** Represents reversed vertical direction for tab headers. */
   VERTICAL_REVERSED(TabStyles.dui_vertical_header_reversed);
 
   private final CssClass direction;
 
-  /** @param direction String css class name for the tab align */
+  /**
+   * Creates a {@link HeaderDirection} enum instance with the specified direction.
+   *
+   * @param direction the CSS class representing the direction
+   */
   HeaderDirection(CssClass direction) {
     this.direction = direction;
   }
 
-  /** @return String css class name for the tab align */
   /**
-   * getCssClass.
+   * Returns the {@link CssClass} associated with this direction option.
    *
-   * @return a {@link org.dominokit.domino.ui.style.CssClass} object
+   * @return the CSS class for the direction
    */
+  @Override
   public CssClass getCssClass() {
     return direction;
   }

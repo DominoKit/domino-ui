@@ -13,6 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package org.dominokit.domino.ui.datatable.store;
 
 import java.util.List;
@@ -20,9 +21,10 @@ import java.util.Optional;
 import org.dominokit.domino.ui.datatable.plugins.pagination.SortDirection;
 
 /**
- * This event is fired whenever the data in the data table is changed including the sort
+ * The {@code DataChangedEvent} class represents an event that is triggered when data in a data
+ * store changes, such as when records are loaded or sorted.
  *
- * @param <T> the type of the data table records
+ * @param <T> The type of data representing the records in the data table.
  */
 public class DataChangedEvent<T> {
   private final List<T> newData;
@@ -32,11 +34,10 @@ public class DataChangedEvent<T> {
   private final Optional<String> sortColumn;
 
   /**
-   * Creates a new instance without sort information
+   * Constructs a new {@code DataChangedEvent} with the provided data and total count.
    *
-   * @param newData {@link java.util.List} of new records
-   * @param totalCount int, The total count which may not be equal to the data list size as this
-   *     represent the total count of items not just in the current page
+   * @param newData The list of new data records.
+   * @param totalCount The total count of records.
    */
   public DataChangedEvent(List<T> newData, int totalCount) {
     this.newData = newData;
@@ -47,14 +48,13 @@ public class DataChangedEvent<T> {
   }
 
   /**
-   * Creates a new instance with sort information
+   * Constructs a new {@code DataChangedEvent} with the provided data, total count, sort direction,
+   * and sort column.
    *
-   * @param newData {@link java.util.List} of new records
-   * @param totalCount int, The total count which may not be equal to the data list size as this
-   *     represent the total count of items not just in the current page
-   * @param sortDirection the {@link
-   *     org.dominokit.domino.ui.datatable.plugins.pagination.SortDirection}
-   * @param sortColumn String, the name of the column we sort by.
+   * @param newData The list of new data records.
+   * @param totalCount The total count of records.
+   * @param sortDirection The sorting direction.
+   * @param sortColumn The column used for sorting.
    */
   public DataChangedEvent(
       List<T> newData, int totalCount, SortDirection sortDirection, String sortColumn) {
@@ -66,13 +66,12 @@ public class DataChangedEvent<T> {
   }
 
   /**
-   * Creates a new instance without sort information
+   * Constructs a new {@code DataChangedEvent} with the provided data, append flag, and total count.
    *
-   * @param newData {@link java.util.List} of new records
-   * @param append boolean, true if the new data should be appended to the old data instead of
-   *     replacing it.
-   * @param totalCount int, The total count which may not be equal to the data list size as this
-   *     represent the total count of items not just in the current page
+   * @param newData The list of new data records.
+   * @param append {@code true} if the data is being appended to the existing data; {@code false}
+   *     otherwise.
+   * @param totalCount The total count of records.
    */
   public DataChangedEvent(List<T> newData, boolean append, int totalCount) {
     this.newData = newData;
@@ -83,16 +82,15 @@ public class DataChangedEvent<T> {
   }
 
   /**
-   * Creates a new instance with sort information
+   * Constructs a new {@code DataChangedEvent} with the provided data, append flag, total count,
+   * sort direction, and sort column.
    *
-   * @param newData {@link java.util.List} of new records
-   * @param append boolean, true if the new data should be appended to the old data instead of
-   *     replacing it.
-   * @param totalCount int, The total count which may not be equal to the data list size as this
-   *     represent the total count of items not just in the current page
-   * @param sortDirection the {@link
-   *     org.dominokit.domino.ui.datatable.plugins.pagination.SortDirection}
-   * @param sortColumn String, the name of the column we sort by.
+   * @param newData The list of new data records.
+   * @param append {@code true} if the data is being appended to the existing data; {@code false}
+   *     otherwise.
+   * @param totalCount The total count of records.
+   * @param sortDirection The sorting direction.
+   * @param sortColumn The column used for sorting.
    */
   public DataChangedEvent(
       List<T> newData,
@@ -107,51 +105,46 @@ public class DataChangedEvent<T> {
     this.sortColumn = Optional.of(sortColumn);
   }
 
-  /** @return the {@link List} of data */
   /**
-   * Getter for the field <code>newData</code>.
+   * Gets the list of new data records.
    *
-   * @return a {@link java.util.List} object
+   * @return A list of new data records.
    */
   public List<T> getNewData() {
     return newData;
   }
 
   /**
-   * isAppend.
+   * Checks if the data is being appended to the existing data.
    *
-   * @return boolean, true if the new data should be appended to the old data instead of replacing
-   *     it.
+   * @return {@code true} if the data is being appended; {@code false} otherwise.
    */
   public boolean isAppend() {
     return append;
   }
 
   /**
-   * Getter for the field <code>totalCount</code>.
+   * Gets the total count of records.
    *
-   * @return int, The total count which may not be equal to the data list size as this represent the
-   *     total count of items not just in the current page
+   * @return The total count of records.
    */
   public int getTotalCount() {
     return totalCount;
   }
 
-  /** @return the {@link SortDirection} */
   /**
-   * Getter for the field <code>sortDir</code>.
+   * Gets the sorting direction, if available.
    *
-   * @return a {@link java.util.Optional} object
+   * @return An {@code Optional} containing the sorting direction, or empty if not available.
    */
   public Optional<SortDirection> getSortDir() {
     return sortDir;
   }
 
-  /** @return String, the name of the column we sort by. */
   /**
-   * Getter for the field <code>sortColumn</code>.
+   * Gets the column used for sorting, if available.
    *
-   * @return a {@link java.util.Optional} object
+   * @return An {@code Optional} containing the sort column, or empty if not available.
    */
   public Optional<String> getSortColumn() {
     return sortColumn;

@@ -19,40 +19,51 @@ import java.util.function.Supplier;
 import org.dominokit.domino.ui.icons.Icon;
 import org.dominokit.domino.ui.icons.lib.Icons;
 
-/** SpinConfig interface. */
+/**
+ * Implementations of this interface can be used to configure defaults for {@link
+ * org.dominokit.domino.ui.spin.SpinSelect} component
+ */
 public interface SpinConfig extends ComponentConfig {
 
   /**
-   * getDefaultBackIconSupplier.
+   * Use this method to define the default icon for spin back element.
    *
-   * @return a {@link java.util.function.Supplier} object
+   * <p>Defaults to : {@code chevron_left}
+   *
+   * @return a {@code Supplier<Icon<?>>}
    */
   default Supplier<Icon<?>> getDefaultBackIconSupplier() {
     return Icons::chevron_left;
   }
 
   /**
-   * getDefaultForwardIconSupplier.
+   * Use this method to define the default icon for spin forward element.
    *
-   * @return a {@link java.util.function.Supplier} object
+   * <p>Defaults to : {@code chevron_right}
+   *
+   * @return a {@code Supplier<Icon<?>>}
    */
   default Supplier<Icon<?>> getDefaultForwardIconSupplier() {
     return Icons::chevron_right;
   }
 
   /**
-   * getDefaultUpIconSupplier.
+   * Use this method to define the default icon for spin up element.
    *
-   * @return a {@link java.util.function.Supplier} object
+   * <p>Defaults to : {@code chevron_up}
+   *
+   * @return a {@code Supplier<Icon<?>>}
    */
   default Supplier<Icon<?>> getDefaultUpIconSupplier() {
     return Icons::chevron_up;
   }
 
   /**
-   * getDefaultDownIconSupplier.
+   * Use this method to define the default icon for spin down element.
    *
-   * @return a {@link java.util.function.Supplier} object
+   * <p>Defaults to : {@code chevron_down}
+   *
+   * @return a {@code Supplier<Icon<?>>}
    */
   default Supplier<Icon<?>> getDefaultDownIconSupplier() {
     return Icons::chevron_down;

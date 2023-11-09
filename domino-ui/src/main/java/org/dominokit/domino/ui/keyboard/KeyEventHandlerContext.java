@@ -18,15 +18,29 @@ package org.dominokit.domino.ui.keyboard;
 import elemental2.dom.EventListener;
 import java.util.function.Supplier;
 
+/**
+ * The {@code KeyEventHandlerContext} class represents a context for key event handlers. It contains
+ * an event listener handler and a supplier for {@link KeyboardEventOptions}.
+ *
+ * <p>Key event handlers can be associated with specific key events, and these handlers can have
+ * custom event options defined by the {@link KeyboardEventOptions} class. The context stores both
+ * the handler and its associated options.
+ *
+ * @see KeyboardEventOptions
+ */
 class KeyEventHandlerContext {
+  /** The event listener handler associated with this context. */
   final EventListener handler;
+
+  /** The supplier for {@link KeyboardEventOptions} associated with this context. */
   final Supplier<KeyboardEventOptions> options;
 
   /**
-   * Constructor for KeyEventHandlerContext.
+   * Constructs a new {@code KeyEventHandlerContext} with the specified event listener handler and
+   * options supplier.
    *
-   * @param handler a {@link elemental2.dom.EventListener} object
-   * @param options a {@link java.util.function.Supplier} object
+   * @param handler The event listener handler.
+   * @param options The supplier for {@link KeyboardEventOptions}.
    */
   public KeyEventHandlerContext(EventListener handler, Supplier<KeyboardEventOptions> options) {
     this.handler = handler;

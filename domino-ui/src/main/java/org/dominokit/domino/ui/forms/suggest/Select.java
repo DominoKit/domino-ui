@@ -15,88 +15,104 @@
  */
 package org.dominokit.domino.ui.forms.suggest;
 
+import static java.util.Objects.isNull;
 import static java.util.Objects.nonNull;
 
 import java.util.Objects;
 import org.dominokit.domino.ui.elements.DivElement;
 
-/** Select class. */
+/**
+ * Represents a dropdown select control allowing the user to choose a single option from a list.
+ *
+ * <p><b>Usage example:</b>
+ *
+ * <pre>
+ * Select&lt;String&gt; fruitSelect = Select.create("Choose a fruit");
+ * fruitSelect.withOption(new SelectOption&lt;&gt;("Apple"), false);
+ * fruitSelect.withOption(new SelectOption&lt;&gt;("Banana"), false);
+ * </pre>
+ *
+ * @param <V> The type of value associated with each select option.
+ * @see AbstractSelect
+ */
 public class Select<V> extends AbstractSelect<V, V, DivElement, SelectOption<V>, Select<V>> {
 
   private SelectOption<V> selectedOption;
 
   /**
-   * create.
+   * Creates a new instance of {@link Select} without a label.
    *
-   * @param <V> a V class
-   * @return a {@link org.dominokit.domino.ui.forms.suggest.Select} object
+   * @param <V> the type of value for the select options
+   * @return a new instance of {@link Select}
    */
   public static <V> Select<V> create() {
     return new Select<>();
   }
 
   /**
-   * create.
+   * Creates a new instance of {@link Select} with a specified label.
    *
-   * @param label a {@link java.lang.String} object
-   * @param <V> a V class
-   * @return a {@link org.dominokit.domino.ui.forms.suggest.Select} object
+   * @param label The label to be set for the select control.
+   * @param <V> the type of value for the select options
+   * @return a new instance of {@link Select} with the specified label.
    */
   public static <V> Select<V> create(String label) {
     return new Select<>(label);
   }
 
-  /** Constructor for Select. */
+  /** Default constructor creating a {@link Select} instance without a label. */
   public Select() {}
 
   /**
-   * Constructor for Select.
+   * Constructor to create a {@link Select} instance with the specified label.
    *
-   * @param label a {@link java.lang.String} object
+   * @param label The label to be set for the select control.
    */
   public Select(String label) {
     setLabel(label);
   }
 
-  /**
-   * doSetValue.
-   *
-   * @param value a V object
-   */
   protected void doSetValue(V value) {
-    findOptionByValue(value).ifPresent(this::onOptionSelected);
+    findOptionByValue(value)
+        .ifPresent(vSelectOption -> onOptionSelected(vSelectOption, isChangeListenersPaused()));
   }
 
-  /**
-   * doSetOption.
-   *
-   * @param option a {@link org.dominokit.domino.ui.forms.suggest.SelectOption} object
-   */
   protected void doSetOption(SelectOption<V> option) {
     if (nonNull(this.selectedOption)) {
       this.selectedOption.remove();
     }
     this.selectedOption = option;
-  }
-
-  /** {@inheritDoc} */
-  @Override
-  protected void onOptionSelected(SelectOption<V> option) {
-    withOption(option);
-    updateTextValue();
-    if (nonNull(this.selectedOption)) {
-      onOptionDeselected(this.selectedOption);
+    if (nonNull(selectedOption)) {
+      optionsMenu.select(selectedOption.getMenuItem(), true);
     }
-    this.selectedOption = option;
-    fieldInput.appendChild(option);
   }
 
-  /** {@inheritDoc} */
+  @Override
+  protected void onOptionSelected(SelectOption<V> option, boolean silent) {
+    if (nonNull(this.selectedOption)) {
+      onOptionDeselected(this.selectedOption, silent);
+    }
+    withOption(option, silent);
+  }
+
+  /**
+   * Adds an option to the {@link Select} dropdown. If the option value is different from the
+   * current selected value, it updates the selected option.
+   *
+   * @param option The option to be added.
+   * @param silent If true, does not trigger change listeners after setting the option.
+   * @return The current {@link Select} instance.
+   */
   @Override
   public Select<V> withOption(SelectOption<V> option, boolean silent) {
     V oldValue = getValue();
-    if (!Objects.equals(option.getValue(), oldValue)) {
+    if (!Objects.equals(option.getValue(), oldValue) || isNull(oldValue)) {
       doSetOption(option);
+
+      updateTextValue();
+      this.selectedOption = option;
+      fieldInput.appendChild(option);
+
       if (!silent) {
         triggerChangeListeners(oldValue, getValue());
       }
@@ -105,10 +121,10 @@ public class Select<V> extends AbstractSelect<V, V, DivElement, SelectOption<V>,
     return this;
   }
 
-  /** {@inheritDoc} */
   @Override
-  protected void onOptionDeselected(SelectOption<V> option) {
+  protected void onOptionDeselected(SelectOption<V> option, boolean silent) {
     option.remove();
+    option.getComponent().remove();
     if (Objects.equals(this.selectedOption, option)) {
       this.selectedOption = null;
     }
@@ -119,7 +135,11 @@ public class Select<V> extends AbstractSelect<V, V, DivElement, SelectOption<V>,
         });
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Retrieves the value of the currently selected option.
+   *
+   * @return the value of the currently selected option or {@code null} if no option is selected.
+   */
   @Override
   public V getValue() {
     if (nonNull(this.selectedOption)) {

@@ -13,44 +13,49 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package org.dominokit.domino.ui.datatable.events;
 
 import org.dominokit.domino.ui.datatable.TableRow;
 
 /**
- * This event will be fired by the {@link
- * org.dominokit.domino.ui.datatable.plugins.row.RecordDetailsPlugin} when a record is expanded
+ * The {@code ExpandRecordEvent} class represents an event that is fired when a record is expanded
+ * in a DataTable. It provides information about the expanded TableRow.
  *
- * @param <T> the type of the record.
+ * @param <T> the type of data in the TableRow
+ * @see org.dominokit.domino.ui.datatable.events.TableEvent
+ * @see org.dominokit.domino.ui.datatable.TableRow
  */
 public class ExpandRecordEvent<T> implements TableEvent {
 
-  /** A constant string to define a unique type for this event */
+  /** The event type for expand record event. */
   public static final String EXPAND_RECORD = "expand-record";
 
   private final TableRow<T> tableRow;
 
-  /** @param tableRow the {@link TableRow} being expanded */
   /**
-   * Constructor for ExpandRecordEvent.
+   * Creates a new {@code ExpandRecordEvent} with the specified TableRow.
    *
-   * @param tableRow a {@link org.dominokit.domino.ui.datatable.TableRow} object
+   * @param tableRow the TableRow that was expanded
    */
   public ExpandRecordEvent(TableRow<T> tableRow) {
     this.tableRow = tableRow;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Retrieves the type of this event.
+   *
+   * @return the event type
+   */
   @Override
   public String getType() {
     return EXPAND_RECORD;
   }
 
-  /** @return the {@link TableRow} being expanded */
   /**
-   * Getter for the field <code>tableRow</code>.
+   * Retrieves the TableRow that was expanded.
    *
-   * @return a {@link org.dominokit.domino.ui.datatable.TableRow} object
+   * @return the expanded TableRow
    */
   public TableRow<T> getTableRow() {
     return tableRow;

@@ -20,30 +20,78 @@ import org.dominokit.domino.ui.style.CssClass;
 import org.dominokit.domino.ui.style.DominoCss;
 import org.dominokit.domino.ui.utils.ElementsFactory;
 
+/**
+ * Represents the dark theme for Domino UI components.
+ *
+ * <p>This class provides methods to apply, check, and remove the dark theme on a specific UI
+ * element.
+ *
+ * <p><b>Usage Example:</b>
+ *
+ * <pre>{@code
+ * DominoThemeDark darkTheme = DominoThemeDark.INSTANCE;
+ * darkTheme.apply(myElement);
+ * }</pre>
+ *
+ * @see IsDominoTheme
+ * @see CssClass
+ * @see ElementsFactory
+ * @see DominoCss
+ */
 public class DominoThemeDark implements IsDominoTheme, ElementsFactory, DominoCss {
+
+  /** Singleton instance of {@link DominoThemeDark}. */
   public static final IsDominoTheme INSTANCE = new DominoThemeDark();
+
+  /** CSS class representing the dark theme. */
   private CssClass dui_theme_dark = () -> "dui-colors-dark";
 
+  /**
+   * Retrieves the name of the theme.
+   *
+   * @return theme name as a string.
+   */
   @Override
   public String getName() {
     return "dui-theme-dark";
   }
 
+  /**
+   * Retrieves the category of the theme.
+   *
+   * @return theme category as a string. In this case, it's categorized under "dui-dark-mode".
+   */
   @Override
   public String getCategory() {
     return "dui-dark-mode";
   }
 
+  /**
+   * Applies the dark theme to the specified element.
+   *
+   * @param element target element to apply the theme on.
+   */
   @Override
   public void apply(Element element) {
     elementOf(element).addCss(dui_theme_dark);
   }
 
+  /**
+   * Removes the dark theme from the specified element.
+   *
+   * @param element target element to remove the theme from.
+   */
   @Override
   public void cleanup(Element element) {
     elementOf(element).removeCss(dui_theme_dark);
   }
 
+  /**
+   * Checks if the dark theme is applied to the specified element.
+   *
+   * @param element the target element to check.
+   * @return {@code true} if the theme is applied, otherwise {@code false}.
+   */
   @Override
   public boolean isApplied(Element element) {
     return dui_theme_dark.isAppliedTo(element);

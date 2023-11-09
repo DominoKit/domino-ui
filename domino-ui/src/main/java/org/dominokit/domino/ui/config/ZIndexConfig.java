@@ -18,31 +18,40 @@ package org.dominokit.domino.ui.config;
 import org.dominokit.domino.ui.dialogs.DefaultZIndexManager;
 import org.dominokit.domino.ui.dialogs.ZIndexManager;
 
-/** ZIndexConfig interface. */
+/**
+ * Implementations of this interface can be used to configure defaults for z-index configuration
+ * used with pop-ups and modals
+ */
 public interface ZIndexConfig extends ComponentConfig {
 
   /**
-   * getInitialZIndex.
+   * Use this method to define the default initial start z-index
    *
-   * @return a int
+   * <p>Defaults to : {@code 8388635}
+   *
+   * @return integer z-index
    */
   default int getInitialZIndex() {
     return 8388635;
   }
 
   /**
-   * getzIndexIncrement.
+   * Use this method to define the default the increment applied every time a z-index is requested
    *
-   * @return a int
+   * <p>Defaults to : {@code 1}
+   *
+   * @return integer increment
    */
   default int getzIndexIncrement() {
     return 1;
   }
 
   /**
-   * getZindexManager.
+   * Use this method to define the default implementation of the {@link ZIndexManager}
    *
-   * @return a {@link org.dominokit.domino.ui.dialogs.ZIndexManager} object
+   * <p>Defaults to : {@code DefaultZIndexManager}
+   *
+   * @return a ZIndexManager instance
    */
   default ZIndexManager getZindexManager() {
     return DefaultZIndexManager.INSTANCE;

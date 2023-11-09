@@ -17,25 +17,15 @@ package org.dominokit.domino.ui.notifications;
 
 import org.dominokit.domino.ui.style.CssClass;
 
-/** Default CSS classes for {@link org.dominokit.domino.ui.notifications.Notification} */
 public interface NotificationStyles {
 
-  /** Constant <code>dui_notification</code> */
   CssClass dui_notification = () -> "dui-notification";
-  /** Constant <code>dui_notification_wrapper</code> */
   CssClass dui_notification_wrapper = () -> "dui-notification-wrapper";
-  /** Constant <code>dui_ntf_top_left</code> */
   CssClass dui_ntf_top_left = () -> "dui-ntf-top-left";
-  /** Constant <code>dui_ntf_top_middle</code> */
   CssClass dui_ntf_top_middle = () -> "dui-ntf-top-middle";
-  /** Constant <code>dui_ntf_top_right</code> */
   CssClass dui_ntf_top_right = () -> "dui-ntf-top-right";
-  /** Constant <code>dui_ntf_bottom_left</code> */
   CssClass dui_ntf_bottom_left = () -> "dui-ntf-bottom-left";
-  /** Constant <code>dui_ntf_bottom_middle</code> */
   CssClass dui_ntf_bottom_middle = () -> "dui-ntf-bottom-middle";
-  /** Constant <code>dui_ntf_bottom_right</code> */
   CssClass dui_ntf_bottom_right = () -> "dui-ntf-bottom-right";
-  /** Constant <code>dui_notification_filler</code> */
   CssClass dui_notification_filler = () -> "dui-notification-filler";
 }

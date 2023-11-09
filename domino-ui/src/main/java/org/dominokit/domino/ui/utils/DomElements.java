@@ -72,487 +72,500 @@ import elemental2.svg.SVGCircleElement;
 import elemental2.svg.SVGElement;
 import elemental2.svg.SVGLineElement;
 
-/** DomElements interface. */
+/**
+ * The {@code DomElements} interface provides factory methods for creating various HTML and SVG
+ * elements as well as accessing commonly used HTML elements from the DOM.
+ *
+ * <p>Example Usage:
+ *
+ * <pre>
+ * // Create an anchor element
+ * HTMLAnchorElement anchorElement = DomElements.dom.a();
+ *
+ * // Create an input element with a specific type
+ * HTMLInputElement inputElement = DomElements.dom.input(InputType.TEXT);
+ *
+ * // Access the document body element
+ * HTMLBodyElement bodyElement = DomElements.dom.body();
+ * </pre>
+ */
 public interface DomElements {
 
-  /** Constant <code>SVGNS="http://www.w3.org/2000/svg"</code> */
+  /** The XML namespace for SVG elements. */
   String SVGNS = "http://www.w3.org/2000/svg";
-  /** Constant <code>dom</code> */
+
+  /** An instance of the {@code DomElements} interface for convenience. */
   DomElements dom = new DomElements() {};
 
   /**
-   * create.
+   * Creates an HTML element of the specified type.
    *
-   * @param element a {@link java.lang.String} object
-   * @param type a {@link java.lang.Class} object
-   * @param <E> a E class
-   * @return a E object
+   * @param element The name of the HTML element.
+   * @param type The class representing the HTML element.
+   * @return An instance of the created HTML element.
    */
   default <E extends Element> E create(String element, Class<E> type) {
     return cast(document.createElement(element));
   }
 
   /**
-   * createSVG.
+   * Creates an SVG element of the specified type.
    *
-   * @param element a {@link java.lang.String} object
-   * @param type a {@link java.lang.Class} object
-   * @param <E> a E class
-   * @return a E object
+   * @param element The name of the SVG element.
+   * @param type The class representing the SVG element.
+   * @return An instance of the created SVG element.
    */
   default <E extends Element> E createSVG(String element, Class<E> type) {
     return cast(document.createElementNS(SVGNS, element));
   }
 
-  /** @return a {@link DominoElement} wrapping the document {@link HTMLBodyElement} */
   /**
-   * body.
+   * Accesses the document's body element.
    *
-   * @return a {@link elemental2.dom.HTMLBodyElement} object
+   * @return The HTML body element.
    */
   default HTMLBodyElement body() {
     return document.body;
   }
 
-  /** @return a new {@link HTMLDivElement} wrapped as a {@link DominoElement} */
   /**
-   * picture.
+   * Creates a {@code <picture>} element.
    *
-   * @return a {@link elemental2.dom.HTMLPictureElement} object
+   * @return The created picture element.
    */
   default HTMLPictureElement picture() {
     return create("picture", HTMLPictureElement.class);
   }
 
   /**
-   * address.
+   * Creates an {@code <address>} element.
    *
-   * @return a {@link elemental2.dom.HTMLElement} object
+   * @return The created address element.
    */
   default HTMLElement address() {
     return create("address", HTMLElement.class);
   }
 
   /**
-   * article.
+   * Creates an {@code <article>} element.
    *
-   * @return a {@link elemental2.dom.HTMLElement} object
+   * @return The created article element.
    */
   default HTMLElement article() {
     return create("article", HTMLElement.class);
   }
 
   /**
-   * aside.
+   * Creates an {@code <aside>} element.
    *
-   * @return a {@link elemental2.dom.HTMLElement} object
+   * @return The created aside element.
    */
   default HTMLElement aside() {
     return create("aside", HTMLElement.class);
   }
 
   /**
-   * footer.
+   * Creates a {@code <footer>} element.
    *
-   * @return a {@link elemental2.dom.HTMLElement} object
+   * @return The created footer element.
    */
   default HTMLElement footer() {
     return create("footer", HTMLElement.class);
   }
 
   /**
-   * h.
+   * Creates an {@code <h>} element with the specified level.
    *
-   * @param n a int
-   * @return a {@link elemental2.dom.HTMLHeadingElement} object
+   * @param n The heading level (e.g., 1 for {@code <h1>}, 2 for {@code <h2>}).
+   * @return The created heading element.
    */
   default HTMLHeadingElement h(int n) {
     return create("h" + n, HTMLHeadingElement.class);
   }
 
   /**
-   * header.
+   * Creates a {@code <header>} element.
    *
-   * @return a {@link elemental2.dom.HTMLElement} object
+   * @return The created header element.
    */
   default HTMLElement header() {
     return create("header", HTMLElement.class);
   }
 
   /**
-   * hgroup.
+   * Creates an {@code <hgroup>} element.
    *
-   * @return a {@link elemental2.dom.HTMLElement} object
+   * @return The created hgroup element.
    */
   default HTMLElement hgroup() {
     return create("hgroup", HTMLElement.class);
   }
 
   /**
-   * nav.
+   * Creates a {@code <nav>} element.
    *
-   * @return a {@link elemental2.dom.HTMLElement} object
+   * @return The created nav element.
    */
   default HTMLElement nav() {
     return create("nav", HTMLElement.class);
   }
 
   /**
-   * section.
+   * Creates a {@code <section>} element.
    *
-   * @return a {@link elemental2.dom.HTMLElement} object
+   * @return The created section element.
    */
   default HTMLElement section() {
     return create("section", HTMLElement.class);
   }
 
   /**
-   * blockquote.
+   * Creates a {@code <blockquote>} element.
    *
-   * @return a {@link elemental2.dom.HTMLQuoteElement} object
+   * @return The created blockquote element.
    */
   default HTMLQuoteElement blockquote() {
     return create("blockquote", HTMLQuoteElement.class);
   }
 
   /**
-   * dd.
+   * Creates a {@code <dd>} element.
    *
-   * @return a {@link elemental2.dom.HTMLElement} object
+   * @return The created dd element.
    */
   default HTMLElement dd() {
     return create("dd", HTMLElement.class);
   }
 
   /**
-   * div.
+   * Creates a {@code <div>} element.
    *
-   * @return a {@link elemental2.dom.HTMLDivElement} object
+   * @return The created div element.
    */
   default HTMLDivElement div() {
     return create("div", HTMLDivElement.class);
   }
 
   /**
-   * dl.
+   * Creates a {@code <dl>} element (definition list).
    *
-   * @return a {@link elemental2.dom.HTMLDListElement} object
+   * @return The created dl element.
    */
   default HTMLDListElement dl() {
     return create("dl", HTMLDListElement.class);
   }
 
   /**
-   * dt.
+   * Creates a {@code <dt>} element (definition term).
    *
-   * @return a {@link elemental2.dom.HTMLElement} object
+   * @return The created dt element.
    */
   default HTMLElement dt() {
     return create("dt", HTMLElement.class);
   }
 
   /**
-   * figcaption.
+   * Creates a {@code <figcaption>} element.
    *
-   * @return a {@link elemental2.dom.HTMLElement} object
+   * @return The created figcaption element.
    */
   default HTMLElement figcaption() {
     return create("figcaption", HTMLElement.class);
   }
 
   /**
-   * figure.
+   * Creates a {@code <figure>} element.
    *
-   * @return a {@link elemental2.dom.HTMLElement} object
+   * @return The created figure element.
    */
   default HTMLElement figure() {
     return create("figure", HTMLElement.class);
   }
 
   /**
-   * hr.
+   * Creates a {@code <hr>} element (horizontal rule).
    *
-   * @return a {@link elemental2.dom.HTMLHRElement} object
+   * @return The created hr element.
    */
   default HTMLHRElement hr() {
     return create("hr", HTMLHRElement.class);
   }
 
   /**
-   * li.
+   * Creates a {@code <li>} element (list item).
    *
-   * @return a {@link elemental2.dom.HTMLLIElement} object
+   * @return The created li element.
    */
   default HTMLLIElement li() {
     return create("li", HTMLLIElement.class);
   }
 
   /**
-   * main.
+   * Creates a {@code <main>} element.
    *
-   * @return a {@link elemental2.dom.HTMLElement} object
+   * @return The created main element.
    */
   default HTMLElement main() {
     return create("main", HTMLElement.class);
   }
 
   /**
-   * ol.
+   * Creates an {@code <ol>} element (ordered list).
    *
-   * @return a {@link elemental2.dom.HTMLOListElement} object
+   * @return The created ol element.
    */
   default HTMLOListElement ol() {
     return create("ol", HTMLOListElement.class);
   }
 
   /**
-   * p.
+   * Creates a {@code <p>} element (paragraph).
    *
-   * @return a {@link elemental2.dom.HTMLParagraphElement} object
+   * @return The created p element.
    */
   default HTMLParagraphElement p() {
     return create("p", HTMLParagraphElement.class);
   }
 
   /**
-   * pre.
+   * Creates a {@code <pre>} element (preformatted text).
    *
-   * @return a {@link elemental2.dom.HTMLPreElement} object
+   * @return The created pre element.
    */
   default HTMLPreElement pre() {
     return create("pre", HTMLPreElement.class);
   }
 
   /**
-   * ul.
+   * Creates a {@code <ul>} element (unordered list).
    *
-   * @return a {@link elemental2.dom.HTMLUListElement} object
+   * @return The created ul element.
    */
   default HTMLUListElement ul() {
     return create("ul", HTMLUListElement.class);
   }
 
   /**
-   * a.
+   * Creates an {@code <a>} element (anchor).
    *
-   * @return a {@link elemental2.dom.HTMLAnchorElement} object
+   * @return The created a element.
    */
   default HTMLAnchorElement a() {
     return create("a", HTMLAnchorElement.class);
   }
 
   /**
-   * abbr.
+   * Creates an {@code <abbr>} element (abbreviation).
    *
-   * @return a {@link elemental2.dom.HTMLElement} object
+   * @return The created abbr element.
    */
   default HTMLElement abbr() {
     return create("abbr", HTMLElement.class);
   }
 
   /**
-   * b.
+   * Creates a {@code <b>} element (bold text).
    *
-   * @return a {@link elemental2.dom.HTMLElement} object
+   * @return The created b element.
    */
   default HTMLElement b() {
     return create("b", HTMLElement.class);
   }
 
   /**
-   * br.
+   * Creates a {@code <br>} element (line break).
    *
-   * @return a {@link elemental2.dom.HTMLBRElement} object
+   * @return The created br element.
    */
   default HTMLBRElement br() {
     return create("br", HTMLBRElement.class);
   }
 
   /**
-   * cite.
+   * Creates a {@code <cite>} element (citation).
    *
-   * @return a {@link elemental2.dom.HTMLElement} object
+   * @return The created cite element.
    */
   default HTMLElement cite() {
     return create("cite", HTMLElement.class);
   }
 
   /**
-   * code.
+   * Creates a {@code <code>} element (code).
    *
-   * @return a {@link elemental2.dom.HTMLElement} object
+   * @return The created code element.
    */
   default HTMLElement code() {
     return create("code", HTMLElement.class);
   }
 
   /**
-   * dfn.
+   * Creates a {@code <dfn>} element (definition).
    *
-   * @return a {@link elemental2.dom.HTMLElement} object
+   * @return The created dfn element.
    */
   default HTMLElement dfn() {
     return create("dfn", HTMLElement.class);
   }
 
   /**
-   * em.
+   * Creates an {@code <em>} element (emphasized text).
    *
-   * @return a {@link elemental2.dom.HTMLElement} object
+   * @return The created em element.
    */
   default HTMLElement em() {
     return create("em", HTMLElement.class);
   }
 
   /**
-   * i.
+   * Creates an {@code <i>} element (italicized text).
    *
-   * @return a {@link elemental2.dom.HTMLElement} object
+   * @return The created i element.
    */
   default HTMLElement i() {
     return create("i", HTMLElement.class);
   }
 
   /**
-   * kbd.
+   * Creates a {@code <kbd>} element (keyboard input).
    *
-   * @return a {@link elemental2.dom.HTMLElement} object
+   * @return The created kbd element.
    */
   default HTMLElement kbd() {
     return create("kbd", HTMLElement.class);
   }
 
   /**
-   * mark.
+   * Creates a {@code <mark>} element (highlighted text).
    *
-   * @return a {@link elemental2.dom.HTMLElement} object
+   * @return The created mark element.
    */
   default HTMLElement mark() {
     return create("mark", HTMLElement.class);
   }
 
   /**
-   * q.
+   * Creates a {@code <q>} element (short inline quotation).
    *
-   * @return a {@link elemental2.dom.HTMLQuoteElement} object
+   * @return The created q element.
    */
   default HTMLQuoteElement q() {
     return create("q", HTMLQuoteElement.class);
   }
 
   /**
-   * small.
+   * Creates a {@code <small>} element (small text).
    *
-   * @return a {@link elemental2.dom.HTMLElement} object
+   * @return The created small element.
    */
   default HTMLElement small() {
     return create("small", HTMLElement.class);
   }
 
   /**
-   * span.
+   * Creates a {@code <span>} element (generic inline container).
    *
-   * @return a {@link elemental2.dom.HTMLElement} object
+   * @return The created span element.
    */
   default HTMLElement span() {
     return create("span", HTMLElement.class);
   }
 
   /**
-   * strong.
+   * Creates a {@code <strong>} element (strong importance).
    *
-   * @return a {@link elemental2.dom.HTMLElement} object
+   * @return The created strong element.
    */
   default HTMLElement strong() {
     return create("strong", HTMLElement.class);
   }
 
   /**
-   * sub.
+   * Creates a {@code <sub>} element (subscript).
    *
-   * @return a {@link elemental2.dom.HTMLElement} object
+   * @return The created sub element.
    */
   default HTMLElement sub() {
     return create("sub", HTMLElement.class);
   }
 
   /**
-   * sup.
+   * Creates a {@code <sup>} element (superscript).
    *
-   * @return a {@link elemental2.dom.HTMLElement} object
+   * @return The created sup element.
    */
   default HTMLElement sup() {
     return create("sup", HTMLElement.class);
   }
 
   /**
-   * time.
+   * Creates a {@code <time>} element (time or date).
    *
-   * @return a {@link elemental2.dom.HTMLElement} object
+   * @return The created time element.
    */
   default HTMLElement time() {
     return create("time", HTMLElement.class);
   }
 
   /**
-   * u.
+   * Creates a {@code <u>} element (underlined text).
    *
-   * @return a {@link elemental2.dom.HTMLElement} object
+   * @return The created u element.
    */
   default HTMLElement u() {
     return create("u", HTMLElement.class);
   }
 
   /**
-   * var.
+   * Creates a {@code <var>} element (variable).
    *
-   * @return a {@link elemental2.dom.HTMLElement} object
+   * @return The created var element.
    */
   default HTMLElement var() {
     return create("var", HTMLElement.class);
   }
 
   /**
-   * wbr.
+   * Creates a {@code <wbr>} element (word break opportunity).
    *
-   * @return a {@link elemental2.dom.HTMLElement} object
+   * @return The created wbr element.
    */
   default HTMLElement wbr() {
     return create("wbr", HTMLElement.class);
   }
 
   /**
-   * area.
+   * Creates an {@code <area>} element (image map area).
    *
-   * @return a {@link elemental2.dom.HTMLAreaElement} object
+   * @return The created area element.
    */
   default HTMLAreaElement area() {
     return create("area", HTMLAreaElement.class);
   }
 
   /**
-   * audio.
+   * Creates an {@code <audio>} element (audio playback).
    *
-   * @return a {@link elemental2.dom.HTMLAudioElement} object
+   * @return The created audio element.
    */
   default HTMLAudioElement audio() {
     return create("audio", HTMLAudioElement.class);
   }
 
   /**
-   * img.
+   * Creates an {@code <img>} element (image).
    *
-   * @return a {@link elemental2.dom.HTMLImageElement} object
+   * @return The created img element.
    */
   default HTMLImageElement img() {
     return create("img", HTMLImageElement.class);
   }
 
   /**
-   * img.
+   * Creates an {@code <img>} element (image) with the specified source (src).
    *
-   * @param src a {@link java.lang.String} object
-   * @return a {@link elemental2.dom.HTMLImageElement} object
+   * @param src The source URL for the image.
+   * @return The created img element with the specified source.
    */
   default HTMLImageElement img(String src) {
     HTMLImageElement img = create("img", HTMLImageElement.class);
@@ -561,64 +574,64 @@ public interface DomElements {
   }
 
   /**
-   * map.
+   * Creates a {@code <map>} element (image map).
    *
-   * @return a {@link elemental2.dom.HTMLMapElement} object
+   * @return The created map element.
    */
   default HTMLMapElement map() {
     return create("map", HTMLMapElement.class);
   }
 
   /**
-   * track.
+   * Creates a {@code <track>} element (text tracks for media elements).
    *
-   * @return a {@link elemental2.dom.HTMLTrackElement} object
+   * @return The created track element.
    */
   default HTMLTrackElement track() {
     return create("track", HTMLTrackElement.class);
   }
 
   /**
-   * video.
+   * Creates a {@code <video>} element (video playback).
    *
-   * @return a {@link elemental2.dom.HTMLVideoElement} object
+   * @return The created video element.
    */
   default HTMLVideoElement video() {
     return create("video", HTMLVideoElement.class);
   }
 
   /**
-   * canvas.
+   * Creates a {@code <canvas>} element (drawing surface).
    *
-   * @return a {@link elemental2.dom.HTMLCanvasElement} object
+   * @return The created canvas element.
    */
   default HTMLCanvasElement canvas() {
     return create("canvas", HTMLCanvasElement.class);
   }
 
   /**
-   * embed.
+   * Creates an {@code <embed>} element (external content).
    *
-   * @return a {@link elemental2.dom.HTMLEmbedElement} object
+   * @return The created embed element.
    */
   default HTMLEmbedElement embed() {
     return create("embed", HTMLEmbedElement.class);
   }
 
   /**
-   * iframe.
+   * Creates an {@code <iframe>} element (inline frame).
    *
-   * @return a {@link elemental2.dom.HTMLIFrameElement} object
+   * @return The created iframe element.
    */
   default HTMLIFrameElement iframe() {
     return create("iframe", HTMLIFrameElement.class);
   }
 
   /**
-   * iframe.
+   * Creates an {@code <iframe>} element (inline frame) with the specified source (src).
    *
-   * @param src a {@link java.lang.String} object
-   * @return a {@link elemental2.dom.HTMLIFrameElement} object
+   * @param src The source URL for the iframe.
+   * @return The created iframe element with the specified source.
    */
   default HTMLIFrameElement iframe(String src) {
     HTMLIFrameElement iframe = iframe();
@@ -627,209 +640,209 @@ public interface DomElements {
   }
 
   /**
-   * object.
+   * Creates an {@code <object>} element (embedded object).
    *
-   * @return a {@link elemental2.dom.HTMLObjectElement} object
+   * @return The created object element.
    */
   default HTMLObjectElement object() {
     return create("object", HTMLObjectElement.class);
   }
 
   /**
-   * param.
+   * Creates a {@code <param>} element (parameter for object elements).
    *
-   * @return a {@link elemental2.dom.HTMLParamElement} object
+   * @return The created param element.
    */
   default HTMLParamElement param() {
     return create("param", HTMLParamElement.class);
   }
 
   /**
-   * source.
+   * Creates a {@code <source>} element (media resource for media elements).
    *
-   * @return a {@link elemental2.dom.HTMLSourceElement} object
+   * @return The created source element.
    */
   default HTMLSourceElement source() {
     return create("source", HTMLSourceElement.class);
   }
 
   /**
-   * noscript.
+   * Creates a {@code <noscript>} element (fallback content for script-disabled browsers).
    *
-   * @return a {@link elemental2.dom.HTMLElement} object
+   * @return The created noscript element.
    */
   default HTMLElement noscript() {
     return create("noscript", HTMLElement.class);
   }
 
   /**
-   * script.
+   * Creates a {@code <script>} element (JavaScript code).
    *
-   * @return a {@link elemental2.dom.HTMLScriptElement} object
+   * @return The created script element.
    */
   default HTMLScriptElement script() {
     return create("script", HTMLScriptElement.class);
   }
 
   /**
-   * del.
+   * Creates a {@code <del>} element (deleted text).
    *
-   * @return a {@link elemental2.dom.HTMLModElement} object
+   * @return The created del element.
    */
   default HTMLModElement del() {
     return create("del", HTMLModElement.class);
   }
 
   /**
-   * ins.
+   * Creates an {@code <ins>} element (inserted text).
    *
-   * @return a {@link elemental2.dom.HTMLModElement} object
+   * @return The created ins element.
    */
   default HTMLModElement ins() {
     return create("ins", HTMLModElement.class);
   }
 
   /**
-   * caption.
+   * Creates a {@code <caption>} element (table caption).
    *
-   * @return a {@link elemental2.dom.HTMLTableCaptionElement} object
+   * @return The created caption element.
    */
   default HTMLTableCaptionElement caption() {
     return create("caption", HTMLTableCaptionElement.class);
   }
 
   /**
-   * col.
+   * Creates a {@code <col>} element (table column).
    *
-   * @return a {@link elemental2.dom.HTMLTableColElement} object
+   * @return The created col element.
    */
   default HTMLTableColElement col() {
     return create("col", HTMLTableColElement.class);
   }
 
   /**
-   * colgroup.
+   * Creates a {@code <colgroup>} element (group of table columns).
    *
-   * @return a {@link elemental2.dom.HTMLTableColElement} object
+   * @return The created colgroup element.
    */
   default HTMLTableColElement colgroup() {
     return create("colgroup", HTMLTableColElement.class);
   }
 
   /**
-   * table.
+   * Creates a {@code <table>} element (table).
    *
-   * @return a {@link elemental2.dom.HTMLTableElement} object
+   * @return The created table element.
    */
   default HTMLTableElement table() {
     return create("table", HTMLTableElement.class);
   }
 
   /**
-   * tbody.
+   * Creates a {@code <tbody>} element (table body section).
    *
-   * @return a {@link elemental2.dom.HTMLTableSectionElement} object
+   * @return The created tbody element.
    */
   default HTMLTableSectionElement tbody() {
     return create("tbody", HTMLTableSectionElement.class);
   }
 
   /**
-   * td.
+   * Creates a {@code <td>} element (table cell).
    *
-   * @return a {@link elemental2.dom.HTMLTableCellElement} object
+   * @return The created td element.
    */
   default HTMLTableCellElement td() {
     return create("td", HTMLTableCellElement.class);
   }
 
   /**
-   * tfoot.
+   * Creates a {@code <tfoot>} element (table footer section).
    *
-   * @return a {@link elemental2.dom.HTMLTableSectionElement} object
+   * @return The created tfoot element.
    */
   default HTMLTableSectionElement tfoot() {
     return create("tfoot", HTMLTableSectionElement.class);
   }
 
   /**
-   * th.
+   * Creates a {@code <th>} element (table header cell).
    *
-   * @return a {@link elemental2.dom.HTMLTableCellElement} object
+   * @return The created th element.
    */
   default HTMLTableCellElement th() {
     return create("th", HTMLTableCellElement.class);
   }
 
   /**
-   * thead.
+   * Creates a {@code <thead>} element (table header section).
    *
-   * @return a {@link elemental2.dom.HTMLTableSectionElement} object
+   * @return The created thead element.
    */
   default HTMLTableSectionElement thead() {
     return create("thead", HTMLTableSectionElement.class);
   }
 
   /**
-   * tr.
+   * Creates a {@code <tr>} element (table row).
    *
-   * @return a {@link elemental2.dom.HTMLTableRowElement} object
+   * @return The created tr element.
    */
   default HTMLTableRowElement tr() {
     return create("tr", HTMLTableRowElement.class);
   }
 
   /**
-   * button.
+   * Creates a {@code <button>} element (button).
    *
-   * @return a {@link elemental2.dom.HTMLButtonElement} object
+   * @return The created button element.
    */
   default HTMLButtonElement button() {
     return create("button", HTMLButtonElement.class);
   }
 
   /**
-   * datalist.
+   * Creates a {@code <datalist>} element (datalist for input elements).
    *
-   * @return a {@link elemental2.dom.HTMLDataListElement} object
+   * @return The created datalist element.
    */
   default HTMLDataListElement datalist() {
     return create("datalist", HTMLDataListElement.class);
   }
 
   /**
-   * fieldset.
+   * Creates a {@code <fieldset>} element (fieldset).
    *
-   * @return a {@link elemental2.dom.HTMLFieldSetElement} object
+   * @return The created fieldset element.
    */
   default HTMLFieldSetElement fieldset() {
     return create("fieldset", HTMLFieldSetElement.class);
   }
 
   /**
-   * form.
+   * Creates a {@code <form>} element (form).
    *
-   * @return a {@link elemental2.dom.HTMLFormElement} object
+   * @return The created form element.
    */
   default HTMLFormElement form() {
     return create("form", HTMLFormElement.class);
   }
 
   /**
-   * input.
+   * Creates an {@code <input>} element (input field) with the specified type.
    *
-   * @param type a {@link org.dominokit.domino.ui.utils.InputType} object
-   * @return a {@link elemental2.dom.HTMLInputElement} object
+   * @param type The input type (e.g., "text", "checkbox").
+   * @return The created input element with the specified type.
    */
   default HTMLInputElement input(InputType type) {
     return input(type.name());
   }
 
   /**
-   * input.
+   * Creates an {@code <input>} element (input field) with the specified type.
    *
-   * @param type a {@link java.lang.String} object
-   * @return a {@link elemental2.dom.HTMLInputElement} object
+   * @param type The input type as a string (e.g., "text", "checkbox").
+   * @return The created input element with the specified type.
    */
   default HTMLInputElement input(String type) {
     HTMLInputElement input = create("input", HTMLInputElement.class);
@@ -838,108 +851,120 @@ public interface DomElements {
   }
 
   /**
-   * label.
+   * Creates a {@code <label>} element (label for form elements).
    *
-   * @return a {@link elemental2.dom.HTMLLabelElement} object
+   * @return The created label element.
    */
   default HTMLLabelElement label() {
     return create("label", HTMLLabelElement.class);
   }
 
   /**
-   * legend.
+   * Creates a {@code <legend>} element (legend for fieldset).
    *
-   * @return a {@link elemental2.dom.HTMLLegendElement} object
+   * @return The created legend element.
    */
   default HTMLLegendElement legend() {
     return create("legend", HTMLLegendElement.class);
   }
 
   /**
-   * meter.
+   * Creates a {@code <meter>} element (meter for gauge).
    *
-   * @return a {@link elemental2.dom.HTMLMeterElement} object
+   * @return The created meter element.
    */
   default HTMLMeterElement meter() {
     return create("meter", HTMLMeterElement.class);
   }
 
   /**
-   * optgroup.
+   * Creates a {@code <optgroup>} element (group of options within a select element).
    *
-   * @return a {@link elemental2.dom.HTMLOptGroupElement} object
+   * @return The created optgroup element.
    */
   default HTMLOptGroupElement optgroup() {
     return create("optgroup", HTMLOptGroupElement.class);
   }
 
   /**
-   * option.
+   * Creates a {@code <option>} element (selectable option within a select element).
    *
-   * @return a {@link elemental2.dom.HTMLOptionElement} object
+   * @return The created option element.
    */
   default HTMLOptionElement option() {
     return create("option", HTMLOptionElement.class);
   }
 
   /**
-   * output.
+   * Creates an {@code <output>} element (output for form calculation results).
    *
-   * @return a {@link elemental2.dom.HTMLOutputElement} object
+   * @return The created output element.
    */
   default HTMLOutputElement output() {
     return create("output", HTMLOutputElement.class);
   }
 
   /**
-   * progress.
+   * Creates a {@code <progress>} element (progress bar).
    *
-   * @return a {@link elemental2.dom.HTMLProgressElement} object
+   * @return The created progress element.
    */
   default HTMLProgressElement progress() {
     return create("progress", HTMLProgressElement.class);
   }
 
   /**
-   * select_.
+   * Creates a {@code <select>} element (dropdown select list).
    *
-   * @return a {@link elemental2.dom.HTMLSelectElement} object
+   * @return The created select element.
    */
   default HTMLSelectElement select_() {
     return create("select", HTMLSelectElement.class);
   }
 
   /**
-   * textarea.
+   * Creates a {@code <textarea>} element (multiline text input).
    *
-   * @return a {@link elemental2.dom.HTMLTextAreaElement} object
+   * @return The created textarea element.
    */
   default HTMLTextAreaElement textarea() {
     return create("textarea", HTMLTextAreaElement.class);
   }
 
   /**
-   * svg.
+   * Creates an {@code <svg>} element (Scalable Vector Graphics container).
    *
-   * @return a {@link elemental2.svg.SVGElement} object
+   * @return The created svg element.
    */
   default SVGElement svg() {
     return createSVG("svg", SVGElement.class);
   }
 
   /**
-   * circle.
+   * Creates an {@code <svg>} element (Scalable Vector Graphics container).
    *
-   * @return a {@link elemental2.svg.SVGCircleElement} object
+   * @param <T> The actual type of the svg element being created
+   * @param tag The string tag name for the svg element.
+   * @param type The concrete type for the svg element
+   * @return The created svg element.
+   */
+  default <T extends SVGElement> T svg(String tag, Class<T> type) {
+    return createSVG(tag, type);
+  }
+
+  /**
+   * Creates a {@code <circle>} element (SVG circle).
+   *
+   * @return The created circle element.
    */
   default SVGCircleElement circle() {
     return createSVG("circle", SVGCircleElement.class);
   }
 
   /**
-   * line.
+   * Creates a {@code <line>} element (SVG line).
    *
-   * @return a {@link elemental2.svg.SVGLineElement} object
+   * @return The created line element.
    */
   default SVGLineElement line() {
     return createSVG("line", SVGLineElement.class);

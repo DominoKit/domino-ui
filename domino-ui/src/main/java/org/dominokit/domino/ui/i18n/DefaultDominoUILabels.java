@@ -15,5 +15,17 @@
  */
 package org.dominokit.domino.ui.i18n;
 
-/** DefaultDominoUILabels class. */
+/**
+ * The {@code DefaultDominoUILabels} class is the default implementation of the {@link
+ * DominoUILabels} interface. It serves as a placeholder for label-related methods and does not
+ * provide any custom labels.
+ *
+ * <p>This class is provided as a default implementation to ensure that all required label-related
+ * methods are available for internationalization purposes. Developers can extend this class to
+ * provide custom label implementations.
+ *
+ * <p>This class is subject to the terms of the Apache License, Version 2.0.
+ *
+ * @see DominoUILabels
+ */
 public class DefaultDominoUILabels implements DominoUILabels {}

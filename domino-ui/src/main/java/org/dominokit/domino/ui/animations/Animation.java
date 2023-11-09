@@ -26,12 +26,12 @@ import org.dominokit.domino.ui.utils.DominoElement;
 import org.gwtproject.timer.client.Timer;
 
 /**
- * Animates an {@link elemental2.dom.HTMLElement}
+ * Animates components and elements.
  *
  * <p>This class is used to animate an HTMLElement and provide a set of method to configure the
- * animation, also provide some method to add some callback during different animation phases
+ * animation and register callbacks like, onBeforeStart and onComplete
  *
- * <p>For example:
+ * <p>Example:
  *
  * <pre>
  *
@@ -59,20 +59,20 @@ public class Animation {
   private EventListener stopListener;
   private double repeatCount = 1;
 
-  /** @param element an {@link HTMLElement} to be animated */
   /**
-   * Constructor for Animation.
+   * Creates a new Animation instance for the provided element.
    *
-   * @param element a {@link elemental2.dom.Element} object
+   * @param element an {@link Element} to be animated
    */
   public Animation(Element element) {
     this.element = elements.elementOf(element);
   }
 
   /**
-   * Constructor for Animation.
+   * Creates a new Animation instance for the provided element and specify the duration, delay and
+   * the if it will be an infinite animation or not.
    *
-   * @param element an {@link elemental2.dom.HTMLElement} to be animated
+   * @param element an {@link elemental2.dom.Element} to be animated
    * @param duration int duration of animation in milliseconds
    * @param delay int delay in millisecond before the animation starts
    * @param infinite boolean repeat this animation infinitely or until {@link
@@ -86,9 +86,9 @@ public class Animation {
   }
 
   /**
-   * static factory method to create an animation for an {@link elemental2.dom.HTMLElement}
+   * Factory method to create an animation for an {@link elemental2.dom.Element}
    *
-   * @param element an {@link elemental2.dom.HTMLElement} to be animated
+   * @param element an {@link elemental2.dom.Element} to be animated
    * @return an {@link org.dominokit.domino.ui.animations.Animation} instance
    */
   public static Animation create(Element element) {
@@ -119,7 +119,7 @@ public class Animation {
   }
 
   /**
-   * sets the time the animation should wait before actually animate the element after {@link
+   * Sets the time the animation should wait before actually animate the element after {@link
    * Animation#animate()} is called
    *
    * @param delay in delay in milliseconds
@@ -131,7 +131,7 @@ public class Animation {
   }
 
   /**
-   * sets the animation as infinite so once the animation starts it will repeat infinitely or until
+   * Sets the animation as infinite so once the animation starts it will repeat infinitely or until
    * {@link org.dominokit.domino.ui.animations.Animation#stop()} is called
    *
    * @return same instance
@@ -142,7 +142,7 @@ public class Animation {
   }
 
   /**
-   * sets the transition type for this animation.
+   * Sets the transition type for this animation.
    *
    * @param transition a {@link org.dominokit.domino.ui.animations.Transition} value
    * @return same instance
@@ -153,11 +153,10 @@ public class Animation {
   }
 
   /**
-   * sets the animation to repeat for a specific number of times or until {@link
+   * Sets the animation to repeat for a specific number of times or until {@link
    * org.dominokit.domino.ui.animations.Animation#stop()} is called.
    *
-   * @param repeatCount double the number of times the animation to be repeated e.g
-   *     <pre>2.5</pre>
+   * @param repeatCount double, The number of times the animation to be repeated, Example <b>2.5</b>
    *     repeats the animation 2 times and a half
    * @return same instance
    */
@@ -167,7 +166,7 @@ public class Animation {
   }
 
   /**
-   * sets some logic to be executed when the animation is completed
+   * Register a callback be executed when the animation is completed
    *
    * @param callback a {@link org.dominokit.domino.ui.animations.Animation.CompleteCallback} to be
    *     executed
@@ -179,7 +178,7 @@ public class Animation {
   }
 
   /**
-   * sets some logic to be executed before the animation starts
+   * Register a callback be executed before the animation starts
    *
    * @param startHandler {@link org.dominokit.domino.ui.animations.Animation.StartHandler} to be
    *     executed
@@ -191,7 +190,7 @@ public class Animation {
   }
 
   /**
-   * starts animating the element, if there is a delay the animation will start after the delay
+   * Starts animating the element, if there is a delay the animation will start after the delay
    *
    * @return same instance
    */
@@ -239,17 +238,18 @@ public class Animation {
 
   /**
    * stops the animation and calls the {@link
-   * org.dominokit.domino.ui.animations.Animation.CompleteCallback} if it is set.
+   * org.dominokit.domino.ui.animations.Animation.CompleteCallback} if registered.
    */
   public void stop() {
     stop(false);
   }
 
   /**
-   * stops the animation and calls the {@link
-   * org.dominokit.domino.ui.animations.Animation.CompleteCallback} if it is set.
+   * Stops the animation and calls the registered {@link
+   * org.dominokit.domino.ui.animations.Animation.CompleteCallback} only if silent is set to false.
    *
-   * @param silent a boolean
+   * @param silent boolean, <b>true</b> to ignore the callback when animation completed,
+   *     <b>false</b> to execute the callback.
    */
   public void stop(boolean silent) {
     element.removeCss(transition.getStyle());

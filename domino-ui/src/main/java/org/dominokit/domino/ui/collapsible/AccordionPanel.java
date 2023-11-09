@@ -24,12 +24,11 @@ import org.dominokit.domino.ui.layout.NavBar;
 import org.dominokit.domino.ui.utils.*;
 
 /**
- * A component to show/hide content inside an {@link org.dominokit.domino.ui.collapsible.Accordion}
- *
- * <p>The accordion panel can be appended to an Accordion to show/hide some content when the user
- * clicks on the panel header
+ * A component used with the {@link org.dominokit.domino.ui.collapsible.Accordion} component to host
+ * part of the content that needs to be collapsed/expanded when the user clicks on the panel header
  *
  * @see Accordion
+ * @see BaseDominoElement
  */
 public class AccordionPanel extends BaseDominoElement<HTMLDivElement, AccordionPanel>
     implements IsCollapsible<AccordionPanel>,
@@ -44,7 +43,7 @@ public class AccordionPanel extends BaseDominoElement<HTMLDivElement, AccordionP
   private LazyChild<NavBar> contentHeader;
   private LazyChild<NavBar> contentFooter;
 
-  /** Constructor for AccordionPanel. */
+  /** Creates an empty AccordionPanel */
   public AccordionPanel() {
     element =
         div()
@@ -68,11 +67,10 @@ public class AccordionPanel extends BaseDominoElement<HTMLDivElement, AccordionP
     collapse();
   }
 
-  /** @param title String, the accordion panel header title */
   /**
-   * Constructor for AccordionPanel.
+   * Creates an accordion panel with a title in the header
    *
-   * @param title a {@link java.lang.String} object
+   * @param title The title text
    */
   public AccordionPanel(String title) {
     this();
@@ -80,26 +78,28 @@ public class AccordionPanel extends BaseDominoElement<HTMLDivElement, AccordionP
   }
 
   /**
-   * A factory to create Accordion panel with a title
+   * Factory method to create an accordion panel with a title
    *
-   * @param title String, the accordion panel header title
+   * @param title The title text
    * @return new Accordion instance
    */
   public static AccordionPanel create(String title) {
     return new AccordionPanel(title);
   }
 
-  /** {@inheritDoc} */
+  /** @dominokit-site-ignore {@inheritDoc} */
   @Override
   public HTMLElement getAppendTarget() {
     return bodyElement.element();
   }
 
   /**
-   * appendChild.
+   * Appends a component or element to the right side of the panel header. This will initialize and
+   * append the panel header if not yet initialized.
    *
-   * @param element a {@link org.dominokit.domino.ui.utils.PostfixAddOn} object
-   * @return a {@link org.dominokit.domino.ui.collapsible.AccordionPanel} object
+   * @param element The element or component wrapped as a postfix.
+   * @return Same AccordionPanel instance
+   * @see NavBar
    */
   public AccordionPanel appendChild(PostfixAddOn<?> element) {
     headerElement.get().appendChild(element.addCss(dui_panel_utility));
@@ -107,10 +107,12 @@ public class AccordionPanel extends BaseDominoElement<HTMLDivElement, AccordionP
   }
 
   /**
-   * appendChild.
+   * Appends a component or element to the content body header section This will initialize and
+   * append the content header section if not yet initialized.
    *
-   * @param element a {@link org.dominokit.domino.ui.utils.HeaderContent} object
-   * @return a {@link org.dominokit.domino.ui.collapsible.AccordionPanel} object
+   * @param element The component or element wrapped as a {@link HeaderContent}
+   * @return Same AccordionPanel instance
+   * @see NavBar
    */
   public AccordionPanel appendChild(HeaderContent<?> element) {
     contentHeader.get().appendChild(element);
@@ -118,26 +120,29 @@ public class AccordionPanel extends BaseDominoElement<HTMLDivElement, AccordionP
   }
 
   /**
-   * appendChild.
+   * Appends a component or element to the content body footer section This will initialize and
+   * append the content footer section if not yet initialized.
    *
-   * @param element a {@link org.dominokit.domino.ui.utils.FooterContent} object
-   * @return a {@link org.dominokit.domino.ui.collapsible.AccordionPanel} object
+   * @param element The component or element wrapped as a {@link FooterContent}
+   * @return Same AccordionPanel instance
+   * @see NavBar
    */
   public AccordionPanel appendChild(FooterContent<?> element) {
     contentFooter.get().appendChild(element);
     return this;
   }
 
-  /** {@inheritDoc} */
+  /** @dominokit-site-ignore {@inheritDoc} */
   @Override
   public HTMLElement getCollapsibleElement() {
     return contentElement.element();
   }
 
   /**
-   * Change the panel header title.
+   * Sets the panel header title. This will initialize and append the header element if not yet
+   * initialized.
    *
-   * @param title String, the accordion panel header title
+   * @param title The accordion panel header title
    * @return same AccordionPanel instance
    */
   public AccordionPanel setTitle(String title) {
@@ -146,9 +151,10 @@ public class AccordionPanel extends BaseDominoElement<HTMLDivElement, AccordionP
   }
 
   /**
-   * Change the panel header title.
+   * Sets the panel header title. This will initialize and append the header element if not yet
+   * initialized.
    *
-   * @param title String, the accordion panel header title
+   * @param title The accordion panel header title
    * @return same AccordionPanel instance
    */
   public AccordionPanel withTitle(String title) {
@@ -156,10 +162,13 @@ public class AccordionPanel extends BaseDominoElement<HTMLDivElement, AccordionP
   }
 
   /**
-   * withHeader.
+   * Use to customize the header element of this AccordionPanel instance without breaking the fluent
+   * API chain. This will initialize and append header if not yet initialized
    *
-   * @param handler a {@link org.dominokit.domino.ui.utils.ChildHandler} object
-   * @return a {@link org.dominokit.domino.ui.collapsible.AccordionPanel} object
+   * @see ChildHandler
+   * @see NavBar
+   * @param handler The {@code ChildHandler<AccordionPanel, NavBar>} applying the customizations
+   * @return same AccordionPanel instance
    */
   public AccordionPanel withHeader(ChildHandler<AccordionPanel, NavBar> handler) {
     handler.apply(this, headerElement.get());
@@ -167,19 +176,20 @@ public class AccordionPanel extends BaseDominoElement<HTMLDivElement, AccordionP
   }
 
   /**
-   * getHeader.
+   * This will initialize and append the header element if not yet initialized.
    *
-   * @return a {@link org.dominokit.domino.ui.layout.NavBar} object
+   * @return The {@link org.dominokit.domino.ui.layout.NavBar} representing the panel header
    */
   public NavBar getHeader() {
     return headerElement.get();
   }
 
   /**
-   * setIcon.
+   * Sets the icon in the panel header. This will initialize and append the header element if not
+   * yet initialized
    *
-   * @param icon a {@link org.dominokit.domino.ui.icons.Icon} object
-   * @return a {@link org.dominokit.domino.ui.collapsible.AccordionPanel} object
+   * @param icon The {@link org.dominokit.domino.ui.icons.Icon} to be used in the panel header
+   * @return Same AccordionPanel instance
    */
   public AccordionPanel setIcon(Icon<?> icon) {
     panelIcon.remove();
@@ -189,35 +199,34 @@ public class AccordionPanel extends BaseDominoElement<HTMLDivElement, AccordionP
   }
 
   /**
-   * withIcon.
+   * Sets the icon in the panel header. This will initialize and append the header element if not
+   * yet initialized
    *
-   * @param icon a {@link org.dominokit.domino.ui.icons.Icon} object
-   * @return a {@link org.dominokit.domino.ui.collapsible.AccordionPanel} object
+   * @param icon The {@link org.dominokit.domino.ui.icons.Icon} to be used in the panel header
+   * @return Same AccordionPanel instance
    */
   public AccordionPanel withIcon(Icon<?> icon) {
     return setIcon(icon);
   }
 
-  /** {@inheritDoc} */
+  /** @dominokit-site-ignore {@inheritDoc} */
   @Override
   public HTMLDivElement element() {
     return element.element();
   }
 
-  /**
-   * getContentBody.
-   *
-   * @return a {@link org.dominokit.domino.ui.elements.DivElement} object
-   */
+  /** @return The {@link org.dominokit.domino.ui.elements.DivElement} that host the panel content */
   public DivElement getContentBody() {
     return bodyElement;
   }
 
   /**
-   * withContentBody.
+   * Use to customize the content body element of this AccordionPanel instance without breaking the
+   * fluent API chain.
    *
-   * @param handler a {@link org.dominokit.domino.ui.utils.ChildHandler} object
-   * @return a {@link org.dominokit.domino.ui.collapsible.AccordionPanel} object
+   * @see ChildHandler
+   * @param handler The {@code ChildHandler<AccordionPanel, DivElement>} applying the customizations
+   * @return same AccordionPanel instance
    */
   public AccordionPanel withContentBody(ChildHandler<AccordionPanel, DivElement> handler) {
     handler.apply(this, bodyElement);
@@ -225,19 +234,20 @@ public class AccordionPanel extends BaseDominoElement<HTMLDivElement, AccordionP
   }
 
   /**
-   * getContent.
-   *
-   * @return a {@link org.dominokit.domino.ui.elements.DivElement} object
+   * @return The {@link org.dominokit.domino.ui.elements.DivElement} representing the panel content
+   *     element
    */
   public DivElement getContent() {
     return contentElement;
   }
 
   /**
-   * withContent.
+   * Use to customize the content element of this AccordionPanel instance without breaking the
+   * fluent API chain. This will initialize and append content if not yet initialized
    *
-   * @param handler a {@link org.dominokit.domino.ui.utils.ChildHandler} object
-   * @return a {@link org.dominokit.domino.ui.collapsible.AccordionPanel} object
+   * @see ChildHandler
+   * @param handler The {@code ChildHandler<AccordionPanel, DivElement>} applying the customizations
+   * @return same AccordionPanel instance
    */
   public AccordionPanel withContent(ChildHandler<AccordionPanel, DivElement> handler) {
     handler.apply(this, contentElement);
@@ -245,19 +255,21 @@ public class AccordionPanel extends BaseDominoElement<HTMLDivElement, AccordionP
   }
 
   /**
-   * Getter for the field <code>contentHeader</code>.
-   *
-   * @return a {@link org.dominokit.domino.ui.layout.NavBar} object
+   * @return The {@link org.dominokit.domino.ui.layout.NavBar} representing the panel content
+   *     header.
    */
   public NavBar getContentHeader() {
     return contentHeader.get();
   }
 
   /**
-   * withContentHeader.
+   * Use to customize the content header element of this AccordionPanel instance without breaking
+   * the fluent API chain. This will initialize and append content header if not yet initialized
    *
-   * @param handler a {@link org.dominokit.domino.ui.utils.ChildHandler} object
-   * @return a {@link org.dominokit.domino.ui.collapsible.AccordionPanel} object
+   * @see ChildHandler
+   * @see NavBar
+   * @param handler The {@code ChildHandler<AccordionPanel, NavBar>} applying the customizations
+   * @return same AccordionPanel instance
    */
   public AccordionPanel withContentHeader(ChildHandler<AccordionPanel, NavBar> handler) {
     handler.apply(this, contentHeader.get());
@@ -265,9 +277,9 @@ public class AccordionPanel extends BaseDominoElement<HTMLDivElement, AccordionP
   }
 
   /**
-   * withContentHeader.
+   * Initialize and append the content header element if not yet initialized.
    *
-   * @return a {@link org.dominokit.domino.ui.collapsible.AccordionPanel} object
+   * @return Same AccordionPanel instance
    */
   public AccordionPanel withContentHeader() {
     contentHeader.get();
@@ -275,19 +287,21 @@ public class AccordionPanel extends BaseDominoElement<HTMLDivElement, AccordionP
   }
 
   /**
-   * Getter for the field <code>contentFooter</code>.
-   *
-   * @return a {@link org.dominokit.domino.ui.layout.NavBar} object
+   * @return The {@link org.dominokit.domino.ui.layout.NavBar} representing the content footer
+   *     element
    */
   public NavBar getContentFooter() {
     return contentFooter.get();
   }
 
   /**
-   * withContentFooter.
+   * Use to customize the content footer element of this AccordionPanel instance without breaking
+   * the fluent API chain. This will initialize and append content footer if not yet initialized
    *
-   * @param handler a {@link org.dominokit.domino.ui.utils.ChildHandler} object
-   * @return a {@link org.dominokit.domino.ui.collapsible.AccordionPanel} object
+   * @see ChildHandler
+   * @see NavBar
+   * @param handler The {@code ChildHandler<AccordionPanel, NavBar>} applying the customizations
+   * @return same AccordionPanel instance
    */
   public AccordionPanel withContentFooter(ChildHandler<AccordionPanel, NavBar> handler) {
     handler.apply(this, contentFooter.get());
@@ -295,9 +309,9 @@ public class AccordionPanel extends BaseDominoElement<HTMLDivElement, AccordionP
   }
 
   /**
-   * withContentFooter.
+   * Initialize and append the content footer element if not yet initialized.
    *
-   * @return a {@link org.dominokit.domino.ui.collapsible.AccordionPanel} object
+   * @return Same AccordionPanel instance
    */
   public AccordionPanel withContentFooter() {
     contentFooter.get();

@@ -13,14 +13,16 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package org.dominokit.domino.ui.datatable.plugins.tree;
 
-/** IsTreeNode interface. */
+/** An interface to represent a tree node in a hierarchical structure. */
 public interface IsTreeNode {
+
   /**
-   * hasChildren.
+   * Checks if this tree node has children nodes.
    *
-   * @return a boolean
+   * @return {@code true} if this tree node has children nodes, {@code false} otherwise.
    */
   boolean hasChildren();
 }

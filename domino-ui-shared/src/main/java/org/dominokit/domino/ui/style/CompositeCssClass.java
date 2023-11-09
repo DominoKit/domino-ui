@@ -13,6 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package org.dominokit.domino.ui.style;
 
 import elemental2.dom.Element;
@@ -23,36 +24,40 @@ import java.util.Set;
 import java.util.stream.Collectors;
 import org.dominokit.domino.ui.IsElement;
 
-/** CompositeCssClass class. */
+/**
+ * Represents a composite CSS class which can consist of multiple {@link CssClass} instances. This
+ * allows for the grouping of multiple CSS classes under a single instance.
+ */
 public class CompositeCssClass implements CssClass {
 
   private Set<CssClass> cssClasses = new HashSet<>();
 
   /**
-   * of.
+   * Creates a {@link CompositeCssClass} instance with a collection of {@link CssClass} instances.
    *
-   * @param cssClasses a {@link java.util.Collection} object.
-   * @return a {@link org.dominokit.domino.ui.style.CompositeCssClass} object.
+   * @param cssClasses A collection of CSS classes.
+   * @return A new {@link CompositeCssClass} instance.
    */
   public static CompositeCssClass of(Collection<CssClass> cssClasses) {
     return new CompositeCssClass(cssClasses);
   }
 
   /**
-   * of.
+   * Creates a {@link CompositeCssClass} instance with a varargs of {@link CssClass} instances.
    *
-   * @param cssClasses a {@link org.dominokit.domino.ui.style.CssClass} object.
-   * @return a {@link org.dominokit.domino.ui.style.CompositeCssClass} object.
+   * @param cssClasses A varargs of CSS classes.
+   * @return A new {@link CompositeCssClass} instance.
    */
   public static CompositeCssClass of(CssClass... cssClasses) {
     return new CompositeCssClass(cssClasses);
   }
 
   /**
-   * of.
+   * Creates a {@link CompositeCssClass} instance from the CSS classes of a given DOM {@link
+   * Element}.
    *
-   * @param element a {@link elemental2.dom.Element} object.
-   * @return a {@link org.dominokit.domino.ui.style.CompositeCssClass} object.
+   * @param element The DOM element from which to extract CSS classes.
+   * @return A new {@link CompositeCssClass} instance.
    */
   public static CompositeCssClass of(Element element) {
     return of(
@@ -62,83 +67,111 @@ public class CompositeCssClass implements CssClass {
   }
 
   /**
-   * of.
+   * Creates a {@link CompositeCssClass} instance from the CSS classes of a given {@link IsElement}.
    *
-   * @param element a {@link org.dominokit.domino.ui.IsElement} object.
-   * @return a {@link org.dominokit.domino.ui.style.CompositeCssClass} object.
+   * @param element The UI element (implementing {@link IsElement}) from which to extract CSS
+   *     classes.
+   * @return A new {@link CompositeCssClass} instance.
    */
   public static CompositeCssClass of(IsElement<?> element) {
     return of(element.element());
   }
 
   /**
-   * Constructor for CompositeCssClass.
+   * Constructs a {@link CompositeCssClass} with a collection of {@link CssClass} instances.
    *
-   * @param cssClasses a {@link java.util.Collection} object.
+   * @param cssClasses A collection of CSS classes.
    */
   public CompositeCssClass(Collection<CssClass> cssClasses) {
     this.cssClasses.addAll(cssClasses);
   }
 
   /**
-   * Constructor for CompositeCssClass.
+   * Constructs a {@link CompositeCssClass} with a varargs of {@link CssClass} instances.
    *
-   * @param cssClasses a {@link org.dominokit.domino.ui.style.CssClass} object.
+   * @param cssClasses A varargs of CSS classes.
    */
   public CompositeCssClass(CssClass... cssClasses) {
     this(Arrays.asList(cssClasses));
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Returns the combined string representation of all {@link CssClass} instances in this composite.
+   *
+   * @return The combined CSS class string.
+   */
   @Override
   public String getCssClass() {
     return cssClasses.stream().map(CssClass::getCssClass).collect(Collectors.joining(" "));
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Applies all CSS classes in this composite to the given DOM {@link Element}.
+   *
+   * @param element The DOM element to which the CSS classes will be applied.
+   */
   @Override
   public void apply(Element element) {
     cssClasses.forEach(cssClass -> cssClass.apply(element));
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Checks if all CSS classes in this composite are applied to the specified DOM {@link Element}.
+   *
+   * @param element The DOM element to check.
+   * @return {@code true} if all CSS classes are applied to the element, {@code false} otherwise.
+   */
   @Override
   public boolean isAppliedTo(Element element) {
     return cssClasses.stream().allMatch(cssClass -> cssClass.isAppliedTo(element));
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Checks if all CSS classes in this composite are applied to the specified {@link IsElement}.
+   *
+   * @param element The UI element (implementing {@link IsElement}) to check.
+   * @return {@code true} if all CSS classes are applied to the element, {@code false} otherwise.
+   */
   @Override
   public boolean isAppliedTo(IsElement<?> element) {
     return isAppliedTo(element.element());
   }
 
   /**
-   * contains.
+   * Checks if the composite contains a specific {@link CssClass}.
    *
-   * @param cssClass a {@link org.dominokit.domino.ui.style.CssClass} object.
-   * @return a boolean.
+   * @param cssClass The CSS class to check for.
+   * @return {@code true} if the composite contains the given CSS class, {@code false} otherwise.
    */
   public boolean contains(CssClass cssClass) {
     return cssClasses.stream().anyMatch(c -> c.isSameAs(cssClass));
   }
 
   /**
-   * Getter for the field <code>cssClasses</code>.
+   * Returns a set of all {@link CssClass} instances in this composite.
    *
-   * @return a {@link java.util.Set} object.
+   * @return A set containing all CSS classes in the composite.
    */
   public Set<CssClass> getCssClasses() {
     return cssClasses;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Removes all CSS classes in this composite from the given DOM {@link Element}.
+   *
+   * @param element The DOM element from which the CSS classes will be removed.
+   */
   @Override
   public void remove(Element element) {
     cssClasses.forEach(cssClass -> cssClass.remove(element));
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Removes all CSS classes in this composite from the given {@link IsElement}.
+   *
+   * @param element The UI element (implementing {@link IsElement}) from which the CSS classes will
+   *     be removed.
+   */
   @Override
   public void remove(IsElement<?> element) {
     remove(element.element());

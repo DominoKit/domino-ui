@@ -13,21 +13,24 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package org.dominokit.domino.ui.datatable;
 
 /**
- * The implementations of this interface will determine if a row in the table should be selectable
- * or not
+ * The {@code SelectionCondition} functional interface defines a contract for specifying the
+ * conditions under which a row in a data table can be selected.
  *
- * @param <T> The type of the data table records
+ * @param <T> The type of data representing the records in the data table.
  */
 public interface SelectionCondition<T> {
+
   /**
-   * isAllowSelection.
+   * Determines whether the selection of a specific row in a data table is allowed based on the
+   * provided conditions.
    *
-   * @param table {@link org.dominokit.domino.ui.datatable.DataTable}
-   * @param tableRow {@link org.dominokit.domino.ui.datatable.TableRow}
-   * @return boolean, true if the row should be selectable otherwise it will not be selectable
+   * @param table The {@link DataTable} to which the row belongs.
+   * @param tableRow The {@link TableRow} being considered for selection.
+   * @return {@code true} if the row is allowed to be selected, {@code false} otherwise.
    */
   boolean isAllowSelection(DataTable<T> table, TableRow<T> tableRow);
 }

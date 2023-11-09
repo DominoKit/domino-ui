@@ -20,22 +20,46 @@ import static org.dominokit.domino.ui.style.SpacingCss.*;
 import org.dominokit.domino.ui.style.CssClass;
 import org.dominokit.domino.ui.style.HasCssClass;
 
-/** CellTextAlign class. */
+/**
+ * Enum representing possible text alignment options for cells within the data table. This provides
+ * alignment styling based on the defined CSS classes.
+ */
 public enum CellTextAlign implements HasCssClass {
+
+  /** Aligns the text to the left. */
   LEFT(dui_text_left),
+
+  /** Aligns the text to the right. */
   RIGHT(dui_text_right),
+
+  /** Centers the text. */
   CENTER(dui_text_center),
+
+  /** Justifies the text. */
   JUSTIFY(dui_text_justify),
+
+  /** Inherit the alignment from the parent element. */
   INHERIT(dui_text_inherit),
+
+  /** Use the current alignment setting. */
   CURRENT(dui_text_current);
 
   private final CssClass cssClass;
 
+  /**
+   * Constructs a CellTextAlign enum item.
+   *
+   * @param alignCss the associated CSS class defining the alignment style.
+   */
   CellTextAlign(CssClass alignCss) {
     this.cssClass = alignCss;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Retrieves the CSS class associated with this alignment setting.
+   *
+   * @return the alignment's CSS class.
+   */
   @Override
   public CssClass getCssClass() {
     return cssClass;

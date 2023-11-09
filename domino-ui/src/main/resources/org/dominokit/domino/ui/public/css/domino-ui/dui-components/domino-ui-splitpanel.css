@@ -1,15 +1,18 @@
 .dui-split-layout {
     overflow: hidden;
+    display: flex;
 }
 .dui-split-layout.dui-horizontal {
     --dui-split-layout-splitter-width:var(--dui-split-layout-splitter-size);
     --dui-split-layout-splitter-height:100%;
-    --dui-split-layout-splitter-cursor:col-resize
+    --dui-split-layout-splitter-cursor:col-resize;
+    flex-direction: row;
 }
 .dui-split-layout.dui-vertical {
     --dui-split-layout-splitter-width:100%;
     --dui-split-layout-splitter-height:var(--dui-split-layout-splitter-size);
-    --dui-split-layout-splitter-cursor:row-resize
+    --dui-split-layout-splitter-cursor:row-resize;
+    flex-direction: column;
 }
 
 .dui-horizontal .dui-split-panel {
@@ -23,14 +26,12 @@
 .dui-split-layout-splitter,
 .dui-split-panel {
     position: relative;
+    overflow: hidden;
     -webkit-user-select: none;
     -moz-user-select: none;
     -ms-user-select: none;
 }
 
-.dui-split-layout{
-    display: block;
-}
 .dui-horizontal .dui-split-panel,
 .dui-horizontal .dui-split-layout-splitter  {
     display: inline-block;

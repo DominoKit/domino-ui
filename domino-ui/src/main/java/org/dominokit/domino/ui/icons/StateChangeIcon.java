@@ -25,7 +25,13 @@ import org.dominokit.domino.ui.style.CompositeCssClass;
 import org.dominokit.domino.ui.style.SwapCssClass;
 import org.dominokit.domino.ui.utils.ElementHandler;
 
-/** Abstract StateChangeIcon class. */
+/**
+ * An abstract base class for icons that can change their state, displaying different icons based on
+ * the current state.
+ *
+ * @param <I> The concrete icon type.
+ * @param <T> The concrete StateChangeIcon type.
+ */
 public abstract class StateChangeIcon<I extends Icon<I>, T extends StateChangeIcon<I, T>>
     extends Icon<T> {
   protected final I defaultIcon;
@@ -35,9 +41,9 @@ public abstract class StateChangeIcon<I extends Icon<I>, T extends StateChangeIc
   private Consumer<T> onStateChanged = icon -> {};
 
   /**
-   * Constructor for StateChangeIcon.
+   * Constructs a new StateChangeIcon with the default icon.
    *
-   * @param defaultIcon a I object
+   * @param defaultIcon The default icon to be displayed initially.
    */
   public StateChangeIcon(I defaultIcon) {
     this.defaultIcon = defaultIcon;
@@ -46,11 +52,11 @@ public abstract class StateChangeIcon<I extends Icon<I>, T extends StateChangeIc
   }
 
   /**
-   * withState.
+   * Adds a state icon mapping to this StateChangeIcon.
    *
-   * @param state a {@link java.lang.String} object
-   * @param icon a I object
-   * @return a T object
+   * @param state The state identifier.
+   * @param icon The icon to be displayed when the specified state is set.
+   * @return The StateChangeIcon instance for method chaining.
    */
   public T withState(String state, I icon) {
     if (nonNull(state) && !state.isEmpty() && nonNull(icon)) {
@@ -60,10 +66,10 @@ public abstract class StateChangeIcon<I extends Icon<I>, T extends StateChangeIc
   }
 
   /**
-   * removeState.
+   * Removes a state icon mapping from this StateChangeIcon.
    *
-   * @param state a {@link java.lang.String} object
-   * @return a T object
+   * @param state The state identifier to be removed.
+   * @return The StateChangeIcon instance for method chaining.
    */
   public T removeState(String state) {
     statesMap.remove(state);
@@ -71,10 +77,10 @@ public abstract class StateChangeIcon<I extends Icon<I>, T extends StateChangeIc
   }
 
   /**
-   * Sets a handler to be called when the icon state is changed
+   * Sets a callback function to be invoked when the state is changed.
    *
-   * @param stateConsumer the {@link java.util.function.Consumer} handler
-   * @return same instance
+   * @param stateConsumer The callback function to handle the state change event.
+   * @return The StateChangeIcon instance for method chaining.
    */
   public T onStateChanged(Consumer<T> stateConsumer) {
     this.onStateChanged = stateConsumer;
@@ -82,10 +88,10 @@ public abstract class StateChangeIcon<I extends Icon<I>, T extends StateChangeIc
   }
 
   /**
-   * setState.
+   * Sets the current state of the icon and updates the displayed icon accordingly.
    *
-   * @param state a {@link java.lang.String} object
-   * @return a T object
+   * @param state The state identifier to be set.
+   * @return The StateChangeIcon instance for method chaining.
    */
   public T setState(String state) {
     if (statesMap.containsKey(state)) {
@@ -99,7 +105,12 @@ public abstract class StateChangeIcon<I extends Icon<I>, T extends StateChangeIc
     return (T) this;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Iterates through child icons and applies the given handler.
+   *
+   * @param handler The handler for child icons.
+   * @return The StateChangeIcon instance for method chaining.
+   */
   @Override
   public T forEachChild(ElementHandler<Icon<?>> handler) {
     handler.handleElement(defaultIcon);
@@ -107,28 +118,39 @@ public abstract class StateChangeIcon<I extends Icon<I>, T extends StateChangeIc
     return (T) this;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Gets the target HTMLElement for applying styles.
+   *
+   * @return The HTMLElement of the default icon.
+   */
   @Override
   protected HTMLElement getStyleTarget() {
     return defaultIcon.element();
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Gets the clickable HTMLElement for the icon.
+   *
+   * @return The HTMLElement of the default icon.
+   */
   @Override
   public HTMLElement getClickableElement() {
     return defaultIcon.element();
   }
 
   /**
-   * getState.
+   * Gets the current state of the icon.
    *
-   * @return a {@link java.lang.String} object
+   * @return The current state identifier.
    */
   public String getState() {
     return this.currentState;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * @dominokit-site-ignore {@inheritDoc} Gets the HTMLElement representation of the icon.
+   * @return The HTMLElement of the default icon.
+   */
   @Override
   public HTMLElement element() {
     return defaultIcon.element();

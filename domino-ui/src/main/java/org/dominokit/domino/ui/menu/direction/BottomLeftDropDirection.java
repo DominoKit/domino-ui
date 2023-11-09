@@ -41,12 +41,18 @@ public class BottomLeftDropDirection implements DropDirection {
     Style.of(source)
         .style
         .setProperty("top", px.of((targetRect.top + window.pageYOffset) + targetRect.height + 1));
+    Style.of(source).style.setProperty("left", px.of(targetRect.left));
+    dui_dd_bottom_left.apply(source);
+    elements.elementOf(source).setCssProperty("--dui-menu-drop-min-width", targetRect.width + "px");
+    DOMRect newRect = source.getBoundingClientRect();
     Style.of(source)
         .style
         .setProperty(
-            "left", px.of(targetRect.left - (sourceRect.width - targetRect.width) + delta));
-    dui_dd_bottom_left.apply(source);
-    elements.elementOf(source).setCssProperty("--dui-menu-drop-min-width", targetRect.width + "px");
+            "left",
+            px.of(
+                (targetRect.left - (newRect.left - targetRect.left))
+                    - (sourceRect.width - targetRect.width)
+                    + delta));
   }
 
   /** {@inheritDoc} */

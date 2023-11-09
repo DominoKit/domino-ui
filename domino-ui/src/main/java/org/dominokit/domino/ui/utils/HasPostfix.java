@@ -13,23 +13,29 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package org.dominokit.domino.ui.utils;
 
-/** HasPostfix interface. */
+/**
+ * The {@code HasPostfix} interface defines methods for getting and setting a postfix text for a
+ * component.
+ *
+ * @param <T> The type of the component that can have a postfix.
+ */
 public interface HasPostfix<T> {
 
   /**
-   * setPostfix.
+   * Sets a postfix text for the component.
    *
-   * @param postfix a {@link java.lang.String} object
-   * @return a T object
+   * @param postfix The postfix text to set for the component.
+   * @return The component with the updated postfix text.
    */
   T setPostfix(String postfix);
 
   /**
-   * getPostfix.
+   * Gets the postfix text of the component.
    *
-   * @return a {@link java.lang.String} object
+   * @return The postfix text of the component.
    */
   String getPostfix();
 }

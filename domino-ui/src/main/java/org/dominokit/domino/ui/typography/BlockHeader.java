@@ -25,10 +25,8 @@ import org.dominokit.domino.ui.utils.ChildHandler;
 import org.dominokit.domino.ui.utils.LazyChild;
 
 /**
- * A component provides a header text with a description in a predefined style
- *
- * <p>Customize the component can be done by overwriting classes provided by {@link
- * BlockHeaderStyles}
+ * The `BlockHeader` class represents a block header element with an optional description. It is
+ * used to display a title and an optional description in a block-style header.
  *
  * @see BaseDominoElement
  */
@@ -39,6 +37,11 @@ public class BlockHeader extends BaseDominoElement<HTMLDivElement, BlockHeader>
   private final HeadingElement headerElement;
   private LazyChild<SmallElement> descriptionElement;
 
+  /**
+   * Constructs a new `BlockHeader` instance with the specified title.
+   *
+   * @param title The title to be displayed in the block header.
+   */
   private BlockHeader(String title) {
     element =
         div()
@@ -48,16 +51,43 @@ public class BlockHeader extends BaseDominoElement<HTMLDivElement, BlockHeader>
     init(this);
   }
 
+  /**
+   * Constructs a new `BlockHeader` instance with the specified title and description.
+   *
+   * @param title The title to be displayed in the block header.
+   * @param description The description to be displayed in the block header.
+   */
   private BlockHeader(String title, String description) {
     this(title);
     setDescription(description);
   }
 
   /**
-   * setDescription.
+   * Creates a new `BlockHeader` instance with the specified title and description.
    *
-   * @param description a {@link java.lang.String} object
-   * @return a {@link org.dominokit.domino.ui.typography.BlockHeader} object
+   * @param title The title to be displayed in the block header.
+   * @param description The description to be displayed in the block header.
+   * @return A new `BlockHeader` instance with the specified title and description.
+   */
+  public static BlockHeader create(String title, String description) {
+    return new BlockHeader(title, description);
+  }
+
+  /**
+   * Creates a new `BlockHeader` instance with the specified title.
+   *
+   * @param header The title to be displayed in the block header.
+   * @return A new `BlockHeader` instance with the specified title.
+   */
+  public static BlockHeader create(String header) {
+    return new BlockHeader(header);
+  }
+
+  /**
+   * Sets the description for the block header.
+   *
+   * @param description The description to be displayed in the block header.
+   * @return The current `BlockHeader` instance.
    */
   public BlockHeader setDescription(String description) {
     descriptionElement.get().setTextContent(description);
@@ -65,31 +95,10 @@ public class BlockHeader extends BaseDominoElement<HTMLDivElement, BlockHeader>
   }
 
   /**
-   * Creates a header with a description
+   * Sets whether the block header is reversed.
    *
-   * @param title the header text
-   * @param description the description text
-   * @return new instance
-   */
-  public static BlockHeader create(String title, String description) {
-    return new BlockHeader(title, description);
-  }
-
-  /**
-   * Creates a header
-   *
-   * @param header the header text
-   * @return new instance
-   */
-  public static BlockHeader create(String header) {
-    return new BlockHeader(header);
-  }
-
-  /**
-   * setReversed.
-   *
-   * @param reversed a boolean
-   * @return a {@link org.dominokit.domino.ui.typography.BlockHeader} object
+   * @param reversed True to reverse the block header, false otherwise.
+   * @return The current `BlockHeader` instance.
    */
   public BlockHeader setReversed(boolean reversed) {
     addCss(BooleanCssClass.of(dui_block_header_reversed, reversed));
@@ -97,64 +106,60 @@ public class BlockHeader extends BaseDominoElement<HTMLDivElement, BlockHeader>
   }
 
   /**
-   * Sets the header text
+   * Sets the title of the block header.
    *
-   * @param header the new text
-   * @return same instance
+   * @param header The title to be displayed in the block header.
+   * @return The current `BlockHeader` instance.
    */
   public BlockHeader setHeader(String header) {
     headerElement.setTextContent(header);
     return this;
   }
 
-  /** @return The header element */
   /**
-   * Getter for the field <code>headerElement</code>.
+   * Gets the header element of the block header.
    *
-   * @return a {@link org.dominokit.domino.ui.elements.HeadingElement} object
+   * @return The header element of the block header.
    */
   public HeadingElement getHeaderElement() {
     return headerElement;
   }
 
   /**
-   * withHeaderElement.
+   * Configures the block header with a header element and provides a handler to configure it.
    *
-   * @param handler a {@link org.dominokit.domino.ui.utils.ChildHandler} object
-   * @return a {@link org.dominokit.domino.ui.typography.BlockHeader} object
+   * @param handler The handler for configuring the header element.
+   * @return The current `BlockHeader` instance with the configured header element.
    */
   public BlockHeader withHeaderElement(ChildHandler<BlockHeader, HeadingElement> handler) {
     handler.apply(this, headerElement);
     return this;
   }
 
-  /** @return The description element */
   /**
-   * Getter for the field <code>descriptionElement</code>.
+   * Gets the description element of the block header.
    *
-   * @return a {@link org.dominokit.domino.ui.elements.SmallElement} object
+   * @return The description element of the block header.
    */
   public SmallElement getDescriptionElement() {
     return descriptionElement.get();
   }
 
-  /** @return The description element */
   /**
-   * withDescriptionElement.
+   * Configures the block header with a description element.
    *
-   * @return a {@link org.dominokit.domino.ui.typography.BlockHeader} object
+   * @return The current `BlockHeader` instance with the description element.
    */
   public BlockHeader withDescriptionElement() {
     descriptionElement.get();
     return this;
   }
 
-  /** @return The description element */
   /**
-   * withDescriptionElement.
+   * Configures the block header with a description element and provides a handler to configure it.
    *
-   * @param handler a {@link org.dominokit.domino.ui.utils.ChildHandler} object
-   * @return a {@link org.dominokit.domino.ui.typography.BlockHeader} object
+   * @param handler The handler for configuring the description element.
+   * @return The current `BlockHeader` instance with the configured description element.
    */
   public BlockHeader withDescriptionElement(ChildHandler<BlockHeader, SmallElement> handler) {
     handler.apply(this, descriptionElement.get());

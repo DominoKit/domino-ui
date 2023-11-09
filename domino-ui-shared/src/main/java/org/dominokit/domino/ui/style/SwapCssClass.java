@@ -13,64 +13,58 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+/** A utility class for swapping CSS classes applied to HTML elements. */
 package org.dominokit.domino.ui.style;
 
 import static java.util.Objects.nonNull;
 
 import elemental2.dom.Element;
 
-/** SwapCssClass class. */
 public class SwapCssClass implements CssClass {
 
   private CssClass current = CssClass.NONE;
   private CssClass replacement = CssClass.NONE;
 
-  /**
-   * of.
-   *
-   * @return a {@link org.dominokit.domino.ui.style.SwapCssClass} object.
-   */
+  /** Creates a new instance of SwapCssClass with no initial styles. */
   public static SwapCssClass of() {
     return new SwapCssClass();
   }
 
   /**
-   * of.
+   * Creates a new instance of SwapCssClass with the given initial style.
    *
-   * @param initialStyle a {@link org.dominokit.domino.ui.style.CssClass} object.
-   * @return a {@link org.dominokit.domino.ui.style.SwapCssClass} object.
+   * @param initialStyle The initial CSS class to apply.
    */
   public static SwapCssClass of(CssClass initialStyle) {
     return new SwapCssClass(initialStyle);
   }
 
   /**
-   * of.
+   * Creates a new instance of SwapCssClass with the CSS class from the provided HasCssClass
+   * instance.
    *
-   * @param initialStyle a {@link org.dominokit.domino.ui.style.HasCssClass} object.
-   * @return a {@link org.dominokit.domino.ui.style.SwapCssClass} object.
+   * @param initialStyle The initial HasCssClass instance.
    */
   public static SwapCssClass of(HasCssClass initialStyle) {
     return new SwapCssClass(initialStyle.getCssClass());
   }
 
   /**
-   * of.
+   * Creates a new instance of SwapCssClass with the given CSS class.
    *
-   * @param cssClass a {@link java.lang.String} object.
-   * @return a {@link org.dominokit.domino.ui.style.SwapCssClass} object.
+   * @param cssClass The initial CSS class to apply.
    */
   public static SwapCssClass of(String cssClass) {
     return new SwapCssClass(cssClass);
   }
 
-  /** Constructor for SwapCssClass. */
+  /** Constructs a new SwapCssClass instance with no initial style. */
   public SwapCssClass() {}
 
   /**
-   * Constructor for SwapCssClass.
+   * Constructs a new SwapCssClass instance with the given initial style.
    *
-   * @param initialStyle a {@link org.dominokit.domino.ui.style.CssClass} object.
+   * @param initialStyle The initial CSS class to apply.
    */
   public SwapCssClass(CssClass initialStyle) {
     this.current = initialStyle;
@@ -78,9 +72,9 @@ public class SwapCssClass implements CssClass {
   }
 
   /**
-   * Constructor for SwapCssClass.
+   * Constructs a new SwapCssClass instance with the given CSS class.
    *
-   * @param cssClass a {@link java.lang.String} object.
+   * @param cssClass The initial CSS class to apply.
    */
   public SwapCssClass(String cssClass) {
     this.current = () -> cssClass;
@@ -88,10 +82,10 @@ public class SwapCssClass implements CssClass {
   }
 
   /**
-   * replaceWith.
+   * Replaces the current CSS class with the provided replacement CSS class.
    *
-   * @param replacement a {@link org.dominokit.domino.ui.style.CssClass} object.
-   * @return a {@link org.dominokit.domino.ui.style.SwapCssClass} object.
+   * @param replacement The CSS class to replace the current class with.
+   * @return This SwapCssClass instance for method chaining.
    */
   public SwapCssClass replaceWith(CssClass replacement) {
     this.replacement = replacement;
@@ -99,10 +93,10 @@ public class SwapCssClass implements CssClass {
   }
 
   /**
-   * replaceWith.
+   * Replaces the current CSS class with the CSS class from the provided HasCssClass instance.
    *
-   * @param replacement a {@link org.dominokit.domino.ui.style.HasCssClass} object.
-   * @return a {@link org.dominokit.domino.ui.style.SwapCssClass} object.
+   * @param replacement The HasCssClass instance containing the replacement CSS class.
+   * @return This SwapCssClass instance for method chaining.
    */
   public SwapCssClass replaceWith(HasCssClass replacement) {
     if (nonNull(replacement)) {
@@ -111,7 +105,11 @@ public class SwapCssClass implements CssClass {
     return this;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Removes the current CSS class from the given HTML element, if it is not null.
+   *
+   * @param element The HTML element from which to remove the current CSS class.
+   */
   @Override
   public void remove(Element element) {
     if (nonNull(current)) {
@@ -119,7 +117,11 @@ public class SwapCssClass implements CssClass {
     }
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Applies the replacement CSS class to the given HTML element, replacing the current class.
+   *
+   * @param element The HTML element to apply the replacement CSS class to.
+   */
   @Override
   public void apply(Element element) {
     remove(element);
@@ -128,24 +130,28 @@ public class SwapCssClass implements CssClass {
   }
 
   /**
-   * Getter for the field <code>current</code>.
+   * Gets the currently applied CSS class.
    *
-   * @return a {@link org.dominokit.domino.ui.style.CssClass} object.
+   * @return The current CSS class.
    */
   public CssClass getCurrent() {
     return current;
   }
 
   /**
-   * Getter for the field <code>replacement</code>.
+   * Gets the replacement CSS class.
    *
-   * @return a {@link org.dominokit.domino.ui.style.CssClass} object.
+   * @return The replacement CSS class.
    */
   public CssClass getReplacement() {
     return replacement;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Gets the CSS class represented by this SwapCssClass instance.
+   *
+   * @return The CSS class represented by this instance (equivalent to the replacement class).
+   */
   @Override
   public String getCssClass() {
     return replacement.getCssClass();

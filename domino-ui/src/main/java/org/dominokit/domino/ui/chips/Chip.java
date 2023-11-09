@@ -40,7 +40,11 @@ import org.dominokit.domino.ui.utils.LazyChild;
 import org.dominokit.domino.ui.utils.PrefixAddOn;
 import org.dominokit.domino.ui.utils.Selectable;
 
-/** Chip class. */
+/**
+ * A component for a Tag that can have a text and icon or image and can be set to be removable.
+ *
+ * @see BaseDominoElement
+ */
 public class Chip extends BaseDominoElement<HTMLDivElement, Chip>
     implements HasSelectionListeners<Chip, Chip, Chip>, Selectable<Chip>, AcceptDisable<Chip> {
 
@@ -56,19 +60,19 @@ public class Chip extends BaseDominoElement<HTMLDivElement, Chip>
   private boolean removable = false;
 
   /**
-   * create.
+   * factory methiod to create a Chip with the provided text.
    *
-   * @param text a {@link java.lang.String} object
-   * @return a {@link org.dominokit.domino.ui.chips.Chip} object
+   * @param text The chip text
+   * @return new Chip instance
    */
   public static Chip create(String text) {
     return new Chip(text);
   }
 
   /**
-   * Constructor for Chip.
+   * Creates a chip with the provided text
    *
-   * @param text a {@link java.lang.String} object
+   * @param text The chip text
    */
   public Chip(String text) {
     root =
@@ -122,46 +126,46 @@ public class Chip extends BaseDominoElement<HTMLDivElement, Chip>
         });
   }
 
-  /** {@inheritDoc} */
+  /** @dominokit-site-ignore {@inheritDoc} */
   @Override
   public Chip pauseSelectionListeners() {
     this.selectionListenersPaused = true;
     return this;
   }
 
-  /** {@inheritDoc} */
+  /** @dominokit-site-ignore {@inheritDoc} */
   @Override
   public Chip resumeSelectionListeners() {
     this.selectionListenersPaused = false;
     return this;
   }
 
-  /** {@inheritDoc} */
+  /** @dominokit-site-ignore {@inheritDoc} */
   @Override
   public Chip togglePauseSelectionListeners(boolean toggle) {
     this.selectionListenersPaused = toggle;
     return this;
   }
 
-  /** {@inheritDoc} */
+  /** @dominokit-site-ignore {@inheritDoc} */
   @Override
   public Set<SelectionListener<? super Chip, ? super Chip>> getSelectionListeners() {
     return selectionListeners;
   }
 
-  /** {@inheritDoc} */
+  /** @dominokit-site-ignore {@inheritDoc} */
   @Override
   public Set<SelectionListener<? super Chip, ? super Chip>> getDeselectionListeners() {
     return deselectionListeners;
   }
 
-  /** {@inheritDoc} */
+  /** @dominokit-site-ignore {@inheritDoc} */
   @Override
   public boolean isSelectionListenersPaused() {
     return this.selectionListenersPaused;
   }
 
-  /** {@inheritDoc} */
+  /** @dominokit-site-ignore {@inheritDoc} */
   @Override
   public Chip triggerSelectionListeners(Chip source, Chip selection) {
     selectionListeners.forEach(
@@ -169,7 +173,7 @@ public class Chip extends BaseDominoElement<HTMLDivElement, Chip>
     return this;
   }
 
-  /** {@inheritDoc} */
+  /** @dominokit-site-ignore {@inheritDoc} */
   @Override
   public Chip triggerDeselectionListeners(Chip source, Chip selection) {
     deselectionListeners.forEach(
@@ -177,7 +181,7 @@ public class Chip extends BaseDominoElement<HTMLDivElement, Chip>
     return this;
   }
 
-  /** {@inheritDoc} */
+  /** @dominokit-site-ignore {@inheritDoc} */
   @Override
   public Chip getSelection() {
     if (isSelected()) {
@@ -186,19 +190,33 @@ public class Chip extends BaseDominoElement<HTMLDivElement, Chip>
     return null;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Selects the chip and trigger the selection listeners if not paused
+   *
+   * @return same chip instance
+   */
   @Override
   public Chip select() {
     return select(isSelectionListenersPaused());
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Deselects the chip and trigger the deselection listeners if not paused
+   *
+   * @return same chip instance
+   */
   @Override
   public Chip deselect() {
     return deselect(isSelectionListenersPaused());
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Selects the chip and trigger the selection listeners if the silent flag not true.
+   *
+   * @param silent boolean, <b>true</b> to ignore selection listeners, <b>false</b> to trigger
+   *     selection listeners
+   * @return same chip instance
+   */
   @Override
   public Chip select(boolean silent) {
     if (!isDisabled() && isSelectable()) {
@@ -210,7 +228,13 @@ public class Chip extends BaseDominoElement<HTMLDivElement, Chip>
     return this;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Deselects the chip and trigger the deselection listeners if the silent flag not true.
+   *
+   * @param silent boolean, <b>true</b> to ignore deselection listeners, <b>false</b> to trigger
+   *     deselection listeners
+   * @return same chip instance
+   */
   @Override
   public Chip deselect(boolean silent) {
     if (!isDisabled() && isSelectable()) {
@@ -222,12 +246,25 @@ public class Chip extends BaseDominoElement<HTMLDivElement, Chip>
     return this;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Change the chip selection state based on the provided flag.
+   *
+   * @param selected boolean, <b>true</b> selects the chip, <b>false</b> deselect the chip
+   * @return same chip instance
+   */
   public Chip setSelected(boolean selected) {
     return setSelected(selected, isSelectionListenersPaused());
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Change the chip selection state based on the provided flag and trigger the selection listeners
+   * based on the silent flag.
+   *
+   * @param selected boolean, <b>true</b> selects the chip, <b>false</b> deselect the chip
+   * @param silent boolean, <b>true</b> ignore the selection/deselection listener, <b>false</b>
+   *     trigger the selection/deselection listener
+   * @return same chip instance
+   */
   @Override
   public Chip setSelected(boolean selected, boolean silent) {
     if (!isReadOnly() && !isDisabled()) {
@@ -245,19 +282,28 @@ public class Chip extends BaseDominoElement<HTMLDivElement, Chip>
     this.selected = selected;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * @return boolean, <b>true</b> if the chip is selectable and currently selected, otherwise
+   *     <b>false</b>
+   */
   @Override
   public boolean isSelected() {
     return selected && isSelectable();
   }
 
-  /** {@inheritDoc} */
+  /** @return boolean, <b>true</b> if the chip is selectable otherwise <b>false</b> */
   @Override
   public boolean isSelectable() {
     return selectable;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Sets this chip to be selectable or not.
+   *
+   * @param selectable boolean, <b>true</b> to make the chip selectable, <b>false</b> to make it not
+   *     selectable
+   * @return same chip instance
+   */
   @Override
   public Chip setSelectable(boolean selectable) {
     this.selectable = selectable;
@@ -265,19 +311,20 @@ public class Chip extends BaseDominoElement<HTMLDivElement, Chip>
   }
 
   /**
-   * isRemovable.
+   * Use to check if this chip is removable or not.
    *
-   * @return a boolean
+   * @return a boolean, <b>true</b> if the chip is removable otherwise <b>false</b>
    */
   public boolean isRemovable() {
     return removable;
   }
 
   /**
-   * Setter for the field <code>removable</code>.
+   * Toggle the chip removable state based on the provided flag
    *
-   * @param removable a boolean
-   * @return a {@link org.dominokit.domino.ui.chips.Chip} object
+   * @param removable a boolean, <b>true</b> to make the chip removable, <b>false</b> to make it not
+   *     removable.
+   * @return same chip instance
    */
   public Chip setRemovable(boolean removable) {
     this.removable = removable;
@@ -290,10 +337,10 @@ public class Chip extends BaseDominoElement<HTMLDivElement, Chip>
   }
 
   /**
-   * setText.
+   * Set the chip text
    *
-   * @param text a {@link java.lang.String} object
-   * @return a {@link org.dominokit.domino.ui.chips.Chip} object
+   * @param text the chip text string
+   * @return same chip instance
    */
   public Chip setText(String text) {
     textElement.setTextContent(text);
@@ -301,30 +348,28 @@ public class Chip extends BaseDominoElement<HTMLDivElement, Chip>
   }
 
   /**
-   * withTextElement.
+   * Use to apply customization to the chip text element without breaking the fluent api chain
    *
-   * @param handler a {@link org.dominokit.domino.ui.utils.ChildHandler} object
-   * @return a {@link org.dominokit.domino.ui.chips.Chip} object
+   * @param handler The {@link org.dominokit.domino.ui.utils.ChildHandler} applying the
+   *     customizations
+   * @return same chip instance
    */
   public Chip withTextElement(ChildHandler<Chip, SpanElement> handler) {
     handler.apply(this, textElement);
     return this;
   }
 
-  /**
-   * Getter for the field <code>textElement</code>.
-   *
-   * @return a {@link org.dominokit.domino.ui.elements.SpanElement} object
-   */
+  /** @return The {@link org.dominokit.domino.ui.elements.SpanElement} of this chip text. */
   public SpanElement getTextElement() {
     return textElement;
   }
 
   /**
-   * appendChild.
+   * Appends a element to the left side of the chip
    *
-   * @param prefixAddOn a {@link org.dominokit.domino.ui.utils.PrefixAddOn} object
-   * @return a {@link org.dominokit.domino.ui.chips.Chip} object
+   * @param prefixAddOn The {@link org.dominokit.domino.ui.utils.PrefixAddOn} wrapping another
+   *     element
+   * @return same chip instance
    */
   public Chip appendChild(PrefixAddOn<?> prefixAddOn) {
     this.addon.get().appendChild(prefixAddOn);
@@ -332,39 +377,39 @@ public class Chip extends BaseDominoElement<HTMLDivElement, Chip>
   }
 
   /**
-   * setLetters.
+   * Appends a text as prefix to the chip
    *
-   * @param text a {@link java.lang.String} object
-   * @return a {@link org.dominokit.domino.ui.chips.Chip} object
+   * @param text The text to be appended as a prefix.
+   * @return same chip instance
    */
   public Chip setLetters(String text) {
     return appendChild(PrefixAddOn.of(span().textContent(text)));
   }
 
   /**
-   * setImage.
+   * Appends an image as a prefix to this chip
    *
-   * @param img a {@link elemental2.dom.HTMLImageElement} object
-   * @return a {@link org.dominokit.domino.ui.chips.Chip} object
+   * @param img The {@link elemental2.dom.HTMLImageElement} to be appended as prefix
+   * @return same chip instance
    */
   public Chip setImage(HTMLImageElement img) {
     return appendChild(PrefixAddOn.of(img));
   }
 
   /**
-   * setImage.
+   * Sets the prefix with the provided image.
    *
-   * @param img a {@link org.dominokit.domino.ui.elements.ImageElement} object
-   * @return a {@link org.dominokit.domino.ui.chips.Chip} object
+   * @param img The {@link ImageElement} to be appended as prefix
+   * @return same chip instance
    */
   public Chip setImage(ImageElement img) {
     return appendChild(PrefixAddOn.of(img));
   }
 
   /**
-   * clearAddOn.
+   * Removes all elements appended as prefix to this chi[
    *
-   * @return a {@link org.dominokit.domino.ui.chips.Chip} object
+   * @return same chip instance
    */
   public Chip clearAddOn() {
     addon.remove();
@@ -372,17 +417,19 @@ public class Chip extends BaseDominoElement<HTMLDivElement, Chip>
   }
 
   /**
-   * withAddon.
+   * Use to apply customization to the element containing prefixes appended to this chip without
+   * breaking the fluent api chain.
    *
-   * @param handler a {@link org.dominokit.domino.ui.utils.ChildHandler} object
-   * @return a {@link org.dominokit.domino.ui.chips.Chip} object
+   * @param handler The {@link org.dominokit.domino.ui.utils.ChildHandler} applying the
+   *     customization
+   * @return same chip instance
    */
   public Chip withAddon(ChildHandler<Chip, DivElement> handler) {
     handler.apply(this, addon.get());
     return this;
   }
 
-  /** {@inheritDoc} */
+  /** @dominokit-site-ignore {@inheritDoc} */
   @Override
   public HTMLDivElement element() {
     return root.element();

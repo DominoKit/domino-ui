@@ -13,10 +13,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package org.dominokit.domino.ui.utils;
 
 import elemental2.dom.Element;
 import elemental2.dom.Text;
+import elemental2.svg.SVGElement;
 import java.util.Optional;
 import org.dominokit.domino.ui.IsElement;
 import org.dominokit.domino.ui.elements.ABBRElement;
@@ -32,7 +34,6 @@ import org.dominokit.domino.ui.elements.BlockquoteElement;
 import org.dominokit.domino.ui.elements.BodyElement;
 import org.dominokit.domino.ui.elements.ButtonElement;
 import org.dominokit.domino.ui.elements.CanvasElement;
-import org.dominokit.domino.ui.elements.CircleElement;
 import org.dominokit.domino.ui.elements.CiteElement;
 import org.dominokit.domino.ui.elements.CodeElement;
 import org.dominokit.domino.ui.elements.ColElement;
@@ -64,7 +65,6 @@ import org.dominokit.domino.ui.elements.KBDElement;
 import org.dominokit.domino.ui.elements.LIElement;
 import org.dominokit.domino.ui.elements.LabelElement;
 import org.dominokit.domino.ui.elements.LegendElement;
-import org.dominokit.domino.ui.elements.LineElement;
 import org.dominokit.domino.ui.elements.MainElement;
 import org.dominokit.domino.ui.elements.MapElement;
 import org.dominokit.domino.ui.elements.MarkElement;
@@ -108,262 +108,280 @@ import org.dominokit.domino.ui.elements.UListElement;
 import org.dominokit.domino.ui.elements.VarElement;
 import org.dominokit.domino.ui.elements.VideoElement;
 import org.dominokit.domino.ui.elements.WBRElement;
+import org.dominokit.domino.ui.elements.svg.CircleElement;
+import org.dominokit.domino.ui.elements.svg.LineElement;
 
-/** ElementsFactory interface. */
+/**
+ * A factory interface for creating various HTML elements in a fluent manner.
+ *
+ * <p>Example usage:
+ *
+ * <pre>java BodyElement body = ElementsFactory.elements.body(); DivElement div =
+ * ElementsFactory.elements.div(); AnchorElement anchor = ElementsFactory.elements.a(); </pre>
+ */
 public interface ElementsFactory {
 
-  /** Constant <code>elements</code> */
+  /** A default instance of the ElementsFactory interface. */
   ElementsFactory elements = new ElementsFactory() {};
 
+  /**
+   * Provides access to the delegate that implements the ElementsFactory interface.
+   *
+   * @return An instance of ElementsFactoryDelegate.
+   */
   default ElementsFactoryDelegate delegate() {
     return DominoUIConfig.CONFIG.getElementsFactory();
   }
 
+  /**
+   * Retrieves an element by its unique identifier.
+   *
+   * @param id The unique identifier of the element to retrieve.
+   * @return An optional containing the element, or empty if not found.
+   */
   default Optional<DominoElement<Element>> byId(String id) {
     return delegate().byId(id);
   }
 
   /**
-   * create.
+   * Creates a new HTML element of the specified type.
    *
-   * @param element a {@link java.lang.String} object
-   * @param type a {@link java.lang.Class} object
-   * @param <E> a E class
-   * @return a E object
+   * @param element The HTML element name (e.g., "div", "span").
+   * @param type The Java class representing the element type.
+   * @param <E> The element type.
+   * @return A new instance of the specified element type.
    */
   default <E extends Element> E create(String element, Class<E> type) {
     return delegate().create(element, type);
   }
 
   /**
-   * elementOf.
+   * Wraps an existing element in a DominoElement.
    *
-   * @param element the {@link elemental2.dom.HTMLElement} E to wrap as a DominoElement
-   * @param <E> extends from {@link elemental2.dom.Element}
-   * @return the {@link org.dominokit.domino.ui.utils.DominoElement} wrapping the provided element
+   * @param element The existing HTML element to wrap.
+   * @param <E> The element type.
+   * @return A DominoElement wrapping the existing element.
    */
   default <E extends Element> DominoElement<E> elementOf(E element) {
     return delegate().elementOf(element);
   }
 
   /**
-   * elementOf.
+   * Creates a DominoElement of the specified IsElement type.
    *
-   * @param element the {@link org.dominokit.domino.ui.IsElement} E to wrap as a DominoElement
-   * @param <E> extends from {@link elemental2.dom.Element}
-   * @return the {@link org.dominokit.domino.ui.utils.DominoElement} wrapping the provided element
-   * @param <T> a T class
+   * @param element The IsElement to wrap.
+   * @param <T> The element type.
+   * @param <E> The IsElement type.
+   * @return A DominoElement wrapping the IsElement.
    */
   default <T extends Element, E extends IsElement<T>> DominoElement<T> elementOf(E element) {
     return delegate().elementOf(element);
   }
 
   /**
-   * getUniqueId.
+   * Generates a unique identifier.
    *
-   * @return a {@link java.lang.String} object
+   * @return A unique identifier.
    */
   default String getUniqueId() {
     return delegate().getUniqueId();
   }
 
   /**
-   * getUniqueId.
+   * Generates a unique identifier with the specified prefix.
    *
-   * @param prefix a {@link java.lang.String} object
-   * @return a {@link java.lang.String} object
+   * @param prefix The prefix to use in the generated identifier.
+   * @return A unique identifier with the specified prefix.
    */
   default String getUniqueId(String prefix) {
     return delegate().getUniqueId(prefix);
   }
 
-  /** @return a {@link DominoElement} wrapping the document {@link HTMLBodyElement} */
   /**
-   * body.
+   * Creates a &lt;body&gt; element.
    *
-   * @return a {@link org.dominokit.domino.ui.elements.BodyElement} object
+   * @return A new BodyElement.
    */
   default BodyElement body() {
     return delegate().body();
   }
 
-  /** @return a new {@link HTMLDivElement} wrapped as a {@link DominoElement} */
   /**
-   * picture.
+   * Creates a &lt;picture&gt; element.
    *
-   * @return a {@link org.dominokit.domino.ui.elements.PictureElement} object
+   * @return A new PictureElement.
    */
   default PictureElement picture() {
     return delegate().picture();
   }
 
   /**
-   * address.
+   * Creates an &lt;address&gt; element.
    *
-   * @return a {@link org.dominokit.domino.ui.elements.AddressElement} object
+   * @return A new AddressElement.
    */
   default AddressElement address() {
     return delegate().address();
   }
 
   /**
-   * article.
+   * Creates an &lt;article&gt; element.
    *
-   * @return a {@link org.dominokit.domino.ui.elements.ArticleElement} object
+   * @return A new ArticleElement.
    */
   default ArticleElement article() {
     return delegate().article();
   }
 
   /**
-   * aside.
+   * Creates an &lt;aside&gt; element.
    *
-   * @return a {@link org.dominokit.domino.ui.elements.AsideElement} object
+   * @return A new AsideElement.
    */
   default AsideElement aside() {
     return delegate().aside();
   }
 
   /**
-   * footer.
+   * Creates a &lt;footer&gt; element.
    *
-   * @return a {@link org.dominokit.domino.ui.elements.FooterElement} object
+   * @return A new FooterElement.
    */
   default FooterElement footer() {
     return delegate().footer();
   }
 
   /**
-   * h.
+   * Creates a &lt;h&gt; (heading) element with the specified level.
    *
-   * @param n a int
-   * @return a {@link org.dominokit.domino.ui.elements.HeadingElement} object
+   * @param n The heading level (e.g., 1 for &lt;h1&gt;, 2 for &lt;h2&gt;, etc.).
+   * @return A new HeadingElement with the specified level.
    */
   default HeadingElement h(int n) {
     return delegate().h(n);
   }
 
   /**
-   * header.
+   * Creates a &lt;header&gt; element.
    *
-   * @return a {@link org.dominokit.domino.ui.elements.HeaderElement} object
+   * @return A new HeaderElement.
    */
   default HeaderElement header() {
     return delegate().header();
   }
 
   /**
-   * hgroup.
+   * Creates an &lt;hgroup&gt; element.
    *
-   * @return a {@link org.dominokit.domino.ui.elements.HGroupElement} object
+   * @return A new HGroupElement.
    */
   default HGroupElement hgroup() {
     return delegate().hgroup();
   }
 
   /**
-   * nav.
+   * Creates a &lt;nav&gt; element.
    *
-   * @return a {@link org.dominokit.domino.ui.elements.NavElement} object
+   * @return A new NavElement.
    */
   default NavElement nav() {
     return delegate().nav();
   }
 
   /**
-   * section.
+   * Creates a &lt;section&gt; element.
    *
-   * @return a {@link org.dominokit.domino.ui.elements.SectionElement} object
+   * @return A new SectionElement.
    */
   default SectionElement section() {
     return delegate().section();
   }
 
   /**
-   * blockquote.
+   * Creates a &lt;blockquote&gt; element.
    *
-   * @return a {@link org.dominokit.domino.ui.elements.BlockquoteElement} object
+   * @return A new BlockquoteElement.
    */
   default BlockquoteElement blockquote() {
     return delegate().blockquote();
   }
 
   /**
-   * dd.
+   * Creates a &lt;dd&gt; element.
    *
-   * @return a {@link org.dominokit.domino.ui.elements.DDElement} object
+   * @return A new DDElement.
    */
   default DDElement dd() {
     return delegate().dd();
   }
 
   /**
-   * div.
+   * Creates a &lt;div&gt; element.
    *
-   * @return a {@link org.dominokit.domino.ui.elements.DivElement} object
+   * @return A new DivElement.
    */
   default DivElement div() {
     return delegate().div();
   }
 
   /**
-   * dl.
+   * Creates a &lt;dl&gt; (definition list) element.
    *
-   * @return a {@link org.dominokit.domino.ui.elements.DListElement} object
+   * @return A new DListElement.
    */
   default DListElement dl() {
     return delegate().dl();
   }
 
   /**
-   * dt.
+   * Creates a &lt;dt&gt; (definition term) element.
    *
-   * @return a {@link org.dominokit.domino.ui.elements.DTElement} object
+   * @return A new DTElement.
    */
   default DTElement dt() {
     return delegate().dt();
   }
 
   /**
-   * figcaption.
+   * Creates a &lt;figcaption&gt; element.
    *
-   * @return a {@link org.dominokit.domino.ui.elements.FigCaptionElement} object
+   * @return A new FigCaptionElement.
    */
   default FigCaptionElement figcaption() {
     return delegate().figcaption();
   }
 
   /**
-   * figure.
+   * Creates a &lt;figure&gt; element.
    *
-   * @return a {@link org.dominokit.domino.ui.elements.FigureElement} object
+   * @return A new FigureElement.
    */
   default FigureElement figure() {
     return delegate().figure();
   }
 
   /**
-   * hr.
+   * Creates a &lt;hr&gt; (horizontal rule) element.
    *
-   * @return a {@link org.dominokit.domino.ui.elements.HRElement} object
+   * @return A new HRElement.
    */
   default HRElement hr() {
     return delegate().hr();
   }
 
   /**
-   * li.
+   * Creates a &lt;li&gt; (list item) element.
    *
-   * @return a {@link org.dominokit.domino.ui.elements.LIElement} object
+   * @return A new LIElement.
    */
   default LIElement li() {
     return delegate().li();
   }
 
   /**
-   * main.
+   * Creates a &lt;main&gt; element.
    *
-   * @return a {@link org.dominokit.domino.ui.elements.MainElement} object
+   * @return A new MainElement.
    */
   @SuppressWarnings("all")
   default MainElement main() {
@@ -371,711 +389,722 @@ public interface ElementsFactory {
   }
 
   /**
-   * ol.
+   * Creates an &lt;ol&gt; (ordered list) element.
    *
-   * @return a {@link org.dominokit.domino.ui.elements.OListElement} object
+   * @return A new OListElement.
    */
   default OListElement ol() {
     return delegate().ol();
   }
 
   /**
-   * p.
+   * Creates a &lt;p&gt; (paragraph) element.
    *
-   * @return a {@link org.dominokit.domino.ui.elements.ParagraphElement} object
+   * @return A new ParagraphElement.
    */
   default ParagraphElement p() {
     return delegate().p();
   }
 
   /**
-   * p.
+   * Creates a &lt;p&gt; (paragraph) element with the specified text content.
    *
-   * @param text a {@link java.lang.String} object
-   * @return a {@link org.dominokit.domino.ui.elements.ParagraphElement} object
+   * @param text The text content to set in the paragraph.
+   * @return A new ParagraphElement with the specified text content.
    */
   default ParagraphElement p(String text) {
     return delegate().p(text);
   }
 
   /**
-   * pre.
+   * Creates a &lt;pre&gt; (preformatted text) element.
    *
-   * @return a {@link org.dominokit.domino.ui.elements.PreElement} object
+   * @return A new PreElement.
    */
   default PreElement pre() {
     return delegate().pre();
   }
 
   /**
-   * ul.
+   * Creates a &lt;ul&gt; (unordered list) element.
    *
-   * @return a {@link org.dominokit.domino.ui.elements.UListElement} object
+   * @return A new UListElement.
    */
   default UListElement ul() {
     return delegate().ul();
   }
 
   /**
-   * a.
+   * Creates an &lt;a&gt; (anchor) element.
    *
-   * @return a {@link org.dominokit.domino.ui.elements.AnchorElement} object
+   * @return A new AnchorElement.
    */
   default AnchorElement a() {
     return delegate().a();
   }
 
   /**
-   * a.
+   * Creates an &lt;a&gt; (anchor) element with the specified href.
    *
-   * @param href a {@link java.lang.String} object
-   * @return a {@link org.dominokit.domino.ui.elements.AnchorElement} object
+   * @param href The URL to set in the anchor's href attribute.
+   * @return A new AnchorElement with the specified href.
    */
   default AnchorElement a(String href) {
     return delegate().a(href);
   }
 
   /**
-   * a.
+   * Creates an &lt;a&gt; (anchor) element with the specified href and target.
    *
-   * @param href a {@link java.lang.String} object
-   * @param target a {@link java.lang.String} object
-   * @return a {@link org.dominokit.domino.ui.elements.AnchorElement} object
+   * @param href The URL to set in the anchor's href attribute.
+   * @param target The target attribute value to set.
+   * @return A new AnchorElement with the specified href and target.
    */
   default AnchorElement a(String href, String target) {
     return delegate().a(href, target);
   }
 
   /**
-   * abbr.
+   * Creates an &lt;abbr&gt; element.
    *
-   * @return a {@link org.dominokit.domino.ui.elements.ABBRElement} object
+   * @return A new ABBRElement.
    */
   default ABBRElement abbr() {
     return delegate().abbr();
   }
 
   /**
-   * b.
+   * Creates a &lt;b&gt; (bold) element.
    *
-   * @return a {@link org.dominokit.domino.ui.elements.BElement} object
+   * @return A new BElement.
    */
   default BElement b() {
     return delegate().b();
   }
 
   /**
-   * br.
+   * Creates a &lt;br&gt; (line break) element.
    *
-   * @return a {@link org.dominokit.domino.ui.elements.BRElement} object
+   * @return A new BRElement.
    */
   default BRElement br() {
     return delegate().br();
   }
 
   /**
-   * cite.
+   * Creates a &lt;cite&gt; element.
    *
-   * @return a {@link org.dominokit.domino.ui.elements.CiteElement} object
+   * @return A new CiteElement.
    */
   default CiteElement cite() {
     return delegate().cite();
   }
 
   /**
-   * code.
+   * Creates a &lt;code&gt; element.
    *
-   * @return a {@link org.dominokit.domino.ui.elements.CodeElement} object
+   * @return A new CodeElement.
    */
   default CodeElement code() {
     return delegate().code();
   }
 
   /**
-   * dfn.
+   * Creates a &lt;dfn&gt; element.
    *
-   * @return a {@link org.dominokit.domino.ui.elements.DFNElement} object
+   * @return A new DFNElement.
    */
   default DFNElement dfn() {
     return delegate().dfn();
   }
 
   /**
-   * em.
+   * Creates an &lt;em&gt; (emphasis) element.
    *
-   * @return a {@link org.dominokit.domino.ui.elements.EMElement} object
+   * @return A new EMElement.
    */
   default EMElement em() {
     return delegate().em();
   }
 
   /**
-   * i.
+   * Creates an &lt;i&gt; (italic) element.
    *
-   * @return a {@link org.dominokit.domino.ui.elements.IElement} object
+   * @return A new IElement.
    */
   default IElement i() {
     return delegate().i();
   }
 
   /**
-   * kbd.
+   * Creates a &lt;kbd&gt; (keyboard input) element.
    *
-   * @return a {@link org.dominokit.domino.ui.elements.KBDElement} object
+   * @return A new KBDElement.
    */
   default KBDElement kbd() {
     return delegate().kbd();
   }
 
   /**
-   * mark.
+   * Creates a &lt;mark&gt; element.
    *
-   * @return a {@link org.dominokit.domino.ui.elements.MarkElement} object
+   * @return A new MarkElement.
    */
   default MarkElement mark() {
     return delegate().mark();
   }
 
   /**
-   * q.
+   * Creates a &lt;q&gt; (quotation) element.
    *
-   * @return a {@link org.dominokit.domino.ui.elements.QuoteElement} object
+   * @return A new QuoteElement.
    */
   default QuoteElement q() {
     return delegate().q();
   }
 
   /**
-   * small.
+   * Creates a &lt;small&gt; element.
    *
-   * @return a {@link org.dominokit.domino.ui.elements.SmallElement} object
+   * @return A new SmallElement.
    */
   default SmallElement small() {
     return delegate().small();
   }
 
   /**
-   * span.
+   * Creates a &lt;span&gt; element.
    *
-   * @return a {@link org.dominokit.domino.ui.elements.SpanElement} object
+   * @return A new SpanElement.
    */
   default SpanElement span() {
     return delegate().span();
   }
 
   /**
-   * strong.
+   * Creates a &lt;strong&gt; (strong emphasis) element.
    *
-   * @return a {@link org.dominokit.domino.ui.elements.StrongElement} object
+   * @return A new StrongElement.
    */
   default StrongElement strong() {
     return delegate().strong();
   }
 
   /**
-   * sub.
+   * Creates a &lt;sub&gt; (subscript) element.
    *
-   * @return a {@link org.dominokit.domino.ui.elements.SubElement} object
+   * @return A new SubElement.
    */
   default SubElement sub() {
     return delegate().sub();
   }
 
   /**
-   * sup.
+   * Creates a &lt;sup&gt; (superscript) element.
    *
-   * @return a {@link org.dominokit.domino.ui.elements.SupElement} object
+   * @return A new SupElement.
    */
   default SupElement sup() {
     return delegate().sup();
   }
 
   /**
-   * time.
+   * Creates a &lt;time&gt; element.
    *
-   * @return a {@link org.dominokit.domino.ui.elements.TimeElement} object
+   * @return A new TimeElement.
    */
   default TimeElement time() {
     return delegate().time();
   }
 
   /**
-   * u.
+   * Creates a &lt;u&gt; (underline) element.
    *
-   * @return a {@link org.dominokit.domino.ui.elements.UElement} object
+   * @return A new UElement.
    */
   default UElement u() {
     return delegate().u();
   }
 
   /**
-   * var.
+   * Creates a &lt;var&gt; (variable) element.
    *
-   * @return a {@link org.dominokit.domino.ui.elements.VarElement} object
+   * @return A new VarElement.
    */
   default VarElement var() {
     return delegate().var();
   }
 
   /**
-   * wbr.
+   * Creates a &lt;wbr&gt; (word break opportunity) element.
    *
-   * @return a {@link org.dominokit.domino.ui.elements.WBRElement} object
+   * @return A new WBRElement.
    */
   default WBRElement wbr() {
     return delegate().wbr();
   }
 
   /**
-   * area.
+   * Creates an &lt;area&gt; element.
    *
-   * @return a {@link org.dominokit.domino.ui.elements.AreaElement} object
+   * @return A new AreaElement.
    */
   default AreaElement area() {
     return delegate().area();
   }
 
   /**
-   * audio.
+   * Creates an &lt;audio&gt; element.
    *
-   * @return a {@link org.dominokit.domino.ui.elements.AudioElement} object
+   * @return A new AudioElement.
    */
   default AudioElement audio() {
     return delegate().audio();
   }
 
   /**
-   * img.
+   * Creates an &lt;img&gt; (image) element.
    *
-   * @return a {@link org.dominokit.domino.ui.elements.ImageElement} object
+   * @return A new ImageElement.
    */
   default ImageElement img() {
     return delegate().img();
   }
 
   /**
-   * img.
+   * Creates an &lt;img&gt; (image) element with the specified source URL.
    *
-   * @param src a {@link java.lang.String} object
-   * @return a {@link org.dominokit.domino.ui.elements.ImageElement} object
+   * @param src The URL of the image source.
+   * @return A new ImageElement with the specified source URL.
    */
   default ImageElement img(String src) {
     return delegate().img(src);
   }
 
   /**
-   * map.
+   * Creates a &lt;map&gt; element.
    *
-   * @return a {@link org.dominokit.domino.ui.elements.MapElement} object
+   * @return A new MapElement.
    */
   default MapElement map() {
     return delegate().map();
   }
 
   /**
-   * track.
+   * Creates a &lt;track&gt; element.
    *
-   * @return a {@link org.dominokit.domino.ui.elements.TrackElement} object
+   * @return A new TrackElement.
    */
   default TrackElement track() {
     return delegate().track();
   }
 
   /**
-   * video.
+   * Creates a &lt;video&gt; element.
    *
-   * @return a {@link org.dominokit.domino.ui.elements.VideoElement} object
+   * @return A new VideoElement.
    */
   default VideoElement video() {
     return delegate().video();
   }
 
   /**
-   * canvas.
+   * Creates a &lt;canvas&gt; element.
    *
-   * @return a {@link org.dominokit.domino.ui.elements.CanvasElement} object
+   * @return A new CanvasElement.
    */
   default CanvasElement canvas() {
     return delegate().canvas();
   }
 
   /**
-   * embed.
+   * Creates an &lt;embed&gt; element.
    *
-   * @return a {@link org.dominokit.domino.ui.elements.EmbedElement} object
+   * @return A new EmbedElement.
    */
   default EmbedElement embed() {
     return delegate().embed();
   }
 
   /**
-   * iframe.
+   * Creates an &lt;iframe&gt; element.
    *
-   * @return a {@link org.dominokit.domino.ui.elements.IFrameElement} object
+   * @return A new IFrameElement.
    */
   default IFrameElement iframe() {
     return delegate().iframe();
   }
 
   /**
-   * iframe.
+   * Creates an &lt;iframe&gt; element with the specified source URL.
    *
-   * @param src a {@link java.lang.String} object
-   * @return a {@link org.dominokit.domino.ui.elements.IFrameElement} object
+   * @param src The URL of the iframe source.
+   * @return A new IFrameElement with the specified source URL.
    */
   default IFrameElement iframe(String src) {
     return delegate().iframe(src);
   }
 
   /**
-   * object.
+   * Creates an &lt;object&gt; element.
    *
-   * @return a {@link org.dominokit.domino.ui.elements.ObjectElement} object
+   * @return A new ObjectElement.
    */
   default ObjectElement object() {
     return delegate().object();
   }
 
   /**
-   * param.
+   * Creates a &lt;param&gt; element.
    *
-   * @return a {@link org.dominokit.domino.ui.elements.ParamElement} object
+   * @return A new ParamElement.
    */
   default ParamElement param() {
     return delegate().param();
   }
 
   /**
-   * source.
+   * Creates a &lt;source&gt; element.
    *
-   * @return a {@link org.dominokit.domino.ui.elements.SourceElement} object
+   * @return A new SourceElement.
    */
   default SourceElement source() {
     return delegate().source();
   }
 
   /**
-   * noscript.
+   * Creates a &lt;noscript&gt; element.
    *
-   * @return a {@link org.dominokit.domino.ui.elements.NoScriptElement} object
+   * @return A new NoScriptElement.
    */
   default NoScriptElement noscript() {
     return delegate().noscript();
   }
 
   /**
-   * script.
+   * Creates a &lt;script&gt; element.
    *
-   * @return a {@link org.dominokit.domino.ui.elements.ScriptElement} object
+   * @return A new ScriptElement.
    */
   default ScriptElement script() {
     return delegate().script();
   }
 
   /**
-   * del.
+   * Creates a &lt;del&gt; (deleted text) element.
    *
-   * @return a {@link org.dominokit.domino.ui.elements.DelElement} object
+   * @return A new DelElement.
    */
   default DelElement del() {
     return delegate().del();
   }
 
   /**
-   * ins.
+   * Creates an &lt;ins&gt; (inserted text) element.
    *
-   * @return a {@link org.dominokit.domino.ui.elements.InsElement} object
+   * @return A new InsElement.
    */
   default InsElement ins() {
     return delegate().ins();
   }
 
   /**
-   * caption.
+   * Creates a &lt;caption&gt; (table caption) element.
    *
-   * @return a {@link org.dominokit.domino.ui.elements.TableCaptionElement} object
+   * @return A new TableCaptionElement.
    */
   default TableCaptionElement caption() {
     return delegate().caption();
   }
 
   /**
-   * col.
+   * Creates a &lt;col&gt; element.
    *
-   * @return a {@link org.dominokit.domino.ui.elements.ColElement} object
+   * @return A new ColElement.
    */
   default ColElement col() {
     return delegate().col();
   }
 
   /**
-   * colgroup.
+   * Creates a &lt;colgroup&gt; element.
    *
-   * @return a {@link org.dominokit.domino.ui.elements.ColGroupElement} object
+   * @return A new ColGroupElement.
    */
   default ColGroupElement colgroup() {
     return delegate().colgroup();
   }
 
   /**
-   * table.
+   * Creates a &lt;table&gt; element.
    *
-   * @return a {@link org.dominokit.domino.ui.elements.TableElement} object
+   * @return A new TableElement.
    */
   default TableElement table() {
     return delegate().table();
   }
 
   /**
-   * tbody.
+   * Creates a &lt;tbody&gt; element.
    *
-   * @return a {@link org.dominokit.domino.ui.elements.TBodyElement} object
+   * @return A new TBodyElement.
    */
   default TBodyElement tbody() {
     return delegate().tbody();
   }
 
   /**
-   * td.
+   * Creates a &lt;td&gt; (table cell) element.
    *
-   * @return a {@link org.dominokit.domino.ui.elements.TDElement} object
+   * @return A new TDElement.
    */
   default TDElement td() {
     return delegate().td();
   }
 
   /**
-   * tfoot.
+   * Creates a &lt;tfoot&gt; element.
    *
-   * @return a {@link org.dominokit.domino.ui.elements.TFootElement} object
+   * @return A new TFootElement.
    */
   default TFootElement tfoot() {
     return delegate().tfoot();
   }
 
   /**
-   * th.
+   * Creates a &lt;th&gt; (table header cell) element.
    *
-   * @return a {@link org.dominokit.domino.ui.elements.THElement} object
+   * @return A new THElement.
    */
   default THElement th() {
     return delegate().th();
   }
 
   /**
-   * thead.
+   * Creates a &lt;thead&gt; element.
    *
-   * @return a {@link org.dominokit.domino.ui.elements.THeadElement} object
+   * @return A new THeadElement.
    */
   default THeadElement thead() {
     return delegate().thead();
   }
 
   /**
-   * tr.
+   * Creates a &lt;tr&gt; (table row) element.
    *
-   * @return a {@link org.dominokit.domino.ui.elements.TableRowElement} object
+   * @return A new TableRowElement.
    */
   default TableRowElement tr() {
     return delegate().tr();
   }
 
   /**
-   * button.
+   * Creates a &lt;button&gt; element.
    *
-   * @return a {@link org.dominokit.domino.ui.elements.ButtonElement} object
+   * @return A new ButtonElement.
    */
   default ButtonElement button() {
     return delegate().button();
   }
 
   /**
-   * datalist.
+   * Creates a &lt;datalist&gt; element.
    *
-   * @return a {@link org.dominokit.domino.ui.elements.DataListElement} object
+   * @return A new DataListElement.
    */
   default DataListElement datalist() {
     return delegate().datalist();
   }
 
   /**
-   * fieldset.
+   * Creates a &lt;fieldset&gt; element.
    *
-   * @return a {@link org.dominokit.domino.ui.elements.FieldSetElement} object
+   * @return A new FieldSetElement.
    */
   default FieldSetElement fieldset() {
     return delegate().fieldset();
   }
 
   /**
-   * form.
+   * Creates a &lt;form&gt; element.
    *
-   * @return a {@link org.dominokit.domino.ui.elements.FormElement} object
+   * @return A new FormElement.
    */
   default FormElement form() {
     return delegate().form();
   }
 
   /**
-   * input.
+   * Creates an &lt;input&gt; element with the specified input type.
    *
-   * @param type a {@link org.dominokit.domino.ui.utils.InputType} object
-   * @return a {@link org.dominokit.domino.ui.elements.InputElement} object
+   * @param type The input type (e.g., "text", "checkbox", "radio", etc.).
+   * @return A new InputElement with the specified input type.
    */
   default InputElement input(InputType type) {
     return delegate().input(type);
   }
 
   /**
-   * input.
+   * Creates an &lt;input&gt; element with the specified input type.
    *
-   * @param type a {@link java.lang.String} object
-   * @return a {@link org.dominokit.domino.ui.elements.InputElement} object
+   * @param type The input type (e.g., "text", "checkbox", "radio", etc.).
+   * @return A new InputElement with the specified input type.
    */
   default InputElement input(String type) {
     return delegate().input(type);
   }
 
   /**
-   * label.
+   * Creates a &lt;label&gt; element.
    *
-   * @return a {@link org.dominokit.domino.ui.elements.LabelElement} object
+   * @return A new LabelElement.
    */
   default LabelElement label() {
     return delegate().label();
   }
 
   /**
-   * label.
+   * Creates a &lt;label&gt; element with the specified text.
    *
-   * @param text a {@link java.lang.String} object
-   * @return a {@link org.dominokit.domino.ui.elements.LabelElement} object
+   * @param text The text content to set in the label.
+   * @return A new LabelElement with the specified text content.
    */
   default LabelElement label(String text) {
     return delegate().label(text);
   }
 
   /**
-   * legend.
+   * Creates a &lt;legend&gt; element.
    *
-   * @return a {@link org.dominokit.domino.ui.elements.LegendElement} object
+   * @return A new LegendElement.
    */
   default LegendElement legend() {
     return delegate().legend();
   }
 
   /**
-   * meter.
+   * Creates a &lt;meter&gt; element.
    *
-   * @return a {@link org.dominokit.domino.ui.elements.MeterElement} object
+   * @return A new MeterElement.
    */
   default MeterElement meter() {
     return delegate().meter();
   }
 
   /**
-   * optgroup.
+   * Creates an &lt;optgroup&gt; element.
    *
-   * @return a {@link org.dominokit.domino.ui.elements.OptGroupElement} object
+   * @return A new OptGroupElement.
    */
   default OptGroupElement optgroup() {
     return delegate().optgroup();
   }
 
   /**
-   * option.
+   * Creates an &lt;option&gt; element.
    *
-   * @return a {@link org.dominokit.domino.ui.elements.OptionElement} object
+   * @return A new OptionElement.
    */
   default OptionElement option() {
     return delegate().option();
   }
 
   /**
-   * output.
+   * Creates an &lt;output&gt; element.
    *
-   * @return a {@link org.dominokit.domino.ui.elements.OutputElement} object
+   * @return A new OutputElement.
    */
   default OutputElement output() {
     return delegate().output();
   }
 
   /**
-   * progress.
+   * Creates a &lt;progress&gt; element.
    *
-   * @return a {@link org.dominokit.domino.ui.elements.ProgressElement} object
+   * @return A new ProgressElement.
    */
   default ProgressElement progress() {
     return delegate().progress();
   }
 
   /**
-   * select_.
+   * Creates a &lt;select&gt; element.
    *
-   * @return a {@link org.dominokit.domino.ui.elements.SelectElement} object
+   * @return A new SelectElement.
    */
   default SelectElement select_() {
     return delegate().select_();
   }
 
   /**
-   * textarea.
+   * Creates a &lt;textarea&gt; element.
    *
-   * @return a {@link org.dominokit.domino.ui.elements.TextAreaElement} object
+   * @return A new TextAreaElement.
    */
   default TextAreaElement textarea() {
     return delegate().textarea();
   }
 
   /**
-   * svg.
+   * Creates an &lt;svg&gt; element.
    *
-   * @return a {@link org.dominokit.domino.ui.elements.SvgElement} object
+   * @return A new SvgElement.
    */
   default SvgElement svg() {
     return delegate().svg();
   }
 
   /**
-   * circle.
+   * Creates an &lt;svg&gt; element.
    *
-   * @param cx a double
-   * @param cy a double
-   * @param r a double
-   * @return a {@link org.dominokit.domino.ui.elements.CircleElement} object
+   * @param <T> The actual type of the svg element being created
+   * @param tag The string tag name for the svg element.
+   * @param type The concrete type for the svg element
+   * @return A new SvgElement of the specified type.
+   */
+  default <T extends SVGElement> T svg(String tag, Class<T> type) {
+    return delegate().svg(tag, type);
+  }
+
+  /**
+   * Creates a &lt;circle&gt; element with the specified attributes.
+   *
+   * @param cx The x-coordinate of the center of the circle.
+   * @param cy The y-coordinate of the center of the circle.
+   * @param r The radius of the circle.
+   * @return A new CircleElement with the specified attributes.
    */
   default CircleElement circle(double cx, double cy, double r) {
     return delegate().circle(cx, cy, r);
   }
 
   /**
-   * line.
+   * Creates a &lt;line&gt; element with the specified attributes.
    *
-   * @param x1 a double
-   * @param y1 a double
-   * @param x2 a double
-   * @param y2 a double
-   * @return a {@link org.dominokit.domino.ui.elements.LineElement} object
+   * @param x1 The x-coordinate of the start point of the line.
+   * @param y1 The y-coordinate of the start point of the line.
+   * @param x2 The x-coordinate of the end point of the line.
+   * @param y2 The y-coordinate of the end point of the line.
+   * @return A new LineElement with the specified attributes.
    */
   default LineElement line(double x1, double y1, double x2, double y2) {
     return delegate().line(x1, y1, x2, y2);
   }
 
-  /** @return new empty {@link Text} node */
   /**
-   * text.
+   * Creates a &lt;text&gt; element.
    *
-   * @return a {@link elemental2.dom.Text} object
+   * @return A new Text element.
    */
   default Text text() {
     return delegate().text();
   }
 
   /**
-   * text.
+   * Creates a &lt;text&gt; element with the specified content.
    *
-   * @param content String content of the node
-   * @return new {@link elemental2.dom.Text} node with the provided text content
+   * @param content The text content to set in the text element.
+   * @return A new Text element with the specified content.
    */
   default Text text(String content) {
     return delegate().text(content);

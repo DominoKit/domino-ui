@@ -17,22 +17,36 @@ package org.dominokit.domino.ui.elements;
 
 import elemental2.dom.HTMLElement;
 
-/** AsideElement class. */
+/**
+ * Represents an aside HTML element (`<aside>`) wrapper.
+ *
+ * <p>The class provides a convenient way to create, manipulate, and control the behavior of aside
+ * HTML elements. Example usage:
+ *
+ * <pre>
+ * HTMLElement htmlElement = ...;  // Obtain an aside element from somewhere
+ * AsideElement asideElement = AsideElement.of(htmlElement);
+ * </pre>
+ *
+ * @see <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/aside">MDN Web Docs
+ *     (aside element)</a>
+ */
 public class AsideElement extends BaseElement<HTMLElement, AsideElement> {
+
   /**
-   * of.
+   * Creates a new {@link AsideElement} by wrapping the provided aside HTML element.
    *
-   * @param e a {@link elemental2.dom.HTMLElement} object
-   * @return a {@link org.dominokit.domino.ui.elements.AsideElement} object
+   * @param e The aside HTML element.
+   * @return A new {@link AsideElement} that wraps the provided element.
    */
   public static AsideElement of(HTMLElement e) {
     return new AsideElement(e);
   }
 
   /**
-   * Constructor for AsideElement.
+   * Constructs an {@link AsideElement} by wrapping the provided aside HTML element.
    *
-   * @param element a {@link elemental2.dom.HTMLElement} object
+   * @param element The aside HTML element to wrap.
    */
   public AsideElement(HTMLElement element) {
     super(element);
