@@ -18,6 +18,7 @@ package org.dominokit.domino.ui.utils;
 
 import elemental2.dom.Element;
 import elemental2.dom.Text;
+import elemental2.svg.SVGElement;
 import java.util.Optional;
 import org.dominokit.domino.ui.IsElement;
 import org.dominokit.domino.ui.elements.ABBRElement;
@@ -33,7 +34,6 @@ import org.dominokit.domino.ui.elements.BlockquoteElement;
 import org.dominokit.domino.ui.elements.BodyElement;
 import org.dominokit.domino.ui.elements.ButtonElement;
 import org.dominokit.domino.ui.elements.CanvasElement;
-import org.dominokit.domino.ui.elements.CircleElement;
 import org.dominokit.domino.ui.elements.CiteElement;
 import org.dominokit.domino.ui.elements.CodeElement;
 import org.dominokit.domino.ui.elements.ColElement;
@@ -65,7 +65,6 @@ import org.dominokit.domino.ui.elements.KBDElement;
 import org.dominokit.domino.ui.elements.LIElement;
 import org.dominokit.domino.ui.elements.LabelElement;
 import org.dominokit.domino.ui.elements.LegendElement;
-import org.dominokit.domino.ui.elements.LineElement;
 import org.dominokit.domino.ui.elements.MainElement;
 import org.dominokit.domino.ui.elements.MapElement;
 import org.dominokit.domino.ui.elements.MarkElement;
@@ -109,12 +108,16 @@ import org.dominokit.domino.ui.elements.UListElement;
 import org.dominokit.domino.ui.elements.VarElement;
 import org.dominokit.domino.ui.elements.VideoElement;
 import org.dominokit.domino.ui.elements.WBRElement;
+import org.dominokit.domino.ui.elements.svg.CircleElement;
+import org.dominokit.domino.ui.elements.svg.LineElement;
 
 /**
  * A factory interface for creating various HTML elements in a fluent manner.
  *
- * <p>Example usage: ```java BodyElement body = ElementsFactory.elements.body(); DivElement div =
- * ElementsFactory.elements.div(); AnchorElement anchor = ElementsFactory.elements.a(); ```
+ * <p>Example usage:
+ *
+ * <pre>java BodyElement body = ElementsFactory.elements.body(); DivElement div =
+ * ElementsFactory.elements.div(); AnchorElement anchor = ElementsFactory.elements.a(); </pre>
  */
 public interface ElementsFactory {
 
@@ -1049,6 +1052,18 @@ public interface ElementsFactory {
    */
   default SvgElement svg() {
     return delegate().svg();
+  }
+
+  /**
+   * Creates an &lt;svg&gt; element.
+   *
+   * @param <T> The actual type of the svg element being created
+   * @param tag The string tag name for the svg element.
+   * @param type The concrete type for the svg element
+   * @return A new SvgElement of the specified type.
+   */
+  default <T extends SVGElement> T svg(String tag, Class<T> type) {
+    return delegate().svg(tag, type);
   }
 
   /**

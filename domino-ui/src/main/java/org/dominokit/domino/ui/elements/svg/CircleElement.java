@@ -13,9 +13,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.dominokit.domino.ui.elements;
+package org.dominokit.domino.ui.elements.svg;
 
 import elemental2.svg.SVGCircleElement;
+import org.dominokit.domino.ui.elements.BaseElement;
 
 /**
  * Represents an SVG circle (`<circle>`) element wrapper.

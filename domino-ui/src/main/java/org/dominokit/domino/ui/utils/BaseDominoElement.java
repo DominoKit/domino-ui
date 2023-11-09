@@ -590,6 +590,17 @@ public abstract class BaseDominoElement<E extends Element, T extends IsElement<E
   public abstract E element();
 
   /**
+   * Applies the provided function on the raw element of the component
+   *
+   * @param handler the {@link ChildHandler} to be applied
+   * @return same component instance
+   */
+  public T withElement(ChildHandler<T, E> handler) {
+    handler.apply((T) this, element());
+    return (T) this;
+  }
+
+  /**
    * Registers an observer to be notified when this element is attached to the DOM.
    *
    * @param attachDetachCallback The observer to be registered.

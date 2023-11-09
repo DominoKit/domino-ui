@@ -25,9 +25,12 @@ import static org.dominokit.domino.ui.utils.DomElements.dom;
 import elemental2.dom.DomGlobal;
 import elemental2.dom.Element;
 import elemental2.dom.Text;
+import elemental2.svg.SVGElement;
 import java.util.Optional;
 import org.dominokit.domino.ui.IsElement;
 import org.dominokit.domino.ui.elements.*;
+import org.dominokit.domino.ui.elements.svg.CircleElement;
+import org.dominokit.domino.ui.elements.svg.LineElement;
 
 /** A utility interface for creating and manipulating HTML elements in a DOM tree. */
 public interface ElementsFactoryDelegate {
@@ -963,6 +966,17 @@ public interface ElementsFactoryDelegate {
    */
   default SvgElement svg() {
     return new SvgElement(dom.svg());
+  }
+  /**
+   * Creates a new {@link SvgElement}.
+   *
+   * @param <T> The actual type of the svg element being created
+   * @param tag The string tag name for the svg element.
+   * @param type The concrete type for the svg element
+   * @return A new {@link SvgElement}.
+   */
+  default <T extends SVGElement> T svg(String tag, Class<T> type) {
+    return dom.svg(tag, type);
   }
 
   /**

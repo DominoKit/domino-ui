@@ -941,6 +941,18 @@ public interface DomElements {
   }
 
   /**
+   * Creates an {@code <svg>} element (Scalable Vector Graphics container).
+   *
+   * @param <T> The actual type of the svg element being created
+   * @param tag The string tag name for the svg element.
+   * @param type The concrete type for the svg element
+   * @return The created svg element.
+   */
+  default <T extends SVGElement> T svg(String tag, Class<T> type) {
+    return createSVG(tag, type);
+  }
+
+  /**
    * Creates a {@code <circle>} element (SVG circle).
    *
    * @return The created circle element.

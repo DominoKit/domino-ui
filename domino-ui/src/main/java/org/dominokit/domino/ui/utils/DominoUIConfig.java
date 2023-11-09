@@ -31,6 +31,7 @@ public class DominoUIConfig {
   private DominoUILabels dominoUILabels = new DefaultDominoUILabels();
   private UIConfig uiConfig = new DefaultUIConfig();
   private ElementsFactoryDelegate elementsFactoryDelegate = new ElementsFactoryDelegate() {};
+  private SVGFactoryDelegate svgFactoryDelegate = new SVGFactoryDelegate() {};
   private boolean closePopupOnBlur;
 
   /**
@@ -99,6 +100,24 @@ public class DominoUIConfig {
    */
   public void setElementsFactory(ElementsFactoryDelegate elementsFactoryDelegate) {
     this.elementsFactoryDelegate = elementsFactoryDelegate;
+  }
+
+  /**
+   * Gets the delegate for creating UI SVG elements.
+   *
+   * @return The {@code SVGFactoryDelegate} instance.
+   */
+  public SVGFactoryDelegate getSVGFactory() {
+    return this.svgFactoryDelegate;
+  }
+
+  /**
+   * Sets the delegate for creating UI SVG elements.
+   *
+   * @param svgFactoryDelegate The {@code SVGFactoryDelegate} instance to set.
+   */
+  public void setElementsFactory(SVGFactoryDelegate svgFactoryDelegate) {
+    this.svgFactoryDelegate = svgFactoryDelegate;
   }
 
   /**

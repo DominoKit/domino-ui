@@ -328,7 +328,7 @@ public class CardHeader extends BaseDominoElement<HTMLDivElement, CardHeader> {
   /**
    * This will initialize and append the card header logo element if not yet initialized.
    *
-   * @return The {@link org.dominokit.domino.ui.elements.ImageElement} of the CardHeader logo
+   * @return The {@link ImageElement} of the CardHeader logo
    */
   public ImageElement getLogo() {
     return logo.get();
