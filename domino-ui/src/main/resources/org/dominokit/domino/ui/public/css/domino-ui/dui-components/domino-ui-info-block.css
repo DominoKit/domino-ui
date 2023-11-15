@@ -1,0 +1,19 @@
+.dui-info-block {
+    --dui-nav-bar-padding: 0;
+    display: flex;
+    flex-direction: column;
+}
+
+.dui-info-block-header {
+    order: var(--dui-order-10);
+}
+
+.dui-info-block-body {
+    flex-grow: 1;
+    order: var(--dui-order-20);
+    padding: var(--dui-spc-2);
+}
+
+.dui-info-block-footer {
+    order: var(--dui-order-30);
+}
