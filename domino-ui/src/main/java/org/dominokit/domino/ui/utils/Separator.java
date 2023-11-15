@@ -16,6 +16,10 @@
 
 package org.dominokit.domino.ui.utils;
 
+import static org.dominokit.domino.ui.utils.Domino.*;
+import static org.dominokit.domino.ui.utils.Domino.dui_separator;
+import static org.dominokit.domino.ui.utils.Domino.li;
+
 import elemental2.dom.HTMLLIElement;
 import org.dominokit.domino.ui.elements.LIElement;
 

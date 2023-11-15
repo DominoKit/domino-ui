@@ -18,6 +18,7 @@ package org.dominokit.domino.ui.utils;
 
 import static java.util.Objects.isNull;
 import static java.util.Objects.nonNull;
+import static org.dominokit.domino.ui.utils.Domino.*;
 import static org.dominokit.domino.ui.utils.ElementUtil.isArrowDown;
 import static org.dominokit.domino.ui.utils.ElementUtil.isArrowUp;
 import static org.dominokit.domino.ui.utils.ElementUtil.isEnterKey;

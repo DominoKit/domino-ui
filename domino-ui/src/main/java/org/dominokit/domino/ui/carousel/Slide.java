@@ -18,6 +18,7 @@ package org.dominokit.domino.ui.carousel;
 import static org.dominokit.domino.ui.carousel.CarouselStyles.slide;
 import static org.dominokit.domino.ui.carousel.CarouselStyles.slide_caption;
 import static org.dominokit.domino.ui.carousel.CarouselStyles.slide_indicator;
+import static org.dominokit.domino.ui.utils.Domino.*;
 
 import elemental2.dom.HTMLDivElement;
 import elemental2.dom.HTMLElement;
@@ -73,7 +74,7 @@ public class Slide extends BaseDominoElement<HTMLDivElement, Slide> {
    *     attribute.
    */
   public Slide(String imageSrc) {
-    this(elements.img(imageSrc).element());
+    this(img(imageSrc).element());
   }
 
   /**

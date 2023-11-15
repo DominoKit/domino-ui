@@ -15,6 +15,8 @@
  */
 package org.dominokit.domino.ui.infoboxes;
 
+import static org.dominokit.domino.ui.utils.Domino.*;
+
 import elemental2.dom.HTMLDivElement;
 import elemental2.dom.HTMLElement;
 import org.dominokit.domino.ui.IsElement;
@@ -135,7 +137,7 @@ public class InfoBox extends BaseDominoElement<HTMLDivElement, InfoBox> implemen
    * @return A new InfoBox instance.
    */
   public static InfoBox create(HTMLElement icon, String title, String value) {
-    return new InfoBox(elements.elementOf(icon), title, value);
+    return new InfoBox(elementOf(icon), title, value);
   }
 
   /**
@@ -146,7 +148,7 @@ public class InfoBox extends BaseDominoElement<HTMLDivElement, InfoBox> implemen
    * @return A new InfoBox instance.
    */
   public static InfoBox create(HTMLElement icon, String title) {
-    return new InfoBox(elements.elementOf(icon), title);
+    return new InfoBox(elementOf(icon), title);
   }
 
   /**
@@ -157,7 +159,7 @@ public class InfoBox extends BaseDominoElement<HTMLDivElement, InfoBox> implemen
    * @return A new InfoBox instance.
    */
   public static InfoBox create(IsElement<HTMLElement> icon, String title) {
-    return new InfoBox(elements.elementOf(icon), title);
+    return new InfoBox(elementOf(icon), title);
   }
 
   /**
@@ -198,7 +200,7 @@ public class InfoBox extends BaseDominoElement<HTMLDivElement, InfoBox> implemen
    * @return A new InfoBox instance.
    */
   public static InfoBox create(HTMLElement icon) {
-    return new InfoBox(elements.elementOf(icon));
+    return new InfoBox(elementOf(icon));
   }
 
   /**

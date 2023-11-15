@@ -16,6 +16,7 @@
 package org.dominokit.domino.ui.layout;
 
 import static org.dominokit.domino.ui.layout.NavBarStyles.dui_nav_utility;
+import static org.dominokit.domino.ui.utils.Domino.*;
 
 import elemental2.dom.DomGlobal;
 import elemental2.dom.Event;

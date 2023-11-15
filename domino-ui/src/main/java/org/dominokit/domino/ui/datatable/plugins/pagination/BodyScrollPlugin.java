@@ -16,6 +16,8 @@
 
 package org.dominokit.domino.ui.datatable.plugins.pagination;
 
+import static org.dominokit.domino.ui.utils.Domino.*;
+
 import elemental2.core.JsMath;
 import elemental2.dom.HTMLTableElement;
 import org.dominokit.domino.ui.datatable.DataTable;

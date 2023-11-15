@@ -15,6 +15,8 @@
  */
 package org.dominokit.domino.ui.splitpanel;
 
+import static org.dominokit.domino.ui.utils.Domino.*;
+
 /**
  * Represents a horizontal split panel which contains two panels separated by a horizontal splitter.
  *

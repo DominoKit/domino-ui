@@ -15,6 +15,8 @@
  */
 package org.dominokit.domino.ui.utils;
 
+import static org.dominokit.domino.ui.utils.Domino.*;
+
 import elemental2.dom.MutationRecord;
 
 /** A functional interface for attaching and detaching callback methods to observe DOM mutations. */

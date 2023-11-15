@@ -16,11 +16,10 @@
 package org.dominokit.domino.ui.button;
 
 import static java.util.Objects.nonNull;
-import static org.dominokit.domino.ui.button.ButtonStyles.dui_button;
-import static org.dominokit.domino.ui.button.ButtonStyles.dui_button_body;
-import static org.dominokit.domino.ui.button.ButtonStyles.dui_button_icon;
-import static org.dominokit.domino.ui.button.ButtonStyles.dui_button_reversed;
-import static org.dominokit.domino.ui.button.ButtonStyles.dui_button_text;
+import static org.dominokit.domino.ui.button.ButtonStyles.*;
+import static org.dominokit.domino.ui.utils.Domino.*;
+import static org.dominokit.domino.ui.utils.Domino.div;
+import static org.dominokit.domino.ui.utils.Domino.span;
 
 import elemental2.dom.Element;
 import elemental2.dom.Event;

@@ -17,12 +17,15 @@ package org.dominokit.domino.ui.alerts;
 
 import static org.dominokit.domino.ui.alerts.AlertStyles.dui_alert;
 import static org.dominokit.domino.ui.alerts.AlertStyles.dui_alert_body;
+import static org.dominokit.domino.ui.utils.Domino.*;
 
 import elemental2.dom.Element;
 import elemental2.dom.HTMLDivElement;
 import org.dominokit.domino.ui.button.RemoveButton;
 import org.dominokit.domino.ui.elements.DivElement;
-import org.dominokit.domino.ui.utils.*;
+import org.dominokit.domino.ui.utils.BaseDominoElement;
+import org.dominokit.domino.ui.utils.ChildHandler;
+import org.dominokit.domino.ui.utils.LazyChild;
 
 /**
  * Displays a none floating message anywhere in the page, the message can be permanent or

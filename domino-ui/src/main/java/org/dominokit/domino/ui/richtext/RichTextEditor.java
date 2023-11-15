@@ -15,6 +15,8 @@
  */
 package org.dominokit.domino.ui.richtext;
 
+import static org.dominokit.domino.ui.utils.Domino.*;
+
 import elemental2.dom.HTMLDivElement;
 import org.dominokit.domino.ui.button.group.ButtonsGroup;
 import org.dominokit.domino.ui.elements.DivElement;

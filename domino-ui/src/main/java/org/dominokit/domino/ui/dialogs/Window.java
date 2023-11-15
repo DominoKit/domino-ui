@@ -15,6 +15,8 @@
  */
 package org.dominokit.domino.ui.dialogs;
 
+import static org.dominokit.domino.ui.utils.Domino.*;
+
 import elemental2.dom.*;
 import jsinterop.base.Js;
 import org.dominokit.domino.ui.events.EventType;

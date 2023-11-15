@@ -15,10 +15,15 @@
  */
 package org.dominokit.domino.ui.chips;
 
+import static org.dominokit.domino.ui.utils.Domino.*;
+import static org.dominokit.domino.ui.utils.Domino.div;
+
 import elemental2.dom.HTMLDivElement;
 import java.util.*;
 import org.dominokit.domino.ui.elements.DivElement;
-import org.dominokit.domino.ui.utils.*;
+import org.dominokit.domino.ui.utils.AcceptDisable;
+import org.dominokit.domino.ui.utils.BaseDominoElement;
+import org.dominokit.domino.ui.utils.HasSelectionListeners;
 
 /**
  * This component groups a set of {@link org.dominokit.domino.ui.chips.Chip}s and controls the

@@ -16,6 +16,7 @@
 package org.dominokit.domino.ui.forms;
 
 import static java.util.Objects.nonNull;
+import static org.dominokit.domino.ui.utils.Domino.*;
 
 import elemental2.dom.HTMLElement;
 import java.util.*;
@@ -23,7 +24,6 @@ import jsinterop.base.Js;
 import org.dominokit.domino.ui.forms.validations.ValidationResult;
 import org.dominokit.domino.ui.keyboard.KeyEventsConsumer;
 import org.dominokit.domino.ui.utils.*;
-import org.dominokit.domino.ui.utils.ApplyFunction;
 
 /**
  * The FieldsGrouping class is responsible for grouping and managing a collection of form elements.

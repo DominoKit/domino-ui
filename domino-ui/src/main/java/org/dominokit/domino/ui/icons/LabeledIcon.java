@@ -15,7 +15,9 @@
  */
 package org.dominokit.domino.ui.icons;
 
-import static org.dominokit.domino.ui.icons.IconsStyles.*;
+import static org.dominokit.domino.ui.icons.IconsStyles.dui_icon_text;
+import static org.dominokit.domino.ui.icons.IconsStyles.dui_labeled_icon;
+import static org.dominokit.domino.ui.utils.Domino.*;
 
 import elemental2.dom.HTMLElement;
 import org.dominokit.domino.ui.elements.SpanElement;

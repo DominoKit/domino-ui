@@ -16,6 +16,7 @@
 package org.dominokit.domino.ui.menu.direction;
 
 import static elemental2.dom.DomGlobal.window;
+import static org.dominokit.domino.ui.utils.Domino.*;
 import static org.dominokit.domino.ui.utils.ElementsFactory.elements;
 import static org.dominokit.domino.ui.utils.Unit.px;
 

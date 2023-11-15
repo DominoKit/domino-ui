@@ -15,6 +15,8 @@
  */
 package org.dominokit.domino.ui.breadcrumbs;
 
+import static org.dominokit.domino.ui.utils.Domino.*;
+
 import elemental2.dom.HTMLAnchorElement;
 import elemental2.dom.HTMLLIElement;
 import elemental2.dom.Text;

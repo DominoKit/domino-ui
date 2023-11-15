@@ -15,6 +15,8 @@
  */
 package org.dominokit.domino.ui.richtext.commands;
 
+import static org.dominokit.domino.ui.utils.Domino.*;
+
 import elemental2.dom.HTMLElement;
 import org.dominokit.domino.ui.elements.DivElement;
 import org.dominokit.domino.ui.richtext.FontPicker;

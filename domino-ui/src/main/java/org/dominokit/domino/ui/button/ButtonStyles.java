@@ -34,8 +34,6 @@ public interface ButtonStyles {
   /** Constant <code>dui_button_toolbar</code> */
   CssClass dui_button_toolbar = () -> "dui-btn-toolbar";
   /** Constant <code>dui_vertical</code> */
-  CssClass dui_vertical = () -> "dui-vertical";
-  /** Constant <code>dui_circle</code> */
   CssClass dui_circle = () -> "dui-circle";
   /** Constant <code>dui_button_reversed</code> */
   CssClass dui_button_reversed = () -> "dui-btn-reverse";

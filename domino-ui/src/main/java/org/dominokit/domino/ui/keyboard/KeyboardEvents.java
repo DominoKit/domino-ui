@@ -15,6 +15,8 @@
  */
 package org.dominokit.domino.ui.keyboard;
 
+import static org.dominokit.domino.ui.utils.Domino.*;
+
 import elemental2.dom.Node;
 import org.dominokit.domino.ui.events.HasDefaultEventOptions;
 import org.dominokit.domino.ui.utils.LazyInitializer;

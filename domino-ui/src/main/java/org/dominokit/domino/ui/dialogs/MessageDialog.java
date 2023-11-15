@@ -16,6 +16,7 @@
 package org.dominokit.domino.ui.dialogs;
 
 import static java.util.Objects.nonNull;
+import static org.dominokit.domino.ui.utils.Domino.*;
 
 import org.dominokit.domino.ui.button.Button;
 import org.dominokit.domino.ui.elements.SpanElement;

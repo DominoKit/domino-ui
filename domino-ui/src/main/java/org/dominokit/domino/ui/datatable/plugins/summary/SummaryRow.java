@@ -16,6 +16,8 @@
 
 package org.dominokit.domino.ui.datatable.plugins.summary;
 
+import static org.dominokit.domino.ui.utils.Domino.*;
+
 import elemental2.dom.HTMLTableCellElement;
 import elemental2.dom.HTMLTableRowElement;
 import java.util.Collections;
@@ -226,8 +228,7 @@ public class SummaryRow<T, S> extends BaseDominoElement<HTMLTableRowElement, Sum
       for (int i = 0; i < columns.size(); i++) {
         summaryRow.renderCell(columns.get(i));
         SummaryRowCell<T, S> addedCell = summaryRow.rowCells.get(columns.get(i).getName());
-        DominoElement<HTMLTableCellElement> cell =
-            elements.elementOf(addedCell.getCellInfo().getElement());
+        DominoElement<HTMLTableCellElement> cell = elementOf(addedCell.getCellInfo().getElement());
         if (cell.hasAttribute("colspan")) {
           int colspan = Integer.parseInt(cell.getAttribute("colspan"));
           if (colspan > 1) {

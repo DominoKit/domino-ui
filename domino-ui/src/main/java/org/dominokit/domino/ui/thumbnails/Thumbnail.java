@@ -15,6 +15,8 @@
  */
 package org.dominokit.domino.ui.thumbnails;
 
+import static org.dominokit.domino.ui.utils.Domino.*;
+
 import elemental2.dom.HTMLDivElement;
 import elemental2.dom.HTMLElement;
 import elemental2.dom.HTMLImageElement;
@@ -117,7 +119,7 @@ public class Thumbnail extends BaseDominoElement<HTMLDivElement, Thumbnail>
    * @return the current Thumbnail instance for method chaining.
    */
   public Thumbnail appendChild(HTMLImageElement img) {
-    elements.elementOf(img).addCss(dui_thumbnail_img);
+    elementOf(img).addCss(dui_thumbnail_img);
     return super.appendChild(img);
   }
 
@@ -131,7 +133,7 @@ public class Thumbnail extends BaseDominoElement<HTMLDivElement, Thumbnail>
   public Thumbnail appendChild(IsElement<?> element) {
     if (element.element() instanceof HTMLImageElement
         || element.element() instanceof HTMLPictureElement) {
-      elements.elementOf(element).addCss(dui_thumbnail_img);
+      elementOf(element).addCss(dui_thumbnail_img);
     }
     return super.appendChild(element);
   }
@@ -145,7 +147,7 @@ public class Thumbnail extends BaseDominoElement<HTMLDivElement, Thumbnail>
    */
   public Thumbnail appendChild(Node node) {
     if (node instanceof HTMLImageElement || node instanceof HTMLPictureElement) {
-      elements.elementOf(Js.<HTMLElement>uncheckedCast(node)).addCss(dui_thumbnail_img);
+      elementOf(Js.<HTMLElement>uncheckedCast(node)).addCss(dui_thumbnail_img);
     }
     return super.appendChild(node);
   }

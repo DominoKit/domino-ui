@@ -15,12 +15,10 @@
  */
 package org.dominokit.domino.ui.chips;
 
-import static org.dominokit.domino.ui.chips.ChipStyles.dui_chip;
-import static org.dominokit.domino.ui.chips.ChipStyles.dui_chip_addon;
-import static org.dominokit.domino.ui.chips.ChipStyles.dui_chip_has_addon;
-import static org.dominokit.domino.ui.chips.ChipStyles.dui_chip_remove;
-import static org.dominokit.domino.ui.chips.ChipStyles.dui_chip_selected;
-import static org.dominokit.domino.ui.chips.ChipStyles.dui_chip_value;
+import static org.dominokit.domino.ui.chips.ChipStyles.*;
+import static org.dominokit.domino.ui.utils.Domino.*;
+import static org.dominokit.domino.ui.utils.Domino.div;
+import static org.dominokit.domino.ui.utils.Domino.span;
 
 import elemental2.dom.HTMLDivElement;
 import elemental2.dom.HTMLImageElement;
@@ -32,13 +30,7 @@ import org.dominokit.domino.ui.elements.DivElement;
 import org.dominokit.domino.ui.elements.ImageElement;
 import org.dominokit.domino.ui.elements.SpanElement;
 import org.dominokit.domino.ui.style.BooleanCssClass;
-import org.dominokit.domino.ui.utils.AcceptDisable;
-import org.dominokit.domino.ui.utils.BaseDominoElement;
-import org.dominokit.domino.ui.utils.ChildHandler;
-import org.dominokit.domino.ui.utils.HasSelectionListeners;
-import org.dominokit.domino.ui.utils.LazyChild;
-import org.dominokit.domino.ui.utils.PrefixAddOn;
-import org.dominokit.domino.ui.utils.Selectable;
+import org.dominokit.domino.ui.utils.*;
 
 /**
  * A component for a Tag that can have a text and icon or image and can be set to be removable.

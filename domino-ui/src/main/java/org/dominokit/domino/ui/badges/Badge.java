@@ -16,6 +16,7 @@
 package org.dominokit.domino.ui.badges;
 
 import static org.dominokit.domino.ui.badges.BadgeStyles.dui_badge;
+import static org.dominokit.domino.ui.utils.Domino.*;
 
 import elemental2.dom.HTMLElement;
 import elemental2.dom.Text;

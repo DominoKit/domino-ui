@@ -17,6 +17,7 @@ package org.dominokit.domino.ui.popover;
 
 import static elemental2.dom.DomGlobal.document;
 import static org.dominokit.domino.ui.dialogs.ModalBackDrop.DUI_REMOVE_POPOVERS;
+import static org.dominokit.domino.ui.utils.Domino.*;
 
 import elemental2.dom.EventListener;
 import elemental2.dom.HTMLElement;

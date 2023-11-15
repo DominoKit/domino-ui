@@ -16,6 +16,8 @@
 
 package org.dominokit.domino.ui.datatable.plugins.header;
 
+import static org.dominokit.domino.ui.utils.Domino.*;
+
 import elemental2.dom.Element;
 import org.dominokit.domino.ui.datatable.DataTable;
 import org.dominokit.domino.ui.datatable.events.TableEvent;

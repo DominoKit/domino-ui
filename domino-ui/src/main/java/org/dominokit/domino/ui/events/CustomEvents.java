@@ -15,6 +15,8 @@
  */
 package org.dominokit.domino.ui.events;
 
+import static org.dominokit.domino.ui.utils.Domino.*;
+
 import elemental2.dom.CustomEvent;
 import elemental2.dom.CustomEventInit;
 import jsinterop.base.Js;

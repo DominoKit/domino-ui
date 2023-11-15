@@ -16,6 +16,8 @@
 package org.dominokit.domino.ui.forms;
 
 import static java.util.Objects.nonNull;
+import static org.dominokit.domino.ui.utils.Domino.*;
+import static org.dominokit.domino.ui.utils.Domino.input;
 
 import elemental2.dom.HTMLInputElement;
 import org.dominokit.domino.ui.utils.DominoElement;

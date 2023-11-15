@@ -17,13 +17,12 @@ package org.dominokit.domino.ui.menu.direction;
 
 import static elemental2.dom.DomGlobal.window;
 import static org.dominokit.domino.ui.style.SpacingCss.dui_flex_col_reverse;
+import static org.dominokit.domino.ui.utils.Domino.*;
 import static org.dominokit.domino.ui.utils.ElementsFactory.elements;
 import static org.dominokit.domino.ui.utils.Unit.px;
 
 import elemental2.dom.DOMRect;
 import elemental2.dom.Element;
-import elemental2.dom.HTMLElement;
-import jsinterop.base.Js;
 import org.dominokit.domino.ui.style.Style;
 
 /** TopLeftDropDirection class. */
@@ -39,10 +38,6 @@ public class TopLeftDropDirection implements DropDirection {
     double availableSpace = targetRect.left + targetRect.width;
     if (availableSpace < sourceRect.width) {
       delta = sourceRect.width - availableSpace;
-    }
-    double baseLeft = targetRect.left;
-    if (target instanceof HTMLElement) {
-      baseLeft = Math.min(targetRect.left, Js.<HTMLElement>uncheckedCast(target).offsetLeft);
     }
 
     Style.of(source)

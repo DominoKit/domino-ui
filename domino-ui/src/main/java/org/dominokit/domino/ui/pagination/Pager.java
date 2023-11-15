@@ -15,6 +15,8 @@
  */
 package org.dominokit.domino.ui.pagination;
 
+import static org.dominokit.domino.ui.utils.Domino.*;
+
 import elemental2.dom.EventListener;
 import elemental2.dom.HTMLElement;
 import elemental2.dom.Text;

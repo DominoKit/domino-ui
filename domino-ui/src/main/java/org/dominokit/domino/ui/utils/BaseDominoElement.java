@@ -17,27 +17,12 @@ package org.dominokit.domino.ui.utils;
 
 import static java.util.Objects.isNull;
 import static java.util.Objects.nonNull;
+import static org.dominokit.domino.ui.utils.Domino.*;
 
 import elemental2.core.JsArray;
-import elemental2.dom.AddEventListenerOptions;
-import elemental2.dom.CSSStyleDeclaration;
-import elemental2.dom.CustomEvent;
-import elemental2.dom.DOMRect;
-import elemental2.dom.Element;
-import elemental2.dom.Event;
+import elemental2.dom.*;
 import elemental2.dom.EventListener;
-import elemental2.dom.EventTarget;
-import elemental2.dom.HTMLElement;
-import elemental2.dom.Node;
-import elemental2.dom.NodeList;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.LinkedHashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
 import java.util.function.Consumer;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
@@ -59,15 +44,7 @@ import org.dominokit.domino.ui.menu.Menu;
 import org.dominokit.domino.ui.menu.direction.DropDirection;
 import org.dominokit.domino.ui.popover.Popover;
 import org.dominokit.domino.ui.popover.Tooltip;
-import org.dominokit.domino.ui.style.CssClass;
-import org.dominokit.domino.ui.style.DominoCss;
-import org.dominokit.domino.ui.style.DominoStyle;
-import org.dominokit.domino.ui.style.Elevation;
-import org.dominokit.domino.ui.style.HasCssClass;
-import org.dominokit.domino.ui.style.HasCssClasses;
-import org.dominokit.domino.ui.style.Style;
-import org.dominokit.domino.ui.style.WaveStyle;
-import org.dominokit.domino.ui.style.WavesSupport;
+import org.dominokit.domino.ui.style.*;
 import org.dominokit.domino.ui.themes.DominoThemeManager;
 import org.gwtproject.editor.client.Editor;
 import org.gwtproject.safehtml.shared.SafeHtml;
@@ -101,11 +78,9 @@ public abstract class BaseDominoElement<E extends Element, T extends IsElement<E
         HasWavesElement,
         AcceptReadOnly<T>,
         DominoStyle<E, T>,
-        DominoCss,
         HasKeyboardEvents<T>,
         HasCollapseListeners<T>,
         HasAttributes<T>,
-        ElementsFactory,
         HasMeta<T> {
 
   static {
@@ -1847,7 +1822,7 @@ public abstract class BaseDominoElement<E extends Element, T extends IsElement<E
     NodeList<Node> childNodes = element().childNodes;
     return childNodes.asList().stream()
         .filter(node -> node instanceof Element)
-        .map(node -> elements.elementOf(Js.<Element>uncheckedCast(node)))
+        .map(node -> elementOf(Js.<Element>uncheckedCast(node)))
         .collect(Collectors.toList());
   }
 

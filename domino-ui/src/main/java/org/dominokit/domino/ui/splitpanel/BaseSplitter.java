@@ -16,6 +16,7 @@
 package org.dominokit.domino.ui.splitpanel;
 
 import static elemental2.dom.DomGlobal.document;
+import static org.dominokit.domino.ui.utils.Domino.*;
 
 import elemental2.dom.EventListener;
 import elemental2.dom.HTMLDivElement;

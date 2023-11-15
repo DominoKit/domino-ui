@@ -15,6 +15,8 @@
  */
 package org.dominokit.domino.ui.forms.suggest;
 
+import static org.dominokit.domino.ui.utils.Domino.*;
+
 import org.dominokit.domino.ui.elements.SpanElement;
 import org.dominokit.domino.ui.menu.AbstractMenuItem;
 import org.dominokit.domino.ui.menu.MenuItem;
@@ -97,7 +99,7 @@ public class SuggestOption<V> extends Option<V, SpanElement, SuggestOption<V>> {
     this(
         key,
         value,
-        (k, v) -> elements.span().textContent(text),
+        (k, v) -> span().textContent(text),
         (k, v) -> MenuItem.create(text, description));
   }
 
@@ -109,7 +111,7 @@ public class SuggestOption<V> extends Option<V, SpanElement, SuggestOption<V>> {
    * @param text The text to display for the suggestion.
    */
   public SuggestOption(String key, V value, String text) {
-    super(key, value, elements.span().textContent(text), MenuItem.create(text));
+    super(key, value, span().textContent(text), MenuItem.create(text));
     withComponent(
         (parent, span) ->
             span.applyMeta(ValueMeta.of(value), AttributeMeta.of(DUI_OPTION_KEY, key)));

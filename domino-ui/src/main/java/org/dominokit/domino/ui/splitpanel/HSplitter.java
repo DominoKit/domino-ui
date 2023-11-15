@@ -15,6 +15,8 @@
  */
 package org.dominokit.domino.ui.splitpanel;
 
+import static org.dominokit.domino.ui.utils.Domino.*;
+
 import elemental2.dom.MouseEvent;
 import elemental2.dom.TouchEvent;
 

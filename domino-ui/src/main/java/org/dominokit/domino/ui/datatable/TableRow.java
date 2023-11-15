@@ -17,6 +17,7 @@ package org.dominokit.domino.ui.datatable;
 
 import static java.util.Objects.isNull;
 import static java.util.Objects.nonNull;
+import static org.dominokit.domino.ui.utils.Domino.*;
 
 import elemental2.dom.HTMLTableCellElement;
 import elemental2.dom.HTMLTableRowElement;
@@ -25,8 +26,10 @@ import org.dominokit.domino.ui.datatable.events.RowRecordUpdatedEvent;
 import org.dominokit.domino.ui.datatable.events.TableDataUpdatedEvent;
 import org.dominokit.domino.ui.forms.validations.ValidationResult;
 import org.dominokit.domino.ui.style.BooleanCssClass;
-import org.dominokit.domino.ui.utils.*;
+import org.dominokit.domino.ui.utils.BaseDominoElement;
 import org.dominokit.domino.ui.utils.HasSelectionHandler.SelectionHandler;
+import org.dominokit.domino.ui.utils.HasSelectionListeners;
+import org.dominokit.domino.ui.utils.Selectable;
 
 /**
  * Represents a table row containing data and provides functionalities for handling selection,

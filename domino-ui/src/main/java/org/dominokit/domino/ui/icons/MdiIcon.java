@@ -16,13 +16,10 @@
 package org.dominokit.domino.ui.icons;
 
 import static org.dominokit.domino.ui.icons.IconsStyles.*;
+import static org.dominokit.domino.ui.utils.Domino.*;
 
 import elemental2.dom.HTMLElement;
-import org.dominokit.domino.ui.style.BooleanCssClass;
-import org.dominokit.domino.ui.style.CompositeCssClass;
-import org.dominokit.domino.ui.style.CssClass;
-import org.dominokit.domino.ui.style.HasCssClass;
-import org.dominokit.domino.ui.style.SwapCssClass;
+import org.dominokit.domino.ui.style.*;
 
 /**
  * An icon component for Material Design Icons (MDI) that allows you to customize its appearance and

@@ -17,6 +17,7 @@ package org.dominokit.domino.ui.search;
 
 import static java.util.Objects.nonNull;
 import static org.dominokit.domino.ui.search.SearchStyles.dui_quick_search;
+import static org.dominokit.domino.ui.utils.Domino.*;
 
 import elemental2.dom.Event;
 import elemental2.dom.EventListener;

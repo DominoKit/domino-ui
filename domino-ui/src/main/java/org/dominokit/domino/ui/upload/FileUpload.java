@@ -16,20 +16,11 @@
 package org.dominokit.domino.ui.upload;
 
 import static java.util.Objects.nonNull;
+import static org.dominokit.domino.ui.utils.Domino.*;
 import static org.dominokit.domino.ui.utils.DominoUIConfig.CONFIG;
 
-import elemental2.dom.DragEvent;
-import elemental2.dom.Element;
-import elemental2.dom.File;
-import elemental2.dom.FileList;
-import elemental2.dom.HTMLDivElement;
-import elemental2.dom.HTMLElement;
-import elemental2.dom.XMLHttpRequest;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.List;
-import java.util.Optional;
+import elemental2.dom.*;
+import java.util.*;
 import java.util.function.Supplier;
 import jsinterop.base.Js;
 import org.dominokit.domino.ui.IsElement;

@@ -15,6 +15,8 @@
  */
 package org.dominokit.domino.ui.forms.validations;
 
+import static org.dominokit.domino.ui.utils.Domino.*;
+
 import elemental2.dom.HTMLElement;
 import elemental2.dom.HTMLInputElement;
 import org.dominokit.domino.ui.forms.HasInputElement;

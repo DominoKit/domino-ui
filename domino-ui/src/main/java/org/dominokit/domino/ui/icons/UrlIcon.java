@@ -15,6 +15,8 @@
  */
 package org.dominokit.domino.ui.icons;
 
+import static org.dominokit.domino.ui.utils.Domino.*;
+
 import org.dominokit.domino.ui.style.CssClass;
 import org.dominokit.domino.ui.style.SwapCssClass;
 

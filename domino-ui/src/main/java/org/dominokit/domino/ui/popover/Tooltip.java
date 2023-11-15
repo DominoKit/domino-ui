@@ -17,6 +17,8 @@ package org.dominokit.domino.ui.popover;
 
 import static elemental2.dom.DomGlobal.document;
 import static org.dominokit.domino.ui.dialogs.ModalBackDrop.DUI_REMOVE_TOOLTIPS;
+import static org.dominokit.domino.ui.utils.Domino.*;
+import static org.dominokit.domino.ui.utils.Domino.body;
 
 import elemental2.dom.Element;
 import elemental2.dom.EventListener;
@@ -64,7 +66,7 @@ public class Tooltip extends BasePopover<Tooltip> {
    * @return The created tooltip.
    */
   public static Tooltip create(Element target, String text) {
-    return new Tooltip(target, elements.text(text));
+    return new Tooltip(target, text(text));
   }
 
   /**
@@ -75,7 +77,7 @@ public class Tooltip extends BasePopover<Tooltip> {
    * @return The created tooltip.
    */
   public static Tooltip create(IsElement<? extends Element> target, String text) {
-    return new Tooltip(target.element(), elements.text(text));
+    return new Tooltip(target.element(), text(text));
   }
 
   /**

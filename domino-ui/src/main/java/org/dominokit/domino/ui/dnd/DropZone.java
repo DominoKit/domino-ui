@@ -15,9 +15,13 @@
  */
 package org.dominokit.domino.ui.dnd;
 
+import static org.dominokit.domino.ui.utils.Domino.*;
 import static org.dominokit.domino.ui.utils.ElementsFactory.elements;
 
-import elemental2.dom.*;
+import elemental2.dom.DragEvent;
+import elemental2.dom.Event;
+import elemental2.dom.EventListener;
+import elemental2.dom.HTMLElement;
 import java.util.HashMap;
 import java.util.Map;
 import org.dominokit.domino.ui.IsElement;

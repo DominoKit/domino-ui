@@ -18,6 +18,7 @@ package org.dominokit.domino.ui.datatable.plugins.tree;
 
 import static java.util.Objects.isNull;
 import static org.dominokit.domino.ui.style.SpacingCss.dui_font_size_4;
+import static org.dominokit.domino.ui.utils.Domino.*;
 import static org.dominokit.domino.ui.utils.ElementsFactory.elements;
 
 import elemental2.dom.Node;

@@ -16,6 +16,8 @@
 package org.dominokit.domino.ui.forms.suggest;
 
 import static java.util.Objects.nonNull;
+import static org.dominokit.domino.ui.utils.Domino.*;
+import static org.dominokit.domino.ui.utils.Domino.span;
 
 import elemental2.dom.DomGlobal;
 import elemental2.dom.Element;

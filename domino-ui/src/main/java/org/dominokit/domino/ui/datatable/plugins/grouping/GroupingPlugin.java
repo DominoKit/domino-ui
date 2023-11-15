@@ -17,6 +17,7 @@
 package org.dominokit.domino.ui.datatable.plugins.grouping;
 
 import static java.util.Objects.nonNull;
+import static org.dominokit.domino.ui.utils.Domino.*;
 
 import elemental2.dom.HTMLTableCellElement;
 import elemental2.dom.Node;

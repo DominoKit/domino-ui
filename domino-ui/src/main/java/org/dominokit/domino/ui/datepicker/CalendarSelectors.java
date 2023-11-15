@@ -18,6 +18,7 @@ package org.dominokit.domino.ui.datepicker;
 
 import static java.util.Objects.isNull;
 import static java.util.Objects.nonNull;
+import static org.dominokit.domino.ui.utils.Domino.*;
 import static org.dominokit.domino.ui.utils.DominoUIConfig.CONFIG;
 
 import elemental2.core.JsDate;

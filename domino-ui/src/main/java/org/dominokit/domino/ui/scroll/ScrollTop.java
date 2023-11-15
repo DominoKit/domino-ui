@@ -16,6 +16,7 @@
 package org.dominokit.domino.ui.scroll;
 
 import static elemental2.dom.DomGlobal.document;
+import static org.dominokit.domino.ui.utils.Domino.*;
 
 import elemental2.dom.HTMLElement;
 import org.dominokit.domino.ui.button.Button;

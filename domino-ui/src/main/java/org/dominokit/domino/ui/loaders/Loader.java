@@ -18,12 +18,15 @@ package org.dominokit.domino.ui.loaders;
 import static java.util.Objects.nonNull;
 import static org.dominokit.domino.ui.loaders.LoaderStyles.*;
 import static org.dominokit.domino.ui.style.GenericCss.dui_vertical_center;
+import static org.dominokit.domino.ui.utils.Domino.*;
 import static org.dominokit.domino.ui.utils.ElementsFactory.elements;
 
 import elemental2.dom.Element;
 import elemental2.dom.HTMLElement;
 import org.dominokit.domino.ui.IsElement;
-import org.dominokit.domino.ui.style.*;
+import org.dominokit.domino.ui.style.CompositeCssClass;
+import org.dominokit.domino.ui.style.CssClass;
+import org.dominokit.domino.ui.style.SwapCssClass;
 import org.dominokit.domino.ui.utils.DominoElement;
 import org.gwtproject.timer.client.Timer;
 

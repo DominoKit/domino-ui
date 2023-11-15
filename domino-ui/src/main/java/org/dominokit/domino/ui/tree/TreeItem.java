@@ -17,36 +17,22 @@ package org.dominokit.domino.ui.tree;
 
 import static java.util.Objects.isNull;
 import static java.util.Objects.nonNull;
+import static org.dominokit.domino.ui.utils.Domino.*;
 
-import elemental2.dom.*;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Optional;
-import java.util.Set;
+import elemental2.dom.Element;
+import elemental2.dom.EventListener;
+import elemental2.dom.HTMLAnchorElement;
+import elemental2.dom.HTMLLIElement;
+import java.util.*;
 import org.dominokit.domino.ui.collapsible.Collapsible;
 import org.dominokit.domino.ui.config.HasComponentConfig;
 import org.dominokit.domino.ui.config.TreeConfig;
-import org.dominokit.domino.ui.elements.AnchorElement;
-import org.dominokit.domino.ui.elements.DivElement;
-import org.dominokit.domino.ui.elements.LIElement;
-import org.dominokit.domino.ui.elements.SpanElement;
-import org.dominokit.domino.ui.elements.UListElement;
+import org.dominokit.domino.ui.elements.*;
 import org.dominokit.domino.ui.icons.Icon;
 import org.dominokit.domino.ui.icons.StateChangeIcon;
 import org.dominokit.domino.ui.icons.ToggleIcon;
 import org.dominokit.domino.ui.style.WaveStyle;
-import org.dominokit.domino.ui.utils.BaseDominoElement;
-import org.dominokit.domino.ui.utils.CanActivate;
-import org.dominokit.domino.ui.utils.CanDeactivate;
-import org.dominokit.domino.ui.utils.HasClickableElement;
-import org.dominokit.domino.ui.utils.HasSelectionListeners;
-import org.dominokit.domino.ui.utils.LazyChild;
-import org.dominokit.domino.ui.utils.PostfixAddOn;
-import org.dominokit.domino.ui.utils.PrefixAddOn;
-import org.dominokit.domino.ui.utils.TreeParent;
+import org.dominokit.domino.ui.utils.*;
 
 /**
  * Represents a tree item in a tree structure.

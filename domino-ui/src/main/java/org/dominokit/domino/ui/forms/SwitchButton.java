@@ -17,8 +17,11 @@ package org.dominokit.domino.ui.forms;
 
 import static java.util.Objects.isNull;
 import static java.util.Objects.nonNull;
+import static org.dominokit.domino.ui.utils.Domino.*;
 
-import elemental2.dom.*;
+import elemental2.dom.Event;
+import elemental2.dom.EventListener;
+import elemental2.dom.HTMLInputElement;
 import java.util.Optional;
 import java.util.function.Consumer;
 import org.dominokit.domino.ui.elements.DivElement;

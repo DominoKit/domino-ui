@@ -15,6 +15,10 @@
  */
 package org.dominokit.domino.ui.elements;
 
+import static org.dominokit.domino.ui.utils.Domino.*;
+import static org.dominokit.domino.ui.utils.Domino.dui;
+import static org.dominokit.domino.ui.utils.Domino.elementOf;
+
 import elemental2.dom.Element;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
 import org.dominokit.domino.ui.utils.DominoElement;

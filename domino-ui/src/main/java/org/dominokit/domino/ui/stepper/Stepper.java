@@ -15,6 +15,10 @@
  */
 package org.dominokit.domino.ui.stepper;
 
+import static org.dominokit.domino.ui.utils.Domino.*;
+import static org.dominokit.domino.ui.utils.Domino.div;
+import static org.dominokit.domino.ui.utils.Domino.elementOf;
+
 import elemental2.dom.HTMLDivElement;
 import java.util.ArrayList;
 import java.util.List;

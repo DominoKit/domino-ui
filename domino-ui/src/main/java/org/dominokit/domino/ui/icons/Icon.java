@@ -15,6 +15,9 @@
  */
 package org.dominokit.domino.ui.icons;
 
+import static org.dominokit.domino.ui.utils.Domino.*;
+import static org.dominokit.domino.ui.utils.Domino.dui_clickable;
+
 import elemental2.dom.EventListener;
 import elemental2.dom.HTMLElement;
 import org.dominokit.domino.ui.events.EventType;

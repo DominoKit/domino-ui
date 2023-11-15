@@ -18,6 +18,9 @@ package org.dominokit.domino.ui.dialogs;
 import static elemental2.dom.DomGlobal.document;
 import static elemental2.dom.DomGlobal.window;
 import static java.util.Objects.nonNull;
+import static org.dominokit.domino.ui.style.DisplayCss.dui_hidden;
+import static org.dominokit.domino.ui.utils.Domino.*;
+import static org.dominokit.domino.ui.utils.Domino.div;
 
 import elemental2.dom.*;
 import java.util.ArrayList;

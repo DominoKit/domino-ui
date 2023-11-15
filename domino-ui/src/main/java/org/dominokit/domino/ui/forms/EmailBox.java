@@ -15,6 +15,8 @@
  */
 package org.dominokit.domino.ui.forms;
 
+import static org.dominokit.domino.ui.utils.Domino.*;
+
 import java.util.HashMap;
 import java.util.Map;
 import org.dominokit.domino.ui.elements.DataListElement;

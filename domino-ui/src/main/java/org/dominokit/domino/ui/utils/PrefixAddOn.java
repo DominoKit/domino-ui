@@ -16,6 +16,10 @@
 
 package org.dominokit.domino.ui.utils;
 
+import static org.dominokit.domino.ui.utils.Domino.*;
+import static org.dominokit.domino.ui.utils.Domino.dui_prefix_addon;
+import static org.dominokit.domino.ui.utils.Domino.elementOf;
+
 import elemental2.dom.Element;
 import org.dominokit.domino.ui.IsElement;
 

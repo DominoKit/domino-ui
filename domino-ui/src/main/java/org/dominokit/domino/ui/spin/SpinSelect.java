@@ -16,15 +16,12 @@
 package org.dominokit.domino.ui.spin;
 
 import static java.util.Objects.nonNull;
+import static org.dominokit.domino.ui.utils.Domino.*;
 
 import elemental2.dom.DomGlobal;
 import elemental2.dom.EventListener;
 import elemental2.dom.HTMLDivElement;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
 import org.dominokit.domino.ui.config.HasComponentConfig;
 import org.dominokit.domino.ui.config.SpinConfig;
 import org.dominokit.domino.ui.elements.AnchorElement;

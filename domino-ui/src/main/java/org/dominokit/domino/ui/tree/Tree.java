@@ -17,14 +17,11 @@ package org.dominokit.domino.ui.tree;
 
 import static java.util.Objects.isNull;
 import static java.util.Objects.nonNull;
+import static org.dominokit.domino.ui.utils.Domino.*;
 
 import elemental2.dom.HTMLDivElement;
 import elemental2.dom.HTMLElement;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
 import org.dominokit.domino.ui.IsElement;
 import org.dominokit.domino.ui.collapsible.CollapseStrategy;
 import org.dominokit.domino.ui.elements.DivElement;
@@ -34,13 +31,7 @@ import org.dominokit.domino.ui.icons.Icon;
 import org.dominokit.domino.ui.icons.ToggleMdiIcon;
 import org.dominokit.domino.ui.icons.lib.Icons;
 import org.dominokit.domino.ui.search.Search;
-import org.dominokit.domino.ui.utils.BaseDominoElement;
-import org.dominokit.domino.ui.utils.ChildHandler;
-import org.dominokit.domino.ui.utils.HasSelectionListeners;
-import org.dominokit.domino.ui.utils.LazyChild;
-import org.dominokit.domino.ui.utils.PostfixAddOn;
-import org.dominokit.domino.ui.utils.Separator;
-import org.dominokit.domino.ui.utils.TreeParent;
+import org.dominokit.domino.ui.utils.*;
 
 /**
  * The Tree class provides a tree structure for displaying hierarchical data.

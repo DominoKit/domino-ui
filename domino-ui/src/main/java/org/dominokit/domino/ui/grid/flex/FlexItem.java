@@ -15,6 +15,8 @@
  */
 package org.dominokit.domino.ui.grid.flex;
 
+import static org.dominokit.domino.ui.utils.Domino.*;
+
 import elemental2.dom.HTMLDivElement;
 import elemental2.dom.HTMLElement;
 import org.dominokit.domino.ui.IsElement;
@@ -40,7 +42,7 @@ public class FlexItem<T extends HTMLElement> extends BaseDominoElement<T, FlexIt
 
   /** Creates a new {@code FlexItem} with a default root element, which is a <div> element. */
   public FlexItem() {
-    this((T) elements.div().element());
+    this((T) div().element());
   }
 
   /**

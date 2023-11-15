@@ -16,6 +16,7 @@
 package org.dominokit.domino.ui.forms;
 
 import static org.dominokit.domino.ui.forms.FormsStyles.dui_form_field;
+import static org.dominokit.domino.ui.utils.Domino.*;
 
 import elemental2.dom.Element;
 import elemental2.dom.HTMLElement;

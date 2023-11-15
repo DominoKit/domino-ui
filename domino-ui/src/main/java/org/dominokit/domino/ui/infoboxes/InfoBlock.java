@@ -15,6 +15,9 @@
  */
 package org.dominokit.domino.ui.infoboxes;
 
+import static org.dominokit.domino.ui.utils.Domino.*;
+import static org.dominokit.domino.ui.utils.Domino.div;
+
 import elemental2.dom.Element;
 import elemental2.dom.HTMLDivElement;
 import org.dominokit.domino.ui.elements.DivElement;

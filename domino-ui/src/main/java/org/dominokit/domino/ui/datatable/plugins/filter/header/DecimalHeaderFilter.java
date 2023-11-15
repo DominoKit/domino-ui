@@ -16,6 +16,8 @@
 
 package org.dominokit.domino.ui.datatable.plugins.filter.header;
 
+import static org.dominokit.domino.ui.utils.Domino.*;
+
 import elemental2.dom.HTMLInputElement;
 import java.math.BigDecimal;
 import org.dominokit.domino.ui.datatable.model.FilterTypes;

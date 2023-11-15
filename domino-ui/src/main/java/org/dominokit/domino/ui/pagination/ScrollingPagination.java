@@ -16,6 +16,7 @@
 package org.dominokit.domino.ui.pagination;
 
 import static java.util.Objects.nonNull;
+import static org.dominokit.domino.ui.utils.Domino.*;
 
 import java.util.stream.IntStream;
 import org.dominokit.domino.ui.icons.lib.Icons;

@@ -15,11 +15,9 @@
  */
 package org.dominokit.domino.ui.grid;
 
-import static org.dominokit.domino.ui.grid.Columns._12;
-import static org.dominokit.domino.ui.grid.Columns._16;
-import static org.dominokit.domino.ui.grid.Columns._18;
-import static org.dominokit.domino.ui.grid.Columns._24;
-import static org.dominokit.domino.ui.grid.Columns._32;
+import static org.dominokit.domino.ui.grid.Columns.*;
+import static org.dominokit.domino.ui.utils.Domino.*;
+import static org.dominokit.domino.ui.utils.Domino.div;
 
 import elemental2.dom.HTMLDivElement;
 import org.dominokit.domino.ui.IsElement;

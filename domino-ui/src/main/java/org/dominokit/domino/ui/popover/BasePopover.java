@@ -17,6 +17,7 @@ package org.dominokit.domino.ui.popover;
 
 import static java.util.Objects.isNull;
 import static org.dominokit.domino.ui.collapsible.Collapsible.DUI_COLLAPSED;
+import static org.dominokit.domino.ui.utils.Domino.*;
 
 import elemental2.dom.*;
 import java.util.Objects;

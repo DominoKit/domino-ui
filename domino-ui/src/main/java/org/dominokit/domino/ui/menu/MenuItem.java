@@ -17,6 +17,7 @@ package org.dominokit.domino.ui.menu;
 
 import static java.util.Objects.isNull;
 import static java.util.Objects.nonNull;
+import static org.dominokit.domino.ui.utils.Domino.*;
 
 import java.util.Arrays;
 import java.util.Optional;

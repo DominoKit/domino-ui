@@ -15,6 +15,8 @@
  */
 package org.dominokit.domino.ui.utils;
 
+import static org.dominokit.domino.ui.utils.Domino.*;
+
 import elemental2.dom.HTMLElement;
 
 /** An interface for observing changes in an HTML element. */

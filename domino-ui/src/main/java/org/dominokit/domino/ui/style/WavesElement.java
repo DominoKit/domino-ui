@@ -15,6 +15,8 @@
  */
 package org.dominokit.domino.ui.style;
 
+import static org.dominokit.domino.ui.utils.Domino.*;
+
 import elemental2.dom.HTMLElement;
 import org.dominokit.domino.ui.IsElement;
 import org.dominokit.domino.ui.utils.BaseDominoElement;

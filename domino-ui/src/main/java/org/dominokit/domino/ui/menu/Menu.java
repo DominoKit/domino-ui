@@ -18,15 +18,11 @@ package org.dominokit.domino.ui.menu;
 import static elemental2.dom.DomGlobal.document;
 import static java.util.Objects.isNull;
 import static java.util.Objects.nonNull;
+import static org.dominokit.domino.ui.utils.Domino.*;
 import static org.dominokit.domino.ui.utils.PopupsCloser.DOMINO_UI_AUTO_CLOSABLE;
 
-import elemental2.dom.DomGlobal;
-import elemental2.dom.Element;
-import elemental2.dom.Event;
+import elemental2.dom.*;
 import elemental2.dom.EventListener;
-import elemental2.dom.HTMLDivElement;
-import elemental2.dom.HTMLElement;
-import elemental2.dom.HTMLLIElement;
 import java.util.*;
 import jsinterop.base.Js;
 import org.dominokit.domino.ui.IsElement;

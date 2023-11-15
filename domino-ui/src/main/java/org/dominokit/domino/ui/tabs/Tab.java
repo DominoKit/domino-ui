@@ -16,6 +16,7 @@
 package org.dominokit.domino.ui.tabs;
 
 import static java.util.Objects.nonNull;
+import static org.dominokit.domino.ui.utils.Domino.*;
 
 import elemental2.dom.*;
 import java.util.ArrayList;
@@ -30,11 +31,7 @@ import org.dominokit.domino.ui.elements.LIElement;
 import org.dominokit.domino.ui.elements.SpanElement;
 import org.dominokit.domino.ui.events.EventType;
 import org.dominokit.domino.ui.icons.Icon;
-import org.dominokit.domino.ui.utils.ApplyFunction;
-import org.dominokit.domino.ui.utils.BaseDominoElement;
-import org.dominokit.domino.ui.utils.ChildHandler;
-import org.dominokit.domino.ui.utils.HasClickableElement;
-import org.dominokit.domino.ui.utils.LazyChild;
+import org.dominokit.domino.ui.utils.*;
 
 /**
  * Represents a UI tab component used within a {@link TabsPanel}. Provides functionalities such as

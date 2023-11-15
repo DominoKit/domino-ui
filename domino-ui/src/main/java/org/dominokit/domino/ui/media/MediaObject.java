@@ -15,6 +15,10 @@
  */
 package org.dominokit.domino.ui.media;
 
+import static org.dominokit.domino.ui.utils.Domino.*;
+import static org.dominokit.domino.ui.utils.Domino.div;
+import static org.dominokit.domino.ui.utils.Domino.h;
+
 import elemental2.dom.HTMLDivElement;
 import elemental2.dom.HTMLElement;
 import elemental2.dom.Node;

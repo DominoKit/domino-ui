@@ -15,6 +15,8 @@
  */
 package org.dominokit.domino.ui.button;
 
+import static org.dominokit.domino.ui.utils.Domino.*;
+
 import elemental2.dom.HTMLAnchorElement;
 import org.dominokit.domino.ui.elements.AnchorElement;
 import org.dominokit.domino.ui.icons.Icon;

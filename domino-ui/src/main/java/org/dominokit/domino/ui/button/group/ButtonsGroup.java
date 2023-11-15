@@ -16,6 +16,7 @@
 package org.dominokit.domino.ui.button.group;
 
 import static org.dominokit.domino.ui.button.ButtonStyles.*;
+import static org.dominokit.domino.ui.utils.Domino.*;
 
 import elemental2.dom.HTMLElement;
 import java.util.Arrays;

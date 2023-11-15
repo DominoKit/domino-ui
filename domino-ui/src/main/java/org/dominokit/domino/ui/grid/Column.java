@@ -17,6 +17,8 @@ package org.dominokit.domino.ui.grid;
 
 import static org.dominokit.domino.ui.grid.Column.Offset.*;
 import static org.dominokit.domino.ui.grid.Column.Span.*;
+import static org.dominokit.domino.ui.utils.Domino.*;
+import static org.dominokit.domino.ui.utils.Domino.div;
 
 import elemental2.dom.HTMLElement;
 import org.dominokit.domino.ui.IsElement;

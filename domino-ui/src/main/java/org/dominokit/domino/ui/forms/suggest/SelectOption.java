@@ -15,6 +15,8 @@
  */
 package org.dominokit.domino.ui.forms.suggest;
 
+import static org.dominokit.domino.ui.utils.Domino.*;
+
 import org.dominokit.domino.ui.elements.DivElement;
 import org.dominokit.domino.ui.menu.AbstractMenuItem;
 import org.dominokit.domino.ui.menu.MenuItem;
@@ -116,10 +118,7 @@ public class SelectOption<V> extends Option<V, DivElement, SelectOption<V>> {
    */
   public SelectOption(String key, V value, String text, String description) {
     super(
-        key,
-        value,
-        elements.div().textContent(text).addCss(dui_m_r_1),
-        MenuItem.create(text, description));
+        key, value, div().textContent(text).addCss(dui_m_r_1), MenuItem.create(text, description));
   }
 
   /**
@@ -130,7 +129,7 @@ public class SelectOption<V> extends Option<V, DivElement, SelectOption<V>> {
    * @param text The text to display for the option.
    */
   public SelectOption(String key, V value, String text) {
-    super(key, value, elements.div().textContent(text).addCss(dui_m_r_1), MenuItem.create(text));
+    super(key, value, div().textContent(text).addCss(dui_m_r_1), MenuItem.create(text));
   }
 
   /**

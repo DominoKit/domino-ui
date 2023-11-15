@@ -21,6 +21,7 @@ import static java.util.Objects.isNull;
 import static java.util.Objects.nonNull;
 import static org.dominokit.domino.ui.datatable.DataTableStyles.dui_datatable_row_selected;
 import static org.dominokit.domino.ui.forms.FormsStyles.dui_form_select_check_box;
+import static org.dominokit.domino.ui.utils.Domino.*;
 
 import elemental2.dom.Element;
 import elemental2.dom.HTMLElement;
