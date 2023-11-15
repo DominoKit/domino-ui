@@ -15,7 +15,6 @@
  */
 package org.dominokit.domino.ui.utils;
 
-import static org.dominokit.domino.ui.utils.Domino.*;
 import static org.dominokit.domino.ui.utils.ElementsFactory.elements;
 import static org.dominokit.domino.ui.utils.SVGFactory.svgElements;
 
@@ -31,7 +30,6 @@ import org.dominokit.domino.ui.elements.svg.*;
 import org.dominokit.domino.ui.style.DominoCss;
 
 public class Domino implements DominoCss {
-  public static final Domino DOM = new Domino();
 
   private Domino() {}
 
