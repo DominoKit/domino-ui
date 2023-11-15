@@ -57,6 +57,7 @@ import org.dominokit.domino.ui.keyboard.KeyboardEventOptions;
 import org.dominokit.domino.ui.keyboard.KeyboardEvents;
 import org.dominokit.domino.ui.menu.Menu;
 import org.dominokit.domino.ui.menu.direction.DropDirection;
+import org.dominokit.domino.ui.popover.Popover;
 import org.dominokit.domino.ui.popover.Tooltip;
 import org.dominokit.domino.ui.style.CssClass;
 import org.dominokit.domino.ui.style.DominoCss;
@@ -597,6 +598,17 @@ public abstract class BaseDominoElement<E extends Element, T extends IsElement<E
    */
   public T withElement(ChildHandler<T, E> handler) {
     handler.apply((T) this, element());
+    return (T) this;
+  }
+
+  /**
+   * Creates a popover and associate it with this component, then apply the specified handler
+   *
+   * @param handler The handler to be applied to the newly created popover
+   * @return same component instance.
+   */
+  public T withPopover(ChildHandler<T, Popover> handler) {
+    handler.apply((T) this, Popover.create(Js.<HTMLElement>uncheckedCast(element())));
     return (T) this;
   }
 

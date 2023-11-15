@@ -71,7 +71,9 @@ public class RightMiddleDropDirection implements DropDirection {
                 (targetRect.left - (newRect.left - targetRect.left))
                     + window.pageXOffset
                     + targetRect.width
-                    + 9));
+                    + (source.hasAttribute("dui-position-x-offset")
+                        ? Double.parseDouble(source.getAttribute("dui-position-x-offset"))
+                        : 0)));
   }
 
   /** {@inheritDoc} */

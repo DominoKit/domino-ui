@@ -32,11 +32,6 @@ public class BottomLeftDropDirection implements DropDirection {
     dui_flex_col_reverse.remove(source);
     DOMRect targetRect = target.getBoundingClientRect();
     DOMRect sourceRect = source.getBoundingClientRect();
-    double delta = 0;
-    double availableSpace = targetRect.left + targetRect.width;
-    if (availableSpace < sourceRect.width) {
-      delta = sourceRect.width - availableSpace;
-    }
 
     Style.of(source)
         .style
@@ -44,7 +39,14 @@ public class BottomLeftDropDirection implements DropDirection {
     Style.of(source).style.setProperty("left", px.of(targetRect.left));
     dui_dd_bottom_left.apply(source);
     elements.elementOf(source).setCssProperty("--dui-menu-drop-min-width", targetRect.width + "px");
+
     DOMRect newRect = source.getBoundingClientRect();
+    double delta = 0;
+    double availableSpace = targetRect.left + targetRect.width;
+    if (availableSpace < newRect.width) {
+      delta = newRect.width - availableSpace;
+    }
+
     Style.of(source)
         .style
         .setProperty(

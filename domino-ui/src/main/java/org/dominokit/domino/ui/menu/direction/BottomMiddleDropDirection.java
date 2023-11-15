@@ -21,7 +21,10 @@ import static org.dominokit.domino.ui.utils.ElementsFactory.elements;
 import static org.dominokit.domino.ui.utils.Unit.px;
 
 import elemental2.dom.DOMRect;
+import elemental2.dom.DomGlobal;
 import elemental2.dom.Element;
+import elemental2.dom.HTMLElement;
+import jsinterop.base.Js;
 import org.dominokit.domino.ui.style.Style;
 
 /** BottomMiddleDropDirection class. */
@@ -31,35 +34,50 @@ public class BottomMiddleDropDirection implements DropDirection {
   public void position(Element source, Element target) {
     dui_flex_col_reverse.remove(source);
     DOMRect targetRect = target.getBoundingClientRect();
-    DOMRect sourceRect = source.getBoundingClientRect();
-    double delta = 0;
-    double availableSpace = targetRect.left + targetRect.width;
-    if (availableSpace < sourceRect.width) {
-      delta = sourceRect.width - availableSpace;
-    }
 
     elements.elementOf(source).setCssProperty("--dui-menu-drop-min-width", targetRect.width + "px");
     targetRect = target.getBoundingClientRect();
-    sourceRect = source.getBoundingClientRect();
 
     Style.of(source)
         .style
         .setProperty("top", px.of((targetRect.top + window.pageYOffset) + targetRect.height + 1));
 
-    Style.of(source).style.setProperty("left", px.of(targetRect.left));
+    Style.of(source).style.setProperty("left", "0");
     dui_dd_bottom_middle.apply(source);
+    DomGlobal.console.info(
+        "source.offsetLeft : " + Js.<HTMLElement>uncheckedCast(source).offsetLeft);
 
-    DOMRect newRect = source.getBoundingClientRect();
-    Style.of(source)
-        .style
-        .setProperty(
-            "left",
-            px.of(
-                targetRect.left
-                    - (newRect.left - targetRect.left)
-                    + window.pageXOffset
-                    - ((newRect.width - targetRect.width) / 2)
-                    - delta));
+    DomGlobal.setTimeout(
+        p0 -> {
+          DOMRect newRect = source.getBoundingClientRect();
+          DOMRect newTargetRect = target.getBoundingClientRect();
+
+          int innerWidth = window.innerWidth;
+
+          double delta = 0;
+          double availableSpace = innerWidth - newTargetRect.right - window.pageXOffset;
+          if (availableSpace < (newRect.width / 2)) {
+            delta = (newRect.width / 2) - availableSpace;
+          }
+
+          elements.elementOf(source).setCssProperty("--dui-menu-drop-pin-offset", delta + "px");
+
+          Style.of(source)
+              .style
+              .setProperty(
+                  "left",
+                  px.of(
+                      newTargetRect.left
+                          - (newRect.width / 2)
+                          + (newTargetRect.width / 2)
+                          + window.pageXOffset
+                          - delta
+                          - elements.body().element().getBoundingClientRect().left));
+
+          newRect = source.getBoundingClientRect();
+          newTargetRect = target.getBoundingClientRect();
+        },
+        0);
   }
 
   /** {@inheritDoc} */

@@ -86,6 +86,7 @@ public abstract class BasePopover<T extends BasePopover<T>>
     root =
         div()
             .addCss(dui_popover)
+            .setAttribute("dui-position-x-offset", "9")
             .appendChild(
                 wrapper =
                     div()

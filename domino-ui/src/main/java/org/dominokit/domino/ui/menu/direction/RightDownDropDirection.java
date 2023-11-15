@@ -22,8 +22,6 @@ import static org.dominokit.domino.ui.utils.Unit.px;
 
 import elemental2.dom.DOMRect;
 import elemental2.dom.Element;
-import elemental2.dom.HTMLElement;
-import jsinterop.base.Js;
 import org.dominokit.domino.ui.style.Style;
 
 /** RightDownDropDirection class. */
@@ -41,10 +39,6 @@ public class RightDownDropDirection implements DropDirection {
       delta = sourceRect.height - availableSpace;
     }
 
-    double baseLeft = targetRect.left;
-    if (target instanceof HTMLElement) {
-      baseLeft = Math.min(targetRect.left, Js.<HTMLElement>uncheckedCast(target).offsetLeft);
-    }
     Style.of(source).style.setProperty("top", px.of((targetRect.top + window.pageYOffset - delta)));
 
     Style.of(source).style.setProperty("left", px.of(targetRect.left));
@@ -65,7 +59,9 @@ public class RightDownDropDirection implements DropDirection {
                 (targetRect.left - (newRect.left - targetRect.left))
                     + window.pageXOffset
                     + targetRect.width
-                    + 9));
+                    + (source.hasAttribute("dui-position-x-offset")
+                        ? Double.parseDouble(source.getAttribute("dui-position-x-offset"))
+                        : 0)));
   }
 
   /** {@inheritDoc} */

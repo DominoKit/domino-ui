@@ -16,7 +16,6 @@
 package org.dominokit.domino.ui.menu.direction;
 
 import static elemental2.dom.DomGlobal.window;
-import static org.dominokit.domino.ui.style.SpacingCss.dui_flex_col_reverse;
 import static org.dominokit.domino.ui.utils.ElementsFactory.elements;
 import static org.dominokit.domino.ui.utils.Unit.px;
 
@@ -29,7 +28,6 @@ public class LeftDownDropDirection implements DropDirection {
   /** {@inheritDoc} */
   @Override
   public void position(Element source, Element target) {
-    dui_flex_col_reverse.remove(source);
     DOMRect targetRect = target.getBoundingClientRect();
     DOMRect sourceRect = source.getBoundingClientRect();
 
@@ -39,15 +37,16 @@ public class LeftDownDropDirection implements DropDirection {
       delta = sourceRect.height - availableSpace;
     }
 
-    Style.of(source).style.setProperty("top", px.of(targetRect.top + window.pageYOffset - delta));
+    Style.of(source).style.setProperty("top", px.of((targetRect.top + window.pageYOffset - delta)));
 
     Style.of(source).style.setProperty("left", px.of(targetRect.left));
+
     dui_dd_left_down.apply(source);
-    targetRect = target.getBoundingClientRect();
-    sourceRect = source.getBoundingClientRect();
     elements
         .elementOf(source)
-        .setCssProperty("--dui-dd-position-delta", ((targetRect.top - sourceRect.top)) + "px");
+        .setCssProperty(
+            "--dui-dd-position-delta",
+            ((target.getBoundingClientRect().top - source.getBoundingClientRect().top)) + "px");
     elements.elementOf(source).setCssProperty("--dui-menu-drop-min-width", targetRect.width + "px");
 
     DOMRect newRect = source.getBoundingClientRect();
@@ -60,7 +59,9 @@ public class LeftDownDropDirection implements DropDirection {
                     - (newRect.left - targetRect.left)
                     + window.pageXOffset
                     - sourceRect.width
-                    - 9));
+                    - (source.hasAttribute("dui-position-x-offset")
+                        ? Double.parseDouble(source.getAttribute("dui-position-x-offset"))
+                        : 0)));
   }
 
   /** {@inheritDoc} */

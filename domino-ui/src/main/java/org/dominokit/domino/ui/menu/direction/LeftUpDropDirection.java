@@ -33,41 +33,35 @@ public class LeftUpDropDirection implements DropDirection {
     DOMRect targetRect = target.getBoundingClientRect();
     DOMRect sourceRect = source.getBoundingClientRect();
 
-    double delta = 0;
-    double availableSpace = targetRect.top;
-    if (availableSpace < sourceRect.height) {
-      delta = sourceRect.height - availableSpace;
-    }
     Style.of(source)
         .style
         .setProperty(
             "top",
-            px.of(
-                (targetRect.top + window.pageYOffset)
-                    - (sourceRect.height - targetRect.height)
-                    + delta));
+            px.of((targetRect.top + window.pageYOffset) - (sourceRect.height - targetRect.height)));
 
     Style.of(source).style.setProperty("left", px.of(targetRect.left));
 
-    dui_dd_left_up.apply(source);
-    targetRect = target.getBoundingClientRect();
-    sourceRect = source.getBoundingClientRect();
+    dui_dd_left_down.apply(source);
     elements
         .elementOf(source)
-        .setCssProperty("--dui-dd-position-delta", ((targetRect.top - sourceRect.top)) + "px");
+        .setCssProperty(
+            "--dui-dd-position-delta",
+            ((target.getBoundingClientRect().top - source.getBoundingClientRect().top)) + "px");
     elements.elementOf(source).setCssProperty("--dui-menu-drop-min-width", targetRect.width + "px");
 
     DOMRect newRect = source.getBoundingClientRect();
-
     Style.of(source)
         .style
         .setProperty(
             "left",
             px.of(
-                (targetRect.left - (newRect.left - targetRect.left))
+                targetRect.left
+                    - (newRect.left - targetRect.left)
                     + window.pageXOffset
                     - sourceRect.width
-                    - 9));
+                    - (source.hasAttribute("dui-position-x-offset")
+                        ? Double.parseDouble(source.getAttribute("dui-position-x-offset"))
+                        : 0)));
   }
 
   /** {@inheritDoc} */
