@@ -202,6 +202,7 @@ public class TextAreaBox extends CountableInputFormField<TextAreaBox, HTMLTextAr
     } else {
       getInputElement().element().value = "";
     }
+    updateCounter(getLength(), getMaxCount());
   }
 
   /**

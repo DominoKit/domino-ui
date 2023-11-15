@@ -91,6 +91,7 @@ public abstract class BaseTextBox<T extends BaseTextBox<T>>
     } else {
       getInputElement().element().value = "";
     }
+    updateCounter(getLength(), getMaxCount());
   }
 
   /**
