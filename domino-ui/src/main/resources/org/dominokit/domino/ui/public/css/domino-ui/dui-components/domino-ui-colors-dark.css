@@ -419,7 +419,7 @@
     --dui-datatable-border-color: var(--dui-accent-d-4);
     --dui-datatable-column-resizer-color: var(--dui-accent-d-2);
     --dui-datatable-pin-column-border-color: var(--dui-accent-d-2);
-    --dui-nav-bar-description-color: var(--dui-color-1);
+    --dui-nav-bar-description-color: var(--dui-clr-white);
     --dui-datatable-tfoot-bg-color: var(--dui-accent-d-4);
 
 }
