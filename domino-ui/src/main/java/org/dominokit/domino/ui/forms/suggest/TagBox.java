@@ -155,7 +155,7 @@ public class TagBox<V> extends AbstractSuggestBox<V, List<V>, Chip, TagOption<V>
   /**
    * Sets whether the tags are removable.
    *
-   * @param removable `true` to allow removing tags, `false` otherwise.
+   * @param removable true to allow removing tags, false otherwise.
    * @return The updated TagBox instance.
    */
   public TagBox<V> setRemovable(boolean removable) {
@@ -167,7 +167,7 @@ public class TagBox<V> extends AbstractSuggestBox<V, List<V>, Chip, TagOption<V>
   /**
    * Checks if tags are removable.
    *
-   * @return `true` if tags are removable, `false` otherwise.
+   * @return true if tags are removable, false otherwise.
    */
   public boolean isRemovable() {
     return removable;
@@ -291,7 +291,7 @@ public class TagBox<V> extends AbstractSuggestBox<V, List<V>, Chip, TagOption<V>
   /**
    * Sets the read-only state of the TagBox.
    *
-   * @param readOnly `true` to set the TagBox as read-only, `false` otherwise.
+   * @param readOnly true` to set the TagBox as read-only, `false` otherwise.
    * @return The updated TagBox instance.
    */
   @Override

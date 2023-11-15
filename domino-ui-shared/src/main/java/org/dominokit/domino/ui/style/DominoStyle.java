@@ -753,7 +753,7 @@ public interface DominoStyle<E extends Element, R> {
   /**
    * Sets the z-index property of the element.
    *
-   * @param zIndex The value for the z-index property.
+   * @param zindex The value for the z-index property.
    * @return The updated style with the set z-index property.
    */
   R setZIndex(int zindex);

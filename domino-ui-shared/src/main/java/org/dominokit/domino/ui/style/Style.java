@@ -60,6 +60,7 @@ public class Style<E extends Element> implements DominoStyle<E, Style<E>> {
    * Creates a new Style instance for the given IsElement.
    *
    * @param <E> The type of the HTML element.
+   * @param <T> The type of the component
    * @param isElement The IsElement interface representing the HTML element.
    * @return A new Style instance.
    */
@@ -370,9 +371,9 @@ public class Style<E extends Element> implements DominoStyle<E, Style<E>> {
   }
 
   /**
-   * Sets the CSS `border` property of the HTML element.
+   * Sets the CSS <b>border</b> property of the HTML element.
    *
-   * @param border The value to set for the `border` property.
+   * @param border The value to set for the <b>border</b> property.
    * @return This Style instance for method chaining.
    */
   @Override
@@ -382,9 +383,9 @@ public class Style<E extends Element> implements DominoStyle<E, Style<E>> {
   }
 
   /**
-   * Sets the CSS `border-color` property of the HTML element.
+   * Sets the CSS border-color property of the HTML element.
    *
-   * @param borderColor The value to set for the `border-color` property.
+   * @param borderColor The value to set for the border-color property.
    * @return This Style instance for method chaining.
    */
   @Override
@@ -469,7 +470,7 @@ public class Style<E extends Element> implements DominoStyle<E, Style<E>> {
   }
 
   /**
-   * Sets the CSS `height` property of the HTML element.
+   * Sets the CSS height property of the HTML element.
    *
    * @param height The height value.
    * @return This Style instance for method chaining.
@@ -481,7 +482,7 @@ public class Style<E extends Element> implements DominoStyle<E, Style<E>> {
   }
 
   /**
-   * Sets the CSS `height` property of the HTML element with optional importance.
+   * Sets the CSS height property of the HTML element with optional importance.
    *
    * @param height The height value.
    * @param important If true, the property is marked as important.
@@ -494,7 +495,7 @@ public class Style<E extends Element> implements DominoStyle<E, Style<E>> {
   }
 
   /**
-   * Sets the CSS `min-height` property of the HTML element.
+   * Sets the CSS min-height property of the HTML element.
    *
    * @param height The minimum height value.
    * @return This Style instance for method chaining.
@@ -506,7 +507,7 @@ public class Style<E extends Element> implements DominoStyle<E, Style<E>> {
   }
 
   /**
-   * Sets the CSS `min-height` property of the HTML element with optional importance.
+   * Sets the CSS min-height` property of the HTML element with optional importance.
    *
    * @param height The minimum height value.
    * @param important If true, the property is marked as important.
@@ -1146,7 +1147,7 @@ public class Style<E extends Element> implements DominoStyle<E, Style<E>> {
   /**
    * Sets the CSS `z-index` property of the HTML element.
    *
-   * @param zIndex The z-index value.
+   * @param zindex The z-index value.
    * @return This Style instance for method chaining.
    */
   @Override

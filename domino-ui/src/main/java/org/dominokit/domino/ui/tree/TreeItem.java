@@ -931,7 +931,7 @@ public class TreeItem<T> extends BaseDominoElement<HTMLLIElement, TreeItem<T>>
   }
 
   /**
-   * Retrieves the `UListElement` that represents the sub-tree of this tree item.
+   * Retrieves the UListElement` that represents the sub-tree of this tree item.
    *
    * @return The `UListElement` representing the sub-tree.
    */

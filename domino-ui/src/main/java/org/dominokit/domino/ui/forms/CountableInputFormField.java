@@ -26,9 +26,9 @@ import org.dominokit.domino.ui.forms.validations.MinLengthValidator;
 import org.dominokit.domino.ui.utils.*;
 
 /**
- * The `CountableInputFormField` class is an abstract class that extends the `InputFormField` class
- * and provides functionality for input fields with character counters, minimum and maximum lengths,
- * and placeholders.
+ * The CountableInputFormField class is an abstract class that extends the InputFormField class and
+ * provides functionality for input fields with character counters, minimum and maximum lengths, and
+ * placeholders.
  *
  * <p>Usage Example:
  *

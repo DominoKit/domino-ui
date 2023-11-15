@@ -32,7 +32,7 @@ import org.gwtproject.editor.client.TakesValue;
 import org.gwtproject.safehtml.shared.SafeHtml;
 
 /**
- * The `Radio` class represents a radio button element in a Domino UI form.
+ * The Radio class represents a radio button element in a Domino UI form.
  *
  * <p>Radio buttons are typically used to allow users to make a single selection from a list of
  * options. A radio button can have a label and optional helper text.
@@ -70,7 +70,7 @@ public class Radio<T> extends BaseDominoElement<HTMLDivElement, Radio<T>>
   private boolean changeListenersPaused = false;
 
   /**
-   * Creates a new `Radio` instance with the specified value and label.
+   * Creates a new Radio instance with the specified value and label.
    *
    * @param value The value associated with the radio button.
    * @param label The label text for the radio button.
@@ -109,7 +109,7 @@ public class Radio<T> extends BaseDominoElement<HTMLDivElement, Radio<T>>
   }
 
   /**
-   * Creates a new `Radio` instance with the specified value and a label generated from the value.
+   * Creates a new Radio instance with the specified value and a label generated from the value.
    *
    * @param value The value associated with the radio button.
    */
@@ -118,23 +118,23 @@ public class Radio<T> extends BaseDominoElement<HTMLDivElement, Radio<T>>
   }
 
   /**
-   * Creates a new `Radio` instance with the specified value and label.
+   * Creates a new Radio instance with the specified value and label.
    *
    * @param <E> The type of value associated with the radio button.
    * @param value The value associated with the radio button.
    * @param label The label text for the radio button.
-   * @return A new `Radio` instance.
+   * @return A new Radio instance.
    */
   public static <E> Radio<E> create(E value, String label) {
     return new Radio<>(value, label);
   }
 
   /**
-   * Creates a new `Radio` instance with the specified value and a label generated from the value.
+   * Creates a new Radio instance with the specified value and a label generated from the value.
    *
    * @param <E> The type of value associated with the radio button.
    * @param value The value associated with the radio button.
-   * @return A new `Radio` instance.
+   * @return A new Radio instance.
    */
   public static <E> Radio<E> create(E value) {
     return new Radio<>(value);

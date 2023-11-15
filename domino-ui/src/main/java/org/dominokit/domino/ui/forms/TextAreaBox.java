@@ -30,8 +30,8 @@ import org.dominokit.domino.ui.utils.PrefixAddOn;
 import org.dominokit.domino.ui.utils.PrimaryAddOn;
 
 /**
- * The `TextAreaBox` class is a form field component for text areas, providing features such as
- * prefix and postfix elements, auto-sizing, and value adjustments.
+ * The TextAreaBox class is a form field component for text areas, providing features such as prefix
+ * and postfix elements, auto-sizing, and value adjustments.
  *
  * <p>Usage Example:
  *
@@ -74,7 +74,7 @@ public class TextAreaBox extends CountableInputFormField<TextAreaBox, HTMLTextAr
     return new TextAreaBox(label);
   }
 
-  /** Creates a new `TextAreaBox` instance with default values. */
+  /** Creates a new TextAreaBox instance with default values. */
   public TextAreaBox() {
     setRows(4);
     addCss(dui_form_text_area);
@@ -107,7 +107,7 @@ public class TextAreaBox extends CountableInputFormField<TextAreaBox, HTMLTextAr
   }
 
   /**
-   * Creates a new `TextAreaBox` instance with the specified label.
+   * Creates a new TextAreaBox instance with the specified label.
    *
    * @param label The label text for the TextAreaBox.
    */
@@ -120,7 +120,7 @@ public class TextAreaBox extends CountableInputFormField<TextAreaBox, HTMLTextAr
    * Appends a prefix add-on element to the header of this TextAreaBox.
    *
    * @param addon The prefix add-on to append.
-   * @return This `TextAreaBox` instance.
+   * @return This TextAreaBox instance.
    */
   @Override
   public TextAreaBox appendChild(PrefixAddOn<?> addon) {
@@ -132,7 +132,7 @@ public class TextAreaBox extends CountableInputFormField<TextAreaBox, HTMLTextAr
    * Appends a primary add-on element to the header of this TextAreaBox.
    *
    * @param addon The primary add-on to append.
-   * @return This `TextAreaBox` instance.
+   * @return This TextAreaBox instance.
    */
   @Override
   public TextAreaBox appendChild(PrimaryAddOn<?> addon) {
@@ -144,7 +144,7 @@ public class TextAreaBox extends CountableInputFormField<TextAreaBox, HTMLTextAr
    * Appends a postfix add-on element to the header of this TextAreaBox.
    *
    * @param addon The postfix add-on to append.
-   * @return This `TextAreaBox` instance.
+   * @return This TextAreaBox` instance.
    */
   @Override
   public TextAreaBox appendChild(PostfixAddOn<?> addon) {

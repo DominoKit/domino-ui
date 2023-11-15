@@ -18,7 +18,7 @@ package org.dominokit.domino.ui.forms;
 import org.dominokit.domino.ui.style.CssClass;
 
 /**
- * The `FormsStyles` interface provides a set of CSS classes that can be used to style form elements
+ * The FormsStyles interface provides a set of CSS classes that can be used to style form elements
  * and components within Domino UI forms.
  */
 public interface FormsStyles {

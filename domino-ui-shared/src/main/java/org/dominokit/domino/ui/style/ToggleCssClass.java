@@ -27,6 +27,7 @@ public class ToggleCssClass implements CssClass {
    * Creates a new instance of ToggleCssClass with the given CSS class.
    *
    * @param cssClass The CSS class to toggle.
+   * @return new ToggleCssClass instance
    */
   public static ToggleCssClass of(CssClass cssClass) {
     return new ToggleCssClass(cssClass);
@@ -37,6 +38,7 @@ public class ToggleCssClass implements CssClass {
    * instance.
    *
    * @param cssClass The HasCssClass instance containing the CSS class to toggle.
+   * @return new ToggleCssClass instance
    */
   public static ToggleCssClass of(HasCssClass cssClass) {
     return new ToggleCssClass(cssClass.getCssClass());
@@ -46,6 +48,7 @@ public class ToggleCssClass implements CssClass {
    * Creates a new instance of ToggleCssClass with the given CSS class.
    *
    * @param cssClass The CSS class to toggle.
+   * @return new ToggleCssClass instance
    */
   public static ToggleCssClass of(String cssClass) {
     return new ToggleCssClass(() -> cssClass);

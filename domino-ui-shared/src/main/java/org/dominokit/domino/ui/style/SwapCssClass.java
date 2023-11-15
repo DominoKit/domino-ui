@@ -25,7 +25,11 @@ public class SwapCssClass implements CssClass {
   private CssClass current = CssClass.NONE;
   private CssClass replacement = CssClass.NONE;
 
-  /** Creates a new instance of SwapCssClass with no initial styles. */
+  /**
+   * Creates a new instance of SwapCssClass with no initial styles.
+   *
+   * @return new SwapCssClass instance
+   */
   public static SwapCssClass of() {
     return new SwapCssClass();
   }
@@ -34,6 +38,7 @@ public class SwapCssClass implements CssClass {
    * Creates a new instance of SwapCssClass with the given initial style.
    *
    * @param initialStyle The initial CSS class to apply.
+   * @return new SwapCssClass instance
    */
   public static SwapCssClass of(CssClass initialStyle) {
     return new SwapCssClass(initialStyle);
@@ -44,6 +49,7 @@ public class SwapCssClass implements CssClass {
    * instance.
    *
    * @param initialStyle The initial HasCssClass instance.
+   * @return new SwapCssClass instance
    */
   public static SwapCssClass of(HasCssClass initialStyle) {
     return new SwapCssClass(initialStyle.getCssClass());
@@ -53,6 +59,7 @@ public class SwapCssClass implements CssClass {
    * Creates a new instance of SwapCssClass with the given CSS class.
    *
    * @param cssClass The initial CSS class to apply.
+   * @return new SwapCssClass instance
    */
   public static SwapCssClass of(String cssClass) {
     return new SwapCssClass(cssClass);

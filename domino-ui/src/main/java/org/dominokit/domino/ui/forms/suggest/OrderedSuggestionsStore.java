@@ -245,7 +245,7 @@ public class OrderedSuggestionsStore<T, E extends IsElement<?>, O extends Option
    * Checks if the store contains an option with the specified key.
    *
    * @param key The unique key to check for.
-   * @return `true` if the key exists in the store, `false` otherwise.
+   * @return true if the key exists in the store, false` otherwise.
    */
   public boolean containsKey(String key) {
     return this.suggestions.containsKey(key);
