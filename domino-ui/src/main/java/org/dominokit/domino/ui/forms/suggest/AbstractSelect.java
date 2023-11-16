@@ -232,6 +232,20 @@ public abstract class AbstractSelect<
   }
 
   /**
+   * Insert the specified option in the specified index.
+   *
+   * @param index The desired location index.
+   * @param option The option to be added to the select.
+   * @return an instance of the concrete class.
+   */
+  public C insertChild(int index, O option) {
+    if (nonNull(option)) {
+      optionsMenu.insertChild(index, option.getMenuItem());
+    }
+    return (C) this;
+  }
+
+  /**
    * Appends a collection of options to the select.
    *
    * @param options The collection of options to be added to the select.
@@ -240,6 +254,25 @@ public abstract class AbstractSelect<
   public C appendOptions(Collection<O> options) {
     if (nonNull(options)) {
       options.forEach(this::appendChild);
+    }
+    return (C) this;
+  }
+
+  /**
+   * Insert a collection of options starting from the provided index.
+   *
+   * @param index The insert starting index
+   * @param options The collection of options to be added to the select.
+   * @return an instance of the concrete class.
+   */
+  public C insertOptions(int index, Collection<O> options) {
+    if (nonNull(options)) {
+      int[] i = new int[] {index};
+      options.forEach(
+          o -> {
+            insertChild(i[0], o);
+            i[0] = i[0]++;
+          });
     }
     return (C) this;
   }
@@ -258,6 +291,20 @@ public abstract class AbstractSelect<
   }
 
   /**
+   * Insert a series of options to the select at the provided index.
+   *
+   * @param index The starting insert index.
+   * @param options The options to be added to the select.
+   * @return an instance of the concrete class.
+   */
+  public C insertOptions(int index, O... options) {
+    if (nonNull(options)) {
+      insertOptions(index, Arrays.asList(options));
+    }
+    return (C) this;
+  }
+
+  /**
    * Maps the specified item using the provided mapper function and appends it as an option to the
    * select.
    *
@@ -270,6 +317,18 @@ public abstract class AbstractSelect<
   }
 
   /**
+   * Maps the specified item using the provided mapper function and insert it at the provided index
+   *
+   * @param index The index
+   * @param mapper The function to map the item to an option.
+   * @param item The item to be mapped and added as an option to the select.
+   * @return an instance of the concrete class.
+   */
+  public <I> C insertItem(int index, Function<I, O> mapper, I item) {
+    return insertChild(index, mapper.apply(item));
+  }
+
+  /**
    * Maps each item in the provided collection using the given mapper function and appends them as
    * options to the select.
    *
@@ -279,6 +338,25 @@ public abstract class AbstractSelect<
    */
   public <I> C appendItems(Function<I, O> mapper, Collection<I> items) {
     items.forEach(item -> appendItem(mapper, item));
+    return (C) this;
+  }
+
+  /**
+   * Maps each item in the provided collection using the given mapper function and insert them
+   * starting from the provided index.
+   *
+   * @param index The starting insert index.
+   * @param mapper The function to map each item to an option.
+   * @param items The collection of items to be mapped and added as options to the select.
+   * @return an instance of the concrete class.
+   */
+  public <I> C insertItems(int index, Function<I, O> mapper, Collection<I> items) {
+    int[] i = new int[] {index};
+    items.forEach(
+        item -> {
+          insertItem(i[0], mapper, item);
+          i[0] = i[0]++;
+        });
     return (C) this;
   }
 
@@ -296,6 +374,20 @@ public abstract class AbstractSelect<
   }
 
   /**
+   * Maps each item in the provided series using the given mapper function and insert them starting
+   * from the provided index.
+   *
+   * @param index insert starting index.
+   * @param mapper The function to map each item to an option.
+   * @param items The items to be mapped and added as options to the select.
+   * @return an instance of the concrete class.
+   */
+  public <I> C insertItems(int index, Function<I, O> mapper, I... items) {
+    insertItems(index, mapper, Arrays.asList(items));
+    return (C) this;
+  }
+
+  /**
    * Appends the specified separator to the select.
    *
    * @param separator The separator to be added between options in the select.
@@ -303,6 +395,18 @@ public abstract class AbstractSelect<
    */
   public <I> C appendChild(Separator separator) {
     optionsMenu.appendChild(separator);
+    return (C) this;
+  }
+
+  /**
+   * insert the specified separator to the select at the provided index.
+   *
+   * @param index the insert index.
+   * @param separator The separator to be added between options in the select.
+   * @return an instance of the concrete class.
+   */
+  public <I> C insertChild(int index, Separator separator) {
+    optionsMenu.insertChild(index, separator);
     return (C) this;
   }
 
@@ -1001,7 +1105,9 @@ public abstract class AbstractSelect<
   public C setMissingItemHandler(MissingOptionHandler<C, E, T, O> missingOptionHandler) {
     if (nonNull(missingOptionHandler)) {
       optionsMenu.setMissingItemHandler(
-          (token, menu) -> missingOptionHandler.onMissingItem((C) this, token, menu::appendChild));
+          (token, menu) ->
+              missingOptionHandler.onMissingItem(
+                  (C) this, token, option -> appendChild((O) option)));
     } else {
       optionsMenu.setMissingItemHandler(null);
     }
@@ -1027,6 +1133,17 @@ public abstract class AbstractSelect<
               optionsMenu.removeItem(found.getMenuItem());
             });
     return (C) this;
+  }
+
+  /**
+   * Removes a specified option from the select component.
+   *
+   * @param index the index of the option to be removed.
+   * @return an instance of the concrete class.
+   */
+  public C removeOptionAt(int index) {
+    AbstractMenuItem<T> menuItem = optionsMenu.getMenuItems().get(index);
+    return removeOption(OptionMeta.<T, E, O>get(menuItem).get().getOption());
   }
 
   /**

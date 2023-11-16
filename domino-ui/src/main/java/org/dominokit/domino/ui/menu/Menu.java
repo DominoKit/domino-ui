@@ -412,10 +412,45 @@ public class Menu<V> extends BaseDominoElement<HTMLDivElement, Menu<V>>
     if (nonNull(menuItem)) {
       menuItemsList.appendChild(menuItem);
       menuItems.add(menuItem);
-      menuItem.setParent(this);
-      onItemAdded(menuItem);
+      afterAddItem(menuItem);
     }
     return this;
+  }
+
+  /**
+   * Inserts a menu item to the menu at the specified index, the index should be within the valid
+   * range otherwise an exception is thrown.
+   *
+   * @param index The index to insert the menu item at.
+   * @param menuItem The menu item to be added.
+   * @return The current Menu instance.
+   */
+  public Menu<V> insertChild(int index, AbstractMenuItem<V> menuItem) {
+    if (nonNull(menuItem)) {
+      if (index < 0 || (index > 0 && index >= menuItemsList.getChildElementCount())) {
+        throw new IndexOutOfBoundsException(
+            "Could not insert menu item at index ["
+                + index
+                + "], index out of range [0,"
+                + (menuItemsList.getChildElementCount() - 1)
+                + "]");
+      }
+      if (menuItemsList.getChildElementCount() > 0) {
+        DominoElement<Element> elementDominoElement = menuItemsList.childElements().get(index);
+        menuItemsList.insertBefore(menuItem, elementDominoElement);
+        menuItems.add(index, menuItem);
+      } else {
+        menuItemsList.appendChild(menuItem);
+        menuItems.add(menuItem);
+      }
+      afterAddItem(menuItem);
+    }
+    return this;
+  }
+
+  private void afterAddItem(AbstractMenuItem<V> menuItem) {
+    menuItem.setParent(this);
+    onItemAdded(menuItem);
   }
 
   void onItemAdded(AbstractMenuItem<V> menuItem) {
@@ -442,6 +477,42 @@ public class Menu<V> extends BaseDominoElement<HTMLDivElement, Menu<V>>
   }
 
   /**
+   * Inserts a menu items group to the menu at the specified index, the index should be within the
+   * valid range otherwise an exception is thrown.
+   *
+   * @param index The index to insert the menu items group at.
+   * @param <I> The type of the abstract menu item.
+   * @param menuGroup The menu items group to be added.
+   * @param groupHandler The handler for the menu items group.
+   * @return The current Menu instance.
+   */
+  public <I extends AbstractMenuItem<V>> Menu<V> insertGroup(
+      int index, MenuItemsGroup<V> menuGroup, MenuItemsGroupHandler<V, I> groupHandler) {
+    if (nonNull(menuGroup)) {
+
+      if (index < 0 || (index > 0 && index >= menuItemsList.getChildElementCount())) {
+        throw new IndexOutOfBoundsException(
+            "Could not insert menu item at index ["
+                + index
+                + "], index out of range [0,"
+                + (menuItemsList.getChildElementCount() - 1)
+                + "]");
+      }
+      if (menuItemsList.getChildElementCount() > 0) {
+        DominoElement<Element> elementDominoElement = menuItemsList.childElements().get(index);
+        menuItemsList.insertBefore(menuGroup, elementDominoElement);
+        menuItems.add(index, menuGroup);
+      } else {
+        menuItemsList.appendChild(menuGroup);
+        menuItems.add(menuGroup);
+      }
+      menuGroup.setParent(this);
+      groupHandler.handle(menuGroup);
+    }
+    return this;
+  }
+
+  /**
    * Removes a menu item from the menu.
    *
    * @param menuItem The menu item to be removed.
@@ -453,6 +524,16 @@ public class Menu<V> extends BaseDominoElement<HTMLDivElement, Menu<V>>
       this.menuItems.remove(menuItem);
     }
     return this;
+  }
+
+  /**
+   * Removes a menu item from the menu at the specified index.
+   *
+   * @param index the index of the menu item to be removed.
+   * @return The current Menu instance.
+   */
+  public Menu<V> removeItemAt(int index) {
+    return removeItem(menuItems.get(index));
   }
 
   /**
@@ -476,6 +557,36 @@ public class Menu<V> extends BaseDominoElement<HTMLDivElement, Menu<V>>
    */
   public Menu<V> appendChild(Separator separator) {
     this.menuItemsList.appendChild(separator.addCss(dui_menu_separator));
+    return this;
+  }
+
+  /**
+   * Inserts a separator to the menu at the specified index, the index should be within the valid
+   * range otherwise an exception is thrown.
+   *
+   * @param index The index to insert the separator at.
+   * @param separator The separator to be added.
+   * @return The current Menu instance.
+   */
+  public Menu<V> insertChild(int index, Separator separator) {
+    if (nonNull(separator)) {
+      if (index < 0 || (index > 0 && index >= menuItemsList.getChildElementCount())) {
+        throw new IndexOutOfBoundsException(
+            "Could not insert menu item at index ["
+                + index
+                + "], index out of range [0,"
+                + (menuItemsList.getChildElementCount() - 1)
+                + "]");
+      }
+
+      if (menuItemsList.getChildElementCount() > 0) {
+        DominoElement<Element> elementDominoElement = menuItemsList.childElements().get(index);
+        menuItemsList.insertBefore(separator, elementDominoElement);
+      } else {
+        this.menuItemsList.appendChild(separator.addCss(dui_menu_separator));
+      }
+    }
+
     return this;
   }
 
