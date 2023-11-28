@@ -85,9 +85,10 @@
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <elemental2.version>1.2.1</elemental2.version>
         <gwt.version>2.10.0</gwt.version>
-        <jackson.apt.version>1.0.1</jackson.apt.version>
+        <jackson.apt.version>1.0.3</jackson.apt.version>
         <gwt.i18n.version>1.0.1</gwt.i18n.version>
         <domino.doc.tool.version>1.0.0</domino.doc.tool.version>
+        <gwt.validation.api.version>1.0.1</gwt.validation.api.version>
     </properties>
 
     <dependencyManagement>
@@ -97,6 +98,17 @@
                 <groupId>org.gwtproject.editor</groupId>
                 <artifactId>gwt-editor</artifactId>
                 <version>1.0.0-RC1</version>
+                <exclusions>
+                    <exclusion>
+                        <groupId>javax.validation</groupId>
+                        <artifactId>validation-api</artifactId>
+                    </exclusion>
+                </exclusions>
+            </dependency>
+            <dependency>
+                <groupId>org.dominokit</groupId>
+                <artifactId>gwt-validation-api</artifactId>
+                <version>${gwt.validation.api.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.gwtproject.core</groupId>

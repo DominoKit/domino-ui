@@ -256,7 +256,11 @@ fieldset.dui {
     min-height: var(--dui-form-field-fixed-messages-height);
 }
 
-.dui-form-field:not(.dui-form-messages-fixed) .dui-field-messages-wrapper:empty {
+.dui-form-messages-fixed .dui-field-messages-wrapper:empty{
+    display: flex;
+}
+
+.dui-field-messages-wrapper:empty {
     display: none;
 }
 

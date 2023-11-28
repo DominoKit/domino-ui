@@ -1008,6 +1008,10 @@ public class ColumnConfig<T> implements ElementsFactory, DataTableStyles {
       this.headElement.addCss("dui-column-group");
     }
 
+    if (nonNull(getHeaderTextAlign())) {
+      this.headElement.addCss(getHeaderTextAlign());
+    }
+
     ColumnCssRuleMeta.get(this)
         .ifPresent(
             meta ->
