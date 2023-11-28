@@ -89,6 +89,15 @@ public class LocalListScrollingDataSource<T> implements DataStore<T> {
     return this;
   }
 
+  /**
+   * Retrieves a copy of records stored in the data store.
+   *
+   * @return A list of original records.
+   */
+  public List<T> getRecords() {
+    return new ArrayList<>(original);
+  }
+
   /** @return the {@link RecordsSorter} used in this data store */
   public RecordsSorter<T> getRecordsSorter() {
     return recordsSorter;
