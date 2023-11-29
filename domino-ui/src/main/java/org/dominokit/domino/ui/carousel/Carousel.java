@@ -40,10 +40,6 @@ import org.gwtproject.timer.client.Timer;
  * @see BaseDominoElement
  */
 public class Carousel extends BaseDominoElement<HTMLDivElement, Carousel> {
-  /** Constant <code>NEXT="next"</code> */
-  public static final String NEXT = "next";
-  /** CSS class for previous indicator */
-  public static final String PREV = "prev";
 
   private final OListElement indicatorsElement;
   private final DivElement slidesElement;
@@ -62,6 +58,15 @@ public class Carousel extends BaseDominoElement<HTMLDivElement, Carousel> {
   private int autoSlideDuration = 3000;
   private boolean attached = false;
 
+  /**
+   * Factory method to create an empty Carousel
+   *
+   * @return new instance
+   */
+  public static Carousel create() {
+    return new Carousel();
+  }
+
   /** Creates and empty Carousel */
   public Carousel() {
 
@@ -76,12 +81,7 @@ public class Carousel extends BaseDominoElement<HTMLDivElement, Carousel> {
                         .appendChild(
                             Icons.chevron_left()
                                 .addCss(GenericCss.dui_vertical_center, dui_font_size_12))
-                        .addEventListener(
-                            "click",
-                            evt -> {
-                              resetTimer();
-                              prevSlide();
-                            }))
+                        .addEventListener("click", evt -> previous()))
             .appendChild(
                 nextElement =
                     a().addCss(slide_right, carousel_control)
@@ -92,8 +92,7 @@ public class Carousel extends BaseDominoElement<HTMLDivElement, Carousel> {
                         .addEventListener(
                             "click",
                             evt -> {
-                              resetTimer();
-                              nextSlide();
+                              next();
                             }))
             .addCss(carousel);
     timer =
@@ -106,6 +105,52 @@ public class Carousel extends BaseDominoElement<HTMLDivElement, Carousel> {
     addAttachListener();
     addDetachListener();
     init(this);
+  }
+
+  /**
+   * Programmatically move to the next slide and reset the slide timer
+   *
+   * @return Same Carousel instance
+   */
+  public Carousel next() {
+    resetTimer();
+    nextSlide();
+    return this;
+  }
+
+  /**
+   * Programmatically move to the previous slide and reset the slide timer
+   *
+   * @return Same Carousel instance
+   */
+  public Carousel previous() {
+    resetTimer();
+    prevSlide();
+    return this;
+  }
+
+  /**
+   * Programmatically move to the specified slide sliding to the provided direction and reset the
+   * slide timer
+   *
+   * @return Same Carousel instance
+   */
+  public Carousel gotToSlide(Slide slide, SlideDirection direction) {
+    resetTimer();
+    goToSlide(slide, direction);
+    return this;
+  }
+
+  /**
+   * Programmatically move to the slide of the specified index sliding to the provided direction and
+   * reset the slide timer
+   *
+   * @return Same Carousel instance
+   */
+  public Carousel gotToSlide(int index, SlideDirection direction) {
+    resetTimer();
+    goToSlide(slides.get(index), direction);
+    return this;
   }
 
   private void resetTimer() {
@@ -138,15 +183,6 @@ public class Carousel extends BaseDominoElement<HTMLDivElement, Carousel> {
   }
 
   /**
-   * Factory method to create an empty Carousel
-   *
-   * @return new instance
-   */
-  public static Carousel create() {
-    return new Carousel();
-  }
-
-  /**
    * Adds new {@link org.dominokit.domino.ui.carousel.Slide} to this Carousel
    *
    * @param slide The {@link org.dominokit.domino.ui.carousel.Slide} to be added
@@ -161,7 +197,7 @@ public class Carousel extends BaseDominoElement<HTMLDivElement, Carousel> {
             "click",
             evt -> {
               resetTimer();
-              goToSlide(slide, "");
+              goToSlide(slide, SlideDirection.NONE);
             });
 
     slide.element().addEventListener("webkitTransitionEnd", evt -> removeMotionStyles());
@@ -189,7 +225,7 @@ public class Carousel extends BaseDominoElement<HTMLDivElement, Carousel> {
       nextSlide = slides.get(0);
     }
 
-    goToSlide(nextSlide, NEXT);
+    goToSlide(nextSlide, SlideDirection.NEXT);
   }
 
   private void prevSlide() {
@@ -200,10 +236,10 @@ public class Carousel extends BaseDominoElement<HTMLDivElement, Carousel> {
       prevSlide = slides.get(slides.size() - 1);
     }
 
-    goToSlide(prevSlide, PREV);
+    goToSlide(prevSlide, SlideDirection.PREV);
   }
 
-  private void goToSlide(Slide slide, String source) {
+  private void goToSlide(Slide slide, SlideDirection source) {
     if (!slide.isActive()) {
       this.targetSlide = slide;
       slide.getIndicatorElement().addCss(dui_active);
@@ -222,18 +258,20 @@ public class Carousel extends BaseDominoElement<HTMLDivElement, Carousel> {
     }
   }
 
-  private CssClass getPositionStyle(Slide target, String source) {
-    if ((slides.indexOf(target) > slides.indexOf(activeSlide) && !PREV.equals(source))
-        || (NEXT.equals(source))) {
+  private CssClass getPositionStyle(Slide target, SlideDirection source) {
+    if ((slides.indexOf(target) > slides.indexOf(activeSlide)
+            && !SlideDirection.PREV.equals(source))
+        || (SlideDirection.NEXT.equals(source))) {
       return slide_next;
     } else {
       return slide_prev;
     }
   }
 
-  private CssClass getDirectionStyle(Slide target, String source) {
-    if ((slides.indexOf(target) > slides.indexOf(activeSlide) && !PREV.equals(source))
-        || (NEXT.equals(source))) {
+  private CssClass getDirectionStyle(Slide target, SlideDirection source) {
+    if ((slides.indexOf(target) > slides.indexOf(activeSlide)
+            && !SlideDirection.PREV.equals(source))
+        || (SlideDirection.NEXT.equals(source))) {
       return slide_left;
     } else {
       return slide_right;
@@ -366,5 +404,13 @@ public class Carousel extends BaseDominoElement<HTMLDivElement, Carousel> {
   /** @return The current active {@link org.dominokit.domino.ui.carousel.Slide} component */
   public Slide getActiveSlide() {
     return activeSlide;
+  }
+
+  public enum SlideDirection {
+    NONE,
+    /** CSS class for previous indicator */
+    PREV,
+    /** Constant <code>NEXT="next"</code> */
+    NEXT
   }
 }
