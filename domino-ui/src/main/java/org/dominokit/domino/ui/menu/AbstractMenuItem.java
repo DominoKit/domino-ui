@@ -79,6 +79,8 @@ public class AbstractMenuItem<V> extends BaseDominoElement<HTMLLIElement, Abstra
   protected boolean searchable = true;
   protected boolean selectable = true;
 
+  protected MenuSearchFilter searchFilter = (token, caseSensitive) -> false;
+
   /** Default constructor to create a menu item. */
   public AbstractMenuItem() {
     root = li().addCss(dui_menu_item);
@@ -578,6 +580,30 @@ public class AbstractMenuItem<V> extends BaseDominoElement<HTMLLIElement, Abstra
   public <T extends AbstractMenuItem<V>> T appendChild(PrefixAddOn<?> prefixAddOn) {
     prefixElement.appendChild(prefixAddOn);
     return (T) this;
+  }
+
+  /**
+   * Retrieves the current {@link MenuSearchFilter} used for search operations.
+   *
+   * @return the current {@link MenuSearchFilter}
+   */
+  public MenuSearchFilter getSearchFilter() {
+    return searchFilter;
+  }
+
+  /**
+   * Sets the {@link MenuSearchFilter} to be used during search operations.
+   *
+   * @param searchFilter the search filter to set
+   * @return this Menu item instance for chaining
+   */
+  public <T extends AbstractMenuItem<V>> T setSearchFilter(MenuSearchFilter searchFilter) {
+    this.searchFilter = searchFilter;
+    return (T) this;
+  }
+
+  public boolean startsWith(String character) {
+    return false;
   }
 
   /**

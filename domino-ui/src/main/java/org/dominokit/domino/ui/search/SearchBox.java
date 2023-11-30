@@ -129,7 +129,14 @@ public class SearchBox extends BaseDominoElement<HTMLDivElement, SearchBox>
             .setPlaceholder(getLabels().defaultQuickSearchPlaceHolder())
             .appendChild(PrefixAddOn.of(searchIcon))
             .appendChild(PostfixAddOn.of(clearIcon))
-            .addCss(dui_m_0);
+            .addCss(dui_m_0)
+            .withInputElement(
+                (parent, input) -> {
+                  input.onKeyDown(
+                      keyEvents ->
+                          keyEvents.any(
+                              KeyboardEventOptions.create().setStopPropagation(true), evt -> {}));
+                });
 
     root.appendChild(textBox.element());
 

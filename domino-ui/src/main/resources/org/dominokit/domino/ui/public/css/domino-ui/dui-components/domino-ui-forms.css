@@ -699,3 +699,26 @@ textarea.dui-field-input {
 .dui-form-field.dui-form-text-area .dui-field-input:not([data-scroll='0']) {
     border-top: var(--dui-form-scrolled-text-area-border);
 }
+
+.dui-auto-type-input {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: inherit;
+    max-width: 100%;
+    min-height: var(--dui-form-field-input-height);
+    border: none;
+    border-radius: var(--dui-form-field-wrapper-radius);
+    font: var(--dui-form-field-input-line-font);
+    line-height: var(--dui-form-field-input-line-hieght);
+    overflow: var(--dui-form-input-overflow, hidden);
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    background-color: var(--dui-bg);
+    color: inherit;
+}
+
+.dui-auto-type-input:focus{
+    outline: none;
+}

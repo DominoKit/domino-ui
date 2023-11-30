@@ -29,6 +29,7 @@ public interface MenuStyles {
   CssClass dui_menu_search_box = () -> "dui-menu-search-box";
   CssClass dui_menu_sub_header = () -> "dui-menu-subheader";
   CssClass dui_menu_body = () -> "dui-menu-body";
+  CssClass dui_menu_footer = () -> "dui-menu-footer";
   CssClass dui_menu_items_list = () -> "dui-menu-items-list";
   CssClass dui_menu_item = () -> "dui-menu-item";
   CssClass dui_menu_item_anchor = () -> "dui-menu-item-anchor";

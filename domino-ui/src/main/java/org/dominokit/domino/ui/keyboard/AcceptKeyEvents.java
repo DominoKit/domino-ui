@@ -15,9 +15,9 @@
  */
 package org.dominokit.domino.ui.keyboard;
 
-import static org.dominokit.domino.ui.utils.Domino.*;
-
 import elemental2.dom.EventListener;
+import elemental2.dom.KeyboardEvent;
+import java.util.function.Predicate;
 
 /**
  * The {@code AcceptKeyEvents} interface defines methods for handling keyboard events.
@@ -246,13 +246,43 @@ public interface AcceptKeyEvents {
   AcceptKeyEvents on(String key, EventListener handler);
 
   /**
-   * Registers an event listener be called when ctrl + any key is pressed with options.
+   * Registers an event listener be called when any key is pressed with options.
    *
    * @param options The {@link org.dominokit.domino.ui.keyboard.KeyboardEventOptions}.
    * @param handler The {@link elemental2.dom.EventListener} to call when the event occurs.
    * @return The same instance of {@code AcceptKeyEvents}.
    */
   AcceptKeyEvents any(KeyboardEventOptions options, EventListener handler);
+
+  /**
+   * Registers an event listener be called when any alphanumeric key is pressed with options.
+   *
+   * @param options The {@link org.dominokit.domino.ui.keyboard.KeyboardEventOptions}.
+   * @param handler The {@link elemental2.dom.EventListener} to call when the event occurs.
+   * @return The same instance of {@code AcceptKeyEvents}.
+   */
+  AcceptKeyEvents alphanumeric(KeyboardEventOptions options, EventListener handler);
+
+  /**
+   * Registers an event listener be called when any alphanumeric key is pressed with default
+   * options.
+   *
+   * @param handler The {@link elemental2.dom.EventListener} to call when the event occurs.
+   * @return The same instance of {@code AcceptKeyEvents}.
+   */
+  AcceptKeyEvents alphanumeric(EventListener handler);
+
+  /**
+   * Registers an event listener be called when any key is pressed with options if the predicate
+   * condition is matched.
+   *
+   * @param options The {@link org.dominokit.domino.ui.keyboard.KeyboardEventOptions}.
+   * @param handler The {@link elemental2.dom.EventListener} to call when the event occurs.
+   * @param predicate A predicate to be executed to decide if the handler will be triggered or not.
+   * @return The same instance of {@code AcceptKeyEvents}.
+   */
+  AcceptKeyEvents any(
+      KeyboardEventOptions options, EventListener handler, Predicate<KeyboardEvent> predicate);
 
   /**
    * Registers an event listener be called when ctrl + any key is pressed.

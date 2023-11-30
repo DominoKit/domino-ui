@@ -34,6 +34,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
+import java.util.function.Consumer;
 import jsinterop.base.Js;
 import org.dominokit.domino.ui.IsElement;
 
@@ -58,6 +60,9 @@ public class KeyboardNavigation<V extends IsElement<?>> implements EventListener
   private EventOptions enterOptions = new EventOptions(true, true);
   private EventOptions tabOptions = new EventOptions(true, true);
   private EventOptions spaceOptions = new EventOptions(true, true);
+  private Consumer<KeyboardNavigation<V>> onEndReached = (navigation) -> focusTopFocusableItem();
+  private Consumer<KeyboardNavigation<V>> onStartReached =
+      (navigation) -> focusBottomFocusableItem();
 
   /**
    * Creates a new `KeyboardNavigation` instance for the given list of items.
@@ -266,7 +271,7 @@ public class KeyboardNavigation<V extends IsElement<?>> implements EventListener
     int nextIndex = items.indexOf(item) + 1;
     int size = items.size();
     if (nextIndex >= size) {
-      focusTopFocusableItem();
+      onEndReached.accept(this);
     } else {
       for (int i = nextIndex; i < size; i++) {
         V itemToFocus = items.get(i);
@@ -275,7 +280,7 @@ public class KeyboardNavigation<V extends IsElement<?>> implements EventListener
           return;
         }
       }
-      focusTopFocusableItem();
+      onEndReached.accept(this);
     }
   }
 
@@ -311,8 +316,22 @@ public class KeyboardNavigation<V extends IsElement<?>> implements EventListener
     }
   }
 
+  /**
+   * Get the first focusable item oif exists
+   *
+   * @return Optional of the first focusable item.
+   */
+  public Optional<V> getTopFocusableItem() {
+    for (V item : items) {
+      if (shouldFocus(item)) {
+        return Optional.of(item);
+      }
+    }
+    return Optional.empty();
+  }
+
   /** Focuses on the last focusable item in the list. */
-  private void focusBottomFocusableItem() {
+  public void focusBottomFocusableItem() {
     for (int i = items.size() - 1; i >= 0; i--) {
       V itemToFocus = items.get(i);
       if (shouldFocus(itemToFocus)) {
@@ -330,7 +349,7 @@ public class KeyboardNavigation<V extends IsElement<?>> implements EventListener
   public void focusPrevious(V item) {
     int nextIndex = items.indexOf(item) - 1;
     if (nextIndex < 0) {
-      focusBottomFocusableItem();
+      onStartReached.accept(this);
     } else {
       for (int i = nextIndex; i >= 0; i--) {
         V itemToFocus = items.get(i);
@@ -339,7 +358,7 @@ public class KeyboardNavigation<V extends IsElement<?>> implements EventListener
           return;
         }
       }
-      focusBottomFocusableItem();
+      onStartReached.accept(this);
     }
   }
 
@@ -397,6 +416,30 @@ public class KeyboardNavigation<V extends IsElement<?>> implements EventListener
     if (navigationHandlers.containsKey(keyCode.toLowerCase())) {
       navigationHandlers.get(keyCode.toLowerCase()).remove(navigationHandler);
     }
+    return this;
+  }
+
+  /**
+   * Use to change the behavior of navigating to the next item when navigating away from the last
+   * item down by default this will focus the first focusable item in the list
+   *
+   * @param onEndReached a function for the new desired behavior.
+   * @return Same KeyboardNavigation instance
+   */
+  public KeyboardNavigation<V> setOnEndReached(Consumer<KeyboardNavigation<V>> onEndReached) {
+    this.onEndReached = onEndReached;
+    return this;
+  }
+
+  /**
+   * Use to change the behavior of navigating to the previous item when navigating away from the
+   * first up item by default this will focus the last focusable item in the list
+   *
+   * @param onStartReached a function for the new desired behavior.
+   * @return Same KeyboardNavigation instance
+   */
+  public KeyboardNavigation<V> setOnStartReached(Consumer<KeyboardNavigation<V>> onStartReached) {
+    this.onStartReached = onStartReached;
     return this;
   }
 

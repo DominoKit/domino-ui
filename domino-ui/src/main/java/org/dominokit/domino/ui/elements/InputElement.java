@@ -86,4 +86,20 @@ public class InputElement extends BaseElement<HTMLInputElement, InputElement> {
     element.element().name = name;
     return this;
   }
+
+  /** @return The String value of the input element */
+  public String getValue() {
+    return element.element().value;
+  }
+
+  /**
+   * Set the value for this input element.
+   *
+   * @param value String value
+   * @return Same InputElement instance
+   */
+  public InputElement setValue(String value) {
+    element.element().value = value;
+    return this;
+  }
 }

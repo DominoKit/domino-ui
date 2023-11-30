@@ -15,9 +15,9 @@
  */
 package org.dominokit.domino.ui.keyboard;
 
-import static org.dominokit.domino.ui.utils.Domino.*;
-
 import elemental2.dom.EventListener;
+import elemental2.dom.KeyboardEvent;
+import java.util.function.Predicate;
 import java.util.function.Supplier;
 
 /**
@@ -37,6 +37,8 @@ class KeyEventHandlerContext {
   /** The supplier for {@link KeyboardEventOptions} associated with this context. */
   final Supplier<KeyboardEventOptions> options;
 
+  final Predicate<KeyboardEvent> predicate;
+
   /**
    * Constructs a new {@code KeyEventHandlerContext} with the specified event listener handler and
    * options supplier.
@@ -47,5 +49,22 @@ class KeyEventHandlerContext {
   public KeyEventHandlerContext(EventListener handler, Supplier<KeyboardEventOptions> options) {
     this.handler = handler;
     this.options = options;
+    this.predicate = keyboardEvent -> true;
+  }
+
+  /**
+   * Constructs a new {@code KeyEventHandlerContext} with the specified event listener handler and
+   * options supplier.
+   *
+   * @param handler The event listener handler.
+   * @param options The supplier for {@link KeyboardEventOptions}.
+   */
+  public KeyEventHandlerContext(
+      EventListener handler,
+      Supplier<KeyboardEventOptions> options,
+      Predicate<KeyboardEvent> predicate) {
+    this.handler = handler;
+    this.options = options;
+    this.predicate = predicate;
   }
 }

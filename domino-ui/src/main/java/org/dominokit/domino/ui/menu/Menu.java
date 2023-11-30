@@ -76,6 +76,7 @@ public class Menu<V> extends BaseDominoElement<HTMLDivElement, Menu<V>>
   private final LazyChild<DivElement> menuSubHeader;
   private final UListElement menuItemsList;
   private final DivElement menuBody;
+  private final LazyChild<DivElement> menuFooter;
   private final LazyChild<AnchorElement> createMissingElement;
   private final LazyChild<MdiIcon> backIcon;
   private LazyChild<LIElement> noResultElement;
@@ -183,13 +184,31 @@ public class Menu<V> extends BaseDominoElement<HTMLDivElement, Menu<V>>
 
     addClickListener(evt -> evt.stopPropagation());
 
+    onKeyDown(
+        keyEvents -> {
+          keyEvents.alphanumeric(
+              evt -> {
+                KeyboardEvent keyboardEvent = Js.uncheckedCast(evt);
+                focusFirstMatch(keyboardEvent.key);
+              });
+        });
+
+    menuSubHeader = LazyChild.of(div().addCss(dui_menu_sub_header), menuElement);
+
+    menuItemsList = ul().addCss(dui_menu_items_list);
+    noResultElement = LazyChild.of(li().addCss(dui_menu_no_results, dui_order_last), menuItemsList);
+    menuBody = div().addCss(dui_menu_body);
+    menuElement.appendChild(menuBody.appendChild(menuItemsList));
+
+    menuFooter = LazyChild.of(div().addCss(dui_menu_footer), menuBody);
+
     createMissingElement =
         LazyChild.of(
             a("#")
                 .setAttribute("tabindex", "0")
                 .setAttribute("aria-expanded", "true")
                 .addCss(dui_menu_create_missing),
-            menuSearchContainer);
+            menuFooter);
     createMissingElement.whenInitialized(
         () -> {
           createMissingElement
@@ -207,10 +226,28 @@ public class Menu<V> extends BaseDominoElement<HTMLDivElement, Menu<V>>
                         .onTab(evt -> keyboardNavigation.focusTopFocusableItem())
                         .onArrowDown(
                             evt -> {
-                              keyboardNavigation.focusTopFocusableItem();
+                              evt.stopPropagation();
+                              evt.preventDefault();
+                              if (isSearchable()) {
+                                this.searchBox
+                                    .get()
+                                    .getTextBox()
+                                    .getInputElement()
+                                    .element()
+                                    .focus();
+                              } else {
+                                keyboardNavigation.focusTopFocusableItem();
+                              }
+                            })
+                        .onArrowUp(
+                            evt -> {
+                              evt.stopPropagation();
+                              evt.preventDefault();
+                              keyboardNavigation.focusBottomFocusableItem();
                             });
                   });
         });
+
     searchBox.whenInitialized(
         () -> {
           searchBox.element().addSearchListener(this::onSearch);
@@ -223,26 +260,37 @@ public class Menu<V> extends BaseDominoElement<HTMLDivElement, Menu<V>>
                       keyEvents
                           .onArrowDown(
                               evt -> {
-                                String searchToken = searchBox.element().getTextBox().getValue();
-                                boolean tokenPresent =
-                                    nonNull(searchToken) && !searchToken.trim().isEmpty();
-                                if (isAllowCreateMissing()
-                                    && createMissingElement.element().isAttached()
-                                    && tokenPresent) {
-                                  createMissingElement.get().element().focus();
-                                } else {
+                                evt.stopPropagation();
+                                evt.preventDefault();
+                                Optional<AbstractMenuItem<V>> topFocusableItem =
+                                    keyboardNavigation.getTopFocusableItem();
+                                if (topFocusableItem.isPresent()) {
                                   keyboardNavigation.focusTopFocusableItem();
+                                } else {
+                                  if (isAllowCreateMissing()
+                                      && createMissingElement.element().isAttached()) {
+                                    createMissingElement.get().element().focus();
+                                  }
                                 }
                               })
-                          .onEscape(evt -> close()));
+                          .onArrowUp(
+                              evt -> {
+                                evt.stopPropagation();
+                                evt.preventDefault();
+                                if (isAllowCreateMissing()
+                                    && createMissingElement.element().isAttached()) {
+                                  createMissingElement.get().element().focus();
+                                } else {
+                                  keyboardNavigation.focusBottomFocusableItem();
+                                }
+                              })
+                          .onEscape(evt -> close())
+                          .onEnter(
+                              evt ->
+                                  keyboardNavigation
+                                      .getTopFocusableItem()
+                                      .ifPresent(AbstractMenuItem::select)));
         });
-
-    menuSubHeader = LazyChild.of(div().addCss(dui_menu_sub_header), menuElement);
-
-    menuItemsList = ul().addCss(dui_menu_items_list);
-    noResultElement = LazyChild.of(li().addCss(dui_menu_no_results, dui_order_last), menuItemsList);
-    menuBody = div().addCss(dui_menu_body);
-    menuElement.appendChild(menuBody.appendChild(menuItemsList));
 
     keyboardNavigation =
         KeyboardNavigation.create(menuItems)
@@ -280,7 +328,29 @@ public class Menu<V> extends BaseDominoElement<HTMLDivElement, Menu<V>>
                     item.focus();
                   }
                 })
-            .onEscape(this::close);
+            .onEscape(this::close)
+            .setOnEndReached(
+                navigation -> {
+                  if (isAllowCreateMissing() && createMissingElement.element().isAttached()) {
+                    createMissingElement.get().element().focus();
+                  } else if (isSearchable()) {
+                    this.searchBox.get().getTextBox().getInputElement().element().focus();
+                  } else {
+                    navigation.focusTopFocusableItem();
+                  }
+                })
+            .setOnStartReached(
+                navigation -> {
+                  if (isSearchable()) {
+                    this.searchBox.get().getTextBox().getInputElement().element().focus();
+                  } else if (isAllowCreateMissing()
+                      && createMissingElement.element().isAttached()) {
+                    createMissingElement.get().element().focus();
+                  } else {
+                    navigation.focusBottomFocusableItem();
+                  }
+                });
+    ;
 
     element.addEventListener("keydown", keyboardNavigation);
 
@@ -331,6 +401,17 @@ public class Menu<V> extends BaseDominoElement<HTMLDivElement, Menu<V>>
                 0);
           }
         };
+  }
+
+  public void focusFirstMatch(String token) {
+    findOptionStarsWith(token).ifPresent(AbstractMenuItem::focus);
+  }
+
+  public Optional<AbstractMenuItem<V>> findOptionStarsWith(String token) {
+    return this.menuItems.stream()
+        .filter(menuItem -> !menuItem.isGrouped())
+        .filter(dropDownItem -> dropDownItem.startsWith(token))
+        .findFirst();
   }
 
   /**

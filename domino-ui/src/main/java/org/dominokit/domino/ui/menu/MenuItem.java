@@ -67,6 +67,8 @@ public class MenuItem<V> extends AbstractMenuItem<V> {
       textElement = span().addCss(dui_menu_item_content).setTextContent(text);
       appendChild(textElement);
     }
+
+    this.searchFilter = this::containsToken;
   }
 
   /**
@@ -82,6 +84,20 @@ public class MenuItem<V> extends AbstractMenuItem<V> {
       descriptionElement = small().addCss(dui_menu_item_hint).setTextContent(text);
       appendChild(descriptionElement);
     }
+  }
+
+  @Override
+  public boolean startsWith(String character) {
+    String textContent =
+        Arrays.asList(Optional.ofNullable(textElement), Optional.ofNullable(descriptionElement))
+            .stream()
+            .filter(Optional::isPresent)
+            .map(element -> element.get().getTextContent())
+            .collect(Collectors.joining(" "));
+    if (isNull(textContent) || textContent.isEmpty()) {
+      return false;
+    }
+    return textContent.toLowerCase().startsWith(character.toLowerCase());
   }
 
   /**
@@ -111,11 +127,15 @@ public class MenuItem<V> extends AbstractMenuItem<V> {
    */
   @Override
   public boolean onSearch(String token, boolean caseSensitive) {
+    return onSearch(token, caseSensitive, getSearchFilter());
+  }
+
+  private boolean onSearch(String token, boolean caseSensitive, MenuSearchFilter searchFilter) {
     if (isNull(token) || token.isEmpty()) {
       this.show();
       return true;
     }
-    if (searchable && containsToken(token, caseSensitive)) {
+    if (searchable && searchFilter.onSearch(token, caseSensitive)) {
       if (this.isHidden()) {
         this.show();
       }

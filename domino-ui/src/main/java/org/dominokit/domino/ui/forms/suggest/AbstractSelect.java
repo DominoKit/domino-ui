@@ -20,8 +20,10 @@ import static java.util.Objects.nonNull;
 import static org.dominokit.domino.ui.utils.Domino.*;
 
 import elemental2.dom.DomGlobal;
+import elemental2.dom.Event;
 import elemental2.dom.HTMLElement;
 import elemental2.dom.HTMLInputElement;
+import elemental2.dom.KeyboardEvent;
 import java.util.*;
 import java.util.function.Consumer;
 import java.util.function.Function;
@@ -29,6 +31,7 @@ import java.util.stream.Collectors;
 import jsinterop.base.Js;
 import org.dominokit.domino.ui.IsElement;
 import org.dominokit.domino.ui.elements.DivElement;
+import org.dominokit.domino.ui.elements.InputElement;
 import org.dominokit.domino.ui.elements.SpanElement;
 import org.dominokit.domino.ui.forms.AbstractFormElement;
 import org.dominokit.domino.ui.forms.AutoValidator;
@@ -75,7 +78,8 @@ public abstract class AbstractSelect<
   protected Menu<T> optionsMenu;
   protected DivElement fieldInput;
   private SpanElement placeHolderElement;
-  private DominoElement<HTMLInputElement> inputElement;
+  private InputElement inputElement;
+  private InputElement typingElement;
 
   /**
    * Default constructor which initializes the underlying structures, sets up event listeners, and
@@ -85,12 +89,58 @@ public abstract class AbstractSelect<
     placeHolderElement = span();
     addCss(dui_form_select);
     wrapperElement
+        .addCss(dui_relative)
         .appendChild(
             fieldInput =
                 div()
                     .addCss(dui_field_input)
                     .appendChild(placeHolderElement.addCss(dui_field_placeholder)))
-        .appendChild(inputElement = input(getType()).addCss(dui_hidden_input).toDominoElement());
+        .appendChild(inputElement = input(getType()).addCss(dui_hidden_input))
+        .appendChild(
+            typingElement =
+                input("text")
+                    .addCss(dui_auto_type_input, dui_hidden)
+                    .setTabIndex(-1)
+                    .onKeyPress(keyEvents -> keyEvents.alphanumeric(Event::stopPropagation)));
+
+    DelayedTextInput.create(typingElement, 1000)
+        .setDelayedAction(
+            () -> {
+              optionsMenu
+                  .findOptionStarsWith(typingElement.getValue())
+                  .flatMap(OptionMeta::get)
+                  .ifPresent(
+                      meta -> onOptionSelected((O) meta.getOption(), isChangeListenersPaused()));
+              optionsMenu.focusFirstMatch(typingElement.getValue());
+              typingElement.setValue(null).addCss(dui_hidden);
+              focus();
+            })
+        .setOnEnterAction(
+            () -> {
+              openOptionMenu(false);
+              String token = typingElement.getValue();
+              typingElement.setValue(null).addCss(dui_hidden);
+              DomGlobal.setTimeout(p0 -> optionsMenu.focusFirstMatch(token), 0);
+            });
+
+    onKeyPress(
+        keyEvents -> {
+          keyEvents.alphanumeric(
+              evt -> {
+                KeyboardEvent keyboardEvent = Js.uncheckedCast(evt);
+                keyboardEvent.stopPropagation();
+                keyboardEvent.preventDefault();
+                String key = keyboardEvent.key;
+                if (nonNull(key)
+                    && !optionsMenu.isOpened()
+                    && (isNull(typingElement.getValue()) || typingElement.getValue().isEmpty())) {
+                  typingElement.removeCss(dui_hidden);
+                  typingElement.element().value = key;
+                  typingElement.element().focus();
+                }
+              });
+        });
+
     labelForId(inputElement.getDominoId());
 
     optionsMenu =
@@ -123,7 +173,8 @@ public abstract class AbstractSelect<
     getInputElement()
         .onKeyDown(
             keyEvents ->
-                keyEvents.onEnter(evt -> openOptionMenu()).onSpace(evt -> openOptionMenu()));
+                keyEvents.onEnter(evt -> openOptionMenu()).onSpace(evt -> openOptionMenu()))
+        .onKeyUp(keyEvents -> keyEvents.onArrowDown(evt -> openOptionMenu()));
 
     appendChild(
         PrimaryAddOn.of(
@@ -163,13 +214,23 @@ public abstract class AbstractSelect<
    * disabled.
    */
   private void openOptionMenu() {
+    openOptionMenu(true);
+  }
+
+  /**
+   * Opens the options menu allowing user to select an option, unless the select is read-only or
+   * disabled.
+   *
+   * @param focus a flag to decide if the menu should be focused on first element or not.
+   */
+  private void openOptionMenu(boolean focus) {
     if (isReadOnly() || isDisabled()) {
       return;
     }
     if (optionsMenu.isOpened() && !optionsMenu.isContextMenu()) {
       optionsMenu.close();
     } else {
-      optionsMenu.open(true);
+      optionsMenu.open(focus);
     }
   }
 
@@ -439,7 +500,7 @@ public abstract class AbstractSelect<
    */
   @Override
   public DominoElement<HTMLInputElement> getInputElement() {
-    return inputElement;
+    return inputElement.toDominoElement();
   }
 
   /**
