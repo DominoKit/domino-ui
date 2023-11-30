@@ -1384,12 +1384,12 @@ public class Menu<V> extends BaseDominoElement<HTMLDivElement, Menu<V>>
       Optional<MenuTarget> menuTarget = getTarget();
       menuTarget.ifPresent(
           target -> {
-            getEffectiveDropDirection()
-                .position(element.element(), target.getTargetElement().element());
             if (fitToTargetWidth) {
               element.setWidth(
                   target.getTargetElement().element().getBoundingClientRect().width + "px");
             }
+            getEffectiveDropDirection()
+                .position(element.element(), target.getTargetElement().element());
           });
     }
   }

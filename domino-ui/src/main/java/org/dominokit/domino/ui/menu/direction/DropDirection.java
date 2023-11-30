@@ -15,8 +15,6 @@
  */
 package org.dominokit.domino.ui.menu.direction;
 
-import static org.dominokit.domino.ui.utils.Domino.*;
-
 import elemental2.dom.Element;
 import elemental2.dom.Event;
 import org.dominokit.domino.ui.style.CssClass;

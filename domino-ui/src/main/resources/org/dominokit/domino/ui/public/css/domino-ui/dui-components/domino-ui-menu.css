@@ -125,7 +125,8 @@
     align-items: start;
     gap: var(--dui-menu-item-anchor-gap);
     text-decoration: none;
-    flex-wrap: wrap;
+    flex-wrap: nowrap;
+    flex-basis: 24px;
 }
 
 .dui-menu-item-icon {
@@ -158,6 +159,7 @@
 .dui-menu-drop .dui-menu-items-list {
     max-height: calc(100vh - 50vh);
     overflow-y: auto;
+    overflow-x: hidden;
 }
 
 .dui-menu-no-results {
@@ -220,6 +222,7 @@
     flex-direction: column;
     order: 30;
     flex-grow: 1;
+    max-width: calc(100% - 32px);
 }
 
 .dui-menu-item-postfix:empty {
