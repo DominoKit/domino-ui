@@ -26,7 +26,6 @@
     <inherits name="org.gwtproject.i18n.DateTimeFormat"/>
     <inherits name="org.gwtproject.i18n.I18n"/>
     <inherits name="org.dominokit.domino.logger.Logging"/>
-    <inherits name="java.time.Time"/>
 
     <source path=""/>
 
