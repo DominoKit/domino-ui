@@ -6214,6 +6214,10 @@
     width: var(--dui-spc-full);
 }
 
+.dui.dui-w-inherit {
+    width: inherit;
+}
+
 .dui.dui-w-auto {
     width: auto;
 }
@@ -6228,6 +6232,10 @@
 
 .dui.dui-h-full {
     height: var(--dui-spc-full);
+}
+
+.dui.dui-h-inherit {
+    height: inherit;
 }
 
 .dui.dui-max-h-full {
@@ -8092,6 +8100,14 @@
 
 .dui.dui-whitespace-pre-wrap {
     white-space: pre-wrap;
+}
+
+.dui.dui-whitespace-unset {
+    white-space: unset;
+}
+
+.dui.dui-whitespace-break-spaces {
+    white-space: break-spaces;
 }
 
 .dui.dui-break-normal {

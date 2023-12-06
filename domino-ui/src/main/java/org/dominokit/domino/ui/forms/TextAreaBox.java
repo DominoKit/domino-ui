@@ -25,6 +25,9 @@ import org.dominokit.domino.ui.elements.DivElement;
 import org.dominokit.domino.ui.elements.SpanElement;
 import org.dominokit.domino.ui.utils.DominoElement;
 import org.dominokit.domino.ui.utils.FillerElement;
+import org.dominokit.domino.ui.utils.IntersectionObserver;
+import org.dominokit.domino.ui.utils.IntersectionObserverEntry;
+import org.dominokit.domino.ui.utils.IntersectionObserverOptions;
 import org.dominokit.domino.ui.utils.LazyChild;
 import org.dominokit.domino.ui.utils.PostfixAddOn;
 import org.dominokit.domino.ui.utils.PrefixAddOn;
@@ -55,6 +58,7 @@ public class TextAreaBox extends CountableInputFormField<TextAreaBox, HTMLTextAr
 
   private DivElement header;
   private LazyChild<FillerElement> headerFiller;
+  private IntersectionObserver intersectionObserver;
 
   /**
    * Factory method to create a new instance of {@link TextAreaBox}.
@@ -79,19 +83,23 @@ public class TextAreaBox extends CountableInputFormField<TextAreaBox, HTMLTextAr
   public TextAreaBox() {
     setRows(4);
     addCss(dui_form_text_area);
-    wrapperElement.appendChild(
-        header =
-            div()
-                .addCss(
-                    dui_form_text_area_header,
-                    dui_hide_empty,
-                    dui_flex,
-                    dui_items_center,
-                    dui_order_first));
+    wrapperElement
+        .appendChild(
+            header =
+                div()
+                    .addCss(
+                        dui_form_text_area_header,
+                        dui_hide_empty,
+                        dui_flex,
+                        dui_items_center,
+                        dui_order_first))
+        .addCss(dui_h_inherit);
+    bodyElement.addCss(dui_h_inherit);
+
     headerFiller = LazyChild.of(FillerElement.create().addCss(dui_order_30), header);
     onAttached(mutationRecord -> adjustHeight());
     setDefaultValue("");
-    getInputElement().setAttribute("data-scroll", "0");
+    getInputElement().addCss(dui_h_inherit).setAttribute("data-scroll", "0");
     getInputElement()
         .addEventListener(
             "scroll",
@@ -99,6 +107,19 @@ public class TextAreaBox extends CountableInputFormField<TextAreaBox, HTMLTextAr
                 getInputElement()
                     .element()
                     .setAttribute("data-scroll", getInputElement().element().scrollTop));
+
+    intersectionObserver =
+        new IntersectionObserver(
+            entries -> {
+              IntersectionObserverEntry entry = entries.asList().get(0);
+              if (entry.getIsIntersecting()) {
+                adjustHeight();
+                intersectionObserver.unobserve(this.element());
+                intersectionObserver.disconnect();
+              }
+            },
+            IntersectionObserverOptions.create());
+    intersectionObserver.observe(this.element());
   }
 
   @Override
@@ -197,12 +218,10 @@ public class TextAreaBox extends CountableInputFormField<TextAreaBox, HTMLTextAr
   protected void doSetValue(String value) {
     if (nonNull(value)) {
       getInputElement().element().value = value;
-      if (isAttached()) {
-        adjustHeight();
-      }
     } else {
       getInputElement().element().value = "";
     }
+    nowOrWhenAttached(this::adjustHeight);
     updateCounter(getLength(), getMaxCount());
   }
 
@@ -235,13 +254,11 @@ public class TextAreaBox extends CountableInputFormField<TextAreaBox, HTMLTextAr
 
   /** Adjusts the height of the text area based on its content. */
   private void adjustHeight() {
-    getInputElement().style().setHeight("auto");
-    int scrollHeight = getInputElement().element().scrollHeight;
-    if (scrollHeight < 30) {
-      scrollHeight = 28;
-    }
+
     if (autoSize) {
-      getInputElement().style().setHeight(scrollHeight + "px");
+      getInputElement().style().setHeight("auto");
+      int scrollHeight = getInputElement().element().scrollHeight;
+      getInputElement().style().setHeight(Math.max(scrollHeight, 28) + "px");
     }
   }
 

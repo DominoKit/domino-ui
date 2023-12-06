@@ -13,6 +13,7 @@ fieldset.dui {
     margin-inline: 0;
     max-inline-size: 100%;
     min-inline-size:0;
+    --dui-form-field-input-whitespace: nowrap;
 }
 
 .dui-grid-col > .dui-form-field {
@@ -202,7 +203,7 @@ fieldset.dui {
     font: var(--dui-form-field-input-line-font);
     line-height: var(--dui-form-field-input-line-hieght);
     overflow: var(--dui-form-input-overflow, hidden);
-    white-space: nowrap;
+    white-space: var(--dui-form-field-input-whitespace);
     text-overflow: ellipsis;
     align-items: center;
     background-color: inherit;
@@ -211,7 +212,8 @@ fieldset.dui {
 }
 
 .dui-form-text-area {
-    --dui-form-input-overflow: auto
+    --dui-form-input-overflow: auto;
+    --dui-form-field-input-whitespace:unset;
 }
 
 .dui-field-input:focus {
