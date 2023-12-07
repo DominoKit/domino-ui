@@ -602,6 +602,12 @@ public class AbstractMenuItem<V> extends BaseDominoElement<HTMLLIElement, Abstra
     return (T) this;
   }
 
+  /**
+   * Check if the menu item text starts with a specific string
+   *
+   * @param character the text to check against.
+   * @return boolean, <b>true</b> if the menu item starts with the text, <b>false</b> otherwise.
+   */
   public boolean startsWith(String character) {
     return false;
   }

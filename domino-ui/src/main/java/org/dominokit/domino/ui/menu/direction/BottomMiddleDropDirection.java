@@ -49,24 +49,22 @@ public class BottomMiddleDropDirection implements DropDirection {
     int innerWidth = window.innerWidth;
 
     double delta = 0;
-    double availableSpace = innerWidth - newTargetRect.right - window.pageXOffset;
+    double availableSpace =
+        innerWidth - newTargetRect.right + (newTargetRect.width / 2) - window.pageXOffset;
     if (availableSpace < (newRect.width / 2)) {
-      delta = (newRect.width / 2) - availableSpace;
+      delta = (newRect.width / 2) - (newTargetRect.width / 2) - availableSpace;
     }
 
     elements.elementOf(source).setCssProperty("--dui-menu-drop-pin-offset", delta + "px");
+    double left =
+        newTargetRect.left
+            - (newRect.width / 2)
+            + (newTargetRect.width / 2)
+            + window.pageXOffset
+            - Math.abs(delta)
+            - elements.body().element().getBoundingClientRect().left;
 
-    Style.of(source)
-        .style
-        .setProperty(
-            "left",
-            px.of(
-                newTargetRect.left
-                    - (newRect.width / 2)
-                    + (newTargetRect.width / 2)
-                    + window.pageXOffset
-                    - delta
-                    - elements.body().element().getBoundingClientRect().left));
+    Style.of(source).style.setProperty("left", px.of(Math.max(left, 0)));
   }
 
   /** {@inheritDoc} */

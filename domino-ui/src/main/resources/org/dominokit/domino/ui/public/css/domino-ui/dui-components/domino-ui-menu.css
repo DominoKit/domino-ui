@@ -271,6 +271,12 @@ a.dui-menu-group-header:focus,
 a.dui-menu-group-header {
     text-decoration: none;
     outline: none;
+    display: inherit;
+}
+
+.dui-menu-group-header-nav {
+    border: none;
+    --dui-menu-header-border-width: 0;
 }
 
 .dui-menu-items-list .li:last-child {

@@ -18,6 +18,9 @@ package org.dominokit.domino.ui.menu;
 import static java.util.Objects.isNull;
 import static java.util.Objects.nonNull;
 
+import org.dominokit.domino.ui.elements.AnchorElement;
+import org.dominokit.domino.ui.utils.ChildHandler;
+
 /**
  * A custom menu item that extends the {@link AbstractMenuItem} with the capability to apply custom
  * search filters to menu items.
@@ -44,6 +47,18 @@ public class CustomMenuItem<V> extends AbstractMenuItem<V> {
 
   public CustomMenuItem() {
     this.searchFilter = (token, caseSensitive) -> false;
+  }
+
+  /**
+   * Applies a custom child handler to the link element of this menu item
+   *
+   * @param handler The child handler to apply.
+   * @return This menu item instance.
+   */
+  public CustomMenuItem<V> withClickableElement(
+      ChildHandler<CustomMenuItem<V>, AnchorElement> handler) {
+    handler.apply(this, linkElement);
+    return this;
   }
 
   /**

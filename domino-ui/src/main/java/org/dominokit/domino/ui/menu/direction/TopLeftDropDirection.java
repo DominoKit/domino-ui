@@ -50,14 +50,11 @@ public class TopLeftDropDirection implements DropDirection {
     elements.elementOf(source).setCssProperty("--dui-menu-drop-min-width", targetRect.width + "px");
 
     DOMRect newRect = source.getBoundingClientRect();
-    Style.of(source)
-        .style
-        .setProperty(
-            "left",
-            px.of(
-                (targetRect.left - (newRect.left - targetRect.left))
-                    - (sourceRect.width - targetRect.width)
-                    + delta));
+    double left =
+        (targetRect.left - (newRect.left - targetRect.left))
+            - (sourceRect.width - targetRect.width)
+            + delta;
+    Style.of(source).style.setProperty("left", px.of(Math.max(left, 0)));
   }
 
   /** {@inheritDoc} */

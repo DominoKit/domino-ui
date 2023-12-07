@@ -45,15 +45,9 @@ public class LeftMiddleDropDirection implements DropDirection {
       delta = ((sourceRect.height / 2) - availableUpSpace);
     }
 
-    Style.of(source)
-        .style
-        .setProperty(
-            "top",
-            px.of(
-                targetRect.top
-                    + window.pageYOffset
-                    - ((sourceRect.height - targetRect.height) / 2)
-                    + delta));
+    double left =
+        targetRect.top + window.pageYOffset - ((sourceRect.height - targetRect.height) / 2) + delta;
+    Style.of(source).style.setProperty("top", px.of(Math.max(left, 0)));
 
     Style.of(source).style.setProperty("left", px.of(targetRect.left));
 

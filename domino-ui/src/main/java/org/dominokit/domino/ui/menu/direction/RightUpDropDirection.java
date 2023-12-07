@@ -59,17 +59,14 @@ public class RightUpDropDirection implements DropDirection {
         .setCssProperty("--dui-dd-position-delta", ((targetRect.top - sourceRect.top)) + "px");
     elements.elementOf(source).setCssProperty("--dui-menu-drop-min-width", targetRect.width + "px");
     DOMRect newRect = source.getBoundingClientRect();
-    Style.of(source)
-        .style
-        .setProperty(
-            "left",
-            px.of(
-                (targetRect.left - (newRect.left - targetRect.left))
-                    + window.pageXOffset
-                    + targetRect.width
-                    + (source.hasAttribute("dui-position-x-offset")
-                        ? Double.parseDouble(source.getAttribute("dui-position-x-offset"))
-                        : 0)));
+    double left =
+        (targetRect.left - (newRect.left - targetRect.left))
+            + window.pageXOffset
+            + targetRect.width
+            + (source.hasAttribute("dui-position-x-offset")
+                ? Double.parseDouble(source.getAttribute("dui-position-x-offset"))
+                : 0);
+    Style.of(source).style.setProperty("left", px.of(Math.max(left, 0)));
   }
 
   /** {@inheritDoc} */

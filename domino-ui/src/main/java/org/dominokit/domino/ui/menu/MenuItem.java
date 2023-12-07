@@ -22,8 +22,10 @@ import static org.dominokit.domino.ui.utils.Domino.*;
 import java.util.Arrays;
 import java.util.Optional;
 import java.util.stream.Collectors;
+import org.dominokit.domino.ui.elements.AnchorElement;
 import org.dominokit.domino.ui.elements.SmallElement;
 import org.dominokit.domino.ui.elements.SpanElement;
+import org.dominokit.domino.ui.utils.ChildHandler;
 
 /**
  * Represents a menu item that can be added to a menu. Each menu item can have a text and an
@@ -69,6 +71,17 @@ public class MenuItem<V> extends AbstractMenuItem<V> {
     }
 
     this.searchFilter = this::containsToken;
+  }
+
+  /**
+   * Applies a custom child handler to the link element of this menu item
+   *
+   * @param handler The child handler to apply.
+   * @return This menu item instance.
+   */
+  public MenuItem<V> withClickableElement(ChildHandler<MenuItem<V>, AnchorElement> handler) {
+    handler.apply(this, linkElement);
+    return this;
   }
 
   /**

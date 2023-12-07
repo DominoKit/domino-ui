@@ -44,6 +44,7 @@ public interface MenuStyles {
   CssClass dui_menu_item_hint = () -> "dui-menu-item-hint";
   CssClass dui_menu_group = () -> "dui-menu-group";
   CssClass dui_menu_group_header = () -> "dui-menu-group-header";
+  CssClass dui_menu_group_header_nav = () -> "dui-menu-group-header-nav";
   CssClass dui_menu_drop = () -> "dui-menu-drop";
 
   CssClass dui_menu_item_prefix = () -> "dui-menu-item-prefix";

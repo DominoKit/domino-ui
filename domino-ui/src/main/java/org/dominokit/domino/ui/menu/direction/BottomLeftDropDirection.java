@@ -48,14 +48,11 @@ public class BottomLeftDropDirection implements DropDirection {
       delta = newRect.width - availableSpace;
     }
 
-    Style.of(source)
-        .style
-        .setProperty(
-            "left",
-            px.of(
-                (targetRect.left - (newRect.left - targetRect.left))
-                    - (sourceRect.width - targetRect.width)
-                    + delta));
+    double left =
+        (targetRect.left - (newRect.left - targetRect.left))
+            - (sourceRect.width - targetRect.width)
+            + delta;
+    Style.of(source).style.setProperty("left", px.of(Math.max(left, 0)));
   }
 
   /** {@inheritDoc} */
