@@ -16,6 +16,7 @@
 package org.dominokit.domino.ui.cards;
 
 import static org.dominokit.domino.ui.cards.CardStyles.*;
+import static org.dominokit.domino.ui.utils.Domino.*;
 
 import elemental2.dom.HTMLDivElement;
 import elemental2.dom.HTMLImageElement;

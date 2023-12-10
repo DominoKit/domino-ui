@@ -19,9 +19,9 @@ import org.dominokit.domino.ui.icons.MdiIcon;
 import org.dominokit.domino.ui.icons.StateChangeMdiIcon;
 
 /**
- * The `TreeItemIcon` class provides a utility for creating a state-changing icon for tree items.
- * This icon can change its appearance based on the state of the tree item (collapsed, expanded,
- * leaf, or active).
+ * The TreeItemIcon class provides a utility for creating a state-changing icon for tree items. This
+ * icon can change its appearance based on the state of the tree item (collapsed, expanded, leaf, or
+ * active).
  */
 public class TreeItemIcon {
 

@@ -15,6 +15,9 @@
  */
 package org.dominokit.domino.ui.dialogs;
 
+import static org.dominokit.domino.ui.utils.Domino.*;
+import static org.dominokit.domino.ui.utils.ElementsFactory.elements;
+
 import elemental2.dom.*;
 import jsinterop.base.Js;
 import org.dominokit.domino.ui.events.EventType;
@@ -59,7 +62,6 @@ public class Window extends AbstractDialog<Window> {
 
   private boolean draggable = true;
   private boolean fixed;
-  private boolean maximizing = false;
 
   private NavBar navHeader;
 
@@ -183,12 +185,14 @@ public class Window extends AbstractDialog<Window> {
           modalElement.element().style.left =
               windowLeft
                   - ((windowLeft + initialWidth) - windowWidth - DomGlobal.window.pageXOffset)
+                  - elements.body().element().getBoundingClientRect().left
                   + "px";
         }
       } else {
         modalElement.element().style.left =
             ((windowWidth - initialWidth) / 2)
                 + ((fixed ? 0 : DomGlobal.window.pageXOffset))
+                - elements.body().element().getBoundingClientRect().left
                 + "px";
       }
 
@@ -282,13 +286,11 @@ public class Window extends AbstractDialog<Window> {
    * @return The current instance of the Window.
    */
   public Window maximize() {
-    maximizing = true;
     maximizeIcon.collapse();
     restoreIcon.expand();
     maximized = true;
     updatePosition();
     addCss(dui_maximized);
-    maximizing = false;
     return this;
   }
 

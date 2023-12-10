@@ -17,6 +17,7 @@ package org.dominokit.domino.ui.menu.direction;
 
 import static elemental2.dom.DomGlobal.window;
 import static org.dominokit.domino.ui.style.SpacingCss.dui_flex_col_reverse;
+import static org.dominokit.domino.ui.utils.Domino.*;
 import static org.dominokit.domino.ui.utils.ElementsFactory.elements;
 import static org.dominokit.domino.ui.utils.Unit.px;
 
@@ -33,15 +34,8 @@ public class TopMiddleDropDirection implements DropDirection {
     DOMRect targetRect = target.getBoundingClientRect();
     DOMRect sourceRect = source.getBoundingClientRect();
 
-    double delta = 0;
-    double availableSpace = window.innerWidth + targetRect.left;
-    if (availableSpace < sourceRect.width) {
-      delta = sourceRect.width - availableSpace;
-    }
-
     elements.elementOf(source).setCssProperty("--dui-menu-drop-min-width", targetRect.width + "px");
     targetRect = target.getBoundingClientRect();
-    sourceRect = source.getBoundingClientRect();
 
     Style.of(source)
         .style
@@ -50,17 +44,26 @@ public class TopMiddleDropDirection implements DropDirection {
     Style.of(source).style.setProperty("left", px.of(targetRect.left));
     dui_dd_top_middle.apply(source);
 
+    int innerWidth = window.innerWidth;
     DOMRect newRect = source.getBoundingClientRect();
-    Style.of(source)
-        .style
-        .setProperty(
-            "left",
-            px.of(
-                targetRect.left
-                    - (newRect.left - targetRect.left)
-                    + window.pageXOffset
-                    - ((newRect.width - targetRect.width) / 2)
-                    - delta));
+    DOMRect newTargetRect = target.getBoundingClientRect();
+
+    double delta = 0;
+    double availableSpace =
+        innerWidth - newTargetRect.right + (newTargetRect.width / 2) - window.pageXOffset;
+    if (availableSpace < (newRect.width / 2)) {
+      delta = (newRect.width / 2) - (newTargetRect.width / 2) - availableSpace;
+    }
+    elements.elementOf(source).setCssProperty("--dui-menu-drop-pin-offset", delta + "px");
+
+    double left =
+        newTargetRect.left
+            - (newRect.width / 2)
+            + (newTargetRect.width / 2)
+            + window.pageXOffset
+            - Math.abs(delta)
+            - elements.body().element().getBoundingClientRect().left;
+    Style.of(source).style.setProperty("left", px.of(Math.max(left, 0)));
   }
 
   /** {@inheritDoc} */

@@ -17,14 +17,11 @@ package org.dominokit.domino.ui.tree;
 
 import static java.util.Objects.isNull;
 import static java.util.Objects.nonNull;
+import static org.dominokit.domino.ui.utils.Domino.*;
 
 import elemental2.dom.HTMLDivElement;
 import elemental2.dom.HTMLElement;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
 import org.dominokit.domino.ui.IsElement;
 import org.dominokit.domino.ui.collapsible.CollapseStrategy;
 import org.dominokit.domino.ui.elements.DivElement;
@@ -34,16 +31,10 @@ import org.dominokit.domino.ui.icons.Icon;
 import org.dominokit.domino.ui.icons.ToggleMdiIcon;
 import org.dominokit.domino.ui.icons.lib.Icons;
 import org.dominokit.domino.ui.search.Search;
-import org.dominokit.domino.ui.utils.BaseDominoElement;
-import org.dominokit.domino.ui.utils.ChildHandler;
-import org.dominokit.domino.ui.utils.HasSelectionListeners;
-import org.dominokit.domino.ui.utils.LazyChild;
-import org.dominokit.domino.ui.utils.PostfixAddOn;
-import org.dominokit.domino.ui.utils.Separator;
-import org.dominokit.domino.ui.utils.TreeParent;
+import org.dominokit.domino.ui.utils.*;
 
 /**
- * The `Tree` class provides a tree structure for displaying hierarchical data.
+ * The Tree class provides a tree structure for displaying hierarchical data.
  *
  * <p>Example usage:
  *
@@ -127,33 +118,33 @@ public class Tree<T> extends BaseDominoElement<HTMLDivElement, Tree<T>>
   }
 
   /**
-   * Creates a new instance of `Tree` with the specified title and associated data value.
+   * Creates a new instance of Tree with the specified title and associated data value.
    *
    * @param title The title of the tree.
    * @param value The data value associated with the tree.
    * @param <T> The type of data associated with each tree item.
-   * @return A new `Tree` instance.
+   * @return A new Tree instance.
    */
   public static <T> Tree<T> create(String title, T value) {
     return new Tree<>(title, value);
   }
 
   /**
-   * Creates a new instance of `Tree` with the specified title.
+   * Creates a new instance of Tree with the specified title.
    *
    * @param title The title of the tree.
    * @param <T> The type of data associated with each tree item.
-   * @return A new `Tree` instance.
+   * @return A new Tree instance.
    */
   public static <T> Tree<T> create(String title) {
     return new Tree<>(title);
   }
 
   /**
-   * Creates a new empty instance of `Tree`.
+   * Creates a new empty instance of Tree.
    *
    * @param <T> The type of data associated with each tree item.
-   * @return A new `Tree` instance.
+   * @return A new Tree instance.
    */
   public static <T> Tree<T> create() {
     return new Tree<>();
@@ -168,7 +159,7 @@ public class Tree<T> extends BaseDominoElement<HTMLDivElement, Tree<T>>
    * Appends a child tree item to this tree.
    *
    * @param treeItem The tree item to append.
-   * @return This `Tree` instance for method chaining.
+   * @return This Tree instance for method chaining.
    */
   public Tree<T> appendChild(TreeItem<T> treeItem) {
     super.appendChild(treeItem.element());
@@ -215,7 +206,7 @@ public class Tree<T> extends BaseDominoElement<HTMLDivElement, Tree<T>>
   /**
    * Appends a separator to this tree.
    *
-   * @return This `Tree` instance for method chaining.
+   * @return This Tree instance for method chaining.
    */
   public Tree<T> addSeparator() {
     appendChild(Separator.create());

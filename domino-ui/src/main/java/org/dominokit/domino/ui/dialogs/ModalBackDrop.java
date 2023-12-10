@@ -16,6 +16,7 @@
 package org.dominokit.domino.ui.dialogs;
 
 import static java.util.Objects.isNull;
+import static org.dominokit.domino.ui.utils.Domino.*;
 
 import elemental2.dom.CustomEvent;
 import elemental2.dom.CustomEventInit;

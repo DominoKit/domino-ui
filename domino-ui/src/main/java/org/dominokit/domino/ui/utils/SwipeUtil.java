@@ -16,6 +16,7 @@
 
 package org.dominokit.domino.ui.utils;
 
+import static org.dominokit.domino.ui.utils.Domino.*;
 import static org.dominokit.domino.ui.utils.SwipeUtil.SwipeDirection.*;
 
 import elemental2.dom.*;

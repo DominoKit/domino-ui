@@ -17,6 +17,7 @@ package org.dominokit.domino.ui.forms;
 
 import static java.util.Objects.nonNull;
 import static org.dominokit.domino.ui.menu.direction.DropDirection.BEST_MIDDLE_DOWN_UP;
+import static org.dominokit.domino.ui.utils.Domino.*;
 
 import elemental2.dom.DomGlobal;
 import elemental2.dom.HTMLInputElement;

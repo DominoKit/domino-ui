@@ -13,6 +13,7 @@ fieldset.dui {
     margin-inline: 0;
     max-inline-size: 100%;
     min-inline-size:0;
+    --dui-form-field-input-whitespace: nowrap;
 }
 
 .dui-grid-col > .dui-form-field {
@@ -202,7 +203,7 @@ fieldset.dui {
     font: var(--dui-form-field-input-line-font);
     line-height: var(--dui-form-field-input-line-hieght);
     overflow: var(--dui-form-input-overflow, hidden);
-    white-space: nowrap;
+    white-space: var(--dui-form-field-input-whitespace);
     text-overflow: ellipsis;
     align-items: center;
     background-color: inherit;
@@ -211,7 +212,8 @@ fieldset.dui {
 }
 
 .dui-form-text-area {
-    --dui-form-input-overflow: auto
+    --dui-form-input-overflow: auto;
+    --dui-form-field-input-whitespace:unset;
 }
 
 .dui-field-input:focus {
@@ -256,7 +258,11 @@ fieldset.dui {
     min-height: var(--dui-form-field-fixed-messages-height);
 }
 
-.dui-form-field:not(.dui-form-messages-fixed) .dui-field-messages-wrapper:empty {
+.dui-form-messages-fixed .dui-field-messages-wrapper:empty{
+    display: flex;
+}
+
+.dui-field-messages-wrapper:empty {
     display: none;
 }
 
@@ -694,4 +700,27 @@ textarea.dui-field-input {
 }
 .dui-form-field.dui-form-text-area .dui-field-input:not([data-scroll='0']) {
     border-top: var(--dui-form-scrolled-text-area-border);
+}
+
+.dui-auto-type-input {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: inherit;
+    max-width: 100%;
+    min-height: var(--dui-form-field-input-height);
+    border: none;
+    border-radius: var(--dui-form-field-wrapper-radius);
+    font: var(--dui-form-field-input-line-font);
+    line-height: var(--dui-form-field-input-line-hieght);
+    overflow: var(--dui-form-input-overflow, hidden);
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    background-color: var(--dui-bg);
+    color: inherit;
+}
+
+.dui-auto-type-input:focus{
+    outline: none;
 }

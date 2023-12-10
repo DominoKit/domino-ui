@@ -15,11 +15,15 @@
  */
 package org.dominokit.domino.ui.utils;
 
-import elemental2.svg.*;
 import org.dominokit.domino.ui.elements.svg.*;
 
+/**
+ * The SVGFactory interface provides methods for creating various SVG elements. This interface
+ * serves as a centralized factory for creating all types of SVG elements used within the Domino UI
+ * framework.
+ */
 public interface SVGFactory {
-  SVGFactory elements = new SVGFactory() {};
+  SVGFactory svgElements = new SVGFactory() {};
 
   /**
    * Provides access to the delegate that implements the SVGFactory interface.
@@ -30,339 +34,760 @@ public interface SVGFactory {
     return DominoUIConfig.CONFIG.getSVGFactory();
   }
 
-  default AElement a() {
+  /**
+   * Creates an AElement, representing an anchor element in SVG. This element can define a hyperlink
+   * to a specified location.
+   *
+   * @return An instance of AElement.
+   */
+  default AElement svgA() {
     return delegate().a();
   }
 
-  default AltGlyphDefElement altGlyphDef() {
+  /**
+   * Creates an AltGlyphDefElement, used in SVG to define alternative glyph definitions.
+   *
+   * @return An instance of AltGlyphDefElement.
+   */
+  default AltGlyphDefElement svgAltGlyphDef() {
     return delegate().altGlyphDef();
   }
 
-  default AltGlyphElement altGlyph() {
+  /**
+   * Creates an AltGlyphElement, which allows for advanced glyph substitution in SVG text.
+   *
+   * @return An instance of AltGlyphElement.
+   */
+  default AltGlyphElement svgAltGlyph() {
     return delegate().altGlyph();
   }
 
-  default AltGlyphItemElement altGlyphItem() {
+  /**
+   * Creates an AltGlyphItemElement, part of SVG's advanced text layout features.
+   *
+   * @return An instance of AltGlyphItemElement.
+   */
+  default AltGlyphItemElement svgAltGlyphItem() {
     return delegate().altGlyphItem();
   }
 
-  default AnimateColorElement animateColor() {
+  /**
+   * Creates an AnimateColorElement for animating color properties in SVG graphics.
+   *
+   * @return An instance of AnimateColorElement.
+   */
+  default AnimateColorElement svgAnimateColor() {
     return delegate().animateColor();
   }
 
-  default AnimateElement animate() {
+  /**
+   * Creates an AnimateElement, used in SVG for general-purpose animation of attributes.
+   *
+   * @return An instance of AnimateElement.
+   */
+  default AnimateElement svgAnimate() {
     return delegate().animate();
   }
 
-  default AnimateMotionElement animateMotion() {
+  /**
+   * Creates an AnimateMotionElement for animating motion of elements in SVG.
+   *
+   * @return An instance of AnimateMotionElement.
+   */
+  default AnimateMotionElement svgAnimateMotion() {
     return delegate().animateMotion();
   }
 
-  default AnimateTransformElement animateTransform() {
+  /**
+   * Creates an AnimateTransformElement for animating transformations in SVG elements.
+   *
+   * @return An instance of AnimateTransformElement.
+   */
+  default AnimateTransformElement svgAnimateTransform() {
     return delegate().animateTransform();
   }
 
-  default AnimationElement animation() {
+  /**
+   * Creates an AnimationElement, used for defining animations in SVG.
+   *
+   * @return An instance of AnimationElement.
+   */
+  default AnimationElement svgAnimation() {
     return delegate().animation();
   }
 
-  default CircleElement circle() {
+  /**
+   * Creates a CircleElement, representing a circle in SVG.
+   *
+   * @return An instance of CircleElement.
+   */
+  default CircleElement svgCircle() {
     return delegate().circle();
   }
 
-  default ClipPathElement clipPath() {
+  /**
+   * Creates a ClipPathElement, used in SVG to define a clipping path.
+   *
+   * @return An instance of ClipPathElement.
+   */
+  default ClipPathElement svgClipPath() {
     return delegate().clipPath();
   }
 
-  default ComponentTransferFunctionElement componentTransferFunction() {
+  /**
+   * Creates a ComponentTransferFunctionElement for component-wise remapping of colors in SVG.
+   *
+   * @return An instance of ComponentTransferFunctionElement.
+   */
+  default ComponentTransferFunctionElement svgComponentTransferFunction() {
     return delegate().componentTransferFunction();
   }
 
-  default CursorElement cursor() {
+  /**
+   * Creates a CursorElement, used in SVG to define a custom cursor.
+   *
+   * @return An instance of CursorElement.
+   */
+  default CursorElement svgCursor() {
     return delegate().cursor();
   }
 
-  default DefsElement defs() {
+  /**
+   * Creates a DefsElement, used in SVG to define objects for reuse.
+   *
+   * @return An instance of DefsElement.
+   */
+  default DefsElement svgDefs() {
     return delegate().defs();
   }
 
-  default DescElement desc() {
+  /**
+   * Creates a DescElement, providing a description for an SVG container or element.
+   *
+   * @return An instance of DescElement.
+   */
+  default DescElement svgDesc() {
     return delegate().desc();
   }
 
-  default EllipseElement ellipse() {
+  /**
+   * Creates an EllipseElement, representing an ellipse in SVG.
+   *
+   * @return An instance of EllipseElement.
+   */
+  default EllipseElement svgEllipse() {
     return delegate().ellipse();
   }
 
-  default FEBlendElement feBlend() {
+  /**
+   * Creates an FEBlendElement for defining blend effects in SVG filters.
+   *
+   * @return An instance of FEBlendElement.
+   */
+  default FEBlendElement svgFeBlend() {
     return delegate().feBlend();
   }
 
-  default FEColorMatrixElement feColorMatrix() {
+  /**
+   * Creates an FEColorMatrixElement for applying color matrix effects in SVG filters.
+   *
+   * @return An instance of FEColorMatrixElement.
+   */
+  default FEColorMatrixElement svgFeColorMatrix() {
     return delegate().feColorMatrix();
   }
 
-  default FEComponentTransferElement feComponentTransfer() {
+  /**
+   * Creates an FEComponentTransferElement for component-wise reassignment of colors in SVG filters.
+   *
+   * @return An instance of FEComponentTransferElement.
+   */
+  default FEComponentTransferElement svgFeComponentTransfer() {
     return delegate().feComponentTransfer();
   }
 
-  default FECompositeElement feComposite() {
+  /**
+   * Creates an FECompositeElement, used for compositing operations in SVG filters.
+   *
+   * @return An instance of FECompositeElement.
+   */
+  default FECompositeElement svgFeComposite() {
     return delegate().feComposite();
   }
 
-  default FEConvolveMatrixElement feConvolveMatrix() {
+  /**
+   * Creates an FEConvolveMatrixElement for applying convolution matrix effects in SVG filters.
+   *
+   * @return An instance of FEConvolveMatrixElement.
+   */
+  default FEConvolveMatrixElement svgFeConvolveMatrix() {
     return delegate().feConvolveMatrix();
   }
 
-  default FEDiffuseLightingElement feDiffuseLighting() {
+  /**
+   * Creates an FEDiffuseLightingElement for diffuse lighting effects in SVG filters.
+   *
+   * @return An instance of FEDiffuseLightingElement.
+   */
+  default FEDiffuseLightingElement svgFeDiffuseLighting() {
     return delegate().feDiffuseLighting();
   }
 
-  default FEDisplacementMapElement feDisplacementMap() {
+  /**
+   * Creates an FEDisplacementMapElement for displacement mapping in SVG filters.
+   *
+   * @return An instance of FEDisplacementMapElement.
+   */
+  default FEDisplacementMapElement svgFeDisplacementMap() {
     return delegate().feDisplacementMap();
   }
 
-  default FEDistantLightElement feDistantLight() {
+  /**
+   * Creates an FEDistantLightElement for defining distant light sources in SVG filters.
+   *
+   * @return An instance of FEDistantLightElement.
+   */
+  default FEDistantLightElement svgFeDistantLight() {
     return delegate().feDistantLight();
   }
 
-  default FEDropShadowElement feDropShadow() {
+  /**
+   * Creates an FEDropShadowElement for drop shadow effects in SVG.
+   *
+   * @return An instance of FEDropShadowElement.
+   */
+  default FEDropShadowElement svgFeDropShadow() {
     return delegate().feDropShadow();
   }
 
-  default FEFloodElement feFlood() {
+  /**
+   * Creates an FEFloodElement for flood fill effects in SVG filters.
+   *
+   * @return An instance of FEFloodElement.
+   */
+  default FEFloodElement svgFeFlood() {
     return delegate().feFlood();
   }
 
-  default FEFuncAElement feFuncA() {
+  /**
+   * Creates an FEFuncAElement for manipulating the alpha component of a color in SVG filters.
+   *
+   * @return An instance of FEFuncAElement.
+   */
+  default FEFuncAElement svgFeFuncA() {
     return delegate().feFuncA();
   }
 
-  default FEFuncBElement feFuncB() {
+  /**
+   * Creates an FEFuncBElement for manipulating the blue component of a color in SVG filters.
+   *
+   * @return An instance of FEFuncBElement.
+   */
+  default FEFuncBElement svgFeFuncB() {
     return delegate().feFuncB();
   }
 
-  default FEFuncGElement feFuncG() {
+  /**
+   * Creates an FEFuncGElement for manipulating the green component of a color in SVG filters.
+   *
+   * @return An instance of FEFuncGElement.
+   */
+  default FEFuncGElement svgFeFuncG() {
     return delegate().feFuncG();
   }
 
-  default FEFuncRElement feFuncR() {
+  /**
+   * Creates an FEFuncRElement for manipulating the red component of a color in SVG filters.
+   *
+   * @return An instance of FEFuncRElement.
+   */
+  default FEFuncRElement svgFeFuncR() {
     return delegate().feFuncR();
   }
 
-  default FEGaussianBlurElement feGaussianBlur() {
+  /**
+   * Creates an FEGaussianBlurElement for Gaussian blur effects in SVG filters.
+   *
+   * @return An instance of FEGaussianBlurElement.
+   */
+  default FEGaussianBlurElement svgFeGaussianBlur() {
     return delegate().feGaussianBlur();
   }
 
-  default FEImageElement feImage() {
+  /**
+   * Creates an FEImageElement for embedding images in SVG filters.
+   *
+   * @return An instance of FEImageElement.
+   */
+  default FEImageElement svgFeImage() {
     return delegate().feImage();
   }
 
-  default FEMergeElement feMerge() {
+  /**
+   * Creates an FEMergeElement for merging multiple input filters in SVG.
+   *
+   * @return An instance of FEMergeElement.
+   */
+  default FEMergeElement svgFeMerge() {
     return delegate().feMerge();
   }
 
-  default FEMergeNodeElement feMergeNode() {
+  /**
+   * Creates an FEMergeNodeElement, representing a single input in an FEMergeElement in SVG filters.
+   *
+   * @return An instance of FEMergeNodeElement.
+   */
+  default FEMergeNodeElement svgFeMergeNode() {
     return delegate().feMergeNode();
   }
 
-  default FEMorphologyElement feMorphology() {
+  /**
+   * Creates an FEMorphologyElement for applying morphological operations in SVG filters.
+   *
+   * @return An instance of FEMorphologyElement.
+   */
+  default FEMorphologyElement svgFeMorphology() {
     return delegate().feMorphology();
   }
 
-  default FEOffsetElement feOffset() {
+  /**
+   * Creates an FEOffsetElement for applying offset effects in SVG filters.
+   *
+   * @return An instance of FEOffsetElement.
+   */
+  default FEOffsetElement svgFeOffset() {
     return delegate().feOffset();
   }
 
-  default FEPointLightElement fePointLight() {
+  /**
+   * Creates an FEPointLightElement for defining a point light source in SVG filters.
+   *
+   * @return An instance of FEPointLightElement.
+   */
+  default FEPointLightElement svgFePointLight() {
     return delegate().fePointLight();
   }
 
-  default FESpecularLightingElement feSpecularLighting() {
+  /**
+   * Creates an FESpecularLightingElement for applying specular lighting effects in SVG filters.
+   *
+   * @return An instance of FESpecularLightingElement.
+   */
+  default FESpecularLightingElement svgFeSpecularLighting() {
     return delegate().feSpecularLighting();
   }
 
-  default FESpotLightElement feSpotLight() {
+  /**
+   * Creates an FESpotLightElement for defining a spot light source in SVG filters.
+   *
+   * @return An instance of FESpotLightElement.
+   */
+  default FESpotLightElement svgFeSpotLight() {
     return delegate().feSpotLight();
   }
 
-  default FETileElement feTile() {
+  /**
+   * Creates an FETileElement for filling a target rectangle with a tiled pattern in SVG filters.
+   *
+   * @return An instance of FETileElement.
+   */
+  default FETileElement svgFeTile() {
     return delegate().feTile();
   }
 
-  default FETurbulenceElement feTurbulence() {
+  /**
+   * Creates an FETurbulenceElement for creating turbulence effects in SVG filters.
+   *
+   * @return An instance of FETurbulenceElement.
+   */
+  default FETurbulenceElement svgFeTurbulence() {
     return delegate().feTurbulence();
   }
 
-  default FilterElement filter() {
+  /**
+   * Creates a FilterElement, a container for SVG filter primitives.
+   *
+   * @return An instance of FilterElement.
+   */
+  default FilterElement svgFilter() {
     return delegate().filter();
   }
 
-  default FontElement font() {
+  /**
+   * Creates a FontElement for defining a font in SVG.
+   *
+   * @return An instance of FontElement.
+   */
+  default FontElement svgFont() {
     return delegate().font();
   }
 
-  default FontFaceElement fontFace() {
+  /**
+   * Creates a FontFaceElement for defining font face properties in SVG.
+   *
+   * @return An instance of FontFaceElement.
+   */
+  default FontFaceElement svgFontFace() {
     return delegate().fontFace();
   }
 
-  default FontFaceFormatElement fontFaceFormat() {
+  /**
+   * Creates a FontFaceFormatElement for defining font formats in SVG.
+   *
+   * @return An instance of FontFaceFormatElement.
+   */
+  default FontFaceFormatElement svgFontFaceFormat() {
     return delegate().fontFaceFormat();
   }
 
-  default FontFaceNameElement fontFaceName() {
+  /**
+   * Creates a FontFaceNameElement for defining font names in SVG.
+   *
+   * @return An instance of FontFaceNameElement.
+   */
+  default FontFaceNameElement svgFontFaceName() {
     return delegate().fontFaceName();
   }
 
-  default FontFaceUriElement fontFaceUri() {
+  /**
+   * Creates a FontFaceUriElement for defining font URIs in SVG.
+   *
+   * @return An instance of FontFaceUriElement.
+   */
+  default FontFaceUriElement svgFontFaceUri() {
     return delegate().fontFaceUri();
   }
 
-  default ForeignObjectElement foreignObject() {
+  /**
+   * Creates a ForeignObjectElement for embedding external content in SVG.
+   *
+   * @return An instance of ForeignObjectElement.
+   */
+  default ForeignObjectElement svgForeignObject() {
     return delegate().foreignObject();
   }
 
-  default GElement g() {
+  /**
+   * Creates a GElement, a container used to group SVG elements.
+   *
+   * @return An instance of GElement.
+   */
+  default GElement svgG() {
     return delegate().g();
   }
 
-  default GlyphElement glyph() {
+  /**
+   * Creates a GlyphElement for defining glyphs in SVG fonts.
+   *
+   * @return An instance of GlyphElement.
+   */
+  default GlyphElement svgGlyph() {
     return delegate().glyph();
   }
 
-  default GlyphRefElement glyphRef() {
+  /**
+   * Creates a GlyphRefElement for referencing a glyph defined elsewhere in SVG fonts.
+   *
+   * @return An instance of GlyphRefElement.
+   */
+  default GlyphRefElement svgGlyphRef() {
     return delegate().glyphRef();
   }
 
-  default GradientElement gradient() {
+  /**
+   * Creates a GradientElement for defining gradients in SVG.
+   *
+   * @return An instance of GradientElement.
+   */
+  default GradientElement svgGradient() {
     return delegate().gradient();
   }
 
-  default GraphicsElement graphics() {
+  /**
+   * Creates a GraphicsElement, a base class for SVG graphical elements.
+   *
+   * @return An instance of GraphicsElement.
+   */
+  default GraphicsElement svgGraphics() {
     return delegate().graphics();
   }
 
-  default HKernElement hkern() {
+  /**
+   * Creates an HKernElement for defining horizontal kerning in SVG fonts.
+   *
+   * @return An instance of HKernElement.
+   */
+  default HKernElement svgHkern() {
     return delegate().hkern();
   }
 
-  default ImageElement image() {
+  /**
+   * Creates an ImageElement for embedding images in SVG.
+   *
+   * @return An instance of ImageElement.
+   */
+  default ImageElement svgImage() {
     return delegate().image();
   }
 
-  default LinearGradientElement linearGradient() {
+  /**
+   * Creates a LinearGradientElement for defining linear gradients in SVG.
+   *
+   * @return An instance of LinearGradientElement.
+   */
+  default LinearGradientElement svgLinearGradient() {
     return delegate().linearGradient();
   }
 
-  default LineElement line() {
+  /**
+   * Creates a LineElement, representing a line in SVG.
+   *
+   * @return An instance of LineElement.
+   */
+  default LineElement svgLine() {
     return delegate().line();
   }
 
-  default MarkerElement marker() {
+  /**
+   * Creates a MarkerElement for defining marker graphics in SVG.
+   *
+   * @return An instance of MarkerElement.
+   */
+  default MarkerElement svgMarker() {
     return delegate().marker();
   }
 
-  default MaskElement mask() {
+  /**
+   * Creates a MaskElement, used for defining an alpha mask in SVG.
+   *
+   * @return An instance of MaskElement.
+   */
+  default MaskElement svgMask() {
     return delegate().mask();
   }
 
-  default MetadataElement metadata() {
+  /**
+   * Creates a MetadataElement for embedding metadata within an SVG document.
+   *
+   * @return An instance of MetadataElement.
+   */
+  default MetadataElement svgMetadata() {
     return delegate().metadata();
   }
 
-  default MissingGlyphElement missingGlyph() {
+  /**
+   * Creates a MissingGlyphElement for specifying fallback glyphs in SVG fonts.
+   *
+   * @return An instance of MissingGlyphElement.
+   */
+  default MissingGlyphElement svgMissingGlyph() {
     return delegate().missingGlyph();
   }
 
-  default MPathElement mpath() {
+  /**
+   * Creates an MPathElement for defining motion paths in SVG animations.
+   *
+   * @return An instance of MPathElement.
+   */
+  default MPathElement svgMpath() {
     return delegate().mpath();
   }
 
-  default PathElement path() {
+  /**
+   * Creates a PathElement, representing a path in SVG.
+   *
+   * @return An instance of PathElement.
+   */
+  default PathElement svgPath() {
     return delegate().path();
   }
 
-  default PatternElement pattern() {
+  /**
+   * Creates a PatternElement for defining patterns used in fill and stroke operations in SVG.
+   *
+   * @return An instance of PatternElement.
+   */
+  default PatternElement svgPattern() {
     return delegate().pattern();
   }
 
-  default PolygonElement polygon() {
+  /**
+   * Creates a PolygonElement, representing a polygon in SVG.
+   *
+   * @return An instance of PolygonElement.
+   */
+  default PolygonElement svgPolygon() {
     return delegate().polygon();
   }
 
-  default PolyLineElement polyLine() {
+  /**
+   * Creates a PolyLineElement, representing a polyline in SVG.
+   *
+   * @return An instance of PolyLineElement.
+   */
+  default PolyLineElement svgPolyLine() {
     return delegate().polyLine();
   }
 
-  default RadialGradientElement radialGradient() {
+  /**
+   * Creates a RadialGradientElement for defining radial gradients in SVG.
+   *
+   * @return An instance of RadialGradientElement.
+   */
+  default RadialGradientElement svgRadialGradient() {
     return delegate().radialGradient();
   }
 
-  default RectElement rect() {
+  /**
+   * Creates a RectElement, representing a rectangle in SVG.
+   *
+   * @return An instance of RectElement.
+   */
+  default RectElement svgRect() {
     return delegate().rect();
   }
 
-  default ScriptElement script() {
+  /**
+   * Creates a ScriptElement for embedding scripts in SVG documents.
+   *
+   * @return An instance of ScriptElement.
+   */
+  default ScriptElement svgScript() {
     return delegate().script();
   }
 
-  default SetElement set() {
+  /**
+   * Creates a SetElement for defining discrete animations in SVG.
+   *
+   * @return An instance of SetElement.
+   */
+  default SetElement svgSet() {
     return delegate().set();
   }
 
-  default StopElement stop() {
+  /**
+   * Creates a StopElement for defining color stops in SVG gradient elements.
+   *
+   * @return An instance of StopElement.
+   */
+  default StopElement svgStop() {
     return delegate().stop();
   }
 
-  default StyleElement style() {
+  /**
+   * Creates a StyleElement for embedding style information in SVG documents.
+   *
+   * @return An instance of StyleElement.
+   */
+  default StyleElement svgStyle() {
     return delegate().style();
   }
 
-  default SwitchElement switch_() {
+  /**
+   * Creates a SwitchElement for conditional processing in SVG documents.
+   *
+   * @return An instance of SwitchElement.
+   */
+  default SwitchElement svgSwitch_() {
     return delegate().switch_();
   }
 
-  default SymbolElement symbol() {
+  /**
+   * Creates a SymbolElement, used for defining graphical template objects in SVG.
+   *
+   * @return An instance of SymbolElement.
+   */
+  default SymbolElement svgSymbol() {
     return delegate().symbol();
   }
 
-  default TextContentElement textContent() {
+  /**
+   * Creates a TextContentElement, a base class for elements containing text in SVG.
+   *
+   * @return An instance of TextContentElement.
+   */
+  default TextContentElement svgTextContent() {
     return delegate().textContent();
   }
 
-  default TextElement text() {
+  /**
+   * Creates a TextElement, representing text in SVG.
+   *
+   * @return An instance of TextElement.
+   */
+  default TextElement svgText() {
     return delegate().text();
   }
 
-  default TextPathElement textPath() {
+  /**
+   * Creates a TextPathElement for aligning text along a path in SVG.
+   *
+   * @return An instance of TextPathElement.
+   */
+  default TextPathElement svgTextPath() {
     return delegate().textPath();
   }
 
-  default TextPositioningElement textPositioning() {
+  /**
+   * Creates a TextPositioningElement for advanced text positioning in SVG.
+   *
+   * @return An instance of TextPositioningElement.
+   */
+  default TextPositioningElement svgTextPositioning() {
     return delegate().textPositioning();
   }
 
-  default TitleElement title() {
+  /**
+   * Creates a TitleElement for adding descriptive titles to SVG elements.
+   *
+   * @return An instance of TitleElement.
+   */
+  default TitleElement svgTitle() {
     return delegate().title();
   }
 
-  default TRefElement tref() {
+  /**
+   * Creates a TRefElement for referencing other text in SVG documents.
+   *
+   * @return An instance of TRefElement.
+   */
+  default TRefElement svgTref() {
     return delegate().tref();
   }
 
-  default TSpanElement tspan() {
+  /**
+   * Creates a TSpanElement for defining text spans in SVG text.
+   *
+   * @return An instance of TSpanElement.
+   */
+  default TSpanElement svgTspan() {
     return delegate().tspan();
   }
 
-  default UseElement use() {
+  /**
+   * Creates a UseElement for reusing existing SVG elements.
+   *
+   * @return An instance of UseElement.
+   */
+  default UseElement svgUse() {
     return delegate().use();
   }
 
-  default ViewElement view() {
+  /**
+   * Creates a ViewElement for defining views in SVG.
+   *
+   * @return An instance of ViewElement.
+   */
+  default ViewElement svgView() {
     return delegate().view();
   }
 
-  default VKernElement vkern() {
+  /**
+   * Creates a VKernElement for defining vertical kerning in SVG fonts.
+   *
+   * @return An instance of VKernElement.
+   */
+  default VKernElement svgVkern() {
     return delegate().vkern();
   }
 }

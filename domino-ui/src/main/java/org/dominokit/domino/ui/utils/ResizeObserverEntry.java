@@ -15,6 +15,8 @@
  */
 package org.dominokit.domino.ui.utils;
 
+import static org.dominokit.domino.ui.utils.Domino.*;
+
 import elemental2.core.JsArray;
 import elemental2.dom.DOMRect;
 import elemental2.dom.Element;

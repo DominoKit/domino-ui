@@ -21,6 +21,7 @@ import static java.util.Objects.isNull;
 import static java.util.Objects.nonNull;
 import static jsinterop.base.Js.cast;
 import static org.dominokit.domino.ui.utils.DomElements.dom;
+import static org.dominokit.domino.ui.utils.Domino.*;
 
 import elemental2.dom.DomGlobal;
 import elemental2.dom.Element;

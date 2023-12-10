@@ -17,6 +17,7 @@ package org.dominokit.domino.ui.menu.direction;
 
 import static elemental2.dom.DomGlobal.window;
 import static org.dominokit.domino.ui.style.SpacingCss.dui_flex_col_reverse;
+import static org.dominokit.domino.ui.utils.Domino.*;
 import static org.dominokit.domino.ui.utils.ElementsFactory.elements;
 import static org.dominokit.domino.ui.utils.Unit.px;
 
@@ -31,35 +32,39 @@ public class BottomMiddleDropDirection implements DropDirection {
   public void position(Element source, Element target) {
     dui_flex_col_reverse.remove(source);
     DOMRect targetRect = target.getBoundingClientRect();
-    DOMRect sourceRect = source.getBoundingClientRect();
-    double delta = 0;
-    double availableSpace = targetRect.left + targetRect.width;
-    if (availableSpace < sourceRect.width) {
-      delta = sourceRect.width - availableSpace;
-    }
 
     elements.elementOf(source).setCssProperty("--dui-menu-drop-min-width", targetRect.width + "px");
     targetRect = target.getBoundingClientRect();
-    sourceRect = source.getBoundingClientRect();
 
     Style.of(source)
         .style
         .setProperty("top", px.of((targetRect.top + window.pageYOffset) + targetRect.height + 1));
 
-    Style.of(source).style.setProperty("left", px.of(targetRect.left));
+    Style.of(source).style.setProperty("left", targetRect.left + "px");
     dui_dd_bottom_middle.apply(source);
 
     DOMRect newRect = source.getBoundingClientRect();
-    Style.of(source)
-        .style
-        .setProperty(
-            "left",
-            px.of(
-                targetRect.left
-                    - (newRect.left - targetRect.left)
-                    + window.pageXOffset
-                    - ((newRect.width - targetRect.width) / 2)
-                    - delta));
+    DOMRect newTargetRect = target.getBoundingClientRect();
+
+    int innerWidth = window.innerWidth;
+
+    double delta = 0;
+    double availableSpace =
+        innerWidth - newTargetRect.right + (newTargetRect.width / 2) - window.pageXOffset;
+    if (availableSpace < (newRect.width / 2)) {
+      delta = (newRect.width / 2) - (newTargetRect.width / 2) - availableSpace;
+    }
+
+    elements.elementOf(source).setCssProperty("--dui-menu-drop-pin-offset", delta + "px");
+    double left =
+        newTargetRect.left
+            - (newRect.width / 2)
+            + (newTargetRect.width / 2)
+            + window.pageXOffset
+            - Math.abs(delta)
+            - elements.body().element().getBoundingClientRect().left;
+
+    Style.of(source).style.setProperty("left", px.of(Math.max(left, 0)));
   }
 
   /** {@inheritDoc} */

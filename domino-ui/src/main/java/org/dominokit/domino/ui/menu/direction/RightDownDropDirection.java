@@ -17,13 +17,12 @@ package org.dominokit.domino.ui.menu.direction;
 
 import static elemental2.dom.DomGlobal.window;
 import static org.dominokit.domino.ui.style.SpacingCss.dui_flex_col_reverse;
+import static org.dominokit.domino.ui.utils.Domino.*;
 import static org.dominokit.domino.ui.utils.ElementsFactory.elements;
 import static org.dominokit.domino.ui.utils.Unit.px;
 
 import elemental2.dom.DOMRect;
 import elemental2.dom.Element;
-import elemental2.dom.HTMLElement;
-import jsinterop.base.Js;
 import org.dominokit.domino.ui.style.Style;
 
 /** RightDownDropDirection class. */
@@ -41,10 +40,6 @@ public class RightDownDropDirection implements DropDirection {
       delta = sourceRect.height - availableSpace;
     }
 
-    double baseLeft = targetRect.left;
-    if (target instanceof HTMLElement) {
-      baseLeft = Math.min(targetRect.left, Js.<HTMLElement>uncheckedCast(target).offsetLeft);
-    }
     Style.of(source).style.setProperty("top", px.of((targetRect.top + window.pageYOffset - delta)));
 
     Style.of(source).style.setProperty("left", px.of(targetRect.left));
@@ -57,15 +52,14 @@ public class RightDownDropDirection implements DropDirection {
     elements.elementOf(source).setCssProperty("--dui-menu-drop-min-width", targetRect.width + "px");
 
     DOMRect newRect = source.getBoundingClientRect();
-    Style.of(source)
-        .style
-        .setProperty(
-            "left",
-            px.of(
-                (targetRect.left - (newRect.left - targetRect.left))
-                    + window.pageXOffset
-                    + targetRect.width
-                    + 9));
+    double left =
+        (targetRect.left - (newRect.left - targetRect.left))
+            + window.pageXOffset
+            + targetRect.width
+            + (source.hasAttribute("dui-position-x-offset")
+                ? Double.parseDouble(source.getAttribute("dui-position-x-offset"))
+                : 0);
+    Style.of(source).style.setProperty("left", px.of(Math.max(left, 0)));
   }
 
   /** {@inheritDoc} */

@@ -17,6 +17,7 @@ package org.dominokit.domino.ui.menu.direction;
 
 import static elemental2.dom.DomGlobal.window;
 import static org.dominokit.domino.ui.style.SpacingCss.dui_flex_col_reverse;
+import static org.dominokit.domino.ui.utils.Domino.*;
 import static org.dominokit.domino.ui.utils.ElementsFactory.elements;
 import static org.dominokit.domino.ui.utils.Unit.px;
 
@@ -44,15 +45,9 @@ public class LeftMiddleDropDirection implements DropDirection {
       delta = ((sourceRect.height / 2) - availableUpSpace);
     }
 
-    Style.of(source)
-        .style
-        .setProperty(
-            "top",
-            px.of(
-                targetRect.top
-                    + window.pageYOffset
-                    - ((sourceRect.height - targetRect.height) / 2)
-                    + delta));
+    double left =
+        targetRect.top + window.pageYOffset - ((sourceRect.height - targetRect.height) / 2) + delta;
+    Style.of(source).style.setProperty("top", px.of(Math.max(left, 0)));
 
     Style.of(source).style.setProperty("left", px.of(targetRect.left));
 
@@ -72,7 +67,9 @@ public class LeftMiddleDropDirection implements DropDirection {
                     - (newRect.left - targetRect.left)
                     + window.pageXOffset
                     - sourceRect.width
-                    - 9));
+                    - (source.hasAttribute("dui-position-x-offset")
+                        ? Double.parseDouble(source.getAttribute("dui-position-x-offset"))
+                        : 0)));
   }
 
   /** {@inheritDoc} */

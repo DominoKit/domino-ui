@@ -15,6 +15,8 @@
  */
 package org.dominokit.domino.ui.datatable.plugins;
 
+import static org.dominokit.domino.ui.utils.Domino.*;
+
 import elemental2.dom.HTMLElement;
 import java.util.List;
 import java.util.Optional;

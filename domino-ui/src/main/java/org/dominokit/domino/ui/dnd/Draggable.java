@@ -15,6 +15,7 @@
  */
 package org.dominokit.domino.ui.dnd;
 
+import static org.dominokit.domino.ui.utils.Domino.*;
 import static org.dominokit.domino.ui.utils.ElementsFactory.elements;
 
 import elemental2.dom.*;

@@ -47,7 +47,7 @@
 }
 
 .dui-dd-bottom-middle .dui-popover-wrapper .dui-popover-arrow {
-    left: 50%;
+    left: calc(50% + var(--dui-menu-drop-pin-offset, 0));
 }
 
 .dui-dd-bottom-left .dui-popover-wrapper .dui-popover-arrow {
@@ -78,7 +78,7 @@
 }
 
 .dui-dd-top-middle .dui-popover-wrapper .dui-popover-arrow {
-    left: 50%;
+    left: calc(50% + var(--dui-menu-drop-pin-offset, 0));
 }
 
 .dui-dd-top-left .dui-popover-wrapper .dui-popover-arrow {

@@ -16,6 +16,8 @@
 package org.dominokit.domino.ui.timepicker;
 
 import static java.util.Objects.nonNull;
+import static org.dominokit.domino.ui.utils.Domino.*;
+import static org.dominokit.domino.ui.utils.Domino.div;
 
 import elemental2.dom.CustomEvent;
 import elemental2.dom.HTMLDivElement;

@@ -16,6 +16,7 @@
 package org.dominokit.domino.ui.upload;
 
 import static org.dominokit.domino.ui.upload.FileUpload.DEFAULT_SUCCESS_CODES;
+import static org.dominokit.domino.ui.utils.Domino.*;
 
 import elemental2.dom.XMLHttpRequest;
 import java.util.List;

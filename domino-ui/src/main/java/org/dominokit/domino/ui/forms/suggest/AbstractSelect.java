@@ -17,10 +17,13 @@ package org.dominokit.domino.ui.forms.suggest;
 
 import static java.util.Objects.isNull;
 import static java.util.Objects.nonNull;
+import static org.dominokit.domino.ui.utils.Domino.*;
 
 import elemental2.dom.DomGlobal;
+import elemental2.dom.Event;
 import elemental2.dom.HTMLElement;
 import elemental2.dom.HTMLInputElement;
+import elemental2.dom.KeyboardEvent;
 import java.util.*;
 import java.util.function.Consumer;
 import java.util.function.Function;
@@ -28,6 +31,7 @@ import java.util.stream.Collectors;
 import jsinterop.base.Js;
 import org.dominokit.domino.ui.IsElement;
 import org.dominokit.domino.ui.elements.DivElement;
+import org.dominokit.domino.ui.elements.InputElement;
 import org.dominokit.domino.ui.elements.SpanElement;
 import org.dominokit.domino.ui.forms.AbstractFormElement;
 import org.dominokit.domino.ui.forms.AutoValidator;
@@ -74,7 +78,8 @@ public abstract class AbstractSelect<
   protected Menu<T> optionsMenu;
   protected DivElement fieldInput;
   private SpanElement placeHolderElement;
-  private DominoElement<HTMLInputElement> inputElement;
+  private InputElement inputElement;
+  private InputElement typingElement;
 
   /**
    * Default constructor which initializes the underlying structures, sets up event listeners, and
@@ -84,12 +89,58 @@ public abstract class AbstractSelect<
     placeHolderElement = span();
     addCss(dui_form_select);
     wrapperElement
+        .addCss(dui_relative)
         .appendChild(
             fieldInput =
                 div()
                     .addCss(dui_field_input)
                     .appendChild(placeHolderElement.addCss(dui_field_placeholder)))
-        .appendChild(inputElement = input(getType()).addCss(dui_hidden_input).toDominoElement());
+        .appendChild(inputElement = input(getType()).addCss(dui_hidden_input))
+        .appendChild(
+            typingElement =
+                input("text")
+                    .addCss(dui_auto_type_input, dui_hidden)
+                    .setTabIndex(-1)
+                    .onKeyPress(keyEvents -> keyEvents.alphanumeric(Event::stopPropagation)));
+
+    DelayedTextInput.create(typingElement, 1000)
+        .setDelayedAction(
+            () -> {
+              optionsMenu
+                  .findOptionStarsWith(typingElement.getValue())
+                  .flatMap(OptionMeta::get)
+                  .ifPresent(
+                      meta -> onOptionSelected((O) meta.getOption(), isChangeListenersPaused()));
+              optionsMenu.focusFirstMatch(typingElement.getValue());
+              typingElement.setValue(null).addCss(dui_hidden);
+              focus();
+            })
+        .setOnEnterAction(
+            () -> {
+              openOptionMenu(false);
+              String token = typingElement.getValue();
+              typingElement.setValue(null).addCss(dui_hidden);
+              DomGlobal.setTimeout(p0 -> optionsMenu.focusFirstMatch(token), 0);
+            });
+
+    onKeyPress(
+        keyEvents -> {
+          keyEvents.alphanumeric(
+              evt -> {
+                KeyboardEvent keyboardEvent = Js.uncheckedCast(evt);
+                keyboardEvent.stopPropagation();
+                keyboardEvent.preventDefault();
+                String key = keyboardEvent.key;
+                if (nonNull(key)
+                    && !optionsMenu.isOpened()
+                    && (isNull(typingElement.getValue()) || typingElement.getValue().isEmpty())) {
+                  typingElement.removeCss(dui_hidden);
+                  typingElement.element().value = key;
+                  typingElement.element().focus();
+                }
+              });
+        });
+
     labelForId(inputElement.getDominoId());
 
     optionsMenu =
@@ -122,7 +173,8 @@ public abstract class AbstractSelect<
     getInputElement()
         .onKeyDown(
             keyEvents ->
-                keyEvents.onEnter(evt -> openOptionMenu()).onSpace(evt -> openOptionMenu()));
+                keyEvents.onEnter(evt -> openOptionMenu()).onSpace(evt -> openOptionMenu()))
+        .onKeyUp(keyEvents -> keyEvents.onArrowDown(evt -> openOptionMenu()));
 
     appendChild(
         PrimaryAddOn.of(
@@ -162,13 +214,23 @@ public abstract class AbstractSelect<
    * disabled.
    */
   private void openOptionMenu() {
+    openOptionMenu(true);
+  }
+
+  /**
+   * Opens the options menu allowing user to select an option, unless the select is read-only or
+   * disabled.
+   *
+   * @param focus a flag to decide if the menu should be focused on first element or not.
+   */
+  private void openOptionMenu(boolean focus) {
     if (isReadOnly() || isDisabled()) {
       return;
     }
     if (optionsMenu.isOpened() && !optionsMenu.isContextMenu()) {
       optionsMenu.close();
     } else {
-      optionsMenu.open(true);
+      optionsMenu.open(focus);
     }
   }
 
@@ -231,6 +293,20 @@ public abstract class AbstractSelect<
   }
 
   /**
+   * Insert the specified option in the specified index.
+   *
+   * @param index The desired location index.
+   * @param option The option to be added to the select.
+   * @return an instance of the concrete class.
+   */
+  public C insertChild(int index, O option) {
+    if (nonNull(option)) {
+      optionsMenu.insertChild(index, option.getMenuItem());
+    }
+    return (C) this;
+  }
+
+  /**
    * Appends a collection of options to the select.
    *
    * @param options The collection of options to be added to the select.
@@ -239,6 +315,25 @@ public abstract class AbstractSelect<
   public C appendOptions(Collection<O> options) {
     if (nonNull(options)) {
       options.forEach(this::appendChild);
+    }
+    return (C) this;
+  }
+
+  /**
+   * Insert a collection of options starting from the provided index.
+   *
+   * @param index The insert starting index
+   * @param options The collection of options to be added to the select.
+   * @return an instance of the concrete class.
+   */
+  public C insertOptions(int index, Collection<O> options) {
+    if (nonNull(options)) {
+      int[] i = new int[] {index};
+      options.forEach(
+          o -> {
+            insertChild(i[0], o);
+            i[0] = i[0]++;
+          });
     }
     return (C) this;
   }
@@ -257,6 +352,20 @@ public abstract class AbstractSelect<
   }
 
   /**
+   * Insert a series of options to the select at the provided index.
+   *
+   * @param index The starting insert index.
+   * @param options The options to be added to the select.
+   * @return an instance of the concrete class.
+   */
+  public C insertOptions(int index, O... options) {
+    if (nonNull(options)) {
+      insertOptions(index, Arrays.asList(options));
+    }
+    return (C) this;
+  }
+
+  /**
    * Maps the specified item using the provided mapper function and appends it as an option to the
    * select.
    *
@@ -269,6 +378,18 @@ public abstract class AbstractSelect<
   }
 
   /**
+   * Maps the specified item using the provided mapper function and insert it at the provided index
+   *
+   * @param index The index
+   * @param mapper The function to map the item to an option.
+   * @param item The item to be mapped and added as an option to the select.
+   * @return an instance of the concrete class.
+   */
+  public <I> C insertItem(int index, Function<I, O> mapper, I item) {
+    return insertChild(index, mapper.apply(item));
+  }
+
+  /**
    * Maps each item in the provided collection using the given mapper function and appends them as
    * options to the select.
    *
@@ -278,6 +399,25 @@ public abstract class AbstractSelect<
    */
   public <I> C appendItems(Function<I, O> mapper, Collection<I> items) {
     items.forEach(item -> appendItem(mapper, item));
+    return (C) this;
+  }
+
+  /**
+   * Maps each item in the provided collection using the given mapper function and insert them
+   * starting from the provided index.
+   *
+   * @param index The starting insert index.
+   * @param mapper The function to map each item to an option.
+   * @param items The collection of items to be mapped and added as options to the select.
+   * @return an instance of the concrete class.
+   */
+  public <I> C insertItems(int index, Function<I, O> mapper, Collection<I> items) {
+    int[] i = new int[] {index};
+    items.forEach(
+        item -> {
+          insertItem(i[0], mapper, item);
+          i[0] = i[0]++;
+        });
     return (C) this;
   }
 
@@ -295,6 +435,20 @@ public abstract class AbstractSelect<
   }
 
   /**
+   * Maps each item in the provided series using the given mapper function and insert them starting
+   * from the provided index.
+   *
+   * @param index insert starting index.
+   * @param mapper The function to map each item to an option.
+   * @param items The items to be mapped and added as options to the select.
+   * @return an instance of the concrete class.
+   */
+  public <I> C insertItems(int index, Function<I, O> mapper, I... items) {
+    insertItems(index, mapper, Arrays.asList(items));
+    return (C) this;
+  }
+
+  /**
    * Appends the specified separator to the select.
    *
    * @param separator The separator to be added between options in the select.
@@ -302,6 +456,18 @@ public abstract class AbstractSelect<
    */
   public <I> C appendChild(Separator separator) {
     optionsMenu.appendChild(separator);
+    return (C) this;
+  }
+
+  /**
+   * insert the specified separator to the select at the provided index.
+   *
+   * @param index the insert index.
+   * @param separator The separator to be added between options in the select.
+   * @return an instance of the concrete class.
+   */
+  public <I> C insertChild(int index, Separator separator) {
+    optionsMenu.insertChild(index, separator);
     return (C) this;
   }
 
@@ -334,7 +500,7 @@ public abstract class AbstractSelect<
    */
   @Override
   public DominoElement<HTMLInputElement> getInputElement() {
-    return inputElement;
+    return inputElement.toDominoElement();
   }
 
   /**
@@ -1000,7 +1166,9 @@ public abstract class AbstractSelect<
   public C setMissingItemHandler(MissingOptionHandler<C, E, T, O> missingOptionHandler) {
     if (nonNull(missingOptionHandler)) {
       optionsMenu.setMissingItemHandler(
-          (token, menu) -> missingOptionHandler.onMissingItem((C) this, token, menu::appendChild));
+          (token, menu) ->
+              missingOptionHandler.onMissingItem(
+                  (C) this, token, option -> appendChild((O) option)));
     } else {
       optionsMenu.setMissingItemHandler(null);
     }
@@ -1026,6 +1194,17 @@ public abstract class AbstractSelect<
               optionsMenu.removeItem(found.getMenuItem());
             });
     return (C) this;
+  }
+
+  /**
+   * Removes a specified option from the select component.
+   *
+   * @param index the index of the option to be removed.
+   * @return an instance of the concrete class.
+   */
+  public C removeOptionAt(int index) {
+    AbstractMenuItem<T> menuItem = optionsMenu.getMenuItems().get(index);
+    return removeOption(OptionMeta.<T, E, O>get(menuItem).get().getOption());
   }
 
   /**

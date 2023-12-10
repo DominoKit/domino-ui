@@ -17,6 +17,7 @@ package org.dominokit.domino.ui.forms;
 
 import static java.util.Objects.nonNull;
 import static org.dominokit.domino.ui.forms.FormsStyles.*;
+import static org.dominokit.domino.ui.utils.Domino.*;
 
 import elemental2.dom.EventListener;
 import elemental2.dom.HTMLTextAreaElement;
@@ -24,14 +25,17 @@ import org.dominokit.domino.ui.elements.DivElement;
 import org.dominokit.domino.ui.elements.SpanElement;
 import org.dominokit.domino.ui.utils.DominoElement;
 import org.dominokit.domino.ui.utils.FillerElement;
+import org.dominokit.domino.ui.utils.IntersectionObserver;
+import org.dominokit.domino.ui.utils.IntersectionObserverEntry;
+import org.dominokit.domino.ui.utils.IntersectionObserverOptions;
 import org.dominokit.domino.ui.utils.LazyChild;
 import org.dominokit.domino.ui.utils.PostfixAddOn;
 import org.dominokit.domino.ui.utils.PrefixAddOn;
 import org.dominokit.domino.ui.utils.PrimaryAddOn;
 
 /**
- * The `TextAreaBox` class is a form field component for text areas, providing features such as
- * prefix and postfix elements, auto-sizing, and value adjustments.
+ * The TextAreaBox class is a form field component for text areas, providing features such as prefix
+ * and postfix elements, auto-sizing, and value adjustments.
  *
  * <p>Usage Example:
  *
@@ -54,6 +58,7 @@ public class TextAreaBox extends CountableInputFormField<TextAreaBox, HTMLTextAr
 
   private DivElement header;
   private LazyChild<FillerElement> headerFiller;
+  private IntersectionObserver intersectionObserver;
 
   /**
    * Factory method to create a new instance of {@link TextAreaBox}.
@@ -74,23 +79,27 @@ public class TextAreaBox extends CountableInputFormField<TextAreaBox, HTMLTextAr
     return new TextAreaBox(label);
   }
 
-  /** Creates a new `TextAreaBox` instance with default values. */
+  /** Creates a new TextAreaBox instance with default values. */
   public TextAreaBox() {
     setRows(4);
     addCss(dui_form_text_area);
-    wrapperElement.appendChild(
-        header =
-            div()
-                .addCss(
-                    dui_form_text_area_header,
-                    dui_hide_empty,
-                    dui_flex,
-                    dui_items_center,
-                    dui_order_first));
+    wrapperElement
+        .appendChild(
+            header =
+                div()
+                    .addCss(
+                        dui_form_text_area_header,
+                        dui_hide_empty,
+                        dui_flex,
+                        dui_items_center,
+                        dui_order_first))
+        .addCss(dui_h_inherit);
+    bodyElement.addCss(dui_h_inherit);
+
     headerFiller = LazyChild.of(FillerElement.create().addCss(dui_order_30), header);
     onAttached(mutationRecord -> adjustHeight());
     setDefaultValue("");
-    getInputElement().setAttribute("data-scroll", "0");
+    getInputElement().addCss(dui_h_inherit).setAttribute("data-scroll", "0");
     getInputElement()
         .addEventListener(
             "scroll",
@@ -98,6 +107,19 @@ public class TextAreaBox extends CountableInputFormField<TextAreaBox, HTMLTextAr
                 getInputElement()
                     .element()
                     .setAttribute("data-scroll", getInputElement().element().scrollTop));
+
+    intersectionObserver =
+        new IntersectionObserver(
+            entries -> {
+              IntersectionObserverEntry entry = entries.asList().get(0);
+              if (entry.getIsIntersecting()) {
+                adjustHeight();
+                intersectionObserver.unobserve(this.element());
+                intersectionObserver.disconnect();
+              }
+            },
+            IntersectionObserverOptions.create());
+    intersectionObserver.observe(this.element());
   }
 
   @Override
@@ -107,7 +129,7 @@ public class TextAreaBox extends CountableInputFormField<TextAreaBox, HTMLTextAr
   }
 
   /**
-   * Creates a new `TextAreaBox` instance with the specified label.
+   * Creates a new TextAreaBox instance with the specified label.
    *
    * @param label The label text for the TextAreaBox.
    */
@@ -120,7 +142,7 @@ public class TextAreaBox extends CountableInputFormField<TextAreaBox, HTMLTextAr
    * Appends a prefix add-on element to the header of this TextAreaBox.
    *
    * @param addon The prefix add-on to append.
-   * @return This `TextAreaBox` instance.
+   * @return This TextAreaBox instance.
    */
   @Override
   public TextAreaBox appendChild(PrefixAddOn<?> addon) {
@@ -132,7 +154,7 @@ public class TextAreaBox extends CountableInputFormField<TextAreaBox, HTMLTextAr
    * Appends a primary add-on element to the header of this TextAreaBox.
    *
    * @param addon The primary add-on to append.
-   * @return This `TextAreaBox` instance.
+   * @return This TextAreaBox instance.
    */
   @Override
   public TextAreaBox appendChild(PrimaryAddOn<?> addon) {
@@ -144,7 +166,7 @@ public class TextAreaBox extends CountableInputFormField<TextAreaBox, HTMLTextAr
    * Appends a postfix add-on element to the header of this TextAreaBox.
    *
    * @param addon The postfix add-on to append.
-   * @return This `TextAreaBox` instance.
+   * @return This TextAreaBox` instance.
    */
   @Override
   public TextAreaBox appendChild(PostfixAddOn<?> addon) {
@@ -196,12 +218,11 @@ public class TextAreaBox extends CountableInputFormField<TextAreaBox, HTMLTextAr
   protected void doSetValue(String value) {
     if (nonNull(value)) {
       getInputElement().element().value = value;
-      if (isAttached()) {
-        adjustHeight();
-      }
     } else {
       getInputElement().element().value = "";
     }
+    nowOrWhenAttached(this::adjustHeight);
+    updateCounter(getLength(), getMaxCount());
   }
 
   /**
@@ -233,13 +254,11 @@ public class TextAreaBox extends CountableInputFormField<TextAreaBox, HTMLTextAr
 
   /** Adjusts the height of the text area based on its content. */
   private void adjustHeight() {
-    getInputElement().style().setHeight("auto");
-    int scrollHeight = getInputElement().element().scrollHeight;
-    if (scrollHeight < 30) {
-      scrollHeight = 28;
-    }
+
     if (autoSize) {
-      getInputElement().style().setHeight(scrollHeight + "px");
+      getInputElement().style().setHeight("auto");
+      int scrollHeight = getInputElement().element().scrollHeight;
+      getInputElement().style().setHeight(Math.max(scrollHeight, 28) + "px");
     }
   }
 

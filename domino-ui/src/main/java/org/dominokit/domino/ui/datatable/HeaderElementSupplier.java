@@ -16,6 +16,8 @@
 
 package org.dominokit.domino.ui.datatable;
 
+import static org.dominokit.domino.ui.utils.Domino.*;
+
 import elemental2.dom.Node;
 
 /** A functional interface for supplying header elements in a data table. */

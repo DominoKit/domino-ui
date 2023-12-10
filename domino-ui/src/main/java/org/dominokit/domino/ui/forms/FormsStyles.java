@@ -18,7 +18,7 @@ package org.dominokit.domino.ui.forms;
 import org.dominokit.domino.ui.style.CssClass;
 
 /**
- * The `FormsStyles` interface provides a set of CSS classes that can be used to style form elements
+ * The FormsStyles interface provides a set of CSS classes that can be used to style form elements
  * and components within Domino UI forms.
  */
 public interface FormsStyles {
@@ -82,6 +82,8 @@ public interface FormsStyles {
 
   /** CSS class for a hidden input element within a form field. */
   CssClass dui_hidden_input = () -> "dui-field-input-hidden";
+
+  CssClass dui_auto_type_input = () -> "dui-auto-type-input";
 
   /** CSS class for a form switch component. */
   CssClass dui_switch = () -> "dui-form-switch";

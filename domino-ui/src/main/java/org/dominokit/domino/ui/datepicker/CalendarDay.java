@@ -15,6 +15,10 @@
  */
 package org.dominokit.domino.ui.datepicker;
 
+import static org.dominokit.domino.ui.utils.Domino.*;
+import static org.dominokit.domino.ui.utils.Domino.div;
+import static org.dominokit.domino.ui.utils.Domino.span;
+
 import elemental2.dom.Element;
 import elemental2.dom.HTMLDivElement;
 import java.util.Date;

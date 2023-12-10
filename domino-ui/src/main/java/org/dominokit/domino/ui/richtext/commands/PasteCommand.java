@@ -15,6 +15,8 @@
  */
 package org.dominokit.domino.ui.richtext.commands;
 
+import static org.dominokit.domino.ui.utils.Domino.*;
+
 import elemental2.dom.DomGlobal;
 import elemental2.dom.HTMLElement;
 import jsinterop.base.Js;

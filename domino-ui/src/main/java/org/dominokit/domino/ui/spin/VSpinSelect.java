@@ -15,6 +15,8 @@
  */
 package org.dominokit.domino.ui.spin;
 
+import static org.dominokit.domino.ui.utils.Domino.*;
+
 import elemental2.dom.DOMRect;
 import org.dominokit.domino.ui.icons.Icon;
 import org.dominokit.domino.ui.utils.DominoUIConfig;

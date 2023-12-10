@@ -17,16 +17,19 @@ package org.dominokit.domino.ui.datatable;
 
 import static java.util.Objects.isNull;
 import static java.util.Objects.nonNull;
+import static org.dominokit.domino.ui.utils.Domino.*;
 
 import elemental2.dom.HTMLTableCellElement;
 import elemental2.dom.HTMLTableRowElement;
 import java.util.*;
 import org.dominokit.domino.ui.datatable.events.RowRecordUpdatedEvent;
 import org.dominokit.domino.ui.datatable.events.TableDataUpdatedEvent;
+import org.dominokit.domino.ui.forms.FieldsGrouping;
 import org.dominokit.domino.ui.forms.validations.ValidationResult;
 import org.dominokit.domino.ui.style.BooleanCssClass;
-import org.dominokit.domino.ui.utils.*;
-import org.dominokit.domino.ui.utils.HasSelectionHandler.SelectionHandler;
+import org.dominokit.domino.ui.utils.BaseDominoElement;
+import org.dominokit.domino.ui.utils.HasSelectionListeners;
+import org.dominokit.domino.ui.utils.Selectable;
 
 /**
  * Represents a table row containing data and provides functionalities for handling selection,
@@ -48,7 +51,6 @@ public class TableRow<T> extends BaseDominoElement<HTMLTableRowElement, TableRow
   private Map<String, String> flags = new HashMap<>();
 
   private HTMLTableRowElement element = tr().element();
-  private List<SelectionHandler<T>> selectionHandlers = new ArrayList<>();
 
   private List<RowListener<T>> listeners = new ArrayList<>();
   private boolean editable = false;
@@ -61,6 +63,8 @@ public class TableRow<T> extends BaseDominoElement<HTMLTableRowElement, TableRow
   private Set<SelectionListener<? super TableRow<T>, ? super TableRow<T>>> deselectionListeners =
       new HashSet<>();
   private boolean selectable;
+
+  private FieldsGrouping rowFieldsGroup = FieldsGrouping.create();
 
   /**
    * Constructs a table row with the given record, index, and parent table.
@@ -564,7 +568,9 @@ public class TableRow<T> extends BaseDominoElement<HTMLTableRowElement, TableRow
    */
   public void edit() {
     setEditable(true);
+    this.rowFieldsGroup.removeAllFormElements();
     updateRow();
+    this.dataTable.getTableConfig().getOnRowEditHandler().accept(this);
   }
 
   /**
@@ -580,6 +586,7 @@ public class TableRow<T> extends BaseDominoElement<HTMLTableRowElement, TableRow
           .saveDirtyRecord(record, getDirtyRecord());
       this.setEditable(false);
       updateRow();
+      rowFieldsGroup.removeAllFormElements();
     }
   }
 
@@ -590,6 +597,7 @@ public class TableRow<T> extends BaseDominoElement<HTMLTableRowElement, TableRow
   public void cancelEditing() {
     this.setEditable(false);
     updateRow();
+    rowFieldsGroup.removeAllFormElements();
   }
 
   /**
@@ -706,6 +714,15 @@ public class TableRow<T> extends BaseDominoElement<HTMLTableRowElement, TableRow
    */
   public boolean isRoot() {
     return isNull(parent);
+  }
+
+  /**
+   * Use this field grouping to group the row fields when it is in edit mode.
+   *
+   * @return The default fields group for this row.
+   */
+  public FieldsGrouping getRowFieldsGroup() {
+    return rowFieldsGroup;
   }
 
   /**

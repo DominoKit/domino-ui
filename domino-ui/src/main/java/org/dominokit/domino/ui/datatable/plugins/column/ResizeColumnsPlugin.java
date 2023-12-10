@@ -17,6 +17,7 @@
 package org.dominokit.domino.ui.datatable.plugins.column;
 
 import static org.dominokit.domino.ui.datatable.DataTableStyles.dui_column_resizer;
+import static org.dominokit.domino.ui.utils.Domino.*;
 import static org.dominokit.domino.ui.utils.Unit.px;
 
 import elemental2.dom.DomGlobal;

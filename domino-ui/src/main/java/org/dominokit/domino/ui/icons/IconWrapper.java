@@ -15,6 +15,8 @@
  */
 package org.dominokit.domino.ui.icons;
 
+import static org.dominokit.domino.ui.utils.Domino.*;
+
 import elemental2.dom.HTMLElement;
 
 /**

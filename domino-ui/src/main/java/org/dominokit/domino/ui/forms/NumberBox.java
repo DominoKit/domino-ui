@@ -17,8 +17,14 @@ package org.dominokit.domino.ui.forms;
 
 import static java.util.Objects.isNull;
 import static java.util.Objects.nonNull;
+import static org.dominokit.domino.ui.utils.Domino.*;
+import static org.dominokit.domino.ui.utils.Domino.div;
+import static org.dominokit.domino.ui.utils.Domino.input;
 
-import elemental2.dom.*;
+import elemental2.dom.ClipboardEvent;
+import elemental2.dom.Event;
+import elemental2.dom.HTMLInputElement;
+import elemental2.dom.KeyboardEvent;
 import java.util.Objects;
 import jsinterop.base.Js;
 import org.dominokit.domino.ui.elements.DivElement;

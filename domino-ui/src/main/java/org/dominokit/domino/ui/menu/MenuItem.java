@@ -17,12 +17,15 @@ package org.dominokit.domino.ui.menu;
 
 import static java.util.Objects.isNull;
 import static java.util.Objects.nonNull;
+import static org.dominokit.domino.ui.utils.Domino.*;
 
 import java.util.Arrays;
 import java.util.Optional;
 import java.util.stream.Collectors;
+import org.dominokit.domino.ui.elements.AnchorElement;
 import org.dominokit.domino.ui.elements.SmallElement;
 import org.dominokit.domino.ui.elements.SpanElement;
+import org.dominokit.domino.ui.utils.ChildHandler;
 
 /**
  * Represents a menu item that can be added to a menu. Each menu item can have a text and an
@@ -66,6 +69,19 @@ public class MenuItem<V> extends AbstractMenuItem<V> {
       textElement = span().addCss(dui_menu_item_content).setTextContent(text);
       appendChild(textElement);
     }
+
+    this.searchFilter = this::containsToken;
+  }
+
+  /**
+   * Applies a custom child handler to the link element of this menu item
+   *
+   * @param handler The child handler to apply.
+   * @return This menu item instance.
+   */
+  public MenuItem<V> withClickableElement(ChildHandler<MenuItem<V>, AnchorElement> handler) {
+    handler.apply(this, linkElement);
+    return this;
   }
 
   /**
@@ -81,6 +97,20 @@ public class MenuItem<V> extends AbstractMenuItem<V> {
       descriptionElement = small().addCss(dui_menu_item_hint).setTextContent(text);
       appendChild(descriptionElement);
     }
+  }
+
+  @Override
+  public boolean startsWith(String character) {
+    String textContent =
+        Arrays.asList(Optional.ofNullable(textElement), Optional.ofNullable(descriptionElement))
+            .stream()
+            .filter(Optional::isPresent)
+            .map(element -> element.get().getTextContent())
+            .collect(Collectors.joining(" "));
+    if (isNull(textContent) || textContent.isEmpty()) {
+      return false;
+    }
+    return textContent.toLowerCase().startsWith(character.toLowerCase());
   }
 
   /**
@@ -110,11 +140,15 @@ public class MenuItem<V> extends AbstractMenuItem<V> {
    */
   @Override
   public boolean onSearch(String token, boolean caseSensitive) {
+    return onSearch(token, caseSensitive, getSearchFilter());
+  }
+
+  private boolean onSearch(String token, boolean caseSensitive, MenuSearchFilter searchFilter) {
     if (isNull(token) || token.isEmpty()) {
       this.show();
       return true;
     }
-    if (searchable && containsToken(token, caseSensitive)) {
+    if (searchable && searchFilter.onSearch(token, caseSensitive)) {
       if (this.isHidden()) {
         this.show();
       }

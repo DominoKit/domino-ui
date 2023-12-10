@@ -16,6 +16,8 @@
 
 package org.dominokit.domino.ui.datatable;
 
+import static org.dominokit.domino.ui.utils.Domino.*;
+
 import elemental2.dom.HTMLDivElement;
 import java.util.Collection;
 import java.util.HashMap;

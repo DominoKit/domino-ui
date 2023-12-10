@@ -16,6 +16,7 @@
 
 package org.dominokit.domino.ui.datatable;
 
+import static org.dominokit.domino.ui.utils.Domino.*;
 import static org.dominokit.domino.ui.utils.ElementsFactory.elements;
 
 import elemental2.dom.HTMLElement;

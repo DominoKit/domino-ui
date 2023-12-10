@@ -17,6 +17,7 @@ package org.dominokit.domino.ui.menu;
 
 import static java.util.Objects.isNull;
 import static java.util.Objects.nonNull;
+import static org.dominokit.domino.ui.utils.Domino.*;
 
 import elemental2.dom.Element;
 import elemental2.dom.Event;
@@ -77,6 +78,8 @@ public class AbstractMenuItem<V> extends BaseDominoElement<HTMLLIElement, Abstra
   protected DivElement nestedIndicatorElement;
   protected boolean searchable = true;
   protected boolean selectable = true;
+
+  protected MenuSearchFilter searchFilter = (token, caseSensitive) -> false;
 
   /** Default constructor to create a menu item. */
   public AbstractMenuItem() {
@@ -577,6 +580,36 @@ public class AbstractMenuItem<V> extends BaseDominoElement<HTMLLIElement, Abstra
   public <T extends AbstractMenuItem<V>> T appendChild(PrefixAddOn<?> prefixAddOn) {
     prefixElement.appendChild(prefixAddOn);
     return (T) this;
+  }
+
+  /**
+   * Retrieves the current {@link MenuSearchFilter} used for search operations.
+   *
+   * @return the current {@link MenuSearchFilter}
+   */
+  public MenuSearchFilter getSearchFilter() {
+    return searchFilter;
+  }
+
+  /**
+   * Sets the {@link MenuSearchFilter} to be used during search operations.
+   *
+   * @param searchFilter the search filter to set
+   * @return this Menu item instance for chaining
+   */
+  public <T extends AbstractMenuItem<V>> T setSearchFilter(MenuSearchFilter searchFilter) {
+    this.searchFilter = searchFilter;
+    return (T) this;
+  }
+
+  /**
+   * Check if the menu item text starts with a specific string
+   *
+   * @param character the text to check against.
+   * @return boolean, <b>true</b> if the menu item starts with the text, <b>false</b> otherwise.
+   */
+  public boolean startsWith(String character) {
+    return false;
   }
 
   /**

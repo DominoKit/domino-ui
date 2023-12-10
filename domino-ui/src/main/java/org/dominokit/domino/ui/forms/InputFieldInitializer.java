@@ -16,6 +16,7 @@
 package org.dominokit.domino.ui.forms;
 
 import static org.dominokit.domino.ui.forms.FormsStyles.dui_form_field;
+import static org.dominokit.domino.ui.utils.Domino.*;
 
 import elemental2.dom.Element;
 import elemental2.dom.HTMLElement;
@@ -30,7 +31,7 @@ import org.dominokit.domino.ui.utils.HasCounter;
 import org.dominokit.domino.ui.utils.HasMinMaxLength;
 
 /**
- * The `InputFieldInitializer` class provides initialization and event handling for input fields
+ * The InputFieldInitializer class provides initialization and event handling for input fields
  * within Domino UI forms.
  *
  * @param <T> The type of the form element.
@@ -44,13 +45,13 @@ public class InputFieldInitializer<T extends FormElement<T, V>, V, E extends HTM
   private V oldValue;
 
   /**
-   * Creates a new `InputFieldInitializer` instance for the specified form element.
+   * Creates a new InputFieldInitializer instance for the specified form element.
    *
    * @param formElement The form element to initialize.
    * @param <T> The type of the form element.
    * @param <V> The value type of the form element.
    * @param <E> The type of the HTML element associated with the form element.
-   * @return A new `InputFieldInitializer` instance.
+   * @return A new InputFieldInitializer instance.
    */
   public static <T extends FormElement<T, V>, V, E extends HTMLElement>
       InputFieldInitializer<T, V, E> create(T formElement) {
@@ -58,7 +59,7 @@ public class InputFieldInitializer<T extends FormElement<T, V>, V, E extends HTM
   }
 
   /**
-   * Creates a new `InputFieldInitializer` instance for the specified form element.
+   * Creates a new InputFieldInitializer instance for the specified form element.
    *
    * @param formElement The form element to initialize.
    */

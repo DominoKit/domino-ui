@@ -16,6 +16,7 @@
 package org.dominokit.domino.ui.forms;
 
 import static java.util.Objects.nonNull;
+import static org.dominokit.domino.ui.utils.Domino.*;
 
 import elemental2.dom.HTMLElement;
 import java.util.*;
@@ -23,11 +24,10 @@ import jsinterop.base.Js;
 import org.dominokit.domino.ui.forms.validations.ValidationResult;
 import org.dominokit.domino.ui.keyboard.KeyEventsConsumer;
 import org.dominokit.domino.ui.utils.*;
-import org.dominokit.domino.ui.utils.ApplyFunction;
 
 /**
- * The `FieldsGrouping` class is responsible for grouping and managing a collection of form
- * elements. It provides various validation and manipulation functions for the grouped elements.
+ * The FieldsGrouping class is responsible for grouping and managing a collection of form elements.
+ * It provides various validation and manipulation functions for the grouped elements.
  *
  * <p>Usage Example:
  *
@@ -57,9 +57,9 @@ public class FieldsGrouping
   private boolean focusValidationsPaused = false;
 
   /**
-   * Constructs a new `FieldsGrouping` instance.
+   * Constructs a new FieldsGrouping instance.
    *
-   * @return A new `FieldsGrouping` instance.
+   * @return A new FieldsGrouping instance.
    */
   public static FieldsGrouping create() {
     return new FieldsGrouping();
@@ -69,7 +69,7 @@ public class FieldsGrouping
    * Adds a form element to the group.
    *
    * @param formElement The form element to add to the group.
-   * @return The current `FieldsGrouping` instance for method chaining.
+   * @return The current FieldsGrouping instance for method chaining.
    */
   public FieldsGrouping addFormElement(HasGrouping<?> formElement) {
     formElements.add(formElement);
@@ -80,7 +80,7 @@ public class FieldsGrouping
    * Groups multiple form elements together.
    *
    * @param formElements The form elements to group together.
-   * @return The current `FieldsGrouping` instance for method chaining.
+   * @return The current FieldsGrouping instance for method chaining.
    */
   public FieldsGrouping group(HasGrouping<?>... formElements) {
     if (nonNull(formElements) && formElements.length > 0) {

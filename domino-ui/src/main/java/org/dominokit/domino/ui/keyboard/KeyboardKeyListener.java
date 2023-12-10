@@ -15,6 +15,9 @@
  */
 package org.dominokit.domino.ui.keyboard;
 
+import static java.util.Objects.nonNull;
+
+import elemental2.core.JsRegExp;
 import elemental2.dom.Event;
 import elemental2.dom.EventListener;
 import elemental2.dom.KeyboardEvent;
@@ -22,6 +25,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.function.Predicate;
 import java.util.function.Supplier;
 import jsinterop.base.Js;
 import org.dominokit.domino.ui.events.HasDefaultEventOptions;
@@ -104,7 +108,8 @@ public class KeyboardKeyListener implements EventListener, AcceptKeyEvents {
     keyEventHandlerContexts.stream()
         .filter(
             context ->
-                context.options.get().withCtrlKey == keyboardEvent.ctrlKey
+                context.predicate.test(keyboardEvent)
+                    && context.options.get().withCtrlKey == keyboardEvent.ctrlKey
                     && context.options.get().withAltKey == keyboardEvent.altKey
                     && context.options.get().withShiftKey == keyboardEvent.shiftKey
                     && context.options.get().withMetaKey == keyboardEvent.metaKey
@@ -273,6 +278,39 @@ public class KeyboardKeyListener implements EventListener, AcceptKeyEvents {
 
   /** {@inheritDoc} */
   @Override
+  public AcceptKeyEvents alphanumeric(KeyboardEventOptions options, EventListener handler) {
+    return any(
+        options,
+        handler,
+        keyboardEvent ->
+            nonNull(keyboardEvent.key)
+                && new JsRegExp(
+                        "^[a-zA-Z0-9\\u0600-\\u06FF\\u0660-\\u0669\\u06F0-\\u06F9 _.-]{1}$", "g")
+                    .test(keyboardEvent.key));
+  }
+
+  /** {@inheritDoc} */
+  @Override
+  public AcceptKeyEvents alphanumeric(EventListener handler) {
+    return any(
+        hasDefaultEventOptions.getOptions(),
+        handler,
+        keyboardEvent ->
+            nonNull(keyboardEvent.key)
+                && new JsRegExp(
+                        "^[a-zA-Z0-9\\u0600-\\u06FF\\u0660-\\u0669\\u06F0-\\u06F9 _.-]{1}$", "g")
+                    .test(keyboardEvent.key));
+  }
+
+  /** {@inheritDoc} */
+  @Override
+  public AcceptKeyEvents any(
+      KeyboardEventOptions options, EventListener handler, Predicate<KeyboardEvent> predicate) {
+    return addGlobalHandler(contextOf(handler, () -> options, predicate));
+  }
+
+  /** {@inheritDoc} */
+  @Override
   public AcceptKeyEvents any(EventListener handler) {
     return addGlobalHandler(contextOf(handler, () -> hasDefaultEventOptions.getOptions()));
   }
@@ -293,6 +331,13 @@ public class KeyboardKeyListener implements EventListener, AcceptKeyEvents {
   private KeyEventHandlerContext contextOf(
       EventListener handler, Supplier<KeyboardEventOptions> options) {
     return new KeyEventHandlerContext(handler, options);
+  }
+
+  private KeyEventHandlerContext contextOf(
+      EventListener handler,
+      Supplier<KeyboardEventOptions> options,
+      Predicate<KeyboardEvent> predicate) {
+    return new KeyEventHandlerContext(handler, options, predicate);
   }
 
   /** {@inheritDoc} */

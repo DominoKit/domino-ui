@@ -24,6 +24,7 @@ import static org.dominokit.domino.ui.events.EventType.mouseup;
 import static org.dominokit.domino.ui.events.EventType.touchend;
 import static org.dominokit.domino.ui.events.EventType.touchmove;
 import static org.dominokit.domino.ui.events.EventType.touchstart;
+import static org.dominokit.domino.ui.utils.Domino.*;
 
 import elemental2.dom.EventListener;
 import elemental2.dom.HTMLDivElement;

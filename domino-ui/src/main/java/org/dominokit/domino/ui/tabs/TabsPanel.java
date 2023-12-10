@@ -17,6 +17,7 @@ package org.dominokit.domino.ui.tabs;
 
 import static java.util.Objects.isNull;
 import static java.util.Objects.nonNull;
+import static org.dominokit.domino.ui.utils.Domino.*;
 
 import elemental2.dom.Element;
 import elemental2.dom.HTMLDivElement;

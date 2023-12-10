@@ -18,6 +18,9 @@ package org.dominokit.domino.ui.menu;
 import static java.util.Objects.isNull;
 import static java.util.Objects.nonNull;
 
+import org.dominokit.domino.ui.elements.AnchorElement;
+import org.dominokit.domino.ui.utils.ChildHandler;
+
 /**
  * A custom menu item that extends the {@link AbstractMenuItem} with the capability to apply custom
  * search filters to menu items.
@@ -33,8 +36,6 @@ import static java.util.Objects.nonNull;
  */
 public class CustomMenuItem<V> extends AbstractMenuItem<V> {
 
-  private MenuSearchFilter searchFilter = (token, caseSensitive) -> false;
-
   /**
    * Creates a new instance of {@link CustomMenuItem}.
    *
@@ -44,12 +45,28 @@ public class CustomMenuItem<V> extends AbstractMenuItem<V> {
     return new CustomMenuItem<>();
   }
 
+  public CustomMenuItem() {
+    this.searchFilter = (token, caseSensitive) -> false;
+  }
+
+  /**
+   * Applies a custom child handler to the link element of this menu item
+   *
+   * @param handler The child handler to apply.
+   * @return This menu item instance.
+   */
+  public CustomMenuItem<V> withClickableElement(
+      ChildHandler<CustomMenuItem<V>, AnchorElement> handler) {
+    handler.apply(this, linkElement);
+    return this;
+  }
+
   /**
    * Invoked during a search operation. Displays the menu item if the token is found using the
    * provided {@link MenuSearchFilter}.
    *
    * @param token the search token
-   * @param caseSensitive indicates if the search should be case sensitive or not
+   * @param caseSensitive indicates if the search should be case-sensitive or not
    * @return true if the token matches; false otherwise
    */
   @Override

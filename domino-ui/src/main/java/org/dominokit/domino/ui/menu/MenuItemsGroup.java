@@ -16,10 +16,11 @@
 package org.dominokit.domino.ui.menu;
 
 import static java.util.Objects.nonNull;
-import static org.dominokit.domino.ui.menu.MenuStyles.*;
+import static org.dominokit.domino.ui.utils.Domino.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import org.dominokit.domino.ui.elements.AnchorElement;
 import org.dominokit.domino.ui.elements.DivElement;
 import org.dominokit.domino.ui.elements.UListElement;
 import org.dominokit.domino.ui.layout.NavBar;
@@ -62,7 +63,9 @@ public class MenuItemsGroup<V> extends AbstractMenuItem<V> {
     linkElement.removeCss(dui_menu_item_anchor);
     linkElement.addCss(dui_menu_group_header);
     root.appendChild(groupElement = div().addCss(dui_flex, dui_flex_col));
-    groupHeader = LazyChild.of(NavBar.create().addCss(dui_order_first), bodyElement);
+    groupHeader =
+        LazyChild.of(
+            NavBar.create().addCss(dui_menu_group_header_nav).addCss(dui_order_first), bodyElement);
     itemsListElement = LazyChild.of(ul().addCss(dui_menu_items_list, dui_order_last), groupElement);
   }
 
@@ -126,6 +129,18 @@ public class MenuItemsGroup<V> extends AbstractMenuItem<V> {
    */
   public MenuItemsGroup<V> withItemsMenu(ChildHandler<MenuItemsGroup<V>, UListElement> handler) {
     handler.apply(this, itemsListElement.get());
+    return this;
+  }
+
+  /**
+   * Applies a custom child handler to the link element of this menu item
+   *
+   * @param handler The child handler to apply.
+   * @return This menu item instance.
+   */
+  public MenuItemsGroup<V> withClickableElement(
+      ChildHandler<MenuItemsGroup<V>, AnchorElement> handler) {
+    handler.apply(this, linkElement);
     return this;
   }
 

@@ -15,6 +15,8 @@
  */
 package org.dominokit.domino.ui.utils;
 
+import static org.dominokit.domino.ui.utils.Domino.*;
+
 import elemental2.dom.Navigator;
 import jsinterop.annotations.JsPackage;
 import jsinterop.annotations.JsType;

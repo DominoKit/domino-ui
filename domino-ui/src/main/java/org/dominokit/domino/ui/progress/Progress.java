@@ -15,6 +15,8 @@
  */
 package org.dominokit.domino.ui.progress;
 
+import static org.dominokit.domino.ui.utils.Domino.*;
+
 import elemental2.dom.HTMLDivElement;
 import java.util.ArrayList;
 import java.util.List;

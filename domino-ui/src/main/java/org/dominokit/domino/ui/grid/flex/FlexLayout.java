@@ -16,6 +16,7 @@
 package org.dominokit.domino.ui.grid.flex;
 
 import static java.util.Objects.isNull;
+import static org.dominokit.domino.ui.utils.Domino.*;
 
 import elemental2.dom.HTMLDivElement;
 import java.util.ArrayList;

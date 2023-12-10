@@ -15,6 +15,8 @@
  */
 package org.dominokit.domino.ui.search;
 
+import static org.dominokit.domino.ui.utils.Domino.*;
+
 import elemental2.dom.HTMLDivElement;
 import jsinterop.base.Js;
 import org.dominokit.domino.ui.animations.Transition;

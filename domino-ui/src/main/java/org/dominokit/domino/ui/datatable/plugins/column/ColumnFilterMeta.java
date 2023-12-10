@@ -15,6 +15,8 @@
  */
 package org.dominokit.domino.ui.datatable.plugins.column;
 
+import static org.dominokit.domino.ui.utils.Domino.*;
+
 import elemental2.dom.HTMLTableCellElement;
 import java.util.Optional;
 import org.dominokit.domino.ui.datatable.ColumnConfig;

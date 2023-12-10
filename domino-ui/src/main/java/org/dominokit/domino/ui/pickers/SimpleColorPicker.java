@@ -15,6 +15,8 @@
  */
 package org.dominokit.domino.ui.pickers;
 
+import static org.dominokit.domino.ui.utils.Domino.*;
+
 import elemental2.dom.HTMLDivElement;
 import java.util.HashSet;
 import java.util.Set;

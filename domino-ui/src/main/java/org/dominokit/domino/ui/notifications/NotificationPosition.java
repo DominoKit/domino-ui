@@ -15,12 +15,8 @@
  */
 package org.dominokit.domino.ui.notifications;
 
-import static org.dominokit.domino.ui.notifications.NotificationStyles.dui_ntf_bottom_left;
-import static org.dominokit.domino.ui.notifications.NotificationStyles.dui_ntf_bottom_middle;
-import static org.dominokit.domino.ui.notifications.NotificationStyles.dui_ntf_bottom_right;
-import static org.dominokit.domino.ui.notifications.NotificationStyles.dui_ntf_top_left;
-import static org.dominokit.domino.ui.notifications.NotificationStyles.dui_ntf_top_middle;
-import static org.dominokit.domino.ui.notifications.NotificationStyles.dui_ntf_top_right;
+import static org.dominokit.domino.ui.notifications.NotificationStyles.*;
+import static org.dominokit.domino.ui.utils.Domino.*;
 import static org.dominokit.domino.ui.utils.ElementsFactory.elements;
 
 import elemental2.dom.DOMRect;

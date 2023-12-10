@@ -15,8 +15,12 @@
  */
 package org.dominokit.domino.ui.forms;
 
+import static org.dominokit.domino.ui.utils.Domino.*;
+
 import elemental2.dom.HTMLElement;
-import org.dominokit.domino.ui.utils.*;
+import org.dominokit.domino.ui.utils.CanChange;
+import org.dominokit.domino.ui.utils.DominoElement;
+import org.dominokit.domino.ui.utils.Focusable;
 
 /**
  * The {@code HasInputElement} interface provides methods for working with input elements within a

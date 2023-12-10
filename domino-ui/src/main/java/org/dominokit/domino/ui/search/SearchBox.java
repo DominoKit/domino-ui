@@ -17,6 +17,7 @@ package org.dominokit.domino.ui.search;
 
 import static java.util.Objects.nonNull;
 import static org.dominokit.domino.ui.search.SearchStyles.dui_quick_search;
+import static org.dominokit.domino.ui.utils.Domino.*;
 
 import elemental2.dom.Event;
 import elemental2.dom.EventListener;
@@ -128,7 +129,14 @@ public class SearchBox extends BaseDominoElement<HTMLDivElement, SearchBox>
             .setPlaceholder(getLabels().defaultQuickSearchPlaceHolder())
             .appendChild(PrefixAddOn.of(searchIcon))
             .appendChild(PostfixAddOn.of(clearIcon))
-            .addCss(dui_m_0);
+            .addCss(dui_m_0)
+            .withInputElement(
+                (parent, input) -> {
+                  input.onKeyDown(
+                      keyEvents ->
+                          keyEvents.any(
+                              KeyboardEventOptions.create().setStopPropagation(true), evt -> {}));
+                });
 
     root.appendChild(textBox.element());
 

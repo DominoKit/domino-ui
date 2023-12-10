@@ -5,7 +5,7 @@
 
     <groupId>org.dominokit</groupId>
     <artifactId>domino-ui-parent</artifactId>
-    <version>2.0.0-RC4</version>
+    <version>2.0.0-RC5</version>
     <packaging>pom</packaging>
 
     <name>domino-ui-parent</name>
@@ -68,26 +68,27 @@
 
     <properties>
         <snapshot.version>HEAD-SNAPSHOT</snapshot.version>
-        <next.release.version>2.0.0-RC4</next.release.version>
+        <next.release.version>2.0.0-RC5</next.release.version>
         <maven.compiler.source>11</maven.compiler.source>
         <maven.compiler.target>11</maven.compiler.target>
 
         <maven.compiler.plugin>3.11.0</maven.compiler.plugin>
         <maven.source.plugin>3.0.1</maven.source.plugin>
-        <maven.javadoc.plugin>3.5.0</maven.javadoc.plugin>
+        <maven.javadoc.plugin>3.6.2</maven.javadoc.plugin>
         <maven.fmt.plugin>2.9</maven.fmt.plugin>
         <maven.license.plugin>3.0</maven.license.plugin>
         <maven.deploy.plugin>3.0.0-M1</maven.deploy.plugin>
-        <maven.gwt.plugin>1.0.0</maven.gwt.plugin>
+        <maven.gwt.plugin>1.1.0</maven.gwt.plugin>
         <maven.nexus.staging.plugin>1.6.8</maven.nexus.staging.plugin>
         <maven.gpg.plugin>1.6</maven.gpg.plugin>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-        <elemental2.version>1.1.0</elemental2.version>
+        <elemental2.version>1.2.1</elemental2.version>
         <gwt.version>2.10.0</gwt.version>
-        <jackson.apt.version>1.0.0</jackson.apt.version>
-        <gwt.i18n.version>1.0.1</gwt.i18n.version>
+        <jackson.apt.version>1.0.4</jackson.apt.version>
+        <gwt.i18n.version>1.0.2</gwt.i18n.version>
         <domino.doc.tool.version>1.0.0</domino.doc.tool.version>
+        <gwt.validation.api.version>1.0.3</gwt.validation.api.version>
     </properties>
 
     <dependencyManagement>
@@ -97,6 +98,17 @@
                 <groupId>org.gwtproject.editor</groupId>
                 <artifactId>gwt-editor</artifactId>
                 <version>1.0.0-RC1</version>
+                <exclusions>
+                    <exclusion>
+                        <groupId>javax.validation</groupId>
+                        <artifactId>validation-api</artifactId>
+                    </exclusion>
+                </exclusions>
+            </dependency>
+            <dependency>
+                <groupId>org.dominokit</groupId>
+                <artifactId>gwt-validation-api</artifactId>
+                <version>${gwt.validation.api.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.gwtproject.core</groupId>
@@ -142,11 +154,6 @@
                 <groupId>com.google.elemental2</groupId>
                 <artifactId>elemental2-webstorage</artifactId>
                 <version>${elemental2.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.google.jsinterop</groupId>
-                <artifactId>jsinterop-annotations</artifactId>
-                <version>2.0.0</version>
             </dependency>
             <dependency>
                 <groupId>com.google.guava</groupId>
@@ -218,7 +225,9 @@
                 <version>${maven.javadoc.plugin}</version>
                 <configuration>
                     <failOnError>false</failOnError>
+                    <failOnWarnings>false</failOnWarnings>
                     <release>11</release>
+                    <doclint>none</doclint>
                 </configuration>
                 <executions>
                     <execution>
@@ -228,8 +237,6 @@
                         </goals>
                         <configuration>
                             <doclet>org.dominokit.doctool.DominoDocsDoclet</doclet>
-
-                            <!-- <docletPath>/path/to/doccheck.jar</docletPath> -->
                             <docletArtifact>
                                 <groupId>org.dominokit</groupId>
                                 <artifactId>domino-doc-tool</artifactId>
@@ -242,7 +249,7 @@
                                 <additionalOption>-duidocsurl</additionalOption>
                                 <additionalOption>'https://www.javadoc.io/doc/org.dominokit/domino-ui/latest/'</additionalOption>
                             </additionalOptions>
-                            <destDir>${project.build.directory}/sitedocs/</destDir>
+                            <destDir>${project.build.directory}/apidocs/</destDir>
                         </configuration>
                     </execution>
                     <execution>
@@ -251,9 +258,9 @@
                             <goal>jar</goal>
                         </goals>
                         <configuration>
-                            <addStylesheets>
-                                <addStylesheet>docs/jdocs.css</addStylesheet>
-                            </addStylesheets>
+                            <additionalJOptions>
+                                <additionalJOption>--allow-script-in-comments</additionalJOption>
+                            </additionalJOptions>
                         </configuration>
                     </execution>
                 </executions>

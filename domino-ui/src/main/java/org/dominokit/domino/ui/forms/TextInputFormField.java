@@ -16,6 +16,8 @@
 package org.dominokit.domino.ui.forms;
 
 import static java.util.Objects.isNull;
+import static org.dominokit.domino.ui.utils.Domino.*;
+import static org.dominokit.domino.ui.utils.Domino.div;
 
 import elemental2.dom.HTMLInputElement;
 import jsinterop.base.Js;
@@ -27,9 +29,9 @@ import org.dominokit.domino.ui.utils.HasPrefix;
 import org.dominokit.domino.ui.utils.LazyChild;
 
 /**
- * The `TextInputFormField` class is an abstract class that extends the `CountableInputFormField`
- * class and provides functionality for text input fields, including prefixes, postfixes, and
- * pattern validation.
+ * The TextInputFormField class is an abstract class that extends the CountableInputFormField class
+ * and provides functionality for text input fields, including prefixes, postfixes, and pattern
+ * validation.
  *
  * <p>Usage Example:
  *
@@ -80,7 +82,7 @@ public abstract class TextInputFormField<
         });
   }
 
-  /** Creates a new `TextInputFormField` instance with default values. */
+  /** Creates a new TextInputFormField instance with default values. */
   public TextInputFormField() {
     prefixElement = LazyChild.of(div().addCss(dui_field_prefix), wrapperElement);
     postfixElement = LazyChild.of(div().addCss(dui_field_postfix), wrapperElement);
@@ -92,7 +94,7 @@ public abstract class TextInputFormField<
    * Sets a postfix element for the text input field.
    *
    * @param postfix The postfix text or content.
-   * @return This `TextInputFormField` instance.
+   * @return This TextInputFormField instance.
    */
   @Override
   public T setPostfix(String postfix) {
@@ -117,7 +119,7 @@ public abstract class TextInputFormField<
    * Sets a prefix element for the text input field.
    *
    * @param prefix The prefix text or content.
-   * @return This `TextInputFormField` instance.
+   * @return This TextInputFormField` instance.
    */
   @Override
   public T setPrefix(String prefix) {

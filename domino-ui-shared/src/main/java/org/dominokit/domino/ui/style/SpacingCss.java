@@ -548,6 +548,8 @@ public interface SpacingCss {
 
   CssClass dui_h_full = () -> "dui-h-full";
 
+  CssClass dui_h_inherit = () -> "dui-h-inherit";
+
   CssClass dui_h_px = () -> "dui-h-px";
 
   CssClass dui_inset_0_5 = () -> "dui-inset-0_5";
@@ -3034,6 +3036,8 @@ public interface SpacingCss {
 
   CssClass dui_w_full = () -> "dui-w-full";
 
+  CssClass dui_w_inherit = () -> "dui-w-inherit";
+
   CssClass dui_w_px = () -> "dui-w-px";
 
   CssClass dui_z_0 = () -> "dui-z-0";
@@ -3773,6 +3777,10 @@ public interface SpacingCss {
   CssClass dui_whitespace_pre_line = () -> "dui-whitespace-pre-line";
 
   CssClass dui_whitespace_pre_wrap = () -> "dui-whitespace-pre-wrap";
+
+  CssClass dui_whitespace_unset = () -> "dui-whitespace-unset";
+
+  CssClass dui_whitespace_break_spaces = () -> "dui-whitespace-break-spaces";
 
   CssClass dui_break_normal = () -> "dui-break-normal";
 

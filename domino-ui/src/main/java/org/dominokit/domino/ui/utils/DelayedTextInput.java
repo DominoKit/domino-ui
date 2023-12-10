@@ -19,6 +19,7 @@ import static java.util.Objects.isNull;
 
 import elemental2.dom.HTMLInputElement;
 import jsinterop.base.Js;
+import org.dominokit.domino.ui.elements.InputElement;
 import org.dominokit.domino.ui.events.EventType;
 import org.gwtproject.timer.client.Timer;
 
@@ -84,6 +85,18 @@ public class DelayedTextInput {
   }
 
   /**
+   * Creates a {@code DelayedTextInput} instance for the given InputElement with a specified delay.
+   *
+   * @param inputElement The DominoElement wrapping the HTML input element to monitor for text input
+   *     changes.
+   * @param delay The delay in milliseconds before triggering the action.
+   * @return A {@code DelayedTextInput} instance.
+   */
+  public static DelayedTextInput create(InputElement inputElement, int delay) {
+    return create(inputElement.element(), delay);
+  }
+
+  /**
    * Constructs a {@code DelayedTextInput} instance for the given HTML input element with a
    * specified delay.
    *
@@ -132,6 +145,7 @@ public class DelayedTextInput {
         EventType.keypress.getName(),
         evt -> {
           if (ElementUtil.isEnterKey(Js.uncheckedCast(evt))) {
+            autoActionTimer.cancel();
             DelayedTextInput.this.onEnterAction.doAction();
           }
         });

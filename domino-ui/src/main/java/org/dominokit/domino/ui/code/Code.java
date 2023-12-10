@@ -18,6 +18,9 @@ package org.dominokit.domino.ui.code;
 import static java.util.Objects.nonNull;
 import static org.dominokit.domino.ui.style.DisplayCss.dui_overflow_x_scroll;
 import static org.dominokit.domino.ui.style.SpacingCss.dui_whitespace_pre;
+import static org.dominokit.domino.ui.utils.Domino.*;
+import static org.dominokit.domino.ui.utils.Domino.code;
+import static org.dominokit.domino.ui.utils.Domino.elementOf;
 import static org.dominokit.domino.ui.utils.ElementsFactory.elements;
 
 import elemental2.dom.HTMLElement;

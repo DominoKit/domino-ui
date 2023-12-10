@@ -15,6 +15,8 @@
  */
 package org.dominokit.domino.ui.richtext;
 
+import static org.dominokit.domino.ui.utils.Domino.*;
+
 import org.dominokit.domino.ui.button.Button;
 import org.dominokit.domino.ui.icons.ElementIcon;
 import org.dominokit.domino.ui.pickers.ColorValue;

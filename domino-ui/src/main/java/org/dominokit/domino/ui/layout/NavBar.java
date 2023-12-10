@@ -17,6 +17,7 @@ package org.dominokit.domino.ui.layout;
 
 import static java.util.Objects.isNull;
 import static org.dominokit.domino.ui.layout.NavBarStyles.*;
+import static org.dominokit.domino.ui.utils.Domino.*;
 
 import elemental2.dom.HTMLElement;
 import org.dominokit.domino.ui.elements.DivElement;

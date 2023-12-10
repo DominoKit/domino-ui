@@ -17,6 +17,7 @@ package org.dominokit.domino.ui.menu.direction;
 
 import static elemental2.dom.DomGlobal.window;
 import static org.dominokit.domino.ui.style.SpacingCss.dui_flex_col_reverse;
+import static org.dominokit.domino.ui.utils.Domino.*;
 import static org.dominokit.domino.ui.utils.ElementsFactory.elements;
 import static org.dominokit.domino.ui.utils.Unit.px;
 
@@ -63,15 +64,14 @@ public class RightMiddleDropDirection implements DropDirection {
     elements.elementOf(source).setCssProperty("--dui-menu-drop-min-width", targetRect.width + "px");
 
     DOMRect newRect = source.getBoundingClientRect();
-    Style.of(source)
-        .style
-        .setProperty(
-            "left",
-            px.of(
-                (targetRect.left - (newRect.left - targetRect.left))
-                    + window.pageXOffset
-                    + targetRect.width
-                    + 9));
+    double left =
+        (targetRect.left - (newRect.left - targetRect.left))
+            + window.pageXOffset
+            + targetRect.width
+            + (source.hasAttribute("dui-position-x-offset")
+                ? Double.parseDouble(source.getAttribute("dui-position-x-offset"))
+                : 0);
+    Style.of(source).style.setProperty("left", px.of(Math.max(left, 0)));
   }
 
   /** {@inheritDoc} */

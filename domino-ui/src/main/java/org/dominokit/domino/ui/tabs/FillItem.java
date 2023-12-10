@@ -16,6 +16,9 @@
 package org.dominokit.domino.ui.tabs;
 
 import static org.dominokit.domino.ui.tabs.TabStyles.dui_tab_item;
+import static org.dominokit.domino.ui.utils.Domino.*;
+import static org.dominokit.domino.ui.utils.Domino.dui_grow_1;
+import static org.dominokit.domino.ui.utils.Domino.li;
 
 import elemental2.dom.HTMLLIElement;
 import org.dominokit.domino.ui.elements.LIElement;

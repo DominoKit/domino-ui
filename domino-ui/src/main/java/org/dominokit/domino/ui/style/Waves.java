@@ -18,13 +18,10 @@ package org.dominokit.domino.ui.style;
 import static elemental2.dom.DomGlobal.window;
 import static java.util.Objects.nonNull;
 import static org.dominokit.domino.ui.events.EventType.mousedown;
+import static org.dominokit.domino.ui.utils.Domino.*;
 import static org.dominokit.domino.ui.utils.ElementsFactory.elements;
 
-import elemental2.dom.DOMRect;
-import elemental2.dom.Element;
-import elemental2.dom.Event;
-import elemental2.dom.EventListener;
-import elemental2.dom.MouseEvent;
+import elemental2.dom.*;
 import jsinterop.base.Js;
 import jsinterop.base.JsPropertyMap;
 import org.dominokit.domino.ui.IsElement;

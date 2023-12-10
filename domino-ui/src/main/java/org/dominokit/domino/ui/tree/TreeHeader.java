@@ -16,6 +16,7 @@
 package org.dominokit.domino.ui.tree;
 
 import static java.util.Objects.nonNull;
+import static org.dominokit.domino.ui.utils.Domino.*;
 
 import elemental2.dom.HTMLDivElement;
 import elemental2.dom.HTMLElement;

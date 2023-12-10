@@ -16,6 +16,9 @@
 package org.dominokit.domino.ui.cards;
 
 import static java.util.Objects.nonNull;
+import static org.dominokit.domino.ui.utils.Domino.*;
+import static org.dominokit.domino.ui.utils.Domino.div;
+import static org.dominokit.domino.ui.utils.Domino.dui_order_last;
 
 import elemental2.dom.Element;
 import elemental2.dom.HTMLDivElement;

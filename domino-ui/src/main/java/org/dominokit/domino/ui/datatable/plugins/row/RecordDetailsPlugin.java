@@ -19,6 +19,7 @@ package org.dominokit.domino.ui.datatable.plugins.row;
 import static java.util.Objects.nonNull;
 import static org.dominokit.domino.ui.datatable.DataTableStyles.dui_datatable_details_td;
 import static org.dominokit.domino.ui.datatable.DataTableStyles.dui_datatable_details_tr;
+import static org.dominokit.domino.ui.utils.Domino.*;
 
 import elemental2.dom.*;
 import java.util.Collections;

@@ -18,6 +18,7 @@ package org.dominokit.domino.ui.datatable;
 import static java.util.Objects.isNull;
 import static java.util.Objects.nonNull;
 import static org.dominokit.domino.ui.datatable.ColumnUtils.fixElementWidth;
+import static org.dominokit.domino.ui.utils.Domino.*;
 
 import elemental2.dom.Element;
 import elemental2.dom.HTMLTableCellElement;
@@ -1005,6 +1006,10 @@ public class ColumnConfig<T> implements ElementsFactory, DataTableStyles {
 
     if (isColumnGroup()) {
       this.headElement.addCss("dui-column-group");
+    }
+
+    if (nonNull(getHeaderTextAlign())) {
+      this.headElement.addCss(getHeaderTextAlign());
     }
 
     ColumnCssRuleMeta.get(this)
