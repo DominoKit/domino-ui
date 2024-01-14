@@ -119,6 +119,7 @@ public class Menu<V> extends BaseDominoElement<HTMLDivElement, Menu<V>>
   private boolean selectionListenersPaused = false;
   private boolean multiSelect = false;
   private boolean autoOpen = true;
+  private boolean preserveSelectionStyles = true;
   private EventListener repositionListener =
       evt -> {
         if (isOpened()) {
@@ -1895,6 +1896,26 @@ public class Menu<V> extends BaseDominoElement<HTMLDivElement, Menu<V>>
    */
   public Menu<V> setCloseOnBlur(boolean closeOnBlur) {
     this.closeOnBlur = closeOnBlur;
+    return this;
+  }
+
+  /**
+   * @return boolean true if the selection style should be preserved after the menu item loses the
+   *     selection focus, otherwise false.
+   */
+  public boolean isPreserveSelectionStyles() {
+    return preserveSelectionStyles;
+  }
+
+  /**
+   * if true selecting an Item in the menu will preserve the selection style when the menu loses the
+   * focus.
+   *
+   * @param preserveSelectionStyles boolean, true to preserve the style, false to remove the style.
+   * @return same Menu instance.
+   */
+  public Menu<V> setPreserveSelectionStyles(boolean preserveSelectionStyles) {
+    this.preserveSelectionStyles = preserveSelectionStyles;
     return this;
   }
 

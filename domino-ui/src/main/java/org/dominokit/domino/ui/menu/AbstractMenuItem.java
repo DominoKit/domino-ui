@@ -33,6 +33,7 @@ import org.dominokit.domino.ui.elements.LIElement;
 import org.dominokit.domino.ui.events.EventType;
 import org.dominokit.domino.ui.icons.lib.Icons;
 import org.dominokit.domino.ui.menu.direction.BestFitSideDropDirection;
+import org.dominokit.domino.ui.style.ConditionalCssClass;
 import org.dominokit.domino.ui.utils.*;
 import org.gwtproject.editor.client.TakesValue;
 
@@ -234,7 +235,8 @@ public class AbstractMenuItem<V> extends BaseDominoElement<HTMLLIElement, Abstra
    */
   public <T extends AbstractMenuItem<V>> T select(boolean silent) {
     if (!isDisabled() && isSelectable()) {
-      addCss(dui_menu_item_selected);
+      addCss(
+          ConditionalCssClass.of(dui_menu_item_selected, () -> parent.isPreserveSelectionStyles()));
       setAttribute("selected", true);
       if (!silent) {
         selectionHandlers.forEach(handler -> handler.onSelection(this));
