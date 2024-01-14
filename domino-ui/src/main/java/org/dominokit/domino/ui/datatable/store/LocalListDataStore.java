@@ -554,6 +554,19 @@ public class LocalListDataStore<T> implements DataStore<T> {
   }
 
   /**
+   * Inserts a single record to the data store at the specified index, updating both the original
+   * and filtered lists.
+   *
+   * @param index The insertion index.
+   * @param record The record to be added.
+   */
+  public void insertRecord(int index, T record) {
+    original.add(index, record);
+    List<T> newData = new ArrayList<>(original);
+    setData(newData);
+  }
+
+  /**
    * Removes a single record from the data store, updating both the original and filtered lists.
    *
    * @param record The record to be removed.
@@ -564,6 +577,16 @@ public class LocalListDataStore<T> implements DataStore<T> {
       filtered.remove(record);
       load();
     }
+  }
+
+  /**
+   * Removes a single record from the data store from the specified index, updating both the
+   * original and filtered lists.
+   *
+   * @param index The index of the record to be removed
+   */
+  public void removeRecord(int index) {
+    removeRecord(original.get(index));
   }
 
   /**
