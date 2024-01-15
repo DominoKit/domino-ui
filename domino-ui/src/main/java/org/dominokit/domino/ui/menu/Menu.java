@@ -1359,7 +1359,7 @@ public class Menu<V> extends BaseDominoElement<HTMLDivElement, Menu<V>>
       if (isSearchable()) {
         searchBox.get().clearSearch();
       }
-      triggerExpandListeners(this);
+      triggerOpenListeners(this);
       onAttached(
           mutationRecord -> {
             position();
@@ -1572,7 +1572,7 @@ public class Menu<V> extends BaseDominoElement<HTMLDivElement, Menu<V>>
           searchBox.get().clearSearch();
         }
         menuItems.forEach(AbstractMenuItem::onParentClosed);
-        triggerCollapseListeners(this);
+        triggerCloseListeners(this);
         if (smallScreen && nonNull(parent) && parent.isDropDown()) {
           parent.expand();
         }
@@ -1917,34 +1917,6 @@ public class Menu<V> extends BaseDominoElement<HTMLDivElement, Menu<V>>
   public Menu<V> setPreserveSelectionStyles(boolean preserveSelectionStyles) {
     this.preserveSelectionStyles = preserveSelectionStyles;
     return this;
-  }
-
-  /** Represents a handler called when the menu is closed. */
-  @FunctionalInterface
-  public interface CloseHandler {
-
-    /** Method to be executed when the menu is closed. */
-    void onClose();
-  }
-
-  /** Represents a handler called when the menu is opened. */
-  @FunctionalInterface
-  public interface OpenHandler {
-
-    /** Method to be executed when the menu is opened. */
-    void onOpen();
-  }
-
-  /** Handles changes in the selection status of a menu item. */
-  public interface MenuItemSelectionHandler<V> {
-
-    /**
-     * Called when a menu item's selection status changes.
-     *
-     * @param menuItem The menu item whose selection status changed.
-     * @param selected {@code true} if the item is now selected, {@code false} otherwise.
-     */
-    void onItemSelectionChange(AbstractMenuItem<V> menuItem, boolean selected);
   }
 
   /** Represents a handler for a group of menu items. */

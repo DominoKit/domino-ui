@@ -318,7 +318,7 @@ public class AbstractDialog<T extends AbstractDialog<T>>
     getConfig().getZindexManager().onPopupOpen(this);
     element.removeCss(dui_hidden);
     updateFocus();
-    triggerExpandListeners((T) this);
+    triggerOpenListeners((T) this);
     this.open = true;
   }
 
@@ -391,7 +391,7 @@ public class AbstractDialog<T extends AbstractDialog<T>>
     }
     this.open = false;
     getConfig().getZindexManager().onPopupClose(this);
-    triggerCollapseListeners((T) this);
+    triggerCloseListeners((T) this);
   }
 
   /**
