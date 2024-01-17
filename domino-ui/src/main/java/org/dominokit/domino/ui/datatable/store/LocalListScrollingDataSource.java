@@ -43,6 +43,7 @@ public class LocalListScrollingDataSource<T> implements DataStore<T> {
   private final List<T> original;
   private List<T> filtered = new ArrayList<>();
   private final int pageSize;
+  private int initialLoadedPages = 1;
   private int pageIndex = 0;
   private List<StoreDataChangeListener<T>> listeners = new ArrayList<>();
   private SearchFilter<T> searchFilter;
@@ -60,6 +61,18 @@ public class LocalListScrollingDataSource<T> implements DataStore<T> {
   }
 
   /**
+   * Creates a new instance of {@link LocalListScrollingDataSource} with the specified page size.
+   *
+   * @param pageSize The number of records to load per page.
+   * @param initialLoadedPages The number of pages to load in the initial load - page index 0 -.
+   */
+  public LocalListScrollingDataSource(int pageSize, int initialLoadedPages) {
+    this.original = new ArrayList<>();
+    this.pageSize = pageSize;
+    this.initialLoadedPages = initialLoadedPages;
+  }
+
+  /**
    * Creates a new instance of {@link LocalListScrollingDataSource} with the specified page size and
    * initial data.
    *
@@ -69,6 +82,21 @@ public class LocalListScrollingDataSource<T> implements DataStore<T> {
   public LocalListScrollingDataSource(List<T> data, int pageSize) {
     this.original = data;
     this.pageSize = pageSize;
+    this.filtered.addAll(data);
+  }
+
+  /**
+   * Creates a new instance of {@link LocalListScrollingDataSource} with the specified page size and
+   * initial data.
+   *
+   * @param data The initial data to populate the data source.
+   * @param pageSize The number of records to load per page.
+   * @param initialLoadedPages The number of pages to load in the initial load - page index 0 -.
+   */
+  public LocalListScrollingDataSource(List<T> data, int pageSize, int initialLoadedPages) {
+    this.original = data;
+    this.pageSize = pageSize;
+    this.initialLoadedPages = initialLoadedPages;
     this.filtered.addAll(data);
   }
 
@@ -162,7 +190,7 @@ public class LocalListScrollingDataSource<T> implements DataStore<T> {
 
   private void fireUpdate(boolean append) {
     int fromIndex = pageSize * pageIndex;
-    int toIndex = Math.min(fromIndex + pageSize, filtered.size());
+    int toIndex = Math.min(getToIndex(fromIndex), filtered.size());
 
     listeners.forEach(
         dataChangeListener ->
@@ -171,6 +199,15 @@ public class LocalListScrollingDataSource<T> implements DataStore<T> {
                     new ArrayList<>(filtered.subList(fromIndex, toIndex)),
                     append,
                     filtered.size())));
+  }
+
+  private int getToIndex(int fromIndex) {
+    if (pageIndex == 0 && initialLoadedPages > 1) {
+      int toIndex = fromIndex + (initialLoadedPages * pageSize);
+      pageIndex = initialLoadedPages - 1;
+      return toIndex;
+    }
+    return fromIndex + pageSize;
   }
 
   /**
