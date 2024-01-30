@@ -5,7 +5,7 @@
 
     <groupId>org.dominokit</groupId>
     <artifactId>domino-ui-parent</artifactId>
-    <version>2.0.0</version>
+    <version>HEAD-SNAPSHOT</version>
     <packaging>pom</packaging>
 
     <name>domino-ui-parent</name>
@@ -68,7 +68,7 @@
 
     <properties>
         <snapshot.version>HEAD-SNAPSHOT</snapshot.version>
-        <next.release.version>2.0.0</next.release.version>
+        <next.release.version>2.0.1</next.release.version>
         <maven.compiler.source>11</maven.compiler.source>
         <maven.compiler.target>11</maven.compiler.target>
 
