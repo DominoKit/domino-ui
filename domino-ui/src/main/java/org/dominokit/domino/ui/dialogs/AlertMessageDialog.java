@@ -99,7 +99,7 @@ public class AlertMessageDialog extends AbstractDialog<AlertMessageDialog> {
     setStretchHeight(DialogSize.VERY_SMALL);
     setAutoClose(false);
     contentHeader.get().addCss(dui_justify_around);
-    addExpandListener(
+    addOpenListener(
         (component) -> {
           if (alertIcon.isInitialized()) {
             Animation.create(getAlertIcon())

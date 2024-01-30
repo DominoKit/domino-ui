@@ -119,6 +119,7 @@ public class Menu<V> extends BaseDominoElement<HTMLDivElement, Menu<V>>
   private boolean selectionListenersPaused = false;
   private boolean multiSelect = false;
   private boolean autoOpen = true;
+  private boolean preserveSelectionStyles = true;
   private EventListener repositionListener =
       evt -> {
         if (isOpened()) {
@@ -1358,7 +1359,7 @@ public class Menu<V> extends BaseDominoElement<HTMLDivElement, Menu<V>>
       if (isSearchable()) {
         searchBox.get().clearSearch();
       }
-      triggerExpandListeners(this);
+      triggerOpenListeners(this);
       onAttached(
           mutationRecord -> {
             position();
@@ -1571,7 +1572,7 @@ public class Menu<V> extends BaseDominoElement<HTMLDivElement, Menu<V>>
           searchBox.get().clearSearch();
         }
         menuItems.forEach(AbstractMenuItem::onParentClosed);
-        triggerCollapseListeners(this);
+        triggerCloseListeners(this);
         if (smallScreen && nonNull(parent) && parent.isDropDown()) {
           parent.expand();
         }
@@ -1898,32 +1899,24 @@ public class Menu<V> extends BaseDominoElement<HTMLDivElement, Menu<V>>
     return this;
   }
 
-  /** Represents a handler called when the menu is closed. */
-  @FunctionalInterface
-  public interface CloseHandler {
-
-    /** Method to be executed when the menu is closed. */
-    void onClose();
+  /**
+   * @return boolean true if the selection style should be preserved after the menu item loses the
+   *     selection focus, otherwise false.
+   */
+  public boolean isPreserveSelectionStyles() {
+    return preserveSelectionStyles;
   }
 
-  /** Represents a handler called when the menu is opened. */
-  @FunctionalInterface
-  public interface OpenHandler {
-
-    /** Method to be executed when the menu is opened. */
-    void onOpen();
-  }
-
-  /** Handles changes in the selection status of a menu item. */
-  public interface MenuItemSelectionHandler<V> {
-
-    /**
-     * Called when a menu item's selection status changes.
-     *
-     * @param menuItem The menu item whose selection status changed.
-     * @param selected {@code true} if the item is now selected, {@code false} otherwise.
-     */
-    void onItemSelectionChange(AbstractMenuItem<V> menuItem, boolean selected);
+  /**
+   * if true selecting an Item in the menu will preserve the selection style when the menu loses the
+   * focus.
+   *
+   * @param preserveSelectionStyles boolean, true to preserve the style, false to remove the style.
+   * @return same Menu instance.
+   */
+  public Menu<V> setPreserveSelectionStyles(boolean preserveSelectionStyles) {
+    this.preserveSelectionStyles = preserveSelectionStyles;
+    return this;
   }
 
   /** Represents a handler for a group of menu items. */

@@ -168,7 +168,7 @@ public abstract class BasePopover<T extends BasePopover<T>>
       }
       doOpen();
       getConfig().getZindexManager().onPopupOpen(this);
-      triggerExpandListeners((T) this);
+      triggerOpenListeners((T) this);
     }
     return (T) this;
   }
@@ -237,7 +237,7 @@ public abstract class BasePopover<T extends BasePopover<T>>
     element().remove();
     body().removeEventListener(EventType.keydown.getName(), closeListener);
     getConfig().getZindexManager().onPopupClose(this);
-    triggerCollapseListeners((T) this);
+    triggerCloseListeners((T) this);
   }
 
   /**

@@ -138,7 +138,7 @@ public abstract class AbstractSuggestBox<
             .setAutoOpen(false)
             .setFitToTargetWidth(true)
             .setDropDirection(DropDirection.BEST_MIDDLE_UP_DOWN)
-            .addCollapseListener(component -> focus())
+            .addCloseListener(component -> focus())
             .addSelectionListener(
                 (source, selection) -> {
                   source

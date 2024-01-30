@@ -135,13 +135,13 @@ public abstract class BaseDominoElement<E extends Element, T extends IsElement<E
   private LazyInitializer keyEventsInitializer;
 
   /** Flag to pause collapse listeners. */
-  private boolean collapseListenersPaused = false;
+  private boolean closeListenersPaused = false;
 
   /** Set of collapse listeners for this DOM element. */
-  protected Set<CollapseListener<? super T>> collapseListeners = new LinkedHashSet<>();
+  protected Set<CloseListener<? super T>> closeListeners = new LinkedHashSet<>();
 
   /** Set of expand listeners for this DOM element. */
-  protected Set<ExpandListener<? super T>> expandListeners = new LinkedHashSet<>();
+  protected Set<OpenListener<? super T>> openListeners = new LinkedHashSet<>();
 
   private LambdaFunction dominoUuidInitializer;
 
@@ -440,88 +440,88 @@ public abstract class BaseDominoElement<E extends Element, T extends IsElement<E
    * @return The modified DOM element.
    */
   @Override
-  public T pauseCollapseListeners() {
-    this.collapseListenersPaused = true;
+  public T pauseCloseListeners() {
+    this.closeListenersPaused = true;
     return (T) this;
   }
 
   /**
-   * Resumes the collapse listeners for this element.
+   * Resumes the close listeners for this element.
    *
    * @return The modified DOM element.
    */
   @Override
-  public T resumeCollapseListeners() {
-    this.collapseListenersPaused = false;
+  public T resumeCloseListeners() {
+    this.closeListenersPaused = false;
     return (T) this;
   }
 
   /**
-   * Toggles whether the collapse listeners for this element are paused.
+   * Toggles whether the close listeners for this element are paused.
    *
    * @param toggle {@code true} to pause, {@code false} to resume.
    * @return The modified DOM element.
    */
   @Override
-  public T togglePauseCollapseListeners(boolean toggle) {
-    this.collapseListenersPaused = toggle;
+  public T togglePauseCloseListeners(boolean toggle) {
+    this.closeListenersPaused = toggle;
     return (T) this;
   }
 
   /**
-   * Retrieves the set of {@link CollapseListener}s registered for this element.
+   * Retrieves the set of {@link CloseListener}s registered for this element.
    *
-   * @return A set of {@link CollapseListener} instances.
+   * @return A set of {@link CloseListener} instances.
    */
   @Override
-  public Set<CollapseListener<? super T>> getCollapseListeners() {
-    return collapseListeners;
+  public Set<CloseListener<? super T>> getCloseListeners() {
+    return closeListeners;
   }
 
   /**
-   * Retrieves the set of {@link ExpandListener}s registered for this element.
+   * Retrieves the set of {@link OpenListener}s registered for this element.
    *
-   * @return A set of {@link ExpandListener} instances.
+   * @return A set of {@link OpenListener} instances.
    */
   @Override
-  public Set<ExpandListener<? super T>> getExpandListeners() {
-    return expandListeners;
+  public Set<OpenListener<? super T>> getOpenListeners() {
+    return openListeners;
   }
 
   /**
-   * Checks if the collapse listeners are currently paused.
+   * Checks if the close listeners are currently paused.
    *
-   * @return {@code true} if collapse listeners are paused, {@code false} otherwise.
+   * @return {@code true} if close listeners are paused, {@code false} otherwise.
    */
   @Override
-  public boolean isCollapseListenersPaused() {
-    return this.collapseListenersPaused;
+  public boolean isCloseListenersPaused() {
+    return this.closeListenersPaused;
   }
 
   /**
-   * Triggers collapse listeners for this element.
+   * Triggers close listeners for this element.
    *
    * @param component The component that triggered the event.
    * @return The modified DOM element.
    */
   @Override
-  public T triggerCollapseListeners(T component) {
-    if (!this.collapseListenersPaused) {
-      getCollapseListeners().forEach(collapseListener -> collapseListener.onCollapsed((T) this));
+  public T triggerCloseListeners(T component) {
+    if (!this.closeListenersPaused) {
+      getCloseListeners().forEach(closeListener -> closeListener.onClosed((T) this));
     }
     return (T) this;
   }
 
   /**
-   * Triggers expand listeners for this element.
+   * Triggers open listeners for this element.
    *
    * @param component The component that triggered the event.
    * @return The modified DOM element.
    */
   @Override
-  public T triggerExpandListeners(T component) {
-    if (!this.collapseListenersPaused) {
-      getExpandListeners().forEach(expandListener -> expandListener.onExpanded((T) this));
+  public T triggerOpenListeners(T component) {
+    if (!this.closeListenersPaused) {
+      getOpenListeners().forEach(openListener -> openListener.onOpened((T) this));
     }
     return (T) this;
   }

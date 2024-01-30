@@ -129,8 +129,8 @@ public class Window extends AbstractDialog<Window> {
           }
         };
 
-    addExpandListener(component -> addMoveListeners());
-    addCollapseListener(component -> removeMoveListeners());
+    addOpenListener(component -> addMoveListeners());
+    addCloseListener(component -> removeMoveListeners());
     updatePosition();
 
     onResize((element1, observer, entries) -> updatePosition());
@@ -371,7 +371,7 @@ public class Window extends AbstractDialog<Window> {
   }
 
   private void initPosition() {
-    addExpandListener(component -> updatePosition());
+    addOpenListener(component -> updatePosition());
   }
 
   /**

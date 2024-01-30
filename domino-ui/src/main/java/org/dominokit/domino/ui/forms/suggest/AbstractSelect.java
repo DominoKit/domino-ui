@@ -164,7 +164,7 @@ public abstract class AbstractSelect<
                         .ifPresent(
                             meta ->
                                 onOptionDeselected(meta.getOption(), isChangeListenersPaused())))
-            .addCollapseListener((menu) -> focus());
+            .addOpenListener((menu) -> focus());
 
     onAttached(
         mutationRecord -> {
