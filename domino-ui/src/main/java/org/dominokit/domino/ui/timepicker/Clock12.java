@@ -108,7 +108,13 @@ class Clock12 extends AbstractClock {
   @Override
   public Date getTime() {
     JsDate jsDate = new JsDate();
-    jsDate.setHours(DayPeriod.PM.equals(dayPeriod) ? hour + 12 : hour);
+    if (DayPeriod.PM.equals(dayPeriod) && hour < 12) {
+      jsDate.setHours(hour + 12);
+    } else if (DayPeriod.AM.equals(dayPeriod) && hour == 12) {
+      jsDate.setHours(0);
+    } else {
+      jsDate.setHours(hour);
+    }
     jsDate.setMinutes(minute);
     jsDate.setSeconds(second);
     return new Date(new Double(jsDate.getTime()).longValue());

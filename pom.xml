@@ -5,7 +5,7 @@
 
     <groupId>org.dominokit</groupId>
     <artifactId>domino-ui-parent</artifactId>
-    <version>1.0.0-RC6</version>
+    <version>1.0.0-RC6.1-SNAPSHOT</version>
     <packaging>pom</packaging>
 
     <name>domino-ui-parent</name>
@@ -67,8 +67,8 @@
     </modules>
 
     <properties>
-        <snapshot.version>HEAD-SNAPSHOT</snapshot.version>
-        <next.release.version>1.0.0-RC6</next.release.version>
+        <snapshot.version>1.0.0-RC6.1-SNAPSHOT</snapshot.version>
+        <next.release.version>1.0.0-RC6.1</next.release.version>
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
 
@@ -303,9 +303,9 @@
 
                     <!-- Configure branches -->
                     <gitFlowConfig>
-                        <productionBranch>master</productionBranch>
+                        <productionBranch>1.0.0-RC6.1</productionBranch>
                         <!-- default is develop, but we use development -->
-                        <developmentBranch>development</developmentBranch>
+                        <developmentBranch>1.0.0-RC6-dev</developmentBranch>
                     </gitFlowConfig>
                 </configuration>
             </plugin>
