@@ -113,7 +113,7 @@
                             <cssFinalFile>domino-ui-components.css</cssFinalFile>
 
                             <cssEngine>YUI</cssEngine>
-
+                            <skipMinify>true</skipMinify>
                         </configuration>
                         <goals>
                             <goal>minify</goal>
