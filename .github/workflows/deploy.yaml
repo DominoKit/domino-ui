@@ -22,10 +22,10 @@ on:
 
 jobs:
   verify:
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-latest
     strategy:
       matrix:
-        java-version: [ 11 ]
+        java-version: [ 8, 11 ]
     steps:
       - name: Check out Git repository
         uses: actions/checkout@v3
@@ -34,11 +34,11 @@ jobs:
         with:
           java-version: ${{ matrix.java-version }}
           distribution: 'temurin'
-      - run: mvn verify -B -e
+      - run: ./mvnw verify -B -e
 
   release:
     needs: verify
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-latest
     steps:
       - name: Check out Git repository
         uses: actions/checkout@v3
@@ -46,7 +46,7 @@ jobs:
       - name: Install Java and Maven
         uses: actions/setup-java@v3
         with:
-          java-version: 11
+          java-version: 8
           distribution: 'temurin'
           server-id: ossrh
           server-username: SONATYPE_USERNAME
@@ -56,7 +56,7 @@ jobs:
         run: |
           cat <(echo -e "${{ secrets.gpg_private_key }}") | gpg --batch --import
       - name: publish to snapshot
-        run: mvn --no-transfer-progress clean deploy -B -e -Dci=true -Dgpg.passphrase=${{ secrets.gpg_passphrase }}
+        run: ./mvnw --no-transfer-progress clean deploy -B -e -Dci=true -Dgpg.passphrase=${{ secrets.gpg_passphrase }}
         env:
           SONATYPE_USERNAME: ${{ secrets.nexus_username }}
           SONATYPE_PASSWORD: ${{ secrets.nexus_password }}
