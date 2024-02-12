@@ -18,40 +18,45 @@ name: Deploy
 
 on:
   push:
-    branches: [ master , development]
+    branches: [ 1.0.0-RC6-master , 1.0.0-RC6-dev]
 
 jobs:
   verify:
-    runs-on: ubuntu-18.04
+    runs-on: ubuntu-latest
     strategy:
       matrix:
         java-version: [ 8, 11 ]
     steps:
       - name: Check out Git repository
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
       - name: Install Java and Maven
-        uses: actions/setup-java@v1
+        uses: actions/setup-java@v3
         with:
           java-version: ${{ matrix.java-version }}
-      - run: mvn verify
+          distribution: 'temurin'
+      - run: ./mvnw verify -B -e
 
   release:
     needs: verify
-    runs-on: ubuntu-18.04
+    runs-on: ubuntu-latest
     steps:
       - name: Check out Git repository
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
 
       - name: Install Java and Maven
-        uses: actions/setup-java@v1
+        uses: actions/setup-java@v3
         with:
-          java-version: 1.8
-
-      - name: Release Maven package
-        uses: samuelmeuli/action-maven-publish@v1
-        with:
-          gpg_private_key: ${{ secrets.gpg_private_key }}
-          gpg_passphrase: ${{ secrets.gpg_passphrase }}
-          nexus_username: ${{ secrets.nexus_username }}
-          nexus_password: ${{ secrets.nexus_password }}
-          maven_args: -Dci=true
+          java-version: 8
+          distribution: 'temurin'
+          server-id: ossrh
+          server-username: SONATYPE_USERNAME
+          server-password: SONATYPE_PASSWORD
+      - id: install-secret-key
+        name: Install gpg secret key
+        run: |
+          cat <(echo -e "${{ secrets.gpg_private_key }}") | gpg --batch --import
+      - name: publish to snapshot
+        run: ./mvnw --no-transfer-progress clean deploy -B -e -Dci=true -Dgpg.passphrase=${{ secrets.gpg_passphrase }}
+        env:
+          SONATYPE_USERNAME: ${{ secrets.nexus_username }}
+          SONATYPE_PASSWORD: ${{ secrets.nexus_password }}
