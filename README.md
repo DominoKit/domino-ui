@@ -11,7 +11,7 @@ A type safe material design with bootstrap builder for java developer with GWT w
 
 Checkout our  [getting started guide](https://github.com/DominoKit/domino-ui/wiki/Getting-started)
 
-and checkout our [demo app](https://demo.dominokit.org/home)
+and checkout our [demo app](https://dominokit.org/home)
 
 ### Quick insight
 
