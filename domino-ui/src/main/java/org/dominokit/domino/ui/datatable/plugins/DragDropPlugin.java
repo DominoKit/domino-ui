@@ -147,7 +147,9 @@ public class DragDropPlugin<T> implements DataTablePlugin<T> {
    */
   @Override
   public void onRowAdded(DataTable<T> dataTable, TableRow<T> tableRow) {
-    dragSource.addDraggable(Draggable.of(tableRow));
+    Draggable<TableRow<T>> draggable = Draggable.of(tableRow);
+    draggable.setConfig(tableRow::isDraggable);
+    dragSource.addDraggable(draggable);
     dropZone.addDropTarget(
         tableRow, draggableId -> moveItem(dataTable, tableRow.getRecord(), draggableId));
   }

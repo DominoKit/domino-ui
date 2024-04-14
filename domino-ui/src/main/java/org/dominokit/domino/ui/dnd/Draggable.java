@@ -15,7 +15,7 @@
  */
 package org.dominokit.domino.ui.dnd;
 
-import static org.dominokit.domino.ui.utils.Domino.*;
+import static java.util.Objects.nonNull;
 import static org.dominokit.domino.ui.utils.ElementsFactory.elements;
 
 import elemental2.dom.*;
@@ -44,6 +44,7 @@ public class Draggable<E extends IsElement<? extends HTMLElement>> {
   private final E element;
   private final EventListener eventListener;
   private final Consumer<E> dragStartListener;
+  private DraggableConfig config = () -> true;
 
   /**
    * Creates a draggable instance for the specified element.
@@ -119,11 +120,33 @@ public class Draggable<E extends IsElement<? extends HTMLElement>> {
   }
 
   private void onDragStart(Event evt, E draggable, String id) {
-    DragEvent e = (DragEvent) evt;
-    e.dataTransfer.setData("draggable_id", id);
-    e.dataTransfer.dropEffect = "move";
-    draggable.element().classList.add(DragSource.DRAGGING);
-    dragStartListener.accept(draggable);
+    if (config.isEnabled()) {
+      DragEvent e = (DragEvent) evt;
+      e.dataTransfer.setData("draggable_id", id);
+      e.dataTransfer.dropEffect = "move";
+      draggable.element().classList.add(DragSource.DRAGGING);
+      dragStartListener.accept(draggable);
+    } else {
+      evt.preventDefault();
+    }
+  }
+
+  /** @return Draggble item DraggableConfig */
+  public DraggableConfig getConfig() {
+    return config;
+  }
+
+  /**
+   * Sets the configuration for the draggble item, if null use a default config
+   *
+   * @param config DraggableConfig
+   */
+  public void setConfig(DraggableConfig config) {
+    if (nonNull(config)) {
+      this.config = config;
+    } else {
+      this.config = () -> true;
+    }
   }
 
   /** Detaches the draggable feature from the element. */
@@ -139,5 +162,9 @@ public class Draggable<E extends IsElement<? extends HTMLElement>> {
    */
   public String getId() {
     return id;
+  }
+
+  public interface DraggableConfig {
+    boolean isEnabled();
   }
 }

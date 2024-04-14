@@ -65,6 +65,7 @@ public class TableRow<T> extends BaseDominoElement<HTMLTableRowElement, TableRow
   private boolean selectable;
 
   private FieldsGrouping rowFieldsGroup = FieldsGrouping.create();
+  private boolean draggable = true;
 
   /**
    * Constructs a table row with the given record, index, and parent table.
@@ -587,6 +588,7 @@ public class TableRow<T> extends BaseDominoElement<HTMLTableRowElement, TableRow
       this.setEditable(false);
       updateRow();
       rowFieldsGroup.removeAllFormElements();
+      this.dataTable.getTableConfig().getOnRowFinishEditHandler().accept(this);
     }
   }
 
@@ -598,6 +600,7 @@ public class TableRow<T> extends BaseDominoElement<HTMLTableRowElement, TableRow
     this.setEditable(false);
     updateRow();
     rowFieldsGroup.removeAllFormElements();
+    this.dataTable.getTableConfig().getOnRowFinishEditHandler().accept(this);
   }
 
   /**
@@ -723,6 +726,22 @@ public class TableRow<T> extends BaseDominoElement<HTMLTableRowElement, TableRow
    */
   public FieldsGrouping getRowFieldsGroup() {
     return rowFieldsGroup;
+  }
+
+  /** @return true if this table should be allowed to be dragged. */
+  public boolean isDraggable() {
+    return draggable;
+  }
+
+  /**
+   * Sets if the table row should be allowed to be dragged. the actual execution of this flag is
+   * upon the implementation of the dragging operation the flag here is just to give the
+   * implementation if the table should be dragged or not.
+   *
+   * @param draggable true to allow row dragging, false to prevent it.
+   */
+  public void setDraggable(boolean draggable) {
+    this.draggable = draggable;
   }
 
   /**
