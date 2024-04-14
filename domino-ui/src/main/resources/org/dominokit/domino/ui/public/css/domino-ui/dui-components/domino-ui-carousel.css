@@ -33,6 +33,9 @@
     position: relative;
     width: 100%;
     overflow: hidden;
+    display: flex;
+    justify-content: center;
+    max-height: 100%;
 }
 
 .dui-carousel-inner>.dui-slide {
@@ -99,6 +102,9 @@
     position: absolute;
     top: 0;
     width: 100%;
+    height: 100%;
+    margin: auto;
+    object-fit: contain;
 }
 
 .dui-carousel-inner>.dui-slide-next {
@@ -129,9 +135,11 @@
     display: block;
     max-width: 100%;
     width: 100%;
-    height: auto;
+    height: 100%;
     vertical-align: middle;
     border: 0;
+    margin: auto;
+    object-fit: contain;
 }
 
 .dui-carousel-control {
