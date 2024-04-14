@@ -262,7 +262,15 @@ public abstract class AbstractSelect<
           true,
           field -> {
             List<AbstractMenuItem<T>> selection = optionsMenu.getSelection();
-            new ArrayList<>(selection).forEach(AbstractMenuItem::deselect);
+            new ArrayList<>(selection)
+                .forEach(
+                    item -> {
+                      item.deselect(silent);
+                      if (silent) {
+                        OptionMeta.get(item)
+                            .ifPresent(meta -> onOptionDeselected((O) meta.getOption(), silent));
+                      }
+                    });
           });
 
       if (!silent) {
