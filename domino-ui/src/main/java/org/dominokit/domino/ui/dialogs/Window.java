@@ -24,6 +24,7 @@ import org.dominokit.domino.ui.events.EventType;
 import org.dominokit.domino.ui.icons.MdiIcon;
 import org.dominokit.domino.ui.icons.lib.Icons;
 import org.dominokit.domino.ui.layout.NavBar;
+import org.dominokit.domino.ui.utils.Domino;
 import org.dominokit.domino.ui.utils.PostfixAddOn;
 
 /**
@@ -255,8 +256,8 @@ public class Window extends AbstractDialog<Window> {
             "mousedown",
             "touchstart");
 
-    headerElement.element().addEventsListener(stopMoveListener, true, "mouseup", "touchend");
-    headerElement.element().addEventsListener(moveListener, true, "mousemove", "touchmove");
+    Domino.body().addEventsListener(stopMoveListener, true, "mouseup", "touchend");
+    Domino.body().addEventsListener(moveListener, true, "mousemove", "touchmove");
     body().addEventsListener(stopMoveListener, "mouseup", "touchend");
   }
 
