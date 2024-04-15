@@ -24,6 +24,7 @@ import org.dominokit.domino.ui.events.EventType;
 import org.dominokit.domino.ui.icons.MdiIcon;
 import org.dominokit.domino.ui.icons.lib.Icons;
 import org.dominokit.domino.ui.layout.NavBar;
+import org.dominokit.domino.ui.utils.ChildHandler;
 import org.dominokit.domino.ui.utils.Domino;
 import org.dominokit.domino.ui.utils.PostfixAddOn;
 
@@ -458,5 +459,21 @@ public class Window extends AbstractDialog<Window> {
    */
   public MdiIcon getCloseIcon() {
     return closeIcon;
+  }
+
+  /** @return the NavBar of this window */
+  public NavBar getNavHeader() {
+    return navHeader;
+  }
+
+  /**
+   * Allows customization of the window NavBar using a {@code ChildHandler}.
+   *
+   * @param handler The handler for customizing the NavBar.
+   * @return This Window instance for method chaining.
+   */
+  public Window withNavBar(ChildHandler<Window, NavBar> handler) {
+    handler.apply(this, navHeader);
+    return this;
   }
 }
