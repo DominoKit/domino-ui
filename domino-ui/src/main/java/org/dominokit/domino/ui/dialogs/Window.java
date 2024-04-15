@@ -202,7 +202,7 @@ public class Window extends AbstractDialog<Window> {
         if (windowTop < (windowHeight - initialHeight)) {
           modalElement.element().style.top = windowTop + "px";
         } else {
-          modalElement.element().style.left =
+          modalElement.element().style.top =
               windowTop
                   - ((windowLeft + initialHeight) - windowHeight - DomGlobal.window.pageYOffset)
                   + "px";
