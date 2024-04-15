@@ -101,6 +101,14 @@ public class Radio<T> extends BaseDominoElement<HTMLDivElement, Radio<T>>
     inputElement.addEventListener(
         "change",
         evt -> {
+          DomGlobal.console.info("CHANGEEEEEEEED.!");
+          if (isEnabled() && !isReadOnly()) {
+            setChecked(isChecked(), isChangeListenersPaused());
+          }
+        });
+    inputElement.addEventListener(
+        "checked",
+        evt -> {
           if (isEnabled() && !isReadOnly()) {
             setChecked(isChecked(), isChangeListenersPaused());
           }
@@ -262,6 +270,7 @@ public class Radio<T> extends BaseDominoElement<HTMLDivElement, Radio<T>>
   private Radio<T> setChecked(boolean value, boolean silent) {
     boolean oldState = isChecked();
     if (value == oldState) {
+      onChanged(silent);
       return this;
     }
     if (nonNull(radioGroup)) {
@@ -281,6 +290,22 @@ public class Radio<T> extends BaseDominoElement<HTMLDivElement, Radio<T>>
       inputElement.element().checked = value;
       if (!silent) {
         triggerChangeListeners(oldState, isChecked());
+      }
+    }
+    return this;
+  }
+
+  private Radio<T> onChanged(boolean silent) {
+    if (nonNull(radioGroup)) {
+      if (!(radioGroup.isReadOnly() || radioGroup.isDisabled())) {
+        if (!silent) {
+          triggerChangeListeners(!isChecked(), isChecked());
+        }
+        radioGroup.onSelectionChanged((T) radioGroup.getValue(), this, silent);
+      }
+    } else {
+      if (!silent) {
+        triggerChangeListeners(!isChecked(), isChecked());
       }
     }
     return this;
