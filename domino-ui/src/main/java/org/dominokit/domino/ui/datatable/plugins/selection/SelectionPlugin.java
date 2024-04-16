@@ -409,7 +409,9 @@ public class SelectionPlugin<T> implements DataTablePlugin<T> {
     }
 
     if (TableDataUpdatedEvent.DATA_UPDATED.equals(event.getType())) {
-      updateHeaderCheckBox(this.datatable.getSelectedItems());
+      if (this.datatable.getTableConfig().isMultiSelect()) {
+        updateHeaderCheckBox(this.datatable.getSelectedItems());
+      }
     }
   }
 
