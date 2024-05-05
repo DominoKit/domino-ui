@@ -104,8 +104,6 @@ public class AbstractMenuItem<V> extends BaseDominoElement<HTMLLIElement, Abstra
     this.addEventListener(
         EventType.touchstart.getName(),
         evt -> {
-          evt.stopPropagation();
-          evt.preventDefault();
           focus();
           openSubMenu();
         });
@@ -148,8 +146,6 @@ public class AbstractMenuItem<V> extends BaseDominoElement<HTMLLIElement, Abstra
   }
 
   private void onSelected(Event evt) {
-    evt.stopPropagation();
-    evt.preventDefault();
     if (parent.isMultiSelect() && isSelected()) {
       deselect();
     } else {

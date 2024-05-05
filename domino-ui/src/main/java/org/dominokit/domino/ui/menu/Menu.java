@@ -402,6 +402,9 @@ public class Menu<V> extends BaseDominoElement<HTMLDivElement, Menu<V>>
                 0);
           }
         };
+
+    this.addEventListener(EventType.touchstart.getName(), Event::stopPropagation);
+    this.addEventListener(EventType.touchend.getName(), Event::stopPropagation);
   }
 
   public void focusFirstMatch(String token) {
