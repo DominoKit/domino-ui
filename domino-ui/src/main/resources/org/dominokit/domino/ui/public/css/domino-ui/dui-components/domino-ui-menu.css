@@ -79,6 +79,7 @@
 .dui-menu-body {
     order: 40;
     flex-grow: 1;
+    border-radius: inherit;
 }
 
 .dui-menu-item {

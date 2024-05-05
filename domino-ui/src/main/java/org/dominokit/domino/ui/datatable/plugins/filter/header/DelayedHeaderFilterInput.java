@@ -30,6 +30,7 @@ import org.dominokit.domino.ui.datatable.model.SearchContext;
 import org.dominokit.domino.ui.datatable.plugins.column.ColumnHeaderFilterPlugin;
 import org.dominokit.domino.ui.forms.InputFormField;
 import org.dominokit.domino.ui.utils.DelayedTextInput;
+import org.dominokit.domino.ui.utils.DominoUIConfig;
 import org.dominokit.domino.ui.utils.HasPlaceHolder;
 
 /**
@@ -65,7 +66,10 @@ public abstract class DelayedHeaderFilterInput<
       ((HasPlaceHolder<B>) input).setPlaceholder(placeHolder);
     }
 
-    delayedTextInput = DelayedTextInput.create(getInputElement(), 200);
+    delayedTextInput =
+        DelayedTextInput.create(
+            getInputElement(),
+            DominoUIConfig.CONFIG.getUIConfig().getTableTextHeaderFilterSearchDelay());
   }
 
   /**

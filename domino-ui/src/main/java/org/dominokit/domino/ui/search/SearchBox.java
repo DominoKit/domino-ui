@@ -33,6 +33,7 @@ import org.dominokit.domino.ui.i18n.QuickSearchLabels;
 import org.dominokit.domino.ui.icons.Icon;
 import org.dominokit.domino.ui.icons.lib.Icons;
 import org.dominokit.domino.ui.keyboard.KeyboardEventOptions;
+import org.dominokit.domino.ui.menu.direction.DropDirection;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
 import org.dominokit.domino.ui.utils.ChildHandler;
 import org.dominokit.domino.ui.utils.PostfixAddOn;
@@ -103,12 +104,12 @@ public class SearchBox extends BaseDominoElement<HTMLDivElement, SearchBox>
                   autoSearchTimer.cancel();
                   doSearch();
                 })
-            .setTooltip(getLabels().defaultQuickSearchPlaceHolder());
+            .setTooltip(getLabels().defaultQuickSearchPlaceHolder(), DropDirection.BEST_FIT_SIDE);
 
     clearIcon =
         Icons.close()
             .clickable()
-            .setTooltip(getLabels().defaultQuickSearchClearToolTip())
+            .setTooltip(getLabels().defaultQuickSearchClearToolTip(), DropDirection.BEST_FIT_SIDE)
             .addClickListener(
                 evt -> {
                   clearSearch();
