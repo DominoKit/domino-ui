@@ -26,6 +26,7 @@ import elemental2.dom.Event;
 import elemental2.dom.HTMLInputElement;
 import elemental2.dom.KeyboardEvent;
 import java.util.Objects;
+import java.util.function.Function;
 import jsinterop.base.Js;
 import org.dominokit.domino.ui.elements.DivElement;
 import org.dominokit.domino.ui.events.EventType;
@@ -59,7 +60,16 @@ public abstract class NumberBox<T extends NumberBox<T, V>, V extends Number>
   protected final LazyChild<DivElement> postfixElement;
   private final ChangeListener<V> formatValueChangeListener =
       (oldValue, newValue) -> formatValue(newValue);
-  private java.util.function.Function<String, V> valueParser = defaultValueParser();
+  private Function<String, V> valueParser = defaultValueParser();
+  private final NumberFormatSupplier defaultFormatSupplier =
+      formatPattern -> {
+        if (nonNull(getPattern())) {
+          return NumberFormat.getFormat(getPattern());
+        } else {
+          return NumberFormat.getDecimalFormat();
+        }
+      };
+  private NumberFormatSupplier numberFormatSupplier = defaultFormatSupplier;
 
   private String maxValueErrorMessage;
   private String minValueErrorMessage;
@@ -541,11 +551,22 @@ public abstract class NumberBox<T extends NumberBox<T, V>, V extends Number>
    * @return The NumberFormat instance corresponding to the current format.
    */
   protected NumberFormat getNumberFormat() {
-    if (nonNull(getPattern())) {
-      return NumberFormat.getFormat(getPattern());
+    return numberFormatSupplier.get(getPattern());
+  }
+
+  /**
+   * Sets a supplier to use to get a custom number format to be used by this NumberBox. if null is
+   * provided, then use default supplier.
+   *
+   * @return same component.
+   */
+  public T setNumberFormat(NumberFormatSupplier numberFormatSupplier) {
+    if (nonNull(numberFormatSupplier)) {
+      this.numberFormatSupplier = numberFormatSupplier;
     } else {
-      return NumberFormat.getDecimalFormat();
+      this.numberFormatSupplier = defaultFormatSupplier;
     }
+    return (T) this;
   }
 
   /**
@@ -832,5 +853,10 @@ public abstract class NumberBox<T extends NumberBox<T, V>, V extends Number>
   public T setName(String name) {
     getInputElement().element().name = name;
     return (T) this;
+  }
+
+  @FunctionalInterface
+  public interface NumberFormatSupplier {
+    NumberFormat get(String pattern);
   }
 }
