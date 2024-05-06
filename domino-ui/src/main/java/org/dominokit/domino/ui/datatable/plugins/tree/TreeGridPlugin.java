@@ -335,9 +335,11 @@ public class TreeGridPlugin<T>
     Optional<TreeGridRowToggleIcon> iconMeta = row.getMeta(TREE_GRID_ROW_TOGGLE_ICON);
     iconMeta.ifPresent(
         meta -> {
-          ToggleIcon<?, ?> icon = Js.uncheckedCast(meta.icon);
-          if (!icon.isToggled()) {
-            icon.toggle();
+          if (!row.getChildren().isEmpty()) {
+            ToggleIcon<?, ?> icon = Js.uncheckedCast(meta.icon);
+            if (!icon.isToggled()) {
+              icon.toggle();
+            }
           }
         });
   }
@@ -355,8 +357,6 @@ public class TreeGridPlugin<T>
    * Collapses a specific TableRow, hiding it, and optionally collapsing its child rows recursively.
    *
    * @param row The TableRow to collapse.
-   * @param recursive If true, child rows are collapsed recursively; otherwise, only the direct
-   *     child rows are collapsed.
    */
   private void collapse(TableRow<T> row) {
     this.dataTable.fireTableEvent(new TreeRowOnBeforeCollapseEvent<>(row));
