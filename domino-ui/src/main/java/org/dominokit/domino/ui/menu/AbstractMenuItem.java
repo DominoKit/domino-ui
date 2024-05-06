@@ -19,6 +19,7 @@ import static java.util.Objects.isNull;
 import static java.util.Objects.nonNull;
 import static org.dominokit.domino.ui.utils.Domino.*;
 
+import elemental2.core.JsDate;
 import elemental2.dom.Element;
 import elemental2.dom.Event;
 import elemental2.dom.HTMLElement;
@@ -100,15 +101,33 @@ public class AbstractMenuItem<V> extends BaseDominoElement<HTMLLIElement, Abstra
     indicatorIcon = createIndicator(Icons.menu_right());
 
     init(this);
+    double[] startTime = new double[] {0};
 
     this.addEventListener(
         EventType.touchstart.getName(),
         evt -> {
+          startTime[0] = JsDate.now();
           focus();
           openSubMenu();
         });
-    this.addEventListener(EventType.touchend.getName(), this::onSelected);
-    this.addEventListener(EventType.click.getName(), this::onSelected);
+    this.addEventListener(
+        EventType.touchend.getName(),
+        evt -> {
+          evt.stopPropagation();
+          double endTime = JsDate.now();
+          double diff = endTime - startTime[0];
+          if (diff < 200) {
+            evt.preventDefault();
+            onSelected(evt);
+          }
+        });
+    this.addEventListener(
+        EventType.click.getName(),
+        evt -> {
+          evt.stopPropagation();
+          evt.preventDefault();
+          onSelected(evt);
+        });
     this.addEventListener(EventType.mouseenter.getName(), evt -> openSubMenu());
   }
 
