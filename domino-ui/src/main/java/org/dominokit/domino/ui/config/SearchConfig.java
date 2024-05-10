@@ -31,4 +31,16 @@ public interface SearchConfig extends ComponentConfig {
   default int getAutoSearchDelay() {
     return 200;
   }
+
+  /**
+   * Use this method to define the default auto search delay for datatable DelayedHeaderFilter in
+   * milliseconds
+   *
+   * <p>Defaults to : <b>{@link #getAutoSearchDelay()}</b>>
+   *
+   * @return an integer delay in milliseconds
+   */
+  default int getTableTextHeaderFilterSearchDelay() {
+    return getAutoSearchDelay();
+  }
 }

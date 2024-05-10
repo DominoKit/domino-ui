@@ -262,7 +262,15 @@ public abstract class AbstractSelect<
           true,
           field -> {
             List<AbstractMenuItem<T>> selection = optionsMenu.getSelection();
-            new ArrayList<>(selection).forEach(AbstractMenuItem::deselect);
+            new ArrayList<>(selection)
+                .forEach(
+                    item -> {
+                      item.deselect(silent);
+                      if (silent) {
+                        OptionMeta.get(item)
+                            .ifPresent(meta -> onOptionDeselected((O) meta.getOption(), silent));
+                      }
+                    });
           });
 
       if (!silent) {
@@ -850,6 +858,12 @@ public abstract class AbstractSelect<
         .findFirst();
   }
 
+  private Optional<AbstractMenuItem<T>> findMenuItemByKey(String key) {
+    return optionsMenu.getFlatMenuItems().stream()
+        .filter(menuItem -> Objects.equals(key, menuItem.getKey()))
+        .findFirst();
+  }
+
   /**
    * Searches for an option by its value within the select component.
    *
@@ -864,6 +878,12 @@ public abstract class AbstractSelect<
         .findFirst();
   }
 
+  private Optional<AbstractMenuItem<T>> findMenuItemByValue(T value) {
+    return optionsMenu.getFlatMenuItems().stream()
+        .filter(menuItem -> Objects.equals(value, menuItem.getValue()))
+        .findFirst();
+  }
+
   /**
    * Searches for an option by its index within the select component.
    *
@@ -872,9 +892,12 @@ public abstract class AbstractSelect<
    *     found.
    */
   public Optional<O> findOptionByIndex(int index) {
+    return findMenuItemByIndex(index).map(item -> OptionMeta.<T, E, O>get(item).get().getOption());
+  }
+
+  private Optional<AbstractMenuItem<T>> findMenuItemByIndex(int index) {
     if (index < optionsMenu.getFlatMenuItems().size() && index >= 0) {
-      AbstractMenuItem<T> menuItem = optionsMenu.getFlatMenuItems().get(index);
-      return Optional.ofNullable(OptionMeta.<T, E, O>get(menuItem).get().getOption());
+      return Optional.ofNullable(optionsMenu.getFlatMenuItems().get(index));
     }
     return Optional.empty();
   }
@@ -993,7 +1016,7 @@ public abstract class AbstractSelect<
    * @return an instance of the concrete class.
    */
   public C deselectAt(int index, boolean silent) {
-    findOptionByIndex(index).ifPresent(o -> onOptionDeselected(o, silent));
+    findMenuItemByIndex(index).ifPresent(item -> item.deselect(silent));
     return (C) this;
   }
 
@@ -1018,7 +1041,7 @@ public abstract class AbstractSelect<
    * @return an instance of the concrete class.
    */
   public C deselectByKey(String key, boolean silent) {
-    findOptionByKey(key).ifPresent(o -> onOptionDeselected(o, silent));
+    findMenuItemByKey(key).ifPresent(item -> item.deselect(silent));
     return (C) this;
   }
 
@@ -1042,7 +1065,7 @@ public abstract class AbstractSelect<
    * @return an instance of the concrete class.
    */
   public C deselectByValue(T value, boolean silent) {
-    findOptionByValue(value).ifPresent(o -> onOptionDeselected(o, silent));
+    findMenuItemByValue(value).ifPresent(item -> item.deselect(silent));
     return (C) this;
   }
 

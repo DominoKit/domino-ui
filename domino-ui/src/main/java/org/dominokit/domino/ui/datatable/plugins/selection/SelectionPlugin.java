@@ -21,7 +21,6 @@ import static java.util.Objects.isNull;
 import static java.util.Objects.nonNull;
 import static org.dominokit.domino.ui.datatable.DataTableStyles.dui_datatable_row_selected;
 import static org.dominokit.domino.ui.forms.FormsStyles.dui_form_select_check_box;
-import static org.dominokit.domino.ui.utils.Domino.*;
 
 import elemental2.dom.Element;
 import elemental2.dom.HTMLElement;
@@ -34,6 +33,7 @@ import java.util.function.Supplier;
 import jsinterop.base.Js;
 import org.dominokit.domino.ui.datatable.*;
 import org.dominokit.domino.ui.datatable.events.OnBeforeDataChangeEvent;
+import org.dominokit.domino.ui.datatable.events.TableDataUpdatedEvent;
 import org.dominokit.domino.ui.datatable.events.TableEvent;
 import org.dominokit.domino.ui.datatable.plugins.DataTablePlugin;
 import org.dominokit.domino.ui.forms.CheckBox;
@@ -58,6 +58,7 @@ public class SelectionPlugin<T> implements DataTablePlugin<T> {
   private DataTable<T> datatable;
   private List<T> oldSelection = new ArrayList<>();
   private boolean retainSelectionOnDataChange = false;
+  private CheckBox headerCheckBox;
 
   /** Creates a new `SelectionPlugin` with default settings. */
   public SelectionPlugin() {}
@@ -300,8 +301,8 @@ public class SelectionPlugin<T> implements DataTablePlugin<T> {
    * @return The selection indicator element for a multi-selection header.
    */
   private HTMLElement createMultiSelectHeader(DataTable<T> dataTable) {
-    CheckBox checkBox = createCheckBox(Optional.empty());
-    checkBox.addChangeListener(
+    headerCheckBox = createCheckBox(Optional.empty());
+    headerCheckBox.addChangeListener(
         (oldValue, checked) -> {
           if (checked) {
             dataTable.selectAll(selectionCondition);
@@ -312,20 +313,24 @@ public class SelectionPlugin<T> implements DataTablePlugin<T> {
 
     dataTable.addSelectionDeselectionListener(
         (source, selectedRows) -> {
-          long selectableCount =
-              dataTable.getRows().stream()
-                  .filter(tableRow -> selectionCondition.isAllowSelection(dataTable, tableRow))
-                  .count();
-          if (selectedRows.size() > 0 && selectedRows.size() < selectableCount) {
-            checkBox.indeterminate();
-          } else if (selectedRows.size() == selectableCount) {
-            checkBox.check(true);
-          } else if (selectedRows.isEmpty()) {
-            checkBox.uncheck(true);
-          }
+          updateHeaderCheckBox(selectedRows);
         });
 
-    return checkBox.element();
+    return headerCheckBox.element();
+  }
+
+  private void updateHeaderCheckBox(List<TableRow<T>> selectedRows) {
+    long selectableCount =
+        this.datatable.getRows().stream()
+            .filter(tableRow -> selectionCondition.isAllowSelection(this.datatable, tableRow))
+            .count();
+    if (selectedRows.size() > 0 && selectedRows.size() < selectableCount) {
+      headerCheckBox.indeterminate();
+    } else if (selectedRows.size() == selectableCount) {
+      headerCheckBox.check(true);
+    } else if (selectedRows.isEmpty()) {
+      headerCheckBox.uncheck(true);
+    }
   }
 
   /**
@@ -400,6 +405,12 @@ public class SelectionPlugin<T> implements DataTablePlugin<T> {
     if (retainSelectionOnDataChange) {
       if (OnBeforeDataChangeEvent.ON_BEFORE_DATA_CHANGE.equals(event.getType())) {
         this.oldSelection = this.datatable.getSelectedRecords();
+      }
+    }
+
+    if (TableDataUpdatedEvent.DATA_UPDATED.equals(event.getType())) {
+      if (this.datatable.getTableConfig().isMultiSelect()) {
+        updateHeaderCheckBox(this.datatable.getSelectedItems());
       }
     }
   }

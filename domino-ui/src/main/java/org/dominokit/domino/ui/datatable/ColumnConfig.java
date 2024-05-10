@@ -601,12 +601,12 @@ public class ColumnConfig<T> implements ElementsFactory, DataTableStyles {
   }
 
   /**
-   * Checks if tooltips are shown for the column.
+   * Checks if tooltips are shown for the column and the column has a tooltip node or has a title.
    *
-   * @return true if tooltips are shown, false otherwise
+   * @return true if tooltips are shown and there is a tooltip node or a title, false otherwise
    */
   public boolean isShowTooltip() {
-    return showTooltip;
+    return showTooltip && (nonNull(tooltipNode) || (nonNull(title) && !title.trim().isEmpty()));
   }
 
   /**

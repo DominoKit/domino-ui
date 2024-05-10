@@ -68,6 +68,7 @@ public class TableConfig<T>
   private String minWidth;
 
   private Consumer<TableRow<T>> onRowEditHandler = (tableRow) -> {};
+  private Consumer<TableRow<T>> onRowFinishEditHandler = (tableRow) -> {};
 
   private final ColumnConfig<T> pluginUtilityColumn =
       ColumnConfig.<T>create("plugin-utility-column")
@@ -580,6 +581,26 @@ public class TableConfig<T>
   /** @return the handler to be called when a row is being edited. */
   Consumer<TableRow<T>> getOnRowEditHandler() {
     return onRowEditHandler;
+  }
+
+  /**
+   * Use this to set a handler that will be called when ever a row editing finished.
+   *
+   * @param handler The handler to be called.
+   * @return same TableConfig instance.
+   */
+  public TableConfig<T> setOnRowFinishEditHandler(Consumer<TableRow<T>> handler) {
+    if (isNull(handler)) {
+      this.onRowFinishEditHandler = tableRow -> {};
+    } else {
+      this.onRowFinishEditHandler = handler;
+    }
+    return this;
+  }
+
+  /** @return the handler to be called when a row editing finished. */
+  Consumer<TableRow<T>> getOnRowFinishEditHandler() {
+    return onRowFinishEditHandler;
   }
 
   /** A functional interface defining the behavior for appending rows. */

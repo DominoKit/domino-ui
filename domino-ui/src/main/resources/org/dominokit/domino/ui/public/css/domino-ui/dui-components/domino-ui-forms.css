@@ -216,6 +216,11 @@ fieldset.dui {
     --dui-form-field-input-whitespace:unset;
 }
 
+.dui-form-text-area .dui-field-input[disabled],
+.dui-form-text-area .dui-field-input[readonly] {
+    white-space: pre-wrap;
+}
+
 .dui-field-input:focus {
     outline: none;
 }
