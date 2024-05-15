@@ -52,6 +52,10 @@ public class SummaryPlugin<T, S> implements DataTablePlugin<T> {
   public SummaryPlugin<T, S> setSummaryRecords(Collection<S> records) {
     summaryRows.forEach(BaseDominoElement::remove);
     summaryRows.clear();
+    if (this.dataTable.getRows()
+                      .isEmpty()) {
+      return this;
+    }
     List<S> recordsList = new ArrayList<>(records);
     for (int i = 0; i < recordsList.size(); i++) {
       SummaryRow<T, S> summaryRow = new SummaryRow<>(recordsList.get(i), i, this.dataTable);
