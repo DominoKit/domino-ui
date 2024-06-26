@@ -22,6 +22,7 @@ import static org.dominokit.domino.ui.utils.Domino.*;
 import elemental2.dom.HTMLElement;
 import org.dominokit.domino.ui.elements.SpanElement;
 import org.dominokit.domino.ui.style.WavesElement;
+import org.dominokit.domino.ui.utils.ChildHandler;
 
 /**
  * A component that combines an icon and a text label, allowing you to create labeled icons with
@@ -30,6 +31,8 @@ import org.dominokit.domino.ui.style.WavesElement;
 public class LabeledIcon extends WavesElement<HTMLElement, LabeledIcon> {
 
   private final SpanElement element;
+  private final SpanElement textElement;
+  private final Icon<?> icon;
 
   /**
    * Creates a labeled icon with the provided icon and text, positioned to the left.
@@ -52,8 +55,9 @@ public class LabeledIcon extends WavesElement<HTMLElement, LabeledIcon> {
     element =
         span()
             .addCss(dui_labeled_icon)
-            .appendChild(icon)
-            .appendChild(span().addCss(dui_icon_text, dui_text_ellipsis).textContent(text));
+            .appendChild(this.icon = icon)
+            .appendChild(
+                textElement = span().addCss(dui_icon_text, dui_text_ellipsis).textContent(text));
     init(this);
     position.apply(this);
   }
@@ -80,6 +84,50 @@ public class LabeledIcon extends WavesElement<HTMLElement, LabeledIcon> {
    */
   public static LabeledIcon create(Icon<?> icon, String text, IconPosition position) {
     return new LabeledIcon(icon, text, position);
+  }
+
+  /**
+   * Changes the text of the labeled icon
+   *
+   * @param text the new text.
+   * @return same component
+   */
+  public LabeledIcon setText(String text) {
+    this.textElement.setTextContent(text);
+    return this;
+  }
+
+  /**
+   * Apply a handler to the labeledIcon text element.
+   *
+   * @param handler the handler to be applied
+   * @return same component
+   */
+  public LabeledIcon withTextElement(ChildHandler<LabeledIcon, SpanElement> handler) {
+    handler.apply(this, textElement);
+    return this;
+  }
+
+  /**
+   * Apply a handler to the labeledIcon icon element.
+   *
+   * @param handler the handler to be applied
+   * @return same component
+   */
+  public LabeledIcon withIcon(ChildHandler<LabeledIcon, Icon<?>> handler) {
+    handler.apply(this, icon);
+    return this;
+  }
+
+  /**
+   * Applies a new position for the labeledIcon text.
+   *
+   * @param position The new position to be applied
+   * @return same component.
+   */
+  public LabeledIcon setIconPosition(IconPosition position) {
+    position.apply(this);
+    return this;
   }
 
   /** @dominokit-site-ignore {@inheritDoc} */
