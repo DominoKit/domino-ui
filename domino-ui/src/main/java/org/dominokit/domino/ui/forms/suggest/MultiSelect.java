@@ -154,6 +154,7 @@ public class MultiSelect<V>
     updateTextValue();
     fieldInput.appendChild(option);
     selectedOptions.add(option);
+    getInputElement().element().focus();
   }
 
   /**
