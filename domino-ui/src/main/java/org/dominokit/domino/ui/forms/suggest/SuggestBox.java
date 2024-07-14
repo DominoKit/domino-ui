@@ -101,10 +101,7 @@ public class SuggestBox<V, E extends IsElement<?>, O extends Option<V, E, O>>
   /** Handles the "Backspace" key event. */
   @Override
   protected void onBackspace() {
-    if (nonNull(selectedOption)) {
-      selectedOption.remove();
-      selectedOption = null;
-    }
+    clearValue(isChangeListenersPaused());
   }
 
   /**
@@ -164,6 +161,7 @@ public class SuggestBox<V, E extends IsElement<?>, O extends Option<V, E, O>>
   @Override
   public void onOptionDeselected(O option) {
     option.remove();
+    V oldValue = this.selectedOption.getValue();
     if (Objects.equals(this.selectedOption, option)) {
       this.selectedOption = null;
     }
@@ -184,7 +182,12 @@ public class SuggestBox<V, E extends IsElement<?>, O extends Option<V, E, O>>
   protected SuggestBox<V, E, O> clearValue(boolean silent) {
     if (nonNull(selectedOption)) {
       V oldValue = getValue();
-      withPauseChangeListenersToggle(true, field -> onOptionDeselected(selectedOption));
+      withPauseChangeListenersToggle(
+          true,
+          field -> {
+            onOptionDeselected(selectedOption);
+            getInputElement().element().value = null;
+          });
 
       if (!silent) {
         triggerClearListeners(oldValue);

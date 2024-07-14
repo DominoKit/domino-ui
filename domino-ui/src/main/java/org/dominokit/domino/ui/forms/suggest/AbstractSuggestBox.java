@@ -176,7 +176,7 @@ public abstract class AbstractSuggestBox<
                     })));
 
     getInputElement()
-        .onKeyDown(
+        .onKeyUp(
             keyEvents -> {
               keyEvents
                   .onArrowDown(
@@ -223,6 +223,14 @@ public abstract class AbstractSuggestBox<
                             evt.preventDefault();
                             onBackspace();
                           }
+                        }
+                      })
+                  .onDelete(
+                      evt -> {
+                        if (!isReadOnly() && !isDisabled()) {
+                          evt.stopPropagation();
+                          evt.preventDefault();
+                          onBackspace();
                         }
                       });
             });
