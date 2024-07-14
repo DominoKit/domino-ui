@@ -299,7 +299,7 @@ public abstract class AbstractSuggestBox<
    * the suggestions from the store, highlighting the matched portions, and updating the options
    * menu.
    */
-  private void search() {
+  protected void search() {
     if (store != null) {
       loader.start();
       optionsMenu.removeAll();
@@ -713,6 +713,39 @@ public abstract class AbstractSuggestBox<
    */
   public C withOptionsMenu(ChildHandler<C, Menu<T>> handler) {
     handler.apply((C) this, optionsMenu);
+    return (C) this;
+  }
+
+  /**
+   * Use to change the default search loader of a suggest box.
+   *
+   * @param loader
+   * @return same component instance
+   */
+  public C setLoader(Loader loader) {
+    this.loader = loader;
+    return (C) this;
+  }
+
+  /**
+   * Use to apply a function on search loader of a suggest box.
+   *
+   * @param handler
+   * @return same component instance
+   */
+  public C withLoader(ChildHandler<C, Loader> handler) {
+    handler.apply((C) this, loader);
+    return (C) this;
+  }
+
+  /**
+   * Use to apply a function on element hosting the suggest box search loader.
+   *
+   * @param handler
+   * @return same component instance
+   */
+  public C withLoaderElement(ChildHandler<C, PrimaryAddOn<HTMLElement>> handler) {
+    handler.apply((C) this, loaderElement);
     return (C) this;
   }
 

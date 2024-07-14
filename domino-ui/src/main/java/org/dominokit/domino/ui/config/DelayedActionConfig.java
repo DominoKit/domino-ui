@@ -26,22 +26,51 @@ public interface DelayedActionConfig extends ComponentConfig {
     return 200;
   }
 
+  /**
+   * Use to globally configure select/suggest box search box typeahead delay.
+   *
+   * @return the delay in milliseconds, default to 1000ms
+   */
   default int getDefaultSelectableBoxTypeAheadDelay() {
     return 1000;
   }
 
+  /**
+   * Use to globally configure Suggest box search box typeahead delay.
+   *
+   * @return the delay in milliseconds, default to {@link
+   *     DelayedActionConfig#getDefaultSelectableBoxTypeAheadDelay()}
+   */
   default int getSuggestBoxTypeAheadDelay() {
     return getDefaultSelectableBoxTypeAheadDelay();
   }
 
+  /**
+   * Use to globally configure Select box search box typeahead delay.
+   *
+   * @return the delay in milliseconds, default to {@link
+   *     DelayedActionConfig#getDefaultSelectableBoxTypeAheadDelay()}
+   */
   default int getSelectBoxTypeAheadDelay() {
     return getDefaultSelectableBoxTypeAheadDelay();
   }
 
+  /**
+   * Use to globally configure notification duration.
+   *
+   * @return the delay in milliseconds, default to 4000ms.
+   */
   default int getDefaultNotificationDuration() {
     return 4000;
   }
 
+  /**
+   * Use to globally configure the delay before a datebox start parsing the value while tying in the
+   * date box input.
+   *
+   * @return the delay in milliseconds, default to {@link
+   *     DelayedActionConfig#getDelayedExecutionDefaultDelay()}.
+   */
   default int getDateBoxDefaultInputParseDelay() {
     return getDelayedExecutionDefaultDelay();
   }
