@@ -80,6 +80,7 @@ public abstract class AbstractSelect<
   private SpanElement placeHolderElement;
   private InputElement inputElement;
   private InputElement typingElement;
+  private int typeAheadDelay = -1;
 
   /**
    * Default constructor which initializes the underlying structures, sets up event listeners, and
@@ -103,7 +104,7 @@ public abstract class AbstractSelect<
                     .setTabIndex(-1)
                     .onKeyPress(keyEvents -> keyEvents.alphanumeric(Event::stopPropagation)));
 
-    DelayedTextInput.create(typingElement, 1000)
+    DelayedTextInput.create(typingElement, getTypeAheadDelay())
         .setDelayedAction(
             () -> {
               optionsMenu
@@ -207,6 +208,17 @@ public abstract class AbstractSelect<
                       evt.stopPropagation();
                       clearValue(false);
                     })));
+  }
+
+  private int getTypeAheadDelay() {
+    return typeAheadDelay > 0
+        ? typeAheadDelay
+        : config().getUIConfig().getSelectBoxTypeAheadDelay();
+  }
+
+  public C setTypeAheadDelay(int delay) {
+    this.typeAheadDelay = delay;
+    return (C) this;
   }
 
   /**

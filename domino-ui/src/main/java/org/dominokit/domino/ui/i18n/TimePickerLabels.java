@@ -75,4 +75,14 @@ public interface TimePickerLabels extends Labels {
   default String timePickerInvalidTimeFormat() {
     return "Invalid time format";
   }
+
+  /**
+   * Gets the error message for an invalid time format in the time picker.
+   *
+   * @param value the current invalid value
+   * @return The error message for an invalid time format.
+   */
+  default String timePickerInvalidTimeFormat(String value) {
+    return timePickerInvalidTimeFormat() + " : " + value;
+  }
 }

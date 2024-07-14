@@ -134,11 +134,10 @@ public class Calendar extends BaseDominoElement<HTMLDivElement, Calendar>
           evt.stopPropagation();
           CalendarCustomEvents.UpdateDateEventData dateData =
               CalendarCustomEvents.UpdateDateEventData.of((CustomEvent<?>) evt);
-          Date updatedDate = new Date(dateData.getTimestamp());
-          onDateViewUpdate(updatedDate);
+          this.date = new Date(dateData.getTimestamp());
+          onDateViewUpdate(this.date);
           calendarMonth.show();
           yearMonthPicker.hide();
-          this.date = updatedDate;
         });
 
     this.root.addEventListener(
@@ -148,9 +147,8 @@ public class Calendar extends BaseDominoElement<HTMLDivElement, Calendar>
           CalendarCustomEvents.UpdateDateEventData dateData =
               CalendarCustomEvents.UpdateDateEventData.of((CustomEvent<?>) evt);
           Date oldDate = this.date;
-          Date updatedDate = new Date(dateData.getTimestamp());
-          this.date = updatedDate;
-          onDateSelectionChanged(updatedDate);
+          this.date = new Date(dateData.getTimestamp());
+          onDateSelectionChanged(this.date);
           calendarMonth.show();
           yearMonthPicker.hide();
           triggerChangeListeners(oldDate, this.date);
@@ -310,6 +308,17 @@ public class Calendar extends BaseDominoElement<HTMLDivElement, Calendar>
       onDateSelectionChanged(this.date);
       triggerChangeListeners(oldDate, this.date);
     }
+    return this;
+  }
+
+  /**
+   * Resets the calendar view to the month view if it is on month/year selection view
+   *
+   * @return same Calendar instance
+   */
+  public Calendar resetView() {
+    calendarMonth.show();
+    yearMonthPicker.hide();
     return this;
   }
 

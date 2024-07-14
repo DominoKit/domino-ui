@@ -27,6 +27,7 @@ import java.util.Objects;
 import java.util.Optional;
 import jsinterop.base.Js;
 import org.dominokit.domino.ui.IsElement;
+import org.dominokit.domino.ui.config.DelayedActionConfig;
 import org.dominokit.domino.ui.elements.DivElement;
 import org.dominokit.domino.ui.elements.InputElement;
 import org.dominokit.domino.ui.forms.AbstractFormElement;
@@ -110,7 +111,7 @@ public abstract class AbstractSuggestBox<
   private boolean autoSelect = true;
 
   /** The type-ahead delay in milliseconds. */
-  private int typeAheadDelay = 1000;
+  private int typeAheadDelay = -1;
 
   /**
    * Creates an instance of {@code AbstractSuggestBox} with the specified suggestions store.
@@ -263,12 +264,16 @@ public abstract class AbstractSuggestBox<
   }
 
   /**
-   * Gets the type-ahead delay in milliseconds.
+   * Gets the type-ahead delay in milliseconds; this will return the value specified using {@link
+   * AbstractSuggestBox#setTypeAheadDelay(int)} if greater than 0 otherwise, this will return the
+   * value specified in {@link DelayedActionConfig#getSuggestBoxTypeAheadDelay()}.
    *
    * @return The type-ahead delay in milliseconds.
    */
   public int getTypeAheadDelay() {
-    return typeAheadDelay;
+    return typeAheadDelay > 0
+        ? typeAheadDelay
+        : config().getUIConfig().getSuggestBoxTypeAheadDelay();
   }
 
   /**

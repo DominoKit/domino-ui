@@ -71,7 +71,7 @@ import org.gwtproject.timer.client.Timer;
 public class SearchBox extends BaseDominoElement<HTMLDivElement, SearchBox>
     implements HasLabels<QuickSearchLabels>, HasComponentConfig<SearchConfig> {
 
-  private int autoSearchDelay;
+  private int autoSearchDelay = -1;
   private DivElement root;
   private final TextBox textBox;
   private boolean autoSearch = true;
@@ -94,7 +94,7 @@ public class SearchBox extends BaseDominoElement<HTMLDivElement, SearchBox>
   /** Constructs a new `SearchBox` instance with default settings. */
   public SearchBox() {
     init(this);
-    this.autoSearchDelay = getConfig().getAutoSearchDelay();
+
     root = div().addCss(dui_quick_search);
     searchIcon =
         Icons.magnify()
@@ -152,7 +152,7 @@ public class SearchBox extends BaseDominoElement<HTMLDivElement, SearchBox>
     autoSearchEventListener =
         evt -> {
           autoSearchTimer.cancel();
-          autoSearchTimer.schedule(autoSearchDelay);
+          autoSearchTimer.schedule(getAutoSearchDelay());
         };
 
     setAutoSearch(true);
@@ -224,7 +224,7 @@ public class SearchBox extends BaseDominoElement<HTMLDivElement, SearchBox>
    * @return The auto search delay.
    */
   public int getAutoSearchDelay() {
-    return autoSearchDelay;
+    return this.autoSearchDelay > 0 ? this.autoSearchDelay : getConfig().getAutoSearchDelay();
   }
 
   /**

@@ -158,7 +158,7 @@ public class TimeBox extends TextInputFormField<TimeBox, HTMLInputElement, Date>
                   clearInvalid();
                 } catch (IllegalArgumentException ignored) {
                   if (parseStrict) {
-                    invalidate("Unable to parse date value " + value);
+                    invalidate(getLabels().timePickerInvalidTimeFormat(value));
                   }
                   DomGlobal.console.warn("Unable to parse date value " + value);
                 }
