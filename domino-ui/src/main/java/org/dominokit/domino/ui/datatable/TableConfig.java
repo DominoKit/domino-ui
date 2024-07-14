@@ -391,6 +391,15 @@ public class TableConfig<T>
   }
 
   /**
+   * Retrieves only the leaf columns of the data table.
+   *
+   * @return A list of {@link ColumnConfig} representing all columns, flattened.
+   */
+  public List<ColumnConfig<T>> getLeafColumns() {
+    return columns.stream().flatMap(col -> col.leafColumns().stream()).collect(Collectors.toList());
+  }
+
+  /**
    * Retrieves the columns of the DataTable as grouped.
    *
    * @return A list of {@link ColumnConfig} representing grouped columns.
