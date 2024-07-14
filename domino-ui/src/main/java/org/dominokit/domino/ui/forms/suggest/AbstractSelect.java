@@ -277,11 +277,15 @@ public abstract class AbstractSelect<
             new ArrayList<>(selection)
                 .forEach(
                     item -> {
-                      item.deselect(silent);
-                      if (silent) {
-                        OptionMeta.get(item)
-                            .ifPresent(meta -> onOptionDeselected((O) meta.getOption(), silent));
-                      }
+                      withPausedChangeListeners(
+                          select -> {
+                            item.deselect(silent);
+                            if (silent) {
+                              OptionMeta.get(item)
+                                  .ifPresent(
+                                      meta -> onOptionDeselected((O) meta.getOption(), silent));
+                            }
+                          });
                     });
           });
 
