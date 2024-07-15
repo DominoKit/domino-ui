@@ -22,6 +22,8 @@ import static org.dominokit.domino.ui.utils.Domino.*;
 
 import elemental2.dom.HTMLElement;
 import elemental2.dom.HTMLInputElement;
+import org.dominokit.domino.ui.config.HasComponentConfig;
+import org.dominokit.domino.ui.config.SearchConfig;
 import org.dominokit.domino.ui.datatable.ColumnConfig;
 import org.dominokit.domino.ui.datatable.model.Category;
 import org.dominokit.domino.ui.datatable.model.Filter;
@@ -30,7 +32,6 @@ import org.dominokit.domino.ui.datatable.model.SearchContext;
 import org.dominokit.domino.ui.datatable.plugins.column.ColumnHeaderFilterPlugin;
 import org.dominokit.domino.ui.forms.InputFormField;
 import org.dominokit.domino.ui.utils.DelayedTextInput;
-import org.dominokit.domino.ui.utils.DominoUIConfig;
 import org.dominokit.domino.ui.utils.HasPlaceHolder;
 
 /**
@@ -44,9 +45,10 @@ import org.dominokit.domino.ui.utils.HasPlaceHolder;
  */
 public abstract class DelayedHeaderFilterInput<
         B extends InputFormField<B, HTMLInputElement, V>, T, V>
-    implements ColumnHeaderFilterPlugin.HeaderFilter<T> {
+    implements ColumnHeaderFilterPlugin.HeaderFilter<T>, HasComponentConfig<SearchConfig> {
   private B input;
   private DelayedTextInput delayedTextInput;
+  private SearchConfig config;
 
   /** Creates a new instance of DelayedHeaderFilterInput with a default placeholder. */
   public DelayedHeaderFilterInput() {
@@ -68,8 +70,16 @@ public abstract class DelayedHeaderFilterInput<
 
     delayedTextInput =
         DelayedTextInput.create(
-            getInputElement(),
-            DominoUIConfig.CONFIG.getUIConfig().getTableTextHeaderFilterSearchDelay());
+            getInputElement(), getConfig().getTableTextHeaderFilterSearchDelay());
+  }
+
+  public void setOwnConfig(SearchConfig config) {
+    this.config = config;
+  }
+
+  @Override
+  public SearchConfig getOwnConfig() {
+    return config;
   }
 
   /**
