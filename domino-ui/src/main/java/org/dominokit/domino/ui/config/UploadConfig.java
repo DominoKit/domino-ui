@@ -81,4 +81,15 @@ public interface UploadConfig extends ComponentConfig {
   default Supplier<FilePreviewContainer<?, ?>> getDefaultFilePreviewContainer() {
     return DefaultFilePreviewContainer::new;
   }
+
+  /**
+   * when the user uploaded a set of files that are less or equals the max uploads allowed, and they
+   * are already uploaded, should we allow him to upload a new set of files that are in total with
+   * the previous batch could overflow the max allowed upload limit.
+   *
+   * @return boolean default true
+   */
+  default boolean isMaxUploadsOverflowAllowed() {
+    return true;
+  }
 }

@@ -17,7 +17,9 @@ package org.dominokit.domino.ui.upload;
 
 import static org.dominokit.domino.ui.utils.Domino.*;
 
+import elemental2.dom.DomGlobal;
 import elemental2.dom.HTMLDivElement;
+import org.dominokit.domino.ui.grid.Column;
 import org.dominokit.domino.ui.grid.Row;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
 import org.dominokit.domino.ui.utils.ChildHandler;
@@ -50,7 +52,17 @@ public class DefaultFilePreviewContainer
    */
   @Override
   public DefaultFilePreviewContainer appendChild(FileItem fileItem) {
-    rootRow.span2(fileItem);
+    rootRow.appendChild(
+        Column.span2()
+            .apply(
+                self -> {
+                  self.appendChild(fileItem);
+                  fileItem.onDetached(
+                      mutationRecord -> {
+                        DomGlobal.console.info("delete columns too ------------------");
+                        self.remove();
+                      });
+                }));
     return this;
   }
 

@@ -15,6 +15,8 @@
  */
 package org.dominokit.domino.ui.config;
 
+import static java.util.Objects.nonNull;
+
 import org.dominokit.domino.ui.utils.DominoUIConfig;
 
 /** HasComponentConfig interface. */
@@ -25,6 +27,13 @@ public interface HasComponentConfig<T extends ComponentConfig> {
    * @return a T object
    */
   default T getConfig() {
+    if (nonNull(getOwnConfig())) {
+      return getOwnConfig();
+    }
     return (T) DominoUIConfig.CONFIG.getUIConfig();
+  }
+
+  default T getOwnConfig() {
+    return null;
   }
 }
