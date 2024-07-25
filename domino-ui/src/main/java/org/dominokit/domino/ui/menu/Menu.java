@@ -156,6 +156,7 @@ public class Menu<V> extends BaseDominoElement<HTMLDivElement, Menu<V>>
   private EventListener lostFocusListener;
   private boolean closeOnBlur = DominoUIConfig.CONFIG.isClosePopupOnBlur();
   private OpenMenuCondition<V> openMenuCondition = (menu) -> true;
+  private List<MediaQuery.MediaQueryListenerRecord> mediaQueryRecords = new ArrayList<>();
 
   /**
    * Factory method to create a new Menu instance.
@@ -355,19 +356,6 @@ public class Menu<V> extends BaseDominoElement<HTMLDivElement, Menu<V>>
 
     element.addEventListener("keydown", keyboardNavigation);
 
-    MediaQuery.addOnSmallAndDownListener(
-        () -> {
-          if (centerOnSmallScreens) {
-            this.smallScreen = true;
-          }
-        });
-    MediaQuery.addOnMediumAndUpListener(
-        () -> {
-          if (centerOnSmallScreens) {
-            this.smallScreen = false;
-            backArrowContainer.remove();
-          }
-        });
     backIcon = LazyChild.of(Icons.keyboard_backspace().addCss(dui_menu_back_icon), menuHeader);
     backIcon.whenInitialized(
         () -> {
@@ -402,6 +390,38 @@ public class Menu<V> extends BaseDominoElement<HTMLDivElement, Menu<V>>
                 0);
           }
         };
+
+    nowAndWhenAttached(
+        () -> {
+          mediaQueryRecords.add(
+              MediaQuery.addOnSmallAndDownListener(
+                  () -> {
+                    if (centerOnSmallScreens) {
+                      this.smallScreen = true;
+                    }
+                  }));
+
+          mediaQueryRecords.add(
+              MediaQuery.addOnMediumAndUpListener(
+                  () -> {
+                    if (centerOnSmallScreens) {
+                      this.smallScreen = false;
+                      backArrowContainer.remove();
+                    }
+                  }));
+
+          DomGlobal.document.body.addEventListener("blur", lostFocusListener, true);
+          if (this.dropDown) {
+            document.addEventListener("scroll", repositionListener, true);
+          }
+        });
+
+    nowAndWhenDetached(
+        () -> {
+          DomGlobal.document.body.removeEventListener("blur", lostFocusListener, true);
+          document.removeEventListener("scroll", repositionListener, true);
+          mediaQueryRecords.forEach(MediaQuery.MediaQueryListenerRecord::remove);
+        });
 
     this.addEventListener(EventType.touchstart.getName(), Event::stopPropagation);
     this.addEventListener(EventType.touchend.getName(), Event::stopPropagation);
@@ -1378,7 +1398,6 @@ public class Menu<V> extends BaseDominoElement<HTMLDivElement, Menu<V>>
         menuHeader.get().insertFirst(backArrowContainer);
       }
       show();
-      DomGlobal.document.body.addEventListener("blur", lostFocusListener, true);
     }
   }
 
@@ -1570,7 +1589,6 @@ public class Menu<V> extends BaseDominoElement<HTMLDivElement, Menu<V>>
                 menuTarget -> {
                   menuTarget.getTargetElement().element().focus();
                 });
-        DomGlobal.document.body.removeEventListener("blur", lostFocusListener, true);
         if (isSearchable()) {
           searchBox.get().clearSearch();
         }
@@ -1785,7 +1803,6 @@ public class Menu<V> extends BaseDominoElement<HTMLDivElement, Menu<V>>
     if (dropdown) {
       this.setAttribute("domino-ui-root-menu", true).setAttribute(DOMINO_UI_AUTO_CLOSABLE, true);
       menuElement.elevate(Elevation.LEVEL_1);
-      document.addEventListener("scroll", repositionListener, true);
     } else {
       this.removeAttribute("domino-ui-root-menu").removeAttribute(DOMINO_UI_AUTO_CLOSABLE);
       menuElement.elevate(Elevation.NONE);
