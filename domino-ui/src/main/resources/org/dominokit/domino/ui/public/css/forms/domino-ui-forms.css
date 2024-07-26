@@ -151,10 +151,15 @@
     color: #F44336;
 }
 
+.field-inner-cntr {
+    height: 100%;
+}
+
 .field-group .field-input-cntr {
     position: relative;
     background-color: inherit;
     width: 100%;
+    height:100%;
 }
 
 .field-cntr .flex-layout,
@@ -176,7 +181,7 @@
 .field-group.lined.d-select .field-cntr .flex-layout {
     position: relative;
     bottom: 4px;
-    align-items: center;
+    align-items: stretch;
 }
 
 .table-cm-filter .field-group.lined.dui-datebox .field-cntr .flex-layout,
@@ -244,7 +249,7 @@
 }
 
 .field-group .select-button {
-    height: 35px;
+    height: 100%;
     line-height: 35px;
 }
 
