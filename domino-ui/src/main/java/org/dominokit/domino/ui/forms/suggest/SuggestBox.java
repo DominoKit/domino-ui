@@ -188,7 +188,6 @@ public class SuggestBox<V, E extends IsElement<?>, O extends Option<V, E, O>>
             onOptionDeselected(selectedOption);
             getInputElement().element().value = null;
           });
-
       if (!silent) {
         triggerClearListeners(oldValue);
         triggerChangeListeners(oldValue, getValue());
@@ -197,6 +196,8 @@ public class SuggestBox<V, E extends IsElement<?>, O extends Option<V, E, O>>
       if (isAutoValidation()) {
         autoValidate();
       }
+    } else {
+      withPauseChangeListenersToggle(true, field -> getInputElement().element().value = null);
     }
 
     return this;
@@ -212,7 +213,7 @@ public class SuggestBox<V, E extends IsElement<?>, O extends Option<V, E, O>>
     if (nonNull(this.selectedOption)) {
       return String.valueOf(this.selectedOption.getValue());
     }
-    return null;
+    return getInputElement().element().value;
   }
 
   /** Handles actions to be performed after an option is selected. */
