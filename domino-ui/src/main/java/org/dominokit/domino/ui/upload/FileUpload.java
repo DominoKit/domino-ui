@@ -16,11 +16,23 @@
 package org.dominokit.domino.ui.upload;
 
 import static java.util.Objects.nonNull;
-import static org.dominokit.domino.ui.utils.Domino.*;
+import static org.dominokit.domino.ui.utils.Domino.div;
+import static org.dominokit.domino.ui.utils.Domino.elementOf;
+import static org.dominokit.domino.ui.utils.Domino.input;
 import static org.dominokit.domino.ui.utils.DominoUIConfig.CONFIG;
 
-import elemental2.dom.*;
-import java.util.*;
+import elemental2.dom.DragEvent;
+import elemental2.dom.Element;
+import elemental2.dom.File;
+import elemental2.dom.FileList;
+import elemental2.dom.HTMLDivElement;
+import elemental2.dom.HTMLElement;
+import elemental2.dom.XMLHttpRequest;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.List;
+import java.util.Optional;
 import java.util.function.Supplier;
 import java.util.stream.Collectors;
 import jsinterop.base.Js;
@@ -100,6 +112,7 @@ public class FileUpload extends BaseDominoElement<HTMLDivElement, FileUpload>
 
   private DropEffect dropEffect;
   private UploadConfig config;
+  private boolean showPreview = true;
 
   /**
    * Creates a new instance of the `FileUpload` component.
@@ -396,17 +409,20 @@ public class FileUpload extends BaseDominoElement<HTMLDivElement, FileUpload>
     }
     FileItem fileItem = FileItem.create(file, new UploadOptions(), filePreviewFactory, this);
 
-    fileItemHandlers.forEach(handler -> handler.handle(fileItem));
-
-    fileItem.validateSize();
-
-    filesContainer.appendChild(fileItem);
-    addedFileItems.add(fileItem);
-
     fileItem.addRemoveHandler(
         removedFile -> {
           addedFileItems.remove(fileItem);
         });
+
+    fileItemHandlers.forEach(handler -> handler.handle(fileItem));
+
+    fileItem.validateSize();
+
+    if (showPreview) {
+      filesContainer.appendChild(fileItem);
+    }
+
+    addedFileItems.add(fileItem);
 
     if (fileItem.isCanceled()) {
       fileItem.remove();
@@ -624,6 +640,23 @@ public class FileUpload extends BaseDominoElement<HTMLDivElement, FileUpload>
     if (nonNull(dropEffect)) {
       this.dropEffect = dropEffect;
     }
+    return this;
+  }
+
+  /** @return true if uploaded files will show a preview in the preview container */
+  public boolean isShowPreview() {
+    return showPreview;
+  }
+
+  /**
+   * When set to true, uploaded files will show a preview in the preview container, otherwise they
+   * wont
+   *
+   * @param showPreview boolean.
+   * @return same component instance
+   */
+  public FileUpload setShowPreview(boolean showPreview) {
+    this.showPreview = showPreview;
     return this;
   }
 
