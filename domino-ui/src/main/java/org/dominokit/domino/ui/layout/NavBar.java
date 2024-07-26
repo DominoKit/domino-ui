@@ -24,6 +24,7 @@ import org.dominokit.domino.ui.elements.DivElement;
 import org.dominokit.domino.ui.elements.HeadingElement;
 import org.dominokit.domino.ui.elements.NavElement;
 import org.dominokit.domino.ui.elements.SmallElement;
+import org.dominokit.domino.ui.elements.SpanElement;
 import org.dominokit.domino.ui.utils.*;
 
 /**
@@ -57,6 +58,7 @@ import org.dominokit.domino.ui.utils.*;
 public class NavBar extends BaseDominoElement<HTMLElement, NavBar> {
   private NavElement root;
   private HeadingElement title;
+  private SpanElement titleTextElement;
   private LazyChild<SmallElement> description;
   private DivElement body;
 
@@ -84,7 +86,7 @@ public class NavBar extends BaseDominoElement<HTMLElement, NavBar> {
     root =
         nav()
             .addCss(dui_nav_bar)
-            .appendChild(title = h(4).addCss(dui_nav_title))
+            .appendChild(title = h(4).appendChild(titleTextElement = span()).addCss(dui_nav_title))
             .appendChild(body = div().addCss(dui_nav_body));
     description = LazyChild.of(small().addCss(dui_nav_description), title);
     init(this);
@@ -118,7 +120,7 @@ public class NavBar extends BaseDominoElement<HTMLElement, NavBar> {
    * @return This {@code NavBar} instance.
    */
   public NavBar setTitle(String title) {
-    this.title.setTextContent(title);
+    this.titleTextElement.setTextContent(title);
     return this;
   }
 
@@ -160,6 +162,17 @@ public class NavBar extends BaseDominoElement<HTMLElement, NavBar> {
   }
 
   /**
+   * Allows customization of the title text element.
+   *
+   * @param handler The handler for customizing the title text element.
+   * @return This {@code NavBar} instance.
+   */
+  public NavBar withTitleTextElement(ChildHandler<NavBar, SpanElement> handler) {
+    handler.apply(this, titleTextElement);
+    return this;
+  }
+
+  /**
    * Gets the title element.
    *
    * @return The title element.
@@ -184,6 +197,11 @@ public class NavBar extends BaseDominoElement<HTMLElement, NavBar> {
    */
   public String getTitle() {
     return title.getTextContent();
+  }
+
+  /** @return the element containing the text of the title. */
+  public SpanElement getTitleTextElement() {
+    return titleTextElement;
   }
 
   /**
