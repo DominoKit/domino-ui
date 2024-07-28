@@ -19,7 +19,15 @@ import org.dominokit.domino.ui.datatable.plugins.PluginConfig;
 
 public class SummaryPluginConfig implements PluginConfig {
 
-  private boolean removeOnEmptyData = false;
+  private boolean removeOnEmptyData;
+
+  public SummaryPluginConfig() {
+    this(false);
+  }
+
+  public SummaryPluginConfig(boolean removeOnEmptyData) {
+    this.removeOnEmptyData = removeOnEmptyData;
+  }
 
   /**
    * @return boolean, true will cause the plugin to remove the summary records for empty data
