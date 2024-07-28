@@ -15,21 +15,9 @@
  */
 package org.dominokit.domino.ui.config;
 
-/** UIConfig interface. */
-public interface UIConfig
-    extends FormsFieldsConfig,
-        ZIndexConfig,
-        AccordionConfig,
-        CardConfig,
-        ProgressBarConfig,
-        SearchConfig,
-        SpinConfig,
-        TabsConfig,
-        TreeConfig,
-        UploadConfig,
-        StepperConfig,
-        CalendarConfig,
-        TimePickerConfig,
-        DelayedActionConfig,
-        DatatableConfig,
-        CarouselConfig {}
+public interface CarouselConfig extends ComponentConfig {
+  /** @return boolean, true to allow scrolling a carousel with mouse scroll wheel. */
+  default boolean isScrollCarouselWithWheel() {
+    return false;
+  }
+}
