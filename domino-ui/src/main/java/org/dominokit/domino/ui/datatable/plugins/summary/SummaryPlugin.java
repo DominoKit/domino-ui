@@ -51,7 +51,7 @@ public class SummaryPlugin<T, S>
   private List<SummaryRow<T, S>> summaryRows = new ArrayList<>();
   private DataTable<T> dataTable;
   private TFootElement footer;
-  private SummaryPluginConfig config = new SummaryPluginConfig();
+  private SummaryPluginConfig config = SummaryPluginConfig.of();
 
   /**
    * Initializes the SummaryPlugin with the DataTable.
@@ -118,7 +118,7 @@ public class SummaryPlugin<T, S>
   @Override
   public SummaryPlugin<T, S> setConfig(SummaryPluginConfig config) {
     if (isNull(config)) {
-      this.config = new SummaryPluginConfig();
+      this.config = SummaryPluginConfig.of();
     } else {
       this.config = config;
     }

@@ -15,15 +15,29 @@
  */
 package org.dominokit.domino.ui.datatable.plugins.summary;
 
+import org.dominokit.domino.ui.config.DatatableConfig;
 import org.dominokit.domino.ui.datatable.plugins.PluginConfig;
+import org.dominokit.domino.ui.utils.DominoUIConfig;
 
 public class SummaryPluginConfig implements PluginConfig {
 
-  private boolean removeOnEmptyData = false;
+  private boolean removeOnEmptyData;
+
+  public SummaryPluginConfig(boolean removeOnEmptyData) {
+    this.removeOnEmptyData = removeOnEmptyData;
+  }
+
+  public static SummaryPluginConfig of(){
+    return new SummaryPluginConfig(DominoUIConfig.CONFIG.getUIConfig().isRemoveSummaryRecordsForEmptyTable());
+  }
+
+  public static SummaryPluginConfig of(boolean removeOnEmptyData){
+    return new SummaryPluginConfig(removeOnEmptyData);
+  }
 
   /**
    * @return boolean, true will cause the plugin to remove the summary records for empty data
-   *     tables, false will keep them, default to false
+   *     tables, false will keep them, default to {@link DatatableConfig#isRemoveSummaryRecordsForEmptyTable()}
    */
   public boolean isRemoveOnEmptyData() {
     return removeOnEmptyData;

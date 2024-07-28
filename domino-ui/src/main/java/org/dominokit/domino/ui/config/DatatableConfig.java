@@ -15,20 +15,8 @@
  */
 package org.dominokit.domino.ui.config;
 
-/** UIConfig interface. */
-public interface UIConfig
-    extends FormsFieldsConfig,
-        ZIndexConfig,
-        AccordionConfig,
-        CardConfig,
-        ProgressBarConfig,
-        SearchConfig,
-        SpinConfig,
-        TabsConfig,
-        TreeConfig,
-        UploadConfig,
-        StepperConfig,
-        CalendarConfig,
-        TimePickerConfig,
-        DelayedActionConfig,
-        DatatableConfig {}
+public interface DatatableConfig extends ComponentConfig {
+  default boolean isRemoveSummaryRecordsForEmptyTable() {
+    return false;
+  }
+}
