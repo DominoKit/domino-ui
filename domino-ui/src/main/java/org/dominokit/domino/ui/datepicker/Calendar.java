@@ -113,20 +113,21 @@ public class Calendar extends BaseDominoElement<HTMLDivElement, Calendar>
     this.dateTimeFormatInfo = dateTimeFormatInfo;
     this.config = config;
 
-    this.root =
-        div()
-            .addCss(dui_calendar)
-            .apply(calendar -> header = LazyChild.of(CalendarHeader.create(this), calendar))
-            .appendChild(selectors = CalendarSelectors.create(this))
-            .appendChild(
-                calendarBody =
-                    div()
-                        .addCss(dui_calendar_body)
-                        .appendChild(calendarMonth = CalendarMonth.create(this))
-                        .appendChild(yearMonthPicker = YearMonthPicker.create(this).hide()))
-            .apply(
-                calendar ->
-                    this.footer = LazyChild.of(div().addCss(dui_calendar_footer), calendar));
+    this.root = div().addCss(dui_calendar);
+
+    getConfig().getPlugins().forEach(plugin -> plugin.onInit(this));
+    init(this);
+
+    this.root
+        .apply(calendar -> header = LazyChild.of(CalendarHeader.create(this), calendar))
+        .appendChild(selectors = CalendarSelectors.create(this))
+        .appendChild(
+            calendarBody =
+                div()
+                    .addCss(dui_calendar_body)
+                    .appendChild(calendarMonth = CalendarMonth.create(this))
+                    .appendChild(yearMonthPicker = YearMonthPicker.create(this).hide()))
+        .apply(calendar -> this.footer = LazyChild.of(div().addCss(dui_calendar_footer), calendar));
 
     this.root.addEventListener(
         CalendarCustomEvents.DATE_NAVIGATION_CHANGED,
@@ -168,11 +169,10 @@ public class Calendar extends BaseDominoElement<HTMLDivElement, Calendar>
             calendarBody.removeCss(dui_p_x_1_5);
           }
         });
-    init(this);
+
     onDateViewUpdate(this.date);
     onDateSelectionChanged(this.date);
     onDateTimeFormatChanged();
-    getConfig().getPlugins().forEach(plugin -> plugin.onInit(this));
   }
 
   /**

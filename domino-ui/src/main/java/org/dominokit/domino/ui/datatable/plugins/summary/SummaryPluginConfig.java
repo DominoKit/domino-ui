@@ -27,17 +27,19 @@ public class SummaryPluginConfig implements PluginConfig {
     this.removeOnEmptyData = removeOnEmptyData;
   }
 
-  public static SummaryPluginConfig of(){
-    return new SummaryPluginConfig(DominoUIConfig.CONFIG.getUIConfig().isRemoveSummaryRecordsForEmptyTable());
+  public static SummaryPluginConfig of() {
+    return new SummaryPluginConfig(
+        DominoUIConfig.CONFIG.getUIConfig().isRemoveSummaryRecordsForEmptyTable());
   }
 
-  public static SummaryPluginConfig of(boolean removeOnEmptyData){
+  public static SummaryPluginConfig of(boolean removeOnEmptyData) {
     return new SummaryPluginConfig(removeOnEmptyData);
   }
 
   /**
    * @return boolean, true will cause the plugin to remove the summary records for empty data
-   *     tables, false will keep them, default to {@link DatatableConfig#isRemoveSummaryRecordsForEmptyTable()}
+   *     tables, false will keep them, default to {@link
+   *     DatatableConfig#isRemoveSummaryRecordsForEmptyTable()}
    */
   public boolean isRemoveOnEmptyData() {
     return removeOnEmptyData;

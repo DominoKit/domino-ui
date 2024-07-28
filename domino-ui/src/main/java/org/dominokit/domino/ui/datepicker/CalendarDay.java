@@ -15,7 +15,6 @@
  */
 package org.dominokit.domino.ui.datepicker;
 
-import static org.dominokit.domino.ui.utils.Domino.*;
 import static org.dominokit.domino.ui.utils.Domino.div;
 import static org.dominokit.domino.ui.utils.Domino.span;
 
@@ -65,13 +64,6 @@ public class CalendarDay extends BaseDominoElement<HTMLDivElement, CalendarDay>
 
     root =
         div()
-            .addClickListener(
-                evt -> {
-                  this.dispatchEvent(
-                      CalendarCustomEvents.dateSelectionChanged(
-                          new Date(this.date.getYear(), this.date.getMonth(), this.date.getDate())
-                              .getTime()));
-                })
             .addCss(
                 dui_calendar_day,
                 BooleanCssClass.of(dui_month_day_in_range, inRange),
@@ -84,6 +76,13 @@ public class CalendarDay extends BaseDominoElement<HTMLDivElement, CalendarDay>
                         .addCss(dui_calendar_day_number)
                         .textContent(String.valueOf(date.getDate())));
     init(this);
+    addClickListener(
+        evt -> {
+          this.dispatchEvent(
+              CalendarCustomEvents.dateSelectionChanged(
+                  new Date(this.date.getYear(), this.date.getMonth(), this.date.getDate())
+                      .getTime()));
+        });
   }
 
   /**
