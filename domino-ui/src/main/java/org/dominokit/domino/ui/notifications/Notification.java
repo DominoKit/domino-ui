@@ -55,7 +55,7 @@ public class Notification extends BaseDominoElement<HTMLDivElement, Notification
   private final LazyChild<SpanElement> messageSpan;
   private final LazyChild<RemoveButton> closeButton;
 
-  private int duration = 4000;
+  private int duration = -1;
   private Transition inTransition = Transition.FADE_IN;
   private Transition outTransition = Transition.FADE_OUT;
   private SwapCssClass position = SwapCssClass.of(dui_ntf_top_left);
@@ -277,11 +277,17 @@ public class Notification extends BaseDominoElement<HTMLDivElement, Notification
         .callback(
             e -> {
               if (!infinite) {
-                close(duration);
+                close(getDuration());
               }
             })
         .animate();
     return this;
+  }
+
+  private int getDuration() {
+    return this.duration > 0
+        ? this.duration
+        : config().getUIConfig().getDefaultNotificationDuration();
   }
 
   /** Closes the notification immediately. */

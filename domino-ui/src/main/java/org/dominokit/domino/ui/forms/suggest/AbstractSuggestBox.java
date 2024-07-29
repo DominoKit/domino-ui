@@ -27,6 +27,7 @@ import java.util.Objects;
 import java.util.Optional;
 import jsinterop.base.Js;
 import org.dominokit.domino.ui.IsElement;
+import org.dominokit.domino.ui.config.DelayedActionConfig;
 import org.dominokit.domino.ui.elements.DivElement;
 import org.dominokit.domino.ui.elements.InputElement;
 import org.dominokit.domino.ui.forms.AbstractFormElement;
@@ -110,7 +111,7 @@ public abstract class AbstractSuggestBox<
   private boolean autoSelect = true;
 
   /** The type-ahead delay in milliseconds. */
-  private int typeAheadDelay = 1000;
+  private int typeAheadDelay = -1;
 
   /**
    * Creates an instance of {@code AbstractSuggestBox} with the specified suggestions store.
@@ -175,7 +176,7 @@ public abstract class AbstractSuggestBox<
                     })));
 
     getInputElement()
-        .onKeyDown(
+        .onKeyUp(
             keyEvents -> {
               keyEvents
                   .onArrowDown(
@@ -223,6 +224,14 @@ public abstract class AbstractSuggestBox<
                             onBackspace();
                           }
                         }
+                      })
+                  .onDelete(
+                      evt -> {
+                        if (!isReadOnly() && !isDisabled()) {
+                          evt.stopPropagation();
+                          evt.preventDefault();
+                          onBackspace();
+                        }
                       });
             });
   }
@@ -263,12 +272,16 @@ public abstract class AbstractSuggestBox<
   }
 
   /**
-   * Gets the type-ahead delay in milliseconds.
+   * Gets the type-ahead delay in milliseconds; this will return the value specified using {@link
+   * AbstractSuggestBox#setTypeAheadDelay(int)} if greater than 0 otherwise, this will return the
+   * value specified in {@link DelayedActionConfig#getSuggestBoxTypeAheadDelay()}.
    *
    * @return The type-ahead delay in milliseconds.
    */
   public int getTypeAheadDelay() {
-    return typeAheadDelay;
+    return typeAheadDelay > 0
+        ? typeAheadDelay
+        : config().getUIConfig().getSuggestBoxTypeAheadDelay();
   }
 
   /**
@@ -286,7 +299,7 @@ public abstract class AbstractSuggestBox<
    * the suggestions from the store, highlighting the matched portions, and updating the options
    * menu.
    */
-  private void search() {
+  protected void search() {
     if (store != null) {
       loader.start();
       optionsMenu.removeAll();
@@ -700,6 +713,39 @@ public abstract class AbstractSuggestBox<
    */
   public C withOptionsMenu(ChildHandler<C, Menu<T>> handler) {
     handler.apply((C) this, optionsMenu);
+    return (C) this;
+  }
+
+  /**
+   * Use to change the default search loader of a suggest box.
+   *
+   * @param loader
+   * @return same component instance
+   */
+  public C setLoader(Loader loader) {
+    this.loader = loader;
+    return (C) this;
+  }
+
+  /**
+   * Use to apply a function on search loader of a suggest box.
+   *
+   * @param handler
+   * @return same component instance
+   */
+  public C withLoader(ChildHandler<C, Loader> handler) {
+    handler.apply((C) this, loader);
+    return (C) this;
+  }
+
+  /**
+   * Use to apply a function on element hosting the suggest box search loader.
+   *
+   * @param handler
+   * @return same component instance
+   */
+  public C withLoaderElement(ChildHandler<C, PrimaryAddOn<HTMLElement>> handler) {
+    handler.apply((C) this, loaderElement);
     return (C) this;
   }
 

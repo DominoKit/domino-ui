@@ -29,4 +29,7 @@ public interface UIConfig
         UploadConfig,
         StepperConfig,
         CalendarConfig,
-        TimePickerConfig {}
+        TimePickerConfig,
+        DelayedActionConfig,
+        DatatableConfig,
+        CarouselConfig {}

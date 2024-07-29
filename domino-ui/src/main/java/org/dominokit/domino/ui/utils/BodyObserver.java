@@ -24,13 +24,16 @@ import static org.dominokit.domino.ui.utils.ElementsFactory.elements;
 import elemental2.core.JsArray;
 import elemental2.dom.CustomEvent;
 import elemental2.dom.CustomEventInit;
+import elemental2.dom.Element;
 import elemental2.dom.Event;
 import elemental2.dom.HTMLElement;
 import elemental2.dom.MutationObserver;
 import elemental2.dom.MutationObserverInit;
 import elemental2.dom.MutationRecord;
 import elemental2.dom.Node;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import jsinterop.base.Js;
 
 /**
@@ -96,52 +99,64 @@ final class BodyObserver {
 
   private static void onElementsAppended(MutationRecord record) {
     List<Node> nodes = record.addedNodes.asList();
+    Set<String> processed = new HashSet<>();
     for (int i = 0; i < nodes.size(); i++) {
       Node elementNode = Js.uncheckedCast(nodes.get(i));
       if (Node.ELEMENT_NODE == elementNode.nodeType) {
         HTMLElement element = Js.uncheckedCast(elementNode);
+        List<DominoElement<Element>> childElements =
+            elements.elementOf(element).querySelectorAll("[" + ATTACH_UID_KEY + "]");
         if (element.hasAttribute(ATTACH_UID_KEY)) {
-          element.dispatchEvent(
-              new CustomEvent<>(AttachDetachEventType.attachedType(elements.elementOf(element))));
+          String type = AttachDetachEventType.attachedType(elements.elementOf(element));
+          if (!processed.contains(type)) {
+            processed.add(type);
+            element.dispatchEvent(new CustomEvent<>(type));
+          }
         }
-        elements
-            .elementOf(element)
-            .querySelectorAll("[" + ATTACH_UID_KEY + "]")
-            .forEach(
-                child -> {
-                  CustomEventInit<MutationRecord> ceinit = CustomEventInit.create();
-                  ceinit.setDetail(record);
-                  CustomEvent<MutationRecord> event =
-                      new CustomEvent<>(
-                          AttachDetachEventType.attachedType(elements.elementOf(child)), ceinit);
-                  child.element().dispatchEvent(event);
-                });
+
+        childElements.forEach(
+            child -> {
+              CustomEventInit<MutationRecord> ceinit = CustomEventInit.create();
+              ceinit.setDetail(record);
+              String type = AttachDetachEventType.attachedType(elements.elementOf(child));
+              if (!processed.contains(type)) {
+                processed.add(type);
+                CustomEvent<MutationRecord> event = new CustomEvent<>(type, ceinit);
+                child.element().dispatchEvent(event);
+              }
+            });
       }
     }
   }
 
   private static void onElementsRemoved(MutationRecord record) {
     List<Node> nodes = record.removedNodes.asList();
+    Set<String> processed = new HashSet<>();
     for (int i = 0; i < nodes.size(); i++) {
       Node elementNode = Js.uncheckedCast(nodes.get(i));
       if (Node.ELEMENT_NODE == elementNode.nodeType) {
         HTMLElement element = Js.uncheckedCast(elementNode);
+        List<DominoElement<Element>> childElements =
+            elements.elementOf(element).querySelectorAll("[" + DETACH_UID_KEY + "]");
         if (element.hasAttribute(DETACH_UID_KEY)) {
-          element.dispatchEvent(
-              new Event(AttachDetachEventType.detachedType(elements.elementOf(element))));
+          String type = AttachDetachEventType.detachedType(elements.elementOf(element));
+          if (!processed.contains(type)) {
+            processed.add(type);
+            element.dispatchEvent(new Event(type));
+          }
         }
-        elements
-            .elementOf(element)
-            .querySelectorAll("[" + DETACH_UID_KEY + "]")
-            .forEach(
-                child -> {
-                  CustomEventInit<MutationRecord> ceinit = CustomEventInit.create();
-                  ceinit.setDetail(record);
-                  CustomEvent<MutationRecord> event =
-                      new CustomEvent<>(
-                          AttachDetachEventType.detachedType(elements.elementOf(child)), ceinit);
-                  child.element().dispatchEvent(event);
-                });
+
+        childElements.forEach(
+            child -> {
+              String type = AttachDetachEventType.detachedType(elements.elementOf(child));
+              if (!processed.contains(type)) {
+                processed.add(type);
+                CustomEventInit<MutationRecord> ceinit = CustomEventInit.create();
+                ceinit.setDetail(record);
+                CustomEvent<MutationRecord> event = new CustomEvent<>(type, ceinit);
+                child.element().dispatchEvent(event);
+              }
+            });
       }
     }
   }

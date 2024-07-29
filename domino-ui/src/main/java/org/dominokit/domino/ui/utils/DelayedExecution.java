@@ -15,6 +15,7 @@
  */
 package org.dominokit.domino.ui.utils;
 
+import org.dominokit.domino.ui.config.DelayedActionConfig;
 import org.gwtproject.timer.client.Timer;
 
 /**
@@ -32,6 +33,16 @@ import org.gwtproject.timer.client.Timer;
  * </pre>
  */
 public class DelayedExecution {
+
+  /**
+   * Executes the specified {@code delayedAction} after the specified delay defined in {@link
+   * DelayedActionConfig#getDelayedExecutionDefaultDelay()}.
+   *
+   * @param delayedAction The action to be executed after the delay.
+   */
+  public static void execute(DelayedAction delayedAction) {
+    execute(delayedAction, DominoUIConfig.CONFIG.getUIConfig().getDelayedExecutionDefaultDelay());
+  }
 
   /**
    * Executes the specified {@code delayedAction} after the specified {@code delay} in milliseconds.

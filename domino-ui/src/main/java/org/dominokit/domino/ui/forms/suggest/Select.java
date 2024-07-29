@@ -118,6 +118,7 @@ public class Select<V> extends AbstractSelect<V, V, DivElement, SelectOption<V>,
       }
     }
     autoValidate();
+    getInputElement().element().focus();
     return this;
   }
 

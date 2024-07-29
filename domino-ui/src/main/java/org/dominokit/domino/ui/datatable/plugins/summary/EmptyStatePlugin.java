@@ -19,6 +19,9 @@ package org.dominokit.domino.ui.datatable.plugins.summary;
 import org.dominokit.domino.ui.datatable.DataTable;
 import org.dominokit.domino.ui.datatable.events.TableDataUpdatedEvent;
 import org.dominokit.domino.ui.datatable.plugins.DataTablePlugin;
+import org.dominokit.domino.ui.elements.TDElement;
+import org.dominokit.domino.ui.elements.TFootElement;
+import org.dominokit.domino.ui.elements.TableRowElement;
 import org.dominokit.domino.ui.icons.Icon;
 import org.dominokit.domino.ui.layout.EmptyState;
 import org.dominokit.domino.ui.utils.ChildHandler;
@@ -47,6 +50,9 @@ import org.dominokit.domino.ui.utils.ChildHandler;
 public class EmptyStatePlugin<T> implements DataTablePlugin<T> {
 
   private EmptyState emptyState;
+  private TableRowElement rowElement = tr();
+  private TDElement stateCell = td();
+  private TFootElement footer;
 
   /**
    * Creates and returns a new instance of {@code EmptyStatePlugin} with the provided icon and
@@ -72,18 +78,42 @@ public class EmptyStatePlugin<T> implements DataTablePlugin<T> {
   }
 
   @Override
-  public void onAfterAddTable(DataTable dataTable) {
+  public void init(DataTable<T> dataTable) {
+    rowElement
+        .addCss(dui_table_row)
+        .appendChild(stateCell.addCss(dui_table_cell).appendChild(emptyState));
+  }
+
+  /**
+   * Invoked when the footer is added to the DataTable.
+   *
+   * @param datatable The DataTable to which the footer is added.
+   */
+  @Override
+  public void onFooterAdded(DataTable<T> datatable) {
+    this.footer = datatable.footerElement();
+    this.footer.appendChild(rowElement);
+  }
+
+  @Override
+  public void onAfterAddTable(DataTable<T> dataTable) {
     dataTable.addTableEventListener(
         TableDataUpdatedEvent.DATA_UPDATED,
         event -> {
           TableDataUpdatedEvent tableDataUpdatedEvent = (TableDataUpdatedEvent) event;
+          long columnsCount =
+              dataTable.getTableConfig().getLeafColumns().stream()
+                  .filter(c -> !c.isHidden())
+                  .count();
+          stateCell.setAttribute("colspan", columnsCount);
+
           if (tableDataUpdatedEvent.getTotalCount() == 0) {
-            emptyState.show();
+            rowElement.show();
           } else {
-            emptyState.hide();
+            rowElement.hide();
           }
         });
-    dataTable.element().appendChild(emptyState.element());
+    this.footer.insertFirst(rowElement);
   }
 
   /**

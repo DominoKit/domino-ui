@@ -54,4 +54,15 @@ public class ImageElement extends BaseElement<HTMLImageElement, ImageElement> {
   public ImageElement(HTMLImageElement element) {
     super(element);
   }
+
+  /**
+   * Sets the src for the image element
+   *
+   * @param src String image source
+   * @return same component
+   */
+  public ImageElement src(String src) {
+    setAttribute("src", src);
+    return this;
+  }
 }

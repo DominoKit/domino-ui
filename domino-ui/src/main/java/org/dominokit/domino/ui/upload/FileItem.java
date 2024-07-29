@@ -442,8 +442,8 @@ public class FileItem extends BaseDominoElement<HTMLElement, FileItem> {
    * @return This FileItem instance for method chaining.
    */
   public FileItem cancel() {
+    canceled = true;
     if (request != null) {
-      canceled = true;
       request.abort();
     }
     return this;

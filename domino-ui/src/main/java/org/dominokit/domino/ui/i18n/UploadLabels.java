@@ -55,7 +55,14 @@ public interface UploadLabels extends Labels {
    * @param current The current number of uploads.
    * @return The error message for exceeding the maximum allowed uploads.
    */
-  default String getMaxFileErrorMessage(int maxFiles, int current) {
-    return "The maximum allowed uploads is : " + maxFiles + ", You have " + current;
+  default String getMaxFileErrorMessage(int maxFiles, int current, int added, int ignored) {
+    return "The maximum allowed uploads is : "
+        + maxFiles
+        + ", You have : "
+        + current
+        + ", added : "
+        + added
+        + ", ignored : "
+        + ignored;
   }
 }

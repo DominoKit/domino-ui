@@ -16,12 +16,25 @@
 package org.dominokit.domino.ui.upload;
 
 import static java.util.Objects.nonNull;
-import static org.dominokit.domino.ui.utils.Domino.*;
+import static org.dominokit.domino.ui.utils.Domino.div;
+import static org.dominokit.domino.ui.utils.Domino.elementOf;
+import static org.dominokit.domino.ui.utils.Domino.input;
 import static org.dominokit.domino.ui.utils.DominoUIConfig.CONFIG;
 
-import elemental2.dom.*;
-import java.util.*;
+import elemental2.dom.DragEvent;
+import elemental2.dom.Element;
+import elemental2.dom.File;
+import elemental2.dom.FileList;
+import elemental2.dom.HTMLDivElement;
+import elemental2.dom.HTMLElement;
+import elemental2.dom.XMLHttpRequest;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.List;
+import java.util.Optional;
 import java.util.function.Supplier;
+import java.util.stream.Collectors;
 import jsinterop.base.Js;
 import org.dominokit.domino.ui.IsElement;
 import org.dominokit.domino.ui.config.HasComponentConfig;
@@ -98,6 +111,8 @@ public class FileUpload extends BaseDominoElement<HTMLDivElement, FileUpload>
   private UploadRequestSender requestSender = (XMLHttpRequest::send);
 
   private DropEffect dropEffect;
+  private UploadConfig config;
+  private boolean showPreview = true;
 
   /**
    * Creates a new instance of the `FileUpload` component.
@@ -195,7 +210,7 @@ public class FileUpload extends BaseDominoElement<HTMLDivElement, FileUpload>
     elementOf(filesContainer.element()).addCss(dui_file_preview_container);
     init(this);
     root.addClickListener(evt -> hiddenFileInput.element().click());
-    hiddenFileInput.addEventListener("change", evt -> uploadFiles(hiddenFileInput.element().files));
+    hiddenFileInput.addEventListener("change", evt -> tryUpload(hiddenFileInput.element().files));
     root.addEventListener(
         "drop",
         evt -> {
@@ -210,14 +225,7 @@ public class FileUpload extends BaseDominoElement<HTMLDivElement, FileUpload>
                       ((DragEvent) evt).dataTransfer.dropEffect = effect.getEffect();
                     }
                   });
-          int maxAllowed = hiddenFileInput.element().multiple ? maxAllowedUploads : 1;
-          if (maxAllowed > files.length) {
-            messagesContainer
-                .clearElement()
-                .setTextContent(getLabels().getMaxFileErrorMessage(maxAllowed, files.length));
-          } else {
-            uploadFiles(files);
-          }
+          tryUpload(files);
           removeHover();
         });
     root.addEventListener(
@@ -240,6 +248,37 @@ public class FileUpload extends BaseDominoElement<HTMLDivElement, FileUpload>
             removeHover();
           }
         });
+  }
+
+  private void tryUpload(FileList files) {
+
+    int maxAllowed = isMultiUpload() ? maxAllowedUploads : 1;
+    int addedFiles = addedFileItems.size();
+    List<FileItem> uploadedFiles =
+        addedFileItems.stream().filter(FileItem::isUploaded).collect(Collectors.toList());
+    int remainingAllowed = Math.max(0, maxAllowed - (addedFiles - uploadedFiles.size()));
+    int existing = addedFiles - uploadedFiles.size();
+    int ignored = files.length - remainingAllowed;
+    if (files.length > remainingAllowed) {
+      if (getConfig().isMaxUploadsOverflowAllowed()) {
+        uploadedFiles.forEach(FileItem::remove);
+        List<File> toBeUploaded = files.asList().subList(0, remainingAllowed);
+        uploadFiles(toBeUploaded);
+
+        messagesContainer
+            .clearElement()
+            .setTextContent(
+                getLabels()
+                    .getMaxFileErrorMessage(maxAllowed, existing, remainingAllowed, ignored));
+      } else {
+        messagesContainer
+            .clearElement()
+            .setTextContent(
+                getLabels().getMaxFileErrorMessage(maxAllowed, existing, 0, files.length));
+      }
+    } else {
+      uploadFiles(files.asList());
+    }
   }
 
   /**
@@ -294,8 +333,9 @@ public class FileUpload extends BaseDominoElement<HTMLDivElement, FileUpload>
    *
    * @param maxAllowedUploads The maximum number of allowed uploads.
    */
-  public void setMaxAllowedUploads(int maxAllowedUploads) {
+  public FileUpload setMaxAllowedUploads(int maxAllowedUploads) {
     this.maxAllowedUploads = maxAllowedUploads;
+    return this;
   }
 
   /**
@@ -333,17 +373,29 @@ public class FileUpload extends BaseDominoElement<HTMLDivElement, FileUpload>
    *
    * @param files The list of files to upload.
    */
-  public void uploadFiles(FileList files) {
-    for (int i = 0; i < files.length; i++) {
-      File file = files.item(i);
+  public FileUpload uploadFiles(List<File> files) {
+    for (int i = 0; i < files.size(); i++) {
+      File file = files.get(i);
       addFilePreview(file);
     }
     hiddenFileInput.element().value = "";
+    return this;
   }
 
   /** Uploads all added files to the server. */
-  public void uploadAllFiles() {
+  public FileUpload uploadAllFiles() {
     addedFileItems.forEach(fileItem -> fileItem.upload(requestSender));
+    return this;
+  }
+
+  @Override
+  public UploadConfig getOwnConfig() {
+    return config;
+  }
+
+  public FileUpload setConfig(UploadConfig config) {
+    this.config = config;
+    return this;
   }
 
   /**
@@ -353,21 +405,24 @@ public class FileUpload extends BaseDominoElement<HTMLDivElement, FileUpload>
    */
   private void addFilePreview(File file) {
     if (isMultiUpload()) {
-      removeFileItems();
+      removeUploadedFiles();
     }
     FileItem fileItem = FileItem.create(file, new UploadOptions(), filePreviewFactory, this);
-
-    fileItemHandlers.forEach(handler -> handler.handle(fileItem));
-
-    fileItem.validateSize();
-
-    filesContainer.appendChild(fileItem);
-    addedFileItems.add(fileItem);
 
     fileItem.addRemoveHandler(
         removedFile -> {
           addedFileItems.remove(fileItem);
         });
+
+    fileItemHandlers.forEach(handler -> handler.handle(fileItem));
+
+    fileItem.validateSize();
+
+    if (showPreview) {
+      filesContainer.appendChild(fileItem);
+    }
+
+    addedFileItems.add(fileItem);
 
     if (fileItem.isCanceled()) {
       fileItem.remove();
@@ -397,6 +452,12 @@ public class FileUpload extends BaseDominoElement<HTMLDivElement, FileUpload>
    */
   public FileUpload setMultiUpload(boolean multiUpload) {
     hiddenFileInput.element().multiple = multiUpload;
+    if (multiUpload) {
+      hiddenFileInput.setAttribute("multiple", true);
+    } else {
+      hiddenFileInput.removeAttribute("multiple");
+    }
+
     return this;
   }
 
@@ -511,6 +572,13 @@ public class FileUpload extends BaseDominoElement<HTMLDivElement, FileUpload>
     return this;
   }
 
+  private void removeUploadedFiles() {
+    List<FileItem> uploaded =
+        addedFileItems.stream().filter(FileItem::isUploaded).collect(Collectors.toList());
+    addedFileItems.removeAll(uploaded);
+    uploaded.forEach(FileItem::remove);
+  }
+
   /**
    * Gets a list of file item handlers that are executed when a file is added to the component.
    *
@@ -572,6 +640,23 @@ public class FileUpload extends BaseDominoElement<HTMLDivElement, FileUpload>
     if (nonNull(dropEffect)) {
       this.dropEffect = dropEffect;
     }
+    return this;
+  }
+
+  /** @return true if uploaded files will show a preview in the preview container */
+  public boolean isShowPreview() {
+    return showPreview;
+  }
+
+  /**
+   * When set to true, uploaded files will show a preview in the preview container, otherwise they
+   * wont
+   *
+   * @param showPreview boolean.
+   * @return same component instance
+   */
+  public FileUpload setShowPreview(boolean showPreview) {
+    this.showPreview = showPreview;
     return this;
   }
 

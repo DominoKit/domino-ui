@@ -80,6 +80,7 @@ public abstract class AbstractSelect<
   private SpanElement placeHolderElement;
   private InputElement inputElement;
   private InputElement typingElement;
+  private int typeAheadDelay = -1;
 
   /**
    * Default constructor which initializes the underlying structures, sets up event listeners, and
@@ -103,7 +104,7 @@ public abstract class AbstractSelect<
                     .setTabIndex(-1)
                     .onKeyPress(keyEvents -> keyEvents.alphanumeric(Event::stopPropagation)));
 
-    DelayedTextInput.create(typingElement, 1000)
+    DelayedTextInput.create(typingElement, getTypeAheadDelay())
         .setDelayedAction(
             () -> {
               optionsMenu
@@ -209,6 +210,17 @@ public abstract class AbstractSelect<
                     })));
   }
 
+  private int getTypeAheadDelay() {
+    return typeAheadDelay > 0
+        ? typeAheadDelay
+        : config().getUIConfig().getSelectBoxTypeAheadDelay();
+  }
+
+  public C setTypeAheadDelay(int delay) {
+    this.typeAheadDelay = delay;
+    return (C) this;
+  }
+
   /**
    * Opens the options menu allowing user to select an option, unless the select is read-only or
    * disabled.
@@ -265,11 +277,15 @@ public abstract class AbstractSelect<
             new ArrayList<>(selection)
                 .forEach(
                     item -> {
-                      item.deselect(silent);
-                      if (silent) {
-                        OptionMeta.get(item)
-                            .ifPresent(meta -> onOptionDeselected((O) meta.getOption(), silent));
-                      }
+                      withPausedChangeListeners(
+                          select -> {
+                            item.deselect(silent);
+                            if (silent) {
+                              OptionMeta.get(item)
+                                  .ifPresent(
+                                      meta -> onOptionDeselected((O) meta.getOption(), silent));
+                            }
+                          });
                     });
           });
 

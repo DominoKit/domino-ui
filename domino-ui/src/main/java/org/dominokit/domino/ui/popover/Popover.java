@@ -21,6 +21,8 @@ import static org.dominokit.domino.ui.utils.Domino.*;
 
 import elemental2.dom.EventListener;
 import elemental2.dom.HTMLElement;
+import java.util.ArrayList;
+import java.util.List;
 import org.dominokit.domino.ui.IsElement;
 import org.dominokit.domino.ui.animations.Transition;
 import org.dominokit.domino.ui.collapsible.AnimationCollapseStrategy;
@@ -47,6 +49,7 @@ import org.dominokit.domino.ui.menu.direction.DropDirection;
  */
 public class Popover extends BasePopover<Popover> {
 
+  private static boolean asDialog = false;
   /** Static initialization block to add a global click event listener for closing popovers. */
   static {
     document.body.addEventListener(
@@ -54,14 +57,18 @@ public class Popover extends BasePopover<Popover> {
         element -> {
           ModalBackDrop.INSTANCE.closePopovers("");
         });
+
+    MediaQuery.addOnSmallAndDownListener(() -> asDialog = true);
+
+    MediaQuery.addOnMediumAndUpListener(() -> asDialog = false);
   }
 
   private final EventListener showListener;
   private boolean openOnClick = true;
   private boolean closeOnEscape = true;
-  private boolean asDialog = false;
   private final DropDirection dialog = DropDirection.MIDDLE_SCREEN;
   private boolean modal = false;
+  private final List<MediaQuery.MediaQueryListenerRecord> mediaListenersRecords = new ArrayList<>();
 
   /**
    * Creates a new `Popover` instance for the specified HTML element target.
@@ -102,14 +109,6 @@ public class Popover extends BasePopover<Popover> {
         new AnimationCollapseStrategy(
             Transition.FADE_IN, Transition.FADE_OUT, CollapsibleDuration._300ms));
 
-    MediaQuery.addOnSmallAndDownListener(
-        () -> {
-          this.asDialog = true;
-        });
-    MediaQuery.addOnMediumAndUpListener(
-        () -> {
-          this.asDialog = false;
-        });
     addCollapseListener(() -> removeEventListener(DUI_REMOVE_POPOVERS, closeAllListener));
   }
 

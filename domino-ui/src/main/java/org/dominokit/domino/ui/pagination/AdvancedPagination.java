@@ -15,6 +15,7 @@
  */
 package org.dominokit.domino.ui.pagination;
 
+import static java.util.Objects.isNull;
 import static java.util.Objects.nonNull;
 import static org.dominokit.domino.ui.utils.Domino.*;
 
@@ -133,7 +134,9 @@ public class AdvancedPagination extends BasePagination<AdvancedPagination> {
     pagesSelect =
         Select.<Integer>create()
             .addChangeListener(
-                (oldValue, newValue) -> moveToPage(newValue, isChangeListenersPaused()));
+                (oldValue, newValue) -> {
+                  moveToPage(isNull(newValue) ? 1 : newValue, isChangeListenersPaused());
+                });
 
     pagesList.insertAfter(
         PagerNavItem.create(pagesSelect)

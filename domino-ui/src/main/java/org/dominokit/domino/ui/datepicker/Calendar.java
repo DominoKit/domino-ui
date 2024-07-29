@@ -113,20 +113,21 @@ public class Calendar extends BaseDominoElement<HTMLDivElement, Calendar>
     this.dateTimeFormatInfo = dateTimeFormatInfo;
     this.config = config;
 
-    this.root =
-        div()
-            .addCss(dui_calendar)
-            .apply(calendar -> header = LazyChild.of(CalendarHeader.create(this), calendar))
-            .appendChild(selectors = CalendarSelectors.create(this))
-            .appendChild(
-                calendarBody =
-                    div()
-                        .addCss(dui_calendar_body)
-                        .appendChild(calendarMonth = CalendarMonth.create(this))
-                        .appendChild(yearMonthPicker = YearMonthPicker.create(this).hide()))
-            .apply(
-                calendar ->
-                    this.footer = LazyChild.of(div().addCss(dui_calendar_footer), calendar));
+    this.root = div().addCss(dui_calendar);
+
+    getConfig().getPlugins().forEach(plugin -> plugin.onInit(this));
+    init(this);
+
+    this.root
+        .apply(calendar -> header = LazyChild.of(CalendarHeader.create(this), calendar))
+        .appendChild(selectors = CalendarSelectors.create(this))
+        .appendChild(
+            calendarBody =
+                div()
+                    .addCss(dui_calendar_body)
+                    .appendChild(calendarMonth = CalendarMonth.create(this))
+                    .appendChild(yearMonthPicker = YearMonthPicker.create(this).hide()))
+        .apply(calendar -> this.footer = LazyChild.of(div().addCss(dui_calendar_footer), calendar));
 
     this.root.addEventListener(
         CalendarCustomEvents.DATE_NAVIGATION_CHANGED,
@@ -134,11 +135,10 @@ public class Calendar extends BaseDominoElement<HTMLDivElement, Calendar>
           evt.stopPropagation();
           CalendarCustomEvents.UpdateDateEventData dateData =
               CalendarCustomEvents.UpdateDateEventData.of((CustomEvent<?>) evt);
-          Date updatedDate = new Date(dateData.getTimestamp());
-          onDateViewUpdate(updatedDate);
+          this.date = new Date(dateData.getTimestamp());
+          onDateViewUpdate(this.date);
           calendarMonth.show();
           yearMonthPicker.hide();
-          this.date = updatedDate;
         });
 
     this.root.addEventListener(
@@ -148,9 +148,8 @@ public class Calendar extends BaseDominoElement<HTMLDivElement, Calendar>
           CalendarCustomEvents.UpdateDateEventData dateData =
               CalendarCustomEvents.UpdateDateEventData.of((CustomEvent<?>) evt);
           Date oldDate = this.date;
-          Date updatedDate = new Date(dateData.getTimestamp());
-          this.date = updatedDate;
-          onDateSelectionChanged(updatedDate);
+          this.date = new Date(dateData.getTimestamp());
+          onDateSelectionChanged(this.date);
           calendarMonth.show();
           yearMonthPicker.hide();
           triggerChangeListeners(oldDate, this.date);
@@ -170,11 +169,10 @@ public class Calendar extends BaseDominoElement<HTMLDivElement, Calendar>
             calendarBody.removeCss(dui_p_x_1_5);
           }
         });
-    init(this);
+
     onDateViewUpdate(this.date);
     onDateSelectionChanged(this.date);
     onDateTimeFormatChanged();
-    getConfig().getPlugins().forEach(plugin -> plugin.onInit(this));
   }
 
   /**
@@ -310,6 +308,17 @@ public class Calendar extends BaseDominoElement<HTMLDivElement, Calendar>
       onDateSelectionChanged(this.date);
       triggerChangeListeners(oldDate, this.date);
     }
+    return this;
+  }
+
+  /**
+   * Resets the calendar view to the month view if it is on month/year selection view
+   *
+   * @return same Calendar instance
+   */
+  public Calendar resetView() {
+    calendarMonth.show();
+    yearMonthPicker.hide();
     return this;
   }
 

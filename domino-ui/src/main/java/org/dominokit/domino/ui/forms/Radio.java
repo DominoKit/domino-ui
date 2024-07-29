@@ -101,7 +101,6 @@ public class Radio<T> extends BaseDominoElement<HTMLDivElement, Radio<T>>
     inputElement.addEventListener(
         "change",
         evt -> {
-          DomGlobal.console.info("CHANGEEEEEEEED.!");
           if (isEnabled() && !isReadOnly()) {
             setChecked(isChecked(), isChangeListenersPaused());
           }

@@ -116,7 +116,6 @@ public class MultiSuggestBox<V, E extends IsElement<?>, O extends Option<V, E, O
     }
     withOption(option);
     fieldInput.appendChild(option);
-    selectedOptions.add(option);
     option.bindTo(this);
   }
 
