@@ -19,6 +19,7 @@ import static org.dominokit.domino.ui.utils.Domino.*;
 
 import elemental2.dom.HTMLDivElement;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import org.dominokit.domino.ui.elements.DivElement;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
@@ -69,6 +70,11 @@ public class Progress extends BaseDominoElement<HTMLDivElement, Progress>
     this.progressBars.add(bar);
     bar.setParent(this);
     bar.updateWidth();
+    return this;
+  }
+
+  public Progress appendChild(ProgressBar... bars) {
+    Arrays.stream(bars).forEach(this::appendChild);
     return this;
   }
 

@@ -507,6 +507,11 @@ public class Menu<V> extends BaseDominoElement<HTMLDivElement, Menu<V>>
     return this;
   }
 
+  public Menu<V> appendChild(SubheaderAddon<?>... addons) {
+    Arrays.stream(addons).forEach(this::appendChild);
+    return this;
+  }
+
   /**
    * Appends a menu item to the menu.
    *
@@ -519,6 +524,11 @@ public class Menu<V> extends BaseDominoElement<HTMLDivElement, Menu<V>>
       menuItems.add(menuItem);
       afterAddItem(menuItem);
     }
+    return this;
+  }
+
+  public Menu<V> appendChild(AbstractMenuItem<V>... menuItems) {
+    Arrays.stream(menuItems).forEach(this::appendChild);
     return this;
   }
 

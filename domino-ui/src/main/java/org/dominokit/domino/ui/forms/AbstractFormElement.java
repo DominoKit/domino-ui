@@ -177,6 +177,16 @@ public abstract class AbstractFormElement<T extends AbstractFormElement<T, V>, V
     return (T) this;
   }
 
+  @Override
+  public PrefixElement getPrefixElement() {
+    return PrefixElement.of(wrapperElement);
+  }
+
+  @Override
+  public PostfixElement getPostfixElement() {
+    return PostfixElement.of(wrapperElement);
+  }
+
   /**
    * Appends a prefix add-on to the form element.
    *
@@ -185,7 +195,7 @@ public abstract class AbstractFormElement<T extends AbstractFormElement<T, V>, V
    */
   @Override
   public T appendChild(PrefixAddOn<?> addon) {
-    wrapperElement.appendChild(elementOf(addon));
+    getPrefixElement().appendChild(addon);
     return (T) this;
   }
 
@@ -197,20 +207,13 @@ public abstract class AbstractFormElement<T extends AbstractFormElement<T, V>, V
    */
   @Override
   public T appendChild(PostfixAddOn<?> addon) {
-    wrapperElement.appendChild(elementOf(addon));
+    getPostfixElement().appendChild(addon);
     return (T) this;
   }
 
-  /**
-   * Appends a primary add-on to the form element.
-   *
-   * @param addon The primary add-on to append.
-   * @return This form element instance.
-   */
   @Override
-  public T appendChild(PrimaryAddOn<?> addon) {
-    wrapperElement.appendChild(elementOf(addon).addCss(dui_add_on, dui_add_on_mandatory));
-    return (T) this;
+  public PrimaryAddOnElement getPrimaryAddonsElement() {
+    return PrimaryAddOnElement.of(wrapperElement);
   }
 
   /**

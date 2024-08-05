@@ -21,6 +21,7 @@ import static org.dominokit.domino.ui.utils.Domino.*;
 import elemental2.dom.HTMLDivElement;
 import elemental2.dom.WheelEvent;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import jsinterop.base.Js;
 import org.dominokit.domino.ui.config.CarouselConfig;
@@ -231,6 +232,11 @@ public class Carousel extends BaseDominoElement<HTMLDivElement, Carousel>
 
     SwipeUtil.addSwipeListener(SwipeUtil.SwipeDirection.LEFT, slide.element(), evt -> nextSlide());
     SwipeUtil.addSwipeListener(SwipeUtil.SwipeDirection.RIGHT, slide.element(), evt -> prevSlide());
+    return this;
+  }
+
+  public Carousel appendChild(Slide... slides) {
+    Arrays.asList(slides).forEach(this::appendChild);
     return this;
   }
 

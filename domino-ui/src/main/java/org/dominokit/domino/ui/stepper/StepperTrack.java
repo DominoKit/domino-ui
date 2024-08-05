@@ -21,6 +21,7 @@ import static org.dominokit.domino.ui.utils.Domino.*;
 
 import elemental2.dom.HTMLDivElement;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 import java.util.function.Consumer;
@@ -74,6 +75,11 @@ public class StepperTrack extends BaseDominoElement<HTMLDivElement, StepperTrack
   public StepperTrack appendChild(StepTracker stepTracker) {
     root.appendChild(stepTracker);
     trackers.add(stepTracker);
+    return this;
+  }
+
+  public StepperTrack appendChild(StepTracker... stepTrackers) {
+    Arrays.stream(stepTrackers).forEach(this::appendChild);
     return this;
   }
 

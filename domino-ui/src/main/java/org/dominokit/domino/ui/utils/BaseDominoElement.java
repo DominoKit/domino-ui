@@ -17,12 +17,30 @@ package org.dominokit.domino.ui.utils;
 
 import static java.util.Objects.isNull;
 import static java.util.Objects.nonNull;
-import static org.dominokit.domino.ui.utils.Domino.*;
+import static org.dominokit.domino.ui.utils.Domino.dui_hidden;
+import static org.dominokit.domino.ui.utils.Domino.elementOf;
+import static org.dominokit.domino.ui.utils.Domino.text;
 
 import elemental2.core.JsArray;
-import elemental2.dom.*;
+import elemental2.dom.AddEventListenerOptions;
+import elemental2.dom.CSSStyleDeclaration;
+import elemental2.dom.CustomEvent;
+import elemental2.dom.DOMRect;
+import elemental2.dom.Element;
+import elemental2.dom.Event;
 import elemental2.dom.EventListener;
-import java.util.*;
+import elemental2.dom.EventTarget;
+import elemental2.dom.HTMLElement;
+import elemental2.dom.Node;
+import elemental2.dom.NodeList;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.LinkedHashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Optional;
+import java.util.Set;
 import java.util.function.Consumer;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
@@ -44,7 +62,14 @@ import org.dominokit.domino.ui.menu.Menu;
 import org.dominokit.domino.ui.menu.direction.DropDirection;
 import org.dominokit.domino.ui.popover.Popover;
 import org.dominokit.domino.ui.popover.Tooltip;
-import org.dominokit.domino.ui.style.*;
+import org.dominokit.domino.ui.style.CssClass;
+import org.dominokit.domino.ui.style.DominoStyle;
+import org.dominokit.domino.ui.style.Elevation;
+import org.dominokit.domino.ui.style.HasCssClass;
+import org.dominokit.domino.ui.style.HasCssClasses;
+import org.dominokit.domino.ui.style.Style;
+import org.dominokit.domino.ui.style.WaveStyle;
+import org.dominokit.domino.ui.style.WavesSupport;
 import org.dominokit.domino.ui.themes.DominoThemeManager;
 import org.gwtproject.editor.client.Editor;
 import org.gwtproject.safehtml.shared.SafeHtml;
@@ -854,6 +879,18 @@ public abstract class BaseDominoElement<E extends Element, T extends IsElement<E
   }
 
   /**
+   * Appends child nodes to this element.
+   *
+   * @param nodes The child nodes to append.
+   * @return The modified DOM element.
+   */
+  @Editor.Ignore
+  public T appendChild(Node... nodes) {
+    Arrays.asList(nodes).forEach(this::appendChild);
+    return element;
+  }
+
+  /**
    * Appends a text string as a child node to this element.
    *
    * @param text The text string to append.
@@ -875,6 +912,48 @@ public abstract class BaseDominoElement<E extends Element, T extends IsElement<E
   public T appendChild(IsElement<?> isElement) {
     getAppendTarget().appendChild(isElement.element());
     return element;
+  }
+
+  /**
+   * Appends an element represented by an {@code IsElement} interface to this element.
+   *
+   * @param elements The element to append.
+   * @return The modified DOM element.
+   */
+  @Editor.Ignore
+  public T appendChild(IsElement<?>... elements) {
+    Arrays.stream(elements).forEach(this::appendChild);
+    return element;
+  }
+
+  public T appendChild(PrefixAddOn<?> prefix) {
+    getPrefixElement().appendChild(prefix);
+    return (T) this;
+  }
+
+  public T appendChild(PrefixAddOn<?>... prefixes) {
+    Arrays.asList(prefixes).forEach(this::appendChild);
+    return (T) this;
+  }
+
+  public T appendChild(PostfixAddOn<?> postfix) {
+    getPostfixElement().appendChild(postfix);
+    return (T) this;
+  }
+
+  public T appendChild(PostfixAddOn<?>... postfixes) {
+    Arrays.asList(postfixes).forEach(this::appendChild);
+    return (T) this;
+  }
+
+  public T appendChild(PrimaryAddOn<?> addon) {
+    getPrimaryAddonsElement().appendChild(addon);
+    return (T) this;
+  }
+
+  public T appendChild(PrimaryAddOn<?>... addons) {
+    Arrays.asList(addons).forEach(this::appendChild);
+    return (T) this;
   }
 
   /**
@@ -1997,6 +2076,44 @@ public abstract class BaseDominoElement<E extends Element, T extends IsElement<E
   @Editor.Ignore
   public Element getClickableElement() {
     return element();
+  }
+
+  /**
+   * Gets the element hosting the component Postfix add-ons.
+   *
+   * @return Element.
+   */
+  @Editor.Ignore
+  public PostfixElement getPostfixElement() {
+    return PostfixElement.of(getAppendTarget());
+  }
+
+  /**
+   * Gets the element hosting the component Prefix add-ons.
+   *
+   * @return Element.
+   */
+  public PrefixElement getPrefixElement() {
+    return PrefixElement.of(getAppendTarget());
+  }
+
+  /**
+   * Gets the element hosting the component Primary add-ons.
+   *
+   * @return Element.
+   */
+  public PrimaryAddOnElement getPrimaryAddonsElement() {
+    return PrimaryAddOnElement.of(getAppendTarget());
+  }
+
+  public T withPrefixElement(ChildHandler<T, PrefixElement> handler) {
+    handler.apply((T) this, getPrefixElement());
+    return (T) this;
+  }
+
+  public T withPostfixElement(ChildHandler<T, PostfixElement> handler) {
+    handler.apply((T) this, getPostfixElement());
+    return (T) this;
   }
 
   /**

@@ -29,9 +29,9 @@ import org.dominokit.domino.ui.utils.IntersectionObserver;
 import org.dominokit.domino.ui.utils.IntersectionObserverEntry;
 import org.dominokit.domino.ui.utils.IntersectionObserverOptions;
 import org.dominokit.domino.ui.utils.LazyChild;
-import org.dominokit.domino.ui.utils.PostfixAddOn;
-import org.dominokit.domino.ui.utils.PrefixAddOn;
-import org.dominokit.domino.ui.utils.PrimaryAddOn;
+import org.dominokit.domino.ui.utils.PostfixElement;
+import org.dominokit.domino.ui.utils.PrefixElement;
+import org.dominokit.domino.ui.utils.PrimaryAddOnElement;
 
 /**
  * The TextAreaBox class is a form field component for text areas, providing features such as prefix
@@ -57,7 +57,7 @@ public class TextAreaBox extends CountableInputFormField<TextAreaBox, HTMLTextAr
   private boolean autoSize = false;
 
   private DivElement header;
-  private LazyChild<FillerElement> headerFiller;
+  private FillerElement headerFiller;
   private IntersectionObserver intersectionObserver;
 
   /**
@@ -96,7 +96,9 @@ public class TextAreaBox extends CountableInputFormField<TextAreaBox, HTMLTextAr
         .addCss(dui_h_inherit);
     bodyElement.addCss(dui_h_inherit);
 
-    headerFiller = LazyChild.of(FillerElement.create().addCss(dui_order_30), header);
+    header.appendChild(
+        headerFiller =
+            FillerElement.create().addCss(dui_form_text_area_header_filler, dui_order_30));
     onAttached(mutationRecord -> adjustHeight());
     setDefaultValue("");
     getInputElement().addCss(dui_h_inherit).setAttribute("data-scroll", "0");
@@ -124,7 +126,6 @@ public class TextAreaBox extends CountableInputFormField<TextAreaBox, HTMLTextAr
 
   @Override
   protected LazyChild<SpanElement> initCounterElement() {
-    headerFiller.get();
     return counterElement = LazyChild.of(span().addCss(du_field_counter), header);
   }
 
@@ -138,41 +139,19 @@ public class TextAreaBox extends CountableInputFormField<TextAreaBox, HTMLTextAr
     setLabel(label);
   }
 
-  /**
-   * Appends a prefix add-on element to the header of this TextAreaBox.
-   *
-   * @param addon The prefix add-on to append.
-   * @return This TextAreaBox instance.
-   */
   @Override
-  public TextAreaBox appendChild(PrefixAddOn<?> addon) {
-    header.appendChild(addon);
-    return this;
+  public PrefixElement getPrefixElement() {
+    return PrefixElement.of(header);
   }
 
-  /**
-   * Appends a primary add-on element to the header of this TextAreaBox.
-   *
-   * @param addon The primary add-on to append.
-   * @return This TextAreaBox instance.
-   */
   @Override
-  public TextAreaBox appendChild(PrimaryAddOn<?> addon) {
-    header.appendChild(addon);
-    return this;
+  public PostfixElement getPostfixElement() {
+    return PostfixElement.of(header);
   }
 
-  /**
-   * Appends a postfix add-on element to the header of this TextAreaBox.
-   *
-   * @param addon The postfix add-on to append.
-   * @return This TextAreaBox` instance.
-   */
   @Override
-  public TextAreaBox appendChild(PostfixAddOn<?> addon) {
-    headerFiller.get();
-    header.appendChild(addon);
-    return this;
+  public PrimaryAddOnElement getPrimaryAddonsElement() {
+    return PrimaryAddOnElement.of(header);
   }
 
   /**

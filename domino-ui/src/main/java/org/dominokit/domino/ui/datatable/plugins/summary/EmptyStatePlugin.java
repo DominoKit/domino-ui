@@ -16,6 +16,8 @@
 
 package org.dominokit.domino.ui.datatable.plugins.summary;
 
+import static java.util.Objects.nonNull;
+
 import org.dominokit.domino.ui.datatable.DataTable;
 import org.dominokit.domino.ui.datatable.events.TableDataUpdatedEvent;
 import org.dominokit.domino.ui.datatable.plugins.DataTablePlugin;
@@ -53,6 +55,7 @@ public class EmptyStatePlugin<T> implements DataTablePlugin<T> {
   private TableRowElement rowElement = tr();
   private TDElement stateCell = td();
   private TFootElement footer;
+  private DataTable<T> datatable;
 
   /**
    * Creates and returns a new instance of {@code EmptyStatePlugin} with the provided icon and
@@ -79,9 +82,11 @@ public class EmptyStatePlugin<T> implements DataTablePlugin<T> {
 
   @Override
   public void init(DataTable<T> dataTable) {
+    this.datatable = dataTable;
     rowElement
         .addCss(dui_table_row)
         .appendChild(stateCell.addCss(dui_table_cell).appendChild(emptyState));
+    updateColSpan(dataTable);
   }
 
   /**
@@ -101,11 +106,7 @@ public class EmptyStatePlugin<T> implements DataTablePlugin<T> {
         TableDataUpdatedEvent.DATA_UPDATED,
         event -> {
           TableDataUpdatedEvent tableDataUpdatedEvent = (TableDataUpdatedEvent) event;
-          long columnsCount =
-              dataTable.getTableConfig().getLeafColumns().stream()
-                  .filter(c -> !c.isHidden())
-                  .count();
-          stateCell.setAttribute("colspan", columnsCount);
+          updateColSpan(dataTable);
 
           if (tableDataUpdatedEvent.getTotalCount() == 0) {
             rowElement.show();
@@ -114,6 +115,14 @@ public class EmptyStatePlugin<T> implements DataTablePlugin<T> {
           }
         });
     this.footer.insertFirst(rowElement);
+  }
+
+  private void updateColSpan(DataTable<T> dataTable) {
+    if (nonNull(dataTable)) {
+      long columnsCount =
+          dataTable.getTableConfig().getLeafColumns().stream().filter(c -> !c.isHidden()).count();
+      stateCell.setAttribute("colspan", columnsCount);
+    }
   }
 
   /**

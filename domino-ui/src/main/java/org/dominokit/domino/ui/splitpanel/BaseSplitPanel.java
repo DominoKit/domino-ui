@@ -18,6 +18,7 @@ package org.dominokit.domino.ui.splitpanel;
 import static org.dominokit.domino.ui.utils.Domino.*;
 
 import elemental2.dom.HTMLDivElement;
+import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 import org.dominokit.domino.ui.elements.DivElement;
@@ -190,6 +191,11 @@ abstract class BaseSplitPanel<T extends BaseSplitPanel<T, S>, S extends BaseSpli
     return (T) this;
   }
 
+  public T appendChild(SplitPanel... panels) {
+    Arrays.stream(panels).forEach(this::appendChild);
+    return (T) this;
+  }
+
   /**
    * Creates and returns a splitter element used between two panels. This method is intended to be
    * implemented by subclasses to provide a concrete representation and behavior for the splitter
@@ -198,7 +204,6 @@ abstract class BaseSplitPanel<T extends BaseSplitPanel<T, S>, S extends BaseSpli
    * <p>Example Usage:
    *
    * <pre>
-   * @Override
    * protected MySplitter createSplitter(SplitPanel first, SplitPanel second, HasSplitPanels mainPanel) {
    *     return new MySplitter(first, second, mainPanel);
    * }

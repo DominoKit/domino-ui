@@ -20,6 +20,7 @@ import static org.dominokit.domino.ui.utils.Domino.*;
 
 import elemental2.dom.HTMLDivElement;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 import org.dominokit.domino.ui.elements.DivElement;
@@ -76,6 +77,11 @@ public class Accordion extends BaseDominoElement<HTMLDivElement, Accordion>
         (accordionPanel, header) -> {
           header.addClickListener(evt -> togglePanel(panel));
         });
+    return this;
+  }
+
+  public Accordion appendChild(AccordionPanel... panels) {
+    Arrays.asList(panels).forEach(this::appendChild);
     return this;
   }
 

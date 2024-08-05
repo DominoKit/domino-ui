@@ -502,7 +502,7 @@ public class Card extends BaseDominoElement<HTMLDivElement, Card>
    * @return same card instance
    */
   public Card appendChild(PostfixAddOn<?> postfix) {
-    header.get().appendChild(postfix);
+    getPostfixElement().appendChild(postfix);
     return this;
   }
 
@@ -513,8 +513,18 @@ public class Card extends BaseDominoElement<HTMLDivElement, Card>
    * @return same card instance
    */
   public Card appendChild(PrefixAddOn<?> prefix) {
-    header.get().appendChild(prefix);
+    getPrefixElement().appendChild(prefix);
     return this;
+  }
+
+  @Override
+  public PostfixElement getPostfixElement() {
+    return PostfixElement.of(header.get().element());
+  }
+
+  @Override
+  public PrefixElement getPrefixElement() {
+    return PrefixElement.of(header.get().element());
   }
 
   /**
@@ -524,7 +534,7 @@ public class Card extends BaseDominoElement<HTMLDivElement, Card>
    * @return same card instance
    */
   public Card withUtility(PostfixAddOn<?> postfix) {
-    header.get().appendChild(postfix);
+    getPostfixElement().appendChild(postfix);
     return this;
   }
 

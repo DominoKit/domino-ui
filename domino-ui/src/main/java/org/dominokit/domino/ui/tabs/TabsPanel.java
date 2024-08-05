@@ -22,6 +22,7 @@ import static org.dominokit.domino.ui.utils.Domino.*;
 import elemental2.dom.Element;
 import elemental2.dom.HTMLDivElement;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.function.Consumer;
 import org.dominokit.domino.ui.IsElement;
@@ -144,6 +145,11 @@ public class TabsPanel extends BaseDominoElement<HTMLDivElement, TabsPanel>
    */
   public TabsPanel appendChild(Tab tab) {
     insertAt(tabs.size(), tab);
+    return this;
+  }
+
+  public TabsPanel appendChild(Tab... tabs) {
+    Arrays.stream(tabs).forEach(this::appendChild);
     return this;
   }
 
@@ -482,28 +488,14 @@ public class TabsPanel extends BaseDominoElement<HTMLDivElement, TabsPanel>
     return this;
   }
 
-  /**
-   * Appends a postfix add-on to the tabs list. A postfix add-on is typically a UI element that
-   * appears after (to the right or bottom of) the main content.
-   *
-   * @param postfixAddOn the {@link PostfixAddOn} to be appended.
-   * @return the current {@link TabsPanel} instance for method chaining.
-   */
-  public TabsPanel appendChild(PostfixAddOn<?> postfixAddOn) {
-    tabsListElement.appendChild(postfixAddOn);
-    return this;
+  @Override
+  public PrefixElement getPrefixElement() {
+    return PrefixElement.of(tabsListElement);
   }
 
-  /**
-   * Appends a prefix add-on to the tabs list. A prefix add-on is typically a UI element that
-   * appears before (to the left or top of) the main content.
-   *
-   * @param prefixAddOn the {@link PrefixAddOn} to be appended.
-   * @return the current {@link TabsPanel} instance for method chaining.
-   */
-  public TabsPanel appendChild(PrefixAddOn<?> prefixAddOn) {
-    tabsListElement.appendChild(prefixAddOn);
-    return this;
+  @Override
+  public PostfixElement getPostfixElement() {
+    return PostfixElement.of(tabsListElement);
   }
 
   /**

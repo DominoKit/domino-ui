@@ -575,28 +575,14 @@ public class AbstractMenuItem<V> extends BaseDominoElement<HTMLLIElement, Abstra
     return linkElement.element();
   }
 
-  /**
-   * Appends a child to the postfix element.
-   *
-   * @param postfixAddOn the postfix add-on to append
-   * @param <T> the type of the menu item
-   * @return the current instance of the menu item
-   */
-  public <T extends AbstractMenuItem<V>> T appendChild(PostfixAddOn<?> postfixAddOn) {
-    postfixElement.appendChild(postfixAddOn);
-    return (T) this;
+  @Override
+  public PrefixElement getPrefixElement() {
+    return PrefixElement.of(prefixElement);
   }
 
-  /**
-   * Appends a child to the prefix element.
-   *
-   * @param prefixAddOn the prefix add-on to append
-   * @param <T> the type of the menu item
-   * @return the current instance of the menu item
-   */
-  public <T extends AbstractMenuItem<V>> T appendChild(PrefixAddOn<?> prefixAddOn) {
-    prefixElement.appendChild(prefixAddOn);
-    return (T) this;
+  @Override
+  public PostfixElement getPostfixElement() {
+    return PostfixElement.of(postfixElement);
   }
 
   /**

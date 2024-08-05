@@ -16,9 +16,9 @@
 package org.dominokit.domino.ui.forms;
 
 import static java.util.Objects.nonNull;
-import static org.dominokit.domino.ui.forms.FormsStyles.*;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
@@ -119,6 +119,11 @@ public class RadioGroup<T> extends AbstractFormElement<RadioGroup<T>, T> {
       radios.forEach(r -> r.uncheck(true));
     }
     radios.add(radio);
+    return this;
+  }
+
+  public RadioGroup<T> appendChild(Radio<? extends T>... radios) {
+    Arrays.stream(radios).forEach(this::appendChild);
     return this;
   }
 
