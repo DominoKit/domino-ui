@@ -124,6 +124,7 @@ fieldset.dui {
 }
 
 .dui-field-prefix {
+    display: flex;
     order: 20;
     font: var(--dui-form-field-prefix-font);
     line-height: var(--dui-form-field-prefix-line-height);
