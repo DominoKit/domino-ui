@@ -17,9 +17,12 @@ package org.dominokit.domino.ui.utils;
 
 import static java.util.Objects.isNull;
 
+import elemental2.dom.HTMLElement;
 import elemental2.dom.HTMLInputElement;
+import elemental2.dom.HTMLTextAreaElement;
 import jsinterop.base.Js;
 import org.dominokit.domino.ui.elements.InputElement;
+import org.dominokit.domino.ui.elements.TextAreaElement;
 import org.dominokit.domino.ui.events.EventType;
 import org.gwtproject.timer.client.Timer;
 
@@ -41,7 +44,7 @@ import org.gwtproject.timer.client.Timer;
 public class DelayedTextInput {
 
   private int delay;
-  private final HTMLInputElement inputElement;
+  private final HTMLElement inputElement;
   private Timer autoActionTimer;
   private DelayedAction delayedAction = () -> {};
   private DelayedAction onEnterAction = () -> delayedAction.doAction();
@@ -57,6 +60,20 @@ public class DelayedTextInput {
    */
   public static DelayedTextInput create(
       HTMLInputElement inputElement, int delay, DelayedAction delayedAction) {
+    return new DelayedTextInput(inputElement, delay, delayedAction);
+  }
+
+  /**
+   * Creates a {@code DelayedTextInput} instance for the given HTML input element with a specified
+   * delay and an action to execute on text input changes.
+   *
+   * @param inputElement The HTML input element to monitor for text input changes.
+   * @param delay The delay in milliseconds before triggering the action.
+   * @param delayedAction The action to execute when text input changes after the specified delay.
+   * @return A {@code DelayedTextInput} instance.
+   */
+  public static DelayedTextInput create(
+      HTMLTextAreaElement inputElement, int delay, DelayedAction delayedAction) {
     return new DelayedTextInput(inputElement, delay, delayedAction);
   }
 
@@ -77,6 +94,22 @@ public class DelayedTextInput {
   }
 
   /**
+   * Creates a {@code DelayedTextInput} instance for the given HTML input element with a default
+   * delay and an action to execute on text input changes.
+   *
+   * @param inputElement The HTML input element to monitor for text input changes.
+   * @param delayedAction The action to execute when text input changes after the specified delay.
+   * @return A {@code DelayedTextInput} instance.
+   */
+  public static DelayedTextInput create(
+      HTMLTextAreaElement inputElement, DelayedAction delayedAction) {
+    return new DelayedTextInput(
+        inputElement,
+        DominoUIConfig.CONFIG.getUIConfig().getDelayedExecutionDefaultDelay(),
+        delayedAction);
+  }
+
+  /**
    * Creates a {@code DelayedTextInput} instance for the given HTML input element with a specified
    * delay.
    *
@@ -89,6 +122,18 @@ public class DelayedTextInput {
   }
 
   /**
+   * Creates a {@code DelayedTextInput} instance for the given HTML input element with a specified
+   * delay.
+   *
+   * @param inputElement The HTML input element to monitor for text input changes.
+   * @param delay The delay in milliseconds before triggering the action.
+   * @return A {@code DelayedTextInput} instance.
+   */
+  public static DelayedTextInput create(HTMLTextAreaElement inputElement, int delay) {
+    return new DelayedTextInput(inputElement, delay);
+  }
+
+  /**
    * Creates a {@code DelayedTextInput} instance for the given HTML input element with a default
    * delay.
    *
@@ -96,6 +141,18 @@ public class DelayedTextInput {
    * @return A {@code DelayedTextInput} instance.
    */
   public static DelayedTextInput create(HTMLInputElement inputElement) {
+    return new DelayedTextInput(
+        inputElement, DominoUIConfig.CONFIG.getUIConfig().getDelayedExecutionDefaultDelay());
+  }
+
+  /**
+   * Creates a {@code DelayedTextInput} instance for the given HTML input element with a default
+   * delay.
+   *
+   * @param inputElement The HTML input element to monitor for text input changes.
+   * @return A {@code DelayedTextInput} instance.
+   */
+  public static DelayedTextInput create(HTMLTextAreaElement inputElement) {
     return new DelayedTextInput(
         inputElement, DominoUIConfig.CONFIG.getUIConfig().getDelayedExecutionDefaultDelay());
   }
@@ -138,6 +195,18 @@ public class DelayedTextInput {
   }
 
   /**
+   * Creates a {@code DelayedTextInput} instance for the given InputElement with a specified delay.
+   *
+   * @param inputElement The DominoElement wrapping the HTML input element to monitor for text input
+   *     changes.
+   * @param delay The delay in milliseconds before triggering the action.
+   * @return A {@code DelayedTextInput} instance.
+   */
+  public static DelayedTextInput create(TextAreaElement inputElement, int delay) {
+    return create(inputElement.element(), delay);
+  }
+
+  /**
    * Creates a {@code DelayedTextInput} instance for the given InputElement with a default delay.
    *
    * @param inputElement The DominoElement wrapping the HTML input element to monitor for text input
@@ -151,6 +220,19 @@ public class DelayedTextInput {
   }
 
   /**
+   * Creates a {@code DelayedTextInput} instance for the given InputElement with a default delay.
+   *
+   * @param inputElement The DominoElement wrapping the HTML input element to monitor for text input
+   *     changes.
+   * @return A {@code DelayedTextInput} instance.
+   */
+  public static DelayedTextInput create(TextAreaElement inputElement) {
+    return create(
+        inputElement.element(),
+        DominoUIConfig.CONFIG.getUIConfig().getDelayedExecutionDefaultDelay());
+  }
+
+  /**
    * Constructs a {@code DelayedTextInput} instance for the given HTML input element with a
    * specified delay.
    *
@@ -158,9 +240,18 @@ public class DelayedTextInput {
    * @param delay The delay in milliseconds before triggering the action.
    */
   public DelayedTextInput(HTMLInputElement inputElement, int delay) {
-    this.inputElement = inputElement;
-    this.delay = delay;
-    prepare();
+    this((HTMLElement) inputElement, delay, () -> {});
+  }
+
+  /**
+   * Constructs a {@code DelayedTextInput} instance for the given HTML input element with a
+   * specified delay.
+   *
+   * @param inputElement The HTML input element to monitor for text input changes.
+   * @param delay The delay in milliseconds before triggering the action.
+   */
+  public DelayedTextInput(HTMLTextAreaElement inputElement, int delay) {
+    this((HTMLElement) inputElement, delay, () -> {});
   }
 
   /**
@@ -172,6 +263,23 @@ public class DelayedTextInput {
    * @param delayedAction The action to execute when text input changes after the specified delay.
    */
   public DelayedTextInput(HTMLInputElement inputElement, int delay, DelayedAction delayedAction) {
+    this((HTMLElement) inputElement, delay, delayedAction);
+  }
+
+  /**
+   * Constructs a {@code DelayedTextInput} instance for the given HTML input element with a
+   * specified delay and an action to execute on text input changes.
+   *
+   * @param inputElement The HTML input element to monitor for text input changes.
+   * @param delay The delay in milliseconds before triggering the action.
+   * @param delayedAction The action to execute when text input changes after the specified delay.
+   */
+  public DelayedTextInput(
+      HTMLTextAreaElement inputElement, int delay, DelayedAction delayedAction) {
+    this((HTMLElement) inputElement, delay, delayedAction);
+  }
+
+  private DelayedTextInput(HTMLElement inputElement, int delay, DelayedAction delayedAction) {
     this.inputElement = inputElement;
     this.delay = delay;
     this.delayedAction = delayedAction;
