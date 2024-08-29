@@ -28,6 +28,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.function.Consumer;
 import jsinterop.base.Js;
+import org.dominokit.domino.ui.grid.flex.FlexAlign;
 import org.dominokit.domino.ui.grid.flex.FlexItem;
 import org.dominokit.domino.ui.grid.flex.FlexLayout;
 import org.dominokit.domino.ui.style.Color;
@@ -211,7 +212,7 @@ public abstract class ValueBox<T extends ValueBox<T, E, V>, E extends HTMLElemen
 
   private void layout() {
 
-    fieldInnerContainer = FlexLayout.create();
+    fieldInnerContainer = FlexLayout.create().css("field-inner-cntr");
     fieldInnerContainer.appendChild(
         inputContainer.css("field-input-cntr").setFlexGrow(1).appendChild(inputElement));
 
@@ -219,6 +220,7 @@ public abstract class ValueBox<T extends ValueBox<T, E, V>, E extends HTMLElemen
         fieldContainer.appendChild(
             fieldInnerContainer.apply(
                 self -> {
+                  self.setAlignItems(FlexAlign.STRETCH);
                   mandatoryAddOn = createMandatoryAddOn();
                   if (nonNull(mandatoryAddOn)) {
                     self.appendChild(DominoElement.of(mandatoryAddOn).css("field-mandatory-addon"));
