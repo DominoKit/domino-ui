@@ -22,7 +22,6 @@ import java.util.Date;
 import jsinterop.base.Js;
 
 /** A utility class to register swap events listeners on elements */
-@Deprecated
 public class SwipeUtil {
 
   /**
@@ -111,7 +110,6 @@ public class SwipeUtil {
   }
 
   /** Predefined swap directions */
-  @Deprecated
   public enum SwipeDirection {
     /** Swipe from right to left */
     LEFT("left"),

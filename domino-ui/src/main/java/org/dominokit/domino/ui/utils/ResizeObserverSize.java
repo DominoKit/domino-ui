@@ -19,7 +19,6 @@ import jsinterop.annotations.JsPackage;
 import jsinterop.annotations.JsType;
 
 @JsType(isNative = true, namespace = JsPackage.GLOBAL)
-@Deprecated
 public class ResizeObserverSize {
 
   public double blockSize;

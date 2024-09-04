@@ -41,7 +41,6 @@ import org.dominokit.domino.ui.utils.HasContent;
  * @see HasBackground
  * @see HasContent
  */
-@Deprecated
 public class Label extends BaseDominoElement<HTMLElement, Label>
     implements HasContent<Label>, HasBackground<Label> {
 

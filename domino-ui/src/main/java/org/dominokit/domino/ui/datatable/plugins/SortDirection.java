@@ -16,7 +16,6 @@
 package org.dominokit.domino.ui.datatable.plugins;
 
 /** Enum listing possible sort direction */
-@Deprecated
 public enum SortDirection {
   ASC,
   DESC,

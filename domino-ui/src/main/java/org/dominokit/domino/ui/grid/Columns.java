@@ -16,7 +16,6 @@
 package org.dominokit.domino.ui.grid;
 
 /** An enum representing the number of columns a row can have */
-@Deprecated
 public enum Columns {
   _12(GridStyles.ROW_12, 12),
   _16(GridStyles.ROW_16, 16),

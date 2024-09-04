@@ -24,7 +24,6 @@ import org.dominokit.domino.ui.forms.TextBox;
  *
  * @param <T> type of data table records
  */
-@Deprecated
 public class TextHeaderFilter<T> extends DelayedHeaderFilterInput<TextBox, T> {
 
   private TextBox textBox;

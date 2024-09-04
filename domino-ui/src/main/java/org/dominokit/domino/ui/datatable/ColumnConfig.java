@@ -45,7 +45,6 @@ import org.jboss.elemento.IsElement;
  *
  * @param <T> the type of the data table records
  */
-@Deprecated
 public class ColumnConfig<T> {
 
   private final String name;

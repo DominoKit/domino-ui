@@ -18,7 +18,6 @@ package org.dominokit.domino.ui.datatable.plugins.tree.store;
 import org.dominokit.domino.ui.datatable.events.SearchEvent;
 import org.dominokit.domino.ui.datatable.events.SortEvent;
 
-@Deprecated
 public class TreeNodeStoreContext<T> {
 
   private final T parent;

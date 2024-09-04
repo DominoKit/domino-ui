@@ -42,7 +42,6 @@ import org.jboss.elemento.IsElement;
  *
  * @param <T> the type of the data table records
  */
-@Deprecated
 public class RecordDetailsPlugin<T> implements DataTablePlugin<T> {
 
   private final BaseIcon<?> collapseIcon;

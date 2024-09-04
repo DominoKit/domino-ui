@@ -24,7 +24,6 @@ import jsinterop.base.Js;
 import org.jboss.elemento.EventType;
 
 /** A utility class that close all opened popus based on a selector */
-@Deprecated
 public class PopupsCloser {
 
   public static final PopupsCloser INSTANCE = new PopupsCloser();

@@ -28,7 +28,6 @@ import org.gwtproject.timer.client.Timer;
 import org.jboss.elemento.IsElement;
 
 /** Adds the required events to add waves for a target element */
-@Deprecated
 public class Waves implements IsElement<HTMLElement> {
 
   private final DominoElement<? extends HTMLElement> target;

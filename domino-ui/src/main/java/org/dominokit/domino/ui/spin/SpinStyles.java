@@ -16,7 +16,6 @@
 package org.dominokit.domino.ui.spin;
 
 /** Default CSS classes for {@link SpinSelect} and {@link SpinItem} */
-@Deprecated
 public class SpinStyles {
   /** CSS class for previous element */
   public static final String PREV = "prev";

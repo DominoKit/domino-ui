@@ -44,7 +44,6 @@ import org.jboss.elemento.Elements;
  *                    );
  *     </pre>
  */
-@Deprecated
 public class ButtonsToolbar extends BaseDominoElement<HTMLElement, ButtonsToolbar> {
 
   private HTMLElement toolbarElement =

@@ -22,7 +22,6 @@ import elemental2.dom.DOMRect;
 import elemental2.dom.HTMLElement;
 
 /** Positions the menu on the bottom of its target element */
-@Deprecated
 public class DropDownPositionBottom implements DropDownPosition {
 
   /** {@inheritDoc} */

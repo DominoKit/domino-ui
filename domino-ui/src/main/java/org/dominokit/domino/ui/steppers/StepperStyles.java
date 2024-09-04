@@ -17,7 +17,6 @@ package org.dominokit.domino.ui.steppers;
 
 /** @deprecated use {@link org.dominokit.domino.ui.stepper.StepperStyles} */
 @Deprecated
-@Deprecated
 public class StepperStyles {
   public static final String stepper = "stepper";
   public static final String horizontal = "horizontal";

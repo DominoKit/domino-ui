@@ -27,7 +27,6 @@ import org.dominokit.domino.ui.utils.TextNode;
  *
  * @param <T> the type of the data table records
  */
-@Deprecated
 public class RowCell<T> {
 
   private final ColumnConfig<T> columnConfig;

@@ -32,7 +32,6 @@ import org.dominokit.domino.ui.datatable.model.Filter;
  *
  * <p>{@link org.dominokit.domino.ui.datatable.model.SearchContext}
  */
-@Deprecated
 public class SearchEvent implements TableEvent {
 
   /** A constant string to define a unique type for this event */

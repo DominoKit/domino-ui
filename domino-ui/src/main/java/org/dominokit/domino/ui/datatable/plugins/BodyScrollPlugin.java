@@ -26,7 +26,6 @@ import org.dominokit.domino.ui.datatable.events.BodyScrollEvent;
  *
  * @param <T> the type of the data table records
  */
-@Deprecated
 public class BodyScrollPlugin<T>
     implements DataTablePlugin<T>, HasPluginConfig<T, BodyScrollPlugin<T>, BodyScrollPluginConfig> {
 
@@ -73,7 +72,6 @@ public class BodyScrollPlugin<T>
   }
 
   /** An enum to specify the postion of the scroll */
-  @Deprecated
   public enum ScrollPosition {
     /** The scroll reached the top */
     TOP,

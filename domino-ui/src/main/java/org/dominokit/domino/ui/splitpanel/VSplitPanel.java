@@ -37,7 +37,6 @@ package org.dominokit.domino.ui.splitpanel;
  * @see BaseSplitPanel
  * @see HasSize
  */
-@Deprecated
 public class VSplitPanel extends BaseSplitPanel<VSplitPanel, VSplitter> implements HasSize {
 
   public VSplitPanel() {

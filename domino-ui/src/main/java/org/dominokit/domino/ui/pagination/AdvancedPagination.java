@@ -28,7 +28,6 @@ import org.dominokit.domino.ui.keyboard.KeyboardEvents;
 import org.dominokit.domino.ui.utils.DominoElement;
 
 /** An advanced pagination implementation */
-@Deprecated
 public class AdvancedPagination extends BasePagination<AdvancedPagination> {
 
   private DominoElement<HTMLLIElement> firstPage;

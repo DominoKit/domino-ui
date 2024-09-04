@@ -20,7 +20,6 @@ import elemental2.dom.DomGlobal;
 import elemental2.dom.HTMLElement;
 
 /** Position the popover on the right */
-@Deprecated
 public class PopupPositionRight implements PopupPosition {
   /** {@inheritDoc} */
   @Override

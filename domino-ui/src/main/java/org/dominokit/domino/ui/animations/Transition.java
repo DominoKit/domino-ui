@@ -19,7 +19,6 @@ package org.dominokit.domino.ui.animations;
  * An enum that lists all the available built in animations each enum value represent an animation
  * and provide both the name and the css class name for that animation
  */
-@Deprecated
 public enum Transition {
   BOUNCE("bounce", "BOUNCE"),
   FLASH("flash", "FLASH"),

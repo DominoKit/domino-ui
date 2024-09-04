@@ -25,7 +25,6 @@ import org.dominokit.domino.ui.utils.DominoElement;
 import org.jboss.elemento.IsElement;
 
 /** A none loader implementation */
-@Deprecated
 public class NoneLoader extends BaseLoader<NoneLoader> implements IsElement<HTMLDivElement> {
 
   private final HTMLDivElement content =

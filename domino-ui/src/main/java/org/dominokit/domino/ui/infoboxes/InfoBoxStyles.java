@@ -16,7 +16,6 @@
 package org.dominokit.domino.ui.infoboxes;
 
 /** Default CSS classes for {@link InfoBox} */
-@Deprecated
 public class InfoBoxStyles {
 
   /** CSS class for zoom hover effect */

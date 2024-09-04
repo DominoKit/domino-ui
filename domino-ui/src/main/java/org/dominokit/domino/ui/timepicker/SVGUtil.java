@@ -21,7 +21,6 @@ import elemental2.svg.SVGCircleElement;
 import elemental2.svg.SVGLineElement;
 
 /** A utility class to help with drawing SVG elements */
-@Deprecated
 public class SVGUtil {
 
   /** SVG namespace */

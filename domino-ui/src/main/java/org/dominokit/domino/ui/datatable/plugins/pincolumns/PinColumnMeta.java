@@ -25,7 +25,6 @@ import org.dominokit.domino.ui.datatable.ColumnHeaderMeta;
 import org.dominokit.domino.ui.utils.ComponentMeta;
 import org.dominokit.domino.ui.utils.DominoCSSRule;
 
-@Deprecated
 public class PinColumnMeta implements ComponentMeta, PinColumnFunction {
 
   private final PinDirection direction;
@@ -78,7 +77,6 @@ public class PinColumnMeta implements ComponentMeta, PinColumnFunction {
     return direction.pin(column, position);
   }
 
-  @Deprecated
   public enum PinDirection implements PinColumnFunction {
     LEFT(PinDirection::pinHeaderLeft),
     RIGHT(PinColumnMeta::pinHeaderRight);

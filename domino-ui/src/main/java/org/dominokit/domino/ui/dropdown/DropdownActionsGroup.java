@@ -49,7 +49,6 @@ import org.jboss.elemento.IsElement;
  * @see DropDownMenu
  * @see DropdownAction
  */
-@Deprecated
 public class DropdownActionsGroup<T>
     extends BaseDominoElement<HTMLLIElement, DropdownActionsGroup<T>> {
   private final DominoElement<HTMLLIElement> element =

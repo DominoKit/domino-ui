@@ -16,7 +16,6 @@
 package org.dominokit.domino.ui.spin;
 
 /** An enum represents the direction of the spin */
-@Deprecated
 public enum Direction {
   BACKWARD,
   FORWARD

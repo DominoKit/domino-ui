@@ -45,7 +45,6 @@ import org.dominokit.domino.ui.utils.DominoElement;
  *
  * @see BaseDominoElement
  */
-@Deprecated
 public class FlexLayout extends BaseDominoElement<HTMLDivElement, FlexLayout> {
 
   private final DominoElement<HTMLDivElement> element =

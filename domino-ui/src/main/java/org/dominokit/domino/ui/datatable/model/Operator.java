@@ -18,7 +18,6 @@ package org.dominokit.domino.ui.datatable.model;
 import java.util.Objects;
 
 /** A class to define filter operators, each operator is a simple name string */
-@Deprecated
 public class Operator {
 
   public static final Operator isEqualTo = new Operator("equals");

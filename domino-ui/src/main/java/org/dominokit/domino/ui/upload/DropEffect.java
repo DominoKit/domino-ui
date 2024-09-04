@@ -22,7 +22,6 @@ package org.dominokit.domino.ui.upload;
  * href="https://developer.mozilla.org/en-US/docs/Web/API/DataTransfer/dropEffect">MDN official
  * documentation</a>
  */
-@Deprecated
 public enum DropEffect {
   COPY("copy"),
   MOVE("move"),

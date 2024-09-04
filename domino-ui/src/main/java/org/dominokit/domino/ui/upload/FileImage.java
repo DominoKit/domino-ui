@@ -31,7 +31,6 @@ import org.dominokit.domino.ui.utils.DominoElement;
  *
  * @see FileItem
  */
-@Deprecated
 public class FileImage extends BaseDominoElement<HTMLDivElement, FileImage> {
 
   private DominoElement<HTMLDivElement> fileImageContainer;

@@ -16,7 +16,6 @@
 package org.dominokit.domino.ui.header;
 
 /** Default CSS classes for {@link BlockHeader} */
-@Deprecated
 public class BlockHeaderStyles {
 
   /** CSS class for a block header */

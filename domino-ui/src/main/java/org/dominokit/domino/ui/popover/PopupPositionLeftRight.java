@@ -27,7 +27,6 @@ import elemental2.dom.HTMLElement;
  * <p>I.e. if showing the popover on the left will exceed the window, then it will be better to show
  * it on the right
  */
-@Deprecated
 public class PopupPositionLeftRight implements PopupPosition {
 
   private String positionClass;

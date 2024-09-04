@@ -63,7 +63,6 @@ import org.jboss.elemento.IsElement;
  *                         .appendChild(Paragraph.create("SAMPLE_TEXT")));
  * </pre>
  */
-@Deprecated
 public class VerticalTabsPanel extends BaseDominoElement<HTMLDivElement, VerticalTabsPanel> {
 
   private final VTabsContainer tabsList = VTabsContainer.create();

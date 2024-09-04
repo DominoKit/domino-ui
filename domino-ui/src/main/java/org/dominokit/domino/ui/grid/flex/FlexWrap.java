@@ -18,7 +18,6 @@ package org.dominokit.domino.ui.grid.flex;
 import org.dominokit.domino.ui.style.IsCssClass;
 
 /** An enum representing the wrapping of the layout */
-@Deprecated
 public enum FlexWrap implements IsCssClass {
   /** No wrap of the items */
   NO_WRAP(FlexStyles.FLEX_WRAP_NOWRAP),

@@ -24,7 +24,6 @@ import org.dominokit.domino.ui.utils.BaseDominoElement;
  * @see Alert
  * @see BaseDominoElement
  */
-@Deprecated
 public class AlertLink extends BaseDominoElement<HTMLAnchorElement, AlertLink> {
 
   private final HTMLAnchorElement element;

@@ -16,7 +16,6 @@
 package org.dominokit.domino.ui.datatable.model;
 
 /** An enum of filter types */
-@Deprecated
 public enum FilterTypes {
   STRING,
   INTEGER,

@@ -32,7 +32,6 @@ import org.jboss.elemento.IsElement;
  * An implementation of {@link CollapseStrategy} that uses the css display property to hide/show the
  * collapsible element
  */
-@Deprecated
 public class TreeHeightCollapseStrategy implements CollapseStrategy {
 
   public static final String D_COLLAPSED = "d-collapsed";

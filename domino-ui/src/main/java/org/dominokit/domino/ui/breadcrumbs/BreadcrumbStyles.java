@@ -16,7 +16,6 @@
 package org.dominokit.domino.ui.breadcrumbs;
 
 /** Default CSS classes for {@link Breadcrumb} */
-@Deprecated
 public class BreadcrumbStyles {
 
   /** CSS class for breadcrumb */

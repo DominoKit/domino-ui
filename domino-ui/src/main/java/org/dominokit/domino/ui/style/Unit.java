@@ -18,7 +18,6 @@ package org.dominokit.domino.ui.style;
 import static java.util.Objects.isNull;
 
 /** An enum representing the css units */
-@Deprecated
 public enum Unit {
   px(value -> value + "px", Constants.parser(2)),
   q(value -> value + "q", Constants.parser(1)),

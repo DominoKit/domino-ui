@@ -25,7 +25,6 @@ import org.dominokit.domino.ui.utils.DominoElement;
 import org.jboss.elemento.IsElement;
 
 /** Facebook loader implementation */
-@Deprecated
 public class FacebookLoader extends BaseLoader<FacebookLoader>
     implements IsElement<HTMLDivElement> {
 

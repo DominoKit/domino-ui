@@ -27,7 +27,6 @@ import org.dominokit.domino.ui.utils.BaseDominoElement;
  * <p>This class is works like a button group but it will be always initialized with a default
  * simple button. and only allow appending DropdownButton(s)
  */
-@Deprecated
 public class SplitButton extends BaseDominoElement<HTMLElement, SplitButton> {
 
   private HTMLElement groupElement = ButtonsGroup.create().element();

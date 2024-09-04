@@ -25,7 +25,6 @@ import org.dominokit.domino.ui.utils.DominoElement;
 import org.jboss.elemento.IsElement;
 
 /** Round bounce loader implementation */
-@Deprecated
 public class RoundBounceLoader extends BaseLoader<RoundBounceLoader>
     implements IsElement<HTMLDivElement> {
 

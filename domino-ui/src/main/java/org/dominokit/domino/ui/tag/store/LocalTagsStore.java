@@ -20,7 +20,6 @@ package org.dominokit.domino.ui.tag.store;
  * @param <V> the type of the value
  */
 @Deprecated
-@Deprecated
 public class LocalTagsStore<V> extends OrderedLocalTagsStore<V> {
 
   /**

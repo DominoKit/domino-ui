@@ -16,7 +16,6 @@
 package org.dominokit.domino.ui.style;
 
 /** A utility class for creating {@code calc} CSS property */
-@Deprecated
 public class Calc {
 
   /**

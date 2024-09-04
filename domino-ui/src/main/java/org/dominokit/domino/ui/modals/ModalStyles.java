@@ -16,7 +16,6 @@
 package org.dominokit.domino.ui.modals;
 
 /** A constants class for Dialogs css classes names */
-@Deprecated
 public class ModalStyles {
   public static final String MODAL_OPEN = "modal-open";
 

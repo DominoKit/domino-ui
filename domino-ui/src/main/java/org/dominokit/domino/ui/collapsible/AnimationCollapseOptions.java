@@ -17,7 +17,6 @@ package org.dominokit.domino.ui.collapsible;
 
 import org.dominokit.domino.ui.animations.Transition;
 
-@Deprecated
 public class AnimationCollapseOptions {
 
   private Transition showTransition;

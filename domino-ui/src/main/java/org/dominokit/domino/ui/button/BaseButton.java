@@ -451,7 +451,6 @@ public abstract class BaseButton<B extends BaseButton<?>> extends WavesElement<H
     applyWaveStyle(WaveStyle.FLOAT);
   }
 
-  @Deprecated
   public enum IconPosition {
     LEFT(10),
     RIGHT(30);

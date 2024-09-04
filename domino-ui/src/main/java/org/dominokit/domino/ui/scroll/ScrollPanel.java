@@ -22,7 +22,6 @@ import org.dominokit.domino.ui.utils.BaseDominoElement;
 import org.dominokit.domino.ui.utils.DominoElement;
 
 /** A component that wraps the {@link HTMLDivElement} to make it scrollable by default */
-@Deprecated
 public class ScrollPanel extends BaseDominoElement<HTMLDivElement, ScrollPanel> {
 
   private HTMLDivElement element = DominoElement.of(div()).css("scroll-panel").element();

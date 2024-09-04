@@ -16,7 +16,6 @@
 package org.dominokit.domino.ui.grid;
 
 /** Default CSS classes for {@link GridLayout} */
-@Deprecated
 public class GridStyles {
   /** CSS style for a grid column */
   public static final String GRID_COL = "grid-col";

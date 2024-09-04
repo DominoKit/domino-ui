@@ -16,7 +16,6 @@
 package org.dominokit.domino.ui.icons;
 
 /** A factory class for all icons supported */
-@Deprecated
 public class Icons
     implements ActionIcons,
         AlertIcons,

@@ -30,7 +30,6 @@ import org.dominokit.domino.ui.forms.SelectOption;
  *
  * @param <T> type of data table records
  */
-@Deprecated
 public class BooleanHeaderFilter<T> implements ColumnHeaderFilterPlugin.HeaderFilter<T> {
 
   private final Select<String> select;

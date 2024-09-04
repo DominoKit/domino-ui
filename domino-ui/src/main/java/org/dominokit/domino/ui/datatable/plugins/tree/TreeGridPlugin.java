@@ -37,7 +37,6 @@ import org.dominokit.domino.ui.style.Unit;
 import org.dominokit.domino.ui.utils.ComponentMeta;
 import org.dominokit.domino.ui.utils.DominoElement;
 
-@Deprecated
 public class TreeGridPlugin<T>
     implements DataTablePlugin<T>, HasPluginConfig<T, TreeGridPlugin<T>, TreePluginConfig<T>> {
 

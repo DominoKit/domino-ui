@@ -20,7 +20,6 @@ import static elemental2.dom.DomGlobal.window;
 import elemental2.dom.DOMRect;
 import elemental2.dom.HTMLElement;
 
-@Deprecated
 public class BestFitSideDropDirection implements DropDirection {
 
   private DropDirection currentPosition;

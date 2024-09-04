@@ -25,7 +25,6 @@ import org.dominokit.domino.ui.pagination.SimplePagination;
  *
  * @param <T> the type of the data table records
  */
-@Deprecated
 public class SimplePaginationPlugin<T> implements DataTablePlugin<T> {
 
   private SimplePagination simplePagination;

@@ -19,7 +19,6 @@ package org.dominokit.domino.ui.utils;
  * an enum that lists a set css classes that controls the visibility of the element based on screen
  * media
  */
-@Deprecated
 public enum ScreenMedia {
   /**
    * The component will be visible for very small screens only

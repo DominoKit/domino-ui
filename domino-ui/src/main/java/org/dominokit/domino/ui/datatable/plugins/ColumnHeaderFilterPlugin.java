@@ -44,7 +44,6 @@ import org.jboss.elemento.IsElement;
  *
  * @param <T> the type of the data table records
  */
-@Deprecated
 public class ColumnHeaderFilterPlugin<T> implements DataTablePlugin<T> {
 
   private DominoElement<HTMLTableRowElement> filtersRowElement = DominoElement.of(tr());

@@ -26,7 +26,6 @@ package org.dominokit.domino.ui.datatable.events;
  *
  * <p>{@link org.dominokit.domino.ui.datatable.model.SearchContext}
  */
-@Deprecated
 public class SearchClearedEvent implements TableEvent {
 
   /** A constant string to define a unique type for this event */

@@ -25,7 +25,6 @@ import org.dominokit.domino.ui.pagination.ScrollingPagination;
  *
  * @param <T> the type of the data table records
  */
-@Deprecated
 public class ScrollingPaginationPlugin<T> implements DataTablePlugin<T> {
 
   private ScrollingPagination pagination;

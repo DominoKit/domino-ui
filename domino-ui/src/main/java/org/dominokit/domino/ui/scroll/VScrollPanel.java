@@ -22,7 +22,6 @@ import org.dominokit.domino.ui.utils.BaseDominoElement;
 import org.dominokit.domino.ui.utils.DominoElement;
 
 /** A component that wraps the {@link HTMLDivElement} to make it vertically scrollable by default */
-@Deprecated
 public class VScrollPanel extends BaseDominoElement<HTMLDivElement, VScrollPanel> {
 
   private HTMLDivElement element = DominoElement.of(div()).css("v-scroll-panel").element();

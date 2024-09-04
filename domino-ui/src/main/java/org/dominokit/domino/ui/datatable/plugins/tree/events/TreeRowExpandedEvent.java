@@ -24,7 +24,6 @@ import org.dominokit.domino.ui.datatable.events.TableEvent;
  *
  * @param <T> the type of the record.
  */
-@Deprecated
 public class TreeRowExpandedEvent<T> implements TableEvent {
 
   /** A constant string to define a unique type for this event */

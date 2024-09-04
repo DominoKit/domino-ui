@@ -19,7 +19,6 @@ import java.util.function.Function;
 import org.dominokit.domino.ui.utils.DominoUIConfig;
 
 /** A component that has an input to take/provide Short value */
-@Deprecated
 public class ShortBox extends NumberBox<ShortBox, Short> {
 
   /** @return a new instance without a label */

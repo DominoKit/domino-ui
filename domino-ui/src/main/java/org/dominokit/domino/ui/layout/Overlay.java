@@ -23,7 +23,6 @@ import org.dominokit.domino.ui.utils.DominoElement;
 import org.jboss.elemento.IsElement;
 
 /** The component that masks the content panel when the left panel of the {@link Layout} is open */
-@Deprecated
 public class Overlay extends BaseDominoElement<HTMLDivElement, Overlay>
     implements IsElement<HTMLDivElement> {
 

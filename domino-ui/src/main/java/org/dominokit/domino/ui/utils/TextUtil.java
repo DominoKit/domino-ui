@@ -16,7 +16,6 @@
 package org.dominokit.domino.ui.utils;
 
 /** Utility class to deal with text operations */
-@Deprecated
 public class TextUtil {
   /**
    * @param input String

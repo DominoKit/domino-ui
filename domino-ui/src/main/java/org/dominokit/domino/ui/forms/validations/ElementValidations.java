@@ -27,7 +27,6 @@ import org.dominokit.domino.ui.utils.HasValidation.Validator;
  * This class associate a list of {@link Validator} with a {@link FormElement} and allow running all
  * of the validators and return the result in fail-fast style.
  */
-@Deprecated
 public class ElementValidations {
 
   private FormElement element;

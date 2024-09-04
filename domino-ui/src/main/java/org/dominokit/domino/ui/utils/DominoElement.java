@@ -30,7 +30,6 @@ import org.jboss.elemento.IsElement;
  *
  * @param <E> the type of the wrapped element
  */
-@Deprecated
 public class DominoElement<E extends HTMLElement> extends BaseDominoElement<E, DominoElement<E>> {
 
   private final E wrappedElement;

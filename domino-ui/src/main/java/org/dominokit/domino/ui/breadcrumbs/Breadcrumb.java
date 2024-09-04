@@ -51,7 +51,6 @@ import org.dominokit.domino.ui.utils.HasChangeHandlers;
  * @see HasBackground
  * @see BreadcrumbItem
  */
-@Deprecated
 public class Breadcrumb extends BaseDominoElement<HTMLOListElement, Breadcrumb>
     implements HasBackground<Breadcrumb>, HasChangeHandlers<Breadcrumb, BreadcrumbItem> {
 

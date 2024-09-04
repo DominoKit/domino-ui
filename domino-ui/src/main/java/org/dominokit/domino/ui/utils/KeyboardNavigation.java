@@ -42,7 +42,6 @@ import org.jboss.elemento.IsElement;
  * @see IsElement
  * @see EventListener
  */
-@Deprecated
 public class KeyboardNavigation<V extends IsElement<?>> implements EventListener {
 
   private final List<V> items;

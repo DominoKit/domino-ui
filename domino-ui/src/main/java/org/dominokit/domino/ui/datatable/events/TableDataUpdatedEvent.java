@@ -22,7 +22,6 @@ import java.util.List;
  *
  * @param <T> the type of the table records
  */
-@Deprecated
 public class TableDataUpdatedEvent<T> implements TableEvent {
 
   /** A constant string to define a unique type for this event */

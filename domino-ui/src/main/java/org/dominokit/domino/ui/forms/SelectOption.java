@@ -37,7 +37,6 @@ import org.jboss.elemento.IsElement;
  *
  * @param <T> The type of the SelectOption value
  */
-@Deprecated
 public class SelectOption<T> extends BaseDominoElement<HTMLDivElement, SelectOption<T>>
     implements HasValue<SelectOption, T>,
         HasBackground<SelectOption>,

@@ -16,7 +16,6 @@
 package org.dominokit.domino.ui.carousel;
 
 /** Default CSS classes for {@link Carousel} */
-@Deprecated
 public class CarouselStyles {
   /** CSS class for carousel indicator */
   public static final String CAROUSEL_INDICATORS = "carousel-indicators";

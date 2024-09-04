@@ -37,7 +37,6 @@ import org.jboss.elemento.EventType;
  * A component that open a pop-up that acts like a window with close/maximize/minimize controls and
  * can be dragged across the page
  */
-@Deprecated
 public class Window extends BaseModal<Window> {
 
   private final MdiIcon restoreIcon;

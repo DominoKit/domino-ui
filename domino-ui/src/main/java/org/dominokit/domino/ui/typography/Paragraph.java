@@ -26,7 +26,6 @@ import org.dominokit.domino.ui.utils.BaseDominoElement;
 import org.dominokit.domino.ui.utils.DominoElement;
 
 /** A wrapper component for <strong>p</strong> HTML tag */
-@Deprecated
 public class Paragraph extends BaseDominoElement<HTMLParagraphElement, Paragraph> {
 
   private final DominoElement<HTMLParagraphElement> element = DominoElement.of(p());

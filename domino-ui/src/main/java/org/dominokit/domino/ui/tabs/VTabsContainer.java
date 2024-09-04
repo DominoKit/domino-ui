@@ -31,7 +31,6 @@ import org.dominokit.domino.ui.utils.DominoElement;
 import org.jboss.elemento.IsElement;
 
 /** The component that contains the tabs headers from the {@link VerticalTabsPanel} */
-@Deprecated
 public class VTabsContainer extends BaseDominoElement<HTMLDivElement, VTabsContainer>
     implements HasActiveItem<VerticalTab>, IsElement<HTMLDivElement> {
 

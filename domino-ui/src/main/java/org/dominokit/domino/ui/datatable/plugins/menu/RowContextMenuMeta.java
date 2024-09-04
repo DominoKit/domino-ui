@@ -21,7 +21,6 @@ import org.dominokit.domino.ui.menu.Menu;
 import org.dominokit.domino.ui.menu.MenuTarget;
 import org.dominokit.domino.ui.utils.ComponentMeta;
 
-@Deprecated
 public class RowContextMenuMeta<T> implements ComponentMeta {
   public static final String ROW_CONTEXT_MENU_META = "row-context-menu-meta";
 

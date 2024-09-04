@@ -24,7 +24,6 @@ import org.dominokit.domino.ui.forms.BigDecimalBox;
  *
  * @param <T> type of data table records
  */
-@Deprecated
 public class DecimalHeaderFilter<T> extends DelayedHeaderFilterInput<BigDecimalBox, T> {
 
   private BigDecimalBox decimalBox;

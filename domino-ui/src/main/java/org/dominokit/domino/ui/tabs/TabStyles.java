@@ -16,7 +16,6 @@
 package org.dominokit.domino.ui.tabs;
 
 /** Constants class for Tabs component css classes names */
-@Deprecated
 public class TabStyles {
   public static final String TAB_PANE = "tab-pane";
   public static final String IN = "in";

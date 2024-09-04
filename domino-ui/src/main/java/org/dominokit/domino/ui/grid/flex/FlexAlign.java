@@ -18,7 +18,6 @@ package org.dominokit.domino.ui.grid.flex;
 import org.dominokit.domino.ui.style.IsCssClass;
 
 /** Am enum representing the alignment of flex */
-@Deprecated
 public enum FlexAlign implements IsCssClass {
   /** The alignment will be at the start of the layout */
   START(FlexStyles.FLEX_ALIGN_START, "flex-start"),

@@ -46,7 +46,6 @@ import org.dominokit.domino.ui.tree.TreeItem;
  *
  * <p>These configurations should be set before creating the form fields
  */
-@Deprecated
 public class DominoUIConfig {
 
   /** The DominoUIConfig single INSTANCE for global access. */

@@ -16,7 +16,6 @@
 package org.dominokit.domino.ui.loaders;
 
 /** A factory for creating loaders based on their type */
-@Deprecated
 public class LoaderFactory {
 
   public static IsLoader make(LoaderEffect type) {

@@ -30,7 +30,6 @@ import org.dominokit.domino.ui.utils.TextNode;
 import org.jboss.elemento.IsElement;
 
 /** A wrapper component for <strong>blockquote</strong> HTML tag */
-@Deprecated
 public class Blockquote extends BaseDominoElement<HTMLElement, Blockquote> {
 
   private final DominoElement<HTMLQuoteElement> element =

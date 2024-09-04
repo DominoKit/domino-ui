@@ -25,7 +25,6 @@ import org.dominokit.domino.ui.utils.DominoElement;
 import org.jboss.elemento.IsElement;
 
 /** Bounce loader implementation */
-@Deprecated
 public class BounceLoader extends BaseLoader<BounceLoader> implements IsElement<HTMLDivElement> {
 
   private final HTMLDivElement progress1 =

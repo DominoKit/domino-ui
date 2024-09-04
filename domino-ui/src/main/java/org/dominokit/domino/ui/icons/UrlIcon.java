@@ -21,7 +21,6 @@ import static org.jboss.elemento.Elements.img;
 import org.dominokit.domino.ui.utils.DominoElement;
 
 /** Url icon implementation */
-@Deprecated
 public class UrlIcon extends BaseIcon<UrlIcon> {
 
   private final String url;

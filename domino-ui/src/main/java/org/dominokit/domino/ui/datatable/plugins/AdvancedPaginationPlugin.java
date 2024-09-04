@@ -25,7 +25,6 @@ import org.dominokit.domino.ui.pagination.AdvancedPagination;
  *
  * @param <T> the type of the data table records
  */
-@Deprecated
 public class AdvancedPaginationPlugin<T> implements DataTablePlugin<T> {
 
   private AdvancedPagination pagination;

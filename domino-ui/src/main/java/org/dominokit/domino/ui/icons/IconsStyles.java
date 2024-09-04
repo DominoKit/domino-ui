@@ -15,7 +15,6 @@
  */
 package org.dominokit.domino.ui.icons;
 
-@Deprecated
 public class IconsStyles {
   public static final String CLICKABLE_ICON = "clickable-icon";
   public static final String MATERIAL_ICONS = "material-icons";

@@ -21,7 +21,6 @@ import org.dominokit.domino.ui.datatable.DataTable;
 import org.dominokit.domino.ui.datatable.RowCell;
 import org.dominokit.domino.ui.datatable.TableRow;
 
-@Deprecated
 public class TreeGridRowRenderer<T> implements TableRow.RowRenderer<T> {
 
   private final TreeGridPlugin<T> treeGridPlugin;

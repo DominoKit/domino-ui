@@ -16,7 +16,6 @@
 package org.dominokit.domino.ui.alerts;
 
 /** Default CSS classes for {@link Alert} */
-@Deprecated
 public class AlertStyles {
 
   /** CSS class for alert */

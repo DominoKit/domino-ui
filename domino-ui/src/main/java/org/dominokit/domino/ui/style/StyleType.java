@@ -20,7 +20,6 @@ package org.dominokit.domino.ui.style;
  *
  * <p>Each enum value represent a different css class to style the element
  */
-@Deprecated
 public enum StyleType {
   /** a default style that indicate no special information */
   DEFAULT("default"),

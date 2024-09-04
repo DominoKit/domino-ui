@@ -34,7 +34,6 @@ import org.gwtproject.timer.client.Timer;
 import org.jboss.elemento.EventType;
 
 /** A simple search box that is triggered while the user is typing */
-@Deprecated
 public class SearchBox extends BaseDominoElement<HTMLDivElement, SearchBox> {
 
   private String searchToolTip = "Search";

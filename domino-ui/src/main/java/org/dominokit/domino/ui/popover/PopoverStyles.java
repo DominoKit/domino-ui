@@ -16,7 +16,6 @@
 package org.dominokit.domino.ui.popover;
 
 /** Default CSS classes for {@link Popover} */
-@Deprecated
 public class PopoverStyles {
   /** CSS class for popover */
   public static final String POPOVER = "popover";

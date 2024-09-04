@@ -28,7 +28,6 @@ import org.dominokit.domino.ui.datatable.events.SearchEvent;
  *
  * @param <T> the type of data table records
  */
-@Deprecated
 public class SearchContext<T> {
 
   private final DataTable<T> dataTable;

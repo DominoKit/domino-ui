@@ -22,7 +22,6 @@ import elemental2.dom.HTMLElement;
 import org.dominokit.domino.ui.utils.DominoElement;
 
 /** Google material design icons implementation */
-@Deprecated
 public class Icon extends BaseIcon<Icon> {
 
   private Icon(HTMLElement icon) {

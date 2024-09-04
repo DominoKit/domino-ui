@@ -24,7 +24,6 @@ import org.jboss.elemento.EventType;
  *
  * @param <T> the type of data table records
  */
-@Deprecated
 public class DoubleClickPlugin<T> implements DataTablePlugin<T> {
 
   private DoubleClickHandler<T> handler;

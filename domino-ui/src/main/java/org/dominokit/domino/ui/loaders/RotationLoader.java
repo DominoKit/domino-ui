@@ -25,7 +25,6 @@ import org.dominokit.domino.ui.utils.DominoElement;
 import org.jboss.elemento.IsElement;
 
 /** Rotation loader implementation */
-@Deprecated
 public class RotationLoader extends BaseLoader<RotationLoader>
     implements IsElement<HTMLDivElement> {
 

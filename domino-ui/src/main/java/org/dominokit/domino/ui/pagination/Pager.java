@@ -40,7 +40,6 @@ import org.jboss.elemento.HtmlContentBuilder;
  *
  * @see BaseDominoElement
  */
-@Deprecated
 public class Pager extends BaseDominoElement<HTMLElement, Pager> {
 
   private final DominoElement<HTMLUListElement> pagerElement = DominoElement.of(ul()).css("pager");

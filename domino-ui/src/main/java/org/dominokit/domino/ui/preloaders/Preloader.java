@@ -36,7 +36,6 @@ import org.jboss.elemento.IsElement;
  *                 .setColor(Color.GREEN));
  * </pre>
  */
-@Deprecated
 public class Preloader extends BaseDominoElement<HTMLDivElement, Preloader>
     implements IsElement<HTMLDivElement> {
 
@@ -116,7 +115,6 @@ public class Preloader extends BaseDominoElement<HTMLDivElement, Preloader>
   }
 
   /** An enum to list preloader sizes */
-  @Deprecated
   public enum Size {
     xLarge(PreloaderStyles.pl_size_xl),
     large(PreloaderStyles.pl_size_l),

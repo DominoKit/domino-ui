@@ -19,7 +19,6 @@ package org.dominokit.domino.ui.datatable.plugins;
  * Configuration class for {@link BodyScrollPlugin} Allow the user to define the offset of pixels
  * the plugin will use to fire the event before it reach the bottom of the scroll.
  */
-@Deprecated
 public class BodyScrollPluginConfig implements PluginConfig {
 
   private int offset;

@@ -16,7 +16,6 @@
 package org.dominokit.domino.ui.style;
 
 /** An enum representing the waves colors supported */
-@Deprecated
 public enum WaveColor {
   RED("waves-red"),
   PINK("waves-pink"),

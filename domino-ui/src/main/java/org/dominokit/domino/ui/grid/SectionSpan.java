@@ -16,7 +16,6 @@
 package org.dominokit.domino.ui.grid;
 
 /** An enum representing the size of a section in {@link GridLayout} */
-@Deprecated
 public enum SectionSpan {
   _1(1),
   _2(2),

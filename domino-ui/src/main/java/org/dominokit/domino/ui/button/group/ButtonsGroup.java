@@ -42,7 +42,6 @@ import org.dominokit.domino.ui.utils.Sizable;
  *            .setSize(ButtonSize.LARGE);
  *     </pre>
  */
-@Deprecated
 public class ButtonsGroup extends WavesElement<HTMLElement, ButtonsGroup>
     implements IsGroup<ButtonsGroup>, Sizable<ButtonsGroup> {
 

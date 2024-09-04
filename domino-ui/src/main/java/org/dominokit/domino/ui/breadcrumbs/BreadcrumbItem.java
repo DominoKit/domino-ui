@@ -48,7 +48,6 @@ import org.dominokit.domino.ui.utils.TextNode;
  * @see BaseDominoElement
  * @see HasClickableElement
  */
-@Deprecated
 public class BreadcrumbItem extends BaseDominoElement<HTMLLIElement, BreadcrumbItem>
     implements HasClickableElement {
 

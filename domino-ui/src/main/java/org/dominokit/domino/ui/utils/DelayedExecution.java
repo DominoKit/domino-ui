@@ -18,7 +18,6 @@ package org.dominokit.domino.ui.utils;
 import org.gwtproject.timer.client.Timer;
 
 /** A utility class that allow execution of logic after a specific delay */
-@Deprecated
 public class DelayedExecution {
 
   public static void execute(DelayedAction delayedAction, int delay) {

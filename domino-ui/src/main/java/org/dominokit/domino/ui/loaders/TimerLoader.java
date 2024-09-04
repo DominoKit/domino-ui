@@ -25,7 +25,6 @@ import org.dominokit.domino.ui.utils.DominoElement;
 import org.jboss.elemento.IsElement;
 
 /** Timer loader implementation */
-@Deprecated
 public class TimerLoader extends BaseLoader<TimerLoader> implements IsElement<HTMLDivElement> {
 
   private final HTMLDivElement progress1 =

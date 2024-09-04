@@ -16,7 +16,6 @@
 package org.dominokit.domino.ui.tree;
 
 /** Default CSS classes for {@link Tree} */
-@Deprecated
 public class TreeStyles {
   /** CSS class for tree title */
   public static final String TITLE = "title";

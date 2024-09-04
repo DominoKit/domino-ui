@@ -16,7 +16,6 @@
 package org.dominokit.domino.ui.splitpanel;
 
 /** Default CSS classes for {@link SplitPanel} */
-@Deprecated
 public class SplitStyles {
   /** CSS class for a splitter */
   public static final String SPLITTER = "splitter";

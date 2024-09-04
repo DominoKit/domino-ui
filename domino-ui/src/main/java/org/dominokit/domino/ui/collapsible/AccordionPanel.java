@@ -36,7 +36,6 @@ import org.jboss.elemento.IsElement;
  *
  * @see Accordion
  */
-@Deprecated
 public class AccordionPanel extends BaseDominoElement<HTMLDivElement, AccordionPanel>
     implements IsCollapsible<AccordionPanel> {
 

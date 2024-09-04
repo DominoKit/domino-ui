@@ -32,7 +32,6 @@ import org.dominokit.domino.ui.forms.SelectOption;
  * @param <T> type of data table records
  * @param <E> the enum type
  */
-@Deprecated
 public class EnumHeaderFilter<T, E extends Enum>
     implements ColumnHeaderFilterPlugin.HeaderFilter<T> {
 

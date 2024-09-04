@@ -23,7 +23,6 @@ import jsinterop.annotations.JsType;
 
 /** Extending {@link Window} to add functionality missing from elemental2 */
 @JsType(isNative = true, namespace = JsPackage.GLOBAL, name = "window")
-@Deprecated
 public class DominoWindow extends Window {
   /**
    * @see <a href="https://developer.mozilla.org/en-US/docs/Web/API/Window/getComputedStyle">MDN

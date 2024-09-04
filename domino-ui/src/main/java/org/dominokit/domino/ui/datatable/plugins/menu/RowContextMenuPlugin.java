@@ -22,7 +22,6 @@ import org.dominokit.domino.ui.datatable.plugins.DataTablePlugin;
 import org.dominokit.domino.ui.menu.Menu;
 import org.dominokit.domino.ui.menu.MenuTarget;
 
-@Deprecated
 public class RowContextMenuPlugin<T> implements DataTablePlugin<T> {
 
   private final Menu<?> menu;

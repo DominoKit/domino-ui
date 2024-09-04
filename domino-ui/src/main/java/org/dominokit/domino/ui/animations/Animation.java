@@ -40,7 +40,6 @@ import org.jboss.elemento.IsElement;
  *
  * @see <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/animation">Animation on MDN</a>
  */
-@Deprecated
 public class Animation {
 
   private final CompleteCallback DEFAULT_CALLBACK = element -> {};

@@ -35,7 +35,6 @@ import org.dominokit.domino.ui.utils.ElementUtil;
  *
  * @param <T> The type of a single option value
  */
-@Deprecated
 public class MultiSelect<T> extends AbstractSelect<List<T>, T, MultiSelect<T>> {
 
   private static final String DEFAULT_SEPARATOR = ",";

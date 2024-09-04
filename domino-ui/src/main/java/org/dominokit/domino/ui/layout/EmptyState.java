@@ -39,7 +39,6 @@ import org.dominokit.domino.ui.utils.DominoElement;
  *                 .setTitleColor(Color.GREY)
  * </pre>
  */
-@Deprecated
 public class EmptyState extends BaseDominoElement<HTMLDivElement, EmptyState> {
 
   private HTMLDivElement element =

@@ -34,7 +34,6 @@ import org.dominokit.domino.ui.utils.DominoElement;
  *
  * @see Progress
  */
-@Deprecated
 public class ProgressBar extends BaseDominoElement<HTMLDivElement, ProgressBar> {
 
   private DominoElement<HTMLDivElement> element =

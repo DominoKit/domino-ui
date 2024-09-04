@@ -34,7 +34,6 @@ import org.jboss.elemento.IsElement;
  *
  * @param <T> The type of the SelectOption value
  */
-@Deprecated
 public class SelectOptionGroup<T> extends BaseDominoElement<HTMLLIElement, SelectOptionGroup<T>> {
 
   private DominoElement<HTMLLIElement> element = DominoElement.of(li()).css("dropdown-header");

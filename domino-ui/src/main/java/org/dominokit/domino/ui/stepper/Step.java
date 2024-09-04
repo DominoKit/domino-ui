@@ -39,7 +39,6 @@ import org.dominokit.domino.ui.utils.HasValidation;
 import org.jboss.elemento.IsElement;
 
 /** A component that is a single step inside a {@link Stepper} */
-@Deprecated
 public class Step extends BaseDominoElement<HTMLDivElement, Step> implements HasValidation<Step> {
 
   private final DominoElement<HTMLElement> titleSpan;

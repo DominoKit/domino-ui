@@ -17,7 +17,6 @@ package org.dominokit.domino.ui.datatable;
 
 import org.dominokit.domino.ui.utils.DominoCSSRule;
 
-@Deprecated
 public class ColumnCssRule {
 
   private final String key;

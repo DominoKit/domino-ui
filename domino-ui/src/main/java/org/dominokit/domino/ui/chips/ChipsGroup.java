@@ -52,7 +52,6 @@ import org.dominokit.domino.ui.utils.Switchable;
  * @see HasDeselectionHandler
  * @see Switchable
  */
-@Deprecated
 public class ChipsGroup extends BaseDominoElement<HTMLDivElement, ChipsGroup>
     implements Switchable<ChipsGroup>,
         HasSelectionHandler<ChipsGroup, Chip>,

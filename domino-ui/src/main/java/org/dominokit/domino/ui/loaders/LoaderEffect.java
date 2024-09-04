@@ -16,7 +16,6 @@
 package org.dominokit.domino.ui.loaders;
 
 /** an Enum to list available effects for {@link Loader} */
-@Deprecated
 public enum LoaderEffect {
   BOUNCE,
   ROTATE_PLANE,

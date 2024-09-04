@@ -36,7 +36,6 @@ import org.dominokit.domino.ui.datatable.plugins.BodyScrollPlugin;
  *
  * @param <T> the type of the data table records
  */
-@Deprecated
 public class LocalListScrollingDataSource<T> implements DataStore<T> {
 
   private final List<T> original;

@@ -23,7 +23,6 @@ import org.dominokit.domino.ui.datatable.TableRow;
  *
  * @param <T> the type of the record.
  */
-@Deprecated
 public class ExpandRecordEvent<T> implements TableEvent {
 
   /** A constant string to define a unique type for this event */

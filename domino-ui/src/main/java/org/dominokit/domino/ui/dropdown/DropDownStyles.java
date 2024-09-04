@@ -16,7 +16,6 @@
 package org.dominokit.domino.ui.dropdown;
 
 /** Default CSS classes for {@link DropDownMenu} */
-@Deprecated
 public class DropDownStyles {
   /** CSS class for dropdown header element */
   public static final String DROPDOWN_HEADER = "dropdown-header";

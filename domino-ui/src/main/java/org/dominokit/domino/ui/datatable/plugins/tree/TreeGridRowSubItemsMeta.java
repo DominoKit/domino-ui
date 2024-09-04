@@ -27,7 +27,6 @@ import org.dominokit.domino.ui.datatable.plugins.tree.store.TreeNodeStoreContext
 import org.dominokit.domino.ui.datatable.store.DataStore;
 import org.dominokit.domino.ui.utils.ComponentMeta;
 
-@Deprecated
 public class TreeGridRowSubItemsMeta<T> implements ComponentMeta {
 
   public static final String TREE_GRID_ROW_SUB_ITEMS_META = "tree-grid-row-sub-items-meta";

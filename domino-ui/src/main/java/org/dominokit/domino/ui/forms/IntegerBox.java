@@ -19,7 +19,6 @@ import java.util.function.Function;
 import org.dominokit.domino.ui.utils.DominoUIConfig;
 
 /** A component that has an input to take/provide Integer value */
-@Deprecated
 public class IntegerBox extends NumberBox<IntegerBox, Integer> {
 
   /** @return a new instance without a label */

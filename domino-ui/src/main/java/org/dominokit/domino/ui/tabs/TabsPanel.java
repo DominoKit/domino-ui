@@ -63,7 +63,6 @@ import org.jboss.elemento.IsElement;
  *         );
  * </pre>
  */
-@Deprecated
 public class TabsPanel extends BaseDominoElement<HTMLDivElement, TabsPanel>
     implements IsElement<HTMLDivElement> {
 

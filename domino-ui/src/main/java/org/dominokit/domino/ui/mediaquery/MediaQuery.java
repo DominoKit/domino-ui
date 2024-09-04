@@ -50,7 +50,6 @@ import jsinterop.base.Js;
  *   <li>{@code min-width} is less than 768px, the size is X small
  * </ul>
  */
-@Deprecated
 public class MediaQuery {
 
   private static final String X_LARGE_MEDIA_QUERY = "(min-width: 1800px)";

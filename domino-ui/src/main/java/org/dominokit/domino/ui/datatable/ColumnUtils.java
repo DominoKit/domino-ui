@@ -23,7 +23,6 @@ import org.dominokit.domino.ui.style.Style;
 import org.dominokit.domino.ui.utils.DominoCSSRule;
 import org.dominokit.domino.ui.utils.DominoElement;
 
-@Deprecated
 public class ColumnUtils {
 
   public static <T> void fixElementWidth(ColumnConfig<T> column, HTMLElement element) {

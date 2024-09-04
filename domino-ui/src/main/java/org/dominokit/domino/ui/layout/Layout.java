@@ -46,7 +46,6 @@ import org.jboss.elemento.IsElement;
  *     Layout.create("Application title").show(ColorScheme.INDIGO);
  * </pre>
  */
-@Deprecated
 public class Layout extends BaseDominoElement<HTMLDivElement, Layout> {
 
   private static final String SLIDE_OUT_LEFT = "slide-out-left";
@@ -911,7 +910,6 @@ public class Layout extends BaseDominoElement<HTMLDivElement, Layout> {
   }
 
   /** An enum to list left panel sizes that controls the panel width */
-  @Deprecated
   public enum LeftPanelSize {
     /** Small size */
     SMALL("sm"),
@@ -933,7 +931,6 @@ public class Layout extends BaseDominoElement<HTMLDivElement, Layout> {
   }
 
   /** An enum to list left panel open behaviors */
-  @Deprecated
   public enum LeftPanelOpenStyle {
     /** Opens the left panel on top of content panel and show an overlay */
     OVERLAY(

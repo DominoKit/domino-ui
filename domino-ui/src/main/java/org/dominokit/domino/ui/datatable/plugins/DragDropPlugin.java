@@ -46,7 +46,6 @@ import org.dominokit.domino.ui.utils.TextNode;
  *
  * @param <T> the type of data table records
  */
-@Deprecated
 public class DragDropPlugin<T> implements DataTablePlugin<T> {
 
   private DropZone dropZone;

@@ -28,7 +28,6 @@ import org.dominokit.domino.ui.utils.DominoElement;
  * An implementation og the {@link AbstractMenuItem} for a menu item that can have a main text and a
  * description {@inheritDoc}
  */
-@Deprecated
 public class MenuItem<V> extends AbstractMenuItem<V, MenuItem<V>> {
 
   private DominoElement<HTMLElement> descriptionElement = DominoElement.of(small());

@@ -31,7 +31,6 @@ import org.dominokit.domino.ui.utils.DominoElement;
  * @see BaseDominoElement
  * @see Carousel
  */
-@Deprecated
 public class Slide extends BaseDominoElement<HTMLDivElement, Slide> {
 
   private final HTMLLIElement indicatorElement = li().element();

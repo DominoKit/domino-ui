@@ -25,7 +25,6 @@ import org.dominokit.domino.ui.utils.DominoElement;
  * A component that wraps the {@link HTMLDivElement} to make it auto horizontally scrollable when
  * the content exceeds the component fixed width
  */
-@Deprecated
 public class AutoHScrollPanel extends BaseDominoElement<HTMLDivElement, AutoHScrollPanel> {
 
   private HTMLDivElement element = DominoElement.of(div()).css("auto-h-scroll-panel").element();

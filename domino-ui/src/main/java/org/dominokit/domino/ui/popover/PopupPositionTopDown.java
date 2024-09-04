@@ -21,7 +21,6 @@ import elemental2.dom.HTMLElement;
 
 /** Use {@link PopupPositionBestFit} */
 @Deprecated
-@Deprecated
 public class PopupPositionTopDown implements PopupPosition {
 
   private String positionClass;

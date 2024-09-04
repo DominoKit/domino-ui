@@ -24,7 +24,6 @@ import org.dominokit.domino.ui.utils.BaseDominoElement;
 import org.dominokit.domino.ui.utils.DominoElement;
 
 /** a component that represent the Content part of the {@link Layout} */
-@Deprecated
 public class Content extends BaseDominoElement<HTMLElement, Content> {
 
   HTMLDivElement contentContainer;

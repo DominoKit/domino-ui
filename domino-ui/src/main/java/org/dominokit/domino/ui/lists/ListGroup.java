@@ -58,7 +58,6 @@ import org.jboss.elemento.Elements;
  * @param <T> the type of the value object inside the element
  * @see BaseDominoElement
  */
-@Deprecated
 public class ListGroup<T> extends BaseDominoElement<HTMLUListElement, ListGroup<T>> {
 
   private final HTMLUListElement element;

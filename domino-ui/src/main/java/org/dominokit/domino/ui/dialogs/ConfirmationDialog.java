@@ -22,7 +22,6 @@ import org.dominokit.domino.ui.icons.Icons;
 import org.dominokit.domino.ui.modals.BaseModal;
 
 /** A special dialog component that introduce a confirm/reject actions */
-@Deprecated
 public class ConfirmationDialog extends BaseModal<ConfirmationDialog> {
   private Button confirmButton;
   private Button rejectButton;

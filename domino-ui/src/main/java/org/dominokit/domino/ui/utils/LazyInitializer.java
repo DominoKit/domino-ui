@@ -18,7 +18,6 @@ package org.dominokit.domino.ui.utils;
 import java.util.HashSet;
 import java.util.Set;
 
-@Deprecated
 public class LazyInitializer {
 
   private LambdaFunction function;

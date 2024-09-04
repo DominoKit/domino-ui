@@ -16,7 +16,6 @@
 package org.dominokit.domino.ui.datatable;
 
 /** constants class for DataTable css classes names */
-@Deprecated
 public class DataTableStyles {
   public static final String TABLE_RESPONSIVE = "table-responsive";
   public static final String TABLE = "table";

@@ -62,7 +62,6 @@ import org.jboss.elemento.IsElement;
  * @see HasBackground
  */
 @Deprecated
-@Deprecated
 public class DropDownMenu extends BaseDominoElement<HTMLDivElement, DropDownMenu>
     implements HasBackground<DropDownMenu>, IsPopup<DropDownMenu> {
 

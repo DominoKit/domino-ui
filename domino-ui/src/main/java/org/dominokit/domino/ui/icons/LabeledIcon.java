@@ -32,7 +32,6 @@ import org.dominokit.domino.ui.utils.TextNode;
  *
  * @see BaseDominoElement
  */
-@Deprecated
 public class LabeledIcon extends BaseDominoElement<HTMLDivElement, LabeledIcon> {
 
   private final HTMLDivElement element = div().css(IconsStyles.LABELED_ICON).element();
@@ -80,7 +79,6 @@ public class LabeledIcon extends BaseDominoElement<HTMLDivElement, LabeledIcon> 
   }
 
   /** An enum representing the position of the icon related to the label */
-  @Deprecated
   public enum IconPosition {
     /** position the icon to the left */
     LEFT(

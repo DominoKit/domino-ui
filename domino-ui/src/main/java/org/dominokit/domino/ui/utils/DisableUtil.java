@@ -19,7 +19,6 @@ import elemental2.dom.HTMLElement;
 import java.util.Optional;
 import org.jboss.elemento.IsElement;
 
-@Deprecated
 public class DisableUtil {
 
   public static final String FOCUSABLE_ELEMENTS =

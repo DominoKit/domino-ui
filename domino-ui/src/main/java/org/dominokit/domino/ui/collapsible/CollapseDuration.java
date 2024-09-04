@@ -15,7 +15,6 @@
  */
 package org.dominokit.domino.ui.collapsible;
 
-@Deprecated
 public enum CollapseDuration {
   _100ms("height-collapsed-trans-100", 100),
   _200ms("height-collapsed-trans-200", 200),

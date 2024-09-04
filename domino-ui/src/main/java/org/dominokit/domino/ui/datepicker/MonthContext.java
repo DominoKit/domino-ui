@@ -18,7 +18,6 @@ package org.dominokit.domino.ui.datepicker;
 import elemental2.core.JsDate;
 
 /** A context which holds a month information */
-@Deprecated
 public class MonthContext {
 
   private final int year;

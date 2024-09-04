@@ -25,7 +25,6 @@ import org.dominokit.domino.ui.utils.DominoElement;
 import org.jboss.elemento.IsElement;
 
 /** Win8 linear loader implementation */
-@Deprecated
 public class Win8LinearLoader extends BaseLoader<Win8LinearLoader>
     implements IsElement<HTMLDivElement> {
 

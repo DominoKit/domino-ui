@@ -23,7 +23,6 @@ import org.dominokit.domino.ui.datatable.plugins.tree.TreePluginConfig;
  * @param <T>
  */
 @Deprecated
-@Deprecated
 public class TreeGridRowSubItemsMeta<T>
     extends org.dominokit.domino.ui.datatable.plugins.tree.TreeGridRowSubItemsMeta<T> {
 

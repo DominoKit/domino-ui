@@ -25,7 +25,6 @@ import org.dominokit.domino.ui.utils.DominoElement;
 import org.jboss.elemento.IsElement;
 
 /** Stretch loader implementation */
-@Deprecated
 public class StretchLoader extends BaseLoader<StretchLoader> implements IsElement<HTMLDivElement> {
 
   private final HTMLDivElement progress1 =

@@ -22,7 +22,6 @@ import elemental2.dom.HTMLElement;
 import org.dominokit.domino.ui.utils.DominoElement;
 
 /** <a href="https://materialdesignicons.com/">MDI</a> icons implementation */
-@Deprecated
 public class MdiIcon extends BaseIcon<MdiIcon> {
   private MdiSize mdiSize;
   private MdiRotate mdiRotate;
@@ -415,7 +414,6 @@ public class MdiIcon extends BaseIcon<MdiIcon> {
   }
 
   /** An enum representing the sizes of the icon */
-  @Deprecated
   public enum MdiSize {
     mdi18(IconsStyles.MDI_18_PX),
     mdi24(IconsStyles.MDI_24_PX),
@@ -435,7 +433,6 @@ public class MdiIcon extends BaseIcon<MdiIcon> {
   }
 
   /** An enum representing the rotation degree of the icon */
-  @Deprecated
   public enum MdiRotate {
     rotate45(IconsStyles.MDI_ROTATE_45),
     rotate90(IconsStyles.MDI_ROTATE_90),
@@ -458,7 +455,6 @@ public class MdiIcon extends BaseIcon<MdiIcon> {
   }
 
   /** An enum representing the flip of the icon */
-  @Deprecated
   public enum MdiFlip {
     flipV(IconsStyles.MDI_FLIP_V),
     flipH(IconsStyles.MDI_FLIP_H);
@@ -481,7 +477,6 @@ public class MdiIcon extends BaseIcon<MdiIcon> {
   }
 
   /** An enum representing the contrast of the icon */
-  @Deprecated
   public enum MdiContrast {
     light(IconsStyles.MDI_LIGHT),
     dark(IconsStyles.MDI_DARK);

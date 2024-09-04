@@ -16,7 +16,6 @@
 package org.dominokit.domino.ui.preloaders;
 
 /** A constants class for different preloader sizes */
-@Deprecated
 public class PreloaderStyles {
   public static final String pl_size_xl = "pl-size-xl";
   public static final String pl_size_l = "pl-size-l";

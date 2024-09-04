@@ -22,7 +22,6 @@ import java.util.Optional;
 import org.dominokit.domino.ui.datatable.ColumnConfig;
 import org.dominokit.domino.ui.utils.ComponentMeta;
 
-@Deprecated
 public class ResizeColumnMeta implements ComponentMeta {
 
   public static final String RESIZE_COLUMN_META = "resize-column-meta";

@@ -19,7 +19,6 @@ import java.util.List;
 import java.util.function.Supplier;
 
 /** Options for controlling the upload */
-@Deprecated
 public class UploadOptions {
   private String url;
   private final double maxFileSize;

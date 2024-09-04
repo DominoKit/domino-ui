@@ -18,7 +18,6 @@ package org.dominokit.domino.ui.modals;
 import elemental2.dom.Node;
 
 /** a component to show a pop-up with the ability to block the content behind it. */
-@Deprecated
 public class ModalDialog extends BaseModal<ModalDialog> {
 
   public ModalDialog(String title) {

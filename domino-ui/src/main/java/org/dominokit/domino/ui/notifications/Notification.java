@@ -45,7 +45,6 @@ import org.jboss.elemento.IsElement;
  *
  * @see BaseDominoElement
  */
-@Deprecated
 public class Notification extends BaseDominoElement<HTMLDivElement, Notification>
     implements IsElement<HTMLDivElement> {
 

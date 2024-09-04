@@ -35,7 +35,6 @@ import org.jboss.elemento.EventType;
 import org.jboss.elemento.IsElement;
 
 /** A component for a single Tab in the {@link TabsPanel} */
-@Deprecated
 public class Tab extends BaseDominoElement<HTMLLIElement, Tab> implements HasClickableElement {
 
   private HTMLAnchorElement clickableElement = a().element();

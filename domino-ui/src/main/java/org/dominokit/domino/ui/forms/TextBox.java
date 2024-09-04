@@ -22,7 +22,6 @@ import org.dominokit.domino.ui.forms.validations.InputAutoValidator;
 import org.jboss.elemento.Elements;
 
 /** A component that take/provide a single line String values */
-@Deprecated
 public class TextBox extends AbstractValueBox<TextBox, HTMLInputElement, String> {
 
   private static final String TEXT = "text";

@@ -43,7 +43,6 @@ import org.dominokit.domino.ui.forms.ValueBox;
  *             .build();
  * </pre>
  */
-@Deprecated
 public class Mask {
 
   private final HTMLInputElement element;

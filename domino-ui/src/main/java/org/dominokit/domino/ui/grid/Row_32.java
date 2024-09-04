@@ -22,7 +22,6 @@ import java.util.function.Consumer;
  *
  * @see Row
  */
-@Deprecated
 public class Row_32 extends Row<Row_32> {
 
   public Row_32() {
