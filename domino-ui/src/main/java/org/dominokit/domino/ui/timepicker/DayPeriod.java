@@ -16,6 +16,7 @@
 package org.dominokit.domino.ui.timepicker;
 
 /** Enum for day periods */
+@Deprecated
 public enum DayPeriod {
   /** AM for AM/PM system */
   AM,

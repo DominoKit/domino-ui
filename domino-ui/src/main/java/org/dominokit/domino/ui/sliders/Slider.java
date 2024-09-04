@@ -44,6 +44,7 @@ import org.jboss.elemento.IsElement;
  *         .setWithThumb(true);
  * </pre>
  */
+@Deprecated
 public class Slider extends BaseDominoElement<HTMLParagraphElement, Slider>
     implements HasChangeHandlers<Slider, Double> {
 

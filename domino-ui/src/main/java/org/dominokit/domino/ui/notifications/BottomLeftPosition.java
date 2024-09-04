@@ -18,6 +18,7 @@ package org.dominokit.domino.ui.notifications;
 import elemental2.dom.HTMLElement;
 
 /** Display notification in bottom left */
+@Deprecated
 public class BottomLeftPosition extends NotificationPosition {
 
   public BottomLeftPosition() {

@@ -20,6 +20,7 @@ package org.dominokit.domino.ui.datatable.events;
  *
  * @param <T> the type of the record
  */
+@Deprecated
 public class RecordDroppedEvent<T> implements TableEvent {
 
   public static final String RECORD_DROPPED = "record-dropped";

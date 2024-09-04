@@ -16,6 +16,7 @@
 package org.dominokit.domino.ui.menu;
 
 /** An implementation of {@link AbstractMenuItem} that can take custom content */
+@Deprecated
 public class CustomMenuItem extends AbstractMenuItem<String, CustomMenuItem> {
 
   public static CustomMenuItem create() {

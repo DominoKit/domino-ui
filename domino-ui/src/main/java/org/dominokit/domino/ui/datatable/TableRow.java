@@ -29,6 +29,7 @@ import org.dominokit.domino.ui.utils.BaseDominoElement;
 import org.dominokit.domino.ui.utils.DominoElement;
 import org.dominokit.domino.ui.utils.Selectable;
 
+@Deprecated
 public class TableRow<T> extends BaseDominoElement<HTMLTableRowElement, TableRow<T>>
     implements Selectable<T> {
   private T record;

@@ -19,6 +19,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /** Meta data for a {@link MdiIcon} */
+@Deprecated
 public class MdiMeta {
 
   private final String name;

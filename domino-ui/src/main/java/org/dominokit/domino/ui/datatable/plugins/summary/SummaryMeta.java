@@ -20,6 +20,7 @@ import java.util.Optional;
 import org.dominokit.domino.ui.datatable.ColumnConfig;
 import org.dominokit.domino.ui.utils.ComponentMeta;
 
+@Deprecated
 public class SummaryMeta<T, S> implements ComponentMeta {
 
   public static final String COLUMN_SUMMARY_META = "column-summary-meta";

@@ -31,6 +31,7 @@ import org.jboss.elemento.EventType;
  * <p>this class can track the overlay across the page and all opened modals and it adjust its
  * position whenever a modal is opened or closed
  */
+@Deprecated
 public class ModalBackDrop extends BaseDominoElement<HTMLDivElement, ModalBackDrop> {
 
   public static final ModalBackDrop INSTANCE = new ModalBackDrop();

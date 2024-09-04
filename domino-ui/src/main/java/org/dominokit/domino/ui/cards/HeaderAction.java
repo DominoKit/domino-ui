@@ -36,6 +36,7 @@ import org.dominokit.domino.ui.utils.BaseDominoElement;
  * @see Card
  * @see Card#addHeaderAction(HeaderAction)
  */
+@Deprecated
 public class HeaderAction extends BaseDominoElement<HTMLLIElement, HeaderAction> {
 
   private final HTMLLIElement element = li().element();

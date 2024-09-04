@@ -42,6 +42,7 @@ import org.jboss.elemento.IsElement;
  * @see BaseDominoElement
  * @see HasName
  */
+@Deprecated
 public class FileUpload extends BaseDominoElement<HTMLDivElement, FileUpload>
     implements HasName<FileUpload> {
 

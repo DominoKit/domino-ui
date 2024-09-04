@@ -50,6 +50,7 @@ import org.jboss.elemento.IsElement;
  * @see BaseDominoElement
  * @see Switchable
  */
+@Deprecated
 public class Popover extends BaseDominoElement<HTMLDivElement, Popover>
     implements Switchable<Popover>, IsPopup<Popover> {
 

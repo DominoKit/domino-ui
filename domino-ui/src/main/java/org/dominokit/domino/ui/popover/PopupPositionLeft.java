@@ -21,6 +21,7 @@ import elemental2.dom.DOMRect;
 import elemental2.dom.HTMLElement;
 
 /** Position the popover on the left */
+@Deprecated
 public class PopupPositionLeft implements PopupPosition {
   /** {@inheritDoc} */
   @Override

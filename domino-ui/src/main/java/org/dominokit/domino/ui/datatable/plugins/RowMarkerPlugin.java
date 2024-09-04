@@ -29,6 +29,7 @@ import org.dominokit.domino.ui.utils.DominoElement;
  *
  * @param <T> the type of the data table records
  */
+@Deprecated
 public class RowMarkerPlugin<T> implements DataTablePlugin<T> {
 
   private final MarkerColor<T> markerColor;

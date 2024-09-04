@@ -33,6 +33,7 @@ import jsinterop.base.Js;
  *     ResizeObserver</a>
  */
 @JsType(isNative = true, namespace = JsPackage.GLOBAL)
+@Deprecated
 public class ResizeObserver {
   public native void disconnect();
 

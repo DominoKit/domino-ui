@@ -44,6 +44,7 @@ import org.jboss.elemento.IsElement;
  *         "Here\'s a message!", () -> Notification.create("Dialog closed").show();
  * </pre>
  */
+@Deprecated
 public class MessageDialog extends BaseModal<MessageDialog> {
 
   private DominoElement<HTMLDivElement> iconContainer = DominoElement.of(div());

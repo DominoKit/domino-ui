@@ -16,6 +16,7 @@
 package org.dominokit.domino.ui.datatable.model;
 
 /** An enum for the {@link Filter} category */
+@Deprecated
 public enum Category {
   /** A search field */
   SEARCH,

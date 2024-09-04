@@ -54,6 +54,7 @@ import org.jboss.elemento.EventType;
  *
  * @param <T> the type of the data table records
  */
+@Deprecated
 public class HeaderBarPlugin<T> implements DataTablePlugin<T> {
 
   private final HTMLHeadingElement title = Style.of(h(2)).setMarginBottom("0px").element();

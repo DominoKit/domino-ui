@@ -21,6 +21,7 @@ import static org.dominokit.domino.ui.style.Unit.px;
 import elemental2.dom.DOMRect;
 import elemental2.dom.HTMLElement;
 
+@Deprecated
 public class RightMiddleDropDirection implements DropDirection {
   @Override
   public void position(HTMLElement source, HTMLElement target) {

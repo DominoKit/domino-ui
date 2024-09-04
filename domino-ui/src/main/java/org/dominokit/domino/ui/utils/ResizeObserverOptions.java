@@ -22,6 +22,7 @@ import jsinterop.base.Js;
 import jsinterop.base.JsPropertyMap;
 
 @JsType(isNative = true, namespace = JsPackage.GLOBAL)
+@Deprecated
 public class ResizeObserverOptions {
 
   @JsOverlay

@@ -26,6 +26,7 @@ import org.dominokit.domino.ui.icons.Icons;
 import org.dominokit.domino.ui.utils.DominoElement;
 
 /** A scrolling pagination implementation */
+@Deprecated
 public class ScrollingPagination extends BasePagination<ScrollingPagination> {
 
   private DominoElement<HTMLLIElement> prevSet;

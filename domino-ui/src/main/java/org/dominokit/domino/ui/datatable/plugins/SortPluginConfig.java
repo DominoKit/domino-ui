@@ -21,6 +21,7 @@ import java.util.function.Supplier;
 import org.dominokit.domino.ui.icons.BaseIcon;
 import org.dominokit.domino.ui.icons.Icons;
 
+@Deprecated
 public class SortPluginConfig implements PluginConfig {
   private boolean triStateSort = false;
   private Supplier<BaseIcon<?>> ascendingIcon = Icons.ALL::sort_ascending_mdi;

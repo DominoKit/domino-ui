@@ -21,6 +21,7 @@ import elemental2.dom.DOMRect;
 import elemental2.dom.HTMLElement;
 
 /** Position the popover on the bottom */
+@Deprecated
 public class PopupPositionBottom implements PopupPosition {
   /** {@inheritDoc} */
   @Override

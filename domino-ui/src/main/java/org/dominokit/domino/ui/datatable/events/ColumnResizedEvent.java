@@ -18,6 +18,7 @@ package org.dominokit.domino.ui.datatable.events;
 import org.dominokit.domino.ui.datatable.ColumnConfig;
 
 /** This event will be fired when a column gets resized */
+@Deprecated
 public class ColumnResizedEvent implements TableEvent {
   public static final String COLUMN_RESIZED = "column-resized";
   private final ColumnConfig<?> column;

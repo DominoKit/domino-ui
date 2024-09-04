@@ -16,6 +16,7 @@
 package org.dominokit.domino.ui.button;
 
 /** A constants class to reference css classes used in Button components */
+@Deprecated
 public class ButtonStyles {
   /** The main css class for a button */
   public static final String BUTTON = "btn";

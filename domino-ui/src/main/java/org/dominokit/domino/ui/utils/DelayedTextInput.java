@@ -32,6 +32,7 @@ import org.jboss.elemento.EventType;
  *         .setDelayedAction(() -> Notification.create(search.getValue()).show());
  * </pre>
  */
+@Deprecated
 public class DelayedTextInput {
 
   private int delay;

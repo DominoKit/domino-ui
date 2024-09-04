@@ -19,4 +19,5 @@ import org.dominokit.domino.ui.utils.DominoUIConfig;
 
 /** @deprecated use {@link DominoUIConfig} instead */
 @Deprecated
+@Deprecated
 public class DominoFields extends DominoUIConfig {}

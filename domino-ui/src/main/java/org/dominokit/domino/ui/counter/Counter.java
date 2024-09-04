@@ -36,6 +36,7 @@ import org.gwtproject.timer.client.Timer;
  *                 .startCounting();
  *     </pre>
  */
+@Deprecated
 public class Counter {
 
   private Timer timer;

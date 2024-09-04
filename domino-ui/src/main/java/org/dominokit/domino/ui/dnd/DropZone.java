@@ -27,6 +27,7 @@ import org.jboss.elemento.IsElement;
  * <p>Each drop zone has a list of drop targets that accept drop event. Each drop target has a
  * listener that will be called when a drop event happens passing the id of the element
  */
+@Deprecated
 public class DropZone {
 
   private final Map<HTMLElement, DropTarget> dropTargets = new HashMap<>();

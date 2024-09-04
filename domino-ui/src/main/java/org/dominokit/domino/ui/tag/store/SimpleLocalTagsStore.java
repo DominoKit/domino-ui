@@ -26,6 +26,7 @@ import java.util.Map;
  *
  * @param <V> the type of the value
  */
+@Deprecated
 public class SimpleLocalTagsStore<V> implements TagsStore<V> {
 
   private final Map<String, V> items = new HashMap<>();

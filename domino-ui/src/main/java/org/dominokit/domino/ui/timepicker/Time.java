@@ -23,6 +23,7 @@ import org.gwtproject.i18n.shared.cldr.DateTimeFormatInfo;
 import org.gwtproject.i18n.shared.cldr.impl.DateTimeFormatInfo_factory;
 
 /** A class for time value in specific {@link DayPeriod} */
+@Deprecated
 public class Time {
   private int hour;
   private int minute;

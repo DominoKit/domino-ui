@@ -18,6 +18,7 @@ package org.dominokit.domino.ui.grid.flex;
 import org.dominokit.domino.ui.style.IsCssClass;
 
 /** An enum representing how content is distributed inside the layout */
+@Deprecated
 public enum FlexJustifyContent implements IsCssClass {
   /** At the start of the layout */
   START(FlexStyles.FLEX_JUST_START),

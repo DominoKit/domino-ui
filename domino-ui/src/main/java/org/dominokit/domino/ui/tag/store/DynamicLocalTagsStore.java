@@ -21,6 +21,7 @@ import java.util.Map;
 /**
  * A dynamic store implementation that accepts any string value and add it to the store dynamically
  */
+@Deprecated
 public class DynamicLocalTagsStore extends LocalTagsStore<String> {
 
   /** {@inheritDoc} */

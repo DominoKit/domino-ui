@@ -16,6 +16,7 @@
 package org.dominokit.domino.ui.media;
 
 /** Default CSS classes for {@link MediaObject} */
+@Deprecated
 public class MediaStyles {
   /** CSS class for media header element */
   public static final String MEDIA_HEADING = "media-heading";

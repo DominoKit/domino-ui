@@ -30,6 +30,7 @@ import org.dominokit.domino.ui.timepicker.TimeBox;
  *
  * @param <T> type of data table records
  */
+@Deprecated
 public class TimeHeaderFilter<T> implements ColumnHeaderFilterPlugin.HeaderFilter<T> {
 
   private TimeBox timeBox;

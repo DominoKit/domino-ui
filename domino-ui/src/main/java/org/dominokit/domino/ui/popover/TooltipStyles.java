@@ -16,6 +16,7 @@
 package org.dominokit.domino.ui.popover;
 
 /** Default CSS classes for {@link Tooltip} */
+@Deprecated
 public class TooltipStyles {
 
   /** CSS class for tooltip */

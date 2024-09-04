@@ -16,6 +16,7 @@
 package org.dominokit.domino.ui.badges;
 
 /** Default CSS classes for {@link Badge} */
+@Deprecated
 public class BadgeStyles {
 
   /** CSS class for badge */

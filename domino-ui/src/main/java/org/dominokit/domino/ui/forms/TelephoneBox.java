@@ -16,6 +16,7 @@
 package org.dominokit.domino.ui.forms;
 
 /** A component to input phone numbers */
+@Deprecated
 public class TelephoneBox extends InputValueBox<TelephoneBox> {
 
   /** @param label String */

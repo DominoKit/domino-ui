@@ -39,6 +39,7 @@ import org.dominokit.domino.ui.utils.DominoId;
  * @see TelephoneBox
  * @see EmailBox
  */
+@Deprecated
 public class InputValueBox<T extends InputValueBox<T>>
     extends AbstractValueBox<T, HTMLInputElement, String> {
   private HTMLElement suggestionsDataList = datalist().element();

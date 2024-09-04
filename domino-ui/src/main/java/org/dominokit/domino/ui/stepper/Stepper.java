@@ -42,6 +42,7 @@ import org.jboss.elemento.IsElement;
  *
  * @see <a href="https://demo.dominokit.org/forms/steppers">Steppers sample</a>
  */
+@Deprecated
 public class Stepper extends BaseDominoElement<HTMLDivElement, Stepper> {
 
   private final FlexItem content;
@@ -585,6 +586,7 @@ public class Stepper extends BaseDominoElement<HTMLDivElement, Stepper> {
   }
 
   /** An enum of possible Stepper directions */
+  @Deprecated
   public enum StepperDirection {
     /** The steps in the Stepper header will be aligned Horizontally */
     HORIZONTAL(FlexDirection.LEFT_TO_RIGHT, HORIZONTAL_STEPPER),
@@ -756,6 +758,7 @@ public class Stepper extends BaseDominoElement<HTMLDivElement, Stepper> {
   }
 
   /** An enum to list the {@link Step} possible states */
+  @Deprecated
   public enum StepState {
     ACTIVE(STEP_ACTIVE),
     INACTIVE(STEP_INACTIVE),

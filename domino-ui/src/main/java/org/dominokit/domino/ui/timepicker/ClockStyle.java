@@ -16,6 +16,7 @@
 package org.dominokit.domino.ui.timepicker;
 
 /** */
+@Deprecated
 public enum ClockStyle {
   /** 12h+AM/PM clock system */
   _12,

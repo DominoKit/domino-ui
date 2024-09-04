@@ -16,6 +16,7 @@
 package org.dominokit.domino.ui.thumbnails;
 
 /** Default CSS styles for {@link Thumbnail} */
+@Deprecated
 public class ThumbnailStyles {
 
   /** CSS class for thumbnail */

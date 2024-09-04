@@ -40,6 +40,7 @@ import org.jboss.elemento.IsElement;
  * @see BaseDominoElement
  * @see FlexLayout
  */
+@Deprecated
 public class FlexItem<T extends HTMLElement> extends BaseDominoElement<T, FlexItem<T>> {
 
   private final T element;

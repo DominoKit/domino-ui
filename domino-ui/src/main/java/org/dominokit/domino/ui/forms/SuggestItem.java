@@ -25,6 +25,7 @@ import org.dominokit.domino.ui.style.Color;
  *
  * @param <T> the type of the SuggestItem value
  */
+@Deprecated
 public class SuggestItem<T> {
 
   private DropdownAction<T> element;

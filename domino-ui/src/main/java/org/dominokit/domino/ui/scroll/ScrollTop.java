@@ -30,6 +30,7 @@ import org.jboss.elemento.EventType;
  * A component that show up in a specific position on the screen only when the user scrolls down and
  * allow the user to click it to scroll to the top of the page
  */
+@Deprecated
 public class ScrollTop extends BaseButton<ScrollTop> {
 
   private int showOffset = 60;

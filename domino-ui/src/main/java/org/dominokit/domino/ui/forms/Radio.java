@@ -35,6 +35,7 @@ import org.jboss.elemento.IsElement;
  *
  * @param <T> The type fo the radio value
  */
+@Deprecated
 public class Radio<T> extends BaseDominoElement<HTMLDivElement, Radio<T>>
     implements HasName<Radio<T>>,
         HasValue<Radio<T>, T>,

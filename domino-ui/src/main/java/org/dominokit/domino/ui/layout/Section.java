@@ -23,6 +23,7 @@ import org.dominokit.domino.ui.utils.BaseDominoElement;
 import org.dominokit.domino.ui.utils.DominoElement;
 
 /** The component that contains the left panel and right panel of the {@link Layout} */
+@Deprecated
 public class Section extends BaseDominoElement<HTMLElement, Section> {
 
   HTMLElement section;

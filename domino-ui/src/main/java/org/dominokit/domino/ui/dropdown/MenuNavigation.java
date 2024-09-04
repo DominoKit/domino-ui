@@ -29,6 +29,7 @@ import org.jboss.elemento.IsElement;
  * @see EventListener
  */
 @Deprecated
+@Deprecated
 public class MenuNavigation<V extends IsElement<?>> extends KeyboardNavigation<V> {
 
   public MenuNavigation(List<V> items) {

@@ -21,6 +21,7 @@ import elemental2.dom.DomGlobal;
 import elemental2.dom.Text;
 
 /** A static factory class to create DOM text nodes */
+@Deprecated
 public class TextNode {
 
   /** @return new empty {@link Text} node */

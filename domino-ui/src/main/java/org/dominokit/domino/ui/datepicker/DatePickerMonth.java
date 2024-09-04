@@ -48,6 +48,7 @@ import org.jboss.elemento.IsElement;
  * @see org.dominokit.domino.ui.datepicker.DatePickerElement.SelectionHandler
  * @see TakesValue
  */
+@Deprecated
 public class DatePickerMonth
     implements IsElement<HTMLDivElement>,
         HasSelectSupport<DatePickerElement>,

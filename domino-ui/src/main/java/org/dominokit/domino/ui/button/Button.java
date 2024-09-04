@@ -42,6 +42,7 @@ import org.dominokit.domino.ui.utils.DominoUIConfig;
  *              .addClickListener(evt-&gt; //handle the event);
  *     </pre>
  */
+@Deprecated
 public class Button extends BaseButton<Button> {
 
   /** creates a Button without a text and with {@link Elevation#LEVEL_1} */

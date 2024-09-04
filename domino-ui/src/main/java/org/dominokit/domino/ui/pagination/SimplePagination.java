@@ -24,6 +24,7 @@ import org.dominokit.domino.ui.icons.Icons;
 import org.dominokit.domino.ui.utils.DominoElement;
 
 /** A simple pagination implementation */
+@Deprecated
 public class SimplePagination extends BasePagination<SimplePagination> {
 
   private DominoElement<HTMLAnchorElement> prevAnchor;

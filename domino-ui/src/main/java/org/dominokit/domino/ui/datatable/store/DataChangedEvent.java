@@ -24,6 +24,7 @@ import org.dominokit.domino.ui.datatable.plugins.SortDirection;
  *
  * @param <T> the type of the data table records
  */
+@Deprecated
 public class DataChangedEvent<T> {
   private final List<T> newData;
   private final boolean append;

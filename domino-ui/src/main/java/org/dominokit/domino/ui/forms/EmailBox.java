@@ -21,6 +21,7 @@ package org.dominokit.domino.ui.forms;
  * @see <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/email">Email input
  *     on MDN</a>
  */
+@Deprecated
 public class EmailBox extends InputValueBox<EmailBox> {
 
   /**

@@ -22,6 +22,7 @@ import jsinterop.annotations.JsType;
 
 /** Extending {@link HTMLDocument} to add functionality missing from elemental2 */
 @JsType(isNative = true, name = "Document", namespace = JsPackage.GLOBAL)
+@Deprecated
 public class DominoDocument extends HTMLDocument {
   /**
    * @see <a href="https://developer.mozilla.org/en-US/docs/Web/API/Document/activeElement">MDN

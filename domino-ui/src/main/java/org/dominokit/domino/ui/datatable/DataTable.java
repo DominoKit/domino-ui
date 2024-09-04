@@ -43,6 +43,7 @@ import org.jboss.elemento.EventType;
  *
  * @param <T> the type of the data table records
  */
+@Deprecated
 public class DataTable<T> extends BaseDominoElement<HTMLDivElement, DataTable<T>>
     implements HasSelectionSupport<TableRow<T>> {
 

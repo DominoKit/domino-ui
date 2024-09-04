@@ -22,6 +22,7 @@ import org.dominokit.domino.ui.style.ColorScheme;
 import org.gwtproject.safehtml.shared.annotations.GwtIncompatible;
 
 @GwtIncompatible
+@Deprecated
 public class ColorStylesGenerators {
   public static void main(String[] args) {
     try {

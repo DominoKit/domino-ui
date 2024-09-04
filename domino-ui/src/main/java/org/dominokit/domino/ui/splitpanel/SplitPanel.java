@@ -37,6 +37,7 @@ import org.dominokit.domino.ui.utils.BaseDominoElement;
  *
  * @see BaseDominoElement
  */
+@Deprecated
 public class SplitPanel extends BaseDominoElement<HTMLDivElement, SplitPanel> {
 
   private final HTMLDivElement element = div().element();

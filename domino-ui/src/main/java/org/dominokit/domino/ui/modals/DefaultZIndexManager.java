@@ -23,6 +23,7 @@ import java.util.*;
 import org.dominokit.domino.ui.utils.DominoUIConfig;
 import org.dominokit.domino.ui.utils.IsPopup;
 
+@Deprecated
 public class DefaultZIndexManager implements ZIndexManager {
 
   private Integer currentZIndex;

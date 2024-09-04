@@ -30,6 +30,7 @@ import org.dominokit.domino.ui.popover.PopupPosition;
  *
  * @param <T> type of data table records
  */
+@Deprecated
 public class DateHeaderFilter<T> implements ColumnHeaderFilterPlugin.HeaderFilter<T> {
 
   private DateBox dateBox;

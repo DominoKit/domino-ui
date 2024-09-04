@@ -41,6 +41,7 @@ import org.jboss.elemento.EventType;
  *                 .onClose(() -&gt; Notification.create("Closing inline search : ").show());
  * </pre>
  */
+@Deprecated
 public class Search extends BaseDominoElement<HTMLDivElement, Search> {
 
   private final HTMLElement closeIcon =

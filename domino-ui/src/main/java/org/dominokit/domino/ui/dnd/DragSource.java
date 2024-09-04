@@ -29,6 +29,7 @@ import org.jboss.elemento.IsElement;
  *
  * <p>Each drag source has a list of draggable elements (i.e. can be dragged and dropped)
  */
+@Deprecated
 public class DragSource {
 
   private static final String DRAGGING = "dragging";

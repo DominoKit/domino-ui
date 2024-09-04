@@ -34,6 +34,7 @@ import org.dominokit.domino.ui.utils.BaseDominoElement;
  * @see ListGroup
  * @see BaseDominoElement
  */
+@Deprecated
 public class ListItem<T> extends BaseDominoElement<HTMLLIElement, ListItem<T>> {
 
   private final ListGroup<T> listGroup;

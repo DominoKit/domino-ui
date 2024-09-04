@@ -25,6 +25,7 @@ import org.dominokit.domino.ui.utils.DominoElement;
 import org.jboss.elemento.IsElement;
 
 /** IOS loader implementation */
+@Deprecated
 public class IosLoader extends BaseLoader<IosLoader> implements IsElement<HTMLDivElement> {
 
   private final HTMLDivElement progress1 =

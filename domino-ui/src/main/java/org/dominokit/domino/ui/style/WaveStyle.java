@@ -16,6 +16,7 @@
 package org.dominokit.domino.ui.style;
 
 /** An enum representing the wave styles supported */
+@Deprecated
 public enum WaveStyle {
   FLOAT("waves-float"),
   CIRCLE("waves-circle"),

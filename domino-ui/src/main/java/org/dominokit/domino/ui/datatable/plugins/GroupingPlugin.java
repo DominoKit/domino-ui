@@ -46,6 +46,7 @@ import org.dominokit.domino.ui.utils.DominoElement;
  *
  * @param <T> the type of the data table records
  */
+@Deprecated
 public class GroupingPlugin<T> implements DataTablePlugin<T>, TableConfig.RowAppender<T> {
 
   private Map<String, DataGroup<T>> dataGroups = new HashMap<>();

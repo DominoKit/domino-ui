@@ -42,6 +42,7 @@ import org.dominokit.domino.ui.utils.TextNode;
  * @see BaseDominoElement
  * @see HasBackground
  */
+@Deprecated
 public class Badge extends BaseDominoElement<HTMLElement, Badge> implements HasBackground<Badge> {
 
   private final DominoElement<HTMLElement> badgeElement =

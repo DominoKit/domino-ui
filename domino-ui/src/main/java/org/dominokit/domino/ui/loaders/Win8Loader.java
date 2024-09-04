@@ -25,6 +25,7 @@ import org.dominokit.domino.ui.utils.DominoElement;
 import org.jboss.elemento.IsElement;
 
 /** Win8 loader implementation */
+@Deprecated
 public class Win8Loader extends BaseLoader<Win8Loader> implements IsElement<HTMLDivElement> {
 
   private final HTMLDivElement progress1 =

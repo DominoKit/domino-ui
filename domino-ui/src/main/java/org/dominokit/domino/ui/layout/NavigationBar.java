@@ -27,6 +27,7 @@ import org.dominokit.domino.ui.utils.BaseDominoElement;
 import org.dominokit.domino.ui.utils.DominoElement;
 
 /** A component that is part of the {@link Layout} header */
+@Deprecated
 public class NavigationBar extends BaseDominoElement<HTMLElement, NavigationBar> {
   private final FlexItem<HTMLDivElement> menuToggleItem;
   private final FlexItem<HTMLDivElement> titleItem;

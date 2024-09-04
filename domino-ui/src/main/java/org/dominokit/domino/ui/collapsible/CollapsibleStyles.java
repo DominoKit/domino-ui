@@ -16,6 +16,7 @@
 package org.dominokit.domino.ui.collapsible;
 
 /** CSS style names for {@link Accordion} and {@link AccordionPanel} */
+@Deprecated
 public class CollapsibleStyles {
 
   public static final String PANEL_GROUP = "panel-group";

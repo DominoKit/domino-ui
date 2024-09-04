@@ -28,6 +28,7 @@ import org.dominokit.domino.ui.utils.DominoElement;
 import org.jboss.elemento.IsElement;
 
 /** A component to add an action item to the {@link Layout} right side of the header */
+@Deprecated
 public class LayoutActionItem extends BaseDominoElement<HTMLLIElement, LayoutActionItem> {
   private DominoElement<HTMLAnchorElement> anchorElement =
       DominoElement.of(a()).css("js-right-sidebar");

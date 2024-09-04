@@ -64,6 +64,7 @@ import org.dominokit.domino.ui.utils.ElementUtil;
  *
  * @param <T>
  */
+@Deprecated
 public class PinColumnsPlugin<T>
     implements DataTablePlugin<T>, HasPluginConfig<T, PinColumnsPlugin<T>, PinColumnsConfig> {
 

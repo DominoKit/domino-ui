@@ -17,6 +17,7 @@ package org.dominokit.domino.ui.utils;
 
 import elemental2.dom.AddEventListenerOptions;
 
+@Deprecated
 public class EventOptions {
   private final AddEventListenerOptions options;
 

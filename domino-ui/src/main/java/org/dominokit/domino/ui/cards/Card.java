@@ -64,6 +64,7 @@ import org.jboss.elemento.IsElement;
  * @see BaseDominoElement
  * @see HasBackground
  */
+@Deprecated
 public class Card extends BaseDominoElement<HTMLDivElement, Card> implements HasBackground<Card> {
 
   private final FlexItem<HTMLDivElement> logoContainer;

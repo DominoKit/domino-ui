@@ -20,6 +20,7 @@ package org.dominokit.domino.ui.datatable.events;
  *
  * @param <T> the type of the record
  */
+@Deprecated
 public class RecordDraggedOutEvent<T> implements TableEvent {
 
   public static final String RECORD_DRAGGED_OUT = "record-dragged-out";

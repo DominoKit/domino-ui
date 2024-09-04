@@ -49,6 +49,7 @@ import org.dominokit.domino.ui.tag.store.TagsStore;
  * @param <V> the type of the object inside the input
  * @see AbstractValueBox
  */
+@Deprecated
 public class TagsInput<V> extends AbstractTagsInput<TagsInput<V>, V> {
 
   public static TagsInput<String> create() {

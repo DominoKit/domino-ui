@@ -38,6 +38,7 @@ import org.jboss.elemento.EventType;
  *
  * @param <T> the type of the data table records
  */
+@Deprecated
 public class SortPlugin<T>
     implements DataTablePlugin<T>, HasPluginConfig<T, SortPlugin<T>, SortPluginConfig> {
 

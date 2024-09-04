@@ -16,6 +16,7 @@
 package org.dominokit.domino.ui.lists;
 
 /** Default CSS classes for {@link ListGroup} and {@link ListItem} */
+@Deprecated
 public class ListStyles {
   /** CSS class for list group */
   public static final String LIST_GROUP = "d-list";

@@ -18,6 +18,7 @@ package org.dominokit.domino.ui.notifications;
 import elemental2.dom.HTMLElement;
 
 /** Display notification in bottom center */
+@Deprecated
 public class BottomCenterPosition extends NotificationPosition {
 
   public BottomCenterPosition() {

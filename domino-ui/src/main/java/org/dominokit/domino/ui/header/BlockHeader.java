@@ -39,6 +39,7 @@ import org.jboss.elemento.IsElement;
  *
  * @see BaseDominoElement
  */
+@Deprecated
 public class BlockHeader extends BaseDominoElement<HTMLDivElement, BlockHeader> {
 
   private final HTMLDivElement element =

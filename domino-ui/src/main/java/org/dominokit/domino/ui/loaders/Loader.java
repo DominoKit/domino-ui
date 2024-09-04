@@ -36,6 +36,7 @@ import org.jboss.elemento.IsElement;
  *           .start();
  * </pre>
  */
+@Deprecated
 public class Loader {
 
   private final DominoElement<HTMLElement> target;
@@ -211,6 +212,7 @@ public class Loader {
   }
 
   /** An enum representing the position of the loading text based on the loader effect */
+  @Deprecated
   public enum LoadingTextPosition {
     TOP(LoaderStyles.LOADING_TOP),
     MIDDLE(LoaderStyles.LOADING_MIDDLE),

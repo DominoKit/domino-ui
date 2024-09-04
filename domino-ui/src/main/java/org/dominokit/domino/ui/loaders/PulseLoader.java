@@ -25,6 +25,7 @@ import org.dominokit.domino.ui.utils.DominoElement;
 import org.jboss.elemento.IsElement;
 
 /** Pulse loader implementation */
+@Deprecated
 public class PulseLoader extends BaseLoader<PulseLoader> implements IsElement<HTMLDivElement> {
 
   private final HTMLDivElement progress1 =

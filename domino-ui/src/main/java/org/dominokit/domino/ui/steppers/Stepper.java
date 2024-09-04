@@ -34,6 +34,7 @@ import org.dominokit.domino.ui.utils.DominoElement;
 
 /** @deprecated use {@link org.dominokit.domino.ui.stepper.Stepper} */
 @Deprecated
+@Deprecated
 public class Stepper extends BaseDominoElement<HTMLUListElement, Stepper> {
 
   private static Transition HORIZONTAL_NEXT_STEP_TRANSITION = Transition.SLIDE_IN_RIGHT;

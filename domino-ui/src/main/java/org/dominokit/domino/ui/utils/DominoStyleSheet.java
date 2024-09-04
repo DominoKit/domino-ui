@@ -25,6 +25,7 @@ import java.util.Map;
 import java.util.Optional;
 import jsinterop.base.Js;
 
+@Deprecated
 public class DominoStyleSheet {
 
   private Map<String, DominoCSSRule> cssRules = new HashMap<>();

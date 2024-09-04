@@ -61,6 +61,7 @@ import org.dominokit.domino.ui.utils.DominoElement;
  *
  * @see BaseDominoElement
  */
+@Deprecated
 public class GridLayout extends BaseDominoElement<HTMLDivElement, GridLayout> {
 
   private final HTMLDivElement element =

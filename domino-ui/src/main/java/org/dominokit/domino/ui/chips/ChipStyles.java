@@ -16,6 +16,7 @@
 package org.dominokit.domino.ui.chips;
 
 /** Default CSS classes for {@link Chip} */
+@Deprecated
 public class ChipStyles {
   /** CSS class for chip */
   public static final String CHIP = "chip";

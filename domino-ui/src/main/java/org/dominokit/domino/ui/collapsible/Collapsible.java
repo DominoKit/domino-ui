@@ -38,6 +38,7 @@ import org.jboss.elemento.IsElement;
  *         .addHideHandler(() -&gt; DomGlobal.console.info("Div visible"));
  *     </pre>
  */
+@Deprecated
 public class Collapsible implements IsElement<HTMLElement>, IsCollapsible<Collapsible> {
 
   public static final String DOM_UI_SCROLL_HEIGHT = "dom-ui-scroll-height";

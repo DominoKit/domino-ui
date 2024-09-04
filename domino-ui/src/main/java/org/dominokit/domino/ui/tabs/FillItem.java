@@ -20,6 +20,7 @@ import org.dominokit.domino.ui.grid.flex.FlexItem;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
 
 /** A component that adds a space between {@link VerticalTab}s in the {@link VerticalTabsPanel} */
+@Deprecated
 public class FillItem extends BaseDominoElement<HTMLDivElement, FillItem> {
 
   private FlexItem<HTMLDivElement> element;

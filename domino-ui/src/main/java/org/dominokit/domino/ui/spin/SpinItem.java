@@ -28,6 +28,7 @@ import org.jboss.elemento.IsElement;
  *
  * @param <T> the type of the object inside the item
  */
+@Deprecated
 public class SpinItem<T> extends BaseDominoElement<HTMLDivElement, SpinItem<T>> {
 
   private final T value;

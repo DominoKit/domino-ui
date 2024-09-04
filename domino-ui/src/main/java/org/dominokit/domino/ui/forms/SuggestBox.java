@@ -21,6 +21,7 @@ package org.dominokit.domino.ui.forms;
  *
  * @param <T> the type of the SuggestBox value
  */
+@Deprecated
 public class SuggestBox<T> extends AbstractSuggestBox<SuggestBox<T>, T> {
 
   /** Creates an instance without a label and a null store */

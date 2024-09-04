@@ -25,6 +25,7 @@ import org.jboss.elemento.EventType;
  *
  * @param <E> the type of the HTMLElement
  */
+@Deprecated
 public class InputAutoValidator<E extends HTMLElement> extends ValueBox.AutoValidator {
 
   /** @param autoValidate {@link org.dominokit.domino.ui.forms.ValueBox.AutoValidate} */

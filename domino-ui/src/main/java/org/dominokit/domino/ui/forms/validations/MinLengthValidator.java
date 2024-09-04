@@ -21,6 +21,7 @@ import org.dominokit.domino.ui.forms.AbstractValueBox;
 import org.dominokit.domino.ui.utils.HasValidation;
 
 /** A predefined validator that validate the minimum value of a field */
+@Deprecated
 public class MinLengthValidator implements HasValidation.Validator {
 
   private AbstractValueBox valueBox;

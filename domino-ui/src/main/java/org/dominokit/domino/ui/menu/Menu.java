@@ -16,6 +16,7 @@
 package org.dominokit.domino.ui.menu;
 
 /** An implementation of {@link AbstractMenu} {@inheritDoc} */
+@Deprecated
 public class Menu<V> extends AbstractMenu<V, Menu<V>> {
 
   public static <V> Menu<V> create() {

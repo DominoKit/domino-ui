@@ -25,6 +25,7 @@ import elemental2.dom.HTMLElement;
  * <p>I.e. if the popover will exceed the window from the bottom, then it will be better to show it
  * on the top
  */
+@Deprecated
 public class PopupPositionBestFit implements PopupPosition {
 
   private String positionClass;

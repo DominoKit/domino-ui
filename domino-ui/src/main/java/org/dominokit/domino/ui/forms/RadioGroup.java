@@ -36,6 +36,7 @@ import org.jboss.elemento.IsElement;
  *
  * @param <T> The type of the RadioGroup value
  */
+@Deprecated
 public class RadioGroup<T> extends AbstractValueBox<RadioGroup<T>, HTMLElement, T> {
 
   private List<Radio<? extends T>> radios = new ArrayList<>();

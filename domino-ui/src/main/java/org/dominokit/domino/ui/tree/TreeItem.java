@@ -63,6 +63,7 @@ import org.jboss.elemento.IsElement;
  * @see CanDeactivate
  * @see HasClickableElement
  */
+@Deprecated
 public class TreeItem<T> extends WavesElement<HTMLLIElement, TreeItem<T>>
     implements ParentTreeItem<TreeItem<T>>, CanActivate, CanDeactivate, HasClickableElement {
 

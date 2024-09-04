@@ -40,6 +40,7 @@ package org.dominokit.domino.ui.splitpanel;
  * @see BaseSplitPanel
  * @see HasSize
  */
+@Deprecated
 public class HSplitPanel extends BaseSplitPanel<HSplitPanel, HSplitter> implements HasSize {
 
   public HSplitPanel() {

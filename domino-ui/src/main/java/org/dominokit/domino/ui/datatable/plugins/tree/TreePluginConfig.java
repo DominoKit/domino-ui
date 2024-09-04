@@ -26,6 +26,7 @@ import org.dominokit.domino.ui.icons.BaseIcon;
 import org.dominokit.domino.ui.icons.Icons;
 import org.dominokit.domino.ui.utils.TextNode;
 
+@Deprecated
 public class TreePluginConfig<T> implements PluginConfig {
 
   public static final int DEFAULT_INDENT = 20;

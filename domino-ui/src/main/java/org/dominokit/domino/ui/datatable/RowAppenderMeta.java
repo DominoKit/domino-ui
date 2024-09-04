@@ -19,6 +19,7 @@ import java.util.Objects;
 import java.util.Optional;
 import org.dominokit.domino.ui.utils.ComponentMeta;
 
+@Deprecated
 public class RowAppenderMeta<T> implements ComponentMeta {
 
   public static final String TABLE_ROW_APPENDER_META = "table-row-appender-meta";

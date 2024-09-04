@@ -17,6 +17,7 @@ package org.dominokit.domino.ui.utils;
 
 import elemental2.core.JsDate;
 
+@Deprecated
 public class DominoId {
 
   private static final String DEFAULT_PREFIX = "dui-";

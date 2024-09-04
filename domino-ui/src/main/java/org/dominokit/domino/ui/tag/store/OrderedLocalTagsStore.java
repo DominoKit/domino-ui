@@ -26,6 +26,7 @@ import java.util.TreeMap;
  *
  * @param <V> the type of the value
  */
+@Deprecated
 public class OrderedLocalTagsStore<V> implements TagsStore<V> {
 
   private final Map<String, V> items = new TreeMap<>();

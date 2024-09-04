@@ -34,6 +34,7 @@ import org.dominokit.domino.ui.utils.ElementUtil;
  *
  * @param <T> The type of a single option value
  */
+@Deprecated
 public class Select<T> extends AbstractSelect<T, T, Select<T>> {
 
   private SelectOption<T> selectedOption;

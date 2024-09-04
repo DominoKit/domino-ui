@@ -31,6 +31,7 @@ import org.jboss.elemento.IsElement;
 import org.jboss.elemento.ObserverCallback;
 
 /** A general purpose utility class */
+@Deprecated
 public class ElementUtil {
 
   /** The default {@link NumberConstants} to format numbers */

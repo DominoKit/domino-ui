@@ -16,6 +16,7 @@
 package org.dominokit.domino.ui.cards;
 
 /** Default CSS classes for {@link Card} */
+@Deprecated
 public class CardStyles {
 
   /** CSS class for card */

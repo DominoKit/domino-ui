@@ -71,6 +71,7 @@ import org.gwtproject.i18n.shared.cldr.impl.DateTimeFormatInfo_factory;
  * @see DatePickerMonth.InternalHandler
  * @see TakesValue
  */
+@Deprecated
 public class DatePicker extends BaseDominoElement<HTMLDivElement, DatePicker>
     implements HasValue<DatePicker, Date>, DatePickerMonth.InternalHandler, TakesValue<Date> {
 

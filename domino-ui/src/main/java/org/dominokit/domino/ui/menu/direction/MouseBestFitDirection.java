@@ -25,6 +25,7 @@ import elemental2.dom.MouseEvent;
 import jsinterop.base.Js;
 
 /** Positions the menu on the bottom right of the mouse click location */
+@Deprecated
 public class MouseBestFitDirection implements DropDirection {
 
   private MouseEvent mouseEvent;

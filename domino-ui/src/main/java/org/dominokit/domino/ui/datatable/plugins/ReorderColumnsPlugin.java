@@ -29,6 +29,7 @@ import org.dominokit.domino.ui.icons.Icons;
  *
  * @param <T> the type of data table records
  */
+@Deprecated
 public class ReorderColumnsPlugin<T> implements DataTablePlugin<T> {
 
   private final DropZone dropZone = new DropZone();

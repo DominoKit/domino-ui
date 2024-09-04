@@ -24,6 +24,7 @@ import org.dominokit.domino.ui.forms.LongBox;
  *
  * @param <T> type of data table records
  */
+@Deprecated
 public class LongHeaderFilter<T> extends DelayedHeaderFilterInput<LongBox, T> {
 
   private LongBox longBox;

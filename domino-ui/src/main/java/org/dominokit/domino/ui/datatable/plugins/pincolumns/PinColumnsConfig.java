@@ -19,6 +19,7 @@ import org.dominokit.domino.ui.datatable.plugins.PluginConfig;
 import org.dominokit.domino.ui.icons.BaseIcon;
 import org.dominokit.domino.ui.icons.Icons;
 
+@Deprecated
 public class PinColumnsConfig implements PluginConfig {
   private boolean showPinIcon = false;
   private boolean showPinMenu = false;

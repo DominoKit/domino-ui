@@ -68,6 +68,7 @@ import org.jboss.elemento.IsElement;
  * @see Switchable
  * @see HasRemoveHandler
  */
+@Deprecated
 public class Chip extends BaseDominoElement<HTMLDivElement, Chip>
     implements HasSelectionHandler<Chip, String>,
         HasDeselectionHandler<Chip>,

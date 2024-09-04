@@ -47,6 +47,7 @@ import org.jboss.elemento.EventType;
 import org.jboss.elemento.IsElement;
 
 /** A component that allows the user to pick time from a clock like element */
+@Deprecated
 public class TimePicker implements IsElement<HTMLDivElement> {
 
   private DominoElement<HTMLDivElement> pickerContentContainer;

@@ -40,6 +40,7 @@ import org.jboss.elemento.IsElement;
  *
  * @see BaseDominoElement
  */
+@Deprecated
 public class Tooltip extends BaseDominoElement<HTMLDivElement, Tooltip> {
 
   private final DominoElement<HTMLDivElement> element =

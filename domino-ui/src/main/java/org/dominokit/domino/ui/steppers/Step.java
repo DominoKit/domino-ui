@@ -33,6 +33,7 @@ import org.jboss.elemento.IsElement;
 
 /** @deprecated use {@link org.dominokit.domino.ui.stepper.Step} */
 @Deprecated
+@Deprecated
 public class Step extends BaseDominoElement<HTMLLIElement, Step> {
 
   private final HTMLLIElement element = DominoElement.of(li()).css(step).element();

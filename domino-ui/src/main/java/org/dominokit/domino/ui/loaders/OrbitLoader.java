@@ -25,6 +25,7 @@ import org.dominokit.domino.ui.utils.DominoElement;
 import org.jboss.elemento.IsElement;
 
 /** Orbit loader implementation */
+@Deprecated
 public class OrbitLoader extends BaseLoader<OrbitLoader> implements IsElement<HTMLDivElement> {
 
   private final HTMLDivElement progress1 =

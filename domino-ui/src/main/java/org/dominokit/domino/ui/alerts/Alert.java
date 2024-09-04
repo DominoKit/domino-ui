@@ -57,10 +57,12 @@ import org.dominokit.domino.ui.utils.TextNode;
  * @see HasBackground
  * @see Color
  */
+@Deprecated
 public class Alert extends BaseDominoElement<HTMLDivElement, Alert>
     implements HasBackground<Alert> {
 
   /** Alert severity levels */
+  @Deprecated
   public enum AlertType {
     /** Success severity */
     SUCCESS(AlertStyles.SUCCESS),

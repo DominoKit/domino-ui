@@ -16,6 +16,7 @@
 package org.dominokit.domino.ui.tabs;
 
 /** An enum to list possible values for tabs align */
+@Deprecated
 public enum TabsAlign {
   /** Tabs headers will be aligned to the left of the tab panel */
   LEFT("tabs-left"),

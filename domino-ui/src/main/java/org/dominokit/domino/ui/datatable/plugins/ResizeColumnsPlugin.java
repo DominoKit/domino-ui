@@ -33,6 +33,7 @@ import org.jboss.elemento.EventType;
  *
  * @param <T> the type of data table records
  */
+@Deprecated
 public class ResizeColumnsPlugin<T>
     implements DataTablePlugin<T>, HasPluginConfig<T, ResizeColumnsPlugin<T>, ResizeColumnsConfig> {
 

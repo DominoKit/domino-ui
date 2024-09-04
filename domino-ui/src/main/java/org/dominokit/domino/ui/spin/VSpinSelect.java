@@ -26,6 +26,7 @@ import org.dominokit.domino.ui.utils.SwipeUtil;
  *
  * @param <T> the type of the object inside the spin
  */
+@Deprecated
 public class VSpinSelect<T> extends SpinSelect<T, VSpinSelect<T>> {
 
   /**

@@ -61,6 +61,7 @@ import org.jboss.elemento.EventType;
  * @see ValueBox
  * @see DatePicker
  */
+@Deprecated
 public class DateBox extends ValueBox<DateBox, HTMLInputElement, Date> {
 
   private static final String READONLY = "readonly";
@@ -728,6 +729,7 @@ public class DateBox extends ValueBox<DateBox, HTMLInputElement, Date> {
    * <p>see <a href="http://cldr.unicode.org/translation/date-time-1/date-time-patterns">CLDR date
    * time patterns</a> for more details
    */
+  @Deprecated
   public enum Pattern {
     /** A full date format */
     FULL,
@@ -740,6 +742,7 @@ public class DateBox extends ValueBox<DateBox, HTMLInputElement, Date> {
   }
 
   /** The style of the date picker */
+  @Deprecated
   public enum PickerStyle {
     /** Shows the date picker in a model */
     MODAL,

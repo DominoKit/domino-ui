@@ -22,6 +22,7 @@ import elemental2.dom.HTMLElement;
 import elemental2.dom.MouseEvent;
 
 /** Positions the menu on the top right of the mouse click location */
+@Deprecated
 public class PositionMouseTopRight implements DropDownPosition {
 
   private final MouseEvent mouseEvent;

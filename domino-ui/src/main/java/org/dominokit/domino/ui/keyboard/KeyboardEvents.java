@@ -34,6 +34,7 @@ import org.jboss.elemento.IsElement;
  *
  * @param <T> the element type
  */
+@Deprecated
 public class KeyboardEvents<T extends Node> {
 
   public static final String ESCAPE = "escape";

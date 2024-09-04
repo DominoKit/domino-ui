@@ -24,6 +24,7 @@ import org.dominokit.domino.ui.forms.FloatBox;
  *
  * @param <T> type of data table records
  */
+@Deprecated
 public class FloatHeaderFilter<T> extends DelayedHeaderFilterInput<FloatBox, T> {
 
   private FloatBox floatBox;

@@ -24,6 +24,7 @@ import org.dominokit.domino.ui.utils.DominoElement;
 import org.jboss.elemento.Elements;
 
 /** a component that takes/provide a multi-line String values */
+@Deprecated
 public class TextArea extends AbstractValueBox<TextArea, HTMLTextAreaElement, String> {
 
   private EventListener autosizeListener = evt -> adjustHeight();

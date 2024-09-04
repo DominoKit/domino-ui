@@ -22,6 +22,7 @@ import org.dominokit.domino.ui.datatable.plugins.tree.SubItemsProvider;
  * @param <T>
  */
 @Deprecated
+@Deprecated
 public class TreeGridPlugin<T>
     extends org.dominokit.domino.ui.datatable.plugins.tree.TreeGridPlugin<T> {
 

@@ -67,6 +67,7 @@ import org.gwtproject.timer.client.Timer;
  * @see BaseDominoElement
  * @see CarouselStyles
  */
+@Deprecated
 public class Carousel extends BaseDominoElement<HTMLDivElement, Carousel> {
 
   private final HTMLOListElement indicatorsElement =

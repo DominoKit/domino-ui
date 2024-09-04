@@ -27,6 +27,7 @@ import org.dominokit.domino.ui.utils.DominoElement;
 
 /** @deprecated use {@link LayoutActionItem} */
 @Deprecated
+@Deprecated
 public class TopBarAction extends BaseDominoElement<HTMLLIElement, TopBarAction> {
 
   private HTMLLIElement element = DominoElement.of(li()).css(Styles.pull_right).element();

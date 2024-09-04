@@ -58,6 +58,7 @@ import org.dominokit.domino.ui.utils.HasMultiSelectionSupport;
  *
  * @param <T> the type of the data table records
  */
+@Deprecated
 public class TableConfig<T> implements HasMultiSelectionSupport<TableConfig<T>> {
 
   private List<ColumnConfig<T>> columns = new LinkedList<>();

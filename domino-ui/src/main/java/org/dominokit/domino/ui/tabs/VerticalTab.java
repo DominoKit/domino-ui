@@ -33,6 +33,7 @@ import org.dominokit.domino.ui.utils.HasClickableElement;
 import org.jboss.elemento.IsElement;
 
 /** A component for a single Tab in the {@link VerticalTabsPanel} */
+@Deprecated
 public class VerticalTab extends WavesElement<HTMLDivElement, VerticalTab>
     implements HasClickableElement {
 

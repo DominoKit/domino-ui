@@ -87,6 +87,7 @@ import org.dominokit.domino.ui.utils.DominoElement;
  *
  * @see AccordionPanel
  */
+@Deprecated
 public class Accordion extends BaseDominoElement<HTMLDivElement, Accordion> {
 
   private final DominoElement<HTMLDivElement> element =

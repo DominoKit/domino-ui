@@ -19,6 +19,7 @@ package org.dominokit.domino.ui.button;
  * An enum that lists all predefined button sizes. each enum value represent one css class that
  * changes the button height.
  */
+@Deprecated
 public enum ButtonSize {
   /** Large height */
   LARGE("lg"),

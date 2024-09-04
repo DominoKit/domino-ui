@@ -21,6 +21,7 @@ import org.dominokit.domino.ui.datatable.ColumnConfig;
 import org.dominokit.domino.ui.utils.ComponentMeta;
 import org.dominokit.domino.ui.utils.DominoElement;
 
+@Deprecated
 public class ColumnFilterMeta<T> implements ComponentMeta {
 
   public static final String DOMINO_COLUMN_HEADER_FILTER_META = "domino-column-header-filter-meta";

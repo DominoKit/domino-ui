@@ -24,6 +24,7 @@ import org.dominokit.domino.ui.datatable.DataTable;
  *
  * <p>{@link DataTable#noBorder()}
  */
+@Deprecated
 public class TableBorderedEvent implements TableEvent {
 
   /** A constant string to define a unique type for this event */

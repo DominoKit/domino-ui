@@ -16,6 +16,7 @@
 package org.dominokit.domino.ui.forms.validations;
 
 /** This class represent the result of a single validation logic */
+@Deprecated
 public class ValidationResult {
 
   private String errorMessage;

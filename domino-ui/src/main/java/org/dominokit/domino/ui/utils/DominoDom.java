@@ -20,6 +20,7 @@ import jsinterop.annotations.JsType;
 
 /** JsInterop to use the missing features from elemental2 */
 @JsType(isNative = true, name = "window", namespace = JsPackage.GLOBAL)
+@Deprecated
 public class DominoDom {
   public static DominoDocument document;
   public static DominoWindow window;

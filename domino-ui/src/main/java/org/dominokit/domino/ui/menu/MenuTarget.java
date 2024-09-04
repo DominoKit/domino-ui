@@ -23,6 +23,7 @@ import org.dominokit.domino.ui.utils.DominoElement;
 import org.dominokit.domino.ui.utils.HasMeta;
 import org.jboss.elemento.ObserverCallback;
 
+@Deprecated
 public class MenuTarget implements HasMeta<MenuTarget> {
 
   private final DominoElement<HTMLElement> targetElement;

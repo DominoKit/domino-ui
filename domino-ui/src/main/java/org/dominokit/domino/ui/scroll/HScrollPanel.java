@@ -24,6 +24,7 @@ import org.dominokit.domino.ui.utils.DominoElement;
 /**
  * A component that wraps the {@link HTMLDivElement} to make it horizontally scrollable by default
  */
+@Deprecated
 public class HScrollPanel extends BaseDominoElement<HTMLDivElement, HScrollPanel> {
 
   private HTMLDivElement element = DominoElement.of(div()).css("h-scroll-panel").element();

@@ -37,6 +37,7 @@ import org.dominokit.domino.ui.pagination.HasPagination;
  *
  * @param <T> the type of the data table records
  */
+@Deprecated
 public class LocalListDataStore<T> implements DataStore<T> {
 
   private final List<StoreDataChangeListener<T>> listeners = new ArrayList<>();

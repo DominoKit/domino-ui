@@ -43,6 +43,7 @@ import org.dominokit.domino.ui.utils.DominoElement;
  * @see BaseDominoElement
  * @see Cloneable
  */
+@Deprecated
 public class Column extends BaseDominoElement<HTMLDivElement, Column> implements Cloneable {
 
   private static final int FULL_SPAN = -1;
@@ -1401,6 +1402,7 @@ public class Column extends BaseDominoElement<HTMLDivElement, Column> implements
   }
 
   /** An enum representing the size of a column can have */
+  @Deprecated
   public enum Span {
     _1("-1", 1),
     _2("-2", 2),
@@ -1522,6 +1524,7 @@ public class Column extends BaseDominoElement<HTMLDivElement, Column> implements
   }
 
   /** An enum representing the offset that a column can have */
+  @Deprecated
   public enum Offset {
     _0("-0", 0),
     _1("-1", 1),

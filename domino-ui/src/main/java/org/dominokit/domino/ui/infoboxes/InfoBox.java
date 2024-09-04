@@ -45,6 +45,7 @@ import org.jboss.elemento.IsElement;
  * @see BaseDominoElement
  * @see HasBackground
  */
+@Deprecated
 public class InfoBox extends BaseDominoElement<HTMLDivElement, InfoBox>
     implements HasBackground<InfoBox>, IsElement<HTMLDivElement> {
 
@@ -332,6 +333,7 @@ public class InfoBox extends BaseDominoElement<HTMLDivElement, InfoBox>
   }
 
   /** An enum representing the hover effect */
+  @Deprecated
   public enum HoverEffect {
     ZOOM(InfoBoxStyles.HOVER_ZOOM_EFFECT),
     EXPAND(InfoBoxStyles.HOVER_EXPAND_EFFECT);
@@ -344,6 +346,7 @@ public class InfoBox extends BaseDominoElement<HTMLDivElement, InfoBox>
   }
 
   /** An enum representing the direction of the flip done on the icon and the title elements */
+  @Deprecated
   public enum Flip {
     RIGHT(InfoBoxStyles.INFO_BOX_3),
     LEFT(InfoBoxStyles.INFO_BOX);

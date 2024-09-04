@@ -28,6 +28,7 @@ import java.util.function.Consumer;
  *
  * @param <T> The type of the SuggestBox value
  */
+@Deprecated
 public class LocalSuggestBoxStore<T> implements SuggestBoxStore<T> {
 
   private List<SuggestItem<T>> suggestions;

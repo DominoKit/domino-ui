@@ -29,6 +29,7 @@ import org.jboss.elemento.IsElement;
  * An implementation of {@link CollapseStrategy} that uses the css display property to hide/show the
  * collapsible element
  */
+@Deprecated
 public class AnimationCollapseStrategy implements CollapseStrategy {
   private final AnimationCollapseOptions options;
   private Animation hideAnimation;

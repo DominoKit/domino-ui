@@ -16,6 +16,7 @@
 package org.dominokit.domino.ui.loaders;
 
 /** Default CSS classes for {@link Loader} */
+@Deprecated
 public class LoaderStyles {
   public static final String WAIT_ME_TEXT = "waitMe_text";
   public static final String WAIT_ME_PROGRESS_ELEM_1 = "waitMe_progress_elem1";

@@ -49,6 +49,7 @@ import org.jboss.elemento.IsElement;
  * @param <V> The type of the menu item value
  * @param <T> The type of the class extending from this class
  */
+@Deprecated
 public class AbstractMenuItem<V, T extends AbstractMenuItem<V, T>>
     extends BaseDominoElement<HTMLLIElement, T>
     implements HasSelectionHandler<T, T>, HasDeselectionHandler<T> {

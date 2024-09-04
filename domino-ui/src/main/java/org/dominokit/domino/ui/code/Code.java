@@ -36,6 +36,7 @@ import org.jboss.elemento.IsElement;
  *
  * element
  */
+@Deprecated
 public class Code {
 
   private static final String CODE_STYLE = "overflow-x: scroll; white-space: pre;";

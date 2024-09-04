@@ -45,6 +45,7 @@ import org.dominokit.domino.ui.utils.*;
  *         .setAutoValidation(true);
  * </pre>
  */
+@Deprecated
 public class FieldsGrouping implements HasValidation<FieldsGrouping> {
 
   private List<HasGrouping<?>> formElements = new ArrayList<>();

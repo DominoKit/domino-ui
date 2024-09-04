@@ -22,6 +22,7 @@ import org.dominokit.domino.ui.utils.BaseDominoElement;
 import org.dominokit.domino.ui.utils.DominoElement;
 
 /** a Component that represent the footer in the {@link Layout} */
+@Deprecated
 public class Footer extends BaseDominoElement<HTMLElement, Footer> {
 
   private DominoElement<HTMLElement> element = DominoElement.of(footer()).css("footer");

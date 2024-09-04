@@ -49,6 +49,7 @@ import org.jboss.elemento.IsElement;
  *
  * @see BaseDominoElement
  */
+@Deprecated
 public class MediaObject extends BaseDominoElement<HTMLDivElement, MediaObject>
     implements IsElement<HTMLDivElement> {
 
@@ -211,6 +212,7 @@ public class MediaObject extends BaseDominoElement<HTMLDivElement, MediaObject>
   }
 
   /** An enum representing the alignment of the media elements */
+  @Deprecated
   public enum MediaAlign {
     MIDDLE(MediaStyles.MEDIA_MIDDLE),
     BOTTOM(MediaStyles.MEDIA_BOTTOM),

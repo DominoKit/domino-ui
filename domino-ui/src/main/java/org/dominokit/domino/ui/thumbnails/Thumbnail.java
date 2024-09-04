@@ -44,6 +44,7 @@ import org.jboss.elemento.IsElement;
  *
  * @see BaseDominoElement
  */
+@Deprecated
 public class Thumbnail extends BaseDominoElement<HTMLDivElement, Thumbnail> {
 
   private final HTMLDivElement element = DominoElement.of(div()).css(THUMBNAIL).element();

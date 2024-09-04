@@ -19,6 +19,7 @@ import java.util.function.Function;
 import org.dominokit.domino.ui.utils.DominoUIConfig;
 
 /** A component that has an input to take/provide Long value */
+@Deprecated
 public class LongBox extends NumberBox<LongBox, Long> {
 
   /** @return a new instance without a label */

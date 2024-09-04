@@ -20,6 +20,7 @@ import java.util.function.Function;
 import org.dominokit.domino.ui.utils.DominoUIConfig;
 
 /** A component that has an input to take/provide float value */
+@Deprecated
 public class FloatBox extends NumberBox<FloatBox, Float> {
 
   /** @return a new instance without a label */

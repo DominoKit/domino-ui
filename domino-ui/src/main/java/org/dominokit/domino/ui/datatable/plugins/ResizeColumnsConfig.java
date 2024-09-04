@@ -15,6 +15,7 @@
  */
 package org.dominokit.domino.ui.datatable.plugins;
 
+@Deprecated
 public class ResizeColumnsConfig implements PluginConfig {
 
   private boolean clipContent = false;

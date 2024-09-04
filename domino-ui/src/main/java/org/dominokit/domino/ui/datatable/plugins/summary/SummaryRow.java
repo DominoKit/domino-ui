@@ -30,6 +30,7 @@ import org.dominokit.domino.ui.datatable.DefaultColumnShowHideListener;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
 import org.dominokit.domino.ui.utils.DominoElement;
 
+@Deprecated
 public class SummaryRow<T, S> extends BaseDominoElement<HTMLTableRowElement, SummaryRow<T, S>> {
   private S record;
   private final int index;

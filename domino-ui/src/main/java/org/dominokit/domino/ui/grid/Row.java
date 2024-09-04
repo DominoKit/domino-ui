@@ -49,6 +49,7 @@ import org.jboss.elemento.IsElement;
  * @see Row_24
  * @see Row_32
  */
+@Deprecated
 public class Row<T extends Row<T>> extends BaseDominoElement<HTMLDivElement, T> {
 
   protected final Columns columns;

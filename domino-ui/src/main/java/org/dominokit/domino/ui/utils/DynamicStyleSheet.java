@@ -20,6 +20,7 @@ import static elemental2.dom.DomGlobal.document;
 import elemental2.dom.*;
 import java.util.*;
 
+@Deprecated
 public class DynamicStyleSheet<E extends HTMLElement, D extends BaseDominoElement<E, D>> {
 
   private final String cssPrefix;

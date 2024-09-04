@@ -18,6 +18,7 @@ package org.dominokit.domino.ui.datepicker;
 import elemental2.core.JsDate;
 
 /** A utility class for {@link DatePicker} */
+@Deprecated
 public class DatePickerUtil {
 
   /**

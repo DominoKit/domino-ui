@@ -24,6 +24,7 @@ import java.util.List;
  *
  * @param <T> the type of the data records in the table
  */
+@Deprecated
 public class OnBeforeDataChangeEvent<T> implements TableEvent {
 
   /** A constant string to define a unique type for this event */

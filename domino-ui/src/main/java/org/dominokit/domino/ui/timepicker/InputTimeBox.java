@@ -36,6 +36,7 @@ import org.gwtproject.i18n.shared.cldr.DateTimeFormatInfo;
 import org.gwtproject.i18n.shared.cldr.impl.DateTimeFormatInfo_factory;
 
 /** A form element that takes and provide date value as time using user input */
+@Deprecated
 public class InputTimeBox extends ValueBox<InputTimeBox, HTMLInputElement, Date> {
   private static final String CLOCK_12_REGEX = "^((0[1-9]|1[0-2]):[0-5][0-9]) ?([AaPp][Mm])$";
   private static final String CLOCK_12_WITH_SECONDS_REGEX =

@@ -28,6 +28,7 @@ import org.dominokit.domino.ui.style.Styles;
  *
  * @param <T> the type of the data table records
  */
+@Deprecated
 public class EmptyStatePlugin<T> implements DataTablePlugin<T> {
 
   private EmptyState emptyState;

@@ -23,6 +23,7 @@ import org.dominokit.domino.ui.utils.DominoElement;
 import org.dominokit.domino.ui.utils.HasWavesElement;
 
 /** A utility class for configuring waves for a specific element */
+@Deprecated
 public class WavesSupport implements HasWaveEffect<WavesSupport> {
 
   private static final String WAVES_EFFECT = "waves-effect";

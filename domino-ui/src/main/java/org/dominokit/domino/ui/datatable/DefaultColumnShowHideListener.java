@@ -24,6 +24,7 @@ import org.dominokit.domino.ui.utils.DominoElement;
  *
  * <p>e.g remove the column name a from a list of columns
  */
+@Deprecated
 public class DefaultColumnShowHideListener implements ColumnShowHideListener {
 
   private HTMLElement element;

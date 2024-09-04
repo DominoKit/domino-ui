@@ -16,6 +16,7 @@
 package org.dominokit.domino.ui.progress;
 
 /** A constants class for {@link Progress} and {@link ProgressBar} css classes */
+@Deprecated
 public class ProgressStyles {
   /** the main Progress css class */
   public static final String progress = "progress";

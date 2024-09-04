@@ -24,6 +24,7 @@ import org.dominokit.domino.ui.utils.Sizable;
 
 /** to be removed */
 @Deprecated
+@Deprecated
 public class JustifiedGroup extends BaseDominoElement<HTMLElement, JustifiedGroup>
     implements IsGroup<JustifiedGroup>, Sizable<JustifiedGroup> {
 

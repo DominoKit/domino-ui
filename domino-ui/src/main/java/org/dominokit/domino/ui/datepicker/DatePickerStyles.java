@@ -16,6 +16,7 @@
 package org.dominokit.domino.ui.datepicker;
 
 /** Default CSS classes for {@link DatePicker} */
+@Deprecated
 public class DatePickerStyles {
   /** CSS class for date picker calendar element */
   public static final String CALENDAR = "calendar";

@@ -35,6 +35,7 @@ import org.gwtproject.i18n.shared.cldr.DateTimeFormatInfo;
 import org.jboss.elemento.EventType;
 
 /** A form element that takes and provide date value as time using a picker element */
+@Deprecated
 public class TimeBox extends ValueBox<TimeBox, HTMLInputElement, Date> {
 
   private TimePicker timePicker;
@@ -424,6 +425,7 @@ public class TimeBox extends ValueBox<TimeBox, HTMLInputElement, Date> {
   }
 
   /** Enum for time picking styles */
+  @Deprecated
   public enum PickerStyle {
     /**
      * Opens the picker in a modal

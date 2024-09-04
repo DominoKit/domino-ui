@@ -41,6 +41,7 @@ import org.dominokit.domino.ui.utils.DominoUIConfig;
  *                     .setPosition(DropDownPosition.TOP)
  *     </pre>
  */
+@Deprecated
 public class DropdownButton extends BaseButton<DropdownButton> {
 
   private Icon caretIcon = Icons.ALL.keyboard_arrow_down();

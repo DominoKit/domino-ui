@@ -21,6 +21,7 @@ import elemental2.dom.HTMLElement;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
 
 /** A wrapper component for <strong>strong</strong> HTML tag */
+@Deprecated
 public class Strong extends BaseDominoElement<HTMLElement, Strong> {
 
   private final HTMLElement element = strong().element();

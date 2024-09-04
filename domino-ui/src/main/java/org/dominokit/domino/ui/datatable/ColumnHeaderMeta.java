@@ -22,6 +22,7 @@ import java.util.Optional;
 import org.dominokit.domino.ui.utils.ComponentMeta;
 import org.dominokit.domino.ui.utils.DominoElement;
 
+@Deprecated
 public class ColumnHeaderMeta implements ComponentMeta {
 
   public static final String DOMINO_COLUMN_HEADER_META = "domino-column-header-meta";

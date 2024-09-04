@@ -40,6 +40,7 @@ import org.jboss.elemento.Elements;
  * @see BaseDominoElement
  * @see FileUpload
  */
+@Deprecated
 public class FileItem extends BaseDominoElement<HTMLDivElement, FileItem> {
   private static final String[] UNITS = {"KB", "MB", "GB", "TB"};
   private static final String ELLIPSIS_TEXT = "ellipsis-text";

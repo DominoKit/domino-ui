@@ -16,6 +16,7 @@
 package org.dominokit.domino.ui.grid.flex;
 
 /** Default CSS classes for {@link FlexLayout} and {@link FlexItem} */
+@Deprecated
 public class FlexStyles {
   /** CSS class for a flex layout */
   public static final String FLEX_LAYOUT = "flex-layout";

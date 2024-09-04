@@ -16,6 +16,7 @@
 package org.dominokit.domino.ui.layout;
 
 /** A constants class for {@link Layout} css classes names */
+@Deprecated
 public class LayoutStyles {
 
   public static final String CONTENT = "content";

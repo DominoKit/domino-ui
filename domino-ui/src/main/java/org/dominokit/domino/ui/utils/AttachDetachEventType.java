@@ -15,6 +15,7 @@
  */
 package org.dominokit.domino.ui.utils;
 
+@Deprecated
 public class AttachDetachEventType {
 
   public static String attachedType(HasAttributes<?> element) {

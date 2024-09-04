@@ -29,6 +29,7 @@ import org.dominokit.domino.ui.utils.DominoElement;
 import org.dominokit.domino.ui.utils.LambdaFunction;
 
 /** A component that can switch between two boolean values with different labels */
+@Deprecated
 public class SwitchButton extends AbstractValueBox<SwitchButton, HTMLElement, Boolean>
     implements Checkable<SwitchButton> {
 

@@ -24,6 +24,7 @@ import org.dominokit.domino.ui.datatable.plugins.SortDirection;
  *
  * @param <T> the type of the table records
  */
+@Deprecated
 public class SortEvent<T> implements TableEvent {
 
   /** A constant string to define a unique type for this event */

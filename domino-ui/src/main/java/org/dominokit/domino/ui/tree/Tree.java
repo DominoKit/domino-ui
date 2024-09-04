@@ -79,6 +79,7 @@ import org.jboss.elemento.IsElement;
  * @see BaseDominoElement
  * @see ParentTreeItem
  */
+@Deprecated
 public class Tree<T> extends BaseDominoElement<HTMLDivElement, Tree<T>>
     implements ParentTreeItem<TreeItem<T>>, IsElement<HTMLDivElement> {
 
