@@ -5,7 +5,7 @@
 
     <groupId>org.dominokit</groupId>
     <artifactId>domino-ui-parent</artifactId>
-    <version>1.0.8-SNAPSHOT</version>
+    <version>1.0.8-SHADED-SNAPSHOT</version>
     <packaging>pom</packaging>
 
     <name>domino-ui-parent</name>
@@ -67,8 +67,8 @@
     </modules>
 
     <properties>
-        <snapshot.version>1.0.8-SNAPSHOT</snapshot.version>
-        <next.release.version>1.0.8</next.release.version>
+        <snapshot.version>1.0.8-SHADED-SNAPSHOT</snapshot.version>
+        <next.release.version>1.0.8-SHADED</next.release.version>
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
 
@@ -299,9 +299,9 @@
 
                     <!-- Configure branches -->
                     <gitFlowConfig>
-                        <productionBranch>1.x.x</productionBranch>
+                        <productionBranch>1.x.x-shaded</productionBranch>
                         <!-- default is develop, but we use development -->
-                        <developmentBranch>1.x.x-development</developmentBranch>
+                        <developmentBranch>1.x.x-development-shaded</developmentBranch>
                     </gitFlowConfig>
                 </configuration>
             </plugin>

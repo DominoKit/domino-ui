@@ -6,7 +6,7 @@
     <parent>
         <groupId>org.dominokit</groupId>
         <artifactId>domino-ui-parent</artifactId>
-        <version>1.0.8-SNAPSHOT</version>
+        <version>1.0.8-SHADED-SNAPSHOT</version>
     </parent>
 
     <artifactId>domino-ui</artifactId>
@@ -124,6 +124,50 @@
                         <goals>
                             <goal>minify</goal>
                         </goals>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-shade-plugin</artifactId>
+                <version>3.2.1</version>
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>shade</goal>
+                        </goals>
+                        <configuration>
+                            <artifactSet>
+                                <excludes>
+                                    <exclude>javax.annotation:javax.annotation-api</exclude>
+                                    <exclude>com.google.elemental2:*</exclude>
+                                    <exclude>com.google.jsinterop:*</exclude>
+                                    <exclude>org.gwtproject.*:*</exclude>
+                                    <exclude>org.dominokit.i18n:*</exclude>
+                                    <exclude>org.jboss.elemento:*</exclude>
+                                    <exclude>javax.validation:*</exclude>
+                                    <exclude>junit:*</exclude>
+                                    <exclude>org.junit.*:*</exclude>
+                                    <exclude>org.opentest4j:*</exclude>
+                                    <exclude>org.apiguardian:*</exclude>
+                                    <exclude>com.google.code.findbugs:jsr305</exclude>
+                                    <exclude>com.google.j2objc:j2objc-annotations</exclude>
+                                    <exclude>com.google.errorprone:error_prone_annotations</exclude>
+                                </excludes>
+                            </artifactSet>
+                            <relocations>
+                                <relocation>
+                                    <pattern>org.dominokit.domino.ui</pattern>
+                                    <shadedPattern>org.dominokit.domino.ui.shaded</shadedPattern>
+                                </relocation>
+                            </relocations>
+                            <transformers>
+                                <transformer implementation="org.apache.maven.plugins.shade.resource.ServicesResourceTransformer"/>
+                            </transformers>
+                            <createSourcesJar>true</createSourcesJar>
+                        </configuration>
                     </execution>
                 </executions>
             </plugin>
