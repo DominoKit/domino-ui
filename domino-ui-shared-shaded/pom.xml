@@ -5,7 +5,7 @@
     <parent>
         <artifactId>domino-ui-parent-shaded</artifactId>
         <groupId>org.dominokit</groupId>
-        <version>1.0.7-SNAPSHOT-SHADED-1</version>
+        <version>1.0.7-SHADED-1</version>
     </parent>
     <packaging>jar</packaging>
     <modelVersion>4.0.0</modelVersion>
