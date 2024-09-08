@@ -13,6 +13,31 @@ Checkout our  [getting started guide](https://github.com/DominoKit/domino-ui/wik
 
 and checkout our [demo app](https://demo.dominokit.org/home)
 
+> This is a shaded version of the original release of domino-ui version 1.x.x to allow mixing domino-ui 1.x.x with domino-ui version 2 in same project
+## Using the shaded version :
+
+in order to use the shaded version please do the following :
+
+- Use the dependency
+    ```xml
+    <dependency>
+      <groupId>org.dominokit</groupId>
+      <artifactId>domino-ui-shaded</artifactId>
+      <version>${domino.ui.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.dominokit</groupId>
+      <artifactId>domino-ui-shaded</artifactId>
+      <version>${domino.ui.version}</version>
+      <classifier>sources</classifier>
+    </dependency>
+    ```
+  The current version is `1.0.7-SHADED-1`
+- Use `<inherits name="org.dominokit.domino.ui.shaded.DominoUI"/>` for the gwt inherits directive
+- Use `domino-ui-shaded.css` instead of `domino-ui.css` in the index page.
+- all components are moved under the shaded package `org.dominokit.domino.ui.shaded.*`
+
+
 ### Quick insight
 
 #### Type safe
