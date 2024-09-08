@@ -18,7 +18,7 @@ name: Deploy
 
 on:
   push:
-    branches: [ 1.x.x , 1.x.x-development ]
+    branches: [ 1.x.x-shaded , 1.x.x-development-shaded ]
 
 jobs:
   verify:
