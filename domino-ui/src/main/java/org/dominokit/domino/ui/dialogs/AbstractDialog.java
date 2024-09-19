@@ -120,7 +120,7 @@ public class AbstractDialog<T extends AbstractDialog<T>>
             .appendChild(
                 modalElement =
                     div()
-                        .addCss(dui_modal)
+                        .addCss(dui_dialog)
                         .appendChild(
                             contentElement =
                                 div()

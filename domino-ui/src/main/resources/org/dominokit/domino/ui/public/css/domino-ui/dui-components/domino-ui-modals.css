@@ -71,6 +71,14 @@
     min-height: var(--dui-dialog-xlarge-height);
 }
 
+.dui-dialog.dui-w-full{
+    width: var(--dui-dialog-full-width);
+}
+
+.dui-dialog.dui-h-full{
+    min-height: var(--dui-dialog-full-height);
+}
+
 /* --------- side sheet --------------------  */
 .dui-dialog.dui-side-sheet,
 .dui-dialog.dui-side-sheet.dui-h-xs,

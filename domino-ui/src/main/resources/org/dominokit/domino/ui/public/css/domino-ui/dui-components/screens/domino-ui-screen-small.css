@@ -39,6 +39,14 @@
         --dui-dialog-xlarge-height: 75%;
     }
 
+    .dui-dialog.dui-w-xl {
+        --dui-dialog-xlarge-width: 95%;
+    }
+
+    .dui-dialog.dui-h-xl {
+        --dui-dialog-xlarge-height: 75%;
+    }
+
     .dui-span-s-1 {
         grid-column-end: span 1;
     }
