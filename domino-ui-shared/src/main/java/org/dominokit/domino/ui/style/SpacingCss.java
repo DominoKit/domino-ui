@@ -3848,23 +3848,23 @@ public interface SpacingCss {
 
   CssClass dui_rounded_none = () -> "dui-rounded-none";
 
-  CssClass dui_rounded_inherit = () -> "dui_rounded_inherit";
+  CssClass dui_rounded_inherit = () -> "dui-rounded-inherit";
 
-  CssClass dui_rounded_t_inherit = () -> "dui_rounded_t_inherit";
+  CssClass dui_rounded_t_inherit = () -> "dui-rounded-t-inherit";
 
-  CssClass dui_rounded_b_inherit = () -> "dui_rounded_b_inherit";
+  CssClass dui_rounded_b_inherit = () -> "dui-rounded-b-inherit";
 
-  CssClass dui_rounded_l_inherit = () -> "dui_rounded_l_inherit";
+  CssClass dui_rounded_l_inherit = () -> "dui-rounded-l-inherit";
 
-  CssClass dui_rounded_r_inherit = () -> "dui_rounded_r_inherit";
+  CssClass dui_rounded_r_inherit = () -> "dui-rounded-r-inherit";
 
-  CssClass dui_rounded_tl_inherit = () -> "dui_rounded_tl_inherit";
+  CssClass dui_rounded_tl_inherit = () -> "dui-rounded-tl-inherit";
 
-  CssClass dui_rounded_tr_inherit = () -> "dui_rounded_tr_inherit";
+  CssClass dui_rounded_tr_inherit = () -> "dui-rounded-tr-inherit";
 
-  CssClass dui_rounded_br_inherit = () -> "dui_rounded_br_inherit";
+  CssClass dui_rounded_br_inherit = () -> "dui-rounded-br-inherit";
 
-  CssClass dui_rounded_bl_inherit = () -> "dui_rounded_bl_inherit";
+  CssClass dui_rounded_bl_inherit = () -> "dui-rounded-bl-inherit";
 
   CssClass dui_rounded_sm = () -> "dui-rounded-sm";
 

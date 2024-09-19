@@ -135,12 +135,12 @@
     transition: padding-left var(--dui-layout-transitions-duration) ease-in-out;
     z-index: var(--dui-header-z-index);
     /*--dui-element-z-index:var(--dui-header-z-index);*/
-    box-shadow: var(--dui-box-shadow-2);
+    box-shadow: var(--dui-layout-header-box-shadow, var(--dui-box-shadow-2));
 }
 
 .dui-layout-header > .dui-nav-bar {
-    background-color: var(--dui-accent);
-    color: var(--dui-clr-white);
+    background-color: var(--dui-layout-nav-bar-bg, var(--dui-accent));
+    color: var(--dui-layout-nav-bar-clr, var(--dui-clr-white));
 }
 
 .dui-shrink-content.dui-left-open > .dui-layout-body > .dui-layout-header {
@@ -148,7 +148,7 @@
 }
 
 .dui-shrink-content.dui-left-open > .dui-layout-body > .dui-layout-content {
-    padding-left: calc(var(--dui-content-padding) * var(--dui-layout-shrink-content) + var(--dui-layout-content-padding));
+    padding-left: calc(var(--dui-content-padding) * var(--dui-layout-shrink-content) + var(--dui-layout-content-padding-left));
 }
 
 .dui-shrink-content.dui-left-open > .dui-layout-body > .dui-layout-footer {
@@ -165,7 +165,7 @@
     max-height: 100%;
     position: absolute;
     top: 0;
-    box-shadow: var(--dui-section-box-shadow);
+    box-shadow: var(--dui-layout-section-box-shadow, var(--dui-section-box-shadow));
     align-self: stretch;
     transform: translateX(-100%);
     transition: transform var(--dui-layout-transitions-duration) ease-in-out;
@@ -220,7 +220,7 @@
 .dui-layout-content {
     order: 20;
     flex-grow: 1;
-    padding: var(--dui-layout-content-padding);
+    padding: var(--dui-layout-content-padding-top) var(--dui-layout-content-padding-right) var(--dui-layout-content-padding-bottom) var(--dui-layout-content-padding-left) ;
     background-color: var(--dui-layout-content-background);
     color: var(--dui-layout-content-color);
     transition: padding-left var(--dui-layout-transitions-duration) ease-in-out;
