@@ -83,6 +83,13 @@ public class Select<V> extends AbstractSelect<V, V, DivElement, SelectOption<V>,
             });
   }
 
+  @Override
+  protected Select<V> clearValue(boolean silent) {
+    Select<V> thisSelect = super.clearValue(silent);
+    this.selectedOption = null;
+    return thisSelect;
+  }
+
   protected void doSetOption(SelectOption<V> option) {
     if (nonNull(this.selectedOption)) {
       this.selectedOption.remove();
@@ -132,9 +139,6 @@ public class Select<V> extends AbstractSelect<V, V, DivElement, SelectOption<V>,
   protected void onOptionDeselected(SelectOption<V> option, boolean silent) {
     option.remove();
     option.getComponent().remove();
-    if (Objects.equals(this.selectedOption, option)) {
-      this.selectedOption = null;
-    }
     this.optionsMenu.withPauseSelectionListenersToggle(
         true,
         field -> {
