@@ -195,10 +195,11 @@ public class CalendarDay extends BaseDominoElement<HTMLDivElement, CalendarDay>
     DateTimeFormatInfo dateInfo = this.calendar.getDateTimeFormatInfo();
     int start = dateInfo.weekendStart();
     int end = dateInfo.weekendEnd();
+    int dayNumber = this.day + 1;
     if (start > end) {
-      return !(this.day > end && this.day < start);
+      return !(dayNumber > end && dayNumber < start);
     } else {
-      return (this.day >= start && this.day <= end);
+      return (dayNumber >= start && dayNumber <= end);
     }
   }
 
