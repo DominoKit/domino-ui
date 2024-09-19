@@ -15,22 +15,13 @@
  */
 package org.dominokit.domino.ui.config;
 
-/** UIConfig interface. */
-public interface UIConfig
-    extends FormsFieldsConfig,
-        ZIndexConfig,
-        AccordionConfig,
-        CardConfig,
-        ProgressBarConfig,
-        SearchConfig,
-        SpinConfig,
-        TabsConfig,
-        TreeConfig,
-        UploadConfig,
-        StepperConfig,
-        CalendarConfig,
-        TimePickerConfig,
-        DelayedActionConfig,
-        DatatableConfig,
-        CarouselConfig,
-        RichTextConfig {}
+import java.util.Arrays;
+import java.util.Collection;
+import org.dominokit.domino.ui.richtext.RichTextActions;
+
+public interface RichTextConfig extends ComponentConfig {
+
+  default Collection<RichTextActions> getDefaultRichTextActions() {
+    return Arrays.asList(RichTextActions.values());
+  }
+}

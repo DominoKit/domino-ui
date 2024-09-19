@@ -18,8 +18,8 @@ package org.dominokit.domino.ui.richtext.commands;
 import static org.dominokit.domino.ui.utils.Domino.*;
 
 import elemental2.dom.HTMLElement;
-import org.dominokit.domino.ui.elements.DivElement;
 import org.dominokit.domino.ui.richtext.FontPicker;
+import org.dominokit.domino.ui.richtext.IsRichTextEditor;
 import org.dominokit.domino.ui.richtext.RichTextCommand;
 import org.dominokit.domino.ui.utils.DominoDom;
 
@@ -47,20 +47,20 @@ public class FontNameCommand extends RichTextCommand<FontNameCommand> {
   /**
    * Factory method to create a new instance of FontNameCommand.
    *
-   * @param editableElement The div element where the rich text is edited.
+   * @param isRichTextEditor The div element where the rich text is edited.
    * @return A new instance of FontNameCommand.
    */
-  public static FontNameCommand create(DivElement editableElement) {
-    return new FontNameCommand(editableElement);
+  public static FontNameCommand create(IsRichTextEditor isRichTextEditor) {
+    return new FontNameCommand(isRichTextEditor);
   }
 
   /**
    * Constructs a new FontNameCommand instance for the specified editable element.
    *
-   * @param editableElement The div element where the rich text is edited.
+   * @param isRichTextEditor The div element where the rich text is edited.
    */
-  public FontNameCommand(DivElement editableElement) {
-    super(editableElement);
+  public FontNameCommand(IsRichTextEditor isRichTextEditor) {
+    super(isRichTextEditor);
     this.fontPicker =
         FontPicker.create()
             .setTooltip(getLabels().fontFamily())

@@ -19,8 +19,8 @@ import static org.dominokit.domino.ui.utils.Domino.*;
 
 import elemental2.dom.HTMLElement;
 import org.dominokit.domino.ui.button.Button;
-import org.dominokit.domino.ui.elements.DivElement;
 import org.dominokit.domino.ui.icons.lib.Icons;
+import org.dominokit.domino.ui.richtext.IsRichTextEditor;
 import org.dominokit.domino.ui.richtext.RichTextCommand;
 import org.dominokit.domino.ui.utils.DominoDom;
 
@@ -47,20 +47,20 @@ public class InsertOrderedListCommand extends RichTextCommand<InsertOrderedListC
   /**
    * Factory method to create a new instance of InsertOrderedListCommand.
    *
-   * @param editableElement The div element where the rich text is edited.
+   * @param isRichTextEditor The div element where the rich text is edited.
    * @return A new instance of InsertOrderedListCommand.
    */
-  public static InsertOrderedListCommand create(DivElement editableElement) {
-    return new InsertOrderedListCommand(editableElement);
+  public static InsertOrderedListCommand create(IsRichTextEditor isRichTextEditor) {
+    return new InsertOrderedListCommand(isRichTextEditor);
   }
 
   /**
    * Constructs a new InsertOrderedListCommand instance for the specified editable div element.
    *
-   * @param editableElement The div element where the rich text is edited.
+   * @param isRichTextEditor The div element where the rich text is edited.
    */
-  public InsertOrderedListCommand(DivElement editableElement) {
-    super(editableElement);
+  public InsertOrderedListCommand(IsRichTextEditor isRichTextEditor) {
+    super(isRichTextEditor);
     this.button =
         Button.create(Icons.format_list_numbered())
             .setTooltip(getLabels().insertOrderedList())

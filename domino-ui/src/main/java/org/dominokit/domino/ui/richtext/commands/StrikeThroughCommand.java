@@ -19,8 +19,8 @@ import static org.dominokit.domino.ui.utils.Domino.*;
 
 import elemental2.dom.HTMLElement;
 import org.dominokit.domino.ui.button.Button;
-import org.dominokit.domino.ui.elements.DivElement;
 import org.dominokit.domino.ui.icons.lib.Icons;
+import org.dominokit.domino.ui.richtext.IsRichTextEditor;
 import org.dominokit.domino.ui.richtext.RichTextCommand;
 import org.dominokit.domino.ui.utils.DominoDom;
 
@@ -49,20 +49,20 @@ public class StrikeThroughCommand extends RichTextCommand<StrikeThroughCommand> 
   /**
    * Factory method to create a new instance of StrikeThroughCommand.
    *
-   * @param editableElement The div element where the rich text is edited.
+   * @param isRichTextEditor The div element where the rich text is edited.
    * @return A new instance of StrikeThroughCommand.
    */
-  public static StrikeThroughCommand create(DivElement editableElement) {
-    return new StrikeThroughCommand(editableElement);
+  public static StrikeThroughCommand create(IsRichTextEditor isRichTextEditor) {
+    return new StrikeThroughCommand(isRichTextEditor);
   }
 
   /**
    * Constructs a new StrikeThroughCommand instance for the specified editable div element.
    *
-   * @param editableElement The div element where the rich text is edited.
+   * @param isRichTextEditor The div element where the rich text is edited.
    */
-  public StrikeThroughCommand(DivElement editableElement) {
-    super(editableElement);
+  public StrikeThroughCommand(IsRichTextEditor isRichTextEditor) {
+    super(isRichTextEditor);
     this.button =
         Button.create(Icons.format_strikethrough())
             .setTooltip(getLabels().strikeThrough())

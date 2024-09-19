@@ -15,12 +15,10 @@
  */
 package org.dominokit.domino.ui.richtext.commands;
 
-import static org.dominokit.domino.ui.utils.Domino.*;
-
 import elemental2.dom.HTMLElement;
 import org.dominokit.domino.ui.button.Button;
-import org.dominokit.domino.ui.elements.DivElement;
 import org.dominokit.domino.ui.icons.lib.Icons;
+import org.dominokit.domino.ui.richtext.IsRichTextEditor;
 import org.dominokit.domino.ui.richtext.RichTextCommand;
 import org.dominokit.domino.ui.utils.DominoDom;
 
@@ -45,20 +43,20 @@ public class CopyCommand extends RichTextCommand<CopyCommand> {
   /**
    * Factory method to create a new instance of CopyCommand.
    *
-   * @param editableElement The div element where the rich text is edited.
+   * @param isRichTextEditor The div element where the rich text is edited.
    * @return A new instance of CopyCommand.
    */
-  public static CopyCommand create(DivElement editableElement) {
-    return new CopyCommand(editableElement);
+  public static CopyCommand create(IsRichTextEditor isRichTextEditor) {
+    return new CopyCommand(isRichTextEditor);
   }
 
   /**
    * Constructs a new CopyCommand instance for the specified editable element.
    *
-   * @param editableElement The div element where the rich text is edited.
+   * @param isRichTextEditor The div element where the rich text is edited.
    */
-  public CopyCommand(DivElement editableElement) {
-    super(editableElement);
+  public CopyCommand(IsRichTextEditor isRichTextEditor) {
+    super(isRichTextEditor);
     this.button =
         Button.create(Icons.content_copy())
             .setTooltip(getLabels().copy())

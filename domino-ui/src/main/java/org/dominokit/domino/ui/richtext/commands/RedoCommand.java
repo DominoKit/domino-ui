@@ -19,8 +19,8 @@ import static org.dominokit.domino.ui.utils.Domino.*;
 
 import elemental2.dom.HTMLElement;
 import org.dominokit.domino.ui.button.Button;
-import org.dominokit.domino.ui.elements.DivElement;
 import org.dominokit.domino.ui.icons.lib.Icons;
+import org.dominokit.domino.ui.richtext.IsRichTextEditor;
 import org.dominokit.domino.ui.richtext.RichTextCommand;
 import org.dominokit.domino.ui.utils.DominoDom;
 
@@ -48,20 +48,20 @@ public class RedoCommand extends RichTextCommand<RedoCommand> {
   /**
    * Factory method to create a new instance of RedoCommand.
    *
-   * @param editableElement The div element where the rich text is edited.
+   * @param isRichTextEditor The div element where the rich text is edited.
    * @return A new instance of RedoCommand.
    */
-  public static RedoCommand create(DivElement editableElement) {
-    return new RedoCommand(editableElement);
+  public static RedoCommand create(IsRichTextEditor isRichTextEditor) {
+    return new RedoCommand(isRichTextEditor);
   }
 
   /**
    * Constructs a new RedoCommand instance for the specified editable div element.
    *
-   * @param editableElement The div element where the rich text is edited.
+   * @param isRichTextEditor The div element where the rich text is edited.
    */
-  public RedoCommand(DivElement editableElement) {
-    super(editableElement);
+  public RedoCommand(IsRichTextEditor isRichTextEditor) {
+    super(isRichTextEditor);
     this.button =
         Button.create(Icons.redo())
             .setTooltip(getLabels().redo())

@@ -21,8 +21,8 @@ import elemental2.dom.DomGlobal;
 import elemental2.dom.HTMLElement;
 import jsinterop.base.Js;
 import org.dominokit.domino.ui.button.Button;
-import org.dominokit.domino.ui.elements.DivElement;
 import org.dominokit.domino.ui.icons.lib.Icons;
+import org.dominokit.domino.ui.richtext.IsRichTextEditor;
 import org.dominokit.domino.ui.richtext.RichTextCommand;
 import org.dominokit.domino.ui.utils.DominoNavigator;
 
@@ -52,26 +52,26 @@ public class PasteCommand extends RichTextCommand<PasteCommand> {
   /**
    * Factory method to create a new instance of PasteCommand.
    *
-   * @param editableElement The div element where the rich text is edited.
+   * @param isRichTextEditor The div element where the rich text is edited.
    * @return A new instance of PasteCommand.
    */
-  public static PasteCommand create(DivElement editableElement) {
-    return new PasteCommand(editableElement);
+  public static PasteCommand create(IsRichTextEditor isRichTextEditor) {
+    return new PasteCommand(isRichTextEditor);
   }
 
   /**
    * Constructs a new PasteCommand instance for the specified editable div element.
    *
-   * @param editableElement The div element where the rich text is edited.
+   * @param isRichTextEditor The div element where the rich text is edited.
    */
-  public PasteCommand(DivElement editableElement) {
-    super(editableElement);
+  public PasteCommand(IsRichTextEditor isRichTextEditor) {
+    super(isRichTextEditor);
     this.button =
         Button.create(Icons.content_paste())
             .setTooltip(getLabels().paste())
             .addClickListener(
                 evt -> {
-                  editableElement.element().focus();
+                  isRichTextEditor.getEditableElement().element().focus();
                   Js.<DominoNavigator>uncheckedCast(DomGlobal.window.navigator)
                       .clipboard
                       .readText()

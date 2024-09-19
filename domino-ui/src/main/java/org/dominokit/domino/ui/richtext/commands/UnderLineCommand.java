@@ -19,8 +19,8 @@ import static org.dominokit.domino.ui.utils.Domino.*;
 
 import elemental2.dom.HTMLElement;
 import org.dominokit.domino.ui.button.Button;
-import org.dominokit.domino.ui.elements.DivElement;
 import org.dominokit.domino.ui.icons.lib.Icons;
+import org.dominokit.domino.ui.richtext.IsRichTextEditor;
 import org.dominokit.domino.ui.richtext.RichTextCommand;
 import org.dominokit.domino.ui.utils.DominoDom;
 
@@ -49,20 +49,20 @@ public class UnderLineCommand extends RichTextCommand<UnderLineCommand> {
   /**
    * Factory method to create a new instance of UnderLineCommand.
    *
-   * @param editableElement The div element where the rich text is edited.
+   * @param isRichTextEditor The div element where the rich text is edited.
    * @return A new instance of UnderLineCommand.
    */
-  public static UnderLineCommand create(DivElement editableElement) {
-    return new UnderLineCommand(editableElement);
+  public static UnderLineCommand create(IsRichTextEditor isRichTextEditor) {
+    return new UnderLineCommand(isRichTextEditor);
   }
 
   /**
    * Constructs a new UnderLineCommand instance for the specified editable div element.
    *
-   * @param editableElement The div element where the rich text is edited.
+   * @param isRichTextEditor The div element where the rich text is edited.
    */
-  public UnderLineCommand(DivElement editableElement) {
-    super(editableElement);
+  public UnderLineCommand(IsRichTextEditor isRichTextEditor) {
+    super(isRichTextEditor);
     this.button =
         Button.create(Icons.format_underline())
             .setTooltip(getLabels().underline())

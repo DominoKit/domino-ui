@@ -19,8 +19,8 @@ import static org.dominokit.domino.ui.utils.Domino.*;
 
 import elemental2.dom.HTMLElement;
 import org.dominokit.domino.ui.button.Button;
-import org.dominokit.domino.ui.elements.DivElement;
 import org.dominokit.domino.ui.icons.lib.Icons;
+import org.dominokit.domino.ui.richtext.IsRichTextEditor;
 import org.dominokit.domino.ui.richtext.RichTextCommand;
 import org.dominokit.domino.ui.utils.DominoDom;
 
@@ -45,20 +45,20 @@ public class IndentCommand extends RichTextCommand<IndentCommand> {
   /**
    * Factory method to create a new instance of IndentCommand.
    *
-   * @param editableElement The div element where the rich text is edited.
+   * @param isRichTextEditor The div element where the rich text is edited.
    * @return A new instance of IndentCommand.
    */
-  public static IndentCommand create(DivElement editableElement) {
-    return new IndentCommand(editableElement);
+  public static IndentCommand create(IsRichTextEditor isRichTextEditor) {
+    return new IndentCommand(isRichTextEditor);
   }
 
   /**
    * Constructs a new IndentCommand instance for the specified editable div element.
    *
-   * @param editableElement The div element where the rich text is edited.
+   * @param isRichTextEditor The div element where the rich text is edited.
    */
-  public IndentCommand(DivElement editableElement) {
-    super(editableElement);
+  public IndentCommand(IsRichTextEditor isRichTextEditor) {
+    super(isRichTextEditor);
     this.button =
         Button.create(Icons.format_indent_increase())
             .setTooltip(getLabels().increaseIndent())

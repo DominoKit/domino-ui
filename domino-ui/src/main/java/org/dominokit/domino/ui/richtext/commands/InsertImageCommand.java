@@ -22,9 +22,9 @@ import elemental2.dom.*;
 import org.dominokit.domino.ui.button.Button;
 import org.dominokit.domino.ui.dialogs.ConfirmationDialog;
 import org.dominokit.domino.ui.dialogs.DialogSize;
-import org.dominokit.domino.ui.elements.DivElement;
 import org.dominokit.domino.ui.forms.UploadBox;
 import org.dominokit.domino.ui.icons.lib.Icons;
+import org.dominokit.domino.ui.richtext.IsRichTextEditor;
 import org.dominokit.domino.ui.richtext.RichTextCommand;
 import org.dominokit.domino.ui.utils.URL;
 
@@ -55,20 +55,20 @@ public class InsertImageCommand extends RichTextCommand<InsertImageCommand> {
   /**
    * Factory method to create a new instance of InsertImageCommand.
    *
-   * @param editableElement The div element where the rich text is edited.
+   * @param isRichTextEditor The div element where the rich text is edited.
    * @return A new instance of InsertImageCommand.
    */
-  public static InsertImageCommand create(DivElement editableElement) {
-    return new InsertImageCommand(editableElement);
+  public static InsertImageCommand create(IsRichTextEditor isRichTextEditor) {
+    return new InsertImageCommand(isRichTextEditor);
   }
 
   /**
    * Constructs a new InsertImageCommand instance for the specified editable div element.
    *
-   * @param editableElement The div element where the rich text is edited.
+   * @param isRichTextEditor The div element where the rich text is edited.
    */
-  public InsertImageCommand(DivElement editableElement) {
-    super(editableElement);
+  public InsertImageCommand(IsRichTextEditor isRichTextEditor) {
+    super(isRichTextEditor);
     this.dialog =
         ConfirmationDialog.create()
             .setStretchWidth(DialogSize.MEDIUM)

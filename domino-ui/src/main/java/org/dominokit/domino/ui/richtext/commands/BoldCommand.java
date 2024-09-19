@@ -15,12 +15,10 @@
  */
 package org.dominokit.domino.ui.richtext.commands;
 
-import static org.dominokit.domino.ui.utils.Domino.*;
-
 import elemental2.dom.HTMLElement;
 import org.dominokit.domino.ui.button.Button;
-import org.dominokit.domino.ui.elements.DivElement;
 import org.dominokit.domino.ui.icons.lib.Icons;
+import org.dominokit.domino.ui.richtext.IsRichTextEditor;
 import org.dominokit.domino.ui.richtext.RichTextCommand;
 import org.dominokit.domino.ui.utils.DominoDom;
 
@@ -46,20 +44,20 @@ public class BoldCommand extends RichTextCommand<BoldCommand> {
   /**
    * Factory method to create a new instance of BoldCommand.
    *
-   * @param editableElement The div element where the rich text is edited.
+   * @param isRichTextEditor The div element where the rich text is edited.
    * @return A new instance of BoldCommand.
    */
-  public static BoldCommand create(DivElement editableElement) {
-    return new BoldCommand(editableElement);
+  public static BoldCommand create(IsRichTextEditor isRichTextEditor) {
+    return new BoldCommand(isRichTextEditor);
   }
 
   /**
    * Constructs a new BoldCommand instance for the specified editable element.
    *
-   * @param editableElement The div element where the rich text is edited.
+   * @param isRichTextEditor The div element where the rich text is edited.
    */
-  public BoldCommand(DivElement editableElement) {
-    super(editableElement);
+  public BoldCommand(IsRichTextEditor isRichTextEditor) {
+    super(isRichTextEditor);
     this.button =
         Button.create(Icons.format_bold())
             .setTooltip(getLabels().bold())

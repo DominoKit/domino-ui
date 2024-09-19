@@ -19,8 +19,8 @@ import static org.dominokit.domino.ui.utils.Domino.*;
 
 import elemental2.dom.HTMLElement;
 import org.dominokit.domino.ui.button.Button;
-import org.dominokit.domino.ui.elements.DivElement;
 import org.dominokit.domino.ui.icons.lib.Icons;
+import org.dominokit.domino.ui.richtext.IsRichTextEditor;
 import org.dominokit.domino.ui.richtext.RichTextCommand;
 import org.dominokit.domino.ui.utils.DominoDom;
 
@@ -47,20 +47,20 @@ public class JustifyLeftCommand extends RichTextCommand<JustifyLeftCommand> {
   /**
    * Factory method to create a new instance of JustifyLeftCommand.
    *
-   * @param editableElement The div element where the rich text is edited.
+   * @param isRichTextEditor The div element where the rich text is edited.
    * @return A new instance of JustifyLeftCommand.
    */
-  public static JustifyLeftCommand create(DivElement editableElement) {
-    return new JustifyLeftCommand(editableElement);
+  public static JustifyLeftCommand create(IsRichTextEditor isRichTextEditor) {
+    return new JustifyLeftCommand(isRichTextEditor);
   }
 
   /**
    * Constructs a new JustifyLeftCommand instance for the specified editable div element.
    *
-   * @param editableElement The div element where the rich text is edited.
+   * @param isRichTextEditor The div element where the rich text is edited.
    */
-  public JustifyLeftCommand(DivElement editableElement) {
-    super(editableElement);
+  public JustifyLeftCommand(IsRichTextEditor isRichTextEditor) {
+    super(isRichTextEditor);
     this.button =
         Button.create(Icons.format_align_left())
             .setTooltip(getLabels().justifyLeft())

@@ -19,8 +19,8 @@ import static org.dominokit.domino.ui.utils.Domino.*;
 
 import elemental2.dom.HTMLElement;
 import org.dominokit.domino.ui.button.Button;
-import org.dominokit.domino.ui.elements.DivElement;
 import org.dominokit.domino.ui.icons.lib.Icons;
+import org.dominokit.domino.ui.richtext.IsRichTextEditor;
 import org.dominokit.domino.ui.richtext.RichTextCommand;
 import org.dominokit.domino.ui.utils.DominoDom;
 
@@ -47,20 +47,20 @@ public class JustifyRightCommand extends RichTextCommand<JustifyRightCommand> {
   /**
    * Factory method to create a new instance of JustifyRightCommand.
    *
-   * @param editableElement The div element where the rich text is edited.
+   * @param isRichTextEditor The div element where the rich text is edited.
    * @return A new instance of JustifyRightCommand.
    */
-  public static JustifyRightCommand create(DivElement editableElement) {
-    return new JustifyRightCommand(editableElement);
+  public static JustifyRightCommand create(IsRichTextEditor isRichTextEditor) {
+    return new JustifyRightCommand(isRichTextEditor);
   }
 
   /**
    * Constructs a new JustifyRightCommand instance for the specified editable div element.
    *
-   * @param editableElement The div element where the rich text is edited.
+   * @param isRichTextEditor The div element where the rich text is edited.
    */
-  public JustifyRightCommand(DivElement editableElement) {
-    super(editableElement);
+  public JustifyRightCommand(IsRichTextEditor isRichTextEditor) {
+    super(isRichTextEditor);
     this.button =
         Button.create(Icons.format_align_right())
             .setTooltip(getLabels().justifyRight())

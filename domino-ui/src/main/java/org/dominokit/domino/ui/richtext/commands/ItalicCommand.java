@@ -19,8 +19,8 @@ import static org.dominokit.domino.ui.utils.Domino.*;
 
 import elemental2.dom.HTMLElement;
 import org.dominokit.domino.ui.button.Button;
-import org.dominokit.domino.ui.elements.DivElement;
 import org.dominokit.domino.ui.icons.lib.Icons;
+import org.dominokit.domino.ui.richtext.IsRichTextEditor;
 import org.dominokit.domino.ui.richtext.RichTextCommand;
 import org.dominokit.domino.ui.utils.DominoDom;
 
@@ -47,20 +47,20 @@ public class ItalicCommand extends RichTextCommand<ItalicCommand> {
   /**
    * Factory method to create a new instance of ItalicCommand.
    *
-   * @param editableElement The div element where the rich text is edited.
+   * @param isRichTextEditor The div element where the rich text is edited.
    * @return A new instance of ItalicCommand.
    */
-  public static ItalicCommand create(DivElement editableElement) {
-    return new ItalicCommand(editableElement);
+  public static ItalicCommand create(IsRichTextEditor isRichTextEditor) {
+    return new ItalicCommand(isRichTextEditor);
   }
 
   /**
    * Constructs a new ItalicCommand instance for the specified editable div element.
    *
-   * @param editableElement The div element where the rich text is edited.
+   * @param isRichTextEditor The div element where the rich text is edited.
    */
-  public ItalicCommand(DivElement editableElement) {
-    super(editableElement);
+  public ItalicCommand(IsRichTextEditor isRichTextEditor) {
+    super(isRichTextEditor);
     this.button =
         Button.create(Icons.format_italic())
             .setTooltip(getLabels().italic())

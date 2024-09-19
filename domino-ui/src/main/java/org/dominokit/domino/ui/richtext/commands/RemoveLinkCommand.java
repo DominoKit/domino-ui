@@ -23,8 +23,8 @@ import elemental2.dom.Element;
 import elemental2.dom.HTMLElement;
 import elemental2.dom.NodeList;
 import org.dominokit.domino.ui.button.Button;
-import org.dominokit.domino.ui.elements.DivElement;
 import org.dominokit.domino.ui.icons.lib.Icons;
+import org.dominokit.domino.ui.richtext.IsRichTextEditor;
 import org.dominokit.domino.ui.richtext.RichTextCommand;
 
 /**
@@ -52,20 +52,20 @@ public class RemoveLinkCommand extends RichTextCommand<RemoveLinkCommand> {
   /**
    * Factory method to create a new instance of RemoveFormatCommand.
    *
-   * @param editableElement The div element where the rich text is edited.
+   * @param isRichTextEditor The div element where the rich text is edited.
    * @return A new instance of RemoveFormatCommand.
    */
-  public static RemoveLinkCommand create(DivElement editableElement) {
-    return new RemoveLinkCommand(editableElement);
+  public static RemoveLinkCommand create(IsRichTextEditor isRichTextEditor) {
+    return new RemoveLinkCommand(isRichTextEditor);
   }
 
   /**
    * Constructs a new RemoveFormatCommand instance for the specified editable div element.
    *
-   * @param editableElement The div element where the rich text is edited.
+   * @param isRichTextEditor The div element where the rich text is edited.
    */
-  public RemoveLinkCommand(DivElement editableElement) {
-    super(editableElement);
+  public RemoveLinkCommand(IsRichTextEditor isRichTextEditor) {
+    super(isRichTextEditor);
 
     this.button =
         Button.create(Icons.link_off())

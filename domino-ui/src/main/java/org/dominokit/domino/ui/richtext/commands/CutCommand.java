@@ -15,12 +15,10 @@
  */
 package org.dominokit.domino.ui.richtext.commands;
 
-import static org.dominokit.domino.ui.utils.Domino.*;
-
 import elemental2.dom.HTMLElement;
 import org.dominokit.domino.ui.button.Button;
-import org.dominokit.domino.ui.elements.DivElement;
 import org.dominokit.domino.ui.icons.lib.Icons;
+import org.dominokit.domino.ui.richtext.IsRichTextEditor;
 import org.dominokit.domino.ui.richtext.RichTextCommand;
 import org.dominokit.domino.ui.utils.DominoDom;
 
@@ -46,20 +44,20 @@ public class CutCommand extends RichTextCommand<CutCommand> {
   /**
    * Factory method to create a new instance of CutCommand.
    *
-   * @param editableElement The div element where the rich text is edited.
+   * @param isRichTextEditor The div element where the rich text is edited.
    * @return A new instance of CutCommand.
    */
-  public static CutCommand create(DivElement editableElement) {
-    return new CutCommand(editableElement);
+  public static CutCommand create(IsRichTextEditor isRichTextEditor) {
+    return new CutCommand(isRichTextEditor);
   }
 
   /**
    * Constructs a new CutCommand instance for the specified editable element.
    *
-   * @param editableElement The div element where the rich text is edited.
+   * @param isRichTextEditor The div element where the rich text is edited.
    */
-  public CutCommand(DivElement editableElement) {
-    super(editableElement);
+  public CutCommand(IsRichTextEditor isRichTextEditor) {
+    super(isRichTextEditor);
     this.button =
         Button.create(Icons.content_cut())
             .setTooltip(getLabels().cut())

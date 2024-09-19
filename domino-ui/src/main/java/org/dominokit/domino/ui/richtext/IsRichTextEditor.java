@@ -13,24 +13,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.dominokit.domino.ui.config;
+package org.dominokit.domino.ui.richtext;
 
-/** UIConfig interface. */
-public interface UIConfig
-    extends FormsFieldsConfig,
-        ZIndexConfig,
-        AccordionConfig,
-        CardConfig,
-        ProgressBarConfig,
-        SearchConfig,
-        SpinConfig,
-        TabsConfig,
-        TreeConfig,
-        UploadConfig,
-        StepperConfig,
-        CalendarConfig,
-        TimePickerConfig,
-        DelayedActionConfig,
-        DatatableConfig,
-        CarouselConfig,
-        RichTextConfig {}
+import org.dominokit.domino.ui.elements.DivElement;
+import org.dominokit.domino.ui.utils.Counter;
+
+public interface IsRichTextEditor {
+  DivElement getEditableElement();
+
+  Counter getDefaultFontSizeCounter();
+}

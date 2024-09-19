@@ -15,12 +15,10 @@
  */
 package org.dominokit.domino.ui.richtext.commands;
 
-import static org.dominokit.domino.ui.utils.Domino.*;
-
 import elemental2.dom.HTMLElement;
 import org.dominokit.domino.ui.button.Button;
-import org.dominokit.domino.ui.elements.DivElement;
 import org.dominokit.domino.ui.icons.lib.Icons;
+import org.dominokit.domino.ui.richtext.IsRichTextEditor;
 import org.dominokit.domino.ui.richtext.RichTextCommand;
 import org.dominokit.domino.ui.utils.Counter;
 import org.dominokit.domino.ui.utils.DominoDom;
@@ -49,23 +47,21 @@ public class DecreaseFontCommand extends RichTextCommand<DecreaseFontCommand> {
   /**
    * Factory method to create a new instance of DecreaseFontCommand.
    *
-   * @param editableElement The div element where the rich text is edited.
-   * @param fontSize The counter to keep track of the font size.
+   * @param isRichTextEditor The div element where the rich text is edited.
    * @return A new instance of DecreaseFontCommand.
    */
-  public static DecreaseFontCommand create(DivElement editableElement, Counter fontSize) {
-    return new DecreaseFontCommand(editableElement, fontSize);
+  public static DecreaseFontCommand create(IsRichTextEditor isRichTextEditor) {
+    return new DecreaseFontCommand(isRichTextEditor);
   }
 
   /**
    * Constructs a new DecreaseFontCommand instance for the specified editable element.
    *
-   * @param editableElement The div element where the rich text is edited.
-   * @param fontSize The counter to keep track of the font size.
+   * @param isRichTextEditor The div element where the rich text is edited.
    */
-  public DecreaseFontCommand(DivElement editableElement, Counter fontSize) {
-    super(editableElement);
-    this.fontSize = fontSize;
+  public DecreaseFontCommand(IsRichTextEditor isRichTextEditor) {
+    super(isRichTextEditor);
+    this.fontSize = isRichTextEditor.getDefaultFontSizeCounter();
     this.button =
         Button.create(Icons.format_font_size_decrease())
             .setTooltip(getLabels().decreaseFontSize())

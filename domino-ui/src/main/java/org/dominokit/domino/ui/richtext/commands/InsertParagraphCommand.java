@@ -20,8 +20,8 @@ import static org.dominokit.domino.ui.utils.Domino.*;
 import elemental2.dom.DocumentFragment;
 import elemental2.dom.HTMLElement;
 import org.dominokit.domino.ui.button.Button;
-import org.dominokit.domino.ui.elements.DivElement;
 import org.dominokit.domino.ui.icons.lib.Icons;
+import org.dominokit.domino.ui.richtext.IsRichTextEditor;
 import org.dominokit.domino.ui.richtext.RichTextCommand;
 
 /**
@@ -46,20 +46,20 @@ public class InsertParagraphCommand extends RichTextCommand<InsertParagraphComma
   /**
    * Factory method to create a new instance of InsertParagraphCommand.
    *
-   * @param editableElement The div element where the rich text is edited.
+   * @param isRichTextEditor The div element where the rich text is edited.
    * @return A new instance of InsertParagraphCommand.
    */
-  public static InsertParagraphCommand create(DivElement editableElement) {
-    return new InsertParagraphCommand(editableElement);
+  public static InsertParagraphCommand create(IsRichTextEditor isRichTextEditor) {
+    return new InsertParagraphCommand(isRichTextEditor);
   }
 
   /**
    * Constructs a new InsertParagraphCommand instance for the specified editable div element.
    *
-   * @param editableElement The div element where the rich text is edited.
+   * @param isRichTextEditor The div element where the rich text is edited.
    */
-  public InsertParagraphCommand(DivElement editableElement) {
-    super(editableElement);
+  public InsertParagraphCommand(IsRichTextEditor isRichTextEditor) {
+    super(isRichTextEditor);
     this.button =
         Button.create(Icons.format_paragraph())
             .setTooltip(getLabels().insertParagraph())
