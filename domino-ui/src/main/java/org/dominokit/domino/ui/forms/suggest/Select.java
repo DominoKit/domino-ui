@@ -72,9 +72,15 @@ public class Select<V> extends AbstractSelect<V, V, DivElement, SelectOption<V>,
     setLabel(label);
   }
 
-  protected void doSetValue(V value) {
+  protected void doSetValue(V value, boolean silent) {
     findOptionByValue(value)
-        .ifPresent(vSelectOption -> onOptionSelected(vSelectOption, isChangeListenersPaused()));
+        .ifPresentOrElse(
+            vSelectOption -> onOptionSelected(vSelectOption, isChangeListenersPaused()),
+            () -> {
+              if (isNull(value)) {
+                clearValue(silent);
+              }
+            });
   }
 
   protected void doSetOption(SelectOption<V> option) {

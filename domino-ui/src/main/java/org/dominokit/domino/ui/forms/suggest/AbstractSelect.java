@@ -761,7 +761,7 @@ public abstract class AbstractSelect<
   public C withValue(V value, boolean silent) {
     V oldValue = getValue();
     if (!Objects.equals(value, oldValue)) {
-      doSetValue(value);
+      doSetValue(value, silent);
       if (!silent) {
         triggerChangeListeners(oldValue, getValue());
       }
@@ -796,8 +796,9 @@ public abstract class AbstractSelect<
    * its behavior.
    *
    * @param value The value to set.
+   * @param silent boolean to pause triggering change handlers
    */
-  protected abstract void doSetValue(V value);
+  protected abstract void doSetValue(V value, boolean silent);
 
   /**
    * Abstract method to set a specified option for the select. Concrete implementations will define
