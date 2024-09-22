@@ -1301,13 +1301,24 @@ public class Menu<V> extends BaseDominoElement<HTMLDivElement, Menu<V>>
    * @return The current {@link Menu} instance.
    */
   public Menu<V> openSubMenu(Menu<V> dropMenu) {
-    if (!Objects.equals(currentOpen, dropMenu)) {
-      closeCurrentOpen();
+    if (dropMenu.hasVisibleItems()) {
+      if (!Objects.equals(currentOpen, dropMenu)) {
+        closeCurrentOpen();
+      }
+      dropMenu.open();
+      setCurrentOpen(dropMenu);
     }
-    dropMenu.open();
-    setCurrentOpen(dropMenu);
 
     return this;
+  }
+
+  private boolean hasVisibleItems() {
+    for (int index = 0; index < menuItems.size(); index++) {
+      if (menuItems.get(index).isVisible()) {
+        return true;
+      }
+    }
+    return false;
   }
 
   /**
