@@ -19,6 +19,7 @@ import static java.util.Objects.isNull;
 import static java.util.Objects.nonNull;
 
 import java.util.Objects;
+import java.util.Optional;
 import org.dominokit.domino.ui.elements.DivElement;
 
 /**
@@ -73,14 +74,14 @@ public class Select<V> extends AbstractSelect<V, V, DivElement, SelectOption<V>,
   }
 
   protected void doSetValue(V value, boolean silent) {
-    findOptionByValue(value)
-        .ifPresentOrElse(
-            vSelectOption -> onOptionSelected(vSelectOption, isChangeListenersPaused()),
-            () -> {
-              if (isNull(value)) {
-                clearValue(silent);
-              }
-            });
+    Optional<SelectOption<V>> option = findOptionByValue(value);
+    if (option.isPresent()) {
+      onOptionSelected(option.get(), isChangeListenersPaused());
+    } else {
+      if (isNull(value)) {
+        clearValue(silent);
+      }
+    }
   }
 
   @Override

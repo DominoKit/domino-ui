@@ -148,11 +148,23 @@ public class MenuItemsGroup<V> extends AbstractMenuItem<V> {
    * Invoked during a search operation across all the menu items in this group.
    *
    * @param token the search token
-   * @param caseSensitive indicates if the search should be case sensitive or not
+   * @param caseSensitive indicates if the search should be case-sensitive or not
    * @return true if any of the menu items match the token; false otherwise
    */
   @Override
   public boolean onSearch(String token, boolean caseSensitive) {
-    return menuItems.stream().anyMatch(menuItem -> menuItem.onSearch(token, caseSensitive));
+    boolean result = true;
+    boolean anyMatch = false;
+    for (int index = 0; index < menuItems.size(); index++) {
+      boolean found = menuItems.get(index).onSearch(token, caseSensitive);
+      anyMatch |= found;
+      result &= found;
+    }
+    if (anyMatch) {
+      this.show();
+    } else {
+      this.hide();
+    }
+    return result;
   }
 }
