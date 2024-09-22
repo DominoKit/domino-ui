@@ -523,6 +523,7 @@ public class DateBox extends TextInputFormField<DateBox, HTMLInputElement, Date>
       updateStringValue();
     } else {
       getInputElement().element().value = "";
+      close();
     }
     withDateSelectionToggleListeners(
         false,
@@ -536,6 +537,12 @@ public class DateBox extends TextInputFormField<DateBox, HTMLInputElement, Date>
   private void updateStringValue() {
     getInputElement().element().value =
         getFormatted(this.value, this.calendar.getDateTimeFormatInfo());
+  }
+
+  @Override
+  public DateBox clear(boolean silent) {
+    close();
+    return super.clear(silent);
   }
 
   /**
