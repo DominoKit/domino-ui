@@ -287,3 +287,7 @@
     order: 80;
     padding: var(--dui-calendar-footer-padding);
 }
+
+.dui-date-in-range {
+    background: var(--dui-calendar-date-in-range-bg-color);
+}

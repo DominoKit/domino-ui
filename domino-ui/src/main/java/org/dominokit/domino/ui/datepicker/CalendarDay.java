@@ -114,10 +114,35 @@ public class CalendarDay extends BaseDominoElement<HTMLDivElement, CalendarDay>
    * @return true if the day is today's date, false otherwise.
    */
   public boolean isTodayDate() {
-    Date date = new Date();
+    return isSameDayAs(new Date());
+  }
+
+  /**
+   * Checks if the day represents the specified date.
+   *
+   * @return true if the day is same year, month, and day, false otherwise.
+   */
+  public boolean isSameDayAs(Date date) {
     return date.getYear() == this.date.getYear()
         && date.getMonth() == this.date.getMonth()
         && date.getDate() == this.date.getDate();
+  }
+
+  public boolean isInRange(Date dateFrom, Date dateTo) {
+    Date fromNoTime = removeTime(dateFrom);
+    Date toNoTime = removeTime(dateTo);
+    Date thisDayNoTime = removeTime(date);
+    return thisDayNoTime.getTime() >= fromNoTime.getTime()
+        && thisDayNoTime.getTime() <= toNoTime.getTime();
+  }
+
+  public static Date removeTime(Date date) {
+    date.setHours(0);
+    date.setMinutes(0);
+    date.setSeconds(0);
+
+    date.setTime(date.getTime() / 1000 * 1000); // Set milliseconds to zero
+    return date;
   }
 
   /**

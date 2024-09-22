@@ -96,4 +96,6 @@ public interface CalendarStyles {
   CssClass dui_selected_year = () -> "dui-selected-year";
 
   CssClass dui_selected_month = () -> "dui-selected-month";
+
+  CssClass dui_date_in_range = () -> "dui-date-in-range";
 }
