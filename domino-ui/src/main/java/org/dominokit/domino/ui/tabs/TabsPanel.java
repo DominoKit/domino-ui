@@ -19,12 +19,13 @@ import static java.util.Objects.isNull;
 import static java.util.Objects.nonNull;
 import static org.dominokit.domino.ui.utils.Domino.*;
 
-import elemental2.dom.DomGlobal;
 import elemental2.dom.Element;
 import elemental2.dom.HTMLDivElement;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
+import java.util.Optional;
 import java.util.function.Consumer;
 import org.dominokit.domino.ui.IsElement;
 import org.dominokit.domino.ui.animations.Animation;
@@ -424,11 +425,18 @@ public class TabsPanel extends BaseDominoElement<HTMLDivElement, TabsPanel>
    * @return the current {@link TabsPanel} instance.
    */
   public TabsPanel activateByKey(String key, boolean silent) {
-    tabs.stream()
-        .filter(tab -> tab.getKey().equalsIgnoreCase(key))
-        .findFirst()
-        .ifPresent(tab -> activateTab(tab, silent));
+    findByKey(key).ifPresent(tab -> activateTab(tab, silent));
     return this;
+  }
+
+  /**
+   * Finds the first tab by the specified key. this is a case-sensitive search
+   *
+   * @param key The tab key
+   * @return Optional of a tab.
+   */
+  public Optional<Tab> findByKey(String key) {
+    return tabs.stream().filter(tab -> Objects.equals(tab.getKey(), key)).findFirst();
   }
 
   /**
