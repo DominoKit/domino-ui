@@ -15,6 +15,7 @@
  */
 package org.dominokit.domino.ui.tabs;
 
+import static java.util.Objects.isNull;
 import static java.util.Objects.nonNull;
 import static org.dominokit.domino.ui.utils.Domino.*;
 
@@ -409,6 +410,9 @@ public class Tab extends BaseDominoElement<HTMLLIElement, Tab>
    * @return The current {@link Tab} instance.
    */
   public Tab close() {
+    if (isNull(parent)) {
+      DomGlobal.console.info("Parent is null.");
+    }
     if (nonNull(parent)) {
       closeCondition.onBeforeClose(
           this,

@@ -153,6 +153,9 @@ public abstract class BaseDominoElement<E extends Element, T extends IsElement<E
   /** Optional ResizeObserver for this DOM element. */
   private Optional<ResizeObserver> resizeObserverOptional = Optional.empty();
 
+  private LambdaFunction resizeInitializer;
+  private List<ResizeHandler<T>> resizeHandlers = new ArrayList<>();
+
   /** The keyboard events for this DOM element. */
   private KeyboardEvents<E> keyboardEvents;
 
@@ -208,6 +211,43 @@ public abstract class BaseDominoElement<E extends Element, T extends IsElement<E
     keyEventsInitializer =
         new LazyInitializer(() -> keyboardEvents = new KeyboardEvents<>(this.element()));
     transitionListeners = TransitionListeners.of(element);
+
+    resizeInitializer =
+        () -> {
+          resizeObserverOptional.ifPresent(
+              observer -> {
+                observer.unobserve(element());
+                observer.disconnect();
+              });
+          nowAndWhenAttached(
+              () -> {
+                ResizeObserver resizeObserver =
+                    new ResizeObserver(
+                        entries -> {
+                          resizeObserverOptional.ifPresent(
+                              observer -> {
+                                for (int index = 0; index < resizeHandlers.size(); index++) {
+                                  resizeHandlers
+                                      .get(index)
+                                      .onResize((T) BaseDominoElement.this, observer, entries);
+                                }
+                              });
+                        });
+                this.resizeObserverOptional = Optional.of(resizeObserver);
+                resizeObserver.observe(this.element());
+              });
+
+          onDetached(
+              mutationRecord -> {
+                resizeObserverOptional.ifPresent(
+                    observer -> {
+                      observer.unobserve(element());
+                      observer.disconnect();
+                    });
+                resizeObserverOptional = Optional.empty();
+              });
+          resizeInitializer = () -> {};
+        };
   }
 
   /**
@@ -779,35 +819,25 @@ public abstract class BaseDominoElement<E extends Element, T extends IsElement<E
    */
   @Editor.Ignore
   public T onResize(ResizeHandler<T> resizeHandler) {
-    resizeObserverOptional.ifPresent(
-        observer -> {
-          observer.unobserve(element());
-          observer.disconnect();
-        });
-    nowAndWhenAttached(
-        () -> {
-          ResizeObserver resizeObserver =
-              new ResizeObserver(
-                  entries -> {
-                    resizeObserverOptional.ifPresent(
-                        observer -> {
-                          resizeHandler.onResize((T) BaseDominoElement.this, observer, entries);
-                        });
-                  });
-          this.resizeObserverOptional = Optional.of(resizeObserver);
-          resizeObserver.observe(this.element());
-        });
-
-    onDetached(
-        mutationRecord -> {
-          resizeObserverOptional.ifPresent(
-              observer -> {
-                observer.unobserve(element());
-                observer.disconnect();
-              });
-          resizeObserverOptional = Optional.empty();
-        });
+    resizeInitializer.apply();
+    resizeHandlers.add(resizeHandler);
     return (T) this;
+  }
+
+  /**
+   * Registers a resize handler to be notified when the size of this element changes. And allow the
+   * user to pass a record where the handler will be registered for removal
+   *
+   * @param resizeHandler The resize handler to be registered.
+   * @param record The HandlerRecord that can be used to register a handler remove method.
+   * @return The modified DOM element.
+   */
+  @Editor.Ignore
+  public T onResize(ResizeHandler<T> resizeHandler, HandlerRecord record) {
+    if (nonNull(record)) {
+      record.setRemover(() -> resizeHandlers.remove(resizeHandler));
+    }
+    return onResize(resizeHandler);
   }
 
   /**
@@ -4191,5 +4221,17 @@ public abstract class BaseDominoElement<E extends Element, T extends IsElement<E
      * @param entries The ResizeObserver entries.
      */
     void onResize(T element, ResizeObserver observer, JsArray<ResizeObserverEntry> entries);
+  }
+
+  public static class HandlerRecord {
+    private Runnable remover;
+
+    public void setRemover(Runnable remover) {
+      this.remover = remover;
+    }
+
+    public void remove() {
+      remover.run();
+    }
   }
 }

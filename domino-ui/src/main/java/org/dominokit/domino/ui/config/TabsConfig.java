@@ -18,6 +18,7 @@ package org.dominokit.domino.ui.config;
 import java.util.function.Supplier;
 import org.dominokit.domino.ui.icons.Icon;
 import org.dominokit.domino.ui.icons.lib.Icons;
+import org.dominokit.domino.ui.tabs.TabsOverflow;
 
 /**
  * Implementations of this interface can be used to configure defaults for {@link
@@ -34,5 +35,15 @@ public interface TabsConfig extends ComponentConfig {
    */
   default Supplier<Icon<?>> getDefaultTabCloseIcon() {
     return Icons::close;
+  }
+
+  /**
+   * Use this method to implement the default Tabs overflow behavior. check {@link TabsOverflow} to
+   * see available behaviors, default to {@link TabsOverflow#WRAP}
+   *
+   * @return TabsOverflow behavior.
+   */
+  default TabsOverflow getTabsDefaultOverflowHandler() {
+    return TabsOverflow.WRAP;
   }
 }
