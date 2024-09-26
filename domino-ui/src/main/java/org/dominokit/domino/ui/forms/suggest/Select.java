@@ -76,7 +76,7 @@ public class Select<V> extends AbstractSelect<V, V, DivElement, SelectOption<V>,
   protected void doSetValue(V value, boolean silent) {
     Optional<SelectOption<V>> option = findOptionByValue(value);
     if (option.isPresent()) {
-      onOptionSelected(option.get(), isChangeListenersPaused());
+      onOptionSelected(option.get(), silent);
     } else {
       if (isNull(value)) {
         clearValue(silent);

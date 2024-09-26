@@ -133,7 +133,7 @@ public class MultiSelect<V>
       clearValue(silent);
     } else {
       withPauseChangeListenersToggle(
-          true,
+          silent,
           field ->
               value.forEach(
                   v -> {
