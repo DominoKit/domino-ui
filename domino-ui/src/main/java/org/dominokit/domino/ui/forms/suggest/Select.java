@@ -154,7 +154,7 @@ public class Select<V> extends AbstractSelect<V, V, DivElement, SelectOption<V>,
    */
   @Override
   public V getValue() {
-    if (nonNull(this.selectedOption)) {
+    if (nonNull(this.selectedOption) && this.selectedOption.getMenuItem().isSelected()) {
       return this.selectedOption.getValue();
     }
     return null;

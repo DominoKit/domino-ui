@@ -55,6 +55,7 @@
     padding: var(--dui-tab-anchor-padding);
     border-radius: inherit;
     text-decoration: var(--dui-tab-anchor-text-decoration);
+    outline: none;
 }
 
 .dui[class*="dui-bg-"] .dui-tab-anchor:hover,

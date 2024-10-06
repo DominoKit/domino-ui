@@ -33,7 +33,6 @@ import org.dominokit.domino.ui.elements.InputElement;
 import org.dominokit.domino.ui.forms.AbstractFormElement;
 import org.dominokit.domino.ui.forms.AutoValidator;
 import org.dominokit.domino.ui.forms.HasInputElement;
-import org.dominokit.domino.ui.icons.lib.Icons;
 import org.dominokit.domino.ui.loaders.Loader;
 import org.dominokit.domino.ui.loaders.LoaderEffect;
 import org.dominokit.domino.ui.menu.AbstractMenuItem;
@@ -166,7 +165,9 @@ public abstract class AbstractSuggestBox<
 
     appendChild(
         PrimaryAddOn.of(
-            Icons.delete()
+            config()
+                .getUIConfig()
+                .clearableInputDefaultIcon()
                 .addCss(dui_form_select_clear)
                 .clickable()
                 .addClickListener(

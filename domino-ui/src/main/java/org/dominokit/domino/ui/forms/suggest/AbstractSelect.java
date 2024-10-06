@@ -200,7 +200,9 @@ public abstract class AbstractSelect<
 
     appendChild(
         PrimaryAddOn.of(
-            Icons.delete()
+            config()
+                .getUIConfig()
+                .clearableInputDefaultIcon()
                 .addCss(dui_form_select_clear)
                 .clickable()
                 .addClickListener(
