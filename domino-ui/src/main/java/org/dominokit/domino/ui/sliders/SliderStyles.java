@@ -22,4 +22,6 @@ public interface SliderStyles {
   CssClass dui_slider_input = () -> "dui-slider-input";
   CssClass dui_slider_thumb = () -> "dui-slider-thumb";
   CssClass dui_slider_value = () -> "dui-slider-value";
+  CssClass dui_slider_thumb_rounded = () -> "dui-slider-thumb-rounded";
+  CssClass dui_slider_thumb_flat = () -> "dui-slider-thumb-flat";
 }

@@ -9650,220 +9650,220 @@
 
 .dui.dui-font-size-0 {
     --dui-font-size: var(--dui-spc-0);
-    font-size: var(--dui-spc-0);
+    font-size: var(--dui-font-size);
 }
 
 .dui.dui-font-size-px {
     --dui-font-size: var(--dui-spc-px);
-    font-size: var(--dui-spc-px);
+    font-size: var(--dui-font-size);
 }
 
 .dui.dui-font-size-2px {
     --dui-font-size: var(--dui-spc-2px);
-    font-size: var(--dui-spc-2px);
+    font-size: var(--dui-font-size);
 }
 
 .dui.dui-font-size-4px {
     --dui-font-size: var(--dui-spc-4px);
-    font-size: var(--dui-spc-4px);
+    font-size: var(--dui-font-size);
 }
 
 .dui.dui-font-size-8px {
     --dui-font-size: var(--dui-spc-8px);
-    font-size: var(--dui-spc-8px);
+    font-size: var(--dui-font-size);
 }
 
 .dui.dui-font-size-0_5 {
     --dui-font-size: var(--dui-spc-0_5);
-    font-size: var(--dui-spc-0_5);
+    font-size: var(--dui-font-size);
 }
 
 .dui.dui-font-size-1 {
     --dui-font-size: var(--dui-spc-1);
-    font-size: var(--dui-spc-1);
+    font-size: var(--dui-font-size);
 }
 
 .dui.dui-font-size-1_5 {
     --dui-font-size: var(--dui-spc-1_5);
-    font-size: var(--dui-spc-1_5);
+    font-size: var(--dui-font-size);
 }
 
 .dui.dui-font-size-2 {
     --dui-font-size: var(--dui-spc-2);
-    font-size: var(--dui-spc-2);
+    font-size: var(--dui-font-size);
 }
 
 .dui.dui-font-size-2_5 {
     --dui-font-size: var(--dui-spc-2_5);
-    font-size: var(--dui-spc-2_5);
+    font-size: var(--dui-font-size);
 }
 
 .dui.dui-font-size-3 {
     --dui-font-size: var(--dui-spc-3);
-    font-size: var(--dui-spc-3);
+    font-size: var(--dui-font-size);
 }
 
 .dui.dui-font-size-3_5 {
     --dui-font-size: var(--dui-spc-3_5);
-    font-size: var(--dui-spc-3_5);
+    font-size: var(--dui-font-size);
 }
 
 .dui.dui-font-size-4 {
     --dui-font-size: var(--dui-spc-4);
-    font-size: var(--dui-spc-4);
+    font-size: var(--dui-font-size);
 }
 
 .dui.dui-font-size-5 {
     --dui-font-size: var(--dui-spc-5);
-    font-size: var(--dui-spc-5);
+    font-size: var(--dui-font-size);
 }
 
 .dui.dui-font-size-6 {
     --dui-font-size: var(--dui-spc-6);
-    font-size: var(--dui-spc-6);
+    font-size: var(--dui-font-size);
 }
 
 .dui.dui-font-size-7 {
     --dui-font-size: var(--dui-spc-7);
-    font-size: var(--dui-spc-7);
+    font-size: var(--dui-font-size);
 }
 
 .dui.dui-font-size-8 {
     --dui-font-size: var(--dui-spc-8);
-    font-size: var(--dui-spc-8);
+    font-size: var(--dui-font-size);
 }
 
 .dui.dui-font-size-9 {
     --dui-font-size: var(--dui-spc-9);
-    font-size: var(--dui-spc-9);
+    font-size: var(--dui-font-size);
 }
 
 .dui.dui-font-size-10 {
     --dui-font-size: var(--dui-spc-10);
-    font-size: var(--dui-spc-10);
+    font-size: var(--dui-font-size);
 }
 
 .dui.dui-font-size-11 {
     --dui-font-size: var(--dui-spc-11);
-    font-size: var(--dui-spc-11);
+    font-size: var(--dui-font-size);
 }
 
 .dui.dui-font-size-12 {
     --dui-font-size: var(--dui-spc-12);
-    font-size: var(--dui-spc-12);
+    font-size: var(--dui-font-size);
 }
 
 .dui.dui-font-size-14 {
     --dui-font-size: var(--dui-spc-14);
-    font-size: var(--dui-spc-14);
+    font-size: var(--dui-font-size);
 }
 
 .dui.dui-font-size-16 {
     --dui-font-size: var(--dui-spc-16);
-    font-size: var(--dui-spc-16);
+    font-size: var(--dui-font-size);
 }
 
 .dui.dui-font-size-20 {
     --dui-font-size: var(--dui-spc-20);
-    font-size: var(--dui-spc-20);
+    font-size: var(--dui-font-size);
 }
 
 .dui.dui-font-size-24 {
     --dui-font-size: var(--dui-spc-24);
-    font-size: var(--dui-spc-24);
+    font-size: var(--dui-font-size);
 }
 
 .dui.dui-font-size-28 {
     --dui-font-size: var(--dui-spc-28);
-    font-size: var(--dui-spc-28);
+    font-size: var(--dui-font-size);
 }
 
 .dui.dui-font-size-32 {
     --dui-font-size: var(--dui-spc-32);
-    font-size: var(--dui-spc-32);
+    font-size: var(--dui-font-size);
 }
 
 .dui.dui-font-size-36 {
     --dui-font-size: var(--dui-spc-36);
-    font-size: var(--dui-spc-36);
+    font-size: var(--dui-font-size);
 }
 
 .dui.dui-font-size-40 {
     --dui-font-size: var(--dui-spc-40);
-    font-size: var(--dui-spc-40);
+    font-size: var(--dui-font-size);
 }
 
 .dui.dui-font-size-44 {
     --dui-font-size: var(--dui-spc-44);
-    font-size: var(--dui-spc-44);
+    font-size: var(--dui-font-size);
 }
 
 .dui.dui-font-size-48 {
     --dui-font-size: var(--dui-spc-48);
-    font-size: var(--dui-spc-48);
+    font-size: var(--dui-font-size);
 }
 
 .dui.dui-font-size-52 {
     --dui-font-size: var(--dui-spc-52);
-    font-size: var(--dui-spc-52);
+    font-size: var(--dui-font-size);
 }
 
 .dui.dui-font-size-56 {
     --dui-font-size: var(--dui-spc-56);
-    font-size: var(--dui-spc-56);
+    font-size: var(--dui-font-size);
 }
 
 .dui.dui-font-size-60 {
     --dui-font-size: var(--dui-spc-60);
-    font-size: var(--dui-spc-60);
+    font-size: var(--dui-font-size);
 }
 
 .dui.dui-font-size-64 {
     --dui-font-size: var(--dui-spc-64);
-    font-size: var(--dui-spc-64);
+    font-size: var(--dui-font-size);
 }
 
 .dui.dui-font-size-72 {
     --dui-font-size: var(--dui-spc-72);
-    font-size: var(--dui-spc-72);
+    font-size: var(--dui-font-size);
 }
 
 .dui.dui-font-size-80 {
     --dui-font-size: var(--dui-spc-80);
-    font-size: var(--dui-spc-80);
+    font-size: var(--dui-font-size);
 }
 
 .dui.dui-font-size-96 {
     --dui-font-size: var(--dui-spc-96);
-    font-size: var(--dui-spc-96);
+    font-size: var(--dui-font-size);
 }
 
 .dui.dui-font-size-1_2p {
     --dui-font-size: var(--dui-spc-1_2p);
-    font-size: var(--dui-spc-1_2p);
+    font-size: var(--dui-font-size);
 }
 
 .dui.dui-font-size-1_3p {
     --dui-font-size: var(--dui-spc-1_3p);
-    font-size: var(--dui-spc-1_3p);
+    font-size: var(--dui-font-size);
 }
 
 .dui.dui-font-size-2_3p {
     --dui-font-size: var(--dui-spc-2_3p);
-    font-size: var(--dui-spc-2_3p);
+    font-size: var(--dui-font-size);
 }
 
 .dui.dui-font-size-1_4p {
     --dui-font-size: var(--dui-spc-1_4p);
-    font-size: var(--dui-spc-1_4p);
+    font-size: var(--dui-font-size);
 }
 
 .dui.dui-font-size-3_4p {
     --dui-font-size: var(--dui-spc-3_4p);
-    font-size: var(--dui-spc-3_4p);
+    font-size: var(--dui-font-size);
 }
 
 .dui.dui-font-size-full {
     --dui-font-size: var(--dui-spc-full);
-    font-size: var(--dui-spc-full);
+    font-size: var(--dui-font-size);
 }

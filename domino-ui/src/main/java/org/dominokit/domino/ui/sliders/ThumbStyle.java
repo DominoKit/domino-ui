@@ -13,25 +13,21 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.dominokit.domino.ui.config;
+package org.dominokit.domino.ui.sliders;
 
-/** UIConfig interface. */
-public interface UIConfig
-    extends FormsFieldsConfig,
-        ZIndexConfig,
-        AccordionConfig,
-        CardConfig,
-        ProgressBarConfig,
-        SearchConfig,
-        SpinConfig,
-        TabsConfig,
-        TreeConfig,
-        UploadConfig,
-        StepperConfig,
-        CalendarConfig,
-        TimePickerConfig,
-        DelayedActionConfig,
-        DatatableConfig,
-        CarouselConfig,
-        RichTextConfig,
-        SlidersConfig {}
+import org.dominokit.domino.ui.style.CssClass;
+
+public enum ThumbStyle {
+  ROUNDED(SliderStyles.dui_slider_thumb_rounded),
+  FLAT(SliderStyles.dui_slider_thumb_flat);
+
+  private final CssClass thumbStyle;
+
+  ThumbStyle(CssClass thumbStyle) {
+    this.thumbStyle = thumbStyle;
+  }
+
+  public CssClass getThumbStyle() {
+    return thumbStyle;
+  }
+}

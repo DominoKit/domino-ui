@@ -15,23 +15,16 @@
  */
 package org.dominokit.domino.ui.config;
 
-/** UIConfig interface. */
-public interface UIConfig
-    extends FormsFieldsConfig,
-        ZIndexConfig,
-        AccordionConfig,
-        CardConfig,
-        ProgressBarConfig,
-        SearchConfig,
-        SpinConfig,
-        TabsConfig,
-        TreeConfig,
-        UploadConfig,
-        StepperConfig,
-        CalendarConfig,
-        TimePickerConfig,
-        DelayedActionConfig,
-        DatatableConfig,
-        CarouselConfig,
-        RichTextConfig,
-        SlidersConfig {}
+import org.dominokit.domino.ui.sliders.SliderStyles;
+import org.dominokit.domino.ui.style.CssClass;
+
+public interface SlidersConfig extends ComponentConfig {
+
+  /**
+   * @return the default sliders thumb style, one of {@link SliderStyles#dui_slider_thumb_rounded}
+   *     or {@link SliderStyles#dui_slider_thumb_flat}
+   */
+  default CssClass getDefaultSliderThumbStyle() {
+    return SliderStyles.dui_slider_thumb_rounded;
+  }
+}

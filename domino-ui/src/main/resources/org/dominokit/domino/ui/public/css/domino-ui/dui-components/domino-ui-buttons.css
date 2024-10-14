@@ -22,7 +22,7 @@
     transition: var(--dui-btn-transition);
     background-color: var(--dui-btn-bg-clr, var(--dui-accent, buttonface));
     --dui-btn-bg: var(--dui-bg, var(--dui-accent, buttonface));
-    color: var(--dui-clr-white);
+    color: var(--dui-btn-fg-clr, var(--dui-clr-white));
     text-decoration: none;
     width: fit-content;
     --dui-btn-text-height:28px;
@@ -81,10 +81,12 @@ fieldset[disabled] .dui-btn {
 
 .dui.dui-btn.dui-ctx {
     --dui-btn-bg-clr: var(--dui-bg);
+    --dui-btn-fg-clr: var(--dui-clr-white);
     --dui-btn-hover-bg-clr: var(--dui-bg-l-4);
 }
 .dui-btn-group.dui-ctx {
     --dui-btn-bg-clr: var(--dui-bg);
+    --dui-btn-fg-clr: var(--dui-clr-white);
     --dui-btn-hover-bg-clr: var(--dui-bg-l-4);
 }
 .dui-btn-group .dui-btn:hover,
