@@ -110,6 +110,11 @@ public class ChipsGroup extends BaseDominoElement<HTMLDivElement, ChipsGroup>
     return this;
   }
 
+  public ChipsGroup appendChild(Chip... chips) {
+    Arrays.asList(chips).forEach(this::appendChild);
+    return this;
+  }
+
   /** Enables chips selection */
   @Override
   public ChipsGroup enable() {

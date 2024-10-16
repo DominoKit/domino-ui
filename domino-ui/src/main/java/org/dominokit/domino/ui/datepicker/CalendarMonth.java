@@ -20,7 +20,9 @@ import static java.util.Objects.isNull;
 import static org.dominokit.domino.ui.utils.Domino.*;
 
 import elemental2.dom.HTMLDivElement;
+import java.util.Arrays;
 import java.util.Date;
+import java.util.List;
 import org.dominokit.domino.ui.elements.DivElement;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
 
@@ -176,6 +178,10 @@ public class CalendarMonth extends BaseDominoElement<HTMLDivElement, CalendarMon
                     }
                   }));
     }
+  }
+
+  public List<CalendarDay> getMonthViewDays() {
+    return Arrays.asList(monthDays);
   }
 
   /**

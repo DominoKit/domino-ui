@@ -124,6 +124,7 @@ fieldset.dui {
 }
 
 .dui-field-prefix {
+    display: flex;
     order: 20;
     font: var(--dui-form-field-prefix-font);
     line-height: var(--dui-form-field-prefix-line-height);
@@ -703,6 +704,14 @@ textarea.dui-field-input {
 .dui-form-text-area-header {
     width: 100%;
 }
+.dui-form-text-area-header {
+    display: none;
+}
+
+.dui-form-text-area-header + .dui-postfix-addon {
+    display: block;
+}
+
 .dui-form-field.dui-form-text-area .dui-field-input:not([data-scroll='0']) {
     border-top: var(--dui-form-scrolled-text-area-border);
 }

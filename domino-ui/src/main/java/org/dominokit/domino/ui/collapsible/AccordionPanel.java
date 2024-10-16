@@ -18,6 +18,7 @@ package org.dominokit.domino.ui.collapsible;
 import static org.dominokit.domino.ui.utils.Domino.*;
 
 import elemental2.dom.*;
+import java.util.Arrays;
 import org.dominokit.domino.ui.config.AccordionConfig;
 import org.dominokit.domino.ui.config.HasComponentConfig;
 import org.dominokit.domino.ui.elements.DivElement;
@@ -104,8 +105,13 @@ public class AccordionPanel extends BaseDominoElement<HTMLDivElement, AccordionP
    * @see NavBar
    */
   public AccordionPanel appendChild(PostfixAddOn<?> element) {
-    headerElement.get().appendChild(element.addCss(dui_panel_utility));
+    getPostfixElement().appendChild(element.addCss(dui_panel_utility));
     return this;
+  }
+
+  @Override
+  public PostfixElement getPostfixElement() {
+    return PostfixElement.of(headerElement.get().element());
   }
 
   /**
@@ -121,6 +127,11 @@ public class AccordionPanel extends BaseDominoElement<HTMLDivElement, AccordionP
     return this;
   }
 
+  public AccordionPanel appendChild(HeaderContent<?>... elements) {
+    Arrays.asList(elements).forEach(this::appendChild);
+    return this;
+  }
+
   /**
    * Appends a component or element to the content body footer section This will initialize and
    * append the content footer section if not yet initialized.
@@ -131,6 +142,11 @@ public class AccordionPanel extends BaseDominoElement<HTMLDivElement, AccordionP
    */
   public AccordionPanel appendChild(FooterContent<?> element) {
     contentFooter.get().appendChild(element);
+    return this;
+  }
+
+  public AccordionPanel appendChild(FooterContent<?>... elements) {
+    Arrays.asList(elements).forEach(this::appendChild);
     return this;
   }
 

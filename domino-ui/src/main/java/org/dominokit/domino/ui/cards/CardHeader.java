@@ -434,7 +434,7 @@ public class CardHeader extends BaseDominoElement<HTMLDivElement, CardHeader> {
    * @return same CardHeader instance
    */
   public CardHeader appendChild(PostfixAddOn<?> postfixAddOn) {
-    mainHeader.get().appendChild(postfixAddOn);
+    getPostfixElement().appendChild(postfixAddOn);
     return this;
   }
 
@@ -445,8 +445,18 @@ public class CardHeader extends BaseDominoElement<HTMLDivElement, CardHeader> {
    * @return same card instance
    */
   public CardHeader appendChild(PrefixAddOn<?> prefixAddOn) {
-    mainHeader.get().appendChild(prefixAddOn);
+    getPrefixElement().appendChild(prefixAddOn);
     return this;
+  }
+
+  @Override
+  public PostfixElement getPostfixElement() {
+    return PostfixElement.of(mainHeader.get().element());
+  }
+
+  @Override
+  public PrefixElement getPrefixElement() {
+    return PrefixElement.of(mainHeader.get().element());
   }
 
   /** @dominokit-site-ignore {@inheritDoc} */

@@ -19,8 +19,8 @@ import static org.dominokit.domino.ui.utils.Domino.*;
 
 import elemental2.dom.HTMLElement;
 import org.dominokit.domino.ui.button.Button;
-import org.dominokit.domino.ui.elements.DivElement;
 import org.dominokit.domino.ui.icons.lib.Icons;
+import org.dominokit.domino.ui.richtext.IsRichTextEditor;
 import org.dominokit.domino.ui.richtext.RichTextCommand;
 import org.dominokit.domino.ui.utils.DominoDom;
 
@@ -49,20 +49,20 @@ public class SubscriptCommand extends RichTextCommand<SubscriptCommand> {
   /**
    * Factory method to create a new instance of SubscriptCommand.
    *
-   * @param editableElement The div element where the rich text is edited.
+   * @param isRichTextEditor The div element where the rich text is edited.
    * @return A new instance of SubscriptCommand.
    */
-  public static SubscriptCommand create(DivElement editableElement) {
-    return new SubscriptCommand(editableElement);
+  public static SubscriptCommand create(IsRichTextEditor isRichTextEditor) {
+    return new SubscriptCommand(isRichTextEditor);
   }
 
   /**
    * Constructs a new SubscriptCommand instance for the specified editable div element.
    *
-   * @param editableElement The div element where the rich text is edited.
+   * @param isRichTextEditor The div element where the rich text is edited.
    */
-  public SubscriptCommand(DivElement editableElement) {
-    super(editableElement);
+  public SubscriptCommand(IsRichTextEditor isRichTextEditor) {
+    super(isRichTextEditor);
     this.button =
         Button.create(Icons.format_subscript())
             .setTooltip(getLabels().subscript())

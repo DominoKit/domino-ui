@@ -20,6 +20,7 @@ import static org.dominokit.domino.ui.style.SpacingCss.dui_m_b_0;
 import static org.dominokit.domino.ui.utils.Domino.*;
 
 import elemental2.dom.HTMLElement;
+import java.util.Arrays;
 import org.dominokit.domino.ui.datatable.ColumnConfig;
 import org.dominokit.domino.ui.datatable.model.Category;
 import org.dominokit.domino.ui.datatable.model.Filter;
@@ -73,6 +74,11 @@ public class SelectHeaderFilter<T> implements ColumnHeaderFilterPlugin.HeaderFil
    */
   public SelectHeaderFilter<T> appendChild(SelectOption<String> selectOption) {
     select.appendChild(selectOption);
+    return this;
+  }
+
+  public SelectHeaderFilter<T> appendChild(SelectOption<String>... options) {
+    Arrays.asList(options).forEach(this::appendChild);
     return this;
   }
 

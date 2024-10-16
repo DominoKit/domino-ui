@@ -1203,6 +1203,11 @@ public class ColumnConfig<T> implements ElementsFactory, DataTableStyles {
     return this;
   }
 
+  public ColumnConfig<T> appendChild(IsElement<?>... elements) {
+    Arrays.asList(elements).forEach(this::appendChild);
+    return this;
+  }
+
   /**
    * Removes the specified child node from the header element of this column if it is a direct
    * child.

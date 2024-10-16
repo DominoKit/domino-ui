@@ -272,7 +272,21 @@ a.dui-menu-group-header:focus,
 a.dui-menu-group-header {
     text-decoration: none;
     outline: none;
-    display: inherit;
+    display: flex;
+}
+
+a.dui-menu-group-header .dui-menu-item-nested-indicator:empty,
+a.dui-menu-group-header .dui-menu-item-postfix:empty,
+a.dui-menu-group-header .dui-menu-item-prefix:empty {
+    display: none;
+}
+
+a.dui-menu-group-header .dui-menu-item-body {
+    max-width: calc(100%);
+}
+
+a.dui-menu-group-header .dui-menu-item-prefix:empty {
+    display: none;
 }
 
 .dui-menu-group-header-nav {

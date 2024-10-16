@@ -80,4 +80,43 @@ public class AnchorElement extends BaseElement<HTMLAnchorElement, AnchorElement>
     removeAttribute("href");
     return this;
   }
+
+  /**
+   * Sets the target for this href, if null or empty, remove the target attribute.
+   *
+   * @param target one of {@code _self}, {@code _blank}, {@code _parent}, {@code _top}, {@code
+   *     _unfencedTop},
+   * @return The current {@link AnchorElement} instance.
+   */
+  public AnchorElement setTarget(String target) {
+    if (isNull(target) || target.trim().isEmpty()) {
+      removeAttribute("target");
+    } else {
+      setAttribute("target", target);
+    }
+    return this;
+  }
+
+  /**
+   * Sets the target for this href, if null or empty, remove the target attribute.
+   *
+   * @param target {@link AnchorTarget}
+   * @return The current {@link AnchorElement} instance.
+   */
+  public AnchorElement setTarget(AnchorTarget target) {
+    if (isNull(target)) {
+      removeAttribute("target");
+    } else {
+      setAttribute("target", target.name());
+    }
+    return this;
+  }
+
+  public enum AnchorTarget {
+    _self,
+    _blank,
+    _parent,
+    _top,
+    _unfencedTop;
+  }
 }

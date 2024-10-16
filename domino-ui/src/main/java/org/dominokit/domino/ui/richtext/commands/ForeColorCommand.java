@@ -18,9 +18,9 @@ package org.dominokit.domino.ui.richtext.commands;
 import static org.dominokit.domino.ui.utils.Domino.*;
 
 import elemental2.dom.HTMLElement;
-import org.dominokit.domino.ui.elements.DivElement;
 import org.dominokit.domino.ui.richtext.ColorPickerButton;
 import org.dominokit.domino.ui.richtext.ForegroundColorPicker;
+import org.dominokit.domino.ui.richtext.IsRichTextEditor;
 import org.dominokit.domino.ui.richtext.RichTextCommand;
 import org.dominokit.domino.ui.utils.DominoDom;
 
@@ -47,20 +47,20 @@ public class ForeColorCommand extends RichTextCommand<ForeColorCommand> {
   /**
    * Factory method to create a new instance of ForeColorCommand.
    *
-   * @param editableElement The div element where the rich text is edited.
+   * @param isRichTextEditor The div element where the rich text is edited.
    * @return A new instance of ForeColorCommand.
    */
-  public static ForeColorCommand create(DivElement editableElement) {
-    return new ForeColorCommand(editableElement);
+  public static ForeColorCommand create(IsRichTextEditor isRichTextEditor) {
+    return new ForeColorCommand(isRichTextEditor);
   }
 
   /**
    * Constructs a new ForeColorCommand instance for the specified editable element.
    *
-   * @param editableElement The div element where the rich text is edited.
+   * @param isRichTextEditor The div element where the rich text is edited.
    */
-  public ForeColorCommand(DivElement editableElement) {
-    super(editableElement);
+  public ForeColorCommand(IsRichTextEditor isRichTextEditor) {
+    super(isRichTextEditor);
     this.foregroundColorPicker =
         ForegroundColorPicker.create()
             .setTooltip(getLabels().foreColor())

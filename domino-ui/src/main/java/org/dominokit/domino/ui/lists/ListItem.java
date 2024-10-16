@@ -297,7 +297,7 @@ public class ListItem<T> extends BaseDominoElement<HTMLLIElement, ListItem<T>>
    */
   @Override
   public ListItem<T> select() {
-    return select(isSelectable());
+    return select(isSelectionListenersPaused());
   }
 
   /**
@@ -319,7 +319,7 @@ public class ListItem<T> extends BaseDominoElement<HTMLLIElement, ListItem<T>>
    */
   @Override
   public ListItem<T> select(boolean silent) {
-    if (selectable && isEnabled()) {
+    if (isSelectable() && isEnabled()) {
       if (nonNull(listGroup)) {
         listGroup.select(this, silent);
       }
@@ -339,7 +339,7 @@ public class ListItem<T> extends BaseDominoElement<HTMLLIElement, ListItem<T>>
    */
   @Override
   public ListItem<T> deselect(boolean silent) {
-    if (selectable && isEnabled()) {
+    if (isSelectable() && isEnabled()) {
       if (nonNull(listGroup)) {
         listGroup.deselect(this, silent);
       }

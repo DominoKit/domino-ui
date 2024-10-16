@@ -28,6 +28,8 @@ import org.dominokit.domino.ui.forms.FloatBox;
 import org.dominokit.domino.ui.forms.IntegerBox;
 import org.dominokit.domino.ui.forms.LongBox;
 import org.dominokit.domino.ui.forms.ShortBox;
+import org.dominokit.domino.ui.icons.Icon;
+import org.dominokit.domino.ui.icons.lib.Icons;
 
 /**
  * Implementations of this interface can be used to configure defaults for form fields components
@@ -121,6 +123,15 @@ public interface FormsFieldsConfig extends ComponentConfig, CalendarConfig {
    */
   default boolean isTabFocusSelectArrowEnabled() {
     return false;
+  }
+
+  /**
+   * Use this method to change the default icon for clearable form fields.
+   *
+   * @return Icon for clearable fields clear value action.
+   */
+  default Icon<?> clearableInputDefaultIcon() {
+    return Icons.delete();
   }
 
   /**

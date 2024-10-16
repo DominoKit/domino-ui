@@ -5,15 +5,34 @@
     --dui-tab-text-algin: center;
 }
 
+.dui-tabs-main-nav {
+    display: flex;
+    align-items: end;
+    justify-content: inherit;
+    gap: var(--dui-spc-4);
+    border-width: var(--dui-tabs-border-width);
+    border-style: var(--dui-tabs-border-style);
+    border-color: var(--dui-tabs-border-color, var(--dui-accent));
+}
+
+.dui-tabs-leading-nav:empty,
+.dui-tabs-tail-nav:empty {
+    display: none;
+    align-self: center;
+}
+
+.dui-tabs-leading-nav,
+.dui-tabs-tail-nav {
+    align-self: center;
+}
+
 .dui-tabs-nav {
     padding: var(--dui-tabs-padding);
     margin: var(--dui-tabs-margin);
     list-style: none;
-    border-width: var(--dui-tabs-border-width);
-    border-style: var(--dui-tabs-border-style);
-    border-color: var(--dui-tabs-border-color, var(--dui-accent));
     display: flex;
     justify-content: inherit;
+    flex-grow: 1;
 }
 
 .dui-tabs-nav:before,
@@ -36,6 +55,7 @@
     padding: var(--dui-tab-anchor-padding);
     border-radius: inherit;
     text-decoration: var(--dui-tab-anchor-text-decoration);
+    outline: none;
 }
 
 .dui[class*="dui-bg-"] .dui-tab-anchor:hover,
@@ -63,7 +83,7 @@
     transition: var(--dui-tab-active-indicator-transition);
 }
 
-.dui-vertical > .dui-tabs-nav .dui-tab-anchor:before {
+.dui-vertical > .dui-tabs-main-nav > .dui-tabs-nav .dui-tab-anchor:before {
     border-width: var(--dui-v-tab-active-indicator-border-width);
     transform: var(--dui-v-tab-active-indicator-transform);
     left: auto;
@@ -74,7 +94,7 @@
     top: 0;
 }
 
-.dui-tab-item.dui-active > .dui-tab-anchor:before {
+.dui-tabs-main-nav > .dui-tabs-nav .dui-tab-item.dui-active > .dui-tab-anchor:before {
     transform: scaleX(1);
 }
 
@@ -104,6 +124,7 @@
     flex-grow: 1;
     display: inline-block;
     text-align: var(--dui-tab-header-text-align, var(--dui-tab-text-algin));
+    white-space: nowrap;
 }
 
 .dui-tab-header {
@@ -130,7 +151,8 @@
     display: flex;
 }
 
-.dui-vertical > .dui-tabs-nav {
+.dui-vertical > .dui-tabs-main-nav,
+.dui-vertical > .dui-tabs-main-nav > .dui-tabs-nav {
     flex-direction: column;
     clear: none;
 }
@@ -143,7 +165,7 @@
     display: flex;
 }
 
-.dui-vertical > .dui-tabs-nav{
+.dui-vertical > .dui-tabs-main-nav {
     border-width: var(--dui-v-tabs-border-width);
 }
 

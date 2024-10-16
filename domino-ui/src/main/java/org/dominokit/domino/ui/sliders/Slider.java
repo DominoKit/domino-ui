@@ -35,8 +35,10 @@ import org.dominokit.domino.ui.elements.InputElement;
 import org.dominokit.domino.ui.elements.SpanElement;
 import org.dominokit.domino.ui.events.EventOptions;
 import org.dominokit.domino.ui.events.EventType;
+import org.dominokit.domino.ui.style.SwapCssClass;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
 import org.dominokit.domino.ui.utils.ChildHandler;
+import org.dominokit.domino.ui.utils.DominoUIConfig;
 import org.dominokit.domino.ui.utils.HasChangeListeners;
 
 /**
@@ -66,6 +68,8 @@ public class Slider extends BaseDominoElement<HTMLDivElement, Slider>
   private boolean mouseDown;
   private boolean withThumb;
   private boolean changeListenersPaused;
+  private SwapCssClass dui_thumb_style =
+      SwapCssClass.of(DominoUIConfig.CONFIG.getUIConfig().getDefaultSliderThumbStyle());
 
   /**
    * Creates a slider with a specified maximum value.
@@ -110,7 +114,7 @@ public class Slider extends BaseDominoElement<HTMLDivElement, Slider>
   public Slider(double max, double min, double value) {
     root =
         div()
-            .addCss(dui_slider)
+            .addCss(dui_slider, dui_thumb_style)
             .appendChild(
                 input = input("range").addCss(dui_slider_input).setAttribute("step", "any"))
             .appendChild(
@@ -447,6 +451,17 @@ public class Slider extends BaseDominoElement<HTMLDivElement, Slider>
   @Override
   public boolean hasChangeListener(ChangeListener<? super Double> changeListener) {
     return changeListeners.contains(changeListener);
+  }
+
+  /**
+   * Changes the thumb style for this slider
+   *
+   * @param thumbStyle {@link ThumbStyle}
+   * @return same slider instance
+   */
+  public Slider setThumbStyle(ThumbStyle thumbStyle) {
+    this.addCss(dui_thumb_style.replaceWith(thumbStyle.getThumbStyle()));
+    return this;
   }
 
   /**

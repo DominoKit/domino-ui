@@ -20,6 +20,7 @@ import static org.dominokit.domino.ui.utils.Domino.*;
 
 import elemental2.dom.HTMLDivElement;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import org.dominokit.domino.ui.elements.DivElement;
 import org.dominokit.domino.ui.style.SwapCssClass;
@@ -140,6 +141,11 @@ public class FlexLayout extends BaseDominoElement<HTMLDivElement, FlexLayout> {
   public FlexLayout appendChild(FlexItem<?> flexItem) {
     flexItems.add(flexItem);
     appendChild(flexItem.element());
+    return this;
+  }
+
+  public FlexLayout appendChild(FlexItem<?>... flexItems) {
+    Arrays.stream(flexItems).forEach(this::appendChild);
     return this;
   }
 

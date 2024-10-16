@@ -19,8 +19,8 @@ import static org.dominokit.domino.ui.utils.Domino.*;
 
 import elemental2.dom.HTMLElement;
 import org.dominokit.domino.ui.button.Button;
-import org.dominokit.domino.ui.elements.DivElement;
 import org.dominokit.domino.ui.icons.lib.Icons;
+import org.dominokit.domino.ui.richtext.IsRichTextEditor;
 import org.dominokit.domino.ui.richtext.RichTextCommand;
 import org.dominokit.domino.ui.utils.DominoDom;
 
@@ -47,20 +47,20 @@ public class InsertUnorderedListCommand extends RichTextCommand<InsertUnorderedL
   /**
    * Factory method to create a new instance of InsertUnorderedListCommand.
    *
-   * @param editableElement The div element where the rich text is edited.
+   * @param isRichTextEditor The div element where the rich text is edited.
    * @return A new instance of InsertUnorderedListCommand.
    */
-  public static InsertUnorderedListCommand create(DivElement editableElement) {
-    return new InsertUnorderedListCommand(editableElement);
+  public static InsertUnorderedListCommand create(IsRichTextEditor isRichTextEditor) {
+    return new InsertUnorderedListCommand(isRichTextEditor);
   }
 
   /**
    * Constructs a new InsertUnorderedListCommand instance for the specified editable div element.
    *
-   * @param editableElement The div element where the rich text is edited.
+   * @param isRichTextEditor The div element where the rich text is edited.
    */
-  public InsertUnorderedListCommand(DivElement editableElement) {
-    super(editableElement);
+  public InsertUnorderedListCommand(IsRichTextEditor isRichTextEditor) {
+    super(isRichTextEditor);
     this.button =
         Button.create(Icons.format_list_bulleted())
             .setTooltip(getLabels().insertUnorderedList())

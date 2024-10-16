@@ -18669,7 +18669,17 @@
     --dui-context-fg-color: var(--dui-dominant-fg-clr);
 }
 .dui-context-dominant {
+    --dui-context-color-l-5: var(--dui-clr-dominant-l-5);
+    --dui-context-color-l-4: var(--dui-clr-dominant-l-4);
+    --dui-context-color-l-3: var(--dui-clr-dominant-l-3);
+    --dui-context-color-l-2: var(--dui-clr-dominant-l-2);
+    --dui-context-color-l-1: var(--dui-clr-dominant-l-1);
     --dui-context-color: var(--dui-clr-dominant);
+    --dui-context-color-d-1: var(--dui-clr-dominant-d-1);
+    --dui-context-color-d-2: var(--dui-clr-dominant-d-2);
+    --dui-context-color-d-3: var(--dui-clr-dominant-d-3);
+    --dui-context-color-d-4: var(--dui-clr-dominant-d-4);
+
     --dui-context-fg-color: var(--dui-dominant-fg-clr);
 }
 .dui-context-dominant-d-1 {
@@ -18709,7 +18719,17 @@
     --dui-context-fg-color: var(--dui-accent-fg-clr);
 }
 .dui-context-accent {
+    --dui-context-color-l-5: var(--dui-clr-accent-l-5);
+    --dui-context-color-l-4: var(--dui-clr-accent-l-4);
+    --dui-context-color-l-3: var(--dui-clr-accent-l-3);
+    --dui-context-color-l-2: var(--dui-clr-accent-l-2);
+    --dui-context-color-l-1: var(--dui-clr-accent-l-1);
     --dui-context-color: var(--dui-clr-accent);
+    --dui-context-color-d-1: var(--dui-clr-accent-d-1);
+    --dui-context-color-d-2: var(--dui-clr-accent-d-2);
+    --dui-context-color-d-3: var(--dui-clr-accent-d-3);
+    --dui-context-color-d-4: var(--dui-clr-accent-d-4);
+
     --dui-context-fg-color: var(--dui-accent-fg-clr);
 }
 .dui-context-accent-d-1 {
@@ -18749,7 +18769,16 @@
     --dui-context-fg-color: var(--dui-primary-fg-clr);
 }
 .dui-context-primary {
+    --dui-context-color-l-5: var(--dui-clr-primary-l-5);
+    --dui-context-color-l-4: var(--dui-clr-primary-l-4);
+    --dui-context-color-l-3: var(--dui-clr-primary-l-3);
+    --dui-context-color-l-2: var(--dui-clr-primary-l-2);
+    --dui-context-color-l-1: var(--dui-clr-primary-l-1);
     --dui-context-color: var(--dui-clr-primary);
+    --dui-context-color-d-1: var(--dui-clr-primary-d-1);
+    --dui-context-color-d-2: var(--dui-clr-primary-d-2);
+    --dui-context-color-d-3: var(--dui-clr-primary-d-3);
+    --dui-context-color-d-4: var(--dui-clr-primary-d-4);
     --dui-context-fg-color: var(--dui-primary-fg-clr);
 }
 .dui-context-primary-d-1 {
@@ -18789,7 +18818,16 @@
     --dui-context-fg-color: var(--dui-secondary-fg-clr);
 }
 .dui-context-secondary {
+    --dui-context-color-l-5: var(--dui-clr-secondary-l-5);
+    --dui-context-color-l-4: var(--dui-clr-secondary-l-4);
+    --dui-context-color-l-3: var(--dui-clr-secondary-l-3);
+    --dui-context-color-l-2: var(--dui-clr-secondary-l-2);
+    --dui-context-color-l-1: var(--dui-clr-secondary-l-1);
     --dui-context-color: var(--dui-clr-secondary);
+    --dui-context-color-d-1: var(--dui-clr-secondary-d-1);
+    --dui-context-color-d-2: var(--dui-clr-secondary-d-2);
+    --dui-context-color-d-3: var(--dui-clr-secondary-d-3);
+    --dui-context-color-d-4: var(--dui-clr-secondary-d-4);
     --dui-context-fg-color: var(--dui-secondary-fg-clr);
 }
 .dui-context-secondary-d-1 {
@@ -18829,7 +18867,16 @@
     --dui-context-fg-color: var(--dui-success-fg-clr);
 }
 .dui-context-success {
+    --dui-context-color-l-5: var(--dui-clr-success-l-5);
+    --dui-context-color-l-4: var(--dui-clr-success-l-4);
+    --dui-context-color-l-3: var(--dui-clr-success-l-3);
+    --dui-context-color-l-2: var(--dui-clr-success-l-2);
+    --dui-context-color-l-1: var(--dui-clr-success-l-1);
     --dui-context-color: var(--dui-clr-success);
+    --dui-context-color-d-1: var(--dui-clr-success-d-1);
+    --dui-context-color-d-2: var(--dui-clr-success-d-2);
+    --dui-context-color-d-3: var(--dui-clr-success-d-3);
+    --dui-context-color-d-4: var(--dui-clr-success-d-4);
     --dui-context-fg-color: var(--dui-success-fg-clr);
 }
 .dui-context-success-d-1 {
@@ -18869,7 +18916,16 @@
     --dui-context-fg-color: var(--dui-warning-fg-clr);
 }
 .dui-context-warning {
+    --dui-context-color-l-5: var(--dui-clr-warning-l-5);
+    --dui-context-color-l-4: var(--dui-clr-warning-l-4);
+    --dui-context-color-l-3: var(--dui-clr-warning-l-3);
+    --dui-context-color-l-2: var(--dui-clr-warning-l-2);
+    --dui-context-color-l-1: var(--dui-clr-warning-l-1);
     --dui-context-color: var(--dui-clr-warning);
+    --dui-context-color-d-1: var(--dui-clr-warning-d-1);
+    --dui-context-color-d-2: var(--dui-clr-warning-d-2);
+    --dui-context-color-d-3: var(--dui-clr-warning-d-3);
+    --dui-context-color-d-4: var(--dui-clr-warning-d-4);
     --dui-context-fg-color: var(--dui-warning-fg-clr);
 }
 .dui-context-warning-d-1 {
@@ -18909,7 +18965,16 @@
     --dui-context-fg-color: var(--dui-info-fg-clr);
 }
 .dui-context-info {
+    --dui-context-color-l-5: var(--dui-clr-info-l-5);
+    --dui-context-color-l-4: var(--dui-clr-info-l-4);
+    --dui-context-color-l-3: var(--dui-clr-info-l-3);
+    --dui-context-color-l-2: var(--dui-clr-info-l-2);
+    --dui-context-color-l-1: var(--dui-clr-info-l-1);
     --dui-context-color: var(--dui-clr-info);
+    --dui-context-color-d-1: var(--dui-clr-info-d-1);
+    --dui-context-color-d-2: var(--dui-clr-info-d-2);
+    --dui-context-color-d-3: var(--dui-clr-info-d-3);
+    --dui-context-color-d-4: var(--dui-clr-info-d-4);
     --dui-context-fg-color: var(--dui-info-fg-clr);
 }
 .dui-context-info-d-1 {
@@ -18949,7 +19014,16 @@
     --dui-context-fg-color: var(--dui-error-fg-clr);
 }
 .dui-context-error {
+    --dui-context-color-l-5: var(--dui-clr-error-l-5);
+    --dui-context-color-l-4: var(--dui-clr-error-l-4);
+    --dui-context-color-l-3: var(--dui-clr-error-l-3);
+    --dui-context-color-l-2: var(--dui-clr-error-l-2);
+    --dui-context-color-l-1: var(--dui-clr-error-l-1);
     --dui-context-color: var(--dui-clr-error);
+    --dui-context-color-d-1: var(--dui-clr-error-d-1);
+    --dui-context-color-d-2: var(--dui-clr-error-d-2);
+    --dui-context-color-d-3: var(--dui-clr-error-d-3);
+    --dui-context-color-d-4: var(--dui-clr-error-d-4);
     --dui-context-fg-color: var(--dui-error-fg-clr);
 }
 .dui-context-error-d-1 {
@@ -18989,7 +19063,16 @@
     --dui-context-fg-color: var(--dui-red-fg-clr);
 }
 .dui-context-red {
+    --dui-context-color-l-5: var(--dui-clr-red-l-5);
+    --dui-context-color-l-4: var(--dui-clr-red-l-4);
+    --dui-context-color-l-3: var(--dui-clr-red-l-3);
+    --dui-context-color-l-2: var(--dui-clr-red-l-2);
+    --dui-context-color-l-1: var(--dui-clr-red-l-1);
     --dui-context-color: var(--dui-clr-red);
+    --dui-context-color-d-1: var(--dui-clr-red-d-1);
+    --dui-context-color-d-2: var(--dui-clr-red-d-2);
+    --dui-context-color-d-3: var(--dui-clr-red-d-3);
+    --dui-context-color-d-4: var(--dui-clr-red-d-4);
     --dui-context-fg-color: var(--dui-red-fg-clr);
 }
 .dui-context-red-d-1 {
@@ -19029,7 +19112,16 @@
     --dui-context-fg-color: var(--dui-pink-fg-clr);
 }
 .dui-context-pink {
+    --dui-context-color-l-5: var(--dui-clr-pink-l-5);
+    --dui-context-color-l-4: var(--dui-clr-pink-l-4);
+    --dui-context-color-l-3: var(--dui-clr-pink-l-3);
+    --dui-context-color-l-2: var(--dui-clr-pink-l-2);
+    --dui-context-color-l-1: var(--dui-clr-pink-l-1);
     --dui-context-color: var(--dui-clr-pink);
+    --dui-context-color-d-1: var(--dui-clr-pink-d-1);
+    --dui-context-color-d-2: var(--dui-clr-pink-d-2);
+    --dui-context-color-d-3: var(--dui-clr-pink-d-3);
+    --dui-context-color-d-4: var(--dui-clr-pink-d-4);
     --dui-context-fg-color: var(--dui-pink-fg-clr);
 }
 .dui-context-pink-d-1 {
@@ -19069,7 +19161,16 @@
     --dui-context-fg-color: var(--dui-purple-fg-clr);
 }
 .dui-context-purple {
+    --dui-context-color-l-5: var(--dui-clr-purple-l-5);
+    --dui-context-color-l-4: var(--dui-clr-purple-l-4);
+    --dui-context-color-l-3: var(--dui-clr-purple-l-3);
+    --dui-context-color-l-2: var(--dui-clr-purple-l-2);
+    --dui-context-color-l-1: var(--dui-clr-purple-l-1);
     --dui-context-color: var(--dui-clr-purple);
+    --dui-context-color-d-1: var(--dui-clr-purple-d-1);
+    --dui-context-color-d-2: var(--dui-clr-purple-d-2);
+    --dui-context-color-d-3: var(--dui-clr-purple-d-3);
+    --dui-context-color-d-4: var(--dui-clr-purple-d-4);
     --dui-context-fg-color: var(--dui-purple-fg-clr);
 }
 .dui-context-purple-d-1 {
@@ -19109,7 +19210,16 @@
     --dui-context-fg-color: var(--dui-deep-purple-fg-clr);
 }
 .dui-context-deep-purple {
+    --dui-context-color-l-5: var(--dui-clr-deep-purple-l-5);
+    --dui-context-color-l-4: var(--dui-clr-deep-purple-l-4);
+    --dui-context-color-l-3: var(--dui-clr-deep-purple-l-3);
+    --dui-context-color-l-2: var(--dui-clr-deep-purple-l-2);
+    --dui-context-color-l-1: var(--dui-clr-deep-purple-l-1);
     --dui-context-color: var(--dui-clr-deep-purple);
+    --dui-context-color-d-1: var(--dui-clr-deep-purple-d-1);
+    --dui-context-color-d-2: var(--dui-clr-deep-purple-d-2);
+    --dui-context-color-d-3: var(--dui-clr-deep-purple-d-3);
+    --dui-context-color-d-4: var(--dui-clr-deep-purple-d-4);
     --dui-context-fg-color: var(--dui-deep-purple-fg-clr);
 }
 .dui-context-deep-purple-d-1 {
@@ -19149,7 +19259,16 @@
     --dui-context-fg-color: var(--dui-indigo-fg-clr);
 }
 .dui-context-indigo {
+    --dui-context-color-l-5: var(--dui-clr-indigo-l-5);
+    --dui-context-color-l-4: var(--dui-clr-indigo-l-4);
+    --dui-context-color-l-3: var(--dui-clr-indigo-l-3);
+    --dui-context-color-l-2: var(--dui-clr-indigo-l-2);
+    --dui-context-color-l-1: var(--dui-clr-indigo-l-1);
     --dui-context-color: var(--dui-clr-indigo);
+    --dui-context-color-d-1: var(--dui-clr-indigo-d-1);
+    --dui-context-color-d-2: var(--dui-clr-indigo-d-2);
+    --dui-context-color-d-3: var(--dui-clr-indigo-d-3);
+    --dui-context-color-d-4: var(--dui-clr-indigo-d-4);
     --dui-context-fg-color: var(--dui-indigo-fg-clr);
 }
 .dui-context-indigo-d-1 {
@@ -19189,7 +19308,16 @@
     --dui-context-fg-color: var(--dui-blue-fg-clr);
 }
 .dui-context-blue {
+    --dui-context-color-l-5: var(--dui-clr-blue-l-5);
+    --dui-context-color-l-4: var(--dui-clr-blue-l-4);
+    --dui-context-color-l-3: var(--dui-clr-blue-l-3);
+    --dui-context-color-l-2: var(--dui-clr-blue-l-2);
+    --dui-context-color-l-1: var(--dui-clr-blue-l-1);
     --dui-context-color: var(--dui-clr-blue);
+    --dui-context-color-d-1: var(--dui-clr-blue-d-1);
+    --dui-context-color-d-2: var(--dui-clr-blue-d-2);
+    --dui-context-color-d-3: var(--dui-clr-blue-d-3);
+    --dui-context-color-d-4: var(--dui-clr-blue-d-4);
     --dui-context-fg-color: var(--dui-blue-fg-clr);
 }
 .dui-context-blue-d-1 {
@@ -19229,7 +19357,16 @@
     --dui-context-fg-color: var(--dui-light-blue-fg-clr);
 }
 .dui-context-light-blue {
+    --dui-context-color-l-5: var(--dui-clr-light-blue-l-5);
+    --dui-context-color-l-4: var(--dui-clr-light-blue-l-4);
+    --dui-context-color-l-3: var(--dui-clr-light-blue-l-3);
+    --dui-context-color-l-2: var(--dui-clr-light-blue-l-2);
+    --dui-context-color-l-1: var(--dui-clr-light-blue-l-1);
     --dui-context-color: var(--dui-clr-light-blue);
+    --dui-context-color-d-1: var(--dui-clr-light-blue-d-1);
+    --dui-context-color-d-2: var(--dui-clr-light-blue-d-2);
+    --dui-context-color-d-3: var(--dui-clr-light-blue-d-3);
+    --dui-context-color-d-4: var(--dui-clr-light-blue-d-4);
     --dui-context-fg-color: var(--dui-light-blue-fg-clr);
 }
 .dui-context-light-blue-d-1 {
@@ -19269,7 +19406,16 @@
     --dui-context-fg-color: var(--dui-cyan-fg-clr);
 }
 .dui-context-cyan {
+    --dui-context-color-l-5: var(--dui-clr-cyan-l-5);
+    --dui-context-color-l-4: var(--dui-clr-cyan-l-4);
+    --dui-context-color-l-3: var(--dui-clr-cyan-l-3);
+    --dui-context-color-l-2: var(--dui-clr-cyan-l-2);
+    --dui-context-color-l-1: var(--dui-clr-cyan-l-1);
     --dui-context-color: var(--dui-clr-cyan);
+    --dui-context-color-d-1: var(--dui-clr-cyan-d-1);
+    --dui-context-color-d-2: var(--dui-clr-cyan-d-2);
+    --dui-context-color-d-3: var(--dui-clr-cyan-d-3);
+    --dui-context-color-d-4: var(--dui-clr-cyan-d-4);
     --dui-context-fg-color: var(--dui-cyan-fg-clr);
 }
 .dui-context-cyan-d-1 {
@@ -19309,7 +19455,16 @@
     --dui-context-fg-color: var(--dui-teal-fg-clr);
 }
 .dui-context-teal {
+    --dui-context-color-l-5: var(--dui-clr-teal-l-5);
+    --dui-context-color-l-4: var(--dui-clr-teal-l-4);
+    --dui-context-color-l-3: var(--dui-clr-teal-l-3);
+    --dui-context-color-l-2: var(--dui-clr-teal-l-2);
+    --dui-context-color-l-1: var(--dui-clr-teal-l-1);
     --dui-context-color: var(--dui-clr-teal);
+    --dui-context-color-d-1: var(--dui-clr-teal-d-1);
+    --dui-context-color-d-2: var(--dui-clr-teal-d-2);
+    --dui-context-color-d-3: var(--dui-clr-teal-d-3);
+    --dui-context-color-d-4: var(--dui-clr-teal-d-4);
     --dui-context-fg-color: var(--dui-teal-fg-clr);
 }
 .dui-context-teal-d-1 {
@@ -19349,7 +19504,16 @@
     --dui-context-fg-color: var(--dui-green-fg-clr);
 }
 .dui-context-green {
+    --dui-context-color-l-5: var(--dui-clr-green-l-5);
+    --dui-context-color-l-4: var(--dui-clr-green-l-4);
+    --dui-context-color-l-3: var(--dui-clr-green-l-3);
+    --dui-context-color-l-2: var(--dui-clr-green-l-2);
+    --dui-context-color-l-1: var(--dui-clr-green-l-1);
     --dui-context-color: var(--dui-clr-green);
+    --dui-context-color-d-1: var(--dui-clr-green-d-1);
+    --dui-context-color-d-2: var(--dui-clr-green-d-2);
+    --dui-context-color-d-3: var(--dui-clr-green-d-3);
+    --dui-context-color-d-4: var(--dui-clr-green-d-4);
     --dui-context-fg-color: var(--dui-green-fg-clr);
 }
 .dui-context-green-d-1 {
@@ -19389,7 +19553,16 @@
     --dui-context-fg-color: var(--dui-light-green-fg-clr);
 }
 .dui-context-light-green {
+    --dui-context-color-l-5: var(--dui-clr-light-green-l-5);
+    --dui-context-color-l-4: var(--dui-clr-light-green-l-4);
+    --dui-context-color-l-3: var(--dui-clr-light-green-l-3);
+    --dui-context-color-l-2: var(--dui-clr-light-green-l-2);
+    --dui-context-color-l-1: var(--dui-clr-light-green-l-1);
     --dui-context-color: var(--dui-clr-light-green);
+    --dui-context-color-d-1: var(--dui-clr-light-green-d-1);
+    --dui-context-color-d-2: var(--dui-clr-light-green-d-2);
+    --dui-context-color-d-3: var(--dui-clr-light-green-d-3);
+    --dui-context-color-d-4: var(--dui-clr-light-green-d-4);
     --dui-context-fg-color: var(--dui-light-green-fg-clr);
 }
 .dui-context-light-green-d-1 {
@@ -19429,7 +19602,16 @@
     --dui-context-fg-color: var(--dui-lime-fg-clr);
 }
 .dui-context-lime {
+    --dui-context-color-l-5: var(--dui-clr-lime-l-5);
+    --dui-context-color-l-4: var(--dui-clr-lime-l-4);
+    --dui-context-color-l-3: var(--dui-clr-lime-l-3);
+    --dui-context-color-l-2: var(--dui-clr-lime-l-2);
+    --dui-context-color-l-1: var(--dui-clr-lime-l-1);
     --dui-context-color: var(--dui-clr-lime);
+    --dui-context-color-d-1: var(--dui-clr-lime-d-1);
+    --dui-context-color-d-2: var(--dui-clr-lime-d-2);
+    --dui-context-color-d-3: var(--dui-clr-lime-d-3);
+    --dui-context-color-d-4: var(--dui-clr-lime-d-4);
     --dui-context-fg-color: var(--dui-lime-fg-clr);
 }
 .dui-context-lime-d-1 {
@@ -19469,7 +19651,16 @@
     --dui-context-fg-color: var(--dui-yellow-fg-clr);
 }
 .dui-context-yellow {
+    --dui-context-color-l-5: var(--dui-clr-yellow-l-5);
+    --dui-context-color-l-4: var(--dui-clr-yellow-l-4);
+    --dui-context-color-l-3: var(--dui-clr-yellow-l-3);
+    --dui-context-color-l-2: var(--dui-clr-yellow-l-2);
+    --dui-context-color-l-1: var(--dui-clr-yellow-l-1);
     --dui-context-color: var(--dui-clr-yellow);
+    --dui-context-color-d-1: var(--dui-clr-yellow-d-1);
+    --dui-context-color-d-2: var(--dui-clr-yellow-d-2);
+    --dui-context-color-d-3: var(--dui-clr-yellow-d-3);
+    --dui-context-color-d-4: var(--dui-clr-yellow-d-4);
     --dui-context-fg-color: var(--dui-yellow-fg-clr);
 }
 .dui-context-yellow-d-1 {
@@ -19509,7 +19700,16 @@
     --dui-context-fg-color: var(--dui-amber-fg-clr);
 }
 .dui-context-amber {
+    --dui-context-color-l-5: var(--dui-clr-amber-l-5);
+    --dui-context-color-l-4: var(--dui-clr-amber-l-4);
+    --dui-context-color-l-3: var(--dui-clr-amber-l-3);
+    --dui-context-color-l-2: var(--dui-clr-amber-l-2);
+    --dui-context-color-l-1: var(--dui-clr-amber-l-1);
     --dui-context-color: var(--dui-clr-amber);
+    --dui-context-color-d-1: var(--dui-clr-amber-d-1);
+    --dui-context-color-d-2: var(--dui-clr-amber-d-2);
+    --dui-context-color-d-3: var(--dui-clr-amber-d-3);
+    --dui-context-color-d-4: var(--dui-clr-amber-d-4);
     --dui-context-fg-color: var(--dui-amber-fg-clr);
 }
 .dui-context-amber-d-1 {
@@ -19549,7 +19749,16 @@
     --dui-context-fg-color: var(--dui-orange-fg-clr);
 }
 .dui-context-orange {
+    --dui-context-color-l-5: var(--dui-clr-orange-l-5);
+    --dui-context-color-l-4: var(--dui-clr-orange-l-4);
+    --dui-context-color-l-3: var(--dui-clr-orange-l-3);
+    --dui-context-color-l-2: var(--dui-clr-orange-l-2);
+    --dui-context-color-l-1: var(--dui-clr-orange-l-1);
     --dui-context-color: var(--dui-clr-orange);
+    --dui-context-color-d-1: var(--dui-clr-orange-d-1);
+    --dui-context-color-d-2: var(--dui-clr-orange-d-2);
+    --dui-context-color-d-3: var(--dui-clr-orange-d-3);
+    --dui-context-color-d-4: var(--dui-clr-orange-d-4);
     --dui-context-fg-color: var(--dui-orange-fg-clr);
 }
 .dui-context-orange-d-1 {
@@ -19589,7 +19798,16 @@
     --dui-context-fg-color: var(--dui-deep-orange-fg-clr);
 }
 .dui-context-deep-orange {
+    --dui-context-color-l-5: var(--dui-clr-deep-orange-l-5);
+    --dui-context-color-l-4: var(--dui-clr-deep-orange-l-4);
+    --dui-context-color-l-3: var(--dui-clr-deep-orange-l-3);
+    --dui-context-color-l-2: var(--dui-clr-deep-orange-l-2);
+    --dui-context-color-l-1: var(--dui-clr-deep-orange-l-1);
     --dui-context-color: var(--dui-clr-deep-orange);
+    --dui-context-color-d-1: var(--dui-clr-deep-orange-d-1);
+    --dui-context-color-d-2: var(--dui-clr-deep-orange-d-2);
+    --dui-context-color-d-3: var(--dui-clr-deep-orange-d-3);
+    --dui-context-color-d-4: var(--dui-clr-deep-orange-d-4);
     --dui-context-fg-color: var(--dui-deep-orange-fg-clr);
 }
 .dui-context-deep-orange-d-1 {
@@ -19629,7 +19847,16 @@
     --dui-context-fg-color: var(--dui-brown-fg-clr);
 }
 .dui-context-brown {
+    --dui-context-color-l-5: var(--dui-clr-brown-l-5);
+    --dui-context-color-l-4: var(--dui-clr-brown-l-4);
+    --dui-context-color-l-3: var(--dui-clr-brown-l-3);
+    --dui-context-color-l-2: var(--dui-clr-brown-l-2);
+    --dui-context-color-l-1: var(--dui-clr-brown-l-1);
     --dui-context-color: var(--dui-clr-brown);
+    --dui-context-color-d-1: var(--dui-clr-brown-d-1);
+    --dui-context-color-d-2: var(--dui-clr-brown-d-2);
+    --dui-context-color-d-3: var(--dui-clr-brown-d-3);
+    --dui-context-color-d-4: var(--dui-clr-brown-d-4);
     --dui-context-fg-color: var(--dui-brown-fg-clr);
 }
 .dui-context-brown-d-1 {
@@ -19669,7 +19896,16 @@
     --dui-context-fg-color: var(--dui-grey-fg-clr);
 }
 .dui-context-grey {
+    --dui-context-color-l-5: var(--dui-clr-grey-l-5);
+    --dui-context-color-l-4: var(--dui-clr-grey-l-4);
+    --dui-context-color-l-3: var(--dui-clr-grey-l-3);
+    --dui-context-color-l-2: var(--dui-clr-grey-l-2);
+    --dui-context-color-l-1: var(--dui-clr-grey-l-1);
     --dui-context-color: var(--dui-clr-grey);
+    --dui-context-color-d-1: var(--dui-clr-grey-d-1);
+    --dui-context-color-d-2: var(--dui-clr-grey-d-2);
+    --dui-context-color-d-3: var(--dui-clr-grey-d-3);
+    --dui-context-color-d-4: var(--dui-clr-grey-d-4);
     --dui-context-fg-color: var(--dui-grey-fg-clr);
 }
 .dui-context-grey-d-1 {
@@ -19709,7 +19945,16 @@
     --dui-context-fg-color: var(--dui-blue-grey-fg-clr);
 }
 .dui-context-blue-grey {
+    --dui-context-color-l-5: var(--dui-clr-blue-grey-l-5);
+    --dui-context-color-l-4: var(--dui-clr-blue-grey-l-4);
+    --dui-context-color-l-3: var(--dui-clr-blue-grey-l-3);
+    --dui-context-color-l-2: var(--dui-clr-blue-grey-l-2);
+    --dui-context-color-l-1: var(--dui-clr-blue-grey-l-1);
     --dui-context-color: var(--dui-clr-blue-grey);
+    --dui-context-color-d-1: var(--dui-clr-blue-grey-d-1);
+    --dui-context-color-d-2: var(--dui-clr-blue-grey-d-2);
+    --dui-context-color-d-3: var(--dui-clr-blue-grey-d-3);
+    --dui-context-color-d-4: var(--dui-clr-blue-grey-d-4);
     --dui-context-fg-color: var(--dui-blue-grey-fg-clr);
 }
 .dui-context-blue-grey-d-1 {
@@ -19749,7 +19994,16 @@
     --dui-context-fg-color: var(--dui-white-fg-clr);
 }
 .dui-context-white {
+    --dui-context-color-l-5: var(--dui-clr-white-l-5);
+    --dui-context-color-l-4: var(--dui-clr-white-l-4);
+    --dui-context-color-l-3: var(--dui-clr-white-l-3);
+    --dui-context-color-l-2: var(--dui-clr-white-l-2);
+    --dui-context-color-l-1: var(--dui-clr-white-l-1);
     --dui-context-color: var(--dui-clr-white);
+    --dui-context-color-d-1: var(--dui-clr-white-d-1);
+    --dui-context-color-d-2: var(--dui-clr-white-d-2);
+    --dui-context-color-d-3: var(--dui-clr-white-d-3);
+    --dui-context-color-d-4: var(--dui-clr-white-d-4);
     --dui-context-fg-color: var(--dui-white-fg-clr);
 }
 .dui-context-white-d-1 {
@@ -19789,7 +20043,16 @@
     --dui-context-fg-color: var(--dui-black-fg-clr);
 }
 .dui-context-black {
+    --dui-context-color-l-5: var(--dui-clr-black-l-5);
+    --dui-context-color-l-4: var(--dui-clr-black-l-4);
+    --dui-context-color-l-3: var(--dui-clr-black-l-3);
+    --dui-context-color-l-2: var(--dui-clr-black-l-2);
+    --dui-context-color-l-1: var(--dui-clr-black-l-1);
     --dui-context-color: var(--dui-clr-black);
+    --dui-context-color-d-1: var(--dui-clr-black-d-1);
+    --dui-context-color-d-2: var(--dui-clr-black-d-2);
+    --dui-context-color-d-3: var(--dui-clr-black-d-3);
+    --dui-context-color-d-4: var(--dui-clr-black-d-4);
     --dui-context-fg-color: var(--dui-black-fg-clr);
 }
 .dui-context-black-d-1 {
@@ -19843,8 +20106,4 @@
 .dui.dui-border-y-context {
     border-top-color: var(--dui-context-color);
     border-bottom-color: var(--dui-context-color);
-}
-
-.dui.dui-accent {
-
 }

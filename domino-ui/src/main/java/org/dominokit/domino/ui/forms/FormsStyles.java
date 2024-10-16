@@ -160,6 +160,8 @@ public interface FormsStyles {
   /** CSS class for the header of a text area. */
   CssClass dui_form_text_area_header = () -> "dui-form-text-area-header";
 
+  CssClass dui_form_text_area_header_filler = () -> "dui-form-text-area-header-filler";
+
   /** CSS class for specifying the gap within a text area. */
   CssClass dui_form_text_area_gap = () -> "dui-text-area-gap";
 }

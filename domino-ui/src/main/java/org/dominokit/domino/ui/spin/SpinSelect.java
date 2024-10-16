@@ -290,6 +290,11 @@ public abstract class SpinSelect<T, S extends SpinSelect<T, S>>
     return (S) this;
   }
 
+  public S appendChild(SpinItem<T>... spinItems) {
+    Arrays.stream(spinItems).forEach(this::appendChild);
+    return (S) this;
+  }
+
   public S prependChild(SpinItem<T> spinItem) {
     if (nonNull(spinItem)) {
       if (items.isEmpty()) {
@@ -301,6 +306,11 @@ public abstract class SpinSelect<T, S extends SpinSelect<T, S>>
       contentPanel.insertFirst(spinItem);
       updateArrowsVisibility();
     }
+    return (S) this;
+  }
+
+  public S prependChild(SpinItem<T>... spinItems) {
+    Arrays.stream(spinItems).forEach(this::appendChild);
     return (S) this;
   }
 

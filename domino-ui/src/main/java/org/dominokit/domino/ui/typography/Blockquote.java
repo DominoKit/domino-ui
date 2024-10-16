@@ -18,6 +18,7 @@ package org.dominokit.domino.ui.typography;
 import static org.dominokit.domino.ui.utils.Domino.*;
 
 import elemental2.dom.HTMLElement;
+import java.util.Arrays;
 import org.dominokit.domino.ui.elements.BlockquoteElement;
 import org.dominokit.domino.ui.elements.FooterElement;
 import org.dominokit.domino.ui.elements.ParagraphElement;
@@ -116,6 +117,11 @@ public class Blockquote extends BaseDominoElement<HTMLElement, Blockquote> {
    */
   public Blockquote appendChild(FooterContent<?> footerContent) {
     footer.get().appendChild(footerContent);
+    return this;
+  }
+
+  public Blockquote appendChild(FooterContent<?>... footerContents) {
+    Arrays.stream(footerContents).forEach(this::appendChild);
     return this;
   }
 

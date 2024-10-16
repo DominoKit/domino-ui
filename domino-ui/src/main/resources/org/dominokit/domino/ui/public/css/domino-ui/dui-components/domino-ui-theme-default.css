@@ -1065,7 +1065,10 @@ body.dui {
 
     --dui-layout-transitions-duration: 0.3s;
 
-    --dui-layout-content-padding: 25px;
+    --dui-layout-content-padding-top: 25px;
+    --dui-layout-content-padding-right: 25px;
+    --dui-layout-content-padding-bottom: 25px;
+    --dui-layout-content-padding-left: 25px;
 
     --dui-section-box-shadow: var(--dui-box-shadow-1);
     --dui-overlay-opacify: 30%;
@@ -1130,6 +1133,9 @@ body.dui {
 
     --dui-dialog-xlarge-width: 95%;
     --dui-dialog-xlarge-height: 95%;
+
+    --dui-dialog-full-width: 100%;
+    --dui-dialog-full-height: 100%;
 
 
     /* ============== Empty state ======================== */
@@ -1231,6 +1237,7 @@ body.dui {
     --dui-calendar-today-date-border-style: solid;
 
     --dui-calendar-selected-date-hover-color: var(--dui-color-5);
+    --dui-calendar-date-in-range-bg-color: var(--dui-accent-l-5);
 
     --dui-calendar-selector-current-year-font: var(--dui-font-normal-600);
     --dui-calendar-selector-current-month-font: var(--dui-font-normal-600);

@@ -21,11 +21,11 @@ import elemental2.dom.HTMLElement;
 import org.dominokit.domino.ui.button.Button;
 import org.dominokit.domino.ui.button.DropdownButton;
 import org.dominokit.domino.ui.button.group.ButtonsGroup;
-import org.dominokit.domino.ui.elements.DivElement;
 import org.dominokit.domino.ui.icons.lib.Icons;
 import org.dominokit.domino.ui.menu.CustomMenuItem;
 import org.dominokit.domino.ui.menu.Menu;
 import org.dominokit.domino.ui.menu.direction.DropDirection;
+import org.dominokit.domino.ui.richtext.IsRichTextEditor;
 import org.dominokit.domino.ui.richtext.RichTextCommand;
 import org.dominokit.domino.ui.utils.DominoDom;
 
@@ -53,20 +53,20 @@ public class HeadingCommand extends RichTextCommand<HeadingCommand> {
   /**
    * Factory method to create a new instance of HeadingCommand.
    *
-   * @param editableElement The div element where the rich text is edited.
+   * @param isRichTextEditor The div element where the rich text is edited.
    * @return A new instance of HeadingCommand.
    */
-  public static HeadingCommand create(DivElement editableElement) {
-    return new HeadingCommand(editableElement);
+  public static HeadingCommand create(IsRichTextEditor isRichTextEditor) {
+    return new HeadingCommand(isRichTextEditor);
   }
 
   /**
    * Constructs a new HeadingCommand instance for the specified editable element.
    *
-   * @param editableElement The div element where the rich text is edited.
+   * @param isRichTextEditor The div element where the rich text is edited.
    */
-  public HeadingCommand(DivElement editableElement) {
-    super(editableElement);
+  public HeadingCommand(IsRichTextEditor isRichTextEditor) {
+    super(isRichTextEditor);
     this.button =
         ButtonsGroup.create(
                 mainButton =

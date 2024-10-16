@@ -191,9 +191,7 @@ public class CalendarSelectors extends BaseDominoElement<HTMLDivElement, Calenda
    */
   @Override
   public void onDateSelectionChanged(Date date) {
-    if (nonNull(date)) {
-      setDate(date);
-    }
+    setDate(date);
   }
 
   /**

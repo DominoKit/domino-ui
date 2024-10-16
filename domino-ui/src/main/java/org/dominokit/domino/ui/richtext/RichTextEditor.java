@@ -18,7 +18,8 @@ package org.dominokit.domino.ui.richtext;
 import static org.dominokit.domino.ui.utils.Domino.*;
 
 import elemental2.dom.HTMLDivElement;
-import org.dominokit.domino.ui.button.group.ButtonsGroup;
+import java.util.Arrays;
+import java.util.Collection;
 import org.dominokit.domino.ui.elements.DivElement;
 import org.dominokit.domino.ui.i18n.HasLabels;
 import org.dominokit.domino.ui.i18n.RichTextLabels;
@@ -26,6 +27,7 @@ import org.dominokit.domino.ui.richtext.commands.*;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
 import org.dominokit.domino.ui.utils.ChildHandler;
 import org.dominokit.domino.ui.utils.Counter;
+import org.dominokit.domino.ui.utils.DominoUIConfig;
 import org.dominokit.domino.ui.utils.HasValue;
 import org.gwtproject.editor.client.LeafValueEditor;
 import org.gwtproject.editor.client.TakesValue;
@@ -55,10 +57,11 @@ public class RichTextEditor extends BaseDominoElement<HTMLDivElement, RichTextEd
         RichTextStyles,
         TakesValue<String>,
         LeafValueEditor<String>,
-        HasValue<RichTextEditor, String> {
+        HasValue<RichTextEditor, String>,
+        IsRichTextEditor {
 
   private final DivElement root;
-  private final DivElement editableElement;
+  private final DivElement editableElement = div().addCss(dui_rich_text_editable);
   private final DivElement toolbars;
   private Counter fontSize = new Counter(3, 1, 7);
 
@@ -71,9 +74,46 @@ public class RichTextEditor extends BaseDominoElement<HTMLDivElement, RichTextEd
     return new RichTextEditor();
   }
 
+  /**
+   * Factory method to create a new instance of {@link RichTextEditor}.
+   *
+   * @param actions A list of actions to be added to the editor toolbars.
+   * @return a new instance of {@link RichTextEditor}
+   */
+  public static RichTextEditor create(RichTextActions... actions) {
+    return new RichTextEditor(actions);
+  }
+
+  /**
+   * Factory method to create a new instance of {@link RichTextEditor}.
+   *
+   * @param actions A list of actions to be added to the editor toolbars.
+   * @return a new instance of {@link RichTextEditor}
+   */
+  public static RichTextEditor create(Collection<RichTextActions> actions) {
+    return new RichTextEditor(actions);
+  }
+
+  /**
+   * Constructs a new {@link RichTextEditor} with default configuration and commands.
+   *
+   * @param actions A list of actions to be added to the editor toolbars.
+   */
+  public RichTextEditor(RichTextActions... actions) {
+    this(Arrays.asList(actions));
+  }
+
   /** Constructs a new {@link RichTextEditor} with default configuration and commands. */
   public RichTextEditor() {
-    editableElement = div().addCss(dui_rich_text_editable);
+    this(DominoUIConfig.CONFIG.getUIConfig().getDefaultRichTextActions());
+  }
+
+  /**
+   * Constructs a new {@link RichTextEditor} with default configuration and commands.
+   *
+   * @param actions A list of actions to be added to the editor toolbars.
+   */
+  public RichTextEditor(Collection<RichTextActions> actions) {
     this.root =
         div()
             .addCss(dui_rich_text)
@@ -81,60 +121,9 @@ public class RichTextEditor extends BaseDominoElement<HTMLDivElement, RichTextEd
                 toolbars =
                     div()
                         .addCss(dui_rich_text_toolbars)
-                        .appendChild(
-                            ButtonsGroup.create()
-                                .appendChild(CopyCommand.create(editableElement))
-                                .appendChild(CutCommand.create(editableElement))
-                                .appendChild(PasteCommand.create(editableElement)))
-                        .appendChild(
-                            ButtonsGroup.create()
-                                .appendChild(BoldCommand.create(editableElement))
-                                .appendChild(ItalicCommand.create(editableElement))
-                                .appendChild(StrikeThroughCommand.create(editableElement))
-                                .appendChild(UnderLineCommand.create(editableElement)))
-                        .appendChild(
-                            ButtonsGroup.create()
-                                .appendChild(JustifyFullCommand.create(editableElement))
-                                .appendChild(JustifyCenterCommand.create(editableElement))
-                                .appendChild(JustifyLeftCommand.create(editableElement))
-                                .appendChild(JustifyRightCommand.create(editableElement)))
-                        .appendChild(
-                            ButtonsGroup.create()
-                                .appendChild(IndentCommand.create(editableElement))
-                                .appendChild(OutdentCommand.create(editableElement)))
-                        .appendChild(
-                            ButtonsGroup.create()
-                                .appendChild(IncreaseFontCommand.create(editableElement, fontSize))
-                                .appendChild(DecreaseFontCommand.create(editableElement, fontSize))
-                                .appendChild(SubscriptCommand.create(editableElement))
-                                .appendChild(SuperscriptCommand.create(editableElement)))
-                        .appendChild(
-                            ButtonsGroup.create()
-                                .appendChild(FontNameCommand.create(editableElement)))
-                        .appendChild(
-                            ButtonsGroup.create()
-                                .appendChild(HeadingCommand.create(editableElement)))
-                        .appendChild(
-                            ButtonsGroup.create()
-                                .appendChild(HorizontalRuleCommand.create(editableElement))
-                                .appendChild(InsertLinkCommand.create(editableElement))
-                                .appendChild(RemoveLinkCommand.create(editableElement))
-                                .appendChild(InsertHtmlCommand.create(editableElement))
-                                .appendChild(InsertOrderedListCommand.create(editableElement))
-                                .appendChild(InsertUnorderedListCommand.create(editableElement))
-                                .appendChild(InsertParagraphCommand.create(editableElement))
-                                .appendChild(InsertImageCommand.create(editableElement))
-                                .appendChild(InsertImageLinkCommand.create(editableElement)))
-                        .appendChild(
-                            ButtonsGroup.create()
-                                .appendChild(RemoveFormatCommand.create(editableElement)))
-                        .appendChild(BackColorCommand.create(editableElement))
-                        .appendChild(ForeColorCommand.create(editableElement))
-                        .appendChild(HiliteColorCommand.create(editableElement))
-                        .appendChild(
-                            ButtonsGroup.create()
-                                .appendChild(UndoCommand.create(editableElement))
-                                .appendChild(RedoCommand.create(editableElement))))
+                        .apply(
+                            self ->
+                                actions.forEach(action -> self.appendChild(action.apply(this)))))
             .appendChild(editableElement.setAttribute("contenteditable", "true"));
     init(this);
   }
@@ -151,6 +140,15 @@ public class RichTextEditor extends BaseDominoElement<HTMLDivElement, RichTextEd
   public RichTextEditor withValue(String value) {
     setValue(value);
     return this;
+  }
+
+  public DivElement getEditableElement() {
+    return editableElement;
+  }
+
+  @Override
+  public Counter getDefaultFontSizeCounter() {
+    return fontSize;
   }
 
   /**

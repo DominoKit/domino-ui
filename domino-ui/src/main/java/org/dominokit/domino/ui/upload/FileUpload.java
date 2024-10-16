@@ -567,7 +567,7 @@ public class FileUpload extends BaseDominoElement<HTMLDivElement, FileUpload>
    * @return The current `FileUpload` instance for method chaining.
    */
   public FileUpload removeFileItems() {
-    addedFileItems.forEach(FileItem::remove);
+    new ArrayList<>(addedFileItems).forEach(FileItem::remove);
     addedFileItems.clear();
     return this;
   }

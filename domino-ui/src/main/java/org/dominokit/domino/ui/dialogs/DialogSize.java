@@ -16,6 +16,8 @@
 package org.dominokit.domino.ui.dialogs;
 
 import static org.dominokit.domino.ui.style.GenericCss.*;
+import static org.dominokit.domino.ui.style.SpacingCss.dui_h_full;
+import static org.dominokit.domino.ui.style.SpacingCss.dui_w_full;
 
 import org.dominokit.domino.ui.style.CssClass;
 
@@ -49,7 +51,10 @@ public enum DialogSize implements IsDialogSize {
   LARGE(dui_w_large, dui_h_large),
 
   /** Very large dialog size. */
-  VERY_LARGE(dui_w_xlarge, dui_h_xlarge);
+  VERY_LARGE(dui_w_xlarge, dui_h_xlarge),
+
+  /** Fill the entire screen. */
+  FULL(dui_w_full, dui_h_full);
 
   private CssClass widthStyle;
   private CssClass heightStyle;

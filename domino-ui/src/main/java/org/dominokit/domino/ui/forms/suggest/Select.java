@@ -19,6 +19,7 @@ import static java.util.Objects.isNull;
 import static java.util.Objects.nonNull;
 
 import java.util.Objects;
+import java.util.Optional;
 import org.dominokit.domino.ui.elements.DivElement;
 
 /**
@@ -72,9 +73,22 @@ public class Select<V> extends AbstractSelect<V, V, DivElement, SelectOption<V>,
     setLabel(label);
   }
 
-  protected void doSetValue(V value) {
-    findOptionByValue(value)
-        .ifPresent(vSelectOption -> onOptionSelected(vSelectOption, isChangeListenersPaused()));
+  protected void doSetValue(V value, boolean silent) {
+    Optional<SelectOption<V>> option = findOptionByValue(value);
+    if (option.isPresent()) {
+      onOptionSelected(option.get(), silent);
+    } else {
+      if (isNull(value)) {
+        clearValue(silent);
+      }
+    }
+  }
+
+  @Override
+  protected Select<V> clearValue(boolean silent) {
+    Select<V> thisSelect = super.clearValue(silent);
+    this.selectedOption = null;
+    return thisSelect;
   }
 
   protected void doSetOption(SelectOption<V> option) {
@@ -126,9 +140,6 @@ public class Select<V> extends AbstractSelect<V, V, DivElement, SelectOption<V>,
   protected void onOptionDeselected(SelectOption<V> option, boolean silent) {
     option.remove();
     option.getComponent().remove();
-    if (Objects.equals(this.selectedOption, option)) {
-      this.selectedOption = null;
-    }
     this.optionsMenu.withPauseSelectionListenersToggle(
         true,
         field -> {
@@ -143,7 +154,7 @@ public class Select<V> extends AbstractSelect<V, V, DivElement, SelectOption<V>,
    */
   @Override
   public V getValue() {
-    if (nonNull(this.selectedOption)) {
+    if (nonNull(this.selectedOption) && this.selectedOption.getMenuItem().isSelected()) {
       return this.selectedOption.getValue();
     }
     return null;

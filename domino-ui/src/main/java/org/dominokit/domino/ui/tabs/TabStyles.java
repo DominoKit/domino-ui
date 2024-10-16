@@ -19,6 +19,9 @@ import org.dominokit.domino.ui.style.CssClass;
 
 public interface TabStyles {
   CssClass dui_tabs_nav = () -> "dui-tabs-nav";
+  CssClass dui_tabs_main_nav = () -> "dui-tabs-main-nav";
+  CssClass dui_tabs_leading_nav = () -> "dui-tabs-leading-nav";
+  CssClass dui_tabs_tail_nav = () -> "dui-tabs-tail-nav";
   CssClass dui_tab_item = () -> "dui-tab-item";
   CssClass dui_tab_anchor = () -> "dui-tab-anchor";
   CssClass dui_tabs = () -> "dui-tabs";

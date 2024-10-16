@@ -26,6 +26,7 @@ import org.dominokit.domino.ui.dialogs.DialogSize;
 import org.dominokit.domino.ui.elements.DivElement;
 import org.dominokit.domino.ui.forms.TextAreaBox;
 import org.dominokit.domino.ui.icons.lib.Icons;
+import org.dominokit.domino.ui.richtext.IsRichTextEditor;
 import org.dominokit.domino.ui.richtext.RichTextCommand;
 import org.dominokit.domino.ui.utils.DOMParser;
 
@@ -56,21 +57,21 @@ public class InsertHtmlCommand extends RichTextCommand<InsertHtmlCommand> {
   /**
    * Factory method to create a new instance of InsertHtmlCommand.
    *
-   * @param editableElement The div element where the rich text is edited.
+   * @param isRichTextEditor The div element where the rich text is edited.
    * @return A new instance of InsertHtmlCommand.
    */
-  public static InsertHtmlCommand create(DivElement editableElement) {
-    return new InsertHtmlCommand(editableElement);
+  public static InsertHtmlCommand create(IsRichTextEditor isRichTextEditor) {
+    return new InsertHtmlCommand(isRichTextEditor);
   }
 
   /**
    * Constructs a new InsertHtmlCommand instance for the specified editable div element.
    *
-   * @param editableElement The div element where the rich text is edited.
+   * @param isRichTextEditor The div element where the rich text is edited.
    */
-  public InsertHtmlCommand(DivElement editableElement) {
-    super(editableElement);
-    this.editableElement = editableElement;
+  public InsertHtmlCommand(IsRichTextEditor isRichTextEditor) {
+    super(isRichTextEditor);
+    this.editableElement = isRichTextEditor.getEditableElement();
 
     this.dialog =
         ConfirmationDialog.create()

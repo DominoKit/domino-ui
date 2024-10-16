@@ -15,11 +15,13 @@
  */
 package org.dominokit.domino.ui.tabs;
 
+import static java.util.Objects.isNull;
 import static java.util.Objects.nonNull;
 import static org.dominokit.domino.ui.utils.Domino.*;
 
 import elemental2.dom.*;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.function.Consumer;
 import org.dominokit.domino.ui.IsElement;
@@ -256,6 +258,11 @@ public class Tab extends BaseDominoElement<HTMLLIElement, Tab>
     return this;
   }
 
+  public Tab appendChild(Node... contents) {
+    Arrays.stream(contents).forEach(this::appendChild);
+    return this;
+  }
+
   /**
    * Appends an {@link IsElement} to the content area of the tab.
    *
@@ -264,6 +271,11 @@ public class Tab extends BaseDominoElement<HTMLLIElement, Tab>
    */
   public Tab appendChild(IsElement<?> content) {
     return appendChild(content.element());
+  }
+
+  public Tab appendChild(IsElement<?>... contents) {
+    Arrays.stream(contents).forEach(this::appendChild);
+    return this;
   }
 
   /**
@@ -398,6 +410,9 @@ public class Tab extends BaseDominoElement<HTMLLIElement, Tab>
    * @return The current {@link Tab} instance.
    */
   public Tab close() {
+    if (isNull(parent)) {
+      DomGlobal.console.info("Parent is null.");
+    }
     if (nonNull(parent)) {
       closeCondition.onBeforeClose(
           this,

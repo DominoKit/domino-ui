@@ -154,12 +154,12 @@ public class UploadBox extends InputFormField<UploadBox, HTMLInputElement, List<
    *
    * @return The prefix element as a <b>DivElement<b>.
    */
-  public DivElement getPrefixElement() {
-    return prefixElement.get();
+  public PrefixElement getPrefixElement() {
+    return PrefixElement.of(prefixElement.get().element());
   }
 
-  public DivElement getPostfixElement() {
-    return postfixElement.get();
+  public PostfixElement getPostfixElement() {
+    return PostfixElement.of(postfixElement.get().element());
   }
 
   /**
@@ -173,36 +173,12 @@ public class UploadBox extends InputFormField<UploadBox, HTMLInputElement, List<
   }
 
   /**
-   * Initializes and retrieves the prefix element of the <b>UploadBox</b> and applies the specified
-   * handler to it.
-   *
-   * @param handler The handler to apply to the prefix element.
-   * @return This <b>UploadBox</b> instance.
-   */
-  public UploadBox withPrefixElement(ChildHandler<UploadBox, DivElement> handler) {
-    handler.apply(this, prefixElement.get());
-    return this;
-  }
-
-  /**
    * Initializes and retrieves the postfix element of the <b>UploadBox<b>.
    *
    * @return This <b>UploadBox</b> instance.
    */
   public UploadBox withPostfixElement() {
     postfixElement.get();
-    return this;
-  }
-
-  /**
-   * Initializes and retrieves the postfix element of the <b>UploadBox</b> and applies the specified
-   * handler to it.
-   *
-   * @param handler The handler to apply to the postfix element.
-   * @return This <b>UploadBox</b> instance.
-   */
-  public UploadBox withPostfixElement(ChildHandler<UploadBox, DivElement> handler) {
-    handler.apply(this, postfixElement.get());
     return this;
   }
 

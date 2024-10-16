@@ -19,8 +19,8 @@ import static org.dominokit.domino.ui.utils.Domino.*;
 
 import elemental2.dom.HTMLElement;
 import org.dominokit.domino.ui.button.Button;
-import org.dominokit.domino.ui.elements.DivElement;
 import org.dominokit.domino.ui.icons.lib.Icons;
+import org.dominokit.domino.ui.richtext.IsRichTextEditor;
 import org.dominokit.domino.ui.richtext.RichTextCommand;
 import org.dominokit.domino.ui.utils.Counter;
 import org.dominokit.domino.ui.utils.DominoDom;
@@ -48,24 +48,22 @@ public class IncreaseFontCommand extends RichTextCommand<IncreaseFontCommand> {
   /**
    * Factory method to create a new instance of IncreaseFontCommand.
    *
-   * @param editableElement The div element where the rich text is edited.
-   * @param fontSize A counter to manage the font size incrementally.
+   * @param isRichTextEditor The div element where the rich text is edited.
    * @return A new instance of IncreaseFontCommand.
    */
-  public static IncreaseFontCommand create(DivElement editableElement, Counter fontSize) {
-    return new IncreaseFontCommand(editableElement, fontSize);
+  public static IncreaseFontCommand create(IsRichTextEditor isRichTextEditor) {
+    return new IncreaseFontCommand(isRichTextEditor);
   }
 
   /**
    * Constructs a new IncreaseFontCommand instance for the specified editable element and font size
    * counter.
    *
-   * @param editableElement The div element where the rich text is edited.
-   * @param fontSize A counter to manage the font size incrementally.
+   * @param isRichTextEditor The div element where the rich text is edited.
    */
-  public IncreaseFontCommand(DivElement editableElement, Counter fontSize) {
-    super(editableElement);
-    this.fontSize = fontSize;
+  public IncreaseFontCommand(IsRichTextEditor isRichTextEditor) {
+    super(isRichTextEditor);
+    this.fontSize = isRichTextEditor.getDefaultFontSizeCounter();
     this.button =
         Button.create(Icons.format_font_size_increase())
             .setTooltip(getLabels().increaseFontSize())

@@ -320,26 +320,19 @@ public class TreeItem<T> extends BaseDominoElement<HTMLLIElement, TreeItem<T>>
     return this;
   }
 
-  /**
-   * Appends a postfix add-on to the content of this tree item.
-   *
-   * @param postfixAddOn The postfix add-on to append.
-   * @return This tree item with the postfix add-on appended.
-   */
-  public TreeItem<T> appendChild(PostfixAddOn<?> postfixAddOn) {
-    contentElement.appendChild(postfixAddOn);
+  public TreeItem<T> appendChild(TreeItem<T>... treeItems) {
+    Arrays.stream(treeItems).forEach(this::appendChild);
     return this;
   }
 
-  /**
-   * Appends a prefix add-on to the content of this tree item.
-   *
-   * @param prefixAddOn The prefix add-on to append.
-   * @return This tree item with the prefix add-on appended.
-   */
-  public TreeItem<T> appendChild(PrefixAddOn<?> prefixAddOn) {
-    contentElement.appendChild(prefixAddOn);
-    return this;
+  @Override
+  public PrefixElement getPrefixElement() {
+    return PrefixElement.of(contentElement);
+  }
+
+  @Override
+  public PostfixElement getPostfixElement() {
+    return PostfixElement.of(contentElement);
   }
 
   private void updateIcon(boolean collapsed) {

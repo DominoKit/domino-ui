@@ -15,12 +15,10 @@
  */
 package org.dominokit.domino.ui.richtext.commands;
 
-import static org.dominokit.domino.ui.utils.Domino.*;
-
 import elemental2.dom.HTMLElement;
-import org.dominokit.domino.ui.elements.DivElement;
 import org.dominokit.domino.ui.richtext.BackgroundColorPicker;
 import org.dominokit.domino.ui.richtext.ColorPickerButton;
+import org.dominokit.domino.ui.richtext.IsRichTextEditor;
 import org.dominokit.domino.ui.richtext.RichTextCommand;
 import org.dominokit.domino.ui.utils.DominoDom;
 
@@ -46,20 +44,20 @@ public class BackColorCommand extends RichTextCommand<BackColorCommand> {
   /**
    * Factory method to create a new instance of BackColorCommand.
    *
-   * @param editableElement The div element where the rich text is edited.
+   * @param isRichTextEditor The div element where the rich text is edited.
    * @return A new instance of BackColorCommand.
    */
-  public static BackColorCommand create(DivElement editableElement) {
-    return new BackColorCommand(editableElement);
+  public static BackColorCommand create(IsRichTextEditor isRichTextEditor) {
+    return new BackColorCommand(isRichTextEditor);
   }
 
   /**
    * Constructs a new BackColorCommand instance for the specified editable element.
    *
-   * @param editableElement The div element where the rich text is edited.
+   * @param isRichTextEditor The div element where the rich text is edited.
    */
-  public BackColorCommand(DivElement editableElement) {
-    super(editableElement);
+  public BackColorCommand(IsRichTextEditor isRichTextEditor) {
+    super(isRichTextEditor);
     this.backgroundColorPicker =
         BackgroundColorPicker.create()
             .setTooltip(getLabels().backgroundColor())

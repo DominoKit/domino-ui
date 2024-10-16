@@ -22,7 +22,10 @@ import static org.dominokit.domino.ui.utils.Domino.*;
 import elemental2.dom.Element;
 import elemental2.dom.HTMLDivElement;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
+import java.util.Optional;
 import java.util.function.Consumer;
 import org.dominokit.domino.ui.IsElement;
 import org.dominokit.domino.ui.animations.Animation;
@@ -49,6 +52,9 @@ import org.dominokit.domino.ui.utils.*;
 public class TabsPanel extends BaseDominoElement<HTMLDivElement, TabsPanel>
     implements IsElement<HTMLDivElement>, TabStyles {
 
+  private final DivElement mainNav;
+  private final DivElement leadingNav;
+  private final DivElement tailNav;
   private DivElement root;
   private UListElement tabsListElement;
   private DominoElement<Element> tabsContent;
@@ -64,16 +70,24 @@ public class TabsPanel extends BaseDominoElement<HTMLDivElement, TabsPanel>
   private final SwapCssClass directionCss = SwapCssClass.of(TabsDirection.HORIZONTAL);
   private final SwapCssClass headerDirectionCss = SwapCssClass.of();
   private final SwapCssClass headerAlignCss = SwapCssClass.of();
+  private TabsOverflowHandler currentOverflowHandler;
 
   /** Creates a new instance of {@link TabsPanel}. */
   public TabsPanel() {
     root =
         div()
             .addCss(dui_tabs, directionCss)
-            .appendChild(tabsListElement = ul().addCss(dui_tabs_nav))
+            .appendChild(
+                mainNav =
+                    div()
+                        .addCss(dui_tabs_main_nav)
+                        .appendChild(leadingNav = div().addCss(dui_tabs_leading_nav))
+                        .appendChild(tabsListElement = ul().addCss(dui_tabs_nav))
+                        .appendChild(tailNav = div().addCss(dui_tabs_tail_nav)))
             .appendChild(tabsContent = elementOf(div().addCss(dui_tabs_content).element()));
 
     init(this);
+    setTabsOverflow(config().getUIConfig().getTabsDefaultOverflowHandler());
   }
 
   /**
@@ -144,6 +158,14 @@ public class TabsPanel extends BaseDominoElement<HTMLDivElement, TabsPanel>
    */
   public TabsPanel appendChild(Tab tab) {
     insertAt(tabs.size(), tab);
+    if (nonNull(currentOverflowHandler)) {
+      currentOverflowHandler.update(this);
+    }
+    return this;
+  }
+
+  public TabsPanel appendChild(Tab... tabs) {
+    Arrays.stream(tabs).forEach(this::appendChild);
     return this;
   }
 
@@ -329,9 +351,8 @@ public class TabsPanel extends BaseDominoElement<HTMLDivElement, TabsPanel>
     tabs.remove(tab);
     tab.removeTab();
 
-    tab.setParent(null);
-
     closeHandlers.forEach(closeHandler -> closeHandler.accept(tab));
+    tab.setParent(null);
   }
 
   /**
@@ -386,8 +407,6 @@ public class TabsPanel extends BaseDominoElement<HTMLDivElement, TabsPanel>
     return this;
   }
 
-  // ... other methods ...
-
   /**
    * Activates a tab by its key.
    *
@@ -406,11 +425,18 @@ public class TabsPanel extends BaseDominoElement<HTMLDivElement, TabsPanel>
    * @return the current {@link TabsPanel} instance.
    */
   public TabsPanel activateByKey(String key, boolean silent) {
-    tabs.stream()
-        .filter(tab -> tab.getKey().equalsIgnoreCase(key))
-        .findFirst()
-        .ifPresent(tab -> activateTab(tab, silent));
+    findByKey(key).ifPresent(tab -> activateTab(tab, silent));
     return this;
+  }
+
+  /**
+   * Finds the first tab by the specified key. this is a case-sensitive search
+   *
+   * @param key The tab key
+   * @return Optional of a tab.
+   */
+  public Optional<Tab> findByKey(String key) {
+    return tabs.stream().filter(tab -> Objects.equals(tab.getKey(), key)).findFirst();
   }
 
   /**
@@ -482,28 +508,14 @@ public class TabsPanel extends BaseDominoElement<HTMLDivElement, TabsPanel>
     return this;
   }
 
-  /**
-   * Appends a postfix add-on to the tabs list. A postfix add-on is typically a UI element that
-   * appears after (to the right or bottom of) the main content.
-   *
-   * @param postfixAddOn the {@link PostfixAddOn} to be appended.
-   * @return the current {@link TabsPanel} instance for method chaining.
-   */
-  public TabsPanel appendChild(PostfixAddOn<?> postfixAddOn) {
-    tabsListElement.appendChild(postfixAddOn);
-    return this;
+  @Override
+  public PrefixElement getPrefixElement() {
+    return PrefixElement.of(tabsListElement);
   }
 
-  /**
-   * Appends a prefix add-on to the tabs list. A prefix add-on is typically a UI element that
-   * appears before (to the left or top of) the main content.
-   *
-   * @param prefixAddOn the {@link PrefixAddOn} to be appended.
-   * @return the current {@link TabsPanel} instance for method chaining.
-   */
-  public TabsPanel appendChild(PrefixAddOn<?> prefixAddOn) {
-    tabsListElement.appendChild(prefixAddOn);
-    return this;
+  @Override
+  public PostfixElement getPostfixElement() {
+    return PostfixElement.of(tabsListElement);
   }
 
   /**
@@ -517,6 +529,11 @@ public class TabsPanel extends BaseDominoElement<HTMLDivElement, TabsPanel>
     return this;
   }
 
+  /** @return the tabs {@link UListElement} */
+  public UListElement getTabsNav() {
+    return tabsListElement;
+  }
+
   /**
    * Apply customizations to the tabs' content.
    *
@@ -525,6 +542,81 @@ public class TabsPanel extends BaseDominoElement<HTMLDivElement, TabsPanel>
    */
   public TabsPanel withTabsContent(ChildHandler<TabsPanel, DominoElement<Element>> handler) {
     handler.apply(this, tabsContent);
+    return this;
+  }
+
+  /**
+   * Apply customizations to the tabs main navigation element.
+   *
+   * @param handler the handler for customizing the tabs' content.
+   * @return the current {@link TabsPanel} instance.
+   */
+  public TabsPanel withMainNav(ChildHandler<TabsPanel, DivElement> handler) {
+    handler.apply(this, mainNav);
+    return this;
+  }
+
+  /**
+   * Apply customizations to the tabs leading navigation element.
+   *
+   * @param handler the handler for customizing the tabs' content.
+   * @return the current {@link TabsPanel} instance.
+   */
+  public TabsPanel withNavLeadElement(ChildHandler<TabsPanel, DivElement> handler) {
+    handler.apply(this, leadingNav);
+    return this;
+  }
+
+  /**
+   * Apply customizations to the tabs tail navigation element.
+   *
+   * @param handler the handler for customizing the tabs' content.
+   * @return the current {@link TabsPanel} instance.
+   */
+  public TabsPanel withNavTailElement(ChildHandler<TabsPanel, DivElement> handler) {
+    handler.apply(this, tailNav);
+    return this;
+  }
+
+  /**
+   * @return The container that hosts the tabs nav element in addition to navigation leading element
+   *     and navigation tail element used to implement navigation overflow behavior
+   */
+  public DivElement getMainNav() {
+    return mainNav;
+  }
+
+  /**
+   * used to host tabs overflow elements.
+   *
+   * @return The navigation leading element to the left of the tabs navigation elements
+   */
+  public DivElement getLeadingNav() {
+    return leadingNav;
+  }
+
+  /**
+   * used to host tabs overflow elements.
+   *
+   * @return the navigation tail element to the right of the tabs navigation element.
+   */
+  public DivElement getTailNav() {
+    return tailNav;
+  }
+
+  public TabsPanel setTabsOverflow(TabsOverflow overflow) {
+    if (nonNull(currentOverflowHandler)) {
+      currentOverflowHandler.cleanUp(this);
+    }
+
+    if (isNull(overflow)) {
+      currentOverflowHandler = config().getUIConfig().getTabsDefaultOverflowHandler().get();
+    } else {
+      currentOverflowHandler = overflow.get();
+    }
+
+    currentOverflowHandler.apply(this);
+
     return this;
   }
 }

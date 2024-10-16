@@ -23,9 +23,9 @@ import elemental2.dom.Range;
 import org.dominokit.domino.ui.button.Button;
 import org.dominokit.domino.ui.dialogs.ConfirmationDialog;
 import org.dominokit.domino.ui.dialogs.DialogSize;
-import org.dominokit.domino.ui.elements.DivElement;
 import org.dominokit.domino.ui.forms.TextBox;
 import org.dominokit.domino.ui.icons.lib.Icons;
+import org.dominokit.domino.ui.richtext.IsRichTextEditor;
 import org.dominokit.domino.ui.richtext.RichTextCommand;
 
 /**
@@ -54,20 +54,20 @@ public class InsertImageLinkCommand extends RichTextCommand<InsertImageLinkComma
   /**
    * Factory method to create a new instance of InsertImageLinkCommand.
    *
-   * @param editableElement The div element where the rich text is edited.
+   * @param isRichTextEditor The div element where the rich text is edited.
    * @return A new instance of InsertImageLinkCommand.
    */
-  public static InsertImageLinkCommand create(DivElement editableElement) {
-    return new InsertImageLinkCommand(editableElement);
+  public static InsertImageLinkCommand create(IsRichTextEditor isRichTextEditor) {
+    return new InsertImageLinkCommand(isRichTextEditor);
   }
 
   /**
    * Constructs a new InsertImageLinkCommand instance for the specified editable div element.
    *
-   * @param editableElement The div element where the rich text is edited.
+   * @param isRichTextEditor The div element where the rich text is edited.
    */
-  public InsertImageLinkCommand(DivElement editableElement) {
-    super(editableElement);
+  public InsertImageLinkCommand(IsRichTextEditor isRichTextEditor) {
+    super(isRichTextEditor);
     this.dialog =
         ConfirmationDialog.create()
             .setStretchWidth(DialogSize.MEDIUM)

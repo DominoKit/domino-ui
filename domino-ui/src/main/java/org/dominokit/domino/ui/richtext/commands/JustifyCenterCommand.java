@@ -19,8 +19,8 @@ import static org.dominokit.domino.ui.utils.Domino.*;
 
 import elemental2.dom.HTMLElement;
 import org.dominokit.domino.ui.button.Button;
-import org.dominokit.domino.ui.elements.DivElement;
 import org.dominokit.domino.ui.icons.lib.Icons;
+import org.dominokit.domino.ui.richtext.IsRichTextEditor;
 import org.dominokit.domino.ui.richtext.RichTextCommand;
 import org.dominokit.domino.ui.utils.DominoDom;
 
@@ -47,20 +47,20 @@ public class JustifyCenterCommand extends RichTextCommand<JustifyCenterCommand> 
   /**
    * Factory method to create a new instance of JustifyCenterCommand.
    *
-   * @param editableElement The div element where the rich text is edited.
+   * @param isRichTextEditor The div element where the rich text is edited.
    * @return A new instance of JustifyCenterCommand.
    */
-  public static JustifyCenterCommand create(DivElement editableElement) {
-    return new JustifyCenterCommand(editableElement);
+  public static JustifyCenterCommand create(IsRichTextEditor isRichTextEditor) {
+    return new JustifyCenterCommand(isRichTextEditor);
   }
 
   /**
    * Constructs a new JustifyCenterCommand instance for the specified editable div element.
    *
-   * @param editableElement The div element where the rich text is edited.
+   * @param isRichTextEditor The div element where the rich text is edited.
    */
-  public JustifyCenterCommand(DivElement editableElement) {
-    super(editableElement);
+  public JustifyCenterCommand(IsRichTextEditor isRichTextEditor) {
+    super(isRichTextEditor);
     this.button =
         Button.create(Icons.format_align_center())
             .setTooltip(getLabels().justifyCenter())

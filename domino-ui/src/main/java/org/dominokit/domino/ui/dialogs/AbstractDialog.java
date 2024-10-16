@@ -19,11 +19,16 @@ import static elemental2.dom.DomGlobal.document;
 import static elemental2.dom.DomGlobal.window;
 import static java.util.Objects.nonNull;
 import static org.dominokit.domino.ui.style.DisplayCss.dui_hidden;
-import static org.dominokit.domino.ui.utils.Domino.*;
 import static org.dominokit.domino.ui.utils.Domino.div;
 
-import elemental2.dom.*;
+import elemental2.dom.Element;
+import elemental2.dom.Event;
+import elemental2.dom.HTMLDivElement;
+import elemental2.dom.HTMLElement;
+import elemental2.dom.KeyboardEvent;
+import elemental2.dom.NodeList;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 import org.dominokit.domino.ui.IsElement;
@@ -36,7 +41,17 @@ import org.dominokit.domino.ui.events.EventType;
 import org.dominokit.domino.ui.i18n.DialogLabels;
 import org.dominokit.domino.ui.icons.Icon;
 import org.dominokit.domino.ui.style.SwapCssClass;
-import org.dominokit.domino.ui.utils.*;
+import org.dominokit.domino.ui.utils.BaseDominoElement;
+import org.dominokit.domino.ui.utils.ChildHandler;
+import org.dominokit.domino.ui.utils.DominoDom;
+import org.dominokit.domino.ui.utils.DominoUIConfig;
+import org.dominokit.domino.ui.utils.FooterContent;
+import org.dominokit.domino.ui.utils.HeaderContent;
+import org.dominokit.domino.ui.utils.IsPopup;
+import org.dominokit.domino.ui.utils.LazyChild;
+import org.dominokit.domino.ui.utils.NullLazyChild;
+import org.dominokit.domino.ui.utils.PopupsCloser;
+import org.dominokit.domino.ui.utils.Unit;
 
 /**
  * The AbstractDialog class is the base class for creating dialog boxes in the Domino-UI framework.
@@ -105,7 +120,7 @@ public class AbstractDialog<T extends AbstractDialog<T>>
             .appendChild(
                 modalElement =
                     div()
-                        .addCss(dui_modal)
+                        .addCss(dui_dialog)
                         .appendChild(
                             contentElement =
                                 div()
@@ -503,8 +518,12 @@ public class AbstractDialog<T extends AbstractDialog<T>>
    * @return This dialog instance for method chaining.
    */
   public T appendChild(HeaderContent<?> element) {
-
     contentHeader.get().appendChild(element);
+    return (T) this;
+  }
+
+  public T appendChild(HeaderContent<?>... elements) {
+    Arrays.stream(elements).forEach(this::appendChild);
     return (T) this;
   }
 
@@ -516,6 +535,11 @@ public class AbstractDialog<T extends AbstractDialog<T>>
    */
   public T appendChild(FooterContent<?> element) {
     contentFooter.get().appendChild(element);
+    return (T) this;
+  }
+
+  public T appendChild(FooterContent<?>... elements) {
+    Arrays.stream(elements).forEach(this::appendChild);
     return (T) this;
   }
 

@@ -23,10 +23,11 @@ import elemental2.dom.HTMLInputElement;
 import jsinterop.base.Js;
 import org.dominokit.domino.ui.elements.DivElement;
 import org.dominokit.domino.ui.forms.validations.ValidationResult;
-import org.dominokit.domino.ui.utils.ChildHandler;
 import org.dominokit.domino.ui.utils.HasPostfix;
 import org.dominokit.domino.ui.utils.HasPrefix;
 import org.dominokit.domino.ui.utils.LazyChild;
+import org.dominokit.domino.ui.utils.PostfixElement;
+import org.dominokit.domino.ui.utils.PrefixElement;
 
 /**
  * The TextInputFormField class is an abstract class that extends the CountableInputFormField class
@@ -145,8 +146,8 @@ public abstract class TextInputFormField<
    *
    * @return The prefix element as a `DivElement`.
    */
-  public DivElement getPrefixElement() {
-    return prefixElement.get();
+  public PrefixElement getPrefixElement() {
+    return PrefixElement.of(prefixElement.get().element());
   }
 
   /**
@@ -154,8 +155,8 @@ public abstract class TextInputFormField<
    *
    * @return The postfix element as a `DivElement`.
    */
-  public DivElement getPostfixElement() {
-    return postfixElement.get();
+  public PostfixElement getPostfixElement() {
+    return PostfixElement.of(postfixElement.get().element());
   }
 
   /**
@@ -169,36 +170,12 @@ public abstract class TextInputFormField<
   }
 
   /**
-   * Initializes and retrieves the prefix element for the text input field and applies the specified
-   * handler to it.
-   *
-   * @param handler The handler to apply to the prefix element.
-   * @return This `TextInputFormField` instance.
-   */
-  public T withPrefixElement(ChildHandler<T, DivElement> handler) {
-    handler.apply((T) this, prefixElement.get());
-    return (T) this;
-  }
-
-  /**
    * Initializes and retrieves the postfix element for the text input field.
    *
    * @return This `TextInputFormField` instance.
    */
   public T withPostfixElement() {
     postfixElement.get();
-    return (T) this;
-  }
-
-  /**
-   * Initializes and retrieves the postfix element for the text input field and applies the
-   * specified handler to it.
-   *
-   * @param handler The handler to apply to the postfix element.
-   * @return This `TextInputFormField` instance.
-   */
-  public T withPostfixElement(ChildHandler<T, DivElement> handler) {
-    handler.apply((T) this, postfixElement.get());
     return (T) this;
   }
 

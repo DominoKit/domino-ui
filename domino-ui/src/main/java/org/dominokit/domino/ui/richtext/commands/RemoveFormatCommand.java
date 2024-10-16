@@ -19,8 +19,8 @@ import static org.dominokit.domino.ui.utils.Domino.*;
 
 import elemental2.dom.HTMLElement;
 import org.dominokit.domino.ui.button.Button;
-import org.dominokit.domino.ui.elements.DivElement;
 import org.dominokit.domino.ui.icons.lib.Icons;
+import org.dominokit.domino.ui.richtext.IsRichTextEditor;
 import org.dominokit.domino.ui.richtext.RichTextCommand;
 import org.dominokit.domino.ui.utils.DominoDom;
 
@@ -49,20 +49,20 @@ public class RemoveFormatCommand extends RichTextCommand<RemoveFormatCommand> {
   /**
    * Factory method to create a new instance of RemoveFormatCommand.
    *
-   * @param editableElement The div element where the rich text is edited.
+   * @param isRichTextEditor The div element where the rich text is edited.
    * @return A new instance of RemoveFormatCommand.
    */
-  public static RemoveFormatCommand create(DivElement editableElement) {
-    return new RemoveFormatCommand(editableElement);
+  public static RemoveFormatCommand create(IsRichTextEditor isRichTextEditor) {
+    return new RemoveFormatCommand(isRichTextEditor);
   }
 
   /**
    * Constructs a new RemoveFormatCommand instance for the specified editable div element.
    *
-   * @param editableElement The div element where the rich text is edited.
+   * @param isRichTextEditor The div element where the rich text is edited.
    */
-  public RemoveFormatCommand(DivElement editableElement) {
-    super(editableElement);
+  public RemoveFormatCommand(IsRichTextEditor isRichTextEditor) {
+    super(isRichTextEditor);
     this.button =
         Button.create(Icons.format_color_marker_cancel())
             .setTooltip(getLabels().removeFormat())

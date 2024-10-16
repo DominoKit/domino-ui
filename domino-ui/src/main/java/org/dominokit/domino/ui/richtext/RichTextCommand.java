@@ -16,14 +16,12 @@
 package org.dominokit.domino.ui.richtext;
 
 import static java.util.Objects.nonNull;
-import static org.dominokit.domino.ui.utils.Domino.*;
 
 import elemental2.dom.DomGlobal;
 import elemental2.dom.HTMLElement;
 import elemental2.dom.Range;
 import elemental2.dom.Selection;
 import java.util.Optional;
-import org.dominokit.domino.ui.elements.DivElement;
 import org.dominokit.domino.ui.i18n.HasLabels;
 import org.dominokit.domino.ui.i18n.RichTextLabels;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
@@ -50,15 +48,15 @@ import org.dominokit.domino.ui.utils.BaseDominoElement;
  */
 public abstract class RichTextCommand<T extends RichTextCommand<T>>
     extends BaseDominoElement<HTMLElement, T> implements HasLabels<RichTextLabels> {
-  protected final DivElement editableElement;
+  protected final IsRichTextEditor isRichTextEditor;
 
   /**
    * Creates a new command for a given editable element.
    *
-   * @param editableElement The editable content area on which the command operates.
+   * @param isRichTextEditor The editable content area on which the command operates.
    */
-  public RichTextCommand(DivElement editableElement) {
-    this.editableElement = editableElement;
+  public RichTextCommand(IsRichTextEditor isRichTextEditor) {
+    this.isRichTextEditor = isRichTextEditor;
   }
 
   /** Executes the specific implementation of the rich text command. */
@@ -88,7 +86,9 @@ public abstract class RichTextCommand<T extends RichTextCommand<T>>
   private boolean withinElement(Selection sel) {
     if (sel.rangeCount > 0) {
       for (int i = 0; i < sel.rangeCount; ++i) {
-        if (!editableElement.contains(sel.getRangeAt(i).commonAncestorContainer)) {
+        if (!isRichTextEditor
+            .getEditableElement()
+            .contains(sel.getRangeAt(i).commonAncestorContainer)) {
           return false;
         }
       }

@@ -128,16 +128,21 @@ public class MultiSelect<V>
     return withValue(Arrays.asList(value), silent);
   }
 
-  protected void doSetValue(List<V> value) {
-    withPauseChangeListenersToggle(
-        true,
-        field ->
-            value.forEach(
-                v -> {
-                  Optional<SelectOption<V>> optionByValue = findOptionByValue(v);
-                  optionByValue.ifPresent(
-                      vSelectOption -> onOptionSelected(vSelectOption, isChangeListenersPaused()));
-                }));
+  protected void doSetValue(List<V> value, boolean silent) {
+    if (isNull(value) || value.isEmpty()) {
+      clearValue(silent);
+    } else {
+      withPauseChangeListenersToggle(
+          silent,
+          field ->
+              value.forEach(
+                  v -> {
+                    Optional<SelectOption<V>> optionByValue = findOptionByValue(v);
+                    optionByValue.ifPresent(
+                        vSelectOption ->
+                            onOptionSelected(vSelectOption, isChangeListenersPaused()));
+                  }));
+    }
   }
 
   /**

@@ -18,9 +18,9 @@ package org.dominokit.domino.ui.richtext.commands;
 import static org.dominokit.domino.ui.utils.Domino.*;
 
 import elemental2.dom.HTMLElement;
-import org.dominokit.domino.ui.elements.DivElement;
 import org.dominokit.domino.ui.richtext.ColorPickerButton;
 import org.dominokit.domino.ui.richtext.HiliteColorPicker;
+import org.dominokit.domino.ui.richtext.IsRichTextEditor;
 import org.dominokit.domino.ui.richtext.RichTextCommand;
 import org.dominokit.domino.ui.utils.DominoDom;
 
@@ -46,20 +46,20 @@ public class HiliteColorCommand extends RichTextCommand<HiliteColorCommand> {
   /**
    * Factory method to create a new instance of HiliteColorCommand.
    *
-   * @param editableElement The div element where the rich text is edited.
+   * @param isRichTextEditor The div element where the rich text is edited.
    * @return A new instance of HiliteColorCommand.
    */
-  public static HiliteColorCommand create(DivElement editableElement) {
-    return new HiliteColorCommand(editableElement);
+  public static HiliteColorCommand create(IsRichTextEditor isRichTextEditor) {
+    return new HiliteColorCommand(isRichTextEditor);
   }
 
   /**
    * Constructs a new HiliteColorCommand instance for the specified editable element.
    *
-   * @param editableElement The div element where the rich text is edited.
+   * @param isRichTextEditor The div element where the rich text is edited.
    */
-  public HiliteColorCommand(DivElement editableElement) {
-    super(editableElement);
+  public HiliteColorCommand(IsRichTextEditor isRichTextEditor) {
+    super(isRichTextEditor);
     this.foregroundColorPicker =
         HiliteColorPicker.create()
             .setTooltip(getLabels().highlightColor())

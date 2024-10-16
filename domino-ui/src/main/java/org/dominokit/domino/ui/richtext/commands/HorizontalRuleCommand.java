@@ -19,8 +19,8 @@ import static org.dominokit.domino.ui.utils.Domino.*;
 
 import elemental2.dom.HTMLElement;
 import org.dominokit.domino.ui.button.Button;
-import org.dominokit.domino.ui.elements.DivElement;
 import org.dominokit.domino.ui.icons.lib.Icons;
+import org.dominokit.domino.ui.richtext.IsRichTextEditor;
 import org.dominokit.domino.ui.richtext.RichTextCommand;
 import org.dominokit.domino.ui.utils.DominoDom;
 
@@ -45,20 +45,20 @@ public class HorizontalRuleCommand extends RichTextCommand<HorizontalRuleCommand
   /**
    * Factory method to create a new instance of HorizontalRuleCommand.
    *
-   * @param editableElement The div element where the rich text is edited.
+   * @param isRichTextEditor The div element where the rich text is edited.
    * @return A new instance of HorizontalRuleCommand.
    */
-  public static HorizontalRuleCommand create(DivElement editableElement) {
-    return new HorizontalRuleCommand(editableElement);
+  public static HorizontalRuleCommand create(IsRichTextEditor isRichTextEditor) {
+    return new HorizontalRuleCommand(isRichTextEditor);
   }
 
   /**
    * Constructs a new HorizontalRuleCommand instance for the specified editable element.
    *
-   * @param editableElement The div element where the rich text is edited.
+   * @param isRichTextEditor The div element where the rich text is edited.
    */
-  public HorizontalRuleCommand(DivElement editableElement) {
-    super(editableElement);
+  public HorizontalRuleCommand(IsRichTextEditor isRichTextEditor) {
+    super(isRichTextEditor);
     this.button =
         Button.create(Icons.minus())
             .setTooltip(getLabels().insertHorizontalRule())

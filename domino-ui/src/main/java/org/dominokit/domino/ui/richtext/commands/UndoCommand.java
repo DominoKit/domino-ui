@@ -19,8 +19,8 @@ import static org.dominokit.domino.ui.utils.Domino.*;
 
 import elemental2.dom.HTMLElement;
 import org.dominokit.domino.ui.button.Button;
-import org.dominokit.domino.ui.elements.DivElement;
 import org.dominokit.domino.ui.icons.lib.Icons;
+import org.dominokit.domino.ui.richtext.IsRichTextEditor;
 import org.dominokit.domino.ui.richtext.RichTextCommand;
 import org.dominokit.domino.ui.utils.DominoDom;
 
@@ -49,20 +49,20 @@ public class UndoCommand extends RichTextCommand<UndoCommand> {
   /**
    * Factory method to create a new instance of UndoCommand.
    *
-   * @param editableElement The div element where the rich text is edited.
+   * @param isRichTextEditor The div element where the rich text is edited.
    * @return A new instance of UndoCommand.
    */
-  public static UndoCommand create(DivElement editableElement) {
-    return new UndoCommand(editableElement);
+  public static UndoCommand create(IsRichTextEditor isRichTextEditor) {
+    return new UndoCommand(isRichTextEditor);
   }
 
   /**
    * Constructs a new UndoCommand instance for the specified editable div element.
    *
-   * @param editableElement The div element where the rich text is edited.
+   * @param isRichTextEditor The div element where the rich text is edited.
    */
-  public UndoCommand(DivElement editableElement) {
-    super(editableElement);
+  public UndoCommand(IsRichTextEditor isRichTextEditor) {
+    super(isRichTextEditor);
     this.button =
         Button.create(Icons.undo())
             .setTooltip(getLabels().undo())

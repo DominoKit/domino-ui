@@ -23,7 +23,7 @@ import org.dominokit.domino.ui.style.ReplaceCssClass;
 public interface DialogStyles {
 
   /** Constant <code>dui_modal</code> */
-  CssClass dui_modal = () -> "dui-dialog";
+  CssClass dui_dialog = () -> "dui-dialog";
   /** Constant <code>dui_modal_box</code> */
   CssClass dui_modal_box = () -> "dui-dialog-box";
 

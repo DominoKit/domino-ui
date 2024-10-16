@@ -32,4 +32,6 @@ public interface UIConfig
         TimePickerConfig,
         DelayedActionConfig,
         DatatableConfig,
-        CarouselConfig {}
+        CarouselConfig,
+        RichTextConfig,
+        SlidersConfig {}

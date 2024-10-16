@@ -765,22 +765,14 @@ public abstract class NumberBox<T extends NumberBox<T, V>, V extends Number>
     return "";
   }
 
-  /**
-   * Retrieves the prefix element itself.
-   *
-   * @return The DivElement representing the prefix.
-   */
-  public DivElement getPrefixElement() {
-    return prefixElement.get();
+  @Override
+  public PostfixElement getPostfixElement() {
+    return PostfixElement.of(postfixElement.get().element());
   }
 
-  /**
-   * Retrieves the postfix element itself.
-   *
-   * @return The DivElement representing the postfix.
-   */
-  public DivElement getPostfixElement() {
-    return postfixElement.get();
+  @Override
+  public PrefixElement getPrefixElement() {
+    return PrefixElement.of(prefixElement.get().element());
   }
 
   /**
@@ -794,36 +786,12 @@ public abstract class NumberBox<T extends NumberBox<T, V>, V extends Number>
   }
 
   /**
-   * Initializes and applies a handler to the prefix element.
-   *
-   * @param handler A function taking the current NumberBox instance and the prefix DivElement, to
-   *     apply custom behavior.
-   * @return This instance, to facilitate method chaining.
-   */
-  public T withPrefixElement(ChildHandler<T, DivElement> handler) {
-    handler.apply((T) this, prefixElement.get());
-    return (T) this;
-  }
-
-  /**
    * Ensures the postfix element is initialized.
    *
    * @return This instance, to facilitate method chaining.
    */
   public T withPostfixElement() {
     postfixElement.get();
-    return (T) this;
-  }
-
-  /**
-   * Initializes and applies a handler to the postfix element.
-   *
-   * @param handler A function taking the current NumberBox instance and the postfix DivElement, to
-   *     apply custom behavior.
-   * @return This instance, to facilitate method chaining.
-   */
-  public T withPostfixElement(ChildHandler<T, DivElement> handler) {
-    handler.apply((T) this, postfixElement.get());
     return (T) this;
   }
 

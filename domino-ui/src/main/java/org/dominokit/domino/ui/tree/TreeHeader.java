@@ -27,6 +27,7 @@ import org.dominokit.domino.ui.utils.BaseDominoElement;
 import org.dominokit.domino.ui.utils.ChildHandler;
 import org.dominokit.domino.ui.utils.LazyChild;
 import org.dominokit.domino.ui.utils.PostfixAddOn;
+import org.dominokit.domino.ui.utils.PostfixElement;
 
 /**
  * A component representing the header of a tree item in a UI tree.
@@ -166,18 +167,9 @@ public class TreeHeader extends BaseDominoElement<HTMLDivElement, TreeHeader>
     return this;
   }
 
-  /**
-   * Appends a postfix add-on to the tree header.
-   *
-   * @param postfixAddOn The postfix add-on to append.
-   * @return This {@code TreeHeader} instance for method chaining.
-   */
-  public TreeHeader appendChild(PostfixAddOn<?> postfixAddOn) {
-    if (nonNull(postfixAddOn)) {
-      postfixAddOn.addCss(dui_tree_header_item);
-      content.appendChild(postfixAddOn);
-    }
-    return this;
+  @Override
+  public PostfixElement getPostfixElement() {
+    return PostfixElement.of(content);
   }
 
   /**

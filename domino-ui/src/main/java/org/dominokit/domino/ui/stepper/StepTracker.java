@@ -27,8 +27,8 @@ import java.util.Set;
 import org.dominokit.domino.ui.elements.DivElement;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
 import org.dominokit.domino.ui.utils.ChildHandler;
-import org.dominokit.domino.ui.utils.PostfixAddOn;
-import org.dominokit.domino.ui.utils.PrefixAddOn;
+import org.dominokit.domino.ui.utils.PostfixElement;
+import org.dominokit.domino.ui.utils.PrefixElement;
 
 /**
  * Represents a tracker within a step in a stepper component. This tracker displays the state of the
@@ -227,26 +227,14 @@ public class StepTracker extends BaseDominoElement<HTMLDivElement, StepTracker>
     return this;
   }
 
-  /**
-   * Appends a postfix add-on to the step tracker.
-   *
-   * @param postfixAddOn The postfix add-on to append.
-   * @return This {@link StepTracker} instance.
-   */
-  public StepTracker appendChild(PostfixAddOn<?> postfixAddOn) {
-    this.trackerChain.appendChild(postfixAddOn);
-    return this;
+  @Override
+  public PrefixElement getPrefixElement() {
+    return PrefixElement.of(this.trackerChain);
   }
 
-  /**
-   * Appends a prefix add-on to the step tracker.
-   *
-   * @param prefixAddOn The prefix add-on to append.
-   * @return This {@link StepTracker} instance.
-   */
-  public StepTracker appendChild(PrefixAddOn<?> prefixAddOn) {
-    this.trackerChain.appendChild(prefixAddOn);
-    return this;
+  @Override
+  public PostfixElement getPostfixElement() {
+    return PostfixElement.of(this.trackerChain);
   }
 
   /** {@inheritDoc} */

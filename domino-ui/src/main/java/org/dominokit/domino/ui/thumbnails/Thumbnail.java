@@ -22,6 +22,7 @@ import elemental2.dom.HTMLElement;
 import elemental2.dom.HTMLImageElement;
 import elemental2.dom.HTMLPictureElement;
 import elemental2.dom.Node;
+import java.util.Arrays;
 import jsinterop.base.Js;
 import org.dominokit.domino.ui.IsElement;
 import org.dominokit.domino.ui.elements.DivElement;
@@ -123,6 +124,11 @@ public class Thumbnail extends BaseDominoElement<HTMLDivElement, Thumbnail>
     return super.appendChild(img);
   }
 
+  public Thumbnail appendChild(HTMLImageElement... images) {
+    Arrays.stream(images).forEach(this::appendChild);
+    return this;
+  }
+
   /**
    * Appends a child element to the thumbnail. If the child is an image or picture, it applies the
    * necessary styling.
@@ -138,6 +144,11 @@ public class Thumbnail extends BaseDominoElement<HTMLDivElement, Thumbnail>
     return super.appendChild(element);
   }
 
+  public Thumbnail appendChild(IsElement<?>... elements) {
+    Arrays.stream(elements).forEach(this::appendChild);
+    return this;
+  }
+
   /**
    * Appends a child node to the thumbnail. If the node is an image or picture, it applies the
    * necessary styling.
@@ -150,6 +161,11 @@ public class Thumbnail extends BaseDominoElement<HTMLDivElement, Thumbnail>
       elementOf(Js.<HTMLElement>uncheckedCast(node)).addCss(dui_thumbnail_img);
     }
     return super.appendChild(node);
+  }
+
+  public Thumbnail appendChild(Node... nodes) {
+    Arrays.stream(nodes).forEach(this::appendChild);
+    return this;
   }
 
   /**
@@ -226,6 +242,11 @@ public class Thumbnail extends BaseDominoElement<HTMLDivElement, Thumbnail>
     return this;
   }
 
+  public Thumbnail appendChild(FooterContent<?>... footerContents) {
+    Arrays.stream(footerContents).forEach(this::appendChild);
+    return this;
+  }
+
   /**
    * Appends the provided header content to the title of the thumbnail.
    *
@@ -234,6 +255,11 @@ public class Thumbnail extends BaseDominoElement<HTMLDivElement, Thumbnail>
    */
   public Thumbnail appendChild(HeaderContent<?> headerContent) {
     title.get().appendChild(headerContent);
+    return this;
+  }
+
+  public Thumbnail appendChild(HeaderContent<?>... headerContents) {
+    Arrays.stream(headerContents).forEach(this::appendChild);
     return this;
   }
 
