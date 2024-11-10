@@ -26,6 +26,7 @@ import org.dominokit.domino.ui.datatable.model.FilterTypes;
 import org.dominokit.domino.ui.datatable.model.SearchContext;
 import org.dominokit.domino.ui.datatable.plugins.column.ColumnHeaderFilterPlugin;
 import org.dominokit.domino.ui.forms.DateBox;
+import org.dominokit.domino.ui.utils.ChildHandler;
 
 /**
  * The DateHeaderFilter class provides a header filter for date columns in a DataTable. It allows
@@ -71,6 +72,11 @@ public class DateHeaderFilter<T> implements ColumnHeaderFilterPlugin.HeaderFilte
    */
   public DateBox getDateBox() {
     return dateBox;
+  }
+
+  public DateHeaderFilter<T> withDateBox(ChildHandler<DateHeaderFilter<T>, DateBox> handler) {
+    handler.apply(this, dateBox);
+    return this;
   }
 
   /**
