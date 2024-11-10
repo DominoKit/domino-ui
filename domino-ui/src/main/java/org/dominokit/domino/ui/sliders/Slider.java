@@ -30,6 +30,8 @@ import elemental2.dom.EventListener;
 import elemental2.dom.HTMLDivElement;
 import java.util.HashSet;
 import java.util.Set;
+import org.dominokit.domino.ui.config.HasComponentConfig;
+import org.dominokit.domino.ui.config.SlidersConfig;
 import org.dominokit.domino.ui.elements.DivElement;
 import org.dominokit.domino.ui.elements.InputElement;
 import org.dominokit.domino.ui.elements.SpanElement;
@@ -58,7 +60,7 @@ import org.dominokit.domino.ui.utils.HasChangeListeners;
  * @see BaseDominoElement
  */
 public class Slider extends BaseDominoElement<HTMLDivElement, Slider>
-    implements HasChangeListeners<Slider, Double>, SliderStyles {
+    implements HasChangeListeners<Slider, Double>, SliderStyles, HasComponentConfig<SlidersConfig> {
   private final DivElement root;
   private final InputElement input;
   private final SpanElement thumb;
@@ -70,6 +72,7 @@ public class Slider extends BaseDominoElement<HTMLDivElement, Slider>
   private boolean changeListenersPaused;
   private SwapCssClass dui_thumb_style =
       SwapCssClass.of(DominoUIConfig.CONFIG.getUIConfig().getDefaultSliderThumbStyle());
+  private boolean autoHideThumb = DominoUIConfig.CONFIG.getUIConfig().autoHideThumb();
 
   /**
    * Creates a slider with a specified maximum value.
@@ -128,13 +131,7 @@ public class Slider extends BaseDominoElement<HTMLDivElement, Slider>
     setValue(value);
     EventListener downEvent =
         mouseDownEvent -> {
-          this.oldValue = getValue();
-          input.addCss(dui_active);
-          this.mouseDown = true;
-          if (withThumb) {
-            showThumb();
-            evaluateThumbPosition();
-          }
+          startSliding();
         };
     EventListener moveMouseListener =
         mouseMoveEvent -> {
@@ -145,13 +142,20 @@ public class Slider extends BaseDominoElement<HTMLDivElement, Slider>
             }
           }
         };
-    EventListener leaveMouseListener = evt -> hideThumb();
+    EventListener leaveMouseListener =
+        evt -> {
+          if (isAutoHideThumb()) {
+            hideThumb();
+          }
+        };
 
     EventListener upEvent =
         mouseUpEvent -> {
           mouseDown = false;
           input.removeCss(dui_active);
-          hideThumb();
+          if (isAutoHideThumb()) {
+            hideThumb();
+          }
         };
     input.addEventListener(change.getName(), evt -> triggerChangeListeners(oldValue, getValue()));
 
@@ -170,6 +174,22 @@ public class Slider extends BaseDominoElement<HTMLDivElement, Slider>
     input.addEventListener(blur.getName(), leaveMouseListener);
 
     init(this);
+    onAttached(
+        mutationRecord -> {
+          if (!autoHideThumb) {
+            startSliding();
+          }
+        });
+  }
+
+  private void startSliding() {
+    this.oldValue = getValue();
+    input.addCss(dui_active);
+    this.mouseDown = true;
+    if (withThumb) {
+      showThumb();
+      evaluateThumbPosition();
+    }
   }
 
   /**
@@ -406,6 +426,15 @@ public class Slider extends BaseDominoElement<HTMLDivElement, Slider>
   public Slider setShowThumb(boolean withThumb) {
     this.withThumb = withThumb;
     return this;
+  }
+
+  public Slider setAutoHideThumb(boolean autoHideThumb) {
+    this.autoHideThumb = autoHideThumb;
+    return this;
+  }
+
+  public boolean isAutoHideThumb() {
+    return this.autoHideThumb;
   }
 
   /**
