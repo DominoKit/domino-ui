@@ -15,30 +15,30 @@
  */
 package org.dominokit.domino.ui.forms.suggest;
 
-import static org.dominokit.domino.ui.utils.Domino.*;
+import static org.dominokit.domino.ui.style.GenericCss.dui_minified;
 
 import org.dominokit.domino.ui.elements.DivElement;
+import org.dominokit.domino.ui.forms.CheckBox;
 import org.dominokit.domino.ui.menu.AbstractMenuItem;
-import org.dominokit.domino.ui.menu.MenuItem;
 
 /**
- * Represents a selectable option within a dropdown menu or suggestion list.
+ * Represents a selectable option within a dropdown menu or suggestion list with a checkbox.
  *
- * <p>This class extends the {@link Option} class and is designed for use with a {@link SuggestBox}
- * and {@link Select} or similar components to represent selectable options.
+ * <p>This class extends the {@link SelectOption} class and is designed for use with a {@link
+ * SuggestBox} and {@link Select} or similar components to represent selectable options.
  *
  * <p>Usage Example:
  *
  * <pre>{@code
- * SelectOption<String> option = SelectOption.create("1", "Option 1", "This is the first option");
+ * CheckOption<String> option = CheckOption.create("1", "Option 1", "This is the first option");
  * }</pre>
  *
  * @param <V> The type of the option's value.
  */
-public class SelectOption<V> extends Option<V, DivElement, SelectOption<V>> {
+public class CheckOption<V> extends SelectOption<V> {
 
   /**
-   * Creates a new SelectOption with the provided key, value, and text.
+   * Creates a new CheckOption with the provided key, value, and text.
    *
    * @param <V> The type of the option's value.
    * @param key The unique key for the option.
@@ -46,35 +46,35 @@ public class SelectOption<V> extends Option<V, DivElement, SelectOption<V>> {
    * @param text The text to display for the option.
    * @return A new SelectOption instance.
    */
-  public static <V> SelectOption<V> create(String key, V value, String text) {
-    return new SelectOption<>(key, value, text);
+  public static <V> CheckOption<V> create(String key, V value, String text) {
+    return new CheckOption<>(key, value, text);
   }
 
   /**
-   * Creates a new SelectOption with the provided value, using the value itself as the key and text.
+   * Creates a new CheckOption with the provided value, using the value itself as the key and text.
    *
    * @param <V> The type of the option's value.
    * @param value The value associated with the option.
    * @return A new SelectOption instance.
    */
-  public static <V> SelectOption<V> create(V value) {
-    return new SelectOption<>(String.valueOf(value), value, String.valueOf(value));
+  public static <V> CheckOption<V> create(V value) {
+    return new CheckOption<>(String.valueOf(value), value, String.valueOf(value));
   }
 
   /**
-   * Creates a new SelectOption with the provided value, key, and text.
+   * Creates a new CheckOption with the provided value, key, and text.
    *
    * @param <V> The type of the option's value.
    * @param value The value associated with the option.
    * @param text The text to display for the option.
    * @return A new SelectOption instance.
    */
-  public static <V> SelectOption<V> create(V value, String text) {
-    return new SelectOption<>(String.valueOf(value), value, text);
+  public static <V> CheckOption<V> create(V value, String text) {
+    return new CheckOption<>(String.valueOf(value), value, text);
   }
 
   /**
-   * Creates a new SelectOption with the provided key, value, text, and description.
+   * Creates a new CheckOption with the provided key, value, text, and description.
    *
    * @param <V> The type of the option's value.
    * @param key The unique key for the option.
@@ -83,8 +83,8 @@ public class SelectOption<V> extends Option<V, DivElement, SelectOption<V>> {
    * @param description The description for the option.
    * @return A new SelectOption instance.
    */
-  public static <V> SelectOption<V> create(String key, V value, String text, String description) {
-    return new SelectOption<>(key, value, text, description);
+  public static <V> CheckOption<V> create(String key, V value, String text, String description) {
+    return new CheckOption<>(key, value, text, description);
   }
 
   /**
@@ -100,40 +100,41 @@ public class SelectOption<V> extends Option<V, DivElement, SelectOption<V>> {
    *     option.
    * @return A new SelectOption instance with custom component and menu item.
    */
-  public static <V> SelectOption<V> create(
+  public static <V> CheckOption<V> create(
       String key,
       V value,
       OptionSupplier<DivElement, V> componentSupplier,
       OptionSupplier<AbstractMenuItem<V>, V> menuItemSupplier) {
-    return new SelectOption<>(key, value, componentSupplier, menuItemSupplier);
+    return new CheckOption<>(key, value, componentSupplier, menuItemSupplier);
   }
 
   /**
-   * Creates a new SelectOption with the provided key, value, text, and description.
+   * Creates a new CheckOption with the provided key, value, text, and description.
    *
    * @param key The unique key for the option.
    * @param value The value associated with the option.
    * @param text The text to display for the option.
    * @param description The description for the option.
    */
-  public SelectOption(String key, V value, String text, String description) {
-    super(
-        key, value, div().textContent(text).addCss(dui_m_r_1), MenuItem.create(text, description));
+  public CheckOption(String key, V value, String text, String description) {
+    super(key, value, text, description);
+    initCheckBox();
   }
 
   /**
-   * Creates a new SelectOption with the provided key, value, and text.
+   * Creates a new CheckOption with the provided key, value, and text.
    *
    * @param key The unique key for the option.
    * @param value The value associated with the option.
    * @param text The text to display for the option.
    */
-  public SelectOption(String key, V value, String text) {
-    super(key, value, div().textContent(text).addCss(dui_m_r_1), MenuItem.create(text));
+  public CheckOption(String key, V value, String text) {
+    super(key, value, text);
+    initCheckBox();
   }
 
   /**
-   * Creates a new SelectOption with the provided key, value, component supplier, and menu item
+   * Creates a new CheckOption with the provided key, value, component supplier, and menu item
    * supplier.
    *
    * @param key The unique key for the option.
@@ -141,11 +142,36 @@ public class SelectOption<V> extends Option<V, DivElement, SelectOption<V>> {
    * @param componentSupplier The supplier for the option's component.
    * @param menuItemSupplier The supplier for the option's menu item.
    */
-  public SelectOption(
+  public CheckOption(
       String key,
       V value,
       OptionSupplier<DivElement, V> componentSupplier,
       OptionSupplier<AbstractMenuItem<V>, V> menuItemSupplier) {
     super(key, value, componentSupplier, menuItemSupplier);
+    initCheckBox();
+  }
+
+  private void initCheckBox() {
+    withMenuItem(
+        (option, self) -> {
+          self.withPrefixElement(
+              (menuItem, pre) -> {
+                CheckBox checkbox = CheckBox.create().addCss(dui_minified);
+                pre.appendChild(checkbox);
+                checkbox.addChangeListener(
+                    (oldValue, newValue) -> {
+                      if (newValue) {
+                        menuItem.select();
+                      } else {
+                        menuItem.deselect();
+                      }
+                    });
+
+                menuItem.addSelectionHandler(
+                    menuItemValue -> {
+                      checkbox.withValue(menuItem.isSelected(), true);
+                    });
+              });
+        });
   }
 }

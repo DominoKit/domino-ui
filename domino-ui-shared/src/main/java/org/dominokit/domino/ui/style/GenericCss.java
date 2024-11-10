@@ -227,6 +227,8 @@ public interface GenericCss {
 
   CssClass dui_striped = () -> "dui-striped";
 
+  CssClass dui_minified = () -> "dui-minified";
+
   CssClass dui_xlarge =
       new ReplaceCssClass(
               CompositeCssClass.of(() -> "dui-lg", () -> "dui-md", () -> "dui-sm", () -> "dui-xs"))

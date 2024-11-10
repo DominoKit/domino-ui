@@ -738,3 +738,19 @@ textarea.dui-field-input {
 .dui-auto-type-input:focus{
     outline: none;
 }
+
+.dui-form-checkbox.dui-minified {
+    padding: 0;
+    margin: 0;
+    --dui-form-field-input-height: 22px;
+}
+
+.dui-form-checkbox.dui-minified .dui-field-label,
+.dui-form-checkbox.dui-minified:not(.dui-hide-label) .dui-field-label {
+    display: none;
+    width: auto;
+    min-width: auto;
+}
+.dui-form-checkbox.dui-minified .dui-field-input-wrapper {
+    padding: 0;
+}
