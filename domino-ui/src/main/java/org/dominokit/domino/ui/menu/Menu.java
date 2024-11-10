@@ -27,7 +27,7 @@ import java.util.*;
 import jsinterop.base.Js;
 import org.dominokit.domino.ui.IsElement;
 import org.dominokit.domino.ui.config.HasComponentConfig;
-import org.dominokit.domino.ui.config.ZIndexConfig;
+import org.dominokit.domino.ui.config.MenuConfig;
 import org.dominokit.domino.ui.elements.AnchorElement;
 import org.dominokit.domino.ui.elements.DivElement;
 import org.dominokit.domino.ui.elements.LIElement;
@@ -65,7 +65,7 @@ import org.dominokit.domino.ui.utils.*;
 public class Menu<V> extends BaseDominoElement<HTMLDivElement, Menu<V>>
     implements HasSelectionListeners<Menu<V>, AbstractMenuItem<V>, List<AbstractMenuItem<V>>>,
         IsPopup<Menu<V>>,
-        HasComponentConfig<ZIndexConfig>,
+        HasComponentConfig<MenuConfig>,
         MenuStyles {
 
   public static final String ANY = "*";
@@ -87,7 +87,8 @@ public class Menu<V> extends BaseDominoElement<HTMLDivElement, Menu<V>>
 
   protected boolean searchable;
   protected boolean caseSensitive = false;
-  protected String createMissingLabel = "Create ";
+  protected String createMissingLabel =
+      DominoUIConfig.CONFIG.getUIConfig().getMissingItemCreateLabel();
   private MissingItemHandler<V> missingItemHandler;
 
   protected List<AbstractMenuItem<V>> menuItems = new ArrayList<>();
@@ -749,7 +750,7 @@ public class Menu<V> extends BaseDominoElement<HTMLDivElement, Menu<V>>
       this.createMissingElement.remove();
     }
     if (isAllowCreateMissing() && !emptyToken) {
-      createMissingElement.get().setInnerHtml(getCreateMissingLabel() + "<b>" + token + "</b>");
+      createMissingElement.get().setInnerHtml(getConfig().getMissingItemCreateMessage(token));
     }
     long count =
         this.menuItems.stream()
@@ -759,7 +760,7 @@ public class Menu<V> extends BaseDominoElement<HTMLDivElement, Menu<V>>
 
     if (count < 1 && menuItems.size() > 0) {
       this.menuItemsList.appendChild(
-          noResultElement.get().setInnerHtml("No results matched " + " <b>" + token + "</b>"));
+          noResultElement.get().setInnerHtml(getConfig().getNoResultMatchMessage(token)));
     } else {
       noResultElement.remove();
     }
@@ -785,7 +786,7 @@ public class Menu<V> extends BaseDominoElement<HTMLDivElement, Menu<V>>
    */
   public Menu<V> setCreateMissingLabel(String createMissingLabel) {
     if (isNull(createMissingLabel) || createMissingLabel.isEmpty()) {
-      this.createMissingLabel = "Create ";
+      this.createMissingLabel = getConfig().getMissingItemCreateLabel();
     } else {
       this.createMissingLabel = createMissingLabel;
     }

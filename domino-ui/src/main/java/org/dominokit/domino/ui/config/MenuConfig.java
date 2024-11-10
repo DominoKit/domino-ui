@@ -15,24 +15,16 @@
  */
 package org.dominokit.domino.ui.config;
 
-/** UIConfig interface. */
-public interface UIConfig
-    extends FormsFieldsConfig,
-        ZIndexConfig,
-        AccordionConfig,
-        CardConfig,
-        ProgressBarConfig,
-        SearchConfig,
-        SpinConfig,
-        TabsConfig,
-        TreeConfig,
-        UploadConfig,
-        StepperConfig,
-        CalendarConfig,
-        TimePickerConfig,
-        DelayedActionConfig,
-        DatatableConfig,
-        CarouselConfig,
-        RichTextConfig,
-        SlidersConfig,
-        MenuConfig {}
+public interface MenuConfig extends ZIndexConfig {
+  default String getNoResultMatchMessage(String token) {
+    return "No results matched " + " <b>" + token + "</b>";
+  }
+
+  default String getMissingItemCreateLabel() {
+    return "Create ";
+  }
+
+  default String getMissingItemCreateMessage(String token) {
+    return getMissingItemCreateLabel() + " <b>" + token + "</b>";
+  }
+}
