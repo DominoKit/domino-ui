@@ -100,6 +100,7 @@ public abstract class AbstractSelect<
         .appendChild(
             typingElement =
                 input("text")
+                    .addEventListener("input", evt -> onTypingStart())
                     .addCss(dui_auto_type_input, dui_hidden)
                     .setTabIndex(-1)
                     .onKeyPress(keyEvents -> keyEvents.alphanumeric(Event::stopPropagation)));
@@ -115,6 +116,7 @@ public abstract class AbstractSelect<
               optionsMenu.focusFirstMatch(typingElement.getValue());
               typingElement.setValue(null).addCss(dui_hidden);
               focus();
+              onTypingEnd();
             })
         .setOnEnterAction(
             () -> {
@@ -211,6 +213,10 @@ public abstract class AbstractSelect<
                       clearValue(false);
                     })));
   }
+
+  protected abstract void onTypingStart();
+
+  protected abstract void onTypingEnd();
 
   private int getTypeAheadDelay() {
     return typeAheadDelay > 0

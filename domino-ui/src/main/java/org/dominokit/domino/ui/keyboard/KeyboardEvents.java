@@ -15,8 +15,6 @@
  */
 package org.dominokit.domino.ui.keyboard;
 
-import static org.dominokit.domino.ui.utils.Domino.*;
-
 import elemental2.dom.Node;
 import org.dominokit.domino.ui.events.HasDefaultEventOptions;
 import org.dominokit.domino.ui.utils.LazyInitializer;
@@ -44,16 +42,20 @@ public class KeyboardEvents<T extends Node>
   /** The constant representing the "keypress" event type. */
   public static final String KEYPRESS = "keypress";
 
+  public static final String INPUT = "input";
+
   private KeyboardEventOptions defaultOptions = KeyboardEventOptions.create();
   private final T element;
 
   private KeyboardKeyListener keyUpListener = new KeyboardKeyListener(this);
   private KeyboardKeyListener keyDownListener = new KeyboardKeyListener(this);
   private KeyboardKeyListener keyPressListener = new KeyboardKeyListener(this);
+  private KeyboardKeyListener inputListener = new KeyboardKeyListener(this);
 
   private LazyInitializer keyUpListenerInitializer;
   private LazyInitializer keyDownListenerInitializer;
   private LazyInitializer keyPressListenerInitializer;
+  private LazyInitializer InputListenerInitializer;
 
   /**
    * Creates a new instance of {@code KeyboardEvents} for the specified DOM element.
@@ -68,6 +70,8 @@ public class KeyboardEvents<T extends Node>
         new LazyInitializer(() -> element.addEventListener(KEYDOWN, keyDownListener));
     keyPressListenerInitializer =
         new LazyInitializer(() -> element.addEventListener(KEYPRESS, keyPressListener));
+    InputListenerInitializer =
+        new LazyInitializer(() -> element.addEventListener(INPUT, inputListener));
   }
 
   /**
@@ -139,6 +143,30 @@ public class KeyboardEvents<T extends Node>
   public KeyboardEvents<T> stopListenOnKeyPress() {
     element.removeEventListener(KEYPRESS, keyPressListener);
     keyPressListenerInitializer.reset();
+    return this;
+  }
+
+  /**
+   * Adds a keypress event listener to the element and associates it with the provided {@code
+   * onInput} consumer.
+   *
+   * @param onInput The consumer that will receive keypress events.
+   * @return This {@code KeyboardEvents} instance for method chaining.
+   */
+  public KeyboardEvents<T> listenOnInput(KeyEventsConsumer onInput) {
+    InputListenerInitializer.apply();
+    onInput.accept(inputListener);
+    return this;
+  }
+
+  /**
+   * Removes the keypress event listener from the element.
+   *
+   * @return This {@code KeyboardEvents} instance for method chaining.
+   */
+  public KeyboardEvents<T> stopListenOnInput() {
+    element.removeEventListener(INPUT, inputListener);
+    InputListenerInitializer.reset();
     return this;
   }
 

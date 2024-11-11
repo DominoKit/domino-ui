@@ -69,6 +69,21 @@ public interface HasKeyboardEvents<T> {
   T stopOnKeyPress();
 
   /**
+   * Registers an event listener to be called when an input is applied.
+   *
+   * @param onInput The {@link KeyEventsConsumer} to call when an input is applied.
+   * @return The instance of type {@code T} for method chaining.
+   */
+  T onInput(KeyEventsConsumer onInput);
+
+  /**
+   * Stops listening for input events.
+   *
+   * @return The instance of type {@code T} for method chaining.
+   */
+  T stopOnInput();
+
+  /**
    * Gets the keyboard event options associated with this instance.
    *
    * @return The {@link KeyboardEventOptions} associated with this instance.

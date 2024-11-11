@@ -25,6 +25,7 @@ import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 import org.dominokit.domino.ui.elements.DivElement;
+import org.dominokit.domino.ui.utils.BaseDominoElement;
 
 /**
  * Represents a multi-selection dropdown menu UI component, allowing users to select multiple
@@ -157,6 +158,7 @@ public class MultiSelect<V>
     }
     withOption(option, silent);
     updateTextValue();
+    option.addCss(() -> "dui-selected-option");
     fieldInput.appendChild(option);
     selectedOptions.add(option);
     getInputElement().element().focus();
@@ -224,5 +226,15 @@ public class MultiSelect<V>
   @Override
   public List<V> getValue() {
     return this.selectedOptions.stream().map(Option::getValue).collect(Collectors.toList());
+  }
+
+  @Override
+  protected void onTypingStart() {
+    this.selectedOptions.forEach(BaseDominoElement::hide);
+  }
+
+  @Override
+  protected void onTypingEnd() {
+    this.selectedOptions.forEach(BaseDominoElement::show);
   }
 }

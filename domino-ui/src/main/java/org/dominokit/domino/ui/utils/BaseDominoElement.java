@@ -4145,6 +4145,31 @@ public abstract class BaseDominoElement<E extends Element, T extends IsElement<E
   }
 
   /**
+   * Registers an event handler to be executed when a key is pressed and released.
+   *
+   * @param onInput The event handler for key press events.
+   * @return The modified DOM element.
+   */
+  @Override
+  public T onInput(KeyEventsConsumer onInput) {
+    keyEventsInitializer.apply();
+    keyboardEvents.listenOnInput(onInput);
+    return (T) this;
+  }
+
+  /**
+   * Stops listening to key press events.
+   *
+   * @return The modified DOM element.
+   */
+  @Override
+  public T stopOnInput() {
+    keyEventsInitializer.apply();
+    keyboardEvents.stopListenOnInput();
+    return (T) this;
+  }
+
+  /**
    * Retrieves the options for keyboard events.
    *
    * @return The keyboard event options.
