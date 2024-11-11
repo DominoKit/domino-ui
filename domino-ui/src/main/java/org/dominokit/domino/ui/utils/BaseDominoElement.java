@@ -4193,6 +4193,26 @@ public abstract class BaseDominoElement<E extends Element, T extends IsElement<E
     return (T) this;
   }
 
+  public boolean isOverFlowing() {
+    return element().scrollWidth > element().clientWidth
+        || element().scrollHeight > element().clientHeight;
+  }
+
+  public boolean isPartialVisible() {
+    return !isFullyVisible();
+  }
+
+  public boolean isFullyVisible() {
+    Element parent = parent().element();
+    DOMRect parentRect = parent.getBoundingClientRect();
+    DOMRect childRect = element().getBoundingClientRect();
+
+    return childRect.left >= parentRect.left
+        && childRect.right <= parentRect.right
+        && childRect.top >= parentRect.top
+        && childRect.bottom <= parentRect.bottom;
+  }
+
   /**
    * Retrieves the Waves support associated with this element.
    *

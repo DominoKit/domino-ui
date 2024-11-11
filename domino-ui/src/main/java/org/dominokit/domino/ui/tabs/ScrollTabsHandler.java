@@ -19,7 +19,6 @@ import static org.dominokit.domino.ui.style.DisplayCss.dui_overflow_hidden;
 import static org.dominokit.domino.ui.style.GenericCss.dui_vertical;
 
 import elemental2.dom.DOMRect;
-import elemental2.dom.Element;
 import java.util.function.Consumer;
 import org.dominokit.domino.ui.elements.UListElement;
 import org.dominokit.domino.ui.icons.MdiIcon;
@@ -105,12 +104,12 @@ public class ScrollTabsHandler implements TabsOverflowHandler {
   }
 
   private void updateTabs(TabsPanel tabsPanel, UListElement nav) {
-    if (isOverFlowing(nav.element())) {
+    if (nav.isOverFlowing()) {
       tabsPanel.getLeadingNav().appendChild(scrollLeftIcon);
       tabsPanel.getTailNav().appendChild(scrollRightIcon);
 
       tabsPanel.getTabs().stream()
-          .filter(tab -> isPartialVisible(nav.element(), tab.element()) && tab.isActive())
+          .filter(tab -> tab.isPartialVisible() && tab.isActive())
           .findFirst()
           .ifPresent(
               tab -> {
@@ -141,22 +140,5 @@ public class ScrollTabsHandler implements TabsOverflowHandler {
     tabsPanel.removeCloseHandler(closeHandler);
     timer.cancel();
     resizeRecord.remove();
-  }
-
-  private boolean isOverFlowing(Element element) {
-    return element.scrollWidth > element.clientWidth || element.scrollHeight > element.clientHeight;
-  }
-
-  private boolean isPartialVisible(Element parent, Element child) {
-    DOMRect parentRect = parent.getBoundingClientRect();
-    DOMRect childRect = child.getBoundingClientRect();
-
-    boolean fullyVisible =
-        childRect.left >= parentRect.left
-            && childRect.right <= parentRect.right
-            && childRect.top >= parentRect.top
-            && childRect.bottom <= parentRect.bottom;
-
-    return !fullyVisible;
   }
 }

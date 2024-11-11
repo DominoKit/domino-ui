@@ -45,6 +45,7 @@
     text-align: var(--dui-progress-bar-text-align);
     transition: width 500ms ease;
     background-color: var(--dui-accent);
+    overflow: visible;
 }
 
 .dui-progress-bar:first-child {
@@ -59,4 +60,16 @@
 
 .dui-progress-bar.dui-active {
     animation: dui-progress-bar-stripes 2s linear infinite;
+}
+
+.dui-progress-text {
+    width: 100%;
+    min-width: fit-content;
+    white-space: nowrap;
+    padding: 0 5px;
+}
+
+.dui-progress-text-blind {
+    filter: grayscale(17%) invert(80%);
+    mix-blend-mode: multiply;
 }

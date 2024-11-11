@@ -17,11 +17,14 @@ package org.dominokit.domino.ui.progress;
 
 import static org.dominokit.domino.ui.utils.Domino.*;
 
+import elemental2.dom.DomGlobal;
 import elemental2.dom.HTMLDivElement;
 import java.util.Optional;
 import org.dominokit.domino.ui.config.HasComponentConfig;
 import org.dominokit.domino.ui.config.ProgressBarConfig;
 import org.dominokit.domino.ui.elements.DivElement;
+import org.dominokit.domino.ui.elements.SpanElement;
+import org.dominokit.domino.ui.style.BooleanCssClass;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
 import org.dominokit.domino.ui.utils.DominoUIConfig;
 
@@ -40,6 +43,7 @@ public class ProgressBar extends BaseDominoElement<HTMLDivElement, ProgressBar>
     implements ProgressStyles, HasComponentConfig<ProgressBarConfig> {
 
   private DivElement element;
+  private SpanElement textElement;
   private double maxValue;
   private double value = 0;
   private String textExpression;
@@ -63,7 +67,11 @@ public class ProgressBar extends BaseDominoElement<HTMLDivElement, ProgressBar>
    * @param textExpression The text expression for the progress bar.
    */
   public ProgressBar(int maxValue, String textExpression) {
-    element = div().addCss(dui_progress_bar).setAttribute("role", "progressbar");
+    element =
+        div()
+            .addCss(dui_progress_bar)
+            .setAttribute("role", "progressbar")
+            .appendChild(textElement = span().addCss(dui_progress_text));
     this.maxValue = maxValue;
     this.textExpression = textExpression;
     this.setValue(0);
@@ -126,7 +134,7 @@ public class ProgressBar extends BaseDominoElement<HTMLDivElement, ProgressBar>
   private void updateText() {
     if (showText) {
       int percent = new Double((value / maxValue) * 100).intValue();
-      element.setTextContent(
+      textElement.setTextContent(
           getConfig().evaluateProgressBarExpression(textExpression, percent, value, maxValue));
     }
   }
@@ -210,6 +218,12 @@ public class ProgressBar extends BaseDominoElement<HTMLDivElement, ProgressBar>
             progress -> {
               element.style().setWidth(progress.calculateWidth(value) + "%");
               updateText();
+              DomGlobal.setTimeout(
+                  p0 -> {
+                    boolean overFlowing = element.isOverFlowing();
+                    BooleanCssClass.of(dui_progress_text_blind, overFlowing).apply(textElement);
+                  },
+                  0);
             });
   }
 }
