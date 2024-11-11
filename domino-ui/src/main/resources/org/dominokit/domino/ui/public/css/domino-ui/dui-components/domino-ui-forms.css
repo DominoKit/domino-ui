@@ -291,6 +291,7 @@ textarea.dui-field-input {
     cursor: pointer;
     display: flex;
     align-items: center;
+    padding: 1px 2px;
 }
 
 .dui.mdi.dui-form-select-clear {
