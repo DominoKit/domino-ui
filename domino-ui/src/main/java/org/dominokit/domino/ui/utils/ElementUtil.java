@@ -17,7 +17,6 @@
 package org.dominokit.domino.ui.utils;
 
 import static java.util.Objects.nonNull;
-import static org.dominokit.domino.ui.utils.Domino.*;
 import static org.dominokit.domino.ui.utils.ElementsFactory.elements;
 
 import elemental2.dom.*;
@@ -138,7 +137,7 @@ public class ElementUtil {
    *     null.
    */
   public static Optional<ElementObserver> onAttach(
-      HTMLElement element, AttachDetachCallback callback) {
+      HTMLElement element, MutationObserverCallback callback) {
     if (element != null) {
       elements.elementOf(element).onAttached(callback);
     }
@@ -155,6 +154,15 @@ public class ElementUtil {
   }
 
   /**
+   * Pauses the body observer to prevent it from triggering unnecessary events.
+   *
+   * @param handler The runnable to be executed while the observer is paused.
+   */
+  public static void withAttributesObserverPaused(Runnable handler) {
+    AttributesObserver.pauseFor(handler);
+  }
+
+  /**
    * Registers an observer to be notified when an IsElement is attached to the DOM.
    *
    * @param element The IsElement to observe.
@@ -163,7 +171,7 @@ public class ElementUtil {
    *     null.
    */
   public static Optional<ElementObserver> onAttach(
-      IsElement<?> element, AttachDetachCallback callback) {
+      IsElement<?> element, MutationObserverCallback callback) {
     if (element != null) {
       elements.elementOf(element).onAttached(callback);
     }
@@ -175,6 +183,11 @@ public class ElementUtil {
     BodyObserver.startObserving();
   }
 
+  /** Starts observing the body for elements attributes changes events. */
+  public static void startObservingAttributes() {
+    AttributesObserver.startObserving();
+  }
+
   /**
    * Registers an observer to be notified when an HTMLElement is detached from the DOM.
    *
@@ -184,7 +197,7 @@ public class ElementUtil {
    *     null.
    */
   public static Optional<ElementObserver> onDetach(
-      HTMLElement element, AttachDetachCallback callback) {
+      HTMLElement element, MutationObserverCallback callback) {
     if (element != null) {
       elements.elementOf(element).onDetached(callback);
     }
@@ -200,7 +213,7 @@ public class ElementUtil {
    *     null.
    */
   public static Optional<ElementObserver> onDetach(
-      IsElement<?> element, AttachDetachCallback callback) {
+      IsElement<?> element, MutationObserverCallback callback) {
     if (element != null) {
       elements.elementOf(element).onDetached(callback);
     }

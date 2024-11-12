@@ -15,8 +15,6 @@
  */
 package org.dominokit.domino.ui.utils;
 
-import static org.dominokit.domino.ui.utils.Domino.*;
-
 import elemental2.dom.HTMLElement;
 
 /** An interface for observing changes in an HTML element. */
@@ -41,7 +39,7 @@ public interface ElementObserver {
    *
    * @return The callback to execute.
    */
-  AttachDetachCallback callback();
+  MutationObserverCallback callback();
 
   /** Removes the element observer, detaching it from the observed element. */
   void remove();

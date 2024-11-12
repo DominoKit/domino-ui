@@ -15,16 +15,15 @@
  */
 package org.dominokit.domino.ui.menu;
 
-import static org.dominokit.domino.ui.utils.Domino.*;
 import static org.dominokit.domino.ui.utils.ElementsFactory.elements;
 
 import elemental2.dom.Element;
 import java.util.HashMap;
 import java.util.Map;
-import org.dominokit.domino.ui.utils.AttachDetachCallback;
 import org.dominokit.domino.ui.utils.ComponentMeta;
 import org.dominokit.domino.ui.utils.DominoElement;
 import org.dominokit.domino.ui.utils.HasMeta;
+import org.dominokit.domino.ui.utils.MutationObserverCallback;
 
 /**
  * Represents a target for the menu in the UI. This class wraps a target DOM {@link Element} to be
@@ -40,8 +39,8 @@ import org.dominokit.domino.ui.utils.HasMeta;
 public class MenuTarget implements HasMeta<MenuTarget> {
 
   private final Element targetElement;
-  private AttachDetachCallback targetDetachObserver;
-  private AttachDetachCallback targetAttachObserver;
+  private MutationObserverCallback targetDetachObserver;
+  private MutationObserverCallback targetAttachObserver;
   private final Map<String, ComponentMeta> metaObjects = new HashMap<>();
 
   /**
@@ -77,7 +76,7 @@ public class MenuTarget implements HasMeta<MenuTarget> {
    *
    * @param targetDetachObserver the observer callback
    */
-  void setTargetDetachObserver(AttachDetachCallback targetDetachObserver) {
+  void setTargetDetachObserver(MutationObserverCallback targetDetachObserver) {
     this.targetDetachObserver = targetDetachObserver;
   }
 
@@ -86,7 +85,7 @@ public class MenuTarget implements HasMeta<MenuTarget> {
    *
    * @return the observer callback
    */
-  AttachDetachCallback getTargetDetachObserver() {
+  MutationObserverCallback getTargetDetachObserver() {
     return targetDetachObserver;
   }
 
@@ -95,7 +94,7 @@ public class MenuTarget implements HasMeta<MenuTarget> {
    *
    * @param targetDetachObserver the observer callback
    */
-  void setTargetAttachObserver(AttachDetachCallback targetAttachObserver) {
+  void setTargetAttachObserver(MutationObserverCallback targetAttachObserver) {
     this.targetAttachObserver = targetAttachObserver;
   }
 
@@ -104,7 +103,7 @@ public class MenuTarget implements HasMeta<MenuTarget> {
    *
    * @return the observer callback
    */
-  AttachDetachCallback getTargetAttachObserver() {
+  MutationObserverCallback getTargetAttachObserver() {
     return targetAttachObserver;
   }
 

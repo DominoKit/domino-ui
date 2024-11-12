@@ -107,7 +107,7 @@ final class BodyObserver {
         List<DominoElement<Element>> childElements =
             elements.elementOf(element).querySelectorAll("[" + ATTACH_UID_KEY + "]");
         if (element.hasAttribute(ATTACH_UID_KEY)) {
-          String type = AttachDetachEventType.attachedType(elements.elementOf(element));
+          String type = ObserverEventType.attachedType(elements.elementOf(element));
           if (!processed.contains(type)) {
             processed.add(type);
             element.dispatchEvent(new CustomEvent<>(type));
@@ -118,7 +118,7 @@ final class BodyObserver {
             child -> {
               CustomEventInit<MutationRecord> ceinit = CustomEventInit.create();
               ceinit.setDetail(record);
-              String type = AttachDetachEventType.attachedType(elements.elementOf(child));
+              String type = ObserverEventType.attachedType(elements.elementOf(child));
               if (!processed.contains(type)) {
                 processed.add(type);
                 CustomEvent<MutationRecord> event = new CustomEvent<>(type, ceinit);
@@ -139,7 +139,7 @@ final class BodyObserver {
         List<DominoElement<Element>> childElements =
             elements.elementOf(element).querySelectorAll("[" + DETACH_UID_KEY + "]");
         if (element.hasAttribute(DETACH_UID_KEY)) {
-          String type = AttachDetachEventType.detachedType(elements.elementOf(element));
+          String type = ObserverEventType.detachedType(elements.elementOf(element));
           if (!processed.contains(type)) {
             processed.add(type);
             element.dispatchEvent(new Event(type));
@@ -148,7 +148,7 @@ final class BodyObserver {
 
         childElements.forEach(
             child -> {
-              String type = AttachDetachEventType.detachedType(elements.elementOf(child));
+              String type = ObserverEventType.detachedType(elements.elementOf(child));
               if (!processed.contains(type)) {
                 processed.add(type);
                 CustomEventInit<MutationRecord> ceinit = CustomEventInit.create();

@@ -31,6 +31,7 @@ import elemental2.dom.Event;
 import elemental2.dom.EventListener;
 import elemental2.dom.EventTarget;
 import elemental2.dom.HTMLElement;
+import elemental2.dom.MutationRecord;
 import elemental2.dom.Node;
 import elemental2.dom.NodeList;
 import java.util.ArrayList;
@@ -118,6 +119,7 @@ public abstract class BaseDominoElement<E extends Element, T extends IsElement<E
 
   public static String ATTACH_UID_KEY = "dui-on-attach-uid";
   public static String DETACH_UID_KEY = "dui-on-detach-uid";
+  public static String ATTRIBUTE_CHANGE_UID_KEY = "dui-on-attribute-change-uid";
 
   @Editor.Ignore protected T element;
   /** A unique identifier for this DOM element. */
@@ -145,10 +147,13 @@ public abstract class BaseDominoElement<E extends Element, T extends IsElement<E
   protected WavesSupport wavesSupport;
 
   /** A list of attach observers for this DOM element. */
-  private List<AttachDetachCallback> attachObservers = new ArrayList<>();
+  private List<MutationObserverCallback> attachObservers = new ArrayList<>();
 
   /** A list of detach observers for this DOM element. */
-  private List<AttachDetachCallback> detachObservers = new ArrayList<>();
+  private List<MutationObserverCallback> detachObservers = new ArrayList<>();
+
+  /** A list of detach observers for this DOM element. */
+  private Map<String, List<MutationObserverCallback>> attributesObservers = new HashMap<>();
 
   /** Optional ResizeObserver for this DOM element. */
   private Optional<ResizeObserver> resizeObserverOptional = Optional.empty();
@@ -175,6 +180,7 @@ public abstract class BaseDominoElement<E extends Element, T extends IsElement<E
 
   private EventListener attachEventListener;
   private EventListener detachEventListener;
+  private EventListener attributeChangeEventListener;
   private final List<Consumer<T>> onBeforeRemoveHandlers = new ArrayList<>();
   private final List<Consumer<T>> onRemoveHandlers = new ArrayList<>();
   private final Map<String, ComponentMeta> metaObjects = new HashMap<>();
@@ -655,11 +661,11 @@ public abstract class BaseDominoElement<E extends Element, T extends IsElement<E
   /**
    * Registers an observer to be notified when this element is attached to the DOM.
    *
-   * @param attachDetachCallback The observer to be registered.
+   * @param mutationObserverCallback The observer to be registered.
    * @return The modified DOM element.
    */
   @Editor.Ignore
-  public T onAttached(AttachDetachCallback attachDetachCallback) {
+  public T onAttached(MutationObserverCallback mutationObserverCallback) {
     if (isNull(this.attachEventListener)) {
       if (!hasAttribute(ATTACH_UID_KEY)) {
         setAttribute(ATTACH_UID_KEY, DominoId.unique());
@@ -672,10 +678,63 @@ public abstract class BaseDominoElement<E extends Element, T extends IsElement<E
           };
       this.element
           .element()
-          .addEventListener(AttachDetachEventType.attachedType(this), this.attachEventListener);
+          .addEventListener(ObserverEventType.attachedType(this), this.attachEventListener);
     }
-    attachObservers.add(attachDetachCallback);
+    attachObservers.add(mutationObserverCallback);
     ElementUtil.startObserving();
+    return element;
+  }
+
+  /**
+   * Registers an observer to be notified when this element is attached to the DOM.
+   *
+   * @param mutationObserverCallback The observer to be registered.
+   * @return The modified DOM element.
+   */
+  @Editor.Ignore
+  public T onAttributeChange(MutationObserverCallback mutationObserverCallback) {
+    return onAttributeChange("*", mutationObserverCallback);
+  }
+
+  /**
+   * Registers an observer to be notified when this element is attached to the DOM.
+   *
+   * @param mutationObserverCallback The observer to be registered.
+   * @return The modified DOM element.
+   */
+  @Editor.Ignore
+  public T onAttributeChange(String attribute, MutationObserverCallback mutationObserverCallback) {
+    if (isNull(this.attributeChangeEventListener)) {
+      if (!hasAttribute(ATTRIBUTE_CHANGE_UID_KEY)) {
+        setAttribute(ATTRIBUTE_CHANGE_UID_KEY, DominoId.unique());
+      }
+      this.attributeChangeEventListener =
+          evt -> {
+            CustomEvent cevent = Js.uncheckedCast(evt);
+            MutationRecord record = Js.uncheckedCast(cevent.detail);
+
+            Optional.ofNullable(attributesObservers.get("*"))
+                .ifPresent(
+                    mutationObserverCallbacks -> {
+                      mutationObserverCallbacks.forEach(
+                          callback -> callback.onObserved(Js.uncheckedCast(cevent.detail)));
+                    });
+
+            Optional.ofNullable(attributesObservers.get(record.attributeName))
+                .ifPresent(
+                    mutationObserverCallbacks -> {
+                      mutationObserverCallbacks.forEach(
+                          callback -> callback.onObserved(Js.uncheckedCast(cevent.detail)));
+                    });
+          };
+      String type = ObserverEventType.attributeType(this);
+      this.element.element().addEventListener(type, this.attributeChangeEventListener);
+    }
+    if (!attributesObservers.containsKey(attribute)) {
+      attributesObservers.put(attribute, new ArrayList<>());
+    }
+    attributesObservers.get(attribute).add(mutationObserverCallback);
+    ElementUtil.startObservingAttributes();
     return element;
   }
 
@@ -686,7 +745,7 @@ public abstract class BaseDominoElement<E extends Element, T extends IsElement<E
    * @return The modified DOM element.
    */
   @Editor.Ignore
-  public T onDetached(AttachDetachCallback callback) {
+  public T onDetached(MutationObserverCallback callback) {
     if (isNull(this.detachEventListener)) {
       if (!hasAttribute(DETACH_UID_KEY)) {
         setAttribute(DETACH_UID_KEY, DominoId.unique());
@@ -699,7 +758,7 @@ public abstract class BaseDominoElement<E extends Element, T extends IsElement<E
           };
       this.element
           .element()
-          .addEventListener(AttachDetachEventType.detachedType(this), this.detachEventListener);
+          .addEventListener(ObserverEventType.detachedType(this), this.detachEventListener);
     }
     detachObservers.add(callback);
     ElementUtil.startObserving();
@@ -713,7 +772,7 @@ public abstract class BaseDominoElement<E extends Element, T extends IsElement<E
    * @param callback The observer to be removed.
    * @return The modified DOM element.
    */
-  public T removeAttachObserver(AttachDetachCallback callback) {
+  public T removeAttachObserver(MutationObserverCallback callback) {
     attachObservers.remove(callback);
     return element;
   }
@@ -725,7 +784,7 @@ public abstract class BaseDominoElement<E extends Element, T extends IsElement<E
    * @param callback The observer to be removed.
    * @return The modified DOM element.
    */
-  public T removeDetachObserver(AttachDetachCallback callback) {
+  public T removeDetachObserver(MutationObserverCallback callback) {
     detachObservers.remove(callback);
     return element;
   }
