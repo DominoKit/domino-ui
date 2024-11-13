@@ -215,6 +215,8 @@ public interface GenericCss {
   CssClass dui_vertical =
       ReplaceCssClass.of(() -> "dui-horizontal").replaceWith(() -> "dui-vertical");
 
+  CssClass dui_responsive = () -> "dui-responsive";
+
   CssClass dui_postfix_addon = () -> "dui-postfix-addon";
 
   CssClass dui_subheader_addon = () -> "dui-subheader-addon";
