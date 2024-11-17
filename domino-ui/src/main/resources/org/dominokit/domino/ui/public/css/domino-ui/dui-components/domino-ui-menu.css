@@ -85,7 +85,6 @@
 .dui-menu-item {
     cursor: pointer;
     text-align: left;
-    padding: var(--dui-menu-item-padding);
     font-style: normal;
     position: relative;
 }
@@ -128,6 +127,7 @@
     text-decoration: none;
     flex-wrap: nowrap;
     flex-basis: 24px;
+    padding: var(--dui-menu-item-padding);
 }
 
 .dui-menu-item-icon {

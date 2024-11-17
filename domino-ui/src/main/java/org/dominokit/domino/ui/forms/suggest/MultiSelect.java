@@ -70,6 +70,7 @@ public class MultiSelect<V>
   /** Default constructor initializing the options menu for multi-selection. */
   public MultiSelect() {
     optionsMenu.setMultiSelect(true);
+    setAutoCloseOnSelect(false);
   }
 
   /**

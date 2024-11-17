@@ -168,9 +168,10 @@ public class CheckOption<V> extends SelectOption<V> {
                     });
 
                 menuItem.addSelectionHandler(
-                    menuItemValue -> {
-                      checkbox.withValue(menuItem.isSelected(), true);
-                    });
+                    menuItemValue -> checkbox.withValue(menuItem.isSelected(), true));
+
+                menuItem.addDeselectionHandler(
+                    () -> checkbox.withValue(menuItem.isSelected(), true));
               });
         });
   }
