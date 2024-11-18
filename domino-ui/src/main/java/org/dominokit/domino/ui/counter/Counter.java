@@ -71,8 +71,12 @@ public class Counter {
         new Timer() {
           @Override
           public void run() {
-            if (currentValue < countTo) {
-              currentValue += increment;
+            if (currentValue != countTo) {
+              if (countFrom < countTo) {
+                currentValue += increment;
+              } else {
+                currentValue -= increment;
+              }
               notifyCount();
             } else {
               cancel();
@@ -82,22 +86,33 @@ public class Counter {
   }
 
   private void notifyCount() {
-    if (currentValue <= countTo) {
-      countHandler.onCount(currentValue);
-    } else {
-      countHandler.onCount(countTo);
-    }
+    countHandler.onCount(currentValue);
   }
 
   /**
    * Starts the counter, if the counter is already counting it will reset and start counting from
    * the beginning
    */
-  public void startCounting() {
-    if (timer.isRunning()) timer.cancel();
+  public Counter startCounting() {
+    if (timer.isRunning()) {
+      timer.cancel();
+    }
     this.currentValue = countFrom;
     countHandler.onCount(countFrom);
     timer.scheduleRepeating(interval);
+    return this;
+  }
+
+  /**
+   * Stops the counter if it is running
+   *
+   * @return same counter instance.
+   */
+  public Counter stopCounting() {
+    if (this.timer.isRunning()) {
+      this.timer.cancel();
+    }
+    return this;
   }
 
   /** Use to add an implementation of a handler to be called after each count */

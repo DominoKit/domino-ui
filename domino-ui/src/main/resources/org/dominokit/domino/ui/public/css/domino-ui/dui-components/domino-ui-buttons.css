@@ -38,7 +38,7 @@
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
-}
+    align-items: center;}
 
 .dui-btn-text {
     order: var(--dui-btn-text-order);

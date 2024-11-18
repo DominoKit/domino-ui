@@ -152,6 +152,7 @@ fieldset.dui {
     order: 40;
     font: var(--dui-form-field-postfix-font);
     line-height: var(--dui-form-field-postfix-line-height);
+    display: flex;
 }
 
 .dui-form-field .dui-postfix-addon {
@@ -202,7 +203,7 @@ fieldset.dui {
     gap: var(--dui-form-field-values-gap, var(--dui-spc-1));
     border: var(--dui-form-field-input-border);
     font: var(--dui-form-field-input-line-font);
-    line-height: var(--dui-form-field-input-line-hieght);
+    line-height: var(--dui-form-field-input-line-height);
     overflow: var(--dui-form-input-overflow, hidden);
     white-space: var(--dui-form-field-input-whitespace);
     text-overflow: ellipsis;
@@ -728,7 +729,7 @@ textarea.dui-field-input {
     border: none;
     border-radius: var(--dui-form-field-wrapper-radius);
     font: var(--dui-form-field-input-line-font);
-    line-height: var(--dui-form-field-input-line-hieght);
+    line-height: var(--dui-form-field-input-line-height);
     overflow: var(--dui-form-input-overflow, hidden);
     white-space: nowrap;
     text-overflow: ellipsis;

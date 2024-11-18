@@ -898,7 +898,7 @@ body.dui {
 
     --dui-form-field-input-height: 32px;
     --dui-form-field-input-border: none;
-    --dui-form-field-input-line-hieght: 31px;
+    --dui-form-field-input-line-height: 31px;
     --dui-form-field-input-line-font: var(--dui-font-regular);
     --dui-form-field-input-text-indent: 5px;
     --dui-form-field-messages-wrapper-padding: 0 5px 0 5px;

@@ -519,12 +519,12 @@ public class Card extends BaseDominoElement<HTMLDivElement, Card>
 
   @Override
   public PostfixElement getPostfixElement() {
-    return PostfixElement.of(header.get().element());
+    return PostfixElement.of(header.get().getMainHeader().element());
   }
 
   @Override
   public PrefixElement getPrefixElement() {
-    return PrefixElement.of(header.get().element());
+    return PrefixElement.of(header.get().getMainHeader().element());
   }
 
   /**
