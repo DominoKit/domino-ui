@@ -16,22 +16,46 @@
 package org.dominokit.domino.ui.datatable;
 
 import static java.util.Objects.nonNull;
-import static org.dominokit.domino.ui.utils.Domino.*;
+import static org.dominokit.domino.ui.utils.Domino.div;
+import static org.dominokit.domino.ui.utils.Domino.table;
+import static org.dominokit.domino.ui.utils.Domino.tbody;
+import static org.dominokit.domino.ui.utils.Domino.tfoot;
+import static org.dominokit.domino.ui.utils.Domino.thead;
 
 import elemental2.dom.DomGlobal;
 import elemental2.dom.EventListener;
 import elemental2.dom.HTMLDivElement;
 import elemental2.dom.Node;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Optional;
+import java.util.Set;
 import java.util.stream.Collectors;
 import org.dominokit.domino.ui.IsElement;
-import org.dominokit.domino.ui.datatable.events.*;
+import org.dominokit.domino.ui.datatable.events.DataSortEvent;
+import org.dominokit.domino.ui.datatable.events.OnBeforeDataChangeEvent;
+import org.dominokit.domino.ui.datatable.events.SelectAllEvent;
+import org.dominokit.domino.ui.datatable.events.TableDataUpdatedEvent;
+import org.dominokit.domino.ui.datatable.events.TableEvent;
+import org.dominokit.domino.ui.datatable.events.TableEventListener;
 import org.dominokit.domino.ui.datatable.model.SearchContext;
 import org.dominokit.domino.ui.datatable.store.DataStore;
-import org.dominokit.domino.ui.elements.*;
+import org.dominokit.domino.ui.elements.DivElement;
+import org.dominokit.domino.ui.elements.TBodyElement;
+import org.dominokit.domino.ui.elements.TFootElement;
+import org.dominokit.domino.ui.elements.THeadElement;
+import org.dominokit.domino.ui.elements.TableElement;
 import org.dominokit.domino.ui.events.EventType;
 import org.dominokit.domino.ui.style.BooleanCssClass;
-import org.dominokit.domino.ui.utils.*;
+import org.dominokit.domino.ui.utils.BaseDominoElement;
+import org.dominokit.domino.ui.utils.ChildHandler;
+import org.dominokit.domino.ui.utils.DynamicStyleSheet;
+import org.dominokit.domino.ui.utils.HasSelectionListeners;
+import org.dominokit.domino.ui.utils.HasSelectionSupport;
 
 /**
  * Represents a flexible and feature-rich data table for displaying and interacting with data. The

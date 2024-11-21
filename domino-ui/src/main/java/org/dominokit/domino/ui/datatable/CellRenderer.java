@@ -16,10 +16,10 @@
 package org.dominokit.domino.ui.datatable;
 
 import static java.util.Objects.nonNull;
-import static org.dominokit.domino.ui.utils.Domino.*;
 
 import elemental2.dom.HTMLTableCellElement;
 import elemental2.dom.Node;
+import java.util.Optional;
 import org.dominokit.domino.ui.forms.validations.ValidationResult;
 
 /**
@@ -49,6 +49,7 @@ public interface CellRenderer<T> {
     private final HTMLTableCellElement element;
     private DirtyRecordHandler<T> dirtyRecordHandler = dirty -> {};
     private CellValidator cellValidator = ValidationResult::valid;
+    private ColumnConfig<T> columnConfig;
 
     /**
      * Creates a new cell information instance.
@@ -59,6 +60,20 @@ public interface CellRenderer<T> {
     public CellInfo(TableRow<T> tableRow, HTMLTableCellElement element) {
       this.tableRow = tableRow;
       this.element = element;
+      this.columnConfig = null;
+    }
+
+    /**
+     * Creates a new cell information instance.
+     *
+     * @param tableRow the table row containing the cell.
+     * @param element the HTML element representation of the cell.
+     */
+    public CellInfo(
+        TableRow<T> tableRow, ColumnConfig<T> columnConfig, HTMLTableCellElement element) {
+      this.tableRow = tableRow;
+      this.element = element;
+      this.columnConfig = columnConfig;
     }
 
     /**
@@ -86,6 +101,11 @@ public interface CellRenderer<T> {
      */
     public T getRecord() {
       return tableRow.getRecord();
+    }
+
+    /** @return The column config the cell belongs to. */
+    public Optional<ColumnConfig<T>> getColumnConfig() {
+      return Optional.ofNullable(columnConfig);
     }
 
     /**

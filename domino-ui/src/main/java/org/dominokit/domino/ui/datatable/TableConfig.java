@@ -20,6 +20,7 @@ import static java.util.Objects.isNull;
 import static java.util.Objects.nonNull;
 import static org.dominokit.domino.ui.utils.ElementsFactory.elements;
 
+import elemental2.dom.DOMRect;
 import java.util.*;
 import java.util.function.Consumer;
 import java.util.stream.Collectors;
@@ -101,6 +102,28 @@ public class TableConfig<T>
                                             .setCssProperty("order", Integer.parseInt(order))
                                             .addCss(dui_datatable_utility_element)
                                             .appendChild(node));
+                                  });
+
+                          cellInfo
+                              .getColumnConfig()
+                              .ifPresent(
+                                  columnConfig -> {
+                                    if (cellInfo
+                                        .getTableRow()
+                                        .getDataTable()
+                                        .getTableConfig()
+                                        .isFixed()) {
+                                      DOMRect domRect =
+                                          columnConfig
+                                              .getHeadElement()
+                                              .element()
+                                              .getBoundingClientRect();
+                                      elements
+                                          .elementOf(cellInfo.getElement())
+                                          .setCssProperty("width", domRect.width + "px")
+                                          .setCssProperty("min-width", domRect.width + "px")
+                                          .setCssProperty("max-width", domRect.width + "px");
+                                    }
                                   });
                         })
                     .element();
