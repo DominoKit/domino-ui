@@ -27,6 +27,8 @@ public interface GenericCss {
 
   CssClass dui_even = ReplaceCssClass.of(() -> "dui-odd").replaceWith(() -> "dui-even");
 
+  CssClass dui_disable_transition = () -> "dui-disable-transition";
+
   CssClass dui_primary =
       new ReplaceCssClass(
               CompositeCssClass.of(

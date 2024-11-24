@@ -15,6 +15,8 @@
  */
 package org.dominokit.domino.ui.utils;
 
+import static java.util.Objects.isNull;
+
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
@@ -30,9 +32,9 @@ public abstract class BaseLazyInitializer<T extends BaseLazyInitializer<T>> {
   private LambdaFunction originalFunction;
   private LambdaFunction doOnceFunction;
   private boolean initialized = false;
-  private Set<LambdaFunction> functions = new HashSet<>();
-  private Set<LambdaFunction> doOnce = new HashSet<>();
-  private Set<LambdaFunction> doOnReset = new HashSet<>();
+  private Set<LambdaFunction> functions;
+  private Set<LambdaFunction> doOnce;
+  private Set<LambdaFunction> doOnReset;
 
   /**
    * Constructs a BaseLazyInitializer with the given LambdaFunction.
@@ -48,11 +50,18 @@ public abstract class BaseLazyInitializer<T extends BaseLazyInitializer<T>> {
   private void initDoOnce() {
     this.doOnceFunction =
         () -> {
-          for (LambdaFunction func : doOnce) {
+          for (LambdaFunction func : getDoOnce()) {
             func.apply();
           }
           this.doOnceFunction = () -> {};
         };
+  }
+
+  private Set<LambdaFunction> getDoOnce() {
+    if (isNull(doOnce)) {
+      this.doOnce = new HashSet<>();
+    }
+    return doOnce;
   }
 
   /**
@@ -65,12 +74,19 @@ public abstract class BaseLazyInitializer<T extends BaseLazyInitializer<T>> {
       function.apply();
       function = () -> {};
       this.doOnceFunction.apply();
-      for (LambdaFunction func : functions) {
+      for (LambdaFunction func : getFunctions()) {
         func.apply();
       }
       this.initialized = true;
     }
     return (T) this;
+  }
+
+  private Set<LambdaFunction> getFunctions() {
+    if (isNull(this.functions)) {
+      this.functions = new HashSet<>();
+    }
+    return functions;
   }
 
   /**
@@ -99,7 +115,7 @@ public abstract class BaseLazyInitializer<T extends BaseLazyInitializer<T>> {
         func.apply();
       }
     } else {
-      this.functions.addAll(Arrays.asList(functions));
+      getFunctions().addAll(Arrays.asList(functions));
     }
     return (T) this;
   }
@@ -115,7 +131,7 @@ public abstract class BaseLazyInitializer<T extends BaseLazyInitializer<T>> {
     if (isInitialized()) {
       function.apply();
     } else {
-      doOnce.add(function);
+      getDoOnce().add(function);
     }
     return (T) this;
   }
@@ -127,8 +143,15 @@ public abstract class BaseLazyInitializer<T extends BaseLazyInitializer<T>> {
    * @return This BaseLazyInitializer instance.
    */
   public T onReset(LambdaFunction function) {
-    doOnReset.add(function);
+    getDoOnReset().add(function);
     return (T) this;
+  }
+
+  private Set<LambdaFunction> getDoOnReset() {
+    if (isNull(doOnReset)) {
+      this.doOnReset = new HashSet<>();
+    }
+    return doOnReset;
   }
 
   /**
@@ -149,7 +172,7 @@ public abstract class BaseLazyInitializer<T extends BaseLazyInitializer<T>> {
       this.function = this.originalFunction;
       initDoOnce();
       this.initialized = false;
-      for (LambdaFunction func : doOnReset) {
+      for (LambdaFunction func : getDoOnReset()) {
         func.apply();
       }
     }

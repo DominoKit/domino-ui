@@ -37,7 +37,7 @@ import elemental2.dom.NodeList;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
-import java.util.LinkedHashSet;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -147,19 +147,19 @@ public abstract class BaseDominoElement<E extends Element, T extends IsElement<E
   protected WavesSupport wavesSupport;
 
   /** A list of attach observers for this DOM element. */
-  private List<MutationObserverCallback> attachObservers = new ArrayList<>();
+  private List<MutationObserverCallback> attachObservers;
 
   /** A list of detach observers for this DOM element. */
-  private List<MutationObserverCallback> detachObservers = new ArrayList<>();
+  private List<MutationObserverCallback> detachObservers;
 
   /** A list of detach observers for this DOM element. */
-  private Map<String, List<MutationObserverCallback>> attributesObservers = new HashMap<>();
+  private Map<String, List<MutationObserverCallback>> attributesObservers;
 
   /** Optional ResizeObserver for this DOM element. */
   private Optional<ResizeObserver> resizeObserverOptional = Optional.empty();
 
   private LambdaFunction resizeInitializer;
-  private List<ResizeHandler<T>> resizeHandlers = new ArrayList<>();
+  private List<ResizeHandler<T>> resizeHandlers;
 
   /** The keyboard events for this DOM element. */
   private KeyboardEvents<E> keyboardEvents;
@@ -171,19 +171,19 @@ public abstract class BaseDominoElement<E extends Element, T extends IsElement<E
   private boolean closeListenersPaused = false;
 
   /** Set of collapse listeners for this DOM element. */
-  protected Set<CloseListener<? super T>> closeListeners = new LinkedHashSet<>();
+  protected Set<CloseListener<? super T>> closeListeners;
 
   /** Set of expand listeners for this DOM element. */
-  protected Set<OpenListener<? super T>> openListeners = new LinkedHashSet<>();
+  protected Set<OpenListener<? super T>> openListeners;
 
   private LambdaFunction dominoUuidInitializer;
 
   private EventListener attachEventListener;
   private EventListener detachEventListener;
   private EventListener attributeChangeEventListener;
-  private final List<Consumer<T>> onBeforeRemoveHandlers = new ArrayList<>();
-  private final List<Consumer<T>> onRemoveHandlers = new ArrayList<>();
-  private final Map<String, ComponentMeta> metaObjects = new HashMap<>();
+  private List<Consumer<T>> onBeforeRemoveHandlers;
+  private List<Consumer<T>> onRemoveHandlers;
+  private Map<String, ComponentMeta> metaObjects;
 
   private TransitionListeners<E, T> transitionListeners;
 
@@ -232,8 +232,8 @@ public abstract class BaseDominoElement<E extends Element, T extends IsElement<E
                         entries -> {
                           resizeObserverOptional.ifPresent(
                               observer -> {
-                                for (int index = 0; index < resizeHandlers.size(); index++) {
-                                  resizeHandlers
+                                for (int index = 0; index < getResizeHandlers().size(); index++) {
+                                  getResizeHandlers()
                                       .get(index)
                                       .onResize((T) BaseDominoElement.this, observer, entries);
                                 }
@@ -254,6 +254,13 @@ public abstract class BaseDominoElement<E extends Element, T extends IsElement<E
               });
           resizeInitializer = () -> {};
         };
+  }
+
+  private List<ResizeHandler<T>> getResizeHandlers() {
+    if (isNull(this.resizeHandlers)) {
+      this.resizeHandlers = new ArrayList<>();
+    }
+    return resizeHandlers;
   }
 
   /**
@@ -546,6 +553,13 @@ public abstract class BaseDominoElement<E extends Element, T extends IsElement<E
    */
   @Override
   public Set<CloseListener<? super T>> getCloseListeners() {
+    return closeListeners();
+  }
+
+  private Set<CloseListener<? super T>> closeListeners() {
+    if (isNull(this.closeListeners)) {
+      this.closeListeners = new HashSet<>();
+    }
     return closeListeners;
   }
 
@@ -556,6 +570,13 @@ public abstract class BaseDominoElement<E extends Element, T extends IsElement<E
    */
   @Override
   public Set<OpenListener<? super T>> getOpenListeners() {
+    return openListeners();
+  }
+
+  private Set<OpenListener<? super T>> openListeners() {
+    if (isNull(this.openListeners)) {
+      this.openListeners = new HashSet<>();
+    }
     return openListeners;
   }
 
@@ -673,16 +694,23 @@ public abstract class BaseDominoElement<E extends Element, T extends IsElement<E
       this.attachEventListener =
           evt -> {
             CustomEvent cevent = Js.uncheckedCast(evt);
-            attachObservers.forEach(
-                callback -> callback.onObserved(Js.uncheckedCast(cevent.detail)));
+            getAttachObservers()
+                .forEach(callback -> callback.onObserved(Js.uncheckedCast(cevent.detail)));
           };
       this.element
           .element()
           .addEventListener(ObserverEventType.attachedType(this), this.attachEventListener);
     }
-    attachObservers.add(mutationObserverCallback);
+    getAttachObservers().add(mutationObserverCallback);
     ElementUtil.startObserving();
     return element;
+  }
+
+  private List<MutationObserverCallback> getAttachObservers() {
+    if (isNull(this.attachObservers)) {
+      this.attachObservers = new ArrayList<>();
+    }
+    return attachObservers;
   }
 
   /**
@@ -713,14 +741,14 @@ public abstract class BaseDominoElement<E extends Element, T extends IsElement<E
             CustomEvent cevent = Js.uncheckedCast(evt);
             MutationRecord record = Js.uncheckedCast(cevent.detail);
 
-            Optional.ofNullable(attributesObservers.get("*"))
+            Optional.ofNullable(getAttributesObservers().get("*"))
                 .ifPresent(
                     mutationObserverCallbacks -> {
                       mutationObserverCallbacks.forEach(
                           callback -> callback.onObserved(Js.uncheckedCast(cevent.detail)));
                     });
 
-            Optional.ofNullable(attributesObservers.get(record.attributeName))
+            Optional.ofNullable(getAttributesObservers().get(record.attributeName))
                 .ifPresent(
                     mutationObserverCallbacks -> {
                       mutationObserverCallbacks.forEach(
@@ -730,12 +758,19 @@ public abstract class BaseDominoElement<E extends Element, T extends IsElement<E
       String type = ObserverEventType.attributeType(this);
       this.element.element().addEventListener(type, this.attributeChangeEventListener);
     }
-    if (!attributesObservers.containsKey(attribute)) {
-      attributesObservers.put(attribute, new ArrayList<>());
+    if (!getAttributesObservers().containsKey(attribute)) {
+      getAttributesObservers().put(attribute, new ArrayList<>());
     }
-    attributesObservers.get(attribute).add(mutationObserverCallback);
+    getAttributesObservers().get(attribute).add(mutationObserverCallback);
     ElementUtil.startObservingAttributes();
     return element;
+  }
+
+  private Map<String, List<MutationObserverCallback>> getAttributesObservers() {
+    if (isNull(this.attributesObservers)) {
+      this.attributesObservers = new HashMap<>();
+    }
+    return attributesObservers;
   }
 
   /**
@@ -753,16 +788,23 @@ public abstract class BaseDominoElement<E extends Element, T extends IsElement<E
       this.detachEventListener =
           evt -> {
             CustomEvent cevent = Js.uncheckedCast(evt);
-            detachObservers.forEach(
-                observer -> observer.onObserved(Js.uncheckedCast(cevent.detail)));
+            getDetachObservers()
+                .forEach(observer -> observer.onObserved(Js.uncheckedCast(cevent.detail)));
           };
       this.element
           .element()
           .addEventListener(ObserverEventType.detachedType(this), this.detachEventListener);
     }
-    detachObservers.add(callback);
+    getDetachObservers().add(callback);
     ElementUtil.startObserving();
     return element;
+  }
+
+  private List<MutationObserverCallback> getDetachObservers() {
+    if (isNull(this.detachObservers)) {
+      this.detachObservers = new ArrayList<>();
+    }
+    return detachObservers;
   }
 
   /**
@@ -773,7 +815,7 @@ public abstract class BaseDominoElement<E extends Element, T extends IsElement<E
    * @return The modified DOM element.
    */
   public T removeAttachObserver(MutationObserverCallback callback) {
-    attachObservers.remove(callback);
+    getAttachObservers().remove(callback);
     return element;
   }
 
@@ -785,7 +827,7 @@ public abstract class BaseDominoElement<E extends Element, T extends IsElement<E
    * @return The modified DOM element.
    */
   public T removeDetachObserver(MutationObserverCallback callback) {
-    detachObservers.remove(callback);
+    getDetachObservers().remove(callback);
     return element;
   }
 
@@ -879,7 +921,7 @@ public abstract class BaseDominoElement<E extends Element, T extends IsElement<E
   @Editor.Ignore
   public T onResize(ResizeHandler<T> resizeHandler) {
     resizeInitializer.apply();
-    resizeHandlers.add(resizeHandler);
+    getResizeHandlers().add(resizeHandler);
     return (T) this;
   }
 
@@ -894,7 +936,7 @@ public abstract class BaseDominoElement<E extends Element, T extends IsElement<E
   @Editor.Ignore
   public T onResize(ResizeHandler<T> resizeHandler, HandlerRecord record) {
     if (nonNull(record)) {
-      record.setRemover(() -> resizeHandlers.remove(resizeHandler));
+      record.setRemover(() -> getResizeHandlers().remove(resizeHandler));
     }
     return onResize(resizeHandler);
   }
@@ -1921,10 +1963,24 @@ public abstract class BaseDominoElement<E extends Element, T extends IsElement<E
    */
   @Editor.Ignore
   public T remove() {
-    onBeforeRemoveHandlers.forEach(h -> h.accept((T) this));
+    onBeforeRemoveHandlers().forEach(h -> h.accept((T) this));
     element().remove();
-    onRemoveHandlers.forEach(h -> h.accept((T) this));
+    onRemoveHandlers().forEach(h -> h.accept((T) this));
     return element;
+  }
+
+  private List<Consumer<T>> onRemoveHandlers() {
+    if (isNull(this.onRemoveHandlers)) {
+      this.onRemoveHandlers = new ArrayList<>();
+    }
+    return onRemoveHandlers;
+  }
+
+  private List<Consumer<T>> onBeforeRemoveHandlers() {
+    if (isNull(this.onBeforeRemoveHandlers)) {
+      this.onBeforeRemoveHandlers = new ArrayList<>();
+    }
+    return onBeforeRemoveHandlers;
   }
 
   /**
@@ -1936,7 +1992,7 @@ public abstract class BaseDominoElement<E extends Element, T extends IsElement<E
    */
   public T addOnBeforeRemoveListener(Consumer<T> handler) {
     if (nonNull(handler)) {
-      this.onBeforeRemoveHandlers.add(handler);
+      onBeforeRemoveHandlers().add(handler);
     }
     return (T) this;
   }
@@ -1949,7 +2005,7 @@ public abstract class BaseDominoElement<E extends Element, T extends IsElement<E
    */
   public T removeOnBeforeRemoveListener(Consumer<T> handler) {
     if (nonNull(handler)) {
-      this.onBeforeRemoveHandlers.remove(handler);
+      this.onBeforeRemoveHandlers().remove(handler);
     }
     return (T) this;
   }
@@ -4125,6 +4181,13 @@ public abstract class BaseDominoElement<E extends Element, T extends IsElement<E
    */
   @Override
   public Map<String, ComponentMeta> getMetaObjects() {
+    return metaObjects();
+  }
+
+  private Map<String, ComponentMeta> metaObjects() {
+    if (isNull(this.metaObjects)) {
+      this.metaObjects = new HashMap<>();
+    }
     return metaObjects;
   }
 

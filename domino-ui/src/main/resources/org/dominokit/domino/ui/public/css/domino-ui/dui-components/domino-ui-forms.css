@@ -388,6 +388,12 @@ textarea.dui-field-input {
     outline-offset: var(--dui-form-field-checkbox-outline-offset);
 }
 
+.dui-disable-transition .dui-form-checkbox .dui-checkbox-label:before,
+.dui-form-checkbox .dui-checkbox-label.dui-disable-transition :before,
+.dui-form-checkbox.dui-disable-transition  .dui-checkbox-label:before {
+    transition: none;
+}
+
 .dui-form-checkbox .dui-checkbox-label:before {
     content: '';
     position: absolute;
@@ -415,6 +421,16 @@ textarea.dui-field-input {
 .dui-form-checkbox.dui-form-checkbox-filled .dui-checkbox-label:after {
     background-color: var(--dui-accent, var(--dui-form-field-checkbox-square-filled-background));
 }
+
+.dui-disable-transition .dui-form-checkbox.dui-form-checkbox-filled .dui-checkbox-label:after,
+.dui-form-checkbox.dui-form-checkbox-filled.dui-disable-transition .dui-checkbox-label:after,
+.dui-form-checkbox.dui-form-checkbox-filled .dui-checkbox-label.dui-disable-transition:after,
+.dui-disable-transition .dui-form-checkbox .dui-checkbox-label:after,
+.dui-form-checkbox.dui-disable-transition .dui-checkbox-label:after,
+.dui-form-checkbox .dui-checkbox-label.dui-disable-transition :after {
+    transition: none;
+}
+
 
 .dui-form-checkbox.dui-form-checkbox-filled .dui-checkbox-label:after,
 .dui-form-checkbox .dui-checkbox-label:after {

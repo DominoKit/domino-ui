@@ -58,9 +58,7 @@ public interface CssClass {
    * @param element The DOM element to which the CSS class will be applied.
    */
   default void apply(Element element) {
-    if (!element.classList.contains(getCssClass())) {
-      element.classList.add(getCssClass());
-    }
+    element.classList.add(getCssClass());
   }
 
   /**

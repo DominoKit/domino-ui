@@ -56,11 +56,19 @@
     background-color: var(--dui-datatable-even-bg-color);
 }
 
-.dui-datatable-striped tbody .dui-datatable-row:nth-child(even) {
+.dui-datatable-striped tbody .dui-datatable-row:nth-child(even):not(.dui-odd):not(.dui-even) {
     background-color: var(--dui-datatable-even-bg-color);
 }
 
-.dui-datatable-striped tbody .dui-datatable-row:nth-child(odd) {
+.dui-datatable-striped tbody .dui-datatable-row:nth-child(odd):not(.dui-odd):not(.dui-even) {
+    background-color: var(--dui-datatable-odd-bg-color);
+}
+
+.dui-datatable-striped tbody .dui-datatable-row.dui-even {
+    background-color: var(--dui-datatable-even-bg-color);
+}
+
+.dui-datatable-striped tbody .dui-datatable-row.dui-odd {
     background-color: var(--dui-datatable-odd-bg-color);
 }
 
