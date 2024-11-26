@@ -26,6 +26,7 @@ import static org.dominokit.domino.ui.events.EventType.touchmove;
 import static org.dominokit.domino.ui.events.EventType.touchstart;
 import static org.dominokit.domino.ui.utils.Domino.*;
 
+import elemental2.dom.DomGlobal;
 import elemental2.dom.EventListener;
 import elemental2.dom.HTMLDivElement;
 import java.util.HashSet;
@@ -40,7 +41,7 @@ import org.dominokit.domino.ui.events.EventType;
 import org.dominokit.domino.ui.style.SwapCssClass;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
 import org.dominokit.domino.ui.utils.ChildHandler;
-import org.dominokit.domino.ui.utils.DominoUIConfig;
+import org.dominokit.domino.ui.utils.Handler;
 import org.dominokit.domino.ui.utils.HasChangeListeners;
 
 /**
@@ -67,12 +68,13 @@ public class Slider extends BaseDominoElement<HTMLDivElement, Slider>
   private final SpanElement valueElement;
   private double oldValue;
   private Set<ChangeListener<? super Double>> changeListeners = new HashSet<>();
+  private Set<Handler<Slider>> sliderMoveListeners = new HashSet<>();
   private boolean mouseDown;
   private boolean withThumb;
   private boolean changeListenersPaused;
-  private SwapCssClass dui_thumb_style =
-      SwapCssClass.of(DominoUIConfig.CONFIG.getUIConfig().getDefaultSliderThumbStyle());
-  private boolean autoHideThumb = DominoUIConfig.CONFIG.getUIConfig().autoHideThumb();
+  private SwapCssClass dui_thumb_style = SwapCssClass.of(getConfig().getDefaultSliderThumbStyle());
+  private boolean autoHideThumb = getConfig().autoHideThumb();
+  private SlidersConfig config;
 
   /**
    * Creates a slider with a specified maximum value.
@@ -131,15 +133,17 @@ public class Slider extends BaseDominoElement<HTMLDivElement, Slider>
     setValue(value);
     EventListener downEvent =
         mouseDownEvent -> {
+          this.mouseDown = true;
           startSliding();
         };
     EventListener moveMouseListener =
         mouseMoveEvent -> {
           if (mouseDown) {
-            if (withThumb) {
-              evaluateThumbPosition();
-              updateThumbValue();
-            }
+            updateThumb();
+            sliderMoveListeners.forEach(
+                handler -> {
+                  handler.apply(this);
+                });
           }
         };
     EventListener leaveMouseListener =
@@ -178,17 +182,31 @@ public class Slider extends BaseDominoElement<HTMLDivElement, Slider>
         mutationRecord -> {
           if (!autoHideThumb) {
             startSliding();
+            DomGlobal.setTimeout(
+                p0 -> {
+                  evaluateThumbPosition();
+                },
+                400);
           }
         });
+  }
+
+  public final void updateThumb() {
+    if (withThumb) {
+      showThumb();
+      evaluateThumbPosition();
+      updateThumbValue();
+    }
   }
 
   private void startSliding() {
     this.oldValue = getValue();
     input.addCss(dui_active);
-    this.mouseDown = true;
     if (withThumb) {
       showThumb();
-      evaluateThumbPosition();
+      if (mouseDown) {
+        evaluateThumbPosition();
+      }
     }
   }
 
@@ -197,10 +215,14 @@ public class Slider extends BaseDominoElement<HTMLDivElement, Slider>
    *
    * @return the calculated range offset in pixels
    */
-  private double calculateRangeOffset() {
-    int width = input.element().offsetWidth - 15;
-    double percent = (getValue() - getMin()) / (getMax() - getMin());
-    return percent * width + input.element().offsetLeft;
+  private void calculateRangeOffset() {
+    nowOrWhenAttached(
+        () -> {
+          int width = input.element().offsetWidth - 15;
+          double percent = (getValue() - getMin()) / (getMax() - getMin());
+          double left = percent * width + input.element().offsetLeft;
+          thumb.style().setLeft(left + "px");
+        });
   }
 
   /**
@@ -272,10 +294,21 @@ public class Slider extends BaseDominoElement<HTMLDivElement, Slider>
     return this;
   }
 
+  public Slider addSliderMoveListener(Handler<Slider> handler) {
+    this.sliderMoveListeners.add(handler);
+    return this;
+  }
+
+  public Slider removeSliderMoveListener(Handler<Slider> handler) {
+    this.sliderMoveListeners.remove(handler);
+    return this;
+  }
+
   /** Updates the display value of the slider's thumb based on its current value. */
   private void updateThumbValue() {
     if (withThumb) {
-      valueElement.setTextContent(String.valueOf(Double.valueOf(getValue()).intValue()));
+      valueElement.setTextContent(getConfig().formatSliderThumbValue(getValue()));
+      evaluateThumbPosition();
     }
   }
 
@@ -315,9 +348,7 @@ public class Slider extends BaseDominoElement<HTMLDivElement, Slider>
 
   /** Evaluates the position of the slider's thumb based on the current value of the slider. */
   private void evaluateThumbPosition() {
-    if (mouseDown) {
-      thumb.style().setLeft(calculateRangeOffset() + "px");
-    }
+    calculateRangeOffset();
   }
 
   /**
@@ -490,6 +521,25 @@ public class Slider extends BaseDominoElement<HTMLDivElement, Slider>
    */
   public Slider setThumbStyle(ThumbStyle thumbStyle) {
     this.addCss(dui_thumb_style.replaceWith(thumbStyle.getThumbStyle()));
+    return this;
+  }
+
+  public InputElement getInput() {
+    return input;
+  }
+
+  public Slider withInputElement(ChildHandler<Slider, InputElement> handler) {
+    handler.apply(this, input);
+    return this;
+  }
+
+  @Override
+  public SlidersConfig getOwnConfig() {
+    return config;
+  }
+
+  public Slider setConfig(SlidersConfig config) {
+    this.config = config;
     return this;
   }
 

@@ -35,4 +35,8 @@ public interface SlidersConfig extends ComponentConfig {
   default boolean autoHideThumb() {
     return true;
   }
+
+  default String formatSliderThumbValue(double value) {
+    return String.valueOf(Double.valueOf(value).intValue());
+  }
 }
