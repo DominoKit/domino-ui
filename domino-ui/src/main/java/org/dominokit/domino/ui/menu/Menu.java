@@ -185,7 +185,7 @@ public class Menu<V> extends BaseDominoElement<HTMLDivElement, Menu<V>>
           onAddMissingElement();
         };
 
-    addClickListener(evt -> evt.stopPropagation());
+    addClickListener(Event::stopPropagation);
 
     onKeyDown(
         keyEvents -> {
@@ -1405,16 +1405,23 @@ public class Menu<V> extends BaseDominoElement<HTMLDivElement, Menu<V>>
         searchBox.get().clearSearch();
       }
       triggerOpenListeners(this);
+      boolean shouldFocus = focus;
       onAttached(
           mutationRecord -> {
             position();
-            if (focus) {
+            if (shouldFocus) {
               focus();
             }
             elementOf(getMenuAppendTarget()).onDetached(targetDetach -> close());
           });
       appendStrategy.onAppend(getMenuAppendTarget(), element.element());
-      onDetached(record -> close());
+      onDetached(
+          record -> {
+            close();
+            if (isDropDown()) {
+              triggerCloseListeners(this);
+            }
+          });
       if (smallScreen && nonNull(parent) && parent.isDropDown()) {
         parent.collapse();
         menuHeader.get().insertFirst(backArrowContainer);

@@ -551,7 +551,11 @@ public class FieldsGrouping
    *
    * @param handler The event handler to execute on key press events.
    * @return The current `FieldsGrouping` instance for method chaining.
+   * @deprecated use keydown instead.
+   * @see <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/div">Element: keypress
+   *     event </a>MDN Web Docs (div element)</a>
    */
+  @Deprecated
   public FieldsGrouping onKeyPress(KeyEventsConsumer handler) {
     HTMLElement[] elements = getInputElements();
     Arrays.stream(elements)

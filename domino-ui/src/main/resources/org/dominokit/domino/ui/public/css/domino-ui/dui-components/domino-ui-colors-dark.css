@@ -8,6 +8,7 @@
     --dui-color-alternate: var(--dui-color-5);
     /*--dui-text-color: var(--dui-color-dark);*/
     --dui-highlight-color: var(--dui-clr-black);
+    --dui-color-invert : var(--dui-clr-black);
 
     color: var(--dui-color);
 

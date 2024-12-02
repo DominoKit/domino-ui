@@ -106,22 +106,22 @@ public interface HasCollapseListeners<T> extends HasOpenCloseListeners<T> {
    * Pauses all collapse event listeners associated with the element.
    *
    * @return The element with its collapse event listeners paused.
-   * @deprecated use {@link #pauseCloseListeners}
+   * @deprecated use {@link #pauseOpenCloseListeners}
    */
   @Deprecated
   default T pauseCollapseListeners() {
-    return pauseCloseListeners();
+    return pauseOpenCloseListeners();
   }
 
   /**
    * Resumes all pause collapse event listeners associated with the element.
    *
    * @return The element with its collapse event listeners resumed.
-   * @deprecated use {@link #resumeCloseListeners}
+   * @deprecated use {@link #resumeOpenCloseListeners}
    */
   @Deprecated
   default T resumeCollapseListeners() {
-    return resumeCloseListeners();
+    return resumeOpenCloseListeners();
   }
 
   /**
@@ -195,11 +195,11 @@ public interface HasCollapseListeners<T> extends HasOpenCloseListeners<T> {
    * Checks if the collapse event listeners are currently paused.
    *
    * @return {@code true} if the collapse event listeners are paused, {@code false} otherwise.
-   * @deprecated use {@link #isCloseListenersPaused}
+   * @deprecated use {@link #isOpenCloseListenersPaused}
    */
   @Deprecated
   default boolean isCollapseListenersPaused() {
-    return isCloseListenersPaused();
+    return isOpenCloseListenersPaused();
   }
 
   /**

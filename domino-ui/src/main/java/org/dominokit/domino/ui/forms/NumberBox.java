@@ -17,7 +17,6 @@ package org.dominokit.domino.ui.forms;
 
 import static java.util.Objects.isNull;
 import static java.util.Objects.nonNull;
-import static org.dominokit.domino.ui.utils.Domino.*;
 import static org.dominokit.domino.ui.utils.Domino.div;
 import static org.dominokit.domino.ui.utils.Domino.input;
 
@@ -89,7 +88,7 @@ public abstract class NumberBox<T extends NumberBox<T, V>, V extends Number>
     setAutoValidation(true);
     enableFormatting();
 
-    getInputElement().addEventListener(EventType.keypress, this::onKeyPress);
+    getInputElement().addEventListener(EventType.keydown, this::onKeyDown);
     getInputElement().addEventListener(EventType.paste, this::onPaste);
   }
 
@@ -210,7 +209,7 @@ public abstract class NumberBox<T extends NumberBox<T, V>, V extends Number>
    *
    * @param event The keyboard event associated with the key press.
    */
-  protected void onKeyPress(Event event) {
+  protected void onKeyDown(Event event) {
     KeyboardEvent keyboardEvent = Js.uncheckedCast(event);
     if (!keyboardEvent.key.matches(createKeyMatch())) event.preventDefault();
   }

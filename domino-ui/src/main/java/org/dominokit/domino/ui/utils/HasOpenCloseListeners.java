@@ -97,14 +97,14 @@ public interface HasOpenCloseListeners<T> {
    *
    * @return The element with its close event listeners paused.
    */
-  T pauseCloseListeners();
+  T pauseOpenCloseListeners();
 
   /**
    * Resumes all pause close event listeners associated with the element.
    *
    * @return The element with its close event listeners resumed.
    */
-  T resumeCloseListeners();
+  T resumeOpenCloseListeners();
 
   /**
    * Toggles the pause state of close event listeners associated with the element.
@@ -126,7 +126,7 @@ public interface HasOpenCloseListeners<T> {
    *     afterward.
    */
   default T withPauseCloseListenersToggle(boolean toggle, Handler<T> handler) {
-    boolean oldState = isCloseListenersPaused();
+    boolean oldState = isOpenCloseListenersPaused();
     togglePauseCloseListeners(toggle);
     try {
       handler.apply((T) this);
@@ -147,7 +147,7 @@ public interface HasOpenCloseListeners<T> {
    *     afterward.
    */
   default T withPauseCloseListenersToggle(boolean toggle, AsyncHandler<T> handler) {
-    boolean oldState = isCloseListenersPaused();
+    boolean oldState = isOpenCloseListenersPaused();
     togglePauseCloseListeners(toggle);
     try {
       handler.apply((T) this, () -> togglePauseCloseListeners(oldState));
@@ -177,7 +177,7 @@ public interface HasOpenCloseListeners<T> {
    *
    * @return {@code true} if the close event listeners are paused, {@code false} otherwise.
    */
-  boolean isCloseListenersPaused();
+  boolean isOpenCloseListenersPaused();
 
   /**
    * Triggers all close event listeners associated with the element.

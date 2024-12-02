@@ -39,10 +39,17 @@ public class KeyboardEvents<T extends Node>
   /** The constant representing the "keyup" event type. */
   public static final String KEYUP = "keyup";
 
-  /** The constant representing the "keypress" event type. */
-  public static final String KEYPRESS = "keypress";
+  /**
+   * The constant representing the "keypress" event type.
+   *
+   * @deprecated use keydown instead.
+   * @see <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/div">Element: keypress
+   *     event </a>MDN Web Docs (div element)</a>
+   */
+  @Deprecated public static final String KEYPRESS = "keypress";
 
   public static final String INPUT = "input";
+  public static final String BEFORE_INPUT = "beforeinput";
 
   private KeyboardEventOptions defaultOptions = KeyboardEventOptions.create();
   private final T element;
@@ -51,11 +58,13 @@ public class KeyboardEvents<T extends Node>
   private KeyboardKeyListener keyDownListener = new KeyboardKeyListener(this);
   private KeyboardKeyListener keyPressListener = new KeyboardKeyListener(this);
   private KeyboardKeyListener inputListener = new KeyboardKeyListener(this);
+  private KeyboardKeyListener beforeinputListener = new KeyboardKeyListener(this);
 
   private LazyInitializer keyUpListenerInitializer;
   private LazyInitializer keyDownListenerInitializer;
   private LazyInitializer keyPressListenerInitializer;
-  private LazyInitializer InputListenerInitializer;
+  private LazyInitializer inputListenerInitializer;
+  private LazyInitializer beforeInputListenerInitializer;
 
   /**
    * Creates a new instance of {@code KeyboardEvents} for the specified DOM element.
@@ -70,8 +79,10 @@ public class KeyboardEvents<T extends Node>
         new LazyInitializer(() -> element.addEventListener(KEYDOWN, keyDownListener));
     keyPressListenerInitializer =
         new LazyInitializer(() -> element.addEventListener(KEYPRESS, keyPressListener));
-    InputListenerInitializer =
+    inputListenerInitializer =
         new LazyInitializer(() -> element.addEventListener(INPUT, inputListener));
+    beforeInputListenerInitializer =
+        new LazyInitializer(() -> element.addEventListener(BEFORE_INPUT, beforeinputListener));
   }
 
   /**
@@ -128,7 +139,11 @@ public class KeyboardEvents<T extends Node>
    *
    * @param onKeyPress The consumer that will receive keypress events.
    * @return This {@code KeyboardEvents} instance for method chaining.
+   * @deprecated use listenOnKeyDown instead.
+   * @see <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/div">Element: keypress
+   *     event </a>MDN Web Docs (div element)</a>
    */
+  @Deprecated
   public KeyboardEvents<T> listenOnKeyPress(KeyEventsConsumer onKeyPress) {
     keyPressListenerInitializer.apply();
     onKeyPress.accept(keyPressListener);
@@ -139,7 +154,11 @@ public class KeyboardEvents<T extends Node>
    * Removes the keypress event listener from the element.
    *
    * @return This {@code KeyboardEvents} instance for method chaining.
+   * @deprecated use listenOnKeyDown instead.
+   * @see <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/div">Element: keypress
+   *     event </a>MDN Web Docs (div element)</a>
    */
+  @Deprecated
   public KeyboardEvents<T> stopListenOnKeyPress() {
     element.removeEventListener(KEYPRESS, keyPressListener);
     keyPressListenerInitializer.reset();
@@ -147,26 +166,50 @@ public class KeyboardEvents<T extends Node>
   }
 
   /**
-   * Adds a keypress event listener to the element and associates it with the provided {@code
-   * onInput} consumer.
+   * Adds a input event listener to the element and associates it with the provided {@code onInput}
+   * consumer.
    *
-   * @param onInput The consumer that will receive keypress events.
+   * @param onInput The consumer that will receive input events.
    * @return This {@code KeyboardEvents} instance for method chaining.
    */
   public KeyboardEvents<T> listenOnInput(KeyEventsConsumer onInput) {
-    InputListenerInitializer.apply();
+    inputListenerInitializer.apply();
     onInput.accept(inputListener);
     return this;
   }
 
   /**
-   * Removes the keypress event listener from the element.
+   * Adds a keypress event listener to the element and associates it with the provided {@code
+   * onBeforeInput} consumer.
+   *
+   * @param onBeforeInput The consumer that will receive beforeinput events.
+   * @return This {@code KeyboardEvents} instance for method chaining.
+   */
+  public KeyboardEvents<T> listenOnBeforeInput(KeyEventsConsumer onBeforeInput) {
+    beforeInputListenerInitializer.apply();
+    onBeforeInput.accept(beforeinputListener);
+    return this;
+  }
+
+  /**
+   * Removes the input event listener from the element.
    *
    * @return This {@code KeyboardEvents} instance for method chaining.
    */
   public KeyboardEvents<T> stopListenOnInput() {
     element.removeEventListener(INPUT, inputListener);
-    InputListenerInitializer.reset();
+    inputListenerInitializer.reset();
+    return this;
+  }
+
+  /**
+   * Removes the beforeinput event listener from the element.
+   *
+   * @return This {@code KeyboardEvents} instance for method chaining.
+   */
+  public KeyboardEvents<T> stopListenOnBeforeInput() {
+    element.removeEventListener(BEFORE_INPUT, beforeinputListener);
+    beforeInputListenerInitializer.reset();
     return this;
   }
 

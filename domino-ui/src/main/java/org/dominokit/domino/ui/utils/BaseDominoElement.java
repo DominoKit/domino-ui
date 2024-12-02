@@ -168,7 +168,7 @@ public abstract class BaseDominoElement<E extends Element, T extends IsElement<E
   private LazyInitializer keyEventsInitializer;
 
   /** Flag to pause collapse listeners. */
-  private boolean closeListenersPaused = false;
+  private boolean openCloseListenersPaused = false;
 
   /** Set of collapse listeners for this DOM element. */
   protected Set<CloseListener<? super T>> closeListeners;
@@ -518,8 +518,8 @@ public abstract class BaseDominoElement<E extends Element, T extends IsElement<E
    * @return The modified DOM element.
    */
   @Override
-  public T pauseCloseListeners() {
-    this.closeListenersPaused = true;
+  public T pauseOpenCloseListeners() {
+    this.openCloseListenersPaused = true;
     return (T) this;
   }
 
@@ -529,8 +529,8 @@ public abstract class BaseDominoElement<E extends Element, T extends IsElement<E
    * @return The modified DOM element.
    */
   @Override
-  public T resumeCloseListeners() {
-    this.closeListenersPaused = false;
+  public T resumeOpenCloseListeners() {
+    this.openCloseListenersPaused = false;
     return (T) this;
   }
 
@@ -542,7 +542,7 @@ public abstract class BaseDominoElement<E extends Element, T extends IsElement<E
    */
   @Override
   public T togglePauseCloseListeners(boolean toggle) {
-    this.closeListenersPaused = toggle;
+    this.openCloseListenersPaused = toggle;
     return (T) this;
   }
 
@@ -586,8 +586,8 @@ public abstract class BaseDominoElement<E extends Element, T extends IsElement<E
    * @return {@code true} if close listeners are paused, {@code false} otherwise.
    */
   @Override
-  public boolean isCloseListenersPaused() {
-    return this.closeListenersPaused;
+  public boolean isOpenCloseListenersPaused() {
+    return this.openCloseListenersPaused;
   }
 
   /**
@@ -598,7 +598,7 @@ public abstract class BaseDominoElement<E extends Element, T extends IsElement<E
    */
   @Override
   public T triggerCloseListeners(T component) {
-    if (!this.closeListenersPaused) {
+    if (!this.openCloseListenersPaused) {
       getCloseListeners().forEach(closeListener -> closeListener.onClosed((T) this));
     }
     return (T) this;
@@ -612,7 +612,7 @@ public abstract class BaseDominoElement<E extends Element, T extends IsElement<E
    */
   @Override
   public T triggerOpenListeners(T component) {
-    if (!this.closeListenersPaused) {
+    if (!this.openCloseListenersPaused) {
       getOpenListeners().forEach(openListener -> openListener.onOpened((T) this));
     }
     return (T) this;
@@ -2019,7 +2019,7 @@ public abstract class BaseDominoElement<E extends Element, T extends IsElement<E
    */
   public T addOnRemoveListener(Consumer<T> handler) {
     if (nonNull(handler)) {
-      this.onRemoveHandlers.add(handler);
+      this.onRemoveHandlers().add(handler);
     }
     return (T) this;
   }
@@ -2032,7 +2032,7 @@ public abstract class BaseDominoElement<E extends Element, T extends IsElement<E
    */
   public T removeOnRemoveListener(Consumer<T> handler) {
     if (nonNull(handler)) {
-      this.onRemoveHandlers.remove(handler);
+      this.onRemoveHandlers().remove(handler);
     }
     return (T) this;
   }
@@ -4246,7 +4246,11 @@ public abstract class BaseDominoElement<E extends Element, T extends IsElement<E
    *
    * @param onKeyPress The event handler for key press events.
    * @return The modified DOM element.
+   * @deprecated use keydown instead.
+   * @see <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/div">Element: keypress
+   *     event </a>MDN Web Docs (div element)</a>
    */
+  @Deprecated
   @Override
   public T onKeyPress(KeyEventsConsumer onKeyPress) {
     keyEventsInitializer.apply();
@@ -4258,7 +4262,11 @@ public abstract class BaseDominoElement<E extends Element, T extends IsElement<E
    * Stops listening to key press events.
    *
    * @return The modified DOM element.
+   * @deprecated use keydown instead.
+   * @see <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/div">Element: keypress
+   *     event </a>MDN Web Docs (div element)</a>
    */
+  @Deprecated
   @Override
   public T stopOnKeyPress() {
     keyEventsInitializer.apply();
@@ -4267,9 +4275,9 @@ public abstract class BaseDominoElement<E extends Element, T extends IsElement<E
   }
 
   /**
-   * Registers an event handler to be executed when a key is pressed and released.
+   * Registers an event handler to be executed when input.
    *
-   * @param onInput The event handler for key press events.
+   * @param onInput The event handler for input events.
    * @return The modified DOM element.
    */
   @Override
@@ -4288,6 +4296,31 @@ public abstract class BaseDominoElement<E extends Element, T extends IsElement<E
   public T stopOnInput() {
     keyEventsInitializer.apply();
     keyboardEvents.stopListenOnInput();
+    return (T) this;
+  }
+
+  /**
+   * Registers an event handler to be executed before input.
+   *
+   * @param onBeforeInput The event handler for before input events.
+   * @return The modified DOM element.
+   */
+  @Override
+  public T onBeforeInput(KeyEventsConsumer onBeforeInput) {
+    keyEventsInitializer.apply();
+    keyboardEvents.listenOnBeforeInput(onBeforeInput);
+    return (T) this;
+  }
+
+  /**
+   * Stops listening to beforeinput events.
+   *
+   * @return The modified DOM element.
+   */
+  @Override
+  public T stopOnBeforeInput() {
+    keyEventsInitializer.apply();
+    keyboardEvents.stopListenOnBeforeInput();
     return (T) this;
   }
 

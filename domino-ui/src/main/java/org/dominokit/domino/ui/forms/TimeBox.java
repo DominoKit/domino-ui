@@ -131,7 +131,7 @@ public class TimeBox extends TextInputFormField<TimeBox, HTMLInputElement, Date>
     onDetached(mutationRecord -> popover.close());
 
     getInputElement()
-        .onKeyPress(keyEvents -> keyEvents.onEnter(evt -> doOpen()).onSpace(evt -> doOpen()));
+        .onKeyDown(keyEvents -> keyEvents.onEnter(evt -> doOpen()).onSpace(evt -> doOpen()));
     addValidator(
         component -> {
           try {

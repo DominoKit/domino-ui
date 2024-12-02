@@ -103,7 +103,7 @@ public abstract class AbstractSelect<
                     .addEventListener("input", evt -> onTypingStart())
                     .addCss(dui_auto_type_input, dui_hidden)
                     .setTabIndex(-1)
-                    .onKeyPress(keyEvents -> keyEvents.alphanumeric(Event::stopPropagation)));
+                    .onKeyDown(keyEvents -> keyEvents.alphanumeric(Event::stopPropagation)));
 
     DelayedTextInput.create(typingElement, getTypeAheadDelay())
         .setDelayedAction(
@@ -126,7 +126,7 @@ public abstract class AbstractSelect<
               DomGlobal.setTimeout(p0 -> optionsMenu.focusFirstMatch(token), 0);
             });
 
-    onKeyPress(
+    onKeyDown(
         keyEvents -> {
           keyEvents.alphanumeric(
               evt -> {
@@ -192,7 +192,7 @@ public abstract class AbstractSelect<
                       evt.stopPropagation();
                       openOptionMenu();
                     })
-                .onKeyPress(
+                .onKeyDown(
                     keyEvents ->
                         keyEvents.onEnter(
                             evt -> {

@@ -213,7 +213,7 @@ public class SearchBox extends BaseDominoElement<HTMLDivElement, SearchBox>
       autoSearchTimer.cancel();
     }
 
-    textBox.onKeyPress(keyEvents -> keyEvents.onEnter(evt -> doSearch()));
+    textBox.onKeyDown(keyEvents -> keyEvents.onEnter(evt -> doSearch()));
 
     return this;
   }
