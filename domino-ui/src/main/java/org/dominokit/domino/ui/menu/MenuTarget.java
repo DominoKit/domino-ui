@@ -24,6 +24,7 @@ import org.dominokit.domino.ui.utils.ComponentMeta;
 import org.dominokit.domino.ui.utils.DominoElement;
 import org.dominokit.domino.ui.utils.HasMeta;
 import org.dominokit.domino.ui.utils.MutationObserverCallback;
+import org.dominokit.domino.ui.utils.ObserverCallback;
 
 /**
  * Represents a target for the menu in the UI. This class wraps a target DOM {@link Element} to be
@@ -39,8 +40,8 @@ import org.dominokit.domino.ui.utils.MutationObserverCallback;
 public class MenuTarget implements HasMeta<MenuTarget> {
 
   private final Element targetElement;
-  private MutationObserverCallback targetDetachObserver;
-  private MutationObserverCallback targetAttachObserver;
+  private ObserverCallback<DominoElement<Element>> targetDetachObserver;
+  private ObserverCallback<DominoElement<Element>> targetAttachObserver;
   private final Map<String, ComponentMeta> metaObjects = new HashMap<>();
 
   /**
@@ -75,8 +76,20 @@ public class MenuTarget implements HasMeta<MenuTarget> {
    * Sets an observer for the target's attach/detach events.
    *
    * @param targetDetachObserver the observer callback
+   * @deprecated use {@link #setTargetDetachObserver(ObserverCallback)}
    */
-  void setTargetDetachObserver(MutationObserverCallback targetDetachObserver) {
+  @Deprecated
+  void setTargetDetachObserver(
+      MutationObserverCallback<DominoElement<Element>> targetDetachObserver) {
+    setTargetDetachObserver((ObserverCallback<DominoElement<Element>>) targetDetachObserver);
+  }
+
+  /**
+   * Sets an observer for the target's attach/detach events.
+   *
+   * @param targetDetachObserver the observer callback
+   */
+  void setTargetDetachObserver(ObserverCallback<DominoElement<Element>> targetDetachObserver) {
     this.targetDetachObserver = targetDetachObserver;
   }
 
@@ -85,16 +98,28 @@ public class MenuTarget implements HasMeta<MenuTarget> {
    *
    * @return the observer callback
    */
-  MutationObserverCallback getTargetDetachObserver() {
+  ObserverCallback<DominoElement<Element>> getTargetDetachObserver() {
     return targetDetachObserver;
   }
 
   /**
    * Sets an observer for the target's attach/detach events.
    *
-   * @param targetDetachObserver the observer callback
+   * @param targetAttachObserver the observer callback
+   * @deprecated use {@link #setTargetAttachObserver(ObserverCallback)}
    */
-  void setTargetAttachObserver(MutationObserverCallback targetAttachObserver) {
+  @Deprecated
+  void setTargetAttachObserver(
+      MutationObserverCallback<DominoElement<Element>> targetAttachObserver) {
+    setTargetAttachObserver((ObserverCallback<DominoElement<Element>>) targetAttachObserver);
+  }
+
+  /**
+   * Sets an observer for the target's attach/detach events.
+   *
+   * @param targetAttachObserver the observer callback
+   */
+  void setTargetAttachObserver(ObserverCallback<DominoElement<Element>> targetAttachObserver) {
     this.targetAttachObserver = targetAttachObserver;
   }
 
@@ -103,7 +128,7 @@ public class MenuTarget implements HasMeta<MenuTarget> {
    *
    * @return the observer callback
    */
-  MutationObserverCallback getTargetAttachObserver() {
+  ObserverCallback<DominoElement<Element>> getTargetAttachObserver() {
     return targetAttachObserver;
   }
 

@@ -158,7 +158,7 @@ public class TreeHeightCollapseStrategy implements CollapseStrategy, Collapsible
             handlers.onCollapseCompleted().run();
           } else {
             self.onAttached(
-                mutationRecord -> {
+                (e, mutationRecord) -> {
                   this.handlers.onBeforeCollapse().run();
                   treeItem.addCss(dui_transition_none);
                   collapseElement(element);

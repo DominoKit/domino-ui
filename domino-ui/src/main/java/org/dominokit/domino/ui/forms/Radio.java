@@ -540,8 +540,11 @@ public class Radio<T> extends BaseDominoElement<HTMLDivElement, Radio<T>>
   public Radio<T> focus() {
     if (!isDisabled()) {
       if (!isAttached()) {
-        ElementUtil.onAttach(
-            getInputElement(), mutationRecord -> getInputElement().element().focus());
+        getInputElement()
+            .onAttached(
+                (target, mutationRecord) -> {
+                  getInputElement().element().focus();
+                });
       } else {
         getInputElement().element().focus();
       }
@@ -557,11 +560,11 @@ public class Radio<T> extends BaseDominoElement<HTMLDivElement, Radio<T>>
   @Override
   public Radio<T> unfocus() {
     if (!isAttached()) {
-      ElementUtil.onAttach(
-          getInputElement(),
-          mutationRecord -> {
-            getInputElement().element().blur();
-          });
+      getInputElement()
+          .onAttached(
+              (target, mutationRecord) -> {
+                getInputElement().element().blur();
+              });
     } else {
       getInputElement().element().blur();
     }

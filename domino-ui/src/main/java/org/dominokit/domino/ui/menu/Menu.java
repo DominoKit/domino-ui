@@ -1407,16 +1407,16 @@ public class Menu<V> extends BaseDominoElement<HTMLDivElement, Menu<V>>
       triggerOpenListeners(this);
       boolean shouldFocus = focus;
       onAttached(
-          mutationRecord -> {
+          (e, mutationRecord) -> {
             position();
             if (shouldFocus) {
               focus();
             }
-            elementOf(getMenuAppendTarget()).onDetached(targetDetach -> close());
+            elementOf(getMenuAppendTarget()).onDetached((targetElement, targetDetach) -> close());
           });
       appendStrategy.onAppend(getMenuAppendTarget(), element.element());
       onDetached(
-          record -> {
+          (e, mutationRecord) -> {
             close();
             if (isDropDown()) {
               triggerCloseListeners(this);
@@ -1543,7 +1543,7 @@ public class Menu<V> extends BaseDominoElement<HTMLDivElement, Menu<V>>
     if (nonNull(menuTarget)) {
       this.targets.put(menuTarget.getTargetElement().getDominoId(), menuTarget);
       menuTarget.setTargetDetachObserver(
-          mutationRecord -> {
+          (e, mutationRecord) -> {
             if (Objects.equals(menuTarget, lastTarget)) {
               close();
             }
@@ -1552,7 +1552,7 @@ public class Menu<V> extends BaseDominoElement<HTMLDivElement, Menu<V>>
           });
 
       menuTarget.setTargetAttachObserver(
-          mutationRecord -> {
+          (e, mutationRecord) -> {
             this.targets.put(menuTarget.getTargetElement().getDominoId(), menuTarget);
           });
 

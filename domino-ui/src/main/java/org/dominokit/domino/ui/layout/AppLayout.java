@@ -167,7 +167,7 @@ public class AppLayout extends BaseDominoElement<HTMLDivElement, AppLayout>
     init(this);
 
     layout.onAttached(
-        mutationRecord ->
+        (e, mutationRecord) ->
             layout
                 .parent()
                 .addClickListener(

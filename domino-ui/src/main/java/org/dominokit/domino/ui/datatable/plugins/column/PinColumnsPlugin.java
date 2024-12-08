@@ -134,7 +134,7 @@ public class PinColumnsPlugin<T>
                                     "col-pin-" + col.getName().replace(" ", "_"));
                               });
                     }));
-    this.datatable.onAttached(mutationRecord -> pinColumns());
+    this.datatable.onAttached((e, mutationRecord) -> pinColumns());
   }
 
   /**
@@ -485,7 +485,7 @@ public class PinColumnsPlugin<T>
       pinColumnsForAttachedTable();
     } else {
       datatable.onAttached(
-          mutationRecord -> DomGlobal.setTimeout(p0 -> pinColumnsForAttachedTable()));
+          (e, mutationRecord) -> DomGlobal.setTimeout(p0 -> pinColumnsForAttachedTable()));
     }
   }
 

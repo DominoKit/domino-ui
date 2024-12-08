@@ -27,7 +27,6 @@ import org.dominokit.domino.ui.forms.validations.InputAutoValidator;
 import org.dominokit.domino.ui.utils.ApplyFunction;
 import org.dominokit.domino.ui.utils.ChildHandler;
 import org.dominokit.domino.ui.utils.DominoElement;
-import org.dominokit.domino.ui.utils.ElementUtil;
 
 /**
  * An abstract base class for input form fields in Domino UI. InputFormField represents form fields
@@ -285,8 +284,12 @@ public abstract class InputFormField<T extends InputFormField<T, E, V>, E extend
   public T focus() {
     if (!isDisabled()) {
       if (!isAttached()) {
-        ElementUtil.onAttach(
-            getInputElement(), mutationRecord -> getInputElement().element().focus());
+        getInputElement()
+            .onAttached(
+                (target, mutationRecord) -> {
+                  getInputElement().element().focus();
+                });
+
       } else {
         getInputElement().element().focus();
       }
@@ -302,11 +305,11 @@ public abstract class InputFormField<T extends InputFormField<T, E, V>, E extend
   @Override
   public T unfocus() {
     if (!isAttached()) {
-      ElementUtil.onAttach(
-          getInputElement(),
-          mutationRecord -> {
-            getInputElement().element().blur();
-          });
+      getInputElement()
+          .onAttached(
+              (target, mutationRecord) -> {
+                getInputElement().element().blur();
+              });
     } else {
       getInputElement().element().blur();
     }

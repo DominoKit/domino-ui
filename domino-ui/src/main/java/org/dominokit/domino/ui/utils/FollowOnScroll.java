@@ -41,7 +41,7 @@ public class FollowOnScroll {
             scrollFollower.positionFollower();
           }
         };
-    elements.elementOf(targetElement).onDetached(mutationRecord -> stop());
+    elements.elementOf(targetElement).onDetached((e, mutationRecord) -> stop());
   }
 
   /** Starts listening to scroll events to reposition the follower. */

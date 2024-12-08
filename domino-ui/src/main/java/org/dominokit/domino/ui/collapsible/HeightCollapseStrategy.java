@@ -156,7 +156,7 @@ public class HeightCollapseStrategy implements CollapseStrategy, CollapsibleStyl
             handlers.onCollapseCompleted().run();
           } else {
             self.onAttached(
-                mutationRecord -> {
+                (e, mutationRecord) -> {
                   this.target.setAttribute(DUI_EXPANDED_HEIGHT, "auto");
                   this.target.setCssProperty(this.heightVar, "auto");
                   this.handlers.onBeforeCollapse().run();

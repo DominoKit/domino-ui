@@ -170,7 +170,7 @@ public abstract class AbstractSelect<
             .addOpenListener((menu) -> focus());
 
     onAttached(
-        mutationRecord -> {
+        (e, mutationRecord) -> {
           optionsMenu.setTargetElement(getWrapperElement());
         });
     getInputElement()

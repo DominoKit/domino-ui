@@ -154,7 +154,7 @@ public class DateBox extends TextInputFormField<DateBox, HTMLInputElement, Date>
                 popover -> {
                   withOpenOnFocusToggleListeners(false, field -> focus());
                 });
-    onDetached(mutationRecord -> popover.close());
+    onDetached((e, mutationRecord) -> popover.close());
 
     getInputElement()
         .onKeyDown(keyEvents -> keyEvents.onEnter(evt -> doOpen()).onSpace(evt -> doOpen()));
