@@ -2232,7 +2232,11 @@ public abstract class BaseDominoElement<E extends Element, T extends IsElement<E
    */
   @Editor.Ignore
   public T setTooltip(String text) {
-    return setTooltip(text, DropDirection.BEST_SIDE_UP_DOWN);
+    return setTooltip(
+        text,
+        isNull(this.tooltip)
+            ? config().getUIConfig().getDefaultPopoverDropDirection()
+            : tooltip.getPopupPosition());
   }
 
   /**
@@ -2256,7 +2260,11 @@ public abstract class BaseDominoElement<E extends Element, T extends IsElement<E
    */
   @Editor.Ignore
   public T setTooltip(Node node) {
-    return setTooltip(node, DropDirection.BEST_SIDE_UP_DOWN);
+    return setTooltip(
+        node,
+        isNull(this.tooltip)
+            ? config().getUIConfig().getDefaultPopoverDropDirection()
+            : tooltip.getPopupPosition());
   }
 
   /**

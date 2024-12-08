@@ -99,7 +99,7 @@ public abstract class BasePopover<T extends BasePopover<T>>
                         .appendChild(body = div().addCss(dui_popover_body)));
 
     init((T) this);
-    this.popupPosition = getConfig().getDefaultDropDirection();
+    this.popupPosition = getConfig().getDefaultPopoverDropDirection();
     this.closeOnBlur = getConfig().closeOnBlur();
     this.openDelay = getConfig().openDelay();
 
@@ -317,7 +317,12 @@ public abstract class BasePopover<T extends BasePopover<T>>
   public T setPosition(DropDirection position) {
     this.popupPosition.cleanup(this.element());
     this.popupPosition = position;
+    doPosition();
     return (T) this;
+  }
+
+  public DropDirection getPopupPosition() {
+    return popupPosition;
   }
 
   /**

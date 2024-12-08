@@ -20,7 +20,7 @@ import org.dominokit.domino.ui.utils.DominoUIConfig;
 
 public interface PopoverConfig extends ZIndexConfig {
 
-  default DropDirection getDefaultDropDirection() {
+  default DropDirection getDefaultPopoverDropDirection() {
     return DropDirection.BEST_MIDDLE_UP_DOWN;
   }
 
