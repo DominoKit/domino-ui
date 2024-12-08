@@ -15,25 +15,20 @@
  */
 package org.dominokit.domino.ui.config;
 
-/** UIConfig interface. */
-public interface UIConfig
-    extends FormsFieldsConfig,
-        ZIndexConfig,
-        AccordionConfig,
-        CardConfig,
-        ProgressBarConfig,
-        SearchConfig,
-        SpinConfig,
-        TabsConfig,
-        TreeConfig,
-        UploadConfig,
-        StepperConfig,
-        CalendarConfig,
-        TimePickerConfig,
-        DelayedActionConfig,
-        DatatableConfig,
-        CarouselConfig,
-        RichTextConfig,
-        SlidersConfig,
-        MenuConfig,
-        PopoverConfig {}
+import org.dominokit.domino.ui.menu.direction.DropDirection;
+import org.dominokit.domino.ui.utils.DominoUIConfig;
+
+public interface PopoverConfig extends ZIndexConfig {
+
+  default DropDirection getDefaultDropDirection() {
+    return DropDirection.BEST_MIDDLE_UP_DOWN;
+  }
+
+  default boolean closeOnBlur() {
+    return DominoUIConfig.CONFIG.isClosePopupOnBlur();
+  }
+
+  default int openDelay() {
+    return 0;
+  }
+}
