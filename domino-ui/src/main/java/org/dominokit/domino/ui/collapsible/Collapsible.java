@@ -52,6 +52,7 @@ public class Collapsible implements IsElement<Element>, IsCollapsible<Collapsibl
   private List<ExpandHandler> expandHandlers = new ArrayList<>();
   private List<ExpandHandler> beforeExpandHandlers = new ArrayList<>();
   private CollapseStrategy strategy = new DisplayCollapseStrategy();
+  private boolean expandingCollapsing = false;
 
   /**
    * Creates a collapsible wrapping the element
@@ -138,7 +139,8 @@ public class Collapsible implements IsElement<Element>, IsCollapsible<Collapsibl
    */
   @Override
   public Collapsible expand() {
-    if (!forceHidden && isCollapsed()) {
+    if (!forceHidden && isCollapsed() && !expandingCollapsing) {
+      expandingCollapsing = true;
       strategy.expand(element);
       element.setAttribute("aria-expanded", "true");
       this.collapsed = false;
@@ -153,7 +155,8 @@ public class Collapsible implements IsElement<Element>, IsCollapsible<Collapsibl
    */
   @Override
   public Collapsible collapse() {
-    if (!forceHidden && !isCollapsed()) {
+    if (!forceHidden && !isCollapsed() && !expandingCollapsing) {
+      expandingCollapsing = true;
       strategy.collapse(element);
       element.setAttribute("aria-expanded", "false");
       this.collapsed = true;
@@ -162,6 +165,7 @@ public class Collapsible implements IsElement<Element>, IsCollapsible<Collapsibl
   }
 
   private void onCollapseCompleted() {
+    expandingCollapsing = false;
     if (nonNull(collapseHandlers)) {
       collapseHandlers.forEach(CollapseHandler::apply);
     }
@@ -174,6 +178,7 @@ public class Collapsible implements IsElement<Element>, IsCollapsible<Collapsibl
   }
 
   private void onExpandCompleted() {
+    expandingCollapsing = false;
     if (nonNull(expandHandlers)) {
       expandHandlers.forEach(ExpandHandler::apply);
     }
@@ -202,11 +207,14 @@ public class Collapsible implements IsElement<Element>, IsCollapsible<Collapsibl
    */
   @Override
   public Collapsible toggleCollapse() {
-    if (isCollapsed()) {
-      expand();
-    } else {
-      collapse();
+    if (!expandingCollapsing) {
+      if (isCollapsed()) {
+        expand();
+      } else {
+        collapse();
+      }
     }
+
     return this;
   }
 

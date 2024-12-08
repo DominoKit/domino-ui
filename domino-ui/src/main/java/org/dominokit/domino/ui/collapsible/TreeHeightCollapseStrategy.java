@@ -44,6 +44,8 @@ public class TreeHeightCollapseStrategy implements CollapseStrategy, Collapsible
   private final String heightVar;
   private CollapsibleHandlers handlers;
   private final TreeItem<?> treeItem;
+  private boolean expanding = false;
+  private boolean collapsing = false;
 
   /**
    * Constructor for TreeHeightCollapseStrategy.
@@ -94,14 +96,17 @@ public class TreeHeightCollapseStrategy implements CollapseStrategy, Collapsible
   public void expand(Element element) {
     treeItem.nowOrWhenAttached(
         () -> {
-          this.handlers.onBeforeExpand().run();
-          double height = treeItem.getBoundingClientRect().height;
-          treeItem.setAttribute(DUI_COLLAPSED_HEIGHT, height);
-          treeItem.getSubTree().show();
-          treeItem.setCssProperty(this.heightVar, height + "px");
-          double expandedHeight = getActualHeight();
-          treeItem.setAttribute(DUI_EXPANDED_HEIGHT, expandedHeight);
-          expandElement(element);
+          if (!collapsing) {
+            this.expanding = true;
+            this.handlers.onBeforeExpand().run();
+            double height = treeItem.getBoundingClientRect().height;
+            treeItem.setAttribute(DUI_COLLAPSED_HEIGHT, height);
+            treeItem.getSubTree().show();
+            treeItem.setCssProperty(this.heightVar, height + "px");
+            double expandedHeight = getActualHeight();
+            treeItem.setAttribute(DUI_EXPANDED_HEIGHT, expandedHeight);
+            expandElement(element);
+          }
         });
   }
 
@@ -119,25 +124,17 @@ public class TreeHeightCollapseStrategy implements CollapseStrategy, Collapsible
       treeItem.setCssProperty(this.heightVar, "auto");
       treeItem.removeAttribute(DUI_COLLAPSED);
       handlers.onExpandCompleted().run();
+      expanding = false;
     } else {
       EventListener stopListener =
           evt -> {
             resetParentHeight(treeItem);
             treeItem.setCssProperty(this.heightVar, "auto");
             handlers.onExpandCompleted().run();
+            expanding = false;
           };
 
-      AddEventListenerOptions addEventListenerOptions = AddEventListenerOptions.create();
-      addEventListenerOptions.setOnce(true);
-      treeItem
-          .element()
-          .addEventListener("webkitTransitionEnd", stopListener, addEventListenerOptions);
-      treeItem.element().addEventListener("MSTransitionEnd", stopListener, addEventListenerOptions);
-      treeItem
-          .element()
-          .addEventListener("mozTransitionEnd", stopListener, addEventListenerOptions);
-      treeItem.element().addEventListener("oanimationend", stopListener, addEventListenerOptions);
-      treeItem.element().addEventListener("animationend", stopListener, addEventListenerOptions);
+      createAnimationEndListeners(stopListener);
 
       String expandedHeight = treeItem.getAttribute(DUI_EXPANDED_HEIGHT);
       treeItem.setCssProperty(this.heightVar, expandedHeight + "px");
@@ -145,30 +142,55 @@ public class TreeHeightCollapseStrategy implements CollapseStrategy, Collapsible
     }
   }
 
+  private void createAnimationEndListeners(EventListener stopListener) {
+    AddEventListenerOptions addEventListenerOptions = AddEventListenerOptions.create();
+    addEventListenerOptions.setOnce(true);
+    treeItem
+        .element()
+        .addEventListener("webkitTransitionEnd", stopListener, addEventListenerOptions);
+    treeItem.element().addEventListener("MSTransitionEnd", stopListener, addEventListenerOptions);
+    treeItem.element().addEventListener("mozTransitionEnd", stopListener, addEventListenerOptions);
+    treeItem.element().addEventListener("oanimationend", stopListener, addEventListenerOptions);
+    treeItem.element().addEventListener("animationend", stopListener, addEventListenerOptions);
+  }
+
   /** @dominokit-site-ignore {@inheritDoc} */
   @Override
   public void collapse(Element element) {
-    treeItem.setCssProperty(this.heightVar, getActualHeight() + "px");
-    boolean disableAnimation = dui_transition_none.isAppliedTo(treeItem);
-    treeItem.apply(
-        self -> {
-          if (self.isAttached()) {
-            this.handlers.onBeforeCollapse().run();
-            collapseElement(element);
-            handlers.onCollapseCompleted().run();
-          } else {
-            self.onAttached(
-                (e, mutationRecord) -> {
-                  this.handlers.onBeforeCollapse().run();
-                  treeItem.addCss(dui_transition_none);
-                  collapseElement(element);
-                  if (!disableAnimation) {
-                    dui_transition_none.remove(treeItem);
-                  }
-                  handlers.onCollapseCompleted().run();
-                });
-          }
-        });
+    if (!expanding) {
+      collapsing = true;
+      treeItem.setCssProperty(this.heightVar, getActualHeight() + "px");
+      boolean disableAnimation = dui_transition_none.isAppliedTo(treeItem);
+      treeItem.apply(
+          self -> {
+            if (self.isAttached()) {
+              this.handlers.onBeforeCollapse().run();
+              EventListener stopListener =
+                  evt -> {
+                    handlers.onCollapseCompleted().run();
+                    collapsing = false;
+                  };
+              createAnimationEndListeners(stopListener);
+              collapseElement(element);
+            } else {
+              self.onAttached(
+                  (e, mutationRecord) -> {
+                    this.handlers.onBeforeCollapse().run();
+                    treeItem.addCss(dui_transition_none);
+                    EventListener stopListener =
+                        evt -> {
+                          if (!disableAnimation) {
+                            dui_transition_none.remove(treeItem);
+                          }
+                          handlers.onCollapseCompleted().run();
+                          collapsing = false;
+                        };
+                    createAnimationEndListeners(stopListener);
+                    collapseElement(element);
+                  });
+            }
+          });
+    }
   }
 
   private void resetParentHeight(TreeItem<?> treeItem) {
