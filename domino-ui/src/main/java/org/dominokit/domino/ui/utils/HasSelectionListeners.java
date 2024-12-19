@@ -57,8 +57,22 @@ public interface HasSelectionListeners<T, V, S> {
    *
    * @param listener The selection and deselection listener to be added.
    * @return The component with the added listener.
+   * @deprecated use {@link #addSelectionChangeListener(SelectionListener)}
    */
+  @Deprecated
   default T addSelectionDeselectionListener(SelectionListener<? super V, ? super S> listener) {
+    addDeselectionListener(listener);
+    addSelectionListener(listener);
+    return (T) this;
+  }
+
+  /**
+   * Adds a selection and deselection listener to the component.
+   *
+   * @param listener The selection and deselection listener to be added.
+   * @return The component with the added listener.
+   */
+  default T addSelectionChangeListener(SelectionListener<? super V, ? super S> listener) {
     addDeselectionListener(listener);
     addSelectionListener(listener);
     return (T) this;

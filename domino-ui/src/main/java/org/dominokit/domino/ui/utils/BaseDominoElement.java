@@ -2773,6 +2773,17 @@ public abstract class BaseDominoElement<E extends Element, T extends IsElement<E
   }
 
   /**
+   * Sets the enabled state of this element.
+   *
+   * @param enabled {@code true} to enable the element, {@code false} to disable it.
+   * @return The modified DOM element.
+   */
+  @Editor.Ignore
+  public T setEnabled(boolean enabled) {
+    return setDisabled(!enabled);
+  }
+
+  /**
    * Elevates this element to the specified elevation level.
    *
    * @param level The elevation level to apply.
