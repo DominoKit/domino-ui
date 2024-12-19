@@ -31,7 +31,16 @@ import org.dominokit.domino.ui.elements.DivElement;
 import org.dominokit.domino.ui.events.EventType;
 import org.dominokit.domino.ui.forms.validations.InputAutoValidator;
 import org.dominokit.domino.ui.forms.validations.ValidationResult;
-import org.dominokit.domino.ui.utils.*;
+import org.dominokit.domino.ui.utils.ApplyFunction;
+import org.dominokit.domino.ui.utils.DominoElement;
+import org.dominokit.domino.ui.utils.HasMinMaxValue;
+import org.dominokit.domino.ui.utils.HasPlaceHolder;
+import org.dominokit.domino.ui.utils.HasPostfix;
+import org.dominokit.domino.ui.utils.HasPrefix;
+import org.dominokit.domino.ui.utils.HasStep;
+import org.dominokit.domino.ui.utils.LazyChild;
+import org.dominokit.domino.ui.utils.PostfixElement;
+import org.dominokit.domino.ui.utils.PrefixElement;
 import org.gwtproject.i18n.client.NumberFormat;
 import org.gwtproject.i18n.shared.cldr.LocaleInfo;
 import org.gwtproject.i18n.shared.cldr.NumberConstants;
@@ -211,7 +220,9 @@ public abstract class NumberBox<T extends NumberBox<T, V>, V extends Number>
    */
   protected void onKeyDown(Event event) {
     KeyboardEvent keyboardEvent = Js.uncheckedCast(event);
-    if (!keyboardEvent.key.matches(createKeyMatch())) event.preventDefault();
+    if (keyboardEvent.key.length() == 1 && !keyboardEvent.key.matches(createKeyMatch())) {
+      event.preventDefault();
+    }
   }
 
   /**
