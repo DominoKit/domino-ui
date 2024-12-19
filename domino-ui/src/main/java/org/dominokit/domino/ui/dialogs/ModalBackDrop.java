@@ -113,7 +113,13 @@ public class ModalBackDrop extends BaseDominoElement<HTMLDivElement, ModalBackDr
   public void closeTooltips(String sourceId) {
     body()
         .querySelectorAll(".dui-tooltip")
-        .forEach(e -> e.dispatchEvent(closeTooltipEvent(sourceId)));
+        .forEach(
+            e -> {
+              if (!e.getDominoId().equalsIgnoreCase(sourceId)) {
+                e.remove();
+              }
+              e.dispatchEvent(closeTooltipEvent(sourceId));
+            });
   }
 
   /**

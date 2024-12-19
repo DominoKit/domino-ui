@@ -123,6 +123,7 @@ public abstract class BasePopover<T extends BasePopover<T>>
         (e, mutationRecord) -> {
           body().removeEventListener(EventType.keydown.getName(), closeListener);
           DomGlobal.document.body.removeEventListener("blur", lostFocusListener, true);
+          close();
         });
     addCollapseListener(this::doClose);
     closeAllListener =
