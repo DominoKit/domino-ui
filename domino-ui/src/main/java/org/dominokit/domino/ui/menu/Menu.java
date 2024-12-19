@@ -132,12 +132,18 @@ public class Menu<V> extends BaseDominoElement<HTMLDivElement, Menu<V>>
       evt -> {
         evt.stopPropagation();
         evt.preventDefault();
-        lastTarget =
+
+        MenuTarget newTarget =
             targets.get(elementOf(Js.<HTMLElement>uncheckedCast(evt.currentTarget)).getDominoId());
-        if (isNull(lastTarget)) {
-          lastTarget =
+        if (isNull(newTarget)) {
+          newTarget =
               targets.get(elementOf(Js.<HTMLElement>uncheckedCast(evt.target)).getDominoId());
         }
+        if (!Objects.equals(newTarget, lastTarget)) {
+          getSelection().forEach(item -> item.deselect(true));
+        }
+
+        lastTarget = newTarget;
         if (isAutoOpen()) {
           if (isOpened() && !isContextMenu()) {
             close();
