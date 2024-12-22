@@ -534,10 +534,15 @@ textarea.dui-field-input {
     --dui-accent-d-2: var(--dui-form-field-disabled-color-darker);
     pointer-events: none;
 }
+
 .dui-form-radio[disabled] .dui-radio-label{
     color: var(--dui-form-field-disabled-color);
 }
 
+.dui-form-radio-group[readonly] .dui-form-radio,
+.dui-form-radio[readonly] {
+    pointer-events: none;
+}
 
 .dui-form-radio {
     position: relative;

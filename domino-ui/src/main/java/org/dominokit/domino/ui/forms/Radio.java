@@ -93,7 +93,7 @@ public class Radio<T> extends BaseDominoElement<HTMLDivElement, Radio<T>>
     withValue(value);
     EventListener listener =
         evt -> {
-          if (isEnabled() && !isChecked()) {
+          if (isEnabled() && !isChecked() && !isReadOnly()) {
             check();
           }
         };
@@ -273,7 +273,7 @@ public class Radio<T> extends BaseDominoElement<HTMLDivElement, Radio<T>>
       return this;
     }
     if (nonNull(radioGroup)) {
-      if (!(radioGroup.isReadOnly() || radioGroup.isDisabled())) {
+      if (!radioGroup.isDisabled()) {
         T oldValue = (T) radioGroup.getValue();
         radioGroup.getRadios().stream()
             .filter(Radio::isChecked)
@@ -757,5 +757,10 @@ public class Radio<T> extends BaseDominoElement<HTMLDivElement, Radio<T>>
   public T withRadioGroup(ChildHandler<Radio<T>, RadioGroup<? super T>> handler) {
     handler.apply(this, radioGroup);
     return (T) this;
+  }
+
+  @Override
+  public boolean isReadOnly() {
+    return super.isReadOnly() || radioGroup.isReadOnly();
   }
 }
