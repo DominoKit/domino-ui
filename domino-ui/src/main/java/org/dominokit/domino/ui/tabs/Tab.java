@@ -31,7 +31,6 @@ import org.dominokit.domino.ui.elements.AnchorElement;
 import org.dominokit.domino.ui.elements.DivElement;
 import org.dominokit.domino.ui.elements.LIElement;
 import org.dominokit.domino.ui.elements.SpanElement;
-import org.dominokit.domino.ui.events.EventType;
 import org.dominokit.domino.ui.icons.Icon;
 import org.dominokit.domino.ui.utils.*;
 
@@ -87,10 +86,8 @@ public class Tab extends BaseDominoElement<HTMLLIElement, Tab>
                 .addCss(dui_tab_header_item, dui_tab_header_close)
                 .addClickListener(
                     evt -> {
-                      evt.stopPropagation();
                       close();
                     })
-                .addEventListener(EventType.mousedown.getName(), Event::stopPropagation)
                 .clickable(),
             tabHeader);
 

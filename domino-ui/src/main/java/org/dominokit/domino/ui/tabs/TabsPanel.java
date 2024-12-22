@@ -133,8 +133,6 @@ public class TabsPanel extends BaseDominoElement<HTMLDivElement, TabsPanel>
             .addEventListener(
                 "click",
                 evt -> {
-                  evt.preventDefault();
-                  evt.stopPropagation();
                   activateTab(tab);
                 });
         tab.setParent(this);

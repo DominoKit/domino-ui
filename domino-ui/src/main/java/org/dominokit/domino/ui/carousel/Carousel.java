@@ -105,9 +105,11 @@ public class Carousel extends BaseDominoElement<HTMLDivElement, Carousel>
             nextSlide();
           }
         };
+
+    init(this);
     addAttachListener();
     addDetachListener();
-    init(this);
+
     addEventListener(
         EventType.wheel.getName(),
         evt -> {
