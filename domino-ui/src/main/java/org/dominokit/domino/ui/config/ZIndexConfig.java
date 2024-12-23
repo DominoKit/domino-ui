@@ -27,12 +27,12 @@ public interface ZIndexConfig extends ComponentConfig {
   /**
    * Use this method to define the default initial start z-index
    *
-   * <p>Defaults to : {@code 8388635}
+   * <p>Defaults to : {@code 10}
    *
    * @return integer z-index
    */
   default int getInitialZIndex() {
-    return 8388635;
+    return 10;
   }
 
   /**

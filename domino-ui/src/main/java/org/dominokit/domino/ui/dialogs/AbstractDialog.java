@@ -116,6 +116,7 @@ public class AbstractDialog<T extends AbstractDialog<T>>
   public AbstractDialog() {
     element =
         div()
+            .setZIndexLayer(ZIndexLayer.Z_LAYER_3)
             .addCss(dui_modal_box, dui_hidden)
             .appendChild(
                 modalElement =
@@ -694,6 +695,11 @@ public class AbstractDialog<T extends AbstractDialog<T>>
   public T setDefaultFocusElement(IsElement<?> defaultFocusElement) {
     this.defaultFocusElement = defaultFocusElement.element();
     return (T) this;
+  }
+
+  @Override
+  public void resetZIndexLayer() {
+    // Dialogs should never rest their base layer.;
   }
 
   /**

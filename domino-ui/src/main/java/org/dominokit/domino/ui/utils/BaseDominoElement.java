@@ -20,6 +20,7 @@ import static java.util.Objects.nonNull;
 import static org.dominokit.domino.ui.utils.Domino.dui_hidden;
 import static org.dominokit.domino.ui.utils.Domino.elementOf;
 import static org.dominokit.domino.ui.utils.Domino.text;
+import static org.dominokit.domino.ui.utils.HasZIndexLayer.ZIndexLayer.Z_LAYER_1;
 
 import elemental2.core.JsArray;
 import elemental2.dom.AddEventListenerOptions;
@@ -107,7 +108,8 @@ public abstract class BaseDominoElement<E extends Element, T extends IsElement<E
         HasKeyboardEvents<T>,
         HasCollapseListeners<T>,
         HasAttributes<T>,
-        HasMeta<T> {
+        HasMeta<T>,
+        HasZIndexLayer<T> {
 
   static {
     DominoThemeManager.INSTANCE.applyUserThemes();
@@ -330,6 +332,28 @@ public abstract class BaseDominoElement<E extends Element, T extends IsElement<E
     style().setZIndex(zindex);
     setCssProperty("--dui-element-z-index", String.valueOf(zindex));
     return (T) this;
+  }
+
+  @Override
+  public ZIndexLayer getZIndexLayer() {
+    if (this.hasAttribute(DUI_Z_INDEX_LAYER)) {
+      return ZIndexLayer.valueOf(getAttribute(DUI_Z_INDEX_LAYER));
+    }
+    if (isNull(parent())) {
+      return Z_LAYER_1;
+    }
+    return parent().getZIndexLayer();
+  }
+
+  @Override
+  public T setZIndexLayer(ZIndexLayer layer) {
+    setAttribute(DUI_Z_INDEX_LAYER, layer.name());
+    return (T) this;
+  }
+
+  @Override
+  public void resetZIndexLayer() {
+    removeAttribute(DUI_Z_INDEX_LAYER);
   }
 
   /**
@@ -2200,7 +2224,10 @@ public abstract class BaseDominoElement<E extends Element, T extends IsElement<E
    */
   @Editor.Ignore
   public DominoElement<HTMLElement> parent() {
-    return elementOf(Js.<HTMLElement>uncheckedCast(element().parentElement));
+    if (nonNull(element().parentElement)) {
+      return elementOf(Js.<HTMLElement>uncheckedCast(element().parentElement));
+    }
+    return null;
   }
 
   /**

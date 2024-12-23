@@ -451,6 +451,12 @@ public abstract class BasePopover<T extends BasePopover<T>>
     return (T) this;
   }
 
+  @Override
+  public ZIndexLayer getZIndexLayer() {
+    ZIndexLayer layer = elementOf(targetElement).getZIndexLayer();
+    return layer;
+  }
+
   /**
    * Gets the DOM element representing the popover.
    *

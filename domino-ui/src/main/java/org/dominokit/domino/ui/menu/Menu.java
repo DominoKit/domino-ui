@@ -16,14 +16,36 @@
 package org.dominokit.domino.ui.menu;
 
 import static elemental2.dom.DomGlobal.document;
+import static elemental2.dom.DomGlobal.window;
 import static java.util.Objects.isNull;
 import static java.util.Objects.nonNull;
-import static org.dominokit.domino.ui.utils.Domino.*;
+import static org.dominokit.domino.ui.utils.Domino.a;
+import static org.dominokit.domino.ui.utils.Domino.div;
+import static org.dominokit.domino.ui.utils.Domino.dui_order_first;
+import static org.dominokit.domino.ui.utils.Domino.dui_order_last;
+import static org.dominokit.domino.ui.utils.Domino.elementOf;
+import static org.dominokit.domino.ui.utils.Domino.li;
+import static org.dominokit.domino.ui.utils.Domino.ul;
 import static org.dominokit.domino.ui.utils.PopupsCloser.DOMINO_UI_AUTO_CLOSABLE;
 
-import elemental2.dom.*;
+import elemental2.dom.DomGlobal;
+import elemental2.dom.Element;
+import elemental2.dom.Event;
 import elemental2.dom.EventListener;
-import java.util.*;
+import elemental2.dom.HTMLDivElement;
+import elemental2.dom.HTMLElement;
+import elemental2.dom.HTMLLIElement;
+import elemental2.dom.KeyboardEvent;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.LinkedHashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Objects;
+import java.util.Optional;
+import java.util.Set;
 import jsinterop.base.Js;
 import org.dominokit.domino.ui.IsElement;
 import org.dominokit.domino.ui.config.HasComponentConfig;
@@ -45,7 +67,19 @@ import org.dominokit.domino.ui.menu.direction.MouseBestFitDirection;
 import org.dominokit.domino.ui.search.SearchBox;
 import org.dominokit.domino.ui.style.BooleanCssClass;
 import org.dominokit.domino.ui.style.Elevation;
-import org.dominokit.domino.ui.utils.*;
+import org.dominokit.domino.ui.utils.AppendStrategy;
+import org.dominokit.domino.ui.utils.BaseDominoElement;
+import org.dominokit.domino.ui.utils.ChildHandler;
+import org.dominokit.domino.ui.utils.DominoElement;
+import org.dominokit.domino.ui.utils.DominoUIConfig;
+import org.dominokit.domino.ui.utils.HasSelectionListeners;
+import org.dominokit.domino.ui.utils.IsPopup;
+import org.dominokit.domino.ui.utils.KeyboardNavigation;
+import org.dominokit.domino.ui.utils.LazyChild;
+import org.dominokit.domino.ui.utils.PopupsCloser;
+import org.dominokit.domino.ui.utils.PrefixAddOn;
+import org.dominokit.domino.ui.utils.Separator;
+import org.dominokit.domino.ui.utils.SubheaderAddon;
 
 /**
  * Represents a UI Menu component that supports different configurations, items, and behaviors.
@@ -164,6 +198,7 @@ public class Menu<V> extends BaseDominoElement<HTMLDivElement, Menu<V>>
   private boolean closeOnBlur = DominoUIConfig.CONFIG.isClosePopupOnBlur();
   private OpenMenuCondition<V> openMenuCondition = (menu) -> true;
   private List<MediaQuery.MediaQueryListenerRecord> mediaQueryRecords = new ArrayList<>();
+  private EventListener windowResizeListener;
 
   /**
    * Factory method to create a new Menu instance.
@@ -183,6 +218,20 @@ public class Menu<V> extends BaseDominoElement<HTMLDivElement, Menu<V>>
     searchBox = LazyChild.of(SearchBox.create().addCss(dui_menu_search_box), menuSearchContainer);
     backArrowContainer = div().addCss(dui_order_first, dui_menu_back_icon);
     init(this);
+
+    windowResizeListener = evt -> position();
+    nowAndWhenAttached(
+        () -> {
+          if (isDropDown()) {
+            window.addEventListener("resize", windowResizeListener);
+          }
+        });
+    onDetached(
+        (target, mutationRecord) -> {
+          if (isDropDown()) {
+            window.removeEventListener("resize", windowResizeListener);
+          }
+        });
 
     EventListener addMissingEventListener =
         evt -> {
@@ -1972,6 +2021,16 @@ public class Menu<V> extends BaseDominoElement<HTMLDivElement, Menu<V>>
   public Menu<V> setPreserveSelectionStyles(boolean preserveSelectionStyles) {
     this.preserveSelectionStyles = preserveSelectionStyles;
     return this;
+  }
+
+  @Override
+  public ZIndexLayer getZIndexLayer() {
+    if (isDropDown()) {
+      return getTarget()
+          .map(t -> t.getTargetElement().getZIndexLayer())
+          .orElse(ZIndexLayer.Z_LAYER_1);
+    }
+    return super.getZIndexLayer();
   }
 
   /** Represents a handler for a group of menu items. */

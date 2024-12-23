@@ -5,7 +5,7 @@
     overflow: visible;
     background: none;
     text-align: center;
-    z-index: 9999999;
+    z-index: 20000000;
     display: flex;
     padding: 0 var(--dui-ntfy-left-right-space);
     pointer-events: none;

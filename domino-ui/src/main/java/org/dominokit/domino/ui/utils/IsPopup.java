@@ -21,7 +21,7 @@ package org.dominokit.domino.ui.utils;
  *
  * @param <T> The type of the component that implements this interface.
  */
-public interface IsPopup<T> {
+public interface IsPopup<T> extends HasZIndexLayer<T> {
 
   /**
    * Opens the popup.

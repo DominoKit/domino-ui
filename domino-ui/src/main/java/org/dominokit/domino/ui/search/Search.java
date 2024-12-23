@@ -169,7 +169,7 @@ public class Search extends BaseDominoElement<HTMLDivElement, Search>
    */
   public Search open() {
     expand();
-    setZIndex(config().getUIConfig().getZindexManager().getNextZIndex());
+    setZIndex(config().getUIConfig().getZindexManager().getNextZIndex(this));
     searchInput.element().focus();
     return this;
   }

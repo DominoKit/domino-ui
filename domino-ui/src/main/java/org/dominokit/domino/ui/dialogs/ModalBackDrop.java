@@ -55,7 +55,7 @@ public class ModalBackDrop extends BaseDominoElement<HTMLDivElement, ModalBackDr
 
   /** Private constructor to ensure singleton pattern. */
   private ModalBackDrop() {
-    element = div();
+    element = div().setZIndexLayer(ZIndexLayer.Z_LAYER_3);
     element.addCss(dui_dialog_backdrop);
     element
         .addEventListener(

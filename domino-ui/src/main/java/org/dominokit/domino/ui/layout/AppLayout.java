@@ -103,18 +103,26 @@ public class AppLayout extends BaseDominoElement<HTMLDivElement, AppLayout>
                 body =
                     section()
                         .addCss(dui_body)
-                        .appendChild(content = section().addCss(dui_content)));
+                        .appendChild(
+                            content =
+                                section()
+                                    .addCss(dui_content)
+                                    .setZIndexLayer(ZIndexLayer.Z_LAYER_1)));
     header =
-        LazyChild.of(header().addCss(dui_header), body)
+        LazyChild.of(header().addCss(dui_header).setZIndexLayer(ZIndexLayer.Z_LAYER_2), body)
             .whenInitialized(() -> layout.addCss(dui_has_header));
     navBar = LazyChild.of(NavBar.create(), header);
     footer =
-        LazyChild.of(section().addCss(dui_footer), body)
+        LazyChild.of(section().addCss(dui_footer).setZIndexLayer(ZIndexLayer.Z_LAYER_2), body)
             .whenInitialized(() -> layout.addCss(dui_has_footer));
     leftDrawerToggle = initLeftDrawerToggle(leftToggleIcon);
     leftDrawer =
         LazyChild.of(
-                section().addCss(dui_left_drawer).addClickListener(Event::stopPropagation), layout)
+                section()
+                    .addCss(dui_left_drawer)
+                    .setZIndexLayer(ZIndexLayer.Z_LAYER_2)
+                    .addClickListener(Event::stopPropagation),
+                layout)
             .whenInitialized(leftDrawerToggle::get);
     leftDrawer.whenInitialized(
         () -> {
@@ -140,7 +148,11 @@ public class AppLayout extends BaseDominoElement<HTMLDivElement, AppLayout>
     rightDrawerToggle = initRightDrawerToggle(rightToggleIcon);
     rightDrawer =
         LazyChild.of(
-                section().addCss(dui_right_drawer).addClickListener(Event::stopPropagation), layout)
+                section()
+                    .addCss(dui_right_drawer)
+                    .setZIndexLayer(ZIndexLayer.Z_LAYER_2)
+                    .addClickListener(Event::stopPropagation),
+                layout)
             .whenInitialized(rightDrawerToggle::get);
 
     rightDrawer.whenInitialized(
