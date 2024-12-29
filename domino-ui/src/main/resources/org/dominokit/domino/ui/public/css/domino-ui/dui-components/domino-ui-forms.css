@@ -388,6 +388,11 @@ textarea.dui-field-input {
     outline-offset: var(--dui-form-field-checkbox-outline-offset);
 }
 
+.dui-form-radio-group[readonly] .dui-form-radio,
+.dui-form-radio[readonly] {
+    pointer-events: none;
+}
+
 .dui-disable-transition .dui-form-checkbox .dui-checkbox-label:before,
 .dui-form-checkbox .dui-checkbox-label.dui-disable-transition :before,
 .dui-form-checkbox.dui-disable-transition  .dui-checkbox-label:before {

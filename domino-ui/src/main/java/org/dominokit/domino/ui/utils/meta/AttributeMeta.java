@@ -15,7 +15,12 @@
  */
 package org.dominokit.domino.ui.utils.meta;
 
+import static java.util.Objects.nonNull;
+
+import java.util.HashSet;
 import java.util.Optional;
+import java.util.Set;
+import java.util.function.Consumer;
 import org.dominokit.domino.ui.utils.ComponentMeta;
 import org.dominokit.domino.ui.utils.HasMeta;
 
@@ -29,7 +34,8 @@ import org.dominokit.domino.ui.utils.HasMeta;
 public class AttributeMeta<T> implements ComponentMeta {
 
   private String key;
-  private final T value;
+  private T value;
+  private Set<Consumer<T>> changeHandlers = new HashSet<>();
 
   /**
    * Creates a new instance of {@code AttributeMeta} with the specified key and value.
@@ -77,6 +83,17 @@ public class AttributeMeta<T> implements ComponentMeta {
   }
 
   /**
+   * Gets the value stored as metadata.
+   *
+   * @return The value associated with this metadata item.
+   */
+  public AttributeMeta<T> setValue(T value) {
+    this.value = value;
+    this.changeHandlers.forEach(c -> c.accept(this.value));
+    return this;
+  }
+
+  /**
    * Gets the key associated with this metadata item.
    *
    * @return The key of the metadata item.
@@ -84,5 +101,12 @@ public class AttributeMeta<T> implements ComponentMeta {
   @Override
   public String getKey() {
     return key;
+  }
+
+  public AttributeMeta<T> onValueChanged(Consumer<T> handler) {
+    if (nonNull(handler)) {
+      this.changeHandlers.add(handler);
+    }
+    return this;
   }
 }

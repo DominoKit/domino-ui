@@ -19,6 +19,7 @@ import static java.util.Objects.nonNull;
 import static org.dominokit.domino.ui.utils.ElementsFactory.elements;
 
 import elemental2.dom.*;
+import java.util.Objects;
 import java.util.function.Consumer;
 import org.dominokit.domino.ui.IsElement;
 import org.dominokit.domino.ui.utils.DominoElement;
@@ -166,5 +167,19 @@ public class Draggable<E extends IsElement<? extends HTMLElement>> {
 
   public interface DraggableConfig {
     boolean isEnabled();
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (!(o instanceof Draggable)) {
+      return false;
+    }
+    Draggable<?> draggable = (Draggable<?>) o;
+    return Objects.equals(id, draggable.id);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hashCode(id);
   }
 }
