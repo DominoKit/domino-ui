@@ -138,7 +138,7 @@ public class ElementUtil {
    * will be called only once, if the element is appended more than once a new callback should be
    * registered.
    *
-   * @param element the {@link HTMLElement} which is going to be added to the body
+   * @param element the {@link HTMLElementvirt} which is going to be added to the body
    * @param callback {@link ObserverCallback}
    * @return an Optional {@link ElementObserver}
    */
@@ -214,7 +214,7 @@ public class ElementUtil {
     hasInputElement
         .getInputElement()
         .addEventListener(
-            "keypress",
+            "keydown",
             evt -> {
               KeyboardEvent keyboardEvent = Js.uncheckedCast(evt);
               if (!(isMinusKey(keyboardEvent.key) || keyboardEvent.key.matches("^\\d+$"))) {
@@ -247,7 +247,7 @@ public class ElementUtil {
     hasInputElement
         .getInputElement()
         .addEventListener(
-            "keypress",
+            "keydown",
             evt -> {
               KeyboardEvent keyboardEvent = Js.uncheckedCast(evt);
               String key = keyboardEvent.key;

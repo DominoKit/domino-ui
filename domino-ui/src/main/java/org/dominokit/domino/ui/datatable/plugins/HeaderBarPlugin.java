@@ -492,7 +492,7 @@ public class HeaderBarPlugin<T> implements DataTablePlugin<T> {
       }
 
       textBox.addEventListener(
-          EventType.keypress.getName(),
+          EventType.keydown.getName(),
           evt -> {
             if (ElementUtil.isEnterKey(Js.uncheckedCast(evt))) {
               search();

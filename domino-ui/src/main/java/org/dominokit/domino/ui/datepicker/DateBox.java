@@ -180,7 +180,7 @@ public class DateBox extends ValueBox<DateBox, HTMLInputElement, Date> {
 
     getInputElement()
         .addEventListener(
-            EventType.keypress.getName(),
+            EventType.keydown.getName(),
             evt -> {
               KeyboardEvent keyboardEvent = Js.cast(evt);
               if (isEnterKey(keyboardEvent) || isSpaceKey(keyboardEvent)) {

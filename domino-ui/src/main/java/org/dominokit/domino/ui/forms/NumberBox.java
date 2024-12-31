@@ -62,7 +62,7 @@ public abstract class NumberBox<T extends NumberBox<T, E>, E extends Number>
     setAutoValidation(true);
     enableFormatting();
 
-    getInputElement().addEventListener(EventType.keypress, this::onKeyPress);
+    getInputElement().addEventListener(EventType.keydown, this::onKeyDown);
     getInputElement().addEventListener(EventType.paste, this::onPaste);
   }
 
@@ -114,7 +114,7 @@ public abstract class NumberBox<T extends NumberBox<T, E>, E extends Number>
     return sB.toString();
   }
 
-  protected void onKeyPress(Event event) {
+  protected void onKeyDown(Event event) {
     KeyboardEvent keyboardEvent = Js.uncheckedCast(event);
     if (!keyboardEvent.key.matches(createKeyMatch())) event.preventDefault();
   }

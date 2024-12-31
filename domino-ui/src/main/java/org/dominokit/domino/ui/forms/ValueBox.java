@@ -173,7 +173,7 @@ public abstract class ValueBox<T extends ValueBox<T, E, V>, E extends HTMLElemen
   }
 
   protected void onEnterKey() {
-    listenOnKeyPress(getInputElement().element())
+    listenOnKeyDown(getInputElement().element())
         .onEnter(
             evt -> {
               if (DominoUIConfig.INSTANCE.isFocusNextFieldOnEnter()) {

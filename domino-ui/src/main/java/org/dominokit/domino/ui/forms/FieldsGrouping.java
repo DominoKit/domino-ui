@@ -314,6 +314,7 @@ public class FieldsGrouping implements HasValidation<FieldsGrouping> {
     return this;
   }
 
+  @Deprecated
   public FieldsGrouping onKeyPress(KeyboardEventsHandler handler) {
     HTMLElement[] elements = getInputElements();
     handler.accept(KeyboardEvents.listenOnKeyPress(elements));

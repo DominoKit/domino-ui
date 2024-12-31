@@ -39,7 +39,13 @@ public class KeyboardEvents<T extends Node> {
   public static final String ESCAPE = "escape";
   public static final String KEYDOWN = "keydown";
   public static final String KEYUP = "keyup";
-  public static final String KEYPRESS = "keypress";
+  /**
+   * @deprecated use keydown instead.
+   * @see <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/div">Element: keypress
+   *     event </a>MDN Web Docs (div element)</a>
+   */
+  @Deprecated public static final String KEYPRESS = "keypress";
+
   public static final String ARROWDOWN = "arrowdown";
   public static final String ARROWUP = "arrowup";
   public static final String ENTER = "enter";
@@ -113,8 +119,7 @@ public class KeyboardEvents<T extends Node> {
    * @param elements the target elements
    * @param <T> the type of the element
    * @return new instance
-   * @deprecated use {@link #listenOnKeyDown(Node...)}, {@link #listenOnKeyUp(Node...)}, {@link
-   *     #listenOnKeyPress(Node...)}
+   * @deprecated use {@link #listenOnKeyDown(Node...)}, {@link #listenOnKeyUp(Node...)}
    */
   @Deprecated
   public static <T extends Node> KeyboardEvents<T> listenOn(T... elements) {
@@ -127,8 +132,7 @@ public class KeyboardEvents<T extends Node> {
    * @param elements the target {@link IsElement}
    * @param <E> the type of the element
    * @return new instance
-   * @deprecated use {@link #listenOnKeyDown(IsElement...)}, {@link #listenOnKeyUp(IsElement...)},
-   *     {@link #listenOnKeyPress(IsElement...)}
+   * @deprecated use {@link #listenOnKeyDown(IsElement...)}, {@link #listenOnKeyUp(IsElement...)}
    */
   @Deprecated
   public static <E extends HTMLElement> KeyboardEvents<E> listenOn(IsElement<E>... elements) {
@@ -221,7 +225,11 @@ public class KeyboardEvents<T extends Node> {
    * @param elements the target element
    * @param <T> the type of the element
    * @return new instance
+   * @deprecated use keydown instead.
+   * @see <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/div">Element: keypress
+   *     event </a>MDN Web Docs (div element)</a>
    */
+  @Deprecated
   @SuppressWarnings("unchecked")
   public static <T extends Node> KeyboardEvents<T> listenOnKeyPress(T... elements) {
     return new KeyboardEvents<>(KEYPRESS, elements);
@@ -233,7 +241,11 @@ public class KeyboardEvents<T extends Node> {
    * @param elements the target {@link IsElement}
    * @param <T> the type of the element
    * @return new instance
+   * @deprecated use keydown instead.
+   * @see <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/div">Element: keypress
+   *     event </a>MDN Web Docs (div element)</a>
    */
+  @Deprecated
   @SuppressWarnings("unchecked")
   public static <T extends HTMLElement> KeyboardEvents<T> listenOnKeyPress(
       IsElement<T>... elements) {
@@ -247,7 +259,11 @@ public class KeyboardEvents<T extends Node> {
    * @param elements the target {@link IsElement}
    * @param <T> the type of the element
    * @return new instance
+   * @deprecated use keydown instead.
+   * @see <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/div">Element: keypress
+   *     event </a>MDN Web Docs (div element)</a>
    */
+  @Deprecated
   @SuppressWarnings("unchecked")
   public static <T extends HTMLElement> KeyboardEvents<T> listenOnKeyPress(
       List<IsElement<T>> elements) {
