@@ -17,6 +17,8 @@ package org.dominokit.domino.ui.pagination;
 
 import static java.util.Objects.nonNull;
 
+import java.util.LinkedList;
+import java.util.List;
 import java.util.stream.IntStream;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
 
@@ -38,6 +40,8 @@ import org.dominokit.domino.ui.utils.BaseDominoElement;
  * </pre>
  */
 public class SimplePagination extends BasePagination<SimplePagination> {
+
+  private List<PagerNavItem> allPages = new LinkedList<>();
 
   /**
    * Creates a new instance of SimplePagination with default settings (0 pages and a page size of

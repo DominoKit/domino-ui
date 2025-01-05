@@ -21,6 +21,8 @@ import static org.dominokit.domino.ui.utils.Domino.*;
 
 import elemental2.dom.EventListener;
 import elemental2.dom.HTMLElement;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.stream.IntStream;
 import org.dominokit.domino.ui.forms.suggest.Select;
 import org.dominokit.domino.ui.forms.suggest.SelectOption;
@@ -47,6 +49,7 @@ public class AdvancedPagination extends BasePagination<AdvancedPagination> {
 
   private Select<Integer> pagesSelect;
   private PagerNavItem totalPagesCount;
+  private List<PagerNavItem> allPages = new LinkedList<>();
 
   /**
    * Creates a new instance of {@link AdvancedPagination} with default settings.

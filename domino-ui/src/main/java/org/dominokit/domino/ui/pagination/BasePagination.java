@@ -62,7 +62,6 @@ public abstract class BasePagination<T extends BasePagination<T>>
   protected NavElement pager;
   protected UListElement pagesList;
   protected PagerNavItem activePage;
-  protected List<PagerNavItem> allPages = new LinkedList<>();
 
   private final Set<ChangeListener<? super Integer>> pageChangeListeners = new HashSet<>();
   private boolean changeListenersPaused = false;
