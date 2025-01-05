@@ -19,6 +19,9 @@ import static org.jboss.elemento.Elements.a;
 import static org.jboss.elemento.Elements.li;
 
 import elemental2.dom.HTMLAnchorElement;
+import elemental2.dom.HTMLElement;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.stream.IntStream;
 import org.dominokit.domino.ui.icons.Icons;
 import org.dominokit.domino.ui.utils.DominoElement;
@@ -28,6 +31,7 @@ public class SimplePagination extends BasePagination<SimplePagination> {
 
   private DominoElement<HTMLAnchorElement> prevAnchor;
   private DominoElement<HTMLAnchorElement> nextAnchor;
+  private List<DominoElement<? extends HTMLElement>> allPages = new LinkedList<>();
 
   /** @return new instance */
   public static SimplePagination create() {

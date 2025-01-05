@@ -19,8 +19,6 @@ import static org.jboss.elemento.Elements.*;
 
 import elemental2.dom.HTMLElement;
 import elemental2.dom.HTMLUListElement;
-import java.util.LinkedList;
-import java.util.List;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
 import org.dominokit.domino.ui.utils.DominoElement;
 
@@ -38,7 +36,6 @@ public abstract class BasePagination<T extends BasePagination<T>>
   protected DominoElement<? extends HTMLElement> prevElement;
   protected DominoElement<? extends HTMLElement> nextElement;
 
-  protected List<DominoElement<? extends HTMLElement>> allPages = new LinkedList<>();
   protected PageChangedCallBack pageChangedCallBack = pageIndex -> {};
   protected String size = "pagination-default";
 

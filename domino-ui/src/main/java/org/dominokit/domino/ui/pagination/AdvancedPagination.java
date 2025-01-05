@@ -19,6 +19,8 @@ import static org.jboss.elemento.Elements.a;
 import static org.jboss.elemento.Elements.li;
 
 import elemental2.dom.*;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.function.Function;
 import java.util.stream.IntStream;
 import org.dominokit.domino.ui.forms.Select;
@@ -41,6 +43,7 @@ public class AdvancedPagination extends BasePagination<AdvancedPagination> {
 
   private Function<Integer, String> pagesCountTextHandler =
       pagesCount -> " of " + pagesCount + " Pages";
+  private List<DominoElement<? extends HTMLElement>> allPages = new LinkedList<>();
 
   /** @return new instance */
   public static AdvancedPagination create() {

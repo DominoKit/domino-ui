@@ -15,14 +15,18 @@
  */
 package org.dominokit.domino.ui.pagination;
 
-import static java.util.Objects.nonNull;
 import static org.jboss.elemento.Elements.a;
 import static org.jboss.elemento.Elements.li;
 
 import elemental2.dom.HTMLAnchorElement;
+import elemental2.dom.HTMLElement;
 import elemental2.dom.HTMLLIElement;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.stream.IntStream;
 import org.dominokit.domino.ui.icons.Icons;
+import org.dominokit.domino.ui.style.Styles;
+import org.dominokit.domino.ui.utils.BaseDominoElement;
 import org.dominokit.domino.ui.utils.DominoElement;
 
 /** A scrolling pagination implementation */
@@ -46,6 +50,7 @@ public class ScrollingPagination extends BasePagination<ScrollingPagination> {
   private final int windowSize;
   private int windowIndex = 0;
   private boolean totalRecordVisible = false;
+  private Map<Integer, DominoElement<? extends HTMLElement>> activeWindow = new HashMap<>();
 
   /** @return new instance */
   public static ScrollingPagination create() {
@@ -111,7 +116,6 @@ public class ScrollingPagination extends BasePagination<ScrollingPagination> {
     this.pageSize = pageSize;
     this.pagesCount = pages;
     this.index = 1;
-    allPages.clear();
 
     prevAnchor = DominoElement.of(a());
     prevElement =
@@ -147,22 +151,7 @@ public class ScrollingPagination extends BasePagination<ScrollingPagination> {
         .appendChild(prevElement);
 
     if (pages > 0) {
-      IntStream.rangeClosed(1, pages)
-          .forEach(
-              p ->
-                  DominoElement.of(li())
-                      .css("page")
-                      .apply(
-                          element -> {
-                            element.appendChild(
-                                DominoElement.of(a())
-                                    .setTextContent(p + "")
-                                    .addClickListener(evt -> moveToPage(p, false)));
-                            allPages.add(element);
-                            if (p <= windowSize) {
-                              pagesElement.appendChild(element);
-                            }
-                          }));
+      scrollToWindow(0);
     }
 
     if (pages > windowSize) {
@@ -218,7 +207,7 @@ public class ScrollingPagination extends BasePagination<ScrollingPagination> {
             .appendChild(
                 lastPageAnchor
                     .appendChild(Icons.ALL.skip_next().clickable())
-                    .addClickListener(event -> moveToPage(allPages.size(), false)));
+                    .addClickListener(event -> moveToPage(pagesCount, false)));
 
     if (pages > 0) {
       moveToPage(1, silent);
@@ -241,14 +230,53 @@ public class ScrollingPagination extends BasePagination<ScrollingPagination> {
     return this;
   }
 
+  private void scrollToWindow(int windowIndex) {
+    activeWindow.values().forEach(BaseDominoElement::remove);
+    activeWindow.clear();
+    final DominoElement<? extends HTMLElement>[] lastPage = new DominoElement[1];
+    IntStream.rangeClosed(
+            (windowIndex * windowSize) + 1,
+            Math.min((windowIndex * windowSize) + windowSize, pagesCount))
+        .forEach(
+            p -> {
+              DominoElement.of(li())
+                  .css("page")
+                  .apply(
+                      element -> {
+                        element.appendChild(
+                            DominoElement.of(a())
+                                .setTextContent(p + "")
+                                .apply(
+                                    self -> {
+                                      if (p > 9999) {
+                                        self.addCss(Styles.ellipsis_text)
+                                            .setTooltip(String.valueOf(p));
+                                      }
+                                    })
+                                .addClickListener(evt -> moveToPage(p, false)));
+
+                        if (activeWindow.isEmpty()) {
+                          pagesElement.insertAfter(element, prevElement);
+                        } else {
+                          pagesElement.insertAfter(element, lastPage[0]);
+                        }
+                        lastPage[0] = element;
+                        activeWindow.put(p, element);
+                      });
+            });
+    this.windowIndex = windowIndex;
+  }
+
   /** {@inheritDoc} */
   @Override
   protected void moveToPage(int page, boolean silent) {
     if (page > 0 && page <= pagesCount) {
 
+      showPageWindow(page);
+
       index = page;
       if (markActivePage) {
-        gotoPage(allPages.get(page - 1));
+        gotoPage(activeWindow.get(page));
       }
 
       if (!silent) {
@@ -274,69 +302,18 @@ public class ScrollingPagination extends BasePagination<ScrollingPagination> {
         prevSet.enable();
         firstPage.enable();
       }
-
-      showPageWindow(page);
     }
   }
 
   private void showPageWindow(int page) {
+    if (activeWindow.containsKey(page)) {
+      return;
+    }
+
     if (page % windowSize == 0) {
-      showWindow((page / windowSize) - 1);
+      scrollToWindow((page / windowSize) - 1);
     } else {
-      showWindow(page / windowSize);
-    }
-
-    if (windowIndex == 0) {
-      prevSet.disable();
-    } else {
-      prevSet.enable();
-    }
-
-    int windowCount = (allPages.size() / windowSize) + (allPages.size() % windowSize > 0 ? 1 : 0);
-    if (windowIndex >= windowCount - 1) {
-      nextSet.disable();
-      if (nonNull(dotsElement) && nonNull(pagesCountPageElement)) {
-        dotsElement.hide();
-        pagesCountPageElement.hide();
-      }
-
-    } else {
-      nextSet.enable();
-      if (nonNull(dotsElement) && nonNull(pagesCountPageElement)) {
-        dotsElement.show();
-        pagesCountPageElement.show();
-      }
-    }
-  }
-
-  private void showWindow(int index) {
-
-    if (index != this.windowIndex) {
-      int windowMinLimit = windowIndex * windowSize;
-      int windowMaxLimit = windowMinLimit + windowSize;
-
-      for (int i = windowMinLimit; i < windowMaxLimit; i++) {
-        if (i < allPages.size()) {
-          allPages.get(i).remove();
-        }
-      }
-
-      int targetWindowMinLimit = index * windowSize;
-      int targetWindowMaxLimit = targetWindowMinLimit + windowSize;
-
-      for (int i = targetWindowMinLimit; i < targetWindowMaxLimit; i++) {
-        if (i < allPages.size()) {
-          if (pagesElement.contains(dotsElement)) {
-            pagesElement.insertBefore(allPages.get(i), dotsElement);
-          } else if (pagesElement.contains(pagesCountPageElement)) {
-            pagesElement.insertBefore(allPages.get(i), pagesCountPageElement);
-          } else {
-            pagesElement.appendChild(allPages.get(i));
-          }
-        }
-      }
-
-      this.windowIndex = index;
+      scrollToWindow(page / windowSize);
     }
   }
 
