@@ -31,20 +31,20 @@
 .dui-breadcrumb li.dui .dui.mdi,
 .dui-breadcrumb li.dui a.dui .dui.mdi {
     margin: var(--dui-bc-icon-margin);
-    line-height: 24px;
+    line-height: var(--dui-spc-px-24);
 }
 
 .dui-breadcrumb li.dui .dui.mdi.mdi-18px {
-    line-height: 18px;
+    line-height: var(--dui-spc-px-18);
 }
 .dui-breadcrumb li.dui .dui.mdi.mdi-24px {
-    line-height: 24px;
+    line-height: var(--dui-spc-px-24);
 }
 .dui-breadcrumb li.dui .dui.mdi.mdi-36px {
-    line-height: 36px;
+    line-height: var(--dui-spc-px-36);
 }
 .dui-breadcrumb li.dui .dui.mdi.mdi-48px {
-    line-height: 48px;
+    line-height: var(--dui-spc-px-48);
 }
 
 .dui-breadcrumb[disabled] {

@@ -16,7 +16,6 @@
 package org.dominokit.domino.ui.utils;
 
 import static elemental2.dom.DomGlobal.document;
-import static org.dominokit.domino.ui.utils.ElementsFactory.elements;
 
 import elemental2.core.JsArray;
 import elemental2.dom.CustomEvent;
@@ -80,11 +79,11 @@ final class AttributesObserver {
   private static void onElementAttributesChanged(MutationRecord record) {
     CustomEventInit<MutationRecord> ceinit = CustomEventInit.create();
     ceinit.setDetail(record);
-    DominoElement<Element> element = elements.elementOf(Js.<Element>uncheckedCast(record.target));
-    String type = ObserverEventType.attributeType(element);
+    Element target = Js.uncheckedCast(record.target);
+    String type = ObserverEventType.attributeType(target);
 
     CustomEvent<MutationRecord> event = new CustomEvent<>(type, ceinit);
-    element.element().dispatchEvent(event);
+    target.dispatchEvent(event);
   }
 
   private static void observe() {

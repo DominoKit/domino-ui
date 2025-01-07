@@ -39,6 +39,5 @@
     display: block;
     font: var(--dui-nav-bar-description-font);
     margin: var(--dui-nav-bar-description-margin);
-    color: var(--dui-text-color, var(--dui-nav-bar-description-color));
     line-height: var(--dui-nav-bar-description-line-height);
 }

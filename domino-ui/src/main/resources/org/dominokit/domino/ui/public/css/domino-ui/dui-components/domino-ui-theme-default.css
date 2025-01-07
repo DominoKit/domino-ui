@@ -6,6 +6,150 @@ body.dui {
 
 .dui-theme-default {
     /* ====================== Spacing ========================= */
+    /* ======== Space values in em based on 16px root font ====== */
+    --dui-spc-px-1: 0.0625em;
+    --dui-spc-px-2: 0.125em;
+    --dui-spc-px-3: 0.1875em;
+    --dui-spc-px-4: 0.25em;
+    --dui-spc-px-5: 0.3125em;
+    --dui-spc-px-6: 0.375em;
+    --dui-spc-px-7: 0.4375em;
+    --dui-spc-px-8: 0.5em;
+    --dui-spc-px-9: 0.5625em;
+    --dui-spc-px-10: 0.625em;
+    --dui-spc-px-11: 0.6875em;
+    --dui-spc-px-12: 0.75em;
+    --dui-spc-px-13: 0.8125em;
+    --dui-spc-px-14: 0.875em;
+    --dui-spc-px-15: 0.9375em;
+    --dui-spc-px-16: 1em;
+    --dui-spc-px-17: 1.0625em;
+    --dui-spc-px-18: 1.125em;
+    --dui-spc-px-19: 1.1875em;
+    --dui-spc-px-20: 1.25em;
+    --dui-spc-px-21: 1.3125em;
+    --dui-spc-px-22: 1.375em;
+    --dui-spc-px-23: 1.4375em;
+    --dui-spc-px-24: 1.5em;
+    --dui-spc-px-25: 1.5625em;
+    --dui-spc-px-26: 1.625em;
+    --dui-spc-px-27: 1.6875em;
+    --dui-spc-px-28: 1.75em;
+    --dui-spc-px-29: 1.8125em;
+    --dui-spc-px-30: 1.875em;
+    --dui-spc-px-31: 1.9375em;
+    --dui-spc-px-32: 2em;
+    --dui-spc-px-33: 2.0625em;
+    --dui-spc-px-34: 2.125em;
+    --dui-spc-px-35: 2.1875em;
+    --dui-spc-px-36: 2.25em;
+    --dui-spc-px-37: 2.3125em;
+    --dui-spc-px-38: 2.375em;
+    --dui-spc-px-39: 2.4375em;
+    --dui-spc-px-40: 2.5em;
+    --dui-spc-px-41: 2.5625em;
+    --dui-spc-px-42: 2.625em;
+    --dui-spc-px-43: 2.6875em;
+    --dui-spc-px-44: 2.75em;
+    --dui-spc-px-45: 2.8125em;
+    --dui-spc-px-46: 2.875em;
+    --dui-spc-px-47: 2.9375em;
+    --dui-spc-px-48: 3em;
+    --dui-spc-px-49: 3.0625em;
+    --dui-spc-px-50: 3.125em;
+    --dui-spc-px-51: 3.1875em;
+    --dui-spc-px-52: 3.25em;
+    --dui-spc-px-53: 3.3125em;
+    --dui-spc-px-54: 3.375em;
+    --dui-spc-px-55: 3.4375em;
+    --dui-spc-px-56: 3.5em;
+    --dui-spc-px-57: 3.5625em;
+    --dui-spc-px-58: 3.625em;
+    --dui-spc-px-59: 3.6875em;
+    --dui-spc-px-60: 3.75em;
+    --dui-spc-px-61: 3.8125em;
+    --dui-spc-px-62: 3.875em;
+    --dui-spc-px-63: 3.9375em;
+    --dui-spc-px-64: 4em;
+    --dui-spc-px-65: 4.0625em;
+    --dui-spc-px-66: 4.125em;
+    --dui-spc-px-67: 4.1875em;
+    --dui-spc-px-68: 4.25em;
+    --dui-spc-px-69: 4.3125em;
+    --dui-spc-px-70: 4.375em;
+    --dui-spc-px-71: 4.4375em;
+    --dui-spc-px-72: 4.5em;
+    --dui-spc-px-73: 4.5625em;
+    --dui-spc-px-74: 4.625em;
+    --dui-spc-px-75: 4.6875em;
+    --dui-spc-px-76: 4.75em;
+    --dui-spc-px-77: 4.8125em;
+    --dui-spc-px-78: 4.875em;
+    --dui-spc-px-79: 4.9375em;
+    --dui-spc-px-80: 5em;
+    --dui-spc-px-81: 5.0625em;
+    --dui-spc-px-82: 5.125em;
+    --dui-spc-px-83: 5.1875em;
+    --dui-spc-px-84: 5.25em;
+    --dui-spc-px-85: 5.3125em;
+    --dui-spc-px-86: 5.375em;
+    --dui-spc-px-87: 5.4375em;
+    --dui-spc-px-88: 5.5em;
+    --dui-spc-px-89: 5.5625em;
+    --dui-spc-px-90: 5.625em;
+    --dui-spc-px-91: 5.6875em;
+    --dui-spc-px-92: 5.75em;
+    --dui-spc-px-93: 5.8125em;
+    --dui-spc-px-94: 5.875em;
+    --dui-spc-px-95: 5.9375em;
+    --dui-spc-px-96px: 6em;
+    --dui-spc-px-97: 6.0625em;
+    --dui-spc-px-98: 6.125em;
+    --dui-spc-px-99: 6.1875em;
+    --dui-spc-px-100: 6.25em;
+    --dui-spc-px-101: 6.3125em;
+    --dui-spc-px-102: 6.375em;
+    --dui-spc-px-103: 6.4375em;
+    --dui-spc-px-104: 6.5em;
+    --dui-spc-px-105: 6.5625em;
+    --dui-spc-px-106: 6.625em;
+    --dui-spc-px-107: 6.6875em;
+    --dui-spc-px-108: 6.75em;
+    --dui-spc-px-109: 6.8125em;
+    --dui-spc-px-110: 6.875em;
+    --dui-spc-px-111: 6.9375em;
+    --dui-spc-px-112: 7em;
+    --dui-spc-px-113: 7.0625em;
+    --dui-spc-px-114: 7.125em;
+    --dui-spc-px-115: 7.1875em;
+    --dui-spc-px-116: 7.25em;
+    --dui-spc-px-117: 7.3125em;
+    --dui-spc-px-118: 7.375em;
+    --dui-spc-px-119: 7.4375em;
+    --dui-spc-px-120: 7.5em;
+    --dui-spc-px-121: 7.5625em;
+    --dui-spc-px-122: 7.625em;
+    --dui-spc-px-123: 7.6875em;
+    --dui-spc-px-124: 7.75em;
+    --dui-spc-px-125: 7.8125em;
+    --dui-spc-px-126: 7.875em;
+    --dui-spc-px-127: 7.9375em;
+    --dui-spc-px-128: 8em;
+    --dui-spc-px-129: 8.0625em;
+    --dui-spc-px-130: 8.125em;
+    --dui-spc-px-131: 8.1875em;
+    --dui-spc-px-132: 8.25em;
+    --dui-spc-px-133: 8.3125em;
+    --dui-spc-px-134: 8.375em;
+    --dui-spc-px-135: 8.4375em;
+    --dui-spc-px-136: 8.5em;
+    --dui-spc-px-150: 9.375em;
+    --dui-spc-px-300: 18.75em;
+    --dui-spc-px-450: 28.125em;
+    --dui-spc-px-600: 37.5em;
+
+    /* ======== end of Space values in em based on 16px root font ====== */
+
     --dui-spc-0: 0;
     --dui-spc-px: 1px;
     --dui-spc-2px: 2px;
@@ -111,112 +255,105 @@ body.dui {
     --dui-box-shadow-23: 0 11px 14px -7px var(--dui-shadow-clr-1), 0 0px 36px 3px var(--dui-shadow-clr-2), 0 9px 44px 8px var(--dui-shadow-clr-3);
     --dui-box-shadow-24: 0 11px 15px -7px var(--dui-shadow-clr-1), 0 0px 38px 3px var(--dui-shadow-clr-2), 0 9px 46px 8px var(--dui-shadow-clr-3);
 
-    --du-default-font-family: "Inter";
+    --dui-default-font-family: "Inter";
 
-    --dui-font-normal-100: normal 100 var(--dui-spc-4) var(--dui-font-family, var(--du-default-font-family)), sans-serif;
-    --dui-font-normal-100-sm: normal 100 var(--dui-spc-3) var(--dui-font-family, var(--du-default-font-family)), sans-serif;
-    --dui-font-normal-100-xsm: normal 100 var(--dui-spc-2) var(--dui-font-family, var(--du-default-font-family)), sans-serif;
-    --dui-font-normal-100-lg: normal 100 var(--dui-spc-5) var(--dui-font-family, var(--du-default-font-family)), sans-serif;
-    --dui-font-normal-100-xlg: normal 100 var(--dui-spc-8) var(--dui-font-family, var(--du-default-font-family)), sans-serif;
+    --dui-font-normal-100: normal 100 var(--dui-spc-4) var(--dui-font-family, var(--dui-default-font-family)), sans-serif;
+    --dui-font-normal-100-sm: normal 100 var(--dui-spc-3) var(--dui-font-family, var(--dui-default-font-family)), sans-serif;
+    --dui-font-normal-100-xsm: normal 100 var(--dui-spc-2) var(--dui-font-family, var(--dui-default-font-family)), sans-serif;
+    --dui-font-normal-100-lg: normal 100 var(--dui-spc-5) var(--dui-font-family, var(--dui-default-font-family)), sans-serif;
+    --dui-font-normal-100-xlg: normal 100 var(--dui-spc-8) var(--dui-font-family, var(--dui-default-font-family)), sans-serif;
 
-    --dui-font-italic-100: italic 100 var(--dui-spc-4) var(--dui-font-family, var(--du-default-font-family)), sans-serif;
-    --dui-font-italic-100-sm: italic 100 var(--dui-spc-3) var(--dui-font-family, var(--du-default-font-family)), sans-serif;
-    --dui-font-italic-100-xsm: italic 100 var(--dui-spc-2) var(--dui-font-family, var(--du-default-font-family)), sans-serif;
-    --dui-font-italic-100-lg: italic 100 var(--dui-spc-5) var(--dui-font-family, var(--du-default-font-family)), sans-serif;
-    --dui-font-italic-100-xlg: italic 100 var(--dui-spc-8) var(--dui-font-family, var(--du-default-font-family)), sans-serif;
+    --dui-font-italic-100: italic 100 var(--dui-spc-4) var(--dui-font-family, var(--dui-default-font-family)), sans-serif;
+    --dui-font-italic-100-sm: italic 100 var(--dui-spc-3) var(--dui-font-family, var(--dui-default-font-family)), sans-serif;
+    --dui-font-italic-100-xsm: italic 100 var(--dui-spc-2) var(--dui-font-family, var(--dui-default-font-family)), sans-serif;
+    --dui-font-italic-100-lg: italic 100 var(--dui-spc-5) var(--dui-font-family, var(--dui-default-font-family)), sans-serif;
+    --dui-font-italic-100-xlg: italic 100 var(--dui-spc-8) var(--dui-font-family, var(--dui-default-font-family)), sans-serif;
 
-    --dui-font-normal-300: normal 300 var(--dui-spc-4) var(--dui-font-family, var(--du-default-font-family)), sans-serif;
-    --dui-font-normal-300-sm: normal 300 var(--dui-spc-3) var(--dui-font-family, var(--du-default-font-family)), sans-serif;
-    --dui-font-normal-300-xsm: normal 300 var(--dui-spc-2) var(--dui-font-family, var(--du-default-font-family)), sans-serif;
-    --dui-font-normal-300-lg: normal 300 var(--dui-spc-5) var(--dui-font-family, var(--du-default-font-family)), sans-serif;
-    --dui-font-normal-300-xlg: normal 300 var(--dui-spc-8) var(--dui-font-family, var(--du-default-font-family)), sans-serif;
+    --dui-font-normal-300: normal 300 var(--dui-spc-4) var(--dui-font-family, var(--dui-default-font-family)), sans-serif;
+    --dui-font-normal-300-sm: normal 300 var(--dui-spc-3) var(--dui-font-family, var(--dui-default-font-family)), sans-serif;
+    --dui-font-normal-300-xsm: normal 300 var(--dui-spc-2) var(--dui-font-family, var(--dui-default-font-family)), sans-serif;
+    --dui-font-normal-300-lg: normal 300 var(--dui-spc-5) var(--dui-font-family, var(--dui-default-font-family)), sans-serif;
+    --dui-font-normal-300-xlg: normal 300 var(--dui-spc-8) var(--dui-font-family, var(--dui-default-font-family)), sans-serif;
 
-    --dui-font-italic-300: italic 300 var(--dui-spc-4) var(--dui-font-family, var(--du-default-font-family)), sans-serif;
-    --dui-font-italic-300-sm: italic 300 var(--dui-spc-3) var(--dui-font-family, var(--du-default-font-family)), sans-serif;
-    --dui-font-italic-300-xsm: italic 300 var(--dui-spc-2) var(--dui-font-family, var(--du-default-font-family)), sans-serif;
-    --dui-font-italic-300-lg: italic 300 var(--dui-spc-5) var(--dui-font-family, var(--du-default-font-family)), sans-serif;
-    --dui-font-italic-300-xlg: italic 300 var(--dui-spc-8) var(--dui-font-family, var(--du-default-font-family)), sans-serif;
+    --dui-font-italic-300: italic 300 var(--dui-spc-4) var(--dui-font-family, var(--dui-default-font-family)), sans-serif;
+    --dui-font-italic-300-sm: italic 300 var(--dui-spc-3) var(--dui-font-family, var(--dui-default-font-family)), sans-serif;
+    --dui-font-italic-300-xsm: italic 300 var(--dui-spc-2) var(--dui-font-family, var(--dui-default-font-family)), sans-serif;
+    --dui-font-italic-300-lg: italic 300 var(--dui-spc-5) var(--dui-font-family, var(--dui-default-font-family)), sans-serif;
+    --dui-font-italic-300-xlg: italic 300 var(--dui-spc-8) var(--dui-font-family, var(--dui-default-font-family)), sans-serif;
 
-    --dui-font-regular: normal 400 var(--dui-spc-4) var(--dui-font-family, var(--du-default-font-family)), sans-serif;
-    --dui-font-regular-sm: normal 400 var(--dui-spc-3) var(--dui-font-family, var(--du-default-font-family)), sans-serif;
-    --dui-font-regular-xsm: normal 400 var(--dui-spc-2) var(--dui-font-family, var(--du-default-font-family)), sans-serif;
-    --dui-font-regular-lg: normal 400 var(--dui-spc-5) var(--dui-font-family, var(--du-default-font-family)), sans-serif;
-    --dui-font-regular-xlg: normal 400 var(--dui-spc-8) var(--dui-font-family, var(--du-default-font-family)), sans-serif;
+    --dui-font-regular: normal 400 var(--dui-spc-4) var(--dui-font-family, var(--dui-default-font-family)), sans-serif;
+    --dui-font-regular-sm: normal 400 var(--dui-spc-3) var(--dui-font-family, var(--dui-default-font-family)), sans-serif;
+    --dui-font-regular-xsm: normal 400 var(--dui-spc-2) var(--dui-font-family, var(--dui-default-font-family)), sans-serif;
+    --dui-font-regular-lg: normal 400 var(--dui-spc-5) var(--dui-font-family, var(--dui-default-font-family)), sans-serif;
+    --dui-font-regular-xlg: normal 400 var(--dui-spc-8) var(--dui-font-family, var(--dui-default-font-family)), sans-serif;
 
-    --dui-font-italic: italic 400 var(--dui-spc-4) var(--dui-font-family, var(--du-default-font-family)), sans-serif;
-    --dui-font-italic-sm: italic 400 var(--dui-spc-3) var(--dui-font-family, var(--du-default-font-family)), sans-serif;
-    --dui-font-italic-xsm: italic 400 var(--dui-spc-2) var(--dui-font-family, var(--du-default-font-family)), sans-serif;
-    --dui-font-italic-lg: italic 400 var(--dui-spc-5) var(--dui-font-family, var(--du-default-font-family)), sans-serif;
-    --dui-font-italic-xlg: italic 400 var(--dui-spc-8) var(--dui-font-family, var(--du-default-font-family)), sans-serif;
+    --dui-font-italic: italic 400 var(--dui-spc-4) var(--dui-font-family, var(--dui-default-font-family)), sans-serif;
+    --dui-font-italic-sm: italic 400 var(--dui-spc-3) var(--dui-font-family, var(--dui-default-font-family)), sans-serif;
+    --dui-font-italic-xsm: italic 400 var(--dui-spc-2) var(--dui-font-family, var(--dui-default-font-family)), sans-serif;
+    --dui-font-italic-lg: italic 400 var(--dui-spc-5) var(--dui-font-family, var(--dui-default-font-family)), sans-serif;
+    --dui-font-italic-xlg: italic 400 var(--dui-spc-8) var(--dui-font-family, var(--dui-default-font-family)), sans-serif;
 
-    --dui-font-normal-500: normal 500 var(--dui-spc-4) var(--dui-font-family, var(--du-default-font-family)), sans-serif;
-    --dui-font-normal-500-sm: normal 500 var(--dui-spc-3) var(--dui-font-family, var(--du-default-font-family)), sans-serif;
-    --dui-font-normal-500-xsm: normal 500 var(--dui-spc-2) var(--dui-font-family, var(--du-default-font-family)), sans-serif;
-    --dui-font-normal-500-lg: normal 500 var(--dui-spc-5) var(--dui-font-family, var(--du-default-font-family)), sans-serif;
-    --dui-font-normal-500-xlg: normal 500 var(--dui-spc-8) var(--dui-font-family, var(--du-default-font-family)), sans-serif;
+    --dui-font-normal-500: normal 500 var(--dui-spc-4) var(--dui-font-family, var(--dui-default-font-family)), sans-serif;
+    --dui-font-normal-500-sm: normal 500 var(--dui-spc-3) var(--dui-font-family, var(--dui-default-font-family)), sans-serif;
+    --dui-font-normal-500-xsm: normal 500 var(--dui-spc-2) var(--dui-font-family, var(--dui-default-font-family)), sans-serif;
+    --dui-font-normal-500-lg: normal 500 var(--dui-spc-5) var(--dui-font-family, var(--dui-default-font-family)), sans-serif;
+    --dui-font-normal-500-xlg: normal 500 var(--dui-spc-8) var(--dui-font-family, var(--dui-default-font-family)), sans-serif;
 
-    --dui-font-italic-500: italic 500 var(--dui-spc-4) var(--dui-font-family, var(--du-default-font-family)), sans-serif;
-    --dui-font-italic-500-sm: italic 500 var(--dui-spc-3) var(--dui-font-family, var(--du-default-font-family)), sans-serif;
-    --dui-font-italic-500-xsm: italic 500 var(--dui-spc-2) var(--dui-font-family, var(--du-default-font-family)), sans-serif;
-    --dui-font-italic-500-lg: italic 500 var(--dui-spc-5) var(--dui-font-family, var(--du-default-font-family)), sans-serif;
-    --dui-font-italic-500-xlg: italic 500 var(--dui-spc-8) var(--dui-font-family, var(--du-default-font-family)), sans-serif;
+    --dui-font-italic-500: italic 500 var(--dui-spc-4) var(--dui-font-family, var(--dui-default-font-family)), sans-serif;
+    --dui-font-italic-500-sm: italic 500 var(--dui-spc-3) var(--dui-font-family, var(--dui-default-font-family)), sans-serif;
+    --dui-font-italic-500-xsm: italic 500 var(--dui-spc-2) var(--dui-font-family, var(--dui-default-font-family)), sans-serif;
+    --dui-font-italic-500-lg: italic 500 var(--dui-spc-5) var(--dui-font-family, var(--dui-default-font-family)), sans-serif;
+    --dui-font-italic-500-xlg: italic 500 var(--dui-spc-8) var(--dui-font-family, var(--dui-default-font-family)), sans-serif;
 
-    --dui-font-normal-600: normal 600 var(--dui-spc-4) var(--dui-font-family, var(--du-default-font-family)), sans-serif;
-    --dui-font-normal-600-sm: normal 600 var(--dui-spc-3) var(--dui-font-family, var(--du-default-font-family)), sans-serif;
-    --dui-font-normal-600-xsm: normal 600 var(--dui-spc-2) var(--dui-font-family, var(--du-default-font-family)), sans-serif;
-    --dui-font-normal-600-lg: normal 600 var(--dui-spc-5) var(--dui-font-family, var(--du-default-font-family)), sans-serif;
-    --dui-font-normal-600-xlg: normal 600 var(--dui-spc-8) var(--dui-font-family, var(--du-default-font-family)), sans-serif;
+    --dui-font-normal-600: normal 600 var(--dui-spc-4) var(--dui-font-family, var(--dui-default-font-family)), sans-serif;
+    --dui-font-normal-600-sm: normal 600 var(--dui-spc-3) var(--dui-font-family, var(--dui-default-font-family)), sans-serif;
+    --dui-font-normal-600-xsm: normal 600 var(--dui-spc-2) var(--dui-font-family, var(--dui-default-font-family)), sans-serif;
+    --dui-font-normal-600-lg: normal 600 var(--dui-spc-5) var(--dui-font-family, var(--dui-default-font-family)), sans-serif;
+    --dui-font-normal-600-xlg: normal 600 var(--dui-spc-8) var(--dui-font-family, var(--dui-default-font-family)), sans-serif;
 
-    --dui-font-italic-600: italic 600 var(--dui-spc-4) var(--dui-font-family, var(--du-default-font-family)), sans-serif;
-    --dui-font-italic-600-sm: italic 600 var(--dui-spc-3) var(--dui-font-family, var(--du-default-font-family)), sans-serif;
-    --dui-font-italic-600-xsm: italic 600 var(--dui-spc-2) var(--dui-font-family, var(--du-default-font-family)), sans-serif;
-    --dui-font-italic-600-lg: italic 600 var(--dui-spc-5) var(--dui-font-family, var(--du-default-font-family)), sans-serif;
-    --dui-font-italic-600-xlg: italic 600 var(--dui-spc-8) var(--dui-font-family, var(--du-default-font-family)), sans-serif;
+    --dui-font-italic-600: italic 600 var(--dui-spc-4) var(--dui-font-family, var(--dui-default-font-family)), sans-serif;
+    --dui-font-italic-600-sm: italic 600 var(--dui-spc-3) var(--dui-font-family, var(--dui-default-font-family)), sans-serif;
+    --dui-font-italic-600-xsm: italic 600 var(--dui-spc-2) var(--dui-font-family, var(--dui-default-font-family)), sans-serif;
+    --dui-font-italic-600-lg: italic 600 var(--dui-spc-5) var(--dui-font-family, var(--dui-default-font-family)), sans-serif;
+    --dui-font-italic-600-xlg: italic 600 var(--dui-spc-8) var(--dui-font-family, var(--dui-default-font-family)), sans-serif;
 
-    --dui-font-normal-700: normal 700 var(--dui-spc-4) var(--dui-font-family, var(--du-default-font-family)), sans-serif;
-    --dui-font-normal-700-sm: normal 700 var(--dui-spc-3) var(--dui-font-family, var(--du-default-font-family)), sans-serif;
-    --dui-font-normal-700-xsm: normal 700 var(--dui-spc-2) var(--dui-font-family, var(--du-default-font-family)), sans-serif;
-    --dui-font-normal-700-lg: normal 700 var(--dui-spc-5) var(--dui-font-family, var(--du-default-font-family)), sans-serif;
-    --dui-font-normal-700-xlg: normal 700 var(--dui-spc-8) var(--dui-font-family, var(--du-default-font-family)), sans-serif;
+    --dui-font-normal-700: normal 700 var(--dui-spc-4) var(--dui-font-family, var(--dui-default-font-family)), sans-serif;
+    --dui-font-normal-700-sm: normal 700 var(--dui-spc-3) var(--dui-font-family, var(--dui-default-font-family)), sans-serif;
+    --dui-font-normal-700-xsm: normal 700 var(--dui-spc-2) var(--dui-font-family, var(--dui-default-font-family)), sans-serif;
+    --dui-font-normal-700-lg: normal 700 var(--dui-spc-5) var(--dui-font-family, var(--dui-default-font-family)), sans-serif;
+    --dui-font-normal-700-xlg: normal 700 var(--dui-spc-8) var(--dui-font-family, var(--dui-default-font-family)), sans-serif;
 
-    --dui-font-italic-700: italic 700 var(--dui-spc-4) var(--dui-font-family, var(--du-default-font-family)), sans-serif;
-    --dui-font-italic-700-sm: italic 700 var(--dui-spc-3) var(--dui-font-family, var(--du-default-font-family)), sans-serif;
-    --dui-font-italic-700-xsm: italic 700 var(--dui-spc-2) var(--dui-font-family, var(--du-default-font-family)), sans-serif;
-    --dui-font-italic-700-lg: italic 700 var(--dui-spc-5) var(--dui-font-family, var(--du-default-font-family)), sans-serif;
-    --dui-font-italic-700-xlg: italic 700 var(--dui-spc-8) var(--dui-font-family, var(--du-default-font-family)), sans-serif;
+    --dui-font-italic-700: italic 700 var(--dui-spc-4) var(--dui-font-family, var(--dui-default-font-family)), sans-serif;
+    --dui-font-italic-700-sm: italic 700 var(--dui-spc-3) var(--dui-font-family, var(--dui-default-font-family)), sans-serif;
+    --dui-font-italic-700-xsm: italic 700 var(--dui-spc-2) var(--dui-font-family, var(--dui-default-font-family)), sans-serif;
+    --dui-font-italic-700-lg: italic 700 var(--dui-spc-5) var(--dui-font-family, var(--dui-default-font-family)), sans-serif;
+    --dui-font-italic-700-xlg: italic 700 var(--dui-spc-8) var(--dui-font-family, var(--dui-default-font-family)), sans-serif;
 
-    --dui-font-normal-800: normal 800 var(--dui-spc-4) var(--dui-font-family, var(--du-default-font-family)), sans-serif;
-    --dui-font-normal-800-sm: normal 800 var(--dui-spc-3) var(--dui-font-family, var(--du-default-font-family)), sans-serif;
-    --dui-font-normal-800-xsm: normal 800 var(--dui-spc-2) var(--dui-font-family, var(--du-default-font-family)), sans-serif;
-    --dui-font-normal-800-lg: normal 800 var(--dui-spc-5) var(--dui-font-family, var(--du-default-font-family)), sans-serif;
-    --dui-font-normal-800-xlg: normal 800 var(--dui-spc-8) var(--dui-font-family, var(--du-default-font-family)), sans-serif;
+    --dui-font-normal-800: normal 800 var(--dui-spc-4) var(--dui-font-family, var(--dui-default-font-family)), sans-serif;
+    --dui-font-normal-800-sm: normal 800 var(--dui-spc-3) var(--dui-font-family, var(--dui-default-font-family)), sans-serif;
+    --dui-font-normal-800-xsm: normal 800 var(--dui-spc-2) var(--dui-font-family, var(--dui-default-font-family)), sans-serif;
+    --dui-font-normal-800-lg: normal 800 var(--dui-spc-5) var(--dui-font-family, var(--dui-default-font-family)), sans-serif;
+    --dui-font-normal-800-xlg: normal 800 var(--dui-spc-8) var(--dui-font-family, var(--dui-default-font-family)), sans-serif;
 
-    --dui-font-italic-800: italic 800 var(--dui-spc-4) var(--dui-font-family, var(--du-default-font-family)), sans-serif;
-    --dui-font-italic-800-sm: italic 800 var(--dui-spc-3) var(--dui-font-family, var(--du-default-font-family)), sans-serif;
-    --dui-font-italic-800-xsm: italic 800 var(--dui-spc-2) var(--dui-font-family, var(--du-default-font-family)), sans-serif;
-    --dui-font-italic-800-lg: italic 800 var(--dui-spc-5) var(--dui-font-family, var(--du-default-font-family)), sans-serif;
-    --dui-font-italic-800-xlg: italic 800 var(--dui-spc-8) var(--dui-font-family, var(--du-default-font-family)), sans-serif;
+    --dui-font-italic-800: italic 800 var(--dui-spc-4) var(--dui-font-family, var(--dui-default-font-family)), sans-serif;
+    --dui-font-italic-800-sm: italic 800 var(--dui-spc-3) var(--dui-font-family, var(--dui-default-font-family)), sans-serif;
+    --dui-font-italic-800-xsm: italic 800 var(--dui-spc-2) var(--dui-font-family, var(--dui-default-font-family)), sans-serif;
+    --dui-font-italic-800-lg: italic 800 var(--dui-spc-5) var(--dui-font-family, var(--dui-default-font-family)), sans-serif;
+    --dui-font-italic-800-xlg: italic 800 var(--dui-spc-8) var(--dui-font-family, var(--dui-default-font-family)), sans-serif;
 
-    --dui-font-normal-900: normal 900 var(--dui-spc-4) var(--dui-font-family, var(--du-default-font-family)), sans-serif;
-    --dui-font-normal-900-sm: normal 900 var(--dui-spc-3) var(--dui-font-family, var(--du-default-font-family)), sans-serif;
-    --dui-font-normal-900-xsm: normal 900 var(--dui-spc-2) var(--dui-font-family, var(--du-default-font-family)), sans-serif;
-    --dui-font-normal-900-lg: normal 900 var(--dui-spc-5) var(--dui-font-family, var(--du-default-font-family)), sans-serif;
-    --dui-font-normal-900-xlg: normal 900 var(--dui-spc-8) var(--dui-font-family, var(--du-default-font-family)), sans-serif;
+    --dui-font-normal-900: normal 900 var(--dui-spc-4) var(--dui-font-family, var(--dui-default-font-family)), sans-serif;
+    --dui-font-normal-900-sm: normal 900 var(--dui-spc-3) var(--dui-font-family, var(--dui-default-font-family)), sans-serif;
+    --dui-font-normal-900-xsm: normal 900 var(--dui-spc-2) var(--dui-font-family, var(--dui-default-font-family)), sans-serif;
+    --dui-font-normal-900-lg: normal 900 var(--dui-spc-5) var(--dui-font-family, var(--dui-default-font-family)), sans-serif;
+    --dui-font-normal-900-xlg: normal 900 var(--dui-spc-8) var(--dui-font-family, var(--dui-default-font-family)), sans-serif;
 
-    --dui-font-italic-900: italic 900 var(--dui-spc-4) var(--dui-font-family, var(--du-default-font-family)), sans-serif;
-    --dui-font-italic-900-sm: italic 900 var(--dui-spc-3) var(--dui-font-family, var(--du-default-font-family)), sans-serif;
-    --dui-font-italic-900-xsm: italic 900 var(--dui-spc-2) var(--dui-font-family, var(--du-default-font-family)), sans-serif;
-    --dui-font-italic-900-lg: italic 900 var(--dui-spc-5) var(--dui-font-family, var(--du-default-font-family)), sans-serif;
-    --dui-font-italic-900-xlg: italic 900 var(--dui-spc-8) var(--dui-font-family, var(--du-default-font-family)), sans-serif;
+    --dui-font-italic-900: italic 900 var(--dui-spc-4) var(--dui-font-family, var(--dui-default-font-family)), sans-serif;
+    --dui-font-italic-900-sm: italic 900 var(--dui-spc-3) var(--dui-font-family, var(--dui-default-font-family)), sans-serif;
+    --dui-font-italic-900-xsm: italic 900 var(--dui-spc-2) var(--dui-font-family, var(--dui-default-font-family)), sans-serif;
+    --dui-font-italic-900-lg: italic 900 var(--dui-spc-5) var(--dui-font-family, var(--dui-default-font-family)), sans-serif;
+    --dui-font-italic-900-xlg: italic 900 var(--dui-spc-8) var(--dui-font-family, var(--dui-default-font-family)), sans-serif;
 
     font: var(--dui-font-regular);
-
-    /* =============== Block header =================== */
-
-    --dui-block-header-margin: 0 0 10px 0;
-    --dui-block-header-title-margin: 0 0 0 0;
-    --dui-block-header-title-font: var(--dui-font-normal-600);
-    --dui-block-header-description-font: var(--dui-font-regular-sm);
 
     /* =============== Generic =================== */
     --dui-z-index: 0;
@@ -294,6 +431,13 @@ body.dui {
     --dui-grow-11: 11;
     --dui-grow-12: 12;
 
+    /* =============== Block header =================== */
+
+    --dui-block-header-margin: 0 0 var(--dui-spc-px-10) 0;
+    --dui-block-header-title-margin: 0 0 0 0;
+    --dui-block-header-title-font: var(--dui-font-normal-600);
+    --dui-block-header-description-font: var(--dui-font-regular-sm);
+
     /* ================== Label ===================== */
     --dui-label-font: inherit;
     --dui-label-padding: var(--dui-spc-1) var(--dui-spc-2);
@@ -335,7 +479,7 @@ body.dui {
     --dui-clickable-cursor: pointer;
     --dui-clickable-transform: none;
     --dui-clickable-transition: all 0.2s ease-in;
-    --dui-default-icon-size: 24px;
+    --dui-default-icon-size: var(--dui-spc-px-24);
 
     --dui-primary-fg-clr: var(--dui-clr-white);
     --dui-secondary-fg-clr: var(--dui-clr-white);
@@ -374,7 +518,7 @@ body.dui {
     --dui-btn-cursor: pointer;
     --dui-btn-border: 0;
     --dui-btn-line-height: 29px;
-    --dui-btn-padding: 6px 11px;
+    --dui-btn-padding: var(--dui-spc-px-6) var(--dui-spc-px-11);
     --dui-btn-border-radius: 4px;
     --dui-btn-box-shadow: var(--dui-box-shadow-0);
     --dui-btn-transition: .0s;
@@ -386,27 +530,27 @@ body.dui {
     --dui-btn-focus-box-shadow: var(--dui-box-shadow-2);
     --dui-btn-focus-outline-width: 0px;
     --dui-btn-focus-outline-style: dotted;
-    --dui-btn-focus-outline-offset: 2px;
+    --dui-btn-focus-outline-offset: var(--dui-spc-px-2);
 
-    --dui-btn-lg-font-size: 20px;
+    --dui-btn-lg-font-size: var(--dui-spc-px-20);
     --dui-btn-lg-line-height: 1.3333333;
-    --dui-btn-lg-padding: 10px 16px;
+    --dui-btn-lg-padding: var(--dui-spc-px-10) var(--dui-spc-px-16);
 
-    --dui-btn-md-font-size: 16px;
+    --dui-btn-md-font-size: var(--dui-spc-px-16);
     --dui-btn-md-line-height: 2;
-    --dui-btn-md-padding: 6px 12px;
+    --dui-btn-md-padding: var(--dui-spc-px-6) var(--dui-spc-px-12);
 
-    --dui-btn-sm-font-size: 14px;
+    --dui-btn-sm-font-size: var(--dui-spc-px-14);
     --dui-btn-sm-line-height: 2;
-    --dui-btn-sm-padding: 5px 10px;
+    --dui-btn-sm-padding: var(--dui-spc-px-5) var(--dui-spc-px-10);
 
-    --dui-btn-xs-font-size: 12px;
+    --dui-btn-xs-font-size: var(--dui-spc-px-12);
     --dui-btn-xs-line-height: 2.5;
-    --dui-btn-xs-padding: 1px 5px;
+    --dui-btn-xs-padding: var(--dui-spc-px-1) var(--dui-spc-px-5);
 
     --dui-btn-group-box-shadow: var(--dui-box-shadow-0);
     --dui-btn-group-border-radius: 3px;
-    --dui-btn-toolbar-group-spacing: 5px;
+    --dui-btn-toolbar-group-spacing: var(--dui-spc-px-5);
 
     --dui-btn-link-bg: transparent;
     --dui-btn-link-box-shadow: none;
@@ -421,12 +565,12 @@ body.dui {
     --dui-bc-default-bg: var(--dui-clr-transparent);
     --dui-bc-font: var(--dui-font-regular);
     --dui-bc-margin: 0px;
-    --dui-bc-padding: 8px 15px;
+    --dui-bc-padding: var(--dui-spc-px-8) var(--dui-spc-px-15);
     --dui-bc-active-cursor: pointer;
-    --dui-bc-arrow-padding: 0 5px;
+    --dui-bc-arrow-padding: 0 var(--dui-spc-px-5);
     --dui-bc-arrow-content: '>\00a0';
     --dui-bc-disabled-opacity: 0.50;
-    --dui-bc-icon-margin: 0 4px 0 0;
+    --dui-bc-icon-margin: 0 var(--dui-spc-px-4) 0 0;
 
 
     /* ===================== Cards ==================================== */
@@ -440,17 +584,17 @@ body.dui {
     --dui-card-header-title-font: var(--dui-font-regular);
     --dui-card-header-title-margin: 0;
     --dui-card-header-gap: var(--dui-spc-5);
-    --dui-card-icon-margins: 0 5px 0 5px;
+    --dui-card-icon-margins: 0 var(--dui-spc-px-5) 0 var(--dui-spc-px-5);
     --dui-card-description-font: var(--dui-font-regular-sm);
     --dui-card-body-font: var(--dui-font-regular);
     --dui-card-description-line-height: var(--dui-spc-4);
-    --dui-card-description-margin: 5px 0 0 0;
+    --dui-card-description-margin: var(--dui-spc-px-5) 0 0 0;
     --dui-card-description-color: var(--dui-color);
-    --dui-card-body-padding: 20px;
+    --dui-card-body-padding: var(--dui-spc-px-20);
     --dui-card-header-border-width: 0 0 1px 0;
     --dui-card-header-border-reversed-width: 1px 0 0 0;
     --dui-card-header-border-style: solid;
-    --dui-cardsubheader-padding: 4px 0 4px 0;
+    --dui-cardsubheader-padding: var(--dui-spc-px-4) 0 var(--dui-spc-px-4) 0;
 
     /*======================== Chips ===================================*/
 
@@ -464,7 +608,7 @@ body.dui {
     --dui-chip-margin: 0 0 0 0;
     --dui-chip-text-align: center;
     --dui-chip-vertical-align: middle;
-    --dui-chip-padding: 0 10px 0 10px;
+    --dui-chip-padding: 0 var(--dui-spc-px-10) 0 var(--dui-spc-px-10);
     --dui-chip-cursor: pointer;
     --dui-chip-border: 1px solid currentColor;
     --dui-chip-disabled-background: var(--dui-clr-grey);
@@ -472,34 +616,34 @@ body.dui {
     --dui-chip-value-width: var(--dui-spc-full);
     --dui-chip-value-whitespace: nowrap;
     --dui-chip-value-text-align: left;
-    --dui-chip-text-padding: 0 10px 0 10px;
+    --dui-chip-text-padding: 0 var(--dui-spc-px-10) 0 var(--dui-spc-px-10);
     --dui-chip-focus-box-shadow: var(--dui-box-shadow-1);
     --dui-chip-focus-outline: 1px solid var(--dui-bg-clr);
     --dui-chip-focus-outline-offset: 1px;
-    --dui-chip-addon-font-size: 20px;
-    --dui-chip-addon-span-font-size: 16px;
+    --dui-chip-addon-font-size: var(--dui-spc-5);
+    --dui-chip-addon-span-font-size: var(--dui-spc-px-16);
     --dui-chip-addon-radius: 50%;
     --dui-chip-addon-width: var(--dui-spc-8);
     --dui-chip-addon-height: var(--dui-spc-8);
-    --dui-chip-addon-mrgin: 2px 0 0 0;
-    --dui-chip-close-mrgin: -2px 0 0 12px;
+    --dui-chip-addon-mrgin: var(--dui-spc-px-2) 0 0 0;
+    --dui-chip-close-mrgin: -2px 0 0 var(--dui-spc-px-12);
 
     /*======================================= Info box ================================*/
 
     --dui-infobox-direction: row;
     --dui-info-background-color: var(--dui-clr-dominant);
     --dui-info-margin: 0 0 0 0;
-    --dui-info-flipped-height: 70px;;
-    --dui-info-icon-size: 70px;;
+    --dui-info-flipped-height: var(--dui-spc-px-70);
+    --dui-info-icon-size: var(--dui-spc-px-70);
     --dui-info-icon-color: var(--dui-clr-white);
     --dui-info-icon-background: var(--dui-clr-dominant);
-    --dui-info-icon-font-size: 50px;
+    --dui-info-icon-font-size: var(--dui-spc-px-50);
     --dui-info-title-font-size: var(--dui-spc-3);
-    --dui-info-title-margin: 6px 0 0 0;
+    --dui-info-title-margin: var(--dui-spc-px-6) 0 0 0;
     --dui-info-value-font: var(--dui-font-normal-500-lg);
     --dui-info-value-margin: -4px 0 0 0;
-    --dui-info-content-padding: 7px 10px 10px 10px;
-    --dui-info-flipped-content-padding: 7px 16px 16px 16px;
+    --dui-info-content-padding: var(--dui-spc-px-7) var(--dui-spc-px-10) var(--dui-spc-px-10) var(--dui-spc-px-10);
+    --dui-info-flipped-content-padding: var(--dui-spc-px-7) var(--dui-spc-px-16) var(--dui-spc-px-16) var(--dui-spc-px-16);
     --dui-info-hover-duration: 0.3s;
     --dui-info-hover-scale: 1.4;
     --dui-info-hover-rotation: -32deg;
@@ -508,19 +652,19 @@ body.dui {
 
     /* ===================== Media objects =============================*/
 
-    --dui-media-margin: 16px 0 0 0;
+    --dui-media-margin: var(--dui-spc-px-16) 0 0 0;
     --dui-media-body-color: var(--dui-color);
     --dui-media-heading-color: var(--dui-color);
     --dui-media-body-font: var(--dui-font-regular-sm);
     --dui-media-heading-font: var(--dui-font-normal-600);
-    --dui-media-object-padding: 0 10px 0 10px;
-    --dui-media-heading-maring: 0 0 5px 0;
+    --dui-media-object-padding: 0 var(--dui-spc-px-10) 0 var(--dui-spc-px-10);
+    --dui-media-heading-maring: 0 0 var(--dui-spc-px-5) 0;
 
     /* ======================== Pagination ============================ */
 
     --dui-pager-disabled-color: var(--dui-clr-grey);
-    --dui-pager-list-padding: 0 10px 0 10px;
-    --dui-pager-list-margin: 20px 0 20px 0;
+    --dui-pager-list-padding: 0 var(--dui-spc-px-10) 0 var(--dui-spc-px-10);
+    --dui-pager-list-margin: var(--dui-spc-px-20) 0 var(--dui-spc-px-20) 0;
     --dui-pager-page-link-font: var(--dui-font-regular);
     --dui-pager-page-link-font-small: var(--dui-font-regular-sm);
     --dui-pager-page-link-font-large: var(--dui-font-regular-lg);
@@ -531,7 +675,7 @@ body.dui {
     --dui-pager-page-link-disabled-color: var(--dui-clr-grey);
     --dui-pager-page-link-disabled-cursor: not-allowed;
     --dui-pagination-link-text-decoration: none;
-    --dui-pager-item-margin: 0 5px 0 5px;
+    --dui-pager-item-margin: 0 var(--dui-spc-px-5) 0 var(--dui-spc-px-5);
 
     /* ============= uncomment to define specific colors ======================= */
     /*--dui-pager-page-link-active-background: var(--dui-bg-d-2);*/
@@ -539,32 +683,32 @@ body.dui {
     /*--dui-pager-page-link-hover-background: var(--dui-bg-d-1);*/
     /*--dui-pager-page-link-active-hover-color: var(--dui-fg-l-5);*/
 
-    --dui-pager-page-count-margin: 0 10px 0 10px;
-    --dui-pager-page-count-min-width: 120px;
+    --dui-pager-page-count-margin: 0 var(--dui-spc-px-10) 0 var(--dui-spc-px-10);
+    --dui-pager-page-count-min-width: var(--dui-spc-px-120);
     --dui-pager-page-count-radius: var(--dui-spc-9999px);
     --dui-navigator-padding: 0 0 0 0;
-    --dui-navigator-margin: 20px 0;
+    --dui-navigator-margin: var(--dui-spc-px-20) 0;
     --dui-navigator-text-align: center;
     --dui-navigator-width: 100%;
-    --dui-navigator-nav-padding: 5px 14px 5px 14px;
+    --dui-navigator-nav-padding: var(--dui-spc-px-5) var(--dui-spc-px-14) var(--dui-spc-px-5) var(--dui-spc-px-14);
     --dui-navigator-nav-min-width: var(--dui-spc-28);
     --dui-navigator-nav-next-float: right;
     --dui-navigator-nav-prev-float: left;
 
     /*========================== Preloaders =====================*/
 
-    --dui-preloader-size: 50px;
-    --dui-preloader-size-xlg: 75px;
-    --dui-preloader-size-lg: 60px;
-    --dui-preloader-size-md: 50px;
-    --dui-preloader-size-sm: 40px;
-    --dui-preloader-size-xsm: 25px;
+    --dui-preloader-size: var(--dui-spc-px-50);
+    --dui-preloader-size-xlg: var(--dui-spc-px-75);
+    --dui-preloader-size-lg: var(--dui-spc-px-60);
+    --dui-preloader-size-md: var(--dui-spc-px-50);
+    --dui-preloader-size-sm: var(--dui-spc-px-40);
+    --dui-preloader-size-xsm: var(--dui-spc-px-25);
     --dui-preloader-color: var(--dui-accent);
     --dui-preloader-thinckness: var(--dui-spc-1);
 
     /* =================== Progress bars ==========================*/
     --dui-progress-hight: var(--dui-spc-6);
-    --dui-progress-margin: 10px 0 10px 0;
+    --dui-progress-margin: var(--dui-spc-px-10) 0 var(--dui-spc-px-10) 0;
     --dui-progress-background: var(--dui-clr-dominant-l-3);
     --dui-progress-radius: var(--dui-spc-2px);
     --dui-progress-box-shadow: inset 0 1px 2px rgba(0, 0, 0, .1);
@@ -575,7 +719,7 @@ body.dui {
     --dui-progress-bar-color: var(--dui-clr-white);
     --dui-progress-bar-text-align: center;
     --dui-progress-bar-striped-bg-image: linear-gradient(45deg, rgba(255, 255, 255, .15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, .15) 50%, rgba(255, 255, 255, .15) 75%, transparent 75%, transparent);
-    --dui-progress-bar-striped-bg-size: 40px 40px;
+    --dui-progress-bar-striped-bg-size: var(--dui-spc-px-40) var(--dui-spc-px-40);
 
     /* ================================ Tabs ===========================*/
     --dui-tabs-padding: 0 0 0 0;
@@ -583,8 +727,8 @@ body.dui {
     --dui-tabs-border-width: 0 0 1px 0;
     --dui-tabs-border-style: solid;
     --dui-tab-item-cursor: pointer;
-    --dui-tab-anchor-padding: 10px 15px;
-    --dui-tab-text-line-height: 24px;
+    --dui-tab-anchor-padding: var(--dui-spc-px-10) var(--dui-spc-px-15);
+    --dui-tab-text-line-height: var(--dui-spc-px-24);
     --dui-tab-item-border-radius: 0px;
     --dui-tab-anchor-text-decoration: none;
     --dui-tab-active-indicator-display: block;
@@ -597,8 +741,8 @@ body.dui {
     --dui-tab-header-gap: var(--dui-spc-3);
     --dui-tab-item-disabled-color: var(--dui-clr-grey);
     --dui-tab-item-disabled-cursor: not-allowed;
-    --dui-tabs-content-padding: 15px 0;
-    --dui-v-tabs-content-padding: 0 15px;
+    --dui-tabs-content-padding: var(--dui-spc-px-15) 0;
+    --dui-v-tabs-content-padding: 0 var(--dui-spc-px-15);
     --dui-v-tab-active-indicator-border-width: 0 3px 0 0;
     --dui-v-tabs-border-width: 0 1px 0 0;
     --dui-v-tab-active-indicator-transform: scaleX(0) skewX(0deg);
@@ -618,25 +762,25 @@ body.dui {
     --dui-tree-radius: 0;
     --dui-tree-nav-padding: 0;
     --dui-tree-nav-margin: 0;
-    --dui-tree-header-line-height: 32px;
+    --dui-tree-header-line-height: var(--dui-spc-px-32);
     --dui-tree-header-background: var(--dui-tree-header-bg-color);
     --dui-tree-header-font: var(--dui-font-normal-600-sm);
-    --dui-tree-header-padding: 8px 8px;
+    --dui-tree-header-padding: var(--dui-spc-px-8) var(--dui-spc-px-8);
     --dui-tree-header-radius: 0px;
-    --dui-tree-item-margin: 0 2px;
-    --dui-tree-item-line-height: 32px;
+    --dui-tree-item-margin: 0 var(--dui-spc-px-2);
+    --dui-tree-item-line-height: var(--dui-spc-px-32);
     --dui-tree-item-cursor: pointer;
     --dui-tree-item-disabled-cursor: not-allowed;
     --dui-tree-item-disabled-color: var(--dui-clr-grey);
 
-    --dui-tree-item-anchor-padding: 5px 10px;
+    --dui-tree-item-anchor-padding: var(--dui-spc-px-5) var(--dui-spc-px-10);
     --dui-tree-item-anchor-radius: 0px;
     --dui-tree-anchor-text-decoration: none;
-    --dui-tree-separator-margin: 5px 0 5px 0;
+    --dui-tree-separator-margin: var(--dui-spc-px-5) 0 var(--dui-spc-px-5) 0;
     --dui-tree-separator-padding: 0px;
     --dui-tree-separator-border: 1px solid var(--dui-menu-border-color);
-    --dui-tree-padding-inrement: 40px;
-    --dui-tree-initial-padding: 20px;
+    --dui-tree-padding-inrement: var(--dui-spc-px-40);
+    --dui-tree-initial-padding: var(--dui-spc-px-20);
     --dui-tree-item-content-gap: var(--dui-spc-4);
     /*--dui-tree-item-active-color: var(--dui-accent);*/
 
@@ -647,7 +791,7 @@ body.dui {
 
     /* ===================== Thumbnails ====================== */
     --dui-thumbnail-default-direction: column;
-    --dui-thumbnail-margin: 0 0 20px 0;
+    --dui-thumbnail-margin: 0 0 var(--dui-spc-px-20) 0;
     --dui-thumbnail-border: 1px solid var(--dui-thumbnail-border-color);
     --dui-thumbnail-radius: 0;
     --dui-thumbnail-active-border: 1px solid var(--dui-thumbnail-border-active-color);
@@ -688,23 +832,23 @@ body.dui {
     /* ============================ Badge =============================*/
     --dui-badge-background: var(--dui-accent);
     --dui-badge-float: right;
-    --dui-badge-margin: 0 0 0 4px;
-    --dui-badge-padding: 3px 7px;
-    --dui-badge-min-width: 32px;
+    --dui-badge-margin: 0 0 0 var(--dui-spc-px-4);
+    --dui-badge-padding: var(--dui-spc-px-3) var(--dui-spc-px-7);
+    --dui-badge-min-width: var(--dui-spc-px-32);
     --dui-badge-font: var(--dui-font-normal-600-sm);
     --dui-badge-radius: 2px;
 
-    --dui-icon-badge-top: -46px;
-    --dui-icon-badge-right: -10px;
-    --dui-icon-badge-height: 25px;
-    --dui-icon-badge-min-width: 25px;
-    --dui-icon-badge-max-width: 120px;
+    --dui-icon-badge-top: calc(var(--dui-spc-px-56) * -1);
+    --dui-icon-badge-right: calc(var(--dui-spc-px-14) * -1);
+    --dui-icon-badge-height: var(--dui-spc-px-25);
+    --dui-icon-badge-min-width: var(--dui-spc-px-25);
+    --dui-icon-badge-max-width: var(--dui-spc-px-120);
     --dui-icon-badge-margin: 0;
-    --dui-icon-badge-line-height: 20px;
+    --dui-icon-badge-line-height: var(--dui-spc-px-20);
     --dui-icon-badge-font-style: normal;
 
     /* ===================== Collapse group ================= */
-    --dui-collapse-group-margin: 0 0 20px 0;
+    --dui-collapse-group-margin: 0 0 var(--dui-spc-px-20) 0;
     --dui-collapse-group-border-width: 1px;
     --dui-collapse-group-border-color: var(--dui-border-default);
     --dui-collapse-group-border-style: solid;
@@ -732,7 +876,7 @@ body.dui {
     --dui-collapse-panel-footer-border-width: 1px 0 0 0;
     --dui-collapse-panel-footer-border-style: solid;
     --dui-collapse-panel-footer-border-color: var(--dui-accent-l-4);
-    --dui-accordion-header-gap: 8px;
+    --dui-accordion-header-gap: var(--dui-spc-px-8);
 
     /* ===================== Notifications ===================================== */
 
@@ -745,17 +889,17 @@ body.dui {
     --dui-ntfy-font: var(--dui-font-regular);
     --dui-ntfy-box-shadow: var(--dui-box-shadow-1);
     --dui-ntfy-line-height: var(--dui-spc-8);
-    --dui-ntfy-close-icon-margin: 2px 8px 2px 8px;
+    --dui-ntfy-close-icon-margin: var(--dui-spc-px-2) var(--dui-spc-px-8) var(--dui-spc-px-2) var(--dui-spc-px-8);
     --dui-ntfy-top-bottom-space: var(--dui-spc-4);
     --dui-ntfy-left-right-space: var(--dui-spc-4);
 
     /* ================= Quick search =======================*/
 
-    --dui-quick-search-gap: 10px;
+    --dui-quick-search-gap: var(--dui-spc-px-10);
     --dui-quick-search-background-color: inherit;
     /*--dui-search-bar-background-color: inherit;*/
     /*--dui-search-bar-color: inherit;*/
-    --dui-quick-search-padding: 5px;
+    --dui-quick-search-padding: var(--dui-spc-px-5);
     --dui-quick-search-radius: inherit;
 
     --dui-quick-search-input-border: none;
@@ -782,25 +926,25 @@ body.dui {
 
     --dui-menu-drop-z-index: var(--dui-z-index-start);
 
-    --dui-menu-header-bar-padding: 5px;
+    --dui-menu-header-bar-padding: var(--dui-spc-px-5);
 
     --dui-menu-search-bar-border-width: 0 0 1px 0;
     --dui-menu-search-bar-border-style: solid;
     --dui-menu-search-bar-border-color: var(--dui-menu-border-color);
-    --dui-menu-search-box-padding: 5px;
+    --dui-menu-search-box-padding: var(--dui-spc-px-5);
 
-    --dui-menu-subheader-padding: 5px;
+    --dui-menu-subheader-padding: var(--dui-spc-px-5);
 
-    --dui-menu-item-padding: 5px;
+    --dui-menu-item-padding: var(--dui-spc-px-5);
 
-    --dui-menu-item-anchor-gap: 5px;
-    --dui-menu-item-anchor-min-height: 32px;
-    --dui-menu-item-icon-min-height: 32px;
+    --dui-menu-item-anchor-gap: var(--dui-spc-px-5);
+    --dui-menu-item-anchor-min-height: var(--dui-spc-px-32);
+    --dui-menu-item-icon-min-height: var(--dui-spc-px-32);
     --dui-menu-items-list-padding: 0 0 0 0;
     --dui-menu-items-list-margin: 0;
 
     --dui-menu-item-hint-padding: 0 0 0 0px;
-    --dui-menu-item-hint-margin: -8px 0 0 0;
+    --dui-menu-item-hint-margin: calc(var(--dui-spc-px-8) * -1) 0 0 0;
     --dui-menu-item-hint-color: var(--dui-color-1);
     --dui-menu-item-hint-font: var(--dui-font-regular-sm);
 
@@ -809,16 +953,16 @@ body.dui {
 
     --dui-menu-no-result-color: var(--dui-accent-l-1);
     --dui-menu-no-result-background: var(--dui-accent-l-5);
-    --dui-menu-no-result-padding: 10px;
+    --dui-menu-no-result-padding: var(--dui-spc-px-10);
     --dui-menu-no-result-text-align: left;
 
-    --dui-menu-hover-before-content:'';
+    --dui-menu-hover-before-content: '';
 
     --dui-menu-create-missing-color: var(--dui-accent-l-1);
     --dui-menu-create-missing-background: var(--dui-accent-l-5);
     --dui-menu-create-missing-focus-background: var(--dui-accent-l-4);
-    --dui-menu-create-missing-padding: 10px;
-    --dui-menu-create-missing-margin: 5px 0 0 0;
+    --dui-menu-create-missing-padding: var(--dui-spc-px-10);
+    --dui-menu-create-missing-margin: var(--dui-spc-px-5) 0 0 0;
     --dui-menu-create-missing-radius: 3px;
     --dui-menu-create-missing-text-align: left;
     --dui-menu-disabled-color: var(--dui-clr-grey);
@@ -891,17 +1035,17 @@ body.dui {
     --dui-form-field-addon-margin: 0 0;
     --dui-form-field-prefix-font: var(--dui-font-normal-600-sm);
     --dui-form-field-postfix-font: var(--dui-font-normal-600-sm);
-    --dui-form-field-prefix-line-height: 32px;
-    --dui-form-field-postfix-line-height: 32px;
-    --dui-form-field-counter-padding: 0 4px 0 4px;
-    --dui-form-field-counter-line-height: 28px;
+    --dui-form-field-prefix-line-height: var(--dui-spc-px-32);
+    --dui-form-field-postfix-line-height: var(--dui-spc-px-32);
+    --dui-form-field-counter-padding: 0 var(--dui-spc-px-4) 0 var(--dui-spc-px-4);
+    --dui-form-field-counter-line-height: var(--dui-spc-px-28);
 
-    --dui-form-field-input-height: 32px;
+    --dui-form-field-input-height: var(--dui-spc-px-32);
     --dui-form-field-input-border: none;
-    --dui-form-field-input-line-height: 31px;
+    --dui-form-field-input-line-height: var(--dui-spc-px-31);
     --dui-form-field-input-line-font: var(--dui-font-regular);
     --dui-form-field-input-text-indent: 5px;
-    --dui-form-field-messages-wrapper-padding: 0 5px 0 5px;
+    --dui-form-field-messages-wrapper-padding: 0 var(--dui-spc-px-5) 0 var(--dui-spc-px-5);
     --dui-form-field-helper-font: var(--dui-font-regular-sm);
     --dui-form-field-error-font: var(--dui-font-regular-sm);
     --dui-form-field-error-color: var(--dui-clr-error);
@@ -919,10 +1063,10 @@ body.dui {
     --dui-form-field-textarea-input-padding: 1px 0 0 0;
     --dui-form-field-textarea-input-mergin: 0 2px 0 0;
 
-    --dui-form-field-checkbox-gap: 4px;
-    --dui-form-field-checkbox-label-padding: 0 0 0 30px;
-    --dui-form-field-checkbox-label-min-height: 25px;
-    --dui-forms-checkbox-margin-top: 27px;
+    --dui-form-field-checkbox-gap: var(--dui-spc-px-4);
+    --dui-form-field-checkbox-label-padding: 0 0 0 var(--dui-spc-px-30);
+    --dui-form-field-checkbox-label-min-height: var(--dui-spc-px-25);
+    --dui-forms-checkbox-margin-top: var(--dui-spc-px-27);
 
     --dui-form-field-checkbox-outline-width: 1px;
     --dui-form-field-checkbox-outline-style: solid;
@@ -930,63 +1074,63 @@ body.dui {
     --dui-form-field-checkbox-outline-offset: 1px;
     --dui-form-field-checkbox-square-top: -1px;
     --dui-form-field-checkbox-square-left: 0px;
-    --dui-form-field-checkbox-square-length: 16px;
+    --dui-form-field-checkbox-square-length: var(--dui-spc-px-16);
     --dui-form-field-checkbox-square-border-width: 2px;
     --dui-form-field-checkbox-square-border-style: solid;
     --dui-form-field-checkbox-square-border-color: var(--dui-accent);
     --dui-form-field-checkbox-square-radius: 1px;
-    --dui-form-field-checkbox-square-margin: 3px;
+    --dui-form-field-checkbox-square-margin: var(--dui-spc-px-3);
     --dui-form-field-checkbox-square-filled-background: var(--dui-accent);
     --dui-checkbox-label-line-height: var(--dui-spc-6);
 
-    --dui-form-field-checkbox-check-width: 5px;
-    --dui-form-field-checkbox-check-height: 10px;
+    --dui-form-field-checkbox-check-width: var(--dui-spc-px-5);
+    --dui-form-field-checkbox-check-height: var(--dui-spc-px-10);
     --dui-form-field-checkbox-check-left: 0px;
     --dui-form-field-checkbox-check-top: 0px;
 
     --dui-form-field-checkbox-check-filled-color: var(--dui-clr-white);
 
-    --dui-form-field-checkbox-indeterminate-check-width: 10px;
+    --dui-form-field-checkbox-indeterminate-check-width: var(--dui-spc-px-10);
     --dui-form-field-checkbox-indeterminate-check-height: 0px;
-    --dui-form-field-checkbox-indeterminate-check-left: 4px;
-    --dui-form-field-checkbox-indeterminate-check-top: 8px;
+    --dui-form-field-checkbox-indeterminate-check-left: var(--dui-spc-px-4);
+    --dui-form-field-checkbox-indeterminate-check-top: var(--dui-spc-px-8);
     --dui-form-field-checkbox-indeterminate-check-border-width: 1px;
 
-    --dui-form-field-radio-lebel-padding: 26px;
+    --dui-form-field-radio-lebel-padding: var(--dui-spc-px-26);
     --dui-form-field-radio-cursor: pointer;
 
     --dui-form-field-radio-circle-left: 0px;
     --dui-form-field-radio-circle-top: 0px;
-    --dui-form-field-radio-circle-maring: 4px 4px 4px 0;
-    --dui-form-field-radio-circle-length: 16px;
+    --dui-form-field-radio-circle-maring: var(--dui-spc-px-4) var(--dui-spc-px-4) var(--dui-spc-px-4) 0;
+    --dui-form-field-radio-circle-length: var(--dui-spc-px-16);
     --dui-form-field-radio-circle-border-width: 2px;
     --dui-form-field-radio-circle-border-style: solid;
     --dui-form-field-radio-circle-border-color: var(--dui-accent);
     --dui-form-field-radio-circle-radius: 50%;
     --dui-form-field-radio-circle-checked-color: var(--dui-accent);
     --dui-form-field-radio-circle-checked-transform: scale(0.6);
-    --dui-form-radio-group-gap: 15px;
+    --dui-form-radio-group-gap: var(--dui-spc-px-15);
 
     --dui-form-field-switch-cursor: pointer;
-    --dui-form-field-switch-track-width: 50px;
-    --dui-form-field-switch-track-height: 26px;
+    --dui-form-field-switch-track-width: var(--dui-spc-px-50);
+    --dui-form-field-switch-track-height: var(--dui-spc-px-26);
     --dui-form-field-switch-track-background: var(--dui-accent-l-4);
     --dui-form-field-switch-checked-track-background: var(--dui-accent);
     --dui-form-field-switch-track-radius: 99999px;
     --dui-form-field-switch-track-margin: 0 0 0 0;
-    --dui-form-field-switch-off-label-margin: 0 14px 0 0;
-    --dui-form-field-switch-on-label-margin: 0 0 0 14px;
-    --dui-forms-switch-margin-top: 3px;
+    --dui-form-field-switch-off-label-margin: 0 var(--dui-spc-px-14) 0 0;
+    --dui-form-field-switch-on-label-margin: 0 0 0 var(--dui-spc-px-14);
+    --dui-forms-switch-margin-top: var(--dui-spc-px-3);
 
-    --dui-form-field-switch-thumb-width: 20px;
-    --dui-form-field-switch-thumb-height: 20px;
-    --dui-form-field-switch-thumb-left: 3px;
-    --dui-form-field-switch-thumb-bottom: 3px;
+    --dui-form-field-switch-thumb-width: var(--dui-spc-px-20);
+    --dui-form-field-switch-thumb-height: var(--dui-spc-px-20);
+    --dui-form-field-switch-thumb-left: var(--dui-spc-px-3);
+    --dui-form-field-switch-thumb-bottom: var(--dui-spc-px-3);
     --dui-form-field-switch-thumb-radius: 99999px;
     --dui-form-field-switch-thumb-background: var(--dui-accent);
     --dui-form-field-switch-checked-thumb-background: var(--dui-accent-l-5);
     --dui-form-field-switch-thumb-box-shadow: var(--dui-box-shadow-2);
-    --dui-form-field-switch-thumb-checked-transform: translateX(24px);
+    --dui-form-field-switch-thumb-checked-transform: translateX(var(--dui-spc-px-24));
     --dui-form-field-switch-focus-transition: all 0.4s ease-in-out;
     --dui-form-field-switch-focus-background: var(--dui-bg-d-2);
 
@@ -1022,7 +1166,7 @@ body.dui {
 
     /* ===================== Nav bar ========================= */
     --dui-nav-bar-gap: var(--dui-spc-2);
-    --dui-nav-bar-padding: 0 var(--dui-spc-4);
+    --dui-nav-bar-padding: 0;
     --dui-nav-bar-addon-margin: 0 var(--dui-spc-2);
     --dui-nav-bar-title-margin: 0 var(--dui-spc-2);
     --dui-nav-bar-body-margin: 0 var(--dui-spc-2);
@@ -1031,7 +1175,7 @@ body.dui {
     --dui-nav-bar-body-indent: var(--dui-spc-0);
 
     --dui-nav-bar-description-font: var(--dui-font-regular-sm);
-    --dui-nav-bar-description-margin: 5px 0 0 0;
+    --dui-nav-bar-description-margin: var(--dui-spc-px-5) 0 0 0;
 
     --dui-nav-bar-description-line-height: var(--dui-spc-4);
 
@@ -1049,26 +1193,26 @@ body.dui {
 
     --dui-layout-header-height: var(--dui-spc-16);
     --dui-layout-footer-height: var(--dui-spc-16);
-    --dui-left-drawer-width-xsm: 100px;
-    --dui-left-drawer-width-sm: 150px;
-    --dui-left-drawer-width-md: 300px;
-    --dui-left-drawer-width-lg: 450px;
-    --dui-left-drawer-width-xlg: 600px;
+    --dui-left-drawer-width-xsm: var(--dui-spc-px-100);
+    --dui-left-drawer-width-sm: var(--dui-spc-px-150);
+    --dui-left-drawer-width-md: var(--dui-spc-px-300);
+    --dui-left-drawer-width-lg: var(--dui-spc-px-450);
+    --dui-left-drawer-width-xlg: var(--dui-spc-px-600);
 
-    --dui-right-drawer-width-xsm: 100px;
-    --dui-right-drawer-width-sm: 150px;
-    --dui-right-drawer-width-md: 300px;
-    --dui-right-drawer-width-lg: 450px;
-    --dui-right-drawer-width-xlg: 600px;
+    --dui-right-drawer-width-xsm: var(--dui-spc-px-100);
+    --dui-right-drawer-width-sm: var(--dui-spc-px-150);
+    --dui-right-drawer-width-md: var(--dui-spc-px-300);
+    --dui-right-drawer-width-lg: var(--dui-spc-px-450);
+    --dui-right-drawer-width-xlg: var(--dui-spc-px-600);
 
     --dui-drawer-small-screens-width: 90%;
 
     --dui-layout-transitions-duration: 0.3s;
 
-    --dui-layout-content-padding-top: 25px;
-    --dui-layout-content-padding-right: 25px;
-    --dui-layout-content-padding-bottom: 25px;
-    --dui-layout-content-padding-left: 25px;
+    --dui-layout-content-padding-top: var(--dui-spc-px-25);
+    --dui-layout-content-padding-right: var(--dui-spc-px-25);
+    --dui-layout-content-padding-bottom: var(--dui-spc-px-25);
+    --dui-layout-content-padding-left: var(--dui-spc-px-25);
 
     --dui-section-box-shadow: var(--dui-box-shadow-1);
     --dui-overlay-opacify: 30%;
@@ -1077,19 +1221,19 @@ body.dui {
 
 
     /* ======================= Carousel ========================== */
-    --dui-carousel-indicators-bottom: 10px;
+    --dui-carousel-indicators-bottom: var(--dui-spc-px-10);
     --dui-carousel-indicators-z-inex: 10;
     --dui-carousel-indicators-padding: 0;
-    --dui-carousel-indicator-size: 10px;
-    --dui-carousel-indicator-active-size: 12px;
-    --dui-carousel-indicator-margin: 3px;
-    --dui-carousel-indicator-active-margin: 2px;
+    --dui-carousel-indicator-size: var(--dui-spc-px-10);
+    --dui-carousel-indicator-active-size: var(--dui-spc-px-12);
+    --dui-carousel-indicator-margin: var(--dui-spc-px-3);
+    --dui-carousel-indicator-active-margin: var(--dui-spc-px-2);
     --dui-carousel-indicator-active-background: var(--dui-clr-white);
     --dui-carousel-indicator-border: 1px solid var(--dui-clr-white);
-    --dui-carousel-indicator-border-radius: 10px;
+    --dui-carousel-indicator-border-radius: var(--dui-spc-px-10);
     --dui-carousel-transition-duration: 0.6s;
     --dui-carousel-slide-caption-color: var(--dui-clr-white);
-    --dui-carousel-slide-caption-padding: 20px 0 20px 0;
+    --dui-carousel-slide-caption-padding: var(--dui-spc-px-20) 0 var(--dui-spc-px-20) 0;
     --dui-carousel-slide-caption-text-shadow: 0 1px 2px rgba(0, 0, 0, .6);
 
     /* ======================= dialog ========================== */
@@ -1110,7 +1254,7 @@ body.dui {
     --dui-dialog-footer-border-width: 0 0 0 0;
     --dui-dialog-footer-border-style: solid;
     --dui-dialog-footer-border-color: var(--dui-accent-l-4);
-    --dui-dialog-header-gap: 8px;
+    --dui-dialog-header-gap: var(--dui-spc-px-8);
 
     --dui-dialog-nave-height: var(--dui-spc-8);
 
@@ -1145,7 +1289,7 @@ body.dui {
     --dui-empty-state-icon-size: var(--dui-spc-32);
 
     /* ===================== Loaders =================== */
-    --dui-laoder-color: var(--dui-clr-grey-d-2);
+    --dui-loader-color: var(--dui-clr-grey-d-2);
 
     /* ==================== Popover ==================== */
     --dui-popover-arrow-size: var(--dui-spc-2_5);
@@ -1230,7 +1374,7 @@ body.dui {
     --dui-calender-day-number-min-width: var(--dui-spc-8);
     --dui-calender-day-number-min-height: var(--dui-spc-8);
     --dui-calender-day-number-border-radius: 999999px;
-    --dui-calender-day-number-line-height: 23px;
+    --dui-calender-day-number-line-height: var(--dui-spc-px-23);
     --dui-calendar-out-of-range-day-color: var(--dui-color-2);
     --dui-calendar-day-in-range-font: var(--dui-font-normal-600);
     --dui-calendar-today-date-border-width: 1px;
@@ -1245,13 +1389,13 @@ body.dui {
     --dui-calendar-selector-current-month-line-height: var(--dui-spc-8);
     --dui-calendar-selectors-padding: var(--dui-spc-2) var(--dui-spc-4);
     --dui-calendar-month-year-selector-border-radius: 3px;
-    --dui-calender-years-spin-min-height: 106px;
+    --dui-calender-years-spin-min-height: var(--dui-spc-px-106);
     --dui-calendar-border: 1px solid var(--dui-calendar-border-color);
 
     /* ============================ Time picker ================== */
     --dui-timepicker-border-width: 1px;
     --dui-timepicker-border-style: solid;
-    --dui-timepicker-header-padding:var(--dui-spc-4);
+    --dui-timepicker-header-padding: var(--dui-spc-4);
     --dui-timepicker-header-border-width: 0 0 var(--dui-spc-2) 0;
     --dui-timepicker-header-border-style: solid;
     --dui-timepicker-header-day-font-size: var(--dui-spc-8);

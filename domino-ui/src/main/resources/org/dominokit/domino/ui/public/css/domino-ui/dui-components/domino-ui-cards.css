@@ -73,7 +73,6 @@
     display: block;
     font: var(--dui-card-description-font);
     margin: var(--dui-card-description-margin);
-    color: var(--dui-text-color, var(--dui-card-description-color));
     line-height: var(--dui-card-description-line-height);
 }
 

@@ -92,6 +92,7 @@
 }
 .dui-panel-header.dui-nav-bar {
     padding: var(--dui-collapse-panel-title-padding);
+    color: var(--dui-accent-fg-clr);
 }
 
 .dui-panel-content-header {

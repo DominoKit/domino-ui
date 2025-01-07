@@ -21,6 +21,7 @@ import static org.dominokit.domino.ui.events.EventType.mousedown;
 import static org.dominokit.domino.ui.utils.ElementsFactory.elements;
 
 import elemental2.dom.DOMRect;
+import elemental2.dom.DomGlobal;
 import elemental2.dom.Element;
 import elemental2.dom.Event;
 import elemental2.dom.EventListener;
@@ -141,7 +142,10 @@ public class Waves implements IsElement<Element> {
   private void stopCurrentWave() {
     if (nonNull(delayTimer)) delayTimer.cancel();
     if (nonNull(removeTimer)) removeTimer.cancel();
-    if (nonNull(ripple)) ripple.remove();
+    if (nonNull(ripple)) {
+      final DivElement temp = ripple;
+      DomGlobal.setTimeout(p -> temp.remove(), 100);
+    }
   }
 
   private String convertStyle(JsPropertyMap<String> rippleStyle) {
@@ -186,7 +190,6 @@ public class Waves implements IsElement<Element> {
 
       ripple = elements.div().addCss("dui-waves-ripple", "dui-waves-rippling");
       target.appendChild(ripple);
-
       ElementOffset position = offset(target.element());
       double relativeY = (mouseEvent.pageY - position.top);
       double relativeX = (mouseEvent.pageX - position.left);

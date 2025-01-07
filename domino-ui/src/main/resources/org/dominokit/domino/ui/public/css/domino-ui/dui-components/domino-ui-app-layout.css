@@ -141,6 +141,7 @@
 .dui-layout-header > .dui-nav-bar {
     background-color: var(--dui-layout-nav-bar-bg, var(--dui-accent));
     color: var(--dui-layout-nav-bar-clr, var(--dui-clr-white));
+    padding: 0 var(--dui-spc-4);
 }
 
 .dui-shrink-content.dui-left-open > .dui-layout-body > .dui-layout-header {
