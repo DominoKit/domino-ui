@@ -116,7 +116,9 @@ public abstract class NumberBox<T extends NumberBox<T, E>, E extends Number>
 
   protected void onKeyDown(Event event) {
     KeyboardEvent keyboardEvent = Js.uncheckedCast(event);
-    if (!keyboardEvent.key.matches(createKeyMatch())) event.preventDefault();
+    if (keyboardEvent.key.length() == 1 && !keyboardEvent.key.matches(createKeyMatch())) {
+      event.preventDefault();
+    }
   }
 
   protected void onPaste(Event event) {
