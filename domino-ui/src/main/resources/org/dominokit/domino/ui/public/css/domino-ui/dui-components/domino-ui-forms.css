@@ -372,7 +372,7 @@ textarea.dui-field-input {
     font: var(--dui-form-field-sub-label-font);
 }
 .dui-radio-label{
-    height: var(--dui-spc-px24);
+    height: var(--dui-spc-px-24);
 }
 
 .dui-checkbox-label span {
@@ -785,4 +785,45 @@ textarea.dui-field-input {
 }
 .dui-form-checkbox.dui-minified .dui-field-input-wrapper {
     padding: 0;
+}
+
+
+
+.dui-inlined-label .dui-form-field:not(.dui-form-checkbox):not(.dui-form-switch):not(.dui-form-radio-group),
+.dui-form-field:not(.dui-form-checkbox):not(.dui-form-switch):not(.dui-form-radio-group).dui-inlined-label {
+    position: relative;
+    margin-top: var(--dui-spc-4);
+}
+
+.dui-inlined-label .dui-form-field:not(.dui-form-checkbox):not(.dui-form-switch):not(.dui-form-radio-group) .dui-field-label,
+.dui-form-field:not(.dui-form-checkbox):not(.dui-form-switch):not(.dui-form-radio-group).dui-inlined-label .dui-field-label {
+    position: absolute;
+    top: calc(var(--dui-spc-4) * -1);
+    left: var(--dui-spc-2);
+    min-width: auto;
+    padding: var(--dui-spc-px-1) var(--dui-spc-px-6);
+    font-size: var(--dui-spc-px-14);
+    z-index: 1;
+}
+
+.dui-inlined-label .dui-form-field:not(.dui-form-checkbox):not(.dui-form-switch):not(.dui-form-radio-group) .dui-field-label:before,
+.dui-form-field:not(.dui-form-checkbox):not(.dui-form-switch):not(.dui-form-radio-group).dui-inlined-label .dui-field-label:before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 16px;
+    width: 100%;
+    height: 1px;
+    z-index: -1;
+    background-color: var(--dui-clr-dominant);
+}
+
+.dui-inlined-label .dui-form-field[readonly]:not(.dui-form-checkbox):not(.dui-form-switch):not(.dui-form-radio-group) .dui-field-label:before,
+.dui-form-field[readonly]:not(.dui-form-checkbox):not(.dui-form-switch):not(.dui-form-radio-group).read.dui-inlined-label .dui-field-label:before {
+    background-color: var(--dui-form-field-readonly-background);
+}
+
+.dui-inlined-label .dui-form-field[disabled]:not(.dui-form-checkbox):not(.dui-form-switch):not(.dui-form-radio-group) .dui-field-label:before,
+.dui-form-field[disabled]:not(.dui-form-checkbox):not(.dui-form-switch):not(.dui-form-radio-group).read.dui-inlined-label .dui-field-label:before {
+    background-color: var(--dui-form-field-disabled-background);
 }

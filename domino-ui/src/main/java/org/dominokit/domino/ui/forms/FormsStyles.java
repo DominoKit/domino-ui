@@ -164,4 +164,6 @@ public interface FormsStyles {
 
   /** CSS class for specifying the gap within a text area. */
   CssClass dui_form_text_area_gap = () -> "dui-text-area-gap";
+
+  CssClass dui_from_field_inlined_label = () -> "dui-inlined-label";
 }
