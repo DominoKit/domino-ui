@@ -15,6 +15,18 @@
  */
 package org.dominokit.domino.ui.keyboard;
 
+import static org.dominokit.domino.ui.keyboard.KeyboardKeyListener.ARROWDOWN;
+import static org.dominokit.domino.ui.keyboard.KeyboardKeyListener.ARROWLEFT;
+import static org.dominokit.domino.ui.keyboard.KeyboardKeyListener.ARROWRIGHT;
+import static org.dominokit.domino.ui.keyboard.KeyboardKeyListener.ARROWUP;
+import static org.dominokit.domino.ui.keyboard.KeyboardKeyListener.BACKSPACE;
+import static org.dominokit.domino.ui.keyboard.KeyboardKeyListener.DELETE;
+import static org.dominokit.domino.ui.keyboard.KeyboardKeyListener.ENTER;
+import static org.dominokit.domino.ui.keyboard.KeyboardKeyListener.ESCAPE;
+import static org.dominokit.domino.ui.keyboard.KeyboardKeyListener.SPACE;
+import static org.dominokit.domino.ui.keyboard.KeyboardKeyListener.TAB;
+
+import elemental2.dom.KeyboardEvent;
 import elemental2.dom.Node;
 import org.dominokit.domino.ui.events.HasDefaultEventOptions;
 import org.dominokit.domino.ui.utils.LazyInitializer;
@@ -83,6 +95,50 @@ public class KeyboardEvents<T extends Node>
         new LazyInitializer(() -> element.addEventListener(INPUT, inputListener));
     beforeInputListenerInitializer =
         new LazyInitializer(() -> element.addEventListener(BEFORE_INPUT, beforeinputListener));
+  }
+
+  public static boolean isEscape(KeyboardEvent event) {
+    return isKey(ESCAPE, event);
+  }
+
+  public static boolean isBackspace(KeyboardEvent event) {
+    return isKey(BACKSPACE, event);
+  }
+
+  public static boolean isDelete(KeyboardEvent event) {
+    return isKey(DELETE, event);
+  }
+
+  public static boolean isArrowDown(KeyboardEvent event) {
+    return isKey(ARROWDOWN, event);
+  }
+
+  public static boolean isArrowUp(KeyboardEvent event) {
+    return isKey(ARROWUP, event);
+  }
+
+  public static boolean isArrowRight(KeyboardEvent event) {
+    return isKey(ARROWRIGHT, event);
+  }
+
+  public static boolean isArrowLeft(KeyboardEvent event) {
+    return isKey(ARROWLEFT, event);
+  }
+
+  public static boolean isEnter(KeyboardEvent event) {
+    return isKey(ENTER, event);
+  }
+
+  public static boolean isSpace(KeyboardEvent event) {
+    return isKey(SPACE, event);
+  }
+
+  public static boolean isTab(KeyboardEvent event) {
+    return isKey(TAB, event);
+  }
+
+  public static boolean isKey(String key, KeyboardEvent event) {
+    return event.key.equalsIgnoreCase(key);
   }
 
   /**
