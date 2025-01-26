@@ -53,6 +53,7 @@ public class DateHeaderFilter<T> implements ColumnHeaderFilterPlugin.HeaderFilte
     this.dateBox =
         DateBox.create()
             .setPlaceholder("Search")
+            .addCss(dui_m_b_0)
             .apply(
                 element -> {
                   element.withCalendar(
