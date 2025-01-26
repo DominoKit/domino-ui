@@ -53,4 +53,6 @@ public interface MenuStyles {
   CssClass dui_menu_item_content = () -> "dui-menu-item-content";
   CssClass dui_menu_item_bottom = () -> "dui-menu-item-bottom";
   CssClass dui_context_menu = () -> "dui-context-menu";
+
+  CssClass dui_context_menu_target_open = () -> "dui-context-menu-target-open";
 }

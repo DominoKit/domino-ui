@@ -113,6 +113,7 @@ public class Menu<V> extends BaseDominoElement<HTMLDivElement, Menu<V>>
   private final LazyChild<DivElement> menuFooter;
   private final LazyChild<AnchorElement> createMissingElement;
   private final LazyChild<MdiIcon> backIcon;
+  private final EventListener closeOnScrollListener;
   private LazyChild<LIElement> noResultElement;
   protected DivElement menuElement;
 
@@ -174,6 +175,10 @@ public class Menu<V> extends BaseDominoElement<HTMLDivElement, Menu<V>>
               targets.get(elementOf(Js.<HTMLElement>uncheckedCast(evt.target)).getDominoId());
         }
         if (!Objects.equals(newTarget, lastTarget)) {
+          if (nonNull(lastTarget)) {
+            lastTarget.getTargetElement().removeCss(dui_context_menu_target_open);
+          }
+          newTarget.getTargetElement().addCss(dui_context_menu_target_open);
           getSelection().forEach(item -> item.deselect(true));
         }
 
@@ -218,6 +223,21 @@ public class Menu<V> extends BaseDominoElement<HTMLDivElement, Menu<V>>
     searchBox = LazyChild.of(SearchBox.create().addCss(dui_menu_search_box), menuSearchContainer);
     backArrowContainer = div().addCss(dui_order_first, dui_menu_back_icon);
     init(this);
+    closeOnScrollListener = evt -> close();
+
+    onAttached(
+        (target, mutationRecord) -> {
+          if (isCloseOnScroll()) {
+            window.addEventListener("scroll", closeOnScrollListener, true);
+          }
+        });
+
+    onDetached(
+        (target, mutationRecord) -> {
+          if (isCloseOnScroll()) {
+            window.removeEventListener("scroll", closeOnScrollListener, true);
+          }
+        });
 
     windowResizeListener = evt -> position();
     nowAndWhenAttached(
@@ -1436,6 +1456,7 @@ public class Menu<V> extends BaseDominoElement<HTMLDivElement, Menu<V>>
     if (isDropDown() && openMenuCondition.check(this)) {
       if (getTarget().isPresent()) {
         DominoElement<Element> targetElement = getTarget().get().getTargetElement();
+        targetElement.addCss(dui_context_menu_target_open);
         if (!(targetElement.isReadOnly() || targetElement.isDisabled())) {
           doOpen(focus);
         }
@@ -1672,6 +1693,7 @@ public class Menu<V> extends BaseDominoElement<HTMLDivElement, Menu<V>>
             .ifPresent(
                 menuTarget -> {
                   menuTarget.getTargetElement().element().focus();
+                  menuTarget.getTargetElement().removeCss(dui_context_menu_target_open);
                 });
         if (isSearchable()) {
           searchBox.get().clearSearch();
@@ -1781,7 +1803,7 @@ public class Menu<V> extends BaseDominoElement<HTMLDivElement, Menu<V>>
    * Applies the appropriate event listeners to the target element based on whether the menu is a
    * context menu or not.
    *
-   * @param menuTarget The target menu to which the listeners should be applied.
+   * @param menuTarget The target menu to which the listeners should bce applied.
    */
   private void applyTargetListeners(MenuTarget menuTarget) {
     if (isContextMenu()) {
@@ -2001,6 +2023,19 @@ public class Menu<V> extends BaseDominoElement<HTMLDivElement, Menu<V>>
   public Menu<V> setCloseOnBlur(boolean closeOnBlur) {
     this.closeOnBlur = closeOnBlur;
     return this;
+  }
+
+  public Menu<V> setCloseOnScroll(boolean closeOnScroll) {
+    if (!closeOnScroll) {
+      window.removeEventListener("scroll", closeOnScrollListener);
+    }
+    setAttribute("d-close-on-scroll", closeOnScroll);
+    return this;
+  }
+
+  private boolean isCloseOnScroll() {
+    return hasAttribute("d-close-on-scroll")
+        && "true".equalsIgnoreCase(getAttribute("d-close-on-scroll"));
   }
 
   /**

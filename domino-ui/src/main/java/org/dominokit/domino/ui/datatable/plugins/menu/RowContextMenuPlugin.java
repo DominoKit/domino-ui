@@ -39,6 +39,7 @@ public class RowContextMenuPlugin<T> implements DataTablePlugin<T> {
    */
   public RowContextMenuPlugin(Menu<?> menu) {
     this.menu = menu;
+    this.menu.setCloseOnScroll(true);
   }
 
   /**
