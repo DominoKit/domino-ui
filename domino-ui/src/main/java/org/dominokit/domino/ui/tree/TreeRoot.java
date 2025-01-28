@@ -264,7 +264,7 @@ public abstract class TreeRoot<V, N extends TreeNode<V, N, S>, C extends TreeRoo
     }
 
     this.activeNode = node;
-    this.activeNode.activate();
+    this.activeNode.doActivate();
     if (!silent) {
       triggerSelectionListeners(node, getSelection());
       this.activeNode.triggerSelectionListeners(node, getSelection());

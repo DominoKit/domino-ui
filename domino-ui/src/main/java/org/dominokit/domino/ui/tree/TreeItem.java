@@ -199,8 +199,12 @@ public class TreeItem<V> extends TreeNode<V, TreeItem<V>, TreeItem<V>> {
         this.activeNode.deactivate();
       }
       this.activeNode = activeItem;
-      this.activeNode.activate();
-      getParent().ifPresent(itemParent -> itemParent.setActiveNode(this, true));
+      this.activeNode.doActivate();
+      if (getParent().isPresent()) {
+        getParent().get().setActiveNode(this, true);
+      } else {
+        getRootNode().setActiveNode(this, true);
+      }
       if (!silent) {
         triggerSelectionListeners(activeItem, getSelection());
         getRootNode().onActiveNodeChanged(activeItem, getSelection(), silent);

@@ -88,21 +88,22 @@ public abstract class TreeNode<V, N extends TreeNode<V, N, S>, S>
       evt -> {
         if (ToggleTarget.ANY.equals(this.toggleTarget)) {
           evt.stopPropagation();
-          if (isParent()) {
-            toggle();
-          }
-          activateNode();
+          onActivation();
         }
       };
+
+  private void onActivation() {
+    if (isParent()) {
+      toggle();
+    }
+    activateNode();
+  }
 
   private final EventListener iconListener =
       evt -> {
         if (ToggleTarget.ICON.equals(this.toggleTarget)) {
           evt.stopPropagation();
-          if (isParent()) {
-            toggle();
-          }
-          activateNode();
+          onActivation();
         }
       };
 
@@ -434,18 +435,11 @@ public abstract class TreeNode<V, N extends TreeNode<V, N, S>, S>
   }
 
   /**
-   * Expands (shows and activates) this tree item. This method expands the item and activates it.
-   */
-  public void expandAndActivate() {
-    this.show(true).activate(true);
-  }
-
-  /**
    * Activates (selects) this tree item without activating its parent items. This method returns
    * void.
    */
-  public void activate() {
-    activate(false);
+  public void doActivate() {
+    doActivate(false);
   }
 
   /**
@@ -454,12 +448,28 @@ public abstract class TreeNode<V, N extends TreeNode<V, N, S>, S>
    *
    * @param activateParent True to activate parent items, false to activate only this item.
    */
-  public void activate(boolean activateParent) {
+  protected void doActivate(boolean activateParent) {
     addCss(dui_active);
     if (activateParent) {
       getParent().ifPresent(parent -> parent.setActiveNode((N) this));
     }
     updateIcon(isCollapsed());
+  }
+
+  public N activate() {
+    this.show(true);
+    onActivation();
+    return (N) this;
+  }
+
+  /**
+   * @return same instance
+   * @deprecated use {@link #activate()}
+   */
+  @Deprecated
+  public N select() {
+    activate();
+    return (N) this;
   }
 
   /**
@@ -638,11 +648,12 @@ public abstract class TreeNode<V, N extends TreeNode<V, N, S>, S>
    * @return This tree item with the node shown.
    */
   public N show(boolean expandParent) {
-    if (isParent()) {
-      super.expand();
-    }
     if (expandParent) {
       getParent().ifPresent(itemParent -> itemParent.expandNode(true));
+    }
+
+    if (isParent()) {
+      super.expand();
     }
     return (N) this;
   }
