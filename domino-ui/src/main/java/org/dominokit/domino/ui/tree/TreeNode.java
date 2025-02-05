@@ -57,6 +57,29 @@ import org.dominokit.domino.ui.utils.PostfixElement;
 import org.dominokit.domino.ui.utils.PrefixElement;
 import org.dominokit.domino.ui.utils.Separator;
 
+/**
+ * An abstract base class for creating tree items (nodes) in a hierarchical tree structure.
+ *
+ * <p>Key responsibilities:
+ *
+ * <ul>
+ *   <li>Maintaining and rendering a list of child nodes
+ *   <li>Supporting activation (e.g., selection or highlighting) of the node
+ *   <li>Managing collapse/expand behavior for child nodes (if any)
+ *   <li>Customizable icon logic (which can change on expand/collapse)
+ *   <li>Filtering of nodes (for searching or hiding certain items)
+ *   <li>Selection event listeners (if implementing classes require selection logic)
+ *   <li>Integration with a {@link TreeConfig} for configuring default behaviors (collapsing, icon
+ *       strategy, etc.)
+ * </ul>
+ *
+ * <p>Typical usage involves subclassing to implement a specific kind of tree node (e.g., see {@link
+ * org.dominokit.domino.ui.tree.TreeItem}).
+ *
+ * @param <V> the data type associated with each node
+ * @param <N> the type of the node itself (for fluent API use)
+ * @param <S> the selection type or structure, commonly the node type or a list of nodes
+ */
 public abstract class TreeNode<V, N extends TreeNode<V, N, S>, S>
     extends BaseDominoElement<HTMLLIElement, N>
     implements IsParentNode<V, N, S>,
@@ -81,9 +104,13 @@ public abstract class TreeNode<V, N extends TreeNode<V, N, S>, S>
   private OriginalState originalState;
 
   private boolean selectionListenersPaused = false;
-  private Set<SelectionListener<? super N, ? super S>> selectionListeners = new HashSet<>();
-  private Set<SelectionListener<? super N, ? super S>> deselectionListeners = new HashSet<>();
+  private final Set<SelectionListener<? super N, ? super S>> selectionListeners = new HashSet<>();
+  private final Set<SelectionListener<? super N, ? super S>> deselectionListeners = new HashSet<>();
 
+  /**
+   * Internal event listener for clicks on the anchor area (when {@link ToggleTarget#ANY} is in
+   * effect).
+   */
   private final EventListener anchorListener =
       evt -> {
         if (ToggleTarget.ANY.equals(this.toggleTarget)) {
@@ -92,6 +119,11 @@ public abstract class TreeNode<V, N extends TreeNode<V, N, S>, S>
         }
       };
 
+  /**
+   * Handles the logic when a tree node is "activated" (clicked or otherwise triggered), toggling
+   * expand/collapse if it's a parent node and then calling {@link #activateNode()} to highlight the
+   * node.
+   */
   private void onActivation() {
     if (isParent()) {
       toggle();
@@ -99,6 +131,10 @@ public abstract class TreeNode<V, N extends TreeNode<V, N, S>, S>
     activateNode();
   }
 
+  /**
+   * Internal event listener for clicks on the node icon (when {@link ToggleTarget#ICON} is in
+   * effect).
+   */
   private final EventListener iconListener =
       evt -> {
         if (ToggleTarget.ICON.equals(this.toggleTarget)) {
@@ -107,6 +143,10 @@ public abstract class TreeNode<V, N extends TreeNode<V, N, S>, S>
         }
       };
 
+  /**
+   * Base constructor that sets up the core DOM elements (list item, anchor, content, subtree list)
+   * and default behavior (collapsed, wave effect, etc.).
+   */
   private TreeNode() {
     this.element =
         li().addCss(dui_tree_item)
@@ -119,15 +159,16 @@ public abstract class TreeNode<V, N extends TreeNode<V, N, S>, S>
     this.textElement = LazyChild.of(span().addCss(dui_tree_item_text), contentElement);
     init((N) this);
 
+    // default collapsible strategy
     setCollapseStrategy(getConfig().getTreeDefaultCollapseStrategy(this).get());
     setAttribute(Collapsible.DUI_COLLAPSED, "true");
   }
 
   /**
-   * Constructs a new TreeItem instance with an icon and title.
+   * Constructs a new {@code TreeNode} with an icon and a title.
    *
-   * @param icon The icon to be displayed for the tree item.
-   * @param title The title of the tree item.
+   * @param icon the icon to display
+   * @param title the text label for this node
    */
   public TreeNode(Icon<?> icon, String title) {
     this();
@@ -137,9 +178,9 @@ public abstract class TreeNode<V, N extends TreeNode<V, N, S>, S>
   }
 
   /**
-   * Constructs a new TreeItem instance with a title.
+   * Constructs a new {@code TreeNode} with a title only (no icon).
    *
-   * @param title The title of the tree item.
+   * @param title the text label for this node
    */
   public TreeNode(String title) {
     this();
@@ -148,9 +189,9 @@ public abstract class TreeNode<V, N extends TreeNode<V, N, S>, S>
   }
 
   /**
-   * Constructs a new TreeItem instance with an icon.
+   * Constructs a new {@code TreeNode} with an icon only (no title).
    *
-   * @param icon The icon to be displayed for the tree item.
+   * @param icon the icon to display
    */
   public TreeNode(Icon<?> icon) {
     this();
@@ -159,10 +200,10 @@ public abstract class TreeNode<V, N extends TreeNode<V, N, S>, S>
   }
 
   /**
-   * Constructs a new TreeItem instance with a title and a value.
+   * Constructs a new {@code TreeNode} with a title and a data value.
    *
-   * @param title The title of the tree item.
-   * @param value The value associated with the tree item.
+   * @param title the text label for this node
+   * @param value the data value associated with the node
    */
   public TreeNode(String title, V value) {
     this(title);
@@ -170,11 +211,11 @@ public abstract class TreeNode<V, N extends TreeNode<V, N, S>, S>
   }
 
   /**
-   * Constructs a new TreeItem instance with an icon, title, and a value.
+   * Constructs a new {@code TreeNode} with an icon, title, and a data value.
    *
-   * @param icon The icon to be displayed for the tree item.
-   * @param title The title of the tree item.
-   * @param value The value associated with the tree item.
+   * @param icon the icon to display
+   * @param title the text label
+   * @param value the data value
    */
   public TreeNode(Icon<?> icon, String title, V value) {
     this(icon, title);
@@ -182,16 +223,21 @@ public abstract class TreeNode<V, N extends TreeNode<V, N, S>, S>
   }
 
   /**
-   * Constructs a new TreeItem instance with an icon and a value.
+   * Constructs a new {@code TreeNode} with an icon and a data value (no title).
    *
-   * @param icon The icon to be displayed for the tree item.
-   * @param value The value associated with the tree item.
+   * @param icon the icon to display
+   * @param value the data value
    */
   public TreeNode(Icon<?> icon, V value) {
     this(icon);
     this.value = value;
   }
 
+  /**
+   * Allows post-construction initialization logic. By default, sets up listeners for collapsing and
+   * expanding events, plus a click listener on the anchor element. Subclasses can override or
+   * extend this method for further setup.
+   */
   protected void init() {
     addBeforeCollapseListener(() -> updateIcon(true));
     addBeforeExpandListener(() -> updateIcon(false));
@@ -200,10 +246,10 @@ public abstract class TreeNode<V, N extends TreeNode<V, N, S>, S>
   }
 
   /**
-   * Sets the title of this tree item and updates the text content of the associated text element.
+   * Sets the visible label (title) of this node.
    *
-   * @param title The new title to set.
-   * @return The current TreeItem instance.
+   * @param title the title text
+   * @return this node (for fluent API)
    */
   public N setTitle(String title) {
     this.title = title;
@@ -212,29 +258,34 @@ public abstract class TreeNode<V, N extends TreeNode<V, N, S>, S>
   }
 
   /**
-   * Retrieves the title of this tree item.
+   * Retrieves the current title (visible label) for this node.
    *
-   * @return The title of this tree item.
+   * @return the title string
    */
   public String getTitle() {
     return title;
   }
 
   /**
-   * Sets the parent tree node for this tree item.
+   * Sets the parent node of this item (e.g., another node or a root). Internal use within the tree
+   * structure.
    *
-   * @param parentNode The parent tree node.
+   * @param parentNode the parent node
    */
   void setParent(IsParentNode<V, N, S> parentNode) {
     this.parent = parentNode;
   }
 
+  /**
+   * Subclasses must implement how a node is "activated" (e.g., highlighting or selection). Called
+   * after we ensure toggling is done for a parent node.
+   */
   protected abstract void activateNode();
 
   /**
-   * Deactivates (deselects) this tree item and any of its sub-items if it is a parent. If
-   * auto-collapse is enabled in the tree root, it will collapse the tree item as well. This method
-   * returns void.
+   * Deactivates this node if it's currently active, removing the {@code dui_active} CSS class. If
+   * this node has child nodes, they are also deactivated, and if the tree is configured for auto
+   * collapse, the node collapses. Updates the icon accordingly.
    */
   public void deactivate() {
     dui_active.remove(this);
@@ -248,10 +299,12 @@ public abstract class TreeNode<V, N extends TreeNode<V, N, S>, S>
   }
 
   /**
-   * Appends a child tree item to this tree item.
+   * Adds a child node to this node, re-parenting the child. Also updates the icon if this node was
+   * previously a leaf. If the tree's root has an icon supplier, it's applied to new child nodes as
+   * well.
    *
-   * @param node The child tree item to append.
-   * @return This tree item with the child tree item appended.
+   * @param node the child node to add
+   * @return this node (for fluent API)
    */
   public N appendChild(N node) {
     this.subNodes.add(node);
@@ -272,15 +325,22 @@ public abstract class TreeNode<V, N extends TreeNode<V, N, S>, S>
     return (N) this;
   }
 
+  /**
+   * Adds multiple child nodes at once.
+   *
+   * @param treeItems the child nodes to add
+   * @return this node (for fluent API)
+   */
   public N appendChild(N... treeItems) {
     Arrays.stream(treeItems).forEach(this::appendChild);
     return (N) this;
   }
 
   /**
-   * Removes a sub-item from this tree item.
+   * Removes a specified child node from this node. If no children remain after removal, the node is
+   * collapsed.
    *
-   * @param item The sub-item to remove.
+   * @param item the child node to remove
    */
   public void removeNode(N item) {
     if (subNodes.contains(item)) {
@@ -293,9 +353,9 @@ public abstract class TreeNode<V, N extends TreeNode<V, N, S>, S>
   }
 
   /**
-   * Clears all sub-items from this tree item.
+   * Removes all child nodes from this node.
    *
-   * @return The current TreeItem instance after clearing all sub-items.
+   * @return this node (for fluent API)
    */
   public N clear() {
     new ArrayList<>(subNodes).forEach(TreeNode::remove);
@@ -303,9 +363,9 @@ public abstract class TreeNode<V, N extends TreeNode<V, N, S>, S>
   }
 
   /**
-   * Removes this tree item from its parent.
+   * Removes this node from its parent, if it has one.
    *
-   * @return The current TreeItem instance after removal.
+   * @return this node (for fluent API)
    */
   @Override
   public N remove() {
@@ -313,16 +373,35 @@ public abstract class TreeNode<V, N extends TreeNode<V, N, S>, S>
     return (N) super.remove();
   }
 
+  /**
+   * {@inheritDoc}
+   *
+   * <p>Returns a {@link PrefixElement} that wraps the node's content area, allowing insertion of
+   * custom elements (e.g., icons) before the text.
+   */
   @Override
   public PrefixElement getPrefixElement() {
     return PrefixElement.of(contentElement);
   }
 
+  /**
+   * {@inheritDoc}
+   *
+   * <p>Returns a {@link PostfixElement} that wraps the node's content area, allowing insertion of
+   * custom elements (e.g., badges) after the text.
+   */
   @Override
   public PostfixElement getPostfixElement() {
     return PostfixElement.of(contentElement);
   }
 
+  /**
+   * Updates the icon state for this node based on whether it's expanded, collapsed, or active. If
+   * the icon is a {@link ToggleIcon}, it toggles; if it's a {@link StateChangeIcon}, updates the
+   * state accordingly.
+   *
+   * @param collapsed {@code true} if the node is collapsed, {@code false} if expanded
+   */
   private void updateIcon(boolean collapsed) {
     if (nonNull(nodeIcon) && nodeIcon.isInitialized()) {
       if (nodeIcon.element() instanceof ToggleIcon) {
@@ -343,9 +422,10 @@ public abstract class TreeNode<V, N extends TreeNode<V, N, S>, S>
   }
 
   /**
-   * Adds a separator to this tree item.
+   * Inserts a separator (e.g., a horizontal line or spacing) into the subtree of this node.
    *
-   * @return This tree item with a separator added.
+   * @param separator a {@link Separator} object
+   * @return this node (for fluent API)
    */
   public N appendChild(Separator separator) {
     subTree.appendChild(separator);
@@ -353,9 +433,10 @@ public abstract class TreeNode<V, N extends TreeNode<V, N, S>, S>
   }
 
   /**
-   * Returns the root of the tree structure to which this tree item belongs.
+   * {@inheritDoc}
    *
-   * @return The root Tree instance.
+   * <p>Returns the root of the entire tree structure. Typically used for configuration or top-level
+   * behaviors.
    */
   @Override
   public RootNode<V, N, S> getRootNode() {
@@ -363,10 +444,10 @@ public abstract class TreeNode<V, N extends TreeNode<V, N, S>, S>
   }
 
   /**
-   * Returns an optional parent of this tree item. If the parent exists and is a TreeItem, it
-   * returns an Optional containing the parent; otherwise, it returns an empty Optional.
+   * Retrieves this node's optional parent. If the parent is a {@code TreeNode}, returns a non-empty
+   * {@link Optional}; otherwise, it may be empty if this node is top-level.
    *
-   * @return An Optional containing the parent TreeItem or an empty Optional.
+   * @return an {@link Optional} containing the parent node if it exists
    */
   public Optional<IsParentNode<V, N, S>> getParent() {
     if (parent instanceof TreeNode) {
@@ -386,9 +467,9 @@ public abstract class TreeNode<V, N extends TreeNode<V, N, S>, S>
   }
 
   /**
-   * Returns the path to this tree item.
+   * Retrieves a list of nodes forming the path from the root to this node, including this node.
    *
-   * @return A list of tree items representing the path to this item, starting from the root.
+   * @return an ordered list of nodes from the tree root to this node
    */
   public List<N> getPath() {
     List<N> items = new ArrayList<>();
@@ -406,9 +487,9 @@ public abstract class TreeNode<V, N extends TreeNode<V, N, S>, S>
   }
 
   /**
-   * Returns the values associated with the path to this tree item.
+   * Retrieves a list of values from the root to this node, including this node's value.
    *
-   * @return A list of values representing the path to this item, starting from the root.
+   * @return an ordered list of values from the tree root to this node
    */
   public List<V> getPathValues() {
     List<V> values = new ArrayList<>();
@@ -426,9 +507,9 @@ public abstract class TreeNode<V, N extends TreeNode<V, N, S>, S>
   }
 
   /**
-   * Gets the list of sub-items under this tree item.
+   * Returns the direct children of this node (sub-nodes).
    *
-   * @return The list of sub-items.
+   * @return a list of child nodes
    */
   public List<N> getSubNodes() {
     return subNodes;
@@ -443,10 +524,10 @@ public abstract class TreeNode<V, N extends TreeNode<V, N, S>, S>
   }
 
   /**
-   * Activates (selects) this tree item. If 'activateParent' is true, it also activates its parent
-   * items in the tree structure. This method returns void.
+   * Activates this node in the UI, optionally indicating whether parent nodes should also be
+   * expanded or marked active. Primarily for internal use.
    *
-   * @param activateParent True to activate parent items, false to activate only this item.
+   * @param activateParent whether to propagate activation up the tree
    */
   protected void doActivate(boolean activateParent) {
     addCss(dui_active);
@@ -456,6 +537,11 @@ public abstract class TreeNode<V, N extends TreeNode<V, N, S>, S>
     updateIcon(isCollapsed());
   }
 
+  /**
+   * Activates this node, showing it if necessary and performing the default "onActivation" logic.
+   *
+   * @return this node (for fluent API)
+   */
   public N activate() {
     this.show(true);
     onActivation();
@@ -463,7 +549,7 @@ public abstract class TreeNode<V, N extends TreeNode<V, N, S>, S>
   }
 
   /**
-   * @return same instance
+   * @return this node
    * @deprecated use {@link #activate()}
    */
   @Deprecated
@@ -473,19 +559,21 @@ public abstract class TreeNode<V, N extends TreeNode<V, N, S>, S>
   }
 
   /**
-   * Returns the currently active (selected) tree item within the tree structure.
+   * Retrieves the currently active (or highlighted) child node of this node, or {@code null} if
+   * none is active.
    *
-   * @return The currently active TreeItem instance.
+   * @return the active node, or null
    */
   public N getActiveNode() {
     return activeNode;
   }
 
   /**
-   * Sets the toggle target for this tree item.
+   * Sets the target that toggles expand/collapse behavior. If {@link ToggleTarget#ICON} is chosen,
+   * wave effects are removed from the anchor area, and the node icon becomes clickable instead.
    *
-   * @param toggleTarget The toggle target to set.
-   * @return This tree item with the toggle target set.
+   * @param toggleTarget the new toggle target
+   * @return this node (for fluent API)
    */
   public TreeNode<V, N, S> setToggleTarget(ToggleTarget toggleTarget) {
     if (nonNull(toggleTarget)) {
@@ -508,6 +596,7 @@ public abstract class TreeNode<V, N extends TreeNode<V, N, S>, S>
     return this;
   }
 
+  /** Toggles expand/collapse if this node has child nodes; otherwise, no operation. */
   private void toggle() {
     if (isParent()) {
       toggleCollapse();
@@ -515,31 +604,36 @@ public abstract class TreeNode<V, N extends TreeNode<V, N, S>, S>
   }
 
   /**
-   * Checks if this tree item is a parent (has sub-items).
+   * Checks if this node has one or more children.
    *
-   * @return True if this tree item is a parent, false otherwise.
+   * @return {@code true} if it has children, {@code false} otherwise
    */
   boolean isParent() {
     return !subNodes.isEmpty();
   }
 
   /**
-   * Checks if this tree item is a leaf (has no sub-items).
+   * Checks if this node is a leaf, meaning it has no children.
    *
-   * @return True if this tree item is a leaf, false otherwise.
+   * @return {@code true} if no children, {@code false} otherwise
    */
   public boolean isLeaf() {
     return subNodes.isEmpty();
   }
 
+  /**
+   * Applies a wave effect (hover ripple) to the anchor. Subclasses can override or disable this if
+   * needed.
+   */
   protected void applyWaves() {
     withWaves((item, waves) -> waves.setWaveStyle(WaveStyle.BLOCK));
   }
 
   /**
-   * Handles changes in the supplied icon for this tree item and its sub-items.
+   * Called when the tree's icon supplier changes, updating this node's icon accordingly, then
+   * recursing into child nodes. No operation if the new icon is null.
    *
-   * @param iconSupplier The icon supplier responsible for creating icons.
+   * @param iconSupplier a supplier that provides icons for nodes
    */
   void onSuppliedIconChanged(NodeIconSupplier<V, N, S> iconSupplier) {
     Icon<?> icon = iconSupplier.createIcon((N) this);
@@ -550,11 +644,12 @@ public abstract class TreeNode<V, N extends TreeNode<V, N, S>, S>
   }
 
   /**
-   * Sets the icon for this tree item. If the 'icon' parameter is not null, it replaces the existing
-   * icon with the new one. This method returns the current TreeItem instance.
+   * Sets (or replaces) this node's icon. If an icon was previously set, it is removed. The new icon
+   * is appended to the content element, and click logic is updated based on the current toggle
+   * target.
    *
-   * @param icon The new icon to set.
-   * @return The current TreeItem instance.
+   * @param icon the new icon to display
+   * @return this node (for fluent API)
    */
   public N setIcon(Icon<?> icon) {
     if (nonNull(nodeIcon)) {
@@ -590,16 +685,17 @@ public abstract class TreeNode<V, N extends TreeNode<V, N, S>, S>
   }
 
   /**
-   * Returns the clickable HTML anchor element associated with this tree item.
+   * {@inheritDoc}
    *
-   * @return The clickable HTML anchor element.
+   * <p>Returns the anchor element for the node, which is used for wave effects (unless toggle
+   * target is icon-only).
    */
   @Override
   public HTMLAnchorElement getClickableElement() {
     return anchorElement.element();
   }
 
-  /** Collapses all sub-items under this tree item recursively. */
+  /** Recursively collapses this node and all child sub-nodes. */
   public void collapseAll() {
     if (isParent() && !isCollapsed()) {
       addCss(dui_transition_none);
@@ -609,7 +705,7 @@ public abstract class TreeNode<V, N extends TreeNode<V, N, S>, S>
     }
   }
 
-  /** Expands all sub-items under this tree item recursively. */
+  /** Recursively expands this node and all child sub-nodes. */
   public void expandAll() {
     if (isParent() && isCollapsed()) {
       addCss(dui_transition_none);
@@ -620,9 +716,10 @@ public abstract class TreeNode<V, N extends TreeNode<V, N, S>, S>
   }
 
   /**
-   * Expands the tree node represented by this tree item.
+   * Expands this node (shows children if any) by calling {@link #expand()} from {@link
+   * Collapsible}.
    *
-   * @return This tree item with the node expanded.
+   * @return this node (for fluent API)
    */
   @Override
   public N expandNode() {
@@ -630,11 +727,10 @@ public abstract class TreeNode<V, N extends TreeNode<V, N, S>, S>
   }
 
   /**
-   * Expands the tree node represented by this tree item. If the 'expandParent' parameter is true,
-   * parent nodes will also be expanded. This method returns the current TreeItem instance.
+   * Expands this node. If {@code expandParent} is {@code true}, also expands all ancestors.
    *
-   * @param expandParent True to expand parent nodes, false to expand only the current node.
-   * @return The current TreeItem instance.
+   * @param expandParent whether to expand parent nodes too
+   * @return this node (for fluent API)
    */
   @Override
   public N expandNode(boolean expandParent) {
@@ -642,10 +738,11 @@ public abstract class TreeNode<V, N extends TreeNode<V, N, S>, S>
   }
 
   /**
-   * Shows the tree node represented by this tree item.
+   * Ensures this node is shown (expanded) in the tree. Optionally expands the parent chain, then
+   * calls {@link #expand()} if this node has children.
    *
-   * @param expandParent {@code true} to expand the parent nodes, {@code false} otherwise.
-   * @return This tree item with the node shown.
+   * @param expandParent if true, parent nodes are also expanded
+   * @return this node (for fluent API)
    */
   public N show(boolean expandParent) {
     if (expandParent) {
@@ -659,7 +756,8 @@ public abstract class TreeNode<V, N extends TreeNode<V, N, S>, S>
   }
 
   /**
-   * Clears the filter applied to this tree item and its children, restoring their original state.
+   * Clears any previously applied filter state (restoring collapsed/expanded state and visibility)
+   * for this node and its children.
    */
   public void clearFilter() {
     if (nonNull(originalState)) {
@@ -677,10 +775,11 @@ public abstract class TreeNode<V, N extends TreeNode<V, N, S>, S>
   }
 
   /**
-   * Filters this tree item and its children based on a search token.
+   * Filters this node (and possibly its children) against a search token, showing nodes that match
+   * or have matching descendants. If a match is found, the node is revealed, otherwise hidden.
    *
-   * @param searchToken The search token to filter by.
-   * @return True if this tree item or any of its children match the search token, false otherwise.
+   * @param searchToken the token to search for
+   * @return true if this node or any child matches the search token, false otherwise
    */
   public boolean filter(String searchToken) {
     boolean found;
@@ -707,59 +806,55 @@ public abstract class TreeNode<V, N extends TreeNode<V, N, S>, S>
   }
 
   /**
-   * Filters the children of this tree item based on a search token.
+   * Filters child nodes recursively, returning {@code true} if any child node matches.
    *
-   * @param searchToken The search token to filter children by.
-   * @return True if any of the children match the search token, false otherwise.
+   * @param searchToken the token to filter by
+   * @return true if any child matches, false otherwise
    */
   public boolean filterChildren(String searchToken) {
-    // We use the noneMatch here instead of anyMatch to make sure we are looping all children
-    // instead of early exit on first matching one
     return subNodes.stream().filter(treeItem -> treeItem.filter(searchToken)).count() > 0;
   }
 
   /**
-   * Checks if this tree item should be automatically expanded when it's found during a search
-   * operation.
+   * Indicates whether matching nodes should automatically be expanded (when found by a filter).
    *
-   * @return True if this tree item should be automatically expanded when found, false otherwise.
+   * @return true if auto-expand is enabled for found nodes
    */
   public boolean isAutoExpandFound() {
     return getRootNode().isAutoExpandFound();
   }
 
   /**
-   * Retrieves the filter associated with this tree item, which is typically inherited from its
-   * parent.
+   * Retrieves the filter logic from the parent or root node.
    *
-   * @return The filter associated with this tree item.
+   * @return a {@link TreeItemFilter} used to evaluate matches
    */
   public TreeItemFilter<N> getFilter() {
     return parent.getFilter();
   }
 
   /**
-   * Retrieves the value associated with this tree item.
+   * Gets the data value associated with this node.
    *
-   * @return The value associated with this tree item.
+   * @return the node's value
    */
   public V getValue() {
     return value;
   }
 
   /**
-   * Sets the value associated with this tree item.
+   * Sets a data value for this node.
    *
-   * @param value The new value to set.
+   * @param value the new value
    */
   public void setValue(V value) {
     this.value = value;
   }
 
   /**
-   * Retrieves the Waves effect element associated with this tree item.
+   * {@inheritDoc}
    *
-   * @return The Waves effect element.
+   * <p>By default, wave effects apply to the anchor, unless {@link ToggleTarget#ICON} is selected.
    */
   @Override
   public Element getWavesElement() {
@@ -767,27 +862,27 @@ public abstract class TreeNode<V, N extends TreeNode<V, N, S>, S>
   }
 
   /**
-   * Retrieves the text element associated with this tree item.
+   * Gets the {@link SpanElement} holding the text content (the "label") of this node.
    *
-   * @return The text element.
+   * @return the text element
    */
   public SpanElement getTextElement() {
     return textElement.get();
   }
 
   /**
-   * Retrieves the UListElement` that represents the sub-tree of this tree item.
+   * Retrieves the unordered list element that holds this node's children.
    *
-   * @return The `UListElement` representing the sub-tree.
+   * @return the sub-tree element
    */
   public UListElement getSubTree() {
     return subTree;
   }
 
   /**
-   * Pauses selection listeners for this tree item.
+   * Pauses any selection (activation) listeners for this node, so changes do not trigger events.
    *
-   * @return The current TreeItem instance after pausing selection listeners.
+   * @return this node
    */
   @Override
   public N pauseSelectionListeners() {
@@ -796,9 +891,9 @@ public abstract class TreeNode<V, N extends TreeNode<V, N, S>, S>
   }
 
   /**
-   * Resumes selection listeners for this tree item.
+   * Resumes any selection (activation) listeners previously paused.
    *
-   * @return The current TreeItem instance after resuming selection listeners.
+   * @return this node
    */
   @Override
   public N resumeSelectionListeners() {
@@ -807,10 +902,10 @@ public abstract class TreeNode<V, N extends TreeNode<V, N, S>, S>
   }
 
   /**
-   * Toggles the pause state of selection listeners.
+   * Toggles the paused state of selection listeners.
    *
-   * @param toggle True to pause selection listeners, false to resume them.
-   * @return The current TreeItem instance after toggling selection listeners.
+   * @param toggle if true, listeners are paused; if false, they are resumed
+   * @return this node
    */
   @Override
   public N togglePauseSelectionListeners(boolean toggle) {
@@ -819,9 +914,9 @@ public abstract class TreeNode<V, N extends TreeNode<V, N, S>, S>
   }
 
   /**
-   * Retrieves the set of selection listeners associated with this tree item.
+   * {@inheritDoc}
    *
-   * @return The set of selection listeners.
+   * <p>Returns the set of selection listeners associated with this node.
    */
   @Override
   public Set<SelectionListener<? super N, ? super S>> getSelectionListeners() {
@@ -829,9 +924,9 @@ public abstract class TreeNode<V, N extends TreeNode<V, N, S>, S>
   }
 
   /**
-   * Retrieves the set of deselection listeners associated with this tree item.
+   * {@inheritDoc}
    *
-   * @return The set of deselection listeners.
+   * <p>Returns the set of deselection listeners associated with this node.
    */
   @Override
   public Set<SelectionListener<? super N, ? super S>> getDeselectionListeners() {
@@ -839,9 +934,9 @@ public abstract class TreeNode<V, N extends TreeNode<V, N, S>, S>
   }
 
   /**
-   * Checks if selection listeners for this tree item are currently paused.
+   * {@inheritDoc}
    *
-   * @return True if selection listeners are paused, false otherwise.
+   * <p>Indicates whether selection listeners are currently paused.
    */
   @Override
   public boolean isSelectionListenersPaused() {
@@ -849,11 +944,10 @@ public abstract class TreeNode<V, N extends TreeNode<V, N, S>, S>
   }
 
   /**
-   * Triggers selection listeners for this tree item when a selection event occurs.
+   * {@inheritDoc}
    *
-   * @param source The source tree item that triggered the event.
-   * @param selection The selected tree item.
-   * @return The current TreeItem instance after triggering selection listeners.
+   * <p>Notifies all registered selection listeners of a selection event, unless listeners are
+   * paused.
    */
   @Override
   public N triggerSelectionListeners(N source, S selection) {
@@ -866,11 +960,10 @@ public abstract class TreeNode<V, N extends TreeNode<V, N, S>, S>
   }
 
   /**
-   * Triggers deselection listeners for this tree item when a deselection event occurs.
+   * {@inheritDoc}
    *
-   * @param source The source tree item that triggered the event.
-   * @param selection The deselected tree item.
-   * @return The current TreeItem instance after triggering deselection listeners.
+   * <p>Notifies all registered deselection listeners of a deselection event, unless listeners are
+   * paused.
    */
   @Override
   public N triggerDeselectionListeners(N source, S selection) {
@@ -882,22 +975,27 @@ public abstract class TreeNode<V, N extends TreeNode<V, N, S>, S>
     return (N) this;
   }
 
+  /**
+   * {@inheritDoc}
+   *
+   * <p>Returns the underlying {@code <li>} element for this node.
+   */
   @Override
   public HTMLLIElement element() {
     return this.element.element();
   }
 
   /**
-   * A private inner class representing the original state of a tree item. This state includes
-   * whether the tree item was expanded or collapsed.
+   * Stores this node's original expanded/collapsed state before any filter was applied, so it can
+   * be restored via {@link #clearFilter()}.
    */
   private static class OriginalState {
-    private boolean expanded;
+    private final boolean expanded;
 
     /**
-     * Constructs an instance of OriginalState with the specified expanded state.
+     * Constructs an {@code OriginalState} representing the node's expand/collapse state.
      *
-     * @param expanded True if the tree item was expanded, false if it was collapsed.
+     * @param expanded {@code true} if originally expanded, {@code false} if collapsed
      */
     public OriginalState(boolean expanded) {
       this.expanded = expanded;
