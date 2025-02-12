@@ -16,6 +16,7 @@
 package org.dominokit.domino.ui.popover;
 
 import static java.util.Objects.isNull;
+import static java.util.Objects.nonNull;
 import static org.dominokit.domino.ui.collapsible.Collapsible.DUI_COLLAPSED;
 import static org.dominokit.domino.ui.utils.Domino.*;
 
@@ -77,6 +78,7 @@ public abstract class BasePopover<T extends BasePopover<T>>
   private boolean closeOnBlur;
   private PopoverConfig ownConfig;
   private int openDelay;
+  protected DelayedExecution delayedExecution;
 
   /**
    * Constructs a new BasePopover associated with the provided target element. BasePopover is the
@@ -219,7 +221,10 @@ public abstract class BasePopover<T extends BasePopover<T>>
    */
   protected void doOpen() {
     if (getOpenDelay() > 0) {
-      DelayedExecution.execute(this::openPopover, getOpenDelay());
+      if (nonNull(this.delayedExecution)) {
+        this.delayedExecution.cancel();
+      }
+      this.delayedExecution = DelayedExecution.execute(this::openPopover, getOpenDelay());
     } else {
       openPopover();
     }
@@ -277,6 +282,9 @@ public abstract class BasePopover<T extends BasePopover<T>>
     body().removeEventListener(EventType.keydown.getName(), closeListener);
     getConfig().getZindexManager().onPopupClose(this);
     triggerCloseListeners((T) this);
+    if (nonNull(this.delayedExecution)) {
+      this.delayedExecution.cancel();
+    }
   }
 
   /**

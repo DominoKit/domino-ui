@@ -16,6 +16,7 @@
 package org.dominokit.domino.ui.popover;
 
 import static elemental2.dom.DomGlobal.document;
+import static java.util.Objects.nonNull;
 import static org.dominokit.domino.ui.dialogs.ModalBackDrop.DUI_REMOVE_TOOLTIPS;
 import static org.dominokit.domino.ui.utils.Domino.*;
 import static org.dominokit.domino.ui.utils.Domino.body;
@@ -154,6 +155,9 @@ public class Tooltip extends BasePopover<Tooltip> {
   @Override
   protected Tooltip closeOthers(String sourceId) {
     ModalBackDrop.INSTANCE.closeTooltips(sourceId);
+    if (nonNull(this.delayedExecution)) {
+      this.delayedExecution.cancel();
+    }
     return this;
   }
 
@@ -171,5 +175,6 @@ public class Tooltip extends BasePopover<Tooltip> {
   public void detach() {
     removeHandler.accept(this);
     remove();
+    this.delayedExecution.cancel();
   }
 }
