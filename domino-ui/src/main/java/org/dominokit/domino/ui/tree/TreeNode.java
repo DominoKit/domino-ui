@@ -26,10 +26,7 @@ import static org.dominokit.domino.ui.utils.Domino.li;
 import static org.dominokit.domino.ui.utils.Domino.span;
 import static org.dominokit.domino.ui.utils.Domino.ul;
 
-import elemental2.dom.Element;
-import elemental2.dom.EventListener;
-import elemental2.dom.HTMLAnchorElement;
-import elemental2.dom.HTMLLIElement;
+import elemental2.dom.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;

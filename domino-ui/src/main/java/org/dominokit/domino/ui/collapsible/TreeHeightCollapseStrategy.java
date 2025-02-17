@@ -207,11 +207,15 @@ public class TreeHeightCollapseStrategy implements CollapseStrategy, Collapsible
     if (dui_transition_none.isAppliedTo(node)) {
       node.setAttribute(DUI_COLLAPSED, "true");
       node.setCssProperty(this.heightVar, node.getAttribute(DUI_COLLAPSED_HEIGHT) + "px");
+      handlers.onCollapseCompleted().run();
+      collapsing = false;
     } else {
       DomGlobal.requestAnimationFrame(
           timestamp -> {
             node.setAttribute(DUI_COLLAPSED, "true");
             node.setCssProperty(this.heightVar, node.getAttribute(DUI_COLLAPSED_HEIGHT) + "px");
+            handlers.onCollapseCompleted().run();
+            collapsing = false;
           });
     }
   }
