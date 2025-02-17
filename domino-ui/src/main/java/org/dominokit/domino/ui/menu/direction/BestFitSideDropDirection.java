@@ -15,11 +15,8 @@
  */
 package org.dominokit.domino.ui.menu.direction;
 
-import static elemental2.dom.DomGlobal.window;
 import static org.dominokit.domino.ui.style.SpacingCss.dui_flex_col_reverse;
-import static org.dominokit.domino.ui.utils.Domino.*;
 
-import elemental2.dom.DOMRect;
 import elemental2.dom.Element;
 
 /** BestFitSideDropDirection class. */
@@ -27,50 +24,36 @@ public class BestFitSideDropDirection implements DropDirection {
 
   /** {@inheritDoc} */
   @Override
-  public void position(Element source, Element target) {
+  public DropDirection position(Element source, Element target) {
     cleanup(source);
     dui_flex_col_reverse.remove(source);
-    DOMRect targetRect = target.getBoundingClientRect();
-    DOMRect sourceRect = source.getBoundingClientRect();
-    int innerWidth = window.innerWidth;
-    int innerHeight = window.innerHeight;
 
-    double sourceWidth = sourceRect.width;
-    double sourceHeight = sourceRect.height;
-    double rightSpace = innerWidth - targetRect.right - window.pageXOffset;
-    double downSpace = innerHeight - targetRect.height;
-    DropDirection currentPosition;
+    SpaceChecker spaceChecker = SpaceChecker.of(source, target);
 
-    if (hasSpaceOnRightSide(sourceWidth, rightSpace)) {
-      if (hasSpaceBelow(sourceHeight, downSpace)) {
-        currentPosition = DropDirection.RIGHT_DOWN;
-      } else {
-        currentPosition = DropDirection.RIGHT_UP;
+    if (spaceChecker.hasSpaceOnRight()) {
+      if (spaceChecker.hasSpaceBelow()) {
+        return RIGHT_DOWN.position(source, target);
+      } else if (spaceChecker.hasSpaceAbove()) {
+        return RIGHT_UP.position(source, target);
       }
-    } else {
-      if (hasSpaceBelow(sourceHeight, downSpace)) {
-        currentPosition = DropDirection.LEFT_DOWN;
-      } else {
-        currentPosition = DropDirection.LEFT_UP;
+    } else if (spaceChecker.hasSpaceOnLeft()) {
+      if (spaceChecker.hasSpaceBelow()) {
+        return LEFT_DOWN.position(source, target);
+      } else if (spaceChecker.hasSpaceAbove()) {
+        return LEFT_UP.position(source, target);
       }
     }
-    currentPosition.position(source, target);
+
+    return MIDDLE_SCREEN.position(source, target);
   }
 
   /** {@inheritDoc} */
   @Override
   public void cleanup(Element source) {
-    DropDirection.RIGHT_DOWN.cleanup(source);
-    DropDirection.RIGHT_UP.cleanup(source);
-    DropDirection.LEFT_DOWN.cleanup(source);
-    DropDirection.LEFT_UP.cleanup(source);
-  }
-
-  private boolean hasSpaceBelow(double sourceHeight, double downSpace) {
-    return downSpace > sourceHeight;
-  }
-
-  private boolean hasSpaceOnRightSide(double sourceWidth, double rightSpace) {
-    return rightSpace > sourceWidth;
+    RIGHT_DOWN.cleanSelf(source);
+    RIGHT_UP.cleanSelf(source);
+    LEFT_DOWN.cleanSelf(source);
+    LEFT_UP.cleanSelf(source);
+    MIDDLE_SCREEN.cleanSelf(source);
   }
 }

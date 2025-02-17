@@ -15,11 +15,8 @@
  */
 package org.dominokit.domino.ui.menu.direction;
 
-import static elemental2.dom.DomGlobal.window;
 import static org.dominokit.domino.ui.style.SpacingCss.dui_flex_col_reverse;
-import static org.dominokit.domino.ui.utils.Domino.*;
 
-import elemental2.dom.DOMRect;
 import elemental2.dom.Element;
 
 /** BestMiddleDownUpDropDirection class. */
@@ -27,39 +24,27 @@ public class BestMiddleDownUpDropDirection implements DropDirection {
 
   /** {@inheritDoc} */
   @Override
-  public void position(Element source, Element target) {
+  public DropDirection position(Element source, Element target) {
+    cleanup(source);
     dui_flex_col_reverse.remove(source);
     cleanup(source);
-    DOMRect targetRect = target.getBoundingClientRect();
-    DOMRect sourceRect = source.getBoundingClientRect();
-    int innerHeight = window.innerHeight;
 
-    double sourceHeight = sourceRect.height;
-    double downSpace = innerHeight - targetRect.bottom;
+    SpaceChecker spaceChecker = SpaceChecker.of(source, target);
 
-    DropDirection currentPosition;
-
-    if (hasSpaceBelow(sourceHeight, downSpace)) {
-      currentPosition = DropDirection.BOTTOM_MIDDLE;
+    if (spaceChecker.hasSpaceBelow()) {
+      return BOTTOM_MIDDLE.position(source, target);
+    } else if (spaceChecker.hasSpaceAbove()) {
+      return TOP_MIDDLE.position(source, target);
     } else {
-      currentPosition = DropDirection.TOP_MIDDLE;
+      return MIDDLE_SCREEN.position(source, target);
     }
-
-    currentPosition.position(source, target);
   }
 
   /** {@inheritDoc} */
   @Override
   public void cleanup(Element source) {
-    DropDirection.BOTTOM_MIDDLE.cleanup(source);
-    DropDirection.TOP_MIDDLE.cleanup(source);
-  }
-
-  private boolean hasSpaceBelow(double sourceHeight, double downSpace) {
-    return downSpace > sourceHeight;
-  }
-
-  private boolean hasSpaceOnRightSide(double sourceWidth, double rightSpace) {
-    return rightSpace > sourceWidth;
+    BOTTOM_MIDDLE.cleanSelf(source);
+    TOP_MIDDLE.cleanSelf(source);
+    MIDDLE_SCREEN.cleanSelf(source);
   }
 }

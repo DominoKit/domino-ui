@@ -113,12 +113,18 @@ public class AppLayout extends BaseDominoElement<HTMLDivElement, AppLayout>
             .whenInitialized(() -> layout.addCss(dui_has_header));
     navBar = LazyChild.of(NavBar.create(), header);
     footer =
-        LazyChild.of(section().addCss(dui_footer).setZIndexLayer(ZIndexLayer.Z_LAYER_2), body)
+        LazyChild.of(
+                section()
+                    .setAttribute("dui-reserve-bottom-space", "true")
+                    .addCss(dui_footer)
+                    .setZIndexLayer(ZIndexLayer.Z_LAYER_2),
+                body)
             .whenInitialized(() -> layout.addCss(dui_has_footer));
     leftDrawerToggle = initLeftDrawerToggle(leftToggleIcon);
     leftDrawer =
         LazyChild.of(
                 section()
+                    .setAttribute("dui-reserve-left-space", "true")
                     .addCss(dui_left_drawer)
                     .setZIndexLayer(ZIndexLayer.Z_LAYER_2)
                     .addClickListener(Event::stopPropagation),
@@ -132,6 +138,10 @@ public class AppLayout extends BaseDominoElement<HTMLDivElement, AppLayout>
                     if (dui_left_open.isAppliedTo(layout)) {
                       leftDrawerOpenHandlers.forEach(
                           handler -> handler.apply(this, leftDrawer.get()));
+                      leftDrawer
+                          .get()
+                          .setAttribute(
+                              "dui-reserve-left-space", dui_left_open.isAppliedTo(layout));
                     }
                   })
               .onTransitionEnd(
@@ -139,6 +149,10 @@ public class AppLayout extends BaseDominoElement<HTMLDivElement, AppLayout>
                     if (!dui_left_open.isAppliedTo(layout)) {
                       leftDrawerCloseHandlers.forEach(
                           handler -> handler.apply(this, leftDrawer.get()));
+                      leftDrawer
+                          .get()
+                          .setAttribute(
+                              "dui-reserve-left-space", dui_left_open.isAppliedTo(layout));
                     }
                   });
         });
@@ -149,6 +163,7 @@ public class AppLayout extends BaseDominoElement<HTMLDivElement, AppLayout>
     rightDrawer =
         LazyChild.of(
                 section()
+                    .setAttribute("dui-reserve-left-space", "false")
                     .addCss(dui_right_drawer)
                     .setZIndexLayer(ZIndexLayer.Z_LAYER_2)
                     .addClickListener(Event::stopPropagation),
@@ -163,6 +178,10 @@ public class AppLayout extends BaseDominoElement<HTMLDivElement, AppLayout>
                     if (dui_right_open.isAppliedTo(layout)) {
                       rightDrawerOpenHandlers.forEach(
                           handler -> handler.apply(this, rightDrawer.get()));
+                      rightDrawer
+                          .get()
+                          .setAttribute(
+                              "dui-reserve-right-space", dui_right_open.isAppliedTo(layout));
                     }
                   })
               .onTransitionEnd(
@@ -170,6 +189,10 @@ public class AppLayout extends BaseDominoElement<HTMLDivElement, AppLayout>
                     if (!dui_right_open.isAppliedTo(layout)) {
                       rightDrawerCloseHandlers.forEach(
                           handler -> handler.apply(this, rightDrawer.get()));
+                      rightDrawer
+                          .get()
+                          .setAttribute(
+                              "dui-reserve-right-space", dui_right_open.isAppliedTo(layout));
                     }
                   });
         });
@@ -896,9 +919,9 @@ public class AppLayout extends BaseDominoElement<HTMLDivElement, AppLayout>
   }
 
   /**
+   * @return The HTMLDivElement representing the layout.
    * @dominokit-site-ignore {@inheritDoc}
    *     <p>Gets the HTMLDivElement representing the layout.
-   * @return The HTMLDivElement representing the layout.
    */
   @Override
   public HTMLDivElement element() {

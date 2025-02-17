@@ -15,11 +15,8 @@
  */
 package org.dominokit.domino.ui.menu.direction;
 
-import static elemental2.dom.DomGlobal.window;
 import static org.dominokit.domino.ui.style.SpacingCss.dui_flex_col_reverse;
-import static org.dominokit.domino.ui.utils.Domino.*;
 
-import elemental2.dom.DOMRect;
 import elemental2.dom.Element;
 
 /** BestMiddleSideDropDirection class. */
@@ -27,33 +24,25 @@ public class BestMiddleSideDropDirection implements DropDirection {
 
   /** {@inheritDoc} */
   @Override
-  public void position(Element source, Element target) {
+  public DropDirection position(Element source, Element target) {
     dui_flex_col_reverse.remove(source);
     cleanup(source);
-    DOMRect targetRect = target.getBoundingClientRect();
-    DOMRect sourceRect = source.getBoundingClientRect();
-    int innerWidth = window.innerWidth;
+    SpaceChecker spaceChecker = SpaceChecker.of(source, target);
 
-    double sourceWidth = sourceRect.width;
-    double rightSpace = innerWidth - targetRect.right - window.pageXOffset;
-    DropDirection currentPosition;
-
-    if (hasSpaceOnRightSide(sourceWidth, rightSpace)) {
-      currentPosition = DropDirection.RIGHT_MIDDLE;
+    if (spaceChecker.hasSpaceOnRight()) {
+      return RIGHT_MIDDLE.position(source, target);
+    } else if (spaceChecker.hasSpaceOnLeft()) {
+      return LEFT_MIDDLE.position(source, target);
     } else {
-      currentPosition = DropDirection.LEFT_MIDDLE;
+      return MIDDLE_SCREEN.position(source, target);
     }
-    currentPosition.position(source, target);
   }
 
   /** {@inheritDoc} */
   @Override
   public void cleanup(Element source) {
-    DropDirection.RIGHT_MIDDLE.cleanup(source);
-    DropDirection.LEFT_MIDDLE.cleanup(source);
-  }
-
-  private boolean hasSpaceOnRightSide(double sourceWidth, double rightSpace) {
-    return rightSpace > sourceWidth;
+    RIGHT_MIDDLE.cleanSelf(source);
+    LEFT_MIDDLE.cleanSelf(source);
+    MIDDLE_SCREEN.cleanSelf(source);
   }
 }

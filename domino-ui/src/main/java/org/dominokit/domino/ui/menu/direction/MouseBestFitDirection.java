@@ -18,7 +18,6 @@ package org.dominokit.domino.ui.menu.direction;
 import static elemental2.dom.DomGlobal.window;
 import static java.util.Objects.isNull;
 import static org.dominokit.domino.ui.style.SpacingCss.dui_flex_col_reverse;
-import static org.dominokit.domino.ui.utils.Domino.*;
 import static org.dominokit.domino.ui.utils.ElementsFactory.elements;
 import static org.dominokit.domino.ui.utils.Unit.px;
 
@@ -43,7 +42,7 @@ public class MouseBestFitDirection implements DropDirection {
 
   /** {@inheritDoc} */
   @Override
-  public void position(Element source, Element target) {
+  public DropDirection position(Element source, Element target) {
     dui_flex_col_reverse.remove(source);
     if (isNull(mouseEvent)) {
       DropDirection.BEST_MIDDLE_DOWN_UP.position(source, target);
@@ -74,6 +73,7 @@ public class MouseBestFitDirection implements DropDirection {
           .elementOf(source)
           .setCssProperty("--dui-menu-drop-min-width", target.getBoundingClientRect().width + "px");
     }
+    return this;
   }
 
   private void positionBottomRight(Element source, double sourceHeight) {
@@ -133,6 +133,11 @@ public class MouseBestFitDirection implements DropDirection {
   /** {@inheritDoc} */
   @Override
   public void cleanup(Element source) {
+    cleanSelf(source);
+  }
+
+  @Override
+  public void cleanSelf(Element source) {
     dui_dd_best_mouse_fit.remove(source);
     elements.elementOf(source).removeCssProperty("--dui-menu-drop-min-width");
   }

@@ -23,18 +23,7 @@ import static org.dominokit.domino.ui.utils.Domino.text;
 import static org.dominokit.domino.ui.utils.HasZIndexLayer.ZIndexLayer.Z_LAYER_1;
 
 import elemental2.core.JsArray;
-import elemental2.dom.AddEventListenerOptions;
-import elemental2.dom.CSSStyleDeclaration;
-import elemental2.dom.CustomEvent;
-import elemental2.dom.DOMRect;
-import elemental2.dom.Element;
-import elemental2.dom.Event;
-import elemental2.dom.EventListener;
-import elemental2.dom.EventTarget;
-import elemental2.dom.HTMLElement;
-import elemental2.dom.MutationRecord;
-import elemental2.dom.Node;
-import elemental2.dom.NodeList;
+import elemental2.dom.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -4492,16 +4481,44 @@ public abstract class BaseDominoElement<E extends Element, T extends IsElement<E
     keyboardEvents.setDefaultOptions(defaultOptions);
     return (T) this;
   }
-
+  /**
+   * Checks if the element is overflowing its visible area.
+   *
+   * <p>An element is considered overflowing if its total content size (as determined by its scroll
+   * dimensions) exceeds the size of its visible area (client dimensions). This can occur either
+   * horizontally or vertically.
+   *
+   * @return {@code true} if the element's content exceeds its visible bounds, {@code false}
+   *     otherwise.
+   */
   public boolean isOverFlowing() {
     return element().scrollWidth > element().clientWidth
         || element().scrollHeight > element().clientHeight;
   }
 
+  /**
+   * Determines if the element is partially visible within its parent container.
+   *
+   * <p>This method considers an element to be partially visible if it is not fully visible within
+   * its parent's bounds. It returns the logical negation of {@link #isFullyVisible()}.
+   *
+   * @return {@code true} if the element is only partially visible, {@code false} if it is fully
+   *     visible.
+   */
   public boolean isPartialVisible() {
     return !isFullyVisible();
   }
 
+  /**
+   * Checks if the element is fully visible within the boundaries of its parent element.
+   *
+   * <p>This method compares the bounding rectangle of the element with that of its parent. The
+   * element is considered fully visible if all edges (left, right, top, and bottom) of its
+   * rectangle lie within the corresponding edges of the parent's rectangle.
+   *
+   * @return {@code true} if the element is completely visible within its parent's viewport, {@code
+   *     false} otherwise.
+   */
   public boolean isFullyVisible() {
     Element parent = parent().element();
     DOMRect parentRect = parent.getBoundingClientRect();
@@ -4511,6 +4528,36 @@ public abstract class BaseDominoElement<E extends Element, T extends IsElement<E
         && childRect.right <= parentRect.right
         && childRect.top >= parentRect.top
         && childRect.bottom <= parentRect.bottom;
+  }
+
+  /**
+   * Calculates the width of this element that is currently visible within the viewport.
+   *
+   * <p>The method computes the intersection of the element's bounding rectangle with the viewport's
+   * horizontal boundaries, ensuring that only the visible portion is considered.
+   *
+   * @return the visible width in pixels, or {@code 0} if the element is completely outside the
+   *     viewport.
+   */
+  public double getVisibleWidth() {
+    DOMRect rect = element().getBoundingClientRect();
+    double viewportWidth = DomGlobal.window.innerWidth;
+    return Math.max(0, Math.min(rect.right, viewportWidth) - Math.max(rect.left, 0));
+  }
+
+  /**
+   * Calculates the height of this element that is currently visible within the viewport.
+   *
+   * <p>The method computes the intersection of the element's bounding rectangle with the viewport's
+   * vertical boundaries, ensuring that only the visible portion is considered.
+   *
+   * @return the visible height in pixels, or {@code 0} if the element is completely outside the
+   *     viewport.
+   */
+  public double getVisibleHeight() {
+    DOMRect rect = element().getBoundingClientRect();
+    double viewportHeight = DomGlobal.window.innerHeight;
+    return Math.max(0, Math.min(rect.bottom, viewportHeight) - Math.max(rect.top, 0));
   }
 
   /**
