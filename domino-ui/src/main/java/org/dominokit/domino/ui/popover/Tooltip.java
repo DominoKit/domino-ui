@@ -175,6 +175,8 @@ public class Tooltip extends BasePopover<Tooltip> {
   public void detach() {
     removeHandler.accept(this);
     remove();
-    this.delayedExecution.cancel();
+    if (nonNull(this.delayedExecution)) {
+      this.delayedExecution.cancel();
+    }
   }
 }
