@@ -46,7 +46,6 @@ import org.dominokit.domino.ui.elements.UListElement;
 import org.dominokit.domino.ui.icons.Icon;
 import org.dominokit.domino.ui.icons.StateChangeIcon;
 import org.dominokit.domino.ui.icons.ToggleIcon;
-import org.dominokit.domino.ui.style.WaveStyle;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
 import org.dominokit.domino.ui.utils.HasSelectionListeners;
 import org.dominokit.domino.ui.utils.LazyChild;
@@ -152,13 +151,13 @@ public abstract class TreeNode<V, N extends TreeNode<V, N, S>, S>
                     a().removeHref()
                         .addCss(dui_tree_anchor)
                         .appendChild(contentElement = div().addCss(dui_tree_item_content)))
-            .appendChild(subTree = ul().addCss(dui_tree_nav).hide());
+            .appendChild(subTree = ul().addCss(dui_tree_nav).setHeight("0px"));
     this.textElement = LazyChild.of(span().addCss(dui_tree_item_text), contentElement);
     init((N) this);
 
     // default collapsible strategy
     setCollapseStrategy(getConfig().getTreeDefaultCollapseStrategy(this).get());
-    setAttribute(Collapsible.DUI_COLLAPSED, "true");
+    subTree.setAttribute(Collapsible.DUI_COLLAPSED, "true");
   }
 
   /**
@@ -172,6 +171,11 @@ public abstract class TreeNode<V, N extends TreeNode<V, N, S>, S>
     setIcon(icon);
     setTitle(title);
     init();
+  }
+
+  @Override
+  public Collapsible getCollapsible() {
+    return this.subTree.getCollapsible();
   }
 
   /**
@@ -623,7 +627,7 @@ public abstract class TreeNode<V, N extends TreeNode<V, N, S>, S>
    * needed.
    */
   protected void applyWaves() {
-    withWaves((item, waves) -> waves.setWaveStyle(WaveStyle.BLOCK));
+    withWaves();
   }
 
   /**

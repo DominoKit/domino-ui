@@ -191,6 +191,14 @@
     transition: height 1000ms, padding-top 1000ms, padding-bottom 1000ms, margin-top 1000ms, margin-bottom 1000ms;
 }
 
+.dui-height-collapsed-trans-2000 {
+    transition: height 2000ms, padding-top 2000ms, padding-bottom 2000ms, margin-top 2000ms, margin-bottom 2000ms;
+}
+
+.dui-height-collapsed-trans-20000 {
+    transition: height 20000ms, padding-top 20000ms, padding-bottom 20000ms, margin-top 20000ms, margin-bottom 20000ms;
+}
+
 .dui.dui-height-collapsed[dui-collapsed='true'] {
     padding-top: 0 !important;
     padding-bottom: 0 !important;

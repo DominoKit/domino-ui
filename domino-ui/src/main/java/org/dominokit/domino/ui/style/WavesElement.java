@@ -15,8 +15,6 @@
  */
 package org.dominokit.domino.ui.style;
 
-import static org.dominokit.domino.ui.utils.Domino.*;
-
 import elemental2.dom.HTMLElement;
 import org.dominokit.domino.ui.IsElement;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
@@ -55,17 +53,6 @@ public abstract class WavesElement<E extends HTMLElement, T extends IsElement<E>
   public void init(T element) {
     super.init(element);
     wavesSupport = WavesSupport.addFor(this.getWavesElement());
-  }
-
-  /**
-   * Initializes the Waves (ripple) effect on this element.
-   *
-   * @return the current instance for chaining
-   */
-  @Override
-  public T initWaves() {
-    wavesSupport.initWaves();
-    return element;
   }
 
   /**

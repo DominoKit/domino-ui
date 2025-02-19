@@ -16,8 +16,7 @@
 package org.dominokit.domino.ui.config;
 
 import java.util.function.Supplier;
-import org.dominokit.domino.ui.collapsible.CollapseStrategy;
-import org.dominokit.domino.ui.collapsible.TreeHeightCollapseStrategy;
+import org.dominokit.domino.ui.collapsible.*;
 import org.dominokit.domino.ui.tree.TreeNode;
 
 /**
@@ -35,6 +34,6 @@ public interface TreeConfig extends ComponentConfig {
    * @return a {@code Supplier<CollapseStrategy>}
    */
   default Supplier<CollapseStrategy> getTreeDefaultCollapseStrategy(TreeNode<?, ?, ?> node) {
-    return () -> new TreeHeightCollapseStrategy(node);
+    return () -> new HeightCollapseStrategy("0");
   }
 }

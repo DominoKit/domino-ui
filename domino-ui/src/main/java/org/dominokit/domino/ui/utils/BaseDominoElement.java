@@ -59,7 +59,6 @@ import org.dominokit.domino.ui.style.Elevation;
 import org.dominokit.domino.ui.style.HasCssClass;
 import org.dominokit.domino.ui.style.HasCssClasses;
 import org.dominokit.domino.ui.style.Style;
-import org.dominokit.domino.ui.style.WaveStyle;
 import org.dominokit.domino.ui.style.WavesSupport;
 import org.dominokit.domino.ui.themes.DominoThemeManager;
 import org.gwtproject.editor.client.Editor;
@@ -2593,17 +2592,6 @@ public abstract class BaseDominoElement<E extends Element, T extends IsElement<E
       this.wavesSupport = WavesSupport.addFor(getWavesElement());
     }
     wavesStyler.styleWaves(this.wavesSupport);
-    return element;
-  }
-
-  /**
-   * Sets the wave style for this element's Waves effect.
-   *
-   * @param waveStyle The wave style to set.
-   * @return The modified DOM element.
-   */
-  public T setWaveStyle(WaveStyle waveStyle) {
-    wavesSupport.setWaveStyle(waveStyle);
     return element;
   }
 
