@@ -95,6 +95,7 @@ public abstract class TreeNode<V, N extends TreeNode<V, N, S>, S>
   private final DivElement contentElement;
   private final LazyChild<SpanElement> textElement;
   private final UListElement subTree;
+  private String lastSearchToken = "";
 
   private V value;
   private OriginalState originalState;
@@ -240,8 +241,14 @@ public abstract class TreeNode<V, N extends TreeNode<V, N, S>, S>
    * extend this method for further setup.
    */
   protected void init() {
-    addBeforeCollapseListener(() -> updateIcon(true));
-    addBeforeExpandListener(() -> updateIcon(false));
+    addBeforeCollapseListener(
+        () -> {
+          updateIcon(true);
+        });
+    addBeforeExpandListener(
+        () -> {
+          updateIcon(false);
+        });
     anchorElement.addClickListener(anchorListener);
     applyWaves();
   }
@@ -728,6 +735,17 @@ public abstract class TreeNode<V, N extends TreeNode<V, N, S>, S>
   }
 
   /**
+   * Collapses this node (hiding children if any) by calling {@link #collapse()} from {@link
+   * Collapsible}.
+   *
+   * @return this node (for fluent API)
+   */
+  @Override
+  public N collapseNode() {
+    return hide(false);
+  }
+
+  /**
    * Expands this node. If {@code expandParent} is {@code true}, also expands all ancestors.
    *
    * @param expandParent whether to expand parent nodes too
@@ -736,6 +754,17 @@ public abstract class TreeNode<V, N extends TreeNode<V, N, S>, S>
   @Override
   public N expandNode(boolean expandParent) {
     return show(expandParent);
+  }
+
+  /**
+   * Collapse this node. If {@code collapseParent} is {@code true}, also collapse all ancestors.
+   *
+   * @param collapseParent whether to collapse parent nodes too
+   * @return this node (for fluent API)
+   */
+  @Override
+  public N collapseNode(boolean collapseParent) {
+    return hide(collapseParent);
   }
 
   /**
@@ -753,6 +782,26 @@ public abstract class TreeNode<V, N extends TreeNode<V, N, S>, S>
     if (isParent()) {
       super.expand();
     }
+    updateIcon(isCollapsed());
+    return (N) this;
+  }
+
+  /**
+   * Ensures this node is shown (collapsed) in the tree. Optionally collapses the parent chain, then
+   * calls {@link #collapse()} if this node has children.
+   *
+   * @param collapseParent if true, parent nodes are also expanded
+   * @return this node (for fluent API)
+   */
+  public N hide(boolean collapseParent) {
+    if (collapseParent) {
+      getParent().ifPresent(itemParent -> itemParent.collapseNode(true));
+    }
+
+    if (isParent()) {
+      super.collapse();
+    }
+    updateIcon(isCollapsed());
     return (N) this;
   }
 
@@ -783,13 +832,27 @@ public abstract class TreeNode<V, N extends TreeNode<V, N, S>, S>
    * @return true if this node or any child matches the search token, false otherwise
    */
   public boolean filter(String searchToken) {
+
     boolean found;
-    if (isNull(this.originalState)) {
+    if (lastSearchToken.isEmpty()) {
       this.originalState = new TreeNode.OriginalState(isExpanded());
+    }
+    this.lastSearchToken = searchToken;
+    if (searchToken.isEmpty()) {
+      if (this.originalState.expanded) {
+        expandNode();
+      } else {
+        if (isParent()) {
+          collapseAll();
+        }
+      }
+      dui_hidden.remove(this);
+      filterChildren(searchToken);
+      return true;
     }
 
     if (isParent()) {
-      found = getFilter().filter((N) this, searchToken) | filterChildren(searchToken);
+      found = filterChildren(searchToken) | getFilter().filter((N) this, searchToken);
     } else {
       found = getFilter().filter((N) this, searchToken);
     }
@@ -797,13 +860,12 @@ public abstract class TreeNode<V, N extends TreeNode<V, N, S>, S>
     if (found) {
       dui_hidden.remove(this);
       if (isParent() && isAutoExpandFound() && isCollapsed()) {
-        this.expandNode();
+        this.expandNode(true);
       }
-      return true;
     } else {
       addCss(dui_hidden);
-      return false;
     }
+    return found;
   }
 
   /**

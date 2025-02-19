@@ -33,10 +33,6 @@ import org.dominokit.domino.ui.utils.IsCollapsible;
  */
 public class Collapsible implements IsElement<Element>, IsCollapsible<Collapsible> {
 
-  /** Constant <code>DUI_SCROLL_HEIGHT="dui-scroll-height"</code> */
-  public static final String DUI_SCROLL_HEIGHT = "dui-scroll-height";
-  /** Constant <code>DUI_COLLAPSE_HEIGHT="dom-ui-collapse-height"</code> */
-  public static final String DUI_COLLAPSE_HEIGHT = "dom-ui-collapse-height";
   /** Constant <code>DUI_COLLAPSED="dui-collapsed"</code> */
   public static final String DUI_COLLAPSED = "dui-collapsed";
 
@@ -51,7 +47,6 @@ public class Collapsible implements IsElement<Element>, IsCollapsible<Collapsibl
   private List<ExpandHandler> expandHandlers = new ArrayList<>();
   private List<ExpandHandler> beforeExpandHandlers = new ArrayList<>();
   private CollapseStrategy strategy = new DisplayCollapseStrategy();
-  private boolean expandingCollapsing = false;
 
   /**
    * Creates a collapsible wrapping the element
@@ -138,8 +133,7 @@ public class Collapsible implements IsElement<Element>, IsCollapsible<Collapsibl
    */
   @Override
   public Collapsible expand() {
-    if (!forceHidden && isCollapsed() && !expandingCollapsing) {
-      expandingCollapsing = true;
+    if (!forceHidden && isCollapsed()) {
       strategy.expand(element);
       element.setAttribute("aria-expanded", "true");
       this.collapsed = false;
@@ -154,8 +148,7 @@ public class Collapsible implements IsElement<Element>, IsCollapsible<Collapsibl
    */
   @Override
   public Collapsible collapse() {
-    if (!forceHidden && !isCollapsed() && !expandingCollapsing) {
-      expandingCollapsing = true;
+    if (!forceHidden && !isCollapsed()) {
       strategy.collapse(element);
       element.setAttribute("aria-expanded", "false");
       this.collapsed = true;
@@ -164,7 +157,6 @@ public class Collapsible implements IsElement<Element>, IsCollapsible<Collapsibl
   }
 
   private void onCollapseCompleted() {
-    expandingCollapsing = false;
     if (nonNull(collapseHandlers)) {
       collapseHandlers.forEach(CollapseHandler::apply);
     }
@@ -177,7 +169,6 @@ public class Collapsible implements IsElement<Element>, IsCollapsible<Collapsibl
   }
 
   private void onExpandCompleted() {
-    expandingCollapsing = false;
     if (nonNull(expandHandlers)) {
       expandHandlers.forEach(ExpandHandler::apply);
     }
@@ -206,14 +197,11 @@ public class Collapsible implements IsElement<Element>, IsCollapsible<Collapsibl
    */
   @Override
   public Collapsible toggleCollapse() {
-    if (!expandingCollapsing) {
-      if (isCollapsed()) {
-        expand();
-      } else {
-        collapse();
-      }
+    if (isCollapsed()) {
+      expand();
+    } else {
+      collapse();
     }
-
     return this;
   }
 

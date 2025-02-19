@@ -70,6 +70,23 @@ public interface IsParentNode<V, N extends TreeNode<V, N, S>, S> extends HasActi
   IsParentNode<V, N, S> expandNode(boolean expandParent);
 
   /**
+   * Expands this node to show its children (if any). Behavior may vary depending on the tree
+   * configuration (e.g., auto-collapse of siblings, etc.).
+   *
+   * @return this node (for method chaining)
+   */
+  IsParentNode<V, N, S> collapseNode();
+
+  /**
+   * Expands this node, optionally also expanding all parent nodes up the hierarchy. Useful for
+   * ensuring a path is fully visible from the root down to this node.
+   *
+   * @param expandParent if true, also expands parent nodes
+   * @return this node (for method chaining)
+   */
+  IsParentNode<V, N, S> collapseNode(boolean expandParent);
+
+  /**
    * Retrieves the filter logic that determines if this node (and its subtree) match certain
    * criteria (e.g., a search token). Often implemented at the root node, then inherited by
    * children.

@@ -59,7 +59,7 @@ public abstract class TreeRoot<V, N extends TreeNode<V, N, S>, C extends TreeRoo
   private ToggleTarget toggleTarget = ToggleTarget.ANY;
   private CollapseStrategy collapseStrategy;
   private boolean autoCollapse = true;
-  private boolean autoExpandFound;
+  private boolean autoExpandFound = true;
   private LazyChild<PostfixAddOn<?>> collapseExpandAllIcon;
   private NodeIconSupplier<V, N, S> iconSupplier;
   protected N activeNode;
@@ -678,6 +678,28 @@ public abstract class TreeRoot<V, N extends TreeNode<V, N, S>, C extends TreeRoo
    */
   @Override
   public C expandNode() {
+    return (C) this;
+  }
+
+  /**
+   * Collapse the node within the tree, indicating that it should be expanded or collapsed. This
+   * method has no effect on the root tree.
+   *
+   * @param collapseParent {@code true} to collapse the parent node, {@code false} to expand it.
+   * @return A reference to this tree.
+   */
+  @Override
+  public C collapseNode(boolean collapseParent) {
+    return (C) this;
+  }
+
+  /**
+   * Collapse the node within the tree. This method has no effect on the root tree.
+   *
+   * @return A reference to this tree.
+   */
+  @Override
+  public C collapseNode() {
     return (C) this;
   }
 
