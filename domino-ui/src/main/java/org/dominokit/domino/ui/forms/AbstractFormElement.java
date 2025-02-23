@@ -78,15 +78,15 @@ public abstract class AbstractFormElement<T extends AbstractFormElement<T, V>, V
   protected final LazyChild<SpanElement> helperTextElement;
   protected Function<String, SpanElement> errorElementSupplier;
 
-  protected Set<Validator<T>> validators = new LinkedHashSet<>();
+  private Set<Validator<T>> validators;
   protected AutoValidator autoValidator;
   protected final List<String> errors = new ArrayList<>();
   protected String requiredErrorMessage;
 
   protected final FormsLabels labels = DominoUIConfig.CONFIG.getDominoUILabels();
   protected final RequiredValidator<T> requiredValidator;
-  protected Set<ChangeListener<? super V>> changeListeners = new LinkedHashSet<>();
-  protected Set<ClearListener<? super V>> clearListeners = new LinkedHashSet<>();
+  private Set<ChangeListener<? super V>> changeListeners;
+  private Set<ClearListener<? super V>> clearListeners;
   private boolean autoValidate = false;
   private boolean required = false;
   private boolean changeListenersPaused = false;
@@ -434,6 +434,9 @@ public abstract class AbstractFormElement<T extends AbstractFormElement<T, V>, V
    */
   @Override
   public Set<Validator<T>> getValidators() {
+    if (isNull(validators)) {
+      this.validators = new LinkedHashSet<>();
+    }
     return validators;
   }
 
@@ -666,6 +669,9 @@ public abstract class AbstractFormElement<T extends AbstractFormElement<T, V>, V
    */
   @Override
   public Set<ChangeListener<? super V>> getChangeListeners() {
+    if (isNull(changeListeners)) {
+      this.changeListeners = new LinkedHashSet<>();
+    }
     return changeListeners;
   }
 
@@ -732,6 +738,9 @@ public abstract class AbstractFormElement<T extends AbstractFormElement<T, V>, V
    */
   @Override
   public Set<ClearListener<? super V>> getClearListeners() {
+    if (isNull(clearListeners)) {
+      this.clearListeners = new LinkedHashSet<>();
+    }
     return clearListeners;
   }
 

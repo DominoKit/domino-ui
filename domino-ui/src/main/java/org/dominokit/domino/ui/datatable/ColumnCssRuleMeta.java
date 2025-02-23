@@ -19,11 +19,7 @@ package org.dominokit.domino.ui.datatable;
 import static org.dominokit.domino.ui.utils.Domino.*;
 
 import elemental2.dom.HTMLDivElement;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Optional;
-import java.util.stream.Collectors;
+import java.util.*;
 import org.dominokit.domino.ui.utils.ComponentMeta;
 import org.dominokit.domino.ui.utils.DominoCSSRule;
 import org.dominokit.domino.ui.utils.DynamicStyleSheet;
@@ -107,11 +103,15 @@ public class ColumnCssRuleMeta<T> implements ComponentMeta {
    * @return A collection of {@link ColumnCssRule} representing all the CSS rules.
    */
   public Collection<ColumnCssRule> cssRules() {
-    return cssRules.keySet().stream()
-        .map(this::getColumnCssRule)
-        .filter(Optional::isPresent)
-        .map(Optional::get)
-        .collect(Collectors.toList());
+    List<ColumnCssRule> list = new ArrayList<>();
+    for (String s : cssRules.keySet()) {
+      Optional<ColumnCssRule> columnCssRule = getColumnCssRule(s);
+      if (columnCssRule.isPresent()) {
+        ColumnCssRule cssRule = columnCssRule.get();
+        list.add(cssRule);
+      }
+    }
+    return list;
   }
 
   /**

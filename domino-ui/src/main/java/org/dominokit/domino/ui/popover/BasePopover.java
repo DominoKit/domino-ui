@@ -326,7 +326,9 @@ public abstract class BasePopover<T extends BasePopover<T>>
   public T setPosition(DropDirection position) {
     this.popupPosition.cleanup(this.element());
     this.popupPosition = position;
-    doPosition();
+    if (isAttached()) {
+      doPosition();
+    }
     return (T) this;
   }
 

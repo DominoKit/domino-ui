@@ -13,20 +13,29 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+package org.dominokit.domino.ui.utils;
 
-package org.dominokit.domino.ui.datatable;
+import static java.util.Objects.isNull;
+import static java.util.Objects.nonNull;
 
-import elemental2.dom.Node;
+import java.util.function.Supplier;
 
-/** A functional interface for supplying header elements in a data table. */
-@FunctionalInterface
-public interface HeaderElementSupplier {
+public class SupplyOnce<T> {
+  private T value;
+  private Supplier<T> supplier;
 
-  /**
-   * Provides a header element based on the given column title.
-   *
-   * @param columnTitle The title of the column.
-   * @return The header element.
-   */
-  Node asElement(String columnTitle);
+  public static <T> SupplyOnce<T> of(Supplier<T> supplier) {
+    return new SupplyOnce<>(supplier);
+  }
+
+  public SupplyOnce(Supplier<T> supplier) {
+    this.supplier = supplier;
+  }
+
+  public T get() {
+    if (nonNull(supplier) && isNull(value)) {
+      this.value = supplier.get();
+    }
+    return value;
+  }
 }

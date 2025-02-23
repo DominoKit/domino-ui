@@ -213,7 +213,8 @@ public class RadioGroup<T> extends AbstractFormElement<RadioGroup<T>, T> {
    */
   @Override
   public RadioGroup<T> triggerChangeListeners(T oldValue, T newValue) {
-    changeListeners.forEach(changeListener -> changeListener.onValueChanged(oldValue, newValue));
+    getChangeListeners()
+        .forEach(changeListener -> changeListener.onValueChanged(oldValue, newValue));
     return this;
   }
 
@@ -225,7 +226,7 @@ public class RadioGroup<T> extends AbstractFormElement<RadioGroup<T>, T> {
    */
   @Override
   public RadioGroup<T> triggerClearListeners(T oldValue) {
-    clearListeners.forEach(clearListener -> clearListener.onValueCleared(oldValue));
+    getClearListeners().forEach(clearListener -> clearListener.onValueCleared(oldValue));
     return this;
   }
 
@@ -501,8 +502,8 @@ public class RadioGroup<T> extends AbstractFormElement<RadioGroup<T>, T> {
    */
   void onSelectionChanged(T oldValue, Radio<? extends T> selectedRadio, boolean silent) {
     if (!silent) {
-      changeListeners.forEach(
-          listener -> listener.onValueChanged(oldValue, selectedRadio.getValue()));
+      getChangeListeners()
+          .forEach(listener -> listener.onValueChanged(oldValue, selectedRadio.getValue()));
     }
   }
 

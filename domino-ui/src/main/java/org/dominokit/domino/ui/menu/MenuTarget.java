@@ -15,6 +15,7 @@
  */
 package org.dominokit.domino.ui.menu;
 
+import static java.util.Objects.isNull;
 import static org.dominokit.domino.ui.utils.ElementsFactory.elements;
 
 import elemental2.dom.Element;
@@ -42,7 +43,7 @@ public class MenuTarget implements HasMeta<MenuTarget> {
   private final Element targetElement;
   private ObserverCallback<DominoElement<Element>> targetDetachObserver;
   private ObserverCallback<DominoElement<Element>> targetAttachObserver;
-  private final Map<String, ComponentMeta> metaObjects = new HashMap<>();
+  private Map<String, ComponentMeta> metaObjects;
 
   /**
    * Factory method to create an instance of {@link MenuTarget} using the given DOM {@link Element}.
@@ -142,6 +143,9 @@ public class MenuTarget implements HasMeta<MenuTarget> {
    */
   @Override
   public Map<String, ComponentMeta> getMetaObjects() {
+    if (isNull(this.metaObjects)) {
+      this.metaObjects = new HashMap<>();
+    }
     return metaObjects;
   }
 }

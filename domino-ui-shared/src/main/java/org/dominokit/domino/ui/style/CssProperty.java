@@ -42,6 +42,72 @@ public class CssProperty implements IsCssProperty {
   }
 
   /**
+   * Creates a new {@link CssProperty} instance with the specified name and value.
+   *
+   * @param name The name of the CSS property.
+   * @param value The value of the CSS property.
+   * @return A new {@link CssProperty} instance.
+   */
+  public static CssProperty of(String name, Number value) {
+    return new CssProperty(name, String.valueOf(value));
+  }
+
+  /**
+   * Creates a new {@link CssProperty} instance with the specified name and value.
+   *
+   * @param name The name of the CSS property.
+   * @param value The value of the CSS property.
+   * @return A new {@link CssProperty} instance.
+   */
+  public static CssProperty of(String name, int value) {
+    return new CssProperty(name, String.valueOf(value));
+  }
+
+  /**
+   * Creates a new {@link CssProperty} instance with the specified name and value.
+   *
+   * @param name The name of the CSS property.
+   * @param value The value of the CSS property.
+   * @return A new {@link CssProperty} instance.
+   */
+  public static CssProperty of(String name, double value) {
+    return new CssProperty(name, String.valueOf(value));
+  }
+
+  /**
+   * Creates a new {@link CssProperty} instance with the specified name and value.
+   *
+   * @param name The name of the CSS property.
+   * @param value The value of the CSS property.
+   * @return A new {@link CssProperty} instance.
+   */
+  public static CssProperty of(String name, short value) {
+    return new CssProperty(name, String.valueOf(value));
+  }
+
+  /**
+   * Creates a new {@link CssProperty} instance with the specified name and value.
+   *
+   * @param name The name of the CSS property.
+   * @param value The value of the CSS property.
+   * @return A new {@link CssProperty} instance.
+   */
+  public static CssProperty of(String name, float value) {
+    return new CssProperty(name, String.valueOf(value));
+  }
+
+  /**
+   * Creates a new {@link CssProperty} instance with the specified name and value.
+   *
+   * @param name The name of the CSS property.
+   * @param value The value of the CSS property.
+   * @return A new {@link CssProperty} instance.
+   */
+  public static CssProperty of(String name, boolean value) {
+    return new CssProperty(name, String.valueOf(value));
+  }
+
+  /**
    * Constructs a {@link CssProperty} with a specified name and value.
    *
    * @param name The name of the CSS property.

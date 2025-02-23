@@ -53,13 +53,7 @@ import org.dominokit.domino.ui.menu.Menu;
 import org.dominokit.domino.ui.menu.direction.DropDirection;
 import org.dominokit.domino.ui.popover.Popover;
 import org.dominokit.domino.ui.popover.Tooltip;
-import org.dominokit.domino.ui.style.CssClass;
-import org.dominokit.domino.ui.style.DominoStyle;
-import org.dominokit.domino.ui.style.Elevation;
-import org.dominokit.domino.ui.style.HasCssClass;
-import org.dominokit.domino.ui.style.HasCssClasses;
-import org.dominokit.domino.ui.style.Style;
-import org.dominokit.domino.ui.style.WavesSupport;
+import org.dominokit.domino.ui.style.*;
 import org.dominokit.domino.ui.themes.DominoThemeManager;
 import org.gwtproject.editor.client.Editor;
 import org.gwtproject.safehtml.shared.SafeHtml;
@@ -3002,6 +2996,18 @@ public abstract class BaseDominoElement<E extends Element, T extends IsElement<E
    */
   public Tooltip getTooltip() {
     return tooltip;
+  }
+
+  /**
+   * Sets a CSS property with a string value.
+   *
+   * @param property {@link CssProperty} the CSS property.
+   * @return The modified DOM element.
+   */
+  @Override
+  public T setCssProperty(CssProperty property) {
+    style().setCssProperty(property);
+    return (T) this;
   }
 
   /**
