@@ -96,7 +96,7 @@ public class Menu<V> extends BaseDominoElement<HTMLDivElement, Menu<V>>
   private final LazyChild<DivElement> menuSearchContainer;
   private final LazyChild<SearchBox> searchBox;
   private final LazyChild<DivElement> menuSubHeader;
-  private final UListElement menuItemsList;
+  private UListElement menuItemsList;
   private final DivElement menuBody;
   private final LazyChild<DivElement> menuFooter;
   private final LazyChild<AnchorElement> createMissingElement;
@@ -134,7 +134,7 @@ public class Menu<V> extends BaseDominoElement<HTMLDivElement, Menu<V>>
   private DropDirection effectiveDropDirection = dropDirection;
   private Map<String, MenuTarget> targets;
   private MenuTarget lastTarget;
-  private Element menuAppendTarget = document.body;
+  private Element menuAppendTarget;
   private AppendStrategy appendStrategy = AppendStrategy.LAST;
 
   private Menu<V> parent;
@@ -144,9 +144,11 @@ public class Menu<V> extends BaseDominoElement<HTMLDivElement, Menu<V>>
   private boolean multiSelect = false;
   private boolean autoOpen = true;
   private boolean preserveSelectionStyles = true;
+  private boolean startScrollFollow = false;
   private EventListener repositionListener =
       evt -> {
-        if (isOpened()) {
+        if (isOpened() && startScrollFollow && evt.target != menuItemsList.element()) {
+          startScrollFollow = false;
           position();
         }
       };
@@ -199,6 +201,9 @@ public class Menu<V> extends BaseDominoElement<HTMLDivElement, Menu<V>>
   private OpenMenuCondition<V> openMenuCondition = (menu) -> true;
   private List<MediaQuery.MediaQueryListenerRecord> mediaQueryRecords = new ArrayList<>();
   private EventListener windowResizeListener;
+  private ObserverCallback<Menu<V>> onAttachHandler;
+  private boolean shouldFocus;
+  private ObserverCallback<Menu<V>> onDetachHandler;
 
   /**
    * Factory method to create a new Menu instance.
@@ -213,6 +218,7 @@ public class Menu<V> extends BaseDominoElement<HTMLDivElement, Menu<V>>
   /** Default constructor to initialize the Menu component. */
   public Menu() {
     menuElement = div().addCss(dui_menu);
+    setMenuAppendTarget(document.body);
     menuHeader = LazyChild.of(NavBar.create(), menuElement);
     menuSearchContainer = LazyChild.of(div().addCss(dui_menu_search), menuElement);
     searchBox =
@@ -257,8 +263,6 @@ public class Menu<V> extends BaseDominoElement<HTMLDivElement, Menu<V>>
           evt.stopPropagation();
           onAddMissingElement();
         };
-
-    addClickListener(Event::stopPropagation);
 
     onKeyDown(
         keyEvents -> {
@@ -501,6 +505,22 @@ public class Menu<V> extends BaseDominoElement<HTMLDivElement, Menu<V>>
 
     this.addEventListener(EventType.touchstart.getName(), Event::stopPropagation);
     this.addEventListener(EventType.touchend.getName(), Event::stopPropagation);
+
+    onAttachHandler =
+        (e, mutationRecord) -> {
+          position();
+          if (shouldFocus) {
+            focus();
+          }
+        };
+
+    onDetachHandler =
+        (e, mutationRecord) -> {
+          close();
+          if (isDropDown()) {
+            triggerCloseListeners(this);
+          }
+        };
   }
 
   public void focusFirstMatch(String token) {
@@ -1481,23 +1501,12 @@ public class Menu<V> extends BaseDominoElement<HTMLDivElement, Menu<V>>
         searchBox.get().clearSearch();
       }
       triggerOpenListeners(this);
-      boolean shouldFocus = focus;
-      onAttached(
-          (e, mutationRecord) -> {
-            position();
-            if (shouldFocus) {
-              focus();
-            }
-            elementOf(getMenuAppendTarget()).onDetached((targetElement, targetDetach) -> close());
-          });
+      shouldFocus = focus;
+      removeAttachObserver(onAttachHandler);
+      onAttached(onAttachHandler);
       appendStrategy.onAppend(getMenuAppendTarget(), element.element());
-      onDetached(
-          (e, mutationRecord) -> {
-            close();
-            if (isDropDown()) {
-              triggerCloseListeners(this);
-            }
-          });
+      removeDetachObserver(onDetachHandler);
+      onDetached(onDetachHandler);
       if (smallScreen && nonNull(parent) && parent.isDropDown()) {
         parent.collapse();
         menuHeader.get().insertFirst(backArrowContainer);
@@ -1518,6 +1527,7 @@ public class Menu<V> extends BaseDominoElement<HTMLDivElement, Menu<V>>
             }
             getEffectiveDropDirection()
                 .position(element.element(), target.getTargetElement().element());
+            DomGlobal.setTimeout(p -> startScrollFollow = true);
           });
     }
   }
@@ -1665,6 +1675,8 @@ public class Menu<V> extends BaseDominoElement<HTMLDivElement, Menu<V>>
     } else {
       this.menuAppendTarget = appendTarget;
     }
+
+    elementOf(getMenuAppendTarget()).onDetached((targetElement, targetDetach) -> close());
     return this;
   }
 
@@ -1699,7 +1711,6 @@ public class Menu<V> extends BaseDominoElement<HTMLDivElement, Menu<V>>
           searchBox.get().clearSearch();
         }
         menuItems.forEach(AbstractMenuItem::onParentClosed);
-        triggerCloseListeners(this);
         if (smallScreen && nonNull(parent) && parent.isDropDown()) {
           parent.expand();
         }
