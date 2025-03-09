@@ -109,7 +109,12 @@ public class AppLayout extends BaseDominoElement<HTMLDivElement, AppLayout>
                                     .addCss(dui_content)
                                     .setZIndexLayer(ZIndexLayer.Z_LAYER_1)));
     header =
-        LazyChild.of(header().addCss(dui_header).setZIndexLayer(ZIndexLayer.Z_LAYER_2), body)
+        LazyChild.of(
+                header()
+                    .addCss(dui_header)
+                    .setAttribute("dui-reserve-top-space", "true")
+                    .setZIndexLayer(ZIndexLayer.Z_LAYER_2),
+                body)
             .whenInitialized(() -> layout.addCss(dui_has_header));
     navBar = LazyChild.of(NavBar.create(), header);
     footer =

@@ -109,7 +109,7 @@ public class SpaceChecker {
     return (topSpace - getThresholdHeightSpace("dui-reserve-top-space")) > sourceHeight;
   }
 
-  private double getThresholdSideSpace(String attribute) {
+  public double getThresholdSideSpace(String attribute) {
     List<Element> footerElements =
         DomGlobal.document.querySelectorAll("[" + attribute + "]").asList();
     return footerElements.stream()
@@ -122,7 +122,11 @@ public class SpaceChecker {
     return elements.elementOf(element).getVisibleWidth();
   }
 
-  private double getThresholdHeightSpace(String attribute) {
+  public double getThresholdTopSpace() {
+    return getThresholdHeightSpace("dui-reserve-top-space");
+  }
+
+  public double getThresholdHeightSpace(String attribute) {
     List<Element> footerElements =
         DomGlobal.document.querySelectorAll("[" + attribute + "]").asList();
     return footerElements.stream()

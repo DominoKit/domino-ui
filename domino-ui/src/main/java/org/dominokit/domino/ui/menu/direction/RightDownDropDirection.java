@@ -19,6 +19,7 @@ import static elemental2.dom.DomGlobal.window;
 import static org.dominokit.domino.ui.utils.ElementsFactory.elements;
 import static org.dominokit.domino.ui.utils.Unit.px;
 
+import elemental2.dom.DomGlobal;
 import elemental2.dom.Element;
 import org.dominokit.domino.ui.style.Style;
 
@@ -34,13 +35,19 @@ public class RightDownDropDirection implements DropDirection {
       if (spaceChecker.hasSpaceBelow()) {
         double delta = 0;
         double availableSpace = spaceChecker.getAvailableSpaceOnTop();
+        DomGlobal.console.info("availableSpace : " + availableSpace);
         if (availableSpace < spaceChecker.getSourceHeight()) {
           delta = spaceChecker.getSourceHeight() - availableSpace;
         }
+        DomGlobal.console.info("delta : " + delta);
 
-        Style.of(source)
-            .style
-            .setProperty("top", px.of((spaceChecker.getTargetTop() + window.pageYOffset - delta)));
+        double top = spaceChecker.getTargetTop() + window.pageYOffset - delta;
+        double thresholdTopSpace = spaceChecker.getThresholdTopSpace();
+
+        if (top < thresholdTopSpace) {
+          top = thresholdTopSpace;
+        }
+        Style.of(source).style.setProperty("top", px.of(top));
 
         Style.of(source).style.setProperty("left", px.of(0));
 
