@@ -1240,9 +1240,12 @@ public abstract class AbstractSelect<
               }
               option.remove();
               optionsMenu.removeItem(found.getMenuItem());
+              onOptionRemoved(option);
             });
     return (C) this;
   }
+
+  protected void onOptionRemoved(O option) {}
 
   /**
    * Removes a specified option from the select component.

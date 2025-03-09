@@ -238,4 +238,9 @@ public class MultiSelect<V>
   protected void onTypingEnd() {
     this.selectedOptions.forEach(BaseDominoElement::show);
   }
+
+  @Override
+  protected void onOptionRemoved(SelectOption<V> option) {
+    selectedOptions.remove(option);
+  }
 }
