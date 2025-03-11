@@ -29,6 +29,7 @@ import org.dominokit.domino.ui.config.PopoverConfig;
 import org.dominokit.domino.ui.elements.DivElement;
 import org.dominokit.domino.ui.events.EventType;
 import org.dominokit.domino.ui.menu.direction.DropDirection;
+import org.dominokit.domino.ui.menu.direction.DropDirectionContext;
 import org.dominokit.domino.ui.utils.*;
 
 /**
@@ -251,7 +252,7 @@ public abstract class BasePopover<T extends BasePopover<T>>
    * @param position The drop direction to position the popover.
    */
   protected void doPosition(DropDirection position) {
-    popupPosition.position(root.element(), targetElement);
+    popupPosition.position(DropDirectionContext.of(root.element(), targetElement));
   }
 
   /**
@@ -463,8 +464,7 @@ public abstract class BasePopover<T extends BasePopover<T>>
 
   @Override
   public ZIndexLayer getZIndexLayer() {
-    ZIndexLayer layer = elementOf(targetElement).getZIndexLayer();
-    return layer;
+    return elementOf(targetElement).getZIndexLayer();
   }
 
   /**

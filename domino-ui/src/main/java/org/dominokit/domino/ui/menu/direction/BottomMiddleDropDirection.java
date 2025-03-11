@@ -27,10 +27,11 @@ import org.dominokit.domino.ui.style.Style;
 public class BottomMiddleDropDirection implements DropDirection {
   /** {@inheritDoc} */
   @Override
-  public DropDirection position(Element source, Element target) {
+  public DropDirection position(DropDirectionContext context) {
+    Element source = context.getSource();
     cleanup(source);
     dui_flex_col_reverse.remove(source);
-    SpaceChecker spaceChecker = SpaceChecker.of(source, target);
+    SpaceChecker spaceChecker = context.getSpaceChecker();
 
     elements
         .elementOf(source)
@@ -41,16 +42,16 @@ public class BottomMiddleDropDirection implements DropDirection {
     Style.of(source).style.setProperty("left", (spaceChecker.getLeftSpace() - widthDiff) + "px");
     dui_dd_bottom_middle.apply(source);
 
-    spaceChecker = SpaceChecker.of(source, target);
+    spaceChecker = context.newSpaceChecker();
 
     if (spaceChecker.hasSpaceBelow() || spaceChecker.hasSpaceAbove()) {
       if (spaceChecker.hasSpaceBelow()) {
         return showBelowMiddle(source, spaceChecker);
       } else if (spaceChecker.hasSpaceAbove()) {
-        return TOP_MIDDLE.position(source, target);
+        return TOP_MIDDLE.position(context);
       }
     }
-    return MIDDLE_SCREEN.position(source, target);
+    return MIDDLE_SCREEN.position(context);
   }
 
   private DropDirection showBelowMiddle(Element source, SpaceChecker spaceChecker) {

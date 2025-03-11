@@ -34,10 +34,9 @@ public interface DropDirection {
   /**
    * position.
    *
-   * @param source a {@link elemental2.dom.Element} object
-   * @param target a {@link elemental2.dom.Element} object
+   * @param context a {@link DropDirectionContext} object
    */
-  DropDirection position(Element source, Element target);
+  DropDirection position(DropDirectionContext context);
 
   /**
    * cleanup.

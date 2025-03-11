@@ -60,10 +60,7 @@ import org.dominokit.domino.ui.icons.MdiIcon;
 import org.dominokit.domino.ui.icons.lib.Icons;
 import org.dominokit.domino.ui.layout.NavBar;
 import org.dominokit.domino.ui.mediaquery.MediaQuery;
-import org.dominokit.domino.ui.menu.direction.BestSideUpDownDropDirection;
-import org.dominokit.domino.ui.menu.direction.DropDirection;
-import org.dominokit.domino.ui.menu.direction.MiddleOfScreenDropDirection;
-import org.dominokit.domino.ui.menu.direction.MouseBestFitDirection;
+import org.dominokit.domino.ui.menu.direction.*;
 import org.dominokit.domino.ui.search.SearchBox;
 import org.dominokit.domino.ui.style.BooleanCssClass;
 import org.dominokit.domino.ui.style.Elevation;
@@ -1521,12 +1518,10 @@ public class Menu<V> extends BaseDominoElement<HTMLDivElement, Menu<V>>
       Optional<MenuTarget> menuTarget = getTarget();
       menuTarget.ifPresent(
           target -> {
-            if (fitToTargetWidth) {
-              element.setWidth(
-                  target.getTargetElement().element().getBoundingClientRect().width + "px");
-            }
             getEffectiveDropDirection()
-                .position(element.element(), target.getTargetElement().element());
+                .position(
+                    DropDirectionContext.of(
+                        element.element(), target.getTargetElement().element(), fitToTargetWidth));
             DomGlobal.setTimeout(p -> startScrollFollow = true);
           });
     }

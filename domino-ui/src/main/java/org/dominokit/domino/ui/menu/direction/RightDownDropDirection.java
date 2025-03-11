@@ -27,9 +27,12 @@ import org.dominokit.domino.ui.style.Style;
 public class RightDownDropDirection implements DropDirection {
   /** {@inheritDoc} */
   @Override
-  public DropDirection position(Element source, Element target) {
+  public DropDirection position(DropDirectionContext context) {
+    Element source = context.getSource();
+    Element target = context.getTarget();
     cleanup(source);
-    SpaceChecker spaceChecker = SpaceChecker.of(source, target);
+    SpaceChecker spaceChecker = context.getSpaceChecker();
+    ;
 
     if (spaceChecker.hasSpaceOnRight()) {
       if (spaceChecker.hasSpaceBelow()) {
@@ -61,26 +64,27 @@ public class RightDownDropDirection implements DropDirection {
             .elementOf(source)
             .setCssProperty("--dui-menu-drop-min-width", spaceChecker.getTargetWidth() + "px");
 
-        spaceChecker = SpaceChecker.of(source, target);
+        spaceChecker = context.newSpaceChecker();
+        ;
         double left =
             spaceChecker.getTargetLeft() + spaceChecker.getTargetWidth() + window.pageXOffset;
 
         Style.of(source).style.setProperty("left", px.of(Math.max(left, 0)));
         return this;
       } else if (spaceChecker.hasSpaceAbove()) {
-        return RIGHT_UP.position(source, target);
+        return RIGHT_UP.position(context);
       } else {
-        return MIDDLE_SCREEN.position(source, target);
+        return MIDDLE_SCREEN.position(context);
       }
     } else if (spaceChecker.hasSpaceOnLeft()) {
-      return LEFT_DOWN.position(source, target);
+      return LEFT_DOWN.position(context);
     } else if (spaceChecker.hasSpaceBelow()) {
-      return BOTTOM_MIDDLE.position(source, target);
+      return BOTTOM_MIDDLE.position(context);
     } else if (spaceChecker.hasSpaceAbove()) {
-      return TOP_MIDDLE.position(source, target);
+      return TOP_MIDDLE.position(context);
     }
 
-    return MIDDLE_SCREEN.position(source, target);
+    return MIDDLE_SCREEN.position(context);
   }
 
   /** {@inheritDoc} */

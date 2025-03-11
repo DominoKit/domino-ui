@@ -27,11 +27,12 @@ import org.dominokit.domino.ui.style.Style;
 public class BottomRightDropDirection implements DropDirection {
   /** {@inheritDoc} */
   @Override
-  public DropDirection position(Element source, Element target) {
+  public DropDirection position(DropDirectionContext context) {
+    Element source = context.getSource();
     cleanup(source);
     dui_flex_col_reverse.remove(source);
 
-    SpaceChecker spaceChecker = SpaceChecker.of(source, target);
+    SpaceChecker spaceChecker = context.getSpaceChecker();
 
     if (spaceChecker.hasSpaceOnRight()) {
       if (spaceChecker.hasSpaceBelow()) {
@@ -54,7 +55,7 @@ public class BottomRightDropDirection implements DropDirection {
         elements
             .elementOf(source)
             .setCssProperty("--dui-menu-drop-min-width", spaceChecker.getTargetWidth() + "px");
-        spaceChecker = SpaceChecker.of(source, target);
+        spaceChecker = context.newSpaceChecker();
         double left =
             (spaceChecker.getTargetLeft()
                     - (spaceChecker.getSourceLeft() - spaceChecker.getTargetLeft()))
@@ -63,18 +64,18 @@ public class BottomRightDropDirection implements DropDirection {
         Style.of(source).style.setProperty("left", px.of(Math.max(left, 0)));
         return this;
       } else if (spaceChecker.hasSpaceAbove()) {
-        return DropDirection.TOP_RIGHT.position(source, target);
+        return DropDirection.TOP_RIGHT.position(context);
       } else {
-        return DropDirection.MIDDLE_SCREEN.position(source, target);
+        return DropDirection.MIDDLE_SCREEN.position(context);
       }
     } else if (spaceChecker.hasSpaceOnLeft()) {
-      return BOTTOM_LEFT.position(source, target);
+      return BOTTOM_LEFT.position(context);
     } else if (spaceChecker.hasSpaceBelow()) {
-      return BOTTOM_MIDDLE.position(source, target);
+      return BOTTOM_MIDDLE.position(context);
     } else if (spaceChecker.hasSpaceAbove()) {
-      return TOP_MIDDLE.position(source, target);
+      return TOP_MIDDLE.position(context);
     } else {
-      return MIDDLE_SCREEN.position(source, target);
+      return MIDDLE_SCREEN.position(context);
     }
   }
 

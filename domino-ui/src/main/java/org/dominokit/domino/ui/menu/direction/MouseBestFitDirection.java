@@ -42,10 +42,12 @@ public class MouseBestFitDirection implements DropDirection {
 
   /** {@inheritDoc} */
   @Override
-  public DropDirection position(Element source, Element target) {
+  public DropDirection position(DropDirectionContext context) {
+    Element source = context.getSource();
+    Element target = context.getTarget();
     dui_flex_col_reverse.remove(source);
     if (isNull(mouseEvent)) {
-      DropDirection.BEST_MIDDLE_DOWN_UP.position(source, target);
+      DropDirection.BEST_MIDDLE_DOWN_UP.position(context);
     } else {
       DOMRect sourceRect = source.getBoundingClientRect();
       int innerWidth = window.innerWidth;

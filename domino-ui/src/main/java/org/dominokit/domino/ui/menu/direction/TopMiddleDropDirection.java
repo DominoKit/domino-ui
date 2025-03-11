@@ -27,26 +27,28 @@ import org.dominokit.domino.ui.style.Style;
 public class TopMiddleDropDirection implements DropDirection {
   /** {@inheritDoc} */
   @Override
-  public DropDirection position(Element source, Element target) {
+  public DropDirection position(DropDirectionContext context) {
+    Element source = context.getSource();
     cleanup(source);
     dui_flex_col_reverse.apply(source);
 
     Style.of(source).style.setProperty("left", px.of(0));
-    SpaceChecker spaceChecker = SpaceChecker.of(source, target);
+    SpaceChecker spaceChecker = context.getSpaceChecker();
+    ;
     elements
         .elementOf(source)
         .setCssProperty("--dui-menu-drop-min-width", spaceChecker.getTargetWidth() + "px");
     dui_dd_top_middle.apply(source);
 
-    spaceChecker = SpaceChecker.of(source, target);
+    spaceChecker = context.newSpaceChecker();
     if (spaceChecker.hasSpaceAbove() || spaceChecker.hasSpaceBelow()) {
       if (spaceChecker.hasSpaceAbove()) {
         return showUpMiddle(source, spaceChecker);
       } else if (spaceChecker.hasSpaceBelow()) {
-        return DropDirection.BOTTOM_MIDDLE.position(source, target);
+        return DropDirection.BOTTOM_MIDDLE.position(context);
       }
     }
-    return DropDirection.MIDDLE_SCREEN.position(source, target);
+    return DropDirection.MIDDLE_SCREEN.position(context);
   }
 
   private DropDirection showUpMiddle(Element source, SpaceChecker spaceChecker) {

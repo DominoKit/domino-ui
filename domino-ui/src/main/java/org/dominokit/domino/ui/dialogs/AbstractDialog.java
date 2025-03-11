@@ -711,6 +711,11 @@ public class AbstractDialog<T extends AbstractDialog<T>>
     return this.open;
   }
 
+  @Override
+  public boolean incrementsZIndex() {
+    return true;
+  }
+
   /** A functional interface for handling dialog open events. */
   @FunctionalInterface
   public interface OpenHandler {

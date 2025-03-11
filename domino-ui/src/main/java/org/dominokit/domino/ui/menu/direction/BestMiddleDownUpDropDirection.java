@@ -24,19 +24,20 @@ public class BestMiddleDownUpDropDirection implements DropDirection {
 
   /** {@inheritDoc} */
   @Override
-  public DropDirection position(Element source, Element target) {
+  public DropDirection position(DropDirectionContext context) {
+    Element source = context.getSource();
     cleanup(source);
     dui_flex_col_reverse.remove(source);
     cleanup(source);
 
-    SpaceChecker spaceChecker = SpaceChecker.of(source, target);
+    SpaceChecker spaceChecker = context.getSpaceChecker();
 
     if (spaceChecker.hasSpaceBelow()) {
-      return BOTTOM_MIDDLE.position(source, target);
+      return BOTTOM_MIDDLE.position(context);
     } else if (spaceChecker.hasSpaceAbove()) {
-      return TOP_MIDDLE.position(source, target);
+      return TOP_MIDDLE.position(context);
     } else {
-      return MIDDLE_SCREEN.position(source, target);
+      return MIDDLE_SCREEN.position(context);
     }
   }
 

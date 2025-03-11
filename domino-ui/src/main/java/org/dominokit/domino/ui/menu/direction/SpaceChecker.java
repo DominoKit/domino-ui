@@ -22,8 +22,13 @@ import elemental2.dom.DOMRect;
 import elemental2.dom.DomGlobal;
 import elemental2.dom.Element;
 import java.util.List;
+import org.dominokit.domino.ui.utils.Unit;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class SpaceChecker {
+
+  private static final Logger LOGGER = LoggerFactory.getLogger(SpaceChecker.class);
 
   private final int innerWidth;
   private final int innerHeight;
@@ -43,18 +48,23 @@ public class SpaceChecker {
   private final double sourceRight;
   private final double sourceTop;
   private final double sourceBottom;
+  private final DOMRect targetRect;
+  private final DOMRect sourceRect;
 
-  public static SpaceChecker of(Element source, Element target) {
-    return new SpaceChecker(source, target);
+  public static SpaceChecker of(DropDirectionContext context) {
+    return new SpaceChecker(context);
   }
 
-  public SpaceChecker(Element source, Element target) {
+  public SpaceChecker(DropDirectionContext context) {
 
     innerWidth = window.innerWidth;
     innerHeight = window.innerHeight;
 
-    DOMRect targetRect = target.getBoundingClientRect();
-    DOMRect sourceRect = source.getBoundingClientRect();
+    targetRect = context.getTarget().getBoundingClientRect();
+    if (context.isFitToTargetWidth()) {
+      elements.elementOf(context.getSource()).setWidth(Unit.px.of(targetRect.width));
+    }
+    sourceRect = context.getSource().getBoundingClientRect();
 
     sourceWidth = sourceRect.width;
     sourceHeight = sourceRect.height;

@@ -25,6 +25,10 @@ public interface HasZIndexLayer<T> {
 
   void resetZIndexLayer();
 
+  default boolean incrementsZIndex() {
+    return false;
+  }
+
   enum ZIndexLayer {
     Z_LAYER_1(110),
     Z_LAYER_2(5001000),

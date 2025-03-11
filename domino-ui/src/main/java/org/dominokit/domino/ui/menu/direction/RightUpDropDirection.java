@@ -27,35 +27,37 @@ import org.dominokit.domino.ui.style.Style;
 public class RightUpDropDirection implements DropDirection {
   /** {@inheritDoc} */
   @Override
-  public DropDirection position(Element source, Element target) {
+  public DropDirection position(DropDirectionContext context) {
+    Element source = context.getSource();
     cleanup(source);
     dui_flex_col_reverse.apply(source);
 
-    SpaceChecker spaceChecker = SpaceChecker.of(source, target);
+    SpaceChecker spaceChecker = context.getSpaceChecker();
 
     if (spaceChecker.hasSpaceAbove()) {
       if (spaceChecker.hasSpaceOnRight()) {
-        return showRightUp(source, target);
+        return showRightUp(context);
       } else if (spaceChecker.hasSpaceOnLeft()) {
-        return LEFT_UP.position(source, target);
+        return LEFT_UP.position(context);
       } else {
-        return TOP_MIDDLE.position(source, target);
+        return TOP_MIDDLE.position(context);
       }
     } else if (spaceChecker.hasSpaceBelow()) {
       if (spaceChecker.hasSpaceOnRight()) {
-        return RIGHT_DOWN.position(source, target);
+        return RIGHT_DOWN.position(context);
       } else if (spaceChecker.hasSpaceOnLeft()) {
-        return LEFT_DOWN.position(source, target);
+        return LEFT_DOWN.position(context);
       } else {
-        return BOTTOM_MIDDLE.position(source, target);
+        return BOTTOM_MIDDLE.position(context);
       }
     } else {
-      return MIDDLE_SCREEN.position(source, target);
+      return MIDDLE_SCREEN.position(context);
     }
   }
 
-  private DropDirection showRightUp(Element source, Element target) {
-    SpaceChecker spaceChecker = SpaceChecker.of(source, target);
+  private DropDirection showRightUp(DropDirectionContext context) {
+    Element source = context.getSource();
+    SpaceChecker spaceChecker = context.getSpaceChecker();
     Style.of(source)
         .style
         .setProperty(
@@ -65,7 +67,7 @@ public class RightUpDropDirection implements DropDirection {
                     - (spaceChecker.getSourceHeight() - spaceChecker.getTargetHeight())));
 
     Style.of(source).style.setProperty("left", px.of(0));
-    spaceChecker = SpaceChecker.of(source, target);
+    spaceChecker = context.newSpaceChecker();
     dui_dd_right_up.apply(source);
     elements
         .elementOf(source)

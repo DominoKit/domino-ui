@@ -24,27 +24,28 @@ public class BestFitSideDropDirection implements DropDirection {
 
   /** {@inheritDoc} */
   @Override
-  public DropDirection position(Element source, Element target) {
+  public DropDirection position(DropDirectionContext context) {
+    Element source = context.getSource();
     cleanup(source);
     dui_flex_col_reverse.remove(source);
 
-    SpaceChecker spaceChecker = SpaceChecker.of(source, target);
+    SpaceChecker spaceChecker = context.getSpaceChecker();
 
     if (spaceChecker.hasSpaceOnRight()) {
       if (spaceChecker.hasSpaceBelow()) {
-        return RIGHT_DOWN.position(source, target);
+        return RIGHT_DOWN.position(context);
       } else if (spaceChecker.hasSpaceAbove()) {
-        return RIGHT_UP.position(source, target);
+        return RIGHT_UP.position(context);
       }
     } else if (spaceChecker.hasSpaceOnLeft()) {
       if (spaceChecker.hasSpaceBelow()) {
-        return LEFT_DOWN.position(source, target);
+        return LEFT_DOWN.position(context);
       } else if (spaceChecker.hasSpaceAbove()) {
-        return LEFT_UP.position(source, target);
+        return LEFT_UP.position(context);
       }
     }
 
-    return MIDDLE_SCREEN.position(source, target);
+    return MIDDLE_SCREEN.position(context);
   }
 
   /** {@inheritDoc} */

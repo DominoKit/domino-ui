@@ -28,7 +28,9 @@ import org.dominokit.domino.ui.style.Style;
 public class MiddleOfScreenDropDirection implements DropDirection {
   /** {@inheritDoc} */
   @Override
-  public DropDirection position(Element source, Element target) {
+  public DropDirection position(DropDirectionContext context) {
+    Element source = context.getSource();
+    Element target = context.getTarget();
     dui_flex_col_reverse.remove(source);
     DOMRect sourceRect = source.getBoundingClientRect();
 

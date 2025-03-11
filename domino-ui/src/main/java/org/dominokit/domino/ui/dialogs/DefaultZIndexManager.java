@@ -61,16 +61,22 @@ public class DefaultZIndexManager implements ZIndexManager, HasComponentConfig<Z
   @Override
   public Integer getNextZIndex(HasZIndexLayer<?> element) {
     HasZIndexLayer.ZIndexLayer layer = element.getZIndexLayer();
+    int nextZIndex = getZIndex(layer);
+    if (element.incrementsZIndex()) {
+      nextZIndex = counters.get(layer) + getConfig().getzIndexIncrement();
+      counters.put(layer, nextZIndex);
+    }
+    return nextZIndex;
+  }
 
+  private Integer getZIndex(HasZIndexLayer.ZIndexLayer layer) {
     if (isNull(layer)) {
       layer = HasZIndexLayer.ZIndexLayer.Z_LAYER_1;
     }
     if (!counters.containsKey(layer)) {
       counters.put(layer, layer.getzIndexOffset() + getConfig().getInitialZIndex());
     }
-    int nextZIndex = counters.get(layer) + getConfig().getzIndexIncrement();
-    counters.put(layer, nextZIndex);
-    return nextZIndex;
+    return counters.get(layer);
   }
 
   /**

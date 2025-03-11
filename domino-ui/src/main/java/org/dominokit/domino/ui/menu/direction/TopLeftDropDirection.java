@@ -27,10 +27,11 @@ import org.dominokit.domino.ui.style.Style;
 public class TopLeftDropDirection implements DropDirection {
   /** {@inheritDoc} */
   @Override
-  public DropDirection position(Element source, Element target) {
+  public DropDirection position(DropDirectionContext context) {
+    Element source = context.getSource();
     cleanup(source);
     dui_flex_col_reverse.apply(source);
-    SpaceChecker spaceChecker = SpaceChecker.of(source, target);
+    SpaceChecker spaceChecker = context.getSpaceChecker();
     Style.of(source)
         .style
         .setProperty(
@@ -44,7 +45,7 @@ public class TopLeftDropDirection implements DropDirection {
 
     double delta = 0;
     double left = 0;
-    spaceChecker = SpaceChecker.of(source, target);
+    spaceChecker = context.newSpaceChecker();
 
     if (spaceChecker.hasSpaceAbove()) {
       if (spaceChecker.hasSpaceOnLeft()) {
@@ -65,21 +66,21 @@ public class TopLeftDropDirection implements DropDirection {
         Style.of(source).style.setProperty("left", px.of(Math.max(left, 0)));
         return this;
       } else if (spaceChecker.hasSpaceOnRight()) {
-        return TOP_RIGHT.position(source, target);
+        return TOP_RIGHT.position(context);
       } else {
-        return TOP_MIDDLE.position(source, target);
+        return TOP_MIDDLE.position(context);
       }
     } else if (spaceChecker.hasSpaceBelow()) {
       if (spaceChecker.hasSpaceOnLeft()) {
-        return BOTTOM_LEFT.position(source, target);
+        return BOTTOM_LEFT.position(context);
       } else if (spaceChecker.hasSpaceOnRight()) {
-        return BOTTOM_RIGHT.position(source, target);
+        return BOTTOM_RIGHT.position(context);
       } else {
-        return BOTTOM_MIDDLE.position(source, target);
+        return BOTTOM_MIDDLE.position(context);
       }
     }
 
-    return MIDDLE_SCREEN.position(source, target);
+    return MIDDLE_SCREEN.position(context);
   }
 
   /** {@inheritDoc} */
