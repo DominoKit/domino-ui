@@ -234,13 +234,6 @@ public class DateBox extends TextInputFormField<DateBox, HTMLInputElement, Date>
               if (openOnFocus) {
                 doOpen();
               }
-            })
-        .addEventListener(
-            "click",
-            evt -> {
-              if (openOnClick) {
-                doOpen();
-              }
             });
     this.calendar.bindCalenderViewListener(this);
     setStringValue(value, this.calendar.getDateTimeFormatInfo());

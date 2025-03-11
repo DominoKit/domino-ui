@@ -185,13 +185,6 @@ public class TimeBox extends TextInputFormField<TimeBox, HTMLInputElement, Date>
               if (openOnFocus) {
                 doOpen();
               }
-            })
-        .addEventListener(
-            "click",
-            evt -> {
-              if (openOnClick) {
-                doOpen();
-              }
             });
     this.timePicker.bindTimePickerViewListener(this);
     setStringValue(value, this.timePicker.getDateTimeFormatInfo());

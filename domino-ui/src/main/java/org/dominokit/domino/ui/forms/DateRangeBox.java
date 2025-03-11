@@ -255,13 +255,6 @@ public class DateRangeBox extends TextInputFormField<DateRangeBox, HTMLInputElem
               if (openOnFocus) {
                 doOpen();
               }
-            })
-        .addEventListener(
-            "click",
-            evt -> {
-              if (openOnClick) {
-                doOpen();
-              }
             });
     this.fromCalendar.bindCalenderViewListener(this);
     this.toCalendar.bindCalenderViewListener(this);
