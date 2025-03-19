@@ -110,8 +110,6 @@ public class ListItem<T> extends BaseDominoElement<HTMLLIElement, ListItem<T>>
    * @param evt The event that triggered the selection attempt.
    */
   private void trySelect(Event evt) {
-    evt.stopPropagation();
-    evt.preventDefault();
     MouseEvent mouseEvent = Js.uncheckedCast(evt);
     if (selectable
         && (isNull(listGroup) || listGroup.isSelectable())

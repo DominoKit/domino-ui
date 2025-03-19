@@ -31,6 +31,7 @@ import org.dominokit.domino.ui.dialogs.ModalBackDrop;
 import org.dominokit.domino.ui.events.EventType;
 import org.dominokit.domino.ui.mediaquery.MediaQuery;
 import org.dominokit.domino.ui.menu.direction.DropDirection;
+import org.dominokit.domino.ui.menu.direction.DropDirectionContext;
 
 /**
  * The `Popover` class represents a pop-up dialog or tooltip that can be associated with an HTML
@@ -194,7 +195,7 @@ public class Popover extends BasePopover<Popover> {
   @Override
   protected void doPosition(DropDirection position) {
     if (asDialog) {
-      dialog.position(this.element(), targetElement);
+      dialog.position(DropDirectionContext.of(this.element(), targetElement));
     } else {
       dialog.cleanup(this.element());
       super.doPosition(position);

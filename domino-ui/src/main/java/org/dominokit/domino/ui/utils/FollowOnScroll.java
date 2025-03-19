@@ -17,7 +17,6 @@
 package org.dominokit.domino.ui.utils;
 
 import static elemental2.dom.DomGlobal.document;
-import static org.dominokit.domino.ui.utils.Domino.*;
 import static org.dominokit.domino.ui.utils.ElementsFactory.elements;
 
 import elemental2.dom.Element;
@@ -27,6 +26,8 @@ import elemental2.dom.EventListener;
 public class FollowOnScroll {
 
   private final EventListener repositionListener;
+  private final DominoElement<Element> target;
+  private ObserverCallback<DominoElement<Element>> observerCallback;
 
   /**
    * Constructs a new FollowOnScroll instance.
@@ -41,7 +42,12 @@ public class FollowOnScroll {
             scrollFollower.positionFollower();
           }
         };
-    elements.elementOf(targetElement).onDetached(mutationRecord -> stop());
+    target = elements.elementOf(targetElement);
+    observerCallback =
+        (e, mutationRecord) -> {
+          stop();
+        };
+    target.onDetached(observerCallback);
   }
 
   /** Starts listening to scroll events to reposition the follower. */
@@ -52,6 +58,7 @@ public class FollowOnScroll {
   /** Stops listening to scroll events, halting the follow-on-scroll behavior. */
   public void stop() {
     document.removeEventListener("scroll", repositionListener, true);
+    target.removeDetachObserver(observerCallback);
   }
 
   /** An interface for defining a ScrollFollower that tracks the follower's state and position. */

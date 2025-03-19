@@ -99,7 +99,7 @@ public class TextAreaBox extends CountableInputFormField<TextAreaBox, HTMLTextAr
     header.appendChild(
         headerFiller =
             FillerElement.create().addCss(dui_form_text_area_header_filler, dui_order_30));
-    onAttached(mutationRecord -> adjustHeight());
+    onAttached((e, mutationRecord) -> adjustHeight());
     setDefaultValue("");
     getInputElement().addCss(dui_h_inherit).setAttribute("data-scroll", "0");
     getInputElement()

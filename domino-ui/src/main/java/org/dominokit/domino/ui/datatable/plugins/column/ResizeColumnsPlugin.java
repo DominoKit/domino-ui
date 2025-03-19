@@ -17,7 +17,7 @@
 package org.dominokit.domino.ui.datatable.plugins.column;
 
 import static org.dominokit.domino.ui.datatable.DataTableStyles.dui_column_resizer;
-import static org.dominokit.domino.ui.utils.Domino.*;
+import static org.dominokit.domino.ui.datatable.plugins.PluginsConstants.DUI_DT_COL_RESIZING;
 import static org.dominokit.domino.ui.utils.Unit.px;
 
 import elemental2.dom.DomGlobal;
@@ -33,6 +33,7 @@ import org.dominokit.domino.ui.elements.DivElement;
 import org.dominokit.domino.ui.events.EventType;
 import org.dominokit.domino.ui.utils.DominoCSSRule;
 import org.dominokit.domino.ui.utils.DominoDom;
+import org.dominokit.domino.ui.utils.meta.AttributeMeta;
 
 /**
  * A DataTable plugin that allows users to resize column widths via drag-and-drop.
@@ -144,6 +145,7 @@ public class ResizeColumnsPlugin<T>
                         mouseEvent.preventDefault();
                         this.resizingColumn = column;
                         this.resizing = true;
+                        this.datatable.applyMeta(AttributeMeta.of(DUI_DT_COL_RESIZING, true));
                         column
                             .getGrandParent()
                             .applyAndOnSubColumns(
@@ -165,6 +167,7 @@ public class ResizeColumnsPlugin<T>
                       evt.stopPropagation();
                       if (column.equals(this.resizingColumn) && resizing) {
                         this.resizing = false;
+
                         ResizeColumnMeta.get(column)
                             .ifPresent(
                                 meta -> {
@@ -178,16 +181,21 @@ public class ResizeColumnsPlugin<T>
 
                         DominoDom.document.body.removeEventListener(
                             EventType.mousemove.getName(), resizeListener);
+                        DomGlobal.setTimeout(
+                            p -> {
+                              this.datatable.removeMeta(DUI_DT_COL_RESIZING);
+                            },
+                            300);
                       }
                     };
 
                 this.datatable.onAttached(
-                    mutationRecord -> {
+                    (e, mutationRecord) -> {
                       DominoDom.document.body.addEventListener(
                           EventType.mouseup.getName(), stopResizing);
                     });
                 this.datatable.onDetached(
-                    mutationRecord -> {
+                    (e, mutationRecord) -> {
                       resizeElement.removeEventListener(EventType.mouseup.getName(), stopResizing);
                       DominoDom.document.body.removeEventListener(
                           EventType.mouseup.getName(), stopResizing);

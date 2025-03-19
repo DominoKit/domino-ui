@@ -17,12 +17,9 @@
 package org.dominokit.domino.ui.utils;
 
 import static elemental2.dom.DomGlobal.document;
-import static org.dominokit.domino.ui.utils.Domino.*;
 
-import elemental2.dom.Element;
-import elemental2.dom.HTMLElement;
-import elemental2.dom.NodeList;
-import jsinterop.base.Js;
+import elemental2.dom.CustomEvent;
+import org.dominokit.domino.ui.events.CustomEvents;
 import org.dominokit.domino.ui.events.EventType;
 
 /**
@@ -34,6 +31,8 @@ public class PopupsCloser {
 
   /** The CSS class name used to mark elements as auto-closable. */
   public static final String DOMINO_UI_AUTO_CLOSABLE = "domino-ui-auto-closable";
+
+  public static final String DUI_AUTO_CLOSE = "dui-auto-close";
 
   private static boolean touchMoved;
 
@@ -62,10 +61,7 @@ public class PopupsCloser {
    * @param selector The CSS class name used to select auto-closable elements.
    */
   public static void close(String selector) {
-    NodeList<Element> elementsByName = document.body.querySelectorAll("[" + selector + "]");
-    for (int i = 0; i < elementsByName.length; i++) {
-      HTMLElement element = Js.uncheckedCast(elementsByName.item(i));
-      element.remove();
-    }
+    CustomEvent<String> closeEvent = CustomEvents.create(DUI_AUTO_CLOSE, selector);
+    document.dispatchEvent(closeEvent);
   }
 }

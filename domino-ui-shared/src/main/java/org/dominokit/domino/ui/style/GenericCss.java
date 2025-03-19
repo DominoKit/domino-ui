@@ -27,6 +27,8 @@ public interface GenericCss {
 
   CssClass dui_even = ReplaceCssClass.of(() -> "dui-odd").replaceWith(() -> "dui-even");
 
+  CssClass dui_disable_transition = () -> "dui-disable-transition";
+
   CssClass dui_primary =
       new ReplaceCssClass(
               CompositeCssClass.of(
@@ -78,6 +80,123 @@ public interface GenericCss {
                   () -> "dui-primary",
                   () -> "dui-success"))
           .replaceWith(CompositeCssClass.of(() -> "dui-ctx", () -> "dui-accent"));
+
+  CssClass dui_accent_l_5 =
+      new ReplaceCssClass(
+              CompositeCssClass.of(
+                  () -> "dui-accent-l-4",
+                  () -> "dui-accent-l-3",
+                  () -> "dui-accent-l-2",
+                  () -> "dui-accent-l-1",
+                  () -> "dui-accent-d-1",
+                  () -> "dui-accent-d-2",
+                  () -> "dui-accent-d-3",
+                  () -> "dui-accent-d-4"))
+          .replaceWith(() -> "dui-accent-l-5");
+
+  CssClass dui_accent_l_4 =
+      new ReplaceCssClass(
+              CompositeCssClass.of(
+                  () -> "dui-accent-l-5",
+                  () -> "dui-accent-l-3",
+                  () -> "dui-accent-l-2",
+                  () -> "dui-accent-l-1",
+                  () -> "dui-accent-d-1",
+                  () -> "dui-accent-d-2",
+                  () -> "dui-accent-d-3",
+                  () -> "dui-accent-d-4"))
+          .replaceWith(() -> "dui-accent-l-4");
+
+  CssClass dui_accent_l_3 =
+      new ReplaceCssClass(
+              CompositeCssClass.of(
+                  () -> "dui-accent-l-5",
+                  () -> "dui-accent-l-4",
+                  () -> "dui-accent-l-2",
+                  () -> "dui-accent-l-1",
+                  () -> "dui-accent-d-1",
+                  () -> "dui-accent-d-2",
+                  () -> "dui-accent-d-3",
+                  () -> "dui-accent-d-4"))
+          .replaceWith(() -> "dui-accent-l-3");
+
+  CssClass dui_accent_l_2 =
+      new ReplaceCssClass(
+              CompositeCssClass.of(
+                  () -> "dui-accent-l-5",
+                  () -> "dui-accent-l-4",
+                  () -> "dui-accent-l-3",
+                  () -> "dui-accent-l-1",
+                  () -> "dui-accent-d-1",
+                  () -> "dui-accent-d-2",
+                  () -> "dui-accent-d-3",
+                  () -> "dui-accent-d-4"))
+          .replaceWith(() -> "dui-accent-l-2");
+
+  CssClass dui_accent_l_1 =
+      new ReplaceCssClass(
+              CompositeCssClass.of(
+                  () -> "dui-accent-l-5",
+                  () -> "dui-accent-l-4",
+                  () -> "dui-accent-l-3",
+                  () -> "dui-accent-l-2",
+                  () -> "dui-accent-d-1",
+                  () -> "dui-accent-d-2",
+                  () -> "dui-accent-d-3",
+                  () -> "dui-accent-d-4"))
+          .replaceWith(() -> "dui-accent-l-1");
+
+  CssClass dui_accent_d_1 =
+      new ReplaceCssClass(
+              CompositeCssClass.of(
+                  () -> "dui-accent-l-5",
+                  () -> "dui-accent-l-4",
+                  () -> "dui-accent-l-3",
+                  () -> "dui-accent-l-2",
+                  () -> "dui-accent-l-1",
+                  () -> "dui-accent-d-2",
+                  () -> "dui-accent-d-3",
+                  () -> "dui-accent-d-4"))
+          .replaceWith(() -> "dui-accent-d-1");
+
+  CssClass dui_accent_d_2 =
+      new ReplaceCssClass(
+              CompositeCssClass.of(
+                  () -> "dui-accent-l-5",
+                  () -> "dui-accent-l-4",
+                  () -> "dui-accent-l-3",
+                  () -> "dui-accent-l-2",
+                  () -> "dui-accent-l-1",
+                  () -> "dui-accent-d-1",
+                  () -> "dui-accent-d-3",
+                  () -> "dui-accent-d-4"))
+          .replaceWith(() -> "dui-accent-d-2");
+
+  CssClass dui_accent_d_3 =
+      new ReplaceCssClass(
+              CompositeCssClass.of(
+                  () -> "dui-accent-l-5",
+                  () -> "dui-accent-l-4",
+                  () -> "dui-accent-l-3",
+                  () -> "dui-accent-l-2",
+                  () -> "dui-accent-l-1",
+                  () -> "dui-accent-d-1",
+                  () -> "dui-accent-d-2",
+                  () -> "dui-accent-d-4"))
+          .replaceWith(() -> "dui-accent-d-3");
+
+  CssClass dui_accent_d_4 =
+      new ReplaceCssClass(
+              CompositeCssClass.of(
+                  () -> "dui-accent-l-5",
+                  () -> "dui-accent-l-4",
+                  () -> "dui-accent-l-3",
+                  () -> "dui-accent-l-2",
+                  () -> "dui-accent-l-1",
+                  () -> "dui-accent-d-1",
+                  () -> "dui-accent-d-2",
+                  () -> "dui-accent-d-3"))
+          .replaceWith(() -> "dui-accent-d-4");
 
   CssClass dui_success =
       new ReplaceCssClass(
@@ -215,6 +334,8 @@ public interface GenericCss {
   CssClass dui_vertical =
       ReplaceCssClass.of(() -> "dui-horizontal").replaceWith(() -> "dui-vertical");
 
+  CssClass dui_responsive = () -> "dui-responsive";
+
   CssClass dui_postfix_addon = () -> "dui-postfix-addon";
 
   CssClass dui_subheader_addon = () -> "dui-subheader-addon";
@@ -226,6 +347,8 @@ public interface GenericCss {
   CssClass dui_separator = () -> "dui-separator";
 
   CssClass dui_striped = () -> "dui-striped";
+
+  CssClass dui_minified = () -> "dui-minified";
 
   CssClass dui_xlarge =
       new ReplaceCssClass(

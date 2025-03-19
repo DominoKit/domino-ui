@@ -26,6 +26,7 @@ import static org.dominokit.domino.ui.utils.ElementUtil.isEscapeKey;
 import static org.dominokit.domino.ui.utils.ElementUtil.isSpaceKey;
 import static org.dominokit.domino.ui.utils.ElementUtil.isTabKey;
 
+import elemental2.dom.Element;
 import elemental2.dom.Event;
 import elemental2.dom.EventListener;
 import elemental2.dom.HTMLElement;
@@ -63,6 +64,7 @@ public class KeyboardNavigation<V extends IsElement<?>> implements EventListener
   private Consumer<KeyboardNavigation<V>> onEndReached = (navigation) -> focusTopFocusableItem();
   private Consumer<KeyboardNavigation<V>> onStartReached =
       (navigation) -> focusBottomFocusableItem();
+  private Element exitElement;
 
   /**
    * Creates a new `KeyboardNavigation` instance for the given list of items.
@@ -308,10 +310,14 @@ public class KeyboardNavigation<V extends IsElement<?>> implements EventListener
 
   /** Focuses on the first focusable item in the list. */
   public void focusTopFocusableItem() {
-    for (V item : items) {
-      if (shouldFocus(item)) {
-        doFocus(item);
-        break;
+    if (nonNull(this.exitElement)) {
+      this.exitElement.focus();
+    } else {
+      for (V item : items) {
+        if (shouldFocus(item)) {
+          doFocus(item);
+          break;
+        }
       }
     }
   }
@@ -332,11 +338,15 @@ public class KeyboardNavigation<V extends IsElement<?>> implements EventListener
 
   /** Focuses on the last focusable item in the list. */
   public void focusBottomFocusableItem() {
-    for (int i = items.size() - 1; i >= 0; i--) {
-      V itemToFocus = items.get(i);
-      if (shouldFocus(itemToFocus)) {
-        doFocus(itemToFocus);
-        break;
+    if (nonNull(this.exitElement)) {
+      this.exitElement.focus();
+    } else {
+      for (int i = items.size() - 1; i >= 0; i--) {
+        V itemToFocus = items.get(i);
+        if (shouldFocus(itemToFocus)) {
+          doFocus(itemToFocus);
+          break;
+        }
       }
     }
   }
@@ -397,7 +407,7 @@ public class KeyboardNavigation<V extends IsElement<?>> implements EventListener
    */
   public KeyboardNavigation<V> registerNavigationHandler(
       String keyCode, ItemNavigationHandler<V> navigationHandler) {
-    if (!navigationHandlers.containsKey(keyCode)) {
+    if (!navigationHandlers.containsKey(keyCode.toLowerCase())) {
       navigationHandlers.put(keyCode.toLowerCase(), new ArrayList<>());
     }
     navigationHandlers.get(keyCode.toLowerCase()).add(navigationHandler);
@@ -441,6 +451,14 @@ public class KeyboardNavigation<V extends IsElement<?>> implements EventListener
   public KeyboardNavigation<V> setOnStartReached(Consumer<KeyboardNavigation<V>> onStartReached) {
     this.onStartReached = onStartReached;
     return this;
+  }
+
+  public Element getExitElement() {
+    return exitElement;
+  }
+
+  public void setExitElement(Element exitElement) {
+    this.exitElement = exitElement;
   }
 
   /**

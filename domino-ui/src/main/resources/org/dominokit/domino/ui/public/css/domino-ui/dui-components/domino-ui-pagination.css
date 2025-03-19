@@ -20,8 +20,8 @@
     font:var(--dui-pager-page-link-font);
     text-align: center;
     display: inline-block;
-    width: var(--dui-pager-page-link-size);
-    height: var(--dui-pager-page-link-size);
+    min-width: var(--dui-pager-page-link-size);
+    min-height: var(--dui-pager-page-link-size);
     border-radius: var(--dui-pager-page-link-border-radius);
     line-height: var(--dui-pager-page-link-size);
     cursor: var(--dui-pager-page-link-cursor);

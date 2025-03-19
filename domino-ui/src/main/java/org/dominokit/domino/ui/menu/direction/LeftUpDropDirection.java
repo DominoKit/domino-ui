@@ -17,11 +17,9 @@ package org.dominokit.domino.ui.menu.direction;
 
 import static elemental2.dom.DomGlobal.window;
 import static org.dominokit.domino.ui.style.SpacingCss.dui_flex_col_reverse;
-import static org.dominokit.domino.ui.utils.Domino.*;
 import static org.dominokit.domino.ui.utils.ElementsFactory.elements;
 import static org.dominokit.domino.ui.utils.Unit.px;
 
-import elemental2.dom.DOMRect;
 import elemental2.dom.Element;
 import org.dominokit.domino.ui.style.Style;
 
@@ -29,42 +27,77 @@ import org.dominokit.domino.ui.style.Style;
 public class LeftUpDropDirection implements DropDirection {
   /** {@inheritDoc} */
   @Override
-  public void position(Element source, Element target) {
+  public DropDirection position(DropDirectionContext context) {
+    Element source = context.getSource();
+    cleanup(source);
     dui_flex_col_reverse.apply(source);
-    DOMRect targetRect = target.getBoundingClientRect();
-    DOMRect sourceRect = source.getBoundingClientRect();
 
+    SpaceChecker spaceChecker = context.getSpaceChecker();
+    ;
+
+    if (spaceChecker.hasSpaceAbove()) {
+      if (spaceChecker.hasSpaceOnLeft()) {
+        return showOnLeftUp(context);
+      } else if (spaceChecker.hasSpaceOnRight()) {
+        return RIGHT_UP.position(context);
+      } else {
+        return TOP_MIDDLE.position(context);
+      }
+    } else if (spaceChecker.hasSpaceBelow()) {
+      if (spaceChecker.hasSpaceOnLeft()) {
+        return LEFT_DOWN.position(context);
+      } else if (spaceChecker.hasSpaceOnRight()) {
+        return RIGHT_DOWN.position(context);
+      } else {
+        return BOTTOM_MIDDLE.position(context);
+      }
+    } else {
+      return MIDDLE_SCREEN.position(context);
+    }
+  }
+
+  private DropDirection showOnLeftUp(DropDirectionContext context) {
+    Element source = context.getSource();
+    SpaceChecker spaceChecker = context.getSpaceChecker();
     Style.of(source)
         .style
         .setProperty(
             "top",
-            px.of((targetRect.top + window.pageYOffset) - (sourceRect.height - targetRect.height)));
+            px.of(
+                (spaceChecker.getTargetTop() + window.pageYOffset)
+                    - (spaceChecker.getSourceHeight() - spaceChecker.getTargetHeight())));
 
-    Style.of(source).style.setProperty("left", px.of(targetRect.left));
-
-    dui_dd_left_down.apply(source);
+    Style.of(source).style.setProperty("left", px.of(0));
+    spaceChecker = context.newSpaceChecker();
+    dui_dd_left_up.apply(source);
     elements
         .elementOf(source)
         .setCssProperty(
             "--dui-dd-position-delta",
-            ((target.getBoundingClientRect().top - source.getBoundingClientRect().top)) + "px");
-    elements.elementOf(source).setCssProperty("--dui-menu-drop-min-width", targetRect.width + "px");
+            ((spaceChecker.getTargetTop() - spaceChecker.getSourceTop())) + "px");
+    elements
+        .elementOf(source)
+        .setCssProperty("--dui-menu-drop-min-width", spaceChecker.getTargetWidth() + "px");
 
-    DOMRect newRect = source.getBoundingClientRect();
-    double left =
-        targetRect.left
-            - (newRect.left - targetRect.left)
-            + window.pageXOffset
-            - sourceRect.width
-            - (source.hasAttribute("dui-position-x-offset")
-                ? Double.parseDouble(source.getAttribute("dui-position-x-offset"))
-                : 0);
+    double left = spaceChecker.getTargetLeft() - spaceChecker.getSourceWidth() + window.pageXOffset;
     Style.of(source).style.setProperty("left", px.of(Math.max(left, 0)));
+    return this;
   }
 
   /** {@inheritDoc} */
   @Override
   public void cleanup(Element source) {
+    cleanSelf(source);
+    LEFT_DOWN.cleanSelf(source);
+    RIGHT_UP.cleanSelf(source);
+    RIGHT_DOWN.cleanSelf(source);
+    MIDDLE_SCREEN.cleanSelf(source);
+    TOP_MIDDLE.cleanSelf(source);
+    BOTTOM_MIDDLE.cleanSelf(source);
+  }
+
+  @Override
+  public void cleanSelf(Element source) {
     dui_dd_left_up.remove(source);
     elements.elementOf(source).removeCssProperty("--dui-dd-position-delta");
     elements.elementOf(source).removeCssProperty("--dui-menu-drop-min-width");

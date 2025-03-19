@@ -105,9 +105,11 @@ public class Carousel extends BaseDominoElement<HTMLDivElement, Carousel>
             nextSlide();
           }
         };
+
+    init(this);
     addAttachListener();
     addDetachListener();
-    init(this);
+
     addEventListener(
         EventType.wheel.getName(),
         evt -> {
@@ -179,24 +181,20 @@ public class Carousel extends BaseDominoElement<HTMLDivElement, Carousel>
   }
 
   private void addDetachListener() {
-    ElementUtil.onDetach(
-        element(),
-        mutationRecord -> {
+    onDetached(
+        (Carousel, mutationRecord) -> {
           this.attached = false;
           this.stopAutoSlide();
         });
   }
 
   private void addAttachListener() {
-    ElementUtil.onAttach(
-        this.element(),
-        mutationRecord -> {
+    onAttached(
+        (target, mutationRecord) -> {
           this.attached = true;
           if (autoSlide) {
             timer.scheduleRepeating(autoSlideDuration);
           }
-
-          addDetachListener();
         });
   }
 

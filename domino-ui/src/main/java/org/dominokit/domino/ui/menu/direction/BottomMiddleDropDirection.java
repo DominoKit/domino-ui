@@ -17,11 +17,9 @@ package org.dominokit.domino.ui.menu.direction;
 
 import static elemental2.dom.DomGlobal.window;
 import static org.dominokit.domino.ui.style.SpacingCss.dui_flex_col_reverse;
-import static org.dominokit.domino.ui.utils.Domino.*;
 import static org.dominokit.domino.ui.utils.ElementsFactory.elements;
 import static org.dominokit.domino.ui.utils.Unit.px;
 
-import elemental2.dom.DOMRect;
 import elemental2.dom.Element;
 import org.dominokit.domino.ui.style.Style;
 
@@ -29,47 +27,89 @@ import org.dominokit.domino.ui.style.Style;
 public class BottomMiddleDropDirection implements DropDirection {
   /** {@inheritDoc} */
   @Override
-  public void position(Element source, Element target) {
+  public DropDirection position(DropDirectionContext context) {
+    Element source = context.getSource();
+    cleanup(source);
     dui_flex_col_reverse.remove(source);
-    DOMRect targetRect = target.getBoundingClientRect();
+    SpaceChecker spaceChecker = context.getSpaceChecker();
 
-    elements.elementOf(source).setCssProperty("--dui-menu-drop-min-width", targetRect.width + "px");
-    targetRect = target.getBoundingClientRect();
+    elements
+        .elementOf(source)
+        .setCssProperty("--dui-menu-drop-min-width", spaceChecker.getTargetWidth() + "px");
+    Style.of(source).style.setProperty("left", px.of(0));
 
-    Style.of(source)
-        .style
-        .setProperty("top", px.of((targetRect.top + window.pageYOffset) + targetRect.height + 1));
-
-    Style.of(source).style.setProperty("left", targetRect.left + "px");
+    double widthDiff = (spaceChecker.getSourceWidth() / 2) - (spaceChecker.getTargetWidth() / 2);
+    Style.of(source).style.setProperty("left", (spaceChecker.getLeftSpace() - widthDiff) + "px");
     dui_dd_bottom_middle.apply(source);
 
-    DOMRect newRect = source.getBoundingClientRect();
-    DOMRect newTargetRect = target.getBoundingClientRect();
+    spaceChecker = context.newSpaceChecker();
 
-    int innerWidth = window.innerWidth;
+    if (spaceChecker.hasSpaceBelow() || spaceChecker.hasSpaceAbove()) {
+      if (spaceChecker.hasSpaceBelow()) {
+        return showBelowMiddle(source, spaceChecker);
+      } else if (spaceChecker.hasSpaceAbove()) {
+        return TOP_MIDDLE.position(context);
+      }
+    }
+    return MIDDLE_SCREEN.position(context);
+  }
+
+  private DropDirection showBelowMiddle(Element source, SpaceChecker spaceChecker) {
+    Style.of(source)
+        .style
+        .setProperty(
+            "top",
+            px.of(
+                (spaceChecker.getTargetTop() + window.pageYOffset)
+                    + spaceChecker.getTargetHeight()
+                    + 1));
 
     double delta = 0;
-    double availableSpace =
-        innerWidth - newTargetRect.right + (newTargetRect.width / 2) - window.pageXOffset;
-    if (availableSpace < (newRect.width / 2)) {
-      delta = (newRect.width / 2) - (newTargetRect.width / 2) - availableSpace;
+    double leftSpace = spaceChecker.getAvailableSpaceOnLeft();
+
+    if (leftSpace < ((spaceChecker.getSourceWidth() / 2) - (spaceChecker.getTargetWidth() / 2))) {
+      delta = (spaceChecker.getSourceWidth() / 2) - (spaceChecker.getTargetWidth() / 2) - leftSpace;
     }
 
-    elements.elementOf(source).setCssProperty("--dui-menu-drop-pin-offset", delta + "px");
+    double rightSpace = spaceChecker.getAvailableSpaceOnRight();
+
+    if (rightSpace < ((spaceChecker.getSourceWidth() / 2) - (spaceChecker.getTargetWidth() / 2))) {
+      delta =
+          -1
+              * ((spaceChecker.getSourceWidth() / 2)
+                  - (spaceChecker.getTargetWidth() / 2)
+                  - rightSpace);
+    }
+
+    double offset = delta;
+
+    if (delta > 0) {
+      offset = Math.min(delta, (spaceChecker.getSourceWidth() / 2) - 12);
+    } else if (delta < 0) {
+      offset = Math.min(Math.abs(delta), (spaceChecker.getSourceWidth() / 2) - 12) * -1;
+    }
+
+    elements.elementOf(source).setCssProperty("--dui-menu-drop-pin-offset", offset + "px");
     double left =
-        newTargetRect.left
-            - (newRect.width / 2)
-            + (newTargetRect.width / 2)
-            + window.pageXOffset
-            - Math.abs(delta)
+        spaceChecker.getLeftSpace()
+            - ((spaceChecker.getSourceWidth() / 2) - (spaceChecker.getTargetWidth() / 2))
+            - window.pageXOffset
+            + delta
             - elements.body().element().getBoundingClientRect().left;
 
     Style.of(source).style.setProperty("left", px.of(Math.max(left, 0)));
+    return this;
   }
 
   /** {@inheritDoc} */
   @Override
   public void cleanup(Element source) {
+    cleanSelf(source);
+    TOP_MIDDLE.cleanSelf(source);
+    MIDDLE_SCREEN.cleanSelf(source);
+  }
+
+  public void cleanSelf(Element source) {
     dui_dd_bottom_middle.remove(source);
     elements.elementOf(source).removeCssProperty("--dui-menu-drop-min-width");
   }

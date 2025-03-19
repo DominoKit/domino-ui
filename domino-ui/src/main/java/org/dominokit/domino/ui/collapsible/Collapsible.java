@@ -17,7 +17,6 @@ package org.dominokit.domino.ui.collapsible;
 
 import static java.util.Objects.isNull;
 import static java.util.Objects.nonNull;
-import static org.dominokit.domino.ui.utils.Domino.*;
 import static org.dominokit.domino.ui.utils.ElementsFactory.elements;
 
 import elemental2.dom.Element;
@@ -34,10 +33,6 @@ import org.dominokit.domino.ui.utils.IsCollapsible;
  */
 public class Collapsible implements IsElement<Element>, IsCollapsible<Collapsible> {
 
-  /** Constant <code>DUI_SCROLL_HEIGHT="dui-scroll-height"</code> */
-  public static final String DUI_SCROLL_HEIGHT = "dui-scroll-height";
-  /** Constant <code>DUI_COLLAPSE_HEIGHT="dom-ui-collapse-height"</code> */
-  public static final String DUI_COLLAPSE_HEIGHT = "dom-ui-collapse-height";
   /** Constant <code>DUI_COLLAPSED="dui-collapsed"</code> */
   public static final String DUI_COLLAPSED = "dui-collapsed";
 

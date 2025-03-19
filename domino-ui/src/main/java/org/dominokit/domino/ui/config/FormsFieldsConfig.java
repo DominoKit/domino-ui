@@ -146,6 +146,10 @@ public interface FormsFieldsConfig extends ComponentConfig, CalendarConfig {
     return false;
   }
 
+  default String multiSelectSelectionCountFormatExpression(int count) {
+    return count + " Selected";
+  }
+
   interface NumberParsers {
     default Function<String, BigDecimal> bigDecimalParser(BigDecimalBox field) {
       return value -> BigDecimal.valueOf(field.parseDouble(value));

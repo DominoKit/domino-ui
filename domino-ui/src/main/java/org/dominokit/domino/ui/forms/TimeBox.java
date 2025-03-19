@@ -128,10 +128,10 @@ public class TimeBox extends TextInputFormField<TimeBox, HTMLInputElement, Date>
                 popover -> {
                   withOpenOnFocusToggleListeners(false, field -> focus());
                 });
-    onDetached(mutationRecord -> popover.close());
+    onDetached((e, mutationRecord) -> popover.close());
 
     getInputElement()
-        .onKeyPress(keyEvents -> keyEvents.onEnter(evt -> doOpen()).onSpace(evt -> doOpen()));
+        .onKeyDown(keyEvents -> keyEvents.onEnter(evt -> doOpen()).onSpace(evt -> doOpen()));
     addValidator(
         component -> {
           try {
@@ -160,7 +160,8 @@ public class TimeBox extends TextInputFormField<TimeBox, HTMLInputElement, Date>
                   if (parseStrict) {
                     invalidate(getLabels().timePickerInvalidTimeFormat(value));
                   }
-                  DomGlobal.console.warn("Unable to parse date value " + value);
+                  DomGlobal.console.warn(
+                      "Unable to parse date value " + value + ", for pattern : " + pattern);
                 }
               }
             });
@@ -182,13 +183,6 @@ public class TimeBox extends TextInputFormField<TimeBox, HTMLInputElement, Date>
             "focus",
             evt -> {
               if (openOnFocus) {
-                doOpen();
-              }
-            })
-        .addEventListener(
-            "click",
-            evt -> {
-              if (openOnClick) {
                 doOpen();
               }
             });

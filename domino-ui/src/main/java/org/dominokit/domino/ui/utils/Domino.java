@@ -15,7 +15,6 @@
  */
 package org.dominokit.domino.ui.utils;
 
-import static org.dominokit.domino.ui.utils.ElementsFactory.elements;
 import static org.dominokit.domino.ui.utils.SVGFactory.svgElements;
 
 import elemental2.dom.Element;
@@ -31,7 +30,30 @@ import org.dominokit.domino.ui.style.DominoCss;
 
 public class Domino implements DominoCss {
 
+  public static ElementsFactory factory = ElementsFactory.elements;
+
   private Domino() {}
+
+  public static void withFactory(ElementsFactory replacement, Runnable runnable) {
+    factory = replacement;
+    try {
+      runnable.run();
+    } finally {
+      factory = ElementsFactory.elements;
+    }
+  }
+
+  public static void withFactory(ElementsFactory replacement, AsyncRunnable runnable) {
+    factory = replacement;
+    try {
+      runnable.run(
+          () -> {
+            factory = ElementsFactory.elements;
+          });
+    } finally {
+      factory = ElementsFactory.elements;
+    }
+  }
 
   /**
    * Retrieves an element by its unique identifier.
@@ -40,7 +62,7 @@ public class Domino implements DominoCss {
    * @return An optional containing the element, or empty if not found.
    */
   public static Optional<DominoElement<Element>> byId(String id) {
-    return elements.byId(id);
+    return factory.byId(id);
   }
 
   /**
@@ -52,7 +74,7 @@ public class Domino implements DominoCss {
    * @return A new instance of the specified element type.
    */
   public static <E extends Element> E create(String element, Class<E> type) {
-    return elements.create(element, type);
+    return factory.create(element, type);
   }
 
   /**
@@ -63,7 +85,7 @@ public class Domino implements DominoCss {
    * @return A DominoElement wrapping the existing element.
    */
   public static <E extends Element> DominoElement<E> elementOf(E element) {
-    return elements.elementOf(element);
+    return factory.elementOf(element);
   }
 
   /**
@@ -75,7 +97,7 @@ public class Domino implements DominoCss {
    * @return A DominoElement wrapping the IsElement.
    */
   public static <T extends Element, E extends IsElement<T>> DominoElement<T> elementOf(E element) {
-    return elements.elementOf(element);
+    return factory.elementOf(element);
   }
 
   /**
@@ -84,7 +106,7 @@ public class Domino implements DominoCss {
    * @return A unique identifier.
    */
   public static String getUniqueId() {
-    return elements.getUniqueId();
+    return factory.getUniqueId();
   }
 
   /**
@@ -94,7 +116,7 @@ public class Domino implements DominoCss {
    * @return A unique identifier with the specified prefix.
    */
   public static String getUniqueId(String prefix) {
-    return elements.getUniqueId(prefix);
+    return factory.getUniqueId(prefix);
   }
 
   /**
@@ -103,7 +125,7 @@ public class Domino implements DominoCss {
    * @return A new BodyElement.
    */
   public static BodyElement body() {
-    return elements.body();
+    return factory.body();
   }
 
   /**
@@ -112,7 +134,7 @@ public class Domino implements DominoCss {
    * @return A new PictureElement.
    */
   public static PictureElement picture() {
-    return elements.picture();
+    return factory.picture();
   }
 
   /**
@@ -121,7 +143,7 @@ public class Domino implements DominoCss {
    * @return A new AddressElement.
    */
   public static AddressElement address() {
-    return elements.address();
+    return factory.address();
   }
 
   /**
@@ -130,7 +152,7 @@ public class Domino implements DominoCss {
    * @return A new ArticleElement.
    */
   public static ArticleElement article() {
-    return elements.article();
+    return factory.article();
   }
 
   /**
@@ -139,7 +161,7 @@ public class Domino implements DominoCss {
    * @return A new AsideElement.
    */
   public static AsideElement aside() {
-    return elements.aside();
+    return factory.aside();
   }
 
   /**
@@ -148,7 +170,7 @@ public class Domino implements DominoCss {
    * @return A new FooterElement.
    */
   public static FooterElement footer() {
-    return elements.footer();
+    return factory.footer();
   }
 
   /**
@@ -158,7 +180,7 @@ public class Domino implements DominoCss {
    * @return A new HeadingElement with the specified level.
    */
   public static HeadingElement h(int n) {
-    return elements.h(n);
+    return factory.h(n);
   }
 
   /**
@@ -167,7 +189,7 @@ public class Domino implements DominoCss {
    * @return A new HeaderElement.
    */
   public static HeaderElement header() {
-    return elements.header();
+    return factory.header();
   }
 
   /**
@@ -176,7 +198,7 @@ public class Domino implements DominoCss {
    * @return A new HGroupElement.
    */
   public static HGroupElement hgroup() {
-    return elements.hgroup();
+    return factory.hgroup();
   }
 
   /**
@@ -185,7 +207,7 @@ public class Domino implements DominoCss {
    * @return A new NavElement.
    */
   public static NavElement nav() {
-    return elements.nav();
+    return factory.nav();
   }
 
   /**
@@ -194,7 +216,7 @@ public class Domino implements DominoCss {
    * @return A new SectionElement.
    */
   public static SectionElement section() {
-    return elements.section();
+    return factory.section();
   }
 
   /**
@@ -203,7 +225,7 @@ public class Domino implements DominoCss {
    * @return A new BlockquoteElement.
    */
   public static BlockquoteElement blockquote() {
-    return elements.blockquote();
+    return factory.blockquote();
   }
 
   /**
@@ -212,7 +234,7 @@ public class Domino implements DominoCss {
    * @return A new DDElement.
    */
   public static DDElement dd() {
-    return elements.dd();
+    return factory.dd();
   }
 
   /**
@@ -221,7 +243,7 @@ public class Domino implements DominoCss {
    * @return A new DivElement.
    */
   public static DivElement div() {
-    return elements.div();
+    return factory.div();
   }
 
   /**
@@ -230,7 +252,7 @@ public class Domino implements DominoCss {
    * @return A new DListElement.
    */
   public static DListElement dl() {
-    return elements.dl();
+    return factory.dl();
   }
 
   /**
@@ -239,7 +261,7 @@ public class Domino implements DominoCss {
    * @return A new DTElement.
    */
   public static DTElement dt() {
-    return elements.dt();
+    return factory.dt();
   }
 
   /**
@@ -248,7 +270,7 @@ public class Domino implements DominoCss {
    * @return A new FigCaptionElement.
    */
   public static FigCaptionElement figcaption() {
-    return elements.figcaption();
+    return factory.figcaption();
   }
 
   /**
@@ -257,7 +279,7 @@ public class Domino implements DominoCss {
    * @return A new FigureElement.
    */
   public static FigureElement figure() {
-    return elements.figure();
+    return factory.figure();
   }
 
   /**
@@ -266,7 +288,7 @@ public class Domino implements DominoCss {
    * @return A new HRElement.
    */
   public static HRElement hr() {
-    return elements.hr();
+    return factory.hr();
   }
 
   /**
@@ -275,7 +297,7 @@ public class Domino implements DominoCss {
    * @return A new LIElement.
    */
   public static LIElement li() {
-    return elements.li();
+    return factory.li();
   }
 
   /**
@@ -285,7 +307,7 @@ public class Domino implements DominoCss {
    */
   @SuppressWarnings("all")
   public static MainElement main() {
-    return elements.main();
+    return factory.main();
   }
 
   /**
@@ -294,7 +316,7 @@ public class Domino implements DominoCss {
    * @return A new OListElement.
    */
   public static OListElement ol() {
-    return elements.ol();
+    return factory.ol();
   }
 
   /**
@@ -303,7 +325,7 @@ public class Domino implements DominoCss {
    * @return A new ParagraphElement.
    */
   public static ParagraphElement p() {
-    return elements.p();
+    return factory.p();
   }
 
   /**
@@ -313,7 +335,7 @@ public class Domino implements DominoCss {
    * @return A new ParagraphElement with the specified text content.
    */
   public static ParagraphElement p(String text) {
-    return elements.p(text);
+    return factory.p(text);
   }
 
   /**
@@ -322,7 +344,7 @@ public class Domino implements DominoCss {
    * @return A new PreElement.
    */
   public static PreElement pre() {
-    return elements.pre();
+    return factory.pre();
   }
 
   /**
@@ -331,7 +353,7 @@ public class Domino implements DominoCss {
    * @return A new UListElement.
    */
   public static UListElement ul() {
-    return elements.ul();
+    return factory.ul();
   }
 
   /**
@@ -340,7 +362,7 @@ public class Domino implements DominoCss {
    * @return A new AnchorElement.
    */
   public static AnchorElement a() {
-    return elements.a();
+    return factory.a();
   }
 
   /**
@@ -350,7 +372,7 @@ public class Domino implements DominoCss {
    * @return A new AnchorElement with the specified href.
    */
   public static AnchorElement a(String href) {
-    return elements.a(href);
+    return factory.a(href);
   }
 
   /**
@@ -361,7 +383,7 @@ public class Domino implements DominoCss {
    * @return A new AnchorElement with the specified href and target.
    */
   public static AnchorElement a(String href, String target) {
-    return elements.a(href, target);
+    return factory.a(href, target);
   }
 
   /**
@@ -370,7 +392,7 @@ public class Domino implements DominoCss {
    * @return A new ABBRElement.
    */
   public static ABBRElement abbr() {
-    return elements.abbr();
+    return factory.abbr();
   }
 
   /**
@@ -379,7 +401,7 @@ public class Domino implements DominoCss {
    * @return A new BElement.
    */
   public static BElement b() {
-    return elements.b();
+    return factory.b();
   }
 
   /**
@@ -388,7 +410,7 @@ public class Domino implements DominoCss {
    * @return A new BRElement.
    */
   public static BRElement br() {
-    return elements.br();
+    return factory.br();
   }
 
   /**
@@ -397,7 +419,7 @@ public class Domino implements DominoCss {
    * @return A new CiteElement.
    */
   public static CiteElement cite() {
-    return elements.cite();
+    return factory.cite();
   }
 
   /**
@@ -406,7 +428,7 @@ public class Domino implements DominoCss {
    * @return A new CodeElement.
    */
   public static CodeElement code() {
-    return elements.code();
+    return factory.code();
   }
 
   /**
@@ -415,7 +437,7 @@ public class Domino implements DominoCss {
    * @return A new DFNElement.
    */
   public static DFNElement dfn() {
-    return elements.dfn();
+    return factory.dfn();
   }
 
   /**
@@ -424,7 +446,7 @@ public class Domino implements DominoCss {
    * @return A new EMElement.
    */
   public static EMElement em() {
-    return elements.em();
+    return factory.em();
   }
 
   /**
@@ -433,7 +455,7 @@ public class Domino implements DominoCss {
    * @return A new IElement.
    */
   public static IElement i() {
-    return elements.i();
+    return factory.i();
   }
 
   /**
@@ -442,7 +464,7 @@ public class Domino implements DominoCss {
    * @return A new KBDElement.
    */
   public static KBDElement kbd() {
-    return elements.kbd();
+    return factory.kbd();
   }
 
   /**
@@ -451,7 +473,7 @@ public class Domino implements DominoCss {
    * @return A new MarkElement.
    */
   public static MarkElement mark() {
-    return elements.mark();
+    return factory.mark();
   }
 
   /**
@@ -460,7 +482,7 @@ public class Domino implements DominoCss {
    * @return A new QuoteElement.
    */
   public static QuoteElement q() {
-    return elements.q();
+    return factory.q();
   }
 
   /**
@@ -469,7 +491,7 @@ public class Domino implements DominoCss {
    * @return A new SmallElement.
    */
   public static SmallElement small() {
-    return elements.small();
+    return factory.small();
   }
 
   /**
@@ -478,7 +500,7 @@ public class Domino implements DominoCss {
    * @return A new SpanElement.
    */
   public static SpanElement span() {
-    return elements.span();
+    return factory.span();
   }
 
   /**
@@ -487,7 +509,7 @@ public class Domino implements DominoCss {
    * @return A new StrongElement.
    */
   public static StrongElement strong() {
-    return elements.strong();
+    return factory.strong();
   }
 
   /**
@@ -496,7 +518,7 @@ public class Domino implements DominoCss {
    * @return A new SubElement.
    */
   public static SubElement sub() {
-    return elements.sub();
+    return factory.sub();
   }
 
   /**
@@ -505,7 +527,7 @@ public class Domino implements DominoCss {
    * @return A new SupElement.
    */
   public static SupElement sup() {
-    return elements.sup();
+    return factory.sup();
   }
 
   /**
@@ -514,7 +536,7 @@ public class Domino implements DominoCss {
    * @return A new TimeElement.
    */
   public static TimeElement time() {
-    return elements.time();
+    return factory.time();
   }
 
   /**
@@ -523,7 +545,7 @@ public class Domino implements DominoCss {
    * @return A new UElement.
    */
   public static UElement u() {
-    return elements.u();
+    return factory.u();
   }
 
   /**
@@ -532,7 +554,7 @@ public class Domino implements DominoCss {
    * @return A new VarElement.
    */
   public static VarElement var() {
-    return elements.var();
+    return factory.var();
   }
 
   /**
@@ -541,7 +563,7 @@ public class Domino implements DominoCss {
    * @return A new WBRElement.
    */
   public static WBRElement wbr() {
-    return elements.wbr();
+    return factory.wbr();
   }
 
   /**
@@ -550,7 +572,7 @@ public class Domino implements DominoCss {
    * @return A new AreaElement.
    */
   public static AreaElement area() {
-    return elements.area();
+    return factory.area();
   }
 
   /**
@@ -559,7 +581,7 @@ public class Domino implements DominoCss {
    * @return A new AudioElement.
    */
   public static AudioElement audio() {
-    return elements.audio();
+    return factory.audio();
   }
 
   /**
@@ -568,7 +590,7 @@ public class Domino implements DominoCss {
    * @return A new ImageElement.
    */
   public static ImageElement img() {
-    return elements.img();
+    return factory.img();
   }
 
   /**
@@ -578,7 +600,7 @@ public class Domino implements DominoCss {
    * @return A new ImageElement with the specified source URL.
    */
   public static ImageElement img(String src) {
-    return elements.img(src);
+    return factory.img(src);
   }
 
   /**
@@ -587,7 +609,7 @@ public class Domino implements DominoCss {
    * @return A new MapElement.
    */
   public static MapElement map() {
-    return elements.map();
+    return factory.map();
   }
 
   /**
@@ -596,7 +618,7 @@ public class Domino implements DominoCss {
    * @return A new TrackElement.
    */
   public static TrackElement track() {
-    return elements.track();
+    return factory.track();
   }
 
   /**
@@ -605,7 +627,7 @@ public class Domino implements DominoCss {
    * @return A new VideoElement.
    */
   public static VideoElement video() {
-    return elements.video();
+    return factory.video();
   }
 
   /**
@@ -614,7 +636,7 @@ public class Domino implements DominoCss {
    * @return A new CanvasElement.
    */
   public static CanvasElement canvas() {
-    return elements.canvas();
+    return factory.canvas();
   }
 
   /**
@@ -623,7 +645,7 @@ public class Domino implements DominoCss {
    * @return A new EmbedElement.
    */
   public static EmbedElement embed() {
-    return elements.embed();
+    return factory.embed();
   }
 
   /**
@@ -632,7 +654,7 @@ public class Domino implements DominoCss {
    * @return A new IFrameElement.
    */
   public static IFrameElement iframe() {
-    return elements.iframe();
+    return factory.iframe();
   }
 
   /**
@@ -642,7 +664,7 @@ public class Domino implements DominoCss {
    * @return A new IFrameElement with the specified source URL.
    */
   public static IFrameElement iframe(String src) {
-    return elements.iframe(src);
+    return factory.iframe(src);
   }
 
   /**
@@ -651,7 +673,7 @@ public class Domino implements DominoCss {
    * @return A new ObjectElement.
    */
   public static ObjectElement object() {
-    return elements.object();
+    return factory.object();
   }
 
   /**
@@ -660,7 +682,7 @@ public class Domino implements DominoCss {
    * @return A new ParamElement.
    */
   public static ParamElement param() {
-    return elements.param();
+    return factory.param();
   }
 
   /**
@@ -669,7 +691,7 @@ public class Domino implements DominoCss {
    * @return A new SourceElement.
    */
   public static SourceElement source() {
-    return elements.source();
+    return factory.source();
   }
 
   /**
@@ -678,7 +700,7 @@ public class Domino implements DominoCss {
    * @return A new NoScriptElement.
    */
   public static NoScriptElement noscript() {
-    return elements.noscript();
+    return factory.noscript();
   }
 
   /**
@@ -687,7 +709,7 @@ public class Domino implements DominoCss {
    * @return A new ScriptElement.
    */
   public static ScriptElement script() {
-    return elements.script();
+    return factory.script();
   }
 
   /**
@@ -696,7 +718,7 @@ public class Domino implements DominoCss {
    * @return A new DelElement.
    */
   public static DelElement del() {
-    return elements.del();
+    return factory.del();
   }
 
   /**
@@ -705,7 +727,7 @@ public class Domino implements DominoCss {
    * @return A new InsElement.
    */
   public static InsElement ins() {
-    return elements.ins();
+    return factory.ins();
   }
 
   /**
@@ -714,7 +736,7 @@ public class Domino implements DominoCss {
    * @return A new TableCaptionElement.
    */
   public static TableCaptionElement caption() {
-    return elements.caption();
+    return factory.caption();
   }
 
   /**
@@ -723,7 +745,7 @@ public class Domino implements DominoCss {
    * @return A new ColElement.
    */
   public static ColElement col() {
-    return elements.col();
+    return factory.col();
   }
 
   /**
@@ -732,7 +754,7 @@ public class Domino implements DominoCss {
    * @return A new ColGroupElement.
    */
   public static ColGroupElement colgroup() {
-    return elements.colgroup();
+    return factory.colgroup();
   }
 
   /**
@@ -741,7 +763,7 @@ public class Domino implements DominoCss {
    * @return A new TableElement.
    */
   public static TableElement table() {
-    return elements.table();
+    return factory.table();
   }
 
   /**
@@ -750,7 +772,7 @@ public class Domino implements DominoCss {
    * @return A new TBodyElement.
    */
   public static TBodyElement tbody() {
-    return elements.tbody();
+    return factory.tbody();
   }
 
   /**
@@ -759,7 +781,7 @@ public class Domino implements DominoCss {
    * @return A new TDElement.
    */
   public static TDElement td() {
-    return elements.td();
+    return factory.td();
   }
 
   /**
@@ -768,7 +790,7 @@ public class Domino implements DominoCss {
    * @return A new TFootElement.
    */
   public static TFootElement tfoot() {
-    return elements.tfoot();
+    return factory.tfoot();
   }
 
   /**
@@ -777,7 +799,7 @@ public class Domino implements DominoCss {
    * @return A new THElement.
    */
   public static THElement th() {
-    return elements.th();
+    return factory.th();
   }
 
   /**
@@ -786,7 +808,7 @@ public class Domino implements DominoCss {
    * @return A new THeadElement.
    */
   public static THeadElement thead() {
-    return elements.thead();
+    return factory.thead();
   }
 
   /**
@@ -795,7 +817,7 @@ public class Domino implements DominoCss {
    * @return A new TableRowElement.
    */
   public static TableRowElement tr() {
-    return elements.tr();
+    return factory.tr();
   }
 
   /**
@@ -804,7 +826,7 @@ public class Domino implements DominoCss {
    * @return A new ButtonElement.
    */
   public static ButtonElement button() {
-    return elements.button();
+    return factory.button();
   }
 
   /**
@@ -813,7 +835,7 @@ public class Domino implements DominoCss {
    * @return A new DataListElement.
    */
   public static DataListElement datalist() {
-    return elements.datalist();
+    return factory.datalist();
   }
 
   /**
@@ -822,7 +844,7 @@ public class Domino implements DominoCss {
    * @return A new FieldSetElement.
    */
   public static FieldSetElement fieldset() {
-    return elements.fieldset();
+    return factory.fieldset();
   }
 
   /**
@@ -831,7 +853,7 @@ public class Domino implements DominoCss {
    * @return A new FormElement.
    */
   public static FormElement form() {
-    return elements.form();
+    return factory.form();
   }
 
   /**
@@ -841,7 +863,7 @@ public class Domino implements DominoCss {
    * @return A new InputElement with the specified input type.
    */
   public static InputElement input(InputType type) {
-    return elements.input(type);
+    return factory.input(type);
   }
 
   /**
@@ -851,7 +873,7 @@ public class Domino implements DominoCss {
    * @return A new InputElement with the specified input type.
    */
   public static InputElement input(String type) {
-    return elements.input(type);
+    return factory.input(type);
   }
 
   /**
@@ -860,7 +882,7 @@ public class Domino implements DominoCss {
    * @return A new LabelElement.
    */
   public static LabelElement label() {
-    return elements.label();
+    return factory.label();
   }
 
   /**
@@ -870,7 +892,7 @@ public class Domino implements DominoCss {
    * @return A new LabelElement with the specified text content.
    */
   public static LabelElement label(String text) {
-    return elements.label(text);
+    return factory.label(text);
   }
 
   /**
@@ -879,7 +901,7 @@ public class Domino implements DominoCss {
    * @return A new LegendElement.
    */
   public static LegendElement legend() {
-    return elements.legend();
+    return factory.legend();
   }
 
   /**
@@ -888,7 +910,7 @@ public class Domino implements DominoCss {
    * @return A new MeterElement.
    */
   public static MeterElement meter() {
-    return elements.meter();
+    return factory.meter();
   }
 
   /**
@@ -897,7 +919,7 @@ public class Domino implements DominoCss {
    * @return A new OptGroupElement.
    */
   public static OptGroupElement optgroup() {
-    return elements.optgroup();
+    return factory.optgroup();
   }
 
   /**
@@ -906,7 +928,7 @@ public class Domino implements DominoCss {
    * @return A new OptionElement.
    */
   public static OptionElement option() {
-    return elements.option();
+    return factory.option();
   }
 
   /**
@@ -915,7 +937,7 @@ public class Domino implements DominoCss {
    * @return A new OutputElement.
    */
   public static OutputElement output() {
-    return elements.output();
+    return factory.output();
   }
 
   /**
@@ -924,7 +946,7 @@ public class Domino implements DominoCss {
    * @return A new ProgressElement.
    */
   public static ProgressElement progress() {
-    return elements.progress();
+    return factory.progress();
   }
 
   /**
@@ -933,7 +955,7 @@ public class Domino implements DominoCss {
    * @return A new SelectElement.
    */
   public static SelectElement select_() {
-    return elements.select_();
+    return factory.select_();
   }
 
   /**
@@ -942,7 +964,7 @@ public class Domino implements DominoCss {
    * @return A new TextAreaElement.
    */
   public static TextAreaElement textarea() {
-    return elements.textarea();
+    return factory.textarea();
   }
 
   /**
@@ -951,7 +973,7 @@ public class Domino implements DominoCss {
    * @return A new SvgElement.
    */
   public static SvgElement svg() {
-    return elements.svg();
+    return factory.svg();
   }
 
   /**
@@ -963,7 +985,7 @@ public class Domino implements DominoCss {
    * @return A new SvgElement of the specified type.
    */
   public static <T extends SVGElement> T svg(String tag, Class<T> type) {
-    return elements.svg(tag, type);
+    return factory.svg(tag, type);
   }
 
   /**
@@ -975,7 +997,7 @@ public class Domino implements DominoCss {
    * @return A new CircleElement with the specified attributes.
    */
   public static CircleElement circle(double cx, double cy, double r) {
-    return elements.circle(cx, cy, r);
+    return factory.circle(cx, cy, r);
   }
 
   /**
@@ -988,7 +1010,7 @@ public class Domino implements DominoCss {
    * @return A new LineElement with the specified attributes.
    */
   public static LineElement line(double x1, double y1, double x2, double y2) {
-    return elements.line(x1, y1, x2, y2);
+    return factory.line(x1, y1, x2, y2);
   }
 
   /**
@@ -997,7 +1019,7 @@ public class Domino implements DominoCss {
    * @return A new Text element.
    */
   public static Text text() {
-    return elements.text();
+    return factory.text();
   }
 
   /**
@@ -1007,7 +1029,7 @@ public class Domino implements DominoCss {
    * @return A new Text element with the specified content.
    */
   public static Text text(String content) {
-    return elements.text(content);
+    return factory.text(content);
   }
 
   /**

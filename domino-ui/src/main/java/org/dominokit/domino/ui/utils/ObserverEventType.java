@@ -15,8 +15,10 @@
  */
 package org.dominokit.domino.ui.utils;
 
+import elemental2.dom.Element;
+
 /** A utility class for generating event types related to attaching and detaching elements. */
-public class AttachDetachEventType {
+public class ObserverEventType {
 
   /**
    * Generates an event type for an attached element.
@@ -36,5 +38,27 @@ public class AttachDetachEventType {
    */
   public static String detachedType(HasAttributes<?> element) {
     return "dui-detached-" + element.getAttribute(BaseDominoElement.DETACH_UID_KEY);
+  }
+
+  /**
+   * Generates an event type for a detached element.
+   *
+   * @param element The element that has been detached.
+   * @return A string representing the event type for detached elements.
+   */
+  public static String attributeType(Element element) {
+    return "dui-attribute-change-"
+        + element.getAttribute(BaseDominoElement.ATTRIBUTE_CHANGE_UID_KEY);
+  }
+
+  /**
+   * Generates an event type for a detached element.
+   *
+   * @param element The element that has been detached.
+   * @return A string representing the event type for detached elements.
+   */
+  public static String attributeType(HasAttributes<?> element) {
+    return "dui-attribute-change-"
+        + element.getAttribute(BaseDominoElement.ATTRIBUTE_CHANGE_UID_KEY);
   }
 }

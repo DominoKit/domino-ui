@@ -20,9 +20,10 @@ import static java.util.Objects.isNull;
 import static java.util.Objects.nonNull;
 import static org.dominokit.domino.ui.utils.ElementsFactory.elements;
 
+import elemental2.dom.DOMRect;
+import elemental2.dom.HTMLElement;
 import java.util.*;
 import java.util.function.Consumer;
-import java.util.stream.Collectors;
 import org.dominokit.domino.ui.datatable.plugins.DataTablePlugin;
 import org.dominokit.domino.ui.datatable.plugins.column.ResizeColumnMeta;
 import org.dominokit.domino.ui.elements.THeadElement;
@@ -84,23 +85,45 @@ public class TableConfig<T>
                     .addCss(dui_datatable_utility_elements)
                     .apply(
                         div -> {
-                          getPlugins().stream()
-                              .map(plugin -> plugin.getUtilityElements(dataTable, cellInfo))
-                              .filter(Optional::isPresent)
-                              .map(Optional::get)
-                              .flatMap(Collection::stream)
-                              .forEach(
-                                  node -> {
-                                    String order =
-                                        Optional.ofNullable(
-                                                elements.elementOf(node).getAttribute("order"))
-                                            .orElse("0");
-                                    div.appendChild(
-                                        elements
-                                            .div()
-                                            .setCssProperty("order", Integer.parseInt(order))
-                                            .addCss(dui_datatable_utility_element)
-                                            .appendChild(node));
+                          List<DataTablePlugin<T>> pluginsList = getPlugins();
+                          for (DataTablePlugin<T> plugin : pluginsList) {
+                            Optional<List<HTMLElement>> optionalElements =
+                                plugin.getUtilityElements(dataTable, cellInfo);
+                            if (optionalElements.isPresent()) {
+                              List<HTMLElement> nodes = optionalElements.get();
+                              for (HTMLElement node : nodes) {
+                                String orderAttr = elements.elementOf(node).getAttribute("order");
+                                String order = (orderAttr != null) ? orderAttr : "0";
+                                div.appendChild(
+                                    elements
+                                        .div()
+                                        .setCssProperty("order", Integer.parseInt(order))
+                                        .addCss(dui_datatable_utility_element)
+                                        .appendChild(node));
+                              }
+                            }
+                          }
+
+                          cellInfo
+                              .getColumnConfig()
+                              .ifPresent(
+                                  columnConfig -> {
+                                    if (cellInfo
+                                        .getTableRow()
+                                        .getDataTable()
+                                        .getTableConfig()
+                                        .isFixed()) {
+                                      DOMRect domRect =
+                                          columnConfig
+                                              .getHeadElement()
+                                              .element()
+                                              .getBoundingClientRect();
+                                      elements
+                                          .elementOf(cellInfo.getElement())
+                                          .setCssProperty("width", domRect.width + "px")
+                                          .setCssProperty("min-width", domRect.width + "px")
+                                          .setCssProperty("max-width", domRect.width + "px");
+                                    }
                                   });
                         })
                     .element();
@@ -116,7 +139,16 @@ public class TableConfig<T>
   public void drawHeaders(DataTable<T> dataTable, THeadElement thead) {
     this.dataTable = dataTable;
 
-    int maxDepth = columns.stream().mapToInt(ColumnConfig::getColumnsDepth).max().orElse(0);
+    boolean seen = false;
+    int best = 0;
+    for (ColumnConfig<T> column : columns) {
+      int columnsDepth = column.getColumnsDepth();
+      if (!seen || columnsDepth > best) {
+        seen = true;
+        best = columnsDepth;
+      }
+    }
+    int maxDepth = seen ? best : 0;
 
     TableRowElement[] headers = new TableRowElement[maxDepth + 1];
     for (int i = 0; i < headers.length; i++) {
@@ -349,7 +381,14 @@ public class TableConfig<T>
    * @return A sorted list of {@link DataTablePlugin}.
    */
   public List<DataTablePlugin<T>> getPlugins() {
-    return plugins.stream().sorted().collect(Collectors.toList());
+    List<DataTablePlugin<T>> sortedPlugins = new ArrayList<>();
+    // Add all plugins using a simple loop
+    for (DataTablePlugin<T> plugin : plugins) {
+      sortedPlugins.add(plugin);
+    }
+    // Sort the list using Collections.sort(), which sorts according to natural ordering
+    Collections.sort(sortedPlugins);
+    return sortedPlugins;
   }
 
   /**
@@ -376,7 +415,15 @@ public class TableConfig<T>
    * @return A list of {@link ColumnConfig} representing the leaf columns.
    */
   public List<ColumnConfig<T>> getColumns() {
-    return columns.stream().flatMap(col -> col.leafColumns().stream()).collect(Collectors.toList());
+    List<ColumnConfig<T>> allColumns = new ArrayList<>();
+    for (ColumnConfig<T> col : columns) {
+      // Retrieve the leaf columns from the current column
+      List<ColumnConfig<T>> leafColumns = col.leafColumns();
+      for (ColumnConfig<T> leaf : leafColumns) {
+        allColumns.add(leaf);
+      }
+    }
+    return allColumns;
   }
 
   /**
@@ -385,9 +432,14 @@ public class TableConfig<T>
    * @return A list of {@link ColumnConfig} representing all columns, flattened.
    */
   public List<ColumnConfig<T>> getFlattenColumns() {
-    return columns.stream()
-        .flatMap(col -> col.flattenColumns().stream())
-        .collect(Collectors.toList());
+    List<ColumnConfig<T>> flattenColumns = new ArrayList<>();
+    for (ColumnConfig<T> col : columns) {
+      List<ColumnConfig<T>> colFlattenColumns = col.flattenColumns();
+      for (ColumnConfig<T> flattened : colFlattenColumns) {
+        flattenColumns.add(flattened);
+      }
+    }
+    return flattenColumns;
   }
 
   /**
@@ -396,7 +448,14 @@ public class TableConfig<T>
    * @return A list of {@link ColumnConfig} representing all columns, flattened.
    */
   public List<ColumnConfig<T>> getLeafColumns() {
-    return columns.stream().flatMap(col -> col.leafColumns().stream()).collect(Collectors.toList());
+    List<ColumnConfig<T>> leafColumnsList = new ArrayList<>();
+    for (ColumnConfig<T> col : columns) {
+      List<ColumnConfig<T>> childLeafColumns = col.leafColumns();
+      for (ColumnConfig<T> leaf : childLeafColumns) {
+        leafColumnsList.add(leaf);
+      }
+    }
+    return leafColumnsList;
   }
 
   /**
@@ -414,7 +473,13 @@ public class TableConfig<T>
    * @return A list of {@link ColumnConfig} representing visible columns.
    */
   public List<ColumnConfig<T>> getVisibleColumns() {
-    return columns.stream().filter(column -> !column.isHidden()).collect(Collectors.toList());
+    List<ColumnConfig<T>> list = new ArrayList<>();
+    for (ColumnConfig<T> column : columns) {
+      if (!column.isHidden()) {
+        list.add(column);
+      }
+    }
+    return list;
   }
 
   /**
@@ -425,10 +490,13 @@ public class TableConfig<T>
    * @throws ColumnNofFoundException If no column is found with the specified name.
    */
   public ColumnConfig<T> getColumnByName(String name) {
-    Optional<ColumnConfig<T>> first =
-        getFlattenColumns().stream()
-            .filter(columnConfig -> columnConfig.getName().equals(name))
-            .findFirst();
+    Optional<ColumnConfig<T>> first = Optional.empty();
+    for (ColumnConfig<T> columnConfig : getFlattenColumns()) {
+      if (columnConfig.getName().equals(name)) {
+        first = Optional.of(columnConfig);
+        break;
+      }
+    }
     if (first.isPresent()) {
       return first.get();
     } else {

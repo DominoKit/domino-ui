@@ -20,4 +20,6 @@ import org.dominokit.domino.ui.style.CssClass;
 public interface ProgressStyles {
   CssClass dui_progress = () -> "dui-progress";
   CssClass dui_progress_bar = () -> "dui-progress-bar";
+  CssClass dui_progress_text = () -> "dui-progress-text";
+  CssClass dui_progress_text_blind = () -> "dui-progress-text-blind";
 }

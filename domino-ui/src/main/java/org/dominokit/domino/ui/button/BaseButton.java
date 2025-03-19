@@ -17,7 +17,6 @@ package org.dominokit.domino.ui.button;
 
 import static java.util.Objects.nonNull;
 import static org.dominokit.domino.ui.button.ButtonStyles.*;
-import static org.dominokit.domino.ui.utils.Domino.*;
 import static org.dominokit.domino.ui.utils.Domino.div;
 import static org.dominokit.domino.ui.utils.Domino.span;
 
@@ -29,7 +28,6 @@ import org.dominokit.domino.ui.elements.DivElement;
 import org.dominokit.domino.ui.elements.SpanElement;
 import org.dominokit.domino.ui.icons.Icon;
 import org.dominokit.domino.ui.style.BooleanCssClass;
-import org.dominokit.domino.ui.style.WaveStyle;
 import org.dominokit.domino.ui.style.WavesElement;
 import org.dominokit.domino.ui.utils.AcceptDisable;
 import org.dominokit.domino.ui.utils.ChildHandler;
@@ -149,7 +147,6 @@ public abstract class BaseButton<E extends HTMLElement, B extends BaseButton<E, 
    */
   public B circle() {
     buttonElement.addCss(ButtonStyles.dui_circle);
-    applyCircleWaves();
     return (B) this;
   }
 
@@ -264,10 +261,5 @@ public abstract class BaseButton<E extends HTMLElement, B extends BaseButton<E, 
   @Override
   public B asButton() {
     return (B) this;
-  }
-
-  private void applyCircleWaves() {
-    setWaveStyle(WaveStyle.CIRCLE);
-    setWaveStyle(WaveStyle.FLOAT);
   }
 }

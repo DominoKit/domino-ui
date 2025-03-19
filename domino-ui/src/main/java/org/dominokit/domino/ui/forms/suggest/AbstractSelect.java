@@ -94,15 +94,16 @@ public abstract class AbstractSelect<
         .appendChild(
             fieldInput =
                 div()
-                    .addCss(dui_field_input)
+                    .addCss(dui_field_input, dui_flex_nowrap)
                     .appendChild(placeHolderElement.addCss(dui_field_placeholder)))
         .appendChild(inputElement = input(getType()).addCss(dui_hidden_input))
         .appendChild(
             typingElement =
                 input("text")
+                    .addEventListener("input", evt -> onTypingStart())
                     .addCss(dui_auto_type_input, dui_hidden)
                     .setTabIndex(-1)
-                    .onKeyPress(keyEvents -> keyEvents.alphanumeric(Event::stopPropagation)));
+                    .onKeyDown(keyEvents -> keyEvents.alphanumeric(Event::stopPropagation)));
 
     DelayedTextInput.create(typingElement, getTypeAheadDelay())
         .setDelayedAction(
@@ -115,6 +116,7 @@ public abstract class AbstractSelect<
               optionsMenu.focusFirstMatch(typingElement.getValue());
               typingElement.setValue(null).addCss(dui_hidden);
               focus();
+              onTypingEnd();
             })
         .setOnEnterAction(
             () -> {
@@ -124,7 +126,7 @@ public abstract class AbstractSelect<
               DomGlobal.setTimeout(p0 -> optionsMenu.focusFirstMatch(token), 0);
             });
 
-    onKeyPress(
+    onKeyDown(
         keyEvents -> {
           keyEvents.alphanumeric(
               evt -> {
@@ -168,7 +170,7 @@ public abstract class AbstractSelect<
             .addOpenListener((menu) -> focus());
 
     onAttached(
-        mutationRecord -> {
+        (e, mutationRecord) -> {
           optionsMenu.setTargetElement(getWrapperElement());
         });
     getInputElement()
@@ -190,7 +192,7 @@ public abstract class AbstractSelect<
                       evt.stopPropagation();
                       openOptionMenu();
                     })
-                .onKeyPress(
+                .onKeyDown(
                     keyEvents ->
                         keyEvents.onEnter(
                             evt -> {
@@ -211,6 +213,10 @@ public abstract class AbstractSelect<
                       clearValue(false);
                     })));
   }
+
+  protected abstract void onTypingStart();
+
+  protected abstract void onTypingEnd();
 
   private int getTypeAheadDelay() {
     return typeAheadDelay > 0
@@ -1234,9 +1240,12 @@ public abstract class AbstractSelect<
               }
               option.remove();
               optionsMenu.removeItem(found.getMenuItem());
+              onOptionRemoved(option);
             });
     return (C) this;
   }
+
+  protected void onOptionRemoved(O option) {}
 
   /**
    * Removes a specified option from the select component.

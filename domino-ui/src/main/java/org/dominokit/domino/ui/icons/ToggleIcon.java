@@ -50,7 +50,6 @@ public abstract class ToggleIcon<I extends Icon<I>, T extends ToggleIcon<I, T>> 
     swapCss = AutoSwapCssClass.of(CompositeCssClass.of(primary), CompositeCssClass.of(toggle));
     this.primary.addClickListener(
         evt -> {
-          evt.stopPropagation();
           if (toggleOnClick) {
             toggle();
           }

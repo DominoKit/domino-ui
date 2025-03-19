@@ -17,6 +17,8 @@ package org.dominokit.domino.ui.forms.suggest;
 
 import static java.util.Objects.isNull;
 import static java.util.Objects.nonNull;
+import static org.dominokit.domino.ui.style.DisplayCss.dui_hidden;
+import static org.dominokit.domino.ui.style.SpacingCss.dui_flex_nowrap;
 
 import java.util.Arrays;
 import java.util.HashSet;
@@ -24,7 +26,11 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
+import org.dominokit.domino.ui.badges.Badge;
 import org.dominokit.domino.ui.elements.DivElement;
+import org.dominokit.domino.ui.style.BooleanCssClass;
+import org.dominokit.domino.ui.utils.BaseDominoElement;
+import org.dominokit.domino.ui.utils.PrimaryAddOn;
 
 /**
  * Represents a multi-selection dropdown menu UI component, allowing users to select multiple
@@ -44,6 +50,7 @@ public class MultiSelect<V>
     extends AbstractSelect<V, List<V>, DivElement, SelectOption<V>, MultiSelect<V>> {
 
   private Set<SelectOption<V>> selectedOptions = new HashSet<>();
+  private Badge selectionCountBadge;
 
   /**
    * Creates a new instance of {@link MultiSelect} without any predefined label.
@@ -69,6 +76,10 @@ public class MultiSelect<V>
   /** Default constructor initializing the options menu for multi-selection. */
   public MultiSelect() {
     optionsMenu.setMultiSelect(true);
+    setAutoCloseOnSelect(false);
+    selectionCountBadge =
+        Badge.create(getConfig().multiSelectSelectionCountFormatExpression(0)).addCss(dui_hidden);
+    appendChild(PrimaryAddOn.of(selectionCountBadge));
   }
 
   /**
@@ -157,9 +168,13 @@ public class MultiSelect<V>
     }
     withOption(option, silent);
     updateTextValue();
+    option.addCss(() -> "dui-selected-option");
     fieldInput.appendChild(option);
     selectedOptions.add(option);
     getInputElement().element().focus();
+    selectionCountBadge.setText(
+        getConfig().multiSelectSelectionCountFormatExpression(selectedOptions.size()));
+    option.onSelected();
   }
 
   /**
@@ -196,6 +211,9 @@ public class MultiSelect<V>
       if (!silent) {
         triggerChangeListeners(oldValue, getValue());
       }
+      selectionCountBadge.setText(
+          getConfig().multiSelectSelectionCountFormatExpression(selectedOptions.size()));
+      option.onDeselected();
     }
   }
 
@@ -224,5 +242,49 @@ public class MultiSelect<V>
   @Override
   public List<V> getValue() {
     return this.selectedOptions.stream().map(Option::getValue).collect(Collectors.toList());
+  }
+
+  @Override
+  protected void onTypingStart() {
+    this.selectedOptions.forEach(BaseDominoElement::hide);
+  }
+
+  @Override
+  protected void onTypingEnd() {
+    this.selectedOptions.forEach(BaseDominoElement::show);
+  }
+
+  @Override
+  protected void onOptionRemoved(SelectOption<V> option) {
+    selectedOptions.remove(option);
+  }
+
+  /**
+   * Sets whether the selection should wrap or not.
+   *
+   * <p>If {@code wrapSelection} is {@code true}, the selection will wrap. Otherwise, it will be
+   * forced to stay on a single line using a no-wrap CSS class.
+   *
+   * @param wrapSelection {@code true} to allow wrapping, {@code false} to prevent wrapping
+   * @return this {@code MultiSelect} instance for method chaining
+   */
+  public MultiSelect<V> setWrapSelection(boolean wrapSelection) {
+    fieldInput.addCss(BooleanCssClass.of(dui_flex_nowrap, !wrapSelection));
+    return this;
+  }
+
+  /**
+   * Sets whether the selection count badge should be visible.
+   *
+   * <p>If {@code showSelectionCount} is {@code true}, the selection count badge will be shown.
+   * Otherwise, it will be hidden using the appropriate CSS class.
+   *
+   * @param showSelectionCount {@code true} to display the selection count badge, {@code false} to
+   *     hide it
+   * @return this {@code MultiSelect} instance for method chaining
+   */
+  public MultiSelect<V> setShowSelectionCount(boolean showSelectionCount) {
+    selectionCountBadge.addCss(BooleanCssClass.of(dui_hidden, !showSelectionCount));
+    return this;
   }
 }

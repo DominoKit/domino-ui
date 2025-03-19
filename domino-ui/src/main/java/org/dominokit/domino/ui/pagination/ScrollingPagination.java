@@ -16,8 +16,10 @@
 package org.dominokit.domino.ui.pagination;
 
 import static java.util.Objects.nonNull;
-import static org.dominokit.domino.ui.utils.Domino.*;
+import static org.dominokit.domino.ui.utils.Domino.text;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.stream.IntStream;
 import org.dominokit.domino.ui.icons.lib.Icons;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
@@ -50,6 +52,7 @@ public class ScrollingPagination extends BasePagination<ScrollingPagination> {
   protected PagerNavItem prevSet;
   protected PagerNavItem nextSet;
   private final PagerNavItem totalCountNavItem;
+  private Map<Integer, PagerNavItem> activeWindow = new HashMap<>();
 
   /**
    * Creates a ScrollingPagination instance with default settings.
@@ -165,10 +168,10 @@ public class ScrollingPagination extends BasePagination<ScrollingPagination> {
     lastPage
         .expand()
         .getLink()
-        .addClickListener(evt -> moveToPage(allPages.size(), isChangeListenersPaused()))
+        .addClickListener(evt -> moveToPage(pagesCount, isChangeListenersPaused()))
         .onKeyDown(
             keyEvents ->
-                keyEvents.onEnter(evt -> moveToPage(allPages.size(), isChangeListenersPaused())));
+                keyEvents.onEnter(evt -> moveToPage(pagesCount, isChangeListenersPaused())));
     nextSet
         .expand()
         .getLink()
@@ -235,25 +238,7 @@ public class ScrollingPagination extends BasePagination<ScrollingPagination> {
     clearPages();
 
     if (pages > 0) {
-      IntStream.rangeClosed(1, pages)
-          .forEach(
-              p -> {
-                PagerNavItem page =
-                    PagerNavItem.page(p)
-                        .addClickListener(evt -> moveToPage(p, isChangeListenersPaused()))
-                        .onKeyDown(
-                            keyEvents ->
-                                keyEvents.onEnter(evt -> moveToPage(p, isChangeListenersPaused())));
-
-                if (p <= windowSize) {
-                  if (allPages.isEmpty()) {
-                    pagesList.insertAfter(page, prevPage);
-                  } else {
-                    pagesList.insertAfter(page, allPages.get(allPages.size() - 1));
-                  }
-                }
-                allPages.add(page);
-              });
+      scrollToWindow(0);
     }
 
     dots.expand();
@@ -281,10 +266,37 @@ public class ScrollingPagination extends BasePagination<ScrollingPagination> {
     return this;
   }
 
+  private void scrollToWindow(int windowIndex) {
+    activeWindow.values().forEach(BaseDominoElement::remove);
+    activeWindow.clear();
+    final PagerNavItem[] lastPage = new PagerNavItem[1];
+    IntStream.rangeClosed(
+            (windowIndex * windowSize) + 1,
+            Math.min((windowIndex * windowSize) + windowSize, pagesCount))
+        .forEach(
+            p -> {
+              PagerNavItem page =
+                  PagerNavItem.page(p)
+                      .addClickListener(evt -> moveToPage(p, isChangeListenersPaused()))
+                      .onKeyDown(
+                          keyEvents ->
+                              keyEvents.onEnter(evt -> moveToPage(p, isChangeListenersPaused())));
+
+              if (activeWindow.isEmpty()) {
+                pagesList.insertAfter(page, prevPage);
+              } else {
+                pagesList.insertAfter(page, lastPage[0]);
+              }
+              lastPage[0] = page;
+              activeWindow.put(p, page);
+            });
+    this.windowIndex = windowIndex;
+  }
+
   /** Clears all pages from the pagination. */
   private void clearPages() {
-    allPages.forEach(BaseDominoElement::remove);
-    allPages.clear();
+    activeWindow.values().forEach(BaseDominoElement::remove);
+    activeWindow.clear();
   }
 
   /**
@@ -298,9 +310,11 @@ public class ScrollingPagination extends BasePagination<ScrollingPagination> {
     PagerNavItem oldPage = activePage;
     if (page > 0 && page <= pagesCount) {
 
+      showPageWindow(page);
+
       index = page;
       if (markActivePage) {
-        gotoPage(allPages.get(page - 1));
+        gotoPage(activeWindow.get(page));
       }
 
       if (!silent) {
@@ -326,8 +340,6 @@ public class ScrollingPagination extends BasePagination<ScrollingPagination> {
         prevSet.enable();
         firstPage.enable();
       }
-
-      showPageWindow(page);
     }
   }
 
@@ -337,47 +349,14 @@ public class ScrollingPagination extends BasePagination<ScrollingPagination> {
    * @param page The current page index.
    */
   private void showPageWindow(int page) {
+    if (activeWindow.containsKey(page)) {
+      return;
+    }
+
     if (page % windowSize == 0) {
-      showWindow((page / windowSize) - 1);
+      scrollToWindow((page / windowSize) - 1);
     } else {
-      showWindow(page / windowSize);
-    }
-
-    if (windowIndex == 0) {
-      prevSet.disable();
-    } else {
-      prevSet.enable();
-    }
-
-    int windowCount = (allPages.size() / windowSize) + (allPages.size() % windowSize > 0 ? 1 : 0);
-    if (windowIndex >= windowCount - 1) {
-      nextSet.disable();
-    } else {
-      nextSet.enable();
-    }
-  }
-
-  private void showWindow(int index) {
-    if (index != this.windowIndex) {
-      int windowMinLimit = windowIndex * windowSize;
-      int windowMaxLimit = windowMinLimit + windowSize;
-
-      for (int i = windowMinLimit; i < windowMaxLimit; i++) {
-        if (i < allPages.size()) {
-          allPages.get(i).remove();
-        }
-      }
-
-      int targetWindowMinLimit = index * windowSize;
-      int targetWindowMaxLimit = targetWindowMinLimit + windowSize;
-
-      for (int i = targetWindowMinLimit; i < targetWindowMaxLimit; i++) {
-        if (i < allPages.size()) {
-          pagesList.insertBefore(allPages.get(i), dots);
-        }
-      }
-
-      this.windowIndex = index;
+      scrollToWindow(page / windowSize);
     }
   }
 

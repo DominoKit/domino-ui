@@ -15,6 +15,7 @@
  */
 package org.dominokit.domino.ui.animations;
 
+import static java.util.Objects.isNull;
 import static org.dominokit.domino.ui.utils.Domino.*;
 import static org.dominokit.domino.ui.utils.ElementsFactory.elements;
 
@@ -29,11 +30,14 @@ import org.dominokit.domino.ui.utils.LazyInitializer;
 public class TransitionListeners<E extends Element, T extends IsElement<E>> {
 
   private final T target;
-  private final Set<TransitionListener<? super T>> startListeners = new HashSet<>();
-  private final Set<TransitionListener<? super T>> cancelListeners = new HashSet<>();
-  private final Set<TransitionListener<? super T>> endListeners = new HashSet<>();
+  private EventListener startListener;
+  private EventListener cancelListener;
+  private EventListener endListener;
+  private Set<TransitionListener<? super T>> startListeners;
+  private Set<TransitionListener<? super T>> cancelListeners;
+  private Set<TransitionListener<? super T>> endListeners;
 
-  private final LazyInitializer eventsLazyInitializer;
+  private LazyInitializer eventsLazyInitializer;
 
   public static <E extends Element, T extends IsElement<E>> TransitionListeners<E, T> of(T target) {
     return new TransitionListeners<>(target);
@@ -41,106 +45,168 @@ public class TransitionListeners<E extends Element, T extends IsElement<E>> {
 
   public TransitionListeners(T target) {
     this.target = target;
-    EventListener startListener =
-        evt -> {
-          startListeners.forEach(
-              listener -> {
-                if (evt.target.equals(this.target.element())) {
-                  listener.onTransitionEvent(target);
-                }
+  }
+
+  private LazyInitializer getEventsLazyInitializer() {
+    if (isNull(this.eventsLazyInitializer)) {
+      this.eventsLazyInitializer =
+          new LazyInitializer(
+              () -> {
+                elements
+                    .elementOf(target)
+                    .addEventListener(
+                        "webkitTransitionStart",
+                        getStartListener(target),
+                        EventOptions.of().setCapture(false));
+                elements
+                    .elementOf(target)
+                    .addEventListener(
+                        "oTransitionStart",
+                        getStartListener(target),
+                        EventOptions.of().setCapture(false));
+                elements
+                    .elementOf(target)
+                    .addEventListener(
+                        "transitionstart",
+                        getStartListener(target),
+                        EventOptions.of().setCapture(false));
+
+                elements
+                    .elementOf(target)
+                    .addEventListener(
+                        "webkitTransitionCancel",
+                        getCancelListener(target),
+                        EventOptions.of().setCapture(false));
+                elements
+                    .elementOf(target)
+                    .addEventListener(
+                        "oTransitionCancel",
+                        getCancelListener(target),
+                        EventOptions.of().setCapture(false));
+                elements
+                    .elementOf(target)
+                    .addEventListener(
+                        "transitioncancel",
+                        getCancelListener(target),
+                        EventOptions.of().setCapture(false));
+
+                elements
+                    .elementOf(target)
+                    .addEventListener(
+                        "webkitTransitionEnd",
+                        getEndListener(target),
+                        EventOptions.of().setCapture(false));
+                elements
+                    .elementOf(target)
+                    .addEventListener(
+                        "oTransitionEnd",
+                        getEndListener(target),
+                        EventOptions.of().setCapture(false));
+                elements
+                    .elementOf(target)
+                    .addEventListener(
+                        "transitionend",
+                        getEndListener(target),
+                        EventOptions.of().setCapture(false));
               });
-        };
-    EventListener cancelListener =
-        evt -> {
-          if (evt.target.equals(this.target.element())) {
-            cancelListeners.forEach(listener -> listener.onTransitionEvent(target));
-          }
-        };
-    EventListener endListener =
-        evt -> {
-          if (evt.target.equals(this.target.element())) {
-            endListeners.forEach(listener -> listener.onTransitionEvent(target));
-          }
-        };
-    this.eventsLazyInitializer =
-        new LazyInitializer(
-            () -> {
-              elements
-                  .elementOf(target)
-                  .addEventListener(
-                      "webkitTransitionStart", startListener, EventOptions.of().setCapture(false));
-              elements
-                  .elementOf(target)
-                  .addEventListener(
-                      "oTransitionStart", startListener, EventOptions.of().setCapture(false));
-              elements
-                  .elementOf(target)
-                  .addEventListener(
-                      "transitionstart", startListener, EventOptions.of().setCapture(false));
+    }
+    return this.eventsLazyInitializer;
+  }
 
-              elements
-                  .elementOf(target)
-                  .addEventListener(
-                      "webkitTransitionCancel",
-                      cancelListener,
-                      EventOptions.of().setCapture(false));
-              elements
-                  .elementOf(target)
-                  .addEventListener(
-                      "oTransitionCancel", cancelListener, EventOptions.of().setCapture(false));
-              elements
-                  .elementOf(target)
-                  .addEventListener(
-                      "transitioncancel", cancelListener, EventOptions.of().setCapture(false));
+  private EventListener getEndListener(T target) {
+    if (isNull(this.endListener)) {
+      this.endListener =
+          evt -> {
+            if (evt.target.equals(this.target.element())) {
+              getEndListeners().forEach(listener -> listener.onTransitionEvent(target));
+            }
+          };
+    }
+    return this.endListener;
+  }
 
-              elements
-                  .elementOf(target)
-                  .addEventListener(
-                      "webkitTransitionEnd", endListener, EventOptions.of().setCapture(false));
-              elements
-                  .elementOf(target)
-                  .addEventListener(
-                      "oTransitionEnd", endListener, EventOptions.of().setCapture(false));
-              elements
-                  .elementOf(target)
-                  .addEventListener(
-                      "transitionend", endListener, EventOptions.of().setCapture(false));
-            });
+  private EventListener getStartListener(T target) {
+    if (isNull(startListener)) {
+      startListener =
+          evt -> {
+            getStartListeners()
+                .forEach(
+                    listener -> {
+                      if (evt.target.equals(this.target.element())) {
+                        listener.onTransitionEvent(target);
+                      }
+                    });
+          };
+    }
+    return startListener;
+  }
+
+  private EventListener getCancelListener(T target) {
+    if (isNull(cancelListener)) {
+      this.cancelListener =
+          evt -> {
+            if (evt.target.equals(this.target.element())) {
+              getCancelListeners().forEach(listener -> listener.onTransitionEvent(target));
+            }
+          };
+    }
+    return this.cancelListener;
+  }
+
+  private Set<TransitionListener<? super T>> getEndListeners() {
+    if (isNull(endListeners)) {
+      this.endListeners = new HashSet<>();
+    }
+    return endListeners;
+  }
+
+  private Set<TransitionListener<? super T>> getCancelListeners() {
+    if (isNull(cancelListeners)) {
+      this.cancelListeners = new HashSet<>();
+    }
+    return cancelListeners;
+  }
+
+  private Set<TransitionListener<? super T>> getStartListeners() {
+    if (isNull(this.startListeners)) {
+      this.startListeners = new HashSet<>();
+    }
+    return startListeners;
   }
 
   public TransitionListeners<E, T> onTransitionStart(TransitionListener<? super T> listener) {
-    eventsLazyInitializer.apply();
-    startListeners.add(listener);
+    getEventsLazyInitializer().apply();
+    getStartListeners().add(listener);
     return this;
   }
 
   public TransitionListeners<E, T> removeTransitionStartListener(
       TransitionListener<? super T> listener) {
-    startListeners.remove(listener);
+    getStartListeners().remove(listener);
     return this;
   }
 
   public TransitionListeners<E, T> onTransitionCancel(TransitionListener<? super T> listener) {
-    eventsLazyInitializer.apply();
-    cancelListeners.add(listener);
+    getEventsLazyInitializer().apply();
+    getCancelListeners().add(listener);
     return this;
   }
 
   public TransitionListeners<E, T> removeTransitionCancelListener(
       TransitionListener<? super T> listener) {
-    cancelListeners.remove(listener);
+    getCancelListeners().remove(listener);
     return this;
   }
 
   public TransitionListeners<E, T> onTransitionEnd(TransitionListener<? super T> listener) {
-    eventsLazyInitializer.apply();
-    endListeners.add(listener);
+    getEventsLazyInitializer().apply();
+    getEndListeners().add(listener);
     return this;
   }
 
   public TransitionListeners<E, T> removeTransitionEndListener(
       TransitionListener<? super T> listener) {
-    endListeners.remove(listener);
+    getEndListeners().remove(listener);
     return this;
   }
 }

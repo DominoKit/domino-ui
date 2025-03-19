@@ -58,15 +58,53 @@ public interface HasKeyboardEvents<T> {
    *
    * @param onKeyPress The {@link KeyEventsConsumer} to call when a key is pressed and held down.
    * @return The instance of type {@code T} for method chaining.
+   * @deprecated use keydown instead.
+   * @see <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/div">Element: keypress
+   *     event </a>MDN Web Docs (div element)</a>
    */
+  @Deprecated
   T onKeyPress(KeyEventsConsumer onKeyPress);
 
   /**
    * Stops listening for key press and hold events.
    *
    * @return The instance of type {@code T} for method chaining.
+   * @deprecated use keydown instead.
+   * @see <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/div">Element: keypress
+   *     event </a>MDN Web Docs (div element)</a>
    */
+  @Deprecated
   T stopOnKeyPress();
+
+  /**
+   * Registers an event listener to be called when an input is applied.
+   *
+   * @param onInput The {@link KeyEventsConsumer} to call when an input is applied.
+   * @return The instance of type {@code T} for method chaining.
+   */
+  T onInput(KeyEventsConsumer onInput);
+
+  /**
+   * Stops listening for input events.
+   *
+   * @return The instance of type {@code T} for method chaining.
+   */
+  T stopOnInput();
+
+  /**
+   * Registers an event listener to be called when an beforeinput is applied.
+   *
+   * @param onBeforeInput The {@link KeyEventsConsumer} to call when an beforeinput is applied.
+   * @return The instance of type {@code T} for method chaining.
+   */
+  T onBeforeInput(KeyEventsConsumer onBeforeInput);
+
+  /**
+   * Stops listening for beforeinput events.
+   *
+   * @return The instance of type {@code T} for method chaining.
+   */
+  T stopOnBeforeInput();
 
   /**
    * Gets the keyboard event options associated with this instance.

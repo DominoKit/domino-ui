@@ -34,14 +34,45 @@ import org.gwtproject.timer.client.Timer;
  */
 public class DelayedExecution {
 
+  private final Timer timer;
+  private final int delay;
+
+  private DelayedExecution(DelayedAction delayedAction, int delay) {
+    this.timer =
+        new Timer() {
+          @Override
+          public void run() {
+            delayedAction.doAction();
+          }
+        };
+    this.delay = delay;
+    this.timer.schedule(delay);
+  }
+
+  public DelayedExecution cancel() {
+    this.timer.cancel();
+    return this;
+  }
+
+  public DelayedExecution reschedule() {
+    this.timer.schedule(delay);
+    return this;
+  }
+
+  public DelayedExecution reschedule(int delay) {
+    this.timer.schedule(delay);
+    return this;
+  }
+
   /**
    * Executes the specified {@code delayedAction} after the specified delay defined in {@link
    * DelayedActionConfig#getDelayedExecutionDefaultDelay()}.
    *
    * @param delayedAction The action to be executed after the delay.
    */
-  public static void execute(DelayedAction delayedAction) {
-    execute(delayedAction, DominoUIConfig.CONFIG.getUIConfig().getDelayedExecutionDefaultDelay());
+  public static DelayedExecution execute(DelayedAction delayedAction) {
+    return execute(
+        delayedAction, DominoUIConfig.CONFIG.getUIConfig().getDelayedExecutionDefaultDelay());
   }
 
   /**
@@ -50,13 +81,8 @@ public class DelayedExecution {
    * @param delayedAction The action to be executed after the delay.
    * @param delay The delay in milliseconds before executing the action.
    */
-  public static void execute(DelayedAction delayedAction, int delay) {
-    new Timer() {
-      @Override
-      public void run() {
-        delayedAction.doAction();
-      }
-    }.schedule(delay);
+  public static DelayedExecution execute(DelayedAction delayedAction, int delay) {
+    return new DelayedExecution(delayedAction, delay);
   }
 
   /** A functional interface representing an action to be executed after a delay. */

@@ -96,13 +96,13 @@ public class StretchLoader extends BaseLoader<StretchLoader> implements IsElemen
    */
   @Override
   public void setSize(String width, String height) {
-    onAttached(mutationRecord -> loader.setWidth(width).setHeight(height));
+    onAttached((e, mutationRecord) -> loader.setWidth(width).setHeight(height));
   }
 
   /** Removes the loading text from the loader. */
   @Override
   public void removeLoadingText() {
-    onAttached(mutationRecord -> loadingText.remove());
+    onAttached((e, mutationRecord) -> loadingText.remove());
   }
 
   /**

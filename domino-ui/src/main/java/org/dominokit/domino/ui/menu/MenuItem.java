@@ -131,6 +131,12 @@ public class MenuItem<V> extends AbstractMenuItem<V> {
     return textElement;
   }
 
+  @Override
+  public ZIndexLayer getZIndexLayer() {
+    ZIndexLayer layer = menu.getZIndexLayer();
+    return layer;
+  }
+
   /**
    * Searches for a given token in the text and description of the menu item.
    *

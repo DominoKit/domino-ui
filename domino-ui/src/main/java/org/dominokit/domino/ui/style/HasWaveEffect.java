@@ -25,21 +25,6 @@ package org.dominokit.domino.ui.style;
 public interface HasWaveEffect<T> {
 
   /**
-   * Initializes the wave effect on the implementing object.
-   *
-   * @return the current instance of the implementing object for method chaining
-   */
-  T initWaves();
-
-  /**
-   * Sets the style of the wave effect on the implementing object.
-   *
-   * @param type the desired style of the wave effect
-   * @return the current instance of the implementing object for method chaining
-   */
-  T setWaveStyle(WaveStyle type);
-
-  /**
    * Removes the wave effect from the implementing object.
    *
    * @return the current instance of the implementing object for method chaining

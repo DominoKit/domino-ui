@@ -21,11 +21,14 @@ import static org.dominokit.domino.ui.utils.ElementsFactory.elements;
 
 import java.util.ArrayList;
 import java.util.Deque;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import org.dominokit.domino.ui.config.HasComponentConfig;
 import org.dominokit.domino.ui.config.ZIndexConfig;
+import org.dominokit.domino.ui.utils.HasZIndexLayer;
 import org.dominokit.domino.ui.utils.IsPopup;
 
 /**
@@ -48,6 +51,7 @@ public class DefaultZIndexManager implements ZIndexManager, HasComponentConfig<Z
   private static Deque<IsPopup<?>> modals = new LinkedList<>();
 
   private final List<ZIndexListener> listeners = new ArrayList<>();
+  private Map<HasZIndexLayer.ZIndexLayer, Integer> counters = new HashMap<>();
 
   /**
    * Calculates and returns the next z-index value.
@@ -55,12 +59,24 @@ public class DefaultZIndexManager implements ZIndexManager, HasComponentConfig<Z
    * @return the next z-index value
    */
   @Override
-  public Integer getNextZIndex() {
-    if (isNull(currentZIndex)) {
-      this.currentZIndex = getConfig().getInitialZIndex();
+  public Integer getNextZIndex(HasZIndexLayer<?> element) {
+    HasZIndexLayer.ZIndexLayer layer = element.getZIndexLayer();
+    int nextZIndex = getZIndex(layer);
+    if (element.incrementsZIndex()) {
+      nextZIndex = counters.get(layer) + getConfig().getzIndexIncrement();
+      counters.put(layer, nextZIndex);
     }
-    currentZIndex += getConfig().getzIndexIncrement();
-    return currentZIndex;
+    return nextZIndex;
+  }
+
+  private Integer getZIndex(HasZIndexLayer.ZIndexLayer layer) {
+    if (isNull(layer)) {
+      layer = HasZIndexLayer.ZIndexLayer.Z_LAYER_1;
+    }
+    if (!counters.containsKey(layer)) {
+      counters.put(layer, layer.getzIndexOffset() + getConfig().getInitialZIndex());
+    }
+    return counters.get(layer);
   }
 
   /**
@@ -72,7 +88,7 @@ public class DefaultZIndexManager implements ZIndexManager, HasComponentConfig<Z
   @Override
   public void onPopupOpen(IsPopup<?> popup) {
     if (popup.isModal()) {
-      Integer nextZIndex = getNextZIndex();
+      Integer nextZIndex = getNextZIndex(popup);
       ModalBackDrop.INSTANCE.setZIndex(nextZIndex);
       if (!ModalBackDrop.INSTANCE.isAttached()) {
         elements.body().appendChild(ModalBackDrop.INSTANCE);
@@ -80,8 +96,9 @@ public class DefaultZIndexManager implements ZIndexManager, HasComponentConfig<Z
       modals.push(popup);
     }
 
-    Integer next = getNextZIndex();
+    Integer next = getNextZIndex(popup);
     popup.setZIndex(next);
+    popup.setZIndexLayer(popup.getZIndexLayer());
     listeners.forEach(
         listener -> listener.onZIndexChange(new ZIndexListener.ZIndexInfo(popup, modals)));
   }
@@ -96,9 +113,9 @@ public class DefaultZIndexManager implements ZIndexManager, HasComponentConfig<Z
     if (popup.isModal()) {
       modals.remove(popup);
       if (!modals.isEmpty()) {
-        Integer backdropZIndex = getNextZIndex();
+        Integer backdropZIndex = getNextZIndex(popup);
         ModalBackDrop.INSTANCE.setZIndex(backdropZIndex);
-        Integer modalZIndex = getNextZIndex();
+        Integer modalZIndex = getNextZIndex(popup);
         modals.peek().setZIndex(modalZIndex);
         listeners.forEach(
             listener ->
@@ -106,6 +123,8 @@ public class DefaultZIndexManager implements ZIndexManager, HasComponentConfig<Z
       } else {
         ModalBackDrop.INSTANCE.remove();
       }
+    } else {
+      popup.resetZIndexLayer();
     }
   }
 

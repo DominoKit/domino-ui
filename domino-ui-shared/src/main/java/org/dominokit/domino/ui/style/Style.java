@@ -68,6 +68,12 @@ public class Style<E extends Element> implements DominoStyle<E, Style<E>> {
     return new Style<>(isElement.element());
   }
 
+  @Override
+  public Style<E> setCssProperty(CssProperty property) {
+    style.setProperty(property.getName(), property.getValue());
+    return this;
+  }
+
   /**
    * Sets a CSS property with the specified name and value.
    *

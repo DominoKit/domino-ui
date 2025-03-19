@@ -21,6 +21,8 @@
     text-align: center;
     min-width: var(--dui-info-icon-size);
     width: var(--dui-info-icon-size);
+    min-height: var(--dui-info-icon-size);
+    height: var(--dui-info-icon-size);
     color: var(--dui-info-icon-color);
     background-color: var(--dui-bg, var(--dui-info-icon-background));
 }
@@ -31,10 +33,15 @@
     min-height: var(--dui-info-icon-size);
 }
 
-.dui-info-icon i.dui.mdi,
 .dui-info-icon i.dui.mdi:before {
     font-size: var(--dui-info-icon-font-size);
+    transform: translate(calc(var(--dui-info-icon-size) / 3* -1), calc(var(--dui-info-icon-size) / 3* -1));
+}
+
+.dui-info-icon i.dui.mdi,
+.dui-info-icon i.dui.mdi:before {
     min-width: var(--dui-info-icon-size);
+    min-height: var(--dui-info-icon-size);
     line-height: var(--dui-info-icon-size);
 }
 
@@ -85,7 +92,7 @@
     background-color: rgba(0, 0, 0, 0.05);
     content: ".";
     position: absolute;
-    left: 70px;
+    left: var(--dui-info-icon-size);
     top: 0;
     width: 0;
     height: 100%;

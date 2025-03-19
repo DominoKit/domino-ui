@@ -14,53 +14,6 @@
         flex-direction: row;
     }
 
-    .dui-stepper-track.dui-horizontal {
-        --dui-stepper-track-direction: column;
-        --dui-stepper-track-justify-content: center;
-        --dui-step-tracker-direction: row;
-        width: auto;
-    }
-    .dui-horizontal .dui-tracker-chain {
-        width: auto;
-        align-self: stretch;
-    }
-
-    .dui-horizontal > .dui-stepper-track > .dui-step-track:last-child .dui-tracker-line:after,
-    .dui-stepper-track.dui-horizontal > .dui-step-track:last-child .dui-tracker-line:after {
-        width: var(--dui-spc-4);
-        height: var(--dui-spc-4);
-        border-radius: 9999px;
-        left: calc(var(--dui-spc-1) * -1);
-        bottom: calc(var(--dui-spc-1) * -1);
-        top: auto;
-    }
-
-    .dui-horizontal .dui-tracker-line {
-        height: auto;
-        width: var(--dui-spc-2);
-    }
-
-    .dui-horizontal .dui-tracker-line:before {
-        width: var(--dui-spc-2);
-        height: var(--dui-spc-1);
-        top: calc(var(--dui-spc-1) * -1);
-        left: 0;
-    }
-
-    .dui-horizontal .dui-tracker-line:after {
-        width: var(--dui-spc-2);
-        background-color: var(--dui-accent-clr);
-        height: var(--dui-spc-1);
-        bottom: calc(var(--dui-spc-1) * -1);
-        left: 0;
-        right: auto;
-        top: auto;
-    }
-
-    .dui-stepper.dui-horizontal {
-        --dui-stepper-direction: column;
-    }
-
     .dui.dui-hide-on-small-and-down,
     .dui.dui-hide-on-small-and-down.dui-block,
     .dui.dui-hide-on-small-and-down.dui-block-full,
@@ -175,6 +128,64 @@
 
     .dui.dui-show-on-small-and-down.dui-list-item {
         display: list-item;
+    }
+
+    .dui-stepper.dui-responsive {
+        --dui-stepper-direction: row;
+    }
+
+    .dui-stepper.dui-responsive .dui-stepper-track,
+    .dui-stepper-track.dui-responsive {
+        --dui-stepper-track-direction: column;
+        --dui-step-tracker-direction: row;
+        min-height: 100%;
+    }
+
+    .dui-stepper-track.dui-responsive.dui-reversed ,
+    .dui-stepper.dui-responsive.dui-reversed .dui-stepper-track,
+    .dui-stepper.dui-reversed .dui-stepper-track.dui-responsive{
+        --dui-step-tracker-direction: row-reverse;
+    }
+
+    .dui-stepper-track.dui-responsive .dui-tracker-chain,
+    .dui-stepper.dui-responsive .dui-tracker-chain {
+        height: 100%;
+        width: auto;
+    }
+
+    .dui-stepper.dui-responsive > .dui-stepper-track > .dui-step-track:last-child .dui-tracker-line:after,
+    .dui-stepper-track.dui-responsive > .dui-step-track:last-child .dui-tracker-line:after {
+        width: var(--dui-stepper-track-tail-node-width);
+        height: var(--dui-stepper-track-tail-node-width);
+        border-radius: var(--dui-stepper-track-tail-node-border-radius);
+        top: auto;
+        left: calc(var(--dui-spc-1) * -1);
+        bottom: calc(var(--dui-spc-1) * -1);
+    }
+
+    .dui-stepper-track.dui-responsive .dui-tracker-line,
+    .dui-stepper.dui-responsive .dui-tracker-line {
+        height: auto;
+        width: var(--dui-step-tracker-line-thinkness);
+    }
+
+    .dui-stepper-track.dui-responsive .dui-tracker-line:before,
+    .dui-stepper.dui-responsive .dui-tracker-line:before {
+        height: var(--dui-spc-1);
+        width: var(--dui-step-tracker-line-thinkness);
+        left: auto;
+        top: calc(var(--dui-spc-1) * -1);
+        right: auto;
+    }
+
+    .dui-stepper-track.dui-responsive .dui-tracker-line:after,
+    .dui-stepper.dui-responsive .dui-tracker-line:after {
+        height: var(--dui-spc-1);
+        width: var(--dui-step-tracker-line-thinkness);
+        top: auto;
+        left: auto;
+        bottom: calc(var(--dui-spc-1) * -1);
+        right: auto;
     }
 
 }

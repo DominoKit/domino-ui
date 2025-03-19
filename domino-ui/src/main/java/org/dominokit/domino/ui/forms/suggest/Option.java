@@ -257,6 +257,14 @@ public abstract class Option<V, C extends IsElement<?>, O extends Option<V, C, O
     }
   }
 
+  public O onSelected() {
+    return (O) this;
+  }
+
+  public O onDeselected() {
+    return (O) this;
+  }
+
   /**
    * Functional interface for supplying an instance of a type {@code T} based on a key and a value.
    *

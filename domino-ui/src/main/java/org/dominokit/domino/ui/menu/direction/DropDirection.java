@@ -34,10 +34,9 @@ public interface DropDirection {
   /**
    * position.
    *
-   * @param source a {@link elemental2.dom.Element} object
-   * @param target a {@link elemental2.dom.Element} object
+   * @param context a {@link DropDirectionContext} object
    */
-  void position(Element source, Element target);
+  DropDirection position(DropDirectionContext context);
 
   /**
    * cleanup.
@@ -45,6 +44,8 @@ public interface DropDirection {
    * @param source a {@link elemental2.dom.Element} object
    */
   default void cleanup(Element source) {}
+
+  default void cleanSelf(Element source) {}
 
   /** Constant <code>BEST_FIT_SIDE</code> */
   DropDirection BEST_FIT_SIDE = new BestFitSideDropDirection();

@@ -46,25 +46,23 @@ public class TableRow<T> extends BaseDominoElement<HTMLTableRowElement, TableRow
   private boolean selected = false;
   private final int index;
   private DataTable<T> dataTable;
-  private final Map<String, RowCell<T>> rowCells = new HashMap<>();
+  private Map<String, RowCell<T>> rowCells;
 
-  private Map<String, String> flags = new HashMap<>();
+  private Map<String, String> flags;
 
   private HTMLTableRowElement element = tr().element();
 
-  private List<RowListener<T>> listeners = new ArrayList<>();
+  private List<RowListener<T>> listeners;
   private boolean editable = false;
-  private RowRenderer<T> rowRenderer = new DefaultRowRenderer<>();
+  private RowRenderer<T> rowRenderer;
   private TableRow<T> parent;
-  private List<TableRow<T>> children = new ArrayList<>();
+  private List<TableRow<T>> children;
   private boolean selectionListenersPaused = false;
-  private Set<SelectionListener<? super TableRow<T>, ? super TableRow<T>>> selectionListeners =
-      new HashSet<>();
-  private Set<SelectionListener<? super TableRow<T>, ? super TableRow<T>>> deselectionListeners =
-      new HashSet<>();
+  private Set<SelectionListener<? super TableRow<T>, ? super TableRow<T>>> selectionListeners;
+  private Set<SelectionListener<? super TableRow<T>, ? super TableRow<T>>> deselectionListeners;
   private boolean selectable;
 
-  private FieldsGrouping rowFieldsGroup = FieldsGrouping.create();
+  private FieldsGrouping rowFieldsGroup;
   private boolean draggable = true;
 
   /**
@@ -213,6 +211,9 @@ public class TableRow<T> extends BaseDominoElement<HTMLTableRowElement, TableRow
    */
   @Override
   public Set<SelectionListener<? super TableRow<T>, ? super TableRow<T>>> getSelectionListeners() {
+    if (isNull(this.selectionListeners)) {
+      this.selectionListeners = new HashSet<>();
+    }
     return this.selectionListeners;
   }
 
@@ -224,6 +225,9 @@ public class TableRow<T> extends BaseDominoElement<HTMLTableRowElement, TableRow
   @Override
   public Set<SelectionListener<? super TableRow<T>, ? super TableRow<T>>>
       getDeselectionListeners() {
+    if (isNull(this.deselectionListeners)) {
+      this.deselectionListeners = new HashSet<>();
+    }
     return this.deselectionListeners;
   }
 
@@ -247,7 +251,7 @@ public class TableRow<T> extends BaseDominoElement<HTMLTableRowElement, TableRow
   @Override
   public TableRow<T> triggerSelectionListeners(TableRow<T> source, TableRow<T> selection) {
     if (!this.selectionListenersPaused) {
-      new ArrayList<>(selectionListeners)
+      new ArrayList<>(getSelectionListeners())
           .forEach(
               listener -> {
                 listener.onSelectionChanged(Optional.ofNullable(source), selection);
@@ -266,7 +270,7 @@ public class TableRow<T> extends BaseDominoElement<HTMLTableRowElement, TableRow
   @Override
   public TableRow<T> triggerDeselectionListeners(TableRow<T> source, TableRow<T> selection) {
     if (!this.selectionListenersPaused) {
-      new ArrayList<>(deselectionListeners)
+      new ArrayList<>(getDeselectionListeners())
           .forEach(
               listener -> {
                 listener.onSelectionChanged(Optional.ofNullable(source), selection);
@@ -396,7 +400,14 @@ public class TableRow<T> extends BaseDominoElement<HTMLTableRowElement, TableRow
    * @param listener The listener to be added.
    */
   public void addRowListener(RowListener<T> listener) {
-    listeners.add(listener);
+    getListeners().add(listener);
+  }
+
+  private List<RowListener<T>> getListeners() {
+    if (isNull(this.listeners)) {
+      this.listeners = new ArrayList<>();
+    }
+    return listeners;
   }
 
   /**
@@ -405,12 +416,12 @@ public class TableRow<T> extends BaseDominoElement<HTMLTableRowElement, TableRow
    * @param listener The listener to be removed.
    */
   public void removeListener(RowListener<T> listener) {
-    listeners.remove(listener);
+    getListeners().remove(listener);
   }
 
   /** Notifies all listeners that the row data has been updated. */
   public void fireUpdate() {
-    listeners.forEach(listener -> listener.onChange(TableRow.this));
+    getListeners().forEach(listener -> listener.onChange(TableRow.this));
   }
 
   @Override
@@ -425,7 +436,14 @@ public class TableRow<T> extends BaseDominoElement<HTMLTableRowElement, TableRow
    * @param value The value associated with the flag.
    */
   public void setFlag(String name, String value) {
-    flags.put(name, value);
+    flags().put(name, value);
+  }
+
+  private Map<String, String> flags() {
+    if (isNull(flags)) {
+      this.flags = new HashMap<>();
+    }
+    return flags;
   }
 
   /**
@@ -435,7 +453,7 @@ public class TableRow<T> extends BaseDominoElement<HTMLTableRowElement, TableRow
    * @return The value associated with the flag, or null if the flag doesn't exist.
    */
   public String getFlag(String name) {
-    return flags.get(name);
+    return flags().get(name);
   }
 
   /**
@@ -444,7 +462,7 @@ public class TableRow<T> extends BaseDominoElement<HTMLTableRowElement, TableRow
    * @param name The name of the flag.
    */
   public void removeFlag(String name) {
-    flags.remove(name);
+    flags().remove(name);
   }
 
   /**
@@ -454,7 +472,7 @@ public class TableRow<T> extends BaseDominoElement<HTMLTableRowElement, TableRow
    * @return true if the flag is set, false otherwise.
    */
   public boolean hasFlag(String name) {
-    return flags.containsKey(name);
+    return flags().containsKey(name);
   }
 
   /**
@@ -463,7 +481,7 @@ public class TableRow<T> extends BaseDominoElement<HTMLTableRowElement, TableRow
    * @param rowCell The cell to be added.
    */
   public void addCell(RowCell<T> rowCell) {
-    rowCells.put(rowCell.getColumnConfig().getName(), rowCell);
+    getCells().put(rowCell.getColumnConfig().getName(), rowCell);
   }
 
   /**
@@ -473,7 +491,7 @@ public class TableRow<T> extends BaseDominoElement<HTMLTableRowElement, TableRow
    * @return The cell associated with the name, or null if the cell doesn't exist.
    */
   public RowCell<T> getCell(String name) {
-    return rowCells.get(name);
+    return getCells().get(name);
   }
 
   /**
@@ -497,7 +515,7 @@ public class TableRow<T> extends BaseDominoElement<HTMLTableRowElement, TableRow
    */
   public void updateRow(T record) {
     this.record = record;
-    rowCells.values().forEach(RowCell::updateCell);
+    getCells().values().forEach(RowCell::updateCell);
     this.dataTable.fireTableEvent(new RowRecordUpdatedEvent<>(this));
     this.dataTable.fireTableEvent(
         new TableDataUpdatedEvent<>(
@@ -530,7 +548,14 @@ public class TableRow<T> extends BaseDominoElement<HTMLTableRowElement, TableRow
    * @return An unmodifiable map of {@link RowCell} objects.
    */
   public Map<String, RowCell<T>> getRowCells() {
-    return Collections.unmodifiableMap(rowCells);
+    return Collections.unmodifiableMap(getCells());
+  }
+
+  private Map<String, RowCell<T>> getCells() {
+    if (isNull(rowCells)) {
+      this.rowCells = new HashMap<>();
+    }
+    return rowCells;
   }
 
   /**
@@ -543,8 +568,15 @@ public class TableRow<T> extends BaseDominoElement<HTMLTableRowElement, TableRow
     if (rendererMeta.isPresent()) {
       rendererMeta.get().getRowRenderer().render(dataTable, this);
     } else {
-      rowRenderer.render(dataTable, this);
+      getRowRenderer().render(dataTable, this);
     }
+  }
+
+  private RowRenderer<T> getRowRenderer() {
+    if (isNull(rowRenderer)) {
+      this.rowRenderer = new DefaultRowRenderer<>();
+    }
+    return rowRenderer;
   }
 
   /**
@@ -569,7 +601,7 @@ public class TableRow<T> extends BaseDominoElement<HTMLTableRowElement, TableRow
    */
   public void edit() {
     setEditable(true);
-    this.rowFieldsGroup.removeAllFormElements();
+    getRowFieldsGroup().removeAllFormElements();
     updateRow();
     this.dataTable.getTableConfig().getOnRowEditHandler().accept(this);
   }
@@ -587,7 +619,7 @@ public class TableRow<T> extends BaseDominoElement<HTMLTableRowElement, TableRow
           .saveDirtyRecord(record, getDirtyRecord());
       this.setEditable(false);
       updateRow();
-      rowFieldsGroup.removeAllFormElements();
+      getRowFieldsGroup().removeAllFormElements();
       this.dataTable.getTableConfig().getOnRowFinishEditHandler().accept(this);
     }
   }
@@ -599,7 +631,7 @@ public class TableRow<T> extends BaseDominoElement<HTMLTableRowElement, TableRow
   public void cancelEditing() {
     this.setEditable(false);
     updateRow();
-    rowFieldsGroup.removeAllFormElements();
+    getRowFieldsGroup().removeAllFormElements();
     this.dataTable.getTableConfig().getOnRowFinishEditHandler().accept(this);
   }
 
@@ -643,7 +675,7 @@ public class TableRow<T> extends BaseDominoElement<HTMLTableRowElement, TableRow
                                 .addCss(columnCssRule.getCssRule().getCssClass())));
 
     RowCell<T> rowCell =
-        new RowCell<>(new CellRenderer.CellInfo<>(this, cellElement), columnConfig);
+        new RowCell<>(new CellRenderer.CellInfo<>(this, columnConfig, cellElement), columnConfig);
     rowCell.updateCell();
     addCell(rowCell);
 
@@ -689,6 +721,13 @@ public class TableRow<T> extends BaseDominoElement<HTMLTableRowElement, TableRow
    * @return A list of child {@link TableRow}s.
    */
   public List<TableRow<T>> getChildren() {
+    return rowChildren();
+  }
+
+  private List<TableRow<T>> rowChildren() {
+    if (isNull(children)) {
+      this.children = new ArrayList<>();
+    }
     return children;
   }
 
@@ -725,6 +764,9 @@ public class TableRow<T> extends BaseDominoElement<HTMLTableRowElement, TableRow
    * @return The default fields group for this row.
    */
   public FieldsGrouping getRowFieldsGroup() {
+    if (isNull(rowFieldsGroup)) {
+      rowFieldsGroup = FieldsGrouping.create();
+    }
     return rowFieldsGroup;
   }
 

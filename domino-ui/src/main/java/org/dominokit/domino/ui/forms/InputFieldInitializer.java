@@ -105,7 +105,7 @@ public class InputFieldInitializer<T extends FormElement<T, V>, V, E extends HTM
               countableElement.updateCounter(
                   hasLength.getLength(), countableElement.getMaxCount()));
     }
-    inputElement.onKeyPress(
+    inputElement.onKeyDown(
         keyEvents -> {
           keyEvents.onEnter(
               evt -> {

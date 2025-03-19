@@ -17,11 +17,9 @@ package org.dominokit.domino.ui.menu.direction;
 
 import static elemental2.dom.DomGlobal.window;
 import static org.dominokit.domino.ui.style.SpacingCss.dui_flex_col_reverse;
-import static org.dominokit.domino.ui.utils.Domino.*;
 import static org.dominokit.domino.ui.utils.ElementsFactory.elements;
 import static org.dominokit.domino.ui.utils.Unit.px;
 
-import elemental2.dom.DOMRect;
 import elemental2.dom.Element;
 import org.dominokit.domino.ui.style.Style;
 
@@ -29,52 +27,71 @@ import org.dominokit.domino.ui.style.Style;
 public class LeftMiddleDropDirection implements DropDirection {
   /** {@inheritDoc} */
   @Override
-  public void position(Element source, Element target) {
+  public DropDirection position(DropDirectionContext context) {
+    Element source = context.getSource();
+    cleanup(source);
     dui_flex_col_reverse.remove(source);
-    DOMRect targetRect = target.getBoundingClientRect();
-    DOMRect sourceRect = source.getBoundingClientRect();
 
-    double delta = 0;
-    double availableBelowSpace = window.innerHeight - targetRect.bottom;
-    if (availableBelowSpace < (sourceRect.height / 2)) {
-      delta = ((sourceRect.height / 2) - availableBelowSpace) * -1;
+    SpaceChecker spaceChecker = context.getSpaceChecker();
+    ;
+    Style.of(source).style.setProperty("top", px.of(0));
+    Style.of(source).style.setProperty("left", px.of(0));
+
+    if (spaceChecker.hasSpaceOnLeft()) {
+      spaceChecker = context.newSpaceChecker();
+      double spaceNeeded = (spaceChecker.getSourceHeight() - spaceChecker.getTargetHeight()) / 2;
+      double spaceDown = spaceChecker.getAvailableSpaceOnBottom();
+      double spaceUp = spaceChecker.getAvailableSpaceOnTop();
+      double delta = 0;
+      if (spaceNeeded > spaceDown && spaceNeeded > spaceUp) {
+        return MIDDLE_SCREEN.position(context);
+      } else if (spaceNeeded > spaceUp) {
+        delta = spaceNeeded - spaceUp;
+      } else if (spaceNeeded > spaceDown) {
+        delta = -1 * (spaceNeeded - spaceDown);
+      }
+
+      double arrowOffset = (delta + (spaceChecker.getTargetHeight() / 2));
+
+      dui_dd_left_middle.apply(source);
+      elements.elementOf(source).setCssProperty("--dui-dd-position-delta", arrowOffset + "px");
+      elements
+          .elementOf(source)
+          .setCssProperty("--dui-menu-drop-min-width", spaceChecker.getTargetWidth() + "px");
+
+      double pageYOffset = window.pageYOffset;
+      double targetTop = spaceChecker.getTargetTop();
+      double hh = (spaceChecker.getSourceHeight() - spaceChecker.getTargetHeight()) / 2;
+      double top = targetTop + pageYOffset - hh + delta;
+      Style.of(source).style.setProperty("top", px.of(top));
+      double left =
+          spaceChecker.getTargetLeft() - spaceChecker.getSourceWidth() + window.pageXOffset;
+      Style.of(source).style.setProperty("left", px.of(left));
+
+      return this;
+    } else if (spaceChecker.hasSpaceOnRight()) {
+      return RIGHT_MIDDLE.position(context);
+    } else if (spaceChecker.hasSpaceAbove()) {
+      return TOP_MIDDLE.position(context);
+    } else if (spaceChecker.hasSpaceBelow()) {
+      return BOTTOM_MIDDLE.position(context);
+    } else {
+      return MIDDLE_SCREEN.position(context);
     }
-
-    double availableUpSpace = targetRect.top;
-    if (availableUpSpace < (sourceRect.height / 2)) {
-      delta = ((sourceRect.height / 2) - availableUpSpace);
-    }
-
-    double left =
-        targetRect.top + window.pageYOffset - ((sourceRect.height - targetRect.height) / 2) + delta;
-    Style.of(source).style.setProperty("top", px.of(Math.max(left, 0)));
-
-    Style.of(source).style.setProperty("left", px.of(targetRect.left));
-
-    dui_dd_left_middle.apply(source);
-    elements
-        .elementOf(source)
-        .setCssProperty("--dui-dd-position-delta", (delta + (targetRect.height / 2)) + "px");
-    elements.elementOf(source).setCssProperty("--dui-menu-drop-min-width", targetRect.width + "px");
-
-    DOMRect newRect = source.getBoundingClientRect();
-    Style.of(source)
-        .style
-        .setProperty(
-            "left",
-            px.of(
-                targetRect.left
-                    - (newRect.left - targetRect.left)
-                    + window.pageXOffset
-                    - sourceRect.width
-                    - (source.hasAttribute("dui-position-x-offset")
-                        ? Double.parseDouble(source.getAttribute("dui-position-x-offset"))
-                        : 0)));
   }
 
   /** {@inheritDoc} */
   @Override
   public void cleanup(Element source) {
+    cleanSelf(source);
+    RIGHT_MIDDLE.cleanSelf(source);
+    TOP_MIDDLE.cleanSelf(source);
+    BOTTOM_MIDDLE.cleanSelf(source);
+    MIDDLE_SCREEN.cleanSelf(source);
+  }
+
+  @Override
+  public void cleanSelf(Element source) {
     dui_dd_left_middle.remove(source);
     elements.elementOf(source).removeCssProperty("--dui-dd-position-delta");
     elements.elementOf(source).removeCssProperty("--dui-menu-drop-min-width");

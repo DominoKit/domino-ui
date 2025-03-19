@@ -8,6 +8,7 @@
     --dui-color-alternate: var(--dui-color-5);
     /*--dui-text-color: var(--dui-color-dark);*/
     --dui-highlight-color: var(--dui-clr-black);
+    --dui-color-invert : var(--dui-clr-black);
 
     color: var(--dui-color);
 
@@ -419,7 +420,7 @@
     --dui-datatable-border-color: var(--dui-accent-d-4);
     --dui-datatable-column-resizer-color: var(--dui-accent-d-2);
     --dui-datatable-pin-column-border-color: var(--dui-accent-d-2);
-    --dui-nav-bar-description-color: inherit;
+    --dui-nav-bar-description-color: --dui-color;
     --dui-datatable-tfoot-bg-color: var(--dui-accent-d-4);
 
 }

@@ -27,4 +27,16 @@ public interface SlidersConfig extends ComponentConfig {
   default CssClass getDefaultSliderThumbStyle() {
     return SliderStyles.dui_slider_thumb_rounded;
   }
+
+  /**
+   * @return a boolean to set if the slider thumb disappears or not after finishes dragging the
+   *     slider
+   */
+  default boolean autoHideThumb() {
+    return true;
+  }
+
+  default String formatSliderThumbValue(double value) {
+    return String.valueOf(Double.valueOf(value).intValue());
+  }
 }

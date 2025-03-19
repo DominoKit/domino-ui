@@ -17,7 +17,6 @@ package org.dominokit.domino.ui.menu.direction;
 
 import static elemental2.dom.DomGlobal.window;
 import static org.dominokit.domino.ui.style.SpacingCss.dui_flex_col_reverse;
-import static org.dominokit.domino.ui.utils.Domino.*;
 import static org.dominokit.domino.ui.utils.ElementsFactory.elements;
 import static org.dominokit.domino.ui.utils.Unit.px;
 
@@ -29,7 +28,9 @@ import org.dominokit.domino.ui.style.Style;
 public class MiddleOfScreenDropDirection implements DropDirection {
   /** {@inheritDoc} */
   @Override
-  public void position(Element source, Element target) {
+  public DropDirection position(DropDirectionContext context) {
+    Element source = context.getSource();
+    Element target = context.getTarget();
     dui_flex_col_reverse.remove(source);
     DOMRect sourceRect = source.getBoundingClientRect();
 
@@ -42,11 +43,17 @@ public class MiddleOfScreenDropDirection implements DropDirection {
     elements
         .elementOf(source)
         .setCssProperty("--dui-menu-drop-min-width", target.getBoundingClientRect().width + "px");
+    return this;
   }
 
   /** {@inheritDoc} */
   @Override
   public void cleanup(Element source) {
+    cleanSelf(source);
+  }
+
+  @Override
+  public void cleanSelf(Element source) {
     dui_dd_middle_screen.remove(source);
     elements.elementOf(source).removeCssProperty("--dui-menu-drop-min-width");
   }

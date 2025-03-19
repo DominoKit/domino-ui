@@ -25,7 +25,7 @@ import org.dominokit.domino.ui.menu.MenuItem;
  * Represents a selectable option within a dropdown menu or suggestion list.
  *
  * <p>This class extends the {@link Option} class and is designed for use with a {@link SuggestBox}
- * or similar components to represent selectable options.
+ * and {@link Select} or similar components to represent selectable options.
  *
  * <p>Usage Example:
  *

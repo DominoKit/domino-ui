@@ -31,6 +31,14 @@ public interface DominoStyle<E extends Element, R> {
   /**
    * Sets a CSS property with the given name and string value.
    *
+   * @param property {@link CssProperty}
+   * @return The updated style.
+   */
+  R setCssProperty(CssProperty property);
+
+  /**
+   * Sets a CSS property with the given name and string value.
+   *
    * @param name The name of the CSS property.
    * @param value The string value for the CSS property.
    * @return The updated style.

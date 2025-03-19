@@ -38,7 +38,7 @@
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
-}
+    align-items: center;}
 
 .dui-btn-text {
     order: var(--dui-btn-text-order);
@@ -97,7 +97,6 @@ fieldset[disabled] .dui-btn {
 .dui-btn.dui-lg,
 .dui-btn-group.dui-lg > .dui-btn {
     font-size: var(--dui-btn-lg-font-size);
-    line-height: var(--dui-btn-lg-line-height);
     padding: var(--dui-btn-lg-padding);
     --dui-btn-text-height:25px;
 }
@@ -105,7 +104,6 @@ fieldset[disabled] .dui-btn {
 .dui-btn.dui-md,
 .dui-btn-group.dui-md > .dui-btn {
     font-size: var(--dui-btn-md-font-size);
-    line-height: var(--dui-btn-md-line-height);
     padding: var(--dui-btn-md-padding);
     --dui-btn-text-height:28px;
 }
@@ -113,7 +111,6 @@ fieldset[disabled] .dui-btn {
 .dui-btn.dui-sm,
 .dui-btn-group.dui-sm > .dui-btn {
     font-size: var(--dui-btn-sm-font-size);
-    line-height: var(--dui-btn-sm-line-height);
     padding: var(--dui-btn-sm-padding);
     --dui-btn-text-height:27px;
 }
@@ -121,7 +118,6 @@ fieldset[disabled] .dui-btn {
 .dui-btn.dui-xs,
 .dui-btn-group.dui-xs > .dui-btn {
     font-size: var(--dui-btn-xs-font-size);
-    line-height: var(--dui-btn-xs-line-height);
     padding: var(--dui-btn-xs-padding);
     --dui-btn-text-height:29px;
 }

@@ -18,9 +18,11 @@ package org.dominokit.domino.ui.forms.suggest;
 import static java.util.Objects.isNull;
 import static java.util.Objects.nonNull;
 
+import elemental2.dom.DomGlobal;
 import java.util.Objects;
 import java.util.Optional;
 import org.dominokit.domino.ui.elements.DivElement;
+import org.dominokit.domino.ui.utils.BaseDominoElement;
 
 /**
  * Represents a dropdown select control allowing the user to choose a single option from a list.
@@ -85,6 +87,22 @@ public class Select<V> extends AbstractSelect<V, V, DivElement, SelectOption<V>,
   }
 
   @Override
+  protected void onTypingStart() {
+    DomGlobal.console.info("Typing typing typing -----");
+    Optional.ofNullable(selectedOption)
+        .ifPresent(
+            vSelectOption -> {
+              DomGlobal.console.info("Hide Hide Hide -----");
+              vSelectOption.hide();
+            });
+  }
+
+  @Override
+  protected void onTypingEnd() {
+    Optional.ofNullable(selectedOption).ifPresent(BaseDominoElement::show);
+  }
+
+  @Override
   protected Select<V> clearValue(boolean silent) {
     Select<V> thisSelect = super.clearValue(silent);
     this.selectedOption = null;
@@ -125,6 +143,7 @@ public class Select<V> extends AbstractSelect<V, V, DivElement, SelectOption<V>,
 
       updateTextValue();
       this.selectedOption = option;
+      option.addCss(() -> "dui-selected-option");
       fieldInput.appendChild(option);
 
       if (!silent) {

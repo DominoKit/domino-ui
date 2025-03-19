@@ -152,6 +152,7 @@ fieldset.dui {
     order: 40;
     font: var(--dui-form-field-postfix-font);
     line-height: var(--dui-form-field-postfix-line-height);
+    display: flex;
 }
 
 .dui-form-field .dui-postfix-addon {
@@ -202,7 +203,7 @@ fieldset.dui {
     gap: var(--dui-form-field-values-gap, var(--dui-spc-1));
     border: var(--dui-form-field-input-border);
     font: var(--dui-form-field-input-line-font);
-    line-height: var(--dui-form-field-input-line-hieght);
+    line-height: var(--dui-form-field-input-line-height);
     overflow: var(--dui-form-input-overflow, hidden);
     white-space: var(--dui-form-field-input-whitespace);
     text-overflow: ellipsis;
@@ -371,11 +372,16 @@ textarea.dui-field-input {
     font: var(--dui-form-field-sub-label-font);
 }
 .dui-radio-label{
-    height: 24px;
+    height: var(--dui-spc-px-24);
 }
 
 .dui-checkbox-label span {
     line-height: var(--dui-checkbox-label-line-height);
+}
+
+.dui-form-checkbox .dui-field-input-wrapper {
+    padding-top: 0;
+    padding-bottom: 0;
 }
 
 .dui-form-radio:focus-within .dui-radio-label:before,
@@ -384,6 +390,17 @@ textarea.dui-field-input {
 .dui-form-checkbox .dui-checkbox-label:hover:after {
     outline: var(--dui-accent, var(--dui-form-field-checkbox-outline-color)) var(--dui-form-field-checkbox-outline-style) var(--dui-form-field-checkbox-outline-width);
     outline-offset: var(--dui-form-field-checkbox-outline-offset);
+}
+
+.dui-form-radio-group[readonly] .dui-form-radio,
+.dui-form-radio[readonly] {
+    pointer-events: none;
+}
+
+.dui-disable-transition .dui-form-checkbox .dui-checkbox-label:before,
+.dui-form-checkbox .dui-checkbox-label.dui-disable-transition :before,
+.dui-form-checkbox.dui-disable-transition  .dui-checkbox-label:before {
+    transition: none;
 }
 
 .dui-form-checkbox .dui-checkbox-label:before {
@@ -413,6 +430,16 @@ textarea.dui-field-input {
 .dui-form-checkbox.dui-form-checkbox-filled .dui-checkbox-label:after {
     background-color: var(--dui-accent, var(--dui-form-field-checkbox-square-filled-background));
 }
+
+.dui-disable-transition .dui-form-checkbox.dui-form-checkbox-filled .dui-checkbox-label:after,
+.dui-form-checkbox.dui-form-checkbox-filled.dui-disable-transition .dui-checkbox-label:after,
+.dui-form-checkbox.dui-form-checkbox-filled .dui-checkbox-label.dui-disable-transition:after,
+.dui-disable-transition .dui-form-checkbox .dui-checkbox-label:after,
+.dui-form-checkbox.dui-disable-transition .dui-checkbox-label:after,
+.dui-form-checkbox .dui-checkbox-label.dui-disable-transition :after {
+    transition: none;
+}
+
 
 .dui-form-checkbox.dui-form-checkbox-filled .dui-checkbox-label:after,
 .dui-form-checkbox .dui-checkbox-label:after {
@@ -516,10 +543,15 @@ textarea.dui-field-input {
     --dui-accent-d-2: var(--dui-form-field-disabled-color-darker);
     pointer-events: none;
 }
+
 .dui-form-radio[disabled] .dui-radio-label{
     color: var(--dui-form-field-disabled-color);
 }
 
+.dui-form-radio-group[readonly] .dui-form-radio,
+.dui-form-radio[readonly] {
+    pointer-events: none;
+}
 
 .dui-form-radio {
     position: relative;
@@ -727,7 +759,7 @@ textarea.dui-field-input {
     border: none;
     border-radius: var(--dui-form-field-wrapper-radius);
     font: var(--dui-form-field-input-line-font);
-    line-height: var(--dui-form-field-input-line-hieght);
+    line-height: var(--dui-form-field-input-line-height);
     overflow: var(--dui-form-input-overflow, hidden);
     white-space: nowrap;
     text-overflow: ellipsis;
@@ -737,4 +769,61 @@ textarea.dui-field-input {
 
 .dui-auto-type-input:focus{
     outline: none;
+}
+
+.dui-form-checkbox.dui-minified {
+    padding: 0;
+    margin: 0;
+    --dui-form-field-input-height: 22px;
+}
+
+.dui-form-checkbox.dui-minified .dui-field-label,
+.dui-form-checkbox.dui-minified:not(.dui-hide-label) .dui-field-label {
+    display: none;
+    width: auto;
+    min-width: auto;
+}
+.dui-form-checkbox.dui-minified .dui-field-input-wrapper {
+    padding: 0;
+}
+
+
+
+.dui-inlined-label .dui-form-field:not(.dui-form-checkbox):not(.dui-form-switch):not(.dui-form-radio-group),
+.dui-form-field:not(.dui-form-checkbox):not(.dui-form-switch):not(.dui-form-radio-group).dui-inlined-label {
+    position: relative;
+    margin-top: var(--dui-spc-4);
+}
+
+.dui-inlined-label .dui-form-field:not(.dui-form-checkbox):not(.dui-form-switch):not(.dui-form-radio-group) .dui-field-label,
+.dui-form-field:not(.dui-form-checkbox):not(.dui-form-switch):not(.dui-form-radio-group).dui-inlined-label .dui-field-label {
+    position: absolute;
+    top: calc(var(--dui-spc-4) * -1);
+    left: var(--dui-spc-2);
+    min-width: auto;
+    padding: var(--dui-spc-px-1) var(--dui-spc-px-6);
+    font-size: var(--dui-spc-px-14);
+    z-index: 1;
+}
+
+.dui-inlined-label .dui-form-field:not(.dui-form-checkbox):not(.dui-form-switch):not(.dui-form-radio-group) .dui-field-label:before,
+.dui-form-field:not(.dui-form-checkbox):not(.dui-form-switch):not(.dui-form-radio-group).dui-inlined-label .dui-field-label:before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 16px;
+    width: 100%;
+    height: 1px;
+    z-index: -1;
+    background-color: var(--dui-clr-dominant);
+}
+
+.dui-inlined-label .dui-form-field[readonly]:not(.dui-form-checkbox):not(.dui-form-switch):not(.dui-form-radio-group) .dui-field-label:before,
+.dui-form-field[readonly]:not(.dui-form-checkbox):not(.dui-form-switch):not(.dui-form-radio-group).read.dui-inlined-label .dui-field-label:before {
+    background-color: var(--dui-form-field-readonly-background);
+}
+
+.dui-inlined-label .dui-form-field[disabled]:not(.dui-form-checkbox):not(.dui-form-switch):not(.dui-form-radio-group) .dui-field-label:before,
+.dui-form-field[disabled]:not(.dui-form-checkbox):not(.dui-form-switch):not(.dui-form-radio-group).read.dui-inlined-label .dui-field-label:before {
+    background-color: var(--dui-form-field-disabled-background);
 }

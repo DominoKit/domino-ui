@@ -17,7 +17,6 @@ package org.dominokit.domino.ui.forms;
 
 import static java.util.Objects.isNull;
 import static java.util.Objects.nonNull;
-import static org.dominokit.domino.ui.utils.Domino.*;
 import static org.dominokit.domino.ui.utils.Domino.div;
 import static org.dominokit.domino.ui.utils.Domino.input;
 
@@ -32,7 +31,16 @@ import org.dominokit.domino.ui.elements.DivElement;
 import org.dominokit.domino.ui.events.EventType;
 import org.dominokit.domino.ui.forms.validations.InputAutoValidator;
 import org.dominokit.domino.ui.forms.validations.ValidationResult;
-import org.dominokit.domino.ui.utils.*;
+import org.dominokit.domino.ui.utils.ApplyFunction;
+import org.dominokit.domino.ui.utils.DominoElement;
+import org.dominokit.domino.ui.utils.HasMinMaxValue;
+import org.dominokit.domino.ui.utils.HasPlaceHolder;
+import org.dominokit.domino.ui.utils.HasPostfix;
+import org.dominokit.domino.ui.utils.HasPrefix;
+import org.dominokit.domino.ui.utils.HasStep;
+import org.dominokit.domino.ui.utils.LazyChild;
+import org.dominokit.domino.ui.utils.PostfixElement;
+import org.dominokit.domino.ui.utils.PrefixElement;
 import org.gwtproject.i18n.client.NumberFormat;
 import org.gwtproject.i18n.shared.cldr.LocaleInfo;
 import org.gwtproject.i18n.shared.cldr.NumberConstants;
@@ -89,7 +97,7 @@ public abstract class NumberBox<T extends NumberBox<T, V>, V extends Number>
     setAutoValidation(true);
     enableFormatting();
 
-    getInputElement().addEventListener(EventType.keypress, this::onKeyPress);
+    getInputElement().addEventListener(EventType.keydown, this::onKeyDown);
     getInputElement().addEventListener(EventType.paste, this::onPaste);
   }
 
@@ -210,9 +218,11 @@ public abstract class NumberBox<T extends NumberBox<T, V>, V extends Number>
    *
    * @param event The keyboard event associated with the key press.
    */
-  protected void onKeyPress(Event event) {
+  protected void onKeyDown(Event event) {
     KeyboardEvent keyboardEvent = Js.uncheckedCast(event);
-    if (!keyboardEvent.key.matches(createKeyMatch())) event.preventDefault();
+    if (keyboardEvent.key.length() == 1 && !keyboardEvent.key.matches(createKeyMatch())) {
+      event.preventDefault();
+    }
   }
 
   /**

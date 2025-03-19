@@ -17,6 +17,7 @@ package org.dominokit.domino.ui.dialogs;
 
 import java.util.Deque;
 import java.util.Optional;
+import org.dominokit.domino.ui.utils.HasZIndexLayer;
 import org.dominokit.domino.ui.utils.IsPopup;
 
 /**
@@ -37,7 +38,7 @@ public interface ZIndexManager {
    *
    * @return the next z-index
    */
-  Integer getNextZIndex();
+  Integer getNextZIndex(HasZIndexLayer<?> element);
 
   /**
    * Notifies the manager that a popup has been opened.

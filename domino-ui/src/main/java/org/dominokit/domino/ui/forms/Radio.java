@@ -93,7 +93,7 @@ public class Radio<T> extends BaseDominoElement<HTMLDivElement, Radio<T>>
     withValue(value);
     EventListener listener =
         evt -> {
-          if (isEnabled() && !isChecked()) {
+          if (isEnabled() && !isChecked() && !isReadOnly()) {
             check();
           }
         };
@@ -273,7 +273,7 @@ public class Radio<T> extends BaseDominoElement<HTMLDivElement, Radio<T>>
       return this;
     }
     if (nonNull(radioGroup)) {
-      if (!(radioGroup.isReadOnly() || radioGroup.isDisabled())) {
+      if (!radioGroup.isDisabled()) {
         T oldValue = (T) radioGroup.getValue();
         radioGroup.getRadios().stream()
             .filter(Radio::isChecked)
@@ -540,8 +540,11 @@ public class Radio<T> extends BaseDominoElement<HTMLDivElement, Radio<T>>
   public Radio<T> focus() {
     if (!isDisabled()) {
       if (!isAttached()) {
-        ElementUtil.onAttach(
-            getInputElement(), mutationRecord -> getInputElement().element().focus());
+        getInputElement()
+            .onAttached(
+                (target, mutationRecord) -> {
+                  getInputElement().element().focus();
+                });
       } else {
         getInputElement().element().focus();
       }
@@ -557,11 +560,11 @@ public class Radio<T> extends BaseDominoElement<HTMLDivElement, Radio<T>>
   @Override
   public Radio<T> unfocus() {
     if (!isAttached()) {
-      ElementUtil.onAttach(
-          getInputElement(),
-          mutationRecord -> {
-            getInputElement().element().blur();
-          });
+      getInputElement()
+          .onAttached(
+              (target, mutationRecord) -> {
+                getInputElement().element().blur();
+              });
     } else {
       getInputElement().element().blur();
     }
@@ -754,5 +757,10 @@ public class Radio<T> extends BaseDominoElement<HTMLDivElement, Radio<T>>
   public T withRadioGroup(ChildHandler<Radio<T>, RadioGroup<? super T>> handler) {
     handler.apply(this, radioGroup);
     return (T) this;
+  }
+
+  @Override
+  public boolean isReadOnly() {
+    return super.isReadOnly() || radioGroup.isReadOnly();
   }
 }

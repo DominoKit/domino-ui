@@ -15,18 +15,35 @@
  */
 package org.dominokit.domino.ui.utils;
 
-import static org.dominokit.domino.ui.utils.Domino.*;
+public interface HasZIndexLayer<T> {
 
-import elemental2.dom.MutationRecord;
+  String DUI_Z_INDEX_LAYER = "dui-z-index-layer";
 
-/** A functional interface for attaching and detaching callback methods to observe DOM mutations. */
-@FunctionalInterface
-public interface AttachDetachCallback {
+  ZIndexLayer getZIndexLayer();
 
-  /**
-   * Invoked when observed DOM mutations occur.
-   *
-   * @param mutationRecord The mutation record containing information about the DOM mutations.
-   */
-  void onObserved(MutationRecord mutationRecord);
+  T setZIndexLayer(ZIndexLayer layer);
+
+  void resetZIndexLayer();
+
+  default boolean incrementsZIndex() {
+    return false;
+  }
+
+  enum ZIndexLayer {
+    Z_LAYER_1(110),
+    Z_LAYER_2(5001000),
+    Z_LAYER_3(10000000),
+    Z_LAYER_4(20000000),
+    ;
+
+    private final int zIndexOffset;
+
+    ZIndexLayer(int zIndexOffset) {
+      this.zIndexOffset = zIndexOffset;
+    }
+
+    public int getzIndexOffset() {
+      return zIndexOffset;
+    }
+  }
 }

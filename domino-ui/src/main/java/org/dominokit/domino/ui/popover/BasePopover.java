@@ -16,6 +16,7 @@
 package org.dominokit.domino.ui.popover;
 
 import static java.util.Objects.isNull;
+import static java.util.Objects.nonNull;
 import static org.dominokit.domino.ui.collapsible.Collapsible.DUI_COLLAPSED;
 import static org.dominokit.domino.ui.utils.Domino.*;
 
@@ -24,10 +25,11 @@ import java.util.Objects;
 import java.util.function.Supplier;
 import jsinterop.base.Js;
 import org.dominokit.domino.ui.config.HasComponentConfig;
-import org.dominokit.domino.ui.config.ZIndexConfig;
+import org.dominokit.domino.ui.config.PopoverConfig;
 import org.dominokit.domino.ui.elements.DivElement;
 import org.dominokit.domino.ui.events.EventType;
 import org.dominokit.domino.ui.menu.direction.DropDirection;
+import org.dominokit.domino.ui.menu.direction.DropDirectionContext;
 import org.dominokit.domino.ui.utils.*;
 
 /**
@@ -58,7 +60,7 @@ public abstract class BasePopover<T extends BasePopover<T>>
     implements IsPopup<T>,
         PopoverStyles,
         FollowOnScroll.ScrollFollower,
-        HasComponentConfig<ZIndexConfig> {
+        HasComponentConfig<PopoverConfig> {
   protected final Element targetElement;
   protected final EventListener closeAllListener;
   private DivElement root;
@@ -67,14 +69,17 @@ public abstract class BasePopover<T extends BasePopover<T>>
   private DivElement header;
   private DivElement body;
 
-  private DropDirection popupPosition = DropDirection.BEST_MIDDLE_UP_DOWN;
+  private DropDirection popupPosition;
 
   private boolean closeOthers = true;
   protected final EventListener closeListener;
   private final FollowOnScroll followOnScroll;
   private Supplier<Boolean> openCondition = () -> true;
   private EventListener lostFocusListener;
-  private boolean closeOnBlur = DominoUIConfig.CONFIG.isClosePopupOnBlur();
+  private boolean closeOnBlur;
+  private PopoverConfig ownConfig;
+  private int openDelay;
+  protected DelayedExecution delayedExecution;
 
   /**
    * Constructs a new BasePopover associated with the provided target element. BasePopover is the
@@ -97,6 +102,10 @@ public abstract class BasePopover<T extends BasePopover<T>>
                         .appendChild(body = div().addCss(dui_popover_body)));
 
     init((T) this);
+    this.popupPosition = getConfig().getDefaultPopoverDropDirection();
+    this.closeOnBlur = getConfig().closeOnBlur();
+    this.openDelay = getConfig().openDelay();
+
     followOnScroll = new FollowOnScroll(targetElement, this);
 
     closeListener = getCloseListener();
@@ -108,15 +117,16 @@ public abstract class BasePopover<T extends BasePopover<T>>
         });
     elementOf(targetElement)
         .onDetached(
-            mutationRecord -> {
+            (e, mutationRecord) -> {
               close();
               DomGlobal.document.body.removeEventListener("blur", lostFocusListener, true);
             });
 
     onDetached(
-        mutationRecord -> {
+        (e, mutationRecord) -> {
           body().removeEventListener(EventType.keydown.getName(), closeListener);
           DomGlobal.document.body.removeEventListener("blur", lostFocusListener, true);
+          close();
         });
     addCollapseListener(this::doClose);
     closeAllListener =
@@ -143,6 +153,30 @@ public abstract class BasePopover<T extends BasePopover<T>>
                 0);
           }
         };
+  }
+
+  @Override
+  public PopoverConfig getOwnConfig() {
+    return ownConfig;
+  }
+
+  public T setOwnConfig(PopoverConfig ownConfig) {
+    this.ownConfig = ownConfig;
+    return (T) this;
+  }
+
+  /** @return delay in milliseconds before showing the popover. */
+  public int getOpenDelay() {
+    return openDelay;
+  }
+
+  /**
+   * @param openDelay milliseconds to wait before showing the popover.
+   * @return same component instance
+   */
+  public T setOpenDelay(int openDelay) {
+    this.openDelay = openDelay;
+    return (T) this;
   }
 
   /**
@@ -187,6 +221,17 @@ public abstract class BasePopover<T extends BasePopover<T>>
    * the body, positions the popover, and starts monitoring for scroll events (if applicable).
    */
   protected void doOpen() {
+    if (getOpenDelay() > 0) {
+      if (nonNull(this.delayedExecution)) {
+        this.delayedExecution.cancel();
+      }
+      this.delayedExecution = DelayedExecution.execute(this::openPopover, getOpenDelay());
+    } else {
+      openPopover();
+    }
+  }
+
+  private void openPopover() {
     body().appendChild(root.element());
     super.expand();
     doPosition();
@@ -207,7 +252,7 @@ public abstract class BasePopover<T extends BasePopover<T>>
    * @param position The drop direction to position the popover.
    */
   protected void doPosition(DropDirection position) {
-    popupPosition.position(root.element(), targetElement);
+    popupPosition.position(DropDirectionContext.of(root.element(), targetElement));
   }
 
   /**
@@ -238,6 +283,9 @@ public abstract class BasePopover<T extends BasePopover<T>>
     body().removeEventListener(EventType.keydown.getName(), closeListener);
     getConfig().getZindexManager().onPopupClose(this);
     triggerCloseListeners((T) this);
+    if (nonNull(this.delayedExecution)) {
+      this.delayedExecution.cancel();
+    }
   }
 
   /**
@@ -279,7 +327,14 @@ public abstract class BasePopover<T extends BasePopover<T>>
   public T setPosition(DropDirection position) {
     this.popupPosition.cleanup(this.element());
     this.popupPosition = position;
+    if (isAttached()) {
+      doPosition();
+    }
     return (T) this;
+  }
+
+  public DropDirection getPopupPosition() {
+    return popupPosition;
   }
 
   /**
@@ -405,6 +460,11 @@ public abstract class BasePopover<T extends BasePopover<T>>
   public T setCloseOnBlur(boolean closeOnBlur) {
     this.closeOnBlur = closeOnBlur;
     return (T) this;
+  }
+
+  @Override
+  public ZIndexLayer getZIndexLayer() {
+    return elementOf(targetElement).getZIndexLayer();
   }
 
   /**

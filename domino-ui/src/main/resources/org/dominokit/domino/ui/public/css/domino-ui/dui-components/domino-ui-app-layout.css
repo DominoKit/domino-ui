@@ -20,17 +20,17 @@
     --dui-left-drawer-padding-bottom: var(--dui-footer-height);
     --dui-right-drawer-padding-top: var(--dui-header-height);
     --dui-right-drawer-padding-bottom: var(--dui-footer-height);
-    --dui-layout-z-index-offset: 0;
-    --dui-zindex-offset-0:0;
-    --dui-zindex-offset-1:100;
-    --dui-zindex-offset-2:200;
-    --dui-zindex-offset-3:300;
-    --dui-zindex-offset-4:400;
-    --dui-zindex-offset-5:500;
-    --dui-zindex-offset-6:600;
-    --dui-zindex-offset-7:700;
-    --dui-zindex-offset-8:800;
-    --dui-zindex-offset-9:900;
+    --dui-layout-z-index-offset: 5000000;
+    --dui-zindex-offset-0:5000000;
+    --dui-zindex-offset-1:5000100;
+    --dui-zindex-offset-2:5000200;
+    --dui-zindex-offset-3:5000300;
+    --dui-zindex-offset-4:5000400;
+    --dui-zindex-offset-5:5000500;
+    --dui-zindex-offset-6:5000600;
+    --dui-zindex-offset-7:5000700;
+    --dui-zindex-offset-8:5000800;
+    --dui-zindex-offset-9:5000900;
     --dui-left-drawer-z-index: var(--dui-zindex-offset-1);
     --dui-right-drawer-z-index: var(--dui-zindex-offset-3);
     --dui-footer-z-index: var(--dui-zindex-offset-5);
@@ -141,6 +141,7 @@
 .dui-layout-header > .dui-nav-bar {
     background-color: var(--dui-layout-nav-bar-bg, var(--dui-accent));
     color: var(--dui-layout-nav-bar-clr, var(--dui-clr-white));
+    padding: 0 var(--dui-spc-4);
 }
 
 .dui-shrink-content.dui-left-open > .dui-layout-body > .dui-layout-header {

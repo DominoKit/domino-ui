@@ -159,6 +159,7 @@ public class LocalListScrollingDataSource<T> implements DataStore<T> {
     this.original.addAll(data);
     this.filtered.clear();
     this.filtered.addAll(original);
+    load();
   }
 
   /**

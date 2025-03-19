@@ -16,18 +16,40 @@
 package org.dominokit.domino.ui.menu;
 
 import static elemental2.dom.DomGlobal.document;
+import static elemental2.dom.DomGlobal.window;
 import static java.util.Objects.isNull;
 import static java.util.Objects.nonNull;
-import static org.dominokit.domino.ui.utils.Domino.*;
+import static org.dominokit.domino.ui.utils.Domino.a;
+import static org.dominokit.domino.ui.utils.Domino.div;
+import static org.dominokit.domino.ui.utils.Domino.dui_order_first;
+import static org.dominokit.domino.ui.utils.Domino.dui_order_last;
+import static org.dominokit.domino.ui.utils.Domino.elementOf;
+import static org.dominokit.domino.ui.utils.Domino.li;
+import static org.dominokit.domino.ui.utils.Domino.ul;
 import static org.dominokit.domino.ui.utils.PopupsCloser.DOMINO_UI_AUTO_CLOSABLE;
 
-import elemental2.dom.*;
+import elemental2.dom.DomGlobal;
+import elemental2.dom.Element;
+import elemental2.dom.Event;
 import elemental2.dom.EventListener;
-import java.util.*;
+import elemental2.dom.HTMLDivElement;
+import elemental2.dom.HTMLElement;
+import elemental2.dom.HTMLLIElement;
+import elemental2.dom.KeyboardEvent;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.LinkedHashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Objects;
+import java.util.Optional;
+import java.util.Set;
 import jsinterop.base.Js;
 import org.dominokit.domino.ui.IsElement;
 import org.dominokit.domino.ui.config.HasComponentConfig;
-import org.dominokit.domino.ui.config.ZIndexConfig;
+import org.dominokit.domino.ui.config.MenuConfig;
 import org.dominokit.domino.ui.elements.AnchorElement;
 import org.dominokit.domino.ui.elements.DivElement;
 import org.dominokit.domino.ui.elements.LIElement;
@@ -38,10 +60,7 @@ import org.dominokit.domino.ui.icons.MdiIcon;
 import org.dominokit.domino.ui.icons.lib.Icons;
 import org.dominokit.domino.ui.layout.NavBar;
 import org.dominokit.domino.ui.mediaquery.MediaQuery;
-import org.dominokit.domino.ui.menu.direction.BestSideUpDownDropDirection;
-import org.dominokit.domino.ui.menu.direction.DropDirection;
-import org.dominokit.domino.ui.menu.direction.MiddleOfScreenDropDirection;
-import org.dominokit.domino.ui.menu.direction.MouseBestFitDirection;
+import org.dominokit.domino.ui.menu.direction.*;
 import org.dominokit.domino.ui.search.SearchBox;
 import org.dominokit.domino.ui.style.BooleanCssClass;
 import org.dominokit.domino.ui.style.Elevation;
@@ -65,7 +84,7 @@ import org.dominokit.domino.ui.utils.*;
 public class Menu<V> extends BaseDominoElement<HTMLDivElement, Menu<V>>
     implements HasSelectionListeners<Menu<V>, AbstractMenuItem<V>, List<AbstractMenuItem<V>>>,
         IsPopup<Menu<V>>,
-        HasComponentConfig<ZIndexConfig>,
+        HasComponentConfig<MenuConfig>,
         MenuStyles {
 
   public static final String ANY = "*";
@@ -74,11 +93,12 @@ public class Menu<V> extends BaseDominoElement<HTMLDivElement, Menu<V>>
   private final LazyChild<DivElement> menuSearchContainer;
   private final LazyChild<SearchBox> searchBox;
   private final LazyChild<DivElement> menuSubHeader;
-  private final UListElement menuItemsList;
+  private UListElement menuItemsList;
   private final DivElement menuBody;
   private final LazyChild<DivElement> menuFooter;
   private final LazyChild<AnchorElement> createMissingElement;
   private final LazyChild<MdiIcon> backIcon;
+  private final EventListener closeOnScrollListener;
   private LazyChild<LIElement> noResultElement;
   protected DivElement menuElement;
 
@@ -87,7 +107,8 @@ public class Menu<V> extends BaseDominoElement<HTMLDivElement, Menu<V>>
 
   protected boolean searchable;
   protected boolean caseSensitive = false;
-  protected String createMissingLabel = "Create ";
+  protected String createMissingLabel =
+      DominoUIConfig.CONFIG.getUIConfig().getMissingItemCreateLabel();
   private MissingItemHandler<V> missingItemHandler;
 
   protected List<AbstractMenuItem<V>> menuItems = new ArrayList<>();
@@ -108,9 +129,9 @@ public class Menu<V> extends BaseDominoElement<HTMLDivElement, Menu<V>>
   private final DropDirection contextMenuDropDirection = new MouseBestFitDirection();
   private final DropDirection smallScreenDropDirection = new MiddleOfScreenDropDirection();
   private DropDirection effectiveDropDirection = dropDirection;
-  private Map<String, MenuTarget> targets = new HashMap<>();
+  private Map<String, MenuTarget> targets;
   private MenuTarget lastTarget;
-  private Element menuAppendTarget = document.body;
+  private Element menuAppendTarget;
   private AppendStrategy appendStrategy = AppendStrategy.LAST;
 
   private Menu<V> parent;
@@ -120,9 +141,11 @@ public class Menu<V> extends BaseDominoElement<HTMLDivElement, Menu<V>>
   private boolean multiSelect = false;
   private boolean autoOpen = true;
   private boolean preserveSelectionStyles = true;
+  private boolean startScrollFollow = false;
   private EventListener repositionListener =
       evt -> {
-        if (isOpened()) {
+        if (isOpened() && startScrollFollow && evt.target != menuItemsList.element()) {
+          startScrollFollow = false;
           position();
         }
       };
@@ -131,18 +154,35 @@ public class Menu<V> extends BaseDominoElement<HTMLDivElement, Menu<V>>
       evt -> {
         evt.stopPropagation();
         evt.preventDefault();
-        lastTarget =
+
+        MenuTarget newTarget =
             targets.get(elementOf(Js.<HTMLElement>uncheckedCast(evt.currentTarget)).getDominoId());
-        if (isNull(lastTarget)) {
-          lastTarget =
+        if (isNull(newTarget)) {
+          newTarget =
               targets.get(elementOf(Js.<HTMLElement>uncheckedCast(evt.target)).getDominoId());
         }
+        if (!Objects.equals(newTarget, lastTarget)) {
+          if (nonNull(lastTarget)) {
+            lastTarget.getTargetElement().removeCss(dui_context_menu_target_open);
+          }
+          newTarget.getTargetElement().addCss(dui_context_menu_target_open);
+          getSelection().forEach(item -> item.deselect(true));
+        }
+
+        lastTarget = newTarget;
         if (isAutoOpen()) {
           if (isOpened() && !isContextMenu()) {
             close();
           } else {
             open(evt);
           }
+        }
+      };
+
+  private final EventListener autoCloseListener =
+      evt -> {
+        if (isAutoClose()) {
+          remove();
         }
       };
   private final DivElement backArrowContainer;
@@ -157,6 +197,10 @@ public class Menu<V> extends BaseDominoElement<HTMLDivElement, Menu<V>>
   private boolean closeOnBlur = DominoUIConfig.CONFIG.isClosePopupOnBlur();
   private OpenMenuCondition<V> openMenuCondition = (menu) -> true;
   private List<MediaQuery.MediaQueryListenerRecord> mediaQueryRecords = new ArrayList<>();
+  private EventListener windowResizeListener;
+  private ObserverCallback<Menu<V>> onAttachHandler;
+  private boolean shouldFocus;
+  private ObserverCallback<Menu<V>> onDetachHandler;
 
   /**
    * Factory method to create a new Menu instance.
@@ -171,11 +215,44 @@ public class Menu<V> extends BaseDominoElement<HTMLDivElement, Menu<V>>
   /** Default constructor to initialize the Menu component. */
   public Menu() {
     menuElement = div().addCss(dui_menu);
+    setMenuAppendTarget(document.body);
     menuHeader = LazyChild.of(NavBar.create(), menuElement);
     menuSearchContainer = LazyChild.of(div().addCss(dui_menu_search), menuElement);
-    searchBox = LazyChild.of(SearchBox.create().addCss(dui_menu_search_box), menuSearchContainer);
+    searchBox =
+        LazyChild.of(
+            SupplyOnce.of(() -> SearchBox.create().addCss(dui_menu_search_box)),
+            menuSearchContainer);
     backArrowContainer = div().addCss(dui_order_first, dui_menu_back_icon);
     init(this);
+    closeOnScrollListener = evt -> close();
+
+    onAttached(
+        (target, mutationRecord) -> {
+          if (isCloseOnScroll()) {
+            window.addEventListener("scroll", closeOnScrollListener, true);
+          }
+        });
+
+    onDetached(
+        (target, mutationRecord) -> {
+          if (isCloseOnScroll()) {
+            window.removeEventListener("scroll", closeOnScrollListener, true);
+          }
+        });
+
+    windowResizeListener = evt -> position();
+    nowAndWhenAttached(
+        () -> {
+          if (isDropDown()) {
+            window.addEventListener("resize", windowResizeListener);
+          }
+        });
+    onDetached(
+        (target, mutationRecord) -> {
+          if (isDropDown()) {
+            window.removeEventListener("resize", windowResizeListener);
+          }
+        });
 
     EventListener addMissingEventListener =
         evt -> {
@@ -183,8 +260,6 @@ public class Menu<V> extends BaseDominoElement<HTMLDivElement, Menu<V>>
           evt.stopPropagation();
           onAddMissingElement();
         };
-
-    addClickListener(evt -> evt.stopPropagation());
 
     onKeyDown(
         keyEvents -> {
@@ -393,6 +468,7 @@ public class Menu<V> extends BaseDominoElement<HTMLDivElement, Menu<V>>
 
     nowAndWhenAttached(
         () -> {
+          document.addEventListener(PopupsCloser.DUI_AUTO_CLOSE, autoCloseListener);
           mediaQueryRecords.add(
               MediaQuery.addOnSmallAndDownListener(
                   () -> {
@@ -421,10 +497,27 @@ public class Menu<V> extends BaseDominoElement<HTMLDivElement, Menu<V>>
           DomGlobal.document.body.removeEventListener("blur", lostFocusListener, true);
           document.removeEventListener("scroll", repositionListener, true);
           mediaQueryRecords.forEach(MediaQuery.MediaQueryListenerRecord::remove);
+          document.removeEventListener(PopupsCloser.DUI_AUTO_CLOSE, autoCloseListener);
         });
 
     this.addEventListener(EventType.touchstart.getName(), Event::stopPropagation);
     this.addEventListener(EventType.touchend.getName(), Event::stopPropagation);
+
+    onAttachHandler =
+        (e, mutationRecord) -> {
+          position();
+          if (shouldFocus) {
+            focus();
+          }
+        };
+
+    onDetachHandler =
+        (e, mutationRecord) -> {
+          close();
+          if (isDropDown()) {
+            triggerCloseListeners(this);
+          }
+        };
   }
 
   public void focusFirstMatch(String token) {
@@ -749,7 +842,7 @@ public class Menu<V> extends BaseDominoElement<HTMLDivElement, Menu<V>>
       this.createMissingElement.remove();
     }
     if (isAllowCreateMissing() && !emptyToken) {
-      createMissingElement.get().setInnerHtml(getCreateMissingLabel() + "<b>" + token + "</b>");
+      createMissingElement.get().setInnerHtml(getConfig().getMissingItemCreateMessage(token));
     }
     long count =
         this.menuItems.stream()
@@ -759,7 +852,7 @@ public class Menu<V> extends BaseDominoElement<HTMLDivElement, Menu<V>>
 
     if (count < 1 && menuItems.size() > 0) {
       this.menuItemsList.appendChild(
-          noResultElement.get().setInnerHtml("No results matched " + " <b>" + token + "</b>"));
+          noResultElement.get().setInnerHtml(getConfig().getNoResultMatchMessage(token)));
     } else {
       noResultElement.remove();
     }
@@ -785,7 +878,7 @@ public class Menu<V> extends BaseDominoElement<HTMLDivElement, Menu<V>>
    */
   public Menu<V> setCreateMissingLabel(String createMissingLabel) {
     if (isNull(createMissingLabel) || createMissingLabel.isEmpty()) {
-      this.createMissingLabel = "Create ";
+      this.createMissingLabel = getConfig().getMissingItemCreateLabel();
     } else {
       this.createMissingLabel = createMissingLabel;
     }
@@ -1380,6 +1473,7 @@ public class Menu<V> extends BaseDominoElement<HTMLDivElement, Menu<V>>
     if (isDropDown() && openMenuCondition.check(this)) {
       if (getTarget().isPresent()) {
         DominoElement<Element> targetElement = getTarget().get().getTargetElement();
+        targetElement.addCss(dui_context_menu_target_open);
         if (!(targetElement.isReadOnly() || targetElement.isDisabled())) {
           doOpen(focus);
         }
@@ -1404,16 +1498,12 @@ public class Menu<V> extends BaseDominoElement<HTMLDivElement, Menu<V>>
         searchBox.get().clearSearch();
       }
       triggerOpenListeners(this);
-      onAttached(
-          mutationRecord -> {
-            position();
-            if (focus) {
-              focus();
-            }
-            elementOf(getMenuAppendTarget()).onDetached(targetDetach -> close());
-          });
+      shouldFocus = focus;
+      removeAttachObserver(onAttachHandler);
+      onAttached(onAttachHandler);
       appendStrategy.onAppend(getMenuAppendTarget(), element.element());
-      onDetached(record -> close());
+      removeDetachObserver(onDetachHandler);
+      onDetached(onDetachHandler);
       if (smallScreen && nonNull(parent) && parent.isDropDown()) {
         parent.collapse();
         menuHeader.get().insertFirst(backArrowContainer);
@@ -1428,12 +1518,11 @@ public class Menu<V> extends BaseDominoElement<HTMLDivElement, Menu<V>>
       Optional<MenuTarget> menuTarget = getTarget();
       menuTarget.ifPresent(
           target -> {
-            if (fitToTargetWidth) {
-              element.setWidth(
-                  target.getTargetElement().element().getBoundingClientRect().width + "px");
-            }
             getEffectiveDropDirection()
-                .position(element.element(), target.getTargetElement().element());
+                .position(
+                    DropDirectionContext.of(
+                        element.element(), target.getTargetElement().element(), fitToTargetWidth));
+            DomGlobal.setTimeout(p -> startScrollFollow = true);
           });
     }
   }
@@ -1475,8 +1564,8 @@ public class Menu<V> extends BaseDominoElement<HTMLDivElement, Menu<V>>
    * @return An optional containing the menu target, or empty if no target is set.
    */
   public Optional<MenuTarget> getTarget() {
-    if (isNull(lastTarget) && targets.size() == 1) {
-      return targets.values().stream().findFirst();
+    if (isNull(lastTarget) && targets().size() == 1) {
+      return targets().values().stream().findFirst();
     }
     return Optional.ofNullable(lastTarget);
   }
@@ -1509,7 +1598,7 @@ public class Menu<V> extends BaseDominoElement<HTMLDivElement, Menu<V>>
    * @return The current {@link Menu} instance.
    */
   public Menu<V> setTarget(MenuTarget menuTarget) {
-    this.targets
+    this.targets()
         .values()
         .forEach(
             target -> {
@@ -1521,7 +1610,7 @@ public class Menu<V> extends BaseDominoElement<HTMLDivElement, Menu<V>>
               target.getTargetElement().removeDetachObserver(menuTarget.getTargetDetachObserver());
               target.getTargetElement().removeAttachObserver(menuTarget.getTargetAttachObserver());
             });
-    this.targets.clear();
+    this.targets().clear();
     return addTarget(menuTarget);
   }
 
@@ -1533,25 +1622,25 @@ public class Menu<V> extends BaseDominoElement<HTMLDivElement, Menu<V>>
    */
   public Menu<V> addTarget(MenuTarget menuTarget) {
     if (nonNull(menuTarget)) {
-      this.targets.put(menuTarget.getTargetElement().getDominoId(), menuTarget);
+      this.targets().put(menuTarget.getTargetElement().getDominoId(), menuTarget);
       menuTarget.setTargetDetachObserver(
-          mutationRecord -> {
+          (e, mutationRecord) -> {
             if (Objects.equals(menuTarget, lastTarget)) {
               close();
             }
 
-            this.targets.remove(menuTarget.getTargetElement().getDominoId());
+            this.targets().remove(menuTarget.getTargetElement().getDominoId());
           });
 
       menuTarget.setTargetAttachObserver(
-          mutationRecord -> {
-            this.targets.put(menuTarget.getTargetElement().getDominoId(), menuTarget);
+          (e, mutationRecord) -> {
+            this.targets().put(menuTarget.getTargetElement().getDominoId(), menuTarget);
           });
 
       elementOf(menuTarget.getTargetElement()).onDetached(menuTarget.getTargetDetachObserver());
       elementOf(menuTarget.getTargetElement()).onAttached(menuTarget.getTargetAttachObserver());
     }
-    if (!this.targets.isEmpty()) {
+    if (!this.targets().isEmpty()) {
       applyTargetListeners(menuTarget);
       setDropDown(true);
     } else {
@@ -1581,6 +1670,8 @@ public class Menu<V> extends BaseDominoElement<HTMLDivElement, Menu<V>>
     } else {
       this.menuAppendTarget = appendTarget;
     }
+
+    elementOf(getMenuAppendTarget()).onDetached((targetElement, targetDetach) -> close());
     return this;
   }
 
@@ -1609,12 +1700,12 @@ public class Menu<V> extends BaseDominoElement<HTMLDivElement, Menu<V>>
             .ifPresent(
                 menuTarget -> {
                   menuTarget.getTargetElement().element().focus();
+                  menuTarget.getTargetElement().removeCss(dui_context_menu_target_open);
                 });
         if (isSearchable()) {
           searchBox.get().clearSearch();
         }
         menuItems.forEach(AbstractMenuItem::onParentClosed);
-        triggerCloseListeners(this);
         if (smallScreen && nonNull(parent) && parent.isDropDown()) {
           parent.expand();
         }
@@ -1710,7 +1801,7 @@ public class Menu<V> extends BaseDominoElement<HTMLDivElement, Menu<V>>
   public Menu<V> setContextMenu(boolean contextMenu) {
     this.contextMenu = contextMenu;
     addCss(BooleanCssClass.of(dui_context_menu, contextMenu));
-    targets.values().forEach(this::applyTargetListeners);
+    targets().values().forEach(this::applyTargetListeners);
     return this;
   }
 
@@ -1718,7 +1809,7 @@ public class Menu<V> extends BaseDominoElement<HTMLDivElement, Menu<V>>
    * Applies the appropriate event listeners to the target element based on whether the menu is a
    * context menu or not.
    *
-   * @param menuTarget The target menu to which the listeners should be applied.
+   * @param menuTarget The target menu to which the listeners should bce applied.
    */
   private void applyTargetListeners(MenuTarget menuTarget) {
     if (isContextMenu()) {
@@ -1940,6 +2031,26 @@ public class Menu<V> extends BaseDominoElement<HTMLDivElement, Menu<V>>
     return this;
   }
 
+  public Menu<V> setCloseOnScroll(boolean closeOnScroll) {
+    if (!closeOnScroll) {
+      window.removeEventListener("scroll", closeOnScrollListener);
+    }
+    setAttribute("d-close-on-scroll", closeOnScroll);
+    return this;
+  }
+
+  private boolean isCloseOnScroll() {
+    return hasAttribute("d-close-on-scroll")
+        && "true".equalsIgnoreCase(getAttribute("d-close-on-scroll"));
+  }
+
+  private Map<String, MenuTarget> targets() {
+    if (isNull(this.targets)) {
+      this.targets = new HashMap<>();
+    }
+    return this.targets;
+  }
+
   /**
    * @return boolean true if the selection style should be preserved after the menu item loses the
    *     selection focus, otherwise false.
@@ -1958,6 +2069,16 @@ public class Menu<V> extends BaseDominoElement<HTMLDivElement, Menu<V>>
   public Menu<V> setPreserveSelectionStyles(boolean preserveSelectionStyles) {
     this.preserveSelectionStyles = preserveSelectionStyles;
     return this;
+  }
+
+  @Override
+  public ZIndexLayer getZIndexLayer() {
+    if (isDropDown()) {
+      return getTarget()
+          .map(t -> t.getTargetElement().getZIndexLayer())
+          .orElse(ZIndexLayer.Z_LAYER_1);
+    }
+    return super.getZIndexLayer();
   }
 
   /** Represents a handler for a group of menu items. */

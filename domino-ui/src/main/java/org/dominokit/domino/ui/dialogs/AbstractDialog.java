@@ -116,6 +116,7 @@ public class AbstractDialog<T extends AbstractDialog<T>>
   public AbstractDialog() {
     element =
         div()
+            .setZIndexLayer(ZIndexLayer.Z_LAYER_3)
             .addCss(dui_modal_box, dui_hidden)
             .appendChild(
                 modalElement =
@@ -696,6 +697,11 @@ public class AbstractDialog<T extends AbstractDialog<T>>
     return (T) this;
   }
 
+  @Override
+  public void resetZIndexLayer() {
+    // Dialogs should never rest their base layer.;
+  }
+
   /**
    * Checks if the dialog is currently open.
    *
@@ -703,6 +709,11 @@ public class AbstractDialog<T extends AbstractDialog<T>>
    */
   public boolean isOpen() {
     return this.open;
+  }
+
+  @Override
+  public boolean incrementsZIndex() {
+    return true;
   }
 
   /** A functional interface for handling dialog open events. */

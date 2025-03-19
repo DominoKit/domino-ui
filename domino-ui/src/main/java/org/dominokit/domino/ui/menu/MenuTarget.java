@@ -15,16 +15,16 @@
  */
 package org.dominokit.domino.ui.menu;
 
-import static org.dominokit.domino.ui.utils.Domino.*;
+import static java.util.Objects.isNull;
 import static org.dominokit.domino.ui.utils.ElementsFactory.elements;
 
 import elemental2.dom.Element;
 import java.util.HashMap;
 import java.util.Map;
-import org.dominokit.domino.ui.utils.AttachDetachCallback;
 import org.dominokit.domino.ui.utils.ComponentMeta;
 import org.dominokit.domino.ui.utils.DominoElement;
 import org.dominokit.domino.ui.utils.HasMeta;
+import org.dominokit.domino.ui.utils.ObserverCallback;
 
 /**
  * Represents a target for the menu in the UI. This class wraps a target DOM {@link Element} to be
@@ -39,10 +39,10 @@ import org.dominokit.domino.ui.utils.HasMeta;
  */
 public class MenuTarget implements HasMeta<MenuTarget> {
 
-  private final Element targetElement;
-  private AttachDetachCallback targetDetachObserver;
-  private AttachDetachCallback targetAttachObserver;
-  private final Map<String, ComponentMeta> metaObjects = new HashMap<>();
+  private final DominoElement<Element> targetElement;
+  private ObserverCallback<DominoElement<Element>> targetDetachObserver;
+  private ObserverCallback<DominoElement<Element>> targetAttachObserver;
+  private Map<String, ComponentMeta> metaObjects;
 
   /**
    * Factory method to create an instance of {@link MenuTarget} using the given DOM {@link Element}.
@@ -60,7 +60,7 @@ public class MenuTarget implements HasMeta<MenuTarget> {
    * @param targetElement the target DOM element
    */
   public MenuTarget(Element targetElement) {
-    this.targetElement = targetElement;
+    this.targetElement = elements.elementOf(targetElement);
   }
 
   /**
@@ -69,7 +69,7 @@ public class MenuTarget implements HasMeta<MenuTarget> {
    * @return the target {@link DominoElement}
    */
   public DominoElement<Element> getTargetElement() {
-    return elements.elementOf(targetElement);
+    return targetElement;
   }
 
   /**
@@ -77,7 +77,8 @@ public class MenuTarget implements HasMeta<MenuTarget> {
    *
    * @param targetDetachObserver the observer callback
    */
-  void setTargetDetachObserver(AttachDetachCallback targetDetachObserver) {
+  public void setTargetDetachObserver(
+      ObserverCallback<DominoElement<Element>> targetDetachObserver) {
     this.targetDetachObserver = targetDetachObserver;
   }
 
@@ -86,16 +87,17 @@ public class MenuTarget implements HasMeta<MenuTarget> {
    *
    * @return the observer callback
    */
-  AttachDetachCallback getTargetDetachObserver() {
+  public ObserverCallback<DominoElement<Element>> getTargetDetachObserver() {
     return targetDetachObserver;
   }
 
   /**
    * Sets an observer for the target's attach/detach events.
    *
-   * @param targetDetachObserver the observer callback
+   * @param targetAttachObserver the observer callback
    */
-  void setTargetAttachObserver(AttachDetachCallback targetAttachObserver) {
+  public void setTargetAttachObserver(
+      ObserverCallback<DominoElement<Element>> targetAttachObserver) {
     this.targetAttachObserver = targetAttachObserver;
   }
 
@@ -104,7 +106,7 @@ public class MenuTarget implements HasMeta<MenuTarget> {
    *
    * @return the observer callback
    */
-  AttachDetachCallback getTargetAttachObserver() {
+  public ObserverCallback<DominoElement<Element>> getTargetAttachObserver() {
     return targetAttachObserver;
   }
 
@@ -118,6 +120,9 @@ public class MenuTarget implements HasMeta<MenuTarget> {
    */
   @Override
   public Map<String, ComponentMeta> getMetaObjects() {
+    if (isNull(this.metaObjects)) {
+      this.metaObjects = new HashMap<>();
+    }
     return metaObjects;
   }
 }

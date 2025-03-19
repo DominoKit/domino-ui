@@ -16,7 +16,6 @@
 
 package org.dominokit.domino.ui.utils;
 
-import static org.dominokit.domino.ui.utils.Domino.*;
 import static org.dominokit.domino.ui.utils.ElementsFactory.elements;
 
 import elemental2.dom.Element;
@@ -33,7 +32,7 @@ import org.dominokit.domino.ui.IsElement;
  */
 public class LazyChild<T extends IsElement<?>> extends BaseLazyInitializer<LazyChild<T>> {
 
-  private T element;
+  private SupplyOnce<T> supplyOnce;
 
   /**
    * Creates a new {@code LazyChild} instance with the specified child element and parent element.
@@ -43,7 +42,7 @@ public class LazyChild<T extends IsElement<?>> extends BaseLazyInitializer<LazyC
    * @return A new {@code LazyChild} instance.
    */
   public static <T extends IsElement<?>> LazyChild<T> of(T element, IsElement<?> parent) {
-    return new LazyChild<>(element, () -> parent);
+    return new LazyChild<>(SupplyOnce.of(() -> element), () -> parent);
   }
 
   /**
@@ -55,7 +54,7 @@ public class LazyChild<T extends IsElement<?>> extends BaseLazyInitializer<LazyC
    * @return A new {@code LazyChild} instance.
    */
   public static <T extends IsElement<?>> LazyChild<T> of(T element, Supplier<IsElement<?>> parent) {
-    return new LazyChild<>(element, parent);
+    return new LazyChild<>(SupplyOnce.of(() -> element), parent);
   }
 
   /**
@@ -67,7 +66,7 @@ public class LazyChild<T extends IsElement<?>> extends BaseLazyInitializer<LazyC
    * @return A new {@code LazyChild} instance.
    */
   public static <T extends IsElement<?>> LazyChild<T> of(T element, LazyChild<?> parent) {
-    return new LazyChild<>(element, parent);
+    return new LazyChild<>(SupplyOnce.of(() -> element), parent);
   }
 
   /**
@@ -81,7 +80,9 @@ public class LazyChild<T extends IsElement<?>> extends BaseLazyInitializer<LazyC
   public static <T extends IsElement<?>> LazyChild<T> ofInsertFirst(
       T element, IsElement<?> parent) {
     return new LazyChild<>(
-        element, () -> parent, (p, child) -> elements.elementOf(p).insertFirst(child.element()));
+        SupplyOnce.of(() -> element),
+        () -> parent,
+        (p, child) -> elements.elementOf(p).insertFirst(child.element()));
   }
 
   /**
@@ -96,7 +97,9 @@ public class LazyChild<T extends IsElement<?>> extends BaseLazyInitializer<LazyC
   public static <T extends IsElement<?>> LazyChild<T> ofInsertFirst(
       T element, Supplier<IsElement<?>> parent) {
     return new LazyChild<>(
-        element, parent, (p, child) -> elements.elementOf(p).insertFirst(child.element()));
+        SupplyOnce.of(() -> element),
+        parent,
+        (p, child) -> elements.elementOf(p).insertFirst(child.element()));
   }
 
   /**
@@ -111,7 +114,9 @@ public class LazyChild<T extends IsElement<?>> extends BaseLazyInitializer<LazyC
   public static <T extends IsElement<?>> LazyChild<T> ofInsertFirst(
       T element, LazyChild<?> parent) {
     return new LazyChild<>(
-        element, parent, (p, child) -> elements.elementOf(p).insertFirst(child.element()));
+        SupplyOnce.of(() -> element),
+        parent,
+        (p, child) -> elements.elementOf(p).insertFirst(child.element()));
   }
 
   /**
@@ -122,8 +127,10 @@ public class LazyChild<T extends IsElement<?>> extends BaseLazyInitializer<LazyC
    * @param parent A supplier that provides the parent element to which the child will be added.
    */
   public LazyChild(T element, Supplier<IsElement<?>> parent) {
-    this(element, parent, (p, child) -> elements.elementOf(p).appendChild(child));
-    this.element = element;
+    this(
+        SupplyOnce.of(() -> element),
+        parent,
+        (p, child) -> elements.elementOf(p).appendChild(child));
   }
 
   /**
@@ -135,8 +142,7 @@ public class LazyChild<T extends IsElement<?>> extends BaseLazyInitializer<LazyC
    * @param appendStrategy The strategy for adding the child element to the parent.
    */
   public LazyChild(T element, Supplier<IsElement<?>> parent, AppendStrategy<T> appendStrategy) {
-    super(() -> appendStrategy.onAppend(parent.get().element(), element));
-    this.element = element;
+    this(SupplyOnce.of(() -> element), parent, appendStrategy);
   }
 
   /**
@@ -147,7 +153,10 @@ public class LazyChild<T extends IsElement<?>> extends BaseLazyInitializer<LazyC
    * @param parent The parent {@code LazyChild} to which the child will be added.
    */
   public LazyChild(T element, LazyChild<?> parent) {
-    this(element, parent, (p, child) -> elements.elementOf(p).appendChild(child));
+    this(
+        SupplyOnce.of(() -> element),
+        parent,
+        (p, child) -> elements.elementOf(p).appendChild(child));
   }
 
   /**
@@ -159,8 +168,272 @@ public class LazyChild<T extends IsElement<?>> extends BaseLazyInitializer<LazyC
    * @param appendStrategy The strategy for adding the child element to the parent.
    */
   public LazyChild(T element, LazyChild<?> parent, AppendStrategy<T> appendStrategy) {
-    super(() -> appendStrategy.onAppend(parent.get().element(), element));
-    this.element = element;
+    this(SupplyOnce.of(() -> element), parent, appendStrategy);
+  }
+
+  // ======================================
+
+  /**
+   * Creates a new {@code LazyChild} instance with the specified child element and parent element.
+   *
+   * @param supplier the function to create the element only once {@link SupplyOnce}.
+   * @param parent The parent element to which the child will be added.
+   * @return A new {@code LazyChild} instance.
+   */
+  public static <T extends IsElement<?>> LazyChild<T> of(
+      Supplier<T> supplier, IsElement<?> parent) {
+    return new LazyChild<>(supplier, () -> parent);
+  }
+
+  /**
+   * Creates a new {@code LazyChild} instance with the specified child element and a supplier for
+   * the parent element.
+   *
+   * @param supplier the function to create the element only once {@link SupplyOnce}.
+   * @param parent A supplier that provides the parent element to which the child will be added.
+   * @return A new {@code LazyChild} instance.
+   */
+  public static <T extends IsElement<?>> LazyChild<T> of(
+      Supplier<T> supplier, Supplier<IsElement<?>> parent) {
+    return new LazyChild<>(supplier, parent);
+  }
+
+  /**
+   * Creates a new {@code LazyChild} instance with the specified child element and a parent {@code
+   * LazyChild}.
+   *
+   * @param supplier the function to create the element only once {@link SupplyOnce}.
+   * @param parent The parent {@code LazyChild} to which the child will be added.
+   * @return A new {@code LazyChild} instance.
+   */
+  public static <T extends IsElement<?>> LazyChild<T> of(
+      Supplier<T> supplier, LazyChild<?> parent) {
+    return new LazyChild<>(supplier, parent);
+  }
+
+  /**
+   * Creates a new {@code LazyChild} instance with the specified child element and parent element,
+   * inserting it as the first child.
+   *
+   * @param supplier the function to create the element only once {@link SupplyOnce}.
+   * @param parent The parent element to which the child will be inserted as the first child.
+   * @return A new {@code LazyChild} instance.
+   */
+  public static <T extends IsElement<?>> LazyChild<T> ofInsertFirst(
+      Supplier<T> supplier, IsElement<?> parent) {
+    return new LazyChild<>(
+        supplier, () -> parent, (p, child) -> elements.elementOf(p).insertFirst(child.element()));
+  }
+
+  /**
+   * Creates a new {@code LazyChild} instance with the specified child element and a supplier for
+   * the parent element, inserting it as the first child.
+   *
+   * @param supplier the function to create the element only once {@link SupplyOnce}.
+   * @param parent A supplier that provides the parent element to which the child will be inserted
+   *     as the first child.
+   * @return A new {@code LazyChild} instance.
+   */
+  public static <T extends IsElement<?>> LazyChild<T> ofInsertFirst(
+      Supplier<T> supplier, Supplier<IsElement<?>> parent) {
+    return new LazyChild<>(
+        supplier, parent, (p, child) -> elements.elementOf(p).insertFirst(child.element()));
+  }
+
+  /**
+   * Creates a new {@code LazyChild} instance with the specified child element and a parent {@code
+   * LazyChild}, inserting it as the first child.
+   *
+   * @param supplier the function to create the element only once {@link SupplyOnce}.
+   * @param parent The parent {@code LazyChild} to which the child will be inserted as the first
+   *     child.
+   * @return A new {@code LazyChild} instance.
+   */
+  public static <T extends IsElement<?>> LazyChild<T> ofInsertFirst(
+      Supplier<T> supplier, LazyChild<?> parent) {
+    return new LazyChild<>(
+        supplier, parent, (p, child) -> elements.elementOf(p).insertFirst(child.element()));
+  }
+
+  /**
+   * Constructs a new {@code LazyChild} instance with the specified child element and parent element
+   * supplier.
+   *
+   * @param supplier the function to create the element only once {@link SupplyOnce}.
+   * @param parent A supplier that provides the parent element to which the child will be added.
+   */
+  public LazyChild(Supplier<T> supplier, Supplier<IsElement<?>> parent) {
+    this(supplier, parent, (p, child) -> elements.elementOf(p).appendChild(child));
+  }
+
+  /**
+   * Constructs a new {@code LazyChild} instance with the specified child element, parent element
+   * supplier, and append strategy.
+   *
+   * @param supplier the function to create the element only once {@link SupplyOnce}.
+   * @param parent A supplier that provides the parent element to which the child will be added.
+   * @param appendStrategy The strategy for adding the child element to the parent.
+   */
+  public LazyChild(
+      Supplier<T> supplier, Supplier<IsElement<?>> parent, AppendStrategy<T> appendStrategy) {
+    this(SupplyOnce.of(supplier), parent, appendStrategy);
+  }
+
+  /**
+   * Constructs a new {@code LazyChild} instance with the specified child element and a parent
+   * {@code LazyChild}.
+   *
+   * @param supplier the function to create the element only once {@link SupplyOnce}.
+   * @param parent The parent {@code LazyChild} to which the child will be added.
+   */
+  public LazyChild(Supplier<T> supplier, LazyChild<?> parent) {
+    this(supplier, parent, (p, child) -> elements.elementOf(p).appendChild(child));
+  }
+
+  /**
+   * Constructs a new {@code LazyChild} instance with the specified child element, parent {@code
+   * LazyChild}, and append strategy.
+   *
+   * @param supplier the function to create the element only once {@link SupplyOnce}.
+   * @param parent The parent {@code LazyChild} to which the child will be added.
+   * @param appendStrategy The strategy for adding the child element to the parent.
+   */
+  public LazyChild(Supplier<T> supplier, LazyChild<?> parent, AppendStrategy<T> appendStrategy) {
+    this(SupplyOnce.of(supplier), parent, appendStrategy);
+  }
+
+  // ======================================
+
+  /**
+   * Creates a new {@code LazyChild} instance with the specified child element and parent element.
+   *
+   * @param supplier the function to create the element only once {@link SupplyOnce}.
+   * @param parent The parent element to which the child will be added.
+   * @return A new {@code LazyChild} instance.
+   */
+  public static <T extends IsElement<?>> LazyChild<T> of(
+      SupplyOnce<T> supplier, IsElement<?> parent) {
+    return new LazyChild<>(supplier, () -> parent);
+  }
+
+  /**
+   * Creates a new {@code LazyChild} instance with the specified child element and a supplier for
+   * the parent element.
+   *
+   * @param supplier the function to create the element only once {@link SupplyOnce}.
+   * @param parent A supplier that provides the parent element to which the child will be added.
+   * @return A new {@code LazyChild} instance.
+   */
+  public static <T extends IsElement<?>> LazyChild<T> of(
+      SupplyOnce<T> supplier, Supplier<IsElement<?>> parent) {
+    return new LazyChild<>(supplier, parent);
+  }
+
+  /**
+   * Creates a new {@code LazyChild} instance with the specified child element and a parent {@code
+   * LazyChild}.
+   *
+   * @param supplier the function to create the element only once {@link SupplyOnce}.
+   * @param parent The parent {@code LazyChild} to which the child will be added.
+   * @return A new {@code LazyChild} instance.
+   */
+  public static <T extends IsElement<?>> LazyChild<T> of(
+      SupplyOnce<T> supplier, LazyChild<?> parent) {
+    return new LazyChild<>(supplier, parent);
+  }
+
+  /**
+   * Creates a new {@code LazyChild} instance with the specified child element and parent element,
+   * inserting it as the first child.
+   *
+   * @param supplier the function to create the element only once {@link SupplyOnce}.
+   * @param parent The parent element to which the child will be inserted as the first child.
+   * @return A new {@code LazyChild} instance.
+   */
+  public static <T extends IsElement<?>> LazyChild<T> ofInsertFirst(
+      SupplyOnce<T> supplier, IsElement<?> parent) {
+    return new LazyChild<>(
+        supplier, () -> parent, (p, child) -> elements.elementOf(p).insertFirst(child.element()));
+  }
+
+  /**
+   * Creates a new {@code LazyChild} instance with the specified child element and a supplier for
+   * the parent element, inserting it as the first child.
+   *
+   * @param supplier the function to create the element only once {@link SupplyOnce}.
+   * @param parent A supplier that provides the parent element to which the child will be inserted
+   *     as the first child.
+   * @return A new {@code LazyChild} instance.
+   */
+  public static <T extends IsElement<?>> LazyChild<T> ofInsertFirst(
+      SupplyOnce<T> supplier, Supplier<IsElement<?>> parent) {
+    return new LazyChild<>(
+        supplier, parent, (p, child) -> elements.elementOf(p).insertFirst(child.element()));
+  }
+
+  /**
+   * Creates a new {@code LazyChild} instance with the specified child element and a parent {@code
+   * LazyChild}, inserting it as the first child.
+   *
+   * @param supplier the function to create the element only once {@link SupplyOnce}.
+   * @param parent The parent {@code LazyChild} to which the child will be inserted as the first
+   *     child.
+   * @return A new {@code LazyChild} instance.
+   */
+  public static <T extends IsElement<?>> LazyChild<T> ofInsertFirst(
+      SupplyOnce<T> supplier, LazyChild<?> parent) {
+    return new LazyChild<>(
+        supplier, parent, (p, child) -> elements.elementOf(p).insertFirst(child.element()));
+  }
+
+  /**
+   * Constructs a new {@code LazyChild} instance with the specified child element and parent element
+   * supplier.
+   *
+   * @param supplier the function to create the element only once {@link SupplyOnce}.
+   * @param parent A supplier that provides the parent element to which the child will be added.
+   */
+  public LazyChild(SupplyOnce<T> supplier, Supplier<IsElement<?>> parent) {
+    this(supplier, parent, (p, child) -> elements.elementOf(p).appendChild(child));
+    this.supplyOnce = supplier;
+  }
+
+  /**
+   * Constructs a new {@code LazyChild} instance with the specified child element, parent element
+   * supplier, and append strategy.
+   *
+   * @param supplier the function to create the element only once {@link SupplyOnce}.
+   * @param parent A supplier that provides the parent element to which the child will be added.
+   * @param appendStrategy The strategy for adding the child element to the parent.
+   */
+  public LazyChild(
+      SupplyOnce<T> supplier, Supplier<IsElement<?>> parent, AppendStrategy<T> appendStrategy) {
+    super(() -> appendStrategy.onAppend(parent.get().element(), supplier.get()));
+    this.supplyOnce = supplier;
+  }
+
+  /**
+   * Constructs a new {@code LazyChild} instance with the specified child element and a parent
+   * {@code LazyChild}.
+   *
+   * @param supplier the function to create the element only once {@link SupplyOnce}.
+   * @param parent The parent {@code LazyChild} to which the child will be added.
+   */
+  public LazyChild(SupplyOnce<T> supplier, LazyChild<?> parent) {
+    this(supplier, parent, (p, child) -> elements.elementOf(p).appendChild(child));
+  }
+
+  /**
+   * Constructs a new {@code LazyChild} instance with the specified child element, parent {@code
+   * LazyChild}, and append strategy.
+   *
+   * @param supplier the function to create the element only once {@link SupplyOnce}.
+   * @param parent The parent {@code LazyChild} to which the child will be added.
+   * @param appendStrategy The strategy for adding the child element to the parent.
+   */
+  public LazyChild(SupplyOnce<T> supplier, LazyChild<?> parent, AppendStrategy<T> appendStrategy) {
+    super(() -> appendStrategy.onAppend(parent.get().element(), supplier.get()));
+    this.supplyOnce = supplier;
   }
 
   /**
@@ -171,7 +444,7 @@ public class LazyChild<T extends IsElement<?>> extends BaseLazyInitializer<LazyC
    */
   public T get() {
     apply();
-    return element;
+    return supplyOnce.get();
   }
 
   /**
@@ -182,7 +455,7 @@ public class LazyChild<T extends IsElement<?>> extends BaseLazyInitializer<LazyC
    */
   public LazyChild<T> remove() {
     if (isInitialized()) {
-      element.element().remove();
+      supplyOnce.get().element().remove();
       reset();
     }
     return this;
@@ -195,7 +468,7 @@ public class LazyChild<T extends IsElement<?>> extends BaseLazyInitializer<LazyC
    * @return The child element or {@code null} if not initialized.
    */
   public T element() {
-    return element;
+    return supplyOnce.get();
   }
 
   /**

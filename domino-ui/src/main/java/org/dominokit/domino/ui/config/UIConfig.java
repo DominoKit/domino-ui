@@ -34,4 +34,6 @@ public interface UIConfig
         DatatableConfig,
         CarouselConfig,
         RichTextConfig,
-        SlidersConfig {}
+        SlidersConfig,
+        MenuConfig,
+        PopoverConfig {}
