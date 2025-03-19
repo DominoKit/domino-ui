@@ -37,6 +37,8 @@ import org.dominokit.domino.ui.menu.AbstractMenuItem;
  */
 public class CheckOption<V> extends SelectOption<V> {
 
+  private CheckBox checkbox;
+
   /**
    * Creates a new CheckOption with the provided key, value, and text.
    *
@@ -156,7 +158,7 @@ public class CheckOption<V> extends SelectOption<V> {
         (option, self) -> {
           self.withPrefixElement(
               (menuItem, pre) -> {
-                CheckBox checkbox = CheckBox.create().addCss(dui_minified);
+                checkbox = CheckBox.create().addCss(dui_minified);
                 pre.appendChild(checkbox);
                 checkbox.addChangeListener(
                     (oldValue, newValue) -> {
@@ -166,13 +168,19 @@ public class CheckOption<V> extends SelectOption<V> {
                         menuItem.deselect();
                       }
                     });
-
-                menuItem.addSelectionHandler(
-                    menuItemValue -> checkbox.withValue(menuItem.isSelected(), true));
-
-                menuItem.addDeselectionHandler(
-                    () -> checkbox.withValue(menuItem.isSelected(), true));
               });
         });
+  }
+
+  @Override
+  public SelectOption<V> onSelected() {
+    checkbox.withValue(true, true);
+    return super.onSelected();
+  }
+
+  @Override
+  public SelectOption<V> onDeselected() {
+    checkbox.withValue(false, true);
+    return super.onDeselected();
   }
 }

@@ -94,7 +94,7 @@ public abstract class AbstractSelect<
         .appendChild(
             fieldInput =
                 div()
-                    .addCss(dui_field_input)
+                    .addCss(dui_field_input, dui_flex_nowrap)
                     .appendChild(placeHolderElement.addCss(dui_field_placeholder)))
         .appendChild(inputElement = input(getType()).addCss(dui_hidden_input))
         .appendChild(
