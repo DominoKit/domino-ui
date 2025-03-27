@@ -1807,6 +1807,30 @@ public abstract class BaseDominoElement<E extends Element, T extends IsElement<E
   }
 
   /**
+   * Sets the specified attribute to the given double value on this element.
+   *
+   * @param attribute {@link IsAttribute}.
+   * @return The modified DOM element.
+   */
+  @Editor.Ignore
+  public T setAttribute(IsAttribute<?> attribute) {
+    element().setAttribute(attribute.getName(), String.valueOf(attribute.getValue()));
+    return element;
+  }
+
+  /**
+   * Sets the specified attribute to the given double value on this element.
+   *
+   * @param attributes array of {@link IsAttribute}.
+   * @return The modified DOM element.
+   */
+  @Editor.Ignore
+  public T setAttribute(IsAttribute<?>... attributes) {
+    Arrays.asList(attributes).forEach(this::setAttribute);
+    return element;
+  }
+
+  /**
    * Gets the value of the specified attribute on this element.
    *
    * @param name The name of the attribute to retrieve.

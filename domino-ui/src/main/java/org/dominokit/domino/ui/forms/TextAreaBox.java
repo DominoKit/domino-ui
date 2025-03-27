@@ -23,15 +23,7 @@ import elemental2.dom.EventListener;
 import elemental2.dom.HTMLTextAreaElement;
 import org.dominokit.domino.ui.elements.DivElement;
 import org.dominokit.domino.ui.elements.SpanElement;
-import org.dominokit.domino.ui.utils.DominoElement;
-import org.dominokit.domino.ui.utils.FillerElement;
-import org.dominokit.domino.ui.utils.IntersectionObserver;
-import org.dominokit.domino.ui.utils.IntersectionObserverEntry;
-import org.dominokit.domino.ui.utils.IntersectionObserverOptions;
-import org.dominokit.domino.ui.utils.LazyChild;
-import org.dominokit.domino.ui.utils.PostfixElement;
-import org.dominokit.domino.ui.utils.PrefixElement;
-import org.dominokit.domino.ui.utils.PrimaryAddOnElement;
+import org.dominokit.domino.ui.utils.*;
 
 /**
  * The TextAreaBox class is a form field component for text areas, providing features such as prefix
@@ -182,10 +174,7 @@ public class TextAreaBox extends CountableInputFormField<TextAreaBox, HTMLTextAr
 
   @Override
   protected DominoElement<HTMLTextAreaElement> createInputElement(String type) {
-    return textarea()
-        .addCss(dui_field_input)
-        .setCssProperty("line-height", "26px")
-        .toDominoElement();
+    return textarea().addCss(dui_field_input).toDominoElement();
   }
 
   /**
@@ -237,7 +226,11 @@ public class TextAreaBox extends CountableInputFormField<TextAreaBox, HTMLTextAr
     if (autoSize) {
       getInputElement().style().setHeight("auto");
       int scrollHeight = getInputElement().element().scrollHeight;
-      getInputElement().style().setHeight(Math.max(scrollHeight, 28) + "px");
+      String value =
+          DominoDom.window.getComputedStyle(getInputElement().element()).get("line-height");
+      getInputElement()
+          .style()
+          .setHeight(Math.max(scrollHeight, CssParser.parseCssNumber(value) + 2) + "px");
     }
   }
 

@@ -1062,6 +1062,7 @@ body.dui {
     --dui-form-field-textarea-input-height: auto;
     --dui-form-field-textarea-input-padding: 1px 0 0 0;
     --dui-form-field-textarea-input-mergin: 0 2px 0 0;
+    --dui-form-field-textarea-input-line-height: 26px;
 
     --dui-form-field-checkbox-gap: var(--dui-spc-px-4);
     --dui-form-field-checkbox-label-padding: 0 0 0 var(--dui-spc-px-30);
@@ -1077,7 +1078,6 @@ body.dui {
     --dui-form-field-checkbox-square-length: var(--dui-spc-px-16);
     --dui-form-field-checkbox-square-border-width: 2px;
     --dui-form-field-checkbox-square-border-style: solid;
-    --dui-form-field-checkbox-square-border-color: var(--dui-accent);
     --dui-form-field-checkbox-square-radius: 1px;
     --dui-form-field-checkbox-square-margin: var(--dui-spc-px-3);
     --dui-form-field-checkbox-square-filled-background: var(--dui-accent);

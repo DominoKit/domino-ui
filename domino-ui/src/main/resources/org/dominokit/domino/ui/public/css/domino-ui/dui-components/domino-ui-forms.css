@@ -218,6 +218,10 @@ fieldset.dui {
     --dui-form-field-input-whitespace:unset;
 }
 
+.dui-form-text-area .dui-field-input {
+    line-height: var(--dui-form-field-textarea-input-line-height);
+}
+
 .dui-form-text-area .dui-field-input[disabled],
 .dui-form-text-area .dui-field-input[readonly] {
     white-space: pre-wrap;
@@ -413,8 +417,8 @@ textarea.dui-field-input {
     z-index: 0;
     border-top: var(--dui-form-field-checkbox-square-border-width) var(--dui-form-field-checkbox-square-border-style) transparent;
     border-left: var(--dui-form-field-checkbox-square-border-width) var(--dui-form-field-checkbox-square-border-style) transparent;
-    border-right: var(--dui-form-field-checkbox-square-border-width) var(--dui-form-field-checkbox-square-border-style) var(--dui-accent, var(--dui-form-field-checkbox-square-border-color));
-    border-bottom: var(--dui-form-field-checkbox-square-border-width) var(--dui-form-field-checkbox-square-border-style) var(--dui-accent, var(--dui-form-field-checkbox-square-border-color));
+    border-right: var(--dui-form-field-checkbox-square-border-width) var(--dui-form-field-checkbox-square-border-style) var(--dui-form-field-checkbox-square-border-color, var(--dui-accent));
+    border-bottom: var(--dui-form-field-checkbox-square-border-width) var(--dui-form-field-checkbox-square-border-style) var(--dui-form-field-checkbox-square-border-color, var(--dui-accent));
     border-radius: var(--dui-form-field-checkbox-square-radius);
     margin: var(--dui-form-field-checkbox-square-margin);
     transition: transform 0.2s ease-in-out,
@@ -451,10 +455,10 @@ textarea.dui-field-input {
     width: var(--dui-form-field-checkbox-square-length);
     height: var(--dui-form-field-checkbox-square-length);
     z-index: 0;
-    border-top: var(--dui-form-field-checkbox-square-border-width) var(--dui-form-field-checkbox-square-border-style) var(--dui-accent, var(--dui-form-field-checkbox-square-border-color));
-    border-left: var(--dui-form-field-checkbox-square-border-width) var(--dui-form-field-checkbox-square-border-style) var(--dui-accent, var(--dui-form-field-checkbox-square-border-color));
-    border-right: var(--dui-form-field-checkbox-square-border-width) var(--dui-form-field-checkbox-square-border-style) var(--dui-accent, var(--dui-form-field-checkbox-square-border-color));
-    border-bottom: var(--dui-form-field-checkbox-square-border-width) var(--dui-form-field-checkbox-square-border-style) var(--dui-accent, var(--dui-form-field-checkbox-square-border-color));
+    border-top: var(--dui-form-field-checkbox-square-border-width) var(--dui-form-field-checkbox-square-border-style) var(--dui-form-field-checkbox-square-border-color, var(--dui-accent));
+    border-left: var(--dui-form-field-checkbox-square-border-width) var(--dui-form-field-checkbox-square-border-style) var(--dui-form-field-checkbox-square-border-color, var(--dui-accent));
+    border-right: var(--dui-form-field-checkbox-square-border-width) var(--dui-form-field-checkbox-square-border-style) var(--dui-form-field-checkbox-square-border-color, var(--dui-accent));
+    border-bottom: var(--dui-form-field-checkbox-square-border-width) var(--dui-form-field-checkbox-square-border-style) var(--dui-form-field-checkbox-square-border-color, var(--dui-accent));
     border-radius: var(--dui-form-field-checkbox-square-radius);
     margin: var(--dui-form-field-checkbox-square-margin);
     transition: transform 0.2s ease-in-out,
@@ -484,10 +488,10 @@ textarea.dui-field-input {
     height: var(--dui-form-field-checkbox-check-height);
     left: var(--dui-form-field-checkbox-check-left);
     top: var(--dui-form-field-checkbox-check-top);
-    border-top: var(--dui-form-field-checkbox-square-border-width) var(--dui-form-field-checkbox-square-border-style) transparent;
-    border-left: var(--dui-form-field-checkbox-square-border-width) var(--dui-form-field-checkbox-square-border-style) transparent;
-    border-right: var(--dui-form-field-checkbox-square-border-width) var(--dui-form-field-checkbox-square-border-style) var(--dui-accent, var(--dui-form-field-checkbox-square-border-color));
-    border-bottom: var(--dui-form-field-checkbox-square-border-width) var(--dui-form-field-checkbox-square-border-style) var(--dui-accent, var(--dui-form-field-checkbox-square-border-color));
+    border-top: var(--dui-form-field-checkbox-square-border-width) var(--dui-form-field-checkbox-square-border-style) var(--dui-form-field-checkbox-square-border-absent-color, transparent);
+    border-left: var(--dui-form-field-checkbox-square-border-width) var(--dui-form-field-checkbox-square-border-style) var(--dui-form-field-checkbox-square-border-absent-color, transparent);
+    border-right: var(--dui-form-field-checkbox-square-border-width) var(--dui-form-field-checkbox-square-border-style) var(--dui-form-field-checkbox-square-border-color, var(--dui-accent));
+    border-bottom: var(--dui-form-field-checkbox-square-border-width) var(--dui-form-field-checkbox-square-border-style) var(--dui-form-field-checkbox-square-border-color, var(--dui-accent));
     transform: rotate(40deg);
     -webkit-backface-visibility: hidden;
     backface-visibility: hidden;
@@ -501,10 +505,10 @@ textarea.dui-field-input {
     height: var(--dui-form-field-checkbox-indeterminate-check-height);
     left: var(--dui-form-field-checkbox-indeterminate-check-left);
     top: var(--dui-form-field-checkbox-indeterminate-check-top);
-    border-top: var(--dui-form-field-checkbox-indeterminate-check-border-width) var(--dui-form-field-checkbox-square-border-style) var(--dui-accent, var(--dui-form-field-checkbox-square-border-color));
-    border-left: var(--dui-form-field-checkbox-indeterminate-check-border-width) var(--dui-form-field-checkbox-square-border-style) var(--dui-accent, var(--dui-form-field-checkbox-square-border-color));
-    border-right: var(--dui-form-field-checkbox-indeterminate-check-border-width) var(--dui-form-field-checkbox-square-border-style) var(--dui-accent, var(--dui-form-field-checkbox-square-border-color));
-    border-bottom: var(--dui-form-field-checkbox-indeterminate-check-border-width) var(--dui-form-field-checkbox-square-border-style) var(--dui-accent, var(--dui-form-field-checkbox-square-border-color));
+    border-top: var(--dui-form-field-checkbox-indeterminate-check-border-width) var(--dui-form-field-checkbox-square-border-style) var(--dui-form-field-checkbox-square-border-color, var(--dui-accent));
+    border-left: var(--dui-form-field-checkbox-indeterminate-check-border-width) var(--dui-form-field-checkbox-square-border-style) var(--dui-form-field-checkbox-square-border-color, var(--dui-accent));
+    border-right: var(--dui-form-field-checkbox-indeterminate-check-border-width) var(--dui-form-field-checkbox-square-border-style) var(--dui-form-field-checkbox-square-border-color, var(--dui-accent));
+    border-bottom: var(--dui-form-field-checkbox-indeterminate-check-border-width) var(--dui-form-field-checkbox-square-border-style) var(--dui-form-field-checkbox-square-border-color, var(--dui-accent));
     -webkit-backface-visibility: hidden;
     backface-visibility: hidden;
     transform-origin: 100% 100%;

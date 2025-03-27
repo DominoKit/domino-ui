@@ -697,6 +697,17 @@ public class AbstractDialog<T extends AbstractDialog<T>>
     return (T) this;
   }
 
+  /**
+   * Use to apply changes to the actual root element of this dialog
+   *
+   * @param handler
+   * @return same dialog instance
+   */
+  public T withMainElement(ChildHandler<T, DivElement> handler) {
+    handler.apply((T) this, element);
+    return (T) this;
+  }
+
   @Override
   public void resetZIndexLayer() {
     // Dialogs should never rest their base layer.;

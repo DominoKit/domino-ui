@@ -342,6 +342,14 @@ public class AbstractMenuItem<V> extends BaseDominoElement<HTMLLIElement, Abstra
     return this;
   }
 
+  @Override
+  public AbstractMenuItem<V> removeDeselectionHandler(DeselectionHandler deselectionHandler) {
+    if (nonNull(deselectionHandler)) {
+      deselectionHandlers.remove(deselectionHandler);
+    }
+    return this;
+  }
+
   /**
    * Sets focus on the clickable element of the menu item.
    *

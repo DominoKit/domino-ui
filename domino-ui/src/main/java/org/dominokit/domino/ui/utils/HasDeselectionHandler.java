@@ -32,6 +32,8 @@ public interface HasDeselectionHandler<T> {
    */
   T addDeselectionHandler(DeselectionHandler deselectionHandler);
 
+  T removeDeselectionHandler(DeselectionHandler deselectionHandler);
+
   /** The {@code DeselectionHandler} interface defines a method to handle deselection events. */
   interface DeselectionHandler {
 
