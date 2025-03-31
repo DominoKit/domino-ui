@@ -1591,8 +1591,21 @@ public class Menu<V> extends BaseDominoElement<HTMLDivElement, Menu<V>>
     return this;
   }
 
+    /**
+     * Removes any {@link MenuTarget} that are present.
+     * It has the added side effect of removing the oncontextmenu listener that is added for context menus by
+     * DOMINO.
+     *
+     * @return The current {@link Menu} instance.
+     */
+  public Menu<V> clearTarget() {
+      return this.setTarget(null);
+  }
+
   /**
-   * Sets the menu target.
+   * Sets the menu target, with null removing any targets present.
+   * It has the added side effect of removing the oncontextmenu listener that is added for context menus by
+   * DOMINO.
    *
    * @param menuTarget The {@link MenuTarget} instance representing the menu's target.
    * @return The current {@link Menu} instance.
@@ -1607,8 +1620,10 @@ public class Menu<V> extends BaseDominoElement<HTMLDivElement, Menu<V>>
                   .removeEventListener(
                       isContextMenu() ? EventType.contextmenu.getName() : EventType.click.getName(),
                       openListener);
-              target.getTargetElement().removeDetachObserver(menuTarget.getTargetDetachObserver());
-              target.getTargetElement().removeAttachObserver(menuTarget.getTargetAttachObserver());
+              if(null != menuTarget) {
+                  target.getTargetElement().removeDetachObserver(menuTarget.getTargetDetachObserver());
+                  target.getTargetElement().removeAttachObserver(menuTarget.getTargetAttachObserver());
+              }
             });
     this.targets().clear();
     return addTarget(menuTarget);
