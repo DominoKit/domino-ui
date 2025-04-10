@@ -406,6 +406,10 @@ textarea.dui-field-input {
 .dui-form-checkbox.dui-disable-transition  .dui-checkbox-label:before {
     transition: none;
 }
+.dui-vertical .dui-form-radio-group,
+.dui-form-radio-group.dui-vertical {
+    --dui-form-radio-group-direction: column;
+}
 
 .dui-form-checkbox .dui-checkbox-label:before {
     content: '';
@@ -583,13 +587,23 @@ textarea.dui-field-input {
     top 0.28s ease-in-out,
     left 0.28s ease-in-out,
     margin 0.28s ease-in-out;
-    border: var(--dui-form-field-radio-circle-border-width) var(--dui-form-field-radio-circle-border-style) var(--dui-accent, var(--dui-form-field-radio-circle-border-color));
+    border: var(--dui-form-field-radio-circle-border-width)
+        var(--dui-form-field-radio-circle-border-style)
+        var(--dui-form-field-radio-circle-border-color, var(--dui-accent));
     border-radius: var(--dui-form-field-radio-circle-radius);
 }
 
+.dui-field-input-hidden:checked + .dui-field-input .dui-radio-label:before {
+    border: var(--dui-form-field-radio-circle-border-width)
+    var(--dui-form-field-radio-circle-border-style)
+    var(--dui-form-field-radio-circle-checked-border-color, var(--dui-accent));
+}
+
 .dui-field-input-hidden:checked + .dui-field-input .dui-radio-label:after {
-    background-color: var(--dui-accent, var(--dui-form-field-radio-circle-checked-color));
-    border: var(--dui-form-field-radio-circle-border-width) var(--dui-form-field-radio-circle-border-style) var(--dui-accent, var(--dui-form-field-radio-circle-border-color));
+    background-color: var(--dui-form-field-radio-circle-checked-color, var(--dui-accent));
+    border: var(--dui-form-field-radio-circle-border-width)
+        var(--dui-form-field-radio-circle-border-style)
+        var(--dui-form-field-radio-circle-checked-border-color, var(--dui-accent));
 }
 
 .dui-form-radio-gap .dui-field-input-hidden:checked + .dui-field-input .dui-radio-label:after {
@@ -608,7 +622,7 @@ textarea.dui-field-input {
     transition: transform 0.28s ease-in-out,
     transform-origin 0.28s ease-in-out,
     rotate 0.28s ease-in-out,
-    width 0.28s ease-in-out,
+    width 0.28s ease-Fin-out,
     height 0.28s ease-in-out,
     top 0.28s ease-in-out,
     left 0.28s ease-in-out,
@@ -619,11 +633,13 @@ textarea.dui-field-input {
 
 .dui-form-radio-group-vertical {
     --dui-form-radio-group-direction: column;
+    --dui-form-radio-group-gap: var(--dui-form-radio-group-vertical-gap);
 }
 
 .dui-form-radio-group .dui-field-input-wrapper {
     flex-direction: var(--dui-form-radio-group-direction, row);
     gap: var(--dui-form-radio-group-gap);
+    align-items: start;
 }
 
 .dui-form-switch .dui-field-input-wrapper {
@@ -643,7 +659,7 @@ textarea.dui-field-input {
     display: inline-block;
     width: var(--dui-form-field-switch-track-width);
     height: var(--dui-form-field-switch-track-height);
-    background-color: var(--dui-accent-l-4, var(--dui-form-field-switch-track-background));
+    background-color: var(--dui-form-field-switch-track-background, var(--dui-accent-l-4));
     border-radius: var(--dui-form-field-switch-track-radius);
     margin: var(--dui-form-field-switch-track-margin);
     overflow: visible;
@@ -662,19 +678,19 @@ textarea.dui-field-input {
     z-index: 10;
     overflow: visible;
     border-radius: var(--dui-form-field-switch-thumb-radius);
-    background-color: var(--dui-accent, var(--dui-form-field-switch-thumb-background));
-    filter: drop-shadow(0px 0px 2px var(--dui-accent-d-1));
+    background-color: var(--dui-form-field-switch-thumb-background, var(--dui-accent));
+    filter: var(--dui-form-field-switch-thumb-filter);
     /*box-shadow: var(--dui-form-field-switch-thumb-box-shadow);*/
 }
 
 .dui-field-input-hidden:checked + .dui-field-input .dui-switch-track {
-    background-color: var(--dui-accent, var(--dui-form-field-switch-checked-track-background));
+    background-color: var(--dui-form-field-switch-checked-track-background, var(--dui-accent));
 }
 
 .dui-field-input-hidden:checked + .dui-field-input .dui-switch-track:before {
-    background-color: var(--dui-accent-l-5, var(--dui-form-field-switch-checked-thumb-background));
+    background-color: var(--dui-form-field-switch-checked-thumb-background, var(--dui-accent-l-5));
     transform: var(--dui-form-field-switch-thumb-checked-transform);
-    filter: drop-shadow(0px 0px 2px var(--dui-accent-d-2));
+    filter: var(--dui-form-field-switch-thumb-checked-filter);
 }
 
 .dui-form-switch:focus-within .dui-switch-track:before,

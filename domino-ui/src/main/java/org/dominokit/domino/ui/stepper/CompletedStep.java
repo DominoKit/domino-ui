@@ -15,11 +15,9 @@
  */
 package org.dominokit.domino.ui.stepper;
 
-import static org.dominokit.domino.ui.style.GenericCss.dui_success;
+import static org.dominokit.domino.ui.stepper.StepStateCss.dui_step_state_completed;
 
 import org.dominokit.domino.ui.icons.lib.Icons;
-import org.dominokit.domino.ui.style.ColorsCss;
-import org.dominokit.domino.ui.style.SpacingCss;
 
 /**
  * A concrete implementation of the {@link StepState} interface representing a completed step in a
@@ -37,12 +35,9 @@ public class CompletedStep implements StepState {
   @Override
   public void apply(StepTracker tracker) {
     tracker
-        .addCss(ColorsCss.dui_accent_success)
+        .addCss(dui_step_state_completed)
         .withTrackerNode(
-            (parent1, node) ->
-                node.appendChild(
-                        Icons.check().addCss(SpacingCss.dui_font_size_4, dui_tracker_node_icon))
-                    .addCss(dui_success));
+            (parent1, node) -> node.appendChild(Icons.check().addCss(dui_tracker_node_icon)));
   }
 
   /**
@@ -54,8 +49,8 @@ public class CompletedStep implements StepState {
   @Override
   public void cleanUp(StepTracker tracker) {
     tracker
-        .removeCss(ColorsCss.dui_accent_success)
-        .withTrackerNode((parent1, node) -> node.clearElement().removeCss(dui_success));
+        .removeCss(dui_step_state_completed)
+        .withTrackerNode((parent1, node) -> node.clearElement());
   }
 
   /**

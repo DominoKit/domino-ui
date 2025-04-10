@@ -26,6 +26,7 @@ import org.dominokit.domino.ui.animations.Transition;
 import org.dominokit.domino.ui.button.RemoveButton;
 import org.dominokit.domino.ui.elements.DivElement;
 import org.dominokit.domino.ui.elements.SpanElement;
+import org.dominokit.domino.ui.events.CustomEvents;
 import org.dominokit.domino.ui.events.EventType;
 import org.dominokit.domino.ui.style.*;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
@@ -49,6 +50,7 @@ import org.dominokit.domino.ui.utils.LazyChild;
 public class Notification extends BaseDominoElement<HTMLDivElement, Notification>
     implements NotificationStyles {
 
+  public static final String DUI_NOTIFICATION_CLOSE = "dui-notification-close";
   private final DivElement element;
   private final DivElement root;
   private final DivElement content;
@@ -62,7 +64,8 @@ public class Notification extends BaseDominoElement<HTMLDivElement, Notification
   private boolean dismissible = true;
   private boolean infinite = false;
   private boolean closed = true;
-  private final List<CloseHandler> closeHandlers = new ArrayList<>();
+  private final List<NotificationHandler> closeHandlers = new ArrayList<>();
+  private final List<NotificationHandler> showHandlers = new ArrayList<>();
 
   /** Constructs a default notification instance. */
   public Notification() {
@@ -82,6 +85,9 @@ public class Notification extends BaseDominoElement<HTMLDivElement, Notification
           element.insertBefore(span().addCss("dui-notification-filler"), closeButton.element());
         });
     init(this);
+    onAttached((target, mutationRecord) -> showHandlers.forEach(handler -> handler.apply(this)));
+    onDetached((target, mutationRecord) -> closeHandlers.forEach(handler -> handler.apply(this)));
+    addEventListener(DUI_NOTIFICATION_CLOSE, evt -> close());
   }
 
   /**
@@ -103,6 +109,19 @@ public class Notification extends BaseDominoElement<HTMLDivElement, Notification
    */
   public static Notification create() {
     return new Notification();
+  }
+
+  /** Close all currently opened notifications */
+  public static void dismissAll() {
+    NodeList<Element> notifications =
+        DomGlobal.document.querySelectorAll("." + dui_notification_wrapper.getCssClass());
+    notifications
+        .asList()
+        .forEach(
+            notification -> {
+              CustomEvent<Void> closeEvent = CustomEvents.create(DUI_NOTIFICATION_CLOSE);
+              notification.dispatchEvent(closeEvent);
+            });
   }
 
   /**
@@ -305,7 +324,6 @@ public class Notification extends BaseDominoElement<HTMLDivElement, Notification
       animateClose(
           after,
           () -> {
-            closeHandlers.forEach(CloseHandler::onClose);
             this.closed = true;
           });
     }
@@ -335,19 +353,41 @@ public class Notification extends BaseDominoElement<HTMLDivElement, Notification
    *
    * @return a list of close handlers
    */
-  public List<CloseHandler> getCloseHandlers() {
+  public List<NotificationHandler> getCloseHandlers() {
     return closeHandlers;
+  }
+
+  /**
+   * Retrieves the list of show handlers associated with the notification.
+   *
+   * @return a list of show handlers
+   */
+  public List<NotificationHandler> getShowHandlers() {
+    return showHandlers;
   }
 
   /**
    * Adds a close handler to the notification.
    *
-   * @param closeHandler the close handler to be added
+   * @param notificationHandler the close handler to be added
    * @return this notification for chaining
    */
-  public Notification addCloseHandler(CloseHandler closeHandler) {
-    if (nonNull(closeHandler)) {
-      closeHandlers.add(closeHandler);
+  public Notification addCloseHandler(NotificationHandler notificationHandler) {
+    if (nonNull(notificationHandler)) {
+      closeHandlers.add(notificationHandler);
+    }
+    return this;
+  }
+
+  /**
+   * Adds a show handler to the notification.
+   *
+   * @param showHandler the show handler to be added
+   * @return this notification for chaining
+   */
+  public Notification addShowHandler(NotificationHandler showHandler) {
+    if (nonNull(showHandler)) {
+      showHandlers.add(showHandler);
     }
     return this;
   }
@@ -355,12 +395,25 @@ public class Notification extends BaseDominoElement<HTMLDivElement, Notification
   /**
    * Removes a specified close handler from the notification.
    *
-   * @param closeHandler the close handler to be removed
+   * @param notificationHandler the close handler to be removed
    * @return this notification for chaining
    */
-  public Notification removeCloseHandler(CloseHandler closeHandler) {
-    if (nonNull(closeHandler)) {
-      closeHandlers.remove(closeHandler);
+  public Notification removeCloseHandler(NotificationHandler notificationHandler) {
+    if (nonNull(notificationHandler)) {
+      closeHandlers.remove(notificationHandler);
+    }
+    return this;
+  }
+
+  /**
+   * Removes a specified show handler from the notification.
+   *
+   * @param showHandler the show handler to be removed
+   * @return this notification for chaining
+   */
+  public Notification removeShowHandler(NotificationHandler showHandler) {
+    if (nonNull(showHandler)) {
+      showHandlers.remove(showHandler);
     }
     return this;
   }
@@ -387,12 +440,13 @@ public class Notification extends BaseDominoElement<HTMLDivElement, Notification
   }
 
   /**
-   * A functional interface representing handlers that are triggered when a notification is closed.
+   * A functional interface representing handlers that are triggered when a notification is
+   * shown/closed.
    */
   @FunctionalInterface
-  public interface CloseHandler {
-    /** Triggered when the notification is closed. */
-    void onClose();
+  public interface NotificationHandler {
+    /** Triggered when the notification is shown/closed. */
+    void apply(Notification notification);
   }
 
   /**

@@ -346,8 +346,6 @@ public class StepperTrack extends BaseDominoElement<HTMLDivElement, StepperTrack
     return this;
   }
 
-  // ... other methods continue with similar documentation...
-
   /**
    * Resets the stepper track and starts with the given state.
    *

@@ -625,7 +625,7 @@ body.dui {
     --dui-chip-addon-radius: 50%;
     --dui-chip-addon-width: var(--dui-spc-8);
     --dui-chip-addon-height: var(--dui-spc-8);
-    --dui-chip-addon-mrgin: var(--dui-spc-px-2) 0 0 0;
+    --dui-chip-addon-mrgin: 0 0 0 0;
     --dui-chip-close-mrgin: -2px 0 0 var(--dui-spc-px-12);
 
     /*======================================= Info box ================================*/
@@ -1105,11 +1105,11 @@ body.dui {
     --dui-form-field-radio-circle-length: var(--dui-spc-px-16);
     --dui-form-field-radio-circle-border-width: 2px;
     --dui-form-field-radio-circle-border-style: solid;
-    --dui-form-field-radio-circle-border-color: var(--dui-accent);
     --dui-form-field-radio-circle-radius: 50%;
-    --dui-form-field-radio-circle-checked-color: var(--dui-accent);
     --dui-form-field-radio-circle-checked-transform: scale(0.6);
-    --dui-form-radio-group-gap: var(--dui-spc-px-15);
+    --dui-form-radio-group-vertical-gap: var(--dui-spc-px-15);
+    --dui-form-radio-group-horizontal-gap: var(--dui-spc-px-15);
+    --dui-form-radio-group-gap: var(--dui-form-radio-group-horizontal-gap);
 
     --dui-form-field-switch-cursor: pointer;
     --dui-form-field-switch-track-width: var(--dui-spc-px-50);
@@ -1133,6 +1133,8 @@ body.dui {
     --dui-form-field-switch-thumb-checked-transform: translateX(var(--dui-spc-px-24));
     --dui-form-field-switch-focus-transition: all 0.4s ease-in-out;
     --dui-form-field-switch-focus-background: var(--dui-bg-d-2);
+    --dui-form-field-switch-thumb-filter: drop-shadow(0px 0px 2px var(--dui-accent-d-2));
+    --dui-form-field-switch-thumb-checked-filter: drop-shadow(0px 0px 2px var(--dui-accent-d-2));
 
     --dui-form-scrolled-text-area-border: 1px dotted var(--dui-accent-l-5);
 
@@ -1155,6 +1157,8 @@ body.dui {
     --dui-step-tracker-node-height: var(--dui-spc-6);
     --dui-step-tracker-node-border-width: var(--dui-spc-1);
     --dui-step-tracker-node-border-style: solid;
+    --dui-step-tracker-node-border-color: var(--dui-step-tracker-node-color, var(--dui-accent));
+    --dui-step-tracker-active-node-border-color: var(--dui-accent-d-2);
     --dui-step-tracker-node-border-radius: 999999px;
     --dui-step-tracker-node-transition: all 0.2s;
     --dui-step-tracker-node-icon-inset: -2px auto auto -2px;
@@ -1162,6 +1166,22 @@ body.dui {
     --dui-stepper-track-tail-node-height: var(--dui-spc-4);
     --dui-stepper-track-tail-node-border-radius: 999999px;
     --dui-step-tracker-line-thinkness: var(--dui-spc-2);
+    --dui-tracker-line-default-color:  var(--dui-step-tracker-node-color, var(--dui-accent));
+    --dui-tracker-line-active-color:  var(--dui-step-tracker-node-color, var(--dui-accent-d-2));
+    --dui-step-tracker-node-icon-font-size: var(--dui-spc-4);
+    --dui-step-tracker-node-completed-color: var(--dui-clr-success);
+    --dui-step-tracker-node-disabled-color: var(--dui-clr-grey);
+    --dui-step-tracker-node-error-color: var(--dui-clr-error);
+    --dui-step-tracker-node-skipped-color: var(--dui-clr-info);
+    --dui-step-tracker-node-warning-color: var(--dui-clr-warning);
+    --dui-step-tracker-node-active-color: var(--dui-accent-d-2);
+    --dui-step-tracker-node-completed-fg-color: var(--dui-color-invert);
+    --dui-step-tracker-node-disabled-fg-color: var(--dui-color-invert);
+    --dui-step-tracker-node-error-fg-color: var(--dui-color-invert);
+    --dui-step-tracker-node-skipped-fg-color: var(--dui-color-invert);
+    --dui-step-tracker-node-warning-fg-color: var(--dui-color-invert);
+    --dui-step-tracker-node-active-fg-color: var(--dui-color);
+    --dui-stepper-track-tail-node-placement:var(--dui-spc-1);
 
 
     /* ===================== Nav bar ========================= */
@@ -1409,4 +1429,23 @@ body.dui {
     --dui-datattable-cell-line-height: var(--dui-spc-2);
     --dui-datattable-navbar-padding: 0;
     --dui-datattable-navbar-margin: var(--dui-spc-2) 0 var(--dui-spc-2) 0;
+
+    /* ========================= Generic ======================= */
+    --dui-close-char-top:-1px;
+    --dui-close-char-position: relative;
+    --dui-close-hover-box-shadow: 0 0 0 0 rgb(0 0 0 / 40%), 0 0 0 10px rgb(0 0 0 / 8%);
+    --dui-close-color:inherit;
+    --dui-close-opacity: 1;
+    --dui-close-border:none;
+    --dui-close-position: relative;
+    --dui-close-top: 0;
+    --dui-close-font: var(--dui-font-regular);
+    --dui-close-line-height: 23px;
+    --dui-close-size: 24px;
+    --dui-close-left: 6px;
+    --dui-close-cursor: pointer;
+    --dui-close-border-radius: 99999px;
+    --dui-close-margin-left: 2px;
+    --dui-close-margin-right: 2px;
+    --dui-close-background: var(--dui-bg);
 }

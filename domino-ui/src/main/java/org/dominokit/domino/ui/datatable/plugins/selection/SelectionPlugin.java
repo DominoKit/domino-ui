@@ -54,7 +54,7 @@ public class SelectionPlugin<T> implements DataTablePlugin<T> {
   private Supplier<Element> singleSelectIndicator = () -> Icons.check().element();
   private SelectionCondition<T> selectionCondition = (table, row) -> true;
   private TableRow<T> lastSelected;
-  private CheckBoxCreator<T> checkBoxCreator = tableRow -> CheckBox.create();
+  private CheckBoxCreator<T> checkBoxCreator = tableRow -> CheckBox.create().addCss(dui_minified);
   private DataTable<T> datatable;
   private List<T> oldSelection = new ArrayList<>();
   private boolean retainSelectionOnDataChange = false;

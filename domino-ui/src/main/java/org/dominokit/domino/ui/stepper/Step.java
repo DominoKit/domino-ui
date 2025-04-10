@@ -78,6 +78,15 @@ public class Step extends BaseDominoElement<HTMLDivElement, Step>
   /**
    * Factory method to create a new step.
    *
+   * @return a new Step instance
+   */
+  public static Step create() {
+    return create("");
+  }
+
+  /**
+   * Factory method to create a new step.
+   *
    * @param title the title for the step
    * @return a new Step instance
    */
