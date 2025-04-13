@@ -286,7 +286,6 @@ public class KeyboardNavigation<V extends IsElement<?>> implements EventListener
    * @param item The current item.
    */
   public void focusNext(V item) {
-    DomGlobal.console.info("focusing item: " + item);
     List<V> items = this.itemsSupplier.get();
     int nextIndex = items.indexOf(item) + 1;
     int size = items.size();

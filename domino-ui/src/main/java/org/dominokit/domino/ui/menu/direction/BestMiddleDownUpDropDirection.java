@@ -16,7 +16,6 @@
 package org.dominokit.domino.ui.menu.direction;
 
 import static org.dominokit.domino.ui.style.SpacingCss.dui_flex_col_reverse;
-import static org.dominokit.domino.ui.utils.Domino.elementOf;
 
 import elemental2.dom.Element;
 
@@ -38,11 +37,7 @@ public class BestMiddleDownUpDropDirection implements DropDirection {
     } else if (spaceChecker.hasSpaceAbove()) {
       return TOP_MIDDLE.position(context);
     } else {
-      elementOf(context.getSource()).setCssProperty(spaceChecker.getMaximumSideSpaceProperty());
-      elementOf(context.getSource()).setCssProperty(spaceChecker.getMaximumVerticalSpaceProperty());
-      context.newSpaceChecker();
-
-      return position(context);
+      return fallBackPosition(context, spaceChecker);
     }
   }
 

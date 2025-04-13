@@ -15,6 +15,8 @@
  */
 package org.dominokit.domino.ui.menu.direction;
 
+import static org.dominokit.domino.ui.utils.Domino.elementOf;
+
 import elemental2.dom.Element;
 import elemental2.dom.Event;
 import org.dominokit.domino.ui.style.CssClass;
@@ -39,13 +41,22 @@ public interface DropDirection {
   DropDirection position(DropDirectionContext context);
 
   /**
-   * cleanup.
+   * cleanup.F
    *
    * @param source a {@link elemental2.dom.Element} object
    */
   default void cleanup(Element source) {}
 
   default void cleanSelf(Element source) {}
+
+  default DropDirection fallBackPosition(DropDirectionContext context, SpaceChecker spaceChecker) {
+    elementOf(context.getSource()).setCssProperty(spaceChecker.getMaximumSideSpaceProperty());
+    elementOf(context.getSource()).setCssProperty(spaceChecker.getMaximumVerticalSpaceProperty());
+
+    context.newSpaceChecker();
+
+    return position(context);
+  }
 
   /** Constant <code>BEST_FIT_SIDE</code> */
   DropDirection BEST_FIT_SIDE = new BestFitSideDropDirection();

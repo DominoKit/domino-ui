@@ -82,11 +82,7 @@ public class LeftMiddleDropDirection implements DropDirection {
     } else if (spaceChecker.hasSpaceBelow()) {
       return BOTTOM_MIDDLE.position(context);
     } else {
-      elementOf(context.getSource()).setCssProperty(spaceChecker.getMaximumSideSpaceProperty());
-      elementOf(context.getSource()).setCssProperty(spaceChecker.getMaximumVerticalSpaceProperty());
-      context.newSpaceChecker();
-
-      return position(context);
+      return fallBackPosition(context, spaceChecker);
     }
   }
 
