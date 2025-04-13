@@ -54,6 +54,7 @@ public class RowContextMenuPlugin<T> implements DataTablePlugin<T> {
   public void onRowAdded(DataTable<T> dataTable, TableRow<T> tableRow) {
     this.menu.addTarget(
         MenuTarget.of(tableRow.element()).applyMeta(RowContextMenuMeta.of(tableRow)));
+    tableRow.setAttribute(Menu.DUI_AUTO_CLEAR_SELECTION, true);
   }
 
   /**

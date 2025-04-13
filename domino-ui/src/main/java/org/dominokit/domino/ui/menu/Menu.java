@@ -88,6 +88,7 @@ public class Menu<V> extends BaseDominoElement<HTMLDivElement, Menu<V>>
         MenuStyles {
 
   public static final String ANY = "*";
+  public static final String DUI_AUTO_CLEAR_SELECTION = "dui-auto-clear-selection";
 
   private final LazyChild<NavBar> menuHeader;
   private final LazyChild<DivElement> menuSearchContainer;
@@ -164,9 +165,17 @@ public class Menu<V> extends BaseDominoElement<HTMLDivElement, Menu<V>>
         if (!Objects.equals(newTarget, lastTarget)) {
           if (nonNull(lastTarget)) {
             lastTarget.getTargetElement().removeCss(dui_context_menu_target_open);
+            getSelection().forEach(item -> item.deselect(true));
           }
           newTarget.getTargetElement().addCss(dui_context_menu_target_open);
-          getSelection().forEach(item -> item.deselect(true));
+        } else {
+          if (nonNull(lastTarget)
+              && lastTarget.getTargetElement().hasAttribute(DUI_AUTO_CLEAR_SELECTION)) {
+            if ("true"
+                .equals(lastTarget.getTargetElement().getAttribute(DUI_AUTO_CLEAR_SELECTION))) {
+              getSelection().forEach(item -> item.deselect(true));
+            }
+          }
         }
 
         lastTarget = newTarget;

@@ -18,7 +18,6 @@ package org.dominokit.domino.ui.forms.suggest;
 import static java.util.Objects.isNull;
 import static java.util.Objects.nonNull;
 
-import elemental2.dom.DomGlobal;
 import java.util.Objects;
 import java.util.Optional;
 import org.dominokit.domino.ui.elements.DivElement;
@@ -88,13 +87,7 @@ public class Select<V> extends AbstractSelect<V, V, DivElement, SelectOption<V>,
 
   @Override
   protected void onTypingStart() {
-    DomGlobal.console.info("Typing typing typing -----");
-    Optional.ofNullable(selectedOption)
-        .ifPresent(
-            vSelectOption -> {
-              DomGlobal.console.info("Hide Hide Hide -----");
-              vSelectOption.hide();
-            });
+    Optional.ofNullable(selectedOption).ifPresent(BaseDominoElement::hide);
   }
 
   @Override

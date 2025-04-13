@@ -959,6 +959,17 @@ public abstract class AbstractSelect<
   }
 
   /**
+   * Selects the option at the specified Indices within the select component.
+   *
+   * @param indices The Indices of the options to select.
+   * @return an instance of the concrete class.
+   */
+  public C selectAt(int... indices) {
+    selectAt(isChangeListenersPaused(), indices);
+    return (C) this;
+  }
+
+  /**
    * Selects the option at the specified index within the select component. Optionally, it can
    * notify listeners based on the provided silent flag.
    *
@@ -968,6 +979,23 @@ public abstract class AbstractSelect<
    */
   public C selectAt(int index, boolean silent) {
     findOptionByIndex(index).ifPresent(o -> onOptionSelected(o, silent));
+    return (C) this;
+  }
+
+  /**
+   * Selects the option at the specified Indices within the select component. Optionally, it can
+   * notify listeners based on the provided silent flag.
+   *
+   * @param indices The Indices of the option to select.
+   * @param silent If true, change listeners will not be notified.
+   * @return an instance of the concrete class.
+   */
+  public C selectAt(boolean silent, int... indices) {
+    Arrays.stream(indices)
+        .forEach(
+            index -> {
+              selectAt(index, silent);
+            });
     return (C) this;
   }
 
