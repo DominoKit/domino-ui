@@ -1719,6 +1719,8 @@ public class Menu<V> extends BaseDominoElement<HTMLDivElement, Menu<V>>
           parent.expand();
         }
       }
+      removeCssProperty(SpaceChecker.MAX_HEIGHT);
+      removeCssProperty(SpaceChecker.MAX_WIDTH);
     }
     return this;
   }

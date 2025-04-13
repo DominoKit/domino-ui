@@ -17,6 +17,7 @@ package org.dominokit.domino.ui.menu.direction;
 
 import static elemental2.dom.DomGlobal.window;
 import static org.dominokit.domino.ui.style.SpacingCss.dui_flex_col_reverse;
+import static org.dominokit.domino.ui.utils.Domino.elementOf;
 import static org.dominokit.domino.ui.utils.ElementsFactory.elements;
 import static org.dominokit.domino.ui.utils.Unit.px;
 
@@ -33,7 +34,7 @@ public class LeftMiddleDropDirection implements DropDirection {
     dui_flex_col_reverse.remove(source);
 
     SpaceChecker spaceChecker = context.getSpaceChecker();
-    ;
+
     Style.of(source).style.setProperty("top", px.of(0));
     Style.of(source).style.setProperty("left", px.of(0));
 
@@ -44,7 +45,12 @@ public class LeftMiddleDropDirection implements DropDirection {
       double spaceUp = spaceChecker.getAvailableSpaceOnTop();
       double delta = 0;
       if (spaceNeeded > spaceDown && spaceNeeded > spaceUp) {
-        return MIDDLE_SCREEN.position(context);
+        elementOf(context.getSource()).setCssProperty(spaceChecker.getMaximumSideSpaceProperty());
+        elementOf(context.getSource())
+            .setCssProperty(spaceChecker.getMaximumVerticalSpaceProperty());
+        context.newSpaceChecker();
+
+        return position(context);
       } else if (spaceNeeded > spaceUp) {
         delta = spaceNeeded - spaceUp;
       } else if (spaceNeeded > spaceDown) {
@@ -76,7 +82,11 @@ public class LeftMiddleDropDirection implements DropDirection {
     } else if (spaceChecker.hasSpaceBelow()) {
       return BOTTOM_MIDDLE.position(context);
     } else {
-      return MIDDLE_SCREEN.position(context);
+      elementOf(context.getSource()).setCssProperty(spaceChecker.getMaximumSideSpaceProperty());
+      elementOf(context.getSource()).setCssProperty(spaceChecker.getMaximumVerticalSpaceProperty());
+      context.newSpaceChecker();
+
+      return position(context);
     }
   }
 

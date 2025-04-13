@@ -17,6 +17,7 @@ package org.dominokit.domino.ui.menu.direction;
 
 import static elemental2.dom.DomGlobal.window;
 import static org.dominokit.domino.ui.style.SpacingCss.dui_flex_col_reverse;
+import static org.dominokit.domino.ui.utils.Domino.elementOf;
 import static org.dominokit.domino.ui.utils.ElementsFactory.elements;
 import static org.dominokit.domino.ui.utils.Unit.px;
 
@@ -48,7 +49,11 @@ public class TopMiddleDropDirection implements DropDirection {
         return DropDirection.BOTTOM_MIDDLE.position(context);
       }
     }
-    return DropDirection.MIDDLE_SCREEN.position(context);
+    elementOf(context.getSource()).setCssProperty(spaceChecker.getMaximumSideSpaceProperty());
+    elementOf(context.getSource()).setCssProperty(spaceChecker.getMaximumVerticalSpaceProperty());
+    context.newSpaceChecker();
+
+    return position(context);
   }
 
   private DropDirection showUpMiddle(Element source, SpaceChecker spaceChecker) {

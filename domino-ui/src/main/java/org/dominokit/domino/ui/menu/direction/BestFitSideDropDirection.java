@@ -16,6 +16,7 @@
 package org.dominokit.domino.ui.menu.direction;
 
 import static org.dominokit.domino.ui.style.SpacingCss.dui_flex_col_reverse;
+import static org.dominokit.domino.ui.utils.Domino.elementOf;
 
 import elemental2.dom.Element;
 
@@ -45,7 +46,12 @@ public class BestFitSideDropDirection implements DropDirection {
       }
     }
 
-    return MIDDLE_SCREEN.position(context);
+    elementOf(context.getSource()).setCssProperty(spaceChecker.getMaximumSideSpaceProperty());
+    elementOf(context.getSource()).setCssProperty(spaceChecker.getMaximumVerticalSpaceProperty());
+
+    context.newSpaceChecker();
+
+    return position(context);
   }
 
   /** {@inheritDoc} */

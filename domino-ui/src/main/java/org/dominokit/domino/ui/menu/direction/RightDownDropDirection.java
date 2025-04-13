@@ -16,10 +16,10 @@
 package org.dominokit.domino.ui.menu.direction;
 
 import static elemental2.dom.DomGlobal.window;
+import static org.dominokit.domino.ui.utils.Domino.elementOf;
 import static org.dominokit.domino.ui.utils.ElementsFactory.elements;
 import static org.dominokit.domino.ui.utils.Unit.px;
 
-import elemental2.dom.DomGlobal;
 import elemental2.dom.Element;
 import org.dominokit.domino.ui.style.Style;
 
@@ -32,17 +32,14 @@ public class RightDownDropDirection implements DropDirection {
     Element target = context.getTarget();
     cleanup(source);
     SpaceChecker spaceChecker = context.getSpaceChecker();
-    ;
 
     if (spaceChecker.hasSpaceOnRight()) {
       if (spaceChecker.hasSpaceBelow()) {
         double delta = 0;
         double availableSpace = spaceChecker.getAvailableSpaceOnTop();
-        DomGlobal.console.info("availableSpace : " + availableSpace);
         if (availableSpace < spaceChecker.getSourceHeight()) {
           delta = spaceChecker.getSourceHeight() - availableSpace;
         }
-        DomGlobal.console.info("delta : " + delta);
 
         double top = spaceChecker.getTargetTop() + window.pageYOffset - delta;
         double thresholdTopSpace = spaceChecker.getThresholdTopSpace();
@@ -74,7 +71,12 @@ public class RightDownDropDirection implements DropDirection {
       } else if (spaceChecker.hasSpaceAbove()) {
         return RIGHT_UP.position(context);
       } else {
-        return MIDDLE_SCREEN.position(context);
+        elementOf(context.getSource()).setCssProperty(spaceChecker.getMaximumSideSpaceProperty());
+        elementOf(context.getSource())
+            .setCssProperty(spaceChecker.getMaximumVerticalSpaceProperty());
+        context.newSpaceChecker();
+
+        return position(context);
       }
     } else if (spaceChecker.hasSpaceOnLeft()) {
       return LEFT_DOWN.position(context);
@@ -84,7 +86,11 @@ public class RightDownDropDirection implements DropDirection {
       return TOP_MIDDLE.position(context);
     }
 
-    return MIDDLE_SCREEN.position(context);
+    elementOf(context.getSource()).setCssProperty(spaceChecker.getMaximumSideSpaceProperty());
+    elementOf(context.getSource()).setCssProperty(spaceChecker.getMaximumVerticalSpaceProperty());
+    context.newSpaceChecker();
+
+    return position(context);
   }
 
   /** {@inheritDoc} */
