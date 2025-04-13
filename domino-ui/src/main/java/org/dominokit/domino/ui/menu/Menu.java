@@ -1607,6 +1607,11 @@ public class Menu<V> extends BaseDominoElement<HTMLDivElement, Menu<V>>
    * @return The current {@link Menu} instance.
    */
   public Menu<V> setTarget(MenuTarget menuTarget) {
+    clearTargets();
+    return addTarget(menuTarget);
+  }
+
+  public Menu<V> clearTargets() {
     this.targets()
         .values()
         .forEach(
@@ -1616,11 +1621,11 @@ public class Menu<V> extends BaseDominoElement<HTMLDivElement, Menu<V>>
                   .removeEventListener(
                       isContextMenu() ? EventType.contextmenu.getName() : EventType.click.getName(),
                       openListener);
-              target.getTargetElement().removeDetachObserver(menuTarget.getTargetDetachObserver());
-              target.getTargetElement().removeAttachObserver(menuTarget.getTargetAttachObserver());
+              target.getTargetElement().removeDetachObserver(target.getTargetDetachObserver());
+              target.getTargetElement().removeAttachObserver(target.getTargetAttachObserver());
             });
     this.targets().clear();
-    return addTarget(menuTarget);
+    return this;
   }
 
   /**
