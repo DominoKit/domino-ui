@@ -1430,6 +1430,7 @@ body.dui {
     --dui-datattable-cell-line-height: var(--dui-spc-2);
     --dui-datattable-navbar-padding: 0;
     --dui-datattable-navbar-margin: var(--dui-spc-2) 0 var(--dui-spc-2) 0;
+    --dui-datattable-border: 1px solid var(--dui-datatable-border-color);
 
     /* ========================= Generic ======================= */
     --dui-close-char-top:-1px;
