@@ -113,6 +113,10 @@
     color: var(--dui-color-5);
 }
 
+.dui-selected-date-match .dui-calendar-day-number{
+    background-color: var(--dui-accent-l-5);
+}
+
 .dui-year-selector {
     display: flex;
     flex-direction: column;

@@ -18,19 +18,25 @@ package org.dominokit.domino.ui.style;
 
 public interface ColorsCss {
 
-  CssClass dui_fg_color = () -> "dui-fg-color";
-  CssClass dui_fg_color_1 = () -> "dui-fg-color-1";
-  CssClass dui_fg_color_2 = () -> "dui-fg-color-2";
-  CssClass dui_fg_color_3 = () -> "dui-fg-color-3";
-  CssClass dui_fg_color_4 = () -> "dui-fg-color-4";
-  CssClass dui_fg_color_5 = () -> "dui-fg-color-5";
-  CssClass dui_fg_color_accent = () -> "dui-fg-color-accent";
+  String DUI_ACCENT = "dui-accent-";
+  String DUI_CONTEXT = "dui-context-";
+  String DUI_FG = "dui-fg-";
+  String DUI_BG = "dui-bg-";
 
-  CssClass dui_fg_dominant_l_5 = () -> "dui-fg-dominant-l-5";
+  CssClass dui_fg_color = LimitOneOfPrefixedCssClass.of(DUI_FG, () -> "dui-fg-color");
+  CssClass dui_fg_color_1 = LimitOneOfPrefixedCssClass.of(DUI_FG, () -> "dui-fg-color-1");
+  CssClass dui_fg_color_2 = LimitOneOfPrefixedCssClass.of(DUI_FG, () -> "dui-fg-color-2");
+  CssClass dui_fg_color_3 = LimitOneOfPrefixedCssClass.of(DUI_FG, () -> "dui-fg-color-3");
+  CssClass dui_fg_color_4 = LimitOneOfPrefixedCssClass.of(DUI_FG, () -> "dui-fg-color-4");
+  CssClass dui_fg_color_5 = LimitOneOfPrefixedCssClass.of(DUI_FG, () -> "dui-fg-color-5");
+  CssClass dui_fg_color_accent = LimitOneOfPrefixedCssClass.of(DUI_FG, () -> "dui-fg-color-accent");
 
-  CssClass dui_bg_dominant_l_5 = () -> "dui-bg-dominant-l-5";
+  CssClass dui_fg_dominant_l_5 = LimitOneOfPrefixedCssClass.of(DUI_FG, () -> "dui-fg-dominant-l-5");
 
-  CssClass dui_accent_dominant_l_5 = () -> "dui-accent-dominant-l-5";
+  CssClass dui_bg_dominant_l_5 = LimitOneOfPrefixedCssClass.of(DUI_BG, () -> "dui-bg-dominant-l-5");
+
+  CssClass dui_accent_dominant_l_5 =
+      LimitOneOfPrefixedCssClass.of(DUI_ACCENT, () -> "dui-accent-dominant-l-5");
 
   CssClass dui_shadow_dominant_l_5 = () -> "dui-shadow-dominant-l-5";
 
@@ -54,11 +60,12 @@ public interface ColorsCss {
 
   CssClass dui_outline_dominant_l_5 = () -> "dui-outline-dominant-l-5";
 
-  CssClass dui_fg_dominant_l_4 = () -> "dui-fg-dominant-l-4";
+  CssClass dui_fg_dominant_l_4 = LimitOneOfPrefixedCssClass.of(DUI_FG, () -> "dui-fg-dominant-l-4");
 
-  CssClass dui_bg_dominant_l_4 = () -> "dui-bg-dominant-l-4";
+  CssClass dui_bg_dominant_l_4 = LimitOneOfPrefixedCssClass.of(DUI_BG, () -> "dui-bg-dominant-l-4");
 
-  CssClass dui_accent_dominant_l_4 = () -> "dui-accent-dominant-l-4";
+  CssClass dui_accent_dominant_l_4 =
+      LimitOneOfPrefixedCssClass.of(DUI_ACCENT, () -> "dui-accent-dominant-l-4");
 
   CssClass dui_shadow_dominant_l_4 = () -> "dui-shadow-dominant-l-4";
 
@@ -82,11 +89,12 @@ public interface ColorsCss {
 
   CssClass dui_outline_dominant_l_4 = () -> "dui-outline-dominant-l-4";
 
-  CssClass dui_fg_dominant_l_3 = () -> "dui-fg-dominant-l-3";
+  CssClass dui_fg_dominant_l_3 = LimitOneOfPrefixedCssClass.of(DUI_FG, () -> "dui-fg-dominant-l-3");
 
-  CssClass dui_bg_dominant_l_3 = () -> "dui-bg-dominant-l-3";
+  CssClass dui_bg_dominant_l_3 = LimitOneOfPrefixedCssClass.of(DUI_BG, () -> "dui-bg-dominant-l-3");
 
-  CssClass dui_accent_dominant_l_3 = () -> "dui-accent-dominant-l-3";
+  CssClass dui_accent_dominant_l_3 =
+      LimitOneOfPrefixedCssClass.of(DUI_ACCENT, () -> "dui-accent-dominant-l-3");
 
   CssClass dui_shadow_dominant_l_3 = () -> "dui-shadow-dominant-l-3";
 
@@ -110,11 +118,12 @@ public interface ColorsCss {
 
   CssClass dui_outline_dominant_l_3 = () -> "dui-outline-dominant-l-3";
 
-  CssClass dui_fg_dominant_l_2 = () -> "dui-fg-dominant-l-2";
+  CssClass dui_fg_dominant_l_2 = LimitOneOfPrefixedCssClass.of(DUI_FG, () -> "dui-fg-dominant-l-2");
 
-  CssClass dui_bg_dominant_l_2 = () -> "dui-bg-dominant-l-2";
+  CssClass dui_bg_dominant_l_2 = LimitOneOfPrefixedCssClass.of(DUI_BG, () -> "dui-bg-dominant-l-2");
 
-  CssClass dui_accent_dominant_l_2 = () -> "dui-accent-dominant-l-2";
+  CssClass dui_accent_dominant_l_2 =
+      LimitOneOfPrefixedCssClass.of(DUI_ACCENT, () -> "dui-accent-dominant-l-2");
 
   CssClass dui_shadow_dominant_l_2 = () -> "dui-shadow-dominant-l-2";
 
@@ -138,11 +147,12 @@ public interface ColorsCss {
 
   CssClass dui_outline_dominant_l_2 = () -> "dui-outline-dominant-l-2";
 
-  CssClass dui_fg_dominant_l_1 = () -> "dui-fg-dominant-l-1";
+  CssClass dui_fg_dominant_l_1 = LimitOneOfPrefixedCssClass.of(DUI_FG, () -> "dui-fg-dominant-l-1");
 
-  CssClass dui_bg_dominant_l_1 = () -> "dui-bg-dominant-l-1";
+  CssClass dui_bg_dominant_l_1 = LimitOneOfPrefixedCssClass.of(DUI_BG, () -> "dui-bg-dominant-l-1");
 
-  CssClass dui_accent_dominant_l_1 = () -> "dui-accent-dominant-l-1";
+  CssClass dui_accent_dominant_l_1 =
+      LimitOneOfPrefixedCssClass.of(DUI_ACCENT, () -> "dui-accent-dominant-l-1");
 
   CssClass dui_shadow_dominant_l_1 = () -> "dui-shadow-dominant-l-1";
 
@@ -166,11 +176,12 @@ public interface ColorsCss {
 
   CssClass dui_outline_dominant_l_1 = () -> "dui-outline-dominant-l-1";
 
-  CssClass dui_fg_dominant = () -> "dui-fg-dominant";
+  CssClass dui_fg_dominant = LimitOneOfPrefixedCssClass.of(DUI_FG, () -> "dui-fg-dominant");
 
-  CssClass dui_bg_dominant = () -> "dui-bg-dominant";
+  CssClass dui_bg_dominant = LimitOneOfPrefixedCssClass.of(DUI_BG, () -> "dui-bg-dominant");
 
-  CssClass dui_accent_dominant = () -> "dui-accent-dominant";
+  CssClass dui_accent_dominant =
+      LimitOneOfPrefixedCssClass.of(DUI_ACCENT, () -> "dui-accent-dominant");
 
   CssClass dui_shadow_dominant = () -> "dui-shadow-dominant";
 
@@ -194,11 +205,12 @@ public interface ColorsCss {
 
   CssClass dui_outline_dominant = () -> "dui-outline-dominant";
 
-  CssClass dui_fg_dominant_d_1 = () -> "dui-fg-dominant-d-1";
+  CssClass dui_fg_dominant_d_1 = LimitOneOfPrefixedCssClass.of(DUI_FG, () -> "dui-fg-dominant-d-1");
 
-  CssClass dui_bg_dominant_d_1 = () -> "dui-bg-dominant-d-1";
+  CssClass dui_bg_dominant_d_1 = LimitOneOfPrefixedCssClass.of(DUI_BG, () -> "dui-bg-dominant-d-1");
 
-  CssClass dui_accent_dominant_d_1 = () -> "dui-accent-dominant-d-1";
+  CssClass dui_accent_dominant_d_1 =
+      LimitOneOfPrefixedCssClass.of(DUI_ACCENT, () -> "dui-accent-dominant-d-1");
 
   CssClass dui_shadow_dominant_d_1 = () -> "dui-shadow-dominant-d-1";
 
@@ -222,11 +234,12 @@ public interface ColorsCss {
 
   CssClass dui_outline_dominant_d_1 = () -> "dui-outline-dominant-d-1";
 
-  CssClass dui_fg_dominant_d_2 = () -> "dui-fg-dominant-d-2";
+  CssClass dui_fg_dominant_d_2 = LimitOneOfPrefixedCssClass.of(DUI_FG, () -> "dui-fg-dominant-d-2");
 
-  CssClass dui_bg_dominant_d_2 = () -> "dui-bg-dominant-d-2";
+  CssClass dui_bg_dominant_d_2 = LimitOneOfPrefixedCssClass.of(DUI_BG, () -> "dui-bg-dominant-d-2");
 
-  CssClass dui_accent_dominant_d_2 = () -> "dui-accent-dominant-d-2";
+  CssClass dui_accent_dominant_d_2 =
+      LimitOneOfPrefixedCssClass.of(DUI_ACCENT, () -> "dui-accent-dominant-d-2");
 
   CssClass dui_shadow_dominant_d_2 = () -> "dui-shadow-dominant-d-2";
 
@@ -250,11 +263,12 @@ public interface ColorsCss {
 
   CssClass dui_outline_dominant_d_2 = () -> "dui-outline-dominant-d-2";
 
-  CssClass dui_fg_dominant_d_3 = () -> "dui-fg-dominant-d-3";
+  CssClass dui_fg_dominant_d_3 = LimitOneOfPrefixedCssClass.of(DUI_FG, () -> "dui-fg-dominant-d-3");
 
-  CssClass dui_bg_dominant_d_3 = () -> "dui-bg-dominant-d-3";
+  CssClass dui_bg_dominant_d_3 = LimitOneOfPrefixedCssClass.of(DUI_BG, () -> "dui-bg-dominant-d-3");
 
-  CssClass dui_accent_dominant_d_3 = () -> "dui-accent-dominant-d-3";
+  CssClass dui_accent_dominant_d_3 =
+      LimitOneOfPrefixedCssClass.of(DUI_ACCENT, () -> "dui-accent-dominant-d-3");
 
   CssClass dui_shadow_dominant_d_3 = () -> "dui-shadow-dominant-d-3";
 
@@ -278,11 +292,12 @@ public interface ColorsCss {
 
   CssClass dui_outline_dominant_d_3 = () -> "dui-outline-dominant-d-3";
 
-  CssClass dui_fg_dominant_d_4 = () -> "dui-fg-dominant-d-4";
+  CssClass dui_fg_dominant_d_4 = LimitOneOfPrefixedCssClass.of(DUI_FG, () -> "dui-fg-dominant-d-4");
 
-  CssClass dui_bg_dominant_d_4 = () -> "dui-bg-dominant-d-4";
+  CssClass dui_bg_dominant_d_4 = LimitOneOfPrefixedCssClass.of(DUI_BG, () -> "dui-bg-dominant-d-4");
 
-  CssClass dui_accent_dominant_d_4 = () -> "dui-accent-dominant-d-4";
+  CssClass dui_accent_dominant_d_4 =
+      LimitOneOfPrefixedCssClass.of(DUI_ACCENT, () -> "dui-accent-dominant-d-4");
 
   CssClass dui_shadow_dominant_d_4 = () -> "dui-shadow-dominant-d-4";
 
@@ -306,11 +321,12 @@ public interface ColorsCss {
 
   CssClass dui_outline_dominant_d_4 = () -> "dui-outline-dominant-d-4";
 
-  CssClass dui_fg_accent_l_5 = () -> "dui-fg-accent-l-5";
+  CssClass dui_fg_accent_l_5 = LimitOneOfPrefixedCssClass.of(DUI_FG, () -> "dui-fg-accent-l-5");
 
-  CssClass dui_bg_accent_l_5 = () -> "dui-bg-accent-l-5";
+  CssClass dui_bg_accent_l_5 = LimitOneOfPrefixedCssClass.of(DUI_BG, () -> "dui-bg-accent-l-5");
 
-  CssClass dui_accent_accent_l_5 = () -> "dui-accent-accent-l-5";
+  CssClass dui_accent_accent_l_5 =
+      LimitOneOfPrefixedCssClass.of(DUI_ACCENT, () -> "dui-accent-accent-l-5");
 
   CssClass dui_shadow_accent_l_5 = () -> "dui-shadow-accent-l-5";
 
@@ -334,11 +350,12 @@ public interface ColorsCss {
 
   CssClass dui_outline_accent_l_5 = () -> "dui-outline-accent-l-5";
 
-  CssClass dui_fg_accent_l_4 = () -> "dui-fg-accent-l-4";
+  CssClass dui_fg_accent_l_4 = LimitOneOfPrefixedCssClass.of(DUI_FG, () -> "dui-fg-accent-l-4");
 
-  CssClass dui_bg_accent_l_4 = () -> "dui-bg-accent-l-4";
+  CssClass dui_bg_accent_l_4 = LimitOneOfPrefixedCssClass.of(DUI_BG, () -> "dui-bg-accent-l-4");
 
-  CssClass dui_accent_accent_l_4 = () -> "dui-accent-accent-l-4";
+  CssClass dui_accent_accent_l_4 =
+      LimitOneOfPrefixedCssClass.of(DUI_ACCENT, () -> "dui-accent-accent-l-4");
 
   CssClass dui_shadow_accent_l_4 = () -> "dui-shadow-accent-l-4";
 
@@ -362,11 +379,12 @@ public interface ColorsCss {
 
   CssClass dui_outline_accent_l_4 = () -> "dui-outline-accent-l-4";
 
-  CssClass dui_fg_accent_l_3 = () -> "dui-fg-accent-l-3";
+  CssClass dui_fg_accent_l_3 = LimitOneOfPrefixedCssClass.of(DUI_FG, () -> "dui-fg-accent-l-3");
 
-  CssClass dui_bg_accent_l_3 = () -> "dui-bg-accent-l-3";
+  CssClass dui_bg_accent_l_3 = LimitOneOfPrefixedCssClass.of(DUI_BG, () -> "dui-bg-accent-l-3");
 
-  CssClass dui_accent_accent_l_3 = () -> "dui-accent-accent-l-3";
+  CssClass dui_accent_accent_l_3 =
+      LimitOneOfPrefixedCssClass.of(DUI_ACCENT, () -> "dui-accent-accent-l-3");
 
   CssClass dui_shadow_accent_l_3 = () -> "dui-shadow-accent-l-3";
 
@@ -390,11 +408,12 @@ public interface ColorsCss {
 
   CssClass dui_outline_accent_l_3 = () -> "dui-outline-accent-l-3";
 
-  CssClass dui_fg_accent_l_2 = () -> "dui-fg-accent-l-2";
+  CssClass dui_fg_accent_l_2 = LimitOneOfPrefixedCssClass.of(DUI_FG, () -> "dui-fg-accent-l-2");
 
-  CssClass dui_bg_accent_l_2 = () -> "dui-bg-accent-l-2";
+  CssClass dui_bg_accent_l_2 = LimitOneOfPrefixedCssClass.of(DUI_BG, () -> "dui-bg-accent-l-2");
 
-  CssClass dui_accent_accent_l_2 = () -> "dui-accent-accent-l-2";
+  CssClass dui_accent_accent_l_2 =
+      LimitOneOfPrefixedCssClass.of(DUI_ACCENT, () -> "dui-accent-accent-l-2");
 
   CssClass dui_shadow_accent_l_2 = () -> "dui-shadow-accent-l-2";
 
@@ -418,11 +437,12 @@ public interface ColorsCss {
 
   CssClass dui_outline_accent_l_2 = () -> "dui-outline-accent-l-2";
 
-  CssClass dui_fg_accent_l_1 = () -> "dui-fg-accent-l-1";
+  CssClass dui_fg_accent_l_1 = LimitOneOfPrefixedCssClass.of(DUI_FG, () -> "dui-fg-accent-l-1");
 
-  CssClass dui_bg_accent_l_1 = () -> "dui-bg-accent-l-1";
+  CssClass dui_bg_accent_l_1 = LimitOneOfPrefixedCssClass.of(DUI_BG, () -> "dui-bg-accent-l-1");
 
-  CssClass dui_accent_accent_l_1 = () -> "dui-accent-accent-l-1";
+  CssClass dui_accent_accent_l_1 =
+      LimitOneOfPrefixedCssClass.of(DUI_ACCENT, () -> "dui-accent-accent-l-1");
 
   CssClass dui_shadow_accent_l_1 = () -> "dui-shadow-accent-l-1";
 
@@ -446,11 +466,11 @@ public interface ColorsCss {
 
   CssClass dui_outline_accent_l_1 = () -> "dui-outline-accent-l-1";
 
-  CssClass dui_fg_accent = () -> "dui-fg-accent";
+  CssClass dui_fg_accent = LimitOneOfPrefixedCssClass.of(DUI_FG, () -> "dui-fg-accent");
 
-  CssClass dui_bg_accent = () -> "dui-bg-accent";
+  CssClass dui_bg_accent = LimitOneOfPrefixedCssClass.of(DUI_BG, () -> "dui-bg-accent");
 
-  CssClass dui_accent_accent = () -> "dui-accent-accent";
+  CssClass dui_accent_accent = LimitOneOfPrefixedCssClass.of(DUI_ACCENT, () -> "dui-accent-accent");
 
   CssClass dui_shadow_accent = () -> "dui-shadow-accent";
 
@@ -474,11 +494,12 @@ public interface ColorsCss {
 
   CssClass dui_outline_accent = () -> "dui-outline-accent";
 
-  CssClass dui_fg_accent_d_1 = () -> "dui-fg-accent-d-1";
+  CssClass dui_fg_accent_d_1 = LimitOneOfPrefixedCssClass.of(DUI_FG, () -> "dui-fg-accent-d-1");
 
-  CssClass dui_bg_accent_d_1 = () -> "dui-bg-accent-d-1";
+  CssClass dui_bg_accent_d_1 = LimitOneOfPrefixedCssClass.of(DUI_BG, () -> "dui-bg-accent-d-1");
 
-  CssClass dui_accent_accent_d_1 = () -> "dui-accent-accent-d-1";
+  CssClass dui_accent_accent_d_1 =
+      LimitOneOfPrefixedCssClass.of(DUI_ACCENT, () -> "dui-accent-accent-d-1");
 
   CssClass dui_shadow_accent_d_1 = () -> "dui-shadow-accent-d-1";
 
@@ -502,11 +523,12 @@ public interface ColorsCss {
 
   CssClass dui_outline_accent_d_1 = () -> "dui-outline-accent-d-1";
 
-  CssClass dui_fg_accent_d_2 = () -> "dui-fg-accent-d-2";
+  CssClass dui_fg_accent_d_2 = LimitOneOfPrefixedCssClass.of(DUI_FG, () -> "dui-fg-accent-d-2");
 
-  CssClass dui_bg_accent_d_2 = () -> "dui-bg-accent-d-2";
+  CssClass dui_bg_accent_d_2 = LimitOneOfPrefixedCssClass.of(DUI_BG, () -> "dui-bg-accent-d-2");
 
-  CssClass dui_accent_accent_d_2 = () -> "dui-accent-accent-d-2";
+  CssClass dui_accent_accent_d_2 =
+      LimitOneOfPrefixedCssClass.of(DUI_ACCENT, () -> "dui-accent-accent-d-2");
 
   CssClass dui_shadow_accent_d_2 = () -> "dui-shadow-accent-d-2";
 
@@ -530,11 +552,12 @@ public interface ColorsCss {
 
   CssClass dui_outline_accent_d_2 = () -> "dui-outline-accent-d-2";
 
-  CssClass dui_fg_accent_d_3 = () -> "dui-fg-accent-d-3";
+  CssClass dui_fg_accent_d_3 = LimitOneOfPrefixedCssClass.of(DUI_FG, () -> "dui-fg-accent-d-3");
 
-  CssClass dui_bg_accent_d_3 = () -> "dui-bg-accent-d-3";
+  CssClass dui_bg_accent_d_3 = LimitOneOfPrefixedCssClass.of(DUI_BG, () -> "dui-bg-accent-d-3");
 
-  CssClass dui_accent_accent_d_3 = () -> "dui-accent-accent-d-3";
+  CssClass dui_accent_accent_d_3 =
+      LimitOneOfPrefixedCssClass.of(DUI_ACCENT, () -> "dui-accent-accent-d-3");
 
   CssClass dui_shadow_accent_d_3 = () -> "dui-shadow-accent-d-3";
 
@@ -558,11 +581,12 @@ public interface ColorsCss {
 
   CssClass dui_outline_accent_d_3 = () -> "dui-outline-accent-d-3";
 
-  CssClass dui_fg_accent_d_4 = () -> "dui-fg-accent-d-4";
+  CssClass dui_fg_accent_d_4 = LimitOneOfPrefixedCssClass.of(DUI_FG, () -> "dui-fg-accent-d-4");
 
-  CssClass dui_bg_accent_d_4 = () -> "dui-bg-accent-d-4";
+  CssClass dui_bg_accent_d_4 = LimitOneOfPrefixedCssClass.of(DUI_BG, () -> "dui-bg-accent-d-4");
 
-  CssClass dui_accent_accent_d_4 = () -> "dui-accent-accent-d-4";
+  CssClass dui_accent_accent_d_4 =
+      LimitOneOfPrefixedCssClass.of(DUI_ACCENT, () -> "dui-accent-accent-d-4");
 
   CssClass dui_shadow_accent_d_4 = () -> "dui-shadow-accent-d-4";
 
@@ -586,11 +610,12 @@ public interface ColorsCss {
 
   CssClass dui_outline_accent_d_4 = () -> "dui-outline-accent-d-4";
 
-  CssClass dui_fg_primary_l_5 = () -> "dui-fg-primary-l-5";
+  CssClass dui_fg_primary_l_5 = LimitOneOfPrefixedCssClass.of(DUI_FG, () -> "dui-fg-primary-l-5");
 
-  CssClass dui_bg_primary_l_5 = () -> "dui-bg-primary-l-5";
+  CssClass dui_bg_primary_l_5 = LimitOneOfPrefixedCssClass.of(DUI_BG, () -> "dui-bg-primary-l-5");
 
-  CssClass dui_accent_primary_l_5 = () -> "dui-accent-primary-l-5";
+  CssClass dui_accent_primary_l_5 =
+      LimitOneOfPrefixedCssClass.of(DUI_ACCENT, () -> "dui-accent-primary-l-5");
 
   CssClass dui_shadow_primary_l_5 = () -> "dui-shadow-primary-l-5";
 
@@ -614,11 +639,12 @@ public interface ColorsCss {
 
   CssClass dui_outline_primary_l_5 = () -> "dui-outline-primary-l-5";
 
-  CssClass dui_fg_primary_l_4 = () -> "dui-fg-primary-l-4";
+  CssClass dui_fg_primary_l_4 = LimitOneOfPrefixedCssClass.of(DUI_FG, () -> "dui-fg-primary-l-4");
 
-  CssClass dui_bg_primary_l_4 = () -> "dui-bg-primary-l-4";
+  CssClass dui_bg_primary_l_4 = LimitOneOfPrefixedCssClass.of(DUI_BG, () -> "dui-bg-primary-l-4");
 
-  CssClass dui_accent_primary_l_4 = () -> "dui-accent-primary-l-4";
+  CssClass dui_accent_primary_l_4 =
+      LimitOneOfPrefixedCssClass.of(DUI_ACCENT, () -> "dui-accent-primary-l-4");
 
   CssClass dui_shadow_primary_l_4 = () -> "dui-shadow-primary-l-4";
 
@@ -642,11 +668,12 @@ public interface ColorsCss {
 
   CssClass dui_outline_primary_l_4 = () -> "dui-outline-primary-l-4";
 
-  CssClass dui_fg_primary_l_3 = () -> "dui-fg-primary-l-3";
+  CssClass dui_fg_primary_l_3 = LimitOneOfPrefixedCssClass.of(DUI_FG, () -> "dui-fg-primary-l-3");
 
-  CssClass dui_bg_primary_l_3 = () -> "dui-bg-primary-l-3";
+  CssClass dui_bg_primary_l_3 = LimitOneOfPrefixedCssClass.of(DUI_BG, () -> "dui-bg-primary-l-3");
 
-  CssClass dui_accent_primary_l_3 = () -> "dui-accent-primary-l-3";
+  CssClass dui_accent_primary_l_3 =
+      LimitOneOfPrefixedCssClass.of(DUI_ACCENT, () -> "dui-accent-primary-l-3");
 
   CssClass dui_shadow_primary_l_3 = () -> "dui-shadow-primary-l-3";
 
@@ -670,11 +697,12 @@ public interface ColorsCss {
 
   CssClass dui_outline_primary_l_3 = () -> "dui-outline-primary-l-3";
 
-  CssClass dui_fg_primary_l_2 = () -> "dui-fg-primary-l-2";
+  CssClass dui_fg_primary_l_2 = LimitOneOfPrefixedCssClass.of(DUI_FG, () -> "dui-fg-primary-l-2");
 
-  CssClass dui_bg_primary_l_2 = () -> "dui-bg-primary-l-2";
+  CssClass dui_bg_primary_l_2 = LimitOneOfPrefixedCssClass.of(DUI_BG, () -> "dui-bg-primary-l-2");
 
-  CssClass dui_accent_primary_l_2 = () -> "dui-accent-primary-l-2";
+  CssClass dui_accent_primary_l_2 =
+      LimitOneOfPrefixedCssClass.of(DUI_ACCENT, () -> "dui-accent-primary-l-2");
 
   CssClass dui_shadow_primary_l_2 = () -> "dui-shadow-primary-l-2";
 
@@ -698,11 +726,12 @@ public interface ColorsCss {
 
   CssClass dui_outline_primary_l_2 = () -> "dui-outline-primary-l-2";
 
-  CssClass dui_fg_primary_l_1 = () -> "dui-fg-primary-l-1";
+  CssClass dui_fg_primary_l_1 = LimitOneOfPrefixedCssClass.of(DUI_FG, () -> "dui-fg-primary-l-1");
 
-  CssClass dui_bg_primary_l_1 = () -> "dui-bg-primary-l-1";
+  CssClass dui_bg_primary_l_1 = LimitOneOfPrefixedCssClass.of(DUI_BG, () -> "dui-bg-primary-l-1");
 
-  CssClass dui_accent_primary_l_1 = () -> "dui-accent-primary-l-1";
+  CssClass dui_accent_primary_l_1 =
+      LimitOneOfPrefixedCssClass.of(DUI_ACCENT, () -> "dui-accent-primary-l-1");
 
   CssClass dui_shadow_primary_l_1 = () -> "dui-shadow-primary-l-1";
 
@@ -726,11 +755,12 @@ public interface ColorsCss {
 
   CssClass dui_outline_primary_l_1 = () -> "dui-outline-primary-l-1";
 
-  CssClass dui_fg_primary = () -> "dui-fg-primary";
+  CssClass dui_fg_primary = LimitOneOfPrefixedCssClass.of(DUI_FG, () -> "dui-fg-primary");
 
-  CssClass dui_bg_primary = () -> "dui-bg-primary";
+  CssClass dui_bg_primary = LimitOneOfPrefixedCssClass.of(DUI_BG, () -> "dui-bg-primary");
 
-  CssClass dui_accent_primary = () -> "dui-accent-primary";
+  CssClass dui_accent_primary =
+      LimitOneOfPrefixedCssClass.of(DUI_ACCENT, () -> "dui-accent-primary");
 
   CssClass dui_shadow_primary = () -> "dui-shadow-primary";
 
@@ -754,11 +784,12 @@ public interface ColorsCss {
 
   CssClass dui_outline_primary = () -> "dui-outline-primary";
 
-  CssClass dui_fg_primary_d_1 = () -> "dui-fg-primary-d-1";
+  CssClass dui_fg_primary_d_1 = LimitOneOfPrefixedCssClass.of(DUI_FG, () -> "dui-fg-primary-d-1");
 
-  CssClass dui_bg_primary_d_1 = () -> "dui-bg-primary-d-1";
+  CssClass dui_bg_primary_d_1 = LimitOneOfPrefixedCssClass.of(DUI_BG, () -> "dui-bg-primary-d-1");
 
-  CssClass dui_accent_primary_d_1 = () -> "dui-accent-primary-d-1";
+  CssClass dui_accent_primary_d_1 =
+      LimitOneOfPrefixedCssClass.of(DUI_ACCENT, () -> "dui-accent-primary-d-1");
 
   CssClass dui_shadow_primary_d_1 = () -> "dui-shadow-primary-d-1";
 
@@ -782,11 +813,12 @@ public interface ColorsCss {
 
   CssClass dui_outline_primary_d_1 = () -> "dui-outline-primary-d-1";
 
-  CssClass dui_fg_primary_d_2 = () -> "dui-fg-primary-d-2";
+  CssClass dui_fg_primary_d_2 = LimitOneOfPrefixedCssClass.of(DUI_FG, () -> "dui-fg-primary-d-2");
 
-  CssClass dui_bg_primary_d_2 = () -> "dui-bg-primary-d-2";
+  CssClass dui_bg_primary_d_2 = LimitOneOfPrefixedCssClass.of(DUI_BG, () -> "dui-bg-primary-d-2");
 
-  CssClass dui_accent_primary_d_2 = () -> "dui-accent-primary-d-2";
+  CssClass dui_accent_primary_d_2 =
+      LimitOneOfPrefixedCssClass.of(DUI_ACCENT, () -> "dui-accent-primary-d-2");
 
   CssClass dui_shadow_primary_d_2 = () -> "dui-shadow-primary-d-2";
 
@@ -810,11 +842,12 @@ public interface ColorsCss {
 
   CssClass dui_outline_primary_d_2 = () -> "dui-outline-primary-d-2";
 
-  CssClass dui_fg_primary_d_3 = () -> "dui-fg-primary-d-3";
+  CssClass dui_fg_primary_d_3 = LimitOneOfPrefixedCssClass.of(DUI_FG, () -> "dui-fg-primary-d-3");
 
-  CssClass dui_bg_primary_d_3 = () -> "dui-bg-primary-d-3";
+  CssClass dui_bg_primary_d_3 = LimitOneOfPrefixedCssClass.of(DUI_BG, () -> "dui-bg-primary-d-3");
 
-  CssClass dui_accent_primary_d_3 = () -> "dui-accent-primary-d-3";
+  CssClass dui_accent_primary_d_3 =
+      LimitOneOfPrefixedCssClass.of(DUI_ACCENT, () -> "dui-accent-primary-d-3");
 
   CssClass dui_shadow_primary_d_3 = () -> "dui-shadow-primary-d-3";
 
@@ -838,11 +871,12 @@ public interface ColorsCss {
 
   CssClass dui_outline_primary_d_3 = () -> "dui-outline-primary-d-3";
 
-  CssClass dui_fg_primary_d_4 = () -> "dui-fg-primary-d-4";
+  CssClass dui_fg_primary_d_4 = LimitOneOfPrefixedCssClass.of(DUI_FG, () -> "dui-fg-primary-d-4");
 
-  CssClass dui_bg_primary_d_4 = () -> "dui-bg-primary-d-4";
+  CssClass dui_bg_primary_d_4 = LimitOneOfPrefixedCssClass.of(DUI_BG, () -> "dui-bg-primary-d-4");
 
-  CssClass dui_accent_primary_d_4 = () -> "dui-accent-primary-d-4";
+  CssClass dui_accent_primary_d_4 =
+      LimitOneOfPrefixedCssClass.of(DUI_ACCENT, () -> "dui-accent-primary-d-4");
 
   CssClass dui_shadow_primary_d_4 = () -> "dui-shadow-primary-d-4";
 
@@ -866,11 +900,14 @@ public interface ColorsCss {
 
   CssClass dui_outline_primary_d_4 = () -> "dui-outline-primary-d-4";
 
-  CssClass dui_fg_secondary_l_5 = () -> "dui-fg-secondary-l-5";
+  CssClass dui_fg_secondary_l_5 =
+      LimitOneOfPrefixedCssClass.of(DUI_FG, () -> "dui-fg-secondary-l-5");
 
-  CssClass dui_bg_secondary_l_5 = () -> "dui-bg-secondary-l-5";
+  CssClass dui_bg_secondary_l_5 =
+      LimitOneOfPrefixedCssClass.of(DUI_BG, () -> "dui-bg-secondary-l-5");
 
-  CssClass dui_accent_secondary_l_5 = () -> "dui-accent-secondary-l-5";
+  CssClass dui_accent_secondary_l_5 =
+      LimitOneOfPrefixedCssClass.of(DUI_ACCENT, () -> "dui-accent-secondary-l-5");
 
   CssClass dui_shadow_secondary_l_5 = () -> "dui-shadow-secondary-l-5";
 
@@ -894,11 +931,14 @@ public interface ColorsCss {
 
   CssClass dui_outline_secondary_l_5 = () -> "dui-outline-secondary-l-5";
 
-  CssClass dui_fg_secondary_l_4 = () -> "dui-fg-secondary-l-4";
+  CssClass dui_fg_secondary_l_4 =
+      LimitOneOfPrefixedCssClass.of(DUI_FG, () -> "dui-fg-secondary-l-4");
 
-  CssClass dui_bg_secondary_l_4 = () -> "dui-bg-secondary-l-4";
+  CssClass dui_bg_secondary_l_4 =
+      LimitOneOfPrefixedCssClass.of(DUI_BG, () -> "dui-bg-secondary-l-4");
 
-  CssClass dui_accent_secondary_l_4 = () -> "dui-accent-secondary-l-4";
+  CssClass dui_accent_secondary_l_4 =
+      LimitOneOfPrefixedCssClass.of(DUI_ACCENT, () -> "dui-accent-secondary-l-4");
 
   CssClass dui_shadow_secondary_l_4 = () -> "dui-shadow-secondary-l-4";
 
@@ -922,11 +962,14 @@ public interface ColorsCss {
 
   CssClass dui_outline_secondary_l_4 = () -> "dui-outline-secondary-l-4";
 
-  CssClass dui_fg_secondary_l_3 = () -> "dui-fg-secondary-l-3";
+  CssClass dui_fg_secondary_l_3 =
+      LimitOneOfPrefixedCssClass.of(DUI_FG, () -> "dui-fg-secondary-l-3");
 
-  CssClass dui_bg_secondary_l_3 = () -> "dui-bg-secondary-l-3";
+  CssClass dui_bg_secondary_l_3 =
+      LimitOneOfPrefixedCssClass.of(DUI_BG, () -> "dui-bg-secondary-l-3");
 
-  CssClass dui_accent_secondary_l_3 = () -> "dui-accent-secondary-l-3";
+  CssClass dui_accent_secondary_l_3 =
+      LimitOneOfPrefixedCssClass.of(DUI_ACCENT, () -> "dui-accent-secondary-l-3");
 
   CssClass dui_shadow_secondary_l_3 = () -> "dui-shadow-secondary-l-3";
 
@@ -950,11 +993,14 @@ public interface ColorsCss {
 
   CssClass dui_outline_secondary_l_3 = () -> "dui-outline-secondary-l-3";
 
-  CssClass dui_fg_secondary_l_2 = () -> "dui-fg-secondary-l-2";
+  CssClass dui_fg_secondary_l_2 =
+      LimitOneOfPrefixedCssClass.of(DUI_FG, () -> "dui-fg-secondary-l-2");
 
-  CssClass dui_bg_secondary_l_2 = () -> "dui-bg-secondary-l-2";
+  CssClass dui_bg_secondary_l_2 =
+      LimitOneOfPrefixedCssClass.of(DUI_BG, () -> "dui-bg-secondary-l-2");
 
-  CssClass dui_accent_secondary_l_2 = () -> "dui-accent-secondary-l-2";
+  CssClass dui_accent_secondary_l_2 =
+      LimitOneOfPrefixedCssClass.of(DUI_ACCENT, () -> "dui-accent-secondary-l-2");
 
   CssClass dui_shadow_secondary_l_2 = () -> "dui-shadow-secondary-l-2";
 
@@ -978,11 +1024,14 @@ public interface ColorsCss {
 
   CssClass dui_outline_secondary_l_2 = () -> "dui-outline-secondary-l-2";
 
-  CssClass dui_fg_secondary_l_1 = () -> "dui-fg-secondary-l-1";
+  CssClass dui_fg_secondary_l_1 =
+      LimitOneOfPrefixedCssClass.of(DUI_FG, () -> "dui-fg-secondary-l-1");
 
-  CssClass dui_bg_secondary_l_1 = () -> "dui-bg-secondary-l-1";
+  CssClass dui_bg_secondary_l_1 =
+      LimitOneOfPrefixedCssClass.of(DUI_BG, () -> "dui-bg-secondary-l-1");
 
-  CssClass dui_accent_secondary_l_1 = () -> "dui-accent-secondary-l-1";
+  CssClass dui_accent_secondary_l_1 =
+      LimitOneOfPrefixedCssClass.of(DUI_ACCENT, () -> "dui-accent-secondary-l-1");
 
   CssClass dui_shadow_secondary_l_1 = () -> "dui-shadow-secondary-l-1";
 
@@ -1006,11 +1055,12 @@ public interface ColorsCss {
 
   CssClass dui_outline_secondary_l_1 = () -> "dui-outline-secondary-l-1";
 
-  CssClass dui_fg_secondary = () -> "dui-fg-secondary";
+  CssClass dui_fg_secondary = LimitOneOfPrefixedCssClass.of(DUI_FG, () -> "dui-fg-secondary");
 
-  CssClass dui_bg_secondary = () -> "dui-bg-secondary";
+  CssClass dui_bg_secondary = LimitOneOfPrefixedCssClass.of(DUI_BG, () -> "dui-bg-secondary");
 
-  CssClass dui_accent_secondary = () -> "dui-accent-secondary";
+  CssClass dui_accent_secondary =
+      LimitOneOfPrefixedCssClass.of(DUI_ACCENT, () -> "dui-accent-secondary");
 
   CssClass dui_shadow_secondary = () -> "dui-shadow-secondary";
 
@@ -1034,11 +1084,14 @@ public interface ColorsCss {
 
   CssClass dui_outline_secondary = () -> "dui-outline-secondary";
 
-  CssClass dui_fg_secondary_d_1 = () -> "dui-fg-secondary-d-1";
+  CssClass dui_fg_secondary_d_1 =
+      LimitOneOfPrefixedCssClass.of(DUI_FG, () -> "dui-fg-secondary-d-1");
 
-  CssClass dui_bg_secondary_d_1 = () -> "dui-bg-secondary-d-1";
+  CssClass dui_bg_secondary_d_1 =
+      LimitOneOfPrefixedCssClass.of(DUI_BG, () -> "dui-bg-secondary-d-1");
 
-  CssClass dui_accent_secondary_d_1 = () -> "dui-accent-secondary-d-1";
+  CssClass dui_accent_secondary_d_1 =
+      LimitOneOfPrefixedCssClass.of(DUI_ACCENT, () -> "dui-accent-secondary-d-1");
 
   CssClass dui_shadow_secondary_d_1 = () -> "dui-shadow-secondary-d-1";
 
@@ -1062,11 +1115,14 @@ public interface ColorsCss {
 
   CssClass dui_outline_secondary_d_1 = () -> "dui-outline-secondary-d-1";
 
-  CssClass dui_fg_secondary_d_2 = () -> "dui-fg-secondary-d-2";
+  CssClass dui_fg_secondary_d_2 =
+      LimitOneOfPrefixedCssClass.of(DUI_FG, () -> "dui-fg-secondary-d-2");
 
-  CssClass dui_bg_secondary_d_2 = () -> "dui-bg-secondary-d-2";
+  CssClass dui_bg_secondary_d_2 =
+      LimitOneOfPrefixedCssClass.of(DUI_BG, () -> "dui-bg-secondary-d-2");
 
-  CssClass dui_accent_secondary_d_2 = () -> "dui-accent-secondary-d-2";
+  CssClass dui_accent_secondary_d_2 =
+      LimitOneOfPrefixedCssClass.of(DUI_ACCENT, () -> "dui-accent-secondary-d-2");
 
   CssClass dui_shadow_secondary_d_2 = () -> "dui-shadow-secondary-d-2";
 
@@ -1090,11 +1146,14 @@ public interface ColorsCss {
 
   CssClass dui_outline_secondary_d_2 = () -> "dui-outline-secondary-d-2";
 
-  CssClass dui_fg_secondary_d_3 = () -> "dui-fg-secondary-d-3";
+  CssClass dui_fg_secondary_d_3 =
+      LimitOneOfPrefixedCssClass.of(DUI_FG, () -> "dui-fg-secondary-d-3");
 
-  CssClass dui_bg_secondary_d_3 = () -> "dui-bg-secondary-d-3";
+  CssClass dui_bg_secondary_d_3 =
+      LimitOneOfPrefixedCssClass.of(DUI_BG, () -> "dui-bg-secondary-d-3");
 
-  CssClass dui_accent_secondary_d_3 = () -> "dui-accent-secondary-d-3";
+  CssClass dui_accent_secondary_d_3 =
+      LimitOneOfPrefixedCssClass.of(DUI_ACCENT, () -> "dui-accent-secondary-d-3");
 
   CssClass dui_shadow_secondary_d_3 = () -> "dui-shadow-secondary-d-3";
 
@@ -1118,11 +1177,14 @@ public interface ColorsCss {
 
   CssClass dui_outline_secondary_d_3 = () -> "dui-outline-secondary-d-3";
 
-  CssClass dui_fg_secondary_d_4 = () -> "dui-fg-secondary-d-4";
+  CssClass dui_fg_secondary_d_4 =
+      LimitOneOfPrefixedCssClass.of(DUI_FG, () -> "dui-fg-secondary-d-4");
 
-  CssClass dui_bg_secondary_d_4 = () -> "dui-bg-secondary-d-4";
+  CssClass dui_bg_secondary_d_4 =
+      LimitOneOfPrefixedCssClass.of(DUI_BG, () -> "dui-bg-secondary-d-4");
 
-  CssClass dui_accent_secondary_d_4 = () -> "dui-accent-secondary-d-4";
+  CssClass dui_accent_secondary_d_4 =
+      LimitOneOfPrefixedCssClass.of(DUI_ACCENT, () -> "dui-accent-secondary-d-4");
 
   CssClass dui_shadow_secondary_d_4 = () -> "dui-shadow-secondary-d-4";
 
@@ -1146,11 +1208,12 @@ public interface ColorsCss {
 
   CssClass dui_outline_secondary_d_4 = () -> "dui-outline-secondary-d-4";
 
-  CssClass dui_fg_success_l_5 = () -> "dui-fg-success-l-5";
+  CssClass dui_fg_success_l_5 = LimitOneOfPrefixedCssClass.of(DUI_FG, () -> "dui-fg-success-l-5");
 
-  CssClass dui_bg_success_l_5 = () -> "dui-bg-success-l-5";
+  CssClass dui_bg_success_l_5 = LimitOneOfPrefixedCssClass.of(DUI_BG, () -> "dui-bg-success-l-5");
 
-  CssClass dui_accent_success_l_5 = () -> "dui-accent-success-l-5";
+  CssClass dui_accent_success_l_5 =
+      LimitOneOfPrefixedCssClass.of(DUI_ACCENT, () -> "dui-accent-success-l-5");
 
   CssClass dui_shadow_success_l_5 = () -> "dui-shadow-success-l-5";
 
@@ -1174,11 +1237,12 @@ public interface ColorsCss {
 
   CssClass dui_outline_success_l_5 = () -> "dui-outline-success-l-5";
 
-  CssClass dui_fg_success_l_4 = () -> "dui-fg-success-l-4";
+  CssClass dui_fg_success_l_4 = LimitOneOfPrefixedCssClass.of(DUI_FG, () -> "dui-fg-success-l-4");
 
-  CssClass dui_bg_success_l_4 = () -> "dui-bg-success-l-4";
+  CssClass dui_bg_success_l_4 = LimitOneOfPrefixedCssClass.of(DUI_BG, () -> "dui-bg-success-l-4");
 
-  CssClass dui_accent_success_l_4 = () -> "dui-accent-success-l-4";
+  CssClass dui_accent_success_l_4 =
+      LimitOneOfPrefixedCssClass.of(DUI_ACCENT, () -> "dui-accent-success-l-4");
 
   CssClass dui_shadow_success_l_4 = () -> "dui-shadow-success-l-4";
 
@@ -1202,11 +1266,12 @@ public interface ColorsCss {
 
   CssClass dui_outline_success_l_4 = () -> "dui-outline-success-l-4";
 
-  CssClass dui_fg_success_l_3 = () -> "dui-fg-success-l-3";
+  CssClass dui_fg_success_l_3 = LimitOneOfPrefixedCssClass.of(DUI_FG, () -> "dui-fg-success-l-3");
 
-  CssClass dui_bg_success_l_3 = () -> "dui-bg-success-l-3";
+  CssClass dui_bg_success_l_3 = LimitOneOfPrefixedCssClass.of(DUI_BG, () -> "dui-bg-success-l-3");
 
-  CssClass dui_accent_success_l_3 = () -> "dui-accent-success-l-3";
+  CssClass dui_accent_success_l_3 =
+      LimitOneOfPrefixedCssClass.of(DUI_ACCENT, () -> "dui-accent-success-l-3");
 
   CssClass dui_shadow_success_l_3 = () -> "dui-shadow-success-l-3";
 
@@ -1230,11 +1295,12 @@ public interface ColorsCss {
 
   CssClass dui_outline_success_l_3 = () -> "dui-outline-success-l-3";
 
-  CssClass dui_fg_success_l_2 = () -> "dui-fg-success-l-2";
+  CssClass dui_fg_success_l_2 = LimitOneOfPrefixedCssClass.of(DUI_FG, () -> "dui-fg-success-l-2");
 
-  CssClass dui_bg_success_l_2 = () -> "dui-bg-success-l-2";
+  CssClass dui_bg_success_l_2 = LimitOneOfPrefixedCssClass.of(DUI_BG, () -> "dui-bg-success-l-2");
 
-  CssClass dui_accent_success_l_2 = () -> "dui-accent-success-l-2";
+  CssClass dui_accent_success_l_2 =
+      LimitOneOfPrefixedCssClass.of(DUI_ACCENT, () -> "dui-accent-success-l-2");
 
   CssClass dui_shadow_success_l_2 = () -> "dui-shadow-success-l-2";
 
@@ -1258,11 +1324,12 @@ public interface ColorsCss {
 
   CssClass dui_outline_success_l_2 = () -> "dui-outline-success-l-2";
 
-  CssClass dui_fg_success_l_1 = () -> "dui-fg-success-l-1";
+  CssClass dui_fg_success_l_1 = LimitOneOfPrefixedCssClass.of(DUI_FG, () -> "dui-fg-success-l-1");
 
-  CssClass dui_bg_success_l_1 = () -> "dui-bg-success-l-1";
+  CssClass dui_bg_success_l_1 = LimitOneOfPrefixedCssClass.of(DUI_BG, () -> "dui-bg-success-l-1");
 
-  CssClass dui_accent_success_l_1 = () -> "dui-accent-success-l-1";
+  CssClass dui_accent_success_l_1 =
+      LimitOneOfPrefixedCssClass.of(DUI_ACCENT, () -> "dui-accent-success-l-1");
 
   CssClass dui_shadow_success_l_1 = () -> "dui-shadow-success-l-1";
 
@@ -1286,11 +1353,12 @@ public interface ColorsCss {
 
   CssClass dui_outline_success_l_1 = () -> "dui-outline-success-l-1";
 
-  CssClass dui_fg_success = () -> "dui-fg-success";
+  CssClass dui_fg_success = LimitOneOfPrefixedCssClass.of(DUI_FG, () -> "dui-fg-success");
 
-  CssClass dui_bg_success = () -> "dui-bg-success";
+  CssClass dui_bg_success = LimitOneOfPrefixedCssClass.of(DUI_BG, () -> "dui-bg-success");
 
-  CssClass dui_accent_success = () -> "dui-accent-success";
+  CssClass dui_accent_success =
+      LimitOneOfPrefixedCssClass.of(DUI_ACCENT, () -> "dui-accent-success");
 
   CssClass dui_shadow_success = () -> "dui-shadow-success";
 
@@ -1314,11 +1382,12 @@ public interface ColorsCss {
 
   CssClass dui_outline_success = () -> "dui-outline-success";
 
-  CssClass dui_fg_success_d_1 = () -> "dui-fg-success-d-1";
+  CssClass dui_fg_success_d_1 = LimitOneOfPrefixedCssClass.of(DUI_FG, () -> "dui-fg-success-d-1");
 
-  CssClass dui_bg_success_d_1 = () -> "dui-bg-success-d-1";
+  CssClass dui_bg_success_d_1 = LimitOneOfPrefixedCssClass.of(DUI_BG, () -> "dui-bg-success-d-1");
 
-  CssClass dui_accent_success_d_1 = () -> "dui-accent-success-d-1";
+  CssClass dui_accent_success_d_1 =
+      LimitOneOfPrefixedCssClass.of(DUI_ACCENT, () -> "dui-accent-success-d-1");
 
   CssClass dui_shadow_success_d_1 = () -> "dui-shadow-success-d-1";
 
@@ -1342,11 +1411,12 @@ public interface ColorsCss {
 
   CssClass dui_outline_success_d_1 = () -> "dui-outline-success-d-1";
 
-  CssClass dui_fg_success_d_2 = () -> "dui-fg-success-d-2";
+  CssClass dui_fg_success_d_2 = LimitOneOfPrefixedCssClass.of(DUI_FG, () -> "dui-fg-success-d-2");
 
-  CssClass dui_bg_success_d_2 = () -> "dui-bg-success-d-2";
+  CssClass dui_bg_success_d_2 = LimitOneOfPrefixedCssClass.of(DUI_BG, () -> "dui-bg-success-d-2");
 
-  CssClass dui_accent_success_d_2 = () -> "dui-accent-success-d-2";
+  CssClass dui_accent_success_d_2 =
+      LimitOneOfPrefixedCssClass.of(DUI_ACCENT, () -> "dui-accent-success-d-2");
 
   CssClass dui_shadow_success_d_2 = () -> "dui-shadow-success-d-2";
 
@@ -1370,11 +1440,12 @@ public interface ColorsCss {
 
   CssClass dui_outline_success_d_2 = () -> "dui-outline-success-d-2";
 
-  CssClass dui_fg_success_d_3 = () -> "dui-fg-success-d-3";
+  CssClass dui_fg_success_d_3 = LimitOneOfPrefixedCssClass.of(DUI_FG, () -> "dui-fg-success-d-3");
 
-  CssClass dui_bg_success_d_3 = () -> "dui-bg-success-d-3";
+  CssClass dui_bg_success_d_3 = LimitOneOfPrefixedCssClass.of(DUI_BG, () -> "dui-bg-success-d-3");
 
-  CssClass dui_accent_success_d_3 = () -> "dui-accent-success-d-3";
+  CssClass dui_accent_success_d_3 =
+      LimitOneOfPrefixedCssClass.of(DUI_ACCENT, () -> "dui-accent-success-d-3");
 
   CssClass dui_shadow_success_d_3 = () -> "dui-shadow-success-d-3";
 
@@ -1398,11 +1469,12 @@ public interface ColorsCss {
 
   CssClass dui_outline_success_d_3 = () -> "dui-outline-success-d-3";
 
-  CssClass dui_fg_success_d_4 = () -> "dui-fg-success-d-4";
+  CssClass dui_fg_success_d_4 = LimitOneOfPrefixedCssClass.of(DUI_FG, () -> "dui-fg-success-d-4");
 
-  CssClass dui_bg_success_d_4 = () -> "dui-bg-success-d-4";
+  CssClass dui_bg_success_d_4 = LimitOneOfPrefixedCssClass.of(DUI_BG, () -> "dui-bg-success-d-4");
 
-  CssClass dui_accent_success_d_4 = () -> "dui-accent-success-d-4";
+  CssClass dui_accent_success_d_4 =
+      LimitOneOfPrefixedCssClass.of(DUI_ACCENT, () -> "dui-accent-success-d-4");
 
   CssClass dui_shadow_success_d_4 = () -> "dui-shadow-success-d-4";
 
@@ -1426,11 +1498,12 @@ public interface ColorsCss {
 
   CssClass dui_outline_success_d_4 = () -> "dui-outline-success-d-4";
 
-  CssClass dui_fg_warning_l_5 = () -> "dui-fg-warning-l-5";
+  CssClass dui_fg_warning_l_5 = LimitOneOfPrefixedCssClass.of(DUI_FG, () -> "dui-fg-warning-l-5");
 
-  CssClass dui_bg_warning_l_5 = () -> "dui-bg-warning-l-5";
+  CssClass dui_bg_warning_l_5 = LimitOneOfPrefixedCssClass.of(DUI_BG, () -> "dui-bg-warning-l-5");
 
-  CssClass dui_accent_warning_l_5 = () -> "dui-accent-warning-l-5";
+  CssClass dui_accent_warning_l_5 =
+      LimitOneOfPrefixedCssClass.of(DUI_ACCENT, () -> "dui-accent-warning-l-5");
 
   CssClass dui_shadow_warning_l_5 = () -> "dui-shadow-warning-l-5";
 
@@ -1454,11 +1527,12 @@ public interface ColorsCss {
 
   CssClass dui_outline_warning_l_5 = () -> "dui-outline-warning-l-5";
 
-  CssClass dui_fg_warning_l_4 = () -> "dui-fg-warning-l-4";
+  CssClass dui_fg_warning_l_4 = LimitOneOfPrefixedCssClass.of(DUI_FG, () -> "dui-fg-warning-l-4");
 
-  CssClass dui_bg_warning_l_4 = () -> "dui-bg-warning-l-4";
+  CssClass dui_bg_warning_l_4 = LimitOneOfPrefixedCssClass.of(DUI_BG, () -> "dui-bg-warning-l-4");
 
-  CssClass dui_accent_warning_l_4 = () -> "dui-accent-warning-l-4";
+  CssClass dui_accent_warning_l_4 =
+      LimitOneOfPrefixedCssClass.of(DUI_ACCENT, () -> "dui-accent-warning-l-4");
 
   CssClass dui_shadow_warning_l_4 = () -> "dui-shadow-warning-l-4";
 
@@ -1482,11 +1556,12 @@ public interface ColorsCss {
 
   CssClass dui_outline_warning_l_4 = () -> "dui-outline-warning-l-4";
 
-  CssClass dui_fg_warning_l_3 = () -> "dui-fg-warning-l-3";
+  CssClass dui_fg_warning_l_3 = LimitOneOfPrefixedCssClass.of(DUI_FG, () -> "dui-fg-warning-l-3");
 
-  CssClass dui_bg_warning_l_3 = () -> "dui-bg-warning-l-3";
+  CssClass dui_bg_warning_l_3 = LimitOneOfPrefixedCssClass.of(DUI_BG, () -> "dui-bg-warning-l-3");
 
-  CssClass dui_accent_warning_l_3 = () -> "dui-accent-warning-l-3";
+  CssClass dui_accent_warning_l_3 =
+      LimitOneOfPrefixedCssClass.of(DUI_ACCENT, () -> "dui-accent-warning-l-3");
 
   CssClass dui_shadow_warning_l_3 = () -> "dui-shadow-warning-l-3";
 
@@ -1510,11 +1585,12 @@ public interface ColorsCss {
 
   CssClass dui_outline_warning_l_3 = () -> "dui-outline-warning-l-3";
 
-  CssClass dui_fg_warning_l_2 = () -> "dui-fg-warning-l-2";
+  CssClass dui_fg_warning_l_2 = LimitOneOfPrefixedCssClass.of(DUI_FG, () -> "dui-fg-warning-l-2");
 
-  CssClass dui_bg_warning_l_2 = () -> "dui-bg-warning-l-2";
+  CssClass dui_bg_warning_l_2 = LimitOneOfPrefixedCssClass.of(DUI_BG, () -> "dui-bg-warning-l-2");
 
-  CssClass dui_accent_warning_l_2 = () -> "dui-accent-warning-l-2";
+  CssClass dui_accent_warning_l_2 =
+      LimitOneOfPrefixedCssClass.of(DUI_ACCENT, () -> "dui-accent-warning-l-2");
 
   CssClass dui_shadow_warning_l_2 = () -> "dui-shadow-warning-l-2";
 
@@ -1538,11 +1614,12 @@ public interface ColorsCss {
 
   CssClass dui_outline_warning_l_2 = () -> "dui-outline-warning-l-2";
 
-  CssClass dui_fg_warning_l_1 = () -> "dui-fg-warning-l-1";
+  CssClass dui_fg_warning_l_1 = LimitOneOfPrefixedCssClass.of(DUI_FG, () -> "dui-fg-warning-l-1");
 
-  CssClass dui_bg_warning_l_1 = () -> "dui-bg-warning-l-1";
+  CssClass dui_bg_warning_l_1 = LimitOneOfPrefixedCssClass.of(DUI_BG, () -> "dui-bg-warning-l-1");
 
-  CssClass dui_accent_warning_l_1 = () -> "dui-accent-warning-l-1";
+  CssClass dui_accent_warning_l_1 =
+      LimitOneOfPrefixedCssClass.of(DUI_ACCENT, () -> "dui-accent-warning-l-1");
 
   CssClass dui_shadow_warning_l_1 = () -> "dui-shadow-warning-l-1";
 
@@ -1566,11 +1643,12 @@ public interface ColorsCss {
 
   CssClass dui_outline_warning_l_1 = () -> "dui-outline-warning-l-1";
 
-  CssClass dui_fg_warning = () -> "dui-fg-warning";
+  CssClass dui_fg_warning = LimitOneOfPrefixedCssClass.of(DUI_FG, () -> "dui-fg-warning");
 
-  CssClass dui_bg_warning = () -> "dui-bg-warning";
+  CssClass dui_bg_warning = LimitOneOfPrefixedCssClass.of(DUI_BG, () -> "dui-bg-warning");
 
-  CssClass dui_accent_warning = () -> "dui-accent-warning";
+  CssClass dui_accent_warning =
+      LimitOneOfPrefixedCssClass.of(DUI_ACCENT, () -> "dui-accent-warning");
 
   CssClass dui_shadow_warning = () -> "dui-shadow-warning";
 
@@ -1594,11 +1672,12 @@ public interface ColorsCss {
 
   CssClass dui_outline_warning = () -> "dui-outline-warning";
 
-  CssClass dui_fg_warning_d_1 = () -> "dui-fg-warning-d-1";
+  CssClass dui_fg_warning_d_1 = LimitOneOfPrefixedCssClass.of(DUI_FG, () -> "dui-fg-warning-d-1");
 
-  CssClass dui_bg_warning_d_1 = () -> "dui-bg-warning-d-1";
+  CssClass dui_bg_warning_d_1 = LimitOneOfPrefixedCssClass.of(DUI_BG, () -> "dui-bg-warning-d-1");
 
-  CssClass dui_accent_warning_d_1 = () -> "dui-accent-warning-d-1";
+  CssClass dui_accent_warning_d_1 =
+      LimitOneOfPrefixedCssClass.of(DUI_ACCENT, () -> "dui-accent-warning-d-1");
 
   CssClass dui_shadow_warning_d_1 = () -> "dui-shadow-warning-d-1";
 
@@ -1622,11 +1701,12 @@ public interface ColorsCss {
 
   CssClass dui_outline_warning_d_1 = () -> "dui-outline-warning-d-1";
 
-  CssClass dui_fg_warning_d_2 = () -> "dui-fg-warning-d-2";
+  CssClass dui_fg_warning_d_2 = LimitOneOfPrefixedCssClass.of(DUI_FG, () -> "dui-fg-warning-d-2");
 
-  CssClass dui_bg_warning_d_2 = () -> "dui-bg-warning-d-2";
+  CssClass dui_bg_warning_d_2 = LimitOneOfPrefixedCssClass.of(DUI_BG, () -> "dui-bg-warning-d-2");
 
-  CssClass dui_accent_warning_d_2 = () -> "dui-accent-warning-d-2";
+  CssClass dui_accent_warning_d_2 =
+      LimitOneOfPrefixedCssClass.of(DUI_ACCENT, () -> "dui-accent-warning-d-2");
 
   CssClass dui_shadow_warning_d_2 = () -> "dui-shadow-warning-d-2";
 
@@ -1650,11 +1730,12 @@ public interface ColorsCss {
 
   CssClass dui_outline_warning_d_2 = () -> "dui-outline-warning-d-2";
 
-  CssClass dui_fg_warning_d_3 = () -> "dui-fg-warning-d-3";
+  CssClass dui_fg_warning_d_3 = LimitOneOfPrefixedCssClass.of(DUI_FG, () -> "dui-fg-warning-d-3");
 
-  CssClass dui_bg_warning_d_3 = () -> "dui-bg-warning-d-3";
+  CssClass dui_bg_warning_d_3 = LimitOneOfPrefixedCssClass.of(DUI_BG, () -> "dui-bg-warning-d-3");
 
-  CssClass dui_accent_warning_d_3 = () -> "dui-accent-warning-d-3";
+  CssClass dui_accent_warning_d_3 =
+      LimitOneOfPrefixedCssClass.of(DUI_ACCENT, () -> "dui-accent-warning-d-3");
 
   CssClass dui_shadow_warning_d_3 = () -> "dui-shadow-warning-d-3";
 
@@ -1678,11 +1759,12 @@ public interface ColorsCss {
 
   CssClass dui_outline_warning_d_3 = () -> "dui-outline-warning-d-3";
 
-  CssClass dui_fg_warning_d_4 = () -> "dui-fg-warning-d-4";
+  CssClass dui_fg_warning_d_4 = LimitOneOfPrefixedCssClass.of(DUI_FG, () -> "dui-fg-warning-d-4");
 
-  CssClass dui_bg_warning_d_4 = () -> "dui-bg-warning-d-4";
+  CssClass dui_bg_warning_d_4 = LimitOneOfPrefixedCssClass.of(DUI_BG, () -> "dui-bg-warning-d-4");
 
-  CssClass dui_accent_warning_d_4 = () -> "dui-accent-warning-d-4";
+  CssClass dui_accent_warning_d_4 =
+      LimitOneOfPrefixedCssClass.of(DUI_ACCENT, () -> "dui-accent-warning-d-4");
 
   CssClass dui_shadow_warning_d_4 = () -> "dui-shadow-warning-d-4";
 
@@ -1706,11 +1788,12 @@ public interface ColorsCss {
 
   CssClass dui_outline_warning_d_4 = () -> "dui-outline-warning-d-4";
 
-  CssClass dui_fg_info_l_5 = () -> "dui-fg-info-l-5";
+  CssClass dui_fg_info_l_5 = LimitOneOfPrefixedCssClass.of(DUI_FG, () -> "dui-fg-info-l-5");
 
-  CssClass dui_bg_info_l_5 = () -> "dui-bg-info-l-5";
+  CssClass dui_bg_info_l_5 = LimitOneOfPrefixedCssClass.of(DUI_BG, () -> "dui-bg-info-l-5");
 
-  CssClass dui_accent_info_l_5 = () -> "dui-accent-info-l-5";
+  CssClass dui_accent_info_l_5 =
+      LimitOneOfPrefixedCssClass.of(DUI_ACCENT, () -> "dui-accent-info-l-5");
 
   CssClass dui_shadow_info_l_5 = () -> "dui-shadow-info-l-5";
 
@@ -1734,11 +1817,12 @@ public interface ColorsCss {
 
   CssClass dui_outline_info_l_5 = () -> "dui-outline-info-l-5";
 
-  CssClass dui_fg_info_l_4 = () -> "dui-fg-info-l-4";
+  CssClass dui_fg_info_l_4 = LimitOneOfPrefixedCssClass.of(DUI_FG, () -> "dui-fg-info-l-4");
 
-  CssClass dui_bg_info_l_4 = () -> "dui-bg-info-l-4";
+  CssClass dui_bg_info_l_4 = LimitOneOfPrefixedCssClass.of(DUI_BG, () -> "dui-bg-info-l-4");
 
-  CssClass dui_accent_info_l_4 = () -> "dui-accent-info-l-4";
+  CssClass dui_accent_info_l_4 =
+      LimitOneOfPrefixedCssClass.of(DUI_ACCENT, () -> "dui-accent-info-l-4");
 
   CssClass dui_shadow_info_l_4 = () -> "dui-shadow-info-l-4";
 
@@ -1762,11 +1846,12 @@ public interface ColorsCss {
 
   CssClass dui_outline_info_l_4 = () -> "dui-outline-info-l-4";
 
-  CssClass dui_fg_info_l_3 = () -> "dui-fg-info-l-3";
+  CssClass dui_fg_info_l_3 = LimitOneOfPrefixedCssClass.of(DUI_FG, () -> "dui-fg-info-l-3");
 
-  CssClass dui_bg_info_l_3 = () -> "dui-bg-info-l-3";
+  CssClass dui_bg_info_l_3 = LimitOneOfPrefixedCssClass.of(DUI_BG, () -> "dui-bg-info-l-3");
 
-  CssClass dui_accent_info_l_3 = () -> "dui-accent-info-l-3";
+  CssClass dui_accent_info_l_3 =
+      LimitOneOfPrefixedCssClass.of(DUI_ACCENT, () -> "dui-accent-info-l-3");
 
   CssClass dui_shadow_info_l_3 = () -> "dui-shadow-info-l-3";
 
@@ -1790,11 +1875,12 @@ public interface ColorsCss {
 
   CssClass dui_outline_info_l_3 = () -> "dui-outline-info-l-3";
 
-  CssClass dui_fg_info_l_2 = () -> "dui-fg-info-l-2";
+  CssClass dui_fg_info_l_2 = LimitOneOfPrefixedCssClass.of(DUI_FG, () -> "dui-fg-info-l-2");
 
-  CssClass dui_bg_info_l_2 = () -> "dui-bg-info-l-2";
+  CssClass dui_bg_info_l_2 = LimitOneOfPrefixedCssClass.of(DUI_BG, () -> "dui-bg-info-l-2");
 
-  CssClass dui_accent_info_l_2 = () -> "dui-accent-info-l-2";
+  CssClass dui_accent_info_l_2 =
+      LimitOneOfPrefixedCssClass.of(DUI_ACCENT, () -> "dui-accent-info-l-2");
 
   CssClass dui_shadow_info_l_2 = () -> "dui-shadow-info-l-2";
 
@@ -1818,11 +1904,12 @@ public interface ColorsCss {
 
   CssClass dui_outline_info_l_2 = () -> "dui-outline-info-l-2";
 
-  CssClass dui_fg_info_l_1 = () -> "dui-fg-info-l-1";
+  CssClass dui_fg_info_l_1 = LimitOneOfPrefixedCssClass.of(DUI_FG, () -> "dui-fg-info-l-1");
 
-  CssClass dui_bg_info_l_1 = () -> "dui-bg-info-l-1";
+  CssClass dui_bg_info_l_1 = LimitOneOfPrefixedCssClass.of(DUI_BG, () -> "dui-bg-info-l-1");
 
-  CssClass dui_accent_info_l_1 = () -> "dui-accent-info-l-1";
+  CssClass dui_accent_info_l_1 =
+      LimitOneOfPrefixedCssClass.of(DUI_ACCENT, () -> "dui-accent-info-l-1");
 
   CssClass dui_shadow_info_l_1 = () -> "dui-shadow-info-l-1";
 
@@ -1846,11 +1933,11 @@ public interface ColorsCss {
 
   CssClass dui_outline_info_l_1 = () -> "dui-outline-info-l-1";
 
-  CssClass dui_fg_info = () -> "dui-fg-info";
+  CssClass dui_fg_info = LimitOneOfPrefixedCssClass.of(DUI_FG, () -> "dui-fg-info");
 
-  CssClass dui_bg_info = () -> "dui-bg-info";
+  CssClass dui_bg_info = LimitOneOfPrefixedCssClass.of(DUI_BG, () -> "dui-bg-info");
 
-  CssClass dui_accent_info = () -> "dui-accent-info";
+  CssClass dui_accent_info = LimitOneOfPrefixedCssClass.of(DUI_ACCENT, () -> "dui-accent-info");
 
   CssClass dui_shadow_info = () -> "dui-shadow-info";
 
@@ -1874,11 +1961,12 @@ public interface ColorsCss {
 
   CssClass dui_outline_info = () -> "dui-outline-info";
 
-  CssClass dui_fg_info_d_1 = () -> "dui-fg-info-d-1";
+  CssClass dui_fg_info_d_1 = LimitOneOfPrefixedCssClass.of(DUI_FG, () -> "dui-fg-info-d-1");
 
-  CssClass dui_bg_info_d_1 = () -> "dui-bg-info-d-1";
+  CssClass dui_bg_info_d_1 = LimitOneOfPrefixedCssClass.of(DUI_BG, () -> "dui-bg-info-d-1");
 
-  CssClass dui_accent_info_d_1 = () -> "dui-accent-info-d-1";
+  CssClass dui_accent_info_d_1 =
+      LimitOneOfPrefixedCssClass.of(DUI_ACCENT, () -> "dui-accent-info-d-1");
 
   CssClass dui_shadow_info_d_1 = () -> "dui-shadow-info-d-1";
 
@@ -1902,11 +1990,12 @@ public interface ColorsCss {
 
   CssClass dui_outline_info_d_1 = () -> "dui-outline-info-d-1";
 
-  CssClass dui_fg_info_d_2 = () -> "dui-fg-info-d-2";
+  CssClass dui_fg_info_d_2 = LimitOneOfPrefixedCssClass.of(DUI_FG, () -> "dui-fg-info-d-2");
 
-  CssClass dui_bg_info_d_2 = () -> "dui-bg-info-d-2";
+  CssClass dui_bg_info_d_2 = LimitOneOfPrefixedCssClass.of(DUI_BG, () -> "dui-bg-info-d-2");
 
-  CssClass dui_accent_info_d_2 = () -> "dui-accent-info-d-2";
+  CssClass dui_accent_info_d_2 =
+      LimitOneOfPrefixedCssClass.of(DUI_ACCENT, () -> "dui-accent-info-d-2");
 
   CssClass dui_shadow_info_d_2 = () -> "dui-shadow-info-d-2";
 
@@ -1930,11 +2019,12 @@ public interface ColorsCss {
 
   CssClass dui_outline_info_d_2 = () -> "dui-outline-info-d-2";
 
-  CssClass dui_fg_info_d_3 = () -> "dui-fg-info-d-3";
+  CssClass dui_fg_info_d_3 = LimitOneOfPrefixedCssClass.of(DUI_FG, () -> "dui-fg-info-d-3");
 
-  CssClass dui_bg_info_d_3 = () -> "dui-bg-info-d-3";
+  CssClass dui_bg_info_d_3 = LimitOneOfPrefixedCssClass.of(DUI_BG, () -> "dui-bg-info-d-3");
 
-  CssClass dui_accent_info_d_3 = () -> "dui-accent-info-d-3";
+  CssClass dui_accent_info_d_3 =
+      LimitOneOfPrefixedCssClass.of(DUI_ACCENT, () -> "dui-accent-info-d-3");
 
   CssClass dui_shadow_info_d_3 = () -> "dui-shadow-info-d-3";
 
@@ -1958,11 +2048,12 @@ public interface ColorsCss {
 
   CssClass dui_outline_info_d_3 = () -> "dui-outline-info-d-3";
 
-  CssClass dui_fg_info_d_4 = () -> "dui-fg-info-d-4";
+  CssClass dui_fg_info_d_4 = LimitOneOfPrefixedCssClass.of(DUI_FG, () -> "dui-fg-info-d-4");
 
-  CssClass dui_bg_info_d_4 = () -> "dui-bg-info-d-4";
+  CssClass dui_bg_info_d_4 = LimitOneOfPrefixedCssClass.of(DUI_BG, () -> "dui-bg-info-d-4");
 
-  CssClass dui_accent_info_d_4 = () -> "dui-accent-info-d-4";
+  CssClass dui_accent_info_d_4 =
+      LimitOneOfPrefixedCssClass.of(DUI_ACCENT, () -> "dui-accent-info-d-4");
 
   CssClass dui_shadow_info_d_4 = () -> "dui-shadow-info-d-4";
 
@@ -1986,11 +2077,12 @@ public interface ColorsCss {
 
   CssClass dui_outline_info_d_4 = () -> "dui-outline-info-d-4";
 
-  CssClass dui_fg_error_l_5 = () -> "dui-fg-error-l-5";
+  CssClass dui_fg_error_l_5 = LimitOneOfPrefixedCssClass.of(DUI_FG, () -> "dui-fg-error-l-5");
 
-  CssClass dui_bg_error_l_5 = () -> "dui-bg-error-l-5";
+  CssClass dui_bg_error_l_5 = LimitOneOfPrefixedCssClass.of(DUI_BG, () -> "dui-bg-error-l-5");
 
-  CssClass dui_accent_error_l_5 = () -> "dui-accent-error-l-5";
+  CssClass dui_accent_error_l_5 =
+      LimitOneOfPrefixedCssClass.of(DUI_ACCENT, () -> "dui-accent-error-l-5");
 
   CssClass dui_shadow_error_l_5 = () -> "dui-shadow-error-l-5";
 
@@ -2014,11 +2106,12 @@ public interface ColorsCss {
 
   CssClass dui_outline_error_l_5 = () -> "dui-outline-error-l-5";
 
-  CssClass dui_fg_error_l_4 = () -> "dui-fg-error-l-4";
+  CssClass dui_fg_error_l_4 = LimitOneOfPrefixedCssClass.of(DUI_FG, () -> "dui-fg-error-l-4");
 
-  CssClass dui_bg_error_l_4 = () -> "dui-bg-error-l-4";
+  CssClass dui_bg_error_l_4 = LimitOneOfPrefixedCssClass.of(DUI_BG, () -> "dui-bg-error-l-4");
 
-  CssClass dui_accent_error_l_4 = () -> "dui-accent-error-l-4";
+  CssClass dui_accent_error_l_4 =
+      LimitOneOfPrefixedCssClass.of(DUI_ACCENT, () -> "dui-accent-error-l-4");
 
   CssClass dui_shadow_error_l_4 = () -> "dui-shadow-error-l-4";
 
@@ -2042,11 +2135,12 @@ public interface ColorsCss {
 
   CssClass dui_outline_error_l_4 = () -> "dui-outline-error-l-4";
 
-  CssClass dui_fg_error_l_3 = () -> "dui-fg-error-l-3";
+  CssClass dui_fg_error_l_3 = LimitOneOfPrefixedCssClass.of(DUI_FG, () -> "dui-fg-error-l-3");
 
-  CssClass dui_bg_error_l_3 = () -> "dui-bg-error-l-3";
+  CssClass dui_bg_error_l_3 = LimitOneOfPrefixedCssClass.of(DUI_BG, () -> "dui-bg-error-l-3");
 
-  CssClass dui_accent_error_l_3 = () -> "dui-accent-error-l-3";
+  CssClass dui_accent_error_l_3 =
+      LimitOneOfPrefixedCssClass.of(DUI_ACCENT, () -> "dui-accent-error-l-3");
 
   CssClass dui_shadow_error_l_3 = () -> "dui-shadow-error-l-3";
 
@@ -2070,11 +2164,12 @@ public interface ColorsCss {
 
   CssClass dui_outline_error_l_3 = () -> "dui-outline-error-l-3";
 
-  CssClass dui_fg_error_l_2 = () -> "dui-fg-error-l-2";
+  CssClass dui_fg_error_l_2 = LimitOneOfPrefixedCssClass.of(DUI_FG, () -> "dui-fg-error-l-2");
 
-  CssClass dui_bg_error_l_2 = () -> "dui-bg-error-l-2";
+  CssClass dui_bg_error_l_2 = LimitOneOfPrefixedCssClass.of(DUI_BG, () -> "dui-bg-error-l-2");
 
-  CssClass dui_accent_error_l_2 = () -> "dui-accent-error-l-2";
+  CssClass dui_accent_error_l_2 =
+      LimitOneOfPrefixedCssClass.of(DUI_ACCENT, () -> "dui-accent-error-l-2");
 
   CssClass dui_shadow_error_l_2 = () -> "dui-shadow-error-l-2";
 
@@ -2098,11 +2193,12 @@ public interface ColorsCss {
 
   CssClass dui_outline_error_l_2 = () -> "dui-outline-error-l-2";
 
-  CssClass dui_fg_error_l_1 = () -> "dui-fg-error-l-1";
+  CssClass dui_fg_error_l_1 = LimitOneOfPrefixedCssClass.of(DUI_FG, () -> "dui-fg-error-l-1");
 
-  CssClass dui_bg_error_l_1 = () -> "dui-bg-error-l-1";
+  CssClass dui_bg_error_l_1 = LimitOneOfPrefixedCssClass.of(DUI_BG, () -> "dui-bg-error-l-1");
 
-  CssClass dui_accent_error_l_1 = () -> "dui-accent-error-l-1";
+  CssClass dui_accent_error_l_1 =
+      LimitOneOfPrefixedCssClass.of(DUI_ACCENT, () -> "dui-accent-error-l-1");
 
   CssClass dui_shadow_error_l_1 = () -> "dui-shadow-error-l-1";
 
@@ -2126,11 +2222,11 @@ public interface ColorsCss {
 
   CssClass dui_outline_error_l_1 = () -> "dui-outline-error-l-1";
 
-  CssClass dui_fg_error = () -> "dui-fg-error";
+  CssClass dui_fg_error = LimitOneOfPrefixedCssClass.of(DUI_FG, () -> "dui-fg-error");
 
-  CssClass dui_bg_error = () -> "dui-bg-error";
+  CssClass dui_bg_error = LimitOneOfPrefixedCssClass.of(DUI_BG, () -> "dui-bg-error");
 
-  CssClass dui_accent_error = () -> "dui-accent-error";
+  CssClass dui_accent_error = LimitOneOfPrefixedCssClass.of(DUI_ACCENT, () -> "dui-accent-error");
 
   CssClass dui_shadow_error = () -> "dui-shadow-error";
 
@@ -2154,11 +2250,12 @@ public interface ColorsCss {
 
   CssClass dui_outline_error = () -> "dui-outline-error";
 
-  CssClass dui_fg_error_d_1 = () -> "dui-fg-error-d-1";
+  CssClass dui_fg_error_d_1 = LimitOneOfPrefixedCssClass.of(DUI_FG, () -> "dui-fg-error-d-1");
 
-  CssClass dui_bg_error_d_1 = () -> "dui-bg-error-d-1";
+  CssClass dui_bg_error_d_1 = LimitOneOfPrefixedCssClass.of(DUI_BG, () -> "dui-bg-error-d-1");
 
-  CssClass dui_accent_error_d_1 = () -> "dui-accent-error-d-1";
+  CssClass dui_accent_error_d_1 =
+      LimitOneOfPrefixedCssClass.of(DUI_ACCENT, () -> "dui-accent-error-d-1");
 
   CssClass dui_shadow_error_d_1 = () -> "dui-shadow-error-d-1";
 
@@ -2182,11 +2279,12 @@ public interface ColorsCss {
 
   CssClass dui_outline_error_d_1 = () -> "dui-outline-error-d-1";
 
-  CssClass dui_fg_error_d_2 = () -> "dui-fg-error-d-2";
+  CssClass dui_fg_error_d_2 = LimitOneOfPrefixedCssClass.of(DUI_FG, () -> "dui-fg-error-d-2");
 
-  CssClass dui_bg_error_d_2 = () -> "dui-bg-error-d-2";
+  CssClass dui_bg_error_d_2 = LimitOneOfPrefixedCssClass.of(DUI_BG, () -> "dui-bg-error-d-2");
 
-  CssClass dui_accent_error_d_2 = () -> "dui-accent-error-d-2";
+  CssClass dui_accent_error_d_2 =
+      LimitOneOfPrefixedCssClass.of(DUI_ACCENT, () -> "dui-accent-error-d-2");
 
   CssClass dui_shadow_error_d_2 = () -> "dui-shadow-error-d-2";
 
@@ -2210,11 +2308,12 @@ public interface ColorsCss {
 
   CssClass dui_outline_error_d_2 = () -> "dui-outline-error-d-2";
 
-  CssClass dui_fg_error_d_3 = () -> "dui-fg-error-d-3";
+  CssClass dui_fg_error_d_3 = LimitOneOfPrefixedCssClass.of(DUI_FG, () -> "dui-fg-error-d-3");
 
-  CssClass dui_bg_error_d_3 = () -> "dui-bg-error-d-3";
+  CssClass dui_bg_error_d_3 = LimitOneOfPrefixedCssClass.of(DUI_BG, () -> "dui-bg-error-d-3");
 
-  CssClass dui_accent_error_d_3 = () -> "dui-accent-error-d-3";
+  CssClass dui_accent_error_d_3 =
+      LimitOneOfPrefixedCssClass.of(DUI_ACCENT, () -> "dui-accent-error-d-3");
 
   CssClass dui_shadow_error_d_3 = () -> "dui-shadow-error-d-3";
 
@@ -2238,11 +2337,12 @@ public interface ColorsCss {
 
   CssClass dui_outline_error_d_3 = () -> "dui-outline-error-d-3";
 
-  CssClass dui_fg_error_d_4 = () -> "dui-fg-error-d-4";
+  CssClass dui_fg_error_d_4 = LimitOneOfPrefixedCssClass.of(DUI_FG, () -> "dui-fg-error-d-4");
 
-  CssClass dui_bg_error_d_4 = () -> "dui-bg-error-d-4";
+  CssClass dui_bg_error_d_4 = LimitOneOfPrefixedCssClass.of(DUI_BG, () -> "dui-bg-error-d-4");
 
-  CssClass dui_accent_error_d_4 = () -> "dui-accent-error-d-4";
+  CssClass dui_accent_error_d_4 =
+      LimitOneOfPrefixedCssClass.of(DUI_ACCENT, () -> "dui-accent-error-d-4");
 
   CssClass dui_shadow_error_d_4 = () -> "dui-shadow-error-d-4";
 
@@ -2266,11 +2366,12 @@ public interface ColorsCss {
 
   CssClass dui_outline_error_d_4 = () -> "dui-outline-error-d-4";
 
-  CssClass dui_fg_red_l_5 = () -> "dui-fg-red-l-5";
+  CssClass dui_fg_red_l_5 = LimitOneOfPrefixedCssClass.of(DUI_FG, () -> "dui-fg-red-l-5");
 
-  CssClass dui_bg_red_l_5 = () -> "dui-bg-red-l-5";
+  CssClass dui_bg_red_l_5 = LimitOneOfPrefixedCssClass.of(DUI_BG, () -> "dui-bg-red-l-5");
 
-  CssClass dui_accent_red_l_5 = () -> "dui-accent-red-l-5";
+  CssClass dui_accent_red_l_5 =
+      LimitOneOfPrefixedCssClass.of(DUI_ACCENT, () -> "dui-accent-red-l-5");
 
   CssClass dui_shadow_red_l_5 = () -> "dui-shadow-red-l-5";
 
@@ -2294,11 +2395,12 @@ public interface ColorsCss {
 
   CssClass dui_outline_red_l_5 = () -> "dui-outline-red-l-5";
 
-  CssClass dui_fg_red_l_4 = () -> "dui-fg-red-l-4";
+  CssClass dui_fg_red_l_4 = LimitOneOfPrefixedCssClass.of(DUI_FG, () -> "dui-fg-red-l-4");
 
-  CssClass dui_bg_red_l_4 = () -> "dui-bg-red-l-4";
+  CssClass dui_bg_red_l_4 = LimitOneOfPrefixedCssClass.of(DUI_BG, () -> "dui-bg-red-l-4");
 
-  CssClass dui_accent_red_l_4 = () -> "dui-accent-red-l-4";
+  CssClass dui_accent_red_l_4 =
+      LimitOneOfPrefixedCssClass.of(DUI_ACCENT, () -> "dui-accent-red-l-4");
 
   CssClass dui_shadow_red_l_4 = () -> "dui-shadow-red-l-4";
 
@@ -2322,11 +2424,12 @@ public interface ColorsCss {
 
   CssClass dui_outline_red_l_4 = () -> "dui-outline-red-l-4";
 
-  CssClass dui_fg_red_l_3 = () -> "dui-fg-red-l-3";
+  CssClass dui_fg_red_l_3 = LimitOneOfPrefixedCssClass.of(DUI_FG, () -> "dui-fg-red-l-3");
 
-  CssClass dui_bg_red_l_3 = () -> "dui-bg-red-l-3";
+  CssClass dui_bg_red_l_3 = LimitOneOfPrefixedCssClass.of(DUI_BG, () -> "dui-bg-red-l-3");
 
-  CssClass dui_accent_red_l_3 = () -> "dui-accent-red-l-3";
+  CssClass dui_accent_red_l_3 =
+      LimitOneOfPrefixedCssClass.of(DUI_ACCENT, () -> "dui-accent-red-l-3");
 
   CssClass dui_shadow_red_l_3 = () -> "dui-shadow-red-l-3";
 
@@ -2350,11 +2453,12 @@ public interface ColorsCss {
 
   CssClass dui_outline_red_l_3 = () -> "dui-outline-red-l-3";
 
-  CssClass dui_fg_red_l_2 = () -> "dui-fg-red-l-2";
+  CssClass dui_fg_red_l_2 = LimitOneOfPrefixedCssClass.of(DUI_FG, () -> "dui-fg-red-l-2");
 
-  CssClass dui_bg_red_l_2 = () -> "dui-bg-red-l-2";
+  CssClass dui_bg_red_l_2 = LimitOneOfPrefixedCssClass.of(DUI_BG, () -> "dui-bg-red-l-2");
 
-  CssClass dui_accent_red_l_2 = () -> "dui-accent-red-l-2";
+  CssClass dui_accent_red_l_2 =
+      LimitOneOfPrefixedCssClass.of(DUI_ACCENT, () -> "dui-accent-red-l-2");
 
   CssClass dui_shadow_red_l_2 = () -> "dui-shadow-red-l-2";
 
@@ -2378,11 +2482,12 @@ public interface ColorsCss {
 
   CssClass dui_outline_red_l_2 = () -> "dui-outline-red-l-2";
 
-  CssClass dui_fg_red_l_1 = () -> "dui-fg-red-l-1";
+  CssClass dui_fg_red_l_1 = LimitOneOfPrefixedCssClass.of(DUI_FG, () -> "dui-fg-red-l-1");
 
-  CssClass dui_bg_red_l_1 = () -> "dui-bg-red-l-1";
+  CssClass dui_bg_red_l_1 = LimitOneOfPrefixedCssClass.of(DUI_BG, () -> "dui-bg-red-l-1");
 
-  CssClass dui_accent_red_l_1 = () -> "dui-accent-red-l-1";
+  CssClass dui_accent_red_l_1 =
+      LimitOneOfPrefixedCssClass.of(DUI_ACCENT, () -> "dui-accent-red-l-1");
 
   CssClass dui_shadow_red_l_1 = () -> "dui-shadow-red-l-1";
 
@@ -2406,11 +2511,11 @@ public interface ColorsCss {
 
   CssClass dui_outline_red_l_1 = () -> "dui-outline-red-l-1";
 
-  CssClass dui_fg_red = () -> "dui-fg-red";
+  CssClass dui_fg_red = LimitOneOfPrefixedCssClass.of(DUI_FG, () -> "dui-fg-red");
 
-  CssClass dui_bg_red = () -> "dui-bg-red";
+  CssClass dui_bg_red = LimitOneOfPrefixedCssClass.of(DUI_BG, () -> "dui-bg-red");
 
-  CssClass dui_accent_red = () -> "dui-accent-red";
+  CssClass dui_accent_red = LimitOneOfPrefixedCssClass.of(DUI_ACCENT, () -> "dui-accent-red");
 
   CssClass dui_shadow_red = () -> "dui-shadow-red";
 
@@ -2434,11 +2539,12 @@ public interface ColorsCss {
 
   CssClass dui_outline_red = () -> "dui-outline-red";
 
-  CssClass dui_fg_red_d_1 = () -> "dui-fg-red-d-1";
+  CssClass dui_fg_red_d_1 = LimitOneOfPrefixedCssClass.of(DUI_FG, () -> "dui-fg-red-d-1");
 
-  CssClass dui_bg_red_d_1 = () -> "dui-bg-red-d-1";
+  CssClass dui_bg_red_d_1 = LimitOneOfPrefixedCssClass.of(DUI_BG, () -> "dui-bg-red-d-1");
 
-  CssClass dui_accent_red_d_1 = () -> "dui-accent-red-d-1";
+  CssClass dui_accent_red_d_1 =
+      LimitOneOfPrefixedCssClass.of(DUI_ACCENT, () -> "dui-accent-red-d-1");
 
   CssClass dui_shadow_red_d_1 = () -> "dui-shadow-red-d-1";
 
@@ -2462,11 +2568,12 @@ public interface ColorsCss {
 
   CssClass dui_outline_red_d_1 = () -> "dui-outline-red-d-1";
 
-  CssClass dui_fg_red_d_2 = () -> "dui-fg-red-d-2";
+  CssClass dui_fg_red_d_2 = LimitOneOfPrefixedCssClass.of(DUI_FG, () -> "dui-fg-red-d-2");
 
-  CssClass dui_bg_red_d_2 = () -> "dui-bg-red-d-2";
+  CssClass dui_bg_red_d_2 = LimitOneOfPrefixedCssClass.of(DUI_BG, () -> "dui-bg-red-d-2");
 
-  CssClass dui_accent_red_d_2 = () -> "dui-accent-red-d-2";
+  CssClass dui_accent_red_d_2 =
+      LimitOneOfPrefixedCssClass.of(DUI_ACCENT, () -> "dui-accent-red-d-2");
 
   CssClass dui_shadow_red_d_2 = () -> "dui-shadow-red-d-2";
 
@@ -2490,11 +2597,12 @@ public interface ColorsCss {
 
   CssClass dui_outline_red_d_2 = () -> "dui-outline-red-d-2";
 
-  CssClass dui_fg_red_d_3 = () -> "dui-fg-red-d-3";
+  CssClass dui_fg_red_d_3 = LimitOneOfPrefixedCssClass.of(DUI_FG, () -> "dui-fg-red-d-3");
 
-  CssClass dui_bg_red_d_3 = () -> "dui-bg-red-d-3";
+  CssClass dui_bg_red_d_3 = LimitOneOfPrefixedCssClass.of(DUI_BG, () -> "dui-bg-red-d-3");
 
-  CssClass dui_accent_red_d_3 = () -> "dui-accent-red-d-3";
+  CssClass dui_accent_red_d_3 =
+      LimitOneOfPrefixedCssClass.of(DUI_ACCENT, () -> "dui-accent-red-d-3");
 
   CssClass dui_shadow_red_d_3 = () -> "dui-shadow-red-d-3";
 
@@ -2518,11 +2626,12 @@ public interface ColorsCss {
 
   CssClass dui_outline_red_d_3 = () -> "dui-outline-red-d-3";
 
-  CssClass dui_fg_red_d_4 = () -> "dui-fg-red-d-4";
+  CssClass dui_fg_red_d_4 = LimitOneOfPrefixedCssClass.of(DUI_FG, () -> "dui-fg-red-d-4");
 
-  CssClass dui_bg_red_d_4 = () -> "dui-bg-red-d-4";
+  CssClass dui_bg_red_d_4 = LimitOneOfPrefixedCssClass.of(DUI_BG, () -> "dui-bg-red-d-4");
 
-  CssClass dui_accent_red_d_4 = () -> "dui-accent-red-d-4";
+  CssClass dui_accent_red_d_4 =
+      LimitOneOfPrefixedCssClass.of(DUI_ACCENT, () -> "dui-accent-red-d-4");
 
   CssClass dui_shadow_red_d_4 = () -> "dui-shadow-red-d-4";
 
@@ -2546,11 +2655,12 @@ public interface ColorsCss {
 
   CssClass dui_outline_red_d_4 = () -> "dui-outline-red-d-4";
 
-  CssClass dui_fg_pink_l_5 = () -> "dui-fg-pink-l-5";
+  CssClass dui_fg_pink_l_5 = LimitOneOfPrefixedCssClass.of(DUI_FG, () -> "dui-fg-pink-l-5");
 
-  CssClass dui_bg_pink_l_5 = () -> "dui-bg-pink-l-5";
+  CssClass dui_bg_pink_l_5 = LimitOneOfPrefixedCssClass.of(DUI_BG, () -> "dui-bg-pink-l-5");
 
-  CssClass dui_accent_pink_l_5 = () -> "dui-accent-pink-l-5";
+  CssClass dui_accent_pink_l_5 =
+      LimitOneOfPrefixedCssClass.of(DUI_ACCENT, () -> "dui-accent-pink-l-5");
 
   CssClass dui_shadow_pink_l_5 = () -> "dui-shadow-pink-l-5";
 
@@ -2574,11 +2684,12 @@ public interface ColorsCss {
 
   CssClass dui_outline_pink_l_5 = () -> "dui-outline-pink-l-5";
 
-  CssClass dui_fg_pink_l_4 = () -> "dui-fg-pink-l-4";
+  CssClass dui_fg_pink_l_4 = LimitOneOfPrefixedCssClass.of(DUI_FG, () -> "dui-fg-pink-l-4");
 
-  CssClass dui_bg_pink_l_4 = () -> "dui-bg-pink-l-4";
+  CssClass dui_bg_pink_l_4 = LimitOneOfPrefixedCssClass.of(DUI_BG, () -> "dui-bg-pink-l-4");
 
-  CssClass dui_accent_pink_l_4 = () -> "dui-accent-pink-l-4";
+  CssClass dui_accent_pink_l_4 =
+      LimitOneOfPrefixedCssClass.of(DUI_ACCENT, () -> "dui-accent-pink-l-4");
 
   CssClass dui_shadow_pink_l_4 = () -> "dui-shadow-pink-l-4";
 
@@ -2602,11 +2713,12 @@ public interface ColorsCss {
 
   CssClass dui_outline_pink_l_4 = () -> "dui-outline-pink-l-4";
 
-  CssClass dui_fg_pink_l_3 = () -> "dui-fg-pink-l-3";
+  CssClass dui_fg_pink_l_3 = LimitOneOfPrefixedCssClass.of(DUI_FG, () -> "dui-fg-pink-l-3");
 
-  CssClass dui_bg_pink_l_3 = () -> "dui-bg-pink-l-3";
+  CssClass dui_bg_pink_l_3 = LimitOneOfPrefixedCssClass.of(DUI_BG, () -> "dui-bg-pink-l-3");
 
-  CssClass dui_accent_pink_l_3 = () -> "dui-accent-pink-l-3";
+  CssClass dui_accent_pink_l_3 =
+      LimitOneOfPrefixedCssClass.of(DUI_ACCENT, () -> "dui-accent-pink-l-3");
 
   CssClass dui_shadow_pink_l_3 = () -> "dui-shadow-pink-l-3";
 
@@ -2630,11 +2742,12 @@ public interface ColorsCss {
 
   CssClass dui_outline_pink_l_3 = () -> "dui-outline-pink-l-3";
 
-  CssClass dui_fg_pink_l_2 = () -> "dui-fg-pink-l-2";
+  CssClass dui_fg_pink_l_2 = LimitOneOfPrefixedCssClass.of(DUI_FG, () -> "dui-fg-pink-l-2");
 
-  CssClass dui_bg_pink_l_2 = () -> "dui-bg-pink-l-2";
+  CssClass dui_bg_pink_l_2 = LimitOneOfPrefixedCssClass.of(DUI_BG, () -> "dui-bg-pink-l-2");
 
-  CssClass dui_accent_pink_l_2 = () -> "dui-accent-pink-l-2";
+  CssClass dui_accent_pink_l_2 =
+      LimitOneOfPrefixedCssClass.of(DUI_ACCENT, () -> "dui-accent-pink-l-2");
 
   CssClass dui_shadow_pink_l_2 = () -> "dui-shadow-pink-l-2";
 
@@ -2658,11 +2771,12 @@ public interface ColorsCss {
 
   CssClass dui_outline_pink_l_2 = () -> "dui-outline-pink-l-2";
 
-  CssClass dui_fg_pink_l_1 = () -> "dui-fg-pink-l-1";
+  CssClass dui_fg_pink_l_1 = LimitOneOfPrefixedCssClass.of(DUI_FG, () -> "dui-fg-pink-l-1");
 
-  CssClass dui_bg_pink_l_1 = () -> "dui-bg-pink-l-1";
+  CssClass dui_bg_pink_l_1 = LimitOneOfPrefixedCssClass.of(DUI_BG, () -> "dui-bg-pink-l-1");
 
-  CssClass dui_accent_pink_l_1 = () -> "dui-accent-pink-l-1";
+  CssClass dui_accent_pink_l_1 =
+      LimitOneOfPrefixedCssClass.of(DUI_ACCENT, () -> "dui-accent-pink-l-1");
 
   CssClass dui_shadow_pink_l_1 = () -> "dui-shadow-pink-l-1";
 
@@ -2686,11 +2800,11 @@ public interface ColorsCss {
 
   CssClass dui_outline_pink_l_1 = () -> "dui-outline-pink-l-1";
 
-  CssClass dui_fg_pink = () -> "dui-fg-pink";
+  CssClass dui_fg_pink = LimitOneOfPrefixedCssClass.of(DUI_FG, () -> "dui-fg-pink");
 
-  CssClass dui_bg_pink = () -> "dui-bg-pink";
+  CssClass dui_bg_pink = LimitOneOfPrefixedCssClass.of(DUI_BG, () -> "dui-bg-pink");
 
-  CssClass dui_accent_pink = () -> "dui-accent-pink";
+  CssClass dui_accent_pink = LimitOneOfPrefixedCssClass.of(DUI_ACCENT, () -> "dui-accent-pink");
 
   CssClass dui_shadow_pink = () -> "dui-shadow-pink";
 
@@ -2714,11 +2828,12 @@ public interface ColorsCss {
 
   CssClass dui_outline_pink = () -> "dui-outline-pink";
 
-  CssClass dui_fg_pink_d_1 = () -> "dui-fg-pink-d-1";
+  CssClass dui_fg_pink_d_1 = LimitOneOfPrefixedCssClass.of(DUI_FG, () -> "dui-fg-pink-d-1");
 
-  CssClass dui_bg_pink_d_1 = () -> "dui-bg-pink-d-1";
+  CssClass dui_bg_pink_d_1 = LimitOneOfPrefixedCssClass.of(DUI_BG, () -> "dui-bg-pink-d-1");
 
-  CssClass dui_accent_pink_d_1 = () -> "dui-accent-pink-d-1";
+  CssClass dui_accent_pink_d_1 =
+      LimitOneOfPrefixedCssClass.of(DUI_ACCENT, () -> "dui-accent-pink-d-1");
 
   CssClass dui_shadow_pink_d_1 = () -> "dui-shadow-pink-d-1";
 
@@ -2742,11 +2857,12 @@ public interface ColorsCss {
 
   CssClass dui_outline_pink_d_1 = () -> "dui-outline-pink-d-1";
 
-  CssClass dui_fg_pink_d_2 = () -> "dui-fg-pink-d-2";
+  CssClass dui_fg_pink_d_2 = LimitOneOfPrefixedCssClass.of(DUI_FG, () -> "dui-fg-pink-d-2");
 
-  CssClass dui_bg_pink_d_2 = () -> "dui-bg-pink-d-2";
+  CssClass dui_bg_pink_d_2 = LimitOneOfPrefixedCssClass.of(DUI_BG, () -> "dui-bg-pink-d-2");
 
-  CssClass dui_accent_pink_d_2 = () -> "dui-accent-pink-d-2";
+  CssClass dui_accent_pink_d_2 =
+      LimitOneOfPrefixedCssClass.of(DUI_ACCENT, () -> "dui-accent-pink-d-2");
 
   CssClass dui_shadow_pink_d_2 = () -> "dui-shadow-pink-d-2";
 
@@ -2770,11 +2886,12 @@ public interface ColorsCss {
 
   CssClass dui_outline_pink_d_2 = () -> "dui-outline-pink-d-2";
 
-  CssClass dui_fg_pink_d_3 = () -> "dui-fg-pink-d-3";
+  CssClass dui_fg_pink_d_3 = LimitOneOfPrefixedCssClass.of(DUI_FG, () -> "dui-fg-pink-d-3");
 
-  CssClass dui_bg_pink_d_3 = () -> "dui-bg-pink-d-3";
+  CssClass dui_bg_pink_d_3 = LimitOneOfPrefixedCssClass.of(DUI_BG, () -> "dui-bg-pink-d-3");
 
-  CssClass dui_accent_pink_d_3 = () -> "dui-accent-pink-d-3";
+  CssClass dui_accent_pink_d_3 =
+      LimitOneOfPrefixedCssClass.of(DUI_ACCENT, () -> "dui-accent-pink-d-3");
 
   CssClass dui_shadow_pink_d_3 = () -> "dui-shadow-pink-d-3";
 
@@ -2798,11 +2915,12 @@ public interface ColorsCss {
 
   CssClass dui_outline_pink_d_3 = () -> "dui-outline-pink-d-3";
 
-  CssClass dui_fg_pink_d_4 = () -> "dui-fg-pink-d-4";
+  CssClass dui_fg_pink_d_4 = LimitOneOfPrefixedCssClass.of(DUI_FG, () -> "dui-fg-pink-d-4");
 
-  CssClass dui_bg_pink_d_4 = () -> "dui-bg-pink-d-4";
+  CssClass dui_bg_pink_d_4 = LimitOneOfPrefixedCssClass.of(DUI_BG, () -> "dui-bg-pink-d-4");
 
-  CssClass dui_accent_pink_d_4 = () -> "dui-accent-pink-d-4";
+  CssClass dui_accent_pink_d_4 =
+      LimitOneOfPrefixedCssClass.of(DUI_ACCENT, () -> "dui-accent-pink-d-4");
 
   CssClass dui_shadow_pink_d_4 = () -> "dui-shadow-pink-d-4";
 
@@ -2826,11 +2944,12 @@ public interface ColorsCss {
 
   CssClass dui_outline_pink_d_4 = () -> "dui-outline-pink-d-4";
 
-  CssClass dui_fg_purple_l_5 = () -> "dui-fg-purple-l-5";
+  CssClass dui_fg_purple_l_5 = LimitOneOfPrefixedCssClass.of(DUI_FG, () -> "dui-fg-purple-l-5");
 
-  CssClass dui_bg_purple_l_5 = () -> "dui-bg-purple-l-5";
+  CssClass dui_bg_purple_l_5 = LimitOneOfPrefixedCssClass.of(DUI_BG, () -> "dui-bg-purple-l-5");
 
-  CssClass dui_accent_purple_l_5 = () -> "dui-accent-purple-l-5";
+  CssClass dui_accent_purple_l_5 =
+      LimitOneOfPrefixedCssClass.of(DUI_ACCENT, () -> "dui-accent-purple-l-5");
 
   CssClass dui_shadow_purple_l_5 = () -> "dui-shadow-purple-l-5";
 
@@ -2854,11 +2973,12 @@ public interface ColorsCss {
 
   CssClass dui_outline_purple_l_5 = () -> "dui-outline-purple-l-5";
 
-  CssClass dui_fg_purple_l_4 = () -> "dui-fg-purple-l-4";
+  CssClass dui_fg_purple_l_4 = LimitOneOfPrefixedCssClass.of(DUI_FG, () -> "dui-fg-purple-l-4");
 
-  CssClass dui_bg_purple_l_4 = () -> "dui-bg-purple-l-4";
+  CssClass dui_bg_purple_l_4 = LimitOneOfPrefixedCssClass.of(DUI_BG, () -> "dui-bg-purple-l-4");
 
-  CssClass dui_accent_purple_l_4 = () -> "dui-accent-purple-l-4";
+  CssClass dui_accent_purple_l_4 =
+      LimitOneOfPrefixedCssClass.of(DUI_ACCENT, () -> "dui-accent-purple-l-4");
 
   CssClass dui_shadow_purple_l_4 = () -> "dui-shadow-purple-l-4";
 
@@ -2882,11 +3002,12 @@ public interface ColorsCss {
 
   CssClass dui_outline_purple_l_4 = () -> "dui-outline-purple-l-4";
 
-  CssClass dui_fg_purple_l_3 = () -> "dui-fg-purple-l-3";
+  CssClass dui_fg_purple_l_3 = LimitOneOfPrefixedCssClass.of(DUI_FG, () -> "dui-fg-purple-l-3");
 
-  CssClass dui_bg_purple_l_3 = () -> "dui-bg-purple-l-3";
+  CssClass dui_bg_purple_l_3 = LimitOneOfPrefixedCssClass.of(DUI_BG, () -> "dui-bg-purple-l-3");
 
-  CssClass dui_accent_purple_l_3 = () -> "dui-accent-purple-l-3";
+  CssClass dui_accent_purple_l_3 =
+      LimitOneOfPrefixedCssClass.of(DUI_ACCENT, () -> "dui-accent-purple-l-3");
 
   CssClass dui_shadow_purple_l_3 = () -> "dui-shadow-purple-l-3";
 
@@ -2910,11 +3031,12 @@ public interface ColorsCss {
 
   CssClass dui_outline_purple_l_3 = () -> "dui-outline-purple-l-3";
 
-  CssClass dui_fg_purple_l_2 = () -> "dui-fg-purple-l-2";
+  CssClass dui_fg_purple_l_2 = LimitOneOfPrefixedCssClass.of(DUI_FG, () -> "dui-fg-purple-l-2");
 
-  CssClass dui_bg_purple_l_2 = () -> "dui-bg-purple-l-2";
+  CssClass dui_bg_purple_l_2 = LimitOneOfPrefixedCssClass.of(DUI_BG, () -> "dui-bg-purple-l-2");
 
-  CssClass dui_accent_purple_l_2 = () -> "dui-accent-purple-l-2";
+  CssClass dui_accent_purple_l_2 =
+      LimitOneOfPrefixedCssClass.of(DUI_ACCENT, () -> "dui-accent-purple-l-2");
 
   CssClass dui_shadow_purple_l_2 = () -> "dui-shadow-purple-l-2";
 
@@ -2938,11 +3060,12 @@ public interface ColorsCss {
 
   CssClass dui_outline_purple_l_2 = () -> "dui-outline-purple-l-2";
 
-  CssClass dui_fg_purple_l_1 = () -> "dui-fg-purple-l-1";
+  CssClass dui_fg_purple_l_1 = LimitOneOfPrefixedCssClass.of(DUI_FG, () -> "dui-fg-purple-l-1");
 
-  CssClass dui_bg_purple_l_1 = () -> "dui-bg-purple-l-1";
+  CssClass dui_bg_purple_l_1 = LimitOneOfPrefixedCssClass.of(DUI_BG, () -> "dui-bg-purple-l-1");
 
-  CssClass dui_accent_purple_l_1 = () -> "dui-accent-purple-l-1";
+  CssClass dui_accent_purple_l_1 =
+      LimitOneOfPrefixedCssClass.of(DUI_ACCENT, () -> "dui-accent-purple-l-1");
 
   CssClass dui_shadow_purple_l_1 = () -> "dui-shadow-purple-l-1";
 
@@ -2966,11 +3089,11 @@ public interface ColorsCss {
 
   CssClass dui_outline_purple_l_1 = () -> "dui-outline-purple-l-1";
 
-  CssClass dui_fg_purple = () -> "dui-fg-purple";
+  CssClass dui_fg_purple = LimitOneOfPrefixedCssClass.of(DUI_FG, () -> "dui-fg-purple");
 
-  CssClass dui_bg_purple = () -> "dui-bg-purple";
+  CssClass dui_bg_purple = LimitOneOfPrefixedCssClass.of(DUI_BG, () -> "dui-bg-purple");
 
-  CssClass dui_accent_purple = () -> "dui-accent-purple";
+  CssClass dui_accent_purple = LimitOneOfPrefixedCssClass.of(DUI_ACCENT, () -> "dui-accent-purple");
 
   CssClass dui_shadow_purple = () -> "dui-shadow-purple";
 
@@ -2994,11 +3117,12 @@ public interface ColorsCss {
 
   CssClass dui_outline_purple = () -> "dui-outline-purple";
 
-  CssClass dui_fg_purple_d_1 = () -> "dui-fg-purple-d-1";
+  CssClass dui_fg_purple_d_1 = LimitOneOfPrefixedCssClass.of(DUI_FG, () -> "dui-fg-purple-d-1");
 
-  CssClass dui_bg_purple_d_1 = () -> "dui-bg-purple-d-1";
+  CssClass dui_bg_purple_d_1 = LimitOneOfPrefixedCssClass.of(DUI_BG, () -> "dui-bg-purple-d-1");
 
-  CssClass dui_accent_purple_d_1 = () -> "dui-accent-purple-d-1";
+  CssClass dui_accent_purple_d_1 =
+      LimitOneOfPrefixedCssClass.of(DUI_ACCENT, () -> "dui-accent-purple-d-1");
 
   CssClass dui_shadow_purple_d_1 = () -> "dui-shadow-purple-d-1";
 
@@ -3022,11 +3146,12 @@ public interface ColorsCss {
 
   CssClass dui_outline_purple_d_1 = () -> "dui-outline-purple-d-1";
 
-  CssClass dui_fg_purple_d_2 = () -> "dui-fg-purple-d-2";
+  CssClass dui_fg_purple_d_2 = LimitOneOfPrefixedCssClass.of(DUI_FG, () -> "dui-fg-purple-d-2");
 
-  CssClass dui_bg_purple_d_2 = () -> "dui-bg-purple-d-2";
+  CssClass dui_bg_purple_d_2 = LimitOneOfPrefixedCssClass.of(DUI_BG, () -> "dui-bg-purple-d-2");
 
-  CssClass dui_accent_purple_d_2 = () -> "dui-accent-purple-d-2";
+  CssClass dui_accent_purple_d_2 =
+      LimitOneOfPrefixedCssClass.of(DUI_ACCENT, () -> "dui-accent-purple-d-2");
 
   CssClass dui_shadow_purple_d_2 = () -> "dui-shadow-purple-d-2";
 
@@ -3050,11 +3175,12 @@ public interface ColorsCss {
 
   CssClass dui_outline_purple_d_2 = () -> "dui-outline-purple-d-2";
 
-  CssClass dui_fg_purple_d_3 = () -> "dui-fg-purple-d-3";
+  CssClass dui_fg_purple_d_3 = LimitOneOfPrefixedCssClass.of(DUI_FG, () -> "dui-fg-purple-d-3");
 
-  CssClass dui_bg_purple_d_3 = () -> "dui-bg-purple-d-3";
+  CssClass dui_bg_purple_d_3 = LimitOneOfPrefixedCssClass.of(DUI_BG, () -> "dui-bg-purple-d-3");
 
-  CssClass dui_accent_purple_d_3 = () -> "dui-accent-purple-d-3";
+  CssClass dui_accent_purple_d_3 =
+      LimitOneOfPrefixedCssClass.of(DUI_ACCENT, () -> "dui-accent-purple-d-3");
 
   CssClass dui_shadow_purple_d_3 = () -> "dui-shadow-purple-d-3";
 
@@ -3078,11 +3204,12 @@ public interface ColorsCss {
 
   CssClass dui_outline_purple_d_3 = () -> "dui-outline-purple-d-3";
 
-  CssClass dui_fg_purple_d_4 = () -> "dui-fg-purple-d-4";
+  CssClass dui_fg_purple_d_4 = LimitOneOfPrefixedCssClass.of(DUI_FG, () -> "dui-fg-purple-d-4");
 
-  CssClass dui_bg_purple_d_4 = () -> "dui-bg-purple-d-4";
+  CssClass dui_bg_purple_d_4 = LimitOneOfPrefixedCssClass.of(DUI_BG, () -> "dui-bg-purple-d-4");
 
-  CssClass dui_accent_purple_d_4 = () -> "dui-accent-purple-d-4";
+  CssClass dui_accent_purple_d_4 =
+      LimitOneOfPrefixedCssClass.of(DUI_ACCENT, () -> "dui-accent-purple-d-4");
 
   CssClass dui_shadow_purple_d_4 = () -> "dui-shadow-purple-d-4";
 
@@ -3106,11 +3233,14 @@ public interface ColorsCss {
 
   CssClass dui_outline_purple_d_4 = () -> "dui-outline-purple-d-4";
 
-  CssClass dui_fg_deep_purple_l_5 = () -> "dui-fg-deep-purple-l-5";
+  CssClass dui_fg_deep_purple_l_5 =
+      LimitOneOfPrefixedCssClass.of(DUI_FG, () -> "dui-fg-deep-purple-l-5");
 
-  CssClass dui_bg_deep_purple_l_5 = () -> "dui-bg-deep-purple-l-5";
+  CssClass dui_bg_deep_purple_l_5 =
+      LimitOneOfPrefixedCssClass.of(DUI_BG, () -> "dui-bg-deep-purple-l-5");
 
-  CssClass dui_accent_deep_purple_l_5 = () -> "dui-accent-deep-purple-l-5";
+  CssClass dui_accent_deep_purple_l_5 =
+      LimitOneOfPrefixedCssClass.of(DUI_ACCENT, () -> "dui-accent-deep-purple-l-5");
 
   CssClass dui_shadow_deep_purple_l_5 = () -> "dui-shadow-deep-purple-l-5";
 
@@ -3134,11 +3264,14 @@ public interface ColorsCss {
 
   CssClass dui_outline_deep_purple_l_5 = () -> "dui-outline-deep-purple-l-5";
 
-  CssClass dui_fg_deep_purple_l_4 = () -> "dui-fg-deep-purple-l-4";
+  CssClass dui_fg_deep_purple_l_4 =
+      LimitOneOfPrefixedCssClass.of(DUI_FG, () -> "dui-fg-deep-purple-l-4");
 
-  CssClass dui_bg_deep_purple_l_4 = () -> "dui-bg-deep-purple-l-4";
+  CssClass dui_bg_deep_purple_l_4 =
+      LimitOneOfPrefixedCssClass.of(DUI_BG, () -> "dui-bg-deep-purple-l-4");
 
-  CssClass dui_accent_deep_purple_l_4 = () -> "dui-accent-deep-purple-l-4";
+  CssClass dui_accent_deep_purple_l_4 =
+      LimitOneOfPrefixedCssClass.of(DUI_ACCENT, () -> "dui-accent-deep-purple-l-4");
 
   CssClass dui_shadow_deep_purple_l_4 = () -> "dui-shadow-deep-purple-l-4";
 
@@ -3162,11 +3295,14 @@ public interface ColorsCss {
 
   CssClass dui_outline_deep_purple_l_4 = () -> "dui-outline-deep-purple-l-4";
 
-  CssClass dui_fg_deep_purple_l_3 = () -> "dui-fg-deep-purple-l-3";
+  CssClass dui_fg_deep_purple_l_3 =
+      LimitOneOfPrefixedCssClass.of(DUI_FG, () -> "dui-fg-deep-purple-l-3");
 
-  CssClass dui_bg_deep_purple_l_3 = () -> "dui-bg-deep-purple-l-3";
+  CssClass dui_bg_deep_purple_l_3 =
+      LimitOneOfPrefixedCssClass.of(DUI_BG, () -> "dui-bg-deep-purple-l-3");
 
-  CssClass dui_accent_deep_purple_l_3 = () -> "dui-accent-deep-purple-l-3";
+  CssClass dui_accent_deep_purple_l_3 =
+      LimitOneOfPrefixedCssClass.of(DUI_ACCENT, () -> "dui-accent-deep-purple-l-3");
 
   CssClass dui_shadow_deep_purple_l_3 = () -> "dui-shadow-deep-purple-l-3";
 
@@ -3190,11 +3326,14 @@ public interface ColorsCss {
 
   CssClass dui_outline_deep_purple_l_3 = () -> "dui-outline-deep-purple-l-3";
 
-  CssClass dui_fg_deep_purple_l_2 = () -> "dui-fg-deep-purple-l-2";
+  CssClass dui_fg_deep_purple_l_2 =
+      LimitOneOfPrefixedCssClass.of(DUI_FG, () -> "dui-fg-deep-purple-l-2");
 
-  CssClass dui_bg_deep_purple_l_2 = () -> "dui-bg-deep-purple-l-2";
+  CssClass dui_bg_deep_purple_l_2 =
+      LimitOneOfPrefixedCssClass.of(DUI_BG, () -> "dui-bg-deep-purple-l-2");
 
-  CssClass dui_accent_deep_purple_l_2 = () -> "dui-accent-deep-purple-l-2";
+  CssClass dui_accent_deep_purple_l_2 =
+      LimitOneOfPrefixedCssClass.of(DUI_ACCENT, () -> "dui-accent-deep-purple-l-2");
 
   CssClass dui_shadow_deep_purple_l_2 = () -> "dui-shadow-deep-purple-l-2";
 
@@ -3218,11 +3357,14 @@ public interface ColorsCss {
 
   CssClass dui_outline_deep_purple_l_2 = () -> "dui-outline-deep-purple-l-2";
 
-  CssClass dui_fg_deep_purple_l_1 = () -> "dui-fg-deep-purple-l-1";
+  CssClass dui_fg_deep_purple_l_1 =
+      LimitOneOfPrefixedCssClass.of(DUI_FG, () -> "dui-fg-deep-purple-l-1");
 
-  CssClass dui_bg_deep_purple_l_1 = () -> "dui-bg-deep-purple-l-1";
+  CssClass dui_bg_deep_purple_l_1 =
+      LimitOneOfPrefixedCssClass.of(DUI_BG, () -> "dui-bg-deep-purple-l-1");
 
-  CssClass dui_accent_deep_purple_l_1 = () -> "dui-accent-deep-purple-l-1";
+  CssClass dui_accent_deep_purple_l_1 =
+      LimitOneOfPrefixedCssClass.of(DUI_ACCENT, () -> "dui-accent-deep-purple-l-1");
 
   CssClass dui_shadow_deep_purple_l_1 = () -> "dui-shadow-deep-purple-l-1";
 
@@ -3246,11 +3388,12 @@ public interface ColorsCss {
 
   CssClass dui_outline_deep_purple_l_1 = () -> "dui-outline-deep-purple-l-1";
 
-  CssClass dui_fg_deep_purple = () -> "dui-fg-deep-purple";
+  CssClass dui_fg_deep_purple = LimitOneOfPrefixedCssClass.of(DUI_FG, () -> "dui-fg-deep-purple");
 
-  CssClass dui_bg_deep_purple = () -> "dui-bg-deep-purple";
+  CssClass dui_bg_deep_purple = LimitOneOfPrefixedCssClass.of(DUI_BG, () -> "dui-bg-deep-purple");
 
-  CssClass dui_accent_deep_purple = () -> "dui-accent-deep-purple";
+  CssClass dui_accent_deep_purple =
+      LimitOneOfPrefixedCssClass.of(DUI_ACCENT, () -> "dui-accent-deep-purple");
 
   CssClass dui_shadow_deep_purple = () -> "dui-shadow-deep-purple";
 
@@ -3274,11 +3417,14 @@ public interface ColorsCss {
 
   CssClass dui_outline_deep_purple = () -> "dui-outline-deep-purple";
 
-  CssClass dui_fg_deep_purple_d_1 = () -> "dui-fg-deep-purple-d-1";
+  CssClass dui_fg_deep_purple_d_1 =
+      LimitOneOfPrefixedCssClass.of(DUI_FG, () -> "dui-fg-deep-purple-d-1");
 
-  CssClass dui_bg_deep_purple_d_1 = () -> "dui-bg-deep-purple-d-1";
+  CssClass dui_bg_deep_purple_d_1 =
+      LimitOneOfPrefixedCssClass.of(DUI_BG, () -> "dui-bg-deep-purple-d-1");
 
-  CssClass dui_accent_deep_purple_d_1 = () -> "dui-accent-deep-purple-d-1";
+  CssClass dui_accent_deep_purple_d_1 =
+      LimitOneOfPrefixedCssClass.of(DUI_ACCENT, () -> "dui-accent-deep-purple-d-1");
 
   CssClass dui_shadow_deep_purple_d_1 = () -> "dui-shadow-deep-purple-d-1";
 
@@ -3302,11 +3448,14 @@ public interface ColorsCss {
 
   CssClass dui_outline_deep_purple_d_1 = () -> "dui-outline-deep-purple-d-1";
 
-  CssClass dui_fg_deep_purple_d_2 = () -> "dui-fg-deep-purple-d-2";
+  CssClass dui_fg_deep_purple_d_2 =
+      LimitOneOfPrefixedCssClass.of(DUI_FG, () -> "dui-fg-deep-purple-d-2");
 
-  CssClass dui_bg_deep_purple_d_2 = () -> "dui-bg-deep-purple-d-2";
+  CssClass dui_bg_deep_purple_d_2 =
+      LimitOneOfPrefixedCssClass.of(DUI_BG, () -> "dui-bg-deep-purple-d-2");
 
-  CssClass dui_accent_deep_purple_d_2 = () -> "dui-accent-deep-purple-d-2";
+  CssClass dui_accent_deep_purple_d_2 =
+      LimitOneOfPrefixedCssClass.of(DUI_ACCENT, () -> "dui-accent-deep-purple-d-2");
 
   CssClass dui_shadow_deep_purple_d_2 = () -> "dui-shadow-deep-purple-d-2";
 
@@ -3330,11 +3479,14 @@ public interface ColorsCss {
 
   CssClass dui_outline_deep_purple_d_2 = () -> "dui-outline-deep-purple-d-2";
 
-  CssClass dui_fg_deep_purple_d_3 = () -> "dui-fg-deep-purple-d-3";
+  CssClass dui_fg_deep_purple_d_3 =
+      LimitOneOfPrefixedCssClass.of(DUI_FG, () -> "dui-fg-deep-purple-d-3");
 
-  CssClass dui_bg_deep_purple_d_3 = () -> "dui-bg-deep-purple-d-3";
+  CssClass dui_bg_deep_purple_d_3 =
+      LimitOneOfPrefixedCssClass.of(DUI_BG, () -> "dui-bg-deep-purple-d-3");
 
-  CssClass dui_accent_deep_purple_d_3 = () -> "dui-accent-deep-purple-d-3";
+  CssClass dui_accent_deep_purple_d_3 =
+      LimitOneOfPrefixedCssClass.of(DUI_ACCENT, () -> "dui-accent-deep-purple-d-3");
 
   CssClass dui_shadow_deep_purple_d_3 = () -> "dui-shadow-deep-purple-d-3";
 
@@ -3358,11 +3510,14 @@ public interface ColorsCss {
 
   CssClass dui_outline_deep_purple_d_3 = () -> "dui-outline-deep-purple-d-3";
 
-  CssClass dui_fg_deep_purple_d_4 = () -> "dui-fg-deep-purple-d-4";
+  CssClass dui_fg_deep_purple_d_4 =
+      LimitOneOfPrefixedCssClass.of(DUI_FG, () -> "dui-fg-deep-purple-d-4");
 
-  CssClass dui_bg_deep_purple_d_4 = () -> "dui-bg-deep-purple-d-4";
+  CssClass dui_bg_deep_purple_d_4 =
+      LimitOneOfPrefixedCssClass.of(DUI_BG, () -> "dui-bg-deep-purple-d-4");
 
-  CssClass dui_accent_deep_purple_d_4 = () -> "dui-accent-deep-purple-d-4";
+  CssClass dui_accent_deep_purple_d_4 =
+      LimitOneOfPrefixedCssClass.of(DUI_ACCENT, () -> "dui-accent-deep-purple-d-4");
 
   CssClass dui_shadow_deep_purple_d_4 = () -> "dui-shadow-deep-purple-d-4";
 
@@ -3386,11 +3541,12 @@ public interface ColorsCss {
 
   CssClass dui_outline_deep_purple_d_4 = () -> "dui-outline-deep-purple-d-4";
 
-  CssClass dui_fg_indigo_l_5 = () -> "dui-fg-indigo-l-5";
+  CssClass dui_fg_indigo_l_5 = LimitOneOfPrefixedCssClass.of(DUI_FG, () -> "dui-fg-indigo-l-5");
 
-  CssClass dui_bg_indigo_l_5 = () -> "dui-bg-indigo-l-5";
+  CssClass dui_bg_indigo_l_5 = LimitOneOfPrefixedCssClass.of(DUI_BG, () -> "dui-bg-indigo-l-5");
 
-  CssClass dui_accent_indigo_l_5 = () -> "dui-accent-indigo-l-5";
+  CssClass dui_accent_indigo_l_5 =
+      LimitOneOfPrefixedCssClass.of(DUI_ACCENT, () -> "dui-accent-indigo-l-5");
 
   CssClass dui_shadow_indigo_l_5 = () -> "dui-shadow-indigo-l-5";
 
@@ -3414,11 +3570,12 @@ public interface ColorsCss {
 
   CssClass dui_outline_indigo_l_5 = () -> "dui-outline-indigo-l-5";
 
-  CssClass dui_fg_indigo_l_4 = () -> "dui-fg-indigo-l-4";
+  CssClass dui_fg_indigo_l_4 = LimitOneOfPrefixedCssClass.of(DUI_FG, () -> "dui-fg-indigo-l-4");
 
-  CssClass dui_bg_indigo_l_4 = () -> "dui-bg-indigo-l-4";
+  CssClass dui_bg_indigo_l_4 = LimitOneOfPrefixedCssClass.of(DUI_BG, () -> "dui-bg-indigo-l-4");
 
-  CssClass dui_accent_indigo_l_4 = () -> "dui-accent-indigo-l-4";
+  CssClass dui_accent_indigo_l_4 =
+      LimitOneOfPrefixedCssClass.of(DUI_ACCENT, () -> "dui-accent-indigo-l-4");
 
   CssClass dui_shadow_indigo_l_4 = () -> "dui-shadow-indigo-l-4";
 
@@ -3442,11 +3599,12 @@ public interface ColorsCss {
 
   CssClass dui_outline_indigo_l_4 = () -> "dui-outline-indigo-l-4";
 
-  CssClass dui_fg_indigo_l_3 = () -> "dui-fg-indigo-l-3";
+  CssClass dui_fg_indigo_l_3 = LimitOneOfPrefixedCssClass.of(DUI_FG, () -> "dui-fg-indigo-l-3");
 
-  CssClass dui_bg_indigo_l_3 = () -> "dui-bg-indigo-l-3";
+  CssClass dui_bg_indigo_l_3 = LimitOneOfPrefixedCssClass.of(DUI_BG, () -> "dui-bg-indigo-l-3");
 
-  CssClass dui_accent_indigo_l_3 = () -> "dui-accent-indigo-l-3";
+  CssClass dui_accent_indigo_l_3 =
+      LimitOneOfPrefixedCssClass.of(DUI_ACCENT, () -> "dui-accent-indigo-l-3");
 
   CssClass dui_shadow_indigo_l_3 = () -> "dui-shadow-indigo-l-3";
 
@@ -3470,11 +3628,12 @@ public interface ColorsCss {
 
   CssClass dui_outline_indigo_l_3 = () -> "dui-outline-indigo-l-3";
 
-  CssClass dui_fg_indigo_l_2 = () -> "dui-fg-indigo-l-2";
+  CssClass dui_fg_indigo_l_2 = LimitOneOfPrefixedCssClass.of(DUI_FG, () -> "dui-fg-indigo-l-2");
 
-  CssClass dui_bg_indigo_l_2 = () -> "dui-bg-indigo-l-2";
+  CssClass dui_bg_indigo_l_2 = LimitOneOfPrefixedCssClass.of(DUI_BG, () -> "dui-bg-indigo-l-2");
 
-  CssClass dui_accent_indigo_l_2 = () -> "dui-accent-indigo-l-2";
+  CssClass dui_accent_indigo_l_2 =
+      LimitOneOfPrefixedCssClass.of(DUI_ACCENT, () -> "dui-accent-indigo-l-2");
 
   CssClass dui_shadow_indigo_l_2 = () -> "dui-shadow-indigo-l-2";
 
@@ -3498,11 +3657,12 @@ public interface ColorsCss {
 
   CssClass dui_outline_indigo_l_2 = () -> "dui-outline-indigo-l-2";
 
-  CssClass dui_fg_indigo_l_1 = () -> "dui-fg-indigo-l-1";
+  CssClass dui_fg_indigo_l_1 = LimitOneOfPrefixedCssClass.of(DUI_FG, () -> "dui-fg-indigo-l-1");
 
-  CssClass dui_bg_indigo_l_1 = () -> "dui-bg-indigo-l-1";
+  CssClass dui_bg_indigo_l_1 = LimitOneOfPrefixedCssClass.of(DUI_BG, () -> "dui-bg-indigo-l-1");
 
-  CssClass dui_accent_indigo_l_1 = () -> "dui-accent-indigo-l-1";
+  CssClass dui_accent_indigo_l_1 =
+      LimitOneOfPrefixedCssClass.of(DUI_ACCENT, () -> "dui-accent-indigo-l-1");
 
   CssClass dui_shadow_indigo_l_1 = () -> "dui-shadow-indigo-l-1";
 
@@ -3526,11 +3686,11 @@ public interface ColorsCss {
 
   CssClass dui_outline_indigo_l_1 = () -> "dui-outline-indigo-l-1";
 
-  CssClass dui_fg_indigo = () -> "dui-fg-indigo";
+  CssClass dui_fg_indigo = LimitOneOfPrefixedCssClass.of(DUI_FG, () -> "dui-fg-indigo");
 
-  CssClass dui_bg_indigo = () -> "dui-bg-indigo";
+  CssClass dui_bg_indigo = LimitOneOfPrefixedCssClass.of(DUI_BG, () -> "dui-bg-indigo");
 
-  CssClass dui_accent_indigo = () -> "dui-accent-indigo";
+  CssClass dui_accent_indigo = LimitOneOfPrefixedCssClass.of(DUI_ACCENT, () -> "dui-accent-indigo");
 
   CssClass dui_shadow_indigo = () -> "dui-shadow-indigo";
 
@@ -3554,11 +3714,12 @@ public interface ColorsCss {
 
   CssClass dui_outline_indigo = () -> "dui-outline-indigo";
 
-  CssClass dui_fg_indigo_d_1 = () -> "dui-fg-indigo-d-1";
+  CssClass dui_fg_indigo_d_1 = LimitOneOfPrefixedCssClass.of(DUI_FG, () -> "dui-fg-indigo-d-1");
 
-  CssClass dui_bg_indigo_d_1 = () -> "dui-bg-indigo-d-1";
+  CssClass dui_bg_indigo_d_1 = LimitOneOfPrefixedCssClass.of(DUI_BG, () -> "dui-bg-indigo-d-1");
 
-  CssClass dui_accent_indigo_d_1 = () -> "dui-accent-indigo-d-1";
+  CssClass dui_accent_indigo_d_1 =
+      LimitOneOfPrefixedCssClass.of(DUI_ACCENT, () -> "dui-accent-indigo-d-1");
 
   CssClass dui_shadow_indigo_d_1 = () -> "dui-shadow-indigo-d-1";
 
@@ -3582,11 +3743,12 @@ public interface ColorsCss {
 
   CssClass dui_outline_indigo_d_1 = () -> "dui-outline-indigo-d-1";
 
-  CssClass dui_fg_indigo_d_2 = () -> "dui-fg-indigo-d-2";
+  CssClass dui_fg_indigo_d_2 = LimitOneOfPrefixedCssClass.of(DUI_FG, () -> "dui-fg-indigo-d-2");
 
-  CssClass dui_bg_indigo_d_2 = () -> "dui-bg-indigo-d-2";
+  CssClass dui_bg_indigo_d_2 = LimitOneOfPrefixedCssClass.of(DUI_BG, () -> "dui-bg-indigo-d-2");
 
-  CssClass dui_accent_indigo_d_2 = () -> "dui-accent-indigo-d-2";
+  CssClass dui_accent_indigo_d_2 =
+      LimitOneOfPrefixedCssClass.of(DUI_ACCENT, () -> "dui-accent-indigo-d-2");
 
   CssClass dui_shadow_indigo_d_2 = () -> "dui-shadow-indigo-d-2";
 
@@ -3610,11 +3772,12 @@ public interface ColorsCss {
 
   CssClass dui_outline_indigo_d_2 = () -> "dui-outline-indigo-d-2";
 
-  CssClass dui_fg_indigo_d_3 = () -> "dui-fg-indigo-d-3";
+  CssClass dui_fg_indigo_d_3 = LimitOneOfPrefixedCssClass.of(DUI_FG, () -> "dui-fg-indigo-d-3");
 
-  CssClass dui_bg_indigo_d_3 = () -> "dui-bg-indigo-d-3";
+  CssClass dui_bg_indigo_d_3 = LimitOneOfPrefixedCssClass.of(DUI_BG, () -> "dui-bg-indigo-d-3");
 
-  CssClass dui_accent_indigo_d_3 = () -> "dui-accent-indigo-d-3";
+  CssClass dui_accent_indigo_d_3 =
+      LimitOneOfPrefixedCssClass.of(DUI_ACCENT, () -> "dui-accent-indigo-d-3");
 
   CssClass dui_shadow_indigo_d_3 = () -> "dui-shadow-indigo-d-3";
 
@@ -3638,11 +3801,12 @@ public interface ColorsCss {
 
   CssClass dui_outline_indigo_d_3 = () -> "dui-outline-indigo-d-3";
 
-  CssClass dui_fg_indigo_d_4 = () -> "dui-fg-indigo-d-4";
+  CssClass dui_fg_indigo_d_4 = LimitOneOfPrefixedCssClass.of(DUI_FG, () -> "dui-fg-indigo-d-4");
 
-  CssClass dui_bg_indigo_d_4 = () -> "dui-bg-indigo-d-4";
+  CssClass dui_bg_indigo_d_4 = LimitOneOfPrefixedCssClass.of(DUI_BG, () -> "dui-bg-indigo-d-4");
 
-  CssClass dui_accent_indigo_d_4 = () -> "dui-accent-indigo-d-4";
+  CssClass dui_accent_indigo_d_4 =
+      LimitOneOfPrefixedCssClass.of(DUI_ACCENT, () -> "dui-accent-indigo-d-4");
 
   CssClass dui_shadow_indigo_d_4 = () -> "dui-shadow-indigo-d-4";
 
@@ -3666,11 +3830,12 @@ public interface ColorsCss {
 
   CssClass dui_outline_indigo_d_4 = () -> "dui-outline-indigo-d-4";
 
-  CssClass dui_fg_blue_l_5 = () -> "dui-fg-blue-l-5";
+  CssClass dui_fg_blue_l_5 = LimitOneOfPrefixedCssClass.of(DUI_FG, () -> "dui-fg-blue-l-5");
 
-  CssClass dui_bg_blue_l_5 = () -> "dui-bg-blue-l-5";
+  CssClass dui_bg_blue_l_5 = LimitOneOfPrefixedCssClass.of(DUI_BG, () -> "dui-bg-blue-l-5");
 
-  CssClass dui_accent_blue_l_5 = () -> "dui-accent-blue-l-5";
+  CssClass dui_accent_blue_l_5 =
+      LimitOneOfPrefixedCssClass.of(DUI_ACCENT, () -> "dui-accent-blue-l-5");
 
   CssClass dui_shadow_blue_l_5 = () -> "dui-shadow-blue-l-5";
 
@@ -3694,11 +3859,12 @@ public interface ColorsCss {
 
   CssClass dui_outline_blue_l_5 = () -> "dui-outline-blue-l-5";
 
-  CssClass dui_fg_blue_l_4 = () -> "dui-fg-blue-l-4";
+  CssClass dui_fg_blue_l_4 = LimitOneOfPrefixedCssClass.of(DUI_FG, () -> "dui-fg-blue-l-4");
 
-  CssClass dui_bg_blue_l_4 = () -> "dui-bg-blue-l-4";
+  CssClass dui_bg_blue_l_4 = LimitOneOfPrefixedCssClass.of(DUI_BG, () -> "dui-bg-blue-l-4");
 
-  CssClass dui_accent_blue_l_4 = () -> "dui-accent-blue-l-4";
+  CssClass dui_accent_blue_l_4 =
+      LimitOneOfPrefixedCssClass.of(DUI_ACCENT, () -> "dui-accent-blue-l-4");
 
   CssClass dui_shadow_blue_l_4 = () -> "dui-shadow-blue-l-4";
 
@@ -3722,11 +3888,12 @@ public interface ColorsCss {
 
   CssClass dui_outline_blue_l_4 = () -> "dui-outline-blue-l-4";
 
-  CssClass dui_fg_blue_l_3 = () -> "dui-fg-blue-l-3";
+  CssClass dui_fg_blue_l_3 = LimitOneOfPrefixedCssClass.of(DUI_FG, () -> "dui-fg-blue-l-3");
 
-  CssClass dui_bg_blue_l_3 = () -> "dui-bg-blue-l-3";
+  CssClass dui_bg_blue_l_3 = LimitOneOfPrefixedCssClass.of(DUI_BG, () -> "dui-bg-blue-l-3");
 
-  CssClass dui_accent_blue_l_3 = () -> "dui-accent-blue-l-3";
+  CssClass dui_accent_blue_l_3 =
+      LimitOneOfPrefixedCssClass.of(DUI_ACCENT, () -> "dui-accent-blue-l-3");
 
   CssClass dui_shadow_blue_l_3 = () -> "dui-shadow-blue-l-3";
 
@@ -3750,11 +3917,12 @@ public interface ColorsCss {
 
   CssClass dui_outline_blue_l_3 = () -> "dui-outline-blue-l-3";
 
-  CssClass dui_fg_blue_l_2 = () -> "dui-fg-blue-l-2";
+  CssClass dui_fg_blue_l_2 = LimitOneOfPrefixedCssClass.of(DUI_FG, () -> "dui-fg-blue-l-2");
 
-  CssClass dui_bg_blue_l_2 = () -> "dui-bg-blue-l-2";
+  CssClass dui_bg_blue_l_2 = LimitOneOfPrefixedCssClass.of(DUI_BG, () -> "dui-bg-blue-l-2");
 
-  CssClass dui_accent_blue_l_2 = () -> "dui-accent-blue-l-2";
+  CssClass dui_accent_blue_l_2 =
+      LimitOneOfPrefixedCssClass.of(DUI_ACCENT, () -> "dui-accent-blue-l-2");
 
   CssClass dui_shadow_blue_l_2 = () -> "dui-shadow-blue-l-2";
 
@@ -3778,11 +3946,12 @@ public interface ColorsCss {
 
   CssClass dui_outline_blue_l_2 = () -> "dui-outline-blue-l-2";
 
-  CssClass dui_fg_blue_l_1 = () -> "dui-fg-blue-l-1";
+  CssClass dui_fg_blue_l_1 = LimitOneOfPrefixedCssClass.of(DUI_FG, () -> "dui-fg-blue-l-1");
 
-  CssClass dui_bg_blue_l_1 = () -> "dui-bg-blue-l-1";
+  CssClass dui_bg_blue_l_1 = LimitOneOfPrefixedCssClass.of(DUI_BG, () -> "dui-bg-blue-l-1");
 
-  CssClass dui_accent_blue_l_1 = () -> "dui-accent-blue-l-1";
+  CssClass dui_accent_blue_l_1 =
+      LimitOneOfPrefixedCssClass.of(DUI_ACCENT, () -> "dui-accent-blue-l-1");
 
   CssClass dui_shadow_blue_l_1 = () -> "dui-shadow-blue-l-1";
 
@@ -3806,11 +3975,11 @@ public interface ColorsCss {
 
   CssClass dui_outline_blue_l_1 = () -> "dui-outline-blue-l-1";
 
-  CssClass dui_fg_blue = () -> "dui-fg-blue";
+  CssClass dui_fg_blue = LimitOneOfPrefixedCssClass.of(DUI_FG, () -> "dui-fg-blue");
 
-  CssClass dui_bg_blue = () -> "dui-bg-blue";
+  CssClass dui_bg_blue = LimitOneOfPrefixedCssClass.of(DUI_BG, () -> "dui-bg-blue");
 
-  CssClass dui_accent_blue = () -> "dui-accent-blue";
+  CssClass dui_accent_blue = LimitOneOfPrefixedCssClass.of(DUI_ACCENT, () -> "dui-accent-blue");
 
   CssClass dui_shadow_blue = () -> "dui-shadow-blue";
 
@@ -3834,11 +4003,12 @@ public interface ColorsCss {
 
   CssClass dui_outline_blue = () -> "dui-outline-blue";
 
-  CssClass dui_fg_blue_d_1 = () -> "dui-fg-blue-d-1";
+  CssClass dui_fg_blue_d_1 = LimitOneOfPrefixedCssClass.of(DUI_FG, () -> "dui-fg-blue-d-1");
 
-  CssClass dui_bg_blue_d_1 = () -> "dui-bg-blue-d-1";
+  CssClass dui_bg_blue_d_1 = LimitOneOfPrefixedCssClass.of(DUI_BG, () -> "dui-bg-blue-d-1");
 
-  CssClass dui_accent_blue_d_1 = () -> "dui-accent-blue-d-1";
+  CssClass dui_accent_blue_d_1 =
+      LimitOneOfPrefixedCssClass.of(DUI_ACCENT, () -> "dui-accent-blue-d-1");
 
   CssClass dui_shadow_blue_d_1 = () -> "dui-shadow-blue-d-1";
 
@@ -3862,11 +4032,12 @@ public interface ColorsCss {
 
   CssClass dui_outline_blue_d_1 = () -> "dui-outline-blue-d-1";
 
-  CssClass dui_fg_blue_d_2 = () -> "dui-fg-blue-d-2";
+  CssClass dui_fg_blue_d_2 = LimitOneOfPrefixedCssClass.of(DUI_FG, () -> "dui-fg-blue-d-2");
 
-  CssClass dui_bg_blue_d_2 = () -> "dui-bg-blue-d-2";
+  CssClass dui_bg_blue_d_2 = LimitOneOfPrefixedCssClass.of(DUI_BG, () -> "dui-bg-blue-d-2");
 
-  CssClass dui_accent_blue_d_2 = () -> "dui-accent-blue-d-2";
+  CssClass dui_accent_blue_d_2 =
+      LimitOneOfPrefixedCssClass.of(DUI_ACCENT, () -> "dui-accent-blue-d-2");
 
   CssClass dui_shadow_blue_d_2 = () -> "dui-shadow-blue-d-2";
 
@@ -3890,11 +4061,12 @@ public interface ColorsCss {
 
   CssClass dui_outline_blue_d_2 = () -> "dui-outline-blue-d-2";
 
-  CssClass dui_fg_blue_d_3 = () -> "dui-fg-blue-d-3";
+  CssClass dui_fg_blue_d_3 = LimitOneOfPrefixedCssClass.of(DUI_FG, () -> "dui-fg-blue-d-3");
 
-  CssClass dui_bg_blue_d_3 = () -> "dui-bg-blue-d-3";
+  CssClass dui_bg_blue_d_3 = LimitOneOfPrefixedCssClass.of(DUI_BG, () -> "dui-bg-blue-d-3");
 
-  CssClass dui_accent_blue_d_3 = () -> "dui-accent-blue-d-3";
+  CssClass dui_accent_blue_d_3 =
+      LimitOneOfPrefixedCssClass.of(DUI_ACCENT, () -> "dui-accent-blue-d-3");
 
   CssClass dui_shadow_blue_d_3 = () -> "dui-shadow-blue-d-3";
 
@@ -3918,11 +4090,12 @@ public interface ColorsCss {
 
   CssClass dui_outline_blue_d_3 = () -> "dui-outline-blue-d-3";
 
-  CssClass dui_fg_blue_d_4 = () -> "dui-fg-blue-d-4";
+  CssClass dui_fg_blue_d_4 = LimitOneOfPrefixedCssClass.of(DUI_FG, () -> "dui-fg-blue-d-4");
 
-  CssClass dui_bg_blue_d_4 = () -> "dui-bg-blue-d-4";
+  CssClass dui_bg_blue_d_4 = LimitOneOfPrefixedCssClass.of(DUI_BG, () -> "dui-bg-blue-d-4");
 
-  CssClass dui_accent_blue_d_4 = () -> "dui-accent-blue-d-4";
+  CssClass dui_accent_blue_d_4 =
+      LimitOneOfPrefixedCssClass.of(DUI_ACCENT, () -> "dui-accent-blue-d-4");
 
   CssClass dui_shadow_blue_d_4 = () -> "dui-shadow-blue-d-4";
 
@@ -3946,11 +4119,14 @@ public interface ColorsCss {
 
   CssClass dui_outline_blue_d_4 = () -> "dui-outline-blue-d-4";
 
-  CssClass dui_fg_light_blue_l_5 = () -> "dui-fg-light-blue-l-5";
+  CssClass dui_fg_light_blue_l_5 =
+      LimitOneOfPrefixedCssClass.of(DUI_FG, () -> "dui-fg-light-blue-l-5");
 
-  CssClass dui_bg_light_blue_l_5 = () -> "dui-bg-light-blue-l-5";
+  CssClass dui_bg_light_blue_l_5 =
+      LimitOneOfPrefixedCssClass.of(DUI_BG, () -> "dui-bg-light-blue-l-5");
 
-  CssClass dui_accent_light_blue_l_5 = () -> "dui-accent-light-blue-l-5";
+  CssClass dui_accent_light_blue_l_5 =
+      LimitOneOfPrefixedCssClass.of(DUI_ACCENT, () -> "dui-accent-light-blue-l-5");
 
   CssClass dui_shadow_light_blue_l_5 = () -> "dui-shadow-light-blue-l-5";
 
@@ -3974,11 +4150,14 @@ public interface ColorsCss {
 
   CssClass dui_outline_light_blue_l_5 = () -> "dui-outline-light-blue-l-5";
 
-  CssClass dui_fg_light_blue_l_4 = () -> "dui-fg-light-blue-l-4";
+  CssClass dui_fg_light_blue_l_4 =
+      LimitOneOfPrefixedCssClass.of(DUI_FG, () -> "dui-fg-light-blue-l-4");
 
-  CssClass dui_bg_light_blue_l_4 = () -> "dui-bg-light-blue-l-4";
+  CssClass dui_bg_light_blue_l_4 =
+      LimitOneOfPrefixedCssClass.of(DUI_BG, () -> "dui-bg-light-blue-l-4");
 
-  CssClass dui_accent_light_blue_l_4 = () -> "dui-accent-light-blue-l-4";
+  CssClass dui_accent_light_blue_l_4 =
+      LimitOneOfPrefixedCssClass.of(DUI_ACCENT, () -> "dui-accent-light-blue-l-4");
 
   CssClass dui_shadow_light_blue_l_4 = () -> "dui-shadow-light-blue-l-4";
 
@@ -4002,11 +4181,14 @@ public interface ColorsCss {
 
   CssClass dui_outline_light_blue_l_4 = () -> "dui-outline-light-blue-l-4";
 
-  CssClass dui_fg_light_blue_l_3 = () -> "dui-fg-light-blue-l-3";
+  CssClass dui_fg_light_blue_l_3 =
+      LimitOneOfPrefixedCssClass.of(DUI_FG, () -> "dui-fg-light-blue-l-3");
 
-  CssClass dui_bg_light_blue_l_3 = () -> "dui-bg-light-blue-l-3";
+  CssClass dui_bg_light_blue_l_3 =
+      LimitOneOfPrefixedCssClass.of(DUI_BG, () -> "dui-bg-light-blue-l-3");
 
-  CssClass dui_accent_light_blue_l_3 = () -> "dui-accent-light-blue-l-3";
+  CssClass dui_accent_light_blue_l_3 =
+      LimitOneOfPrefixedCssClass.of(DUI_ACCENT, () -> "dui-accent-light-blue-l-3");
 
   CssClass dui_shadow_light_blue_l_3 = () -> "dui-shadow-light-blue-l-3";
 
@@ -4030,11 +4212,14 @@ public interface ColorsCss {
 
   CssClass dui_outline_light_blue_l_3 = () -> "dui-outline-light-blue-l-3";
 
-  CssClass dui_fg_light_blue_l_2 = () -> "dui-fg-light-blue-l-2";
+  CssClass dui_fg_light_blue_l_2 =
+      LimitOneOfPrefixedCssClass.of(DUI_FG, () -> "dui-fg-light-blue-l-2");
 
-  CssClass dui_bg_light_blue_l_2 = () -> "dui-bg-light-blue-l-2";
+  CssClass dui_bg_light_blue_l_2 =
+      LimitOneOfPrefixedCssClass.of(DUI_BG, () -> "dui-bg-light-blue-l-2");
 
-  CssClass dui_accent_light_blue_l_2 = () -> "dui-accent-light-blue-l-2";
+  CssClass dui_accent_light_blue_l_2 =
+      LimitOneOfPrefixedCssClass.of(DUI_ACCENT, () -> "dui-accent-light-blue-l-2");
 
   CssClass dui_shadow_light_blue_l_2 = () -> "dui-shadow-light-blue-l-2";
 
@@ -4058,11 +4243,14 @@ public interface ColorsCss {
 
   CssClass dui_outline_light_blue_l_2 = () -> "dui-outline-light-blue-l-2";
 
-  CssClass dui_fg_light_blue_l_1 = () -> "dui-fg-light-blue-l-1";
+  CssClass dui_fg_light_blue_l_1 =
+      LimitOneOfPrefixedCssClass.of(DUI_FG, () -> "dui-fg-light-blue-l-1");
 
-  CssClass dui_bg_light_blue_l_1 = () -> "dui-bg-light-blue-l-1";
+  CssClass dui_bg_light_blue_l_1 =
+      LimitOneOfPrefixedCssClass.of(DUI_BG, () -> "dui-bg-light-blue-l-1");
 
-  CssClass dui_accent_light_blue_l_1 = () -> "dui-accent-light-blue-l-1";
+  CssClass dui_accent_light_blue_l_1 =
+      LimitOneOfPrefixedCssClass.of(DUI_ACCENT, () -> "dui-accent-light-blue-l-1");
 
   CssClass dui_shadow_light_blue_l_1 = () -> "dui-shadow-light-blue-l-1";
 
@@ -4086,11 +4274,12 @@ public interface ColorsCss {
 
   CssClass dui_outline_light_blue_l_1 = () -> "dui-outline-light-blue-l-1";
 
-  CssClass dui_fg_light_blue = () -> "dui-fg-light-blue";
+  CssClass dui_fg_light_blue = LimitOneOfPrefixedCssClass.of(DUI_FG, () -> "dui-fg-light-blue");
 
-  CssClass dui_bg_light_blue = () -> "dui-bg-light-blue";
+  CssClass dui_bg_light_blue = LimitOneOfPrefixedCssClass.of(DUI_BG, () -> "dui-bg-light-blue");
 
-  CssClass dui_accent_light_blue = () -> "dui-accent-light-blue";
+  CssClass dui_accent_light_blue =
+      LimitOneOfPrefixedCssClass.of(DUI_ACCENT, () -> "dui-accent-light-blue");
 
   CssClass dui_shadow_light_blue = () -> "dui-shadow-light-blue";
 
@@ -4114,11 +4303,14 @@ public interface ColorsCss {
 
   CssClass dui_outline_light_blue = () -> "dui-outline-light-blue";
 
-  CssClass dui_fg_light_blue_d_1 = () -> "dui-fg-light-blue-d-1";
+  CssClass dui_fg_light_blue_d_1 =
+      LimitOneOfPrefixedCssClass.of(DUI_FG, () -> "dui-fg-light-blue-d-1");
 
-  CssClass dui_bg_light_blue_d_1 = () -> "dui-bg-light-blue-d-1";
+  CssClass dui_bg_light_blue_d_1 =
+      LimitOneOfPrefixedCssClass.of(DUI_BG, () -> "dui-bg-light-blue-d-1");
 
-  CssClass dui_accent_light_blue_d_1 = () -> "dui-accent-light-blue-d-1";
+  CssClass dui_accent_light_blue_d_1 =
+      LimitOneOfPrefixedCssClass.of(DUI_ACCENT, () -> "dui-accent-light-blue-d-1");
 
   CssClass dui_shadow_light_blue_d_1 = () -> "dui-shadow-light-blue-d-1";
 
@@ -4142,11 +4334,14 @@ public interface ColorsCss {
 
   CssClass dui_outline_light_blue_d_1 = () -> "dui-outline-light-blue-d-1";
 
-  CssClass dui_fg_light_blue_d_2 = () -> "dui-fg-light-blue-d-2";
+  CssClass dui_fg_light_blue_d_2 =
+      LimitOneOfPrefixedCssClass.of(DUI_FG, () -> "dui-fg-light-blue-d-2");
 
-  CssClass dui_bg_light_blue_d_2 = () -> "dui-bg-light-blue-d-2";
+  CssClass dui_bg_light_blue_d_2 =
+      LimitOneOfPrefixedCssClass.of(DUI_BG, () -> "dui-bg-light-blue-d-2");
 
-  CssClass dui_accent_light_blue_d_2 = () -> "dui-accent-light-blue-d-2";
+  CssClass dui_accent_light_blue_d_2 =
+      LimitOneOfPrefixedCssClass.of(DUI_ACCENT, () -> "dui-accent-light-blue-d-2");
 
   CssClass dui_shadow_light_blue_d_2 = () -> "dui-shadow-light-blue-d-2";
 
@@ -4170,11 +4365,14 @@ public interface ColorsCss {
 
   CssClass dui_outline_light_blue_d_2 = () -> "dui-outline-light-blue-d-2";
 
-  CssClass dui_fg_light_blue_d_3 = () -> "dui-fg-light-blue-d-3";
+  CssClass dui_fg_light_blue_d_3 =
+      LimitOneOfPrefixedCssClass.of(DUI_FG, () -> "dui-fg-light-blue-d-3");
 
-  CssClass dui_bg_light_blue_d_3 = () -> "dui-bg-light-blue-d-3";
+  CssClass dui_bg_light_blue_d_3 =
+      LimitOneOfPrefixedCssClass.of(DUI_BG, () -> "dui-bg-light-blue-d-3");
 
-  CssClass dui_accent_light_blue_d_3 = () -> "dui-accent-light-blue-d-3";
+  CssClass dui_accent_light_blue_d_3 =
+      LimitOneOfPrefixedCssClass.of(DUI_ACCENT, () -> "dui-accent-light-blue-d-3");
 
   CssClass dui_shadow_light_blue_d_3 = () -> "dui-shadow-light-blue-d-3";
 
@@ -4198,11 +4396,14 @@ public interface ColorsCss {
 
   CssClass dui_outline_light_blue_d_3 = () -> "dui-outline-light-blue-d-3";
 
-  CssClass dui_fg_light_blue_d_4 = () -> "dui-fg-light-blue-d-4";
+  CssClass dui_fg_light_blue_d_4 =
+      LimitOneOfPrefixedCssClass.of(DUI_FG, () -> "dui-fg-light-blue-d-4");
 
-  CssClass dui_bg_light_blue_d_4 = () -> "dui-bg-light-blue-d-4";
+  CssClass dui_bg_light_blue_d_4 =
+      LimitOneOfPrefixedCssClass.of(DUI_BG, () -> "dui-bg-light-blue-d-4");
 
-  CssClass dui_accent_light_blue_d_4 = () -> "dui-accent-light-blue-d-4";
+  CssClass dui_accent_light_blue_d_4 =
+      LimitOneOfPrefixedCssClass.of(DUI_ACCENT, () -> "dui-accent-light-blue-d-4");
 
   CssClass dui_shadow_light_blue_d_4 = () -> "dui-shadow-light-blue-d-4";
 
@@ -4226,11 +4427,12 @@ public interface ColorsCss {
 
   CssClass dui_outline_light_blue_d_4 = () -> "dui-outline-light-blue-d-4";
 
-  CssClass dui_fg_cyan_l_5 = () -> "dui-fg-cyan-l-5";
+  CssClass dui_fg_cyan_l_5 = LimitOneOfPrefixedCssClass.of(DUI_FG, () -> "dui-fg-cyan-l-5");
 
-  CssClass dui_bg_cyan_l_5 = () -> "dui-bg-cyan-l-5";
+  CssClass dui_bg_cyan_l_5 = LimitOneOfPrefixedCssClass.of(DUI_BG, () -> "dui-bg-cyan-l-5");
 
-  CssClass dui_accent_cyan_l_5 = () -> "dui-accent-cyan-l-5";
+  CssClass dui_accent_cyan_l_5 =
+      LimitOneOfPrefixedCssClass.of(DUI_ACCENT, () -> "dui-accent-cyan-l-5");
 
   CssClass dui_shadow_cyan_l_5 = () -> "dui-shadow-cyan-l-5";
 
@@ -4254,11 +4456,12 @@ public interface ColorsCss {
 
   CssClass dui_outline_cyan_l_5 = () -> "dui-outline-cyan-l-5";
 
-  CssClass dui_fg_cyan_l_4 = () -> "dui-fg-cyan-l-4";
+  CssClass dui_fg_cyan_l_4 = LimitOneOfPrefixedCssClass.of(DUI_FG, () -> "dui-fg-cyan-l-4");
 
-  CssClass dui_bg_cyan_l_4 = () -> "dui-bg-cyan-l-4";
+  CssClass dui_bg_cyan_l_4 = LimitOneOfPrefixedCssClass.of(DUI_BG, () -> "dui-bg-cyan-l-4");
 
-  CssClass dui_accent_cyan_l_4 = () -> "dui-accent-cyan-l-4";
+  CssClass dui_accent_cyan_l_4 =
+      LimitOneOfPrefixedCssClass.of(DUI_ACCENT, () -> "dui-accent-cyan-l-4");
 
   CssClass dui_shadow_cyan_l_4 = () -> "dui-shadow-cyan-l-4";
 
@@ -4282,11 +4485,12 @@ public interface ColorsCss {
 
   CssClass dui_outline_cyan_l_4 = () -> "dui-outline-cyan-l-4";
 
-  CssClass dui_fg_cyan_l_3 = () -> "dui-fg-cyan-l-3";
+  CssClass dui_fg_cyan_l_3 = LimitOneOfPrefixedCssClass.of(DUI_FG, () -> "dui-fg-cyan-l-3");
 
-  CssClass dui_bg_cyan_l_3 = () -> "dui-bg-cyan-l-3";
+  CssClass dui_bg_cyan_l_3 = LimitOneOfPrefixedCssClass.of(DUI_BG, () -> "dui-bg-cyan-l-3");
 
-  CssClass dui_accent_cyan_l_3 = () -> "dui-accent-cyan-l-3";
+  CssClass dui_accent_cyan_l_3 =
+      LimitOneOfPrefixedCssClass.of(DUI_ACCENT, () -> "dui-accent-cyan-l-3");
 
   CssClass dui_shadow_cyan_l_3 = () -> "dui-shadow-cyan-l-3";
 
@@ -4310,11 +4514,12 @@ public interface ColorsCss {
 
   CssClass dui_outline_cyan_l_3 = () -> "dui-outline-cyan-l-3";
 
-  CssClass dui_fg_cyan_l_2 = () -> "dui-fg-cyan-l-2";
+  CssClass dui_fg_cyan_l_2 = LimitOneOfPrefixedCssClass.of(DUI_FG, () -> "dui-fg-cyan-l-2");
 
-  CssClass dui_bg_cyan_l_2 = () -> "dui-bg-cyan-l-2";
+  CssClass dui_bg_cyan_l_2 = LimitOneOfPrefixedCssClass.of(DUI_BG, () -> "dui-bg-cyan-l-2");
 
-  CssClass dui_accent_cyan_l_2 = () -> "dui-accent-cyan-l-2";
+  CssClass dui_accent_cyan_l_2 =
+      LimitOneOfPrefixedCssClass.of(DUI_ACCENT, () -> "dui-accent-cyan-l-2");
 
   CssClass dui_shadow_cyan_l_2 = () -> "dui-shadow-cyan-l-2";
 
@@ -4338,11 +4543,12 @@ public interface ColorsCss {
 
   CssClass dui_outline_cyan_l_2 = () -> "dui-outline-cyan-l-2";
 
-  CssClass dui_fg_cyan_l_1 = () -> "dui-fg-cyan-l-1";
+  CssClass dui_fg_cyan_l_1 = LimitOneOfPrefixedCssClass.of(DUI_FG, () -> "dui-fg-cyan-l-1");
 
-  CssClass dui_bg_cyan_l_1 = () -> "dui-bg-cyan-l-1";
+  CssClass dui_bg_cyan_l_1 = LimitOneOfPrefixedCssClass.of(DUI_BG, () -> "dui-bg-cyan-l-1");
 
-  CssClass dui_accent_cyan_l_1 = () -> "dui-accent-cyan-l-1";
+  CssClass dui_accent_cyan_l_1 =
+      LimitOneOfPrefixedCssClass.of(DUI_ACCENT, () -> "dui-accent-cyan-l-1");
 
   CssClass dui_shadow_cyan_l_1 = () -> "dui-shadow-cyan-l-1";
 
@@ -4366,11 +4572,11 @@ public interface ColorsCss {
 
   CssClass dui_outline_cyan_l_1 = () -> "dui-outline-cyan-l-1";
 
-  CssClass dui_fg_cyan = () -> "dui-fg-cyan";
+  CssClass dui_fg_cyan = LimitOneOfPrefixedCssClass.of(DUI_FG, () -> "dui-fg-cyan");
 
-  CssClass dui_bg_cyan = () -> "dui-bg-cyan";
+  CssClass dui_bg_cyan = LimitOneOfPrefixedCssClass.of(DUI_BG, () -> "dui-bg-cyan");
 
-  CssClass dui_accent_cyan = () -> "dui-accent-cyan";
+  CssClass dui_accent_cyan = LimitOneOfPrefixedCssClass.of(DUI_ACCENT, () -> "dui-accent-cyan");
 
   CssClass dui_shadow_cyan = () -> "dui-shadow-cyan";
 
@@ -4394,11 +4600,12 @@ public interface ColorsCss {
 
   CssClass dui_outline_cyan = () -> "dui-outline-cyan";
 
-  CssClass dui_fg_cyan_d_1 = () -> "dui-fg-cyan-d-1";
+  CssClass dui_fg_cyan_d_1 = LimitOneOfPrefixedCssClass.of(DUI_FG, () -> "dui-fg-cyan-d-1");
 
-  CssClass dui_bg_cyan_d_1 = () -> "dui-bg-cyan-d-1";
+  CssClass dui_bg_cyan_d_1 = LimitOneOfPrefixedCssClass.of(DUI_BG, () -> "dui-bg-cyan-d-1");
 
-  CssClass dui_accent_cyan_d_1 = () -> "dui-accent-cyan-d-1";
+  CssClass dui_accent_cyan_d_1 =
+      LimitOneOfPrefixedCssClass.of(DUI_ACCENT, () -> "dui-accent-cyan-d-1");
 
   CssClass dui_shadow_cyan_d_1 = () -> "dui-shadow-cyan-d-1";
 
@@ -4422,11 +4629,12 @@ public interface ColorsCss {
 
   CssClass dui_outline_cyan_d_1 = () -> "dui-outline-cyan-d-1";
 
-  CssClass dui_fg_cyan_d_2 = () -> "dui-fg-cyan-d-2";
+  CssClass dui_fg_cyan_d_2 = LimitOneOfPrefixedCssClass.of(DUI_FG, () -> "dui-fg-cyan-d-2");
 
-  CssClass dui_bg_cyan_d_2 = () -> "dui-bg-cyan-d-2";
+  CssClass dui_bg_cyan_d_2 = LimitOneOfPrefixedCssClass.of(DUI_BG, () -> "dui-bg-cyan-d-2");
 
-  CssClass dui_accent_cyan_d_2 = () -> "dui-accent-cyan-d-2";
+  CssClass dui_accent_cyan_d_2 =
+      LimitOneOfPrefixedCssClass.of(DUI_ACCENT, () -> "dui-accent-cyan-d-2");
 
   CssClass dui_shadow_cyan_d_2 = () -> "dui-shadow-cyan-d-2";
 
@@ -4450,11 +4658,12 @@ public interface ColorsCss {
 
   CssClass dui_outline_cyan_d_2 = () -> "dui-outline-cyan-d-2";
 
-  CssClass dui_fg_cyan_d_3 = () -> "dui-fg-cyan-d-3";
+  CssClass dui_fg_cyan_d_3 = LimitOneOfPrefixedCssClass.of(DUI_FG, () -> "dui-fg-cyan-d-3");
 
-  CssClass dui_bg_cyan_d_3 = () -> "dui-bg-cyan-d-3";
+  CssClass dui_bg_cyan_d_3 = LimitOneOfPrefixedCssClass.of(DUI_BG, () -> "dui-bg-cyan-d-3");
 
-  CssClass dui_accent_cyan_d_3 = () -> "dui-accent-cyan-d-3";
+  CssClass dui_accent_cyan_d_3 =
+      LimitOneOfPrefixedCssClass.of(DUI_ACCENT, () -> "dui-accent-cyan-d-3");
 
   CssClass dui_shadow_cyan_d_3 = () -> "dui-shadow-cyan-d-3";
 
@@ -4478,11 +4687,12 @@ public interface ColorsCss {
 
   CssClass dui_outline_cyan_d_3 = () -> "dui-outline-cyan-d-3";
 
-  CssClass dui_fg_cyan_d_4 = () -> "dui-fg-cyan-d-4";
+  CssClass dui_fg_cyan_d_4 = LimitOneOfPrefixedCssClass.of(DUI_FG, () -> "dui-fg-cyan-d-4");
 
-  CssClass dui_bg_cyan_d_4 = () -> "dui-bg-cyan-d-4";
+  CssClass dui_bg_cyan_d_4 = LimitOneOfPrefixedCssClass.of(DUI_BG, () -> "dui-bg-cyan-d-4");
 
-  CssClass dui_accent_cyan_d_4 = () -> "dui-accent-cyan-d-4";
+  CssClass dui_accent_cyan_d_4 =
+      LimitOneOfPrefixedCssClass.of(DUI_ACCENT, () -> "dui-accent-cyan-d-4");
 
   CssClass dui_shadow_cyan_d_4 = () -> "dui-shadow-cyan-d-4";
 
@@ -4506,11 +4716,12 @@ public interface ColorsCss {
 
   CssClass dui_outline_cyan_d_4 = () -> "dui-outline-cyan-d-4";
 
-  CssClass dui_fg_teal_l_5 = () -> "dui-fg-teal-l-5";
+  CssClass dui_fg_teal_l_5 = LimitOneOfPrefixedCssClass.of(DUI_FG, () -> "dui-fg-teal-l-5");
 
-  CssClass dui_bg_teal_l_5 = () -> "dui-bg-teal-l-5";
+  CssClass dui_bg_teal_l_5 = LimitOneOfPrefixedCssClass.of(DUI_BG, () -> "dui-bg-teal-l-5");
 
-  CssClass dui_accent_teal_l_5 = () -> "dui-accent-teal-l-5";
+  CssClass dui_accent_teal_l_5 =
+      LimitOneOfPrefixedCssClass.of(DUI_ACCENT, () -> "dui-accent-teal-l-5");
 
   CssClass dui_shadow_teal_l_5 = () -> "dui-shadow-teal-l-5";
 
@@ -4534,11 +4745,12 @@ public interface ColorsCss {
 
   CssClass dui_outline_teal_l_5 = () -> "dui-outline-teal-l-5";
 
-  CssClass dui_fg_teal_l_4 = () -> "dui-fg-teal-l-4";
+  CssClass dui_fg_teal_l_4 = LimitOneOfPrefixedCssClass.of(DUI_FG, () -> "dui-fg-teal-l-4");
 
-  CssClass dui_bg_teal_l_4 = () -> "dui-bg-teal-l-4";
+  CssClass dui_bg_teal_l_4 = LimitOneOfPrefixedCssClass.of(DUI_BG, () -> "dui-bg-teal-l-4");
 
-  CssClass dui_accent_teal_l_4 = () -> "dui-accent-teal-l-4";
+  CssClass dui_accent_teal_l_4 =
+      LimitOneOfPrefixedCssClass.of(DUI_ACCENT, () -> "dui-accent-teal-l-4");
 
   CssClass dui_shadow_teal_l_4 = () -> "dui-shadow-teal-l-4";
 
@@ -4562,11 +4774,12 @@ public interface ColorsCss {
 
   CssClass dui_outline_teal_l_4 = () -> "dui-outline-teal-l-4";
 
-  CssClass dui_fg_teal_l_3 = () -> "dui-fg-teal-l-3";
+  CssClass dui_fg_teal_l_3 = LimitOneOfPrefixedCssClass.of(DUI_FG, () -> "dui-fg-teal-l-3");
 
-  CssClass dui_bg_teal_l_3 = () -> "dui-bg-teal-l-3";
+  CssClass dui_bg_teal_l_3 = LimitOneOfPrefixedCssClass.of(DUI_BG, () -> "dui-bg-teal-l-3");
 
-  CssClass dui_accent_teal_l_3 = () -> "dui-accent-teal-l-3";
+  CssClass dui_accent_teal_l_3 =
+      LimitOneOfPrefixedCssClass.of(DUI_ACCENT, () -> "dui-accent-teal-l-3");
 
   CssClass dui_shadow_teal_l_3 = () -> "dui-shadow-teal-l-3";
 
@@ -4590,11 +4803,12 @@ public interface ColorsCss {
 
   CssClass dui_outline_teal_l_3 = () -> "dui-outline-teal-l-3";
 
-  CssClass dui_fg_teal_l_2 = () -> "dui-fg-teal-l-2";
+  CssClass dui_fg_teal_l_2 = LimitOneOfPrefixedCssClass.of(DUI_FG, () -> "dui-fg-teal-l-2");
 
-  CssClass dui_bg_teal_l_2 = () -> "dui-bg-teal-l-2";
+  CssClass dui_bg_teal_l_2 = LimitOneOfPrefixedCssClass.of(DUI_BG, () -> "dui-bg-teal-l-2");
 
-  CssClass dui_accent_teal_l_2 = () -> "dui-accent-teal-l-2";
+  CssClass dui_accent_teal_l_2 =
+      LimitOneOfPrefixedCssClass.of(DUI_ACCENT, () -> "dui-accent-teal-l-2");
 
   CssClass dui_shadow_teal_l_2 = () -> "dui-shadow-teal-l-2";
 
@@ -4618,11 +4832,12 @@ public interface ColorsCss {
 
   CssClass dui_outline_teal_l_2 = () -> "dui-outline-teal-l-2";
 
-  CssClass dui_fg_teal_l_1 = () -> "dui-fg-teal-l-1";
+  CssClass dui_fg_teal_l_1 = LimitOneOfPrefixedCssClass.of(DUI_FG, () -> "dui-fg-teal-l-1");
 
-  CssClass dui_bg_teal_l_1 = () -> "dui-bg-teal-l-1";
+  CssClass dui_bg_teal_l_1 = LimitOneOfPrefixedCssClass.of(DUI_BG, () -> "dui-bg-teal-l-1");
 
-  CssClass dui_accent_teal_l_1 = () -> "dui-accent-teal-l-1";
+  CssClass dui_accent_teal_l_1 =
+      LimitOneOfPrefixedCssClass.of(DUI_ACCENT, () -> "dui-accent-teal-l-1");
 
   CssClass dui_shadow_teal_l_1 = () -> "dui-shadow-teal-l-1";
 
@@ -4646,11 +4861,11 @@ public interface ColorsCss {
 
   CssClass dui_outline_teal_l_1 = () -> "dui-outline-teal-l-1";
 
-  CssClass dui_fg_teal = () -> "dui-fg-teal";
+  CssClass dui_fg_teal = LimitOneOfPrefixedCssClass.of(DUI_FG, () -> "dui-fg-teal");
 
-  CssClass dui_bg_teal = () -> "dui-bg-teal";
+  CssClass dui_bg_teal = LimitOneOfPrefixedCssClass.of(DUI_BG, () -> "dui-bg-teal");
 
-  CssClass dui_accent_teal = () -> "dui-accent-teal";
+  CssClass dui_accent_teal = LimitOneOfPrefixedCssClass.of(DUI_ACCENT, () -> "dui-accent-teal");
 
   CssClass dui_shadow_teal = () -> "dui-shadow-teal";
 
@@ -4674,11 +4889,12 @@ public interface ColorsCss {
 
   CssClass dui_outline_teal = () -> "dui-outline-teal";
 
-  CssClass dui_fg_teal_d_1 = () -> "dui-fg-teal-d-1";
+  CssClass dui_fg_teal_d_1 = LimitOneOfPrefixedCssClass.of(DUI_FG, () -> "dui-fg-teal-d-1");
 
-  CssClass dui_bg_teal_d_1 = () -> "dui-bg-teal-d-1";
+  CssClass dui_bg_teal_d_1 = LimitOneOfPrefixedCssClass.of(DUI_BG, () -> "dui-bg-teal-d-1");
 
-  CssClass dui_accent_teal_d_1 = () -> "dui-accent-teal-d-1";
+  CssClass dui_accent_teal_d_1 =
+      LimitOneOfPrefixedCssClass.of(DUI_ACCENT, () -> "dui-accent-teal-d-1");
 
   CssClass dui_shadow_teal_d_1 = () -> "dui-shadow-teal-d-1";
 
@@ -4702,11 +4918,12 @@ public interface ColorsCss {
 
   CssClass dui_outline_teal_d_1 = () -> "dui-outline-teal-d-1";
 
-  CssClass dui_fg_teal_d_2 = () -> "dui-fg-teal-d-2";
+  CssClass dui_fg_teal_d_2 = LimitOneOfPrefixedCssClass.of(DUI_FG, () -> "dui-fg-teal-d-2");
 
-  CssClass dui_bg_teal_d_2 = () -> "dui-bg-teal-d-2";
+  CssClass dui_bg_teal_d_2 = LimitOneOfPrefixedCssClass.of(DUI_BG, () -> "dui-bg-teal-d-2");
 
-  CssClass dui_accent_teal_d_2 = () -> "dui-accent-teal-d-2";
+  CssClass dui_accent_teal_d_2 =
+      LimitOneOfPrefixedCssClass.of(DUI_ACCENT, () -> "dui-accent-teal-d-2");
 
   CssClass dui_shadow_teal_d_2 = () -> "dui-shadow-teal-d-2";
 
@@ -4730,11 +4947,12 @@ public interface ColorsCss {
 
   CssClass dui_outline_teal_d_2 = () -> "dui-outline-teal-d-2";
 
-  CssClass dui_fg_teal_d_3 = () -> "dui-fg-teal-d-3";
+  CssClass dui_fg_teal_d_3 = LimitOneOfPrefixedCssClass.of(DUI_FG, () -> "dui-fg-teal-d-3");
 
-  CssClass dui_bg_teal_d_3 = () -> "dui-bg-teal-d-3";
+  CssClass dui_bg_teal_d_3 = LimitOneOfPrefixedCssClass.of(DUI_BG, () -> "dui-bg-teal-d-3");
 
-  CssClass dui_accent_teal_d_3 = () -> "dui-accent-teal-d-3";
+  CssClass dui_accent_teal_d_3 =
+      LimitOneOfPrefixedCssClass.of(DUI_ACCENT, () -> "dui-accent-teal-d-3");
 
   CssClass dui_shadow_teal_d_3 = () -> "dui-shadow-teal-d-3";
 
@@ -4758,11 +4976,12 @@ public interface ColorsCss {
 
   CssClass dui_outline_teal_d_3 = () -> "dui-outline-teal-d-3";
 
-  CssClass dui_fg_teal_d_4 = () -> "dui-fg-teal-d-4";
+  CssClass dui_fg_teal_d_4 = LimitOneOfPrefixedCssClass.of(DUI_FG, () -> "dui-fg-teal-d-4");
 
-  CssClass dui_bg_teal_d_4 = () -> "dui-bg-teal-d-4";
+  CssClass dui_bg_teal_d_4 = LimitOneOfPrefixedCssClass.of(DUI_BG, () -> "dui-bg-teal-d-4");
 
-  CssClass dui_accent_teal_d_4 = () -> "dui-accent-teal-d-4";
+  CssClass dui_accent_teal_d_4 =
+      LimitOneOfPrefixedCssClass.of(DUI_ACCENT, () -> "dui-accent-teal-d-4");
 
   CssClass dui_shadow_teal_d_4 = () -> "dui-shadow-teal-d-4";
 
@@ -4786,11 +5005,12 @@ public interface ColorsCss {
 
   CssClass dui_outline_teal_d_4 = () -> "dui-outline-teal-d-4";
 
-  CssClass dui_fg_green_l_5 = () -> "dui-fg-green-l-5";
+  CssClass dui_fg_green_l_5 = LimitOneOfPrefixedCssClass.of(DUI_FG, () -> "dui-fg-green-l-5");
 
-  CssClass dui_bg_green_l_5 = () -> "dui-bg-green-l-5";
+  CssClass dui_bg_green_l_5 = LimitOneOfPrefixedCssClass.of(DUI_BG, () -> "dui-bg-green-l-5");
 
-  CssClass dui_accent_green_l_5 = () -> "dui-accent-green-l-5";
+  CssClass dui_accent_green_l_5 =
+      LimitOneOfPrefixedCssClass.of(DUI_ACCENT, () -> "dui-accent-green-l-5");
 
   CssClass dui_shadow_green_l_5 = () -> "dui-shadow-green-l-5";
 
@@ -4814,11 +5034,12 @@ public interface ColorsCss {
 
   CssClass dui_outline_green_l_5 = () -> "dui-outline-green-l-5";
 
-  CssClass dui_fg_green_l_4 = () -> "dui-fg-green-l-4";
+  CssClass dui_fg_green_l_4 = LimitOneOfPrefixedCssClass.of(DUI_FG, () -> "dui-fg-green-l-4");
 
-  CssClass dui_bg_green_l_4 = () -> "dui-bg-green-l-4";
+  CssClass dui_bg_green_l_4 = LimitOneOfPrefixedCssClass.of(DUI_BG, () -> "dui-bg-green-l-4");
 
-  CssClass dui_accent_green_l_4 = () -> "dui-accent-green-l-4";
+  CssClass dui_accent_green_l_4 =
+      LimitOneOfPrefixedCssClass.of(DUI_ACCENT, () -> "dui-accent-green-l-4");
 
   CssClass dui_shadow_green_l_4 = () -> "dui-shadow-green-l-4";
 
@@ -4842,11 +5063,12 @@ public interface ColorsCss {
 
   CssClass dui_outline_green_l_4 = () -> "dui-outline-green-l-4";
 
-  CssClass dui_fg_green_l_3 = () -> "dui-fg-green-l-3";
+  CssClass dui_fg_green_l_3 = LimitOneOfPrefixedCssClass.of(DUI_FG, () -> "dui-fg-green-l-3");
 
-  CssClass dui_bg_green_l_3 = () -> "dui-bg-green-l-3";
+  CssClass dui_bg_green_l_3 = LimitOneOfPrefixedCssClass.of(DUI_BG, () -> "dui-bg-green-l-3");
 
-  CssClass dui_accent_green_l_3 = () -> "dui-accent-green-l-3";
+  CssClass dui_accent_green_l_3 =
+      LimitOneOfPrefixedCssClass.of(DUI_ACCENT, () -> "dui-accent-green-l-3");
 
   CssClass dui_shadow_green_l_3 = () -> "dui-shadow-green-l-3";
 
@@ -4870,11 +5092,12 @@ public interface ColorsCss {
 
   CssClass dui_outline_green_l_3 = () -> "dui-outline-green-l-3";
 
-  CssClass dui_fg_green_l_2 = () -> "dui-fg-green-l-2";
+  CssClass dui_fg_green_l_2 = LimitOneOfPrefixedCssClass.of(DUI_FG, () -> "dui-fg-green-l-2");
 
-  CssClass dui_bg_green_l_2 = () -> "dui-bg-green-l-2";
+  CssClass dui_bg_green_l_2 = LimitOneOfPrefixedCssClass.of(DUI_BG, () -> "dui-bg-green-l-2");
 
-  CssClass dui_accent_green_l_2 = () -> "dui-accent-green-l-2";
+  CssClass dui_accent_green_l_2 =
+      LimitOneOfPrefixedCssClass.of(DUI_ACCENT, () -> "dui-accent-green-l-2");
 
   CssClass dui_shadow_green_l_2 = () -> "dui-shadow-green-l-2";
 
@@ -4898,11 +5121,12 @@ public interface ColorsCss {
 
   CssClass dui_outline_green_l_2 = () -> "dui-outline-green-l-2";
 
-  CssClass dui_fg_green_l_1 = () -> "dui-fg-green-l-1";
+  CssClass dui_fg_green_l_1 = LimitOneOfPrefixedCssClass.of(DUI_FG, () -> "dui-fg-green-l-1");
 
-  CssClass dui_bg_green_l_1 = () -> "dui-bg-green-l-1";
+  CssClass dui_bg_green_l_1 = LimitOneOfPrefixedCssClass.of(DUI_BG, () -> "dui-bg-green-l-1");
 
-  CssClass dui_accent_green_l_1 = () -> "dui-accent-green-l-1";
+  CssClass dui_accent_green_l_1 =
+      LimitOneOfPrefixedCssClass.of(DUI_ACCENT, () -> "dui-accent-green-l-1");
 
   CssClass dui_shadow_green_l_1 = () -> "dui-shadow-green-l-1";
 
@@ -4926,11 +5150,11 @@ public interface ColorsCss {
 
   CssClass dui_outline_green_l_1 = () -> "dui-outline-green-l-1";
 
-  CssClass dui_fg_green = () -> "dui-fg-green";
+  CssClass dui_fg_green = LimitOneOfPrefixedCssClass.of(DUI_FG, () -> "dui-fg-green");
 
-  CssClass dui_bg_green = () -> "dui-bg-green";
+  CssClass dui_bg_green = LimitOneOfPrefixedCssClass.of(DUI_BG, () -> "dui-bg-green");
 
-  CssClass dui_accent_green = () -> "dui-accent-green";
+  CssClass dui_accent_green = LimitOneOfPrefixedCssClass.of(DUI_ACCENT, () -> "dui-accent-green");
 
   CssClass dui_shadow_green = () -> "dui-shadow-green";
 
@@ -4954,11 +5178,12 @@ public interface ColorsCss {
 
   CssClass dui_outline_green = () -> "dui-outline-green";
 
-  CssClass dui_fg_green_d_1 = () -> "dui-fg-green-d-1";
+  CssClass dui_fg_green_d_1 = LimitOneOfPrefixedCssClass.of(DUI_FG, () -> "dui-fg-green-d-1");
 
-  CssClass dui_bg_green_d_1 = () -> "dui-bg-green-d-1";
+  CssClass dui_bg_green_d_1 = LimitOneOfPrefixedCssClass.of(DUI_BG, () -> "dui-bg-green-d-1");
 
-  CssClass dui_accent_green_d_1 = () -> "dui-accent-green-d-1";
+  CssClass dui_accent_green_d_1 =
+      LimitOneOfPrefixedCssClass.of(DUI_ACCENT, () -> "dui-accent-green-d-1");
 
   CssClass dui_shadow_green_d_1 = () -> "dui-shadow-green-d-1";
 
@@ -4982,11 +5207,12 @@ public interface ColorsCss {
 
   CssClass dui_outline_green_d_1 = () -> "dui-outline-green-d-1";
 
-  CssClass dui_fg_green_d_2 = () -> "dui-fg-green-d-2";
+  CssClass dui_fg_green_d_2 = LimitOneOfPrefixedCssClass.of(DUI_FG, () -> "dui-fg-green-d-2");
 
-  CssClass dui_bg_green_d_2 = () -> "dui-bg-green-d-2";
+  CssClass dui_bg_green_d_2 = LimitOneOfPrefixedCssClass.of(DUI_BG, () -> "dui-bg-green-d-2");
 
-  CssClass dui_accent_green_d_2 = () -> "dui-accent-green-d-2";
+  CssClass dui_accent_green_d_2 =
+      LimitOneOfPrefixedCssClass.of(DUI_ACCENT, () -> "dui-accent-green-d-2");
 
   CssClass dui_shadow_green_d_2 = () -> "dui-shadow-green-d-2";
 
@@ -5010,11 +5236,12 @@ public interface ColorsCss {
 
   CssClass dui_outline_green_d_2 = () -> "dui-outline-green-d-2";
 
-  CssClass dui_fg_green_d_3 = () -> "dui-fg-green-d-3";
+  CssClass dui_fg_green_d_3 = LimitOneOfPrefixedCssClass.of(DUI_FG, () -> "dui-fg-green-d-3");
 
-  CssClass dui_bg_green_d_3 = () -> "dui-bg-green-d-3";
+  CssClass dui_bg_green_d_3 = LimitOneOfPrefixedCssClass.of(DUI_BG, () -> "dui-bg-green-d-3");
 
-  CssClass dui_accent_green_d_3 = () -> "dui-accent-green-d-3";
+  CssClass dui_accent_green_d_3 =
+      LimitOneOfPrefixedCssClass.of(DUI_ACCENT, () -> "dui-accent-green-d-3");
 
   CssClass dui_shadow_green_d_3 = () -> "dui-shadow-green-d-3";
 
@@ -5038,11 +5265,12 @@ public interface ColorsCss {
 
   CssClass dui_outline_green_d_3 = () -> "dui-outline-green-d-3";
 
-  CssClass dui_fg_green_d_4 = () -> "dui-fg-green-d-4";
+  CssClass dui_fg_green_d_4 = LimitOneOfPrefixedCssClass.of(DUI_FG, () -> "dui-fg-green-d-4");
 
-  CssClass dui_bg_green_d_4 = () -> "dui-bg-green-d-4";
+  CssClass dui_bg_green_d_4 = LimitOneOfPrefixedCssClass.of(DUI_BG, () -> "dui-bg-green-d-4");
 
-  CssClass dui_accent_green_d_4 = () -> "dui-accent-green-d-4";
+  CssClass dui_accent_green_d_4 =
+      LimitOneOfPrefixedCssClass.of(DUI_ACCENT, () -> "dui-accent-green-d-4");
 
   CssClass dui_shadow_green_d_4 = () -> "dui-shadow-green-d-4";
 
@@ -5066,11 +5294,14 @@ public interface ColorsCss {
 
   CssClass dui_outline_green_d_4 = () -> "dui-outline-green-d-4";
 
-  CssClass dui_fg_light_green_l_5 = () -> "dui-fg-light-green-l-5";
+  CssClass dui_fg_light_green_l_5 =
+      LimitOneOfPrefixedCssClass.of(DUI_FG, () -> "dui-fg-light-green-l-5");
 
-  CssClass dui_bg_light_green_l_5 = () -> "dui-bg-light-green-l-5";
+  CssClass dui_bg_light_green_l_5 =
+      LimitOneOfPrefixedCssClass.of(DUI_BG, () -> "dui-bg-light-green-l-5");
 
-  CssClass dui_accent_light_green_l_5 = () -> "dui-accent-light-green-l-5";
+  CssClass dui_accent_light_green_l_5 =
+      LimitOneOfPrefixedCssClass.of(DUI_ACCENT, () -> "dui-accent-light-green-l-5");
 
   CssClass dui_shadow_light_green_l_5 = () -> "dui-shadow-light-green-l-5";
 
@@ -5094,11 +5325,14 @@ public interface ColorsCss {
 
   CssClass dui_outline_light_green_l_5 = () -> "dui-outline-light-green-l-5";
 
-  CssClass dui_fg_light_green_l_4 = () -> "dui-fg-light-green-l-4";
+  CssClass dui_fg_light_green_l_4 =
+      LimitOneOfPrefixedCssClass.of(DUI_FG, () -> "dui-fg-light-green-l-4");
 
-  CssClass dui_bg_light_green_l_4 = () -> "dui-bg-light-green-l-4";
+  CssClass dui_bg_light_green_l_4 =
+      LimitOneOfPrefixedCssClass.of(DUI_BG, () -> "dui-bg-light-green-l-4");
 
-  CssClass dui_accent_light_green_l_4 = () -> "dui-accent-light-green-l-4";
+  CssClass dui_accent_light_green_l_4 =
+      LimitOneOfPrefixedCssClass.of(DUI_ACCENT, () -> "dui-accent-light-green-l-4");
 
   CssClass dui_shadow_light_green_l_4 = () -> "dui-shadow-light-green-l-4";
 
@@ -5122,11 +5356,14 @@ public interface ColorsCss {
 
   CssClass dui_outline_light_green_l_4 = () -> "dui-outline-light-green-l-4";
 
-  CssClass dui_fg_light_green_l_3 = () -> "dui-fg-light-green-l-3";
+  CssClass dui_fg_light_green_l_3 =
+      LimitOneOfPrefixedCssClass.of(DUI_FG, () -> "dui-fg-light-green-l-3");
 
-  CssClass dui_bg_light_green_l_3 = () -> "dui-bg-light-green-l-3";
+  CssClass dui_bg_light_green_l_3 =
+      LimitOneOfPrefixedCssClass.of(DUI_BG, () -> "dui-bg-light-green-l-3");
 
-  CssClass dui_accent_light_green_l_3 = () -> "dui-accent-light-green-l-3";
+  CssClass dui_accent_light_green_l_3 =
+      LimitOneOfPrefixedCssClass.of(DUI_ACCENT, () -> "dui-accent-light-green-l-3");
 
   CssClass dui_shadow_light_green_l_3 = () -> "dui-shadow-light-green-l-3";
 
@@ -5150,11 +5387,14 @@ public interface ColorsCss {
 
   CssClass dui_outline_light_green_l_3 = () -> "dui-outline-light-green-l-3";
 
-  CssClass dui_fg_light_green_l_2 = () -> "dui-fg-light-green-l-2";
+  CssClass dui_fg_light_green_l_2 =
+      LimitOneOfPrefixedCssClass.of(DUI_FG, () -> "dui-fg-light-green-l-2");
 
-  CssClass dui_bg_light_green_l_2 = () -> "dui-bg-light-green-l-2";
+  CssClass dui_bg_light_green_l_2 =
+      LimitOneOfPrefixedCssClass.of(DUI_BG, () -> "dui-bg-light-green-l-2");
 
-  CssClass dui_accent_light_green_l_2 = () -> "dui-accent-light-green-l-2";
+  CssClass dui_accent_light_green_l_2 =
+      LimitOneOfPrefixedCssClass.of(DUI_ACCENT, () -> "dui-accent-light-green-l-2");
 
   CssClass dui_shadow_light_green_l_2 = () -> "dui-shadow-light-green-l-2";
 
@@ -5178,11 +5418,14 @@ public interface ColorsCss {
 
   CssClass dui_outline_light_green_l_2 = () -> "dui-outline-light-green-l-2";
 
-  CssClass dui_fg_light_green_l_1 = () -> "dui-fg-light-green-l-1";
+  CssClass dui_fg_light_green_l_1 =
+      LimitOneOfPrefixedCssClass.of(DUI_FG, () -> "dui-fg-light-green-l-1");
 
-  CssClass dui_bg_light_green_l_1 = () -> "dui-bg-light-green-l-1";
+  CssClass dui_bg_light_green_l_1 =
+      LimitOneOfPrefixedCssClass.of(DUI_BG, () -> "dui-bg-light-green-l-1");
 
-  CssClass dui_accent_light_green_l_1 = () -> "dui-accent-light-green-l-1";
+  CssClass dui_accent_light_green_l_1 =
+      LimitOneOfPrefixedCssClass.of(DUI_ACCENT, () -> "dui-accent-light-green-l-1");
 
   CssClass dui_shadow_light_green_l_1 = () -> "dui-shadow-light-green-l-1";
 
@@ -5206,11 +5449,12 @@ public interface ColorsCss {
 
   CssClass dui_outline_light_green_l_1 = () -> "dui-outline-light-green-l-1";
 
-  CssClass dui_fg_light_green = () -> "dui-fg-light-green";
+  CssClass dui_fg_light_green = LimitOneOfPrefixedCssClass.of(DUI_FG, () -> "dui-fg-light-green");
 
-  CssClass dui_bg_light_green = () -> "dui-bg-light-green";
+  CssClass dui_bg_light_green = LimitOneOfPrefixedCssClass.of(DUI_BG, () -> "dui-bg-light-green");
 
-  CssClass dui_accent_light_green = () -> "dui-accent-light-green";
+  CssClass dui_accent_light_green =
+      LimitOneOfPrefixedCssClass.of(DUI_ACCENT, () -> "dui-accent-light-green");
 
   CssClass dui_shadow_light_green = () -> "dui-shadow-light-green";
 
@@ -5234,11 +5478,14 @@ public interface ColorsCss {
 
   CssClass dui_outline_light_green = () -> "dui-outline-light-green";
 
-  CssClass dui_fg_light_green_d_1 = () -> "dui-fg-light-green-d-1";
+  CssClass dui_fg_light_green_d_1 =
+      LimitOneOfPrefixedCssClass.of(DUI_FG, () -> "dui-fg-light-green-d-1");
 
-  CssClass dui_bg_light_green_d_1 = () -> "dui-bg-light-green-d-1";
+  CssClass dui_bg_light_green_d_1 =
+      LimitOneOfPrefixedCssClass.of(DUI_BG, () -> "dui-bg-light-green-d-1");
 
-  CssClass dui_accent_light_green_d_1 = () -> "dui-accent-light-green-d-1";
+  CssClass dui_accent_light_green_d_1 =
+      LimitOneOfPrefixedCssClass.of(DUI_ACCENT, () -> "dui-accent-light-green-d-1");
 
   CssClass dui_shadow_light_green_d_1 = () -> "dui-shadow-light-green-d-1";
 
@@ -5262,11 +5509,14 @@ public interface ColorsCss {
 
   CssClass dui_outline_light_green_d_1 = () -> "dui-outline-light-green-d-1";
 
-  CssClass dui_fg_light_green_d_2 = () -> "dui-fg-light-green-d-2";
+  CssClass dui_fg_light_green_d_2 =
+      LimitOneOfPrefixedCssClass.of(DUI_FG, () -> "dui-fg-light-green-d-2");
 
-  CssClass dui_bg_light_green_d_2 = () -> "dui-bg-light-green-d-2";
+  CssClass dui_bg_light_green_d_2 =
+      LimitOneOfPrefixedCssClass.of(DUI_BG, () -> "dui-bg-light-green-d-2");
 
-  CssClass dui_accent_light_green_d_2 = () -> "dui-accent-light-green-d-2";
+  CssClass dui_accent_light_green_d_2 =
+      LimitOneOfPrefixedCssClass.of(DUI_ACCENT, () -> "dui-accent-light-green-d-2");
 
   CssClass dui_shadow_light_green_d_2 = () -> "dui-shadow-light-green-d-2";
 
@@ -5290,11 +5540,14 @@ public interface ColorsCss {
 
   CssClass dui_outline_light_green_d_2 = () -> "dui-outline-light-green-d-2";
 
-  CssClass dui_fg_light_green_d_3 = () -> "dui-fg-light-green-d-3";
+  CssClass dui_fg_light_green_d_3 =
+      LimitOneOfPrefixedCssClass.of(DUI_FG, () -> "dui-fg-light-green-d-3");
 
-  CssClass dui_bg_light_green_d_3 = () -> "dui-bg-light-green-d-3";
+  CssClass dui_bg_light_green_d_3 =
+      LimitOneOfPrefixedCssClass.of(DUI_BG, () -> "dui-bg-light-green-d-3");
 
-  CssClass dui_accent_light_green_d_3 = () -> "dui-accent-light-green-d-3";
+  CssClass dui_accent_light_green_d_3 =
+      LimitOneOfPrefixedCssClass.of(DUI_ACCENT, () -> "dui-accent-light-green-d-3");
 
   CssClass dui_shadow_light_green_d_3 = () -> "dui-shadow-light-green-d-3";
 
@@ -5318,11 +5571,14 @@ public interface ColorsCss {
 
   CssClass dui_outline_light_green_d_3 = () -> "dui-outline-light-green-d-3";
 
-  CssClass dui_fg_light_green_d_4 = () -> "dui-fg-light-green-d-4";
+  CssClass dui_fg_light_green_d_4 =
+      LimitOneOfPrefixedCssClass.of(DUI_FG, () -> "dui-fg-light-green-d-4");
 
-  CssClass dui_bg_light_green_d_4 = () -> "dui-bg-light-green-d-4";
+  CssClass dui_bg_light_green_d_4 =
+      LimitOneOfPrefixedCssClass.of(DUI_BG, () -> "dui-bg-light-green-d-4");
 
-  CssClass dui_accent_light_green_d_4 = () -> "dui-accent-light-green-d-4";
+  CssClass dui_accent_light_green_d_4 =
+      LimitOneOfPrefixedCssClass.of(DUI_ACCENT, () -> "dui-accent-light-green-d-4");
 
   CssClass dui_shadow_light_green_d_4 = () -> "dui-shadow-light-green-d-4";
 
@@ -5346,11 +5602,12 @@ public interface ColorsCss {
 
   CssClass dui_outline_light_green_d_4 = () -> "dui-outline-light-green-d-4";
 
-  CssClass dui_fg_lime_l_5 = () -> "dui-fg-lime-l-5";
+  CssClass dui_fg_lime_l_5 = LimitOneOfPrefixedCssClass.of(DUI_FG, () -> "dui-fg-lime-l-5");
 
-  CssClass dui_bg_lime_l_5 = () -> "dui-bg-lime-l-5";
+  CssClass dui_bg_lime_l_5 = LimitOneOfPrefixedCssClass.of(DUI_BG, () -> "dui-bg-lime-l-5");
 
-  CssClass dui_accent_lime_l_5 = () -> "dui-accent-lime-l-5";
+  CssClass dui_accent_lime_l_5 =
+      LimitOneOfPrefixedCssClass.of(DUI_ACCENT, () -> "dui-accent-lime-l-5");
 
   CssClass dui_shadow_lime_l_5 = () -> "dui-shadow-lime-l-5";
 
@@ -5374,11 +5631,12 @@ public interface ColorsCss {
 
   CssClass dui_outline_lime_l_5 = () -> "dui-outline-lime-l-5";
 
-  CssClass dui_fg_lime_l_4 = () -> "dui-fg-lime-l-4";
+  CssClass dui_fg_lime_l_4 = LimitOneOfPrefixedCssClass.of(DUI_FG, () -> "dui-fg-lime-l-4");
 
-  CssClass dui_bg_lime_l_4 = () -> "dui-bg-lime-l-4";
+  CssClass dui_bg_lime_l_4 = LimitOneOfPrefixedCssClass.of(DUI_BG, () -> "dui-bg-lime-l-4");
 
-  CssClass dui_accent_lime_l_4 = () -> "dui-accent-lime-l-4";
+  CssClass dui_accent_lime_l_4 =
+      LimitOneOfPrefixedCssClass.of(DUI_ACCENT, () -> "dui-accent-lime-l-4");
 
   CssClass dui_shadow_lime_l_4 = () -> "dui-shadow-lime-l-4";
 
@@ -5402,11 +5660,12 @@ public interface ColorsCss {
 
   CssClass dui_outline_lime_l_4 = () -> "dui-outline-lime-l-4";
 
-  CssClass dui_fg_lime_l_3 = () -> "dui-fg-lime-l-3";
+  CssClass dui_fg_lime_l_3 = LimitOneOfPrefixedCssClass.of(DUI_FG, () -> "dui-fg-lime-l-3");
 
-  CssClass dui_bg_lime_l_3 = () -> "dui-bg-lime-l-3";
+  CssClass dui_bg_lime_l_3 = LimitOneOfPrefixedCssClass.of(DUI_BG, () -> "dui-bg-lime-l-3");
 
-  CssClass dui_accent_lime_l_3 = () -> "dui-accent-lime-l-3";
+  CssClass dui_accent_lime_l_3 =
+      LimitOneOfPrefixedCssClass.of(DUI_ACCENT, () -> "dui-accent-lime-l-3");
 
   CssClass dui_shadow_lime_l_3 = () -> "dui-shadow-lime-l-3";
 
@@ -5430,11 +5689,12 @@ public interface ColorsCss {
 
   CssClass dui_outline_lime_l_3 = () -> "dui-outline-lime-l-3";
 
-  CssClass dui_fg_lime_l_2 = () -> "dui-fg-lime-l-2";
+  CssClass dui_fg_lime_l_2 = LimitOneOfPrefixedCssClass.of(DUI_FG, () -> "dui-fg-lime-l-2");
 
-  CssClass dui_bg_lime_l_2 = () -> "dui-bg-lime-l-2";
+  CssClass dui_bg_lime_l_2 = LimitOneOfPrefixedCssClass.of(DUI_BG, () -> "dui-bg-lime-l-2");
 
-  CssClass dui_accent_lime_l_2 = () -> "dui-accent-lime-l-2";
+  CssClass dui_accent_lime_l_2 =
+      LimitOneOfPrefixedCssClass.of(DUI_ACCENT, () -> "dui-accent-lime-l-2");
 
   CssClass dui_shadow_lime_l_2 = () -> "dui-shadow-lime-l-2";
 
@@ -5458,11 +5718,12 @@ public interface ColorsCss {
 
   CssClass dui_outline_lime_l_2 = () -> "dui-outline-lime-l-2";
 
-  CssClass dui_fg_lime_l_1 = () -> "dui-fg-lime-l-1";
+  CssClass dui_fg_lime_l_1 = LimitOneOfPrefixedCssClass.of(DUI_FG, () -> "dui-fg-lime-l-1");
 
-  CssClass dui_bg_lime_l_1 = () -> "dui-bg-lime-l-1";
+  CssClass dui_bg_lime_l_1 = LimitOneOfPrefixedCssClass.of(DUI_BG, () -> "dui-bg-lime-l-1");
 
-  CssClass dui_accent_lime_l_1 = () -> "dui-accent-lime-l-1";
+  CssClass dui_accent_lime_l_1 =
+      LimitOneOfPrefixedCssClass.of(DUI_ACCENT, () -> "dui-accent-lime-l-1");
 
   CssClass dui_shadow_lime_l_1 = () -> "dui-shadow-lime-l-1";
 
@@ -5486,11 +5747,11 @@ public interface ColorsCss {
 
   CssClass dui_outline_lime_l_1 = () -> "dui-outline-lime-l-1";
 
-  CssClass dui_fg_lime = () -> "dui-fg-lime";
+  CssClass dui_fg_lime = LimitOneOfPrefixedCssClass.of(DUI_FG, () -> "dui-fg-lime");
 
-  CssClass dui_bg_lime = () -> "dui-bg-lime";
+  CssClass dui_bg_lime = LimitOneOfPrefixedCssClass.of(DUI_BG, () -> "dui-bg-lime");
 
-  CssClass dui_accent_lime = () -> "dui-accent-lime";
+  CssClass dui_accent_lime = LimitOneOfPrefixedCssClass.of(DUI_ACCENT, () -> "dui-accent-lime");
 
   CssClass dui_shadow_lime = () -> "dui-shadow-lime";
 
@@ -5514,11 +5775,12 @@ public interface ColorsCss {
 
   CssClass dui_outline_lime = () -> "dui-outline-lime";
 
-  CssClass dui_fg_lime_d_1 = () -> "dui-fg-lime-d-1";
+  CssClass dui_fg_lime_d_1 = LimitOneOfPrefixedCssClass.of(DUI_FG, () -> "dui-fg-lime-d-1");
 
-  CssClass dui_bg_lime_d_1 = () -> "dui-bg-lime-d-1";
+  CssClass dui_bg_lime_d_1 = LimitOneOfPrefixedCssClass.of(DUI_BG, () -> "dui-bg-lime-d-1");
 
-  CssClass dui_accent_lime_d_1 = () -> "dui-accent-lime-d-1";
+  CssClass dui_accent_lime_d_1 =
+      LimitOneOfPrefixedCssClass.of(DUI_ACCENT, () -> "dui-accent-lime-d-1");
 
   CssClass dui_shadow_lime_d_1 = () -> "dui-shadow-lime-d-1";
 
@@ -5542,11 +5804,12 @@ public interface ColorsCss {
 
   CssClass dui_outline_lime_d_1 = () -> "dui-outline-lime-d-1";
 
-  CssClass dui_fg_lime_d_2 = () -> "dui-fg-lime-d-2";
+  CssClass dui_fg_lime_d_2 = LimitOneOfPrefixedCssClass.of(DUI_FG, () -> "dui-fg-lime-d-2");
 
-  CssClass dui_bg_lime_d_2 = () -> "dui-bg-lime-d-2";
+  CssClass dui_bg_lime_d_2 = LimitOneOfPrefixedCssClass.of(DUI_BG, () -> "dui-bg-lime-d-2");
 
-  CssClass dui_accent_lime_d_2 = () -> "dui-accent-lime-d-2";
+  CssClass dui_accent_lime_d_2 =
+      LimitOneOfPrefixedCssClass.of(DUI_ACCENT, () -> "dui-accent-lime-d-2");
 
   CssClass dui_shadow_lime_d_2 = () -> "dui-shadow-lime-d-2";
 
@@ -5570,11 +5833,12 @@ public interface ColorsCss {
 
   CssClass dui_outline_lime_d_2 = () -> "dui-outline-lime-d-2";
 
-  CssClass dui_fg_lime_d_3 = () -> "dui-fg-lime-d-3";
+  CssClass dui_fg_lime_d_3 = LimitOneOfPrefixedCssClass.of(DUI_FG, () -> "dui-fg-lime-d-3");
 
-  CssClass dui_bg_lime_d_3 = () -> "dui-bg-lime-d-3";
+  CssClass dui_bg_lime_d_3 = LimitOneOfPrefixedCssClass.of(DUI_BG, () -> "dui-bg-lime-d-3");
 
-  CssClass dui_accent_lime_d_3 = () -> "dui-accent-lime-d-3";
+  CssClass dui_accent_lime_d_3 =
+      LimitOneOfPrefixedCssClass.of(DUI_ACCENT, () -> "dui-accent-lime-d-3");
 
   CssClass dui_shadow_lime_d_3 = () -> "dui-shadow-lime-d-3";
 
@@ -5598,11 +5862,12 @@ public interface ColorsCss {
 
   CssClass dui_outline_lime_d_3 = () -> "dui-outline-lime-d-3";
 
-  CssClass dui_fg_lime_d_4 = () -> "dui-fg-lime-d-4";
+  CssClass dui_fg_lime_d_4 = LimitOneOfPrefixedCssClass.of(DUI_FG, () -> "dui-fg-lime-d-4");
 
-  CssClass dui_bg_lime_d_4 = () -> "dui-bg-lime-d-4";
+  CssClass dui_bg_lime_d_4 = LimitOneOfPrefixedCssClass.of(DUI_BG, () -> "dui-bg-lime-d-4");
 
-  CssClass dui_accent_lime_d_4 = () -> "dui-accent-lime-d-4";
+  CssClass dui_accent_lime_d_4 =
+      LimitOneOfPrefixedCssClass.of(DUI_ACCENT, () -> "dui-accent-lime-d-4");
 
   CssClass dui_shadow_lime_d_4 = () -> "dui-shadow-lime-d-4";
 
@@ -5626,11 +5891,12 @@ public interface ColorsCss {
 
   CssClass dui_outline_lime_d_4 = () -> "dui-outline-lime-d-4";
 
-  CssClass dui_fg_yellow_l_5 = () -> "dui-fg-yellow-l-5";
+  CssClass dui_fg_yellow_l_5 = LimitOneOfPrefixedCssClass.of(DUI_FG, () -> "dui-fg-yellow-l-5");
 
-  CssClass dui_bg_yellow_l_5 = () -> "dui-bg-yellow-l-5";
+  CssClass dui_bg_yellow_l_5 = LimitOneOfPrefixedCssClass.of(DUI_BG, () -> "dui-bg-yellow-l-5");
 
-  CssClass dui_accent_yellow_l_5 = () -> "dui-accent-yellow-l-5";
+  CssClass dui_accent_yellow_l_5 =
+      LimitOneOfPrefixedCssClass.of(DUI_ACCENT, () -> "dui-accent-yellow-l-5");
 
   CssClass dui_shadow_yellow_l_5 = () -> "dui-shadow-yellow-l-5";
 
@@ -5654,11 +5920,12 @@ public interface ColorsCss {
 
   CssClass dui_outline_yellow_l_5 = () -> "dui-outline-yellow-l-5";
 
-  CssClass dui_fg_yellow_l_4 = () -> "dui-fg-yellow-l-4";
+  CssClass dui_fg_yellow_l_4 = LimitOneOfPrefixedCssClass.of(DUI_FG, () -> "dui-fg-yellow-l-4");
 
-  CssClass dui_bg_yellow_l_4 = () -> "dui-bg-yellow-l-4";
+  CssClass dui_bg_yellow_l_4 = LimitOneOfPrefixedCssClass.of(DUI_BG, () -> "dui-bg-yellow-l-4");
 
-  CssClass dui_accent_yellow_l_4 = () -> "dui-accent-yellow-l-4";
+  CssClass dui_accent_yellow_l_4 =
+      LimitOneOfPrefixedCssClass.of(DUI_ACCENT, () -> "dui-accent-yellow-l-4");
 
   CssClass dui_shadow_yellow_l_4 = () -> "dui-shadow-yellow-l-4";
 
@@ -5682,11 +5949,12 @@ public interface ColorsCss {
 
   CssClass dui_outline_yellow_l_4 = () -> "dui-outline-yellow-l-4";
 
-  CssClass dui_fg_yellow_l_3 = () -> "dui-fg-yellow-l-3";
+  CssClass dui_fg_yellow_l_3 = LimitOneOfPrefixedCssClass.of(DUI_FG, () -> "dui-fg-yellow-l-3");
 
-  CssClass dui_bg_yellow_l_3 = () -> "dui-bg-yellow-l-3";
+  CssClass dui_bg_yellow_l_3 = LimitOneOfPrefixedCssClass.of(DUI_BG, () -> "dui-bg-yellow-l-3");
 
-  CssClass dui_accent_yellow_l_3 = () -> "dui-accent-yellow-l-3";
+  CssClass dui_accent_yellow_l_3 =
+      LimitOneOfPrefixedCssClass.of(DUI_ACCENT, () -> "dui-accent-yellow-l-3");
 
   CssClass dui_shadow_yellow_l_3 = () -> "dui-shadow-yellow-l-3";
 
@@ -5710,11 +5978,12 @@ public interface ColorsCss {
 
   CssClass dui_outline_yellow_l_3 = () -> "dui-outline-yellow-l-3";
 
-  CssClass dui_fg_yellow_l_2 = () -> "dui-fg-yellow-l-2";
+  CssClass dui_fg_yellow_l_2 = LimitOneOfPrefixedCssClass.of(DUI_FG, () -> "dui-fg-yellow-l-2");
 
-  CssClass dui_bg_yellow_l_2 = () -> "dui-bg-yellow-l-2";
+  CssClass dui_bg_yellow_l_2 = LimitOneOfPrefixedCssClass.of(DUI_BG, () -> "dui-bg-yellow-l-2");
 
-  CssClass dui_accent_yellow_l_2 = () -> "dui-accent-yellow-l-2";
+  CssClass dui_accent_yellow_l_2 =
+      LimitOneOfPrefixedCssClass.of(DUI_ACCENT, () -> "dui-accent-yellow-l-2");
 
   CssClass dui_shadow_yellow_l_2 = () -> "dui-shadow-yellow-l-2";
 
@@ -5738,11 +6007,12 @@ public interface ColorsCss {
 
   CssClass dui_outline_yellow_l_2 = () -> "dui-outline-yellow-l-2";
 
-  CssClass dui_fg_yellow_l_1 = () -> "dui-fg-yellow-l-1";
+  CssClass dui_fg_yellow_l_1 = LimitOneOfPrefixedCssClass.of(DUI_FG, () -> "dui-fg-yellow-l-1");
 
-  CssClass dui_bg_yellow_l_1 = () -> "dui-bg-yellow-l-1";
+  CssClass dui_bg_yellow_l_1 = LimitOneOfPrefixedCssClass.of(DUI_BG, () -> "dui-bg-yellow-l-1");
 
-  CssClass dui_accent_yellow_l_1 = () -> "dui-accent-yellow-l-1";
+  CssClass dui_accent_yellow_l_1 =
+      LimitOneOfPrefixedCssClass.of(DUI_ACCENT, () -> "dui-accent-yellow-l-1");
 
   CssClass dui_shadow_yellow_l_1 = () -> "dui-shadow-yellow-l-1";
 
@@ -5766,11 +6036,11 @@ public interface ColorsCss {
 
   CssClass dui_outline_yellow_l_1 = () -> "dui-outline-yellow-l-1";
 
-  CssClass dui_fg_yellow = () -> "dui-fg-yellow";
+  CssClass dui_fg_yellow = LimitOneOfPrefixedCssClass.of(DUI_FG, () -> "dui-fg-yellow");
 
-  CssClass dui_bg_yellow = () -> "dui-bg-yellow";
+  CssClass dui_bg_yellow = LimitOneOfPrefixedCssClass.of(DUI_BG, () -> "dui-bg-yellow");
 
-  CssClass dui_accent_yellow = () -> "dui-accent-yellow";
+  CssClass dui_accent_yellow = LimitOneOfPrefixedCssClass.of(DUI_ACCENT, () -> "dui-accent-yellow");
 
   CssClass dui_shadow_yellow = () -> "dui-shadow-yellow";
 
@@ -5794,11 +6064,12 @@ public interface ColorsCss {
 
   CssClass dui_outline_yellow = () -> "dui-outline-yellow";
 
-  CssClass dui_fg_yellow_d_1 = () -> "dui-fg-yellow-d-1";
+  CssClass dui_fg_yellow_d_1 = LimitOneOfPrefixedCssClass.of(DUI_FG, () -> "dui-fg-yellow-d-1");
 
-  CssClass dui_bg_yellow_d_1 = () -> "dui-bg-yellow-d-1";
+  CssClass dui_bg_yellow_d_1 = LimitOneOfPrefixedCssClass.of(DUI_BG, () -> "dui-bg-yellow-d-1");
 
-  CssClass dui_accent_yellow_d_1 = () -> "dui-accent-yellow-d-1";
+  CssClass dui_accent_yellow_d_1 =
+      LimitOneOfPrefixedCssClass.of(DUI_ACCENT, () -> "dui-accent-yellow-d-1");
 
   CssClass dui_shadow_yellow_d_1 = () -> "dui-shadow-yellow-d-1";
 
@@ -5822,11 +6093,12 @@ public interface ColorsCss {
 
   CssClass dui_outline_yellow_d_1 = () -> "dui-outline-yellow-d-1";
 
-  CssClass dui_fg_yellow_d_2 = () -> "dui-fg-yellow-d-2";
+  CssClass dui_fg_yellow_d_2 = LimitOneOfPrefixedCssClass.of(DUI_FG, () -> "dui-fg-yellow-d-2");
 
-  CssClass dui_bg_yellow_d_2 = () -> "dui-bg-yellow-d-2";
+  CssClass dui_bg_yellow_d_2 = LimitOneOfPrefixedCssClass.of(DUI_BG, () -> "dui-bg-yellow-d-2");
 
-  CssClass dui_accent_yellow_d_2 = () -> "dui-accent-yellow-d-2";
+  CssClass dui_accent_yellow_d_2 =
+      LimitOneOfPrefixedCssClass.of(DUI_ACCENT, () -> "dui-accent-yellow-d-2");
 
   CssClass dui_shadow_yellow_d_2 = () -> "dui-shadow-yellow-d-2";
 
@@ -5850,11 +6122,12 @@ public interface ColorsCss {
 
   CssClass dui_outline_yellow_d_2 = () -> "dui-outline-yellow-d-2";
 
-  CssClass dui_fg_yellow_d_3 = () -> "dui-fg-yellow-d-3";
+  CssClass dui_fg_yellow_d_3 = LimitOneOfPrefixedCssClass.of(DUI_FG, () -> "dui-fg-yellow-d-3");
 
-  CssClass dui_bg_yellow_d_3 = () -> "dui-bg-yellow-d-3";
+  CssClass dui_bg_yellow_d_3 = LimitOneOfPrefixedCssClass.of(DUI_BG, () -> "dui-bg-yellow-d-3");
 
-  CssClass dui_accent_yellow_d_3 = () -> "dui-accent-yellow-d-3";
+  CssClass dui_accent_yellow_d_3 =
+      LimitOneOfPrefixedCssClass.of(DUI_ACCENT, () -> "dui-accent-yellow-d-3");
 
   CssClass dui_shadow_yellow_d_3 = () -> "dui-shadow-yellow-d-3";
 
@@ -5878,11 +6151,12 @@ public interface ColorsCss {
 
   CssClass dui_outline_yellow_d_3 = () -> "dui-outline-yellow-d-3";
 
-  CssClass dui_fg_yellow_d_4 = () -> "dui-fg-yellow-d-4";
+  CssClass dui_fg_yellow_d_4 = LimitOneOfPrefixedCssClass.of(DUI_FG, () -> "dui-fg-yellow-d-4");
 
-  CssClass dui_bg_yellow_d_4 = () -> "dui-bg-yellow-d-4";
+  CssClass dui_bg_yellow_d_4 = LimitOneOfPrefixedCssClass.of(DUI_BG, () -> "dui-bg-yellow-d-4");
 
-  CssClass dui_accent_yellow_d_4 = () -> "dui-accent-yellow-d-4";
+  CssClass dui_accent_yellow_d_4 =
+      LimitOneOfPrefixedCssClass.of(DUI_ACCENT, () -> "dui-accent-yellow-d-4");
 
   CssClass dui_shadow_yellow_d_4 = () -> "dui-shadow-yellow-d-4";
 
@@ -5906,11 +6180,12 @@ public interface ColorsCss {
 
   CssClass dui_outline_yellow_d_4 = () -> "dui-outline-yellow-d-4";
 
-  CssClass dui_fg_amber_l_5 = () -> "dui-fg-amber-l-5";
+  CssClass dui_fg_amber_l_5 = LimitOneOfPrefixedCssClass.of(DUI_FG, () -> "dui-fg-amber-l-5");
 
-  CssClass dui_bg_amber_l_5 = () -> "dui-bg-amber-l-5";
+  CssClass dui_bg_amber_l_5 = LimitOneOfPrefixedCssClass.of(DUI_BG, () -> "dui-bg-amber-l-5");
 
-  CssClass dui_accent_amber_l_5 = () -> "dui-accent-amber-l-5";
+  CssClass dui_accent_amber_l_5 =
+      LimitOneOfPrefixedCssClass.of(DUI_ACCENT, () -> "dui-accent-amber-l-5");
 
   CssClass dui_shadow_amber_l_5 = () -> "dui-shadow-amber-l-5";
 
@@ -5934,11 +6209,12 @@ public interface ColorsCss {
 
   CssClass dui_outline_amber_l_5 = () -> "dui-outline-amber-l-5";
 
-  CssClass dui_fg_amber_l_4 = () -> "dui-fg-amber-l-4";
+  CssClass dui_fg_amber_l_4 = LimitOneOfPrefixedCssClass.of(DUI_FG, () -> "dui-fg-amber-l-4");
 
-  CssClass dui_bg_amber_l_4 = () -> "dui-bg-amber-l-4";
+  CssClass dui_bg_amber_l_4 = LimitOneOfPrefixedCssClass.of(DUI_BG, () -> "dui-bg-amber-l-4");
 
-  CssClass dui_accent_amber_l_4 = () -> "dui-accent-amber-l-4";
+  CssClass dui_accent_amber_l_4 =
+      LimitOneOfPrefixedCssClass.of(DUI_ACCENT, () -> "dui-accent-amber-l-4");
 
   CssClass dui_shadow_amber_l_4 = () -> "dui-shadow-amber-l-4";
 
@@ -5962,11 +6238,12 @@ public interface ColorsCss {
 
   CssClass dui_outline_amber_l_4 = () -> "dui-outline-amber-l-4";
 
-  CssClass dui_fg_amber_l_3 = () -> "dui-fg-amber-l-3";
+  CssClass dui_fg_amber_l_3 = LimitOneOfPrefixedCssClass.of(DUI_FG, () -> "dui-fg-amber-l-3");
 
-  CssClass dui_bg_amber_l_3 = () -> "dui-bg-amber-l-3";
+  CssClass dui_bg_amber_l_3 = LimitOneOfPrefixedCssClass.of(DUI_BG, () -> "dui-bg-amber-l-3");
 
-  CssClass dui_accent_amber_l_3 = () -> "dui-accent-amber-l-3";
+  CssClass dui_accent_amber_l_3 =
+      LimitOneOfPrefixedCssClass.of(DUI_ACCENT, () -> "dui-accent-amber-l-3");
 
   CssClass dui_shadow_amber_l_3 = () -> "dui-shadow-amber-l-3";
 
@@ -5990,11 +6267,12 @@ public interface ColorsCss {
 
   CssClass dui_outline_amber_l_3 = () -> "dui-outline-amber-l-3";
 
-  CssClass dui_fg_amber_l_2 = () -> "dui-fg-amber-l-2";
+  CssClass dui_fg_amber_l_2 = LimitOneOfPrefixedCssClass.of(DUI_FG, () -> "dui-fg-amber-l-2");
 
-  CssClass dui_bg_amber_l_2 = () -> "dui-bg-amber-l-2";
+  CssClass dui_bg_amber_l_2 = LimitOneOfPrefixedCssClass.of(DUI_BG, () -> "dui-bg-amber-l-2");
 
-  CssClass dui_accent_amber_l_2 = () -> "dui-accent-amber-l-2";
+  CssClass dui_accent_amber_l_2 =
+      LimitOneOfPrefixedCssClass.of(DUI_ACCENT, () -> "dui-accent-amber-l-2");
 
   CssClass dui_shadow_amber_l_2 = () -> "dui-shadow-amber-l-2";
 
@@ -6018,11 +6296,12 @@ public interface ColorsCss {
 
   CssClass dui_outline_amber_l_2 = () -> "dui-outline-amber-l-2";
 
-  CssClass dui_fg_amber_l_1 = () -> "dui-fg-amber-l-1";
+  CssClass dui_fg_amber_l_1 = LimitOneOfPrefixedCssClass.of(DUI_FG, () -> "dui-fg-amber-l-1");
 
-  CssClass dui_bg_amber_l_1 = () -> "dui-bg-amber-l-1";
+  CssClass dui_bg_amber_l_1 = LimitOneOfPrefixedCssClass.of(DUI_BG, () -> "dui-bg-amber-l-1");
 
-  CssClass dui_accent_amber_l_1 = () -> "dui-accent-amber-l-1";
+  CssClass dui_accent_amber_l_1 =
+      LimitOneOfPrefixedCssClass.of(DUI_ACCENT, () -> "dui-accent-amber-l-1");
 
   CssClass dui_shadow_amber_l_1 = () -> "dui-shadow-amber-l-1";
 
@@ -6046,11 +6325,11 @@ public interface ColorsCss {
 
   CssClass dui_outline_amber_l_1 = () -> "dui-outline-amber-l-1";
 
-  CssClass dui_fg_amber = () -> "dui-fg-amber";
+  CssClass dui_fg_amber = LimitOneOfPrefixedCssClass.of(DUI_FG, () -> "dui-fg-amber");
 
-  CssClass dui_bg_amber = () -> "dui-bg-amber";
+  CssClass dui_bg_amber = LimitOneOfPrefixedCssClass.of(DUI_BG, () -> "dui-bg-amber");
 
-  CssClass dui_accent_amber = () -> "dui-accent-amber";
+  CssClass dui_accent_amber = LimitOneOfPrefixedCssClass.of(DUI_ACCENT, () -> "dui-accent-amber");
 
   CssClass dui_shadow_amber = () -> "dui-shadow-amber";
 
@@ -6074,11 +6353,12 @@ public interface ColorsCss {
 
   CssClass dui_outline_amber = () -> "dui-outline-amber";
 
-  CssClass dui_fg_amber_d_1 = () -> "dui-fg-amber-d-1";
+  CssClass dui_fg_amber_d_1 = LimitOneOfPrefixedCssClass.of(DUI_FG, () -> "dui-fg-amber-d-1");
 
-  CssClass dui_bg_amber_d_1 = () -> "dui-bg-amber-d-1";
+  CssClass dui_bg_amber_d_1 = LimitOneOfPrefixedCssClass.of(DUI_BG, () -> "dui-bg-amber-d-1");
 
-  CssClass dui_accent_amber_d_1 = () -> "dui-accent-amber-d-1";
+  CssClass dui_accent_amber_d_1 =
+      LimitOneOfPrefixedCssClass.of(DUI_ACCENT, () -> "dui-accent-amber-d-1");
 
   CssClass dui_shadow_amber_d_1 = () -> "dui-shadow-amber-d-1";
 
@@ -6102,11 +6382,12 @@ public interface ColorsCss {
 
   CssClass dui_outline_amber_d_1 = () -> "dui-outline-amber-d-1";
 
-  CssClass dui_fg_amber_d_2 = () -> "dui-fg-amber-d-2";
+  CssClass dui_fg_amber_d_2 = LimitOneOfPrefixedCssClass.of(DUI_FG, () -> "dui-fg-amber-d-2");
 
-  CssClass dui_bg_amber_d_2 = () -> "dui-bg-amber-d-2";
+  CssClass dui_bg_amber_d_2 = LimitOneOfPrefixedCssClass.of(DUI_BG, () -> "dui-bg-amber-d-2");
 
-  CssClass dui_accent_amber_d_2 = () -> "dui-accent-amber-d-2";
+  CssClass dui_accent_amber_d_2 =
+      LimitOneOfPrefixedCssClass.of(DUI_ACCENT, () -> "dui-accent-amber-d-2");
 
   CssClass dui_shadow_amber_d_2 = () -> "dui-shadow-amber-d-2";
 
@@ -6130,11 +6411,12 @@ public interface ColorsCss {
 
   CssClass dui_outline_amber_d_2 = () -> "dui-outline-amber-d-2";
 
-  CssClass dui_fg_amber_d_3 = () -> "dui-fg-amber-d-3";
+  CssClass dui_fg_amber_d_3 = LimitOneOfPrefixedCssClass.of(DUI_FG, () -> "dui-fg-amber-d-3");
 
-  CssClass dui_bg_amber_d_3 = () -> "dui-bg-amber-d-3";
+  CssClass dui_bg_amber_d_3 = LimitOneOfPrefixedCssClass.of(DUI_BG, () -> "dui-bg-amber-d-3");
 
-  CssClass dui_accent_amber_d_3 = () -> "dui-accent-amber-d-3";
+  CssClass dui_accent_amber_d_3 =
+      LimitOneOfPrefixedCssClass.of(DUI_ACCENT, () -> "dui-accent-amber-d-3");
 
   CssClass dui_shadow_amber_d_3 = () -> "dui-shadow-amber-d-3";
 
@@ -6158,11 +6440,12 @@ public interface ColorsCss {
 
   CssClass dui_outline_amber_d_3 = () -> "dui-outline-amber-d-3";
 
-  CssClass dui_fg_amber_d_4 = () -> "dui-fg-amber-d-4";
+  CssClass dui_fg_amber_d_4 = LimitOneOfPrefixedCssClass.of(DUI_FG, () -> "dui-fg-amber-d-4");
 
-  CssClass dui_bg_amber_d_4 = () -> "dui-bg-amber-d-4";
+  CssClass dui_bg_amber_d_4 = LimitOneOfPrefixedCssClass.of(DUI_BG, () -> "dui-bg-amber-d-4");
 
-  CssClass dui_accent_amber_d_4 = () -> "dui-accent-amber-d-4";
+  CssClass dui_accent_amber_d_4 =
+      LimitOneOfPrefixedCssClass.of(DUI_ACCENT, () -> "dui-accent-amber-d-4");
 
   CssClass dui_shadow_amber_d_4 = () -> "dui-shadow-amber-d-4";
 
@@ -6186,11 +6469,12 @@ public interface ColorsCss {
 
   CssClass dui_outline_amber_d_4 = () -> "dui-outline-amber-d-4";
 
-  CssClass dui_fg_orange_l_5 = () -> "dui-fg-orange-l-5";
+  CssClass dui_fg_orange_l_5 = LimitOneOfPrefixedCssClass.of(DUI_FG, () -> "dui-fg-orange-l-5");
 
-  CssClass dui_bg_orange_l_5 = () -> "dui-bg-orange-l-5";
+  CssClass dui_bg_orange_l_5 = LimitOneOfPrefixedCssClass.of(DUI_BG, () -> "dui-bg-orange-l-5");
 
-  CssClass dui_accent_orange_l_5 = () -> "dui-accent-orange-l-5";
+  CssClass dui_accent_orange_l_5 =
+      LimitOneOfPrefixedCssClass.of(DUI_ACCENT, () -> "dui-accent-orange-l-5");
 
   CssClass dui_shadow_orange_l_5 = () -> "dui-shadow-orange-l-5";
 
@@ -6214,11 +6498,12 @@ public interface ColorsCss {
 
   CssClass dui_outline_orange_l_5 = () -> "dui-outline-orange-l-5";
 
-  CssClass dui_fg_orange_l_4 = () -> "dui-fg-orange-l-4";
+  CssClass dui_fg_orange_l_4 = LimitOneOfPrefixedCssClass.of(DUI_FG, () -> "dui-fg-orange-l-4");
 
-  CssClass dui_bg_orange_l_4 = () -> "dui-bg-orange-l-4";
+  CssClass dui_bg_orange_l_4 = LimitOneOfPrefixedCssClass.of(DUI_BG, () -> "dui-bg-orange-l-4");
 
-  CssClass dui_accent_orange_l_4 = () -> "dui-accent-orange-l-4";
+  CssClass dui_accent_orange_l_4 =
+      LimitOneOfPrefixedCssClass.of(DUI_ACCENT, () -> "dui-accent-orange-l-4");
 
   CssClass dui_shadow_orange_l_4 = () -> "dui-shadow-orange-l-4";
 
@@ -6242,11 +6527,12 @@ public interface ColorsCss {
 
   CssClass dui_outline_orange_l_4 = () -> "dui-outline-orange-l-4";
 
-  CssClass dui_fg_orange_l_3 = () -> "dui-fg-orange-l-3";
+  CssClass dui_fg_orange_l_3 = LimitOneOfPrefixedCssClass.of(DUI_FG, () -> "dui-fg-orange-l-3");
 
-  CssClass dui_bg_orange_l_3 = () -> "dui-bg-orange-l-3";
+  CssClass dui_bg_orange_l_3 = LimitOneOfPrefixedCssClass.of(DUI_BG, () -> "dui-bg-orange-l-3");
 
-  CssClass dui_accent_orange_l_3 = () -> "dui-accent-orange-l-3";
+  CssClass dui_accent_orange_l_3 =
+      LimitOneOfPrefixedCssClass.of(DUI_ACCENT, () -> "dui-accent-orange-l-3");
 
   CssClass dui_shadow_orange_l_3 = () -> "dui-shadow-orange-l-3";
 
@@ -6270,11 +6556,12 @@ public interface ColorsCss {
 
   CssClass dui_outline_orange_l_3 = () -> "dui-outline-orange-l-3";
 
-  CssClass dui_fg_orange_l_2 = () -> "dui-fg-orange-l-2";
+  CssClass dui_fg_orange_l_2 = LimitOneOfPrefixedCssClass.of(DUI_FG, () -> "dui-fg-orange-l-2");
 
-  CssClass dui_bg_orange_l_2 = () -> "dui-bg-orange-l-2";
+  CssClass dui_bg_orange_l_2 = LimitOneOfPrefixedCssClass.of(DUI_BG, () -> "dui-bg-orange-l-2");
 
-  CssClass dui_accent_orange_l_2 = () -> "dui-accent-orange-l-2";
+  CssClass dui_accent_orange_l_2 =
+      LimitOneOfPrefixedCssClass.of(DUI_ACCENT, () -> "dui-accent-orange-l-2");
 
   CssClass dui_shadow_orange_l_2 = () -> "dui-shadow-orange-l-2";
 
@@ -6298,11 +6585,12 @@ public interface ColorsCss {
 
   CssClass dui_outline_orange_l_2 = () -> "dui-outline-orange-l-2";
 
-  CssClass dui_fg_orange_l_1 = () -> "dui-fg-orange-l-1";
+  CssClass dui_fg_orange_l_1 = LimitOneOfPrefixedCssClass.of(DUI_FG, () -> "dui-fg-orange-l-1");
 
-  CssClass dui_bg_orange_l_1 = () -> "dui-bg-orange-l-1";
+  CssClass dui_bg_orange_l_1 = LimitOneOfPrefixedCssClass.of(DUI_BG, () -> "dui-bg-orange-l-1");
 
-  CssClass dui_accent_orange_l_1 = () -> "dui-accent-orange-l-1";
+  CssClass dui_accent_orange_l_1 =
+      LimitOneOfPrefixedCssClass.of(DUI_ACCENT, () -> "dui-accent-orange-l-1");
 
   CssClass dui_shadow_orange_l_1 = () -> "dui-shadow-orange-l-1";
 
@@ -6326,11 +6614,11 @@ public interface ColorsCss {
 
   CssClass dui_outline_orange_l_1 = () -> "dui-outline-orange-l-1";
 
-  CssClass dui_fg_orange = () -> "dui-fg-orange";
+  CssClass dui_fg_orange = LimitOneOfPrefixedCssClass.of(DUI_FG, () -> "dui-fg-orange");
 
-  CssClass dui_bg_orange = () -> "dui-bg-orange";
+  CssClass dui_bg_orange = LimitOneOfPrefixedCssClass.of(DUI_BG, () -> "dui-bg-orange");
 
-  CssClass dui_accent_orange = () -> "dui-accent-orange";
+  CssClass dui_accent_orange = LimitOneOfPrefixedCssClass.of(DUI_ACCENT, () -> "dui-accent-orange");
 
   CssClass dui_shadow_orange = () -> "dui-shadow-orange";
 
@@ -6354,11 +6642,12 @@ public interface ColorsCss {
 
   CssClass dui_outline_orange = () -> "dui-outline-orange";
 
-  CssClass dui_fg_orange_d_1 = () -> "dui-fg-orange-d-1";
+  CssClass dui_fg_orange_d_1 = LimitOneOfPrefixedCssClass.of(DUI_FG, () -> "dui-fg-orange-d-1");
 
-  CssClass dui_bg_orange_d_1 = () -> "dui-bg-orange-d-1";
+  CssClass dui_bg_orange_d_1 = LimitOneOfPrefixedCssClass.of(DUI_BG, () -> "dui-bg-orange-d-1");
 
-  CssClass dui_accent_orange_d_1 = () -> "dui-accent-orange-d-1";
+  CssClass dui_accent_orange_d_1 =
+      LimitOneOfPrefixedCssClass.of(DUI_ACCENT, () -> "dui-accent-orange-d-1");
 
   CssClass dui_shadow_orange_d_1 = () -> "dui-shadow-orange-d-1";
 
@@ -6382,11 +6671,12 @@ public interface ColorsCss {
 
   CssClass dui_outline_orange_d_1 = () -> "dui-outline-orange-d-1";
 
-  CssClass dui_fg_orange_d_2 = () -> "dui-fg-orange-d-2";
+  CssClass dui_fg_orange_d_2 = LimitOneOfPrefixedCssClass.of(DUI_FG, () -> "dui-fg-orange-d-2");
 
-  CssClass dui_bg_orange_d_2 = () -> "dui-bg-orange-d-2";
+  CssClass dui_bg_orange_d_2 = LimitOneOfPrefixedCssClass.of(DUI_BG, () -> "dui-bg-orange-d-2");
 
-  CssClass dui_accent_orange_d_2 = () -> "dui-accent-orange-d-2";
+  CssClass dui_accent_orange_d_2 =
+      LimitOneOfPrefixedCssClass.of(DUI_ACCENT, () -> "dui-accent-orange-d-2");
 
   CssClass dui_shadow_orange_d_2 = () -> "dui-shadow-orange-d-2";
 
@@ -6410,11 +6700,12 @@ public interface ColorsCss {
 
   CssClass dui_outline_orange_d_2 = () -> "dui-outline-orange-d-2";
 
-  CssClass dui_fg_orange_d_3 = () -> "dui-fg-orange-d-3";
+  CssClass dui_fg_orange_d_3 = LimitOneOfPrefixedCssClass.of(DUI_FG, () -> "dui-fg-orange-d-3");
 
-  CssClass dui_bg_orange_d_3 = () -> "dui-bg-orange-d-3";
+  CssClass dui_bg_orange_d_3 = LimitOneOfPrefixedCssClass.of(DUI_BG, () -> "dui-bg-orange-d-3");
 
-  CssClass dui_accent_orange_d_3 = () -> "dui-accent-orange-d-3";
+  CssClass dui_accent_orange_d_3 =
+      LimitOneOfPrefixedCssClass.of(DUI_ACCENT, () -> "dui-accent-orange-d-3");
 
   CssClass dui_shadow_orange_d_3 = () -> "dui-shadow-orange-d-3";
 
@@ -6438,11 +6729,12 @@ public interface ColorsCss {
 
   CssClass dui_outline_orange_d_3 = () -> "dui-outline-orange-d-3";
 
-  CssClass dui_fg_orange_d_4 = () -> "dui-fg-orange-d-4";
+  CssClass dui_fg_orange_d_4 = LimitOneOfPrefixedCssClass.of(DUI_FG, () -> "dui-fg-orange-d-4");
 
-  CssClass dui_bg_orange_d_4 = () -> "dui-bg-orange-d-4";
+  CssClass dui_bg_orange_d_4 = LimitOneOfPrefixedCssClass.of(DUI_BG, () -> "dui-bg-orange-d-4");
 
-  CssClass dui_accent_orange_d_4 = () -> "dui-accent-orange-d-4";
+  CssClass dui_accent_orange_d_4 =
+      LimitOneOfPrefixedCssClass.of(DUI_ACCENT, () -> "dui-accent-orange-d-4");
 
   CssClass dui_shadow_orange_d_4 = () -> "dui-shadow-orange-d-4";
 
@@ -6466,11 +6758,14 @@ public interface ColorsCss {
 
   CssClass dui_outline_orange_d_4 = () -> "dui-outline-orange-d-4";
 
-  CssClass dui_fg_deep_orange_l_5 = () -> "dui-fg-deep-orange-l-5";
+  CssClass dui_fg_deep_orange_l_5 =
+      LimitOneOfPrefixedCssClass.of(DUI_FG, () -> "dui-fg-deep-orange-l-5");
 
-  CssClass dui_bg_deep_orange_l_5 = () -> "dui-bg-deep-orange-l-5";
+  CssClass dui_bg_deep_orange_l_5 =
+      LimitOneOfPrefixedCssClass.of(DUI_BG, () -> "dui-bg-deep-orange-l-5");
 
-  CssClass dui_accent_deep_orange_l_5 = () -> "dui-accent-deep-orange-l-5";
+  CssClass dui_accent_deep_orange_l_5 =
+      LimitOneOfPrefixedCssClass.of(DUI_ACCENT, () -> "dui-accent-deep-orange-l-5");
 
   CssClass dui_shadow_deep_orange_l_5 = () -> "dui-shadow-deep-orange-l-5";
 
@@ -6494,11 +6789,14 @@ public interface ColorsCss {
 
   CssClass dui_outline_deep_orange_l_5 = () -> "dui-outline-deep-orange-l-5";
 
-  CssClass dui_fg_deep_orange_l_4 = () -> "dui-fg-deep-orange-l-4";
+  CssClass dui_fg_deep_orange_l_4 =
+      LimitOneOfPrefixedCssClass.of(DUI_FG, () -> "dui-fg-deep-orange-l-4");
 
-  CssClass dui_bg_deep_orange_l_4 = () -> "dui-bg-deep-orange-l-4";
+  CssClass dui_bg_deep_orange_l_4 =
+      LimitOneOfPrefixedCssClass.of(DUI_BG, () -> "dui-bg-deep-orange-l-4");
 
-  CssClass dui_accent_deep_orange_l_4 = () -> "dui-accent-deep-orange-l-4";
+  CssClass dui_accent_deep_orange_l_4 =
+      LimitOneOfPrefixedCssClass.of(DUI_ACCENT, () -> "dui-accent-deep-orange-l-4");
 
   CssClass dui_shadow_deep_orange_l_4 = () -> "dui-shadow-deep-orange-l-4";
 
@@ -6522,11 +6820,14 @@ public interface ColorsCss {
 
   CssClass dui_outline_deep_orange_l_4 = () -> "dui-outline-deep-orange-l-4";
 
-  CssClass dui_fg_deep_orange_l_3 = () -> "dui-fg-deep-orange-l-3";
+  CssClass dui_fg_deep_orange_l_3 =
+      LimitOneOfPrefixedCssClass.of(DUI_FG, () -> "dui-fg-deep-orange-l-3");
 
-  CssClass dui_bg_deep_orange_l_3 = () -> "dui-bg-deep-orange-l-3";
+  CssClass dui_bg_deep_orange_l_3 =
+      LimitOneOfPrefixedCssClass.of(DUI_BG, () -> "dui-bg-deep-orange-l-3");
 
-  CssClass dui_accent_deep_orange_l_3 = () -> "dui-accent-deep-orange-l-3";
+  CssClass dui_accent_deep_orange_l_3 =
+      LimitOneOfPrefixedCssClass.of(DUI_ACCENT, () -> "dui-accent-deep-orange-l-3");
 
   CssClass dui_shadow_deep_orange_l_3 = () -> "dui-shadow-deep-orange-l-3";
 
@@ -6550,11 +6851,14 @@ public interface ColorsCss {
 
   CssClass dui_outline_deep_orange_l_3 = () -> "dui-outline-deep-orange-l-3";
 
-  CssClass dui_fg_deep_orange_l_2 = () -> "dui-fg-deep-orange-l-2";
+  CssClass dui_fg_deep_orange_l_2 =
+      LimitOneOfPrefixedCssClass.of(DUI_FG, () -> "dui-fg-deep-orange-l-2");
 
-  CssClass dui_bg_deep_orange_l_2 = () -> "dui-bg-deep-orange-l-2";
+  CssClass dui_bg_deep_orange_l_2 =
+      LimitOneOfPrefixedCssClass.of(DUI_BG, () -> "dui-bg-deep-orange-l-2");
 
-  CssClass dui_accent_deep_orange_l_2 = () -> "dui-accent-deep-orange-l-2";
+  CssClass dui_accent_deep_orange_l_2 =
+      LimitOneOfPrefixedCssClass.of(DUI_ACCENT, () -> "dui-accent-deep-orange-l-2");
 
   CssClass dui_shadow_deep_orange_l_2 = () -> "dui-shadow-deep-orange-l-2";
 
@@ -6578,11 +6882,14 @@ public interface ColorsCss {
 
   CssClass dui_outline_deep_orange_l_2 = () -> "dui-outline-deep-orange-l-2";
 
-  CssClass dui_fg_deep_orange_l_1 = () -> "dui-fg-deep-orange-l-1";
+  CssClass dui_fg_deep_orange_l_1 =
+      LimitOneOfPrefixedCssClass.of(DUI_FG, () -> "dui-fg-deep-orange-l-1");
 
-  CssClass dui_bg_deep_orange_l_1 = () -> "dui-bg-deep-orange-l-1";
+  CssClass dui_bg_deep_orange_l_1 =
+      LimitOneOfPrefixedCssClass.of(DUI_BG, () -> "dui-bg-deep-orange-l-1");
 
-  CssClass dui_accent_deep_orange_l_1 = () -> "dui-accent-deep-orange-l-1";
+  CssClass dui_accent_deep_orange_l_1 =
+      LimitOneOfPrefixedCssClass.of(DUI_ACCENT, () -> "dui-accent-deep-orange-l-1");
 
   CssClass dui_shadow_deep_orange_l_1 = () -> "dui-shadow-deep-orange-l-1";
 
@@ -6606,11 +6913,12 @@ public interface ColorsCss {
 
   CssClass dui_outline_deep_orange_l_1 = () -> "dui-outline-deep-orange-l-1";
 
-  CssClass dui_fg_deep_orange = () -> "dui-fg-deep-orange";
+  CssClass dui_fg_deep_orange = LimitOneOfPrefixedCssClass.of(DUI_FG, () -> "dui-fg-deep-orange");
 
-  CssClass dui_bg_deep_orange = () -> "dui-bg-deep-orange";
+  CssClass dui_bg_deep_orange = LimitOneOfPrefixedCssClass.of(DUI_BG, () -> "dui-bg-deep-orange");
 
-  CssClass dui_accent_deep_orange = () -> "dui-accent-deep-orange";
+  CssClass dui_accent_deep_orange =
+      LimitOneOfPrefixedCssClass.of(DUI_ACCENT, () -> "dui-accent-deep-orange");
 
   CssClass dui_shadow_deep_orange = () -> "dui-shadow-deep-orange";
 
@@ -6634,11 +6942,14 @@ public interface ColorsCss {
 
   CssClass dui_outline_deep_orange = () -> "dui-outline-deep-orange";
 
-  CssClass dui_fg_deep_orange_d_1 = () -> "dui-fg-deep-orange-d-1";
+  CssClass dui_fg_deep_orange_d_1 =
+      LimitOneOfPrefixedCssClass.of(DUI_FG, () -> "dui-fg-deep-orange-d-1");
 
-  CssClass dui_bg_deep_orange_d_1 = () -> "dui-bg-deep-orange-d-1";
+  CssClass dui_bg_deep_orange_d_1 =
+      LimitOneOfPrefixedCssClass.of(DUI_BG, () -> "dui-bg-deep-orange-d-1");
 
-  CssClass dui_accent_deep_orange_d_1 = () -> "dui-accent-deep-orange-d-1";
+  CssClass dui_accent_deep_orange_d_1 =
+      LimitOneOfPrefixedCssClass.of(DUI_ACCENT, () -> "dui-accent-deep-orange-d-1");
 
   CssClass dui_shadow_deep_orange_d_1 = () -> "dui-shadow-deep-orange-d-1";
 
@@ -6662,11 +6973,14 @@ public interface ColorsCss {
 
   CssClass dui_outline_deep_orange_d_1 = () -> "dui-outline-deep-orange-d-1";
 
-  CssClass dui_fg_deep_orange_d_2 = () -> "dui-fg-deep-orange-d-2";
+  CssClass dui_fg_deep_orange_d_2 =
+      LimitOneOfPrefixedCssClass.of(DUI_FG, () -> "dui-fg-deep-orange-d-2");
 
-  CssClass dui_bg_deep_orange_d_2 = () -> "dui-bg-deep-orange-d-2";
+  CssClass dui_bg_deep_orange_d_2 =
+      LimitOneOfPrefixedCssClass.of(DUI_BG, () -> "dui-bg-deep-orange-d-2");
 
-  CssClass dui_accent_deep_orange_d_2 = () -> "dui-accent-deep-orange-d-2";
+  CssClass dui_accent_deep_orange_d_2 =
+      LimitOneOfPrefixedCssClass.of(DUI_ACCENT, () -> "dui-accent-deep-orange-d-2");
 
   CssClass dui_shadow_deep_orange_d_2 = () -> "dui-shadow-deep-orange-d-2";
 
@@ -6690,11 +7004,14 @@ public interface ColorsCss {
 
   CssClass dui_outline_deep_orange_d_2 = () -> "dui-outline-deep-orange-d-2";
 
-  CssClass dui_fg_deep_orange_d_3 = () -> "dui-fg-deep-orange-d-3";
+  CssClass dui_fg_deep_orange_d_3 =
+      LimitOneOfPrefixedCssClass.of(DUI_FG, () -> "dui-fg-deep-orange-d-3");
 
-  CssClass dui_bg_deep_orange_d_3 = () -> "dui-bg-deep-orange-d-3";
+  CssClass dui_bg_deep_orange_d_3 =
+      LimitOneOfPrefixedCssClass.of(DUI_BG, () -> "dui-bg-deep-orange-d-3");
 
-  CssClass dui_accent_deep_orange_d_3 = () -> "dui-accent-deep-orange-d-3";
+  CssClass dui_accent_deep_orange_d_3 =
+      LimitOneOfPrefixedCssClass.of(DUI_ACCENT, () -> "dui-accent-deep-orange-d-3");
 
   CssClass dui_shadow_deep_orange_d_3 = () -> "dui-shadow-deep-orange-d-3";
 
@@ -6718,11 +7035,14 @@ public interface ColorsCss {
 
   CssClass dui_outline_deep_orange_d_3 = () -> "dui-outline-deep-orange-d-3";
 
-  CssClass dui_fg_deep_orange_d_4 = () -> "dui-fg-deep-orange-d-4";
+  CssClass dui_fg_deep_orange_d_4 =
+      LimitOneOfPrefixedCssClass.of(DUI_FG, () -> "dui-fg-deep-orange-d-4");
 
-  CssClass dui_bg_deep_orange_d_4 = () -> "dui-bg-deep-orange-d-4";
+  CssClass dui_bg_deep_orange_d_4 =
+      LimitOneOfPrefixedCssClass.of(DUI_BG, () -> "dui-bg-deep-orange-d-4");
 
-  CssClass dui_accent_deep_orange_d_4 = () -> "dui-accent-deep-orange-d-4";
+  CssClass dui_accent_deep_orange_d_4 =
+      LimitOneOfPrefixedCssClass.of(DUI_ACCENT, () -> "dui-accent-deep-orange-d-4");
 
   CssClass dui_shadow_deep_orange_d_4 = () -> "dui-shadow-deep-orange-d-4";
 
@@ -6746,11 +7066,12 @@ public interface ColorsCss {
 
   CssClass dui_outline_deep_orange_d_4 = () -> "dui-outline-deep-orange-d-4";
 
-  CssClass dui_fg_brown_l_5 = () -> "dui-fg-brown-l-5";
+  CssClass dui_fg_brown_l_5 = LimitOneOfPrefixedCssClass.of(DUI_FG, () -> "dui-fg-brown-l-5");
 
-  CssClass dui_bg_brown_l_5 = () -> "dui-bg-brown-l-5";
+  CssClass dui_bg_brown_l_5 = LimitOneOfPrefixedCssClass.of(DUI_BG, () -> "dui-bg-brown-l-5");
 
-  CssClass dui_accent_brown_l_5 = () -> "dui-accent-brown-l-5";
+  CssClass dui_accent_brown_l_5 =
+      LimitOneOfPrefixedCssClass.of(DUI_ACCENT, () -> "dui-accent-brown-l-5");
 
   CssClass dui_shadow_brown_l_5 = () -> "dui-shadow-brown-l-5";
 
@@ -6774,11 +7095,12 @@ public interface ColorsCss {
 
   CssClass dui_outline_brown_l_5 = () -> "dui-outline-brown-l-5";
 
-  CssClass dui_fg_brown_l_4 = () -> "dui-fg-brown-l-4";
+  CssClass dui_fg_brown_l_4 = LimitOneOfPrefixedCssClass.of(DUI_FG, () -> "dui-fg-brown-l-4");
 
-  CssClass dui_bg_brown_l_4 = () -> "dui-bg-brown-l-4";
+  CssClass dui_bg_brown_l_4 = LimitOneOfPrefixedCssClass.of(DUI_BG, () -> "dui-bg-brown-l-4");
 
-  CssClass dui_accent_brown_l_4 = () -> "dui-accent-brown-l-4";
+  CssClass dui_accent_brown_l_4 =
+      LimitOneOfPrefixedCssClass.of(DUI_ACCENT, () -> "dui-accent-brown-l-4");
 
   CssClass dui_shadow_brown_l_4 = () -> "dui-shadow-brown-l-4";
 
@@ -6802,11 +7124,12 @@ public interface ColorsCss {
 
   CssClass dui_outline_brown_l_4 = () -> "dui-outline-brown-l-4";
 
-  CssClass dui_fg_brown_l_3 = () -> "dui-fg-brown-l-3";
+  CssClass dui_fg_brown_l_3 = LimitOneOfPrefixedCssClass.of(DUI_FG, () -> "dui-fg-brown-l-3");
 
-  CssClass dui_bg_brown_l_3 = () -> "dui-bg-brown-l-3";
+  CssClass dui_bg_brown_l_3 = LimitOneOfPrefixedCssClass.of(DUI_BG, () -> "dui-bg-brown-l-3");
 
-  CssClass dui_accent_brown_l_3 = () -> "dui-accent-brown-l-3";
+  CssClass dui_accent_brown_l_3 =
+      LimitOneOfPrefixedCssClass.of(DUI_ACCENT, () -> "dui-accent-brown-l-3");
 
   CssClass dui_shadow_brown_l_3 = () -> "dui-shadow-brown-l-3";
 
@@ -6830,11 +7153,12 @@ public interface ColorsCss {
 
   CssClass dui_outline_brown_l_3 = () -> "dui-outline-brown-l-3";
 
-  CssClass dui_fg_brown_l_2 = () -> "dui-fg-brown-l-2";
+  CssClass dui_fg_brown_l_2 = LimitOneOfPrefixedCssClass.of(DUI_FG, () -> "dui-fg-brown-l-2");
 
-  CssClass dui_bg_brown_l_2 = () -> "dui-bg-brown-l-2";
+  CssClass dui_bg_brown_l_2 = LimitOneOfPrefixedCssClass.of(DUI_BG, () -> "dui-bg-brown-l-2");
 
-  CssClass dui_accent_brown_l_2 = () -> "dui-accent-brown-l-2";
+  CssClass dui_accent_brown_l_2 =
+      LimitOneOfPrefixedCssClass.of(DUI_ACCENT, () -> "dui-accent-brown-l-2");
 
   CssClass dui_shadow_brown_l_2 = () -> "dui-shadow-brown-l-2";
 
@@ -6858,11 +7182,12 @@ public interface ColorsCss {
 
   CssClass dui_outline_brown_l_2 = () -> "dui-outline-brown-l-2";
 
-  CssClass dui_fg_brown_l_1 = () -> "dui-fg-brown-l-1";
+  CssClass dui_fg_brown_l_1 = LimitOneOfPrefixedCssClass.of(DUI_FG, () -> "dui-fg-brown-l-1");
 
-  CssClass dui_bg_brown_l_1 = () -> "dui-bg-brown-l-1";
+  CssClass dui_bg_brown_l_1 = LimitOneOfPrefixedCssClass.of(DUI_BG, () -> "dui-bg-brown-l-1");
 
-  CssClass dui_accent_brown_l_1 = () -> "dui-accent-brown-l-1";
+  CssClass dui_accent_brown_l_1 =
+      LimitOneOfPrefixedCssClass.of(DUI_ACCENT, () -> "dui-accent-brown-l-1");
 
   CssClass dui_shadow_brown_l_1 = () -> "dui-shadow-brown-l-1";
 
@@ -6886,11 +7211,11 @@ public interface ColorsCss {
 
   CssClass dui_outline_brown_l_1 = () -> "dui-outline-brown-l-1";
 
-  CssClass dui_fg_brown = () -> "dui-fg-brown";
+  CssClass dui_fg_brown = LimitOneOfPrefixedCssClass.of(DUI_FG, () -> "dui-fg-brown");
 
-  CssClass dui_bg_brown = () -> "dui-bg-brown";
+  CssClass dui_bg_brown = LimitOneOfPrefixedCssClass.of(DUI_BG, () -> "dui-bg-brown");
 
-  CssClass dui_accent_brown = () -> "dui-accent-brown";
+  CssClass dui_accent_brown = LimitOneOfPrefixedCssClass.of(DUI_ACCENT, () -> "dui-accent-brown");
 
   CssClass dui_shadow_brown = () -> "dui-shadow-brown";
 
@@ -6914,11 +7239,12 @@ public interface ColorsCss {
 
   CssClass dui_outline_brown = () -> "dui-outline-brown";
 
-  CssClass dui_fg_brown_d_1 = () -> "dui-fg-brown-d-1";
+  CssClass dui_fg_brown_d_1 = LimitOneOfPrefixedCssClass.of(DUI_FG, () -> "dui-fg-brown-d-1");
 
-  CssClass dui_bg_brown_d_1 = () -> "dui-bg-brown-d-1";
+  CssClass dui_bg_brown_d_1 = LimitOneOfPrefixedCssClass.of(DUI_BG, () -> "dui-bg-brown-d-1");
 
-  CssClass dui_accent_brown_d_1 = () -> "dui-accent-brown-d-1";
+  CssClass dui_accent_brown_d_1 =
+      LimitOneOfPrefixedCssClass.of(DUI_ACCENT, () -> "dui-accent-brown-d-1");
 
   CssClass dui_shadow_brown_d_1 = () -> "dui-shadow-brown-d-1";
 
@@ -6942,11 +7268,12 @@ public interface ColorsCss {
 
   CssClass dui_outline_brown_d_1 = () -> "dui-outline-brown-d-1";
 
-  CssClass dui_fg_brown_d_2 = () -> "dui-fg-brown-d-2";
+  CssClass dui_fg_brown_d_2 = LimitOneOfPrefixedCssClass.of(DUI_FG, () -> "dui-fg-brown-d-2");
 
-  CssClass dui_bg_brown_d_2 = () -> "dui-bg-brown-d-2";
+  CssClass dui_bg_brown_d_2 = LimitOneOfPrefixedCssClass.of(DUI_BG, () -> "dui-bg-brown-d-2");
 
-  CssClass dui_accent_brown_d_2 = () -> "dui-accent-brown-d-2";
+  CssClass dui_accent_brown_d_2 =
+      LimitOneOfPrefixedCssClass.of(DUI_ACCENT, () -> "dui-accent-brown-d-2");
 
   CssClass dui_shadow_brown_d_2 = () -> "dui-shadow-brown-d-2";
 
@@ -6970,11 +7297,12 @@ public interface ColorsCss {
 
   CssClass dui_outline_brown_d_2 = () -> "dui-outline-brown-d-2";
 
-  CssClass dui_fg_brown_d_3 = () -> "dui-fg-brown-d-3";
+  CssClass dui_fg_brown_d_3 = LimitOneOfPrefixedCssClass.of(DUI_FG, () -> "dui-fg-brown-d-3");
 
-  CssClass dui_bg_brown_d_3 = () -> "dui-bg-brown-d-3";
+  CssClass dui_bg_brown_d_3 = LimitOneOfPrefixedCssClass.of(DUI_BG, () -> "dui-bg-brown-d-3");
 
-  CssClass dui_accent_brown_d_3 = () -> "dui-accent-brown-d-3";
+  CssClass dui_accent_brown_d_3 =
+      LimitOneOfPrefixedCssClass.of(DUI_ACCENT, () -> "dui-accent-brown-d-3");
 
   CssClass dui_shadow_brown_d_3 = () -> "dui-shadow-brown-d-3";
 
@@ -6998,11 +7326,12 @@ public interface ColorsCss {
 
   CssClass dui_outline_brown_d_3 = () -> "dui-outline-brown-d-3";
 
-  CssClass dui_fg_brown_d_4 = () -> "dui-fg-brown-d-4";
+  CssClass dui_fg_brown_d_4 = LimitOneOfPrefixedCssClass.of(DUI_FG, () -> "dui-fg-brown-d-4");
 
-  CssClass dui_bg_brown_d_4 = () -> "dui-bg-brown-d-4";
+  CssClass dui_bg_brown_d_4 = LimitOneOfPrefixedCssClass.of(DUI_BG, () -> "dui-bg-brown-d-4");
 
-  CssClass dui_accent_brown_d_4 = () -> "dui-accent-brown-d-4";
+  CssClass dui_accent_brown_d_4 =
+      LimitOneOfPrefixedCssClass.of(DUI_ACCENT, () -> "dui-accent-brown-d-4");
 
   CssClass dui_shadow_brown_d_4 = () -> "dui-shadow-brown-d-4";
 
@@ -7026,11 +7355,12 @@ public interface ColorsCss {
 
   CssClass dui_outline_brown_d_4 = () -> "dui-outline-brown-d-4";
 
-  CssClass dui_fg_grey_l_5 = () -> "dui-fg-grey-l-5";
+  CssClass dui_fg_grey_l_5 = LimitOneOfPrefixedCssClass.of(DUI_FG, () -> "dui-fg-grey-l-5");
 
-  CssClass dui_bg_grey_l_5 = () -> "dui-bg-grey-l-5";
+  CssClass dui_bg_grey_l_5 = LimitOneOfPrefixedCssClass.of(DUI_BG, () -> "dui-bg-grey-l-5");
 
-  CssClass dui_accent_grey_l_5 = () -> "dui-accent-grey-l-5";
+  CssClass dui_accent_grey_l_5 =
+      LimitOneOfPrefixedCssClass.of(DUI_ACCENT, () -> "dui-accent-grey-l-5");
 
   CssClass dui_shadow_grey_l_5 = () -> "dui-shadow-grey-l-5";
 
@@ -7054,11 +7384,12 @@ public interface ColorsCss {
 
   CssClass dui_outline_grey_l_5 = () -> "dui-outline-grey-l-5";
 
-  CssClass dui_fg_grey_l_4 = () -> "dui-fg-grey-l-4";
+  CssClass dui_fg_grey_l_4 = LimitOneOfPrefixedCssClass.of(DUI_FG, () -> "dui-fg-grey-l-4");
 
-  CssClass dui_bg_grey_l_4 = () -> "dui-bg-grey-l-4";
+  CssClass dui_bg_grey_l_4 = LimitOneOfPrefixedCssClass.of(DUI_BG, () -> "dui-bg-grey-l-4");
 
-  CssClass dui_accent_grey_l_4 = () -> "dui-accent-grey-l-4";
+  CssClass dui_accent_grey_l_4 =
+      LimitOneOfPrefixedCssClass.of(DUI_ACCENT, () -> "dui-accent-grey-l-4");
 
   CssClass dui_shadow_grey_l_4 = () -> "dui-shadow-grey-l-4";
 
@@ -7082,11 +7413,12 @@ public interface ColorsCss {
 
   CssClass dui_outline_grey_l_4 = () -> "dui-outline-grey-l-4";
 
-  CssClass dui_fg_grey_l_3 = () -> "dui-fg-grey-l-3";
+  CssClass dui_fg_grey_l_3 = LimitOneOfPrefixedCssClass.of(DUI_FG, () -> "dui-fg-grey-l-3");
 
-  CssClass dui_bg_grey_l_3 = () -> "dui-bg-grey-l-3";
+  CssClass dui_bg_grey_l_3 = LimitOneOfPrefixedCssClass.of(DUI_BG, () -> "dui-bg-grey-l-3");
 
-  CssClass dui_accent_grey_l_3 = () -> "dui-accent-grey-l-3";
+  CssClass dui_accent_grey_l_3 =
+      LimitOneOfPrefixedCssClass.of(DUI_ACCENT, () -> "dui-accent-grey-l-3");
 
   CssClass dui_shadow_grey_l_3 = () -> "dui-shadow-grey-l-3";
 
@@ -7110,11 +7442,12 @@ public interface ColorsCss {
 
   CssClass dui_outline_grey_l_3 = () -> "dui-outline-grey-l-3";
 
-  CssClass dui_fg_grey_l_2 = () -> "dui-fg-grey-l-2";
+  CssClass dui_fg_grey_l_2 = LimitOneOfPrefixedCssClass.of(DUI_FG, () -> "dui-fg-grey-l-2");
 
-  CssClass dui_bg_grey_l_2 = () -> "dui-bg-grey-l-2";
+  CssClass dui_bg_grey_l_2 = LimitOneOfPrefixedCssClass.of(DUI_BG, () -> "dui-bg-grey-l-2");
 
-  CssClass dui_accent_grey_l_2 = () -> "dui-accent-grey-l-2";
+  CssClass dui_accent_grey_l_2 =
+      LimitOneOfPrefixedCssClass.of(DUI_ACCENT, () -> "dui-accent-grey-l-2");
 
   CssClass dui_shadow_grey_l_2 = () -> "dui-shadow-grey-l-2";
 
@@ -7138,11 +7471,12 @@ public interface ColorsCss {
 
   CssClass dui_outline_grey_l_2 = () -> "dui-outline-grey-l-2";
 
-  CssClass dui_fg_grey_l_1 = () -> "dui-fg-grey-l-1";
+  CssClass dui_fg_grey_l_1 = LimitOneOfPrefixedCssClass.of(DUI_FG, () -> "dui-fg-grey-l-1");
 
-  CssClass dui_bg_grey_l_1 = () -> "dui-bg-grey-l-1";
+  CssClass dui_bg_grey_l_1 = LimitOneOfPrefixedCssClass.of(DUI_BG, () -> "dui-bg-grey-l-1");
 
-  CssClass dui_accent_grey_l_1 = () -> "dui-accent-grey-l-1";
+  CssClass dui_accent_grey_l_1 =
+      LimitOneOfPrefixedCssClass.of(DUI_ACCENT, () -> "dui-accent-grey-l-1");
 
   CssClass dui_shadow_grey_l_1 = () -> "dui-shadow-grey-l-1";
 
@@ -7166,11 +7500,11 @@ public interface ColorsCss {
 
   CssClass dui_outline_grey_l_1 = () -> "dui-outline-grey-l-1";
 
-  CssClass dui_fg_grey = () -> "dui-fg-grey";
+  CssClass dui_fg_grey = LimitOneOfPrefixedCssClass.of(DUI_FG, () -> "dui-fg-grey");
 
-  CssClass dui_bg_grey = () -> "dui-bg-grey";
+  CssClass dui_bg_grey = LimitOneOfPrefixedCssClass.of(DUI_BG, () -> "dui-bg-grey");
 
-  CssClass dui_accent_grey = () -> "dui-accent-grey";
+  CssClass dui_accent_grey = LimitOneOfPrefixedCssClass.of(DUI_ACCENT, () -> "dui-accent-grey");
 
   CssClass dui_shadow_grey = () -> "dui-shadow-grey";
 
@@ -7194,11 +7528,12 @@ public interface ColorsCss {
 
   CssClass dui_outline_grey = () -> "dui-outline-grey";
 
-  CssClass dui_fg_grey_d_1 = () -> "dui-fg-grey-d-1";
+  CssClass dui_fg_grey_d_1 = LimitOneOfPrefixedCssClass.of(DUI_FG, () -> "dui-fg-grey-d-1");
 
-  CssClass dui_bg_grey_d_1 = () -> "dui-bg-grey-d-1";
+  CssClass dui_bg_grey_d_1 = LimitOneOfPrefixedCssClass.of(DUI_BG, () -> "dui-bg-grey-d-1");
 
-  CssClass dui_accent_grey_d_1 = () -> "dui-accent-grey-d-1";
+  CssClass dui_accent_grey_d_1 =
+      LimitOneOfPrefixedCssClass.of(DUI_ACCENT, () -> "dui-accent-grey-d-1");
 
   CssClass dui_shadow_grey_d_1 = () -> "dui-shadow-grey-d-1";
 
@@ -7222,11 +7557,12 @@ public interface ColorsCss {
 
   CssClass dui_outline_grey_d_1 = () -> "dui-outline-grey-d-1";
 
-  CssClass dui_fg_grey_d_2 = () -> "dui-fg-grey-d-2";
+  CssClass dui_fg_grey_d_2 = LimitOneOfPrefixedCssClass.of(DUI_FG, () -> "dui-fg-grey-d-2");
 
-  CssClass dui_bg_grey_d_2 = () -> "dui-bg-grey-d-2";
+  CssClass dui_bg_grey_d_2 = LimitOneOfPrefixedCssClass.of(DUI_BG, () -> "dui-bg-grey-d-2");
 
-  CssClass dui_accent_grey_d_2 = () -> "dui-accent-grey-d-2";
+  CssClass dui_accent_grey_d_2 =
+      LimitOneOfPrefixedCssClass.of(DUI_ACCENT, () -> "dui-accent-grey-d-2");
 
   CssClass dui_shadow_grey_d_2 = () -> "dui-shadow-grey-d-2";
 
@@ -7250,11 +7586,12 @@ public interface ColorsCss {
 
   CssClass dui_outline_grey_d_2 = () -> "dui-outline-grey-d-2";
 
-  CssClass dui_fg_grey_d_3 = () -> "dui-fg-grey-d-3";
+  CssClass dui_fg_grey_d_3 = LimitOneOfPrefixedCssClass.of(DUI_FG, () -> "dui-fg-grey-d-3");
 
-  CssClass dui_bg_grey_d_3 = () -> "dui-bg-grey-d-3";
+  CssClass dui_bg_grey_d_3 = LimitOneOfPrefixedCssClass.of(DUI_BG, () -> "dui-bg-grey-d-3");
 
-  CssClass dui_accent_grey_d_3 = () -> "dui-accent-grey-d-3";
+  CssClass dui_accent_grey_d_3 =
+      LimitOneOfPrefixedCssClass.of(DUI_ACCENT, () -> "dui-accent-grey-d-3");
 
   CssClass dui_shadow_grey_d_3 = () -> "dui-shadow-grey-d-3";
 
@@ -7278,11 +7615,12 @@ public interface ColorsCss {
 
   CssClass dui_outline_grey_d_3 = () -> "dui-outline-grey-d-3";
 
-  CssClass dui_fg_grey_d_4 = () -> "dui-fg-grey-d-4";
+  CssClass dui_fg_grey_d_4 = LimitOneOfPrefixedCssClass.of(DUI_FG, () -> "dui-fg-grey-d-4");
 
-  CssClass dui_bg_grey_d_4 = () -> "dui-bg-grey-d-4";
+  CssClass dui_bg_grey_d_4 = LimitOneOfPrefixedCssClass.of(DUI_BG, () -> "dui-bg-grey-d-4");
 
-  CssClass dui_accent_grey_d_4 = () -> "dui-accent-grey-d-4";
+  CssClass dui_accent_grey_d_4 =
+      LimitOneOfPrefixedCssClass.of(DUI_ACCENT, () -> "dui-accent-grey-d-4");
 
   CssClass dui_shadow_grey_d_4 = () -> "dui-shadow-grey-d-4";
 
@@ -7306,11 +7644,14 @@ public interface ColorsCss {
 
   CssClass dui_outline_grey_d_4 = () -> "dui-outline-grey-d-4";
 
-  CssClass dui_fg_blue_grey_l_5 = () -> "dui-fg-blue-grey-l-5";
+  CssClass dui_fg_blue_grey_l_5 =
+      LimitOneOfPrefixedCssClass.of(DUI_FG, () -> "dui-fg-blue-grey-l-5");
 
-  CssClass dui_bg_blue_grey_l_5 = () -> "dui-bg-blue-grey-l-5";
+  CssClass dui_bg_blue_grey_l_5 =
+      LimitOneOfPrefixedCssClass.of(DUI_BG, () -> "dui-bg-blue-grey-l-5");
 
-  CssClass dui_accent_blue_grey_l_5 = () -> "dui-accent-blue-grey-l-5";
+  CssClass dui_accent_blue_grey_l_5 =
+      LimitOneOfPrefixedCssClass.of(DUI_ACCENT, () -> "dui-accent-blue-grey-l-5");
 
   CssClass dui_shadow_blue_grey_l_5 = () -> "dui-shadow-blue-grey-l-5";
 
@@ -7334,11 +7675,14 @@ public interface ColorsCss {
 
   CssClass dui_outline_blue_grey_l_5 = () -> "dui-outline-blue-grey-l-5";
 
-  CssClass dui_fg_blue_grey_l_4 = () -> "dui-fg-blue-grey-l-4";
+  CssClass dui_fg_blue_grey_l_4 =
+      LimitOneOfPrefixedCssClass.of(DUI_FG, () -> "dui-fg-blue-grey-l-4");
 
-  CssClass dui_bg_blue_grey_l_4 = () -> "dui-bg-blue-grey-l-4";
+  CssClass dui_bg_blue_grey_l_4 =
+      LimitOneOfPrefixedCssClass.of(DUI_BG, () -> "dui-bg-blue-grey-l-4");
 
-  CssClass dui_accent_blue_grey_l_4 = () -> "dui-accent-blue-grey-l-4";
+  CssClass dui_accent_blue_grey_l_4 =
+      LimitOneOfPrefixedCssClass.of(DUI_ACCENT, () -> "dui-accent-blue-grey-l-4");
 
   CssClass dui_shadow_blue_grey_l_4 = () -> "dui-shadow-blue-grey-l-4";
 
@@ -7362,11 +7706,14 @@ public interface ColorsCss {
 
   CssClass dui_outline_blue_grey_l_4 = () -> "dui-outline-blue-grey-l-4";
 
-  CssClass dui_fg_blue_grey_l_3 = () -> "dui-fg-blue-grey-l-3";
+  CssClass dui_fg_blue_grey_l_3 =
+      LimitOneOfPrefixedCssClass.of(DUI_FG, () -> "dui-fg-blue-grey-l-3");
 
-  CssClass dui_bg_blue_grey_l_3 = () -> "dui-bg-blue-grey-l-3";
+  CssClass dui_bg_blue_grey_l_3 =
+      LimitOneOfPrefixedCssClass.of(DUI_BG, () -> "dui-bg-blue-grey-l-3");
 
-  CssClass dui_accent_blue_grey_l_3 = () -> "dui-accent-blue-grey-l-3";
+  CssClass dui_accent_blue_grey_l_3 =
+      LimitOneOfPrefixedCssClass.of(DUI_ACCENT, () -> "dui-accent-blue-grey-l-3");
 
   CssClass dui_shadow_blue_grey_l_3 = () -> "dui-shadow-blue-grey-l-3";
 
@@ -7390,11 +7737,14 @@ public interface ColorsCss {
 
   CssClass dui_outline_blue_grey_l_3 = () -> "dui-outline-blue-grey-l-3";
 
-  CssClass dui_fg_blue_grey_l_2 = () -> "dui-fg-blue-grey-l-2";
+  CssClass dui_fg_blue_grey_l_2 =
+      LimitOneOfPrefixedCssClass.of(DUI_FG, () -> "dui-fg-blue-grey-l-2");
 
-  CssClass dui_bg_blue_grey_l_2 = () -> "dui-bg-blue-grey-l-2";
+  CssClass dui_bg_blue_grey_l_2 =
+      LimitOneOfPrefixedCssClass.of(DUI_BG, () -> "dui-bg-blue-grey-l-2");
 
-  CssClass dui_accent_blue_grey_l_2 = () -> "dui-accent-blue-grey-l-2";
+  CssClass dui_accent_blue_grey_l_2 =
+      LimitOneOfPrefixedCssClass.of(DUI_ACCENT, () -> "dui-accent-blue-grey-l-2");
 
   CssClass dui_shadow_blue_grey_l_2 = () -> "dui-shadow-blue-grey-l-2";
 
@@ -7418,11 +7768,14 @@ public interface ColorsCss {
 
   CssClass dui_outline_blue_grey_l_2 = () -> "dui-outline-blue-grey-l-2";
 
-  CssClass dui_fg_blue_grey_l_1 = () -> "dui-fg-blue-grey-l-1";
+  CssClass dui_fg_blue_grey_l_1 =
+      LimitOneOfPrefixedCssClass.of(DUI_FG, () -> "dui-fg-blue-grey-l-1");
 
-  CssClass dui_bg_blue_grey_l_1 = () -> "dui-bg-blue-grey-l-1";
+  CssClass dui_bg_blue_grey_l_1 =
+      LimitOneOfPrefixedCssClass.of(DUI_BG, () -> "dui-bg-blue-grey-l-1");
 
-  CssClass dui_accent_blue_grey_l_1 = () -> "dui-accent-blue-grey-l-1";
+  CssClass dui_accent_blue_grey_l_1 =
+      LimitOneOfPrefixedCssClass.of(DUI_ACCENT, () -> "dui-accent-blue-grey-l-1");
 
   CssClass dui_shadow_blue_grey_l_1 = () -> "dui-shadow-blue-grey-l-1";
 
@@ -7446,11 +7799,12 @@ public interface ColorsCss {
 
   CssClass dui_outline_blue_grey_l_1 = () -> "dui-outline-blue-grey-l-1";
 
-  CssClass dui_fg_blue_grey = () -> "dui-fg-blue-grey";
+  CssClass dui_fg_blue_grey = LimitOneOfPrefixedCssClass.of(DUI_FG, () -> "dui-fg-blue-grey");
 
-  CssClass dui_bg_blue_grey = () -> "dui-bg-blue-grey";
+  CssClass dui_bg_blue_grey = LimitOneOfPrefixedCssClass.of(DUI_BG, () -> "dui-bg-blue-grey");
 
-  CssClass dui_accent_blue_grey = () -> "dui-accent-blue-grey";
+  CssClass dui_accent_blue_grey =
+      LimitOneOfPrefixedCssClass.of(DUI_ACCENT, () -> "dui-accent-blue-grey");
 
   CssClass dui_shadow_blue_grey = () -> "dui-shadow-blue-grey";
 
@@ -7474,11 +7828,14 @@ public interface ColorsCss {
 
   CssClass dui_outline_blue_grey = () -> "dui-outline-blue-grey";
 
-  CssClass dui_fg_blue_grey_d_1 = () -> "dui-fg-blue-grey-d-1";
+  CssClass dui_fg_blue_grey_d_1 =
+      LimitOneOfPrefixedCssClass.of(DUI_FG, () -> "dui-fg-blue-grey-d-1");
 
-  CssClass dui_bg_blue_grey_d_1 = () -> "dui-bg-blue-grey-d-1";
+  CssClass dui_bg_blue_grey_d_1 =
+      LimitOneOfPrefixedCssClass.of(DUI_BG, () -> "dui-bg-blue-grey-d-1");
 
-  CssClass dui_accent_blue_grey_d_1 = () -> "dui-accent-blue-grey-d-1";
+  CssClass dui_accent_blue_grey_d_1 =
+      LimitOneOfPrefixedCssClass.of(DUI_ACCENT, () -> "dui-accent-blue-grey-d-1");
 
   CssClass dui_shadow_blue_grey_d_1 = () -> "dui-shadow-blue-grey-d-1";
 
@@ -7502,11 +7859,14 @@ public interface ColorsCss {
 
   CssClass dui_outline_blue_grey_d_1 = () -> "dui-outline-blue-grey-d-1";
 
-  CssClass dui_fg_blue_grey_d_2 = () -> "dui-fg-blue-grey-d-2";
+  CssClass dui_fg_blue_grey_d_2 =
+      LimitOneOfPrefixedCssClass.of(DUI_FG, () -> "dui-fg-blue-grey-d-2");
 
-  CssClass dui_bg_blue_grey_d_2 = () -> "dui-bg-blue-grey-d-2";
+  CssClass dui_bg_blue_grey_d_2 =
+      LimitOneOfPrefixedCssClass.of(DUI_BG, () -> "dui-bg-blue-grey-d-2");
 
-  CssClass dui_accent_blue_grey_d_2 = () -> "dui-accent-blue-grey-d-2";
+  CssClass dui_accent_blue_grey_d_2 =
+      LimitOneOfPrefixedCssClass.of(DUI_ACCENT, () -> "dui-accent-blue-grey-d-2");
 
   CssClass dui_shadow_blue_grey_d_2 = () -> "dui-shadow-blue-grey-d-2";
 
@@ -7530,11 +7890,14 @@ public interface ColorsCss {
 
   CssClass dui_outline_blue_grey_d_2 = () -> "dui-outline-blue-grey-d-2";
 
-  CssClass dui_fg_blue_grey_d_3 = () -> "dui-fg-blue-grey-d-3";
+  CssClass dui_fg_blue_grey_d_3 =
+      LimitOneOfPrefixedCssClass.of(DUI_FG, () -> "dui-fg-blue-grey-d-3");
 
-  CssClass dui_bg_blue_grey_d_3 = () -> "dui-bg-blue-grey-d-3";
+  CssClass dui_bg_blue_grey_d_3 =
+      LimitOneOfPrefixedCssClass.of(DUI_BG, () -> "dui-bg-blue-grey-d-3");
 
-  CssClass dui_accent_blue_grey_d_3 = () -> "dui-accent-blue-grey-d-3";
+  CssClass dui_accent_blue_grey_d_3 =
+      LimitOneOfPrefixedCssClass.of(DUI_ACCENT, () -> "dui-accent-blue-grey-d-3");
 
   CssClass dui_shadow_blue_grey_d_3 = () -> "dui-shadow-blue-grey-d-3";
 
@@ -7558,11 +7921,14 @@ public interface ColorsCss {
 
   CssClass dui_outline_blue_grey_d_3 = () -> "dui-outline-blue-grey-d-3";
 
-  CssClass dui_fg_blue_grey_d_4 = () -> "dui-fg-blue-grey-d-4";
+  CssClass dui_fg_blue_grey_d_4 =
+      LimitOneOfPrefixedCssClass.of(DUI_FG, () -> "dui-fg-blue-grey-d-4");
 
-  CssClass dui_bg_blue_grey_d_4 = () -> "dui-bg-blue-grey-d-4";
+  CssClass dui_bg_blue_grey_d_4 =
+      LimitOneOfPrefixedCssClass.of(DUI_BG, () -> "dui-bg-blue-grey-d-4");
 
-  CssClass dui_accent_blue_grey_d_4 = () -> "dui-accent-blue-grey-d-4";
+  CssClass dui_accent_blue_grey_d_4 =
+      LimitOneOfPrefixedCssClass.of(DUI_ACCENT, () -> "dui-accent-blue-grey-d-4");
 
   CssClass dui_shadow_blue_grey_d_4 = () -> "dui-shadow-blue-grey-d-4";
 
@@ -7586,11 +7952,12 @@ public interface ColorsCss {
 
   CssClass dui_outline_blue_grey_d_4 = () -> "dui-outline-blue-grey-d-4";
 
-  CssClass dui_fg_white_l_5 = () -> "dui-fg-white-l-5";
+  CssClass dui_fg_white_l_5 = LimitOneOfPrefixedCssClass.of(DUI_FG, () -> "dui-fg-white-l-5");
 
-  CssClass dui_bg_white_l_5 = () -> "dui-bg-white-l-5";
+  CssClass dui_bg_white_l_5 = LimitOneOfPrefixedCssClass.of(DUI_BG, () -> "dui-bg-white-l-5");
 
-  CssClass dui_accent_white_l_5 = () -> "dui-accent-white-l-5";
+  CssClass dui_accent_white_l_5 =
+      LimitOneOfPrefixedCssClass.of(DUI_ACCENT, () -> "dui-accent-white-l-5");
 
   CssClass dui_shadow_white_l_5 = () -> "dui-shadow-white-l-5";
 
@@ -7614,11 +7981,12 @@ public interface ColorsCss {
 
   CssClass dui_outline_white_l_5 = () -> "dui-outline-white-l-5";
 
-  CssClass dui_fg_white_l_4 = () -> "dui-fg-white-l-4";
+  CssClass dui_fg_white_l_4 = LimitOneOfPrefixedCssClass.of(DUI_FG, () -> "dui-fg-white-l-4");
 
-  CssClass dui_bg_white_l_4 = () -> "dui-bg-white-l-4";
+  CssClass dui_bg_white_l_4 = LimitOneOfPrefixedCssClass.of(DUI_BG, () -> "dui-bg-white-l-4");
 
-  CssClass dui_accent_white_l_4 = () -> "dui-accent-white-l-4";
+  CssClass dui_accent_white_l_4 =
+      LimitOneOfPrefixedCssClass.of(DUI_ACCENT, () -> "dui-accent-white-l-4");
 
   CssClass dui_shadow_white_l_4 = () -> "dui-shadow-white-l-4";
 
@@ -7642,11 +8010,12 @@ public interface ColorsCss {
 
   CssClass dui_outline_white_l_4 = () -> "dui-outline-white-l-4";
 
-  CssClass dui_fg_white_l_3 = () -> "dui-fg-white-l-3";
+  CssClass dui_fg_white_l_3 = LimitOneOfPrefixedCssClass.of(DUI_FG, () -> "dui-fg-white-l-3");
 
-  CssClass dui_bg_white_l_3 = () -> "dui-bg-white-l-3";
+  CssClass dui_bg_white_l_3 = LimitOneOfPrefixedCssClass.of(DUI_BG, () -> "dui-bg-white-l-3");
 
-  CssClass dui_accent_white_l_3 = () -> "dui-accent-white-l-3";
+  CssClass dui_accent_white_l_3 =
+      LimitOneOfPrefixedCssClass.of(DUI_ACCENT, () -> "dui-accent-white-l-3");
 
   CssClass dui_shadow_white_l_3 = () -> "dui-shadow-white-l-3";
 
@@ -7670,11 +8039,12 @@ public interface ColorsCss {
 
   CssClass dui_outline_white_l_3 = () -> "dui-outline-white-l-3";
 
-  CssClass dui_fg_white_l_2 = () -> "dui-fg-white-l-2";
+  CssClass dui_fg_white_l_2 = LimitOneOfPrefixedCssClass.of(DUI_FG, () -> "dui-fg-white-l-2");
 
-  CssClass dui_bg_white_l_2 = () -> "dui-bg-white-l-2";
+  CssClass dui_bg_white_l_2 = LimitOneOfPrefixedCssClass.of(DUI_BG, () -> "dui-bg-white-l-2");
 
-  CssClass dui_accent_white_l_2 = () -> "dui-accent-white-l-2";
+  CssClass dui_accent_white_l_2 =
+      LimitOneOfPrefixedCssClass.of(DUI_ACCENT, () -> "dui-accent-white-l-2");
 
   CssClass dui_shadow_white_l_2 = () -> "dui-shadow-white-l-2";
 
@@ -7698,11 +8068,12 @@ public interface ColorsCss {
 
   CssClass dui_outline_white_l_2 = () -> "dui-outline-white-l-2";
 
-  CssClass dui_fg_white_l_1 = () -> "dui-fg-white-l-1";
+  CssClass dui_fg_white_l_1 = LimitOneOfPrefixedCssClass.of(DUI_FG, () -> "dui-fg-white-l-1");
 
-  CssClass dui_bg_white_l_1 = () -> "dui-bg-white-l-1";
+  CssClass dui_bg_white_l_1 = LimitOneOfPrefixedCssClass.of(DUI_BG, () -> "dui-bg-white-l-1");
 
-  CssClass dui_accent_white_l_1 = () -> "dui-accent-white-l-1";
+  CssClass dui_accent_white_l_1 =
+      LimitOneOfPrefixedCssClass.of(DUI_ACCENT, () -> "dui-accent-white-l-1");
 
   CssClass dui_shadow_white_l_1 = () -> "dui-shadow-white-l-1";
 
@@ -7726,11 +8097,11 @@ public interface ColorsCss {
 
   CssClass dui_outline_white_l_1 = () -> "dui-outline-white-l-1";
 
-  CssClass dui_fg_white = () -> "dui-fg-white";
+  CssClass dui_fg_white = LimitOneOfPrefixedCssClass.of(DUI_FG, () -> "dui-fg-white");
 
-  CssClass dui_bg_white = () -> "dui-bg-white";
+  CssClass dui_bg_white = LimitOneOfPrefixedCssClass.of(DUI_BG, () -> "dui-bg-white");
 
-  CssClass dui_accent_white = () -> "dui-accent-white";
+  CssClass dui_accent_white = LimitOneOfPrefixedCssClass.of(DUI_ACCENT, () -> "dui-accent-white");
 
   CssClass dui_shadow_white = () -> "dui-shadow-white";
 
@@ -7754,11 +8125,12 @@ public interface ColorsCss {
 
   CssClass dui_outline_white = () -> "dui-outline-white";
 
-  CssClass dui_fg_white_d_1 = () -> "dui-fg-white-d-1";
+  CssClass dui_fg_white_d_1 = LimitOneOfPrefixedCssClass.of(DUI_FG, () -> "dui-fg-white-d-1");
 
-  CssClass dui_bg_white_d_1 = () -> "dui-bg-white-d-1";
+  CssClass dui_bg_white_d_1 = LimitOneOfPrefixedCssClass.of(DUI_BG, () -> "dui-bg-white-d-1");
 
-  CssClass dui_accent_white_d_1 = () -> "dui-accent-white-d-1";
+  CssClass dui_accent_white_d_1 =
+      LimitOneOfPrefixedCssClass.of(DUI_ACCENT, () -> "dui-accent-white-d-1");
 
   CssClass dui_shadow_white_d_1 = () -> "dui-shadow-white-d-1";
 
@@ -7782,11 +8154,12 @@ public interface ColorsCss {
 
   CssClass dui_outline_white_d_1 = () -> "dui-outline-white-d-1";
 
-  CssClass dui_fg_white_d_2 = () -> "dui-fg-white-d-2";
+  CssClass dui_fg_white_d_2 = LimitOneOfPrefixedCssClass.of(DUI_FG, () -> "dui-fg-white-d-2");
 
-  CssClass dui_bg_white_d_2 = () -> "dui-bg-white-d-2";
+  CssClass dui_bg_white_d_2 = LimitOneOfPrefixedCssClass.of(DUI_BG, () -> "dui-bg-white-d-2");
 
-  CssClass dui_accent_white_d_2 = () -> "dui-accent-white-d-2";
+  CssClass dui_accent_white_d_2 =
+      LimitOneOfPrefixedCssClass.of(DUI_ACCENT, () -> "dui-accent-white-d-2");
 
   CssClass dui_shadow_white_d_2 = () -> "dui-shadow-white-d-2";
 
@@ -7810,11 +8183,12 @@ public interface ColorsCss {
 
   CssClass dui_outline_white_d_2 = () -> "dui-outline-white-d-2";
 
-  CssClass dui_fg_white_d_3 = () -> "dui-fg-white-d-3";
+  CssClass dui_fg_white_d_3 = LimitOneOfPrefixedCssClass.of(DUI_FG, () -> "dui-fg-white-d-3");
 
-  CssClass dui_bg_white_d_3 = () -> "dui-bg-white-d-3";
+  CssClass dui_bg_white_d_3 = LimitOneOfPrefixedCssClass.of(DUI_BG, () -> "dui-bg-white-d-3");
 
-  CssClass dui_accent_white_d_3 = () -> "dui-accent-white-d-3";
+  CssClass dui_accent_white_d_3 =
+      LimitOneOfPrefixedCssClass.of(DUI_ACCENT, () -> "dui-accent-white-d-3");
 
   CssClass dui_shadow_white_d_3 = () -> "dui-shadow-white-d-3";
 
@@ -7838,11 +8212,12 @@ public interface ColorsCss {
 
   CssClass dui_outline_white_d_3 = () -> "dui-outline-white-d-3";
 
-  CssClass dui_fg_white_d_4 = () -> "dui-fg-white-d-4";
+  CssClass dui_fg_white_d_4 = LimitOneOfPrefixedCssClass.of(DUI_FG, () -> "dui-fg-white-d-4");
 
-  CssClass dui_bg_white_d_4 = () -> "dui-bg-white-d-4";
+  CssClass dui_bg_white_d_4 = LimitOneOfPrefixedCssClass.of(DUI_BG, () -> "dui-bg-white-d-4");
 
-  CssClass dui_accent_white_d_4 = () -> "dui-accent-white-d-4";
+  CssClass dui_accent_white_d_4 =
+      LimitOneOfPrefixedCssClass.of(DUI_ACCENT, () -> "dui-accent-white-d-4");
 
   CssClass dui_shadow_white_d_4 = () -> "dui-shadow-white-d-4";
 
@@ -7866,11 +8241,12 @@ public interface ColorsCss {
 
   CssClass dui_outline_white_d_4 = () -> "dui-outline-white-d-4";
 
-  CssClass dui_fg_black_l_5 = () -> "dui-fg-black-l-5";
+  CssClass dui_fg_black_l_5 = LimitOneOfPrefixedCssClass.of(DUI_FG, () -> "dui-fg-black-l-5");
 
-  CssClass dui_bg_black_l_5 = () -> "dui-bg-black-l-5";
+  CssClass dui_bg_black_l_5 = LimitOneOfPrefixedCssClass.of(DUI_BG, () -> "dui-bg-black-l-5");
 
-  CssClass dui_accent_black_l_5 = () -> "dui-accent-black-l-5";
+  CssClass dui_accent_black_l_5 =
+      LimitOneOfPrefixedCssClass.of(DUI_ACCENT, () -> "dui-accent-black-l-5");
 
   CssClass dui_shadow_black_l_5 = () -> "dui-shadow-black-l-5";
 
@@ -7894,11 +8270,12 @@ public interface ColorsCss {
 
   CssClass dui_outline_black_l_5 = () -> "dui-outline-black-l-5";
 
-  CssClass dui_fg_black_l_4 = () -> "dui-fg-black-l-4";
+  CssClass dui_fg_black_l_4 = LimitOneOfPrefixedCssClass.of(DUI_FG, () -> "dui-fg-black-l-4");
 
-  CssClass dui_bg_black_l_4 = () -> "dui-bg-black-l-4";
+  CssClass dui_bg_black_l_4 = LimitOneOfPrefixedCssClass.of(DUI_BG, () -> "dui-bg-black-l-4");
 
-  CssClass dui_accent_black_l_4 = () -> "dui-accent-black-l-4";
+  CssClass dui_accent_black_l_4 =
+      LimitOneOfPrefixedCssClass.of(DUI_ACCENT, () -> "dui-accent-black-l-4");
 
   CssClass dui_shadow_black_l_4 = () -> "dui-shadow-black-l-4";
 
@@ -7922,11 +8299,12 @@ public interface ColorsCss {
 
   CssClass dui_outline_black_l_4 = () -> "dui-outline-black-l-4";
 
-  CssClass dui_fg_black_l_3 = () -> "dui-fg-black-l-3";
+  CssClass dui_fg_black_l_3 = LimitOneOfPrefixedCssClass.of(DUI_FG, () -> "dui-fg-black-l-3");
 
-  CssClass dui_bg_black_l_3 = () -> "dui-bg-black-l-3";
+  CssClass dui_bg_black_l_3 = LimitOneOfPrefixedCssClass.of(DUI_BG, () -> "dui-bg-black-l-3");
 
-  CssClass dui_accent_black_l_3 = () -> "dui-accent-black-l-3";
+  CssClass dui_accent_black_l_3 =
+      LimitOneOfPrefixedCssClass.of(DUI_ACCENT, () -> "dui-accent-black-l-3");
 
   CssClass dui_shadow_black_l_3 = () -> "dui-shadow-black-l-3";
 
@@ -7950,11 +8328,12 @@ public interface ColorsCss {
 
   CssClass dui_outline_black_l_3 = () -> "dui-outline-black-l-3";
 
-  CssClass dui_fg_black_l_2 = () -> "dui-fg-black-l-2";
+  CssClass dui_fg_black_l_2 = LimitOneOfPrefixedCssClass.of(DUI_FG, () -> "dui-fg-black-l-2");
 
-  CssClass dui_bg_black_l_2 = () -> "dui-bg-black-l-2";
+  CssClass dui_bg_black_l_2 = LimitOneOfPrefixedCssClass.of(DUI_BG, () -> "dui-bg-black-l-2");
 
-  CssClass dui_accent_black_l_2 = () -> "dui-accent-black-l-2";
+  CssClass dui_accent_black_l_2 =
+      LimitOneOfPrefixedCssClass.of(DUI_ACCENT, () -> "dui-accent-black-l-2");
 
   CssClass dui_shadow_black_l_2 = () -> "dui-shadow-black-l-2";
 
@@ -7978,11 +8357,12 @@ public interface ColorsCss {
 
   CssClass dui_outline_black_l_2 = () -> "dui-outline-black-l-2";
 
-  CssClass dui_fg_black_l_1 = () -> "dui-fg-black-l-1";
+  CssClass dui_fg_black_l_1 = LimitOneOfPrefixedCssClass.of(DUI_FG, () -> "dui-fg-black-l-1");
 
-  CssClass dui_bg_black_l_1 = () -> "dui-bg-black-l-1";
+  CssClass dui_bg_black_l_1 = LimitOneOfPrefixedCssClass.of(DUI_BG, () -> "dui-bg-black-l-1");
 
-  CssClass dui_accent_black_l_1 = () -> "dui-accent-black-l-1";
+  CssClass dui_accent_black_l_1 =
+      LimitOneOfPrefixedCssClass.of(DUI_ACCENT, () -> "dui-accent-black-l-1");
 
   CssClass dui_shadow_black_l_1 = () -> "dui-shadow-black-l-1";
 
@@ -8006,11 +8386,11 @@ public interface ColorsCss {
 
   CssClass dui_outline_black_l_1 = () -> "dui-outline-black-l-1";
 
-  CssClass dui_fg_black = () -> "dui-fg-black";
+  CssClass dui_fg_black = LimitOneOfPrefixedCssClass.of(DUI_FG, () -> "dui-fg-black");
 
-  CssClass dui_bg_black = () -> "dui-bg-black";
+  CssClass dui_bg_black = LimitOneOfPrefixedCssClass.of(DUI_BG, () -> "dui-bg-black");
 
-  CssClass dui_accent_black = () -> "dui-accent-black";
+  CssClass dui_accent_black = LimitOneOfPrefixedCssClass.of(DUI_ACCENT, () -> "dui-accent-black");
 
   CssClass dui_shadow_black = () -> "dui-shadow-black";
 
@@ -8034,11 +8414,12 @@ public interface ColorsCss {
 
   CssClass dui_outline_black = () -> "dui-outline-black";
 
-  CssClass dui_fg_black_d_1 = () -> "dui-fg-black-d-1";
+  CssClass dui_fg_black_d_1 = LimitOneOfPrefixedCssClass.of(DUI_FG, () -> "dui-fg-black-d-1");
 
-  CssClass dui_bg_black_d_1 = () -> "dui-bg-black-d-1";
+  CssClass dui_bg_black_d_1 = LimitOneOfPrefixedCssClass.of(DUI_BG, () -> "dui-bg-black-d-1");
 
-  CssClass dui_accent_black_d_1 = () -> "dui-accent-black-d-1";
+  CssClass dui_accent_black_d_1 =
+      LimitOneOfPrefixedCssClass.of(DUI_ACCENT, () -> "dui-accent-black-d-1");
 
   CssClass dui_shadow_black_d_1 = () -> "dui-shadow-black-d-1";
 
@@ -8062,11 +8443,12 @@ public interface ColorsCss {
 
   CssClass dui_outline_black_d_1 = () -> "dui-outline-black-d-1";
 
-  CssClass dui_fg_black_d_2 = () -> "dui-fg-black-d-2";
+  CssClass dui_fg_black_d_2 = LimitOneOfPrefixedCssClass.of(DUI_FG, () -> "dui-fg-black-d-2");
 
-  CssClass dui_bg_black_d_2 = () -> "dui-bg-black-d-2";
+  CssClass dui_bg_black_d_2 = LimitOneOfPrefixedCssClass.of(DUI_BG, () -> "dui-bg-black-d-2");
 
-  CssClass dui_accent_black_d_2 = () -> "dui-accent-black-d-2";
+  CssClass dui_accent_black_d_2 =
+      LimitOneOfPrefixedCssClass.of(DUI_ACCENT, () -> "dui-accent-black-d-2");
 
   CssClass dui_shadow_black_d_2 = () -> "dui-shadow-black-d-2";
 
@@ -8090,11 +8472,12 @@ public interface ColorsCss {
 
   CssClass dui_outline_black_d_2 = () -> "dui-outline-black-d-2";
 
-  CssClass dui_fg_black_d_3 = () -> "dui-fg-black-d-3";
+  CssClass dui_fg_black_d_3 = LimitOneOfPrefixedCssClass.of(DUI_FG, () -> "dui-fg-black-d-3");
 
-  CssClass dui_bg_black_d_3 = () -> "dui-bg-black-d-3";
+  CssClass dui_bg_black_d_3 = LimitOneOfPrefixedCssClass.of(DUI_BG, () -> "dui-bg-black-d-3");
 
-  CssClass dui_accent_black_d_3 = () -> "dui-accent-black-d-3";
+  CssClass dui_accent_black_d_3 =
+      LimitOneOfPrefixedCssClass.of(DUI_ACCENT, () -> "dui-accent-black-d-3");
 
   CssClass dui_shadow_black_d_3 = () -> "dui-shadow-black-d-3";
 
@@ -8118,11 +8501,12 @@ public interface ColorsCss {
 
   CssClass dui_outline_black_d_3 = () -> "dui-outline-black-d-3";
 
-  CssClass dui_fg_black_d_4 = () -> "dui-fg-black-d-4";
+  CssClass dui_fg_black_d_4 = LimitOneOfPrefixedCssClass.of(DUI_FG, () -> "dui-fg-black-d-4");
 
-  CssClass dui_bg_black_d_4 = () -> "dui-bg-black-d-4";
+  CssClass dui_bg_black_d_4 = LimitOneOfPrefixedCssClass.of(DUI_BG, () -> "dui-bg-black-d-4");
 
-  CssClass dui_accent_black_d_4 = () -> "dui-accent-black-d-4";
+  CssClass dui_accent_black_d_4 =
+      LimitOneOfPrefixedCssClass.of(DUI_ACCENT, () -> "dui-accent-black-d-4");
 
   CssClass dui_shadow_black_d_4 = () -> "dui-shadow-black-d-4";
 
@@ -8146,11 +8530,12 @@ public interface ColorsCss {
 
   CssClass dui_outline_black_d_4 = () -> "dui-outline-black-d-4";
 
-  CssClass dui_fg_inherit = () -> "dui-fg-inherit";
+  CssClass dui_fg_inherit = LimitOneOfPrefixedCssClass.of(DUI_FG, () -> "dui-fg-inherit");
 
-  CssClass dui_bg_inherit = () -> "dui-bg-inherit";
+  CssClass dui_bg_inherit = LimitOneOfPrefixedCssClass.of(DUI_BG, () -> "dui-bg-inherit");
 
-  CssClass dui_accent_inherit = () -> "dui-accent-inherit";
+  CssClass dui_accent_inherit =
+      LimitOneOfPrefixedCssClass.of(DUI_ACCENT, () -> "dui-accent-inherit");
 
   CssClass dui_shadow_inherit = () -> "dui-shadow-inherit";
 
@@ -8174,11 +8559,12 @@ public interface ColorsCss {
 
   CssClass dui_outline_inherit = () -> "dui-outline-inherit";
 
-  CssClass dui_fg_current = () -> "dui-fg-current";
+  CssClass dui_fg_current = LimitOneOfPrefixedCssClass.of(DUI_FG, () -> "dui-fg-current");
 
-  CssClass dui_bg_current = () -> "dui-bg-current";
+  CssClass dui_bg_current = LimitOneOfPrefixedCssClass.of(DUI_BG, () -> "dui-bg-current");
 
-  CssClass dui_accent_current = () -> "dui-accent-current";
+  CssClass dui_accent_current =
+      LimitOneOfPrefixedCssClass.of(DUI_ACCENT, () -> "dui-accent-current");
 
   CssClass dui_shadow_current = () -> "dui-shadow-current";
 
@@ -8202,47 +8588,66 @@ public interface ColorsCss {
 
   CssClass dui_outline_current = () -> "dui-outline-current";
 
-  CssClass dui_fg_transparent = () -> "dui-fg-transparent";
+  CssClass dui_fg_transparent = LimitOneOfPrefixedCssClass.of(DUI_FG, () -> "dui-fg-transparent");
 
-  CssClass dui_bg_transparent = () -> "dui-bg-transparent";
+  CssClass dui_bg_transparent = LimitOneOfPrefixedCssClass.of(DUI_BG, () -> "dui-bg-transparent");
 
-  CssClass dui_bg_transparent_l_1 = () -> "dui-bg-transparent-l-1";
+  CssClass dui_bg_transparent_l_1 =
+      LimitOneOfPrefixedCssClass.of(DUI_BG, () -> "dui-bg-transparent-l-1");
 
-  CssClass dui_bg_transparent_l_2 = () -> "dui-bg-transparent-l-2";
+  CssClass dui_bg_transparent_l_2 =
+      LimitOneOfPrefixedCssClass.of(DUI_BG, () -> "dui-bg-transparent-l-2");
 
-  CssClass dui_bg_transparent_l_3 = () -> "dui-bg-transparent-l-3";
+  CssClass dui_bg_transparent_l_3 =
+      LimitOneOfPrefixedCssClass.of(DUI_BG, () -> "dui-bg-transparent-l-3");
 
-  CssClass dui_bg_transparent_l_4 = () -> "dui-bg-transparent-l-4";
+  CssClass dui_bg_transparent_l_4 =
+      LimitOneOfPrefixedCssClass.of(DUI_BG, () -> "dui-bg-transparent-l-4");
 
-  CssClass dui_bg_transparent_l_5 = () -> "dui-bg-transparent-l-5";
+  CssClass dui_bg_transparent_l_5 =
+      LimitOneOfPrefixedCssClass.of(DUI_BG, () -> "dui-bg-transparent-l-5");
 
-  CssClass dui_bg_transparent_d_1 = () -> "dui-bg-transparent-d-1";
+  CssClass dui_bg_transparent_d_1 =
+      LimitOneOfPrefixedCssClass.of(DUI_BG, () -> "dui-bg-transparent-d-1");
 
-  CssClass dui_bg_transparent_d_2 = () -> "dui-bg-transparent-d-2";
+  CssClass dui_bg_transparent_d_2 =
+      LimitOneOfPrefixedCssClass.of(DUI_BG, () -> "dui-bg-transparent-d-2");
 
-  CssClass dui_bg_transparent_d_3 = () -> "dui-bg-transparent-d-3";
+  CssClass dui_bg_transparent_d_3 =
+      LimitOneOfPrefixedCssClass.of(DUI_BG, () -> "dui-bg-transparent-d-3");
 
-  CssClass dui_bg_transparent_d_4 = () -> "dui-bg-transparent-d-4";
+  CssClass dui_bg_transparent_d_4 =
+      LimitOneOfPrefixedCssClass.of(DUI_BG, () -> "dui-bg-transparent-d-4");
 
-  CssClass dui_fg_transparent_l_1 = () -> "dui-fg-transparent-l-1";
+  CssClass dui_fg_transparent_l_1 =
+      LimitOneOfPrefixedCssClass.of(DUI_FG, () -> "dui-fg-transparent-l-1");
 
-  CssClass dui_fg_transparent_l_2 = () -> "dui-fg-transparent-l-2";
+  CssClass dui_fg_transparent_l_2 =
+      LimitOneOfPrefixedCssClass.of(DUI_FG, () -> "dui-fg-transparent-l-2");
 
-  CssClass dui_fg_transparent_l_3 = () -> "dui-fg-transparent-l-3";
+  CssClass dui_fg_transparent_l_3 =
+      LimitOneOfPrefixedCssClass.of(DUI_FG, () -> "dui-fg-transparent-l-3");
 
-  CssClass dui_fg_transparent_l_4 = () -> "dui-fg-transparent-l-4";
+  CssClass dui_fg_transparent_l_4 =
+      LimitOneOfPrefixedCssClass.of(DUI_FG, () -> "dui-fg-transparent-l-4");
 
-  CssClass dui_fg_transparent_l_5 = () -> "dui-fg-transparent-l-5";
+  CssClass dui_fg_transparent_l_5 =
+      LimitOneOfPrefixedCssClass.of(DUI_FG, () -> "dui-fg-transparent-l-5");
 
-  CssClass dui_fg_transparent_d_1 = () -> "dui-fg-transparent-d-1";
+  CssClass dui_fg_transparent_d_1 =
+      LimitOneOfPrefixedCssClass.of(DUI_FG, () -> "dui-fg-transparent-d-1");
 
-  CssClass dui_fg_transparent_d_2 = () -> "dui-fg-transparent-d-2";
+  CssClass dui_fg_transparent_d_2 =
+      LimitOneOfPrefixedCssClass.of(DUI_FG, () -> "dui-fg-transparent-d-2");
 
-  CssClass dui_fg_transparent_d_3 = () -> "dui-fg-transparent-d-3";
+  CssClass dui_fg_transparent_d_3 =
+      LimitOneOfPrefixedCssClass.of(DUI_FG, () -> "dui-fg-transparent-d-3");
 
-  CssClass dui_fg_transparent_d_4 = () -> "dui-fg-transparent-d-4";
+  CssClass dui_fg_transparent_d_4 =
+      LimitOneOfPrefixedCssClass.of(DUI_FG, () -> "dui-fg-transparent-d-4");
 
-  CssClass dui_accent_transparent = () -> "dui-accent-transparent";
+  CssClass dui_accent_transparent =
+      LimitOneOfPrefixedCssClass.of(DUI_ACCENT, () -> "dui-accent-transparent");
 
   CssClass dui_shadow_transparent = () -> "dui-shadow-transparent";
 
@@ -8854,300 +9259,583 @@ public interface ColorsCss {
 
   CssClass dui_color_semi_transparent = () -> "dui-color-semi-transparent";
 
-  CssClass dui_context_dominant_l_5 = () -> "dui-context-dominant-l-5";
-  CssClass dui_context_dominant_l_4 = () -> "dui-context-dominant-l-4";
-  CssClass dui_context_dominant_l_3 = () -> "dui-context-dominant-l-3";
-  CssClass dui_context_dominant_l_2 = () -> "dui-context-dominant-l-2";
-  CssClass dui_context_dominant_l_1 = () -> "dui-context-dominant-l-1";
-  CssClass dui_context_dominant = () -> "dui-context-dominant";
-  CssClass dui_context_dominant_d_1 = () -> "dui-context-dominant-d-1";
-  CssClass dui_context_dominant_d_2 = () -> "dui-context-dominant-d-2";
-  CssClass dui_context_dominant_d_3 = () -> "dui-context-dominant-d-3";
-  CssClass dui_context_dominant_d_4 = () -> "dui-context-dominant-d-4";
-  CssClass dui_context_accent_l_5 = () -> "dui-context-accent-l-5";
-  CssClass dui_context_accent_l_4 = () -> "dui-context-accent-l-4";
-  CssClass dui_context_accent_l_3 = () -> "dui-context-accent-l-3";
-  CssClass dui_context_accent_l_2 = () -> "dui-context-accent-l-2";
-  CssClass dui_context_accent_l_1 = () -> "dui-context-accent-l-1";
-  CssClass dui_context_accent = () -> "dui-context-accent";
-  CssClass dui_context_accent_d_1 = () -> "dui-context-accent-d-1";
-  CssClass dui_context_accent_d_2 = () -> "dui-context-accent-d-2";
-  CssClass dui_context_accent_d_3 = () -> "dui-context-accent-d-3";
-  CssClass dui_context_accent_d_4 = () -> "dui-context-accent-d-4";
-  CssClass dui_context_primary_l_5 = () -> "dui-context-primary-l-5";
-  CssClass dui_context_primary_l_4 = () -> "dui-context-primary-l-4";
-  CssClass dui_context_primary_l_3 = () -> "dui-context-primary-l-3";
-  CssClass dui_context_primary_l_2 = () -> "dui-context-primary-l-2";
-  CssClass dui_context_primary_l_1 = () -> "dui-context-primary-l-1";
-  CssClass dui_context_primary = () -> "dui-context-primary";
-  CssClass dui_context_primary_d_1 = () -> "dui-context-primary-d-1";
-  CssClass dui_context_primary_d_2 = () -> "dui-context-primary-d-2";
-  CssClass dui_context_primary_d_3 = () -> "dui-context-primary-d-3";
-  CssClass dui_context_primary_d_4 = () -> "dui-context-primary-d-4";
-  CssClass dui_context_secondary_l_5 = () -> "dui-context-secondary-l-5";
-  CssClass dui_context_secondary_l_4 = () -> "dui-context-secondary-l-4";
-  CssClass dui_context_secondary_l_3 = () -> "dui-context-secondary-l-3";
-  CssClass dui_context_secondary_l_2 = () -> "dui-context-secondary-l-2";
-  CssClass dui_context_secondary_l_1 = () -> "dui-context-secondary-l-1";
-  CssClass dui_context_secondary = () -> "dui-context-secondary";
-  CssClass dui_context_secondary_d_1 = () -> "dui-context-secondary-d-1";
-  CssClass dui_context_secondary_d_2 = () -> "dui-context-secondary-d-2";
-  CssClass dui_context_secondary_d_3 = () -> "dui-context-secondary-d-3";
-  CssClass dui_context_secondary_d_4 = () -> "dui-context-secondary-d-4";
-  CssClass dui_context_success_l_5 = () -> "dui-context-success-l-5";
-  CssClass dui_context_success_l_4 = () -> "dui-context-success-l-4";
-  CssClass dui_context_success_l_3 = () -> "dui-context-success-l-3";
-  CssClass dui_context_success_l_2 = () -> "dui-context-success-l-2";
-  CssClass dui_context_success_l_1 = () -> "dui-context-success-l-1";
-  CssClass dui_context_success = () -> "dui-context-success";
-  CssClass dui_context_success_d_1 = () -> "dui-context-success-d-1";
-  CssClass dui_context_success_d_2 = () -> "dui-context-success-d-2";
-  CssClass dui_context_success_d_3 = () -> "dui-context-success-d-3";
-  CssClass dui_context_success_d_4 = () -> "dui-context-success-d-4";
-  CssClass dui_context_warning_l_5 = () -> "dui-context-warning-l-5";
-  CssClass dui_context_warning_l_4 = () -> "dui-context-warning-l-4";
-  CssClass dui_context_warning_l_3 = () -> "dui-context-warning-l-3";
-  CssClass dui_context_warning_l_2 = () -> "dui-context-warning-l-2";
-  CssClass dui_context_warning_l_1 = () -> "dui-context-warning-l-1";
-  CssClass dui_context_warning = () -> "dui-context-warning";
-  CssClass dui_context_warning_d_1 = () -> "dui-context-warning-d-1";
-  CssClass dui_context_warning_d_2 = () -> "dui-context-warning-d-2";
-  CssClass dui_context_warning_d_3 = () -> "dui-context-warning-d-3";
-  CssClass dui_context_warning_d_4 = () -> "dui-context-warning-d-4";
-  CssClass dui_context_info_l_5 = () -> "dui-context-info-l-5";
-  CssClass dui_context_info_l_4 = () -> "dui-context-info-l-4";
-  CssClass dui_context_info_l_3 = () -> "dui-context-info-l-3";
-  CssClass dui_context_info_l_2 = () -> "dui-context-info-l-2";
-  CssClass dui_context_info_l_1 = () -> "dui-context-info-l-1";
-  CssClass dui_context_info = () -> "dui-context-info";
-  CssClass dui_context_info_d_1 = () -> "dui-context-info-d-1";
-  CssClass dui_context_info_d_2 = () -> "dui-context-info-d-2";
-  CssClass dui_context_info_d_3 = () -> "dui-context-info-d-3";
-  CssClass dui_context_info_d_4 = () -> "dui-context-info-d-4";
-  CssClass dui_context_error_l_5 = () -> "dui-context-error-l-5";
-  CssClass dui_context_error_l_4 = () -> "dui-context-error-l-4";
-  CssClass dui_context_error_l_3 = () -> "dui-context-error-l-3";
-  CssClass dui_context_error_l_2 = () -> "dui-context-error-l-2";
-  CssClass dui_context_error_l_1 = () -> "dui-context-error-l-1";
-  CssClass dui_context_error = () -> "dui-context-error";
-  CssClass dui_context_error_d_1 = () -> "dui-context-error-d-1";
-  CssClass dui_context_error_d_2 = () -> "dui-context-error-d-2";
-  CssClass dui_context_error_d_3 = () -> "dui-context-error-d-3";
-  CssClass dui_context_error_d_4 = () -> "dui-context-error-d-4";
-  CssClass dui_context_red_l_5 = () -> "dui-context-red-l-5";
-  CssClass dui_context_red_l_4 = () -> "dui-context-red-l-4";
-  CssClass dui_context_red_l_3 = () -> "dui-context-red-l-3";
-  CssClass dui_context_red_l_2 = () -> "dui-context-red-l-2";
-  CssClass dui_context_red_l_1 = () -> "dui-context-red-l-1";
-  CssClass dui_context_red = () -> "dui-context-red";
-  CssClass dui_context_red_d_1 = () -> "dui-context-red-d-1";
-  CssClass dui_context_red_d_2 = () -> "dui-context-red-d-2";
-  CssClass dui_context_red_d_3 = () -> "dui-context-red-d-3";
-  CssClass dui_context_red_d_4 = () -> "dui-context-red-d-4";
-  CssClass dui_context_pink_l_5 = () -> "dui-context-pink-l-5";
-  CssClass dui_context_pink_l_4 = () -> "dui-context-pink-l-4";
-  CssClass dui_context_pink_l_3 = () -> "dui-context-pink-l-3";
-  CssClass dui_context_pink_l_2 = () -> "dui-context-pink-l-2";
-  CssClass dui_context_pink_l_1 = () -> "dui-context-pink-l-1";
-  CssClass dui_context_pink = () -> "dui-context-pink";
-  CssClass dui_context_pink_d_1 = () -> "dui-context-pink-d-1";
-  CssClass dui_context_pink_d_2 = () -> "dui-context-pink-d-2";
-  CssClass dui_context_pink_d_3 = () -> "dui-context-pink-d-3";
-  CssClass dui_context_pink_d_4 = () -> "dui-context-pink-d-4";
-  CssClass dui_context_purple_l_5 = () -> "dui-context-purple-l-5";
-  CssClass dui_context_purple_l_4 = () -> "dui-context-purple-l-4";
-  CssClass dui_context_purple_l_3 = () -> "dui-context-purple-l-3";
-  CssClass dui_context_purple_l_2 = () -> "dui-context-purple-l-2";
-  CssClass dui_context_purple_l_1 = () -> "dui-context-purple-l-1";
-  CssClass dui_context_purple = () -> "dui-context-purple";
-  CssClass dui_context_purple_d_1 = () -> "dui-context-purple-d-1";
-  CssClass dui_context_purple_d_2 = () -> "dui-context-purple-d-2";
-  CssClass dui_context_purple_d_3 = () -> "dui-context-purple-d-3";
-  CssClass dui_context_purple_d_4 = () -> "dui-context-purple-d-4";
-  CssClass dui_context_deep_purple_l_5 = () -> "dui-context-deep-purple-l-5";
-  CssClass dui_context_deep_purple_l_4 = () -> "dui-context-deep-purple-l-4";
-  CssClass dui_context_deep_purple_l_3 = () -> "dui-context-deep-purple-l-3";
-  CssClass dui_context_deep_purple_l_2 = () -> "dui-context-deep-purple-l-2";
-  CssClass dui_context_deep_purple_l_1 = () -> "dui-context-deep-purple-l-1";
-  CssClass dui_context_deep_purple = () -> "dui-context-deep-purple";
-  CssClass dui_context_deep_purple_d_1 = () -> "dui-context-deep-purple-d-1";
-  CssClass dui_context_deep_purple_d_2 = () -> "dui-context-deep-purple-d-2";
-  CssClass dui_context_deep_purple_d_3 = () -> "dui-context-deep-purple-d-3";
-  CssClass dui_context_deep_purple_d_4 = () -> "dui-context-deep-purple-d-4";
-  CssClass dui_context_indigo_l_5 = () -> "dui-context-indigo-l-5";
-  CssClass dui_context_indigo_l_4 = () -> "dui-context-indigo-l-4";
-  CssClass dui_context_indigo_l_3 = () -> "dui-context-indigo-l-3";
-  CssClass dui_context_indigo_l_2 = () -> "dui-context-indigo-l-2";
-  CssClass dui_context_indigo_l_1 = () -> "dui-context-indigo-l-1";
-  CssClass dui_context_indigo = () -> "dui-context-indigo";
-  CssClass dui_context_indigo_d_1 = () -> "dui-context-indigo-d-1";
-  CssClass dui_context_indigo_d_2 = () -> "dui-context-indigo-d-2";
-  CssClass dui_context_indigo_d_3 = () -> "dui-context-indigo-d-3";
-  CssClass dui_context_indigo_d_4 = () -> "dui-context-indigo-d-4";
-  CssClass dui_context_blue_l_5 = () -> "dui-context-blue-l-5";
-  CssClass dui_context_blue_l_4 = () -> "dui-context-blue-l-4";
-  CssClass dui_context_blue_l_3 = () -> "dui-context-blue-l-3";
-  CssClass dui_context_blue_l_2 = () -> "dui-context-blue-l-2";
-  CssClass dui_context_blue_l_1 = () -> "dui-context-blue-l-1";
-  CssClass dui_context_blue = () -> "dui-context-blue";
-  CssClass dui_context_blue_d_1 = () -> "dui-context-blue-d-1";
-  CssClass dui_context_blue_d_2 = () -> "dui-context-blue-d-2";
-  CssClass dui_context_blue_d_3 = () -> "dui-context-blue-d-3";
-  CssClass dui_context_blue_d_4 = () -> "dui-context-blue-d-4";
-  CssClass dui_context_light_blue_l_5 = () -> "dui-context-light-blue-l-5";
-  CssClass dui_context_light_blue_l_4 = () -> "dui-context-light-blue-l-4";
-  CssClass dui_context_light_blue_l_3 = () -> "dui-context-light-blue-l-3";
-  CssClass dui_context_light_blue_l_2 = () -> "dui-context-light-blue-l-2";
-  CssClass dui_context_light_blue_l_1 = () -> "dui-context-light-blue-l-1";
-  CssClass dui_context_light_blue = () -> "dui-context-light-blue";
-  CssClass dui_context_light_blue_d_1 = () -> "dui-context-light-blue-d-1";
-  CssClass dui_context_light_blue_d_2 = () -> "dui-context-light-blue-d-2";
-  CssClass dui_context_light_blue_d_3 = () -> "dui-context-light-blue-d-3";
-  CssClass dui_context_light_blue_d_4 = () -> "dui-context-light-blue-d-4";
-  CssClass dui_context_cyan_l_5 = () -> "dui-context-cyan-l-5";
-  CssClass dui_context_cyan_l_4 = () -> "dui-context-cyan-l-4";
-  CssClass dui_context_cyan_l_3 = () -> "dui-context-cyan-l-3";
-  CssClass dui_context_cyan_l_2 = () -> "dui-context-cyan-l-2";
-  CssClass dui_context_cyan_l_1 = () -> "dui-context-cyan-l-1";
-  CssClass dui_context_cyan = () -> "dui-context-cyan";
-  CssClass dui_context_cyan_d_1 = () -> "dui-context-cyan-d-1";
-  CssClass dui_context_cyan_d_2 = () -> "dui-context-cyan-d-2";
-  CssClass dui_context_cyan_d_3 = () -> "dui-context-cyan-d-3";
-  CssClass dui_context_cyan_d_4 = () -> "dui-context-cyan-d-4";
-  CssClass dui_context_teal_l_5 = () -> "dui-context-teal-l-5";
-  CssClass dui_context_teal_l_4 = () -> "dui-context-teal-l-4";
-  CssClass dui_context_teal_l_3 = () -> "dui-context-teal-l-3";
-  CssClass dui_context_teal_l_2 = () -> "dui-context-teal-l-2";
-  CssClass dui_context_teal_l_1 = () -> "dui-context-teal-l-1";
-  CssClass dui_context_teal = () -> "dui-context-teal";
-  CssClass dui_context_teal_d_1 = () -> "dui-context-teal-d-1";
-  CssClass dui_context_teal_d_2 = () -> "dui-context-teal-d-2";
-  CssClass dui_context_teal_d_3 = () -> "dui-context-teal-d-3";
-  CssClass dui_context_teal_d_4 = () -> "dui-context-teal-d-4";
-  CssClass dui_context_green_l_5 = () -> "dui-context-green-l-5";
-  CssClass dui_context_green_l_4 = () -> "dui-context-green-l-4";
-  CssClass dui_context_green_l_3 = () -> "dui-context-green-l-3";
-  CssClass dui_context_green_l_2 = () -> "dui-context-green-l-2";
-  CssClass dui_context_green_l_1 = () -> "dui-context-green-l-1";
-  CssClass dui_context_green = () -> "dui-context-green";
-  CssClass dui_context_green_d_1 = () -> "dui-context-green-d-1";
-  CssClass dui_context_green_d_2 = () -> "dui-context-green-d-2";
-  CssClass dui_context_green_d_3 = () -> "dui-context-green-d-3";
-  CssClass dui_context_green_d_4 = () -> "dui-context-green-d-4";
-  CssClass dui_context_light_green_l_5 = () -> "dui-context-light-green-l-5";
-  CssClass dui_context_light_green_l_4 = () -> "dui-context-light-green-l-4";
-  CssClass dui_context_light_green_l_3 = () -> "dui-context-light-green-l-3";
-  CssClass dui_context_light_green_l_2 = () -> "dui-context-light-green-l-2";
-  CssClass dui_context_light_green_l_1 = () -> "dui-context-light-green-l-1";
-  CssClass dui_context_light_green = () -> "dui-context-light-green";
-  CssClass dui_context_light_green_d_1 = () -> "dui-context-light-green-d-1";
-  CssClass dui_context_light_green_d_2 = () -> "dui-context-light-green-d-2";
-  CssClass dui_context_light_green_d_3 = () -> "dui-context-light-green-d-3";
-  CssClass dui_context_light_green_d_4 = () -> "dui-context-light-green-d-4";
-  CssClass dui_context_lime_l_5 = () -> "dui-context-lime-l-5";
-  CssClass dui_context_lime_l_4 = () -> "dui-context-lime-l-4";
-  CssClass dui_context_lime_l_3 = () -> "dui-context-lime-l-3";
-  CssClass dui_context_lime_l_2 = () -> "dui-context-lime-l-2";
-  CssClass dui_context_lime_l_1 = () -> "dui-context-lime-l-1";
-  CssClass dui_context_lime = () -> "dui-context-lime";
-  CssClass dui_context_lime_d_1 = () -> "dui-context-lime-d-1";
-  CssClass dui_context_lime_d_2 = () -> "dui-context-lime-d-2";
-  CssClass dui_context_lime_d_3 = () -> "dui-context-lime-d-3";
-  CssClass dui_context_lime_d_4 = () -> "dui-context-lime-d-4";
-  CssClass dui_context_yellow_l_5 = () -> "dui-context-yellow-l-5";
-  CssClass dui_context_yellow_l_4 = () -> "dui-context-yellow-l-4";
-  CssClass dui_context_yellow_l_3 = () -> "dui-context-yellow-l-3";
-  CssClass dui_context_yellow_l_2 = () -> "dui-context-yellow-l-2";
-  CssClass dui_context_yellow_l_1 = () -> "dui-context-yellow-l-1";
-  CssClass dui_context_yellow = () -> "dui-context-yellow";
-  CssClass dui_context_yellow_d_1 = () -> "dui-context-yellow-d-1";
-  CssClass dui_context_yellow_d_2 = () -> "dui-context-yellow-d-2";
-  CssClass dui_context_yellow_d_3 = () -> "dui-context-yellow-d-3";
-  CssClass dui_context_yellow_d_4 = () -> "dui-context-yellow-d-4";
-  CssClass dui_context_amber_l_5 = () -> "dui-context-amber-l-5";
-  CssClass dui_context_amber_l_4 = () -> "dui-context-amber-l-4";
-  CssClass dui_context_amber_l_3 = () -> "dui-context-amber-l-3";
-  CssClass dui_context_amber_l_2 = () -> "dui-context-amber-l-2";
-  CssClass dui_context_amber_l_1 = () -> "dui-context-amber-l-1";
-  CssClass dui_context_amber = () -> "dui-context-amber";
-  CssClass dui_context_amber_d_1 = () -> "dui-context-amber-d-1";
-  CssClass dui_context_amber_d_2 = () -> "dui-context-amber-d-2";
-  CssClass dui_context_amber_d_3 = () -> "dui-context-amber-d-3";
-  CssClass dui_context_amber_d_4 = () -> "dui-context-amber-d-4";
-  CssClass dui_context_orange_l_5 = () -> "dui-context-orange-l-5";
-  CssClass dui_context_orange_l_4 = () -> "dui-context-orange-l-4";
-  CssClass dui_context_orange_l_3 = () -> "dui-context-orange-l-3";
-  CssClass dui_context_orange_l_2 = () -> "dui-context-orange-l-2";
-  CssClass dui_context_orange_l_1 = () -> "dui-context-orange-l-1";
-  CssClass dui_context_orange = () -> "dui-context-orange";
-  CssClass dui_context_orange_d_1 = () -> "dui-context-orange-d-1";
-  CssClass dui_context_orange_d_2 = () -> "dui-context-orange-d-2";
-  CssClass dui_context_orange_d_3 = () -> "dui-context-orange-d-3";
-  CssClass dui_context_orange_d_4 = () -> "dui-context-orange-d-4";
-  CssClass dui_context_deep_orange_l_5 = () -> "dui-context-deep-orange-l-5";
-  CssClass dui_context_deep_orange_l_4 = () -> "dui-context-deep-orange-l-4";
-  CssClass dui_context_deep_orange_l_3 = () -> "dui-context-deep-orange-l-3";
-  CssClass dui_context_deep_orange_l_2 = () -> "dui-context-deep-orange-l-2";
-  CssClass dui_context_deep_orange_l_1 = () -> "dui-context-deep-orange-l-1";
-  CssClass dui_context_deep_orange = () -> "dui-context-deep-orange";
-  CssClass dui_context_deep_orange_d_1 = () -> "dui-context-deep-orange-d-1";
-  CssClass dui_context_deep_orange_d_2 = () -> "dui-context-deep-orange-d-2";
-  CssClass dui_context_deep_orange_d_3 = () -> "dui-context-deep-orange-d-3";
-  CssClass dui_context_deep_orange_d_4 = () -> "dui-context-deep-orange-d-4";
-  CssClass dui_context_brown_l_5 = () -> "dui-context-brown-l-5";
-  CssClass dui_context_brown_l_4 = () -> "dui-context-brown-l-4";
-  CssClass dui_context_brown_l_3 = () -> "dui-context-brown-l-3";
-  CssClass dui_context_brown_l_2 = () -> "dui-context-brown-l-2";
-  CssClass dui_context_brown_l_1 = () -> "dui-context-brown-l-1";
-  CssClass dui_context_brown = () -> "dui-context-brown";
-  CssClass dui_context_brown_d_1 = () -> "dui-context-brown-d-1";
-  CssClass dui_context_brown_d_2 = () -> "dui-context-brown-d-2";
-  CssClass dui_context_brown_d_3 = () -> "dui-context-brown-d-3";
-  CssClass dui_context_brown_d_4 = () -> "dui-context-brown-d-4";
-  CssClass dui_context_grey_l_5 = () -> "dui-context-grey-l-5";
-  CssClass dui_context_grey_l_4 = () -> "dui-context-grey-l-4";
-  CssClass dui_context_grey_l_3 = () -> "dui-context-grey-l-3";
-  CssClass dui_context_grey_l_2 = () -> "dui-context-grey-l-2";
-  CssClass dui_context_grey_l_1 = () -> "dui-context-grey-l-1";
-  CssClass dui_context_grey = () -> "dui-context-grey";
-  CssClass dui_context_grey_d_1 = () -> "dui-context-grey-d-1";
-  CssClass dui_context_grey_d_2 = () -> "dui-context-grey-d-2";
-  CssClass dui_context_grey_d_3 = () -> "dui-context-grey-d-3";
-  CssClass dui_context_grey_d_4 = () -> "dui-context-grey-d-4";
-  CssClass dui_context_blue_grey_l_5 = () -> "dui-context-blue-grey-l-5";
-  CssClass dui_context_blue_grey_l_4 = () -> "dui-context-blue-grey-l-4";
-  CssClass dui_context_blue_grey_l_3 = () -> "dui-context-blue-grey-l-3";
-  CssClass dui_context_blue_grey_l_2 = () -> "dui-context-blue-grey-l-2";
-  CssClass dui_context_blue_grey_l_1 = () -> "dui-context-blue-grey-l-1";
-  CssClass dui_context_blue_grey = () -> "dui-context-blue-grey";
-  CssClass dui_context_blue_grey_d_1 = () -> "dui-context-blue-grey-d-1";
-  CssClass dui_context_blue_grey_d_2 = () -> "dui-context-blue-grey-d-2";
-  CssClass dui_context_blue_grey_d_3 = () -> "dui-context-blue-grey-d-3";
-  CssClass dui_context_blue_grey_d_4 = () -> "dui-context-blue-grey-d-4";
-  CssClass dui_context_white_l_5 = () -> "dui-context-white-l-5";
-  CssClass dui_context_white_l_4 = () -> "dui-context-white-l-4";
-  CssClass dui_context_white_l_3 = () -> "dui-context-white-l-3";
-  CssClass dui_context_white_l_2 = () -> "dui-context-white-l-2";
-  CssClass dui_context_white_l_1 = () -> "dui-context-white-l-1";
-  CssClass dui_context_white = () -> "dui-context-white";
-  CssClass dui_context_white_d_1 = () -> "dui-context-white-d-1";
-  CssClass dui_context_white_d_2 = () -> "dui-context-white-d-2";
-  CssClass dui_context_white_d_3 = () -> "dui-context-white-d-3";
-  CssClass dui_context_white_d_4 = () -> "dui-context-white-d-4";
-  CssClass dui_context_black_l_5 = () -> "dui-context-black-l-5";
-  CssClass dui_context_black_l_4 = () -> "dui-context-black-l-4";
-  CssClass dui_context_black_l_3 = () -> "dui-context-black-l-3";
-  CssClass dui_context_black_l_2 = () -> "dui-context-black-l-2";
-  CssClass dui_context_black_l_1 = () -> "dui-context-black-l-1";
-  CssClass dui_context_black = () -> "dui-context-black";
-  CssClass dui_context_black_d_1 = () -> "dui-context-black-d-1";
-  CssClass dui_context_black_d_2 = () -> "dui-context-black-d-2";
-  CssClass dui_context_black_d_3 = () -> "dui-context-black-d-3";
-  CssClass dui_context_black_d_4 = () -> "dui-context-black-d-4";
+  CssClass dui_context_dominant_l_5 =
+      LimitOneOfPrefixedCssClass.of(DUI_CONTEXT, () -> "dui-context-dominant-l-5");
+  CssClass dui_context_dominant_l_4 =
+      LimitOneOfPrefixedCssClass.of(DUI_CONTEXT, () -> "dui-context-dominant-l-4");
+  CssClass dui_context_dominant_l_3 =
+      LimitOneOfPrefixedCssClass.of(DUI_CONTEXT, () -> "dui-context-dominant-l-3");
+  CssClass dui_context_dominant_l_2 =
+      LimitOneOfPrefixedCssClass.of(DUI_CONTEXT, () -> "dui-context-dominant-l-2");
+  CssClass dui_context_dominant_l_1 =
+      LimitOneOfPrefixedCssClass.of(DUI_CONTEXT, () -> "dui-context-dominant-l-1");
+  CssClass dui_context_dominant =
+      LimitOneOfPrefixedCssClass.of(DUI_CONTEXT, () -> "dui-context-dominant");
+  CssClass dui_context_dominant_d_1 =
+      LimitOneOfPrefixedCssClass.of(DUI_CONTEXT, () -> "dui-context-dominant-d-1");
+  CssClass dui_context_dominant_d_2 =
+      LimitOneOfPrefixedCssClass.of(DUI_CONTEXT, () -> "dui-context-dominant-d-2");
+  CssClass dui_context_dominant_d_3 =
+      LimitOneOfPrefixedCssClass.of(DUI_CONTEXT, () -> "dui-context-dominant-d-3");
+  CssClass dui_context_dominant_d_4 =
+      LimitOneOfPrefixedCssClass.of(DUI_CONTEXT, () -> "dui-context-dominant-d-4");
+  CssClass dui_context_accent_l_5 =
+      LimitOneOfPrefixedCssClass.of(DUI_CONTEXT, () -> "dui-context-accent-l-5");
+  CssClass dui_context_accent_l_4 =
+      LimitOneOfPrefixedCssClass.of(DUI_CONTEXT, () -> "dui-context-accent-l-4");
+  CssClass dui_context_accent_l_3 =
+      LimitOneOfPrefixedCssClass.of(DUI_CONTEXT, () -> "dui-context-accent-l-3");
+  CssClass dui_context_accent_l_2 =
+      LimitOneOfPrefixedCssClass.of(DUI_CONTEXT, () -> "dui-context-accent-l-2");
+  CssClass dui_context_accent_l_1 =
+      LimitOneOfPrefixedCssClass.of(DUI_CONTEXT, () -> "dui-context-accent-l-1");
+  CssClass dui_context_accent =
+      LimitOneOfPrefixedCssClass.of(DUI_CONTEXT, () -> "dui-context-accent");
+  CssClass dui_context_accent_d_1 =
+      LimitOneOfPrefixedCssClass.of(DUI_CONTEXT, () -> "dui-context-accent-d-1");
+  CssClass dui_context_accent_d_2 =
+      LimitOneOfPrefixedCssClass.of(DUI_CONTEXT, () -> "dui-context-accent-d-2");
+  CssClass dui_context_accent_d_3 =
+      LimitOneOfPrefixedCssClass.of(DUI_CONTEXT, () -> "dui-context-accent-d-3");
+  CssClass dui_context_accent_d_4 =
+      LimitOneOfPrefixedCssClass.of(DUI_CONTEXT, () -> "dui-context-accent-d-4");
+  CssClass dui_context_primary_l_5 =
+      LimitOneOfPrefixedCssClass.of(DUI_CONTEXT, () -> "dui-context-primary-l-5");
+  CssClass dui_context_primary_l_4 =
+      LimitOneOfPrefixedCssClass.of(DUI_CONTEXT, () -> "dui-context-primary-l-4");
+  CssClass dui_context_primary_l_3 =
+      LimitOneOfPrefixedCssClass.of(DUI_CONTEXT, () -> "dui-context-primary-l-3");
+  CssClass dui_context_primary_l_2 =
+      LimitOneOfPrefixedCssClass.of(DUI_CONTEXT, () -> "dui-context-primary-l-2");
+  CssClass dui_context_primary_l_1 =
+      LimitOneOfPrefixedCssClass.of(DUI_CONTEXT, () -> "dui-context-primary-l-1");
+  CssClass dui_context_primary =
+      LimitOneOfPrefixedCssClass.of(DUI_CONTEXT, () -> "dui-context-primary");
+  CssClass dui_context_primary_d_1 =
+      LimitOneOfPrefixedCssClass.of(DUI_CONTEXT, () -> "dui-context-primary-d-1");
+  CssClass dui_context_primary_d_2 =
+      LimitOneOfPrefixedCssClass.of(DUI_CONTEXT, () -> "dui-context-primary-d-2");
+  CssClass dui_context_primary_d_3 =
+      LimitOneOfPrefixedCssClass.of(DUI_CONTEXT, () -> "dui-context-primary-d-3");
+  CssClass dui_context_primary_d_4 =
+      LimitOneOfPrefixedCssClass.of(DUI_CONTEXT, () -> "dui-context-primary-d-4");
+  CssClass dui_context_secondary_l_5 =
+      LimitOneOfPrefixedCssClass.of(DUI_CONTEXT, () -> "dui-context-secondary-l-5");
+  CssClass dui_context_secondary_l_4 =
+      LimitOneOfPrefixedCssClass.of(DUI_CONTEXT, () -> "dui-context-secondary-l-4");
+  CssClass dui_context_secondary_l_3 =
+      LimitOneOfPrefixedCssClass.of(DUI_CONTEXT, () -> "dui-context-secondary-l-3");
+  CssClass dui_context_secondary_l_2 =
+      LimitOneOfPrefixedCssClass.of(DUI_CONTEXT, () -> "dui-context-secondary-l-2");
+  CssClass dui_context_secondary_l_1 =
+      LimitOneOfPrefixedCssClass.of(DUI_CONTEXT, () -> "dui-context-secondary-l-1");
+  CssClass dui_context_secondary =
+      LimitOneOfPrefixedCssClass.of(DUI_CONTEXT, () -> "dui-context-secondary");
+  CssClass dui_context_secondary_d_1 =
+      LimitOneOfPrefixedCssClass.of(DUI_CONTEXT, () -> "dui-context-secondary-d-1");
+  CssClass dui_context_secondary_d_2 =
+      LimitOneOfPrefixedCssClass.of(DUI_CONTEXT, () -> "dui-context-secondary-d-2");
+  CssClass dui_context_secondary_d_3 =
+      LimitOneOfPrefixedCssClass.of(DUI_CONTEXT, () -> "dui-context-secondary-d-3");
+  CssClass dui_context_secondary_d_4 =
+      LimitOneOfPrefixedCssClass.of(DUI_CONTEXT, () -> "dui-context-secondary-d-4");
+  CssClass dui_context_success_l_5 =
+      LimitOneOfPrefixedCssClass.of(DUI_CONTEXT, () -> "dui-context-success-l-5");
+  CssClass dui_context_success_l_4 =
+      LimitOneOfPrefixedCssClass.of(DUI_CONTEXT, () -> "dui-context-success-l-4");
+  CssClass dui_context_success_l_3 =
+      LimitOneOfPrefixedCssClass.of(DUI_CONTEXT, () -> "dui-context-success-l-3");
+  CssClass dui_context_success_l_2 =
+      LimitOneOfPrefixedCssClass.of(DUI_CONTEXT, () -> "dui-context-success-l-2");
+  CssClass dui_context_success_l_1 =
+      LimitOneOfPrefixedCssClass.of(DUI_CONTEXT, () -> "dui-context-success-l-1");
+  CssClass dui_context_success =
+      LimitOneOfPrefixedCssClass.of(DUI_CONTEXT, () -> "dui-context-success");
+  CssClass dui_context_success_d_1 =
+      LimitOneOfPrefixedCssClass.of(DUI_CONTEXT, () -> "dui-context-success-d-1");
+  CssClass dui_context_success_d_2 =
+      LimitOneOfPrefixedCssClass.of(DUI_CONTEXT, () -> "dui-context-success-d-2");
+  CssClass dui_context_success_d_3 =
+      LimitOneOfPrefixedCssClass.of(DUI_CONTEXT, () -> "dui-context-success-d-3");
+  CssClass dui_context_success_d_4 =
+      LimitOneOfPrefixedCssClass.of(DUI_CONTEXT, () -> "dui-context-success-d-4");
+  CssClass dui_context_warning_l_5 =
+      LimitOneOfPrefixedCssClass.of(DUI_CONTEXT, () -> "dui-context-warning-l-5");
+  CssClass dui_context_warning_l_4 =
+      LimitOneOfPrefixedCssClass.of(DUI_CONTEXT, () -> "dui-context-warning-l-4");
+  CssClass dui_context_warning_l_3 =
+      LimitOneOfPrefixedCssClass.of(DUI_CONTEXT, () -> "dui-context-warning-l-3");
+  CssClass dui_context_warning_l_2 =
+      LimitOneOfPrefixedCssClass.of(DUI_CONTEXT, () -> "dui-context-warning-l-2");
+  CssClass dui_context_warning_l_1 =
+      LimitOneOfPrefixedCssClass.of(DUI_CONTEXT, () -> "dui-context-warning-l-1");
+  CssClass dui_context_warning =
+      LimitOneOfPrefixedCssClass.of(DUI_CONTEXT, () -> "dui-context-warning");
+  CssClass dui_context_warning_d_1 =
+      LimitOneOfPrefixedCssClass.of(DUI_CONTEXT, () -> "dui-context-warning-d-1");
+  CssClass dui_context_warning_d_2 =
+      LimitOneOfPrefixedCssClass.of(DUI_CONTEXT, () -> "dui-context-warning-d-2");
+  CssClass dui_context_warning_d_3 =
+      LimitOneOfPrefixedCssClass.of(DUI_CONTEXT, () -> "dui-context-warning-d-3");
+  CssClass dui_context_warning_d_4 =
+      LimitOneOfPrefixedCssClass.of(DUI_CONTEXT, () -> "dui-context-warning-d-4");
+  CssClass dui_context_info_l_5 =
+      LimitOneOfPrefixedCssClass.of(DUI_CONTEXT, () -> "dui-context-info-l-5");
+  CssClass dui_context_info_l_4 =
+      LimitOneOfPrefixedCssClass.of(DUI_CONTEXT, () -> "dui-context-info-l-4");
+  CssClass dui_context_info_l_3 =
+      LimitOneOfPrefixedCssClass.of(DUI_CONTEXT, () -> "dui-context-info-l-3");
+  CssClass dui_context_info_l_2 =
+      LimitOneOfPrefixedCssClass.of(DUI_CONTEXT, () -> "dui-context-info-l-2");
+  CssClass dui_context_info_l_1 =
+      LimitOneOfPrefixedCssClass.of(DUI_CONTEXT, () -> "dui-context-info-l-1");
+  CssClass dui_context_info = LimitOneOfPrefixedCssClass.of(DUI_CONTEXT, () -> "dui-context-info");
+  CssClass dui_context_info_d_1 =
+      LimitOneOfPrefixedCssClass.of(DUI_CONTEXT, () -> "dui-context-info-d-1");
+  CssClass dui_context_info_d_2 =
+      LimitOneOfPrefixedCssClass.of(DUI_CONTEXT, () -> "dui-context-info-d-2");
+  CssClass dui_context_info_d_3 =
+      LimitOneOfPrefixedCssClass.of(DUI_CONTEXT, () -> "dui-context-info-d-3");
+  CssClass dui_context_info_d_4 =
+      LimitOneOfPrefixedCssClass.of(DUI_CONTEXT, () -> "dui-context-info-d-4");
+  CssClass dui_context_error_l_5 =
+      LimitOneOfPrefixedCssClass.of(DUI_CONTEXT, () -> "dui-context-error-l-5");
+  CssClass dui_context_error_l_4 =
+      LimitOneOfPrefixedCssClass.of(DUI_CONTEXT, () -> "dui-context-error-l-4");
+  CssClass dui_context_error_l_3 =
+      LimitOneOfPrefixedCssClass.of(DUI_CONTEXT, () -> "dui-context-error-l-3");
+  CssClass dui_context_error_l_2 =
+      LimitOneOfPrefixedCssClass.of(DUI_CONTEXT, () -> "dui-context-error-l-2");
+  CssClass dui_context_error_l_1 =
+      LimitOneOfPrefixedCssClass.of(DUI_CONTEXT, () -> "dui-context-error-l-1");
+  CssClass dui_context_error =
+      LimitOneOfPrefixedCssClass.of(DUI_CONTEXT, () -> "dui-context-error");
+  CssClass dui_context_error_d_1 =
+      LimitOneOfPrefixedCssClass.of(DUI_CONTEXT, () -> "dui-context-error-d-1");
+  CssClass dui_context_error_d_2 =
+      LimitOneOfPrefixedCssClass.of(DUI_CONTEXT, () -> "dui-context-error-d-2");
+  CssClass dui_context_error_d_3 =
+      LimitOneOfPrefixedCssClass.of(DUI_CONTEXT, () -> "dui-context-error-d-3");
+  CssClass dui_context_error_d_4 =
+      LimitOneOfPrefixedCssClass.of(DUI_CONTEXT, () -> "dui-context-error-d-4");
+  CssClass dui_context_red_l_5 =
+      LimitOneOfPrefixedCssClass.of(DUI_CONTEXT, () -> "dui-context-red-l-5");
+  CssClass dui_context_red_l_4 =
+      LimitOneOfPrefixedCssClass.of(DUI_CONTEXT, () -> "dui-context-red-l-4");
+  CssClass dui_context_red_l_3 =
+      LimitOneOfPrefixedCssClass.of(DUI_CONTEXT, () -> "dui-context-red-l-3");
+  CssClass dui_context_red_l_2 =
+      LimitOneOfPrefixedCssClass.of(DUI_CONTEXT, () -> "dui-context-red-l-2");
+  CssClass dui_context_red_l_1 =
+      LimitOneOfPrefixedCssClass.of(DUI_CONTEXT, () -> "dui-context-red-l-1");
+  CssClass dui_context_red = LimitOneOfPrefixedCssClass.of(DUI_CONTEXT, () -> "dui-context-red");
+  CssClass dui_context_red_d_1 =
+      LimitOneOfPrefixedCssClass.of(DUI_CONTEXT, () -> "dui-context-red-d-1");
+  CssClass dui_context_red_d_2 =
+      LimitOneOfPrefixedCssClass.of(DUI_CONTEXT, () -> "dui-context-red-d-2");
+  CssClass dui_context_red_d_3 =
+      LimitOneOfPrefixedCssClass.of(DUI_CONTEXT, () -> "dui-context-red-d-3");
+  CssClass dui_context_red_d_4 =
+      LimitOneOfPrefixedCssClass.of(DUI_CONTEXT, () -> "dui-context-red-d-4");
+  CssClass dui_context_pink_l_5 =
+      LimitOneOfPrefixedCssClass.of(DUI_CONTEXT, () -> "dui-context-pink-l-5");
+  CssClass dui_context_pink_l_4 =
+      LimitOneOfPrefixedCssClass.of(DUI_CONTEXT, () -> "dui-context-pink-l-4");
+  CssClass dui_context_pink_l_3 =
+      LimitOneOfPrefixedCssClass.of(DUI_CONTEXT, () -> "dui-context-pink-l-3");
+  CssClass dui_context_pink_l_2 =
+      LimitOneOfPrefixedCssClass.of(DUI_CONTEXT, () -> "dui-context-pink-l-2");
+  CssClass dui_context_pink_l_1 =
+      LimitOneOfPrefixedCssClass.of(DUI_CONTEXT, () -> "dui-context-pink-l-1");
+  CssClass dui_context_pink = LimitOneOfPrefixedCssClass.of(DUI_CONTEXT, () -> "dui-context-pink");
+  CssClass dui_context_pink_d_1 =
+      LimitOneOfPrefixedCssClass.of(DUI_CONTEXT, () -> "dui-context-pink-d-1");
+  CssClass dui_context_pink_d_2 =
+      LimitOneOfPrefixedCssClass.of(DUI_CONTEXT, () -> "dui-context-pink-d-2");
+  CssClass dui_context_pink_d_3 =
+      LimitOneOfPrefixedCssClass.of(DUI_CONTEXT, () -> "dui-context-pink-d-3");
+  CssClass dui_context_pink_d_4 =
+      LimitOneOfPrefixedCssClass.of(DUI_CONTEXT, () -> "dui-context-pink-d-4");
+  CssClass dui_context_purple_l_5 =
+      LimitOneOfPrefixedCssClass.of(DUI_CONTEXT, () -> "dui-context-purple-l-5");
+  CssClass dui_context_purple_l_4 =
+      LimitOneOfPrefixedCssClass.of(DUI_CONTEXT, () -> "dui-context-purple-l-4");
+  CssClass dui_context_purple_l_3 =
+      LimitOneOfPrefixedCssClass.of(DUI_CONTEXT, () -> "dui-context-purple-l-3");
+  CssClass dui_context_purple_l_2 =
+      LimitOneOfPrefixedCssClass.of(DUI_CONTEXT, () -> "dui-context-purple-l-2");
+  CssClass dui_context_purple_l_1 =
+      LimitOneOfPrefixedCssClass.of(DUI_CONTEXT, () -> "dui-context-purple-l-1");
+  CssClass dui_context_purple =
+      LimitOneOfPrefixedCssClass.of(DUI_CONTEXT, () -> "dui-context-purple");
+  CssClass dui_context_purple_d_1 =
+      LimitOneOfPrefixedCssClass.of(DUI_CONTEXT, () -> "dui-context-purple-d-1");
+  CssClass dui_context_purple_d_2 =
+      LimitOneOfPrefixedCssClass.of(DUI_CONTEXT, () -> "dui-context-purple-d-2");
+  CssClass dui_context_purple_d_3 =
+      LimitOneOfPrefixedCssClass.of(DUI_CONTEXT, () -> "dui-context-purple-d-3");
+  CssClass dui_context_purple_d_4 =
+      LimitOneOfPrefixedCssClass.of(DUI_CONTEXT, () -> "dui-context-purple-d-4");
+  CssClass dui_context_deep_purple_l_5 =
+      LimitOneOfPrefixedCssClass.of(DUI_CONTEXT, () -> "dui-context-deep-purple-l-5");
+  CssClass dui_context_deep_purple_l_4 =
+      LimitOneOfPrefixedCssClass.of(DUI_CONTEXT, () -> "dui-context-deep-purple-l-4");
+  CssClass dui_context_deep_purple_l_3 =
+      LimitOneOfPrefixedCssClass.of(DUI_CONTEXT, () -> "dui-context-deep-purple-l-3");
+  CssClass dui_context_deep_purple_l_2 =
+      LimitOneOfPrefixedCssClass.of(DUI_CONTEXT, () -> "dui-context-deep-purple-l-2");
+  CssClass dui_context_deep_purple_l_1 =
+      LimitOneOfPrefixedCssClass.of(DUI_CONTEXT, () -> "dui-context-deep-purple-l-1");
+  CssClass dui_context_deep_purple =
+      LimitOneOfPrefixedCssClass.of(DUI_CONTEXT, () -> "dui-context-deep-purple");
+  CssClass dui_context_deep_purple_d_1 =
+      LimitOneOfPrefixedCssClass.of(DUI_CONTEXT, () -> "dui-context-deep-purple-d-1");
+  CssClass dui_context_deep_purple_d_2 =
+      LimitOneOfPrefixedCssClass.of(DUI_CONTEXT, () -> "dui-context-deep-purple-d-2");
+  CssClass dui_context_deep_purple_d_3 =
+      LimitOneOfPrefixedCssClass.of(DUI_CONTEXT, () -> "dui-context-deep-purple-d-3");
+  CssClass dui_context_deep_purple_d_4 =
+      LimitOneOfPrefixedCssClass.of(DUI_CONTEXT, () -> "dui-context-deep-purple-d-4");
+  CssClass dui_context_indigo_l_5 =
+      LimitOneOfPrefixedCssClass.of(DUI_CONTEXT, () -> "dui-context-indigo-l-5");
+  CssClass dui_context_indigo_l_4 =
+      LimitOneOfPrefixedCssClass.of(DUI_CONTEXT, () -> "dui-context-indigo-l-4");
+  CssClass dui_context_indigo_l_3 =
+      LimitOneOfPrefixedCssClass.of(DUI_CONTEXT, () -> "dui-context-indigo-l-3");
+  CssClass dui_context_indigo_l_2 =
+      LimitOneOfPrefixedCssClass.of(DUI_CONTEXT, () -> "dui-context-indigo-l-2");
+  CssClass dui_context_indigo_l_1 =
+      LimitOneOfPrefixedCssClass.of(DUI_CONTEXT, () -> "dui-context-indigo-l-1");
+  CssClass dui_context_indigo =
+      LimitOneOfPrefixedCssClass.of(DUI_CONTEXT, () -> "dui-context-indigo");
+  CssClass dui_context_indigo_d_1 =
+      LimitOneOfPrefixedCssClass.of(DUI_CONTEXT, () -> "dui-context-indigo-d-1");
+  CssClass dui_context_indigo_d_2 =
+      LimitOneOfPrefixedCssClass.of(DUI_CONTEXT, () -> "dui-context-indigo-d-2");
+  CssClass dui_context_indigo_d_3 =
+      LimitOneOfPrefixedCssClass.of(DUI_CONTEXT, () -> "dui-context-indigo-d-3");
+  CssClass dui_context_indigo_d_4 =
+      LimitOneOfPrefixedCssClass.of(DUI_CONTEXT, () -> "dui-context-indigo-d-4");
+  CssClass dui_context_blue_l_5 =
+      LimitOneOfPrefixedCssClass.of(DUI_CONTEXT, () -> "dui-context-blue-l-5");
+  CssClass dui_context_blue_l_4 =
+      LimitOneOfPrefixedCssClass.of(DUI_CONTEXT, () -> "dui-context-blue-l-4");
+  CssClass dui_context_blue_l_3 =
+      LimitOneOfPrefixedCssClass.of(DUI_CONTEXT, () -> "dui-context-blue-l-3");
+  CssClass dui_context_blue_l_2 =
+      LimitOneOfPrefixedCssClass.of(DUI_CONTEXT, () -> "dui-context-blue-l-2");
+  CssClass dui_context_blue_l_1 =
+      LimitOneOfPrefixedCssClass.of(DUI_CONTEXT, () -> "dui-context-blue-l-1");
+  CssClass dui_context_blue = LimitOneOfPrefixedCssClass.of(DUI_CONTEXT, () -> "dui-context-blue");
+  CssClass dui_context_blue_d_1 =
+      LimitOneOfPrefixedCssClass.of(DUI_CONTEXT, () -> "dui-context-blue-d-1");
+  CssClass dui_context_blue_d_2 =
+      LimitOneOfPrefixedCssClass.of(DUI_CONTEXT, () -> "dui-context-blue-d-2");
+  CssClass dui_context_blue_d_3 =
+      LimitOneOfPrefixedCssClass.of(DUI_CONTEXT, () -> "dui-context-blue-d-3");
+  CssClass dui_context_blue_d_4 =
+      LimitOneOfPrefixedCssClass.of(DUI_CONTEXT, () -> "dui-context-blue-d-4");
+  CssClass dui_context_light_blue_l_5 =
+      LimitOneOfPrefixedCssClass.of(DUI_CONTEXT, () -> "dui-context-light-blue-l-5");
+  CssClass dui_context_light_blue_l_4 =
+      LimitOneOfPrefixedCssClass.of(DUI_CONTEXT, () -> "dui-context-light-blue-l-4");
+  CssClass dui_context_light_blue_l_3 =
+      LimitOneOfPrefixedCssClass.of(DUI_CONTEXT, () -> "dui-context-light-blue-l-3");
+  CssClass dui_context_light_blue_l_2 =
+      LimitOneOfPrefixedCssClass.of(DUI_CONTEXT, () -> "dui-context-light-blue-l-2");
+  CssClass dui_context_light_blue_l_1 =
+      LimitOneOfPrefixedCssClass.of(DUI_CONTEXT, () -> "dui-context-light-blue-l-1");
+  CssClass dui_context_light_blue =
+      LimitOneOfPrefixedCssClass.of(DUI_CONTEXT, () -> "dui-context-light-blue");
+  CssClass dui_context_light_blue_d_1 =
+      LimitOneOfPrefixedCssClass.of(DUI_CONTEXT, () -> "dui-context-light-blue-d-1");
+  CssClass dui_context_light_blue_d_2 =
+      LimitOneOfPrefixedCssClass.of(DUI_CONTEXT, () -> "dui-context-light-blue-d-2");
+  CssClass dui_context_light_blue_d_3 =
+      LimitOneOfPrefixedCssClass.of(DUI_CONTEXT, () -> "dui-context-light-blue-d-3");
+  CssClass dui_context_light_blue_d_4 =
+      LimitOneOfPrefixedCssClass.of(DUI_CONTEXT, () -> "dui-context-light-blue-d-4");
+  CssClass dui_context_cyan_l_5 =
+      LimitOneOfPrefixedCssClass.of(DUI_CONTEXT, () -> "dui-context-cyan-l-5");
+  CssClass dui_context_cyan_l_4 =
+      LimitOneOfPrefixedCssClass.of(DUI_CONTEXT, () -> "dui-context-cyan-l-4");
+  CssClass dui_context_cyan_l_3 =
+      LimitOneOfPrefixedCssClass.of(DUI_CONTEXT, () -> "dui-context-cyan-l-3");
+  CssClass dui_context_cyan_l_2 =
+      LimitOneOfPrefixedCssClass.of(DUI_CONTEXT, () -> "dui-context-cyan-l-2");
+  CssClass dui_context_cyan_l_1 =
+      LimitOneOfPrefixedCssClass.of(DUI_CONTEXT, () -> "dui-context-cyan-l-1");
+  CssClass dui_context_cyan = LimitOneOfPrefixedCssClass.of(DUI_CONTEXT, () -> "dui-context-cyan");
+  CssClass dui_context_cyan_d_1 =
+      LimitOneOfPrefixedCssClass.of(DUI_CONTEXT, () -> "dui-context-cyan-d-1");
+  CssClass dui_context_cyan_d_2 =
+      LimitOneOfPrefixedCssClass.of(DUI_CONTEXT, () -> "dui-context-cyan-d-2");
+  CssClass dui_context_cyan_d_3 =
+      LimitOneOfPrefixedCssClass.of(DUI_CONTEXT, () -> "dui-context-cyan-d-3");
+  CssClass dui_context_cyan_d_4 =
+      LimitOneOfPrefixedCssClass.of(DUI_CONTEXT, () -> "dui-context-cyan-d-4");
+  CssClass dui_context_teal_l_5 =
+      LimitOneOfPrefixedCssClass.of(DUI_CONTEXT, () -> "dui-context-teal-l-5");
+  CssClass dui_context_teal_l_4 =
+      LimitOneOfPrefixedCssClass.of(DUI_CONTEXT, () -> "dui-context-teal-l-4");
+  CssClass dui_context_teal_l_3 =
+      LimitOneOfPrefixedCssClass.of(DUI_CONTEXT, () -> "dui-context-teal-l-3");
+  CssClass dui_context_teal_l_2 =
+      LimitOneOfPrefixedCssClass.of(DUI_CONTEXT, () -> "dui-context-teal-l-2");
+  CssClass dui_context_teal_l_1 =
+      LimitOneOfPrefixedCssClass.of(DUI_CONTEXT, () -> "dui-context-teal-l-1");
+  CssClass dui_context_teal = LimitOneOfPrefixedCssClass.of(DUI_CONTEXT, () -> "dui-context-teal");
+  CssClass dui_context_teal_d_1 =
+      LimitOneOfPrefixedCssClass.of(DUI_CONTEXT, () -> "dui-context-teal-d-1");
+  CssClass dui_context_teal_d_2 =
+      LimitOneOfPrefixedCssClass.of(DUI_CONTEXT, () -> "dui-context-teal-d-2");
+  CssClass dui_context_teal_d_3 =
+      LimitOneOfPrefixedCssClass.of(DUI_CONTEXT, () -> "dui-context-teal-d-3");
+  CssClass dui_context_teal_d_4 =
+      LimitOneOfPrefixedCssClass.of(DUI_CONTEXT, () -> "dui-context-teal-d-4");
+  CssClass dui_context_green_l_5 =
+      LimitOneOfPrefixedCssClass.of(DUI_CONTEXT, () -> "dui-context-green-l-5");
+  CssClass dui_context_green_l_4 =
+      LimitOneOfPrefixedCssClass.of(DUI_CONTEXT, () -> "dui-context-green-l-4");
+  CssClass dui_context_green_l_3 =
+      LimitOneOfPrefixedCssClass.of(DUI_CONTEXT, () -> "dui-context-green-l-3");
+  CssClass dui_context_green_l_2 =
+      LimitOneOfPrefixedCssClass.of(DUI_CONTEXT, () -> "dui-context-green-l-2");
+  CssClass dui_context_green_l_1 =
+      LimitOneOfPrefixedCssClass.of(DUI_CONTEXT, () -> "dui-context-green-l-1");
+  CssClass dui_context_green =
+      LimitOneOfPrefixedCssClass.of(DUI_CONTEXT, () -> "dui-context-green");
+  CssClass dui_context_green_d_1 =
+      LimitOneOfPrefixedCssClass.of(DUI_CONTEXT, () -> "dui-context-green-d-1");
+  CssClass dui_context_green_d_2 =
+      LimitOneOfPrefixedCssClass.of(DUI_CONTEXT, () -> "dui-context-green-d-2");
+  CssClass dui_context_green_d_3 =
+      LimitOneOfPrefixedCssClass.of(DUI_CONTEXT, () -> "dui-context-green-d-3");
+  CssClass dui_context_green_d_4 =
+      LimitOneOfPrefixedCssClass.of(DUI_CONTEXT, () -> "dui-context-green-d-4");
+  CssClass dui_context_light_green_l_5 =
+      LimitOneOfPrefixedCssClass.of(DUI_CONTEXT, () -> "dui-context-light-green-l-5");
+  CssClass dui_context_light_green_l_4 =
+      LimitOneOfPrefixedCssClass.of(DUI_CONTEXT, () -> "dui-context-light-green-l-4");
+  CssClass dui_context_light_green_l_3 =
+      LimitOneOfPrefixedCssClass.of(DUI_CONTEXT, () -> "dui-context-light-green-l-3");
+  CssClass dui_context_light_green_l_2 =
+      LimitOneOfPrefixedCssClass.of(DUI_CONTEXT, () -> "dui-context-light-green-l-2");
+  CssClass dui_context_light_green_l_1 =
+      LimitOneOfPrefixedCssClass.of(DUI_CONTEXT, () -> "dui-context-light-green-l-1");
+  CssClass dui_context_light_green =
+      LimitOneOfPrefixedCssClass.of(DUI_CONTEXT, () -> "dui-context-light-green");
+  CssClass dui_context_light_green_d_1 =
+      LimitOneOfPrefixedCssClass.of(DUI_CONTEXT, () -> "dui-context-light-green-d-1");
+  CssClass dui_context_light_green_d_2 =
+      LimitOneOfPrefixedCssClass.of(DUI_CONTEXT, () -> "dui-context-light-green-d-2");
+  CssClass dui_context_light_green_d_3 =
+      LimitOneOfPrefixedCssClass.of(DUI_CONTEXT, () -> "dui-context-light-green-d-3");
+  CssClass dui_context_light_green_d_4 =
+      LimitOneOfPrefixedCssClass.of(DUI_CONTEXT, () -> "dui-context-light-green-d-4");
+  CssClass dui_context_lime_l_5 =
+      LimitOneOfPrefixedCssClass.of(DUI_CONTEXT, () -> "dui-context-lime-l-5");
+  CssClass dui_context_lime_l_4 =
+      LimitOneOfPrefixedCssClass.of(DUI_CONTEXT, () -> "dui-context-lime-l-4");
+  CssClass dui_context_lime_l_3 =
+      LimitOneOfPrefixedCssClass.of(DUI_CONTEXT, () -> "dui-context-lime-l-3");
+  CssClass dui_context_lime_l_2 =
+      LimitOneOfPrefixedCssClass.of(DUI_CONTEXT, () -> "dui-context-lime-l-2");
+  CssClass dui_context_lime_l_1 =
+      LimitOneOfPrefixedCssClass.of(DUI_CONTEXT, () -> "dui-context-lime-l-1");
+  CssClass dui_context_lime = LimitOneOfPrefixedCssClass.of(DUI_CONTEXT, () -> "dui-context-lime");
+  CssClass dui_context_lime_d_1 =
+      LimitOneOfPrefixedCssClass.of(DUI_CONTEXT, () -> "dui-context-lime-d-1");
+  CssClass dui_context_lime_d_2 =
+      LimitOneOfPrefixedCssClass.of(DUI_CONTEXT, () -> "dui-context-lime-d-2");
+  CssClass dui_context_lime_d_3 =
+      LimitOneOfPrefixedCssClass.of(DUI_CONTEXT, () -> "dui-context-lime-d-3");
+  CssClass dui_context_lime_d_4 =
+      LimitOneOfPrefixedCssClass.of(DUI_CONTEXT, () -> "dui-context-lime-d-4");
+  CssClass dui_context_yellow_l_5 =
+      LimitOneOfPrefixedCssClass.of(DUI_CONTEXT, () -> "dui-context-yellow-l-5");
+  CssClass dui_context_yellow_l_4 =
+      LimitOneOfPrefixedCssClass.of(DUI_CONTEXT, () -> "dui-context-yellow-l-4");
+  CssClass dui_context_yellow_l_3 =
+      LimitOneOfPrefixedCssClass.of(DUI_CONTEXT, () -> "dui-context-yellow-l-3");
+  CssClass dui_context_yellow_l_2 =
+      LimitOneOfPrefixedCssClass.of(DUI_CONTEXT, () -> "dui-context-yellow-l-2");
+  CssClass dui_context_yellow_l_1 =
+      LimitOneOfPrefixedCssClass.of(DUI_CONTEXT, () -> "dui-context-yellow-l-1");
+  CssClass dui_context_yellow =
+      LimitOneOfPrefixedCssClass.of(DUI_CONTEXT, () -> "dui-context-yellow");
+  CssClass dui_context_yellow_d_1 =
+      LimitOneOfPrefixedCssClass.of(DUI_CONTEXT, () -> "dui-context-yellow-d-1");
+  CssClass dui_context_yellow_d_2 =
+      LimitOneOfPrefixedCssClass.of(DUI_CONTEXT, () -> "dui-context-yellow-d-2");
+  CssClass dui_context_yellow_d_3 =
+      LimitOneOfPrefixedCssClass.of(DUI_CONTEXT, () -> "dui-context-yellow-d-3");
+  CssClass dui_context_yellow_d_4 =
+      LimitOneOfPrefixedCssClass.of(DUI_CONTEXT, () -> "dui-context-yellow-d-4");
+  CssClass dui_context_amber_l_5 =
+      LimitOneOfPrefixedCssClass.of(DUI_CONTEXT, () -> "dui-context-amber-l-5");
+  CssClass dui_context_amber_l_4 =
+      LimitOneOfPrefixedCssClass.of(DUI_CONTEXT, () -> "dui-context-amber-l-4");
+  CssClass dui_context_amber_l_3 =
+      LimitOneOfPrefixedCssClass.of(DUI_CONTEXT, () -> "dui-context-amber-l-3");
+  CssClass dui_context_amber_l_2 =
+      LimitOneOfPrefixedCssClass.of(DUI_CONTEXT, () -> "dui-context-amber-l-2");
+  CssClass dui_context_amber_l_1 =
+      LimitOneOfPrefixedCssClass.of(DUI_CONTEXT, () -> "dui-context-amber-l-1");
+  CssClass dui_context_amber =
+      LimitOneOfPrefixedCssClass.of(DUI_CONTEXT, () -> "dui-context-amber");
+  CssClass dui_context_amber_d_1 =
+      LimitOneOfPrefixedCssClass.of(DUI_CONTEXT, () -> "dui-context-amber-d-1");
+  CssClass dui_context_amber_d_2 =
+      LimitOneOfPrefixedCssClass.of(DUI_CONTEXT, () -> "dui-context-amber-d-2");
+  CssClass dui_context_amber_d_3 =
+      LimitOneOfPrefixedCssClass.of(DUI_CONTEXT, () -> "dui-context-amber-d-3");
+  CssClass dui_context_amber_d_4 =
+      LimitOneOfPrefixedCssClass.of(DUI_CONTEXT, () -> "dui-context-amber-d-4");
+  CssClass dui_context_orange_l_5 =
+      LimitOneOfPrefixedCssClass.of(DUI_CONTEXT, () -> "dui-context-orange-l-5");
+  CssClass dui_context_orange_l_4 =
+      LimitOneOfPrefixedCssClass.of(DUI_CONTEXT, () -> "dui-context-orange-l-4");
+  CssClass dui_context_orange_l_3 =
+      LimitOneOfPrefixedCssClass.of(DUI_CONTEXT, () -> "dui-context-orange-l-3");
+  CssClass dui_context_orange_l_2 =
+      LimitOneOfPrefixedCssClass.of(DUI_CONTEXT, () -> "dui-context-orange-l-2");
+  CssClass dui_context_orange_l_1 =
+      LimitOneOfPrefixedCssClass.of(DUI_CONTEXT, () -> "dui-context-orange-l-1");
+  CssClass dui_context_orange =
+      LimitOneOfPrefixedCssClass.of(DUI_CONTEXT, () -> "dui-context-orange");
+  CssClass dui_context_orange_d_1 =
+      LimitOneOfPrefixedCssClass.of(DUI_CONTEXT, () -> "dui-context-orange-d-1");
+  CssClass dui_context_orange_d_2 =
+      LimitOneOfPrefixedCssClass.of(DUI_CONTEXT, () -> "dui-context-orange-d-2");
+  CssClass dui_context_orange_d_3 =
+      LimitOneOfPrefixedCssClass.of(DUI_CONTEXT, () -> "dui-context-orange-d-3");
+  CssClass dui_context_orange_d_4 =
+      LimitOneOfPrefixedCssClass.of(DUI_CONTEXT, () -> "dui-context-orange-d-4");
+  CssClass dui_context_deep_orange_l_5 =
+      LimitOneOfPrefixedCssClass.of(DUI_CONTEXT, () -> "dui-context-deep-orange-l-5");
+  CssClass dui_context_deep_orange_l_4 =
+      LimitOneOfPrefixedCssClass.of(DUI_CONTEXT, () -> "dui-context-deep-orange-l-4");
+  CssClass dui_context_deep_orange_l_3 =
+      LimitOneOfPrefixedCssClass.of(DUI_CONTEXT, () -> "dui-context-deep-orange-l-3");
+  CssClass dui_context_deep_orange_l_2 =
+      LimitOneOfPrefixedCssClass.of(DUI_CONTEXT, () -> "dui-context-deep-orange-l-2");
+  CssClass dui_context_deep_orange_l_1 =
+      LimitOneOfPrefixedCssClass.of(DUI_CONTEXT, () -> "dui-context-deep-orange-l-1");
+  CssClass dui_context_deep_orange =
+      LimitOneOfPrefixedCssClass.of(DUI_CONTEXT, () -> "dui-context-deep-orange");
+  CssClass dui_context_deep_orange_d_1 =
+      LimitOneOfPrefixedCssClass.of(DUI_CONTEXT, () -> "dui-context-deep-orange-d-1");
+  CssClass dui_context_deep_orange_d_2 =
+      LimitOneOfPrefixedCssClass.of(DUI_CONTEXT, () -> "dui-context-deep-orange-d-2");
+  CssClass dui_context_deep_orange_d_3 =
+      LimitOneOfPrefixedCssClass.of(DUI_CONTEXT, () -> "dui-context-deep-orange-d-3");
+  CssClass dui_context_deep_orange_d_4 =
+      LimitOneOfPrefixedCssClass.of(DUI_CONTEXT, () -> "dui-context-deep-orange-d-4");
+  CssClass dui_context_brown_l_5 =
+      LimitOneOfPrefixedCssClass.of(DUI_CONTEXT, () -> "dui-context-brown-l-5");
+  CssClass dui_context_brown_l_4 =
+      LimitOneOfPrefixedCssClass.of(DUI_CONTEXT, () -> "dui-context-brown-l-4");
+  CssClass dui_context_brown_l_3 =
+      LimitOneOfPrefixedCssClass.of(DUI_CONTEXT, () -> "dui-context-brown-l-3");
+  CssClass dui_context_brown_l_2 =
+      LimitOneOfPrefixedCssClass.of(DUI_CONTEXT, () -> "dui-context-brown-l-2");
+  CssClass dui_context_brown_l_1 =
+      LimitOneOfPrefixedCssClass.of(DUI_CONTEXT, () -> "dui-context-brown-l-1");
+  CssClass dui_context_brown =
+      LimitOneOfPrefixedCssClass.of(DUI_CONTEXT, () -> "dui-context-brown");
+  CssClass dui_context_brown_d_1 =
+      LimitOneOfPrefixedCssClass.of(DUI_CONTEXT, () -> "dui-context-brown-d-1");
+  CssClass dui_context_brown_d_2 =
+      LimitOneOfPrefixedCssClass.of(DUI_CONTEXT, () -> "dui-context-brown-d-2");
+  CssClass dui_context_brown_d_3 =
+      LimitOneOfPrefixedCssClass.of(DUI_CONTEXT, () -> "dui-context-brown-d-3");
+  CssClass dui_context_brown_d_4 =
+      LimitOneOfPrefixedCssClass.of(DUI_CONTEXT, () -> "dui-context-brown-d-4");
+  CssClass dui_context_grey_l_5 =
+      LimitOneOfPrefixedCssClass.of(DUI_CONTEXT, () -> "dui-context-grey-l-5");
+  CssClass dui_context_grey_l_4 =
+      LimitOneOfPrefixedCssClass.of(DUI_CONTEXT, () -> "dui-context-grey-l-4");
+  CssClass dui_context_grey_l_3 =
+      LimitOneOfPrefixedCssClass.of(DUI_CONTEXT, () -> "dui-context-grey-l-3");
+  CssClass dui_context_grey_l_2 =
+      LimitOneOfPrefixedCssClass.of(DUI_CONTEXT, () -> "dui-context-grey-l-2");
+  CssClass dui_context_grey_l_1 =
+      LimitOneOfPrefixedCssClass.of(DUI_CONTEXT, () -> "dui-context-grey-l-1");
+  CssClass dui_context_grey = LimitOneOfPrefixedCssClass.of(DUI_CONTEXT, () -> "dui-context-grey");
+  CssClass dui_context_grey_d_1 =
+      LimitOneOfPrefixedCssClass.of(DUI_CONTEXT, () -> "dui-context-grey-d-1");
+  CssClass dui_context_grey_d_2 =
+      LimitOneOfPrefixedCssClass.of(DUI_CONTEXT, () -> "dui-context-grey-d-2");
+  CssClass dui_context_grey_d_3 =
+      LimitOneOfPrefixedCssClass.of(DUI_CONTEXT, () -> "dui-context-grey-d-3");
+  CssClass dui_context_grey_d_4 =
+      LimitOneOfPrefixedCssClass.of(DUI_CONTEXT, () -> "dui-context-grey-d-4");
+  CssClass dui_context_blue_grey_l_5 =
+      LimitOneOfPrefixedCssClass.of(DUI_CONTEXT, () -> "dui-context-blue-grey-l-5");
+  CssClass dui_context_blue_grey_l_4 =
+      LimitOneOfPrefixedCssClass.of(DUI_CONTEXT, () -> "dui-context-blue-grey-l-4");
+  CssClass dui_context_blue_grey_l_3 =
+      LimitOneOfPrefixedCssClass.of(DUI_CONTEXT, () -> "dui-context-blue-grey-l-3");
+  CssClass dui_context_blue_grey_l_2 =
+      LimitOneOfPrefixedCssClass.of(DUI_CONTEXT, () -> "dui-context-blue-grey-l-2");
+  CssClass dui_context_blue_grey_l_1 =
+      LimitOneOfPrefixedCssClass.of(DUI_CONTEXT, () -> "dui-context-blue-grey-l-1");
+  CssClass dui_context_blue_grey =
+      LimitOneOfPrefixedCssClass.of(DUI_CONTEXT, () -> "dui-context-blue-grey");
+  CssClass dui_context_blue_grey_d_1 =
+      LimitOneOfPrefixedCssClass.of(DUI_CONTEXT, () -> "dui-context-blue-grey-d-1");
+  CssClass dui_context_blue_grey_d_2 =
+      LimitOneOfPrefixedCssClass.of(DUI_CONTEXT, () -> "dui-context-blue-grey-d-2");
+  CssClass dui_context_blue_grey_d_3 =
+      LimitOneOfPrefixedCssClass.of(DUI_CONTEXT, () -> "dui-context-blue-grey-d-3");
+  CssClass dui_context_blue_grey_d_4 =
+      LimitOneOfPrefixedCssClass.of(DUI_CONTEXT, () -> "dui-context-blue-grey-d-4");
+  CssClass dui_context_white_l_5 =
+      LimitOneOfPrefixedCssClass.of(DUI_CONTEXT, () -> "dui-context-white-l-5");
+  CssClass dui_context_white_l_4 =
+      LimitOneOfPrefixedCssClass.of(DUI_CONTEXT, () -> "dui-context-white-l-4");
+  CssClass dui_context_white_l_3 =
+      LimitOneOfPrefixedCssClass.of(DUI_CONTEXT, () -> "dui-context-white-l-3");
+  CssClass dui_context_white_l_2 =
+      LimitOneOfPrefixedCssClass.of(DUI_CONTEXT, () -> "dui-context-white-l-2");
+  CssClass dui_context_white_l_1 =
+      LimitOneOfPrefixedCssClass.of(DUI_CONTEXT, () -> "dui-context-white-l-1");
+  CssClass dui_context_white =
+      LimitOneOfPrefixedCssClass.of(DUI_CONTEXT, () -> "dui-context-white");
+  CssClass dui_context_white_d_1 =
+      LimitOneOfPrefixedCssClass.of(DUI_CONTEXT, () -> "dui-context-white-d-1");
+  CssClass dui_context_white_d_2 =
+      LimitOneOfPrefixedCssClass.of(DUI_CONTEXT, () -> "dui-context-white-d-2");
+  CssClass dui_context_white_d_3 =
+      LimitOneOfPrefixedCssClass.of(DUI_CONTEXT, () -> "dui-context-white-d-3");
+  CssClass dui_context_white_d_4 =
+      LimitOneOfPrefixedCssClass.of(DUI_CONTEXT, () -> "dui-context-white-d-4");
+  CssClass dui_context_black_l_5 =
+      LimitOneOfPrefixedCssClass.of(DUI_CONTEXT, () -> "dui-context-black-l-5");
+  CssClass dui_context_black_l_4 =
+      LimitOneOfPrefixedCssClass.of(DUI_CONTEXT, () -> "dui-context-black-l-4");
+  CssClass dui_context_black_l_3 =
+      LimitOneOfPrefixedCssClass.of(DUI_CONTEXT, () -> "dui-context-black-l-3");
+  CssClass dui_context_black_l_2 =
+      LimitOneOfPrefixedCssClass.of(DUI_CONTEXT, () -> "dui-context-black-l-2");
+  CssClass dui_context_black_l_1 =
+      LimitOneOfPrefixedCssClass.of(DUI_CONTEXT, () -> "dui-context-black-l-1");
+  CssClass dui_context_black =
+      LimitOneOfPrefixedCssClass.of(DUI_CONTEXT, () -> "dui-context-black");
+  CssClass dui_context_black_d_1 =
+      LimitOneOfPrefixedCssClass.of(DUI_CONTEXT, () -> "dui-context-black-d-1");
+  CssClass dui_context_black_d_2 =
+      LimitOneOfPrefixedCssClass.of(DUI_CONTEXT, () -> "dui-context-black-d-2");
+  CssClass dui_context_black_d_3 =
+      LimitOneOfPrefixedCssClass.of(DUI_CONTEXT, () -> "dui-context-black-d-3");
+  CssClass dui_context_black_d_4 =
+      LimitOneOfPrefixedCssClass.of(DUI_CONTEXT, () -> "dui-context-black-d-4");
   CssClass dui_context = () -> "dui-context";
-  CssClass dui_bg_context = () -> "dui-bg-context";
-  CssClass dui_fg_context = () -> "dui-fg-context";
-  CssClass dui_fg_context_color = () -> "dui-fg-context-color";
+  CssClass dui_bg_context = LimitOneOfPrefixedCssClass.of(DUI_BG, () -> "dui-bg-context");
+  CssClass dui_fg_context = LimitOneOfPrefixedCssClass.of(DUI_FG, () -> "dui-fg-context");
+  CssClass dui_fg_context_color =
+      LimitOneOfPrefixedCssClass.of(DUI_FG, () -> "dui-fg-context-color");
 
   CssClass dui_border_context = () -> "dui-border-context";
   CssClass dui_border_l_context = () -> "dui-border-l-context";

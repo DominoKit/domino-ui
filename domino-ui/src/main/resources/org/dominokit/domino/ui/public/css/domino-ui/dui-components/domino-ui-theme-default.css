@@ -3,7 +3,7 @@ body.dui {
     margin: 0;
     overflow: hidden;
 }
-
+[class*="dui-theme-"] [class*="dui-accent-"],
 .dui-theme-default {
     /* ====================== Spacing ========================= */
     /* ======== Space values in em based on 16px root font ====== */
@@ -678,8 +678,8 @@ body.dui {
     --dui-pager-item-margin: 0 var(--dui-spc-px-5) 0 var(--dui-spc-px-5);
 
     /* ============= uncomment to define specific colors ======================= */
-    /*--dui-pager-page-link-active-background: var(--dui-accent);*/
-    /*--dui-pager-page-link-focus-background: var(--dui-accent-l-3);*/
+    --dui-pager-page-link-active-background: var(--dui-accent);
+    --dui-pager-page-link-focus-background: var(--dui-accent-l-3);
     /*--dui-pager-page-link-active-hover-background: var(--dui-bg-d-3);*/
     /*--dui-pager-page-link-hover-background: var(--dui-bg-d-1);*/
     /*--dui-pager-page-link-active-hover-color: var(--dui-fg-l-5);*/

@@ -135,8 +135,7 @@ public class Calendar extends BaseDominoElement<HTMLDivElement, Calendar>
           evt.stopPropagation();
           CalendarCustomEvents.UpdateDateEventData dateData =
               CalendarCustomEvents.UpdateDateEventData.of((CustomEvent<?>) evt);
-          this.date = new Date(dateData.getTimestamp());
-          onDateViewUpdate(this.date);
+          onDateViewUpdate(new Date(dateData.getTimestamp()));
           calendarMonth.show();
           yearMonthPicker.hide();
         });
