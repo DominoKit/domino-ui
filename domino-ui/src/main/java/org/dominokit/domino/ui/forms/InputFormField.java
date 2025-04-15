@@ -220,26 +220,14 @@ public abstract class InputFormField<T extends InputFormField<T, E, V>, E extend
     return super.isDisabled() || getInputElement().isDisabled();
   }
 
-  /**
-   * Enables the input field.
-   *
-   * @return This InputFormField instance.
-   */
   @Override
-  public T enable() {
-    getInputElement().enable();
-    return super.enable();
-  }
-
-  /**
-   * Disables the input field.
-   *
-   * @return This InputFormField instance.
-   */
-  @Override
-  public T disable() {
-    getInputElement().disable();
-    return super.disable();
+  public T setDisabled(boolean disabled) {
+    if (disabled) {
+      getInputElement().disable();
+    } else {
+      getInputElement().enable();
+    }
+    return super.setDisabled(disabled);
   }
 
   /**
