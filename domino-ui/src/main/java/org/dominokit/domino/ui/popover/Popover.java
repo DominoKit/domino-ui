@@ -234,6 +234,19 @@ public class Popover extends BasePopover<Popover> {
     return this;
   }
 
+  @Override
+  public ZIndexLayer getZIndexLayer() {
+    if (isModal()) {
+      return ZIndexLayer.Z_LAYER_3;
+    }
+    return super.getZIndexLayer();
+  }
+
+  @Override
+  public boolean incrementsZIndex() {
+    return isModal();
+  }
+
   /**
    * {@inheritDoc}
    *

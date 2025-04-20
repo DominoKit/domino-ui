@@ -15,11 +15,13 @@
  */
 package org.dominokit.domino.ui.menu.direction;
 
+import static org.dominokit.domino.ui.menu.MenuStyles.dui_menu;
 import static org.dominokit.domino.ui.utils.Domino.elementOf;
 
 import elemental2.dom.Element;
 import elemental2.dom.Event;
 import org.dominokit.domino.ui.style.CssClass;
+import org.dominokit.domino.ui.utils.DominoElement;
 
 /** DropDirection interface. */
 public interface DropDirection {
@@ -50,12 +52,19 @@ public interface DropDirection {
   default void cleanSelf(Element source) {}
 
   default DropDirection fallBackPosition(DropDirectionContext context, SpaceChecker spaceChecker) {
-    elementOf(context.getSource()).setCssProperty(spaceChecker.getMaximumSideSpaceProperty());
-    elementOf(context.getSource()).setCssProperty(spaceChecker.getMaximumVerticalSpaceProperty());
+    DominoElement<Element> source = elementOf(context.getSource());
+    if (dui_menu.isAppliedTo(context.getSource())
+        && !source.hasAttribute("dui-position-fallback")) {
+      source.setCssProperty(spaceChecker.getMaximumSideSpaceProperty());
+      source.setCssProperty(spaceChecker.getMaximumVerticalSpaceProperty());
 
-    context.newSpaceChecker();
+      context.newSpaceChecker();
 
-    return position(context);
+      DropDirection position = position(context);
+      source.setAttribute("dui-position-fallback", true);
+      return position;
+    }
+    return MIDDLE_SCREEN.position(context);
   }
 
   /** Constant <code>BEST_FIT_SIDE</code> */
