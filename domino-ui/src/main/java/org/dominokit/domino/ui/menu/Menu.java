@@ -150,6 +150,7 @@ public class Menu<V> extends BaseDominoElement<HTMLDivElement, Menu<V>>
           position();
         }
       };
+  private Set<OnBeforeOpenListener<? super Menu<V>>> onBeforeOpenListeners;
 
   private final EventListener openListener =
       evt -> {
@@ -763,6 +764,9 @@ public class Menu<V> extends BaseDominoElement<HTMLDivElement, Menu<V>>
     menuItems.clear();
     closeCurrentOpen();
     currentOpen = null;
+    menuItemsList
+        .querySelectorAll("." + dui_menu_separator.getCssClass())
+        .forEach(BaseDominoElement::remove);
     return this;
   }
 
@@ -1479,6 +1483,7 @@ public class Menu<V> extends BaseDominoElement<HTMLDivElement, Menu<V>>
    * @param focus If true, the menu will be focused upon opening.
    */
   public void open(boolean focus) {
+    triggerOnBeforeOpenListeners();
     if (isDropDown() && openMenuCondition.check(this)) {
       if (getTarget().isPresent()) {
         DominoElement<Element> targetElement = getTarget().get().getTargetElement();
@@ -1519,6 +1524,13 @@ public class Menu<V> extends BaseDominoElement<HTMLDivElement, Menu<V>>
       }
       show();
     }
+  }
+
+  public Menu<V> triggerOnBeforeOpenListeners() {
+    if (isDropDown()) {
+      getOnBeforeOpenListeners().forEach(listener -> listener.onBeforeOpen(this));
+    }
+    return this;
   }
 
   /** Adjusts the position of the menu relative to its target element. */
@@ -2097,6 +2109,46 @@ public class Menu<V> extends BaseDominoElement<HTMLDivElement, Menu<V>>
     return super.getZIndexLayer();
   }
 
+  /**
+   * Retrieves the set of {@link OpenListener}s registered for this element.
+   *
+   * @return A set of {@link OpenListener} instances.
+   */
+  public Set<OnBeforeOpenListener<? super Menu<V>>> getOnBeforeOpenListeners() {
+    return onBeforeOpenListeners();
+  }
+
+  private Set<OnBeforeOpenListener<? super Menu<V>>> onBeforeOpenListeners() {
+    if (isNull(this.onBeforeOpenListeners)) {
+      this.onBeforeOpenListeners = new HashSet<>();
+    }
+    return onBeforeOpenListeners;
+  }
+
+  /**
+   * Adds an open event listener to the element.
+   *
+   * @param onBeforeOpenListener The open event listener to be added.
+   * @return The element with the open event listener added.
+   */
+  public Menu<V> addOnBeforeOpenListener(
+      OnBeforeOpenListener<? super Menu<V>> onBeforeOpenListener) {
+    getOnBeforeOpenListeners().add(onBeforeOpenListener);
+    return this;
+  }
+
+  /**
+   * Removes a close event listener from the element.
+   *
+   * @param onBeforeOpenListener The close event listener to be removed.
+   * @return The element with the close event listener removed.
+   */
+  public Menu<V> removeOnBeforeOpenListener(
+      OnBeforeOpenListener<? super Menu<V>> onBeforeOpenListener) {
+    getOnBeforeOpenListeners().remove(onBeforeOpenListener);
+    return this;
+  }
+
   /** Represents a handler for a group of menu items. */
   @FunctionalInterface
   public interface MenuItemsGroupHandler<V, I extends AbstractMenuItem<V>> {
@@ -2119,5 +2171,9 @@ public class Menu<V> extends BaseDominoElement<HTMLDivElement, Menu<V>>
      * @param menuItem The added menu item.
      */
     void onAdded(Menu<V> menu, AbstractMenuItem<V> menuItem);
+  }
+
+  public interface OnBeforeOpenListener<T> {
+    void onBeforeOpen(T target);
   }
 }

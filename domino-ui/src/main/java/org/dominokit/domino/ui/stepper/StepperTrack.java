@@ -194,7 +194,6 @@ public class StepperTrack extends BaseDominoElement<HTMLDivElement, StepperTrack
    */
   public StepperTrack start(StepState startState, StepTrackersConsumer consumer) {
     this.started = true;
-    int size = trackers.size();
     trackers.stream()
         .filter(
             tracker -> {

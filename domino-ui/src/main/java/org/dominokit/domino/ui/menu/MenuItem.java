@@ -131,10 +131,19 @@ public class MenuItem<V> extends AbstractMenuItem<V> {
     return textElement;
   }
 
+  public MenuItem<V> setText(String text) {
+    if (nonNull(textElement)) {
+      textElement.setTextContent(text);
+    } else {
+      textElement = span().addCss(dui_menu_item_content).setTextContent(text);
+      appendChild(textElement);
+    }
+    return this;
+  }
+
   @Override
   public ZIndexLayer getZIndexLayer() {
-    ZIndexLayer layer = menu.getZIndexLayer();
-    return layer;
+    return menu.getZIndexLayer();
   }
 
   /**

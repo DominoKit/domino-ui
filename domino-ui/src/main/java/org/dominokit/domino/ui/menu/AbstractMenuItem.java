@@ -593,6 +593,18 @@ public class AbstractMenuItem<V> extends BaseDominoElement<HTMLLIElement, Abstra
     return PostfixElement.of(postfixElement);
   }
 
+  public AbstractMenuItem<V> withIndicatorContainer(
+      ChildHandler<AbstractMenuItem<V>, DivElement> handler) {
+    handler.apply(this, nestedIndicatorElement);
+    return this;
+  }
+
+  public AbstractMenuItem<V> withBodyElement(
+      ChildHandler<AbstractMenuItem<V>, DivElement> handler) {
+    handler.apply(this, bodyElement);
+    return this;
+  }
+
   /**
    * Retrieves the current {@link MenuSearchFilter} used for search operations.
    *

@@ -617,7 +617,8 @@ public abstract class BaseDominoElement<E extends Element, T extends IsElement<E
   @Override
   public T triggerCloseListeners(T component) {
     if (!this.openCloseListenersPaused) {
-      getCloseListeners().forEach(closeListener -> closeListener.onClosed((T) this));
+      new ArrayList<>(getCloseListeners())
+          .forEach(closeListener -> closeListener.onClosed((T) this));
     }
     return (T) this;
   }
@@ -631,7 +632,7 @@ public abstract class BaseDominoElement<E extends Element, T extends IsElement<E
   @Override
   public T triggerOpenListeners(T component) {
     if (!this.openCloseListenersPaused) {
-      getOpenListeners().forEach(openListener -> openListener.onOpened((T) this));
+      new ArrayList<>(getOpenListeners()).forEach(openListener -> openListener.onOpened((T) this));
     }
     return (T) this;
   }
