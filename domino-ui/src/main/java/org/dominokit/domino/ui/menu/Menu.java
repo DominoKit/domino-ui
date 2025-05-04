@@ -19,6 +19,7 @@ import static elemental2.dom.DomGlobal.document;
 import static elemental2.dom.DomGlobal.window;
 import static java.util.Objects.isNull;
 import static java.util.Objects.nonNull;
+import static org.dominokit.domino.ui.menu.direction.DropDirection.DUI_POSITION_FALLBACK;
 import static org.dominokit.domino.ui.utils.Domino.a;
 import static org.dominokit.domino.ui.utils.Domino.div;
 import static org.dominokit.domino.ui.utils.Domino.dui_order_first;
@@ -1608,7 +1609,11 @@ public class Menu<V> extends BaseDominoElement<HTMLDivElement, Menu<V>>
    * @return The current {@link Menu} instance.
    */
   public Menu<V> setTargetElement(Element targetElement) {
-    setTarget(MenuTarget.of(targetElement));
+    if (nonNull(targetElement)) {
+      setTarget(MenuTarget.of(targetElement));
+    } else {
+      clearTargets();
+    }
     return this;
   }
 
@@ -1624,19 +1629,7 @@ public class Menu<V> extends BaseDominoElement<HTMLDivElement, Menu<V>>
   }
 
   public Menu<V> clearTargets() {
-    this.targets()
-        .values()
-        .forEach(
-            target -> {
-              target
-                  .getTargetElement()
-                  .removeEventListener(
-                      isContextMenu() ? EventType.contextmenu.getName() : EventType.click.getName(),
-                      openListener);
-              target.getTargetElement().removeDetachObserver(target.getTargetDetachObserver());
-              target.getTargetElement().removeAttachObserver(target.getTargetAttachObserver());
-            });
-    this.targets().clear();
+    new ArrayList<>(this.targets().values()).forEach(this::removeTarget);
     return this;
   }
 
@@ -1671,6 +1664,26 @@ public class Menu<V> extends BaseDominoElement<HTMLDivElement, Menu<V>>
       setDropDown(true);
     } else {
       setDropDown(false);
+    }
+    return this;
+  }
+
+  /**
+   * Removes a single menu target.
+   *
+   * @param target the target to be removed
+   * @return same menu instance
+   */
+  public Menu<V> removeTarget(MenuTarget target) {
+    if (nonNull(target) && targets().containsKey(target.getTargetElement().getDominoId())) {
+      target
+          .getTargetElement()
+          .removeEventListener(
+              isContextMenu() ? EventType.contextmenu.getName() : EventType.click.getName(),
+              openListener);
+      target.getTargetElement().removeDetachObserver(target.getTargetDetachObserver());
+      target.getTargetElement().removeAttachObserver(target.getTargetAttachObserver());
+      targets.remove(target.getTargetElement().getDominoId());
     }
     return this;
   }
@@ -1722,6 +1735,7 @@ public class Menu<V> extends BaseDominoElement<HTMLDivElement, Menu<V>>
     if (isDropDown()) {
       if (isOpened()) {
         this.remove();
+        removeAttribute(DUI_POSITION_FALLBACK);
         getTarget()
             .ifPresent(
                 menuTarget -> {
@@ -1840,14 +1854,18 @@ public class Menu<V> extends BaseDominoElement<HTMLDivElement, Menu<V>>
    * @param menuTarget The target menu to which the listeners should bce applied.
    */
   private void applyTargetListeners(MenuTarget menuTarget) {
-    if (isContextMenu()) {
-      menuTarget.getTargetElement().removeEventListener(EventType.click.getName(), openListener);
-      menuTarget.getTargetElement().addEventListener(EventType.contextmenu.getName(), openListener);
-    } else {
-      menuTarget
-          .getTargetElement()
-          .removeEventListener(EventType.contextmenu.getName(), openListener);
-      menuTarget.getTargetElement().addEventListener(EventType.click.getName(), openListener);
+    if (nonNull(menuTarget)) {
+      if (isContextMenu()) {
+        menuTarget.getTargetElement().removeEventListener(EventType.click.getName(), openListener);
+        menuTarget
+            .getTargetElement()
+            .addEventListener(EventType.contextmenu.getName(), openListener);
+      } else {
+        menuTarget
+            .getTargetElement()
+            .removeEventListener(EventType.contextmenu.getName(), openListener);
+        menuTarget.getTargetElement().addEventListener(EventType.click.getName(), openListener);
+      }
     }
   }
 
