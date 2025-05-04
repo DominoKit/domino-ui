@@ -132,12 +132,12 @@ public abstract class AbstractSuggestBox<
 
     optionsMenu =
         Menu.<T>create()
-            .setMenuAppendTarget(getWrapperElement().element())
+            .setMenuAppendTarget(body().element())
             .setOpenMenuCondition(menu -> !(isReadOnly() || isDisabled()))
             .setTargetElement(getWrapperElement())
             .setAutoOpen(false)
             .setFitToTargetWidth(true)
-            .setDropDirection(DropDirection.BEST_MIDDLE_UP_DOWN)
+            .setDropDirection(DropDirection.BEST_MIDDLE_DOWN_UP)
             .addCloseListener(component -> focus())
             .addSelectionListener(
                 (source, selection) -> {
