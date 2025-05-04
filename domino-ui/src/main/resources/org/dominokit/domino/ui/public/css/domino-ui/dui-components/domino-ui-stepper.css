@@ -319,3 +319,10 @@
     background-color: var(--dui-accent-l-4);
     color: var(--dui-text-color);
 }
+
+.dui-stepper-hide-tail .dui-step-track:last-child {
+    flex-grow: 0;
+}
+.dui-stepper-hide-tail .dui-step-track:last-child .dui-tracker-line {
+    display: none;
+}

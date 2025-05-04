@@ -309,6 +309,22 @@ public class Stepper extends BaseDominoElement<HTMLDivElement, Stepper>
     return this;
   }
 
+  /**
+   * Hide/Show the last step tail
+   *
+   * @param hide boolean to hide/show the last step tail
+   * @return same StepperTrack instance
+   */
+  public Stepper setHideStepperTail(boolean hide) {
+    stepperTrack.setHideStepperTail(hide);
+    return this;
+  }
+
+  /** @return true if the stepper last step tail is hidden. */
+  public boolean isStepperTailHidden() {
+    return stepperTrack.isStepperTailHidden();
+  }
+
   /** {@inheritDoc} */
   @Override
   public HTMLDivElement element() {
