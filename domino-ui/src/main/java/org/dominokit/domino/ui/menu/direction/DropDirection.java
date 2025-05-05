@@ -25,6 +25,9 @@ import org.dominokit.domino.ui.utils.DominoElement;
 
 /** DropDirection interface. */
 public interface DropDirection {
+
+  String DUI_POSITION_FALLBACK = "dui-position-fallback";
+
   /**
    * init.
    *
@@ -53,15 +56,14 @@ public interface DropDirection {
 
   default DropDirection fallBackPosition(DropDirectionContext context, SpaceChecker spaceChecker) {
     DominoElement<Element> source = elementOf(context.getSource());
-    if (dui_menu.isAppliedTo(context.getSource())
-        && !source.hasAttribute("dui-position-fallback")) {
+    if (dui_menu.isAppliedTo(context.getSource()) && !source.hasAttribute(DUI_POSITION_FALLBACK)) {
       source.setCssProperty(spaceChecker.getMaximumSideSpaceProperty());
       source.setCssProperty(spaceChecker.getMaximumVerticalSpaceProperty());
 
       context.newSpaceChecker();
 
       DropDirection position = position(context);
-      source.setAttribute("dui-position-fallback", true);
+      source.setAttribute(DUI_POSITION_FALLBACK, true);
       return position;
     }
     return MIDDLE_SCREEN.position(context);
