@@ -56,17 +56,19 @@ public interface DropDirection {
 
   default DropDirection fallBackPosition(DropDirectionContext context, SpaceChecker spaceChecker) {
     DominoElement<Element> source = elementOf(context.getSource());
-    if (dui_menu.isAppliedTo(context.getSource()) && !source.hasAttribute(DUI_POSITION_FALLBACK)) {
+    if (dui_menu.isAppliedTo(context.getSource())) {
       source.setCssProperty(spaceChecker.getMaximumSideSpaceProperty());
       source.setCssProperty(spaceChecker.getMaximumVerticalSpaceProperty());
 
       context.newSpaceChecker();
 
-      DropDirection position = position(context);
       source.setAttribute(DUI_POSITION_FALLBACK, true);
-      return position;
+      context.setAllowFallBack(false);
+      return position(context);
+    } else {
+      context.setAllowFallBack(false);
+      return position(context);
     }
-    return MIDDLE_SCREEN.position(context);
   }
 
   /** Constant <code>BEST_FIT_SIDE</code> */

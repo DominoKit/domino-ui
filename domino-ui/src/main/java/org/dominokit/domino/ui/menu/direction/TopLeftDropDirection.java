@@ -49,22 +49,7 @@ public class TopLeftDropDirection implements DropDirection {
 
     if (spaceChecker.hasSpaceAbove()) {
       if (spaceChecker.hasSpaceOnLeft()) {
-        dui_dd_top_left.apply(source);
-        elements
-            .elementOf(source)
-            .setCssProperty("--dui-menu-drop-min-width", spaceChecker.getTargetWidth() + "px");
-
-        left =
-            spaceChecker.getTargetLeft()
-                - (spaceChecker.getSourceWidth() - spaceChecker.getTargetWidth());
-        if (spaceChecker.getAvailableSpaceOnRight() < 0) {
-          delta =
-              Math.min(
-                  spaceChecker.getTargetWidth(), Math.abs(spaceChecker.getAvailableSpaceOnRight()));
-        }
-        left = left - delta;
-        Style.of(source).style.setProperty("left", px.of(Math.max(left, 0)));
-        return this;
+        return showOnTopLeft(source, spaceChecker, delta);
       } else if (spaceChecker.hasSpaceOnRight()) {
         return TOP_RIGHT.position(context);
       } else {
@@ -79,8 +64,32 @@ public class TopLeftDropDirection implements DropDirection {
         return BOTTOM_MIDDLE.position(context);
       }
     }
+    if (context.isAllowFallBack()) {
+      return fallBackPosition(context, spaceChecker);
+    } else {
+      return showOnTopLeft(source, spaceChecker, delta);
+    }
+  }
 
-    return fallBackPosition(context, spaceChecker);
+  private TopLeftDropDirection showOnTopLeft(
+      Element source, SpaceChecker spaceChecker, double delta) {
+    double left;
+    dui_dd_top_left.apply(source);
+    elements
+        .elementOf(source)
+        .setCssProperty("--dui-menu-drop-min-width", spaceChecker.getTargetWidth() + "px");
+
+    left =
+        spaceChecker.getTargetLeft()
+            - (spaceChecker.getSourceWidth() - spaceChecker.getTargetWidth());
+    if (spaceChecker.getAvailableSpaceOnRight() < 0) {
+      delta =
+          Math.min(
+              spaceChecker.getTargetWidth(), Math.abs(spaceChecker.getAvailableSpaceOnRight()));
+    }
+    left = left - delta;
+    Style.of(source).style.setProperty("left", px.of(Math.max(left, 0)));
+    return this;
   }
 
   /** {@inheritDoc} */

@@ -226,11 +226,13 @@ public class SpaceChecker {
   }
 
   public double getMaximumSideSpace() {
-    return Math.min(sourceWidth, Math.max(getAvailableSpaceOnLeft(), getAvailableSpaceOnRight()));
+    return Math.min(
+        sourceWidth, Math.max(getAvailableSpaceOnLeft(), getAvailableSpaceOnRight()) - 32);
   }
 
   public double getMaximumVerticalSpace() {
-    return Math.min(sourceHeight, Math.max(getAvailableSpaceOnTop(), getAvailableSpaceOnBottom()));
+    return Math.min(
+        sourceHeight, Math.max(getAvailableSpaceOnTop(), getAvailableSpaceOnBottom()) - 32);
   }
 
   public CssProperty getMaximumSideSpaceProperty() {

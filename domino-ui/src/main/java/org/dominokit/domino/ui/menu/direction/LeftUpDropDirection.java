@@ -51,7 +51,11 @@ public class LeftUpDropDirection implements DropDirection {
         return BOTTOM_MIDDLE.position(context);
       }
     } else {
-      return fallBackPosition(context, spaceChecker);
+      if (context.isAllowFallBack()) {
+        return fallBackPosition(context, spaceChecker);
+      } else {
+        return showOnLeftUp(context);
+      }
     }
   }
 

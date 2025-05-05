@@ -44,7 +44,23 @@ public class BestSideUpDownDropDirection implements DropDirection {
       }
     }
 
-    return fallBackPosition(context, spaceChecker);
+    if (context.isAllowFallBack()) {
+      return fallBackPosition(context, spaceChecker);
+    } else {
+      if (spaceChecker.getLeftSpace() > spaceChecker.getRightSpace()) {
+        if (spaceChecker.getBottomSpace() > spaceChecker.getTopSpace()) {
+          return BOTTOM_LEFT.position(context);
+        } else {
+          return TOP_LEFT.position(context);
+        }
+      } else {
+        if (spaceChecker.getBottomSpace() > spaceChecker.getTopSpace()) {
+          return BOTTOM_RIGHT.position(context);
+        } else {
+          return TOP_RIGHT.position(context);
+        }
+      }
+    }
   }
 
   /** {@inheritDoc} */

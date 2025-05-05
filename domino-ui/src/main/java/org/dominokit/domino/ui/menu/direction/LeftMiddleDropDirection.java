@@ -39,42 +39,7 @@ public class LeftMiddleDropDirection implements DropDirection {
     Style.of(source).style.setProperty("left", px.of(0));
 
     if (spaceChecker.hasSpaceOnLeft()) {
-      spaceChecker = context.newSpaceChecker();
-      double spaceNeeded = (spaceChecker.getSourceHeight() - spaceChecker.getTargetHeight()) / 2;
-      double spaceDown = spaceChecker.getAvailableSpaceOnBottom();
-      double spaceUp = spaceChecker.getAvailableSpaceOnTop();
-      double delta = 0;
-      if (spaceNeeded > spaceDown && spaceNeeded > spaceUp) {
-        elementOf(context.getSource()).setCssProperty(spaceChecker.getMaximumSideSpaceProperty());
-        elementOf(context.getSource())
-            .setCssProperty(spaceChecker.getMaximumVerticalSpaceProperty());
-        context.newSpaceChecker();
-
-        return position(context);
-      } else if (spaceNeeded > spaceUp) {
-        delta = spaceNeeded - spaceUp;
-      } else if (spaceNeeded > spaceDown) {
-        delta = -1 * (spaceNeeded - spaceDown);
-      }
-
-      double arrowOffset = (delta + (spaceChecker.getTargetHeight() / 2));
-
-      dui_dd_left_middle.apply(source);
-      elements.elementOf(source).setCssProperty("--dui-dd-position-delta", arrowOffset + "px");
-      elements
-          .elementOf(source)
-          .setCssProperty("--dui-menu-drop-min-width", spaceChecker.getTargetWidth() + "px");
-
-      double pageYOffset = window.pageYOffset;
-      double targetTop = spaceChecker.getTargetTop();
-      double hh = (spaceChecker.getSourceHeight() - spaceChecker.getTargetHeight()) / 2;
-      double top = targetTop + pageYOffset - hh + delta;
-      Style.of(source).style.setProperty("top", px.of(top));
-      double left =
-          spaceChecker.getTargetLeft() - spaceChecker.getSourceWidth() + window.pageXOffset;
-      Style.of(source).style.setProperty("left", px.of(left));
-
-      return this;
+      return showOnLeftMiddle(context, source);
     } else if (spaceChecker.hasSpaceOnRight()) {
       return RIGHT_MIDDLE.position(context);
     } else if (spaceChecker.hasSpaceAbove()) {
@@ -82,8 +47,50 @@ public class LeftMiddleDropDirection implements DropDirection {
     } else if (spaceChecker.hasSpaceBelow()) {
       return BOTTOM_MIDDLE.position(context);
     } else {
-      return fallBackPosition(context, spaceChecker);
+      if (context.isAllowFallBack()) {
+        return fallBackPosition(context, spaceChecker);
+      } else {
+        return showOnLeftMiddle(context, source);
+      }
     }
+  }
+
+  private DropDirection showOnLeftMiddle(DropDirectionContext context, Element source) {
+    SpaceChecker spaceChecker;
+    spaceChecker = context.newSpaceChecker();
+    double spaceNeeded = (spaceChecker.getSourceHeight() - spaceChecker.getTargetHeight()) / 2;
+    double spaceDown = spaceChecker.getAvailableSpaceOnBottom();
+    double spaceUp = spaceChecker.getAvailableSpaceOnTop();
+    double delta = 0;
+    if (spaceNeeded > spaceDown && spaceNeeded > spaceUp) {
+      elementOf(context.getSource()).setCssProperty(spaceChecker.getMaximumSideSpaceProperty());
+      elementOf(context.getSource()).setCssProperty(spaceChecker.getMaximumVerticalSpaceProperty());
+      context.newSpaceChecker();
+
+      return position(context);
+    } else if (spaceNeeded > spaceUp) {
+      delta = spaceNeeded - spaceUp;
+    } else if (spaceNeeded > spaceDown) {
+      delta = -1 * (spaceNeeded - spaceDown);
+    }
+
+    double arrowOffset = (delta + (spaceChecker.getTargetHeight() / 2));
+
+    dui_dd_left_middle.apply(source);
+    elements.elementOf(source).setCssProperty("--dui-dd-position-delta", arrowOffset + "px");
+    elements
+        .elementOf(source)
+        .setCssProperty("--dui-menu-drop-min-width", spaceChecker.getTargetWidth() + "px");
+
+    double pageYOffset = window.pageYOffset;
+    double targetTop = spaceChecker.getTargetTop();
+    double hh = (spaceChecker.getSourceHeight() - spaceChecker.getTargetHeight()) / 2;
+    double top = targetTop + pageYOffset - hh + delta;
+    Style.of(source).style.setProperty("top", px.of(top));
+    double left = spaceChecker.getTargetLeft() - spaceChecker.getSourceWidth() + window.pageXOffset;
+    Style.of(source).style.setProperty("left", px.of(left));
+
+    return this;
   }
 
   /** {@inheritDoc} */
