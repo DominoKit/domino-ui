@@ -564,6 +564,7 @@ public class DateRangeBox extends TextInputFormField<DateRangeBox, HTMLInputElem
 
   @Override
   protected void doSetValue(DateRange value) {
+    DateRange oldValue = this.value;
     this.value = value;
     if (nonNull(value)) {
       updateStringValue();
@@ -576,11 +577,14 @@ public class DateRangeBox extends TextInputFormField<DateRangeBox, HTMLInputElem
         field -> {
           if (nonNull(this.value)) {
             if (!Objects.equals(this.fromCalendar.getDate(), this.value.getFrom())) {
-              this.fromCalendar.setDate(this.value.getFrom());
+              this.fromCalendar.setDate(this.value.getFrom(), true);
             }
             if (!Objects.equals(this.toCalendar.getDate(), this.value.getTo())) {
-              this.toCalendar.setDate(this.value.getTo());
+              this.toCalendar.setDate(this.value.getTo(), true);
             }
+
+            this.fromCalendar.informListeners(false, oldValue.getFrom());
+            this.toCalendar.informListeners(false, oldValue.getTo());
           }
         });
     markRange();
@@ -639,7 +643,7 @@ public class DateRangeBox extends TextInputFormField<DateRangeBox, HTMLInputElem
   @Override
   public void onDateSelectionChanged(Date date) {
     if (!isDisabled() && !isReadOnly()) {
-      if (silentSelection == false) {
+      if (!silentSelection) {
         clearInvalid();
         withValue(new DateRange(this.fromCalendar.getDate(), this.toCalendar.getDate()));
       }

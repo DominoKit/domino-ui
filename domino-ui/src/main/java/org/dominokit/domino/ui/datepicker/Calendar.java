@@ -300,12 +300,28 @@ public class Calendar extends BaseDominoElement<HTMLDivElement, Calendar>
    * @return Same Calendar instance
    */
   public Calendar setDate(Date date) {
+    return setDate(date, false);
+  }
+
+  /**
+   * Change the selected date.
+   *
+   * @param date a {@link java.util.Date}
+   * @return Same Calendar instance
+   */
+  public Calendar setDate(Date date, boolean silent) {
     Date oldDate = this.date;
     this.date = date;
-    onDateViewUpdate(this.date);
-    onDateSelectionChanged(this.date);
-    triggerChangeListeners(oldDate, this.date);
+    informListeners(silent, oldDate);
     return this;
+  }
+
+  public void informListeners(boolean silent, Date oldDate) {
+    if (!silent) {
+      onDateViewUpdate(this.date);
+      onDateSelectionChanged(this.date);
+      triggerChangeListeners(oldDate, this.date);
+    }
   }
 
   /**
