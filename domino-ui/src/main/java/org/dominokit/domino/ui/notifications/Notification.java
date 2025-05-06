@@ -31,6 +31,7 @@ import org.dominokit.domino.ui.events.EventType;
 import org.dominokit.domino.ui.style.*;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
 import org.dominokit.domino.ui.utils.ChildHandler;
+import org.dominokit.domino.ui.utils.DominoUIConfig;
 import org.dominokit.domino.ui.utils.LazyChild;
 
 /**
@@ -60,7 +61,8 @@ public class Notification extends BaseDominoElement<HTMLDivElement, Notification
   private int duration = -1;
   private Transition inTransition = Transition.FADE_IN;
   private Transition outTransition = Transition.FADE_OUT;
-  private SwapCssClass position = SwapCssClass.of(dui_ntf_top_left);
+  private SwapCssClass position =
+      SwapCssClass.of(DominoUIConfig.CONFIG.getUIConfig().getDefaultNotificationPosition());
   private boolean dismissible = true;
   private boolean infinite = false;
   private boolean closed = true;
@@ -110,9 +112,13 @@ public class Notification extends BaseDominoElement<HTMLDivElement, Notification
   public static Notification create() {
     return new Notification();
   }
-
   /** Close all currently opened notifications */
   public static void dismissAll() {
+    dismissAll(() -> {});
+  }
+
+  /** Close all currently opened notifications */
+  public static void dismissAll(Runnable finalizer) {
     NodeList<Element> notifications =
         DomGlobal.document.querySelectorAll("." + dui_notification_wrapper.getCssClass());
     notifications
@@ -122,6 +128,9 @@ public class Notification extends BaseDominoElement<HTMLDivElement, Notification
               CustomEvent<Void> closeEvent = CustomEvents.create(DUI_NOTIFICATION_CLOSE);
               notification.dispatchEvent(closeEvent);
             });
+    if (nonNull(finalizer)) {
+      finalizer.run();
+    }
   }
 
   /**
@@ -230,7 +239,7 @@ public class Notification extends BaseDominoElement<HTMLDivElement, Notification
    * @return this notification for chaining
    */
   public Notification setPosition(Position position) {
-    root.addCss(this.position.replaceWith(position.style));
+    root.addCss(this.position.replaceWith(position));
     return this;
   }
 
@@ -311,7 +320,7 @@ public class Notification extends BaseDominoElement<HTMLDivElement, Notification
 
   /** Closes the notification immediately. */
   public final void close() {
-    close(0);
+    close(0, () -> {});
   }
 
   /**
@@ -320,15 +329,29 @@ public class Notification extends BaseDominoElement<HTMLDivElement, Notification
    * @param after the delay in milliseconds after which the notification should be closed
    */
   public final void close(int after) {
+    close(after, () -> {});
+  }
+
+  /** Closes the notification immediately. */
+  public final void close(Runnable finalizer) {
+    close(0, finalizer);
+  }
+
+  /**
+   * Closes the notification after a specified delay.
+   *
+   * @param after the delay in milliseconds after which the notification should be closed
+   */
+  public final void close(int after, Runnable finalizer) {
     if (!closed) {
       animateClose(
           after,
           () -> {
             this.closed = true;
+            finalizer.run();
           });
     }
   }
-
   /**
    * Animates the closing of the notification after a specified delay.
    *
@@ -460,7 +483,7 @@ public class Notification extends BaseDominoElement<HTMLDivElement, Notification
    * notification.show();
    * </pre>
    */
-  public enum Position {
+  public enum Position implements CssClass {
     /** Represents the top-left position of the screen. */
     TOP_LEFT(NotificationStyles.dui_ntf_top_left),
 
@@ -497,6 +520,11 @@ public class Notification extends BaseDominoElement<HTMLDivElement, Notification
      */
     public CssClass getStyle() {
       return style;
+    }
+
+    @Override
+    public String getCssClass() {
+      return style.getCssClass();
     }
   }
 }

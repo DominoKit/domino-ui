@@ -15,26 +15,10 @@
  */
 package org.dominokit.domino.ui.config;
 
-/** UIConfig interface. */
-public interface UIConfig
-    extends FormsFieldsConfig,
-        ZIndexConfig,
-        AccordionConfig,
-        CardConfig,
-        ProgressBarConfig,
-        SearchConfig,
-        SpinConfig,
-        TabsConfig,
-        TreeConfig,
-        UploadConfig,
-        StepperConfig,
-        CalendarConfig,
-        TimePickerConfig,
-        DelayedActionConfig,
-        DatatableConfig,
-        CarouselConfig,
-        RichTextConfig,
-        SlidersConfig,
-        MenuConfig,
-        PopoverConfig,
-        NotificationConfig {}
+import org.dominokit.domino.ui.notifications.Notification;
+
+public interface NotificationConfig extends ComponentConfig {
+  default Notification.Position getDefaultNotificationPosition() {
+    return Notification.Position.TOP_LEFT;
+  }
+}
