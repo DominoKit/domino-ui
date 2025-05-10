@@ -212,6 +212,7 @@ public class Menu<V> extends BaseDominoElement<HTMLDivElement, Menu<V>>
   private ObserverCallback<Menu<V>> onAttachHandler;
   private boolean shouldFocus;
   private ObserverCallback<Menu<V>> onDetachHandler;
+  private SingleSelectionMode selectionMode = SingleSelectionMode.RESELECT;
 
   /**
    * Factory method to create a new Menu instance.
@@ -2165,6 +2166,22 @@ public class Menu<V> extends BaseDominoElement<HTMLDivElement, Menu<V>>
       OnBeforeOpenListener<? super Menu<V>> onBeforeOpenListener) {
     getOnBeforeOpenListeners().remove(onBeforeOpenListener);
     return this;
+  }
+
+  public SingleSelectionMode getSelectionMode() {
+    return selectionMode;
+  }
+
+  public Menu<V> setSelectionMode(SingleSelectionMode selectionMode) {
+    this.selectionMode = selectionMode;
+    return this;
+  }
+
+  SingleSelectionMode getEffectiveSelectionMode() {
+    if (SingleSelectionMode.INHERIT.equals(getSelectionMode())) {
+      return isNull(parent) ? SingleSelectionMode.RESELECT : parent.getEffectiveSelectionMode();
+    }
+    return getSelectionMode();
   }
 
   /** Represents a handler for a group of menu items. */

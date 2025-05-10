@@ -18,7 +18,6 @@ package org.dominokit.domino.ui.utils;
 import static elemental2.dom.DomGlobal.document;
 import static org.dominokit.domino.ui.utils.BaseDominoElement.ATTACH_UID_KEY;
 import static org.dominokit.domino.ui.utils.BaseDominoElement.DETACH_UID_KEY;
-import static org.dominokit.domino.ui.utils.Domino.*;
 import static org.dominokit.domino.ui.utils.ElementsFactory.elements;
 
 import elemental2.core.JsArray;
@@ -105,9 +104,9 @@ final class BodyObserver {
       if (Node.ELEMENT_NODE == elementNode.nodeType) {
         HTMLElement element = Js.uncheckedCast(elementNode);
         List<DominoElement<Element>> childElements =
-            elements.elementOf(element).querySelectorAll("[" + ATTACH_UID_KEY + "]");
+            elements.wrap(element).querySelectorAll("[" + ATTACH_UID_KEY + "]");
         if (element.hasAttribute(ATTACH_UID_KEY)) {
-          String type = ObserverEventType.attachedType(elements.elementOf(element));
+          String type = ObserverEventType.attachedType(elements.wrap(element));
           if (!processed.contains(type)) {
             processed.add(type);
             element.dispatchEvent(new CustomEvent<>(type));
@@ -118,7 +117,7 @@ final class BodyObserver {
             child -> {
               CustomEventInit<MutationRecord> ceinit = CustomEventInit.create();
               ceinit.setDetail(record);
-              String type = ObserverEventType.attachedType(elements.elementOf(child));
+              String type = ObserverEventType.attachedType(elements.wrap(child));
               if (!processed.contains(type)) {
                 processed.add(type);
                 CustomEvent<MutationRecord> event = new CustomEvent<>(type, ceinit);
@@ -137,9 +136,9 @@ final class BodyObserver {
       if (Node.ELEMENT_NODE == elementNode.nodeType) {
         HTMLElement element = Js.uncheckedCast(elementNode);
         List<DominoElement<Element>> childElements =
-            elements.elementOf(element).querySelectorAll("[" + DETACH_UID_KEY + "]");
+            elements.wrap(element).querySelectorAll("[" + DETACH_UID_KEY + "]");
         if (element.hasAttribute(DETACH_UID_KEY)) {
-          String type = ObserverEventType.detachedType(elements.elementOf(element));
+          String type = ObserverEventType.detachedType(elements.wrap(element));
           if (!processed.contains(type)) {
             processed.add(type);
             element.dispatchEvent(new Event(type));
@@ -148,7 +147,7 @@ final class BodyObserver {
 
         childElements.forEach(
             child -> {
-              String type = ObserverEventType.detachedType(elements.elementOf(child));
+              String type = ObserverEventType.detachedType(elements.wrap(child));
               if (!processed.contains(type)) {
                 processed.add(type);
                 CustomEventInit<MutationRecord> ceinit = CustomEventInit.create();

@@ -4337,6 +4337,13 @@ public abstract class BaseDominoElement<E extends Element, T extends IsElement<E
     return metaObjects();
   }
 
+  public T setMetaObject(ComponentMeta meta) {
+    if (nonNull(meta)) {
+      metaObjects().put(meta.getKey(), meta);
+    }
+    return (T) this;
+  }
+
   private Map<String, ComponentMeta> metaObjects() {
     if (isNull(this.metaObjects)) {
       this.metaObjects = new HashMap<>();

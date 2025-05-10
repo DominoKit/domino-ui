@@ -21,7 +21,6 @@ import static java.util.Objects.isNull;
 import static java.util.Objects.nonNull;
 import static jsinterop.base.Js.cast;
 import static org.dominokit.domino.ui.utils.DomElements.dom;
-import static org.dominokit.domino.ui.utils.Domino.*;
 
 import elemental2.dom.DomGlobal;
 import elemental2.dom.Element;
@@ -75,6 +74,18 @@ public interface ElementsFactoryDelegate {
   }
 
   /**
+   * Wraps an existing HTML element with a {@link DominoElement}. This method does not add the "dui"
+   * CSS class to the element.
+   *
+   * @param element The existing HTML element to wrap.
+   * @param <E> The type of HTML element.
+   * @return A {@link DominoElement} wrapping the existing HTML element.
+   */
+  default <E extends Element> DominoElement<E> wrap(E element) {
+    return new DominoElement<>(element, false);
+  }
+
+  /**
    * Wraps an existing {@link IsElement} with a {@link DominoElement}.
    *
    * @param element The {@link IsElement} to wrap.
@@ -84,6 +95,19 @@ public interface ElementsFactoryDelegate {
    */
   default <T extends Element, E extends IsElement<T>> DominoElement<T> elementOf(E element) {
     return new DominoElement<>(element.element());
+  }
+
+  /**
+   * Wraps an existing {@link IsElement} with a {@link DominoElement}. This method does not add the
+   * "dui" CSS class to the element.
+   *
+   * @param element The {@link IsElement} to wrap.
+   * @param <T> The type of the DOM element within the {@link IsElement}.
+   * @param <E> The type of HTML element.
+   * @return A {@link DominoElement} wrapping the DOM element within the {@link IsElement}.
+   */
+  default <T extends Element, E extends IsElement<T>> DominoElement<T> wrap(E element) {
+    return new DominoElement<>(element.element(), false);
   }
 
   /**

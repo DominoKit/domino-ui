@@ -82,6 +82,7 @@ public class AbstractMenuItem<V> extends BaseDominoElement<HTMLLIElement, Abstra
   protected boolean selectable = true;
 
   protected MenuSearchFilter searchFilter = (token, caseSensitive) -> false;
+  public SingleSelectionMode selectionMode = SingleSelectionMode.INHERIT;
 
   /** Default constructor to create a menu item. */
   public AbstractMenuItem() {
@@ -165,10 +166,13 @@ public class AbstractMenuItem<V> extends BaseDominoElement<HTMLLIElement, Abstra
   }
 
   private void onSelected(Event evt) {
-    if (parent.isMultiSelect() && isSelected()) {
+    if ((parent.isMultiSelect() && isSelected())
+        || SingleSelectionMode.TOGGLE.equals(getEffectiveSelectionMode())) {
       deselect();
     } else {
-      select();
+      if (SingleSelectionMode.RESELECT.equals(selectionMode)) {
+        select();
+      }
     }
   }
 
@@ -633,6 +637,22 @@ public class AbstractMenuItem<V> extends BaseDominoElement<HTMLLIElement, Abstra
    */
   public boolean startsWith(String character) {
     return false;
+  }
+
+  public SingleSelectionMode getSelectionMode() {
+    return selectionMode;
+  }
+
+  public AbstractMenuItem<V> setSelectionMode(SingleSelectionMode selectionMode) {
+    this.selectionMode = selectionMode;
+    return this;
+  }
+
+  SingleSelectionMode getEffectiveSelectionMode() {
+    if (SingleSelectionMode.INHERIT.equals(getSelectionMode())) {
+      return isNull(parent) ? SingleSelectionMode.RESELECT : parent.getEffectiveSelectionMode();
+    }
+    return getSelectionMode();
   }
 
   /**

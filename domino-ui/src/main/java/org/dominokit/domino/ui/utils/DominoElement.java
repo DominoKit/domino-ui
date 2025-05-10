@@ -41,6 +41,20 @@ public class DominoElement<E extends Element> extends BaseDominoElement<E, Domin
   }
 
   /**
+   * Constructs a new {@code DominoElement} with the specified DOM element.
+   *
+   * @param element The DOM element to wrap.
+   * @param addDuiRootCss use to control adding domino-ui root css class dui.
+   */
+  public DominoElement(E element, boolean addDuiRootCss) {
+    this.wrappedElement = element;
+    init(this);
+    if (addDuiRootCss) {
+      addCss(dui);
+    }
+  }
+
+  /**
    * Gets the wrapped DOM element.
    *
    * @return The wrapped DOM element.
