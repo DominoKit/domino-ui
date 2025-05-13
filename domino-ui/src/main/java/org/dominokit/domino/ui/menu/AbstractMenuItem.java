@@ -21,7 +21,6 @@ import static org.dominokit.domino.ui.utils.Domino.*;
 
 import elemental2.core.JsDate;
 import elemental2.dom.Element;
-import elemental2.dom.Event;
 import elemental2.dom.HTMLElement;
 import elemental2.dom.HTMLLIElement;
 import java.util.ArrayList;
@@ -119,7 +118,7 @@ public class AbstractMenuItem<V> extends BaseDominoElement<HTMLLIElement, Abstra
           double diff = endTime - startTime[0];
           if (diff < 200) {
             evt.preventDefault();
-            onSelected(evt);
+            onSelected();
           }
         });
     this.addEventListener(
@@ -127,7 +126,7 @@ public class AbstractMenuItem<V> extends BaseDominoElement<HTMLLIElement, Abstra
         evt -> {
           evt.stopPropagation();
           evt.preventDefault();
-          onSelected(evt);
+          onSelected();
         });
     this.addEventListener(EventType.mouseenter.getName(), evt -> openSubMenu());
   }
@@ -165,15 +164,35 @@ public class AbstractMenuItem<V> extends BaseDominoElement<HTMLLIElement, Abstra
     return (T) this;
   }
 
-  private void onSelected(Event evt) {
-    if ((parent.isMultiSelect() && isSelected())
-        || SingleSelectionMode.TOGGLE.equals(getEffectiveSelectionMode())) {
-      deselect();
-    } else {
-      if (SingleSelectionMode.RESELECT.equals(selectionMode)) {
-        select();
-      }
+  private void onSelected() {
+    onSelected(false);
+  }
+
+  private void onSelected(boolean silent) {
+    boolean selected = isSelected();
+    SingleSelectionMode mode = getEffectiveSelectionMode();
+
+    // If we’re in multi-select & already selected, or in TOGGLE mode → deselect
+    if ((parent.isMultiSelect() && selected) || (selected && mode == SingleSelectionMode.TOGGLE)) {
+      deselect(silent);
     }
+    // Otherwise, if not selected (always select) or in RESELECT mode (re-select) → select
+    else if (!selected || mode == SingleSelectionMode.RESELECT) {
+      select(silent);
+    }
+  }
+
+  public <T extends AbstractMenuItem<V>> T setSelected(boolean selected) {
+    return setSelected(selected, false);
+  }
+
+  public <T extends AbstractMenuItem<V>> T setSelected(boolean selected, boolean silent) {
+    if (selected) {
+      onSelected(silent);
+    } else {
+      deselect(silent);
+    }
+    return (T) this;
   }
 
   /**

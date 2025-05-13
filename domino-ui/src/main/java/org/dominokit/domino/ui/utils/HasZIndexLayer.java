@@ -15,6 +15,8 @@
  */
 package org.dominokit.domino.ui.utils;
 
+import java.util.function.Supplier;
+
 public interface HasZIndexLayer<T> {
 
   String DUI_Z_INDEX_LAYER = "dui-z-index-layer";
@@ -30,20 +32,20 @@ public interface HasZIndexLayer<T> {
   }
 
   enum ZIndexLayer {
-    Z_LAYER_1(110),
-    Z_LAYER_2(5001000),
-    Z_LAYER_3(10000000),
-    Z_LAYER_4(20000000),
+    Z_LAYER_1(() -> DominoUIConfig.CONFIG.getUIConfig().getZIndexLayerOffset_1()),
+    Z_LAYER_2(() -> DominoUIConfig.CONFIG.getUIConfig().getZIndexLayerOffset_2()),
+    Z_LAYER_3(() -> DominoUIConfig.CONFIG.getUIConfig().getZIndexLayerOffset_3()),
+    Z_LAYER_4(() -> DominoUIConfig.CONFIG.getUIConfig().getZIndexLayerOffset_4()),
     ;
 
-    private final int zIndexOffset;
+    private final Supplier<Integer> zIndexOffset;
 
-    ZIndexLayer(int zIndexOffset) {
+    ZIndexLayer(Supplier<Integer> zIndexOffset) {
       this.zIndexOffset = zIndexOffset;
     }
 
     public int getzIndexOffset() {
-      return zIndexOffset;
+      return zIndexOffset.get();
     }
   }
 }

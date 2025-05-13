@@ -2179,7 +2179,9 @@ public class Menu<V> extends BaseDominoElement<HTMLDivElement, Menu<V>>
 
   SingleSelectionMode getEffectiveSelectionMode() {
     if (SingleSelectionMode.INHERIT.equals(getSelectionMode())) {
-      return isNull(parent) ? SingleSelectionMode.RESELECT : parent.getEffectiveSelectionMode();
+      return isNull(parent)
+          ? config().getUIConfig().getDefaultSelectionMode()
+          : parent.getEffectiveSelectionMode();
     }
     return getSelectionMode();
   }

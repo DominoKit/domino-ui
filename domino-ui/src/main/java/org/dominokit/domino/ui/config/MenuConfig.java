@@ -15,6 +15,8 @@
  */
 package org.dominokit.domino.ui.config;
 
+import org.dominokit.domino.ui.menu.SingleSelectionMode;
+
 public interface MenuConfig extends ZIndexConfig {
   default String getNoResultMatchMessage(String token) {
     return "No results matched " + " <b>" + token + "</b>";
@@ -26,5 +28,9 @@ public interface MenuConfig extends ZIndexConfig {
 
   default String getMissingItemCreateMessage(String token) {
     return getMissingItemCreateLabel() + " <b>" + token + "</b>";
+  }
+
+  default SingleSelectionMode getDefaultSelectionMode() {
+    return SingleSelectionMode.RESELECT;
   }
 }
