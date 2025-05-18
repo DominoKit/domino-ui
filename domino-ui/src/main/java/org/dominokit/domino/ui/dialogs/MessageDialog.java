@@ -130,8 +130,7 @@ public class MessageDialog extends AbstractDialog<MessageDialog> {
    * @return Current instance for chaining
    */
   public MessageDialog setMessage(String message) {
-    messageElement.remove();
-    appendChild(messageElement.get().setTextContent(message));
+    messageElement.get().setTextContent(message);
     return this;
   }
 
