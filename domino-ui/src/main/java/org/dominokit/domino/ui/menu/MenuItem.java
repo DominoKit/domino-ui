@@ -94,7 +94,7 @@ public class MenuItem<V> extends AbstractMenuItem<V> {
     this(text);
 
     if (nonNull(description) && !description.isEmpty()) {
-      descriptionElement = small().addCss(dui_menu_item_hint).setTextContent(text);
+      descriptionElement = small().addCss(dui_menu_item_hint).setTextContent(description);
       appendChild(descriptionElement);
     }
   }
