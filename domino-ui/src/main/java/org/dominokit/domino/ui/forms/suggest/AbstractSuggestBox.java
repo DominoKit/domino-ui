@@ -426,6 +426,22 @@ public abstract class AbstractSuggestBox<
     return inputElement.toDominoElement();
   }
 
+  /** @return the input element wrapper element of the suggest box */
+  public DivElement getFieldInput() {
+    return fieldInput;
+  }
+
+  /**
+   * Applies a function to the input element wrapper of the suggest box.
+   *
+   * @param handler function to apply
+   * @return same suggestbox instance
+   */
+  public C withFieldInputWrapper(ChildHandler<C, DivElement> handler) {
+    handler.apply((C) this, fieldInput);
+    return (C) this;
+  }
+
   /**
    * Gets the current input string value from the input element.
    *
