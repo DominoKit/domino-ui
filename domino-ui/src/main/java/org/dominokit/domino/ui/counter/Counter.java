@@ -17,6 +17,8 @@ package org.dominokit.domino.ui.counter;
 
 import org.gwtproject.timer.client.Timer;
 
+import java.util.function.Consumer;
+
 /**
  * A component for counting from min to max value with interval and increment
  *
@@ -44,6 +46,7 @@ public class Counter {
   private final int increment;
   private int currentValue;
   private CountHandler countHandler;
+  private Consumer<Integer> completionHandler;
 
   private Counter(
       int countFrom, int countTo, int interval, int increment, CountHandler countHandler) {
@@ -54,6 +57,12 @@ public class Counter {
     this.countHandler = countHandler;
 
     initTimer();
+  }
+
+  public Counter withCompletionHandler(Consumer<Integer> completionHandler) {
+    this.completionHandler = completionHandler;
+
+    return this;
   }
 
   /**
@@ -71,15 +80,12 @@ public class Counter {
         new Timer() {
           @Override
           public void run() {
-            if (currentValue != countTo) {
-              if (countFrom < countTo) {
-                currentValue += increment;
-              } else {
-                currentValue -= increment;
-              }
+            if (increment > 0 && currentValue < countTo || increment < 0 && currentValue > countTo) {
+              currentValue += increment;
               notifyCount();
             } else {
               cancel();
+              if (completionHandler != null) completionHandler.accept(currentValue);
             }
           }
         };
