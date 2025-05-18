@@ -81,6 +81,7 @@ public abstract class AbstractSelect<
   private InputElement inputElement;
   private InputElement typingElement;
   private int typeAheadDelay = -1;
+  private boolean typeToSelect = DominoUIConfig.CONFIG.getUIConfig().isSelectTypeToSelectEnabled();
 
   /**
    * Default constructor which initializes the underlying structures, sets up event listeners, and
@@ -100,6 +101,7 @@ public abstract class AbstractSelect<
         .appendChild(
             typingElement =
                 input("text")
+                    .toggleDisplay(isTypeToSelect())
                     .addEventListener("input", evt -> onTypingStart())
                     .addCss(dui_auto_type_input, dui_hidden)
                     .setTabIndex(-1)
@@ -136,7 +138,8 @@ public abstract class AbstractSelect<
                 String key = keyboardEvent.key;
                 if (nonNull(key)
                     && !optionsMenu.isOpened()
-                    && (isNull(typingElement.getValue()) || typingElement.getValue().isEmpty())) {
+                    && (isNull(typingElement.getValue()) || typingElement.getValue().isEmpty())
+                    && isTypeToSelect()) {
                   typingElement.removeCss(dui_hidden);
                   typingElement.element().value = key;
                   typingElement.element().focus();
@@ -1333,6 +1336,26 @@ public abstract class AbstractSelect<
       optionsMenu.close();
     }
     return super.hide();
+  }
+
+  /**
+   * is the select component selectable by typing.
+   *
+   * @return true if the select component is selectable when start typing
+   */
+  public boolean isTypeToSelect() {
+    return typeToSelect;
+  }
+
+  /**
+   * Sets the select component to be selectable by typing.
+   *
+   * @param typeToSelect true if the select component should be selectable when start typing
+   */
+  public C setTypeToSelect(boolean typeToSelect) {
+    this.typeToSelect = typeToSelect;
+    this.typingElement.toggleDisplay(typeToSelect);
+    return (C) this;
   }
 
   /**
