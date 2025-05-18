@@ -36,6 +36,7 @@ import java.util.function.Consumer;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 import jsinterop.base.Js;
+import jsinterop.base.JsPropertyMap;
 import org.dominokit.domino.ui.DominoElementAdapter;
 import org.dominokit.domino.ui.IsElement;
 import org.dominokit.domino.ui.animations.TransitionListener;
@@ -129,15 +130,6 @@ public abstract class BaseDominoElement<E extends Element, T extends IsElement<E
 
   /** The Waves support for this DOM element. */
   protected WavesSupport wavesSupport;
-
-  /** A list of attach observers for this DOM element. */
-  private List<ObserverCallback<T>> attachObservers;
-
-  /** A list of detach observers for this DOM element. */
-  private List<ObserverCallback<T>> detachObservers;
-
-  /** A list of detach observers for this DOM element. */
-  private List<ObserverCallback<T>> attachDetachObservers;
 
   /** A list of detach observers for this DOM element. */
   private Map<String, List<ObserverCallback<T>>> attributesObservers;
@@ -718,19 +710,6 @@ public abstract class BaseDominoElement<E extends Element, T extends IsElement<E
    *
    * @param observerCallback The observer to be registered.
    * @return The modified DOM element.
-   * @deprecated use {@link #onAttached(ObserverCallback)}
-   */
-  @Deprecated
-  @Editor.Ignore
-  public T onAttached(MutationObserverCallback<T> observerCallback) {
-    return onAttached((ObserverCallback<T>) observerCallback);
-  }
-
-  /**
-   * Registers an observer to be notified when this element is attached to the DOM.
-   *
-   * @param observerCallback The observer to be registered.
-   * @return The modified DOM element.
    */
   @Editor.Ignore
   public T onAttached(ObserverCallback<T> observerCallback) {
@@ -744,35 +723,38 @@ public abstract class BaseDominoElement<E extends Element, T extends IsElement<E
     if (isNull(this.attachEventListener)) {
       if (!hasAttribute(ATTACH_UID_KEY)) {
         setAttribute(ATTACH_UID_KEY, DominoId.unique());
+
+        this.attachEventListener =
+            evt -> {
+              CustomEvent cevent = Js.uncheckedCast(evt);
+              for (ObserverCallback<T> observer : getAttachObservers()) {
+                observer.onObserved((T) this, Js.uncheckedCast(cevent.detail));
+              }
+              for (ObserverCallback<T> callback : getAttachDetachObservers()) {
+                callback.onObserved((T) this, Js.uncheckedCast(cevent.detail));
+              }
+            };
+        this.element
+            .element()
+            .addEventListener(ObserverEventType.attachedType(this), this.attachEventListener);
       }
-      this.attachEventListener =
-          evt -> {
-            CustomEvent cevent = Js.uncheckedCast(evt);
-            getAttachObservers()
-                .forEach(
-                    callback -> callback.onObserved((T) this, Js.uncheckedCast(cevent.detail)));
-            getAttachDetachObservers()
-                .forEach(
-                    callback -> callback.onObserved((T) this, Js.uncheckedCast(cevent.detail)));
-          };
-      this.element
-          .element()
-          .addEventListener(ObserverEventType.attachedType(this), this.attachEventListener);
     }
   }
 
   private List<ObserverCallback<T>> getAttachObservers() {
-    if (isNull(this.attachObservers)) {
-      this.attachObservers = new ArrayList<>();
+    JsPropertyMap<Object> asPropertyMap = Js.asPropertyMap(element());
+    if (!asPropertyMap.has("dui-attach-observers")) {
+      asPropertyMap.set("dui-attach-observers", new ArrayList<>());
     }
-    return attachObservers;
+    return Js.uncheckedCast(asPropertyMap.get("dui-attach-observers"));
   }
 
   private List<ObserverCallback<T>> getAttachDetachObservers() {
-    if (isNull(this.attachDetachObservers)) {
-      this.attachDetachObservers = new ArrayList<>();
+    JsPropertyMap<Object> asPropertyMap = Js.asPropertyMap(element());
+    if (!asPropertyMap.has("dui-attach-detach-observers")) {
+      asPropertyMap.set("dui-attach-detach-observers", new ArrayList<>());
     }
-    return attachDetachObservers;
+    return Js.uncheckedCast(asPropertyMap.get("dui-attach-detach-observers"));
   }
 
   /**
@@ -806,28 +788,31 @@ public abstract class BaseDominoElement<E extends Element, T extends IsElement<E
     if (isNull(this.detachEventListener)) {
       if (!hasAttribute(DETACH_UID_KEY)) {
         setAttribute(DETACH_UID_KEY, DominoId.unique());
+
+        this.detachEventListener =
+            evt -> {
+              CustomEvent cevent = Js.uncheckedCast(evt);
+              List<ObserverCallback<T>> detachObservers = getDetachObservers();
+              for (ObserverCallback<T> observer : detachObservers) {
+                observer.onObserved((T) this, Js.uncheckedCast(cevent.detail));
+              }
+              for (ObserverCallback<T> observer : getAttachDetachObservers()) {
+                observer.onObserved((T) this, Js.uncheckedCast(cevent.detail));
+              }
+            };
+        this.element
+            .element()
+            .addEventListener(ObserverEventType.detachedType(this), this.detachEventListener);
       }
-      this.detachEventListener =
-          evt -> {
-            CustomEvent cevent = Js.uncheckedCast(evt);
-            getDetachObservers()
-                .forEach(
-                    observer -> observer.onObserved((T) this, Js.uncheckedCast(cevent.detail)));
-            getAttachDetachObservers()
-                .forEach(
-                    observer -> observer.onObserved((T) this, Js.uncheckedCast(cevent.detail)));
-          };
-      this.element
-          .element()
-          .addEventListener(ObserverEventType.detachedType(this), this.detachEventListener);
     }
   }
 
   private List<ObserverCallback<T>> getDetachObservers() {
-    if (isNull(this.detachObservers)) {
-      this.detachObservers = new ArrayList<>();
+    JsPropertyMap<Object> asPropertyMap = Js.asPropertyMap(element());
+    if (!asPropertyMap.has("dui-detach-observers")) {
+      asPropertyMap.set("dui-detach-observers", new ArrayList<>());
     }
-    return detachObservers;
+    return Js.uncheckedCast(asPropertyMap.get("dui-detach-observers"));
   }
 
   /**
@@ -2299,6 +2284,30 @@ public abstract class BaseDominoElement<E extends Element, T extends IsElement<E
         isNull(this.tooltip)
             ? config().getUIConfig().getDefaultPopoverDropDirection()
             : tooltip.getPopupPosition());
+  }
+
+  /**
+   * Sets a tooltip for this element with the specified content node and default position
+   * (top-middle).
+   *
+   * @param element The content node to display in the tooltip.
+   * @return The modified DOM element.
+   */
+  @Editor.Ignore
+  public T setTooltip(IsElement<?> element) {
+    return setTooltip(element.element());
+  }
+
+  /**
+   * Sets a tooltip for this element with the specified content node and default position
+   * (top-middle).
+   *
+   * @param element The content node to display in the tooltip.
+   * @return The modified DOM element.
+   */
+  @Editor.Ignore
+  public T setTooltip(IsElement<?> element, DropDirection position) {
+    return setTooltip(element.element(), position);
   }
 
   /**

@@ -24,7 +24,6 @@ import elemental2.core.JsArray;
 import elemental2.dom.CustomEvent;
 import elemental2.dom.CustomEventInit;
 import elemental2.dom.Element;
-import elemental2.dom.Event;
 import elemental2.dom.HTMLElement;
 import elemental2.dom.MutationObserver;
 import elemental2.dom.MutationObserverInit;
@@ -107,9 +106,14 @@ final class BodyObserver {
             elements.wrap(element).querySelectorAll("[" + ATTACH_UID_KEY + "]");
         if (element.hasAttribute(ATTACH_UID_KEY)) {
           String type = ObserverEventType.attachedType(elements.wrap(element));
+
           if (!processed.contains(type)) {
             processed.add(type);
-            element.dispatchEvent(new CustomEvent<>(type));
+
+            CustomEventInit<MutationRecord> ceinit = CustomEventInit.create();
+            ceinit.setDetail(record);
+            CustomEvent<MutationRecord> event = new CustomEvent<>(type, ceinit);
+            element.dispatchEvent(event);
           }
         }
 
@@ -141,7 +145,11 @@ final class BodyObserver {
           String type = ObserverEventType.detachedType(elements.wrap(element));
           if (!processed.contains(type)) {
             processed.add(type);
-            element.dispatchEvent(new Event(type));
+
+            CustomEventInit<MutationRecord> ceinit = CustomEventInit.create();
+            ceinit.setDetail(record);
+            CustomEvent<MutationRecord> event = new CustomEvent<>(type, ceinit);
+            element.dispatchEvent(event);
           }
         }
 

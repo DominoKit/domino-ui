@@ -213,6 +213,7 @@ public class Menu<V> extends BaseDominoElement<HTMLDivElement, Menu<V>>
   private boolean shouldFocus;
   private ObserverCallback<Menu<V>> onDetachHandler;
   private SingleSelectionMode selectionMode = SingleSelectionMode.RESELECT;
+  private ObserverCallback<DominoElement<Element>> onAppendTargetDetach;
 
   /**
    * Factory method to create a new Menu instance.
@@ -1525,6 +1526,7 @@ public class Menu<V> extends BaseDominoElement<HTMLDivElement, Menu<V>>
         menuHeader.get().insertFirst(backArrowContainer);
       }
       show();
+      elementOf(getMenuAppendTarget()).onDetached(onAppendTargetDetach);
     }
   }
 
@@ -1710,8 +1712,6 @@ public class Menu<V> extends BaseDominoElement<HTMLDivElement, Menu<V>>
     } else {
       this.menuAppendTarget = appendTarget;
     }
-
-    elementOf(getMenuAppendTarget()).onDetached((targetElement, targetDetach) -> close());
     return this;
   }
 
@@ -1753,6 +1753,7 @@ public class Menu<V> extends BaseDominoElement<HTMLDivElement, Menu<V>>
       }
       removeCssProperty(SpaceChecker.MAX_HEIGHT);
       removeCssProperty(SpaceChecker.MAX_WIDTH);
+      elementOf(getMenuAppendTarget()).removeDetachObserver(onAppendTargetDetach);
     }
     return this;
   }
@@ -1886,8 +1887,14 @@ public class Menu<V> extends BaseDominoElement<HTMLDivElement, Menu<V>>
       }
       if (!this.selectedValues.contains(item)) {
         if (!multiSelect && !this.selectedValues.isEmpty()) {
-          this.selectedValues.get(0).deselect(silent);
-          this.selectedValues.clear();
+          new ArrayList<>(this.selectedValues)
+              .stream()
+                  .filter(menuItem -> DeselectionMode.DESELECT == menuItem.getDeselectionMode())
+                  .forEach(
+                      menuItem -> {
+                        menuItem.deselect(silent);
+                        this.selectedValues.remove(menuItem);
+                      });
         }
         this.selectedValues.add(item);
         if (!silent) {

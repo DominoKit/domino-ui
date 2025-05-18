@@ -18,10 +18,7 @@ package org.dominokit.domino.ui.layout;
 import static org.dominokit.domino.ui.layout.NavBarStyles.dui_nav_utility;
 import static org.dominokit.domino.ui.utils.Domino.*;
 
-import elemental2.dom.DomGlobal;
-import elemental2.dom.Event;
-import elemental2.dom.HTMLDivElement;
-import elemental2.dom.HTMLElement;
+import elemental2.dom.*;
 import java.util.HashSet;
 import java.util.Set;
 import org.dominokit.domino.ui.animations.TransitionListeners;
@@ -206,20 +203,24 @@ public class AppLayout extends BaseDominoElement<HTMLDivElement, AppLayout>
 
     init(this);
 
-    layout.onAttached(
-        (e, mutationRecord) ->
-            layout
-                .parent()
-                .addClickListener(
-                    evt -> {
-                      if (autoCloseLeftDrawer) {
-                        dui_left_open.remove(layout);
-                      }
+    DomGlobal.setTimeout(
+        p0 -> {
+          layout.onAttached(
+              (e, mutationRecord) ->
+                  layout
+                      .parent()
+                      .addClickListener(
+                          evt -> {
+                            if (autoCloseLeftDrawer) {
+                              dui_left_open.remove(layout);
+                            }
 
-                      if (autoCloseRightDrawer) {
-                        dui_right_open.remove(layout);
-                      }
-                    }));
+                            if (autoCloseRightDrawer) {
+                              dui_right_open.remove(layout);
+                            }
+                          }));
+        },
+        0);
 
     DomGlobal.document.addEventListener(
         "dui-event-scroll-top",
