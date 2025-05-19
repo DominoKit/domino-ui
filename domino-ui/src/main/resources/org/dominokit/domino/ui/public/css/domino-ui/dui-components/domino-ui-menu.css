@@ -273,6 +273,7 @@ a.dui-menu-group-header {
     text-decoration: none;
     outline: none;
     display: flex;
+    cursor: default;
 }
 
 a.dui-menu-group-header .dui-menu-item-nested-indicator:empty,

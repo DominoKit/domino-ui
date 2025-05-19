@@ -167,4 +167,9 @@ public class MenuItemsGroup<V> extends AbstractMenuItem<V> {
     }
     return result;
   }
+
+  @Override
+  public boolean isSelectable() {
+    return false;
+  }
 }
