@@ -23,9 +23,7 @@ import elemental2.core.JsDate;
 import elemental2.dom.Element;
 import elemental2.dom.HTMLElement;
 import elemental2.dom.HTMLLIElement;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 import org.dominokit.domino.ui.IsElement;
 import org.dominokit.domino.ui.elements.AnchorElement;
 import org.dominokit.domino.ui.elements.DivElement;
@@ -53,6 +51,7 @@ import org.gwtproject.editor.client.TakesValue;
 public class AbstractMenuItem<V> extends BaseDominoElement<HTMLLIElement, AbstractMenuItem<V>>
     implements HasSelectionHandler<AbstractMenuItem<V>, AbstractMenuItem<V>>,
         HasDeselectionHandler<AbstractMenuItem<V>>,
+        HasSelectionListeners<AbstractMenuItem<V>, AbstractMenuItem<V>, AbstractMenuItem<V>>,
         TakesValue<V>,
         MenuStyles {
 
@@ -82,6 +81,13 @@ public class AbstractMenuItem<V> extends BaseDominoElement<HTMLLIElement, Abstra
 
   protected MenuSearchFilter searchFilter = (token, caseSensitive) -> false;
   public SingleSelectionMode selectionMode = SingleSelectionMode.INHERIT;
+  public DeselectionMode deselectionMode = DeselectionMode.DESELECT;
+
+  private boolean selectionListenersPaused = false;
+  private Set<SelectionListener<? super AbstractMenuItem<V>, ? super AbstractMenuItem<V>>>
+      selectionListeners;
+  private Set<SelectionListener<? super AbstractMenuItem<V>, ? super AbstractMenuItem<V>>>
+      deselectionListeners;
 
   /** Default constructor to create a menu item. */
   public AbstractMenuItem() {
@@ -278,6 +284,7 @@ public class AbstractMenuItem<V> extends BaseDominoElement<HTMLLIElement, Abstra
       setAttribute("selected", true);
       if (!silent) {
         selectionHandlers.forEach(handler -> handler.onSelection(this));
+        triggerSelectionListeners(this, getSelection());
       }
       if (nonNull(parent)) {
         parent.onItemSelected(this, silent);
@@ -300,6 +307,7 @@ public class AbstractMenuItem<V> extends BaseDominoElement<HTMLLIElement, Abstra
       setAttribute("selected", false);
       if (!silent) {
         deselectionHandlers.forEach(DeselectionHandler::onDeselection);
+        triggerDeselectionListeners(this, getSelection());
       }
       if (nonNull(parent)) {
         parent.onItemDeselected(this, silent);
@@ -324,7 +332,9 @@ public class AbstractMenuItem<V> extends BaseDominoElement<HTMLLIElement, Abstra
    *
    * @param selectionHandler the handler to be added
    * @return the current instance of the menu item
+   * @deprecated use {@link #addSelectionListener(SelectionListener)}
    */
+  @Deprecated
   @Override
   public AbstractMenuItem<V> addSelectionHandler(
       HasSelectionHandler.SelectionHandler<AbstractMenuItem<V>> selectionHandler) {
@@ -339,7 +349,9 @@ public class AbstractMenuItem<V> extends BaseDominoElement<HTMLLIElement, Abstra
    *
    * @param selectionHandler the handler to be removed
    * @return the current instance of the menu item
+   * @deprecated use {@link #removeSelectionListener(SelectionListener)}
    */
+  @Deprecated
   @Override
   public AbstractMenuItem<V> removeSelectionHandler(
       HasSelectionHandler.SelectionHandler<AbstractMenuItem<V>> selectionHandler) {
@@ -356,7 +368,9 @@ public class AbstractMenuItem<V> extends BaseDominoElement<HTMLLIElement, Abstra
    *
    * @param deselectionHandler the handler to be added
    * @return the current instance of the menu item
+   * @deprecated use {@link #addDeselectionListener(SelectionListener)}
    */
+  @Deprecated
   @Override
   public AbstractMenuItem<V> addDeselectionHandler(DeselectionHandler deselectionHandler) {
     if (nonNull(deselectionHandler)) {
@@ -365,6 +379,14 @@ public class AbstractMenuItem<V> extends BaseDominoElement<HTMLLIElement, Abstra
     return this;
   }
 
+  /**
+   * Removes a previously added deselection handler from the menu item.
+   *
+   * @param deselectionHandler the handler to be removed
+   * @return the current instance of the menu item
+   * @deprecated use {@link #removeDeselectionListener(SelectionListener)}
+   */
+  @Deprecated
   @Override
   public AbstractMenuItem<V> removeDeselectionHandler(DeselectionHandler deselectionHandler) {
     if (nonNull(deselectionHandler)) {
@@ -672,6 +694,80 @@ public class AbstractMenuItem<V> extends BaseDominoElement<HTMLLIElement, Abstra
       return isNull(parent) ? SingleSelectionMode.RESELECT : parent.getEffectiveSelectionMode();
     }
     return getSelectionMode();
+  }
+
+  @Override
+  public AbstractMenuItem<V> pauseSelectionListeners() {
+    this.selectionListenersPaused = true;
+    return this;
+  }
+
+  @Override
+  public AbstractMenuItem<V> resumeSelectionListeners() {
+    this.selectionListenersPaused = false;
+    return this;
+  }
+
+  @Override
+  public AbstractMenuItem<V> togglePauseSelectionListeners(boolean toggle) {
+    this.selectionListenersPaused = toggle;
+    return this;
+  }
+
+  @Override
+  public Set<SelectionListener<? super AbstractMenuItem<V>, ? super AbstractMenuItem<V>>>
+      getSelectionListeners() {
+    if (isNull(this.selectionListeners)) {
+      this.selectionListeners = new HashSet<>();
+    }
+    return this.selectionListeners;
+  }
+
+  @Override
+  public Set<SelectionListener<? super AbstractMenuItem<V>, ? super AbstractMenuItem<V>>>
+      getDeselectionListeners() {
+    if (isNull(this.deselectionListeners)) {
+      this.deselectionListeners = new HashSet<>();
+    }
+    return this.deselectionListeners;
+  }
+
+  @Override
+  public boolean isSelectionListenersPaused() {
+    return this.selectionListenersPaused;
+  }
+
+  @Override
+  public AbstractMenuItem<V> triggerSelectionListeners(
+      AbstractMenuItem<V> source, AbstractMenuItem<V> selection) {
+    getSelectionListeners()
+        .forEach(listener -> listener.onSelectionChanged(Optional.ofNullable(source), selection));
+    return this;
+  }
+
+  @Override
+  public AbstractMenuItem<V> triggerDeselectionListeners(
+      AbstractMenuItem<V> source, AbstractMenuItem<V> selection) {
+    getDeselectionListeners()
+        .forEach(listener -> listener.onSelectionChanged(Optional.ofNullable(source), selection));
+    return this;
+  }
+
+  @Override
+  public AbstractMenuItem<V> getSelection() {
+    if (isSelected()) {
+      return this;
+    }
+    return null;
+  }
+
+  public DeselectionMode getDeselectionMode() {
+    return deselectionMode;
+  }
+
+  public AbstractMenuItem<V> setDeselectionMode(DeselectionMode deselectionMode) {
+    this.deselectionMode = deselectionMode;
+    return this;
   }
 
   /**

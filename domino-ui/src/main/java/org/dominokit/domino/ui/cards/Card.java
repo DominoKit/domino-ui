@@ -108,12 +108,16 @@ public class Card extends BaseDominoElement<HTMLDivElement, Card>
   public Card(String title, String description) {
     this(title);
     setDescription(description);
+    onAttached(
+        (target, mutationRecord) -> {
+          LOGGER.info("Just testing the card header");
+        });
   }
 
   /** Creates an empty Card without a header. */
   public Card() {
     element = div().addCss(dui_card).appendChild(body = div().addCss(dui_card_body));
-    header = LazyChild.of(CardHeader.create(), element);
+    header = LazyChild.ofInsertFirst(CardHeader.create(), element);
     collapseIcon = getConfig().getCardCollapseExpandIcon().get();
 
     init(this);
