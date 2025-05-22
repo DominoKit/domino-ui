@@ -40,7 +40,7 @@ import org.dominokit.domino.ui.utils.MatchHighlighter;
  * @see BaseDominoElement
  */
 public abstract class Option<V, C extends IsElement<?>, O extends Option<V, C, O>>
-    extends BaseDominoElement<Element, Option<V, C, O>> {
+    extends BaseDominoElement<Element, O> {
 
   private final C component;
   private final AbstractMenuItem<V> menuItem;
@@ -65,7 +65,7 @@ public abstract class Option<V, C extends IsElement<?>, O extends Option<V, C, O
     this.menuItem.setKey(key);
     this.menuItem.setValue(value);
     this.menuItem.applyMeta(OptionMeta.of(component, (O) this));
-    init(this);
+    init((O) this);
   }
 
   /**
@@ -88,7 +88,7 @@ public abstract class Option<V, C extends IsElement<?>, O extends Option<V, C, O
     this.menuItem.setKey(key);
     this.menuItem.setValue(value);
     this.menuItem.applyMeta(OptionMeta.of(component, (O) this));
-    init(this);
+    init((O) this);
   }
 
   /**

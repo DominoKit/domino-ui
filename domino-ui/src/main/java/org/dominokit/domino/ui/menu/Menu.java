@@ -214,6 +214,7 @@ public class Menu<V> extends BaseDominoElement<HTMLDivElement, Menu<V>>
   private ObserverCallback<Menu<V>> onDetachHandler;
   private SingleSelectionMode selectionMode = SingleSelectionMode.RESELECT;
   private ObserverCallback<DominoElement<Element>> onAppendTargetDetach;
+  private boolean autoFocus = true;
 
   /**
    * Factory method to create a new Menu instance.
@@ -1457,7 +1458,7 @@ public class Menu<V> extends BaseDominoElement<HTMLDivElement, Menu<V>>
 
     this.close();
     if (nonNull(parent)) {
-      this.parent.open(true);
+      this.parent.open(isAutoFocus());
     }
   }
 
@@ -1722,7 +1723,7 @@ public class Menu<V> extends BaseDominoElement<HTMLDivElement, Menu<V>>
    */
   public Menu<V> open() {
     if (isDropDown()) {
-      open(true);
+      open(isAutoFocus());
     }
     return this;
   }
@@ -2182,6 +2183,15 @@ public class Menu<V> extends BaseDominoElement<HTMLDivElement, Menu<V>>
   public Menu<V> setSelectionMode(SingleSelectionMode selectionMode) {
     this.selectionMode = selectionMode;
     return this;
+  }
+
+  public Menu<V> setAutoFocus(boolean autoFocus) {
+    this.autoFocus = autoFocus;
+    return this;
+  }
+
+  public boolean isAutoFocus() {
+    return autoFocus;
   }
 
   SingleSelectionMode getEffectiveSelectionMode() {

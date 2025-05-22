@@ -35,6 +35,10 @@
     order: 40;
 }
 
+.dui-nav-bar .dui-primary-addon {
+    margin: var(--dui-nav-bar-addon-margin);
+}
+
 .dui-nav-description {
     display: block;
     font: var(--dui-nav-bar-description-font);
