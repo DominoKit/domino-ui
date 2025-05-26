@@ -44,20 +44,18 @@ import org.dominokit.domino.ui.utils.LazyChild;
  */
 public class MenuItemsGroup<V> extends AbstractMenuItem<V> {
 
-  private final Menu<V> menu;
   private List<AbstractMenuItem<V>> menuItems = new ArrayList<>();
 
   private DivElement groupElement;
   private LazyChild<NavBar> groupHeader;
   private LazyChild<UListElement> itemsListElement;
 
-  /**
-   * Creates a new instance of {@link MenuItemsGroup} attached to a specific menu.
-   *
-   * @param menu the parent {@link Menu} of this group
-   */
-  public MenuItemsGroup(Menu<V> menu) {
-    this.menu = menu;
+  public static <V> MenuItemsGroup<V> create() {
+    return new MenuItemsGroup<>();
+  }
+
+  /** Creates a new instance of {@link MenuItemsGroup} attached to a specific menu. */
+  public MenuItemsGroup() {
     removeCss(dui_menu_item);
     addCss(dui_menu_group);
     linkElement.removeCss(dui_menu_item_anchor);
@@ -67,6 +65,18 @@ public class MenuItemsGroup<V> extends AbstractMenuItem<V> {
         LazyChild.of(
             NavBar.create().addCss(dui_menu_group_header_nav).addCss(dui_order_first), bodyElement);
     itemsListElement = LazyChild.of(ul().addCss(dui_menu_items_list, dui_order_last), groupElement);
+  }
+
+  @Override
+  void setParent(Menu<V> menu) {
+    super.setParent(menu);
+    if (nonNull(parent)) {
+      menuItems.forEach(
+          item -> {
+            item.setParent(parent);
+            menu.onItemAdded(item);
+          });
+    }
   }
 
   /**
@@ -80,8 +90,10 @@ public class MenuItemsGroup<V> extends AbstractMenuItem<V> {
       menuItem.bindToGroup(this);
       itemsListElement.get().appendChild(menuItem);
       menuItems.add(menuItem);
-      menuItem.setParent(menu);
-      menu.onItemAdded(menuItem);
+      if (nonNull(parent)) {
+        menuItem.setParent(menu);
+        menu.onItemAdded(menuItem);
+      }
     }
     return this;
   }

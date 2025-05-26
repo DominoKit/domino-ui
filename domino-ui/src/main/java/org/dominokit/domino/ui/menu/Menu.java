@@ -627,9 +627,13 @@ public class Menu<V> extends BaseDominoElement<HTMLDivElement, Menu<V>>
    */
   public Menu<V> appendChild(AbstractMenuItem<V> menuItem) {
     if (nonNull(menuItem)) {
-      menuItemsList.appendChild(menuItem);
-      menuItems.add(menuItem);
-      afterAddItem(menuItem);
+      if (menuItem instanceof MenuItemsGroup) {
+        appendChild((MenuItemsGroup<V>) menuItem, group -> {});
+      } else {
+        menuItemsList.appendChild(menuItem);
+        menuItems.add(menuItem);
+        afterAddItem(menuItem);
+      }
     }
     return this;
   }
@@ -687,7 +691,7 @@ public class Menu<V> extends BaseDominoElement<HTMLDivElement, Menu<V>>
    * @param groupHandler The handler for the menu items group.
    * @return The current Menu instance.
    */
-  public <I extends AbstractMenuItem<V>> Menu<V> appendGroup(
+  public <I extends AbstractMenuItem<V>> Menu<V> appendChild(
       MenuItemsGroup<V> menuGroup, MenuItemsGroupHandler<V, I> groupHandler) {
     if (nonNull(menuGroup)) {
       menuItemsList.appendChild(menuGroup);

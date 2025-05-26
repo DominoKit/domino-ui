@@ -731,8 +731,8 @@ public abstract class AbstractSelect<
    */
   public C addOptionsGroup(
       Collection<O> options, Menu.MenuItemsGroupHandler<T, AbstractMenuItem<T>> groupHandler) {
-    MenuItemsGroup<T> optionsGroup = new MenuItemsGroup<>(optionsMenu);
-    optionsMenu.appendGroup(optionsGroup, groupHandler);
+    MenuItemsGroup<T> optionsGroup = new MenuItemsGroup<>();
+    optionsMenu.appendChild(optionsGroup, groupHandler);
     options.forEach(option -> addItemToGroup(optionsGroup, option));
     return (C) this;
   }

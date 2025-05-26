@@ -108,10 +108,6 @@ public class Card extends BaseDominoElement<HTMLDivElement, Card>
   public Card(String title, String description) {
     this(title);
     setDescription(description);
-    onAttached(
-        (target, mutationRecord) -> {
-          LOGGER.info("Just testing the card header");
-        });
   }
 
   /** Creates an empty Card without a header. */
