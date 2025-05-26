@@ -675,7 +675,6 @@ textarea.dui-field-input {
     bottom: var(--dui-form-field-switch-thumb-bottom);
     -webkit-transition: var(--dui-form-field-switch-focus-transition);
     transition: var(--dui-form-field-switch-focus-transition);
-    z-index: 10;
     overflow: visible;
     border-radius: var(--dui-form-field-switch-thumb-radius);
     background-color: var(--dui-form-field-switch-thumb-background, var(--dui-accent));
