@@ -105,10 +105,10 @@ public abstract class ToggleIcon<I extends Icon<I>, T extends ToggleIcon<I, T>> 
    * @return The ToggleIcon instance for method chaining.
    */
   public T toggle(boolean silent) {
+    primary.addCss(swapCss);
     if (!silent) {
       this.onToggleHandler.accept((T) this);
     }
-    primary.addCss(swapCss);
     return (T) this;
   }
 
