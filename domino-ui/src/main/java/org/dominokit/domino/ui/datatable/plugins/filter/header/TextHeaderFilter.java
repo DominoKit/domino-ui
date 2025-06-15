@@ -17,6 +17,7 @@
 package org.dominokit.domino.ui.datatable.plugins.filter.header;
 
 import elemental2.dom.HTMLInputElement;
+import org.dominokit.domino.ui.datatable.model.FilterType;
 import org.dominokit.domino.ui.datatable.model.FilterTypes;
 import org.dominokit.domino.ui.forms.TextBox;
 
@@ -116,7 +117,7 @@ public class TextHeaderFilter<T> extends DelayedHeaderFilterInput<TextBox, T, St
    * @return The filter type.
    */
   @Override
-  protected FilterTypes getType() {
+  protected FilterType getType() {
     return FilterTypes.STRING;
   }
 

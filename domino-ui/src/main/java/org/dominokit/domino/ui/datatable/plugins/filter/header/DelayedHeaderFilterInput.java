@@ -27,7 +27,7 @@ import org.dominokit.domino.ui.config.SearchConfig;
 import org.dominokit.domino.ui.datatable.ColumnConfig;
 import org.dominokit.domino.ui.datatable.model.Category;
 import org.dominokit.domino.ui.datatable.model.Filter;
-import org.dominokit.domino.ui.datatable.model.FilterTypes;
+import org.dominokit.domino.ui.datatable.model.FilterType;
 import org.dominokit.domino.ui.datatable.model.SearchContext;
 import org.dominokit.domino.ui.datatable.plugins.column.ColumnHeaderFilterPlugin;
 import org.dominokit.domino.ui.forms.InputFormField;
@@ -143,7 +143,7 @@ public abstract class DelayedHeaderFilterInput<
    *
    * @return The filter type for the input field.
    */
-  protected abstract FilterTypes getType();
+  protected abstract FilterType getType();
 
   /**
    * Gets the input field instance.

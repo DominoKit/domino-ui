@@ -19,6 +19,7 @@ package org.dominokit.domino.ui.datatable.plugins.filter.header;
 import static org.dominokit.domino.ui.utils.Domino.*;
 
 import elemental2.dom.HTMLInputElement;
+import org.dominokit.domino.ui.datatable.model.FilterType;
 import org.dominokit.domino.ui.datatable.model.FilterTypes;
 import org.dominokit.domino.ui.forms.DoubleBox;
 
@@ -112,7 +113,7 @@ public class DoubleHeaderFilter<T> extends DelayedHeaderFilterInput<DoubleBox, T
    * @return The filter type for the input field.
    */
   @Override
-  protected FilterTypes getType() {
+  protected FilterType getType() {
     return FilterTypes.DOUBLE;
   }
 

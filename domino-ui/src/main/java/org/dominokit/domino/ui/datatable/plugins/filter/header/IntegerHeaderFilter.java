@@ -19,6 +19,7 @@ package org.dominokit.domino.ui.datatable.plugins.filter.header;
 import static org.dominokit.domino.ui.utils.Domino.*;
 
 import elemental2.dom.HTMLInputElement;
+import org.dominokit.domino.ui.datatable.model.FilterType;
 import org.dominokit.domino.ui.datatable.model.FilterTypes;
 import org.dominokit.domino.ui.forms.IntegerBox;
 
@@ -111,7 +112,7 @@ public class IntegerHeaderFilter<T> extends DelayedHeaderFilterInput<IntegerBox,
    * @return The filter type as FilterTypes.INTEGER.
    */
   @Override
-  protected FilterTypes getType() {
+  protected FilterType getType() {
     return FilterTypes.INTEGER;
   }
 

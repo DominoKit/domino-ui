@@ -19,6 +19,7 @@ package org.dominokit.domino.ui.datatable.plugins.filter.header;
 import static org.dominokit.domino.ui.utils.Domino.*;
 
 import elemental2.dom.HTMLInputElement;
+import org.dominokit.domino.ui.datatable.model.FilterType;
 import org.dominokit.domino.ui.datatable.model.FilterTypes;
 import org.dominokit.domino.ui.forms.ShortBox;
 
@@ -109,7 +110,7 @@ public class ShortHeaderFilter<T> extends DelayedHeaderFilterInput<ShortBox, T, 
    * @return The filter type.
    */
   @Override
-  protected FilterTypes getType() {
+  protected FilterType getType() {
     return FilterTypes.SHORT;
   }
 
