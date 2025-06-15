@@ -317,7 +317,6 @@ public abstract class TreeRoot<V, N extends TreeNode<V, N, S>, C extends TreeRoo
    */
   public C setSearchable(boolean searchable) {
     if (searchable) {
-
       if (isNull(search)) {
         search =
             LazyChild.of(
@@ -356,6 +355,7 @@ public abstract class TreeRoot<V, N extends TreeNode<V, N, S>, C extends TreeRoo
                     .addCss(dui_tree_header_item),
                 headerElement.get().getContent());
       }
+      search.get();
       searchIcon.get();
     } else {
       if (nonNull(searchIcon)) {
@@ -524,6 +524,7 @@ public abstract class TreeRoot<V, N extends TreeNode<V, N, S>, C extends TreeRoo
    * @return An `Optional` containing the search input field, or empty if not searchable.
    */
   public Optional<Search> getSearch() {
+    setSearchable(true);
     if (nonNull(search) && search.isInitialized()) {
       return Optional.ofNullable(search.get());
     }
@@ -536,10 +537,23 @@ public abstract class TreeRoot<V, N extends TreeNode<V, N, S>, C extends TreeRoo
    * @return An `Optional` containing the search icon, or empty if not searchable.
    */
   public Optional<PostfixAddOn<?>> getSearchIcon() {
+    setSearchable(true);
     if (nonNull(searchIcon) && search.isInitialized()) {
       return Optional.of(searchIcon.get());
     }
     return Optional.empty();
+  }
+
+  public C withSearch(ChildHandler<C, Search> handler) {
+    setSearchable(true);
+    handler.apply((C) this, search.get());
+    return (C) this;
+  }
+
+  public C withSearchIcon(ChildHandler<C, PostfixAddOn<?>> handler) {
+    setSearchable(true);
+    handler.apply((C) this, searchIcon.get());
+    return (C) this;
   }
 
   /**
