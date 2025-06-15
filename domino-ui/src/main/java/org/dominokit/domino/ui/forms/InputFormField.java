@@ -274,7 +274,7 @@ public abstract class InputFormField<T extends InputFormField<T, E, V>, E extend
       if (!isAttached()) {
         getInputElement()
             .onAttached(
-                (target, mutationRecord) -> {
+                mutationRecord -> {
                   getInputElement().element().focus();
                 });
 
@@ -295,7 +295,7 @@ public abstract class InputFormField<T extends InputFormField<T, E, V>, E extend
     if (!isAttached()) {
       getInputElement()
           .onAttached(
-              (target, mutationRecord) -> {
+              mutationRecord -> {
                 getInputElement().element().blur();
               });
     } else {

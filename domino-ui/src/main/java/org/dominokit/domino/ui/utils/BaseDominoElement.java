@@ -23,7 +23,19 @@ import static org.dominokit.domino.ui.utils.Domino.text;
 import static org.dominokit.domino.ui.utils.HasZIndexLayer.ZIndexLayer.Z_LAYER_1;
 
 import elemental2.core.JsArray;
-import elemental2.dom.*;
+import elemental2.dom.AddEventListenerOptions;
+import elemental2.dom.CSSStyleDeclaration;
+import elemental2.dom.CustomEvent;
+import elemental2.dom.DOMRect;
+import elemental2.dom.DomGlobal;
+import elemental2.dom.Element;
+import elemental2.dom.Event;
+import elemental2.dom.EventListener;
+import elemental2.dom.EventTarget;
+import elemental2.dom.HTMLElement;
+import elemental2.dom.MutationRecord;
+import elemental2.dom.Node;
+import elemental2.dom.NodeList;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -54,7 +66,14 @@ import org.dominokit.domino.ui.menu.Menu;
 import org.dominokit.domino.ui.menu.direction.DropDirection;
 import org.dominokit.domino.ui.popover.Popover;
 import org.dominokit.domino.ui.popover.Tooltip;
-import org.dominokit.domino.ui.style.*;
+import org.dominokit.domino.ui.style.CssClass;
+import org.dominokit.domino.ui.style.CssProperty;
+import org.dominokit.domino.ui.style.DominoStyle;
+import org.dominokit.domino.ui.style.Elevation;
+import org.dominokit.domino.ui.style.HasCssClass;
+import org.dominokit.domino.ui.style.HasCssClasses;
+import org.dominokit.domino.ui.style.Style;
+import org.dominokit.domino.ui.style.WavesSupport;
 import org.dominokit.domino.ui.themes.DominoThemeManager;
 import org.gwtproject.editor.client.Editor;
 import org.gwtproject.safehtml.shared.SafeHtml;
@@ -132,7 +151,7 @@ public abstract class BaseDominoElement<E extends Element, T extends IsElement<E
   protected WavesSupport wavesSupport;
 
   /** A list of detach observers for this DOM element. */
-  private Map<String, List<ObserverCallback<T>>> attributesObservers;
+  private Map<String, List<MutationObserverCallback>> attributesObservers;
 
   /** Optional ResizeObserver for this DOM element. */
   private ResizeObserver resizeObserver;
@@ -227,7 +246,7 @@ public abstract class BaseDominoElement<E extends Element, T extends IsElement<E
               });
 
           onDetached(
-              (e, mutationRecord) -> {
+              (mutationRecord) -> {
                 getResizeObserver()
                     .ifPresent(
                         observer -> {
@@ -697,7 +716,7 @@ public abstract class BaseDominoElement<E extends Element, T extends IsElement<E
    * @return The modified DOM element.
    */
   @Editor.Ignore
-  public T onAttachedDetached(ObserverCallback<T> ObserverCallback) {
+  public T onAttachedDetached(MutationObserverCallback ObserverCallback) {
     initAttachListener();
     initDetachListener();
     getAttachDetachObservers().add(ObserverCallback);
@@ -712,7 +731,7 @@ public abstract class BaseDominoElement<E extends Element, T extends IsElement<E
    * @return The modified DOM element.
    */
   @Editor.Ignore
-  public T onAttached(ObserverCallback<T> observerCallback) {
+  public T onAttached(MutationObserverCallback observerCallback) {
     initAttachListener();
     getAttachObservers().add(observerCallback);
     ElementUtil.startObserving();
@@ -727,11 +746,11 @@ public abstract class BaseDominoElement<E extends Element, T extends IsElement<E
         this.attachEventListener =
             evt -> {
               CustomEvent cevent = Js.uncheckedCast(evt);
-              for (ObserverCallback<T> observer : getAttachObservers()) {
-                observer.onObserved((T) this, Js.uncheckedCast(cevent.detail));
+              for (MutationObserverCallback observer : getAttachObservers()) {
+                observer.onObserved(Js.uncheckedCast(cevent.detail));
               }
-              for (ObserverCallback<T> callback : getAttachDetachObservers()) {
-                callback.onObserved((T) this, Js.uncheckedCast(cevent.detail));
+              for (MutationObserverCallback callback : getAttachDetachObservers()) {
+                callback.onObserved(Js.uncheckedCast(cevent.detail));
               }
             };
         this.element
@@ -741,7 +760,7 @@ public abstract class BaseDominoElement<E extends Element, T extends IsElement<E
     }
   }
 
-  private List<ObserverCallback<T>> getAttachObservers() {
+  private List<MutationObserverCallback> getAttachObservers() {
     JsPropertyMap<Object> asPropertyMap = Js.asPropertyMap(element());
     if (!asPropertyMap.has("dui-attach-observers")) {
       asPropertyMap.set("dui-attach-observers", new ArrayList<>());
@@ -749,7 +768,7 @@ public abstract class BaseDominoElement<E extends Element, T extends IsElement<E
     return Js.uncheckedCast(asPropertyMap.get("dui-attach-observers"));
   }
 
-  private List<ObserverCallback<T>> getAttachDetachObservers() {
+  private List<MutationObserverCallback> getAttachDetachObservers() {
     JsPropertyMap<Object> asPropertyMap = Js.asPropertyMap(element());
     if (!asPropertyMap.has("dui-attach-detach-observers")) {
       asPropertyMap.set("dui-attach-detach-observers", new ArrayList<>());
@@ -762,22 +781,9 @@ public abstract class BaseDominoElement<E extends Element, T extends IsElement<E
    *
    * @param callback The observer to be registered.
    * @return The modified DOM element.
-   * @deprecated use {@link #onDetached(ObserverCallback)}
-   */
-  @Deprecated
-  @Editor.Ignore
-  public T onDetached(MutationObserverCallback<T> callback) {
-    return onDetached((ObserverCallback<T>) callback);
-  }
-
-  /**
-   * Registers an observer to be notified when this element is detached from the DOM.
-   *
-   * @param callback The observer to be registered.
-   * @return The modified DOM element.
    */
   @Editor.Ignore
-  public T onDetached(ObserverCallback<T> callback) {
+  public T onDetached(MutationObserverCallback callback) {
     initDetachListener();
     getDetachObservers().add(callback);
     ElementUtil.startObserving();
@@ -792,12 +798,12 @@ public abstract class BaseDominoElement<E extends Element, T extends IsElement<E
         this.detachEventListener =
             evt -> {
               CustomEvent cevent = Js.uncheckedCast(evt);
-              List<ObserverCallback<T>> detachObservers = getDetachObservers();
-              for (ObserverCallback<T> observer : detachObservers) {
-                observer.onObserved((T) this, Js.uncheckedCast(cevent.detail));
+              List<MutationObserverCallback> detachObservers = getDetachObservers();
+              for (MutationObserverCallback observer : detachObservers) {
+                observer.onObserved(Js.uncheckedCast(cevent.detail));
               }
-              for (ObserverCallback<T> observer : getAttachDetachObservers()) {
-                observer.onObserved((T) this, Js.uncheckedCast(cevent.detail));
+              for (MutationObserverCallback observer : getAttachDetachObservers()) {
+                observer.onObserved(Js.uncheckedCast(cevent.detail));
               }
             };
         this.element
@@ -807,7 +813,7 @@ public abstract class BaseDominoElement<E extends Element, T extends IsElement<E
     }
   }
 
-  private List<ObserverCallback<T>> getDetachObservers() {
+  private List<MutationObserverCallback> getDetachObservers() {
     JsPropertyMap<Object> asPropertyMap = Js.asPropertyMap(element());
     if (!asPropertyMap.has("dui-detach-observers")) {
       asPropertyMap.set("dui-detach-observers", new ArrayList<>());
@@ -822,7 +828,7 @@ public abstract class BaseDominoElement<E extends Element, T extends IsElement<E
    * @param callback The observer to be removed.
    * @return The modified DOM element.
    */
-  public T removeAttachObserver(ObserverCallback<T> callback) {
+  public T removeAttachObserver(MutationObserverCallback callback) {
     getAttachObservers().remove(callback);
     return element;
   }
@@ -834,7 +840,7 @@ public abstract class BaseDominoElement<E extends Element, T extends IsElement<E
    * @param callback The observer to be removed.
    * @return The modified DOM element.
    */
-  public T removeDetachObserver(ObserverCallback<T> callback) {
+  public T removeDetachObserver(MutationObserverCallback callback) {
     getDetachObservers().remove(callback);
     return element;
   }
@@ -862,7 +868,7 @@ public abstract class BaseDominoElement<E extends Element, T extends IsElement<E
     if (isAttached()) {
       handler.run();
     } else {
-      onAttached((e, mutationRecord) -> handler.run());
+      onAttached((mutationRecord) -> handler.run());
     }
     dominoUuidInitializer.apply();
     return (T) this;
@@ -878,7 +884,7 @@ public abstract class BaseDominoElement<E extends Element, T extends IsElement<E
   @Editor.Ignore
   public T nowOrWhenDetached(Runnable handler) {
     if (isAttached()) {
-      onDetached((e, mutationRecord) -> handler.run());
+      onDetached((mutationRecord) -> handler.run());
     } else {
       handler.run();
     }
@@ -898,7 +904,7 @@ public abstract class BaseDominoElement<E extends Element, T extends IsElement<E
     if (isAttached()) {
       handler.run();
     }
-    onAttached((e, mutationRecord) -> handler.run());
+    onAttached((mutationRecord) -> handler.run());
     dominoUuidInitializer.apply();
     return (T) this;
   }
@@ -915,7 +921,7 @@ public abstract class BaseDominoElement<E extends Element, T extends IsElement<E
     if (!isAttached()) {
       handler.run();
     }
-    onDetached((e, mutationRecord) -> handler.run());
+    onDetached((mutationRecord) -> handler.run());
     dominoUuidInitializer.apply();
     return (T) this;
   }
@@ -923,22 +929,22 @@ public abstract class BaseDominoElement<E extends Element, T extends IsElement<E
   /**
    * Registers an observer to be notified when this element is attached to the DOM.
    *
-   * @param ObserverCallback The observer to be registered.
+   * @param observerCallback The observer to be registered.
    * @return The modified DOM element.
    */
   @Editor.Ignore
-  public T onAttributeChange(ObserverCallback<T> ObserverCallback) {
-    return onAttributeChange("*", ObserverCallback);
+  public T onAttributeChange(MutationObserverCallback observerCallback) {
+    return onAttributeChange("*", observerCallback);
   }
 
   /**
    * Registers an observer to be notified when this element is attached to the DOM.
    *
-   * @param ObserverCallback The observer to be registered.
+   * @param observerCallback The observer to be registered.
    * @return The modified DOM element.
    */
   @Editor.Ignore
-  public T onAttributeChange(String attribute, ObserverCallback<T> ObserverCallback) {
+  public T onAttributeChange(String attribute, MutationObserverCallback observerCallback) {
     if (isNull(this.attributeChangeEventListener)) {
       if (!hasAttribute(ATTRIBUTE_CHANGE_UID_KEY)) {
         setAttribute(ATTRIBUTE_CHANGE_UID_KEY, DominoId.unique());
@@ -950,18 +956,16 @@ public abstract class BaseDominoElement<E extends Element, T extends IsElement<E
 
             Optional.ofNullable(getAttributesObservers().get("*"))
                 .ifPresent(
-                    ObserverCallbacks -> {
-                      ObserverCallbacks.forEach(
-                          callback ->
-                              callback.onObserved((T) this, Js.uncheckedCast(cevent.detail)));
+                    observerCallbacks -> {
+                      observerCallbacks.forEach(
+                          callback -> callback.onObserved(Js.uncheckedCast(cevent.detail)));
                     });
 
             Optional.ofNullable(getAttributesObservers().get(record.attributeName))
                 .ifPresent(
                     ObserverCallbacks -> {
                       ObserverCallbacks.forEach(
-                          callback ->
-                              callback.onObserved((T) this, Js.uncheckedCast(cevent.detail)));
+                          callback -> callback.onObserved(Js.uncheckedCast(cevent.detail)));
                     });
           };
       String type = ObserverEventType.attributeType(this);
@@ -970,12 +974,12 @@ public abstract class BaseDominoElement<E extends Element, T extends IsElement<E
     if (!getAttributesObservers().containsKey(attribute)) {
       getAttributesObservers().put(attribute, new ArrayList<>());
     }
-    getAttributesObservers().get(attribute).add(ObserverCallback);
+    getAttributesObservers().get(attribute).add(observerCallback);
     ElementUtil.startObservingAttributes();
     return element;
   }
 
-  private Map<String, List<ObserverCallback<T>>> getAttributesObservers() {
+  private Map<String, List<MutationObserverCallback>> getAttributesObservers() {
     if (isNull(this.attributesObservers)) {
       this.attributesObservers = new HashMap<>();
     }
@@ -4415,9 +4419,9 @@ public abstract class BaseDominoElement<E extends Element, T extends IsElement<E
    *
    * @param onKeyPress The event handler for key press events.
    * @return The modified DOM element.
-   * @deprecated use keydown instead.
    * @see <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/div">Element: keypress
    *     event </a>MDN Web Docs (div element)</a>
+   * @deprecated use keydown instead.
    */
   @Deprecated
   @Override
@@ -4431,9 +4435,9 @@ public abstract class BaseDominoElement<E extends Element, T extends IsElement<E
    * Stops listening to key press events.
    *
    * @return The modified DOM element.
-   * @deprecated use keydown instead.
    * @see <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/div">Element: keypress
    *     event </a>MDN Web Docs (div element)</a>
+   * @deprecated use keydown instead.
    */
   @Deprecated
   @Override
@@ -4516,6 +4520,7 @@ public abstract class BaseDominoElement<E extends Element, T extends IsElement<E
     keyboardEvents.setDefaultOptions(defaultOptions);
     return (T) this;
   }
+
   /**
    * Checks if the element is overflowing its visible area.
    *

@@ -160,7 +160,7 @@ public class DataTable<T> extends BaseDominoElement<HTMLDivElement, DataTable<T>
     initDynamicStyleSheet();
     init();
     onAttached(
-        (e, mutationRecord) -> {
+        mutationRecord -> {
           DomGlobal.setTimeout(
               p0 -> {
                 getDynamicStyleSheet().flush();

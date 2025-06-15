@@ -203,24 +203,25 @@ public class AppLayout extends BaseDominoElement<HTMLDivElement, AppLayout>
 
     init(this);
 
-    DomGlobal.setTimeout(
-        p0 -> {
-          layout.onAttached(
-              (e, mutationRecord) ->
-                  layout
-                      .parent()
-                      .addClickListener(
-                          evt -> {
-                            if (autoCloseLeftDrawer) {
-                              dui_left_open.remove(layout);
-                            }
+    //    DomGlobal.setTimeout(
+    //        p0 -> {
+    layout.onAttached(
+        mutationRecord ->
+            layout
+                .parent()
+                .addClickListener(
+                    evt -> {
+                      if (autoCloseLeftDrawer) {
+                        dui_left_open.remove(layout);
+                      }
 
-                            if (autoCloseRightDrawer) {
-                              dui_right_open.remove(layout);
-                            }
-                          }));
-        },
-        0);
+                      if (autoCloseRightDrawer) {
+                        dui_right_open.remove(layout);
+                      }
+                    }));
+    //        });
+    //        ,
+    //        0);
 
     DomGlobal.document.addEventListener(
         "dui-event-scroll-top",

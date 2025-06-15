@@ -128,7 +128,7 @@ public class TimeBox extends TextInputFormField<TimeBox, HTMLInputElement, Date>
                 popover -> {
                   withOpenOnFocusToggleListeners(false, field -> focus());
                 });
-    onDetached((e, mutationRecord) -> popover.close());
+    onDetached(mutationRecord -> popover.close());
 
     getInputElement()
         .onKeyDown(keyEvents -> keyEvents.onEnter(evt -> doOpen()).onSpace(evt -> doOpen()));

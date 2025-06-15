@@ -55,7 +55,7 @@ abstract class BaseSplitPanel<T extends BaseSplitPanel<T, S>, S extends BaseSpli
   public BaseSplitPanel() {
     element = div().addCss(dui_split_layout);
     init((T) this);
-    element.onAttached((e, mutationRecord) -> updatePanelsSize());
+    element.onAttached(mutationRecord -> updatePanelsSize());
   }
 
   /**

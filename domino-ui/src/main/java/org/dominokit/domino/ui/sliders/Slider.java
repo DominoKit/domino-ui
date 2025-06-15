@@ -179,7 +179,7 @@ public class Slider extends BaseDominoElement<HTMLDivElement, Slider>
 
     init(this);
     onAttached(
-        (e, mutationRecord) -> {
+        mutationRecord -> {
           if (!autoHideThumb) {
             startSliding();
             DomGlobal.setTimeout(

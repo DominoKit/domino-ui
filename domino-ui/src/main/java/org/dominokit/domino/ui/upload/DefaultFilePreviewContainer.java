@@ -56,7 +56,7 @@ public class DefaultFilePreviewContainer
             .apply(
                 self -> {
                   self.appendChild(fileItem);
-                  fileItem.onDetached((e, mutationRecord) -> self.remove());
+                  fileItem.onDetached(mutationRecord -> self.remove());
                 }));
     return this;
   }

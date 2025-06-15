@@ -209,11 +209,11 @@ public class Menu<V> extends BaseDominoElement<HTMLDivElement, Menu<V>>
   private OpenMenuCondition<V> openMenuCondition = (menu) -> true;
   private List<MediaQuery.MediaQueryListenerRecord> mediaQueryRecords = new ArrayList<>();
   private EventListener windowResizeListener;
-  private ObserverCallback<Menu<V>> onAttachHandler;
+  private MutationObserverCallback onAttachHandler;
   private boolean shouldFocus;
-  private ObserverCallback<Menu<V>> onDetachHandler;
+  private MutationObserverCallback onDetachHandler;
   private SingleSelectionMode selectionMode = SingleSelectionMode.RESELECT;
-  private ObserverCallback<DominoElement<Element>> onAppendTargetDetach;
+  private MutationObserverCallback onAppendTargetDetach;
   private boolean autoFocus = true;
 
   /**
@@ -241,14 +241,14 @@ public class Menu<V> extends BaseDominoElement<HTMLDivElement, Menu<V>>
     closeOnScrollListener = evt -> close();
 
     onAttached(
-        (target, mutationRecord) -> {
+        (mutationRecord) -> {
           if (isCloseOnScroll()) {
             window.addEventListener("scroll", closeOnScrollListener, true);
           }
         });
 
     onDetached(
-        (target, mutationRecord) -> {
+        (mutationRecord) -> {
           if (isCloseOnScroll()) {
             window.removeEventListener("scroll", closeOnScrollListener, true);
           }
@@ -262,7 +262,7 @@ public class Menu<V> extends BaseDominoElement<HTMLDivElement, Menu<V>>
           }
         });
     onDetached(
-        (target, mutationRecord) -> {
+        (mutationRecord) -> {
           if (isDropDown()) {
             window.removeEventListener("resize", windowResizeListener);
           }
@@ -518,7 +518,7 @@ public class Menu<V> extends BaseDominoElement<HTMLDivElement, Menu<V>>
     this.addEventListener(EventType.touchend.getName(), Event::stopPropagation);
 
     onAttachHandler =
-        (e, mutationRecord) -> {
+        (mutationRecord) -> {
           position();
           if (shouldFocus) {
             focus();
@@ -526,7 +526,7 @@ public class Menu<V> extends BaseDominoElement<HTMLDivElement, Menu<V>>
         };
 
     onDetachHandler =
-        (e, mutationRecord) -> {
+        (mutationRecord) -> {
           close();
           if (isDropDown()) {
             triggerCloseListeners(this);
@@ -1651,7 +1651,7 @@ public class Menu<V> extends BaseDominoElement<HTMLDivElement, Menu<V>>
     if (nonNull(menuTarget)) {
       this.targets().put(menuTarget.getTargetElement().getDominoId(), menuTarget);
       menuTarget.setTargetDetachObserver(
-          (e, mutationRecord) -> {
+          (mutationRecord) -> {
             if (Objects.equals(menuTarget, lastTarget)) {
               close();
             }
@@ -1660,7 +1660,7 @@ public class Menu<V> extends BaseDominoElement<HTMLDivElement, Menu<V>>
           });
 
       menuTarget.setTargetAttachObserver(
-          (e, mutationRecord) -> {
+          (mutationRecord) -> {
             this.targets().put(menuTarget.getTargetElement().getDominoId(), menuTarget);
           });
 

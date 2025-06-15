@@ -74,7 +74,7 @@ public class MenuItemsGroup<V> extends AbstractMenuItem<V> {
       menuItems.forEach(
           item -> {
             item.setParent(parent);
-            menu.onItemAdded(item);
+            parent.onItemAdded(item);
           });
     }
   }
@@ -91,8 +91,8 @@ public class MenuItemsGroup<V> extends AbstractMenuItem<V> {
       itemsListElement.get().appendChild(menuItem);
       menuItems.add(menuItem);
       if (nonNull(parent)) {
-        menuItem.setParent(menu);
-        menu.onItemAdded(menuItem);
+        menuItem.setParent(parent);
+        parent.onItemAdded(menuItem);
       }
     }
     return this;

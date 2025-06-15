@@ -182,7 +182,7 @@ public class Carousel extends BaseDominoElement<HTMLDivElement, Carousel>
 
   private void addDetachListener() {
     onDetached(
-        (Carousel, mutationRecord) -> {
+        mutationRecord -> {
           this.attached = false;
           this.stopAutoSlide();
         });
@@ -190,7 +190,7 @@ public class Carousel extends BaseDominoElement<HTMLDivElement, Carousel>
 
   private void addAttachListener() {
     onAttached(
-        (target, mutationRecord) -> {
+        mutationRecord -> {
           this.attached = true;
           if (autoSlide) {
             timer.scheduleRepeating(autoSlideDuration);

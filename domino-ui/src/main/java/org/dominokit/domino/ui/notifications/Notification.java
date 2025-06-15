@@ -87,8 +87,8 @@ public class Notification extends BaseDominoElement<HTMLDivElement, Notification
           element.insertBefore(span().addCss("dui-notification-filler"), closeButton.element());
         });
     init(this);
-    onAttached((target, mutationRecord) -> showHandlers.forEach(handler -> handler.apply(this)));
-    onDetached((target, mutationRecord) -> closeHandlers.forEach(handler -> handler.apply(this)));
+    onAttached(mutationRecord -> showHandlers.forEach(handler -> handler.apply(this)));
+    onDetached(mutationRecord -> closeHandlers.forEach(handler -> handler.apply(this)));
     addEventListener(DUI_NOTIFICATION_CLOSE, evt -> close());
   }
 

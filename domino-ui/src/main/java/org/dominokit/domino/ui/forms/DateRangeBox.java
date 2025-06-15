@@ -175,7 +175,7 @@ public class DateRangeBox extends TextInputFormField<DateRangeBox, HTMLInputElem
                 popover -> {
                   withOpenOnFocusToggleListeners(false, field -> focus());
                 });
-    onDetached((e, mutationRecord) -> popover.close());
+    onDetached(mutationRecord -> popover.close());
 
     getInputElement()
         .onKeyDown(keyEvents -> keyEvents.onEnter(evt -> doOpen()).onSpace(evt -> doOpen()));
@@ -262,6 +262,7 @@ public class DateRangeBox extends TextInputFormField<DateRangeBox, HTMLInputElem
         value, this.fromCalendar.getDateTimeFormatInfo(), this.toCalendar.getDateTimeFormatInfo());
     markRange();
   }
+
   /**
    * Creates a new DateRangeBox with the current date and default configuration.
    *
@@ -668,13 +669,15 @@ public class DateRangeBox extends TextInputFormField<DateRangeBox, HTMLInputElem
   }
 
   private void markInRangeDays(CalendarMonth month) {
-    List<CalendarDay> days = month.getMonthViewDays();
-    for (int index = 0; index < days.size(); index++) {
-      CalendarDay day = days.get(index);
-      if (day.isInRange(this.value.getFrom(), this.value.getTo())) {
-        days.get(index).addCss(dui_date_in_range);
-      } else {
-        dui_date_in_range.remove(days.get(index));
+    if (nonNull(this.value)) {
+      List<CalendarDay> days = month.getMonthViewDays();
+      for (int index = 0; index < days.size(); index++) {
+        CalendarDay day = days.get(index);
+        if (day.isInRange(this.value.getFrom(), this.value.getTo())) {
+          days.get(index).addCss(dui_date_in_range);
+        } else {
+          dui_date_in_range.remove(days.get(index));
+        }
       }
     }
   }

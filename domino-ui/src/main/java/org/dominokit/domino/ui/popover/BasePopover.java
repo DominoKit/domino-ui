@@ -117,13 +117,13 @@ public abstract class BasePopover<T extends BasePopover<T>>
         });
     elementOf(targetElement)
         .onDetached(
-            (e, mutationRecord) -> {
+            mutationRecord -> {
               close();
               DomGlobal.document.body.removeEventListener("blur", lostFocusListener, true);
             });
 
     onDetached(
-        (e, mutationRecord) -> {
+        mutationRecord -> {
           body().removeEventListener(EventType.keydown.getName(), closeListener);
           DomGlobal.document.body.removeEventListener("blur", lostFocusListener, true);
           close();

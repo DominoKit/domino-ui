@@ -27,7 +27,7 @@ public class FollowOnScroll {
 
   private final EventListener repositionListener;
   private final DominoElement<Element> target;
-  private ObserverCallback<DominoElement<Element>> observerCallback;
+  private MutationObserverCallback observerCallback;
 
   /**
    * Constructs a new FollowOnScroll instance.
@@ -44,7 +44,7 @@ public class FollowOnScroll {
         };
     target = elements.elementOf(targetElement);
     observerCallback =
-        (e, mutationRecord) -> {
+        (mutationRecord) -> {
           stop();
         };
     target.onDetached(observerCallback);

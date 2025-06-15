@@ -16,7 +16,6 @@
 package org.dominokit.domino.ui.forms;
 
 import static java.util.Objects.nonNull;
-import static org.dominokit.domino.ui.forms.FormsStyles.*;
 import static org.dominokit.domino.ui.utils.Domino.*;
 
 import elemental2.dom.EventListener;
@@ -91,7 +90,7 @@ public class TextAreaBox extends CountableInputFormField<TextAreaBox, HTMLTextAr
     header.appendChild(
         headerFiller =
             FillerElement.create().addCss(dui_form_text_area_header_filler, dui_order_30));
-    onAttached((e, mutationRecord) -> adjustHeight());
+    onAttached(mutationRecord -> adjustHeight());
     setDefaultValue("");
     getInputElement().addCss(dui_h_inherit).setAttribute("data-scroll", "0");
     getInputElement()
@@ -117,8 +116,8 @@ public class TextAreaBox extends CountableInputFormField<TextAreaBox, HTMLTextAr
   }
 
   @Override
-  protected LazyChild<SpanElement> initCounterElement() {
-    return counterElement = LazyChild.of(span().addCss(du_field_counter), header);
+  protected SpanElement initCounterElement() {
+    return counterElement = LazyChild.of(span().addCss(du_field_counter), header).get();
   }
 
   /**

@@ -75,7 +75,7 @@ public class ChipsGroup extends BaseDominoElement<HTMLDivElement, ChipsGroup>
     chip.setSelectable(true);
     chip.setRemovable(removable || chip.isRemovable());
     chip.onDetached(
-        (target, mutationRecord) -> {
+        mutationRecord -> {
           if (chip.isSelected()) {
             chip.deselect();
           }

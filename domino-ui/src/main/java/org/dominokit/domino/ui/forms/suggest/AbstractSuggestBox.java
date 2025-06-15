@@ -159,7 +159,7 @@ public abstract class AbstractSuggestBox<
             .setRemoveLoadingText(true);
 
     onAttached(
-        (e, mutationRecord) -> {
+        mutationRecord -> {
           optionsMenu.setTargetElement(getWrapperElement());
         });
 
