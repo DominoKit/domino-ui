@@ -30,6 +30,7 @@ import elemental2.dom.HTMLInputElement;
 import java.util.Date;
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 import org.dominokit.domino.ui.datepicker.Calendar;
 import org.dominokit.domino.ui.datepicker.CalendarDay;
 import org.dominokit.domino.ui.datepicker.CalendarInitConfig;
@@ -584,8 +585,10 @@ public class DateRangeBox extends TextInputFormField<DateRangeBox, HTMLInputElem
               this.toCalendar.setDate(this.value.getTo(), true);
             }
 
-            this.fromCalendar.informListeners(false, oldValue.getFrom());
-            this.toCalendar.informListeners(false, oldValue.getTo());
+            this.fromCalendar.informListeners(
+                false, Optional.ofNullable(oldValue).map(DateRange::getFrom).orElse(new Date()));
+            this.toCalendar.informListeners(
+                false, Optional.ofNullable(oldValue).map(DateRange::getTo).orElse(new Date()));
           }
         });
     markRange();
