@@ -78,6 +78,10 @@ public class SortPlugin<T>
               EventType.click.getName(),
               evt -> {
                 if (this.dataTable.getMeta(DUI_DT_COL_RESIZING).isEmpty()) {
+                  if (config.isShowIconOnSortedColumnOnly() && nonNull(currentSortContext)) {
+                    currentSortContext.sortElement.clearElement();
+                  }
+                  sortContext.sortElement.appendChild(sortContext.sortIcon);
                   updateSort(sortContext);
                   fireSortEvent(currentSortContext.sortDirection, column);
                 }
