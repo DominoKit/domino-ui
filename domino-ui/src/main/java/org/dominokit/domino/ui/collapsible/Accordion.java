@@ -23,6 +23,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.function.Supplier;
 import org.dominokit.domino.ui.elements.DivElement;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
 
@@ -44,7 +45,7 @@ public class Accordion extends BaseDominoElement<HTMLDivElement, Accordion>
   private final DivElement element;
   private List<AccordionPanel> panels = new LinkedList<>();
   private boolean multiOpen = false;
-  private CollapseStrategy panelsCollapseStrategy;
+  private Supplier<CollapseStrategy> panelsCollapseStrategy;
 
   /** Creates an empty accordion */
   public Accordion() {
@@ -68,20 +69,47 @@ public class Accordion extends BaseDominoElement<HTMLDivElement, Accordion>
    * @return same accordion instance
    */
   public Accordion appendChild(AccordionPanel panel) {
-    panels.add(panel);
-    if (nonNull(panelsCollapseStrategy)) {
-      panel.setCollapseStrategy(panelsCollapseStrategy);
+    insertChild(-1, panel);
+    return this;
+  }
+
+  /**
+   * Adds multiple accordion panels to the accordion
+   *
+   * @param panels The {@link org.dominokit.domino.ui.collapsible.AccordionPanel}s to be added
+   * @return same accordion instance
+   */
+  public Accordion appendChild(AccordionPanel... panels) {
+    Arrays.asList(panels).forEach(this::appendChild);
+    return this;
+  }
+  /**
+   * Inserts an accordion panel at the specified index in the accordion
+   *
+   * @param index The index to insert the panel at, if the index is less than 0 or greater than the
+   *     number of panels it will be appended to the end of the accordion
+   * @param panel The {@link org.dominokit.domino.ui.collapsible.AccordionPanel} to be inserted
+   * @return same accordion instance
+   */
+  public Accordion insertChild(int index, AccordionPanel panel) {
+    boolean isAppend = index < 0 || index >= panels.size();
+    if (isAppend) {
+      panels.add(panel);
+    } else {
+      panels.add(index, panel);
     }
-    element.appendChild(panel);
+    if (nonNull(panelsCollapseStrategy)) {
+      panel.setCollapseStrategy(panelsCollapseStrategy.get());
+    }
+    if (isAppend) {
+      element.appendChild(panel);
+    } else {
+      element.insertFirst(panel);
+    }
     panel.withHeader(
         (accordionPanel, header) -> {
           header.addClickListener(evt -> togglePanel(panel));
         });
-    return this;
-  }
-
-  public Accordion appendChild(AccordionPanel... panels) {
-    Arrays.asList(panels).forEach(this::appendChild);
     return this;
   }
 
@@ -102,9 +130,7 @@ public class Accordion extends BaseDominoElement<HTMLDivElement, Accordion>
                 accordionPanel.collapse();
               }
             });
-        if (panel.isCollapsed()) {
-          panel.expand();
-        }
+        panel.toggleCollapse();
       } else {
         panel.toggleCollapse();
       }
@@ -116,6 +142,32 @@ public class Accordion extends BaseDominoElement<HTMLDivElement, Accordion>
     List<AccordionPanel> newList = new ArrayList<>(panels);
     newList.remove(exclude);
     return newList;
+  }
+
+  /**
+   * Collapse all the accordion panels, this will only work if the accordion is set to allow
+   * multiple open panels, otherwise it will not have any effect.
+   *
+   * @return same accordion instance
+   */
+  public Accordion collapseAll() {
+    if (isMultiOpen()) {
+      panels.forEach(AccordionPanel::collapse);
+    }
+    return this;
+  }
+
+  /**
+   * Expand all the accordion panels, this will only work if the accordion is set to allow multiple
+   * open panels, otherwise it will not have any effect.
+   *
+   * @return same accordion instance
+   */
+  public Accordion expandAll() {
+    if (isMultiOpen()) {
+      panels.forEach(AccordionPanel::expand);
+    }
+    return this;
   }
 
   /**
@@ -157,10 +209,10 @@ public class Accordion extends BaseDominoElement<HTMLDivElement, Accordion>
    *     the accordion panels are collapsed/expaned
    * @return Same accordion instance
    */
-  public Accordion setPanelCollapseStrategy(CollapseStrategy strategy) {
+  public Accordion setPanelCollapseStrategy(Supplier<CollapseStrategy> strategy) {
     this.panelsCollapseStrategy = strategy;
     panels.forEach(
-        accordionPanel -> accordionPanel.setCollapseStrategy(this.panelsCollapseStrategy));
+        accordionPanel -> accordionPanel.setCollapseStrategy(this.panelsCollapseStrategy.get()));
     return this;
   }
 
