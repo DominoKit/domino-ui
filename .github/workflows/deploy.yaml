@@ -54,7 +54,7 @@ jobs:
 
       - name: Import GPG key
         run: |
-          echo "${{ secrets.gpg_private_key }}" | base64 --decode | gpg --batch --import
+          echo "${{ secrets.gpg_private_key }}" | gpg --batch --import
         env:
           GPG_TTY: $(tty)
 
