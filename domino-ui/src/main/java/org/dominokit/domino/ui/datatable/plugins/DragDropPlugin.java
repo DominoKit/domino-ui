@@ -32,13 +32,13 @@ import org.dominokit.domino.ui.datatable.DataTable;
 import org.dominokit.domino.ui.datatable.TableRow;
 import org.dominokit.domino.ui.datatable.events.RecordDraggedOutEvent;
 import org.dominokit.domino.ui.datatable.events.RecordDroppedEvent;
-import org.dominokit.domino.ui.datatable.events.TableEvent;
 import org.dominokit.domino.ui.dnd.DragSource;
 import org.dominokit.domino.ui.dnd.Draggable;
 import org.dominokit.domino.ui.dnd.DropZone;
 import org.dominokit.domino.ui.elements.DivElement;
 import org.dominokit.domino.ui.icons.Icon;
 import org.dominokit.domino.ui.icons.lib.Icons;
+import org.dominokit.domino.ui.utils.DominoEvent;
 
 /**
  * The {@code DragDropPlugin} class is a DataTable plugin that enables drag-and-drop functionality
@@ -186,7 +186,7 @@ public class DragDropPlugin<T> implements DataTablePlugin<T> {
    * @param event The event to be handled.
    */
   @Override
-  public void handleEvent(TableEvent event) {
+  public void handleEvent(DominoEvent event) {
     if (event instanceof RecordDraggedOutEvent) {
       emptyDropRow.toggleDisplay(dataTable.getRows().isEmpty());
     }

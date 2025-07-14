@@ -28,12 +28,12 @@ import org.dominokit.domino.ui.datatable.ColumnConfig;
 import org.dominokit.domino.ui.datatable.DataTable;
 import org.dominokit.domino.ui.datatable.events.DataSortEvent;
 import org.dominokit.domino.ui.datatable.events.SortEvent;
-import org.dominokit.domino.ui.datatable.events.TableEvent;
 import org.dominokit.domino.ui.datatable.plugins.DataTablePlugin;
 import org.dominokit.domino.ui.datatable.plugins.HasPluginConfig;
 import org.dominokit.domino.ui.events.EventType;
 import org.dominokit.domino.ui.icons.IconWrapper;
 import org.dominokit.domino.ui.utils.DominoElement;
+import org.dominokit.domino.ui.utils.DominoEvent;
 
 /**
  * A plugin for adding sorting functionality to a DataTable. This plugin allows users to click on
@@ -127,7 +127,7 @@ public class SortPlugin<T>
    * @param event The event to handle.
    */
   @Override
-  public void handleEvent(TableEvent event) {
+  public void handleEvent(DominoEvent event) {
     if (DataSortEvent.EVENT.equalsIgnoreCase(event.getType())) {
       DataSortEvent dataSortEvent = (DataSortEvent) event;
       if (sortContainers.containsKey(dataSortEvent.getSortColumn())) {

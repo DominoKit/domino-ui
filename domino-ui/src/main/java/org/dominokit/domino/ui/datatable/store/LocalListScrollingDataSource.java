@@ -27,8 +27,8 @@ import java.util.stream.Collectors;
 import org.dominokit.domino.ui.datatable.events.BodyScrollEvent;
 import org.dominokit.domino.ui.datatable.events.SearchEvent;
 import org.dominokit.domino.ui.datatable.events.SortEvent;
-import org.dominokit.domino.ui.datatable.events.TableEvent;
 import org.dominokit.domino.ui.datatable.plugins.pagination.BodyScrollPlugin;
+import org.dominokit.domino.ui.utils.DominoEvent;
 
 /**
  * An implementation of the {@link org.dominokit.domino.ui.datatable.store.DataStore} that wraps an
@@ -218,7 +218,7 @@ public class LocalListScrollingDataSource<T> implements DataStore<T> {
    * @param event The table event to handle.
    */
   @Override
-  public void handleEvent(TableEvent event) {
+  public void handleEvent(DominoEvent event) {
     switch (event.getType()) {
       case BODY_SCROLL:
         onBodyScroll((BodyScrollEvent) event);

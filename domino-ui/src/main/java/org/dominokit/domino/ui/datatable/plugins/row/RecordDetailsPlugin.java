@@ -32,7 +32,6 @@ import org.dominokit.domino.ui.datatable.ColumnConfig;
 import org.dominokit.domino.ui.datatable.DataTable;
 import org.dominokit.domino.ui.datatable.TableRow;
 import org.dominokit.domino.ui.datatable.events.ExpandRecordEvent;
-import org.dominokit.domino.ui.datatable.events.TableEvent;
 import org.dominokit.domino.ui.datatable.plugins.DataTablePlugin;
 import org.dominokit.domino.ui.datatable.plugins.pagination.StateIcon;
 import org.dominokit.domino.ui.elements.DivElement;
@@ -42,6 +41,7 @@ import org.dominokit.domino.ui.icons.Icon;
 import org.dominokit.domino.ui.icons.IconWrapper;
 import org.dominokit.domino.ui.icons.lib.*;
 import org.dominokit.domino.ui.utils.ComponentMeta;
+import org.dominokit.domino.ui.utils.DominoEvent;
 
 /**
  * The {@code RecordDetailsPlugin} class is a DataTable plugin that allows expanding and collapsing
@@ -160,7 +160,7 @@ public class RecordDetailsPlugin<T> implements DataTablePlugin<T> {
    * @param event The table event to be handled.
    */
   @Override
-  public void handleEvent(TableEvent event) {
+  public void handleEvent(DominoEvent event) {
     if (ExpandRecordEvent.EXPAND_RECORD.equals(event.getType())) {
       expandRow((ExpandRecordEvent<T>) event);
     }

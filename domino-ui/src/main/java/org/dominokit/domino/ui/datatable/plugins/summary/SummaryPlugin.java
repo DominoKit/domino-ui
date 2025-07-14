@@ -23,11 +23,11 @@ import java.util.Collection;
 import java.util.List;
 import org.dominokit.domino.ui.datatable.DataTable;
 import org.dominokit.domino.ui.datatable.events.TableDataUpdatedEvent;
-import org.dominokit.domino.ui.datatable.events.TableEvent;
 import org.dominokit.domino.ui.datatable.plugins.DataTablePlugin;
 import org.dominokit.domino.ui.datatable.plugins.HasPluginConfig;
 import org.dominokit.domino.ui.elements.TFootElement;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
+import org.dominokit.domino.ui.utils.DominoEvent;
 
 /**
  * The {@code SummaryPlugin} class is used to display summary rows in a {@link DataTable}. Summary
@@ -101,7 +101,7 @@ public class SummaryPlugin<T, S>
   }
 
   @Override
-  public void handleEvent(TableEvent event) {
+  public void handleEvent(DominoEvent event) {
     if (TableDataUpdatedEvent.DATA_UPDATED.equals(event.getType())) {
       if (config.isRemoveOnEmptyData() && ((TableDataUpdatedEvent<T>) event).getData().isEmpty()) {
         removeSummaryRecords();

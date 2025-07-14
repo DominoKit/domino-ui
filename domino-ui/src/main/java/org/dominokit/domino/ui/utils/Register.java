@@ -13,19 +13,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+package org.dominokit.domino.ui.utils;
 
-package org.dominokit.domino.ui.datatable.events;
+public interface Register {
+  void remove();
 
-/**
- * The {@code TableEventListener} interface defines a contract for classes that can handle table
- * events. Implementing classes should provide an implementation for the {@code handleEvent} method.
- */
-public interface TableEventListener {
-
-  /**
-   * Handles a table event.
-   *
-   * @param event the table event to handle
-   */
-  void handleEvent(TableEvent event);
+  Register EMPTY = () -> {};
 }

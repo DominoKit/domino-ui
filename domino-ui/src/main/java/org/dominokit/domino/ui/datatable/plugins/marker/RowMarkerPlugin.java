@@ -22,9 +22,9 @@ import org.dominokit.domino.ui.datatable.DataTable;
 import org.dominokit.domino.ui.datatable.DataTableStyles;
 import org.dominokit.domino.ui.datatable.TableRow;
 import org.dominokit.domino.ui.datatable.events.RowRecordUpdatedEvent;
-import org.dominokit.domino.ui.datatable.events.TableEvent;
 import org.dominokit.domino.ui.datatable.plugins.DataTablePlugin;
 import org.dominokit.domino.ui.style.CssClass;
+import org.dominokit.domino.ui.utils.DominoEvent;
 
 /**
  * A DataTable plugin that adds row markers based on the provided {@link MarkerColor} function.
@@ -91,7 +91,7 @@ public class RowMarkerPlugin<T> implements DataTablePlugin<T>, DataTableStyles {
    * @param event The table event to handle.
    */
   @Override
-  public void handleEvent(TableEvent event) {
+  public void handleEvent(DominoEvent event) {
     if (RowRecordUpdatedEvent.RECORD_UPDATED.equals(event.getType())) {
       setStyle(((RowRecordUpdatedEvent<T>) event).getTableRow());
     }

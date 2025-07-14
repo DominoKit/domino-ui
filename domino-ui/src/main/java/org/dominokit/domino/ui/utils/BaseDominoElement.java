@@ -108,7 +108,7 @@ public abstract class BaseDominoElement<E extends Element, T extends IsElement<E
         AcceptReadOnly<T>,
         DominoStyle<E, T>,
         HasKeyboardEvents<T>,
-        HasCollapseListeners<T>,
+        HasOpenCloseListeners<T>,
         HasAttributes<T>,
         HasMeta<T>,
         HasZIndexLayer<T> {
@@ -738,6 +738,18 @@ public abstract class BaseDominoElement<E extends Element, T extends IsElement<E
     return element;
   }
 
+  /**
+   * Registers an observer to be notified when this element is attached to the DOM.
+   *
+   * @param observerCallback The observer to be registered.
+   * @return The modified DOM element.
+   */
+  @Editor.Ignore
+  public Register registerOnAttached(MutationObserverCallback observerCallback) {
+    onAttached(observerCallback);
+    return () -> removeAttachObserver(observerCallback);
+  }
+
   private void initAttachListener() {
     if (isNull(this.attachEventListener)) {
       if (!hasAttribute(ATTACH_UID_KEY)) {
@@ -788,6 +800,18 @@ public abstract class BaseDominoElement<E extends Element, T extends IsElement<E
     getDetachObservers().add(callback);
     ElementUtil.startObserving();
     return element;
+  }
+
+  /**
+   * Registers an observer to be notified when this element is detached from the DOM.
+   *
+   * @param callback The observer to be registered.
+   * @return The modified DOM element.
+   */
+  @Editor.Ignore
+  public Register registerOnDetached(MutationObserverCallback callback) {
+    onDetached(callback);
+    return () -> removeDetachObserver(callback);
   }
 
   private void initDetachListener() {
@@ -875,6 +899,26 @@ public abstract class BaseDominoElement<E extends Element, T extends IsElement<E
   }
 
   /**
+   * Executes a given handler either immediately if the element is already attached to the DOM or
+   * when it gets attached.
+   *
+   * @param handler The handler to execute.
+   * @return The modified DOM element.
+   */
+  @Editor.Ignore
+  public Register registerNowOrWhenAttached(Runnable handler) {
+    if (isAttached()) {
+      handler.run();
+      dominoUuidInitializer.apply();
+      return Register.EMPTY;
+    } else {
+      Register register = registerOnAttached((mutationRecord) -> handler.run());
+      dominoUuidInitializer.apply();
+      return register;
+    }
+  }
+
+  /**
    * Executes a given handler either immediately if the element is already detached from the DOM or
    * when it gets detached.
    *
@@ -890,6 +934,26 @@ public abstract class BaseDominoElement<E extends Element, T extends IsElement<E
     }
     dominoUuidInitializer.apply();
     return (T) this;
+  }
+
+  /**
+   * Executes a given handler either immediately if the element is already detached from the DOM or
+   * when it gets detached.
+   *
+   * @param handler The handler to execute.
+   * @return The modified DOM element.
+   */
+  @Editor.Ignore
+  public Register registerNowOrWhenDetached(Runnable handler) {
+    if (isAttached()) {
+      Register register = registerOnDetached((mutationRecord) -> handler.run());
+      dominoUuidInitializer.apply();
+      return register;
+    } else {
+      handler.run();
+      dominoUuidInitializer.apply();
+      return Register.EMPTY;
+    }
   }
 
   /**
@@ -910,6 +974,25 @@ public abstract class BaseDominoElement<E extends Element, T extends IsElement<E
   }
 
   /**
+   * Executes a given handler when the element is attached to the DOM. If the element is already
+   * attached, the handler is executed immediately.
+   *
+   * @param handler The handler to execute.
+   * @return The modified DOM element.
+   */
+  @Editor.Ignore
+  public Register registerNowAndWhenAttached(Runnable handler) {
+    if (isAttached()) {
+      handler.run();
+      dominoUuidInitializer.apply();
+      return Register.EMPTY;
+    }
+    Register register = registerOnAttached((mutationRecord) -> handler.run());
+    dominoUuidInitializer.apply();
+    return register;
+  }
+
+  /**
    * Executes a given handler when the element is detached from the DOM. If the element is already
    * detached, the handler is executed immediately.
    *
@@ -924,6 +1007,25 @@ public abstract class BaseDominoElement<E extends Element, T extends IsElement<E
     onDetached((mutationRecord) -> handler.run());
     dominoUuidInitializer.apply();
     return (T) this;
+  }
+
+  /**
+   * Executes a given handler when the element is detached from the DOM. If the element is already
+   * detached, the handler is executed immediately.
+   *
+   * @param handler The handler to execute.
+   * @return The modified DOM element.
+   */
+  @Editor.Ignore
+  public Register registerNowAndWhenDetached(Runnable handler) {
+    if (!isAttached()) {
+      handler.run();
+      dominoUuidInitializer.apply();
+      return Register.EMPTY;
+    }
+    Register register = registerOnDetached((mutationRecord) -> handler.run());
+    dominoUuidInitializer.apply();
+    return register;
   }
 
   /**
@@ -1730,7 +1832,7 @@ public abstract class BaseDominoElement<E extends Element, T extends IsElement<E
    */
   @Editor.Ignore
   public T insertFirst(Node newNode) {
-    getAppendTarget().insertBefore(newNode, element().firstChild);
+    getAppendTarget().insertBefore(newNode, getAppendTarget().firstChild);
     return element;
   }
 
@@ -1753,7 +1855,7 @@ public abstract class BaseDominoElement<E extends Element, T extends IsElement<E
    */
   @Editor.Ignore
   public T insertFirst(BaseDominoElement<?, ?> newNode) {
-    getAppendTarget().insertBefore(newNode.element(), element().firstChild);
+    getAppendTarget().insertBefore(newNode.element(), getAppendTarget().firstChild);
     return element;
   }
 

@@ -28,12 +28,12 @@ import org.dominokit.domino.ui.datatable.DataTable;
 import org.dominokit.domino.ui.datatable.TableConfig;
 import org.dominokit.domino.ui.datatable.TableRow;
 import org.dominokit.domino.ui.datatable.events.OnBeforeDataChangeEvent;
-import org.dominokit.domino.ui.datatable.events.TableEvent;
 import org.dominokit.domino.ui.datatable.plugins.DataTablePlugin;
 import org.dominokit.domino.ui.icons.ToggleIcon;
 import org.dominokit.domino.ui.icons.ToggleMdiIcon;
 import org.dominokit.domino.ui.icons.lib.Icons;
 import org.dominokit.domino.ui.utils.ComponentMeta;
+import org.dominokit.domino.ui.utils.DominoEvent;
 
 /**
  * The {@code GroupingPlugin} class provides the functionality to group data in a {@link DataTable}
@@ -184,7 +184,7 @@ public class GroupingPlugin<T> implements DataTablePlugin<T>, TableConfig.RowApp
    * @param event The TableEvent to handle.
    */
   @Override
-  public void handleEvent(TableEvent event) {
+  public void handleEvent(DominoEvent event) {
     if (event.getType().equalsIgnoreCase(OnBeforeDataChangeEvent.ON_BEFORE_DATA_CHANGE)) {
       dataGroups.clear();
     }

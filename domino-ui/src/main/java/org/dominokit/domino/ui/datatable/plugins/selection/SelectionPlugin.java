@@ -34,11 +34,11 @@ import jsinterop.base.Js;
 import org.dominokit.domino.ui.datatable.*;
 import org.dominokit.domino.ui.datatable.events.OnBeforeDataChangeEvent;
 import org.dominokit.domino.ui.datatable.events.TableDataUpdatedEvent;
-import org.dominokit.domino.ui.datatable.events.TableEvent;
 import org.dominokit.domino.ui.datatable.plugins.DataTablePlugin;
 import org.dominokit.domino.ui.forms.CheckBox;
 import org.dominokit.domino.ui.icons.Icon;
 import org.dominokit.domino.ui.icons.lib.Icons;
+import org.dominokit.domino.ui.utils.DominoEvent;
 import org.dominokit.domino.ui.utils.Selectable;
 
 /**
@@ -401,7 +401,7 @@ public class SelectionPlugin<T> implements DataTablePlugin<T> {
    * @param event The DataTable event.
    */
   @Override
-  public void handleEvent(TableEvent event) {
+  public void handleEvent(DominoEvent event) {
     if (retainSelectionOnDataChange) {
       if (OnBeforeDataChangeEvent.ON_BEFORE_DATA_CHANGE.equals(event.getType())) {
         this.oldSelection = this.datatable.getSelectedRecords();

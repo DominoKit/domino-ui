@@ -31,6 +31,7 @@ import java.util.stream.Collectors;
 import org.dominokit.domino.ui.datatable.events.*;
 import org.dominokit.domino.ui.datatable.plugins.pagination.SortDirection;
 import org.dominokit.domino.ui.pagination.HasPagination;
+import org.dominokit.domino.ui.utils.DominoEvent;
 
 /**
  * The {@code LocalListDataStore} class represents a local data store for a DataTable, where data is
@@ -270,7 +271,7 @@ public class LocalListDataStore<T> implements DataStore<T> {
    * @param event The table event to handle.
    */
   @Override
-  public void handleEvent(TableEvent event) {
+  public void handleEvent(DominoEvent event) {
     switch (event.getType()) {
       case SEARCH_EVENT:
         onSearchChanged((SearchEvent) event);

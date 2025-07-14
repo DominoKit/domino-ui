@@ -13,13 +13,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+package org.dominokit.domino.ui.utils;
 
-package org.dominokit.domino.ui.datatable.events;
-
-import org.dominokit.domino.ui.utils.DominoEvent;
-
-/**
- * The {@code TableEvent} interface represents an event in a DataTable. Implementing classes should
- * provide a type for the event using the {@code getType} method.
- */
-public interface TableEvent extends DominoEvent {}
+public interface DominoEvent {
+  /**
+   * Retrieves the type of this event.
+   *
+   * @return the event type
+   */
+  String getType();
+}

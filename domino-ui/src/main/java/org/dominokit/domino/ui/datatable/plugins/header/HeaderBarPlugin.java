@@ -28,7 +28,6 @@ import org.dominokit.domino.ui.datatable.ColumnConfig;
 import org.dominokit.domino.ui.datatable.DataTable;
 import org.dominokit.domino.ui.datatable.DefaultColumnShowHideListener;
 import org.dominokit.domino.ui.datatable.events.SearchClearedEvent;
-import org.dominokit.domino.ui.datatable.events.TableEvent;
 import org.dominokit.domino.ui.datatable.model.Category;
 import org.dominokit.domino.ui.datatable.model.Filter;
 import org.dominokit.domino.ui.datatable.plugins.DataTablePlugin;
@@ -43,6 +42,7 @@ import org.dominokit.domino.ui.menu.Menu;
 import org.dominokit.domino.ui.menu.direction.DropDirection;
 import org.dominokit.domino.ui.search.SearchBox;
 import org.dominokit.domino.ui.utils.ChildHandler;
+import org.dominokit.domino.ui.utils.DominoEvent;
 import org.dominokit.domino.ui.utils.PostfixAddOn;
 
 /**
@@ -440,7 +440,7 @@ public class HeaderBarPlugin<T> implements DataTablePlugin<T> {
      * @param event The table event to handle.
      */
     @Override
-    public void handleEvent(TableEvent event) {
+    public void handleEvent(DominoEvent event) {
       if (SearchClearedEvent.SEARCH_EVENT_CLEARED.equals(event.getType())) {
         searchBox.clearSearch(true);
       }
@@ -574,6 +574,6 @@ public class HeaderBarPlugin<T> implements DataTablePlugin<T> {
      * @param event The table event to handle.
      */
     @Override
-    public void handleEvent(TableEvent event) {}
+    public void handleEvent(DominoEvent event) {}
   }
 }
