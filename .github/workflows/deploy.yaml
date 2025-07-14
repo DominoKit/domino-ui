@@ -50,9 +50,6 @@ jobs:
           java-version: 11
           distribution: temurin
           cache: maven
-          server-id: ossrh
-          server-username: SONATYPE_USERNAME
-          server-password: SONATYPE_PASSWORD
 
       - name: Import GPG key
         run: |
@@ -63,6 +60,4 @@ jobs:
         run: ./mvnw --no-transfer-progress clean deploy -B -e -Dgpg.passphrase=${{ secrets.gpg_passphrase }}
         env:
           CENTRAL_TOKEN: ${{ secrets.CENTRAL_TOKEN }}
-          SONATYPE_USERNAME: ${{ secrets.nexus_username }}
-          SONATYPE_PASSWORD: ${{ secrets.nexus_password }}
 
