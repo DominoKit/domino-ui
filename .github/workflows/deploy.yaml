@@ -18,22 +18,24 @@ name: Deploy
 
 on:
   push:
-    branches: [ master , development ]
+    branches: [ master, development ]
 
 jobs:
   verify:
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-latest
     strategy:
       matrix:
-        java-version: [ 11 ]
+        java-version: [11]
     steps:
       - name: Check out Git repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
+
       - name: Install Java and Maven
-        uses: actions/setup-java@v3
+        uses: actions/setup-java@v4
         with:
           java-version: ${{ matrix.java-version }}
-          distribution: 'temurin'
+          distribution: temurin
+
       - run: ./mvnw verify -B -e
 
   release:
@@ -41,22 +43,22 @@ jobs:
     runs-on: ubuntu-24.04
     steps:
       - name: Check out Git repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
-      - name: Install Java and Maven
-        uses: actions/setup-java@v3
+      - name: Set up Java for deployment
+        uses: actions/setup-java@v4
         with:
           java-version: 11
-          distribution: 'temurin'
-          server-id: ossrh
-          server-username: SONATYPE_USERNAME
-          server-password: SONATYPE_PASSWORD
-      - id: install-secret-key
-        name: Install gpg secret key
+          distribution: temurin
+          cache: maven
+
+      - name: Import GPG key
         run: |
-          cat <(echo -e "${{ secrets.gpg_private_key }}") | gpg --batch --import
-      - name: publish to snapshot
-        run: ./mvnw --no-transfer-progress clean deploy -B -e -Dci=true -Dgpg.passphrase=${{ secrets.gpg_passphrase }}
+          echo "${{ secrets.gpg_private_key }}" | base64 --decode | gpg --batch --import
         env:
-          SONATYPE_USERNAME: ${{ secrets.nexus_username }}
-          SONATYPE_PASSWORD: ${{ secrets.nexus_password }}
+          GPG_TTY: $(tty)
+
+      - name: Deploy to Maven Central (snapshot or release)
+        run: ./mvnw --no-transfer-progress clean deploy -B -e -Dgpg.passphrase=${{ secrets.gpg_passphrase }}
+        env:
+          CENTRAL_TOKEN: ${{ secrets.CENTRAL_TOKEN }}
