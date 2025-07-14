@@ -38,6 +38,9 @@ fieldset.dui {
     overflow: visible;
 }
 
+.dui-form-field[readonly] .dui:not(.dui-field-error):not(.dui-field-helper):not([class*="dui-cursor"]) {
+    cursor: var(--dui-form-field-readonly-cursor);
+}
 .dui-form-field[readonly]:not(.dui-undimmed) .dui:not(.dui-field-error):not(.dui-field-helper) {
     color: var(--dui-form-field-readonly-color);
 }
@@ -45,10 +48,6 @@ fieldset.dui {
 .dui-form-field[readonly]:not(.dui-undimmed) .dui-chip:not(.dui-field-error):not(.dui-field-helper) > .dui-chip-value {
     color: var(--dui-accent-fg-clr, var(--dui-text-color));
     opacity: 0.75;
-}
-
-.dui-form-field[readonly] .dui:not(.dui-field-error):not(.dui-field-helper) {
-    cursor: var(--dui-form-field-readonly-cursor);
 }
 
 .dui-form-field *.dui::placeholder {

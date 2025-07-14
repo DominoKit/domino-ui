@@ -169,6 +169,7 @@
     --dui-step-tracker-node-bg-color: var(--dui-step-tracker-node-completed-color);
     --dui-step-tracker-node-border-color: var(--dui-step-tracker-node-completed-color);
     --dui-step-tracker-node-fg-color: var(--dui-step-tracker-node-completed-fg-color);
+    --dui-step-tracker-active-node-border-color: var(--dui-step-tracker-node-color);
 }
 
 .dui-step-track.dui-step-state-disabled {
@@ -176,6 +177,7 @@
     --dui-step-tracker-node-bg-color: var(--dui-step-tracker-node-disabled-color);
     --dui-step-tracker-node-border-color: var(--dui-step-tracker-node-disabled-color);
     --dui-step-tracker-node-fg-color: var(--dui-step-tracker-node-disabled-fg-color);
+    --dui-step-tracker-active-node-border-color: var(--dui-step-tracker-node-color);
 }
 
 .dui-step-track.dui-step-state-error {
@@ -183,6 +185,7 @@
     --dui-step-tracker-node-bg-color: var(--dui-step-tracker-node-error-color);
     --dui-step-tracker-node-border-color: var(--dui-step-tracker-node-error-color);
     --dui-step-tracker-node-fg-color: var(--dui-step-tracker-node-error-fg-color);
+    --dui-step-tracker-active-node-border-color: var(--dui-step-tracker-node-color);
 }
 
 .dui-step-track.dui-step-state-skipped {
@@ -190,6 +193,7 @@
     --dui-step-tracker-node-bg-color: var(--dui-step-tracker-node-skipped-color);
     --dui-step-tracker-node-border-color: var(--dui-step-tracker-node-skipped-color);
     --dui-step-tracker-node-fg-color: var(--dui-step-tracker-node-skipped-fg-color);
+    --dui-step-tracker-active-node-border-color: var(--dui-step-tracker-node-color);
 }
 
 .dui-step-track.dui-step-state-warning {
@@ -197,6 +201,7 @@
     --dui-step-tracker-node-bg-color: var(--dui-step-tracker-node-warning-color);
     --dui-step-tracker-node-border-color: var(--dui-step-tracker-node-warning-color);
     --dui-step-tracker-node-fg-color: var(--dui-step-tracker-node-warning-fg-color);
+    --dui-step-tracker-active-node-border-color: var(--dui-step-tracker-node-color);
 }
 
 .dui-step-track.dui-active:not([class*="dui-step-state"]) {

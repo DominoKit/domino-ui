@@ -141,6 +141,14 @@
         min-height: 100%;
     }
 
+    .dui-stepper.dui-responsive .dui-step-track {
+        width: 100%;
+    }
+
+    .dui-stepper.dui-responsive .dui-tracker-content {
+        text-align: right;
+    }
+
     .dui-stepper-track.dui-responsive.dui-reversed ,
     .dui-stepper.dui-responsive.dui-reversed .dui-stepper-track,
     .dui-stepper.dui-reversed .dui-stepper-track.dui-responsive{

@@ -22,6 +22,7 @@ import static org.dominokit.domino.ui.utils.Domino.*;
 import elemental2.dom.HTMLUListElement;
 import java.util.*;
 import java.util.function.Consumer;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 import org.dominokit.domino.ui.elements.UListElement;
 import org.dominokit.domino.ui.style.BooleanCssClass;
@@ -265,6 +266,48 @@ public class ListGroup<T> extends BaseDominoElement<HTMLUListElement, ListGroup<
     }
 
     return this;
+  }
+  /**
+   * Updates an item in this list group with a new value.
+   *
+   * @param value The new value for the item.
+   * @return this {@code ListGroup} instance.
+   */
+  public ListGroup<T> updateItem(T value) {
+    for (ListItem<T> listItem : items) {
+      if (Objects.equals(listItem.getValue(), value)) {
+        updateSingleItem(listItem, value);
+        break;
+      }
+    }
+    return this;
+  }
+
+  /**
+   * Updates the items in this list group with new values.
+   *
+   * @param newValues The list of new values to update.
+   * @return this {@code ListGroup} instance.
+   */
+  public ListGroup<T> updateItems(List<? extends T> newValues) {
+    Map<T, ListItem<T>> itemMap =
+        this.items.stream()
+            .collect(Collectors.toMap(ListItem::getValue, Function.identity(), (a, b) -> a));
+
+    for (T value : newValues) {
+      ListItem<T> item = itemMap.get(value);
+      if (item != null) {
+        updateSingleItem(item, value);
+      }
+    }
+
+    return this;
+  }
+
+  private void updateSingleItem(ListItem<T> item, T value) {
+    item.clearElement();
+    item.setValue(value);
+    itemRenderer.onRender(this, item);
   }
 
   /**
