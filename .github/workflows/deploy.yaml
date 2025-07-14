@@ -50,6 +50,7 @@ jobs:
           java-version: 11
           distribution: temurin
           cache: maven
+          server-id: 'central'
           server-username: CENTRAL_USER
           server-password: CENTRAL_TOKEN
       - name: Import GPG key
