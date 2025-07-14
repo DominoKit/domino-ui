@@ -55,23 +55,6 @@ jobs:
           echo "${{ secrets.gpg_private_key }}" | gpg --batch --import
         env:
           GPG_TTY: $(tty)
-      - name: Configure Maven settings with Central Token
-        run: |
-          mkdir -p ~/.m2
-          cat > ~/.m2/settings.xml <<EOF
-          <settings>
-            <servers>
-              <server>
-                <id>ossrh</id>
-                <password>${{ secrets.CENTRAL_TOKEN }}</password>
-              </server>
-              <server>
-                <id>central</id>
-                <password>${{ secrets.CENTRAL_TOKEN }}</password>
-              </server>
-            </servers>
-          </settings>
-          EOF
       - name: Deploy with Maven
         run: ./mvnw --no-transfer-progress clean deploy -B -e -Dgpg.passphrase=${{ secrets.gpg_passphrase }}
         env:
