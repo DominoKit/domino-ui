@@ -388,6 +388,10 @@
                     <configuration>
                         <publishingServerId>central</publishingServerId>
                         <autoPublish>true</autoPublish>
+                        <tokenAuthentication>
+                            <enabled>true</enabled>
+                            <token>${env.CENTRAL_TOKEN}</token>
+                        </tokenAuthentication>
                     </configuration>
                 </plugin>
                 <plugin>
