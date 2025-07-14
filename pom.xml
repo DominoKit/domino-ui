@@ -48,6 +48,13 @@
         <url>https://github.com/DominoKit/domino-ui</url>
     </scm>
 
+    <distributionManagement>
+        <snapshotRepository>
+            <id>central</id>
+            <url>https://s01.oss.sonatype.org/content/repositories/snapshots/</url>
+        </snapshotRepository>
+    </distributionManagement>
+
     <modules>
         <module>domino-ui</module>
         <module>domino-ui-shared</module>
@@ -381,7 +388,6 @@
                     <configuration>
                         <publishingServerId>central</publishingServerId>
                         <autoPublish>true</autoPublish>
-                        <centralSnapshotUrl>https://s01.oss.sonatype.org/content/repositories/snapshots/</centralSnapshotUrl>
                     </configuration>
                 </plugin>
                 <plugin>
