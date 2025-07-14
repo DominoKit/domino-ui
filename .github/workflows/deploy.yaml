@@ -50,6 +50,8 @@ jobs:
           java-version: 11
           distribution: temurin
           cache: maven
+          server-username: CENTRAL_USER
+          server-password: CENTRAL_TOKEN
       - name: Import GPG key
         run: |
           echo "${{ secrets.gpg_private_key }}" | gpg --batch --import
@@ -58,5 +60,6 @@ jobs:
       - name: Deploy with Maven
         run: ./mvnw --no-transfer-progress clean deploy -B -e -Dgpg.passphrase=${{ secrets.gpg_passphrase }} -X
         env:
+          CENTRAL_USER: ${{ secrets.CENTRAL_USER }}
           CENTRAL_TOKEN: ${{ secrets.CENTRAL_TOKEN }}
 
