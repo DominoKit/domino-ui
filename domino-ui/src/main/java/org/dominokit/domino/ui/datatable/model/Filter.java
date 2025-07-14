@@ -43,7 +43,7 @@ public class Filter implements HasComponentMeta<Filter> {
   private FilterType type;
   private Operator operator;
   private List<String> values;
-  private Category category;
+  private IsFilterCategory category;
   private HashMap<String, ComponentMeta> metaObjects;
 
   /**
@@ -54,7 +54,7 @@ public class Filter implements HasComponentMeta<Filter> {
    * @param category The category of the filter.
    * @return A new {@code Filter} instance.
    */
-  public static Filter create(String field, String value, Category category) {
+  public static Filter create(String field, String value, IsFilterCategory category) {
     List<String> values = new ArrayList<>();
     values.add(value);
     return new Filter(field, FilterTypes.STRING, Operator.like, values, category);
@@ -102,7 +102,7 @@ public class Filter implements HasComponentMeta<Filter> {
       FilterType type,
       Operator operator,
       List<String> values,
-      Category category) {
+      IsFilterCategory category) {
     this.fieldName = fieldName;
     this.type = type;
     this.operator = operator;
@@ -151,7 +151,7 @@ public class Filter implements HasComponentMeta<Filter> {
    *
    * @return The filter category.
    */
-  public Category getCategory() {
+  public IsFilterCategory getCategory() {
     return category;
   }
 
@@ -196,7 +196,7 @@ public class Filter implements HasComponentMeta<Filter> {
    *
    * @param category The filter category.
    */
-  public void setCategory(Category category) {
+  public void setCategory(IsFilterCategory category) {
     this.category = category;
   }
 

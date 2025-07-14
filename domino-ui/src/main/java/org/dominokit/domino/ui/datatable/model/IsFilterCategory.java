@@ -15,17 +15,15 @@
  */
 package org.dominokit.domino.ui.datatable.model;
 
-import static java.util.Objects.isNull;
-
 import java.util.Objects;
 
-public interface FilterType {
-  String getTypeName();
+public interface IsFilterCategory {
+  String key();
 
-  default boolean isSameType(FilterType other) {
-    if (isNull(other)) {
+  default boolean isSameCategory(IsFilterCategory other) {
+    if (other == null) {
       return false;
     }
-    return Objects.equals(getTypeName(), other.getTypeName());
+    return Objects.equals(this.key(), other.key());
   }
 }
