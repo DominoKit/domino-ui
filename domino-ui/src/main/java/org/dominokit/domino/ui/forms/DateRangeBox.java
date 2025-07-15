@@ -719,7 +719,8 @@ public class DateRangeBox extends TextInputFormField<DateRangeBox, HTMLInputElem
    * @return This DateRangeBox instance with the new date-time format information
    */
   public DateRangeBox setDateTimeFormat(DateTimeFormatInfo dateTimeFormatInfo) {
-    this.fromCalendar.setDateTimeFormatInfo(dateTimeFormatInfo);
+    setFromDateTimeFormat(dateTimeFormatInfo);
+    setToDateTimeFormat(dateTimeFormatInfo);
     return this;
   }
 
@@ -752,7 +753,7 @@ public class DateRangeBox extends TextInputFormField<DateRangeBox, HTMLInputElem
    * @param dateTimeFormatInfo The new date-time format information.
    */
   @Override
-  public void onDateTimeFormatInfoChanged(DateTimeFormatInfo dateTimeFormatInfo) {
+  public final void onDateTimeFormatInfoChanged(DateTimeFormatInfo dateTimeFormatInfo) {
     updateStringValue();
   }
 
