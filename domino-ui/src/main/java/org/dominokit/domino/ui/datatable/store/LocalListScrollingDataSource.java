@@ -22,6 +22,7 @@ import static org.dominokit.domino.ui.datatable.events.SearchEvent.SEARCH_EVENT;
 import static org.dominokit.domino.ui.datatable.events.SortEvent.SORT_EVENT;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
 import org.dominokit.domino.ui.datatable.events.BodyScrollEvent;
@@ -286,6 +287,77 @@ public class LocalListScrollingDataSource<T> implements DataStore<T> {
               event.getColumnConfig().getSortKey(), event.getSortDirection()));
       pageIndex = 0;
       fireUpdate(false);
+    }
+  }
+
+  /**
+   * Updates a single record in the data store by replacing it with a new record, updating both the
+   * original and filtered lists.
+   *
+   * @param record The new record to replace the existing record.
+   */
+  public void updateRecord(T record) {
+    updateRecord(original.indexOf(record), record);
+  }
+
+  /**
+   * Updates a single record in the data store at a specified index, updating both the original and
+   * filtered lists.
+   *
+   * @param index The index of the record to be updated.
+   * @param record The new record to replace the existing record.
+   */
+  public void updateRecord(int index, T record) {
+    internalUpdate(index, record, true);
+  }
+
+  /**
+   * Updates multiple records in the data store, updating both the original and filtered lists.
+   *
+   * @param records A collection of new records to replace the existing records.
+   */
+  public void updateRecords(Collection<T> records) {
+    for (T record : records) {
+      internalUpdate(original.indexOf(record), record, false);
+    }
+    load();
+  }
+
+  /**
+   * Updates multiple records in the data store starting from a specified index, updating both the
+   * original and filtered lists.
+   *
+   * @param startIndex The starting index for updating records.
+   * @param records A collection of new records to replace the existing records.
+   */
+  public void updateRecords(int startIndex, Collection<T> records) {
+    for (T record : records) {
+      if (startIndex >= original.size()) {
+        break;
+      }
+      internalUpdate(startIndex++, record, false);
+    }
+    load();
+  }
+
+  /**
+   * Internal method to update a single record at a specified index, updating both the original and
+   * filtered lists.
+   *
+   * @param index The index of the record to be updated.
+   * @param record The new record to replace the existing record.
+   * @param load Specifies whether to trigger a data load after the update.
+   */
+  private void internalUpdate(int index, T record, boolean load) {
+    if (index >= 0 && index < original.size()) {
+      T oldRecord = original.get(index);
+      original.set(index, record);
+      if (filtered.contains(oldRecord)) {
+        filtered.set(filtered.indexOf(oldRecord), record);
+      }
+      if (load) {
+        load();
+      }
     }
   }
 
