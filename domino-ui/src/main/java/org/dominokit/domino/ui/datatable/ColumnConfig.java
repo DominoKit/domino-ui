@@ -545,6 +545,7 @@ public class ColumnConfig<T> implements ElementsFactory, DataTableStyles {
    */
   public ColumnConfig<T> showOn(ScreenMedia showOn) {
     this.showOn = showOn;
+    getSubColumns().forEach(column -> column.showOn(showOn));
     return this;
   }
 
@@ -565,6 +566,7 @@ public class ColumnConfig<T> implements ElementsFactory, DataTableStyles {
    */
   public ColumnConfig<T> hideOn(ScreenMedia hideOn) {
     this.hideOn = hideOn;
+    getSubColumns().forEach(column -> column.hideOn(hideOn));
     return this;
   }
 
@@ -648,6 +650,7 @@ public class ColumnConfig<T> implements ElementsFactory, DataTableStyles {
     this.permanentHideListeners.forEach(showHideListener -> showHideListener.onShowHide(true));
     this.showHideListeners.forEach(showHideListener -> showHideListener.onShowHide(true));
     this.hidden = false;
+    getSubColumns().forEach(ColumnConfig::show);
     return this;
   }
 
@@ -660,6 +663,7 @@ public class ColumnConfig<T> implements ElementsFactory, DataTableStyles {
     this.permanentHideListeners.forEach(showHideListener -> showHideListener.onShowHide(false));
     this.showHideListeners.forEach(showHideListener -> showHideListener.onShowHide(false));
     this.hidden = true;
+    getSubColumns().forEach(ColumnConfig::hide);
     return this;
   }
 
@@ -675,12 +679,6 @@ public class ColumnConfig<T> implements ElementsFactory, DataTableStyles {
     } else {
       return hide();
     }
-  }
-
-  /** @deprecated Use {@link #clearShowHideListeners()} instead. */
-  @Deprecated
-  public void clearShowHideListners() {
-    clearShowHideListeners();
   }
 
   /** Clears all non-permanent show/hide listeners. */
