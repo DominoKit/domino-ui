@@ -26,7 +26,7 @@ import elemental2.dom.TouchEvent;
  * <p>The HSplitter is positioned between two horizontal panels and allows users to drag and adjust
  * the width of the panels.
  */
-class HSplitter extends BaseSplitter<HSplitter> {
+public class HSplitter extends BaseSplitter<HSplitter> {
 
   /**
    * Creates a new horizontal splitter.

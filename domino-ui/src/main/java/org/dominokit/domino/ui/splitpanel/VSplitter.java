@@ -26,7 +26,7 @@ import elemental2.dom.TouchEvent;
  * <p>The VSplitter is positioned between two vertical panels and allows users to drag and adjust
  * the height of the panels.
  */
-class VSplitter extends BaseSplitter<VSplitter> {
+public class VSplitter extends BaseSplitter<VSplitter> {
 
   /**
    * Creates a new vertical splitter.
@@ -59,7 +59,7 @@ class VSplitter extends BaseSplitter<VSplitter> {
    * @param event the mouse event
    * @return the y-coordinate of the mouse cursor
    */
-  public double mousePosition(MouseEvent event) {
+  protected double mousePosition(MouseEvent event) {
     return event.clientY;
   }
 
