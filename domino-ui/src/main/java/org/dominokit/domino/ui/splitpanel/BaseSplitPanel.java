@@ -19,6 +19,7 @@ import static org.dominokit.domino.ui.utils.Domino.*;
 
 import elemental2.dom.HTMLDivElement;
 import java.util.Arrays;
+import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import org.dominokit.domino.ui.elements.DivElement;
@@ -63,13 +64,15 @@ abstract class BaseSplitPanel<T extends BaseSplitPanel<T, S>, S extends BaseSpli
    * size for each panel taking into account the splitter size share and sets the appropriate size.
    */
   private void updatePanelsSize() {
-    double mainPanelSize = getSize();
-    String splitterPanelShare = getSplittersSizeShare();
-
-    for (SplitPanel panel : panels) {
-      double panelSize = getPanelSize(panel);
-      double sizePercent = (panelSize / mainPanelSize) * 100;
-      setPanelSize(panel, "calc(" + sizePercent + "% - " + splitterPanelShare + ")");
+    if (!panels.isEmpty()) {
+      Iterator<SplitPanel> iterator = panels.iterator();
+      SplitPanel first = iterator.next();
+      while (iterator.hasNext()) {
+        SplitPanel second = iterator.next();
+        onResizeStart(first, second);
+        resizePanels(first, second, 0);
+        first = second;
+      }
     }
   }
 
