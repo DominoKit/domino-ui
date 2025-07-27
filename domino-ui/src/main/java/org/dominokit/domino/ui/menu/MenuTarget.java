@@ -39,7 +39,7 @@ import org.dominokit.domino.ui.utils.MutationObserverCallback;
  */
 public class MenuTarget implements HasMeta<MenuTarget> {
 
-  private final DominoElement<Element> targetElement;
+  private DominoElement<Element> targetElement;
   private MutationObserverCallback targetDetachObserver;
   private MutationObserverCallback targetAttachObserver;
   private Map<String, ComponentMeta> metaObjects;
@@ -122,5 +122,18 @@ public class MenuTarget implements HasMeta<MenuTarget> {
       this.metaObjects = new HashMap<>();
     }
     return metaObjects;
+  }
+
+  void setObservers() {
+    getTargetElement().onDetached(getTargetDetachObserver());
+    getTargetElement().onAttached(getTargetAttachObserver());
+  }
+
+  void cleanUp() {
+    getTargetElement().removeDetachObserver(getTargetDetachObserver());
+    getTargetElement().removeAttachObserver(getTargetAttachObserver());
+    this.targetDetachObserver = null;
+    this.targetAttachObserver = null;
+    this.targetElement = null;
   }
 }

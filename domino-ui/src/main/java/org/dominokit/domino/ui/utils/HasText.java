@@ -15,26 +15,15 @@
  */
 package org.dominokit.domino.ui.utils;
 
-import org.dominokit.domino.ui.datatable.events.TableEvent;
-
-public interface DominoEventListener {
+/**
+ * An interface that defines a method to retrieve text content. Classes implementing this interface
+ * should provide a way to get the text.
+ */
+public interface HasText {
   /**
-   * Handles a table event.
+   * Retrieves the text content.
    *
-   * @param event the table event to handle
+   * @return the text as a String
    */
-  default void handleEvent(DominoEvent event) {
-    if (event instanceof TableEvent) {
-      handleEvent((TableEvent) event);
-    }
-  }
-
-  /**
-   * Handles a table event.
-   *
-   * @param event the table event to handle
-   * @deprecated Use {@link #handleEvent(DominoEvent)} instead for better type handling.
-   */
-  @Deprecated
-  default void handleEvent(TableEvent event) {}
+  String getText();
 }

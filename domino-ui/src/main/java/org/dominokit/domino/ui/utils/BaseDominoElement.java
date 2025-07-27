@@ -137,7 +137,6 @@ public abstract class BaseDominoElement<E extends Element, T extends IsElement<E
   /** The style of this DOM element. */
   @Editor.Ignore private Style<Element> style;
 
-  private LambdaFunction styleInitializer;
   /** The screen media for hiding this DOM element. */
   private ScreenMedia hideOn;
 
@@ -207,11 +206,6 @@ public abstract class BaseDominoElement<E extends Element, T extends IsElement<E
           dominoUuidInitializer = () -> {};
         };
 
-    styleInitializer =
-        () -> {
-          this.style = Style.of(getStyleTarget());
-          styleInitializer = () -> {};
-        };
     keyEventsInitializer =
         new LazyInitializer(() -> keyboardEvents = new KeyboardEvents<>(this.element()));
     transitionListeners = TransitionListeners.of(element);
@@ -1124,7 +1118,9 @@ public abstract class BaseDominoElement<E extends Element, T extends IsElement<E
    */
   @Editor.Ignore
   public Style<Element> style() {
-    styleInitializer.apply();
+    if (isNull(this.style)) {
+      this.style = Style.of(getStyleTarget());
+    }
     return style;
   }
 

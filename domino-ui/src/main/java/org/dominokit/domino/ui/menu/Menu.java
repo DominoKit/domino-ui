@@ -133,7 +133,7 @@ public class Menu<V> extends BaseDominoElement<HTMLDivElement, Menu<V>>
   private DropDirection effectiveDropDirection = dropDirection;
   private Map<String, MenuTarget> targets;
   private MenuTarget lastTarget;
-  private Element menuAppendTarget;
+  private DominoElement<Element> menuAppendTarget;
   private AppendStrategy appendStrategy = AppendStrategy.LAST;
 
   private Menu<V> parent;
@@ -1523,7 +1523,7 @@ public class Menu<V> extends BaseDominoElement<HTMLDivElement, Menu<V>>
       shouldFocus = focus;
       removeAttachObserver(onAttachHandler);
       onAttached(onAttachHandler);
-      appendStrategy.onAppend(getMenuAppendTarget(), element.element());
+      appendStrategy.onAppend(getMenuAppendTarget().element(), element.element());
       removeDetachObserver(onDetachHandler);
       onDetached(onDetachHandler);
       if (smallScreen && nonNull(parent) && parent.isDropDown()) {
@@ -1531,7 +1531,7 @@ public class Menu<V> extends BaseDominoElement<HTMLDivElement, Menu<V>>
         menuHeader.get().insertFirst(backArrowContainer);
       }
       show();
-      elementOf(getMenuAppendTarget()).onDetached(onAppendTargetDetach);
+      getMenuAppendTarget().onDetached(onAppendTargetDetach);
     }
   }
 
@@ -1650,22 +1650,23 @@ public class Menu<V> extends BaseDominoElement<HTMLDivElement, Menu<V>>
   public Menu<V> addTarget(MenuTarget menuTarget) {
     if (nonNull(menuTarget)) {
       this.targets().put(menuTarget.getTargetElement().getDominoId(), menuTarget);
-      menuTarget.setTargetDetachObserver(
+      MutationObserverCallback detachCallback =
           (mutationRecord) -> {
             if (Objects.equals(menuTarget, lastTarget)) {
               close();
             }
 
-            this.targets().remove(menuTarget.getTargetElement().getDominoId());
-          });
+            removeTarget(menuTarget);
+          };
+      menuTarget.setTargetDetachObserver(detachCallback);
 
-      menuTarget.setTargetAttachObserver(
+      MutationObserverCallback attachCallback =
           (mutationRecord) -> {
             this.targets().put(menuTarget.getTargetElement().getDominoId(), menuTarget);
-          });
+          };
+      menuTarget.setTargetAttachObserver(attachCallback);
 
-      elementOf(menuTarget.getTargetElement()).onDetached(menuTarget.getTargetDetachObserver());
-      elementOf(menuTarget.getTargetElement()).onAttached(menuTarget.getTargetAttachObserver());
+      menuTarget.setObservers();
     }
     if (!this.targets().isEmpty()) {
       applyTargetListeners(menuTarget);
@@ -1684,14 +1685,14 @@ public class Menu<V> extends BaseDominoElement<HTMLDivElement, Menu<V>>
    */
   public Menu<V> removeTarget(MenuTarget target) {
     if (nonNull(target) && targets().containsKey(target.getTargetElement().getDominoId())) {
-      target
+      MenuTarget menuTarget = targets().get(target.getTargetElement().getDominoId());
+      menuTarget
           .getTargetElement()
           .removeEventListener(
               isContextMenu() ? EventType.contextmenu.getName() : EventType.click.getName(),
               openListener);
-      target.getTargetElement().removeDetachObserver(target.getTargetDetachObserver());
-      target.getTargetElement().removeAttachObserver(target.getTargetAttachObserver());
-      targets.remove(target.getTargetElement().getDominoId());
+      targets.remove(menuTarget.getTargetElement().getDominoId());
+      menuTarget.cleanUp();
     }
     return this;
   }
@@ -1701,7 +1702,7 @@ public class Menu<V> extends BaseDominoElement<HTMLDivElement, Menu<V>>
    *
    * @return The append target element.
    */
-  public Element getMenuAppendTarget() {
+  public DominoElement<Element> getMenuAppendTarget() {
     return menuAppendTarget;
   }
 
@@ -1713,9 +1714,9 @@ public class Menu<V> extends BaseDominoElement<HTMLDivElement, Menu<V>>
    */
   public Menu<V> setMenuAppendTarget(Element appendTarget) {
     if (isNull(appendTarget)) {
-      this.menuAppendTarget = document.body;
+      this.menuAppendTarget = elementOf(document.body);
     } else {
-      this.menuAppendTarget = appendTarget;
+      this.menuAppendTarget = elementOf(appendTarget);
     }
     return this;
   }
@@ -1758,7 +1759,7 @@ public class Menu<V> extends BaseDominoElement<HTMLDivElement, Menu<V>>
       }
       removeCssProperty(SpaceChecker.MAX_HEIGHT);
       removeCssProperty(SpaceChecker.MAX_WIDTH);
-      elementOf(getMenuAppendTarget()).removeDetachObserver(onAppendTargetDetach);
+      getMenuAppendTarget().removeDetachObserver(onAppendTargetDetach);
     }
     return this;
   }

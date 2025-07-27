@@ -192,7 +192,7 @@ public class Popover extends BasePopover<Popover> {
   @Override
   protected void doPosition(DropDirection position) {
     if (asDialog) {
-      dialog.position(DropDirectionContext.of(this.element(), targetElement));
+      dialog.position(DropDirectionContext.of(this.element(), targetElement.element()));
     } else {
       dialog.cleanup(this.element());
       super.doPosition(position);

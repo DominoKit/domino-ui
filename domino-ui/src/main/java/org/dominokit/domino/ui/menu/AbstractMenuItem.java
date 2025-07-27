@@ -60,10 +60,8 @@ public class AbstractMenuItem<V> extends BaseDominoElement<HTMLLIElement, Abstra
 
   protected Menu<V> parent;
 
-  private final List<HasSelectionHandler.SelectionHandler<AbstractMenuItem<V>>> selectionHandlers =
-      new ArrayList<>();
-  private final List<HasDeselectionHandler.DeselectionHandler> deselectionHandlers =
-      new ArrayList<>();
+  private List<HasSelectionHandler.SelectionHandler<AbstractMenuItem<V>>> selectionHandlers;
+  private List<HasDeselectionHandler.DeselectionHandler> deselectionHandlers;
   private String key;
   private V value;
 
@@ -146,7 +144,7 @@ public class AbstractMenuItem<V> extends BaseDominoElement<HTMLLIElement, Abstra
    * @return a lazy child representation of the indicator for later instantiation
    */
   private LazyChild<IsElement<?>> createIndicator(IsElement<?> element) {
-    return LazyChild.of(elementOf(element), nestedIndicatorElement);
+    return LazyChild.of(element, nestedIndicatorElement);
   }
 
   /**
@@ -283,7 +281,7 @@ public class AbstractMenuItem<V> extends BaseDominoElement<HTMLLIElement, Abstra
           ConditionalCssClass.of(dui_menu_item_selected, () -> parent.isPreserveSelectionStyles()));
       setAttribute("selected", true);
       if (!silent) {
-        selectionHandlers.forEach(handler -> handler.onSelection(this));
+        getSelectionHandlers().forEach(handler -> handler.onSelection(this));
         triggerSelectionListeners(this, getSelection());
       }
       if (nonNull(parent)) {
@@ -306,7 +304,7 @@ public class AbstractMenuItem<V> extends BaseDominoElement<HTMLLIElement, Abstra
       dui_menu_item_selected.remove(this);
       setAttribute("selected", false);
       if (!silent) {
-        deselectionHandlers.forEach(DeselectionHandler::onDeselection);
+        getDeselectionHandlers().forEach(DeselectionHandler::onDeselection);
         triggerDeselectionListeners(this, getSelection());
       }
       if (nonNull(parent)) {
@@ -339,7 +337,7 @@ public class AbstractMenuItem<V> extends BaseDominoElement<HTMLLIElement, Abstra
   public AbstractMenuItem<V> addSelectionHandler(
       HasSelectionHandler.SelectionHandler<AbstractMenuItem<V>> selectionHandler) {
     if (nonNull(selectionHandler)) {
-      selectionHandlers.add(selectionHandler);
+      getSelectionHandlers().add(selectionHandler);
     }
     return this;
   }
@@ -356,7 +354,7 @@ public class AbstractMenuItem<V> extends BaseDominoElement<HTMLLIElement, Abstra
   public AbstractMenuItem<V> removeSelectionHandler(
       HasSelectionHandler.SelectionHandler<AbstractMenuItem<V>> selectionHandler) {
     if (nonNull(selectionHandler)) {
-      selectionHandlers.remove(selectionHandler);
+      getSelectionHandlers().remove(selectionHandler);
     }
     return this;
   }
@@ -374,7 +372,7 @@ public class AbstractMenuItem<V> extends BaseDominoElement<HTMLLIElement, Abstra
   @Override
   public AbstractMenuItem<V> addDeselectionHandler(DeselectionHandler deselectionHandler) {
     if (nonNull(deselectionHandler)) {
-      deselectionHandlers.add(deselectionHandler);
+      getDeselectionHandlers().add(deselectionHandler);
     }
     return this;
   }
@@ -390,7 +388,7 @@ public class AbstractMenuItem<V> extends BaseDominoElement<HTMLLIElement, Abstra
   @Override
   public AbstractMenuItem<V> removeDeselectionHandler(DeselectionHandler deselectionHandler) {
     if (nonNull(deselectionHandler)) {
-      deselectionHandlers.remove(deselectionHandler);
+      getDeselectionHandlers().remove(deselectionHandler);
     }
     return this;
   }
@@ -768,6 +766,20 @@ public class AbstractMenuItem<V> extends BaseDominoElement<HTMLLIElement, Abstra
   public AbstractMenuItem<V> setDeselectionMode(DeselectionMode deselectionMode) {
     this.deselectionMode = deselectionMode;
     return this;
+  }
+
+  private List<HasSelectionHandler.SelectionHandler<AbstractMenuItem<V>>> getSelectionHandlers() {
+    if (isNull(selectionHandlers)) {
+      selectionHandlers = new ArrayList<>();
+    }
+    return selectionHandlers;
+  }
+
+  private List<HasDeselectionHandler.DeselectionHandler> getDeselectionHandlers() {
+    if (isNull(deselectionHandlers)) {
+      deselectionHandlers = new ArrayList<>();
+    }
+    return deselectionHandlers;
   }
 
   /**

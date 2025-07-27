@@ -26,6 +26,7 @@ import org.dominokit.domino.ui.elements.AnchorElement;
 import org.dominokit.domino.ui.elements.SmallElement;
 import org.dominokit.domino.ui.elements.SpanElement;
 import org.dominokit.domino.ui.utils.ChildHandler;
+import org.dominokit.domino.ui.utils.HasText;
 
 /**
  * Represents a menu item that can be added to a menu. Each menu item can have a text and an
@@ -33,7 +34,7 @@ import org.dominokit.domino.ui.utils.ChildHandler;
  *
  * @param <V> the type of value associated with this menu item
  */
-public class MenuItem<V> extends AbstractMenuItem<V> {
+public class MenuItem<V> extends AbstractMenuItem<V> implements HasText {
 
   private SmallElement descriptionElement;
   private SpanElement textElement;
@@ -129,6 +130,12 @@ public class MenuItem<V> extends AbstractMenuItem<V> {
    */
   public SpanElement getTextElement() {
     return textElement;
+  }
+
+  /** @inheritDoc */
+  @Override
+  public String getText() {
+    return textElement.getTextContent();
   }
 
   public MenuItem<V> setText(String text) {

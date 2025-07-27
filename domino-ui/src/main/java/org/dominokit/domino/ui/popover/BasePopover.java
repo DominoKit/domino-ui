@@ -61,7 +61,7 @@ public abstract class BasePopover<T extends BasePopover<T>>
         PopoverStyles,
         FollowOnScroll.ScrollFollower,
         HasComponentConfig<PopoverConfig> {
-  protected final Element targetElement;
+  protected final DominoElement<Element> targetElement;
   protected final EventListener closeAllListener;
   private DivElement root;
   private DivElement wrapper;
@@ -88,7 +88,7 @@ public abstract class BasePopover<T extends BasePopover<T>>
    * @param target The HTML element to which the popover will be attached.
    */
   public BasePopover(Element target) {
-    this.targetElement = target;
+    this.targetElement = elementOf(target);
     root =
         div()
             .addCss(dui_popover)
@@ -106,7 +106,7 @@ public abstract class BasePopover<T extends BasePopover<T>>
     this.closeOnBlur = getConfig().closeOnBlur();
     this.openDelay = getConfig().openDelay();
 
-    followOnScroll = new FollowOnScroll(targetElement, this);
+    followOnScroll = new FollowOnScroll(targetElement.element(), this);
 
     closeListener = getCloseListener();
     root.addEventListener(
@@ -115,12 +115,11 @@ public abstract class BasePopover<T extends BasePopover<T>>
           evt.preventDefault();
           evt.stopPropagation();
         });
-    elementOf(targetElement)
-        .onDetached(
-            mutationRecord -> {
-              close();
-              DomGlobal.document.body.removeEventListener("blur", lostFocusListener, true);
-            });
+    targetElement.onDetached(
+        mutationRecord -> {
+          close();
+          DomGlobal.document.body.removeEventListener("blur", lostFocusListener, true);
+        });
 
     onDetached(
         mutationRecord -> {
@@ -252,7 +251,7 @@ public abstract class BasePopover<T extends BasePopover<T>>
    * @param position The drop direction to position the popover.
    */
   protected void doPosition(DropDirection position) {
-    popupPosition.position(DropDirectionContext.of(root.element(), targetElement));
+    popupPosition.position(DropDirectionContext.of(root.element(), targetElement.element()));
   }
 
   /**
@@ -464,7 +463,7 @@ public abstract class BasePopover<T extends BasePopover<T>>
 
   @Override
   public ZIndexLayer getZIndexLayer() {
-    return elementOf(targetElement).getZIndexLayer();
+    return targetElement.getZIndexLayer();
   }
 
   /**

@@ -27,6 +27,7 @@ import elemental2.dom.KeyboardEvent;
 import java.util.*;
 import java.util.function.Consumer;
 import java.util.function.Function;
+import java.util.function.Predicate;
 import java.util.stream.Collectors;
 import jsinterop.base.Js;
 import org.dominokit.domino.ui.IsElement;
@@ -172,9 +173,15 @@ public abstract class AbstractSelect<
                                 onOptionDeselected(meta.getOption(), isChangeListenersPaused())))
             .addOpenListener((menu) -> focus());
 
-    onAttached(
+    onDetached(
         mutationRecord -> {
-          optionsMenu.setTargetElement(getWrapperElement());
+          optionsMenu
+              .getMenuItems()
+              .forEach(
+                  item -> {
+                    OptionMeta.get(item).ifPresent(OptionMeta::cleanup);
+                    item.getMetaObjects().clear();
+                  });
         });
     getInputElement()
         .onKeyDown(
@@ -1276,6 +1283,11 @@ public abstract class AbstractSelect<
     return (C) this;
   }
 
+  public C removeOptionIf(Predicate<O> predicate) {
+    getOptions().stream().filter(predicate).forEach(this::removeOption);
+    return (C) this;
+  }
+
   protected void onOptionRemoved(O option) {}
 
   /**
@@ -1355,6 +1367,20 @@ public abstract class AbstractSelect<
   public C setTypeToSelect(boolean typeToSelect) {
     this.typeToSelect = typeToSelect;
     this.typingElement.toggleDisplay(typeToSelect);
+    return (C) this;
+  }
+
+  public List<O> getOptions() {
+    return getOptionsMenu().getFlatMenuItems().stream()
+        .map(OptionMeta::<T, E, O>get)
+        .filter(Optional::isPresent)
+        .map(Optional::get)
+        .map(OptionMeta::getOption)
+        .collect(Collectors.toList());
+  }
+
+  public C withOptions(ChildHandler<C, List<O>> handler) {
+    handler.apply((C) this, getOptions());
     return (C) this;
   }
 

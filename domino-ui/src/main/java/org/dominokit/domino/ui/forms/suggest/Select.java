@@ -171,4 +171,11 @@ public class Select<V> extends AbstractSelect<V, V, DivElement, SelectOption<V>,
     }
     return null;
   }
+
+  public SelectOption<V> getSelectedOption() {
+    if (nonNull(this.selectedOption) && this.selectedOption.getMenuItem().isSelected()) {
+      return this.selectedOption;
+    }
+    return null;
+  }
 }
