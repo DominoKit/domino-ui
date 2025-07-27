@@ -15,26 +15,11 @@
  */
 package org.dominokit.domino.ui.utils;
 
-import org.dominokit.domino.ui.datatable.events.TableEvent;
-
 public interface DominoEventListener {
   /**
    * Handles a table event.
    *
    * @param event the table event to handle
    */
-  default void handleEvent(DominoEvent event) {
-    if (event instanceof TableEvent) {
-      handleEvent((TableEvent) event);
-    }
-  }
-
-  /**
-   * Handles a table event.
-   *
-   * @param event the table event to handle
-   * @deprecated Use {@link #handleEvent(DominoEvent)} instead for better type handling.
-   */
-  @Deprecated
-  default void handleEvent(TableEvent event) {}
+  void handleEvent(DominoEvent event);
 }
