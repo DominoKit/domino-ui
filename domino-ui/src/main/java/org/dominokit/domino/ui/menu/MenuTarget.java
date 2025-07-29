@@ -125,8 +125,8 @@ public class MenuTarget implements HasMeta<MenuTarget> {
   }
 
   void setObservers() {
-    getTargetElement().onDetached(getTargetDetachObserver());
-    getTargetElement().onAttached(getTargetAttachObserver());
+    getTargetElement().registerOnDetached(getTargetDetachObserver());
+    getTargetElement().registerOnAttached(getTargetAttachObserver());
   }
 
   void cleanUp() {

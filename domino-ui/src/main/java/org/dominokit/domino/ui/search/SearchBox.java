@@ -93,9 +93,8 @@ public class SearchBox extends BaseDominoElement<HTMLDivElement, SearchBox>
 
   /** Constructs a new `SearchBox` instance with default settings. */
   public SearchBox() {
-    init(this);
-
     root = div().addCss(dui_quick_search);
+    init(this);
     searchIcon =
         Icons.magnify()
             .clickable()

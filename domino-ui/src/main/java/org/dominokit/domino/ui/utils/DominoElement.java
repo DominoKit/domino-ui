@@ -25,17 +25,11 @@ import elemental2.dom.*;
  *
  * @param <E> The type of the wrapped DOM element.
  */
-public class DominoElement<E extends Element> extends BaseDominoElement<E, DominoElement<E>> {
+public abstract class DominoElement<E extends Element>
+    extends BaseDominoElement<E, DominoElement<E>> {
 
-  private final E wrappedElement;
-
-  /**
-   * Constructs a new {@code DominoElement} with the specified DOM element.
-   *
-   * @param element The DOM element to wrap.
-   */
-  public DominoElement(E element) {
-    this.wrappedElement = element;
+  /** Constructs a new {@code DominoElement} with the specified DOM element. */
+  public DominoElement() {
     init(this);
     addCss(dui);
   }
@@ -43,24 +37,12 @@ public class DominoElement<E extends Element> extends BaseDominoElement<E, Domin
   /**
    * Constructs a new {@code DominoElement} with the specified DOM element.
    *
-   * @param element The DOM element to wrap.
    * @param addDuiRootCss use to control adding domino-ui root css class dui.
    */
-  public DominoElement(E element, boolean addDuiRootCss) {
-    this.wrappedElement = element;
+  public DominoElement(boolean addDuiRootCss) {
     init(this);
     if (addDuiRootCss) {
       addCss(dui);
     }
-  }
-
-  /**
-   * Gets the wrapped DOM element.
-   *
-   * @return The wrapped DOM element.
-   */
-  @Override
-  public E element() {
-    return wrappedElement;
   }
 }

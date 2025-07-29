@@ -1626,6 +1626,21 @@ public class Menu<V> extends BaseDominoElement<HTMLDivElement, Menu<V>>
   }
 
   /**
+   * Sets the target element for the menu.
+   *
+   * @param targetElement The element to be set as the menu's target.
+   * @return The current {@link Menu} instance.
+   */
+  public Menu<V> addTargetElement(Element targetElement) {
+    if (nonNull(targetElement)) {
+      addTarget(MenuTarget.of(targetElement));
+    } else {
+      clearTargets();
+    }
+    return this;
+  }
+
+  /**
    * Sets the menu target.
    *
    * @param menuTarget The {@link MenuTarget} instance representing the menu's target.
@@ -1651,19 +1666,21 @@ public class Menu<V> extends BaseDominoElement<HTMLDivElement, Menu<V>>
     if (nonNull(menuTarget)) {
       this.targets().put(menuTarget.getTargetElement().getDominoId(), menuTarget);
       MutationObserverCallback detachCallback =
-          (mutationRecord) -> {
-            if (Objects.equals(menuTarget, lastTarget)) {
-              close();
-            }
-
-            removeTarget(menuTarget);
-          };
+          MutationObserverCallback.doOnce(
+              mutationRecord -> {
+                if (Objects.equals(menuTarget, lastTarget)) {
+                  close();
+                }
+                removeTarget(menuTarget);
+              });
       menuTarget.setTargetDetachObserver(detachCallback);
 
       MutationObserverCallback attachCallback =
-          (mutationRecord) -> {
-            this.targets().put(menuTarget.getTargetElement().getDominoId(), menuTarget);
-          };
+          MutationObserverCallback.doOnce(
+              mutationRecord -> {
+                Menu.this.targets().put(menuTarget.getTargetElement().getDominoId(), menuTarget);
+              });
+
       menuTarget.setTargetAttachObserver(attachCallback);
 
       menuTarget.setObservers();
@@ -1692,7 +1709,20 @@ public class Menu<V> extends BaseDominoElement<HTMLDivElement, Menu<V>>
               isContextMenu() ? EventType.contextmenu.getName() : EventType.click.getName(),
               openListener);
       targets.remove(menuTarget.getTargetElement().getDominoId());
+      DominoElement<Element> targetElement = menuTarget.getTargetElement();
+
+      targetElement.onAttached(
+          MutationObserverCallback.doOnce(
+              mutationRecord -> {
+                if (!targets().containsKey(targetElement.getDominoId())) {
+                  addTargetElement(targetElement.element());
+                }
+              }));
+
       menuTarget.cleanUp();
+      if (Objects.equals(lastTarget, menuTarget)) {
+        this.lastTarget = null;
+      }
     }
     return this;
   }

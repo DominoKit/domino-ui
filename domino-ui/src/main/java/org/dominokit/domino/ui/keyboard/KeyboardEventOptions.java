@@ -50,11 +50,17 @@ public class KeyboardEventOptions implements EventHandlerOptions {
 
   boolean repeating;
 
+  private Runnable removeHandler = () -> {};
+
   /** Indicates whether the event is a repeating event. Default is {@code false}. */
 
   /** Creates a new instance of {@code KeyboardEventOptions} with default settings. */
   public static KeyboardEventOptions create() {
     return new KeyboardEventOptions();
+  }
+
+  void setRemoveHandler(Runnable removeHandler) {
+    this.removeHandler = removeHandler;
   }
 
   /**
@@ -132,5 +138,9 @@ public class KeyboardEventOptions implements EventHandlerOptions {
   public KeyboardEventOptions setRepeating(boolean repeating) {
     this.repeating = repeating;
     return this;
+  }
+
+  public void removeHandler() {
+    removeHandler.run();
   }
 }

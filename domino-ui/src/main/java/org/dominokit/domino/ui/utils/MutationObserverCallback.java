@@ -21,10 +21,33 @@ import elemental2.dom.MutationRecord;
 @FunctionalInterface
 public interface MutationObserverCallback {
 
+  static MutationObserverCallback doOnce(MutationObserverCallback callback) {
+    return MutationObserverCallback.of(true, callback);
+  }
+
+  static MutationObserverCallback of(boolean autoRemove, MutationObserverCallback callback) {
+    return new MutationObserverCallback() {
+
+      @Override
+      public void onObserved(MutationRecord mutationRecord) {
+        callback.onObserved(mutationRecord);
+      }
+
+      @Override
+      public boolean isAutoRemove() {
+        return autoRemove;
+      }
+    };
+  }
+
   /**
    * Invoked when observed DOM mutations occur.
    *
    * @param mutationRecord The mutation record containing information about the DOM mutations.
    */
   void onObserved(MutationRecord mutationRecord);
+
+  default boolean isAutoRemove() {
+    return false;
+  }
 }

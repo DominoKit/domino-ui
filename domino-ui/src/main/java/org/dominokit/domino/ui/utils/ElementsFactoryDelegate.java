@@ -70,7 +70,7 @@ public interface ElementsFactoryDelegate {
    * @return A {@link DominoElement} wrapping the existing HTML element.
    */
   default <E extends Element> DominoElement<E> elementOf(E element) {
-    return new DominoElement<>(element);
+    return DominoWrapper.wrap(element);
   }
 
   /**
@@ -82,7 +82,7 @@ public interface ElementsFactoryDelegate {
    * @return A {@link DominoElement} wrapping the existing HTML element.
    */
   default <E extends Element> DominoElement<E> wrap(E element) {
-    return new DominoElement<>(element, false);
+    return DominoWrapper.wrap(element, false);
   }
 
   /**
@@ -94,7 +94,7 @@ public interface ElementsFactoryDelegate {
    * @return A {@link DominoElement} wrapping the DOM element within the {@link IsElement}.
    */
   default <T extends Element, E extends IsElement<T>> DominoElement<T> elementOf(E element) {
-    return new DominoElement<>(element.element());
+    return DominoWrapper.wrap(element.element());
   }
 
   /**
@@ -107,7 +107,7 @@ public interface ElementsFactoryDelegate {
    * @return A {@link DominoElement} wrapping the DOM element within the {@link IsElement}.
    */
   default <T extends Element, E extends IsElement<T>> DominoElement<T> wrap(E element) {
-    return new DominoElement<>(element.element(), false);
+    return DominoWrapper.wrap(element.element(), false);
   }
 
   /**

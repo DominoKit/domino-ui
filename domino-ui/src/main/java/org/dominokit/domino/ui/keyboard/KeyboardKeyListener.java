@@ -21,10 +21,10 @@ import elemental2.core.JsRegExp;
 import elemental2.dom.Event;
 import elemental2.dom.EventListener;
 import elemental2.dom.KeyboardEvent;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
+import java.util.LinkedHashSet;
 import java.util.Map;
+import java.util.Set;
 import java.util.function.Predicate;
 import java.util.function.Supplier;
 import jsinterop.base.Js;
@@ -75,8 +75,8 @@ public class KeyboardKeyListener implements EventListener, AcceptKeyEvents {
   /** The constant representing the "backspace" key. */
   public static final String BACKSPACE = "backspace";
 
-  private final Map<String, List<KeyEventHandlerContext>> handlers = new HashMap<>();
-  private final List<KeyEventHandlerContext> globalHandlers = new ArrayList<>();
+  private final Map<String, Set<KeyEventHandlerContext>> handlers = new HashMap<>();
+  private final Set<KeyEventHandlerContext> globalHandlers = new LinkedHashSet<>();
   private HasDefaultEventOptions<KeyboardEventOptions> hasDefaultEventOptions;
 
   /**
@@ -103,7 +103,7 @@ public class KeyboardKeyListener implements EventListener, AcceptKeyEvents {
     callHandlers(globalHandlers, evt);
   }
 
-  private void callHandlers(List<KeyEventHandlerContext> keyEventHandlerContexts, Event evt) {
+  private void callHandlers(Set<KeyEventHandlerContext> keyEventHandlerContexts, Event evt) {
     KeyboardEvent keyboardEvent = Js.uncheckedCast(evt);
     keyEventHandlerContexts.stream()
         .filter(
@@ -317,14 +317,22 @@ public class KeyboardKeyListener implements EventListener, AcceptKeyEvents {
 
   private AcceptKeyEvents addHandler(String key, KeyEventHandlerContext keyEventHandlerContext) {
     if (!handlers.containsKey(key)) {
-      handlers.put(key, new ArrayList<>());
+      handlers.put(key, new LinkedHashSet<>());
     }
     handlers.get(key).add(keyEventHandlerContext);
+    keyEventHandlerContext
+        .options
+        .get()
+        .setRemoveHandler(() -> handlers.get(key).remove(keyEventHandlerContext));
     return this;
   }
 
   private AcceptKeyEvents addGlobalHandler(KeyEventHandlerContext keyEventHandlerContext) {
     globalHandlers.add(keyEventHandlerContext);
+    keyEventHandlerContext
+        .options
+        .get()
+        .setRemoveHandler(() -> globalHandlers.remove(keyEventHandlerContext));
     return this;
   }
 

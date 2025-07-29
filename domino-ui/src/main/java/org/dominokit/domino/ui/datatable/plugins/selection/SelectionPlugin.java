@@ -23,6 +23,7 @@ import static org.dominokit.domino.ui.datatable.DataTableStyles.dui_datatable_ro
 import static org.dominokit.domino.ui.forms.FormsStyles.dui_form_select_check_box;
 
 import elemental2.dom.Element;
+import elemental2.dom.EventListener;
 import elemental2.dom.HTMLElement;
 import elemental2.dom.MouseEvent;
 import java.util.ArrayList;
@@ -39,6 +40,8 @@ import org.dominokit.domino.ui.forms.CheckBox;
 import org.dominokit.domino.ui.icons.Icon;
 import org.dominokit.domino.ui.icons.lib.Icons;
 import org.dominokit.domino.ui.utils.DominoEvent;
+import org.dominokit.domino.ui.utils.HasSelectionListeners;
+import org.dominokit.domino.ui.utils.Register;
 import org.dominokit.domino.ui.utils.Selectable;
 
 /**
@@ -158,18 +161,27 @@ public class SelectionPlugin<T> implements DataTablePlugin<T> {
   private Element createSingleSelectCell(DataTable<T> dataTable, CellRenderer.CellInfo<T> cell) {
     Element clonedIndicator = Js.uncheckedCast(singleSelectIndicator.get());
     elementOf(clonedIndicator).addCss(dui_fg_accent);
+
+    EventListener clickListener =
+        evt -> {
+          if (selectionCondition.isAllowSelection(dataTable, cell.getTableRow())) {
+            if (cell.getTableRow().isSelected()) {
+              cell.getTableRow().deselect();
+            } else {
+              cell.getTableRow().select();
+            }
+          }
+        };
+
     cell.getTableRow()
-        .element()
-        .addEventListener(
-            "click",
-            evt -> {
-              if (selectionCondition.isAllowSelection(dataTable, cell.getTableRow())) {
-                if (cell.getTableRow().isSelected()) {
-                  cell.getTableRow().deselect();
-                } else {
-                  cell.getTableRow().select();
-                }
-              }
+        .onAttached(
+            mutationRecord -> {
+              cell.getTableRow().addEventListener("click", clickListener);
+            });
+    cell.getTableRow()
+        .onDetached(
+            mutationRecord -> {
+              cell.getTableRow().removeEventListener("click", clickListener);
             });
     cell.getTableRow()
         .addSelectionListener(
@@ -208,22 +220,23 @@ public class SelectionPlugin<T> implements DataTablePlugin<T> {
     if (tableRow.isSelected()) {
       checkBox.check(true);
     }
-    tableRow.addSelectionListener(
+    HasSelectionListeners.SelectionListener<TableRow<T>, TableRow<T>> selectionListener =
         (source, selectable) -> {
           if (selectionCondition.isAllowSelection(dataTable, tableRow)) {
             checkBox.check(true);
             selectable.addCss(dui_datatable_row_selected);
           }
-        });
-    tableRow.addDeselectionListener(
+        };
+
+    HasSelectionListeners.SelectionListener<TableRow<T>, TableRow<T>> deselectionListener =
         (source, selectable) -> {
           if (selectionCondition.isAllowSelection(dataTable, tableRow)) {
             checkBox.uncheck(true);
             selectable.removeCss(dui_datatable_row_selected);
           }
-        });
+        };
 
-    checkBox.addClickListener(
+    EventListener clickListener =
         evt -> {
           MouseEvent mouseEvent = Js.cast(evt);
           if (mouseEvent.shiftKey) {
@@ -239,7 +252,26 @@ public class SelectionPlugin<T> implements DataTablePlugin<T> {
           } else {
             this.lastSelected = tableRow;
           }
+        };
+    Register onAttach =
+        checkBox.registerOnAttached(mutationRecord -> checkBox.addClickListener(clickListener));
+    Register onDetach =
+        checkBox.registerOnDetached(mutationRecord -> checkBox.removeClickListener(clickListener));
+
+    tableRow.onAttached(
+        mutationRecord -> {
+          tableRow.addSelectionListener(selectionListener);
+          tableRow.addDeselectionListener(deselectionListener);
         });
+
+    tableRow.onDetached(
+        mutationRecord -> {
+          tableRow.removeSelectionListener(selectionListener);
+          tableRow.removeDeselectionListener(deselectionListener);
+          onAttach.remove();
+          onDetach.remove();
+        });
+
     checkBox.addChangeListener(
         (oldValue, checked) -> {
           if (selectionCondition.isAllowSelection(dataTable, tableRow)) {

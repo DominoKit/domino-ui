@@ -173,16 +173,6 @@ public abstract class AbstractSelect<
                                 onOptionDeselected(meta.getOption(), isChangeListenersPaused())))
             .addOpenListener((menu) -> focus());
 
-    onDetached(
-        mutationRecord -> {
-          optionsMenu
-              .getMenuItems()
-              .forEach(
-                  item -> {
-                    OptionMeta.get(item).ifPresent(OptionMeta::cleanup);
-                    item.getMetaObjects().clear();
-                  });
-        });
     getInputElement()
         .onKeyDown(
             keyEvents ->

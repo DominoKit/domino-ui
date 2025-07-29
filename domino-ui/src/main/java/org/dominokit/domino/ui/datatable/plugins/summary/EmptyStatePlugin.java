@@ -27,8 +27,6 @@ import org.dominokit.domino.ui.elements.TableRowElement;
 import org.dominokit.domino.ui.icons.Icon;
 import org.dominokit.domino.ui.layout.EmptyState;
 import org.dominokit.domino.ui.utils.ChildHandler;
-import org.dominokit.domino.ui.utils.DominoEvent;
-import org.dominokit.domino.ui.utils.DominoEventListener;
 
 /**
  * The {@code EmptyStatePlugin} class is a plugin for a {@link DataTable} that displays an empty
@@ -106,17 +104,14 @@ public class EmptyStatePlugin<T> implements DataTablePlugin<T> {
   public void onAfterAddTable(DataTable<T> dataTable) {
     dataTable.addTableEventListener(
         TableDataUpdatedEvent.DATA_UPDATED,
-        new DominoEventListener() {
-          @Override
-          public void handleEvent(DominoEvent event) {
-            TableDataUpdatedEvent tableDataUpdatedEvent = (TableDataUpdatedEvent) event;
-            updateColSpan(dataTable);
+        event -> {
+          TableDataUpdatedEvent tableDataUpdatedEvent = (TableDataUpdatedEvent) event;
+          updateColSpan(dataTable);
 
-            if (tableDataUpdatedEvent.getTotalCount() == 0) {
-              rowElement.show();
-            } else {
-              rowElement.hide();
-            }
+          if (tableDataUpdatedEvent.getTotalCount() == 0) {
+            rowElement.show();
+          } else {
+            rowElement.hide();
           }
         });
     this.footer.insertFirst(rowElement);

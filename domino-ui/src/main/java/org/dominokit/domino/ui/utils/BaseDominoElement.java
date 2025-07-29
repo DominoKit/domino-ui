@@ -206,8 +206,7 @@ public abstract class BaseDominoElement<E extends Element, T extends IsElement<E
           dominoUuidInitializer = () -> {};
         };
 
-    keyEventsInitializer =
-        new LazyInitializer(() -> keyboardEvents = new KeyboardEvents<>(this.element()));
+    keyEventsInitializer = new LazyInitializer(() -> keyboardEvents = getKeyboardEvents());
     transitionListeners = TransitionListeners.of(element);
 
     resizeInitializer =
@@ -251,6 +250,22 @@ public abstract class BaseDominoElement<E extends Element, T extends IsElement<E
               });
           resizeInitializer = () -> {};
         };
+    onDetached(MutationObserverCallback.doOnce(mutationRecord -> freeStyle()));
+  }
+
+  private void freeStyle() {
+    if (nonNull(style)) {
+      style().cleanup();
+      this.style = null;
+    }
+  }
+
+  private KeyboardEvents<E> getKeyboardEvents() {
+    JsPropertyMap<Object> asPropertyMap = Js.asPropertyMap(element());
+    if (!asPropertyMap.has("dui-keyboard-events")) {
+      asPropertyMap.set("dui-keyboard-events", new KeyboardEvents<>(this.element()));
+    }
+    return Js.uncheckedCast(asPropertyMap.get("dui-keyboard-events"));
   }
 
   private Optional<ResizeObserver> getResizeObserver() {
@@ -752,11 +767,19 @@ public abstract class BaseDominoElement<E extends Element, T extends IsElement<E
         this.attachEventListener =
             evt -> {
               CustomEvent cevent = Js.uncheckedCast(evt);
-              for (MutationObserverCallback observer : getAttachObservers()) {
+              List<MutationObserverCallback> original = getAttachObservers();
+              List<MutationObserverCallback> attachObservers = new ArrayList<>(original);
+              for (MutationObserverCallback observer : attachObservers) {
                 observer.onObserved(Js.uncheckedCast(cevent.detail));
+                if (observer.isAutoRemove()) {
+                  original.remove(observer);
+                }
               }
               for (MutationObserverCallback callback : getAttachDetachObservers()) {
                 callback.onObserved(Js.uncheckedCast(cevent.detail));
+                if (callback.isAutoRemove()) {
+                  original.remove(callback);
+                }
               }
             };
         this.element
@@ -816,12 +839,20 @@ public abstract class BaseDominoElement<E extends Element, T extends IsElement<E
         this.detachEventListener =
             evt -> {
               CustomEvent cevent = Js.uncheckedCast(evt);
-              List<MutationObserverCallback> detachObservers = getDetachObservers();
+              List<MutationObserverCallback> original = getDetachObservers();
+              List<MutationObserverCallback> detachObservers = new ArrayList<>(original);
               for (MutationObserverCallback observer : detachObservers) {
                 observer.onObserved(Js.uncheckedCast(cevent.detail));
+                if (observer.isAutoRemove()) {
+                  original.remove(observer);
+                }
               }
-              for (MutationObserverCallback observer : getAttachDetachObservers()) {
-                observer.onObserved(Js.uncheckedCast(cevent.detail));
+              original = getAttachDetachObservers();
+              for (MutationObserverCallback callback : getAttachDetachObservers()) {
+                callback.onObserved(Js.uncheckedCast(cevent.detail));
+                if (callback.isAutoRemove()) {
+                  original.remove(callback);
+                }
               }
             };
         this.element
@@ -1338,11 +1369,36 @@ public abstract class BaseDominoElement<E extends Element, T extends IsElement<E
    *
    * @param listener The click event listener to add.
    * @param capture Specifies whether to capture the event during the capturing phase.
-   * @return The modified DOM element.
+   * @return same component instance.
    */
   @Editor.Ignore
   public T addClickListener(EventListener listener, boolean capture) {
     getClickableElement().addEventListener(EventType.click.getName(), listener, capture);
+    return element;
+  }
+
+  /**
+   * Removes a previously added click listener
+   *
+   * @param listener
+   * @return same component instance
+   */
+  @Editor.Ignore
+  public T removeClickListener(EventListener listener) {
+    getClickableElement().removeEventListener(EventType.click.getName(), listener);
+    return element;
+  }
+
+  /**
+   * Removes a previously added click listener
+   *
+   * @param listener
+   * @param capture
+   * @return same component instance
+   */
+  @Editor.Ignore
+  public T removeClickListener(EventListener listener, boolean capture) {
+    getClickableElement().removeEventListener(EventType.click.getName(), listener, capture);
     return element;
   }
 

@@ -32,7 +32,7 @@ import org.dominokit.domino.ui.IsElement;
  */
 public class Style<E extends Element> implements DominoStyle<E, Style<E>> {
 
-  public final CSSStyleDeclaration style;
+  public CSSStyleDeclaration style;
   private E element;
 
   /**
@@ -1353,5 +1353,10 @@ public class Style<E extends Element> implements DominoStyle<E, Style<E>> {
   @Override
   public Style<E> setOpacity(double opacity, boolean important) {
     return setCssProperty("opacity", opacity + "", important);
+  }
+
+  public void cleanup() {
+    this.element = null;
+    this.style = null;
   }
 }
