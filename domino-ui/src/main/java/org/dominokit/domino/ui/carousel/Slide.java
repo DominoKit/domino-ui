@@ -18,24 +18,22 @@ package org.dominokit.domino.ui.carousel;
 import static org.dominokit.domino.ui.carousel.CarouselStyles.slide;
 import static org.dominokit.domino.ui.carousel.CarouselStyles.slide_caption;
 import static org.dominokit.domino.ui.carousel.CarouselStyles.slide_indicator;
+import static org.dominokit.domino.ui.style.GenericCss.dui_active;
 import static org.dominokit.domino.ui.utils.Domino.*;
 
-import elemental2.dom.HTMLDivElement;
-import elemental2.dom.HTMLElement;
-import elemental2.dom.HTMLImageElement;
-import elemental2.dom.HTMLLIElement;
-import elemental2.dom.HTMLPictureElement;
 import org.dominokit.domino.ui.elements.DivElement;
 import org.dominokit.domino.ui.elements.HeadingElement;
-import org.dominokit.domino.ui.elements.ImageElement;
 import org.dominokit.domino.ui.elements.LIElement;
 import org.dominokit.domino.ui.elements.ParagraphElement;
-import org.dominokit.domino.ui.elements.PictureElement;
 import org.dominokit.domino.ui.style.BooleanCssClass;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
 import org.dominokit.domino.ui.utils.ChildHandler;
 import org.dominokit.domino.ui.utils.DominoElement;
 import org.dominokit.domino.ui.utils.LazyChild;
+
+import elemental2.dom.HTMLDivElement;
+import elemental2.dom.HTMLElement;
+import elemental2.dom.HTMLLIElement;
 
 /**
  * A slide component used with {@link org.dominokit.domino.ui.carousel.Carousel}
@@ -54,10 +52,10 @@ public class Slide extends BaseDominoElement<HTMLDivElement, Slide> {
 
   private final DivElement slideElement;
 
-  private final DominoElement<HTMLElement> imageElement;
+  private final DominoElement<HTMLElement> hostedElement;
 
-  private Slide(HTMLElement element) {
-    slideElement = div().addCss(slide).appendChild(imageElement = elementOf(element));
+  protected Slide(HTMLElement element) {
+    slideElement = div().addCss(slide).appendChild(hostedElement = elementOf(element));
 
     indicatorElement = li().addCss(slide_indicator);
 
@@ -65,105 +63,6 @@ public class Slide extends BaseDominoElement<HTMLDivElement, Slide> {
     slideLabelElement = LazyChild.of(h(3), captionElement);
     slideDescriptionElement = LazyChild.of(p(), captionElement);
     init(this);
-  }
-
-  /**
-   * Creates an image slide from the provided image url
-   *
-   * @param imageSrc The string image source that will be used as the value for the img tag src
-   *     attribute.
-   */
-  public Slide(String imageSrc) {
-    this(img(imageSrc).element());
-  }
-
-  /**
-   * Creates an image slide from the provided image element
-   *
-   * @param image The {@link elemental2.dom.HTMLImageElement} element to be used for the slide
-   */
-  public Slide(HTMLImageElement image) {
-    this((HTMLElement) image);
-  }
-
-  /**
-   * Creates an image slide from the provided picture element
-   *
-   * @param pictureElement The {@link elemental2.dom.HTMLPictureElement} element to be used for the
-   *     slide.
-   */
-  public Slide(HTMLPictureElement pictureElement) {
-    this((HTMLElement) pictureElement);
-  }
-
-  /**
-   * Creates an image slide from the provided image component
-   *
-   * @param image The {@link ImageElement} element to be used for the slide.
-   */
-  public Slide(ImageElement image) {
-    this(image.element());
-  }
-
-  /**
-   * Creates an image slide from the provided picture component
-   *
-   * @param pictureElement The {@link PictureElement} element to be used for the slide.
-   */
-  public Slide(PictureElement pictureElement) {
-    this(pictureElement.element());
-  }
-
-  /**
-   * Factory method to create an image slide from the provided image url
-   *
-   * @param imageSrc The string image source that will be used as the value for the img tag src
-   *     attribute.
-   * @return new instance
-   */
-  public static Slide create(String imageSrc) {
-    return new Slide(imageSrc);
-  }
-
-  /**
-   * Factory method to create an image slide from the provided image element
-   *
-   * @param image The {@link elemental2.dom.HTMLImageElement} element to be used for the slide
-   * @return new instance
-   */
-  public static Slide create(HTMLImageElement image) {
-    return new Slide(image);
-  }
-
-  /**
-   * Factory method to create an image slide from the provided picture element
-   *
-   * @param pictureElement The {@link elemental2.dom.HTMLPictureElement} element to be used for the
-   *     slide.
-   * @return new instance
-   */
-  public static Slide create(HTMLPictureElement pictureElement) {
-    return new Slide(pictureElement);
-  }
-
-  /**
-   * Factory method to create an image slide from the provided image component
-   *
-   * @param image The {@link ImageElement} element to be used for the slide.
-   * @return new instance
-   */
-  public static Slide create(ImageElement image) {
-    return new Slide(image);
-  }
-
-  /**
-   * Factory method to create an image slide from the provided picture component
-   *
-   * @param pictureElement The {@link PictureElement} element to be used for the slide.
-   * @return new instance
-   */
-  public static Slide create(PictureElement pictureElement) {
-    return new Slide(pictureElement);
   }
 
   /** @dominokit-site-ignore {@inheritDoc} */
@@ -297,8 +196,8 @@ public class Slide extends BaseDominoElement<HTMLDivElement, Slide> {
     return captionElement.get();
   }
 
-  /** @return The element of the image of this slide. */
-  public DominoElement<HTMLElement> getImageElement() {
-    return elementOf(imageElement);
+  /** @return The hosted element of this slide. */
+  public DominoElement<HTMLElement> getElement() {
+    return elementOf(hostedElement);
   }
 }
