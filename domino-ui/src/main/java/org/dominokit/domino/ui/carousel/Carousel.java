@@ -16,26 +16,35 @@
 package org.dominokit.domino.ui.carousel;
 
 import static org.dominokit.domino.ui.carousel.CarouselStyles.*;
-import static org.dominokit.domino.ui.utils.Domino.*;
+import static org.dominokit.domino.ui.style.GenericCss.dui_active;
+import static org.dominokit.domino.ui.style.SpacingCss.dui_font_size_12;
+import static org.dominokit.domino.ui.utils.Domino.a;
+import static org.dominokit.domino.ui.utils.Domino.div;
+import static org.dominokit.domino.ui.utils.Domino.ol;
 
-import elemental2.dom.HTMLDivElement;
-import elemental2.dom.WheelEvent;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import jsinterop.base.Js;
+
 import org.dominokit.domino.ui.config.CarouselConfig;
 import org.dominokit.domino.ui.config.HasComponentConfig;
 import org.dominokit.domino.ui.elements.AnchorElement;
 import org.dominokit.domino.ui.elements.DivElement;
 import org.dominokit.domino.ui.elements.OListElement;
 import org.dominokit.domino.ui.events.EventType;
+import org.dominokit.domino.ui.icons.MdiIcon;
 import org.dominokit.domino.ui.icons.lib.Icons;
 import org.dominokit.domino.ui.style.CssClass;
 import org.dominokit.domino.ui.style.GenericCss;
-import org.dominokit.domino.ui.utils.*;
+import org.dominokit.domino.ui.utils.BaseDominoElement;
+import org.dominokit.domino.ui.utils.ChildHandler;
+import org.dominokit.domino.ui.utils.SwipeUtil;
 import org.gwtproject.core.client.Scheduler;
 import org.gwtproject.timer.client.Timer;
+
+import elemental2.dom.HTMLDivElement;
+import elemental2.dom.WheelEvent;
+import jsinterop.base.Js;
 
 /**
  * A slideshow component for cycling through elements.
@@ -53,9 +62,11 @@ public class Carousel extends BaseDominoElement<HTMLDivElement, Carousel>
   private boolean autoSlide = false;
 
   private final AnchorElement prevElement;
-
   private final AnchorElement nextElement;
 
+  private final MdiIcon prevIcon;
+  private final MdiIcon nextIcon;
+  
   private final DivElement element;
 
   private final List<Slide> slides = new ArrayList<>();
@@ -86,7 +97,7 @@ public class Carousel extends BaseDominoElement<HTMLDivElement, Carousel>
                     a().addCss(slide_left, carousel_control)
                         .setAttribute("role", "button")
                         .appendChild(
-                            Icons.chevron_left()
+                            prevIcon = Icons.chevron_left()
                                 .addCss(GenericCss.dui_vertical_center, dui_font_size_12))
                         .addEventListener("click", evt -> previous()))
             .appendChild(
@@ -94,7 +105,7 @@ public class Carousel extends BaseDominoElement<HTMLDivElement, Carousel>
                     a().addCss(slide_right, carousel_control)
                         .setAttribute("role", "button")
                         .appendChild(
-                            Icons.chevron_right()
+                            nextIcon = Icons.chevron_right()
                                 .addCss(GenericCss.dui_vertical_center, dui_font_size_12))
                         .addEventListener("click", evt -> next()))
             .addCss(carousel);
@@ -414,6 +425,30 @@ public class Carousel extends BaseDominoElement<HTMLDivElement, Carousel>
    */
   public Carousel withNextElement(ChildHandler<Carousel, AnchorElement> handler) {
     handler.apply(this, nextElement);
+    return this;
+  }
+
+  /**
+   * Use to apply customizations to the previous slide icon without breaking the fluent API chain.
+   *
+   * @param handler The {@link org.dominokit.domino.ui.utils.ChildHandler} applying the
+   *     customizations
+   * @return same carousel instance
+   */
+  public Carousel withPreviousIcon(ChildHandler<Carousel, MdiIcon> handler) {
+    handler.apply(this, prevIcon);
+    return this;
+  }
+
+  /**
+   * Use to apply customizations to the next slide icon without breaking the fluent API chain.
+   *
+   * @param handler The {@link org.dominokit.domino.ui.utils.ChildHandler} applying the
+   *     customizations
+   * @return same carousel instance
+   */
+  public Carousel withNextIcon(ChildHandler<Carousel, MdiIcon> handler) {
+    handler.apply(this, nextIcon);
     return this;
   }
 
