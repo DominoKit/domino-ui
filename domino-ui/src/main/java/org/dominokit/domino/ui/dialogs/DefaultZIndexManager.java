@@ -53,6 +53,11 @@ public class DefaultZIndexManager implements ZIndexManager, HasComponentConfig<Z
   private final List<ZIndexListener> listeners = new ArrayList<>();
   private Map<HasZIndexLayer.ZIndexLayer, Integer> counters = new HashMap<>();
 
+  @Override
+  public Integer nextIndex(HasZIndexLayer.ZIndexLayer layer) {
+    return getZIndex(layer);
+  }
+
   /**
    * Calculates and returns the next z-index value.
    *
@@ -63,7 +68,8 @@ public class DefaultZIndexManager implements ZIndexManager, HasComponentConfig<Z
     HasZIndexLayer.ZIndexLayer layer = element.getZIndexLayer();
     int nextZIndex = getZIndex(layer);
     if (element.incrementsZIndex()) {
-      nextZIndex = counters.get(layer) + getConfig().getzIndexIncrement();
+      ZIndexConfig config = getConfig();
+      nextZIndex = counters.get(layer) + config.getzIndexIncrement();
       counters.put(layer, nextZIndex);
     }
     return nextZIndex;

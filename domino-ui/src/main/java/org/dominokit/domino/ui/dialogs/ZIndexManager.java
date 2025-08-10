@@ -33,6 +33,7 @@ import org.dominokit.domino.ui.utils.IsPopup;
  */
 public interface ZIndexManager {
 
+  Integer nextIndex(HasZIndexLayer.ZIndexLayer layer);
   /**
    * Returns the next available z-index value.
    *

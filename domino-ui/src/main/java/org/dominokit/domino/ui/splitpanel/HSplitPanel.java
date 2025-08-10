@@ -64,6 +64,7 @@ public class HSplitPanel extends BaseSplitPanel<HSplitPanel, HSplitter>
   @Override
   protected void setPanelSize(SplitPanel panel, String size) {
     panel.style().setWidth(size);
+    panel.setCssProperty("--dui-split-panel-dynamic-size", size);
   }
 
   /**

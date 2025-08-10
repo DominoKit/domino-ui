@@ -9,6 +9,7 @@
     max-height: 100dvh;
     top: 0;
     pointer-events: none;
+    overflow: hidden;
 }
 
 .dui-dialog {

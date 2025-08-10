@@ -577,6 +577,17 @@ public class TabsPanel extends BaseDominoElement<HTMLDivElement, TabsPanel>
   }
 
   /**
+   * Applies the handler on each tab that is currently present in the TabsPanel
+   *
+   * @param handler {@link ChildHandler}
+   * @return same tabs panel
+   */
+  public TabsPanel withEachTab(ChildHandler<TabsPanel, Tab> handler) {
+    getTabs().forEach(tab -> handler.apply(this, tab));
+    return this;
+  }
+
+  /**
    * @return The container that hosts the tabs nav element in addition to navigation leading element
    *     and navigation tail element used to implement navigation overflow behavior
    */

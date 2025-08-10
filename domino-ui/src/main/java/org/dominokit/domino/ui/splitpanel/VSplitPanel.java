@@ -64,6 +64,7 @@ public class VSplitPanel extends BaseSplitPanel<VSplitPanel, VSplitter>
   @Override
   protected void setPanelSize(SplitPanel panel, String size) {
     panel.style().setHeight(size);
+    panel.setCssProperty("--dui-split-panel-dynamic-size", size);
   }
 
   /**

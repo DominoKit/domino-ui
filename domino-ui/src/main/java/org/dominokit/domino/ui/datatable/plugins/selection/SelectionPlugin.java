@@ -20,7 +20,6 @@ import static java.util.Collections.singletonList;
 import static java.util.Objects.isNull;
 import static java.util.Objects.nonNull;
 import static org.dominokit.domino.ui.datatable.DataTableStyles.dui_datatable_row_selected;
-import static org.dominokit.domino.ui.forms.FormsStyles.dui_form_select_check_box;
 
 import elemental2.dom.Element;
 import elemental2.dom.EventListener;
@@ -41,7 +40,7 @@ import org.dominokit.domino.ui.icons.Icon;
 import org.dominokit.domino.ui.icons.lib.Icons;
 import org.dominokit.domino.ui.utils.DominoEvent;
 import org.dominokit.domino.ui.utils.HasSelectionListeners;
-import org.dominokit.domino.ui.utils.Register;
+import org.dominokit.domino.ui.utils.MutationObserverCallback;
 import org.dominokit.domino.ui.utils.Selectable;
 
 /**
@@ -173,11 +172,7 @@ public class SelectionPlugin<T> implements DataTablePlugin<T> {
           }
         };
 
-    cell.getTableRow()
-        .onAttached(
-            mutationRecord -> {
-              cell.getTableRow().addEventListener("click", clickListener);
-            });
+    cell.getTableRow().addEventListener("click", clickListener);
     cell.getTableRow()
         .onDetached(
             mutationRecord -> {
@@ -253,24 +248,21 @@ public class SelectionPlugin<T> implements DataTablePlugin<T> {
             this.lastSelected = tableRow;
           }
         };
-    Register onAttach =
-        checkBox.registerOnAttached(mutationRecord -> checkBox.addClickListener(clickListener));
-    Register onDetach =
-        checkBox.registerOnDetached(mutationRecord -> checkBox.removeClickListener(clickListener));
 
-    tableRow.onAttached(
-        mutationRecord -> {
-          tableRow.addSelectionListener(selectionListener);
-          tableRow.addDeselectionListener(deselectionListener);
-        });
+    checkBox.addClickListener(clickListener);
+    checkBox.registerOnDetached(
+        MutationObserverCallback.doOnce(
+            mutationRecord -> checkBox.removeClickListener(clickListener)));
+
+    tableRow.addSelectionListener(selectionListener);
+    tableRow.addDeselectionListener(deselectionListener);
 
     tableRow.onDetached(
-        mutationRecord -> {
-          tableRow.removeSelectionListener(selectionListener);
-          tableRow.removeDeselectionListener(deselectionListener);
-          onAttach.remove();
-          onDetach.remove();
-        });
+        MutationObserverCallback.doOnce(
+            mutationRecord -> {
+              tableRow.removeSelectionListener(selectionListener);
+              tableRow.removeDeselectionListener(deselectionListener);
+            }));
 
     checkBox.addChangeListener(
         (oldValue, checked) -> {
@@ -378,7 +370,7 @@ public class SelectionPlugin<T> implements DataTablePlugin<T> {
 
   private CheckBox createCheckBox(Optional<TableRow<T>> tableRow) {
     CheckBox checkBox = checkBoxCreator.get(tableRow);
-    checkBox.addCss(dui_form_select_check_box, dui_hide_label);
+    checkBox.addCss(dui_minified, dui_hide_label);
     return checkBox;
   }
 

@@ -21,6 +21,7 @@
     margin: var(--dui-nav-bar-title-margin);
     order: 20;
     text-indent: var(--dui-nav-bar-title-indent);
+    font-size: var(--dui-nav-bar-title-font-size);
 }
 
 .dui-nav-body {

@@ -1,7 +1,7 @@
 .dui-datatable {
     border-spacing: 0;
     border-collapse: separate;
-    font-size: var(--dui-datattable-font-size);
+    font-size: var(--dui-datatable-font-size);
     background-color: var(--dui-bg, inherit);
     text-size-adjust: 100%
 }
@@ -84,37 +84,37 @@
 }
 
 .dui-datatable-row:not(:last-child) .dui-datatable-td {
-    border-bottom: var(--dui-datattable-border);
+    border-bottom: var(--dui-datatable-border);
 }
 
 .dui-datatable-thead .dui-datatable-th {
-    border-bottom: var(--dui-datattable-border);
+    border-bottom: var(--dui-datatable-border);
 }
 
 .dui-datatable-bordered .dui-datatable:not(:first-child) {
-    border-top: var(--dui-datattable-border);
+    border-top: var(--dui-datatable-border);
 }
 
 .dui-datatable-bordered {
-    border: var(--dui-datattable-border);
+    border: var(--dui-datatable-border);
 }
 
 .dui-datatable-bordered.dui-datatable-fixed .dui-datatable-th,
 .dui-datatable-bordered.dui-datatable-fixed .dui-datatable-td,
 .dui-datatable-bordered .dui-datatable-th:not(:last-child),
 .dui-datatable-bordered .dui-datatable-td:not(:last-child) {
-    border-right: var(--dui-datattable-border);
+    border-right: var(--dui-datatable-border);
 }
 
 .dui-datatable-bordered .dui-datatable-thead .dui-column-group {
-    border-right: var(--dui-datattable-border);
+    border-right: var(--dui-datatable-border);
 }
 
 .dui-datatable-bordered.dui-datatable-fixed .dui-datatable-row:not(:last-child) .dui-datatable-th,
 .dui-datatable-bordered.dui-datatable-fixed .dui-datatable-row:not(:last-child) .dui-datatable-td,
 .dui-datatable-bordered .dui-datatable-row:not(:last-child) .dui-datatable-th,
 .dui-datatable-bordered .dui-datatable-row:not(:last-child) .dui-datatable-td {
-    border-bottom: var(--dui-datattable-border);
+    border-bottom: var(--dui-datatable-border);
 }
 
 .dui-datatable-th,
@@ -125,8 +125,8 @@
 }
 
 .dui-datatable-condensed .dui-datatable-td {
-    padding: var(--dui-datattable-cell-padding);
-    line-height: var(--dui-datattable-cell-line-height);
+    padding: var(--dui-datatable-cell-padding);
+    line-height: var(--dui-datatable-cell-line-height);
 }
 
 .dui-datatable-th:hover {
@@ -141,8 +141,8 @@
 }
 
 .dui-nav-bar.dui-datatable-nav-bar {
-    padding: var(--dui-datattable-navbar-padding);
-    margin: var(--dui-datattable-navbar-margin);
+    padding: var(--dui-datatable-navbar-padding);
+    margin: var(--dui-datatable-navbar-margin);
 }
 
 .dui-datatable-row-selected.dui-datatable-row.dui-odd,

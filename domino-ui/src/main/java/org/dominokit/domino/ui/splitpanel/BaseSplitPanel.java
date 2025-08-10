@@ -63,7 +63,7 @@ abstract class BaseSplitPanel<T extends BaseSplitPanel<T, S>, S extends BaseSpli
    * Updates the sizes of the panels based on the current configuration. It calculates the required
    * size for each panel taking into account the splitter size share and sets the appropriate size.
    */
-  private void updatePanelsSize() {
+  public final void updatePanelsSize() {
     if (!panels.isEmpty()) {
       Iterator<SplitPanel> iterator = panels.iterator();
       SplitPanel first = iterator.next();

@@ -1199,6 +1199,8 @@ body.dui {
     --dui-nav-bar-description-margin: var(--dui-spc-px-5) 0 0 0;
 
     --dui-nav-bar-description-line-height: var(--dui-spc-4);
+    --dui-nav-bar-title-font-size: inherit;
+
 
     /* =================== Layout =========================== */
     --dui-layout-content-background: var(--dui-clr-dominant-d-1);
@@ -1425,12 +1427,12 @@ body.dui {
     --dui-timepicker-footer-padding: 0 var(--dui-spc-2) var(--dui-spc-2) var(--dui-spc-2);
 
     /* ======================= data table ====================== */
-    --dui-datattable-font-size: var(--dui-spc-3_5);
-    --dui-datattable-cell-padding: var(--dui-spc-1);
-    --dui-datattable-cell-line-height: var(--dui-spc-2);
-    --dui-datattable-navbar-padding: 0;
-    --dui-datattable-navbar-margin: var(--dui-spc-2) 0 var(--dui-spc-2) 0;
-    --dui-datattable-border: 1px solid var(--dui-datatable-border-color);
+    --dui-datatable-font-size: var(--dui-spc-3_5);
+    --dui-datatable-cell-padding: var(--dui-spc-1);
+    --dui-datatable-cell-line-height: var(--dui-spc-2);
+    --dui-datatable-navbar-padding: 0;
+    --dui-datatable-navbar-margin: var(--dui-spc-2) 0 var(--dui-spc-2) 0;
+    --dui-datatable-border: 1px solid var(--dui-datatable-border-color);
 
     /* ========================= Generic ======================= */
     --dui-close-char-top:-1px;
