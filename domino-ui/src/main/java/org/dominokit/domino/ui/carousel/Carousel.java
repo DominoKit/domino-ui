@@ -22,10 +22,12 @@ import static org.dominokit.domino.ui.utils.Domino.a;
 import static org.dominokit.domino.ui.utils.Domino.div;
 import static org.dominokit.domino.ui.utils.Domino.ol;
 
+import elemental2.dom.HTMLDivElement;
+import elemental2.dom.WheelEvent;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-
+import jsinterop.base.Js;
 import org.dominokit.domino.ui.config.CarouselConfig;
 import org.dominokit.domino.ui.config.HasComponentConfig;
 import org.dominokit.domino.ui.elements.AnchorElement;
@@ -41,10 +43,6 @@ import org.dominokit.domino.ui.utils.ChildHandler;
 import org.dominokit.domino.ui.utils.SwipeUtil;
 import org.gwtproject.core.client.Scheduler;
 import org.gwtproject.timer.client.Timer;
-
-import elemental2.dom.HTMLDivElement;
-import elemental2.dom.WheelEvent;
-import jsinterop.base.Js;
 
 /**
  * A slideshow component for cycling through elements.
@@ -66,7 +64,7 @@ public class Carousel extends BaseDominoElement<HTMLDivElement, Carousel>
 
   private final MdiIcon prevIcon;
   private final MdiIcon nextIcon;
-  
+
   private final DivElement element;
 
   private final List<Slide> slides = new ArrayList<>();
@@ -97,16 +95,18 @@ public class Carousel extends BaseDominoElement<HTMLDivElement, Carousel>
                     a().addCss(slide_left, carousel_control)
                         .setAttribute("role", "button")
                         .appendChild(
-                            prevIcon = Icons.chevron_left()
-                                .addCss(GenericCss.dui_vertical_center, dui_font_size_12))
+                            prevIcon =
+                                Icons.chevron_left()
+                                    .addCss(GenericCss.dui_vertical_center, dui_font_size_12))
                         .addEventListener("click", evt -> previous()))
             .appendChild(
                 nextElement =
                     a().addCss(slide_right, carousel_control)
                         .setAttribute("role", "button")
                         .appendChild(
-                            nextIcon = Icons.chevron_right()
-                                .addCss(GenericCss.dui_vertical_center, dui_font_size_12))
+                            nextIcon =
+                                Icons.chevron_right()
+                                    .addCss(GenericCss.dui_vertical_center, dui_font_size_12))
                         .addEventListener("click", evt -> next()))
             .addCss(carousel);
     timer =

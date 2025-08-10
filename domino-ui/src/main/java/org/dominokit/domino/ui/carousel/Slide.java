@@ -20,11 +20,13 @@ import static org.dominokit.domino.ui.carousel.CarouselStyles.slide_caption;
 import static org.dominokit.domino.ui.carousel.CarouselStyles.slide_indicator;
 import static org.dominokit.domino.ui.utils.Domino.*;
 
+import elemental2.dom.Element;
 import elemental2.dom.HTMLDivElement;
 import elemental2.dom.HTMLElement;
 import elemental2.dom.HTMLImageElement;
 import elemental2.dom.HTMLLIElement;
 import elemental2.dom.HTMLPictureElement;
+import org.dominokit.domino.ui.IsElement;
 import org.dominokit.domino.ui.elements.DivElement;
 import org.dominokit.domino.ui.elements.HeadingElement;
 import org.dominokit.domino.ui.elements.ImageElement;
@@ -54,10 +56,10 @@ public class Slide extends BaseDominoElement<HTMLDivElement, Slide> {
 
   private final DivElement slideElement;
 
-  private final DominoElement<HTMLElement> imageElement;
+  private final DominoElement<Element> wrappedElement;
 
-  private Slide(HTMLElement element) {
-    slideElement = div().addCss(slide).appendChild(imageElement = elementOf(element));
+  private Slide(Element element) {
+    slideElement = div().addCss(slide).appendChild(wrappedElement = elementOf(element));
 
     indicatorElement = li().addCss(slide_indicator);
 
@@ -83,7 +85,7 @@ public class Slide extends BaseDominoElement<HTMLDivElement, Slide> {
    * @param image The {@link elemental2.dom.HTMLImageElement} element to be used for the slide
    */
   public Slide(HTMLImageElement image) {
-    this((HTMLElement) image);
+    this((Element) image);
   }
 
   /**
@@ -93,7 +95,7 @@ public class Slide extends BaseDominoElement<HTMLDivElement, Slide> {
    *     slide.
    */
   public Slide(HTMLPictureElement pictureElement) {
-    this((HTMLElement) pictureElement);
+    this((Element) pictureElement);
   }
 
   /**
@@ -164,6 +166,26 @@ public class Slide extends BaseDominoElement<HTMLDivElement, Slide> {
    */
   public static Slide create(PictureElement pictureElement) {
     return new Slide(pictureElement);
+  }
+
+  /**
+   * Factory method to create a slide from any html element.
+   *
+   * @param element The {@link HTMLElement} element to be used for the slide.
+   * @return new instance
+   */
+  public static Slide create(Element element) {
+    return new Slide(element);
+  }
+
+  /**
+   * Factory method to create a slide from any html element.
+   *
+   * @param element The {@link IsElement} element to be used for the slide.
+   * @return new instance
+   */
+  public static Slide create(IsElement<? extends Element> element) {
+    return new Slide(element.element());
   }
 
   /** @dominokit-site-ignore {@inheritDoc} */
@@ -297,8 +319,17 @@ public class Slide extends BaseDominoElement<HTMLDivElement, Slide> {
     return captionElement.get();
   }
 
-  /** @return The element of the image of this slide. */
-  public DominoElement<HTMLElement> getImageElement() {
-    return elementOf(imageElement);
+  /**
+   * @return The element of the image of this slide.
+   * @deprecated use {@link #getWrappedElement()}
+   */
+  @Deprecated
+  public DominoElement<Element> getImageElement() {
+    return elementOf(wrappedElement);
+  }
+
+  /** @return The element wrapped by this slide. */
+  public DominoElement<Element> getWrappedElement() {
+    return elementOf(wrappedElement);
   }
 }
