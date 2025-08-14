@@ -311,19 +311,20 @@ public class Carousel extends BaseDominoElement<HTMLDivElement, Carousel>
   }
 
   private void removeMotionStyles() {
-    activeSlide
-        .removeCss(slide_left)
-        .removeCss(slide_right)
-        .removeCss(slide_next)
-        .removeCss(slide_prev);
-    activeSlide.deActivate();
-    targetSlide
-        .removeCss(slide_left)
-        .removeCss(slide_right)
-        .removeCss(slide_next)
-        .removeCss(slide_prev);
-
-    targetSlide.activate();
+    if (slides.size() > 1) {
+      activeSlide
+          .removeCss(slide_left)
+          .removeCss(slide_right)
+          .removeCss(slide_next)
+          .removeCss(slide_prev);
+      activeSlide.deActivate();
+      targetSlide
+          .removeCss(slide_left)
+          .removeCss(slide_right)
+          .removeCss(slide_next)
+          .removeCss(slide_prev);
+      targetSlide.activate();
+    }
     this.activeSlide = targetSlide;
   }
 
