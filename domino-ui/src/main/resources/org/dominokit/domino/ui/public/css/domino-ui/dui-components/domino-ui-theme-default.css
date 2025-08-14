@@ -972,11 +972,11 @@ body.dui {
     /* ============================ Sliders ============================= */
 
     --dui-slider-gap: 5px;
-    --dui-slider-height: 50px;
+    --dui-slider-size: 50px;
     --dui-slider-cursor: pointer;
     --dui-slider-margin: var(--dui-spc-4) 0 var(--dui-spc-4) 0;
     --dui-slider-input-margin: 0;
-    --dui-slider-track-height: 5px;
+    --dui-slider-track-size: 5px;
     --dui-slider-track-radius: 2px;
     --dui-slider-track-box-shadow: none;
     --dui-slider-track-border: none;
@@ -988,8 +988,6 @@ body.dui {
     --dui-slider-thumb-margin: -7px 0 0 0;
     --dui-slider-thumb-transform: translate(-9px, 9px) rotate(-45deg);
     --dui-slider-thumb-transform-origin: 50% 50%;
-    --dui-slider-thumb-transition: all 300ms cubic-bezier(0.23, 1, 0.32, 1);
-    --dui-slider-thumb-property: height, top;
     --dui-slider-thumb-value-radius: 50% 50% 50% 0;
     --dui-slider-thumb-value-width: 30px;
     --dui-slider-thumb-value-height: 30px;

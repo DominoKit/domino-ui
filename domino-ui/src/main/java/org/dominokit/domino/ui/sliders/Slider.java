@@ -199,6 +199,10 @@ public class Slider extends BaseDominoElement<HTMLDivElement, Slider>
     }
   }
 
+  private boolean isVertical() {
+    return dui_vertical.isAppliedTo(this);
+  }
+
   private void startSliding() {
     this.oldValue = getValue();
     input.addCss(dui_active);
@@ -218,10 +222,17 @@ public class Slider extends BaseDominoElement<HTMLDivElement, Slider>
   private void calculateRangeOffset() {
     nowOrWhenAttached(
         () -> {
-          int width = input.element().offsetWidth - 15;
-          double percent = (getValue() - getMin()) / (getMax() - getMin());
-          double left = percent * width + input.element().offsetLeft;
-          thumb.style().setLeft(left + "px");
+          if (isVertical()) {
+            int height = input.element().offsetHeight - 15;
+            double percent = (getValue() - getMin()) / (getMax() - getMin());
+            double top = input.element().offsetHeight - (percent * height);
+            thumb.style().setTop(top + "px");
+          } else {
+            int width = input.element().offsetWidth - 15;
+            double percent = (getValue() - getMin()) / (getMax() - getMin());
+            double left = percent * width + input.element().offsetLeft;
+            thumb.style().setLeft(left + "px");
+          }
         });
   }
 
