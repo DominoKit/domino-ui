@@ -15,6 +15,7 @@
  */
 package org.dominokit.domino.ui.carousel;
 
+import static java.util.Objects.isNull;
 import static org.dominokit.domino.ui.carousel.CarouselStyles.*;
 import static org.dominokit.domino.ui.style.GenericCss.dui_active;
 import static org.dominokit.domino.ui.style.SpacingCss.dui_font_size_12;
@@ -216,6 +217,12 @@ public class Carousel extends BaseDominoElement<HTMLDivElement, Carousel>
    * @return same carousel instance
    */
   public Carousel appendChild(Slide slide) {
+    if (isNull(activeSlide)) {
+      this.activeSlide = slide;
+    }
+    if (isNull(targetSlide)) {
+      this.targetSlide = slide;
+    }
     getIndicatorsElement().appendChild(slide.getIndicatorElement().element());
     slidesElement.appendChild(slide.element());
     slide
@@ -227,11 +234,11 @@ public class Carousel extends BaseDominoElement<HTMLDivElement, Carousel>
               goToSlide(slide, SlideDirection.NONE);
             });
 
-    slide.element().addEventListener("webkitTransitionEnd", evt -> removeMotionStyles());
-    slide.element().addEventListener("MSTransitionEnd", evt -> removeMotionStyles());
-    slide.element().addEventListener("mozTransitionEnd", evt -> removeMotionStyles());
-    slide.element().addEventListener("otransitionend", evt -> removeMotionStyles());
-    slide.element().addEventListener("transitionend", evt -> removeMotionStyles());
+    slide.addEventListener("webkitTransitionEnd", evt -> removeMotionStyles());
+    slide.addEventListener("MSTransitionEnd", evt -> removeMotionStyles());
+    slide.addEventListener("mozTransitionEnd", evt -> removeMotionStyles());
+    slide.addEventListener("otransitionend", evt -> removeMotionStyles());
+    slide.addEventListener("transitionend", evt -> removeMotionStyles());
 
     if (slides.isEmpty()) {
       slide.activate();
@@ -311,20 +318,18 @@ public class Carousel extends BaseDominoElement<HTMLDivElement, Carousel>
   }
 
   private void removeMotionStyles() {
-    if (slides.size() > 1) {
-      activeSlide
-          .removeCss(slide_left)
-          .removeCss(slide_right)
-          .removeCss(slide_next)
-          .removeCss(slide_prev);
-      activeSlide.deActivate();
-      targetSlide
-          .removeCss(slide_left)
-          .removeCss(slide_right)
-          .removeCss(slide_next)
-          .removeCss(slide_prev);
-      targetSlide.activate();
-    }
+    activeSlide
+        .removeCss(slide_left)
+        .removeCss(slide_right)
+        .removeCss(slide_next)
+        .removeCss(slide_prev);
+    activeSlide.deActivate();
+    targetSlide
+        .removeCss(slide_left)
+        .removeCss(slide_right)
+        .removeCss(slide_next)
+        .removeCss(slide_prev);
+    targetSlide.activate();
     this.activeSlide = targetSlide;
   }
 
