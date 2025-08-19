@@ -32,12 +32,12 @@
     -ms-user-select: none;
 }
 
-.dui-horizontal .dui-split-panel,
-.dui-horizontal .dui-split-layout-splitter  {
+.dui-horizontal .dui-split-panel:not(.dui-hidden),
+.dui-horizontal .dui-split-layout-splitter:not(.dui-hidden)  {
     display: inline-block;
 }
-.dui-vertical .dui-split-panel ,
-.dui-vertical  .dui-split-layout-splitter  {
+.dui-vertical .dui-split-panel:not(.dui-hidden) ,
+.dui-vertical  .dui-split-layout-splitter:not(.dui-hidden)  {
     display: block;
 }
 

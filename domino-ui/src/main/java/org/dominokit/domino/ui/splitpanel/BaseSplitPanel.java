@@ -17,14 +17,17 @@ package org.dominokit.domino.ui.splitpanel;
 
 import static org.dominokit.domino.ui.utils.Domino.*;
 
+import elemental2.dom.DomGlobal;
 import elemental2.dom.HTMLDivElement;
 import java.util.Arrays;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.stream.Collectors;
 import org.dominokit.domino.ui.elements.DivElement;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
 import org.dominokit.domino.ui.utils.ChildHandler;
+import org.dominokit.domino.ui.utils.Unit;
 
 /**
  * Represents the base class for split panels which allow a UI to be divided into multiple panels
@@ -42,7 +45,7 @@ import org.dominokit.domino.ui.utils.ChildHandler;
  * @param <S> The specific type of the splitter
  * @see BaseDominoElement
  */
-abstract class BaseSplitPanel<T extends BaseSplitPanel<T, S>, S extends BaseSplitter>
+abstract class BaseSplitPanel<T extends BaseSplitPanel<T, S>, S extends BaseSplitter<S>>
     extends BaseDominoElement<HTMLDivElement, T> implements HasSize, HasSplitPanels, SplitStyles {
 
   private final DivElement element;
@@ -57,6 +60,13 @@ abstract class BaseSplitPanel<T extends BaseSplitPanel<T, S>, S extends BaseSpli
     element = div().addCss(dui_split_layout);
     init((T) this);
     element.onAttached(mutationRecord -> updatePanelsSize());
+    onResize(
+        (element1, observer, entries) -> {
+          DomGlobal.requestAnimationFrame(
+              timestamp -> {
+                updatePanelsSize();
+              });
+        });
   }
 
   /**
@@ -65,13 +75,23 @@ abstract class BaseSplitPanel<T extends BaseSplitPanel<T, S>, S extends BaseSpli
    */
   public final void updatePanelsSize() {
     if (!panels.isEmpty()) {
-      Iterator<SplitPanel> iterator = panels.iterator();
-      SplitPanel first = iterator.next();
-      while (iterator.hasNext()) {
-        SplitPanel second = iterator.next();
-        onResizeStart(first, second);
-        resizePanels(first, second, 0);
-        first = second;
+      List<SplitPanel> visiblePanelsList =
+          panels.stream().filter(BaseDominoElement::isVisible).collect(Collectors.toList());
+      Iterator<SplitPanel> visiblePanels = visiblePanelsList.iterator();
+      double hiddenPanelsSize =
+          panels.stream().filter(BaseDominoElement::isHidden).mapToDouble(this::getPanelSize).sum();
+      if (!visiblePanelsList.isEmpty()) {
+        SplitPanel first = visiblePanels.next();
+        if (hiddenPanelsSize > 1) {
+          while (visiblePanels.hasNext()) {
+            SplitPanel second = visiblePanels.next();
+            onResizeStart(first, second);
+            resizePanels(first, second, hiddenPanelsSize);
+            first = second;
+          }
+        } else {
+          setPanelSize(first, Unit.px.of(getSize()));
+        }
       }
     }
   }
