@@ -16,11 +16,12 @@
     --dui-slider-h-size: var(--dui-slider-size);
     --dui-slider-track-v-size: 100%;
     --dui-slider-track-h-size: var(--dui-slider-track-size);
-    --dui-slider-track-thumb-transform: translateX(6px);
+    --dui-slider-track-thumb-transform: translateX(-6px);
     --dui-slider-thumb-transform: translate(26px,0px);
 
     width: var(--dui-slider-h-size);
     height: var(--dui-slider-v-size);
+    --dui-slider-margin: 0px;
 }
 
 .dui-slider .dui_prefix {
@@ -33,8 +34,8 @@
 }
 
 .dui-vertical .dui-slider-input {
-    -webkit-appearance: slider-vertical;
-    writing-mode: bt-lr;
+    writing-mode: vertical-lr;
+    direction: rtl;
     flex-grow: unset;
 }
 
