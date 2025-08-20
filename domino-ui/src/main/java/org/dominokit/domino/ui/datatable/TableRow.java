@@ -24,6 +24,7 @@ import elemental2.dom.HTMLTableRowElement;
 import java.util.*;
 import org.dominokit.domino.ui.datatable.events.RowRecordUpdatedEvent;
 import org.dominokit.domino.ui.datatable.events.TableDataUpdatedEvent;
+import org.dominokit.domino.ui.elements.TableRowElement;
 import org.dominokit.domino.ui.forms.FieldsGrouping;
 import org.dominokit.domino.ui.forms.validations.ValidationResult;
 import org.dominokit.domino.ui.style.BooleanCssClass;
@@ -50,7 +51,7 @@ public class TableRow<T> extends BaseDominoElement<HTMLTableRowElement, TableRow
 
   private Map<String, String> flags;
 
-  private HTMLTableRowElement element = tr().element();
+  private TableRowElement element = tr();
 
   private List<RowListener<T>> listeners;
   private boolean editable = false;
@@ -426,7 +427,7 @@ public class TableRow<T> extends BaseDominoElement<HTMLTableRowElement, TableRow
 
   @Override
   public HTMLTableRowElement element() {
-    return element;
+    return element.element();
   }
 
   /**

@@ -53,11 +53,11 @@ final class BodyObserver {
    * @param handler The action to perform while the observer is paused.
    */
   static void pauseFor(Runnable handler) {
-    mutationObserver.disconnect();
+    paused = true;
     try {
       handler.run();
     } finally {
-      observe();
+      paused = false;
     }
   }
 

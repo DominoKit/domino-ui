@@ -87,7 +87,7 @@ public class ColumnConfig<T> implements ElementsFactory, DataTableStyles {
 
   private final Map<String, ComponentMeta> columnMeta = new HashMap<>();
 
-  private final Menu<String> menu;
+  private Menu<String> menu;
   private MdiIcon menuIcon;
 
   /**
@@ -124,11 +124,6 @@ public class ColumnConfig<T> implements ElementsFactory, DataTableStyles {
     this.name = name;
     this.title = title;
     menuIcon = Icons.dots_vertical().addCss(dui_datatable_th_menu_icon);
-    this.menu =
-        Menu.<String>create()
-            .setTargetElement(menuIcon)
-            .setDropDirection(new BestSideUpDownDropDirection())
-            .addOnAddItemHandler((menu1, menuItem) -> menuIcon.show());
     menuIcon.hide();
   }
 
@@ -1178,6 +1173,13 @@ public class ColumnConfig<T> implements ElementsFactory, DataTableStyles {
    * @return the menu associated with the column
    */
   public Menu<String> getMenu() {
+    if (isNull(menu)) {
+      this.menu =
+          Menu.<String>create()
+              .setTargetElement(menuIcon)
+              .setDropDirection(new BestSideUpDownDropDirection())
+              .addOnAddItemHandler((menu1, menuItem) -> menuIcon.show());
+    }
     return menu;
   }
 

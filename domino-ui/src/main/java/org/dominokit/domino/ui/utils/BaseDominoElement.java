@@ -250,7 +250,9 @@ public abstract class BaseDominoElement<E extends Element, T extends IsElement<E
               });
           resizeInitializer = () -> {};
         };
-    onDetached(MutationObserverCallback.doOnce(mutationRecord -> freeStyle()));
+    onDetached(
+        NamedMutationObserverCallback.doOnce(
+            "dui-freestyles-detach-observer", mutationRecord -> freeStyle()));
   }
 
   private void freeStyle() {
@@ -721,14 +723,14 @@ public abstract class BaseDominoElement<E extends Element, T extends IsElement<E
   /**
    * Registers an observer to be notified when this element is attached to the DOM.
    *
-   * @param ObserverCallback The observer to be registered.
+   * @param observerCallback The observer to be registered.
    * @return The modified DOM element.
    */
   @Editor.Ignore
-  public T onAttachedDetached(MutationObserverCallback ObserverCallback) {
+  public T onAttachedDetached(MutationObserverCallback observerCallback) {
     initAttachListener();
     initDetachListener();
-    getAttachDetachObservers().add(ObserverCallback);
+    getAttachDetachObservers().add(observerCallback);
     ElementUtil.startObserving();
     return element;
   }
@@ -767,8 +769,8 @@ public abstract class BaseDominoElement<E extends Element, T extends IsElement<E
         this.attachEventListener =
             evt -> {
               CustomEvent cevent = Js.uncheckedCast(evt);
-              List<MutationObserverCallback> original = getAttachObservers();
-              List<MutationObserverCallback> attachObservers = new ArrayList<>(original);
+              Set<MutationObserverCallback> original = getAttachObservers();
+              Set<MutationObserverCallback> attachObservers = new HashSet<>(original);
               for (MutationObserverCallback observer : attachObservers) {
                 observer.onObserved(Js.uncheckedCast(cevent.detail));
                 if (observer.isAutoRemove()) {
@@ -789,18 +791,18 @@ public abstract class BaseDominoElement<E extends Element, T extends IsElement<E
     }
   }
 
-  private List<MutationObserverCallback> getAttachObservers() {
+  private Set<MutationObserverCallback> getAttachObservers() {
     JsPropertyMap<Object> asPropertyMap = Js.asPropertyMap(element());
     if (!asPropertyMap.has("dui-attach-observers")) {
-      asPropertyMap.set("dui-attach-observers", new ArrayList<>());
+      asPropertyMap.set("dui-attach-observers", new HashSet<>());
     }
     return Js.uncheckedCast(asPropertyMap.get("dui-attach-observers"));
   }
 
-  private List<MutationObserverCallback> getAttachDetachObservers() {
+  private Set<MutationObserverCallback> getAttachDetachObservers() {
     JsPropertyMap<Object> asPropertyMap = Js.asPropertyMap(element());
     if (!asPropertyMap.has("dui-attach-detach-observers")) {
-      asPropertyMap.set("dui-attach-detach-observers", new ArrayList<>());
+      asPropertyMap.set("dui-attach-detach-observers", new HashSet<>());
     }
     return Js.uncheckedCast(asPropertyMap.get("dui-attach-detach-observers"));
   }
@@ -839,8 +841,8 @@ public abstract class BaseDominoElement<E extends Element, T extends IsElement<E
         this.detachEventListener =
             evt -> {
               CustomEvent cevent = Js.uncheckedCast(evt);
-              List<MutationObserverCallback> original = getDetachObservers();
-              List<MutationObserverCallback> detachObservers = new ArrayList<>(original);
+              Set<MutationObserverCallback> original = getDetachObservers();
+              Set<MutationObserverCallback> detachObservers = new HashSet<>(original);
               for (MutationObserverCallback observer : detachObservers) {
                 observer.onObserved(Js.uncheckedCast(cevent.detail));
                 if (observer.isAutoRemove()) {
@@ -862,11 +864,12 @@ public abstract class BaseDominoElement<E extends Element, T extends IsElement<E
     }
   }
 
-  private List<MutationObserverCallback> getDetachObservers() {
+  private Set<MutationObserverCallback> getDetachObservers() {
     JsPropertyMap<Object> asPropertyMap = Js.asPropertyMap(element());
     if (!asPropertyMap.has("dui-detach-observers")) {
-      asPropertyMap.set("dui-detach-observers", new ArrayList<>());
+      asPropertyMap.set("dui-detach-observers", new HashSet<>());
     }
+
     return Js.uncheckedCast(asPropertyMap.get("dui-detach-observers"));
   }
 
