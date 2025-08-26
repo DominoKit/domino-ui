@@ -164,6 +164,20 @@ public class LocalListScrollingDataSource<T> implements DataStore<T> {
   }
 
   /**
+   * Clears the contents of the store and then reloads the data.
+   *
+   * <p>This method removes all elements from store and calls {@link #load()} to repopulate or
+   * refresh the data as needed.
+   *
+   * @see #load()
+   */
+  public void clear() {
+    this.original.clear();
+    this.filtered.clear();
+    load();
+  }
+
+  /**
    * Registers a data change listener to receive updates when the data in the data source changes.
    *
    * @param dataChangeListener The data change listener to register.

@@ -116,6 +116,20 @@ public class LocalListDataStore<T> implements DataStore<T> {
   }
 
   /**
+   * Clears the contents of the store and then reloads the data.
+   *
+   * <p>This method removes all elements from store and calls {@link #load()} to repopulate or
+   * refresh the data as needed.
+   *
+   * @see #load()
+   */
+  public void clear() {
+    this.original.clear();
+    this.filtered.clear();
+    load();
+  }
+
+  /**
    * Gets the search filter used for filtering records.
    *
    * @return The search filter.
