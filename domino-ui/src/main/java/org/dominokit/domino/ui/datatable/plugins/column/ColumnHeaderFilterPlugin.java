@@ -84,7 +84,7 @@ public class ColumnHeaderFilterPlugin<T> implements DataTablePlugin<T> {
     columns.forEach(
         columnConfig -> {
           ColumnHeader th = ColumnHeader.create().addCss(dui_datatable_column_filter);
-          columnConfig.getHeaderStyler().styleCell(th.element());
+          columnConfig.getHeaderHandler().apply(columnConfig);
 
           columnConfig.applyScreenMedia(th.element());
 
