@@ -32,8 +32,10 @@ import org.dominokit.domino.ui.datatable.plugins.DataTablePlugin;
 import org.dominokit.domino.ui.datatable.plugins.HasPluginConfig;
 import org.dominokit.domino.ui.events.EventType;
 import org.dominokit.domino.ui.icons.IconWrapper;
+import org.dominokit.domino.ui.menu.MenuItem;
 import org.dominokit.domino.ui.utils.DominoElement;
 import org.dominokit.domino.ui.utils.DominoEvent;
+import org.dominokit.domino.ui.utils.PrefixAddOn;
 
 /**
  * A plugin for adding sorting functionality to a DataTable. This plugin allows users to click on
@@ -77,15 +79,45 @@ public class SortPlugin<T>
           .addEventListener(
               EventType.click.getName(),
               evt -> {
-                if (this.dataTable.getMeta(DUI_DT_COL_RESIZING).isEmpty()) {
-                  if (config.isShowIconOnSortedColumnOnly() && nonNull(currentSortContext)) {
-                    currentSortContext.sortElement.clearElement();
-                  }
-                  sortContext.sortElement.appendChild(sortContext.sortIcon);
-                  updateSort(sortContext);
-                  fireSortEvent(currentSortContext.sortDirection, column);
-                }
+                applySort(column, sortContext, currentSortContext.sortDirection);
               });
+      if (config.isShowSortOptionsInColumnMenu()) {
+        column
+            .getMenu()
+            .appendChild(
+                MenuItem.<String>create(config.getSortAscendingLabel())
+                    .appendChild(PrefixAddOn.of(config.getAscendingIcon().get()))
+                    .addSelectionListener(
+                        (source, selection) -> applySort(column, sortContext, SortDirection.ASC)))
+            .appendChild(
+                MenuItem.<String>create(config.getSortDescendingLabel())
+                    .appendChild(PrefixAddOn.of(config.getDescendingIcon().get()))
+                    .addSelectionListener(
+                        (source, selection) -> applySort(column, sortContext, SortDirection.DESC)));
+
+        if (config.isTriStateSort()) {
+          column
+              .getMenu()
+              .appendChild(
+                  MenuItem.<String>create(config.getNoSortLabel())
+                      .appendChild(PrefixAddOn.of(config.getUnsortedIcon().get()))
+                      .addSelectionListener(
+                          (source, selection) ->
+                              applySort(column, sortContext, SortDirection.NONE)));
+        }
+      }
+    }
+  }
+
+  private void applySort(
+      ColumnConfig<T> column, SortContext sortContext, SortDirection sortDirection) {
+    if (this.dataTable.getMeta(DUI_DT_COL_RESIZING).isEmpty()) {
+      if (config.isShowIconOnSortedColumnOnly() && nonNull(currentSortContext)) {
+        currentSortContext.sortElement.clearElement();
+      }
+      sortContext.sortElement.appendChild(sortContext.sortIcon);
+      updateSort(sortContext);
+      fireSortEvent(sortDirection, column);
     }
   }
 
