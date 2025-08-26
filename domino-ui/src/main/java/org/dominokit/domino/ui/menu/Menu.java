@@ -20,6 +20,8 @@ import static elemental2.dom.DomGlobal.window;
 import static java.util.Objects.isNull;
 import static java.util.Objects.nonNull;
 import static org.dominokit.domino.ui.menu.direction.DropDirection.DUI_POSITION_FALLBACK;
+import static org.dominokit.domino.ui.style.DisplayCss.dui_elevation_1;
+import static org.dominokit.domino.ui.style.DisplayCss.dui_elevation_none;
 import static org.dominokit.domino.ui.utils.Domino.a;
 import static org.dominokit.domino.ui.utils.Domino.div;
 import static org.dominokit.domino.ui.utils.Domino.dui_order_first;
@@ -64,7 +66,6 @@ import org.dominokit.domino.ui.mediaquery.MediaQuery;
 import org.dominokit.domino.ui.menu.direction.*;
 import org.dominokit.domino.ui.search.SearchBox;
 import org.dominokit.domino.ui.style.BooleanCssClass;
-import org.dominokit.domino.ui.style.Elevation;
 import org.dominokit.domino.ui.utils.*;
 
 /**
@@ -2004,10 +2005,10 @@ public class Menu<V> extends BaseDominoElement<HTMLDivElement, Menu<V>>
   private void setDropDown(boolean dropdown) {
     if (dropdown) {
       this.setAttribute("domino-ui-root-menu", true).setAttribute(DOMINO_UI_AUTO_CLOSABLE, true);
-      menuElement.elevate(Elevation.LEVEL_1);
+      menuElement.addCss(dui_elevation_1);
     } else {
       this.removeAttribute("domino-ui-root-menu").removeAttribute(DOMINO_UI_AUTO_CLOSABLE);
-      menuElement.elevate(Elevation.NONE);
+      menuElement.addCss(dui_elevation_none);
       document.removeEventListener("scroll", repositionListener);
     }
     addCss(BooleanCssClass.of(dui_menu_drop, dropdown));

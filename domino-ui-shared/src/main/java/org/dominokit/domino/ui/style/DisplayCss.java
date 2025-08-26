@@ -609,71 +609,73 @@ public interface DisplayCss {
   /** @hidden Constant <code>dui_outline_hidden</code> */
   CssClass dui_outline_hidden = () -> "dui-outline-hidden";
   /** @hidden Constant <code>dui_elevation_none</code> */
-  CssClass dui_elevation_none = () -> "dui-elevation-none";
+  CssClass dui_elevation_none =
+      LimitOneOfPrefixedCssClass.of("dui-elevation-", "dui-elevation-none");
   /** @hidden Constant <code>dui_elevation_sm</code> */
-  CssClass dui_elevation_sm = () -> "dui-elevation-sm";
+  CssClass dui_elevation_sm = LimitOneOfPrefixedCssClass.of("dui-elevation-", "dui-elevation-sm");
   /** @hidden Constant <code>dui_elevation</code> */
-  CssClass dui_elevation = () -> "dui-elevation";
+  CssClass dui_elevation = LimitOneOfPrefixedCssClass.of("dui-elevation-", "dui-elevation");
   /** @hidden Constant <code>dui_elevation_md</code> */
-  CssClass dui_elevation_md = () -> "dui-elevation-md";
+  CssClass dui_elevation_md = LimitOneOfPrefixedCssClass.of("dui-elevation-", "dui-elevation-md");
   /** @hidden Constant <code>dui_elevation_lg</code> */
-  CssClass dui_elevation_lg = () -> "dui-elevation-lg";
+  CssClass dui_elevation_lg = LimitOneOfPrefixedCssClass.of("dui-elevation-", "dui-elevation-lg");
   /** @hidden Constant <code>dui_elevation_xl</code> */
-  CssClass dui_elevation_xl = () -> "dui-elevation-xl";
+  CssClass dui_elevation_xl = LimitOneOfPrefixedCssClass.of("dui-elevation-", "dui-elevation-xl");
   /** @hidden Constant <code>dui_elevation_2xl</code> */
-  CssClass dui_elevation_2xl = () -> "dui-elevation-2xl";
+  CssClass dui_elevation_2xl = LimitOneOfPrefixedCssClass.of("dui-elevation-", "dui-elevation-2xl");
   /** @hidden Constant <code>dui_elevation_inner</code> */
-  CssClass dui_elevation_inner = () -> "dui-elevation-inner";
+  CssClass dui_elevation_inner =
+      LimitOneOfPrefixedCssClass.of("dui-elevation-", "dui-elevation-inner");
   /** @hidden Constant <code>dui_elevation_0</code> */
-  CssClass dui_elevation_0 = () -> "dui-elevation-0";
+  CssClass dui_elevation_0 = LimitOneOfPrefixedCssClass.of("dui-elevation-", "dui-elevation-0");
   /** @hidden Constant <code>dui_elevation_1</code> */
-  CssClass dui_elevation_1 = () -> "dui-elevation-1";
+  CssClass dui_elevation_1 = LimitOneOfPrefixedCssClass.of("dui-elevation-", "dui-elevation-1");
   /** @hidden Constant <code>dui_elevation_2</code> */
-  CssClass dui_elevation_2 = () -> "dui-elevation-2";
+  CssClass dui_elevation_2 = LimitOneOfPrefixedCssClass.of("dui-elevation-", "dui-elevation-2");
   /** @hidden Constant <code>dui_elevation_3</code> */
-  CssClass dui_elevation_3 = () -> "dui-elevation-3";
+  CssClass dui_elevation_3 = LimitOneOfPrefixedCssClass.of("dui-elevation-", "dui-elevation-3");
   /** @hidden Constant <code>dui_elevation_4</code> */
-  CssClass dui_elevation_4 = () -> "dui-elevation-4";
+  CssClass dui_elevation_4 = LimitOneOfPrefixedCssClass.of("dui-elevation-", "dui-elevation-4");
   /** @hidden Constant <code>dui_elevation_5</code> */
-  CssClass dui_elevation_5 = () -> "dui-elevation-5";
+  CssClass dui_elevation_5 = LimitOneOfPrefixedCssClass.of("dui-elevation-", "dui-elevation-5");
   /** @hidden Constant <code>dui_elevation_6</code> */
-  CssClass dui_elevation_6 = () -> "dui-elevation-6";
+  CssClass dui_elevation_6 = LimitOneOfPrefixedCssClass.of("dui-elevation-", "dui-elevation-6");
   /** @hidden Constant <code>dui_elevation_7</code> */
-  CssClass dui_elevation_7 = () -> "dui-elevation-7";
+  CssClass dui_elevation_7 = LimitOneOfPrefixedCssClass.of("dui-elevation-", "dui-elevation-7");
   /** @hidden Constant <code>dui_elevation_8</code> */
-  CssClass dui_elevation_8 = () -> "dui-elevation-8";
+  CssClass dui_elevation_8 = LimitOneOfPrefixedCssClass.of("dui-elevation-", "dui-elevation-8");
   /** @hidden Constant <code>dui_elevation_9</code> */
-  CssClass dui_elevation_9 = () -> "dui-elevation-9";
+  CssClass dui_elevation_9 = LimitOneOfPrefixedCssClass.of("dui-elevation-", "dui-elevation-9");
   /** @hidden Constant <code>dui_elevation_10</code> */
-  CssClass dui_elevation_10 = () -> "dui-elevation-10";
+  CssClass dui_elevation_10 = LimitOneOfPrefixedCssClass.of("dui-elevation-", "dui-elevation-10");
   /** @hidden Constant <code>dui_elevation_11</code> */
-  CssClass dui_elevation_11 = () -> "dui-elevation-11";
+  CssClass dui_elevation_11 = LimitOneOfPrefixedCssClass.of("dui-elevation-", "dui-elevation-11");
   /** @hidden Constant <code>dui_elevation_12</code> */
-  CssClass dui_elevation_12 = () -> "dui-elevation-12";
+  CssClass dui_elevation_12 = LimitOneOfPrefixedCssClass.of("dui-elevation-", "dui-elevation-12");
   /** @hidden Constant <code>dui_elevation_13</code> */
-  CssClass dui_elevation_13 = () -> "dui-elevation-13";
+  CssClass dui_elevation_13 = LimitOneOfPrefixedCssClass.of("dui-elevation-", "dui-elevation-13");
   /** @hidden Constant <code>dui_elevation_14</code> */
-  CssClass dui_elevation_14 = () -> "dui-elevation-14";
+  CssClass dui_elevation_14 = LimitOneOfPrefixedCssClass.of("dui-elevation-", "dui-elevation-14");
   /** @hidden Constant <code>dui_elevation_15</code> */
-  CssClass dui_elevation_15 = () -> "dui-elevation-15";
+  CssClass dui_elevation_15 = LimitOneOfPrefixedCssClass.of("dui-elevation-", "dui-elevation-15");
   /** @hidden Constant <code>dui_elevation_16</code> */
-  CssClass dui_elevation_16 = () -> "dui-elevation-16";
+  CssClass dui_elevation_16 = LimitOneOfPrefixedCssClass.of("dui-elevation-", "dui-elevation-16");
   /** @hidden Constant <code>dui_elevation_17</code> */
-  CssClass dui_elevation_17 = () -> "dui-elevation-17";
+  CssClass dui_elevation_17 = LimitOneOfPrefixedCssClass.of("dui-elevation-", "dui-elevation-17");
   /** @hidden Constant <code>dui_elevation_18</code> */
-  CssClass dui_elevation_18 = () -> "dui-elevation-18";
+  CssClass dui_elevation_18 = LimitOneOfPrefixedCssClass.of("dui-elevation-", "dui-elevation-18");
   /** @hidden Constant <code>dui_elevation_19</code> */
-  CssClass dui_elevation_19 = () -> "dui-elevation-19";
+  CssClass dui_elevation_19 = LimitOneOfPrefixedCssClass.of("dui-elevation-", "dui-elevation-19");
   /** @hidden Constant <code>dui_elevation_20</code> */
-  CssClass dui_elevation_20 = () -> "dui-elevation-20";
+  CssClass dui_elevation_20 = LimitOneOfPrefixedCssClass.of("dui-elevation-", "dui-elevation-20");
   /** @hidden Constant <code>dui_elevation_21</code> */
-  CssClass dui_elevation_21 = () -> "dui-elevation-21";
+  CssClass dui_elevation_21 = LimitOneOfPrefixedCssClass.of("dui-elevation-", "dui-elevation-21");
   /** @hidden Constant <code>dui_elevation_22</code> */
-  CssClass dui_elevation_22 = () -> "dui-elevation-22";
+  CssClass dui_elevation_22 = LimitOneOfPrefixedCssClass.of("dui-elevation-", "dui-elevation-22");
   /** @hidden Constant <code>dui_elevation_23</code> */
-  CssClass dui_elevation_23 = () -> "dui-elevation-23";
+  CssClass dui_elevation_23 = LimitOneOfPrefixedCssClass.of("dui-elevation-", "dui-elevation-23");
   /** @hidden Constant <code>dui_elevation_24</code> */
-  CssClass dui_elevation_24 = () -> "dui-elevation-24";
+  CssClass dui_elevation_24 = LimitOneOfPrefixedCssClass.of("dui-elevation-", "dui-elevation-24");
   /** @hidden Constant <code>dui_cursor_auto</code> */
   CssClass dui_cursor_auto = () -> "dui-cursor-auto";
   /** @hidden Constant <code>dui_cursor_default</code> */

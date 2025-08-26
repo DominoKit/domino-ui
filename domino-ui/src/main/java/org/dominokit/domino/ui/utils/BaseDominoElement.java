@@ -2981,7 +2981,9 @@ public abstract class BaseDominoElement<E extends Element, T extends IsElement<E
    *
    * @param level The elevation level to apply.
    * @return The modified DOM element.
+   * @deprecated use addCss(dui_elevation_xxx) instead
    */
+  @Deprecated
   public T elevate(int level) {
     return elevate(Elevation.of(level));
   }
@@ -2991,7 +2993,9 @@ public abstract class BaseDominoElement<E extends Element, T extends IsElement<E
    *
    * @param elevation The elevation style to apply.
    * @return The modified DOM element.
+   * @deprecated use addCss(dui_elevation_xxx) instead
    */
+  @Deprecated
   @SuppressWarnings("unchecked")
   public T elevate(Elevation elevation) {
     if (nonNull(this.elevation)) {
