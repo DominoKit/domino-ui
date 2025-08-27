@@ -48,29 +48,6 @@
         <url>https://github.com/DominoKit/domino-ui</url>
     </scm>
 
-    <distributionManagement>
-        <snapshotRepository>
-            <id>central</id>
-            <url>https://central.sonatype.com/repository/maven-snapshots/</url>
-            <snapshots>
-                <enabled>true</enabled>
-            </snapshots>
-            <releases>
-                <enabled>false</enabled>
-            </releases>
-        </snapshotRepository>
-        <repository>
-            <id>central</id>
-            <url>https://central.sonatype.com/repository/maven-releases/</url>
-            <snapshots>
-                <enabled>false</enabled>
-            </snapshots>
-            <releases>
-                <enabled>true</enabled>
-            </releases>
-        </repository>
-    </distributionManagement>
-
     <modules>
         <module>domino-ui</module>
         <module>domino-ui-shared</module>
@@ -89,7 +66,6 @@
         <maven.javadoc.plugin>3.6.2</maven.javadoc.plugin>
         <maven.fmt.plugin>2.9</maven.fmt.plugin>
         <maven.license.plugin>3.0</maven.license.plugin>
-        <maven.deploy.plugin>3.1.1</maven.deploy.plugin>
         <maven.gwt.plugin>1.1.0</maven.gwt.plugin>
         <maven.nexus.staging.plugin>1.6.13</maven.nexus.staging.plugin>
         <maven.gpg.plugin>3.1.0</maven.gpg.plugin>
@@ -326,11 +302,6 @@
                 </executions>
             </plugin>
             <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-deploy-plugin</artifactId>
-                <version>${maven.deploy.plugin}</version>
-            </plugin>
-            <plugin>
                 <groupId>org.dominokit</groupId>
                 <artifactId>gitflow-maven-plugin</artifactId>
                 <version>1.0.0</version>
@@ -402,7 +373,9 @@
                     <version>0.8.0</version>
                     <extensions>true</extensions>
                     <configuration>
+                        <centralSnapshotsUrl>https://central.sonatype.com/repository/maven-snapshots/</centralSnapshotsUrl>
                         <publishingServerId>central</publishingServerId>
+                        <autoPublish>true</autoPublish>
                         <waitUntil>validated</waitUntil>
                     </configuration>
                 </plugin>
