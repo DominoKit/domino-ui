@@ -389,7 +389,7 @@
                     <configuration>
                         <centralSnapshotsUrl>https://central.sonatype.com/repository/maven-snapshots/</centralSnapshotsUrl>
                         <publishingServerId>central</publishingServerId>
-                        <waitUntil>validated</waitUntil>
+                        <autoPublish>true</autoPublish>
                     </configuration>
                 </plugin>
                 <plugin>
