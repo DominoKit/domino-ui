@@ -66,6 +66,7 @@
         <maven.javadoc.plugin>3.6.2</maven.javadoc.plugin>
         <maven.fmt.plugin>2.9</maven.fmt.plugin>
         <maven.license.plugin>3.0</maven.license.plugin>
+        <maven.deploy.plugin>3.1.1</maven.deploy.plugin>
         <maven.gwt.plugin>1.1.0</maven.gwt.plugin>
         <maven.nexus.staging.plugin>1.6.13</maven.nexus.staging.plugin>
         <maven.gpg.plugin>3.1.0</maven.gpg.plugin>
@@ -300,6 +301,14 @@
                         </goals>
                     </execution>
                 </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-deploy-plugin</artifactId>
+                <version>${maven.deploy.plugin}</version>
+                <configuration>
+                    <skip>true</skip>
+                </configuration>
             </plugin>
             <plugin>
                 <groupId>org.dominokit</groupId>
