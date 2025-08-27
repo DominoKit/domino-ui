@@ -12,6 +12,7 @@
     <artifactId>domino-ui</artifactId>
     <packaging>gwt-lib</packaging>
 
+    <name>domino-ui</name>
     <dependencies>
         <dependency>
             <groupId>org.dominokit</groupId>
