@@ -52,6 +52,12 @@
         <snapshotRepository>
             <id>central</id>
             <url>https://central.sonatype.com/repository/maven-snapshots/</url>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
+            <releases>
+                <enabled>false</enabled>
+            </releases>
         </snapshotRepository>
     </distributionManagement>
 
@@ -387,7 +393,7 @@
                     <extensions>true</extensions>
                     <configuration>
                         <publishingServerId>central</publishingServerId>
-                        <autoPublish>true</autoPublish>
+                        <waitUntil>validated</waitUntil>
                     </configuration>
                 </plugin>
                 <plugin>
