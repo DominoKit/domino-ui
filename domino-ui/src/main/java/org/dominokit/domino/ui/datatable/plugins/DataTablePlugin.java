@@ -15,15 +15,13 @@
  */
 package org.dominokit.domino.ui.datatable.plugins;
 
-import static org.dominokit.domino.ui.utils.Domino.*;
-
 import elemental2.dom.HTMLElement;
 import java.util.List;
 import java.util.Optional;
 import org.dominokit.domino.ui.datatable.*;
-import org.dominokit.domino.ui.datatable.events.TableEvent;
-import org.dominokit.domino.ui.datatable.events.TableEventListener;
 import org.dominokit.domino.ui.style.DominoCss;
+import org.dominokit.domino.ui.utils.DominoEvent;
+import org.dominokit.domino.ui.utils.DominoEventListener;
 import org.dominokit.domino.ui.utils.ElementsFactory;
 
 /**
@@ -48,7 +46,7 @@ import org.dominokit.domino.ui.utils.ElementsFactory;
  * @param <T> The type of data displayed in the DataTable.
  */
 public interface DataTablePlugin<T>
-    extends TableEventListener, Comparable<DataTablePlugin<T>>, ElementsFactory, DominoCss {
+    extends Comparable<DataTablePlugin<T>>, ElementsFactory, DominoCss, DominoEventListener {
 
   /**
    * Initializes the DataTablePlugin for the given DataTable. This method is called when the plugin
@@ -145,7 +143,7 @@ public interface DataTablePlugin<T>
 
   /** {@inheritDoc} */
   @Override
-  default void handleEvent(TableEvent event) {}
+  default void handleEvent(DominoEvent event) {}
 
   /**
    * Indicates whether the plugin requires a utility column in the DataTable. Default is {@code

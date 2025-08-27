@@ -26,6 +26,7 @@ import org.dominokit.domino.ui.elements.AnchorElement;
 import org.dominokit.domino.ui.elements.SmallElement;
 import org.dominokit.domino.ui.elements.SpanElement;
 import org.dominokit.domino.ui.utils.ChildHandler;
+import org.dominokit.domino.ui.utils.HasText;
 
 /**
  * Represents a menu item that can be added to a menu. Each menu item can have a text and an
@@ -33,7 +34,7 @@ import org.dominokit.domino.ui.utils.ChildHandler;
  *
  * @param <V> the type of value associated with this menu item
  */
-public class MenuItem<V> extends AbstractMenuItem<V> {
+public class MenuItem<V> extends AbstractMenuItem<V> implements HasText {
 
   private SmallElement descriptionElement;
   private SpanElement textElement;
@@ -94,7 +95,7 @@ public class MenuItem<V> extends AbstractMenuItem<V> {
     this(text);
 
     if (nonNull(description) && !description.isEmpty()) {
-      descriptionElement = small().addCss(dui_menu_item_hint).setTextContent(text);
+      descriptionElement = small().addCss(dui_menu_item_hint).setTextContent(description);
       appendChild(descriptionElement);
     }
   }
@@ -131,10 +132,25 @@ public class MenuItem<V> extends AbstractMenuItem<V> {
     return textElement;
   }
 
+  /** @inheritDoc */
+  @Override
+  public String getText() {
+    return textElement.getTextContent();
+  }
+
+  public MenuItem<V> setText(String text) {
+    if (nonNull(textElement)) {
+      textElement.setTextContent(text);
+    } else {
+      textElement = span().addCss(dui_menu_item_content).setTextContent(text);
+      appendChild(textElement);
+    }
+    return this;
+  }
+
   @Override
   public ZIndexLayer getZIndexLayer() {
-    ZIndexLayer layer = menu.getZIndexLayer();
-    return layer;
+    return menu.getZIndexLayer();
   }
 
   /**

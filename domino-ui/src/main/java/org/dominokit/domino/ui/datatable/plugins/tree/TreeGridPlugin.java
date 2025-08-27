@@ -37,6 +37,7 @@ import org.dominokit.domino.ui.icons.Icon;
 import org.dominokit.domino.ui.icons.ToggleIcon;
 import org.dominokit.domino.ui.utils.ComponentMeta;
 import org.dominokit.domino.ui.utils.DominoElement;
+import org.dominokit.domino.ui.utils.DominoEvent;
 import org.dominokit.domino.ui.utils.Unit;
 
 /**
@@ -572,7 +573,7 @@ public class TreeGridPlugin<T>
    * @param event The table event to handle.
    */
   @Override
-  public void handleEvent(TableEvent event) {
+  public void handleEvent(DominoEvent event) {
     switch (event.getType()) {
       case SortEvent.SORT_EVENT:
       case DataSortEvent.EVENT:

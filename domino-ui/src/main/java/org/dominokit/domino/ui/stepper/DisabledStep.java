@@ -15,11 +15,9 @@
  */
 package org.dominokit.domino.ui.stepper;
 
-import static org.dominokit.domino.ui.style.GenericCss.dui_grey;
+import static org.dominokit.domino.ui.stepper.StepStateCss.dui_step_state_disabled;
 
 import org.dominokit.domino.ui.icons.lib.Icons;
-import org.dominokit.domino.ui.style.ColorsCss;
-import org.dominokit.domino.ui.style.SpacingCss;
 
 /**
  * A concrete implementation of the {@link StepState} interface representing a disabled step in a
@@ -37,12 +35,10 @@ public class DisabledStep implements StepState {
   @Override
   public void apply(StepTracker tracker) {
     tracker
-        .addCss(ColorsCss.dui_accent_grey)
+        .addCss(dui_step_state_disabled)
+        .disable()
         .withTrackerNode(
-            (parent1, node) ->
-                node.appendChild(
-                        Icons.cancel().addCss(SpacingCss.dui_font_size_4, dui_tracker_node_icon))
-                    .addCss(dui_grey));
+            (parent1, node) -> node.appendChild(Icons.cancel().addCss(dui_tracker_node_icon)));
   }
 
   /**
@@ -54,8 +50,9 @@ public class DisabledStep implements StepState {
   @Override
   public void cleanUp(StepTracker tracker) {
     tracker
-        .removeCss(ColorsCss.dui_accent_grey)
-        .withTrackerNode((parent1, node) -> node.clearElement().removeCss(dui_grey));
+        .removeCss(dui_step_state_disabled)
+        .enable()
+        .withTrackerNode((parent1, node) -> node.clearElement());
   }
 
   /**

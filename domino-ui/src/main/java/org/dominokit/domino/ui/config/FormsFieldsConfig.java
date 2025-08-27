@@ -15,7 +15,6 @@
  */
 package org.dominokit.domino.ui.config;
 
-import static org.dominokit.domino.ui.utils.Domino.*;
 import static org.dominokit.domino.ui.utils.ElementsFactory.elements;
 
 import elemental2.dom.HTMLElement;
@@ -132,6 +131,17 @@ public interface FormsFieldsConfig extends ComponentConfig, CalendarConfig {
    */
   default Icon<?> clearableInputDefaultIcon() {
     return Icons.delete();
+  }
+
+  /**
+   * use this method to enable/disable the select type to select feature in select and suggest
+   * fields.
+   *
+   * @return a boolean, <b>true</b> to enable the select type to select feature, <b>false</b> to
+   *     disable it.
+   */
+  default boolean isSelectTypeToSelectEnabled() {
+    return true;
   }
 
   /**

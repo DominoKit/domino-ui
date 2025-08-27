@@ -17,7 +17,6 @@ package org.dominokit.domino.ui.forms;
 
 import static java.util.Objects.isNull;
 import static java.util.Objects.nonNull;
-import static org.dominokit.domino.ui.utils.Domino.*;
 import static org.dominokit.domino.ui.utils.Domino.span;
 
 import elemental2.dom.HTMLElement;
@@ -55,15 +54,16 @@ public abstract class CountableInputFormField<
     extends InputFormField<T, E, V>
     implements HasCounter<T>, HasMinMaxLength<T>, HasPlaceHolder<T> {
 
-  protected LazyChild<SpanElement> counterElement;
+  protected SpanElement counterElement;
   protected CountFormatter countFormatter = (count, maxCount) -> count + "/" + maxCount;
   private MinLengthValidator<T, E> minLengthValidator;
   private MaxLengthValidator<T, E> maxLengthValidator;
+  private CounterListener counterListener =
+      (count, maxCount, formattedCount) ->
+          getCountElement().setTextContent(countFormatter.format(count, getMaxCount()));
 
   /** Creates a new `CountableInputFormField` instance. */
   public CountableInputFormField() {}
-
-  // Methods
 
   /**
    * Updates the character counter based on the current input length and maximum count.
@@ -75,7 +75,8 @@ public abstract class CountableInputFormField<
   @Override
   public T updateCounter(int count, int maxCount) {
     if (maxCount > 0) {
-      getCountElement().setTextContent(countFormatter.format(count, getMaxCount()));
+      counterListener.onCounterChanged(
+          count, maxCount, countFormatter.format(count, getMaxCount()));
       minLengthValidator = new MinLengthValidator<>(this);
       maxLengthValidator = new MaxLengthValidator<>(this);
     }
@@ -86,11 +87,26 @@ public abstract class CountableInputFormField<
     if (isNull(counterElement)) {
       counterElement = initCounterElement();
     }
-    return counterElement.get();
+    return counterElement;
   }
 
-  protected LazyChild<SpanElement> initCounterElement() {
-    return counterElement = LazyChild.of(span().addCss(du_field_counter), wrapperElement);
+  protected SpanElement initCounterElement() {
+    return counterElement = LazyChild.of(span().addCss(du_field_counter), wrapperElement).get();
+  }
+
+  public T setCounterElement(SpanElement counterElement) {
+    if (nonNull(this.counterElement)) {
+      this.counterElement.remove();
+    }
+
+    if (isNull(counterElement)) {
+      this.counterElement = initCounterElement();
+      return (T) this;
+    }
+
+    this.counterElement = counterElement.addCss(du_field_counter);
+    updateCounter(getLength(), getMaxCount());
+    return (T) this;
   }
 
   /**
@@ -101,7 +117,7 @@ public abstract class CountableInputFormField<
    */
   public T setCountFormatter(CountFormatter formatter) {
     this.countFormatter = formatter;
-    if (counterElement.isInitialized()) {
+    if (nonNull(getCountElement())) {
       updateCounter(getLength(), getMaxCount());
     }
     return (T) this;
@@ -133,11 +149,16 @@ public abstract class CountableInputFormField<
       getInputElement().removeAttribute(MAX_LENGTH);
       removeValidator(maxLengthValidator);
     } else {
-      getCountElement();
       getInputElement().setAttribute(MAX_LENGTH, maxLength);
       updateCounter(getLength(), getMaxCount());
       addValidator(maxLengthValidator);
     }
+    return (T) this;
+  }
+
+  public T setMaxLength(int maxLength, SpanElement counterElement) {
+    setCounterElement(counterElement);
+    setMaxLength(maxLength);
     return (T) this;
   }
 
@@ -263,5 +284,9 @@ public abstract class CountableInputFormField<
   public T withCounterElement(ChildHandler<T, SpanElement> handler) {
     handler.apply((T) this, getCountElement());
     return (T) this;
+  }
+
+  public interface CounterListener {
+    void onCounterChanged(int count, int maxCount, String formattedCount);
   }
 }

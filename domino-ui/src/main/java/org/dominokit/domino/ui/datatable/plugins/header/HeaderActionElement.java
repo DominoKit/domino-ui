@@ -16,19 +16,17 @@
 
 package org.dominokit.domino.ui.datatable.plugins.header;
 
-import static org.dominokit.domino.ui.utils.Domino.*;
-
 import elemental2.dom.Element;
 import org.dominokit.domino.ui.datatable.DataTable;
-import org.dominokit.domino.ui.datatable.events.TableEvent;
-import org.dominokit.domino.ui.datatable.events.TableEventListener;
+import org.dominokit.domino.ui.utils.DominoEvent;
+import org.dominokit.domino.ui.utils.DominoEventListener;
 
 /**
  * An interface for defining elements that can be used as actions in the header of a DataTable.
  *
  * @param <T> The type of data in the DataTable.
  */
-public interface HeaderActionElement<T> extends TableEventListener {
+public interface HeaderActionElement<T> extends DominoEventListener {
 
   /**
    * Converts the header action element into an HTML element.
@@ -46,7 +44,7 @@ public interface HeaderActionElement<T> extends TableEventListener {
    * @param event The table event to handle.
    */
   @Override
-  default void handleEvent(TableEvent event) {}
+  default void handleEvent(DominoEvent event) {}
 
   /**
    * Apply additional styles to the container element if needed.

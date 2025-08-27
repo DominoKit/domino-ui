@@ -35,39 +35,7 @@ public class BottomRightDropDirection implements DropDirection {
     SpaceChecker spaceChecker = context.getSpaceChecker();
 
     if (spaceChecker.hasSpaceOnRight()) {
-      if (spaceChecker.hasSpaceBelow()) {
-        double delta = 0;
-        double availableSpace = spaceChecker.getAvailableSpaceOnRight();
-        if (availableSpace < spaceChecker.getSourceWidth()) {
-          delta = spaceChecker.getSourceWidth() - availableSpace;
-        }
-
-        Style.of(source)
-            .style
-            .setProperty(
-                "top",
-                px.of(
-                    (spaceChecker.getTargetTop() + window.pageYOffset)
-                        + spaceChecker.getTargetHeight()
-                        + 1));
-        Style.of(source).style.setProperty("left", px.of(spaceChecker.getTargetLeft()));
-        dui_dd_bottom_right.apply(source);
-        elements
-            .elementOf(source)
-            .setCssProperty("--dui-menu-drop-min-width", spaceChecker.getTargetWidth() + "px");
-        spaceChecker = context.newSpaceChecker();
-        double left =
-            (spaceChecker.getTargetLeft()
-                    - (spaceChecker.getSourceLeft() - spaceChecker.getTargetLeft()))
-                + window.pageXOffset
-                - delta;
-        Style.of(source).style.setProperty("left", px.of(Math.max(left, 0)));
-        return this;
-      } else if (spaceChecker.hasSpaceAbove()) {
-        return DropDirection.TOP_RIGHT.position(context);
-      } else {
-        return DropDirection.MIDDLE_SCREEN.position(context);
-      }
+      return showOnbottomRight(context, spaceChecker, source);
     } else if (spaceChecker.hasSpaceOnLeft()) {
       return BOTTOM_LEFT.position(context);
     } else if (spaceChecker.hasSpaceBelow()) {
@@ -75,7 +43,48 @@ public class BottomRightDropDirection implements DropDirection {
     } else if (spaceChecker.hasSpaceAbove()) {
       return TOP_MIDDLE.position(context);
     } else {
-      return MIDDLE_SCREEN.position(context);
+      if (context.isAllowFallBack()) {
+        return fallBackPosition(context, spaceChecker);
+      } else {
+        return showOnbottomRight(context, spaceChecker, source);
+      }
+    }
+  }
+
+  private DropDirection showOnbottomRight(
+      DropDirectionContext context, SpaceChecker spaceChecker, Element source) {
+    if (spaceChecker.hasSpaceBelow()) {
+      double delta = 0;
+      double availableSpace = spaceChecker.getAvailableSpaceOnRight();
+      if (availableSpace < spaceChecker.getSourceWidth()) {
+        delta = spaceChecker.getSourceWidth() - availableSpace;
+      }
+
+      Style.of(source)
+          .style
+          .setProperty(
+              "top",
+              px.of(
+                  (spaceChecker.getTargetTop() + window.pageYOffset)
+                      + spaceChecker.getTargetHeight()
+                      + 1));
+      Style.of(source).style.setProperty("left", px.of(spaceChecker.getTargetLeft()));
+      dui_dd_bottom_right.apply(source);
+      elements
+          .elementOf(source)
+          .setCssProperty("--dui-menu-drop-min-width", spaceChecker.getTargetWidth() + "px");
+      spaceChecker = context.newSpaceChecker();
+      double left =
+          (spaceChecker.getTargetLeft()
+                  - (spaceChecker.getSourceLeft() - spaceChecker.getTargetLeft()))
+              + window.pageXOffset
+              - delta;
+      Style.of(source).style.setProperty("left", px.of(Math.max(left, 0)));
+      return this;
+    } else if (spaceChecker.hasSpaceAbove()) {
+      return DropDirection.TOP_RIGHT.position(context);
+    } else {
+      return DropDirection.MIDDLE_SCREEN.position(context);
     }
   }
 

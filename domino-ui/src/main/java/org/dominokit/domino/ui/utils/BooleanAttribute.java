@@ -13,19 +13,23 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+package org.dominokit.domino.ui.utils;
 
-package org.dominokit.domino.ui.datatable.events;
+public class BooleanAttribute extends Attribute<Boolean> {
 
-/**
- * The {@code TableEventListener} interface defines a contract for classes that can handle table
- * events. Implementing classes should provide an implementation for the {@code handleEvent} method.
- */
-public interface TableEventListener {
+  private final Boolean value;
 
-  /**
-   * Handles a table event.
-   *
-   * @param event the table event to handle
-   */
-  void handleEvent(TableEvent event);
+  public static BooleanAttribute of(String name, Boolean value) {
+    return new BooleanAttribute(name, value);
+  }
+
+  public BooleanAttribute(String name, Boolean value) {
+    super(name);
+    this.value = value;
+  }
+
+  @Override
+  public Boolean getValue() {
+    return value;
+  }
 }

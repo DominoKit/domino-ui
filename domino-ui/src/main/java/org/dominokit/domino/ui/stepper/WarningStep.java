@@ -15,11 +15,9 @@
  */
 package org.dominokit.domino.ui.stepper;
 
-import static org.dominokit.domino.ui.style.GenericCss.dui_warning;
+import static org.dominokit.domino.ui.stepper.StepStateCss.dui_step_state_warning;
 
 import org.dominokit.domino.ui.icons.lib.Icons;
-import org.dominokit.domino.ui.style.ColorsCss;
-import org.dominokit.domino.ui.style.SpacingCss;
 
 /**
  * Represents a "Warning" step in a stepper component. Warning steps indicate that there is a
@@ -36,13 +34,9 @@ public class WarningStep implements StepState {
   @Override
   public void apply(StepTracker tracker) {
     tracker
-        .addCss(ColorsCss.dui_accent_warning)
+        .addCss(dui_step_state_warning)
         .withTrackerNode(
-            (parent1, node) ->
-                node.appendChild(
-                        Icons.exclamation()
-                            .addCss(SpacingCss.dui_font_size_4, dui_tracker_node_icon))
-                    .addCss(dui_warning));
+            (parent1, node) -> node.appendChild(Icons.exclamation().addCss(dui_tracker_node_icon)));
   }
 
   /**
@@ -53,8 +47,8 @@ public class WarningStep implements StepState {
   @Override
   public void cleanUp(StepTracker tracker) {
     tracker
-        .removeCss(ColorsCss.dui_accent_warning)
-        .withTrackerNode((parent1, node) -> node.clearElement().removeCss(dui_warning));
+        .removeCss(dui_step_state_warning)
+        .withTrackerNode((parent1, node) -> node.clearElement());
   }
 
   /**

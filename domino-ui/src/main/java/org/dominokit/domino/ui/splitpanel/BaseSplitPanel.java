@@ -17,13 +17,17 @@ package org.dominokit.domino.ui.splitpanel;
 
 import static org.dominokit.domino.ui.utils.Domino.*;
 
+import elemental2.dom.DomGlobal;
 import elemental2.dom.HTMLDivElement;
 import java.util.Arrays;
+import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.stream.Collectors;
 import org.dominokit.domino.ui.elements.DivElement;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
 import org.dominokit.domino.ui.utils.ChildHandler;
+import org.dominokit.domino.ui.utils.Unit;
 
 /**
  * Represents the base class for split panels which allow a UI to be divided into multiple panels
@@ -41,7 +45,7 @@ import org.dominokit.domino.ui.utils.ChildHandler;
  * @param <S> The specific type of the splitter
  * @see BaseDominoElement
  */
-abstract class BaseSplitPanel<T extends BaseSplitPanel<T, S>, S extends BaseSplitter>
+abstract class BaseSplitPanel<T extends BaseSplitPanel<T, S>, S extends BaseSplitter<S>>
     extends BaseDominoElement<HTMLDivElement, T> implements HasSize, HasSplitPanels, SplitStyles {
 
   private final DivElement element;
@@ -55,21 +59,40 @@ abstract class BaseSplitPanel<T extends BaseSplitPanel<T, S>, S extends BaseSpli
   public BaseSplitPanel() {
     element = div().addCss(dui_split_layout);
     init((T) this);
-    element.onAttached((e, mutationRecord) -> updatePanelsSize());
+    element.onAttached(mutationRecord -> updatePanelsSize());
+    onResize(
+        (element1, observer, entries) -> {
+          DomGlobal.requestAnimationFrame(
+              timestamp -> {
+                updatePanelsSize();
+              });
+        });
   }
 
   /**
    * Updates the sizes of the panels based on the current configuration. It calculates the required
    * size for each panel taking into account the splitter size share and sets the appropriate size.
    */
-  private void updatePanelsSize() {
-    double mainPanelSize = getSize();
-    String splitterPanelShare = getSplittersSizeShare();
-
-    for (SplitPanel panel : panels) {
-      double panelSize = getPanelSize(panel);
-      double sizePercent = (panelSize / mainPanelSize) * 100;
-      setPanelSize(panel, "calc(" + sizePercent + "% - " + splitterPanelShare + ")");
+  public final void updatePanelsSize() {
+    if (!panels.isEmpty()) {
+      List<SplitPanel> visiblePanelsList =
+          panels.stream().filter(BaseDominoElement::isVisible).collect(Collectors.toList());
+      Iterator<SplitPanel> visiblePanels = visiblePanelsList.iterator();
+      double hiddenPanelsSize =
+          panels.stream().filter(BaseDominoElement::isHidden).mapToDouble(this::getPanelSize).sum();
+      if (!visiblePanelsList.isEmpty()) {
+        SplitPanel first = visiblePanels.next();
+        if (hiddenPanelsSize > 1) {
+          while (visiblePanels.hasNext()) {
+            SplitPanel second = visiblePanels.next();
+            onResizeStart(first, second);
+            resizePanels(first, second, hiddenPanelsSize);
+            first = second;
+          }
+        } else {
+          setPanelSize(first, Unit.px.of(getSize()));
+        }
+      }
     }
   }
 

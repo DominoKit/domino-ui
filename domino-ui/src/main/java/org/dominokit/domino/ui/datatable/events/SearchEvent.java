@@ -18,8 +18,8 @@ package org.dominokit.domino.ui.datatable.events;
 
 import java.util.List;
 import java.util.stream.Collectors;
-import org.dominokit.domino.ui.datatable.model.Category;
 import org.dominokit.domino.ui.datatable.model.Filter;
+import org.dominokit.domino.ui.datatable.model.IsFilterCategory;
 
 /**
  * The {@code SearchEvent} class represents an event that is fired when a search is performed in a
@@ -58,9 +58,9 @@ public class SearchEvent implements TableEvent {
    * @param category the category to filter by
    * @return a list of filters that belong to the specified category
    */
-  public List<Filter> getByCategory(Category category) {
+  public List<Filter> getByCategory(IsFilterCategory category) {
     return filters.stream()
-        .filter(f -> f.getCategory().equals(category))
+        .filter(f -> f.getCategory().isSameCategory(category))
         .collect(Collectors.toList());
   }
 

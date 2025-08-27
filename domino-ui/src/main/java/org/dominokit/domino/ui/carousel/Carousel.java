@@ -15,8 +15,13 @@
  */
 package org.dominokit.domino.ui.carousel;
 
+import static java.util.Objects.isNull;
 import static org.dominokit.domino.ui.carousel.CarouselStyles.*;
-import static org.dominokit.domino.ui.utils.Domino.*;
+import static org.dominokit.domino.ui.style.GenericCss.dui_active;
+import static org.dominokit.domino.ui.style.SpacingCss.dui_font_size_12;
+import static org.dominokit.domino.ui.utils.Domino.a;
+import static org.dominokit.domino.ui.utils.Domino.div;
+import static org.dominokit.domino.ui.utils.Domino.ol;
 
 import elemental2.dom.HTMLDivElement;
 import elemental2.dom.WheelEvent;
@@ -30,10 +35,13 @@ import org.dominokit.domino.ui.elements.AnchorElement;
 import org.dominokit.domino.ui.elements.DivElement;
 import org.dominokit.domino.ui.elements.OListElement;
 import org.dominokit.domino.ui.events.EventType;
+import org.dominokit.domino.ui.icons.MdiIcon;
 import org.dominokit.domino.ui.icons.lib.Icons;
 import org.dominokit.domino.ui.style.CssClass;
 import org.dominokit.domino.ui.style.GenericCss;
-import org.dominokit.domino.ui.utils.*;
+import org.dominokit.domino.ui.utils.BaseDominoElement;
+import org.dominokit.domino.ui.utils.ChildHandler;
+import org.dominokit.domino.ui.utils.SwipeUtil;
 import org.gwtproject.core.client.Scheduler;
 import org.gwtproject.timer.client.Timer;
 
@@ -53,8 +61,10 @@ public class Carousel extends BaseDominoElement<HTMLDivElement, Carousel>
   private boolean autoSlide = false;
 
   private final AnchorElement prevElement;
-
   private final AnchorElement nextElement;
+
+  private final MdiIcon prevIcon;
+  private final MdiIcon nextIcon;
 
   private final DivElement element;
 
@@ -86,16 +96,18 @@ public class Carousel extends BaseDominoElement<HTMLDivElement, Carousel>
                     a().addCss(slide_left, carousel_control)
                         .setAttribute("role", "button")
                         .appendChild(
-                            Icons.chevron_left()
-                                .addCss(GenericCss.dui_vertical_center, dui_font_size_12))
+                            prevIcon =
+                                Icons.chevron_left()
+                                    .addCss(GenericCss.dui_vertical_center, dui_font_size_12))
                         .addEventListener("click", evt -> previous()))
             .appendChild(
                 nextElement =
                     a().addCss(slide_right, carousel_control)
                         .setAttribute("role", "button")
                         .appendChild(
-                            Icons.chevron_right()
-                                .addCss(GenericCss.dui_vertical_center, dui_font_size_12))
+                            nextIcon =
+                                Icons.chevron_right()
+                                    .addCss(GenericCss.dui_vertical_center, dui_font_size_12))
                         .addEventListener("click", evt -> next()))
             .addCss(carousel);
     timer =
@@ -182,7 +194,7 @@ public class Carousel extends BaseDominoElement<HTMLDivElement, Carousel>
 
   private void addDetachListener() {
     onDetached(
-        (Carousel, mutationRecord) -> {
+        mutationRecord -> {
           this.attached = false;
           this.stopAutoSlide();
         });
@@ -190,7 +202,7 @@ public class Carousel extends BaseDominoElement<HTMLDivElement, Carousel>
 
   private void addAttachListener() {
     onAttached(
-        (target, mutationRecord) -> {
+        mutationRecord -> {
           this.attached = true;
           if (autoSlide) {
             timer.scheduleRepeating(autoSlideDuration);
@@ -205,6 +217,12 @@ public class Carousel extends BaseDominoElement<HTMLDivElement, Carousel>
    * @return same carousel instance
    */
   public Carousel appendChild(Slide slide) {
+    if (isNull(activeSlide)) {
+      this.activeSlide = slide;
+    }
+    if (isNull(targetSlide)) {
+      this.targetSlide = slide;
+    }
     getIndicatorsElement().appendChild(slide.getIndicatorElement().element());
     slidesElement.appendChild(slide.element());
     slide
@@ -216,11 +234,11 @@ public class Carousel extends BaseDominoElement<HTMLDivElement, Carousel>
               goToSlide(slide, SlideDirection.NONE);
             });
 
-    slide.element().addEventListener("webkitTransitionEnd", evt -> removeMotionStyles());
-    slide.element().addEventListener("MSTransitionEnd", evt -> removeMotionStyles());
-    slide.element().addEventListener("mozTransitionEnd", evt -> removeMotionStyles());
-    slide.element().addEventListener("otransitionend", evt -> removeMotionStyles());
-    slide.element().addEventListener("transitionend", evt -> removeMotionStyles());
+    slide.addEventListener("webkitTransitionEnd", evt -> removeMotionStyles());
+    slide.addEventListener("MSTransitionEnd", evt -> removeMotionStyles());
+    slide.addEventListener("mozTransitionEnd", evt -> removeMotionStyles());
+    slide.addEventListener("otransitionend", evt -> removeMotionStyles());
+    slide.addEventListener("transitionend", evt -> removeMotionStyles());
 
     if (slides.isEmpty()) {
       slide.activate();
@@ -311,7 +329,6 @@ public class Carousel extends BaseDominoElement<HTMLDivElement, Carousel>
         .removeCss(slide_right)
         .removeCss(slide_next)
         .removeCss(slide_prev);
-
     targetSlide.activate();
     this.activeSlide = targetSlide;
   }
@@ -414,6 +431,30 @@ public class Carousel extends BaseDominoElement<HTMLDivElement, Carousel>
    */
   public Carousel withNextElement(ChildHandler<Carousel, AnchorElement> handler) {
     handler.apply(this, nextElement);
+    return this;
+  }
+
+  /**
+   * Use to apply customizations to the previous slide icon without breaking the fluent API chain.
+   *
+   * @param handler The {@link org.dominokit.domino.ui.utils.ChildHandler} applying the
+   *     customizations
+   * @return same carousel instance
+   */
+  public Carousel withPreviousIcon(ChildHandler<Carousel, MdiIcon> handler) {
+    handler.apply(this, prevIcon);
+    return this;
+  }
+
+  /**
+   * Use to apply customizations to the next slide icon without breaking the fluent API chain.
+   *
+   * @param handler The {@link org.dominokit.domino.ui.utils.ChildHandler} applying the
+   *     customizations
+   * @return same carousel instance
+   */
+  public Carousel withNextIcon(ChildHandler<Carousel, MdiIcon> handler) {
+    handler.apply(this, nextIcon);
     return this;
   }
 

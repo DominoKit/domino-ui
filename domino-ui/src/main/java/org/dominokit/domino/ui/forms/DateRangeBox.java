@@ -30,6 +30,7 @@ import elemental2.dom.HTMLInputElement;
 import java.util.Date;
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 import org.dominokit.domino.ui.datepicker.Calendar;
 import org.dominokit.domino.ui.datepicker.CalendarDay;
 import org.dominokit.domino.ui.datepicker.CalendarInitConfig;
@@ -175,7 +176,7 @@ public class DateRangeBox extends TextInputFormField<DateRangeBox, HTMLInputElem
                 popover -> {
                   withOpenOnFocusToggleListeners(false, field -> focus());
                 });
-    onDetached((e, mutationRecord) -> popover.close());
+    onDetached(mutationRecord -> popover.close());
 
     getInputElement()
         .onKeyDown(keyEvents -> keyEvents.onEnter(evt -> doOpen()).onSpace(evt -> doOpen()));
@@ -262,6 +263,7 @@ public class DateRangeBox extends TextInputFormField<DateRangeBox, HTMLInputElem
         value, this.fromCalendar.getDateTimeFormatInfo(), this.toCalendar.getDateTimeFormatInfo());
     markRange();
   }
+
   /**
    * Creates a new DateRangeBox with the current date and default configuration.
    *
@@ -564,6 +566,7 @@ public class DateRangeBox extends TextInputFormField<DateRangeBox, HTMLInputElem
 
   @Override
   protected void doSetValue(DateRange value) {
+    DateRange oldValue = this.value;
     this.value = value;
     if (nonNull(value)) {
       updateStringValue();
@@ -576,11 +579,16 @@ public class DateRangeBox extends TextInputFormField<DateRangeBox, HTMLInputElem
         field -> {
           if (nonNull(this.value)) {
             if (!Objects.equals(this.fromCalendar.getDate(), this.value.getFrom())) {
-              this.fromCalendar.setDate(this.value.getFrom());
+              this.fromCalendar.setDate(this.value.getFrom(), true);
             }
             if (!Objects.equals(this.toCalendar.getDate(), this.value.getTo())) {
-              this.toCalendar.setDate(this.value.getTo());
+              this.toCalendar.setDate(this.value.getTo(), true);
             }
+
+            this.fromCalendar.informListeners(
+                false, Optional.ofNullable(oldValue).map(DateRange::getFrom).orElse(new Date()));
+            this.toCalendar.informListeners(
+                false, Optional.ofNullable(oldValue).map(DateRange::getTo).orElse(new Date()));
           }
         });
     markRange();
@@ -639,7 +647,7 @@ public class DateRangeBox extends TextInputFormField<DateRangeBox, HTMLInputElem
   @Override
   public void onDateSelectionChanged(Date date) {
     if (!isDisabled() && !isReadOnly()) {
-      if (silentSelection == false) {
+      if (!silentSelection) {
         clearInvalid();
         withValue(new DateRange(this.fromCalendar.getDate(), this.toCalendar.getDate()));
       }
@@ -664,13 +672,15 @@ public class DateRangeBox extends TextInputFormField<DateRangeBox, HTMLInputElem
   }
 
   private void markInRangeDays(CalendarMonth month) {
-    List<CalendarDay> days = month.getMonthViewDays();
-    for (int index = 0; index < days.size(); index++) {
-      CalendarDay day = days.get(index);
-      if (day.isInRange(this.value.getFrom(), this.value.getTo())) {
-        days.get(index).addCss(dui_date_in_range);
-      } else {
-        dui_date_in_range.remove(days.get(index));
+    if (nonNull(this.value)) {
+      List<CalendarDay> days = month.getMonthViewDays();
+      for (int index = 0; index < days.size(); index++) {
+        CalendarDay day = days.get(index);
+        if (day.isInRange(this.value.getFrom(), this.value.getTo())) {
+          days.get(index).addCss(dui_date_in_range);
+        } else {
+          dui_date_in_range.remove(days.get(index));
+        }
       }
     }
   }
@@ -709,7 +719,8 @@ public class DateRangeBox extends TextInputFormField<DateRangeBox, HTMLInputElem
    * @return This DateRangeBox instance with the new date-time format information
    */
   public DateRangeBox setDateTimeFormat(DateTimeFormatInfo dateTimeFormatInfo) {
-    this.fromCalendar.setDateTimeFormatInfo(dateTimeFormatInfo);
+    setFromDateTimeFormat(dateTimeFormatInfo);
+    setToDateTimeFormat(dateTimeFormatInfo);
     return this;
   }
 
@@ -742,7 +753,7 @@ public class DateRangeBox extends TextInputFormField<DateRangeBox, HTMLInputElem
    * @param dateTimeFormatInfo The new date-time format information.
    */
   @Override
-  public void onDateTimeFormatInfoChanged(DateTimeFormatInfo dateTimeFormatInfo) {
+  public final void onDateTimeFormatInfoChanged(DateTimeFormatInfo dateTimeFormatInfo) {
     updateStringValue();
   }
 

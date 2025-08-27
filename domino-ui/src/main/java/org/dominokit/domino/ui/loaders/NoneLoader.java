@@ -84,7 +84,7 @@ public class NoneLoader extends BaseLoader<NoneLoader> implements IsElement<HTML
   /** Removes the loading text from the loader. */
   @Override
   public void removeLoadingText() {
-    onAttached((e, mutationRecord) -> loadingText.remove());
+    onAttached(mutationRecord -> loadingText.remove());
   }
 
   /**

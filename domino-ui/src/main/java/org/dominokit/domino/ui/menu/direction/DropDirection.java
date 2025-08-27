@@ -15,12 +15,19 @@
  */
 package org.dominokit.domino.ui.menu.direction;
 
+import static org.dominokit.domino.ui.menu.MenuStyles.dui_menu;
+import static org.dominokit.domino.ui.utils.Domino.elementOf;
+
 import elemental2.dom.Element;
 import elemental2.dom.Event;
 import org.dominokit.domino.ui.style.CssClass;
+import org.dominokit.domino.ui.utils.DominoElement;
 
 /** DropDirection interface. */
 public interface DropDirection {
+
+  String DUI_POSITION_FALLBACK = "dui-position-fallback";
+
   /**
    * init.
    *
@@ -39,13 +46,30 @@ public interface DropDirection {
   DropDirection position(DropDirectionContext context);
 
   /**
-   * cleanup.
+   * cleanup.F
    *
    * @param source a {@link elemental2.dom.Element} object
    */
   default void cleanup(Element source) {}
 
   default void cleanSelf(Element source) {}
+
+  default DropDirection fallBackPosition(DropDirectionContext context, SpaceChecker spaceChecker) {
+    DominoElement<Element> source = elementOf(context.getSource());
+    if (dui_menu.isAppliedTo(context.getSource())) {
+      source.setCssProperty(spaceChecker.getMaximumSideSpaceProperty());
+      source.setCssProperty(spaceChecker.getMaximumVerticalSpaceProperty());
+
+      context.newSpaceChecker();
+
+      source.setAttribute(DUI_POSITION_FALLBACK, true);
+      context.setAllowFallBack(false);
+      return position(context);
+    } else {
+      context.setAllowFallBack(false);
+      return position(context);
+    }
+  }
 
   /** Constant <code>BEST_FIT_SIDE</code> */
   DropDirection BEST_FIT_SIDE = new BestFitSideDropDirection();

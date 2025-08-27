@@ -28,10 +28,8 @@ import elemental2.dom.HTMLDivElement;
 import elemental2.dom.Node;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -41,7 +39,6 @@ import org.dominokit.domino.ui.datatable.events.OnBeforeDataChangeEvent;
 import org.dominokit.domino.ui.datatable.events.SelectAllEvent;
 import org.dominokit.domino.ui.datatable.events.TableDataUpdatedEvent;
 import org.dominokit.domino.ui.datatable.events.TableEvent;
-import org.dominokit.domino.ui.datatable.events.TableEventListener;
 import org.dominokit.domino.ui.datatable.model.SearchContext;
 import org.dominokit.domino.ui.datatable.store.DataStore;
 import org.dominokit.domino.ui.elements.DivElement;
@@ -53,6 +50,8 @@ import org.dominokit.domino.ui.events.EventType;
 import org.dominokit.domino.ui.style.BooleanCssClass;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
 import org.dominokit.domino.ui.utils.ChildHandler;
+import org.dominokit.domino.ui.utils.DominoEventListener;
+import org.dominokit.domino.ui.utils.DominoEvents;
 import org.dominokit.domino.ui.utils.DynamicStyleSheet;
 import org.dominokit.domino.ui.utils.HasSelectionListeners;
 import org.dominokit.domino.ui.utils.HasSelectionSupport;
@@ -92,7 +91,7 @@ public class DataTable<T> extends BaseDominoElement<HTMLDivElement, DataTable<T>
 
   private boolean selectionListenersPaused = false;
 
-  private Map<String, List<TableEventListener>> events = new HashMap<>();
+  private final DominoEvents events = new DominoEvents();
 
   private final SearchContext<T> searchContext = new SearchContext<>(this);
 
@@ -123,7 +122,6 @@ public class DataTable<T> extends BaseDominoElement<HTMLDivElement, DataTable<T>
     super.init(this);
     this.tableConfig = tableConfig;
 
-    this.events.put(ANY, new ArrayList<>());
     this.dataStore = dataStore;
     this.addTableEventListener(ANY, dataStore);
     tableElement.setAttribute("dui-data-v-scroll", 0);
@@ -160,7 +158,7 @@ public class DataTable<T> extends BaseDominoElement<HTMLDivElement, DataTable<T>
     initDynamicStyleSheet();
     init();
     onAttached(
-        (e, mutationRecord) -> {
+        mutationRecord -> {
           DomGlobal.setTimeout(
               p0 -> {
                 getDynamicStyleSheet().flush();
@@ -787,11 +785,8 @@ public class DataTable<T> extends BaseDominoElement<HTMLDivElement, DataTable<T>
    * @param listener the listener to be added
    * @return the current DataTable instance
    */
-  public DataTable<T> addTableEventListener(String type, TableEventListener listener) {
-    if (!events.containsKey(type)) {
-      events.put(type, new ArrayList<>());
-    }
-    events.get(type).add(listener);
+  public DataTable<T> addTableEventListener(String type, DominoEventListener listener) {
+    events.addEventListener(type, listener);
     return this;
   }
 
@@ -802,10 +797,8 @@ public class DataTable<T> extends BaseDominoElement<HTMLDivElement, DataTable<T>
    * @param listener the listener to be removed
    * @return the current DataTable instance
    */
-  public DataTable<T> removeTableListener(String type, TableEventListener listener) {
-    if (events.containsKey(type)) {
-      events.get(type).remove(listener);
-    }
+  public DataTable<T> removeTableListener(String type, DominoEventListener listener) {
+    events.removeListener(type, listener);
     return this;
   }
 
@@ -816,11 +809,7 @@ public class DataTable<T> extends BaseDominoElement<HTMLDivElement, DataTable<T>
    * @return the current DataTable instance
    */
   public DataTable<T> fireTableEvent(TableEvent tableEvent) {
-    if (events.containsKey(tableEvent.getType())) {
-      events.get(tableEvent.getType()).forEach(listener -> listener.handleEvent(tableEvent));
-    }
-
-    events.get(ANY).forEach(listener -> listener.handleEvent(tableEvent));
+    events.fireEvent(tableEvent);
     return this;
   }
 

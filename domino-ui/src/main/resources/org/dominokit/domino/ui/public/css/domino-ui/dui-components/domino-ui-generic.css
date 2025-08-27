@@ -760,36 +760,35 @@ a.dui {
 }
 
 .dui-close {
-    color: inherit;
-    opacity: 1;
-    border: none;
-    position: relative;
-    top: 0;
-    font: var(--dui-font-regular);
-    line-height: 23px;
-    min-width: 24px;
-    min-height: 24px;
-    max-width: 24px;
-    max-height: 24px;
-    left: 6px;
-    cursor: pointer;
-    border-radius: 99999px;
-    margin-left: 2px;
-    margin-right: 2px;
+    color: var(--dui-close-color);
+    opacity: var(--dui-close-opacity);
+    border: var(--dui-close-border);
+    position: var(--dui-close-position);
+    top: var(--dui-close-top);
+    font:  var(--dui-close-font);
+    line-height: var(--dui-close-line-height);
+    min-width: var(--dui-close-size);
+    min-height: var(--dui-close-size);
+    max-width: var(--dui-close-size);
+    max-height: var(--dui-close-size);
+    left: var(--dui-close-left);
+    cursor: var(--dui-close-cursor);
+    border-radius: var(--dui-close-border-radius);
+    margin-left: var(--dui-close-margin-left);
+    margin-right: var(--dui-close-margin-right);
     order: 9999;
-    background-color: var(--dui-bg);
+    background-color: var(--dui-close-background);
 }
 
 .dui-close-char {
-    position: relative;
-    top: -1px;
+    position: var(--dui-close-char-position);
+    top: var(--dui-close-char-top);
 }
-
 
 .dui-close:hover {
     transition: var(--dui-clickable-transition);
-    background-color: var(--dui-bg-d-2, var(--dui-accent-d-2));
-    box-shadow: 0 0 0 0 rgb(0 0 0 / 40%), 0 0 0 10px rgb(0 0 0 / 8%);
+    background-color: var(--dui-close-button-hover-bg, var(--dui-bg-d-2, var(--dui-accent-d-2)));
+    box-shadow: var(--dui-close-hover-box-shadow);
 }
 
 .dui-overlay {
@@ -815,15 +814,15 @@ a.dui {
     height: 0 !important;
 }
 
-.dui-vertical-center {
-    position: relative;
-    top: 50%;
+.dui.dui-vertical-center {
+    position: relative !important;
+    top: 50% !important;
     transform: translateY(calc(-50%)) !important;
 }
 
-.dui-horizontal-center {
-    position: relative;
-    left: 50%;
+.dui.dui-horizontal-center {
+    position: relative !important;
+    left: 50% !important;
     transform: translateX(calc(-50%)) !important;
 }
 

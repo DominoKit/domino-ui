@@ -36,25 +36,5 @@ public interface StepperStyles {
   CssClass dui_stepper_active_content = () -> "dui-stepper-active-content";
   CssClass dui_step_prefix = () -> "dui-step-prefix";
   CssClass dui_step_last = () -> "dui-step-last";
-  String D_STEPPER = "d-stepper";
-  String STEP_CONTENT = "step-content";
-  String LAST_STEP = "last-step";
-  String HORIZONTAL_STEPPER = "horizontal-stepper";
-  String VERTICAL_STEPPER = "vertical-stepper";
-  String STEP_ACTIVE = "step-active";
-  String STEP_INACTIVE = "step-inactive";
-  String STEP_ERROR = "step-error";
-  String STEP_COMPLETED = "step-completed";
-  String STEP_DISABLED = "step-disabled";
-  String STEP_HEADER = "step-header";
-  String STEP_NUMBER_CNTR = "step-number-cntr";
-  String STEP_NUMBER = "step-number";
-  String STEP_VERTICAL_BAR = "step-vertical-bar";
-  String STEP_TITLE_CNTR = "step-title-cntr";
-  String STEP_MAIN_TITLE_CNTR = "step-main-title-cntr";
-  String STEP_TITLE = "step-title";
-  String STEP_HORIZONTAL_BAR = "step-horizontal-bar";
-  String STEP_DESCRIPTION = "step-description";
-  String STEP_ERRORS = "step-errors";
-  String STEP_INVALID = "step-invalid";
+  CssClass dui_hide_stepper_tail = () -> "dui-stepper-hide-tail";
 }

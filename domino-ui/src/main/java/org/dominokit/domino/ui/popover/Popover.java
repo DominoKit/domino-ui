@@ -19,16 +19,16 @@ import static elemental2.dom.DomGlobal.document;
 import static org.dominokit.domino.ui.dialogs.ModalBackDrop.DUI_REMOVE_POPOVERS;
 import static org.dominokit.domino.ui.utils.Domino.*;
 
+import elemental2.dom.Element;
 import elemental2.dom.EventListener;
 import elemental2.dom.HTMLElement;
-import java.util.ArrayList;
-import java.util.List;
 import org.dominokit.domino.ui.IsElement;
 import org.dominokit.domino.ui.animations.Transition;
 import org.dominokit.domino.ui.collapsible.AnimationCollapseStrategy;
 import org.dominokit.domino.ui.collapsible.CollapsibleDuration;
 import org.dominokit.domino.ui.dialogs.ModalBackDrop;
 import org.dominokit.domino.ui.events.EventType;
+import org.dominokit.domino.ui.keyboard.KeyboardEventOptions;
 import org.dominokit.domino.ui.mediaquery.MediaQuery;
 import org.dominokit.domino.ui.menu.direction.DropDirection;
 import org.dominokit.domino.ui.menu.direction.DropDirectionContext;
@@ -69,7 +69,7 @@ public class Popover extends BasePopover<Popover> {
   private boolean closeOnEscape = true;
   private final DropDirection dialog = DropDirection.MIDDLE_SCREEN;
   private boolean modal = false;
-  private final List<MediaQuery.MediaQueryListenerRecord> mediaListenersRecords = new ArrayList<>();
+  private KeyboardEventOptions closeEventOptions = KeyboardEventOptions.create();
 
   /**
    * Creates a new `Popover` instance for the specified HTML element target.
@@ -97,7 +97,11 @@ public class Popover extends BasePopover<Popover> {
    * @param target The HTML element to associate the popover with.
    */
   public Popover(HTMLElement target) {
-    super(target);
+    this();
+    setTargetElement(target);
+  }
+  /** Creates a new `Popover` instance for the specified HTML element target. */
+  public Popover() {
     showListener =
         evt -> {
           evt.stopPropagation();
@@ -105,12 +109,18 @@ public class Popover extends BasePopover<Popover> {
             expand();
           }
         };
-    target.addEventListener(EventType.click.getName(), showListener);
+
     setCollapseStrategy(
         new AnimationCollapseStrategy(
             Transition.FADE_IN, Transition.FADE_OUT, CollapsibleDuration._300ms));
 
     addCollapseListener(() -> removeEventListener(DUI_REMOVE_POPOVERS, closeAllListener));
+  }
+
+  @Override
+  protected void setTargetElement(Element target) {
+    super.setTargetElement(target);
+    target.addEventListener(EventType.click.getName(), showListener);
   }
 
   /**
@@ -124,7 +134,10 @@ public class Popover extends BasePopover<Popover> {
    */
   @Override
   protected EventListener getCloseListener() {
-    return evt -> closeOthers("");
+    return evt -> {
+      closeOthers("");
+      closeEventOptions.removeHandler();
+    };
   }
 
   /**
@@ -140,7 +153,7 @@ public class Popover extends BasePopover<Popover> {
     super.doOpen();
     addEventListener(DUI_REMOVE_POPOVERS, closeAllListener);
     if (closeOnEscape) {
-      body().onKeyDown(keyEvents -> keyEvents.onEscape(closeListener));
+      body().onKeyDown(keyEvents -> keyEvents.onEscape(closeEventOptions, closeListener));
     }
   }
 
@@ -195,7 +208,7 @@ public class Popover extends BasePopover<Popover> {
   @Override
   protected void doPosition(DropDirection position) {
     if (asDialog) {
-      dialog.position(DropDirectionContext.of(this.element(), targetElement));
+      dialog.position(DropDirectionContext.of(this.element(), targetElement.element()));
     } else {
       dialog.cleanup(this.element());
       super.doPosition(position);
@@ -232,6 +245,19 @@ public class Popover extends BasePopover<Popover> {
   public Popover setModal(boolean modal) {
     this.modal = modal;
     return this;
+  }
+
+  @Override
+  public ZIndexLayer getZIndexLayer() {
+    if (isModal()) {
+      return ZIndexLayer.Z_LAYER_3;
+    }
+    return super.getZIndexLayer();
+  }
+
+  @Override
+  public boolean incrementsZIndex() {
+    return isModal();
   }
 
   /**

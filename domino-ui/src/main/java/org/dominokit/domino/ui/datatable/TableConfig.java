@@ -505,6 +505,24 @@ public class TableConfig<T>
   }
 
   /**
+   * Returns the index of the first column whose name matches the given value.
+   *
+   * <p>This method searches the list of leaf columns (as returned by {@link #getLeafColumns()}) for
+   * the first {@link ColumnConfig} whose {@code name} equals the specified {@code name}. If such a
+   * column is found, its index within the leaf column list is returned. If no matching column
+   * exists, {@code -1} is returned.
+   *
+   * @param name the name of the column to search for; must not be {@code null}
+   * @return the index of the first matching column, or {@code -1} if no column matches
+   */
+  public int getColumnIndexByName(String name) {
+    List<ColumnConfig<T>> leafColumns = getLeafColumns();
+    Optional<ColumnConfig<T>> first =
+        leafColumns.stream().filter(col -> col.getName().equals(name)).findFirst();
+    return first.map(leafColumns::indexOf).orElse(-1);
+  }
+
+  /**
    * Sets the title for the utility column.
    *
    * @param title The title to set for the utility column.

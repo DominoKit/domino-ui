@@ -17,25 +17,37 @@ package org.dominokit.domino.ui.utils;
 
 import elemental2.dom.MutationRecord;
 
-/**
- * A functional interface for attaching and detaching callback methods to observe DOM mutations.
- *
- * @deprecated use {@link ObserverCallback}
- */
-@Deprecated
+/** A functional interface for attaching and detaching callback methods to observe DOM mutations. */
 @FunctionalInterface
-public interface MutationObserverCallback<T> extends ObserverCallback<T> {
+public interface MutationObserverCallback {
+
+  static MutationObserverCallback doOnce(MutationObserverCallback callback) {
+    return MutationObserverCallback.of(true, callback);
+  }
+
+  static MutationObserverCallback of(boolean autoRemove, MutationObserverCallback callback) {
+    return new MutationObserverCallback() {
+
+      @Override
+      public void onObserved(MutationRecord mutationRecord) {
+        callback.onObserved(mutationRecord);
+      }
+
+      @Override
+      public boolean isAutoRemove() {
+        return autoRemove;
+      }
+    };
+  }
 
   /**
    * Invoked when observed DOM mutations occur.
    *
    * @param mutationRecord The mutation record containing information about the DOM mutations.
-   * @deprecated use {@link #onObserved(Object, MutationRecord)}
    */
-  @Deprecated
   void onObserved(MutationRecord mutationRecord);
 
-  default void onObserved(T target, MutationRecord mutationRecord) {
-    onObserved(mutationRecord);
+  default boolean isAutoRemove() {
+    return false;
   }
 }

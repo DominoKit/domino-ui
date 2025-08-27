@@ -18,10 +18,8 @@ package org.dominokit.domino.ui.datatable;
 import static java.util.Objects.isNull;
 import static java.util.Objects.nonNull;
 import static org.dominokit.domino.ui.datatable.ColumnUtils.fixElementWidth;
-import static org.dominokit.domino.ui.utils.Domino.*;
 
 import elemental2.dom.Element;
-import elemental2.dom.HTMLTableCellElement;
 import elemental2.dom.Node;
 import java.util.*;
 import java.util.function.Consumer;
@@ -36,6 +34,7 @@ import org.dominokit.domino.ui.popover.Tooltip;
 import org.dominokit.domino.ui.utils.ComponentMeta;
 import org.dominokit.domino.ui.utils.DominoElement;
 import org.dominokit.domino.ui.utils.ElementsFactory;
+import org.dominokit.domino.ui.utils.Handler;
 import org.dominokit.domino.ui.utils.ScreenMedia;
 
 /**
@@ -64,9 +63,9 @@ public class ColumnConfig<T> implements ElementsFactory, DataTableStyles {
   private CellTextAlign headerCellTextAlign = CellTextAlign.LEFT;
   private CellRenderer<T> cellRenderer;
   private CellRenderer<T> editableCellRenderer;
-  private HeaderElementSupplier headerElementSupplier = columnTitle -> text(columnTitle);
-  private CellStyler<T> headerStyler = element -> {};
-  private CellStyler<T> cellStyler = element -> {};
+  private HeaderElementSupplier headerElementSupplier = this::text;
+  private Handler<ColumnConfig<T>> headerHandler = col -> {};
+  private Handler<RowCell<T>> cellHandler = cell -> {};
   private boolean sortable = false;
   private String sortKey;
   private String width;
@@ -87,7 +86,7 @@ public class ColumnConfig<T> implements ElementsFactory, DataTableStyles {
 
   private final Map<String, ComponentMeta> columnMeta = new HashMap<>();
 
-  private final Menu<String> menu;
+  private Menu<String> menu;
   private MdiIcon menuIcon;
 
   /**
@@ -124,11 +123,6 @@ public class ColumnConfig<T> implements ElementsFactory, DataTableStyles {
     this.name = name;
     this.title = title;
     menuIcon = Icons.dots_vertical().addCss(dui_datatable_th_menu_icon);
-    this.menu =
-        Menu.<String>create()
-            .setTargetElement(menuIcon)
-            .setDropDirection(new BestSideUpDownDropDirection())
-            .addOnAddItemHandler((menu1, menuItem) -> menuIcon.show());
     menuIcon.hide();
   }
 
@@ -336,8 +330,8 @@ public class ColumnConfig<T> implements ElementsFactory, DataTableStyles {
    *
    * @return the head element
    */
-  public DominoElement<HTMLTableCellElement> getHeadElement() {
-    return elementOf(headElement);
+  public ColumnHeader getHeadElement() {
+    return headElement;
   }
 
   /**
@@ -397,9 +391,11 @@ public class ColumnConfig<T> implements ElementsFactory, DataTableStyles {
    *
    * @param headerStyler the styler to be applied to the header
    * @return the current instance for chaining
+   * @deprecated use {@link #onHeaderReady(Handler)}
    */
+  @Deprecated
   public ColumnConfig<T> styleHeader(CellStyler<T> headerStyler) {
-    this.headerStyler = headerStyler;
+    this.headerHandler = col -> headerStyler.styleCell(col.getHeadElement().element());
     return this;
   }
 
@@ -408,9 +404,41 @@ public class ColumnConfig<T> implements ElementsFactory, DataTableStyles {
    *
    * @param cellStyler the styler to be applied to the cells
    * @return the current instance for chaining
+   * @deprecated use {@link #onCellReady(Handler)}
    */
+  @Deprecated
   public ColumnConfig<T> styleCell(CellStyler<T> cellStyler) {
-    this.cellStyler = cellStyler;
+    this.cellHandler = cell -> cellStyler.styleCell(cell.getCellInfo().getElement());
+    return this;
+  }
+
+  /**
+   * Registers a handler that will be invoked when the header element for this column is created and
+   * ready for customization.
+   *
+   * <p>This allows applying custom styles, attributes, or other DOM manipulations to the header
+   * element before it is rendered.
+   *
+   * @param handler a {@link Handler} that receives the header {@link Element} once it is ready
+   * @return this {@code ColumnConfig} instance for method chaining
+   */
+  public ColumnConfig<T> onHeaderReady(Handler<ColumnConfig<T>> handler) {
+    this.headerHandler = handler;
+    return this;
+  }
+
+  /**
+   * Registers a handler that will be invoked when each cell element for this column is created and
+   * ready for customization.
+   *
+   * <p>This allows applying custom styles, attributes, or other DOM manipulations to individual
+   * cell elements before they are rendered.
+   *
+   * @param handler a {@link Handler} that receives each cell {@link Element} once it is ready
+   * @return this {@code ColumnConfig} instance for method chaining
+   */
+  public ColumnConfig<T> onCellReady(Handler<RowCell<T>> handler) {
+    this.cellHandler = handler;
     return this;
   }
 
@@ -545,6 +573,7 @@ public class ColumnConfig<T> implements ElementsFactory, DataTableStyles {
    */
   public ColumnConfig<T> showOn(ScreenMedia showOn) {
     this.showOn = showOn;
+    getSubColumns().forEach(column -> column.showOn(showOn));
     return this;
   }
 
@@ -565,39 +594,64 @@ public class ColumnConfig<T> implements ElementsFactory, DataTableStyles {
    */
   public ColumnConfig<T> hideOn(ScreenMedia hideOn) {
     this.hideOn = hideOn;
+    getSubColumns().forEach(column -> column.hideOn(hideOn));
     return this;
   }
 
   /** Applies header styling to the header element. */
-  void applyHeaderStyle() {
-    headerStyler.styleCell(headElement.element());
+  void applyHeaderHandler() {
+    headerHandler.apply(this);
   }
 
   /**
    * Applies cell styling to the given element.
    *
-   * @param element the element to be styled
+   * @param cell the element to be styled
    */
-  void applyCellStyle(Element element) {
-    cellStyler.styleCell(element);
+  void applyCellHandler(RowCell<T> cell) {
+    cellHandler.apply(cell);
   }
 
   /**
    * Retrieves the styler used for the header.
    *
    * @return the header styler
+   * @deprecated use {@link #getHeaderHandler()}
    */
+  @Deprecated
   public CellStyler<T> getHeaderStyler() {
-    return headerStyler;
+    return col -> headerHandler.apply(this);
   }
 
   /**
    * Retrieves the styler used for the cells.
    *
    * @return the cell styler
+   * @deprecated use {@link #getCellHandler()}
    */
+  @Deprecated
   public CellStyler<T> getCellStyler() {
-    return cellStyler;
+    throw new UnsupportedOperationException("please use getCellHandler() instead");
+  }
+
+  /**
+   * Returns the handler that is invoked when the header element for this column is created and
+   * ready.
+   *
+   * @return the header {@link Handler}, or {@code null} if no handler is set
+   */
+  public Handler<ColumnConfig<T>> getHeaderHandler() {
+    return this.headerHandler;
+  }
+
+  /**
+   * Returns the handler that is invoked when each cell element for this column is created and
+   * ready.
+   *
+   * @return the cell {@link Handler}, or {@code null} if no handler is set
+   */
+  public Handler<RowCell<T>> getCellHandler() {
+    return this.cellHandler;
   }
 
   /**
@@ -648,6 +702,7 @@ public class ColumnConfig<T> implements ElementsFactory, DataTableStyles {
     this.permanentHideListeners.forEach(showHideListener -> showHideListener.onShowHide(true));
     this.showHideListeners.forEach(showHideListener -> showHideListener.onShowHide(true));
     this.hidden = false;
+    getSubColumns().forEach(ColumnConfig::show);
     return this;
   }
 
@@ -660,6 +715,7 @@ public class ColumnConfig<T> implements ElementsFactory, DataTableStyles {
     this.permanentHideListeners.forEach(showHideListener -> showHideListener.onShowHide(false));
     this.showHideListeners.forEach(showHideListener -> showHideListener.onShowHide(false));
     this.hidden = true;
+    getSubColumns().forEach(ColumnConfig::hide);
     return this;
   }
 
@@ -675,12 +731,6 @@ public class ColumnConfig<T> implements ElementsFactory, DataTableStyles {
     } else {
       return hide();
     }
-  }
-
-  /** @deprecated Use {@link #clearShowHideListeners()} instead. */
-  @Deprecated
-  public void clearShowHideListners() {
-    clearShowHideListeners();
   }
 
   /** Clears all non-permanent show/hide listeners. */
@@ -1029,7 +1079,7 @@ public class ColumnConfig<T> implements ElementsFactory, DataTableStyles {
     if (isShowTooltip()) {
       Tooltip.create(this.headElement.element(), getTooltipNode());
     }
-    applyHeaderStyle();
+    applyHeaderHandler();
     addShowHideListener(DefaultColumnShowHideListener.of(this.headElement.element(), true));
     this.headElement.toggleDisplay(!isHidden());
     return this.headElement;
@@ -1180,6 +1230,13 @@ public class ColumnConfig<T> implements ElementsFactory, DataTableStyles {
    * @return the menu associated with the column
    */
   public Menu<String> getMenu() {
+    if (isNull(menu)) {
+      this.menu =
+          Menu.<String>create()
+              .setTargetElement(menuIcon)
+              .setDropDirection(new BestSideUpDownDropDirection())
+              .addOnAddItemHandler((menu1, menuItem) -> menuIcon.show());
+    }
     return menu;
   }
 

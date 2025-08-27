@@ -16,7 +16,7 @@
 
 package org.dominokit.domino.ui.datatable.store;
 
-import org.dominokit.domino.ui.datatable.events.TableEventListener;
+import org.dominokit.domino.ui.utils.DominoEventListener;
 
 /**
  * The {@code DataStore} interface defines a contract for managing and retrieving data for a data
@@ -24,7 +24,7 @@ import org.dominokit.domino.ui.datatable.events.TableEventListener;
  *
  * @param <T> The type of data representing the records in the data table.
  */
-public interface DataStore<T> extends TableEventListener {
+public interface DataStore<T> extends DominoEventListener {
 
   /**
    * Registers a data change listener to be notified when the data in the store changes.

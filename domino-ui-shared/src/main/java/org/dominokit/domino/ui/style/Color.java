@@ -35,6 +35,44 @@ public interface Color {
 
   CssClass getContextColor();
 
+  Color NONE =
+      new Color() {
+        @Override
+        public CssClass getCss() {
+          return CssClass.NONE;
+        }
+
+        @Override
+        public String getName() {
+          return "";
+        }
+
+        @Override
+        public CssClass getBackground() {
+          return LimitOneOfPrefixedCssClass.of("dui-bg-", CssClass.NONE);
+        }
+
+        @Override
+        public CssClass getForeground() {
+          return LimitOneOfPrefixedCssClass.of("dui-fg-", CssClass.NONE);
+        }
+
+        @Override
+        public CssClass getBorderColor() {
+          return LimitOneOfPrefixedCssClass.of("dui-border-", CssClass.NONE);
+        }
+
+        @Override
+        public CssClass getAccentColor() {
+          return LimitOneOfPrefixedCssClass.of("dui-accent-", CssClass.NONE);
+        }
+
+        @Override
+        public CssClass getContextColor() {
+          return LimitOneOfPrefixedCssClass.of("dui-context-", CssClass.NONE);
+        }
+      };
+
   Color DOMINANT =
       new Color() {
         @Override

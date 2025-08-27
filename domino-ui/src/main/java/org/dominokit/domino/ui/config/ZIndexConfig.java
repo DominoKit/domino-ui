@@ -56,4 +56,20 @@ public interface ZIndexConfig extends ComponentConfig {
   default ZIndexManager getZindexManager() {
     return DefaultZIndexManager.INSTANCE;
   }
+
+  default int getZIndexLayerOffset_1() {
+    return 110;
+  }
+
+  default int getZIndexLayerOffset_2() {
+    return 5001000;
+  }
+
+  default int getZIndexLayerOffset_3() {
+    return 10000000;
+  }
+
+  default int getZIndexLayerOffset_4() {
+    return 20000000;
+  }
 }

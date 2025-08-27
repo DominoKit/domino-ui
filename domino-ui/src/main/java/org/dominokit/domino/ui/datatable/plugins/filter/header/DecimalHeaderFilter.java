@@ -20,6 +20,7 @@ import static org.dominokit.domino.ui.utils.Domino.*;
 
 import elemental2.dom.HTMLInputElement;
 import java.math.BigDecimal;
+import org.dominokit.domino.ui.datatable.model.FilterType;
 import org.dominokit.domino.ui.datatable.model.FilterTypes;
 import org.dominokit.domino.ui.forms.BigDecimalBox;
 
@@ -113,7 +114,7 @@ public class DecimalHeaderFilter<T> extends DelayedHeaderFilterInput<BigDecimalB
    * @return The filter type for decimal values.
    */
   @Override
-  protected FilterTypes getType() {
+  protected FilterType getType() {
     return FilterTypes.DECIMAL;
   }
 

@@ -24,6 +24,7 @@ public class DropDirectionContext {
   private final Element target;
   private final boolean fitToTargetWidth;
   private SpaceChecker spaceChecker;
+  private boolean allowFallBack = true;
 
   public static DropDirectionContext of(Element source, Element target, boolean fitToTargetWidth) {
     return new DropDirectionContext(source, target, fitToTargetWidth);
@@ -66,5 +67,13 @@ public class DropDirectionContext {
   public SpaceChecker newSpaceChecker() {
     this.spaceChecker = new SpaceChecker(this);
     return this.spaceChecker;
+  }
+
+  public boolean isAllowFallBack() {
+    return allowFallBack;
+  }
+
+  public void setAllowFallBack(boolean allowFallBack) {
+    this.allowFallBack = allowFallBack;
   }
 }

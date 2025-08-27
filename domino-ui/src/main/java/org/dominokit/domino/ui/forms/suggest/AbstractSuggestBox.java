@@ -132,12 +132,12 @@ public abstract class AbstractSuggestBox<
 
     optionsMenu =
         Menu.<T>create()
-            .setMenuAppendTarget(getWrapperElement().element())
+            .setMenuAppendTarget(body().element())
             .setOpenMenuCondition(menu -> !(isReadOnly() || isDisabled()))
             .setTargetElement(getWrapperElement())
             .setAutoOpen(false)
             .setFitToTargetWidth(true)
-            .setDropDirection(DropDirection.BEST_MIDDLE_UP_DOWN)
+            .setDropDirection(DropDirection.BEST_MIDDLE_DOWN_UP)
             .addCloseListener(component -> focus())
             .addSelectionListener(
                 (source, selection) -> {
@@ -159,7 +159,7 @@ public abstract class AbstractSuggestBox<
             .setRemoveLoadingText(true);
 
     onAttached(
-        (e, mutationRecord) -> {
+        mutationRecord -> {
           optionsMenu.setTargetElement(getWrapperElement());
         });
 
@@ -424,6 +424,22 @@ public abstract class AbstractSuggestBox<
   @Override
   public DominoElement<HTMLInputElement> getInputElement() {
     return inputElement.toDominoElement();
+  }
+
+  /** @return the input element wrapper element of the suggest box */
+  public DivElement getFieldInput() {
+    return fieldInput;
+  }
+
+  /**
+   * Applies a function to the input element wrapper of the suggest box.
+   *
+   * @param handler function to apply
+   * @return same suggestbox instance
+   */
+  public C withFieldInputWrapper(ChildHandler<C, DivElement> handler) {
+    handler.apply((C) this, fieldInput);
+    return (C) this;
   }
 
   /**

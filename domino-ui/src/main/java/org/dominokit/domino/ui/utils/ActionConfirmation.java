@@ -15,10 +15,13 @@
  */
 package org.dominokit.domino.ui.utils;
 
-import elemental2.dom.MutationRecord;
+public interface ActionConfirmation<T> {
 
-/** A functional interface for attaching and detaching callback methods to observe DOM mutations. */
-@FunctionalInterface
-public interface ObserverCallback<T> {
-  void onObserved(T target, MutationRecord mutationRecord);
+  void takeDecision(T target, Decision<T> decision);
+
+  interface Decision<T> {
+    default void confirm() {}
+
+    default void reject() {}
+  }
 }

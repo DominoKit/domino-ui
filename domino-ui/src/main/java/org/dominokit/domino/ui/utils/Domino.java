@@ -89,6 +89,18 @@ public class Domino implements DominoCss {
   }
 
   /**
+   * Wraps an existing element in a DominoElement. This method does not add the "dui" CSS class to
+   * the element.
+   *
+   * @param element The existing HTML element to wrap.
+   * @param <E> The element type.
+   * @return A DominoElement wrapping the existing element.
+   */
+  public static <E extends Element> DominoElement<E> wrap(E element) {
+    return factory.wrap(element);
+  }
+
+  /**
    * Creates a DominoElement of the specified IsElement type.
    *
    * @param element The IsElement to wrap.
@@ -98,6 +110,19 @@ public class Domino implements DominoCss {
    */
   public static <T extends Element, E extends IsElement<T>> DominoElement<T> elementOf(E element) {
     return factory.elementOf(element);
+  }
+
+  /**
+   * Creates a DominoElement of the specified IsElement type. This method does not add the "dui" CSS
+   * class to the element.
+   *
+   * @param element The IsElement to wrap.
+   * @param <T> The element type.
+   * @param <E> The IsElement type.
+   * @return A DominoElement wrapping the IsElement.
+   */
+  public static <T extends Element, E extends IsElement<T>> DominoElement<T> wrap(E element) {
+    return factory.wrap(element);
   }
 
   /**

@@ -28,6 +28,22 @@
     --dui-btn-text-height:28px;
 }
 
+.dui-btn .dui-postfix-addon {
+    order: var(--dui-order-last);
+}
+
+.dui-btn .dui-prefix-addon {
+    order: var(--dui-order-first);
+}
+
+.dui-btn.dui-btn-reverse .dui-postfix-addon {
+    order: var(--dui-order-first);
+}
+
+.dui-btn.dui-btn-reverse .dui-prefix-addon {
+    order: var(--dui-order-last);
+}
+
 .dui-btn-reverse {
     --dui-btn-icon-order: 20;
     --dui-btn-text-order: 10;

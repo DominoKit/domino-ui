@@ -27,6 +27,7 @@ import elemental2.dom.KeyboardEvent;
 import java.util.*;
 import java.util.function.Consumer;
 import java.util.function.Function;
+import java.util.function.Predicate;
 import java.util.stream.Collectors;
 import jsinterop.base.Js;
 import org.dominokit.domino.ui.IsElement;
@@ -81,6 +82,7 @@ public abstract class AbstractSelect<
   private InputElement inputElement;
   private InputElement typingElement;
   private int typeAheadDelay = -1;
+  private boolean typeToSelect = DominoUIConfig.CONFIG.getUIConfig().isSelectTypeToSelectEnabled();
 
   /**
    * Default constructor which initializes the underlying structures, sets up event listeners, and
@@ -100,6 +102,7 @@ public abstract class AbstractSelect<
         .appendChild(
             typingElement =
                 input("text")
+                    .toggleDisplay(isTypeToSelect())
                     .addEventListener("input", evt -> onTypingStart())
                     .addCss(dui_auto_type_input, dui_hidden)
                     .setTabIndex(-1)
@@ -136,7 +139,8 @@ public abstract class AbstractSelect<
                 String key = keyboardEvent.key;
                 if (nonNull(key)
                     && !optionsMenu.isOpened()
-                    && (isNull(typingElement.getValue()) || typingElement.getValue().isEmpty())) {
+                    && (isNull(typingElement.getValue()) || typingElement.getValue().isEmpty())
+                    && isTypeToSelect()) {
                   typingElement.removeCss(dui_hidden);
                   typingElement.element().value = key;
                   typingElement.element().focus();
@@ -169,10 +173,6 @@ public abstract class AbstractSelect<
                                 onOptionDeselected(meta.getOption(), isChangeListenersPaused())))
             .addOpenListener((menu) -> focus());
 
-    onAttached(
-        (e, mutationRecord) -> {
-          optionsMenu.setTargetElement(getWrapperElement());
-        });
     getInputElement()
         .onKeyDown(
             keyEvents ->
@@ -728,8 +728,8 @@ public abstract class AbstractSelect<
    */
   public C addOptionsGroup(
       Collection<O> options, Menu.MenuItemsGroupHandler<T, AbstractMenuItem<T>> groupHandler) {
-    MenuItemsGroup<T> optionsGroup = new MenuItemsGroup<>(optionsMenu);
-    optionsMenu.appendGroup(optionsGroup, groupHandler);
+    MenuItemsGroup<T> optionsGroup = new MenuItemsGroup<>();
+    optionsMenu.appendChild(optionsGroup, groupHandler);
     options.forEach(option -> addItemToGroup(optionsGroup, option));
     return (C) this;
   }
@@ -959,6 +959,17 @@ public abstract class AbstractSelect<
   }
 
   /**
+   * Selects the option at the specified Indices within the select component.
+   *
+   * @param indices The Indices of the options to select.
+   * @return an instance of the concrete class.
+   */
+  public C selectAt(int... indices) {
+    selectAt(isChangeListenersPaused(), indices);
+    return (C) this;
+  }
+
+  /**
    * Selects the option at the specified index within the select component. Optionally, it can
    * notify listeners based on the provided silent flag.
    *
@@ -968,6 +979,23 @@ public abstract class AbstractSelect<
    */
   public C selectAt(int index, boolean silent) {
     findOptionByIndex(index).ifPresent(o -> onOptionSelected(o, silent));
+    return (C) this;
+  }
+
+  /**
+   * Selects the option at the specified Indices within the select component. Optionally, it can
+   * notify listeners based on the provided silent flag.
+   *
+   * @param indices The Indices of the option to select.
+   * @param silent If true, change listeners will not be notified.
+   * @return an instance of the concrete class.
+   */
+  public C selectAt(boolean silent, int... indices) {
+    Arrays.stream(indices)
+        .forEach(
+            index -> {
+              selectAt(index, silent);
+            });
     return (C) this;
   }
 
@@ -1245,6 +1273,11 @@ public abstract class AbstractSelect<
     return (C) this;
   }
 
+  public C removeOptionIf(Predicate<O> predicate) {
+    getOptions().stream().filter(predicate).forEach(this::removeOption);
+    return (C) this;
+  }
+
   protected void onOptionRemoved(O option) {}
 
   /**
@@ -1305,6 +1338,40 @@ public abstract class AbstractSelect<
       optionsMenu.close();
     }
     return super.hide();
+  }
+
+  /**
+   * is the select component selectable by typing.
+   *
+   * @return true if the select component is selectable when start typing
+   */
+  public boolean isTypeToSelect() {
+    return typeToSelect;
+  }
+
+  /**
+   * Sets the select component to be selectable by typing.
+   *
+   * @param typeToSelect true if the select component should be selectable when start typing
+   */
+  public C setTypeToSelect(boolean typeToSelect) {
+    this.typeToSelect = typeToSelect;
+    this.typingElement.toggleDisplay(typeToSelect);
+    return (C) this;
+  }
+
+  public List<O> getOptions() {
+    return getOptionsMenu().getFlatMenuItems().stream()
+        .map(OptionMeta::<T, E, O>get)
+        .filter(Optional::isPresent)
+        .map(Optional::get)
+        .map(OptionMeta::getOption)
+        .collect(Collectors.toList());
+  }
+
+  public C withOptions(ChildHandler<C, List<O>> handler) {
+    handler.apply((C) this, getOptions());
+    return (C) this;
   }
 
   /**

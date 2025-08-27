@@ -87,6 +87,6 @@ public class ElementIcon extends Icon<ElementIcon> implements CanChangeIcon<Elem
   public ElementIcon changeTo(ElementIcon icon) {
     removeCss(getName());
     addCss(icon.getName());
-    return null;
+    return this;
   }
 }

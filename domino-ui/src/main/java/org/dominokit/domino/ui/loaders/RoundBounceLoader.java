@@ -111,13 +111,13 @@ public class RoundBounceLoader extends BaseLoader<RoundBounceLoader>
    */
   @Override
   public void setSize(String width, String height) {
-    onAttached((e, mutationRecord) -> loader.setWidth(width).setHeight(height));
+    onAttached(mutationRecord -> loader.setWidth(width).setHeight(height));
   }
 
   /** Removes the loading text from the loader. */
   @Override
   public void removeLoadingText() {
-    onAttached((e, mutationRecord) -> loadingText.remove());
+    onAttached(mutationRecord -> loadingText.remove());
   }
 
   /**

@@ -28,6 +28,7 @@ import org.dominokit.domino.ui.config.HasComponentConfig;
 import org.dominokit.domino.ui.config.PopoverConfig;
 import org.dominokit.domino.ui.elements.DivElement;
 import org.dominokit.domino.ui.events.EventType;
+import org.dominokit.domino.ui.keyboard.KeyboardEventOptions;
 import org.dominokit.domino.ui.menu.direction.DropDirection;
 import org.dominokit.domino.ui.menu.direction.DropDirectionContext;
 import org.dominokit.domino.ui.utils.*;
@@ -61,10 +62,9 @@ public abstract class BasePopover<T extends BasePopover<T>>
         PopoverStyles,
         FollowOnScroll.ScrollFollower,
         HasComponentConfig<PopoverConfig> {
-  protected final Element targetElement;
+  protected DominoElement<Element> targetElement;
   protected final EventListener closeAllListener;
   private DivElement root;
-  private DivElement wrapper;
   private DivElement arrow;
   private DivElement header;
   private DivElement body;
@@ -72,41 +72,36 @@ public abstract class BasePopover<T extends BasePopover<T>>
   private DropDirection popupPosition;
 
   private boolean closeOthers = true;
-  protected final EventListener closeListener;
-  private final FollowOnScroll followOnScroll;
+  protected EventListener closeListener;
+  private FollowOnScroll followOnScroll;
   private Supplier<Boolean> openCondition = () -> true;
   private EventListener lostFocusListener;
   private boolean closeOnBlur;
   private PopoverConfig ownConfig;
   private int openDelay;
   protected DelayedExecution delayedExecution;
+  protected KeyboardEventOptions closeEventOptions = KeyboardEventOptions.create();
 
   /**
    * Constructs a new BasePopover associated with the provided target element. BasePopover is the
    * base class for creating popovers in the Domino UI framework.
-   *
-   * @param target The HTML element to which the popover will be attached.
    */
-  public BasePopover(Element target) {
-    this.targetElement = target;
+  public BasePopover() {
     root =
         div()
             .addCss(dui_popover)
             .setAttribute("dui-position-x-offset", "9")
             .appendChild(
-                wrapper =
-                    div()
-                        .addCss(dui_popover_wrapper)
-                        .appendChild(arrow = div().addCss(dui_popover_arrow))
-                        .appendChild(header = div().addCss(dui_popover_header))
-                        .appendChild(body = div().addCss(dui_popover_body)));
+                div()
+                    .addCss(dui_popover_wrapper)
+                    .appendChild(arrow = div().addCss(dui_popover_arrow))
+                    .appendChild(header = div().addCss(dui_popover_header))
+                    .appendChild(body = div().addCss(dui_popover_body)));
 
     init((T) this);
     this.popupPosition = getConfig().getDefaultPopoverDropDirection();
     this.closeOnBlur = getConfig().closeOnBlur();
     this.openDelay = getConfig().openDelay();
-
-    followOnScroll = new FollowOnScroll(targetElement, this);
 
     closeListener = getCloseListener();
     root.addEventListener(
@@ -115,16 +110,10 @@ public abstract class BasePopover<T extends BasePopover<T>>
           evt.preventDefault();
           evt.stopPropagation();
         });
-    elementOf(targetElement)
-        .onDetached(
-            (e, mutationRecord) -> {
-              close();
-              DomGlobal.document.body.removeEventListener("blur", lostFocusListener, true);
-            });
 
     onDetached(
-        (e, mutationRecord) -> {
-          body().removeEventListener(EventType.keydown.getName(), closeListener);
+        mutationRecord -> {
+          closeEventOptions.removeHandler();
           DomGlobal.document.body.removeEventListener("blur", lostFocusListener, true);
           close();
         });
@@ -143,8 +132,8 @@ public abstract class BasePopover<T extends BasePopover<T>>
             DomGlobal.setTimeout(
                 p0 -> {
                   Element e = DomGlobal.document.activeElement;
-                  if (!(targetElement.contains(e)
-                      || e.equals(targetElement)
+                  if (!(getTargetElement().contains(e)
+                      || e.equals(getTargetElement().element())
                       || this.element().contains(e)
                       || e.equals(this.element()))) {
                     close();
@@ -154,6 +143,41 @@ public abstract class BasePopover<T extends BasePopover<T>>
           }
         };
   }
+
+  protected DominoElement<Element> getTargetElement() {
+    return this.targetElement;
+  }
+
+  protected void setTargetElement(Element target) {
+    if (nonNull(this.targetElement)) {
+      onTargetDetach();
+    }
+    this.targetElement = elementOf(target);
+    closeListener = getCloseListener();
+    followOnScroll = new FollowOnScroll(targetElement.element(), this);
+    this.targetElement.onDetached(
+        MutationObserverCallback.doOnce(
+            mutationRecord -> {
+              this.targetElement.onAttached(
+                  MutationObserverCallback.doOnce(
+                      record -> {
+                        setTargetElement(target);
+                      }));
+              onTargetDetach();
+            }));
+  }
+
+  private void onTargetDetach() {
+    close();
+    doCleanup();
+    this.followOnScroll.stop();
+    this.followOnScroll = null;
+    this.targetElement.removeTooltip();
+    this.targetElement = null;
+    this.closeListener = null;
+  }
+
+  protected void doCleanup() {}
 
   @Override
   public PopoverConfig getOwnConfig() {
@@ -252,7 +276,7 @@ public abstract class BasePopover<T extends BasePopover<T>>
    * @param position The drop direction to position the popover.
    */
   protected void doPosition(DropDirection position) {
-    popupPosition.position(DropDirectionContext.of(root.element(), targetElement));
+    popupPosition.position(DropDirectionContext.of(root.element(), targetElement.element()));
   }
 
   /**
@@ -464,7 +488,7 @@ public abstract class BasePopover<T extends BasePopover<T>>
 
   @Override
   public ZIndexLayer getZIndexLayer() {
-    return elementOf(targetElement).getZIndexLayer();
+    return targetElement.getZIndexLayer();
   }
 
   /**

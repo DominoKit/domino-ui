@@ -33,8 +33,8 @@ public class OptionMeta<V, C extends IsElement<?>, O extends Option<V, C, O>>
   /** The key used to store and retrieve option metadata. */
   public static final String OPTION_META = "dui-suggest-option-meta";
 
-  private final C component;
-  private final O option;
+  private C component;
+  private O option;
 
   /**
    * Creates and returns an {@code OptionMeta} instance with the specified component and option.
@@ -103,5 +103,10 @@ public class OptionMeta<V, C extends IsElement<?>, O extends Option<V, C, O>>
   @Override
   public String getKey() {
     return OPTION_META;
+  }
+
+  public void cleanup() {
+    this.component = null;
+    this.option = null;
   }
 }

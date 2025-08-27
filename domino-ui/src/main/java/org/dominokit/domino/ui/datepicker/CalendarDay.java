@@ -69,6 +69,8 @@ public class CalendarDay extends BaseDominoElement<HTMLDivElement, CalendarDay>
                 BooleanCssClass.of(dui_month_day_in_range, inRange),
                 BooleanCssClass.of(dui_month_day_out_of_range, !inRange),
                 BooleanCssClass.of(dui_selected_date, isSelectedDate()),
+                BooleanCssClass.of(
+                    dui_selected_date_match, isSelectionMatch() && !isSelectedDate()),
                 BooleanCssClass.of(dui_today_date, isTodayDate()))
             .appendChild(
                 this.dayNumber =
@@ -155,6 +157,17 @@ public class CalendarDay extends BaseDominoElement<HTMLDivElement, CalendarDay>
     return selectedDate.getYear() == this.date.getYear()
         && selectedDate.getMonth() == this.date.getMonth()
         && selectedDate.getDate() == this.date.getDate();
+  }
+
+  /**
+   * Checks if the day represents the currently selected date in the calendar ignoring year and
+   * month.
+   *
+   * @return true if the day is the selected date ignoring year and month, false otherwise.
+   */
+  public boolean isSelectionMatch() {
+    Date selectedDate = this.calendar.getDate();
+    return selectedDate.getDate() == this.date.getDate();
   }
 
   /**

@@ -110,7 +110,16 @@ public class Tooltip extends BasePopover<Tooltip> {
    * @param content The content node of the tooltip.
    */
   public Tooltip(Element target, Node content) {
-    super(target);
+    this(content);
+    setTargetElement(target);
+  }
+
+  /**
+   * Constructor for creating a tooltip with the specified target element and content node.
+   *
+   * @param content The content node of the tooltip.
+   */
+  public Tooltip(Node content) {
     setAttribute("dui-tooltip", true);
     addCss(dui_tooltip);
     appendChild(content);
@@ -123,17 +132,28 @@ public class Tooltip extends BasePopover<Tooltip> {
           }
         };
     addEventListener("click", closeListener);
-    targetElement.addEventListener(EventType.mouseenter.getName(), showListener, false);
-    targetElement.addEventListener(EventType.mouseleave.getName(), closeListener, false);
+
     removeHandler =
         tooltip -> {
-          targetElement.removeEventListener(EventType.mouseenter.getName(), showListener);
-          targetElement.removeEventListener(EventType.mouseleave.getName(), closeListener);
+          getTargetElement().removeEventListener(EventType.mouseenter.getName(), showListener);
+          getTargetElement().removeEventListener(EventType.mouseleave.getName(), closeListener);
         };
     setCollapseStrategy(
         new AnimationCollapseStrategy(
             Transition.FADE_IN, Transition.FADE_OUT, CollapsibleDuration._300ms));
     addCollapseListener(() -> removeEventListener(DUI_REMOVE_TOOLTIPS, closeAllListener));
+  }
+
+  @Override
+  protected void setTargetElement(Element target) {
+    super.setTargetElement(target);
+    targetElement.addEventListener(EventType.mouseenter.getName(), showListener, false);
+    targetElement.addEventListener(EventType.mouseleave.getName(), closeListener, false);
+  }
+
+  @Override
+  protected void doCleanup() {
+    detach();
   }
 
   /**
@@ -143,7 +163,12 @@ public class Tooltip extends BasePopover<Tooltip> {
    */
   @Override
   protected EventListener getCloseListener() {
-    return evt -> closeOthers("");
+    return evt -> {
+      closeOthers("");
+      if (closeOnEscape) {
+        closeEventOptions.removeHandler();
+      }
+    };
   }
 
   /**
@@ -167,7 +192,7 @@ public class Tooltip extends BasePopover<Tooltip> {
     super.doOpen();
     addEventListener(DUI_REMOVE_TOOLTIPS, closeAllListener);
     if (closeOnEscape) {
-      body().onKeyDown(keyEvents -> keyEvents.onEscape(closeListener));
+      body().onKeyDown(keyEvents -> keyEvents.onEscape(closeEventOptions, closeListener));
     }
   }
 
@@ -178,5 +203,6 @@ public class Tooltip extends BasePopover<Tooltip> {
     if (nonNull(this.delayedExecution)) {
       this.delayedExecution.cancel();
     }
+    this.closeListener = null;
   }
 }

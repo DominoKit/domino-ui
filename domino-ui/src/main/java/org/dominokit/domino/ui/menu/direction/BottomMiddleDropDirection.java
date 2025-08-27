@@ -51,7 +51,11 @@ public class BottomMiddleDropDirection implements DropDirection {
         return TOP_MIDDLE.position(context);
       }
     }
-    return MIDDLE_SCREEN.position(context);
+    if (context.isAllowFallBack()) {
+      return fallBackPosition(context, spaceChecker);
+    } else {
+      return showBelowMiddle(source, spaceChecker);
+    }
   }
 
   private DropDirection showBelowMiddle(Element source, SpaceChecker spaceChecker) {

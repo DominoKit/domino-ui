@@ -33,7 +33,6 @@ public class LeftUpDropDirection implements DropDirection {
     dui_flex_col_reverse.apply(source);
 
     SpaceChecker spaceChecker = context.getSpaceChecker();
-    ;
 
     if (spaceChecker.hasSpaceAbove()) {
       if (spaceChecker.hasSpaceOnLeft()) {
@@ -52,7 +51,11 @@ public class LeftUpDropDirection implements DropDirection {
         return BOTTOM_MIDDLE.position(context);
       }
     } else {
-      return MIDDLE_SCREEN.position(context);
+      if (context.isAllowFallBack()) {
+        return fallBackPosition(context, spaceChecker);
+      } else {
+        return showOnLeftUp(context);
+      }
     }
   }
 

@@ -1,8 +1,8 @@
 .dui-menu {
     background-color: var(--dui-clr-dominant);
     overflow: visible;
-    max-height: calc(100vh);
-    max-width: calc(100vw);
+    max-height: var(--dui-drop-down-menu-max-height, calc(100vh));
+    max-width: var(--dui-drop-down-menu-max-width, calc(100vw));
     display: inline-flex;
     flex-direction: column;
     border: var(--dui-menu-border);
@@ -158,7 +158,7 @@
 }
 
 .dui-menu-drop .dui-menu-items-list {
-    max-height: calc(100vh - 50vh);
+    max-height: calc(var(--dui-drop-down-menu-max-height, 100vh) - 50px);
     overflow-y: auto;
     overflow-x: hidden;
 }
@@ -273,6 +273,7 @@ a.dui-menu-group-header {
     text-decoration: none;
     outline: none;
     display: flex;
+    cursor: default;
 }
 
 a.dui-menu-group-header .dui-menu-item-nested-indicator:empty,

@@ -16,8 +16,6 @@
 
 package org.dominokit.domino.ui.utils;
 
-import static org.dominokit.domino.ui.utils.Domino.*;
-
 import elemental2.dom.Element;
 import elemental2.dom.Text;
 import elemental2.svg.SVGElement;
@@ -83,6 +81,18 @@ public interface ElementsFactory {
   }
 
   /**
+   * Wraps an existing element in a DominoElement. This method does not add the "dui" CSS class to
+   * the element.
+   *
+   * @param element The existing HTML element to wrap.
+   * @param <E> The element type.
+   * @return A DominoElement wrapping the existing element.
+   */
+  default <E extends Element> DominoElement<E> wrap(E element) {
+    return delegate().wrap(element);
+  }
+
+  /**
    * Creates a DominoElement of the specified IsElement type.
    *
    * @param element The IsElement to wrap.
@@ -92,6 +102,19 @@ public interface ElementsFactory {
    */
   default <T extends Element, E extends IsElement<T>> DominoElement<T> elementOf(E element) {
     return delegate().elementOf(element);
+  }
+
+  /**
+   * Creates a DominoElement of the specified IsElement type. This method does not add the "dui" CSS
+   * class to the element.
+   *
+   * @param element The IsElement to wrap.
+   * @param <T> The element type.
+   * @param <E> The IsElement type.
+   * @return A DominoElement wrapping the IsElement.
+   */
+  default <T extends Element, E extends IsElement<T>> DominoElement<T> wrap(E element) {
+    return delegate().wrap(element);
   }
 
   /**

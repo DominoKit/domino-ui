@@ -82,7 +82,7 @@ public class MessageDialog extends AbstractDialog<MessageDialog> {
    * message.
    */
   public MessageDialog() {
-    messageElement = LazyChild.of(span(), contentElement);
+    messageElement = LazyChild.of(span(), bodyElement);
     navHeader = LazyChild.of(NavBar.create().addCss(dui_dialog_nav), headerElement);
     bodyElement.addCss(dui_text_center);
     appendButtons();
@@ -130,8 +130,7 @@ public class MessageDialog extends AbstractDialog<MessageDialog> {
    * @return Current instance for chaining
    */
   public MessageDialog setMessage(String message) {
-    messageElement.remove();
-    appendChild(messageElement.get().setTextContent(message));
+    messageElement.get().setTextContent(message);
     return this;
   }
 

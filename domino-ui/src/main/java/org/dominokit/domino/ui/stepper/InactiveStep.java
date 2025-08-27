@@ -28,9 +28,7 @@ public class InactiveStep implements StepState {
    * @param tracker The StepTracker to which the inactive step state is applied.
    */
   @Override
-  public void apply(StepTracker tracker) {
-    //    tracker.addCss(ColorsCss.dui_accent_accent_l_2);
-  }
+  public void apply(StepTracker tracker) {}
 
   /**
    * Does not perform any clean-up actions when the step is no longer in an inactive state.
@@ -38,9 +36,7 @@ public class InactiveStep implements StepState {
    * @param tracker The StepTracker from which the inactive step state is removed.
    */
   @Override
-  public void cleanUp(StepTracker tracker) {
-    //    tracker.removeCss(ColorsCss.dui_accent_accent_l_2);
-  }
+  public void cleanUp(StepTracker tracker) {}
 
   /**
    * Gets the key associated with the inactive step state, typically "INACTIVE."

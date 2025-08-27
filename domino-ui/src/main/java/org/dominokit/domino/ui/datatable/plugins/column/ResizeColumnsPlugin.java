@@ -190,12 +190,12 @@ public class ResizeColumnsPlugin<T>
                     };
 
                 this.datatable.onAttached(
-                    (e, mutationRecord) -> {
+                    mutationRecord -> {
                       DominoDom.document.body.addEventListener(
                           EventType.mouseup.getName(), stopResizing);
                     });
                 this.datatable.onDetached(
-                    (e, mutationRecord) -> {
+                    mutationRecord -> {
                       resizeElement.removeEventListener(EventType.mouseup.getName(), stopResizing);
                       DominoDom.document.body.removeEventListener(
                           EventType.mouseup.getName(), stopResizing);

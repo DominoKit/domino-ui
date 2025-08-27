@@ -15,6 +15,7 @@
  */
 package org.dominokit.domino.ui.sliders;
 
+import static java.util.Objects.nonNull;
 import static org.dominokit.domino.ui.events.EventType.blur;
 import static org.dominokit.domino.ui.events.EventType.change;
 import static org.dominokit.domino.ui.events.EventType.mousedown;
@@ -179,7 +180,7 @@ public class Slider extends BaseDominoElement<HTMLDivElement, Slider>
 
     init(this);
     onAttached(
-        (e, mutationRecord) -> {
+        mutationRecord -> {
           if (!autoHideThumb) {
             startSliding();
             DomGlobal.setTimeout(
@@ -197,6 +198,10 @@ public class Slider extends BaseDominoElement<HTMLDivElement, Slider>
       evaluateThumbPosition();
       updateThumbValue();
     }
+  }
+
+  private boolean isVertical() {
+    return dui_vertical.isAppliedTo(this);
   }
 
   private void startSliding() {
@@ -218,10 +223,17 @@ public class Slider extends BaseDominoElement<HTMLDivElement, Slider>
   private void calculateRangeOffset() {
     nowOrWhenAttached(
         () -> {
-          int width = input.element().offsetWidth - 15;
-          double percent = (getValue() - getMin()) / (getMax() - getMin());
-          double left = percent * width + input.element().offsetLeft;
-          thumb.style().setLeft(left + "px");
+          if (isVertical()) {
+            int height = input.element().offsetHeight - 15;
+            double percent = (getValue() - getMin()) / (getMax() - getMin());
+            double top = input.element().offsetHeight - (percent * height);
+            thumb.style().setTop(top + "px");
+          } else {
+            int width = input.element().offsetWidth - 15;
+            double percent = (getValue() - getMin()) / (getMax() - getMin());
+            double left = percent * width + input.element().offsetLeft;
+            thumb.style().setLeft(left + "px");
+          }
         });
   }
 
@@ -466,6 +478,38 @@ public class Slider extends BaseDominoElement<HTMLDivElement, Slider>
 
   public boolean isAutoHideThumb() {
     return this.autoHideThumb;
+  }
+
+  /**
+   * Sets the orientation of this slider to the specified direction.
+   *
+   * @param direction the {@link SliderDirection} to apply; if {@code null}, no change will be
+   *     applied
+   * @return this {@code Slider} instance for method chaining
+   */
+  public Slider setDirection(SliderDirection direction) {
+    if (nonNull(direction)) {
+      direction.getCssClass().isAppliedTo(this);
+    }
+    return this;
+  }
+
+  /**
+   * Configures this slider to be displayed vertically.
+   *
+   * @return this {@code Slider} instance for method chaining
+   */
+  public Slider vertical() {
+    return setDirection(SliderDirection.VERTICAL);
+  }
+
+  /**
+   * Configures this slider to be displayed horizontally.
+   *
+   * @return this {@code Slider} instance for method chaining
+   */
+  public Slider horizontal() {
+    return setDirection(SliderDirection.HORIZONTAL);
   }
 
   /**

@@ -37,7 +37,15 @@ public class BestMiddleDownUpDropDirection implements DropDirection {
     } else if (spaceChecker.hasSpaceAbove()) {
       return TOP_MIDDLE.position(context);
     } else {
-      return MIDDLE_SCREEN.position(context);
+      if (context.isAllowFallBack()) {
+        return fallBackPosition(context, spaceChecker);
+      } else {
+        if (spaceChecker.getBottomSpace() > spaceChecker.getTopSpace()) {
+          return BOTTOM_MIDDLE.position(context);
+        } else {
+          return TOP_MIDDLE.position(context);
+        }
+      }
     }
   }
 

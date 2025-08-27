@@ -63,7 +63,7 @@ public class WeekDayHeader extends BaseDominoElement<HTMLDivElement, WeekDayHead
                         .textContent(
                             this.calendar.getDateTimeFormatInfo().weekdaysShort()[dayIndex]));
     init(this);
-    onDetached((e, mutationRecord) -> this.calendar.unbindCalenderViewListener(this));
+    onDetached(mutationRecord -> this.calendar.unbindCalenderViewListener(this));
   }
 
   /**

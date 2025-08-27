@@ -244,6 +244,10 @@ public class MultiSelect<V>
     return this.selectedOptions.stream().map(Option::getValue).collect(Collectors.toList());
   }
 
+  public Set<SelectOption<V>> getSelectedOptions() {
+    return new HashSet<>(selectedOptions);
+  }
+
   @Override
   protected void onTypingStart() {
     this.selectedOptions.forEach(BaseDominoElement::hide);

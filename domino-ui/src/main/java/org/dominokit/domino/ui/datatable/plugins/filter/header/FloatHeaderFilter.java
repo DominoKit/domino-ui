@@ -19,6 +19,7 @@ package org.dominokit.domino.ui.datatable.plugins.filter.header;
 import static org.dominokit.domino.ui.utils.Domino.*;
 
 import elemental2.dom.HTMLInputElement;
+import org.dominokit.domino.ui.datatable.model.FilterType;
 import org.dominokit.domino.ui.datatable.model.FilterTypes;
 import org.dominokit.domino.ui.forms.FloatBox;
 
@@ -111,7 +112,7 @@ public class FloatHeaderFilter<T> extends DelayedHeaderFilterInput<FloatBox, T, 
    * @return The filter type as FilterTypes.FLOAT.
    */
   @Override
-  protected FilterTypes getType() {
+  protected FilterType getType() {
     return FilterTypes.FLOAT;
   }
 

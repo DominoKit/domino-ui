@@ -204,7 +204,7 @@ public class Window extends AbstractDialog<Window> {
         } else {
           modalElement.element().style.top =
               windowTop
-                  - ((windowLeft + initialHeight) - windowHeight - DomGlobal.window.pageYOffset)
+                  - ((windowTop + initialHeight) - windowHeight - DomGlobal.window.pageYOffset)
                   + "px";
         }
       } else {
@@ -213,15 +213,6 @@ public class Window extends AbstractDialog<Window> {
                 - ((initialHeight - windowHeight) / 2)
                 + "px";
         ;
-      }
-
-      if (windowTop < 0) {
-        modalElement.element().style.top =
-            (fixed ? 0 : DomGlobal.window.pageYOffset)
-                - ((initialHeight - windowHeight) / 2)
-                + "px";
-      } else {
-        modalElement.element().style.top = windowTop + "px";
       }
     }
   }

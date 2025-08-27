@@ -31,6 +31,7 @@ public class MiddleOfScreenDropDirection implements DropDirection {
   public DropDirection position(DropDirectionContext context) {
     Element source = context.getSource();
     Element target = context.getTarget();
+    source.removeAttribute(DUI_POSITION_FALLBACK);
     dui_flex_col_reverse.remove(source);
     DOMRect sourceRect = source.getBoundingClientRect();
 

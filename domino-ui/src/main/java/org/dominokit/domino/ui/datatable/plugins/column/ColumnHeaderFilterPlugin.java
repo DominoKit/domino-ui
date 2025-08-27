@@ -27,12 +27,12 @@ import org.dominokit.domino.ui.IsElement;
 import org.dominokit.domino.ui.datatable.*;
 import org.dominokit.domino.ui.datatable.ColumnHeader;
 import org.dominokit.domino.ui.datatable.events.SearchClearedEvent;
-import org.dominokit.domino.ui.datatable.events.TableEvent;
 import org.dominokit.domino.ui.datatable.model.SearchContext;
 import org.dominokit.domino.ui.datatable.plugins.DataTablePlugin;
 import org.dominokit.domino.ui.elements.THeadElement;
 import org.dominokit.domino.ui.elements.TableRowElement;
 import org.dominokit.domino.ui.style.Style;
+import org.dominokit.domino.ui.utils.DominoEvent;
 
 /**
  * A DataTable plugin that adds header filters to the DataTable. Header filters are used to filter
@@ -84,7 +84,7 @@ public class ColumnHeaderFilterPlugin<T> implements DataTablePlugin<T> {
     columns.forEach(
         columnConfig -> {
           ColumnHeader th = ColumnHeader.create().addCss(dui_datatable_column_filter);
-          columnConfig.getHeaderStyler().styleCell(th.element());
+          columnConfig.getHeaderHandler().apply(columnConfig);
 
           columnConfig.applyScreenMedia(th.element());
 
@@ -141,7 +141,7 @@ public class ColumnHeaderFilterPlugin<T> implements DataTablePlugin<T> {
    * @param event The table event to handle.
    */
   @Override
-  public void handleEvent(TableEvent event) {
+  public void handleEvent(DominoEvent event) {
     if (SearchClearedEvent.SEARCH_EVENT_CLEARED.equals(event.getType())) {
       this.datatable
           .getTableConfig()

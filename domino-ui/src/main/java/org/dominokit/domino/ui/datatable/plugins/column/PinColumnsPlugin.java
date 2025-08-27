@@ -28,13 +28,13 @@ import org.dominokit.domino.ui.datatable.DataTable;
 import org.dominokit.domino.ui.datatable.events.ColumnResizedEvent;
 import org.dominokit.domino.ui.datatable.events.RowRecordUpdatedEvent;
 import org.dominokit.domino.ui.datatable.events.TableBorderedEvent;
-import org.dominokit.domino.ui.datatable.events.TableEvent;
 import org.dominokit.domino.ui.datatable.plugins.DataTablePlugin;
 import org.dominokit.domino.ui.datatable.plugins.HasPluginConfig;
 import org.dominokit.domino.ui.icons.Icon;
 import org.dominokit.domino.ui.icons.lib.Icons;
 import org.dominokit.domino.ui.menu.MenuItem;
 import org.dominokit.domino.ui.utils.DominoCSSRule;
+import org.dominokit.domino.ui.utils.DominoEvent;
 import org.dominokit.domino.ui.utils.ElementUtil;
 import org.dominokit.domino.ui.utils.PrefixAddOn;
 
@@ -134,7 +134,7 @@ public class PinColumnsPlugin<T>
                                     "col-pin-" + col.getName().replace(" ", "_"));
                               });
                     }));
-    this.datatable.onAttached((e, mutationRecord) -> pinColumns());
+    this.datatable.onAttached(mutationRecord -> pinColumns());
   }
 
   /**
@@ -434,7 +434,7 @@ public class PinColumnsPlugin<T>
    * @param event The {@link org.dominokit.domino.ui.datatable.events.TableEvent} to handle.
    */
   @Override
-  public void handleEvent(TableEvent event) {
+  public void handleEvent(DominoEvent event) {
     switch (event.getType()) {
       case TableBorderedEvent.TABLE_BORDERED_EVENT:
       case RowRecordUpdatedEvent.RECORD_UPDATED:
@@ -485,7 +485,7 @@ public class PinColumnsPlugin<T>
       pinColumnsForAttachedTable();
     } else {
       datatable.onAttached(
-          (e, mutationRecord) -> DomGlobal.setTimeout(p0 -> pinColumnsForAttachedTable()));
+          mutationRecord -> DomGlobal.setTimeout(p0 -> pinColumnsForAttachedTable()));
     }
   }
 

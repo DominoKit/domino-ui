@@ -45,7 +45,7 @@ public class BestFitSideDropDirection implements DropDirection {
       }
     }
 
-    return MIDDLE_SCREEN.position(context);
+    return fallBackPosition(context, spaceChecker);
   }
 
   /** {@inheritDoc} */

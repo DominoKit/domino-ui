@@ -16,9 +16,15 @@
 
 package org.dominokit.domino.ui.datatable.model;
 
+import static java.util.Objects.isNull;
+
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
+import org.dominokit.domino.ui.utils.ComponentMeta;
+import org.dominokit.domino.ui.utils.HasComponentMeta;
 
 /**
  * The {@code Filter} class represents a filter that can be applied to a DataTable.
@@ -31,13 +37,14 @@ import java.util.Objects;
  *
  * @see org.dominokit.domino.ui.datatable.DataTable
  */
-public class Filter {
+public class Filter implements HasComponentMeta<Filter> {
 
   private String fieldName;
-  private FilterTypes type;
+  private FilterType type;
   private Operator operator;
   private List<String> values;
-  private Category category;
+  private IsFilterCategory category;
+  private HashMap<String, ComponentMeta> metaObjects;
 
   /**
    * Creates a new filter with the specified field name, value, and category.
@@ -47,7 +54,7 @@ public class Filter {
    * @param category The category of the filter.
    * @return A new {@code Filter} instance.
    */
-  public static Filter create(String field, String value, Category category) {
+  public static Filter create(String field, String value, IsFilterCategory category) {
     List<String> values = new ArrayList<>();
     values.add(value);
     return new Filter(field, FilterTypes.STRING, Operator.like, values, category);
@@ -62,7 +69,7 @@ public class Filter {
    * @param type The filter type.
    * @return A new {@code Filter} instance.
    */
-  public static Filter create(String field, String value, Category category, FilterTypes type) {
+  public static Filter create(String field, String value, Category category, FilterType type) {
     List<String> values = new ArrayList<>();
     values.add(value);
     return new Filter(field, type, Operator.like, values, category);
@@ -92,10 +99,10 @@ public class Filter {
    */
   public Filter(
       String fieldName,
-      FilterTypes type,
+      FilterType type,
       Operator operator,
       List<String> values,
-      Category category) {
+      IsFilterCategory category) {
     this.fieldName = fieldName;
     this.type = type;
     this.operator = operator;
@@ -117,7 +124,7 @@ public class Filter {
    *
    * @return The filter type.
    */
-  public FilterTypes getType() {
+  public FilterType getType() {
     return type;
   }
 
@@ -144,7 +151,7 @@ public class Filter {
    *
    * @return The filter category.
    */
-  public Category getCategory() {
+  public IsFilterCategory getCategory() {
     return category;
   }
 
@@ -189,8 +196,16 @@ public class Filter {
    *
    * @param category The filter category.
    */
-  public void setCategory(Category category) {
+  public void setCategory(IsFilterCategory category) {
     this.category = category;
+  }
+
+  @Override
+  public Map<String, ComponentMeta> getMetaObjects() {
+    if (isNull(this.metaObjects)) {
+      this.metaObjects = new HashMap<>();
+    }
+    return this.metaObjects;
   }
 
   /**

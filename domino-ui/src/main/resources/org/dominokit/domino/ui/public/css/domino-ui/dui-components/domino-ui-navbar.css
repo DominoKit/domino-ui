@@ -21,6 +21,7 @@
     margin: var(--dui-nav-bar-title-margin);
     order: 20;
     text-indent: var(--dui-nav-bar-title-indent);
+    font-size: var(--dui-nav-bar-title-font-size);
 }
 
 .dui-nav-body {
@@ -33,6 +34,10 @@
 .dui-nav-bar .dui-postfix-addon {
     margin: var(--dui-nav-bar-utility-margin);
     order: 40;
+}
+
+.dui-nav-bar .dui-primary-addon {
+    margin: var(--dui-nav-bar-addon-margin);
 }
 
 .dui-nav-description {

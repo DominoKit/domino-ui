@@ -97,13 +97,13 @@ public class SearchContext<T> {
    * @param category the category of the filters to remove
    * @return this SearchContext for method chaining
    */
-  public SearchContext remove(String fieldName, Category category) {
+  public SearchContext remove(String fieldName, IsFilterCategory category) {
     filters.removeAll(
         filters.stream()
             .filter(
                 filter ->
                     filter.getFieldName().equals(fieldName)
-                        && filter.getCategory().equals(category))
+                        && filter.getCategory().isSameCategory(category))
             .collect(Collectors.toList()));
     return this;
   }
@@ -114,10 +114,10 @@ public class SearchContext<T> {
    * @param category the category of the filters to remove
    * @return this SearchContext for method chaining
    */
-  public SearchContext removeByCategory(Category category) {
+  public SearchContext removeByCategory(IsFilterCategory category) {
     List<Filter> collect =
         filters.stream()
-            .filter(filter -> filter.getCategory().equals(category))
+            .filter(filter -> filter.getCategory().isSameCategory(category))
             .collect(Collectors.toList());
     if (!collect.isEmpty()) {
       filters.removeAll(collect);

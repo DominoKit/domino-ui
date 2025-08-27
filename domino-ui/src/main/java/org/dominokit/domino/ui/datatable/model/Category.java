@@ -37,10 +37,15 @@ package org.dominokit.domino.ui.datatable.model;
  *
  * @see org.dominokit.domino.ui.datatable.model.Filter
  */
-public enum Category {
+public enum Category implements IsFilterCategory {
   /** The {@code SEARCH} category for filters applied to the DataTable's search functionality. */
   SEARCH,
 
   /** The {@code HEADER_FILTER} category for filters applied to the DataTable's header columns. */
-  HEADER_FILTER
+  HEADER_FILTER;
+
+  @Override
+  public String key() {
+    return this.name();
+  }
 }

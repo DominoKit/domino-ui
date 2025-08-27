@@ -18,7 +18,6 @@ package org.dominokit.domino.ui.utils;
 
 import static java.util.Objects.isNull;
 import static java.util.Objects.nonNull;
-import static org.dominokit.domino.ui.utils.Domino.*;
 import static org.dominokit.domino.ui.utils.ElementUtil.isArrowDown;
 import static org.dominokit.domino.ui.utils.ElementUtil.isArrowUp;
 import static org.dominokit.domino.ui.utils.ElementUtil.isEnterKey;
@@ -26,17 +25,14 @@ import static org.dominokit.domino.ui.utils.ElementUtil.isEscapeKey;
 import static org.dominokit.domino.ui.utils.ElementUtil.isSpaceKey;
 import static org.dominokit.domino.ui.utils.ElementUtil.isTabKey;
 
-import elemental2.dom.Element;
-import elemental2.dom.Event;
-import elemental2.dom.EventListener;
-import elemental2.dom.HTMLElement;
-import elemental2.dom.KeyboardEvent;
+import elemental2.dom.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.function.Consumer;
+import java.util.function.Supplier;
 import jsinterop.base.Js;
 import org.dominokit.domino.ui.IsElement;
 
@@ -48,7 +44,7 @@ import org.dominokit.domino.ui.IsElement;
  */
 public class KeyboardNavigation<V extends IsElement<?>> implements EventListener {
 
-  private final List<V> items;
+  private final Supplier<List<V>> itemsSupplier;
   private FocusHandler<V> focusHandler;
   private ItemNavigationHandler<V> selectHandler = (event, item) -> {};
   private ItemNavigationHandler<V> enterHandler;
@@ -72,7 +68,15 @@ public class KeyboardNavigation<V extends IsElement<?>> implements EventListener
    * @param items The list of items to navigate.
    */
   public KeyboardNavigation(List<V> items) {
-    this.items = items;
+    this.itemsSupplier = () -> items;
+  }
+  /**
+   * Creates a new `KeyboardNavigation` instance for the given list of items.
+   *
+   * @param itemsSupplier The supplier of the list of items to navigate.
+   */
+  public KeyboardNavigation(Supplier<List<V>> itemsSupplier) {
+    this.itemsSupplier = itemsSupplier;
   }
 
   /**
@@ -84,6 +88,18 @@ public class KeyboardNavigation<V extends IsElement<?>> implements EventListener
    */
   public static <V extends IsElement<?>> KeyboardNavigation<V> create(List<V> items) {
     return new KeyboardNavigation<>(items);
+  }
+
+  /**
+   * Creates a new `KeyboardNavigation` instance for the given list of items.
+   *
+   * @param itemsSupplier The list of items to navigate.
+   * @param <V> The type of elements to navigate.
+   * @return A new `KeyboardNavigation` instance.
+   */
+  public static <V extends IsElement<?>> KeyboardNavigation<V> create(
+      Supplier<List<V>> itemsSupplier) {
+    return new KeyboardNavigation<>(itemsSupplier);
   }
 
   /**
@@ -140,7 +156,7 @@ public class KeyboardNavigation<V extends IsElement<?>> implements EventListener
     KeyboardEvent keyboardEvent = (KeyboardEvent) evt;
 
     HTMLElement element = Js.uncheckedCast(keyboardEvent.target);
-    for (V item : items) {
+    for (V item : itemsSupplier.get()) {
       if (item.element().contains(element)) {
         if (isArrowUp(keyboardEvent)) {
           doEvent(evt, globalOptions, () -> focusPrevious(item));
@@ -270,6 +286,7 @@ public class KeyboardNavigation<V extends IsElement<?>> implements EventListener
    * @param item The current item.
    */
   public void focusNext(V item) {
+    List<V> items = this.itemsSupplier.get();
     int nextIndex = items.indexOf(item) + 1;
     int size = items.size();
     if (nextIndex >= size) {
@@ -293,6 +310,7 @@ public class KeyboardNavigation<V extends IsElement<?>> implements EventListener
    * @return `true` if the item is the last focusable item, `false` otherwise.
    */
   public boolean isLastFocusableItem(V item) {
+    List<V> items = itemsSupplier.get();
     int nextIndex = items.indexOf(item) + 1;
     int size = items.size();
     if (nextIndex >= size) {
@@ -313,7 +331,7 @@ public class KeyboardNavigation<V extends IsElement<?>> implements EventListener
     if (nonNull(this.exitElement)) {
       this.exitElement.focus();
     } else {
-      for (V item : items) {
+      for (V item : itemsSupplier.get()) {
         if (shouldFocus(item)) {
           doFocus(item);
           break;
@@ -328,7 +346,7 @@ public class KeyboardNavigation<V extends IsElement<?>> implements EventListener
    * @return Optional of the first focusable item.
    */
   public Optional<V> getTopFocusableItem() {
-    for (V item : items) {
+    for (V item : itemsSupplier.get()) {
       if (shouldFocus(item)) {
         return Optional.of(item);
       }
@@ -341,6 +359,7 @@ public class KeyboardNavigation<V extends IsElement<?>> implements EventListener
     if (nonNull(this.exitElement)) {
       this.exitElement.focus();
     } else {
+      List<V> items = itemsSupplier.get();
       for (int i = items.size() - 1; i >= 0; i--) {
         V itemToFocus = items.get(i);
         if (shouldFocus(itemToFocus)) {
@@ -357,6 +376,7 @@ public class KeyboardNavigation<V extends IsElement<?>> implements EventListener
    * @param item The current item.
    */
   public void focusPrevious(V item) {
+    List<V> items = itemsSupplier.get();
     int nextIndex = items.indexOf(item) - 1;
     if (nextIndex < 0) {
       onStartReached.accept(this);
@@ -382,6 +402,7 @@ public class KeyboardNavigation<V extends IsElement<?>> implements EventListener
    * @param index The index of the item to focus.
    */
   public void focusAt(int index) {
+    List<V> items = itemsSupplier.get();
     if (!items.isEmpty()) {
       V item = items.get(index);
       doFocus(item);

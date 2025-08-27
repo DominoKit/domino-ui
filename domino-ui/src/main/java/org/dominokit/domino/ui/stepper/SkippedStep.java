@@ -15,11 +15,9 @@
  */
 package org.dominokit.domino.ui.stepper;
 
-import static org.dominokit.domino.ui.style.GenericCss.dui_info;
+import static org.dominokit.domino.ui.stepper.StepStateCss.dui_step_state_skipped;
 
 import org.dominokit.domino.ui.icons.lib.Icons;
-import org.dominokit.domino.ui.style.ColorsCss;
-import org.dominokit.domino.ui.style.SpacingCss;
 
 /**
  * Represents a "Skipped" step in a stepper component. Skipped steps indicate that they have been
@@ -37,12 +35,9 @@ public class SkippedStep implements StepState {
   @Override
   public void apply(StepTracker tracker) {
     tracker
-        .addCss(ColorsCss.dui_accent_info)
+        .addCss(dui_step_state_skipped)
         .withTrackerNode(
-            (parent1, node) ->
-                node.appendChild(
-                        Icons.share().addCss(SpacingCss.dui_font_size_4, dui_tracker_node_icon))
-                    .addCss(dui_info));
+            (parent1, node) -> node.appendChild(Icons.share().addCss(dui_tracker_node_icon)));
   }
 
   /**
@@ -53,8 +48,8 @@ public class SkippedStep implements StepState {
   @Override
   public void cleanUp(StepTracker tracker) {
     tracker
-        .removeCss(ColorsCss.dui_accent_info)
-        .withTrackerNode((parent1, node) -> node.clearElement().removeCss(dui_info));
+        .removeCss(dui_step_state_skipped)
+        .withTrackerNode((parent1, node) -> node.clearElement());
   }
 
   /**

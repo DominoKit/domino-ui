@@ -15,6 +15,8 @@
  */
 package org.dominokit.domino.ui.counter;
 
+import static java.util.Objects.isNull;
+
 import org.gwtproject.timer.client.Timer;
 
 /**
@@ -37,21 +39,38 @@ import org.gwtproject.timer.client.Timer;
  */
 public class Counter {
 
+  private final int dir;
   private Timer timer;
   private final int countFrom;
   private final int countTo;
   private final int interval;
-  private final int increment;
+  private final int step;
   private int currentValue;
   private CountHandler countHandler;
+  private CompletionHandler completeHandler;
 
   private Counter(
-      int countFrom, int countTo, int interval, int increment, CountHandler countHandler) {
-    this.countFrom = countFrom;
-    this.countTo = countTo;
+      int countFrom,
+      int countTo,
+      int interval,
+      int step,
+      CountHandler countHandler,
+      CompletionHandler completeHandler) {
+
+    if (step < 0) {
+      this.countFrom = countTo;
+      this.countTo = countFrom;
+    } else {
+      this.countFrom = countFrom;
+      this.countTo = countTo;
+    }
+
+    this.currentValue = this.countFrom;
     this.interval = interval;
-    this.increment = increment;
+    this.step = Math.abs(step);
+    this.dir = step > 0 ? Integer.compare(countTo, countFrom) : Integer.compare(countFrom, countTo);
     this.countHandler = countHandler;
+    this.completeHandler = completeHandler;
 
     initTimer();
   }
@@ -71,22 +90,31 @@ public class Counter {
         new Timer() {
           @Override
           public void run() {
-            if (currentValue != countTo) {
-              if (countFrom < countTo) {
-                currentValue += increment;
-              } else {
-                currentValue -= increment;
-              }
-              notifyCount();
+            if (currentValue == countTo) {
+              stopCounting();
             } else {
-              cancel();
+              int next = currentValue + dir * step;
+              // clamp so we never go past 'end'
+              currentValue = (dir > 0 ? Math.min(next, countTo) : Math.max(next, countTo));
+              notifyCount();
             }
           }
         };
   }
 
+  public Counter reset() {
+    if (this.timer.isRunning()) {
+      this.timer.cancel();
+    }
+    this.currentValue = countFrom;
+    return this;
+  }
+
   private void notifyCount() {
     countHandler.onCount(currentValue);
+    if (currentValue == countTo) {
+      completeHandler.onCount(this);
+    }
   }
 
   /**
@@ -97,8 +125,13 @@ public class Counter {
     if (timer.isRunning()) {
       timer.cancel();
     }
+    if (countFrom == countTo) {
+      notifyCount();
+      return this;
+    }
+
     this.currentValue = countFrom;
-    countHandler.onCount(countFrom);
+    notifyCount();
     timer.scheduleRepeating(interval);
     return this;
   }
@@ -115,11 +148,62 @@ public class Counter {
     return this;
   }
 
+  public Counter onCount(CountHandler countHandler) {
+    if (isNull(countHandler)) {
+      this.countHandler = (count) -> {};
+    }
+    this.countHandler = countHandler;
+    return this;
+  }
+
+  public Counter onCompleted(CompletionHandler completeHandler) {
+    if (isNull(completeHandler)) {
+      this.completeHandler = (counter) -> {};
+    }
+    this.completeHandler = completeHandler;
+    return this;
+  }
+
+  public int getCount() {
+    return currentValue;
+  }
+
+  public int getDir() {
+    return dir;
+  }
+
+  public int getCountFrom() {
+    return countFrom;
+  }
+
+  public int getCountTo() {
+    return countTo;
+  }
+
+  public int getInterval() {
+    return interval;
+  }
+
+  public int getStep() {
+    return step;
+  }
+
+  public int getCurrentValue() {
+    return currentValue;
+  }
+
   /** Use to add an implementation of a handler to be called after each count */
   @FunctionalInterface
   public interface CountHandler {
     /** @param count int the current counter value */
     void onCount(int count);
+  }
+
+  /** Use to add an implementation of a handler to be called after counting completion */
+  @FunctionalInterface
+  public interface CompletionHandler {
+    /** @param counter the completed counter instance */
+    void onCount(Counter counter);
   }
 
   /** An interface to provide the counter end value */
@@ -144,28 +228,17 @@ public class Counter {
   public interface HasIncrement {
     /**
      * @param increment int, the counter increment value
-     * @return {@link HasCountHandler}
-     */
-    HasCountHandler incrementBy(int increment);
-  }
-
-  /** An interface to set the count handler */
-  public interface HasCountHandler {
-    /**
-     * @param handler {@link CountHandler}
      * @return {@link Counter}
      */
-    Counter onCount(CountHandler handler);
+    Counter step(int increment);
   }
 
   /** A fluent builder to force building a counter with required parameters */
-  public static class CounterBuilder
-      implements CanCountTo, HasInterval, HasIncrement, HasCountHandler {
+  public static class CounterBuilder implements CanCountTo, HasInterval, HasIncrement {
 
     private int countFrom;
     private int countTo;
     private int interval;
-    private int increment;
 
     private CounterBuilder(int countFrom) {
       this.countFrom = countFrom;
@@ -187,15 +260,26 @@ public class Counter {
 
     /** {@inheritDoc} */
     @Override
-    public HasCountHandler incrementBy(int increment) {
-      this.increment = increment;
-      return this;
+    public Counter step(int step) {
+      return new Counter(countFrom, countTo, interval, step, (count) -> {}, (counter -> {}));
     }
+  }
 
-    /** {@inheritDoc} */
-    @Override
-    public Counter onCount(CountHandler handler) {
-      return new Counter(countFrom, countTo, interval, increment, handler);
-    }
+  @Override
+  public String toString() {
+    return "Counter{"
+        + "dir="
+        + dir
+        + ", countFrom="
+        + countFrom
+        + ", countTo="
+        + countTo
+        + ", interval="
+        + interval
+        + ", step="
+        + step
+        + ", currentValue="
+        + currentValue
+        + '}';
   }
 }

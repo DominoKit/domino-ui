@@ -28,7 +28,6 @@ import org.dominokit.domino.ui.datatable.ColumnConfig;
 import org.dominokit.domino.ui.datatable.DataTable;
 import org.dominokit.domino.ui.datatable.DefaultColumnShowHideListener;
 import org.dominokit.domino.ui.datatable.events.SearchClearedEvent;
-import org.dominokit.domino.ui.datatable.events.TableEvent;
 import org.dominokit.domino.ui.datatable.model.Category;
 import org.dominokit.domino.ui.datatable.model.Filter;
 import org.dominokit.domino.ui.datatable.plugins.DataTablePlugin;
@@ -43,6 +42,7 @@ import org.dominokit.domino.ui.menu.Menu;
 import org.dominokit.domino.ui.menu.direction.DropDirection;
 import org.dominokit.domino.ui.search.SearchBox;
 import org.dominokit.domino.ui.utils.ChildHandler;
+import org.dominokit.domino.ui.utils.DominoEvent;
 import org.dominokit.domino.ui.utils.PostfixAddOn;
 
 /**
@@ -67,7 +67,9 @@ import org.dominokit.domino.ui.utils.PostfixAddOn;
  * </pre>
  *
  * @param <T> The data type of the DataTable
+ * @deprecated use {@link NavigationBarPlugin}
  */
+@Deprecated
 public class HeaderBarPlugin<T> implements DataTablePlugin<T> {
 
   private final NavBar navBar;
@@ -110,6 +112,11 @@ public class HeaderBarPlugin<T> implements DataTablePlugin<T> {
     dataTable.appendChild(navBar);
   }
 
+  public HeaderBarPlugin<T> withNavBar(ChildHandler<HeaderBarPlugin<T>, NavBar> handler) {
+    handler.apply(this, navBar);
+    return this;
+  }
+
   /**
    * Adds an action element to the header bar.
    *
@@ -126,7 +133,9 @@ public class HeaderBarPlugin<T> implements DataTablePlugin<T> {
    * DataTable.
    *
    * @param <T> The type of data in the DataTable.
+   * @deprecated use {@link org.dominokit.domino.ui.datatable.plugins.header.CondenseTableAction}
    */
+  @Deprecated
   public static class CondenseTableAction<T> implements HeaderActionElement<T> {
     private String condenseToolTip = "Condense";
     private String expandToolTip = "Expand";
@@ -184,7 +193,9 @@ public class HeaderBarPlugin<T> implements DataTablePlugin<T> {
    * An implementation of the {@link HeaderActionElement} that allows toggling table stripes.
    *
    * @param <T> The type of data in the DataTable.
+   * @deprecated use {@link org.dominokit.domino.ui.datatable.plugins.header.StripesTableAction}
    */
+  @Deprecated
   public static class StripesTableAction<T> implements HeaderActionElement<T> {
 
     private String noStripsToolTip = "No stripes";
@@ -242,7 +253,9 @@ public class HeaderBarPlugin<T> implements DataTablePlugin<T> {
    * An implementation of the {@link HeaderActionElement} that allows toggling table borders.
    *
    * @param <T> The type of data in the DataTable.
+   * @deprecated use {@link org.dominokit.domino.ui.datatable.plugins.header.BordersTableAction}
    */
+  @Deprecated
   public static class BordersTableAction<T> implements HeaderActionElement<T> {
 
     private String borderedToolTip = "Bordered";
@@ -300,7 +313,9 @@ public class HeaderBarPlugin<T> implements DataTablePlugin<T> {
    * An implementation of the {@link HeaderActionElement} that allows toggling table hover effect.
    *
    * @param <T> The type of data in the DataTable.
+   * @deprecated use {@link org.dominokit.domino.ui.datatable.plugins.header.HoverTableAction}
    */
+  @Deprecated
   public static class HoverTableAction<T> implements HeaderActionElement<T> {
 
     private String hoverToolTip = "Hover";
@@ -360,7 +375,9 @@ public class HeaderBarPlugin<T> implements DataTablePlugin<T> {
    * DataTable.
    *
    * @param <T> The type of data in the DataTable.
+   * @deprecated use {@link org.dominokit.domino.ui.datatable.plugins.header.ClearSearch}
    */
+  @Deprecated
   public static class ClearSearch<T> implements HeaderActionElement<T> {
 
     private String clearFiltersToolTip = "Clear filters";
@@ -403,7 +420,9 @@ public class HeaderBarPlugin<T> implements DataTablePlugin<T> {
    * DataTable.
    *
    * @param <T> The type of data in the DataTable.
+   * @deprecated use {@link org.dominokit.domino.ui.datatable.plugins.header.SearchTableAction}
    */
+  @Deprecated
   public static class SearchTableAction<T> implements HeaderActionElement<T> {
 
     private DataTable<T> dataTable;
@@ -440,7 +459,7 @@ public class HeaderBarPlugin<T> implements DataTablePlugin<T> {
      * @param event The table event to handle.
      */
     @Override
-    public void handleEvent(TableEvent event) {
+    public void handleEvent(DominoEvent event) {
       if (SearchClearedEvent.SEARCH_EVENT_CLEARED.equals(event.getType())) {
         searchBox.clearSearch(true);
       }
@@ -499,7 +518,9 @@ public class HeaderBarPlugin<T> implements DataTablePlugin<T> {
    * columns in a DataTable.
    *
    * @param <T> The type of data in the DataTable.
+   * @deprecated use {@link org.dominokit.domino.ui.datatable.plugins.header.ShowHideColumnsAction}
    */
+  @Deprecated
   public static class ShowHideColumnsAction<T> implements HeaderActionElement<T> {
 
     /**
@@ -574,6 +595,6 @@ public class HeaderBarPlugin<T> implements DataTablePlugin<T> {
      * @param event The table event to handle.
      */
     @Override
-    public void handleEvent(TableEvent event) {}
+    public void handleEvent(DominoEvent event) {}
   }
 }

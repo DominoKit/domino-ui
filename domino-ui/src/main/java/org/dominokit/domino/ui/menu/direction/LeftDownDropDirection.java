@@ -34,38 +34,15 @@ public class LeftDownDropDirection implements DropDirection {
 
     if (spaceChecker.hasSpaceOnLeft()) {
       if (spaceChecker.hasSpaceBelow()) {
-        double delta = 0;
-        double availableSpace = spaceChecker.getAvailableSpaceOnTop();
-        if (availableSpace < spaceChecker.getSourceHeight()) {
-          delta = spaceChecker.getSourceHeight() - availableSpace;
-        }
-
-        Style.of(source)
-            .style
-            .setProperty("top", px.of((spaceChecker.getTargetTop() + window.pageYOffset - delta)));
-
-        Style.of(source).style.setProperty("left", px.of(0));
-
-        dui_dd_left_down.apply(source);
-        elements
-            .elementOf(source)
-            .setCssProperty(
-                "--dui-dd-position-delta",
-                ((target.getBoundingClientRect().top - source.getBoundingClientRect().top)) + "px");
-        elements
-            .elementOf(source)
-            .setCssProperty("--dui-menu-drop-min-width", spaceChecker.getTargetWidth() + "px");
-
-        spaceChecker = context.newSpaceChecker();
-        double left =
-            spaceChecker.getTargetLeft() - spaceChecker.getSourceWidth() + window.pageXOffset;
-
-        Style.of(source).style.setProperty("left", px.of(Math.max(left, 0)));
-        return this;
+        return showOnLeftDown(context, spaceChecker, source, target);
       } else if (spaceChecker.hasSpaceAbove()) {
         return LEFT_UP.position(context);
       } else {
-        return MIDDLE_SCREEN.position(context);
+        if (context.isAllowFallBack()) {
+          return fallBackPosition(context, spaceChecker);
+        } else {
+          return showOnLeftDown(context, spaceChecker, source, target);
+        }
       }
     } else if (spaceChecker.hasSpaceOnRight()) {
       return RIGHT_DOWN.position(context);
@@ -75,7 +52,38 @@ public class LeftDownDropDirection implements DropDirection {
       return TOP_MIDDLE.position(context);
     }
 
-    return MIDDLE_SCREEN.position(context);
+    return fallBackPosition(context, spaceChecker);
+  }
+
+  private LeftDownDropDirection showOnLeftDown(
+      DropDirectionContext context, SpaceChecker spaceChecker, Element source, Element target) {
+    double delta = 0;
+    double availableSpace = spaceChecker.getAvailableSpaceOnTop();
+    if (availableSpace < spaceChecker.getSourceHeight()) {
+      delta = spaceChecker.getSourceHeight() - availableSpace;
+    }
+
+    Style.of(source)
+        .style
+        .setProperty("top", px.of((spaceChecker.getTargetTop() + window.pageYOffset - delta)));
+
+    Style.of(source).style.setProperty("left", px.of(0));
+
+    dui_dd_left_down.apply(source);
+    elements
+        .elementOf(source)
+        .setCssProperty(
+            "--dui-dd-position-delta",
+            ((target.getBoundingClientRect().top - source.getBoundingClientRect().top)) + "px");
+    elements
+        .elementOf(source)
+        .setCssProperty("--dui-menu-drop-min-width", spaceChecker.getTargetWidth() + "px");
+
+    spaceChecker = context.newSpaceChecker();
+    double left = spaceChecker.getTargetLeft() - spaceChecker.getSourceWidth() + window.pageXOffset;
+
+    Style.of(source).style.setProperty("left", px.of(Math.max(left, 0)));
+    return this;
   }
 
   /** {@inheritDoc} */

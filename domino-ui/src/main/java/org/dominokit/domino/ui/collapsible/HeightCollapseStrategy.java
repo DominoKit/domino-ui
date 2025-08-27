@@ -25,6 +25,7 @@ import elemental2.dom.Element;
 import elemental2.dom.EventListener;
 import org.dominokit.domino.ui.utils.DominoElement;
 import org.dominokit.domino.ui.utils.DominoId;
+import org.dominokit.domino.ui.utils.Register;
 
 /**
  * An implementation of {@link org.dominokit.domino.ui.collapsible.CollapseStrategy} that uses the
@@ -39,6 +40,8 @@ public class HeightCollapseStrategy implements CollapseStrategy, CollapsibleStyl
   private final String initialHeight;
   private CollapsibleHandlers handlers;
   private DominoElement<Element> target;
+  private Register attchedRegister = Register.EMPTY;
+  private Register detachRegister = Register.EMPTY;
 
   /** Create a HeightCollapseStrategy with a default duration of 300ms */
   public HeightCollapseStrategy() {
@@ -88,13 +91,18 @@ public class HeightCollapseStrategy implements CollapseStrategy, CollapsibleStyl
         .elementOf(element)
         .removeCss(dui_height_collapsed_overflow)
         .removeCss(dui_height_collapsed)
-        .removeCss(transition.getStyle());
+        .removeCss(transition.getStyle())
+        .removeCssProperty("height")
+        .removeCssProperty(this.heightVar);
+    attchedRegister.remove();
+    detachRegister.remove();
   }
 
   /** @dominokit-site-ignore {@inheritDoc} */
   @Override
   public void expand(Element element) {
-    this.target.nowOrWhenAttached(
+    attchedRegister.remove();
+    Runnable runnable =
         () -> {
           boolean noTransition = dui_transition_none.isAppliedTo(this.target);
           this.target.addCss(dui_transition_none);
@@ -106,7 +114,8 @@ public class HeightCollapseStrategy implements CollapseStrategy, CollapsibleStyl
           }
           this.handlers.onBeforeExpand().run();
           expandElement(element);
-        });
+        };
+    attchedRegister = this.target.registerNowOrWhenAttached(runnable);
   }
 
   private void expandElement(Element element) {
@@ -154,6 +163,7 @@ public class HeightCollapseStrategy implements CollapseStrategy, CollapsibleStyl
   @Override
   public void collapse(Element element) {
     boolean disableAnimation = dui_transition_none.isAppliedTo(this.target);
+    detachRegister.remove();
     this.target.apply(
         self -> {
           if (self.isAttached()) {
@@ -163,19 +173,18 @@ public class HeightCollapseStrategy implements CollapseStrategy, CollapsibleStyl
             collapseElement(element);
             handlers.onCollapseCompleted().run();
           } else {
-            self.onAttached(
-                (e, mutationRecord) -> {
-
-                  //                  this.target.setAttribute(DUI_EXPANDED_HEIGHT, "auto");
-                  this.target.setCssProperty(this.heightVar, "auto");
-                  this.handlers.onBeforeCollapse().run();
-                  this.target.addCss(dui_transition_none);
-                  collapseElement(element);
-                  if (!disableAnimation) {
-                    dui_transition_none.remove(this.target);
-                  }
-                  handlers.onCollapseCompleted().run();
-                });
+            detachRegister =
+                self.registerOnAttached(
+                    mutationRecord -> {
+                      this.target.setCssProperty(this.heightVar, "auto");
+                      this.handlers.onBeforeCollapse().run();
+                      this.target.addCss(dui_transition_none);
+                      collapseElement(element);
+                      if (!disableAnimation) {
+                        dui_transition_none.remove(this.target);
+                      }
+                      handlers.onCollapseCompleted().run();
+                    });
           }
         });
   }

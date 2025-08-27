@@ -542,7 +542,7 @@ public class Radio<T> extends BaseDominoElement<HTMLDivElement, Radio<T>>
       if (!isAttached()) {
         getInputElement()
             .onAttached(
-                (target, mutationRecord) -> {
+                mutationRecord -> {
                   getInputElement().element().focus();
                 });
       } else {
@@ -562,7 +562,7 @@ public class Radio<T> extends BaseDominoElement<HTMLDivElement, Radio<T>>
     if (!isAttached()) {
       getInputElement()
           .onAttached(
-              (target, mutationRecord) -> {
+              mutationRecord -> {
                 getInputElement().element().blur();
               });
     } else {

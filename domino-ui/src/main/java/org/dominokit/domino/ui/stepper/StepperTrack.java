@@ -44,6 +44,7 @@ import org.dominokit.domino.ui.utils.BaseDominoElement;
  */
 public class StepperTrack extends BaseDominoElement<HTMLDivElement, StepperTrack>
     implements StepperStyles, HasComponentConfig<StepperConfig> {
+
   private final DivElement root;
   private final List<StepTracker> trackers = new ArrayList<>();
   public BooleanCssClass textPosition = BooleanCssClass.of(dui_reversed);
@@ -194,7 +195,6 @@ public class StepperTrack extends BaseDominoElement<HTMLDivElement, StepperTrack
    */
   public StepperTrack start(StepState startState, StepTrackersConsumer consumer) {
     this.started = true;
-    int size = trackers.size();
     trackers.stream()
         .filter(
             tracker -> {
@@ -346,8 +346,6 @@ public class StepperTrack extends BaseDominoElement<HTMLDivElement, StepperTrack
     return this;
   }
 
-  // ... other methods continue with similar documentation...
-
   /**
    * Resets the stepper track and starts with the given state.
    *
@@ -425,6 +423,22 @@ public class StepperTrack extends BaseDominoElement<HTMLDivElement, StepperTrack
   public StepperTrack setTextPositionReversed(boolean reversed) {
     textPosition.apply(this, reversed);
     return this;
+  }
+
+  /**
+   * Hide/Show the last step tail
+   *
+   * @param hide boolean to hide/show the last step tail
+   * @return same StepperTrack instance
+   */
+  public StepperTrack setHideStepperTail(boolean hide) {
+    BooleanCssClass.of(dui_hide_stepper_tail, hide).apply(this);
+    return this;
+  }
+
+  /** @return true if the stepper last step tail is hidden. */
+  public boolean isStepperTailHidden() {
+    return dui_hide_stepper_tail.isAppliedTo(this);
   }
 
   /** {@inheritDoc} */

@@ -18,45 +18,49 @@ name: Deploy
 
 on:
   push:
-    branches: [ master , development ]
+    branches: [ master, development ]
 
 jobs:
   verify:
-    runs-on: ubuntu-20.04
-    strategy:
-      matrix:
-        java-version: [ 11 ]
+    runs-on: ubuntu-latest
     steps:
       - name: Check out Git repository
-        uses: actions/checkout@v3
-      - name: Install Java and Maven
-        uses: actions/setup-java@v3
+        uses: actions/checkout@v4
+
+      - name: Set up Java
+        uses: actions/setup-java@v4
         with:
-          java-version: ${{ matrix.java-version }}
-          distribution: 'temurin'
-      - run: ./mvnw verify -B -e
+          java-version: 11
+          distribution: temurin
+          cache: maven
+
+      - name: Run Maven verify
+        run: ./mvnw verify -B -e
 
   release:
     needs: verify
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-latest
     steps:
       - name: Check out Git repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
-      - name: Install Java and Maven
-        uses: actions/setup-java@v3
+      - name: Set up Java for deployment
+        uses: actions/setup-java@v4
         with:
           java-version: 11
-          distribution: 'temurin'
-          server-id: ossrh
-          server-username: SONATYPE_USERNAME
-          server-password: SONATYPE_PASSWORD
-      - id: install-secret-key
-        name: Install gpg secret key
+          distribution: temurin
+          cache: maven
+          server-id: 'central'
+          server-username: CENTRAL_USER
+          server-password: CENTRAL_TOKEN
+      - name: Import GPG key
         run: |
-          cat <(echo -e "${{ secrets.gpg_private_key }}") | gpg --batch --import
-      - name: publish to snapshot
-        run: ./mvnw --no-transfer-progress clean deploy -B -e -Dci=true -Dgpg.passphrase=${{ secrets.gpg_passphrase }}
+          echo "${{ secrets.gpg_private_key }}" | gpg --batch --import
         env:
-          SONATYPE_USERNAME: ${{ secrets.nexus_username }}
-          SONATYPE_PASSWORD: ${{ secrets.nexus_password }}
+          GPG_TTY: $(tty)
+      - name: Deploy with Maven
+        run: ./mvnw --no-transfer-progress clean deploy -B -e -Dgpg.passphrase=${{ secrets.gpg_passphrase }}
+        env:
+          CENTRAL_USER: ${{ secrets.CENTRAL_USER }}
+          CENTRAL_TOKEN: ${{ secrets.CENTRAL_TOKEN }}
+

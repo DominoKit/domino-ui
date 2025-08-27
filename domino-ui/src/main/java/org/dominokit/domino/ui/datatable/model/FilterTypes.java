@@ -25,7 +25,7 @@ package org.dominokit.domino.ui.datatable.model;
  *
  * @see org.dominokit.domino.ui.datatable.model.Filter
  */
-public enum FilterTypes {
+public enum FilterTypes implements FilterType {
   /** Represents a string-based filter type, used for text-based filtering. */
   STRING,
 
@@ -57,5 +57,10 @@ public enum FilterTypes {
   TIME,
 
   /** Represents an enum-based filter type, used for enum-based filtering. */
-  ENUM
+  ENUM;
+
+  @Override
+  public String getTypeName() {
+    return this.name();
+  }
 }

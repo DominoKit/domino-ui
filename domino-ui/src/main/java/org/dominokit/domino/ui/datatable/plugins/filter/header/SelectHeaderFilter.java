@@ -29,6 +29,7 @@ import org.dominokit.domino.ui.datatable.model.SearchContext;
 import org.dominokit.domino.ui.datatable.plugins.column.ColumnHeaderFilterPlugin;
 import org.dominokit.domino.ui.forms.suggest.Select;
 import org.dominokit.domino.ui.forms.suggest.SelectOption;
+import org.dominokit.domino.ui.utils.ChildHandler;
 
 /**
  * The SelectHeaderFilter class provides a header filter for selecting options from a list.
@@ -122,6 +123,18 @@ public class SelectHeaderFilter<T> implements ColumnHeaderFilterPlugin.HeaderFil
   @Override
   public HTMLElement element() {
     return select.element();
+  }
+
+  /**
+   * Apply a function to the select field of this filter.
+   *
+   * @param handler the handler to apply to the select field
+   * @return same filter instance
+   */
+  public SelectHeaderFilter<T> withSelect(
+      ChildHandler<SelectHeaderFilter<T>, Select<String>> handler) {
+    handler.apply(this, select);
+    return this;
   }
 
   /**

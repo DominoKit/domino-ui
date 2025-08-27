@@ -22,11 +22,15 @@ import elemental2.dom.DOMRect;
 import elemental2.dom.DomGlobal;
 import elemental2.dom.Element;
 import java.util.List;
+import org.dominokit.domino.ui.style.CssProperty;
 import org.dominokit.domino.ui.utils.Unit;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class SpaceChecker {
+
+  public static final String MAX_HEIGHT = "--dui-drop-down-menu-max-height";
+  public static final String MAX_WIDTH = "--dui-drop-down-menu-max-width";
 
   private static final Logger LOGGER = LoggerFactory.getLogger(SpaceChecker.class);
 
@@ -219,5 +223,23 @@ public class SpaceChecker {
 
   public double getSourceBottom() {
     return sourceBottom;
+  }
+
+  public double getMaximumSideSpace() {
+    return Math.min(
+        sourceWidth, Math.max(getAvailableSpaceOnLeft(), getAvailableSpaceOnRight()) - 32);
+  }
+
+  public double getMaximumVerticalSpace() {
+    return Math.min(
+        sourceHeight, Math.max(getAvailableSpaceOnTop(), getAvailableSpaceOnBottom()) - 32);
+  }
+
+  public CssProperty getMaximumSideSpaceProperty() {
+    return CssProperty.of(MAX_WIDTH, Unit.px.of(getMaximumSideSpace()));
+  }
+
+  public CssProperty getMaximumVerticalSpaceProperty() {
+    return CssProperty.of(MAX_HEIGHT, Unit.px.of(getMaximumVerticalSpace()));
   }
 }

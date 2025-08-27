@@ -52,29 +52,39 @@ public class BottomLeftDropDirection implements DropDirection {
     double left = 0;
     double delta = 0;
     if (spaceChecker.hasSpaceOnLeft()) {
-      if (spaceChecker.hasSpaceBelow()) {
-        left =
-            spaceChecker.getTargetLeft()
-                - (spaceChecker.getSourceWidth() - spaceChecker.getTargetWidth());
-        if (spaceChecker.getAvailableSpaceOnRight() < 0) {
-          delta =
-              Math.min(
-                  spaceChecker.getTargetWidth(), Math.abs(spaceChecker.getAvailableSpaceOnRight()));
-        }
-        left = left - delta;
-        Style.of(source).style.setProperty("left", px.of(Math.max(left, 0)));
-        return this;
-      } else if (spaceChecker.hasSpaceAbove()) {
-        return TOP_LEFT.position(context);
-      } else {
-        return MIDDLE_SCREEN.position(context);
-      }
+      return showOnBottomLeft(context, spaceChecker, delta, source);
     } else if (spaceChecker.hasSpaceOnRight()) {
       return BOTTOM_RIGHT.position(context);
     } else if (spaceChecker.hasSpaceBelow()) {
       return BOTTOM_MIDDLE.position(context);
     } else if (spaceChecker.hasSpaceAbove()) {
       return TOP_MIDDLE.position(context);
+    } else {
+      if (context.isAllowFallBack()) {
+        return fallBackPosition(context, spaceChecker);
+      } else {
+        return showOnBottomLeft(context, spaceChecker, delta, source);
+      }
+    }
+  }
+
+  private DropDirection showOnBottomLeft(
+      DropDirectionContext context, SpaceChecker spaceChecker, double delta, Element source) {
+    double left;
+    if (spaceChecker.hasSpaceBelow()) {
+      left =
+          spaceChecker.getTargetLeft()
+              - (spaceChecker.getSourceWidth() - spaceChecker.getTargetWidth());
+      if (spaceChecker.getAvailableSpaceOnRight() < 0) {
+        delta =
+            Math.min(
+                spaceChecker.getTargetWidth(), Math.abs(spaceChecker.getAvailableSpaceOnRight()));
+      }
+      left = left - delta;
+      Style.of(source).style.setProperty("left", px.of(Math.max(left, 0)));
+      return this;
+    } else if (spaceChecker.hasSpaceAbove()) {
+      return TOP_LEFT.position(context);
     } else {
       return MIDDLE_SCREEN.position(context);
     }

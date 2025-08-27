@@ -32,6 +32,10 @@ public class SortPluginConfig implements PluginConfig {
   private Supplier<Icon<?>> descendingIcon = Icons::sort_descending;
   private Supplier<Icon<?>> unsortedIcon = Icons::sort;
   private boolean showIconOnSortedColumnOnly = false;
+  private boolean showSortOptionsInColumnMenu = false;
+  private String sortAscendingLabel = "Sort ascending";
+  private String sortDescendingLabel = "Sort descending";
+  private String noSortLabel = "Unsorted";
 
   /**
    * Checks if tri-state sorting is enabled.
@@ -138,5 +142,80 @@ public class SortPluginConfig implements PluginConfig {
   public SortPluginConfig setShowIconOnSortedColumnOnly(boolean showIconOnSortedColumnOnly) {
     this.showIconOnSortedColumnOnly = showIconOnSortedColumnOnly;
     return this;
+  }
+
+  /**
+   * Checks whether sort options are shown in the column menu.
+   *
+   * @return {@code true} if sort options are displayed in the column menu, {@code false} otherwise
+   */
+  public boolean isShowSortOptionsInColumnMenu() {
+    return showSortOptionsInColumnMenu;
+  }
+
+  /**
+   * Sets whether sort options should be shown in the column menu.
+   *
+   * @param showSortOptionsInColumnMenu {@code true} to display sort options in the column menu,
+   *     {@code false} to hide them
+   * @return This SortPluginConfig instance for method chaining.
+   */
+  public SortPluginConfig setShowSortOptionsInColumnMenu(boolean showSortOptionsInColumnMenu) {
+    this.showSortOptionsInColumnMenu = showSortOptionsInColumnMenu;
+    return this;
+  }
+
+  /**
+   * Returns the label text used for the "Sort Ascending" option.
+   *
+   * @return the "Sort Ascending" label, or {@code null} if not set
+   */
+  public String getSortAscendingLabel() {
+    return sortAscendingLabel;
+  }
+
+  /**
+   * Sets the label text for the "Sort Ascending" option.
+   *
+   * @param sortAscendingLabel the label to use for the "Sort Ascending" option
+   */
+  public void setSortAscendingLabel(String sortAscendingLabel) {
+    this.sortAscendingLabel = sortAscendingLabel;
+  }
+
+  /**
+   * Returns the label text used for the "Sort Descending" option.
+   *
+   * @return the "Sort Descending" label, or {@code null} if not set
+   */
+  public String getSortDescendingLabel() {
+    return sortDescendingLabel;
+  }
+
+  /**
+   * Sets the label text for the "Sort Descending" option.
+   *
+   * @param sortDescendingLabel the label to use for the "Sort Descending" option
+   */
+  public void setSortDescendingLabel(String sortDescendingLabel) {
+    this.sortDescendingLabel = sortDescendingLabel;
+  }
+
+  /**
+   * Returns the label text used for the "No Sort" option.
+   *
+   * @return the "No Sort" label, or {@code null} if not set
+   */
+  public String getNoSortLabel() {
+    return noSortLabel;
+  }
+
+  /**
+   * Sets the label text for the "No Sort" option.
+   *
+   * @param noSortLabel the label to use for the "No Sort" option
+   */
+  public void setNoSortLabel(String noSortLabel) {
+    this.noSortLabel = noSortLabel;
   }
 }
