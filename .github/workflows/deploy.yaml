@@ -59,7 +59,7 @@ jobs:
         env:
           GPG_TTY: $(tty)
       - name: Deploy with Maven
-        run: ./mvnw --no-transfer-progress clean deploy -B -e -X -Dgpg.passphrase=${{ secrets.gpg_passphrase }}
+        run: ./mvnw --no-transfer-progress clean deploy -B -e -Dci=true -Dgpg.passphrase=${{ secrets.gpg_passphrase }}
         env:
           CENTRAL_USER: ${{ secrets.CENTRAL_USER }}
           CENTRAL_TOKEN: ${{ secrets.CENTRAL_TOKEN }}
