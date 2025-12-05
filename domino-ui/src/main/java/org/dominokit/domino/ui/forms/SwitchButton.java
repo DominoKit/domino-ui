@@ -328,6 +328,15 @@ public class SwitchButton extends InputFormField<SwitchButton, HTMLInputElement,
   }
 
   /**
+   * Gets a lazy child representing the "on" label element of the SwitchButton.
+   *
+   * @return the LazyChild for the "on" label element.
+   */
+  public LazyChild<LabelElement> getOnLabelElement() {
+    return onLabelElement;
+  }
+
+  /**
    * Checks if the "on" title is empty.
    *
    * @return true if the "on" title is null or empty, false otherwise.
