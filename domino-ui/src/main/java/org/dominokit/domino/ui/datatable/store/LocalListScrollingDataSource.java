@@ -479,4 +479,13 @@ public class LocalListScrollingDataSource<T>
                 isNull(this.lastSearch) || getSearchFilter().filterRecord(this.lastSearch, record))
         .collect(Collectors.toList());
   }
+
+  @Override
+  public List<T> filterData(Collection<T> data) {
+    return HasDataFilters.super.filterData(data).stream()
+        .filter(
+            record ->
+                isNull(this.lastSearch) || getSearchFilter().filterRecord(this.lastSearch, record))
+        .collect(Collectors.toList());
+  }
 }
