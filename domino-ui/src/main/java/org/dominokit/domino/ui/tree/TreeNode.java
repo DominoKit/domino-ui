@@ -122,7 +122,18 @@ public abstract class TreeNode<V, N extends TreeNode<V, N, S>, S>
    * node.
    */
   private void onActivation() {
-    if (isParent()) {
+    onActivation(true);
+  }
+
+  /**
+   * Handles the logic when a tree node is "activated" (clicked or otherwise triggered), toggling
+   * expand/collapse if it's a parent node and then calling {@link #activateNode()} to highlight the
+   * node.
+   *
+   * @param toggle indicates whether the node’s state should be toggled
+   */
+  private void onActivation(boolean toggle) {
+    if (toggle && isParent()) {
       toggle();
     }
     activateNode();
@@ -551,8 +562,18 @@ public abstract class TreeNode<V, N extends TreeNode<V, N, S>, S>
    * @return this node (for fluent API)
    */
   public N activate() {
+    return activate(false);
+  }
+
+  /**
+   * Activates this node, showing it if necessary and performing the default "onActivation" logic.
+   *
+   * @param expand indicates that if the node is activated, it should be in an expanded state
+   * @return this node (for fluent API)
+   */
+  public N activate(boolean expand) {
     this.show(true);
-    onActivation();
+    onActivation(!expand);
     return (N) this;
   }
 
