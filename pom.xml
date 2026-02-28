@@ -300,6 +300,7 @@
                         <exclude>**/pom.xml</exclude>
                         <exclude>**/.flattened-pom.xml</exclude>
                         <exclude>**/gwt-unitcache</exclude>
+                        <exclude>**/*.sh</exclude>
                     </excludes>
                     <properties>
                         <year>${project.inceptionYear}</year>

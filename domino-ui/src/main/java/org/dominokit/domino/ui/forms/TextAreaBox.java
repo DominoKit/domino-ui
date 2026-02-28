@@ -132,12 +132,12 @@ public class TextAreaBox extends CountableInputFormField<TextAreaBox, HTMLTextAr
 
   @Override
   public PrefixElement getPrefixElement() {
-    return PrefixElement.of(header);
+    return PrefixElement.of(header).addCss(dui_field_prefix);
   }
 
   @Override
   public PostfixElement getPostfixElement() {
-    return PostfixElement.of(header);
+    return PostfixElement.of(header).addCss(dui_field_postfix);
   }
 
   @Override
