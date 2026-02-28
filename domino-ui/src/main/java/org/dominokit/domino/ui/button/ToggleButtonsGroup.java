@@ -18,7 +18,6 @@ package org.dominokit.domino.ui.button;
 import static java.util.Objects.isNull;
 import static java.util.Objects.nonNull;
 
-import elemental2.dom.DomGlobal;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Objects;
@@ -26,6 +25,7 @@ import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 import org.dominokit.domino.ui.button.group.BaseButtonsGroup;
+import org.dominokit.domino.ui.style.Color;
 import org.dominokit.domino.ui.style.CssClass;
 import org.dominokit.domino.ui.utils.HasChangeListeners;
 import org.dominokit.domino.ui.utils.IsToggleGroup;
@@ -87,7 +87,6 @@ public class ToggleButtonsGroup extends BaseButtonsGroup<ToggleButtonsGroup, Tog
         }
         triggerChangeListeners(oldValue, newValue);
       } else {
-        DomGlobal.console.info("Only multiple toggle is allowed for this group");
         Optional<ToggleButton> first =
             getButtons().stream()
                 .filter(ToggleButton::isToggled)
@@ -188,5 +187,16 @@ public class ToggleButtonsGroup extends BaseButtonsGroup<ToggleButtonsGroup, Tog
     buttons.forEach(button -> button.setToggleCssClass(toggleCssClass));
     this.cssToggleClass = toggleCssClass;
     return this;
+  }
+
+  public ToggleButtonsGroup setToggledColors(Color background, Color forground) {
+    this.setCssProperty("--dui-btn-toggled-bg", background.toVarValue());
+    this.setCssProperty("--dui-btn-toggled-color", forground.toVarValue());
+    return this;
+  }
+
+  @Override
+  public ToggleButtonsGroup appendChild(ToggleButton... buttons) {
+    return super.appendChild(buttons);
   }
 }

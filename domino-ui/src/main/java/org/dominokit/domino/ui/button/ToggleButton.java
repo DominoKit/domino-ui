@@ -18,8 +18,6 @@ package org.dominokit.domino.ui.button;
 import static java.util.Objects.isNull;
 import static java.util.Objects.nonNull;
 import static org.dominokit.domino.ui.button.ButtonStyles.dui_toggle_button;
-import static org.dominokit.domino.ui.style.ColorsCss.dui_bg_primary;
-import static org.dominokit.domino.ui.style.ColorsCss.dui_fg_white;
 import static org.dominokit.domino.ui.utils.Domino.button;
 
 import elemental2.dom.HTMLButtonElement;
@@ -28,17 +26,21 @@ import java.util.Set;
 import org.dominokit.domino.ui.elements.ButtonElement;
 import org.dominokit.domino.ui.icons.Icon;
 import org.dominokit.domino.ui.style.BooleanCssClass;
-import org.dominokit.domino.ui.style.CompositeCssClass;
+import org.dominokit.domino.ui.style.Color;
 import org.dominokit.domino.ui.style.CssClass;
 import org.dominokit.domino.ui.utils.HasChangeListeners;
+import org.dominokit.domino.ui.utils.HasValue;
 import org.dominokit.domino.ui.utils.IsToggleGroup;
 import org.dominokit.domino.ui.utils.IsToggleItem;
+import org.gwtproject.editor.client.TakesValue;
 
 public class ToggleButton extends BaseButton<HTMLButtonElement, ToggleButton>
-    implements HasChangeListeners<ToggleButton, Boolean>, IsToggleItem<ToggleButton> {
+    implements HasChangeListeners<ToggleButton, Boolean>,
+        IsToggleItem<ToggleButton>,
+        TakesValue<Boolean>,
+        HasValue<ToggleButton, Boolean> {
 
-  private CssClass toggleCssClass = CompositeCssClass.of(dui_bg_primary, dui_fg_white);
-  private CssClass untoggledCssClass = CssClass.NONE;
+  private CssClass toggleCssClass = () -> "dui-btn-toggled";
   private boolean changeListenersPaused;
   private Set<ChangeListener<? super Boolean>> changeListeners;
   private boolean state = false;
@@ -148,13 +150,7 @@ public class ToggleButton extends BaseButton<HTMLButtonElement, ToggleButton>
   ToggleButton updateToggle(boolean toggle, boolean notifyParent) {
     boolean oldState = this.state;
     this.state = toggle;
-    if (toggle) {
-      untoggledCssClass = CompositeCssClass.of(this);
-    }
     addCss(BooleanCssClass.of(toggleCssClass, toggle));
-    if (!toggle) {
-      addCss(untoggledCssClass);
-    }
     if (this.state != oldState) {
       withPauseChangeListenersToggle(
           isChangeListenersPaused(), toggleButton -> triggerChangeListeners(oldState, this.state));
@@ -262,7 +258,29 @@ public class ToggleButton extends BaseButton<HTMLButtonElement, ToggleButton>
     return this;
   }
 
-  public boolean getValue() {
+  public ToggleButton setToggledColors(Color background, Color forground) {
+    this.setCssProperty("--dui-btn-toggled-bg", background.toVarValue());
+    this.setCssProperty("--dui-btn-toggled-color", forground.toVarValue());
+    return this;
+  }
+
+  public Boolean getValue() {
     return state;
+  }
+
+  @Override
+  public ToggleButton withValue(Boolean value) {
+    return withValue(value, isChangeListenersPaused());
+  }
+
+  @Override
+  public ToggleButton withValue(Boolean value, boolean silent) {
+    setToggle(value, silent);
+    return this;
+  }
+
+  @Override
+  public void setValue(Boolean value) {
+    setToggle(value);
   }
 }

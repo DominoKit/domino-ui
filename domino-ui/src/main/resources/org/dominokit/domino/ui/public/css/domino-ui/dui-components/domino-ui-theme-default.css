@@ -560,6 +560,9 @@ body.dui {
     --dui-scroll-top-button-zindex: 9999999999;
     --dui-scroll-top-button-opacity: 04;
 
+    --dui-btn-toggled-bg: var(--dui-accent-d-2);
+    --dui-btn-toggled-color: var(--dui-highlight-color);
+
     /* ===================== Breadcrumb ==================================== */
 
     --dui-bc-default-bg: var(--dui-clr-transparent);
@@ -926,6 +929,7 @@ body.dui {
     --dui-menu-subheader-border-color: var(--dui-accent-l-3);
 
     --dui-menu-drop-z-index: var(--dui-z-index-start);
+    F--dui-menu-drop-min-width: var(--dui-spc-40);
 
     --dui-menu-header-bar-padding: var(--dui-spc-px-5);
 
