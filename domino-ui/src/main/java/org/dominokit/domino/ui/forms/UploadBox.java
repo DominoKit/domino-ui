@@ -81,7 +81,11 @@ public class UploadBox extends InputFormField<UploadBox, HTMLInputElement, List<
   public UploadBox() {
     prefixElement = LazyChild.of(div().addCss(dui_field_prefix), wrapperElement);
     postfixElement = LazyChild.of(div().addCss(dui_field_postfix), wrapperElement);
-    appendChild(PrimaryAddOn.of(Icons.upload().clickable()));
+    appendChild(
+        PrimaryAddOn.of(
+            Icons.upload()
+                .clickable()
+                .addClickListener(evt -> getInputElement().element().click())));
     withWrapper(
         (parent, wrapper) ->
             wrapper
