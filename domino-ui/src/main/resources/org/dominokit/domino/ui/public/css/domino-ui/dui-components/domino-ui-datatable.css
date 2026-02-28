@@ -293,3 +293,8 @@
     --dui-datatable-odd-bg-color: var(--dui-datatable-row-highlight-bg-color, var(--dui-accent-l-3));
     --dui-bg-clr: var(--dui-datatable-row-highlight-bg-color, var(--dui-accent-l-3));
 }
+
+.dui-table-selection-disabled .dui.dui-table-selection-indicator,
+.dui-table-selection-disabled .dui.dui-table-selection-checkbox {
+    display: none;
+}
