@@ -246,9 +246,8 @@ public class SplitPanel extends BaseDominoElement<HTMLDivElement, SplitPanel>
    * @param pixels the new size of the panel in pixels
    * @param percent the new size of the panel in percentage
    */
-  void onResize(double pixels, double percent) {
-    resizeListeners.forEach(
-        resizeListener -> resizeListener.onResize(SplitPanel.this, pixels, percent));
+  void onPanelResize(double pixels) {
+    resizeListeners.forEach(resizeListener -> resizeListener.onResize(SplitPanel.this, pixels));
   }
 
   /**
@@ -272,6 +271,6 @@ public class SplitPanel extends BaseDominoElement<HTMLDivElement, SplitPanel>
      * @param pixels the size of the panel in pixels after resizing
      * @param percent the size of the panel in percentage after resizing
      */
-    void onResize(SplitPanel panel, double pixels, double percent);
+    void onResize(SplitPanel panel, double pixels);
   }
 }

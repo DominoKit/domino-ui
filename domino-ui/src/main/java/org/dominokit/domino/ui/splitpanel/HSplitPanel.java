@@ -17,6 +17,8 @@ package org.dominokit.domino.ui.splitpanel;
 
 import static org.dominokit.domino.ui.utils.Domino.*;
 
+import org.dominokit.domino.ui.utils.Unit;
+
 /**
  * Represents a horizontal split panel which contains two panels separated by a horizontal splitter.
  *
@@ -65,6 +67,7 @@ public class HSplitPanel extends BaseSplitPanel<HSplitPanel, HSplitter>
   protected void setPanelSize(SplitPanel panel, String size) {
     panel.style().setWidth(size);
     panel.setCssProperty("--dui-split-panel-dynamic-size", size);
+    panel.onPanelResize(Unit.px.parse(size).doubleValue());
   }
 
   /**

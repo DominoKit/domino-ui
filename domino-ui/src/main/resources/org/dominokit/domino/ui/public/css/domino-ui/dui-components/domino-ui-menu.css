@@ -148,7 +148,7 @@
     position: absolute;
     width: fit-content;
     box-shadow: var(--dui-box-shadow);
-    min-width: max(var(--dui-spc-40), var(--dui-menu-drop-min-width));
+    min-width: max(var(--dui-spc-40), var(--dui-menu-drop-width, var(--dui-menu-drop-min-width)));
 }
 
 .dui-menu-drop.dui-context-menu {

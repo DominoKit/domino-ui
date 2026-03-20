@@ -34,10 +34,13 @@ import jsinterop.base.Js;
 import org.dominokit.domino.ui.datatable.*;
 import org.dominokit.domino.ui.datatable.events.OnBeforeDataChangeEvent;
 import org.dominokit.domino.ui.datatable.events.TableDataUpdatedEvent;
+import org.dominokit.domino.ui.datatable.events.TableSelectionDisableEvent;
 import org.dominokit.domino.ui.datatable.plugins.DataTablePlugin;
 import org.dominokit.domino.ui.forms.CheckBox;
 import org.dominokit.domino.ui.icons.Icon;
 import org.dominokit.domino.ui.icons.lib.Icons;
+import org.dominokit.domino.ui.style.BooleanCssClass;
+import org.dominokit.domino.ui.style.CssClass;
 import org.dominokit.domino.ui.utils.DominoEvent;
 import org.dominokit.domino.ui.utils.HasSelectionListeners;
 import org.dominokit.domino.ui.utils.Selectable;
@@ -51,6 +54,12 @@ import org.dominokit.domino.ui.utils.Selectable;
  * @see DataTablePlugin
  */
 public class SelectionPlugin<T> implements DataTablePlugin<T> {
+
+  private static final CssClass dui_table_selection_disabled = () -> "dui-table-selection-disabled";
+  private static final CssClass dui_table_selection_checkbox = () -> "dui-table-selection-checkbox";
+  private static final CssClass dui_table_selection_indicator =
+      () -> "dui-table-selection-indicator";
+
   private Selectable<TableRow<T>> selectedRow;
   private Supplier<Element> singleSelectIndicator = () -> Icons.check().element();
   private SelectionCondition<T> selectionCondition = (table, row) -> true;
@@ -60,6 +69,7 @@ public class SelectionPlugin<T> implements DataTablePlugin<T> {
   private List<T> oldSelection = new ArrayList<>();
   private boolean retainSelectionOnDataChange = false;
   private CheckBox headerCheckBox;
+  private boolean enabled = true;
 
   /** Creates a new `SelectionPlugin` with default settings. */
   public SelectionPlugin() {}
@@ -133,9 +143,14 @@ public class SelectionPlugin<T> implements DataTablePlugin<T> {
     if (column.isUtilityColumn()) {
       if (dataTable.getTableConfig().isMultiSelect()) {
         column.appendChild(
-            div().addCss(dui_order_20).appendChild(createMultiSelectHeader(dataTable)));
+            div()
+                .addCss(dui_order_20, dui_table_selection_indicator)
+                .appendChild(createMultiSelectHeader(dataTable)));
       } else {
-        column.appendChild(div().addCss(dui_order_20).appendChild(createSingleSelectHeader()));
+        column.appendChild(
+            div()
+                .addCss(dui_order_20, dui_table_selection_indicator)
+                .appendChild(createSingleSelectHeader()));
       }
     }
   }
@@ -158,7 +173,7 @@ public class SelectionPlugin<T> implements DataTablePlugin<T> {
    */
   private Element createSingleSelectCell(DataTable<T> dataTable, RowCellInfo<T> cell) {
     Element clonedIndicator = Js.uncheckedCast(singleSelectIndicator.get());
-    elementOf(clonedIndicator).addCss(dui_fg_accent);
+    elementOf(clonedIndicator).addCss(dui_fg_accent, dui_table_selection_indicator);
 
     EventListener clickListener =
         evt -> {
@@ -359,7 +374,7 @@ public class SelectionPlugin<T> implements DataTablePlugin<T> {
 
   private CheckBox createCheckBox(Optional<TableRow<T>> tableRow) {
     CheckBox checkBox = checkBoxCreator.get(tableRow);
-    checkBox.addCss(dui_minified, dui_hide_label);
+    checkBox.addCss(dui_minified, dui_hide_label, dui_table_selection_checkbox);
     return checkBox;
   }
 
@@ -426,6 +441,14 @@ public class SelectionPlugin<T> implements DataTablePlugin<T> {
         updateHeaderCheckBox(this.datatable.getSelectedItems());
       }
     }
+
+    if (TableSelectionDisableEvent.TABLE_SELECTION_DISABLE_EVENT.equals(event.getType())) {
+      updateSelectionState(this.datatable.isSelectable());
+    }
+  }
+
+  private void updateSelectionState(boolean selectable) {
+    this.datatable.addCss(BooleanCssClass.of(dui_table_selection_disabled, !selectable));
   }
 
   /**
