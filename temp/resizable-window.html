@@ -1,0 +1,231 @@
+<!--
+
+    Copyright © 2019 Dominokit
+
+    Licensed under the Apache License, Version 2.0 (the "License");
+    you may not use this file except in compliance with the License.
+    You may obtain a copy of the License at
+
+        http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
+
+-->
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Resizable Window (Absolute)</title>
+    <style>
+      :root {
+        color-scheme: light;
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      }
+
+      body {
+        margin: 0;
+        min-height: 100vh;
+        background: #f2f4f7;
+      }
+
+      .stage {
+        position: relative;
+        width: 100vw;
+        height: 100vh;
+        overflow: hidden;
+      }
+
+      .window {
+        position: absolute;
+        left: 120px;
+        top: 90px;
+        width: 360px;
+        height: 240px;
+        background: #ffffff;
+        border: 1px solid #cfd6e0;
+        border-radius: 8px;
+        box-shadow: 0 12px 24px rgba(29, 43, 76, 0.12);
+        display: flex;
+        flex-direction: column;
+        user-select: none;
+      }
+
+      .titlebar {
+        height: 36px;
+        background: linear-gradient(90deg, #324cdd, #6b7ef5);
+        color: #fff;
+        padding: 0 12px;
+        display: flex;
+        align-items: center;
+        font-size: 14px;
+        letter-spacing: 0.3px;
+        border-top-left-radius: 7px;
+        border-top-right-radius: 7px;
+      }
+
+      .content {
+        flex: 1;
+        padding: 16px;
+        font-size: 14px;
+        color: #2c3a4b;
+        line-height: 1.4;
+      }
+
+      .resizer {
+        position: absolute;
+        background: transparent;
+      }
+
+      .resizer.top,
+      .resizer.bottom {
+        height: 10px;
+        left: 0;
+        right: 0;
+        cursor: ns-resize;
+      }
+
+      .resizer.left,
+      .resizer.right {
+        width: 10px;
+        top: 0;
+        bottom: 0;
+        cursor: ew-resize;
+      }
+
+      .resizer.top {
+        top: -5px;
+      }
+
+      .resizer.bottom {
+        bottom: -5px;
+      }
+
+      .resizer.left {
+        left: -5px;
+      }
+
+      .resizer.right {
+        right: -5px;
+      }
+
+      .resizer.corner {
+        width: 16px;
+        height: 16px;
+        right: -8px;
+        bottom: -8px;
+        cursor: nwse-resize;
+      }
+
+      .resizer.corner::after {
+        content: "";
+        position: absolute;
+        right: 2px;
+        bottom: 2px;
+        width: 10px;
+        height: 10px;
+        border-right: 2px solid #324cdd;
+        border-bottom: 2px solid #324cdd;
+        opacity: 0;
+        transition: opacity 120ms ease;
+      }
+
+      .resizer.corner:hover::after,
+      .resizer.corner:active::after {
+        opacity: 0.7;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="stage">
+      <div class="window" id="window">
+        <div class="titlebar">Resizable Window</div>
+        <div class="content">
+          Drag any edge to resize. Drag the bottom-right corner to resize in both
+          directions. The window uses absolute positioning.
+        </div>
+        <div class="resizer top" data-direction="top"></div>
+        <div class="resizer bottom" data-direction="bottom"></div>
+        <div class="resizer left" data-direction="left"></div>
+        <div class="resizer right" data-direction="right"></div>
+        <div class="resizer corner" data-direction="bottom-right"></div>
+      </div>
+    </div>
+
+    <script>
+      const win = document.getElementById("window");
+      const minWidth = 180;
+      const minHeight = 120;
+
+      let startX = 0;
+      let startY = 0;
+      let startWidth = 0;
+      let startHeight = 0;
+      let startTop = 0;
+      let startLeft = 0;
+      let activeDir = null;
+
+      function onPointerMove(event) {
+        if (!activeDir) {
+          return;
+        }
+
+        const dx = event.clientX - startX;
+        const dy = event.clientY - startY;
+
+        if (activeDir === "right" || activeDir === "bottom-right") {
+          const nextWidth = Math.max(minWidth, startWidth + dx);
+          win.style.width = `${nextWidth}px`;
+        }
+
+        if (activeDir === "bottom" || activeDir === "bottom-right") {
+          const nextHeight = Math.max(minHeight, startHeight + dy);
+          win.style.height = `${nextHeight}px`;
+        }
+
+        if (activeDir === "left") {
+          const nextWidth = Math.max(minWidth, startWidth - dx);
+          const nextLeft = startLeft + (startWidth - nextWidth);
+          win.style.width = `${nextWidth}px`;
+          win.style.left = `${nextLeft}px`;
+        }
+
+        if (activeDir === "top") {
+          const nextHeight = Math.max(minHeight, startHeight - dy);
+          const nextTop = startTop + (startHeight - nextHeight);
+          win.style.height = `${nextHeight}px`;
+          win.style.top = `${nextTop}px`;
+        }
+      }
+
+      function stopResize() {
+        if (!activeDir) {
+          return;
+        }
+        activeDir = null;
+        window.removeEventListener("pointermove", onPointerMove);
+        window.removeEventListener("pointerup", stopResize);
+      }
+
+      win.querySelectorAll(".resizer").forEach((resizer) => {
+        resizer.addEventListener("pointerdown", (event) => {
+          event.preventDefault();
+          activeDir = resizer.dataset.direction;
+          startX = event.clientX;
+          startY = event.clientY;
+          startWidth = win.offsetWidth;
+          startHeight = win.offsetHeight;
+          startTop = win.offsetTop;
+          startLeft = win.offsetLeft;
+
+          window.addEventListener("pointermove", onPointerMove);
+          window.addEventListener("pointerup", stopResize);
+        });
+      });
+    </script>
+  </body>
+</html>
