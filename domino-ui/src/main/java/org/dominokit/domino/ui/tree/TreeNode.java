@@ -122,7 +122,18 @@ public abstract class TreeNode<V, N extends TreeNode<V, N, S>, S>
    * node.
    */
   private void onActivation() {
-    if (isParent()) {
+    onActivation(true);
+  }
+
+  /**
+   * Handles the logic when a tree node is "activated" (clicked or otherwise triggered), toggling
+   * expand/collapse if it's a parent node and then calling {@link #activateNode()} to highlight the
+   * node.
+   *
+   * @param toggle indicates whether the node’s state should be toggled
+   */
+  private void onActivation(boolean toggle) {
+    if (toggle && isParent()) {
       toggle();
     }
     activateNode();
@@ -345,19 +356,15 @@ public abstract class TreeNode<V, N extends TreeNode<V, N, S>, S>
   }
 
   /**
-   * Removes a specified child node from this node. If no children remain after removal, the node is
-   * collapsed.
+   * Removes a specified child node from the node's internal list of sub-nodes.
+   *
+   * <p>Note: This does not remove the element from the DOM. To detach the item visually, call
+   * {@link TreeItem#remove()} on the item itself.
    *
    * @param item the child node to remove
    */
   public void removeNode(N item) {
-    if (subNodes.contains(item)) {
-      subNodes.remove(item);
-    }
-
-    if (subNodes.isEmpty()) {
-      collapse();
-    }
+    subNodes.remove(item);
   }
 
   /**
@@ -451,18 +458,10 @@ public abstract class TreeNode<V, N extends TreeNode<V, N, S>, S>
     return parent.getRootNode();
   }
 
-  /**
-   * Retrieves this node's optional parent. If the parent is a {@code TreeNode}, returns a non-empty
-   * {@link Optional}; otherwise, it may be empty if this node is top-level.
-   *
-   * @return an {@link Optional} containing the parent node if it exists
-   */
+  /** {@inheritDoc} */
+  @Override
   public Optional<IsParentNode<V, N, S>> getParent() {
-    if (parent instanceof TreeNode) {
-      return Optional.of(parent);
-    } else {
-      return Optional.empty();
-    }
+    return Optional.ofNullable(parent);
   }
 
   /**
@@ -552,7 +551,7 @@ public abstract class TreeNode<V, N extends TreeNode<V, N, S>, S>
    */
   public N activate() {
     this.show(true);
-    onActivation();
+    onActivation(false);
     return (N) this;
   }
 
