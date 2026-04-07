@@ -82,7 +82,11 @@ public class EnumHeaderFilter<T, E extends Enum>
                             value ->
                                 element.appendChild(
                                     SelectOption.create(value.toString(), value.toString()))))
-            .selectAt(0);
+            .withPauseAutoFocusToggle(
+                false,
+                target -> {
+                  target.selectAt(0);
+                });
     select.styler(style -> style.setMarginBottom("0px"));
   }
 
@@ -115,7 +119,11 @@ public class EnumHeaderFilter<T, E extends Enum>
   public void clear() {
     select.withPausedChangeListeners(
         field -> {
-          select.selectAt(0);
+          select.withPauseAutoFocusToggle(
+              false,
+              target -> {
+                target.selectAt(0);
+              });
         });
   }
 
