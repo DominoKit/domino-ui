@@ -136,6 +136,8 @@ public class GroupingPlugin<T>
       GroupCell<T> groupCell = new GroupCell<>(cellInfo);
       DataGroup<T> dataGroup = new DataGroup<>(tableRow, groupCell);
 
+      groupCell.setDataGroup(dataGroup);
+
       ToggleIcon<?, ?> groupToggleIcon =
           groupExpandedCollapseIconSupplier
               .get()
@@ -343,6 +345,10 @@ public class GroupingPlugin<T>
     /** Renders the group header cell with the provided group icon and group renderer. */
     public void render() {
       groupRenderer.render(groupCell);
+    }
+
+    public List<TableRow<T>> getGroupRows() {
+      return new ArrayList<>(groupRows);
     }
   }
 

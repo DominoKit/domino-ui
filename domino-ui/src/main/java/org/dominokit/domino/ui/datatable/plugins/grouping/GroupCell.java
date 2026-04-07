@@ -26,6 +26,8 @@ public class GroupCell<T>
     extends TableCell<
         T, HTMLTableCellElement, GroupCellInfo<T>, GroupCellRenderer<T>, GroupCell<T>> {
 
+  private GroupingPlugin.DataGroup<T> dataGroup;
+
   /**
    * Constructs a new {@code RowCell} with the given cell information and column configuration.
    *
@@ -33,6 +35,14 @@ public class GroupCell<T>
    */
   public GroupCell(GroupCellInfo<T> cellInfo) {
     super(cellInfo);
+  }
+
+  public GroupingPlugin.DataGroup<T> getDataGroup() {
+    return dataGroup;
+  }
+
+  void setDataGroup(GroupingPlugin.DataGroup<T> dataGroup) {
+    this.dataGroup = dataGroup;
   }
 
   @Override

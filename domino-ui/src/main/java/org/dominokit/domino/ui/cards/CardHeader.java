@@ -63,7 +63,7 @@ public class CardHeader extends BaseDominoElement<HTMLDivElement, CardHeader> {
     subHeader = LazyChild.of(div().addCss(dui_card_sub_header), element);
     title = LazyChild.of(div().addCss(dui_card_title), mainHeader);
     mainTitle = LazyChild.of(h(2).addCss(dui_card_main_title), title);
-    description = LazyChild.of(small().addCss(dui_card_description), mainTitle);
+    description = LazyChild.of(small().addCss(dui_card_description), title);
 
     init(this);
   }
