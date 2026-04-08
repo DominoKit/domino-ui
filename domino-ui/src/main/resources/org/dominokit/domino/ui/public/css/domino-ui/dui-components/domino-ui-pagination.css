@@ -136,3 +136,8 @@
 .dui-page-link .dui-form-select {
     min-width: 120px;
 }
+
+.dui-pager-list.dui-scrolling-pagination {
+    display: flex;
+    align-items: center;
+}

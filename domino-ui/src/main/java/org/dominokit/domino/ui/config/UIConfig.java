@@ -37,4 +37,5 @@ public interface UIConfig
         SlidersConfig,
         MenuConfig,
         PopoverConfig,
-        NotificationConfig {}
+        NotificationConfig,
+        PaginationConfig {}
