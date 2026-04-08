@@ -238,6 +238,7 @@ public abstract class TreeRoot<V, N extends TreeNode<V, N, S>, C extends TreeRoo
    *
    * @return An empty optional.
    */
+  @Override
   public Optional<IsParentNode<V, N, S>> getParent() {
     return Optional.empty();
   }
@@ -614,15 +615,15 @@ public abstract class TreeRoot<V, N extends TreeNode<V, N, S>, C extends TreeRoo
   }
 
   /**
-   * Removes the specified tree item from this tree. This method removes the tree item from the list
-   * of sub-items and calls the {@link org.dominokit.domino.ui.tree.TreeItem#remove()} method on the
-   * item to detach it from the DOM.
+   * Removes the specified item from the tree's internal list of sub-items.
+   *
+   * <p>Note: This does not remove the element from the DOM. To detach the item visually, call
+   * {@link TreeItem#remove()} on the item itself.
    *
    * @param item The tree item to be removed.
    */
   public void removeNode(N item) {
     subNodes.remove(item);
-    item.remove();
   }
 
   /**
@@ -631,7 +632,7 @@ public abstract class TreeRoot<V, N extends TreeNode<V, N, S>, C extends TreeRoo
    * @return This `Tree` instance for method chaining.
    */
   public C clear() {
-    subNodes.forEach(TreeNode::remove);
+    new ArrayList<>(subNodes).forEach(TreeNode::remove);
     return (C) this;
   }
 
