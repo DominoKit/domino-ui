@@ -802,8 +802,8 @@ public abstract class TreeNode<V, N extends TreeNode<V, N, S>, S>
   public void clearFilter() {
     if (nonNull(originalState)) {
       if (isExpanded() != originalState.expanded) {
-        if (this.equals(this.getRootNode().getActiveNode())) {
-          this.expandNode();
+        if ((this.equals(this.getRootNode().getActiveNode()) || isActive()) && !isParent()) {
+          this.expandNode(true);
         } else {
           toggleCollapse(originalState.expanded);
         }
@@ -822,11 +822,10 @@ public abstract class TreeNode<V, N extends TreeNode<V, N, S>, S>
    * @return true if this node or any child matches the search token, false otherwise
    */
   public boolean filter(String searchToken) {
-
-    boolean found;
-    if (lastSearchToken.isEmpty()) {
+    if (isNull(this.originalState)) {
       this.originalState = new TreeNode.OriginalState(isExpanded());
     }
+    boolean found;
     this.lastSearchToken = searchToken;
     if (searchToken.isEmpty()) {
       if (this.originalState.expanded) {
@@ -1026,6 +1025,15 @@ public abstract class TreeNode<V, N extends TreeNode<V, N, S>, S>
               selectionListener.onSelectionChanged(Optional.ofNullable(source), selection));
     }
     return (N) this;
+  }
+
+  /**
+   * Checks if the object is currently active based on the applied status.
+   *
+   * @return true if the object is active, false otherwise.
+   */
+  public boolean isActive() {
+    return dui_active.isAppliedTo(this);
   }
 
   /**
