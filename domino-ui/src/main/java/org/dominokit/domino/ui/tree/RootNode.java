@@ -50,6 +50,14 @@ public interface RootNode<V, N extends TreeNode<V, N, S>, S> extends HasActiveNo
    */
   boolean isAutoExpandFound();
 
+  default boolean isTransitionInProgress() {
+    return false;
+  }
+
+  default void onNodeTransitionStarted() {}
+
+  default void onNodeTransitionCompleted() {}
+
   /**
    * Retrieves the {@link NodeIconSupplier} responsible for providing icons to each node within the
    * tree.

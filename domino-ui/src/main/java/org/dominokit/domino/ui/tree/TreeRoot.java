@@ -74,6 +74,7 @@ public abstract class TreeRoot<V, N extends TreeNode<V, N, S>, C extends TreeRoo
   private boolean selectionListenersPaused;
   private final Set<SelectionListener<? super N, ? super S>> selectionListeners = new HashSet<>();
   private final Set<SelectionListener<? super N, ? super S>> deselectionListeners = new HashSet<>();
+  private int activeTransitions = 0;
 
   public TreeRoot() {
     this.rootElement =
@@ -255,6 +256,7 @@ public abstract class TreeRoot<V, N extends TreeNode<V, N, S>, C extends TreeRoo
     if (nonNull(this.activeNode) && !this.activeNode.equals(node)) {
       source = this.activeNode;
       this.activeNode.deactivate();
+      collapseInactivePath(source, node);
     }
 
     this.activeNode = node;
@@ -274,6 +276,36 @@ public abstract class TreeRoot<V, N extends TreeNode<V, N, S>, C extends TreeRoo
   @Override
   public boolean isAutoCollapse() {
     return autoCollapse;
+  }
+
+  /**
+   * Collapses the portion of the previously active path that is no longer shared with the new
+   * selection.
+   *
+   * <p>This complements leaf deselection: when the old active item is a leaf, its ancestors can
+   * stay expanded unless the root explicitly collapses the old branch outside the shared path.
+   */
+  private void collapseInactivePath(N source, N target) {
+    if (!autoCollapse || isNull(source) || isNull(target)) {
+      return;
+    }
+
+    List<N> sourcePath = source.getPath();
+    List<N> targetPath = target.getPath();
+    int sharedPathLength = 0;
+
+    while (sharedPathLength < sourcePath.size()
+        && sharedPathLength < targetPath.size()
+        && sourcePath.get(sharedPathLength).equals(targetPath.get(sharedPathLength))) {
+      sharedPathLength++;
+    }
+
+    for (int i = sourcePath.size() - 1; i >= sharedPathLength; i--) {
+      N oldPathNode = sourcePath.get(i);
+      if (oldPathNode.isParent() && oldPathNode.isExpanded()) {
+        oldPathNode.collapseImmediately();
+      }
+    }
   }
 
   /**
@@ -454,6 +486,28 @@ public abstract class TreeRoot<V, N extends TreeNode<V, N, S>, C extends TreeRoo
    */
   public boolean isAutoExpandFound() {
     return autoExpandFound;
+  }
+
+  @Override
+  public boolean isTransitionInProgress() {
+    return activeTransitions > 0;
+  }
+
+  @Override
+  public void onNodeTransitionStarted() {
+    activeTransitions++;
+    rootElement.setCssProperty("pointer-events", "none");
+  }
+
+  @Override
+  public void onNodeTransitionCompleted() {
+    if (activeTransitions > 0) {
+      activeTransitions--;
+    }
+
+    if (activeTransitions == 0) {
+      rootElement.removeCssProperty("pointer-events");
+    }
   }
 
   /**
