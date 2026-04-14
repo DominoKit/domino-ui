@@ -73,7 +73,7 @@ public class RightDownDropDirection implements DropDirection {
     if (top < thresholdTopSpace) {
       top = thresholdTopSpace;
     }
-    Style.of(source).style.setProperty("top", px.of(top));
+    Style.of(source).style.setProperty("top", px.of(Math.max(top, 0)));
 
     Style.of(source).style.setProperty("left", px.of(0));
 

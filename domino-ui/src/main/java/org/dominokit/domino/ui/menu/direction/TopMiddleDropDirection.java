@@ -57,14 +57,9 @@ public class TopMiddleDropDirection implements DropDirection {
   }
 
   private DropDirection showUpMiddle(Element source, SpaceChecker spaceChecker) {
-    Style.of(source)
-        .style
-        .setProperty(
-            "top",
-            px.of(
-                (spaceChecker.getTargetTop() + window.pageYOffset)
-                    - spaceChecker.getSourceHeight()
-                    - 1));
+    double top =
+        (spaceChecker.getTargetTop() + window.pageYOffset) - spaceChecker.getSourceHeight() - 1;
+    Style.of(source).style.setProperty("top", px.of(Math.max(top, 0)));
 
     double delta = 0;
     double availableSpace = spaceChecker.getAvailableSpaceOnLeft();

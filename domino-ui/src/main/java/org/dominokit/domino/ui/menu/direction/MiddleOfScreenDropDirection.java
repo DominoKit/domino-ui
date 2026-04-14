@@ -35,10 +35,8 @@ public class MiddleOfScreenDropDirection implements DropDirection {
     dui_flex_col_reverse.remove(source);
     DOMRect sourceRect = source.getBoundingClientRect();
 
-    Style.of(source)
-        .style
-        .setProperty(
-            "top", px.of(((window.innerHeight - sourceRect.height) / 2) + window.pageYOffset));
+    double top = ((window.innerHeight - sourceRect.height) / 2) + window.pageYOffset;
+    Style.of(source).style.setProperty("top", px.of(Math.max(top, 0)));
     Style.of(source).style.setProperty("left", px.of((window.innerWidth - sourceRect.width) / 2));
     dui_dd_middle_screen.apply(source);
     elements

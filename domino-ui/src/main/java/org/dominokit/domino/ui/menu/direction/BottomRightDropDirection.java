@@ -60,14 +60,9 @@ public class BottomRightDropDirection implements DropDirection {
         delta = spaceChecker.getSourceWidth() - availableSpace;
       }
 
-      Style.of(source)
-          .style
-          .setProperty(
-              "top",
-              px.of(
-                  (spaceChecker.getTargetTop() + window.pageYOffset)
-                      + spaceChecker.getTargetHeight()
-                      + 1));
+      double top =
+          (spaceChecker.getTargetTop() + window.pageYOffset) + spaceChecker.getTargetHeight() + 1;
+      Style.of(source).style.setProperty("top", px.of(Math.max(top, 0)));
       Style.of(source).style.setProperty("left", px.of(spaceChecker.getTargetLeft()));
       dui_dd_bottom_right.apply(source);
       elements

@@ -63,9 +63,8 @@ public class LeftDownDropDirection implements DropDirection {
       delta = spaceChecker.getSourceHeight() - availableSpace;
     }
 
-    Style.of(source)
-        .style
-        .setProperty("top", px.of((spaceChecker.getTargetTop() + window.pageYOffset - delta)));
+    double top = spaceChecker.getTargetTop() + window.pageYOffset - delta;
+    Style.of(source).style.setProperty("top", px.of(Math.max(top, 0)));
 
     Style.of(source).style.setProperty("left", px.of(0));
 

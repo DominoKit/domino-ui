@@ -86,7 +86,7 @@ public class LeftMiddleDropDirection implements DropDirection {
     double targetTop = spaceChecker.getTargetTop();
     double hh = (spaceChecker.getSourceHeight() - spaceChecker.getTargetHeight()) / 2;
     double top = targetTop + pageYOffset - hh + delta;
-    Style.of(source).style.setProperty("top", px.of(top));
+    Style.of(source).style.setProperty("top", px.of(Math.max(top, 0)));
     double left = spaceChecker.getTargetLeft() - spaceChecker.getSourceWidth() + window.pageXOffset;
     Style.of(source).style.setProperty("left", px.of(left));
 
