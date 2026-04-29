@@ -30,6 +30,12 @@ public interface ColorsCss {
   CssClass dui_fg_color_4 = LimitOneOfPrefixedCssClass.of(DUI_FG, () -> "dui-fg-color-4");
   CssClass dui_fg_color_5 = LimitOneOfPrefixedCssClass.of(DUI_FG, () -> "dui-fg-color-5");
   CssClass dui_fg_color_accent = LimitOneOfPrefixedCssClass.of(DUI_FG, () -> "dui-fg-color-accent");
+  CssClass dui_fg_color_alternative =
+      LimitOneOfPrefixedCssClass.of(DUI_FG, () -> "dui-fg-color-alternative");
+  CssClass dui_fg_color_highlight =
+      LimitOneOfPrefixedCssClass.of(DUI_FG, () -> "dui-fg-color-highlight");
+  CssClass dui_fg_color_inverted =
+      LimitOneOfPrefixedCssClass.of(DUI_FG, () -> "dui-fg-color-inverted");
 
   CssClass dui_fg_dominant_l_5 = LimitOneOfPrefixedCssClass.of(DUI_FG, () -> "dui-fg-dominant-l-5");
 

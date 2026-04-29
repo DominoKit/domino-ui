@@ -883,6 +883,18 @@ hr.dui {
     color: var(--dui-color-5);
 }
 
+.dui-fg-color-alternative {
+    color: var(--dui-color-alternate);
+}
+
+.dui-fg-color-highlight {
+    color: var(--dui-highlight-color);
+}
+
+.dui-fg-color-inverted {
+    color: var(--dui-color-invert);
+}
+
 .dui-fg-color-accent {
     --dui-fg:var(--dui-accent-clr);
     color: var(--dui-accent-clr);
