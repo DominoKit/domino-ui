@@ -40,6 +40,12 @@ public interface EventType {
   /** Represents the "focus" event type. */
   EventType focus = () -> "focus";
 
+  /** Represents the "focusin" event type. */
+  EventType focusin = () -> "focusin";
+
+  /** Represents the "focusout" event type. */
+  EventType focusout = () -> "focusout";
+
   /** Represents the "blur" event type. */
   EventType blur = () -> "blur";
 
