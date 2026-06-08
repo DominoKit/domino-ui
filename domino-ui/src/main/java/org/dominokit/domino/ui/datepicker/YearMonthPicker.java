@@ -57,7 +57,7 @@ public class YearMonthPicker extends BaseDominoElement<HTMLDivElement, YearMonth
             .appendChild(this.monthsPicker = MonthsPicker.create(this.calendar))
             .appendChild(
                 this.yearPickerSpin =
-                    HSpinSelect.<YearPicker>create().addCss(dui_calender_years_spin));
+                    HSpinSelect.<YearPicker>create(false).addCss(dui_calender_years_spin));
 
     init(this);
   }
