@@ -172,7 +172,8 @@ public abstract class AbstractSelect<
                         .ifPresent(
                             meta ->
                                 onOptionDeselected(meta.getOption(), isChangeListenersPaused())))
-            .addOpenListener((menu) -> focus());
+            .addOpenListener((menu) -> focus())
+            .addCloseListener(menu -> focus());
 
     getInputElement()
         .onKeyDown(
