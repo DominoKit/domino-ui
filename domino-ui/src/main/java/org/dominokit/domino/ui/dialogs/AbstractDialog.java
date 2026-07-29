@@ -17,6 +17,7 @@ package org.dominokit.domino.ui.dialogs;
 
 import static elemental2.dom.DomGlobal.document;
 import static elemental2.dom.DomGlobal.window;
+import static java.util.Objects.isNull;
 import static java.util.Objects.nonNull;
 import static org.dominokit.domino.ui.style.DisplayCss.dui_hidden;
 import static org.dominokit.domino.ui.utils.Domino.div;
@@ -45,6 +46,7 @@ import org.dominokit.domino.ui.utils.BaseDominoElement;
 import org.dominokit.domino.ui.utils.ChildHandler;
 import org.dominokit.domino.ui.utils.DominoDom;
 import org.dominokit.domino.ui.utils.DominoUIConfig;
+import org.dominokit.domino.ui.utils.ElementResizer;
 import org.dominokit.domino.ui.utils.FooterContent;
 import org.dominokit.domino.ui.utils.HeaderContent;
 import org.dominokit.domino.ui.utils.IsPopup;
@@ -111,6 +113,8 @@ public class AbstractDialog<T extends AbstractDialog<T>>
   private Animation closeAnimation;
 
   protected DialogLabels labels = DominoUIConfig.CONFIG.getDominoUILabels();
+
+  protected ElementResizer resizer;
 
   /** Constructs a new instance of {@code AbstractDialog}. */
   public AbstractDialog() {
@@ -698,6 +702,23 @@ public class AbstractDialog<T extends AbstractDialog<T>>
   @Override
   public void resetZIndexLayer() {
     // Dialogs should never rest their base layer.;
+  }
+
+  public T setResizable(boolean resizable) {
+    if (isNull(this.resizer)) {
+      if (resizable) {
+        resizer = ElementResizer.create(modalElement);
+      }
+    } else {
+      if (!resizable) {
+        resizer.clear();
+      }
+    }
+    return (T) this;
+  }
+
+  public boolean isResizing() {
+    return nonNull(resizer) && resizer.isResizing();
   }
 
   /**

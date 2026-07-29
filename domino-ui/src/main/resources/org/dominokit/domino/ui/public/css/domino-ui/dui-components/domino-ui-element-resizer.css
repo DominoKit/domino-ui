@@ -1,0 +1,117 @@
+.dui-element-resizer {
+    --dui-element-resizer-handle-size: 10px;
+    --dui-element-resizer-corner-size: 16px;
+    --dui-element-resizer-handle-offset: calc(var(--dui-element-resizer-handle-size) / -2);
+    --dui-element-resizer-corner-color: var(--dui-accent);
+    --dui-element-resizer-corner-opacity: 0.7;
+    --dui-element-resizer-z-index: 5;
+}
+
+.dui.dui-element-resizer {
+    transition: none;
+}
+
+.dui-element-resizer-handle {
+    position: absolute;
+    background: transparent;
+    z-index: var(--dui-element-resizer-z-index);
+    touch-action: none;
+}
+
+.dui-element-resizer-top,
+.dui-element-resizer-bottom {
+    left: 0;
+    right: 0;
+    height: var(--dui-element-resizer-handle-size);
+}
+
+.dui-element-resizer-left,
+.dui-element-resizer-right {
+    top: 0;
+    bottom: 0;
+    width: var(--dui-element-resizer-handle-size);
+}
+
+.dui-element-resizer-top::after,
+.dui-element-resizer-bottom::after,
+.dui-element-resizer-left::after,
+.dui-element-resizer-right::after {
+    content: "";
+    position: absolute;
+    opacity: 0;
+    transition: opacity 120ms ease;
+    background-color: var(--dui-element-resizer-corner-color);
+}
+
+.dui-element-resizer-top::after,
+.dui-element-resizer-bottom::after {
+    left: 12px;
+    right: 12px;
+    height: 2px;
+    top: calc(50% - 1px);
+}
+
+.dui-element-resizer-left::after,
+.dui-element-resizer-right::after {
+    top: 12px;
+    bottom: 12px;
+    width: 2px;
+    left: calc(50% - 1px);
+}
+
+.dui-element-resizer-top:hover::after,
+.dui-element-resizer-top:active::after,
+.dui-element-resizer-bottom:hover::after,
+.dui-element-resizer-bottom:active::after,
+.dui-element-resizer-left:hover::after,
+.dui-element-resizer-left:active::after,
+.dui-element-resizer-right:hover::after,
+.dui-element-resizer-right:active::after {
+    opacity: var(--dui-element-resizer-corner-opacity);
+}
+
+.dui-element-resizer-top {
+    top: var(--dui-element-resizer-handle-offset);
+    cursor: ns-resize;
+}
+
+.dui-element-resizer-bottom {
+    bottom: var(--dui-element-resizer-handle-offset);
+    cursor: ns-resize;
+}
+
+.dui-element-resizer-left {
+    left: var(--dui-element-resizer-handle-offset);
+    cursor: ew-resize;
+}
+
+.dui-element-resizer-right {
+    right: var(--dui-element-resizer-handle-offset);
+    cursor: ew-resize;
+}
+
+.dui-element-resizer-corner {
+    width: var(--dui-element-resizer-corner-size);
+    height: var(--dui-element-resizer-corner-size);
+    right: 0;
+    bottom: 0;
+    cursor: nwse-resize;
+}
+
+.dui-element-resizer-corner::after {
+    content: "";
+    position: absolute;
+    right: 2px;
+    bottom: 2px;
+    width: 10px;
+    height: 10px;
+    border-right: 2px solid var(--dui-element-resizer-corner-color);
+    border-bottom: 2px solid var(--dui-element-resizer-corner-color);
+    opacity: 0;
+    transition: opacity 120ms ease;
+}
+
+.dui-element-resizer-corner:hover::after,
+.dui-element-resizer-corner:active::after {
+    opacity: var(--dui-element-resizer-corner-opacity);
+}

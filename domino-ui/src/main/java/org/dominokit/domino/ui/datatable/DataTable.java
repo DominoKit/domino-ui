@@ -41,6 +41,7 @@ import org.dominokit.domino.ui.datatable.events.OnBeforeDataChangeEvent;
 import org.dominokit.domino.ui.datatable.events.SelectAllEvent;
 import org.dominokit.domino.ui.datatable.events.TableDataUpdatedEvent;
 import org.dominokit.domino.ui.datatable.events.TableEvent;
+import org.dominokit.domino.ui.datatable.events.TableSelectionDisableEvent;
 import org.dominokit.domino.ui.datatable.model.SearchContext;
 import org.dominokit.domino.ui.elements.DivElement;
 import org.dominokit.domino.ui.elements.TBodyElement;
@@ -631,18 +632,20 @@ public class DataTable<T> extends BaseDominoElement<HTMLDivElement, DataTable<T>
    * @return the current DataTable instance
    */
   public DataTable<T> selectAll(SelectionCondition<T> selectionCondition) {
-    if (tableConfig.isMultiSelect() && !tableRows.isEmpty()) {
-      for (TableRow<T> tableRow : tableRows) {
-        if (selectionCondition.isAllowSelection(this, tableRow)) {
-          withPauseSelectionListenersToggle(
-              true,
-              field -> {
-                tableRow.select();
-              });
+    if (isSelectable()) {
+      if (tableConfig.isMultiSelect() && !tableRows.isEmpty()) {
+        for (TableRow<T> tableRow : tableRows) {
+          if (selectionCondition.isAllowSelection(this, tableRow)) {
+            withPauseSelectionListenersToggle(
+                true,
+                field -> {
+                  tableRow.select();
+                });
+          }
         }
+        triggerSelectionListeners(null, getSelection());
+        fireTableEvent(SelectAllEvent.of(true, selectionCondition));
       }
-      triggerSelectionListeners(null, getSelection());
-      fireTableEvent(SelectAllEvent.of(true, selectionCondition));
     }
     return this;
   }
@@ -679,6 +682,86 @@ public class DataTable<T> extends BaseDominoElement<HTMLDivElement, DataTable<T>
   }
 
   /**
+   * Selects a collection of table rows.
+   *
+   * @param rows the collection of table rows to be selected
+   * @return the current DataTable instance
+   */
+  public DataTable<T> selectRows(Collection<TableRow<T>> rows) {
+    if (isSelectable() && nonNull(rows) && !rows.isEmpty()) {
+      if (tableConfig.isMultiSelect()) {
+        withPauseSelectionListenersToggle(
+            true,
+            field -> {
+              for (TableRow<T> tableRow : rows) {
+                tableRow.select();
+              }
+            });
+        triggerSelectionListeners(null, getSelection());
+      } else {
+        rows.stream().reduce((first, second) -> second).ifPresent(TableRow::select);
+      }
+    }
+    return this;
+  }
+
+  /**
+   * Deselects a collection of table rows.
+   *
+   * @param rows the collection of table rows to be deselected
+   * @return the current DataTable instance
+   */
+  public DataTable<T> deselectRows(Collection<TableRow<T>> rows) {
+    if (nonNull(rows) && !rows.isEmpty()) {
+      withPauseSelectionListenersToggle(
+          true,
+          field -> {
+            for (TableRow<T> tableRow : rows) {
+              tableRow.deselect();
+            }
+          });
+      triggerDeselectionListeners(null, getSelection());
+    }
+    return this;
+  }
+
+  /**
+   * Selects a collection of records.
+   *
+   * @param records the collection of records to be selected
+   * @return the current DataTable instance
+   */
+  public DataTable<T> selectRecords(Collection<T> records) {
+    if (nonNull(records) && !records.isEmpty()) {
+      Set<T> recordSet = new HashSet<>(records);
+      List<TableRow<T>> rows =
+          tableRows.stream()
+              .filter(row -> recordSet.contains(row.getRecord()))
+              .collect(Collectors.toList());
+      selectRows(rows);
+    }
+    return this;
+  }
+
+  /**
+   * Deselects a collection of records.
+   *
+   * @param records the collection of records to be deselected
+   * @return the current DataTable instance
+   */
+  public DataTable<T> deselectRecords(Collection<T> records) {
+    if (nonNull(records) && !records.isEmpty()) {
+      Set<T> recordSet = new HashSet<>(records);
+      List<TableRow<T>> rows =
+          tableRows.stream()
+              .filter(row -> recordSet.contains(row.getRecord()))
+              .collect(Collectors.toList());
+      deselectRows(rows);
+    }
+    return this;
+  }
+
+  /**
    * Determines if the table rows are selectable.
    *
    * @return true if selectable, false otherwise
@@ -686,6 +769,15 @@ public class DataTable<T> extends BaseDominoElement<HTMLDivElement, DataTable<T>
   @Override
   public boolean isSelectable() {
     return this.selectable;
+  }
+
+  public DataTable<T> setSelectable(boolean selectable) {
+    this.selectable = selectable;
+    if (!selectable) {
+      withPauseSelectionListenersToggle(true, field -> deselectAll());
+    }
+    fireTableEvent(new TableSelectionDisableEvent(selectable));
+    return this;
   }
 
   /**

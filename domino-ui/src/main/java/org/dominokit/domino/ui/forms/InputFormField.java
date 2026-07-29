@@ -42,6 +42,7 @@ public abstract class InputFormField<T extends InputFormField<T, E, V>, E extend
     extends AbstractFormElement<T, V> implements HasInputElement<T, E> {
 
   private DominoElement<E> inputElement;
+  private boolean autoFocus = true;
 
   /**
    * Constructs a new InputFormField instance. Initializes and configures the HTML input element for
@@ -275,14 +276,20 @@ public abstract class InputFormField<T extends InputFormField<T, E, V>, E extend
         getInputElement()
             .onAttached(
                 mutationRecord -> {
-                  getInputElement().element().focus();
+                  doFocus();
                 });
 
       } else {
-        getInputElement().element().focus();
+        doFocus();
       }
     }
     return (T) this;
+  }
+
+  private void doFocus() {
+    if (isAutoFocus()) {
+      getInputElement().element().focus();
+    }
   }
 
   /**
@@ -327,6 +334,11 @@ public abstract class InputFormField<T extends InputFormField<T, E, V>, E extend
    */
   public T withInputElement(ChildHandler<T, DominoElement<E>> handler) {
     handler.apply((T) this, getInputElement());
+    return (T) this;
+  }
+
+  public T setAutoFocus(boolean autoFocus) {
+    this.autoFocus = autoFocus;
     return (T) this;
   }
 }

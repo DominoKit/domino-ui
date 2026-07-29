@@ -56,7 +56,7 @@ public class TimeBox extends TextInputFormField<TimeBox, HTMLInputElement, Date>
   private final TimePicker timePicker;
   private Date value;
 
-  private TimeFormatter formatter = TimeFormatter.DEFAULT;
+  private TimeFormatter formatter = getConfig().getDefaultTimeFormatter();
   private boolean openOnFocus = false;
   private boolean openOnClick = true;
   private boolean silentSelection = false;
@@ -83,7 +83,7 @@ public class TimeBox extends TextInputFormField<TimeBox, HTMLInputElement, Date>
    * @param date the initial date to be set
    */
   public TimeBox(Date date) {
-    this(date, DateTimeFormatInfo_factory.create());
+    this(date, DominoUIConfig.CONFIG.getUIConfig().getDefaultDateTimeFormatInfo());
   }
 
   /**
@@ -93,7 +93,7 @@ public class TimeBox extends TextInputFormField<TimeBox, HTMLInputElement, Date>
    * @param date the initial date to be set
    */
   public TimeBox(String label, Date date) {
-    this(label, date, DateTimeFormatInfo_factory.create());
+    this(label, date, DominoUIConfig.CONFIG.getUIConfig().getDefaultDateTimeFormatInfo());
   }
 
   /**
@@ -363,6 +363,22 @@ public class TimeBox extends TextInputFormField<TimeBox, HTMLInputElement, Date>
       return formatter.parseStrict(this.pattern, dateTimeFormatInfo, value);
     }
     return formatter.parse(this.pattern, dateTimeFormatInfo, value);
+  }
+
+  /**
+   * Sets the formatter for the TimeBox instance. If the provided formatter is null, the default
+   * formatter will be used instead.
+   *
+   * @param formatter the TimeFormatter to be set; if null, the default formatter is applied
+   * @return the current TimeBox instance with the updated formatter
+   */
+  public TimeBox setFormatter(TimeFormatter formatter) {
+    if (nonNull(formatter)) {
+      this.formatter = formatter;
+    } else {
+      this.formatter = TimeFormatter.DEFAULT;
+    }
+    return this;
   }
 
   /**

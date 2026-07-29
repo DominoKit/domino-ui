@@ -50,6 +50,16 @@ public class HSpinSelect<T> extends SpinSelect<T, HSpinSelect<T>> {
   }
 
   /**
+   * Creates a new HSpinSelect with default back and forward icons.
+   *
+   * @param <T> the type of the items
+   * @return a new instance of HSpinSelect
+   */
+  public static <T> HSpinSelect<T> create(boolean swipable) {
+    return new HSpinSelect<>(swipable);
+  }
+
+  /**
    * Creates a new HSpinSelect with the provided back and forward icons.
    *
    * @param backIcon the back icon to use
@@ -58,6 +68,18 @@ public class HSpinSelect<T> extends SpinSelect<T, HSpinSelect<T>> {
    * @return a new instance of HSpinSelect
    */
   public static <T> HSpinSelect<T> create(Icon<?> backIcon, Icon<?> forwardIcon) {
+    return new HSpinSelect<>(backIcon, forwardIcon, true);
+  }
+
+  /**
+   * Creates a new HSpinSelect with the provided back and forward icons.
+   *
+   * @param backIcon the back icon to use
+   * @param forwardIcon the forward icon to use
+   * @param <T> the type of the items
+   * @return a new instance of HSpinSelect
+   */
+  public static <T> HSpinSelect<T> create(Icon<?> backIcon, Icon<?> forwardIcon, boolean swipable) {
     return new HSpinSelect<>(backIcon, forwardIcon);
   }
 
@@ -65,7 +87,16 @@ public class HSpinSelect<T> extends SpinSelect<T, HSpinSelect<T>> {
   public HSpinSelect() {
     this(
         DominoUIConfig.CONFIG.getUIConfig().getDefaultBackIconSupplier().get(),
-        DominoUIConfig.CONFIG.getUIConfig().getDefaultForwardIconSupplier().get());
+        DominoUIConfig.CONFIG.getUIConfig().getDefaultForwardIconSupplier().get(),
+        true);
+  }
+
+  /** Default constructor that initializes the HSpinSelect with default back and forward icons. */
+  public HSpinSelect(boolean swipable) {
+    this(
+        DominoUIConfig.CONFIG.getUIConfig().getDefaultBackIconSupplier().get(),
+        DominoUIConfig.CONFIG.getUIConfig().getDefaultForwardIconSupplier().get(),
+        swipable);
   }
 
   /**
@@ -75,12 +106,28 @@ public class HSpinSelect<T> extends SpinSelect<T, HSpinSelect<T>> {
    * @param forwardIcon the forward icon to use
    */
   public HSpinSelect(Icon<?> backIcon, Icon<?> forwardIcon) {
+    this(backIcon, forwardIcon, true);
+  }
+
+  /**
+   * Constructor that initializes the HSpinSelect with the provided back and forward icons.
+   *
+   * @param backIcon the back icon to use
+   * @param forwardIcon the forward icon to use
+   */
+  public HSpinSelect(Icon<?> backIcon, Icon<?> forwardIcon, boolean swipable) {
     super(backIcon, forwardIcon);
     addCss(dui_spin_horizontal);
-    SwipeUtil.addSwipeListener(
-        SwipeUtil.SwipeDirection.RIGHT, contentPanel.element(), evt -> moveBack());
-    SwipeUtil.addSwipeListener(
-        SwipeUtil.SwipeDirection.LEFT, contentPanel.element(), evt -> moveForward());
+    setSwipe(swipable);
+  }
+
+  private void setSwipe(boolean swipe) {
+    if (swipe) {
+      SwipeUtil.addSwipeListener(
+          SwipeUtil.SwipeDirection.RIGHT, contentPanel.element(), evt -> moveBack());
+      SwipeUtil.addSwipeListener(
+          SwipeUtil.SwipeDirection.LEFT, contentPanel.element(), evt -> moveForward());
+    }
   }
 
   /**

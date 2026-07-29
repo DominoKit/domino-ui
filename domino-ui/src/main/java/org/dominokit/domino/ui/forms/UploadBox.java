@@ -18,8 +18,10 @@ package org.dominokit.domino.ui.forms;
 import static java.util.Objects.nonNull;
 import static org.dominokit.domino.ui.utils.Domino.*;
 
+import elemental2.core.Uint8Array;
 import elemental2.dom.File;
 import elemental2.dom.HTMLInputElement;
+import elemental2.promise.Promise;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -81,7 +83,11 @@ public class UploadBox extends InputFormField<UploadBox, HTMLInputElement, List<
   public UploadBox() {
     prefixElement = LazyChild.of(div().addCss(dui_field_prefix), wrapperElement);
     postfixElement = LazyChild.of(div().addCss(dui_field_postfix), wrapperElement);
-    appendChild(PrimaryAddOn.of(Icons.upload().clickable()));
+    appendChild(
+        PrimaryAddOn.of(
+            Icons.upload()
+                .clickable()
+                .addClickListener(evt -> getInputElement().element().click())));
     withWrapper(
         (parent, wrapper) ->
             wrapper
@@ -304,5 +310,19 @@ public class UploadBox extends InputFormField<UploadBox, HTMLInputElement, List<
    */
   public boolean getMultiple() {
     return this.getInputElement().element().multiple;
+  }
+
+  public Promise<List<Uint8Array>> getValueAsUint8Arrays() {
+    if (nonNull(getInputElement().element().files)) {
+      return FileUtil.filesToUint8Arrays(getValue());
+    }
+    return Promise.resolve(new ArrayList<>());
+  }
+
+  public Promise<List<byte[]>> getValueAsBytesArrays() {
+    if (nonNull(getInputElement().element().files)) {
+      return FileUtil.filesToByteArrays(getValue());
+    }
+    return Promise.resolve(new ArrayList<>());
   }
 }

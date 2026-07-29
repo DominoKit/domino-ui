@@ -18,8 +18,8 @@ package org.dominokit.domino.ui.popover;
 import static elemental2.dom.DomGlobal.document;
 import static java.util.Objects.nonNull;
 import static org.dominokit.domino.ui.dialogs.ModalBackDrop.DUI_REMOVE_TOOLTIPS;
-import static org.dominokit.domino.ui.utils.Domino.*;
 import static org.dominokit.domino.ui.utils.Domino.body;
+import static org.dominokit.domino.ui.utils.Domino.text;
 
 import elemental2.dom.Element;
 import elemental2.dom.EventListener;
@@ -33,6 +33,8 @@ import org.dominokit.domino.ui.collapsible.AnimationCollapseStrategy;
 import org.dominokit.domino.ui.collapsible.CollapsibleDuration;
 import org.dominokit.domino.ui.dialogs.ModalBackDrop;
 import org.dominokit.domino.ui.events.EventType;
+import org.dominokit.domino.ui.utils.LazyInitializer;
+import org.gwtproject.timer.client.Timer;
 
 /**
  * Represents a Tooltip which is a brief, informative message that appears when a user interacts
@@ -57,7 +59,10 @@ public class Tooltip extends BasePopover<Tooltip> {
 
   private final EventListener showListener;
   private final Consumer<Tooltip> removeHandler;
+  private Timer timer;
+  private final LazyInitializer timerInit;
   private boolean closeOnEscape = true;
+  private boolean close = true;
 
   /**
    * Creates a tooltip with the specified target element and text.
@@ -123,12 +128,37 @@ public class Tooltip extends BasePopover<Tooltip> {
     setAttribute("dui-tooltip", true);
     addCss(dui_tooltip);
     appendChild(content);
+
+    this.timerInit =
+        new LazyInitializer(
+            () -> {
+              this.timer =
+                  new Timer() {
+                    @Override
+                    public void run() {
+                      if (close) {
+                        getTimer().cancel();
+                        closeOthers("");
+                        if (closeOnEscape) {
+                          closeEventOptions.removeHandler();
+                        }
+                        close = false;
+                      } else {
+                        schedule(300);
+                      }
+                    }
+                  };
+            });
+
     showListener =
         evt -> {
           MouseEvent mouseEvent = Js.uncheckedCast(evt);
           evt.stopPropagation();
           if (mouseEvent.buttons == 0) {
-            expand();
+            getTimer().cancel();
+            if (!isAttached()) {
+              expand();
+            }
           }
         };
     addEventListener("click", closeListener);
@@ -142,6 +172,16 @@ public class Tooltip extends BasePopover<Tooltip> {
         new AnimationCollapseStrategy(
             Transition.FADE_IN, Transition.FADE_OUT, CollapsibleDuration._300ms));
     addCollapseListener(() -> removeEventListener(DUI_REMOVE_TOOLTIPS, closeAllListener));
+    this.addEventListener(
+        EventType.mouseenter.getName(),
+        evt -> {
+          this.close = false;
+        });
+    this.addEventListener(
+        EventType.mouseleave.getName(),
+        evt -> {
+          this.close = true;
+        });
   }
 
   @Override
@@ -164,9 +204,9 @@ public class Tooltip extends BasePopover<Tooltip> {
   @Override
   protected EventListener getCloseListener() {
     return evt -> {
-      closeOthers("");
-      if (closeOnEscape) {
-        closeEventOptions.removeHandler();
+      if (evt instanceof MouseEvent) {
+        MouseEvent mouseEvent = Js.uncheckedCast(evt);
+        getTimer().schedule(300);
       }
     };
   }
@@ -196,6 +236,13 @@ public class Tooltip extends BasePopover<Tooltip> {
     }
   }
 
+  @Override
+  public Tooltip close() {
+    this.close = false;
+    getTimer().cancel();
+    return super.close();
+  }
+
   /** Detaches the tooltip from the DOM. */
   public void detach() {
     removeHandler.accept(this);
@@ -204,5 +251,10 @@ public class Tooltip extends BasePopover<Tooltip> {
       this.delayedExecution.cancel();
     }
     this.closeListener = null;
+  }
+
+  private Timer getTimer() {
+    timerInit.apply();
+    return timer;
   }
 }

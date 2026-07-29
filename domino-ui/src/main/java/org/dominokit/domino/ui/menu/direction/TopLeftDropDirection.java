@@ -32,14 +32,9 @@ public class TopLeftDropDirection implements DropDirection {
     cleanup(source);
     dui_flex_col_reverse.apply(source);
     SpaceChecker spaceChecker = context.getSpaceChecker();
-    Style.of(source)
-        .style
-        .setProperty(
-            "top",
-            px.of(
-                (spaceChecker.getTargetTop() + window.pageYOffset)
-                    - spaceChecker.getSourceHeight()
-                    - 1));
+    double top =
+        (spaceChecker.getTargetTop() + window.pageYOffset) - spaceChecker.getSourceHeight() - 1;
+    Style.of(source).style.setProperty("top", px.of(Math.max(top, 0)));
 
     Style.of(source).style.setProperty("left", px.of(0));
 

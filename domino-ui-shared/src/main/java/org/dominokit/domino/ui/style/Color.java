@@ -35,6 +35,19 @@ public interface Color {
 
   CssClass getContextColor();
 
+  default String getCssVar() {
+    return "--dui-clr-"
+        + getName().toLowerCase().replace("lighten", "l").replace("darken", "d").replace("_", "-");
+  }
+
+  default String toVarValue() {
+    if (getName().isEmpty()) {
+      return "unset";
+    } else {
+      return "var(" + getCssVar() + ")";
+    }
+  }
+
   Color NONE =
       new Color() {
         @Override

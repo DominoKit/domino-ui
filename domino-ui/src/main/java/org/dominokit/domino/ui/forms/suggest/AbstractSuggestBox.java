@@ -112,6 +112,8 @@ public abstract class AbstractSuggestBox<
   /** The type-ahead delay in milliseconds. */
   private int typeAheadDelay = -1;
 
+  private boolean autoFocus = true;
+
   /**
    * Creates an instance of {@code AbstractSuggestBox} with the specified suggestions store.
    *
@@ -460,8 +462,25 @@ public abstract class AbstractSuggestBox<
    */
   @Override
   public C focus() {
-    inputElement.element().focus();
+    if (!isDisabled()) {
+      if (!isAttached()) {
+        getInputElement()
+            .onAttached(
+                mutationRecord -> {
+                  doFocus();
+                });
+
+      } else {
+        doFocus();
+      }
+    }
     return (C) this;
+  }
+
+  private void doFocus() {
+    if (isAutoFocus()) {
+      getInputElement().element().focus();
+    }
   }
 
   /**
@@ -471,7 +490,7 @@ public abstract class AbstractSuggestBox<
    */
   @Override
   public C unfocus() {
-    inputElement.element().blur();
+    getInputElement().element().blur();
     return (C) this;
   }
 
@@ -766,6 +785,17 @@ public abstract class AbstractSuggestBox<
   public C withLoaderElement(ChildHandler<C, PrimaryAddOn<HTMLElement>> handler) {
     handler.apply((C) this, loaderElement);
     return (C) this;
+  }
+
+  @Override
+  public C setAutoFocus(boolean autoFocus) {
+    this.autoFocus = autoFocus;
+    return (C) this;
+  }
+
+  @Override
+  public boolean isAutoFocus() {
+    return this.autoFocus;
   }
 
   /**

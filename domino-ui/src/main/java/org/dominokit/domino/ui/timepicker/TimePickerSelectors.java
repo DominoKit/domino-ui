@@ -81,10 +81,14 @@ public class TimePickerSelectors extends BaseDominoElement<HTMLDivElement, TimeP
         (oldHour, hour) -> {
           Date pickerDate = timePicker.getDate();
           Date temp = new Date(pickerDate.getTime());
-          if (timePicker.isPm() && hour < 12) {
-            temp.setHours(12 + hour);
-          } else {
+          if (timePicker.is24Hours()) {
             temp.setHours(hour);
+          } else {
+            TimePeriod currentPeriod =
+                nonNull(ampmSelect.getValue())
+                    ? ampmSelect.getValue()
+                    : (timePicker.isPm() ? TimePeriod.PM : TimePeriod.AM);
+            temp.setHours(TimePickerHourConversion.toDateHour(hour, currentPeriod));
           }
           dispatchEvent(TimePickerCustomEvents.timeSelectionChanged(temp.getTime()));
         });
@@ -110,12 +114,7 @@ public class TimePickerSelectors extends BaseDominoElement<HTMLDivElement, TimeP
           if (!this.timePicker.is24Hours()) {
             Date pickerDate = timePicker.getDate();
             Date temp = new Date(pickerDate.getTime());
-            if (timePeriod == TimePeriod.PM && hoursSelect.getValue() < 12) {
-              temp.setHours(hoursSelect.getValue() + 12);
-            } else {
-              Integer value = hoursSelect.getValue();
-              temp.setHours(value);
-            }
+            temp.setHours(TimePickerHourConversion.toDateHour(hoursSelect.getValue(), timePeriod));
             dispatchEvent(TimePickerCustomEvents.timeSelectionChanged(temp.getTime()));
           }
         });
@@ -191,12 +190,10 @@ public class TimePickerSelectors extends BaseDominoElement<HTMLDivElement, TimeP
     updateHours();
     if (this.timePicker.is24Hours()) {
       setHour(this.date.getHours());
-    } else if (this.date.getHours() > 12) {
-      setHour(this.date.getHours() - 12, TimePeriod.PM);
     } else {
-      TimePeriod period = (this.date.getHours() - 12) >= 0 ? TimePeriod.PM : TimePeriod.AM;
-      setHour(this.date.getHours(), period);
-      this.ampmSelect.withValue(period);
+      int hour = this.date.getHours();
+      TimePeriod period = TimePickerHourConversion.toTimePeriod(hour);
+      setHour(TimePickerHourConversion.toDisplayHour(hour), period);
     }
     this.minutesSelect.withPausedChangeListeners(
         field -> {

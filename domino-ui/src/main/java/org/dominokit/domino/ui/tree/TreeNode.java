@@ -105,6 +105,14 @@ public abstract class TreeNode<V, N extends TreeNode<V, N, S>, S>
   private final Set<SelectionListener<? super N, ? super S>> deselectionListeners = new HashSet<>();
 
   /**
+   * Guards re-entry on the same node while its collapse/expand transition is still running.
+   *
+   * <p>Without this flag, repeated clicks on the same parent can queue conflicting toggles before
+   * the current transition settles.
+   */
+  private boolean transitionInProgress = false;
+
+  /**
    * Internal event listener for clicks on the anchor area (when {@link ToggleTarget#ANY} is in
    * effect).
    */
@@ -112,7 +120,7 @@ public abstract class TreeNode<V, N extends TreeNode<V, N, S>, S>
       evt -> {
         if (ToggleTarget.ANY.equals(this.toggleTarget)) {
           evt.stopPropagation();
-          onActivation();
+          onActivation(evt);
         }
       };
 
@@ -121,8 +129,23 @@ public abstract class TreeNode<V, N extends TreeNode<V, N, S>, S>
    * expand/collapse if it's a parent node and then calling {@link #activateNode()} to highlight the
    * node.
    */
-  private void onActivation() {
+  /**
+   * Handles node activation while respecting the tree-wide and node-local transition guards added
+   * for auto-collapse mode.
+   */
+  private void onActivation(Event evt) {
+    if (getRootNode().isTransitionInProgress()) {
+      return;
+    }
     if (isParent()) {
+      if (getRootNode().isAutoCollapse() && evt instanceof MouseEvent) {
+        if (((MouseEvent) evt).detail > 1) {
+          return;
+        }
+      }
+      if (transitionInProgress) {
+        return;
+      }
       toggle();
     }
     activateNode();
@@ -136,7 +159,7 @@ public abstract class TreeNode<V, N extends TreeNode<V, N, S>, S>
       evt -> {
         if (ToggleTarget.ICON.equals(this.toggleTarget)) {
           evt.stopPropagation();
-          onActivation();
+          onActivation(evt);
         }
       };
 
@@ -159,6 +182,34 @@ public abstract class TreeNode<V, N extends TreeNode<V, N, S>, S>
     // default collapsible strategy
     setCollapseStrategy(getConfig().getTreeDefaultCollapseStrategy(this).get());
     subTree.setAttribute(Collapsible.DUI_COLLAPSED, "true");
+    addBeforeExpandListener(
+        () -> {
+          transitionInProgress = true;
+          if (nonNull(parent)) {
+            getRootNode().onNodeTransitionStarted();
+          }
+        });
+    addBeforeCollapseListener(
+        () -> {
+          transitionInProgress = true;
+          if (nonNull(parent)) {
+            getRootNode().onNodeTransitionStarted();
+          }
+        });
+    addExpandListener(
+        () -> {
+          transitionInProgress = false;
+          if (nonNull(parent)) {
+            getRootNode().onNodeTransitionCompleted();
+          }
+        });
+    addCollapseListener(
+        () -> {
+          transitionInProgress = false;
+          if (nonNull(parent)) {
+            getRootNode().onNodeTransitionCompleted();
+          }
+        });
   }
 
   /**
@@ -300,10 +351,22 @@ public abstract class TreeNode<V, N extends TreeNode<V, N, S>, S>
     if (isParent()) {
       subNodes.forEach(TreeNode::deactivate);
       if (getRootNode().isAutoCollapse()) {
-        collapse();
+        collapseImmediately();
       }
     }
     updateIcon(isCollapsed());
+  }
+
+  /**
+   * Collapses the node without transition.
+   *
+   * <p>Auto-collapse uses this path when the previous active branch must be removed immediately so
+   * that only the new branch remains visible.
+   */
+  void collapseImmediately() {
+    addCss(dui_transition_none);
+    collapse();
+    dui_transition_none.remove(this);
   }
 
   /**
@@ -552,7 +615,7 @@ public abstract class TreeNode<V, N extends TreeNode<V, N, S>, S>
    */
   public N activate() {
     this.show(true);
-    onActivation();
+    onActivation(null);
     return (N) this;
   }
 
@@ -802,8 +865,8 @@ public abstract class TreeNode<V, N extends TreeNode<V, N, S>, S>
   public void clearFilter() {
     if (nonNull(originalState)) {
       if (isExpanded() != originalState.expanded) {
-        if (this.equals(this.getRootNode().getActiveNode())) {
-          this.expandNode();
+        if ((this.equals(this.getRootNode().getActiveNode()) || isActive()) && !isParent()) {
+          this.expandNode(true);
         } else {
           toggleCollapse(originalState.expanded);
         }
@@ -822,11 +885,10 @@ public abstract class TreeNode<V, N extends TreeNode<V, N, S>, S>
    * @return true if this node or any child matches the search token, false otherwise
    */
   public boolean filter(String searchToken) {
-
-    boolean found;
-    if (lastSearchToken.isEmpty()) {
+    if (isNull(this.originalState)) {
       this.originalState = new TreeNode.OriginalState(isExpanded());
     }
+    boolean found;
     this.lastSearchToken = searchToken;
     if (searchToken.isEmpty()) {
       if (this.originalState.expanded) {
@@ -1026,6 +1088,15 @@ public abstract class TreeNode<V, N extends TreeNode<V, N, S>, S>
               selectionListener.onSelectionChanged(Optional.ofNullable(source), selection));
     }
     return (N) this;
+  }
+
+  /**
+   * Checks if the object is currently active based on the applied status.
+   *
+   * @return true if the object is active, false otherwise.
+   */
+  public boolean isActive() {
+    return dui_active.isAppliedTo(this);
   }
 
   /**

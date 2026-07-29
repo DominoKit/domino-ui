@@ -82,7 +82,7 @@ abstract class BaseSplitPanel<T extends BaseSplitPanel<T, S>, S extends BaseSpli
           panels.stream().filter(BaseDominoElement::isHidden).mapToDouble(this::getPanelSize).sum();
       if (!visiblePanelsList.isEmpty()) {
         SplitPanel first = visiblePanels.next();
-        if (hiddenPanelsSize > 1) {
+        if (hiddenPanelsSize > 0) {
           while (visiblePanels.hasNext()) {
             SplitPanel second = visiblePanels.next();
             onResizeStart(first, second);
@@ -90,7 +90,16 @@ abstract class BaseSplitPanel<T extends BaseSplitPanel<T, S>, S extends BaseSpli
             first = second;
           }
         } else {
-          setPanelSize(first, Unit.px.of(getSize()));
+          if (visiblePanelsList.size() > 1) {
+            while (visiblePanels.hasNext()) {
+              SplitPanel second = visiblePanels.next();
+              onResizeStart(first, second);
+              resizePanels(first, second, 0);
+              first = second;
+            }
+          } else {
+            setPanelSize(first, Unit.px.of(getSize()));
+          }
         }
       }
     }

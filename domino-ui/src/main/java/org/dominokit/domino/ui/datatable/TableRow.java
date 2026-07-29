@@ -61,7 +61,7 @@ public class TableRow<T> extends BaseDominoElement<HTMLTableRowElement, TableRow
   private boolean selectionListenersPaused = false;
   private Set<SelectionListener<? super TableRow<T>, ? super TableRow<T>>> selectionListeners;
   private Set<SelectionListener<? super TableRow<T>, ? super TableRow<T>>> deselectionListeners;
-  private boolean selectable;
+  private boolean selectable = true;
 
   private FieldsGrouping rowFieldsGroup;
   private boolean draggable = true;
@@ -133,20 +133,22 @@ public class TableRow<T> extends BaseDominoElement<HTMLTableRowElement, TableRow
    * @return The current instance of TableRow for chaining purposes.
    */
   private TableRow<T> doSelect(boolean selectChildren) {
-    if (!hasFlag(DataTable.DATA_TABLE_ROW_FILTERED)) {
-      this.selected = true;
-      if (selectChildren) {
-        getChildren().forEach(TableRow::select);
+    if (this.isSelectable() && this.dataTable.isSelectable()) {
+      if (!hasFlag(DataTable.DATA_TABLE_ROW_FILTERED)) {
+        this.selected = true;
+        if (selectChildren) {
+          getChildren().forEach(TableRow::select);
+        }
+        Optional.ofNullable(parent)
+            .ifPresent(
+                tableRow -> {
+                  if (tableRow.shouldBeSelected()) {
+                    tableRow.doSelect(false);
+                  }
+                });
+        triggerSelectionListeners(this, this);
+        this.dataTable.triggerSelectionListeners(this, dataTable.getSelection());
       }
-      Optional.ofNullable(parent)
-          .ifPresent(
-              tableRow -> {
-                if (tableRow.shouldBeSelected()) {
-                  tableRow.doSelect(false);
-                }
-              });
-      triggerSelectionListeners(this, this);
-      this.dataTable.triggerSelectionListeners(this, dataTable.getSelection());
     }
     return this;
   }
@@ -383,7 +385,7 @@ public class TableRow<T> extends BaseDominoElement<HTMLTableRowElement, TableRow
    */
   @Override
   public TableRow<T> deselect(boolean silent) {
-    return setSelected(true, silent);
+    return setSelected(false, silent);
   }
 
   /**

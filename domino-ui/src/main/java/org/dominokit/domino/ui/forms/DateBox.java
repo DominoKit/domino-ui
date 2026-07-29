@@ -51,7 +51,7 @@ public class DateBox extends TextInputFormField<DateBox, HTMLInputElement, Date>
   private final Calendar calendar;
   private Date value;
 
-  private DateFormatter formatter = DateFormatter.DEFAULT;
+  private DateFormatter formatter = getConfig().getDefaultDateFormatter();
   private boolean openOnFocus = false;
   private boolean openOnClick = true;
   private boolean silentSelection = false;
@@ -98,7 +98,10 @@ public class DateBox extends TextInputFormField<DateBox, HTMLInputElement, Date>
    * @param calendarInitConfig The calendar initialization configuration
    */
   public DateBox(Date date, CalendarInitConfig calendarInitConfig) {
-    this(date, DateTimeFormatInfo_factory.create(), calendarInitConfig);
+    this(
+        date,
+        DominoUIConfig.CONFIG.getUIConfig().getDefaultDateTimeFormatInfo(),
+        calendarInitConfig);
   }
 
   /**
@@ -110,7 +113,11 @@ public class DateBox extends TextInputFormField<DateBox, HTMLInputElement, Date>
    * @param calendarInitConfig The calendar initialization configuration
    */
   public DateBox(String label, Date date, CalendarInitConfig calendarInitConfig) {
-    this(label, date, DateTimeFormatInfo_factory.create(), calendarInitConfig);
+    this(
+        label,
+        date,
+        DominoUIConfig.CONFIG.getUIConfig().getDefaultDateTimeFormatInfo(),
+        calendarInitConfig);
   }
 
   /**
@@ -456,6 +463,21 @@ public class DateBox extends TextInputFormField<DateBox, HTMLInputElement, Date>
       return formatter.parseStrict(this.pattern, dateTimeFormatInfo, value);
     }
     return formatter.parse(this.pattern, dateTimeFormatInfo, value);
+  }
+
+  /**
+   * Sets the formatter to be used for formatting dates in the DateBox.
+   *
+   * @param formatter the DateFormatter to be used. If null, a default formatter will be applied.
+   * @return the current instance of the DateBox for method chaining.
+   */
+  public DateBox setFormatter(DateFormatter formatter) {
+    if (nonNull(formatter)) {
+      this.formatter = formatter;
+    } else {
+      this.formatter = DateFormatter.DEFAULT;
+    }
+    return this;
   }
 
   /**

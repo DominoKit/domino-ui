@@ -188,6 +188,9 @@ public class Window extends AbstractDialog<Window> {
   }
 
   private void updatePosition() {
+    if (isResizing()) {
+      return;
+    }
     if (maximized) {
       modalElement.element().style.left = "0px";
       modalElement.element().style.top = "0px";

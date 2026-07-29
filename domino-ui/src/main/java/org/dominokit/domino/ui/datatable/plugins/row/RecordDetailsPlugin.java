@@ -326,6 +326,7 @@ public class RecordDetailsPlugin<T> implements DataTablePlugin<T> {
               self -> {
                 self.addClickListener(
                     evt -> {
+                      evt.stopPropagation();
                       if ("collapsed".equals(self.getState())
                           || "default".equals(self.getState())) {
                         expand();

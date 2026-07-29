@@ -85,9 +85,8 @@ public class MouseBestFitDirection implements DropDirection {
       delta = sourceHeight - availableSpace;
     }
 
-    Style.of(source)
-        .style
-        .setProperty("top", px.of(mouseEvent.clientY - delta + window.pageYOffset));
+    double top = mouseEvent.clientY - delta + window.pageYOffset;
+    Style.of(source).style.setProperty("top", px.of(Math.max(top, 0)));
     Style.of(source).style.setProperty("left", px.of(mouseEvent.clientX + window.pageXOffset));
   }
 

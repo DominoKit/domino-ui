@@ -83,7 +83,11 @@ public class BooleanHeaderFilter<T> implements ColumnHeaderFilterPlugin.HeaderFi
             .appendChild(SelectOption.create(Boolean.TRUE.toString(), trueLabel))
             .appendChild(SelectOption.create(Boolean.FALSE.toString(), falseLabel))
             .setSearchable(false)
-            .selectAt(0);
+            .withPauseAutoFocusToggle(
+                false,
+                target -> {
+                  target.selectAt(0);
+                });
 
     select.styler(style -> style.setMarginBottom("0px"));
   }
@@ -117,7 +121,11 @@ public class BooleanHeaderFilter<T> implements ColumnHeaderFilterPlugin.HeaderFi
   public void clear() {
     select.withPausedChangeListeners(
         field -> {
-          select.selectAt(0);
+          select.withPauseAutoFocusToggle(
+              false,
+              target -> {
+                target.selectAt(0);
+              });
         });
   }
 

@@ -21,5 +21,7 @@ public interface DominoEvent {
    *
    * @return the event type
    */
-  String getType();
+  default String getType() {
+    return getClass().getName();
+  }
 }

@@ -64,7 +64,11 @@ public class SelectHeaderFilter<T> implements ColumnHeaderFilterPlugin.HeaderFil
         Select.<String>create()
             .addCss(dui_m_b_0)
             .appendChild(SelectOption.create("", "", allLabel))
-            .selectAt(0);
+            .withPauseAutoFocusToggle(
+                false,
+                target -> {
+                  target.selectAt(0);
+                });
   }
 
   /**
@@ -112,7 +116,11 @@ public class SelectHeaderFilter<T> implements ColumnHeaderFilterPlugin.HeaderFil
   public void clear() {
     select.withPausedChangeListeners(
         field -> {
-          select.selectAt(0);
+          select.withPauseAutoFocusToggle(
+              false,
+              target -> {
+                target.selectAt(0);
+              });
         });
   }
 

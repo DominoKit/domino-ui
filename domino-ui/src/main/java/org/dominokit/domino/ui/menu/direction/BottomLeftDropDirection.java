@@ -34,14 +34,9 @@ public class BottomLeftDropDirection implements DropDirection {
 
     SpaceChecker spaceChecker = context.getSpaceChecker();
 
-    Style.of(source)
-        .style
-        .setProperty(
-            "top",
-            px.of(
-                (spaceChecker.getTargetTop() + window.pageYOffset)
-                    + spaceChecker.getTargetHeight()
-                    + 1));
+    double top =
+        (spaceChecker.getTargetTop() + window.pageYOffset) + spaceChecker.getTargetHeight() + 1;
+    Style.of(source).style.setProperty("top", px.of(Math.max(top, 0)));
     Style.of(source).style.setProperty("left", px.of(0));
     dui_dd_bottom_left.apply(source);
     elements

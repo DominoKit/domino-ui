@@ -69,6 +69,7 @@ public class Radio<T> extends BaseDominoElement<HTMLDivElement, Radio<T>>
 
   private Set<ChangeListener<? super Boolean>> changeListeners = new LinkedHashSet<>();
   private boolean changeListenersPaused = false;
+  private boolean autoFocus = true;
 
   /**
    * Creates a new Radio instance with the specified value and label.
@@ -543,13 +544,19 @@ public class Radio<T> extends BaseDominoElement<HTMLDivElement, Radio<T>>
         getInputElement()
             .onAttached(
                 mutationRecord -> {
-                  getInputElement().element().focus();
+                  doFocus();
                 });
       } else {
-        getInputElement().element().focus();
+        doFocus();
       }
     }
     return this;
+  }
+
+  private void doFocus() {
+    if (isAutoFocus()) {
+      getInputElement().element().focus();
+    }
   }
 
   /**
@@ -762,5 +769,16 @@ public class Radio<T> extends BaseDominoElement<HTMLDivElement, Radio<T>>
   @Override
   public boolean isReadOnly() {
     return super.isReadOnly() || radioGroup.isReadOnly();
+  }
+
+  @Override
+  public Radio<T> setAutoFocus(boolean autoFocus) {
+    this.autoFocus = autoFocus;
+    return this;
+  }
+
+  @Override
+  public boolean isAutoFocus() {
+    return this.autoFocus;
   }
 }

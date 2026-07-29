@@ -83,6 +83,7 @@ public abstract class AbstractSelect<
   private InputElement typingElement;
   private int typeAheadDelay = -1;
   private boolean typeToSelect = DominoUIConfig.CONFIG.getUIConfig().isSelectTypeToSelectEnabled();
+  private boolean autoFocus = true;
 
   /**
    * Default constructor which initializes the underlying structures, sets up event listeners, and
@@ -171,7 +172,8 @@ public abstract class AbstractSelect<
                         .ifPresent(
                             meta ->
                                 onOptionDeselected(meta.getOption(), isChangeListenersPaused())))
-            .addOpenListener((menu) -> focus());
+            .addOpenListener((menu) -> focus())
+            .addCloseListener(menu -> focus());
 
     getInputElement()
         .onKeyDown(
@@ -554,8 +556,25 @@ public abstract class AbstractSelect<
    */
   @Override
   public C focus() {
-    inputElement.element().focus();
+    if (!isDisabled()) {
+      if (!isAttached()) {
+        getInputElement()
+            .onAttached(
+                mutationRecord -> {
+                  doFocus();
+                });
+
+      } else {
+        doFocus();
+      }
+    }
     return (C) this;
+  }
+
+  private void doFocus() {
+    if (isAutoFocus()) {
+      getInputElement().element().focus();
+    }
   }
 
   /**
@@ -565,7 +584,7 @@ public abstract class AbstractSelect<
    */
   @Override
   public C unfocus() {
-    inputElement.element().blur();
+    getInputElement().element().blur();
     return (C) this;
   }
 
@@ -1402,6 +1421,17 @@ public abstract class AbstractSelect<
   public C withFieldInput(ChildHandler<C, DivElement> handler) {
     handler.apply((C) this, fieldInput);
     return (C) this;
+  }
+
+  @Override
+  public C setAutoFocus(boolean autoFocus) {
+    this.autoFocus = autoFocus;
+    return (C) this;
+  }
+
+  @Override
+  public boolean isAutoFocus() {
+    return this.autoFocus;
   }
 
   /**

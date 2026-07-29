@@ -17,6 +17,8 @@ package org.dominokit.domino.ui.splitpanel;
 
 import static org.dominokit.domino.ui.utils.Domino.*;
 
+import org.dominokit.domino.ui.utils.Unit;
+
 /**
  * Represents a vertical split panel which contains two panels separated by a vertical splitter.
  *
@@ -65,6 +67,7 @@ public class VSplitPanel extends BaseSplitPanel<VSplitPanel, VSplitter>
   protected void setPanelSize(SplitPanel panel, String size) {
     panel.style().setHeight(size);
     panel.setCssProperty("--dui-split-panel-dynamic-size", size);
+    panel.onPanelResize(Unit.px.parse(size).doubleValue());
   }
 
   /**

@@ -43,6 +43,15 @@ public class HeightCollapseStrategy implements CollapseStrategy, CollapsibleStyl
   private Register attchedRegister = Register.EMPTY;
   private Register detachRegister = Register.EMPTY;
 
+  /**
+   * Monotonic request id used to invalidate stale expand/collapse callbacks.
+   *
+   * <p>Height-based transitions complete asynchronously, so an old transition-end callback can run
+   * after a newer toggle already changed the intended state. Guarding callbacks with the latest id
+   * keeps the CSS height variable and the collapsed attribute in sync.
+   */
+  private int transitionRequestId = 0;
+
   /** Create a HeightCollapseStrategy with a default duration of 300ms */
   public HeightCollapseStrategy() {
     this(CollapsibleDuration._300ms);
@@ -108,8 +117,12 @@ public class HeightCollapseStrategy implements CollapseStrategy, CollapsibleStyl
   @Override
   public void expand(Element element) {
     attchedRegister.remove();
+    int requestId = ++transitionRequestId;
     Runnable runnable =
         () -> {
+          if (requestId != transitionRequestId) {
+            return;
+          }
           boolean noTransition = dui_transition_none.isAppliedTo(this.target);
           this.target.addCss(dui_transition_none);
           this.target.setCssProperty(this.heightVar, "auto");
@@ -119,39 +132,39 @@ public class HeightCollapseStrategy implements CollapseStrategy, CollapsibleStyl
             this.target.removeCss(dui_transition_none);
           }
           this.handlers.onBeforeExpand().run();
-          expandElement(element);
+          expandElement(element, requestId);
         };
     attchedRegister = this.target.registerNowOrWhenAttached(runnable);
   }
 
-  private void expandElement(Element element) {
+  /**
+   * Applies the expand transition for the current request.
+   *
+   * <p>Every asynchronous completion path checks the request id before mutating styles, which
+   * prevents an older expand completion from resetting the height back to `auto` after a newer
+   * collapse already started.
+   */
+  private void expandElement(Element element, int requestId) {
     if (dui_transition_none.isAppliedTo(this.target)) {
+      if (requestId != transitionRequestId) {
+        return;
+      }
       this.target.removeAttribute(DUI_COLLAPSED);
       handlers.onExpandCompleted().run();
     } else {
-      EventListener stopListener =
+      addOneTimeTransitionListener(
           evt -> {
+            if (requestId != transitionRequestId) {
+              return;
+            }
             this.target.setCssProperty(this.heightVar, "auto");
             handlers.onExpandCompleted().run();
-          };
-
-      AddEventListenerOptions addEventListenerOptions = AddEventListenerOptions.create();
-      addEventListenerOptions.setOnce(true);
-      this.target
-          .element()
-          .addEventListener("webkitTransitionEnd", stopListener, addEventListenerOptions);
-      this.target
-          .element()
-          .addEventListener("MSTransitionEnd", stopListener, addEventListenerOptions);
-      this.target
-          .element()
-          .addEventListener("mozTransitionEnd", stopListener, addEventListenerOptions);
-      this.target
-          .element()
-          .addEventListener("oanimationend", stopListener, addEventListenerOptions);
-      this.target.element().addEventListener("animationend", stopListener, addEventListenerOptions);
+          });
     }
 
+    if (requestId != transitionRequestId) {
+      return;
+    }
     this.target.removeAttribute(DUI_COLLAPSED);
     this.target.setCssProperty(this.heightVar, getActualHeight() + "px");
   }
@@ -172,24 +185,48 @@ public class HeightCollapseStrategy implements CollapseStrategy, CollapsibleStyl
   public void collapse(Element element) {
     boolean disableAnimation = dui_transition_none.isAppliedTo(this.target);
     detachRegister.remove();
+    int requestId = ++transitionRequestId;
     this.target.apply(
         self -> {
           if (self.isAttached()) {
+            if (requestId != transitionRequestId) {
+              return;
+            }
             this.target.setCssProperty(this.heightVar, getActualHeight() + "px");
 
             this.handlers.onBeforeCollapse().run();
-            collapseElement(element);
-            handlers.onCollapseCompleted().run();
+            if (disableAnimation) {
+              collapseElement(element, requestId);
+              if (requestId != transitionRequestId) {
+                return;
+              }
+              handlers.onCollapseCompleted().run();
+            } else {
+              addOneTimeTransitionListener(
+                  evt -> {
+                    if (requestId != transitionRequestId) {
+                      return;
+                    }
+                    handlers.onCollapseCompleted().run();
+                  });
+              collapseElement(element, requestId);
+            }
           } else {
             detachRegister =
                 self.registerOnAttached(
                     mutationRecord -> {
+                      if (requestId != transitionRequestId) {
+                        return;
+                      }
                       this.target.setCssProperty(this.heightVar, "auto");
                       this.handlers.onBeforeCollapse().run();
                       this.target.addCss(dui_transition_none);
-                      collapseElement(element);
+                      collapseElement(element, requestId);
                       if (!disableAnimation) {
                         dui_transition_none.remove(this.target);
+                      }
+                      if (requestId != transitionRequestId) {
+                        return;
                       }
                       handlers.onCollapseCompleted().run();
                     });
@@ -197,13 +234,45 @@ public class HeightCollapseStrategy implements CollapseStrategy, CollapsibleStyl
         });
   }
 
-  private void collapseElement(Element element) {
+  /**
+   * Registers a one-shot transition completion listener across the vendor events used by the
+   * current collapse/expand implementation.
+   */
+  private void addOneTimeTransitionListener(EventListener stopListener) {
+    AddEventListenerOptions addEventListenerOptions = AddEventListenerOptions.create();
+    addEventListenerOptions.setOnce(true);
+    this.target
+        .element()
+        .addEventListener("webkitTransitionEnd", stopListener, addEventListenerOptions);
+    this.target
+        .element()
+        .addEventListener("MSTransitionEnd", stopListener, addEventListenerOptions);
+    this.target
+        .element()
+        .addEventListener("mozTransitionEnd", stopListener, addEventListenerOptions);
+    this.target.element().addEventListener("oanimationend", stopListener, addEventListenerOptions);
+    this.target.element().addEventListener("animationend", stopListener, addEventListenerOptions);
+  }
+
+  /**
+   * Applies the collapsed DOM state for the current request.
+   *
+   * <p>The request id guard is also checked inside the animation-frame callback so a delayed
+   * collapse write cannot overwrite a newer expand request.
+   */
+  private void collapseElement(Element element, int requestId) {
     if (dui_transition_none.isAppliedTo(this.target)) {
+      if (requestId != transitionRequestId) {
+        return;
+      }
       this.target.setAttribute(DUI_COLLAPSED, "true");
       this.target.setCssProperty(this.heightVar, "0px");
     } else {
       DomGlobal.requestAnimationFrame(
           timestamp -> {
+            if (requestId != transitionRequestId) {
+              return;
+            }
             this.target.setAttribute(DUI_COLLAPSED, "true");
             this.target.setCssProperty(this.heightVar, "0px");
           });

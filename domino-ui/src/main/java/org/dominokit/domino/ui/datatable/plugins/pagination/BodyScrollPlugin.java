@@ -19,8 +19,9 @@ package org.dominokit.domino.ui.datatable.plugins.pagination;
 import static org.dominokit.domino.ui.utils.Domino.*;
 
 import elemental2.core.JsMath;
-import elemental2.dom.HTMLTableElement;
+import elemental2.dom.HTMLElement;
 import org.dominokit.domino.ui.datatable.DataTable;
+import org.dominokit.domino.ui.datatable.TableMode;
 import org.dominokit.domino.ui.datatable.events.BodyScrollEvent;
 import org.dominokit.domino.ui.datatable.plugins.DataTablePlugin;
 import org.dominokit.domino.ui.datatable.plugins.HasPluginConfig;
@@ -42,7 +43,10 @@ public class BodyScrollPlugin<T>
    */
   @Override
   public void onBodyAdded(DataTable<T> dataTable) {
-    HTMLTableElement scrollElement = dataTable.tableElement().element();
+    HTMLElement scrollElement =
+        dataTable.getTableConfig().getTableMode() == TableMode.AUTO
+            ? dataTable.element()
+            : dataTable.tableElement().element();
     scrollElement.addEventListener(
         "scroll",
         evt -> {

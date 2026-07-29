@@ -21,6 +21,7 @@ import elemental2.dom.HTMLElement;
 import java.math.BigDecimal;
 import java.util.function.Function;
 import java.util.function.Supplier;
+import org.dominokit.domino.ui.datepicker.DateFormatter;
 import org.dominokit.domino.ui.forms.BigDecimalBox;
 import org.dominokit.domino.ui.forms.DoubleBox;
 import org.dominokit.domino.ui.forms.FloatBox;
@@ -29,6 +30,9 @@ import org.dominokit.domino.ui.forms.LongBox;
 import org.dominokit.domino.ui.forms.ShortBox;
 import org.dominokit.domino.ui.icons.Icon;
 import org.dominokit.domino.ui.icons.lib.Icons;
+import org.dominokit.domino.ui.timepicker.TimeFormatter;
+import org.gwtproject.i18n.shared.cldr.DateTimeFormatInfo;
+import org.gwtproject.i18n.shared.cldr.impl.DateTimeFormatInfo_factory;
 
 /**
  * Implementations of this interface can be used to configure defaults for form fields components
@@ -142,6 +146,18 @@ public interface FormsFieldsConfig extends ComponentConfig, CalendarConfig {
    */
   default boolean isSelectTypeToSelectEnabled() {
     return true;
+  }
+
+  default DateFormatter getDefaultDateFormatter() {
+    return DateFormatter.DEFAULT;
+  }
+
+  default TimeFormatter getDefaultTimeFormatter() {
+    return TimeFormatter.DEFAULT;
+  }
+
+  default DateTimeFormatInfo getDefaultDateTimeFormatInfo() {
+    return DateTimeFormatInfo_factory.create();
   }
 
   /**

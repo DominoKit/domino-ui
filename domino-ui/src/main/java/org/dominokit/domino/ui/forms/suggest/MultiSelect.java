@@ -171,7 +171,7 @@ public class MultiSelect<V>
     option.addCss(() -> "dui-selected-option");
     fieldInput.appendChild(option);
     selectedOptions.add(option);
-    getInputElement().element().focus();
+    focus();
     selectionCountBadge.setText(
         getConfig().multiSelectSelectionCountFormatExpression(selectedOptions.size()));
     option.onSelected();

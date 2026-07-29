@@ -1,51 +1,49 @@
 ![logoimage](https://raw.githubusercontent.com/DominoKit/DominoKit.github.io/master/logo/128.png)
 
 <a title="Element" href="https://matrix.to/#/!togTvnNghqSNrVUADf:gitter.im/$7O8oKWAuTu2r0KolsY73ee6SrV-fu8uxzudbz_aG95w?via=gitter.im&via=matrix.org&via=t2bot.io"><img src="https://badges.gitter.im/Join%20Chat.svg"></a>
-[![Development Build Status](https://github.com/DominoKit/domino-ui/actions/workflows/deploy.yaml/badge.svg?branch=development)](https://github.com/DominoKit/domino-ui/actions/workflows/deploy.yaml/badge.svg?branch=development)
+[![Development Build Status](https://github.com/DominoKit/domino-ui/actions/workflows/deploy.yaml/badge.svg?branch=development)](https://github.com/DominoKit/domino-ui/actions/workflows/deploy.yaml?branch=development)
 ![Maven Central](https://maven-badges.herokuapp.com/maven-central/org.dominokit/domino-ui/badge.svg)
 ![Sonatype Nexus (Snapshots)](https://img.shields.io/badge/Snapshot-HEAD--SNAPSHOT-orange)
 ![GWT3/J2CL compatible](https://img.shields.io/badge/GWT3/J2CL-compatible-brightgreen.svg)
 
-# Domino-ui
-type safe and feature rich UI components library for java developer utilizing fluent API and does not depend on external JavaScript.
+# Domino-UI
 
-Check the [introduction](https://dominokit.com/solutions/domino-ui/v2)
-Checkout the [getting started guide](https://dominokit.com/solutions/domino-ui/v2/docs/getting-started)
-Checkout our [demo app](https://dominokit.com/domino-ui/demo/v2/home)
+Domino-UI is a type-safe, fluent Java UI component library that compiles to JavaScript GWT. It lets Java teams build modern UIs without external JavaScript dependencies, while keeping IDE refactoring, static typing, and a consistent API across components.
 
-### Quick insight
+## Why Domino-UI
+- Fluent, structured composition that mirrors HTML hierarchies.
+- Rich component set (datatable, forms, layouts, menus, dialogs, etc.).
+- Strong typing and refactoring safety for large Java codebases.
+- Works with GWT/Java without runtime JavaScript dependencies.
+- Configurable themes, CSS utilities, and MDI icon integration.
 
-#### Type safe
+## Quick glance:
+Domino-UI code should read like the HTML structure while staying debuggable. The preferred style initializes complex children first, then composes the tree fluently.
 
-Domino-ui is Java based compiled to JavaScript, which means during development of the application you have the power to refactor and keep your app maintainable all the time, but also you develop your application with the mature set of all tool chain java can provide, this include extremely powerful IDEs and mature build tools like maven and gradle, use domino-ui and bring your java team to the frontend world.
+```java
+TextBox userName = TextBox.create("User name")
+    .setRequired(true)
+    .setAutoValidation(true);
 
-![Imgur](https://raw.githubusercontent.com/DominoKit/documents/master/domino-ui-slide-1.png)
+TextBox password = TextBox.password("Password")
+    .setRequired(true)
+    .setAutoValidation(true);
 
+Button login = Button.create(Icons.lock_open())
+    .setBackground(Color.THEME)
+    .setContent("Login")
+    .block();
 
-#### Elegant
+Card.create("LOGIN")
+    .appendChild(userName)
+    .appendChild(password)
+    .appendChild(login);
+```
 
-Domino-ui cares about performance and functionality, but also cares about elegance, enterprise applications could be rich and crowded but when you use domino-ui rich components you will also have neat smooth friendly screens, with proper spacing, consistent color palette and just the right amount of effects and animations you bring the users of the application to love it.
-
-![Imgur](https://raw.githubusercontent.com/DominoKit/documents/master/domino-ui-slide-2.png)
-
-
-#### Rich Data table
-
-Almost every enterprise application uses data tables, domino-ui realise this fact and provides a rich, functional and elegant data table which is extendable with a rich set of ready to use plugins like selection plugin, marker plugin, record details plugin, search plugin and more, but this is not limited since the user can write his own plugins, and even better we are continuously adding more plugins.
-
-![Imgur](https://raw.githubusercontent.com/DominoKit/documents/master/domino-ui-slide-3.png)
-
-#### Rich forms
-
-Having rich interactive forms is essential for enterprise applications, domino-ui has a rich set of form controls that enables the developer to easily implement both simple and complex form, with the smooth easy to use API making the forms interactive is an easy task, validating user input is a simple call, and of course with a proper data binding mechanism to read and fill form from data objects.
-
-![Imgur](https://raw.githubusercontent.com/DominoKit/documents/master/domino-ui-slide-4.png)
-
-#### Typography & Font icons
-
-Icons and Typography can enhance the user experience of the application, domino-ui has a very good of font icons that can bring forms and other elements in the page into life, and this not only applies for enterprise applications but also for simple application like blogs, in domino-ui creating typography elements is very easy and stylish.
-
-![Imgur](https://raw.githubusercontent.com/DominoKit/documents/master/domino-ui-slide-5.png)
+## Links
+- Introduction: https://dominokit.com/solutions/domino-ui/v2
+- Getting started: https://dominokit.com/solutions/domino-ui/v2/docs/getting-started
+- Demo app: https://dominokit.com/domino-ui/demo/v2/home
 
 ## License
-[Apache License 2.0]([]https://github.com/DominoKit/domino-ui/blob/master/LICENSE)
+[Apache License 2.0](https://github.com/DominoKit/domino-ui/blob/master/LICENSE)

@@ -21,6 +21,8 @@ import static org.dominokit.domino.ui.utils.Domino.text;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.stream.IntStream;
+import org.dominokit.domino.ui.config.HasComponentConfig;
+import org.dominokit.domino.ui.config.PaginationConfig;
 import org.dominokit.domino.ui.icons.lib.Icons;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
 
@@ -42,17 +44,19 @@ import org.dominokit.domino.ui.utils.BaseDominoElement;
  * });
  * </pre>
  */
-public class ScrollingPagination extends BasePagination<ScrollingPagination> {
+public class ScrollingPagination extends BasePagination<ScrollingPagination>
+    implements HasComponentConfig<PaginationConfig> {
 
   private final int windowSize;
   private int windowIndex = 0;
   private boolean totalRecordVisible = false;
-  private final PagerNavItem dots;
-  private final PagerNavItem pagesTotalCount;
+  private final PagerNavItem nextDots;
+  private final PagerNavItem prevDots;
   protected PagerNavItem prevSet;
   protected PagerNavItem nextSet;
   private final PagerNavItem totalCountNavItem;
   private Map<Integer, PagerNavItem> activeWindow = new HashMap<>();
+  private boolean compactMode = false;
 
   /**
    * Creates a ScrollingPagination instance with default settings.
@@ -134,22 +138,19 @@ public class ScrollingPagination extends BasePagination<ScrollingPagination> {
     this.pagesCount = pages;
     this.pageSize = pageSize;
     this.windowSize = windowSize;
+    pagesList.addCss("dui-scrolling-pagination");
     pagesList.insertFirst(prevSet = PagerNavItem.nav(Icons.page_first()).collapse());
     pagesList.appendChild(nextSet = PagerNavItem.nav(Icons.page_last()).collapse());
 
-    prevPage
-        .getLink()
-        .addClickListener(evt -> moveToPage(index - 1, isChangeListenersPaused()))
-        .onKeyDown(
-            keyEvents ->
-                keyEvents.onEnter(evt -> moveToPage(index - 1, isChangeListenersPaused())));
-
     firstPage
+        .setCssProperty("order", "-30")
         .expand()
         .getLink()
         .addClickListener(evt -> moveToPage(1, isChangeListenersPaused()))
         .onKeyDown(keyEvents -> keyEvents.onEnter(evt -> moveToPage(1, isChangeListenersPaused())));
+
     prevSet
+        .setCssProperty("order", "-20")
         .expand()
         .getLink()
         .addClickListener(evt -> moveToPage((windowIndex * windowSize), isChangeListenersPaused()))
@@ -158,21 +159,39 @@ public class ScrollingPagination extends BasePagination<ScrollingPagination> {
                 keyEvents.onEnter(
                     evt -> moveToPage((windowIndex * windowSize), isChangeListenersPaused())));
 
+    prevPage
+        .setCssProperty("order", "-10")
+        .getLink()
+        .addClickListener(evt -> moveToPage(index - 1, isChangeListenersPaused()))
+        .onKeyDown(
+            keyEvents ->
+                keyEvents.onEnter(evt -> moveToPage(index - 1, isChangeListenersPaused())));
+
+    nextDots =
+        PagerNavItem.create(text("..."))
+            .setCssProperty("order", String.valueOf((pagesCount * 10) - 5))
+            .addClickListener(
+                evt ->
+                    moveToPage(
+                        (windowIndex * windowSize) + windowSize + 1, isChangeListenersPaused()))
+            .onKeyDown(
+                keyEvents ->
+                    keyEvents.onEnter(
+                        evt ->
+                            moveToPage(
+                                (windowIndex * windowSize) + windowSize + 1,
+                                isChangeListenersPaused())));
+
     nextPage
+        .setCssProperty("order", String.valueOf(getMaxPageOrder() + 30))
         .getLink()
         .addClickListener(evt -> moveToPage(index + 1, isChangeListenersPaused()))
         .onKeyDown(
             keyEvents ->
                 keyEvents.onEnter(evt -> moveToPage(index + 1, isChangeListenersPaused())));
 
-    lastPage
-        .expand()
-        .getLink()
-        .addClickListener(evt -> moveToPage(pagesCount, isChangeListenersPaused()))
-        .onKeyDown(
-            keyEvents ->
-                keyEvents.onEnter(evt -> moveToPage(pagesCount, isChangeListenersPaused())));
     nextSet
+        .setCssProperty("order", String.valueOf(getMaxPageOrder() + 40))
         .expand()
         .getLink()
         .addClickListener(
@@ -186,28 +205,78 @@ public class ScrollingPagination extends BasePagination<ScrollingPagination> {
                             (windowIndex * windowSize) + windowSize + 1,
                             isChangeListenersPaused())));
 
-    dots =
+    lastPage
+        .setCssProperty("order", String.valueOf(getMaxPageOrder() + 50))
+        .expand()
+        .getLink()
+        .addClickListener(evt -> moveToPage(pagesCount, isChangeListenersPaused()))
+        .onKeyDown(
+            keyEvents ->
+                keyEvents.onEnter(evt -> moveToPage(pagesCount, isChangeListenersPaused())));
+
+    prevDots =
         PagerNavItem.create(text("..."))
+            .setCssProperty("order", "15")
             .addClickListener(
-                evt ->
-                    moveToPage(
-                        (windowIndex * windowSize) + windowSize + 1, isChangeListenersPaused()))
+                evt -> moveToPage((windowIndex * windowSize), isChangeListenersPaused()))
             .onKeyDown(
                 keyEvents ->
                     keyEvents.onEnter(
-                        evt ->
-                            moveToPage(
-                                (windowIndex * windowSize) + windowSize + 1,
-                                isChangeListenersPaused())));
+                        evt -> moveToPage((windowIndex * windowSize), isChangeListenersPaused())));
 
-    pagesList.insertBefore(dots, nextPage);
-    pagesTotalCount = PagerNavItem.create(text(pagesCount + ""));
-    pagesList.insertAfter(pagesTotalCount, dots);
-
-    totalCountNavItem = PagerNavItem.create(text("(" + this.getTotalCount() + ")"));
-    pagesList.insertBefore(totalCountNavItem.toggleDisplay(totalRecordVisible), nextPage);
-
+    totalCountNavItem =
+        PagerNavItem.create(text("(" + this.getTotalCount() + ")"))
+            .setCssProperty("order", String.valueOf(getMaxPageOrder() + 25));
+    pagesList
+        .appendChild(firstPage)
+        .appendChild(prevSet)
+        .appendChild(prevPage)
+        .appendChild(prevDots)
+        .appendChild(nextDots)
+        .appendChild(nextPage)
+        .appendChild(nextSet)
+        .appendChild(lastPage)
+        .appendChild(totalCountNavItem);
     updatePages(pages, pageSize);
+    setCompactMode(getConfig().defaultCompactMode());
+  }
+
+  private int getMaxPageOrder() {
+    return pagesCount * 10;
+  }
+
+  private boolean insureVisible() {
+    return (pagesCount > windowSize) || !compactMode;
+  }
+
+  /**
+   * Checks whether the pagination is in compact mode. In compact mode, certain navigation elements
+   * such as "first", "previous set", "next set", and "last" are disabled to provide a simplified
+   * and minimalistic pagination view.
+   *
+   * @return true if compact mode is enabled, false otherwise.
+   */
+  public boolean isCompactMode() {
+    return compactMode;
+  }
+
+  /**
+   * Sets the compact mode for the pagination. In compact mode, some navigation elements such as
+   * "first", "previous set", "next set", and "last" are toggled off, and the pagination focuses on
+   * a simplified view. The compact mode can be useful for saving space in the UI or displaying a
+   * minimalistic view of pagination.
+   *
+   * @param compactMode {@code true} to enable compact mode, {@code false} to disable it.
+   * @return This {@code ScrollingPagination} instance for method chaining.
+   */
+  public final ScrollingPagination setCompactMode(boolean compactMode) {
+    this.compactMode = compactMode;
+    firstPage.toggleDisplay(!compactMode);
+    prevSet.toggleDisplay(!compactMode);
+    nextSet.toggleDisplay(!compactMode);
+    lastPage.toggleDisplay(!compactMode);
+    scrollToWindow(windowIndex);
+    return this;
   }
 
   /**
@@ -236,15 +305,12 @@ public class ScrollingPagination extends BasePagination<ScrollingPagination> {
     this.pagesCount = pages;
     this.index = 1;
     clearPages();
+    nextDots.setCssProperty("order", String.valueOf((pagesCount * 10) - 5));
 
     if (pages > 0) {
       scrollToWindow(0);
     }
 
-    dots.expand();
-
-    pagesTotalCount.withLink(
-        (parent, link) -> link.clearElement().appendChild(text(pagesCount + "")));
     totalCountNavItem.withLink(
         (parent, link) -> link.clearElement().appendChild(text("(" + getTotalCount() + ")")));
 
@@ -269,28 +335,36 @@ public class ScrollingPagination extends BasePagination<ScrollingPagination> {
   private void scrollToWindow(int windowIndex) {
     activeWindow.values().forEach(BaseDominoElement::remove);
     activeWindow.clear();
-    final PagerNavItem[] lastPage = new PagerNavItem[1];
+    addPage(1);
+    addPage(pagesCount);
     IntStream.rangeClosed(
             (windowIndex * windowSize) + 1,
             Math.min((windowIndex * windowSize) + windowSize, pagesCount))
         .forEach(
             p -> {
-              PagerNavItem page =
-                  PagerNavItem.page(p)
-                      .addClickListener(evt -> moveToPage(p, isChangeListenersPaused()))
-                      .onKeyDown(
-                          keyEvents ->
-                              keyEvents.onEnter(evt -> moveToPage(p, isChangeListenersPaused())));
-
-              if (activeWindow.isEmpty()) {
-                pagesList.insertAfter(page, prevPage);
-              } else {
-                pagesList.insertAfter(page, lastPage[0]);
+              if (!activeWindow.containsKey(p)) {
+                addPage(p);
               }
-              lastPage[0] = page;
-              activeWindow.put(p, page);
             });
     this.windowIndex = windowIndex;
+    this.prevDots.toggleDisplay(windowIndex > 0);
+    this.nextDots.toggleDisplay(windowIndex < pagesCount / windowSize - 1);
+  }
+
+  private void addPage(int p) {
+    PagerNavItem page = createPageNavItem(p);
+    pagesList.appendChild(page);
+    activeWindow.put(p, page);
+  }
+
+  private PagerNavItem createPageNavItem(int p) {
+    PagerNavItem page =
+        PagerNavItem.page(p)
+            .setCssProperty("order", String.valueOf(p * 10))
+            .addClickListener(evt -> moveToPage(p, isChangeListenersPaused()))
+            .onKeyDown(
+                keyEvents -> keyEvents.onEnter(evt -> moveToPage(p, isChangeListenersPaused())));
+    return page;
   }
 
   /** Clears all pages from the pagination. */
@@ -349,14 +423,9 @@ public class ScrollingPagination extends BasePagination<ScrollingPagination> {
    * @param page The current page index.
    */
   private void showPageWindow(int page) {
-    if (activeWindow.containsKey(page)) {
-      return;
-    }
-
-    if (page % windowSize == 0) {
-      scrollToWindow((page / windowSize) - 1);
-    } else {
-      scrollToWindow(page / windowSize);
+    int pageWindowIndex = page % windowSize == 0 ? (page / windowSize) - 1 : page / windowSize;
+    if (windowIndex != pageWindowIndex) {
+      scrollToWindow(pageWindowIndex);
     }
   }
 

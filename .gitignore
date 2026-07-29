@@ -67,3 +67,8 @@ gradle-app.setting
 # # Work around https://youtrack.jetbrains.com/issue/IDEA-116898
 # gradle/wrapper/gradle-wrapper.properties
 **/pom.xml.versionsBackup
+/AI_CONTEXT.md
+/codex-ai.sh
+/DOMINO_UI_COMPONENT_COMPOSITION.md
+/TEMPLATING_ENGINE_DRAFT.md
+/documents

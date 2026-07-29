@@ -33,6 +33,11 @@ import jsinterop.base.Js;
 @JsType(isNative = true, namespace = JsPackage.GLOBAL)
 public class Clipboard {
 
+  @JsOverlay
+  public static Clipboard instance() {
+    return Js.<DominoNavigator>uncheckedCast(DomGlobal.window.navigator).clipboard;
+  }
+
   /**
    * Reads data from the clipboard.
    *
@@ -65,21 +70,21 @@ public class Clipboard {
 
   @JsOverlay
   public static Promise<JsArray<ClipboardItem>> get() {
-    return Js.<DominoNavigator>uncheckedCast(DomGlobal.window.navigator).clipboard.read();
+    return instance().read();
   }
 
   @JsOverlay
   public static Promise<String> getText() {
-    return Js.<DominoNavigator>uncheckedCast(DomGlobal.window.navigator).clipboard.readText();
+    return instance().readText();
   }
 
   @JsOverlay
   public static Promise<Any> put(ClipboardItem item) {
-    return Js.<DominoNavigator>uncheckedCast(DomGlobal.window.navigator).clipboard.write(item);
+    return instance().write(item);
   }
 
   @JsOverlay
   public static Promise<Any> put(String text) {
-    return Js.<DominoNavigator>uncheckedCast(DomGlobal.window.navigator).clipboard.writeText(text);
+    return instance().writeText(text);
   }
 }

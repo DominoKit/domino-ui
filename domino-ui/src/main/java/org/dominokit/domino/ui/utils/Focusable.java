@@ -24,6 +24,17 @@ package org.dominokit.domino.ui.utils;
 public interface Focusable<T> {
 
   /**
+   * Determines if autofocus is enabled for the element.
+   *
+   * @return {@code true} if the element has autofocus enabled; {@code false} otherwise.
+   */
+  public default boolean isAutoFocus() {
+    return true;
+  }
+
+  public T setAutoFocus(boolean autoFocus);
+
+  /**
    * Sets focus on the element.
    *
    * @return The instance of the element after focus has been set.
@@ -43,4 +54,107 @@ public interface Focusable<T> {
    * @return {@code true} if the element is focused, {@code false} otherwise.
    */
   boolean isFocused();
+
+  /**
+   * Pauses change listeners.
+   *
+   * @return The modified object of type {@code T} with change listeners paused.
+   */
+  default T pauseAutoFocus() {
+    setAutoFocus(false);
+    return (T) this;
+  }
+
+  /**
+   * Resumes change listeners.
+   *
+   * @return The modified object of type {@code T} with change listeners resumed.
+   */
+  default T resumeAutoFocus() {
+    setAutoFocus(true);
+    return (T) this;
+  }
+
+  /**
+   * Toggles the pause state of change listeners.
+   *
+   * @param toggle {@code true} to pause change listeners, {@code false} to resume.
+   * @return The modified object of type {@code T} with the change listener pause state toggled.
+   */
+  default T togglePauseAutoFocus(boolean toggle) {
+    setAutoFocus(toggle);
+    return (T) this;
+  }
+
+  /**
+   * Executes a handler with change listeners paused, then resumes change listeners.
+   *
+   * @param toggle {@code true} to pause change listeners, {@code false} to resume.
+   * @param handler The {@link Handler} to be executed.
+   * @return The modified object of type {@code T} with change listeners handled accordingly.
+   */
+  default T withPauseAutoFocusToggle(boolean toggle, Handler<T> handler) {
+    boolean oldState = isAutoFocus();
+    togglePauseAutoFocus(toggle);
+    try {
+      handler.apply((T) this);
+    } finally {
+      togglePauseAutoFocus(oldState);
+    }
+    return (T) this;
+  }
+
+  /**
+   * Executes a handler with change listeners paused, then resumes change listeners.
+   *
+   * @param handler The {@link Handler} to be executed.
+   * @return The modified object of type {@code T} with change listeners handled accordingly.
+   */
+  default T withPausedAutoFocus(Handler<T> handler) {
+    boolean oldState = isAutoFocus();
+    togglePauseAutoFocus(true);
+    try {
+      handler.apply((T) this);
+    } finally {
+      togglePauseAutoFocus(oldState);
+    }
+    return (T) this;
+  }
+
+  /**
+   * Executes an asynchronous handler with change listeners paused, then resumes change listeners.
+   *
+   * @param toggle {@code true} to pause change listeners, {@code false} to resume.
+   * @param handler The {@link AsyncHandler} to be executed.
+   * @return The modified object of type {@code T} with change listeners handled asynchronously.
+   */
+  default T withPauseAutoFocusToggleAsync(boolean toggle, AsyncHandler<T> handler) {
+    boolean oldState = isAutoFocus();
+    togglePauseAutoFocus(toggle);
+    try {
+      handler.apply((T) this, () -> togglePauseAutoFocus(oldState));
+    } catch (Exception e) {
+      togglePauseAutoFocus(oldState);
+      throw e;
+    }
+    return (T) this;
+  }
+
+  /**
+   * Executes an asynchronous handler with change listeners paused, then resumes change listeners.
+   *
+   * @param handler The {@link AsyncHandler} to be executed.
+   * @return The modified object of type {@code T} with change listeners handled asynchronously.
+   */
+  default T withPausedAutoFocusAsync(AsyncHandler<T> handler) {
+    boolean oldState = isAutoFocus();
+    togglePauseAutoFocus(true);
+    try {
+      handler.apply((T) this, () -> togglePauseAutoFocus(oldState));
+    } catch (Exception e) {
+      togglePauseAutoFocus(oldState);
+      throw e;
+    }
+    return (T) this;
+  }
 }

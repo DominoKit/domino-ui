@@ -691,6 +691,33 @@ public class LocalListDataStore<T>
   }
 
   /**
+   * Inserts a new record if it does not exist, or updates the existing record if it is already
+   * present.
+   *
+   * @param record The record to be inserted or updated.
+   */
+  public void upsertRecord(T record) {
+    if (original.contains(record)) {
+      updateRecord(record);
+    } else {
+      addRecord(record);
+    }
+  }
+
+  /**
+   * Inserts or updates a collection of records in the data store. Each record in the collection is
+   * processed individually, and the upsert operation is performed for each record.
+   *
+   * @param records the collection of records to be inserted or updated, where each record
+   *     represents an entity to be persisted in the data store
+   */
+  public void upsertRecords(Collection<T> records) {
+    for (T record : records) {
+      upsertRecord(record);
+    }
+  }
+
+  /**
    * Internal method to update a single record at a specified index, updating both the original and
    * filtered lists.
    *
