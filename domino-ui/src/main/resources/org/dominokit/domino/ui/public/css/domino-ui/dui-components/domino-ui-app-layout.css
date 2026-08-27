@@ -38,6 +38,13 @@
     --dui-layout-shrink-content: 0;
     --dui-layout-shrink-header: 0;
     --dui-layout-shrink-footer: 0;
+    --dui-left-drawer-closed-x: -100%;
+    --dui-right-drawer-closed-x: 100%;
+}
+
+.dui-layout:dir(rtl) {
+    --dui-left-drawer-closed-x: 100%;
+    --dui-right-drawer-closed-x: -100%;
 }
 
 .dui-layout-body {
@@ -132,7 +139,7 @@
     top: 0;
     background-color: var(--dui-bg-clr, var(--dui-layout-header-background));
     color: var(--dui-text-color, var(--dui-layout-header-color));
-    transition: padding-left var(--dui-layout-transitions-duration) ease-in-out;
+    transition: padding-inline-start var(--dui-layout-transitions-duration) ease-in-out;
     z-index: var(--dui-header-z-index);
     /*--dui-element-z-index:var(--dui-header-z-index);*/
     box-shadow: var(--dui-layout-header-box-shadow, var(--dui-box-shadow-2));
@@ -145,15 +152,15 @@
 }
 
 .dui-shrink-content.dui-left-open > .dui-layout-body > .dui-layout-header {
-    padding-left: calc(var(--dui-header-padding) * var(--dui-layout-shrink-header));
+    padding-inline-start: calc(var(--dui-header-padding) * var(--dui-layout-shrink-header));
 }
 
 .dui-shrink-content.dui-left-open > .dui-layout-body > .dui-layout-content {
-    padding-left: calc(var(--dui-content-padding) * var(--dui-layout-shrink-content) + var(--dui-layout-content-padding-left));
+    padding-inline-start: calc(var(--dui-content-padding) * var(--dui-layout-shrink-content) + var(--dui-layout-content-padding-left));
 }
 
 .dui-shrink-content.dui-left-open > .dui-layout-body > .dui-layout-footer {
-    padding-left: calc(var(--dui-footer-padding) * var(--dui-layout-shrink-footer));
+    padding-inline-start: calc(var(--dui-footer-padding) * var(--dui-layout-shrink-footer));
 }
 
 .dui-left-drawer {
@@ -166,9 +173,10 @@
     max-height: 100%;
     position: absolute;
     top: 0;
+    inset-inline-start: 0;
     box-shadow: var(--dui-layout-section-box-shadow, var(--dui-section-box-shadow));
     align-self: stretch;
-    transform: translateX(-100%);
+    transform: translateX(var(--dui-left-drawer-closed-x));
     transition: transform var(--dui-layout-transitions-duration) ease-in-out;
     z-index: var(--dui-left-drawer-z-index);
     /*--dui-element-z-index:var(--dui-left-drawer-z-index);*/
@@ -186,7 +194,7 @@
     display: block;
     background-color: var(--dui-bg-clr, var(--dui-layout-header-background));
     color: var(--dui-layout-footer-color);
-    transition: padding-left var(--dui-layout-transitions-duration) ease-in-out;
+    transition: padding-inline-start var(--dui-layout-transitions-duration) ease-in-out;
     z-index: var(--dui-footer-z-index);
     /*--dui-element-z-index:var(--dui-footer-z-index);*/
     box-shadow: var(--dui-box-shadow-2);
@@ -194,7 +202,7 @@
 
 .dui-right-drawer {
     overflow-y: auto;
-    right: calc(-1 * var(--dui-right-drawer-width) - 5px);
+    inset-inline-end: 0;
     background-color: var(--dui-layout-drawer-background);
     margin: var(--dui-right-drawer-padding-top) 0 var(--dui-left-drawer-padding-bottom) 0;
     width: var(--dui-right-drawer-width);
@@ -202,8 +210,7 @@
     position: absolute;
     box-shadow: var(--dui-section-box-shadow);
     align-self: stretch;
-    transform: translateX(100%);
-    /*transform: translateX(calc(-1 * var(--dui-right-drawer-width) - var(--dui-right-drawer-width) - 5));*/
+    transform: translateX(var(--dui-right-drawer-closed-x));
     transition: transform var(--dui-layout-transitions-duration) ease-out;
     z-index: var(--dui-right-drawer-z-index);
     /*--dui-element-z-index:var(--dui-right-drawer-z-index);*/
@@ -215,7 +222,7 @@
 }
 
 .dui-right-open > .dui-right-drawer {
-    transform: translateX(calc(-1 * var(--dui-right-drawer-width) - 5px));
+    transform: translateX(0);
 }
 
 .dui-layout-content {
@@ -224,7 +231,7 @@
     padding: var(--dui-layout-content-padding-top) var(--dui-layout-content-padding-right) var(--dui-layout-content-padding-bottom) var(--dui-layout-content-padding-left) ;
     background-color: var(--dui-layout-content-background);
     color: var(--dui-layout-content-color);
-    transition: padding-left var(--dui-layout-transitions-duration) ease-in-out;
+    transition: padding-inline-start var(--dui-layout-transitions-duration) ease-in-out;
 }
 
 .dui-layout-footer-fixed .dui-layout-content {

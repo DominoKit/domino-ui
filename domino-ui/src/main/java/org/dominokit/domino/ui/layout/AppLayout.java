@@ -165,7 +165,7 @@ public class AppLayout extends BaseDominoElement<HTMLDivElement, AppLayout>
     rightDrawer =
         LazyChild.of(
                 section()
-                    .setAttribute("dui-reserve-left-space", "false")
+                    .setAttribute("dui-reserve-right-space", "false")
                     .addCss(dui_right_drawer)
                     .setZIndexLayer(ZIndexLayer.Z_LAYER_2)
                     .addClickListener(Event::stopPropagation),

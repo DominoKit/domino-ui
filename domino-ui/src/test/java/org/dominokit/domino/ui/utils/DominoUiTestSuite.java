@@ -18,12 +18,14 @@ package org.dominokit.domino.ui.utils;
 import com.google.gwt.junit.tools.GWTTestSuite;
 import junit.framework.Test;
 import junit.framework.TestSuite;
+import org.dominokit.domino.ui.layout.AppLayoutTest;
 import org.dominokit.domino.ui.popover.TooltipTest;
 
 public class DominoUiTestSuite extends GWTTestSuite {
   public static Test suite() {
     TestSuite suite = new TestSuite("Tests for client domino-ui");
     suite.addTestSuite(MatchHighlighterTest.class);
+    suite.addTestSuite(AppLayoutTest.class);
     suite.addTestSuite(TooltipTest.class);
 
     return suite;
