@@ -13,19 +13,18 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.dominokit.domino.ui.utils;
+package org.dominokit.domino.ui.dialogs;
 
-import com.google.gwt.junit.tools.GWTTestSuite;
-import junit.framework.Test;
-import junit.framework.TestSuite;
-import org.dominokit.domino.ui.popover.TooltipTest;
+import static org.junit.Assert.assertSame;
 
-public class DominoUiTestSuite extends GWTTestSuite {
-  public static Test suite() {
-    TestSuite suite = new TestSuite("Tests for client domino-ui");
-    suite.addTestSuite(MatchHighlighterTest.class);
-    suite.addTestSuite(TooltipTest.class);
+import org.dominokit.domino.ui.style.CssClass;
+import org.junit.Test;
 
-    return suite;
+public class DialogSizeTest {
+
+  @Test
+  public void noneDoesNotProvideWidthOrHeightClasses() {
+    assertSame(CssClass.NONE, DialogSize.NONE.getWidthStyle());
+    assertSame(CssClass.NONE, DialogSize.NONE.getHeightStyle());
   }
 }

@@ -13,6 +13,10 @@
     <packaging>gwt-lib</packaging>
 
     <name>domino-ui</name>
+    <properties>
+        <domino-slf4j-logger.version>2.0.1</domino-slf4j-logger.version>
+        <slf4j-api.version>2.0.16</slf4j-api.version>
+    </properties>
 
     <dependencyManagement>
         <dependencies>
@@ -149,7 +153,12 @@
         <dependency>
             <groupId>org.dominokit</groupId>
             <artifactId>domino-slf4j-logger</artifactId>
-            <version>1.0.2</version>
+            <version>${domino-slf4j-logger.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+            <version>${slf4j-api.version}</version>
         </dependency>
         <dependency>
             <groupId>org.dominokit</groupId>
