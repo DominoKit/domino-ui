@@ -155,6 +155,7 @@ public class Tooltip extends BasePopover<Tooltip> {
           MouseEvent mouseEvent = Js.uncheckedCast(evt);
           evt.stopPropagation();
           if (mouseEvent.buttons == 0) {
+            close = true;
             getTimer().cancel();
             if (!isAttached()) {
               expand();
@@ -229,6 +230,7 @@ public class Tooltip extends BasePopover<Tooltip> {
   /** Performs the actions required to open this tooltip. */
   @Override
   protected void doOpen() {
+    close = true;
     super.doOpen();
     addEventListener(DUI_REMOVE_TOOLTIPS, closeAllListener);
     if (closeOnEscape) {
@@ -238,7 +240,6 @@ public class Tooltip extends BasePopover<Tooltip> {
 
   @Override
   public Tooltip close() {
-    this.close = false;
     getTimer().cancel();
     return super.close();
   }
