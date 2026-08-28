@@ -255,103 +255,114 @@ body.dui {
     --dui-box-shadow-23: 0 11px 14px -7px var(--dui-shadow-clr-1), 0 0px 36px 3px var(--dui-shadow-clr-2), 0 9px 44px 8px var(--dui-shadow-clr-3);
     --dui-box-shadow-24: 0 11px 15px -7px var(--dui-shadow-clr-1), 0 0px 38px 3px var(--dui-shadow-clr-2), 0 9px 46px 8px var(--dui-shadow-clr-3);
 
-    --dui-default-font-family: "Inter";
+    --dui-default-font-family: "Source Sans 3", sans-serif;
+    --dui-font-family-body: var(--dui-font-family, var(--dui-default-font-family));
+    --dui-font-family-heading: var(--dui-font-family-body);
+    --dui-font-family-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+    --dui-font-family-icon: "Material Design Icons";
+    font-family: var(--dui-font-family-body);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
 
-    --dui-font-normal-100: normal 100 var(--dui-spc-4) var(--dui-font-family, var(--dui-default-font-family)), sans-serif;
-    --dui-font-normal-100-sm: normal 100 var(--dui-spc-3) var(--dui-font-family, var(--dui-default-font-family)), sans-serif;
-    --dui-font-normal-100-xsm: normal 100 var(--dui-spc-2) var(--dui-font-family, var(--dui-default-font-family)), sans-serif;
-    --dui-font-normal-100-lg: normal 100 var(--dui-spc-5) var(--dui-font-family, var(--dui-default-font-family)), sans-serif;
-    --dui-font-normal-100-xlg: normal 100 var(--dui-spc-8) var(--dui-font-family, var(--dui-default-font-family)), sans-serif;
+    --dui-font-heading-regular: normal 400 var(--dui-spc-4) var(--dui-font-family-heading);
+    --dui-font-heading-600: normal 600 var(--dui-spc-4) var(--dui-font-family-heading);
+    --dui-font-heading-600-sm: normal 600 var(--dui-spc-3) var(--dui-font-family-heading);
 
-    --dui-font-italic-100: italic 100 var(--dui-spc-4) var(--dui-font-family, var(--dui-default-font-family)), sans-serif;
-    --dui-font-italic-100-sm: italic 100 var(--dui-spc-3) var(--dui-font-family, var(--dui-default-font-family)), sans-serif;
-    --dui-font-italic-100-xsm: italic 100 var(--dui-spc-2) var(--dui-font-family, var(--dui-default-font-family)), sans-serif;
-    --dui-font-italic-100-lg: italic 100 var(--dui-spc-5) var(--dui-font-family, var(--dui-default-font-family)), sans-serif;
-    --dui-font-italic-100-xlg: italic 100 var(--dui-spc-8) var(--dui-font-family, var(--dui-default-font-family)), sans-serif;
+    --dui-font-normal-100: normal 100 var(--dui-spc-4) var(--dui-font-family-body);
+    --dui-font-normal-100-sm: normal 100 var(--dui-spc-3) var(--dui-font-family-body);
+    --dui-font-normal-100-xsm: normal 100 var(--dui-spc-2) var(--dui-font-family-body);
+    --dui-font-normal-100-lg: normal 100 var(--dui-spc-5) var(--dui-font-family-body);
+    --dui-font-normal-100-xlg: normal 100 var(--dui-spc-8) var(--dui-font-family-body);
 
-    --dui-font-normal-300: normal 300 var(--dui-spc-4) var(--dui-font-family, var(--dui-default-font-family)), sans-serif;
-    --dui-font-normal-300-sm: normal 300 var(--dui-spc-3) var(--dui-font-family, var(--dui-default-font-family)), sans-serif;
-    --dui-font-normal-300-xsm: normal 300 var(--dui-spc-2) var(--dui-font-family, var(--dui-default-font-family)), sans-serif;
-    --dui-font-normal-300-lg: normal 300 var(--dui-spc-5) var(--dui-font-family, var(--dui-default-font-family)), sans-serif;
-    --dui-font-normal-300-xlg: normal 300 var(--dui-spc-8) var(--dui-font-family, var(--dui-default-font-family)), sans-serif;
+    --dui-font-italic-100: italic 100 var(--dui-spc-4) var(--dui-font-family-body);
+    --dui-font-italic-100-sm: italic 100 var(--dui-spc-3) var(--dui-font-family-body);
+    --dui-font-italic-100-xsm: italic 100 var(--dui-spc-2) var(--dui-font-family-body);
+    --dui-font-italic-100-lg: italic 100 var(--dui-spc-5) var(--dui-font-family-body);
+    --dui-font-italic-100-xlg: italic 100 var(--dui-spc-8) var(--dui-font-family-body);
 
-    --dui-font-italic-300: italic 300 var(--dui-spc-4) var(--dui-font-family, var(--dui-default-font-family)), sans-serif;
-    --dui-font-italic-300-sm: italic 300 var(--dui-spc-3) var(--dui-font-family, var(--dui-default-font-family)), sans-serif;
-    --dui-font-italic-300-xsm: italic 300 var(--dui-spc-2) var(--dui-font-family, var(--dui-default-font-family)), sans-serif;
-    --dui-font-italic-300-lg: italic 300 var(--dui-spc-5) var(--dui-font-family, var(--dui-default-font-family)), sans-serif;
-    --dui-font-italic-300-xlg: italic 300 var(--dui-spc-8) var(--dui-font-family, var(--dui-default-font-family)), sans-serif;
+    --dui-font-normal-300: normal 300 var(--dui-spc-4) var(--dui-font-family-body);
+    --dui-font-normal-300-sm: normal 300 var(--dui-spc-3) var(--dui-font-family-body);
+    --dui-font-normal-300-xsm: normal 300 var(--dui-spc-2) var(--dui-font-family-body);
+    --dui-font-normal-300-lg: normal 300 var(--dui-spc-5) var(--dui-font-family-body);
+    --dui-font-normal-300-xlg: normal 300 var(--dui-spc-8) var(--dui-font-family-body);
 
-    --dui-font-regular: normal 400 var(--dui-spc-4) var(--dui-font-family, var(--dui-default-font-family)), sans-serif;
-    --dui-font-regular-sm: normal 400 var(--dui-spc-3) var(--dui-font-family, var(--dui-default-font-family)), sans-serif;
-    --dui-font-regular-xsm: normal 400 var(--dui-spc-2) var(--dui-font-family, var(--dui-default-font-family)), sans-serif;
-    --dui-font-regular-lg: normal 400 var(--dui-spc-5) var(--dui-font-family, var(--dui-default-font-family)), sans-serif;
-    --dui-font-regular-xlg: normal 400 var(--dui-spc-8) var(--dui-font-family, var(--dui-default-font-family)), sans-serif;
+    --dui-font-italic-300: italic 300 var(--dui-spc-4) var(--dui-font-family-body);
+    --dui-font-italic-300-sm: italic 300 var(--dui-spc-3) var(--dui-font-family-body);
+    --dui-font-italic-300-xsm: italic 300 var(--dui-spc-2) var(--dui-font-family-body);
+    --dui-font-italic-300-lg: italic 300 var(--dui-spc-5) var(--dui-font-family-body);
+    --dui-font-italic-300-xlg: italic 300 var(--dui-spc-8) var(--dui-font-family-body);
 
-    --dui-font-italic: italic 400 var(--dui-spc-4) var(--dui-font-family, var(--dui-default-font-family)), sans-serif;
-    --dui-font-italic-sm: italic 400 var(--dui-spc-3) var(--dui-font-family, var(--dui-default-font-family)), sans-serif;
-    --dui-font-italic-xsm: italic 400 var(--dui-spc-2) var(--dui-font-family, var(--dui-default-font-family)), sans-serif;
-    --dui-font-italic-lg: italic 400 var(--dui-spc-5) var(--dui-font-family, var(--dui-default-font-family)), sans-serif;
-    --dui-font-italic-xlg: italic 400 var(--dui-spc-8) var(--dui-font-family, var(--dui-default-font-family)), sans-serif;
+    --dui-font-regular: normal 400 var(--dui-spc-4) var(--dui-font-family-body);
+    --dui-font-regular-sm: normal 400 var(--dui-spc-3) var(--dui-font-family-body);
+    --dui-font-regular-xsm: normal 400 var(--dui-spc-2) var(--dui-font-family-body);
+    --dui-font-regular-lg: normal 400 var(--dui-spc-5) var(--dui-font-family-body);
+    --dui-font-regular-xlg: normal 400 var(--dui-spc-8) var(--dui-font-family-body);
 
-    --dui-font-normal-500: normal 500 var(--dui-spc-4) var(--dui-font-family, var(--dui-default-font-family)), sans-serif;
-    --dui-font-normal-500-sm: normal 500 var(--dui-spc-3) var(--dui-font-family, var(--dui-default-font-family)), sans-serif;
-    --dui-font-normal-500-xsm: normal 500 var(--dui-spc-2) var(--dui-font-family, var(--dui-default-font-family)), sans-serif;
-    --dui-font-normal-500-lg: normal 500 var(--dui-spc-5) var(--dui-font-family, var(--dui-default-font-family)), sans-serif;
-    --dui-font-normal-500-xlg: normal 500 var(--dui-spc-8) var(--dui-font-family, var(--dui-default-font-family)), sans-serif;
+    --dui-font-italic: italic 400 var(--dui-spc-4) var(--dui-font-family-body);
+    --dui-font-italic-sm: italic 400 var(--dui-spc-3) var(--dui-font-family-body);
+    --dui-font-italic-xsm: italic 400 var(--dui-spc-2) var(--dui-font-family-body);
+    --dui-font-italic-lg: italic 400 var(--dui-spc-5) var(--dui-font-family-body);
+    --dui-font-italic-xlg: italic 400 var(--dui-spc-8) var(--dui-font-family-body);
 
-    --dui-font-italic-500: italic 500 var(--dui-spc-4) var(--dui-font-family, var(--dui-default-font-family)), sans-serif;
-    --dui-font-italic-500-sm: italic 500 var(--dui-spc-3) var(--dui-font-family, var(--dui-default-font-family)), sans-serif;
-    --dui-font-italic-500-xsm: italic 500 var(--dui-spc-2) var(--dui-font-family, var(--dui-default-font-family)), sans-serif;
-    --dui-font-italic-500-lg: italic 500 var(--dui-spc-5) var(--dui-font-family, var(--dui-default-font-family)), sans-serif;
-    --dui-font-italic-500-xlg: italic 500 var(--dui-spc-8) var(--dui-font-family, var(--dui-default-font-family)), sans-serif;
+    --dui-font-normal-500: normal 500 var(--dui-spc-4) var(--dui-font-family-body);
+    --dui-font-normal-500-sm: normal 500 var(--dui-spc-3) var(--dui-font-family-body);
+    --dui-font-normal-500-xsm: normal 500 var(--dui-spc-2) var(--dui-font-family-body);
+    --dui-font-normal-500-lg: normal 500 var(--dui-spc-5) var(--dui-font-family-body);
+    --dui-font-normal-500-xlg: normal 500 var(--dui-spc-8) var(--dui-font-family-body);
 
-    --dui-font-normal-600: normal 600 var(--dui-spc-4) var(--dui-font-family, var(--dui-default-font-family)), sans-serif;
-    --dui-font-normal-600-sm: normal 600 var(--dui-spc-3) var(--dui-font-family, var(--dui-default-font-family)), sans-serif;
-    --dui-font-normal-600-xsm: normal 600 var(--dui-spc-2) var(--dui-font-family, var(--dui-default-font-family)), sans-serif;
-    --dui-font-normal-600-lg: normal 600 var(--dui-spc-5) var(--dui-font-family, var(--dui-default-font-family)), sans-serif;
-    --dui-font-normal-600-xlg: normal 600 var(--dui-spc-8) var(--dui-font-family, var(--dui-default-font-family)), sans-serif;
+    --dui-font-italic-500: italic 500 var(--dui-spc-4) var(--dui-font-family-body);
+    --dui-font-italic-500-sm: italic 500 var(--dui-spc-3) var(--dui-font-family-body);
+    --dui-font-italic-500-xsm: italic 500 var(--dui-spc-2) var(--dui-font-family-body);
+    --dui-font-italic-500-lg: italic 500 var(--dui-spc-5) var(--dui-font-family-body);
+    --dui-font-italic-500-xlg: italic 500 var(--dui-spc-8) var(--dui-font-family-body);
 
-    --dui-font-italic-600: italic 600 var(--dui-spc-4) var(--dui-font-family, var(--dui-default-font-family)), sans-serif;
-    --dui-font-italic-600-sm: italic 600 var(--dui-spc-3) var(--dui-font-family, var(--dui-default-font-family)), sans-serif;
-    --dui-font-italic-600-xsm: italic 600 var(--dui-spc-2) var(--dui-font-family, var(--dui-default-font-family)), sans-serif;
-    --dui-font-italic-600-lg: italic 600 var(--dui-spc-5) var(--dui-font-family, var(--dui-default-font-family)), sans-serif;
-    --dui-font-italic-600-xlg: italic 600 var(--dui-spc-8) var(--dui-font-family, var(--dui-default-font-family)), sans-serif;
+    --dui-font-normal-600: normal 600 var(--dui-spc-4) var(--dui-font-family-body);
+    --dui-font-normal-600-sm: normal 600 var(--dui-spc-3) var(--dui-font-family-body);
+    --dui-font-normal-600-xsm: normal 600 var(--dui-spc-2) var(--dui-font-family-body);
+    --dui-font-normal-600-lg: normal 600 var(--dui-spc-5) var(--dui-font-family-body);
+    --dui-font-normal-600-xlg: normal 600 var(--dui-spc-8) var(--dui-font-family-body);
 
-    --dui-font-normal-700: normal 700 var(--dui-spc-4) var(--dui-font-family, var(--dui-default-font-family)), sans-serif;
-    --dui-font-normal-700-sm: normal 700 var(--dui-spc-3) var(--dui-font-family, var(--dui-default-font-family)), sans-serif;
-    --dui-font-normal-700-xsm: normal 700 var(--dui-spc-2) var(--dui-font-family, var(--dui-default-font-family)), sans-serif;
-    --dui-font-normal-700-lg: normal 700 var(--dui-spc-5) var(--dui-font-family, var(--dui-default-font-family)), sans-serif;
-    --dui-font-normal-700-xlg: normal 700 var(--dui-spc-8) var(--dui-font-family, var(--dui-default-font-family)), sans-serif;
+    --dui-font-italic-600: italic 600 var(--dui-spc-4) var(--dui-font-family-body);
+    --dui-font-italic-600-sm: italic 600 var(--dui-spc-3) var(--dui-font-family-body);
+    --dui-font-italic-600-xsm: italic 600 var(--dui-spc-2) var(--dui-font-family-body);
+    --dui-font-italic-600-lg: italic 600 var(--dui-spc-5) var(--dui-font-family-body);
+    --dui-font-italic-600-xlg: italic 600 var(--dui-spc-8) var(--dui-font-family-body);
 
-    --dui-font-italic-700: italic 700 var(--dui-spc-4) var(--dui-font-family, var(--dui-default-font-family)), sans-serif;
-    --dui-font-italic-700-sm: italic 700 var(--dui-spc-3) var(--dui-font-family, var(--dui-default-font-family)), sans-serif;
-    --dui-font-italic-700-xsm: italic 700 var(--dui-spc-2) var(--dui-font-family, var(--dui-default-font-family)), sans-serif;
-    --dui-font-italic-700-lg: italic 700 var(--dui-spc-5) var(--dui-font-family, var(--dui-default-font-family)), sans-serif;
-    --dui-font-italic-700-xlg: italic 700 var(--dui-spc-8) var(--dui-font-family, var(--dui-default-font-family)), sans-serif;
+    --dui-font-normal-700: normal 700 var(--dui-spc-4) var(--dui-font-family-body);
+    --dui-font-normal-700-sm: normal 700 var(--dui-spc-3) var(--dui-font-family-body);
+    --dui-font-normal-700-xsm: normal 700 var(--dui-spc-2) var(--dui-font-family-body);
+    --dui-font-normal-700-lg: normal 700 var(--dui-spc-5) var(--dui-font-family-body);
+    --dui-font-normal-700-xlg: normal 700 var(--dui-spc-8) var(--dui-font-family-body);
 
-    --dui-font-normal-800: normal 800 var(--dui-spc-4) var(--dui-font-family, var(--dui-default-font-family)), sans-serif;
-    --dui-font-normal-800-sm: normal 800 var(--dui-spc-3) var(--dui-font-family, var(--dui-default-font-family)), sans-serif;
-    --dui-font-normal-800-xsm: normal 800 var(--dui-spc-2) var(--dui-font-family, var(--dui-default-font-family)), sans-serif;
-    --dui-font-normal-800-lg: normal 800 var(--dui-spc-5) var(--dui-font-family, var(--dui-default-font-family)), sans-serif;
-    --dui-font-normal-800-xlg: normal 800 var(--dui-spc-8) var(--dui-font-family, var(--dui-default-font-family)), sans-serif;
+    --dui-font-italic-700: italic 700 var(--dui-spc-4) var(--dui-font-family-body);
+    --dui-font-italic-700-sm: italic 700 var(--dui-spc-3) var(--dui-font-family-body);
+    --dui-font-italic-700-xsm: italic 700 var(--dui-spc-2) var(--dui-font-family-body);
+    --dui-font-italic-700-lg: italic 700 var(--dui-spc-5) var(--dui-font-family-body);
+    --dui-font-italic-700-xlg: italic 700 var(--dui-spc-8) var(--dui-font-family-body);
 
-    --dui-font-italic-800: italic 800 var(--dui-spc-4) var(--dui-font-family, var(--dui-default-font-family)), sans-serif;
-    --dui-font-italic-800-sm: italic 800 var(--dui-spc-3) var(--dui-font-family, var(--dui-default-font-family)), sans-serif;
-    --dui-font-italic-800-xsm: italic 800 var(--dui-spc-2) var(--dui-font-family, var(--dui-default-font-family)), sans-serif;
-    --dui-font-italic-800-lg: italic 800 var(--dui-spc-5) var(--dui-font-family, var(--dui-default-font-family)), sans-serif;
-    --dui-font-italic-800-xlg: italic 800 var(--dui-spc-8) var(--dui-font-family, var(--dui-default-font-family)), sans-serif;
+    --dui-font-normal-800: normal 800 var(--dui-spc-4) var(--dui-font-family-body);
+    --dui-font-normal-800-sm: normal 800 var(--dui-spc-3) var(--dui-font-family-body);
+    --dui-font-normal-800-xsm: normal 800 var(--dui-spc-2) var(--dui-font-family-body);
+    --dui-font-normal-800-lg: normal 800 var(--dui-spc-5) var(--dui-font-family-body);
+    --dui-font-normal-800-xlg: normal 800 var(--dui-spc-8) var(--dui-font-family-body);
 
-    --dui-font-normal-900: normal 900 var(--dui-spc-4) var(--dui-font-family, var(--dui-default-font-family)), sans-serif;
-    --dui-font-normal-900-sm: normal 900 var(--dui-spc-3) var(--dui-font-family, var(--dui-default-font-family)), sans-serif;
-    --dui-font-normal-900-xsm: normal 900 var(--dui-spc-2) var(--dui-font-family, var(--dui-default-font-family)), sans-serif;
-    --dui-font-normal-900-lg: normal 900 var(--dui-spc-5) var(--dui-font-family, var(--dui-default-font-family)), sans-serif;
-    --dui-font-normal-900-xlg: normal 900 var(--dui-spc-8) var(--dui-font-family, var(--dui-default-font-family)), sans-serif;
+    --dui-font-italic-800: italic 800 var(--dui-spc-4) var(--dui-font-family-body);
+    --dui-font-italic-800-sm: italic 800 var(--dui-spc-3) var(--dui-font-family-body);
+    --dui-font-italic-800-xsm: italic 800 var(--dui-spc-2) var(--dui-font-family-body);
+    --dui-font-italic-800-lg: italic 800 var(--dui-spc-5) var(--dui-font-family-body);
+    --dui-font-italic-800-xlg: italic 800 var(--dui-spc-8) var(--dui-font-family-body);
 
-    --dui-font-italic-900: italic 900 var(--dui-spc-4) var(--dui-font-family, var(--dui-default-font-family)), sans-serif;
-    --dui-font-italic-900-sm: italic 900 var(--dui-spc-3) var(--dui-font-family, var(--dui-default-font-family)), sans-serif;
-    --dui-font-italic-900-xsm: italic 900 var(--dui-spc-2) var(--dui-font-family, var(--dui-default-font-family)), sans-serif;
-    --dui-font-italic-900-lg: italic 900 var(--dui-spc-5) var(--dui-font-family, var(--dui-default-font-family)), sans-serif;
-    --dui-font-italic-900-xlg: italic 900 var(--dui-spc-8) var(--dui-font-family, var(--dui-default-font-family)), sans-serif;
+    --dui-font-normal-900: normal 900 var(--dui-spc-4) var(--dui-font-family-body);
+    --dui-font-normal-900-sm: normal 900 var(--dui-spc-3) var(--dui-font-family-body);
+    --dui-font-normal-900-xsm: normal 900 var(--dui-spc-2) var(--dui-font-family-body);
+    --dui-font-normal-900-lg: normal 900 var(--dui-spc-5) var(--dui-font-family-body);
+    --dui-font-normal-900-xlg: normal 900 var(--dui-spc-8) var(--dui-font-family-body);
+
+    --dui-font-italic-900: italic 900 var(--dui-spc-4) var(--dui-font-family-body);
+    --dui-font-italic-900-sm: italic 900 var(--dui-spc-3) var(--dui-font-family-body);
+    --dui-font-italic-900-xsm: italic 900 var(--dui-spc-2) var(--dui-font-family-body);
+    --dui-font-italic-900-lg: italic 900 var(--dui-spc-5) var(--dui-font-family-body);
+    --dui-font-italic-900-xlg: italic 900 var(--dui-spc-8) var(--dui-font-family-body);
 
     font: var(--dui-font-regular);
 
@@ -435,7 +446,7 @@ body.dui {
 
     --dui-block-header-margin: 0 0 var(--dui-spc-px-10) 0;
     --dui-block-header-title-margin: 0 0 0 0;
-    --dui-block-header-title-font: var(--dui-font-normal-600);
+    --dui-block-header-title-font: var(--dui-font-heading-600);
     --dui-block-header-description-font: var(--dui-font-regular-sm);
 
     /* ================== Label ===================== */
@@ -584,7 +595,7 @@ body.dui {
     --dui-card-margin: 0 0 var(--dui-spc-4) 0;
     --dui-card-min-height: var(--dui-spc-12);
     --dui-card-header-padding: var(--dui-spc-3);
-    --dui-card-header-title-font: var(--dui-font-regular);
+    --dui-card-header-title-font: var(--dui-font-heading-regular);
     --dui-card-header-title-margin: 0;
     --dui-card-header-gap: var(--dui-spc-5);
     --dui-card-icon-margins: 0 var(--dui-spc-px-5) 0 var(--dui-spc-px-5);
@@ -659,7 +670,7 @@ body.dui {
     --dui-media-body-color: var(--dui-color);
     --dui-media-heading-color: var(--dui-color);
     --dui-media-body-font: var(--dui-font-regular-sm);
-    --dui-media-heading-font: var(--dui-font-normal-600);
+    --dui-media-heading-font: var(--dui-font-heading-600);
     --dui-media-object-padding: 0 var(--dui-spc-px-10) 0 var(--dui-spc-px-10);
     --dui-media-heading-maring: 0 0 var(--dui-spc-px-5) 0;
 
@@ -768,7 +779,7 @@ body.dui {
     --dui-tree-nav-margin: 0;
     --dui-tree-header-line-height: var(--dui-spc-px-32);
     --dui-tree-header-background: var(--dui-tree-header-bg-color);
-    --dui-tree-header-font: var(--dui-font-normal-600-sm);
+    --dui-tree-header-font: var(--dui-font-heading-600-sm);
     --dui-tree-header-padding: var(--dui-spc-px-8) var(--dui-spc-px-8);
     --dui-tree-header-radius: 0px;
     --dui-tree-item-margin: 0 var(--dui-spc-px-2);
@@ -869,7 +880,7 @@ body.dui {
     --dui-collapse-panel-body-border-width: 1px;
     --dui-collapse-panel-title-border-style: solid;
     --dui-collapse-border-color: var(--dui-accent-l-4);
-    --dui-collapse-panel-title-font: var(--dui-font-normal-600);
+    --dui-collapse-panel-title-font: var(--dui-font-heading-600);
     --dui-collapse-panel-title-items-margin: 0 2px;
     --dui-collapse-panel-disabled-color: var(--dui-clr-grey);
     --dui-collapse-panel-disabled-cursor: not-allowed;
@@ -1010,9 +1021,9 @@ body.dui {
     /* =========================== Form fields =========================*/
     --dui-form-field-padding: 0px;
     --dui-form-field-margin: 0 0 var(--dui-spc-4) 0;
-    --dui-form-field-wrapper-padding: 5px;
-    --dui-form-field-wrapper-radius: 5px;
-    --dui-form-field-wrapper-gap: 5px;
+    --dui-form-field-wrapper-padding: 2px 5px;
+    --dui-form-field-wrapper-radius: 3px;
+    --dui-form-field-wrapper-gap: 3px;
     --dui-form-field-border: 1px solid var(--dui-form-field-border-color);
     --dui-form-field-invalid-border-color: var(--dui-clr-red);
     --dui-form-field-label-gap: var(--dui-spc-1);
@@ -1030,6 +1041,7 @@ body.dui {
 
     --dui-form-field-label-padding: 0 0 0 0;
     --dui-form-field-label-font: var(--dui-font-regular);
+    --dui-form-field-choice-label-font: var(--dui-font-regular);
     --dui-form-field-sub-label-font: var(--dui-font-normal-300);
     --dui-form-field-label-min-width: var(--dui-spc-28);
     --dui-form-field-label-max-width: 100%;
@@ -1271,7 +1283,7 @@ body.dui {
     --dui-dialog-title-border-width: 0 0 1px 0;
     --dui-dialog-title-border-style: solid;
     --dui-dialog-title-border-color: var(--dui-dialog-header-border-color);
-    --dui-dialog-title-font: var(--dui-font-normal-600);
+    --dui-dialog-title-font: var(--dui-font-heading-600);
     --dui-dialog-title-items-margin: 0 2px;
     --dui-dialog-header-font: var(--dui-font-regular);
     --dui-dialog-body-padding: var(--dui-spc-3);

@@ -113,6 +113,19 @@ public interface TypographyCss {
 
   CssClass dui_font_mono = () -> "dui-font-mono";
 
+  CssClass dui_font_inter = () -> "dui-font-inter";
+
+  CssClass dui_font_open_sans = () -> "dui-font-open-sans";
+
+  CssClass dui_font_roboto = () -> "dui-font-roboto";
+
+  CssClass dui_font_source_sans_3 = () -> "dui-font-source-sans-3";
+
+  CssClass dui_font_ibm_plex_sans = () -> "dui-font-ibm-plex-sans";
+
+  /** Scopes Domino UI font-family variables to the element and its descendants. */
+  CssClass dui_font_scope = () -> "dui-font-scope";
+
   CssClass dui_text_xs = () -> "dui-text-xs";
 
   CssClass dui_text_sm = () -> "dui-text-sm";

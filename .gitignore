@@ -72,3 +72,13 @@ gradle-app.setting
 /DOMINO_UI_COMPONENT_COMPOSITION.md
 /TEMPLATING_ENGINE_DRAFT.md
 /documents
+
+# Local AI/Codex and Superpowers artifacts
+/.ai/
+/.codex/
+/**/.ai/
+/**/.codex/
+/docs/superpowers/
+/**/docs/superpowers/
+/superpowers/
+/**/superpowers/

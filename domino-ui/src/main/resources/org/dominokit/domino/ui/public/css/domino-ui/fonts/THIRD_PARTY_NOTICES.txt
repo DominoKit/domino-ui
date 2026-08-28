@@ -1,0 +1,26 @@
+Domino UI bundled font notices
+
+Inter
+  Source: https://github.com/rsms/inter
+  License: SIL Open Font License 1.1
+
+Open Sans
+  Source: https://github.com/googlefonts/opensans
+  License: SIL Open Font License 1.1
+
+Roboto
+  Source: https://github.com/googlefonts/roboto
+  License: Apache License 2.0
+
+Source Sans 3
+  Source: https://github.com/adobe-fonts/source-sans
+  Revision: Google Fonts sourcesans3 v19, Latin variable normal/italic files
+  License: SIL Open Font License 1.1
+
+IBM Plex Sans
+  Source: https://github.com/IBM/plex
+  Revision: Google Fonts ibmplexsans v23, Latin variable normal/italic files
+  License: SIL Open Font License 1.1
+
+New font files must not be added to this directory without recording the upstream source,
+version/revision, and license here.

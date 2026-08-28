@@ -2168,16 +2168,43 @@
     -webkit-touch-callout: none;
 }
 
+.dui.dui-font-scope {
+    --dui-font-family-body: var(--dui-font-family, var(--dui-default-font-family));
+    --dui-font-family-heading: var(--dui-font-family-body);
+    font-family: var(--dui-font-family-body) !important;
+}
+
+.dui.dui-font-scope :not(.mdi) {
+    font-family: var(--dui-font-family-body) !important;
+}
+
+.dui.dui-font-scope .mdi {
+    font-family: var(--dui-font-family-icon) !important;
+}
+
+.dui.dui-font-scope .dui-font-mono,
+.dui.dui-font-scope .dui-font-mono * {
+    font-family: var(--dui-font-family-mono) !important;
+}
+
 .dui.dui-font-roboto {
-    --dui-font-family: "Roboto";
+    --dui-font-family: "Roboto", sans-serif;
 }
 
 .dui.dui-font-open-sans {
-    --dui-font-family: "Open Sans";
+    --dui-font-family: "Open Sans", sans-serif;
 }
 
 .dui.dui-font-inter {
-    --dui-font-family: "Inter";
+    --dui-font-family: "Inter", sans-serif;
+}
+
+.dui.dui-font-source-sans-3 {
+    --dui-font-family: "Source Sans 3", sans-serif;
+}
+
+.dui.dui-font-ibm-plex-sans {
+    --dui-font-family: "IBM Plex Sans", sans-serif;
 }
 
 .dui.dui-font-normal-100 {

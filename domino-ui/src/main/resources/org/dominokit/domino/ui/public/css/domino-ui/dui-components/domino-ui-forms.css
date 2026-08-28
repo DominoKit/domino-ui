@@ -390,7 +390,7 @@ textarea.dui-field-input {
 
 .dui-radio-label,
 .dui-checkbox-label {
-    font: var(--dui-form-field-sub-label-font);
+    font: var(--dui-form-field-choice-label-font);
 }
 .dui-radio-label{
     height: var(--dui-spc-px-24);
