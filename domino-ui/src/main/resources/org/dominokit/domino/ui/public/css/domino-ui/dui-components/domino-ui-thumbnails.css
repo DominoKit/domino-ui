@@ -17,6 +17,7 @@
 .dui-thumbnail-title {
     order: var(--dui-thumbnail-body-title-order);
     padding: var(--dui-thumbnail-title-padding);
+    font-weight: var(--dui-thumbnail-title-font-weight);
 }
 .dui-thumbnail-body:empty,
 .dui-thumbnail-footer:empty,
@@ -58,6 +59,5 @@
     border-radius: var(--dui-thumbnail-image-radius);
     padding: var(--dui-thumbnail-img-padding);
 }
-
 
 

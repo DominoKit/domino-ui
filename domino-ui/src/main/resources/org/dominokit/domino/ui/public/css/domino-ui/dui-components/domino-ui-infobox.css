@@ -1,4 +1,6 @@
 .dui-info-box {
+    --dui-emphasis-color: var(--dui-info-color);
+    --dui-emphasis-native-box-shadow: var(--dui-infobox-box-shadow);
     height: auto;
     display: flex;
     flex-direction: var(--dui-infobox-direction);

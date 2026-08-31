@@ -1,0 +1,188 @@
+/*
+ * Rounded surface theme.
+ *
+ * Rounded owns the shared radius scale and component clipping rules.
+ */
+/* Rounded increases the shared component radius scale while preserving the selected surface. */
+.dui.dui-theme-rounded {
+    --dui-radius-xs: 6px;
+    --dui-radius-sm: 8px;
+    --dui-radius-md: 12px;
+    --dui-radius-lg: 16px;
+    --dui-radius-xl: 24px;
+
+    --duiel-border-radius: var(--dui-radius-sm);
+    --dui-alert-border-radius: var(--dui-radius-md);
+    --dui-btn-border-radius: var(--dui-radius-md);
+    --dui-btn-group-border-radius: var(--dui-radius-md);
+    --dui-card-border-radius: var(--dui-radius-lg);
+    --dui-dialog-border-radius: var(--dui-radius-xl);
+    --dui-form-field-wrapper-radius: var(--dui-radius-md);
+    --dui-progress-radius: var(--dui-radius-md);
+    --dui-tab-item-border-radius: var(--dui-radius-md);
+    --dui-tree-radius: var(--dui-radius-md);
+    --dui-tree-header-radius: var(--dui-radius-md);
+    --dui-tree-item-anchor-radius: var(--dui-radius-sm);
+    --dui-thumbnail-radius: var(--dui-radius-lg);
+    --dui-thumbnail-head-radius: var(--dui-thumbnail-radius);
+    --dui-thumbnail-tail-radius: var(--dui-thumbnail-radius);
+    --dui-thumbnail-body-radius: var(--dui-thumbnail-radius);
+    --dui-thumbnail-image-radius: var(--dui-thumbnail-radius);
+    --dui-list-group-radius: var(--dui-radius-md);
+    --dui-badge-radius: var(--dui-radius-sm);
+    --dui-collapse-group-radius: var(--dui-radius-md);
+    --dui-menu-radius: var(--dui-radius-md);
+    --dui-breadcrumb-radius: var(--dui-radius-md);
+    --dui-carousel-radius: var(--dui-radius-lg);
+    --dui-infobox-radius: var(--dui-radius-md);
+    --dui-media-radius: var(--dui-radius-md);
+    --dui-popover-radius: var(--dui-radius-md);
+    --dui-file-upload-radius: var(--dui-radius-md);
+    --dui-calendar-radius: var(--dui-radius-md);
+    --dui-timepicker-radius: var(--dui-radius-md);
+    --dui-datatable-radius: var(--dui-radius-md);
+}
+
+/* Keep navigation headers open toward their body while preserving the outer surface shape. */
+.dui.dui-theme-rounded .dui-menu > .dui-nav-bar,
+.dui.dui-theme-rounded .dui-tree-header,
+.dui.dui-theme-rounded .dui-tabs-nav {
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+}
+
+/* Menu and tree items remain clean rectangles; the menu body clips them at the outer corners. */
+.dui.dui-theme-rounded .dui-menu-item,
+.dui.dui-theme-rounded .dui-tree-anchor {
+    border-radius: 0;
+}
+
+.dui.dui-theme-rounded .dui-menu > .dui-menu-body {
+    overflow: hidden;
+}
+
+/* A visible menu header owns the top edge; keep the first item square beneath it. */
+.dui.dui-theme-rounded .dui-menu:has(> .dui-nav-bar:not(:empty)) > .dui-menu-body {
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+}
+
+.dui.dui-theme-rounded .dui-breadcrumb {
+    border-radius: var(--dui-breadcrumb-radius);
+}
+
+/* Rounded carousel surfaces clip animated slides and their images at the same boundary. */
+.dui.dui-theme-rounded .dui-carousel {
+    border-radius: var(--dui-carousel-radius);
+    overflow: hidden;
+}
+
+.dui.dui-theme-rounded .dui-carousel-inner {
+    border-radius: inherit;
+}
+
+.dui.dui-theme-rounded .dui-carousel-inner > .dui-slide {
+    border-radius: inherit;
+    overflow: hidden;
+}
+
+.dui.dui-theme-rounded .dui-carousel-inner > .dui-slide img,
+.dui.dui-theme-rounded .dui-carousel-inner > .dui-slide picture,
+.dui.dui-theme-rounded .dui-carousel-inner > .dui-slide picture img {
+    border-radius: inherit;
+}
+
+/* The accordion owns the rounded surface and clips square panels at its outer corners. */
+.dui.dui-theme-rounded .dui-collapse-group {
+    border-radius: var(--dui-collapse-group-radius);
+    overflow: hidden;
+}
+
+/* Keep panel surfaces square; the group supplies the only rounded geometry. */
+.dui.dui-theme-rounded .dui-collapse-group .dui-collapse-panel {
+    border-radius: 0;
+}
+
+/* Keep field input and wrapper backgrounds aligned to the same rounded geometry. */
+.dui.dui-theme-rounded .dui-field-input-wrapper {
+    border-radius: var(--dui-form-field-wrapper-radius);
+}
+
+.dui.dui-theme-rounded .dui-field-input {
+    border-radius: inherit;
+}
+
+.dui.dui-theme-rounded .dui-info-box {
+    border-radius: var(--dui-infobox-radius);
+}
+
+/* Clip only content that crosses a rounded list surface; keep item images unmodified. */
+.dui.dui-theme-rounded .dui-list-group-bordered {
+    overflow: hidden;
+}
+
+.dui.dui-theme-rounded .dui-media {
+    border-radius: var(--dui-media-radius);
+}
+
+.dui.dui-theme-rounded .dui-media-object {
+    border-radius: var(--dui-media-radius);
+    overflow: hidden;
+}
+
+/* Media samples wrap images in anchors; make that wrapper participate in the rounded clip. */
+.dui.dui-theme-rounded .dui-media-object > a {
+    display: block;
+    border-radius: var(--dui-media-radius);
+    overflow: hidden;
+}
+
+.dui.dui-theme-rounded .dui-media-object img {
+    border-radius: var(--dui-media-radius);
+}
+
+/* Keep thumbnail content inside the rounded outer surface. */
+.dui.dui-theme-rounded .dui-thumbnail {
+    overflow: hidden;
+}
+
+.dui.dui-theme-rounded .dui-thumbnail-img {
+    border-radius: var(--dui-thumbnail-image-radius);
+}
+
+.dui.dui-theme-rounded .dui-popover,
+.dui.dui-theme-rounded .dui-tooltip {
+    border-radius: var(--dui-popover-radius);
+}
+
+.dui.dui-theme-rounded .dui-file-upload {
+    border-radius: var(--dui-file-upload-radius);
+}
+
+.dui.dui-theme-rounded .dui-calendar {
+    border-radius: var(--dui-calendar-radius);
+    overflow: hidden;
+}
+
+.dui.dui-theme-rounded .dui-time-picker {
+    border-radius: var(--dui-timepicker-radius);
+    overflow: hidden;
+}
+
+.dui.dui-theme-rounded .dui-datatable-responsive {
+    border-radius: var(--dui-datatable-radius);
+}
+
+.dui.dui-theme-rounded .dui-tab-item {
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+}
+
+/* Vertical tabs meet their content on the right, so keep rounding on the outer left edge. */
+.dui.dui-theme-rounded .dui-tabs.dui-vertical .dui-tab-item {
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+    border-bottom-left-radius: var(--dui-tab-item-border-radius);
+}
+
+

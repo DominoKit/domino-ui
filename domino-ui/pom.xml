@@ -218,7 +218,6 @@
 
                             <cssExcludes>
                                 <cssExclude>domino-ui.css</cssExclude>
-                                <cssExclude>loaders/domino-ui-waitMe.css</cssExclude>
                                 <cssExclude>**/*.min.css</cssExclude>
                             </cssExcludes>
 
@@ -229,6 +228,36 @@
                             <cssSourceDir>/org/dominokit/domino/ui/public/css/domino-ui/dui-components</cssSourceDir>
 
                             <cssFinalFile>domino-ui.css</cssFinalFile>
+
+                            <cssEngine>YUI</cssEngine>
+                            <skipMinify>true</skipMinify>
+
+                        </configuration>
+                        <goals>
+                            <goal>minify</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>themes-minify</id>
+                        <phase>prepare-package</phase>
+                        <configuration>
+                            <charset>UTF-8</charset>
+                            <cssIncludes>
+                                <cssInclude>**/*.css</cssInclude>
+                            </cssIncludes>
+
+                            <cssExcludes>
+                                <cssExclude>domino-ui-themes.css</cssExclude>
+                                <cssExclude>**/*.min.css</cssExclude>
+                            </cssExcludes>
+
+                            <webappSourceDir>${build.directory}/classes</webappSourceDir>
+                            <webappTargetDir>${build.directory}</webappTargetDir>
+                            <cssTargetDir>/classes/org/dominokit/domino/ui/public/css/domino-ui/themes</cssTargetDir>
+
+                            <cssSourceDir>/org/dominokit/domino/ui/public/css/domino-ui/themes</cssSourceDir>
+
+                            <cssFinalFile>domino-ui-themes.css</cssFinalFile>
 
                             <cssEngine>YUI</cssEngine>
                             <skipMinify>true</skipMinify>

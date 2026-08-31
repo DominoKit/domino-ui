@@ -145,6 +145,68 @@ fieldset.dui {
     line-height: var(--dui-form-field-prefix-line-height);
 }
 
+.dui-field-prefix,
+.dui-field-postfix {
+    gap: var(--dui-form-field-addon-gap);
+}
+
+.dui-field-prefix .dui-btn,
+.dui-field-postfix .dui-btn {
+    height: var(--dui-form-field-addon-button-height);
+    padding: var(--dui-form-field-addon-button-padding);
+    line-height: var(--dui-form-field-addon-button-line-height);
+}
+
+.dui-field-prefix .dui-btn .dui-btn-body,
+.dui-field-postfix .dui-btn .dui-btn-body {
+    height: 100%;
+}
+
+.dui-field-prefix .dui-btn.dui-lg,
+.dui-field-postfix .dui-btn.dui-lg {
+    padding: var(--dui-form-field-addon-button-lg-padding);
+}
+
+.dui-field-prefix .dui-btn.dui-md,
+.dui-field-postfix .dui-btn.dui-md {
+    padding: var(--dui-form-field-addon-button-md-padding);
+}
+
+.dui-field-prefix .dui-btn.dui-sm,
+.dui-field-postfix .dui-btn.dui-sm {
+    padding: var(--dui-form-field-addon-button-sm-padding);
+}
+
+.dui-field-prefix .dui-btn.dui-xs,
+.dui-field-postfix .dui-btn.dui-xs {
+    padding: var(--dui-form-field-addon-button-xs-padding);
+}
+
+.dui-field-prefix .dui-btn .dui-btn-text,
+.dui-field-postfix .dui-btn .dui-btn-text {
+    height: var(--dui-form-field-addon-button-text-height);
+}
+
+.dui-field-prefix .dui-btn.dui-lg .dui-btn-text,
+.dui-field-postfix .dui-btn.dui-lg .dui-btn-text {
+    height: var(--dui-form-field-addon-button-lg-text-height);
+}
+
+.dui-field-prefix .dui-btn.dui-md .dui-btn-text,
+.dui-field-postfix .dui-btn.dui-md .dui-btn-text {
+    height: var(--dui-form-field-addon-button-md-text-height);
+}
+
+.dui-field-prefix .dui-btn.dui-sm .dui-btn-text,
+.dui-field-postfix .dui-btn.dui-sm .dui-btn-text {
+    height: var(--dui-form-field-addon-button-sm-text-height);
+}
+
+.dui-field-prefix .dui-btn.dui-xs .dui-btn-text,
+.dui-field-postfix .dui-btn.dui-xs .dui-btn-text {
+    height: var(--dui-form-field-addon-button-xs-text-height);
+}
+
 .dui-field-input {
     order: 30;
 }
@@ -194,6 +256,7 @@ fieldset.dui {
     width: 100%;
     display: flex;
     border: var(--dui-form-field-border);
+    background-color: var(--dui-form-field-background);
     padding: var(--dui-form-field-wrapper-padding);
     align-items: center;
     border-radius: var(--dui-form-field-wrapper-radius);
@@ -207,6 +270,7 @@ fieldset.dui {
 .dui-form-radio-group .dui-field-input-wrapper,
 .dui-form-checkbox .dui-field-input-wrapper {
     border: 1px solid transparent;
+    background-color: inherit;
 }
 
 .dui-field-input {
@@ -226,6 +290,13 @@ fieldset.dui {
     background-color: inherit;
     color: inherit;
     width: inherit;
+}
+
+.dui-field-input-wrapper .dui-chip {
+    --dui-chip-height: var(--dui-form-field-chip-height);
+    --dui-chip-line-height: var(--dui-form-field-chip-line-height);
+    --dui-chip-addon-width: var(--dui-form-field-chip-addon-width);
+    --dui-chip-addon-height: var(--dui-form-field-chip-addon-height);
 }
 
 .dui-form-text-area {
@@ -453,7 +524,7 @@ textarea.dui-field-input {
 }
 
 .dui-form-checkbox.dui-form-checkbox-filled .dui-checkbox-label:after {
-    background-color: var(--dui-accent, var(--dui-form-field-checkbox-square-filled-background));
+    background-color: var(--dui-form-field-checkbox-square-filled-background, var(--dui-accent));
 }
 
 .dui-disable-transition .dui-form-checkbox.dui-form-checkbox-filled .dui-checkbox-label:after,
@@ -490,6 +561,13 @@ textarea.dui-field-input {
     top 0.2s ease-in-out,
     left 0.2s ease-in-out,
     margin 0.2s ease-in-out;
+}
+
+.dui-form-checkbox[readonly] {
+    --dui-form-field-checkbox-square-border-color: var(--dui-form-field-checkbox-readonly-border-color);
+    --dui-form-field-checkbox-square-filled-background: var(--dui-form-field-checkbox-readonly-filled-background);
+    --dui-form-field-checkbox-check-filled-color: var(--dui-form-field-checkbox-readonly-check-color);
+    pointer-events: none;
 }
 
 .dui-form-radio-group .dui-field-input-wrapper {
@@ -661,6 +739,16 @@ textarea.dui-field-input {
 
 .dui-form-switch .dui-field-input-wrapper {
     border: none;
+    background-color: inherit;
+}
+
+.dui-form-switch[readonly] {
+    --dui-form-field-switch-track-background: var(--dui-form-field-switch-readonly-track-background);
+    --dui-form-field-switch-checked-track-background: var(--dui-form-field-switch-readonly-checked-track-background);
+    --dui-form-field-switch-thumb-background: var(--dui-form-field-switch-readonly-thumb-background);
+    --dui-form-field-switch-checked-thumb-background: var(--dui-form-field-switch-readonly-checked-thumb-background);
+    --dui-form-field-switch-thumb-filter: var(--dui-form-field-switch-readonly-thumb-filter);
+    --dui-form-field-switch-thumb-checked-filter: var(--dui-form-field-switch-readonly-checked-thumb-filter);
 }
 
 .dui-form-switch *.dui {

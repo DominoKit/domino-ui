@@ -14,8 +14,11 @@
  * limitations under the License.
  */
 /**
- * The Theme class represents a color theme for a user interface. It provides a set of predefined
- * color schemes and allows changing the current theme dynamically.
+ * The Theme class represents the legacy global color-scheme API for a user interface. It provides a
+ * set of predefined color schemes and allows changing the current body-level theme dynamically. New
+ * applications should prefer {@code DominoThemeManager} for category-aware composition and {@code
+ * ElementThemeManager} for scoped roots; this API remains for compatibility with existing
+ * body-level applications and theme-change handlers.
  */
 package org.dominokit.domino.ui.themes;
 
@@ -25,6 +28,7 @@ import static java.util.Objects.nonNull;
 import java.util.ArrayList;
 import java.util.List;
 import org.dominokit.domino.ui.style.ColorScheme;
+import org.dominokit.domino.ui.style.CssClass;
 import org.dominokit.domino.ui.style.Style;
 
 public class Theme {
@@ -79,6 +83,7 @@ public class Theme {
   public static final ColorScheme TRANSPARENT = ColorScheme.TRANSPARENT;
 
   private final ColorScheme scheme;
+  private final CssClass themeCss;
   private final String themeStyle;
   private final String name;
 
@@ -92,7 +97,8 @@ public class Theme {
    */
   public Theme(ColorScheme scheme) {
     this.scheme = scheme;
-    this.themeStyle = scheme.color().getCss().getCssClass();
+    this.themeCss = scheme.color().getCss();
+    this.themeStyle = themeCss.getCssClass();
     this.name = scheme.color().getName().replace(" ", "_").toLowerCase();
   }
 
@@ -141,12 +147,12 @@ public class Theme {
     themeChangeHandlers.remove(themeChangeHandler);
   }
 
-  /** Applies this theme to the document's body element, changing the UI's color scheme. */
+  /** Applies this legacy theme to {@code document.body}, changing the global color scheme. */
   public void apply() {
     Theme oldTheme = currentTheme;
-    if (nonNull(currentTheme)) document.body.classList.remove(currentTheme.themeStyle);
+    if (nonNull(currentTheme)) Style.of(document.body).removeCss(currentTheme.themeCss);
     this.currentTheme = this;
-    Style.of(document.body).addCss(themeStyle);
+    Style.of(document.body).addCss(themeCss);
     themeChangeHandlers.forEach(
         themeChangeHandler -> themeChangeHandler.onThemeChanged(oldTheme, this));
   }

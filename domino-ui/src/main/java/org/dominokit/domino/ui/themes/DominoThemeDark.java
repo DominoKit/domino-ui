@@ -65,7 +65,7 @@ public class DominoThemeDark implements IsDominoTheme, ElementsFactory, DominoCs
    */
   @Override
   public String getCategory() {
-    return "dui-dark-mode";
+    return DominoThemeCategories.COLOR_MODE;
   }
 
   /**

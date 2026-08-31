@@ -1,4 +1,5 @@
 .dui-chip {
+    --dui-emphasis-color: var(--dui-accent, var(--dui-bg, var(--dui-chip-background)));
     background-color: var(--dui-accent, var(--dui-bg, var(--dui-chip-background)));
     border-radius: var(--dui-chip-border-radius);
     min-width: var(--dui-chip-min-width);
@@ -49,7 +50,7 @@
 .dui-chip-addon {
     order: 10;
     font-size: var(--dui-chip-addon-font-size);
-    line-height: var(--dui-chip-addon-font-size);
+    line-height: var(--dui-chip-addon-line-height);
     margin-left: -2px;
     border-radius: var(--dui-chip-border-radius);
     min-width: var(--dui-chip-addon-width);
@@ -61,6 +62,7 @@
 
 .dui-chip-addon i.mdi.dui {
     font-size: var(--dui-chip-addon-font-size);
+    line-height: var(--dui-chip-addon-line-height);
     border-radius: var(--dui-chip-addon-radius);
     width: var(--dui-chip-addon-width);
     height: var(--dui-chip-addon-height);
@@ -95,8 +97,10 @@
 }
 
 .dui-chip-remove i.dui.mdi{
+    --dui-icon-size: var(--dui-chip-remove-icon-size);
     width: var(--dui-chip-addon-width);
     height: var(--dui-chip-addon-height);
+    line-height: var(--dui-chip-addon-line-height);
     margin: var(--dui-chip-close-mrgin);
 }
 

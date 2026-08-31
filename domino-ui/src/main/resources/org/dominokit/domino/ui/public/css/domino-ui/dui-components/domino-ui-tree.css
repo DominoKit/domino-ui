@@ -1,6 +1,7 @@
 .dui-tree {
     margin: var(--dui-tree-margin);
     border: var(--dui-tree-border);
+    background: var(--dui-tree-background);
     border-radius: var(--dui-tree-radius);
     overflow: hidden;
     display: flex;

@@ -26,8 +26,9 @@ import org.dominokit.domino.ui.utils.ElementsFactory;
  * Represents a Domino UI theme.
  *
  * <p>A theme in Domino UI provides a consistent appearance and behavior (look and feel) across the
- * UI components. The interface provides methods to apply, cleanup, and check if a theme is applied
- * to specific UI components or globally.
+ * UI components. Themes are composable by category: the default token theme, one color mode, and
+ * one accent/brand theme can be applied to the same target. The interface provides methods to
+ * apply, cleanup, and check if a theme is applied to specific UI components or globally.
  *
  * <p><b>Usage Example:</b>
  *

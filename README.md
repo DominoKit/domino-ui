@@ -40,6 +40,16 @@ Card.create("LOGIN")
     .appendChild(login);
 ```
 
+## Theming
+
+Domino UI supports composable color modes, accents, visual identities, character styles, density,
+surface treatments, and component-level emphasis modifiers. Optional themes can be loaded as one
+bundle or as individual CSS files, while all theme selectors remain scoped to a `.dui` root.
+
+See the complete guide in [theming.md](THEMING.md), including the available theme catalog, Java
+descriptors, subset-loading examples, composition rules, CSS isolation guidance, contrast
+recommendations, emphasis modifiers, and the separate role of the WaitMe animation stylesheet.
+
 ## Links
 - Introduction: https://dominokit.com/solutions/domino-ui/v2
 - Getting started: https://dominokit.com/solutions/domino-ui/v2/docs/getting-started

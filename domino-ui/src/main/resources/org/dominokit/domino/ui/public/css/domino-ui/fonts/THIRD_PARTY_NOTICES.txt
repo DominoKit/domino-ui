@@ -22,5 +22,10 @@ IBM Plex Sans
   Revision: Google Fonts ibmplexsans v23, Latin variable normal/italic files
   License: SIL Open Font License 1.1
 
+WaitMe CSS
+  Source: https://github.com/vadimsva/waitMe
+  Version: 1.19 (31.10.17)
+  License: see the upstream project
+
 New font files must not be added to this directory without recording the upstream source,
 version/revision, and license here.

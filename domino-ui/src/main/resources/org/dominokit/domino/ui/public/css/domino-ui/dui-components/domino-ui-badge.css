@@ -1,4 +1,5 @@
 .dui-badge {
+    --dui-emphasis-color: var(--dui-badge-background);
     position: relative;
     float: var(--dui-badge-float);
     margin: var(--dui-badge-margin);

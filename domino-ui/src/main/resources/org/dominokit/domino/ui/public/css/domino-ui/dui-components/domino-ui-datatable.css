@@ -46,7 +46,7 @@
 }
 
 .dui-datatable-tfoot .dui-datatable-row:first-child .dui-datatable-td {
-    border-top: 1px solid var(--dui-accent-l-4);
+    border-top: 1px solid var(--dui-datatable-border-color);
 }
 
 .dui-datatable-auto .dui-datatable-thead,
@@ -56,46 +56,77 @@
     z-index: 1;
 }
 
-.dui-datatable-hover tbody .dui-datatable-row:not(.dui-datatable-row-editable):hover,
-.dui-datatable-hover tbody .dui-datatable-row:nth-child(odd):not(.dui-datatable-row-editable):hover,
-.dui-datatable-hover tbody .dui-datatable-row:nth-child(even):not(.dui-datatable-row-editable):hover {
-    background-color: var(--dui-datatable-row-hover-bg-color);
-}
-
-.dui-datatable-hover tbody .dui-datatable-row.dui-datatable-row-selected:not(.dui-datatable-row-editable):hover,
-.dui-datatable-hover tbody .dui-datatable-row.dui-datatable-row-selected:nth-child(odd):not(.dui-datatable-row-editable):hover,
-.dui-datatable-hover tbody .dui-datatable-row.dui-datatable-row-selected:nth-child(even):not(.dui-datatable-row-editable):hover {
-    background-color: var(--dui-datatable-row-selected-hover-bg-color);
-}
-
-.dui-datatable-row.dui-context-menu-target-open:not(.dui-datatable-row-editable),
-.dui-datatable-row.dui-context-menu-target-open:nth-child(odd):not(.dui-datatable-row-editable),
-.dui-datatable-row.dui-context-menu-target-open:nth-child(even):not(.dui-datatable-row-editable) {
-    background-color: var(--dui-datatable-row-hover-bg-color);
-}
-
-.dui-datatable-responsive:not(.dui-datatable-striped) tbody .dui-datatable-row {
-    background-color:var(--dui-bg-clr, var(--dui-bg, var(--dui-clr-dominant)));
-}
-
-.dui-datatable-responsive:not(.dui-datatable-striped) tbody .dui-datatable-row.dui-datatable-row-selected{
-    background-color: var(--dui-datatable-even-bg-color);
+.dui-datatable-responsive tbody .dui-datatable-row {
+    background-color: var(--dui-datatable-row-background);
 }
 
 .dui-datatable-striped tbody .dui-datatable-row:nth-child(even):not(.dui-odd):not(.dui-even) {
-    background-color: var(--dui-datatable-even-bg-color);
+    background-color: var(--dui-datatable-row-striped-background);
 }
 
 .dui-datatable-striped tbody .dui-datatable-row:nth-child(odd):not(.dui-odd):not(.dui-even) {
-    background-color: var(--dui-datatable-odd-bg-color);
+    background-color: var(--dui-datatable-row-background);
 }
 
 .dui-datatable-striped tbody .dui-datatable-row.dui-even {
-    background-color: var(--dui-datatable-even-bg-color);
+    background-color: var(--dui-datatable-row-striped-background);
 }
 
 .dui-datatable-striped tbody .dui-datatable-row.dui-odd {
-    background-color: var(--dui-datatable-odd-bg-color);
+    background-color: var(--dui-datatable-row-background);
+}
+
+/* Row states are deliberately declared after stripe rules so their precedence is explicit. */
+.dui-datatable-responsive tbody .dui-datatable-row.dui-datatable-row-highlighted {
+    background-color: var(--dui-datatable-row-highlight-background);
+}
+
+.dui-datatable-responsive tbody .dui-datatable-row.dui-datatable-row-selected {
+    background-color: var(--dui-datatable-row-selected-background);
+}
+
+.dui-datatable-hover tbody .dui-datatable-row:not(.dui-datatable-row-editable):hover {
+    background-color: var(--dui-datatable-row-hover-background);
+}
+
+.dui-datatable-hover tbody .dui-datatable-row.dui-datatable-row-selected:not(.dui-datatable-row-editable):hover {
+    background-color: var(--dui-datatable-row-selected-hover-background);
+}
+
+.dui-datatable-hover tbody .dui-datatable-row.dui-context-menu-target-open:not(.dui-datatable-row-editable):hover,
+.dui-datatable-row.dui-context-menu-target-open:not(.dui-datatable-row-editable) {
+    background-color: var(--dui-datatable-row-context-background);
+}
+
+/* Record details are a separate visual surface, independent of striping and row state. */
+.dui-datatable-responsive tbody .dui-datatable-row.dui-datatable-details-tr {
+    background-color: var(--dui-datatable-row-details-background);
+    --dui-datatable-row-background: var(--dui-datatable-row-details-background);
+    --dui-datatable-row-striped-background: var(--dui-datatable-row-details-background);
+    --dui-datatable-row-hover-background: var(--dui-datatable-row-details-background);
+    --dui-datatable-row-selected-background: var(--dui-datatable-row-details-background);
+    --dui-datatable-row-selected-hover-background: var(--dui-datatable-row-details-background);
+    --dui-datatable-row-highlight-background: var(--dui-datatable-row-details-background);
+    --dui-datatable-row-context-background: var(--dui-datatable-row-details-background);
+}
+
+.dui-datatable-row.dui-datatable-row-selected .dui-datatable-td:first-child {
+    position: relative;
+}
+
+.dui-datatable-row.dui-datatable-row-selected .dui-datatable-td:first-child::before {
+    content: "";
+    position: absolute;
+    inset-block: 0;
+    inset-inline-start: 0;
+    width: var(--dui-datatable-row-selected-indicator-width);
+    background-color: var(--dui-datatable-row-selected-indicator-color);
+    pointer-events: none;
+}
+
+.dui-datatable-row:focus-visible,
+.dui-datatable-row:focus-within {
+    background-color: var(--dui-datatable-row-focus-background);
 }
 
 .dui-datatable-width-full {
@@ -144,6 +175,10 @@
     background-color: inherit;
 }
 
+.dui-datatable-td .dui-badge {
+    padding: var(--dui-datatable-cell-badge-padding);
+}
+
 .dui-datatable-condensed .dui-datatable-td {
     padding: var(--dui-datatable-cell-condenced-padding);
     --dui-datatable-cell-line-height: var(--dui-datatable-condenced-cell-line-height);
@@ -165,17 +200,6 @@
     margin: var(--dui-datatable-navbar-margin);
 }
 
-.dui-datatable-row-selected.dui-datatable-row.dui-odd,
-.dui-datatable-row-selected.dui-datatable-row.dui-even {
-    --dui-datatable-even-bg-color: var(--dui-datatable-row-stripped-selected-bg-color);
-    --dui-datatable-odd-bg-color: var(--dui-datatable-row-stripped-selected-bg-color);
-}
-
-.dui-datatable-responsive:not(.dui-datatable-striped) tbody .dui-datatable-row-selected.dui-datatable-row {
-    --dui-datatable-even-bg-color: var(--dui-datatable-row-selected-bg-color);
-    --dui-datatable-odd-bg-color: var(--dui-datatable-row-selected-bg-color);
-}
-
 .dui-datatable-th-body {
     display: flex;
     width: 100%;
@@ -186,6 +210,7 @@
 .dui-datatable-th-title {
     flex-grow: 1;
     text-align: inherit;
+    font-weight: var(--dui-datatable-header-font-weight);
     order: 60;
     text-overflow: ellipsis;
     overflow: hidden;
@@ -228,6 +253,7 @@
 
 .dui-datatable-details-td {
     max-width: 200px;
+    background-color: var(--dui-datatable-row-details-background);
     border-bottom: 1px solid var(--dui-datatable-border-color);
 }
 
@@ -237,6 +263,23 @@
 
 .dui-datatable-row-editable .dui-form-field {
     margin-bottom: 0;
+}
+
+.dui-datatable-td .dui-field-input-wrapper {
+    background-color: var(--dui-datatable-cell-form-field-wrapper-background);
+}
+
+.dui-datatable-td .dui-form-checkbox .dui-field-input-wrapper {
+    background-color: inherit;
+}
+
+.dui-datatable-td .dui-form-checkbox .dui-checkbox-label:after {
+    background-color: var(--dui-datatable-cell-form-field-wrapper-background);
+}
+
+.dui-datatable-td .dui-field-input-hidden:checked + .dui-field-input .dui-checkbox-label:before,
+.dui-datatable-td .dui-field-input-hidden:indeterminate + .dui-field-input .dui-checkbox-label:before {
+    z-index: 1;
 }
 
 .dui-column-resizer {
@@ -266,7 +309,7 @@
     align-items: center;
     justify-content: center;
     width: 100%;
-    border: 1px dashed var(--dui-accent-l-4);
+    border: 1px dashed var(--dui-datatable-border-color);
     min-height: 50px;
     padding: 8px;
     margin-top: 4px;
@@ -286,12 +329,6 @@
     position: sticky;
     top: 0;
     z-index: 1;
-}
-
-.dui-datatable-responsive.dui-datatable-row-highlight .dui-datatable-row-highlighted {
-    --dui-datatable-even-bg-color: var(--dui-datatable-row-highlight-bg-color, var(--dui-accent-l-3));
-    --dui-datatable-odd-bg-color: var(--dui-datatable-row-highlight-bg-color, var(--dui-accent-l-3));
-    --dui-bg-clr: var(--dui-datatable-row-highlight-bg-color, var(--dui-accent-l-3));
 }
 
 .dui-table-selection-disabled .dui.dui-table-selection-indicator,

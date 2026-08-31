@@ -1,4 +1,5 @@
 .dui.dui-primary {
+    --dui-context-fg-color: var(--dui-primary-fg-clr);
     --dui-bg-l-5: var(--dui-clr-primary-l-5);
     --dui-bg-l-4: var(--dui-clr-primary-l-4);
     --dui-bg-l-3: var(--dui-clr-primary-l-3);
@@ -21,6 +22,7 @@
 }
 
 .dui.dui-secondary {
+    --dui-context-fg-color: var(--dui-secondary-fg-clr);
     --dui-bg-l-5: var(--dui-clr-secondary-l-5);
     --dui-bg-l-4: var(--dui-clr-secondary-l-4);
     --dui-bg-l-3: var(--dui-clr-secondary-l-3);
@@ -43,6 +45,7 @@
 }
 
 .dui.dui-dominant {
+    --dui-context-fg-color: var(--dui-dominant-fg-clr);
     --dui-bg-l-5: var(--dui-clr-dominant-l-5);
     --dui-bg-l-4: var(--dui-clr-dominant-l-4);
     --dui-bg-l-3: var(--dui-clr-dominant-l-3);
@@ -65,6 +68,7 @@
 }
 
 .dui.dui-accent {
+    --dui-context-fg-color: var(--dui-accent-fg-clr);
     --dui-bg-l-5: var(--dui-accent-l-5);
     --dui-bg-l-4: var(--dui-accent-l-4);
     --dui-bg-l-3: var(--dui-accent-l-3);
@@ -133,6 +137,7 @@
 }
 
 .dui.dui-success {
+    --dui-context-fg-color: var(--dui-success-fg-clr);
     --dui-bg-l-5: var(--dui-clr-success-l-5);
     --dui-bg-l-4: var(--dui-clr-success-l-4);
     --dui-bg-l-3: var(--dui-clr-success-l-3);
@@ -155,6 +160,7 @@
 }
 
 .dui.dui-info {
+    --dui-context-fg-color: var(--dui-info-fg-clr);
     --dui-bg-l-5: var(--dui-clr-info-l-5);
     --dui-bg-l-4: var(--dui-clr-info-l-4);
     --dui-bg-l-3: var(--dui-clr-info-l-3);
@@ -177,6 +183,7 @@
 }
 
 .dui.dui-warning {
+    --dui-context-fg-color: var(--dui-warning-fg-clr);
     --dui-bg-l-5: var(--dui-clr-warning-l-5);
     --dui-bg-l-4: var(--dui-clr-warning-l-4);
     --dui-bg-l-3: var(--dui-clr-warning-l-3);
@@ -199,6 +206,7 @@
 }
 
 .dui.dui-error {
+    --dui-context-fg-color: var(--dui-error-fg-clr);
     --dui-bg-l-5: var(--dui-clr-error-l-5);
     --dui-bg-l-4: var(--dui-clr-error-l-4);
     --dui-bg-l-3: var(--dui-clr-error-l-3);
@@ -844,6 +852,10 @@ a.dui {
 
 h1.dui {
     font-size: 2em;
+}
+
+body.dui :where(h1, h2, h3, h4, h5, h6) {
+    font-weight: var(--dui-heading-font-weight);
 }
 
 hr.dui {

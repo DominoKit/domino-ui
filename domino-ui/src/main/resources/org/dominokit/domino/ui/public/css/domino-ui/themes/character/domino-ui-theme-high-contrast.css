@@ -1,0 +1,35 @@
+/*
+ * high contrast character theme.
+ *
+ * Character themes change material, typography, and component treatment while
+ * preserving the selected identity and runtime accent palette.
+ */
+.dui.dui-theme-high-contrast {
+    --dui-surface-border-color: var(--dui-character-boundary-color, var(--dui-color));
+    --dui-surface-border: 1px solid var(--dui-surface-border-color);
+}
+
+.dui.dui-theme-high-contrast {
+    /* Keep the accent visible while retaining the identity color as the contrast anchor. */
+    --dui-character-boundary-color: color-mix(in srgb, var(--dui-color) 70%, var(--dui-accent) 30%);
+    --dui-focus-indicator-color: var(--dui-character-boundary-color);
+}
+
+/* High Contrast visual treatment: stronger boundaries and unmistakable keyboard focus. */
+.dui.dui-theme-high-contrast {
+    --dui-surface-border-color: var(--dui-color);
+    --dui-surface-border: 2px solid var(--dui-surface-border-color);
+    --dui-focus-indicator-color: var(--dui-color);
+    --dui-form-field-border: 2px solid var(--dui-color);
+    --dui-form-field-focused-border: 2px solid var(--dui-accent);
+    --dui-btn-focus-outline-width: 3px;
+    --dui-btn-focus-outline-style: solid;
+    --dui-btn-focus-outline-offset: 2px;
+}
+
+.dui.dui-theme-high-contrast :where(button, a, input, select, textarea, [tabindex]):focus-visible {
+    outline: 3px solid var(--dui-accent);
+    outline-offset: 2px;
+}
+
+

@@ -21,6 +21,11 @@ import junit.framework.TestSuite;
 import org.dominokit.domino.ui.forms.suggest.MultiSelectTest;
 import org.dominokit.domino.ui.popover.TooltipTest;
 import org.dominokit.domino.ui.style.FontThemingTest;
+import org.dominokit.domino.ui.themes.DominoCssThemeTest;
+import org.dominokit.domino.ui.themes.DominoThemeManagerTest;
+import org.dominokit.domino.ui.themes.ElementThemeManagerTest;
+import org.dominokit.domino.ui.themes.LegacyThemeCompatibilityTest;
+import org.dominokit.domino.ui.themes.ThemeCatalogTest;
 
 public class DominoUiTestSuite extends GWTTestSuite {
   public static Test suite() {
@@ -28,6 +33,11 @@ public class DominoUiTestSuite extends GWTTestSuite {
     suite.addTestSuite(MatchHighlighterTest.class);
     suite.addTestSuite(MultiSelectTest.class);
     suite.addTestSuite(FontThemingTest.class);
+    suite.addTestSuite(DominoThemeManagerTest.class);
+    suite.addTestSuite(ElementThemeManagerTest.class);
+    suite.addTestSuite(ThemeCatalogTest.class);
+    suite.addTestSuite(DominoCssThemeTest.class);
+    suite.addTestSuite(LegacyThemeCompatibilityTest.class);
     suite.addTestSuite(TooltipTest.class);
 
     return suite;

@@ -1,0 +1,37 @@
+/*
+ * blueprint character theme.
+ *
+ * Character themes change material, typography, and component treatment while
+ * preserving the selected identity and runtime accent palette.
+ */
+.dui.dui-theme-blueprint {
+    --dui-surface-border-color: var(--dui-character-boundary-color, var(--dui-color));
+    --dui-surface-border: 1px solid var(--dui-surface-border-color);
+}
+
+.dui.dui-theme-blueprint {
+    /* Keep the accent visible while retaining the identity color as the contrast anchor. */
+    --dui-character-boundary-color: color-mix(in srgb, var(--dui-color) 70%, var(--dui-accent) 30%);
+    --dui-focus-indicator-color: var(--dui-character-boundary-color);
+}
+
+/* Blueprint visual treatment: precise outlines and technical dividers. */
+.dui.dui-theme-blueprint {
+    --dui-card-box-shadow: var(--dui-box-shadow-none);
+    --dui-section-box-shadow: var(--dui-box-shadow-none);
+    --dui-thumbnail-box-shadow: var(--dui-box-shadow-none);
+    --dui-infobox-box-shadow: var(--dui-box-shadow-none);
+    --dui-dialog-box-shadow: var(--dui-box-shadow-none);
+    --dui-menu-elevation: none;
+    --dui-btn-box-shadow: var(--dui-box-shadow-none);
+    --dui-btn-border: 1px solid var(--dui-accent);
+    --dui-card-header-border-style: dashed;
+}
+
+.dui.dui-theme-blueprint .dui-card-header,
+.dui.dui-theme-blueprint .dui-menu > .dui-nav-bar,
+.dui.dui-theme-blueprint .dui-tree-header {
+    border-bottom-style: dashed;
+}
+
+

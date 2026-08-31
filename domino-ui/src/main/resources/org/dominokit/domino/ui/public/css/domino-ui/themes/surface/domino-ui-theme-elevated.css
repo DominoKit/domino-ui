@@ -1,0 +1,20 @@
+/*
+ * Elevated surface theme.
+ *
+ * Elevated owns component shadows. It does not clear borders when the
+ * composable bordered surface is active.
+ */
+.dui.dui-theme-elevated {
+    --dui-card-box-shadow: var(--dui-box-shadow-1);
+    --dui-section-box-shadow: var(--dui-box-shadow-1);
+    --dui-thumbnail-box-shadow: var(--dui-box-shadow-1);
+    --dui-infobox-box-shadow: var(--dui-box-shadow);
+    --dui-btn-focus-box-shadow: var(--dui-box-shadow-2);
+    --dui-dialog-box-shadow: var(--dui-box-shadow-10);
+}
+
+.dui.dui-theme-elevated :is(.dui-card, .dui-dialog, .dui-menu, .dui-tree, .dui-datatable-responsive) {
+    border: 0;
+}
+
+

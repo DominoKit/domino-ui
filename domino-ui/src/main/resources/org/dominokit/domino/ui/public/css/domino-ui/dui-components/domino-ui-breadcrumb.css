@@ -22,6 +22,7 @@
 .dui-breadcrumb > li.dui + li.dui:before {
     padding: var(--dui-bc-arrow-padding);
     content: var(--dui-bc-arrow-content);
+    font-size: var(--dui-bc-arrow-font-size);
 }
 
 .dui-breadcrumb > .dui-active {

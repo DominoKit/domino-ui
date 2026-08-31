@@ -32,7 +32,7 @@
     --dui-zindex-offset-8:5000800;
     --dui-zindex-offset-9:5000900;
     --dui-left-drawer-z-index: var(--dui-zindex-offset-1);
-    --dui-right-drawer-z-index: var(--dui-zindex-offset-3);
+    --dui-right-drawer-z-index: var(--dui-zindex-offset-6);
     --dui-footer-z-index: var(--dui-zindex-offset-5);
     --dui-header-z-index: var(--dui-zindex-offset-7);
     --dui-layout-shrink-content: 0;
@@ -164,15 +164,16 @@
 }
 
 .dui-left-drawer {
-    overflow-y: hidden;
+    overflow-y: auto;
     order: 999;
     background-color: var(--dui-layout-drawer-background);
     padding: var(--dui-left-drawer-padding-top) 0 var(--dui-left-drawer-padding-bottom) 0;
     width: var(--dui-left-drawer-width);
-    height: 100%;
     max-height: 100%;
     position: absolute;
     top: 0;
+    bottom: 0;
+    height: auto;
     inset-inline-start: 0;
     box-shadow: var(--dui-layout-section-box-shadow, var(--dui-section-box-shadow));
     align-self: stretch;
@@ -204,10 +205,12 @@
     overflow-y: auto;
     inset-inline-end: 0;
     background-color: var(--dui-layout-drawer-background);
-    margin: var(--dui-right-drawer-padding-top) 0 var(--dui-left-drawer-padding-bottom) 0;
+    margin: var(--dui-right-drawer-padding-top) 0 0 0;
     width: var(--dui-right-drawer-width);
-    height: calc(100%);
     position: absolute;
+    top: 0;
+    bottom: 0;
+    height: auto;
     box-shadow: var(--dui-section-box-shadow);
     align-self: stretch;
     transform: translateX(var(--dui-right-drawer-closed-x));

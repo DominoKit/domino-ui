@@ -2,6 +2,8 @@
     --dui-bg: var(--dui-accent);
     --dui-bg-d-2: var(--dui-accent-d-2);
     --dui-text-color: var(--dui-color);
+    --dui-emphasis-color: var(--dui-alert-background);
+    --dui-emphasis-native-box-shadow: var(--dui-alert-box-shadow);
     padding: var(--dui-alert-padding);
     margin: var(--dui-alert-margin);
     border-radius: var(--dui-alert-border-radius);
@@ -13,6 +15,19 @@
     display: flex;
     align-items: center;
 }
+
+/* Keep contextual alert colors when a subtle or minimal emphasis is applied. */
+.dui-alert.dui-primary,
+.dui-alert.dui-secondary,
+.dui-alert.dui-dominant,
+.dui-alert.dui-success,
+.dui-alert.dui-info,
+.dui-alert.dui-warning,
+.dui-alert.dui-error {
+    --dui-emphasis-color: var(--dui-bg);
+    --dui-emphasis-text-color: var(--dui-color);
+}
+
 .dui-alert h4.dui {
     margin-top: var(--dui-spc-0);
     color: inherit;

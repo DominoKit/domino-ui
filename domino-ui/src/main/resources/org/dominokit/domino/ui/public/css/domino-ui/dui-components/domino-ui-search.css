@@ -13,6 +13,12 @@
     --dui-form-field-focused-border:none
 }
 
+/* Keep the SearchBox surface and its form-field child on the same geometry and surface. */
+.dui-quick-search .dui-field-input-wrapper {
+    border-radius: var(--dui-quick-search-radius);
+    background-color: inherit;
+}
+
 .dui-search-bar {
     position: absolute;
     display: inline-block;
@@ -44,7 +50,8 @@
     color: inherit;
 }
 .dui-search-bar-container input::placeholder{
-    color: inherit;
+    color: var(--dui-form-field-placeholder-color);
+    opacity: var(--dui-quick-search-input-placeholder-opacity);
 }
 
 .dui-search-bar-container input:focus {

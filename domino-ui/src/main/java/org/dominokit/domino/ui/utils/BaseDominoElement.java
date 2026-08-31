@@ -115,6 +115,11 @@ public abstract class BaseDominoElement<E extends Element, T extends IsElement<E
         HasMeta<T>,
         HasZIndexLayer<T> {
 
+  /**
+   * Applies persisted global themes when the base element class is initialized. Applications that
+   * need a fully scoped embedded UI should explicitly use {@code ElementThemeManager} on its root
+   * and account for overlays that are rendered outside that root.
+   */
   static {
     DominoThemeManager.INSTANCE.applyUserThemes();
   }

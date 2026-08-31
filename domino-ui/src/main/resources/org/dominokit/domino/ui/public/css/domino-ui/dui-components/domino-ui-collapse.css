@@ -70,7 +70,7 @@
 
 .dui-ignore-bg .dui-panel-header.dui-nav-bar {
     --dui-text-color: inherit;
-    background-color: var(--dui-bg-clr, var(--dui-bg));
+    background-color: var(--dui-bg-clr, var(--dui-accent));
 }
 
 .dui-ignore-fg > .dui-panel-header.dui-nav-bar {

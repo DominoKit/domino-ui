@@ -1,0 +1,30 @@
+/*
+ * Bordered surface theme.
+ *
+ * Bordered owns component outlines. It can be composed with elevated and
+ * rounded surface themes without depending on stylesheet load order.
+ */
+.dui.dui-theme-bordered {
+    --dui-card-box-shadow: var(--dui-box-shadow-none);
+    --dui-section-box-shadow: var(--dui-box-shadow-none);
+    --dui-thumbnail-box-shadow: var(--dui-box-shadow-none);
+    --dui-infobox-box-shadow: var(--dui-box-shadow-none);
+    --dui-btn-focus-box-shadow: var(--dui-box-shadow-none);
+    --dui-dialog-box-shadow: var(--dui-box-shadow-none);
+    --dui-surface-border: 1px solid var(--dui-border-default);
+}
+
+/* Keep Bordered outlines neutral and visible in both color modes. */
+.dui.dui-theme-bordered.dui-colors-light {
+    --dui-border-default: var(--dui-accent-d-2);
+}
+
+.dui.dui-theme-bordered.dui-colors-dark {
+    --dui-border-default: var(--dui-accent-l-2);
+}
+
+.dui.dui-theme-bordered :is(.dui-card, .dui-dialog, .dui-menu, .dui-tree, .dui-datatable-responsive) {
+    border: var(--dui-surface-border);
+}
+
+

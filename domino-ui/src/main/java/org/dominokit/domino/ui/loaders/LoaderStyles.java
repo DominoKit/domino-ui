@@ -17,6 +17,12 @@ package org.dominokit.domino.ui.loaders;
 
 import org.dominokit.domino.ui.style.CssClass;
 
+/**
+ * CSS classes used by Domino UI loaders.
+ *
+ * <p>The {@code waitMe_*} classes are from the bundled WaitMe stylesheet. WaitMe is an imported,
+ * ready-to-use feature asset and is intentionally outside the Domino UI theme token contract.
+ */
 public interface LoaderStyles {
 
   CssClass dui_loader = () -> "dui-loader";

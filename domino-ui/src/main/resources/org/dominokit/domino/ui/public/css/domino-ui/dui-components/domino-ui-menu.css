@@ -60,7 +60,7 @@
 
 .dui-menu .dui-menu-search-box {
     background-color: var(--dui-quick-search-bg-color);
-    border-radius: var(--dui-spc-1);
+    border-radius: var(--dui-quick-search-radius);
     border: none;
 }
 
@@ -70,6 +70,10 @@
     border-width: var(--dui-menu-subheader-border-width);
     border-style: var(--dui-menu-subheader-border-style);
     border-color: var(--dui-menu-subheader-border-color);
+}
+
+.dui-menu-subheader .dui-badge {
+    padding: var(--dui-menu-subheader-badge-padding);
 }
 
 .dui-menu-subheader:empty {

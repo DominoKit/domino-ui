@@ -1,0 +1,57 @@
+/*
+ * glass character theme.
+ *
+ * Character themes change material, typography, and component treatment while
+ * preserving the selected identity and runtime accent palette.
+ */
+.dui.dui-theme-glass {
+    --dui-surface-border-color: var(--dui-character-boundary-color, var(--dui-color));
+    --dui-surface-border: 1px solid var(--dui-surface-border-color);
+}
+
+.dui.dui-theme-glass {
+    /* Keep the accent visible while retaining the identity color as the contrast anchor. */
+    --dui-character-boundary-color: color-mix(in srgb, var(--dui-color) 70%, var(--dui-accent) 30%);
+    --dui-focus-indicator-color: var(--dui-character-boundary-color);
+}
+
+/* Glass visual treatment: translucent layered surfaces with a solid fallback. */
+.dui.dui-theme-glass {
+    /* Keep the glass layer translucent without allowing the content background to wash it out. */
+    --dui-character-glass-surface: color-mix(in srgb, var(--dui-card-background) 88%, transparent);
+    --dui-character-glass-nested-surface: color-mix(in srgb, var(--dui-card-nested-background) 88%, transparent);
+    --dui-character-glass-nested-2-surface: color-mix(in srgb, var(--dui-card-nested-2-background) 88%, transparent);
+    --dui-character-glass-nested-3-surface: color-mix(in srgb, var(--dui-card-nested-3-background) 88%, transparent);
+    --dui-card-box-shadow: 0 4px 16px color-mix(in srgb, var(--dui-color) 12%, transparent);
+    --dui-section-box-shadow: 0 4px 16px color-mix(in srgb, var(--dui-color) 10%, transparent);
+    --dui-thumbnail-box-shadow: 0 3px 12px color-mix(in srgb, var(--dui-color) 10%, transparent);
+    --dui-dialog-box-shadow: 0 8px 24px color-mix(in srgb, var(--dui-color) 18%, transparent);
+    --dui-menu-elevation: var(--dui-elevation-1);
+}
+
+:where(.dui.dui-theme-glass) .dui-card,
+.dui.dui-theme-glass .dui-dialog,
+.dui.dui-theme-glass .dui-menu,
+.dui.dui-theme-glass .dui-tree {
+    background: var(--dui-character-glass-surface);
+    -webkit-backdrop-filter: blur(14px);
+    backdrop-filter: blur(14px);
+}
+
+/* Keep the nested-card tokens layered without making this surface rule outrank explicit color utilities. */
+:where(.dui.dui-theme-glass) .dui-card {
+    --dui-card-nested-background: var(--dui-character-glass-nested-surface);
+    --dui-card-nested-2-background: var(--dui-character-glass-nested-2-surface);
+    --dui-card-nested-3-background: var(--dui-character-glass-nested-3-surface);
+}
+
+@supports not ((backdrop-filter: blur(1px))) {
+    :where(.dui.dui-theme-glass) .dui-card,
+    .dui.dui-theme-glass .dui-dialog,
+    .dui.dui-theme-glass .dui-menu,
+    .dui.dui-theme-glass .dui-tree {
+        background: var(--dui-card-background);
+    }
+}
+
+

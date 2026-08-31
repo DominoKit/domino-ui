@@ -1,0 +1,144 @@
+/*
+ * Compact density theme.
+ *
+ * This optional theme is scoped to a Domino UI root and can be composed with
+ * any identity, character, color-mode, accent, and surface theme.
+ */
+.dui.dui-theme-compact {
+    /* Static containers use borders and surface contrast instead of elevation. */
+    --dui-card-box-shadow: var(--dui-box-shadow-none);
+    --dui-section-box-shadow: var(--dui-box-shadow-none);
+    --dui-thumbnail-box-shadow: var(--dui-box-shadow-none);
+    --dui-infobox-box-shadow: var(--dui-box-shadow-none);
+    --dui-btn-focus-box-shadow: var(--dui-box-shadow-none);
+
+    /* Use a slightly softer radius scale while retaining compact proportions. */
+    --dui-radius-xs: 4px;
+    --dui-radius-sm: 6px;
+    --dui-radius-md: 6px;
+    --dui-radius-lg: 8px;
+    --dui-radius-xl: 10px;
+    --dui-btn-border-radius: var(--dui-radius-xs);
+    --dui-btn-group-border-radius: var(--dui-radius-xs);
+    --dui-dialog-border-radius: var(--dui-radius-xs);
+
+    /* Keep ordinary navigation and addon icons visually subordinate in the compact theme. */
+    --dui-default-icon-size: var(--dui-spc-px-20);
+    --dui-menu-item-icon-min-height: var(--dui-spc-px-28);
+    --dui-clickable-shadow-spread: 3px;
+    --dui-heading-font-weight: 500;
+    --dui-datatable-header-font-weight: 500;
+    --dui-block-header-title-font-weight: 500;
+    --dui-media-heading-font-weight: 500;
+    --dui-nav-bar-title-font-weight: 500;
+    --dui-thumbnail-title-font-weight: 500;
+
+    /* Reduce chip height and keep addon/remove icons proportionate to the compact label. */
+    --dui-chip-height: var(--dui-spc-7);
+    --dui-chip-line-height: var(--dui-spc-7);
+    --dui-chip-addon-font-size: var(--dui-spc-4);
+    --dui-chip-addon-span-font-size: var(--dui-spc-px-14);
+    --dui-chip-addon-width: var(--dui-spc-7);
+    --dui-chip-addon-height: var(--dui-spc-7);
+    --dui-chip-remove-icon-size: var(--dui-chip-addon-font-size);
+    --dui-chip-close-mrgin: -1px 0 0 var(--dui-spc-px-8);
+
+    /* Use a slim, rounded scrollbar treatment throughout the compact demo. */
+    --dui-scrollbar-width: thin;
+    --dui-scrollbar-color: var(--dui-accent-l-2) transparent;
+    --dui-scrollbar-size: 8px;
+    --dui-scrollbar-track-background: transparent;
+    --dui-scrollbar-thumb-background: var(--dui-accent-l-2);
+    --dui-scrollbar-thumb-border: 2px solid transparent;
+    --dui-scrollbar-thumb-radius: var(--dui-radius-pill);
+    --dui-scrollbar-thumb-background-clip: padding-box;
+    --dui-scrollbar-thumb-hover-background: var(--dui-accent);
+
+    /* Make buttons thinner by reducing only vertical padding; preserve text line heights. */
+    --dui-btn-padding: var(--dui-spc-px-2) var(--dui-spc-px-11);
+    --dui-btn-lg-padding: var(--dui-spc-px-6) var(--dui-spc-px-16);
+    --dui-btn-md-padding: var(--dui-spc-px-3) var(--dui-spc-px-12);
+    --dui-btn-sm-padding: var(--dui-spc-px-2) var(--dui-spc-px-10);
+    --dui-btn-xs-padding: 0 var(--dui-spc-px-5);
+
+    /* Keep form-field prefix/postfix buttons thinner while preserving size variants. */
+    --dui-form-field-addon-button-padding: 0 var(--dui-spc-px-10);
+    --dui-form-field-addon-button-height: var(--dui-spc-px-24);
+    --dui-form-field-addon-button-lg-padding: 0 var(--dui-spc-px-14);
+    --dui-form-field-addon-button-md-padding: 0 var(--dui-spc-px-11);
+    --dui-form-field-addon-button-sm-padding: 0 var(--dui-spc-px-9);
+    --dui-form-field-addon-button-xs-padding: 0 var(--dui-spc-px-5);
+    --dui-form-field-addon-button-line-height: var(--dui-spc-px-24);
+    --dui-form-field-addon-button-text-height: var(--dui-spc-px-24);
+    --dui-form-field-addon-button-lg-text-height: var(--dui-spc-px-24);
+    --dui-form-field-addon-button-md-text-height: var(--dui-spc-px-24);
+    --dui-form-field-addon-button-sm-text-height: var(--dui-spc-px-24);
+    --dui-form-field-addon-button-xs-text-height: var(--dui-spc-px-24);
+
+    /* Keep button icons visually subordinate to the button label. */
+    --dui-btn-icon-size: 0.875em;
+
+    /* Reduce common vertical footprint without changing control hit areas. */
+    --dui-alert-padding: var(--dui-spc-3);
+    --dui-alert-box-shadow: var(--dui-box-shadow-none);
+    --dui-alert-margin: 0 0 0 0;
+    --dui-card-header-padding: var(--dui-spc-2);
+    --dui-card-description-margin: 0;
+    --dui-card-body-padding: var(--dui-spc-px-12);
+    --dui-card-margin: 0 0 var(--dui-spc-2) 0;
+    --dui-nav-bar-description-margin: 0;
+    --dui-progress-hight: var(--dui-spc-3);
+    --dui-progress-bar-line-hight: var(--dui-spc-3);
+    --dui-progress-bar-display: flex;
+    --dui-progress-bar-align-items: center;
+    --dui-progress-bar-line-height: normal;
+    --dui-tab-anchor-padding: var(--dui-spc-px-4) var(--dui-spc-px-15);
+    --dui-form-field-wrapper-padding: 0 var(--dui-spc-px-5);
+    --dui-form-field-wrapper-gap: var(--dui-spc-px-3);
+    --dui-form-field-chip-height: var(--dui-spc-6);
+    --dui-form-field-chip-line-height: var(--dui-spc-6);
+    --dui-form-field-chip-addon-width: var(--dui-spc-6);
+    --dui-form-field-chip-addon-height: var(--dui-spc-6);
+    --dui-form-field-checkbox-square-length: var(--dui-spc-px-14);
+    --dui-form-field-checkbox-check-width: var(--dui-spc-px-4);
+    --dui-form-field-checkbox-check-height: var(--dui-spc-px-8);
+    --dui-form-field-switch-track-width: var(--dui-spc-px-40);
+    --dui-form-field-switch-track-height: var(--dui-spc-px-20);
+    --dui-form-field-switch-thumb-width: var(--dui-spc-px-16);
+    --dui-form-field-switch-thumb-height: var(--dui-spc-px-16);
+    --dui-form-field-switch-thumb-left: var(--dui-spc-px-2);
+    --dui-form-field-switch-thumb-bottom: var(--dui-spc-px-2);
+    --dui-form-field-switch-thumb-checked-transform: translateX(var(--dui-spc-px-20));
+    --duiel-padding: var(--dui-spc-px-2) var(--dui-spc-2);
+    --dui-bc-padding: var(--dui-spc-px-4) var(--dui-spc-px-10);
+    --dui-bc-arrow-padding: 0 var(--dui-spc-px-3);
+    --dui-bc-icon-margin: 0 var(--dui-spc-px-3) 0 0;
+    --dui-menu-subheader-badge-padding: 0 var(--dui-spc-px-7);
+    --dui-datatable-cell-badge-padding: 0 var(--dui-spc-px-7);
+    --dui-collapse-panel-content-header-padding: var(--dui-spc-2);
+    --dui-collapse-panel-body-padding: var(--dui-spc-2);
+    --dui-collapse-panel-footer-padding: var(--dui-spc-2);
+    --dui-file-upload-padding: var(--dui-spc-3);
+    --dui-form-field-margin: 0 0 var(--dui-spc-3) 0;
+    --dui-layout-content-padding-top: var(--dui-spc-px-16);
+    --dui-layout-content-padding-right: var(--dui-spc-px-16);
+    --dui-layout-content-padding-bottom: var(--dui-spc-px-16);
+    --dui-layout-content-padding-left: var(--dui-spc-px-16);
+    --dui-row-default-gap: var(--dui-spc-1);
+    --dui-row-default-margin: 0 0 var(--dui-spc-1) 0;
+    --dui-stepper-active-content-padding: var(--dui-spc-3);
+    --dui-stepper-gap: var(--dui-spc-3);
+    --dui-step-tracker-line-thinkness: var(--dui-spc-px-4);
+    --dui-stepper-track-tail-node-placement: var(--dui-spc-px-5);
+    --dui-step-tracker-node-border-width: var(--dui-step-tracker-line-thinkness);
+    --dui-step-tracker-node-icon-inset: 50% auto auto 50%;
+    --dui-step-tracker-node-icon-transform: translate(-50%, -50%);
+    --dui-step-tracker-node-icon-font-size: var(--dui-spc-px-14);
+    --dui-datatable-cell-padding: var(--dui-spc-1);
+    --dui-form-field-checkbox-indeterminate-check-left: var(--dui-spc-px-3);
+    --dui-form-field-checkbox-indeterminate-check-top: var(--dui-spc-px-7);
+    --dui-tree-item-anchor-padding: var(--dui-spc-px-2) var(--dui-spc-px-10);
+    --dui-form-field-addon-gap: var(--dui-spc-2);
+}
+
+

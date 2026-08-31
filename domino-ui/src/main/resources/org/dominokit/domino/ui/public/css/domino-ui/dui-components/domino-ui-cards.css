@@ -1,4 +1,5 @@
 .dui-card {
+    --dui-emphasis-color: var(--dui-accent);
     display: flex;
     flex-direction: var(--dui-card-direction, column);
     min-height: var(--dui-card-min-height);
@@ -6,6 +7,18 @@
     margin: var(--dui-card-margin);
     border-radius: var(--dui-card-border-radius);
     background-color: var(--dui-card-background);
+}
+
+.dui-card .dui-card {
+    background-color: var(--dui-card-nested-background);
+}
+
+.dui-card .dui-card .dui-card {
+    background-color: var(--dui-card-nested-2-background);
+}
+
+.dui-card .dui-card .dui-card .dui-card {
+    background-color: var(--dui-card-nested-3-background);
 }
 
 .dui-card-header-bottom {
@@ -40,6 +53,8 @@
 }
 
 .dui-card.dui-card-header-bottom .dui-card-header {
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
     border-bottom-left-radius: inherit;
     border-bottom-right-radius: inherit;
 }
@@ -130,5 +145,6 @@
 .dui-card.dui-card-header-bottom .dui-card-body {
     border-top-left-radius: inherit;
     border-top-right-radius: inherit;
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
 }
-

@@ -18,6 +18,13 @@ package org.dominokit.domino.ui.style;
 
 import org.dominokit.domino.ui.themes.Theme;
 
+/**
+ * Legacy color-scheme palette contract.
+ *
+ * <p>Use {@code DominoThemeLight}, {@code DominoThemeDark}, and {@code DominoThemeAccent} for new
+ * category-aware Domino UI theme composition. {@link Theme} continues to expose these schemes for
+ * compatibility with global body-level applications.
+ */
 public interface ColorScheme {
 
   Color lighten_5();

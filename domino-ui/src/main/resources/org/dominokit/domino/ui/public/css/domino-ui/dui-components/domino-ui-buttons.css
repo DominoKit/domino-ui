@@ -2,6 +2,8 @@
     --dui-btn-icon-order: 10;
     --dui-btn-text-order: 20;
     --dui-bg-d-2: var(--dui-clr-grey);
+    --dui-emphasis-color: var(--dui-btn-bg-clr, var(--dui-accent, buttonface));
+    --dui-emphasis-native-box-shadow: var(--dui-btn-box-shadow);
     font: var(--dui-btn-font);
     text-transform: var(--dui-btn-text-transform);
     -webkit-appearance: button;
@@ -22,7 +24,7 @@
     transition: var(--dui-btn-transition);
     background-color: var(--dui-btn-bg-clr, var(--dui-accent, buttonface));
     --dui-btn-bg: var(--dui-bg, var(--dui-accent, buttonface));
-    color: var(--dui-btn-fg-clr, var(--dui-clr-white));
+    color: var(--dui-btn-fg-clr, var(--dui-accent-fg-clr, var(--dui-color)));
     text-decoration: none;
     width: fit-content;
     --dui-btn-text-height:28px;
@@ -64,6 +66,7 @@
 
 .dui-btn-icon {
     order: var(--dui-btn-icon-order);
+    font-size: var(--dui-btn-icon-size);
 }
 
 .dui-btn::-moz-focus-inner {
@@ -83,8 +86,9 @@ fieldset[disabled] .dui-btn {
 .dui.dui-btn:focus,
 .dui.dui-btn:hover {
     outline-offset: var(--dui-btn-focus-outline-offset);
-    outline: var(--dui-bg-l-4, var(--dui-accent-l-4)) var(--dui-btn-focus-outline-style) var(--dui-btn-focus-outline-width);
-    box-shadow: var(--dui-btn-focus-box-shadow);
+    outline: var(--dui-focus-indicator-color, var(--dui-bg-l-4, var(--dui-accent-l-4))) var(--dui-btn-focus-outline-style) var(--dui-btn-focus-outline-width);
+    box-shadow: var(--dui-emphasis-ring-style, inset) 0 0 0 var(--dui-emphasis-ring-width, 0px) var(--dui-emphasis-color, transparent), var(--dui-btn-focus-box-shadow);
+    --dui-emphasis-color: var(--dui-btn-hover-bg-clr, var(--dui-accent-l-4));
     --dui-btn-bg: var(--dui-bg-l-4, var(--dui-accent-l-4));
 }
 
@@ -103,12 +107,12 @@ fieldset[disabled] .dui-btn {
 
 .dui.dui-btn.dui-ctx {
     --dui-btn-bg-clr: var(--dui-bg);
-    --dui-btn-fg-clr: var(--dui-clr-white);
+    --dui-btn-fg-clr: var(--dui-context-fg-color, var(--dui-accent-fg-clr, var(--dui-color)));
     --dui-btn-hover-bg-clr: var(--dui-bg-l-4);
 }
 .dui-btn-group.dui-ctx {
     --dui-btn-bg-clr: var(--dui-bg);
-    --dui-btn-fg-clr: var(--dui-clr-white);
+    --dui-btn-fg-clr: var(--dui-context-fg-color, var(--dui-accent-fg-clr, var(--dui-color)));
     --dui-btn-hover-bg-clr: var(--dui-bg-l-4);
 }
 .dui-btn-group .dui-btn:hover,

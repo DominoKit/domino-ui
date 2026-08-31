@@ -28,7 +28,8 @@ import org.dominokit.domino.ui.utils.ElementsFactory;
  * Manages themes on a per-element basis for Domino UI components.
  *
  * <p>This class offers methods to apply, remove, and register themes targeting specific UI
- * elements.
+ * elements. Active state is tracked as target element to category to theme, so changing a theme in
+ * one subtree does not clean up a theme applied to another subtree.
  *
  * <p><b>Usage Example:</b>
  *
@@ -44,7 +45,7 @@ public class ElementThemeManager implements ElementsFactory {
 
   public static final ElementThemeManager INSTANCE = new ElementThemeManager();
 
-  private final Map<String, IsDominoTheme> byCategory = new HashMap<>();
+  private final Map<Element, Map<String, IsDominoTheme>> byElement = new HashMap<>();
   private final Map<String, IsDominoTheme> registeredThemes = new HashMap<>();
 
   private ElementThemeManager() {
@@ -70,6 +71,42 @@ public class ElementThemeManager implements ElementsFactory {
     registerTheme(DominoThemeAccent.BROWN);
     registerTheme(DominoThemeAccent.GREY);
     registerTheme(DominoThemeAccent.BLUE_GREY);
+    registerTheme(DominoThemeIdentity.OCEAN);
+    registerTheme(DominoThemeIdentity.FOREST);
+    registerTheme(DominoThemeIdentity.SANDSTONE);
+    registerTheme(DominoThemeIdentity.GRAPHITE);
+    registerTheme(DominoThemeIdentity.LAVENDER);
+    registerTheme(DominoThemeIdentity.SUNSET);
+    registerTheme(DominoThemeIdentity.ARCTIC);
+    registerTheme(DominoThemeIdentity.ROSE);
+    registerTheme(DominoThemeIdentity.CRIMSON);
+    registerTheme(DominoThemeIdentity.AMETHYST);
+    registerTheme(DominoThemeIdentity.INDIGO);
+    registerTheme(DominoThemeIdentity.AZURE);
+    registerTheme(DominoThemeIdentity.LAGOON);
+    registerTheme(DominoThemeIdentity.JADE);
+    registerTheme(DominoThemeIdentity.MEADOW);
+    registerTheme(DominoThemeIdentity.LIME);
+    registerTheme(DominoThemeIdentity.MARIGOLD);
+    registerTheme(DominoThemeIdentity.AMBER);
+    registerTheme(DominoThemeCharacter.CARBON);
+    registerTheme(DominoThemeCharacter.PAPER);
+    registerTheme(DominoThemeCharacter.TERMINAL);
+    registerTheme(DominoThemeCharacter.GLASS);
+    registerTheme(DominoThemeCharacter.BLUEPRINT);
+    registerTheme(DominoThemeCharacter.HIGH_CONTRAST);
+    registerTheme(DominoThemeCharacter.EDITORIAL);
+    registerTheme(DominoThemeCharacter.SOFT_UI);
+    registerTheme(DominoThemeCharacter.NEON_NIGHT);
+    registerTheme(DominoThemeCharacter.RETRO_CONSOLE);
+    registerTheme(DominoThemeDensity.COMPACT);
+    registerTheme(DominoThemeDensity.DEFAULT);
+    registerTheme(DominoThemeSurface.BORDERED);
+    registerTheme(DominoThemeSurface.CLEAR_BORDER);
+    registerTheme(DominoThemeSurface.ELEVATED);
+    registerTheme(DominoThemeSurface.CLEAR_ELEVATION);
+    registerTheme(DominoThemeSurface.ROUNDED);
+    registerTheme(DominoThemeSurface.CLEAR_RADIUS);
   }
 
   /**
@@ -91,6 +128,12 @@ public class ElementThemeManager implements ElementsFactory {
    * @return the {@link ElementThemeManager} instance
    */
   public ElementThemeManager apply(IsDominoTheme theme, Element target) {
+    Map<String, IsDominoTheme> byCategory = byElement.get(target);
+    if (byCategory == null) {
+      byCategory = new HashMap<>();
+      byElement.put(target, byCategory);
+    }
+
     if (byCategory.containsKey(theme.getCategory())) {
       byCategory.get(theme.getCategory()).cleanup(target);
     }
@@ -120,6 +163,11 @@ public class ElementThemeManager implements ElementsFactory {
    * @return the {@link ElementThemeManager} instance
    */
   public ElementThemeManager remove(String themeName, Element target) {
+    Map<String, IsDominoTheme> byCategory = byElement.get(target);
+    if (byCategory == null) {
+      return INSTANCE;
+    }
+
     Optional<IsDominoTheme> theme =
         byCategory.values().stream().filter(t -> t.getName().equals(themeName)).findFirst();
     theme.ifPresent(
@@ -127,6 +175,10 @@ public class ElementThemeManager implements ElementsFactory {
           t.cleanup(target);
           byCategory.remove(t.getCategory());
         });
+
+    if (byCategory.isEmpty()) {
+      byElement.remove(target);
+    }
     return INSTANCE;
   }
 

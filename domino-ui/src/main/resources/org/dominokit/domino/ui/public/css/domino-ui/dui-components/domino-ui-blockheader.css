@@ -9,6 +9,7 @@
     margin: var(--dui-block-header-title-margin);
     color: inherit;
     font: var(--dui-block-header-title-font);
+    font-weight: var(--dui-block-header-title-font-weight);
 }
 
 .dui-block-header-description{

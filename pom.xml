@@ -325,6 +325,7 @@
                         <exclude>**/AUTHORS</exclude>
                         <exclude>**/src/test/resources/**</exclude>
                         <exclude>**/src/main/resources/**</exclude>
+                        <exclude>**/.ai/**</exclude>
                         <exclude>**/war</exclude>
                         <exclude>**/pom.xml</exclude>
                         <exclude>**/.flattened-pom.xml</exclude>

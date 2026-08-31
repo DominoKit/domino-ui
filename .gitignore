@@ -67,18 +67,11 @@ gradle-app.setting
 # # Work around https://youtrack.jetbrains.com/issue/IDEA-116898
 # gradle/wrapper/gradle-wrapper.properties
 **/pom.xml.versionsBackup
-/AI_CONTEXT.md
-/codex-ai.sh
-/DOMINO_UI_COMPONENT_COMPOSITION.md
-/TEMPLATING_ENGINE_DRAFT.md
 /documents
 
 # Local AI/Codex and Superpowers artifacts
+# AI working documents and Superpowers artifacts belong under the ignored .ai tree.
 /.ai/
 /.codex/
 /**/.ai/
 /**/.codex/
-/docs/superpowers/
-/**/docs/superpowers/
-/superpowers/
-/**/superpowers/

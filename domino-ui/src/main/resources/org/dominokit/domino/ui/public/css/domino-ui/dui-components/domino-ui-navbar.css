@@ -22,6 +22,7 @@
     order: 20;
     text-indent: var(--dui-nav-bar-title-indent);
     font-size: var(--dui-nav-bar-title-font-size);
+    font-weight: var(--dui-nav-bar-title-font-weight);
 }
 
 .dui-nav-body {

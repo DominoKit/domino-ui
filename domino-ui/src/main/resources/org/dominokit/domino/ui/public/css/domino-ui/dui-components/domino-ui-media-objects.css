@@ -13,6 +13,7 @@
 
 .dui-media-heading {
     font: var(--dui-media-heading-font);
+    font-weight: var(--dui-media-heading-font-weight);
     color: var(--dui-media-heading-color);
 }
 

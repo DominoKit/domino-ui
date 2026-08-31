@@ -1,0 +1,47 @@
+/*
+ * soft ui character theme.
+ *
+ * Character themes change material, typography, and component treatment while
+ * preserving the selected identity and runtime accent palette.
+ */
+.dui.dui-theme-soft-ui {
+    --dui-surface-border-color: var(--dui-character-boundary-color, var(--dui-color));
+    --dui-surface-border: 1px solid var(--dui-surface-border-color);
+}
+
+.dui.dui-theme-soft-ui {
+    /* Keep the accent visible while retaining the identity color as the contrast anchor. */
+    --dui-character-boundary-color: color-mix(in srgb, var(--dui-color) 70%, var(--dui-accent) 30%);
+    --dui-focus-indicator-color: var(--dui-character-boundary-color);
+}
+
+/* Soft UI visual treatment: gentle tonal layering with restrained depth. */
+.dui.dui-theme-soft-ui {
+    /* Tint toward the identity highlight, not body text, so contrast is stable in both modes. */
+    --dui-character-soft-surface: color-mix(in srgb, var(--dui-card-background) 92%, var(--dui-clr-dominant-l-5) 8%);
+    --dui-character-soft-nested-surface: color-mix(in srgb, var(--dui-card-nested-background) 92%, var(--dui-clr-dominant-l-5) 8%);
+    --dui-character-soft-nested-2-surface: color-mix(in srgb, var(--dui-card-nested-2-background) 92%, var(--dui-clr-dominant-l-5) 8%);
+    --dui-character-soft-nested-3-surface: color-mix(in srgb, var(--dui-card-nested-3-background) 92%, var(--dui-clr-dominant-l-5) 8%);
+    --dui-character-soft-shadow: 0 4px 14px color-mix(in srgb, var(--dui-color) 12%, transparent);
+    --dui-card-box-shadow: var(--dui-character-soft-shadow);
+    --dui-section-box-shadow: var(--dui-character-soft-shadow);
+    --dui-thumbnail-box-shadow: 0 3px 10px color-mix(in srgb, var(--dui-color) 10%, transparent);
+    --dui-infobox-box-shadow: 0 2px 8px color-mix(in srgb, var(--dui-color) 8%, transparent);
+    --dui-dialog-box-shadow: 0 8px 22px color-mix(in srgb, var(--dui-color) 16%, transparent);
+}
+
+:where(.dui.dui-theme-soft-ui) .dui-card,
+.dui.dui-theme-soft-ui .dui-dialog,
+.dui.dui-theme-soft-ui .dui-menu,
+.dui.dui-theme-soft-ui .dui-tree {
+    background: var(--dui-character-soft-surface);
+}
+
+/* Keep the nested-card tokens layered without making this surface rule outrank explicit color utilities. */
+:where(.dui.dui-theme-soft-ui) .dui-card {
+    --dui-card-nested-background: var(--dui-character-soft-nested-surface);
+    --dui-card-nested-2-background: var(--dui-character-soft-nested-2-surface);
+    --dui-card-nested-3-background: var(--dui-character-soft-nested-3-surface);
+}
+
+

@@ -1,0 +1,36 @@
+/*
+ * neon night character theme.
+ *
+ * Character themes change material, typography, and component treatment while
+ * preserving the selected identity and runtime accent palette.
+ */
+.dui.dui-theme-neon-night {
+    --dui-surface-border-color: var(--dui-character-boundary-color, var(--dui-color));
+    --dui-surface-border: 1px solid var(--dui-surface-border-color);
+}
+
+.dui.dui-theme-neon-night {
+    /* Keep the accent visible while retaining the identity color as the contrast anchor. */
+    --dui-character-boundary-color: color-mix(in srgb, var(--dui-color) 70%, var(--dui-accent) 30%);
+    --dui-focus-indicator-color: var(--dui-character-boundary-color);
+}
+
+/* Neon Night visual treatment: controlled accent glow, strongest in dark mode. */
+.dui.dui-theme-neon-night.dui-colors-light {
+    --dui-btn-box-shadow: 0 1px 4px color-mix(in srgb, var(--dui-accent) 20%, transparent);
+    --dui-btn-focus-box-shadow: 0 0 0 2px color-mix(in srgb, var(--dui-accent) 20%, transparent);
+}
+
+.dui.dui-theme-neon-night.dui-colors-dark {
+    --dui-card-box-shadow: 0 0 18px color-mix(in srgb, var(--dui-accent) 12%, transparent);
+    --dui-section-box-shadow: 0 0 18px color-mix(in srgb, var(--dui-accent) 10%, transparent);
+    --dui-thumbnail-box-shadow: 0 0 12px color-mix(in srgb, var(--dui-accent) 10%, transparent);
+    --dui-dialog-box-shadow: 0 0 26px color-mix(in srgb, var(--dui-accent) 18%, transparent);
+    --dui-btn-box-shadow: 0 0 0 1px var(--dui-accent), 0 0 12px color-mix(in srgb, var(--dui-accent) 28%, transparent);
+    --dui-btn-focus-box-shadow: 0 0 0 2px var(--dui-accent), 0 0 16px color-mix(in srgb, var(--dui-accent) 36%, transparent);
+}
+
+.dui.dui-theme-neon-night {
+}
+
+

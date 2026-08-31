@@ -57,7 +57,7 @@ public class DominoThemeAccent implements IsDominoTheme, ElementsFactory, Domino
   public static final IsDominoTheme LIME = new DominoThemeAccent(dui_accent_lime);
   public static final IsDominoTheme YELLOW = new DominoThemeAccent(dui_accent_yellow);
   public static final IsDominoTheme AMBER = new DominoThemeAccent(dui_accent_amber);
-  public static final IsDominoTheme ORANGE = new DominoThemeAccent(dui_accent_red);
+  public static final IsDominoTheme ORANGE = new DominoThemeAccent(dui_accent_orange);
   public static final IsDominoTheme DEEP_ORANGE = new DominoThemeAccent(dui_accent_deep_orange);
   public static final IsDominoTheme BROWN = new DominoThemeAccent(dui_accent_brown);
   public static final IsDominoTheme GREY = new DominoThemeAccent(dui_accent_grey);
@@ -93,7 +93,7 @@ public class DominoThemeAccent implements IsDominoTheme, ElementsFactory, Domino
    */
   @Override
   public String getCategory() {
-    return "dui-theme-accent";
+    return DominoThemeCategories.ACCENT;
   }
 
   /**

@@ -1,0 +1,67 @@
+/*
+ * Crimson visual identity theme.
+ *
+ * Identity themes provide dominant surfaces and neutral color scales while
+ * remaining composable with color mode, accent, density, character, and
+ * surface themes.
+ */
+/* Crimson visual identity: a confident red family for action-oriented applications. */
+.dui.dui-theme-crimson.dui-colors-light {
+    --dui-accent-harmony-anchor: var(--dui-color);
+    --dui-accent-harmony-strength: 8%;
+    --dui-color: #5a1f2b;
+    --dui-color-1: #7a3041;
+    --dui-color-2: #995066;
+    --dui-color-3: #b97889;
+    --dui-color-4: #d29fab;
+    --dui-color-5: #edd5dc;
+    --dui-color-alternate: #5a1f2b;
+    --dui-highlight-color: #ffffff;
+    --dui-color-invert: #ffffff;
+    --dui-clr-dominant-l-5: #ffffff;
+    --dui-clr-dominant-l-4: #fffafb;
+    --dui-clr-dominant-l-3: #fff3f5;
+    --dui-clr-dominant-l-2: #fde9ed;
+    --dui-clr-dominant-l-1: #f6d9df;
+    --dui-clr-dominant: #fdf1f4;
+    --dui-clr-dominant-d-1: #f5e1e6;
+    --dui-clr-dominant-d-2: #e9cbd3;
+    --dui-clr-dominant-d-3: #d2a7b3;
+    --dui-clr-dominant-d-4: #b97d8d;
+    --dui-card-background: var(--dui-clr-dominant-l-4);
+    --dui-card-nested-background: var(--dui-clr-dominant-l-3);
+    --dui-card-nested-2-background: var(--dui-clr-dominant-l-2);
+    --dui-card-nested-3-background: var(--dui-clr-dominant-d-1);
+    --dui-menu-background-color: var(--dui-clr-dominant-l-5);
+}
+
+.dui.dui-theme-crimson.dui-colors-dark {
+    --dui-accent-harmony-anchor: var(--dui-color);
+    --dui-accent-harmony-strength: 8%;
+    --dui-color: #fff0f3;
+    --dui-color-1: #f3cad3;
+    --dui-color-2: #dc9eac;
+    --dui-color-3: #bf7184;
+    --dui-color-4: #9c465d;
+    --dui-color-5: #77263c;
+    --dui-color-alternate: #35101b;
+    --dui-highlight-color: #17070c;
+    --dui-color-invert: #17070c;
+    --dui-clr-dominant-l-5: #703247;
+    --dui-clr-dominant-l-4: #642b3e;
+    --dui-clr-dominant-l-3: #582439;
+    --dui-clr-dominant-l-2: #4b1e31;
+    --dui-clr-dominant-l-1: #401929;
+    --dui-clr-dominant: #361421;
+    --dui-clr-dominant-d-1: #2b0f1a;
+    --dui-clr-dominant-d-2: #210a13;
+    --dui-clr-dominant-d-3: #16060d;
+    --dui-clr-dominant-d-4: #0d0307;
+    --dui-card-background: var(--dui-clr-dominant-l-1);
+    --dui-card-nested-background: var(--dui-clr-dominant-l-2);
+    --dui-card-nested-2-background: var(--dui-clr-dominant-l-3);
+    --dui-card-nested-3-background: var(--dui-clr-dominant-l-4);
+    --dui-menu-background-color: var(--dui-clr-dominant-l-1);
+}
+
+

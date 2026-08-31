@@ -1,0 +1,47 @@
+/*
+ * retro console character theme.
+ *
+ * Character themes change material, typography, and component treatment while
+ * preserving the selected identity and runtime accent palette.
+ */
+.dui.dui-theme-retro-console {
+    --dui-surface-border-color: var(--dui-character-boundary-color, var(--dui-color));
+    --dui-surface-border: 1px solid var(--dui-surface-border-color);
+}
+
+.dui.dui-theme-retro-console {
+    /* Keep the accent visible while retaining the identity color as the contrast anchor. */
+    --dui-character-boundary-color: color-mix(in srgb, var(--dui-color) 70%, var(--dui-accent) 30%);
+    --dui-focus-indicator-color: var(--dui-character-boundary-color);
+}
+
+/* Retro Console visual treatment: hard-edged monospace controls with no animated polish. */
+.dui.dui-theme-retro-console {
+    --dui-font-family: var(--dui-font-family-mono);
+    --dui-btn-border: 1px solid var(--dui-accent);
+    --dui-btn-transition: none;
+    --dui-menu-border: none;
+}
+
+.dui.dui-theme-retro-console .dui-menu-separator {
+    border-bottom: 1px solid var(--dui-accent);
+}
+
+.dui.dui-theme-retro-console:not(.dui-theme-rounded) {
+    --dui-radius-xs: 0;
+    --dui-radius-sm: 0;
+    --dui-radius-md: 0;
+    --dui-radius-lg: 0;
+    --dui-radius-xl: 0;
+}
+
+.dui.dui-theme-retro-console:not(.dui-theme-elevated) {
+    --dui-card-box-shadow: var(--dui-box-shadow-none);
+    --dui-section-box-shadow: var(--dui-box-shadow-none);
+    --dui-thumbnail-box-shadow: var(--dui-box-shadow-none);
+    --dui-infobox-box-shadow: var(--dui-box-shadow-none);
+    --dui-dialog-box-shadow: var(--dui-box-shadow-none);
+    --dui-menu-elevation: none;
+}
+
+

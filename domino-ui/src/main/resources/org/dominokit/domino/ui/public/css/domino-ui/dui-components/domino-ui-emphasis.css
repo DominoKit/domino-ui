@@ -1,0 +1,67 @@
+/*
+ * Appearance modifiers are inherited so they can be applied to one component
+ * or to a wrapper containing several components. Component styles resolve the
+ * inherited strength with their own current semantic color.
+ */
+body.dui {
+    --dui-emphasis-fill-strength: 100%;
+    --dui-emphasis-ring-width: 0px;
+    --dui-emphasis-ring-style: inset;
+    --dui-emphasis-text-color: var(--dui-color);
+    --dui-emphasis-border: 0 solid transparent;
+    --dui-emphasis-border-width: 0px;
+    --dui-emphasis-border-style: solid;
+    --dui-emphasis-border-color: transparent;
+}
+
+body.dui .dui-emphasis-subtle,
+body.dui.dui-emphasis-subtle {
+    --dui-emphasis-fill-strength: 14%;
+    --dui-emphasis-ring-width: 1px;
+    --dui-emphasis-border: 1px solid var(--dui-emphasis-color);
+    --dui-emphasis-border-width: 1px;
+    --dui-emphasis-border-color: color-mix(in srgb, var(--dui-emphasis-color) 82%, var(--dui-color));
+}
+
+body.dui .dui-emphasis-minimal,
+body.dui.dui-emphasis-minimal {
+    --dui-emphasis-fill-strength: 0%;
+    --dui-emphasis-ring-width: 1px;
+    --dui-emphasis-border: 1px solid var(--dui-emphasis-color);
+    --dui-emphasis-border-width: 1px;
+    --dui-emphasis-border-color: color-mix(in srgb, var(--dui-emphasis-color) 82%, var(--dui-color));
+}
+
+body.dui .dui-emphasis-filled,
+body.dui.dui-emphasis-filled {
+    --dui-emphasis-fill-strength: 100%;
+    --dui-emphasis-ring-width: 0px;
+    --dui-emphasis-border: 0 solid transparent;
+    --dui-emphasis-border-width: 0px;
+    --dui-emphasis-border-color: transparent;
+}
+
+/* Filled components are intentionally excluded from the modifier selectors
+ * below. Their existing component rules remain the reset behavior. */
+body.dui :is(.dui-emphasis-subtle, .dui-emphasis-minimal) :is(.dui-btn, .dui-badge, .dui-chip, .dui-alert, .dui-info-box, .dui-progress, .dui-progress-bar, .dui-card):not(.dui-emphasis-subtle):not(.dui-emphasis-minimal):not(.dui-emphasis-filled),
+body.dui.dui-emphasis-subtle :is(.dui-btn, .dui-badge, .dui-chip, .dui-alert, .dui-info-box, .dui-progress, .dui-progress-bar, .dui-card):not(.dui-emphasis-subtle):not(.dui-emphasis-minimal):not(.dui-emphasis-filled),
+body.dui.dui-emphasis-minimal :is(.dui-btn, .dui-badge, .dui-chip, .dui-alert, .dui-info-box, .dui-progress, .dui-progress-bar, .dui-card):not(.dui-emphasis-subtle):not(.dui-emphasis-minimal):not(.dui-emphasis-filled),
+body.dui :is(.dui-btn, .dui-badge, .dui-chip, .dui-alert, .dui-info-box, .dui-progress, .dui-progress-bar, .dui-card).dui-emphasis-subtle:not(.dui-emphasis-filled),
+body.dui :is(.dui-btn, .dui-badge, .dui-chip, .dui-alert, .dui-info-box, .dui-progress, .dui-progress-bar, .dui-card).dui-emphasis-minimal:not(.dui-emphasis-filled) {
+    background-color: var(--dui-emphasis-color);
+    background-color: color-mix(in srgb, var(--dui-emphasis-color) var(--dui-emphasis-fill-strength), transparent);
+    color: var(--dui-emphasis-text-color);
+    box-shadow: var(--dui-emphasis-ring-style, inset) 0 0 0 var(--dui-emphasis-ring-width, 0px) var(--dui-emphasis-color, transparent), var(--dui-emphasis-native-box-shadow, none);
+}
+
+/* Subtle and minimal components retain a visible, contrast-aware semantic edge. */
+body.dui :is(.dui-emphasis-subtle, .dui-emphasis-minimal) :is(.dui-badge, .dui-chip, .dui-alert, .dui-card):not(.dui-emphasis-filled),
+body.dui.dui-emphasis-subtle :is(.dui-badge, .dui-chip, .dui-alert, .dui-card):not(.dui-emphasis-filled),
+body.dui.dui-emphasis-minimal :is(.dui-badge, .dui-chip, .dui-alert, .dui-card):not(.dui-emphasis-filled),
+body.dui :is(.dui-badge, .dui-chip, .dui-alert, .dui-card).dui-emphasis-subtle:not(.dui-emphasis-filled),
+body.dui :is(.dui-badge, .dui-chip, .dui-alert, .dui-card).dui-emphasis-minimal:not(.dui-emphasis-filled) {
+    border: var(--dui-emphasis-border);
+    border-width: var(--dui-emphasis-border-width);
+    border-style: var(--dui-emphasis-border-style);
+    border-color: var(--dui-emphasis-border-color, var(--dui-emphasis-color));
+}

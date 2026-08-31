@@ -25,16 +25,16 @@
 
 }
 .dui[class*="dui-accent-dominant"]{
-    --dui-accent-l-5:var(--dui-clr-dominant-l-5);
-    --dui-accent-l-4:var(--dui-clr-dominant-l-4);
-    --dui-accent-l-3:var(--dui-clr-dominant-l-3);
-    --dui-accent-l-2:var(--dui-clr-dominant-l-2);
-    --dui-accent-l-1:var(--dui-clr-dominant-l-1);
-    --dui-accent:var(--dui-clr-dominant);
-    --dui-accent-d-1:var(--dui-clr-dominant-d-1);
-    --dui-accent-d-2:var(--dui-clr-dominant-d-2);
-    --dui-accent-d-3:var(--dui-clr-dominant-d-3);
-    --dui-accent-d-4:var(--dui-clr-dominant-d-4);
+    --dui-accent-source-l-5:var(--dui-clr-dominant-l-5);
+    --dui-accent-source-l-4:var(--dui-clr-dominant-l-4);
+    --dui-accent-source-l-3:var(--dui-clr-dominant-l-3);
+    --dui-accent-source-l-2:var(--dui-clr-dominant-l-2);
+    --dui-accent-source-l-1:var(--dui-clr-dominant-l-1);
+    --dui-accent-source:var(--dui-clr-dominant);
+    --dui-accent-source-d-1:var(--dui-clr-dominant-d-1);
+    --dui-accent-source-d-2:var(--dui-clr-dominant-d-2);
+    --dui-accent-source-d-3:var(--dui-clr-dominant-d-3);
+    --dui-accent-source-d-4:var(--dui-clr-dominant-d-4);
 }
 
 .dui[class*="dui-fg-accent"]{
@@ -63,16 +63,16 @@
 
 }
 .dui[class*="dui-accent-accent"]{
-    --dui-accent-l-5:var(--dui-clr-accent-l-5);
-    --dui-accent-l-4:var(--dui-clr-accent-l-4);
-    --dui-accent-l-3:var(--dui-clr-accent-l-3);
-    --dui-accent-l-2:var(--dui-clr-accent-l-2);
-    --dui-accent-l-1:var(--dui-clr-accent-l-1);
-    --dui-accent:var(--dui-clr-accent);
-    --dui-accent-d-1:var(--dui-clr-accent-d-1);
-    --dui-accent-d-2:var(--dui-clr-accent-d-2);
-    --dui-accent-d-3:var(--dui-clr-accent-d-3);
-    --dui-accent-d-4:var(--dui-clr-accent-d-4);
+    --dui-accent-source-l-5:var(--dui-clr-accent-l-5);
+    --dui-accent-source-l-4:var(--dui-clr-accent-l-4);
+    --dui-accent-source-l-3:var(--dui-clr-accent-l-3);
+    --dui-accent-source-l-2:var(--dui-clr-accent-l-2);
+    --dui-accent-source-l-1:var(--dui-clr-accent-l-1);
+    --dui-accent-source:var(--dui-clr-accent);
+    --dui-accent-source-d-1:var(--dui-clr-accent-d-1);
+    --dui-accent-source-d-2:var(--dui-clr-accent-d-2);
+    --dui-accent-source-d-3:var(--dui-clr-accent-d-3);
+    --dui-accent-source-d-4:var(--dui-clr-accent-d-4);
 }
 
 .dui[class*="dui-fg-primary"]{
@@ -101,16 +101,16 @@
 
 }
 .dui[class*="dui-accent-primary"]{
-    --dui-accent-l-5:var(--dui-clr-primary-l-5);
-    --dui-accent-l-4:var(--dui-clr-primary-l-4);
-    --dui-accent-l-3:var(--dui-clr-primary-l-3);
-    --dui-accent-l-2:var(--dui-clr-primary-l-2);
-    --dui-accent-l-1:var(--dui-clr-primary-l-1);
-    --dui-accent:var(--dui-clr-primary);
-    --dui-accent-d-1:var(--dui-clr-primary-d-1);
-    --dui-accent-d-2:var(--dui-clr-primary-d-2);
-    --dui-accent-d-3:var(--dui-clr-primary-d-3);
-    --dui-accent-d-4:var(--dui-clr-primary-d-4);
+    --dui-accent-source-l-5:var(--dui-clr-primary-l-5);
+    --dui-accent-source-l-4:var(--dui-clr-primary-l-4);
+    --dui-accent-source-l-3:var(--dui-clr-primary-l-3);
+    --dui-accent-source-l-2:var(--dui-clr-primary-l-2);
+    --dui-accent-source-l-1:var(--dui-clr-primary-l-1);
+    --dui-accent-source:var(--dui-clr-primary);
+    --dui-accent-source-d-1:var(--dui-clr-primary-d-1);
+    --dui-accent-source-d-2:var(--dui-clr-primary-d-2);
+    --dui-accent-source-d-3:var(--dui-clr-primary-d-3);
+    --dui-accent-source-d-4:var(--dui-clr-primary-d-4);
 }
 
 .dui[class*="dui-fg-secondary"]{
@@ -139,16 +139,16 @@
 
 }
 .dui[class*="dui-accent-secondary"]{
-    --dui-accent-l-5:var(--dui-clr-secondary-l-5);
-    --dui-accent-l-4:var(--dui-clr-secondary-l-4);
-    --dui-accent-l-3:var(--dui-clr-secondary-l-3);
-    --dui-accent-l-2:var(--dui-clr-secondary-l-2);
-    --dui-accent-l-1:var(--dui-clr-secondary-l-1);
-    --dui-accent:var(--dui-clr-secondary);
-    --dui-accent-d-1:var(--dui-clr-secondary-d-1);
-    --dui-accent-d-2:var(--dui-clr-secondary-d-2);
-    --dui-accent-d-3:var(--dui-clr-secondary-d-3);
-    --dui-accent-d-4:var(--dui-clr-secondary-d-4);
+    --dui-accent-source-l-5:var(--dui-clr-secondary-l-5);
+    --dui-accent-source-l-4:var(--dui-clr-secondary-l-4);
+    --dui-accent-source-l-3:var(--dui-clr-secondary-l-3);
+    --dui-accent-source-l-2:var(--dui-clr-secondary-l-2);
+    --dui-accent-source-l-1:var(--dui-clr-secondary-l-1);
+    --dui-accent-source:var(--dui-clr-secondary);
+    --dui-accent-source-d-1:var(--dui-clr-secondary-d-1);
+    --dui-accent-source-d-2:var(--dui-clr-secondary-d-2);
+    --dui-accent-source-d-3:var(--dui-clr-secondary-d-3);
+    --dui-accent-source-d-4:var(--dui-clr-secondary-d-4);
 }
 
 .dui[class*="dui-fg-success"]{
@@ -177,16 +177,16 @@
 
 }
 .dui[class*="dui-accent-success"]{
-    --dui-accent-l-5:var(--dui-clr-success-l-5);
-    --dui-accent-l-4:var(--dui-clr-success-l-4);
-    --dui-accent-l-3:var(--dui-clr-success-l-3);
-    --dui-accent-l-2:var(--dui-clr-success-l-2);
-    --dui-accent-l-1:var(--dui-clr-success-l-1);
-    --dui-accent:var(--dui-clr-success);
-    --dui-accent-d-1:var(--dui-clr-success-d-1);
-    --dui-accent-d-2:var(--dui-clr-success-d-2);
-    --dui-accent-d-3:var(--dui-clr-success-d-3);
-    --dui-accent-d-4:var(--dui-clr-success-d-4);
+    --dui-accent-source-l-5:var(--dui-clr-success-l-5);
+    --dui-accent-source-l-4:var(--dui-clr-success-l-4);
+    --dui-accent-source-l-3:var(--dui-clr-success-l-3);
+    --dui-accent-source-l-2:var(--dui-clr-success-l-2);
+    --dui-accent-source-l-1:var(--dui-clr-success-l-1);
+    --dui-accent-source:var(--dui-clr-success);
+    --dui-accent-source-d-1:var(--dui-clr-success-d-1);
+    --dui-accent-source-d-2:var(--dui-clr-success-d-2);
+    --dui-accent-source-d-3:var(--dui-clr-success-d-3);
+    --dui-accent-source-d-4:var(--dui-clr-success-d-4);
 }
 
 .dui[class*="dui-fg-warning"]{
@@ -215,16 +215,16 @@
 
 }
 .dui[class*="dui-accent-warning"]{
-    --dui-accent-l-5:var(--dui-clr-warning-l-5);
-    --dui-accent-l-4:var(--dui-clr-warning-l-4);
-    --dui-accent-l-3:var(--dui-clr-warning-l-3);
-    --dui-accent-l-2:var(--dui-clr-warning-l-2);
-    --dui-accent-l-1:var(--dui-clr-warning-l-1);
-    --dui-accent:var(--dui-clr-warning);
-    --dui-accent-d-1:var(--dui-clr-warning-d-1);
-    --dui-accent-d-2:var(--dui-clr-warning-d-2);
-    --dui-accent-d-3:var(--dui-clr-warning-d-3);
-    --dui-accent-d-4:var(--dui-clr-warning-d-4);
+    --dui-accent-source-l-5:var(--dui-clr-warning-l-5);
+    --dui-accent-source-l-4:var(--dui-clr-warning-l-4);
+    --dui-accent-source-l-3:var(--dui-clr-warning-l-3);
+    --dui-accent-source-l-2:var(--dui-clr-warning-l-2);
+    --dui-accent-source-l-1:var(--dui-clr-warning-l-1);
+    --dui-accent-source:var(--dui-clr-warning);
+    --dui-accent-source-d-1:var(--dui-clr-warning-d-1);
+    --dui-accent-source-d-2:var(--dui-clr-warning-d-2);
+    --dui-accent-source-d-3:var(--dui-clr-warning-d-3);
+    --dui-accent-source-d-4:var(--dui-clr-warning-d-4);
 }
 
 .dui[class*="dui-fg-info"]{
@@ -253,16 +253,16 @@
 
 }
 .dui[class*="dui-accent-info"]{
-    --dui-accent-l-5:var(--dui-clr-info-l-5);
-    --dui-accent-l-4:var(--dui-clr-info-l-4);
-    --dui-accent-l-3:var(--dui-clr-info-l-3);
-    --dui-accent-l-2:var(--dui-clr-info-l-2);
-    --dui-accent-l-1:var(--dui-clr-info-l-1);
-    --dui-accent:var(--dui-clr-info);
-    --dui-accent-d-1:var(--dui-clr-info-d-1);
-    --dui-accent-d-2:var(--dui-clr-info-d-2);
-    --dui-accent-d-3:var(--dui-clr-info-d-3);
-    --dui-accent-d-4:var(--dui-clr-info-d-4);
+    --dui-accent-source-l-5:var(--dui-clr-info-l-5);
+    --dui-accent-source-l-4:var(--dui-clr-info-l-4);
+    --dui-accent-source-l-3:var(--dui-clr-info-l-3);
+    --dui-accent-source-l-2:var(--dui-clr-info-l-2);
+    --dui-accent-source-l-1:var(--dui-clr-info-l-1);
+    --dui-accent-source:var(--dui-clr-info);
+    --dui-accent-source-d-1:var(--dui-clr-info-d-1);
+    --dui-accent-source-d-2:var(--dui-clr-info-d-2);
+    --dui-accent-source-d-3:var(--dui-clr-info-d-3);
+    --dui-accent-source-d-4:var(--dui-clr-info-d-4);
 }
 
 .dui[class*="dui-fg-error"]{
@@ -291,16 +291,16 @@
 
 }
 .dui[class*="dui-accent-error"]{
-    --dui-accent-l-5:var(--dui-clr-error-l-5);
-    --dui-accent-l-4:var(--dui-clr-error-l-4);
-    --dui-accent-l-3:var(--dui-clr-error-l-3);
-    --dui-accent-l-2:var(--dui-clr-error-l-2);
-    --dui-accent-l-1:var(--dui-clr-error-l-1);
-    --dui-accent:var(--dui-clr-error);
-    --dui-accent-d-1:var(--dui-clr-error-d-1);
-    --dui-accent-d-2:var(--dui-clr-error-d-2);
-    --dui-accent-d-3:var(--dui-clr-error-d-3);
-    --dui-accent-d-4:var(--dui-clr-error-d-4);
+    --dui-accent-source-l-5:var(--dui-clr-error-l-5);
+    --dui-accent-source-l-4:var(--dui-clr-error-l-4);
+    --dui-accent-source-l-3:var(--dui-clr-error-l-3);
+    --dui-accent-source-l-2:var(--dui-clr-error-l-2);
+    --dui-accent-source-l-1:var(--dui-clr-error-l-1);
+    --dui-accent-source:var(--dui-clr-error);
+    --dui-accent-source-d-1:var(--dui-clr-error-d-1);
+    --dui-accent-source-d-2:var(--dui-clr-error-d-2);
+    --dui-accent-source-d-3:var(--dui-clr-error-d-3);
+    --dui-accent-source-d-4:var(--dui-clr-error-d-4);
 }
 
 .dui[class*="dui-fg-red"]{
@@ -329,16 +329,16 @@
 
 }
 .dui[class*="dui-accent-red"]{
-    --dui-accent-l-5:var(--dui-clr-red-l-5);
-    --dui-accent-l-4:var(--dui-clr-red-l-4);
-    --dui-accent-l-3:var(--dui-clr-red-l-3);
-    --dui-accent-l-2:var(--dui-clr-red-l-2);
-    --dui-accent-l-1:var(--dui-clr-red-l-1);
-    --dui-accent:var(--dui-clr-red);
-    --dui-accent-d-1:var(--dui-clr-red-d-1);
-    --dui-accent-d-2:var(--dui-clr-red-d-2);
-    --dui-accent-d-3:var(--dui-clr-red-d-3);
-    --dui-accent-d-4:var(--dui-clr-red-d-4);
+    --dui-accent-source-l-5:var(--dui-clr-red-l-5);
+    --dui-accent-source-l-4:var(--dui-clr-red-l-4);
+    --dui-accent-source-l-3:var(--dui-clr-red-l-3);
+    --dui-accent-source-l-2:var(--dui-clr-red-l-2);
+    --dui-accent-source-l-1:var(--dui-clr-red-l-1);
+    --dui-accent-source:var(--dui-clr-red);
+    --dui-accent-source-d-1:var(--dui-clr-red-d-1);
+    --dui-accent-source-d-2:var(--dui-clr-red-d-2);
+    --dui-accent-source-d-3:var(--dui-clr-red-d-3);
+    --dui-accent-source-d-4:var(--dui-clr-red-d-4);
 }
 
 .dui[class*="dui-fg-pink"]{
@@ -367,16 +367,16 @@
 
 }
 .dui[class*="dui-accent-pink"]{
-    --dui-accent-l-5:var(--dui-clr-pink-l-5);
-    --dui-accent-l-4:var(--dui-clr-pink-l-4);
-    --dui-accent-l-3:var(--dui-clr-pink-l-3);
-    --dui-accent-l-2:var(--dui-clr-pink-l-2);
-    --dui-accent-l-1:var(--dui-clr-pink-l-1);
-    --dui-accent:var(--dui-clr-pink);
-    --dui-accent-d-1:var(--dui-clr-pink-d-1);
-    --dui-accent-d-2:var(--dui-clr-pink-d-2);
-    --dui-accent-d-3:var(--dui-clr-pink-d-3);
-    --dui-accent-d-4:var(--dui-clr-pink-d-4);
+    --dui-accent-source-l-5:var(--dui-clr-pink-l-5);
+    --dui-accent-source-l-4:var(--dui-clr-pink-l-4);
+    --dui-accent-source-l-3:var(--dui-clr-pink-l-3);
+    --dui-accent-source-l-2:var(--dui-clr-pink-l-2);
+    --dui-accent-source-l-1:var(--dui-clr-pink-l-1);
+    --dui-accent-source:var(--dui-clr-pink);
+    --dui-accent-source-d-1:var(--dui-clr-pink-d-1);
+    --dui-accent-source-d-2:var(--dui-clr-pink-d-2);
+    --dui-accent-source-d-3:var(--dui-clr-pink-d-3);
+    --dui-accent-source-d-4:var(--dui-clr-pink-d-4);
 }
 
 .dui[class*="dui-fg-purple"]{
@@ -405,16 +405,16 @@
 
 }
 .dui[class*="dui-accent-purple"]{
-    --dui-accent-l-5:var(--dui-clr-purple-l-5);
-    --dui-accent-l-4:var(--dui-clr-purple-l-4);
-    --dui-accent-l-3:var(--dui-clr-purple-l-3);
-    --dui-accent-l-2:var(--dui-clr-purple-l-2);
-    --dui-accent-l-1:var(--dui-clr-purple-l-1);
-    --dui-accent:var(--dui-clr-purple);
-    --dui-accent-d-1:var(--dui-clr-purple-d-1);
-    --dui-accent-d-2:var(--dui-clr-purple-d-2);
-    --dui-accent-d-3:var(--dui-clr-purple-d-3);
-    --dui-accent-d-4:var(--dui-clr-purple-d-4);
+    --dui-accent-source-l-5:var(--dui-clr-purple-l-5);
+    --dui-accent-source-l-4:var(--dui-clr-purple-l-4);
+    --dui-accent-source-l-3:var(--dui-clr-purple-l-3);
+    --dui-accent-source-l-2:var(--dui-clr-purple-l-2);
+    --dui-accent-source-l-1:var(--dui-clr-purple-l-1);
+    --dui-accent-source:var(--dui-clr-purple);
+    --dui-accent-source-d-1:var(--dui-clr-purple-d-1);
+    --dui-accent-source-d-2:var(--dui-clr-purple-d-2);
+    --dui-accent-source-d-3:var(--dui-clr-purple-d-3);
+    --dui-accent-source-d-4:var(--dui-clr-purple-d-4);
 }
 
 .dui[class*="dui-fg-deep-purple"]{
@@ -443,16 +443,16 @@
 
 }
 .dui[class*="dui-accent-deep-purple"]{
-    --dui-accent-l-5:var(--dui-clr-deep-purple-l-5);
-    --dui-accent-l-4:var(--dui-clr-deep-purple-l-4);
-    --dui-accent-l-3:var(--dui-clr-deep-purple-l-3);
-    --dui-accent-l-2:var(--dui-clr-deep-purple-l-2);
-    --dui-accent-l-1:var(--dui-clr-deep-purple-l-1);
-    --dui-accent:var(--dui-clr-deep-purple);
-    --dui-accent-d-1:var(--dui-clr-deep-purple-d-1);
-    --dui-accent-d-2:var(--dui-clr-deep-purple-d-2);
-    --dui-accent-d-3:var(--dui-clr-deep-purple-d-3);
-    --dui-accent-d-4:var(--dui-clr-deep-purple-d-4);
+    --dui-accent-source-l-5:var(--dui-clr-deep-purple-l-5);
+    --dui-accent-source-l-4:var(--dui-clr-deep-purple-l-4);
+    --dui-accent-source-l-3:var(--dui-clr-deep-purple-l-3);
+    --dui-accent-source-l-2:var(--dui-clr-deep-purple-l-2);
+    --dui-accent-source-l-1:var(--dui-clr-deep-purple-l-1);
+    --dui-accent-source:var(--dui-clr-deep-purple);
+    --dui-accent-source-d-1:var(--dui-clr-deep-purple-d-1);
+    --dui-accent-source-d-2:var(--dui-clr-deep-purple-d-2);
+    --dui-accent-source-d-3:var(--dui-clr-deep-purple-d-3);
+    --dui-accent-source-d-4:var(--dui-clr-deep-purple-d-4);
 }
 
 .dui[class*="dui-fg-indigo"]{
@@ -481,16 +481,16 @@
 
 }
 .dui[class*="dui-accent-indigo"]{
-    --dui-accent-l-5:var(--dui-clr-indigo-l-5);
-    --dui-accent-l-4:var(--dui-clr-indigo-l-4);
-    --dui-accent-l-3:var(--dui-clr-indigo-l-3);
-    --dui-accent-l-2:var(--dui-clr-indigo-l-2);
-    --dui-accent-l-1:var(--dui-clr-indigo-l-1);
-    --dui-accent:var(--dui-clr-indigo);
-    --dui-accent-d-1:var(--dui-clr-indigo-d-1);
-    --dui-accent-d-2:var(--dui-clr-indigo-d-2);
-    --dui-accent-d-3:var(--dui-clr-indigo-d-3);
-    --dui-accent-d-4:var(--dui-clr-indigo-d-4);
+    --dui-accent-source-l-5:var(--dui-clr-indigo-l-5);
+    --dui-accent-source-l-4:var(--dui-clr-indigo-l-4);
+    --dui-accent-source-l-3:var(--dui-clr-indigo-l-3);
+    --dui-accent-source-l-2:var(--dui-clr-indigo-l-2);
+    --dui-accent-source-l-1:var(--dui-clr-indigo-l-1);
+    --dui-accent-source:var(--dui-clr-indigo);
+    --dui-accent-source-d-1:var(--dui-clr-indigo-d-1);
+    --dui-accent-source-d-2:var(--dui-clr-indigo-d-2);
+    --dui-accent-source-d-3:var(--dui-clr-indigo-d-3);
+    --dui-accent-source-d-4:var(--dui-clr-indigo-d-4);
 }
 
 .dui[class*="dui-fg-indigo"]{
@@ -519,16 +519,16 @@
 
 }
 .dui[class*="dui-accent-indigo"]{
-    --dui-accent-l-5:var(--dui-clr-indigo-l-5);
-    --dui-accent-l-4:var(--dui-clr-indigo-l-4);
-    --dui-accent-l-3:var(--dui-clr-indigo-l-3);
-    --dui-accent-l-2:var(--dui-clr-indigo-l-2);
-    --dui-accent-l-1:var(--dui-clr-indigo-l-1);
-    --dui-accent:var(--dui-clr-indigo);
-    --dui-accent-d-1:var(--dui-clr-indigo-d-1);
-    --dui-accent-d-2:var(--dui-clr-indigo-d-2);
-    --dui-accent-d-3:var(--dui-clr-indigo-d-3);
-    --dui-accent-d-4:var(--dui-clr-indigo-d-4);
+    --dui-accent-source-l-5:var(--dui-clr-indigo-l-5);
+    --dui-accent-source-l-4:var(--dui-clr-indigo-l-4);
+    --dui-accent-source-l-3:var(--dui-clr-indigo-l-3);
+    --dui-accent-source-l-2:var(--dui-clr-indigo-l-2);
+    --dui-accent-source-l-1:var(--dui-clr-indigo-l-1);
+    --dui-accent-source:var(--dui-clr-indigo);
+    --dui-accent-source-d-1:var(--dui-clr-indigo-d-1);
+    --dui-accent-source-d-2:var(--dui-clr-indigo-d-2);
+    --dui-accent-source-d-3:var(--dui-clr-indigo-d-3);
+    --dui-accent-source-d-4:var(--dui-clr-indigo-d-4);
 }
 
 .dui[class*="dui-fg-blue"]{
@@ -557,16 +557,16 @@
 
 }
 .dui[class*="dui-accent-blue"]{
-    --dui-accent-l-5:var(--dui-clr-blue-l-5);
-    --dui-accent-l-4:var(--dui-clr-blue-l-4);
-    --dui-accent-l-3:var(--dui-clr-blue-l-3);
-    --dui-accent-l-2:var(--dui-clr-blue-l-2);
-    --dui-accent-l-1:var(--dui-clr-blue-l-1);
-    --dui-accent:var(--dui-clr-blue);
-    --dui-accent-d-1:var(--dui-clr-blue-d-1);
-    --dui-accent-d-2:var(--dui-clr-blue-d-2);
-    --dui-accent-d-3:var(--dui-clr-blue-d-3);
-    --dui-accent-d-4:var(--dui-clr-blue-d-4);
+    --dui-accent-source-l-5:var(--dui-clr-blue-l-5);
+    --dui-accent-source-l-4:var(--dui-clr-blue-l-4);
+    --dui-accent-source-l-3:var(--dui-clr-blue-l-3);
+    --dui-accent-source-l-2:var(--dui-clr-blue-l-2);
+    --dui-accent-source-l-1:var(--dui-clr-blue-l-1);
+    --dui-accent-source:var(--dui-clr-blue);
+    --dui-accent-source-d-1:var(--dui-clr-blue-d-1);
+    --dui-accent-source-d-2:var(--dui-clr-blue-d-2);
+    --dui-accent-source-d-3:var(--dui-clr-blue-d-3);
+    --dui-accent-source-d-4:var(--dui-clr-blue-d-4);
 }
 
 .dui[class*="dui-fg-light-blue"]{
@@ -595,16 +595,16 @@
 
 }
 .dui[class*="dui-accent-light-blue"]{
-    --dui-accent-l-5:var(--dui-clr-light-blue-l-5);
-    --dui-accent-l-4:var(--dui-clr-light-blue-l-4);
-    --dui-accent-l-3:var(--dui-clr-light-blue-l-3);
-    --dui-accent-l-2:var(--dui-clr-light-blue-l-2);
-    --dui-accent-l-1:var(--dui-clr-light-blue-l-1);
-    --dui-accent:var(--dui-clr-light-blue);
-    --dui-accent-d-1:var(--dui-clr-light-blue-d-1);
-    --dui-accent-d-2:var(--dui-clr-light-blue-d-2);
-    --dui-accent-d-3:var(--dui-clr-light-blue-d-3);
-    --dui-accent-d-4:var(--dui-clr-light-blue-d-4);
+    --dui-accent-source-l-5:var(--dui-clr-light-blue-l-5);
+    --dui-accent-source-l-4:var(--dui-clr-light-blue-l-4);
+    --dui-accent-source-l-3:var(--dui-clr-light-blue-l-3);
+    --dui-accent-source-l-2:var(--dui-clr-light-blue-l-2);
+    --dui-accent-source-l-1:var(--dui-clr-light-blue-l-1);
+    --dui-accent-source:var(--dui-clr-light-blue);
+    --dui-accent-source-d-1:var(--dui-clr-light-blue-d-1);
+    --dui-accent-source-d-2:var(--dui-clr-light-blue-d-2);
+    --dui-accent-source-d-3:var(--dui-clr-light-blue-d-3);
+    --dui-accent-source-d-4:var(--dui-clr-light-blue-d-4);
 }
 
 .dui[class*="dui-fg-cyan"]{
@@ -633,16 +633,16 @@
 
 }
 .dui[class*="dui-accent-cyan"]{
-    --dui-accent-l-5:var(--dui-clr-cyan-l-5);
-    --dui-accent-l-4:var(--dui-clr-cyan-l-4);
-    --dui-accent-l-3:var(--dui-clr-cyan-l-3);
-    --dui-accent-l-2:var(--dui-clr-cyan-l-2);
-    --dui-accent-l-1:var(--dui-clr-cyan-l-1);
-    --dui-accent:var(--dui-clr-cyan);
-    --dui-accent-d-1:var(--dui-clr-cyan-d-1);
-    --dui-accent-d-2:var(--dui-clr-cyan-d-2);
-    --dui-accent-d-3:var(--dui-clr-cyan-d-3);
-    --dui-accent-d-4:var(--dui-clr-cyan-d-4);
+    --dui-accent-source-l-5:var(--dui-clr-cyan-l-5);
+    --dui-accent-source-l-4:var(--dui-clr-cyan-l-4);
+    --dui-accent-source-l-3:var(--dui-clr-cyan-l-3);
+    --dui-accent-source-l-2:var(--dui-clr-cyan-l-2);
+    --dui-accent-source-l-1:var(--dui-clr-cyan-l-1);
+    --dui-accent-source:var(--dui-clr-cyan);
+    --dui-accent-source-d-1:var(--dui-clr-cyan-d-1);
+    --dui-accent-source-d-2:var(--dui-clr-cyan-d-2);
+    --dui-accent-source-d-3:var(--dui-clr-cyan-d-3);
+    --dui-accent-source-d-4:var(--dui-clr-cyan-d-4);
 }
 
 .dui[class*="dui-fg-teal"]{
@@ -671,16 +671,16 @@
 
 }
 .dui[class*="dui-accent-teal"]{
-    --dui-accent-l-5:var(--dui-clr-teal-l-5);
-    --dui-accent-l-4:var(--dui-clr-teal-l-4);
-    --dui-accent-l-3:var(--dui-clr-teal-l-3);
-    --dui-accent-l-2:var(--dui-clr-teal-l-2);
-    --dui-accent-l-1:var(--dui-clr-teal-l-1);
-    --dui-accent:var(--dui-clr-teal);
-    --dui-accent-d-1:var(--dui-clr-teal-d-1);
-    --dui-accent-d-2:var(--dui-clr-teal-d-2);
-    --dui-accent-d-3:var(--dui-clr-teal-d-3);
-    --dui-accent-d-4:var(--dui-clr-teal-d-4);
+    --dui-accent-source-l-5:var(--dui-clr-teal-l-5);
+    --dui-accent-source-l-4:var(--dui-clr-teal-l-4);
+    --dui-accent-source-l-3:var(--dui-clr-teal-l-3);
+    --dui-accent-source-l-2:var(--dui-clr-teal-l-2);
+    --dui-accent-source-l-1:var(--dui-clr-teal-l-1);
+    --dui-accent-source:var(--dui-clr-teal);
+    --dui-accent-source-d-1:var(--dui-clr-teal-d-1);
+    --dui-accent-source-d-2:var(--dui-clr-teal-d-2);
+    --dui-accent-source-d-3:var(--dui-clr-teal-d-3);
+    --dui-accent-source-d-4:var(--dui-clr-teal-d-4);
 }
 
 .dui[class*="dui-fg-green"]{
@@ -709,16 +709,16 @@
 
 }
 .dui[class*="dui-accent-green"]{
-    --dui-accent-l-5:var(--dui-clr-green-l-5);
-    --dui-accent-l-4:var(--dui-clr-green-l-4);
-    --dui-accent-l-3:var(--dui-clr-green-l-3);
-    --dui-accent-l-2:var(--dui-clr-green-l-2);
-    --dui-accent-l-1:var(--dui-clr-green-l-1);
-    --dui-accent:var(--dui-clr-green);
-    --dui-accent-d-1:var(--dui-clr-green-d-1);
-    --dui-accent-d-2:var(--dui-clr-green-d-2);
-    --dui-accent-d-3:var(--dui-clr-green-d-3);
-    --dui-accent-d-4:var(--dui-clr-green-d-4);
+    --dui-accent-source-l-5:var(--dui-clr-green-l-5);
+    --dui-accent-source-l-4:var(--dui-clr-green-l-4);
+    --dui-accent-source-l-3:var(--dui-clr-green-l-3);
+    --dui-accent-source-l-2:var(--dui-clr-green-l-2);
+    --dui-accent-source-l-1:var(--dui-clr-green-l-1);
+    --dui-accent-source:var(--dui-clr-green);
+    --dui-accent-source-d-1:var(--dui-clr-green-d-1);
+    --dui-accent-source-d-2:var(--dui-clr-green-d-2);
+    --dui-accent-source-d-3:var(--dui-clr-green-d-3);
+    --dui-accent-source-d-4:var(--dui-clr-green-d-4);
 }
 
 .dui[class*="dui-fg-light-green"]{
@@ -747,16 +747,16 @@
 
 }
 .dui[class*="dui-accent-light-green"]{
-    --dui-accent-l-5:var(--dui-clr-light-green-l-5);
-    --dui-accent-l-4:var(--dui-clr-light-green-l-4);
-    --dui-accent-l-3:var(--dui-clr-light-green-l-3);
-    --dui-accent-l-2:var(--dui-clr-light-green-l-2);
-    --dui-accent-l-1:var(--dui-clr-light-green-l-1);
-    --dui-accent:var(--dui-clr-light-green);
-    --dui-accent-d-1:var(--dui-clr-light-green-d-1);
-    --dui-accent-d-2:var(--dui-clr-light-green-d-2);
-    --dui-accent-d-3:var(--dui-clr-light-green-d-3);
-    --dui-accent-d-4:var(--dui-clr-light-green-d-4);
+    --dui-accent-source-l-5:var(--dui-clr-light-green-l-5);
+    --dui-accent-source-l-4:var(--dui-clr-light-green-l-4);
+    --dui-accent-source-l-3:var(--dui-clr-light-green-l-3);
+    --dui-accent-source-l-2:var(--dui-clr-light-green-l-2);
+    --dui-accent-source-l-1:var(--dui-clr-light-green-l-1);
+    --dui-accent-source:var(--dui-clr-light-green);
+    --dui-accent-source-d-1:var(--dui-clr-light-green-d-1);
+    --dui-accent-source-d-2:var(--dui-clr-light-green-d-2);
+    --dui-accent-source-d-3:var(--dui-clr-light-green-d-3);
+    --dui-accent-source-d-4:var(--dui-clr-light-green-d-4);
 }
 
 .dui[class*="dui-fg-lime"]{
@@ -785,16 +785,16 @@
 
 }
 .dui[class*="dui-accent-lime"]{
-    --dui-accent-l-5:var(--dui-clr-lime-l-5);
-    --dui-accent-l-4:var(--dui-clr-lime-l-4);
-    --dui-accent-l-3:var(--dui-clr-lime-l-3);
-    --dui-accent-l-2:var(--dui-clr-lime-l-2);
-    --dui-accent-l-1:var(--dui-clr-lime-l-1);
-    --dui-accent:var(--dui-clr-lime);
-    --dui-accent-d-1:var(--dui-clr-lime-d-1);
-    --dui-accent-d-2:var(--dui-clr-lime-d-2);
-    --dui-accent-d-3:var(--dui-clr-lime-d-3);
-    --dui-accent-d-4:var(--dui-clr-lime-d-4);
+    --dui-accent-source-l-5:var(--dui-clr-lime-l-5);
+    --dui-accent-source-l-4:var(--dui-clr-lime-l-4);
+    --dui-accent-source-l-3:var(--dui-clr-lime-l-3);
+    --dui-accent-source-l-2:var(--dui-clr-lime-l-2);
+    --dui-accent-source-l-1:var(--dui-clr-lime-l-1);
+    --dui-accent-source:var(--dui-clr-lime);
+    --dui-accent-source-d-1:var(--dui-clr-lime-d-1);
+    --dui-accent-source-d-2:var(--dui-clr-lime-d-2);
+    --dui-accent-source-d-3:var(--dui-clr-lime-d-3);
+    --dui-accent-source-d-4:var(--dui-clr-lime-d-4);
 }
 
 .dui[class*="dui-fg-yellow"]{
@@ -823,16 +823,16 @@
 
 }
 .dui[class*="dui-accent-yellow"]{
-    --dui-accent-l-5:var(--dui-clr-yellow-l-5);
-    --dui-accent-l-4:var(--dui-clr-yellow-l-4);
-    --dui-accent-l-3:var(--dui-clr-yellow-l-3);
-    --dui-accent-l-2:var(--dui-clr-yellow-l-2);
-    --dui-accent-l-1:var(--dui-clr-yellow-l-1);
-    --dui-accent:var(--dui-clr-yellow);
-    --dui-accent-d-1:var(--dui-clr-yellow-d-1);
-    --dui-accent-d-2:var(--dui-clr-yellow-d-2);
-    --dui-accent-d-3:var(--dui-clr-yellow-d-3);
-    --dui-accent-d-4:var(--dui-clr-yellow-d-4);
+    --dui-accent-source-l-5:var(--dui-clr-yellow-l-5);
+    --dui-accent-source-l-4:var(--dui-clr-yellow-l-4);
+    --dui-accent-source-l-3:var(--dui-clr-yellow-l-3);
+    --dui-accent-source-l-2:var(--dui-clr-yellow-l-2);
+    --dui-accent-source-l-1:var(--dui-clr-yellow-l-1);
+    --dui-accent-source:var(--dui-clr-yellow);
+    --dui-accent-source-d-1:var(--dui-clr-yellow-d-1);
+    --dui-accent-source-d-2:var(--dui-clr-yellow-d-2);
+    --dui-accent-source-d-3:var(--dui-clr-yellow-d-3);
+    --dui-accent-source-d-4:var(--dui-clr-yellow-d-4);
 }
 
 .dui[class*="dui-fg-amber"]{
@@ -861,16 +861,16 @@
 
 }
 .dui[class*="dui-accent-amber"]{
-    --dui-accent-l-5:var(--dui-clr-amber-l-5);
-    --dui-accent-l-4:var(--dui-clr-amber-l-4);
-    --dui-accent-l-3:var(--dui-clr-amber-l-3);
-    --dui-accent-l-2:var(--dui-clr-amber-l-2);
-    --dui-accent-l-1:var(--dui-clr-amber-l-1);
-    --dui-accent:var(--dui-clr-amber);
-    --dui-accent-d-1:var(--dui-clr-amber-d-1);
-    --dui-accent-d-2:var(--dui-clr-amber-d-2);
-    --dui-accent-d-3:var(--dui-clr-amber-d-3);
-    --dui-accent-d-4:var(--dui-clr-amber-d-4);
+    --dui-accent-source-l-5:var(--dui-clr-amber-l-5);
+    --dui-accent-source-l-4:var(--dui-clr-amber-l-4);
+    --dui-accent-source-l-3:var(--dui-clr-amber-l-3);
+    --dui-accent-source-l-2:var(--dui-clr-amber-l-2);
+    --dui-accent-source-l-1:var(--dui-clr-amber-l-1);
+    --dui-accent-source:var(--dui-clr-amber);
+    --dui-accent-source-d-1:var(--dui-clr-amber-d-1);
+    --dui-accent-source-d-2:var(--dui-clr-amber-d-2);
+    --dui-accent-source-d-3:var(--dui-clr-amber-d-3);
+    --dui-accent-source-d-4:var(--dui-clr-amber-d-4);
 }
 
 .dui[class*="dui-fg-orange"]{
@@ -899,16 +899,16 @@
 
 }
 .dui[class*="dui-accent-orange"]{
-    --dui-accent-l-5:var(--dui-clr-orange-l-5);
-    --dui-accent-l-4:var(--dui-clr-orange-l-4);
-    --dui-accent-l-3:var(--dui-clr-orange-l-3);
-    --dui-accent-l-2:var(--dui-clr-orange-l-2);
-    --dui-accent-l-1:var(--dui-clr-orange-l-1);
-    --dui-accent:var(--dui-clr-orange);
-    --dui-accent-d-1:var(--dui-clr-orange-d-1);
-    --dui-accent-d-2:var(--dui-clr-orange-d-2);
-    --dui-accent-d-3:var(--dui-clr-orange-d-3);
-    --dui-accent-d-4:var(--dui-clr-orange-d-4);
+    --dui-accent-source-l-5:var(--dui-clr-orange-l-5);
+    --dui-accent-source-l-4:var(--dui-clr-orange-l-4);
+    --dui-accent-source-l-3:var(--dui-clr-orange-l-3);
+    --dui-accent-source-l-2:var(--dui-clr-orange-l-2);
+    --dui-accent-source-l-1:var(--dui-clr-orange-l-1);
+    --dui-accent-source:var(--dui-clr-orange);
+    --dui-accent-source-d-1:var(--dui-clr-orange-d-1);
+    --dui-accent-source-d-2:var(--dui-clr-orange-d-2);
+    --dui-accent-source-d-3:var(--dui-clr-orange-d-3);
+    --dui-accent-source-d-4:var(--dui-clr-orange-d-4);
 }
 
 .dui[class*="dui-fg-deep-orange"]{
@@ -937,16 +937,16 @@
 
 }
 .dui[class*="dui-accent-deep-orange"]{
-    --dui-accent-l-5:var(--dui-clr-deep-orange-l-5);
-    --dui-accent-l-4:var(--dui-clr-deep-orange-l-4);
-    --dui-accent-l-3:var(--dui-clr-deep-orange-l-3);
-    --dui-accent-l-2:var(--dui-clr-deep-orange-l-2);
-    --dui-accent-l-1:var(--dui-clr-deep-orange-l-1);
-    --dui-accent:var(--dui-clr-deep-orange);
-    --dui-accent-d-1:var(--dui-clr-deep-orange-d-1);
-    --dui-accent-d-2:var(--dui-clr-deep-orange-d-2);
-    --dui-accent-d-3:var(--dui-clr-deep-orange-d-3);
-    --dui-accent-d-4:var(--dui-clr-deep-orange-d-4);
+    --dui-accent-source-l-5:var(--dui-clr-deep-orange-l-5);
+    --dui-accent-source-l-4:var(--dui-clr-deep-orange-l-4);
+    --dui-accent-source-l-3:var(--dui-clr-deep-orange-l-3);
+    --dui-accent-source-l-2:var(--dui-clr-deep-orange-l-2);
+    --dui-accent-source-l-1:var(--dui-clr-deep-orange-l-1);
+    --dui-accent-source:var(--dui-clr-deep-orange);
+    --dui-accent-source-d-1:var(--dui-clr-deep-orange-d-1);
+    --dui-accent-source-d-2:var(--dui-clr-deep-orange-d-2);
+    --dui-accent-source-d-3:var(--dui-clr-deep-orange-d-3);
+    --dui-accent-source-d-4:var(--dui-clr-deep-orange-d-4);
 }
 
 .dui[class*="dui-fg-brown"]{
@@ -975,16 +975,16 @@
 
 }
 .dui[class*="dui-accent-brown"]{
-    --dui-accent-l-5:var(--dui-clr-brown-l-5);
-    --dui-accent-l-4:var(--dui-clr-brown-l-4);
-    --dui-accent-l-3:var(--dui-clr-brown-l-3);
-    --dui-accent-l-2:var(--dui-clr-brown-l-2);
-    --dui-accent-l-1:var(--dui-clr-brown-l-1);
-    --dui-accent:var(--dui-clr-brown);
-    --dui-accent-d-1:var(--dui-clr-brown-d-1);
-    --dui-accent-d-2:var(--dui-clr-brown-d-2);
-    --dui-accent-d-3:var(--dui-clr-brown-d-3);
-    --dui-accent-d-4:var(--dui-clr-brown-d-4);
+    --dui-accent-source-l-5:var(--dui-clr-brown-l-5);
+    --dui-accent-source-l-4:var(--dui-clr-brown-l-4);
+    --dui-accent-source-l-3:var(--dui-clr-brown-l-3);
+    --dui-accent-source-l-2:var(--dui-clr-brown-l-2);
+    --dui-accent-source-l-1:var(--dui-clr-brown-l-1);
+    --dui-accent-source:var(--dui-clr-brown);
+    --dui-accent-source-d-1:var(--dui-clr-brown-d-1);
+    --dui-accent-source-d-2:var(--dui-clr-brown-d-2);
+    --dui-accent-source-d-3:var(--dui-clr-brown-d-3);
+    --dui-accent-source-d-4:var(--dui-clr-brown-d-4);
 }
 
 .dui[class*="dui-fg-grey"]{
@@ -1013,16 +1013,16 @@
 
 }
 .dui[class*="dui-accent-grey"]{
-    --dui-accent-l-5:var(--dui-clr-grey-l-5);
-    --dui-accent-l-4:var(--dui-clr-grey-l-4);
-    --dui-accent-l-3:var(--dui-clr-grey-l-3);
-    --dui-accent-l-2:var(--dui-clr-grey-l-2);
-    --dui-accent-l-1:var(--dui-clr-grey-l-1);
-    --dui-accent:var(--dui-clr-grey);
-    --dui-accent-d-1:var(--dui-clr-grey-d-1);
-    --dui-accent-d-2:var(--dui-clr-grey-d-2);
-    --dui-accent-d-3:var(--dui-clr-grey-d-3);
-    --dui-accent-d-4:var(--dui-clr-grey-d-4);
+    --dui-accent-source-l-5:var(--dui-clr-grey-l-5);
+    --dui-accent-source-l-4:var(--dui-clr-grey-l-4);
+    --dui-accent-source-l-3:var(--dui-clr-grey-l-3);
+    --dui-accent-source-l-2:var(--dui-clr-grey-l-2);
+    --dui-accent-source-l-1:var(--dui-clr-grey-l-1);
+    --dui-accent-source:var(--dui-clr-grey);
+    --dui-accent-source-d-1:var(--dui-clr-grey-d-1);
+    --dui-accent-source-d-2:var(--dui-clr-grey-d-2);
+    --dui-accent-source-d-3:var(--dui-clr-grey-d-3);
+    --dui-accent-source-d-4:var(--dui-clr-grey-d-4);
 }
 
 .dui[class*="dui-fg-blue-grey"]{
@@ -1051,16 +1051,16 @@
 
 }
 .dui[class*="dui-accent-blue-grey"]{
-    --dui-accent-l-5:var(--dui-clr-blue-grey-l-5);
-    --dui-accent-l-4:var(--dui-clr-blue-grey-l-4);
-    --dui-accent-l-3:var(--dui-clr-blue-grey-l-3);
-    --dui-accent-l-2:var(--dui-clr-blue-grey-l-2);
-    --dui-accent-l-1:var(--dui-clr-blue-grey-l-1);
-    --dui-accent:var(--dui-clr-blue-grey);
-    --dui-accent-d-1:var(--dui-clr-blue-grey-d-1);
-    --dui-accent-d-2:var(--dui-clr-blue-grey-d-2);
-    --dui-accent-d-3:var(--dui-clr-blue-grey-d-3);
-    --dui-accent-d-4:var(--dui-clr-blue-grey-d-4);
+    --dui-accent-source-l-5:var(--dui-clr-blue-grey-l-5);
+    --dui-accent-source-l-4:var(--dui-clr-blue-grey-l-4);
+    --dui-accent-source-l-3:var(--dui-clr-blue-grey-l-3);
+    --dui-accent-source-l-2:var(--dui-clr-blue-grey-l-2);
+    --dui-accent-source-l-1:var(--dui-clr-blue-grey-l-1);
+    --dui-accent-source:var(--dui-clr-blue-grey);
+    --dui-accent-source-d-1:var(--dui-clr-blue-grey-d-1);
+    --dui-accent-source-d-2:var(--dui-clr-blue-grey-d-2);
+    --dui-accent-source-d-3:var(--dui-clr-blue-grey-d-3);
+    --dui-accent-source-d-4:var(--dui-clr-blue-grey-d-4);
 }
 
 .dui[class*="dui-fg-white"]{
@@ -1089,16 +1089,16 @@
 
 }
 .dui[class*="dui-accent-white"]{
-    --dui-accent-l-5:var(--dui-clr-white-l-5);
-    --dui-accent-l-4:var(--dui-clr-white-l-4);
-    --dui-accent-l-3:var(--dui-clr-white-l-3);
-    --dui-accent-l-2:var(--dui-clr-white-l-2);
-    --dui-accent-l-1:var(--dui-clr-white-l-1);
-    --dui-accent:var(--dui-clr-white);
-    --dui-accent-d-1:var(--dui-clr-white-d-1);
-    --dui-accent-d-2:var(--dui-clr-white-d-2);
-    --dui-accent-d-3:var(--dui-clr-white-d-3);
-    --dui-accent-d-4:var(--dui-clr-white-d-4);
+    --dui-accent-source-l-5:var(--dui-clr-white-l-5);
+    --dui-accent-source-l-4:var(--dui-clr-white-l-4);
+    --dui-accent-source-l-3:var(--dui-clr-white-l-3);
+    --dui-accent-source-l-2:var(--dui-clr-white-l-2);
+    --dui-accent-source-l-1:var(--dui-clr-white-l-1);
+    --dui-accent-source:var(--dui-clr-white);
+    --dui-accent-source-d-1:var(--dui-clr-white-d-1);
+    --dui-accent-source-d-2:var(--dui-clr-white-d-2);
+    --dui-accent-source-d-3:var(--dui-clr-white-d-3);
+    --dui-accent-source-d-4:var(--dui-clr-white-d-4);
 }
 
 .dui[class*="dui-fg-black"]{
@@ -1127,16 +1127,16 @@
 
 }
 .dui[class*="dui-accent-black"]{
-    --dui-accent-l-5:var(--dui-clr-black-l-5);
-    --dui-accent-l-4:var(--dui-clr-black-l-4);
-    --dui-accent-l-3:var(--dui-clr-black-l-3);
-    --dui-accent-l-2:var(--dui-clr-black-l-2);
-    --dui-accent-l-1:var(--dui-clr-black-l-1);
-    --dui-accent:var(--dui-clr-black);
-    --dui-accent-d-1:var(--dui-clr-black-d-1);
-    --dui-accent-d-2:var(--dui-clr-black-d-2);
-    --dui-accent-d-3:var(--dui-clr-black-d-3);
-    --dui-accent-d-4:var(--dui-clr-black-d-4);
+    --dui-accent-source-l-5:var(--dui-clr-black-l-5);
+    --dui-accent-source-l-4:var(--dui-clr-black-l-4);
+    --dui-accent-source-l-3:var(--dui-clr-black-l-3);
+    --dui-accent-source-l-2:var(--dui-clr-black-l-2);
+    --dui-accent-source-l-1:var(--dui-clr-black-l-1);
+    --dui-accent-source:var(--dui-clr-black);
+    --dui-accent-source-d-1:var(--dui-clr-black-d-1);
+    --dui-accent-source-d-2:var(--dui-clr-black-d-2);
+    --dui-accent-source-d-3:var(--dui-clr-black-d-3);
+    --dui-accent-source-d-4:var(--dui-clr-black-d-4);
 }
 
 .dui.dui-fg-dominant-l-5 {
@@ -20098,6 +20098,47 @@
 }
 .dui.dui-border-b-context {
     border-bottom-color: var(--dui-context-color);
+}
+
+/*
+ * Runtime accent harmonization.
+ *
+ * Accent selectors above publish the unchanged palette as source tokens. The
+ * public accent scale below remains the component-facing API and can be
+ * gently shifted toward a visual theme's anchor without generating CSS at
+ * build time. A zero strength is the compatibility default.
+ */
+.dui.dui-colors-light,
+.dui.dui-colors-dark {
+    --dui-accent-harmony-strength: 0%;
+    --dui-accent-harmony-anchor: var(--dui-accent-source);
+
+    --dui-accent-l-5: var(--dui-accent-source-l-5);
+    --dui-accent-l-4: var(--dui-accent-source-l-4);
+    --dui-accent-l-3: var(--dui-accent-source-l-3);
+    --dui-accent-l-2: var(--dui-accent-source-l-2);
+    --dui-accent-l-1: var(--dui-accent-source-l-1);
+    --dui-accent: var(--dui-accent-source);
+    --dui-accent-d-1: var(--dui-accent-source-d-1);
+    --dui-accent-d-2: var(--dui-accent-source-d-2);
+    --dui-accent-d-3: var(--dui-accent-source-d-3);
+    --dui-accent-d-4: var(--dui-accent-source-d-4);
+}
+
+@supports (color: color-mix(in oklch, red, blue)) {
+    .dui.dui-colors-light,
+    .dui.dui-colors-dark {
+        --dui-accent-l-5: color-mix(in oklch, var(--dui-accent-source-l-5) calc(100% - var(--dui-accent-harmony-strength)), var(--dui-accent-harmony-anchor) var(--dui-accent-harmony-strength));
+        --dui-accent-l-4: color-mix(in oklch, var(--dui-accent-source-l-4) calc(100% - var(--dui-accent-harmony-strength)), var(--dui-accent-harmony-anchor) var(--dui-accent-harmony-strength));
+        --dui-accent-l-3: color-mix(in oklch, var(--dui-accent-source-l-3) calc(100% - var(--dui-accent-harmony-strength)), var(--dui-accent-harmony-anchor) var(--dui-accent-harmony-strength));
+        --dui-accent-l-2: color-mix(in oklch, var(--dui-accent-source-l-2) calc(100% - var(--dui-accent-harmony-strength)), var(--dui-accent-harmony-anchor) var(--dui-accent-harmony-strength));
+        --dui-accent-l-1: color-mix(in oklch, var(--dui-accent-source-l-1) calc(100% - var(--dui-accent-harmony-strength)), var(--dui-accent-harmony-anchor) var(--dui-accent-harmony-strength));
+        --dui-accent: color-mix(in oklch, var(--dui-accent-source) calc(100% - var(--dui-accent-harmony-strength)), var(--dui-accent-harmony-anchor) var(--dui-accent-harmony-strength));
+        --dui-accent-d-1: color-mix(in oklch, var(--dui-accent-source-d-1) calc(100% - var(--dui-accent-harmony-strength)), var(--dui-accent-harmony-anchor) var(--dui-accent-harmony-strength));
+        --dui-accent-d-2: color-mix(in oklch, var(--dui-accent-source-d-2) calc(100% - var(--dui-accent-harmony-strength)), var(--dui-accent-harmony-anchor) var(--dui-accent-harmony-strength));
+        --dui-accent-d-3: color-mix(in oklch, var(--dui-accent-source-d-3) calc(100% - var(--dui-accent-harmony-strength)), var(--dui-accent-harmony-anchor) var(--dui-accent-harmony-strength));
+        --dui-accent-d-4: color-mix(in oklch, var(--dui-accent-source-d-4) calc(100% - var(--dui-accent-harmony-strength)), var(--dui-accent-harmony-anchor) var(--dui-accent-harmony-strength));
+    }
 }
 .dui.dui-border-x-context {
     border-left-color: var(--dui-context-color);

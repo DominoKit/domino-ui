@@ -1,0 +1,36 @@
+/*
+ * paper character theme.
+ *
+ * Character themes change material, typography, and component treatment while
+ * preserving the selected identity and runtime accent palette.
+ */
+.dui.dui-theme-paper {
+    --dui-surface-border-color: var(--dui-character-boundary-color, var(--dui-color));
+    --dui-surface-border: 1px solid var(--dui-surface-border-color);
+}
+
+.dui.dui-theme-paper {
+    --dui-font-family-heading: Georgia, "Times New Roman", serif;
+    --dui-card-box-shadow: var(--dui-box-shadow-none);
+    --dui-section-box-shadow: var(--dui-box-shadow-none);
+    --dui-thumbnail-box-shadow: var(--dui-box-shadow-none);
+    --dui-infobox-box-shadow: var(--dui-box-shadow-none);
+    --dui-dialog-box-shadow: var(--dui-box-shadow-none);
+    --dui-menu-elevation: none;
+    --dui-surface-border-color: color-mix(in srgb, var(--dui-color) 18%, transparent);
+    --dui-character-paper-surface: color-mix(in srgb, var(--dui-card-background) 94%, #f1e3cb 6%);
+}
+
+.dui.dui-theme-paper .dui-card,
+.dui.dui-theme-paper .dui-menu,
+.dui.dui-theme-paper .dui-tree {
+    background: var(--dui-character-paper-surface);
+}
+
+.dui.dui-theme-paper .dui-card-header,
+.dui.dui-theme-paper .dui-menu > .dui-nav-bar,
+.dui.dui-theme-paper .dui-tree-header {
+    border-bottom-color: var(--dui-surface-border-color);
+}
+
+

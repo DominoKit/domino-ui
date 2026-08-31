@@ -28,7 +28,9 @@ import org.dominokit.domino.ui.utils.ElementsFactory;
  * Manages the themes for Domino UI components.
  *
  * <p>Provides capabilities to apply, remove, register and manage themes persistently using
- * WebStorage. It also allows applying user-preferred themes.
+ * WebStorage. It also allows applying user-preferred themes. This is the canonical manager for a
+ * deliberately global application theme; use {@link ElementThemeManager} when a theme must remain
+ * inside one application root or component subtree.
  *
  * <p><b>Usage Example:</b>
  *
@@ -70,10 +72,47 @@ public class DominoThemeManager implements ElementsFactory {
     registerTheme(DominoThemeAccent.BROWN);
     registerTheme(DominoThemeAccent.GREY);
     registerTheme(DominoThemeAccent.BLUE_GREY);
+    registerTheme(DominoThemeIdentity.OCEAN);
+    registerTheme(DominoThemeIdentity.FOREST);
+    registerTheme(DominoThemeIdentity.SANDSTONE);
+    registerTheme(DominoThemeIdentity.GRAPHITE);
+    registerTheme(DominoThemeIdentity.LAVENDER);
+    registerTheme(DominoThemeIdentity.SUNSET);
+    registerTheme(DominoThemeIdentity.ARCTIC);
+    registerTheme(DominoThemeIdentity.ROSE);
+    registerTheme(DominoThemeIdentity.CRIMSON);
+    registerTheme(DominoThemeIdentity.AMETHYST);
+    registerTheme(DominoThemeIdentity.INDIGO);
+    registerTheme(DominoThemeIdentity.AZURE);
+    registerTheme(DominoThemeIdentity.LAGOON);
+    registerTheme(DominoThemeIdentity.JADE);
+    registerTheme(DominoThemeIdentity.MEADOW);
+    registerTheme(DominoThemeIdentity.LIME);
+    registerTheme(DominoThemeIdentity.MARIGOLD);
+    registerTheme(DominoThemeIdentity.AMBER);
+    registerTheme(DominoThemeCharacter.CARBON);
+    registerTheme(DominoThemeCharacter.PAPER);
+    registerTheme(DominoThemeCharacter.TERMINAL);
+    registerTheme(DominoThemeCharacter.GLASS);
+    registerTheme(DominoThemeCharacter.BLUEPRINT);
+    registerTheme(DominoThemeCharacter.HIGH_CONTRAST);
+    registerTheme(DominoThemeCharacter.EDITORIAL);
+    registerTheme(DominoThemeCharacter.SOFT_UI);
+    registerTheme(DominoThemeCharacter.NEON_NIGHT);
+    registerTheme(DominoThemeCharacter.RETRO_CONSOLE);
+    registerTheme(DominoThemeDensity.COMPACT);
+    registerTheme(DominoThemeDensity.DEFAULT);
+    registerTheme(DominoThemeSurface.BORDERED);
+    registerTheme(DominoThemeSurface.CLEAR_BORDER);
+    registerTheme(DominoThemeSurface.ELEVATED);
+    registerTheme(DominoThemeSurface.CLEAR_ELEVATION);
+    registerTheme(DominoThemeSurface.ROUNDED);
+    registerTheme(DominoThemeSurface.CLEAR_RADIUS);
   }
 
   /**
-   * Applies the specified theme and stores the user preference in local storage.
+   * Applies the specified theme and stores the user preference in local storage. A later theme in
+   * the same category replaces the currently active theme in that category.
    *
    * @param theme the theme to be applied
    * @return the {@link DominoThemeManager} instance
@@ -144,10 +183,8 @@ public class DominoThemeManager implements ElementsFactory {
     } else {
       Arrays.asList(themes.split(","))
           .forEach(
-              themeName -> {
-                Optional.ofNullable(registeredThemes.get(themeName))
-                    .ifPresent(isDominoTheme -> apply(registeredThemes.get(themeName)));
-              });
+              themeName ->
+                  Optional.ofNullable(registeredThemes.get(themeName)).ifPresent(this::apply));
     }
     return INSTANCE;
   }
