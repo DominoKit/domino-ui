@@ -51,9 +51,12 @@ import org.dominokit.domino.ui.utils.PrimaryAddOnElement;
 public abstract class BaseCard<C extends BaseCard<C>> extends BaseDominoElement<HTMLDivElement, C>
     implements CardStyles, CollapsibleElement<C>, HasComponentConfig<CardConfig> {
   private DivElement element;
+  private DivElement content;
   private DivElement body;
 
   private LazyChild<CardHeader> header;
+  private LazyChild<DivElement> contentHeader;
+  private LazyChild<DivElement> contentFooter;
 
   private Set<CollapseHandler<C>> collapseHandlers = new HashSet<>();
   private Set<ExpandHandler<C>> expandHandlers = new HashSet<>();
@@ -103,8 +106,15 @@ public abstract class BaseCard<C extends BaseCard<C>> extends BaseDominoElement<
 
   /** Creates an empty Card without a header. */
   public BaseCard() {
-    element = div().addCss(dui_card).appendChild(body = div().addCss(dui_card_body));
+    element =
+        div()
+            .addCss(dui_card)
+            .appendChild(
+                content =
+                    div().addCss(dui_card_content).appendChild(body = div().addCss(dui_card_body)));
     header = LazyChild.ofInsertFirst(CardHeader.create(), element);
+    contentHeader = LazyChild.ofInsertFirst(div().addCss(dui_card_content_header), () -> content);
+    contentFooter = LazyChild.of(div().addCss(dui_card_content_footer), () -> content);
     collapseIcon = getConfig().getCardCollapseExpandIcon().get();
 
     init((C) this);
@@ -357,6 +367,90 @@ public abstract class BaseCard<C extends BaseCard<C>> extends BaseDominoElement<
   }
 
   /**
+   * @return The main content container of this card. It contains the content header, body, and
+   *     content footer sections.
+   */
+  public DivElement getContent() {
+    return content;
+  }
+
+  /**
+   * Use to apply customization on the main content container without breaking the fluent API chain.
+   *
+   * @param handler The {@link org.dominokit.domino.ui.utils.ChildHandler} applying the
+   *     customizations.
+   * @return same Card instance
+   */
+  public C withContent(ChildHandler<C, DivElement> handler) {
+    handler.apply((C) this, content);
+    return (C) this;
+  }
+
+  /**
+   * Calling this will initialize and append the content header if it is not already initialized.
+   * The section is hidden by CSS while it is empty.
+   *
+   * @return The content header element.
+   */
+  public DivElement getContentHeader() {
+    return contentHeader.get();
+  }
+
+  /**
+   * Use to apply customization on the content header without breaking the fluent API chain.
+   *
+   * @param handler The {@link org.dominokit.domino.ui.utils.ChildHandler} applying the
+   *     customizations.
+   * @return same Card instance
+   */
+  public C withContentHeader(ChildHandler<C, DivElement> handler) {
+    handler.apply((C) this, contentHeader.get());
+    return (C) this;
+  }
+
+  /**
+   * Initialize and append the content header if it is not already initialized.
+   *
+   * @return same Card instance
+   */
+  public C withContentHeader() {
+    contentHeader.get();
+    return (C) this;
+  }
+
+  /**
+   * Calling this will initialize and append the content footer if it is not already initialized.
+   * The section is hidden by CSS while it is empty.
+   *
+   * @return The content footer element.
+   */
+  public DivElement getContentFooter() {
+    return contentFooter.get();
+  }
+
+  /**
+   * Use to apply customization on the content footer without breaking the fluent API chain.
+   *
+   * @param handler The {@link org.dominokit.domino.ui.utils.ChildHandler} applying the
+   *     customizations.
+   * @return same Card instance
+   */
+  public C withContentFooter(ChildHandler<C, DivElement> handler) {
+    handler.apply((C) this, contentFooter.get());
+    return (C) this;
+  }
+
+  /**
+   * Initialize and append the content footer if it is not already initialized.
+   *
+   * @return same Card instance
+   */
+  public C withContentFooter() {
+    contentFooter.get();
+    return (C) this;
+  }
+
+  /**
    * Sets the card logo This will initialize and append the card header if not yet initialized.
    *
    * @param img The {@link elemental2.dom.HTMLImageElement} to be used as card logo.
@@ -543,17 +637,17 @@ public abstract class BaseCard<C extends BaseCard<C>> extends BaseDominoElement<
 
   /**
    * Toggle the card collapsible feature, collapsible card will show a collapse action button in the
-   * card header, clicking the action will toggle the card body collapse state.
+   * card header, clicking the action will toggle the card content collapse state.
    *
-   * @param collapsible boolean, <b>true</b> to enable card body collapse feature, <b>false</b>
-   *     disable the card body collapse feature.
+   * @param collapsible boolean, <b>true</b> to enable card content collapse feature, <b>false</b>
+   *     disable the card content collapse feature.
    * @return same card instance
    */
   @Override
   public C setCollapsible(boolean collapsible) {
     collapseElement.remove();
     if (collapsible) {
-      body.setCollapseStrategy(getConfig().getDefaultCardCollapseStrategySupplier().get());
+      content.setCollapseStrategy(getConfig().getDefaultCardCollapseStrategySupplier().get());
       header
           .get()
           .withMainHeader(
@@ -575,28 +669,28 @@ public abstract class BaseCard<C extends BaseCard<C>> extends BaseDominoElement<
       collapseElement.get();
     } else {
       collapseElement.remove();
-      body.getCollapsible().getStrategy().cleanup(body.element());
+      content.getCollapsible().getStrategy().cleanup(content.element());
     }
-    body.addCollapseListener(
+    content.addCollapseListener(
         () -> collapseHandlers.forEach(handler -> handler.onCollapsed((C) BaseCard.this)));
-    body.addExpandListener(
+    content.addExpandListener(
         () -> expandHandlers.forEach(handler -> handler.onExpanded((C) BaseCard.this)));
 
     return (C) this;
   }
 
   /**
-   * @return boolean, <b>true</b> if the card body is collapsed, <b>false</b> if the card body
+   * @return boolean, <b>true</b> if the card content is collapsed, <b>false</b> if the card content
    *     expanded.
    */
   @Override
   public boolean isCollapsed() {
-    return body.isCollapsed();
+    return content.isCollapsed();
   }
 
   /**
-   * Toggle the card body collapse state, if collapsed it will be expanded, if expanded it will be
-   * collapsed.
+   * Toggle the card content collapse state, if collapsed it will be expanded, if expanded it will
+   * be collapsed.
    *
    * @return same card instance
    */
@@ -607,10 +701,10 @@ public abstract class BaseCard<C extends BaseCard<C>> extends BaseDominoElement<
   }
 
   /**
-   * Toggle the card body collapse state based on provided flag.
+   * Toggle the card content collapse state based on provided flag.
    *
-   * @param collapse boolean, <b>true</b> collapses the card body, <b>false</b> expands the card
-   *     body
+   * @param collapse boolean, <b>true</b> collapses the card content, <b>false</b> expands the card
+   *     content
    * @return same card instance
    */
   @Override
@@ -624,13 +718,13 @@ public abstract class BaseCard<C extends BaseCard<C>> extends BaseDominoElement<
   }
 
   /**
-   * Expands the card body if collapsed.
+   * Expands the card content if collapsed.
    *
    * @return same card instance
    */
   @Override
   public C expand() {
-    body.getCollapsible().expand();
+    content.getCollapsible().expand();
     collapseIcon.toggle();
     expandHandlers.forEach(handler -> handler.onExpanded((C) this));
     removeCss(() -> "dui-collapsed");
@@ -638,13 +732,13 @@ public abstract class BaseCard<C extends BaseCard<C>> extends BaseDominoElement<
   }
 
   /**
-   * Collapses the card body if expanded.
+   * Collapses the card content if expanded.
    *
    * @return same card instance
    */
   @Override
   public C collapse() {
-    body.getCollapsible().collapse();
+    content.getCollapsible().collapse();
     collapseIcon.toggle();
     collapseHandlers.forEach(handler -> handler.onCollapsed((C) this));
     addCss(() -> "dui-collapsed");

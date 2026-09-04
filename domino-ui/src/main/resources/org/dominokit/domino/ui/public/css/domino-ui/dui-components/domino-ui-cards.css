@@ -1,5 +1,5 @@
 .dui-card {
-    --dui-emphasis-color: var(--dui-accent);
+    --dui-emphasis-color: var(--dui-bg, var(--dui-accent));
     display: flex;
     flex-direction: var(--dui-card-direction, column);
     min-height: var(--dui-card-min-height);
@@ -7,6 +7,7 @@
     margin: var(--dui-card-margin);
     border-radius: var(--dui-card-border-radius);
     background-color: var(--dui-card-background);
+    overflow: hidden;
 }
 
 .dui-card .dui-card {
@@ -59,6 +60,7 @@
     border-bottom-right-radius: inherit;
 }
 .dui-card.dui-collapsed .dui-card-header {
+    --dui-card-head-border-width: var(--dui-card-collapsed-header-border-width, 0);
     border-radius: inherit;
 }
 
@@ -130,8 +132,38 @@
     display: none;
 }
 
+.dui-card-content {
+    order: 20;
+    display: flex;
+    flex: 1 1 auto;
+    flex-direction: column;
+    min-height: 0;
+    background-color: inherit;
+}
+
+.dui-card-content-header,
+.dui-card-content-footer {
+    flex: 0 0 auto;
+    padding: 0;
+    margin: 0;
+}
+
+.dui-card-content-header {
+    order: 10;
+}
+
+.dui-card-content-footer {
+    order: 30;
+}
+
+.dui-card-content-header:empty,
+.dui-card-content-footer:empty {
+    display: none;
+}
+
 .dui-card-body {
     order: 20;
+    flex: 1 1 auto;
     font: var(--dui-card-body-font);
     padding: var(--dui-card-body-padding);
     background-color: inherit;

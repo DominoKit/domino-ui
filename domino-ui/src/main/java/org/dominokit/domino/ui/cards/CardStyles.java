@@ -53,6 +53,15 @@ public interface CardStyles {
   /** Constant <code>dui_card_body</code> */
   CssClass dui_card_body = () -> "dui-card-body";
 
+  /** Constant <code>dui_card_content</code> */
+  CssClass dui_card_content = () -> "dui-card-content";
+
+  /** Constant <code>dui_card_content_header</code> */
+  CssClass dui_card_content_header = () -> "dui-card-content-header";
+
+  /** Constant <code>dui_card_content_footer</code> */
+  CssClass dui_card_content_footer = () -> "dui-card-content-footer";
+
   /** Constant <code>dui_card_header_filler</code> */
   CssClass dui_card_header_filler = () -> "dui-card-header-filler";
 }

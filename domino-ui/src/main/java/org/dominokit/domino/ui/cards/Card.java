@@ -20,8 +20,8 @@ import org.dominokit.domino.ui.utils.BaseDominoElement;
 
 /**
  * A container component to host other components and elements that provide some extended features
- * like, collapsible body, feature rich header that comes with logo area, title, description and
- * actions toolbar and more.
+ * like, collapsible content, feature rich header that comes with logo area, title, description and
+ * actions toolbar, and optional content header and footer sections.
  *
  * @see BaseDominoElement
  */
