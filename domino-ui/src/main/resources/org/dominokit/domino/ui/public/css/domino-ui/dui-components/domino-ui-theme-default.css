@@ -648,6 +648,7 @@ body.dui {
     --dui-card-body-padding: var(--dui-spc-px-20);
     --dui-card-header-border-width: 0 0 1px 0;
     --dui-card-header-border-reversed-width: 1px 0 0 0;
+    --dui-card-collapsed-header-border-width: 0;
     --dui-card-header-border-style: solid;
     --dui-cardsubheader-padding: var(--dui-spc-px-4) 0 var(--dui-spc-px-4) 0;
 
@@ -773,13 +774,13 @@ body.dui {
     --dui-progress-radius: var(--dui-spc-2px);
     --dui-progress-box-shadow: inset 0 1px 2px rgba(0, 0, 0, .1);
     --dui-progress-bar-line-hight: var(--dui-spc-6);
-    --dui-progress-bar-display: block;
-    --dui-progress-bar-align-items: initial;
-    --dui-progress-bar-line-height: var(--dui-progress-bar-line-hight);
+    --dui-progress-bar-display: flex;
+    --dui-progress-bar-align-items: center;
+    --dui-progress-bar-line-height: normal;
     --dui-progress-bar-box-shadow: 2px 5px 5px 0px rgba(0, 0, 0, .2), 0 0px 0px 0 rgba(0, 0, 0, .14), 0 0px 0px 0 rgba(0, 0, 0, .12);
     --dui-progress-bar-float: left;
     --dui-progress-bar-font: var(--dui-font-regular-sm);
-    --dui-progress-bar-color: var(--dui-accent-fg-clr);
+    --dui-progress-bar-color: var(--dui-color);
     --dui-progress-bar-text-align: center;
     --dui-progress-bar-striped-bg-image: linear-gradient(45deg, rgba(255, 255, 255, .15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, .15) 50%, rgba(255, 255, 255, .15) 75%, transparent 75%, transparent);
     --dui-progress-bar-striped-bg-size: var(--dui-spc-px-40) var(--dui-spc-px-40);
@@ -896,6 +897,7 @@ body.dui {
 
     /* ============================ Badge =============================*/
     --dui-badge-background: var(--dui-accent);
+    --dui-badge-color: var(--dui-accent-fg-clr);
     --dui-badge-float: right;
     --dui-badge-margin: 0 0 0 var(--dui-spc-px-4);
     --dui-badge-padding: var(--dui-spc-px-3) var(--dui-spc-px-7);

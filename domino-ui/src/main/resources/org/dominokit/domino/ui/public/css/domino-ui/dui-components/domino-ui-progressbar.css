@@ -25,7 +25,7 @@
 }
 
 .dui-progress {
-    --dui-emphasis-color: var(--dui-progress-background);
+    --dui-emphasis-color: var(--dui-bg, var(--dui-progress-background));
     --dui-emphasis-native-box-shadow: var(--dui-progress-box-shadow);
     height: var(--dui-progress-hight);
     margin: var(--dui-progress-margin);
@@ -36,7 +36,7 @@
 }
 
 .dui-progress-bar {
-    --dui-emphasis-color: var(--dui-accent);
+    --dui-emphasis-color: var(--dui-bg, var(--dui-accent));
     --dui-emphasis-text-color: var(--dui-progress-bar-color);
     --dui-emphasis-native-box-shadow: var(--dui-progress-bar-box-shadow);
     display: var(--dui-progress-bar-display);

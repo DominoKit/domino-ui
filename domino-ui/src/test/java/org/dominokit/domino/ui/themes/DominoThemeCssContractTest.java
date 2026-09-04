@@ -78,6 +78,21 @@ public class DominoThemeCssContractTest {
   }
 
   @Test
+  public void badgesUseAReadableForegroundForListAndTreePaletteBackgrounds() throws IOException {
+    String defaultTheme =
+        readResource(
+            "org/dominokit/domino/ui/public/css/domino-ui/dui-components/domino-ui-theme-default.css");
+    String badges =
+        readResource(
+            "org/dominokit/domino/ui/public/css/domino-ui/dui-components/domino-ui-badge.css");
+
+    assertTrue(defaultTheme.contains("--dui-badge-color: var(--dui-accent-fg-clr);"));
+    assertTrue(
+        badges.contains("--dui-text-color: var(--dui-badge-color, var(--dui-accent-fg-clr));"));
+    assertTrue(badges.contains("color: var(--dui-text-color);"));
+  }
+
+  @Test
   public void focusIndicatorUsesAThemeAndColorModeAwareToken() throws IOException {
     String defaultTheme =
         readResource(
@@ -180,6 +195,21 @@ public class DominoThemeCssContractTest {
 
     assertTrue(defaultTheme.contains("--dui-tree-background: var(--dui-clr-dominant);"));
     assertTrue(tree.contains("background: var(--dui-tree-background);"));
+  }
+
+  @Test
+  public void lightTreeHeaderUsesTheSelectedIdentitySurfaceForContrast() throws IOException {
+    String lightTheme =
+        readResource(
+            "org/dominokit/domino/ui/public/css/domino-ui/dui-components/domino-ui-colors-light.css");
+    String tree =
+        readResource(
+            "org/dominokit/domino/ui/public/css/domino-ui/dui-components/domino-ui-tree.css");
+
+    assertTrue(lightTheme.contains("--dui-tree-header-bg-color: var(--dui-clr-dominant-l-2);"));
+    assertTrue(
+        tree.contains("background: var(--dui-tree-header-background, var(--dui-accent-l-3));"));
+    assertTrue(tree.contains(".dui-tree-item-text {\n    color: var(--dui-color);"));
   }
 
   @Test
@@ -437,7 +467,7 @@ public class DominoThemeCssContractTest {
     assertTrue(defaultTheme.contains("--dui-alert-color: var(--dui-accent-fg-clr);"));
     assertTrue(defaultTheme.contains("--dui-alert-background: var(--dui-bg);"));
     assertTrue(defaultTheme.contains("--dui-info-icon-color: var(--dui-dominant-fg-clr);"));
-    assertTrue(defaultTheme.contains("--dui-progress-bar-color: var(--dui-accent-fg-clr);"));
+    assertTrue(defaultTheme.contains("--dui-progress-bar-color: var(--dui-color);"));
     assertTrue(
         buttons.contains(
             "color: var(--dui-btn-fg-clr, var(--dui-accent-fg-clr, var(--dui-color)));"));
@@ -490,7 +520,7 @@ public class DominoThemeCssContractTest {
     assertTrue(emphasis.contains("color: var(--dui-emphasis-text-color);"));
     assertTrue(
         emphasis.contains("color-mix(in srgb, var(--dui-emphasis-color) 82%, var(--dui-color))"));
-    assertTrue(infobox.contains("--dui-emphasis-color: var(--dui-info-color);"));
+    assertTrue(infobox.contains("--dui-emphasis-color: var(--dui-bg, var(--dui-info-color));"));
   }
 
   @Test
@@ -509,6 +539,308 @@ public class DominoThemeCssContractTest {
     assertTrue(darkTheme.contains("--dui-form-field-background: var(--dui-clr-dominant-d-1);"));
     assertTrue(forms.contains(".dui-field-input-wrapper {"));
     assertTrue(forms.contains("background-color: var(--dui-form-field-background);"));
+  }
+
+  @Test
+  public void progressTextUsesIdentityForegroundAndIsCenteredByDefault() throws IOException {
+    String defaultTheme =
+        readResource(
+            "org/dominokit/domino/ui/public/css/domino-ui/dui-components/domino-ui-theme-default.css");
+    String progress =
+        readResource(
+            "org/dominokit/domino/ui/public/css/domino-ui/dui-components/domino-ui-progressbar.css");
+
+    assertTrue(defaultTheme.contains("--dui-progress-bar-color: var(--dui-color);"));
+    assertTrue(defaultTheme.contains("--dui-progress-bar-display: flex;"));
+    assertTrue(defaultTheme.contains("--dui-progress-bar-align-items: center;"));
+    assertTrue(defaultTheme.contains("--dui-progress-bar-line-height: normal;"));
+    assertTrue(progress.contains("display: var(--dui-progress-bar-display);"));
+    assertTrue(progress.contains("align-items: var(--dui-progress-bar-align-items);"));
+    assertTrue(progress.contains("line-height: var(--dui-progress-bar-line-height);"));
+  }
+
+  @Test
+  public void darkContextFormFieldsUseACloserContextSurfaceContrast() throws IOException {
+    String darkTheme =
+        readResource(
+            "org/dominokit/domino/ui/public/css/domino-ui/dui-components/domino-ui-colors-dark.css");
+    String generic =
+        readResource(
+            "org/dominokit/domino/ui/public/css/domino-ui/dui-components/domino-ui-generic.css");
+
+    assertTrue(darkTheme.contains("--dui-form-field-context-surface-weight: 75%;"));
+    assertTrue(darkTheme.contains("--dui-form-field-context-highlight-weight: 25%;"));
+    assertTrue(
+        generic.contains(
+            "--dui-form-field-background: color-mix(in srgb, var(--dui-bg) var(--dui-form-field-context-surface-weight, 20%), var(--dui-highlight-color) var(--dui-form-field-context-highlight-weight, 80%));"));
+  }
+
+  @Test
+  public void contextualFormFieldsAndSwitchesRemainVisibleOnContextSurfaces() throws IOException {
+    String generic =
+        readResource(
+            "org/dominokit/domino/ui/public/css/domino-ui/dui-components/domino-ui-generic.css");
+    String forms =
+        readResource(
+            "org/dominokit/domino/ui/public/css/domino-ui/dui-components/domino-ui-forms.css");
+
+    assertTrue(
+        generic.contains(
+            "--dui-form-field-background: color-mix(in srgb, var(--dui-bg) var(--dui-form-field-context-surface-weight, 20%), var(--dui-highlight-color) var(--dui-form-field-context-highlight-weight, 80%));"));
+    assertTrue(generic.contains("--dui-form-field-color: var(--dui-color);"));
+    assertTrue(
+        generic.contains(
+            "--dui-form-field-switch-checked-track-background: color-mix(in srgb, var(--dui-bg) 75%, var(--dui-color) 25%);"));
+    assertTrue(forms.contains("color: var(--dui-form-field-color, inherit);"));
+    assertTrue(
+        forms.contains(
+            ".dui-switch-off-label {\n"
+                + "    order: 10;\n"
+                + "    color: var(--dui-context-fg-color, var(--dui-form-field-color, inherit));"));
+    assertTrue(
+        forms.contains(
+            ".dui-switch-on-label {\n"
+                + "    order: 30;\n"
+                + "    color: var(--dui-context-fg-color, var(--dui-form-field-color, inherit));"));
+  }
+
+  @Test
+  public void accentContextUsesTheThemeAdjustedAccentSurface() throws IOException {
+    String generic =
+        readResource(
+            "org/dominokit/domino/ui/public/css/domino-ui/dui-components/domino-ui-generic.css");
+
+    assertTrue(generic.contains(".dui.dui-accent {\n"));
+    assertTrue(
+        generic.contains("    --dui-bg: var(--dui-accent);\n    --dui-bg-main: var(--dui-bg);"));
+  }
+
+  @Test
+  public void namedColorContextsUseTheirModeAwareForegroundToken() throws IOException {
+    String generic =
+        readResource(
+            "org/dominokit/domino/ui/public/css/domino-ui/dui-components/domino-ui-generic.css");
+
+    assertTrue(
+        generic.contains(
+            ".dui.dui-blue {\n"
+                + "    --dui-context-fg-color: var(--dui-blue-fg-clr);\n"
+                + "    --dui-bg-l-5: var(--dui-clr-blue-l-5);\n"
+                + "    --dui-bg-l-4: var(--dui-clr-blue-l-4);\n"
+                + "    --dui-bg-l-3: var(--dui-clr-blue-l-3);\n"
+                + "    --dui-bg-l-2: var(--dui-clr-blue-l-2);\n"
+                + "    --dui-bg-l-1: var(--dui-clr-blue-l-1);\n"
+                + "    --dui-bg: var(--dui-clr-blue);\n"
+                + "    --dui-bg-d-1: var(--dui-clr-blue-d-1);\n"
+                + "    --dui-bg-d-2: var(--dui-clr-blue-d-2);\n"
+                + "    --dui-bg-d-3: var(--dui-clr-blue-d-3);\n"
+                + "    --dui-bg-d-4: var(--dui-clr-blue-d-4);\n"
+                + "    --dui-form-field-color: var(--dui-color);\n"
+                + "    --dui-text-color: var(--dui-blue-fg-clr);\n"
+                + "}"));
+  }
+
+  @Test
+  public void blueContextKeepsComponentForegroundAndUsesNeutralFormFieldForeground()
+      throws IOException {
+    String defaultTheme =
+        readResource(
+            "org/dominokit/domino/ui/public/css/domino-ui/dui-components/domino-ui-theme-default.css");
+    String generic =
+        readResource(
+            "org/dominokit/domino/ui/public/css/domino-ui/dui-components/domino-ui-generic.css");
+
+    assertTrue(defaultTheme.contains(".dui.dui-theme-default {"));
+    assertTrue(
+        generic.contains(
+            "    --dui-context-fg-color: var(--dui-blue-fg-clr);\n"
+                + "    --dui-bg-l-5: var(--dui-clr-blue-l-5);"));
+    assertTrue(generic.contains("    --dui-form-field-color: var(--dui-color);"));
+    assertTrue(generic.contains("    --dui-text-color: var(--dui-blue-fg-clr);"));
+    assertTrue(generic.contains("    color: var(--dui-blue-fg-clr);"));
+  }
+
+  @Test
+  public void rolePalettesSeparateSourceValuesFromResolvedThemeValues() throws IOException {
+    String lightTheme =
+        readResource(
+            "org/dominokit/domino/ui/public/css/domino-ui/dui-components/domino-ui-colors-light.css");
+    String darkTheme =
+        readResource(
+            "org/dominokit/domino/ui/public/css/domino-ui/dui-components/domino-ui-colors-dark.css");
+    String colors =
+        readResource(
+            "org/dominokit/domino/ui/public/css/domino-ui/dui-components/domino-ui-colors.css");
+
+    assertTrue(lightTheme.contains("--dui-palette-primary-l-5:"));
+    assertTrue(lightTheme.contains("--dui-palette-secondary-l-5:"));
+    assertTrue(lightTheme.contains("--dui-palette-accent-l-5:"));
+    assertTrue(darkTheme.contains("--dui-palette-primary-l-5:"));
+    assertTrue(darkTheme.contains("--dui-palette-secondary-l-5:"));
+    assertTrue(darkTheme.contains("--dui-palette-accent-l-5:"));
+    assertTrue(colors.contains("--dui-clr-primary-l-5: var(--dui-palette-primary-l-5);"));
+    assertTrue(colors.contains("--dui-clr-secondary-l-5: var(--dui-palette-secondary-l-5);"));
+    assertTrue(colors.contains("--dui-clr-accent: var(--dui-accent);"));
+  }
+
+  @Test
+  public void identityThemesUseModeAwareHarmonyAnchorsAndStrengths() throws IOException {
+    for (String resource : identityThemeResources()) {
+      String css = readResource(resource);
+      String lightTheme = themeBlock(css, ".dui-colors-light");
+      String darkTheme = themeBlock(css, ".dui-colors-dark");
+
+      assertTrue(
+          resource + " light mode must use its dark identity color as the primary anchor",
+          lightTheme.contains("--dui-primary-harmony-anchor: var(--dui-color);"));
+      assertTrue(
+          resource + " light mode must use its dark identity color as the accent anchor",
+          lightTheme.contains("--dui-accent-harmony-anchor: var(--dui-color);"));
+      assertTrue(
+          resource + " light mode must visibly harmonize the accent role",
+          lightTheme.contains("--dui-accent-harmony-strength: 18%;"));
+      assertTrue(
+          resource
+              + " light mode must use a related lighter identity color as the secondary anchor",
+          lightTheme.contains("--dui-secondary-harmony-anchor: var(--dui-color-2);"));
+      assertTrue(
+          resource + " light mode must visibly harmonize the primary role",
+          lightTheme.contains("--dui-primary-harmony-strength: 55%;"));
+      assertTrue(
+          resource + " light mode must visibly harmonize the secondary role",
+          lightTheme.contains("--dui-secondary-harmony-strength: 45%;"));
+      assertTrue(
+          resource + " dark mode must use its darker identity color as the primary anchor",
+          darkTheme.contains("--dui-primary-harmony-anchor: var(--dui-color-5);"));
+      assertTrue(
+          resource + " dark mode must use its darker identity color as the accent anchor",
+          darkTheme.contains("--dui-accent-harmony-anchor: var(--dui-color-5);"));
+      assertTrue(
+          resource + " dark mode must visibly harmonize the accent role",
+          darkTheme.contains("--dui-accent-harmony-strength: 18%;"));
+      assertTrue(
+          resource
+              + " dark mode must use a related mid-tone identity color as the secondary anchor",
+          darkTheme.contains("--dui-secondary-harmony-anchor: var(--dui-color-3);"));
+      assertTrue(
+          resource + " dark mode must visibly harmonize the primary role",
+          darkTheme.contains("--dui-primary-harmony-strength: 55%;"));
+      assertTrue(
+          resource + " dark mode must visibly harmonize the secondary role",
+          darkTheme.contains("--dui-secondary-harmony-strength: 45%;"));
+    }
+  }
+
+  private String themeBlock(String css, String colorModeSelector) {
+    int start = css.indexOf(colorModeSelector);
+    int end = css.indexOf("}", start);
+    return css.substring(start, end);
+  }
+
+  @Test
+  public void primaryAndSecondaryRoleScalesAreResolvedAtRuntime() throws IOException {
+    String colors =
+        readResource(
+            "org/dominokit/domino/ui/public/css/domino-ui/dui-components/domino-ui-colors.css");
+
+    assertTrue(colors.contains("--dui-primary-harmony-strength: 0%;"));
+    assertTrue(colors.contains("--dui-secondary-harmony-strength: 0%;"));
+    assertTrue(
+        colors.contains(
+            "--dui-clr-primary: color-mix(in oklch, var(--dui-palette-primary) calc(100% - var(--dui-primary-harmony-strength)), var(--dui-primary-harmony-anchor) var(--dui-primary-harmony-strength));"));
+    assertTrue(
+        colors.contains(
+            "--dui-clr-secondary: color-mix(in oklch, var(--dui-palette-secondary) calc(100% - var(--dui-secondary-harmony-strength)), var(--dui-secondary-harmony-anchor) var(--dui-secondary-harmony-strength));"));
+  }
+
+  @Test
+  public void identityThemesDoNotRedefineStableStatusPalettes() throws IOException {
+    for (String resource : identityThemeResources()) {
+      String css = readResource(resource);
+      assertFalse(
+          resource + " must not redefine the warning palette",
+          css.contains("--dui-palette-warning:"));
+      assertFalse(
+          resource + " must not redefine the info palette", css.contains("--dui-palette-info:"));
+      assertFalse(
+          resource + " must not redefine the error palette", css.contains("--dui-palette-error:"));
+    }
+  }
+
+  @Test
+  public void neighboringIdentityThemesKeepDistinctVisualSignatures() throws IOException {
+    assertIdentityPairDistance("amber", "marigold", "light", "color", 24);
+    assertIdentityPairDistance("amber", "marigold", "dark", "clr-dominant", 24);
+    assertIdentityPairDistance("forest", "meadow", "light", "color", 24);
+    assertIdentityPairDistance("forest", "meadow", "dark", "clr-dominant", 24);
+    assertIdentityPairDistance("amethyst", "lavender", "light", "color", 24);
+    assertIdentityPairDistance("amethyst", "lavender", "dark", "clr-dominant", 24);
+    assertIdentityPairDistance("arctic", "ocean", "light", "color", 24);
+    assertIdentityPairDistance("arctic", "ocean", "dark", "clr-dominant", 24);
+    assertIdentityPairDistance("azure", "indigo", "light", "color", 24);
+    assertIdentityPairDistance("azure", "indigo", "dark", "clr-dominant", 24);
+    assertIdentityPairDistance("jade", "lagoon", "light", "color", 24);
+    assertIdentityPairDistance("jade", "lagoon", "dark", "clr-dominant", 24);
+    assertIdentityPairDistance("sandstone", "sunset", "light", "color", 24);
+    assertIdentityPairDistance("sandstone", "sunset", "dark", "clr-dominant", 24);
+    assertIdentityPairDistance("ocean", "azure", "light", "color", 24);
+    assertIdentityPairDistance("ocean", "azure", "light", "clr-dominant", 16);
+    assertIdentityPairDistance("ocean", "azure", "dark", "clr-dominant", 24);
+    assertIdentityPairDistance("ocean", "lagoon", "light", "color", 24);
+    assertIdentityPairDistance("ocean", "lagoon", "light", "clr-dominant", 16);
+    assertIdentityPairDistance("ocean", "lagoon", "dark", "clr-dominant", 24);
+    assertIdentityPairDistance("azure", "lagoon", "light", "color", 24);
+    assertIdentityPairDistance("azure", "lagoon", "light", "clr-dominant", 16);
+    assertIdentityPairDistance("azure", "lagoon", "dark", "clr-dominant", 24);
+  }
+
+  private void assertIdentityPairDistance(
+      String first, String second, String colorMode, String token, double minimumDistance)
+      throws IOException {
+    String firstCss = readResource(identityThemeResource(first));
+    String secondCss = readResource(identityThemeResource(second));
+    String firstColor = themeColor(firstCss, colorMode, token);
+    String secondColor = themeColor(secondCss, colorMode, token);
+
+    assertTrue(
+        first + " and " + second + " are too visually close in " + colorMode + " mode",
+        colorDistance(firstColor, secondColor) >= minimumDistance);
+  }
+
+  private String themeColor(String css, String colorMode, String token) {
+    String block = themeBlock(css, ".dui-colors-" + colorMode);
+    String marker = "--dui-" + token + ":";
+    int start = block.indexOf(marker) + marker.length();
+    int end = block.indexOf(";", start);
+    return block.substring(start, end).trim();
+  }
+
+  private double colorDistance(String first, String second) {
+    return Math.sqrt(
+        Math.pow(colorChannel(first, 0) - colorChannel(second, 0), 2)
+            + Math.pow(colorChannel(first, 1) - colorChannel(second, 1), 2)
+            + Math.pow(colorChannel(first, 2) - colorChannel(second, 2), 2));
+  }
+
+  private int colorChannel(String color, int channel) {
+    int offset = 1 + channel * 2;
+    return Integer.parseInt(color.substring(offset, offset + 2), 16);
+  }
+
+  private String identityThemeResource(String theme) {
+    return "org/dominokit/domino/ui/public/css/domino-ui/themes/identity/domino-ui-theme-"
+        + theme
+        + ".css";
+  }
+
+  @Test
+  public void cardsClipContentAtTheirRoundedBoundary() throws IOException {
+    String cards =
+        readResource(
+            "org/dominokit/domino/ui/public/css/domino-ui/dui-components/domino-ui-cards.css");
+
+    assertTrue(cards.contains(".dui-card {"));
+    assertTrue(cards.contains("overflow: hidden;"));
   }
 
   @Test
@@ -597,9 +929,13 @@ public class DominoThemeCssContractTest {
     assertTrue(defaultTheme.contains("--dui-card-nested-background:"));
     assertTrue(defaultTheme.contains("--dui-card-nested-2-background:"));
     assertTrue(defaultTheme.contains("--dui-card-nested-3-background:"));
-    assertTrue(lightTheme.contains("--dui-card-nested-background: var(--dui-clr-dominant-l-3);"));
-    assertTrue(lightTheme.contains("--dui-card-nested-2-background: var(--dui-clr-dominant-l-2);"));
-    assertTrue(lightTheme.contains("--dui-card-nested-3-background: var(--dui-clr-dominant-d-1);"));
+    assertTrue(
+        lightTheme.contains(
+            "--dui-card-nested-background: color-mix(in srgb, var(--dui-clr-dominant-l-3) 75%, var(--dui-clr-dominant-l-1) 25%);"));
+    assertTrue(
+        lightTheme.contains(
+            "--dui-card-nested-2-background: color-mix(in srgb, var(--dui-clr-dominant-l-2) 50%, var(--dui-clr-dominant-d-2) 50%);"));
+    assertTrue(lightTheme.contains("--dui-card-nested-3-background: var(--dui-clr-dominant-d-2);"));
     assertTrue(darkTheme.contains("--dui-card-nested-background: var(--dui-clr-dominant-l-1);"));
     assertTrue(darkTheme.contains("--dui-card-nested-2-background: var(--dui-clr-dominant-l-2);"));
     assertTrue(darkTheme.contains("--dui-card-nested-3-background: var(--dui-clr-dominant-l-3);"));
@@ -609,6 +945,22 @@ public class DominoThemeCssContractTest {
     assertTrue(cards.contains("background-color: var(--dui-card-nested-2-background);"));
     assertTrue(cards.contains(".dui-card .dui-card .dui-card .dui-card {"));
     assertTrue(cards.contains("background-color: var(--dui-card-nested-3-background);"));
+  }
+
+  @Test
+  public void lightIdentityThemesKeepTheLightNestedCardContrast() throws IOException {
+    String expectedNestedBackground =
+        "--dui-card-nested-background: color-mix(in srgb, var(--dui-clr-dominant-l-3) 75%, var(--dui-clr-dominant-l-1) 25%);";
+
+    for (String resource : identityThemeResources()) {
+      String css = readResource(resource);
+      String lightTheme =
+          css.substring(
+              css.indexOf(".dui-colors-light"), css.indexOf("}", css.indexOf(".dui-colors-light")));
+      assertTrue(
+          resource + " must use the light nested-card contrast",
+          lightTheme.contains(expectedNestedBackground));
+    }
   }
 
   @Test
@@ -651,6 +1003,57 @@ public class DominoThemeCssContractTest {
                 + "    border-top-right-radius: inherit;\n"
                 + "    border-bottom-left-radius: 0;\n"
                 + "    border-bottom-right-radius: 0;"));
+  }
+
+  @Test
+  public void cardsExposeAComposableContentColumn() throws IOException {
+    String cards =
+        readResource(
+            "org/dominokit/domino/ui/public/css/domino-ui/dui-components/domino-ui-cards.css");
+
+    assertTrue(cards.contains(".dui-card-content {"));
+    assertTrue(cards.contains("display: flex;"));
+    assertTrue(cards.contains("flex-direction: column;"));
+    assertTrue(cards.contains(".dui-card-content-header:empty,"));
+    assertTrue(cards.contains(".dui-card-content-footer:empty {"));
+    assertTrue(
+        cards.contains(
+            ".dui-card-content-header,\n.dui-card-content-footer {\n    flex: 0 0 auto;\n    padding: 0;\n    margin: 0;"));
+    assertTrue(cards.contains(".dui-card-content-header {\n    order: 10;"));
+    assertTrue(cards.contains(".dui-card-content-footer {\n    order: 30;"));
+    assertTrue(cards.contains("flex: 1 1 auto;"));
+  }
+
+  @Test
+  public void collapsedCardsHideTheHeaderContentBoundaryBorder() throws IOException {
+    String defaultTheme =
+        readResource(
+            "org/dominokit/domino/ui/public/css/domino-ui/dui-components/domino-ui-theme-default.css");
+    String cards =
+        readResource(
+            "org/dominokit/domino/ui/public/css/domino-ui/dui-components/domino-ui-cards.css");
+
+    assertTrue(defaultTheme.contains("--dui-card-collapsed-header-border-width: 0;"));
+    assertTrue(
+        cards.contains(
+            ".dui-card.dui-collapsed .dui-card-header {\n"
+                + "    --dui-card-head-border-width: var(--dui-card-collapsed-header-border-width, 0);"));
+  }
+
+  @Test
+  public void elevatedSurfaceKeepsBordersWhenComposedWithBorderedSurface() throws IOException {
+    String elevated =
+        readResource(
+            "org/dominokit/domino/ui/public/css/domino-ui/themes/surface/domino-ui-theme-elevated.css");
+
+    assertTrue(
+        elevated.contains(
+            ".dui.dui-theme-elevated:not(.dui-theme-bordered) :is(.dui-card, .dui-dialog, .dui-menu, .dui-tree, .dui-datatable-responsive) {\n"
+                + "    border: 0;"));
+    assertFalse(
+        elevated.contains(
+            ".dui.dui-theme-elevated :is(.dui-card, .dui-dialog, .dui-menu, .dui-tree, .dui-datatable-responsive) {\n"
+                + "    border: 0;"));
   }
 
   @Test
@@ -716,7 +1119,7 @@ public class DominoThemeCssContractTest {
     assertTrue(emphasis.contains("body.dui .dui-emphasis-subtle"));
     assertTrue(emphasis.contains("body.dui .dui-emphasis-minimal"));
     assertTrue(emphasis.contains("body.dui .dui-emphasis-filled"));
-    assertTrue(emphasis.contains("--dui-emphasis-fill-strength: 14%;"));
+    assertTrue(emphasis.contains("--dui-emphasis-fill-strength: 8%;"));
     assertTrue(emphasis.contains("--dui-emphasis-fill-strength: 0%;"));
     assertTrue(emphasis.contains("--dui-emphasis-ring-width: 1px;"));
     assertTrue(emphasis.contains("--dui-emphasis-ring-width: 0px;"));
@@ -748,18 +1151,32 @@ public class DominoThemeCssContractTest {
     assertTrue(buttons.contains("--dui-emphasis-native-box-shadow: var(--dui-btn-box-shadow);"));
     assertTrue(emphasis.contains("color-mix(in srgb, var(--dui-emphasis-color)"));
     assertTrue(emphasis.contains("var(--dui-emphasis-ring-width"));
-    assertTrue(badges.contains("--dui-emphasis-color: var(--dui-badge-background);"));
-    assertTrue(chips.contains("--dui-emphasis-color: var(--dui-accent"));
-    assertTrue(alerts.contains("--dui-emphasis-color: var(--dui-alert-background);"));
+    assertTrue(
+        badges.contains("--dui-emphasis-color: var(--dui-bg, var(--dui-badge-background));"));
+    assertTrue(
+        chips.contains(
+            "--dui-emphasis-color: var(--dui-bg, var(--dui-accent, var(--dui-chip-background)));"));
+    assertTrue(chips.contains(".dui-chip:not([class*=\"dui-bg\"]):not(.dui-ctx)"));
+    assertTrue(alerts.contains("--dui-emphasis-color: var(--dui-bg);"));
     assertTrue(alerts.contains(".dui-alert.dui-info"));
     assertTrue(alerts.contains(".dui-alert.dui-warning"));
     assertTrue(alerts.contains("--dui-emphasis-color: var(--dui-bg);"));
     assertTrue(alerts.contains("--dui-emphasis-text-color: var(--dui-color);"));
-    assertTrue(infobox.contains("--dui-emphasis-color: var(--dui-info-color);"));
+    assertTrue(infobox.contains("--dui-emphasis-color: var(--dui-bg, var(--dui-info-color));"));
     assertFalse(menu.contains("--dui-emphasis-color"));
-    assertTrue(cards.contains("--dui-emphasis-color: var(--dui-accent);"));
-    assertTrue(progress.contains("--dui-emphasis-color: var(--dui-accent);"));
+    assertTrue(cards.contains("--dui-emphasis-color: var(--dui-bg, var(--dui-accent));"));
+    assertTrue(progress.contains("--dui-emphasis-color: var(--dui-bg, var(--dui-accent));"));
     assertTrue(progress.contains("--dui-emphasis-text-color: var(--dui-progress-bar-color);"));
+  }
+
+  @Test
+  public void alertsKeepPaletteContextForEmphasisModifiers() throws IOException {
+    String alerts =
+        readResource(
+            "org/dominokit/domino/ui/public/css/domino-ui/dui-components/domino-ui-alert.css");
+
+    assertTrue(alerts.contains(".dui-alert:not(.dui-ctx)"));
+    assertTrue(alerts.contains("--dui-emphasis-color: var(--dui-bg);"));
   }
 
   @Test
@@ -793,6 +1210,29 @@ public class DominoThemeCssContractTest {
   private List<String> accentScaleSlots() {
     return Arrays.asList(
         "-l-5", "-l-4", "-l-3", "-l-2", "-l-1", "", "-d-1", "-d-2", "-d-3", "-d-4");
+  }
+
+  private List<String> identityThemeResources() {
+    String prefix = "org/dominokit/domino/ui/public/css/domino-ui/themes/identity/";
+    return Arrays.asList(
+        prefix + "domino-ui-theme-amber.css",
+        prefix + "domino-ui-theme-amethyst.css",
+        prefix + "domino-ui-theme-arctic.css",
+        prefix + "domino-ui-theme-azure.css",
+        prefix + "domino-ui-theme-crimson.css",
+        prefix + "domino-ui-theme-forest.css",
+        prefix + "domino-ui-theme-graphite.css",
+        prefix + "domino-ui-theme-indigo.css",
+        prefix + "domino-ui-theme-jade.css",
+        prefix + "domino-ui-theme-lagoon.css",
+        prefix + "domino-ui-theme-lavender.css",
+        prefix + "domino-ui-theme-lime.css",
+        prefix + "domino-ui-theme-marigold.css",
+        prefix + "domino-ui-theme-meadow.css",
+        prefix + "domino-ui-theme-ocean.css",
+        prefix + "domino-ui-theme-rose.css",
+        prefix + "domino-ui-theme-sandstone.css",
+        prefix + "domino-ui-theme-sunset.css");
   }
 
   private List<String> readFileList() throws IOException {

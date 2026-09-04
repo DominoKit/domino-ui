@@ -12,8 +12,9 @@ Load the core stylesheet first:
 <link rel="stylesheet" href="/webjars/domino-ui/css/domino-ui/domino-ui.css">
 ```
 
-The core stylesheet contains component styles and the built-in default, light/dark, and accent
-color support. Optional themes are packaged separately in the `domino-ui-themes.css` aggregate:
+The core stylesheet contains component styles and the built-in default, light/dark, primary,
+secondary, and accent color-role support. Optional themes are packaged separately in the
+`domino-ui-themes.css` aggregate:
 
 ```html
 <link rel="stylesheet" href="/webjars/domino-ui/css/domino-ui/themes/domino-ui-themes.css">
@@ -61,12 +62,41 @@ The core stylesheet provides these categories:
 | --- | --- | --- |
 | Main theme | `dui-theme-default` | Component dimensions, typography, and base tokens. |
 | Color mode | `dui-colors-light`, `dui-colors-dark` | Light or dark neutral surfaces and foreground colors. |
+| Color roles | `dui-primary`, `dui-secondary`, `dui-accent` | Theme-aware application roles with lighter/darker scales. |
 | Accent | `dui-accent-blue`, `dui-accent-teal`, `dui-accent-purple` | The application accent and its lighter/darker scale. |
 
 The accent system retains five lighter options, the base accent, and four darker options. Accent
 values are harmonized at runtime with the selected visual identity so the accent keeps its original
 identity while fitting the application’s overall palette. No build-time color generation is
 required.
+
+### Theme-aware color roles
+
+Primary and secondary roles are also harmonized with the selected visual identity. Their resolved
+scales continue to use the existing `--dui-clr-primary-*` and `--dui-clr-secondary-*` variables,
+including five lighter values, the base value, and four darker values. Identity themes use their
+own color scales as strong runtime anchors, so switching identity produces an obvious related
+primary and secondary family in both color modes. The fixed color-mode fallback palettes are
+available as `--dui-palette-primary-*` and `--dui-palette-secondary-*` source tokens.
+
+Identity themes provide these runtime controls:
+
+```css
+.dui.dui-theme-example.dui-colors-light {
+    --dui-primary-harmony-anchor: #234f68;
+    --dui-primary-harmony-strength: 55%;
+    --dui-secondary-harmony-anchor: #5c7890;
+    --dui-secondary-harmony-strength: 45%;
+}
+```
+
+For dark mode, identity themes anchor the roles to the darker end of their identity scale. The
+default identity profiles use 55% for primary, 45% for secondary, and 18% for accent harmony;
+custom themes can tune these scoped strengths when they need a different balance.
+
+Explicit accent choices remain composable and continue to override the accent source before identity
+harmony is applied. Warning, info, and error remain stable semantic palettes in the current
+implementation; only their mode-aware foreground and component-specific contrast treatment varies.
 
 ## Optional theme catalog
 

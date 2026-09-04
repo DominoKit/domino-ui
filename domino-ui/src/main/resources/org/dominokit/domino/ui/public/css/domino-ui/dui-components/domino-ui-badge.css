@@ -1,5 +1,6 @@
 .dui-badge {
-    --dui-emphasis-color: var(--dui-badge-background);
+    --dui-emphasis-color: var(--dui-bg, var(--dui-badge-background));
+    --dui-text-color: var(--dui-badge-color, var(--dui-accent-fg-clr));
     position: relative;
     float: var(--dui-badge-float);
     margin: var(--dui-badge-margin);
@@ -11,7 +12,7 @@
     vertical-align: middle;
     border-radius: var(--dui-badge-radius);
     background-color: var(--dui-badge-background);
-    color: var(--dui-fg-l-5, var(--dui-accent-l-5));
+    color: var(--dui-text-color);
     flex-shrink: 0;
     display: flex;
     align-items: center;

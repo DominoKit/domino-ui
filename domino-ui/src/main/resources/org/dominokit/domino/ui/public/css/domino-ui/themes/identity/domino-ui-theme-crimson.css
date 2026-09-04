@@ -8,7 +8,11 @@
 /* Crimson visual identity: a confident red family for action-oriented applications. */
 .dui.dui-theme-crimson.dui-colors-light {
     --dui-accent-harmony-anchor: var(--dui-color);
-    --dui-accent-harmony-strength: 8%;
+    --dui-accent-harmony-strength: 18%;
+    --dui-primary-harmony-anchor: var(--dui-color);
+    --dui-primary-harmony-strength: 55%;
+    --dui-secondary-harmony-anchor: var(--dui-color-2);
+    --dui-secondary-harmony-strength: 45%;
     --dui-color: #5a1f2b;
     --dui-color-1: #7a3041;
     --dui-color-2: #995066;
@@ -29,15 +33,19 @@
     --dui-clr-dominant-d-3: #d2a7b3;
     --dui-clr-dominant-d-4: #b97d8d;
     --dui-card-background: var(--dui-clr-dominant-l-4);
-    --dui-card-nested-background: var(--dui-clr-dominant-l-3);
+    --dui-card-nested-background: color-mix(in srgb, var(--dui-clr-dominant-l-3) 75%, var(--dui-clr-dominant-l-1) 25%);
     --dui-card-nested-2-background: var(--dui-clr-dominant-l-2);
     --dui-card-nested-3-background: var(--dui-clr-dominant-d-1);
     --dui-menu-background-color: var(--dui-clr-dominant-l-5);
 }
 
 .dui.dui-theme-crimson.dui-colors-dark {
-    --dui-accent-harmony-anchor: var(--dui-color);
-    --dui-accent-harmony-strength: 8%;
+    --dui-accent-harmony-anchor: var(--dui-color-5);
+    --dui-accent-harmony-strength: 18%;
+    --dui-primary-harmony-anchor: var(--dui-color-5);
+    --dui-primary-harmony-strength: 55%;
+    --dui-secondary-harmony-anchor: var(--dui-color-3);
+    --dui-secondary-harmony-strength: 45%;
     --dui-color: #fff0f3;
     --dui-color-1: #f3cad3;
     --dui-color-2: #dc9eac;
@@ -63,5 +71,3 @@
     --dui-card-nested-3-background: var(--dui-clr-dominant-l-4);
     --dui-menu-background-color: var(--dui-clr-dominant-l-1);
 }
-
-

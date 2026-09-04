@@ -1,8 +1,6 @@
 .dui-alert {
-    --dui-bg: var(--dui-accent);
-    --dui-bg-d-2: var(--dui-accent-d-2);
     --dui-text-color: var(--dui-color);
-    --dui-emphasis-color: var(--dui-alert-background);
+    --dui-emphasis-color: var(--dui-bg);
     --dui-emphasis-native-box-shadow: var(--dui-alert-box-shadow);
     padding: var(--dui-alert-padding);
     margin: var(--dui-alert-margin);
@@ -14,6 +12,12 @@
     box-shadow: var(--dui-alert-box-shadow);
     display: flex;
     align-items: center;
+}
+
+/* Uncontextualized alerts use the accent surface by default. */
+.dui-alert:not(.dui-ctx) {
+    --dui-bg: var(--dui-accent);
+    --dui-bg-d-2: var(--dui-accent-d-2);
 }
 
 /* Keep contextual alert colors when a subtle or minimal emphasis is applied. */

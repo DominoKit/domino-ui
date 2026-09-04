@@ -16,7 +16,7 @@ body.dui {
 
 body.dui .dui-emphasis-subtle,
 body.dui.dui-emphasis-subtle {
-    --dui-emphasis-fill-strength: 14%;
+    --dui-emphasis-fill-strength: 8%;
     --dui-emphasis-ring-width: 1px;
     --dui-emphasis-border: 1px solid var(--dui-emphasis-color);
     --dui-emphasis-border-width: 1px;

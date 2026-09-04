@@ -257,6 +257,7 @@ fieldset.dui {
     display: flex;
     border: var(--dui-form-field-border);
     background-color: var(--dui-form-field-background);
+    color: var(--dui-form-field-color, inherit);
     padding: var(--dui-form-field-wrapper-padding);
     align-items: center;
     border-radius: var(--dui-form-field-wrapper-radius);
@@ -805,6 +806,7 @@ textarea.dui-field-input {
 
 .dui-switch-off-label {
     order: 10;
+    color: var(--dui-context-fg-color, var(--dui-form-field-color, inherit));
     flex-grow: var(--dui-switch-off-label-grow, 0);
     text-align: var(--dui-switch-off-label-text-align, left);
     margin: var(--dui-form-field-switch-off-label-margin);
@@ -816,6 +818,7 @@ textarea.dui-field-input {
 
 .dui-switch-on-label {
     order: 30;
+    color: var(--dui-context-fg-color, var(--dui-form-field-color, inherit));
     flex-grow: var(--dui-switch-on-label-grow, 0);
     text-align: var(--dui-switch-on-label-text-align, left);
     margin: var(--dui-form-field-switch-on-label-margin);

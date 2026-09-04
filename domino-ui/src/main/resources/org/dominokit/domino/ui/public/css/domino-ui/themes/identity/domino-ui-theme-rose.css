@@ -7,7 +7,11 @@
  */
 .dui.dui-theme-rose.dui-colors-light {
     --dui-accent-harmony-anchor: var(--dui-color);
-    --dui-accent-harmony-strength: 8%;
+    --dui-accent-harmony-strength: 18%;
+    --dui-primary-harmony-anchor: var(--dui-color);
+    --dui-primary-harmony-strength: 55%;
+    --dui-secondary-harmony-anchor: var(--dui-color-2);
+    --dui-secondary-harmony-strength: 45%;
     --dui-color: #4b2f3d;
     --dui-color-1: #6d4b5b;
     --dui-color-2: #916d7c;
@@ -28,15 +32,19 @@
     --dui-clr-dominant-d-3: #d0b0be;
     --dui-clr-dominant-d-4: #b78a9d;
     --dui-card-background: var(--dui-clr-dominant-l-4);
-    --dui-card-nested-background: var(--dui-clr-dominant-l-3);
+    --dui-card-nested-background: color-mix(in srgb, var(--dui-clr-dominant-l-3) 75%, var(--dui-clr-dominant-l-1) 25%);
     --dui-card-nested-2-background: var(--dui-clr-dominant-l-2);
     --dui-card-nested-3-background: var(--dui-clr-dominant-d-1);
     --dui-menu-background-color: var(--dui-clr-dominant-l-5);
 }
 
 .dui.dui-theme-rose.dui-colors-dark {
-    --dui-accent-harmony-anchor: var(--dui-color);
-    --dui-accent-harmony-strength: 8%;
+    --dui-accent-harmony-anchor: var(--dui-color-5);
+    --dui-accent-harmony-strength: 18%;
+    --dui-primary-harmony-anchor: var(--dui-color-5);
+    --dui-primary-harmony-strength: 55%;
+    --dui-secondary-harmony-anchor: var(--dui-color-3);
+    --dui-secondary-harmony-strength: 45%;
     --dui-color: #fff0f5;
     --dui-color-1: #f0d2df;
     --dui-color-2: #d4a9bd;
@@ -62,5 +70,3 @@
     --dui-card-nested-3-background: var(--dui-clr-dominant-l-4);
     --dui-menu-background-color: var(--dui-clr-dominant-l-1);
 }
-
-

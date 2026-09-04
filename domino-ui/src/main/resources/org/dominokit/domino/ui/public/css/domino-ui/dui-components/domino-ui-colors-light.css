@@ -50,38 +50,38 @@
     --dui-clr-dominant-d-3: #adadad;
     --dui-clr-dominant-d-4: #797979;
 
-    --dui-clr-accent-l-5: #ECEFF1;
-    --dui-clr-accent-l-4: #CFD8DC;
-    --dui-clr-accent-l-3: #B0BEC5;
-    --dui-clr-accent-l-2: #90A4AE;
-    --dui-clr-accent-l-1: #78909C;
-    --dui-clr-accent: #607D8B;
-    --dui-clr-accent-d-1: #546E7A;
-    --dui-clr-accent-d-2: #455A64;
-    --dui-clr-accent-d-3: #37474F;
-    --dui-clr-accent-d-4: #263238;
+    --dui-palette-accent-l-5: #ECEFF1;
+    --dui-palette-accent-l-4: #CFD8DC;
+    --dui-palette-accent-l-3: #B0BEC5;
+    --dui-palette-accent-l-2: #90A4AE;
+    --dui-palette-accent-l-1: #78909C;
+    --dui-palette-accent: #607D8B;
+    --dui-palette-accent-d-1: #546E7A;
+    --dui-palette-accent-d-2: #455A64;
+    --dui-palette-accent-d-3: #37474F;
+    --dui-palette-accent-d-4: #263238;
 
-    --dui-clr-primary-l-5: #E8EAF6;
-    --dui-clr-primary-l-4: #C5CAE9;
-    --dui-clr-primary-l-3: #9FA8DA;
-    --dui-clr-primary-l-2: #7986CB;
-    --dui-clr-primary-l-1: #5C6BC0;
-    --dui-clr-primary: #3F51B5;
-    --dui-clr-primary-d-1: #3949AB;
-    --dui-clr-primary-d-2: #303F9F;
-    --dui-clr-primary-d-3: #283593;
-    --dui-clr-primary-d-4: #1A237E;
+    --dui-palette-primary-l-5: #E8EAF6;
+    --dui-palette-primary-l-4: #C5CAE9;
+    --dui-palette-primary-l-3: #9FA8DA;
+    --dui-palette-primary-l-2: #7986CB;
+    --dui-palette-primary-l-1: #5C6BC0;
+    --dui-palette-primary: #3F51B5;
+    --dui-palette-primary-d-1: #3949AB;
+    --dui-palette-primary-d-2: #303F9F;
+    --dui-palette-primary-d-3: #283593;
+    --dui-palette-primary-d-4: #1A237E;
 
-    --dui-clr-secondary-l-5: #ECEFF1;
-    --dui-clr-secondary-l-4: #CFD8DC;
-    --dui-clr-secondary-l-3: #B0BEC5;
-    --dui-clr-secondary-l-2: #90A4AE;
-    --dui-clr-secondary-l-1: #78909C;
-    --dui-clr-secondary: #607D8B;
-    --dui-clr-secondary-d-1: #546E7A;
-    --dui-clr-secondary-d-2: #455A64;
-    --dui-clr-secondary-d-3: #37474F;
-    --dui-clr-secondary-d-4: #263238;
+    --dui-palette-secondary-l-5: #ECEFF1;
+    --dui-palette-secondary-l-4: #CFD8DC;
+    --dui-palette-secondary-l-3: #B0BEC5;
+    --dui-palette-secondary-l-2: #90A4AE;
+    --dui-palette-secondary-l-1: #78909C;
+    --dui-palette-secondary: #607D8B;
+    --dui-palette-secondary-d-1: #546E7A;
+    --dui-palette-secondary-d-2: #455A64;
+    --dui-palette-secondary-d-3: #37474F;
+    --dui-palette-secondary-d-4: #263238;
 
     --dui-clr-success-l-5: #E8F5E9;
     --dui-clr-success-l-4: #C8E6C9;
@@ -358,16 +358,16 @@
     --dui-clr-black-d-3: #262626;
     --dui-clr-black-d-4: #0d0d0d;
 
-    --dui-accent-source-l-5: var(--dui-clr-accent-l-5);
-    --dui-accent-source-l-4: var(--dui-clr-accent-l-4);
-    --dui-accent-source-l-3: var(--dui-clr-accent-l-3);
-    --dui-accent-source-l-2: var(--dui-clr-accent-l-2);
-    --dui-accent-source-l-1: var(--dui-clr-accent-l-1);
-    --dui-accent-source: var(--dui-clr-accent);
-    --dui-accent-source-d-1: var(--dui-clr-accent-d-1);
-    --dui-accent-source-d-2: var(--dui-clr-accent-d-2);
-    --dui-accent-source-d-3: var(--dui-clr-accent-d-3);
-    --dui-accent-source-d-4: var(--dui-clr-accent-d-4);
+    --dui-accent-source-l-5: var(--dui-palette-accent-l-5);
+    --dui-accent-source-l-4: var(--dui-palette-accent-l-4);
+    --dui-accent-source-l-3: var(--dui-palette-accent-l-3);
+    --dui-accent-source-l-2: var(--dui-palette-accent-l-2);
+    --dui-accent-source-l-1: var(--dui-palette-accent-l-1);
+    --dui-accent-source: var(--dui-palette-accent);
+    --dui-accent-source-d-1: var(--dui-palette-accent-d-1);
+    --dui-accent-source-d-2: var(--dui-palette-accent-d-2);
+    --dui-accent-source-d-3: var(--dui-palette-accent-d-3);
+    --dui-accent-source-d-4: var(--dui-palette-accent-d-4);
 
     /* ================ Box shadow ========================== */
     --dui-shadow-clr-1: #00000033;
@@ -375,9 +375,9 @@
     --dui-shadow-clr-3: #0000001f;
 
     /* ================== Overrides ======================= */
-    --dui-card-nested-background: var(--dui-clr-dominant-l-3);
-    --dui-card-nested-2-background: var(--dui-clr-dominant-l-2);
-    --dui-card-nested-3-background: var(--dui-clr-dominant-d-1);
+    --dui-card-nested-background: color-mix(in srgb, var(--dui-clr-dominant-l-3) 75%, var(--dui-clr-dominant-l-1) 25%);
+    --dui-card-nested-2-background: color-mix(in srgb, var(--dui-clr-dominant-l-2) 50%, var(--dui-clr-dominant-d-2) 50%);
+    --dui-card-nested-3-background: var(--dui-clr-dominant-d-2);
     --dui-card-header-border-color: var(--dui-clr-accent-l-5);
     --dui-tree-item-hover-color: var(--dui-accent-d-4);
     --dui-tree-item-active-color: var(--dui-accent-d-3);
@@ -412,7 +412,7 @@
     --dui-accent-text-color: var(--dui-clr-white);
     --dui-thumbnail-border-color: var(--dui-accent-l-4);
     --dui-thumbnail-border-active-color: var(--dui-accent-l-3);
-    --dui-tree-header-bg-color: var(--dui-accent-l-3);
+    --dui-tree-header-bg-color: var(--dui-clr-dominant-l-2);
     --dui-list-group-item-hover-background: var(--dui-accent-l-4);
     --dui-list-group-item-selected-background: var(--dui-accent);
     --dui-form-field-disabled-background: var(--dui-clr-grey-l-4);

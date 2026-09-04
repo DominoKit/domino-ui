@@ -13,8 +13,7 @@
     --dui-dialog-box-shadow: var(--dui-box-shadow-10);
 }
 
-.dui.dui-theme-elevated :is(.dui-card, .dui-dialog, .dui-menu, .dui-tree, .dui-datatable-responsive) {
+.dui.dui-theme-elevated:not(.dui-theme-bordered) :is(.dui-card, .dui-dialog, .dui-menu, .dui-tree, .dui-datatable-responsive) {
     border: 0;
 }
-
 

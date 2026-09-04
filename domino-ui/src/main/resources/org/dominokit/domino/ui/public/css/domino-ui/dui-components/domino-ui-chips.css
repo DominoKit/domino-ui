@@ -1,6 +1,6 @@
 .dui-chip {
-    --dui-emphasis-color: var(--dui-accent, var(--dui-bg, var(--dui-chip-background)));
-    background-color: var(--dui-accent, var(--dui-bg, var(--dui-chip-background)));
+    --dui-emphasis-color: var(--dui-bg, var(--dui-accent, var(--dui-chip-background)));
+    background-color: var(--dui-bg, var(--dui-accent, var(--dui-chip-background)));
     border-radius: var(--dui-chip-border-radius);
     min-width: var(--dui-chip-min-width);
     height: var(--dui-chip-height);
@@ -15,8 +15,7 @@
     color: var(--dui-accent-fg-clr, var(--dui-text-color));
 }
 
-.dui-chip:not([class*="dui-bg"]) {
-    --dui-bg: var(--dui-accent, var(--dui-bg, var(--dui-chip-background)));
+.dui-chip:not([class*="dui-bg"]):not(.dui-ctx) {
     --dui-bg-d-2: var(--dui-accent-d-2, var(--dui-bg-d-2, var(--dui-chip-background)));
 }
 

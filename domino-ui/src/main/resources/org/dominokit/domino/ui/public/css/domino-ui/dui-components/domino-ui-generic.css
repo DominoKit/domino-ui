@@ -74,7 +74,7 @@
     --dui-bg-l-3: var(--dui-accent-l-3);
     --dui-bg-l-2: var(--dui-accent-l-2);
     --dui-bg-l-1: var(--dui-accent-l-1);
-    --dui-bg: var(--dui-clr-accent);
+    --dui-bg: var(--dui-accent);
     --dui-bg-main: var(--dui-bg);
     --dui-bg-d-1: var(--dui-accent-d-1);
     --dui-bg-d-2: var(--dui-accent-d-2);
@@ -134,6 +134,22 @@
 
 .dui.dui-accent:not(.dui-ignore-fg) {
     color: var(--dui-accent-fg-clr);
+}
+
+/* Keep form controls legible when they are placed on a contextual surface. */
+.dui.dui-primary,
+.dui.dui-secondary,
+.dui.dui-accent,
+.dui.dui-success,
+.dui.dui-info,
+.dui.dui-warning,
+.dui.dui-error {
+    --dui-form-field-background: color-mix(in srgb, var(--dui-bg) var(--dui-form-field-context-surface-weight, 20%), var(--dui-highlight-color) var(--dui-form-field-context-highlight-weight, 80%));
+    --dui-form-field-color: var(--dui-color);
+    --dui-form-field-switch-track-background: color-mix(in srgb, var(--dui-bg) 55%, var(--dui-highlight-color) 45%);
+    --dui-form-field-switch-checked-track-background: color-mix(in srgb, var(--dui-bg) 75%, var(--dui-color) 25%);
+    --dui-form-field-switch-thumb-background: var(--dui-color);
+    --dui-form-field-switch-checked-thumb-background: var(--dui-highlight-color);
 }
 
 .dui.dui-success {
@@ -339,6 +355,7 @@
 }
 
 .dui.dui-blue {
+    --dui-context-fg-color: var(--dui-blue-fg-clr);
     --dui-bg-l-5: var(--dui-clr-blue-l-5);
     --dui-bg-l-4: var(--dui-clr-blue-l-4);
     --dui-bg-l-3: var(--dui-clr-blue-l-3);
@@ -349,7 +366,8 @@
     --dui-bg-d-2: var(--dui-clr-blue-d-2);
     --dui-bg-d-3: var(--dui-clr-blue-d-3);
     --dui-bg-d-4: var(--dui-clr-blue-d-4);
-    --dui-text-color: var(--dui-clr-white);
+    --dui-form-field-color: var(--dui-color);
+    --dui-text-color: var(--dui-blue-fg-clr);
 }
 
 .dui.dui-blue:not(.dui-ignore-bg) {
