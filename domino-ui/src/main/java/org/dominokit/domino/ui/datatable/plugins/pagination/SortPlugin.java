@@ -75,6 +75,25 @@ public class SortPlugin<T>
       column.getHeadElement().addCss(dui_cursor_pointer, dui_disable_text_select);
       column
           .getHeadElement()
+          .setAttribute("tabindex", "0")
+          .setAttribute("aria-sort", "none")
+          .onKeyDown(
+              keyEvents ->
+                  keyEvents
+                      .onEnter(
+                          evt ->
+                              applySort(
+                                  column,
+                                  sortContext,
+                                  sortContext.sortDirection.next(config.isTriStateSort())))
+                      .onSpace(
+                          evt ->
+                              applySort(
+                                  column,
+                                  sortContext,
+                                  sortContext.sortDirection.next(config.isTriStateSort()))));
+      column
+          .getHeadElement()
           .addEventListener(
               EventType.click.getName(),
               evt -> {
@@ -116,6 +135,7 @@ public class SortPlugin<T>
         currentSortContext.sortElement.clearElement();
       }
       updateSort(sortContext, sortDirection);
+      updateAriaSort(column, sortDirection);
       fireSortEvent(sortDirection, column);
       currentSortContext.sortElement.appendChild(sortContext.sortIcon);
     }
@@ -140,7 +160,18 @@ public class SortPlugin<T>
     SortContext sortContext = sortContainers.get(column.getSortKey());
     sortContext.sortDirection = direction;
     updateSort(sortContext, direction);
+    updateAriaSort(column, direction);
     fireSortEvent(direction, column);
+  }
+
+  private void updateAriaSort(ColumnConfig<T> column, SortDirection direction) {
+    String value = "none";
+    if (SortDirection.ASC.equals(direction)) {
+      value = "ascending";
+    } else if (SortDirection.DESC.equals(direction)) {
+      value = "descending";
+    }
+    column.getHeadElement().setAttribute("aria-sort", value);
   }
 
   /**

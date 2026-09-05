@@ -58,6 +58,7 @@ public class Tooltip extends BasePopover<Tooltip> {
   }
 
   private final EventListener showListener;
+  private final EventListener focusListener;
   private final Consumer<Tooltip> removeHandler;
   private Timer timer;
   private final LazyInitializer timerInit;
@@ -127,6 +128,7 @@ public class Tooltip extends BasePopover<Tooltip> {
   public Tooltip(Node content) {
     setAttribute("dui-tooltip", true);
     addCss(dui_tooltip);
+    setAttribute("role", "tooltip");
     appendChild(content);
 
     this.timerInit =
@@ -162,12 +164,22 @@ public class Tooltip extends BasePopover<Tooltip> {
             }
           }
         };
+    focusListener =
+        evt -> {
+          evt.stopPropagation();
+          close = false;
+          if (!isAttached()) {
+            expand();
+          }
+        };
     addEventListener("click", closeListener);
 
     removeHandler =
         tooltip -> {
           getTargetElement().removeEventListener(EventType.mouseenter.getName(), showListener);
           getTargetElement().removeEventListener(EventType.mouseleave.getName(), closeListener);
+          getTargetElement().removeEventListener(EventType.focus.getName(), focusListener);
+          getTargetElement().removeEventListener(EventType.blur.getName(), closeListener);
         };
     setCollapseStrategy(
         new AnimationCollapseStrategy(
@@ -188,12 +200,19 @@ public class Tooltip extends BasePopover<Tooltip> {
   @Override
   protected void setTargetElement(Element target) {
     super.setTargetElement(target);
+    targetElement.setAttribute("aria-describedby", getDominoId());
     targetElement.addEventListener(EventType.mouseenter.getName(), showListener, false);
     targetElement.addEventListener(EventType.mouseleave.getName(), closeListener, false);
+    targetElement.addEventListener(EventType.focus.getName(), focusListener, false);
+    targetElement.addEventListener(EventType.blur.getName(), closeListener, false);
   }
 
   @Override
   protected void doCleanup() {
+    if (nonNull(getTargetElement())
+        && getDominoId().equals(getTargetElement().getAttribute("aria-describedby"))) {
+      getTargetElement().removeAttribute("aria-describedby");
+    }
     detach();
   }
 
@@ -205,10 +224,7 @@ public class Tooltip extends BasePopover<Tooltip> {
   @Override
   protected EventListener getCloseListener() {
     return evt -> {
-      if (evt instanceof MouseEvent) {
-        MouseEvent mouseEvent = Js.uncheckedCast(evt);
-        getTimer().schedule(300);
-      }
+      getTimer().schedule(300);
     };
   }
 

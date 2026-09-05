@@ -150,10 +150,12 @@ public abstract class AbstractSelect<
         });
 
     labelForId(inputElement.getDominoId());
+    updateInputAccessibility();
 
     optionsMenu =
         Menu.<T>create()
             .addCss(dui_select_menu)
+            .setAttribute("role", "listbox")
             .setOpenMenuCondition(menu -> !(isReadOnly() || isDisabled()))
             .setDropDirection(DropDirection.BEST_MIDDLE_DOWN_UP)
             .setMenuAppendTarget(body().element())
@@ -172,8 +174,22 @@ public abstract class AbstractSelect<
                         .ifPresent(
                             meta ->
                                 onOptionDeselected(meta.getOption(), isChangeListenersPaused())))
-            .addOpenListener((menu) -> focus())
-            .addCloseListener(menu -> focus());
+            .addOpenListener(
+                menu -> {
+                  getInputElement().setAttribute("aria-expanded", true);
+                  focus();
+                })
+            .addCloseListener(
+                menu -> {
+                  getInputElement().setAttribute("aria-expanded", false);
+                  focus();
+                });
+
+    getInputElement()
+        .setAttribute("role", "combobox")
+        .setAttribute("aria-expanded", false)
+        .setAttribute("aria-controls", optionsMenu.getDominoId())
+        .setAttribute("aria-autocomplete", "none");
 
     getInputElement()
         .onKeyDown(
@@ -186,9 +202,9 @@ public abstract class AbstractSelect<
             Icons.chevron_down()
                 .addCss(dui_form_select_drop_arrow)
                 .clickable()
+                .setAttribute("aria-label", "Open options")
                 .setAttribute("tabindex", getConfig().isTabFocusSelectArrowEnabled() ? "0" : "-1")
-                .setAttribute(
-                    "aria-expanded", getConfig().isTabFocusSelectArrowEnabled() ? "true" : "false")
+                .setAttribute("aria-expanded", false)
                 .addClickListener(
                     evt -> {
                       evt.stopPropagation();

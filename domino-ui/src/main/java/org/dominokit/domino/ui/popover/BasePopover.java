@@ -125,7 +125,7 @@ public abstract class BasePopover<T extends BasePopover<T>>
             close();
           }
         };
-    setAttribute(DUI_COLLAPSED, "true");
+    setAttribute(DUI_COLLAPSED, "true").setAttribute("aria-hidden", true);
     lostFocusListener =
         evt -> {
           if (isCloseOnBlur()) {
@@ -259,6 +259,7 @@ public abstract class BasePopover<T extends BasePopover<T>>
 
   private void openPopover() {
     body().appendChild(root.element());
+    setAttribute("aria-hidden", false);
     super.expand();
     doPosition();
     if (!isCloseOnScroll()) {
@@ -304,6 +305,7 @@ public abstract class BasePopover<T extends BasePopover<T>>
    * removes the popover element, and triggers collapse listeners.
    */
   protected void doClose() {
+    setAttribute("aria-hidden", true);
     followOnScroll.stop();
     element().remove();
     body().removeEventListener(EventType.keydown.getName(), closeListener);

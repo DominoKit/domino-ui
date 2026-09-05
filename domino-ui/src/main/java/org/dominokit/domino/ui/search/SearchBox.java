@@ -98,6 +98,7 @@ public class SearchBox extends BaseDominoElement<HTMLDivElement, SearchBox>
     searchIcon =
         Icons.magnify()
             .clickable()
+            .setAttribute("aria-label", "Search")
             .addClickListener(
                 evt -> {
                   autoSearchTimer.cancel();
@@ -108,6 +109,7 @@ public class SearchBox extends BaseDominoElement<HTMLDivElement, SearchBox>
     clearIcon =
         Icons.close()
             .clickable()
+            .setAttribute("aria-label", getLabels().defaultQuickSearchClearToolTip())
             .setTooltip(getLabels().defaultQuickSearchClearToolTip(), DropDirection.BEST_FIT_SIDE)
             .addClickListener(
                 evt -> {

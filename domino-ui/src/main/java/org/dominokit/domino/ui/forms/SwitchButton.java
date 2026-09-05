@@ -140,6 +140,7 @@ public class SwitchButton extends InputFormField<SwitchButton, HTMLInputElement,
         };
     trackElement.addClickListener(listener);
     getInputElement().onKeyDown(keyEvents -> keyEvents.onEnter(listener));
+    getInputElement().setAttribute("role", "switch").setAttribute("aria-checked", false);
     setDefaultValue(false);
     labelElement.get();
   }
@@ -414,6 +415,7 @@ public class SwitchButton extends InputFormField<SwitchButton, HTMLInputElement,
   @Override
   protected void doSetValue(Boolean value) {
     withPauseChangeListenersToggle(true, field -> getInputElement().element().checked = value);
+    getInputElement().setAttribute("aria-checked", value);
   }
 
   /**

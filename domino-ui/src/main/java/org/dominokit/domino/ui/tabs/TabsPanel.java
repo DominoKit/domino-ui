@@ -82,7 +82,9 @@ public class TabsPanel extends BaseDominoElement<HTMLDivElement, TabsPanel>
                     div()
                         .addCss(dui_tabs_main_nav)
                         .appendChild(leadingNav = div().addCss(dui_tabs_leading_nav))
-                        .appendChild(tabsListElement = ul().addCss(dui_tabs_nav))
+                        .appendChild(
+                            tabsListElement =
+                                ul().addCss(dui_tabs_nav).setAttribute("role", "tablist"))
                         .appendChild(tailNav = div().addCss(dui_tabs_tail_nav)))
             .appendChild(tabsContent = elementOf(div().addCss(dui_tabs_content).element()));
 
@@ -135,6 +137,14 @@ public class TabsPanel extends BaseDominoElement<HTMLDivElement, TabsPanel>
                 evt -> {
                   activateTab(tab);
                 });
+        elementOf(tab.getClickableElement())
+            .onKeyDown(
+                keyEvents ->
+                    keyEvents
+                        .onArrowRight(evt -> focusAdjacentTab(tab, 1))
+                        .onArrowDown(evt -> focusAdjacentTab(tab, 1))
+                        .onArrowLeft(evt -> focusAdjacentTab(tab, -1))
+                        .onArrowUp(evt -> focusAdjacentTab(tab, -1)));
         tab.setParent(this);
       }
       return this;
@@ -146,6 +156,21 @@ public class TabsPanel extends BaseDominoElement<HTMLDivElement, TabsPanel>
             + "], acceptable range is [0 - "
             + tabs.size()
             + "]");
+  }
+
+  private void focusAdjacentTab(Tab current, int direction) {
+    int index = tabs.indexOf(current);
+    int next = index + direction;
+    if (next >= tabs.size()) {
+      next = 0;
+    } else if (next < 0) {
+      next = tabs.size() - 1;
+    }
+    Tab target = tabs.get(next);
+    target.getClickableElement().focus();
+    if (autoActivate) {
+      activateTab(target);
+    }
   }
 
   /**

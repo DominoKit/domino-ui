@@ -95,7 +95,7 @@ public class AbstractMenuItem<V> extends BaseDominoElement<HTMLElement, Abstract
     linkElement =
         a("#")
             .setAttribute("tabindex", "0")
-            .setAttribute("aria-expanded", "true")
+            .setAttribute("role", "menuitem")
             .addCss(dui_menu_item_anchor)
             .appendChild(prefixElement = div().addCss(dui_menu_item_prefix))
             .appendChild(bodyElement = div().addCss(dui_menu_item_body))
@@ -455,8 +455,18 @@ public class AbstractMenuItem<V> extends BaseDominoElement<HTMLElement, Abstract
       this.menu.setTargetElement(this);
       this.menu.setDropDirection(new BestFitSideDropDirection());
       this.menu.setParentItem(this);
+      linkElement
+          .setAttribute("aria-haspopup", true)
+          .setAttribute("aria-expanded", false)
+          .setAttribute("aria-controls", this.menu.getDominoId());
+      this.menu
+          .addOpenListener(opened -> linkElement.setAttribute("aria-expanded", true))
+          .addCloseListener(closed -> linkElement.setAttribute("aria-expanded", false));
     } else {
       this.indicatorIcon.remove();
+      linkElement.removeAttribute("aria-haspopup");
+      linkElement.removeAttribute("aria-expanded");
+      linkElement.removeAttribute("aria-controls");
     }
     return this;
   }

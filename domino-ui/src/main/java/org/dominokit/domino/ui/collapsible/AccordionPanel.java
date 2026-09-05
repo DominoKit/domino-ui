@@ -58,15 +58,36 @@ public class AccordionPanel extends BaseDominoElement<HTMLDivElement, AccordionP
                         .appendChild(bodyElement = div().addCss(dui_panel_body)));
     init(this);
 
-    headerElement =
-        LazyChild.of(NavBar.create().addCss(dui_panel_header).setAttribute("role", "tab"), element);
+    headerElement = LazyChild.of(NavBar.create().addCss(dui_panel_header), element);
+    headerElement.whenInitialized(
+        () -> {
+          headerElement
+              .element()
+              .setAttribute("role", "button")
+              .setAttribute("tabindex", "0")
+              .setAttribute("aria-controls", contentElement.getDominoId())
+              .setAttribute("aria-expanded", false)
+              .onKeyDown(
+                  keyEvents ->
+                      keyEvents
+                          .onEnter(evt -> headerElement.element().element().click())
+                          .onSpace(evt -> headerElement.element().element().click()));
+        });
 
     contentHeader = LazyChild.of(NavBar.create().addCss(dui_panel_content_header), contentElement);
     contentFooter = LazyChild.of(NavBar.create().addCss(dui_panel_footer), contentElement);
     setCollapseStrategy(getConfig().getDefaultAccordionCollapseStrategySupplier().get());
 
-    addExpandListener(() -> addCss(dui_active));
-    addCollapseListener(() -> removeCss(dui_active));
+    addExpandListener(
+        () -> {
+          addCss(dui_active);
+          headerElement.get().setAttribute("aria-expanded", true);
+        });
+    addCollapseListener(
+        () -> {
+          removeCss(dui_active);
+          headerElement.get().setAttribute("aria-expanded", false);
+        });
     collapse();
   }
 

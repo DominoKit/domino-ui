@@ -47,6 +47,7 @@ public class RemoveButton extends BaseDominoElement<HTMLButtonElement, RemoveBut
     button =
         button()
             .addCss(GenericCss.dui_close)
+            .setAttribute("aria-label", "Remove")
             .appendChild(span().addCss(dui_close_char).textContent("×"));
     init(this);
   }

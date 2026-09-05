@@ -38,7 +38,11 @@ public abstract class BaseAlert<A extends BaseAlert<A>> extends BaseDominoElemen
 
   /** Creates an alert without specific context. */
   protected BaseAlert() {
-    element = div().addCss(dui_alert).appendChild(bodyElement = div().addCss(dui_alert_body));
+    element =
+        div()
+            .addCss(dui_alert)
+            .setAttribute("role", "alert")
+            .appendChild(bodyElement = div().addCss(dui_alert_body));
     removeButton = LazyChild.of(RemoveButton.create().addClickListener(evt -> remove()), element);
     init((A) this);
   }

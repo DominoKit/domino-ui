@@ -85,12 +85,16 @@ public class Search extends BaseDominoElement<HTMLDivElement, Search>
     this.closeIcon =
         Icons.close()
             .clickable()
+            .setAttribute("aria-label", "Close search")
             .addClickListener(
                 evt -> {
                   evt.stopPropagation();
                   close();
                 });
-    this.searchInput = input("text").setAttribute("placeholder", getLabels().getStartTyping());
+    this.searchInput =
+        input("text")
+            .setAttribute("placeholder", getLabels().getStartTyping())
+            .setAttribute("aria-label", "Search");
     this.element =
         div()
             .addCss(dui_search_bar, dui_h_full)

@@ -80,7 +80,7 @@ public class TableRow<T> extends BaseDominoElement<HTMLTableRowElement, TableRow
     this.dataTable = dataTable;
     this.element = tr;
     init(this);
-    addCss(dui_datatable_row);
+    addCss(dui_datatable_row).setAttribute("aria-selected", false);
   }
 
   /**
@@ -95,7 +95,7 @@ public class TableRow<T> extends BaseDominoElement<HTMLTableRowElement, TableRow
     this.index = index;
     this.dataTable = dataTable;
     init(this);
-    addCss(dui_datatable_row);
+    addCss(dui_datatable_row).setAttribute("aria-selected", false);
   }
 
   /**
@@ -136,6 +136,7 @@ public class TableRow<T> extends BaseDominoElement<HTMLTableRowElement, TableRow
     if (this.isSelectable() && this.dataTable.isSelectable()) {
       if (!hasFlag(DataTable.DATA_TABLE_ROW_FILTERED)) {
         this.selected = true;
+        setAttribute("aria-selected", true);
         if (selectChildren) {
           getChildren().forEach(TableRow::select);
         }
@@ -181,6 +182,7 @@ public class TableRow<T> extends BaseDominoElement<HTMLTableRowElement, TableRow
    */
   private TableRow<T> doDeselect(boolean deselectParent, boolean deselectChildren) {
     this.selected = false;
+    setAttribute("aria-selected", false);
     if (deselectChildren) {
       getChildren().forEach(tableRow -> tableRow.doDeselect(false, true));
     }

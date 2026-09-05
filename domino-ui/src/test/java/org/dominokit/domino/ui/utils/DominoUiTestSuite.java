@@ -18,6 +18,13 @@ package org.dominokit.domino.ui.utils;
 import com.google.gwt.junit.tools.GWTTestSuite;
 import junit.framework.Test;
 import junit.framework.TestSuite;
+import org.dominokit.domino.ui.accessibility.AccessibilityTest;
+import org.dominokit.domino.ui.accessibility.AnnouncementsAccessibilityTest;
+import org.dominokit.domino.ui.accessibility.CalendarAccessibilityTest;
+import org.dominokit.domino.ui.accessibility.CompositeWidgetsAccessibilityTest;
+import org.dominokit.domino.ui.accessibility.FormAccessibilityTest;
+import org.dominokit.domino.ui.accessibility.InteractiveControlsAccessibilityTest;
+import org.dominokit.domino.ui.accessibility.NavigationAccessibilityTest;
 import org.dominokit.domino.ui.cards.CardTest;
 import org.dominokit.domino.ui.forms.suggest.MultiSelectTest;
 import org.dominokit.domino.ui.popover.TooltipTest;
@@ -41,6 +48,13 @@ public class DominoUiTestSuite extends GWTTestSuite {
     suite.addTestSuite(DominoCssThemeTest.class);
     suite.addTestSuite(LegacyThemeCompatibilityTest.class);
     suite.addTestSuite(TooltipTest.class);
+    suite.addTestSuite(AccessibilityTest.class);
+    suite.addTestSuite(InteractiveControlsAccessibilityTest.class);
+    suite.addTestSuite(CompositeWidgetsAccessibilityTest.class);
+    suite.addTestSuite(FormAccessibilityTest.class);
+    suite.addTestSuite(AnnouncementsAccessibilityTest.class);
+    suite.addTestSuite(NavigationAccessibilityTest.class);
+    suite.addTestSuite(CalendarAccessibilityTest.class);
 
     return suite;
   }

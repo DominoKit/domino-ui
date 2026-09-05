@@ -99,7 +99,11 @@ public class Carousel extends BaseDominoElement<HTMLDivElement, Carousel>
                             prevIcon =
                                 Icons.chevron_left()
                                     .addCss(GenericCss.dui_vertical_center, dui_font_size_12))
-                        .addEventListener("click", evt -> previous()))
+                        .setAttribute("aria-label", "Previous slide")
+                        .addEventListener("click", evt -> previous())
+                        .onKeyDown(
+                            keyEvents ->
+                                keyEvents.onEnter(evt -> previous()).onSpace(evt -> previous())))
             .appendChild(
                 nextElement =
                     a().addCss(slide_right, carousel_control)
@@ -108,7 +112,10 @@ public class Carousel extends BaseDominoElement<HTMLDivElement, Carousel>
                             nextIcon =
                                 Icons.chevron_right()
                                     .addCss(GenericCss.dui_vertical_center, dui_font_size_12))
-                        .addEventListener("click", evt -> next()))
+                        .setAttribute("aria-label", "Next slide")
+                        .addEventListener("click", evt -> next())
+                        .onKeyDown(
+                            keyEvents -> keyEvents.onEnter(evt -> next()).onSpace(evt -> next())))
             .addCss(carousel);
     timer =
         new Timer() {

@@ -19,6 +19,7 @@ import static org.dominokit.domino.ui.utils.Domino.dui_clickable;
 
 import elemental2.dom.EventListener;
 import elemental2.dom.HTMLElement;
+import org.dominokit.domino.ui.accessibility.Accessibility;
 import org.dominokit.domino.ui.events.EventType;
 import org.dominokit.domino.ui.style.GenericCss;
 import org.dominokit.domino.ui.style.SwapCssClass;
@@ -100,7 +101,8 @@ public abstract class Icon<T extends Icon<T>> extends BaseDominoElement<HTMLElem
       withWaves();
     }
     setAttribute("tabindex", "0");
-    setAttribute("aria-expanded", "true");
+    setAttribute("role", "button");
+    Accessibility.activateOnEnterAndSpace(this, evt -> element().click());
     return (T) this;
   }
 
@@ -116,7 +118,7 @@ public abstract class Icon<T extends Icon<T>> extends BaseDominoElement<HTMLElem
     } else {
       GenericCss.dui_clickable.remove(this);
       removeAttribute("tabindex");
-      removeAttribute("aria-expanded");
+      removeAttribute("role");
       removeWaves();
     }
     return (T) this;

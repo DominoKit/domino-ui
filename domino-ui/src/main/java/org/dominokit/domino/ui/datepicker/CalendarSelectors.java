@@ -78,6 +78,7 @@ public class CalendarSelectors extends BaseDominoElement<HTMLDivElement, Calenda
                 previousIcon
                     .addCss(dui_calendar_selectors_previous)
                     .clickable()
+                    .setAttribute("aria-label", "Previous month")
                     .addClickListener(
                         evt -> {
                           toPreviousMonth();
@@ -86,18 +87,33 @@ public class CalendarSelectors extends BaseDominoElement<HTMLDivElement, Calenda
                 yearElement =
                     div()
                         .addCss(dui_calendar_selectors_year)
+                        .setAttribute("role", "button")
+                        .setAttribute("tabindex", "0")
+                        .onKeyDown(
+                            keyEvents ->
+                                keyEvents
+                                    .onEnter(evt -> yearElement.element().click())
+                                    .onSpace(evt -> yearElement.element().click()))
                         .addClickListener(
                             evt -> dispatchEvent(CalendarCustomEvents.selectYearMonth())))
             .appendChild(
                 monthElement =
                     div()
                         .addCss(dui_calendar_selectors_month)
+                        .setAttribute("role", "button")
+                        .setAttribute("tabindex", "0")
+                        .onKeyDown(
+                            keyEvents ->
+                                keyEvents
+                                    .onEnter(evt -> monthElement.element().click())
+                                    .onSpace(evt -> monthElement.element().click()))
                         .addClickListener(
                             evt -> dispatchEvent(CalendarCustomEvents.selectYearMonth())))
             .appendChild(
                 nextIcon
                     .addCss(dui_calendar_selectors_next)
                     .clickable()
+                    .setAttribute("aria-label", "Next month")
                     .addClickListener(
                         evt -> {
                           toNextMonth();

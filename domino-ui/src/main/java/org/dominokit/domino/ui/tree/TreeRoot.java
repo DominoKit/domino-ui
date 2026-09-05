@@ -80,9 +80,13 @@ public abstract class TreeRoot<V, N extends TreeNode<V, N, S>, C extends TreeRoo
     this.rootElement =
         div()
             .addCss(dui_tree)
+            .setAttribute("role", "tree")
             .appendChild(
                 bodyElement =
-                    div().addCss(dui_tree_body).appendChild(subTree = ul().addCss(dui_tree_nav)));
+                    div()
+                        .addCss(dui_tree_body)
+                        .appendChild(
+                            subTree = ul().addCss(dui_tree_nav).setAttribute("role", "group")));
     headerElement = LazyChild.of(TreeHeader.create(), rootElement);
     init((C) this);
   }

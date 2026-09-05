@@ -124,7 +124,12 @@ public class RichTextEditor extends BaseDominoElement<HTMLDivElement, RichTextEd
                         .apply(
                             self ->
                                 actions.forEach(action -> self.appendChild(action.apply(this)))))
-            .appendChild(editableElement.setAttribute("contenteditable", "true"));
+            .appendChild(
+                editableElement
+                    .setAttribute("contenteditable", "true")
+                    .setAttribute("role", "textbox")
+                    .setAttribute("aria-multiline", true)
+                    .setAttribute("aria-label", "Rich text editor"));
     init(this);
   }
 

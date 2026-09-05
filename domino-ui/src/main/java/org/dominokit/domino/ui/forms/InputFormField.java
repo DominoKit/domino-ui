@@ -53,6 +53,7 @@ public abstract class InputFormField<T extends InputFormField<T, E, V>, E extend
     inputElement.setAttribute("spellcheck", getConfig().isSpellCheckEnabled());
     labelForId(inputElement.getDominoId());
     wrapperElement.appendChild(inputElement);
+    updateInputAccessibility();
     InputFieldInitializer.create((T) this).init((HasInputElement<T, HTMLElement>) this);
   }
 

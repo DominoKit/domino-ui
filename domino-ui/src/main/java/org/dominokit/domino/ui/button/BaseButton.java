@@ -134,6 +134,16 @@ public abstract class BaseButton<E extends HTMLElement, B extends BaseButton<E, 
     return (B) this;
   }
 
+  /** Sets the accessible name for this button, useful for icon-only buttons. */
+  public B setAriaLabel(String label) {
+    if (nonNull(label) && !label.isEmpty()) {
+      buttonElement.setAttribute("aria-label", label);
+    } else {
+      buttonElement.removeAttribute("aria-label");
+    }
+    return (B) this;
+  }
+
   /**
    * {@inheritDoc}
    *

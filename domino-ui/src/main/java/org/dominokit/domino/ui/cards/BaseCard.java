@@ -660,6 +660,10 @@ public abstract class BaseCard<C extends BaseCard<C>> extends BaseDominoElement<
                         mainHeader);
                 collapseElement.whenInitialized(
                     () -> {
+                      collapseIcon
+                          .setAttribute("aria-label", "Toggle card")
+                          .setAttribute("aria-controls", content.getDominoId())
+                          .setAttribute("aria-expanded", !isCollapsed());
                       collapseElement.element().addClickListener(evt -> toggleCollapse());
                       collapseElement
                           .element()
@@ -672,9 +676,15 @@ public abstract class BaseCard<C extends BaseCard<C>> extends BaseDominoElement<
       content.getCollapsible().getStrategy().cleanup(content.element());
     }
     content.addCollapseListener(
-        () -> collapseHandlers.forEach(handler -> handler.onCollapsed((C) BaseCard.this)));
+        () -> {
+          collapseIcon.setAttribute("aria-expanded", false);
+          collapseHandlers.forEach(handler -> handler.onCollapsed((C) BaseCard.this));
+        });
     content.addExpandListener(
-        () -> expandHandlers.forEach(handler -> handler.onExpanded((C) BaseCard.this)));
+        () -> {
+          collapseIcon.setAttribute("aria-expanded", true);
+          expandHandlers.forEach(handler -> handler.onExpanded((C) BaseCard.this));
+        });
 
     return (C) this;
   }
@@ -726,6 +736,7 @@ public abstract class BaseCard<C extends BaseCard<C>> extends BaseDominoElement<
   public C expand() {
     content.getCollapsible().expand();
     collapseIcon.toggle();
+    collapseIcon.setAttribute("aria-expanded", true);
     expandHandlers.forEach(handler -> handler.onExpanded((C) this));
     removeCss(() -> "dui-collapsed");
     return (C) this;
@@ -740,6 +751,7 @@ public abstract class BaseCard<C extends BaseCard<C>> extends BaseDominoElement<
   public C collapse() {
     content.getCollapsible().collapse();
     collapseIcon.toggle();
+    collapseIcon.setAttribute("aria-expanded", false);
     collapseHandlers.forEach(handler -> handler.onCollapsed((C) this));
     addCss(() -> "dui-collapsed");
     return (C) this;

@@ -61,9 +61,13 @@ public class DropdownButton<T extends BaseButton<?, T>, V>
     this.button
         .setAttribute("data-toggle", "dropdown")
         .setAttribute("aria-haspopup", true)
-        .setAttribute("aria-expanded", true)
+        .setAttribute("aria-expanded", false)
+        .setAttribute("aria-controls", menu.getDominoId())
         .setAttribute("type", "button");
     this.button.setDropMenu(this.menu);
+    this.menu
+        .addOpenListener(opened -> this.button.setAttribute("aria-expanded", true))
+        .addCloseListener(closed -> this.button.setAttribute("aria-expanded", false));
     init(this);
   }
 

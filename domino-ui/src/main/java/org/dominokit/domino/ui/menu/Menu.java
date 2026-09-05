@@ -104,7 +104,7 @@ public class Menu<V> extends BaseMenu<V, Menu<V>, AbstractMenuItem<V>, AbstractM
 
   /** Default constructor to initialize the Menu component. */
   public Menu() {
-    menuElement = div().addCss(dui_menu);
+    menuElement = div().addCss(dui_menu).setAttribute("role", "menu");
     setMenuAppendTarget(document.body);
     menuHeader = LazyChild.of(NavBar.create(), menuElement);
     menuSearchContainer = LazyChild.of(div().addCss(dui_menu_search), menuElement);

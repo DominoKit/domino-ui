@@ -372,9 +372,7 @@ public interface ElementsFactoryDelegate {
    * @return A new {@link AnchorElement} with default attributes.
    */
   default AnchorElement a() {
-    return new AnchorElement(dom.a())
-        .setAttribute("tabindex", "0")
-        .setAttribute("aria-expanded", "true");
+    return new AnchorElement(dom.a()).setAttribute("tabindex", "0");
   }
 
   /**
@@ -384,9 +382,7 @@ public interface ElementsFactoryDelegate {
    * @return A new {@link AnchorElement} with the specified href attribute.
    */
   default AnchorElement a(String href) {
-    return new AnchorElement(dom.a())
-        .setAttribute("href", href)
-        .setAttribute("aria-expanded", "true");
+    return new AnchorElement(dom.a()).setAttribute("href", href);
   }
 
   /**
@@ -397,10 +393,7 @@ public interface ElementsFactoryDelegate {
    * @return A new {@link AnchorElement} with the specified href and target attributes.
    */
   default AnchorElement a(String href, String target) {
-    return new AnchorElement(dom.a())
-        .setAttribute("href", href)
-        .setAttribute("target", target)
-        .setAttribute("aria-expanded", "true");
+    return new AnchorElement(dom.a()).setAttribute("href", href).setAttribute("target", target);
   }
 
   /**

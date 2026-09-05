@@ -71,6 +71,9 @@ public class ProgressBar extends BaseDominoElement<HTMLDivElement, ProgressBar>
         div()
             .addCss(dui_progress_bar)
             .setAttribute("role", "progressbar")
+            .setAttribute("aria-valuemin", "0")
+            .setAttribute("aria-valuemax", String.valueOf(maxValue))
+            .setAttribute("aria-valuenow", "0")
             .appendChild(textElement = span().addCss(dui_progress_text));
     this.maxValue = maxValue;
     this.textExpression = textExpression;
@@ -126,6 +129,7 @@ public class ProgressBar extends BaseDominoElement<HTMLDivElement, ProgressBar>
   public ProgressBar setValue(double value) {
     if (value >= 0 && value <= maxValue) {
       this.value = value;
+      element.setAttribute("aria-valuenow", String.valueOf(value));
       updateWidth();
     }
     return this;

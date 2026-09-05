@@ -74,11 +74,15 @@ public class Notification extends BaseDominoElement<HTMLDivElement, Notification
     root =
         div()
             .addCss(dui_notification_wrapper, position)
+            .setAttribute("role", "status")
+            .setAttribute("aria-live", "polite")
             .appendChild(
                 element =
                     div()
                         .appendChild(content = div().addCss(dui_order_first))
-                        .addCss(dui_notification));
+                        .addCss(dui_notification)
+                        .setAttribute("role", "status")
+                        .setAttribute("aria-live", "polite"));
     messageSpan = LazyChild.of(span(), content);
     closeButton = LazyChild.of(RemoveButton.create().addCss(dui_order_last), element);
     closeButton.whenInitialized(

@@ -126,6 +126,8 @@ public class AbstractDialog<T extends AbstractDialog<T>>
                 modalElement =
                     div()
                         .addCss(dui_dialog)
+                        .setAttribute("role", "dialog")
+                        .setAttribute("aria-modal", true)
                         .appendChild(
                             contentElement =
                                 div()
@@ -133,8 +135,9 @@ public class AbstractDialog<T extends AbstractDialog<T>>
                                     .appendChild(bodyElement = div().addCss(dui_dialog_body))));
     init((T) this);
 
-    headerElement =
-        LazyChild.of(div().addCss(dui_dialog_header).setAttribute("role", "tab"), modalElement);
+    headerElement = LazyChild.of(div().addCss(dui_dialog_header), modalElement);
+    headerElement.whenInitialized(
+        () -> modalElement.setAttribute("aria-labelledby", headerElement.element().getDominoId()));
 
     contentHeader = LazyChild.of(div().addCss(dui_dialog_content_header), contentElement);
     contentFooter = LazyChild.of(div().addCss(dui_dialog_footer), contentElement);
@@ -462,6 +465,7 @@ public class AbstractDialog<T extends AbstractDialog<T>>
    */
   public T setModal(boolean modal) {
     this.modal = modal;
+    modalElement.setAttribute("aria-modal", modal);
     return (T) this;
   }
 

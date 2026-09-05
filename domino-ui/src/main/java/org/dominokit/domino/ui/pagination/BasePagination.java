@@ -82,14 +82,35 @@ public abstract class BasePagination<T extends BasePagination<T>>
 
   /** Creates a new BasePagination instance. */
   public BasePagination() {
-    pager = nav().addCss(dui_pager).appendChild(pagesList = ul().addCss(dui_pager_list));
+    pager =
+        nav()
+            .addCss(dui_pager)
+            .setAttribute("role", "navigation")
+            .setAttribute("aria-label", "Pagination")
+            .appendChild(pagesList = ul().addCss(dui_pager_list));
 
     init((T) this);
     pagesList
-        .appendChild(firstPage = PagerNavItem.nav(Icons.skip_previous()).collapse())
-        .appendChild(prevPage = PagerNavItem.nav(Icons.chevron_left()))
-        .appendChild(nextPage = PagerNavItem.nav(Icons.chevron_right()))
-        .appendChild(lastPage = PagerNavItem.nav(Icons.skip_next()).collapse());
+        .appendChild(
+            firstPage =
+                PagerNavItem.nav(Icons.skip_previous())
+                    .withLink((item, link) -> link.setAttribute("aria-label", "First page"))
+                    .collapse())
+        .appendChild(
+            prevPage =
+                PagerNavItem.nav(Icons.chevron_left())
+                    .withLink(
+                        (item, link) -> link.setAttribute("aria-label", labels.getPreviousLabel())))
+        .appendChild(
+            nextPage =
+                PagerNavItem.nav(Icons.chevron_right())
+                    .withLink(
+                        (item, link) -> link.setAttribute("aria-label", labels.getNextLabel())))
+        .appendChild(
+            lastPage =
+                PagerNavItem.nav(Icons.skip_next())
+                    .withLink((item, link) -> link.setAttribute("aria-label", "Last page"))
+                    .collapse());
   }
 
   /**
@@ -366,9 +387,15 @@ public abstract class BasePagination<T extends BasePagination<T>>
   void gotoPage(PagerNavItem pagerNavItem) {
     if (nonNull(activePage)) {
       activePage.getLink().removeCss(dui_active);
+      activePage.getLink().removeAttribute("aria-current");
     }
     if (nonNull(pagerNavItem)) {
       pagerNavItem.getLink().addCss(BooleanCssClass.of(dui_active, markActivePage));
+      if (markActivePage) {
+        pagerNavItem.getLink().setAttribute("aria-current", "page");
+      } else {
+        pagerNavItem.getLink().removeAttribute("aria-current");
+      }
       activePage = pagerNavItem;
     }
   }
