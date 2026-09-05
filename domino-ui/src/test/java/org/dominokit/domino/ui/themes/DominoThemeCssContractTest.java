@@ -214,6 +214,28 @@ public class DominoThemeCssContractTest {
   }
 
   @Test
+  public void searchTextAndPlaceholderFollowTheSearchForeground() throws IOException {
+    String search =
+        readResource(
+            "org/dominokit/domino/ui/public/css/domino-ui/dui-components/domino-ui-search.css");
+
+    assertTrue(
+        search.contains(
+            "--dui-search-placeholder-color: color-mix(in srgb, currentColor 75%, transparent);"));
+    assertTrue(search.contains(".dui-quick-search .dui-field-input-wrapper"));
+    assertTrue(search.contains("background-color: var(--dui-accent-l-2);"));
+    assertTrue(search.contains("color: var(--dui-accent-fg-clr);"));
+    assertTrue(
+        search.contains(
+            "color: var(--dui-accent-fg-clr);\n    --dui-search-placeholder-color: color-mix(in srgb, currentColor 75%, transparent);"));
+    assertTrue(search.contains(".dui-quick-search .dui-field-input {"));
+    assertTrue(search.contains("color: inherit;"));
+    assertTrue(search.contains(".dui-quick-search .dui-field-input::placeholder"));
+    assertTrue(search.contains("color: var(--dui-search-placeholder-color);"));
+    assertTrue(search.contains(".dui-search-bar-container input::placeholder"));
+  }
+
+  @Test
   public void recordDetailsUseAVisualIdentitySurfaceAcrossRowStates() throws IOException {
     String datatable =
         readResource(
@@ -553,7 +575,7 @@ public class DominoThemeCssContractTest {
     assertTrue(progress.contains("color: var(--dui-progress-bar-color);"));
     assertTrue(menu.contains("color: var(--dui-menu-item-selected-color);"));
     assertTrue(forms.contains("color: var(--dui-form-field-placeholder-color);"));
-    assertTrue(search.contains("color: var(--dui-form-field-placeholder-color);"));
+    assertTrue(search.contains("color: var(--dui-search-placeholder-color);"));
     assertTrue(search.contains("opacity: var(--dui-quick-search-input-placeholder-opacity);"));
 
     assertTrue(lightTheme.contains("--dui-primary-fg-clr: var(--dui-clr-white);"));
@@ -1330,6 +1352,36 @@ public class DominoThemeCssContractTest {
     assertTrue(colors.contains("--dui-accent-harmony-anchor: var(--dui-accent-source);"));
     assertTrue(colors.contains("color-mix(in oklch,"));
     assertTrue(colors.contains("calc(100% - var(--dui-accent-harmony-strength))"));
+  }
+
+  @Test
+  public void additionalAccentPalettesExposeTheCompleteColorContract() throws IOException {
+    String colors =
+        readResource(
+            "org/dominokit/domino/ui/public/css/domino-ui/dui-components/domino-ui-colors.css");
+    String lightTheme =
+        readResource(
+            "org/dominokit/domino/ui/public/css/domino-ui/dui-components/domino-ui-colors-light.css");
+    String darkTheme =
+        readResource(
+            "org/dominokit/domino/ui/public/css/domino-ui/dui-components/domino-ui-colors-dark.css");
+
+    for (String accent : Arrays.asList("coral", "emerald", "cobalt", "plum")) {
+      assertTrue(lightTheme.contains("--dui-clr-" + accent + "-l-5:"));
+      assertTrue(lightTheme.contains("--dui-" + accent + "-fg-clr:"));
+      assertTrue(darkTheme.contains("--dui-clr-" + accent + "-d-4:"));
+      assertTrue(darkTheme.contains("--dui-" + accent + "-fg-clr:"));
+      assertTrue(colors.contains(".dui[class*=\"dui-accent-" + accent + "\"]{"));
+      assertTrue(colors.contains("--dui-accent-source:var(--dui-clr-" + accent + ");"));
+      for (String slot : accentScaleSlots()) {
+        assertTrue(colors.contains(".dui.dui-fg-" + accent + slot + " {"));
+        assertTrue(colors.contains(".dui.dui-bg-" + accent + slot + " {"));
+        assertTrue(colors.contains(".dui.dui-accent-" + accent + slot + " {"));
+        assertTrue(colors.contains(".dui-context-" + accent + slot + " {"));
+      }
+      assertTrue(colors.contains("--dui-text-color: var(--dui-" + accent + "-fg-clr);"));
+      assertTrue(colors.contains("--dui-accent-text-color: var(--dui-" + accent + "-fg-clr);"));
+    }
   }
 
   @Test

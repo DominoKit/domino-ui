@@ -44,15 +44,19 @@ public class DominoThemeAccent implements IsDominoTheme, ElementsFactory, Domino
 
   // Predefined accent themes.
   public static final IsDominoTheme RED = new DominoThemeAccent(dui_accent_red);
+  public static final IsDominoTheme CORAL = new DominoThemeAccent(dui_accent_coral);
   public static final IsDominoTheme PINK = new DominoThemeAccent(dui_accent_pink);
   public static final IsDominoTheme PURPLE = new DominoThemeAccent(dui_accent_purple);
+  public static final IsDominoTheme PLUM = new DominoThemeAccent(dui_accent_plum);
   public static final IsDominoTheme DEEP_PURPLE = new DominoThemeAccent(dui_accent_deep_purple);
   public static final IsDominoTheme INDIGO = new DominoThemeAccent(dui_accent_indigo);
   public static final IsDominoTheme BLUE = new DominoThemeAccent(dui_accent_blue);
+  public static final IsDominoTheme COBALT = new DominoThemeAccent(dui_accent_cobalt);
   public static final IsDominoTheme LIGHT_BLUE = new DominoThemeAccent(dui_accent_light_blue);
   public static final IsDominoTheme CYAN = new DominoThemeAccent(dui_accent_cyan);
   public static final IsDominoTheme TEAL = new DominoThemeAccent(dui_accent_teal);
   public static final IsDominoTheme GREEN = new DominoThemeAccent(dui_accent_green);
+  public static final IsDominoTheme EMERALD = new DominoThemeAccent(dui_accent_emerald);
   public static final IsDominoTheme LIGHT_GREEN = new DominoThemeAccent(dui_accent_light_green);
   public static final IsDominoTheme LIME = new DominoThemeAccent(dui_accent_lime);
   public static final IsDominoTheme YELLOW = new DominoThemeAccent(dui_accent_yellow);

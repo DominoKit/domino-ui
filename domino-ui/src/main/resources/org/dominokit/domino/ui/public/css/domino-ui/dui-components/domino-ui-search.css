@@ -7,16 +7,30 @@
     gap: 4px;
     background-color: var(--dui-quick-search-background-color);
     color : var(--dui-quick-search-color);
+    --dui-search-placeholder-color: color-mix(in srgb, currentColor 75%, transparent);
     border-radius: var(--dui-quick-search-radius);
     --dui-form-field-readonly-border:none;
     --dui-form-field-border:none;
-    --dui-form-field-focused-border:none
+    --dui-form-field-focused-border:none;
 }
 
 /* Keep the SearchBox surface and its form-field child on the same geometry and surface. */
 .dui-quick-search .dui-field-input-wrapper {
     border-radius: var(--dui-quick-search-radius);
-    background-color: inherit;
+    background-color: var(--dui-accent-l-2);
+    color: var(--dui-accent-fg-clr);
+    --dui-search-placeholder-color: color-mix(in srgb, currentColor 75%, transparent);
+}
+
+/* Contextual palette classes can set a form-field color that is not suitable for the search
+ * surface. Search text must follow the search root's resolved foreground instead. */
+.dui-quick-search .dui-field-input {
+    color: inherit;
+}
+
+.dui-quick-search .dui-field-input::placeholder {
+    color: var(--dui-search-placeholder-color);
+    opacity: var(--dui-quick-search-input-placeholder-opacity);
 }
 
 .dui-search-bar {
@@ -28,6 +42,7 @@
     height: 100%;
     background: var(--dui-search-bar-background-color, inherit);
     color : var(--dui-search-bar-color, inherit);
+    --dui-search-placeholder-color: color-mix(in srgb, currentColor 75%, transparent);
     border-radius: var(--dui-quick-search-radius);
     --dui-form-field-readonly-border:none;
     --dui-form-field-border:none;
@@ -50,7 +65,7 @@
     color: inherit;
 }
 .dui-search-bar-container input::placeholder{
-    color: var(--dui-form-field-placeholder-color);
+    color: var(--dui-search-placeholder-color);
     opacity: var(--dui-quick-search-input-placeholder-opacity);
 }
 

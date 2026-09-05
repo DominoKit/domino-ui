@@ -15,6 +15,8 @@
  */
 package org.dominokit.domino.ui.themes;
 
+import static org.junit.Assert.assertEquals;
+
 import com.google.gwt.junit.client.GWTTestCase;
 import elemental2.dom.DomGlobal;
 import elemental2.dom.HTMLElement;
@@ -35,5 +37,12 @@ public class ThemeCatalogTest extends GWTTestCase {
     assertTrue(target.classList.contains("dui-accent-orange"));
 
     DominoThemeAccent.ORANGE.cleanup(target);
+  }
+
+  public void testAdditionalAccentThemesUseTheirNamedCssClasses() {
+    assertEquals("dui-theme-accent-coral", DominoThemeAccent.CORAL.getName());
+    assertEquals("dui-theme-accent-emerald", DominoThemeAccent.EMERALD.getName());
+    assertEquals("dui-theme-accent-cobalt", DominoThemeAccent.COBALT.getName());
+    assertEquals("dui-theme-accent-plum", DominoThemeAccent.PLUM.getName());
   }
 }

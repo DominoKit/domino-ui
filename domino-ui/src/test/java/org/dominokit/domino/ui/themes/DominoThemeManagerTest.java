@@ -34,6 +34,10 @@ public class DominoThemeManagerTest extends GWTTestCase {
     DominoThemeManager.INSTANCE.remove("dui-theme-dark");
     DominoThemeManager.INSTANCE.remove("dui-theme-accent-teal");
     DominoThemeManager.INSTANCE.remove("dui-theme-accent-blue");
+    DominoThemeManager.INSTANCE.remove("dui-theme-accent-coral");
+    DominoThemeManager.INSTANCE.remove("dui-theme-accent-emerald");
+    DominoThemeManager.INSTANCE.remove("dui-theme-accent-cobalt");
+    DominoThemeManager.INSTANCE.remove("dui-theme-accent-plum");
     DominoThemeManager.INSTANCE.remove("dui-theme-ocean");
     DominoThemeManager.INSTANCE.remove("dui-theme-forest");
     DominoThemeManager.INSTANCE.remove("dui-theme-glass");
@@ -74,6 +78,16 @@ public class DominoThemeManagerTest extends GWTTestCase {
 
     assertTrue(DominoThemeDefault.INSTANCE.isApplied());
     assertTrue(DominoThemeDark.INSTANCE.isApplied());
+  }
+
+  public void testAdditionalAccentThemeIsRegisteredAndCanBeRestored() {
+    DomGlobal.document.body.className = "";
+    Storage storage = WebStorageWindow.of(DomGlobal.window).localStorage;
+    storage.setItem("dui-user-themes", "dui-theme-accent-coral");
+
+    DominoThemeManager.INSTANCE.applyUserThemes();
+
+    assertTrue(DomGlobal.document.body.classList.contains("dui-accent-coral"));
   }
 
   public void testRegisteredCssThemeCanBeAppliedGlobally() {

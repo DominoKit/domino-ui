@@ -17,15 +17,19 @@
     --dui-error-fg-clr: var(--dui-clr-white);
     --dui-accent-fg-clr: var(--dui-clr-white);
     --dui-red-fg-clr: var(--dui-clr-white);
+    --dui-coral-fg-clr: var(--dui-clr-white);
     --dui-pink-fg-clr: var(--dui-clr-white);
     --dui-purple-fg-clr: var(--dui-clr-white);
+    --dui-plum-fg-clr: var(--dui-clr-white);
     --dui-deep-purple-fg-clr: var(--dui-clr-white);
     --dui-indigo-fg-clr: var(--dui-clr-white);
     --dui-blue-fg-clr: var(--dui-clr-white);
+    --dui-cobalt-fg-clr: var(--dui-clr-white);
     --dui-light-blue-fg-clr: var(--dui-clr-white);
     --dui-cyan-fg-clr: var(--dui-clr-black);
     --dui-teal-fg-clr: var(--dui-clr-white);
     --dui-green-fg-clr: var(--dui-clr-black);
+    --dui-emerald-fg-clr: var(--dui-clr-black);
     --dui-light-green-fg-clr: var(--dui-clr-black);
     --dui-lime-fg-clr: var(--dui-clr-black);
     --dui-yellow-fg-clr: var(--dui-clr-black);
@@ -139,6 +143,17 @@
     --dui-clr-red-d-3: #AE2727;
     --dui-clr-red-d-4: #A31F1F;
 
+    --dui-clr-coral-l-5: #FFD8D2;
+    --dui-clr-coral-l-4: #FFB8AD;
+    --dui-clr-coral-l-3: #F69A8D;
+    --dui-clr-coral-l-2: #EA7C6D;
+    --dui-clr-coral-l-1: #D96A5B;
+    --dui-clr-coral: #B54B3F;
+    --dui-clr-coral-d-1: #A34036;
+    --dui-clr-coral-d-2: #8C352D;
+    --dui-clr-coral-d-3: #722A24;
+    --dui-clr-coral-d-4: #5B211C;
+
     --dui-clr-pink-l-5: #F9D6DF;
     --dui-clr-pink-l-4: #F3A6BD;
     --dui-clr-pink-l-3: #ED7A9D;
@@ -160,6 +175,17 @@
     --dui-clr-purple-d-2: #6E1F7D;
     --dui-clr-purple-d-3: #611B73;
     --dui-clr-purple-d-4: #3F0F5B;
+
+    --dui-clr-plum-l-5: #E1C8E0;
+    --dui-clr-plum-l-4: #CCA7CA;
+    --dui-clr-plum-l-3: #B887B6;
+    --dui-clr-plum-l-2: #A869A5;
+    --dui-clr-plum-l-1: #995495;
+    --dui-clr-plum: #8A4688;
+    --dui-clr-plum-d-1: #783B77;
+    --dui-clr-plum-d-2: #653166;
+    --dui-clr-plum-d-3: #522754;
+    --dui-clr-plum-d-4: #3E1D40;
 
     --dui-clr-deep-purple-l-5: #E4DDEB;
     --dui-clr-deep-purple-l-4: #C8B3D2;
@@ -193,6 +219,17 @@
     --dui-clr-blue-d-2: #24517E;
     --dui-clr-blue-d-3: #1E4773;
     --dui-clr-blue-d-4: #10305F;
+
+    --dui-clr-cobalt-l-5: #C9D6FF;
+    --dui-clr-cobalt-l-4: #A7BAFF;
+    --dui-clr-cobalt-l-3: #88A2F5;
+    --dui-clr-cobalt-l-2: #6D89E0;
+    --dui-clr-cobalt-l-1: #5873CB;
+    --dui-clr-cobalt: #4A63B9;
+    --dui-clr-cobalt-d-1: #3F54A2;
+    --dui-clr-cobalt-d-2: #35488B;
+    --dui-clr-cobalt-d-3: #2B3C73;
+    --dui-clr-cobalt-d-4: #202E5B;
 
     --dui-clr-light-blue-l-5: #C6DFE9;
     --dui-clr-light-blue-l-4: #92C9DE;
@@ -237,6 +274,17 @@
     --dui-clr-green-d-2: #298C29;
     --dui-clr-green-d-3: #257E25;
     --dui-clr-green-d-4: #1D631D;
+
+    --dui-clr-emerald-l-5: #CDEBDC;
+    --dui-clr-emerald-l-4: #A9D8BE;
+    --dui-clr-emerald-l-3: #82C49C;
+    --dui-clr-emerald-l-2: #62B583;
+    --dui-clr-emerald-l-1: #4EA771;
+    --dui-clr-emerald: #3C925F;
+    --dui-clr-emerald-d-1: #348352;
+    --dui-clr-emerald-d-2: #2C7448;
+    --dui-clr-emerald-d-3: #24643D;
+    --dui-clr-emerald-d-4: #1B5131;
 
     --dui-clr-light-green-l-5: #E4F4D9;
     --dui-clr-light-green-l-4: #C5D9AD;

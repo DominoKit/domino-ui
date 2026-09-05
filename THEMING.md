@@ -65,6 +65,15 @@ The core stylesheet provides these categories:
 | Color roles | `dui-primary`, `dui-secondary`, `dui-accent` | Theme-aware application roles with lighter/darker scales. |
 | Accent | `dui-accent-blue`, `dui-accent-teal`, `dui-accent-purple` | The application accent and its lighter/darker scale. |
 
+Additional composable accents are available for identity-aligned palettes:
+
+| Accent | CSS class | Java descriptor | Good identity pairings |
+| --- | --- | --- | --- |
+| Coral | `dui-accent-coral` | `DominoThemeAccent.CORAL` | Rose, Sunset, Sandstone |
+| Emerald | `dui-accent-emerald` | `DominoThemeAccent.EMERALD` | Forest, Jade, Meadow |
+| Cobalt | `dui-accent-cobalt` | `DominoThemeAccent.COBALT` | Ocean, Azure, Indigo |
+| Plum | `dui-accent-plum` | `DominoThemeAccent.PLUM` | Lavender, Amethyst, Graphite |
+
 The accent system retains five lighter options, the base accent, and four darker options. Accent
 values are harmonized at runtime with the selected visual identity so the accent keeps its original
 identity while fitting the application’s overall palette. No build-time color generation is
@@ -192,12 +201,14 @@ The built-in descriptors are available in `org.dominokit.domino.ui.themes`:
 ```java
 import org.dominokit.domino.ui.themes.DominoThemeCharacter;
 import org.dominokit.domino.ui.themes.DominoThemeDensity;
+import org.dominokit.domino.ui.themes.DominoThemeAccent;
 import org.dominokit.domino.ui.themes.DominoThemeIdentity;
 import org.dominokit.domino.ui.themes.DominoThemeManager;
 import org.dominokit.domino.ui.themes.DominoThemeSurface;
 
 DominoThemeManager themes = DominoThemeManager.INSTANCE;
 themes.apply(DominoThemeIdentity.OCEAN);
+themes.apply(DominoThemeAccent.COBALT);
 themes.apply(DominoThemeCharacter.GLASS);
 themes.apply(DominoThemeDensity.COMPACT);
 themes.apply(DominoThemeSurface.ROUNDED);
