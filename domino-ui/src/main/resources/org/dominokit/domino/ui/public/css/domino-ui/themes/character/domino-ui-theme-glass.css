@@ -24,15 +24,16 @@
     --dui-character-glass-nested-3-surface: color-mix(in srgb, var(--dui-card-nested-3-background) 88%, transparent);
     --dui-card-box-shadow: 0 4px 16px color-mix(in srgb, var(--dui-color) 12%, transparent);
     --dui-section-box-shadow: 0 4px 16px color-mix(in srgb, var(--dui-color) 10%, transparent);
+    --dui-layout-drawer-box-shadow: var(--dui-section-box-shadow);
     --dui-thumbnail-box-shadow: 0 3px 12px color-mix(in srgb, var(--dui-color) 10%, transparent);
     --dui-dialog-box-shadow: 0 8px 24px color-mix(in srgb, var(--dui-color) 18%, transparent);
     --dui-menu-elevation: var(--dui-elevation-1);
 }
 
 :where(.dui.dui-theme-glass) .dui-card,
-.dui.dui-theme-glass .dui-dialog,
-.dui.dui-theme-glass .dui-menu,
-.dui.dui-theme-glass .dui-tree {
+:where(.dui.dui-theme-glass) .dui-dialog,
+:where(.dui.dui-theme-glass) .dui-menu,
+:where(.dui.dui-theme-glass) .dui-tree {
     background: var(--dui-character-glass-surface);
     -webkit-backdrop-filter: blur(14px);
     backdrop-filter: blur(14px);
@@ -47,11 +48,9 @@
 
 @supports not ((backdrop-filter: blur(1px))) {
     :where(.dui.dui-theme-glass) .dui-card,
-    .dui.dui-theme-glass .dui-dialog,
-    .dui.dui-theme-glass .dui-menu,
-    .dui.dui-theme-glass .dui-tree {
+    :where(.dui.dui-theme-glass) .dui-dialog,
+    :where(.dui.dui-theme-glass) .dui-menu,
+    :where(.dui.dui-theme-glass) .dui-tree {
         background: var(--dui-card-background);
     }
 }
-
-

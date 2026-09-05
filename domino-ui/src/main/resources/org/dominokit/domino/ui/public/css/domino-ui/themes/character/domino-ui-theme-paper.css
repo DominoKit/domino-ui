@@ -13,6 +13,7 @@
     --dui-font-family-heading: Georgia, "Times New Roman", serif;
     --dui-card-box-shadow: var(--dui-box-shadow-none);
     --dui-section-box-shadow: var(--dui-box-shadow-none);
+    --dui-layout-drawer-box-shadow: var(--dui-box-shadow-sm);
     --dui-thumbnail-box-shadow: var(--dui-box-shadow-none);
     --dui-infobox-box-shadow: var(--dui-box-shadow-none);
     --dui-dialog-box-shadow: var(--dui-box-shadow-none);
@@ -21,16 +22,14 @@
     --dui-character-paper-surface: color-mix(in srgb, var(--dui-card-background) 94%, #f1e3cb 6%);
 }
 
-.dui.dui-theme-paper .dui-card,
-.dui.dui-theme-paper .dui-menu,
-.dui.dui-theme-paper .dui-tree {
+:where(.dui.dui-theme-paper) .dui-card,
+:where(.dui.dui-theme-paper) .dui-menu,
+:where(.dui.dui-theme-paper) .dui-tree {
     background: var(--dui-character-paper-surface);
 }
 
-.dui.dui-theme-paper .dui-card-header,
-.dui.dui-theme-paper .dui-menu > .dui-nav-bar,
-.dui.dui-theme-paper .dui-tree-header {
+:where(.dui.dui-theme-paper) .dui-card-header,
+:where(.dui.dui-theme-paper) .dui-menu > .dui-nav-bar,
+:where(.dui.dui-theme-paper) .dui-tree-header {
     border-bottom-color: var(--dui-surface-border-color);
 }
-
-

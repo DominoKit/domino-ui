@@ -1,5 +1,7 @@
 .dui.dui-primary {
     --dui-context-fg-color: var(--dui-primary-fg-clr);
+    --dui-btn-context-hover-bg-clr: var(--dui-bg-d-4);
+    --dui-btn-hover-color: var(--dui-primary-fg-clr);
     --dui-bg-l-5: var(--dui-clr-primary-l-5);
     --dui-bg-l-4: var(--dui-clr-primary-l-4);
     --dui-bg-l-3: var(--dui-clr-primary-l-3);
@@ -46,6 +48,7 @@
 
 .dui.dui-dominant {
     --dui-context-fg-color: var(--dui-dominant-fg-clr);
+    --dui-btn-hover-color: var(--dui-dominant-fg-clr);
     --dui-bg-l-5: var(--dui-clr-dominant-l-5);
     --dui-bg-l-4: var(--dui-clr-dominant-l-4);
     --dui-bg-l-3: var(--dui-clr-dominant-l-3);

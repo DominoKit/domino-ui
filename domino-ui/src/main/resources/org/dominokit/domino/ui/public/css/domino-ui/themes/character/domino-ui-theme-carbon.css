@@ -13,6 +13,7 @@
     --dui-font-family: var(--dui-font-family-mono);
     --dui-card-box-shadow: var(--dui-box-shadow-none);
     --dui-section-box-shadow: var(--dui-box-shadow-none);
+    --dui-layout-drawer-box-shadow: var(--dui-box-shadow-sm);
     --dui-thumbnail-box-shadow: var(--dui-box-shadow-none);
     --dui-infobox-box-shadow: var(--dui-box-shadow-none);
     --dui-dialog-box-shadow: var(--dui-box-shadow-none);
@@ -21,5 +22,4 @@
     --dui-clickable-shadow-spread: 2px;
     --dui-surface-border-color: color-mix(in srgb, var(--dui-color) 24%, transparent);
 }
-
 

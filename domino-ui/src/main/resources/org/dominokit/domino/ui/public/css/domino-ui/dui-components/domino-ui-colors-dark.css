@@ -398,7 +398,8 @@
     --dui-list-group-item-border-color: var(--dui-clr-accent-d-3);
     --dui-border-default: var(--dui-clr-dominant-l-1);
     --dui-focus-indicator-color: var(--dui-accent-l-2);
-    --dui-btn-hover-color: var(--dui-color-5);
+    --dui-btn-hover-color: var(--dui-clr-black);
+    --dui-btn-toggled-color: var(--dui-color);
     --dui-info-color: var(--dui-accent-l-2);
     --dui-info-background-color: var(--dui-accent-d-4);
     --dui-info-icon-background: var(--dui-accent-d-3);

@@ -385,7 +385,7 @@
     --dui-list-group-item-border-color: var(--dui-clr-accent-l-3);
     --dui-border-default: var(--dui-accent-l-3);
     --dui-focus-indicator-color: var(--dui-accent-d-2);
-    --dui-btn-hover-color: var(--dui-color);
+    --dui-btn-hover-color: var(--dui-clr-black);
     --dui-info-color: var(--dui-color);
     --dui-info-background-color: var(--dui-accent-l-5);
     --dui-info-icon-background: var(--dui-accent-l-3);

@@ -7,13 +7,13 @@
 .dui.dui-theme-elevated {
     --dui-card-box-shadow: var(--dui-box-shadow-1);
     --dui-section-box-shadow: var(--dui-box-shadow-1);
+    --dui-layout-drawer-box-shadow: var(--dui-box-shadow-1);
     --dui-thumbnail-box-shadow: var(--dui-box-shadow-1);
     --dui-infobox-box-shadow: var(--dui-box-shadow);
     --dui-btn-focus-box-shadow: var(--dui-box-shadow-2);
     --dui-dialog-box-shadow: var(--dui-box-shadow-10);
 }
 
-.dui.dui-theme-elevated:not(.dui-theme-bordered) :is(.dui-card, .dui-dialog, .dui-menu, .dui-tree, .dui-datatable-responsive) {
+:where(.dui.dui-theme-elevated:not(.dui-theme-bordered)) :is(.dui-card, .dui-dialog, .dui-menu, .dui-tree, .dui-datatable-responsive) {
     border: 0;
 }
-

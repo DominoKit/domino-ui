@@ -23,7 +23,7 @@
     --dui-menu-border: none;
 }
 
-.dui.dui-theme-retro-console .dui-menu-separator {
+:where(.dui.dui-theme-retro-console) .dui-menu-separator {
     border-bottom: 1px solid var(--dui-accent);
 }
 
@@ -38,10 +38,9 @@
 .dui.dui-theme-retro-console:not(.dui-theme-elevated) {
     --dui-card-box-shadow: var(--dui-box-shadow-none);
     --dui-section-box-shadow: var(--dui-box-shadow-none);
+    --dui-layout-drawer-box-shadow: var(--dui-box-shadow-sm);
     --dui-thumbnail-box-shadow: var(--dui-box-shadow-none);
     --dui-infobox-box-shadow: var(--dui-box-shadow-none);
     --dui-dialog-box-shadow: var(--dui-box-shadow-none);
     --dui-menu-elevation: none;
 }
-
-

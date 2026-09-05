@@ -12,6 +12,7 @@
     --dui-fg-d-4:var(--dui-clr-dominant-d-4);
 }
 .dui[class*="dui-bg-dominant"]{
+    --dui-btn-hover-color:var(--dui-dominant-fg-clr);
     --dui-bg-l-5:var(--dui-clr-dominant-l-5);
     --dui-bg-l-4:var(--dui-clr-dominant-l-4);
     --dui-bg-l-3:var(--dui-clr-dominant-l-3);

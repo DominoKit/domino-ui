@@ -27,9 +27,8 @@
     --dui-btn-focus-outline-offset: 2px;
 }
 
-.dui.dui-theme-high-contrast :where(button, a, input, select, textarea, [tabindex]):focus-visible {
+:where(.dui.dui-theme-high-contrast) :where(button, a, input, select, textarea, [tabindex]):focus-visible {
     outline: 3px solid var(--dui-accent);
     outline-offset: 2px;
 }
-
 

@@ -175,7 +175,7 @@
     bottom: 0;
     height: auto;
     inset-inline-start: 0;
-    box-shadow: var(--dui-layout-section-box-shadow, var(--dui-section-box-shadow));
+    box-shadow: var(--dui-layout-drawer-box-shadow);
     align-self: stretch;
     transform: translateX(var(--dui-left-drawer-closed-x));
     transition: transform var(--dui-layout-transitions-duration) ease-in-out;
@@ -211,7 +211,7 @@
     top: 0;
     bottom: 0;
     height: auto;
-    box-shadow: var(--dui-section-box-shadow);
+    box-shadow: var(--dui-layout-drawer-box-shadow);
     align-self: stretch;
     transform: translateX(var(--dui-right-drawer-closed-x));
     transition: transform var(--dui-layout-transitions-duration) ease-out;

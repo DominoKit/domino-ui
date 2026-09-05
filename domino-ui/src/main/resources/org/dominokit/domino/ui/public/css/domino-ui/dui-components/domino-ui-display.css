@@ -1830,7 +1830,7 @@
 }
 
 .dui.dui-border-none {
-    border-style: none;
+    border: none;
 }
 
 .dui.dui-divide-solid > * + * {
@@ -1850,7 +1850,82 @@
 }
 
 .dui.dui-divide-none > * + * {
-    border-style: none;
+    border: none;
+}
+
+/*
+ * Element utilities must win over component/theme selectors that use an
+ * equally-specific shorthand or side declaration. Keep the base rules above
+ * usable outside the scoped body, while strengthening the normal Domino UI
+ * scope for composed components.
+ */
+body.dui .dui.dui-border-none {
+    border: none;
+}
+
+body.dui .dui.dui-divide-none > * + * {
+    border: none;
+}
+
+body.dui .dui.dui-border-solid {
+    border-style: solid;
+}
+
+body.dui .dui.dui-border-dashed {
+    border-style: dashed;
+}
+
+body.dui .dui.dui-border-dotted {
+    border-style: dotted;
+}
+
+body.dui .dui.dui-border-double {
+    border-style: double;
+}
+
+body.dui .dui.dui-border-hidden {
+    border-style: hidden;
+}
+
+body.dui .dui.dui-divide-solid > * + * {
+    border-style: solid;
+}
+
+body.dui .dui.dui-divide-dashed > * + * {
+    border-style: dashed;
+}
+
+body.dui .dui.dui-divide-dotted > * + * {
+    border-style: dotted;
+}
+
+body.dui .dui.dui-divide-double > * + * {
+    border-style: double;
+}
+
+body.dui .dui.dui-outline-none {
+    outline: 2px solid transparent;
+    outline-offset: 2px;
+}
+
+body.dui .dui.dui-outline {
+    outline-style: solid;
+}
+
+body.dui .dui.dui-outline-dashed {
+    outline-style: dashed;
+}
+
+body.dui .dui.dui-outline-dotted {
+    outline-style: dotted;
+}
+
+body.dui .dui.dui-outline-double {
+    outline-style: double;
+}
+
+body.dui .dui.dui-outline-hidden {
+    outline-style: hidden;
 }
 
 .dui.dui-outline-none {

@@ -25,7 +25,7 @@
     width: var(--dui-info-icon-size);
     min-height: var(--dui-info-icon-size);
     height: var(--dui-info-icon-size);
-    color: var(--dui-info-icon-color);
+    color: var(--dui-text-color, var(--dui-info-icon-color));
     background-color: var(--dui-bg, var(--dui-info-icon-background));
 }
 

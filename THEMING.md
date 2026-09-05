@@ -179,6 +179,7 @@ the selected identity, color mode, and accent.
 | Soft UI | `dui-theme-soft-ui` | `DominoThemeCharacter.SOFT_UI` |
 | Neon Night | `dui-theme-neon-night` | `DominoThemeCharacter.NEON_NIGHT` |
 | Retro Console | `dui-theme-retro-console` | `DominoThemeCharacter.RETRO_CONSOLE` |
+| Aurora | `dui-theme-aurora` | `DominoThemeCharacter.AURORA` |
 
 Character themes provide their own visual personality; they do not automatically enable the
 bordered surface theme. This keeps border ownership with `dui-theme-bordered` and allows character

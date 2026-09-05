@@ -99,6 +99,7 @@ public class ElementThemeManager implements ElementsFactory {
     registerTheme(DominoThemeCharacter.SOFT_UI);
     registerTheme(DominoThemeCharacter.NEON_NIGHT);
     registerTheme(DominoThemeCharacter.RETRO_CONSOLE);
+    registerTheme(DominoThemeCharacter.AURORA);
     registerTheme(DominoThemeDensity.COMPACT);
     registerTheme(DominoThemeDensity.DEFAULT);
     registerTheme(DominoThemeSurface.BORDERED);

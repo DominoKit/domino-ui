@@ -25,15 +25,16 @@
     --dui-character-soft-shadow: 0 4px 14px color-mix(in srgb, var(--dui-color) 12%, transparent);
     --dui-card-box-shadow: var(--dui-character-soft-shadow);
     --dui-section-box-shadow: var(--dui-character-soft-shadow);
+    --dui-layout-drawer-box-shadow: var(--dui-section-box-shadow);
     --dui-thumbnail-box-shadow: 0 3px 10px color-mix(in srgb, var(--dui-color) 10%, transparent);
     --dui-infobox-box-shadow: 0 2px 8px color-mix(in srgb, var(--dui-color) 8%, transparent);
     --dui-dialog-box-shadow: 0 8px 22px color-mix(in srgb, var(--dui-color) 16%, transparent);
 }
 
 :where(.dui.dui-theme-soft-ui) .dui-card,
-.dui.dui-theme-soft-ui .dui-dialog,
-.dui.dui-theme-soft-ui .dui-menu,
-.dui.dui-theme-soft-ui .dui-tree {
+:where(.dui.dui-theme-soft-ui) .dui-dialog,
+:where(.dui.dui-theme-soft-ui) .dui-menu,
+:where(.dui.dui-theme-soft-ui) .dui-tree {
     background: var(--dui-character-soft-surface);
 }
 
@@ -43,5 +44,3 @@
     --dui-card-nested-2-background: var(--dui-character-soft-nested-2-surface);
     --dui-card-nested-3-background: var(--dui-character-soft-nested-3-surface);
 }
-
-

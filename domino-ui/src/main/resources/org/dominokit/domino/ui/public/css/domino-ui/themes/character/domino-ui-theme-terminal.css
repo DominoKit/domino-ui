@@ -13,6 +13,7 @@
     --dui-font-family: var(--dui-font-family-mono);
     --dui-card-box-shadow: var(--dui-box-shadow-none);
     --dui-section-box-shadow: var(--dui-box-shadow-none);
+    --dui-layout-drawer-box-shadow: var(--dui-box-shadow-sm);
     --dui-thumbnail-box-shadow: var(--dui-box-shadow-none);
     --dui-infobox-box-shadow: var(--dui-box-shadow-none);
     --dui-dialog-box-shadow: var(--dui-box-shadow-none);
@@ -24,14 +25,12 @@
     --dui-surface-border-color: color-mix(in srgb, var(--dui-accent) 42%, transparent);
 }
 
-.dui.dui-theme-terminal .dui-menu-separator {
+:where(.dui.dui-theme-terminal) .dui-menu-separator {
     border-bottom: 1px dashed var(--dui-accent-l-2);
 }
 
-.dui.dui-theme-terminal .dui-card-header,
-.dui.dui-theme-terminal .dui-menu > .dui-nav-bar,
-.dui.dui-theme-terminal .dui-tree-header {
+:where(.dui.dui-theme-terminal) .dui-card-header,
+:where(.dui.dui-theme-terminal) .dui-menu > .dui-nav-bar,
+:where(.dui.dui-theme-terminal) .dui-tree-header {
     border-bottom-style: dashed;
 }
-
-

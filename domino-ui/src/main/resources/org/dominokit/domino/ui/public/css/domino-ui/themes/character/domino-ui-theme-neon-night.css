@@ -24,6 +24,7 @@
 .dui.dui-theme-neon-night.dui-colors-dark {
     --dui-card-box-shadow: 0 0 18px color-mix(in srgb, var(--dui-accent) 12%, transparent);
     --dui-section-box-shadow: 0 0 18px color-mix(in srgb, var(--dui-accent) 10%, transparent);
+    --dui-layout-drawer-box-shadow: var(--dui-section-box-shadow);
     --dui-thumbnail-box-shadow: 0 0 12px color-mix(in srgb, var(--dui-accent) 10%, transparent);
     --dui-dialog-box-shadow: 0 0 26px color-mix(in srgb, var(--dui-accent) 18%, transparent);
     --dui-btn-box-shadow: 0 0 0 1px var(--dui-accent), 0 0 12px color-mix(in srgb, var(--dui-accent) 28%, transparent);
@@ -32,5 +33,4 @@
 
 .dui.dui-theme-neon-night {
 }
-
 

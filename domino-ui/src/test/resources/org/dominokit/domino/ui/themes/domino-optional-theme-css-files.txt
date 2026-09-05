@@ -30,3 +30,4 @@ org/dominokit/domino/ui/public/css/domino-ui/themes/character/domino-ui-theme-ed
 org/dominokit/domino/ui/public/css/domino-ui/themes/character/domino-ui-theme-soft-ui.css
 org/dominokit/domino/ui/public/css/domino-ui/themes/character/domino-ui-theme-neon-night.css
 org/dominokit/domino/ui/public/css/domino-ui/themes/character/domino-ui-theme-retro-console.css
+org/dominokit/domino/ui/public/css/domino-ui/themes/character/domino-ui-theme-aurora.css

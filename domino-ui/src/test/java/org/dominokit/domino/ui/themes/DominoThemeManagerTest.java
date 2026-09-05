@@ -38,6 +38,7 @@ public class DominoThemeManagerTest extends GWTTestCase {
     DominoThemeManager.INSTANCE.remove("dui-theme-forest");
     DominoThemeManager.INSTANCE.remove("dui-theme-glass");
     DominoThemeManager.INSTANCE.remove("dui-theme-terminal");
+    DominoThemeManager.INSTANCE.remove("dui-theme-aurora");
     DominoThemeManager.INSTANCE.remove("dui-theme-bordered");
     DominoThemeManager.INSTANCE.remove("dui-theme-elevated");
     DominoThemeManager.INSTANCE.remove("dui-theme-rounded");
@@ -112,5 +113,15 @@ public class DominoThemeManagerTest extends GWTTestCase {
     assertTrue(DominoThemeSurface.ROUNDED.isApplied());
     assertTrue(DomGlobal.document.body.classList.contains("dui-theme-elevated"));
     assertTrue(DomGlobal.document.body.classList.contains("dui-theme-rounded"));
+  }
+
+  public void testAuroraIsRegisteredAsACharacterTheme() {
+    DomGlobal.document.body.className = "";
+    Storage storage = WebStorageWindow.of(DomGlobal.window).localStorage;
+    storage.setItem("dui-user-themes", "dui-theme-aurora");
+
+    DominoThemeManager.INSTANCE.applyUserThemes();
+
+    assertTrue(DomGlobal.document.body.classList.contains("dui-theme-aurora"));
   }
 }

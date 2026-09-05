@@ -1333,6 +1333,7 @@ body.dui {
     --dui-layout-content-padding-left: var(--dui-spc-px-25);
 
     --dui-section-box-shadow: var(--dui-box-shadow-1);
+    --dui-layout-drawer-box-shadow: var(--dui-box-shadow-1);
     --dui-overlay-opacify: 30%;
     --dui-overlay-background: var(--dui-clr-black);
     --dui-overlay-z-index: var(--dui-z-index-l-1);

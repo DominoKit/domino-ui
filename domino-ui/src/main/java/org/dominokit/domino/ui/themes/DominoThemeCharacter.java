@@ -34,6 +34,7 @@ public final class DominoThemeCharacter {
   public static final IsDominoTheme SOFT_UI = theme("soft-ui");
   public static final IsDominoTheme NEON_NIGHT = theme("neon-night");
   public static final IsDominoTheme RETRO_CONSOLE = theme("retro-console");
+  public static final IsDominoTheme AURORA = theme("aurora");
 
   private DominoThemeCharacter() {}
 
