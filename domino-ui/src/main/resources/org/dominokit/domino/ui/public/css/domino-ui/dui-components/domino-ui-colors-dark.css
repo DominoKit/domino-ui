@@ -6,6 +6,9 @@
     --dui-color-4: var(--dui-clr-grey-d-2);
     --dui-color-5: var(--dui-clr-black-d-3);
     --dui-color-alternate: var(--dui-color-5);
+    /* Keep semantic text bright and recognizable even when an identity theme tints --dui-color. */
+    --dui-context-text-base-color: var(--dui-clr-white);
+    --dui-context-text-color-strength: 75%;
     /*--dui-text-color: var(--dui-color-dark);*/
     --dui-highlight-color: var(--dui-clr-black);
     --dui-color-invert : var(--dui-clr-black);

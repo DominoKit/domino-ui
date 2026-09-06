@@ -218,16 +218,43 @@ public class DominoThemeCssContractTest {
     String search =
         readResource(
             "org/dominokit/domino/ui/public/css/domino-ui/dui-components/domino-ui-search.css");
+    String lightTheme =
+        readResource(
+            "org/dominokit/domino/ui/public/css/domino-ui/dui-components/domino-ui-colors-light.css");
+    String darkTheme =
+        readResource(
+            "org/dominokit/domino/ui/public/css/domino-ui/dui-components/domino-ui-colors-dark.css");
 
     assertTrue(
         search.contains(
             "--dui-search-placeholder-color: color-mix(in srgb, currentColor 75%, transparent);"));
     assertTrue(search.contains(".dui-quick-search .dui-field-input-wrapper"));
-    assertTrue(search.contains("background-color: var(--dui-accent-l-2);"));
-    assertTrue(search.contains("color: var(--dui-accent-fg-clr);"));
+    assertTrue(search.contains("background-color: var(--dui-quick-search-bg-color);"));
+    assertTrue(search.contains("color: var(--dui-quick-search-color);"));
     assertTrue(
         search.contains(
-            "color: var(--dui-accent-fg-clr);\n    --dui-search-placeholder-color: color-mix(in srgb, currentColor 75%, transparent);"));
+            "color: var(--dui-quick-search-color);\n    --dui-search-placeholder-color: color-mix(in srgb, currentColor 75%, transparent);"));
+    assertTrue(lightTheme.contains("--dui-quick-search-bg-color: var(--dui-clr-dominant-d-1);"));
+    assertTrue(lightTheme.contains("--dui-quick-search-color: var(--dui-color);"));
+    assertTrue(darkTheme.contains("--dui-quick-search-bg-color: var(--dui-clr-dominant-d-1);"));
+    assertTrue(darkTheme.contains("--dui-quick-search-color: var(--dui-color);"));
+    for (String identityTheme : identityThemeResources()) {
+      String identity = readResource(identityTheme);
+      String identityLight = themeBlock(identity, ".dui-colors-light");
+      String identityDark = themeBlock(identity, ".dui-colors-dark");
+      assertTrue(
+          identityTheme,
+          identityLight.contains("--dui-quick-search-bg-color: var(--dui-accent-l-2);"));
+      assertTrue(
+          identityTheme,
+          identityLight.contains("--dui-quick-search-color: var(--dui-accent-fg-clr);"));
+      assertTrue(
+          identityTheme,
+          identityDark.contains("--dui-quick-search-bg-color: var(--dui-accent-d-2);"));
+      assertTrue(
+          identityTheme,
+          identityDark.contains("--dui-quick-search-color: var(--dui-accent-fg-clr);"));
+    }
     assertTrue(search.contains(".dui-quick-search .dui-field-input {"));
     assertTrue(search.contains("color: inherit;"));
     assertTrue(search.contains(".dui-quick-search .dui-field-input::placeholder"));

@@ -6,6 +6,8 @@
     --dui-color-4: var(--dui-clr-grey);
     --dui-color-5: var(--dui-clr-grey-l-1);
     --dui-color-alternate: var(--dui-color);
+    /* Keep text-only contextual colors at their original semantic color in light mode. */
+    --dui-context-text-color-strength: 100%;
     /*--dui-text-color: var(--dui-color-dark);*/
     --dui-highlight-color: var(--dui-clr-white);
     --dui-color-invert : var(--dui-clr-white);

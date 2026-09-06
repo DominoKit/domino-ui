@@ -17,8 +17,8 @@
 /* Keep the SearchBox surface and its form-field child on the same geometry and surface. */
 .dui-quick-search .dui-field-input-wrapper {
     border-radius: var(--dui-quick-search-radius);
-    background-color: var(--dui-accent-l-2);
-    color: var(--dui-accent-fg-clr);
+    background-color: var(--dui-quick-search-bg-color);
+    color: var(--dui-quick-search-color);
     --dui-search-placeholder-color: color-mix(in srgb, currentColor 75%, transparent);
 }
 
