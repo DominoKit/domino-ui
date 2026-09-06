@@ -34,6 +34,7 @@ import org.dominokit.domino.ui.themes.DominoThemeManagerTest;
 import org.dominokit.domino.ui.themes.ElementThemeManagerTest;
 import org.dominokit.domino.ui.themes.LegacyThemeCompatibilityTest;
 import org.dominokit.domino.ui.themes.ThemeCatalogTest;
+import org.dominokit.domino.ui.unitvalue.UnitValueTest;
 
 public class DominoUiTestSuite extends GWTTestSuite {
   public static Test suite() {
@@ -55,6 +56,7 @@ public class DominoUiTestSuite extends GWTTestSuite {
     suite.addTestSuite(AnnouncementsAccessibilityTest.class);
     suite.addTestSuite(NavigationAccessibilityTest.class);
     suite.addTestSuite(CalendarAccessibilityTest.class);
+    suite.addTestSuite(UnitValueTest.class);
 
     return suite;
   }

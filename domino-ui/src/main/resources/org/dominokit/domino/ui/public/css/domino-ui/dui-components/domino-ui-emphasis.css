@@ -43,11 +43,11 @@ body.dui.dui-emphasis-filled {
 
 /* Filled components are intentionally excluded from the modifier selectors
  * below. Their existing component rules remain the reset behavior. */
-body.dui :is(.dui-emphasis-subtle, .dui-emphasis-minimal) :is(.dui-btn, .dui-badge, .dui-chip, .dui-alert, .dui-info-box, .dui-progress, .dui-progress-bar, .dui-card):not(.dui-emphasis-subtle):not(.dui-emphasis-minimal):not(.dui-emphasis-filled),
-body.dui.dui-emphasis-subtle :is(.dui-btn, .dui-badge, .dui-chip, .dui-alert, .dui-info-box, .dui-progress, .dui-progress-bar, .dui-card):not(.dui-emphasis-subtle):not(.dui-emphasis-minimal):not(.dui-emphasis-filled),
-body.dui.dui-emphasis-minimal :is(.dui-btn, .dui-badge, .dui-chip, .dui-alert, .dui-info-box, .dui-progress, .dui-progress-bar, .dui-card):not(.dui-emphasis-subtle):not(.dui-emphasis-minimal):not(.dui-emphasis-filled),
-body.dui :is(.dui-btn, .dui-badge, .dui-chip, .dui-alert, .dui-info-box, .dui-progress, .dui-progress-bar, .dui-card).dui-emphasis-subtle:not(.dui-emphasis-filled),
-body.dui :is(.dui-btn, .dui-badge, .dui-chip, .dui-alert, .dui-info-box, .dui-progress, .dui-progress-bar, .dui-card).dui-emphasis-minimal:not(.dui-emphasis-filled) {
+body.dui :is(.dui-emphasis-subtle, .dui-emphasis-minimal) :is(.dui-btn, .dui-badge, .dui-chip, .dui-alert, .dui-info-box, .dui-progress, .dui-progress-bar, .dui-card, .dui-unit-value):not(.dui-emphasis-subtle):not(.dui-emphasis-minimal):not(.dui-emphasis-filled),
+body.dui.dui-emphasis-subtle :is(.dui-btn, .dui-badge, .dui-chip, .dui-alert, .dui-info-box, .dui-progress, .dui-progress-bar, .dui-card, .dui-unit-value):not(.dui-emphasis-subtle):not(.dui-emphasis-minimal):not(.dui-emphasis-filled),
+body.dui.dui-emphasis-minimal :is(.dui-btn, .dui-badge, .dui-chip, .dui-alert, .dui-info-box, .dui-progress, .dui-progress-bar, .dui-card, .dui-unit-value):not(.dui-emphasis-subtle):not(.dui-emphasis-minimal):not(.dui-emphasis-filled),
+body.dui :is(.dui-btn, .dui-badge, .dui-chip, .dui-alert, .dui-info-box, .dui-progress, .dui-progress-bar, .dui-card, .dui-unit-value).dui-emphasis-subtle:not(.dui-emphasis-filled),
+body.dui :is(.dui-btn, .dui-badge, .dui-chip, .dui-alert, .dui-info-box, .dui-progress, .dui-progress-bar, .dui-card, .dui-unit-value).dui-emphasis-minimal:not(.dui-emphasis-filled) {
     background-color: var(--dui-emphasis-color);
     background-color: color-mix(in srgb, var(--dui-emphasis-color) var(--dui-emphasis-fill-strength), transparent);
     color: var(--dui-emphasis-text-color);
@@ -55,11 +55,11 @@ body.dui :is(.dui-btn, .dui-badge, .dui-chip, .dui-alert, .dui-info-box, .dui-pr
 }
 
 /* Subtle and minimal components retain a visible, contrast-aware semantic edge. */
-body.dui :is(.dui-emphasis-subtle, .dui-emphasis-minimal) :is(.dui-badge, .dui-chip, .dui-alert, .dui-card):not(.dui-emphasis-filled),
-body.dui.dui-emphasis-subtle :is(.dui-badge, .dui-chip, .dui-alert, .dui-card):not(.dui-emphasis-filled),
-body.dui.dui-emphasis-minimal :is(.dui-badge, .dui-chip, .dui-alert, .dui-card):not(.dui-emphasis-filled),
-body.dui :is(.dui-badge, .dui-chip, .dui-alert, .dui-card).dui-emphasis-subtle:not(.dui-emphasis-filled),
-body.dui :is(.dui-badge, .dui-chip, .dui-alert, .dui-card).dui-emphasis-minimal:not(.dui-emphasis-filled) {
+body.dui :is(.dui-emphasis-subtle, .dui-emphasis-minimal) :is(.dui-badge, .dui-chip, .dui-alert, .dui-card, .dui-unit-value):not(.dui-emphasis-filled),
+body.dui.dui-emphasis-subtle :is(.dui-badge, .dui-chip, .dui-alert, .dui-card, .dui-unit-value):not(.dui-emphasis-filled),
+body.dui.dui-emphasis-minimal :is(.dui-badge, .dui-chip, .dui-alert, .dui-card, .dui-unit-value):not(.dui-emphasis-filled),
+body.dui :is(.dui-badge, .dui-chip, .dui-alert, .dui-card, .dui-unit-value).dui-emphasis-subtle:not(.dui-emphasis-filled),
+body.dui :is(.dui-badge, .dui-chip, .dui-alert, .dui-card, .dui-unit-value).dui-emphasis-minimal:not(.dui-emphasis-filled) {
     border: var(--dui-emphasis-border);
     border-width: var(--dui-emphasis-border-width);
     border-style: var(--dui-emphasis-border-style);
