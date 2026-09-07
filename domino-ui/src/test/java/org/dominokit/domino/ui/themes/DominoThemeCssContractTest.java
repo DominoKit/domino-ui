@@ -448,6 +448,45 @@ public class DominoThemeCssContractTest {
   }
 
   @Test
+  public void expandedRecordRowsUseTheHoverSurfaceAndForeground() throws IOException {
+    String datatable =
+        readResource(
+            "org/dominokit/domino/ui/public/css/domino-ui/dui-components/domino-ui-datatable.css");
+    String lightTheme =
+        readResource(
+            "org/dominokit/domino/ui/public/css/domino-ui/dui-components/domino-ui-colors-light.css");
+    String darkTheme =
+        readResource(
+            "org/dominokit/domino/ui/public/css/domino-ui/dui-components/domino-ui-colors-dark.css");
+
+    assertTrue(datatable.contains(".dui-datatable-row-details-open"));
+    assertTrue(datatable.contains("background-color: var(--dui-datatable-row-hover-background);"));
+    assertTrue(datatable.contains("color: var(--dui-datatable-row-hover-color, inherit);"));
+    assertTrue(datatable.contains("color: var(--dui-datatable-row-selected-hover-color, "));
+    assertTrue(lightTheme.contains("--dui-datatable-row-hover-color: var(--dui-color);"));
+    assertTrue(darkTheme.contains("--dui-datatable-row-hover-color: var(--dui-color);"));
+    assertTrue(lightTheme.contains("--dui-datatable-row-selected-hover-color: var(--dui-color);"));
+    assertTrue(darkTheme.contains("--dui-datatable-row-selected-hover-color: var(--dui-color);"));
+  }
+
+  @Test
+  public void listGroupHoverForegroundMatchesItsAccentSurfaceInBothModes() throws IOException {
+    String listGroup =
+        readResource(
+            "org/dominokit/domino/ui/public/css/domino-ui/dui-components/domino-ui-list-group.css");
+    String lightTheme =
+        readResource(
+            "org/dominokit/domino/ui/public/css/domino-ui/dui-components/domino-ui-colors-light.css");
+    String darkTheme =
+        readResource(
+            "org/dominokit/domino/ui/public/css/domino-ui/dui-components/domino-ui-colors-dark.css");
+
+    assertTrue(listGroup.contains("color: var(--dui-list-group-item-hover-color);"));
+    assertTrue(lightTheme.contains("--dui-list-group-item-hover-color: var(--dui-accent-fg-clr);"));
+    assertTrue(darkTheme.contains("--dui-list-group-item-hover-color: var(--dui-accent-fg-clr);"));
+  }
+
+  @Test
   public void treeRootUsesTheSelectedIdentitySurface() throws IOException {
     String defaultTheme =
         readResource(

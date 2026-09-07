@@ -464,6 +464,7 @@
     --dui-thumbnail-border-active-color: var(--dui-accent-l-3);
     --dui-tree-header-bg-color: var(--dui-clr-dominant-l-2);
     --dui-list-group-item-hover-background: var(--dui-accent-l-4);
+    --dui-list-group-item-hover-color: var(--dui-accent-fg-clr);
     --dui-list-group-item-selected-background: var(--dui-accent);
     --dui-form-field-disabled-background: var(--dui-clr-grey-l-4);
     --dui-form-field-disabled-border-color: var(--dui-clr-grey-l-2);
@@ -497,8 +498,10 @@
     --dui-datatable-row-background: var(--dui-datatable-odd-bg-color);
     --dui-datatable-row-striped-background: var(--dui-datatable-even-bg-color);
     --dui-datatable-row-hover-background: var(--dui-datatable-row-hover-bg-color);
+    --dui-datatable-row-hover-color: var(--dui-color);
     --dui-datatable-row-selected-background: var(--dui-datatable-row-selected-bg-color);
     --dui-datatable-row-selected-hover-background: var(--dui-datatable-row-selected-hover-bg-color);
+    --dui-datatable-row-selected-hover-color: var(--dui-color);
     --dui-datatable-row-highlight-background: var(--dui-datatable-row-highlight-bg-color);
     --dui-datatable-row-context-background: var(--dui-datatable-row-context-bg-color);
     --dui-datatable-row-selected-indicator-color: var(--dui-accent-d-2);

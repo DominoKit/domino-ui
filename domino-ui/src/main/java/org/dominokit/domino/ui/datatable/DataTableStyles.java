@@ -75,6 +75,8 @@ public interface DataTableStyles {
 
   CssClass dui_datatable_details_tr = () -> "dui-datatable-details-tr";
 
+  CssClass dui_datatable_row_details_open = () -> "dui-datatable-row-details-open";
+
   CssClass dui_datatable_column_filter = () -> "dui-datatable-column-filter";
 
   CssClass dui_datatable_row_editable = () -> "dui-datatable-row-editable";

@@ -893,7 +893,7 @@ body.dui {
     --dui-list-group-item-border-style: solid;
     --dui-list-group-item-border-color: var(--dui-accent-l-4);
     --dui-list-group-item-selected-color: var(--dui-clr-white);
-    --dui-list-group-item-hover-color: var(--dui-color-alternate);
+    --dui-list-group-item-hover-color: var(--dui-accent-fg-clr);
 
     /* ============================ Badge =============================*/
     --dui-badge-background: var(--dui-accent);

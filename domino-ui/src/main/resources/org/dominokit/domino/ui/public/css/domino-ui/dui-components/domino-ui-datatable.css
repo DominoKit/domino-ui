@@ -87,10 +87,12 @@
 
 .dui-datatable-hover tbody .dui-datatable-row:not(.dui-datatable-row-editable):hover {
     background-color: var(--dui-datatable-row-hover-background);
+    color: var(--dui-datatable-row-hover-color, inherit);
 }
 
 .dui-datatable-hover tbody .dui-datatable-row.dui-datatable-row-selected:not(.dui-datatable-row-editable):hover {
     background-color: var(--dui-datatable-row-selected-hover-background);
+    color: var(--dui-datatable-row-selected-hover-color, var(--dui-datatable-row-hover-color, inherit));
 }
 
 .dui-datatable-hover tbody .dui-datatable-row.dui-context-menu-target-open:not(.dui-datatable-row-editable):hover,
@@ -127,6 +129,17 @@
 .dui-datatable-row:focus-visible,
 .dui-datatable-row:focus-within {
     background-color: var(--dui-datatable-row-focus-background);
+}
+
+/* Keep the source row visually active while its record details are open. */
+.dui-datatable-responsive tbody .dui-datatable-row.dui-datatable-row-details-open {
+    background-color: var(--dui-datatable-row-hover-background);
+    color: var(--dui-datatable-row-hover-color, inherit);
+}
+
+.dui-datatable-responsive tbody .dui-datatable-row.dui-datatable-row-details-open.dui-datatable-row-selected {
+    background-color: var(--dui-datatable-row-selected-hover-background);
+    color: var(--dui-datatable-row-selected-hover-color, var(--dui-datatable-row-hover-color, inherit));
 }
 
 .dui-datatable-width-full {

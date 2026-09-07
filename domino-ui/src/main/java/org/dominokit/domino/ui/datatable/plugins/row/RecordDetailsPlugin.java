@@ -19,6 +19,7 @@ package org.dominokit.domino.ui.datatable.plugins.row;
 import static java.util.Objects.nonNull;
 import static org.dominokit.domino.ui.datatable.DataTableStyles.dui_datatable_details_td;
 import static org.dominokit.domino.ui.datatable.DataTableStyles.dui_datatable_details_tr;
+import static org.dominokit.domino.ui.datatable.DataTableStyles.dui_datatable_row_details_open;
 
 import elemental2.dom.*;
 import java.util.Collections;
@@ -284,6 +285,7 @@ public class RecordDetailsPlugin<T> implements DataTablePlugin<T> {
     dataTable
         .bodyElement()
         .insertBefore(tr, expandElement.getCellInfo().getTableRow().element().nextSibling);
+    expandElement.getCellInfo().getTableRow().addCss(dui_datatable_row_details_open);
   }
 
   /**
@@ -355,6 +357,7 @@ public class RecordDetailsPlugin<T> implements DataTablePlugin<T> {
     /** Collapses the associated row and sets the icon to the collapsed state. */
     public void collapse() {
       recordDetailsPlugin.clear();
+      cellInfo.getTableRow().removeCss(dui_datatable_row_details_open);
       this.stateIcon.setState("collapsed");
     }
 
