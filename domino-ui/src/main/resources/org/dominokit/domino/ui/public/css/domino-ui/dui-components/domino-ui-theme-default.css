@@ -525,7 +525,12 @@ body.dui {
     --dui-clickable-transform: none;
     --dui-clickable-transition: all 0.2s ease-in;
     --dui-clickable-shadow-spread: 5px;
+    --dui-clickable-hover-background: rgb(0 0 0 / 8%);
     --dui-default-icon-size: var(--dui-spc-px-24);
+    --dui-icon-radius: var(--dui-radius-pill);
+    --dui-icon-square-radius: var(--dui-radius-md);
+    --dui-icon-border: 1px solid var(--dui-context-color, var(--dui-accent));
+    --dui-icon-surface-background: var(--dui-bg-d-1, var(--dui-card-background, var(--dui-clr-dominant-d-1)));
 
     --dui-primary-fg-clr: var(--dui-clr-white);
     --dui-secondary-fg-clr: var(--dui-clr-white);

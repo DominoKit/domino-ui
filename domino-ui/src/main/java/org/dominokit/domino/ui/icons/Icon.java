@@ -21,6 +21,7 @@ import elemental2.dom.EventListener;
 import elemental2.dom.HTMLElement;
 import org.dominokit.domino.ui.accessibility.Accessibility;
 import org.dominokit.domino.ui.events.EventType;
+import org.dominokit.domino.ui.style.BooleanCssClass;
 import org.dominokit.domino.ui.style.GenericCss;
 import org.dominokit.domino.ui.style.SwapCssClass;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
@@ -103,6 +104,39 @@ public abstract class Icon<T extends Icon<T>> extends BaseDominoElement<HTMLElem
     setAttribute("tabindex", "0");
     setAttribute("role", "button");
     Accessibility.activateOnEnterAndSpace(this, evt -> element().click());
+    return (T) this;
+  }
+
+  /**
+   * Sets whether the icon uses the theme's square radius instead of the default pill radius.
+   *
+   * @param square whether the square icon appearance should be applied
+   * @return this icon
+   */
+  public T setSquare(boolean square) {
+    addCss(BooleanCssClass.of(IconsStyles.dui_icon_square, square));
+    return (T) this;
+  }
+
+  /**
+   * Sets whether the icon displays a contextual border.
+   *
+   * @param bordered whether the bordered icon appearance should be applied
+   * @return this icon
+   */
+  public T setBordered(boolean bordered) {
+    addCss(BooleanCssClass.of(IconsStyles.dui_icon_bordered, bordered));
+    return (T) this;
+  }
+
+  /**
+   * Sets whether the icon displays a slightly darker theme surface.
+   *
+   * @param surface whether the subtle icon surface should be applied
+   * @return this icon
+   */
+  public T setSurface(boolean surface) {
+    addCss(BooleanCssClass.of(IconsStyles.dui_icon_surface, surface));
     return (T) this;
   }
 

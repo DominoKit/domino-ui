@@ -350,6 +350,29 @@ public class DominoThemeCssContractTest {
   }
 
   @Test
+  public void iconAppearanceModifiersUseThemeTokensAndParticipateInEmphasis() throws IOException {
+    String defaultTheme =
+        readResource(
+            "org/dominokit/domino/ui/public/css/domino-ui/dui-components/domino-ui-theme-default.css");
+    String icons =
+        readResource(
+            "org/dominokit/domino/ui/public/css/domino-ui/dui-components/domino-ui-icons.css");
+    String emphasis =
+        readResource(
+            "org/dominokit/domino/ui/public/css/domino-ui/dui-components/domino-ui-emphasis.css");
+
+    assertTrue(defaultTheme.contains("--dui-icon-radius: var(--dui-radius-pill);"));
+    assertTrue(defaultTheme.contains("--dui-icon-square-radius: var(--dui-radius-md);"));
+    assertTrue(defaultTheme.contains("--dui-icon-surface-background:"));
+    assertTrue(defaultTheme.contains("--dui-icon-border:"));
+    assertTrue(icons.contains("border-radius: var(--dui-icon-radius);"));
+    assertTrue(icons.contains(".dui-icon.dui-icon-square"));
+    assertTrue(icons.contains("border: var(--dui-icon-border);"));
+    assertTrue(icons.contains("background-color: var(--dui-icon-surface-background);"));
+    assertTrue(emphasis.contains(".dui-icon"));
+  }
+
+  @Test
   public void quickSearchUsesOneRadiusAndAContrastingLightSurface() throws IOException {
     String defaultTheme =
         readResource(
