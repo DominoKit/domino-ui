@@ -136,7 +136,7 @@ public class AppLayout extends BaseDominoElement<HTMLDivElement, AppLayout>
         () -> {
           leftToggleIcon
               .setAttribute("aria-label", "Open navigation")
-              .setAttribute("aria-controls", leftDrawer.get().getDominoId())
+              .setAttribute("aria-controls", leftDrawer.element().getDominoId())
               .setAttribute("aria-expanded", isLeftDrawerOpen());
           TransitionListeners.of(leftDrawer.element())
               .onTransitionStart(
@@ -180,7 +180,7 @@ public class AppLayout extends BaseDominoElement<HTMLDivElement, AppLayout>
         () -> {
           rightToggleIcon
               .setAttribute("aria-label", "Open side panel")
-              .setAttribute("aria-controls", rightDrawer.get().getDominoId())
+              .setAttribute("aria-controls", rightDrawer.element().getDominoId())
               .setAttribute("aria-expanded", isRightDrawerOpen());
           TransitionListeners.of(rightDrawer.element())
               .onTransitionStart(
