@@ -27,6 +27,9 @@ import org.dominokit.domino.ui.accessibility.InteractiveControlsAccessibilityTes
 import org.dominokit.domino.ui.accessibility.NavigationAccessibilityTest;
 import org.dominokit.domino.ui.cards.CardTest;
 import org.dominokit.domino.ui.forms.suggest.MultiSelectTest;
+import org.dominokit.domino.ui.layout.AppLayoutTest;
+import org.dominokit.domino.ui.layout.NavBarTest;
+import org.dominokit.domino.ui.layout.PageHeaderTest;
 import org.dominokit.domino.ui.popover.TooltipTest;
 import org.dominokit.domino.ui.style.FontThemingTest;
 import org.dominokit.domino.ui.themes.DominoCssThemeTest;
@@ -42,6 +45,9 @@ public class DominoUiTestSuite extends GWTTestSuite {
     suite.addTestSuite(MatchHighlighterTest.class);
     suite.addTestSuite(CardTest.class);
     suite.addTestSuite(MultiSelectTest.class);
+    suite.addTestSuite(AppLayoutTest.class);
+    suite.addTestSuite(NavBarTest.class);
+    suite.addTestSuite(PageHeaderTest.class);
     suite.addTestSuite(FontThemingTest.class);
     suite.addTestSuite(DominoThemeManagerTest.class);
     suite.addTestSuite(ElementThemeManagerTest.class);

@@ -1296,6 +1296,13 @@ body.dui {
     --dui-nav-bar-title-font-size: inherit;
     --dui-nav-bar-title-font-weight: 700;
 
+    --dui-page-header-margin-bottom: var(--dui-spc-4);
+    --dui-page-header-title-margin: 0;
+    --dui-page-header-title-opacity: 0.7;
+    --dui-page-header-title-text-transform: uppercase;
+    --dui-page-header-title-letter-spacing: 0.08em;
+    --dui-page-header-description-opacity: 0.9;
+
 
     /* =================== Layout =========================== */
     --dui-layout-content-background: var(--dui-clr-dominant-d-1);

@@ -147,6 +147,166 @@ public class DominoThemeCssContractTest {
   }
 
   @Test
+  public void unitValueContextualColorTargetsOnlyTheValueText() throws IOException {
+    String unitValue =
+        readResource(
+            "org/dominokit/domino/ui/public/css/domino-ui/dui-components/domino-ui-unitvalue.css");
+
+    assertTrue(unitValue.contains(".dui-unit-value-value {"));
+    assertTrue(unitValue.contains(".dui-unit-value.dui-ctx .dui-unit-value-value {"));
+    assertTrue(
+        unitValue.contains(
+            "color: var(--dui-context-text-color, var(--dui-context-color, inherit));"));
+    assertFalse(unitValue.contains("background-color:"));
+  }
+
+  @Test
+  public void contextualTextColorIsModeAwareWithoutChangingFilledForegrounds() throws IOException {
+    String generic =
+        readResource(
+            "org/dominokit/domino/ui/public/css/domino-ui/dui-components/domino-ui-generic.css");
+    String light =
+        readResource(
+            "org/dominokit/domino/ui/public/css/domino-ui/dui-components/domino-ui-colors-light.css");
+    String dark =
+        readResource(
+            "org/dominokit/domino/ui/public/css/domino-ui/dui-components/domino-ui-colors-dark.css");
+
+    assertTrue(light.contains("--dui-context-text-color-strength: 100%;"));
+    assertTrue(dark.contains("--dui-context-text-color-strength: 24%;"));
+    assertTrue(dark.contains("--dui-context-text-base-color: var(--dui-clr-white);"));
+    assertTrue(
+        generic.contains(
+            ".dui.dui-ctx {\n    --dui-context-text-color: color-mix(in srgb, "
+                + "var(--dui-context-color) var(--dui-context-text-color-strength, 100%), "
+                + "var(--dui-context-text-base-color, var(--dui-color)) calc(100% - var(--dui-context-text-color-strength, 100%)));"));
+    for (String context : new String[] {"success", "error", "warning", "info"}) {
+      assertTrue(
+          context,
+          generic.contains(
+              ".dui.dui-"
+                  + context
+                  + " {\n    --dui-context-color: var(--dui-clr-"
+                  + context
+                  + ");"));
+    }
+    assertTrue(dark.contains("--dui-success-fg-clr: var(--dui-clr-black);"));
+    assertTrue(dark.contains("--dui-info-fg-clr: var(--dui-clr-white);"));
+  }
+
+  @Test
+  public void responsiveScreensKeepTheDialogSizeScaleConsistent() throws IOException {
+    String xsmallDown =
+        readResource(
+            "org/dominokit/domino/ui/public/css/domino-ui/dui-components/screens/domino-ui-screen-xsmall-down.css");
+    String small =
+        readResource(
+            "org/dominokit/domino/ui/public/css/domino-ui/dui-components/screens/domino-ui-screen-small.css");
+    String defaultTheme =
+        readResource(
+            "org/dominokit/domino/ui/public/css/domino-ui/dui-components/domino-ui-theme-default.css");
+
+    String[][] widthOverrides =
+        new String[][] {
+          {"dui-w-xs", "--dui-dialog-xsamll-width", "75%"},
+          {"dui-w-sm", "--dui-dialog-samll-width", "75%"},
+          {"dui-w-md", "--dui-dialog-medium-width", "75%"},
+          {"dui-w-lg", "--dui-dialog-large-width", "75%"},
+          {"dui-w-xl", "--dui-dialog-xlarge-width", "95%"}
+        };
+    String[][] heightOverrides =
+        new String[][] {
+          {"dui-h-xs", "--dui-dialog-xsmall-height"},
+          {"dui-h-sm", "--dui-dialog-small-height"},
+          {"dui-h-md", "--dui-dialog-medium-height"},
+          {"dui-h-lg", "--dui-dialog-large-height"},
+          {"dui-h-xl", "--dui-dialog-xlarge-height"}
+        };
+
+    for (String[] override : widthOverrides) {
+      assertTrue(small.contains(".dui-dialog." + override[0] + " {"));
+      assertTrue(small.contains(override[1] + ": " + override[2] + ";"));
+      assertTrue(xsmallDown.contains(".dui-dialog." + override[0] + " {"));
+      assertTrue(xsmallDown.contains(override[1] + ": 95%;"));
+    }
+    for (String[] override : heightOverrides) {
+      String selector = ".dui-dialog." + override[0] + ":not(.dui-horizontal-sheet) {";
+      assertTrue(small.contains(selector));
+      assertTrue(small.contains(override[1] + ": 75%;"));
+      assertTrue(xsmallDown.contains(selector));
+      assertTrue(xsmallDown.contains(override[1] + ": 95%;"));
+      assertFalse(
+          Pattern.compile("\\.dui-dialog\\." + override[0] + "\\s*\\{").matcher(small).find());
+      assertFalse(
+          Pattern.compile("\\.dui-dialog\\." + override[0] + "\\s*\\{").matcher(xsmallDown).find());
+    }
+    assertTrue(defaultTheme.contains("--dui-dialog-xsamll-width: 15%;"));
+    assertTrue(defaultTheme.contains("--dui-dialog-samll-width: 25%;"));
+    assertTrue(defaultTheme.contains("--dui-dialog-medium-width: 35%;"));
+    assertTrue(defaultTheme.contains("--dui-dialog-xmedium-width: 50%;"));
+    assertTrue(defaultTheme.contains("--dui-dialog-large-width: 75%;"));
+    assertTrue(defaultTheme.contains("--dui-dialog-xlarge-width: 95%;"));
+    assertTrue(defaultTheme.contains("--dui-dialog-xsmall-height: 15%;"));
+    assertTrue(defaultTheme.contains("--dui-dialog-small-height: 25%;"));
+    assertTrue(defaultTheme.contains("--dui-dialog-medium-height: 50%;"));
+    assertTrue(defaultTheme.contains("--dui-dialog-xmedium-height: 60%;"));
+    assertTrue(defaultTheme.contains("--dui-dialog-large-height: 75%;"));
+    assertTrue(defaultTheme.contains("--dui-dialog-xlarge-height: 95%;"));
+  }
+
+  @Test
+  public void pageHeaderHasIndependentThemeableStyles() throws IOException {
+    String navbar =
+        readResource(
+            "org/dominokit/domino/ui/public/css/domino-ui/dui-components/domino-ui-navbar.css");
+    String pageHeader =
+        readResource(
+            "org/dominokit/domino/ui/public/css/domino-ui/dui-components/domino-ui-page-header.css");
+    String defaultTheme =
+        readResource(
+            "org/dominokit/domino/ui/public/css/domino-ui/dui-components/domino-ui-theme-default.css");
+
+    assertTrue(navbar.contains(".dui-nav-bar-base {"));
+    assertTrue(pageHeader.contains(".dui-page-header {"));
+    assertTrue(pageHeader.contains("height: auto;"));
+    assertTrue(
+        pageHeader.contains(
+            ".dui-page-header .dui-nav-title-text {\n"
+                + "    opacity: var(--dui-page-header-title-opacity);"));
+    assertTrue(pageHeader.contains("opacity: var(--dui-page-header-description-opacity);"));
+    assertTrue(defaultTheme.contains("--dui-page-header-title-margin: 0;"));
+    assertTrue(defaultTheme.contains("--dui-page-header-title-opacity: 0.7;"));
+    assertTrue(defaultTheme.contains("--dui-page-header-title-text-transform: uppercase;"));
+    assertTrue(defaultTheme.contains("--dui-page-header-title-letter-spacing: 0.08em;"));
+    assertTrue(defaultTheme.contains("--dui-page-header-description-opacity: 0.9;"));
+  }
+
+  @Test
+  public void genericContextsExposeTheirResolvedContextColor() throws IOException {
+    String generic =
+        readResource(
+            "org/dominokit/domino/ui/public/css/domino-ui/dui-components/domino-ui-generic.css");
+
+    String[][] contexts = {
+      {"primary", "var(--dui-clr-primary)"},
+      {"secondary", "var(--dui-clr-secondary)"},
+      {"dominant", "var(--dui-clr-dominant)"},
+      {"accent", "var(--dui-accent)"},
+      {"success", "var(--dui-clr-success)"},
+      {"error", "var(--dui-clr-error)"},
+      {"blue", "var(--dui-clr-blue)"},
+      {"orange", "var(--dui-clr-orange)"}
+    };
+
+    for (String[] context : contexts) {
+      assertTrue(
+          context[0],
+          generic.contains(
+              ".dui.dui-" + context[0] + " {\n    --dui-context-color: " + context[1] + ";"));
+    }
+  }
+
+  @Test
   public void focusIndicatorUsesAThemeAndColorModeAwareToken() throws IOException {
     String defaultTheme =
         readResource(
@@ -581,6 +741,9 @@ public class DominoThemeCssContractTest {
     String progress =
         readResource(
             "org/dominokit/domino/ui/public/css/domino-ui/dui-components/domino-ui-progressbar.css");
+    String unitValue =
+        readResource(
+            "org/dominokit/domino/ui/public/css/domino-ui/dui-components/domino-ui-unitvalue.css");
     String menu =
         readResource(
             "org/dominokit/domino/ui/public/css/domino-ui/dui-components/domino-ui-menu.css");
@@ -749,6 +912,7 @@ public class DominoThemeCssContractTest {
     assertTrue(
         generic.contains(
             ".dui.dui-blue {\n"
+                + "    --dui-context-color: var(--dui-clr-blue);\n"
                 + "    --dui-context-fg-color: var(--dui-blue-fg-clr);\n"
                 + "    --dui-bg-l-5: var(--dui-clr-blue-l-5);\n"
                 + "    --dui-bg-l-4: var(--dui-clr-blue-l-4);\n"
@@ -1256,6 +1420,9 @@ public class DominoThemeCssContractTest {
     String progress =
         readResource(
             "org/dominokit/domino/ui/public/css/domino-ui/dui-components/domino-ui-progressbar.css");
+    String unitValue =
+        readResource(
+            "org/dominokit/domino/ui/public/css/domino-ui/dui-components/domino-ui-unitvalue.css");
 
     assertFalse(emphasis.contains(":root"));
     assertTrue(emphasis.contains("body.dui .dui-emphasis-subtle"));
@@ -1274,8 +1441,10 @@ public class DominoThemeCssContractTest {
             "--dui-emphasis-border-color: color-mix(in srgb, var(--dui-emphasis-color) 82%, var(--dui-color))"));
     assertTrue(emphasis.contains("body.dui :is(.dui-emphasis-subtle, .dui-emphasis-minimal)"));
     assertTrue(emphasis.contains(".dui-btn, .dui-badge, .dui-chip"));
-    assertTrue(emphasis.contains(".dui-progress-bar, .dui-card).dui-emphasis-subtle"));
+    assertTrue(
+        emphasis.contains(".dui-progress-bar, .dui-card, .dui-unit-value).dui-emphasis-subtle"));
     assertTrue(emphasis.contains(".dui-card"));
+    assertTrue(emphasis.contains(".dui-unit-value"));
     assertFalse(emphasis.contains(".dui-tab-item"));
     assertFalse(emphasis.contains(".dui-tab-anchor"));
     assertFalse(emphasis.contains(".dui-menu-item"));
@@ -1284,7 +1453,7 @@ public class DominoThemeCssContractTest {
     assertTrue(emphasis.contains(".dui-badge, .dui-chip, .dui-alert"));
     assertTrue(
         emphasis.contains(
-            ":is(.dui-badge, .dui-chip, .dui-alert, .dui-card):not(.dui-emphasis-filled)"));
+            ":is(.dui-badge, .dui-chip, .dui-alert, .dui-card, .dui-unit-value):not(.dui-emphasis-filled)"));
     assertTrue(emphasis.contains("border-width: var(--dui-emphasis-border-width);"));
     assertTrue(emphasis.contains(".dui-emphasis-subtle:not(.dui-emphasis-filled)"));
     assertTrue(emphasis.contains("body.dui .dui-emphasis-filled"));
@@ -1309,6 +1478,7 @@ public class DominoThemeCssContractTest {
     assertTrue(cards.contains("--dui-emphasis-color: var(--dui-bg, var(--dui-accent));"));
     assertTrue(progress.contains("--dui-emphasis-color: var(--dui-bg, var(--dui-accent));"));
     assertTrue(progress.contains("--dui-emphasis-text-color: var(--dui-progress-bar-color);"));
+    assertTrue(unitValue.contains("--dui-emphasis-color: var(--dui-bg, var(--dui-accent));"));
   }
 
   @Test

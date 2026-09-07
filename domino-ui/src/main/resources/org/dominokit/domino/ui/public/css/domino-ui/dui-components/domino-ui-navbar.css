@@ -1,4 +1,4 @@
-.dui-nav-bar {
+.dui-nav-bar-base {
     height: 100%;
     width: 100%;
     display: flex;
@@ -12,7 +12,7 @@
     border-width: 0;
 }
 
-.dui-nav-bar .dui-prefix-addon {
+.dui-nav-bar-base .dui-prefix-addon {
     column-width: auto;
     margin: var(--dui-nav-bar-addon-margin);
     order: 10;
@@ -32,12 +32,12 @@
     text-indent: var(--dui-nav-bar-body-indent);
 }
 
-.dui-nav-bar .dui-postfix-addon {
+.dui-nav-bar-base .dui-postfix-addon {
     margin: var(--dui-nav-bar-utility-margin);
     order: 40;
 }
 
-.dui-nav-bar .dui-primary-addon {
+.dui-nav-bar-base .dui-primary-addon {
     margin: var(--dui-nav-bar-addon-margin);
 }
 
