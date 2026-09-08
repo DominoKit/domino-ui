@@ -54,10 +54,7 @@ body.dui :is(.dui-btn, .dui-badge, .dui-chip, .dui-alert, .dui-info-box, .dui-pr
     box-shadow: var(--dui-emphasis-ring-style, inset) 0 0 0 var(--dui-emphasis-ring-width, 0px) var(--dui-emphasis-color, transparent), var(--dui-emphasis-native-box-shadow, none);
 }
 
-/* Icons use the same inherited emphasis contract as other semantic components. */
-body.dui :is(.dui-emphasis-subtle, .dui-emphasis-minimal) .dui-icon:not(.dui-emphasis-filled),
-body.dui.dui-emphasis-subtle .dui-icon:not(.dui-emphasis-filled),
-body.dui.dui-emphasis-minimal .dui-icon:not(.dui-emphasis-filled),
+/* Icons opt into emphasis only when the modifier is applied directly. */
 body.dui .dui-icon:is(.dui-emphasis-subtle, .dui-emphasis-minimal):not(.dui-emphasis-filled) {
     background-color: color-mix(in srgb, var(--dui-emphasis-color) var(--dui-emphasis-fill-strength), transparent);
     color: var(--dui-emphasis-text-color);

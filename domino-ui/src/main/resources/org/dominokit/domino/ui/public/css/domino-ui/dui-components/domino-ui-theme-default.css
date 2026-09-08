@@ -614,7 +614,7 @@ body.dui {
     --dui-scroll-top-button-opacity: 04;
 
     --dui-btn-toggled-bg: var(--dui-accent-d-2);
-    --dui-btn-toggled-color: var(--dui-highlight-color);
+    --dui-btn-toggled-color: var(--dui-context-fg-color, var(--dui-accent-fg-clr));
 
     /* ===================== Breadcrumb ==================================== */
 
@@ -633,9 +633,13 @@ body.dui {
     /* ===================== Cards ==================================== */
 
     --dui-card-background: var(--dui-clr-dominant);
+    --dui-card-content-footer-background: color-mix(in srgb, var(--dui-card-background) 92%, var(--dui-color) 8%);
     --dui-card-nested-background: var(--dui-clr-dominant-l-3);
+    --dui-card-nested-content-footer-background: color-mix(in srgb, var(--dui-card-nested-background) 92%, var(--dui-color) 8%);
     --dui-card-nested-2-background: var(--dui-clr-dominant-l-2);
+    --dui-card-nested-2-content-footer-background: color-mix(in srgb, var(--dui-card-nested-2-background) 92%, var(--dui-color) 8%);
     --dui-card-nested-3-background: var(--dui-clr-dominant-d-1);
+    --dui-card-nested-3-content-footer-background: color-mix(in srgb, var(--dui-card-nested-3-background) 92%, var(--dui-color) 8%);
     --dui-card-box-shadow: var(--dui-box-shadow-1);
     --dui-card-border-radius: var(--dui-radius-xs);
     --dui-card-margin: 0 0 var(--dui-spc-4) 0;
@@ -785,7 +789,8 @@ body.dui {
     --dui-progress-bar-box-shadow: 2px 5px 5px 0px rgba(0, 0, 0, .2), 0 0px 0px 0 rgba(0, 0, 0, .14), 0 0px 0px 0 rgba(0, 0, 0, .12);
     --dui-progress-bar-float: left;
     --dui-progress-bar-font: var(--dui-font-regular-sm);
-    --dui-progress-bar-color: var(--dui-color);
+    --dui-progress-bar-color: var(--dui-accent-fg-clr);
+    --dui-progress-text-overflow-color: var(--dui-color);
     --dui-progress-bar-text-align: center;
     --dui-progress-bar-striped-bg-image: linear-gradient(45deg, rgba(255, 255, 255, .15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, .15) 50%, rgba(255, 255, 255, .15) 75%, transparent 75%, transparent);
     --dui-progress-bar-striped-bg-size: var(--dui-spc-px-40) var(--dui-spc-px-40);
@@ -1080,6 +1085,8 @@ body.dui {
     --dui-form-field-padding: 0px;
     --dui-form-field-margin: 0 0 var(--dui-spc-4) 0;
     --dui-form-field-wrapper-padding: 2px 5px;
+    --dui-form-field-wrapper-padding-block: 2px;
+    --dui-form-field-wrapper-border-width: 1px;
     --dui-form-field-wrapper-radius: 3px;
     --dui-form-field-wrapper-gap: var(--dui-spc-px-5);
     --dui-form-field-border: 1px solid var(--dui-form-field-border-color);

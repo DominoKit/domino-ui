@@ -7,9 +7,10 @@
     --dui-unit-value-gap: var(--dui-spc-px-2);
     --dui-unit-value-row-gap: var(--dui-spc-px-2);
     --dui-unit-description-gap: calc(var(--dui-spc-px-6) * -1);
-    display: flex;
+    display: inline-flex;
     flex-direction: column;
     min-width: 0;
+    max-width: 100%;
     color: var(--dui-color);
 }
 
@@ -62,7 +63,7 @@
 }
 
 .dui-unit-value.dui-horizontal {
-    display: grid;
+    display: inline-grid;
     grid-template-columns: minmax(0, 1fr) auto;
     align-items: baseline;
     column-gap: var(--dui-unit-value-row-gap);

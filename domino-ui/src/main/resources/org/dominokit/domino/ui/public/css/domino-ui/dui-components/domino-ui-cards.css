@@ -12,14 +12,17 @@
 
 .dui-card .dui-card {
     background-color: var(--dui-card-nested-background);
+    --dui-card-content-footer-background: var(--dui-card-nested-content-footer-background);
 }
 
 .dui-card .dui-card .dui-card {
     background-color: var(--dui-card-nested-2-background);
+    --dui-card-content-footer-background: var(--dui-card-nested-2-content-footer-background);
 }
 
 .dui-card .dui-card .dui-card .dui-card {
     background-color: var(--dui-card-nested-3-background);
+    --dui-card-content-footer-background: var(--dui-card-nested-3-content-footer-background);
 }
 
 .dui-card-header-bottom {
@@ -146,6 +149,10 @@
     flex: 0 0 auto;
     padding: 0;
     margin: 0;
+}
+
+.dui-card-content-footer {
+    background-color: var(--dui-card-content-footer-background);
 }
 
 .dui-card-content-header {
