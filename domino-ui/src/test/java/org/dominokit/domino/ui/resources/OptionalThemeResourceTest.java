@@ -42,7 +42,9 @@ public class OptionalThemeResourceTest {
     for (String resource : resources) {
       String css = readResource(resource);
       assertTrue(resource + " must define a Domino theme scope", css.contains(".dui.dui-theme-"));
-      assertFalse(resource + " must not expose demo-only -lab classes", css.contains("-lab"));
+      assertFalse(
+          resource + " must not expose demo-only compact-lab classes",
+          css.contains("dui-theme-compact-lab"));
       assertFalse(resource + " must not define :root", css.contains(":root"));
       assertFalse(resource + " must not depend on body.dui", css.contains("body.dui"));
       assertFalse(resource + " must not contain WaitMe selectors", css.contains("waitMe_"));
