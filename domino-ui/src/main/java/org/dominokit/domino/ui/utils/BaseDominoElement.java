@@ -391,6 +391,135 @@ public abstract class BaseDominoElement<E extends Element, T extends IsElement<E
     return element;
   }
 
+  /** Sets or removes the semantic ARIA role of this element. */
+  public T setRole(String role) {
+    return setOptionalAccessibilityAttribute("role", role);
+  }
+
+  /** Sets or removes the accessible name of this element. */
+  public T setAriaLabel(String label) {
+    return setOptionalAccessibilityAttribute("aria-label", label);
+  }
+
+  /** Sets or removes the id of the element that labels this element. */
+  public T setAriaLabelledBy(String id) {
+    return setOptionalAccessibilityAttribute("aria-labelledby", id);
+  }
+
+  /** Sets or removes the ids of elements that describe this element. */
+  public T setAriaDescribedBy(String ids) {
+    return setOptionalAccessibilityAttribute("aria-describedby", ids);
+  }
+
+  /** Sets or removes the id of the element controlled by this element. */
+  public T setAriaControls(String id) {
+    return setOptionalAccessibilityAttribute("aria-controls", id);
+  }
+
+  /** Sets the expanded state of this element. */
+  public T setAriaExpanded(boolean expanded) {
+    return setAriaBoolean("aria-expanded", expanded);
+  }
+
+  /** Sets the selected state of this element. */
+  public T setAriaSelected(boolean selected) {
+    return setAriaBoolean("aria-selected", selected);
+  }
+
+  /** Sets the pressed state of this element. */
+  public T setAriaPressed(boolean pressed) {
+    return setAriaBoolean("aria-pressed", pressed);
+  }
+
+  /** Sets the checked state of this element. */
+  public T setAriaChecked(boolean checked) {
+    return setAriaBoolean("aria-checked", checked);
+  }
+
+  /** Sets or removes the current item value of this element. */
+  public T setAriaCurrent(String current) {
+    return setOptionalAccessibilityAttribute("aria-current", current);
+  }
+
+  /** Sets the hidden state of this element. */
+  public T setAriaHidden(boolean hidden) {
+    return setAriaBoolean("aria-hidden", hidden);
+  }
+
+  /** Sets the ARIA disabled state of this element. */
+  public T setAriaDisabled(boolean disabled) {
+    return setAriaBoolean("aria-disabled", disabled);
+  }
+
+  /** Sets the required state of this element. */
+  public T setAriaRequired(boolean required) {
+    return setAriaBoolean("aria-required", required);
+  }
+
+  /** Sets the invalid state of this element. */
+  public T setAriaInvalid(boolean invalid) {
+    return setAriaBoolean("aria-invalid", invalid);
+  }
+
+  /** Sets or removes the live-region politeness setting of this element. */
+  public T setAriaLive(String politeness) {
+    return setOptionalAccessibilityAttribute("aria-live", politeness);
+  }
+
+  /** Sets the popup type exposed by this element. */
+  public T setAriaHasPopup(boolean hasPopup) {
+    return setAriaBoolean("aria-haspopup", hasPopup);
+  }
+
+  /** Sets or removes the popup type exposed by this element. */
+  public T setAriaHasPopup(String popupType) {
+    return setOptionalAccessibilityAttribute("aria-haspopup", popupType);
+  }
+
+  /** Sets or removes the autocomplete mode of this element. */
+  public T setAriaAutocomplete(String autocomplete) {
+    return setOptionalAccessibilityAttribute("aria-autocomplete", autocomplete);
+  }
+
+  /** Sets the multiline state of this element. */
+  public T setAriaMultiline(boolean multiline) {
+    return setAriaBoolean("aria-multiline", multiline);
+  }
+
+  /** Sets the minimum value announced for a range-like element. */
+  public T setAriaValueMin(double value) {
+    return setAriaNumber("aria-valuemin", value);
+  }
+
+  /** Sets the maximum value announced for a range-like element. */
+  public T setAriaValueMax(double value) {
+    return setAriaNumber("aria-valuemax", value);
+  }
+
+  /** Sets the current value announced for a range-like element. */
+  public T setAriaValueNow(double value) {
+    return setAriaNumber("aria-valuenow", value);
+  }
+
+  private T setAriaBoolean(String attribute, boolean value) {
+    setAttribute(attribute, value);
+    return element;
+  }
+
+  private T setAriaNumber(String attribute, double value) {
+    setAttribute(attribute, value);
+    return element;
+  }
+
+  private T setOptionalAccessibilityAttribute(String attribute, String value) {
+    if (isNull(value) || value.isEmpty()) {
+      removeAttribute(attribute);
+    } else {
+      setAttribute(attribute, value);
+    }
+    return element;
+  }
+
   /**
    * Alias for the {@link #setId(String)} method. Sets the "id" attribute of the DOM element.
    *

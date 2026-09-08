@@ -101,8 +101,8 @@ public abstract class Icon<T extends Icon<T>> extends BaseDominoElement<HTMLElem
     if (withWaves) {
       withWaves();
     }
-    setAttribute("tabindex", "0");
-    setAttribute("role", "button");
+    setTabIndex(0);
+    setRole("button");
     Accessibility.activateOnEnterAndSpace(this, evt -> element().click());
     return (T) this;
   }

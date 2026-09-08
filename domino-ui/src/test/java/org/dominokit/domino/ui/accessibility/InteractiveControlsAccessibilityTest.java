@@ -19,9 +19,13 @@ import com.google.gwt.junit.client.GWTTestCase;
 import org.dominokit.domino.ui.button.Button;
 import org.dominokit.domino.ui.button.DropdownButton;
 import org.dominokit.domino.ui.button.RemoveButton;
+import org.dominokit.domino.ui.button.ToggleButton;
 import org.dominokit.domino.ui.cards.Card;
+import org.dominokit.domino.ui.chips.Chip;
 import org.dominokit.domino.ui.icons.lib.Icons;
+import org.dominokit.domino.ui.lists.ListItem;
 import org.dominokit.domino.ui.menu.Menu;
+import org.dominokit.domino.ui.menu.MenuItem;
 
 public class InteractiveControlsAccessibilityTest extends GWTTestCase {
 
@@ -56,5 +60,39 @@ public class InteractiveControlsAccessibilityTest extends GWTTestCase {
     card.collapse();
     assertEquals(
         "false", card.element().querySelector(".dui-clickable").getAttribute("aria-expanded"));
+  }
+
+  public void testToggleButtonExposesPressedState() {
+    ToggleButton button = ToggleButton.create("Pin");
+
+    assertEquals("false", button.getAttribute("aria-pressed"));
+    button.setToggle(true);
+    assertEquals("true", button.getAttribute("aria-pressed"));
+  }
+
+  public void testSelectableChipExposesPressedState() {
+    Chip chip = Chip.create("Tag");
+
+    assertEquals("button", chip.getAttribute("role"));
+    assertEquals("false", chip.getAttribute("aria-pressed"));
+    chip.select();
+    assertEquals("true", chip.getAttribute("aria-pressed"));
+  }
+
+  public void testSelectableListItemExposesPressedState() {
+    ListItem<String> item = ListItem.create("Item");
+
+    assertEquals("button", item.getAttribute("role"));
+    assertEquals("false", item.getAttribute("aria-pressed"));
+    item.select();
+    assertEquals("true", item.getAttribute("aria-pressed"));
+  }
+
+  public void testSelectableMenuItemExposesSelectedState() {
+    MenuItem<String> item = MenuItem.create("Actions");
+
+    assertEquals("false", item.getClickableElement().getAttribute("aria-selected"));
+    item.select();
+    assertEquals("true", item.getClickableElement().getAttribute("aria-selected"));
   }
 }

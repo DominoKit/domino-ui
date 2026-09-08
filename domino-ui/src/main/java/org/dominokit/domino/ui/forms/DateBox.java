@@ -230,6 +230,7 @@ public class DateBox extends TextInputFormField<DateBox, HTMLInputElement, Date>
                 .defaultDateBoxIcon()
                 .get()
                 .clickable()
+                .setAriaLabel("Open calendar")
                 .addClickListener(
                     evt -> {
                       evt.stopPropagation();

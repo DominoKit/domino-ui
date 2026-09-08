@@ -63,10 +63,16 @@ public class AccordionPanel extends BaseDominoElement<HTMLDivElement, AccordionP
         () -> {
           headerElement
               .element()
-              .setAttribute("role", "button")
-              .setAttribute("tabindex", "0")
-              .setAttribute("aria-controls", contentElement.getDominoId())
-              .setAttribute("aria-expanded", false)
+              .setRole("button")
+              .setTabIndex(0)
+              .setAriaControls(contentElement.getDominoId())
+              .setAriaExpanded(false);
+          contentElement
+              .setRole("region")
+              .setAriaLabelledBy(headerElement.element().getDominoId())
+              .setAriaHidden(true);
+          headerElement
+              .element()
               .onKeyDown(
                   keyEvents ->
                       keyEvents
@@ -81,14 +87,28 @@ public class AccordionPanel extends BaseDominoElement<HTMLDivElement, AccordionP
     addExpandListener(
         () -> {
           addCss(dui_active);
-          headerElement.get().setAttribute("aria-expanded", true);
         });
     addCollapseListener(
         () -> {
           removeCss(dui_active);
-          headerElement.get().setAttribute("aria-expanded", false);
         });
     collapse();
+  }
+
+  @Override
+  public AccordionPanel expand() {
+    super.expand();
+    headerElement.get().setAriaExpanded(true);
+    contentElement.setAriaHidden(false);
+    return this;
+  }
+
+  @Override
+  public AccordionPanel collapse() {
+    super.collapse();
+    headerElement.get().setAriaExpanded(false);
+    contentElement.setAriaHidden(true);
+    return this;
   }
 
   /**

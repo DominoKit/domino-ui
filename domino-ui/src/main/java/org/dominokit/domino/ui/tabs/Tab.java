@@ -85,6 +85,7 @@ public class Tab extends BaseDominoElement<HTMLLIElement, Tab>
                 .get()
                 .addCss(dui_font_size_4)
                 .addCss(dui_tab_header_item, dui_tab_header_close)
+                .setAriaLabel("Close tab")
                 .addClickListener(
                     evt -> {
                       close();

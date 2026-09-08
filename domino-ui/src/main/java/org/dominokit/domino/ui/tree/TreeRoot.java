@@ -377,6 +377,7 @@ public abstract class TreeRoot<V, N extends TreeNode<V, N, S>, C extends TreeRoo
                 PostfixAddOn.of(
                         Icons.magnify()
                             .clickable()
+                            .setAriaLabel("Search tree")
                             .addClickListener(
                                 evt -> {
                                   evt.stopPropagation();
@@ -413,6 +414,7 @@ public abstract class TreeRoot<V, N extends TreeNode<V, N, S>, C extends TreeRoo
                 PostfixAddOn.of(
                         ToggleMdiIcon.create(Icons.fullscreen(), Icons.fullscreen_exit())
                             .clickable()
+                            .setAriaLabel("Toggle tree")
                             .apply(
                                 self ->
                                     self.addClickListener(

@@ -71,6 +71,7 @@ public class ProgressBar extends BaseDominoElement<HTMLDivElement, ProgressBar>
         div()
             .addCss(dui_progress_bar)
             .setAttribute("role", "progressbar")
+            .setAriaLabel("Progress")
             .setAttribute("aria-valuemin", "0")
             .setAttribute("aria-valuemax", String.valueOf(maxValue))
             .setAttribute("aria-valuenow", "0")

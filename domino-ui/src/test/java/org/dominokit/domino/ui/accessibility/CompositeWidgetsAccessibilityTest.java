@@ -48,6 +48,19 @@ public class CompositeWidgetsAccessibilityTest extends GWTTestCase {
     assertEquals(panel.getContent().getDominoId(), panel.getHeader().getAttribute("aria-controls"));
   }
 
+  public void testAccordionContentIsAHiddenLabeledRegionWhenCollapsed() {
+    AccordionPanel panel = AccordionPanel.create("Details");
+
+    assertEquals("region", panel.getContent().getAttribute("role"));
+    assertEquals(
+        panel.getHeader().getDominoId(), panel.getContent().getAttribute("aria-labelledby"));
+    assertEquals("true", panel.getContent().getAttribute("aria-hidden"));
+
+    panel.expand();
+
+    assertEquals("false", panel.getContent().getAttribute("aria-hidden"));
+  }
+
   public void testDialogsExposeDialogSemantics() {
     MessageDialog dialog = MessageDialog.create("Title", "Message");
 
@@ -63,6 +76,7 @@ public class CompositeWidgetsAccessibilityTest extends GWTTestCase {
   public void testProgressBarExposesItsValueRange() {
     ProgressBar progressBar = ProgressBar.create(100).setValue(40);
 
+    assertEquals("Progress", progressBar.getAttribute("aria-label"));
     assertEquals("0", progressBar.getAttribute("aria-valuemin"));
     assertEquals("100", progressBar.getAttribute("aria-valuemax"));
     assertEquals("40", progressBar.getAttribute("aria-valuenow"));

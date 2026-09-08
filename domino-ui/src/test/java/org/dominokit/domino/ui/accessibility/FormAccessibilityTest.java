@@ -10,6 +10,7 @@ import com.google.gwt.junit.client.GWTTestCase;
 import org.dominokit.domino.ui.forms.TextBox;
 import org.dominokit.domino.ui.forms.suggest.Select;
 import org.dominokit.domino.ui.richtext.RichTextEditor;
+import org.dominokit.domino.ui.upload.FileUpload;
 
 public class FormAccessibilityTest extends GWTTestCase {
 
@@ -58,5 +59,16 @@ public class FormAccessibilityTest extends GWTTestCase {
     TextBox textBox = TextBox.create("Name").setRequired(true);
 
     assertEquals("true", textBox.getInputElement().getAttribute("aria-required"));
+  }
+
+  public void testFileUploadIsKeyboardAccessibleAndAnnouncesMessages() {
+    FileUpload fileUpload = FileUpload.create();
+
+    assertEquals("button", fileUpload.getAttribute("role"));
+    assertEquals("0", fileUpload.getAttribute("tabindex"));
+    assertEquals("Choose files", fileUpload.getAttribute("aria-label"));
+    assertEquals(
+        "polite",
+        fileUpload.element().querySelector(".dui-file-upload-messages").getAttribute("aria-live"));
   }
 }

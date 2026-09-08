@@ -243,6 +243,7 @@ public class AppLayout extends BaseDominoElement<HTMLDivElement, AppLayout>
         .whenInitialized(
             () ->
                 icon.clickable()
+                    .setAriaLabel("Open navigation")
                     .addClickListener(
                         evt -> {
                           evt.stopPropagation();
@@ -257,6 +258,7 @@ public class AppLayout extends BaseDominoElement<HTMLDivElement, AppLayout>
         .whenInitialized(
             () ->
                 icon.clickable()
+                    .setAriaLabel("Open side panel")
                     .addClickListener(
                         evt -> {
                           evt.stopPropagation();

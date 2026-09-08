@@ -48,6 +48,7 @@ public class ClearSearch<T> extends BaseDominoElement<HTMLElement, ClearSearch<T
             .setTooltip(clearFiltersToolTip)
             .addCss(dui_font_size_4)
             .clickable()
+            .setAriaLabel("Clear table filters")
             .addClickListener(evt -> dataTable.getSearchContext().clear().fireSearchEvent());
 
     init(this);

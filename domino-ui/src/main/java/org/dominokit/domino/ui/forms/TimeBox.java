@@ -172,6 +172,7 @@ public class TimeBox extends TextInputFormField<TimeBox, HTMLInputElement, Date>
                 .defaultDateBoxIcon()
                 .get()
                 .clickable()
+                .setAriaLabel("Open time picker")
                 .addClickListener(
                     evt -> {
                       evt.stopPropagation();

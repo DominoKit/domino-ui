@@ -53,7 +53,7 @@ public class ShowHideColumnsAction<T>
    * @param dataTable The DataTable to which this action element belongs.
    */
   public ShowHideColumnsAction(DataTable<T> dataTable) {
-    columnsIcon = Icons.view_column().clickable();
+    columnsIcon = Icons.view_column().clickable().setAriaLabel("Show or hide columns");
 
     Menu<String> dropDownMenu =
         Menu.<String>create()
