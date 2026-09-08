@@ -33,6 +33,7 @@
 
 .dui-datatable-thead {
     background-color: var(--dui-bg, var(--dui-clr-dominant));
+    border-bottom: var(--dui-datatable-header-border);
 }
 
 .dui-datatable-thead .dui-datatable-row{
@@ -56,60 +57,53 @@
     z-index: 1;
 }
 
-.dui-datatable-responsive tbody .dui-datatable-row {
+.dui-datatable-responsive > .dui-datatable > tbody > .dui-datatable-row {
     background-color: var(--dui-datatable-row-background);
 }
 
-.dui-datatable-striped tbody .dui-datatable-row:nth-child(even):not(.dui-odd):not(.dui-even) {
+.dui-datatable-striped > .dui-datatable > tbody > .dui-datatable-row:nth-child(even):not(.dui-odd):not(.dui-even) {
     background-color: var(--dui-datatable-row-striped-background);
 }
 
-.dui-datatable-striped tbody .dui-datatable-row:nth-child(odd):not(.dui-odd):not(.dui-even) {
+.dui-datatable-striped > .dui-datatable > tbody > .dui-datatable-row:nth-child(odd):not(.dui-odd):not(.dui-even) {
     background-color: var(--dui-datatable-row-background);
 }
 
-.dui-datatable-striped tbody .dui-datatable-row.dui-even {
+.dui-datatable-striped > .dui-datatable > tbody > .dui-datatable-row.dui-even {
     background-color: var(--dui-datatable-row-striped-background);
 }
 
-.dui-datatable-striped tbody .dui-datatable-row.dui-odd {
+.dui-datatable-striped > .dui-datatable > tbody > .dui-datatable-row.dui-odd {
     background-color: var(--dui-datatable-row-background);
 }
 
 /* Row states are deliberately declared after stripe rules so their precedence is explicit. */
-.dui-datatable-responsive tbody .dui-datatable-row.dui-datatable-row-highlighted {
+.dui-datatable-responsive > .dui-datatable > tbody > .dui-datatable-row.dui-datatable-row-highlighted {
     background-color: var(--dui-datatable-row-highlight-background);
 }
 
-.dui-datatable-responsive tbody .dui-datatable-row.dui-datatable-row-selected {
+.dui-datatable-responsive > .dui-datatable > tbody > .dui-datatable-row.dui-datatable-row-selected {
     background-color: var(--dui-datatable-row-selected-background);
 }
 
-.dui-datatable-hover tbody .dui-datatable-row:not(.dui-datatable-row-editable):hover {
+.dui-datatable-hover > .dui-datatable > tbody > .dui-datatable-row:not(.dui-datatable-row-editable):hover {
     background-color: var(--dui-datatable-row-hover-background);
     color: var(--dui-datatable-row-hover-color, inherit);
 }
 
-.dui-datatable-hover tbody .dui-datatable-row.dui-datatable-row-selected:not(.dui-datatable-row-editable):hover {
+.dui-datatable-hover > .dui-datatable > tbody > .dui-datatable-row.dui-datatable-row-selected:not(.dui-datatable-row-editable):hover {
     background-color: var(--dui-datatable-row-selected-hover-background);
     color: var(--dui-datatable-row-selected-hover-color, var(--dui-datatable-row-hover-color, inherit));
 }
 
-.dui-datatable-hover tbody .dui-datatable-row.dui-context-menu-target-open:not(.dui-datatable-row-editable):hover,
-.dui-datatable-row.dui-context-menu-target-open:not(.dui-datatable-row-editable) {
+.dui-datatable-hover > .dui-datatable > tbody > .dui-datatable-row.dui-context-menu-target-open:not(.dui-datatable-row-editable):hover,
+.dui-datatable-responsive > .dui-datatable > tbody > .dui-datatable-row.dui-context-menu-target-open:not(.dui-datatable-row-editable) {
     background-color: var(--dui-datatable-row-context-background);
 }
 
 /* Record details are a separate visual surface, independent of striping and row state. */
-.dui-datatable-responsive tbody .dui-datatable-row.dui-datatable-details-tr {
+.dui-datatable-responsive > .dui-datatable > tbody > .dui-datatable-row.dui-datatable-details-tr {
     background-color: var(--dui-datatable-row-details-background);
-    --dui-datatable-row-background: var(--dui-datatable-row-details-background);
-    --dui-datatable-row-striped-background: var(--dui-datatable-row-details-background);
-    --dui-datatable-row-hover-background: var(--dui-datatable-row-details-background);
-    --dui-datatable-row-selected-background: var(--dui-datatable-row-details-background);
-    --dui-datatable-row-selected-hover-background: var(--dui-datatable-row-details-background);
-    --dui-datatable-row-highlight-background: var(--dui-datatable-row-details-background);
-    --dui-datatable-row-context-background: var(--dui-datatable-row-details-background);
 }
 
 .dui-datatable-row.dui-datatable-row-selected .dui-datatable-td:first-child {
@@ -126,20 +120,26 @@
     pointer-events: none;
 }
 
-.dui-datatable-row:focus-visible,
-.dui-datatable-row:focus-within {
+.dui-datatable-responsive > .dui-datatable > tbody > .dui-datatable-row:not(.dui-datatable-details-tr):focus-visible,
+.dui-datatable-responsive > .dui-datatable > tbody > .dui-datatable-row:not(.dui-datatable-details-tr):focus-within {
     background-color: var(--dui-datatable-row-focus-background);
 }
 
 /* Keep the source row visually active while its record details are open. */
-.dui-datatable-responsive tbody .dui-datatable-row.dui-datatable-row-details-open {
-    background-color: var(--dui-datatable-row-hover-background);
-    color: var(--dui-datatable-row-hover-color, inherit);
+.dui-datatable-responsive > .dui-datatable > tbody > .dui-datatable-row.dui-datatable-row-details-open {
+    background-color: var(--dui-datatable-row-details-open-background);
+    color: var(--dui-datatable-row-details-open-color);
 }
 
-.dui-datatable-responsive tbody .dui-datatable-row.dui-datatable-row-details-open.dui-datatable-row-selected {
-    background-color: var(--dui-datatable-row-selected-hover-background);
-    color: var(--dui-datatable-row-selected-hover-color, var(--dui-datatable-row-hover-color, inherit));
+.dui-datatable-responsive > .dui-datatable > tbody > .dui-datatable-row.dui-datatable-row-details-open.dui-datatable-row-selected {
+    background-color: var(--dui-datatable-row-details-open-background);
+    color: var(--dui-datatable-row-details-open-color);
+}
+
+/* Apply column striping as an overlay so row, stripe, hover, focus, and selection surfaces remain visible. */
+.dui-datatable-column-striped.dui-datatable-column-stripe-columns > .dui-datatable > * > .dui-datatable-row > .dui-datatable-column-stripe-columns-alt,
+.dui-datatable-column-striped.dui-datatable-column-stripe-groups > .dui-datatable > * > .dui-datatable-row > .dui-datatable-column-stripe-groups-alt {
+    background-image: linear-gradient(var(--dui-datatable-column-stripe-background), var(--dui-datatable-column-stripe-background));
 }
 
 .dui-datatable-width-full {
@@ -147,37 +147,42 @@
     max-width: 100%;
 }
 
-.dui-datatable-row:not(:last-child) .dui-datatable-td {
-    border-bottom: var(--dui-datatable-border);
-}
-
-.dui-datatable-thead .dui-datatable-th {
-    border-bottom: var(--dui-datatable-border);
-}
-
-.dui-datatable-bordered .dui-datatable:not(:first-child) {
+.dui-datatable-bordered:not(.dui-datatable-border-table):not(.dui-datatable-border-rows):not(.dui-datatable-border-columns):not(.dui-datatable-border-column-groups):not(.dui-datatable-border-sections) > .dui-datatable:not(:first-child),
+.dui-datatable-bordered.dui-datatable-border-table > .dui-datatable:not(:first-child),
+.dui-datatable-bordered.dui-datatable-border-sections > .dui-datatable:not(:first-child) {
     border-top: var(--dui-datatable-border);
 }
 
-.dui-datatable-bordered {
+.dui-datatable-bordered:not(.dui-datatable-border-rows):not(.dui-datatable-border-columns):not(.dui-datatable-border-column-groups),
+.dui-datatable-bordered.dui-datatable-border-table,
+.dui-datatable-bordered.dui-datatable-border-sections {
     border: var(--dui-datatable-border);
 }
 
-.dui-datatable-bordered.dui-datatable-fixed .dui-datatable-th,
-.dui-datatable-bordered.dui-datatable-fixed .dui-datatable-td,
-.dui-datatable-bordered .dui-datatable-th:not(:last-child),
-.dui-datatable-bordered .dui-datatable-td:not(:last-child) {
+.dui-datatable-bordered:not(.dui-datatable-border-table):not(.dui-datatable-border-rows):not(.dui-datatable-border-columns):not(.dui-datatable-border-column-groups):not(.dui-datatable-border-sections).dui-datatable-fixed > .dui-datatable > * > .dui-datatable-row > .dui-datatable-th,
+.dui-datatable-bordered:not(.dui-datatable-border-table):not(.dui-datatable-border-rows):not(.dui-datatable-border-columns):not(.dui-datatable-border-column-groups):not(.dui-datatable-border-sections).dui-datatable-fixed > .dui-datatable > * > .dui-datatable-row > .dui-datatable-td,
+.dui-datatable-bordered:not(.dui-datatable-border-table):not(.dui-datatable-border-rows):not(.dui-datatable-border-columns):not(.dui-datatable-border-column-groups):not(.dui-datatable-border-sections) > .dui-datatable > * > .dui-datatable-row > .dui-datatable-th:not(:last-child),
+.dui-datatable-bordered:not(.dui-datatable-border-table):not(.dui-datatable-border-rows):not(.dui-datatable-border-columns):not(.dui-datatable-border-column-groups):not(.dui-datatable-border-sections) > .dui-datatable > * > .dui-datatable-row > .dui-datatable-td:not(:last-child),
+.dui-datatable-bordered.dui-datatable-border-columns.dui-datatable-fixed > .dui-datatable > * > .dui-datatable-row > .dui-datatable-th,
+.dui-datatable-bordered.dui-datatable-border-columns.dui-datatable-fixed > .dui-datatable > * > .dui-datatable-row > .dui-datatable-td,
+.dui-datatable-bordered.dui-datatable-border-columns > .dui-datatable > * > .dui-datatable-row > .dui-datatable-th:not(:last-child),
+.dui-datatable-bordered.dui-datatable-border-columns > .dui-datatable > * > .dui-datatable-row > .dui-datatable-td:not(:last-child) {
     border-right: var(--dui-datatable-border);
 }
 
-.dui-datatable-bordered .dui-datatable-thead .dui-column-group {
+.dui-datatable-bordered.dui-datatable-border-column-groups > .dui-datatable > * > .dui-datatable-row > .dui-datatable-column-group-end {
     border-right: var(--dui-datatable-border);
 }
 
-.dui-datatable-bordered.dui-datatable-fixed .dui-datatable-row:not(:last-child) .dui-datatable-th,
-.dui-datatable-bordered.dui-datatable-fixed .dui-datatable-row:not(:last-child) .dui-datatable-td,
-.dui-datatable-bordered .dui-datatable-row:not(:last-child) .dui-datatable-th,
-.dui-datatable-bordered .dui-datatable-row:not(:last-child) .dui-datatable-td {
+.dui-datatable-bordered.dui-datatable-border-sections > .dui-datatable > .dui-datatable-thead > .dui-datatable-row > .dui-datatable-th:not(:last-child),
+.dui-datatable-bordered.dui-datatable-border-sections > .dui-datatable > .dui-datatable-tfoot > .dui-datatable-row > .dui-datatable-td:not(:last-child) {
+    border-right: var(--dui-datatable-border);
+}
+
+.dui-datatable-bordered.dui-datatable-border-rows > .dui-datatable > * > .dui-datatable-row:not(:last-child) > .dui-datatable-th,
+.dui-datatable-bordered.dui-datatable-border-rows > .dui-datatable > * > .dui-datatable-row:not(:last-child) > .dui-datatable-td,
+.dui-datatable-bordered:not(.dui-datatable-border-table):not(.dui-datatable-border-rows):not(.dui-datatable-border-columns):not(.dui-datatable-border-column-groups):not(.dui-datatable-border-sections) > .dui-datatable > * > .dui-datatable-row:not(:last-child) > .dui-datatable-th,
+.dui-datatable-bordered:not(.dui-datatable-border-table):not(.dui-datatable-border-rows):not(.dui-datatable-border-columns):not(.dui-datatable-border-column-groups):not(.dui-datatable-border-sections) > .dui-datatable > * > .dui-datatable-row:not(:last-child) > .dui-datatable-td {
     border-bottom: var(--dui-datatable-border);
 }
 
@@ -270,7 +275,7 @@
     border-bottom: 1px solid var(--dui-datatable-border-color);
 }
 
-.dui-datatable-responsive:not(.dui-datatable-bordered) .dui-datatable-details-td {
+.dui-datatable-responsive:not(.dui-datatable-bordered) > .dui-datatable > tbody > .dui-datatable-details-tr > .dui-datatable-details-td {
     border-top: 1px solid var(--dui-datatable-border-color);
 }
 

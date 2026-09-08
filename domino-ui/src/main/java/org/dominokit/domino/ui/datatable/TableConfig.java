@@ -511,6 +511,27 @@ public class TableConfig<T>
   }
 
   /**
+   * Checks whether the given column should receive the alternate surface marker for the requested
+   * striping mode.
+   *
+   * @param column the column to inspect
+   * @param stripeMode the striping mode
+   * @return {@code true} when the column belongs to the alternate stripe
+   */
+  boolean isColumnStripeAlternate(ColumnConfig<T> column, TableColumnStripeMode stripeMode) {
+    int index;
+    if (stripeMode == TableColumnStripeMode.COLUMNS) {
+      if (column.isColumnGroup()) {
+        return false;
+      }
+      index = getColumns().indexOf(column);
+    } else {
+      index = columns.indexOf(column.getGrandParent());
+    }
+    return index >= 0 && index % 2 == 1;
+  }
+
+  /**
    * Retrieves only the visible columns of the DataTable.
    *
    * @return A list of {@link ColumnConfig} representing visible columns.

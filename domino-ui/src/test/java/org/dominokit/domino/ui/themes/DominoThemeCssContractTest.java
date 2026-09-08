@@ -459,8 +459,8 @@ public class DominoThemeCssContractTest {
 
     assertTrue(
         datatable.contains(
-            ".dui-datatable-responsive tbody .dui-datatable-row.dui-datatable-details-tr"));
-    assertTrue(
+            ".dui-datatable-responsive > .dui-datatable > tbody > .dui-datatable-row.dui-datatable-details-tr"));
+    assertFalse(
         datatable.contains(
             "--dui-datatable-row-background: var(--dui-datatable-row-details-background);"));
     assertTrue(datatable.contains(".dui-datatable-details-td {"));
@@ -471,7 +471,100 @@ public class DominoThemeCssContractTest {
   }
 
   @Test
-  public void expandedRecordRowsUseTheHoverSurfaceAndForeground() throws IOException {
+  public void recordDetailsDoNotLeakRowSurfaceTokensIntoNestedDataTables() throws IOException {
+    String datatable =
+        readResource(
+            "org/dominokit/domino/ui/public/css/domino-ui/dui-components/domino-ui-datatable.css");
+
+    assertFalse(
+        datatable.contains(
+            "--dui-datatable-row-background: var(--dui-datatable-row-details-background);"));
+    assertTrue(
+        datatable.contains(
+            ".dui-datatable-responsive > .dui-datatable > tbody > .dui-datatable-row"));
+    assertTrue(
+        datatable.contains(".dui-datatable-striped > .dui-datatable > tbody > .dui-datatable-row"));
+    assertTrue(
+        datatable.contains(".dui-datatable-hover > .dui-datatable > tbody > .dui-datatable-row"));
+  }
+
+  @Test
+  public void dataTableBorderModesComposeTheirScopedSelectors() throws IOException {
+    String datatable =
+        readResource(
+            "org/dominokit/domino/ui/public/css/domino-ui/dui-components/domino-ui-datatable.css");
+
+    assertTrue(datatable.contains(".dui-datatable-border-table"));
+    assertTrue(datatable.contains(".dui-datatable-border-rows"));
+    assertTrue(datatable.contains(".dui-datatable-border-columns"));
+    assertTrue(datatable.contains(".dui-datatable-border-column-groups"));
+    assertTrue(datatable.contains(".dui-datatable-border-sections"));
+
+    assertTrue(
+        datatable.contains(
+            ".dui-datatable-bordered.dui-datatable-border-table,\n.dui-datatable-bordered.dui-datatable-border-sections {\n    border: var(--dui-datatable-border);"));
+    assertTrue(
+        datatable.contains(
+            ".dui-datatable-bordered.dui-datatable-border-rows > .dui-datatable > * > .dui-datatable-row:not(:last-child)"));
+    assertTrue(
+        datatable.contains(
+            ".dui-datatable-bordered.dui-datatable-border-columns > .dui-datatable > * > .dui-datatable-row > .dui-datatable-th:not(:last-child)"));
+    assertTrue(
+        datatable.contains(
+            ".dui-datatable-bordered.dui-datatable-border-column-groups > .dui-datatable > * > .dui-datatable-row > .dui-datatable-column-group-end"));
+    assertTrue(
+        datatable.contains(
+            ".dui-datatable-bordered.dui-datatable-border-sections > .dui-datatable > .dui-datatable-thead"));
+    assertTrue(
+        datatable.contains(
+            ".dui-datatable-bordered.dui-datatable-border-sections > .dui-datatable > .dui-datatable-tfoot"));
+
+    assertTrue(
+        datatable.contains(
+            ".dui-datatable-bordered:not(.dui-datatable-border-table):not(.dui-datatable-border-rows):not(.dui-datatable-border-columns):not(.dui-datatable-border-column-groups):not(.dui-datatable-border-sections)"));
+    assertFalse(
+        datatable.contains(
+            "/* Alternative modes opt out of the legacy row separators so each mode remains exclusive. */"));
+    assertFalse(datatable.contains("border-bottom: none;"));
+    assertFalse(
+        Pattern.compile("\\.dui-datatable-bordered \\{\\s*border:").matcher(datatable).find());
+  }
+
+  @Test
+  public void dataTableColumnStripingUsesThemeOverlayWithoutReplacingRowSurfaces()
+      throws IOException {
+    String datatable =
+        readResource(
+            "org/dominokit/domino/ui/public/css/domino-ui/dui-components/domino-ui-datatable.css");
+    String defaultTheme =
+        readResource(
+            "org/dominokit/domino/ui/public/css/domino-ui/dui-components/domino-ui-theme-default.css");
+    String lightTheme =
+        readResource(
+            "org/dominokit/domino/ui/public/css/domino-ui/dui-components/domino-ui-colors-light.css");
+    String darkTheme =
+        readResource(
+            "org/dominokit/domino/ui/public/css/domino-ui/dui-components/domino-ui-colors-dark.css");
+
+    assertTrue(datatable.contains(".dui-datatable-column-striped"));
+    assertTrue(datatable.contains(".dui-datatable-column-stripe-columns"));
+    assertTrue(datatable.contains(".dui-datatable-column-stripe-groups"));
+    assertTrue(datatable.contains(".dui-datatable-column-stripe-columns-alt"));
+    assertTrue(datatable.contains(".dui-datatable-column-stripe-groups-alt"));
+    assertTrue(
+        datatable.contains(
+            "background-image: linear-gradient(var(--dui-datatable-column-stripe-background), var(--dui-datatable-column-stripe-background));"));
+    String columnStripeBackground =
+        "color-mix(in srgb, var(--dui-clr-dominant-d-2) 18%, transparent)";
+    String darkColumnStripeBackground =
+        "color-mix(in srgb, var(--dui-clr-dominant-l-2) 18%, transparent)";
+    assertTrue(defaultTheme.contains(columnStripeBackground));
+    assertTrue(lightTheme.contains(columnStripeBackground));
+    assertTrue(darkTheme.contains(darkColumnStripeBackground));
+  }
+
+  @Test
+  public void expandedRecordRowsUseAnAccentSurfaceAndReadableForeground() throws IOException {
     String datatable =
         readResource(
             "org/dominokit/domino/ui/public/css/domino-ui/dui-components/domino-ui-datatable.css");
@@ -483,13 +576,15 @@ public class DominoThemeCssContractTest {
             "org/dominokit/domino/ui/public/css/domino-ui/dui-components/domino-ui-colors-dark.css");
 
     assertTrue(datatable.contains(".dui-datatable-row-details-open"));
-    assertTrue(datatable.contains("background-color: var(--dui-datatable-row-hover-background);"));
-    assertTrue(datatable.contains("color: var(--dui-datatable-row-hover-color, inherit);"));
-    assertTrue(datatable.contains("color: var(--dui-datatable-row-selected-hover-color, "));
-    assertTrue(lightTheme.contains("--dui-datatable-row-hover-color: var(--dui-color);"));
-    assertTrue(darkTheme.contains("--dui-datatable-row-hover-color: var(--dui-color);"));
-    assertTrue(lightTheme.contains("--dui-datatable-row-selected-hover-color: var(--dui-color);"));
-    assertTrue(darkTheme.contains("--dui-datatable-row-selected-hover-color: var(--dui-color);"));
+    assertTrue(
+        datatable.contains("background-color: var(--dui-datatable-row-details-open-background);"));
+    assertTrue(datatable.contains("color: var(--dui-datatable-row-details-open-color);"));
+    assertTrue(
+        lightTheme.contains("--dui-datatable-row-details-open-background: var(--dui-accent-l-4);"));
+    assertTrue(lightTheme.contains("--dui-datatable-row-details-open-color: var(--dui-color);"));
+    assertTrue(
+        darkTheme.contains("--dui-datatable-row-details-open-background: var(--dui-accent-d-3);"));
+    assertTrue(darkTheme.contains("--dui-datatable-row-details-open-color: var(--dui-color);"));
   }
 
   @Test
@@ -775,6 +870,39 @@ public class DominoThemeCssContractTest {
             "--dui-datatable-pin-column-border-color: var(--dui-datatable-border-color);"));
     assertTrue(datatable.contains("border-top: 1px solid var(--dui-datatable-border-color);"));
     assertTrue(datatable.contains("border: 1px dashed var(--dui-datatable-border-color);"));
+  }
+
+  @Test
+  public void datatableHeaderUsesOneThemeAwareSectionBorder() throws IOException {
+    String defaultTheme =
+        readResource(
+            "org/dominokit/domino/ui/public/css/domino-ui/dui-components/domino-ui-theme-default.css");
+    String lightTheme =
+        readResource(
+            "org/dominokit/domino/ui/public/css/domino-ui/dui-components/domino-ui-colors-light.css");
+    String darkTheme =
+        readResource(
+            "org/dominokit/domino/ui/public/css/domino-ui/dui-components/domino-ui-colors-dark.css");
+    String datatable =
+        readResource(
+            "org/dominokit/domino/ui/public/css/domino-ui/dui-components/domino-ui-datatable.css");
+
+    assertTrue(
+        defaultTheme.contains(
+            "--dui-datatable-header-border: 1px solid var(--dui-datatable-header-border-color);"));
+    assertTrue(
+        lightTheme.contains("--dui-datatable-header-border-color: var(--dui-clr-dominant-d-3);"));
+    assertTrue(
+        darkTheme.contains("--dui-datatable-header-border-color: var(--dui-clr-dominant-l-3);"));
+    assertTrue(
+        datatable.contains(
+            ".dui-datatable-thead {\n"
+                + "    background-color: var(--dui-bg, var(--dui-clr-dominant));\n"
+                + "    border-bottom: var(--dui-datatable-header-border);"));
+    assertFalse(
+        datatable.contains(
+            ".dui-datatable-thead .dui-datatable-th {\n"
+                + "    border-bottom: var(--dui-datatable-border);"));
   }
 
   @Test

@@ -899,6 +899,21 @@ public class ColumnConfig<T> implements ElementsFactory, DataTableStyles {
   }
 
   /**
+   * Checks whether this column is on the rightmost path of a top-level column for the column-groups
+   * border mode. Top-level columns and every nested group/header on the rightmost path mark their
+   * header, while the final leaf also marks the corresponding body cell.
+   *
+   * @return true if this column should receive the column-group boundary marker
+   */
+  boolean isColumnGroupBoundary() {
+    if (isNull(parent)) {
+      return true;
+    }
+    return parent.isColumnGroupBoundary()
+        && parent.getSubColumns().get(parent.getSubColumns().size() - 1) == this;
+  }
+
+  /**
    * Retrieves the colspan value for the column.
    *
    * @return the colspan value
@@ -1091,6 +1106,15 @@ public class ColumnConfig<T> implements ElementsFactory, DataTableStyles {
 
     if (isColumnGroup()) {
       this.headElement.addCss("dui-column-group");
+    }
+    if (isColumnGroupBoundary()) {
+      this.headElement.addCss(dui_datatable_column_group_end);
+    }
+    if (tableConfig.isColumnStripeAlternate(this, TableColumnStripeMode.COLUMNS)) {
+      this.headElement.addCss(dui_datatable_column_stripe_columns_alt);
+    }
+    if (tableConfig.isColumnStripeAlternate(this, TableColumnStripeMode.COLUMN_GROUPS)) {
+      this.headElement.addCss(dui_datatable_column_stripe_groups_alt);
     }
 
     if (nonNull(getHeaderTextAlign())) {

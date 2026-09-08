@@ -1548,6 +1548,8 @@ body.dui {
     --dui-datatable-navbar-padding: 0;
     --dui-datatable-navbar-margin: var(--dui-spc-2) 0 var(--dui-spc-2) 0;
     --dui-datatable-border: 1px solid var(--dui-datatable-border-color);
+    --dui-datatable-header-border: 1px solid var(--dui-datatable-header-border-color);
+    --dui-datatable-column-stripe-background: color-mix(in srgb, var(--dui-clr-dominant-d-2) 35%, transparent);
 
     /* ========================= Generic ======================= */
     --dui-close-char-top:-1px;

@@ -512,6 +512,8 @@
     --dui-datatable-row-highlight-bg-color: var(--dui-clr-dominant-l-2);
     --dui-datatable-row-context-bg-color: var(--dui-clr-dominant-l-1);
     --dui-datatable-row-details-background: var(--dui-accent-d-4);
+    --dui-datatable-row-details-open-background: var(--dui-accent-d-3);
+    --dui-datatable-row-details-open-color: var(--dui-color);
     --dui-datatable-row-background: var(--dui-datatable-odd-bg-color);
     --dui-datatable-row-striped-background: var(--dui-datatable-even-bg-color);
     --dui-datatable-row-hover-background: var(--dui-datatable-row-hover-bg-color);
@@ -526,6 +528,8 @@
     --dui-datatable-row-focus-background: var(--dui-accent-d-3);
     --dui-datatable-header-hover-bg-color: var(--dui-accent-d-3);
     --dui-datatable-border-color: var(--dui-clr-dominant-l-2);
+    --dui-datatable-header-border-color: var(--dui-clr-dominant-l-3);
+    --dui-datatable-column-stripe-background: color-mix(in srgb, var(--dui-clr-dominant-l-2) 35%, transparent);
     --dui-datatable-column-resizer-color: var(--dui-datatable-border-color);
     --dui-datatable-pin-column-border-color: var(--dui-datatable-border-color);
     --dui-nav-bar-description-color: var(--dui-color);

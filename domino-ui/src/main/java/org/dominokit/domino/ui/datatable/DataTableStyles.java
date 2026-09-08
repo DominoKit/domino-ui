@@ -28,9 +28,32 @@ public interface DataTableStyles {
 
   CssClass dui_datatable_bordered = () -> "dui-datatable-bordered";
 
+  CssClass dui_datatable_border_table = () -> "dui-datatable-border-table";
+
+  CssClass dui_datatable_border_rows = () -> "dui-datatable-border-rows";
+
+  CssClass dui_datatable_border_columns = () -> "dui-datatable-border-columns";
+
+  CssClass dui_datatable_border_column_groups = () -> "dui-datatable-border-column-groups";
+
+  CssClass dui_datatable_column_group_end = () -> "dui-datatable-column-group-end";
+
+  CssClass dui_datatable_border_sections = () -> "dui-datatable-border-sections";
+
   CssClass dui_datatable_condensed = () -> "dui-datatable-condensed";
 
   CssClass dui_datatable_striped = () -> "dui-datatable-striped";
+
+  CssClass dui_datatable_column_striped = () -> "dui-datatable-column-striped";
+
+  CssClass dui_datatable_column_stripe_columns = () -> "dui-datatable-column-stripe-columns";
+
+  CssClass dui_datatable_column_stripe_groups = () -> "dui-datatable-column-stripe-groups";
+
+  CssClass dui_datatable_column_stripe_columns_alt =
+      () -> "dui-datatable-column-stripe-columns-alt";
+
+  CssClass dui_datatable_column_stripe_groups_alt = () -> "dui-datatable-column-stripe-groups-alt";
 
   CssClass dui_datatable_width_full = () -> "dui-datatable-width-full";
 
