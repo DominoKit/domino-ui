@@ -99,6 +99,7 @@ public class DynamicStyleSheet<E extends HTMLElement, D extends BaseDominoElemen
    * @return The {@code CSSStyleSheet} instance.
    */
   public CSSStyleSheet getStyleSheet() {
+    // Read the live sheet for TeaVM support; caching it before attachment can retain a null value.
     return (CSSStyleSheet) styleElement.sheet;
   }
 
