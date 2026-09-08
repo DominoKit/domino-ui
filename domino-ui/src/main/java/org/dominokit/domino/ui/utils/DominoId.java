@@ -26,7 +26,7 @@ public class DominoId {
   private static LazyInitializer seedInit =
       new LazyInitializer(
           () -> {
-            // Keep the timestamp in decimal form when IDs are used in CSS selectors.
+            // Cast to long for TeaVM support so generated IDs remain valid CSS selectors.
             SEED = (long) new JsDate().getTime() + "-";
           });
 
