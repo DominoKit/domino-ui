@@ -57,6 +57,23 @@ public class DominoThemeCssContractTest {
   }
 
   @Test
+  public void fabStylesUseScopedThemeVariables() throws IOException {
+    String fabCss =
+        readResource(
+            "org/dominokit/domino/ui/public/css/domino-ui/dui-components/domino-ui-fab.css");
+    String defaultThemeCss =
+        readResource(
+            "org/dominokit/domino/ui/public/css/domino-ui/dui-components/domino-ui-theme-default.css");
+
+    assertTrue(fabCss.contains(".dui-fab"));
+    assertTrue(fabCss.contains(".dui-fab-actions[hidden]"));
+    assertTrue(fabCss.contains("--dui-fab-size"));
+    assertTrue(fabCss.contains("--dui-fab-action-size"));
+    assertTrue(defaultThemeCss.contains("--dui-fab-size"));
+    assertTrue(defaultThemeCss.contains("--dui-fab-action-size"));
+  }
+
+  @Test
   public void auroraCharacterThemeUsesScopedSemanticGradients() throws IOException {
     String aurora =
         readResource(

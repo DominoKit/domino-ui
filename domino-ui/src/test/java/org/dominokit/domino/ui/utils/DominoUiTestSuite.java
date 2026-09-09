@@ -26,6 +26,7 @@ import org.dominokit.domino.ui.accessibility.FormAccessibilityTest;
 import org.dominokit.domino.ui.accessibility.InteractiveControlsAccessibilityTest;
 import org.dominokit.domino.ui.accessibility.NavigationAccessibilityTest;
 import org.dominokit.domino.ui.cards.CardTest;
+import org.dominokit.domino.ui.button.FabTest;
 import org.dominokit.domino.ui.forms.suggest.MultiSelectTest;
 import org.dominokit.domino.ui.icons.IconTest;
 import org.dominokit.domino.ui.layout.AppLayoutTest;
@@ -45,6 +46,7 @@ public class DominoUiTestSuite extends GWTTestSuite {
     TestSuite suite = new TestSuite("Tests for client domino-ui");
     suite.addTestSuite(MatchHighlighterTest.class);
     suite.addTestSuite(CardTest.class);
+    suite.addTestSuite(FabTest.class);
     suite.addTestSuite(MultiSelectTest.class);
     suite.addTestSuite(IconTest.class);
     suite.addTestSuite(AppLayoutTest.class);
