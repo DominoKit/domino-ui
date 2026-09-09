@@ -24,8 +24,8 @@
     height: var(--dui-fab-action-size);
     padding: 0;
     border-radius: var(--dui-fab-action-border-radius);
-    background-color: var(--dui-fab-action-background);
-    color: var(--dui-fab-action-color);
+    --dui-btn-bg-clr: var(--dui-fab-action-background);
+    --dui-btn-fg-clr: var(--dui-fab-action-color);
     box-shadow: var(--dui-fab-action-box-shadow);
     transition: var(--dui-fab-transition);
 }
@@ -35,8 +35,8 @@
     min-width: var(--dui-fab-size);
     height: var(--dui-fab-size);
     border-radius: var(--dui-fab-border-radius);
-    background-color: var(--dui-fab-background);
-    color: var(--dui-fab-color);
+    --dui-btn-bg-clr: var(--dui-fab-background);
+    --dui-btn-fg-clr: var(--dui-fab-color);
     box-shadow: var(--dui-fab-box-shadow);
 }
 
