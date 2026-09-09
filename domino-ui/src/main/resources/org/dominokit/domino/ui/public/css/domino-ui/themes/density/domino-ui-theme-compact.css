@@ -78,6 +78,11 @@
     /* Keep button icons visually subordinate to the button label. */
     --dui-btn-icon-size: 0.875em;
 
+    /* Keep floating action buttons compact with the density theme. */
+    --dui-fab-size: 48px;
+    --dui-fab-action-size: 36px;
+    --dui-fab-actions-gap: var(--dui-spc-2);
+
     /* Reduce common vertical footprint without changing control hit areas. */
     --dui-alert-padding: var(--dui-spc-3);
     --dui-alert-box-shadow: var(--dui-box-shadow-none);
@@ -141,4 +146,3 @@
     --dui-tree-item-anchor-padding: var(--dui-spc-px-2) var(--dui-spc-px-10);
     --dui-form-field-addon-gap: var(--dui-spc-2);
 }
-

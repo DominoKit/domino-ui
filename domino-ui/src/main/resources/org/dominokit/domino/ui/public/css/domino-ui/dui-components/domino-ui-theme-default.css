@@ -616,6 +616,21 @@ body.dui {
     --dui-btn-toggled-bg: var(--dui-accent-d-2);
     --dui-btn-toggled-color: var(--dui-context-fg-color, var(--dui-accent-fg-clr));
 
+    /* ===================== Floating action button ======================== */
+
+    --dui-fab-size: 56px;
+    --dui-fab-action-size: 40px;
+    --dui-fab-actions-gap: var(--dui-spc-3);
+    --dui-fab-background: var(--dui-accent);
+    --dui-fab-color: var(--dui-accent-fg-clr);
+    --dui-fab-action-background: var(--dui-accent);
+    --dui-fab-action-color: var(--dui-accent-fg-clr);
+    --dui-fab-border-radius: var(--dui-radius-pill);
+    --dui-fab-action-border-radius: var(--dui-radius-pill);
+    --dui-fab-box-shadow: var(--dui-box-shadow-2);
+    --dui-fab-action-box-shadow: var(--dui-box-shadow-1);
+    --dui-fab-transition: opacity .15s ease, transform .15s ease;
+
     /* ===================== Breadcrumb ==================================== */
 
     --dui-bc-default-bg: var(--dui-clr-transparent);

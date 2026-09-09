@@ -1,0 +1,48 @@
+.dui-fab {
+    position: relative;
+    display: inline-flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: var(--dui-fab-actions-gap);
+}
+
+.dui-fab-actions {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: var(--dui-fab-actions-gap);
+}
+
+.dui-fab-actions[hidden] {
+    display: none;
+}
+
+.dui-fab .dui-fab-button,
+.dui-fab .dui-fab-action {
+    width: var(--dui-fab-action-size);
+    min-width: var(--dui-fab-action-size);
+    height: var(--dui-fab-action-size);
+    padding: 0;
+    border-radius: var(--dui-fab-action-border-radius);
+    background-color: var(--dui-fab-action-background);
+    color: var(--dui-fab-action-color);
+    box-shadow: var(--dui-fab-action-box-shadow);
+    transition: var(--dui-fab-transition);
+}
+
+.dui-fab .dui-fab-button {
+    width: var(--dui-fab-size);
+    min-width: var(--dui-fab-size);
+    height: var(--dui-fab-size);
+    border-radius: var(--dui-fab-border-radius);
+    background-color: var(--dui-fab-background);
+    color: var(--dui-fab-color);
+    box-shadow: var(--dui-fab-box-shadow);
+}
+
+.dui-fab .dui-fab-button .dui-btn-body,
+.dui-fab .dui-fab-action .dui-btn-body {
+    width: 100%;
+    height: 100%;
+    justify-content: center;
+}
