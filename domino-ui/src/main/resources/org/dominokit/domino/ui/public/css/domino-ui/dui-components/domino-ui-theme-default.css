@@ -921,7 +921,6 @@ body.dui {
     --dui-list-group-item-border-style: solid;
     --dui-list-group-item-border-color: var(--dui-accent-l-4);
     --dui-list-group-item-selected-color: var(--dui-clr-white);
-    --dui-list-group-item-hover-color: var(--dui-accent-fg-clr);
 
     /* ============================ Badge =============================*/
     --dui-badge-background: var(--dui-accent);
@@ -1396,7 +1395,7 @@ body.dui {
 
     --dui-dialog-box-shadow: var(--dui-box-shadow-10);
     --dui-dialog-border-radius: var(--dui-radius-xs);
-    --dui-dialog-title-padding: var(--dui-spc-3);
+    --dui-dialog-title-padding: 0px;
     --dui-dialog-title-cursor: pointer;
     --dui-dialog-title-margin: 0;
     --dui-dialog-title-border-width: 0 0 1px 0;
@@ -1406,7 +1405,7 @@ body.dui {
     --dui-dialog-title-items-margin: 0 2px;
     --dui-dialog-header-font: var(--dui-font-regular);
     --dui-dialog-body-padding: var(--dui-spc-3);
-    --dui-dialog-footer-padding: var(--dui-spc-3);
+    --dui-dialog-footer-padding: 0;
     --dui-dialog-footer-border-width: 0 0 0 0;
     --dui-dialog-footer-border-style: solid;
     --dui-dialog-footer-border-color: var(--dui-accent-l-4);

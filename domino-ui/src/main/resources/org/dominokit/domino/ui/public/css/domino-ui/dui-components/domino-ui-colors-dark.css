@@ -479,8 +479,6 @@
     --dui-thumbnail-border-color: var(--dui-accent-d-4);
     --dui-thumbnail-border-active-color: var(--dui-accent-d-3);
     --dui-tree-header-bg-color: var(--dui-accent-d-3);
-    --dui-list-group-item-hover-background: var(--dui-accent-l-2);
-    --dui-list-group-item-hover-color: var(--dui-accent-fg-clr);
     --dui-list-group-item-selected-background: var(--dui-accent);
     --dui-form-field-disabled-background: var(--dui-clr-dominant-d-1);
     --dui-form-field-disabled-border-color: var(--dui-clr-dominant-d-3);

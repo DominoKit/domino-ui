@@ -24,12 +24,12 @@
 
 
 .dui-list-group-item:hover {
-    background: var(--dui-list-group-item-hover-background, var(--dui-accent-l-5));
+    background: var(--dui-list-group-item-hover-background);
     color: var(--dui-list-group-item-hover-color);
 }
 
 .dui-list-group-item.dui-selected:hover {
-    background: var(--dui-list-group-item-hover-background, var(--dui-accent-l-4));
+    background: var(--dui-list-group-item-hover-background);
     color: var(--dui-list-group-item-hover-color);
 }
 

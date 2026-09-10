@@ -647,10 +647,13 @@ public class DominoThemeCssContractTest {
   }
 
   @Test
-  public void listGroupHoverForegroundMatchesItsAccentSurfaceInBothModes() throws IOException {
+  public void listGroupHoverIsOptInThroughThemeVariables() throws IOException {
     String listGroup =
         readResource(
             "org/dominokit/domino/ui/public/css/domino-ui/dui-components/domino-ui-list-group.css");
+    String defaultTheme =
+        readResource(
+            "org/dominokit/domino/ui/public/css/domino-ui/dui-components/domino-ui-theme-default.css");
     String lightTheme =
         readResource(
             "org/dominokit/domino/ui/public/css/domino-ui/dui-components/domino-ui-colors-light.css");
@@ -658,9 +661,14 @@ public class DominoThemeCssContractTest {
         readResource(
             "org/dominokit/domino/ui/public/css/domino-ui/dui-components/domino-ui-colors-dark.css");
 
+    assertTrue(listGroup.contains("background: var(--dui-list-group-item-hover-background);"));
     assertTrue(listGroup.contains("color: var(--dui-list-group-item-hover-color);"));
-    assertTrue(lightTheme.contains("--dui-list-group-item-hover-color: var(--dui-accent-fg-clr);"));
-    assertTrue(darkTheme.contains("--dui-list-group-item-hover-color: var(--dui-accent-fg-clr);"));
+    assertFalse(listGroup.contains("var(--dui-list-group-item-hover-background,"));
+    assertFalse(defaultTheme.contains("--dui-list-group-item-hover-color:"));
+    assertFalse(lightTheme.contains("--dui-list-group-item-hover-background:"));
+    assertFalse(lightTheme.contains("--dui-list-group-item-hover-color:"));
+    assertFalse(darkTheme.contains("--dui-list-group-item-hover-background:"));
+    assertFalse(darkTheme.contains("--dui-list-group-item-hover-color:"));
   }
 
   @Test
@@ -1535,6 +1543,26 @@ public class DominoThemeCssContractTest {
     assertTrue(
         defaultTheme.contains(
             "--dui-card-nested-3-content-footer-background: color-mix(in srgb, var(--dui-card-nested-3-background) 92%, var(--dui-color) 8%);"));
+  }
+
+  @Test
+  public void lightCardContentFooterUsesAStrongerSurfaceContrast() throws IOException {
+    String lightTheme =
+        readResource(
+            "org/dominokit/domino/ui/public/css/domino-ui/dui-components/domino-ui-colors-light.css");
+
+    assertTrue(
+        lightTheme.contains(
+            "--dui-card-content-footer-background: color-mix(in srgb, var(--dui-card-background) 86%, var(--dui-color) 14%);"));
+    assertTrue(
+        lightTheme.contains(
+            "--dui-card-nested-content-footer-background: color-mix(in srgb, var(--dui-card-nested-background) 86%, var(--dui-color) 14%);"));
+    assertTrue(
+        lightTheme.contains(
+            "--dui-card-nested-2-content-footer-background: color-mix(in srgb, var(--dui-card-nested-2-background) 86%, var(--dui-color) 14%);"));
+    assertTrue(
+        lightTheme.contains(
+            "--dui-card-nested-3-content-footer-background: color-mix(in srgb, var(--dui-card-nested-3-background) 86%, var(--dui-color) 14%);"));
   }
 
   @Test

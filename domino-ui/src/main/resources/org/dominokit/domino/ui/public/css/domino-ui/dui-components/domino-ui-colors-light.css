@@ -425,6 +425,11 @@
     --dui-shadow-clr-3: #0000001f;
 
     /* ================== Overrides ======================= */
+    /* Give card content footers a visible but restrained separation in light mode. */
+    --dui-card-content-footer-background: color-mix(in srgb, var(--dui-card-background) 86%, var(--dui-color) 14%);
+    --dui-card-nested-content-footer-background: color-mix(in srgb, var(--dui-card-nested-background) 86%, var(--dui-color) 14%);
+    --dui-card-nested-2-content-footer-background: color-mix(in srgb, var(--dui-card-nested-2-background) 86%, var(--dui-color) 14%);
+    --dui-card-nested-3-content-footer-background: color-mix(in srgb, var(--dui-card-nested-3-background) 86%, var(--dui-color) 14%);
     --dui-card-nested-background: color-mix(in srgb, var(--dui-clr-dominant-l-3) 75%, var(--dui-clr-dominant-l-1) 25%);
     --dui-card-nested-2-background: color-mix(in srgb, var(--dui-clr-dominant-l-2) 50%, var(--dui-clr-dominant-d-2) 50%);
     --dui-card-nested-3-background: var(--dui-clr-dominant-d-2);
@@ -463,8 +468,6 @@
     --dui-thumbnail-border-color: var(--dui-accent-l-4);
     --dui-thumbnail-border-active-color: var(--dui-accent-l-3);
     --dui-tree-header-bg-color: var(--dui-clr-dominant-l-2);
-    --dui-list-group-item-hover-background: var(--dui-accent-l-4);
-    --dui-list-group-item-hover-color: var(--dui-accent-fg-clr);
     --dui-list-group-item-selected-background: var(--dui-accent);
     --dui-form-field-disabled-background: var(--dui-clr-grey-l-4);
     --dui-form-field-disabled-border-color: var(--dui-clr-grey-l-2);
