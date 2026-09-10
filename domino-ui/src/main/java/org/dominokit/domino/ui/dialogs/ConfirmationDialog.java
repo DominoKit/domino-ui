@@ -25,6 +25,7 @@ import org.dominokit.domino.ui.layout.NavBar;
 import org.dominokit.domino.ui.utils.ChildHandler;
 import org.dominokit.domino.ui.utils.FooterContent;
 import org.dominokit.domino.ui.utils.LazyChild;
+import org.dominokit.domino.ui.utils.PostfixAddOn;
 
 /**
  * A dialog for displaying confirmation messages and getting user confirmation.
@@ -81,7 +82,9 @@ public class ConfirmationDialog extends AbstractDialog<ConfirmationDialog> {
   /** Creates a new empty {@code ConfirmationDialog} instance. */
   public ConfirmationDialog() {
     messageElement = LazyChild.of(span(), contentElement);
-    navHeader = LazyChild.of(NavBar.create().addCss(dui_dialog_nav), headerElement);
+    navHeader =
+        LazyChild.of(
+            NavBar.create().addCss(dui_dialog_nav, dui_standard_dialog_nav), headerElement);
     bodyElement.addCss(dui_text_center);
     appendButtons();
     setStretchWidth(DialogSize.SMALL);
@@ -134,19 +137,9 @@ public class ConfirmationDialog extends AbstractDialog<ConfirmationDialog> {
   }
 
   private void appendButtons() {
-    rejectButton =
-        Button.create(Icons.cancel(), labels.dialogConfirmationReject())
-            .addCss(dui_min_w_32, dui_error, dui_m_r_0_5)
-            .addClickListener(
-                evt -> {
-                  if (nonNull(rejectHandler)) {
-                    rejectHandler.onReject(ConfirmationDialog.this);
-                  }
-                });
-
     confirmButton =
         Button.create(Icons.check(), labels.dialogConfirmationAccept())
-            .addCss(dui_min_w_32, dui_success, dui_m_l_0_5)
+            .addCss(dui_dialog_action, dui_success)
             .addClickListener(
                 evt -> {
                   if (nonNull(confirmHandler)) {
@@ -154,10 +147,20 @@ public class ConfirmationDialog extends AbstractDialog<ConfirmationDialog> {
                   }
                 });
 
-    appendChild(FooterContent.of(rejectButton));
-    appendChild(FooterContent.of(confirmButton));
+    rejectButton =
+        Button.create(Icons.cancel(), labels.dialogConfirmationReject())
+            .addCss(dui_dialog_action, dui_dialog_secondary_action)
+            .addClickListener(
+                evt -> {
+                  if (nonNull(rejectHandler)) {
+                    rejectHandler.onReject(ConfirmationDialog.this);
+                  }
+                });
 
-    withContentFooter((parent, self) -> self.addCss(dui_text_center));
+    NavBar footerNav = NavBar.create().addCss(dui_p_4);
+    footerNav.appendChild(PostfixAddOn.of(rejectButton));
+    footerNav.appendChild(PostfixAddOn.of(confirmButton));
+    appendChild(FooterContent.of(footerNav));
   }
 
   /**

@@ -523,6 +523,7 @@
     --dui-datatable-row-selected-indicator-color: var(--dui-accent-l-2);
     --dui-datatable-row-selected-indicator-width: 3px;
     --dui-datatable-row-focus-background: var(--dui-accent-d-3);
+    --dui-datatable-header-background: var(--dui-clr-dominant-l-2);
     --dui-datatable-header-hover-bg-color: var(--dui-accent-d-3);
     --dui-datatable-border-color: var(--dui-clr-dominant-l-2);
     --dui-datatable-header-border-color: var(--dui-clr-dominant-l-3);

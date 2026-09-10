@@ -940,7 +940,7 @@ public class DominoThemeCssContractTest {
   }
 
   @Test
-  public void datatableHeaderUsesOneThemeAwareSectionBorder() throws IOException {
+  public void datatableHeaderUsesADistinctThemeAwareSurfaceAndSectionBorder() throws IOException {
     String defaultTheme =
         readResource(
             "org/dominokit/domino/ui/public/css/domino-ui/dui-components/domino-ui-theme-default.css");
@@ -958,14 +958,24 @@ public class DominoThemeCssContractTest {
         defaultTheme.contains(
             "--dui-datatable-header-border: 1px solid var(--dui-datatable-header-border-color);"));
     assertTrue(
+        defaultTheme.contains("--dui-datatable-header-background: var(--dui-clr-dominant);"));
+    assertTrue(
+        lightTheme.contains("--dui-datatable-header-background: var(--dui-clr-dominant-d-2);"));
+    assertTrue(
+        darkTheme.contains("--dui-datatable-header-background: var(--dui-clr-dominant-l-2);"));
+    assertTrue(
         lightTheme.contains("--dui-datatable-header-border-color: var(--dui-clr-dominant-d-3);"));
     assertTrue(
         darkTheme.contains("--dui-datatable-header-border-color: var(--dui-clr-dominant-l-3);"));
     assertTrue(
         datatable.contains(
             ".dui-datatable-thead {\n"
-                + "    background-color: var(--dui-bg, var(--dui-clr-dominant));\n"
+                + "    background-color: var(--dui-datatable-header-background);\n"
                 + "    border-bottom: var(--dui-datatable-header-border);"));
+    assertTrue(
+        datatable.contains(
+            ".dui-datatable-thead .dui-datatable-row{\n"
+                + "    background-color: var(--dui-datatable-header-background);"));
     assertFalse(
         datatable.contains(
             ".dui-datatable-thead .dui-datatable-th {\n"
@@ -2049,6 +2059,30 @@ public class DominoThemeCssContractTest {
             + " vs "
             + azureLightBase,
         azureLightBase >= azureLightD1 + 2);
+  }
+
+  @Test
+  public void standardDialogsUseThemeControlledHeaderAndActionStyles() throws IOException {
+    String defaultTheme =
+        readResource(
+            "org/dominokit/domino/ui/public/css/domino-ui/dui-components/domino-ui-theme-default.css");
+    String dialogs =
+        readResource(
+            "org/dominokit/domino/ui/public/css/domino-ui/dui-components/domino-ui-modals.css");
+
+    assertTrue(defaultTheme.contains("--dui-standard-dialog-nav-height: var(--dui-spc-12);"));
+    assertTrue(defaultTheme.contains("--dui-dialog-action-min-width: var(--dui-spc-32);"));
+    assertTrue(
+        dialogs.contains(
+            ".dui-nav-bar-base.dui-standard-dialog-nav {\n"
+                + "    height: var(--dui-standard-dialog-nav-height);\n"
+                + "}"));
+    assertTrue(
+        dialogs.contains(
+            ".dui-dialog-action {\n"
+                + "    min-width: var(--dui-dialog-action-min-width);\n"
+                + "}"));
+    assertTrue(dialogs.contains(".dui-btn.dui-dialog-secondary-action"));
   }
 
   private int identityHue(String theme, String mode) throws IOException {

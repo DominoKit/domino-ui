@@ -224,6 +224,22 @@
     padding: 0px;
 }
 
+.dui-nav-bar-base.dui-standard-dialog-nav {
+    height: var(--dui-standard-dialog-nav-height);
+}
+
+.dui-dialog-action {
+    min-width: var(--dui-dialog-action-min-width);
+}
+
+.dui-btn.dui-dialog-secondary-action {
+    --dui-btn-bg-clr: var(--dui-btn-link-bg);
+    --dui-btn-box-shadow: var(--dui-btn-link-box-shadow);
+    --dui-btn-fg-clr: var(--dui-accent);
+    --dui-btn-hover-bg-clr: var(--dui-accent-l-4);
+    --dui-btn-hover-color: var(--dui-accent);
+}
+
 .dui-dialog.dui-window.dui-no-transition {
     transition: none;
 }
@@ -247,4 +263,3 @@
     max-height: 100%;
     max-width: 100%;
 }
-

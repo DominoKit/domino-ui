@@ -32,12 +32,12 @@
 }
 
 .dui-datatable-thead {
-    background-color: var(--dui-bg, var(--dui-clr-dominant));
+    background-color: var(--dui-datatable-header-background);
     border-bottom: var(--dui-datatable-header-border);
 }
 
 .dui-datatable-thead .dui-datatable-row{
-    background-color: var(--dui-bg, var(--dui-clr-dominant));
+    background-color: var(--dui-datatable-header-background);
 }
 
 .dui-datatable-tfoot {

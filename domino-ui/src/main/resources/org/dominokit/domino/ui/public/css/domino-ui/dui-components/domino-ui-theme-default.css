@@ -1404,6 +1404,8 @@ body.dui {
     --dui-dialog-title-font: var(--dui-font-heading-600);
     --dui-dialog-title-items-margin: 0 2px;
     --dui-dialog-header-font: var(--dui-font-regular);
+    --dui-standard-dialog-nav-height: var(--dui-spc-12);
+    --dui-dialog-action-min-width: var(--dui-spc-32);
     --dui-dialog-body-padding: var(--dui-spc-3);
     --dui-dialog-footer-padding: 0;
     --dui-dialog-footer-border-width: 0 0 0 0;
@@ -1573,6 +1575,7 @@ body.dui {
     --dui-datatable-navbar-margin: var(--dui-spc-2) 0 var(--dui-spc-2) 0;
     --dui-datatable-border: 1px solid var(--dui-datatable-border-color);
     --dui-datatable-header-border: 1px solid var(--dui-datatable-header-border-color);
+    --dui-datatable-header-background: var(--dui-clr-dominant);
     --dui-datatable-column-stripe-background: color-mix(in srgb, var(--dui-clr-dominant-d-2) 35%, transparent);
 
     /* ========================= Generic ======================= */
