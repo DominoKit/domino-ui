@@ -54,6 +54,10 @@ public class FabTest extends GWTTestCase {
     assertEquals("true", fab.getButton().getAttribute("aria-haspopup"));
     assertNotNull(fab.getButton().getAttribute("aria-controls"));
     assertTrue(actions.hasAttribute("hidden"));
+
+    Element closeButton = fab.element().querySelector("button[aria-label='Close actions']");
+    assertNotNull(closeButton);
+    assertTrue(closeButton.hasAttribute("hidden"));
   }
 
   public void testPrimaryButtonClickTogglesExpandableFab() {
@@ -65,13 +69,19 @@ public class FabTest extends GWTTestCase {
     assertEquals("true", fab.getButton().getAttribute("aria-expanded"));
     assertFalse(actions.hasAttribute("hidden"));
 
-    fab.getButton().element().dispatchEvent(new MouseEvent("click"));
+    Element closeButton = fab.element().querySelector("button[aria-label='Close actions']");
+    assertTrue(fab.getButton().hasAttribute("hidden"));
+    assertFalse(closeButton.hasAttribute("hidden"));
+
+    closeButton.dispatchEvent(new MouseEvent("click"));
     assertFalse(fab.isExpanded());
     assertEquals("false", fab.getButton().getAttribute("aria-expanded"));
     assertTrue(actions.hasAttribute("hidden"));
+    assertFalse(fab.getButton().hasAttribute("hidden"));
+    assertTrue(closeButton.hasAttribute("hidden"));
   }
 
-  public void testActionClickDoesNotToggleFab() {
+  public void testActionClickCollapsesFabAfterRunningAction() {
     Fab fab = Fab.create(Icons.plus());
     Button action = Button.create(Icons.pencil());
     boolean[] clicked = {false};
@@ -81,6 +91,6 @@ public class FabTest extends GWTTestCase {
     action.element().dispatchEvent(new MouseEvent("click"));
 
     assertTrue(clicked[0]);
-    assertTrue(fab.isExpanded());
+    assertFalse(fab.isExpanded());
   }
 }

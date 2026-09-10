@@ -1,5 +1,10 @@
 .dui-fab {
-    position: relative;
+    position: fixed;
+    inset-inline-start: var(--dui-fab-inset-inline-start);
+    inset-inline-end: var(--dui-fab-inset-inline-end);
+    inset-block-start: var(--dui-fab-inset-block-start);
+    inset-block-end: var(--dui-fab-inset-block-end);
+    z-index: var(--dui-fab-z-index, var(--dui-zindex-offset-9, 9999999999));
     display: inline-flex;
     flex-direction: column;
     align-items: flex-end;
@@ -17,15 +22,19 @@
     display: none;
 }
 
+.dui-fab .dui-fab-button[hidden] {
+    display: none;
+}
+
 .dui-fab .dui-fab-button,
 .dui-fab .dui-fab-action {
     width: var(--dui-fab-action-size);
     min-width: var(--dui-fab-action-size);
     height: var(--dui-fab-action-size);
     padding: 0;
-    border-radius: var(--dui-fab-action-border-radius);
-    --dui-btn-bg-clr: var(--dui-fab-action-background);
-    --dui-btn-fg-clr: var(--dui-fab-action-color);
+    border-radius: var(--dui-btn-border-radius);
+    --dui-btn-bg-clr: var(--dui-fab-action-background, var(--dui-clr-primary, var(--dui-accent)));
+    --dui-btn-fg-clr: var(--dui-fab-action-color, var(--dui-primary-fg-clr, var(--dui-accent-fg-clr)));
     box-shadow: var(--dui-fab-action-box-shadow);
     transition: var(--dui-fab-transition);
 }
@@ -34,9 +43,9 @@
     width: var(--dui-fab-size);
     min-width: var(--dui-fab-size);
     height: var(--dui-fab-size);
-    border-radius: var(--dui-fab-border-radius);
-    --dui-btn-bg-clr: var(--dui-fab-background);
-    --dui-btn-fg-clr: var(--dui-fab-color);
+    border-radius: var(--dui-btn-border-radius);
+    --dui-btn-bg-clr: var(--dui-fab-background, var(--dui-clr-primary, var(--dui-accent)));
+    --dui-btn-fg-clr: var(--dui-fab-color, var(--dui-primary-fg-clr, var(--dui-accent-fg-clr)));
     box-shadow: var(--dui-fab-box-shadow);
 }
 

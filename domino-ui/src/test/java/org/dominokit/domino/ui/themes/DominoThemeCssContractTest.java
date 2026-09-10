@@ -66,11 +66,26 @@ public class DominoThemeCssContractTest {
             "org/dominokit/domino/ui/public/css/domino-ui/dui-components/domino-ui-theme-default.css");
 
     assertTrue(fabCss.contains(".dui-fab"));
+    assertTrue(fabCss.contains(".dui-fab {\n    position: fixed;"));
+    assertTrue(fabCss.contains("inset-inline-end: var(--dui-fab-inset-inline-end);"));
+    assertTrue(fabCss.contains("inset-block-end: var(--dui-fab-inset-block-end);"));
+    assertTrue(
+        fabCss.contains(
+            "z-index: var(--dui-fab-z-index, var(--dui-zindex-offset-9, 9999999999));"));
     assertTrue(fabCss.contains(".dui-fab-actions[hidden]"));
+    assertTrue(fabCss.contains(".dui-fab .dui-fab-button[hidden]"));
     assertTrue(fabCss.contains("--dui-fab-size"));
     assertTrue(fabCss.contains("--dui-fab-action-size"));
     assertTrue(defaultThemeCss.contains("--dui-fab-size"));
     assertTrue(defaultThemeCss.contains("--dui-fab-action-size"));
+    assertTrue(defaultThemeCss.contains("--dui-fab-inset-inline-end:"));
+    assertTrue(defaultThemeCss.contains("--dui-fab-inset-block-end:"));
+    assertTrue(
+        defaultThemeCss.contains("--dui-fab-z-index: var(--dui-zindex-offset-9, 9999999999);"));
+    assertTrue(defaultThemeCss.contains("--dui-fab-background: var(--dui-clr-primary);"));
+    assertTrue(defaultThemeCss.contains("--dui-fab-color: var(--dui-primary-fg-clr);"));
+    assertTrue(defaultThemeCss.contains("--dui-fab-action-background: var(--dui-clr-primary);"));
+    assertTrue(defaultThemeCss.contains("--dui-fab-action-color: var(--dui-primary-fg-clr);"));
   }
 
   @Test
@@ -1556,6 +1571,17 @@ public class DominoThemeCssContractTest {
     assertTrue(defaultTheme.contains("--dui-btn-group-border-radius: var(--dui-radius-xs);"));
     assertTrue(defaultTheme.contains("--dui-card-border-radius: var(--dui-radius-xs);"));
     assertTrue(defaultTheme.contains("--dui-dialog-border-radius: var(--dui-radius-xs);"));
+  }
+
+  @Test
+  public void fabButtonsUseTheSharedButtonRadius() throws IOException {
+    String fabCss =
+        readResource(
+            "org/dominokit/domino/ui/public/css/domino-ui/dui-components/domino-ui-fab.css");
+
+    assertTrue(fabCss.contains("border-radius: var(--dui-btn-border-radius);"));
+    assertFalse(fabCss.contains("var(--dui-fab-border-radius)"));
+    assertFalse(fabCss.contains("var(--dui-fab-action-border-radius)"));
   }
 
   @Test

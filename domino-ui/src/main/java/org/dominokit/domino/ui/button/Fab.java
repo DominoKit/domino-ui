@@ -26,10 +26,11 @@ import elemental2.dom.HTMLDivElement;
 import elemental2.dom.HTMLElement;
 import org.dominokit.domino.ui.elements.DivElement;
 import org.dominokit.domino.ui.icons.Icon;
+import org.dominokit.domino.ui.icons.lib.Icons;
+import org.dominokit.domino.ui.style.BooleanCssClass;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
 import org.dominokit.domino.ui.utils.ChildHandler;
 import org.dominokit.domino.ui.utils.HasClickableElement;
-import org.dominokit.domino.ui.style.BooleanCssClass;
 
 /**
  * A floating action button that can optionally expose additional actions.
@@ -41,6 +42,7 @@ public class Fab extends BaseDominoElement<HTMLDivElement, Fab> implements HasCl
 
   private final DivElement root;
   private final Button button;
+  private Button closeButton;
   private DivElement actions;
   private boolean expanded;
 
@@ -48,11 +50,12 @@ public class Fab extends BaseDominoElement<HTMLDivElement, Fab> implements HasCl
   public Fab() {
     root = div().addCss(dui_fab);
     button = Button.create().addCss(dui_fab_button);
-    button.addClickListener(event -> {
-      if (hasActions()) {
-        toggle();
-      }
-    });
+    button.addClickListener(
+        event -> {
+          if (hasActions()) {
+            toggle();
+          }
+        });
     root.appendChild(button);
     init(this);
   }
@@ -102,6 +105,7 @@ public class Fab extends BaseDominoElement<HTMLDivElement, Fab> implements HasCl
   public Fab addAction(BaseButton<?, ?> action) {
     initializeActions();
     action.addCss(dui_fab_action);
+    action.addClickListener(event -> setExpanded(false));
     actions.appendChild(action.element());
     return this;
   }
@@ -123,10 +127,15 @@ public class Fab extends BaseDominoElement<HTMLDivElement, Fab> implements HasCl
     addCss(BooleanCssClass.of(dui_fab_expanded, expanded));
     if (expanded) {
       actions.removeAttribute("hidden");
+      button.setAttribute("hidden", true);
+      closeButton.removeAttribute("hidden");
     } else {
       actions.setAttribute("hidden", true);
+      button.removeAttribute("hidden");
+      closeButton.setAttribute("hidden", true);
     }
     button.setAriaExpanded(expanded);
+    closeButton.setAriaExpanded(expanded);
     return this;
   }
 
@@ -158,10 +167,13 @@ public class Fab extends BaseDominoElement<HTMLDivElement, Fab> implements HasCl
     actions = div().addCss(dui_fab_actions);
     actions.setAttribute("hidden", true);
     root.insertBefore(actions.element(), button.element());
-    button
-        .setAriaHasPopup(true)
-        .setAriaControls(actions.getDominoId())
-        .setAriaExpanded(false);
+    closeButton = Button.create(Icons.close()).addCss(dui_fab_button);
+    closeButton.setAriaLabel("Close actions");
+    closeButton.setAttribute("hidden", true);
+    closeButton.addClickListener(event -> setExpanded(false));
+    root.appendChild(closeButton);
+    button.setAriaHasPopup(true).setAriaControls(actions.getDominoId()).setAriaExpanded(false);
+    closeButton.setAriaHasPopup(true).setAriaControls(actions.getDominoId()).setAriaExpanded(false);
   }
 
   @Override
