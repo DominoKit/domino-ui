@@ -139,7 +139,7 @@ public class ConfirmationDialog extends AbstractDialog<ConfirmationDialog> {
   private void appendButtons() {
     confirmButton =
         Button.create(Icons.check(), labels.dialogConfirmationAccept())
-            .addCss(dui_dialog_action, dui_success)
+            .addCss(dui_dialog_action, dui_success, dui_m_0)
             .addClickListener(
                 evt -> {
                   if (nonNull(confirmHandler)) {
@@ -149,7 +149,7 @@ public class ConfirmationDialog extends AbstractDialog<ConfirmationDialog> {
 
     rejectButton =
         Button.create(Icons.cancel(), labels.dialogConfirmationReject())
-            .addCss(dui_dialog_action, dui_dialog_secondary_action)
+            .addCss(dui_dialog_action, dui_dialog_secondary_action, dui_m_0)
             .addClickListener(
                 evt -> {
                   if (nonNull(rejectHandler)) {

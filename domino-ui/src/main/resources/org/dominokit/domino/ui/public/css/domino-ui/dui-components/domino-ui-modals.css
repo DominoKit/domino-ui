@@ -197,6 +197,7 @@
     padding: var(--dui-dialog-footer-padding);
     border-bottom-right-radius: inherit;
     border-bottom-left-radius: inherit;
+    background-color: var(--dui-card-content-footer-background);
 }
 
 .dui-dialog-header:empty,

@@ -50,6 +50,12 @@ See the complete guide in [theming.md](THEMING.md), including the available them
 descriptors, subset-loading examples, composition rules, CSS isolation guidance, contrast
 recommendations, emphasis modifiers, and the separate role of the WaitMe animation stylesheet.
 
+## Dynamic CSS utilities
+
+Runtime layout utilities can inject reusable, Domino-scoped classes for values that are not known
+at build time. They preserve static utility compatibility and can reference application CSS
+variables. See [DYNAMIC_CSS.md](DYNAMIC_CSS.md) for the available factories and usage guidance.
+
 ## Links
 - Introduction: https://dominokit.com/solutions/domino-ui/v2
 - Getting started: https://dominokit.com/solutions/domino-ui/v2/docs/getting-started
