@@ -873,6 +873,7 @@ public class DominoThemeCssContractTest {
       assertTrue(theme.contains("--dui-datatable-row-selected-background:"));
       assertTrue(theme.contains("--dui-datatable-row-selected-hover-background:"));
       assertTrue(theme.contains("--dui-datatable-row-highlight-background:"));
+      assertTrue(theme.contains("--dui-datatable-row-highlight-color:"));
       assertTrue(theme.contains("--dui-datatable-row-context-background:"));
       assertTrue(theme.contains("--dui-datatable-row-selected-indicator-color:"));
       assertTrue(theme.contains("--dui-datatable-row-selected-indicator-width:"));
@@ -890,6 +891,7 @@ public class DominoThemeCssContractTest {
             "background-color: var(--dui-datatable-row-selected-hover-background);"));
     assertTrue(
         datatable.contains("background-color: var(--dui-datatable-row-highlight-background);"));
+    assertTrue(datatable.contains("color: var(--dui-datatable-row-highlight-color);"));
     assertTrue(
         datatable.contains("background-color: var(--dui-datatable-row-context-background);"));
     assertTrue(
@@ -907,6 +909,12 @@ public class DominoThemeCssContractTest {
     assertFalse(datatable.contains("--dui-datatable-even-bg-color: var("));
     assertFalse(datatable.contains("--dui-datatable-odd-bg-color: var("));
     assertFalse(datatable.contains("--dui-bg-clr: var(--dui-datatable-row-highlight"));
+    assertTrue(
+        lightTheme.contains("--dui-datatable-row-highlight-bg-color: var(--dui-accent-l-5);"));
+    assertTrue(
+        darkTheme.contains("--dui-datatable-row-highlight-bg-color: var(--dui-accent-d-4);"));
+    assertTrue(lightTheme.contains("--dui-datatable-row-highlight-color: var(--dui-color);"));
+    assertTrue(darkTheme.contains("--dui-datatable-row-highlight-color: var(--dui-color);"));
   }
 
   @Test

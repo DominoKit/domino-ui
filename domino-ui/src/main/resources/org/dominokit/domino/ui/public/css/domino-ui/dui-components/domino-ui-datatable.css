@@ -80,6 +80,7 @@
 /* Row states are deliberately declared after stripe rules so their precedence is explicit. */
 .dui-datatable-responsive > .dui-datatable > tbody > .dui-datatable-row.dui-datatable-row-highlighted {
     background-color: var(--dui-datatable-row-highlight-background);
+    color: var(--dui-datatable-row-highlight-color);
 }
 
 .dui-datatable-responsive > .dui-datatable > tbody > .dui-datatable-row.dui-datatable-row-selected {
