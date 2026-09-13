@@ -24,6 +24,9 @@ import elemental2.dom.CSSStyleSheet;
 import elemental2.dom.HTMLStyleElement;
 import jsinterop.base.Js;
 import org.dominokit.domino.ui.style.CssClass;
+import org.dominokit.domino.ui.style.FlexCss;
+import org.dominokit.domino.ui.style.TypographyCss;
+import org.dominokit.domino.ui.style.VisualCss;
 
 public class DynamicCssCssomTest extends GWTTestCase {
 
@@ -44,6 +47,41 @@ public class DynamicCssCssomTest extends GWTTestCase {
     assertEquals(1, document.querySelectorAll("style#dui-dynamic-css").length);
     assertEquals(1, countRules("body.dui"));
     assertEquals(1, countRules(".dui.dui-test-facade-10px"));
+  }
+
+  public void testProductionScriptKeepsMigratedStaticUtilitiesLazy() {
+    removeDynamicStyleSheet();
+    DynamicCss.reset();
+
+    assertEquals("dui-p-4", DynamicCss.lazyCssClass("dui-p-4").getCssClass());
+
+    assertEquals(1, countRules(".dui.dui-p-4"));
+    assertEquals(0, countRules(".dui.dui-p-x-4"));
+    assertEquals(0, countRules(".dui.dui-z-10"));
+  }
+
+  public void testPublicLegacyConstantsInjectSelectedUtilityFamiliesLazily() {
+    removeDynamicStyleSheet();
+    DynamicCss.reset();
+
+    assertEquals("dui-border-x-4", VisualCss.dui_border_x_4.getCssClass());
+    assertEquals("dui-grow-2", FlexCss.dui_grow_2.getCssClass());
+    assertEquals("dui-font-size-4", TypographyCss.dui_font_size_4.getCssClass());
+    assertEquals("dui-leading-6", TypographyCss.dui_leading_6.getCssClass());
+
+    assertEquals(1, countRules(".dui.dui-border-x-4"));
+    assertEquals(1, countRules(".dui.dui-grow-2"));
+    assertEquals(1, countRules(".dui.dui-font-size-4"));
+    assertEquals(1, countRules(".dui.dui-leading-6"));
+  }
+
+  public void testDynamicFlexReusesTheStaticGrowSelectorAfterItIsResolved() {
+    removeDynamicStyleSheet();
+    DynamicCss.reset();
+
+    assertEquals("dui-grow-2", FlexCss.dui_grow_2.getCssClass());
+    assertEquals(1, countRules(".dui.dui-grow-2"));
+    assertEquals("dui-grow-2", DynamicFlex.grow("2").getCssClass());
   }
 
   @Override

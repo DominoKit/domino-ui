@@ -21,6 +21,7 @@ import static org.dominokit.domino.ui.utils.Domino.*;
 import com.google.gwt.junit.client.GWTTestCase;
 import elemental2.dom.HTMLStyleElement;
 import jsinterop.base.Js;
+import org.dominokit.domino.ui.style.PositionCss;
 
 public class DominoDynamicCssTest extends GWTTestCase {
 
@@ -148,6 +149,16 @@ public class DominoDynamicCssTest extends GWTTestCase {
     assertEquals(dui_leading_(61).getCssClass(), dui_leading_("61").getCssClass());
     assertEquals(dui_tracking_(62).getCssClass(), dui_tracking_("62").getCssClass());
     assertEquals(dui_font_weight_(63).getCssClass(), dui_font_weight_("63").getCssClass());
+  }
+
+  public void testMigratedStaticConstantsKeepTheirClassNamesAfterStaticCssRemoval() {
+    assertEquals("dui-p-4", dui_p_4.getCssClass());
+    assertEquals("dui-m-x-auto", dui_m_x_auto.getCssClass());
+    assertEquals("dui-gap-y-3", dui_gap_y_3.getCssClass());
+    assertEquals("dui-w-full", dui_w_full.getCssClass());
+    assertEquals("dui-basis-1_2p", dui_flex_basis_1_2p.getCssClass());
+    assertEquals("dui-inset-y-4", PositionCss.dui_inset_y_4.getCssClass());
+    assertEquals("dui-z-10", dui_z_10.getCssClass());
   }
 
   @Override

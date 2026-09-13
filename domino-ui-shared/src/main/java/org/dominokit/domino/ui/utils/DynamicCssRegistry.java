@@ -37,6 +37,7 @@ final class DynamicCssRegistry {
   private final Map<String, String> variableValues = new HashMap<>();
   private final Map<String, String> tokenOwners = new HashMap<>();
   private final DynamicCssStyleSheet styleSheet;
+  private boolean staticUtilitiesPreloaded;
 
   private DynamicCssRegistry() {
     this(new CssomDynamicCssStyleSheet());
@@ -65,6 +66,12 @@ final class DynamicCssRegistry {
       return existing;
     }
 
+    CssClass staticUtility = StaticDynamicCssUtility.resolveStaticValue(this, definition, rawValue);
+    if (staticUtility != null) {
+      cssClasses.put(requestKey, staticUtility);
+      return staticUtility;
+    }
+
     if (referencesCssVariable(rawValue)) {
       String className = availableVariableExpressionClassName(definition, definitionKey, rawValue);
       ensureVariableExpressionRule(definition, className, rawValue);
@@ -89,6 +96,45 @@ final class DynamicCssRegistry {
 
     CssClass cssClass = () -> className;
     cssClasses.put(requestKey, cssClass);
+    return cssClass;
+  }
+
+  CssClass lazyCssClass(DynamicCssDefinition definition, String classToken, String cssValue) {
+    return new LazyDynamicCssClass(() -> cssClass(definition, classToken, cssValue));
+  }
+
+  CssClass lazyCssClass(String staticClassName) {
+    return StaticDynamicCssUtility.resolve(this, staticClassName);
+  }
+
+  void preloadStaticUtilities() {
+    if (!staticUtilitiesPreloaded) {
+      StaticDynamicCssUtility.preloadAll(this);
+      staticUtilitiesPreloaded = true;
+    }
+  }
+
+  private CssClass cssClass(DynamicCssDefinition definition, String classToken, String cssValue) {
+    String definitionKey = definitionKey(definition);
+    String requestKey = definitionKey + "\u0000canonical\u0000" + classToken;
+    CssClass existing = cssClasses.get(requestKey);
+    if (existing != null) {
+      return existing;
+    }
+
+    String className = definition.getClassPrefix() + "-" + classToken;
+    String selector = ".dui." + className;
+    if (!hasCompatibleRawValueRule(definition, selector, cssValue)) {
+      for (String property : definition.getCssProperties()) {
+        styleSheet.setProperty(selector, property, cssValue);
+      }
+    }
+
+    CssClass cssClass = () -> className;
+    cssClasses.put(requestKey, cssClass);
+    if (cssValue.equals("var(--" + definition.getVariablePrefix() + "-" + classToken + ")")) {
+      cssClasses.putIfAbsent(definitionKey + "\u0000" + classToken, cssClass);
+    }
     return cssClass;
   }
 

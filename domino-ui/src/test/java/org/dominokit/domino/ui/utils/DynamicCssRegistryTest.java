@@ -172,6 +172,117 @@ public class DynamicCssRegistryTest extends GWTTestCase {
             "body.dui", "--dui-test-expression-value-" + first.getCssClass().substring(20)));
   }
 
+  public void testLazyCssClassResolvesItsSupplierOnlyWhenItsNameIsRequested() {
+    int[] resolutions = {0};
+    CssClass cssClass =
+        new LazyDynamicCssClass(
+            () -> {
+              resolutions[0]++;
+              return () -> "dui-p-4";
+            });
+
+    assertEquals(0, resolutions[0]);
+    assertEquals("dui-p-4", cssClass.getCssClass());
+    assertEquals("dui-p-4", cssClass.getCssClass());
+    assertEquals(1, resolutions[0]);
+  }
+
+  public void testLazyCompatibilityClassInjectsItsCanonicalRuleOnlyWhenResolved() {
+    InMemoryStyleSheet styleSheet = new InMemoryStyleSheet();
+    DynamicCssRegistry registry = new DynamicCssRegistry(styleSheet);
+
+    CssClass cssClass = registry.lazyCssClass(DynamicPadding.PADDING, "4", "var(--dui-spc-4)");
+
+    assertEquals(0, styleSheet.ruleCount());
+    assertEquals("dui-p-4", cssClass.getCssClass());
+    assertEquals(1, styleSheet.ruleCount());
+    assertEquals("var(--dui-spc-4)", styleSheet.property(".dui.dui-p-4", "padding"));
+  }
+
+  public void testStaticSpacingClassResolvesLazilyUsingItsExistingSelector() {
+    InMemoryStyleSheet styleSheet = new InMemoryStyleSheet();
+    DynamicCssRegistry registry = new DynamicCssRegistry(styleSheet);
+
+    CssClass cssClass = registry.lazyCssClass("dui-p-x-4");
+
+    assertEquals(0, styleSheet.ruleCount());
+    assertEquals("dui-p-x-4", cssClass.getCssClass());
+    assertEquals(1, styleSheet.ruleCount());
+    assertEquals("var(--dui-spc-4)", styleSheet.property(".dui.dui-p-x-4", "padding-left"));
+    assertEquals("var(--dui-spc-4)", styleSheet.property(".dui.dui-p-x-4", "padding-right"));
+  }
+
+  public void testStaticPositionAndMarginAutoClassesUseTheirDirectValues() {
+    InMemoryStyleSheet styleSheet = new InMemoryStyleSheet();
+    DynamicCssRegistry registry = new DynamicCssRegistry(styleSheet);
+
+    CssClass margin = registry.lazyCssClass("dui-m-x-auto");
+    CssClass inset = registry.lazyCssClass("dui-inset-auto");
+
+    assertEquals(0, styleSheet.ruleCount());
+    assertEquals("dui-m-x-auto", margin.getCssClass());
+    assertEquals("auto", styleSheet.property(".dui.dui-m-x-auto", "margin-left"));
+    assertEquals("auto", styleSheet.property(".dui.dui-m-x-auto", "margin-right"));
+    assertEquals("dui-inset-auto", inset.getCssClass());
+    assertEquals("auto", styleSheet.property(".dui.dui-inset-auto", "top"));
+    assertEquals("auto", styleSheet.property(".dui.dui-inset-auto", "right"));
+    assertEquals("auto", styleSheet.property(".dui.dui-inset-auto", "bottom"));
+    assertEquals("auto", styleSheet.property(".dui.dui-inset-auto", "left"));
+  }
+
+  public void testStaticBorderFlexAndTypographyClassesResolveLazilyUsingExistingSelectors() {
+    InMemoryStyleSheet styleSheet = new InMemoryStyleSheet();
+    DynamicCssRegistry registry = new DynamicCssRegistry(styleSheet);
+
+    CssClass border = registry.lazyCssClass("dui-border-x-4");
+    CssClass grow = registry.lazyCssClass("dui-grow-2");
+    CssClass order = registry.lazyCssClass("dui-order-20");
+    CssClass indent = registry.lazyCssClass("dui-txt-indnt-4");
+    CssClass fontSize = registry.lazyCssClass("dui-font-size-4");
+    CssClass leading = registry.lazyCssClass("dui-leading-6");
+
+    assertEquals("dui-border-x-4", border.getCssClass());
+    assertEquals(
+        "var(--dui-spc-4)", styleSheet.property(".dui.dui-border-x-4", "border-left-width"));
+    assertEquals(
+        "var(--dui-spc-4)", styleSheet.property(".dui.dui-border-x-4", "border-right-width"));
+    assertEquals("dui-grow-2", grow.getCssClass());
+    assertEquals("var(--dui-grow-2)", styleSheet.property(".dui.dui-grow-2", "flex-grow"));
+    assertEquals("dui-order-20", order.getCssClass());
+    assertEquals("var(--dui-order-20)", styleSheet.property(".dui.dui-order-20", "order"));
+    assertEquals("dui-txt-indnt-4", indent.getCssClass());
+    assertEquals("var(--dui-spc-4)", styleSheet.property(".dui.dui-txt-indnt-4", "text-indent"));
+    assertEquals("dui-font-size-4", fontSize.getCssClass());
+    assertEquals(
+        "var(--dui-spc-4)", styleSheet.property(".dui.dui-font-size-4", "--dui-font-size"));
+    assertEquals("var(--dui-spc-4)", styleSheet.property(".dui.dui-font-size-4", "font-size"));
+    assertEquals("dui-leading-6", leading.getCssClass());
+    assertEquals("1.5rem", styleSheet.property(".dui.dui-leading-6", "line-height"));
+  }
+
+  public void testPreloadingResolvesEveryMigratedStaticUtilityExactlyOnce() {
+    InMemoryStyleSheet styleSheet = new InMemoryStyleSheet();
+    DynamicCssRegistry registry = new DynamicCssRegistry(styleSheet);
+
+    StaticDynamicCssUtility.preloadAll(registry);
+    StaticDynamicCssUtility.preloadAll(registry);
+
+    assertEquals(1826, styleSheet.ruleCount());
+    assertEquals("var(--dui-spc-4)", styleSheet.property(".dui.dui-p-x-4", "padding-left"));
+    assertEquals("var(--dui-spc-4)", styleSheet.property(".dui.dui-p-x-4", "padding-right"));
+    assertEquals("auto", styleSheet.property(".dui.dui-m-x-auto", "margin-left"));
+    assertEquals("auto", styleSheet.property(".dui.dui-m-x-auto", "margin-right"));
+    assertEquals("100vw", styleSheet.property(".dui.dui-w-screen", "width"));
+    assertEquals("10", styleSheet.property(".dui.dui-z-10", "z-index"));
+    assertEquals("dui-grow-2", registry.cssClass(DynamicFlex.GROW, "2").getCssClass());
+  }
+
+  public void testStaticUtilityPreloadingIsLimitedToSuperDevMode() {
+    assertTrue(DynamicCss.shouldPreloadStaticUtilities(true, false));
+    assertFalse(DynamicCss.shouldPreloadStaticUtilities(true, true));
+    assertFalse(DynamicCss.shouldPreloadStaticUtilities(false, false));
+  }
+
   private static class InMemoryStyleSheet implements DynamicCssStyleSheet {
 
     private final Map<String, Map<String, String>> rules = new LinkedHashMap<>();

@@ -20,6 +20,43 @@ Use Dynamic CSS for application-specific layout or presentation values. Continue
 static utility constants, such as `dui_p_4` and `dui_rounded_lg`, when a predefined semantic value
 already expresses the intent.
 
+## Lazy predefined value utilities
+
+The existing Java constants for padding, margin, gap, text indent, font size, line height, border
+width, width and height, flex basis, numeric flex grow/shrink/order, offsets, and z-index retain
+their API and class names, but their matching rule is now created only when the constant is applied.
+For example, `dui_p_4` still resolves to `dui-p-4` and produces:
+
+```css
+.dui.dui-p-4 {
+  padding: var(--dui-spc-4);
+}
+```
+
+This keeps density and theme overrides of `--dui-spc-4` intact, while avoiding delivery of every
+predefined value utility to every production application. In production, resolving `dui_p_4` does
+not create rules for `dui_m_4`, `dui_w_4`, or any other utility.
+
+In Super Dev Mode, resolving any migrated Java utility constant preloads the complete migrated
+utility set. This makes the full set available for browser experimentation while developing. The
+preload is always disabled in production, where only utilities used by the application are
+injected. No application setting is required.
+
+The migration covers these Java constant families:
+
+- padding and margin, including directional and axis variants;
+- `gap`, `column-gap`, `row-gap`, and text-indent;
+- font-size and line-height;
+- border width, including directional and axis variants;
+- width, height, min/max width, and min/max height;
+- flex basis, plus numeric grow, shrink, and order values;
+- inset, individual offsets, and z-index.
+
+This is a Java API optimization, not a runtime parser for arbitrary class strings. If application
+markup adds a migrated class such as `dui-p-4` as plain text, it must instead use the corresponding
+Java constant/factory or provide its own CSS rule. The development-only class observer is a future
+phase and is not included here.
+
 ## Dynamic color schemes
 
 Dynamic color schemes use the same palette and contextual-color contract as Domino UI predefined

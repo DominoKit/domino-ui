@@ -20,7 +20,8 @@ import org.dominokit.domino.ui.style.CssClass;
 /** Dynamic typography metric utility classes following Domino UI conventions. */
 public final class DynamicTypography {
 
-  public static final DynamicCssDefinition FONT_SIZE = definition("dui-font-size", "font-size");
+  public static final DynamicCssDefinition FONT_SIZE =
+      DynamicCssDefinition.of("dui-font-size", "dui-spc", "--dui-font-size", "font-size");
   public static final DynamicCssDefinition LINE_HEIGHT = definition("dui-leading", "line-height");
   public static final DynamicCssDefinition LETTER_SPACING =
       definition("dui-tracking", "letter-spacing");
