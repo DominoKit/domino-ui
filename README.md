@@ -40,21 +40,13 @@ Card.create("LOGIN")
     .appendChild(login);
 ```
 
-## Theming
+## Styling and theming
 
-Domino UI supports composable color modes, accents, visual identities, character styles, density,
-surface treatments, and component-level emphasis modifiers. Optional themes can be loaded as one
-bundle or as individual CSS files, while all theme selectors remain scoped to a `.dui` root.
-
-See the complete guide in [theming.md](THEMING.md), including the available theme catalog, Java
-descriptors, subset-loading examples, composition rules, CSS isolation guidance, contrast
-recommendations, emphasis modifiers, and the separate role of the WaitMe animation stylesheet.
-
-## Dynamic CSS utilities
-
-Runtime layout utilities can inject reusable, Domino-scoped classes for values that are not known
-at build time. They preserve static utility compatibility and can reference application CSS
-variables. See [DYNAMIC_CSS.md](DYNAMIC_CSS.md) for the available factories and usage guidance.
+Domino UI provides scoped, composable CSS: color modes, visual identities, accents, density,
+character and surface themes, contextual colors, component emphasis, custom tokens, and runtime
+Dynamic CSS utilities. The complete [styling and theming guide](STYLING_AND_THEMING.md) explains
+the design choices, stylesheet delivery options, Java APIs, accessibility guidance, customization
+recipes, and production optimization choices.
 
 ## Links
 - Introduction: https://dominokit.com/solutions/domino-ui/v2
