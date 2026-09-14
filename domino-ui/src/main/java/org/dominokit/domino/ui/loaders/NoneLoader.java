@@ -41,12 +41,15 @@ public class NoneLoader extends BaseLoader<NoneLoader> implements IsElement<HTML
 
   private final DivElement content =
       div()
-          .addCss(wait_me_content, dui_vertical_center)
+          .addCss(dui_waitme_content, dui_vertical_center)
           .style("margin-top: -18px;")
           .appendChild(loadingText);
 
   private final DivElement element =
-      div().addCss(wait_me).style("background: var(--dui-loader-background);").appendChild(content);
+      div()
+          .addCss(dui_waitme)
+          .style("background: var(--dui-loader-background);")
+          .appendChild(content);
 
   /** Initializes a new instance of the {@code NoneLoader} class. */
   public NoneLoader() {

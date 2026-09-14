@@ -40,6 +40,7 @@
                         </goals>
                         <configuration>
                             <target>
+                                <delete dir="${destDir}"/>
                                 <echo message="copying resources from :"/>
                                 <copy todir="${destDir}">
                                     <fileset dir="${basedir}/../domino-ui/target/classes/org/dominokit/domino/ui/public"/>

@@ -968,6 +968,6 @@ hr.dui {
     color: var(--dui-accent-clr);
 }
 
-.dui.dui-dialog.waitMe_container {
+.dui.dui-dialog.dui-waitme-container {
     transform: translateY(var(--dui-dialog-default-top-translate));
 }

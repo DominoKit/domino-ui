@@ -1,0 +1,822 @@
+/*
+* Copyright © 2026 Dominokit
+*
+* Licensed under the Apache License, Version 2.0 (the "License");
+
+* you may not use this file except in compliance with the License.
+* You may obtain a copy of the License at
+*
+*     http://www.apache.org/licenses/LICENSE-2.0
+*
+* Unless required by applicable law or agreed to in writing, software
+* distributed under the License is distributed on an "AS IS" BASIS,
+* WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+* See the License for the specific language governing permissions and
+* limitations under the License.
+*/
+.dui .dui-waitme-container {
+    transform: translateZ(0);
+    backface-visibility: hidden;
+}
+
+.dui .dui-waitme-container .dui-waitme {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 9989;
+    text-align: center;
+    overflow: hidden;
+    cursor: wait;
+}
+
+.dui .dui-waitme-container .dui-waitme * {
+    font-family: inherit;
+    font-size: inherit;
+    font-weight: initial;
+    font-style: initial;
+    line-height: initial;
+    color: initial;
+    text-decoration: initial;
+    text-transform: initial;
+    padding: initial;
+    margin: initial;
+}
+
+.dui .dui-waitme-container .dui-waitme .dui-waitme-content {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 50%;
+    backface-visibility: hidden;
+}
+
+.dui .dui-waitme-container .dui-waitme .dui-waitme-content.dui-waitme-horizontal > .dui-waitme-progress {
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.dui .dui-waitme-container .dui-waitme .dui-waitme-content.dui-waitme-horizontal > .dui-waitme-text {
+    display: inline-block;
+    margin: 0 0 0 20px;
+    vertical-align: middle;
+}
+
+.dui .dui-waitme-container .dui-waitme .dui-waitme-progress {
+    position: relative;
+    font-size: 0;
+    line-height: 0;
+}
+
+.dui .dui-waitme-container .dui-waitme .dui-waitme-progress > div {
+    animation-fill-mode: both;
+    display: inline-block;
+    transform: translateZ(0);
+    backface-visibility: hidden;
+}
+
+.dui .dui-waitme-container .dui-waitme .dui-waitme-text {
+    position: relative;
+    margin: 20px 0 0;
+}
+
+/* dui-waitme-bounce */
+.dui .dui-waitme-container .dui-waitme-progress.dui-waitme-bounce > div {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    animation: dui-waitme-animation-bounce 1.4s infinite ease-in-out;
+}
+
+.dui .dui-waitme-container .dui-waitme-progress.dui-waitme-bounce .dui-waitme-progress-element-1 {
+    animation-delay: -.32s;
+}
+
+.dui .dui-waitme-container .dui-waitme-progress.dui-waitme-bounce .dui-waitme-progress-element-2 {
+    animation-delay: -.16s;
+}
+
+@keyframes dui-waitme-animation-bounce {
+    0%, 80%, 100% {
+        transform: scale(0);
+    }
+
+    40% {
+        transform: scale(1);
+    }
+}
+
+/* dui-waitme-rotate-plane */
+.dui .dui-waitme-container .dui-waitme-progress.dui-waitme-rotate-plane > div {
+    width: 30px;
+    height: 30px;
+    animation: dui-waitme-animation-rotate-plane 1.2s infinite ease-in-out;
+    backface-visibility: visible;
+}
+
+@keyframes dui-waitme-animation-rotate-plane {
+    0% {
+        transform: perspective(120px);
+    }
+
+    50% {
+        transform: perspective(120px) rotateY(180deg);
+    }
+
+    100% {
+        transform: perspective(120px) rotateY(180deg) rotateX(180deg);
+    }
+}
+
+/* dui-waitme-stretch */
+.dui .dui-waitme-container .dui-waitme-progress.dui-waitme-stretch {
+    height: 60px;
+}
+
+.dui .dui-waitme-container .dui-waitme-progress.dui-waitme-stretch > div {
+    width: 1px;
+    height: 100%;
+    margin: 0 4px;
+    animation: dui-waitme-animation-stretch 1.2s infinite ease-in-out;
+}
+
+.dui .dui-waitme-container .dui-waitme-progress.dui-waitme-stretch .dui-waitme-progress-element-2 {
+    animation-delay: -1.1s;
+}
+
+.dui .dui-waitme-container .dui-waitme-progress.dui-waitme-stretch .dui-waitme-progress-element-3 {
+    animation-delay: -1s;
+}
+
+.dui .dui-waitme-container .dui-waitme-progress.dui-waitme-stretch .dui-waitme-progress-element-4 {
+    animation-delay: -.9s;
+}
+
+.dui .dui-waitme-container .dui-waitme-progress.dui-waitme-stretch .dui-waitme-progress-element-5 {
+    animation-delay: -.8s;
+}
+
+@keyframes dui-waitme-animation-stretch {
+    0%, 40%, 100% {
+        transform: scaleY(.4);
+    }
+
+    20% {
+        transform: scaleY(1);
+    }
+}
+
+/* dui-waitme-orbit */
+.dui .dui-waitme-container .dui-waitme-progress.dui-waitme-orbit {
+    width: 40px;
+    height: 40px;
+    margin: auto;
+    position: relative;
+}
+
+.dui .dui-waitme-container .dui-waitme-progress.dui-waitme-orbit > div {
+    width: 100%;
+    height: 100%;
+    margin: auto;
+    top: 0;
+    left: 0;
+    position: absolute;
+    animation: dui-waitme-animation-orbit-rotate 2s infinite linear;
+}
+
+.dui .dui-waitme-container .dui-waitme-progress.dui-waitme-orbit > div > div {
+    width: 50%;
+    height: 50%;
+    border-radius: 50%;
+    top: 10%;
+    left: 10%;
+    position: absolute;
+    animation: dui-waitme-animation-orbit 2s infinite ease-in-out;
+}
+
+.dui .dui-waitme-container .dui-waitme-progress.dui-waitme-orbit .dui-waitme-progress-element-2 > div {
+    top: auto;
+    bottom: 10%;
+    left: auto;
+    right: 10%;
+    animation-delay: -1s;
+}
+
+@keyframes dui-waitme-animation-orbit-rotate {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes dui-waitme-animation-orbit {
+    0%, 100% {
+        transform: scale(0);
+    }
+
+    50% {
+        transform: scale(1);
+    }
+}
+
+/* dui-waitme-round-bounce */
+.dui .dui-waitme-container .dui-waitme-progress.dui-waitme-round-bounce {
+    width: 60px;
+    height: 60px;
+    margin: auto;
+}
+
+.dui .dui-waitme-container .dui-waitme-progress.dui-waitme-round-bounce > div {
+    width: 24%;
+    height: 24%;
+    border-radius: 50%;
+    position: absolute;
+    animation: dui-waitme-animation-round-bounce 1.2s infinite ease-in-out;
+}
+
+.dui .dui-waitme-container .dui-waitme-progress.dui-waitme-round-bounce .dui-waitme-progress-element-1 {
+    top: 0;
+    left: 0;
+}
+
+.dui .dui-waitme-container .dui-waitme-progress.dui-waitme-round-bounce .dui-waitme-progress-element-2 {
+    top: 0;
+    right: 0;
+}
+
+.dui .dui-waitme-container .dui-waitme-progress.dui-waitme-round-bounce .dui-waitme-progress-element-3 {
+    bottom: 0;
+    right: 0;
+}
+
+.dui .dui-waitme-container .dui-waitme-progress.dui-waitme-round-bounce .dui-waitme-progress-element-4 {
+    bottom: 0;
+    left: 0;
+}
+
+.dui .dui-waitme-container .dui-waitme-progress.dui-waitme-round-bounce .dui-waitme-progress-element-5 {
+    top: -3%;
+    left: 50%;
+    margin-top: -12%;
+    margin-left: -12%;
+}
+
+.dui .dui-waitme-container .dui-waitme-progress.dui-waitme-round-bounce .dui-waitme-progress-element-6 {
+    top: 50%;
+    right: -3%;
+    margin-top: -12%;
+    margin-right: -12%;
+}
+
+.dui .dui-waitme-container .dui-waitme-progress.dui-waitme-round-bounce .dui-waitme-progress-element-7 {
+    bottom: -3%;
+    left: 50%;
+    margin-bottom: -12%;
+    margin-left: -12%;
+}
+
+.dui .dui-waitme-container .dui-waitme-progress.dui-waitme-round-bounce .dui-waitme-progress-element-8 {
+    top: 50%;
+    left: -3%;
+    margin-top: -12%;
+    margin-left: -12%;
+}
+
+.dui .dui-waitme-container .dui-waitme-progress.dui-waitme-round-bounce .dui-waitme-progress-element-9 {
+    top: 0;
+    right: 0;
+}
+
+.dui .dui-waitme-container .dui-waitme-progress.dui-waitme-round-bounce .dui-waitme-progress-element-10 {
+    bottom: 0;
+    right: 0;
+}
+
+.dui .dui-waitme-container .dui-waitme-progress.dui-waitme-round-bounce .dui-waitme-progress-element-11 {
+    bottom: 0;
+    left: 0;
+}
+
+.dui .dui-waitme-container .dui-waitme-progress.dui-waitme-round-bounce .dui-waitme-progress-element-12 {
+    top: 0;
+    left: 0;
+}
+
+.dui .dui-waitme-container .dui-waitme-progress.dui-waitme-round-bounce .dui-waitme-progress-element-5 {
+    animation-delay: -1.1s;
+}
+
+.dui .dui-waitme-container .dui-waitme-progress.dui-waitme-round-bounce .dui-waitme-progress-element-9 {
+    animation-delay: -1s;
+}
+
+.dui .dui-waitme-container .dui-waitme-progress.dui-waitme-round-bounce .dui-waitme-progress-element-2 {
+    animation-delay: -.9s;
+}
+
+.dui .dui-waitme-container .dui-waitme-progress.dui-waitme-round-bounce .dui-waitme-progress-element-6 {
+    animation-delay: -.8s;
+}
+
+.dui .dui-waitme-container .dui-waitme-progress.dui-waitme-round-bounce .dui-waitme-progress-element-10 {
+    animation-delay: -.7s;
+}
+
+.dui .dui-waitme-container .dui-waitme-progress.dui-waitme-round-bounce .dui-waitme-progress-element-3 {
+    animation-delay: -.6s;
+}
+
+.dui .dui-waitme-container .dui-waitme-progress.dui-waitme-round-bounce .dui-waitme-progress-element-7 {
+    animation-delay: -.5s;
+}
+
+.dui .dui-waitme-container .dui-waitme-progress.dui-waitme-round-bounce .dui-waitme-progress-element-11 {
+    animation-delay: -.4s;
+}
+
+.dui .dui-waitme-container .dui-waitme-progress.dui-waitme-round-bounce .dui-waitme-progress-element-4 {
+    animation-delay: -.3s;
+}
+
+.dui .dui-waitme-container .dui-waitme-progress.dui-waitme-round-bounce .dui-waitme-progress-element-8 {
+    animation-delay: -.2s;
+}
+
+.dui .dui-waitme-container .dui-waitme-progress.dui-waitme-round-bounce .dui-waitme-progress-element-12 {
+    animation-delay: -.1s;
+}
+
+@keyframes dui-waitme-animation-round-bounce {
+    0%, 80%, 100% {
+        transform: scale(0);
+    }
+
+    40% {
+        transform: scale(1);
+    }
+}
+
+/* dui-waitme-win-8 */
+.dui .dui-waitme-container .dui-waitme-progress.dui-waitme-win-8 {
+    width: 40px;
+    height: 40px;
+    margin: auto;
+}
+
+.dui .dui-waitme-container .dui-waitme-progress.dui-waitme-win-8 > div {
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    position: absolute;
+    margin: auto;
+    left: 0;
+    right: 0;
+    transform: rotate(225deg);
+    animation: dui-waitme-animation-win-8 5.5s infinite;
+}
+
+.dui .dui-waitme-container .dui-waitme-progress.dui-waitme-win-8 > div > div {
+    width: 15%;
+    height: 15%;
+    border-radius: 50%;
+    position: absolute;
+}
+
+.dui .dui-waitme-container .dui-waitme-progress.dui-waitme-win-8 .dui-waitme-progress-element-2 {
+    animation-delay: .24s;
+}
+
+.dui .dui-waitme-container .dui-waitme-progress.dui-waitme-win-8 .dui-waitme-progress-element-3 {
+    animation-delay: .48s;
+}
+
+.dui .dui-waitme-container .dui-waitme-progress.dui-waitme-win-8 .dui-waitme-progress-element-4 {
+    animation-delay: .72s;
+}
+
+.dui .dui-waitme-container .dui-waitme-progress.dui-waitme-win-8 .dui-waitme-progress-element-5 {
+    animation-delay: .96s;
+}
+
+@keyframes dui-waitme-animation-win-8 {
+    0% {
+        transform: rotate(225deg);
+        animation-timing-function: ease-out;
+    }
+
+    7% {
+        opacity: 1;
+        transform: rotate(345deg);
+        animation-timing-function: linear;
+    }
+
+    30% {
+        transform: rotate(455deg);
+        animation-timing-function: ease-in-out;
+    }
+
+    39% {
+        transform: rotate(690deg);
+        animation-timing-function: linear;
+    }
+
+    70% {
+        opacity: 1;
+        transform: rotate(815deg);
+        animation-timing-function: ease-out;
+    }
+
+    75% {
+        transform: rotate(945deg);
+        animation-timing-function: ease-out;
+    }
+
+    76% {
+        opacity: 0;
+        transform: rotate(945deg);
+    }
+
+    100% {
+        opacity: 0;
+        transform: rotate(945deg);
+    }
+}
+
+/* dui-waitme-win-8-linear */
+.dui .dui-waitme-container .dui-waitme-progress.dui-waitme-win-8-linear {
+    margin: auto;
+    width: 150px;
+    height: 6px;
+}
+
+.dui .dui-waitme-container .dui-waitme-progress.dui-waitme-win-8-linear > div {
+    width: 100%;
+    height: 100%;
+    left: 0;
+    opacity: 0;
+    position: absolute;
+    animation: dui-waitme-animation-win-8-linear 3s infinite;
+}
+
+.dui .dui-waitme-container .dui-waitme-progress.dui-waitme-win-8-linear > div > div {
+    width: 4%;
+    height: 100%;
+    border-radius: 50%;
+}
+
+.dui .dui-waitme-container .dui-waitme-progress.dui-waitme-win-8-linear .dui-waitme-progress-element-2 {
+    animation-delay: .3s;
+}
+
+.dui .dui-waitme-container .dui-waitme-progress.dui-waitme-win-8-linear .dui-waitme-progress-element-3 {
+    animation-delay: .6s;
+}
+
+.dui .dui-waitme-container .dui-waitme-progress.dui-waitme-win-8-linear .dui-waitme-progress-element-4 {
+    animation-delay: .9s;
+}
+
+.dui .dui-waitme-container .dui-waitme-progress.dui-waitme-win-8-linear .dui-waitme-progress-element-5 {
+    animation-delay: 1.2s;
+}
+
+@keyframes dui-waitme-animation-win-8-linear {
+    0%, 100% {
+        transform: translateX(0);
+        animation-timing-function: ease-out;
+    }
+
+    10% {
+        opacity: 1;
+        transform: translateX(33.333%);
+        animation-timing-function: linear;
+    }
+
+    50% {
+        opacity: 1;
+        transform: translateX(53.333%);
+        animation-timing-function: ease-in-out;
+    }
+
+    60% {
+        opacity: 0;
+        transform: translateX(86.666%);
+    }
+}
+
+/* dui-waitme-ios */
+.dui .dui-waitme-container .dui-waitme-progress.dui-waitme-ios {
+    margin: auto;
+    width: 40px;
+    height: 40px;
+}
+
+.dui .dui-waitme-container .dui-waitme-progress.dui-waitme-ios > div {
+    width: 10%;
+    height: 26%;
+    position: absolute;
+    left: 44.5%;
+    top: 37%;
+    opacity: 0;
+    border-radius: 50px;
+    box-shadow: 0 0 3px rgba(0,0,0,.2);
+    animation: dui-waitme-animation-ios 1s infinite linear;
+}
+
+.dui .dui-waitme-container .dui-waitme-progress.dui-waitme-ios .dui-waitme-progress-element-1 {
+    transform: rotate(0deg) translate(0, -142%);
+    animation-delay: 0s;
+}
+
+.dui .dui-waitme-container .dui-waitme-progress.dui-waitme-ios .dui-waitme-progress-element-2 {
+    transform: rotate(30deg) translate(0, -142%);
+    animation-delay: -.9167s;
+}
+
+.dui .dui-waitme-container .dui-waitme-progress.dui-waitme-ios .dui-waitme-progress-element-3 {
+    transform: rotate(60deg) translate(0, -142%);
+    animation-delay: -.833s;
+}
+
+.dui .dui-waitme-container .dui-waitme-progress.dui-waitme-ios .dui-waitme-progress-element-4 {
+    transform: rotate(90deg) translate(0, -142%);
+    animation-delay: -.75s;
+}
+
+.dui .dui-waitme-container .dui-waitme-progress.dui-waitme-ios .dui-waitme-progress-element-5 {
+    transform: rotate(120deg) translate(0, -142%);
+    animation-delay: -.667s;
+}
+
+.dui .dui-waitme-container .dui-waitme-progress.dui-waitme-ios .dui-waitme-progress-element-6 {
+    transform: rotate(150deg) translate(0, -142%);
+    animation-delay: -.5833s;
+}
+
+.dui .dui-waitme-container .dui-waitme-progress.dui-waitme-ios .dui-waitme-progress-element-7 {
+    transform: rotate(180deg) translate(0, -142%);
+    animation-delay: -.5s;
+}
+
+.dui .dui-waitme-container .dui-waitme-progress.dui-waitme-ios .dui-waitme-progress-element-8 {
+    transform: rotate(210deg) translate(0, -142%);
+    animation-delay: -.41667s;
+}
+
+.dui .dui-waitme-container .dui-waitme-progress.dui-waitme-ios .dui-waitme-progress-element-9 {
+    transform: rotate(240deg) translate(0, -142%);
+    animation-delay: -.333s;
+}
+
+.dui .dui-waitme-container .dui-waitme-progress.dui-waitme-ios .dui-waitme-progress-element-10 {
+    transform: rotate(270deg) translate(0, -142%);
+    animation-delay: -.25s;
+}
+
+.dui .dui-waitme-container .dui-waitme-progress.dui-waitme-ios .dui-waitme-progress-element-11 {
+    transform: rotate(300deg) translate(0, -142%);
+    animation-delay: -.1667s;
+}
+
+.dui .dui-waitme-container .dui-waitme-progress.dui-waitme-ios .dui-waitme-progress-element-12 {
+    transform: rotate(330deg) translate(0, -142%);
+    animation-delay: -.0833s;
+}
+
+@keyframes dui-waitme-animation-ios {
+    0% {
+        opacity: 1;
+    }
+
+    100% {
+        opacity: .25;
+    }
+}
+
+/* dui-waitme-facebook */
+.dui .dui-waitme-container .dui-waitme-progress.dui-waitme-facebook {
+    margin: auto;
+}
+
+.dui .dui-waitme-container .dui-waitme-progress.dui-waitme-facebook > div {
+    width: 6px;
+    height: 25px;
+    margin-left: 3px;
+    border-radius: 20px;
+    transform: scaleY(.7);
+    opacity: .1;
+    animation: dui-waitme-animation-facebook 1.3s infinite ease-in-out;
+}
+
+.dui .dui-waitme-container .dui-waitme-progress.dui-waitme-facebook > .dui-waitme-progress-element-1 {
+    animation-delay: .2s;
+    transform: scaleY(.7);
+}
+
+.dui .dui-waitme-container .dui-waitme-progress.dui-waitme-facebook > .dui-waitme-progress-element-2 {
+    animation-delay: .4s;
+    transform: scaleY(.85);
+}
+
+.dui .dui-waitme-container .dui-waitme-progress.dui-waitme-facebook > .dui-waitme-progress-element-3 {
+    animation-delay: .6s;
+    transform: scaleY(1);
+}
+
+@keyframes dui-waitme-animation-facebook {
+    0% {
+        transform: scaleY(.7);
+        opacity: .1;
+    }
+
+    50% {
+        transform: scaleY(1);
+        opacity: 1;
+    }
+
+    100% {
+        transform: scaleY(.7);
+        opacity: .1;
+    }
+}
+
+/* dui-waitme-rotation */
+.dui .dui-waitme-container .dui-waitme-progress.dui-waitme-rotation > div {
+    width: 60px;
+    height: 60px;
+    margin: auto;
+    border-radius: 100%;
+    border-width: 6px;
+    border-style: solid;
+    border-left-color: transparent!important;
+    border-right-color: transparent!important;
+    border-bottom-color: transparent!important;
+    animation: dui-waitme-animation-rotation 1s infinite linear;
+}
+
+@keyframes dui-waitme-animation-rotation {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+/* dui-waitme-timer */
+.dui .dui-waitme-container .dui-waitme-progress.dui-waitme-timer {
+    width: 40px;
+    height: 40px;
+    margin: auto;
+    border-width: 2px;
+    border-style: solid;
+    border-radius: 50%;
+    box-sizing: border-box;
+    position: relative;
+    text-indent: -9999px;
+}
+
+.dui .dui-waitme-container .dui-waitme-progress.dui-waitme-timer > .dui-waitme-progress-element-1,
+.dui .dui-waitme-container .dui-waitme-progress.dui-waitme-timer > .dui-waitme-progress-element-2 {
+    border-radius: 3px;
+    position: absolute;
+    width: 2px;
+    height: 48%;
+    left: 50%;
+    top: 50%;
+    margin-left: -1px;
+    margin-top: -1px;
+    animation: dui-waitme-animation-timer 1.25s infinite linear;
+    transform-origin: 1px 1px;
+}
+
+.dui .dui-waitme-container .dui-waitme-progress.dui-waitme-timer > .dui-waitme-progress-element-2 {
+    height: 40%;
+    animation: dui-waitme-animation-timer 15s infinite linear;
+}
+
+@keyframes dui-waitme-animation-timer {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+/* dui-waitme-pulse */
+.dui .dui-waitme-container .dui-waitme-progress.dui-waitme-pulse {
+    width: 30px;
+    height: 30px;
+    margin: auto;
+    position: relative;
+}
+
+.dui .dui-waitme-container .dui-waitme-progress.dui-waitme-pulse > div {
+    margin: auto;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    border-width: 3px;
+    border-style: solid;
+    border-radius: 50%;
+    position: absolute;
+    opacity: 0;
+    animation: dui-waitme-animation-pulsate 1s infinite ease-out;
+}
+
+@keyframes dui-waitme-animation-pulsate {
+    0% {
+        transform: scale(.1);
+        opacity: 0;
+    }
+
+    50% {
+        opacity: 1;
+    }
+
+    100% {
+        transform: scale(1.2);
+        opacity: 0;
+    }
+}
+
+/* dui-waitme-progress-bar */
+.dui .dui-waitme-container .dui-waitme-progress.dui-waitme-progress-bar {
+    width: 200px;
+    height: 20px;
+    margin: auto;
+    background: rgba(0,0,0,.1);
+    padding: 5px;
+    border-radius: 20px;
+    line-height: 0;
+    max-width: 100%;
+}
+
+.dui .dui-waitme-container .dui-waitme-progress.dui-waitme-progress-bar > div {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    border-radius: 20px;
+    background-size: 50px 50px;
+    box-shadow: inset 0 2px 9px rgba(255,255,255,.3), inset 0 -2px 6px rgba(0,0,0,.4);
+    background-image: linear-gradient(-45deg, rgba(240,240,240,.4) 26%, transparent 25%, transparent 51%, rgba(240,240,240,.4) 50%, rgba(240,240,240,.4) 76%, transparent 75%, transparent);
+    animation: dui-waitme-animation-progress-bar 2s linear infinite;
+}
+
+@keyframes dui-waitme-animation-progress-bar {
+    0% {
+        background-position: 0 0;
+    }
+
+    100% {
+        background-position: 50px 50px;
+    }
+}
+
+/* dui-waitme-bounce-pulse */
+.dui .dui-waitme-container .dui-waitme-progress.dui-waitme-bounce-pulse > div {
+    width: 20px;
+    height: 20px;
+    margin-right: 1px;
+    display: inline-block;
+    border-radius: 50%;
+    transform: scale(.5);
+    animation: dui-waitme-animation-bounce-pulse 1.4s infinite ease-in-out;
+}
+
+.dui .dui-waitme-container .dui-waitme-progress.dui-waitme-bounce-pulse > .dui-waitme-progress-element-1,
+.dui .dui-waitme-container .dui-waitme-progress.dui-waitme-bounce-pulse > .dui-waitme-progress-element-3 {
+    animation-delay: .1s;
+}
+
+.dui .dui-waitme-container .dui-waitme-progress.dui-waitme-bounce-pulse > .dui-waitme-progress-element-2 {
+    animation-delay: .4s;
+}
+
+@keyframes dui-waitme-animation-bounce-pulse {
+    0%, 80%, 100% {
+        transform: scale(.5);
+    }
+
+    40% {
+        transform: scale(1);
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .dui .dui-waitme-container .dui-waitme-progress,
+    .dui .dui-waitme-container .dui-waitme-progress *,
+    .dui .dui-waitme-container .dui-waitme-progress *::before,
+    .dui .dui-waitme-container .dui-waitme-progress *::after {
+        animation: none !important;
+}
+}
+

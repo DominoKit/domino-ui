@@ -41,22 +41,34 @@ import org.dominokit.domino.ui.utils.DominoElement;
 public class RoundBounceLoader extends BaseLoader<RoundBounceLoader>
     implements IsElement<HTMLDivElement> {
 
-  private final DivElement progress1 = div().addCss(wait_me_progress_elem_1, dui_loader_darker);
-  private final DivElement progress2 = div().addCss(wait_me_progress_elem_2, dui_loader_darker);
-  private final DivElement progress3 = div().addCss(wait_me_progress_elem_3, dui_loader_darker);
-  private final DivElement progress4 = div().addCss(wait_me_progress_elem_4, dui_loader_darker);
-  private final DivElement progress5 = div().addCss(wait_me_progress_elem_5, dui_loader_darker);
-  private final DivElement progress6 = div().addCss(wait_me_progress_elem_6, dui_loader_darker);
-  private final DivElement progress7 = div().addCss(wait_me_progress_elem_7, dui_loader_darker);
-  private final DivElement progress8 = div().addCss(wait_me_progress_elem_8, dui_loader_darker);
-  private final DivElement progress9 = div().addCss(wait_me_progress_elem_9, dui_loader_darker);
-  private final DivElement progress10 = div().addCss(wait_me_progress_elem_10, dui_loader_darker);
-  private final DivElement progress11 = div().addCss(wait_me_progress_elem_11, dui_loader_darker);
-  private final DivElement progress12 = div().addCss(wait_me_progress_elem_12, dui_loader_darker);
+  private final DivElement progress1 =
+      div().addCss(dui_waitme_progress_element_1, dui_loader_darker);
+  private final DivElement progress2 =
+      div().addCss(dui_waitme_progress_element_2, dui_loader_darker);
+  private final DivElement progress3 =
+      div().addCss(dui_waitme_progress_element_3, dui_loader_darker);
+  private final DivElement progress4 =
+      div().addCss(dui_waitme_progress_element_4, dui_loader_darker);
+  private final DivElement progress5 =
+      div().addCss(dui_waitme_progress_element_5, dui_loader_darker);
+  private final DivElement progress6 =
+      div().addCss(dui_waitme_progress_element_6, dui_loader_darker);
+  private final DivElement progress7 =
+      div().addCss(dui_waitme_progress_element_7, dui_loader_darker);
+  private final DivElement progress8 =
+      div().addCss(dui_waitme_progress_element_8, dui_loader_darker);
+  private final DivElement progress9 =
+      div().addCss(dui_waitme_progress_element_9, dui_loader_darker);
+  private final DivElement progress10 =
+      div().addCss(dui_waitme_progress_element_10, dui_loader_darker);
+  private final DivElement progress11 =
+      div().addCss(dui_waitme_progress_element_11, dui_loader_darker);
+  private final DivElement progress12 =
+      div().addCss(dui_waitme_progress_element_12, dui_loader_darker);
 
   private final DivElement loader =
       div()
-          .addCss(wait_me_progress, round_bounce)
+          .addCss(dui_waitme_progress, dui_waitme_round_bounce)
           .appendChild(progress1)
           .appendChild(progress2)
           .appendChild(progress3)
@@ -72,12 +84,15 @@ public class RoundBounceLoader extends BaseLoader<RoundBounceLoader>
 
   private final DivElement content =
       div()
-          .addCss(wait_me_content, dui_vertical_center)
+          .addCss(dui_waitme_content, dui_vertical_center)
           .appendChild(loader)
           .appendChild(loadingText);
 
   private final DivElement element =
-      div().addCss(wait_me).style("background: var(--dui-loader-background);").appendChild(content);
+      div()
+          .addCss(dui_waitme)
+          .style("background: var(--dui-loader-background);")
+          .appendChild(content);
 
   /** Initializes a new instance of the {@code RoundBounceLoader} class. */
   public RoundBounceLoader() {

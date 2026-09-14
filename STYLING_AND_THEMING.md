@@ -130,9 +130,11 @@ categories, so they can be combined.
 | Need | Recommended resource choice | Why |
 | --- | --- | --- |
 | Simplest application setup | `domino-ui.css` and `themes/domino-ui-themes.css` | Two stable, readable aggregate URLs. |
+| One-request application setup | `domino-ui-css-all.css` or `domino-ui-css-all.min.css` | Includes the core, every optional theme, and modern font definitions in the established cascade order. |
 | Development or source inspection | Individual readable CSS files | Easy browser inspection and focused loading. |
 | Production application that uses a small subset | Individual `.min.css` files | Avoids downloading optional themes/components that are not used. |
-| Third-party MDI or WaitMe assets | Their existing resource flow | They are not part of the new independent minification path. |
+| Third-party MDI assets | Their existing resource flow | They are not part of the new independent minification path. |
+| Domino UI loaders | `domino-ui-waitme.css` or its `.min.css` sibling | Owned, scoped loader styles generated through the normal minification path. |
 
 The aggregate URLs remain fully supported:
 
@@ -141,8 +143,20 @@ The aggregate URLs remain fully supported:
 <link rel="stylesheet" href="/webjars/domino-ui/css/domino-ui/themes/domino-ui-themes.css">
 ```
 
-They are deliberately preserved as readable bundles. The independent minification option does not
-replace them and does not create a separate minified aggregate in this release.
+They are deliberately preserved as readable bundles. Their `.min.css` siblings are also available
+when an application wants the same two-bundle layout in production.
+
+For a complete Domino UI installation in one stylesheet request, use the all-in-one aggregate. It
+contains the core component bundle, every optional theme, and the modern font definitions in the
+same order as the three separate links:
+
+```html
+<link rel="stylesheet" href="/webjars/domino-ui/css/domino-ui/domino-ui-css-all.min.css">
+```
+
+Use `domino-ui-css-all.css` instead when readable CSS is preferred. These are additional resources;
+the core, themes, fonts, and individual resource URLs remain available for applications that need
+smaller or more selective delivery.
 
 ### Load only selected optional themes
 
@@ -166,13 +180,13 @@ For production, choose the same paths with the `.min.css` suffix:
 
 Each independently minified resource keeps its directory and filename stem. The build creates a
 minified sibling only for Domino-owned CSS eligible for this delivery option. Existing MDI files
-and `domino-ui-waitMe.css` are intentionally excluded.
+are intentionally excluded; the owned `domino-ui-waitme.css` loader resource is included.
 
-### WaitMe is not a visual theme
+### Loader CSS is not a visual theme
 
-`domino-ui-waitMe.css` is a third-party ready-to-use stylesheet used by the Animation feature.
-It is not an identity, character, density, or surface theme. Keep it in its existing animation
-resource flow rather than treating it as part of the optional theme bundle.
+`domino-ui-waitme.css` is the Domino UI-owned stylesheet used by the loader feature. It is not an
+identity, character, density, or surface theme, and it remains outside the optional theme bundle.
+Use its generated `domino-ui-waitme.min.css` sibling when loading individual production resources.
 
 ## Theme composition
 
@@ -725,7 +739,7 @@ it meets contrast requirements. That is an application design responsibility.
 | Dynamic rule names are hard to read | Keep the returned `CssClass`; hashed names for expressions are implementation details. |
 | An arbitrary length is ignored | Use `Unit` or a CSS unit string; an integer is not automatically pixels. |
 | A selected minified file is missing | Run the Maven package build and verify the resource is eligible for independent minification. |
-| WaitMe styling is missing | Load its animation stylesheet separately; it is not included through optional themes. |
+| Loader styling is missing | Load `domino-ui-waitme.css` (or its `.min.css` sibling) separately; it is not included through optional themes. |
 
 ## Reference
 

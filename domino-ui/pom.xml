@@ -205,9 +205,11 @@
                 <executions>
                     <execution>
                         <id>prepare-css-minification</id>
-                        <phase>prepare-package</phase>
+                        <phase>process-test-classes</phase>
                         <configuration>
                             <target>
+                                <delete file="${project.build.outputDirectory}/org/dominokit/domino/ui/public/css/domino-ui/dui-components/domino-ui-waitMe.css"/>
+                                <delete file="${project.build.outputDirectory}/org/dominokit/domino/ui/public/css/domino-ui/dui-components/domino-ui-waitMe.min.css"/>
                                 <concat destfile="${project.build.outputDirectory}/org/dominokit/domino/ui/public/css/domino-ui/domino-ui.css"
                                         encoding="UTF-8" fixlastline="true">
                                     <sort>
@@ -223,17 +225,24 @@
                                                  excludes="domino-ui-themes.css,**/*.min.css"/>
                                     </sort>
                                 </concat>
+                                <concat destfile="${project.build.outputDirectory}/org/dominokit/domino/ui/public/css/domino-ui/domino-ui-css-all.css"
+                                        encoding="UTF-8" fixlastline="true">
+                                    <filelist dir="${project.build.outputDirectory}/org/dominokit/domino/ui/public/css/domino-ui"
+                                              files="domino-ui.css,themes/domino-ui-themes.css,domino-ui-fonts-modern.css"/>
+                                </concat>
 
                                 <delete dir="${project.build.directory}/css-minification-input"/>
                                 <delete dir="${project.build.directory}/css-minification-output"/>
                                 <mkdir dir="${project.build.directory}/css-minification-input"/>
                                 <copy todir="${project.build.directory}/css-minification-input">
                                     <fileset dir="${project.build.outputDirectory}/org/dominokit/domino/ui/public/css/domino-ui">
+                                        <include name="domino-ui.css"/>
+                                        <include name="domino-ui-css-all.css"/>
                                         <include name="domino-ui-fonts-modern.css"/>
                                         <include name="dui-components/**/domino-ui-*.css"/>
+                                        <include name="themes/domino-ui-themes.css"/>
                                         <include name="themes/**/domino-ui-theme-*.css"/>
                                         <exclude name="**/*.min.css"/>
-                                        <exclude name="dui-components/domino-ui-waitMe.css"/>
                                     </fileset>
                                 </copy>
                             </target>
@@ -252,7 +261,7 @@
                 <executions>
                     <execution>
                         <id>compress-domino-ui-css</id>
-                        <phase>prepare-package</phase>
+                        <phase>process-test-classes</phase>
                         <goals>
                             <goal>csscompress</goal>
                         </goals>
@@ -282,7 +291,7 @@
                 <executions>
                     <execution>
                         <id>copy-minified-css-resources</id>
-                        <phase>prepare-package</phase>
+                        <phase>process-test-classes</phase>
                         <goals>
                             <goal>copy-resources</goal>
                         </goals>

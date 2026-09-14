@@ -12,8 +12,8 @@ body.dui {
      * - component tokens below are the final fallback layer for component CSS.
      *
      * Consumers can override only the tokens they need on this same .dui root
-     * or on an ancestor of a Domino UI subtree. WaitMe typography and loader
-     * styles are supplied by a separate third-party asset.
+     * or on an ancestor of a Domino UI subtree. Loader typography and styles
+     * are supplied by the scoped Domino UI loader resource.
      */
     /* ====================== Spacing ========================= */
     /* ======== Space values in em based on 16px root font ====== */

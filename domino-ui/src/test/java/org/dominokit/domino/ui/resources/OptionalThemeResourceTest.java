@@ -47,8 +47,10 @@ public class OptionalThemeResourceTest {
           css.contains("dui-theme-compact-lab"));
       assertFalse(resource + " must not define :root", css.contains(":root"));
       assertFalse(resource + " must not depend on body.dui", css.contains("body.dui"));
-      assertFalse(resource + " must not contain WaitMe selectors", css.contains("waitMe_"));
-      assertFalse(resource + " must not contain WaitMe selectors", css.contains(".waitMe_"));
+      assertFalse(resource + " must not contain legacy WaitMe selectors", css.contains("waitMe"));
+      assertFalse(
+          resource + " must not contain legacy WaitMe Java-style selectors",
+          css.contains("wait_me"));
     }
   }
 

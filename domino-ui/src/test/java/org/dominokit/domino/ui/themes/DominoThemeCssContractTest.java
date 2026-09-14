@@ -51,8 +51,10 @@ public class DominoThemeCssContractTest {
     for (String resource : resources) {
       String css = readResource(resource);
       assertFalse(resource + " must not define :root", css.contains(":root"));
-      assertFalse(resource + " must not contain WaitMe selectors", css.contains("waitMe_"));
-      assertFalse(resource + " must not contain WaitMe selectors", css.contains(".waitMe_"));
+      assertFalse(resource + " must not contain legacy WaitMe selectors", css.contains("waitMe"));
+      assertFalse(
+          resource + " must not contain legacy WaitMe Java-style selectors",
+          css.contains("wait_me"));
     }
   }
 
@@ -111,15 +113,15 @@ public class DominoThemeCssContractTest {
   }
 
   @Test
-  public void waitMeIsNotPartOfTheNormalThemeResourceList() throws IOException {
+  public void dominoOwnedLoaderCssIsNotPartOfTheNormalThemeResourceList() throws IOException {
     List<String> resources = readFileList();
 
-    assertFalse(resources.stream().anyMatch(resource -> resource.contains("domino-ui-waitMe")));
+    assertFalse(resources.stream().anyMatch(resource -> resource.contains("domino-ui-waitme")));
     assertNotNull(
         getClass()
             .getClassLoader()
             .getResource(
-                "org/dominokit/domino/ui/public/css/domino-ui/dui-components/domino-ui-waitMe.css"));
+                "org/dominokit/domino/ui/public/css/domino-ui/dui-components/domino-ui-waitme.css"));
   }
 
   @Test

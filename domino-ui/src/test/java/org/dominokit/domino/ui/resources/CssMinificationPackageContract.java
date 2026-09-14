@@ -15,6 +15,7 @@
  */
 package org.dominokit.domino.ui.resources;
 
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 import java.io.IOException;
@@ -43,18 +44,32 @@ public class CssMinificationPackageContract {
   }
 
   @Test
-  public void keepsTheLegacyAggregateBundlesAvailable() {
+  public void publishesRawAndMinifiedAggregateBundles() throws IOException {
     assertTrue(Files.isRegularFile(CSS_ROOT.resolve("domino-ui.css")));
     assertTrue(Files.isRegularFile(CSS_ROOT.resolve("themes/domino-ui-themes.css")));
+    assertMinifiedAggregate("domino-ui.css");
+    assertMinifiedAggregate("themes/domino-ui-themes.css");
+    assertMinifiedAggregate("domino-ui-css-all.css");
+  }
+
+  @Test
+  public void doesNotPublishLegacyWaitMeAssets() {
+    assertFalse(Files.exists(CSS_ROOT.resolve("dui-components/domino-ui-waitMe.css")));
+    assertFalse(Files.exists(CSS_ROOT.resolve("dui-components/domino-ui-waitMe.min.css")));
   }
 
   @Test
   public void preservesRepresentativeModernCssSyntaxInMinifiedResources() throws IOException {
+    assertContains("domino-ui.min.css", "dui-waitme-animation-bounce");
+    assertContains("themes/domino-ui-themes.min.css", "dui-theme-ocean");
+    assertContains("domino-ui-css-all.min.css", "dui-waitme-animation-bounce");
+    assertContains("domino-ui-css-all.min.css", "dui-theme-ocean");
     assertContains("dui-components/domino-ui-colors.min.css", "var(--dui-");
     assertContains("dui-components/domino-ui-colors.min.css", "color-mix(");
     assertContains("dui-components/domino-ui-colors.min.css", "@supports");
     assertContains("themes/character/domino-ui-theme-glass.min.css", ":where(");
     assertContains("dui-components/domino-ui-animation.min.css", "@keyframes");
+    assertContains("dui-components/domino-ui-waitme.min.css", "dui-waitme-animation-bounce");
     assertContains("dui-components/screens/domino-ui-screen-small.min.css", "@media");
   }
 
@@ -73,15 +88,21 @@ public class CssMinificationPackageContract {
 
     return !path.endsWith(".min.css")
         && (path.equals("domino-ui-fonts-modern.css")
-            || (path.startsWith("dui-components/")
-                && path.contains("/domino-ui-")
-                && !path.equals("dui-components/domino-ui-waitMe.css"))
+            || (path.startsWith("dui-components/") && path.contains("/domino-ui-"))
             || (path.startsWith("themes/") && path.contains("/domino-ui-theme-")));
   }
 
   private Path minifiedSibling(Path source) {
     String filename = source.getFileName().toString();
     return source.resolveSibling(filename.substring(0, filename.length() - 4) + ".min.css");
+  }
+
+  private void assertMinifiedAggregate(String rawRelativePath) throws IOException {
+    Path raw = CSS_ROOT.resolve(rawRelativePath);
+    Path minified = minifiedSibling(raw);
+    assertTrue(minified + " must exist", Files.isRegularFile(minified));
+    assertTrue(minified + " must not be empty", Files.size(minified) > 0);
+    assertTrue(minified + " must be smaller than " + raw, Files.size(minified) < Files.size(raw));
   }
 
   private void assertContains(String relativePath, String expectedContent) throws IOException {
