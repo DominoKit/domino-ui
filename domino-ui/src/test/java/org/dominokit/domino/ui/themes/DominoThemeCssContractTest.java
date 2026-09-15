@@ -616,9 +616,9 @@ public class DominoThemeCssContractTest {
         datatable.contains(
             "background-image: linear-gradient(var(--dui-datatable-column-stripe-background), var(--dui-datatable-column-stripe-background));"));
     String columnStripeBackground =
-        "color-mix(in srgb, var(--dui-clr-dominant-d-2) 18%, transparent)";
+        "color-mix(in srgb, var(--dui-clr-dominant-d-2) 35%, transparent)";
     String darkColumnStripeBackground =
-        "color-mix(in srgb, var(--dui-clr-dominant-l-2) 18%, transparent)";
+        "color-mix(in srgb, var(--dui-clr-dominant-l-2) 35%, transparent)";
     assertTrue(defaultTheme.contains(columnStripeBackground));
     assertTrue(lightTheme.contains(columnStripeBackground));
     assertTrue(darkTheme.contains(darkColumnStripeBackground));
@@ -980,8 +980,7 @@ public class DominoThemeCssContractTest {
     assertTrue(
         datatable.contains(
             ".dui-datatable-thead {\n"
-                + "    background-color: var(--dui-datatable-header-background);\n"
-                + "    border-bottom: var(--dui-datatable-header-border);"));
+                + "    background-color: var(--dui-datatable-header-background);"));
     assertTrue(
         datatable.contains(
             ".dui-datatable-thead .dui-datatable-row{\n"
@@ -990,6 +989,10 @@ public class DominoThemeCssContractTest {
         datatable.contains(
             ".dui-datatable-thead .dui-datatable-th {\n"
                 + "    border-bottom: var(--dui-datatable-border);"));
+    assertTrue(
+        datatable.contains(
+            ".dui-datatable-thead > .dui-datatable-row:last-child > .dui-datatable-th {\n"
+                + "    border-bottom: var(--dui-datatable-header-border);"));
   }
 
   @Test
@@ -1326,8 +1329,8 @@ public class DominoThemeCssContractTest {
         readResource(
             "org/dominokit/domino/ui/public/css/domino-ui/dui-components/domino-ui-colors.css");
 
-    assertTrue(colors.contains("--dui-primary-harmony-strength: 0%;"));
-    assertTrue(colors.contains("--dui-secondary-harmony-strength: 0%;"));
+    assertTrue(colors.contains("--dui-primary-harmony-strength: calc(0%);"));
+    assertTrue(colors.contains("--dui-secondary-harmony-strength: calc(0%);"));
     assertTrue(
         colors.contains(
             "--dui-clr-primary: color-mix(in oklch, var(--dui-palette-primary) calc(100% - var(--dui-primary-harmony-strength)), var(--dui-primary-harmony-anchor) var(--dui-primary-harmony-strength));"));
@@ -1946,7 +1949,7 @@ public class DominoThemeCssContractTest {
     assertTrue(lightTheme.contains("--dui-accent-source-d-4:"));
     assertTrue(darkTheme.contains("--dui-accent-source-l-5:"));
     assertTrue(darkTheme.contains("--dui-accent-source-d-4:"));
-    assertTrue(colors.contains("--dui-accent-harmony-strength: 0%;"));
+    assertTrue(colors.contains("--dui-accent-harmony-strength: calc(0%);"));
     assertTrue(colors.contains("--dui-accent-harmony-anchor: var(--dui-accent-source);"));
     assertTrue(colors.contains("color-mix(in oklch,"));
     assertTrue(colors.contains("calc(100% - var(--dui-accent-harmony-strength))"));

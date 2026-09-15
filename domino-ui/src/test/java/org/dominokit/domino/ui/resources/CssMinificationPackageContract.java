@@ -67,6 +67,12 @@ public class CssMinificationPackageContract {
     assertContains("dui-components/domino-ui-colors.min.css", "var(--dui-");
     assertContains("dui-components/domino-ui-colors.min.css", "color-mix(");
     assertContains("dui-components/domino-ui-colors.min.css", "@supports");
+    assertContains(
+        "dui-components/domino-ui-colors.min.css", "--dui-accent-harmony-strength:calc(0%)");
+    assertContains(
+        "dui-components/domino-ui-colors.min.css", "--dui-primary-harmony-strength:calc(0%)");
+    assertContains(
+        "dui-components/domino-ui-colors.min.css", "--dui-secondary-harmony-strength:calc(0%)");
     assertContains("themes/character/domino-ui-theme-glass.min.css", ":where(");
     assertContains("dui-components/domino-ui-animation.min.css", "@keyframes");
     assertContains("dui-components/domino-ui-waitme.min.css", "dui-waitme-animation-bounce");

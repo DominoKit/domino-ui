@@ -33,11 +33,15 @@
 
 .dui-datatable-thead {
     background-color: var(--dui-datatable-header-background);
-    border-bottom: var(--dui-datatable-header-border);
 }
 
 .dui-datatable-thead .dui-datatable-row{
     background-color: var(--dui-datatable-header-background);
+}
+
+/* Table header-group borders are not painted consistently by browsers. */
+.dui-datatable-thead > .dui-datatable-row:last-child > .dui-datatable-th {
+    border-bottom: var(--dui-datatable-header-border);
 }
 
 .dui-datatable-tfoot {

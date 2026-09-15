@@ -297,17 +297,22 @@ public class TabsPanel extends BaseDominoElement<HTMLDivElement, TabsPanel>
   }
 
   /**
-   * Sets the container for the tab contents. Replaces the existing content container with the
-   * provided one.
+   * Sets the container for the tab contents. The provided container remains owned by the caller;
+   * this method does not append it to the tabs root. Any tab panels already added to this tabs
+   * panel are moved to the provided container in their existing order.
    *
    * @param contentContainer the new content container.
    * @return the current {@link TabsPanel} instance.
    */
   public TabsPanel setContentContainer(Element contentContainer) {
+    if (tabsContent.element() == contentContainer) {
+      return this;
+    }
     if (root.contains(tabsContent)) {
       tabsContent.remove();
     }
     this.tabsContent = elementOf(contentContainer).addCss(dui_tabs_content);
+    tabs.forEach(tab -> tabsContent.appendChild(tab.getTabPanel().element()));
     return this;
   }
 
