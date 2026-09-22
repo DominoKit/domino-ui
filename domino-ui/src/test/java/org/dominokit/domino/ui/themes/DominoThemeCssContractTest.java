@@ -113,6 +113,56 @@ public class DominoThemeCssContractTest {
   }
 
   @Test
+  public void accentHeadersSurfaceThemeColorsOnlyComponentHeadersWithModeAwareAccentTokens()
+      throws IOException {
+    String accentHeaders =
+        readResource(
+            "org/dominokit/domino/ui/public/css/domino-ui/themes/surface/domino-ui-theme-accent-headers.css");
+    String defaultTheme =
+        readResource(
+            "org/dominokit/domino/ui/public/css/domino-ui/dui-components/domino-ui-theme-default.css");
+    String cards =
+        readResource(
+            "org/dominokit/domino/ui/public/css/domino-ui/dui-components/domino-ui-cards.css");
+    String menu =
+        readResource(
+            "org/dominokit/domino/ui/public/css/domino-ui/dui-components/domino-ui-menu.css");
+    String tree =
+        readResource(
+            "org/dominokit/domino/ui/public/css/domino-ui/dui-components/domino-ui-tree.css");
+    String datatable =
+        readResource(
+            "org/dominokit/domino/ui/public/css/domino-ui/dui-components/domino-ui-datatable.css");
+
+    assertTrue(accentHeaders.contains(".dui.dui-theme-accent-headers"));
+    assertTrue(accentHeaders.contains(".dui.dui-theme-accent-headers.dui-colors-light"));
+    assertTrue(accentHeaders.contains("--dui-accent-header-background: var(--dui-accent-l-4);"));
+    assertTrue(
+        accentHeaders.contains("--dui-accent-header-hover-background: var(--dui-accent-l-3);"));
+    assertTrue(accentHeaders.contains("--dui-accent-header-border-color: var(--dui-accent-l-3);"));
+    assertTrue(accentHeaders.contains(".dui.dui-theme-accent-headers.dui-colors-dark"));
+    assertTrue(accentHeaders.contains("--dui-accent-header-background: var(--dui-accent-d-3);"));
+    assertTrue(
+        accentHeaders.contains("--dui-accent-header-hover-background: var(--dui-accent-d-2);"));
+    assertTrue(accentHeaders.contains("--dui-accent-header-color: var(--dui-color);"));
+    assertFalse(accentHeaders.contains("--dui-card-background:"));
+    assertFalse(accentHeaders.contains("--dui-menu-background-color:"));
+    assertFalse(accentHeaders.contains("--dui-tree-background:"));
+
+    assertTrue(defaultTheme.contains("--dui-card-header-background:"));
+    assertTrue(defaultTheme.contains("--dui-menu-header-background:"));
+    assertTrue(defaultTheme.contains("--dui-tree-header-color:"));
+    assertTrue(defaultTheme.contains("--dui-datatable-header-color:"));
+    assertTrue(defaultTheme.contains("--dui-datatable-header-hover-color:"));
+
+    assertTrue(cards.contains("background-color: var(--dui-card-header-background);"));
+    assertTrue(menu.contains("background-color: var(--dui-menu-header-background);"));
+    assertTrue(tree.contains("color: var(--dui-tree-header-color);"));
+    assertTrue(datatable.contains("color: var(--dui-datatable-header-color);"));
+    assertTrue(datatable.contains("color: var(--dui-datatable-header-hover-color);"));
+  }
+
+  @Test
   public void dominoOwnedLoaderCssIsNotPartOfTheNormalThemeResourceList() throws IOException {
     List<String> resources = readFileList();
 

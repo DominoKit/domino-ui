@@ -663,7 +663,10 @@ body.dui {
     --dui-card-margin: 0 0 var(--dui-spc-4) 0;
     --dui-card-min-height: var(--dui-spc-12);
     --dui-card-header-padding: var(--dui-spc-3);
+    --dui-card-header-background: transparent;
+    --dui-card-header-color: var(--dui-fg-clr, inherit);
     --dui-card-header-title-font: var(--dui-font-heading-regular);
+    --dui-card-header-title-color: var(--dui-fg-d-4);
     --dui-card-header-title-margin: 0;
     --dui-card-header-gap: var(--dui-spc-5);
     --dui-card-icon-margins: 0 var(--dui-spc-px-5) 0 var(--dui-spc-px-5);
@@ -857,6 +860,7 @@ body.dui {
     --dui-tree-nav-margin: 0;
     --dui-tree-header-line-height: var(--dui-spc-px-32);
     --dui-tree-header-background: var(--dui-tree-header-bg-color);
+    --dui-tree-header-color: var(--dui-color);
     --dui-tree-header-font: var(--dui-font-heading-600-sm);
     --dui-tree-header-padding: var(--dui-spc-px-8) var(--dui-spc-px-8);
     --dui-tree-header-radius: 0px;
@@ -1009,6 +1013,8 @@ body.dui {
     --dui-menu-background-color: var(--dui-clr-dominant);
     --dui-menu-radius: 0;
     --dui-menu-header-height: var(--dui-spc-12);
+    --dui-menu-header-background: transparent;
+    --dui-menu-header-color: var(--dui-menu-color);
     --dui-menu-header-border-width: 0 0 1px 0;
     --dui-menu-header-border-style: solid;
     --dui-menu-header-border-color: var(--dui-menu-border-color);
@@ -1576,6 +1582,8 @@ body.dui {
     --dui-datatable-border: 1px solid var(--dui-datatable-border-color);
     --dui-datatable-header-border: 1px solid var(--dui-datatable-header-border-color);
     --dui-datatable-header-background: var(--dui-clr-dominant);
+    --dui-datatable-header-color: var(--dui-color);
+    --dui-datatable-header-hover-color: var(--dui-datatable-header-color);
     --dui-datatable-column-stripe-background: color-mix(in srgb, var(--dui-clr-dominant-d-2) 35%, transparent);
 
     /* ========================= Generic ======================= */

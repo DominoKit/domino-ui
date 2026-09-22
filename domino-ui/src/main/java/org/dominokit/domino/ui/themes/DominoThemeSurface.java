@@ -18,8 +18,9 @@ package org.dominokit.domino.ui.themes;
 /**
  * Independently composable surface treatments.
  *
- * <p>Bordered, elevated, and rounded use separate manager categories, so an application can apply
- * any combination. The corresponding clear descriptor removes only its own surface treatment.
+ * <p>Bordered, elevated, rounded, and accent-header treatments use separate manager categories, so
+ * an application can apply any combination. The corresponding clear descriptor removes only its own
+ * surface treatment.
  */
 public final class DominoThemeSurface {
 
@@ -37,6 +38,11 @@ public final class DominoThemeSurface {
       theme("dui-theme-rounded", DominoThemeCategories.SURFACE_RADIUS);
   public static final IsDominoTheme CLEAR_RADIUS =
       DominoCssTheme.clear("dui-theme-radius-default", DominoThemeCategories.SURFACE_RADIUS);
+
+  public static final IsDominoTheme ACCENT_HEADERS =
+      theme("dui-theme-accent-headers", DominoThemeCategories.SURFACE_HEADERS);
+  public static final IsDominoTheme CLEAR_HEADERS =
+      DominoCssTheme.clear("dui-theme-headers-default", DominoThemeCategories.SURFACE_HEADERS);
 
   private DominoThemeSurface() {}
 

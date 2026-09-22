@@ -33,6 +33,7 @@
 
 .dui-datatable-thead {
     background-color: var(--dui-datatable-header-background);
+    color: var(--dui-datatable-header-color);
 }
 
 .dui-datatable-thead .dui-datatable-row{
@@ -209,6 +210,7 @@
 
 .dui-datatable-th:hover {
     background-color: var(--dui-datatable-header-hover-bg-color);
+    color: var(--dui-datatable-header-hover-color);
 }
 
 .dui-datatable-row-marker .dui-datatable-row .dui-datatable-td:first-child,

@@ -12,6 +12,8 @@
 
 .dui-menu .dui-nav-bar {
     height: var(--dui-menu-header-height);
+    background-color: var(--dui-menu-header-background);
+    color: var(--dui-menu-header-color);
     border-width: var(--dui-menu-header-border-width);
     border-style: var(--dui-menu-header-border-style);
     border-color: var(--dui-menu-header-border-color);

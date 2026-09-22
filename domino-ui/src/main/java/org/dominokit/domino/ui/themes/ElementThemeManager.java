@@ -112,6 +112,8 @@ public class ElementThemeManager implements ElementsFactory {
     registerTheme(DominoThemeSurface.CLEAR_ELEVATION);
     registerTheme(DominoThemeSurface.ROUNDED);
     registerTheme(DominoThemeSurface.CLEAR_RADIUS);
+    registerTheme(DominoThemeSurface.ACCENT_HEADERS);
+    registerTheme(DominoThemeSurface.CLEAR_HEADERS);
   }
 
   /**

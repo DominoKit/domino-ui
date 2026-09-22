@@ -2,6 +2,7 @@ org/dominokit/domino/ui/public/css/domino-ui/themes/density/domino-ui-theme-comp
 org/dominokit/domino/ui/public/css/domino-ui/themes/surface/domino-ui-theme-bordered.css
 org/dominokit/domino/ui/public/css/domino-ui/themes/surface/domino-ui-theme-elevated.css
 org/dominokit/domino/ui/public/css/domino-ui/themes/surface/domino-ui-theme-rounded.css
+org/dominokit/domino/ui/public/css/domino-ui/themes/surface/domino-ui-theme-accent-headers.css
 org/dominokit/domino/ui/public/css/domino-ui/themes/identity/domino-ui-theme-ocean.css
 org/dominokit/domino/ui/public/css/domino-ui/themes/identity/domino-ui-theme-forest.css
 org/dominokit/domino/ui/public/css/domino-ui/themes/identity/domino-ui-theme-sandstone.css

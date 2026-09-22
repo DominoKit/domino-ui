@@ -33,7 +33,7 @@
 .dui-card-main-title,
 .dui-card-description,
 .dui-card-header .dui.mdi:not(:hover) {
-    color: var(--dui-fg-clr, inherit);
+    color: var(--dui-card-header-color, var(--dui-fg-clr, inherit));
 }
 
 .dui-card-header {
@@ -41,6 +41,7 @@
     flex-direction: var(--dui-card-direction, column);
     padding: var(--dui-card-header-padding);
     position: relative;
+    background-color: var(--dui-card-header-background);
     border-width: var(--dui-card-head-border-width, var(--dui-card-header-border-width));
     border-style: var(--dui-card-header-border-style);
     border-color: var(--dui-bg-d-1, var(--dui-card-header-border-color));
@@ -83,7 +84,7 @@
 .dui-card-main-title {
     margin: var(--dui-card-header-title-margin);
     font: var(--dui-card-header-title-font);
-    color: var(--dui-fg-d-4);
+    color: var(--dui-card-header-title-color, var(--dui-fg-d-4));
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
