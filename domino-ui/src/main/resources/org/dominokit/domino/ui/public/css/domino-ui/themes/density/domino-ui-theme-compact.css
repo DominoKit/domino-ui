@@ -97,7 +97,7 @@
     --dui-progress-bar-display: flex;
     --dui-progress-bar-align-items: center;
     --dui-progress-bar-line-height: normal;
-    --dui-tab-anchor-padding: var(--dui-spc-px-4) var(--dui-spc-px-15);
+    --dui-tab-anchor-padding: var(--dui-spc-px-6) var(--dui-spc-px-15);
     --dui-form-field-wrapper-padding: 0 var(--dui-spc-px-5);
     --dui-form-field-wrapper-padding-block: 0px;
     --dui-form-field-wrapper-gap: var(--dui-spc-px-3);

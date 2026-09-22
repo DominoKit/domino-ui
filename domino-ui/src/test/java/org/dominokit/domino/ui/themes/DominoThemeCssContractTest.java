@@ -188,6 +188,17 @@ public class DominoThemeCssContractTest {
   }
 
   @Test
+  public void compactThemeKeepsTabHeadersComfortablyCompact() throws IOException {
+    String compactTheme =
+        readResource(
+            "org/dominokit/domino/ui/public/css/domino-ui/themes/density/domino-ui-theme-compact.css");
+
+    assertTrue(
+        compactTheme.contains(
+            "--dui-tab-anchor-padding: var(--dui-spc-px-6) var(--dui-spc-px-15);"));
+  }
+
+  @Test
   public void elementUtilityModifiersWinInTheDominoScope() throws IOException {
     String display =
         readResource(
