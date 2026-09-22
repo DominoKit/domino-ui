@@ -7,7 +7,9 @@
 package org.dominokit.domino.ui.accessibility;
 
 import com.google.gwt.junit.client.GWTTestCase;
+import org.dominokit.domino.ui.forms.DateBox;
 import org.dominokit.domino.ui.forms.TextBox;
+import org.dominokit.domino.ui.forms.TimeBox;
 import org.dominokit.domino.ui.forms.suggest.Select;
 import org.dominokit.domino.ui.richtext.RichTextEditor;
 import org.dominokit.domino.ui.upload.FileUpload;
@@ -70,5 +72,23 @@ public class FormAccessibilityTest extends GWTTestCase {
     assertEquals(
         "polite",
         fileUpload.element().querySelector(".dui-file-upload-messages").getAttribute("aria-live"));
+  }
+
+  public void testDateAndTimeTypingModesExposeTheirExpectedPattern() {
+    DateBox dateBox = DateBox.empty().setPattern("dd/MM/yyyy").setTypingModeEnabled(true);
+    TimeBox timeBox = TimeBox.empty().setPattern("HH:mm").setTypingModeEnabled(true);
+
+    assertEquals(
+        "Type a date using the pattern dd/MM/yyyy.",
+        dateBox.getInputElement().getAttribute("aria-description"));
+    assertEquals(
+        "Type a time using the pattern HH:mm.",
+        timeBox.getInputElement().getAttribute("aria-description"));
+
+    dateBox.setTypingModeEnabled(false);
+    timeBox.setTypingModeEnabled(false);
+
+    assertFalse(dateBox.getInputElement().hasAttribute("aria-description"));
+    assertFalse(timeBox.getInputElement().hasAttribute("aria-description"));
   }
 }

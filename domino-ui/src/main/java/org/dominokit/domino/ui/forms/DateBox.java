@@ -21,10 +21,15 @@ import static org.dominokit.domino.ui.utils.Domino.*;
 
 import elemental2.dom.DomGlobal;
 import elemental2.dom.HTMLInputElement;
+import elemental2.dom.KeyboardEvent;
 import java.util.Date;
 import java.util.Objects;
+import jsinterop.base.Js;
 import org.dominokit.domino.ui.collapsible.Collapsible;
 import org.dominokit.domino.ui.datepicker.*;
+import org.dominokit.domino.ui.forms.datetime.DateTimePatternToken;
+import org.dominokit.domino.ui.forms.datetime.DateTimeTypingEditor;
+import org.dominokit.domino.ui.forms.datetime.DateTimeTypingEditorHost;
 import org.dominokit.domino.ui.forms.validations.ValidationResult;
 import org.dominokit.domino.ui.i18n.CalendarLabels;
 import org.dominokit.domino.ui.i18n.HasLabels;
@@ -49,6 +54,7 @@ public class DateBox extends TextInputFormField<DateBox, HTMLInputElement, Date>
 
   private final Popover popover;
   private final Calendar calendar;
+  private final DateTimeTypingEditor typingEditor;
   private Date value;
 
   private DateFormatter formatter = getConfig().getDefaultDateFormatter();
@@ -57,6 +63,8 @@ public class DateBox extends TextInputFormField<DateBox, HTMLInputElement, Date>
   private boolean silentSelection = false;
   private String pattern;
   private boolean parseStrict;
+  private boolean typingModeEnabled;
+  private String typingModePreviousPlaceholder;
 
   /** Creates a new DateBox with the current date and default configuration. */
   public DateBox() {
@@ -165,8 +173,39 @@ public class DateBox extends TextInputFormField<DateBox, HTMLInputElement, Date>
                 });
     onDetached(mutationRecord -> popover.close());
 
+    this.typingEditor = DateTimeTypingEditor.create(createTypingEditorHost());
+
     getInputElement()
-        .onKeyDown(keyEvents -> keyEvents.onEnter(evt -> doOpen()).onSpace(evt -> doOpen()));
+        .onKeyDown(
+            keyEvents ->
+                keyEvents
+                    .onEnter(
+                        evt -> {
+                          if (!typingModeEnabled) {
+                            doOpen();
+                          }
+                        })
+                    .onSpace(
+                        evt -> {
+                          if (!typingModeEnabled) {
+                            doOpen();
+                          }
+                        }));
+    getInputElement()
+        .addEventListener(
+            "keydown",
+            evt -> {
+              KeyboardEvent keyboardEvent = Js.uncheckedCast(evt);
+              if (typingModeEnabled
+                  && isEnabled()
+                  && !isReadOnly()
+                  && !keyboardEvent.ctrlKey
+                  && !keyboardEvent.altKey
+                  && !keyboardEvent.metaKey
+                  && typingEditor.handleKey(keyboardEvent.key)) {
+                keyboardEvent.preventDefault();
+              }
+            });
     addValidator(
         component -> {
           try {
@@ -184,6 +223,9 @@ public class DateBox extends TextInputFormField<DateBox, HTMLInputElement, Date>
         .addEventListener(
             "change",
             evt -> {
+              if (typingModeEnabled) {
+                return;
+              }
               String value = getStringValue();
               if (value.isEmpty()) {
                 clear();
@@ -204,8 +246,14 @@ public class DateBox extends TextInputFormField<DateBox, HTMLInputElement, Date>
         .addEventListener(
             "input",
             evt -> {
+              if (typingModeEnabled) {
+                return;
+              }
               DelayedExecution.execute(
                   () -> {
+                    if (typingModeEnabled) {
+                      return;
+                    }
                     String value = getStringValue();
                     if (value.isEmpty()) {
                       clear();
@@ -241,8 +289,18 @@ public class DateBox extends TextInputFormField<DateBox, HTMLInputElement, Date>
         .addEventListener(
             "focus",
             evt -> {
-              if (openOnFocus) {
+              if (typingModeEnabled && isEnabled() && !isReadOnly()) {
+                typingEditor.beginSession();
+              } else if (openOnFocus) {
                 doOpen();
+              }
+            });
+    getInputElement()
+        .addEventListener(
+            "blur",
+            evt -> {
+              if (typingModeEnabled) {
+                typingEditor.commitSession();
               }
             });
     this.calendar.bindCalenderViewListener(this);
@@ -437,7 +495,10 @@ public class DateBox extends TextInputFormField<DateBox, HTMLInputElement, Date>
   @Override
   public DateBox setPattern(String pattern) {
     if (!Objects.equals(this.pattern, pattern)) {
+      typingEditor.cancelSession();
       this.pattern = pattern;
+      updateTypingPlaceholder();
+      updateTypingAccessibilityDescription();
       setStringValue(value, this.calendar.getDateTimeFormatInfo());
     }
     return this;
@@ -447,6 +508,19 @@ public class DateBox extends TextInputFormField<DateBox, HTMLInputElement, Date>
     if (nonNull(date))
       this.getInputElement().element().value = getFormatted(date, dateTimeFormatInfo);
     else this.getInputElement().element().value = "";
+  }
+
+  private void updateTypingPlaceholder() {
+    if (typingModeEnabled) {
+      getInputElement().element().placeholder = pattern;
+    }
+  }
+
+  private void updateTypingAccessibilityDescription() {
+    if (typingModeEnabled) {
+      getInputElement()
+          .setAttribute("aria-description", "Type a date using the pattern " + pattern + ".");
+    }
   }
 
   private String getFormatted(Date date, DateTimeFormatInfo dateTimeFormatInfo) {
@@ -464,6 +538,76 @@ public class DateBox extends TextInputFormField<DateBox, HTMLInputElement, Date>
       return formatter.parseStrict(this.pattern, dateTimeFormatInfo, value);
     }
     return formatter.parse(this.pattern, dateTimeFormatInfo, value);
+  }
+
+  private DateTimeTypingEditorHost createTypingEditorHost() {
+    return new DateTimeTypingEditorHost() {
+      @Override
+      public String getPattern() {
+        return pattern;
+      }
+
+      @Override
+      public Date getCommittedValue() {
+        return value;
+      }
+
+      @Override
+      public String format(DateTimePatternToken token, Date date) {
+        return nonNull(date)
+            ? formatter.format(token.getPattern(), calendar.getDateTimeFormatInfo(), date)
+            : null;
+      }
+
+      @Override
+      public Date parse(String candidatePattern, String candidateText) {
+        DateTimeFormatInfo dateTimeFormatInfo = calendar.getDateTimeFormatInfo();
+        return parseStrict
+            ? formatter.parseStrict(candidatePattern, dateTimeFormatInfo, candidateText)
+            : formatter.parse(candidatePattern, dateTimeFormatInfo, candidateText);
+      }
+
+      @Override
+      public ValidationResult validateCandidate(Date candidate) {
+        Date previousValue = value;
+        withValue(candidate, true);
+        ValidationResult result = validate();
+        withValue(previousValue, true);
+        return result;
+      }
+
+      @Override
+      public void commit(Date date) {
+        withValue(date);
+      }
+
+      @Override
+      public void restore(Date date) {
+        withValue(date, true);
+      }
+
+      @Override
+      public void display(String displayValue, int selectionStart, int selectionEnd) {
+        HTMLInputElement inputElement = getInputElement().element();
+        inputElement.value = displayValue;
+        inputElement.setSelectionRange(selectionStart, selectionEnd);
+      }
+
+      @Override
+      public void invalidate(String message) {
+        DateBox.this.invalidate(message);
+      }
+
+      @Override
+      public void clearInvalid() {
+        DateBox.this.clearInvalid();
+      }
+
+      @Override
+      public String invalidFormatMessage(String input) {
+        return getLabels().calendarInvalidDateFormat(input);
+      }
+    };
   }
 
   /**
@@ -617,6 +761,7 @@ public class DateBox extends TextInputFormField<DateBox, HTMLInputElement, Date>
       if (silentSelection == false) {
         clearInvalid();
         withValue(date);
+        typingEditor.completeFromPicker();
       }
       this.popover.close();
     }
@@ -650,6 +795,7 @@ public class DateBox extends TextInputFormField<DateBox, HTMLInputElement, Date>
    */
   @Override
   public void onDateTimeFormatInfoChanged(DateTimeFormatInfo dateTimeFormatInfo) {
+    typingEditor.cancelSession();
     updateStringValue();
   }
 
@@ -710,8 +856,43 @@ public class DateBox extends TextInputFormField<DateBox, HTMLInputElement, Date>
    */
   public DateBox setOpenOnClick(boolean openOnClick) {
     this.openOnClick = openOnClick;
-    this.popover.setOpenOnClick(this.openOnClick);
+    this.popover.setOpenOnClick(this.openOnClick && !this.typingModeEnabled);
     return this;
+  }
+
+  /**
+   * Enables token-aware direct typing. When enabled, the calendar remains available from its addon
+   * icon while input focus and field clicks do not open the popover.
+   *
+   * @param typingModeEnabled whether direct typing should be enabled
+   * @return this DateBox
+   */
+  public DateBox setTypingModeEnabled(boolean typingModeEnabled) {
+    if (this.typingModeEnabled != typingModeEnabled) {
+      if (!typingModeEnabled) {
+        typingEditor.cancelSession();
+      }
+      this.typingModeEnabled = typingModeEnabled;
+      if (typingModeEnabled) {
+        typingModePreviousPlaceholder = getInputElement().element().placeholder;
+        updateTypingPlaceholder();
+        updateTypingAccessibilityDescription();
+      } else {
+        getInputElement().element().placeholder =
+            typingModePreviousPlaceholder == null ? "" : typingModePreviousPlaceholder;
+        typingModePreviousPlaceholder = null;
+        getInputElement().removeAttribute("aria-description");
+      }
+      this.popover.setOpenOnClick(this.openOnClick && !typingModeEnabled);
+    }
+    return this;
+  }
+
+  /**
+   * @return whether token-aware direct typing is enabled.
+   */
+  public boolean isTypingModeEnabled() {
+    return typingModeEnabled;
   }
 
   /**
