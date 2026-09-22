@@ -1546,6 +1546,8 @@ body.dui {
     --dui-calendar-today-date-border-style: solid;
 
     --dui-calendar-selected-date-hover-color: var(--dui-color-5);
+    --dui-calendar-selected-date-match-background: var(--dui-calender-select-bg);
+    --dui-calendar-selected-date-match-color: var(--dui-color);
     --dui-calendar-date-in-range-bg-color: var(--dui-accent-l-5);
 
     --dui-calendar-selector-current-year-font: var(--dui-font-normal-600);

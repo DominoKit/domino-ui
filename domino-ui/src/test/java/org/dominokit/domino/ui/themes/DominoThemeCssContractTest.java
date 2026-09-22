@@ -199,6 +199,25 @@ public class DominoThemeCssContractTest {
   }
 
   @Test
+  public void calendarDateMatchUsesModeAwareBackgroundAndForegroundTokens() throws IOException {
+    String calendar =
+        readResource(
+            "org/dominokit/domino/ui/public/css/domino-ui/dui-components/domino-ui-calendar.css");
+    String defaultTheme =
+        readResource(
+            "org/dominokit/domino/ui/public/css/domino-ui/dui-components/domino-ui-theme-default.css");
+
+    assertTrue(
+        calendar.contains("background-color: var(--dui-calendar-selected-date-match-background);"));
+    assertTrue(calendar.contains("color: var(--dui-calendar-selected-date-match-color);"));
+    assertTrue(
+        defaultTheme.contains(
+            "--dui-calendar-selected-date-match-background: var(--dui-calender-select-bg);"));
+    assertTrue(
+        defaultTheme.contains("--dui-calendar-selected-date-match-color: var(--dui-color);"));
+  }
+
+  @Test
   public void elementUtilityModifiersWinInTheDominoScope() throws IOException {
     String display =
         readResource(
