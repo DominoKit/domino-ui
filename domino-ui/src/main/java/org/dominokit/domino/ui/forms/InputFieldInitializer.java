@@ -77,6 +77,7 @@ public class InputFieldInitializer<T extends FormElement<T, V>, V, E extends HTM
    */
   public InputFieldInitializer<T, V, E> init(HasInputElement<T, E> hasInput) {
     DominoElement<E> inputElement = hasInput.getInputElement();
+    inputElement.addEventListener("focus", evt -> oldValue = formElement.getValue());
     inputElement.addEventListener(
         "change",
         evt -> {
