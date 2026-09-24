@@ -218,6 +218,18 @@ public class DominoThemeCssContractTest {
   }
 
   @Test
+  public void calendarGridCellsCanShrinkToKeepColumnsAligned() throws IOException {
+    String calendar =
+        readResource(
+            "org/dominokit/domino/ui/public/css/domino-ui/dui-components/domino-ui-calendar.css");
+
+    assertTrue(
+        calendar.contains(
+            ".dui-week-day-header {\n    flex-basis: 0;\n    flex-grow: 1;\n    align-items: center;"));
+    assertTrue(calendar.contains(".dui-calendar-day {\n    display: flex;\n    min-width: 0;"));
+  }
+
+  @Test
   public void elementUtilityModifiersWinInTheDominoScope() throws IOException {
     String display =
         readResource(
