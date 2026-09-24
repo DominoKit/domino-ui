@@ -278,6 +278,44 @@ ElementThemeManager.INSTANCE.apply(DominoThemeSurface.BORDERED, isolatedRoot);
 The manager tracks theme category per element. Replacing the local identity on `isolatedRoot`
 does not clean up a theme applied to another element or the global application root.
 
+### Listening for theme changes
+
+The global and element-scoped managers can notify an application after a theme is applied or
+removed. Each `ThemeChange` identifies the operation, affected category, and target (`document.body`
+for global changes). It includes the previous and current theme in that category, plus read-only
+snapshots of the **whole selection** before and after the operation, keyed by category.
+
+```java
+ThemeChangeListener listener = change -> {
+    IsDominoTheme before = change.getPreviousTheme();
+    IsDominoTheme after = change.getCurrentTheme();
+    System.out.println(change.getScope() + " " + change.getOperation()
+        + " on " + change.getTarget() + " in " + change.getCategory() + ": "
+        + (before == null ? "none" : before.getName()) + " -> "
+        + (after == null ? "none" : after.getName()));
+};
+
+DominoThemeManager.INSTANCE.addThemeChangeListener(listener);
+ElementThemeManager.INSTANCE.addThemeChangeListener(listener);
+
+// Remove both registrations when this observer is no longer needed.
+DominoThemeManager.INSTANCE.removeThemeChangeListener(listener);
+ElementThemeManager.INSTANCE.removeThemeChangeListener(listener);
+```
+
+For the current state when registering after startup, call `DominoThemeManager.INSTANCE.getThemes()`
+or `ElementThemeManager.INSTANCE.getThemes(target)`. These also return read-only snapshots. Applying
+persisted themes emits one event per applied theme; applying the same theme again emits an `APPLY`
+event with equal before/after selections. Removing a theme that is not active emits nothing. A
+surface clear descriptor, such as `CLEAR_BORDER`, remains in the selection snapshot even though it
+adds no theme CSS class. Direct `IsDominoTheme.apply()`/`cleanup()` calls and the older `Theme`
+change handler are separate from these manager notifications.
+
+Listeners run synchronously after a manager operation completes. A listener may apply or remove
+another theme; that notification is queued until all listeners have received the current event, so
+events reach every listener in operation order. A theme's own `apply` or `cleanup` callback must not
+recursively change the same manager state (or the same target in `ElementThemeManager`).
+
 ## Colors, roles, and contextual palettes
 
 ### Theme-aware roles

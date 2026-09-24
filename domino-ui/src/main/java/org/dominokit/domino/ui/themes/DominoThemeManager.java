@@ -48,6 +48,8 @@ public class DominoThemeManager implements ElementsFactory {
 
   private final Map<String, IsDominoTheme> byCategory = new HashMap<>();
   private final Map<String, IsDominoTheme> registeredThemes = new HashMap<>();
+  private final ThemeChangeListeners changeListeners = new ThemeChangeListeners();
+  private boolean mutating;
 
   private DominoThemeManager() {
     registerTheme(DominoThemeDefault.INSTANCE);
@@ -125,13 +127,36 @@ public class DominoThemeManager implements ElementsFactory {
    * @return the {@link DominoThemeManager} instance
    */
   public DominoThemeManager apply(IsDominoTheme theme) {
-    if (byCategory.containsKey(theme.getCategory())) {
-      byCategory.get(theme.getCategory()).cleanup();
+    if (mutating) {
+      throw new IllegalStateException("Cannot change themes during a theme callback");
     }
 
-    byCategory.put(theme.getCategory(), theme);
-    theme.apply();
-    updateUserThemes();
+    ThemeChange change;
+    mutating = true;
+    try {
+      Map<String, IsDominoTheme> previousThemes = getThemes();
+      IsDominoTheme previousTheme = byCategory.get(theme.getCategory());
+      if (previousTheme != null) {
+        previousTheme.cleanup();
+      }
+
+      byCategory.put(theme.getCategory(), theme);
+      theme.apply();
+      updateUserThemes();
+      change =
+          new ThemeChange(
+              ThemeChange.Scope.GLOBAL,
+              ThemeChange.Operation.APPLY,
+              DomGlobal.document.body,
+              theme.getCategory(),
+              previousTheme,
+              theme,
+              previousThemes,
+              getThemes());
+    } finally {
+      mutating = false;
+    }
+    changeListeners.fire(change);
     return INSTANCE;
   }
 
@@ -142,14 +167,55 @@ public class DominoThemeManager implements ElementsFactory {
    * @return the {@link DominoThemeManager} instance
    */
   public DominoThemeManager remove(String themeName) {
-    Optional<IsDominoTheme> theme =
-        byCategory.values().stream().filter(t -> t.getName().equals(themeName)).findFirst();
-    theme.ifPresent(
-        t -> {
-          t.cleanup();
-          byCategory.remove(t.getCategory());
-        });
-    updateUserThemes();
+    if (mutating) {
+      throw new IllegalStateException("Cannot change themes during a theme callback");
+    }
+
+    ThemeChange change = null;
+    mutating = true;
+    try {
+      Optional<IsDominoTheme> theme =
+          byCategory.values().stream().filter(t -> t.getName().equals(themeName)).findFirst();
+      Map<String, IsDominoTheme> previousThemes = getThemes();
+      if (theme.isPresent()) {
+        IsDominoTheme removed = theme.get();
+        removed.cleanup();
+        byCategory.remove(removed.getCategory());
+        change =
+            new ThemeChange(
+                ThemeChange.Scope.GLOBAL,
+                ThemeChange.Operation.REMOVE,
+                DomGlobal.document.body,
+                removed.getCategory(),
+                removed,
+                null,
+                previousThemes,
+                getThemes());
+      }
+      updateUserThemes();
+    } finally {
+      mutating = false;
+    }
+    if (change != null) {
+      changeListeners.fire(change);
+    }
+    return INSTANCE;
+  }
+
+  /** Returns an unmodifiable snapshot of the currently selected themes, keyed by category. */
+  public Map<String, IsDominoTheme> getThemes() {
+    return Collections.unmodifiableMap(new HashMap<>(byCategory));
+  }
+
+  /** Adds a listener for global theme operations. Remove it when it is no longer needed. */
+  public DominoThemeManager addThemeChangeListener(ThemeChangeListener listener) {
+    changeListeners.add(listener);
+    return INSTANCE;
+  }
+
+  /** Removes a previously registered global theme listener. */
+  public DominoThemeManager removeThemeChangeListener(ThemeChangeListener listener) {
+    changeListeners.remove(listener);
     return INSTANCE;
   }
 
