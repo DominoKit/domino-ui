@@ -49,7 +49,9 @@ public class DominoThemeManager implements ElementsFactory {
   private final Map<String, IsDominoTheme> byCategory = new HashMap<>();
   private final Map<String, IsDominoTheme> registeredThemes = new HashMap<>();
   private final ThemeChangeListeners changeListeners = new ThemeChangeListeners();
+  private final List<String> deferredUserThemeSelections = new ArrayList<>();
   private boolean mutating;
+  private boolean applyingDeferredUserThemeSelections;
 
   private DominoThemeManager() {
     registerTheme(DominoThemeDefault.INSTANCE);
@@ -156,7 +158,7 @@ public class DominoThemeManager implements ElementsFactory {
     } finally {
       mutating = false;
     }
-    changeListeners.fire(change);
+    publish(change);
     return INSTANCE;
   }
 
@@ -196,9 +198,7 @@ public class DominoThemeManager implements ElementsFactory {
     } finally {
       mutating = false;
     }
-    if (change != null) {
-      changeListeners.fire(change);
-    }
+    publish(change);
     return INSTANCE;
   }
 
@@ -249,6 +249,15 @@ public class DominoThemeManager implements ElementsFactory {
    */
   public DominoThemeManager applyUserThemes() {
     String themes = WebStorageWindow.of(DomGlobal.window).localStorage.getItem("dui-user-themes");
+    if (mutating) {
+      deferredUserThemeSelections.add(themes);
+      return INSTANCE;
+    }
+    applyUserThemes(themes);
+    return INSTANCE;
+  }
+
+  private void applyUserThemes(String themes) {
     if (isNull(themes) || themes.isEmpty()) {
       apply(DominoThemeDefault.INSTANCE);
       apply(DominoThemeLight.INSTANCE);
@@ -259,6 +268,30 @@ public class DominoThemeManager implements ElementsFactory {
               themeName ->
                   Optional.ofNullable(registeredThemes.get(themeName)).ifPresent(this::apply));
     }
-    return INSTANCE;
+  }
+
+  private void publish(ThemeChange change) {
+    try {
+      if (change != null) {
+        changeListeners.fire(change);
+      }
+    } finally {
+      applyDeferredUserThemeSelections();
+    }
+  }
+
+  private void applyDeferredUserThemeSelections() {
+    if (applyingDeferredUserThemeSelections || deferredUserThemeSelections.isEmpty()) {
+      return;
+    }
+
+    applyingDeferredUserThemeSelections = true;
+    try {
+      while (!deferredUserThemeSelections.isEmpty()) {
+        applyUserThemes(deferredUserThemeSelections.remove(0));
+      }
+    } finally {
+      applyingDeferredUserThemeSelections = false;
+    }
   }
 }
