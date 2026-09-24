@@ -40,6 +40,14 @@ Card.create("LOGIN")
     .appendChild(login);
 ```
 
+## Styling and theming
+
+Domino UI provides scoped, composable CSS: color modes, visual identities, accents, density,
+character and surface themes, contextual colors, component emphasis, custom tokens, and runtime
+Dynamic CSS utilities. The complete [styling and theming guide](STYLING_AND_THEMING.md) explains
+the design choices, stylesheet delivery options, Java APIs, accessibility guidance, customization
+recipes, and production optimization choices.
+
 ## Links
 - Introduction: https://dominokit.com/solutions/domino-ui/v2
 - Getting started: https://dominokit.com/solutions/domino-ui/v2/docs/getting-started

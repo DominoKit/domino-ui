@@ -40,21 +40,27 @@ import org.dominokit.domino.ui.utils.DominoElement;
 public class OrbitLoader extends BaseLoader<OrbitLoader> implements IsElement<HTMLDivElement> {
 
   private final DivElement progress1 =
-      div().addCss(wait_me_progress_elem_1).appendChild(div().addCss(dui_loader_darkest));
+      div().addCss(dui_waitme_progress_element_1).appendChild(div().addCss(dui_loader_darkest));
   private final DivElement progress2 =
-      div().addCss(wait_me_progress_elem_2).appendChild(div().addCss(dui_loader_darkest));
+      div().addCss(dui_waitme_progress_element_2).appendChild(div().addCss(dui_loader_darkest));
 
   private final DivElement loader =
-      div().addCss(wait_me_progress, orbit).appendChild(progress1).appendChild(progress2);
+      div()
+          .addCss(dui_waitme_progress, dui_waitme_orbit)
+          .appendChild(progress1)
+          .appendChild(progress2);
 
   private final DivElement content =
       div()
-          .addCss(wait_me_content, dui_vertical_center)
+          .addCss(dui_waitme_content, dui_vertical_center)
           .appendChild(loader)
           .appendChild(loadingText);
 
   private final DivElement element =
-      div().addCss(wait_me).style("background: var(--dui-loader-background);").appendChild(content);
+      div()
+          .addCss(dui_waitme)
+          .style("background: var(--dui-loader-background);")
+          .appendChild(content);
 
   /** Initializes a new instance of the {@code OrbitLoader} class. */
   public OrbitLoader() {

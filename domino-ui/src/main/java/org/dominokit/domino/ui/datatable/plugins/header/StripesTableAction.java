@@ -41,6 +41,7 @@ public class StripesTableAction<T> extends BaseDominoElement<HTMLElement, Stripe
     stripesIcon =
         ToggleMdiIcon.create(Icons.view_day_outline(), Icons.view_day())
             .clickable()
+            .setAriaLabel("Toggle table stripes")
             .setTooltip(noStripsToolTip)
             .toggleOnClick(true)
             .onToggle(

@@ -179,6 +179,12 @@ public class SummaryRow<T, S> extends BaseDominoElement<HTMLTableRowElement, Sum
    */
   public void renderCell(ColumnConfig<T> columnConfig) {
     TDElement cellElement = td().addCss(dui_datatable_td);
+    if (dataTable.isColumnStripeAlternate(columnConfig, TableColumnStripeMode.COLUMNS)) {
+      cellElement.addCss(dui_datatable_column_stripe_columns_alt);
+    }
+    if (dataTable.isColumnStripeAlternate(columnConfig, TableColumnStripeMode.COLUMN_GROUPS)) {
+      cellElement.addCss(dui_datatable_column_stripe_groups_alt);
+    }
 
     ColumnCssRuleMeta.get(columnConfig)
         .ifPresent(

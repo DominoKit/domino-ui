@@ -89,6 +89,7 @@ public class DisableUtil {
     if (!disabled) {
       element.setAttribute("disabled", "true");
     }
+    element.setAttribute("aria-disabled", "true");
 
     if (element.hasAttribute("tabindex")) {
       String original = element.getAttribute("tabindex");
@@ -143,6 +144,7 @@ public class DisableUtil {
   private static <E extends Element> void enableElement(DominoElement<E> element) {
     element.removeAttribute("dui-disabled");
     element.removeAttribute("disabled");
+    element.removeAttribute("aria-disabled");
     if (element.hasAttribute("dui-tabindex")) {
       String original = element.getAttribute("dui-tabindex");
       element.setTabIndex(Integer.parseInt(original));

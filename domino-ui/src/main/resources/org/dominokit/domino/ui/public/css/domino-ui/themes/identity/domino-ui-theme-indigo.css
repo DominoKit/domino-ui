@@ -1,0 +1,76 @@
+/*
+ * Indigo visual identity theme.
+ *
+ * Identity themes provide dominant surfaces and neutral color scales while
+ * remaining composable with color mode, accent, density, character, and
+ * surface themes.
+ */
+.dui.dui-theme-indigo.dui-colors-light {
+    --dui-accent-harmony-anchor: var(--dui-color);
+    --dui-accent-harmony-strength: 18%;
+    --dui-primary-harmony-anchor: var(--dui-color);
+    --dui-primary-harmony-strength: 55%;
+    --dui-secondary-harmony-anchor: var(--dui-color-2);
+    --dui-secondary-harmony-strength: 45%;
+    --dui-color: #25336f;
+    --dui-color-1: #3f4d8c;
+    --dui-color-2: #5c67a8;
+    --dui-color-3: #8089bf;
+    --dui-color-4: #a9b1d4;
+    --dui-color-5: #d9dded;
+    --dui-color-alternate: #25336f;
+    --dui-highlight-color: #ffffff;
+    --dui-color-invert: #ffffff;
+    --dui-clr-dominant-l-5: #ffffff;
+    --dui-clr-dominant-l-4: #f8fbff;
+    --dui-clr-dominant-l-3: #eef5ff;
+    --dui-clr-dominant-l-2: #e5efff;
+    --dui-clr-dominant-l-1: #d6e5fb;
+    --dui-clr-dominant: #edf4ff;
+    --dui-clr-dominant-d-1: #e1edfb;
+    --dui-clr-dominant-d-2: #cbdcf3;
+    --dui-clr-dominant-d-3: #a5c1e3;
+    --dui-clr-dominant-d-4: #7d9dcc;
+    --dui-card-background: var(--dui-clr-dominant-l-4);
+    --dui-card-nested-background: color-mix(in srgb, var(--dui-clr-dominant-l-3) 75%, var(--dui-clr-dominant-l-1) 25%);
+    --dui-card-nested-2-background: var(--dui-clr-dominant-l-2);
+    --dui-card-nested-3-background: var(--dui-clr-dominant-d-1);
+    --dui-menu-background-color: var(--dui-clr-dominant-l-5);
+    --dui-quick-search-bg-color: var(--dui-accent-l-2);
+    --dui-quick-search-color: var(--dui-accent-fg-clr);
+}
+
+.dui.dui-theme-indigo.dui-colors-dark {
+    --dui-accent-harmony-anchor: var(--dui-color-5);
+    --dui-accent-harmony-strength: 18%;
+    --dui-primary-harmony-anchor: var(--dui-color-5);
+    --dui-primary-harmony-strength: 55%;
+    --dui-secondary-harmony-anchor: var(--dui-color-3);
+    --dui-secondary-harmony-strength: 45%;
+    --dui-color: #eff4ff;
+    --dui-color-1: #d3dbf6;
+    --dui-color-2: #afbae5;
+    --dui-color-3: #8b97d0;
+    --dui-color-4: #6874b4;
+    --dui-color-5: #475395;
+    --dui-color-alternate: #101a3f;
+    --dui-highlight-color: #060b1c;
+    --dui-color-invert: #060b1c;
+    --dui-clr-dominant-l-5: #45548f;
+    --dui-clr-dominant-l-4: #3b4880;
+    --dui-clr-dominant-l-3: #323e71;
+    --dui-clr-dominant-l-2: #293462;
+    --dui-clr-dominant-l-1: #212a53;
+    --dui-clr-dominant: #1a2245;
+    --dui-clr-dominant-d-1: #141a37;
+    --dui-clr-dominant-d-2: #0f1429;
+    --dui-clr-dominant-d-3: #0a0d1c;
+    --dui-clr-dominant-d-4: #060811;
+    --dui-card-background: var(--dui-clr-dominant-l-1);
+    --dui-card-nested-background: var(--dui-clr-dominant-l-2);
+    --dui-card-nested-2-background: var(--dui-clr-dominant-l-3);
+    --dui-card-nested-3-background: var(--dui-clr-dominant-l-4);
+    --dui-menu-background-color: var(--dui-clr-dominant-l-1);
+    --dui-quick-search-bg-color: var(--dui-accent-d-2);
+    --dui-quick-search-color: var(--dui-accent-fg-clr);
+}

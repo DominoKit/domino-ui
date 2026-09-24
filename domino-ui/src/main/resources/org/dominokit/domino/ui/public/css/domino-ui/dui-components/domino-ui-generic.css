@@ -1,4 +1,8 @@
 .dui.dui-primary {
+    --dui-context-color: var(--dui-clr-primary);
+    --dui-context-fg-color: var(--dui-primary-fg-clr);
+    --dui-btn-context-hover-bg-clr: var(--dui-bg-d-4);
+    --dui-btn-hover-color: var(--dui-primary-fg-clr);
     --dui-bg-l-5: var(--dui-clr-primary-l-5);
     --dui-bg-l-4: var(--dui-clr-primary-l-4);
     --dui-bg-l-3: var(--dui-clr-primary-l-3);
@@ -21,6 +25,8 @@
 }
 
 .dui.dui-secondary {
+    --dui-context-color: var(--dui-clr-secondary);
+    --dui-context-fg-color: var(--dui-secondary-fg-clr);
     --dui-bg-l-5: var(--dui-clr-secondary-l-5);
     --dui-bg-l-4: var(--dui-clr-secondary-l-4);
     --dui-bg-l-3: var(--dui-clr-secondary-l-3);
@@ -43,6 +49,9 @@
 }
 
 .dui.dui-dominant {
+    --dui-context-color: var(--dui-clr-dominant);
+    --dui-context-fg-color: var(--dui-dominant-fg-clr);
+    --dui-btn-hover-color: var(--dui-dominant-fg-clr);
     --dui-bg-l-5: var(--dui-clr-dominant-l-5);
     --dui-bg-l-4: var(--dui-clr-dominant-l-4);
     --dui-bg-l-3: var(--dui-clr-dominant-l-3);
@@ -65,12 +74,14 @@
 }
 
 .dui.dui-accent {
+    --dui-context-color: var(--dui-accent);
+    --dui-context-fg-color: var(--dui-accent-fg-clr);
     --dui-bg-l-5: var(--dui-accent-l-5);
     --dui-bg-l-4: var(--dui-accent-l-4);
     --dui-bg-l-3: var(--dui-accent-l-3);
     --dui-bg-l-2: var(--dui-accent-l-2);
     --dui-bg-l-1: var(--dui-accent-l-1);
-    --dui-bg: var(--dui-clr-accent);
+    --dui-bg: var(--dui-accent);
     --dui-bg-main: var(--dui-bg);
     --dui-bg-d-1: var(--dui-accent-d-1);
     --dui-bg-d-2: var(--dui-accent-d-2);
@@ -132,7 +143,25 @@
     color: var(--dui-accent-fg-clr);
 }
 
+/* Keep form controls legible when they are placed on a contextual surface. */
+.dui.dui-primary,
+.dui.dui-secondary,
+.dui.dui-accent,
+.dui.dui-success,
+.dui.dui-info,
+.dui.dui-warning,
+.dui.dui-error {
+    --dui-form-field-background: color-mix(in srgb, var(--dui-bg) var(--dui-form-field-context-surface-weight, 20%), var(--dui-highlight-color) var(--dui-form-field-context-highlight-weight, 80%));
+    --dui-form-field-color: var(--dui-color);
+    --dui-form-field-switch-track-background: color-mix(in srgb, var(--dui-bg) 55%, var(--dui-highlight-color) 45%);
+    --dui-form-field-switch-checked-track-background: color-mix(in srgb, var(--dui-bg) 75%, var(--dui-color) 25%);
+    --dui-form-field-switch-thumb-background: var(--dui-color);
+    --dui-form-field-switch-checked-thumb-background: var(--dui-highlight-color);
+}
+
 .dui.dui-success {
+    --dui-context-color: var(--dui-clr-success);
+    --dui-context-fg-color: var(--dui-success-fg-clr);
     --dui-bg-l-5: var(--dui-clr-success-l-5);
     --dui-bg-l-4: var(--dui-clr-success-l-4);
     --dui-bg-l-3: var(--dui-clr-success-l-3);
@@ -155,6 +184,8 @@
 }
 
 .dui.dui-info {
+    --dui-context-color: var(--dui-clr-info);
+    --dui-context-fg-color: var(--dui-info-fg-clr);
     --dui-bg-l-5: var(--dui-clr-info-l-5);
     --dui-bg-l-4: var(--dui-clr-info-l-4);
     --dui-bg-l-3: var(--dui-clr-info-l-3);
@@ -177,6 +208,8 @@
 }
 
 .dui.dui-warning {
+    --dui-context-color: var(--dui-clr-warning);
+    --dui-context-fg-color: var(--dui-warning-fg-clr);
     --dui-bg-l-5: var(--dui-clr-warning-l-5);
     --dui-bg-l-4: var(--dui-clr-warning-l-4);
     --dui-bg-l-3: var(--dui-clr-warning-l-3);
@@ -199,6 +232,8 @@
 }
 
 .dui.dui-error {
+    --dui-context-color: var(--dui-clr-error);
+    --dui-context-fg-color: var(--dui-error-fg-clr);
     --dui-bg-l-5: var(--dui-clr-error-l-5);
     --dui-bg-l-4: var(--dui-clr-error-l-4);
     --dui-bg-l-3: var(--dui-clr-error-l-3);
@@ -221,6 +256,7 @@
 }
 
 .dui.dui-red {
+    --dui-context-color: var(--dui-clr-red);
     --dui-bg-l-5: var(--dui-clr-red-l-5);
     --dui-bg-l-4: var(--dui-clr-red-l-4);
     --dui-bg-l-3: var(--dui-clr-red-l-3);
@@ -243,6 +279,7 @@
 }
 
 .dui.dui-pink {
+    --dui-context-color: var(--dui-clr-pink);
     --dui-bg-l-5: var(--dui-clr-pink-l-5);
     --dui-bg-l-4: var(--dui-clr-pink-l-4);
     --dui-bg-l-3: var(--dui-clr-pink-l-3);
@@ -265,6 +302,7 @@
 }
 
 .dui.dui-purple {
+    --dui-context-color: var(--dui-clr-purple);
     --dui-bg-l-5: var(--dui-clr-purple-l-5);
     --dui-bg-l-4: var(--dui-clr-purple-l-4);
     --dui-bg-l-3: var(--dui-clr-purple-l-3);
@@ -287,6 +325,7 @@
 }
 
 .dui.dui-deep-purple {
+    --dui-context-color: var(--dui-clr-deep-purple);
     --dui-bg-l-5: var(--dui-clr-deep-purple-l-5);
     --dui-bg-l-4: var(--dui-clr-deep-purple-l-4);
     --dui-bg-l-3: var(--dui-clr-deep-purple-l-3);
@@ -309,6 +348,7 @@
 }
 
 .dui.dui-indigo {
+    --dui-context-color: var(--dui-clr-indigo);
     --dui-bg-l-5: var(--dui-clr-indigo-l-5);
     --dui-bg-l-4: var(--dui-clr-indigo-l-4);
     --dui-bg-l-3: var(--dui-clr-indigo-l-3);
@@ -331,6 +371,8 @@
 }
 
 .dui.dui-blue {
+    --dui-context-color: var(--dui-clr-blue);
+    --dui-context-fg-color: var(--dui-blue-fg-clr);
     --dui-bg-l-5: var(--dui-clr-blue-l-5);
     --dui-bg-l-4: var(--dui-clr-blue-l-4);
     --dui-bg-l-3: var(--dui-clr-blue-l-3);
@@ -341,7 +383,8 @@
     --dui-bg-d-2: var(--dui-clr-blue-d-2);
     --dui-bg-d-3: var(--dui-clr-blue-d-3);
     --dui-bg-d-4: var(--dui-clr-blue-d-4);
-    --dui-text-color: var(--dui-clr-white);
+    --dui-form-field-color: var(--dui-color);
+    --dui-text-color: var(--dui-blue-fg-clr);
 }
 
 .dui.dui-blue:not(.dui-ignore-bg) {
@@ -353,6 +396,7 @@
 }
 
 .dui.dui-light-blue {
+    --dui-context-color: var(--dui-clr-light-blue);
     --dui-bg-l-5: var(--dui-clr-light-blue-l-5);
     --dui-bg-l-4: var(--dui-clr-light-blue-l-4);
     --dui-bg-l-3: var(--dui-clr-light-blue-l-3);
@@ -375,6 +419,7 @@
 }
 
 .dui.dui-cyan {
+    --dui-context-color: var(--dui-clr-cyan);
     --dui-bg-l-5: var(--dui-clr-cyan-l-5);
     --dui-bg-l-4: var(--dui-clr-cyan-l-4);
     --dui-bg-l-3: var(--dui-clr-cyan-l-3);
@@ -397,6 +442,7 @@
 }
 
 .dui.dui-teal {
+    --dui-context-color: var(--dui-clr-teal);
     --dui-bg-l-5: var(--dui-clr-teal-l-5);
     --dui-bg-l-4: var(--dui-clr-teal-l-4);
     --dui-bg-l-3: var(--dui-clr-teal-l-3);
@@ -419,6 +465,7 @@
 }
 
 .dui.dui-green {
+    --dui-context-color: var(--dui-clr-green);
     --dui-bg-l-5: var(--dui-clr-green-l-5);
     --dui-bg-l-4: var(--dui-clr-green-l-4);
     --dui-bg-l-3: var(--dui-clr-green-l-3);
@@ -441,6 +488,7 @@
 }
 
 .dui.dui-light-green {
+    --dui-context-color: var(--dui-clr-light-green);
     --dui-bg-l-5: var(--dui-clr-light-green-l-5);
     --dui-bg-l-4: var(--dui-clr-light-green-l-4);
     --dui-bg-l-3: var(--dui-clr-light-green-l-3);
@@ -463,6 +511,7 @@
 }
 
 .dui.dui-lime {
+    --dui-context-color: var(--dui-clr-lime);
     --dui-bg-l-5: var(--dui-clr-lime-l-5);
     --dui-bg-l-4: var(--dui-clr-lime-l-4);
     --dui-bg-l-3: var(--dui-clr-lime-l-3);
@@ -485,6 +534,7 @@
 }
 
 .dui.dui-yellow {
+    --dui-context-color: var(--dui-clr-yellow);
     --dui-bg-l-5: var(--dui-clr-yellow-l-5);
     --dui-bg-l-4: var(--dui-clr-yellow-l-4);
     --dui-bg-l-3: var(--dui-clr-yellow-l-3);
@@ -507,6 +557,7 @@
 }
 
 .dui.dui-amber {
+    --dui-context-color: var(--dui-clr-amber);
     --dui-bg-l-5: var(--dui-clr-amber-l-5);
     --dui-bg-l-4: var(--dui-clr-amber-l-4);
     --dui-bg-l-3: var(--dui-clr-amber-l-3);
@@ -529,6 +580,7 @@
 }
 
 .dui.dui-orange {
+    --dui-context-color: var(--dui-clr-orange);
     --dui-bg-l-5: var(--dui-clr-orange-l-5);
     --dui-bg-l-4: var(--dui-clr-orange-l-4);
     --dui-bg-l-3: var(--dui-clr-orange-l-3);
@@ -551,6 +603,7 @@
 }
 
 .dui.dui-deep-orange {
+    --dui-context-color: var(--dui-clr-deep-orange);
     --dui-bg-l-5: var(--dui-clr-deep-orange-l-5);
     --dui-bg-l-4: var(--dui-clr-deep-orange-l-4);
     --dui-bg-l-3: var(--dui-clr-deep-orange-l-3);
@@ -573,6 +626,7 @@
 }
 
 .dui.dui-brown {
+    --dui-context-color: var(--dui-clr-brown);
     --dui-bg-l-5: var(--dui-clr-brown-l-5);
     --dui-bg-l-4: var(--dui-clr-brown-l-4);
     --dui-bg-l-3: var(--dui-clr-brown-l-3);
@@ -595,6 +649,7 @@
 }
 
 .dui.dui-grey {
+    --dui-context-color: var(--dui-clr-grey);
     --dui-bg-l-5: var(--dui-clr-grey-l-5);
     --dui-bg-l-4: var(--dui-clr-grey-l-4);
     --dui-bg-l-3: var(--dui-clr-grey-l-3);
@@ -617,6 +672,7 @@
 }
 
 .dui.dui-blue-grey {
+    --dui-context-color: var(--dui-clr-blue-grey);
     --dui-bg-l-5: var(--dui-clr-blue-grey-l-5);
     --dui-bg-l-4: var(--dui-clr-blue-grey-l-4);
     --dui-bg-l-3: var(--dui-clr-blue-grey-l-3);
@@ -639,6 +695,7 @@
 }
 
 .dui.dui-white {
+    --dui-context-color: var(--dui-clr-white);
     --dui-bg-l-5: var(--dui-clr-white-l-5);
     --dui-bg-l-4: var(--dui-clr-white-l-4);
     --dui-bg-l-3: var(--dui-clr-white-l-3);
@@ -661,6 +718,7 @@
 }
 
 .dui.dui-black {
+    --dui-context-color: var(--dui-clr-black);
     --dui-bg-l-5: var(--dui-clr-black-l-5);
     --dui-bg-l-4: var(--dui-clr-black-l-4);
     --dui-bg-l-3: var(--dui-clr-black-l-3);
@@ -683,6 +741,7 @@
 }
 
 .dui.dui-transparent {
+    --dui-context-color: var(--dui-clr-transparent);
     --dui-bg-l-5: var(--dui-clr-transparent);
     --dui-bg-l-4: var(--dui-clr-transparent);
     --dui-bg-l-3: var(--dui-clr-transparent);
@@ -702,6 +761,11 @@
 
 .dui.dui-transparent:not(.dui-ignore-fg) {
     color: var(--dui-text-color);
+}
+
+/* Context classes use this text-only role; filled components continue using their foreground role. */
+.dui.dui-ctx {
+    --dui-context-text-color: color-mix(in srgb, var(--dui-context-color) var(--dui-context-text-color-strength, 100%), var(--dui-context-text-base-color, var(--dui-color)) calc(100% - var(--dui-context-text-color-strength, 100%)));
 }
 
 .dui.dui-bg-l-5 {
@@ -846,6 +910,10 @@ h1.dui {
     font-size: 2em;
 }
 
+body.dui :where(h1, h2, h3, h4, h5, h6) {
+    font-weight: var(--dui-heading-font-weight);
+}
+
 hr.dui {
     box-sizing: content-box;
     height: 0;
@@ -900,6 +968,6 @@ hr.dui {
     color: var(--dui-accent-clr);
 }
 
-.dui.dui-dialog.waitMe_container {
+.dui.dui-dialog.dui-waitme-container {
     transform: translateY(var(--dui-dialog-default-top-translate));
 }

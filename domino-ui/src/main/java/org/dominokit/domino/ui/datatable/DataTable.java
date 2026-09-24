@@ -28,6 +28,7 @@ import elemental2.dom.HTMLDivElement;
 import elemental2.dom.Node;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
@@ -90,6 +91,9 @@ public class DataTable<T> extends BaseDominoElement<HTMLDivElement, DataTable<T>
   private List<T> data = new ArrayList<>();
   private boolean selectable = true;
   private List<TableRow<T>> tableRows = new ArrayList<>();
+  private TableBorderMode borderMode = TableBorderMode.FULL;
+  private Set<TableBorderMode> borderModes = new HashSet<>();
+  private TableColumnStripeMode columnStripeMode = TableColumnStripeMode.COLUMNS;
 
   private boolean selectionListenersPaused = false;
 
@@ -398,6 +402,159 @@ public class DataTable<T> extends BaseDominoElement<HTMLDivElement, DataTable<T>
   }
 
   /**
+   * Sets the border mode for this data table and enables bordering.
+   *
+   * <p>Setting {@link TableBorderMode#FULL} removes the mode-specific modifier and preserves the
+   * legacy full-border behavior. Calling {@link #setBordered(boolean)} afterward can still disable
+   * or re-enable the selected mode.
+   *
+   * @param borderMode the border mode to apply
+   * @return the current DataTable instance
+   * @throws NullPointerException if {@code borderMode} is null
+   */
+  public DataTable<T> setBorderMode(TableBorderMode borderMode) {
+    return setBorderModes(borderMode);
+  }
+
+  /**
+   * Sets the border modes for this data table and enables bordering.
+   *
+   * <p>Specific modes are composable. For example, {@code TABLE}, {@code ROWS}, and {@code COLUMNS}
+   * can be selected together. {@link TableBorderMode#FULL} is an exclusive legacy reset; if it is
+   * included, all other modes are ignored. An empty mode list also selects the legacy full
+   * behavior.
+   *
+   * @param borderModes the border modes to apply
+   * @return the current DataTable instance
+   * @throws NullPointerException if the mode array or one of its values is null
+   */
+  public DataTable<T> setBorderModes(TableBorderMode... borderModes) {
+    Objects.requireNonNull(borderModes, "borderModes");
+    boolean full = borderModes.length == 0;
+    for (TableBorderMode mode : borderModes) {
+      if (Objects.requireNonNull(mode, "borderMode") == TableBorderMode.FULL) {
+        full = true;
+        break;
+      }
+    }
+
+    this.borderModes.clear();
+    this.borderMode = TableBorderMode.FULL;
+    if (!full) {
+      for (TableBorderMode mode : borderModes) {
+        TableBorderMode selectedMode = Objects.requireNonNull(mode, "borderMode");
+        this.borderModes.add(selectedMode);
+        if (this.borderMode == TableBorderMode.FULL) {
+          this.borderMode = selectedMode;
+        }
+      }
+    }
+    syncBorderModeClasses();
+    return setBordered(true);
+  }
+
+  /**
+   * Adds a border mode without clearing modes already selected.
+   *
+   * @param borderMode the border mode to add
+   * @return the current DataTable instance
+   * @throws NullPointerException if {@code borderMode} is null
+   */
+  public DataTable<T> addBorderMode(TableBorderMode borderMode) {
+    TableBorderMode selectedMode = Objects.requireNonNull(borderMode, "borderMode");
+    if (selectedMode == TableBorderMode.FULL) {
+      return setBorderMode(TableBorderMode.FULL);
+    }
+    if (this.borderModes.isEmpty()) {
+      this.borderMode = selectedMode;
+    }
+    this.borderModes.add(selectedMode);
+    syncBorderModeClasses();
+    return setBordered(true);
+  }
+
+  /**
+   * Removes a border mode while keeping the other selected modes.
+   *
+   * <p>Removing the last specific mode restores the legacy full mode. Use {@link
+   * #setBordered(boolean)} to disable all borders.
+   *
+   * @param borderMode the border mode to remove
+   * @return the current DataTable instance
+   * @throws NullPointerException if {@code borderMode} is null
+   */
+  public DataTable<T> removeBorderMode(TableBorderMode borderMode) {
+    TableBorderMode selectedMode = Objects.requireNonNull(borderMode, "borderMode");
+    if (selectedMode == TableBorderMode.FULL) {
+      return this;
+    }
+    this.borderModes.remove(selectedMode);
+    if (this.borderModes.isEmpty()) {
+      this.borderMode = TableBorderMode.FULL;
+    } else if (this.borderMode == selectedMode) {
+      this.borderMode = this.borderModes.iterator().next();
+    }
+    syncBorderModeClasses();
+    return this;
+  }
+
+  private void syncBorderModeClasses() {
+    removeCss(
+        dui_datatable_border_table,
+        dui_datatable_border_rows,
+        dui_datatable_border_columns,
+        dui_datatable_border_column_groups,
+        dui_datatable_border_sections);
+
+    for (TableBorderMode borderMode : this.borderModes) {
+      switch (borderMode) {
+        case TABLE:
+          addCss(dui_datatable_border_table);
+          break;
+        case ROWS:
+          addCss(dui_datatable_border_rows);
+          break;
+        case COLUMNS:
+          addCss(dui_datatable_border_columns);
+          break;
+        case COLUMN_GROUPS:
+          addCss(dui_datatable_border_column_groups);
+          break;
+        case SECTIONS:
+          addCss(dui_datatable_border_sections);
+          break;
+        case FULL:
+        default:
+          break;
+      }
+    }
+  }
+
+  /**
+   * Returns the border mode selected for this data table.
+   *
+   * @return the current border mode
+   */
+  public TableBorderMode getBorderMode() {
+    return borderMode;
+  }
+
+  /**
+   * Returns all border modes selected for this data table.
+   *
+   * <p>The returned set is immutable. A table using the legacy full behavior returns a set
+   * containing only {@link TableBorderMode#FULL}.
+   *
+   * @return the current border modes
+   */
+  public Set<TableBorderMode> getBorderModes() {
+    if (borderModes.isEmpty()) {
+      return Collections.singleton(TableBorderMode.FULL);
+    }
+    return Collections.unmodifiableSet(new HashSet<>(borderModes));
+  }
+
+  /**
    * Sets the striped style for the data table rows.
    *
    * @param striped a boolean indicating whether to enable the striped style
@@ -415,6 +572,77 @@ public class DataTable<T> extends BaseDominoElement<HTMLDivElement, DataTable<T>
    */
   public boolean isStriped() {
     return dui_datatable_striped.isAppliedTo(this);
+  }
+
+  /**
+   * Enables column striping using the supplied mode.
+   *
+   * @param columnStripeMode the column striping mode to apply
+   * @return the current DataTable instance
+   * @throws NullPointerException if {@code columnStripeMode} is null
+   */
+  public DataTable<T> setColumnStripeMode(TableColumnStripeMode columnStripeMode) {
+    this.columnStripeMode = Objects.requireNonNull(columnStripeMode, "columnStripeMode");
+    syncColumnStripeModeClasses();
+    return setColumnStriped(true);
+  }
+
+  /**
+   * Sets whether alternating column surfaces are enabled.
+   *
+   * <p>Disabling column striping keeps the selected mode so it can be re-enabled without
+   * reconfiguring it.
+   *
+   * @param striped whether to enable column striping
+   * @return the current DataTable instance
+   */
+  public DataTable<T> setColumnStriped(boolean striped) {
+    syncColumnStripeModeClasses();
+    addCss(BooleanCssClass.of(dui_datatable_column_striped, striped));
+    return this;
+  }
+
+  /**
+   * Checks whether alternating column surfaces are enabled.
+   *
+   * @return {@code true} when column striping is enabled
+   */
+  public boolean isColumnStriped() {
+    return dui_datatable_column_striped.isAppliedTo(this);
+  }
+
+  /**
+   * Returns the selected column striping mode.
+   *
+   * @return the current column striping mode
+   */
+  public TableColumnStripeMode getColumnStripeMode() {
+    return columnStripeMode;
+  }
+
+  /**
+   * Checks whether a column belongs to the alternate stripe for the requested mode.
+   *
+   * <p>This is also useful to datatable plugins rendering cells outside the standard body rows.
+   *
+   * @param column the column to inspect
+   * @param stripeMode the striping mode to use
+   * @return {@code true} when the column belongs to the alternate stripe
+   * @throws NullPointerException if {@code column} or {@code stripeMode} is null
+   */
+  public boolean isColumnStripeAlternate(ColumnConfig<T> column, TableColumnStripeMode stripeMode) {
+    Objects.requireNonNull(column, "column");
+    Objects.requireNonNull(stripeMode, "stripeMode");
+    return tableConfig.isColumnStripeAlternate(column, stripeMode);
+  }
+
+  private void syncColumnStripeModeClasses() {
+    removeCss(dui_datatable_column_stripe_columns, dui_datatable_column_stripe_groups);
+    if (columnStripeMode == TableColumnStripeMode.COLUMN_GROUPS) {
+      addCss(dui_datatable_column_stripe_groups);
+    } else {
+      addCss(dui_datatable_column_stripe_columns);
+    }
   }
 
   /**

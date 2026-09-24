@@ -70,7 +70,9 @@ public class Chip extends BaseDominoElement<HTMLDivElement, Chip>
     root =
         div()
             .addCss(dui_chip)
-            .setAttribute("tabindex", "0")
+            .setRole("button")
+            .setTabIndex(0)
+            .setAriaPressed(false)
             .appendChild(textElement = span().addCss(dui_chip_value).setTextContent(text));
     init(this);
 
@@ -289,6 +291,7 @@ public class Chip extends BaseDominoElement<HTMLDivElement, Chip>
 
   private void doSetSelected(boolean selected) {
     addCss(BooleanCssClass.of(dui_chip_selected, selected));
+    setAriaPressed(selected);
     this.selected = selected;
   }
 

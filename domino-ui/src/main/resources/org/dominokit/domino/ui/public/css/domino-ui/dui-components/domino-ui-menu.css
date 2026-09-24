@@ -3,7 +3,7 @@
     overflow: visible;
     max-height: var(--dui-drop-down-menu-max-height, calc(100vh));
     max-width: var(--dui-drop-down-menu-max-width, calc(100vw));
-    display: inline-flex;
+    display: flex;
     flex-direction: column;
     border: var(--dui-menu-border);
     color: var(--dui-menu-color);
@@ -12,6 +12,8 @@
 
 .dui-menu .dui-nav-bar {
     height: var(--dui-menu-header-height);
+    background-color: var(--dui-menu-header-background);
+    color: var(--dui-menu-header-color);
     border-width: var(--dui-menu-header-border-width);
     border-style: var(--dui-menu-header-border-style);
     border-color: var(--dui-menu-header-border-color);
@@ -60,7 +62,7 @@
 
 .dui-menu .dui-menu-search-box {
     background-color: var(--dui-quick-search-bg-color);
-    border-radius: var(--dui-spc-1);
+    border-radius: var(--dui-quick-search-radius);
     border: none;
 }
 
@@ -70,6 +72,10 @@
     border-width: var(--dui-menu-subheader-border-width);
     border-style: var(--dui-menu-subheader-border-style);
     border-color: var(--dui-menu-subheader-border-color);
+}
+
+.dui-menu-subheader .dui-badge {
+    padding: var(--dui-menu-subheader-badge-padding);
 }
 
 .dui-menu-subheader:empty {

@@ -1,0 +1,4 @@
+org/dominokit/domino/ui/public/css/domino-ui/dui-components/domino-ui-theme-default.css
+org/dominokit/domino/ui/public/css/domino-ui/dui-components/domino-ui-colors-light.css
+org/dominokit/domino/ui/public/css/domino-ui/dui-components/domino-ui-colors-dark.css
+org/dominokit/domino/ui/public/css/domino-ui/dui-components/domino-ui-colors.css

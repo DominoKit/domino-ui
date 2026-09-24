@@ -15,6 +15,7 @@
  */
 package org.dominokit.domino.ui.icons;
 
+import static org.dominokit.domino.ui.icons.IconsStyles.dui_icon;
 import static org.dominokit.domino.ui.utils.Domino.*;
 
 import org.dominokit.domino.ui.style.CssClass;
@@ -49,6 +50,7 @@ public class UrlIcon extends Icon<UrlIcon> implements CanChangeIcon<UrlIcon> {
     this.name = SwapCssClass.of(name);
     this.icon = elementOf(img(url).element());
     init(this);
+    addCss(dui_icon);
   }
 
   /**

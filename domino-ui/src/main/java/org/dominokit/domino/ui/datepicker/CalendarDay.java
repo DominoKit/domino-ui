@@ -72,6 +72,10 @@ public class CalendarDay extends BaseDominoElement<HTMLDivElement, CalendarDay>
                 BooleanCssClass.of(
                     dui_selected_date_match, isSelectionMatch() && !isSelectedDate()),
                 BooleanCssClass.of(dui_today_date, isTodayDate()))
+            .setAttribute("role", "gridcell")
+            .setAttribute("aria-selected", isSelectedDate())
+            .setAttribute("aria-label", date.toString())
+            .setAttribute("tabindex", isSelectedDate() ? "0" : "-1")
             .appendChild(
                 this.dayNumber =
                     span()
@@ -85,6 +89,8 @@ public class CalendarDay extends BaseDominoElement<HTMLDivElement, CalendarDay>
                   new Date(this.date.getYear(), this.date.getMonth(), this.date.getDate())
                       .getTime()));
         });
+    onKeyDown(
+        keyEvents -> keyEvents.onEnter(evt -> element().click()).onSpace(evt -> element().click()));
   }
 
   /**

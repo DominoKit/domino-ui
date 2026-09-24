@@ -58,16 +58,57 @@ public class AccordionPanel extends BaseDominoElement<HTMLDivElement, AccordionP
                         .appendChild(bodyElement = div().addCss(dui_panel_body)));
     init(this);
 
-    headerElement =
-        LazyChild.of(NavBar.create().addCss(dui_panel_header).setAttribute("role", "tab"), element);
+    headerElement = LazyChild.of(NavBar.create().addCss(dui_panel_header), element);
+    headerElement.whenInitialized(
+        () -> {
+          headerElement
+              .element()
+              .setRole("button")
+              .setTabIndex(0)
+              .setAriaControls(contentElement.getDominoId())
+              .setAriaExpanded(false);
+          contentElement
+              .setRole("region")
+              .setAriaLabelledBy(headerElement.element().getDominoId())
+              .setAriaHidden(true);
+          headerElement
+              .element()
+              .onKeyDown(
+                  keyEvents ->
+                      keyEvents
+                          .onEnter(evt -> headerElement.element().element().click())
+                          .onSpace(evt -> headerElement.element().element().click()));
+        });
 
     contentHeader = LazyChild.of(NavBar.create().addCss(dui_panel_content_header), contentElement);
     contentFooter = LazyChild.of(NavBar.create().addCss(dui_panel_footer), contentElement);
     setCollapseStrategy(getConfig().getDefaultAccordionCollapseStrategySupplier().get());
 
-    addExpandListener(() -> addCss(dui_active));
-    addCollapseListener(() -> removeCss(dui_active));
+    addExpandListener(
+        () -> {
+          addCss(dui_active);
+        });
+    addCollapseListener(
+        () -> {
+          removeCss(dui_active);
+        });
     collapse();
+  }
+
+  @Override
+  public AccordionPanel expand() {
+    super.expand();
+    headerElement.get().setAriaExpanded(true);
+    contentElement.setAriaHidden(false);
+    return this;
+  }
+
+  @Override
+  public AccordionPanel collapse() {
+    super.collapse();
+    headerElement.get().setAriaExpanded(false);
+    contentElement.setAriaHidden(true);
+    return this;
   }
 
   /**

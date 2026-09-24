@@ -59,7 +59,7 @@ public class DominoThemeDefault implements IsDominoTheme {
    */
   @Override
   public String getCategory() {
-    return "dui-main-theme";
+    return DominoThemeCategories.MAIN;
   }
 
   /**

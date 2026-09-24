@@ -89,7 +89,9 @@ public class Carousel extends BaseDominoElement<HTMLDivElement, Carousel>
   public Carousel() {
     element =
         div()
-            .appendChild(indicatorsElement = ol().addCss(carousel_indicators))
+            .appendChild(
+                indicatorsElement =
+                    ol().addCss(carousel_indicators).setRole("group").setAriaLabel("Slides"))
             .appendChild(slidesElement = div().addCss(carousel_inner))
             .appendChild(
                 prevElement =
@@ -99,7 +101,11 @@ public class Carousel extends BaseDominoElement<HTMLDivElement, Carousel>
                             prevIcon =
                                 Icons.chevron_left()
                                     .addCss(GenericCss.dui_vertical_center, dui_font_size_12))
-                        .addEventListener("click", evt -> previous()))
+                        .setAttribute("aria-label", "Previous slide")
+                        .addEventListener("click", evt -> previous())
+                        .onKeyDown(
+                            keyEvents ->
+                                keyEvents.onEnter(evt -> previous()).onSpace(evt -> previous())))
             .appendChild(
                 nextElement =
                     a().addCss(slide_right, carousel_control)
@@ -108,7 +114,10 @@ public class Carousel extends BaseDominoElement<HTMLDivElement, Carousel>
                             nextIcon =
                                 Icons.chevron_right()
                                     .addCss(GenericCss.dui_vertical_center, dui_font_size_12))
-                        .addEventListener("click", evt -> next()))
+                        .setAttribute("aria-label", "Next slide")
+                        .addEventListener("click", evt -> next())
+                        .onKeyDown(
+                            keyEvents -> keyEvents.onEnter(evt -> next()).onSpace(evt -> next())))
             .addCss(carousel);
     timer =
         new Timer() {
@@ -217,6 +226,7 @@ public class Carousel extends BaseDominoElement<HTMLDivElement, Carousel>
    * @return same carousel instance
    */
   public Carousel appendChild(Slide slide) {
+    int slideNumber = slides.size() + 1;
     if (isNull(activeSlide)) {
       this.activeSlide = slide;
     }
@@ -225,6 +235,15 @@ public class Carousel extends BaseDominoElement<HTMLDivElement, Carousel>
     }
     getIndicatorsElement().appendChild(slide.getIndicatorElement().element());
     slidesElement.appendChild(slide.element());
+    slide.setRole("group").setAriaLabel("Slide " + slideNumber).setAriaHidden(!slide.isActive());
+    slide
+        .getIndicatorElement()
+        .setAriaLabel("Slide " + slideNumber)
+        .onKeyDown(
+            keyEvents ->
+                keyEvents
+                    .onEnter(evt -> goToSlide(slide, SlideDirection.NONE))
+                    .onSpace(evt -> goToSlide(slide, SlideDirection.NONE)));
     slide
         .getIndicatorElement()
         .addEventListener(

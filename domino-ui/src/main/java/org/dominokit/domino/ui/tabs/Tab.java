@@ -73,6 +73,8 @@ public class Tab extends BaseDominoElement<HTMLLIElement, Tab>
             .appendChild(
                 tabAnchorElement =
                     a().removeAttribute("href")
+                        .setAttribute("role", "tab")
+                        .setAttribute("aria-selected", false)
                         .addCss(dui_tab_anchor)
                         .appendChild(tabHeader = div().addCss(dui_tab_header)));
     init(this);
@@ -83,6 +85,7 @@ public class Tab extends BaseDominoElement<HTMLLIElement, Tab>
                 .get()
                 .addCss(dui_font_size_4)
                 .addCss(dui_tab_header_item, dui_tab_header_close)
+                .setAriaLabel("Close tab")
                 .addClickListener(
                     evt -> {
                       close();
@@ -90,7 +93,9 @@ public class Tab extends BaseDominoElement<HTMLLIElement, Tab>
                 .clickable(),
             tabHeader);
 
-    tabPanel = div().addCss(dui_tab_panel);
+    tabPanel = div().addCss(dui_tab_panel).setAttribute("role", "tabpanel");
+    tabAnchorElement.setAttribute("aria-controls", tabPanel.getDominoId());
+    tabPanel.setAttribute("aria-labelledby", tabAnchorElement.getDominoId());
   }
 
   /**
@@ -455,6 +460,7 @@ public class Tab extends BaseDominoElement<HTMLLIElement, Tab>
       parent.deActivateTab(parent.getActiveTab(), silent);
     }
     dui_active.apply(tab, tabPanel);
+    tabAnchorElement.setAttribute("aria-selected", true);
     if (!silent) {
       activationHandlers.forEach(handler -> handler.onActiveStateChanged(this, true));
     }
@@ -478,6 +484,7 @@ public class Tab extends BaseDominoElement<HTMLLIElement, Tab>
    */
   public Tab deActivate(boolean silent) {
     dui_active.remove(tab, tabPanel);
+    tabAnchorElement.setAttribute("aria-selected", false);
     if (!silent) {
       activationHandlers.forEach(handler -> handler.onActiveStateChanged(this, false));
     }

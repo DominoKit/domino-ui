@@ -29,6 +29,12 @@ public interface GenericCss {
 
   CssClass dui_disable_transition = () -> "dui-disable-transition";
 
+  CssClass dui_emphasis_filled = () -> "dui-emphasis-filled";
+
+  CssClass dui_emphasis_subtle = () -> "dui-emphasis-subtle";
+
+  CssClass dui_emphasis_minimal = () -> "dui-emphasis-minimal";
+
   CssClass dui_primary =
       new ReplaceCssClass(
               CompositeCssClass.of(

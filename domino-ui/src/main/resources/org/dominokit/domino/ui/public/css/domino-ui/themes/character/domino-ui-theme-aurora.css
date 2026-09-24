@@ -1,0 +1,18 @@
+/*
+ * aurora character theme.
+ *
+ * Character themes change material, typography, and component treatment while
+ * preserving the selected identity and runtime accent palette.
+ */
+.dui.dui-theme-aurora {
+    /* Use a transparent overlay so each component keeps its own semantic background and text pair. */
+    --dui-character-gradient-start: transparent;
+    --dui-character-gradient-strength: 18%;
+    --dui-character-gradient-end: color-mix(in srgb, transparent calc(100% - var(--dui-character-gradient-strength)), var(--dui-accent) var(--dui-character-gradient-strength));
+    --dui-character-gradient-surface: linear-gradient(135deg, var(--dui-character-gradient-start), var(--dui-character-gradient-end));
+}
+
+/* Apply the character treatment to broad surfaces without replacing contextual backgrounds. */
+:where(.dui.dui-theme-aurora) :is(.dui-card, .dui-dialog, .dui-menu, .dui-tree) {
+    background-image: var(--dui-character-gradient-surface);
+}

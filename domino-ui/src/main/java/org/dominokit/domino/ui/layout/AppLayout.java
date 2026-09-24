@@ -134,6 +134,10 @@ public class AppLayout extends BaseDominoElement<HTMLDivElement, AppLayout>
             .whenInitialized(leftDrawerToggle::get);
     leftDrawer.whenInitialized(
         () -> {
+          leftToggleIcon
+              .setAttribute("aria-label", "Open navigation")
+              .setAttribute("aria-controls", leftDrawer.element().getDominoId())
+              .setAttribute("aria-expanded", isLeftDrawerOpen());
           TransitionListeners.of(leftDrawer.element())
               .onTransitionStart(
                   target -> {
@@ -165,7 +169,7 @@ public class AppLayout extends BaseDominoElement<HTMLDivElement, AppLayout>
     rightDrawer =
         LazyChild.of(
                 section()
-                    .setAttribute("dui-reserve-left-space", "false")
+                    .setAttribute("dui-reserve-right-space", "false")
                     .addCss(dui_right_drawer)
                     .setZIndexLayer(ZIndexLayer.Z_LAYER_2)
                     .addClickListener(Event::stopPropagation),
@@ -174,6 +178,10 @@ public class AppLayout extends BaseDominoElement<HTMLDivElement, AppLayout>
 
     rightDrawer.whenInitialized(
         () -> {
+          rightToggleIcon
+              .setAttribute("aria-label", "Open side panel")
+              .setAttribute("aria-controls", rightDrawer.element().getDominoId())
+              .setAttribute("aria-expanded", isRightDrawerOpen());
           TransitionListeners.of(rightDrawer.element())
               .onTransitionStart(
                   target -> {
@@ -235,6 +243,7 @@ public class AppLayout extends BaseDominoElement<HTMLDivElement, AppLayout>
         .whenInitialized(
             () ->
                 icon.clickable()
+                    .setAriaLabel("Open navigation")
                     .addClickListener(
                         evt -> {
                           evt.stopPropagation();
@@ -249,6 +258,7 @@ public class AppLayout extends BaseDominoElement<HTMLDivElement, AppLayout>
         .whenInitialized(
             () ->
                 icon.clickable()
+                    .setAriaLabel("Open side panel")
                     .addClickListener(
                         evt -> {
                           evt.stopPropagation();
@@ -651,6 +661,7 @@ public class AppLayout extends BaseDominoElement<HTMLDivElement, AppLayout>
    */
   public AppLayout toggleLeftDrawer() {
     layout.addCss(ToggleCssClass.of(dui_left_open));
+    syncDrawerAccessibility();
     return this;
   }
 
@@ -661,6 +672,7 @@ public class AppLayout extends BaseDominoElement<HTMLDivElement, AppLayout>
    */
   public AppLayout toggleRightDrawer() {
     layout.addCss(ToggleCssClass.of(dui_right_open));
+    syncDrawerAccessibility();
     return this;
   }
 
@@ -692,6 +704,7 @@ public class AppLayout extends BaseDominoElement<HTMLDivElement, AppLayout>
    */
   public AppLayout showLeftDrawer() {
     layout.addCss(dui_left_open);
+    syncDrawerAccessibility();
     return this;
   }
 
@@ -702,6 +715,7 @@ public class AppLayout extends BaseDominoElement<HTMLDivElement, AppLayout>
    */
   public AppLayout hideLeftDrawer() {
     dui_left_open.remove(layout);
+    syncDrawerAccessibility();
     return this;
   }
 
@@ -712,6 +726,7 @@ public class AppLayout extends BaseDominoElement<HTMLDivElement, AppLayout>
    */
   public AppLayout showRightDrawer() {
     layout.addCss(dui_right_open);
+    syncDrawerAccessibility();
     return this;
   }
 
@@ -722,7 +737,17 @@ public class AppLayout extends BaseDominoElement<HTMLDivElement, AppLayout>
    */
   public AppLayout hideRightDrawer() {
     dui_right_open.remove(layout);
+    syncDrawerAccessibility();
     return this;
+  }
+
+  private void syncDrawerAccessibility() {
+    if (leftDrawerToggle.isInitialized()) {
+      leftToggleIcon.setAttribute("aria-expanded", isLeftDrawerOpen());
+    }
+    if (rightDrawerToggle.isInitialized()) {
+      rightToggleIcon.setAttribute("aria-expanded", isRightDrawerOpen());
+    }
   }
 
   /**

@@ -160,6 +160,7 @@
 .dui.dui-tracker-node-icon {
     position: absolute;
     inset: var(--dui-step-tracker-node-icon-inset);
+    transform: var(--dui-step-tracker-node-icon-transform);
     --dui-icon-size: var(--dui-step-tracker-node-icon-font-size);
     color: var(--dui-step-tracker-node-fg-color, var(--dui-color));
 }

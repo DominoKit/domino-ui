@@ -1,4 +1,5 @@
 .dui-card {
+    --dui-emphasis-color: var(--dui-bg, var(--dui-accent));
     display: flex;
     flex-direction: var(--dui-card-direction, column);
     min-height: var(--dui-card-min-height);
@@ -6,6 +7,22 @@
     margin: var(--dui-card-margin);
     border-radius: var(--dui-card-border-radius);
     background-color: var(--dui-card-background);
+    overflow: hidden;
+}
+
+.dui-card .dui-card {
+    background-color: var(--dui-card-nested-background);
+    --dui-card-content-footer-background: var(--dui-card-nested-content-footer-background);
+}
+
+.dui-card .dui-card .dui-card {
+    background-color: var(--dui-card-nested-2-background);
+    --dui-card-content-footer-background: var(--dui-card-nested-2-content-footer-background);
+}
+
+.dui-card .dui-card .dui-card .dui-card {
+    background-color: var(--dui-card-nested-3-background);
+    --dui-card-content-footer-background: var(--dui-card-nested-3-content-footer-background);
 }
 
 .dui-card-header-bottom {
@@ -16,7 +33,7 @@
 .dui-card-main-title,
 .dui-card-description,
 .dui-card-header .dui.mdi:not(:hover) {
-    color: var(--dui-fg-clr, inherit);
+    color: var(--dui-card-header-color, var(--dui-fg-clr, inherit));
 }
 
 .dui-card-header {
@@ -24,6 +41,7 @@
     flex-direction: var(--dui-card-direction, column);
     padding: var(--dui-card-header-padding);
     position: relative;
+    background-color: var(--dui-card-header-background);
     border-width: var(--dui-card-head-border-width, var(--dui-card-header-border-width));
     border-style: var(--dui-card-header-border-style);
     border-color: var(--dui-bg-d-1, var(--dui-card-header-border-color));
@@ -40,10 +58,13 @@
 }
 
 .dui-card.dui-card-header-bottom .dui-card-header {
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
     border-bottom-left-radius: inherit;
     border-bottom-right-radius: inherit;
 }
 .dui-card.dui-collapsed .dui-card-header {
+    --dui-card-head-border-width: var(--dui-card-collapsed-header-border-width, 0);
     border-radius: inherit;
 }
 
@@ -63,7 +84,7 @@
 .dui-card-main-title {
     margin: var(--dui-card-header-title-margin);
     font: var(--dui-card-header-title-font);
-    color: var(--dui-fg-d-4);
+    color: var(--dui-card-header-title-color, var(--dui-fg-d-4));
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
@@ -115,8 +136,42 @@
     display: none;
 }
 
+.dui-card-content {
+    order: 20;
+    display: flex;
+    flex: 1 1 auto;
+    flex-direction: column;
+    min-height: 0;
+    background-color: inherit;
+}
+
+.dui-card-content-header,
+.dui-card-content-footer {
+    flex: 0 0 auto;
+    padding: 0;
+    margin: 0;
+}
+
+.dui-card-content-footer {
+    background-color: var(--dui-card-content-footer-background);
+}
+
+.dui-card-content-header {
+    order: 10;
+}
+
+.dui-card-content-footer {
+    order: 30;
+}
+
+.dui-card-content-header:empty,
+.dui-card-content-footer:empty {
+    display: none;
+}
+
 .dui-card-body {
     order: 20;
+    flex: 1 1 auto;
     font: var(--dui-card-body-font);
     padding: var(--dui-card-body-padding);
     background-color: inherit;
@@ -130,5 +185,6 @@
 .dui-card.dui-card-header-bottom .dui-card-body {
     border-top-left-radius: inherit;
     border-top-right-radius: inherit;
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
 }
-

@@ -1,0 +1,26 @@
+body.dui,
+body.dui * {
+    scrollbar-width: var(--dui-scrollbar-width);
+    scrollbar-color: var(--dui-scrollbar-color);
+}
+
+body.dui *::-webkit-scrollbar {
+    width: var(--dui-scrollbar-size);
+    height: var(--dui-scrollbar-size);
+}
+
+body.dui *::-webkit-scrollbar-track {
+    background: var(--dui-scrollbar-track-background);
+}
+
+body.dui *::-webkit-scrollbar-thumb {
+    background: var(--dui-scrollbar-thumb-background);
+    border: var(--dui-scrollbar-thumb-border);
+    border-radius: var(--dui-scrollbar-thumb-radius);
+    background-clip: var(--dui-scrollbar-thumb-background-clip);
+}
+
+body.dui *::-webkit-scrollbar-thumb:hover {
+    background: var(--dui-scrollbar-thumb-hover-background);
+    background-clip: var(--dui-scrollbar-thumb-background-clip);
+}

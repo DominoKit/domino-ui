@@ -53,7 +53,7 @@ public class CalendarMonth extends BaseDominoElement<HTMLDivElement, CalendarMon
     this.calendar = calendar;
     this.calendar.bindCalenderViewListener(this);
     this.date = this.calendar.getDate();
-    this.root = div().addCss(dui_calendar_month);
+    this.root = div().addCss(dui_calendar_month).setAttribute("role", "grid");
     init(this);
     setDate(this.date);
   }
@@ -116,6 +116,7 @@ public class CalendarMonth extends BaseDominoElement<HTMLDivElement, CalendarMon
       this.root.appendChild(
           div()
               .addCss(dui_month_days_row)
+              .setAttribute("role", "row")
               .apply(
                   daysRow -> {
                     for (int day = 0; day < 7; day++) {

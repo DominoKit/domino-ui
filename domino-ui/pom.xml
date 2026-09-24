@@ -6,13 +6,21 @@
     <parent>
         <groupId>org.dominokit</groupId>
         <artifactId>domino-ui-parent</artifactId>
-        <version>2.1.1</version>
+        <version>2.1.2</version>
     </parent>
 
     <artifactId>domino-ui</artifactId>
     <packaging>gwt-lib</packaging>
 
     <name>domino-ui</name>
+    <properties>
+        <domino-slf4j-logger.version>2.0.1</domino-slf4j-logger.version>
+        <slf4j-api.version>2.0.16</slf4j-api.version>
+        <maven.antrun.plugin>3.1.0</maven.antrun.plugin>
+        <maven.resources.plugin>3.3.1</maven.resources.plugin>
+        <maven.surefire.plugin>3.2.5</maven.surefire.plugin>
+        <ph.csscompress.maven.plugin>7.1.0</ph.csscompress.maven.plugin>
+    </properties>
 
     <dependencyManagement>
         <dependencies>
@@ -149,7 +157,12 @@
         <dependency>
             <groupId>org.dominokit</groupId>
             <artifactId>domino-slf4j-logger</artifactId>
-            <version>1.0.2</version>
+            <version>${domino-slf4j-logger.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+            <version>${slf4j-api.version}</version>
         </dependency>
         <dependency>
             <groupId>org.dominokit</groupId>
@@ -187,40 +200,133 @@
             </plugin>
 
             <plugin>
-                <groupId>com.samaxes.maven</groupId>
-                <artifactId>minify-maven-plugin</artifactId>
-                <version>1.7.6</version>
+                <artifactId>maven-antrun-plugin</artifactId>
+                <version>${maven.antrun.plugin}</version>
                 <executions>
                     <execution>
-                        <id>default-minify</id>
-                        <phase>prepare-package</phase>
+                        <id>prepare-css-minification</id>
+                        <phase>process-test-classes</phase>
                         <configuration>
-                            <charset>UTF-8</charset>
-                            <cssIncludes>
-                                <cssInclude>**/*.css</cssInclude>
-                            </cssIncludes>
+                            <target>
+                                <delete file="${project.build.outputDirectory}/org/dominokit/domino/ui/public/css/domino-ui/dui-components/domino-ui-waitMe.css"/>
+                                <delete file="${project.build.outputDirectory}/org/dominokit/domino/ui/public/css/domino-ui/dui-components/domino-ui-waitMe.min.css"/>
+                                <concat destfile="${project.build.outputDirectory}/org/dominokit/domino/ui/public/css/domino-ui/domino-ui.css"
+                                        encoding="UTF-8" fixlastline="true">
+                                    <sort>
+                                        <fileset dir="${project.build.outputDirectory}/org/dominokit/domino/ui/public/css/domino-ui/dui-components"
+                                                 includes="**/*.css" excludes="**/*.min.css"/>
+                                    </sort>
+                                </concat>
+                                <concat destfile="${project.build.outputDirectory}/org/dominokit/domino/ui/public/css/domino-ui/themes/domino-ui-themes.css"
+                                        encoding="UTF-8" fixlastline="true">
+                                    <sort>
+                                        <fileset dir="${project.build.outputDirectory}/org/dominokit/domino/ui/public/css/domino-ui/themes"
+                                                 includes="**/*.css"
+                                                 excludes="domino-ui-themes.css,**/*.min.css"/>
+                                    </sort>
+                                </concat>
+                                <concat destfile="${project.build.outputDirectory}/org/dominokit/domino/ui/public/css/domino-ui/domino-ui-css-all.css"
+                                        encoding="UTF-8" fixlastline="true">
+                                    <filelist dir="${project.build.outputDirectory}/org/dominokit/domino/ui/public/css/domino-ui"
+                                              files="domino-ui.css,themes/domino-ui-themes.css,domino-ui-fonts-modern.css"/>
+                                </concat>
 
-                            <cssExcludes>
-                                <cssExclude>domino-ui.css</cssExclude>
-                                <cssExclude>loaders/domino-ui-waitMe.css</cssExclude>
-                                <cssExclude>**/*.min.css</cssExclude>
-                            </cssExcludes>
-
-                            <webappSourceDir>${build.directory}/classes</webappSourceDir>
-                            <webappTargetDir>${build.directory}</webappTargetDir>
-                            <cssTargetDir>/classes/org/dominokit/domino/ui/public/css/domino-ui</cssTargetDir>
-
-                            <cssSourceDir>/org/dominokit/domino/ui/public/css/domino-ui/dui-components</cssSourceDir>
-
-                            <cssFinalFile>domino-ui.css</cssFinalFile>
-
-                            <cssEngine>YUI</cssEngine>
-                            <skipMinify>true</skipMinify>
-
+                                <delete dir="${project.build.directory}/css-minification-input"/>
+                                <delete dir="${project.build.directory}/css-minification-output"/>
+                                <mkdir dir="${project.build.directory}/css-minification-input"/>
+                                <copy todir="${project.build.directory}/css-minification-input">
+                                    <fileset dir="${project.build.outputDirectory}/org/dominokit/domino/ui/public/css/domino-ui">
+                                        <include name="domino-ui.css"/>
+                                        <include name="domino-ui-css-all.css"/>
+                                        <include name="domino-ui-fonts-modern.css"/>
+                                        <include name="dui-components/**/domino-ui-*.css"/>
+                                        <include name="themes/domino-ui-themes.css"/>
+                                        <include name="themes/**/domino-ui-theme-*.css"/>
+                                        <exclude name="**/*.min.css"/>
+                                    </fileset>
+                                </copy>
+                            </target>
                         </configuration>
                         <goals>
-                            <goal>minify</goal>
+                            <goal>run</goal>
                         </goals>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <plugin>
+                <groupId>com.helger.maven</groupId>
+                <artifactId>ph-csscompress-maven-plugin</artifactId>
+                <version>${ph.csscompress.maven.plugin}</version>
+                <executions>
+                    <execution>
+                        <id>compress-domino-ui-css</id>
+                        <phase>process-test-classes</phase>
+                        <goals>
+                            <goal>csscompress</goal>
+                        </goals>
+                        <configuration>
+                            <sourceDirectory>${project.build.directory}/css-minification-input</sourceDirectory>
+                            <targetDirectory>${project.build.directory}/css-minification-output</targetDirectory>
+                            <recursive>true</recursive>
+                            <forceCompress>true</forceCompress>
+                            <sourceEncoding>UTF-8</sourceEncoding>
+                            <targetEncoding>UTF-8</targetEncoding>
+                            <targetFileExtension>.min.css</targetFileExtension>
+                            <browserCompliantMode>true</browserCompliantMode>
+                            <removeUnnecessaryCode>true</removeUnnecessaryCode>
+                            <writeFontFaceRules>true</writeFontFaceRules>
+                            <writeKeyframesRules>true</writeKeyframesRules>
+                            <writeMediaRules>true</writeMediaRules>
+                            <writeSupportsRules>true</writeSupportsRules>
+                            <writeUnknownRules>true</writeUnknownRules>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <plugin>
+                <artifactId>maven-resources-plugin</artifactId>
+                <version>${maven.resources.plugin}</version>
+                <executions>
+                    <execution>
+                        <id>copy-minified-css-resources</id>
+                        <phase>process-test-classes</phase>
+                        <goals>
+                            <goal>copy-resources</goal>
+                        </goals>
+                        <configuration>
+                            <outputDirectory>${project.build.outputDirectory}/org/dominokit/domino/ui/public/css/domino-ui</outputDirectory>
+                            <resources>
+                                <resource>
+                                    <directory>${project.build.directory}/css-minification-output</directory>
+                                    <filtering>false</filtering>
+                                    <includes>
+                                        <include>**/*.min.css</include>
+                                    </includes>
+                                </resource>
+                            </resources>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <plugin>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>${maven.surefire.plugin}</version>
+                <executions>
+                    <execution>
+                        <id>verify-minified-css-package-contract</id>
+                        <phase>verify</phase>
+                        <goals>
+                            <goal>test</goal>
+                        </goals>
+                        <configuration>
+                            <includes>
+                                <include>**/CssMinificationPackageContract.java</include>
+                            </includes>
+                            <failIfNoTests>true</failIfNoTests>
+                        </configuration>
                     </execution>
                 </executions>
             </plugin>

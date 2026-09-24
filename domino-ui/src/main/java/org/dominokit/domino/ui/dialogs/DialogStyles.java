@@ -59,6 +59,15 @@ public interface DialogStyles {
   /** Constant <code>dui_dialog_nav</code> */
   CssClass dui_dialog_nav = () -> "dui-dialog-nav";
 
+  /** Scoped size styling for the header navigation bar of standard dialogs. */
+  CssClass dui_standard_dialog_nav = () -> "dui-standard-dialog-nav";
+
+  /** Applies the shared minimum width for a standard dialog action. */
+  CssClass dui_dialog_action = () -> "dui-dialog-action";
+
+  /** Styles a standard dialog's secondary action as a link-style button. */
+  CssClass dui_dialog_secondary_action = () -> "dui-dialog-secondary-action";
+
   /** Constant <code>dui_window</code> */
   CssClass dui_window = () -> "dui-window";
 

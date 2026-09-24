@@ -174,8 +174,11 @@ public abstract class TreeNode<V, N extends TreeNode<V, N, S>, S>
                 anchorElement =
                     a().removeHref()
                         .addCss(dui_tree_anchor)
+                        .setAttribute("role", "treeitem")
+                        .setAttribute("aria-selected", false)
                         .appendChild(contentElement = div().addCss(dui_tree_item_content)))
-            .appendChild(subTree = ul().addCss(dui_tree_nav).setHeight("0px"));
+            .appendChild(
+                subTree = ul().addCss(dui_tree_nav).setHeight("0px").setAttribute("role", "group"));
     this.textElement = LazyChild.of(span().addCss(dui_tree_item_text), contentElement);
     init((N) this);
 
@@ -199,6 +202,7 @@ public abstract class TreeNode<V, N extends TreeNode<V, N, S>, S>
     addExpandListener(
         () -> {
           transitionInProgress = false;
+          anchorElement.setAttribute("aria-expanded", true);
           if (nonNull(parent)) {
             getRootNode().onNodeTransitionCompleted();
           }
@@ -206,6 +210,7 @@ public abstract class TreeNode<V, N extends TreeNode<V, N, S>, S>
     addCollapseListener(
         () -> {
           transitionInProgress = false;
+          anchorElement.setAttribute("aria-expanded", false);
           if (nonNull(parent)) {
             getRootNode().onNodeTransitionCompleted();
           }
@@ -301,6 +306,32 @@ public abstract class TreeNode<V, N extends TreeNode<V, N, S>, S>
           updateIcon(false);
         });
     anchorElement.addClickListener(anchorListener);
+    anchorElement.onKeyDown(
+        keyEvents ->
+            keyEvents
+                .onEnter(evt -> anchorElement.element().click())
+                .onSpace(evt -> anchorElement.element().click())
+                .onArrowRight(
+                    evt -> {
+                      if (isParent() && isCollapsed()) {
+                        evt.preventDefault();
+                        show(false);
+                      }
+                    })
+                .onArrowLeft(
+                    evt -> {
+                      if (isParent() && isExpanded()) {
+                        evt.preventDefault();
+                        hide(false);
+                      } else {
+                        getParent()
+                            .ifPresent(
+                                itemParent -> {
+                                  evt.preventDefault();
+                                  ((TreeNode<?, ?, ?>) itemParent).getClickableElement().focus();
+                                });
+                      }
+                    }));
     applyWaves();
   }
 
@@ -348,6 +379,7 @@ public abstract class TreeNode<V, N extends TreeNode<V, N, S>, S>
    */
   public void deactivate() {
     dui_active.remove(this);
+    anchorElement.setAttribute("aria-selected", false);
     if (isParent()) {
       subNodes.forEach(TreeNode::deactivate);
       if (getRootNode().isAutoCollapse()) {
@@ -381,6 +413,9 @@ public abstract class TreeNode<V, N extends TreeNode<V, N, S>, S>
     this.subNodes.add(node);
     subTree.appendChild(node);
     node.parent = this;
+    anchorElement
+        .setAttribute("aria-expanded", isExpanded())
+        .setAttribute("aria-controls", subTree.getDominoId());
     node.setToggleTarget(this.toggleTarget);
     updateIcon(isCollapsed());
     getParent()
@@ -602,6 +637,7 @@ public abstract class TreeNode<V, N extends TreeNode<V, N, S>, S>
    */
   protected void doActivate(boolean activateParent) {
     addCss(dui_active);
+    anchorElement.setAttribute("aria-selected", true);
     if (activateParent) {
       getParent().ifPresent(parent -> parent.setActiveNode((N) this));
     }

@@ -111,6 +111,7 @@ public class Window extends AbstractDialog<Window> {
         Icons.window_restore()
             .addCss(dui_order_last_1)
             .clickable()
+            .setAttribute("aria-label", "Restore window")
             .addClickListener(
                 evt -> {
                   evt.stopPropagation();
@@ -121,6 +122,7 @@ public class Window extends AbstractDialog<Window> {
         Icons.window_maximize()
             .addCss(dui_order_last_1)
             .clickable()
+            .setAttribute("aria-label", "Maximize window")
             .addClickListener(
                 evt -> {
                   evt.stopPropagation();
@@ -130,6 +132,7 @@ public class Window extends AbstractDialog<Window> {
         Icons.close()
             .addCss(dui_order_last_4)
             .clickable()
+            .setAttribute("aria-label", "Close window")
             .addClickListener(
                 evt -> {
                   evt.stopPropagation();

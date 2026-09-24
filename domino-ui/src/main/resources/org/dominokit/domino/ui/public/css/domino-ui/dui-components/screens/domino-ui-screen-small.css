@@ -3,7 +3,7 @@
         --dui-dialog-xsamll-width: 75%;
     }
 
-    .dui-dialog.dui-h-xs {
+    .dui-dialog.dui-h-xs:not(.dui-horizontal-sheet) {
         --dui-dialog-xsmall-height: 75%;
     }
 
@@ -11,15 +11,15 @@
         --dui-dialog-samll-width: 75%;
     }
 
-    .dui-dialog.dui-h-sm {
+    .dui-dialog.dui-h-sm:not(.dui-horizontal-sheet) {
         --dui-dialog-small-height: 75%;
     }
 
     .dui-dialog.dui-w-md {
-        --dui-dialog-medium-width: 75;
+        --dui-dialog-medium-width: 75%;
     }
 
-    .dui-dialog.dui-h-md {
+    .dui-dialog.dui-h-md:not(.dui-horizontal-sheet) {
         --dui-dialog-medium-height: 75%;
     }
 
@@ -27,7 +27,7 @@
         --dui-dialog-large-width: 75%;
     }
 
-    .dui-dialog.dui-h-lg {
+    .dui-dialog.dui-h-lg:not(.dui-horizontal-sheet) {
         --dui-dialog-large-height: 75%;
     }
 
@@ -35,15 +35,7 @@
         --dui-dialog-xlarge-width: 95%;
     }
 
-    .dui-dialog.dui-h-xl {
-        --dui-dialog-xlarge-height: 75%;
-    }
-
-    .dui-dialog.dui-w-xl {
-        --dui-dialog-xlarge-width: 95%;
-    }
-
-    .dui-dialog.dui-h-xl {
+    .dui-dialog.dui-h-xl:not(.dui-horizontal-sheet) {
         --dui-dialog-xlarge-height: 75%;
     }
 

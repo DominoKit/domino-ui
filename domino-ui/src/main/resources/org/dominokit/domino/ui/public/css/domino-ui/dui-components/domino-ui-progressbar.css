@@ -25,6 +25,8 @@
 }
 
 .dui-progress {
+    --dui-emphasis-color: var(--dui-bg, var(--dui-progress-background));
+    --dui-emphasis-native-box-shadow: var(--dui-progress-box-shadow);
     height: var(--dui-progress-hight);
     margin: var(--dui-progress-margin);
     overflow: hidden;
@@ -34,18 +36,27 @@
 }
 
 .dui-progress-bar {
-    line-height: var(--dui-progress-bar-line-hight);
+    --dui-emphasis-color: var(--dui-bg, var(--dui-accent));
+    --dui-emphasis-text-color: var(--dui-progress-bar-color);
+    --dui-emphasis-native-box-shadow: var(--dui-progress-bar-box-shadow);
+    display: var(--dui-progress-bar-display);
+    align-items: var(--dui-progress-bar-align-items);
+    line-height: var(--dui-progress-bar-line-height);
     box-shadow: var(--dui-progress-bar-box-shadow);
     float: var(--dui-progress-bar-float);
     width: 0;
     height: 100%;
     font: var(--dui-progress-bar-font);
-    line-height: var(--dui-progress-bar-line-hight);
     color: var(--dui-progress-bar-color);
     text-align: var(--dui-progress-bar-text-align);
     transition: width 500ms ease;
     background-color: var(--dui-accent);
     overflow: visible;
+}
+
+.dui-progress-bar.dui-ctx {
+    --dui-emphasis-text-color: var(--dui-context-fg-color, var(--dui-progress-bar-color));
+    color: var(--dui-context-fg-color, var(--dui-progress-bar-color));
 }
 
 .dui-progress-bar:first-child {
@@ -70,6 +81,7 @@
 }
 
 .dui-progress-text-blind {
-    filter: grayscale(17%) invert(80%);
-    mix-blend-mode: multiply;
+    color: var(--dui-progress-text-overflow-color);
+    filter: none;
+    mix-blend-mode: normal;
 }

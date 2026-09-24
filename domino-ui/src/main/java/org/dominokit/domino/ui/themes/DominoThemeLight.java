@@ -62,7 +62,7 @@ public class DominoThemeLight implements IsDominoTheme {
    */
   @Override
   public String getCategory() {
-    return "dui-dark-mode";
+    return DominoThemeCategories.COLOR_MODE;
   }
 
   /**

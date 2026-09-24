@@ -112,6 +112,11 @@
     text-decoration: var(--dui-pagination-link-text-decoration);
 }
 
+.dui-navigator-nav {
+    margin-left: var(--dui-navigator-nav-margin);
+    margin-right: var(--dui-navigator-nav-margin);
+}
+
 
 .dui-navigator-nav:hover,
 .dui-navigator-nav:focus {

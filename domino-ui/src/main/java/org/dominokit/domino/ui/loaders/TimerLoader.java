@@ -39,23 +39,28 @@ import org.dominokit.domino.ui.utils.DominoElement;
  */
 public class TimerLoader extends BaseLoader<TimerLoader> implements IsElement<HTMLDivElement> {
 
-  private final DivElement progress1 = div().addCss(wait_me_progress_elem_1, dui_loader_darker);
-  private final DivElement progress2 = div().addCss(wait_me_progress_elem_2, dui_loader_darker);
+  private final DivElement progress1 =
+      div().addCss(dui_waitme_progress_element_1, dui_loader_darker);
+  private final DivElement progress2 =
+      div().addCss(dui_waitme_progress_element_2, dui_loader_darker);
 
   private final DivElement loader =
       div()
-          .addCss(wait_me_progress, timer, dui_loader_border_darker)
+          .addCss(dui_waitme_progress, dui_waitme_timer, dui_loader_border_darker)
           .appendChild(progress1)
           .appendChild(progress2);
 
   private final DivElement content =
       div()
-          .addCss(wait_me_content, dui_vertical_center)
+          .addCss(dui_waitme_content, dui_vertical_center)
           .appendChild(loader)
           .appendChild(loadingText);
 
   private final DivElement element =
-      div().addCss(wait_me).style("background: var(--dui-loader-background);").appendChild(content);
+      div()
+          .addCss(dui_waitme)
+          .style("background: var(--dui-loader-background);")
+          .appendChild(content);
 
   /** Initializes a new instance of the {@code TimerLoader} class. */
   public TimerLoader() {

@@ -87,6 +87,7 @@ public class UploadBox extends InputFormField<UploadBox, HTMLInputElement, List<
         PrimaryAddOn.of(
             Icons.upload()
                 .clickable()
+                .setAttribute("aria-label", "Choose file")
                 .addClickListener(evt -> getInputElement().element().click())));
     withWrapper(
         (parent, wrapper) ->

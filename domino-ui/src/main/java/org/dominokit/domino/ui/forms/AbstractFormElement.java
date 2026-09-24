@@ -359,6 +359,7 @@ public abstract class AbstractFormElement<T extends AbstractFormElement<T, V>, V
   @Override
   public T setHelperText(String helperText) {
     helperTextElement.get().setTextContent(helperText);
+    updateInputAccessibility();
     return (T) this;
   }
 
@@ -485,6 +486,7 @@ public abstract class AbstractFormElement<T extends AbstractFormElement<T, V>, V
     if (!errorMessages.isEmpty()) {
       formElement.addCss(dui_field_invalid);
     }
+    updateInputAccessibility();
 
     return (T) this;
   }
@@ -496,6 +498,27 @@ public abstract class AbstractFormElement<T extends AbstractFormElement<T, V>, V
         .querySelectorAll("." + dui_field_error.getCssClass())
         .forEach(BaseDominoElement::remove);
     dui_field_invalid.remove(this);
+    updateInputAccessibility();
+  }
+
+  /** Updates the native input's validation relationship without changing the visual field state. */
+  protected void updateInputAccessibility() {
+    if (this instanceof HasInputElement) {
+      HasInputElement<?, ?> inputField = (HasInputElement<?, ?>) this;
+      DominoElement<?> input = inputField.getInputElement();
+      boolean invalid = !errors.isEmpty();
+      input.setAttribute("aria-invalid", invalid);
+      if (required) {
+        input.setAttribute("aria-required", true);
+      } else {
+        input.removeAttribute("aria-required");
+      }
+      if (invalid || !getHelperText().isEmpty()) {
+        input.setAttribute("aria-describedby", messagesWrapper.element().getDominoId());
+      } else {
+        input.removeAttribute("aria-describedby");
+      }
+    }
   }
 
   /**
@@ -530,6 +553,7 @@ public abstract class AbstractFormElement<T extends AbstractFormElement<T, V>, V
     this.required = required;
     getRequiredElement().initOrRemove(isRequired() && isShowRequiredIndicator());
     addOrRemoveValidator(requiredValidator, required);
+    updateInputAccessibility();
     return (T) this;
   }
 

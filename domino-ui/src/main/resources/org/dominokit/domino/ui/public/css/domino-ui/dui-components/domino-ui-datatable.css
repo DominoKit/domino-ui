@@ -32,11 +32,17 @@
 }
 
 .dui-datatable-thead {
-    background-color: var(--dui-bg, var(--dui-clr-dominant));
+    background-color: var(--dui-datatable-header-background);
+    color: var(--dui-datatable-header-color);
 }
 
 .dui-datatable-thead .dui-datatable-row{
-    background-color: var(--dui-bg, var(--dui-clr-dominant));
+    background-color: var(--dui-datatable-header-background);
+}
+
+/* Table header-group borders are not painted consistently by browsers. */
+.dui-datatable-thead > .dui-datatable-row:last-child > .dui-datatable-th {
+    border-bottom: var(--dui-datatable-header-border);
 }
 
 .dui-datatable-tfoot {
@@ -46,7 +52,7 @@
 }
 
 .dui-datatable-tfoot .dui-datatable-row:first-child .dui-datatable-td {
-    border-top: 1px solid var(--dui-accent-l-4);
+    border-top: 1px solid var(--dui-datatable-border-color);
 }
 
 .dui-datatable-auto .dui-datatable-thead,
@@ -56,46 +62,90 @@
     z-index: 1;
 }
 
-.dui-datatable-hover tbody .dui-datatable-row:not(.dui-datatable-row-editable):hover,
-.dui-datatable-hover tbody .dui-datatable-row:nth-child(odd):not(.dui-datatable-row-editable):hover,
-.dui-datatable-hover tbody .dui-datatable-row:nth-child(even):not(.dui-datatable-row-editable):hover {
-    background-color: var(--dui-datatable-row-hover-bg-color);
+.dui-datatable-responsive > .dui-datatable > tbody > .dui-datatable-row {
+    background-color: var(--dui-datatable-row-background);
 }
 
-.dui-datatable-hover tbody .dui-datatable-row.dui-datatable-row-selected:not(.dui-datatable-row-editable):hover,
-.dui-datatable-hover tbody .dui-datatable-row.dui-datatable-row-selected:nth-child(odd):not(.dui-datatable-row-editable):hover,
-.dui-datatable-hover tbody .dui-datatable-row.dui-datatable-row-selected:nth-child(even):not(.dui-datatable-row-editable):hover {
-    background-color: var(--dui-datatable-row-selected-hover-bg-color);
+.dui-datatable-striped > .dui-datatable > tbody > .dui-datatable-row:nth-child(even):not(.dui-odd):not(.dui-even) {
+    background-color: var(--dui-datatable-row-striped-background);
 }
 
-.dui-datatable-row.dui-context-menu-target-open:not(.dui-datatable-row-editable),
-.dui-datatable-row.dui-context-menu-target-open:nth-child(odd):not(.dui-datatable-row-editable),
-.dui-datatable-row.dui-context-menu-target-open:nth-child(even):not(.dui-datatable-row-editable) {
-    background-color: var(--dui-datatable-row-hover-bg-color);
+.dui-datatable-striped > .dui-datatable > tbody > .dui-datatable-row:nth-child(odd):not(.dui-odd):not(.dui-even) {
+    background-color: var(--dui-datatable-row-background);
 }
 
-.dui-datatable-responsive:not(.dui-datatable-striped) tbody .dui-datatable-row {
-    background-color:var(--dui-bg-clr, var(--dui-bg, var(--dui-clr-dominant)));
+.dui-datatable-striped > .dui-datatable > tbody > .dui-datatable-row.dui-even {
+    background-color: var(--dui-datatable-row-striped-background);
 }
 
-.dui-datatable-responsive:not(.dui-datatable-striped) tbody .dui-datatable-row.dui-datatable-row-selected{
-    background-color: var(--dui-datatable-even-bg-color);
+.dui-datatable-striped > .dui-datatable > tbody > .dui-datatable-row.dui-odd {
+    background-color: var(--dui-datatable-row-background);
 }
 
-.dui-datatable-striped tbody .dui-datatable-row:nth-child(even):not(.dui-odd):not(.dui-even) {
-    background-color: var(--dui-datatable-even-bg-color);
+/* Row states are deliberately declared after stripe rules so their precedence is explicit. */
+.dui-datatable-responsive > .dui-datatable > tbody > .dui-datatable-row.dui-datatable-row-highlighted {
+    background-color: var(--dui-datatable-row-highlight-background);
+    color: var(--dui-datatable-row-highlight-color);
 }
 
-.dui-datatable-striped tbody .dui-datatable-row:nth-child(odd):not(.dui-odd):not(.dui-even) {
-    background-color: var(--dui-datatable-odd-bg-color);
+.dui-datatable-responsive > .dui-datatable > tbody > .dui-datatable-row.dui-datatable-row-selected {
+    background-color: var(--dui-datatable-row-selected-background);
 }
 
-.dui-datatable-striped tbody .dui-datatable-row.dui-even {
-    background-color: var(--dui-datatable-even-bg-color);
+.dui-datatable-hover > .dui-datatable > tbody > .dui-datatable-row:not(.dui-datatable-row-editable):hover {
+    background-color: var(--dui-datatable-row-hover-background);
+    color: var(--dui-datatable-row-hover-color, inherit);
 }
 
-.dui-datatable-striped tbody .dui-datatable-row.dui-odd {
-    background-color: var(--dui-datatable-odd-bg-color);
+.dui-datatable-hover > .dui-datatable > tbody > .dui-datatable-row.dui-datatable-row-selected:not(.dui-datatable-row-editable):hover {
+    background-color: var(--dui-datatable-row-selected-hover-background);
+    color: var(--dui-datatable-row-selected-hover-color, var(--dui-datatable-row-hover-color, inherit));
+}
+
+.dui-datatable-hover > .dui-datatable > tbody > .dui-datatable-row.dui-context-menu-target-open:not(.dui-datatable-row-editable):hover,
+.dui-datatable-responsive > .dui-datatable > tbody > .dui-datatable-row.dui-context-menu-target-open:not(.dui-datatable-row-editable) {
+    background-color: var(--dui-datatable-row-context-background);
+}
+
+/* Record details are a separate visual surface, independent of striping and row state. */
+.dui-datatable-responsive > .dui-datatable > tbody > .dui-datatable-row.dui-datatable-details-tr {
+    background-color: var(--dui-datatable-row-details-background);
+}
+
+.dui-datatable-row.dui-datatable-row-selected .dui-datatable-td:first-child {
+    position: relative;
+}
+
+.dui-datatable-row.dui-datatable-row-selected .dui-datatable-td:first-child::before {
+    content: "";
+    position: absolute;
+    inset-block: 0;
+    inset-inline-start: 0;
+    width: var(--dui-datatable-row-selected-indicator-width);
+    background-color: var(--dui-datatable-row-selected-indicator-color);
+    pointer-events: none;
+}
+
+.dui-datatable-responsive > .dui-datatable > tbody > .dui-datatable-row:not(.dui-datatable-details-tr):focus-visible,
+.dui-datatable-responsive > .dui-datatable > tbody > .dui-datatable-row:not(.dui-datatable-details-tr):focus-within {
+    background-color: var(--dui-datatable-row-focus-background);
+}
+
+/* Keep the source row visually active while its record details are open. */
+.dui-datatable-responsive > .dui-datatable > tbody > .dui-datatable-row.dui-datatable-row-details-open {
+    background-color: var(--dui-datatable-row-details-open-background);
+    color: var(--dui-datatable-row-details-open-color);
+}
+
+.dui-datatable-responsive > .dui-datatable > tbody > .dui-datatable-row.dui-datatable-row-details-open.dui-datatable-row-selected {
+    background-color: var(--dui-datatable-row-details-open-background);
+    color: var(--dui-datatable-row-details-open-color);
+}
+
+/* Apply column striping as an overlay so row, stripe, hover, focus, and selection surfaces remain visible. */
+.dui-datatable-column-striped.dui-datatable-column-stripe-columns > .dui-datatable > * > .dui-datatable-row > .dui-datatable-column-stripe-columns-alt,
+.dui-datatable-column-striped.dui-datatable-column-stripe-groups > .dui-datatable > * > .dui-datatable-row > .dui-datatable-column-stripe-groups-alt {
+    background-image: linear-gradient(var(--dui-datatable-column-stripe-background), var(--dui-datatable-column-stripe-background));
 }
 
 .dui-datatable-width-full {
@@ -103,37 +153,42 @@
     max-width: 100%;
 }
 
-.dui-datatable-row:not(:last-child) .dui-datatable-td {
-    border-bottom: var(--dui-datatable-border);
-}
-
-.dui-datatable-thead .dui-datatable-th {
-    border-bottom: var(--dui-datatable-border);
-}
-
-.dui-datatable-bordered .dui-datatable:not(:first-child) {
+.dui-datatable-bordered:not(.dui-datatable-border-table):not(.dui-datatable-border-rows):not(.dui-datatable-border-columns):not(.dui-datatable-border-column-groups):not(.dui-datatable-border-sections) > .dui-datatable:not(:first-child),
+.dui-datatable-bordered.dui-datatable-border-table > .dui-datatable:not(:first-child),
+.dui-datatable-bordered.dui-datatable-border-sections > .dui-datatable:not(:first-child) {
     border-top: var(--dui-datatable-border);
 }
 
-.dui-datatable-bordered {
+.dui-datatable-bordered:not(.dui-datatable-border-rows):not(.dui-datatable-border-columns):not(.dui-datatable-border-column-groups),
+.dui-datatable-bordered.dui-datatable-border-table,
+.dui-datatable-bordered.dui-datatable-border-sections {
     border: var(--dui-datatable-border);
 }
 
-.dui-datatable-bordered.dui-datatable-fixed .dui-datatable-th,
-.dui-datatable-bordered.dui-datatable-fixed .dui-datatable-td,
-.dui-datatable-bordered .dui-datatable-th:not(:last-child),
-.dui-datatable-bordered .dui-datatable-td:not(:last-child) {
+.dui-datatable-bordered:not(.dui-datatable-border-table):not(.dui-datatable-border-rows):not(.dui-datatable-border-columns):not(.dui-datatable-border-column-groups):not(.dui-datatable-border-sections).dui-datatable-fixed > .dui-datatable > * > .dui-datatable-row > .dui-datatable-th,
+.dui-datatable-bordered:not(.dui-datatable-border-table):not(.dui-datatable-border-rows):not(.dui-datatable-border-columns):not(.dui-datatable-border-column-groups):not(.dui-datatable-border-sections).dui-datatable-fixed > .dui-datatable > * > .dui-datatable-row > .dui-datatable-td,
+.dui-datatable-bordered:not(.dui-datatable-border-table):not(.dui-datatable-border-rows):not(.dui-datatable-border-columns):not(.dui-datatable-border-column-groups):not(.dui-datatable-border-sections) > .dui-datatable > * > .dui-datatable-row > .dui-datatable-th:not(:last-child),
+.dui-datatable-bordered:not(.dui-datatable-border-table):not(.dui-datatable-border-rows):not(.dui-datatable-border-columns):not(.dui-datatable-border-column-groups):not(.dui-datatable-border-sections) > .dui-datatable > * > .dui-datatable-row > .dui-datatable-td:not(:last-child),
+.dui-datatable-bordered.dui-datatable-border-columns.dui-datatable-fixed > .dui-datatable > * > .dui-datatable-row > .dui-datatable-th,
+.dui-datatable-bordered.dui-datatable-border-columns.dui-datatable-fixed > .dui-datatable > * > .dui-datatable-row > .dui-datatable-td,
+.dui-datatable-bordered.dui-datatable-border-columns > .dui-datatable > * > .dui-datatable-row > .dui-datatable-th:not(:last-child),
+.dui-datatable-bordered.dui-datatable-border-columns > .dui-datatable > * > .dui-datatable-row > .dui-datatable-td:not(:last-child) {
     border-right: var(--dui-datatable-border);
 }
 
-.dui-datatable-bordered .dui-datatable-thead .dui-column-group {
+.dui-datatable-bordered.dui-datatable-border-column-groups > .dui-datatable > * > .dui-datatable-row > .dui-datatable-column-group-end {
     border-right: var(--dui-datatable-border);
 }
 
-.dui-datatable-bordered.dui-datatable-fixed .dui-datatable-row:not(:last-child) .dui-datatable-th,
-.dui-datatable-bordered.dui-datatable-fixed .dui-datatable-row:not(:last-child) .dui-datatable-td,
-.dui-datatable-bordered .dui-datatable-row:not(:last-child) .dui-datatable-th,
-.dui-datatable-bordered .dui-datatable-row:not(:last-child) .dui-datatable-td {
+.dui-datatable-bordered.dui-datatable-border-sections > .dui-datatable > .dui-datatable-thead > .dui-datatable-row > .dui-datatable-th:not(:last-child),
+.dui-datatable-bordered.dui-datatable-border-sections > .dui-datatable > .dui-datatable-tfoot > .dui-datatable-row > .dui-datatable-td:not(:last-child) {
+    border-right: var(--dui-datatable-border);
+}
+
+.dui-datatable-bordered.dui-datatable-border-rows > .dui-datatable > * > .dui-datatable-row:not(:last-child) > .dui-datatable-th,
+.dui-datatable-bordered.dui-datatable-border-rows > .dui-datatable > * > .dui-datatable-row:not(:last-child) > .dui-datatable-td,
+.dui-datatable-bordered:not(.dui-datatable-border-table):not(.dui-datatable-border-rows):not(.dui-datatable-border-columns):not(.dui-datatable-border-column-groups):not(.dui-datatable-border-sections) > .dui-datatable > * > .dui-datatable-row:not(:last-child) > .dui-datatable-th,
+.dui-datatable-bordered:not(.dui-datatable-border-table):not(.dui-datatable-border-rows):not(.dui-datatable-border-columns):not(.dui-datatable-border-column-groups):not(.dui-datatable-border-sections) > .dui-datatable > * > .dui-datatable-row:not(:last-child) > .dui-datatable-td {
     border-bottom: var(--dui-datatable-border);
 }
 
@@ -144,6 +199,10 @@
     background-color: inherit;
 }
 
+.dui-datatable-td .dui-badge {
+    padding: var(--dui-datatable-cell-badge-padding);
+}
+
 .dui-datatable-condensed .dui-datatable-td {
     padding: var(--dui-datatable-cell-condenced-padding);
     --dui-datatable-cell-line-height: var(--dui-datatable-condenced-cell-line-height);
@@ -151,6 +210,7 @@
 
 .dui-datatable-th:hover {
     background-color: var(--dui-datatable-header-hover-bg-color);
+    color: var(--dui-datatable-header-hover-color);
 }
 
 .dui-datatable-row-marker .dui-datatable-row .dui-datatable-td:first-child,
@@ -165,17 +225,6 @@
     margin: var(--dui-datatable-navbar-margin);
 }
 
-.dui-datatable-row-selected.dui-datatable-row.dui-odd,
-.dui-datatable-row-selected.dui-datatable-row.dui-even {
-    --dui-datatable-even-bg-color: var(--dui-datatable-row-stripped-selected-bg-color);
-    --dui-datatable-odd-bg-color: var(--dui-datatable-row-stripped-selected-bg-color);
-}
-
-.dui-datatable-responsive:not(.dui-datatable-striped) tbody .dui-datatable-row-selected.dui-datatable-row {
-    --dui-datatable-even-bg-color: var(--dui-datatable-row-selected-bg-color);
-    --dui-datatable-odd-bg-color: var(--dui-datatable-row-selected-bg-color);
-}
-
 .dui-datatable-th-body {
     display: flex;
     width: 100%;
@@ -186,6 +235,7 @@
 .dui-datatable-th-title {
     flex-grow: 1;
     text-align: inherit;
+    font-weight: var(--dui-datatable-header-font-weight);
     order: 60;
     text-overflow: ellipsis;
     overflow: hidden;
@@ -228,15 +278,33 @@
 
 .dui-datatable-details-td {
     max-width: 200px;
+    background-color: var(--dui-datatable-row-details-background);
     border-bottom: 1px solid var(--dui-datatable-border-color);
 }
 
-.dui-datatable-responsive:not(.dui-datatable-bordered) .dui-datatable-details-td {
+.dui-datatable-responsive:not(.dui-datatable-bordered) > .dui-datatable > tbody > .dui-datatable-details-tr > .dui-datatable-details-td {
     border-top: 1px solid var(--dui-datatable-border-color);
 }
 
 .dui-datatable-row-editable .dui-form-field {
     margin-bottom: 0;
+}
+
+.dui-datatable-td .dui-field-input-wrapper {
+    background-color: var(--dui-datatable-cell-form-field-wrapper-background);
+}
+
+.dui-datatable-td .dui-form-checkbox .dui-field-input-wrapper {
+    background-color: inherit;
+}
+
+.dui-datatable-td .dui-form-checkbox .dui-checkbox-label:after {
+    background-color: var(--dui-datatable-cell-form-field-wrapper-background);
+}
+
+.dui-datatable-td .dui-field-input-hidden:checked + .dui-field-input .dui-checkbox-label:before,
+.dui-datatable-td .dui-field-input-hidden:indeterminate + .dui-field-input .dui-checkbox-label:before {
+    z-index: 1;
 }
 
 .dui-column-resizer {
@@ -266,7 +334,7 @@
     align-items: center;
     justify-content: center;
     width: 100%;
-    border: 1px dashed var(--dui-accent-l-4);
+    border: 1px dashed var(--dui-datatable-border-color);
     min-height: 50px;
     padding: 8px;
     margin-top: 4px;
@@ -286,12 +354,6 @@
     position: sticky;
     top: 0;
     z-index: 1;
-}
-
-.dui-datatable-responsive.dui-datatable-row-highlight .dui-datatable-row-highlighted {
-    --dui-datatable-even-bg-color: var(--dui-datatable-row-highlight-bg-color, var(--dui-accent-l-3));
-    --dui-datatable-odd-bg-color: var(--dui-datatable-row-highlight-bg-color, var(--dui-accent-l-3));
-    --dui-bg-clr: var(--dui-datatable-row-highlight-bg-color, var(--dui-accent-l-3));
 }
 
 .dui-table-selection-disabled .dui.dui-table-selection-indicator,

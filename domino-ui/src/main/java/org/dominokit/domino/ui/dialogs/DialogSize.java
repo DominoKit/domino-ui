@@ -57,7 +57,10 @@ public enum DialogSize implements IsDialogSize {
   VERY_LARGE(dui_w_xlarge, dui_h_xlarge),
 
   /** Fill the entire screen. */
-  FULL(dui_w_full, dui_h_full);
+  FULL(dui_w_full, dui_h_full),
+
+  /** No dialog size class. */
+  NONE(CssClass.NONE, CssClass.NONE);
 
   private CssClass widthStyle;
   private CssClass heightStyle;

@@ -113,7 +113,7 @@ public class Calendar extends BaseDominoElement<HTMLDivElement, Calendar>
     this.dateTimeFormatInfo = dateTimeFormatInfo;
     this.config = config;
 
-    this.root = div().addCss(dui_calendar);
+    this.root = div().addCss(dui_calendar).setAttribute("role", "group");
 
     getConfig().getPlugins().forEach(plugin -> plugin.onInit(this));
     init(this);

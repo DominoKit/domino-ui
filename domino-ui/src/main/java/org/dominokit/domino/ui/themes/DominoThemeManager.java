@@ -28,7 +28,9 @@ import org.dominokit.domino.ui.utils.ElementsFactory;
  * Manages the themes for Domino UI components.
  *
  * <p>Provides capabilities to apply, remove, register and manage themes persistently using
- * WebStorage. It also allows applying user-preferred themes.
+ * WebStorage. It also allows applying user-preferred themes. This is the canonical manager for a
+ * deliberately global application theme; use {@link ElementThemeManager} when a theme must remain
+ * inside one application root or component subtree.
  *
  * <p><b>Usage Example:</b>
  *
@@ -46,21 +48,27 @@ public class DominoThemeManager implements ElementsFactory {
 
   private final Map<String, IsDominoTheme> byCategory = new HashMap<>();
   private final Map<String, IsDominoTheme> registeredThemes = new HashMap<>();
+  private final ThemeChangeListeners changeListeners = new ThemeChangeListeners();
+  private boolean mutating;
 
   private DominoThemeManager() {
     registerTheme(DominoThemeDefault.INSTANCE);
     registerTheme(DominoThemeLight.INSTANCE);
     registerTheme(DominoThemeDark.INSTANCE);
     registerTheme(DominoThemeAccent.RED);
+    registerTheme(DominoThemeAccent.CORAL);
     registerTheme(DominoThemeAccent.PINK);
     registerTheme(DominoThemeAccent.PURPLE);
+    registerTheme(DominoThemeAccent.PLUM);
     registerTheme(DominoThemeAccent.DEEP_PURPLE);
     registerTheme(DominoThemeAccent.INDIGO);
     registerTheme(DominoThemeAccent.BLUE);
+    registerTheme(DominoThemeAccent.COBALT);
     registerTheme(DominoThemeAccent.LIGHT_BLUE);
     registerTheme(DominoThemeAccent.CYAN);
     registerTheme(DominoThemeAccent.TEAL);
     registerTheme(DominoThemeAccent.GREEN);
+    registerTheme(DominoThemeAccent.EMERALD);
     registerTheme(DominoThemeAccent.LIGHT_GREEN);
     registerTheme(DominoThemeAccent.LIME);
     registerTheme(DominoThemeAccent.YELLOW);
@@ -70,22 +78,85 @@ public class DominoThemeManager implements ElementsFactory {
     registerTheme(DominoThemeAccent.BROWN);
     registerTheme(DominoThemeAccent.GREY);
     registerTheme(DominoThemeAccent.BLUE_GREY);
+    registerTheme(DominoThemeIdentity.OCEAN);
+    registerTheme(DominoThemeIdentity.FOREST);
+    registerTheme(DominoThemeIdentity.SANDSTONE);
+    registerTheme(DominoThemeIdentity.GRAPHITE);
+    registerTheme(DominoThemeIdentity.LAVENDER);
+    registerTheme(DominoThemeIdentity.SUNSET);
+    registerTheme(DominoThemeIdentity.ARCTIC);
+    registerTheme(DominoThemeIdentity.ROSE);
+    registerTheme(DominoThemeIdentity.CRIMSON);
+    registerTheme(DominoThemeIdentity.AMETHYST);
+    registerTheme(DominoThemeIdentity.INDIGO);
+    registerTheme(DominoThemeIdentity.AZURE);
+    registerTheme(DominoThemeIdentity.LAGOON);
+    registerTheme(DominoThemeIdentity.JADE);
+    registerTheme(DominoThemeIdentity.MEADOW);
+    registerTheme(DominoThemeIdentity.LIME);
+    registerTheme(DominoThemeIdentity.MARIGOLD);
+    registerTheme(DominoThemeIdentity.AMBER);
+    registerTheme(DominoThemeCharacter.CARBON);
+    registerTheme(DominoThemeCharacter.PAPER);
+    registerTheme(DominoThemeCharacter.TERMINAL);
+    registerTheme(DominoThemeCharacter.GLASS);
+    registerTheme(DominoThemeCharacter.BLUEPRINT);
+    registerTheme(DominoThemeCharacter.HIGH_CONTRAST);
+    registerTheme(DominoThemeCharacter.EDITORIAL);
+    registerTheme(DominoThemeCharacter.SOFT_UI);
+    registerTheme(DominoThemeCharacter.NEON_NIGHT);
+    registerTheme(DominoThemeCharacter.RETRO_CONSOLE);
+    registerTheme(DominoThemeCharacter.AURORA);
+    registerTheme(DominoThemeDensity.COMPACT);
+    registerTheme(DominoThemeDensity.DEFAULT);
+    registerTheme(DominoThemeSurface.BORDERED);
+    registerTheme(DominoThemeSurface.CLEAR_BORDER);
+    registerTheme(DominoThemeSurface.ELEVATED);
+    registerTheme(DominoThemeSurface.CLEAR_ELEVATION);
+    registerTheme(DominoThemeSurface.ROUNDED);
+    registerTheme(DominoThemeSurface.CLEAR_RADIUS);
+    registerTheme(DominoThemeSurface.ACCENT_HEADERS);
+    registerTheme(DominoThemeSurface.CLEAR_HEADERS);
   }
 
   /**
-   * Applies the specified theme and stores the user preference in local storage.
+   * Applies the specified theme and stores the user preference in local storage. A later theme in
+   * the same category replaces the currently active theme in that category.
    *
    * @param theme the theme to be applied
    * @return the {@link DominoThemeManager} instance
    */
   public DominoThemeManager apply(IsDominoTheme theme) {
-    if (byCategory.containsKey(theme.getCategory())) {
-      byCategory.get(theme.getCategory()).cleanup();
+    if (mutating) {
+      throw new IllegalStateException("Cannot change themes during a theme callback");
     }
 
-    byCategory.put(theme.getCategory(), theme);
-    theme.apply();
-    updateUserThemes();
+    ThemeChange change;
+    mutating = true;
+    try {
+      Map<String, IsDominoTheme> previousThemes = getThemes();
+      IsDominoTheme previousTheme = byCategory.get(theme.getCategory());
+      if (previousTheme != null) {
+        previousTheme.cleanup();
+      }
+
+      byCategory.put(theme.getCategory(), theme);
+      theme.apply();
+      updateUserThemes();
+      change =
+          new ThemeChange(
+              ThemeChange.Scope.GLOBAL,
+              ThemeChange.Operation.APPLY,
+              DomGlobal.document.body,
+              theme.getCategory(),
+              previousTheme,
+              theme,
+              previousThemes,
+              getThemes());
+    } finally {
+      mutating = false;
+    }
+    changeListeners.fire(change);
     return INSTANCE;
   }
 
@@ -96,14 +167,55 @@ public class DominoThemeManager implements ElementsFactory {
    * @return the {@link DominoThemeManager} instance
    */
   public DominoThemeManager remove(String themeName) {
-    Optional<IsDominoTheme> theme =
-        byCategory.values().stream().filter(t -> t.getName().equals(themeName)).findFirst();
-    theme.ifPresent(
-        t -> {
-          t.cleanup();
-          byCategory.remove(t.getCategory());
-        });
-    updateUserThemes();
+    if (mutating) {
+      throw new IllegalStateException("Cannot change themes during a theme callback");
+    }
+
+    ThemeChange change = null;
+    mutating = true;
+    try {
+      Optional<IsDominoTheme> theme =
+          byCategory.values().stream().filter(t -> t.getName().equals(themeName)).findFirst();
+      Map<String, IsDominoTheme> previousThemes = getThemes();
+      if (theme.isPresent()) {
+        IsDominoTheme removed = theme.get();
+        removed.cleanup();
+        byCategory.remove(removed.getCategory());
+        change =
+            new ThemeChange(
+                ThemeChange.Scope.GLOBAL,
+                ThemeChange.Operation.REMOVE,
+                DomGlobal.document.body,
+                removed.getCategory(),
+                removed,
+                null,
+                previousThemes,
+                getThemes());
+      }
+      updateUserThemes();
+    } finally {
+      mutating = false;
+    }
+    if (change != null) {
+      changeListeners.fire(change);
+    }
+    return INSTANCE;
+  }
+
+  /** Returns an unmodifiable snapshot of the currently selected themes, keyed by category. */
+  public Map<String, IsDominoTheme> getThemes() {
+    return Collections.unmodifiableMap(new HashMap<>(byCategory));
+  }
+
+  /** Adds a listener for global theme operations. Remove it when it is no longer needed. */
+  public DominoThemeManager addThemeChangeListener(ThemeChangeListener listener) {
+    changeListeners.add(listener);
+    return INSTANCE;
+  }
+
+  /** Removes a previously registered global theme listener. */
+  public DominoThemeManager removeThemeChangeListener(ThemeChangeListener listener) {
+    changeListeners.remove(listener);
     return INSTANCE;
   }
 
@@ -144,10 +256,8 @@ public class DominoThemeManager implements ElementsFactory {
     } else {
       Arrays.asList(themes.split(","))
           .forEach(
-              themeName -> {
-                Optional.ofNullable(registeredThemes.get(themeName))
-                    .ifPresent(isDominoTheme -> apply(registeredThemes.get(themeName)));
-              });
+              themeName ->
+                  Optional.ofNullable(registeredThemes.get(themeName)).ifPresent(this::apply));
     }
     return INSTANCE;
   }

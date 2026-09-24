@@ -18,9 +18,12 @@ package org.dominokit.domino.ui.themes;
 import static org.dominokit.domino.ui.utils.Domino.*;
 
 import elemental2.dom.Element;
+import java.util.Collections;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
 import java.util.Optional;
+import java.util.Set;
 import org.dominokit.domino.ui.IsElement;
 import org.dominokit.domino.ui.utils.ElementsFactory;
 
@@ -28,7 +31,8 @@ import org.dominokit.domino.ui.utils.ElementsFactory;
  * Manages themes on a per-element basis for Domino UI components.
  *
  * <p>This class offers methods to apply, remove, and register themes targeting specific UI
- * elements.
+ * elements. Active state is tracked as target element to category to theme, so changing a theme in
+ * one subtree does not clean up a theme applied to another subtree.
  *
  * <p><b>Usage Example:</b>
  *
@@ -44,23 +48,29 @@ public class ElementThemeManager implements ElementsFactory {
 
   public static final ElementThemeManager INSTANCE = new ElementThemeManager();
 
-  private final Map<String, IsDominoTheme> byCategory = new HashMap<>();
+  private final Map<Element, Map<String, IsDominoTheme>> byElement = new HashMap<>();
   private final Map<String, IsDominoTheme> registeredThemes = new HashMap<>();
+  private final ThemeChangeListeners changeListeners = new ThemeChangeListeners();
+  private final Set<Element> mutatingTargets = new HashSet<>();
 
   private ElementThemeManager() {
     registerTheme(DominoThemeDefault.INSTANCE);
     registerTheme(DominoThemeLight.INSTANCE);
     registerTheme(DominoThemeDark.INSTANCE);
     registerTheme(DominoThemeAccent.RED);
+    registerTheme(DominoThemeAccent.CORAL);
     registerTheme(DominoThemeAccent.PINK);
     registerTheme(DominoThemeAccent.PURPLE);
+    registerTheme(DominoThemeAccent.PLUM);
     registerTheme(DominoThemeAccent.DEEP_PURPLE);
     registerTheme(DominoThemeAccent.INDIGO);
     registerTheme(DominoThemeAccent.BLUE);
+    registerTheme(DominoThemeAccent.COBALT);
     registerTheme(DominoThemeAccent.LIGHT_BLUE);
     registerTheme(DominoThemeAccent.CYAN);
     registerTheme(DominoThemeAccent.TEAL);
     registerTheme(DominoThemeAccent.GREEN);
+    registerTheme(DominoThemeAccent.EMERALD);
     registerTheme(DominoThemeAccent.LIGHT_GREEN);
     registerTheme(DominoThemeAccent.LIME);
     registerTheme(DominoThemeAccent.YELLOW);
@@ -70,6 +80,45 @@ public class ElementThemeManager implements ElementsFactory {
     registerTheme(DominoThemeAccent.BROWN);
     registerTheme(DominoThemeAccent.GREY);
     registerTheme(DominoThemeAccent.BLUE_GREY);
+    registerTheme(DominoThemeIdentity.OCEAN);
+    registerTheme(DominoThemeIdentity.FOREST);
+    registerTheme(DominoThemeIdentity.SANDSTONE);
+    registerTheme(DominoThemeIdentity.GRAPHITE);
+    registerTheme(DominoThemeIdentity.LAVENDER);
+    registerTheme(DominoThemeIdentity.SUNSET);
+    registerTheme(DominoThemeIdentity.ARCTIC);
+    registerTheme(DominoThemeIdentity.ROSE);
+    registerTheme(DominoThemeIdentity.CRIMSON);
+    registerTheme(DominoThemeIdentity.AMETHYST);
+    registerTheme(DominoThemeIdentity.INDIGO);
+    registerTheme(DominoThemeIdentity.AZURE);
+    registerTheme(DominoThemeIdentity.LAGOON);
+    registerTheme(DominoThemeIdentity.JADE);
+    registerTheme(DominoThemeIdentity.MEADOW);
+    registerTheme(DominoThemeIdentity.LIME);
+    registerTheme(DominoThemeIdentity.MARIGOLD);
+    registerTheme(DominoThemeIdentity.AMBER);
+    registerTheme(DominoThemeCharacter.CARBON);
+    registerTheme(DominoThemeCharacter.PAPER);
+    registerTheme(DominoThemeCharacter.TERMINAL);
+    registerTheme(DominoThemeCharacter.GLASS);
+    registerTheme(DominoThemeCharacter.BLUEPRINT);
+    registerTheme(DominoThemeCharacter.HIGH_CONTRAST);
+    registerTheme(DominoThemeCharacter.EDITORIAL);
+    registerTheme(DominoThemeCharacter.SOFT_UI);
+    registerTheme(DominoThemeCharacter.NEON_NIGHT);
+    registerTheme(DominoThemeCharacter.RETRO_CONSOLE);
+    registerTheme(DominoThemeCharacter.AURORA);
+    registerTheme(DominoThemeDensity.COMPACT);
+    registerTheme(DominoThemeDensity.DEFAULT);
+    registerTheme(DominoThemeSurface.BORDERED);
+    registerTheme(DominoThemeSurface.CLEAR_BORDER);
+    registerTheme(DominoThemeSurface.ELEVATED);
+    registerTheme(DominoThemeSurface.CLEAR_ELEVATION);
+    registerTheme(DominoThemeSurface.ROUNDED);
+    registerTheme(DominoThemeSurface.CLEAR_RADIUS);
+    registerTheme(DominoThemeSurface.ACCENT_HEADERS);
+    registerTheme(DominoThemeSurface.CLEAR_HEADERS);
   }
 
   /**
@@ -91,12 +140,41 @@ public class ElementThemeManager implements ElementsFactory {
    * @return the {@link ElementThemeManager} instance
    */
   public ElementThemeManager apply(IsDominoTheme theme, Element target) {
-    if (byCategory.containsKey(theme.getCategory())) {
-      byCategory.get(theme.getCategory()).cleanup(target);
+    if (!mutatingTargets.add(target)) {
+      throw new IllegalStateException(
+          "Cannot change themes during a theme callback for this element");
     }
 
-    byCategory.put(theme.getCategory(), theme);
-    theme.apply(target);
+    ThemeChange change;
+    try {
+      Map<String, IsDominoTheme> previousThemes = getThemes(target);
+      Map<String, IsDominoTheme> byCategory = byElement.get(target);
+      if (byCategory == null) {
+        byCategory = new HashMap<>();
+        byElement.put(target, byCategory);
+      }
+
+      IsDominoTheme previousTheme = byCategory.get(theme.getCategory());
+      if (previousTheme != null) {
+        previousTheme.cleanup(target);
+      }
+
+      byCategory.put(theme.getCategory(), theme);
+      theme.apply(target);
+      change =
+          new ThemeChange(
+              ThemeChange.Scope.ELEMENT,
+              ThemeChange.Operation.APPLY,
+              target,
+              theme.getCategory(),
+              previousTheme,
+              theme,
+              previousThemes,
+              getThemes(target));
+    } finally {
+      mutatingTargets.remove(target);
+    }
+    changeListeners.fire(change);
     return INSTANCE;
   }
 
@@ -120,13 +198,71 @@ public class ElementThemeManager implements ElementsFactory {
    * @return the {@link ElementThemeManager} instance
    */
   public ElementThemeManager remove(String themeName, Element target) {
-    Optional<IsDominoTheme> theme =
-        byCategory.values().stream().filter(t -> t.getName().equals(themeName)).findFirst();
-    theme.ifPresent(
-        t -> {
-          t.cleanup(target);
-          byCategory.remove(t.getCategory());
-        });
+    if (!mutatingTargets.add(target)) {
+      throw new IllegalStateException(
+          "Cannot change themes during a theme callback for this element");
+    }
+
+    ThemeChange change = null;
+    try {
+      Map<String, IsDominoTheme> byCategory = byElement.get(target);
+      if (byCategory == null) {
+        return INSTANCE;
+      }
+
+      Map<String, IsDominoTheme> previousThemes = getThemes(target);
+      Optional<IsDominoTheme> theme =
+          byCategory.values().stream().filter(t -> t.getName().equals(themeName)).findFirst();
+      if (theme.isPresent()) {
+        IsDominoTheme removed = theme.get();
+        removed.cleanup(target);
+        byCategory.remove(removed.getCategory());
+        change =
+            new ThemeChange(
+                ThemeChange.Scope.ELEMENT,
+                ThemeChange.Operation.REMOVE,
+                target,
+                removed.getCategory(),
+                removed,
+                null,
+                previousThemes,
+                getThemes(target));
+      }
+
+      if (byCategory.isEmpty()) {
+        byElement.remove(target);
+      }
+    } finally {
+      mutatingTargets.remove(target);
+    }
+    if (change != null) {
+      changeListeners.fire(change);
+    }
+    return INSTANCE;
+  }
+
+  /** Returns an unmodifiable snapshot of selections on a Domino UI element. */
+  public Map<String, IsDominoTheme> getThemes(IsElement<? extends Element> target) {
+    return getThemes(target.element());
+  }
+
+  /** Returns an unmodifiable snapshot of selections on an element, keyed by category. */
+  public Map<String, IsDominoTheme> getThemes(Element target) {
+    Map<String, IsDominoTheme> themes = byElement.get(target);
+    return themes == null
+        ? Collections.emptyMap()
+        : Collections.unmodifiableMap(new HashMap<>(themes));
+  }
+
+  /** Adds a listener for element-scoped theme operations. Remove it when it is no longer needed. */
+  public ElementThemeManager addThemeChangeListener(ThemeChangeListener listener) {
+    changeListeners.add(listener);
+    return INSTANCE;
+  }
+
+  /** Removes a previously registered element-scoped theme listener. */
+  public ElementThemeManager removeThemeChangeListener(ThemeChangeListener listener) {
+    changeListeners.remove(listener);
     return INSTANCE;
   }
 

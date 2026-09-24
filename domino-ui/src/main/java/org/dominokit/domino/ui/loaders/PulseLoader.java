@@ -39,19 +39,24 @@ import org.dominokit.domino.ui.utils.DominoElement;
  */
 public class PulseLoader extends BaseLoader<PulseLoader> implements IsElement<HTMLDivElement> {
 
-  private final DivElement progress1 = div().addCss(wait_me_progress_elem_1, dui_loader_darkest);
+  private final DivElement progress1 =
+      div().addCss(dui_waitme_progress_element_1, dui_loader_darkest);
 
-  private final DivElement loader = div().addCss(wait_me_progress, pulse).appendChild(progress1);
+  private final DivElement loader =
+      div().addCss(dui_waitme_progress, dui_waitme_pulse).appendChild(progress1);
 
   private final DivElement content =
       div()
-          .addCss(wait_me_content, dui_vertical_center)
-          .addCss(vertical)
+          .addCss(dui_waitme_content, dui_vertical_center)
+          .addCss(dui_waitme_vertical)
           .appendChild(loader)
           .appendChild(loadingText);
 
   private final DivElement element =
-      div().addCss(wait_me).style("background: var(--dui-loader-background);").appendChild(content);
+      div()
+          .addCss(dui_waitme)
+          .style("background: var(--dui-loader-background);")
+          .appendChild(content);
 
   /** Initializes a new instance of the {@code PulseLoader} class. */
   public PulseLoader() {

@@ -85,7 +85,9 @@ class PagerNavItem extends BaseDominoElement<HTMLLIElement, PagerNavItem>
     return new PagerNavItem(page)
         .withLink(
             (parent, self) ->
-                self.addCss(dui_page_link, dui_clickable).setTextContent(String.valueOf(page)));
+                self.addCss(dui_page_link, dui_clickable)
+                    .setAttribute("aria-label", "Page " + page)
+                    .setTextContent(String.valueOf(page)));
   }
 
   /**
@@ -104,7 +106,12 @@ class PagerNavItem extends BaseDominoElement<HTMLLIElement, PagerNavItem>
    */
   public PagerNavItem(int page) {
     this.page = page;
-    root = li().addCss(dui_pager_item).appendChild(link = a());
+    root =
+        li().addCss(dui_pager_item)
+            .appendChild(
+                link =
+                    a().setAttribute("role", "button")
+                        .onKeyDown(keyEvents -> keyEvents.onSpace(evt -> link.element().click())));
     init(this);
   }
 

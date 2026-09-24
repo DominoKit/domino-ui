@@ -21,6 +21,9 @@ import org.dominokit.domino.ui.style.ToggleCssClass;
 /** A utility class that provides CSS classes for customizing icons in Domino UI. */
 public class IconsStyles {
 
+  /** Represents the common CSS class applied to Domino UI icon elements. */
+  public static final CssClass dui_icon = () -> "dui-icon";
+
   /** Represents the Material Design Icons (MDI) CSS class. */
   public static final CssClass dui_mdi = () -> "mdi";
 
@@ -29,6 +32,15 @@ public class IconsStyles {
 
   /** Represents the CSS class for MDI icons with text. */
   public static final CssClass dui_icon_text = () -> "dui-mdi-text";
+
+  /** Represents the CSS class for an icon using the theme's square radius. */
+  public static final CssClass dui_icon_square = () -> "dui-icon-square";
+
+  /** Represents the CSS class for an icon with a contextual border. */
+  public static final CssClass dui_icon_bordered = () -> "dui-icon-bordered";
+
+  /** Represents the CSS class for an icon with a subtle theme surface. */
+  public static final CssClass dui_icon_surface = () -> "dui-icon-surface";
 
   /** Represents the CSS class for rotating an MDI icon by 45 degrees. */
   public static final CssClass mdi_rotate_45 = () -> "mdi-rotate-45";

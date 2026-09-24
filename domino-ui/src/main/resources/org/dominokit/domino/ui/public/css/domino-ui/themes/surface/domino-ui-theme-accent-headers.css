@@ -1,0 +1,47 @@
+/*
+ * Copyright © 2019 Dominokit
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+/* Accent Headers is composable: it changes only component-header surfaces. */
+.dui.dui-theme-accent-headers {
+    --dui-card-header-background: var(--dui-accent-header-background);
+    --dui-card-header-color: var(--dui-accent-header-color);
+    --dui-card-header-title-color: var(--dui-accent-header-color);
+    --dui-card-header-border-color: var(--dui-accent-header-border-color);
+    --dui-menu-header-background: var(--dui-accent-header-background);
+    --dui-menu-header-color: var(--dui-accent-header-color);
+    --dui-menu-header-border-color: var(--dui-accent-header-border-color);
+    --dui-tree-header-background: var(--dui-accent-header-background);
+    --dui-tree-header-color: var(--dui-accent-header-color);
+    --dui-datatable-header-background: var(--dui-accent-header-background);
+    --dui-datatable-header-color: var(--dui-accent-header-color);
+    --dui-datatable-header-hover-bg-color: var(--dui-accent-header-hover-background);
+    --dui-datatable-header-hover-color: var(--dui-accent-header-color);
+    --dui-datatable-header-border-color: var(--dui-accent-header-border-color);
+}
+
+.dui.dui-theme-accent-headers.dui-colors-light {
+    --dui-accent-header-background: var(--dui-accent-l-4);
+    --dui-accent-header-hover-background: var(--dui-accent-l-3);
+    --dui-accent-header-border-color: var(--dui-accent-l-3);
+    --dui-accent-header-color: var(--dui-color);
+}
+
+.dui.dui-theme-accent-headers.dui-colors-dark {
+    --dui-accent-header-background: var(--dui-accent-d-3);
+    --dui-accent-header-hover-background: var(--dui-accent-d-2);
+    --dui-accent-header-border-color: var(--dui-accent-d-2);
+    --dui-accent-header-color: var(--dui-color);
+}

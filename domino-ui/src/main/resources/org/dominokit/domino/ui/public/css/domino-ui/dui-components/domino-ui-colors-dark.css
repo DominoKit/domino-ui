@@ -1,4 +1,4 @@
-.dui-colors-dark {
+.dui.dui-colors-dark {
     --dui-color: var(--dui-clr-white);
     --dui-color-1: var(--dui-clr-grey-l-1);
     --dui-color-2: var(--dui-clr-grey);
@@ -6,9 +6,42 @@
     --dui-color-4: var(--dui-clr-grey-d-2);
     --dui-color-5: var(--dui-clr-black-d-3);
     --dui-color-alternate: var(--dui-color-5);
+    /* Keep semantic text bright and recognizable even when an identity theme tints --dui-color. */
+    --dui-context-text-base-color: var(--dui-clr-white);
+    --dui-context-text-color-strength: 75%;
     /*--dui-text-color: var(--dui-color-dark);*/
     --dui-highlight-color: var(--dui-clr-black);
     --dui-color-invert : var(--dui-clr-black);
+    --dui-primary-fg-clr: var(--dui-clr-white);
+    --dui-secondary-fg-clr: var(--dui-clr-white);
+    --dui-success-fg-clr: var(--dui-clr-black);
+    --dui-warning-fg-clr: var(--dui-clr-black);
+    --dui-info-fg-clr: var(--dui-clr-white);
+    --dui-error-fg-clr: var(--dui-clr-white);
+    --dui-accent-fg-clr: var(--dui-clr-white);
+    --dui-red-fg-clr: var(--dui-clr-white);
+    --dui-coral-fg-clr: var(--dui-clr-white);
+    --dui-pink-fg-clr: var(--dui-clr-white);
+    --dui-purple-fg-clr: var(--dui-clr-white);
+    --dui-plum-fg-clr: var(--dui-clr-white);
+    --dui-deep-purple-fg-clr: var(--dui-clr-white);
+    --dui-indigo-fg-clr: var(--dui-clr-white);
+    --dui-blue-fg-clr: var(--dui-clr-white);
+    --dui-cobalt-fg-clr: var(--dui-clr-white);
+    --dui-light-blue-fg-clr: var(--dui-clr-white);
+    --dui-cyan-fg-clr: var(--dui-clr-black);
+    --dui-teal-fg-clr: var(--dui-clr-white);
+    --dui-green-fg-clr: var(--dui-clr-black);
+    --dui-emerald-fg-clr: var(--dui-clr-black);
+    --dui-light-green-fg-clr: var(--dui-clr-black);
+    --dui-lime-fg-clr: var(--dui-clr-black);
+    --dui-yellow-fg-clr: var(--dui-clr-black);
+    --dui-amber-fg-clr: var(--dui-clr-black);
+    --dui-orange-fg-clr: var(--dui-clr-black);
+    --dui-deep-orange-fg-clr: var(--dui-clr-black);
+    --dui-brown-fg-clr: var(--dui-clr-white);
+    --dui-grey-fg-clr: var(--dui-clr-white);
+    --dui-blue-grey-fg-clr: var(--dui-clr-white);
 
     color: var(--dui-color);
 
@@ -25,38 +58,38 @@
     --dui-clr-dominant-d-3: #0f0f0f;
     --dui-clr-dominant-d-4: #050505;
 
-    --dui-clr-accent-l-5: #D8E4E7;
-    --dui-clr-accent-l-4: #B3C9CE;
-    --dui-clr-accent-l-3: #95B5BB;
-    --dui-clr-accent-l-2: #799FA6;
-    --dui-clr-accent-l-1: #638A90;
-    --dui-clr-accent: #4D737A;
-    --dui-clr-accent-d-1: #3F5E64;
-    --dui-clr-accent-d-2: #324B50;
-    --dui-clr-accent-d-3: #283C3F;
-    --dui-clr-accent-d-4: #1A272A;
+    --dui-palette-accent-l-5: #D8E4E7;
+    --dui-palette-accent-l-4: #B3C9CE;
+    --dui-palette-accent-l-3: #95B5BB;
+    --dui-palette-accent-l-2: #799FA6;
+    --dui-palette-accent-l-1: #638A90;
+    --dui-palette-accent: #4D737A;
+    --dui-palette-accent-d-1: #3F5E64;
+    --dui-palette-accent-d-2: #324B50;
+    --dui-palette-accent-d-3: #283C3F;
+    --dui-palette-accent-d-4: #1A272A;
 
-    --dui-clr-primary-l-5: #D2D5E1;
-    --dui-clr-primary-l-4: #A7ADD4;
-    --dui-clr-primary-l-3: #7F8ACA;
-    --dui-clr-primary-l-2: #5D71B5;
-    --dui-clr-primary-l-1: #4B5DA5;
-    --dui-clr-primary: #3C4996;
-    --dui-clr-primary-d-1: #363D8C;
-    --dui-clr-primary-d-2: #2F3380;
-    --dui-clr-primary-d-3: #272B73;
-    --dui-clr-primary-d-4: #1A1E66;
+    --dui-palette-primary-l-5: #D2D5E1;
+    --dui-palette-primary-l-4: #A7ADD4;
+    --dui-palette-primary-l-3: #7F8ACA;
+    --dui-palette-primary-l-2: #5D71B5;
+    --dui-palette-primary-l-1: #4B5DA5;
+    --dui-palette-primary: #3C4996;
+    --dui-palette-primary-d-1: #363D8C;
+    --dui-palette-primary-d-2: #2F3380;
+    --dui-palette-primary-d-3: #272B73;
+    --dui-palette-primary-d-4: #1A1E66;
 
-    --dui-clr-secondary-l-5: #D6D9DB;
-    --dui-clr-secondary-l-4: #AFBDC0;
-    --dui-clr-secondary-l-3: #8D9FA5;
-    --dui-clr-secondary-l-2: #6B8992;
-    --dui-clr-secondary-l-1: #5A737E;
-    --dui-clr-secondary: #496876;
-    --dui-clr-secondary-d-1: #3F5A64;
-    --dui-clr-secondary-d-2: #334C57;
-    --dui-clr-secondary-d-3: #2B3B40;
-    --dui-clr-secondary-d-4: #1F292D;
+    --dui-palette-secondary-l-5: #D6D9DB;
+    --dui-palette-secondary-l-4: #AFBDC0;
+    --dui-palette-secondary-l-3: #8D9FA5;
+    --dui-palette-secondary-l-2: #6B8992;
+    --dui-palette-secondary-l-1: #5A737E;
+    --dui-palette-secondary: #496876;
+    --dui-palette-secondary-d-1: #3F5A64;
+    --dui-palette-secondary-d-2: #334C57;
+    --dui-palette-secondary-d-3: #2B3B40;
+    --dui-palette-secondary-d-4: #1F292D;
 
     --dui-clr-success-l-5: #D8EFD9;
     --dui-clr-success-l-4: #B1DDB2;
@@ -113,6 +146,17 @@
     --dui-clr-red-d-3: #AE2727;
     --dui-clr-red-d-4: #A31F1F;
 
+    --dui-clr-coral-l-5: #FFD8D2;
+    --dui-clr-coral-l-4: #FFB8AD;
+    --dui-clr-coral-l-3: #F69A8D;
+    --dui-clr-coral-l-2: #EA7C6D;
+    --dui-clr-coral-l-1: #D96A5B;
+    --dui-clr-coral: #B54B3F;
+    --dui-clr-coral-d-1: #A34036;
+    --dui-clr-coral-d-2: #8C352D;
+    --dui-clr-coral-d-3: #722A24;
+    --dui-clr-coral-d-4: #5B211C;
+
     --dui-clr-pink-l-5: #F9D6DF;
     --dui-clr-pink-l-4: #F3A6BD;
     --dui-clr-pink-l-3: #ED7A9D;
@@ -134,6 +178,17 @@
     --dui-clr-purple-d-2: #6E1F7D;
     --dui-clr-purple-d-3: #611B73;
     --dui-clr-purple-d-4: #3F0F5B;
+
+    --dui-clr-plum-l-5: #E1C8E0;
+    --dui-clr-plum-l-4: #CCA7CA;
+    --dui-clr-plum-l-3: #B887B6;
+    --dui-clr-plum-l-2: #A869A5;
+    --dui-clr-plum-l-1: #995495;
+    --dui-clr-plum: #8A4688;
+    --dui-clr-plum-d-1: #783B77;
+    --dui-clr-plum-d-2: #653166;
+    --dui-clr-plum-d-3: #522754;
+    --dui-clr-plum-d-4: #3E1D40;
 
     --dui-clr-deep-purple-l-5: #E4DDEB;
     --dui-clr-deep-purple-l-4: #C8B3D2;
@@ -167,6 +222,17 @@
     --dui-clr-blue-d-2: #24517E;
     --dui-clr-blue-d-3: #1E4773;
     --dui-clr-blue-d-4: #10305F;
+
+    --dui-clr-cobalt-l-5: #C9D6FF;
+    --dui-clr-cobalt-l-4: #A7BAFF;
+    --dui-clr-cobalt-l-3: #88A2F5;
+    --dui-clr-cobalt-l-2: #6D89E0;
+    --dui-clr-cobalt-l-1: #5873CB;
+    --dui-clr-cobalt: #4A63B9;
+    --dui-clr-cobalt-d-1: #3F54A2;
+    --dui-clr-cobalt-d-2: #35488B;
+    --dui-clr-cobalt-d-3: #2B3C73;
+    --dui-clr-cobalt-d-4: #202E5B;
 
     --dui-clr-light-blue-l-5: #C6DFE9;
     --dui-clr-light-blue-l-4: #92C9DE;
@@ -211,6 +277,17 @@
     --dui-clr-green-d-2: #298C29;
     --dui-clr-green-d-3: #257E25;
     --dui-clr-green-d-4: #1D631D;
+
+    --dui-clr-emerald-l-5: #CDEBDC;
+    --dui-clr-emerald-l-4: #A9D8BE;
+    --dui-clr-emerald-l-3: #82C49C;
+    --dui-clr-emerald-l-2: #62B583;
+    --dui-clr-emerald-l-1: #4EA771;
+    --dui-clr-emerald: #3C925F;
+    --dui-clr-emerald-d-1: #348352;
+    --dui-clr-emerald-d-2: #2C7448;
+    --dui-clr-emerald-d-3: #24643D;
+    --dui-clr-emerald-d-4: #1B5131;
 
     --dui-clr-light-green-l-5: #E4F4D9;
     --dui-clr-light-green-l-4: #C5D9AD;
@@ -344,16 +421,16 @@
     --dui-clr-black-d-3: #262626;
     --dui-clr-black-d-4: #0d0d0d;
 
-    --dui-accent-l-5: var(--dui-clr-accent-l-5);
-    --dui-accent-l-4: var(--dui-clr-accent-l-4);
-    --dui-accent-l-3: var(--dui-clr-accent-l-3);
-    --dui-accent-l-2: var(--dui-clr-accent-l-2);
-    --dui-accent-l-1: var(--dui-clr-accent-l-1);
-    --dui-accent: var(--dui-clr-accent);
-    --dui-accent-d-1: var(--dui-clr-accent-d-1);
-    --dui-accent-d-2: var(--dui-clr-accent-d-2);
-    --dui-accent-d-3: var(--dui-clr-accent-d-3);
-    --dui-accent-d-4: var(--dui-clr-accent-d-4);
+    --dui-accent-source-l-5: var(--dui-palette-accent-l-5);
+    --dui-accent-source-l-4: var(--dui-palette-accent-l-4);
+    --dui-accent-source-l-3: var(--dui-palette-accent-l-3);
+    --dui-accent-source-l-2: var(--dui-palette-accent-l-2);
+    --dui-accent-source-l-1: var(--dui-palette-accent-l-1);
+    --dui-accent-source: var(--dui-palette-accent);
+    --dui-accent-source-d-1: var(--dui-palette-accent-d-1);
+    --dui-accent-source-d-2: var(--dui-palette-accent-d-2);
+    --dui-accent-source-d-3: var(--dui-palette-accent-d-3);
+    --dui-accent-source-d-4: var(--dui-palette-accent-d-4);
 
     /* ================ Box shadow ========================== */
 
@@ -362,14 +439,21 @@
     --dui-shadow-clr-3: #0000001f;
 
     /* ==================== Overrides ============================= */
+    --dui-card-nested-background: var(--dui-clr-dominant-l-1);
+    --dui-card-nested-2-background: var(--dui-clr-dominant-l-2);
+    --dui-card-nested-3-background: var(--dui-clr-dominant-l-3);
     --dui-card-header-border-color: var(--dui-clr-accent-d-4);
     --dui-tree-item-active-color: var(--dui-accent-l-2);
     --dui-tree-item-hover-color: var(--dui-accent-d-4);
     --dui-list-group-border: 1px solid var(--dui-clr-accent-d-3);
     --dui-list-group-item-border-color: var(--dui-clr-accent-d-3);
     --dui-border-default: var(--dui-clr-dominant-l-1);
-    --dui-btn-hover-color: var(--dui-color-5);
-    --dui-info-color: var(--dui-color);
+    --dui-focus-indicator-color: var(--dui-accent-l-2);
+    --dui-btn-hover-color: var(--dui-clr-black);
+    --dui-info-color: var(--dui-accent-l-2);
+    --dui-info-background-color: var(--dui-accent-d-4);
+    --dui-info-icon-background: var(--dui-accent-d-3);
+    --dui-info-icon-color: var(--dui-accent-fg-clr);
     --dui-loader-background: #000000e6;
     --dui-loader-dark-color: var(--dui-clr-grey);
     --dui-loader-darker-color: var(--dui-clr-grey-l-1);
@@ -378,6 +462,7 @@
     --dui-menu-item-hover-color: var(--dui-color);
     --dui-menu-item-selected-hover-bg-color: var(--dui-accent-d-1);
     --dui-menu-item-selected-hover-color: var(--dui-color-5);
+    --dui-menu-item-selected-color: var(--dui-color);
 
     --dui-quick-search-bg-color: var(--dui-clr-dominant-d-1);
     --dui-quick-search-color: var(--dui-color);
@@ -388,17 +473,19 @@
     --dui-pager-active-focus-page-color: var(--dui-color);
     --dui-pager-active-hover-page-color: var(--dui-color);
     --dui-form-field-border-color: var(--dui-clr-dominant-l-3);
+    --dui-form-field-context-surface-weight: 75%;
+    --dui-form-field-context-highlight-weight: 25%;
+    --dui-form-field-background: var(--dui-clr-dominant-d-1);
     --dui-thumbnail-border-color: var(--dui-accent-d-4);
     --dui-thumbnail-border-active-color: var(--dui-accent-d-3);
     --dui-tree-header-bg-color: var(--dui-accent-d-3);
-    --dui-list-group-item-hover-background: var(--dui-accent-l-2);
     --dui-list-group-item-selected-background: var(--dui-accent);
     --dui-form-field-disabled-background: var(--dui-clr-dominant-d-1);
     --dui-form-field-disabled-border-color: var(--dui-clr-dominant-d-3);
     --dui-form-field-readonly-background: var(--dui-clr-dominant-l-1);
     --dui-form-field-readonly-border-color: var(--dui-clr-dominant);
     --dui-form-field-readonly-color: var(--dui-color-1);
-    --dui-form-field-placeholder-color: var(--dui-color-1);
+    --dui-form-field-placeholder-color: color-mix(in srgb, var(--dui-color-1) 75%, var(--dui-color-2) 25%);
     --dui-file-upload-background: var(--dui-accent-d-3);
     --dui-calender-select-bg: var(--dui-accent-d-4);
     --dui-calender-select-hover-bg: var(--dui-accent-d-2);
@@ -411,18 +498,40 @@
     --dui-timepicker-header-text-color: var(--dui-color);
     --dui-timepicker-border-color: var(--dui-accent-d-4);
     --dui-form-field-switch-focus-box-shadow: 0 0 0 0 rgb(255 255 255 / 40%), 0 0 0 12px rgb(255 255 255 / 8%);
-    --dui-clickable-box-shadow: 0 0 0 0 rgb(255 255 255 / 40%), 0 0 0 5px rgb(255 255 255 / 8%);
-    --dui-datatable-even-bg-color: var(--dui-accent-d-4);
+    --dui-clickable-box-shadow: 0 0 0 0 rgb(255 255 255 / 40%), 0 0 0 var(--dui-clickable-shadow-spread) rgb(255 255 255 / 8%);
+    /* ====================== Data table row surfaces ========================= */
+    --dui-datatable-even-bg-color: var(--dui-clr-dominant-l-1);
     --dui-datatable-odd-bg-color: var(--dui-clr-dominant);
-    --dui-datatable-row-selected-bg-color: var(--dui-accent-d-1);
-    --dui-datatable-row-hover-bg-color: var(--dui-accent-d-3);
-    --dui-datatable-row-stripped-selected-bg-color: var(--dui-accent-d-1);
-    --dui-datatable-row-selected-hover-bg-color: var(--dui-accent-d-2);
+    --dui-datatable-row-selected-bg-color: var(--dui-clr-dominant-l-2);
+    --dui-datatable-row-hover-bg-color: var(--dui-clr-dominant-l-2);
+    --dui-datatable-row-stripped-selected-bg-color: var(--dui-clr-dominant-l-2);
+    --dui-datatable-row-selected-hover-bg-color: var(--dui-clr-dominant-l-3);
+    --dui-datatable-row-highlight-bg-color: var(--dui-accent-d-4);
+    --dui-datatable-row-context-bg-color: var(--dui-clr-dominant-l-1);
+    --dui-datatable-row-details-background: var(--dui-accent-d-4);
+    --dui-datatable-row-details-open-background: var(--dui-accent-d-3);
+    --dui-datatable-row-details-open-color: var(--dui-color);
+    --dui-datatable-row-background: var(--dui-datatable-odd-bg-color);
+    --dui-datatable-row-striped-background: var(--dui-datatable-even-bg-color);
+    --dui-datatable-row-hover-background: var(--dui-datatable-row-hover-bg-color);
+    --dui-datatable-row-hover-color: var(--dui-color);
+    --dui-datatable-row-selected-background: var(--dui-datatable-row-selected-bg-color);
+    --dui-datatable-row-selected-hover-background: var(--dui-datatable-row-selected-hover-bg-color);
+    --dui-datatable-row-selected-hover-color: var(--dui-color);
+    --dui-datatable-row-highlight-background: var(--dui-datatable-row-highlight-bg-color);
+    --dui-datatable-row-highlight-color: var(--dui-color);
+    --dui-datatable-row-context-background: var(--dui-datatable-row-context-bg-color);
+    --dui-datatable-row-selected-indicator-color: var(--dui-accent-l-2);
+    --dui-datatable-row-selected-indicator-width: 3px;
+    --dui-datatable-row-focus-background: var(--dui-accent-d-3);
+    --dui-datatable-header-background: var(--dui-clr-dominant-l-2);
     --dui-datatable-header-hover-bg-color: var(--dui-accent-d-3);
-    --dui-datatable-border-color: var(--dui-accent-d-4);
-    --dui-datatable-column-resizer-color: var(--dui-accent-d-2);
-    --dui-datatable-pin-column-border-color: var(--dui-accent-d-2);
-    --dui-nav-bar-description-color: --dui-color;
+    --dui-datatable-border-color: var(--dui-clr-dominant-l-2);
+    --dui-datatable-header-border-color: var(--dui-clr-dominant-l-3);
+    --dui-datatable-column-stripe-background: color-mix(in srgb, var(--dui-clr-dominant-l-2) 35%, transparent);
+    --dui-datatable-column-resizer-color: var(--dui-datatable-border-color);
+    --dui-datatable-pin-column-border-color: var(--dui-datatable-border-color);
+    --dui-nav-bar-description-color: var(--dui-color);
     --dui-datatable-tfoot-bg-color: var(--dui-accent-d-4);
 
 }
