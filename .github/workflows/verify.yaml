@@ -31,9 +31,8 @@ jobs:
       - name: Set up Java and Maven
         uses: actions/setup-java@v4
         with:
-          java-version: 11
+          java-version: 17
           distribution: temurin
 
       - name: Run Maven verify
         run: ./mvnw verify -B -e
-

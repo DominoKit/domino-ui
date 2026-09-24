@@ -10,6 +10,10 @@
 
 Domino-UI is a type-safe, fluent Java UI component library that compiles to JavaScript GWT. It lets Java teams build modern UIs without external JavaScript dependencies, while keeping IDE refactoring, static typing, and a consistent API across components.
 
+## Requirements
+
+Building Domino UI requires JDK 17 or newer.
+
 ## Why Domino-UI
 - Fluent, structured composition that mirrors HTML hierarchies.
 - Rich component set (datatable, forms, layouts, menus, dialogs, etc.).

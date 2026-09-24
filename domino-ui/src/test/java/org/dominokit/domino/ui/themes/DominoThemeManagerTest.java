@@ -258,6 +258,58 @@ public class DominoThemeManagerTest extends GWTTestCase {
     }
   }
 
+  public void testUserThemeRestoreRequestedDuringThemeApplicationRunsAfterTheCurrentOperation() {
+    DominoThemeManager manager = DominoThemeManager.INSTANCE;
+    WebStorageWindow.of(DomGlobal.window)
+        .localStorage
+        .setItem("dui-user-themes", "dui-default,dui-theme-light,dui-theme-accent-teal");
+    IsDominoTheme startupThemeRestore =
+        new IsDominoTheme() {
+          @Override
+          public String getName() {
+            return "test-user-theme-restore";
+          }
+
+          @Override
+          public String getCategory() {
+            return "test-startup";
+          }
+
+          @Override
+          public void apply(Element target) {
+            manager.applyUserThemes();
+          }
+
+          @Override
+          public void cleanup(Element target) {}
+
+          @Override
+          public boolean isApplied(Element target) {
+            return false;
+          }
+        };
+
+    List<ThemeChange> changes = new ArrayList<>();
+    ThemeChangeListener listener = changes::add;
+    manager.addThemeChangeListener(listener);
+    try {
+      manager.apply(startupThemeRestore);
+
+      assertEquals(4, changes.size());
+      assertSame(startupThemeRestore, changes.get(0).getCurrentTheme());
+      assertEquals(DominoThemeCategories.MAIN, changes.get(1).getCategory());
+      assertEquals(DominoThemeCategories.COLOR_MODE, changes.get(2).getCategory());
+      assertEquals(DominoThemeCategories.ACCENT, changes.get(3).getCategory());
+      assertSame(DominoThemeDefault.INSTANCE, manager.getThemes().get(DominoThemeCategories.MAIN));
+      assertSame(
+          DominoThemeLight.INSTANCE, manager.getThemes().get(DominoThemeCategories.COLOR_MODE));
+      assertSame(DominoThemeAccent.TEAL, manager.getThemes().get(DominoThemeCategories.ACCENT));
+    } finally {
+      manager.removeThemeChangeListener(listener);
+      manager.remove(startupThemeRestore.getName());
+    }
+  }
+
   public void testThemeApplyCallbackCannotReenterGlobalManager() {
     DominoThemeManager manager = DominoThemeManager.INSTANCE;
     IsDominoTheme reentrant =

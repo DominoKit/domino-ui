@@ -314,7 +314,9 @@ change handler are separate from these manager notifications.
 Listeners run synchronously after a manager operation completes. A listener may apply or remove
 another theme; that notification is queued until all listeners have received the current event, so
 events reach every listener in operation order. A theme's own `apply` or `cleanup` callback must not
-recursively change the same manager state (or the same target in `ElementThemeManager`).
+directly apply or remove themes on the same manager state (or the same target in
+`ElementThemeManager`). A persisted-theme restore requested during theme application is deferred
+until the current operation completes; this supports Domino UI's lazy base-element initialization.
 
 ## Colors, roles, and contextual palettes
 
