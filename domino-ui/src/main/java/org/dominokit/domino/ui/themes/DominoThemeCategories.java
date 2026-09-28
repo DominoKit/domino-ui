@@ -45,5 +45,8 @@ public final class DominoThemeCategories {
   /** The composable radius surface category. */
   public static final String SURFACE_RADIUS = "dui-theme-surface-radius";
 
+  /** The composable component-header surface category. */
+  public static final String SURFACE_HEADERS = "dui-theme-surface-headers";
+
   private DominoThemeCategories() {}
 }

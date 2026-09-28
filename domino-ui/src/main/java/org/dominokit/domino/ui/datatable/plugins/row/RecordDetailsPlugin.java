@@ -19,6 +19,7 @@ package org.dominokit.domino.ui.datatable.plugins.row;
 import static java.util.Objects.nonNull;
 import static org.dominokit.domino.ui.datatable.DataTableStyles.dui_datatable_details_td;
 import static org.dominokit.domino.ui.datatable.DataTableStyles.dui_datatable_details_tr;
+import static org.dominokit.domino.ui.datatable.DataTableStyles.dui_datatable_row_details_open;
 
 import elemental2.dom.*;
 import java.util.Collections;
@@ -177,7 +178,10 @@ public class RecordDetailsPlugin<T> implements DataTablePlugin<T> {
   @Override
   public void onHeaderAdded(DataTable<T> dataTable, ColumnConfig<T> column) {
     if (column.isUtilityColumn()) {
-      column.appendChild(div().addCss(dui_order_30).appendChild(expandIcon.get()));
+      column.appendChild(
+          div()
+              .addCss(dui_order_30)
+              .appendChild(expandIcon.get().setAriaLabel("Expand row details")));
     }
   }
 
@@ -284,6 +288,7 @@ public class RecordDetailsPlugin<T> implements DataTablePlugin<T> {
     dataTable
         .bodyElement()
         .insertBefore(tr, expandElement.getCellInfo().getTableRow().element().nextSibling);
+    expandElement.getCellInfo().getTableRow().addCss(dui_datatable_row_details_open);
   }
 
   /**
@@ -321,6 +326,12 @@ public class RecordDetailsPlugin<T> implements DataTablePlugin<T> {
       this.recordDetailsPlugin = recordDetailsPlugin;
       this.cellInfo = cellInfo;
       this.element = elements.div();
+      this.stateIcon
+          .setRole("button")
+          .setTabIndex(0)
+          .setAriaLabel("Expand row details")
+          .setAriaExpanded(false)
+          .setAriaControls(recordDetailsPlugin.detailsElement.getDominoId());
       this.element.appendChild(
           this.stateIcon.apply(
               self -> {
@@ -334,6 +345,11 @@ public class RecordDetailsPlugin<T> implements DataTablePlugin<T> {
                         collapse();
                       }
                     });
+                self.onKeyDown(
+                    keyEvents ->
+                        keyEvents
+                            .onEnter(evt -> self.element().click())
+                            .onSpace(evt -> self.element().click()));
               }));
     }
 
@@ -350,12 +366,15 @@ public class RecordDetailsPlugin<T> implements DataTablePlugin<T> {
     public void expand() {
       recordDetailsPlugin.setExpanded(this);
       this.stateIcon.setState("expanded");
+      this.stateIcon.setAriaLabel("Collapse row details").setAriaExpanded(true);
     }
 
     /** Collapses the associated row and sets the icon to the collapsed state. */
     public void collapse() {
       recordDetailsPlugin.clear();
+      cellInfo.getTableRow().removeCss(dui_datatable_row_details_open);
       this.stateIcon.setState("collapsed");
+      this.stateIcon.setAriaLabel("Expand row details").setAriaExpanded(false);
     }
 
     /**

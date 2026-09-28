@@ -10,6 +10,10 @@
 
 Domino-UI is a type-safe, fluent Java UI component library that compiles to JavaScript GWT. It lets Java teams build modern UIs without external JavaScript dependencies, while keeping IDE refactoring, static typing, and a consistent API across components.
 
+## Requirements
+
+Building Domino UI requires JDK 17 or newer.
+
 ## Why Domino-UI
 - Fluent, structured composition that mirrors HTML hierarchies.
 - Rich component set (datatable, forms, layouts, menus, dialogs, etc.).
@@ -40,15 +44,13 @@ Card.create("LOGIN")
     .appendChild(login);
 ```
 
-## Theming
+## Styling and theming
 
-Domino UI supports composable color modes, accents, visual identities, character styles, density,
-surface treatments, and component-level emphasis modifiers. Optional themes can be loaded as one
-bundle or as individual CSS files, while all theme selectors remain scoped to a `.dui` root.
-
-See the complete guide in [theming.md](THEMING.md), including the available theme catalog, Java
-descriptors, subset-loading examples, composition rules, CSS isolation guidance, contrast
-recommendations, emphasis modifiers, and the separate role of the WaitMe animation stylesheet.
+Domino UI provides scoped, composable CSS: color modes, visual identities, accents, density,
+character and surface themes, contextual colors, component emphasis, custom tokens, and runtime
+Dynamic CSS utilities. The complete [styling and theming guide](STYLING_AND_THEMING.md) explains
+the design choices, stylesheet delivery options, Java APIs, accessibility guidance, customization
+recipes, and production optimization choices.
 
 ## Links
 - Introduction: https://dominokit.com/solutions/domino-ui/v2

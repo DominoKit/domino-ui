@@ -131,7 +131,7 @@ public class ToggleButton extends BaseButton<HTMLButtonElement, ToggleButton>
 
   @Override
   protected void prepare() {
-    addCss(dui_toggle_button);
+    addCss(dui_toggle_button).setAriaPressed(false);
     this.addClickListener(
         evt -> {
           boolean state = isToggled();
@@ -151,6 +151,7 @@ public class ToggleButton extends BaseButton<HTMLButtonElement, ToggleButton>
     boolean oldState = this.state;
     this.state = toggle;
     addCss(BooleanCssClass.of(toggleCssClass, toggle));
+    setAriaPressed(toggle);
     if (this.state != oldState) {
       withPauseChangeListenersToggle(
           isChangeListenersPaused(), toggleButton -> triggerChangeListeners(oldState, this.state));

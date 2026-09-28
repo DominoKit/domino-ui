@@ -115,7 +115,7 @@ public class Loader {
     }
 
     target.appendChild(loaderElement.getElement());
-    target.addCss(waitme_container);
+    target.addCss(dui_waitme_container);
     started = true;
 
     if (timeout > 0) {
@@ -140,7 +140,7 @@ public class Loader {
   public Loader stop() {
     if (started) {
       loaderElement.getElement().remove();
-      target.removeCss(waitme_container);
+      target.removeCss(dui_waitme_container);
       started = false;
       if (nonNull(timeOutTimer) && timeOutTimer.isRunning()) {
         timeOutTimer.cancel();

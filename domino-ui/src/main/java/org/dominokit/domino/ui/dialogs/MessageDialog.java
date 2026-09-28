@@ -83,7 +83,9 @@ public class MessageDialog extends AbstractDialog<MessageDialog> {
    */
   public MessageDialog() {
     messageElement = LazyChild.of(span(), bodyElement);
-    navHeader = LazyChild.of(NavBar.create().addCss(dui_dialog_nav), headerElement);
+    navHeader =
+        LazyChild.of(
+            NavBar.create().addCss(dui_dialog_nav, dui_standard_dialog_nav), headerElement);
     bodyElement.addCss(dui_text_center);
     appendButtons();
     setStretchWidth(DialogSize.SMALL);
@@ -137,7 +139,7 @@ public class MessageDialog extends AbstractDialog<MessageDialog> {
   private void appendButtons() {
     confirmButton =
         Button.create(labels.dialogOk())
-            .addCss(dui_min_w_32)
+            .addCss(dui_dialog_action)
             .addClickListener(
                 evt -> {
                   if (nonNull(confirmHandler)) {
@@ -145,9 +147,9 @@ public class MessageDialog extends AbstractDialog<MessageDialog> {
                   }
                 });
 
-    appendChild(FooterContent.of(confirmButton));
-
-    withContentFooter((parent, self) -> self.addCss(dui_text_center));
+    NavBar footerNav = NavBar.create().addCss(dui_p_4);
+    footerNav.appendChild(PostfixAddOn.of(confirmButton));
+    appendChild(FooterContent.of(footerNav));
   }
 
   /**

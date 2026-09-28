@@ -38,6 +38,7 @@
 
 .dui-calendar-day {
     display: flex;
+    min-width: 0;
     flex-grow: 1;
     align-items: center;
     justify-content: center;
@@ -113,8 +114,9 @@
     color: var(--dui-color-5);
 }
 
-.dui-selected-date-match .dui-calendar-day-number{
-    background-color: var(--dui-accent-l-5);
+.dui-selected-date-match .dui-calendar-day-number {
+    background-color: var(--dui-calendar-selected-date-match-background);
+    color: var(--dui-calendar-selected-date-match-color);
 }
 
 .dui-year-selector {

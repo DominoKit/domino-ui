@@ -15,15 +15,31 @@
 
 .dui.dui-clickable {
     cursor: var(--dui-clickable-cursor);
-    border-radius: var(--dui-spc-9999px);
+    border-radius: var(--dui-icon-radius);
     overflow: visible;
+}
+
+.dui-icon {
+    --dui-emphasis-color: var(--dui-bg, var(--dui-context-color, var(--dui-accent)));
+}
+
+.dui-icon.dui-icon-square {
+    border-radius: var(--dui-icon-square-radius);
+}
+
+.dui-icon.dui-icon-bordered {
+    border: var(--dui-icon-border);
+}
+
+.dui-icon.dui-icon-surface {
+    background-color: var(--dui-icon-surface-background);
 }
 
 .dui.dui-clickable:focus,
 .dui.dui-clickable:focus-visible,
 .dui.dui-clickable:hover {
     transition: var(--dui-clickable-transition);
-    background: rgb(0 0 0 / 8%);
+    background: var(--dui-clickable-hover-background);
     transform-origin: 50% 50%;
     transform: var(--dui-clickable-transform);
     box-shadow: var(--dui-clickable-box-shadow);

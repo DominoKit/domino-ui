@@ -94,8 +94,9 @@ public class AbstractMenuItem<V> extends BaseDominoElement<HTMLElement, Abstract
 
     linkElement =
         a("#")
-            .setAttribute("tabindex", "0")
-            .setAttribute("role", "menuitem")
+            .setTabIndex(0)
+            .setRole("menuitem")
+            .setAriaSelected(false)
             .addCss(dui_menu_item_anchor)
             .appendChild(prefixElement = div().addCss(dui_menu_item_prefix))
             .appendChild(bodyElement = div().addCss(dui_menu_item_body))
@@ -297,6 +298,7 @@ public class AbstractMenuItem<V> extends BaseDominoElement<HTMLElement, Abstract
           ConditionalCssClass.of(
               dui_menu_item_selected, () -> nonNull(parent) && parent.isPreserveSelectionStyles()));
       setAttribute("selected", true);
+      linkElement.setAriaSelected(true);
       if (!silent) {
         triggerSelectionListeners(this, getSelection());
       }
@@ -319,6 +321,7 @@ public class AbstractMenuItem<V> extends BaseDominoElement<HTMLElement, Abstract
     if (!isDisabled() && isSelectable()) {
       dui_menu_item_selected.remove(this);
       setAttribute("selected", false);
+      linkElement.setAriaSelected(false);
       if (!silent) {
         triggerDeselectionListeners(this, getSelection());
       }

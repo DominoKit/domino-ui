@@ -16,6 +16,7 @@
 
 package org.dominokit.domino.ui.icons;
 
+import static org.dominokit.domino.ui.icons.IconsStyles.dui_icon;
 import static org.dominokit.domino.ui.utils.Domino.*;
 
 import elemental2.dom.HTMLElement;
@@ -53,6 +54,7 @@ public class ElementIcon extends Icon<ElementIcon> implements CanChangeIcon<Elem
     this.name = SwapCssClass.of(name);
     this.icon = elementOf(element.element());
     init(this);
+    addCss(dui_icon);
   }
 
   /**

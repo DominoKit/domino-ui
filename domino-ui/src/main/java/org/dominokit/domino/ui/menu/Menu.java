@@ -329,6 +329,7 @@ public class Menu<V> extends BaseMenu<V, Menu<V>, AbstractMenuItem<V>, AbstractM
           backIcon
               .get()
               .clickable()
+              .setAriaLabel("Back")
               .addClickListener(this::backToParent)
               .addEventListener("touchend", this::backToParent)
               .addEventListener("touchstart", Event::stopPropagation);

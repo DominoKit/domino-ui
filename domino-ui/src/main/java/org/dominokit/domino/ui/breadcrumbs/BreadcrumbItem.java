@@ -52,7 +52,8 @@ public class BreadcrumbItem extends BaseDominoElement<HTMLLIElement, BreadcrumbI
   public BreadcrumbItem(String text) {
     element = li();
     init(this);
-    anchorElement = a().removeHref();
+    anchorElement = a().removeHref().setRole("link").setTabIndex(0);
+    anchorElement.onKeyDown(keyEvents -> keyEvents.onEnter(evt -> anchorElement.element().click()));
     this.textElement = text(text);
     this.anchorElement.appendChild(textElement);
     element.appendChild(anchorElement);
@@ -110,6 +111,7 @@ public class BreadcrumbItem extends BaseDominoElement<HTMLLIElement, BreadcrumbI
    */
   BreadcrumbItem activate() {
     element.addCss(dui_active);
+    anchorElement.setAriaCurrent("page");
     return this;
   }
 
@@ -120,6 +122,7 @@ public class BreadcrumbItem extends BaseDominoElement<HTMLLIElement, BreadcrumbI
    */
   BreadcrumbItem deActivate() {
     element.removeCss(dui_active);
+    anchorElement.setAriaCurrent(null);
     return this;
   }
 

@@ -23,14 +23,23 @@ import org.dominokit.domino.ui.style.CssClass;
  */
 public interface NavBarStyles {
 
+  /** Shared structural class used by NavBar and PageHeader. */
+  CssClass dui_nav_bar_base = () -> "dui-nav-bar-base";
+
   /** Represents the CSS class for the main navigation bar container. */
   CssClass dui_nav_bar = () -> "dui-nav-bar";
+
+  /** Represents the CSS class for a page header container. */
+  CssClass dui_page_header = () -> "dui-page-header";
 
   /** Represents the CSS class for the navigation bar add-on or extension. */
   CssClass dui_nav_add_on = () -> "dui-nav-addon";
 
   /** Represents the CSS class for the navigation bar title. */
   CssClass dui_nav_title = () -> "dui-nav-title";
+
+  /** Represents the CSS class for the title text within the heading element. */
+  CssClass dui_nav_title_text = () -> "dui-nav-title-text";
 
   /** Represents the CSS class for the navigation bar body content. */
   CssClass dui_nav_body = () -> "dui-nav-body";

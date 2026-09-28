@@ -34,7 +34,7 @@ fieldset.dui {
     background-color: var(--dui-form-field-readonly-background);
 }
 
-.dui-form-field .waitMe_container .waitMe {
+.dui-form-field .dui-waitme-container .dui-waitme {
     overflow: visible;
 }
 

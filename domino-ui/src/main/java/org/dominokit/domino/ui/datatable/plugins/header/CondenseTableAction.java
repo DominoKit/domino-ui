@@ -36,6 +36,7 @@ public class CondenseTableAction<T> extends BaseDominoElement<HTMLElement, Conde
     condenseIcon =
         ToggleMdiIcon.create(Icons.arrow_collapse_vertical(), Icons.arrow_expand_vertical())
             .clickable()
+            .setAriaLabel("Toggle compact table")
             .setTooltip(condenseToolTip)
             .toggleOnClick(true)
             .onToggle(

@@ -22863,7 +22863,7 @@
  */
 .dui.dui-colors-light,
 .dui.dui-colors-dark {
-    --dui-accent-harmony-strength: 0%;
+    --dui-accent-harmony-strength: calc(0%);
     --dui-accent-harmony-anchor: var(--dui-accent-source);
 
     --dui-accent-l-5: var(--dui-accent-source-l-5);
@@ -22903,9 +22903,9 @@
  */
 .dui.dui-colors-light,
 .dui.dui-colors-dark {
-    --dui-primary-harmony-strength: 0%;
+    --dui-primary-harmony-strength: calc(0%);
     --dui-primary-harmony-anchor: var(--dui-palette-primary);
-    --dui-secondary-harmony-strength: 0%;
+    --dui-secondary-harmony-strength: calc(0%);
     --dui-secondary-harmony-anchor: var(--dui-palette-secondary);
 
     --dui-clr-primary-l-5: var(--dui-palette-primary-l-5);

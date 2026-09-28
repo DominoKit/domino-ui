@@ -204,12 +204,23 @@ public class FileUpload extends BaseDominoElement<HTMLDivElement, FileUpload>
     root =
         div()
             .addCss(dui_file_upload)
+            .setRole("button")
+            .setTabIndex(0)
+            .setAriaLabel("Choose files")
             .appendChild(messagesContainer = div().addCss(dui_file_upload_messages))
             .appendChild(hiddenFileInput = input("file").addCss(dui_file_upload_input))
             .appendChild(filesContainer = filePreviewContainer);
     elementOf(filesContainer.element()).addCss(dui_file_preview_container);
+    hiddenFileInput.setTabIndex(-1).setAriaHidden(true);
+    messagesContainer.setAriaLive("polite");
+    root.setAriaDescribedBy(messagesContainer.getDominoId());
     init(this);
     root.addClickListener(evt -> hiddenFileInput.element().click());
+    root.onKeyDown(
+        keyEvents ->
+            keyEvents
+                .onEnter(evt -> hiddenFileInput.element().click())
+                .onSpace(evt -> hiddenFileInput.element().click()));
     hiddenFileInput.addEventListener("change", evt -> tryUpload(hiddenFileInput.element().files));
     root.addEventListener(
         "drop",

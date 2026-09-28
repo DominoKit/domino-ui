@@ -1,0 +1,44 @@
+/*
+ * Copyright © 2019 Dominokit
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+package org.dominokit.domino.ui.icons;
+
+import com.google.gwt.junit.client.GWTTestCase;
+import org.dominokit.domino.ui.icons.lib.Icons;
+
+public class IconTest extends GWTTestCase {
+
+  @Override
+  public String getModuleName() {
+    return "org.dominokit.domino.ui.DominoUI";
+  }
+
+  public void testIconAppearanceModifiersCanBeEnabledAndDisabled() {
+    MdiIcon icon = Icons.close();
+
+    icon.setSquare(true).setBordered(true).setSurface(true);
+
+    assertTrue(icon.element().classList.contains("dui-icon"));
+    assertTrue(icon.element().classList.contains("dui-icon-square"));
+    assertTrue(icon.element().classList.contains("dui-icon-bordered"));
+    assertTrue(icon.element().classList.contains("dui-icon-surface"));
+
+    icon.setSquare(false).setBordered(false).setSurface(false);
+
+    assertFalse(icon.element().classList.contains("dui-icon-square"));
+    assertFalse(icon.element().classList.contains("dui-icon-bordered"));
+    assertFalse(icon.element().classList.contains("dui-icon-surface"));
+  }
+}

@@ -759,6 +759,15 @@ public class TableRow<T> extends BaseDominoElement<HTMLTableRowElement, TableRow
    */
   public void renderCell(ColumnConfig<T> columnConfig) {
     HTMLTableCellElement cellElement = td().addCss(dui_datatable_td).element();
+    if (columnConfig.isColumnGroupBoundary()) {
+      elementOf(cellElement).addCss(dui_datatable_column_group_end);
+    }
+    if (dataTable.isColumnStripeAlternate(columnConfig, TableColumnStripeMode.COLUMNS)) {
+      elementOf(cellElement).addCss(dui_datatable_column_stripe_columns_alt);
+    }
+    if (dataTable.isColumnStripeAlternate(columnConfig, TableColumnStripeMode.COLUMN_GROUPS)) {
+      elementOf(cellElement).addCss(dui_datatable_column_stripe_groups_alt);
+    }
 
     ColumnCssRuleMeta.get(columnConfig)
         .ifPresent(

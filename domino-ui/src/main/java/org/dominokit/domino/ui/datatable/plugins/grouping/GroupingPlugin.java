@@ -142,6 +142,7 @@ public class GroupingPlugin<T>
           groupExpandedCollapseIconSupplier
               .get()
               .clickable()
+              .setAriaLabel("Toggle group")
               .toggleOnClick(true)
               .addClickListener(
                   evt -> {

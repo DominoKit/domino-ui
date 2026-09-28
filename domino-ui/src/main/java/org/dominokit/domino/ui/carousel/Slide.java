@@ -61,7 +61,8 @@ public class Slide extends BaseDominoElement<HTMLDivElement, Slide> {
   private Slide(Element element) {
     slideElement = div().addCss(slide).appendChild(wrappedElement = elementOf(element));
 
-    indicatorElement = li().addCss(slide_indicator);
+    indicatorElement =
+        li().addCss(slide_indicator).setRole("button").setTabIndex(0).setAriaCurrent("false");
 
     captionElement = LazyChild.of(div().addCss(slide_caption), slideElement);
     slideLabelElement = LazyChild.of(h(3), captionElement);
@@ -224,6 +225,8 @@ public class Slide extends BaseDominoElement<HTMLDivElement, Slide> {
    */
   public void setActive(boolean active) {
     indicatorElement.addCss(BooleanCssClass.of(dui_active, active));
+    indicatorElement.setAriaCurrent(active ? "true" : "false");
+    slideElement.setAriaHidden(!active);
     addCss(BooleanCssClass.of(dui_active, active));
   }
 

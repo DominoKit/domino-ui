@@ -74,6 +74,9 @@ public abstract class ToggleIcon<I extends Icon<I>, T extends ToggleIcon<I, T>> 
    */
   public T toggleOnClick(boolean toggleOnClick) {
     this.toggleOnClick = toggleOnClick;
+    if (toggleOnClick) {
+      setAriaPressed(isToggled());
+    }
     return (T) this;
   }
 
@@ -106,6 +109,7 @@ public abstract class ToggleIcon<I extends Icon<I>, T extends ToggleIcon<I, T>> 
    */
   public T toggle(boolean silent) {
     primary.addCss(swapCss);
+    setAriaPressed(isToggled());
     if (!silent) {
       this.onToggleHandler.accept((T) this);
     }

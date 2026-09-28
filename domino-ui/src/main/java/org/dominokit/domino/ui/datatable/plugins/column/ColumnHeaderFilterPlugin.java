@@ -18,6 +18,8 @@ package org.dominokit.domino.ui.datatable.plugins.column;
 
 import static java.util.Objects.nonNull;
 import static org.dominokit.domino.ui.datatable.DataTableStyles.dui_datatable_column_filter;
+import static org.dominokit.domino.ui.datatable.DataTableStyles.dui_datatable_column_stripe_columns_alt;
+import static org.dominokit.domino.ui.datatable.DataTableStyles.dui_datatable_column_stripe_groups_alt;
 import static org.dominokit.domino.ui.datatable.DataTableStyles.dui_datatable_row;
 
 import elemental2.dom.HTMLElement;
@@ -83,6 +85,13 @@ public class ColumnHeaderFilterPlugin<T> implements DataTablePlugin<T> {
     columns.forEach(
         columnConfig -> {
           ColumnHeader th = ColumnHeader.create().addCss(dui_datatable_column_filter);
+          if (dataTable.isColumnStripeAlternate(columnConfig, TableColumnStripeMode.COLUMNS)) {
+            th.addCss(dui_datatable_column_stripe_columns_alt);
+          }
+          if (dataTable.isColumnStripeAlternate(
+              columnConfig, TableColumnStripeMode.COLUMN_GROUPS)) {
+            th.addCss(dui_datatable_column_stripe_groups_alt);
+          }
           columnConfig.applyHeaderHandlers();
 
           columnConfig.applyScreenMedia(th.element());

@@ -44,7 +44,7 @@ public class TabsDropDownHandler implements TabsOverflowHandler {
       new BaseDominoElement.HandlerRecord();
 
   public TabsDropDownHandler() {
-    dropDownIcon = Icons.dots_horizontal().clickable();
+    dropDownIcon = Icons.dots_horizontal().clickable().setAriaLabel("Show more tabs");
     popover = Popover.create(dropDownIcon).setPosition(DropDirection.BEST_MIDDLE_DOWN_UP);
   }
 

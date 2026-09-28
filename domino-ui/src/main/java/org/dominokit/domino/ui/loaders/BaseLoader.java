@@ -41,7 +41,7 @@ public abstract class BaseLoader<T extends BaseLoader<T>>
 
   /** The HTMLDivElement used for displaying loading text. */
   protected HTMLDivElement loadingText =
-      div().addCss(dui_loader, wait_me_text).textContent(labels.loading()).element();
+      div().addCss(dui_loader, dui_waitme_text).textContent(labels.loading()).element();
 
   /**
    * Gets the HTMLDivElement element associated with this loader.

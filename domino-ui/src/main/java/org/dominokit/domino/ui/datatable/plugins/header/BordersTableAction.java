@@ -46,6 +46,7 @@ public class BordersTableAction<T> extends BaseDominoElement<HTMLElement, Border
     bordersIcon =
         ToggleMdiIcon.create(Icons.border_vertical(), Icons.border_none())
             .clickable()
+            .setAriaLabel("Toggle table borders")
             .toggleOnClick(true)
             .setTooltip(borderedToolTip)
             .onToggle(

@@ -39,4 +39,40 @@ public class AccessibilityTest extends GWTTestCase {
   public void testCustomDisabledElementsExposeAriaDisabled() {
     assertEquals("true", div().setDisabled(true).getAttribute("aria-disabled"));
   }
+
+  public void testBaseElementProvidesFluentAccessibilityAttributes() {
+    assertEquals(
+        "button",
+        div()
+            .setRole("button")
+            .setAriaLabel("Actions")
+            .setAriaLabelledBy("actions-label")
+            .setAriaDescribedBy("actions-description")
+            .setAriaControls("actions-menu")
+            .setAriaExpanded(true)
+            .setAriaSelected(true)
+            .setAriaPressed(true)
+            .setAriaChecked(true)
+            .setAriaCurrent("page")
+            .setAriaHidden(false)
+            .setAriaDisabled(false)
+            .setAriaRequired(true)
+            .setAriaInvalid(false)
+            .setAriaLive("polite")
+            .setAriaHasPopup("menu")
+            .setAriaAutocomplete("none")
+            .setAriaMultiline(true)
+            .setAriaValueMin(0)
+            .setAriaValueMax(100)
+            .setAriaValueNow(50)
+            .getAttribute("role"));
+    assertEquals("Actions", div().setAriaLabel("Actions").getAttribute("aria-label"));
+  }
+
+  public void testEmptyFluentAccessibilityReferencesAreRemoved() {
+    assertFalse(div().setAriaLabel("Actions").setAriaLabel("").hasAttribute("aria-label"));
+    assertFalse(
+        div().setAriaControls("actions-menu").setAriaControls(null).hasAttribute("aria-controls"));
+    assertFalse(div().setRole("button").setRole("").hasAttribute("role"));
+  }
 }

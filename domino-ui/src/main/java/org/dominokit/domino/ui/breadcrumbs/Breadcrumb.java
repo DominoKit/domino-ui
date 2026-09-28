@@ -51,7 +51,7 @@ public class Breadcrumb extends BaseDominoElement<HTMLOListElement, Breadcrumb>
 
   /** Creates an empty breadcrumb instance */
   public Breadcrumb() {
-    element = ol().addCss(dui_breadcrumb);
+    element = ol().addCss(dui_breadcrumb).setRole("navigation").setAriaLabel("Breadcrumb");
     init(this);
   }
 

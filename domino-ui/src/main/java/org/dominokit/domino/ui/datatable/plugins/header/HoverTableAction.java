@@ -47,6 +47,7 @@ public class HoverTableAction<T> extends BaseDominoElement<HTMLElement, HoverTab
     hoverIcon =
         ToggleMdiIcon.create(Icons.blur_off(), Icons.blur())
             .clickable()
+            .setAriaLabel("Toggle row hover")
             .toggleOnClick(true)
             .setTooltip(noHoverToolTip)
             .onToggle(

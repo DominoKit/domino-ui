@@ -2,7 +2,7 @@
     color: var(--dui-loader-color);
 }
 
-.dui .waitMe_container .waitMe *{
+.dui .dui-waitme-container .dui-waitme *{
     color: var(--dui-color);
 }
 
@@ -30,10 +30,10 @@
     border-color: var(--dui-loader-darkest-color);
 }
 
-.dui-field-input-wrapper .waitMe_container {
+.dui-field-input-wrapper .dui-waitme-container {
     --dui-loader-background:none;
 }
 
-.dui-field-input-wrapper .waitMe_container .waitMe .waitMe_content {
+.dui-field-input-wrapper .dui-waitme-container .dui-waitme .dui-waitme-content {
     top: auto;
 }

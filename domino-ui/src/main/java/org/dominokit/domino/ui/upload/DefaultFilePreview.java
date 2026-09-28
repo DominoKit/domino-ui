@@ -134,11 +134,13 @@ public class DefaultFilePreview extends BaseDominoElement<HTMLElement, DefaultFi
                           removeIcon
                               .addCss(dui_fg_error)
                               .clickable()
+                              .setAriaLabel("Remove file")
                               .addClickListener(evt -> fileItem.remove()))
                       .appendChild(
                           uploadIcon
                               .addCss(dui_fg_accent)
                               .clickable()
+                              .setAriaLabel("Upload file")
                               .addClickListener(
                                   evt -> {
                                     messageElement.clearElement().removeCss(statusMessageCss);
@@ -149,6 +151,7 @@ public class DefaultFilePreview extends BaseDominoElement<HTMLElement, DefaultFi
                               .addCss(dui_fg_warning)
                               .hide()
                               .clickable()
+                              .setAriaLabel("Cancel upload")
                               .addClickListener(evt -> fileItem.cancel())))
               .appendChild(div().appendChild(progress));
         });

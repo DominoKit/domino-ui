@@ -17,7 +17,10 @@ package org.dominokit.domino.ui.themes;
 
 import com.google.gwt.junit.client.GWTTestCase;
 import elemental2.dom.DomGlobal;
+import elemental2.dom.Element;
 import elemental2.dom.HTMLElement;
+import java.util.ArrayList;
+import java.util.List;
 
 public class ElementThemeManagerTest extends GWTTestCase {
 
@@ -82,5 +85,114 @@ public class ElementThemeManagerTest extends GWTTestCase {
     ElementThemeManager.INSTANCE.remove("dui-theme-paper", target);
     ElementThemeManager.INSTANCE.remove("dui-theme-border-default", target);
     ElementThemeManager.INSTANCE.remove("dui-theme-rounded", target);
+  }
+
+  public void testChangeListenerReportsTargetAndIsolatedSnapshots() {
+    ElementThemeManager manager = ElementThemeManager.INSTANCE;
+    HTMLElement first = (HTMLElement) DomGlobal.document.createElement("div");
+    HTMLElement second = (HTMLElement) DomGlobal.document.createElement("div");
+    manager.apply(DominoThemeAccent.TEAL, first);
+    manager.apply(DominoThemeAccent.CORAL, second);
+
+    List<ThemeChange> changes = new ArrayList<>();
+    ThemeChangeListener listener = changes::add;
+    manager.addThemeChangeListener(listener);
+    try {
+      manager.apply(DominoThemeAccent.BLUE, first);
+
+      assertEquals(1, changes.size());
+      ThemeChange change = changes.get(0);
+      assertEquals(ThemeChange.Scope.ELEMENT, change.getScope());
+      assertSame(first, change.getTarget());
+      assertSame(DominoThemeAccent.TEAL, change.getPreviousTheme());
+      assertSame(DominoThemeAccent.BLUE, change.getCurrentTheme());
+      assertEquals(1, change.getPreviousThemes().size());
+      assertSame(
+          DominoThemeAccent.TEAL, change.getPreviousThemes().get(DominoThemeCategories.ACCENT));
+      assertSame(
+          DominoThemeAccent.BLUE, change.getCurrentThemes().get(DominoThemeCategories.ACCENT));
+      assertSame(
+          DominoThemeAccent.CORAL, manager.getThemes(second).get(DominoThemeCategories.ACCENT));
+    } finally {
+      manager.removeThemeChangeListener(listener);
+      manager.remove(DominoThemeAccent.BLUE.getName(), first);
+      manager.remove(DominoThemeAccent.CORAL.getName(), second);
+    }
+  }
+
+  public void testClearSurfaceThemeIsIncludedInChangeAndUnknownRemovalIsSilent() {
+    ElementThemeManager manager = ElementThemeManager.INSTANCE;
+    HTMLElement target = (HTMLElement) DomGlobal.document.createElement("div");
+    manager.apply(DominoThemeSurface.BORDERED, target);
+
+    List<ThemeChange> changes = new ArrayList<>();
+    ThemeChangeListener listener = changes::add;
+    manager.addThemeChangeListener(listener);
+    try {
+      manager.apply(DominoThemeSurface.CLEAR_BORDER, target);
+      manager.remove("not-an-active-theme", target);
+      manager.remove(DominoThemeSurface.CLEAR_BORDER.getName(), target);
+
+      assertEquals(2, changes.size());
+      assertSame(DominoThemeSurface.BORDERED, changes.get(0).getPreviousTheme());
+      assertSame(DominoThemeSurface.CLEAR_BORDER, changes.get(0).getCurrentTheme());
+      assertSame(
+          DominoThemeSurface.CLEAR_BORDER,
+          changes.get(0).getCurrentThemes().get(DominoThemeCategories.SURFACE_BORDER));
+      assertFalse(DominoThemeSurface.BORDERED.isApplied(target));
+      assertEquals(ThemeChange.Operation.REMOVE, changes.get(1).getOperation());
+      assertNull(changes.get(1).getCurrentTheme());
+      assertTrue(changes.get(1).getCurrentThemes().isEmpty());
+    } finally {
+      manager.removeThemeChangeListener(listener);
+      manager.remove(DominoThemeSurface.CLEAR_BORDER.getName(), target);
+    }
+  }
+
+  public void testThemeCleanupCallbackCannotReenterSameElement() {
+    ElementThemeManager manager = ElementThemeManager.INSTANCE;
+    HTMLElement target = (HTMLElement) DomGlobal.document.createElement("div");
+    int[] cleanupCalls = {0};
+    IsDominoTheme reentrant =
+        new IsDominoTheme() {
+          @Override
+          public String getName() {
+            return "reentrant-element-accent";
+          }
+
+          @Override
+          public String getCategory() {
+            return DominoThemeCategories.ACCENT;
+          }
+
+          @Override
+          public void apply(Element element) {}
+
+          @Override
+          public void cleanup(Element element) {
+            if (++cleanupCalls[0] == 1) {
+              manager.apply(DominoThemeAccent.BLUE, element);
+            }
+          }
+
+          @Override
+          public boolean isApplied(Element element) {
+            return false;
+          }
+        };
+    manager.apply(reentrant, target);
+
+    try {
+      try {
+        manager.apply(DominoThemeAccent.TEAL, target);
+        fail("A theme callback must not mutate the same element recursively");
+      } catch (IllegalStateException expected) {
+        assertTrue(expected.getMessage().contains("theme"));
+      }
+    } finally {
+      manager.remove(reentrant.getName(), target);
+      manager.remove(DominoThemeAccent.BLUE.getName(), target);
+      manager.remove(DominoThemeAccent.TEAL.getName(), target);
+    }
   }
 }

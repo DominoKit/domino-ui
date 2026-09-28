@@ -36,8 +36,8 @@ public class ScrollTabsHandler implements TabsOverflowHandler {
       new BaseDominoElement.HandlerRecord();
 
   public ScrollTabsHandler() {
-    scrollLeftIcon = Icons.menu_left().clickable();
-    scrollRightIcon = Icons.menu_right().clickable();
+    scrollLeftIcon = Icons.menu_left().clickable().setAriaLabel("Scroll tabs left");
+    scrollRightIcon = Icons.menu_right().clickable().setAriaLabel("Scroll tabs right");
   }
 
   @Override

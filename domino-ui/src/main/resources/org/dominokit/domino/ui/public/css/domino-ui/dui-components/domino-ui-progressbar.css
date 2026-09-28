@@ -54,6 +54,11 @@
     overflow: visible;
 }
 
+.dui-progress-bar.dui-ctx {
+    --dui-emphasis-text-color: var(--dui-context-fg-color, var(--dui-progress-bar-color));
+    color: var(--dui-context-fg-color, var(--dui-progress-bar-color));
+}
+
 .dui-progress-bar:first-child {
     border-top-left-radius: inherit;
     border-bottom-left-radius: inherit;
@@ -76,6 +81,7 @@
 }
 
 .dui-progress-text-blind {
-    filter: grayscale(17%) invert(80%);
-    mix-blend-mode: multiply;
+    color: var(--dui-progress-text-overflow-color);
+    filter: none;
+    mix-blend-mode: normal;
 }

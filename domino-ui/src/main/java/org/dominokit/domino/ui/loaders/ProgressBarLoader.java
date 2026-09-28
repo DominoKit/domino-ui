@@ -40,19 +40,23 @@ import org.dominokit.domino.ui.utils.DominoElement;
 public class ProgressBarLoader extends BaseLoader<ProgressBarLoader>
     implements IsElement<HTMLDivElement> {
 
-  private final DivElement progress1 = div().addCss(wait_me_progress_elem_1, dui_loader_darker);
+  private final DivElement progress1 =
+      div().addCss(dui_waitme_progress_element_1, dui_loader_darker);
 
   private final DivElement loader =
-      div().addCss(wait_me_progress, progress_bar).appendChild(progress1);
+      div().addCss(dui_waitme_progress, dui_waitme_progress_bar).appendChild(progress1);
 
   private final DivElement content =
       div()
-          .addCss(wait_me_content, dui_vertical_center, vertical)
+          .addCss(dui_waitme_content, dui_vertical_center, dui_waitme_vertical)
           .appendChild(loader)
           .appendChild(loadingText);
 
   private final DivElement element =
-      div().addCss(wait_me).style("background: var(--dui-loader-background);").appendChild(content);
+      div()
+          .addCss(dui_waitme)
+          .style("background: var(--dui-loader-background);")
+          .appendChild(content);
 
   /** Initializes a new instance of the {@code ProgressBarLoader} class. */
   public ProgressBarLoader() {

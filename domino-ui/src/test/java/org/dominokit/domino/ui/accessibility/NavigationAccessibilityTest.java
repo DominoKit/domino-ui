@@ -8,8 +8,11 @@ package org.dominokit.domino.ui.accessibility;
 
 import com.google.gwt.junit.client.GWTTestCase;
 import elemental2.dom.Element;
+import org.dominokit.domino.ui.breadcrumbs.Breadcrumb;
+import org.dominokit.domino.ui.breadcrumbs.BreadcrumbItem;
 import org.dominokit.domino.ui.carousel.Carousel;
 import org.dominokit.domino.ui.carousel.Slide;
+import org.dominokit.domino.ui.forms.DateBox;
 import org.dominokit.domino.ui.forms.SwitchButton;
 import org.dominokit.domino.ui.pagination.SimplePagination;
 import org.dominokit.domino.ui.tree.Tree;
@@ -53,6 +56,36 @@ public class NavigationAccessibilityTest extends GWTTestCase {
     assertEquals("Previous slide", previous.getAttribute("aria-label"));
     assertEquals("button", next.getAttribute("role"));
     assertEquals("Next slide", next.getAttribute("aria-label"));
+  }
+
+  public void testCarouselIndicatorsAreKeyboardAccessibleAndExposeCurrentSlide() {
+    Carousel carousel =
+        Carousel.create().appendChild(Slide.create("one.png"), Slide.create("two.png"));
+    Element first = carousel.getIndicatorsElement().element().querySelector("li");
+    Element second = carousel.getIndicatorsElement().element().querySelector("li + li");
+
+    assertEquals("button", first.getAttribute("role"));
+    assertEquals("0", first.getAttribute("tabindex"));
+    assertEquals("Slide 1", first.getAttribute("aria-label"));
+    assertEquals("true", first.getAttribute("aria-current"));
+    assertEquals("false", second.getAttribute("aria-current"));
+  }
+
+  public void testDatePickerTriggerHasAnAccessibleName() {
+    DateBox dateBox = DateBox.create();
+    Element trigger = dateBox.element().querySelector(".dui-clickable");
+
+    assertEquals("Open calendar", trigger.getAttribute("aria-label"));
+  }
+
+  public void testBreadcrumbExposesNavigationSemantics() {
+    Breadcrumb breadcrumb = Breadcrumb.create().appendChild(BreadcrumbItem.create("Home"));
+
+    assertEquals("navigation", breadcrumb.getAttribute("role"));
+    assertEquals("Breadcrumb", breadcrumb.getAttribute("aria-label"));
+    assertEquals("link", breadcrumb.getItems().get(0).getClickableElement().getAttribute("role"));
+    assertEquals(
+        "page", breadcrumb.getItems().get(0).getClickableElement().getAttribute("aria-current"));
   }
 
   public void testPaginationUsesNavigationAndCurrentPageSemantics() {

@@ -50,4 +50,14 @@ public interface ButtonStyles {
   CssClass dui_top_scroller = () -> "dui-top-scroller";
 
   CssClass dui_toggle_button = () -> "dui-toggle-button";
+
+  CssClass dui_fab = () -> "dui-fab";
+
+  CssClass dui_fab_button = () -> "dui-fab-button";
+
+  CssClass dui_fab_actions = () -> "dui-fab-actions";
+
+  CssClass dui_fab_action = () -> "dui-fab-action";
+
+  CssClass dui_fab_expanded = () -> "dui-fab-expanded";
 }

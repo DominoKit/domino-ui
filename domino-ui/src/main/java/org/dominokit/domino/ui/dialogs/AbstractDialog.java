@@ -134,6 +134,7 @@ public class AbstractDialog<T extends AbstractDialog<T>>
                                     .addCss(dui_dialog_content)
                                     .appendChild(bodyElement = div().addCss(dui_dialog_body))));
     init((T) this);
+    modalElement.setAriaDescribedBy(bodyElement.getDominoId());
 
     headerElement = LazyChild.of(div().addCss(dui_dialog_header), modalElement);
     headerElement.whenInitialized(

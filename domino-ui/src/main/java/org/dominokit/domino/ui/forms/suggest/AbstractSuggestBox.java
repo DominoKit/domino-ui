@@ -172,6 +172,7 @@ public abstract class AbstractSuggestBox<
                 .clearableInputDefaultIcon()
                 .addCss(dui_form_select_clear)
                 .clickable()
+                .setAriaLabel("Clear selection")
                 .addClickListener(
                     evt -> {
                       evt.stopPropagation();

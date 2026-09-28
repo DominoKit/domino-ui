@@ -26,6 +26,7 @@ import org.dominokit.domino.ui.elements.*;
 import org.dominokit.domino.ui.elements.ImageElement;
 import org.dominokit.domino.ui.elements.ScriptElement;
 import org.dominokit.domino.ui.elements.svg.*;
+import org.dominokit.domino.ui.style.CssClass;
 import org.dominokit.domino.ui.style.DominoCss;
 
 public class Domino implements DominoCss {
@@ -33,6 +34,530 @@ public class Domino implements DominoCss {
   public static ElementsFactory factory = ElementsFactory.elements;
 
   private Domino() {}
+
+  /**
+   * Creates a runtime Domino UI base color CSS class from a literal CSS color or an
+   * application-owned {@code var(--dui-clr-<name>)} palette reference.
+   *
+   * <p>The class applies the color palette's base background and foreground and publishes its
+   * contextual and background palette variables. Use {@link #dui_clr_schm_(String)} to access the
+   * complete color scheme.
+   */
+  public static CssClass dui_clr_(String source) {
+    return dui_clr_schm_(source).color().getCss();
+  }
+
+  /**
+   * Creates a reusable runtime Domino UI color scheme from a literal CSS color or an
+   * application-owned {@code var(--dui-clr-<name>)} palette reference.
+   *
+   * <p>The source is not validated. Literal sources receive deterministic light/dark palette rules;
+   * palette references must provide Domino-shaped light, dark, and foreground tokens.
+   */
+  public static DynamicColorScheme dui_clr_schm_(String source) {
+    return DynamicColorRegistry.get().colorScheme(source);
+  }
+
+  /**
+   * Creates runtime layout utility classes. Values may be raw CSS values or formatted with {@link
+   * Unit}, for example {@code dui_p_(Unit.rem.of(1))}. Existing Domino spacing tokens are reused
+   * when available.
+   */
+  public static CssClass dui_p_(String value) {
+    return DynamicPadding.of(value);
+  }
+
+  public static CssClass dui_p_t_(String value) {
+    return DynamicPadding.top(value);
+  }
+
+  public static CssClass dui_p_r_(String value) {
+    return DynamicPadding.right(value);
+  }
+
+  public static CssClass dui_p_b_(String value) {
+    return DynamicPadding.bottom(value);
+  }
+
+  public static CssClass dui_p_l_(String value) {
+    return DynamicPadding.left(value);
+  }
+
+  public static CssClass dui_p_x_(String value) {
+    return DynamicPadding.x(value);
+  }
+
+  public static CssClass dui_p_y_(String value) {
+    return DynamicPadding.y(value);
+  }
+
+  public static CssClass dui_m_(String value) {
+    return DynamicMargin.of(value);
+  }
+
+  public static CssClass dui_m_t_(String value) {
+    return DynamicMargin.top(value);
+  }
+
+  public static CssClass dui_m_r_(String value) {
+    return DynamicMargin.right(value);
+  }
+
+  public static CssClass dui_m_b_(String value) {
+    return DynamicMargin.bottom(value);
+  }
+
+  public static CssClass dui_m_l_(String value) {
+    return DynamicMargin.left(value);
+  }
+
+  public static CssClass dui_m_x_(String value) {
+    return DynamicMargin.x(value);
+  }
+
+  public static CssClass dui_m_y_(String value) {
+    return DynamicMargin.y(value);
+  }
+
+  public static CssClass dui_gap_(String value) {
+    return DynamicGap.of(value);
+  }
+
+  public static CssClass dui_gap_x_(String value) {
+    return DynamicGap.x(value);
+  }
+
+  public static CssClass dui_gap_y_(String value) {
+    return DynamicGap.y(value);
+  }
+
+  public static CssClass dui_w_(String value) {
+    return DynamicSizing.width(value);
+  }
+
+  public static CssClass dui_h_(String value) {
+    return DynamicSizing.height(value);
+  }
+
+  public static CssClass dui_min_w_(String value) {
+    return DynamicSizing.minWidth(value);
+  }
+
+  public static CssClass dui_min_h_(String value) {
+    return DynamicSizing.minHeight(value);
+  }
+
+  public static CssClass dui_max_w_(String value) {
+    return DynamicSizing.maxWidth(value);
+  }
+
+  public static CssClass dui_max_h_(String value) {
+    return DynamicSizing.maxHeight(value);
+  }
+
+  public static CssClass dui_indent_(String value) {
+    return DynamicIndent.of(value);
+  }
+
+  public static CssClass dui_inset_(String value) {
+    return DynamicPosition.of(value);
+  }
+
+  public static CssClass dui_inset_x_(String value) {
+    return DynamicPosition.x(value);
+  }
+
+  public static CssClass dui_inset_y_(String value) {
+    return DynamicPosition.y(value);
+  }
+
+  public static CssClass dui_top_(String value) {
+    return DynamicPosition.top(value);
+  }
+
+  public static CssClass dui_right_(String value) {
+    return DynamicPosition.right(value);
+  }
+
+  public static CssClass dui_bottom_(String value) {
+    return DynamicPosition.bottom(value);
+  }
+
+  public static CssClass dui_left_(String value) {
+    return DynamicPosition.left(value);
+  }
+
+  public static CssClass dui_z_(String value) {
+    return DynamicPosition.zIndex(value);
+  }
+
+  public static CssClass dui_flex_basis_(String value) {
+    return DynamicFlex.basis(value);
+  }
+
+  public static CssClass dui_grow_(String value) {
+    return DynamicFlex.grow(value);
+  }
+
+  public static CssClass dui_shrink_(String value) {
+    return DynamicFlex.shrink(value);
+  }
+
+  public static CssClass dui_order_(String value) {
+    return DynamicFlex.order(value);
+  }
+
+  public static CssClass dui_grid_cols_(String value) {
+    return DynamicGrid.columns(value);
+  }
+
+  public static CssClass dui_grid_rows_(String value) {
+    return DynamicGrid.rows(value);
+  }
+
+  public static CssClass dui_auto_cols_(String value) {
+    return DynamicGrid.autoColumns(value);
+  }
+
+  public static CssClass dui_auto_rows_(String value) {
+    return DynamicGrid.autoRows(value);
+  }
+
+  public static CssClass dui_border_(String value) {
+    return DynamicBorder.of(value);
+  }
+
+  public static CssClass dui_border_x_(String value) {
+    return DynamicBorder.x(value);
+  }
+
+  public static CssClass dui_border_y_(String value) {
+    return DynamicBorder.y(value);
+  }
+
+  public static CssClass dui_border_t_(String value) {
+    return DynamicBorder.top(value);
+  }
+
+  public static CssClass dui_border_r_(String value) {
+    return DynamicBorder.right(value);
+  }
+
+  public static CssClass dui_border_b_(String value) {
+    return DynamicBorder.bottom(value);
+  }
+
+  public static CssClass dui_border_l_(String value) {
+    return DynamicBorder.left(value);
+  }
+
+  public static CssClass dui_rounded_(String value) {
+    return DynamicRadius.of(value);
+  }
+
+  public static CssClass dui_rounded_t_(String value) {
+    return DynamicRadius.top(value);
+  }
+
+  public static CssClass dui_rounded_r_(String value) {
+    return DynamicRadius.right(value);
+  }
+
+  public static CssClass dui_rounded_b_(String value) {
+    return DynamicRadius.bottom(value);
+  }
+
+  public static CssClass dui_rounded_l_(String value) {
+    return DynamicRadius.left(value);
+  }
+
+  public static CssClass dui_rounded_tl_(String value) {
+    return DynamicRadius.topLeft(value);
+  }
+
+  public static CssClass dui_rounded_tr_(String value) {
+    return DynamicRadius.topRight(value);
+  }
+
+  public static CssClass dui_rounded_br_(String value) {
+    return DynamicRadius.bottomRight(value);
+  }
+
+  public static CssClass dui_rounded_bl_(String value) {
+    return DynamicRadius.bottomLeft(value);
+  }
+
+  public static CssClass dui_outline_(String value) {
+    return DynamicOutline.width(value);
+  }
+
+  public static CssClass dui_outline_offset_(String value) {
+    return DynamicOutline.offset(value);
+  }
+
+  public static CssClass dui_font_size_(String value) {
+    return DynamicTypography.fontSize(value);
+  }
+
+  public static CssClass dui_leading_(String value) {
+    return DynamicTypography.lineHeight(value);
+  }
+
+  public static CssClass dui_tracking_(String value) {
+    return DynamicTypography.letterSpacing(value);
+  }
+
+  public static CssClass dui_font_weight_(String value) {
+    return DynamicTypography.fontWeight(value);
+  }
+
+  public static CssClass dui_p_(int value) {
+    return dui_p_(String.valueOf(value));
+  }
+
+  public static CssClass dui_p_t_(int value) {
+    return dui_p_t_(String.valueOf(value));
+  }
+
+  public static CssClass dui_p_r_(int value) {
+    return dui_p_r_(String.valueOf(value));
+  }
+
+  public static CssClass dui_p_b_(int value) {
+    return dui_p_b_(String.valueOf(value));
+  }
+
+  public static CssClass dui_p_l_(int value) {
+    return dui_p_l_(String.valueOf(value));
+  }
+
+  public static CssClass dui_p_x_(int value) {
+    return dui_p_x_(String.valueOf(value));
+  }
+
+  public static CssClass dui_p_y_(int value) {
+    return dui_p_y_(String.valueOf(value));
+  }
+
+  public static CssClass dui_m_(int value) {
+    return dui_m_(String.valueOf(value));
+  }
+
+  public static CssClass dui_m_t_(int value) {
+    return dui_m_t_(String.valueOf(value));
+  }
+
+  public static CssClass dui_m_r_(int value) {
+    return dui_m_r_(String.valueOf(value));
+  }
+
+  public static CssClass dui_m_b_(int value) {
+    return dui_m_b_(String.valueOf(value));
+  }
+
+  public static CssClass dui_m_l_(int value) {
+    return dui_m_l_(String.valueOf(value));
+  }
+
+  public static CssClass dui_m_x_(int value) {
+    return dui_m_x_(String.valueOf(value));
+  }
+
+  public static CssClass dui_m_y_(int value) {
+    return dui_m_y_(String.valueOf(value));
+  }
+
+  public static CssClass dui_gap_(int value) {
+    return dui_gap_(String.valueOf(value));
+  }
+
+  public static CssClass dui_gap_x_(int value) {
+    return dui_gap_x_(String.valueOf(value));
+  }
+
+  public static CssClass dui_gap_y_(int value) {
+    return dui_gap_y_(String.valueOf(value));
+  }
+
+  public static CssClass dui_w_(int value) {
+    return dui_w_(String.valueOf(value));
+  }
+
+  public static CssClass dui_h_(int value) {
+    return dui_h_(String.valueOf(value));
+  }
+
+  public static CssClass dui_min_w_(int value) {
+    return dui_min_w_(String.valueOf(value));
+  }
+
+  public static CssClass dui_min_h_(int value) {
+    return dui_min_h_(String.valueOf(value));
+  }
+
+  public static CssClass dui_max_w_(int value) {
+    return dui_max_w_(String.valueOf(value));
+  }
+
+  public static CssClass dui_max_h_(int value) {
+    return dui_max_h_(String.valueOf(value));
+  }
+
+  public static CssClass dui_indent_(int value) {
+    return dui_indent_(String.valueOf(value));
+  }
+
+  public static CssClass dui_inset_(int value) {
+    return dui_inset_(String.valueOf(value));
+  }
+
+  public static CssClass dui_inset_x_(int value) {
+    return dui_inset_x_(String.valueOf(value));
+  }
+
+  public static CssClass dui_inset_y_(int value) {
+    return dui_inset_y_(String.valueOf(value));
+  }
+
+  public static CssClass dui_top_(int value) {
+    return dui_top_(String.valueOf(value));
+  }
+
+  public static CssClass dui_right_(int value) {
+    return dui_right_(String.valueOf(value));
+  }
+
+  public static CssClass dui_bottom_(int value) {
+    return dui_bottom_(String.valueOf(value));
+  }
+
+  public static CssClass dui_left_(int value) {
+    return dui_left_(String.valueOf(value));
+  }
+
+  public static CssClass dui_z_(int value) {
+    return dui_z_(String.valueOf(value));
+  }
+
+  public static CssClass dui_flex_basis_(int value) {
+    return dui_flex_basis_(String.valueOf(value));
+  }
+
+  public static CssClass dui_grow_(int value) {
+    return dui_grow_(String.valueOf(value));
+  }
+
+  public static CssClass dui_shrink_(int value) {
+    return dui_shrink_(String.valueOf(value));
+  }
+
+  public static CssClass dui_order_(int value) {
+    return dui_order_(String.valueOf(value));
+  }
+
+  public static CssClass dui_grid_cols_(int value) {
+    return dui_grid_cols_(String.valueOf(value));
+  }
+
+  public static CssClass dui_grid_rows_(int value) {
+    return dui_grid_rows_(String.valueOf(value));
+  }
+
+  public static CssClass dui_auto_cols_(int value) {
+    return dui_auto_cols_(String.valueOf(value));
+  }
+
+  public static CssClass dui_auto_rows_(int value) {
+    return dui_auto_rows_(String.valueOf(value));
+  }
+
+  public static CssClass dui_border_(int value) {
+    return dui_border_(String.valueOf(value));
+  }
+
+  public static CssClass dui_border_x_(int value) {
+    return dui_border_x_(String.valueOf(value));
+  }
+
+  public static CssClass dui_border_y_(int value) {
+    return dui_border_y_(String.valueOf(value));
+  }
+
+  public static CssClass dui_border_t_(int value) {
+    return dui_border_t_(String.valueOf(value));
+  }
+
+  public static CssClass dui_border_r_(int value) {
+    return dui_border_r_(String.valueOf(value));
+  }
+
+  public static CssClass dui_border_b_(int value) {
+    return dui_border_b_(String.valueOf(value));
+  }
+
+  public static CssClass dui_border_l_(int value) {
+    return dui_border_l_(String.valueOf(value));
+  }
+
+  public static CssClass dui_rounded_(int value) {
+    return dui_rounded_(String.valueOf(value));
+  }
+
+  public static CssClass dui_rounded_t_(int value) {
+    return dui_rounded_t_(String.valueOf(value));
+  }
+
+  public static CssClass dui_rounded_r_(int value) {
+    return dui_rounded_r_(String.valueOf(value));
+  }
+
+  public static CssClass dui_rounded_b_(int value) {
+    return dui_rounded_b_(String.valueOf(value));
+  }
+
+  public static CssClass dui_rounded_l_(int value) {
+    return dui_rounded_l_(String.valueOf(value));
+  }
+
+  public static CssClass dui_rounded_tl_(int value) {
+    return dui_rounded_tl_(String.valueOf(value));
+  }
+
+  public static CssClass dui_rounded_tr_(int value) {
+    return dui_rounded_tr_(String.valueOf(value));
+  }
+
+  public static CssClass dui_rounded_br_(int value) {
+    return dui_rounded_br_(String.valueOf(value));
+  }
+
+  public static CssClass dui_rounded_bl_(int value) {
+    return dui_rounded_bl_(String.valueOf(value));
+  }
+
+  public static CssClass dui_outline_(int value) {
+    return dui_outline_(String.valueOf(value));
+  }
+
+  public static CssClass dui_outline_offset_(int value) {
+    return dui_outline_offset_(String.valueOf(value));
+  }
+
+  public static CssClass dui_font_size_(int value) {
+    return dui_font_size_(String.valueOf(value));
+  }
+
+  public static CssClass dui_leading_(int value) {
+    return dui_leading_(String.valueOf(value));
+  }
+
+  public static CssClass dui_tracking_(int value) {
+    return dui_tracking_(String.valueOf(value));
+  }
+
+  public static CssClass dui_font_weight_(int value) {
+    return dui_font_weight_(String.valueOf(value));
+  }
 
   public static void withFactory(ElementsFactory replacement, Runnable runnable) {
     factory = replacement;

@@ -87,7 +87,8 @@ public class ListItem<T> extends BaseDominoElement<HTMLLIElement, ListItem<T>>
    */
   public ListItem(T value) {
     this.value = value;
-    this.element = li().addCss(dui_list_group_item).setAttribute("tabindex", "0");
+    this.element =
+        li().addCss(dui_list_group_item).setTabIndex(0).setRole("button").setAriaPressed(false);
     init(this);
 
     this.addClickListener(this::trySelect, true);
@@ -391,6 +392,7 @@ public class ListItem<T> extends BaseDominoElement<HTMLLIElement, ListItem<T>>
   @Override
   public ListItem<T> setSelected(boolean selected) {
     addCss(BooleanCssClass.of(dui_selected, selected));
+    setAriaPressed(selected);
     return this;
   }
 

@@ -15,18 +15,10 @@
  */
 package org.dominokit.domino.ui.layout;
 
-import static java.util.Objects.isNull;
-import static org.dominokit.domino.ui.layout.NavBarStyles.*;
+import static org.dominokit.domino.ui.layout.NavBarStyles.dui_nav_bar;
 import static org.dominokit.domino.ui.utils.Domino.*;
 
-import elemental2.dom.HTMLElement;
 import elemental2.dom.Node;
-import org.dominokit.domino.ui.elements.DivElement;
-import org.dominokit.domino.ui.elements.HeadingElement;
-import org.dominokit.domino.ui.elements.NavElement;
-import org.dominokit.domino.ui.elements.SmallElement;
-import org.dominokit.domino.ui.elements.SpanElement;
-import org.dominokit.domino.ui.utils.*;
 
 /**
  * The {@code NavBar} class represents a navigation bar UI component that typically contains a
@@ -54,14 +46,9 @@ import org.dominokit.domino.ui.utils.*;
  * });
  * </pre>
  *
- * @see BaseDominoElement
+ * @see BaseNavBar
  */
-public class NavBar extends BaseDominoElement<HTMLElement, NavBar> {
-  private NavElement root;
-  private HeadingElement title;
-  private SpanElement titleTextElement;
-  private LazyChild<SmallElement> description;
-  private DivElement body;
+public class NavBar extends BaseNavBar<NavBar> {
 
   /**
    * Creates a new {@code NavBar} instance with default settings.
@@ -94,13 +81,8 @@ public class NavBar extends BaseDominoElement<HTMLElement, NavBar> {
 
   /** Creates a new {@code NavBar} instance with default settings. */
   public NavBar() {
-    root =
-        nav()
-            .addCss(dui_nav_bar)
-            .appendChild(title = h(4).appendChild(titleTextElement = span()).addCss(dui_nav_title))
-            .appendChild(body = div().addCss(dui_nav_body));
-    description = LazyChild.of(small().addCss(dui_nav_description), title);
-    init(this);
+    super();
+    addCss(dui_nav_bar);
   }
 
   /**
@@ -122,145 +104,5 @@ public class NavBar extends BaseDominoElement<HTMLElement, NavBar> {
   public NavBar(String title, String description) {
     this(text(title));
     setDescription(description);
-  }
-
-  /**
-   * Sets the title to display in the navigation bar.
-   *
-   * @param title The title to set.
-   * @return This {@code NavBar} instance.
-   */
-  public NavBar setTitle(String title) {
-    return this.setTitle(text(title));
-  }
-
-  /**
-   * Sets the title to display in the navigation bar.
-   *
-   * @param title The title to set.
-   * @return This {@code NavBar} instance.
-   */
-  public NavBar setTitle(Node title) {
-    this.titleTextElement.clearElement().appendChild(title);
-    return this;
-  }
-
-  /**
-   * Sets the description to display in the navigation bar.
-   *
-   * @param description The description to set.
-   * @return This {@code NavBar} instance.
-   */
-  public NavBar setDescription(String description) {
-    if (isNull(description) || description.isEmpty()) {
-      this.description.remove();
-    } else {
-      this.description.get().setTextContent(description);
-    }
-    return this;
-  }
-
-  /**
-   * Allows customization of the title element.
-   *
-   * @param handler The handler for customizing the title element.
-   * @return This {@code NavBar} instance.
-   */
-  public NavBar withTitle(ChildHandler<NavBar, HeadingElement> handler) {
-    handler.apply(this, title);
-    return this;
-  }
-
-  /**
-   * Allows customization of the description element.
-   *
-   * @param handler The handler for customizing the description element.
-   * @return This {@code NavBar} instance.
-   */
-  public NavBar withDescription(ChildHandler<NavBar, SmallElement> handler) {
-    handler.apply(this, description.get());
-    return this;
-  }
-
-  /**
-   * Allows customization of the title text element.
-   *
-   * @param handler The handler for customizing the title text element.
-   * @return This {@code NavBar} instance.
-   */
-  public NavBar withTitleTextElement(ChildHandler<NavBar, SpanElement> handler) {
-    handler.apply(this, titleTextElement);
-    return this;
-  }
-
-  /**
-   * Gets the title element.
-   *
-   * @return The title element.
-   */
-  public HeadingElement getTitleElement() {
-    return title;
-  }
-
-  /**
-   * Gets the description element.
-   *
-   * @return The description element.
-   */
-  public SmallElement getDescriptionElement() {
-    return description.get();
-  }
-
-  /**
-   * Gets the text of the title displayed in the navigation bar.
-   *
-   * @return The title text.
-   */
-  public String getTitle() {
-    return title.getTextContent();
-  }
-
-  /**
-   * @return the element containing the text of the title.
-   */
-  public SpanElement getTitleTextElement() {
-    return titleTextElement;
-  }
-
-  /**
-   * Gets the text of the description displayed in the navigation bar.
-   *
-   * @return The description text.
-   */
-  public String getDescription() {
-    return description.get().getTextContent();
-  }
-
-  /**
-   * Allows customization of the body element.
-   *
-   * @param handler The handler for customizing the body element.
-   * @return This {@code NavBar} instance.
-   */
-  public NavBar withBody(ChildHandler<NavBar, DivElement> handler) {
-    handler.apply(this, body);
-    return this;
-  }
-
-  /**
-   * Gets the body element.
-   *
-   * @return The body element.
-   */
-  public DivElement getBody() {
-    return body;
-  }
-
-  /**
-   * @dominokit-site-ignore {@inheritDoc}
-   */
-  @Override
-  public HTMLElement element() {
-    return root.element();
   }
 }

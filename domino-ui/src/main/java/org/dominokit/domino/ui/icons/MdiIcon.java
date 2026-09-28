@@ -39,6 +39,7 @@ public class MdiIcon extends Icon<MdiIcon> implements CanChangeIcon<MdiIcon> {
   private MdiIcon(HTMLElement icon) {
     this.icon = elementOf(icon);
     init(this);
+    addCss(dui_icon);
   }
 
   /**
@@ -86,6 +87,7 @@ public class MdiIcon extends Icon<MdiIcon> implements CanChangeIcon<MdiIcon> {
   private MdiIcon() {
     this.icon = i().addCss(dui, dui_mdi).toDominoElement();
     init(this);
+    addCss(dui_icon);
   }
 
   /**

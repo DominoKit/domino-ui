@@ -89,6 +89,7 @@ public class CalendarSelectors extends BaseDominoElement<HTMLDivElement, Calenda
                         .addCss(dui_calendar_selectors_year)
                         .setAttribute("role", "button")
                         .setAttribute("tabindex", "0")
+                        .setAttribute("aria-label", "Select year and month")
                         .onKeyDown(
                             keyEvents ->
                                 keyEvents
@@ -102,6 +103,7 @@ public class CalendarSelectors extends BaseDominoElement<HTMLDivElement, Calenda
                         .addCss(dui_calendar_selectors_month)
                         .setAttribute("role", "button")
                         .setAttribute("tabindex", "0")
+                        .setAttribute("aria-label", "Select year and month")
                         .onKeyDown(
                             keyEvents ->
                                 keyEvents

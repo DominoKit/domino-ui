@@ -42,19 +42,19 @@ public class Win8LinearLoader extends BaseLoader<Win8LinearLoader>
     implements IsElement<HTMLDivElement> {
 
   private final DivElement progress1 =
-      div().addCss(wait_me_progress_elem_1).appendChild(div().addCss(dui_loader_darker));
+      div().addCss(dui_waitme_progress_element_1).appendChild(div().addCss(dui_loader_darker));
   private final DivElement progress2 =
-      div().addCss(wait_me_progress_elem_2).appendChild(div().addCss(dui_loader_darker));
+      div().addCss(dui_waitme_progress_element_2).appendChild(div().addCss(dui_loader_darker));
   private final DivElement progress3 =
-      div().addCss(wait_me_progress_elem_3).appendChild(div().addCss(dui_loader_darker));
+      div().addCss(dui_waitme_progress_element_3).appendChild(div().addCss(dui_loader_darker));
   private final DivElement progress4 =
-      div().addCss(wait_me_progress_elem_4).appendChild(div().addCss(dui_loader_darker));
+      div().addCss(dui_waitme_progress_element_4).appendChild(div().addCss(dui_loader_darker));
   private final DivElement progress5 =
-      div().addCss(wait_me_progress_elem_5).appendChild(div().addCss(dui_loader_darker));
+      div().addCss(dui_waitme_progress_element_5).appendChild(div().addCss(dui_loader_darker));
 
   private final DivElement loader =
       div()
-          .addCss(wait_me_progress, win_8_linear)
+          .addCss(dui_waitme_progress, dui_waitme_win_8_linear)
           .appendChild(progress1)
           .appendChild(progress2)
           .appendChild(progress3)
@@ -63,12 +63,15 @@ public class Win8LinearLoader extends BaseLoader<Win8LinearLoader>
 
   private final DivElement content =
       div()
-          .addCss(wait_me_content, dui_vertical_center)
+          .addCss(dui_waitme_content, dui_vertical_center)
           .appendChild(loader)
           .appendChild(loadingText);
 
   private final DivElement element =
-      div().addCss(wait_me).style("background: var(--dui-loader-background);").appendChild(content);
+      div()
+          .addCss(dui_waitme)
+          .style("background: var(--dui-loader-background);")
+          .appendChild(content);
 
   /** Initializes a new instance of the {@code Win8LinearLoader} class. */
   public Win8LinearLoader() {

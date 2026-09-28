@@ -492,7 +492,7 @@ public class TreeGridPlugin<T>
    */
   private ToggleIcon<?, ?> initExpandCollapseIcons(TableRow<T> tableRow) {
     ToggleIcon<?, ?> icon;
-    icon = config.getExpandToggleIconSupplier().get().clickable();
+    icon = config.getExpandToggleIconSupplier().get().clickable().setAriaLabel("Toggle row");
     icon.addClickListener(
         evt -> {
           if (icon.isToggled()) {
@@ -514,7 +514,8 @@ public class TreeGridPlugin<T>
   @Override
   public void onHeaderAdded(DataTable<T> dataTable, ColumnConfig<T> column) {
     if (column.isUtilityColumn()) {
-      ToggleIcon<?, ?> baseIcon = config.getExpandToggleIconSupplier().get().clickable();
+      ToggleIcon<?, ?> baseIcon =
+          config.getExpandToggleIconSupplier().get().clickable().setAriaLabel("Toggle row");
 
       baseIcon.addClickListener(
           evt -> {

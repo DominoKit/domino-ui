@@ -16,96 +16,98 @@
 
 package org.dominokit.domino.ui.style;
 
+import org.dominokit.domino.ui.utils.DynamicCss;
+
 /** CSS utilities for typography and text presentation helpers. */
 public interface TypographyCss {
 
-  CssClass dui_txt_indnt_0 = () -> "dui-txt-indnt-0";
+  CssClass dui_txt_indnt_0 = DynamicCss.lazyCssClass("dui-txt-indnt-0");
 
-  CssClass dui_txt_indnt_0_5 = () -> "dui-txt-indnt-0_5";
+  CssClass dui_txt_indnt_0_5 = DynamicCss.lazyCssClass("dui-txt-indnt-0_5");
 
-  CssClass dui_txt_indnt_1 = () -> "dui-txt-indnt-1";
+  CssClass dui_txt_indnt_1 = DynamicCss.lazyCssClass("dui-txt-indnt-1");
 
-  CssClass dui_txt_indnt_10 = () -> "dui-txt-indnt-10";
+  CssClass dui_txt_indnt_10 = DynamicCss.lazyCssClass("dui-txt-indnt-10");
 
-  CssClass dui_txt_indnt_11 = () -> "dui-txt-indnt-11";
+  CssClass dui_txt_indnt_11 = DynamicCss.lazyCssClass("dui-txt-indnt-11");
 
-  CssClass dui_txt_indnt_12 = () -> "dui-txt-indnt-12";
+  CssClass dui_txt_indnt_12 = DynamicCss.lazyCssClass("dui-txt-indnt-12");
 
-  CssClass dui_txt_indnt_14 = () -> "dui-txt-indnt-14";
+  CssClass dui_txt_indnt_14 = DynamicCss.lazyCssClass("dui-txt-indnt-14");
 
-  CssClass dui_txt_indnt_16 = () -> "dui-txt-indnt-16";
+  CssClass dui_txt_indnt_16 = DynamicCss.lazyCssClass("dui-txt-indnt-16");
 
-  CssClass dui_txt_indnt_1_2p = () -> "dui-txt-indnt-1_2p";
+  CssClass dui_txt_indnt_1_2p = DynamicCss.lazyCssClass("dui-txt-indnt-1_2p");
 
-  CssClass dui_txt_indnt_1_3p = () -> "dui-txt-indnt-1_3p";
+  CssClass dui_txt_indnt_1_3p = DynamicCss.lazyCssClass("dui-txt-indnt-1_3p");
 
-  CssClass dui_txt_indnt_1_4p = () -> "dui-txt-indnt-1_4p";
+  CssClass dui_txt_indnt_1_4p = DynamicCss.lazyCssClass("dui-txt-indnt-1_4p");
 
-  CssClass dui_txt_indnt_1_5 = () -> "dui-txt-indnt-1_5";
+  CssClass dui_txt_indnt_1_5 = DynamicCss.lazyCssClass("dui-txt-indnt-1_5");
 
-  CssClass dui_txt_indnt_2 = () -> "dui-txt-indnt-2";
+  CssClass dui_txt_indnt_2 = DynamicCss.lazyCssClass("dui-txt-indnt-2");
 
-  CssClass dui_txt_indnt_20 = () -> "dui-txt-indnt-20";
+  CssClass dui_txt_indnt_20 = DynamicCss.lazyCssClass("dui-txt-indnt-20");
 
-  CssClass dui_txt_indnt_24 = () -> "dui-txt-indnt-24";
+  CssClass dui_txt_indnt_24 = DynamicCss.lazyCssClass("dui-txt-indnt-24");
 
-  CssClass dui_txt_indnt_28 = () -> "dui-txt-indnt-28";
+  CssClass dui_txt_indnt_28 = DynamicCss.lazyCssClass("dui-txt-indnt-28");
 
-  CssClass dui_txt_indnt_2_3p = () -> "dui-txt-indnt-2_3p";
+  CssClass dui_txt_indnt_2_3p = DynamicCss.lazyCssClass("dui-txt-indnt-2_3p");
 
-  CssClass dui_txt_indnt_2_5 = () -> "dui-txt-indnt-2_5";
+  CssClass dui_txt_indnt_2_5 = DynamicCss.lazyCssClass("dui-txt-indnt-2_5");
 
-  CssClass dui_txt_indnt_2px = () -> "dui-txt-indnt-2px";
+  CssClass dui_txt_indnt_2px = DynamicCss.lazyCssClass("dui-txt-indnt-2px");
 
-  CssClass dui_txt_indnt_3 = () -> "dui-txt-indnt-3";
+  CssClass dui_txt_indnt_3 = DynamicCss.lazyCssClass("dui-txt-indnt-3");
 
-  CssClass dui_txt_indnt_32 = () -> "dui-txt-indnt-32";
+  CssClass dui_txt_indnt_32 = DynamicCss.lazyCssClass("dui-txt-indnt-32");
 
-  CssClass dui_txt_indnt_36 = () -> "dui-txt-indnt-36";
+  CssClass dui_txt_indnt_36 = DynamicCss.lazyCssClass("dui-txt-indnt-36");
 
-  CssClass dui_txt_indnt_3_4p = () -> "dui-txt-indnt-3_4p";
+  CssClass dui_txt_indnt_3_4p = DynamicCss.lazyCssClass("dui-txt-indnt-3_4p");
 
-  CssClass dui_txt_indnt_3_5 = () -> "dui-txt-indnt-3_5";
+  CssClass dui_txt_indnt_3_5 = DynamicCss.lazyCssClass("dui-txt-indnt-3_5");
 
-  CssClass dui_txt_indnt_4 = () -> "dui-txt-indnt-4";
+  CssClass dui_txt_indnt_4 = DynamicCss.lazyCssClass("dui-txt-indnt-4");
 
-  CssClass dui_txt_indnt_40 = () -> "dui-txt-indnt-40";
+  CssClass dui_txt_indnt_40 = DynamicCss.lazyCssClass("dui-txt-indnt-40");
 
-  CssClass dui_txt_indnt_44 = () -> "dui-txt-indnt-44";
+  CssClass dui_txt_indnt_44 = DynamicCss.lazyCssClass("dui-txt-indnt-44");
 
-  CssClass dui_txt_indnt_48 = () -> "dui-txt-indnt-48";
+  CssClass dui_txt_indnt_48 = DynamicCss.lazyCssClass("dui-txt-indnt-48");
 
-  CssClass dui_txt_indnt_4px = () -> "dui-txt-indnt-4px";
+  CssClass dui_txt_indnt_4px = DynamicCss.lazyCssClass("dui-txt-indnt-4px");
 
-  CssClass dui_txt_indnt_5 = () -> "dui-txt-indnt-5";
+  CssClass dui_txt_indnt_5 = DynamicCss.lazyCssClass("dui-txt-indnt-5");
 
-  CssClass dui_txt_indnt_52 = () -> "dui-txt-indnt-52";
+  CssClass dui_txt_indnt_52 = DynamicCss.lazyCssClass("dui-txt-indnt-52");
 
-  CssClass dui_txt_indnt_56 = () -> "dui-txt-indnt-56";
+  CssClass dui_txt_indnt_56 = DynamicCss.lazyCssClass("dui-txt-indnt-56");
 
-  CssClass dui_txt_indnt_6 = () -> "dui-txt-indnt-6";
+  CssClass dui_txt_indnt_6 = DynamicCss.lazyCssClass("dui-txt-indnt-6");
 
-  CssClass dui_txt_indnt_60 = () -> "dui-txt-indnt-60";
+  CssClass dui_txt_indnt_60 = DynamicCss.lazyCssClass("dui-txt-indnt-60");
 
-  CssClass dui_txt_indnt_64 = () -> "dui-txt-indnt-64";
+  CssClass dui_txt_indnt_64 = DynamicCss.lazyCssClass("dui-txt-indnt-64");
 
-  CssClass dui_txt_indnt_7 = () -> "dui-txt-indnt-7";
+  CssClass dui_txt_indnt_7 = DynamicCss.lazyCssClass("dui-txt-indnt-7");
 
-  CssClass dui_txt_indnt_72 = () -> "dui-txt-indnt-72";
+  CssClass dui_txt_indnt_72 = DynamicCss.lazyCssClass("dui-txt-indnt-72");
 
-  CssClass dui_txt_indnt_8 = () -> "dui-txt-indnt-8";
+  CssClass dui_txt_indnt_8 = DynamicCss.lazyCssClass("dui-txt-indnt-8");
 
-  CssClass dui_txt_indnt_80 = () -> "dui-txt-indnt-80";
+  CssClass dui_txt_indnt_80 = DynamicCss.lazyCssClass("dui-txt-indnt-80");
 
-  CssClass dui_txt_indnt_8px = () -> "dui-txt-indnt-8px";
+  CssClass dui_txt_indnt_8px = DynamicCss.lazyCssClass("dui-txt-indnt-8px");
 
-  CssClass dui_txt_indnt_9 = () -> "dui-txt-indnt-9";
+  CssClass dui_txt_indnt_9 = DynamicCss.lazyCssClass("dui-txt-indnt-9");
 
-  CssClass dui_txt_indnt_96 = () -> "dui-txt-indnt-96";
+  CssClass dui_txt_indnt_96 = DynamicCss.lazyCssClass("dui-txt-indnt-96");
 
-  CssClass dui_txt_indnt_full = () -> "dui-txt-indnt-full";
+  CssClass dui_txt_indnt_full = DynamicCss.lazyCssClass("dui-txt-indnt-full");
 
-  CssClass dui_txt_indnt_px = () -> "dui-txt-indnt-px";
+  CssClass dui_txt_indnt_px = DynamicCss.lazyCssClass("dui-txt-indnt-px");
 
   CssClass dui_font_sans = () -> "dui-font-sans";
 
@@ -208,33 +210,33 @@ public interface TypographyCss {
 
   CssClass dui_tracking_widest = () -> "dui-tracking-widest";
 
-  CssClass dui_leading_3 = () -> "dui-leading-3";
+  CssClass dui_leading_3 = DynamicCss.lazyCssClass("dui-leading-3");
 
-  CssClass dui_leading_4 = () -> "dui-leading-4";
+  CssClass dui_leading_4 = DynamicCss.lazyCssClass("dui-leading-4");
 
-  CssClass dui_leading_5 = () -> "dui-leading-5";
+  CssClass dui_leading_5 = DynamicCss.lazyCssClass("dui-leading-5");
 
-  CssClass dui_leading_6 = () -> "dui-leading-6";
+  CssClass dui_leading_6 = DynamicCss.lazyCssClass("dui-leading-6");
 
-  CssClass dui_leading_7 = () -> "dui-leading-7";
+  CssClass dui_leading_7 = DynamicCss.lazyCssClass("dui-leading-7");
 
-  CssClass dui_leading_8 = () -> "dui-leading-8";
+  CssClass dui_leading_8 = DynamicCss.lazyCssClass("dui-leading-8");
 
-  CssClass dui_leading_9 = () -> "dui-leading-9";
+  CssClass dui_leading_9 = DynamicCss.lazyCssClass("dui-leading-9");
 
-  CssClass dui_leading_10 = () -> "dui-leading-10";
+  CssClass dui_leading_10 = DynamicCss.lazyCssClass("dui-leading-10");
 
-  CssClass dui_leading_none = () -> "dui-leading-none";
+  CssClass dui_leading_none = DynamicCss.lazyCssClass("dui-leading-none");
 
-  CssClass dui_leading_tight = () -> "dui-leading-tight";
+  CssClass dui_leading_tight = DynamicCss.lazyCssClass("dui-leading-tight");
 
-  CssClass dui_leading_snug = () -> "dui-leading-snug";
+  CssClass dui_leading_snug = DynamicCss.lazyCssClass("dui-leading-snug");
 
-  CssClass dui_leading_normal = () -> "dui-leading-normal";
+  CssClass dui_leading_normal = DynamicCss.lazyCssClass("dui-leading-normal");
 
-  CssClass dui_leading_relaxed = () -> "dui-leading-relaxed";
+  CssClass dui_leading_relaxed = DynamicCss.lazyCssClass("dui-leading-relaxed");
 
-  CssClass dui_leading_loose = () -> "dui-leading-loose";
+  CssClass dui_leading_loose = DynamicCss.lazyCssClass("dui-leading-loose");
 
   CssClass dui_list_none = () -> "dui-list-none";
 
@@ -360,91 +362,91 @@ public interface TypographyCss {
 
   CssClass dui_break_all = () -> "dui-break-all";
 
-  CssClass dui_font_size_0 = () -> "dui-font-size-0";
+  CssClass dui_font_size_0 = DynamicCss.lazyCssClass("dui-font-size-0");
 
-  CssClass dui_font_size_px = () -> "dui-font-size-px";
+  CssClass dui_font_size_px = DynamicCss.lazyCssClass("dui-font-size-px");
 
-  CssClass dui_font_size_2px = () -> "dui-font-size-2px";
+  CssClass dui_font_size_2px = DynamicCss.lazyCssClass("dui-font-size-2px");
 
-  CssClass dui_font_size_4px = () -> "dui-font-size-4px";
+  CssClass dui_font_size_4px = DynamicCss.lazyCssClass("dui-font-size-4px");
 
-  CssClass dui_font_size_8px = () -> "dui-font-size-8px";
+  CssClass dui_font_size_8px = DynamicCss.lazyCssClass("dui-font-size-8px");
 
-  CssClass dui_font_size_0_5 = () -> "dui-font-size-0_5";
+  CssClass dui_font_size_0_5 = DynamicCss.lazyCssClass("dui-font-size-0_5");
 
-  CssClass dui_font_size_1 = () -> "dui-font-size-1";
+  CssClass dui_font_size_1 = DynamicCss.lazyCssClass("dui-font-size-1");
 
-  CssClass dui_font_size_1_5 = () -> "dui-font-size-1_5";
+  CssClass dui_font_size_1_5 = DynamicCss.lazyCssClass("dui-font-size-1_5");
 
-  CssClass dui_font_size_2 = () -> "dui-font-size-2";
+  CssClass dui_font_size_2 = DynamicCss.lazyCssClass("dui-font-size-2");
 
-  CssClass dui_font_size_2_5 = () -> "dui-font-size-2_5";
+  CssClass dui_font_size_2_5 = DynamicCss.lazyCssClass("dui-font-size-2_5");
 
-  CssClass dui_font_size_3 = () -> "dui-font-size-3";
+  CssClass dui_font_size_3 = DynamicCss.lazyCssClass("dui-font-size-3");
 
-  CssClass dui_font_size_3_5 = () -> "dui-font-size-3_5";
+  CssClass dui_font_size_3_5 = DynamicCss.lazyCssClass("dui-font-size-3_5");
 
-  CssClass dui_font_size_4 = () -> "dui-font-size-4";
+  CssClass dui_font_size_4 = DynamicCss.lazyCssClass("dui-font-size-4");
 
-  CssClass dui_font_size_5 = () -> "dui-font-size-5";
+  CssClass dui_font_size_5 = DynamicCss.lazyCssClass("dui-font-size-5");
 
-  CssClass dui_font_size_6 = () -> "dui-font-size-6";
+  CssClass dui_font_size_6 = DynamicCss.lazyCssClass("dui-font-size-6");
 
-  CssClass dui_font_size_7 = () -> "dui-font-size-7";
+  CssClass dui_font_size_7 = DynamicCss.lazyCssClass("dui-font-size-7");
 
-  CssClass dui_font_size_8 = () -> "dui-font-size-8";
+  CssClass dui_font_size_8 = DynamicCss.lazyCssClass("dui-font-size-8");
 
-  CssClass dui_font_size_9 = () -> "dui-font-size-9";
+  CssClass dui_font_size_9 = DynamicCss.lazyCssClass("dui-font-size-9");
 
-  CssClass dui_font_size_10 = () -> "dui-font-size-10";
+  CssClass dui_font_size_10 = DynamicCss.lazyCssClass("dui-font-size-10");
 
-  CssClass dui_font_size_11 = () -> "dui-font-size-11";
+  CssClass dui_font_size_11 = DynamicCss.lazyCssClass("dui-font-size-11");
 
-  CssClass dui_font_size_12 = () -> "dui-font-size-12";
+  CssClass dui_font_size_12 = DynamicCss.lazyCssClass("dui-font-size-12");
 
-  CssClass dui_font_size_14 = () -> "dui-font-size-14";
+  CssClass dui_font_size_14 = DynamicCss.lazyCssClass("dui-font-size-14");
 
-  CssClass dui_font_size_16 = () -> "dui-font-size-16";
+  CssClass dui_font_size_16 = DynamicCss.lazyCssClass("dui-font-size-16");
 
-  CssClass dui_font_size_20 = () -> "dui-font-size-20";
+  CssClass dui_font_size_20 = DynamicCss.lazyCssClass("dui-font-size-20");
 
-  CssClass dui_font_size_24 = () -> "dui-font-size-24";
+  CssClass dui_font_size_24 = DynamicCss.lazyCssClass("dui-font-size-24");
 
-  CssClass dui_font_size_28 = () -> "dui-font-size-28";
+  CssClass dui_font_size_28 = DynamicCss.lazyCssClass("dui-font-size-28");
 
-  CssClass dui_font_size_32 = () -> "dui-font-size-32";
+  CssClass dui_font_size_32 = DynamicCss.lazyCssClass("dui-font-size-32");
 
-  CssClass dui_font_size_36 = () -> "dui-font-size-36";
+  CssClass dui_font_size_36 = DynamicCss.lazyCssClass("dui-font-size-36");
 
-  CssClass dui_font_size_40 = () -> "dui-font-size-40";
+  CssClass dui_font_size_40 = DynamicCss.lazyCssClass("dui-font-size-40");
 
-  CssClass dui_font_size_44 = () -> "dui-font-size-44";
+  CssClass dui_font_size_44 = DynamicCss.lazyCssClass("dui-font-size-44");
 
-  CssClass dui_font_size_48 = () -> "dui-font-size-48";
+  CssClass dui_font_size_48 = DynamicCss.lazyCssClass("dui-font-size-48");
 
-  CssClass dui_font_size_52 = () -> "dui-font-size-52";
+  CssClass dui_font_size_52 = DynamicCss.lazyCssClass("dui-font-size-52");
 
-  CssClass dui_font_size_56 = () -> "dui-font-size-56";
+  CssClass dui_font_size_56 = DynamicCss.lazyCssClass("dui-font-size-56");
 
-  CssClass dui_font_size_60 = () -> "dui-font-size-60";
+  CssClass dui_font_size_60 = DynamicCss.lazyCssClass("dui-font-size-60");
 
-  CssClass dui_font_size_64 = () -> "dui-font-size-64";
+  CssClass dui_font_size_64 = DynamicCss.lazyCssClass("dui-font-size-64");
 
-  CssClass dui_font_size_72 = () -> "dui-font-size-72";
+  CssClass dui_font_size_72 = DynamicCss.lazyCssClass("dui-font-size-72");
 
-  CssClass dui_font_size_80 = () -> "dui-font-size-80";
+  CssClass dui_font_size_80 = DynamicCss.lazyCssClass("dui-font-size-80");
 
-  CssClass dui_font_size_96 = () -> "dui-font-size-96";
+  CssClass dui_font_size_96 = DynamicCss.lazyCssClass("dui-font-size-96");
 
-  CssClass dui_font_size_1_2p = () -> "dui-font-size-1_2p";
+  CssClass dui_font_size_1_2p = DynamicCss.lazyCssClass("dui-font-size-1_2p");
 
-  CssClass dui_font_size_1_3p = () -> "dui-font-size-1_3p";
+  CssClass dui_font_size_1_3p = DynamicCss.lazyCssClass("dui-font-size-1_3p");
 
-  CssClass dui_font_size_2_3p = () -> "dui-font-size-2_3p";
+  CssClass dui_font_size_2_3p = DynamicCss.lazyCssClass("dui-font-size-2_3p");
 
-  CssClass dui_font_size_1_4p = () -> "dui-font-size-1_4p";
+  CssClass dui_font_size_1_4p = DynamicCss.lazyCssClass("dui-font-size-1_4p");
 
-  CssClass dui_font_size_3_4p = () -> "dui-font-size-3_4p";
+  CssClass dui_font_size_3_4p = DynamicCss.lazyCssClass("dui-font-size-3_4p");
 
-  CssClass dui_font_size_full = () -> "dui-font-size-full";
+  CssClass dui_font_size_full = DynamicCss.lazyCssClass("dui-font-size-full");
 }

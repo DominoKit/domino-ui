@@ -33,6 +33,7 @@
     overflow: hidden;
     line-height: var(--dui-tree-header-line-height);
     background: var(--dui-tree-header-background, var(--dui-accent-l-3));
+    color: var(--dui-tree-header-color);
     font: var(--dui-tree-header-font);
     padding: var(--dui-tree-header-padding);
     border-radius: var(--dui-tree-header-radius);

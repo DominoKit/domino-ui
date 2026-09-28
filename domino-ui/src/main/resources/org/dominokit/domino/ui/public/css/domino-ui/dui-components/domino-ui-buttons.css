@@ -235,7 +235,7 @@ a.dui-btn {
     opacity: 1;
 }
 
-.dui-toggle-button.dui-btn-toggled {
+.dui.dui-toggle-button.dui-btn-toggled {
     --dui-btn-bg-clr: var(--dui-btn-toggled-bg);
     --dui-btn-fg-clr: var(--dui-btn-toggled-color);
 }

@@ -1,0 +1,18 @@
+.dui-page-header {
+    height: auto;
+    margin: 0 0 var(--dui-page-header-margin-bottom) 0;
+}
+
+.dui-page-header .dui-nav-title {
+    margin: var(--dui-page-header-title-margin);
+}
+
+.dui-page-header .dui-nav-title-text {
+    opacity: var(--dui-page-header-title-opacity);
+    text-transform: var(--dui-page-header-title-text-transform);
+    letter-spacing: var(--dui-page-header-title-letter-spacing);
+}
+
+.dui-page-header .dui-nav-description {
+    opacity: var(--dui-page-header-description-opacity);
+}
