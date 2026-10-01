@@ -46,4 +46,16 @@ public class ToggleButtonsGroupTest extends GWTTestCase {
 
     assertNotNull(group);
   }
+
+  public void testRemovedButtonDoesNotKeepNotifyingGroup() {
+    ToggleButton button = ToggleButton.create();
+    ToggleButtonsGroup group = ToggleButtonsGroup.create(button).setMultipleToggle(true);
+    int[] changes = {0};
+    group.addChangeListener((oldValue, newValue) -> changes[0]++);
+
+    group.removeChild(button);
+    button.toggle();
+
+    assertEquals(0, changes[0]);
+  }
 }

@@ -15,6 +15,7 @@
  */
 package org.dominokit.domino.ui.button;
 
+import elemental2.dom.Node;
 import static java.util.Objects.isNull;
 import static java.util.Objects.nonNull;
 
@@ -198,5 +199,20 @@ public class ToggleButtonsGroup extends BaseButtonsGroup<ToggleButtonsGroup, Tog
   @Override
   public ToggleButtonsGroup appendChild(ToggleButton... buttons) {
     return super.appendChild(buttons);
+  }
+
+  @Override
+  public ToggleButtonsGroup removeChild(Node node) {
+    super.removeChild(node);
+    getButtons()
+        .removeIf(
+            button -> {
+              if (button.element() == node) {
+                button.bindTo(null);
+                return true;
+              }
+              return false;
+            });
+    return this;
   }
 }
