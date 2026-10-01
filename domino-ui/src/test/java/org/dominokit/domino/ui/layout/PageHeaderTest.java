@@ -38,9 +38,15 @@ public class PageHeaderTest extends GWTTestCase {
     PageHeader pageHeader = PageHeader.create();
 
     assertNull(pageHeader.element().querySelector(".dui-nav-description"));
+    assertEquals("", pageHeader.getDescription());
+    assertNull(pageHeader.element().querySelector(".dui-nav-description"));
     assertSame(pageHeader, pageHeader.setTitle("Orders"));
     assertSame(pageHeader, pageHeader.setDescription("Recent orders"));
+    assertEquals("Recent orders", pageHeader.getDescription());
     assertNotNull(pageHeader.element().querySelector(".dui-nav-description"));
+    assertSame(pageHeader, pageHeader.setDescription(null));
+    assertEquals("", pageHeader.getDescription());
+    assertNull(pageHeader.element().querySelector(".dui-nav-description"));
     assertSame(pageHeader, pageHeader.withTitle((self, title) -> {}));
     assertSame(pageHeader, pageHeader.withDescription((self, description) -> {}));
     assertSame(pageHeader, pageHeader.withTitleTextElement((self, title) -> {}));

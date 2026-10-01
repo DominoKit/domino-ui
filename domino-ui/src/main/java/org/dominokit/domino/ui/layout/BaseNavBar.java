@@ -141,7 +141,8 @@ public abstract class BaseNavBar<C extends BaseNavBar<C>>
 
   /** Returns the description text. */
   public String getDescription() {
-    return description.get().getTextContent();
+    SmallElement descriptionElement = description.element();
+    return isNull(descriptionElement) ? "" : descriptionElement.getTextContent();
   }
 
   /** Customizes the body element. */
