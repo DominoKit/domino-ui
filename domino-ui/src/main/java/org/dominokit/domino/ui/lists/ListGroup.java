@@ -183,7 +183,11 @@ public class ListGroup<T> extends BaseDominoElement<HTMLUListElement, ListGroup<
       } else {
         items.add(index, li);
       }
-      this.insertAfter(li.element(), items.get(index));
+      if (index + 1 < items.size()) {
+        this.insertBefore(li.element(), items.get(index + 1).element());
+      } else {
+        this.appendChild(li.element());
+      }
 
       itemRenderer.onRender(this, li);
       onItemAdded.accept(li);

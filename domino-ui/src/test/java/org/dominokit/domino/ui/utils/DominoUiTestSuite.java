@@ -34,7 +34,9 @@ import org.dominokit.domino.ui.forms.DateBoxTypingModeTest;
 import org.dominokit.domino.ui.forms.TimeBoxTypingModeTest;
 import org.dominokit.domino.ui.forms.suggest.MultiSelectTest;
 import org.dominokit.domino.ui.icons.IconTest;
+import org.dominokit.domino.ui.grid.flex.FlexLayoutTest;
 import org.dominokit.domino.ui.keyboard.KeyboardEventsTest;
+import org.dominokit.domino.ui.lists.ListGroupTest;
 import org.dominokit.domino.ui.layout.AppLayoutTest;
 import org.dominokit.domino.ui.layout.NavBarTest;
 import org.dominokit.domino.ui.layout.PageHeaderTest;
@@ -71,6 +73,8 @@ public class DominoUiTestSuite extends GWTTestSuite {
     suite.addTestSuite(IconTest.class);
     suite.addTestSuite(KeyboardEventsTest.class);
     suite.addTestSuite(SpinSelectTest.class);
+    suite.addTestSuite(FlexLayoutTest.class);
+    suite.addTestSuite(ListGroupTest.class);
     suite.addTestSuite(AppLayoutTest.class);
     suite.addTestSuite(NavBarTest.class);
     suite.addTestSuite(PageHeaderTest.class);

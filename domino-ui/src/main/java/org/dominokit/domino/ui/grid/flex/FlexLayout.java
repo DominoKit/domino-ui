@@ -170,8 +170,9 @@ public class FlexLayout extends BaseDominoElement<HTMLDivElement, FlexLayout> {
    * @return This {@code FlexLayout} instance for method chaining.
    */
   public FlexLayout appendChildBefore(FlexItem<?> flexItem, FlexItem<?> existingItem) {
-    if (flexItems.contains(existingItem)) {
-      flexItems.add(flexItem);
+    if (flexItem != existingItem && flexItems.contains(existingItem)) {
+      flexItems.remove(flexItem);
+      flexItems.add(flexItems.indexOf(existingItem), flexItem);
       insertBefore(flexItem, existingItem);
     }
     return this;
