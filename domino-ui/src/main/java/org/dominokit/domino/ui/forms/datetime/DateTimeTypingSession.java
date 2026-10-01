@@ -113,8 +113,9 @@ public final class DateTimeTypingSession {
     int consumed = Math.min(remaining, value.length());
     state.value += value.substring(0, consumed);
     if (state.value.length() >= maxInputLength(state.token) || shouldAdvancePastLiteral(state)) {
+      int previousActiveStateIndex = activeStateIndex;
       moveNext();
-      if (consumed < value.length()) {
+      if (activeStateIndex != previousActiveStateIndex && consumed < value.length()) {
         overwrite(value.substring(consumed));
       }
     }

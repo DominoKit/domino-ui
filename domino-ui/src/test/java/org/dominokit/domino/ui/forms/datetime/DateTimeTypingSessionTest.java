@@ -132,6 +132,16 @@ public class DateTimeTypingSessionTest {
     assertEquals("12:34", session.getCandidateText());
   }
 
+  @Test
+  public void excessInputDoesNotReplaceTheFinalToken() {
+    DateTimeTypingSession session = DateTimeTypingSession.empty(tokens("yyyy"));
+
+    session.overwrite("20265");
+
+    assertEquals("2026", session.getDisplayText());
+    assertEquals("yyyy", session.getActiveToken().getPattern());
+  }
+
   private static List<DateTimePatternToken> tokens(String pattern) {
     return DateTimePatternTokenizer.tokenize(pattern);
   }
