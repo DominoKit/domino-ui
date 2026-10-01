@@ -491,7 +491,7 @@ public class Slider extends BaseDominoElement<HTMLDivElement, Slider>
    */
   public Slider setDirection(SliderDirection direction) {
     if (nonNull(direction)) {
-      direction.getCssClass().isAppliedTo(this);
+      direction.getCssClass().apply(this);
     }
     return this;
   }
