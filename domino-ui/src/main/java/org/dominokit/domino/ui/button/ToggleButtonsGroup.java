@@ -150,7 +150,7 @@ public class ToggleButtonsGroup extends BaseButtonsGroup<ToggleButtonsGroup, Tog
 
   @Override
   public ToggleButtonsGroup resumeChangeListeners() {
-    this.pauseChangeListeners = true;
+    this.pauseChangeListeners = false;
     return this;
   }
 
@@ -184,7 +184,7 @@ public class ToggleButtonsGroup extends BaseButtonsGroup<ToggleButtonsGroup, Tog
   }
 
   public ToggleButtonsGroup setToggleCssClass(CssClass toggleCssClass) {
-    buttons.forEach(button -> button.setToggleCssClass(toggleCssClass));
+    getButtons().forEach(button -> button.setToggleCssClass(toggleCssClass));
     this.cssToggleClass = toggleCssClass;
     return this;
   }
