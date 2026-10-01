@@ -45,7 +45,10 @@ public class DragSource {
    * @param draggable the draggable element to be added
    */
   public void addDraggable(Draggable<?> draggable) {
-    draggables.put(draggable.getId(), draggable);
+    Draggable<?> previous = draggables.put(draggable.getId(), draggable);
+    if (previous != null && previous != draggable) {
+      previous.detach();
+    }
   }
 
   /**

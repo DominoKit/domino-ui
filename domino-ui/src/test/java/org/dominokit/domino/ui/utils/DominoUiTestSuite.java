@@ -31,6 +31,7 @@ import org.dominokit.domino.ui.button.FabTest;
 import org.dominokit.domino.ui.button.ToggleButtonsGroupTest;
 import org.dominokit.domino.ui.cards.CardTest;
 import org.dominokit.domino.ui.dialogs.StandardDialogLayoutTest;
+import org.dominokit.domino.ui.dnd.DragSourceTest;
 import org.dominokit.domino.ui.forms.DateBoxTypingModeTest;
 import org.dominokit.domino.ui.forms.CountableInputFormFieldTest;
 import org.dominokit.domino.ui.forms.TimeBoxTypingModeTest;
@@ -63,6 +64,7 @@ public class DominoUiTestSuite extends GWTTestSuite {
     suite.addTestSuite(BaseDominoElementMutationTest.class);
     suite.addTestSuite(AnimationTest.class);
     suite.addTestSuite(AccordionTest.class);
+    suite.addTestSuite(DragSourceTest.class);
     suite.addTestSuite(DynamicCssDefinitionTest.class);
     suite.addTestSuite(DynamicCssRegistryTest.class);
     suite.addTestSuite(DynamicCssCssomTest.class);
