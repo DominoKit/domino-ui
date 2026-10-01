@@ -3,6 +3,7 @@ package org.dominokit.domino.ui.dnd;
 import static org.dominokit.domino.ui.utils.Domino.div;
 
 import com.google.gwt.junit.client.GWTTestCase;
+import elemental2.dom.Event;
 import org.dominokit.domino.ui.elements.DivElement;
 
 public class DragSourceTest extends GWTTestCase {
@@ -37,5 +38,16 @@ public class DragSourceTest extends GWTTestCase {
     source.addDraggable(draggable);
 
     assertTrue(element.element().draggable);
+  }
+
+  public void testDragEndClearsDraggingClass() {
+    DivElement element = div();
+    Draggable<DivElement> draggable = Draggable.of(element);
+    element.element().classList.add(DragSource.DRAGGING);
+
+    element.element().dispatchEvent(new Event("dragend"));
+
+    assertFalse(element.element().classList.contains(DragSource.DRAGGING));
+    draggable.detach();
   }
 }

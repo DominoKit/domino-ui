@@ -44,6 +44,7 @@ public class Draggable<E extends IsElement<? extends HTMLElement>> {
   private final String id;
   private final E element;
   private final EventListener eventListener;
+  private final EventListener dragEndListener;
   private final Consumer<E> dragStartListener;
   private DraggableConfig config = () -> true;
 
@@ -117,7 +118,9 @@ public class Draggable<E extends IsElement<? extends HTMLElement>> {
     DominoElement<? extends Element> dominoElement = elements.elementOf(element.element());
     element.element().draggable = true;
     eventListener = evt -> onDragStart(evt, element, id);
+    dragEndListener = evt -> element.element().classList.remove(DragSource.DRAGGING);
     dominoElement.addEventListener("dragstart", eventListener);
+    dominoElement.addEventListener("dragend", dragEndListener);
   }
 
   private void onDragStart(Event evt, E draggable, String id) {
@@ -156,6 +159,8 @@ public class Draggable<E extends IsElement<? extends HTMLElement>> {
   public void detach() {
     element.element().draggable = false;
     element.element().removeEventListener("dragstart", eventListener);
+    element.element().removeEventListener("dragend", dragEndListener);
+    element.element().classList.remove(DragSource.DRAGGING);
   }
 
   /**
