@@ -18,6 +18,7 @@ package org.dominokit.domino.ui.scroll;
 import static elemental2.dom.DomGlobal.document;
 import static org.dominokit.domino.ui.utils.Domino.*;
 
+import elemental2.dom.EventListener;
 import elemental2.dom.HTMLElement;
 import org.dominokit.domino.ui.button.Button;
 import org.dominokit.domino.ui.button.ButtonStyles;
@@ -53,6 +54,7 @@ public class ScrollTop extends Button implements ButtonStyles {
 
   /** The offset at which the button should be shown (default is 60). */
   private int showOffset = 60;
+  private final EventListener scrollListener;
 
   /**
    * Constructs a new ScrollTop button with the specified icon.
@@ -68,15 +70,26 @@ public class ScrollTop extends Button implements ButtonStyles {
     collapse();
     addClickListener(evt -> ElementUtil.scrollTop());
 
-    document.addEventListener(
-        EventType.scroll.getName(),
+    scrollListener = evt -> updateVisibility();
+    registerOnDetached(
+        evt -> document.removeEventListener(EventType.scroll.getName(), scrollListener));
+    registerOnAttached(
         evt -> {
-          if (document.scrollingElement.scrollTop > showOffset) {
-            ScrollTop.this.expand();
-          } else {
-            ScrollTop.this.collapse();
-          }
+          document.addEventListener(EventType.scroll.getName(), scrollListener);
+          updateVisibility();
         });
+  }
+
+  private void updateVisibility() {
+    double scrollTop =
+        document.scrollingElement != null
+            ? document.scrollingElement.scrollTop
+            : document.documentElement.scrollTop;
+    if (scrollTop > showOffset) {
+      expand();
+    } else {
+      collapse();
+    }
   }
 
   /**

@@ -64,6 +64,7 @@ public class AppLayout extends BaseDominoElement<HTMLDivElement, AppLayout>
 
   private boolean autoCloseLeftDrawer = true;
   private boolean autoCloseRightDrawer = true;
+  private final EventListener scrollTopListener;
 
   public SwapCssClass LEFT_DRAWER_SIZE = new SwapCssClass(dui_left_medium);
   public SwapCssClass RIGHT_DRAWER_SIZE = new SwapCssClass(dui_right_medium);
@@ -106,6 +107,7 @@ public class AppLayout extends BaseDominoElement<HTMLDivElement, AppLayout>
                                 section()
                                     .addCss(dui_content)
                                     .setZIndexLayer(ZIndexLayer.Z_LAYER_1)));
+    scrollTopListener = evt -> body.element().scrollTop = 0;
     header =
         LazyChild.of(
                 header()
@@ -232,11 +234,10 @@ public class AppLayout extends BaseDominoElement<HTMLDivElement, AppLayout>
     //        ,
     //        0);
 
-    DomGlobal.document.addEventListener(
-        "dui-event-scroll-top",
-        evt -> {
-          body.element().scrollTop = 0;
-        });
+    registerOnAttached(
+        evt -> DomGlobal.document.addEventListener("dui-event-scroll-top", scrollTopListener));
+    registerOnDetached(
+        evt -> DomGlobal.document.removeEventListener("dui-event-scroll-top", scrollTopListener));
   }
 
   private LazyChild<PrefixAddOn<HTMLElement>> initLeftDrawerToggle(Icon<?> icon) {
