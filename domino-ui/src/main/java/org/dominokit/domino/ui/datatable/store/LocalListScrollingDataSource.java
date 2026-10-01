@@ -243,7 +243,7 @@ public class LocalListScrollingDataSource<T>
     int fromIndex = pagination.getPageSize() * fromPage;
     int toIndex = Math.min(getToIndex(fromIndex), filtered.size());
 
-    listeners.forEach(
+    new ArrayList<>(listeners).forEach(
         dataChangeListener ->
             dataChangeListener.onDataChanged(
                 new DataChangedEvent<>(

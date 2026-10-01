@@ -532,7 +532,7 @@ public class Calendar extends BaseDominoElement<HTMLDivElement, Calendar>
   @Override
   public Calendar triggerChangeListeners(Date oldValue, Date newValue) {
     if (!this.changeListenersPaused) {
-      this.changeListeners.forEach(
+      new ArrayList<>(this.changeListeners).forEach(
           changeListener -> changeListener.onValueChanged(oldValue, newValue));
     }
     return this;

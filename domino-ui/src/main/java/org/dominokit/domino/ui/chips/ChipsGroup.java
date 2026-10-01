@@ -229,7 +229,7 @@ public class ChipsGroup extends BaseDominoElement<HTMLDivElement, ChipsGroup>
    */
   @Override
   public ChipsGroup triggerSelectionListeners(Chip source, List<Chip> selection) {
-    selectionListeners.forEach(
+    new ArrayList<>(selectionListeners).forEach(
         selectionListener ->
             selectionListener.onSelectionChanged(Optional.ofNullable(source), selection));
     return this;
@@ -240,7 +240,7 @@ public class ChipsGroup extends BaseDominoElement<HTMLDivElement, ChipsGroup>
    */
   @Override
   public ChipsGroup triggerDeselectionListeners(Chip source, List<Chip> selection) {
-    deselectionListeners.forEach(
+    new ArrayList<>(deselectionListeners).forEach(
         selectionListener ->
             selectionListener.onSelectionChanged(Optional.ofNullable(source), selection));
     return this;

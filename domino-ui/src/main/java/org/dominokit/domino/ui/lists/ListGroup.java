@@ -110,7 +110,7 @@ public class ListGroup<T> extends BaseDominoElement<HTMLUListElement, ListGroup<
   public ListGroup<T> setItems(List<? extends T> items) {
     removeAll();
     items.forEach(this::addItem);
-    addListeners.forEach(listener -> listener.onAdd(new ArrayList<>(this.items)));
+    new ArrayList<>(addListeners).forEach(listener -> listener.onAdd(new ArrayList<>(this.items)));
     return this;
   }
 
@@ -123,7 +123,7 @@ public class ListGroup<T> extends BaseDominoElement<HTMLUListElement, ListGroup<
     clearElement();
     List<ListItem<? extends T>> removed = new ArrayList<>(this.items);
     items.clear();
-    removeListeners.forEach(listener -> listener.onRemove(removed));
+    new ArrayList<>(removeListeners).forEach(listener -> listener.onRemove(removed));
     return this;
   }
 
@@ -137,7 +137,7 @@ public class ListGroup<T> extends BaseDominoElement<HTMLUListElement, ListGroup<
     List<ListItem<? extends T>> addedItems = new ArrayList<>();
     items.forEach(value -> insertAt(this.items.size(), value, true, addedItems::add));
     if (!addedItems.isEmpty()) {
-      this.addListeners.forEach(listener -> listener.onAdd(addedItems));
+      new ArrayList<>(this.addListeners).forEach(listener -> listener.onAdd(addedItems));
     }
     return this;
   }
@@ -194,7 +194,7 @@ public class ListGroup<T> extends BaseDominoElement<HTMLUListElement, ListGroup<
       if (!silent) {
         List<ListItem<? extends T>> added = new ArrayList<>();
         added.add(li);
-        this.addListeners.forEach(listener -> listener.onAdd(added));
+        new ArrayList<>(this.addListeners).forEach(listener -> listener.onAdd(added));
       }
     } else {
       throw new IndexOutOfBoundsException("index : [" + index + "], size : [" + items.size() + "]");
@@ -248,7 +248,7 @@ public class ListGroup<T> extends BaseDominoElement<HTMLUListElement, ListGroup<
    */
   public ListGroup<T> removeItems(List<ListItem<? extends T>> items) {
     items.forEach(listItem -> removeItem(listItem, true));
-    removeListeners.forEach(listener -> listener.onRemove(new ArrayList<>(items)));
+    new ArrayList<>(removeListeners).forEach(listener -> listener.onRemove(new ArrayList<>(items)));
     return this;
   }
 
@@ -266,7 +266,7 @@ public class ListGroup<T> extends BaseDominoElement<HTMLUListElement, ListGroup<
     if (!silent) {
       List<ListItem<? extends T>> items = new ArrayList<>();
       items.add(item);
-      removeListeners.forEach(listener -> listener.onRemove(items));
+      new ArrayList<>(removeListeners).forEach(listener -> listener.onRemove(items));
     }
 
     return this;
@@ -418,7 +418,7 @@ public class ListGroup<T> extends BaseDominoElement<HTMLUListElement, ListGroup<
    */
   @Override
   public ListGroup<T> triggerSelectionListeners(T source, List<T> selection) {
-    selectionListeners.forEach(
+    new ArrayList<>(selectionListeners).forEach(
         listener -> listener.onSelectionChanged(Optional.ofNullable(source), selection));
     return this;
   }
@@ -432,7 +432,7 @@ public class ListGroup<T> extends BaseDominoElement<HTMLUListElement, ListGroup<
    */
   @Override
   public ListGroup<T> triggerDeselectionListeners(T source, List<T> selection) {
-    deselectionListeners.forEach(
+    new ArrayList<>(deselectionListeners).forEach(
         listener -> listener.onSelectionChanged(Optional.ofNullable(source), selection));
     return this;
   }

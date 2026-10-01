@@ -566,13 +566,13 @@ public class LocalListDataStore<T>
     }
     if (!isAutoSortApplied()) {
       setAutoSortApplied(true);
-      listeners.forEach(
+      new ArrayList<>(listeners).forEach(
           dataChangeListener ->
               dataChangeListener.onDataChanged(
                   new DataChangedEvent<>(
                       updateRecords, filtered.size(), getAutoSortDirection(), getAutoSortBy())));
     } else {
-      listeners.forEach(
+      new ArrayList<>(listeners).forEach(
           dataChangeListener ->
               dataChangeListener.onDataChanged(
                   new DataChangedEvent<>(updateRecords, filtered.size())));

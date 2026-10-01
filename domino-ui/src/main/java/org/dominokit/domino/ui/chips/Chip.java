@@ -22,6 +22,7 @@ import static org.dominokit.domino.ui.utils.Domino.span;
 
 import elemental2.dom.HTMLDivElement;
 import elemental2.dom.HTMLImageElement;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
@@ -176,7 +177,7 @@ public class Chip extends BaseDominoElement<HTMLDivElement, Chip>
    */
   @Override
   public Chip triggerSelectionListeners(Chip source, Chip selection) {
-    selectionListeners.forEach(
+    new ArrayList<>(selectionListeners).forEach(
         listener -> listener.onSelectionChanged(Optional.ofNullable(source), selection));
     return this;
   }
@@ -186,7 +187,7 @@ public class Chip extends BaseDominoElement<HTMLDivElement, Chip>
    */
   @Override
   public Chip triggerDeselectionListeners(Chip source, Chip selection) {
-    deselectionListeners.forEach(
+    new ArrayList<>(deselectionListeners).forEach(
         listener -> listener.onSelectionChanged(Optional.ofNullable(source), selection));
     return this;
   }

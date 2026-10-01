@@ -22,6 +22,7 @@ import static org.dominokit.domino.ui.utils.Domino.*;
 import elemental2.dom.Event;
 import elemental2.dom.HTMLLIElement;
 import elemental2.dom.MouseEvent;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
@@ -260,7 +261,7 @@ public class ListItem<T> extends BaseDominoElement<HTMLLIElement, ListItem<T>>
    */
   @Override
   public ListItem<T> triggerSelectionListeners(ListItem<T> source, ListItem<T> selection) {
-    selectionListeners.forEach(
+    new ArrayList<>(selectionListeners).forEach(
         listener -> listener.onSelectionChanged(Optional.ofNullable(source), selection));
     return this;
   }
@@ -274,7 +275,7 @@ public class ListItem<T> extends BaseDominoElement<HTMLLIElement, ListItem<T>>
    */
   @Override
   public ListItem<T> triggerDeselectionListeners(ListItem<T> source, ListItem<T> selection) {
-    deselectionListeners.forEach(
+    new ArrayList<>(deselectionListeners).forEach(
         listener -> listener.onSelectionChanged(Optional.ofNullable(source), selection));
     return this;
   }

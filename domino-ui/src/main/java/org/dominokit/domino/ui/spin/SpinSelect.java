@@ -261,7 +261,7 @@ public abstract class SpinSelect<T, S extends SpinSelect<T, S>>
   @Override
   public S triggerChangeListeners(T oldValue, T newValue) {
     if (!isChangeListenersPaused()) {
-      changeListeners.forEach(
+      new ArrayList<>(changeListeners).forEach(
           changeListener ->
               changeListener.onValueChanged(
                   oldValue,

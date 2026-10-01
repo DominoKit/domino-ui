@@ -847,7 +847,7 @@ public abstract class TreeRoot<V, N extends TreeNode<V, N, S>, C extends TreeRoo
   @Override
   public C triggerSelectionListeners(N source, S selection) {
     if (!this.selectionListenersPaused) {
-      this.selectionListeners.forEach(
+      new ArrayList<>(this.selectionListeners).forEach(
           listener -> listener.onSelectionChanged(Optional.ofNullable(source), selection));
     }
     return (C) this;
@@ -863,7 +863,7 @@ public abstract class TreeRoot<V, N extends TreeNode<V, N, S>, C extends TreeRoo
   @Override
   public C triggerDeselectionListeners(N source, S selection) {
     if (!this.selectionListenersPaused) {
-      this.deselectionListeners.forEach(
+      new ArrayList<>(this.deselectionListeners).forEach(
           listener -> listener.onSelectionChanged(Optional.ofNullable(source), selection));
     }
     return (C) this;

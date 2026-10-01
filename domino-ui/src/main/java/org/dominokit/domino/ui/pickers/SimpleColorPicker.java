@@ -18,6 +18,7 @@ package org.dominokit.domino.ui.pickers;
 import static org.dominokit.domino.ui.utils.Domino.*;
 
 import elemental2.dom.HTMLDivElement;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 import org.dominokit.domino.ui.elements.DivElement;
@@ -215,7 +216,8 @@ public class SimpleColorPicker extends BaseDominoElement<HTMLDivElement, SimpleC
   @Override
   public SimpleColorPicker triggerChangeListeners(ColorValue oldValue, ColorValue newValue) {
     if (!this.changeListenersPaused) {
-      this.changeListeners.forEach(listener -> listener.onValueChanged(oldValue, newValue));
+      new ArrayList<>(this.changeListeners)
+          .forEach(listener -> listener.onValueChanged(oldValue, newValue));
     }
     return this;
   }

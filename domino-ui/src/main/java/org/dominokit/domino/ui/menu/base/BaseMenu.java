@@ -722,7 +722,7 @@ public abstract class BaseMenu<
    */
   @Override
   public C triggerSelectionListeners(S source, List<S> selection) {
-    selectionListeners.forEach(
+    new ArrayList<>(selectionListeners).forEach(
         listener -> listener.onSelectionChanged(Optional.ofNullable(source), selection));
     return (C) this;
   }
@@ -736,7 +736,7 @@ public abstract class BaseMenu<
    */
   @Override
   public C triggerDeselectionListeners(S source, List<S> selection) {
-    deselectionListeners.forEach(
+    new ArrayList<>(deselectionListeners).forEach(
         listener -> listener.onSelectionChanged(Optional.ofNullable(source), selection));
     return (C) this;
   }

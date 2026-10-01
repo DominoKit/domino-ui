@@ -734,8 +734,10 @@ public class ColumnConfig<T> implements ElementsFactory, DataTableStyles {
    * @return the current instance for chaining
    */
   public ColumnConfig<T> show() {
-    this.permanentHideListeners.forEach(showHideListener -> showHideListener.onShowHide(true));
-    this.showHideListeners.forEach(showHideListener -> showHideListener.onShowHide(true));
+    new ArrayList<>(this.permanentHideListeners)
+        .forEach(showHideListener -> showHideListener.onShowHide(true));
+    new ArrayList<>(this.showHideListeners)
+        .forEach(showHideListener -> showHideListener.onShowHide(true));
     this.hidden = false;
     getSubColumns().forEach(ColumnConfig::show);
     return this;
@@ -747,8 +749,10 @@ public class ColumnConfig<T> implements ElementsFactory, DataTableStyles {
    * @return the current instance for chaining
    */
   public ColumnConfig<T> hide() {
-    this.permanentHideListeners.forEach(showHideListener -> showHideListener.onShowHide(false));
-    this.showHideListeners.forEach(showHideListener -> showHideListener.onShowHide(false));
+    new ArrayList<>(this.permanentHideListeners)
+        .forEach(showHideListener -> showHideListener.onShowHide(false));
+    new ArrayList<>(this.showHideListeners)
+        .forEach(showHideListener -> showHideListener.onShowHide(false));
     this.hidden = true;
     getSubColumns().forEach(ColumnConfig::hide);
     return this;

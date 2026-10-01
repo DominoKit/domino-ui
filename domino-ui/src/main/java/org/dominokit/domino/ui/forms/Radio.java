@@ -20,6 +20,7 @@ import static org.dominokit.domino.ui.forms.FormsStyles.*;
 import static org.dominokit.domino.ui.utils.Domino.*;
 
 import elemental2.dom.*;
+import java.util.ArrayList;
 import java.util.LinkedHashSet;
 import java.util.Set;
 import jsinterop.base.Js;
@@ -672,7 +673,7 @@ public class Radio<T> extends BaseDominoElement<HTMLDivElement, Radio<T>>
    */
   @Override
   public Radio<T> triggerChangeListeners(Boolean oldValue, Boolean newValue) {
-    changeListeners.forEach(listener -> listener.onValueChanged(oldValue, newValue));
+    new ArrayList<>(changeListeners).forEach(listener -> listener.onValueChanged(oldValue, newValue));
     return this;
   }
 

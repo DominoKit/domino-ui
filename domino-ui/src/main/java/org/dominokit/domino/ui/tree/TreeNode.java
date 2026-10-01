@@ -1103,7 +1103,7 @@ public abstract class TreeNode<V, N extends TreeNode<V, N, S>, S>
   @Override
   public N triggerSelectionListeners(N source, S selection) {
     if (!isSelectionListenersPaused()) {
-      this.selectionListeners.forEach(
+      new ArrayList<>(this.selectionListeners).forEach(
           selectionListener ->
               selectionListener.onSelectionChanged(Optional.ofNullable(source), selection));
     }
@@ -1119,7 +1119,7 @@ public abstract class TreeNode<V, N extends TreeNode<V, N, S>, S>
   @Override
   public N triggerDeselectionListeners(N source, S selection) {
     if (!isSelectionListenersPaused()) {
-      this.deselectionListeners.forEach(
+      new ArrayList<>(this.deselectionListeners).forEach(
           selectionListener ->
               selectionListener.onSelectionChanged(Optional.ofNullable(source), selection));
     }

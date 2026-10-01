@@ -15,6 +15,7 @@
  */
 package org.dominokit.domino.ui.pagination;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 import org.dominokit.domino.ui.utils.HasChangeListeners;
@@ -292,7 +293,8 @@ public class VirtualScrollingPagination
   @Override
   public VirtualScrollingPagination triggerChangeListeners(Integer oldValue, Integer newValue) {
     if (!changeListenersPaused) {
-      changeListeners.forEach(changeListener -> changeListener.onValueChanged(oldValue, newValue));
+      new ArrayList<>(changeListeners)
+          .forEach(changeListener -> changeListener.onValueChanged(oldValue, newValue));
     }
     return this;
   }

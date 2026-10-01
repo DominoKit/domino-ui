@@ -357,7 +357,8 @@ public class Breadcrumb extends BaseDominoElement<HTMLOListElement, Breadcrumb>
    */
   @Override
   public Breadcrumb triggerChangeListeners(BreadcrumbItem oldValue, BreadcrumbItem newValue) {
-    changeListeners.forEach(changeListener -> changeListener.onValueChanged(oldValue, newValue));
+    new ArrayList<>(changeListeners)
+        .forEach(changeListener -> changeListener.onValueChanged(oldValue, newValue));
     return this;
   }
 }

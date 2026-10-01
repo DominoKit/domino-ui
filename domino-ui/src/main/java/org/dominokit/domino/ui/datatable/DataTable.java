@@ -1084,7 +1084,7 @@ public class DataTable<T> extends BaseDominoElement<HTMLDivElement, DataTable<T>
   @Override
   public DataTable<T> triggerSelectionListeners(TableRow<T> source, List<TableRow<T>> selection) {
     if (!this.selectionListenersPaused) {
-      this.selectionListeners.forEach(
+      new ArrayList<>(this.selectionListeners).forEach(
           selectionListener ->
               selectionListener.onSelectionChanged(Optional.ofNullable(source), selection));
     }
@@ -1101,7 +1101,7 @@ public class DataTable<T> extends BaseDominoElement<HTMLDivElement, DataTable<T>
   @Override
   public DataTable<T> triggerDeselectionListeners(TableRow<T> source, List<TableRow<T>> selection) {
     if (!this.selectionListenersPaused) {
-      this.deselectionListeners.forEach(
+      new ArrayList<>(this.deselectionListeners).forEach(
           selectionListener ->
               selectionListener.onSelectionChanged(Optional.ofNullable(source), selection));
     }

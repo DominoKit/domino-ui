@@ -355,7 +355,7 @@ public class TimePicker extends BaseDominoElement<HTMLDivElement, TimePicker>
   @Override
   public TimePicker triggerChangeListeners(Date oldValue, Date newValue) {
     if (!this.changeListenersPaused) {
-      this.changeListeners.forEach(
+      new ArrayList<>(this.changeListeners).forEach(
           changeListener -> changeListener.onValueChanged(oldValue, newValue));
     }
     return this;

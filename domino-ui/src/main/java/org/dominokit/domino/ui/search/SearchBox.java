@@ -22,6 +22,7 @@ import static org.dominokit.domino.ui.utils.Domino.*;
 import elemental2.dom.Event;
 import elemental2.dom.EventListener;
 import elemental2.dom.HTMLDivElement;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 import org.dominokit.domino.ui.config.HasComponentConfig;
@@ -240,7 +241,8 @@ public class SearchBox extends BaseDominoElement<HTMLDivElement, SearchBox>
   }
 
   private SearchBox doSearch() {
-    searchListeners.forEach(searchListener -> searchListener.onSearch(textBox.getValue()));
+    new ArrayList<>(searchListeners)
+        .forEach(searchListener -> searchListener.onSearch(textBox.getValue()));
     return this;
   }
 

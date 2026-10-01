@@ -22,6 +22,7 @@ import static org.dominokit.domino.ui.utils.Domino.dui_active;
 
 import elemental2.dom.Element;
 import elemental2.dom.HTMLDivElement;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 import org.dominokit.domino.ui.elements.DivElement;
@@ -217,7 +218,7 @@ public class StepTracker extends BaseDominoElement<HTMLDivElement, StepTracker>
   }
 
   private void triggerListeners() {
-    listeners.forEach(listener -> listener.onStateChanged(this, state));
+    new ArrayList<>(listeners).forEach(listener -> listener.onStateChanged(this, state));
   }
 
   /**
