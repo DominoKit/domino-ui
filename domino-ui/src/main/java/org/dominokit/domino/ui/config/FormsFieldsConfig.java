@@ -201,7 +201,14 @@ public interface FormsFieldsConfig extends ComponentConfig, CalendarConfig {
     }
 
     default Function<String, Long> longParser(LongBox field) {
-      return value -> Double.valueOf(field.parseDouble(value)).longValue();
+      return value -> {
+        try {
+          return Long.valueOf(value.trim());
+        } catch (NumberFormatException ignored) {
+          // Keep localized grouping/decimal separators supported by NumberBox's active format.
+          return Double.valueOf(field.parseDouble(value)).longValue();
+        }
+      };
     }
 
     default Function<String, Short> shortParser(ShortBox field) {
