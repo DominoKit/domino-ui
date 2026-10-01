@@ -37,9 +37,10 @@ public class PageHeaderTest extends GWTTestCase {
   public void testPageHeaderDescriptionIsLazyAndFluentMethodsReturnPageHeader() {
     PageHeader pageHeader = PageHeader.create();
 
-    assertEquals(2, pageHeader.element().childNodes.length);
+    assertNull(pageHeader.element().querySelector(".dui-nav-description"));
     assertSame(pageHeader, pageHeader.setTitle("Orders"));
     assertSame(pageHeader, pageHeader.setDescription("Recent orders"));
+    assertNotNull(pageHeader.element().querySelector(".dui-nav-description"));
     assertSame(pageHeader, pageHeader.withTitle((self, title) -> {}));
     assertSame(pageHeader, pageHeader.withDescription((self, description) -> {}));
     assertSame(pageHeader, pageHeader.withTitleTextElement((self, title) -> {}));

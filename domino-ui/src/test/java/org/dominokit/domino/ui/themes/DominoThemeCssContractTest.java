@@ -91,6 +91,37 @@ public class DominoThemeCssContractTest {
   }
 
   @Test
+  public void responsiveNavBarKeepsAddonsAndTitleAlignedWithEvenSpacing() throws IOException {
+    String navBarCss =
+        readResource(
+            "org/dominokit/domino/ui/public/css/domino-ui/dui-components/domino-ui-navbar.css");
+    String defaultThemeCss =
+        readResource(
+            "org/dominokit/domino/ui/public/css/domino-ui/dui-components/domino-ui-theme-default.css");
+
+    assertTrue(
+        navBarCss.contains(
+            ".dui-nav-bar-base.dui-nav-bar-responsive > .dui-nav-prefix-addons {\n        flex: 0 0 auto;"));
+    assertTrue(
+        navBarCss.contains(
+            ".dui-nav-bar-base.dui-nav-bar-responsive .dui-nav-title {\n        flex: 1 1 0;"));
+    assertTrue(
+        navBarCss.contains(
+            "column-gap: var(--dui-nav-bar-responsive-column-gap, var(--dui-nav-bar-gap));"));
+    assertTrue(
+        navBarCss.contains(
+            ".dui-nav-bar-base.dui-nav-bar-responsive > .dui-nav-postfix-addons {\n        flex: 0 0 100%;"));
+    assertTrue(navBarCss.contains("justify-content: flex-end;"));
+    assertTrue(
+        navBarCss.contains(
+            "padding-inline: var(--dui-nav-bar-responsive-padding-inline, var(--dui-spc-4));"));
+    assertTrue(
+        navBarCss.contains("padding-block-end: var(--dui-nav-bar-responsive-padding-block-end);"));
+    assertTrue(defaultThemeCss.contains("--dui-nav-bar-responsive-padding-inline:"));
+    assertTrue(defaultThemeCss.contains("--dui-nav-bar-responsive-padding-block-end:"));
+  }
+
+  @Test
   public void auroraCharacterThemeUsesScopedSemanticGradients() throws IOException {
     String aurora =
         readResource(

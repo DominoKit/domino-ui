@@ -152,6 +152,13 @@
     padding: 0 var(--dui-spc-4);
 }
 
+@media screen and (max-width: 768px) {
+    .dui-layout-header:has(> .dui-nav-bar.dui-nav-bar-responsive) {
+        height: auto;
+        min-height: var(--dui-header-height);
+    }
+}
+
 .dui-shrink-content.dui-left-open > .dui-layout-body > .dui-layout-header {
     padding-inline-start: calc(var(--dui-header-padding) * var(--dui-layout-shrink-header));
 }

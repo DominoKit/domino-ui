@@ -26,6 +26,15 @@ public interface NavBarStyles {
   /** Shared structural class used by NavBar and PageHeader. */
   CssClass dui_nav_bar_base = () -> "dui-nav-bar-base";
 
+  /** Enables the stacked responsive layout on small screens. */
+  CssClass dui_nav_bar_responsive = () -> "dui-nav-bar-responsive";
+
+  /** Groups prefix add-ons while preserving the NavBar's regular flex layout. */
+  CssClass dui_nav_prefix_addons = () -> "dui-nav-prefix-addons";
+
+  /** Groups postfix add-ons so responsive layouts can align them as a single unit. */
+  CssClass dui_nav_postfix_addons = () -> "dui-nav-postfix-addons";
+
   /** Represents the CSS class for the main navigation bar container. */
   CssClass dui_nav_bar = () -> "dui-nav-bar";
 

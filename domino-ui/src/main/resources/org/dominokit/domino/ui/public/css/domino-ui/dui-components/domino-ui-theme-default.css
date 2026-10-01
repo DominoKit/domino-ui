@@ -1316,6 +1316,9 @@ body.dui {
 
     /* ===================== Nav bar ========================= */
     --dui-nav-bar-gap: var(--dui-spc-2);
+    --dui-nav-bar-responsive-row-gap: var(--dui-nav-bar-gap);
+    --dui-nav-bar-responsive-padding-inline: var(--dui-spc-4);
+    --dui-nav-bar-responsive-padding-block-end: var(--dui-spc-2);
     --dui-nav-bar-padding: 0;
     --dui-nav-bar-addon-margin: 0 var(--dui-spc-2);
     --dui-nav-bar-title-margin: 0 var(--dui-spc-2);

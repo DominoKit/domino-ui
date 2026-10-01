@@ -15,7 +15,11 @@
  */
 package org.dominokit.domino.ui.layout;
 
+import static org.dominokit.domino.ui.utils.Domino.div;
+
 import com.google.gwt.junit.client.GWTTestCase;
+import org.dominokit.domino.ui.utils.PostfixAddOn;
+import org.dominokit.domino.ui.utils.PrefixAddOn;
 
 public class NavBarTest extends GWTTestCase {
 
@@ -39,5 +43,16 @@ public class NavBarTest extends GWTTestCase {
     assertSame(navBar, navBar.setTitle("Updated"));
     assertSame(navBar, navBar.setDescription("Updated description"));
     assertSame(navBar, navBar.withBody((self, body) -> {}));
+  }
+
+  public void testPrefixAndPostfixAddonsUseDedicatedGroups() {
+    NavBar navBar = NavBar.create("Orders");
+    PrefixAddOn<?> prefix = PrefixAddOn.of(div());
+    PostfixAddOn<?> postfix = PostfixAddOn.of(div());
+
+    navBar.appendChild(prefix).appendChild(postfix);
+
+    assertTrue(prefix.element().parentElement.classList.contains("dui-nav-prefix-addons"));
+    assertTrue(postfix.element().parentElement.classList.contains("dui-nav-postfix-addons"));
   }
 }

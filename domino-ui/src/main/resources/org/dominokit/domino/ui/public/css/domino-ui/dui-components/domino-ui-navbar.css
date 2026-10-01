@@ -17,6 +17,21 @@
     margin: var(--dui-nav-bar-addon-margin);
     order: 10;
 }
+
+.dui-nav-prefix-addons,
+.dui-nav-postfix-addons {
+    display: flex;
+    align-items: center;
+    gap: var(--dui-nav-bar-gap);
+}
+
+.dui-nav-prefix-addons {
+    order: 10;
+}
+
+.dui-nav-postfix-addons {
+    order: 40;
+}
 .dui-nav-title {
     margin: var(--dui-nav-bar-title-margin);
     order: 20;
@@ -46,4 +61,51 @@
     font: var(--dui-nav-bar-description-font);
     margin: var(--dui-nav-bar-description-margin);
     line-height: var(--dui-nav-bar-description-line-height);
+}
+
+@media screen and (max-width: 768px) {
+    .dui-nav-bar-base.dui-nav-bar-responsive {
+        height: auto;
+        flex-wrap: wrap;
+        align-items: center;
+        column-gap: var(--dui-nav-bar-responsive-column-gap, var(--dui-nav-bar-gap));
+        row-gap: var(--dui-nav-bar-responsive-row-gap, var(--dui-nav-bar-gap));
+        padding-inline: var(--dui-nav-bar-responsive-padding-inline, var(--dui-spc-4));
+        padding-block-end: var(--dui-nav-bar-responsive-padding-block-end);
+    }
+
+    .dui-nav-bar-base.dui-nav-bar-responsive > .dui-nav-prefix-addons {
+        flex: 0 0 auto;
+        gap: var(--dui-nav-bar-responsive-column-gap, var(--dui-nav-bar-gap));
+    }
+
+    .dui-nav-bar-base.dui-nav-bar-responsive .dui-nav-title {
+        flex: 1 1 0;
+        min-width: 0;
+        margin: 0;
+    }
+
+    .dui-nav-bar-base.dui-nav-bar-responsive .dui-nav-body {
+        box-sizing: border-box;
+        flex: 0 0 100%;
+        width: 100%;
+        min-width: 0;
+        margin: 0;
+    }
+
+    .dui-nav-bar-base.dui-nav-bar-responsive .dui-nav-body:empty {
+        display: none;
+    }
+
+    .dui-nav-bar-base.dui-nav-bar-responsive > .dui-nav-postfix-addons {
+        flex: 0 0 100%;
+        justify-content: flex-end;
+        gap: var(--dui-nav-bar-responsive-column-gap, var(--dui-nav-bar-gap));
+        margin: 0;
+    }
+
+    .dui-nav-bar-base.dui-nav-bar-responsive .dui-prefix-addon,
+    .dui-nav-bar-base.dui-nav-bar-responsive .dui-postfix-addon {
+        margin: 0;
+    }
 }
