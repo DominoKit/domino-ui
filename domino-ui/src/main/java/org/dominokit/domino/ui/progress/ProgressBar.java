@@ -67,6 +67,7 @@ public class ProgressBar extends BaseDominoElement<HTMLDivElement, ProgressBar>
    * @param textExpression The text expression for the progress bar.
    */
   public ProgressBar(int maxValue, String textExpression) {
+    this.maxValue = Math.max(0, maxValue);
     element =
         div()
             .addCss(dui_progress_bar)
@@ -76,7 +77,6 @@ public class ProgressBar extends BaseDominoElement<HTMLDivElement, ProgressBar>
             .setAttribute("aria-valuemax", String.valueOf(maxValue))
             .setAttribute("aria-valuenow", "0")
             .appendChild(textElement = span().addCss(dui_progress_text));
-    this.maxValue = maxValue;
     this.textExpression = textExpression;
     this.setValue(0);
     init(this);
@@ -131,6 +131,7 @@ public class ProgressBar extends BaseDominoElement<HTMLDivElement, ProgressBar>
     if (value >= 0 && value <= maxValue) {
       this.value = value;
       element.setAttribute("aria-valuenow", String.valueOf(value));
+      updateText();
       updateWidth();
     }
     return this;
@@ -185,8 +186,11 @@ public class ProgressBar extends BaseDominoElement<HTMLDivElement, ProgressBar>
    * @return The current progress bar instance.
    */
   public ProgressBar setMaxValue(double maxValue) {
-    this.maxValue = maxValue;
-    setValue(this.value);
+    if (maxValue >= 0) {
+      this.maxValue = maxValue;
+      element.setAttribute("aria-valuemax", String.valueOf(maxValue));
+      setValue(Math.min(this.value, maxValue));
+    }
     return this;
   }
 
@@ -222,7 +226,6 @@ public class ProgressBar extends BaseDominoElement<HTMLDivElement, ProgressBar>
         .ifPresent(
             progress -> {
               element.style().setWidth(progress.calculateWidth(value) + "%");
-              updateText();
               DomGlobal.setTimeout(
                   p0 -> {
                     boolean overFlowing = element.isOverFlowing();

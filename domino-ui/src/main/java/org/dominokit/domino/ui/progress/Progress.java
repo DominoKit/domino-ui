@@ -91,10 +91,8 @@ public class Progress extends BaseDominoElement<HTMLDivElement, Progress>
    * @return the calculated width as a string
    */
   String calculateWidth(double value) {
-    return String.valueOf(
-        new Double(
-                (value / progressBars.stream().mapToDouble(ProgressBar::getMaxValue).sum()) * 100)
-            .intValue());
+    double maxValue = progressBars.stream().mapToDouble(ProgressBar::getMaxValue).sum();
+    return ProgressWidth.calculateWidth(value, maxValue);
   }
 
   /**
