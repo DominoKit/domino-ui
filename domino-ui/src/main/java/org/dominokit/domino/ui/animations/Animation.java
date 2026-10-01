@@ -51,6 +51,7 @@ public class Animation {
 
   private int duration = 800;
   private int delay = 0;
+  private Timer delayTimer;
   private boolean infinite = false;
   private final DominoElement<Element> element;
   private Transition transition = Transition.FADE_IN;
@@ -218,14 +219,20 @@ public class Animation {
    * @return same instance
    */
   public Animation animate() {
+    cancelDelayTimer();
     this.completed = false;
     if (delay > 0) {
-      new Timer() {
-        @Override
-        public void run() {
-          animateElement();
-        }
-      }.schedule(delay);
+      delayTimer =
+          new Timer() {
+            @Override
+            public void run() {
+              delayTimer = null;
+              if (!completed) {
+                animateElement();
+              }
+            }
+          };
+      delayTimer.schedule(delay);
     } else {
       animateElement();
     }
@@ -279,6 +286,7 @@ public class Animation {
    *     <b>false</b> to execute the callback.
    */
   public void stop(boolean silent) {
+    cancelDelayTimer();
     element.removeCss(transition.getStyle());
     element.removeCss("animated");
     element.removeCss("infinite");
@@ -295,6 +303,13 @@ public class Animation {
       callback.onComplete(element.element());
     }
     this.completed = true;
+  }
+
+  private void cancelDelayTimer() {
+    if (delayTimer != null) {
+      delayTimer.cancel();
+      delayTimer = null;
+    }
   }
 
   public boolean isCompleted() {

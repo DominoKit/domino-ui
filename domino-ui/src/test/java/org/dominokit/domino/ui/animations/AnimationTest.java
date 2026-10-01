@@ -19,6 +19,7 @@ import static org.dominokit.domino.ui.utils.Domino.div;
 
 import com.google.gwt.junit.client.GWTTestCase;
 import elemental2.dom.HTMLElement;
+import org.gwtproject.timer.client.Timer;
 
 public class AnimationTest extends GWTTestCase {
 
@@ -40,5 +41,23 @@ public class AnimationTest extends GWTTestCase {
     animation.repeat(1).animate();
     assertEquals("", element.style.getPropertyValue("animation-iteration-count"));
     animation.stop(true);
+  }
+
+  public void testStopCancelsDelayedAnimationStart() {
+    HTMLElement element = div().element();
+    Animation animation = Animation.create(element).delay(20);
+
+    animation.animate();
+    animation.stop(true);
+
+    delayTestFinish(100);
+    new Timer() {
+      @Override
+      public void run() {
+        assertFalse(element.classList.contains("animated"));
+        assertTrue(animation.isCompleted());
+        finishTest();
+      }
+    }.schedule(50);
   }
 }
