@@ -84,6 +84,10 @@ abstract class BaseSplitter<T extends BaseSplitter<?>> extends BaseDominoElement
           double currentPosition = touchPosition(touchEvent);
           resize(first, second, currentPosition, mainPanel);
         };
+    EventListener mouseUpListener =
+        evt -> body().removeEventListener(EventType.mousemove.getName(), resizeListener);
+    EventListener touchEndListener =
+        evt -> body().removeEventListener(EventType.touchmove.getName(), touchResizeListener);
 
     addEventListener(
         EventType.mousedown.getName(),
@@ -112,12 +116,16 @@ abstract class BaseSplitter<T extends BaseSplitter<?>> extends BaseDominoElement
         EventType.touchend.getName(),
         evt -> body().removeEventListener(EventType.touchmove.getName(), touchResizeListener));
 
-    document.body.addEventListener(
-        EventType.mouseup.getName(),
-        evt -> body().removeEventListener(EventType.mousemove.getName(), resizeListener));
-    document.body.addEventListener(
-        EventType.touchend.getName(),
-        evt -> body().removeEventListener(EventType.touchmove.getName(), touchResizeListener));
+    document.body.addEventListener(EventType.mouseup.getName(), mouseUpListener);
+    document.body.addEventListener(EventType.touchend.getName(), touchEndListener);
+
+    onDetached(
+        mutationRecord -> {
+          body().removeEventListener(EventType.mousemove.getName(), resizeListener);
+          body().removeEventListener(EventType.touchmove.getName(), touchResizeListener);
+          document.body.removeEventListener(EventType.mouseup.getName(), mouseUpListener);
+          document.body.removeEventListener(EventType.touchend.getName(), touchEndListener);
+        });
   }
 
   /**
