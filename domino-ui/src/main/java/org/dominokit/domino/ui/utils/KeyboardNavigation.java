@@ -186,8 +186,7 @@ public class KeyboardNavigation<V extends IsElement<?>> implements EventListener
 
   private void onCustomHandler(KeyboardEvent event, V item) {
     if (navigationHandlers.containsKey(event.key.toLowerCase())) {
-      navigationHandlers
-          .get(event.key.toLowerCase())
+      new ArrayList<>(navigationHandlers.get(event.key.toLowerCase()))
           .forEach(handler -> handler.onItemNavigation(event, item));
     }
   }

@@ -629,7 +629,7 @@ public class ColumnConfig<T> implements ElementsFactory, DataTableStyles {
 
   /** Applies header styling to the header element. */
   public final void applyHeaderHandlers() {
-    getHeaderHandlers().forEach(handler -> handler.apply(this));
+    new ArrayList<>(getHeaderHandlers()).forEach(handler -> handler.apply(this));
   }
 
   /**
@@ -638,7 +638,7 @@ public class ColumnConfig<T> implements ElementsFactory, DataTableStyles {
    * @param cell the element to be styled
    */
   void applyCellHandlers(RowCell<T> cell) {
-    getCellHandlers().forEach(handler -> handler.apply(cell));
+    new ArrayList<>(getCellHandlers()).forEach(handler -> handler.apply(cell));
   }
 
   /**
@@ -1036,7 +1036,7 @@ public class ColumnConfig<T> implements ElementsFactory, DataTableStyles {
     if (isColumnGroup()) {
       renderChildColumns(dataTable, tableConfig, headers, startIndex + 1);
     }
-    tableConfig.getPlugins().forEach(plugin -> plugin.onHeaderAdded(dataTable, this));
+    new ArrayList<>(tableConfig.getPlugins()).forEach(plugin -> plugin.onHeaderAdded(dataTable, this));
   }
 
   /**
@@ -1089,7 +1089,8 @@ public class ColumnConfig<T> implements ElementsFactory, DataTableStyles {
                   elementOf(headers[startIndex]).appendChild(fillHeader);
                 }
                 elementOf(headers[index]).appendChild(col.createColumnElement(tableConfig));
-                tableConfig.getPlugins().forEach(plugin -> plugin.onHeaderAdded(dataTable, col));
+                new ArrayList<>(tableConfig.getPlugins())
+                    .forEach(plugin -> plugin.onHeaderAdded(dataTable, col));
               }
             });
   }

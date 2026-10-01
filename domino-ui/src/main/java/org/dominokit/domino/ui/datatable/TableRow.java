@@ -445,7 +445,7 @@ public class TableRow<T> extends BaseDominoElement<HTMLTableRowElement, TableRow
 
   /** Notifies all listeners that the row data has been updated. */
   public void fireUpdate() {
-    getListeners().forEach(listener -> listener.onChange(TableRow.this));
+    new ArrayList<>(getListeners()).forEach(listener -> listener.onChange(TableRow.this));
   }
 
   @Override
@@ -789,14 +789,10 @@ public class TableRow<T> extends BaseDominoElement<HTMLTableRowElement, TableRow
     if (columnConfig.isHidden()) {
       elementOf(cellElement).hide();
     }
-    dataTable
-        .getTableConfig()
-        .getPlugins()
+    new ArrayList<>(dataTable.getTableConfig().getPlugins())
         .forEach(plugin -> plugin.onBeforeAddCell(dataTable, this, rowCell));
     element().appendChild(cellElement);
-    dataTable
-        .getTableConfig()
-        .getPlugins()
+    new ArrayList<>(dataTable.getTableConfig().getPlugins())
         .forEach(plugin -> plugin.onAfterAddCell(dataTable, this, rowCell));
     columnConfig.addShowHideListener(DefaultColumnShowHideListener.of(cellElement));
   }

@@ -117,10 +117,10 @@ public class DominoEvents {
    */
   public DominoEvents fireEvent(DominoEvent event) {
     if (events.containsKey(event.getType())) {
-      events.get(event.getType()).forEach(listener -> listener.handleEvent(event));
+      new ArrayList<>(events.get(event.getType())).forEach(listener -> listener.handleEvent(event));
     }
 
-    events.get(ANY).forEach(listener -> listener.handleEvent(event));
+    new ArrayList<>(events.get(ANY)).forEach(listener -> listener.handleEvent(event));
     return this;
   }
 }

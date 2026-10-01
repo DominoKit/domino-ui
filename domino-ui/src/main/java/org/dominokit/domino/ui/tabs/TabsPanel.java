@@ -248,7 +248,8 @@ public class TabsPanel extends BaseDominoElement<HTMLDivElement, TabsPanel>
         activeTab = tab;
         activeTab.activate(silent);
         if (!silent) {
-          activationHandlers.forEach(handler -> handler.onActiveStateChanged(tab, true));
+          new ArrayList<>(activationHandlers)
+              .forEach(handler -> handler.onActiveStateChanged(tab, true));
         }
         if (nonNull(transition)) {
           Animation.create(activeTab.getTabPanel()).transition(transition).animate();
@@ -266,7 +267,8 @@ public class TabsPanel extends BaseDominoElement<HTMLDivElement, TabsPanel>
       if (tab.isActive()) {
         tab.deActivate(silent);
         if (!silent) {
-          activationHandlers.forEach(handler -> handler.onActiveStateChanged(tab, false));
+          new ArrayList<>(activationHandlers)
+              .forEach(handler -> handler.onActiveStateChanged(tab, false));
         }
         if (nonNull(transition)) {
           Animation.create(activeTab.getTabPanel()).transition(transition).animate();
@@ -379,7 +381,7 @@ public class TabsPanel extends BaseDominoElement<HTMLDivElement, TabsPanel>
     tabs.remove(tab);
     tab.removeTab();
 
-    closeHandlers.forEach(closeHandler -> closeHandler.accept(tab));
+    new ArrayList<>(closeHandlers).forEach(closeHandler -> closeHandler.accept(tab));
     tab.setParent(null);
   }
 

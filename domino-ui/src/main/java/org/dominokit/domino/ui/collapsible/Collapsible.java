@@ -158,25 +158,25 @@ public class Collapsible implements IsElement<Element>, IsCollapsible<Collapsibl
 
   private void onCollapseCompleted() {
     if (nonNull(collapseHandlers)) {
-      collapseHandlers.forEach(CollapseHandler::apply);
+      new ArrayList<>(collapseHandlers).forEach(CollapseHandler::apply);
     }
   }
 
   private void onBeforeCollapse() {
     if (nonNull(beforeCollapseHandlers)) {
-      beforeCollapseHandlers.forEach(CollapseHandler::apply);
+      new ArrayList<>(beforeCollapseHandlers).forEach(CollapseHandler::apply);
     }
   }
 
   private void onExpandCompleted() {
     if (nonNull(expandHandlers)) {
-      expandHandlers.forEach(ExpandHandler::apply);
+      new ArrayList<>(expandHandlers).forEach(ExpandHandler::apply);
     }
   }
 
   private void onBeforeExpand() {
     if (nonNull(beforeExpandHandlers)) {
-      beforeExpandHandlers.forEach(ExpandHandler::apply);
+      new ArrayList<>(beforeExpandHandlers).forEach(ExpandHandler::apply);
     }
   }
 

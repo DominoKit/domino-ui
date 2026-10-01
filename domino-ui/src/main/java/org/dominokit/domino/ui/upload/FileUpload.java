@@ -425,7 +425,7 @@ public class FileUpload extends BaseDominoElement<HTMLDivElement, FileUpload>
           addedFileItems.remove(fileItem);
         });
 
-    fileItemHandlers.forEach(handler -> handler.handle(fileItem));
+    new ArrayList<>(fileItemHandlers).forEach(handler -> handler.handle(fileItem));
 
     fileItem.validateSize();
 

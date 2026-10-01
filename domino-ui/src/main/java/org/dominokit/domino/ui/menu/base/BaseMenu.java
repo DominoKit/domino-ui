@@ -292,7 +292,7 @@ public abstract class BaseMenu<
   protected abstract void afterAddItem(I item);
 
   public void onItemAdded(I item) {
-    onAddItemHandlers.forEach(handler -> handler.onAdded((C) this, item));
+    new ArrayList<>(onAddItemHandlers).forEach(handler -> handler.onAdded((C) this, item));
   }
 
   /** Clears the contents of the search box within the menu. */
@@ -838,7 +838,8 @@ public abstract class BaseMenu<
 
   public C triggerOnBeforeOpenListeners() {
     if (isDropDown()) {
-      getOnBeforeOpenListeners().forEach(listener -> listener.onBeforeOpen((C) this));
+      new ArrayList<>(getOnBeforeOpenListeners())
+          .forEach(listener -> listener.onBeforeOpen((C) this));
       DominoElement<Element> menuAppendTarget1 = getMenuAppendTarget();
       menuAppendTarget1.onDetached(onAppendTargetDetach);
     }

@@ -25,6 +25,7 @@ import elemental2.dom.HTMLDivElement;
 import elemental2.dom.HTMLElement;
 import elemental2.dom.HTMLImageElement;
 import elemental2.dom.Node;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 import org.dominokit.domino.ui.IsElement;
@@ -678,12 +679,14 @@ public abstract class BaseCard<C extends BaseCard<C>> extends BaseDominoElement<
     content.addCollapseListener(
         () -> {
           collapseIcon.setAttribute("aria-expanded", false);
-          collapseHandlers.forEach(handler -> handler.onCollapsed((C) BaseCard.this));
+          new ArrayList<>(collapseHandlers)
+              .forEach(handler -> handler.onCollapsed((C) BaseCard.this));
         });
     content.addExpandListener(
         () -> {
           collapseIcon.setAttribute("aria-expanded", true);
-          expandHandlers.forEach(handler -> handler.onExpanded((C) BaseCard.this));
+          new ArrayList<>(expandHandlers)
+              .forEach(handler -> handler.onExpanded((C) BaseCard.this));
         });
 
     return (C) this;
@@ -737,7 +740,7 @@ public abstract class BaseCard<C extends BaseCard<C>> extends BaseDominoElement<
     content.getCollapsible().expand();
     collapseIcon.toggle();
     collapseIcon.setAttribute("aria-expanded", true);
-    expandHandlers.forEach(handler -> handler.onExpanded((C) this));
+    new ArrayList<>(expandHandlers).forEach(handler -> handler.onExpanded((C) this));
     removeCss(() -> "dui-collapsed");
     return (C) this;
   }
@@ -752,7 +755,7 @@ public abstract class BaseCard<C extends BaseCard<C>> extends BaseDominoElement<
     content.getCollapsible().collapse();
     collapseIcon.toggle();
     collapseIcon.setAttribute("aria-expanded", false);
-    collapseHandlers.forEach(handler -> handler.onCollapsed((C) this));
+    new ArrayList<>(collapseHandlers).forEach(handler -> handler.onCollapsed((C) this));
     addCss(() -> "dui-collapsed");
     return (C) this;
   }

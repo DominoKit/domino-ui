@@ -19,6 +19,7 @@ import static org.dominokit.domino.ui.layout.NavBarStyles.dui_nav_utility;
 import static org.dominokit.domino.ui.utils.Domino.*;
 
 import elemental2.dom.*;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 import org.dominokit.domino.ui.animations.TransitionListeners;
@@ -142,7 +143,7 @@ public class AppLayout extends BaseDominoElement<HTMLDivElement, AppLayout>
               .onTransitionStart(
                   target -> {
                     if (dui_left_open.isAppliedTo(layout)) {
-                      leftDrawerOpenHandlers.forEach(
+                      new ArrayList<>(leftDrawerOpenHandlers).forEach(
                           handler -> handler.apply(this, leftDrawer.get()));
                       leftDrawer
                           .get()
@@ -153,7 +154,7 @@ public class AppLayout extends BaseDominoElement<HTMLDivElement, AppLayout>
               .onTransitionEnd(
                   target -> {
                     if (!dui_left_open.isAppliedTo(layout)) {
-                      leftDrawerCloseHandlers.forEach(
+                      new ArrayList<>(leftDrawerCloseHandlers).forEach(
                           handler -> handler.apply(this, leftDrawer.get()));
                       leftDrawer
                           .get()
@@ -186,7 +187,7 @@ public class AppLayout extends BaseDominoElement<HTMLDivElement, AppLayout>
               .onTransitionStart(
                   target -> {
                     if (dui_right_open.isAppliedTo(layout)) {
-                      rightDrawerOpenHandlers.forEach(
+                      new ArrayList<>(rightDrawerOpenHandlers).forEach(
                           handler -> handler.apply(this, rightDrawer.get()));
                       rightDrawer
                           .get()
@@ -197,7 +198,7 @@ public class AppLayout extends BaseDominoElement<HTMLDivElement, AppLayout>
               .onTransitionEnd(
                   target -> {
                     if (!dui_right_open.isAppliedTo(layout)) {
-                      rightDrawerCloseHandlers.forEach(
+                      new ArrayList<>(rightDrawerCloseHandlers).forEach(
                           handler -> handler.apply(this, rightDrawer.get()));
                       rightDrawer
                           .get()

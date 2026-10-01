@@ -177,7 +177,7 @@ public class ToggleButtonsGroup extends BaseButtonsGroup<ToggleButtonsGroup, Tog
   public ToggleButtonsGroup triggerChangeListeners(
       Set<ToggleButton> oldValue, Set<ToggleButton> newValue) {
     if (!isChangeListenersPaused()) {
-      getChangeListeners()
+      new java.util.ArrayList<>(getChangeListeners())
           .forEach(changeListener -> changeListener.onValueChanged(oldValue, newValue));
     }
     return this;

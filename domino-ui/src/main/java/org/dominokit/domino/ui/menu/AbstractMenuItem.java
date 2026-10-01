@@ -765,7 +765,7 @@ public class AbstractMenuItem<V> extends BaseDominoElement<HTMLElement, Abstract
   @Override
   public AbstractMenuItem<V> triggerSelectionListeners(
       AbstractMenuItem<V> source, AbstractMenuItem<V> selection) {
-    getSelectionListeners()
+    new ArrayList<>(getSelectionListeners())
         .forEach(listener -> listener.onSelectionChanged(Optional.ofNullable(source), selection));
     return this;
   }
@@ -780,7 +780,7 @@ public class AbstractMenuItem<V> extends BaseDominoElement<HTMLElement, Abstract
   @Override
   public AbstractMenuItem<V> triggerDeselectionListeners(
       AbstractMenuItem<V> source, AbstractMenuItem<V> selection) {
-    getDeselectionListeners()
+    new ArrayList<>(getDeselectionListeners())
         .forEach(listener -> listener.onSelectionChanged(Optional.ofNullable(source), selection));
     return this;
   }

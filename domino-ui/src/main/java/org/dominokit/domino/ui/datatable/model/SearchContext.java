@@ -175,7 +175,7 @@ public class SearchContext<T> {
    * context.
    */
   public void fireSearchEvent() {
-    beforeSearchHandlers.forEach(handler -> handler.accept(SearchContext.this));
+    new ArrayList<>(beforeSearchHandlers).forEach(handler -> handler.accept(SearchContext.this));
     dataTable.fireTableEvent(new SearchEvent(listAll()));
   }
 

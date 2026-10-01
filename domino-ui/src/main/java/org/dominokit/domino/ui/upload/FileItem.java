@@ -168,7 +168,7 @@ public class FileItem extends BaseDominoElement<HTMLElement, FileItem> {
    */
   private void updateProgress(double progress) {
     filePreview.onUploadProgress(progress);
-    progressHandlers.forEach(handler -> handler.onProgress(progress, request));
+    new ArrayList<>(progressHandlers).forEach(handler -> handler.onProgress(progress, request));
   }
 
   /**
@@ -288,7 +288,7 @@ public class FileItem extends BaseDominoElement<HTMLElement, FileItem> {
       request.onabort =
           p0 -> {
             filePreview.onUploadCanceled();
-            cancelHandlers.forEach(handler -> handler.onCancel(request));
+            new ArrayList<>(cancelHandlers).forEach(handler -> handler.onCancel(request));
           };
 
       request.addEventListener(
@@ -303,7 +303,8 @@ public class FileItem extends BaseDominoElement<HTMLElement, FileItem> {
       request.open("post", options.getUrl());
       FormData formData = new FormData();
       formData.append(fileName, file);
-      beforeUploadHandlers.forEach(handler -> handler.onBeforeUpload(request, formData));
+      new ArrayList<>(beforeUploadHandlers)
+          .forEach(handler -> handler.onBeforeUpload(request, formData));
       requestSender.onReady(request, formData);
     }
   }
@@ -328,13 +329,13 @@ public class FileItem extends BaseDominoElement<HTMLElement, FileItem> {
   private void onSuccess() {
     uploaded = true;
     filePreview.onUploadSuccess();
-    successUploadHandlers.forEach(handler -> handler.onSuccessUpload(request));
+    new ArrayList<>(successUploadHandlers).forEach(handler -> handler.onSuccessUpload(request));
   }
 
   /** Handles errors during the file upload, triggering error-related actions. */
   private void onError() {
     filePreview.onUploadFailed(getErrorMessage());
-    errorHandlers.forEach(handler -> handler.onError(request));
+    new ArrayList<>(errorHandlers).forEach(handler -> handler.onError(request));
   }
 
   /**
@@ -359,7 +360,7 @@ public class FileItem extends BaseDominoElement<HTMLElement, FileItem> {
   public FileItem remove() {
     super.remove();
     this.removed = true;
-    removeHandlers.forEach(handler -> handler.onRemoveFile(file));
+    new ArrayList<>(removeHandlers).forEach(handler -> handler.onRemoveFile(file));
     return this;
   }
 

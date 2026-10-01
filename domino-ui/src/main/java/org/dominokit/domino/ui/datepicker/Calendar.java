@@ -115,7 +115,7 @@ public class Calendar extends BaseDominoElement<HTMLDivElement, Calendar>
 
     this.root = div().addCss(dui_calendar).setAttribute("role", "group");
 
-    getConfig().getPlugins().forEach(plugin -> plugin.onInit(this));
+    new ArrayList<>(getConfig().getPlugins()).forEach(plugin -> plugin.onInit(this));
     init(this);
 
     this.root

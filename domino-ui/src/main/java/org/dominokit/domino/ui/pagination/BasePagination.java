@@ -626,7 +626,7 @@ public abstract class BasePagination<T extends BasePagination<T>>
    */
   @Override
   public T triggerChangeListeners(Integer oldValue, Integer newValue) {
-    getChangeListeners()
+    new java.util.ArrayList<>(getChangeListeners())
         .forEach(changeListener -> changeListener.onValueChanged(oldValue, newValue));
     return (T) this;
   }

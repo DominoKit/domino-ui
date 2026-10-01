@@ -2508,9 +2508,9 @@ public abstract class BaseDominoElement<E extends Element, T extends IsElement<E
    */
   @Editor.Ignore
   public T remove() {
-    onBeforeRemoveHandlers().forEach(h -> h.accept((T) this));
+    new ArrayList<>(onBeforeRemoveHandlers()).forEach(h -> h.accept((T) this));
     element().remove();
-    onRemoveHandlers().forEach(h -> h.accept((T) this));
+    new ArrayList<>(onRemoveHandlers()).forEach(h -> h.accept((T) this));
     return element;
   }
 

@@ -17,6 +17,7 @@ package org.dominokit.domino.ui.utils.meta;
 
 import static java.util.Objects.nonNull;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
@@ -89,7 +90,7 @@ public class AttributeMeta<T> implements ComponentMeta {
    */
   public AttributeMeta<T> setValue(T value) {
     this.value = value;
-    this.changeHandlers.forEach(c -> c.accept(this.value));
+    new ArrayList<>(this.changeHandlers).forEach(c -> c.accept(this.value));
     return this;
   }
 

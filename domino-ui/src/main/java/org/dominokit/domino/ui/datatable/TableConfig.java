@@ -192,7 +192,7 @@ public class TableConfig<T>
       rowAppender.appendRow(dataTable, tableRow);
     }
 
-    getPlugins().forEach(plugin -> plugin.onRowAdded(dataTable, tableRow));
+    new ArrayList<>(getPlugins()).forEach(plugin -> plugin.onRowAdded(dataTable, tableRow));
   }
 
   private boolean isOdd(int index) {
@@ -434,7 +434,7 @@ public class TableConfig<T>
    * @param dataTable The DataTable to which the headers are added.
    */
   void onBeforeHeaders(DataTable<T> dataTable) {
-    getPlugins().forEach(plugin -> plugin.onBeforeAddHeaders(dataTable));
+    new ArrayList<>(getPlugins()).forEach(plugin -> plugin.onBeforeAddHeaders(dataTable));
   }
 
   /**
@@ -443,7 +443,7 @@ public class TableConfig<T>
    * @param dataTable The DataTable to which the headers are added.
    */
   void onAfterHeaders(DataTable<T> dataTable) {
-    getPlugins().forEach(plugin -> plugin.onAfterAddHeaders(dataTable));
+    new ArrayList<>(getPlugins()).forEach(plugin -> plugin.onAfterAddHeaders(dataTable));
   }
 
   /**

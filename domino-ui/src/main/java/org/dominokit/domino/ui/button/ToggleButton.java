@@ -208,7 +208,7 @@ public class ToggleButton extends BaseButton<HTMLButtonElement, ToggleButton>
   @Override
   public ToggleButton triggerChangeListeners(Boolean oldValue, Boolean newValue) {
     if (!isChangeListenersPaused()) {
-      getChangeListeners()
+      new java.util.ArrayList<>(getChangeListeners())
           .forEach(changeListener -> changeListener.onValueChanged(oldValue, newValue));
     }
     return this;

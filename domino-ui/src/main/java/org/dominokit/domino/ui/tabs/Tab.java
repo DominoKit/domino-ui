@@ -462,7 +462,8 @@ public class Tab extends BaseDominoElement<HTMLLIElement, Tab>
     dui_active.apply(tab, tabPanel);
     tabAnchorElement.setAttribute("aria-selected", true);
     if (!silent) {
-      activationHandlers.forEach(handler -> handler.onActiveStateChanged(this, true));
+      new ArrayList<>(activationHandlers)
+          .forEach(handler -> handler.onActiveStateChanged(this, true));
     }
     return this;
   }
@@ -486,7 +487,8 @@ public class Tab extends BaseDominoElement<HTMLLIElement, Tab>
     dui_active.remove(tab, tabPanel);
     tabAnchorElement.setAttribute("aria-selected", false);
     if (!silent) {
-      activationHandlers.forEach(handler -> handler.onActiveStateChanged(this, false));
+      new ArrayList<>(activationHandlers)
+          .forEach(handler -> handler.onActiveStateChanged(this, false));
     }
     return this;
   }
@@ -516,7 +518,7 @@ public class Tab extends BaseDominoElement<HTMLLIElement, Tab>
       closeCondition.onBeforeClose(
           this,
           () -> {
-            closeHandlers.forEach(handler -> handler.accept(this));
+            new ArrayList<>(closeHandlers).forEach(handler -> handler.accept(this));
             parent.closeTab(this);
           });
     }

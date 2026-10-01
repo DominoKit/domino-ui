@@ -594,7 +594,7 @@ public abstract class AbstractSuggestBox<
    */
   @Override
   public C triggerChangeListeners(V oldValue, V newValue) {
-    getChangeListeners()
+    new java.util.ArrayList<>(getChangeListeners())
         .forEach(changeListener -> changeListener.onValueChanged(oldValue, newValue));
     return (C) this;
   }
@@ -607,7 +607,8 @@ public abstract class AbstractSuggestBox<
    */
   @Override
   public C triggerClearListeners(V oldValue) {
-    getClearListeners().forEach(clearListener -> clearListener.onValueCleared(oldValue));
+    new java.util.ArrayList<>(getClearListeners())
+        .forEach(clearListener -> clearListener.onValueCleared(oldValue));
     return (C) this;
   }
 

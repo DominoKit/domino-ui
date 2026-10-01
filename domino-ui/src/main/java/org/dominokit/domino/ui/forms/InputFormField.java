@@ -146,7 +146,7 @@ public abstract class InputFormField<T extends InputFormField<T, E, V>, E extend
    */
   @Override
   public T triggerChangeListeners(V oldValue, V newValue) {
-    getChangeListeners()
+    new java.util.ArrayList<>(getChangeListeners())
         .forEach(changeListener -> changeListener.onValueChanged(oldValue, newValue));
     return (T) this;
   }
@@ -159,7 +159,8 @@ public abstract class InputFormField<T extends InputFormField<T, E, V>, E extend
    */
   @Override
   public T triggerClearListeners(V oldValue) {
-    getClearListeners().forEach(clearListener -> clearListener.onValueCleared(oldValue));
+    new java.util.ArrayList<>(getClearListeners())
+        .forEach(clearListener -> clearListener.onValueCleared(oldValue));
     return (T) this;
   }
 

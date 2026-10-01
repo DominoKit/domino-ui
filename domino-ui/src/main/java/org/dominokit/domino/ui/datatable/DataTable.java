@@ -228,11 +228,11 @@ public class DataTable<T> extends BaseDominoElement<HTMLDivElement, DataTable<T>
     tableConfig.drawHeaders(this, thead);
     tableConfig.onAfterHeaders(this);
     tableElement.appendChild(tbody);
-    tableConfig.getPlugins().forEach(plugin -> plugin.onBodyAdded(DataTable.this));
+    new ArrayList<>(tableConfig.getPlugins()).forEach(plugin -> plugin.onBodyAdded(DataTable.this));
     tableElement.appendChild(tfoot);
-    tableConfig.getPlugins().forEach(plugin -> plugin.onFooterAdded(DataTable.this));
+    new ArrayList<>(tableConfig.getPlugins()).forEach(plugin -> plugin.onFooterAdded(DataTable.this));
     appendChild(tableElement);
-    tableConfig.getPlugins().forEach(plugin -> plugin.onAfterAddTable(DataTable.this));
+    new ArrayList<>(tableConfig.getPlugins()).forEach(plugin -> plugin.onAfterAddTable(DataTable.this));
     if (!tableConfig.isLazyLoad()) {
       this.dataStore.load();
     }
@@ -323,13 +323,14 @@ public class DataTable<T> extends BaseDominoElement<HTMLDivElement, DataTable<T>
 
     for (int index = 0; index < data.size(); index++) {
       TableRow<T> tableRow = new TableRow<>(data.get(index), initialIndex + index, this);
-      tableConfig.getPlugins().forEach(plugin -> plugin.onBeforeAddRow(DataTable.this, tableRow));
+      new ArrayList<>(tableConfig.getPlugins())
+          .forEach(plugin -> plugin.onBeforeAddRow(DataTable.this, tableRow));
 
       tableConfig.drawRecord(DataTable.this, tableRow);
       tableRows.add(tableRow);
     }
 
-    tableConfig.getPlugins().forEach(plugin -> plugin.onAllRowsAdded(DataTable.this));
+    new ArrayList<>(tableConfig.getPlugins()).forEach(plugin -> plugin.onAllRowsAdded(DataTable.this));
   }
 
   /**
