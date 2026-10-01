@@ -38,6 +38,9 @@ public class IntegerParserTest {
 
     assertInvalid(() -> parsers.exactInteger(3.5, Integer.MIN_VALUE, Integer.MAX_VALUE));
     assertInvalid(() -> parsers.exactInteger(32768, Short.MIN_VALUE, Short.MAX_VALUE));
+    assertInvalid(() -> parsers.exactLong(1.5));
+    assertInvalid(() -> parsers.exactLong(9223372036854775808.0d));
+    assertEquals(Long.MIN_VALUE, parsers.exactLong(-9223372036854775808.0d).longValue());
   }
 
   private void assertInvalid(Runnable action) {

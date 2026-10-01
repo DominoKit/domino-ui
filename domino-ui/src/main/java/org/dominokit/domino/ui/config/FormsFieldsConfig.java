@@ -213,7 +213,7 @@ public interface FormsFieldsConfig extends ComponentConfig, CalendarConfig {
           return Long.valueOf(value.trim());
         } catch (NumberFormatException ignored) {
           // Keep localized grouping/decimal separators supported by NumberBox's active format.
-          return Double.valueOf(field.parseDouble(value)).longValue();
+          return exactLong(field.parseDouble(value));
         }
       };
     }
@@ -236,6 +236,17 @@ public interface FormsFieldsConfig extends ComponentConfig, CalendarConfig {
           || value > max
           || value != Math.rint(value)) {
         throw new NumberFormatException("Value is not an in-range integer: " + value);
+      }
+      return (long) value;
+    }
+
+    default Long exactLong(double value) {
+      if (Double.isNaN(value)
+          || Double.isInfinite(value)
+          || value < Long.MIN_VALUE
+          || value >= 9223372036854775808.0d
+          || value != Math.rint(value)) {
+        throw new NumberFormatException("Value is not an in-range long integer: " + value);
       }
       return (long) value;
     }
