@@ -44,7 +44,7 @@ public class Counter {
   private final int countFrom;
   private final int countTo;
   private final int interval;
-  private final int step;
+  private final long step;
   private int currentValue;
   private CountHandler countHandler;
   private CompletionHandler completeHandler;
@@ -57,18 +57,13 @@ public class Counter {
       CountHandler countHandler,
       CompletionHandler completeHandler) {
 
-    if (step < 0) {
-      this.countFrom = countTo;
-      this.countTo = countFrom;
-    } else {
-      this.countFrom = countFrom;
-      this.countTo = countTo;
-    }
+    this.countFrom = countFrom;
+    this.countTo = countTo;
 
     this.currentValue = this.countFrom;
     this.interval = interval;
-    this.step = Math.abs(step);
-    this.dir = step > 0 ? Integer.compare(countTo, countFrom) : Integer.compare(countFrom, countTo);
+    this.step = Math.abs((long) step);
+    this.dir = Integer.compare(countTo, countFrom);
     this.countHandler = countHandler;
     this.completeHandler = completeHandler;
 
@@ -93,9 +88,9 @@ public class Counter {
             if (currentValue == countTo) {
               stopCounting();
             } else {
-              int next = currentValue + dir * step;
+              long next = currentValue + dir * step;
               // clamp so we never go past 'end'
-              currentValue = (dir > 0 ? Math.min(next, countTo) : Math.max(next, countTo));
+              currentValue = (int) (dir > 0 ? Math.min(next, countTo) : Math.max(next, countTo));
               notifyCount();
             }
           }
@@ -185,7 +180,7 @@ public class Counter {
   }
 
   public int getStep() {
-    return step;
+    return (int) step;
   }
 
   public int getCurrentValue() {
@@ -231,7 +226,7 @@ public class Counter {
   /** An interface to set the counter increment */
   public interface HasIncrement {
     /**
-     * @param increment int, the counter increment value
+     * @param increment int, the counter increment magnitude; direction follows the from/to values
      * @return {@link Counter}
      */
     Counter step(int increment);
