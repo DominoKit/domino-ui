@@ -1007,7 +1007,7 @@ body.dui {
     --dui-quick-search-input-placeholder-opacity: 1;
 
     /* ============================== Menu ===================== */
-    --dui-menu-elevation: var(--dui-elevation-1);
+    --dui-menu-elevation: var(--dui-box-shadow-1);
     --dui-menu-border: 1px solid var(--dui-menu-border-color);
     --dui-menu-color: var(--dui-color);
     --dui-menu-background-color: var(--dui-clr-dominant);

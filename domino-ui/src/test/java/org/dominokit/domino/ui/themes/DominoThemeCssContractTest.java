@@ -1831,6 +1831,20 @@ public class DominoThemeCssContractTest {
   }
 
   @Test
+  public void menuElevationUsesDefinedBoxShadowToken() throws IOException {
+    String defaultTheme =
+        readResource(
+            "org/dominokit/domino/ui/public/css/domino-ui/dui-components/domino-ui-theme-default.css");
+    String glassTheme =
+        readResource(
+            "org/dominokit/domino/ui/public/css/domino-ui/themes/character/domino-ui-theme-glass.css");
+
+    assertTrue(defaultTheme.contains("--dui-menu-elevation: var(--dui-box-shadow-1);"));
+    assertTrue(glassTheme.contains("--dui-menu-elevation: var(--dui-box-shadow-1);"));
+    assertTrue(defaultTheme.contains("--dui-box-shadow-1:"));
+  }
+
+  @Test
   public void rightDrawerStacksAboveFooter() throws IOException {
     String appLayout =
         readResource(

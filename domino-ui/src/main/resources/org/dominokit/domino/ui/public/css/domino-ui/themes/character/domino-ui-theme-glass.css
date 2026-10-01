@@ -27,7 +27,7 @@
     --dui-layout-drawer-box-shadow: var(--dui-section-box-shadow);
     --dui-thumbnail-box-shadow: 0 3px 12px color-mix(in srgb, var(--dui-color) 10%, transparent);
     --dui-dialog-box-shadow: 0 8px 24px color-mix(in srgb, var(--dui-color) 18%, transparent);
-    --dui-menu-elevation: var(--dui-elevation-1);
+    --dui-menu-elevation: var(--dui-box-shadow-1);
 }
 
 :where(.dui.dui-theme-glass) .dui-card,
