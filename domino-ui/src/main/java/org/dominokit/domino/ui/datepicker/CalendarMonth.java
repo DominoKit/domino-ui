@@ -82,7 +82,7 @@ public class CalendarMonth extends BaseDominoElement<HTMLDivElement, CalendarMon
     int firstDayOfTheWeek = this.calendar.getDateTimeFormatInfo().firstDayOfTheWeek();
     Date tempDate = new Date(this.date.getYear(), this.date.getMonth(), 1);
 
-    int monthFirstDay = tempDate.getDay() == 0 ? 7 : tempDate.getDay();
+    int monthFirstDay = tempDate.getDay();
 
     this.root.appendChild(
         div()
@@ -105,7 +105,7 @@ public class CalendarMonth extends BaseDominoElement<HTMLDivElement, CalendarMon
     MonthData monthBefore = monthData.getMonthBefore();
     MonthData monthAfter = monthData.getMonthAfter();
 
-    int offset = Math.abs(monthFirstDay - firstDayOfTheWeek);
+    int offset = CalendarMonthOffset.getStartOffset(monthFirstDay, firstDayOfTheWeek);
     int diff = offset + 1;
     int[] currentDaysCounter = new int[] {0};
     int[] monthBeforeDaysCounter = new int[] {monthBefore.getDaysCount() - offset + 1};
