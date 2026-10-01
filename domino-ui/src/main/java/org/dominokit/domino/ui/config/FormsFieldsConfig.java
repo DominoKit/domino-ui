@@ -178,7 +178,14 @@ public interface FormsFieldsConfig extends ComponentConfig, CalendarConfig {
 
   interface NumberParsers {
     default Function<String, BigDecimal> bigDecimalParser(BigDecimalBox field) {
-      return value -> BigDecimal.valueOf(field.parseDouble(value));
+      return value -> {
+        try {
+          return new BigDecimal(value.trim());
+        } catch (NumberFormatException ignored) {
+          // Keep localized grouping/decimal separators supported by NumberBox's active format.
+          return BigDecimal.valueOf(field.parseDouble(value));
+        }
+      };
     }
 
     default Function<String, Double> doubleParser(DoubleBox field) {
