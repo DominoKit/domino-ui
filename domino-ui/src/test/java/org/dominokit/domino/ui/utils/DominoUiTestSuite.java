@@ -48,6 +48,8 @@ public class DominoUiTestSuite extends GWTTestSuite {
   public static Test suite() {
     TestSuite suite = new TestSuite("Tests for client domino-ui");
     suite.addTestSuite(MatchHighlighterTest.class);
+    suite.addTestSuite(DominoIdTest.class);
+    suite.addTestSuite(DynamicStyleSheetTest.class);
     suite.addTestSuite(DynamicCssDefinitionTest.class);
     suite.addTestSuite(DynamicCssRegistryTest.class);
     suite.addTestSuite(DynamicCssCssomTest.class);
