@@ -254,10 +254,10 @@ public class Window extends AbstractDialog<Window> {
   }
 
   private void removeMoveListeners() {
-    DomGlobal.document.body.removeEventListener(EventType.mouseup.getName(), stopMoveListener);
-    DomGlobal.document.body.removeEventListener(EventType.touchend.getName(), stopMoveListener);
-    DomGlobal.document.body.removeEventListener(EventType.mousemove.getName(), moveListener);
-    DomGlobal.document.body.removeEventListener(EventType.touchmove.getName(), moveListener);
+    DomGlobal.document.body.removeEventListener(EventType.mouseup.getName(), stopMoveListener, true);
+    DomGlobal.document.body.removeEventListener(EventType.touchend.getName(), stopMoveListener, true);
+    DomGlobal.document.body.removeEventListener(EventType.mousemove.getName(), moveListener, true);
+    DomGlobal.document.body.removeEventListener(EventType.touchmove.getName(), moveListener, true);
     headerElement.element().removeEventListener(EventType.mousemove.getName(), moveListener);
     headerElement.element().removeEventListener(EventType.touchmove.getName(), moveListener);
     headerElement.element().removeEventListener(EventType.mouseup.getName(), stopMoveListener);
@@ -273,7 +273,6 @@ public class Window extends AbstractDialog<Window> {
 
     Domino.body().addEventsListener(stopMoveListener, true, "mouseup", "touchend");
     Domino.body().addEventsListener(moveListener, true, "mousemove", "touchmove");
-    body().addEventsListener(stopMoveListener, "mouseup", "touchend");
   }
 
   /**

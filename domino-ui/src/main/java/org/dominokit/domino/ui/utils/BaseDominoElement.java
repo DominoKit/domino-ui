@@ -1778,7 +1778,7 @@ public abstract class BaseDominoElement<E extends Element, T extends IsElement<E
     Arrays.asList(events)
         .forEach(
             eventName -> {
-              element().addEventListener(eventName, listener);
+              element().addEventListener(eventName, listener, options);
             });
 
     return element;

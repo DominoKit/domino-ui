@@ -19,6 +19,7 @@ import static org.dominokit.domino.ui.utils.Domino.div;
 
 import com.google.gwt.junit.client.GWTTestCase;
 import elemental2.dom.DomGlobal;
+import elemental2.dom.Event;
 import org.dominokit.domino.ui.elements.DivElement;
 
 public class BaseDominoElementMutationTest extends GWTTestCase {
@@ -68,5 +69,19 @@ public class BaseDominoElementMutationTest extends GWTTestCase {
               50);
         },
         50);
+  }
+
+  public void testAddEventsListenerCanCaptureBeforeChildStopsPropagation() {
+    DivElement parent = div();
+    DivElement child = div();
+    int[] calls = {0};
+    parent.appendChild(child);
+    parent.addEventsListener(event -> calls[0]++, true, "audit-capture");
+    child.element().addEventListener("audit-capture", event -> event.stopPropagation());
+    DomGlobal.document.body.appendChild(parent.element());
+
+    child.element().dispatchEvent(new Event("audit-capture"));
+
+    assertEquals(1, calls[0]);
   }
 }
