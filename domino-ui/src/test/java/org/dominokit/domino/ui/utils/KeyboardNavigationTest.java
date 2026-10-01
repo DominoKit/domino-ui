@@ -30,6 +30,20 @@ public class KeyboardNavigationTest extends GWTTestCase {
     assertEquals(1, escapeCalls[0]);
   }
 
+  public void testDefaultNavigationSkipsHiddenItems() {
+    DivElement first = div();
+    DivElement hidden = div().hide();
+    DivElement last = div();
+    KeyboardNavigation<DivElement> navigation =
+        KeyboardNavigation.create(java.util.Arrays.asList(first, hidden, last));
+    DivElement[] focused = {null};
+    navigation.onFocus(item -> focused[0] = item);
+
+    navigation.focusNext(first);
+
+    assertSame(last, focused[0]);
+  }
+
   private void dispatchEscape(DivElement item) {
     KeyboardEventInit init = KeyboardEventInit.create();
     init.setKey("Escape");

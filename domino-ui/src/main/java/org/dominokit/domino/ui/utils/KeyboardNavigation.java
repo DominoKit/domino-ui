@@ -328,9 +328,8 @@ public class KeyboardNavigation<V extends IsElement<?>> implements EventListener
   }
 
   private boolean shouldFocus(V itemToFocus) {
-    return isNull(focusCondition)
-        || focusCondition.shouldFocus(itemToFocus)
-            && !ElementsFactory.elements.elementOf(itemToFocus.element()).isHidden();
+    return (isNull(focusCondition) || focusCondition.shouldFocus(itemToFocus))
+        && !ElementsFactory.elements.elementOf(itemToFocus.element()).isHidden();
   }
 
   /** Focuses on the first focusable item in the list. */
