@@ -174,7 +174,7 @@ public class KeyboardEvents<T extends Node>
    */
   public KeyboardEvents<T> stopListenOnKeyUp() {
     element.removeEventListener(KEYUP, keyUpListener);
-    keyDownListenerInitializer.reset();
+    keyUpListenerInitializer.reset();
     return this;
   }
 
