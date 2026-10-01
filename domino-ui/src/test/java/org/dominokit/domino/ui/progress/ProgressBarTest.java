@@ -33,4 +33,11 @@ public class ProgressBarTest extends GWTTestCase {
     assertEquals("40.0", bar.element().getAttribute("aria-valuemax"));
     assertEquals("40.0", bar.element().getAttribute("aria-valuenow"));
   }
+
+  public void testNegativeConstructorMaximumIsNormalized() {
+    ProgressBar bar = ProgressBar.create(-10);
+
+    assertEquals(0d, bar.getMaxValue(), 0d);
+    assertEquals("0", bar.element().getAttribute("aria-valuemax"));
+  }
 }

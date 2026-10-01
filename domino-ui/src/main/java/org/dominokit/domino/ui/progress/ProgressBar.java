@@ -67,7 +67,8 @@ public class ProgressBar extends BaseDominoElement<HTMLDivElement, ProgressBar>
    * @param textExpression The text expression for the progress bar.
    */
   public ProgressBar(int maxValue, String textExpression) {
-    this.maxValue = Math.max(0, maxValue);
+    maxValue = Math.max(0, maxValue);
+    this.maxValue = maxValue;
     element =
         div()
             .addCss(dui_progress_bar)
