@@ -164,7 +164,14 @@ public class KeyboardNavigation<V extends IsElement<?>> implements EventListener
         } else if (isArrowDown(keyboardEvent)) {
           doEvent(evt, globalOptions, () -> focusNext(item));
         } else if (isEscapeKey(keyboardEvent)) {
-          doEvent(evt, globalOptions, () -> escapeHandler.onEscape());
+          doEvent(
+              evt,
+              globalOptions,
+              () -> {
+                if (nonNull(escapeHandler)) {
+                  escapeHandler.onEscape();
+                }
+              });
         }
 
         if (isEnterKey(keyboardEvent)) {
