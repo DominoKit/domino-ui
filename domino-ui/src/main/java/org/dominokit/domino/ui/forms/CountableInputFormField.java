@@ -145,7 +145,10 @@ public abstract class CountableInputFormField<
   @Override
   public T setMaxLength(int maxLength) {
     if (maxLength < 0) {
-      counterElement.remove();
+      if (nonNull(counterElement)) {
+        counterElement.remove();
+        counterElement = null;
+      }
       getInputElement().removeAttribute(MAX_LENGTH);
       removeValidator(maxLengthValidator);
     } else {
@@ -198,7 +201,10 @@ public abstract class CountableInputFormField<
   @Override
   public T setMinLength(int minLength) {
     if (minLength < 0) {
-      counterElement.remove();
+      if (nonNull(counterElement)) {
+        counterElement.remove();
+        counterElement = null;
+      }
       getInputElement().removeAttribute(MIN_LENGTH);
       removeValidator(minLengthValidator);
     } else {
@@ -207,7 +213,6 @@ public abstract class CountableInputFormField<
       updateCounter(getLength(), getMaxCount());
       addValidator(minLengthValidator);
     }
-    getInputElement().setAttribute(MIN_LENGTH, minLength);
     return (T) this;
   }
 

@@ -18,7 +18,6 @@ package org.dominokit.domino.ui.forms.validations;
 import static org.dominokit.domino.ui.utils.Domino.*;
 
 import elemental2.dom.HTMLElement;
-import elemental2.dom.HTMLInputElement;
 import org.dominokit.domino.ui.forms.HasInputElement;
 import org.dominokit.domino.ui.i18n.FormsLabels;
 import org.dominokit.domino.ui.utils.DominoUIConfig;
@@ -56,35 +55,6 @@ public class MinLengthValidator<T, E extends HTMLElement> implements HasValidati
    */
   @Override
   public ValidationResult isValid(T input) {
-    if (inputElement.getInputElement().element() instanceof HTMLInputElement) {
-      return validateHTMLInput();
-    } else {
-      return validateHTMLElement();
-    }
-  }
-
-  /**
-   * Validates the input value for HTML input elements.
-   *
-   * @return A {@code ValidationResult} indicating whether the input value is valid or not.
-   */
-  private ValidationResult validateHTMLInput() {
-    if (((HTMLInputElement) this.inputElement.getInputElement().element()).validity.tooShort) {
-      if (this.inputElement instanceof HasMinMaxLength) {
-        HasMinMaxLength<T> hasLength = (HasMinMaxLength<T>) this.inputElement;
-        return ValidationResult.invalid(
-            labels.getMinErrorMessage(hasLength.getMinLength(), hasLength.getLength()));
-      }
-    }
-    return ValidationResult.valid();
-  }
-
-  /**
-   * Validates the input value for non-HTML input elements.
-   *
-   * @return A {@code ValidationResult} indicating whether the input value is valid or not.
-   */
-  private ValidationResult validateHTMLElement() {
     if (this.inputElement instanceof HasMinMaxLength) {
       HasMinMaxLength<T> hasLength = (HasMinMaxLength<T>) this.inputElement;
       int length = hasLength.getLength();
