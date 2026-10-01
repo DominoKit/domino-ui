@@ -77,8 +77,6 @@ public abstract class CountableInputFormField<
     if (maxCount > 0) {
       counterListener.onCounterChanged(
           count, maxCount, countFormatter.format(count, getMaxCount()));
-      minLengthValidator = new MinLengthValidator<>(this);
-      maxLengthValidator = new MaxLengthValidator<>(this);
     }
     return (T) this;
   }
@@ -152,6 +150,7 @@ public abstract class CountableInputFormField<
       getInputElement().removeAttribute(MAX_LENGTH);
       removeValidator(maxLengthValidator);
     } else {
+      ensureLengthValidators();
       getInputElement().setAttribute(MAX_LENGTH, maxLength);
       updateCounter(getLength(), getMaxCount());
       addValidator(maxLengthValidator);
@@ -208,12 +207,22 @@ public abstract class CountableInputFormField<
       getInputElement().removeAttribute(MIN_LENGTH);
       removeValidator(minLengthValidator);
     } else {
+      ensureLengthValidators();
       getCountElement();
       getInputElement().setAttribute("minlength", minLength);
       updateCounter(getLength(), getMaxCount());
       addValidator(minLengthValidator);
     }
     return (T) this;
+  }
+
+  private void ensureLengthValidators() {
+    if (isNull(minLengthValidator)) {
+      minLengthValidator = new MinLengthValidator<>(this);
+    }
+    if (isNull(maxLengthValidator)) {
+      maxLengthValidator = new MaxLengthValidator<>(this);
+    }
   }
 
   /**

@@ -16,6 +16,7 @@
 package org.dominokit.domino.ui.forms;
 
 import com.google.gwt.junit.client.GWTTestCase;
+import elemental2.dom.Event;
 import org.dominokit.domino.ui.forms.validations.MaxLengthValidator;
 import org.dominokit.domino.ui.forms.validations.MinLengthValidator;
 import org.dominokit.domino.ui.forms.validations.ValidationResult;
@@ -55,6 +56,51 @@ public class CountableInputFormFieldTest extends GWTTestCase {
     ValidationResult result = new MinLengthValidator<>(textBox).isValid(textBox);
 
     assertFalse(result.isValid());
+  }
+
+  public void testMinimumLengthValidationWorksWithoutMaximumLength() {
+    TextBox textBox = TextBox.create();
+    textBox.setMinLength(3);
+    textBox.setValue("x");
+
+    assertTrue(hasMinLengthValidator(textBox));
+    assertFalse(new MinLengthValidator<>(textBox).isValid(textBox).isValid());
+
+    textBox.setMinLength(-1);
+    assertFalse(hasMinLengthValidator(textBox));
+  }
+
+  public void testRemovingMaximumLengthRemovesTheRegisteredValidatorAfterInput() {
+    TextBox textBox = TextBox.create();
+    textBox.setMaxLength(2);
+    textBox.setValue("long");
+    assertTrue(hasMaxLengthValidator(textBox));
+    textBox.getInputElement().element().dispatchEvent(new Event("input"));
+    assertTrue(hasMaxLengthValidator(textBox));
+
+    textBox.setMaxLength(-1);
+
+    assertFalse(hasMaxLengthValidator(textBox));
+  }
+
+  private boolean hasMinLengthValidator(TextBox textBox) {
+    for (org.dominokit.domino.ui.utils.HasValidation.Validator<TextBox> validator :
+        textBox.getValidators()) {
+      if (validator instanceof MinLengthValidator) {
+        return true;
+      }
+    }
+    return false;
+  }
+
+  private boolean hasMaxLengthValidator(TextBox textBox) {
+    for (org.dominokit.domino.ui.utils.HasValidation.Validator<TextBox> validator :
+        textBox.getValidators()) {
+      if (validator instanceof MaxLengthValidator) {
+        return true;
+      }
+    }
+    return false;
   }
 
   public void testProgrammaticallySetValueIsCheckedAgainstMaximumLength() {
