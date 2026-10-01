@@ -72,6 +72,10 @@ public class ChipsGroup extends BaseDominoElement<HTMLDivElement, ChipsGroup>
    * @return same ChipsGroup instance
    */
   public ChipsGroup appendChild(Chip chip) {
+    if (chips.contains(chip)) {
+      root.appendChild(chip);
+      return this;
+    }
     chip.setSelectable(true);
     chip.setRemovable(removable || chip.isRemovable());
     chip.onDetached(

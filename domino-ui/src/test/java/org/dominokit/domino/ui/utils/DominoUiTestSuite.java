@@ -29,6 +29,7 @@ import org.dominokit.domino.ui.animations.AnimationTest;
 import org.dominokit.domino.ui.collapsible.AccordionTest;
 import org.dominokit.domino.ui.button.FabTest;
 import org.dominokit.domino.ui.button.ToggleButtonsGroupTest;
+import org.dominokit.domino.ui.chips.ChipsGroupTest;
 import org.dominokit.domino.ui.cards.CardTest;
 import org.dominokit.domino.ui.dialogs.StandardDialogLayoutTest;
 import org.dominokit.domino.ui.dnd.DragSourceTest;
@@ -77,6 +78,7 @@ public class DominoUiTestSuite extends GWTTestSuite {
     suite.addTestSuite(StandardDialogLayoutTest.class);
     suite.addTestSuite(FabTest.class);
     suite.addTestSuite(ToggleButtonsGroupTest.class);
+    suite.addTestSuite(ChipsGroupTest.class);
     suite.addTestSuite(DateBoxTypingModeTest.class);
     suite.addTestSuite(CountableInputFormFieldTest.class);
     suite.addTestSuite(TimeBoxTypingModeTest.class);
