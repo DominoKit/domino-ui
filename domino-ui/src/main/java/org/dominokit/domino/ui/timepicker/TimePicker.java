@@ -116,7 +116,8 @@ public class TimePicker extends BaseDominoElement<HTMLDivElement, TimePicker>
           onTimeViewUpdate(updatedTime);
           triggerChangeListeners(oldTime, this.date);
           onTimeSelectionChanged(this.date);
-          timeSelectionListeners.forEach(listener -> listener.onTimeSelected(oldTime, this.date));
+          new ArrayList<>(timeSelectionListeners)
+              .forEach(listener -> listener.onTimeSelected(oldTime, this.date));
         });
 
     onTimeViewUpdate(this.date);

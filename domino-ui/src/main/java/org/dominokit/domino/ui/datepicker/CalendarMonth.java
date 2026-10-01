@@ -20,6 +20,7 @@ import static java.util.Objects.isNull;
 import static org.dominokit.domino.ui.utils.Domino.*;
 
 import elemental2.dom.HTMLDivElement;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
@@ -161,8 +162,7 @@ public class CalendarMonth extends BaseDominoElement<HTMLDivElement, CalendarMon
                           evt -> {
                             CalendarDay oldDay = this.selectedDay;
                             this.selectedDay = calendarDay;
-                            this.calendar
-                                .getDateSelectionListeners()
+                            new ArrayList<>(this.calendar.getDateSelectionListeners())
                                 .forEach(
                                     listener -> listener.onDaySelected(oldDay, this.selectedDay));
                           });

@@ -21,6 +21,7 @@ import static org.dominokit.domino.ui.utils.ElementsFactory.elements;
 
 import elemental2.dom.Element;
 import elemental2.dom.EventListener;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 import org.dominokit.domino.ui.IsElement;
@@ -118,7 +119,8 @@ public class TransitionListeners<E extends Element, T extends IsElement<E>> {
       this.endListener =
           evt -> {
             if (evt.target.equals(this.target.element())) {
-              getEndListeners().forEach(listener -> listener.onTransitionEvent(target));
+              new ArrayList<>(getEndListeners())
+                  .forEach(listener -> listener.onTransitionEvent(target));
             }
           };
     }
@@ -129,7 +131,7 @@ public class TransitionListeners<E extends Element, T extends IsElement<E>> {
     if (isNull(startListener)) {
       startListener =
           evt -> {
-            getStartListeners()
+            new ArrayList<>(getStartListeners())
                 .forEach(
                     listener -> {
                       if (evt.target.equals(this.target.element())) {
@@ -146,7 +148,8 @@ public class TransitionListeners<E extends Element, T extends IsElement<E>> {
       this.cancelListener =
           evt -> {
             if (evt.target.equals(this.target.element())) {
-              getCancelListeners().forEach(listener -> listener.onTransitionEvent(target));
+              new ArrayList<>(getCancelListeners())
+                  .forEach(listener -> listener.onTransitionEvent(target));
             }
           };
     }

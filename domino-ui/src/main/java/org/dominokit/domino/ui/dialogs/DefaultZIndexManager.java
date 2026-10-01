@@ -105,7 +105,7 @@ public class DefaultZIndexManager implements ZIndexManager, HasComponentConfig<Z
     Integer next = getNextZIndex(popup);
     popup.setZIndex(next);
     popup.setZIndexLayer(popup.getZIndexLayer());
-    listeners.forEach(
+    new ArrayList<>(listeners).forEach(
         listener -> listener.onZIndexChange(new ZIndexListener.ZIndexInfo(popup, modals)));
   }
 
@@ -123,7 +123,7 @@ public class DefaultZIndexManager implements ZIndexManager, HasComponentConfig<Z
         ModalBackDrop.INSTANCE.setZIndex(backdropZIndex);
         Integer modalZIndex = getNextZIndex(popup);
         modals.peek().setZIndex(modalZIndex);
-        listeners.forEach(
+        new ArrayList<>(listeners).forEach(
             listener ->
                 listener.onZIndexChange(new ZIndexListener.ZIndexInfo(modals.peek(), modals)));
       } else {
