@@ -198,7 +198,14 @@ public class ResizeColumnsPlugin<T>
                     mutationRecord -> {
                       resizeElement.removeEventListener(EventType.mouseup.getName(), stopResizing);
                       DominoDom.document.body.removeEventListener(
+                          EventType.mousemove.getName(), resizeListener);
+                      DominoDom.document.body.removeEventListener(
                           EventType.mouseup.getName(), stopResizing);
+                      if (column.equals(this.resizingColumn)) {
+                        this.resizing = false;
+                        this.resizingColumn = null;
+                        this.datatable.removeMeta(DUI_DT_COL_RESIZING);
+                      }
                     });
                 column.appendChild(resizeElement);
               }

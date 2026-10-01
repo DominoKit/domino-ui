@@ -94,6 +94,7 @@ public class Accordion extends BaseDominoElement<HTMLDivElement, Accordion>
    */
   public Accordion insertChild(int index, AccordionPanel panel) {
     boolean isAppend = index < 0 || index >= panels.size();
+    AccordionPanel nextPanel = isAppend ? null : panels.get(index);
     if (isAppend) {
       panels.add(panel);
     } else {
@@ -105,7 +106,7 @@ public class Accordion extends BaseDominoElement<HTMLDivElement, Accordion>
     if (isAppend) {
       element.appendChild(panel);
     } else {
-      element.insertFirst(panel);
+      element.insertBefore(panel, nextPanel);
     }
     panel.withHeader(
         (accordionPanel, header) -> {
