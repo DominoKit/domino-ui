@@ -125,7 +125,7 @@ public class MdiIconsProcessingStep {
       copyCss(cssName, inputStream);
     } catch (IOException e) {
       try {
-        copyFont(
+        copyCss(
             cssName,
             Files.newInputStream(
                 Paths.get(getResourceRootPath().toString(), "cached/mdi/css/" + cssName)));
