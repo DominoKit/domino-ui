@@ -75,6 +75,9 @@ public class ColorValue {
    * @param blue The blue component value (0-255).
    */
   public ColorValue(int red, int green, int blue) {
+    validateComponent(red);
+    validateComponent(green);
+    validateComponent(blue);
     this.red = red;
     this.green = green;
     this.blue = blue;
@@ -95,14 +98,13 @@ public class ColorValue {
           "Color cannot be null or empty, use #XXXXXX hex format or rgb(red, green, blue) format string.");
     }
     if (value.startsWith("#")) {
-      if (value.length() < 7) {
+      if (value.length() != 7) {
         throw new IllegalArgumentException("Invalid hex format, use #XXXXXX hex format.");
       }
       this.hex = value;
-      String temp = hex.replace("#", "");
-      String redHex = temp.substring(0, 2);
-      String greenHex = temp.substring(2, 4);
-      String blueHex = temp.substring(4);
+      String redHex = hex.substring(1, 3);
+      String greenHex = hex.substring(3, 5);
+      String blueHex = hex.substring(5, 7);
       this.red = Integer.valueOf(redHex, 16);
       this.green = Integer.valueOf(greenHex, 16);
       this.blue = Integer.valueOf(blueHex, 16);
@@ -111,10 +113,16 @@ public class ColorValue {
 
     } else if (value.startsWith("rgb(") && value.endsWith(")")) {
       this.rgb = value;
-      String[] parsed = value.replace("rgb(", "").replace(")", "").split(",");
+      String[] parsed = value.substring(4, value.length() - 1).split(",", -1);
+      if (parsed.length != 3) {
+        throw new IllegalArgumentException("Invalid rgb format, expected exactly three components.");
+      }
       this.red = Integer.parseInt(parsed[0].trim());
       this.green = Integer.parseInt(parsed[1].trim());
       this.blue = Integer.parseInt(parsed[2].trim());
+      validateComponent(this.red);
+      validateComponent(this.green);
+      validateComponent(this.blue);
       this.hex = rgbToHex(this.red, this.green, this.blue);
     } else {
       throw new IllegalArgumentException(
@@ -122,7 +130,13 @@ public class ColorValue {
     }
   }
 
-  private String rgbToHex(int r, int g, int b) {
+  private static void validateComponent(int value) {
+    if (value < 0 || value > 255) {
+      throw new IllegalArgumentException("RGB components must be between 0 and 255.");
+    }
+  }
+
+  private static String rgbToHex(int r, int g, int b) {
     return "#" + toHexString(r) + toHexString(g) + toHexString(b);
   }
 
