@@ -307,6 +307,7 @@ public abstract class BasePopover<T extends BasePopover<T>>
   protected void doClose() {
     setAttribute("aria-hidden", true);
     followOnScroll.stop();
+    DomGlobal.document.body.removeEventListener("blur", lostFocusListener, true);
     element().remove();
     body().removeEventListener(EventType.keydown.getName(), closeListener);
     getConfig().getZindexManager().onPopupClose(this);
