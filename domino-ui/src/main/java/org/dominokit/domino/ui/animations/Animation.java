@@ -246,6 +246,9 @@ public class Animation {
     element.setTransitionDuration(duration + "ms");
     element.setCssProperty("animation-duration", duration + "ms");
     element.setCssProperty("-webkit-animation-duration", duration + "ms");
+    if (repeatCount == 1) {
+      element.removeCssProperty("animation-iteration-count");
+    }
     if (infinite) {
       element.addCss("infinite");
     }
@@ -282,6 +285,7 @@ public class Animation {
     element.removeCss("ease-in-out");
     element.removeCssProperty("animation-duration");
     element.removeCssProperty("-webkit-animation-duration");
+    element.removeCssProperty("animation-iteration-count");
     element.removeEventListener("webkitAnimationEnd", stopListener);
     element.removeEventListener("MSAnimationEnd", stopListener);
     element.removeEventListener("mozAnimationEnd", stopListener);
