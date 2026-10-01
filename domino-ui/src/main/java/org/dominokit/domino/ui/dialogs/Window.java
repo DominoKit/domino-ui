@@ -58,6 +58,7 @@ public class Window extends AbstractDialog<Window> {
 
   private final EventListener moveListener;
   private final EventListener stopMoveListener;
+  private final EventListener startMoveListener;
 
   private double windowLeft = -1;
   private double windowTop = -1;
@@ -144,12 +145,23 @@ public class Window extends AbstractDialog<Window> {
     navHeader.appendChild(PostfixAddOn.of(closeIcon));
 
     moveListener = this::onMove;
-    stopMoveListener =
+    startMoveListener =
         evt -> {
           if (draggable) {
-            modalElement.removeCss(dui_no_transition);
-            startMoving = false;
+            MouseEvent mouseEvent = Js.uncheckedCast(evt);
+            if (!startMoving && mouseEvent.button == 0) {
+              modalElement.addCss(dui_no_transition);
+              deltaX = modalElement.element().offsetLeft - mouseEvent.clientX;
+              deltaY = modalElement.element().offsetTop - mouseEvent.clientY;
+
+              startMoving = true;
+            }
           }
+        };
+    stopMoveListener =
+        evt -> {
+          modalElement.removeCss(dui_no_transition);
+          startMoving = false;
         };
 
     addOpenListener(component -> addMoveListeners());
@@ -250,27 +262,14 @@ public class Window extends AbstractDialog<Window> {
     headerElement.element().removeEventListener(EventType.touchmove.getName(), moveListener);
     headerElement.element().removeEventListener(EventType.mouseup.getName(), stopMoveListener);
     headerElement.element().removeEventListener(EventType.touchend.getName(), stopMoveListener);
+    headerElement.element().removeEventListener(EventType.mousedown.getName(), startMoveListener);
+    headerElement.element().removeEventListener(EventType.touchstart.getName(), startMoveListener);
   }
 
   private void addMoveListeners() {
     headerElement
         .get()
-        .addEventsListener(
-            evt -> {
-              if (draggable) {
-                MouseEvent mouseEvent = Js.uncheckedCast(evt);
-                if (!startMoving && mouseEvent.button == 0) {
-                  modalElement.addCss(dui_no_transition);
-                  deltaX = modalElement.element().offsetLeft - mouseEvent.clientX;
-                  deltaY = modalElement.element().offsetTop - mouseEvent.clientY;
-
-                  startMoving = true;
-                }
-              }
-            },
-            true,
-            "mousedown",
-            "touchstart");
+        .addEventsListener(startMoveListener, "mousedown", "touchstart");
 
     Domino.body().addEventsListener(stopMoveListener, true, "mouseup", "touchend");
     Domino.body().addEventsListener(moveListener, true, "mousemove", "touchmove");
@@ -294,6 +293,9 @@ public class Window extends AbstractDialog<Window> {
    */
   public Window setDraggable(boolean draggable) {
     this.draggable = draggable;
+    if (!draggable) {
+      stopMoveListener.handleEvent(null);
+    }
     return this;
   }
 
