@@ -78,6 +78,7 @@ public abstract class AbstractSuggestionsStore<
   public void find(T searchValue, Consumer<O> handler) {
     if (isNull(searchValue)) {
       handler.accept(null);
+      return;
     }
     for (O suggestion : getSuggestionsCollection()) {
       if (Objects.equals(suggestion.getValue(), searchValue)) {
