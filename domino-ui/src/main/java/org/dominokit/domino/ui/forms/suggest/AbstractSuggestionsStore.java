@@ -241,7 +241,7 @@ public abstract class AbstractSuggestionsStore<
    * @return This store instance.
    */
   public S removeAllOptions() {
-    getSuggestionsCollection().forEach(this::removeOption);
+    new ArrayList<>(getSuggestionsCollection()).forEach(this::removeOption);
     return getThis();
   }
 
