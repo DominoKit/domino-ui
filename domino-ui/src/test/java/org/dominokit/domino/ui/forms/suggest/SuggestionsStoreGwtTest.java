@@ -16,6 +16,7 @@
 package org.dominokit.domino.ui.forms.suggest;
 
 import com.google.gwt.junit.client.GWTTestCase;
+import java.util.Collection;
 import org.dominokit.domino.ui.elements.DivElement;
 
 public class SuggestionsStoreGwtTest extends GWTTestCase {
@@ -43,6 +44,30 @@ public class SuggestionsStoreGwtTest extends GWTTestCase {
     store.addSuggestion(SelectOption.create("second", "second", "Second"));
 
     store.removeAllOptions();
+
+    assertTrue(store.getSuggestions().isEmpty());
+  }
+
+  public void testRemovingTheLocalStoreCollectionUsesASnapshot() {
+    LocalSuggestionsStore<String, DivElement, SelectOption<String>> store =
+        LocalSuggestionsStore.create();
+    store.addSuggestion(SelectOption.create("first", "first", "First"));
+    store.addSuggestion(SelectOption.create("second", "second", "Second"));
+    Collection<SelectOption<String>> options = store.getSuggestions();
+
+    store.removeOptions(options);
+
+    assertTrue(store.getSuggestions().isEmpty());
+  }
+
+  public void testRemovingTheOrderedStoreCollectionUsesASnapshot() {
+    OrderedSuggestionsStore<String, DivElement, SelectOption<String>> store =
+        OrderedSuggestionsStore.create();
+    store.addSuggestion(SelectOption.create("first", "first", "First"));
+    store.addSuggestion(SelectOption.create("second", "second", "Second"));
+    Collection<SelectOption<String>> options = store.getSuggestions().values();
+
+    store.removeOptions(options);
 
     assertTrue(store.getSuggestions().isEmpty());
   }

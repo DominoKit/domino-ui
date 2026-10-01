@@ -185,7 +185,7 @@ public abstract class AbstractSuggestionsStore<
    */
   public S addSuggestions(Collection<O> suggestions) {
     if (nonNull(suggestions)) {
-      suggestions.forEach(this::addSuggestion);
+      new ArrayList<>(suggestions).forEach(this::addSuggestion);
     }
     return getThis();
   }
@@ -219,7 +219,7 @@ public abstract class AbstractSuggestionsStore<
    * @return This store instance.
    */
   public S removeOptions(Collection<O> options) {
-    options.forEach(this::removeOption);
+    new ArrayList<>(options).forEach(this::removeOption);
     return getThis();
   }
 
