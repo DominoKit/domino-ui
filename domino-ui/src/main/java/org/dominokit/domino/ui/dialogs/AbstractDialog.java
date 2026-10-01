@@ -97,7 +97,7 @@ public class AbstractDialog<T extends AbstractDialog<T>>
   private Element activeElementBeforeOpen;
   private List<Element> focusElements = new ArrayList<>();
   private boolean open = false;
-  private boolean modal = false;
+  private boolean modal = true;
   private boolean autoFocus = true;
   private boolean autoAppendAndRemove = true;
 

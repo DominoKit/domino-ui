@@ -66,6 +66,7 @@ public class CompositeWidgetsAccessibilityTest extends GWTTestCase {
 
     assertEquals("dialog", dialog.getModalElement().getAttribute("role"));
     assertEquals("true", dialog.getModalElement().getAttribute("aria-modal"));
+    assertTrue(dialog.isModal());
     assertEquals(
         dialog.getHeader().getDominoId(), dialog.getModalElement().getAttribute("aria-labelledby"));
 
