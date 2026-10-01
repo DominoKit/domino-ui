@@ -2360,7 +2360,7 @@ public class DominoThemeCssContractTest {
   private String readResource(String resource) throws IOException {
     try (InputStream stream = getClass().getClassLoader().getResourceAsStream(resource)) {
       assertNotNull(resource, stream);
-      return new String(stream.readAllBytes(), StandardCharsets.UTF_8);
+      return new String(stream.readAllBytes(), StandardCharsets.UTF_8).replace("\r\n", "\n");
     }
   }
 }
