@@ -377,8 +377,7 @@ public class Carousel extends BaseDominoElement<HTMLDivElement, Carousel>
     if (timer.isRunning()) {
       timer.cancel();
     }
-
-    addAttachListener();
+    this.autoSlide = false;
     return this;
   }
 
