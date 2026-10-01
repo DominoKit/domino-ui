@@ -41,6 +41,7 @@ import org.dominokit.domino.ui.layout.AppLayoutTest;
 import org.dominokit.domino.ui.layout.NavBarTest;
 import org.dominokit.domino.ui.layout.PageHeaderTest;
 import org.dominokit.domino.ui.popover.TooltipTest;
+import org.dominokit.domino.ui.popover.PopoverTest;
 import org.dominokit.domino.ui.style.FontThemingTest;
 import org.dominokit.domino.ui.spin.SpinSelectTest;
 import org.dominokit.domino.ui.themes.DominoCssThemeTest;
@@ -85,6 +86,7 @@ public class DominoUiTestSuite extends GWTTestSuite {
     suite.addTestSuite(DominoCssThemeTest.class);
     suite.addTestSuite(LegacyThemeCompatibilityTest.class);
     suite.addTestSuite(TooltipTest.class);
+    suite.addTestSuite(PopoverTest.class);
     suite.addTestSuite(AccessibilityTest.class);
     suite.addTestSuite(InteractiveControlsAccessibilityTest.class);
     suite.addTestSuite(CompositeWidgetsAccessibilityTest.class);

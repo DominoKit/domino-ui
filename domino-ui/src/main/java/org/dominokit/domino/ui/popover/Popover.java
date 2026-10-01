@@ -165,9 +165,18 @@ public class Popover extends BasePopover<Popover> {
    * @return The detached `Popover` instance.
    */
   public Popover detach() {
-    targetElement.removeEventListener(EventType.click.getName(), showListener);
-    document.removeEventListener(EventType.click.getName(), closeListener);
+    if (targetElement != null) {
+      targetElement.removeEventListener(EventType.click.getName(), showListener);
+    }
+    if (closeListener != null) {
+      document.removeEventListener(EventType.click.getName(), closeListener);
+    }
     return this;
+  }
+
+  @Override
+  protected void doCleanup() {
+    detach();
   }
 
   /**
