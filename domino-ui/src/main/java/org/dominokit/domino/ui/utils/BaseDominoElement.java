@@ -1254,7 +1254,8 @@ public abstract class BaseDominoElement<E extends Element, T extends IsElement<E
                   getAttributesObservers();
               Map<String, Set<MutationObserverCallback>> observers = new HashMap<>();
               originalObservers.forEach(
-                  (attribute, callbacks) -> observers.put(attribute, new HashSet<>(callbacks)));
+                  (observedAttribute, callbacks) ->
+                      observers.put(observedAttribute, new HashSet<>(callbacks)));
 
               CustomEvent cevent = Js.uncheckedCast(evt);
               MutationRecord record = Js.uncheckedCast(cevent.detail);

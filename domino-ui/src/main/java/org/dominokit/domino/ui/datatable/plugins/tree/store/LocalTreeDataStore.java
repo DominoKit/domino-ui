@@ -40,6 +40,7 @@ import org.dominokit.domino.ui.datatable.store.LocalListDataStore;
  */
 public class LocalTreeDataStore<T> extends LocalListDataStore<T> implements TreeNodeStore<T> {
   private Map<T, LocalListDataStore<T>> childrenStore = new HashMap<>();
+  private Set<T> emptyChildrenStore = new HashSet<>();
   private final SubItemsProvider<T> subItemsProvider;
   private final TreeNodeChildrenAware<T> treeNodeChildrenAware;
 
@@ -126,6 +127,7 @@ public class LocalTreeDataStore<T> extends LocalListDataStore<T> implements Tree
   public void setData(List<T> data) {
     super.setData(data);
     this.childrenStore.clear();
+    this.emptyChildrenStore.clear();
   }
 
   /**
@@ -139,31 +141,38 @@ public class LocalTreeDataStore<T> extends LocalListDataStore<T> implements Tree
   @Override
   public void getNodeChildren(
       TreeNodeStoreContext<T> context, Consumer<Optional<Collection<T>>> itemsConsumer) {
-    if (!childrenStore.containsKey(context.getParent())) {
+    if (emptyChildrenStore.contains(context.getParent())) {
+      itemsConsumer.accept(Optional.empty());
+    } else if (!childrenStore.containsKey(context.getParent())) {
       subItemsProvider.getSubItems(
           context.getParent(),
-          children -> {
-            children.ifPresent(
-                childRecords -> {
-                  LocalListDataStore<T> subStore =
-                      new SubItemsStore<>(new ArrayList<>(childRecords), this);
+            children -> {
+            if (children.isPresent()) {
+              Collection<T> childRecords = children.get();
+              LocalListDataStore<T> subStore =
+                  new SubItemsStore<>(new ArrayList<>(childRecords), this);
 
-                  if (nonNull(context.getLastSearch())) {
-                    subStore.onSearchChanged(context.getLastSearch());
-                  } else if (nonNull(context.getLastSort())) {
-                    subStore.sort(context.getLastSort());
-                  }
-                  childrenStore.put(context.getParent(), subStore);
-                  List<T> filtered = childrenStore.get(context.getParent()).getFilteredRecords();
-                  itemsConsumer.accept(Optional.ofNullable(filtered));
-                });
+              if (nonNull(context.getLastSearch())) {
+                subStore.onSearchChanged(context.getLastSearch());
+              } else if (nonNull(context.getLastSort())) {
+                subStore.sort(context.getLastSort());
+              }
+              childrenStore.put(context.getParent(), subStore);
+              List<T> filtered = childrenStore.get(context.getParent()).getFilteredRecords();
+              itemsConsumer.accept(Optional.of(filtered));
+            } else {
+              emptyChildrenStore.add(context.getParent());
+              itemsConsumer.accept(Optional.empty());
+            }
           });
     } else {
-      if (nonNull(getLastSort())) {
-        childrenStore.get(context.getParent()).sort(context.getLastSort());
+      LocalListDataStore<T> subStore = childrenStore.get(context.getParent());
+      if (nonNull(context.getLastSearch())) {
+        subStore.onSearchChanged(context.getLastSearch());
+      } else if (nonNull(context.getLastSort())) {
+        subStore.sort(context.getLastSort());
       }
-      itemsConsumer.accept(
-          Optional.ofNullable(childrenStore.get(context.getParent()).getFilteredRecords()));
+      itemsConsumer.accept(Optional.of(subStore.getFilteredRecords()));
     }
   }
 
