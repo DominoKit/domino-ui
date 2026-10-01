@@ -107,6 +107,10 @@ public class ProgressBar extends BaseDominoElement<HTMLDivElement, ProgressBar>
     this.parent = parent;
   }
 
+  Progress getParent() {
+    return parent;
+  }
+
   public double getValue() {
     return value;
   }
@@ -191,6 +195,7 @@ public class ProgressBar extends BaseDominoElement<HTMLDivElement, ProgressBar>
       this.maxValue = maxValue;
       element.setAttribute("aria-valuemax", String.valueOf(maxValue));
       setValue(Math.min(this.value, maxValue));
+      Optional.ofNullable(parent).ifPresent(Progress::updateWidths);
     }
     return this;
   }

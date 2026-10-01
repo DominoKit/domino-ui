@@ -66,10 +66,16 @@ public class Progress extends BaseDominoElement<HTMLDivElement, Progress>
    * @return the current Progress instance
    */
   public Progress appendChild(ProgressBar bar) {
+    Progress previousParent = bar.getParent();
+    if (previousParent != null && previousParent != this) {
+      previousParent.removeBar(bar);
+    }
     element.appendChild(bar.element());
-    this.progressBars.add(bar);
+    if (!this.progressBars.contains(bar)) {
+      this.progressBars.add(bar);
+    }
     bar.setParent(this);
-    bar.updateWidth();
+    updateWidths();
     return this;
   }
 
@@ -101,6 +107,12 @@ public class Progress extends BaseDominoElement<HTMLDivElement, Progress>
    * @param progressBar the progress bar to be removed
    */
   void removeBar(ProgressBar progressBar) {
-    this.progressBars.remove(progressBar);
+    if (this.progressBars.remove(progressBar)) {
+      updateWidths();
+    }
+  }
+
+  void updateWidths() {
+    this.progressBars.forEach(ProgressBar::updateWidth);
   }
 }
