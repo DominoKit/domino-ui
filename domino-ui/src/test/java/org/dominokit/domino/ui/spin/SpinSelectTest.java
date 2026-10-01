@@ -37,4 +37,14 @@ public class SpinSelectTest extends GWTTestCase {
     assertSame(second, spinSelect.getItems().get(1));
     assertSame(existing, spinSelect.getItems().get(2));
   }
+
+  public void testAppendingSameItemTwiceDoesNotDuplicateIt() {
+    HSpinSelect<String> spinSelect = HSpinSelect.create(false);
+    SpinItem<String> item = SpinItem.create("only");
+
+    spinSelect.appendChild(item).appendChild(item).prependChild(item);
+
+    assertEquals(1, spinSelect.getItems().size());
+    assertSame(item, spinSelect.getItems().get(0));
+  }
 }

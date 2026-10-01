@@ -277,7 +277,7 @@ public abstract class SpinSelect<T, S extends SpinSelect<T, S>>
    * @return The current instance.
    */
   public S appendChild(SpinItem<T> spinItem) {
-    if (nonNull(spinItem)) {
+    if (nonNull(spinItem) && !items.contains(spinItem)) {
       if (items.isEmpty()) {
         this.activeItem = spinItem;
         this.activeItem.addCss(dui_active);
@@ -296,7 +296,7 @@ public abstract class SpinSelect<T, S extends SpinSelect<T, S>>
   }
 
   public S prependChild(SpinItem<T> spinItem) {
-    if (nonNull(spinItem)) {
+    if (nonNull(spinItem) && !items.contains(spinItem)) {
       if (items.isEmpty()) {
         this.activeItem = spinItem;
         this.activeItem.addCss(dui_active);
