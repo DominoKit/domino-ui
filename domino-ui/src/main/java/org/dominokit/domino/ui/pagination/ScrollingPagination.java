@@ -335,6 +335,12 @@ public class ScrollingPagination extends BasePagination<ScrollingPagination>
   private void scrollToWindow(int windowIndex) {
     activeWindow.values().forEach(BaseDominoElement::remove);
     activeWindow.clear();
+    if (pagesCount <= 0) {
+      this.windowIndex = 0;
+      this.prevDots.toggleDisplay(false);
+      this.nextDots.toggleDisplay(false);
+      return;
+    }
     addPage(1);
     addPage(pagesCount);
     IntStream.rangeClosed(
@@ -348,7 +354,7 @@ public class ScrollingPagination extends BasePagination<ScrollingPagination>
             });
     this.windowIndex = windowIndex;
     this.prevDots.toggleDisplay(windowIndex > 0);
-    this.nextDots.toggleDisplay(windowIndex < pagesCount / windowSize - 1);
+    this.nextDots.toggleDisplay((long) (windowIndex + 1) * windowSize < pagesCount - 1L);
   }
 
   private void addPage(int p) {
