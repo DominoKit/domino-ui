@@ -19,7 +19,7 @@ import static org.dominokit.domino.ui.utils.Domino.dui_clickable;
 
 import elemental2.dom.EventListener;
 import elemental2.dom.HTMLElement;
-import org.dominokit.domino.ui.accessibility.Accessibility;
+import org.dominokit.domino.ui.keyboard.KeyboardEventOptions;
 import org.dominokit.domino.ui.events.EventType;
 import org.dominokit.domino.ui.style.BooleanCssClass;
 import org.dominokit.domino.ui.style.GenericCss;
@@ -52,6 +52,8 @@ public abstract class Icon<T extends Icon<T>> extends BaseDominoElement<HTMLElem
 
   protected DominoElement<HTMLElement> icon;
   protected SwapCssClass name = SwapCssClass.of();
+  private KeyboardEventOptions enterActivationOptions;
+  private KeyboardEventOptions spaceActivationOptions;
 
   /**
    * Gets the name of the icon.
@@ -103,7 +105,15 @@ public abstract class Icon<T extends Icon<T>> extends BaseDominoElement<HTMLElem
     }
     setTabIndex(0);
     setRole("button");
-    Accessibility.activateOnEnterAndSpace(this, evt -> element().click());
+    if (enterActivationOptions == null) {
+      enterActivationOptions = KeyboardEventOptions.create();
+      spaceActivationOptions = KeyboardEventOptions.create();
+      onKeyDown(
+          keyEvents ->
+              keyEvents
+                  .onEnter(enterActivationOptions, evt -> element().click())
+                  .onSpace(spaceActivationOptions, evt -> element().click()));
+    }
     return (T) this;
   }
 
@@ -154,6 +164,12 @@ public abstract class Icon<T extends Icon<T>> extends BaseDominoElement<HTMLElem
       removeAttribute("tabindex");
       removeAttribute("role");
       removeWaves();
+      if (enterActivationOptions != null) {
+        enterActivationOptions.removeHandler();
+        spaceActivationOptions.removeHandler();
+        enterActivationOptions = null;
+        spaceActivationOptions = null;
+      }
     }
     return (T) this;
   }

@@ -16,6 +16,8 @@
 package org.dominokit.domino.ui.icons;
 
 import com.google.gwt.junit.client.GWTTestCase;
+import elemental2.dom.KeyboardEvent;
+import elemental2.dom.KeyboardEventInit;
 import org.dominokit.domino.ui.icons.lib.Icons;
 
 public class IconTest extends GWTTestCase {
@@ -40,5 +42,25 @@ public class IconTest extends GWTTestCase {
     assertFalse(icon.element().classList.contains("dui-icon-square"));
     assertFalse(icon.element().classList.contains("dui-icon-bordered"));
     assertFalse(icon.element().classList.contains("dui-icon-surface"));
+  }
+
+  public void testDisabledClickableIconDoesNotActivateFromTheKeyboard() {
+    MdiIcon icon = Icons.close().clickable();
+    int[] clicks = {0};
+    icon.addClickListener(evt -> clicks[0]++);
+
+    icon.setClickable(false);
+    dispatchKeyDown(icon, "Enter");
+    assertEquals(0, clicks[0]);
+
+    icon.setClickable(true);
+    dispatchKeyDown(icon, "Enter");
+    assertEquals(1, clicks[0]);
+  }
+
+  private void dispatchKeyDown(MdiIcon icon, String key) {
+    KeyboardEventInit init = KeyboardEventInit.create();
+    init.setKey(key);
+    icon.element().dispatchEvent(new KeyboardEvent("keydown", init));
   }
 }
