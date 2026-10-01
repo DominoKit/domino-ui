@@ -789,11 +789,10 @@ public class DominoThemeCssContractTest {
     assertTrue(listGroup.contains("background: var(--dui-list-group-item-hover-background);"));
     assertTrue(listGroup.contains("color: var(--dui-list-group-item-hover-color);"));
     assertFalse(listGroup.contains("var(--dui-list-group-item-hover-background,"));
-    assertFalse(defaultTheme.contains("--dui-list-group-item-hover-color:"));
-    assertFalse(lightTheme.contains("--dui-list-group-item-hover-background:"));
-    assertFalse(lightTheme.contains("--dui-list-group-item-hover-color:"));
-    assertFalse(darkTheme.contains("--dui-list-group-item-hover-background:"));
-    assertFalse(darkTheme.contains("--dui-list-group-item-hover-color:"));
+    assertTrue(lightTheme.contains("--dui-list-group-item-hover-background: var(--dui-accent-l-5);"));
+    assertTrue(lightTheme.contains("--dui-list-group-item-hover-color: var(--dui-color);"));
+    assertTrue(darkTheme.contains("--dui-list-group-item-hover-background: var(--dui-accent-d-3);"));
+    assertTrue(darkTheme.contains("--dui-list-group-item-hover-color: var(--dui-color);"));
   }
 
   @Test
