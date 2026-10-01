@@ -47,6 +47,16 @@ public class KeyboardEventsTest extends GWTTestCase {
     assertEquals(2, calls[0]);
   }
 
+  public void testClearAllRemovesKeyAndGlobalHandlers() {
+    HTMLElement element = div().element();
+    KeyboardEvents<HTMLElement> events = new KeyboardEvents<>(element);
+    int[] calls = {0};
+
+    events.listenOnKeyUp(keys -> keys.any(event -> calls[0]++).clearAll());
+    dispatchKeyUp(element);
+    assertEquals(0, calls[0]);
+  }
+
   private void dispatchKeyUp(HTMLElement element) {
     KeyboardEventInit init = KeyboardEventInit.create();
     init.setKey("a");

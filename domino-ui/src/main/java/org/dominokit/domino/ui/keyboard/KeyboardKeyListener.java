@@ -352,6 +352,7 @@ public class KeyboardKeyListener implements EventListener, AcceptKeyEvents {
   @Override
   public AcceptKeyEvents clearAll() {
     handlers.clear();
+    globalHandlers.clear();
     return this;
   }
 
