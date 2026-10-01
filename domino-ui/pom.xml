@@ -305,6 +305,13 @@
                                         <include>**/*.min.css</include>
                                     </includes>
                                 </resource>
+                                <resource>
+                                    <directory>${project.basedir}/src/main/resources/org/dominokit/domino/ui/public/css/domino-ui</directory>
+                                    <filtering>false</filtering>
+                                    <includes>
+                                        <include>dui-components/domino-ui-waitme.css</include>
+                                    </includes>
+                                </resource>
                             </resources>
                         </configuration>
                     </execution>
