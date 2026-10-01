@@ -40,6 +40,7 @@ import org.dominokit.domino.ui.layout.NavBarTest;
 import org.dominokit.domino.ui.layout.PageHeaderTest;
 import org.dominokit.domino.ui.popover.TooltipTest;
 import org.dominokit.domino.ui.style.FontThemingTest;
+import org.dominokit.domino.ui.spin.SpinSelectTest;
 import org.dominokit.domino.ui.themes.DominoCssThemeTest;
 import org.dominokit.domino.ui.themes.DominoThemeManagerTest;
 import org.dominokit.domino.ui.themes.ElementThemeManagerTest;
@@ -69,6 +70,7 @@ public class DominoUiTestSuite extends GWTTestSuite {
     suite.addTestSuite(MultiSelectTest.class);
     suite.addTestSuite(IconTest.class);
     suite.addTestSuite(KeyboardEventsTest.class);
+    suite.addTestSuite(SpinSelectTest.class);
     suite.addTestSuite(AppLayoutTest.class);
     suite.addTestSuite(NavBarTest.class);
     suite.addTestSuite(PageHeaderTest.class);

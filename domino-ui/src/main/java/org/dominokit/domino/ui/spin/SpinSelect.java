@@ -310,7 +310,9 @@ public abstract class SpinSelect<T, S extends SpinSelect<T, S>>
   }
 
   public S prependChild(SpinItem<T>... spinItems) {
-    Arrays.stream(spinItems).forEach(this::appendChild);
+    for (int i = spinItems.length - 1; i >= 0; i--) {
+      prependChild(spinItems[i]);
+    }
     return (S) this;
   }
 
