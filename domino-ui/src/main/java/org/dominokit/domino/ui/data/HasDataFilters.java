@@ -200,8 +200,9 @@ public interface HasDataFilters<T, C extends HasDataFilters<T, C>> {
     if (isDataFiltersPaused()) return new ArrayList<>(data);
 
     FilterMode<T> mode = getFilterMode();
+    Set<DataFilter<? super T>> dataFilters = getDataFilters();
     Collection<DataFilter<? super T>> filters =
-        (getDataFilters() != null) ? getDataFilters() : Collections.emptyList();
+        (dataFilters != null) ? new ArrayList<>(dataFilters) : Collections.emptyList();
 
     return (mode != null) ? mode.apply(data, filters) : new ArrayList<>(data);
   }
