@@ -193,7 +193,14 @@ public interface FormsFieldsConfig extends ComponentConfig, CalendarConfig {
     }
 
     default Function<String, Integer> integerParser(IntegerBox field) {
-      return value -> Double.valueOf(field.parseDouble(value)).intValue();
+      return value -> {
+        try {
+          return Integer.valueOf(value.trim());
+        } catch (NumberFormatException ignored) {
+          // Keep localized grouping/decimal separators supported by NumberBox's active format.
+          return exactInteger(field.parseDouble(value), Integer.MIN_VALUE, Integer.MAX_VALUE).intValue();
+        }
+      };
     }
 
     default Function<String, Float> floatParser(FloatBox field) {
@@ -212,7 +219,25 @@ public interface FormsFieldsConfig extends ComponentConfig, CalendarConfig {
     }
 
     default Function<String, Short> shortParser(ShortBox field) {
-      return value -> Double.valueOf(field.parseDouble(value)).shortValue();
+      return value -> {
+        try {
+          return Short.valueOf(value.trim());
+        } catch (NumberFormatException ignored) {
+          // Keep localized grouping/decimal separators supported by NumberBox's active format.
+          return exactInteger(field.parseDouble(value), Short.MIN_VALUE, Short.MAX_VALUE).shortValue();
+        }
+      };
+    }
+
+    default Long exactInteger(double value, long min, long max) {
+      if (Double.isNaN(value)
+          || Double.isInfinite(value)
+          || value < min
+          || value > max
+          || value != Math.rint(value)) {
+        throw new NumberFormatException("Value is not an in-range integer: " + value);
+      }
+      return (long) value;
     }
   }
 }
