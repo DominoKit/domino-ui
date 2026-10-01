@@ -16,7 +16,6 @@
 
 package org.dominokit.domino.ui.datepicker;
 
-import elemental2.core.JsDate;
 import java.util.Date;
 
 /**
@@ -44,10 +43,10 @@ public class MonthData {
    * @param date A date within the month for which the data should be fetched.
    */
   public MonthData(Date date) {
-    this.date = date;
-    JsDate zeroDayDate = new JsDate(this.date.getYear() + 1900, this.date.getMonth() + 1, 0);
+    this.date = new Date(date.getTime());
+    Date zeroDayDate = new Date(this.date.getYear(), this.date.getMonth() + 1, 0);
     this.daysCount = zeroDayDate.getDate();
-    this.fullYear = zeroDayDate.getFullYear();
+    this.fullYear = zeroDayDate.getYear() + 1900;
   }
 
   /**
