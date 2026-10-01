@@ -41,4 +41,13 @@ public class TabsPanelTest extends GWTTestCase {
     assertSame(members.getTabPanel().element(), contentContainer.element().firstElementChild);
     assertSame(groups.getTabPanel().element(), contentContainer.element().lastElementChild);
   }
+
+  public void testReplacingScrollOverflowBeforeAttachDoesNotFailCleanup() {
+    TabsPanel tabs = TabsPanel.create();
+
+    tabs.setTabsOverflow(TabsOverflow.SCROLL);
+    tabs.setTabsOverflow(TabsOverflow.WRAP);
+
+    assertNotNull(tabs);
+  }
 }

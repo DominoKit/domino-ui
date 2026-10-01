@@ -138,7 +138,9 @@ public class ScrollTabsHandler implements TabsOverflowHandler {
     scrollLeftIcon.remove();
     scrollRightIcon.remove();
     tabsPanel.removeCloseHandler(closeHandler);
-    timer.cancel();
-    resizeRecord.remove();
+    if (timer != null) {
+      timer.cancel();
+      resizeRecord.remove();
+    }
   }
 }
