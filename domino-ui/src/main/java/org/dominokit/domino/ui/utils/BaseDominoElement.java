@@ -926,10 +926,13 @@ public abstract class BaseDominoElement<E extends Element, T extends IsElement<E
                   original.remove(observer);
                 }
               }
-              for (MutationObserverCallback callback : getAttachDetachObservers()) {
+              Set<MutationObserverCallback> attachDetachOriginal = getAttachDetachObservers();
+              Set<MutationObserverCallback> attachDetachObservers =
+                  new HashSet<>(attachDetachOriginal);
+              for (MutationObserverCallback callback : attachDetachObservers) {
                 callback.onObserved(Js.uncheckedCast(cevent.detail));
                 if (callback.isAutoRemove()) {
-                  original.remove(callback);
+                  attachDetachOriginal.remove(callback);
                 }
               }
             };
@@ -1004,7 +1007,8 @@ public abstract class BaseDominoElement<E extends Element, T extends IsElement<E
                 }
               }
               original = getAttachDetachObservers();
-              for (MutationObserverCallback callback : getAttachDetachObservers()) {
+              Set<MutationObserverCallback> attachDetachObservers = new HashSet<>(original);
+              for (MutationObserverCallback callback : attachDetachObservers) {
                 callback.onObserved(Js.uncheckedCast(cevent.detail));
                 if (callback.isAutoRemove()) {
                   original.remove(callback);
@@ -1248,8 +1252,9 @@ public abstract class BaseDominoElement<E extends Element, T extends IsElement<E
             if (!paused) {
               Map<String, Set<MutationObserverCallback>> originalObservers =
                   getAttributesObservers();
-              Map<String, Set<MutationObserverCallback>> observers =
-                  new HashMap<>(originalObservers);
+              Map<String, Set<MutationObserverCallback>> observers = new HashMap<>();
+              originalObservers.forEach(
+                  (attribute, callbacks) -> observers.put(attribute, new HashSet<>(callbacks)));
 
               CustomEvent cevent = Js.uncheckedCast(evt);
               MutationRecord record = Js.uncheckedCast(cevent.detail);
