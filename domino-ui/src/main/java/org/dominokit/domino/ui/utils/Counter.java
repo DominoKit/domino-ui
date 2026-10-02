@@ -88,11 +88,8 @@ public class Counter {
    * @return This {@code Counter} instance.
    */
   public Counter increment(int increment) {
-    if (this.count + increment < max) {
-      this.count = this.count + increment;
-    } else {
-      this.count = max;
-    }
+    long next = (long) this.count + increment;
+    this.count = (int) Math.max(min, Math.min(max, next));
     return this;
   }
 
@@ -117,11 +114,8 @@ public class Counter {
    * @return This {@code Counter} instance.
    */
   public Counter decrement(int decrement) {
-    if (this.count - decrement < min) {
-      this.count = this.count - decrement;
-    } else {
-      this.count = min;
-    }
+    long next = (long) this.count - decrement;
+    this.count = (int) Math.max(min, Math.min(max, next));
     return this;
   }
 
@@ -141,7 +135,7 @@ public class Counter {
    * @return This {@code Counter} instance.
    */
   public Counter set(int count) {
-    if (this.count < min) {
+    if (count < min) {
       this.count = min;
     } else if (count > max) {
       this.count = max;
