@@ -1491,7 +1491,7 @@ public abstract class AbstractSelect<
       extends AutoValidator {
 
     private C select;
-    private HasSelectionListeners.SelectionListener<AbstractMenuItem<T>, List<AbstractMenuItem<T>>>
+    private final HasSelectionListeners.SelectionListener<AbstractMenuItem<T>, List<AbstractMenuItem<T>>>
         listener;
 
     /**
@@ -1503,12 +1503,12 @@ public abstract class AbstractSelect<
     public SelectAutoValidator(C select, ApplyFunction autoValidate) {
       super(autoValidate);
       this.select = select;
+      this.listener = (source, selection) -> autoValidate.apply();
     }
 
     /** Attaches the validator by setting up a listener to the select's options menu. */
     @Override
     public void attach() {
-      listener = (source, selection) -> autoValidate.apply();
       select.getOptionsMenu().addSelectionListener(listener);
     }
 
