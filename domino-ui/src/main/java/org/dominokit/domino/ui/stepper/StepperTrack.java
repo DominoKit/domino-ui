@@ -94,9 +94,19 @@ public class StepperTrack extends BaseDominoElement<HTMLDivElement, StepperTrack
    * @return this {@link StepperTrack}
    */
   public StepperTrack removeTracker(StepTracker stepTracker) {
-    if (trackers.contains(stepTracker)) {
-      stepTracker.remove();
+    int index = trackers.indexOf(stepTracker);
+    if (index >= 0) {
+      trackers.remove(index);
+      if (activeTracker == stepTracker) {
+        deactivateTracker(activeTracker);
+        activeTracker = null;
+        currentTrackerIndex = 0;
+        started = false;
+      } else if (index < currentTrackerIndex) {
+        currentTrackerIndex--;
+      }
       stepTracker.unbind(this);
+      stepTracker.removeFromTrack();
     }
     return this;
   }

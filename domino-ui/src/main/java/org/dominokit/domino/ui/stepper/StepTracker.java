@@ -70,13 +70,23 @@ public class StepTracker extends BaseDominoElement<HTMLDivElement, StepTracker>
   }
 
   void unbind(StepperTrack stepperTrack) {
-    this.parent = null;
+    if (this.parent == stepperTrack) {
+      this.parent = null;
+    }
   }
 
   @Override
   public StepTracker remove() {
-    this.parent.removeTracker(this);
-    return super.remove();
+    if (nonNull(this.parent)) {
+      this.parent.removeTracker(this);
+    } else {
+      super.remove();
+    }
+    return this;
+  }
+
+  void removeFromTrack() {
+    super.remove();
   }
 
   /**
