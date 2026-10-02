@@ -383,7 +383,7 @@ public abstract class AbstractSelect<
       options.forEach(
           o -> {
             insertChild(i[0], o);
-            i[0] = i[0]++;
+            i[0]++;
           });
     }
     return (C) this;
@@ -467,7 +467,7 @@ public abstract class AbstractSelect<
     items.forEach(
         item -> {
           insertItem(i[0], mapper, item);
-          i[0] = i[0]++;
+          i[0]++;
         });
     return (C) this;
   }
