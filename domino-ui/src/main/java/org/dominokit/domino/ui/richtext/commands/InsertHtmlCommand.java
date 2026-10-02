@@ -127,21 +127,19 @@ public class InsertHtmlCommand extends RichTextCommand<InsertHtmlCommand> {
    */
   @Override
   protected void execute() {
-    getSelectedRange()
-        .ifPresent(
-            range -> {
-              range.deleteContents();
-              DocumentFragment documentFragment = new DocumentFragment();
-              HTMLDocument document =
-                  Js.uncheckedCast(
-                      new DOMParser().parseFromString(htmlText.getValue(), "text/html"));
-              document.body.childNodes.forEach(
-                  (currentValue, currentIndex, listObj) -> {
-                    documentFragment.append(currentValue);
-                    return null;
-                  });
+    if (nonNull(range)) {
+      range.deleteContents();
+      DocumentFragment documentFragment = new DocumentFragment();
+      HTMLDocument document =
+          Js.uncheckedCast(new DOMParser().parseFromString(htmlText.getValue(), "text/html"));
+      document.body.childNodes.forEach(
+          (currentValue, currentIndex, listObj) -> {
+            documentFragment.append(currentValue);
+            return null;
+          });
 
-              range.insertNode(documentFragment);
-            });
+      range.insertNode(documentFragment);
+      this.range = null;
+    }
   }
 }

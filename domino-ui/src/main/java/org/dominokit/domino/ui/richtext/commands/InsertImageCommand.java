@@ -139,12 +139,8 @@ public class InsertImageCommand extends RichTextCommand<InsertImageCommand> {
   protected void execute() {
     if (nonNull(range)) {
       if (nonNull(this.url)) {
-        getSelectedRange()
-            .ifPresent(
-                range -> {
-                  range.deleteContents();
-                  range.insertNode(img(this.url).element());
-                });
+        range.deleteContents();
+        range.insertNode(img(this.url).element());
       }
       this.range = null;
     }
