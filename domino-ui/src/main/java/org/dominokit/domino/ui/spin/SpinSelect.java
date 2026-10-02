@@ -62,6 +62,7 @@ public abstract class SpinSelect<T, S extends SpinSelect<T, S>>
   protected List<SpinItem<T>> items = new ArrayList<>();
   private SpinItem<T> activeItem;
   private T oldValue;
+  private int resetVersion;
   private boolean changeListenersPaused;
   private final Set<ChangeListener<? super T>> changeListeners = new HashSet<>();
   private SwapCssClass exitCss = SwapCssClass.of();
@@ -142,8 +143,12 @@ public abstract class SpinSelect<T, S extends SpinSelect<T, S>>
         }
         this.activeItem.addCss(spinExiting);
         next.addCss(spinActivating);
+        int scheduledResetVersion = resetVersion;
         DomGlobal.setTimeout(
             p0 -> {
+              if (scheduledResetVersion != resetVersion) {
+                return;
+              }
               addCss(dui_spin_animate);
               this.activeItem.removeCss(dui_active);
               next.addCss(dui_active);
@@ -320,6 +325,7 @@ public abstract class SpinSelect<T, S extends SpinSelect<T, S>>
    * @return The current instance.
    */
   public S reset() {
+    resetVersion++;
     getItems().forEach(BaseDominoElement::remove);
     this.getItems().clear();
     this.activeItem = null;
