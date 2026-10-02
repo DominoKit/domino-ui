@@ -20,6 +20,7 @@ import static java.util.Objects.nonNull;
 import static org.dominokit.domino.ui.utils.Domino.*;
 
 import elemental2.dom.DomGlobal;
+import elemental2.dom.EventListener;
 import elemental2.dom.HTMLElement;
 import elemental2.dom.HTMLInputElement;
 import java.util.List;
@@ -833,23 +834,26 @@ public abstract class AbstractSuggestBox<
       extends AutoValidator {
 
     private C select;
+    private EventListener blurListener;
     private HasSelectionListeners.SelectionListener<AbstractMenuItem<T>, List<AbstractMenuItem<T>>>
         listener;
 
     public SuggestAutoValidator(C select, ApplyFunction autoValidate) {
       super(autoValidate);
       this.select = select;
+      this.blurListener = evt -> autoValidate.apply();
+      this.listener = (source, selection) -> autoValidate.apply();
     }
 
     @Override
     public void attach() {
-      select.inputElement.addEventListener("blur", evt -> autoValidate.apply());
-      listener = (source, selection) -> autoValidate.apply();
+      select.inputElement.addEventListener("blur", blurListener);
       select.getOptionsMenu().addSelectionListener(listener);
     }
 
     @Override
     public void remove() {
+      select.inputElement.removeEventListener("blur", blurListener);
       select.getOptionsMenu().removeSelectionListener(listener);
     }
   }
