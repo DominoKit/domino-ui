@@ -16,6 +16,7 @@
 package org.dominokit.domino.ui.cards;
 
 import static java.util.Objects.nonNull;
+import static org.dominokit.domino.ui.icons.IconsStyles.mdi_flip_v;
 import static org.dominokit.domino.ui.style.SpacingCss.dui_order_last;
 import static org.dominokit.domino.ui.utils.Domino.div;
 import static org.dominokit.domino.ui.utils.Domino.text;
@@ -631,7 +632,7 @@ public abstract class BaseCard<C extends BaseCard<C>> extends BaseDominoElement<
       if (HeaderPosition.BOTTOM == headerPosition) {
         ((ToggleMdiIcon) collapseIcon).flipV();
       } else {
-        ((ToggleMdiIcon) collapseIcon).flipNone();
+        ((ToggleMdiIcon) collapseIcon).applyToAll(icon -> mdi_flip_v.remove(icon));
       }
     }
     return (C) this;
