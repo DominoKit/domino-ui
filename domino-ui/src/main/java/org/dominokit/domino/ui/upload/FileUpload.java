@@ -221,7 +221,15 @@ public class FileUpload extends BaseDominoElement<HTMLDivElement, FileUpload>
             keyEvents
                 .onEnter(evt -> hiddenFileInput.element().click())
                 .onSpace(evt -> hiddenFileInput.element().click()));
-    hiddenFileInput.addEventListener("change", evt -> tryUpload(hiddenFileInput.element().files));
+    hiddenFileInput.addEventListener(
+        "change",
+        evt -> {
+          try {
+            tryUpload(hiddenFileInput.element().files);
+          } finally {
+            hiddenFileInput.element().value = "";
+          }
+        });
     root.addEventListener(
         "drop",
         evt -> {
