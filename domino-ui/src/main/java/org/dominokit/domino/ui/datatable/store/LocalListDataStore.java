@@ -126,9 +126,10 @@ public class LocalListDataStore<T>
    * @param data The list of data records.
    */
   public void setData(List<T> data) {
-    List<T> acceptedData = filterData(data);
+    List<T> newData = new ArrayList<>(data);
+    List<T> acceptedData = filterData(newData);
     this.original.clear();
-    this.original.addAll(data);
+    this.original.addAll(newData);
     this.filtered.clear();
     this.filtered.addAll(acceptedData);
     load();
