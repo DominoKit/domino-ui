@@ -158,10 +158,14 @@ public class SortPlugin<T>
    */
   public void sort(SortDirection direction, ColumnConfig<T> column) {
     SortContext sortContext = sortContainers.get(column.getSortKey());
+    if (config.isShowIconOnSortedColumnOnly() && nonNull(currentSortContext)) {
+      currentSortContext.sortElement.clearElement();
+    }
     sortContext.sortDirection = direction;
     updateSort(sortContext, direction);
     updateAriaSort(column, direction);
     fireSortEvent(direction, column);
+    currentSortContext.sortElement.appendChild(sortContext.sortIcon);
   }
 
   private void updateAriaSort(ColumnConfig<T> column, SortDirection direction) {
