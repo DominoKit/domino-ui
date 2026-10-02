@@ -665,7 +665,6 @@ public class Menu<V> extends BaseMenu<V, Menu<V>, AbstractMenuItem<V>, AbstractM
     }
     long count =
         this.menuItems.stream()
-            .filter(menuItem -> !menuItem.isGrouped())
             .filter(dropDownItem -> dropDownItem.onSearch(token, isCaseSensitive()))
             .count();
 

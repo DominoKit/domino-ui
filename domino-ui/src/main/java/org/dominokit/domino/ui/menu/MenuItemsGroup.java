@@ -165,19 +165,17 @@ public class MenuItemsGroup<V> extends AbstractMenuItem<V> {
    */
   @Override
   public boolean onSearch(String token, boolean caseSensitive) {
-    boolean result = true;
     boolean anyMatch = false;
     for (int index = 0; index < menuItems.size(); index++) {
       boolean found = menuItems.get(index).onSearch(token, caseSensitive);
       anyMatch |= found;
-      result &= found;
     }
     if (anyMatch) {
       this.show();
     } else {
       this.hide();
     }
-    return result;
+    return anyMatch;
   }
 
   @Override
