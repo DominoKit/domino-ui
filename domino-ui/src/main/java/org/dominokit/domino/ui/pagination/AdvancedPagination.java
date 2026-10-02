@@ -177,6 +177,7 @@ public class AdvancedPagination extends BasePagination<AdvancedPagination> {
    */
   @Override
   public AdvancedPagination updatePages(int pages, int pageSize, boolean silent) {
+    PaginationUtils.requirePositivePageSize(pageSize);
     this.pageSize = pageSize;
     this.pagesCount = pages;
     this.index = 1;

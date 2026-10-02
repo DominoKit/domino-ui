@@ -186,6 +186,7 @@ public class VirtualScrollingPagination
   /** {@inheritDoc} */
   @Override
   public VirtualScrollingPagination updatePages(int pages, int pageSize, boolean silent) {
+    PaginationUtils.requirePositivePageSize(pageSize);
     int oldPage = this.index;
     this.pageSize = pageSize;
     this.pagesCount = pages;
@@ -218,6 +219,7 @@ public class VirtualScrollingPagination
   @Override
   public VirtualScrollingPagination updatePagesByTotalCount(
       int totalCount, int pageSize, boolean silent) {
+    PaginationUtils.requirePositivePageSize(pageSize);
     this.totalCount = totalCount;
     this.pageSize = pageSize;
     int pages = (int) Math.ceil((double) totalCount / (double) pageSize);
@@ -233,6 +235,7 @@ public class VirtualScrollingPagination
   /** {@inheritDoc} */
   @Override
   public VirtualScrollingPagination setPageSize(int pageSize) {
+    PaginationUtils.requirePositivePageSize(pageSize);
     this.pageSize = pageSize;
     return this;
   }

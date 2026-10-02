@@ -162,6 +162,7 @@ public abstract class BasePagination<T extends BasePagination<T>>
    */
   @Override
   public T updatePagesByTotalCount(int totalCount, boolean silent) {
+    PaginationUtils.requirePositivePageSize(pageSize);
     int pages = (totalCount / this.pageSize) + (totalCount % this.pageSize > 0 ? 1 : 0);
     this.totalCount = totalCount;
     return updatePages(pages, this.pageSize, silent);
@@ -194,6 +195,7 @@ public abstract class BasePagination<T extends BasePagination<T>>
    */
   @Override
   public T updatePagesByTotalCount(int totalCount, int pageSize, boolean silent) {
+    PaginationUtils.requirePositivePageSize(pageSize);
     int pages = (totalCount / pageSize) + (totalCount % pageSize > 0 ? 1 : 0);
     this.totalCount = totalCount;
     return updatePages(pages, pageSize, silent);
@@ -454,6 +456,7 @@ public abstract class BasePagination<T extends BasePagination<T>>
    */
   @Override
   public T setPageSize(int pageSize) {
+    PaginationUtils.requirePositivePageSize(pageSize);
     this.pageSize = pageSize;
     return (T) this;
   }
