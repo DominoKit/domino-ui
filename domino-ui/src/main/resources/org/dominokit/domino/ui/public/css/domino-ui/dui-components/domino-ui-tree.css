@@ -154,7 +154,7 @@
 }
 .dui-tree-item > .dui-tree-anchor{
     position: relative;
-    padding-left: calc((var(--level, 1) * 2) * var(--indentSize));
+    padding-inline-start: calc((var(--level, 1) * 2) * var(--indentSize));
 }
 .dui-tree-item > .dui-tree-nav{
     position: relative;
