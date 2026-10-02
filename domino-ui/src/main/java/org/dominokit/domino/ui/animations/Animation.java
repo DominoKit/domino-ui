@@ -234,6 +234,7 @@ public class Animation {
   }
 
   private void animateElement() {
+    removeAnimationEndListeners();
     this.startHandler.beforeStart(element.element());
     this.stopListener = evt -> stop();
 
@@ -282,15 +283,22 @@ public class Animation {
     element.removeCss("ease-in-out");
     element.removeCssProperty("animation-duration");
     element.removeCssProperty("-webkit-animation-duration");
-    element.removeEventListener("webkitAnimationEnd", stopListener);
-    element.removeEventListener("MSAnimationEnd", stopListener);
-    element.removeEventListener("mozAnimationEnd", stopListener);
-    element.removeEventListener("oanimationend", stopListener);
-    element.removeEventListener("animationend", stopListener);
+    removeAnimationEndListeners();
     if (!silent) {
       callback.onComplete(element.element());
     }
     this.completed = true;
+  }
+
+  private void removeAnimationEndListeners() {
+    if (stopListener != null) {
+      element.removeEventListener("webkitAnimationEnd", stopListener);
+      element.removeEventListener("MSAnimationEnd", stopListener);
+      element.removeEventListener("mozAnimationEnd", stopListener);
+      element.removeEventListener("oanimationend", stopListener);
+      element.removeEventListener("animationend", stopListener);
+      stopListener = null;
+    }
   }
 
   public boolean isCompleted() {
