@@ -273,8 +273,8 @@ public class LocalListDataStore<T>
 
   /** Updates the pagination based on the total number of original records. */
   private void updatePagination() {
-    if (nonNull(getPagination()) && nonNull(original)) {
-      this.getPagination().updatePagesByTotalCount(this.original.size());
+    if (nonNull(getPagination()) && nonNull(filtered)) {
+      this.getPagination().updatePagesByTotalCount(this.filtered.size());
     }
   }
 
@@ -485,8 +485,8 @@ public class LocalListDataStore<T>
    */
   @Override
   public void load() {
-    fireUpdate(true);
     updatePagination();
+    fireUpdate(true);
   }
 
   /**
