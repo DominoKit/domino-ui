@@ -25,7 +25,7 @@ import elemental2.dom.HTMLElement;
  */
 public class IconWrapper extends Icon<IconWrapper> {
 
-  private final Icon<?> icon;
+  private final Icon<?> wrappedIcon;
 
   /**
    * Creates an IconWrapper for the given icon.
@@ -42,7 +42,8 @@ public class IconWrapper extends Icon<IconWrapper> {
    * @param icon The icon to wrap.
    */
   public IconWrapper(Icon<?> icon) {
-    this.icon = icon;
+    this.wrappedIcon = icon;
+    this.icon = elementOf(icon.element());
     init(this);
   }
 
@@ -52,7 +53,7 @@ public class IconWrapper extends Icon<IconWrapper> {
    */
   @Override
   public HTMLElement element() {
-    return icon.element();
+    return wrappedIcon.element();
   }
 
   /**
@@ -62,6 +63,6 @@ public class IconWrapper extends Icon<IconWrapper> {
    */
   @Override
   public IconWrapper copy() {
-    return new IconWrapper(icon.copy());
+    return new IconWrapper(wrappedIcon.copy());
   }
 }
