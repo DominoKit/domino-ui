@@ -630,6 +630,8 @@ public abstract class BaseCard<C extends BaseCard<C>> extends BaseDominoElement<
     if (nonNull(collapseIcon) && collapseIcon instanceof ToggleMdiIcon) {
       if (HeaderPosition.BOTTOM == headerPosition) {
         ((ToggleMdiIcon) collapseIcon).flipV();
+      } else {
+        ((ToggleMdiIcon) collapseIcon).flipNone();
       }
     }
     return (C) this;
