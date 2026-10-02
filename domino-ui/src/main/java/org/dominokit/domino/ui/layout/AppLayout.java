@@ -60,6 +60,8 @@ public class AppLayout extends BaseDominoElement<HTMLDivElement, AppLayout>
   private Icon<?> leftToggleIcon = Icons.menu();
   private LazyChild<PostfixAddOn<HTMLElement>> rightDrawerToggle;
   private Icon<?> rightToggleIcon = Icons.menu_open();
+  private EventListener leftToggleClickListener;
+  private EventListener rightToggleClickListener;
 
   private boolean autoCloseLeftDrawer = true;
   private boolean autoCloseRightDrawer = true;
@@ -239,31 +241,33 @@ public class AppLayout extends BaseDominoElement<HTMLDivElement, AppLayout>
   }
 
   private LazyChild<PrefixAddOn<HTMLElement>> initLeftDrawerToggle(Icon<?> icon) {
+    leftToggleClickListener =
+        evt -> {
+          evt.stopPropagation();
+          toggleLeftDrawer();
+        };
     return LazyChild.of(PrefixAddOn.of(icon), navBar)
         .whenInitialized(
             () ->
                 icon.clickable()
                     .setAriaLabel("Open navigation")
-                    .addClickListener(
-                        evt -> {
-                          evt.stopPropagation();
-                          toggleLeftDrawer();
-                        })
+                    .addClickListener(leftToggleClickListener)
                     .addCss(dui_order_first));
   }
 
   private LazyChild<PostfixAddOn<HTMLElement>> initRightDrawerToggle(Icon<?> icon) {
+    rightToggleClickListener =
+        evt -> {
+          evt.stopPropagation();
+          toggleRightDrawer();
+        };
     return LazyChild.of(
             PostfixAddOn.of(icon).addCss(dui_order_last_4).addCss(dui_nav_utility), navBar)
         .whenInitialized(
             () ->
                 icon.clickable()
                     .setAriaLabel("Open side panel")
-                    .addClickListener(
-                        evt -> {
-                          evt.stopPropagation();
-                          toggleRightDrawer();
-                        }));
+                    .addClickListener(rightToggleClickListener));
   }
 
   /**
@@ -757,6 +761,9 @@ public class AppLayout extends BaseDominoElement<HTMLDivElement, AppLayout>
    * @return This <b>AppLayout</b> instance for method chaining.
    */
   public AppLayout setLeftDrawerToggleIcon(Icon<?> icon) {
+    if (leftToggleClickListener != null) {
+      leftToggleIcon.removeClickListener(leftToggleClickListener);
+    }
     if (leftDrawerToggle.isInitialized()) {
       leftDrawerToggle.get().remove();
     }
@@ -773,6 +780,9 @@ public class AppLayout extends BaseDominoElement<HTMLDivElement, AppLayout>
    * @return This <b>AppLayout</b> instance for method chaining.
    */
   public AppLayout setRightDrawerToggleIcon(Icon<?> icon) {
+    if (rightToggleClickListener != null) {
+      rightToggleIcon.removeClickListener(rightToggleClickListener);
+    }
     if (rightDrawerToggle.isInitialized()) {
       rightDrawerToggle.get().remove();
     }
