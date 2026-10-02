@@ -61,6 +61,7 @@ public abstract class BaseCard<C extends BaseCard<C>> extends BaseDominoElement<
   private Set<CollapseHandler<C>> collapseHandlers = new HashSet<>();
   private Set<ExpandHandler<C>> expandHandlers = new HashSet<>();
   private LazyChild<PostfixAddOn<? extends Element>> collapseElement = NullLazyChild.of();
+  private boolean collapseHandlersInitialized;
 
   private final ToggleIcon<?, ?> collapseIcon;
 
@@ -675,16 +676,11 @@ public abstract class BaseCard<C extends BaseCard<C>> extends BaseDominoElement<
       collapseElement.remove();
       content.getCollapsible().getStrategy().cleanup(content.element());
     }
-    content.addCollapseListener(
-        () -> {
-          collapseIcon.setAttribute("aria-expanded", false);
-          collapseHandlers.forEach(handler -> handler.onCollapsed((C) BaseCard.this));
-        });
-    content.addExpandListener(
-        () -> {
-          collapseIcon.setAttribute("aria-expanded", true);
-          expandHandlers.forEach(handler -> handler.onExpanded((C) BaseCard.this));
-        });
+    if (!collapseHandlersInitialized) {
+      content.addCollapseListener(() -> collapseIcon.setAttribute("aria-expanded", false));
+      content.addExpandListener(() -> collapseIcon.setAttribute("aria-expanded", true));
+      collapseHandlersInitialized = true;
+    }
 
     return (C) this;
   }
@@ -737,7 +733,6 @@ public abstract class BaseCard<C extends BaseCard<C>> extends BaseDominoElement<
     content.getCollapsible().expand();
     collapseIcon.toggle();
     collapseIcon.setAttribute("aria-expanded", true);
-    expandHandlers.forEach(handler -> handler.onExpanded((C) this));
     removeCss(() -> "dui-collapsed");
     return (C) this;
   }
@@ -752,7 +747,6 @@ public abstract class BaseCard<C extends BaseCard<C>> extends BaseDominoElement<
     content.getCollapsible().collapse();
     collapseIcon.toggle();
     collapseIcon.setAttribute("aria-expanded", false);
-    collapseHandlers.forEach(handler -> handler.onCollapsed((C) this));
     addCss(() -> "dui-collapsed");
     return (C) this;
   }
