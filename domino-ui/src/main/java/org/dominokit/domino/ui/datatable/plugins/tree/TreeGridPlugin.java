@@ -296,7 +296,7 @@ public class TreeGridPlugin<T>
    *     expanded.
    */
   public void expandAllRows(boolean recursive) {
-    dataTable.getRows().forEach(tableRow -> expandRow(tableRow, recursive));
+    new ArrayList<>(dataTable.getRows()).forEach(tableRow -> expandRow(tableRow, recursive));
   }
 
   /**
