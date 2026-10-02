@@ -100,6 +100,8 @@ public abstract class AbstractSuggestBox<
   private final DelayedTextInput.DelayedAction delayedAction =
       () -> {
         if (isEmptyInputText()) {
+          searchGeneration++;
+          loader.stop();
           optionsMenu.close();
         } else {
           search();
@@ -111,6 +113,8 @@ public abstract class AbstractSuggestBox<
 
   /** The type-ahead delay in milliseconds. */
   private int typeAheadDelay = -1;
+
+  private int searchGeneration;
 
   private boolean autoFocus = true;
 
@@ -305,21 +309,26 @@ public abstract class AbstractSuggestBox<
    */
   protected void search() {
     if (store != null) {
+      int generation = ++searchGeneration;
+      String query = getInputStringValue();
       loader.start();
       optionsMenu.removeAll();
       store.filter(
-          getInputStringValue(),
+          query,
           suggestions -> {
+            if (generation != searchGeneration || !Objects.equals(query, getInputStringValue())) {
+              return;
+            }
             optionsMenu.removeAll();
 
             if (suggestions.isEmpty()) {
-              applyMissingEntry(getInputStringValue());
+              applyMissingEntry(query);
             }
 
             suggestions.forEach(
                 suggestion -> {
                   optionsMenu.clearSelection(true);
-                  suggestion.highlight(getInputStringValue());
+                  suggestion.highlight(query);
                   optionsMenu.appendChild(suggestion.getMenuItem());
                 });
             if (!suggestions.isEmpty()) {
