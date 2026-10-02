@@ -77,9 +77,11 @@ public class RowMarkerPlugin<T> implements DataTablePlugin<T>, DataTableStyles {
   private void setStyle(TableRow<T> tableRow) {
     CssClass color = markerColor.getColor(tableRow);
     RowMarkerMeta.get(tableRow).ifPresent(meta -> meta.getMarkerCssClass().remove(tableRow));
+    tableRow.removeMeta(RowMarkerMeta.DOMINO_ROW_MARKER_META);
 
     if (nonNull(color)) {
       tableRow.addCss(color);
+      tableRow.applyMeta(RowMarkerMeta.of(color));
     }
   }
 
