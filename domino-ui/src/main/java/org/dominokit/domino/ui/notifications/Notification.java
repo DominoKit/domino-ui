@@ -66,6 +66,8 @@ public class Notification extends BaseDominoElement<HTMLDivElement, Notification
   private boolean dismissible = true;
   private boolean infinite = false;
   private boolean closed = true;
+  private boolean closing = false;
+  private int displayGeneration = 0;
   private final List<NotificationHandler> closeHandlers = new ArrayList<>();
   private final List<NotificationHandler> showHandlers = new ArrayList<>();
 
@@ -299,16 +301,24 @@ public class Notification extends BaseDominoElement<HTMLDivElement, Notification
    * @return this notification for chaining
    */
   public Notification expand() {
+    int generation = ++displayGeneration;
     this.closed = false;
+    this.closing = false;
     Animation.create(element)
         .beforeStart(
             element -> {
+              if (generation != displayGeneration) {
+                return;
+              }
               DomGlobal.document.body.appendChild(element());
               NotificationPosition.updatePositions(position);
             })
         .transition(inTransition)
         .callback(
             e -> {
+              if (generation != displayGeneration) {
+                return;
+              }
               if (!infinite) {
                 close(getDuration());
               }
@@ -348,11 +358,15 @@ public class Notification extends BaseDominoElement<HTMLDivElement, Notification
    * @param after the delay in milliseconds after which the notification should be closed
    */
   public final void close(int after, Runnable finalizer) {
-    if (!closed) {
+    if (!closed && !closing) {
+      closing = true;
+      int generation = displayGeneration;
       animateClose(
           after,
+          generation,
           () -> {
             this.closed = true;
+            this.closing = false;
             finalizer.run();
           });
     }
@@ -364,12 +378,15 @@ public class Notification extends BaseDominoElement<HTMLDivElement, Notification
    * @param after the delay in milliseconds before initiating the close animation
    * @param onComplete a runnable that will be executed when the animation is complete
    */
-  private void animateClose(int after, Runnable onComplete) {
+  private void animateClose(int after, int generation, Runnable onComplete) {
     Animation.create(element)
         .delay(after)
         .transition(outTransition)
         .callback(
             e2 -> {
+              if (generation != displayGeneration) {
+                return;
+              }
               element().remove();
               onComplete.run();
               NotificationPosition.updatePositions(position);
