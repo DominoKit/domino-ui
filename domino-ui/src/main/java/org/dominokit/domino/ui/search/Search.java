@@ -185,6 +185,7 @@ public class Search extends BaseDominoElement<HTMLDivElement, Search>
    */
   public Search close() {
     collapse();
+    autoSearchTimer.cancel();
     searchInput.element().value = "";
     closeHandler.onClose();
     return this;
