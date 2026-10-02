@@ -107,7 +107,7 @@ public class MenuItemsGroup<V> extends AbstractMenuItem<V> {
   public MenuItemsGroup<V> removeItem(AbstractMenuItem<V> menuItem) {
     if (this.menuItems.contains(menuItem)) {
       menuItem.unbindGroup();
-      menuItem.remove();
+      menuItem.doRemove();
       this.menuItems.remove(menuItem);
     }
     return this;
