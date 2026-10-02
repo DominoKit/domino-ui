@@ -144,15 +144,17 @@ public class MultiSelect<V>
       clearValue(silent);
     } else {
       withPauseChangeListenersToggle(
-          silent,
-          field ->
+          true,
+          field -> {
+            clearValue(true);
               value.forEach(
                   v -> {
                     Optional<SelectOption<V>> optionByValue = findOptionByValue(v);
                     optionByValue.ifPresent(
                         vSelectOption ->
-                            onOptionSelected(vSelectOption, isChangeListenersPaused()));
-                  }));
+                          onOptionSelected(vSelectOption, true));
+                });
+          });
     }
   }
 
