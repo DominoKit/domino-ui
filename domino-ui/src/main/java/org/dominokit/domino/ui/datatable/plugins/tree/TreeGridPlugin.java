@@ -150,6 +150,8 @@ public class TreeGridPlugin<T>
       if (row.isRoot()) {
         increment();
       }
+      TreeStateMeta.get(this.dataTable)
+          .ifPresent(treeStateMeta -> treeStateMeta.onRowExpanded(row));
       this.dataTable.fireTableEvent(new TreeRowExpandedEvent<>(row));
     }
   }
