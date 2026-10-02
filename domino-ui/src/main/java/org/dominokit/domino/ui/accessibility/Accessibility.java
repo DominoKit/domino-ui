@@ -16,6 +16,7 @@
 package org.dominokit.domino.ui.accessibility;
 
 import elemental2.dom.EventListener;
+import org.dominokit.domino.ui.keyboard.KeyboardEventOptions;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
 
 /** Shared opt-in helpers for semantic and keyboard accessibility behavior. */
@@ -50,7 +51,11 @@ public final class Accessibility {
 
   public static <E extends BaseDominoElement<?, ?>> E activateOnEnterAndSpace(
       E element, EventListener listener) {
-    element.onKeyDown(keyEvents -> keyEvents.onEnter(listener).onSpace(listener));
+    element.onKeyDown(
+        keyEvents ->
+            keyEvents
+                .onEnter(listener)
+                .onSpace(KeyboardEventOptions.create().setPreventDefault(true), listener));
     return element;
   }
 }
