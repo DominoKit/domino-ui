@@ -120,6 +120,8 @@ public class ListGroup<T> extends BaseDominoElement<HTMLUListElement, ListGroup<
    * @return this {@code ListGroup} instance.
    */
   public ListGroup<T> removeAll() {
+    items.forEach(item -> item.setSelected(false));
+    lastSelected = null;
     clearElement();
     List<ListItem<? extends T>> removed = new ArrayList<>(this.items);
     items.clear();
@@ -256,13 +258,18 @@ public class ListGroup<T> extends BaseDominoElement<HTMLUListElement, ListGroup<
    * @return this {@code ListGroup} instance.
    */
   public ListGroup<T> removeItem(ListItem<? extends T> item, boolean silent) {
-    items.remove(item);
-    item.remove();
+    if (items.remove(item)) {
+      item.setSelected(false);
+      if (lastSelected == item) {
+        lastSelected = null;
+      }
+      item.remove();
 
-    if (!silent) {
-      List<ListItem<? extends T>> items = new ArrayList<>();
-      items.add(item);
-      removeListeners.forEach(listener -> listener.onRemove(items));
+      if (!silent) {
+        List<ListItem<? extends T>> items = new ArrayList<>();
+        items.add(item);
+        removeListeners.forEach(listener -> listener.onRemove(items));
+      }
     }
 
     return this;
