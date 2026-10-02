@@ -1170,9 +1170,11 @@ public class ColumnConfig<T> implements ElementsFactory, DataTableStyles {
    */
   public ColumnConfig<T> applyAndOnSubColumns(
       Predicate<ColumnConfig<T>> predicate, Consumer<ColumnConfig<T>> handler) {
-    handler.accept(this);
+    if (predicate.test(this)) {
+      handler.accept(this);
+    }
     if (isColumnGroup()) {
-      getSubColumns().forEach(col -> col.applyAndOnSubColumns(handler));
+      getSubColumns().forEach(col -> col.applyAndOnSubColumns(predicate, handler));
     }
     return this;
   }
