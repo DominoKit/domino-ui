@@ -127,12 +127,8 @@ public class InsertImageLinkCommand extends RichTextCommand<InsertImageLinkComma
   @Override
   protected void execute() {
     if (nonNull(range)) {
-      getSelectedRange()
-          .ifPresent(
-              range -> {
-                range.deleteContents();
-                range.insertNode(img(linkBox.getValue()).element());
-              });
+      range.deleteContents();
+      range.insertNode(img(linkBox.getValue()).element());
       this.range = null;
     }
   }
