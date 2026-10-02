@@ -1490,7 +1490,7 @@ public abstract class AbstractSelect<
           C extends AbstractSelect<T, V, E, S, C>>
       extends AutoValidator {
 
-    private C select;
+    private final C select;
     private final HasSelectionListeners.SelectionListener<AbstractMenuItem<T>, List<AbstractMenuItem<T>>>
         listener;
 

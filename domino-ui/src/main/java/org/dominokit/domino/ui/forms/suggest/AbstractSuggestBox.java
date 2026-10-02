@@ -833,9 +833,9 @@ public abstract class AbstractSuggestBox<
           C extends AbstractSuggestBox<T, V, E, S, C>>
       extends AutoValidator {
 
-    private C select;
-    private EventListener blurListener;
-    private HasSelectionListeners.SelectionListener<AbstractMenuItem<T>, List<AbstractMenuItem<T>>>
+    private final C select;
+    private final EventListener blurListener;
+    private final HasSelectionListeners.SelectionListener<AbstractMenuItem<T>, List<AbstractMenuItem<T>>>
         listener;
 
     public SuggestAutoValidator(C select, ApplyFunction autoValidate) {
