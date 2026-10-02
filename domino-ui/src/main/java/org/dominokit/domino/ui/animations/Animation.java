@@ -235,7 +235,12 @@ public class Animation {
 
   private void animateElement() {
     this.startHandler.beforeStart(element.element());
-    this.stopListener = evt -> stop();
+    this.stopListener =
+        evt -> {
+          if (evt.target.equals(element.element())) {
+            stop();
+          }
+        };
 
     element.addEventListener("webkitAnimationEnd", stopListener);
     element.addEventListener("MSAnimationEnd", stopListener);
