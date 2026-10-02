@@ -276,6 +276,9 @@ public class Carousel extends BaseDominoElement<HTMLDivElement, Carousel>
   }
 
   private void nextSlide() {
+    if (slides.isEmpty()) {
+      return;
+    }
     Slide nextSlide;
     if (slides.indexOf(activeSlide) < slides.size() - 1) {
       nextSlide = slides.get(slides.indexOf(activeSlide) + 1);
@@ -287,6 +290,9 @@ public class Carousel extends BaseDominoElement<HTMLDivElement, Carousel>
   }
 
   private void prevSlide() {
+    if (slides.isEmpty()) {
+      return;
+    }
     Slide prevSlide;
     if (slides.indexOf(activeSlide) > 0) {
       prevSlide = slides.get(slides.indexOf(activeSlide) - 1);
