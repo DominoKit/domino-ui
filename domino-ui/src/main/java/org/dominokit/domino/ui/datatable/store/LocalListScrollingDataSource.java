@@ -184,9 +184,10 @@ public class LocalListScrollingDataSource<T>
    * @param data The new data to set for the data source.
    */
   public void setData(List<T> data) {
-    List<T> acceptedData = filterData(data);
+    List<T> newData = new ArrayList<>(data);
+    List<T> acceptedData = filterData(newData);
     this.original.clear();
-    this.original.addAll(data);
+    this.original.addAll(newData);
     this.filtered.clear();
     this.filtered.addAll(acceptedData);
     this.pagination.updatePagesByTotalCount(this.filtered.size(), pagination.getPageSize());
