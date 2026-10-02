@@ -100,7 +100,7 @@ public class InsertHtmlCommand extends RichTextCommand<InsertHtmlCommand> {
                   Selection sel;
                   if (nonNull(DomGlobal.window.getSelection())) {
                     sel = DomGlobal.window.getSelection();
-                    if (sel.rangeCount > -1) {
+                    if (sel.rangeCount > 0) {
                       range = sel.getRangeAt(0).cloneRange();
                     }
                   }
