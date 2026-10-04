@@ -24,6 +24,8 @@ public interface DataTableStyles {
 
   CssClass dui_datatable_responsive = () -> "dui-datatable-responsive";
 
+  CssClass dui_datatable_responsive_stacked = () -> "dui-datatable-responsive-stacked";
+
   CssClass dui_datatable_hover = () -> "dui-datatable-hover";
 
   CssClass dui_datatable_bordered = () -> "dui-datatable-bordered";

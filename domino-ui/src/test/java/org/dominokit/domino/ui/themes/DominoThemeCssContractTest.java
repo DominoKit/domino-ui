@@ -655,6 +655,31 @@ public class DominoThemeCssContractTest {
   }
 
   @Test
+  public void responsiveDataTableStackedStylesPreserveTableAndLabelContracts() throws IOException {
+    String datatable =
+        readResource(
+            "org/dominokit/domino/ui/public/css/domino-ui/dui-components/domino-ui-datatable.css");
+    String defaultTheme =
+        readResource(
+            "org/dominokit/domino/ui/public/css/domino-ui/dui-components/domino-ui-theme-default.css");
+
+    assertTrue(datatable.contains(".dui-datatable-responsive-stacked"));
+    assertTrue(
+        datatable.contains("content: attr(data-label);")
+            || datatable.contains("content: attr(data-label)"));
+    assertTrue(datatable.contains("var(--dui-datatable-responsive-label-width)"));
+    assertTrue(
+        datatable.contains(
+            ".dui-datatable-responsive-stacked > .dui-datatable > .dui-datatable-thead"));
+    assertTrue(datatable.contains("clip: rect(0, 0, 0, 0);"));
+    assertFalse(
+        datatable.contains(
+            ".dui-datatable-responsive-stacked > .dui-datatable > .dui-datatable-thead {\n    display: none;"));
+    assertTrue(datatable.contains(":not(.dui-datatable-details-tr)"));
+    assertTrue(defaultTheme.contains("--dui-datatable-responsive-label-width: 40%;"));
+  }
+
+  @Test
   public void recordDetailsDoNotLeakRowSurfaceTokensIntoNestedDataTables() throws IOException {
     String datatable =
         readResource(
