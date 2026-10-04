@@ -1575,6 +1575,7 @@ body.dui {
 
     /* ======================= data table ====================== */
     --dui-datatable-font-size: var(--dui-spc-3_5);
+    --dui-datatable-responsive-label-width: 40%;
     --dui-datatable-header-font-weight: inherit;
     --dui-datatable-cell-form-field-wrapper-background: var(--dui-clr-dominant);
     --dui-datatable-cell-padding: var(--dui-spc-2);

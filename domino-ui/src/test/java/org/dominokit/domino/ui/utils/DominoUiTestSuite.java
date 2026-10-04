@@ -27,6 +27,7 @@ import org.dominokit.domino.ui.accessibility.InteractiveControlsAccessibilityTes
 import org.dominokit.domino.ui.accessibility.NavigationAccessibilityTest;
 import org.dominokit.domino.ui.button.FabTest;
 import org.dominokit.domino.ui.cards.CardTest;
+import org.dominokit.domino.ui.datatable.plugins.responsive.ResponsiveDataTablePluginTest;
 import org.dominokit.domino.ui.dialogs.StandardDialogLayoutTest;
 import org.dominokit.domino.ui.forms.DateBoxTypingModeTest;
 import org.dominokit.domino.ui.forms.TimeBoxTypingModeTest;
@@ -80,6 +81,7 @@ public class DominoUiTestSuite extends GWTTestSuite {
     suite.addTestSuite(NavigationAccessibilityTest.class);
     suite.addTestSuite(CalendarAccessibilityTest.class);
     suite.addTestSuite(UnitValueTest.class);
+    suite.addTestSuite(ResponsiveDataTablePluginTest.class);
 
     return suite;
   }

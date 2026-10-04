@@ -360,3 +360,45 @@
 .dui-table-selection-disabled .dui.dui-table-selection-checkbox {
     display: none;
 }
+
+/* Opt-in stacked records keep the native table markup and cell contents intact. */
+.dui-datatable-responsive-stacked {
+    overflow-x: visible;
+}
+
+.dui-datatable-responsive-stacked > .dui-datatable > .dui-datatable-thead {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+}
+
+.dui-datatable-responsive-stacked > .dui-datatable > tbody {
+    display: block;
+}
+
+.dui-datatable-responsive-stacked > .dui-datatable > tbody > .dui-datatable-row:not(.dui-datatable-details-tr) {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    margin-block-end: var(--dui-spc-2);
+}
+
+.dui-datatable-responsive-stacked > .dui-datatable > tbody > .dui-datatable-row:not(.dui-datatable-details-tr) > .dui-datatable-td {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--dui-spc-2);
+    box-sizing: border-box;
+}
+
+.dui-datatable-responsive-stacked > .dui-datatable > tbody > .dui-datatable-row:not(.dui-datatable-details-tr) > .dui-datatable-td::before {
+    content: attr(data-label);
+    flex: 0 0 var(--dui-datatable-responsive-label-width);
+    max-width: var(--dui-datatable-responsive-label-width);
+    font-weight: 600;
+    overflow-wrap: anywhere;
+}
