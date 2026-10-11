@@ -287,6 +287,7 @@ public class DataTable<T> extends BaseDominoElement<HTMLDivElement, DataTable<T>
    * @return the current DataTable instance
    */
   public DataTable<T> setData(List<T> data) {
+    tableConfig.getPlugins().forEach(plugin -> plugin.onBeforeDataChange(this, false));
     this.data = data;
     tableRows.clear();
     removeRecordsHandler.removeRows(this);
@@ -304,6 +305,7 @@ public class DataTable<T> extends BaseDominoElement<HTMLDivElement, DataTable<T>
    */
   public DataTable<T> appendData(List<T> newData) {
     if (nonNull(this.data)) {
+      tableConfig.getPlugins().forEach(plugin -> plugin.onBeforeDataChange(this, true));
       addRows(newData, this.data.size());
       this.data.addAll(newData);
     } else {

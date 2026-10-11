@@ -26,6 +26,16 @@ public interface DataTableStyles {
 
   CssClass dui_datatable_responsive_stacked = () -> "dui-datatable-responsive-stacked";
 
+  CssClass dui_datatable_responsive_priority_details =
+      () -> "dui-datatable-responsive-priority-details";
+
+  CssClass dui_datatable_responsive_priority_cell = () -> "dui-datatable-responsive-priority-cell";
+
+  CssClass dui_datatable_responsive_secondary_cell =
+      () -> "dui-datatable-responsive-secondary-cell";
+
+  CssClass dui_datatable_responsive_utility_cell = () -> "dui-datatable-responsive-utility-cell";
+
   CssClass dui_datatable_hover = () -> "dui-datatable-hover";
 
   CssClass dui_datatable_bordered = () -> "dui-datatable-bordered";

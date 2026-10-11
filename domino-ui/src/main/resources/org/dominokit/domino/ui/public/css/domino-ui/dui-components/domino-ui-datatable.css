@@ -402,3 +402,76 @@
     font-weight: 600;
     overflow-wrap: anywhere;
 }
+
+/* Priority/details mode keeps selected cells in place and delegates secondary values to details. */
+.dui-datatable-responsive-priority-details {
+    overflow-x: visible;
+}
+
+.dui-datatable-responsive-priority-details > .dui-datatable > .dui-datatable-thead {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+}
+
+.dui-datatable-responsive-priority-details > .dui-datatable > tbody {
+    display: block;
+}
+
+.dui-datatable-responsive-priority-details > .dui-datatable > tbody > .dui-datatable-row:not(.dui-datatable-details-tr) {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: var(--dui-spc-2);
+    margin-block-end: var(--dui-spc-2);
+}
+
+.dui-datatable-responsive-priority-details > .dui-datatable > tbody > .dui-datatable-row:not(.dui-datatable-details-tr) > .dui-datatable-responsive-secondary-cell {
+    display: none !important;
+}
+
+.dui-datatable-responsive-priority-details > .dui-datatable > tbody > .dui-datatable-row:not(.dui-datatable-details-tr) > .dui-datatable-responsive-priority-cell {
+    display: flex;
+    align-items: center;
+    flex: 1 1 auto;
+    gap: var(--dui-spc-2);
+    min-width: 0;
+    box-sizing: border-box;
+}
+
+.dui-datatable-responsive-priority-details > .dui-datatable > tbody > .dui-datatable-row:not(.dui-datatable-details-tr) > .dui-datatable-responsive-priority-cell::before {
+    content: attr(data-label);
+    flex: 0 0 var(--dui-datatable-responsive-label-width);
+    max-width: var(--dui-datatable-responsive-label-width);
+    font-weight: 600;
+    overflow-wrap: anywhere;
+}
+
+.dui-datatable-responsive-priority-details > .dui-datatable > tbody > .dui-datatable-row:not(.dui-datatable-details-tr) > .dui-datatable-responsive-priority-cell.dui-hidden,
+.dui-datatable-responsive-priority-details > .dui-datatable > tbody > .dui-datatable-row:not(.dui-datatable-details-tr) > .dui-datatable-responsive-utility-cell.dui-hidden {
+    display: none;
+}
+
+.dui-datatable-responsive-priority-details > .dui-datatable > tbody > .dui-datatable-row:not(.dui-datatable-details-tr) > .dui-datatable-responsive-utility-cell {
+    display: flex;
+    align-items: center;
+    flex: 0 0 auto;
+    margin-inline-start: auto;
+}
+
+.dui-datatable-responsive-priority-details > .dui-datatable > tbody > .dui-datatable-row.dui-datatable-details-tr {
+    display: block;
+    width: 100%;
+}
+
+.dui-datatable-responsive-priority-details > .dui-datatable > tbody > .dui-datatable-details-tr > .dui-datatable-details-td {
+    display: block;
+    width: 100%;
+    box-sizing: border-box;
+}

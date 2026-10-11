@@ -17,11 +17,13 @@ package org.dominokit.domino.ui.datatable.plugins.responsive;
 
 import com.google.gwt.junit.client.GWTTestCase;
 import elemental2.dom.DomGlobal;
+import elemental2.dom.HTMLElement;
 import elemental2.dom.HTMLInputElement;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.List;
 import java.util.function.Consumer;
 import jsinterop.annotations.JsFunction;
 import jsinterop.base.Js;
@@ -66,6 +68,447 @@ public class ResponsiveDataTablePluginTest extends GWTTestCase {
         new ResponsiveDataTablePlugin<>(defaultObserver),
         ColumnConfig.<String>create("name", "Name"));
     assertEquals("(max-width: 768px)", defaultObserver.query);
+  }
+
+  public void testModeDefaultsToStackedAndPriorityConfigurationIsFluent() {
+    ResponsiveDataTablePlugin<String> plugin =
+        new ResponsiveDataTablePlugin<>(new FakeBreakpointObserver(false));
+
+    assertEquals(ResponsiveDataTablePlugin.Mode.STACKED, plugin.getMode());
+    assertSame(plugin, plugin.setMode(ResponsiveDataTablePlugin.Mode.PRIORITY_DETAILS));
+    assertSame(plugin, plugin.setPriorityColumns("name", "status"));
+    assertEquals(ResponsiveDataTablePlugin.Mode.PRIORITY_DETAILS, plugin.getMode());
+  }
+
+  public void testPriorityDetailsAcceptsVisibleLeafColumnsAndRecordDetailsPlugin() {
+    ColumnConfig<String> person =
+        ColumnConfig.<String>create("person", "Person")
+            .addColumn(ColumnConfig.<String>create("given", "Given"))
+            .addColumn(ColumnConfig.<String>create("family", "Family"));
+    ResponsiveDataTablePlugin<String> responsive = priorityPlugin("given", "family");
+    RecordDetailsPlugin<String> details = detailsPlugin();
+    TableConfig<String> config =
+        new TableConfig<String>().addColumn(person).addPlugin(responsive).addPlugin(details);
+
+    DataTable<String> table = new DataTable<>(config, new LocalListDataStore<>());
+
+    assertNotNull(table);
+  }
+
+  public void testPriorityDetailsRequiresRecordDetailsPlugin() {
+    TableConfig<String> config =
+        new TableConfig<String>()
+            .addColumn(ColumnConfig.<String>create("name", "Name"))
+            .addPlugin(priorityPlugin("name"));
+
+    assertInvalidConfiguration(config, "RecordDetailsPlugin");
+  }
+
+  public void testPriorityDetailsRequiresAtLeastOnePriorityColumn() {
+    TableConfig<String> config = validDetailsConfig();
+    config.addPlugin(priorityPlugin());
+
+    assertInvalidConfiguration(config, "priority column");
+  }
+
+  public void testPriorityDetailsRejectsNullPriorityColumnNames() {
+    TableConfig<String> config = validDetailsConfig();
+    config.addPlugin(priorityPlugin((String[]) null));
+
+    assertInvalidConfiguration(config, "priority column");
+  }
+
+  public void testPriorityDetailsRejectsBlankPriorityColumnNames() {
+    TableConfig<String> config = validDetailsConfig();
+    config.addPlugin(priorityPlugin("  "));
+
+    assertInvalidConfiguration(config, "priority column");
+  }
+
+  public void testPriorityDetailsRejectsUnknownPriorityColumnNames() {
+    TableConfig<String> config = validDetailsConfig();
+    config.addPlugin(priorityPlugin("missing"));
+
+    assertInvalidConfiguration(config, "missing");
+  }
+
+  public void testPriorityDetailsRejectsDuplicatePriorityColumnNames() {
+    TableConfig<String> config = validDetailsConfig();
+    config.addPlugin(priorityPlugin("name", "name"));
+
+    assertInvalidConfiguration(config, "name");
+  }
+
+  public void testPriorityDetailsRejectsGroupNames() {
+    ColumnConfig<String> group =
+        ColumnConfig.<String>create("person", "Person")
+            .addColumn(ColumnConfig.<String>create("given", "Given"));
+    TableConfig<String> config =
+        new TableConfig<String>()
+            .addColumn(group)
+            .addPlugin(detailsPlugin())
+            .addPlugin(priorityPlugin("person"));
+
+    assertInvalidConfiguration(config, "person");
+  }
+
+  public void testPriorityDetailsRejectsHiddenPriorityColumns() {
+    ColumnConfig<String> hidden = ColumnConfig.<String>create("name", "Name").hide();
+    TableConfig<String> config =
+        new TableConfig<String>()
+            .addColumn(hidden)
+            .addPlugin(detailsPlugin())
+            .addPlugin(priorityPlugin("name"));
+
+    assertInvalidConfiguration(config, "name");
+  }
+
+  public void testPriorityDetailsRejectsUtilityPriorityColumns() {
+    TableConfig<String> config =
+        new TableConfig<String>()
+            .addColumn(ColumnConfig.<String>create("name", "Name"))
+            .addPlugin(detailsPlugin())
+            .addPlugin(priorityPlugin("plugin-utility-column"));
+
+    assertInvalidConfiguration(config, "plugin-utility-column");
+  }
+
+  public void testPriorityDetailsMarksCellsAndPreservesTheirIdentityAcrossTransitions() {
+    ColumnConfig<String> name = ColumnConfig.<String>create("name", "Name");
+    ColumnConfig<String> email = ColumnConfig.<String>create("email", "Email");
+    FakeBreakpointObserver observer = new FakeBreakpointObserver(false);
+    TableConfig<String> config =
+        new TableConfig<String>().addColumn(name).addColumn(email).addPlugin(detailsPlugin());
+    ResponsiveDataTablePlugin<String> responsive =
+        new ResponsiveDataTablePlugin<String>(observer)
+            .setMode(ResponsiveDataTablePlugin.Mode.PRIORITY_DETAILS)
+            .setPriorityColumns("name");
+    config.addPlugin(responsive);
+    DataTable<String> table = new DataTable<>(config, new LocalListDataStore<>());
+    table.setData(Collections.singletonList("Ada"));
+    TableRow<String> row = table.getRows().get(0);
+    HTMLElement nameCell = row.getCell("name").element();
+    HTMLElement emailCell = row.getCell("email").element();
+    HTMLElement utilityCell = row.getCell("plugin-utility-column").element();
+
+    assertTrue(nameCell.classList.contains("dui-datatable-responsive-priority-cell"));
+    assertTrue(emailCell.classList.contains("dui-datatable-responsive-secondary-cell"));
+    assertTrue(utilityCell.classList.contains("dui-datatable-responsive-utility-cell"));
+    assertFalse(table.element().classList.contains("dui-datatable-responsive-priority-details"));
+
+    observer.emit(true);
+    assertTrue(table.element().classList.contains("dui-datatable-responsive-priority-details"));
+    assertFalse(table.element().classList.contains("dui-datatable-responsive-stacked"));
+    assertSame(nameCell, row.getCell("name").element());
+    assertSame(emailCell, row.getCell("email").element());
+    assertSame(utilityCell, row.getCell("plugin-utility-column").element());
+
+    observer.emit(false);
+    assertFalse(table.element().classList.contains("dui-datatable-responsive-priority-details"));
+    assertSame(emailCell, row.getCell("email").element());
+  }
+
+  public void testPriorityDetailsInitialMatchActivatesOnlyItsOwnResponsiveClass() {
+    FakeBreakpointObserver observer = new FakeBreakpointObserver(true);
+    TableConfig<String> config =
+        new TableConfig<String>()
+            .addColumn(ColumnConfig.<String>create("name", "Name"))
+            .addPlugin(detailsPlugin())
+            .addPlugin(
+                new ResponsiveDataTablePlugin<String>(observer)
+                    .setMode(ResponsiveDataTablePlugin.Mode.PRIORITY_DETAILS)
+                    .setPriorityColumns("name"));
+
+    DataTable<String> table = new DataTable<>(config, new LocalListDataStore<>());
+
+    assertTrue(table.element().classList.contains("dui-datatable-responsive-priority-details"));
+    assertFalse(table.element().classList.contains("dui-datatable-responsive-stacked"));
+  }
+
+  public void testPriorityDetailsMovesFocusFromSecondaryCellToDetailsControl() {
+    HTMLInputElement[] editor = new HTMLInputElement[1];
+    ColumnConfig<String> name = ColumnConfig.<String>create("name", "Name");
+    ColumnConfig<String> email =
+        ColumnConfig.<String>create("email", "Email")
+            .setRenderer(
+                cell -> {
+                  editor[0] = (HTMLInputElement) DomGlobal.document.createElement("input");
+                  cell.element().appendChild(editor[0]);
+                });
+    FakeBreakpointObserver observer = new FakeBreakpointObserver(false);
+    TableConfig<String> config =
+        new TableConfig<String>()
+            .addColumn(name)
+            .addColumn(email)
+            .addPlugin(detailsPlugin())
+            .addPlugin(
+                new ResponsiveDataTablePlugin<String>(observer)
+                    .setMode(ResponsiveDataTablePlugin.Mode.PRIORITY_DETAILS)
+                    .setPriorityColumns("name"));
+    DataTable<String> table = new DataTable<>(config, new LocalListDataStore<>());
+    table.setData(Collections.singletonList("Ada"));
+    TableRow<String> row = table.getRows().get(0);
+    editor[0].focus();
+    HTMLElement detailsControl =
+        (HTMLElement)
+            row.getCell("plugin-utility-column").element().querySelector("[role='button']");
+
+    assertNotNull(detailsControl);
+    assertSame(editor[0], DomGlobal.document.activeElement);
+    observer.emit(true);
+
+    assertSame(detailsControl, DomGlobal.document.activeElement);
+  }
+
+  public void testPriorityDetailsPreservesFocusInsidePriorityCell() {
+    HTMLInputElement[] editor = new HTMLInputElement[1];
+    ColumnConfig<String> name =
+        ColumnConfig.<String>create("name", "Name")
+            .setRenderer(
+                cell -> {
+                  editor[0] = (HTMLInputElement) DomGlobal.document.createElement("input");
+                  cell.element().appendChild(editor[0]);
+                });
+    FakeBreakpointObserver observer = new FakeBreakpointObserver(false);
+    TableConfig<String> config =
+        new TableConfig<String>()
+            .addColumn(name)
+            .addColumn(ColumnConfig.<String>create("email", "Email"))
+            .addPlugin(detailsPlugin())
+            .addPlugin(
+                new ResponsiveDataTablePlugin<String>(observer)
+                    .setMode(ResponsiveDataTablePlugin.Mode.PRIORITY_DETAILS)
+                    .setPriorityColumns("name"));
+    DataTable<String> table = new DataTable<>(config, new LocalListDataStore<>());
+    table.setData(Collections.singletonList("Ada"));
+    editor[0].focus();
+
+    observer.emit(true);
+
+    assertSame(editor[0], DomGlobal.document.activeElement);
+  }
+
+  public void testRecordDetailsExpansionWorksForEitherPluginRegistrationOrder() {
+    for (boolean detailsFirst : new boolean[] {true, false}) {
+      List<String> renderedRecords = new ArrayList<>();
+      RecordDetailsPlugin<String> details = detailsPlugin(renderedRecords);
+      ResponsiveDataTablePlugin<String> responsive = priorityPlugin("name");
+      TableConfig<String> config =
+          new TableConfig<String>()
+              .addColumn(ColumnConfig.<String>create("name", "Name"))
+              .addColumn(ColumnConfig.<String>create("email", "Email"));
+      if (detailsFirst) {
+        config.addPlugin(details).addPlugin(responsive);
+      } else {
+        config.addPlugin(responsive).addPlugin(details);
+      }
+      DataTable<String> table = new DataTable<>(config, new LocalListDataStore<>());
+      table.setData(Collections.singletonList("Ada"));
+      TableRow<String> row = table.getRows().get(0);
+      HTMLElement detailsControl = detailsControl(row);
+
+      detailsControl.click();
+
+      assertEquals(Collections.singletonList("Ada"), renderedRecords);
+      assertEquals("true", detailsControl.getAttribute("aria-expanded"));
+      assertTrue(details.getTr().element().classList.contains("dui-datatable-details-tr"));
+      assertSame(table.bodyElement().element(), details.getTr().element().parentElement);
+      assertEquals("Details: Ada", details.getTd().element().textContent);
+      assertEquals(1, detailsRowCount(table));
+      assertFalse(row.isSelected());
+
+      detailsControl.click();
+
+      assertEquals("false", detailsControl.getAttribute("aria-expanded"));
+      assertNull(details.getTr().element().parentElement);
+      assertEquals(0, detailsRowCount(table));
+    }
+  }
+
+  public void testReplacingDataClosesExpandedDetailsAndReleasesOldRow() {
+    List<String> renderedRecords = new ArrayList<>();
+    RecordDetailsPlugin<String> details = detailsPlugin(renderedRecords);
+    TableConfig<String> config =
+        new TableConfig<String>()
+            .addColumn(ColumnConfig.<String>create("name", "Name"))
+            .addPlugin(details)
+            .addPlugin(priorityPlugin("name"));
+    DataTable<String> table = new DataTable<>(config, new LocalListDataStore<>());
+    table.setData(new ArrayList<>(Collections.singletonList("Ada")));
+    HTMLElement oldDetailsControl = detailsControl(table.getRows().get(0));
+    oldDetailsControl.click();
+    assertEquals("true", oldDetailsControl.getAttribute("aria-expanded"));
+
+    table.setData(new ArrayList<>(Collections.singletonList("Grace")));
+
+    assertEquals("false", oldDetailsControl.getAttribute("aria-expanded"));
+    assertNull(details.getTr().element().parentElement);
+    assertEquals(0, detailsRowCount(table));
+    assertEquals(Collections.singletonList("Ada"), renderedRecords);
+    assertEquals("Grace", table.getRows().get(0).getRecord());
+
+    detailsControl(table.getRows().get(0)).click();
+    assertEquals(1, detailsRowCount(table));
+    assertEquals(Arrays.asList("Ada", "Grace"), renderedRecords);
+  }
+
+  public void testRedrawTreatsReloadedRowsAsReplacementWithoutLeavingDetailsRows() {
+    List<String> renderedRecords = new ArrayList<>();
+    RecordDetailsPlugin<String> details = detailsPlugin(renderedRecords);
+    LocalListDataStore<String> store =
+        new LocalListDataStore<>(new ArrayList<>(Collections.singletonList("Ada")));
+    TableConfig<String> config =
+        new TableConfig<String>()
+            .addColumn(ColumnConfig.<String>create("name", "Name"))
+            .addPlugin(details)
+            .addPlugin(priorityPlugin("name"));
+    DataTable<String> table = new DataTable<>(config, store);
+    table.setData(new ArrayList<>(Collections.singletonList("Ada")));
+    HTMLElement oldControl = detailsControl(table.getRows().get(0));
+    oldControl.click();
+    assertEquals(1, detailsRowCount(table));
+
+    table.redraw();
+
+    assertEquals("false", oldControl.getAttribute("aria-expanded"));
+    assertEquals(0, detailsRowCount(table));
+    assertEquals("Ada", table.getRows().get(0).getRecord());
+
+    detailsControl(table.getRows().get(0)).click();
+    assertEquals(1, detailsRowCount(table));
+    assertEquals(Arrays.asList("Ada", "Ada"), renderedRecords);
+  }
+
+  public void testAppendingDataRetainsExpandedDetailsAndExistingCellControls() {
+    HTMLInputElement[] emailEditor = new HTMLInputElement[1];
+    ColumnConfig<String> email =
+        ColumnConfig.<String>create("email", "Email")
+            .setRenderer(
+                cell -> {
+                  emailEditor[0] = (HTMLInputElement) DomGlobal.document.createElement("input");
+                  cell.element().appendChild(emailEditor[0]);
+                });
+    List<String> renderedRecords = new ArrayList<>();
+    RecordDetailsPlugin<String> details = detailsPlugin(renderedRecords);
+    TableConfig<String> config =
+        new TableConfig<String>()
+            .addColumn(ColumnConfig.<String>create("name", "Name"))
+            .addColumn(email)
+            .addPlugin(details)
+            .addPlugin(priorityPlugin("name"));
+    DataTable<String> table = new DataTable<>(config, new LocalListDataStore<>());
+    table.setData(new ArrayList<>(Collections.singletonList("Ada")));
+    TableRow<String> expandedRow = table.getRows().get(0);
+    HTMLElement nameCell = expandedRow.getCell("name").element();
+    HTMLElement emailCell = expandedRow.getCell("email").element();
+    HTMLInputElement originalEditor = emailEditor[0];
+    HTMLElement detailsControl = detailsControl(expandedRow);
+    detailsControl.click();
+
+    table.appendData(Collections.singletonList("Grace"));
+
+    assertSame(expandedRow, table.getRows().get(0));
+    assertSame(nameCell, expandedRow.getCell("name").element());
+    assertSame(emailCell, expandedRow.getCell("email").element());
+    assertSame(originalEditor, expandedRow.getCell("email").element().firstChild);
+    assertEquals("true", detailsControl.getAttribute("aria-expanded"));
+    assertEquals(1, detailsRowCount(table));
+    assertEquals(Collections.singletonList("Ada"), renderedRecords);
+
+    detailsControl.click();
+    assertEquals("false", detailsControl.getAttribute("aria-expanded"));
+    assertEquals(0, detailsRowCount(table));
+  }
+
+  public void testResponsiveModeDoesNotUnhideARegularlyHiddenSecondaryColumn() {
+    ColumnConfig<String> email = ColumnConfig.<String>create("email", "Email");
+    FakeBreakpointObserver observer = new FakeBreakpointObserver(false);
+    TableConfig<String> config =
+        new TableConfig<String>()
+            .addColumn(ColumnConfig.<String>create("name", "Name"))
+            .addColumn(email)
+            .addPlugin(detailsPlugin())
+            .addPlugin(
+                new ResponsiveDataTablePlugin<String>(observer)
+                    .setMode(ResponsiveDataTablePlugin.Mode.PRIORITY_DETAILS)
+                    .setPriorityColumns("name"));
+    DataTable<String> table = new DataTable<>(config, new LocalListDataStore<>());
+    table.setData(Collections.singletonList("Ada"));
+    email.hide();
+    HTMLElement emailCell = table.getRows().get(0).getCell("email").element();
+
+    observer.emit(true);
+
+    assertTrue(email.isHidden());
+    assertTrue(emailCell.classList.contains("dui-hidden"));
+    assertTrue(emailCell.classList.contains("dui-datatable-responsive-secondary-cell"));
+  }
+
+  public void testPriorityColumnHiddenThroughVisibilityApiStaysHidden() {
+    ColumnConfig<String> name = ColumnConfig.<String>create("name", "Name");
+    FakeBreakpointObserver observer = new FakeBreakpointObserver(false);
+    TableConfig<String> config =
+        new TableConfig<String>()
+            .addColumn(name)
+            .addColumn(ColumnConfig.<String>create("email", "Email"))
+            .addPlugin(detailsPlugin())
+            .addPlugin(
+                new ResponsiveDataTablePlugin<String>(observer)
+                    .setMode(ResponsiveDataTablePlugin.Mode.PRIORITY_DETAILS)
+                    .setPriorityColumns("name"));
+    DataTable<String> table = new DataTable<>(config, new LocalListDataStore<>());
+    table.setData(Collections.singletonList("Ada"));
+    HTMLElement nameCell = table.getRows().get(0).getCell("name").element();
+
+    name.hide();
+    observer.emit(true);
+
+    assertTrue(name.isHidden());
+    assertTrue(nameCell.classList.contains("dui-hidden"));
+    assertTrue(nameCell.classList.contains("dui-datatable-responsive-priority-cell"));
+  }
+
+  public void testEmptyDetailsRendererStillHasUsableExpandedState() {
+    RecordDetailsPlugin<String> details =
+        new RecordDetailsPlugin<>(
+            (org.dominokit.domino.ui.datatable.plugins.row.RecordDetailsRenderer<String>)
+                cell -> {});
+    TableConfig<String> config =
+        new TableConfig<String>()
+            .addColumn(ColumnConfig.<String>create("name", "Name"))
+            .addPlugin(details)
+            .addPlugin(priorityPlugin("name"));
+    DataTable<String> table = new DataTable<>(config, new LocalListDataStore<>());
+    table.setData(new ArrayList<>(Collections.singletonList("Ada")));
+    HTMLElement detailsControl = detailsControl(table.getRows().get(0));
+
+    detailsControl.click();
+
+    assertEquals("true", detailsControl.getAttribute("aria-expanded"));
+    assertEquals(1, detailsRowCount(table));
+    assertEquals("", details.getDetailsElement().element().textContent);
+  }
+
+  public void testPluginReceivesReplacementAndAppendLifecycleNotifications() {
+    List<Boolean> appendNotifications = new ArrayList<>();
+    DataTablePlugin<String> lifecyclePlugin =
+        new DataTablePlugin<String>() {
+          @Override
+          public void onBeforeDataChange(DataTable<String> dataTable, boolean append) {
+            appendNotifications.add(append);
+          }
+        };
+    DataTable<String> table =
+        new DataTable<>(
+            new TableConfig<String>()
+                .addColumn(ColumnConfig.<String>create("name", "Name"))
+                .addPlugin(lifecyclePlugin),
+            new LocalListDataStore<>());
+
+    table.setData(new ArrayList<>(Collections.singletonList("Ada")));
+    table.appendData(Collections.singletonList("Grace"));
+
+    assertEquals(Arrays.asList(false, true), appendNotifications);
   }
 
   public void testInitialMatchAndBothBreakpointTransitionsToggleTheResponsiveClass() {
@@ -312,8 +755,74 @@ public class ResponsiveDataTablePluginTest extends GWTTestCase {
     assertFalse(table.element().classList.contains("dui-datatable-responsive-stacked"));
   }
 
+  public void testRemovingPriorityDetailsTableRemovesItsResponsiveClass() {
+    FakeBreakpointObserver observer = new FakeBreakpointObserver(true);
+    TableConfig<String> config =
+        new TableConfig<String>()
+            .addColumn(ColumnConfig.<String>create("name", "Name"))
+            .addPlugin(detailsPlugin())
+            .addPlugin(
+                new ResponsiveDataTablePlugin<String>(observer)
+                    .setMode(ResponsiveDataTablePlugin.Mode.PRIORITY_DETAILS)
+                    .setPriorityColumns("name"));
+    DataTable<String> table = new DataTable<>(config, new LocalListDataStore<>());
+
+    table.remove();
+    observer.emit(false);
+
+    assertTrue(observer.removed);
+    assertFalse(table.element().classList.contains("dui-datatable-responsive-priority-details"));
+  }
+
   private void assertCellLabel(TableRow<String> row, String column, String label) {
     assertEquals(label, row.getCell(column).element().getAttribute("data-label"));
+  }
+
+  private ResponsiveDataTablePlugin<String> priorityPlugin(String... columns) {
+    return new ResponsiveDataTablePlugin<String>(new FakeBreakpointObserver(false))
+        .setMode(ResponsiveDataTablePlugin.Mode.PRIORITY_DETAILS)
+        .setPriorityColumns(columns);
+  }
+
+  private RecordDetailsPlugin<String> detailsPlugin() {
+    return new RecordDetailsPlugin<>(
+        (org.dominokit.domino.ui.datatable.plugins.row.RecordDetailsRenderer<String>)
+            cell -> cell.appendChild("Record details"));
+  }
+
+  private RecordDetailsPlugin<String> detailsPlugin(List<String> renderedRecords) {
+    return new RecordDetailsPlugin<>(
+        (org.dominokit.domino.ui.datatable.plugins.row.RecordDetailsRenderer<String>)
+            cell -> {
+              renderedRecords.add(cell.getRecord());
+              cell.appendChild("Details: " + cell.getRecord());
+            });
+  }
+
+  private HTMLElement detailsControl(TableRow<String> row) {
+    return (HTMLElement)
+        row.getCell("plugin-utility-column").element().querySelector("[role='button']");
+  }
+
+  private int detailsRowCount(DataTable<String> table) {
+    return table.bodyElement().element().querySelectorAll(".dui-datatable-details-tr").length;
+  }
+
+  private TableConfig<String> validDetailsConfig() {
+    return new TableConfig<String>()
+        .addColumn(ColumnConfig.<String>create("name", "Name"))
+        .addPlugin(detailsPlugin());
+  }
+
+  private void assertInvalidConfiguration(TableConfig<String> config, String expectedMessage) {
+    try {
+      new DataTable<>(config, new LocalListDataStore<>());
+      fail("Expected invalid priority/details configuration containing: " + expectedMessage);
+    } catch (IllegalArgumentException e) {
+      assertTrue(
+          "Unexpected validation message: " + e.getMessage(),
+          e.getMessage().contains(expectedMessage));
+    }
   }
 
   @SafeVarargs

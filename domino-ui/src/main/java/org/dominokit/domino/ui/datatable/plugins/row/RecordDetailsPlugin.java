@@ -195,6 +195,15 @@ public class RecordDetailsPlugin<T> implements DataTablePlugin<T> {
     this.dataTable = dataTable;
   }
 
+  @Override
+  public void onBeforeDataChange(DataTable<T> dataTable, boolean append) {
+    if (!append && nonNull(expandedRow)) {
+      DetailsButtonElement<T> previousExpandedRow = expandedRow;
+      expandedRow = null;
+      previousExpandedRow.collapse();
+    }
+  }
+
   /**
    * Handles table events, specifically handling the expand/collapse events.
    *

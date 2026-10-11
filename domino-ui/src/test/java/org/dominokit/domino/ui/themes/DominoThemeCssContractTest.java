@@ -122,6 +122,37 @@ public class DominoThemeCssContractTest {
   }
 
   @Test
+  public void responsivePriorityDetailsHidesOnlySecondaryCellsAndPreservesDetailsRows()
+      throws IOException {
+    String datatableCss =
+        readResource(
+            "org/dominokit/domino/ui/public/css/domino-ui/dui-components/domino-ui-datatable.css");
+
+    assertTrue(datatableCss.contains(".dui-datatable-responsive-priority-details"));
+    assertTrue(datatableCss.contains(".dui-datatable-responsive-secondary-cell"));
+    assertTrue(datatableCss.contains(".dui-datatable-responsive-priority-cell"));
+    assertTrue(datatableCss.contains(".dui-datatable-responsive-utility-cell"));
+    assertTrue(
+        datatableCss.contains(
+            ".dui-datatable-responsive-priority-details > .dui-datatable > tbody > .dui-datatable-row:not(.dui-datatable-details-tr)"));
+    assertTrue(
+        datatableCss.contains(
+            ".dui-datatable-responsive-priority-details > .dui-datatable > tbody > .dui-datatable-row:not(.dui-datatable-details-tr) > .dui-datatable-responsive-secondary-cell"));
+    assertTrue(
+        datatableCss.contains(
+            ".dui-datatable-responsive-priority-details > .dui-datatable > tbody > .dui-datatable-row:not(.dui-datatable-details-tr) > .dui-datatable-responsive-priority-cell.dui-hidden,\n"
+                + ".dui-datatable-responsive-priority-details > .dui-datatable > tbody > .dui-datatable-row:not(.dui-datatable-details-tr) > .dui-datatable-responsive-utility-cell.dui-hidden {\n"
+                + "    display: none;"));
+    assertTrue(
+        datatableCss.contains(
+            ".dui-datatable-responsive-priority-details > .dui-datatable > .dui-datatable-thead"));
+    assertTrue(
+        datatableCss.contains(
+            ".dui-datatable-responsive-priority-details > .dui-datatable > tbody > .dui-datatable-details-tr"));
+    assertTrue(datatableCss.contains(".dui-datatable-responsive-stacked > .dui-datatable > tbody"));
+  }
+
+  @Test
   public void auroraCharacterThemeUsesScopedSemanticGradients() throws IOException {
     String aurora =
         readResource(

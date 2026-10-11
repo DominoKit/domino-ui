@@ -117,6 +117,15 @@ public interface DataTablePlugin<T>
   default void onAllRowsAdded(DataTable<T> dataTable) {}
 
   /**
+   * Called before the DataTable replaces its records or appends records.
+   *
+   * @param dataTable the DataTable whose records are about to change
+   * @param append true when records will be appended, false when the current records will be
+   *     replaced
+   */
+  default void onBeforeDataChange(DataTable<T> dataTable, boolean append) {}
+
+  /**
    * Called after adding the DataTable to the container. Useful for custom post-initialization.
    *
    * @param dataTable The DataTable instance.
