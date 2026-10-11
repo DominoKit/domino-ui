@@ -149,6 +149,15 @@ public class DominoThemeCssContractTest {
     assertTrue(
         datatableCss.contains(
             ".dui-datatable-responsive-priority-details > .dui-datatable > tbody > .dui-datatable-details-tr"));
+    assertTrue(
+        "Priority cells should use an equal flex basis so each configured column aligns across rows.",
+        datatableCss.contains(
+            "> .dui-datatable-responsive-priority-cell {\n    display: flex;\n    align-items: center;\n    flex: 1 1 0;"));
+    assertTrue(datatableCss.contains(".dui-datatable-responsive-details-tr"));
+    assertTrue(datatableCss.contains(".dui-datatable-responsive-details-td"));
+    assertTrue(
+        datatableCss.contains(
+            ".dui-datatable-responsive-details-td {\n    width: 100%;\n    max-width: none;"));
     assertTrue(datatableCss.contains(".dui-datatable-responsive-stacked > .dui-datatable > tbody"));
   }
 

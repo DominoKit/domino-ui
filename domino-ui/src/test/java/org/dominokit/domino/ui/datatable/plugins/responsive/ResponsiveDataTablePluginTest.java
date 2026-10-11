@@ -95,13 +95,149 @@ public class ResponsiveDataTablePluginTest extends GWTTestCase {
     assertNotNull(table);
   }
 
-  public void testPriorityDetailsRequiresRecordDetailsPlugin() {
+  public void testPriorityDetailsUsesBuiltInDetailsWithoutRecordDetailsPlugin() {
+    FakeBreakpointObserver observer = new FakeBreakpointObserver(false);
+    ColumnConfig<String> name = ColumnConfig.<String>create("name", "Full name");
+    ColumnConfig<String> email =
+        ColumnConfig.<String>create("email", "Email address")
+            .setRenderer(
+                cell -> {
+                  HTMLInputElement input =
+                      (HTMLInputElement) DomGlobal.document.createElement("input");
+                  input.value = cell.getRecord();
+                  cell.element().appendChild(input);
+                });
+    TableConfig<String> config =
+        new TableConfig<String>()
+            .addColumn(name)
+            .addColumn(email)
+            .addPlugin(
+                new ResponsiveDataTablePlugin<String>(observer)
+                    .setMode(ResponsiveDataTablePlugin.Mode.PRIORITY_DETAILS)
+                    .setPriorityColumns("name"));
+    DataTable<String> table = new DataTable<>(config, new LocalListDataStore<>());
+    table.setData(Arrays.asList("Ada", "Grace"));
+
+    assertEquals(0, builtInDetailsRowCount(table));
+    assertNotNull(table.getRows().get(0).getCell("email"));
+    HTMLElement originalInput =
+        (HTMLElement) table.getRows().get(0).getCell("email").element().firstChild;
+
+    observer.emit(true);
+
+    assertEquals(2, builtInDetailsRowCount(table));
+    HTMLElement firstDetailsRow = builtInDetailsRow(table, 0);
+    assertTrue(firstDetailsRow.textContent.contains("Email address"));
+    assertEquals("DT", firstDetailsRow.querySelector("dt").tagName);
+    assertEquals("DD", firstDetailsRow.querySelector("dd").tagName);
+    HTMLInputElement movedInput = (HTMLInputElement) firstDetailsRow.querySelector("input");
+    assertEquals("Ada", movedInput.value);
+    assertSame(originalInput, movedInput);
+    assertTrue(
+        table
+            .getRows()
+            .get(0)
+            .getCell("email")
+            .element()
+            .classList
+            .contains("dui-datatable-responsive-secondary-cell"));
+
+    observer.emit(false);
+
+    assertEquals(0, builtInDetailsRowCount(table));
+    assertSame(originalInput, table.getRows().get(0).getCell("email").element().firstChild);
+  }
+
+  public void testPriorityDetailsAllowsCustomBuiltInDetailsRenderer() {
+    FakeBreakpointObserver observer = new FakeBreakpointObserver(false);
+    ResponsiveDataTablePlugin<String> responsive =
+        new ResponsiveDataTablePlugin<String>(observer)
+            .setMode(ResponsiveDataTablePlugin.Mode.PRIORITY_DETAILS)
+            .setPriorityColumns("name")
+            .setDetailsRenderer(cell -> cell.appendChild("Custom details: " + cell.getRecord()));
     TableConfig<String> config =
         new TableConfig<String>()
             .addColumn(ColumnConfig.<String>create("name", "Name"))
-            .addPlugin(priorityPlugin("name"));
+            .addColumn(
+                ColumnConfig.<String>create("email", "Email")
+                    .setRenderer(cell -> cell.appendChild(cell.getRecord())))
+            .addPlugin(responsive);
+    DataTable<String> table = new DataTable<>(config, new LocalListDataStore<>());
+    table.setData(Arrays.asList("Ada", "Grace"));
 
-    assertInvalidConfiguration(config, "RecordDetailsPlugin");
+    observer.emit(true);
+
+    assertEquals(2, builtInDetailsRowCount(table));
+    assertTrue(builtInDetailsRow(table, 0).textContent.contains("Custom details: Ada"));
+    assertTrue(builtInDetailsRow(table, 1).textContent.contains("Custom details: Grace"));
+  }
+
+  public void testPriorityDetailsCanDisableBuiltInDetailsRenderer() {
+    FakeBreakpointObserver observer = new FakeBreakpointObserver(false);
+    TableConfig<String> config =
+        new TableConfig<String>()
+            .addColumn(ColumnConfig.<String>create("name", "Name"))
+            .addColumn(
+                ColumnConfig.<String>create("email", "Email")
+                    .setRenderer(cell -> cell.appendChild(cell.getRecord())))
+            .addPlugin(
+                new ResponsiveDataTablePlugin<String>(observer)
+                    .setMode(ResponsiveDataTablePlugin.Mode.PRIORITY_DETAILS)
+                    .setPriorityColumns("name")
+                    .setBuiltInDetailsEnabled(false));
+    DataTable<String> table = new DataTable<>(config, new LocalListDataStore<>());
+    table.setData(Collections.singletonList("Ada"));
+
+    observer.emit(true);
+
+    assertEquals(0, builtInDetailsRowCount(table));
+    assertTrue(table.element().classList.contains("dui-datatable-responsive-priority-no-details"));
+  }
+
+  public void testBuiltInDetailsFollowRowsAppendedWhileTheBreakpointIsActive() {
+    FakeBreakpointObserver observer = new FakeBreakpointObserver(false);
+    TableConfig<String> config =
+        new TableConfig<String>()
+            .addColumn(ColumnConfig.<String>create("name", "Name"))
+            .addColumn(
+                ColumnConfig.<String>create("email", "Email")
+                    .setRenderer(cell -> cell.appendChild(cell.getRecord())))
+            .addPlugin(
+                new ResponsiveDataTablePlugin<String>(observer)
+                    .setMode(ResponsiveDataTablePlugin.Mode.PRIORITY_DETAILS)
+                    .setPriorityColumns("name"));
+    DataTable<String> table = new DataTable<>(config, new LocalListDataStore<>());
+    table.setData(new ArrayList<>(Collections.singletonList("Ada")));
+    observer.emit(true);
+
+    table.appendData(Collections.singletonList("Grace"));
+
+    assertEquals(2, builtInDetailsRowCount(table));
+    assertTrue(builtInDetailsRow(table, 0).textContent.contains("Ada"));
+    assertTrue(builtInDetailsRow(table, 1).textContent.contains("Grace"));
+  }
+
+  public void testRecordDetailsPluginTakesOverFromBuiltInDetails() {
+    FakeBreakpointObserver observer = new FakeBreakpointObserver(false);
+    RecordDetailsPlugin<String> details = detailsPlugin();
+    TableConfig<String> config =
+        new TableConfig<String>()
+            .addColumn(ColumnConfig.<String>create("name", "Name"))
+            .addColumn(ColumnConfig.<String>create("email", "Email"))
+            .addPlugin(details)
+            .addPlugin(
+                new ResponsiveDataTablePlugin<String>(observer)
+                    .setMode(ResponsiveDataTablePlugin.Mode.PRIORITY_DETAILS)
+                    .setPriorityColumns("name"));
+    DataTable<String> table = new DataTable<>(config, new LocalListDataStore<>());
+    table.setData(Collections.singletonList("Ada"));
+
+    observer.emit(true);
+
+    assertEquals(0, builtInDetailsRowCount(table));
+    detailsControl(table.getRows().get(0)).click();
+    assertEquals(1, detailsRowCount(table));
+    assertTrue(details.getTd().element().textContent.contains("Record details"));
   }
 
   public void testPriorityDetailsRequiresAtLeastOnePriorityColumn() {
@@ -806,6 +942,23 @@ public class ResponsiveDataTablePluginTest extends GWTTestCase {
 
   private int detailsRowCount(DataTable<String> table) {
     return table.bodyElement().element().querySelectorAll(".dui-datatable-details-tr").length;
+  }
+
+  private int builtInDetailsRowCount(DataTable<String> table) {
+    return table
+        .bodyElement()
+        .element()
+        .querySelectorAll(".dui-datatable-responsive-details-tr")
+        .length;
+  }
+
+  private HTMLElement builtInDetailsRow(DataTable<String> table, int index) {
+    return (HTMLElement)
+        table
+            .bodyElement()
+            .element()
+            .querySelectorAll(".dui-datatable-responsive-details-tr")
+            .item(index);
   }
 
   private TableConfig<String> validDetailsConfig() {

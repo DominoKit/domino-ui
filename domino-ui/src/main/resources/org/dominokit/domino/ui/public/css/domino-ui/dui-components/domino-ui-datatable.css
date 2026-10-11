@@ -436,10 +436,14 @@
     display: none !important;
 }
 
+.dui-datatable-responsive-priority-details.dui-datatable-responsive-priority-no-details > .dui-datatable > tbody > .dui-datatable-row:not(.dui-datatable-details-tr) > .dui-datatable-responsive-secondary-cell {
+    display: flex !important;
+}
+
 .dui-datatable-responsive-priority-details > .dui-datatable > tbody > .dui-datatable-row:not(.dui-datatable-details-tr) > .dui-datatable-responsive-priority-cell {
     display: flex;
     align-items: center;
-    flex: 1 1 auto;
+    flex: 1 1 0;
     gap: var(--dui-spc-2);
     min-width: 0;
     box-sizing: border-box;
@@ -474,4 +478,40 @@
     display: block;
     width: 100%;
     box-sizing: border-box;
+}
+
+.dui-datatable-responsive-priority-details > .dui-datatable > tbody > .dui-datatable-responsive-details-tr > .dui-datatable-responsive-details-td {
+    width: 100%;
+    max-width: none;
+    box-sizing: border-box;
+}
+
+.dui-datatable-responsive-details-content {
+    width: 100%;
+}
+
+.dui-datatable-responsive-details-list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--dui-spc-3);
+    width: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+.dui-datatable-responsive-details-item {
+    display: flex;
+    flex-direction: column;
+    gap: var(--dui-spc-1);
+    width: 100%;
+}
+
+.dui-datatable-responsive-details-label {
+    font-weight: 600;
+}
+
+.dui-datatable-responsive-details-value {
+    min-width: 0;
+    margin: 0;
+    overflow-wrap: anywhere;
 }

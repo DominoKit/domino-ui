@@ -33,6 +33,16 @@ public interface DataTableStyles {
 
   CssClass dui_datatable_responsive_secondary_cell =
       () -> "dui-datatable-responsive-secondary-cell";
+  CssClass dui_datatable_responsive_details_tr = () -> "dui-datatable-responsive-details-tr";
+  CssClass dui_datatable_responsive_details_td = () -> "dui-datatable-responsive-details-td";
+  CssClass dui_datatable_responsive_details_content =
+      () -> "dui-datatable-responsive-details-content";
+  CssClass dui_datatable_responsive_details_list = () -> "dui-datatable-responsive-details-list";
+  CssClass dui_datatable_responsive_details_item = () -> "dui-datatable-responsive-details-item";
+  CssClass dui_datatable_responsive_details_label = () -> "dui-datatable-responsive-details-label";
+  CssClass dui_datatable_responsive_details_value = () -> "dui-datatable-responsive-details-value";
+  CssClass dui_datatable_responsive_priority_no_details =
+      () -> "dui-datatable-responsive-priority-no-details";
 
   CssClass dui_datatable_responsive_utility_cell = () -> "dui-datatable-responsive-utility-cell";
 
