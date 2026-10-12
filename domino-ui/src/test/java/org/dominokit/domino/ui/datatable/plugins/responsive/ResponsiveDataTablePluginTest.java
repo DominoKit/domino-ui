@@ -19,11 +19,15 @@ import com.google.gwt.junit.client.GWTTestCase;
 import elemental2.dom.DomGlobal;
 import elemental2.dom.HTMLElement;
 import elemental2.dom.HTMLInputElement;
+import elemental2.dom.Node;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 import java.util.function.Consumer;
 import jsinterop.annotations.JsFunction;
 import jsinterop.base.Js;
@@ -78,6 +82,34 @@ public class ResponsiveDataTablePluginTest extends GWTTestCase {
     assertSame(plugin, plugin.setMode(ResponsiveDataTablePlugin.Mode.PRIORITY_DETAILS));
     assertSame(plugin, plugin.setPriorityColumns("name", "status"));
     assertEquals(ResponsiveDataTablePlugin.Mode.PRIORITY_DETAILS, plugin.getMode());
+  }
+
+  public void testProgressiveColumnCollapseFollowsLogicalColumnOrderForBothDirections() {
+    List<String> secondaryColumns = Arrays.asList("email", "phone", "company");
+    Map<String, Double> widths = new HashMap<>();
+    widths.put("email", 220.0);
+    widths.put("phone", 120.0);
+    widths.put("company", 180.0);
+
+    // Leaf-column order is direction-neutral. CSS direction makes the last logical column the
+    // visual trailing column: rightmost in LTR and leftmost in RTL.
+    Set<String> collapsed = ResponsiveColumnCollapse.determine(secondaryColumns, widths, 300, 660);
+
+    assertEquals(Collections.singleton("company"), collapsed);
+  }
+
+  public void testProgressiveColumnCollapseKeepsColumnsUntilTheyNoLongerFit() {
+    List<String> secondaryColumns = Arrays.asList("email", "phone", "company");
+    Map<String, Double> widths = new HashMap<>();
+    widths.put("email", 220.0);
+    widths.put("phone", 120.0);
+    widths.put("company", 180.0);
+
+    Set<String> fits = ResponsiveColumnCollapse.determine(secondaryColumns, widths, 300, 840);
+    Set<String> tooNarrow = ResponsiveColumnCollapse.determine(secondaryColumns, widths, 300, 500);
+
+    assertTrue(fits.isEmpty());
+    assertEquals(new java.util.LinkedHashSet<>(secondaryColumns), tooNarrow);
   }
 
   public void testPriorityDetailsAcceptsVisibleLeafColumnsAndRecordDetailsPlugin() {
@@ -146,6 +178,92 @@ public class ResponsiveDataTablePluginTest extends GWTTestCase {
 
     assertEquals(0, builtInDetailsRowCount(table));
     assertSame(originalInput, table.getRows().get(0).getCell("email").element().firstChild);
+  }
+
+  public void testPriorityDetailsCollapseAndRestoreSecondaryColumnsAsWidthChanges() {
+    FakeBreakpointObserver breakpointObserver = new FakeBreakpointObserver(false);
+    FakeResponsiveWidthObserver widthObserver = new FakeResponsiveWidthObserver(2000);
+    TableConfig<String> config =
+        new TableConfig<String>()
+            .addColumn(ColumnConfig.<String>create("name", "Name"))
+            .addColumn(
+                ColumnConfig.<String>create("email", "Email")
+                    .setRenderer(cell -> cell.setTextContent("email-" + cell.getRecord())))
+            .addColumn(
+                ColumnConfig.<String>create("phone", "Phone")
+                    .setRenderer(cell -> cell.setTextContent("phone-" + cell.getRecord())))
+            .addPlugin(
+                new ResponsiveDataTablePlugin<String>(breakpointObserver, widthObserver)
+                    .setMode(ResponsiveDataTablePlugin.Mode.PRIORITY_DETAILS)
+                    .setPriorityColumns("name"));
+    DataTable<String> table = new DataTable<>(config, new LocalListDataStore<>());
+    table.setData(Collections.singletonList("Ada"));
+    TableRow<String> row = table.getRows().get(0);
+    Node originalPhoneValue = row.getCell("phone").element().firstChild;
+
+    breakpointObserver.emit(true);
+    assertEquals(0, builtInDetailsRowCount(table));
+    assertTrue(
+        row.getCell("email")
+            .element()
+            .classList
+            .contains("dui-datatable-responsive-secondary-visible"));
+
+    widthObserver.emit(0);
+    assertEquals(1, builtInDetailsRowCount(table));
+    assertTrue(builtInDetailsRow(table, 0).textContent.contains("Email"));
+    assertTrue(builtInDetailsRow(table, 0).textContent.contains("Phone"));
+    assertTrue(row.element().classList.contains("dui-datatable-responsive-row-with-details"));
+    String stripeClass = row.element().classList.contains("dui-even") ? "dui-even" : "dui-odd";
+    assertTrue(builtInDetailsRow(table, 0).classList.contains(stripeClass));
+
+    widthObserver.emit(2000);
+    assertEquals(0, builtInDetailsRowCount(table));
+    assertSame(originalPhoneValue, row.getCell("phone").element().firstChild);
+    assertFalse(row.element().classList.contains("dui-datatable-responsive-row-with-details"));
+  }
+
+  public void testNarrowTableContainerProgressivelyMovesColumnsWithoutViewportBreakpoint() {
+    FakeBreakpointObserver breakpointObserver = new FakeBreakpointObserver(false);
+    FakeResponsiveWidthObserver widthObserver = new FakeResponsiveWidthObserver(2000);
+    TableConfig<String> config =
+        new TableConfig<String>()
+            .addColumn(ColumnConfig.<String>create("name", "Name"))
+            .addColumn(
+                ColumnConfig.<String>create("email", "Email")
+                    .setRenderer(cell -> cell.setTextContent("email")))
+            .addColumn(
+                ColumnConfig.<String>create("phone", "Phone")
+                    .setRenderer(cell -> cell.setTextContent("phone")))
+            .addColumn(
+                ColumnConfig.<String>create("company", "Company")
+                    .setRenderer(cell -> cell.setTextContent("company")))
+            .addPlugin(
+                new ResponsiveDataTablePlugin<String>(breakpointObserver, widthObserver)
+                    .setMode(ResponsiveDataTablePlugin.Mode.PRIORITY_DETAILS)
+                    .setPriorityColumns("name"));
+    DataTable<String> table = new DataTable<>(config, new LocalListDataStore<>());
+    table.setData(Collections.singletonList("Ada"));
+    TableRow<String> row = table.getRows().get(0);
+
+    widthObserver.emit(450);
+    assertNotNull(breakpointObserver.listener);
+    assertTrue(table.element().classList.contains("dui-datatable-responsive-priority-details"));
+    assertEquals(1, builtInDetailsRowCount(table));
+    assertTrue(builtInDetailsRow(table, 0).textContent.contains("Company"));
+    assertFalse(builtInDetailsRow(table, 0).textContent.contains("Phone"));
+
+    widthObserver.emit(300);
+    assertTrue(builtInDetailsRow(table, 0).textContent.contains("Phone"));
+    assertFalse(builtInDetailsRow(table, 0).textContent.contains("Email"));
+
+    widthObserver.emit(150);
+    assertTrue(builtInDetailsRow(table, 0).textContent.contains("Email"));
+    assertTrue(row.element().classList.contains("dui-datatable-responsive-row-with-details"));
+
+    widthObserver.emit(700);
+    assertEquals(0, builtInDetailsRowCount(table));
+    assertFalse(table.element().classList.contains("dui-datatable-responsive-priority-details"));
   }
 
   public void testPriorityDetailsAllowsCustomBuiltInDetailsRenderer() {
@@ -893,12 +1011,13 @@ public class ResponsiveDataTablePluginTest extends GWTTestCase {
 
   public void testRemovingPriorityDetailsTableRemovesItsResponsiveClass() {
     FakeBreakpointObserver observer = new FakeBreakpointObserver(true);
+    FakeResponsiveWidthObserver widthObserver = new FakeResponsiveWidthObserver(500);
     TableConfig<String> config =
         new TableConfig<String>()
             .addColumn(ColumnConfig.<String>create("name", "Name"))
             .addPlugin(detailsPlugin())
             .addPlugin(
-                new ResponsiveDataTablePlugin<String>(observer)
+                new ResponsiveDataTablePlugin<String>(observer, widthObserver)
                     .setMode(ResponsiveDataTablePlugin.Mode.PRIORITY_DETAILS)
                     .setPriorityColumns("name"));
     DataTable<String> table = new DataTable<>(config, new LocalListDataStore<>());
@@ -907,6 +1026,7 @@ public class ResponsiveDataTablePluginTest extends GWTTestCase {
     observer.emit(false);
 
     assertTrue(observer.removed);
+    assertTrue(widthObserver.removed);
     assertFalse(table.element().classList.contains("dui-datatable-responsive-priority-details"));
   }
 
@@ -1009,6 +1129,27 @@ public class ResponsiveDataTablePluginTest extends GWTTestCase {
 
     private void emit(boolean matches) {
       listener.accept(matches);
+    }
+  }
+
+  private static class FakeResponsiveWidthObserver implements ResponsiveWidthObserver {
+    private final double initialWidth;
+    private Consumer<Double> listener;
+    private boolean removed;
+
+    private FakeResponsiveWidthObserver(double initialWidth) {
+      this.initialWidth = initialWidth;
+    }
+
+    @Override
+    public Registration observe(elemental2.dom.Element element, Consumer<Double> onResize) {
+      listener = onResize;
+      onResize.accept(initialWidth);
+      return () -> removed = true;
+    }
+
+    private void emit(double width) {
+      listener.accept(width);
     }
   }
 

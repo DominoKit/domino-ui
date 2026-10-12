@@ -157,7 +157,17 @@ public class DominoThemeCssContractTest {
     assertTrue(datatableCss.contains(".dui-datatable-responsive-details-td"));
     assertTrue(
         datatableCss.contains(
-            ".dui-datatable-responsive-details-td {\n    width: 100%;\n    max-width: none;"));
+            ".dui-datatable-responsive-details-td {\n    display: block;\n    width: 100%;\n    max-width: none;"));
+    assertTrue(datatableCss.contains("grid-template-columns: repeat(4, minmax(0, 1fr));"));
+    assertTrue(datatableCss.contains("@container (max-width: 900px)"));
+    assertTrue(datatableCss.contains("grid-template-columns: repeat(3, minmax(0, 1fr));"));
+    assertTrue(datatableCss.contains("@container (max-width: 600px)"));
+    assertTrue(datatableCss.contains("grid-template-columns: repeat(2, minmax(0, 1fr));"));
+    assertTrue(datatableCss.contains("@container (max-width: 360px)"));
+    assertTrue(datatableCss.contains("grid-template-columns: minmax(0, 1fr);"));
+    assertTrue(datatableCss.contains("--dui-datatable-responsive-details-padding"));
+    assertTrue(datatableCss.contains(".dui-datatable-responsive-details-tr.dui-even"));
+    assertTrue(datatableCss.contains(".dui-datatable-responsive-row-with-details"));
     assertTrue(datatableCss.contains(".dui-datatable-responsive-stacked > .dui-datatable > tbody"));
   }
 

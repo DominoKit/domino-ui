@@ -432,8 +432,16 @@
     margin-block-end: var(--dui-spc-2);
 }
 
+.dui-datatable-responsive-priority-details > .dui-datatable > tbody > .dui-datatable-row.dui-datatable-responsive-row-with-details {
+    margin-block-end: 0;
+}
+
 .dui-datatable-responsive-priority-details > .dui-datatable > tbody > .dui-datatable-row:not(.dui-datatable-details-tr) > .dui-datatable-responsive-secondary-cell {
     display: none !important;
+}
+
+.dui-datatable-responsive-priority-details > .dui-datatable > tbody > .dui-datatable-row:not(.dui-datatable-details-tr) > .dui-datatable-responsive-secondary-cell.dui-datatable-responsive-secondary-visible {
+    display: flex !important;
 }
 
 .dui-datatable-responsive-priority-details.dui-datatable-responsive-priority-no-details > .dui-datatable > tbody > .dui-datatable-row:not(.dui-datatable-details-tr) > .dui-datatable-responsive-secondary-cell {
@@ -481,29 +489,50 @@
 }
 
 .dui-datatable-responsive-priority-details > .dui-datatable > tbody > .dui-datatable-responsive-details-tr > .dui-datatable-responsive-details-td {
+    display: block;
     width: 100%;
     max-width: none;
+    padding: var(--dui-datatable-responsive-details-padding, var(--dui-spc-4));
     box-sizing: border-box;
 }
 
 .dui-datatable-responsive-details-content {
     width: 100%;
+    container-type: inline-size;
 }
 
 .dui-datatable-responsive-details-list {
-    display: flex;
-    flex-direction: column;
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
     gap: var(--dui-spc-3);
     width: 100%;
     margin: 0;
     padding: 0;
 }
 
+@container (max-width: 900px) {
+    .dui-datatable-responsive-details-list {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+}
+
+@container (max-width: 600px) {
+    .dui-datatable-responsive-details-list {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+@container (max-width: 360px) {
+    .dui-datatable-responsive-details-list {
+        grid-template-columns: minmax(0, 1fr);
+    }
+}
+
 .dui-datatable-responsive-details-item {
     display: flex;
     flex-direction: column;
     gap: var(--dui-spc-1);
-    width: 100%;
+    min-width: 0;
 }
 
 .dui-datatable-responsive-details-label {
@@ -514,4 +543,12 @@
     min-width: 0;
     margin: 0;
     overflow-wrap: anywhere;
+}
+
+.dui-datatable-responsive > .dui-datatable > tbody > .dui-datatable-row.dui-datatable-details-tr.dui-datatable-responsive-details-tr {
+    background-color: var(--dui-datatable-row-background);
+}
+
+.dui-datatable-striped > .dui-datatable > tbody > .dui-datatable-row.dui-datatable-details-tr.dui-datatable-responsive-details-tr.dui-even {
+    background-color: var(--dui-datatable-row-striped-background);
 }
