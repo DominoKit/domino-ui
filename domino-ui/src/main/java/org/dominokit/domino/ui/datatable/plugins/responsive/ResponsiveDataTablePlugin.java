@@ -34,6 +34,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.IdentityHashMap;
+import java.util.LinkedHashMap;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
@@ -44,6 +46,7 @@ import org.dominokit.domino.ui.datatable.DataTable;
 import org.dominokit.domino.ui.datatable.DataTableStyles;
 import org.dominokit.domino.ui.datatable.RowCell;
 import org.dominokit.domino.ui.datatable.TableRow;
+import org.dominokit.domino.ui.datatable.events.RowRecordUpdatedEvent;
 import org.dominokit.domino.ui.datatable.plugins.DataTablePlugin;
 import org.dominokit.domino.ui.datatable.plugins.row.RecordDetailsCell;
 import org.dominokit.domino.ui.datatable.plugins.row.RecordDetailsCellInfo;
@@ -51,14 +54,16 @@ import org.dominokit.domino.ui.datatable.plugins.row.RecordDetailsPlugin;
 import org.dominokit.domino.ui.datatable.plugins.row.RecordDetailsRenderer;
 import org.dominokit.domino.ui.elements.DivElement;
 import org.dominokit.domino.ui.elements.TableRowElement;
+import org.dominokit.domino.ui.utils.DominoEventListener;
+import org.dominokit.domino.ui.utils.ResizeObserver;
 
 /**
  * Enables an opt-in responsive presentation for a data table below a viewport breakpoint.
  *
  * <p>The default {@link Mode#STACKED} mode presents each cell as a labeled row. The opt-in {@link
- * Mode#PRIORITY_DETAILS} mode keeps named priority columns visible and displays the remaining
- * record content in responsive details. A {@link RecordDetailsPlugin}, when configured, takes over
- * details rendering; otherwise the plugin renders a built-in key/value view.
+ * Mode#PRIORITY_DETAILS} mode keeps named priority columns visible and progressively moves other
+ * columns into responsive details as the table narrows. A {@link RecordDetailsPlugin}, when
+ * configured, takes over details rendering; otherwise the plugin renders a built-in key/value view.
  *
  * <pre>
  * ResponsiveDataTablePlugin&lt;Employee&gt; responsive =
@@ -86,6 +91,7 @@ public class ResponsiveDataTablePlugin<T> implements DataTablePlugin<T>, DataTab
   }
 
   private final ResponsiveBreakpointObserver breakpointObserver;
+  private final ResponsiveWidthObserver widthObserver;
   private String breakpoint = DEFAULT_BREAKPOINT;
   private Mode mode = Mode.STACKED;
   private String[] priorityColumns = new String[0];
@@ -93,15 +99,25 @@ public class ResponsiveDataTablePlugin<T> implements DataTablePlugin<T>, DataTab
   private RecordDetailsRenderer<T> detailsRenderer;
   private boolean hasRecordDetailsPlugin;
   private boolean breakpointMatches;
+  private double availableWidth;
+  private final Map<String, Double> measuredColumnWidths = new LinkedHashMap<>();
+  private final Set<String> collapsedColumns = new LinkedHashSet<>();
   private final Map<TableRow<T>, BuiltInDetails> builtInDetails = new IdentityHashMap<>();
 
   /** Creates a responsive data table plugin using the browser's media-query API. */
   public static <T> ResponsiveDataTablePlugin<T> create() {
-    return new ResponsiveDataTablePlugin<>(new BrowserResponsiveBreakpointObserver());
+    return new ResponsiveDataTablePlugin<>(
+        new BrowserResponsiveBreakpointObserver(), new BrowserResponsiveWidthObserver());
   }
 
   ResponsiveDataTablePlugin(ResponsiveBreakpointObserver breakpointObserver) {
+    this(breakpointObserver, (element, onResize) -> () -> {});
+  }
+
+  ResponsiveDataTablePlugin(
+      ResponsiveBreakpointObserver breakpointObserver, ResponsiveWidthObserver widthObserver) {
     this.breakpointObserver = Objects.requireNonNull(breakpointObserver);
+    this.widthObserver = Objects.requireNonNull(widthObserver);
   }
 
   /** Sets the maximum viewport width at which the stacked presentation is enabled. */
@@ -223,6 +239,18 @@ public class ResponsiveDataTablePlugin<T> implements DataTablePlugin<T>, DataTab
   public void onAfterAddTable(DataTable<T> dataTable) {
     String query = "(max-width: " + breakpoint + ")";
     boolean[] removed = {false};
+    ResponsiveWidthObserver.Registration widthRegistration =
+        mode == Mode.PRIORITY_DETAILS
+            ? widthObserver.observe(
+                dataTable.element(),
+                width -> {
+                  availableWidth = width;
+                  if (!removed[0]) {
+                    measureColumnWidths(dataTable);
+                    updatePriorityLayout(dataTable);
+                  }
+                })
+            : () -> {};
     ResponsiveBreakpointObserver.Registration registration =
         breakpointObserver.observe(
             query,
@@ -232,11 +260,22 @@ public class ResponsiveDataTablePlugin<T> implements DataTablePlugin<T>, DataTab
                 updateResponsiveState(dataTable, matches);
               }
             });
+    DominoEventListener recordUpdateListener =
+        event -> {
+          if (!removed[0] && mode == Mode.PRIORITY_DETAILS) {
+            measureColumnWidths(dataTable);
+            updatePriorityLayout(dataTable);
+          }
+        };
+    dataTable.addTableEventListener(RowRecordUpdatedEvent.RECORD_UPDATED, recordUpdateListener);
     dataTable.addOnBeforeRemoveListener(
         ignored -> {
           if (!removed[0]) {
             removed[0] = true;
             registration.remove();
+            widthRegistration.remove();
+            dataTable.removeTableListener(
+                RowRecordUpdatedEvent.RECORD_UPDATED, recordUpdateListener);
             dataTable.element().classList.remove(dui_datatable_responsive_stacked.getCssClass());
             dataTable
                 .element()
@@ -252,36 +291,22 @@ public class ResponsiveDataTablePlugin<T> implements DataTablePlugin<T>, DataTab
   }
 
   private void updateResponsiveState(DataTable<T> dataTable, boolean matches) {
-    String activeClass =
-        mode == Mode.PRIORITY_DETAILS
-            ? dui_datatable_responsive_priority_details.getCssClass()
-            : dui_datatable_responsive_stacked.getCssClass();
-    String inactiveClass =
-        mode == Mode.PRIORITY_DETAILS
-            ? dui_datatable_responsive_stacked.getCssClass()
-            : dui_datatable_responsive_priority_details.getCssClass();
-
-    if (matches) {
-      if (mode == Mode.PRIORITY_DETAILS) {
-        moveFocusFromSecondaryCell(dataTable);
-        renderBuiltInDetails(dataTable);
+    if (mode == Mode.PRIORITY_DETAILS) {
+      dataTable.element().classList.remove(dui_datatable_responsive_stacked.getCssClass());
+      if (matches) {
+        dataTable.element().classList.add(dui_datatable_responsive_priority_details.getCssClass());
       }
-      dataTable.element().classList.remove(inactiveClass);
-      dataTable.element().classList.add(activeClass);
-    } else {
-      if (mode == Mode.PRIORITY_DETAILS) {
-        clearBuiltInDetails();
-      }
-      dataTable.element().classList.remove(activeClass);
+      measureColumnWidths(dataTable);
+      updatePriorityLayout(dataTable);
+      return;
     }
 
-    if (mode == Mode.PRIORITY_DETAILS && shouldShowSecondaryCells()) {
-      dataTable.element().classList.add(dui_datatable_responsive_priority_no_details.getCssClass());
+    String activeClass = dui_datatable_responsive_stacked.getCssClass();
+
+    if (matches) {
+      dataTable.element().classList.add(activeClass);
     } else {
-      dataTable
-          .element()
-          .classList
-          .remove(dui_datatable_responsive_priority_no_details.getCssClass());
+      dataTable.element().classList.remove(activeClass);
     }
   }
 
@@ -291,8 +316,9 @@ public class ResponsiveDataTablePlugin<T> implements DataTablePlugin<T>, DataTab
 
   @Override
   public void onAllRowsAdded(DataTable<T> dataTable) {
-    if (mode == Mode.PRIORITY_DETAILS && breakpointMatches) {
-      renderBuiltInDetails(dataTable);
+    if (mode == Mode.PRIORITY_DETAILS) {
+      measureColumnWidths(dataTable);
+      updatePriorityLayout(dataTable);
     }
   }
 
@@ -307,13 +333,17 @@ public class ResponsiveDataTablePlugin<T> implements DataTablePlugin<T>, DataTab
     if (hasRecordDetailsPlugin || !builtInDetailsEnabled) {
       return;
     }
+    if (collapsedColumns.isEmpty()) {
+      clearBuiltInDetails();
+      return;
+    }
 
     for (TableRow<T> row : dataTable.getRows()) {
       if (!builtInDetails.containsKey(row)) {
         BuiltInDetails details = createBuiltInDetails(dataTable, row);
         builtInDetails.put(row, details);
-        dataTable.bodyElement().element().insertBefore(details.row, row.element().nextSibling);
       }
+      syncBuiltInDetails(row, builtInDetails.get(row));
     }
   }
 
@@ -322,6 +352,11 @@ public class ResponsiveDataTablePlugin<T> implements DataTablePlugin<T>, DataTab
     detailsRow.classList.add(dui_datatable_responsive_details_tr.getCssClass());
     detailsRow.classList.add(dui_datatable_row.getCssClass());
     detailsRow.classList.add(dui_datatable_details_tr.getCssClass());
+    if (sourceRow.element().classList.contains("dui-even")) {
+      detailsRow.classList.add("dui-even");
+    } else if (sourceRow.element().classList.contains("dui-odd")) {
+      detailsRow.classList.add("dui-odd");
+    }
     HTMLTableCellElement detailsCell = (HTMLTableCellElement) document.createElement("td");
     detailsCell.classList.add(dui_datatable_responsive_details_td.getCssClass());
     detailsCell.setAttribute(
@@ -346,7 +381,7 @@ public class ResponsiveDataTablePlugin<T> implements DataTablePlugin<T>, DataTab
                   detailsCell,
                   DivElement.of((elemental2.dom.HTMLDivElement) content)));
       detailsRenderer.render(detailsCellComponent);
-      return new BuiltInDetails(detailsRow, new ArrayList<>());
+      return new BuiltInDetails(detailsRow, new ArrayList<>(), null, true);
     }
 
     HTMLElement definitionList = (HTMLElement) document.createElement("dl");
@@ -369,14 +404,168 @@ public class ResponsiveDataTablePlugin<T> implements DataTablePlugin<T>, DataTab
       label.textContent = getColumnLabel(column);
       HTMLElement value = (HTMLElement) document.createElement("dd");
       value.classList.add(dui_datatable_responsive_details_value.getCssClass());
-      List<Node> nodes = takeChildren(sourceCell.element());
-      nodes.forEach(value::appendChild);
       item.appendChild(label);
       item.appendChild(value);
-      definitionList.appendChild(item);
-      movedContent.add(new MovedCellContent(sourceCell.element(), nodes));
+      movedContent.add(new MovedCellContent(column.getName(), sourceCell.element(), item, value));
     }
-    return new BuiltInDetails(detailsRow, movedContent);
+    return new BuiltInDetails(detailsRow, movedContent, definitionList, false);
+  }
+
+  private void syncBuiltInDetails(TableRow<T> sourceRow, BuiltInDetails details) {
+    if (details == null) {
+      return;
+    }
+
+    if (!details.customRenderer) {
+      for (MovedCellContent moved : details.movedContent) {
+        boolean shouldMove = collapsedColumns.contains(moved.columnName);
+        if (shouldMove && !moved.attached) {
+          moved.nodes.addAll(takeChildren(moved.originalCell));
+          moved.nodes.forEach(moved.value::appendChild);
+          details.definitionList.appendChild(moved.item);
+          moved.attached = true;
+        } else if (!shouldMove && moved.attached) {
+          moved.nodes.forEach(moved.originalCell::appendChild);
+          moved.nodes.clear();
+          moved.item.parentNode.removeChild(moved.item);
+          moved.attached = false;
+        }
+      }
+    }
+
+    boolean hasDetails = !collapsedColumns.isEmpty();
+    if (hasDetails) {
+      sourceRow.element().classList.add(dui_datatable_responsive_row_with_details.getCssClass());
+      if (details.row.parentNode == null) {
+        sourceRow.element().parentNode.insertBefore(details.row, sourceRow.element().nextSibling);
+      }
+    } else {
+      sourceRow.element().classList.remove(dui_datatable_responsive_row_with_details.getCssClass());
+      if (details.row.parentNode != null) {
+        details.row.parentNode.removeChild(details.row);
+      }
+    }
+  }
+
+  private void updatePriorityLayout(DataTable<T> dataTable) {
+    List<String> secondaryColumns = new ArrayList<>();
+    double fixedColumnsWidth = 0;
+    for (ColumnConfig<T> column : dataTable.getTableConfig().getLeafColumns()) {
+      if (isHidden(column)) {
+        continue;
+      }
+      double width = measuredColumnWidths.getOrDefault(column.getName(), 132.0);
+      if (isSecondaryColumn(column)) {
+        secondaryColumns.add(column.getName());
+      } else {
+        fixedColumnsWidth += width;
+      }
+    }
+    double allColumnsWidth = fixedColumnsWidth;
+    for (String columnName : secondaryColumns) {
+      allColumnsWidth += measuredColumnWidths.getOrDefault(columnName, 132.0);
+    }
+    boolean responsiveLayoutActive =
+        breakpointMatches || (availableWidth > 0 && allColumnsWidth > availableWidth);
+
+    if (!responsiveLayoutActive) {
+      dataTable.element().classList.remove(dui_datatable_responsive_priority_details.getCssClass());
+      collapsedColumns.clear();
+      clearBuiltInDetails();
+      for (TableRow<T> row : dataTable.getRows()) {
+        for (ColumnConfig<T> column : dataTable.getTableConfig().getLeafColumns()) {
+          RowCell<T> cell = row.getCell(column.getName());
+          if (cell != null) {
+            cell.element()
+                .classList
+                .remove(dui_datatable_responsive_secondary_visible.getCssClass());
+          }
+        }
+      }
+      dataTable
+          .element()
+          .classList
+          .remove(dui_datatable_responsive_priority_no_details.getCssClass());
+      return;
+    }
+
+    dataTable.element().classList.add(dui_datatable_responsive_priority_details.getCssClass());
+    collapsedColumns.clear();
+    if (!shouldShowSecondaryCells()) {
+      collapsedColumns.addAll(
+          ResponsiveColumnCollapse.determine(
+              secondaryColumns, measuredColumnWidths, fixedColumnsWidth, availableWidth));
+    }
+
+    if (!collapsedColumns.isEmpty()) {
+      moveFocusFromSecondaryCell(dataTable);
+    }
+
+    for (TableRow<T> row : dataTable.getRows()) {
+      for (String columnName : secondaryColumns) {
+        RowCell<T> cell = row.getCell(columnName);
+        if (cell != null) {
+          if (collapsedColumns.contains(columnName)) {
+            cell.element()
+                .classList
+                .remove(dui_datatable_responsive_secondary_visible.getCssClass());
+          } else {
+            cell.element().classList.add(dui_datatable_responsive_secondary_visible.getCssClass());
+          }
+        }
+      }
+    }
+
+    if (shouldShowSecondaryCells()) {
+      dataTable.element().classList.add(dui_datatable_responsive_priority_no_details.getCssClass());
+    } else {
+      dataTable
+          .element()
+          .classList
+          .remove(dui_datatable_responsive_priority_no_details.getCssClass());
+    }
+
+    if (hasRecordDetailsPlugin || !builtInDetailsEnabled) {
+      if (hasRecordDetailsPlugin) {
+        dataTable
+            .element()
+            .classList
+            .remove(dui_datatable_responsive_priority_no_details.getCssClass());
+      }
+    } else {
+      renderBuiltInDetails(dataTable);
+    }
+  }
+
+  private void measureColumnWidths(DataTable<T> dataTable) {
+    boolean responsiveClassApplied =
+        dataTable
+            .element()
+            .classList
+            .contains(dui_datatable_responsive_priority_details.getCssClass());
+    if (responsiveClassApplied) {
+      dataTable.element().classList.remove(dui_datatable_responsive_priority_details.getCssClass());
+    }
+    for (ColumnConfig<T> column : dataTable.getTableConfig().getLeafColumns()) {
+      if (isHidden(column)) {
+        continue;
+      }
+      double width =
+          column.getHeadElement() == null ? 0 : column.getHeadElement().element().scrollWidth;
+      for (TableRow<T> row : dataTable.getRows()) {
+        RowCell<T> cell = row.getCell(column.getName());
+        if (cell != null) {
+          width = Math.max(width, cell.element().scrollWidth);
+          width = Math.max(width, cell.element().getBoundingClientRect().width);
+        }
+      }
+      if (width > 0) {
+        measuredColumnWidths.put(column.getName(), Math.max(width + 12, 132));
+      }
+    }
+    if (responsiveClassApplied) {
+      dataTable.element().classList.add(dui_datatable_responsive_priority_details.getCssClass());
+    }
   }
 
   private boolean isSecondaryColumn(ColumnConfig<T> column) {
@@ -397,8 +586,19 @@ public class ResponsiveDataTablePlugin<T> implements DataTablePlugin<T>, DataTab
   }
 
   private void clearBuiltInDetails() {
-    for (BuiltInDetails details : builtInDetails.values()) {
-      details.movedContent.forEach(moved -> moved.nodes.forEach(moved.originalCell::appendChild));
+    for (Map.Entry<TableRow<T>, BuiltInDetails> entry : builtInDetails.entrySet()) {
+      BuiltInDetails details = entry.getValue();
+      details.movedContent.forEach(
+          moved -> {
+            if (moved.attached) {
+              moved.nodes.forEach(moved.originalCell::appendChild);
+            }
+          });
+      entry
+          .getKey()
+          .element()
+          .classList
+          .remove(dui_datatable_responsive_row_with_details.getCssClass());
       if (details.row.parentNode != null) {
         details.row.parentNode.removeChild(details.row);
       }
@@ -409,20 +609,35 @@ public class ResponsiveDataTablePlugin<T> implements DataTablePlugin<T>, DataTab
   private static class BuiltInDetails {
     private final HTMLTableRowElement row;
     private final List<MovedCellContent> movedContent;
+    private final HTMLElement definitionList;
+    private final boolean customRenderer;
 
-    private BuiltInDetails(HTMLTableRowElement row, List<MovedCellContent> movedContent) {
+    private BuiltInDetails(
+        HTMLTableRowElement row,
+        List<MovedCellContent> movedContent,
+        HTMLElement definitionList,
+        boolean customRenderer) {
       this.row = row;
       this.movedContent = movedContent;
+      this.definitionList = definitionList;
+      this.customRenderer = customRenderer;
     }
   }
 
   private static class MovedCellContent {
+    private final String columnName;
     private final Element originalCell;
-    private final List<Node> nodes;
+    private final HTMLElement item;
+    private final HTMLElement value;
+    private final List<Node> nodes = new ArrayList<>();
+    private boolean attached;
 
-    private MovedCellContent(Element originalCell, List<Node> nodes) {
+    private MovedCellContent(
+        String columnName, Element originalCell, HTMLElement item, HTMLElement value) {
+      this.columnName = columnName;
       this.originalCell = originalCell;
-      this.nodes = nodes;
+      this.item = item;
+      this.value = value;
     }
   }
 
@@ -443,6 +658,9 @@ public class ResponsiveDataTablePlugin<T> implements DataTablePlugin<T>, DataTab
       secondaryCell = secondaryCell.parentElement;
     }
     if (secondaryCell == null) {
+      return;
+    }
+    if (!collapsedColumns.contains(secondaryCell.getAttribute("data-column"))) {
       return;
     }
 
@@ -474,6 +692,7 @@ public class ResponsiveDataTablePlugin<T> implements DataTablePlugin<T>, DataTab
                 rowCell.setAttribute("headers", headerId);
               }
               if (mode == Mode.PRIORITY_DETAILS) {
+                rowCell.setAttribute("data-column", column.getName());
                 if (column.isUtilityColumn() || column.isPluginColumn()) {
                   rowCell.addCss(dui_datatable_responsive_utility_cell);
                 } else if (Arrays.asList(priorityColumns).contains(column.getName())) {
@@ -511,6 +730,22 @@ public class ResponsiveDataTablePlugin<T> implements DataTablePlugin<T>, DataTab
       mediaQuery.addListener(listener);
       onChange.accept(mediaQuery.matches);
       return () -> mediaQuery.removeListener(listener);
+    }
+  }
+
+  private static class BrowserResponsiveWidthObserver implements ResponsiveWidthObserver {
+
+    @Override
+    public Registration observe(Element element, Consumer<Double> onResize) {
+      ResizeObserver observer =
+          new ResizeObserver(
+              entries -> {
+                if (entries.length > 0) {
+                  onResize.accept(entries.getAt(0).contentRect.width);
+                }
+              });
+      observer.observe(element);
+      return observer::disconnect;
     }
   }
 }
