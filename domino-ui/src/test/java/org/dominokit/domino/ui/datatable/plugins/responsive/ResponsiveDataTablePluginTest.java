@@ -308,6 +308,61 @@ public class ResponsiveDataTablePluginTest extends GWTTestCase {
     assertFalse(row.element().classList.contains("dui-datatable-responsive-row-with-details"));
   }
 
+  public void testResponsiveLayoutListenerReportsStateAndProgressiveColumnMovement() {
+    FakeBreakpointObserver breakpointObserver = new FakeBreakpointObserver(false);
+    FakeResponsiveWidthObserver widthObserver = new FakeResponsiveWidthObserver(2000);
+    ColumnConfig<String> name =
+        ColumnConfig.<String>create("name", "Name").setResponsivePriority(true);
+    ColumnConfig<String> email = ColumnConfig.<String>create("email", "Email");
+    ColumnConfig<String> phone = ColumnConfig.<String>create("phone", "Phone");
+    ColumnConfig<String> company = ColumnConfig.<String>create("company", "Company");
+    List<ResponsiveLayoutChange<String>> changes = new ArrayList<>();
+    ResponsiveDataTablePlugin<String> responsive =
+        new ResponsiveDataTablePlugin<String>(breakpointObserver, widthObserver)
+            .setResponsiveLayoutChangeListener(changes::add);
+    TableConfig<String> config =
+        new TableConfig<String>()
+            .addColumn(name)
+            .addColumn(email)
+            .addColumn(phone)
+            .addColumn(company)
+            .addPlugin(responsive);
+    DataTable<String> table = new DataTable<>(config, new LocalListDataStore<>());
+    table.setData(Collections.singletonList("Ada"));
+
+    breakpointObserver.emit(true);
+    assertEquals(1, changes.size());
+    assertTrue(changes.get(0).isResponsive());
+    assertSame(table, changes.get(0).getDataTable());
+    assertTrue(changes.get(0).getColumnsInDetails().isEmpty());
+    assertTrue(changes.get(0).getColumnsMovedToDetails().isEmpty());
+
+    widthObserver.emit(450);
+    assertEquals(2, changes.size());
+    assertEquals(Collections.singletonList(company), changes.get(1).getColumnsInDetails());
+    assertEquals(Collections.singletonList(company), changes.get(1).getColumnsMovedToDetails());
+    assertTrue(changes.get(1).getColumnsRestoredFromDetails().isEmpty());
+
+    widthObserver.emit(300);
+    assertEquals(3, changes.size());
+    assertEquals(Arrays.asList(phone, company), changes.get(2).getColumnsInDetails());
+    assertEquals(Collections.singletonList(phone), changes.get(2).getColumnsMovedToDetails());
+
+    widthObserver.emit(700);
+    assertEquals(4, changes.size());
+    assertTrue(changes.get(3).getColumnsInDetails().isEmpty());
+    assertEquals(Arrays.asList(phone, company), changes.get(3).getColumnsRestoredFromDetails());
+
+    widthObserver.emit(700);
+    assertEquals("Unchanged layout measurements should not notify listeners.", 4, changes.size());
+
+    breakpointObserver.emit(false);
+    assertEquals(5, changes.size());
+    assertFalse(changes.get(4).isResponsive());
+    assertTrue(changes.get(4).getColumnsInDetails().isEmpty());
+    assertTrue(changes.get(4).getColumnsRestoredFromDetails().isEmpty());
+  }
+
   public void testNarrowContainerWaitsForBreakpointThenProgressivelyCollapsesColumns() {
     FakeBreakpointObserver breakpointObserver = new FakeBreakpointObserver(false);
     FakeResponsiveWidthObserver widthObserver = new FakeResponsiveWidthObserver(2000);

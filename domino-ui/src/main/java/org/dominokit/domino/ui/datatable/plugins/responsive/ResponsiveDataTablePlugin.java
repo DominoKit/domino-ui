@@ -29,6 +29,7 @@ import elemental2.dom.HTMLElement;
 import elemental2.dom.MediaQueryList;
 import elemental2.dom.MediaQueryListListener;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.IdentityHashMap;
 import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
@@ -91,6 +92,10 @@ public class ResponsiveDataTablePlugin<T> implements DataTablePlugin<T>, DataTab
   private boolean hasRecordDetailsPlugin;
   private boolean breakpointMatches;
   private double availableWidth;
+  private Consumer<ResponsiveLayoutChange<T>> responsiveLayoutChangeListener;
+  private boolean responsiveLayoutStateReported;
+  private boolean lastReportedResponsive;
+  private List<ColumnConfig<T>> lastReportedColumnsInDetails = Collections.emptyList();
   private final Map<String, Double> measuredColumnWidths = new LinkedHashMap<>();
   private final Set<String> collapsedColumns = new LinkedHashSet<>();
   private final Map<TableRow<T>, ResponsiveDetailsRow<T>> builtInDetails = new IdentityHashMap<>();
@@ -143,6 +148,19 @@ public class ResponsiveDataTablePlugin<T> implements DataTablePlugin<T>, DataTab
   /** Sets the responsive presentation mode. */
   public ResponsiveDataTablePlugin<T> setMode(Mode mode) {
     this.mode = Objects.requireNonNull(mode, "Responsive Mode cannot be null.");
+    return this;
+  }
+
+  /**
+   * Sets a listener notified after the responsive state or details columns change.
+   *
+   * <p>The listener receives changes when the responsive breakpoint is entered or exited and when
+   * columns progressively move into or return from the details panel. Repeated measurements that
+   * do not change the layout do not trigger the listener.
+   */
+  public ResponsiveDataTablePlugin<T> setResponsiveLayoutChangeListener(
+      Consumer<ResponsiveLayoutChange<T>> listener) {
+    this.responsiveLayoutChangeListener = listener;
     return this;
   }
 
@@ -276,6 +294,7 @@ public class ResponsiveDataTablePlugin<T> implements DataTablePlugin<T>, DataTab
     } else {
       dataTable.removeCss(dui_datatable_responsive_stacked);
     }
+    notifyResponsiveLayoutChange(dataTable, matches, Collections.emptyList());
   }
 
   private boolean shouldShowSecondaryCells() {
@@ -356,6 +375,7 @@ public class ResponsiveDataTablePlugin<T> implements DataTablePlugin<T>, DataTab
         }
       }
       dataTable.removeCss(dui_datatable_responsive_priority_no_details);
+      notifyResponsiveLayoutChange(dataTable, false, Collections.emptyList());
       return;
     }
 
@@ -400,6 +420,59 @@ public class ResponsiveDataTablePlugin<T> implements DataTablePlugin<T>, DataTab
       }
     } else {
       renderBuiltInDetails(dataTable);
+    }
+    notifyResponsiveLayoutChange(dataTable, true, columnsInDetails(dataTable));
+  }
+
+  private List<ColumnConfig<T>> columnsInDetails(DataTable<T> dataTable) {
+    List<ColumnConfig<T>> columns = new ArrayList<>();
+    for (ColumnConfig<T> column : dataTable.getTableConfig().getLeafColumns()) {
+      if (collapsedColumns.contains(column.getName())) {
+        columns.add(column);
+      }
+    }
+    return columns;
+  }
+
+  private void notifyResponsiveLayoutChange(
+      DataTable<T> dataTable, boolean responsive, List<ColumnConfig<T>> columnsInDetails) {
+    if (!responsiveLayoutStateReported) {
+      responsiveLayoutStateReported = true;
+      if (!responsive && columnsInDetails.isEmpty()) {
+        lastReportedResponsive = false;
+        lastReportedColumnsInDetails = new ArrayList<>();
+        return;
+      }
+    }
+
+    List<ColumnConfig<T>> movedToDetails = new ArrayList<>();
+    for (ColumnConfig<T> column : columnsInDetails) {
+      if (!lastReportedColumnsInDetails.contains(column)) {
+        movedToDetails.add(column);
+      }
+    }
+    List<ColumnConfig<T>> restoredFromDetails = new ArrayList<>();
+    for (ColumnConfig<T> column : lastReportedColumnsInDetails) {
+      if (!columnsInDetails.contains(column)) {
+        restoredFromDetails.add(column);
+      }
+    }
+
+    boolean changed =
+        responsive != lastReportedResponsive
+            || !movedToDetails.isEmpty()
+            || !restoredFromDetails.isEmpty();
+    lastReportedResponsive = responsive;
+    lastReportedColumnsInDetails = new ArrayList<>(columnsInDetails);
+
+    if (changed && responsiveLayoutChangeListener != null) {
+      responsiveLayoutChangeListener.accept(
+          new ResponsiveLayoutChange<>(
+              dataTable,
+              responsive,
+              columnsInDetails,
+              movedToDetails,
+              restoredFromDetails));
     }
   }
 
