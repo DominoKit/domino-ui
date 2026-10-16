@@ -30,6 +30,8 @@ public interface DataTableStyles {
       () -> "dui-datatable-responsive-priority-details";
 
   CssClass dui_datatable_responsive_priority_cell = () -> "dui-datatable-responsive-priority-cell";
+  CssClass dui_datatable_responsive_priority_title_omitted =
+      () -> "dui-datatable-responsive-priority-title-omitted";
 
   CssClass dui_datatable_responsive_secondary_cell =
       () -> "dui-datatable-responsive-secondary-cell";

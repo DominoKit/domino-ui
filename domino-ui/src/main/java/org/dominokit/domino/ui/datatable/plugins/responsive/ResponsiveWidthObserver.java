@@ -15,13 +15,21 @@
  */
 package org.dominokit.domino.ui.datatable.plugins.responsive;
 
+import elemental2.core.JsArray;
 import elemental2.dom.Element;
 import java.util.function.Consumer;
+import jsinterop.base.Js;
+import org.dominokit.domino.ui.utils.ResizeObserverEntry;
 
 /** Internal element-size observer used to adapt priority columns to the table's available width. */
 interface ResponsiveWidthObserver {
 
   Registration observe(Element element, Consumer<Double> onResize);
+
+  static double contentWidth(JsArray<ResizeObserverEntry> entries) {
+    ResizeObserverEntry entry = Js.uncheckedCast(entries.getAt(0));
+    return entry.contentRect.width;
+  }
 
   @FunctionalInterface
   interface Registration {

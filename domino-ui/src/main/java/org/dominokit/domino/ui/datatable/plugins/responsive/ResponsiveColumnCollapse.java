@@ -23,17 +23,37 @@ import java.util.Set;
 /** Calculates which secondary columns must move into row details to fit the available width. */
 final class ResponsiveColumnCollapse {
 
+  static final double DEFAULT_COLUMN_MIN_WIDTH = 132.0;
+
   private ResponsiveColumnCollapse() {}
+
+  static double measuredContentWidth(double scrollWidth, double renderedWidth) {
+    return Math.max(scrollWidth, renderedWidth);
+  }
 
   static Set<String> determine(
       List<String> secondaryColumns,
       Map<String, Double> columnWidths,
       double fixedColumnsWidth,
       double availableWidth) {
+    return determine(
+        secondaryColumns,
+        columnWidths,
+        fixedColumnsWidth,
+        availableWidth,
+        DEFAULT_COLUMN_MIN_WIDTH);
+  }
+
+  static Set<String> determine(
+      List<String> secondaryColumns,
+      Map<String, Double> columnWidths,
+      double fixedColumnsWidth,
+      double availableWidth,
+      double minimumColumnWidth) {
     Set<String> collapsed = new LinkedHashSet<>();
     double requiredWidth = fixedColumnsWidth;
     for (String column : secondaryColumns) {
-      requiredWidth += widthOf(column, columnWidths);
+      requiredWidth += widthOf(column, columnWidths, minimumColumnWidth);
     }
 
     // The last logical column is at the visual trailing edge in both directions:
@@ -42,14 +62,15 @@ final class ResponsiveColumnCollapse {
     while (requiredWidth > availableWidth && index >= 0 && index < secondaryColumns.size()) {
       String column = secondaryColumns.get(index);
       collapsed.add(column);
-      requiredWidth -= widthOf(column, columnWidths);
+      requiredWidth -= widthOf(column, columnWidths, minimumColumnWidth);
       index--;
     }
     return collapsed;
   }
 
-  private static double widthOf(String column, Map<String, Double> columnWidths) {
+  private static double widthOf(
+      String column, Map<String, Double> columnWidths, double minimumColumnWidth) {
     Double width = columnWidths.get(column);
-    return width == null || width < 132 ? 132 : width;
+    return width == null || width < minimumColumnWidth ? minimumColumnWidth : width;
   }
 }

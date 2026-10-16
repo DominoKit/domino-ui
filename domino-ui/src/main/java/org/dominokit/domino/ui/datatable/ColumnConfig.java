@@ -73,6 +73,7 @@ public class ColumnConfig<T> implements ElementsFactory, DataTableStyles {
   private Node tooltipNode;
   private boolean showTooltip = true;
   private boolean hidden = false;
+  private boolean responsivePriority;
   private boolean pluginColumn;
   private ScreenMedia showOn;
   private ScreenMedia hideOn;
@@ -780,6 +781,27 @@ public class ColumnConfig<T> implements ElementsFactory, DataTableStyles {
    */
   public boolean isHidden() {
     return hidden;
+  }
+
+  /**
+   * Checks whether this column should remain visible before other columns in responsive priority
+   * details mode.
+   *
+   * @return true when this column is prioritized for the responsive layout
+   */
+  public boolean isResponsivePriority() {
+    return responsivePriority;
+  }
+
+  /**
+   * Marks this column as a priority column for responsive priority details mode.
+   *
+   * @param responsivePriority true to keep the column visible longer as the table narrows
+   * @return the current instance for chaining
+   */
+  public ColumnConfig<T> setResponsivePriority(boolean responsivePriority) {
+    this.responsivePriority = responsivePriority;
+    return this;
   }
 
   /**

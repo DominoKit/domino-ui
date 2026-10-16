@@ -152,7 +152,21 @@ public class DominoThemeCssContractTest {
     assertTrue(
         "Priority cells should use an equal flex basis so each configured column aligns across rows.",
         datatableCss.contains(
-            "> .dui-datatable-responsive-priority-cell {\n    display: flex;\n    align-items: center;\n    flex: 1 1 0;"));
+            "> .dui-datatable-responsive-priority-cell {\n    display: flex;\n    align-items: center;\n    flex: 1 0 0;"));
+    assertTrue(
+        "Priority details mode must retain the responsive table's horizontal scrolling behavior.",
+        datatableCss.contains(
+            ".dui-datatable-responsive-priority-details {\n    overflow-x: auto;"));
+    assertTrue(
+        "Retained priority cells must not wrap when the table becomes narrower than their content.",
+        datatableCss.contains(
+            "> .dui-datatable-responsive-priority-cell {\n    display: flex;\n    align-items: center;\n    flex: 1 0 0;\n    gap: var(--dui-spc-2);\n    min-width: max-content;\n    box-sizing: border-box;\n    white-space: nowrap;"));
+    assertTrue(
+        "Priority rows must keep columns on one line until the collapse algorithm moves them to details.",
+        datatableCss.contains("    flex-wrap: nowrap;"));
+    assertTrue(
+        "Visible secondary columns must not shrink their rendered content.",
+        datatableCss.contains("flex: 0 0 auto;"));
     assertTrue(datatableCss.contains(".dui-datatable-responsive-details-tr"));
     assertTrue(datatableCss.contains(".dui-datatable-responsive-details-td"));
     assertTrue(

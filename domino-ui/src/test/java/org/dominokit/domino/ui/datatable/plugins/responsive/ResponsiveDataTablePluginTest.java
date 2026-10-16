@@ -16,6 +16,7 @@
 package org.dominokit.domino.ui.datatable.plugins.responsive;
 
 import com.google.gwt.junit.client.GWTTestCase;
+import elemental2.core.JsArray;
 import elemental2.dom.DomGlobal;
 import elemental2.dom.HTMLElement;
 import elemental2.dom.HTMLInputElement;
@@ -31,6 +32,7 @@ import java.util.Set;
 import java.util.function.Consumer;
 import jsinterop.annotations.JsFunction;
 import jsinterop.base.Js;
+import jsinterop.base.JsPropertyMap;
 import org.dominokit.domino.ui.datatable.ColumnConfig;
 import org.dominokit.domino.ui.datatable.DataTable;
 import org.dominokit.domino.ui.datatable.RowCell;
@@ -43,6 +45,7 @@ import org.dominokit.domino.ui.datatable.plugins.pagination.SortDirection;
 import org.dominokit.domino.ui.datatable.plugins.pagination.SortPlugin;
 import org.dominokit.domino.ui.datatable.plugins.row.RecordDetailsPlugin;
 import org.dominokit.domino.ui.datatable.store.LocalListDataStore;
+import org.dominokit.domino.ui.utils.ResizeObserverEntry;
 
 public class ResponsiveDataTablePluginTest extends GWTTestCase {
 
@@ -63,25 +66,90 @@ public class ResponsiveDataTablePluginTest extends GWTTestCase {
     ResponsiveDataTablePlugin<String> plugin = new ResponsiveDataTablePlugin<>(observer);
 
     assertSame(plugin, plugin.setBreakpoint("640px"));
-    DataTable<String> table = table(plugin, ColumnConfig.<String>create("name", "Name"));
+    DataTable<String> table =
+        table(plugin, ColumnConfig.<String>create("name", "Name").setResponsivePriority(true));
 
     assertEquals("(max-width: 640px)", observer.query);
 
     FakeBreakpointObserver defaultObserver = new FakeBreakpointObserver(false);
     table(
         new ResponsiveDataTablePlugin<>(defaultObserver),
-        ColumnConfig.<String>create("name", "Name"));
+        ColumnConfig.<String>create("name", "Name").setResponsivePriority(true));
     assertEquals("(max-width: 768px)", defaultObserver.query);
   }
 
-  public void testModeDefaultsToStackedAndPriorityConfigurationIsFluent() {
+  public void testModeDefaultsToPriorityDetails() {
     ResponsiveDataTablePlugin<String> plugin =
         new ResponsiveDataTablePlugin<>(new FakeBreakpointObserver(false));
 
-    assertEquals(ResponsiveDataTablePlugin.Mode.STACKED, plugin.getMode());
-    assertSame(plugin, plugin.setMode(ResponsiveDataTablePlugin.Mode.PRIORITY_DETAILS));
-    assertSame(plugin, plugin.setPriorityColumns("name", "status"));
     assertEquals(ResponsiveDataTablePlugin.Mode.PRIORITY_DETAILS, plugin.getMode());
+  }
+
+  public void testMinimumColumnWidthDefaultsTo132AndCanBeConfigured() {
+    ResponsiveDataTablePlugin<String> plugin =
+        new ResponsiveDataTablePlugin<>(new FakeBreakpointObserver(false));
+
+    assertEquals(132.0, plugin.getMinimumColumnWidth(), 0.0);
+    assertSame(plugin, plugin.setMinimumColumnWidth(180.0));
+    assertEquals(180.0, plugin.getMinimumColumnWidth(), 0.0);
+  }
+
+  public void testResponsivePriorityIsStoredOnTheColumnConfiguration() {
+    ColumnConfig<String> column = ColumnConfig.create("name", "Name");
+
+    assertFalse(column.isResponsivePriority());
+    assertSame(column, column.setResponsivePriority(true));
+    assertTrue(column.isResponsivePriority());
+  }
+
+  public void testPriorityTitleMetadataHidesOnlyTheResponsivePriorityLabel() {
+    ColumnConfig<String> omittedTitle =
+        ColumnConfig.<String>create("name", "Name")
+            .setResponsivePriority(true)
+            .applyMeta(ResponsiveColumnMeta.omitPriorityTitle());
+    ColumnConfig<String> visibleTitle =
+        ColumnConfig.<String>create("status", "Status").setResponsivePriority(true);
+    DataTable<String> table = table(priorityPlugin(), omittedTitle, visibleTitle);
+    table.setData(Collections.singletonList("Ada"));
+
+    HTMLElement omittedCell = table.getRows().get(0).getCell("name").element();
+    HTMLElement visibleCell = table.getRows().get(0).getCell("status").element();
+
+    assertTrue(
+        omittedCell.classList.contains("dui-datatable-responsive-priority-title-omitted"));
+    assertFalse(
+        visibleCell.classList.contains("dui-datatable-responsive-priority-title-omitted"));
+    assertEquals("Name", omittedCell.getAttribute("data-label"));
+    assertEquals(
+        omittedTitle.getHeadElement().getAttribute("id"), omittedCell.getAttribute("headers"));
+  }
+
+  public void testPriorityTitleMetadataDoesNotChangeStackedCellLabels() {
+    ColumnConfig<String> omittedTitle =
+        ColumnConfig.<String>create("name", "Name")
+            .setResponsivePriority(true)
+            .applyMeta(ResponsiveColumnMeta.omitPriorityTitle());
+    DataTable<String> table =
+        table(
+            new ResponsiveDataTablePlugin<String>(new FakeBreakpointObserver(false))
+                .setMode(ResponsiveDataTablePlugin.Mode.STACKED),
+            omittedTitle);
+    table.setData(Collections.singletonList("Ada"));
+
+    HTMLElement cell = table.getRows().get(0).getCell("name").element();
+
+    assertFalse(cell.classList.contains("dui-datatable-responsive-priority-title-omitted"));
+    assertEquals("Name", cell.getAttribute("data-label"));
+  }
+
+  public void testReadsNativeResizeObserverEntryWithoutJavaTypeCast() {
+    JsPropertyMap<Object> contentRect = JsPropertyMap.of();
+    contentRect.set("width", 640.0);
+    JsPropertyMap<Object> entry = JsPropertyMap.of();
+    entry.set("contentRect", contentRect);
+    JsArray<ResizeObserverEntry> entries = Js.uncheckedCast(new Object[] {entry});
+
+    assertEquals(640.0, ResponsiveWidthObserver.contentWidth(entries), 0.0);
   }
 
   public void testProgressiveColumnCollapseFollowsLogicalColumnOrderForBothDirections() {
@@ -112,12 +180,30 @@ public class ResponsiveDataTablePluginTest extends GWTTestCase {
     assertEquals(new java.util.LinkedHashSet<>(secondaryColumns), tooNarrow);
   }
 
+  public void testProgressiveColumnCollapseUsesConfiguredMinimumColumnWidth() {
+    List<String> secondaryColumns = Collections.singletonList("email");
+    Map<String, Double> widths = Collections.emptyMap();
+
+    Set<String> fitsWithDefault =
+        ResponsiveColumnCollapse.determine(secondaryColumns, widths, 300, 432);
+    Set<String> collapsesWithLargerMinimum =
+        ResponsiveColumnCollapse.determine(secondaryColumns, widths, 300, 479, 180);
+
+    assertTrue(fitsWithDefault.isEmpty());
+    assertEquals(Collections.singleton("email"), collapsesWithLargerMinimum);
+  }
+
+  public void testMeasuredContentWidthDoesNotAddArtificialPerColumnPadding() {
+    assertEquals(180.0, ResponsiveColumnCollapse.measuredContentWidth(168, 180), 0.0);
+    assertEquals(220.0, ResponsiveColumnCollapse.measuredContentWidth(220, 180), 0.0);
+  }
+
   public void testPriorityDetailsAcceptsVisibleLeafColumnsAndRecordDetailsPlugin() {
     ColumnConfig<String> person =
         ColumnConfig.<String>create("person", "Person")
-            .addColumn(ColumnConfig.<String>create("given", "Given"))
-            .addColumn(ColumnConfig.<String>create("family", "Family"));
-    ResponsiveDataTablePlugin<String> responsive = priorityPlugin("given", "family");
+            .addColumn(ColumnConfig.<String>create("given", "Given").setResponsivePriority(true))
+            .addColumn(ColumnConfig.<String>create("family", "Family").setResponsivePriority(true));
+    ResponsiveDataTablePlugin<String> responsive = priorityPlugin();
     RecordDetailsPlugin<String> details = detailsPlugin();
     TableConfig<String> config =
         new TableConfig<String>().addColumn(person).addPlugin(responsive).addPlugin(details);
@@ -129,7 +215,8 @@ public class ResponsiveDataTablePluginTest extends GWTTestCase {
 
   public void testPriorityDetailsUsesBuiltInDetailsWithoutRecordDetailsPlugin() {
     FakeBreakpointObserver observer = new FakeBreakpointObserver(false);
-    ColumnConfig<String> name = ColumnConfig.<String>create("name", "Full name");
+    ColumnConfig<String> name =
+        ColumnConfig.<String>create("name", "Full name").setResponsivePriority(true);
     ColumnConfig<String> email =
         ColumnConfig.<String>create("email", "Email address")
             .setRenderer(
@@ -145,8 +232,7 @@ public class ResponsiveDataTablePluginTest extends GWTTestCase {
             .addColumn(email)
             .addPlugin(
                 new ResponsiveDataTablePlugin<String>(observer)
-                    .setMode(ResponsiveDataTablePlugin.Mode.PRIORITY_DETAILS)
-                    .setPriorityColumns("name"));
+                    .setMode(ResponsiveDataTablePlugin.Mode.PRIORITY_DETAILS));
     DataTable<String> table = new DataTable<>(config, new LocalListDataStore<>());
     table.setData(Arrays.asList("Ada", "Grace"));
 
@@ -185,7 +271,7 @@ public class ResponsiveDataTablePluginTest extends GWTTestCase {
     FakeResponsiveWidthObserver widthObserver = new FakeResponsiveWidthObserver(2000);
     TableConfig<String> config =
         new TableConfig<String>()
-            .addColumn(ColumnConfig.<String>create("name", "Name"))
+            .addColumn(ColumnConfig.<String>create("name", "Name").setResponsivePriority(true))
             .addColumn(
                 ColumnConfig.<String>create("email", "Email")
                     .setRenderer(cell -> cell.setTextContent("email-" + cell.getRecord())))
@@ -194,8 +280,7 @@ public class ResponsiveDataTablePluginTest extends GWTTestCase {
                     .setRenderer(cell -> cell.setTextContent("phone-" + cell.getRecord())))
             .addPlugin(
                 new ResponsiveDataTablePlugin<String>(breakpointObserver, widthObserver)
-                    .setMode(ResponsiveDataTablePlugin.Mode.PRIORITY_DETAILS)
-                    .setPriorityColumns("name"));
+                    .setMode(ResponsiveDataTablePlugin.Mode.PRIORITY_DETAILS));
     DataTable<String> table = new DataTable<>(config, new LocalListDataStore<>());
     table.setData(Collections.singletonList("Ada"));
     TableRow<String> row = table.getRows().get(0);
@@ -223,12 +308,12 @@ public class ResponsiveDataTablePluginTest extends GWTTestCase {
     assertFalse(row.element().classList.contains("dui-datatable-responsive-row-with-details"));
   }
 
-  public void testNarrowTableContainerProgressivelyMovesColumnsWithoutViewportBreakpoint() {
+  public void testNarrowContainerWaitsForBreakpointThenProgressivelyCollapsesColumns() {
     FakeBreakpointObserver breakpointObserver = new FakeBreakpointObserver(false);
     FakeResponsiveWidthObserver widthObserver = new FakeResponsiveWidthObserver(2000);
     TableConfig<String> config =
         new TableConfig<String>()
-            .addColumn(ColumnConfig.<String>create("name", "Name"))
+            .addColumn(ColumnConfig.<String>create("name", "Name").setResponsivePriority(true))
             .addColumn(
                 ColumnConfig.<String>create("email", "Email")
                     .setRenderer(cell -> cell.setTextContent("email")))
@@ -240,14 +325,17 @@ public class ResponsiveDataTablePluginTest extends GWTTestCase {
                     .setRenderer(cell -> cell.setTextContent("company")))
             .addPlugin(
                 new ResponsiveDataTablePlugin<String>(breakpointObserver, widthObserver)
-                    .setMode(ResponsiveDataTablePlugin.Mode.PRIORITY_DETAILS)
-                    .setPriorityColumns("name"));
+                    .setMode(ResponsiveDataTablePlugin.Mode.PRIORITY_DETAILS));
     DataTable<String> table = new DataTable<>(config, new LocalListDataStore<>());
     table.setData(Collections.singletonList("Ada"));
     TableRow<String> row = table.getRows().get(0);
 
     widthObserver.emit(450);
     assertNotNull(breakpointObserver.listener);
+    assertFalse(table.element().classList.contains("dui-datatable-responsive-priority-details"));
+    assertEquals(0, builtInDetailsRowCount(table));
+
+    breakpointObserver.emit(true);
     assertTrue(table.element().classList.contains("dui-datatable-responsive-priority-details"));
     assertEquals(1, builtInDetailsRowCount(table));
     assertTrue(builtInDetailsRow(table, 0).textContent.contains("Company"));
@@ -263,7 +351,28 @@ public class ResponsiveDataTablePluginTest extends GWTTestCase {
 
     widthObserver.emit(700);
     assertEquals(0, builtInDetailsRowCount(table));
+    assertTrue(table.element().classList.contains("dui-datatable-responsive-priority-details"));
+
+    breakpointObserver.emit(false);
     assertFalse(table.element().classList.contains("dui-datatable-responsive-priority-details"));
+  }
+
+  public void testWideEnoughTableDoesNotActivatePriorityLayoutFromPerColumnMeasurementPadding() {
+    FakeBreakpointObserver breakpointObserver = new FakeBreakpointObserver(false);
+    FakeResponsiveWidthObserver widthObserver = new FakeResponsiveWidthObserver(400);
+    TableConfig<String> config =
+        new TableConfig<String>()
+            .addColumn(ColumnConfig.<String>create("name", "Name").setResponsivePriority(true))
+            .addColumn(ColumnConfig.<String>create("email", "Email"))
+            .addColumn(ColumnConfig.<String>create("phone", "Phone"))
+            .addPlugin(
+                new ResponsiveDataTablePlugin<String>(breakpointObserver, widthObserver)
+                    .setMode(ResponsiveDataTablePlugin.Mode.PRIORITY_DETAILS));
+    DataTable<String> table = new DataTable<>(config, new LocalListDataStore<>());
+    table.setData(Collections.singletonList("Ada"));
+
+    assertFalse(table.element().classList.contains("dui-datatable-responsive-priority-details"));
+    assertEquals(0, builtInDetailsRowCount(table));
   }
 
   public void testPriorityDetailsAllowsCustomBuiltInDetailsRenderer() {
@@ -271,11 +380,10 @@ public class ResponsiveDataTablePluginTest extends GWTTestCase {
     ResponsiveDataTablePlugin<String> responsive =
         new ResponsiveDataTablePlugin<String>(observer)
             .setMode(ResponsiveDataTablePlugin.Mode.PRIORITY_DETAILS)
-            .setPriorityColumns("name")
             .setDetailsRenderer(cell -> cell.appendChild("Custom details: " + cell.getRecord()));
     TableConfig<String> config =
         new TableConfig<String>()
-            .addColumn(ColumnConfig.<String>create("name", "Name"))
+            .addColumn(ColumnConfig.<String>create("name", "Name").setResponsivePriority(true))
             .addColumn(
                 ColumnConfig.<String>create("email", "Email")
                     .setRenderer(cell -> cell.appendChild(cell.getRecord())))
@@ -294,14 +402,13 @@ public class ResponsiveDataTablePluginTest extends GWTTestCase {
     FakeBreakpointObserver observer = new FakeBreakpointObserver(false);
     TableConfig<String> config =
         new TableConfig<String>()
-            .addColumn(ColumnConfig.<String>create("name", "Name"))
+            .addColumn(ColumnConfig.<String>create("name", "Name").setResponsivePriority(true))
             .addColumn(
                 ColumnConfig.<String>create("email", "Email")
                     .setRenderer(cell -> cell.appendChild(cell.getRecord())))
             .addPlugin(
                 new ResponsiveDataTablePlugin<String>(observer)
                     .setMode(ResponsiveDataTablePlugin.Mode.PRIORITY_DETAILS)
-                    .setPriorityColumns("name")
                     .setBuiltInDetailsEnabled(false));
     DataTable<String> table = new DataTable<>(config, new LocalListDataStore<>());
     table.setData(Collections.singletonList("Ada"));
@@ -316,14 +423,13 @@ public class ResponsiveDataTablePluginTest extends GWTTestCase {
     FakeBreakpointObserver observer = new FakeBreakpointObserver(false);
     TableConfig<String> config =
         new TableConfig<String>()
-            .addColumn(ColumnConfig.<String>create("name", "Name"))
+            .addColumn(ColumnConfig.<String>create("name", "Name").setResponsivePriority(true))
             .addColumn(
                 ColumnConfig.<String>create("email", "Email")
                     .setRenderer(cell -> cell.appendChild(cell.getRecord())))
             .addPlugin(
                 new ResponsiveDataTablePlugin<String>(observer)
-                    .setMode(ResponsiveDataTablePlugin.Mode.PRIORITY_DETAILS)
-                    .setPriorityColumns("name"));
+                    .setMode(ResponsiveDataTablePlugin.Mode.PRIORITY_DETAILS));
     DataTable<String> table = new DataTable<>(config, new LocalListDataStore<>());
     table.setData(new ArrayList<>(Collections.singletonList("Ada")));
     observer.emit(true);
@@ -340,13 +446,12 @@ public class ResponsiveDataTablePluginTest extends GWTTestCase {
     RecordDetailsPlugin<String> details = detailsPlugin();
     TableConfig<String> config =
         new TableConfig<String>()
-            .addColumn(ColumnConfig.<String>create("name", "Name"))
+            .addColumn(ColumnConfig.<String>create("name", "Name").setResponsivePriority(true))
             .addColumn(ColumnConfig.<String>create("email", "Email"))
             .addPlugin(details)
             .addPlugin(
                 new ResponsiveDataTablePlugin<String>(observer)
-                    .setMode(ResponsiveDataTablePlugin.Mode.PRIORITY_DETAILS)
-                    .setPriorityColumns("name"));
+                    .setMode(ResponsiveDataTablePlugin.Mode.PRIORITY_DETAILS));
     DataTable<String> table = new DataTable<>(config, new LocalListDataStore<>());
     table.setData(Collections.singletonList("Ada"));
 
@@ -358,85 +463,62 @@ public class ResponsiveDataTablePluginTest extends GWTTestCase {
     assertTrue(details.getTd().element().textContent.contains("Record details"));
   }
 
-  public void testPriorityDetailsRequiresAtLeastOnePriorityColumn() {
+  public void testPriorityDetailsAllowsNoExplicitPriorityColumn() {
     TableConfig<String> config = validDetailsConfig();
     config.addPlugin(priorityPlugin());
 
-    assertInvalidConfiguration(config, "priority column");
-  }
-
-  public void testPriorityDetailsRejectsNullPriorityColumnNames() {
-    TableConfig<String> config = validDetailsConfig();
-    config.addPlugin(priorityPlugin((String[]) null));
-
-    assertInvalidConfiguration(config, "priority column");
-  }
-
-  public void testPriorityDetailsRejectsBlankPriorityColumnNames() {
-    TableConfig<String> config = validDetailsConfig();
-    config.addPlugin(priorityPlugin("  "));
-
-    assertInvalidConfiguration(config, "priority column");
-  }
-
-  public void testPriorityDetailsRejectsUnknownPriorityColumnNames() {
-    TableConfig<String> config = validDetailsConfig();
-    config.addPlugin(priorityPlugin("missing"));
-
-    assertInvalidConfiguration(config, "missing");
-  }
-
-  public void testPriorityDetailsRejectsDuplicatePriorityColumnNames() {
-    TableConfig<String> config = validDetailsConfig();
-    config.addPlugin(priorityPlugin("name", "name"));
-
-    assertInvalidConfiguration(config, "name");
+    assertNotNull(new DataTable<>(config, new LocalListDataStore<>()));
   }
 
   public void testPriorityDetailsRejectsGroupNames() {
     ColumnConfig<String> group =
         ColumnConfig.<String>create("person", "Person")
+            .setResponsivePriority(true)
             .addColumn(ColumnConfig.<String>create("given", "Given"));
     TableConfig<String> config =
         new TableConfig<String>()
             .addColumn(group)
             .addPlugin(detailsPlugin())
-            .addPlugin(priorityPlugin("person"));
+            .addPlugin(priorityPlugin());
 
-    assertInvalidConfiguration(config, "person");
+    assertInvalidConfiguration(config, "column group");
   }
 
   public void testPriorityDetailsRejectsHiddenPriorityColumns() {
-    ColumnConfig<String> hidden = ColumnConfig.<String>create("name", "Name").hide();
+    ColumnConfig<String> hidden =
+        ColumnConfig.<String>create("name", "Name").setResponsivePriority(true).hide();
     TableConfig<String> config =
         new TableConfig<String>()
             .addColumn(hidden)
             .addPlugin(detailsPlugin())
-            .addPlugin(priorityPlugin("name"));
+            .addPlugin(priorityPlugin());
 
-    assertInvalidConfiguration(config, "name");
+    assertInvalidConfiguration(config, "hidden column");
   }
 
   public void testPriorityDetailsRejectsUtilityPriorityColumns() {
     TableConfig<String> config =
         new TableConfig<String>()
-            .addColumn(ColumnConfig.<String>create("name", "Name"))
+            .addColumn(
+                ColumnConfig.<String>create("utility", "Utility")
+                    .setPluginColumn(true)
+                    .setResponsivePriority(true))
             .addPlugin(detailsPlugin())
-            .addPlugin(priorityPlugin("plugin-utility-column"));
+            .addPlugin(priorityPlugin());
 
-    assertInvalidConfiguration(config, "plugin-utility-column");
+    assertInvalidConfiguration(config, "utility/plugin column");
   }
 
   public void testPriorityDetailsMarksCellsAndPreservesTheirIdentityAcrossTransitions() {
-    ColumnConfig<String> name = ColumnConfig.<String>create("name", "Name");
+    ColumnConfig<String> name =
+        ColumnConfig.<String>create("name", "Name").setResponsivePriority(true);
     ColumnConfig<String> email = ColumnConfig.<String>create("email", "Email");
     FakeBreakpointObserver observer = new FakeBreakpointObserver(false);
     TableConfig<String> config =
         new TableConfig<String>().addColumn(name).addColumn(email).addPlugin(detailsPlugin());
     ResponsiveDataTablePlugin<String> responsive =
         new ResponsiveDataTablePlugin<String>(observer)
-            .setMode(ResponsiveDataTablePlugin.Mode.PRIORITY_DETAILS)
-            .setPriorityColumns("name");
+            .setMode(ResponsiveDataTablePlugin.Mode.PRIORITY_DETAILS);
     config.addPlugin(responsive);
     DataTable<String> table = new DataTable<>(config, new LocalListDataStore<>());
     table.setData(Collections.singletonList("Ada"));
@@ -466,12 +548,11 @@ public class ResponsiveDataTablePluginTest extends GWTTestCase {
     FakeBreakpointObserver observer = new FakeBreakpointObserver(true);
     TableConfig<String> config =
         new TableConfig<String>()
-            .addColumn(ColumnConfig.<String>create("name", "Name"))
+            .addColumn(ColumnConfig.<String>create("name", "Name").setResponsivePriority(true))
             .addPlugin(detailsPlugin())
             .addPlugin(
                 new ResponsiveDataTablePlugin<String>(observer)
-                    .setMode(ResponsiveDataTablePlugin.Mode.PRIORITY_DETAILS)
-                    .setPriorityColumns("name"));
+                    .setMode(ResponsiveDataTablePlugin.Mode.PRIORITY_DETAILS));
 
     DataTable<String> table = new DataTable<>(config, new LocalListDataStore<>());
 
@@ -481,7 +562,8 @@ public class ResponsiveDataTablePluginTest extends GWTTestCase {
 
   public void testPriorityDetailsMovesFocusFromSecondaryCellToDetailsControl() {
     HTMLInputElement[] editor = new HTMLInputElement[1];
-    ColumnConfig<String> name = ColumnConfig.<String>create("name", "Name");
+    ColumnConfig<String> name =
+        ColumnConfig.<String>create("name", "Name").setResponsivePriority(true);
     ColumnConfig<String> email =
         ColumnConfig.<String>create("email", "Email")
             .setRenderer(
@@ -497,8 +579,7 @@ public class ResponsiveDataTablePluginTest extends GWTTestCase {
             .addPlugin(detailsPlugin())
             .addPlugin(
                 new ResponsiveDataTablePlugin<String>(observer)
-                    .setMode(ResponsiveDataTablePlugin.Mode.PRIORITY_DETAILS)
-                    .setPriorityColumns("name"));
+                    .setMode(ResponsiveDataTablePlugin.Mode.PRIORITY_DETAILS));
     DataTable<String> table = new DataTable<>(config, new LocalListDataStore<>());
     table.setData(Collections.singletonList("Ada"));
     TableRow<String> row = table.getRows().get(0);
@@ -518,6 +599,7 @@ public class ResponsiveDataTablePluginTest extends GWTTestCase {
     HTMLInputElement[] editor = new HTMLInputElement[1];
     ColumnConfig<String> name =
         ColumnConfig.<String>create("name", "Name")
+            .setResponsivePriority(true)
             .setRenderer(
                 cell -> {
                   editor[0] = (HTMLInputElement) DomGlobal.document.createElement("input");
@@ -531,8 +613,7 @@ public class ResponsiveDataTablePluginTest extends GWTTestCase {
             .addPlugin(detailsPlugin())
             .addPlugin(
                 new ResponsiveDataTablePlugin<String>(observer)
-                    .setMode(ResponsiveDataTablePlugin.Mode.PRIORITY_DETAILS)
-                    .setPriorityColumns("name"));
+                    .setMode(ResponsiveDataTablePlugin.Mode.PRIORITY_DETAILS));
     DataTable<String> table = new DataTable<>(config, new LocalListDataStore<>());
     table.setData(Collections.singletonList("Ada"));
     editor[0].focus();
@@ -546,10 +627,10 @@ public class ResponsiveDataTablePluginTest extends GWTTestCase {
     for (boolean detailsFirst : new boolean[] {true, false}) {
       List<String> renderedRecords = new ArrayList<>();
       RecordDetailsPlugin<String> details = detailsPlugin(renderedRecords);
-      ResponsiveDataTablePlugin<String> responsive = priorityPlugin("name");
+      ResponsiveDataTablePlugin<String> responsive = priorityPlugin();
       TableConfig<String> config =
           new TableConfig<String>()
-              .addColumn(ColumnConfig.<String>create("name", "Name"))
+              .addColumn(ColumnConfig.<String>create("name", "Name").setResponsivePriority(true))
               .addColumn(ColumnConfig.<String>create("email", "Email"));
       if (detailsFirst) {
         config.addPlugin(details).addPlugin(responsive);
@@ -584,9 +665,9 @@ public class ResponsiveDataTablePluginTest extends GWTTestCase {
     RecordDetailsPlugin<String> details = detailsPlugin(renderedRecords);
     TableConfig<String> config =
         new TableConfig<String>()
-            .addColumn(ColumnConfig.<String>create("name", "Name"))
+            .addColumn(ColumnConfig.<String>create("name", "Name").setResponsivePriority(true))
             .addPlugin(details)
-            .addPlugin(priorityPlugin("name"));
+            .addPlugin(priorityPlugin());
     DataTable<String> table = new DataTable<>(config, new LocalListDataStore<>());
     table.setData(new ArrayList<>(Collections.singletonList("Ada")));
     HTMLElement oldDetailsControl = detailsControl(table.getRows().get(0));
@@ -613,9 +694,9 @@ public class ResponsiveDataTablePluginTest extends GWTTestCase {
         new LocalListDataStore<>(new ArrayList<>(Collections.singletonList("Ada")));
     TableConfig<String> config =
         new TableConfig<String>()
-            .addColumn(ColumnConfig.<String>create("name", "Name"))
+            .addColumn(ColumnConfig.<String>create("name", "Name").setResponsivePriority(true))
             .addPlugin(details)
-            .addPlugin(priorityPlugin("name"));
+            .addPlugin(priorityPlugin());
     DataTable<String> table = new DataTable<>(config, store);
     table.setData(new ArrayList<>(Collections.singletonList("Ada")));
     HTMLElement oldControl = detailsControl(table.getRows().get(0));
@@ -646,10 +727,10 @@ public class ResponsiveDataTablePluginTest extends GWTTestCase {
     RecordDetailsPlugin<String> details = detailsPlugin(renderedRecords);
     TableConfig<String> config =
         new TableConfig<String>()
-            .addColumn(ColumnConfig.<String>create("name", "Name"))
+            .addColumn(ColumnConfig.<String>create("name", "Name").setResponsivePriority(true))
             .addColumn(email)
             .addPlugin(details)
-            .addPlugin(priorityPlugin("name"));
+            .addPlugin(priorityPlugin());
     DataTable<String> table = new DataTable<>(config, new LocalListDataStore<>());
     table.setData(new ArrayList<>(Collections.singletonList("Ada")));
     TableRow<String> expandedRow = table.getRows().get(0);
@@ -679,13 +760,12 @@ public class ResponsiveDataTablePluginTest extends GWTTestCase {
     FakeBreakpointObserver observer = new FakeBreakpointObserver(false);
     TableConfig<String> config =
         new TableConfig<String>()
-            .addColumn(ColumnConfig.<String>create("name", "Name"))
+            .addColumn(ColumnConfig.<String>create("name", "Name").setResponsivePriority(true))
             .addColumn(email)
             .addPlugin(detailsPlugin())
             .addPlugin(
                 new ResponsiveDataTablePlugin<String>(observer)
-                    .setMode(ResponsiveDataTablePlugin.Mode.PRIORITY_DETAILS)
-                    .setPriorityColumns("name"));
+                    .setMode(ResponsiveDataTablePlugin.Mode.PRIORITY_DETAILS));
     DataTable<String> table = new DataTable<>(config, new LocalListDataStore<>());
     table.setData(Collections.singletonList("Ada"));
     email.hide();
@@ -699,7 +779,8 @@ public class ResponsiveDataTablePluginTest extends GWTTestCase {
   }
 
   public void testPriorityColumnHiddenThroughVisibilityApiStaysHidden() {
-    ColumnConfig<String> name = ColumnConfig.<String>create("name", "Name");
+    ColumnConfig<String> name =
+        ColumnConfig.<String>create("name", "Name").setResponsivePriority(true);
     FakeBreakpointObserver observer = new FakeBreakpointObserver(false);
     TableConfig<String> config =
         new TableConfig<String>()
@@ -708,8 +789,7 @@ public class ResponsiveDataTablePluginTest extends GWTTestCase {
             .addPlugin(detailsPlugin())
             .addPlugin(
                 new ResponsiveDataTablePlugin<String>(observer)
-                    .setMode(ResponsiveDataTablePlugin.Mode.PRIORITY_DETAILS)
-                    .setPriorityColumns("name"));
+                    .setMode(ResponsiveDataTablePlugin.Mode.PRIORITY_DETAILS));
     DataTable<String> table = new DataTable<>(config, new LocalListDataStore<>());
     table.setData(Collections.singletonList("Ada"));
     HTMLElement nameCell = table.getRows().get(0).getCell("name").element();
@@ -729,9 +809,9 @@ public class ResponsiveDataTablePluginTest extends GWTTestCase {
                 cell -> {});
     TableConfig<String> config =
         new TableConfig<String>()
-            .addColumn(ColumnConfig.<String>create("name", "Name"))
+            .addColumn(ColumnConfig.<String>create("name", "Name").setResponsivePriority(true))
             .addPlugin(details)
-            .addPlugin(priorityPlugin("name"));
+            .addPlugin(priorityPlugin());
     DataTable<String> table = new DataTable<>(config, new LocalListDataStore<>());
     table.setData(new ArrayList<>(Collections.singletonList("Ada")));
     HTMLElement detailsControl = detailsControl(table.getRows().get(0));
@@ -755,7 +835,7 @@ public class ResponsiveDataTablePluginTest extends GWTTestCase {
     DataTable<String> table =
         new DataTable<>(
             new TableConfig<String>()
-                .addColumn(ColumnConfig.<String>create("name", "Name"))
+                .addColumn(ColumnConfig.<String>create("name", "Name").setResponsivePriority(true))
                 .addPlugin(lifecyclePlugin),
             new LocalListDataStore<>());
 
@@ -769,7 +849,9 @@ public class ResponsiveDataTablePluginTest extends GWTTestCase {
     FakeBreakpointObserver observer = new FakeBreakpointObserver(true);
     DataTable<String> table =
         table(
-            new ResponsiveDataTablePlugin<>(observer), ColumnConfig.<String>create("name", "Name"));
+            new ResponsiveDataTablePlugin<String>(observer)
+                .setMode(ResponsiveDataTablePlugin.Mode.STACKED),
+            ColumnConfig.<String>create("name", "Name"));
 
     assertTrue(table.element().classList.contains("dui-datatable-responsive-stacked"));
     observer.emit(false);
@@ -781,14 +863,17 @@ public class ResponsiveDataTablePluginTest extends GWTTestCase {
   public void testInvalidMediaQueryRemainsInNormalPresentation() {
     DataTable<String> table =
         table(
-            ResponsiveDataTablePlugin.<String>create().setBreakpoint("invalid query"),
+            ResponsiveDataTablePlugin.<String>create()
+                .setMode(ResponsiveDataTablePlugin.Mode.STACKED)
+                .setBreakpoint("invalid query"),
             ColumnConfig.<String>create("name", "Name"));
 
     assertFalse(table.element().classList.contains("dui-datatable-responsive-stacked"));
   }
 
   public void testTableWithoutResponsivePluginHasNoResponsiveClassOrCellMetadata() {
-    ColumnConfig<String> name = ColumnConfig.<String>create("name", "Name");
+    ColumnConfig<String> name =
+        ColumnConfig.<String>create("name", "Name").setResponsivePriority(true);
     DataTable<String> table = table(null, name);
     table.setData(new ArrayList<>(Collections.singletonList("Ada")));
 
@@ -878,7 +963,9 @@ public class ResponsiveDataTablePluginTest extends GWTTestCase {
     TableConfig<String> config =
         new TableConfig<String>()
             .addColumn(name)
-            .addPlugin(new ResponsiveDataTablePlugin<>(observer));
+            .addPlugin(
+                new ResponsiveDataTablePlugin<String>(observer)
+                    .setMode(ResponsiveDataTablePlugin.Mode.STACKED));
     LocalListDataStore<String> store =
         new LocalListDataStore<>(new ArrayList<>(Collections.singletonList("Ada")));
     DataTable<String> table = new DataTable<>(config, store);
@@ -924,7 +1011,9 @@ public class ResponsiveDataTablePluginTest extends GWTTestCase {
             .addColumn(name)
             .addPlugin(sortPlugin)
             .addPlugin(paginationPlugin)
-            .addPlugin(new ResponsiveDataTablePlugin<>(observer))
+            .addPlugin(
+                new ResponsiveDataTablePlugin<String>(observer)
+                    .setMode(ResponsiveDataTablePlugin.Mode.STACKED))
             .setLazyLoad(false);
     DataTable<String> table = new DataTable<>(config, store);
 
@@ -949,7 +1038,9 @@ public class ResponsiveDataTablePluginTest extends GWTTestCase {
         new TableConfig<String>()
             .addColumn(name)
             .addPlugin(detailsPlugin)
-            .addPlugin(new ResponsiveDataTablePlugin<>(observer));
+            .addPlugin(
+                new ResponsiveDataTablePlugin<String>(observer)
+                    .setMode(ResponsiveDataTablePlugin.Mode.STACKED));
     DataTable<String> table = new DataTable<>(config, new LocalListDataStore<>());
     table.setData(Collections.singletonList("Ada"));
 
@@ -975,7 +1066,11 @@ public class ResponsiveDataTablePluginTest extends GWTTestCase {
                   cell.element().appendChild(editor[0]);
                 });
     FakeBreakpointObserver observer = new FakeBreakpointObserver(false);
-    DataTable<String> table = table(new ResponsiveDataTablePlugin<>(observer), name);
+    DataTable<String> table =
+        table(
+            new ResponsiveDataTablePlugin<String>(observer)
+                .setMode(ResponsiveDataTablePlugin.Mode.STACKED),
+            name);
     table.setData(Collections.singletonList("Ada"));
     TableRow<String> row = table.getRows().get(0);
     row.edit("name");
@@ -999,7 +1094,9 @@ public class ResponsiveDataTablePluginTest extends GWTTestCase {
     FakeBreakpointObserver observer = new FakeBreakpointObserver(false);
     DataTable<String> table =
         table(
-            new ResponsiveDataTablePlugin<>(observer), ColumnConfig.<String>create("name", "Name"));
+            new ResponsiveDataTablePlugin<String>(observer)
+                .setMode(ResponsiveDataTablePlugin.Mode.STACKED),
+            ColumnConfig.<String>create("name", "Name"));
 
     assertFalse(observer.removed);
     table.remove();
@@ -1014,12 +1111,11 @@ public class ResponsiveDataTablePluginTest extends GWTTestCase {
     FakeResponsiveWidthObserver widthObserver = new FakeResponsiveWidthObserver(500);
     TableConfig<String> config =
         new TableConfig<String>()
-            .addColumn(ColumnConfig.<String>create("name", "Name"))
+            .addColumn(ColumnConfig.<String>create("name", "Name").setResponsivePriority(true))
             .addPlugin(detailsPlugin())
             .addPlugin(
                 new ResponsiveDataTablePlugin<String>(observer, widthObserver)
-                    .setMode(ResponsiveDataTablePlugin.Mode.PRIORITY_DETAILS)
-                    .setPriorityColumns("name"));
+                    .setMode(ResponsiveDataTablePlugin.Mode.PRIORITY_DETAILS));
     DataTable<String> table = new DataTable<>(config, new LocalListDataStore<>());
 
     table.remove();
@@ -1034,10 +1130,9 @@ public class ResponsiveDataTablePluginTest extends GWTTestCase {
     assertEquals(label, row.getCell(column).element().getAttribute("data-label"));
   }
 
-  private ResponsiveDataTablePlugin<String> priorityPlugin(String... columns) {
+  private ResponsiveDataTablePlugin<String> priorityPlugin() {
     return new ResponsiveDataTablePlugin<String>(new FakeBreakpointObserver(false))
-        .setMode(ResponsiveDataTablePlugin.Mode.PRIORITY_DETAILS)
-        .setPriorityColumns(columns);
+        .setMode(ResponsiveDataTablePlugin.Mode.PRIORITY_DETAILS);
   }
 
   private RecordDetailsPlugin<String> detailsPlugin() {
@@ -1083,7 +1178,7 @@ public class ResponsiveDataTablePluginTest extends GWTTestCase {
 
   private TableConfig<String> validDetailsConfig() {
     return new TableConfig<String>()
-        .addColumn(ColumnConfig.<String>create("name", "Name"))
+        .addColumn(ColumnConfig.<String>create("name", "Name").setResponsivePriority(true))
         .addPlugin(detailsPlugin());
   }
 

@@ -405,7 +405,7 @@
 
 /* Priority/details mode keeps selected cells in place and delegates secondary values to details. */
 .dui-datatable-responsive-priority-details {
-    overflow-x: visible;
+    overflow-x: auto;
 }
 
 .dui-datatable-responsive-priority-details > .dui-datatable > .dui-datatable-thead {
@@ -427,8 +427,9 @@
 .dui-datatable-responsive-priority-details > .dui-datatable > tbody > .dui-datatable-row:not(.dui-datatable-details-tr) {
     display: flex;
     align-items: center;
-    flex-wrap: wrap;
-    gap: var(--dui-spc-2);
+    flex-wrap: nowrap;
+    width: 100%;
+    box-sizing: border-box;
     margin-block-end: var(--dui-spc-2);
 }
 
@@ -442,19 +443,22 @@
 
 .dui-datatable-responsive-priority-details > .dui-datatable > tbody > .dui-datatable-row:not(.dui-datatable-details-tr) > .dui-datatable-responsive-secondary-cell.dui-datatable-responsive-secondary-visible {
     display: flex !important;
+    flex: 0 0 auto;
 }
 
 .dui-datatable-responsive-priority-details.dui-datatable-responsive-priority-no-details > .dui-datatable > tbody > .dui-datatable-row:not(.dui-datatable-details-tr) > .dui-datatable-responsive-secondary-cell {
     display: flex !important;
+    flex: 0 0 auto;
 }
 
 .dui-datatable-responsive-priority-details > .dui-datatable > tbody > .dui-datatable-row:not(.dui-datatable-details-tr) > .dui-datatable-responsive-priority-cell {
     display: flex;
     align-items: center;
-    flex: 1 1 0;
+    flex: 1 0 0;
     gap: var(--dui-spc-2);
-    min-width: 0;
+    min-width: max-content;
     box-sizing: border-box;
+    white-space: nowrap;
 }
 
 .dui-datatable-responsive-priority-details > .dui-datatable > tbody > .dui-datatable-row:not(.dui-datatable-details-tr) > .dui-datatable-responsive-priority-cell::before {
@@ -463,6 +467,10 @@
     max-width: var(--dui-datatable-responsive-label-width);
     font-weight: 600;
     overflow-wrap: anywhere;
+}
+
+.dui-datatable-responsive-priority-details > .dui-datatable > tbody > .dui-datatable-row:not(.dui-datatable-details-tr) > .dui-datatable-responsive-priority-cell.dui-datatable-responsive-priority-title-omitted::before {
+    display: none;
 }
 
 .dui-datatable-responsive-priority-details > .dui-datatable > tbody > .dui-datatable-row:not(.dui-datatable-details-tr) > .dui-datatable-responsive-priority-cell.dui-hidden,
