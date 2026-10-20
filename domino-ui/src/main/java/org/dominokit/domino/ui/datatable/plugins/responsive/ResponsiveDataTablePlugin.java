@@ -155,8 +155,8 @@ public class ResponsiveDataTablePlugin<T> implements DataTablePlugin<T>, DataTab
    * Sets a listener notified after the responsive state or details columns change.
    *
    * <p>The listener receives changes when the responsive breakpoint is entered or exited and when
-   * columns progressively move into or return from the details panel. Repeated measurements that
-   * do not change the layout do not trigger the listener.
+   * columns progressively move into or return from the details panel. Repeated measurements that do
+   * not change the layout do not trigger the listener.
    */
   public ResponsiveDataTablePlugin<T> setResponsiveLayoutChangeListener(
       Consumer<ResponsiveLayoutChange<T>> listener) {
@@ -468,11 +468,7 @@ public class ResponsiveDataTablePlugin<T> implements DataTablePlugin<T>, DataTab
     if (changed && responsiveLayoutChangeListener != null) {
       responsiveLayoutChangeListener.accept(
           new ResponsiveLayoutChange<>(
-              dataTable,
-              responsive,
-              columnsInDetails,
-              movedToDetails,
-              restoredFromDetails));
+              dataTable, responsive, columnsInDetails, movedToDetails, restoredFromDetails));
     }
   }
 

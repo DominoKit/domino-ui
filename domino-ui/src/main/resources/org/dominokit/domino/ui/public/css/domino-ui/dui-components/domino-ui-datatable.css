@@ -385,7 +385,6 @@
 .dui-datatable-responsive-stacked > .dui-datatable > tbody > .dui-datatable-row:not(.dui-datatable-details-tr) {
     display: grid;
     grid-template-columns: minmax(0, 1fr);
-    margin-block-end: var(--dui-spc-2);
 }
 
 .dui-datatable-responsive-stacked > .dui-datatable > tbody > .dui-datatable-row:not(.dui-datatable-details-tr) > .dui-datatable-td {
@@ -430,7 +429,6 @@
     flex-wrap: nowrap;
     width: 100%;
     box-sizing: border-box;
-    margin-block-end: var(--dui-spc-2);
 }
 
 .dui-datatable-responsive-priority-details > .dui-datatable > tbody > .dui-datatable-row.dui-datatable-responsive-row-with-details {

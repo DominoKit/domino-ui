@@ -115,10 +115,8 @@ public class ResponsiveDataTablePluginTest extends GWTTestCase {
     HTMLElement omittedCell = table.getRows().get(0).getCell("name").element();
     HTMLElement visibleCell = table.getRows().get(0).getCell("status").element();
 
-    assertTrue(
-        omittedCell.classList.contains("dui-datatable-responsive-priority-title-omitted"));
-    assertFalse(
-        visibleCell.classList.contains("dui-datatable-responsive-priority-title-omitted"));
+    assertTrue(omittedCell.classList.contains("dui-datatable-responsive-priority-title-omitted"));
+    assertFalse(visibleCell.classList.contains("dui-datatable-responsive-priority-title-omitted"));
     assertEquals("Name", omittedCell.getAttribute("data-label"));
     assertEquals(
         omittedTitle.getHeadElement().getAttribute("id"), omittedCell.getAttribute("headers"));
