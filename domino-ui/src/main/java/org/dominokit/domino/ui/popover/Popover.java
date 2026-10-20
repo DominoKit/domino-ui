@@ -70,6 +70,7 @@ public class Popover extends BasePopover<Popover> {
   private boolean closeOnEscape = true;
   private final DropDirection dialog = DropDirection.MIDDLE_SCREEN;
   private boolean modal = false;
+  private boolean useDialogOnSmallScreens = true;
   private KeyboardEventOptions closeEventOptions = KeyboardEventOptions.create();
 
   /**
@@ -209,12 +210,31 @@ public class Popover extends BasePopover<Popover> {
    */
   @Override
   protected void doPosition(DropDirection position) {
-    if (asDialog) {
+    if (asDialog && useDialogOnSmallScreens) {
       dialog.position(DropDirectionContext.of(this.element(), targetElement.element()));
     } else {
       dialog.cleanup(this.element());
       super.doPosition(position);
     }
+  }
+
+  /**
+   * Sets whether this popover should switch to a centered dialog position on small screens.
+   *
+   * <p>This is enabled by default. Disable it for popovers, such as compact overflow menus, that
+   * should remain anchored to their target at every viewport size.
+   *
+   * @param useDialogOnSmallScreens whether to use the centered dialog position on small screens.
+   * @return this popover for chaining.
+   */
+  public Popover setUseDialogOnSmallScreens(boolean useDialogOnSmallScreens) {
+    this.useDialogOnSmallScreens = useDialogOnSmallScreens;
+    return this;
+  }
+
+  /** Returns whether this popover uses a centered dialog position on small screens. */
+  public boolean isUseDialogOnSmallScreens() {
+    return useDialogOnSmallScreens;
   }
 
   /**

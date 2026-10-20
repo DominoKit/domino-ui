@@ -45,7 +45,10 @@ public class TabsDropDownHandler implements TabsOverflowHandler {
 
   public TabsDropDownHandler() {
     dropDownIcon = Icons.dots_horizontal().clickable().setAriaLabel("Show more tabs");
-    popover = Popover.create(dropDownIcon).setPosition(DropDirection.BEST_MIDDLE_DOWN_UP);
+    popover =
+        Popover.create(dropDownIcon)
+            .setPosition(DropDirection.BEST_MIDDLE_DOWN_UP)
+            .setUseDialogOnSmallScreens(false);
   }
 
   @Override

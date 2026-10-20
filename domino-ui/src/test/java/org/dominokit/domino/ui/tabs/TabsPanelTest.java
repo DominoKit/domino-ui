@@ -19,6 +19,7 @@ import static org.dominokit.domino.ui.utils.Domino.div;
 
 import com.google.gwt.junit.client.GWTTestCase;
 import org.dominokit.domino.ui.elements.DivElement;
+import org.dominokit.domino.ui.popover.Popover;
 
 public class TabsPanelTest extends GWTTestCase {
 
@@ -40,5 +41,13 @@ public class TabsPanelTest extends GWTTestCase {
     assertSame(contentContainer.element(), groups.getTabPanel().element().parentElement);
     assertSame(members.getTabPanel().element(), contentContainer.element().firstElementChild);
     assertSame(groups.getTabPanel().element(), contentContainer.element().lastElementChild);
+  }
+
+  public void testPopoverCanOptOutOfSmallScreenDialogPositioning() {
+    Popover popover = Popover.create(div());
+
+    assertTrue(popover.isUseDialogOnSmallScreens());
+    assertSame(popover, popover.setUseDialogOnSmallScreens(false));
+    assertFalse(popover.isUseDialogOnSmallScreens());
   }
 }
