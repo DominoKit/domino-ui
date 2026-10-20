@@ -21,6 +21,7 @@ import elemental2.dom.Element;
 import elemental2.dom.HTMLTableCellElement;
 import org.dominokit.domino.ui.datatable.GroupCellInfo;
 import org.dominokit.domino.ui.datatable.TableCell;
+import org.dominokit.domino.ui.datatable.TableRow;
 
 public class GroupCell<T>
     extends TableCell<
@@ -39,6 +40,11 @@ public class GroupCell<T>
 
   public GroupingPlugin.DataGroup<T> getDataGroup() {
     return dataGroup;
+  }
+
+  /** Returns the generated table row that contains this group header cell. */
+  public TableRow<T> getGroupHeaderRow() {
+    return cellInfo.getGroupHeaderRow();
   }
 
   void setDataGroup(GroupingPlugin.DataGroup<T> dataGroup) {

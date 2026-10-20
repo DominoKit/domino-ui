@@ -30,6 +30,7 @@ import org.dominokit.domino.ui.datatable.events.OnBeforeDataChangeEvent;
 import org.dominokit.domino.ui.datatable.plugins.DataTablePlugin;
 import org.dominokit.domino.ui.datatable.plugins.HasPluginConfig;
 import org.dominokit.domino.ui.elements.DivElement;
+import org.dominokit.domino.ui.elements.TableRowElement;
 import org.dominokit.domino.ui.icons.ToggleIcon;
 import org.dominokit.domino.ui.icons.ToggleMdiIcon;
 import org.dominokit.domino.ui.icons.lib.Icons;
@@ -132,7 +133,12 @@ public class GroupingPlugin<T>
                       .appendChild(groupBody))
               .element();
 
-      GroupCellInfo<T> cellInfo = new GroupCellInfo<>(tableRow, cellElement, groupBody);
+      TableRowElement groupHeaderElement =
+          elements.tr().css("data-table-group-row").appendChild(cellElement);
+      TableRow<T> groupHeaderRow =
+          new TableRow<>(groupHeaderElement, tableRow.getRecord(), tableRow.getIndex(), dataTable);
+      GroupCellInfo<T> cellInfo =
+          new GroupCellInfo<>(tableRow, groupHeaderRow, cellElement, groupBody);
       GroupCell<T> groupCell = new GroupCell<>(cellInfo);
       DataGroup<T> dataGroup = new DataGroup<>(tableRow, groupCell);
 
@@ -149,7 +155,7 @@ public class GroupingPlugin<T>
                     evt.stopPropagation();
                     dataGroup.toggleGroup();
                   });
-      dataGroup.setGroupIconSupplier(groupToggleIcon).setGroupRenderer(groupRenderer).render();
+      dataGroup.setGroupIconSupplier(groupToggleIcon).setGroupRenderer(groupRenderer);
 
       if (config.isToggleGroupOnClick()) {
         groupCell.addClickListener(
@@ -161,9 +167,8 @@ public class GroupingPlugin<T>
 
       groupPrefix.appendChild(groupToggleIcon);
 
-      dataTable
-          .bodyElement()
-          .appendChild(elements.tr().css("data-table-group-row").appendChild(cellElement));
+      dataTable.bodyElement().appendChild(groupHeaderRow.element());
+      dataGroup.render();
       dataTable.bodyElement().appendChild(tableRow.element());
       dataGroups.put(groupId, dataGroup);
     } else {

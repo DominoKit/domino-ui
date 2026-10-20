@@ -22,11 +22,26 @@ import org.dominokit.domino.ui.IsElement;
 public class GroupCellInfo<T> extends CellInfo<T, HTMLTableCellElement, GroupCellInfo<T>> {
 
   private final Element groupBody;
+  private final TableRow<T> groupHeaderRow;
 
   public GroupCellInfo(
       TableRow<T> tableRow, HTMLTableCellElement element, IsElement<? extends Element> groupBody) {
+    this(tableRow, tableRow, element, groupBody);
+  }
+
+  public GroupCellInfo(
+      TableRow<T> tableRow,
+      TableRow<T> groupHeaderRow,
+      HTMLTableCellElement element,
+      IsElement<? extends Element> groupBody) {
     super(tableRow, element);
+    this.groupHeaderRow = groupHeaderRow;
     this.groupBody = groupBody.element();
+  }
+
+  /** Returns the generated row that contains this group's header cell. */
+  public TableRow<T> getGroupHeaderRow() {
+    return groupHeaderRow;
   }
 
   @Override
