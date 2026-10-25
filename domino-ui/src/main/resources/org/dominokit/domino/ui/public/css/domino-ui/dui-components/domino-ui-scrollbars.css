@@ -1,26 +1,37 @@
-body.dui,
-body.dui * {
-    scrollbar-width: var(--dui-scrollbar-width);
-    scrollbar-color: var(--dui-scrollbar-color);
+/* Prefer the standardized properties where both are supported. In Chromium,
+ * even width: auto on ::-webkit-scrollbar can reserve a gutter without
+ * painting the native scrollbar when the thumb and track use revert values.
+ */
+@supports (scrollbar-width: auto) and (scrollbar-color: auto) {
+    body.dui,
+    body.dui * {
+        scrollbar-width: var(--dui-scrollbar-width);
+        scrollbar-color: var(--dui-scrollbar-color);
+    }
 }
 
-body.dui *::-webkit-scrollbar {
-    width: var(--dui-scrollbar-size);
-    height: var(--dui-scrollbar-size);
-}
+/* Keep the WebKit implementation as a fallback for engines without both
+ * standard properties (including Safari versions with partial support).
+ */
+@supports not ((scrollbar-width: auto) and (scrollbar-color: auto)) {
+    body.dui *::-webkit-scrollbar {
+        width: var(--dui-scrollbar-size);
+        height: var(--dui-scrollbar-size);
+    }
 
-body.dui *::-webkit-scrollbar-track {
-    background: var(--dui-scrollbar-track-background);
-}
+    body.dui *::-webkit-scrollbar-track {
+        background: var(--dui-scrollbar-track-background);
+    }
 
-body.dui *::-webkit-scrollbar-thumb {
-    background: var(--dui-scrollbar-thumb-background);
-    border: var(--dui-scrollbar-thumb-border);
-    border-radius: var(--dui-scrollbar-thumb-radius);
-    background-clip: var(--dui-scrollbar-thumb-background-clip);
-}
+    body.dui *::-webkit-scrollbar-thumb {
+        background: var(--dui-scrollbar-thumb-background);
+        border: var(--dui-scrollbar-thumb-border);
+        border-radius: var(--dui-scrollbar-thumb-radius);
+        background-clip: var(--dui-scrollbar-thumb-background-clip);
+    }
 
-body.dui *::-webkit-scrollbar-thumb:hover {
-    background: var(--dui-scrollbar-thumb-hover-background);
-    background-clip: var(--dui-scrollbar-thumb-background-clip);
+    body.dui *::-webkit-scrollbar-thumb:hover {
+        background: var(--dui-scrollbar-thumb-hover-background);
+        background-clip: var(--dui-scrollbar-thumb-background-clip);
+    }
 }
