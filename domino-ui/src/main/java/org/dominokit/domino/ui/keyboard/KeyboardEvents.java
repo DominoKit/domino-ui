@@ -23,7 +23,6 @@ import static org.dominokit.domino.ui.keyboard.KeyboardKeyListener.BACKSPACE;
 import static org.dominokit.domino.ui.keyboard.KeyboardKeyListener.DELETE;
 import static org.dominokit.domino.ui.keyboard.KeyboardKeyListener.ENTER;
 import static org.dominokit.domino.ui.keyboard.KeyboardKeyListener.ESCAPE;
-import static org.dominokit.domino.ui.keyboard.KeyboardKeyListener.SPACE;
 import static org.dominokit.domino.ui.keyboard.KeyboardKeyListener.TAB;
 
 import elemental2.dom.KeyboardEvent;
@@ -119,7 +118,7 @@ public class KeyboardEvents<T extends Node>
   }
 
   public static boolean isSpace(KeyboardEvent event) {
-    return isKey(SPACE, event);
+    return KeyboardKeys.of(event.key) == KeyboardKeys.SPACE;
   }
 
   public static boolean isTab(KeyboardEvent event) {

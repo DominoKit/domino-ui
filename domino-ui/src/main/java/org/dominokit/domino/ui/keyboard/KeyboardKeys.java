@@ -246,7 +246,8 @@ public enum KeyboardKeys implements KeyboardKey {
    * Map a KeyboardEvent.key string to a specific enum constant.
    *
    * <ul>
-   *   <li>Trims surrounding whitespace
+   *   <li>Preserves the single-space value used by {@code KeyboardEvent.key} for Space, then trims
+   *       surrounding whitespace for other values
    *   <li>Matches aliases in a case-insensitive manner
    *   <li>Returns {@link #UNIDENTIFIED} for unknown or empty values
    * </ul>
@@ -254,6 +255,10 @@ public enum KeyboardKeys implements KeyboardKey {
   public static KeyboardKeys of(String key) {
     if (key == null) {
       return UNIDENTIFIED;
+    }
+    // KeyboardEvent.key reports Space as a single space, which would be lost by trim().
+    if (" ".equals(key)) {
+      return SPACE;
     }
     String normalized = key.trim();
     if (normalized.isEmpty()) {

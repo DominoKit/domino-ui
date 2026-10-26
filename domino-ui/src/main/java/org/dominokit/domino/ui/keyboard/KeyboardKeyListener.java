@@ -100,6 +100,12 @@ public class KeyboardKeyListener implements EventListener, AcceptKeyEvents {
     if (handlers.containsKey(key)) {
       callHandlers(handlers.get(key), evt);
     }
+    // Preserve raw-key registrations while also routing browser Space aliases to onSpace().
+    if (KeyboardKeys.of(keyboardEvent.key) == KeyboardKeys.SPACE && !SPACE.equals(key)) {
+      if (handlers.containsKey(SPACE)) {
+        callHandlers(handlers.get(SPACE), evt);
+      }
+    }
     callHandlers(globalHandlers, evt);
   }
 
