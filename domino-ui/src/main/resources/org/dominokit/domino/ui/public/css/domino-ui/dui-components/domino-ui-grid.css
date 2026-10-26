@@ -334,7 +334,7 @@
 }
 
 /*Large screens*/
-@media screen and (min-width: 1200px) and (max-width: 1800px) {
+@media screen and (min-width: 1200px) and (max-width: 1799.98px) {
     .dui-span-l-1 {
         grid-column-end: span 1;
     }
@@ -617,7 +617,7 @@
 }
 
 /*Medium screens*/
-@media screen and (min-width: 992px) and (max-width: 1200px) {
+@media screen and (min-width: 992px) and (max-width: 1199.98px) {
     .dui-span-m-1 {
         grid-column-end: span 1;
     }
@@ -900,7 +900,7 @@
 }
 
 /*Small screens*/
-@media screen and (min-width: 768px) and (max-width: 992px) {
+@media screen and (min-width: 768px) and (max-width: 991.98px) {
     .dui-span-s-1 {
         grid-column-end: span 1;
     }
@@ -1183,7 +1183,7 @@
 }
 
 /*x-Small screens*/
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 767.98px) {
     .dui-span-xs-1 {
         grid-column-end: span 1;
     }

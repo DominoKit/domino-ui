@@ -39,23 +39,23 @@ import jsinterop.base.Js;
  *     MediaQuery.addOnXSmallListener(() -> {});
  * </pre>
  *
- * <p>Media query sizes defined as follows:
+ * <p>Media query sizes are non-overlapping, with each breakpoint assigned to the next larger range:
  *
  * <ul>
- *   <li>{@code min-width} is larger than 1800px, the size is X large
- *   <li>{@code min-width} is between 1200px and 1800px, the size is large
- *   <li>{@code min-width} is between 992px and 1200px, the size is medium
- *   <li>{@code min-width} is between 768px and 992px, the size is small
+ *   <li>{@code min-width} is 1800px or more, the size is X large
+ *   <li>{@code min-width} is 1200px and less than 1800px, the size is large
+ *   <li>{@code min-width} is 992px and less than 1200px, the size is medium
+ *   <li>{@code min-width} is 768px and less than 992px, the size is small
  *   <li>{@code min-width} is less than 768px, the size is X small
  * </ul>
  */
 public class MediaQuery {
 
   private static final String X_LARGE_MEDIA_QUERY = "(min-width: 1800px)";
-  private static final String LARGE_MEDIA_QUERY = "(min-width: 1200px) and (max-width: 1800px)";
-  private static final String MEDIUM_MEDIA_QUERY = "(min-width: 992px) and (max-width: 1200px)";
-  private static final String SMALL_MEDIA_QUERY = "(min-width: 768px) and (max-width: 992px)";
-  private static final String X_SMALL_MEDIA_QUERY = "(max-width: 768px)";
+  private static final String LARGE_MEDIA_QUERY = "(min-width: 1200px) and (max-width: 1799.98px)";
+  private static final String MEDIUM_MEDIA_QUERY = "(min-width: 992px) and (max-width: 1199.98px)";
+  private static final String SMALL_MEDIA_QUERY = "(min-width: 768px) and (max-width: 991.98px)";
+  private static final String X_SMALL_MEDIA_QUERY = "(max-width: 767.98px)";
 
   private static final String X_LARGE_AND_UP_MEDIA_QUERY = "(min-width: 1800px)";
   private static final String LARGE_AND_UP_MEDIA_QUERY = "(min-width: 1200px)";
@@ -63,11 +63,11 @@ public class MediaQuery {
   private static final String SMALL_AND_UP_MEDIA_QUERY = "(min-width: 768px)";
   private static final String X_SMALL_AND_UP_MEDIA_QUERY = "(min-width: 0px)";
 
-  private static final String X_LARGE_AND_DOWN_MEDIA_QUERY = "(max-width: 1800px)";
-  private static final String LARGE_AND_DOWN_MEDIA_QUERY = "(max-width: 1800px)";
-  private static final String MEDIUM_AND_DOWN_MEDIA_QUERY = "(max-width: 1200px)";
-  private static final String SMALL_AND_DOWN_MEDIA_QUERY = "(max-width: 992px)";
-  private static final String X_SMALL_AND_DOWN_MEDIA_QUERY = "(max-width: 768px)";
+  private static final String X_LARGE_AND_DOWN_MEDIA_QUERY = "(min-width: 0px)";
+  private static final String LARGE_AND_DOWN_MEDIA_QUERY = "(max-width: 1799.98px)";
+  private static final String MEDIUM_AND_DOWN_MEDIA_QUERY = "(max-width: 1199.98px)";
+  private static final String SMALL_AND_DOWN_MEDIA_QUERY = "(max-width: 991.98px)";
+  private static final String X_SMALL_AND_DOWN_MEDIA_QUERY = "(max-width: 767.98px)";
 
   private static final MediaQueryList xLargeMediaQueryList = window.matchMedia(X_LARGE_MEDIA_QUERY);
   private static final MediaQueryList largeMediaQueryList = window.matchMedia(LARGE_MEDIA_QUERY);

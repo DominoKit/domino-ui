@@ -152,7 +152,7 @@
     padding: 0 var(--dui-spc-4);
 }
 
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 767.98px) {
     .dui-layout-header:has(> .dui-nav-bar.dui-nav-bar-responsive) {
         height: auto;
         min-height: var(--dui-header-height);

@@ -63,7 +63,7 @@
     line-height: var(--dui-nav-bar-description-line-height);
 }
 
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 767.98px) {
     .dui-nav-bar-base.dui-nav-bar-responsive {
         height: auto;
         flex-wrap: wrap;
