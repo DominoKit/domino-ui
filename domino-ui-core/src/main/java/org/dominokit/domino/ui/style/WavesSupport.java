@@ -15,7 +15,10 @@
  */
 package org.dominokit.domino.ui.style;
 
+import static org.dominokit.domino.ui.utils.Domino.elementOf;
+
 import elemental2.dom.Element;
+import org.dominokit.domino.ui.utils.DominoElement;
 import org.dominokit.domino.ui.utils.HasWavesElement;
 
 /**
@@ -94,7 +97,7 @@ public class WavesSupport implements HasWaveEffect<WavesSupport> {
    *
    * @return the DOM element.
    */
-  public Element getElement() {
-    return wavesElement.element();
+  public DominoElement<Element> getElement() {
+    return elementOf(wavesElement.element());
   }
 }
