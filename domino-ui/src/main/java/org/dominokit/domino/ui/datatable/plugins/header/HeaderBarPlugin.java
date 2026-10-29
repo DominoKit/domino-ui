@@ -31,11 +31,10 @@ import org.dominokit.domino.ui.datatable.events.SearchClearedEvent;
 import org.dominokit.domino.ui.datatable.model.Category;
 import org.dominokit.domino.ui.datatable.model.Filter;
 import org.dominokit.domino.ui.datatable.plugins.DataTablePlugin;
-import org.dominokit.domino.ui.icons.Icon;
-import org.dominokit.domino.ui.icons.MdiIcon;
+import org.dominokit.domino.ui.icons.DefaultIcons;
+import org.dominokit.domino.ui.icons.IconName;
+import org.dominokit.domino.ui.icons.IconWrapper;
 import org.dominokit.domino.ui.icons.ToggleIcon;
-import org.dominokit.domino.ui.icons.ToggleMdiIcon;
-import org.dominokit.domino.ui.icons.lib.Icons;
 import org.dominokit.domino.ui.layout.NavBar;
 import org.dominokit.domino.ui.menu.CustomMenuItem;
 import org.dominokit.domino.ui.menu.Menu;
@@ -152,14 +151,14 @@ public class HeaderBarPlugin<T> implements DataTablePlugin<T> {
     @Override
     public Element asElement(DataTable<T> dataTable) {
       ToggleIcon<?, ?> condenseIcon =
-          ToggleMdiIcon.create(Icons.arrow_collapse_vertical(), Icons.arrow_expand_vertical())
+          DefaultIcons.toggle(IconName.ARROW_COLLAPSE_VERTICAL, IconName.ARROW_EXPAND_VERTICAL)
               .clickable()
               .setTooltip(condenseToolTip)
               .toggleOnClick(true)
               .onToggle(
-                  toggleMdiIcon -> {
+                  toggleIcon -> {
                     dataTable.setCondensed(!dataTable.isCondensed());
-                    toggleMdiIcon.setTooltip(
+                    toggleIcon.setTooltip(
                         dataTable.isCondensed() ? condenseToolTip : expandToolTip);
                   });
 
@@ -212,15 +211,14 @@ public class HeaderBarPlugin<T> implements DataTablePlugin<T> {
     @Override
     public Element asElement(DataTable<T> dataTable) {
       ToggleIcon<?, ?> stripesIcon =
-          ToggleMdiIcon.create(Icons.view_day_outline(), Icons.view_day())
+          DefaultIcons.toggle(IconName.VIEW_DAY_OUTLINE, IconName.VIEW_DAY)
               .clickable()
               .setTooltip(noStripsToolTip)
               .toggleOnClick(true)
               .onToggle(
-                  toggleMdiIcon -> {
+                  toggleIcon -> {
                     dataTable.setStriped(!dataTable.isStriped());
-                    toggleMdiIcon.setTooltip(
-                        dataTable.isStriped() ? stripsToolTip : noStripsToolTip);
+                    toggleIcon.setTooltip(dataTable.isStriped() ? stripsToolTip : noStripsToolTip);
                   });
 
       return stripesIcon.element();
@@ -272,14 +270,14 @@ public class HeaderBarPlugin<T> implements DataTablePlugin<T> {
     @Override
     public Element asElement(DataTable<T> dataTable) {
       ToggleIcon<?, ?> bordersIcon =
-          ToggleMdiIcon.create(Icons.border_vertical(), Icons.border_none())
+          DefaultIcons.toggle(IconName.BORDER_VERTICAL, IconName.BORDER_NONE)
               .clickable()
               .toggleOnClick(true)
               .setTooltip(borderedToolTip)
               .onToggle(
-                  toggleMdiIcon -> {
+                  toggleIcon -> {
                     dataTable.setBordered(!dataTable.isBordered());
-                    toggleMdiIcon.setTooltip(
+                    toggleIcon.setTooltip(
                         dataTable.isBordered() ? noBordersToolTip : borderedToolTip);
                   });
 
@@ -334,14 +332,14 @@ public class HeaderBarPlugin<T> implements DataTablePlugin<T> {
     public Element asElement(DataTable<T> dataTable) {
 
       ToggleIcon<?, ?> hoverIcon =
-          ToggleMdiIcon.create(Icons.blur_off(), Icons.blur())
+          DefaultIcons.toggle(IconName.BLUR_OFF, IconName.BLUR)
               .clickable()
               .toggleOnClick(true)
               .setTooltip(noHoverToolTip)
               .onToggle(
-                  toggleMdiIcon -> {
+                  toggleIcon -> {
                     dataTable.setHover(!dataTable.isHover());
-                    toggleMdiIcon.setTooltip(dataTable.isHover() ? noHoverToolTip : hoverToolTip);
+                    toggleIcon.setTooltip(dataTable.isHover() ? noHoverToolTip : hoverToolTip);
                   });
 
       return hoverIcon.element();
@@ -393,8 +391,8 @@ public class HeaderBarPlugin<T> implements DataTablePlugin<T> {
     @Override
     public Element asElement(DataTable<T> dataTable) {
 
-      MdiIcon clearFiltersIcon =
-          Icons.filter_off()
+      IconWrapper clearFiltersIcon =
+          IconWrapper.of(DefaultIcons.icon(IconName.FILTER_OFF))
               .setTooltip(clearFiltersToolTip)
               .addCss(dui_font_size_4)
               .clickable()
@@ -534,7 +532,7 @@ public class HeaderBarPlugin<T> implements DataTablePlugin<T> {
      */
     @Override
     public Element asElement(DataTable<T> dataTable) {
-      Icon<?> columnsIcon = Icons.view_column().clickable();
+      IconWrapper columnsIcon = IconWrapper.of(DefaultIcons.icon(IconName.VIEW_COLUMN)).clickable();
 
       Menu<String> dropDownMenu =
           Menu.<String>create()
@@ -545,8 +543,9 @@ public class HeaderBarPlugin<T> implements DataTablePlugin<T> {
                           .filter(this::notUtility)
                           .forEach(
                               columnConfig -> {
-                                Icon<?> checkIcon =
-                                    Icons.check().toggleDisplay(!columnConfig.isHidden());
+                                IconWrapper checkIcon =
+                                    IconWrapper.of(DefaultIcons.icon(IconName.CHECK))
+                                        .toggleDisplay(!columnConfig.isHidden());
                                 columnConfig.addShowHideListener(
                                     DefaultColumnShowHideListener.of(checkIcon.element(), true));
 

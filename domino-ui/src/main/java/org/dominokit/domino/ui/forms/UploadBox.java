@@ -27,7 +27,8 @@ import java.util.List;
 import java.util.stream.Collectors;
 import org.dominokit.domino.ui.elements.DivElement;
 import org.dominokit.domino.ui.elements.SpanElement;
-import org.dominokit.domino.ui.icons.lib.Icons;
+import org.dominokit.domino.ui.icons.DefaultIcons;
+import org.dominokit.domino.ui.icons.IconName;
 import org.dominokit.domino.ui.utils.*;
 
 /**
@@ -85,7 +86,7 @@ public class UploadBox extends InputFormField<UploadBox, HTMLInputElement, List<
     postfixElement = LazyChild.of(div().addCss(dui_field_postfix), wrapperElement);
     appendChild(
         PrimaryAddOn.of(
-            Icons.upload()
+            DefaultIcons.coreIcon(IconName.UPLOAD)
                 .clickable()
                 .setAttribute("aria-label", "Choose file")
                 .addClickListener(evt -> getInputElement().element().click())));

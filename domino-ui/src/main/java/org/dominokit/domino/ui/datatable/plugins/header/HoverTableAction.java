@@ -17,9 +17,9 @@ package org.dominokit.domino.ui.datatable.plugins.header;
 
 import elemental2.dom.HTMLElement;
 import org.dominokit.domino.ui.datatable.DataTable;
+import org.dominokit.domino.ui.icons.DefaultIcons;
+import org.dominokit.domino.ui.icons.IconName;
 import org.dominokit.domino.ui.icons.ToggleIcon;
-import org.dominokit.domino.ui.icons.ToggleMdiIcon;
-import org.dominokit.domino.ui.icons.lib.Icons;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
 
 /**
@@ -45,15 +45,15 @@ public class HoverTableAction<T> extends BaseDominoElement<HTMLElement, HoverTab
    */
   public HoverTableAction(DataTable<T> dataTable) {
     hoverIcon =
-        ToggleMdiIcon.create(Icons.blur_off(), Icons.blur())
+        DefaultIcons.toggle(IconName.BLUR_OFF, IconName.BLUR)
             .clickable()
             .setAriaLabel("Toggle row hover")
             .toggleOnClick(true)
             .setTooltip(noHoverToolTip)
             .onToggle(
-                toggleMdiIcon -> {
+                toggleIcon -> {
                   dataTable.setHover(!dataTable.isHover());
-                  toggleMdiIcon.setTooltip(dataTable.isHover() ? noHoverToolTip : hoverToolTip);
+                  toggleIcon.setTooltip(dataTable.isHover() ? noHoverToolTip : hoverToolTip);
                 });
     init(this);
   }

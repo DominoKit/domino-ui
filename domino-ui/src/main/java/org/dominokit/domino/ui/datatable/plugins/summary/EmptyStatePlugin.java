@@ -25,6 +25,7 @@ import org.dominokit.domino.ui.elements.TDElement;
 import org.dominokit.domino.ui.elements.TFootElement;
 import org.dominokit.domino.ui.elements.TableRowElement;
 import org.dominokit.domino.ui.icons.Icon;
+import org.dominokit.domino.ui.icons.IsIcon;
 import org.dominokit.domino.ui.layout.EmptyState;
 import org.dominokit.domino.ui.utils.ChildHandler;
 
@@ -40,7 +41,7 @@ import org.dominokit.domino.ui.utils.ChildHandler;
  *
  * <pre>
  * DataTable<MyData> dataTable = DataTable.create();
- * dataTable.addPlugin(EmptyStatePlugin.create(Icons.warning(), "No Data Available"));
+ * dataTable.addPlugin(EmptyStatePlugin.create(DefaultIcons.coreIcon(IconName.WARNING), "No Data Available"));
  * </pre>
  *
  * @param <T> The type of data in the DataTable.
@@ -69,6 +70,11 @@ public class EmptyStatePlugin<T> implements DataTablePlugin<T> {
     return new EmptyStatePlugin<>(emptyStateIcon, title);
   }
 
+  /** Creates the empty state with an icon from any icon pack. */
+  public static <T> EmptyStatePlugin<T> create(IsIcon<?> emptyStateIcon, String title) {
+    return new EmptyStatePlugin<>(emptyStateIcon, title);
+  }
+
   /**
    * Creates a new instance of {@code EmptyStatePlugin} with the provided icon and title.
    *
@@ -76,6 +82,11 @@ public class EmptyStatePlugin<T> implements DataTablePlugin<T> {
    * @param title The title to display in the empty state.
    */
   public EmptyStatePlugin(Icon<?> emptyStateIcon, String title) {
+    emptyState = EmptyState.create(emptyStateIcon).setTitle(title).addCss(dui_accent_grey);
+  }
+
+  /** Creates the empty state with an icon from any icon pack. */
+  public EmptyStatePlugin(IsIcon<?> emptyStateIcon, String title) {
     emptyState = EmptyState.create(emptyStateIcon).setTitle(title).addCss(dui_accent_grey);
   }
 

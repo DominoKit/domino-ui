@@ -23,7 +23,8 @@ import org.dominokit.domino.ui.button.Button;
 import org.dominokit.domino.ui.dialogs.ConfirmationDialog;
 import org.dominokit.domino.ui.dialogs.DialogSize;
 import org.dominokit.domino.ui.forms.UploadBox;
-import org.dominokit.domino.ui.icons.lib.Icons;
+import org.dominokit.domino.ui.icons.DefaultIcons;
+import org.dominokit.domino.ui.icons.IconName;
 import org.dominokit.domino.ui.richtext.IsRichTextEditor;
 import org.dominokit.domino.ui.richtext.RichTextCommand;
 import org.dominokit.domino.ui.utils.URL;
@@ -80,7 +81,7 @@ public class InsertImageCommand extends RichTextCommand<InsertImageCommand> {
                     rejectbutton
                         .setText(getLabels().close())
                         .addCss(dui_dominant)
-                        .setIcon(Icons.close()))
+                        .setIcon(DefaultIcons.coreIcon(IconName.CLOSE)))
             .appendChild(
                 uploadBox =
                     UploadBox.create(getLabels().chooseImage())
@@ -105,7 +106,7 @@ public class InsertImageCommand extends RichTextCommand<InsertImageCommand> {
                 });
 
     this.button =
-        Button.create(Icons.image())
+        Button.create(DefaultIcons.coreIcon(IconName.IMAGE))
             .setTooltip(getLabels().insertImage())
             .addClickListener(
                 evt -> {

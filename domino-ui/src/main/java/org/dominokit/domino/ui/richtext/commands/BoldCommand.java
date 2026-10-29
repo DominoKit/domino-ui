@@ -17,7 +17,8 @@ package org.dominokit.domino.ui.richtext.commands;
 
 import elemental2.dom.HTMLElement;
 import org.dominokit.domino.ui.button.Button;
-import org.dominokit.domino.ui.icons.lib.Icons;
+import org.dominokit.domino.ui.icons.DefaultIcons;
+import org.dominokit.domino.ui.icons.IconName;
 import org.dominokit.domino.ui.richtext.IsRichTextEditor;
 import org.dominokit.domino.ui.richtext.RichTextCommand;
 import org.dominokit.domino.ui.utils.DominoDom;
@@ -59,7 +60,7 @@ public class BoldCommand extends RichTextCommand<BoldCommand> {
   public BoldCommand(IsRichTextEditor isRichTextEditor) {
     super(isRichTextEditor);
     this.button =
-        Button.create(Icons.format_bold())
+        Button.create(DefaultIcons.coreIcon(IconName.FORMAT_BOLD))
             .setTooltip(getLabels().bold())
             .addClickListener(evt -> execute());
     init(this);

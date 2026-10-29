@@ -44,6 +44,8 @@ import org.dominokit.domino.ui.elements.LIElement;
 import org.dominokit.domino.ui.elements.SpanElement;
 import org.dominokit.domino.ui.elements.UListElement;
 import org.dominokit.domino.ui.icons.Icon;
+import org.dominokit.domino.ui.icons.IconWrapper;
+import org.dominokit.domino.ui.icons.IsIcon;
 import org.dominokit.domino.ui.icons.StateChangeIcon;
 import org.dominokit.domino.ui.icons.ToggleIcon;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
@@ -224,6 +226,11 @@ public abstract class TreeNode<V, N extends TreeNode<V, N, S>, S>
    * @param title the text label for this node
    */
   public TreeNode(Icon<?> icon, String title) {
+    this((IsIcon<?>) icon, title);
+  }
+
+  /** Constructs a node using any icon pack. */
+  public TreeNode(IsIcon<?> icon, String title) {
     this();
     setIcon(icon);
     setTitle(title);
@@ -252,6 +259,11 @@ public abstract class TreeNode<V, N extends TreeNode<V, N, S>, S>
    * @param icon the icon to display
    */
   public TreeNode(Icon<?> icon) {
+    this((IsIcon<?>) icon);
+  }
+
+  /** Constructs a node using any icon pack. */
+  public TreeNode(IsIcon<?> icon) {
     this();
     setIcon(icon);
     init();
@@ -276,6 +288,11 @@ public abstract class TreeNode<V, N extends TreeNode<V, N, S>, S>
    * @param value the data value
    */
   public TreeNode(Icon<?> icon, String title, V value) {
+    this((IsIcon<?>) icon, title, value);
+  }
+
+  /** Constructs a node using any icon pack, title, and value. */
+  public TreeNode(IsIcon<?> icon, String title, V value) {
     this(icon, title);
     this.value = value;
   }
@@ -287,6 +304,11 @@ public abstract class TreeNode<V, N extends TreeNode<V, N, S>, S>
    * @param value the data value
    */
   public TreeNode(Icon<?> icon, V value) {
+    this((IsIcon<?>) icon, value);
+  }
+
+  /** Constructs a node using any icon pack and value. */
+  public TreeNode(IsIcon<?> icon, V value) {
     this(icon);
     this.value = value;
   }
@@ -748,6 +770,11 @@ public abstract class TreeNode<V, N extends TreeNode<V, N, S>, S>
    * @param icon the new icon to display
    * @return this node (for fluent API)
    */
+  public N setIcon(IsIcon<?> icon) {
+    return setIcon(IconWrapper.of(icon));
+  }
+
+  /** Sets (or replaces) this node's icon. */
   public N setIcon(Icon<?> icon) {
     if (nonNull(nodeIcon)) {
       if (nodeIcon.isInitialized()) {

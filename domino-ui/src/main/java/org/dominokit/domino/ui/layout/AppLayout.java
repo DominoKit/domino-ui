@@ -26,8 +26,11 @@ import org.dominokit.domino.ui.elements.AsideElement;
 import org.dominokit.domino.ui.elements.DivElement;
 import org.dominokit.domino.ui.elements.HeaderElement;
 import org.dominokit.domino.ui.elements.SectionElement;
+import org.dominokit.domino.ui.icons.DefaultIcons;
 import org.dominokit.domino.ui.icons.Icon;
-import org.dominokit.domino.ui.icons.lib.Icons;
+import org.dominokit.domino.ui.icons.IconName;
+import org.dominokit.domino.ui.icons.IconWrapper;
+import org.dominokit.domino.ui.icons.IsIcon;
 import org.dominokit.domino.ui.style.BooleanCssClass;
 import org.dominokit.domino.ui.style.GenericCss;
 import org.dominokit.domino.ui.style.SwapCssClass;
@@ -58,9 +61,9 @@ public class AppLayout extends BaseDominoElement<HTMLDivElement, AppLayout>
   private final LazyChild<SectionElement> rightDrawerContent;
   private final LazyChild<DivElement> overlay;
   private LazyChild<PrefixAddOn<HTMLElement>> leftDrawerToggle;
-  private Icon<?> leftToggleIcon = Icons.menu();
+  private Icon<?> leftToggleIcon = DefaultIcons.coreIcon(IconName.MENU);
   private LazyChild<PostfixAddOn<HTMLElement>> rightDrawerToggle;
-  private Icon<?> rightToggleIcon = Icons.menu_open();
+  private Icon<?> rightToggleIcon = DefaultIcons.coreIcon(IconName.MENU_OPEN);
 
   private boolean autoCloseLeftDrawer = true;
   private boolean autoCloseRightDrawer = true;
@@ -767,6 +770,11 @@ public class AppLayout extends BaseDominoElement<HTMLDivElement, AppLayout>
     return this;
   }
 
+  /** Sets a renderer-neutral icon for the left drawer toggle. */
+  public AppLayout setLeftDrawerToggleIcon(IsIcon<?> icon) {
+    return setLeftDrawerToggleIcon(icon == null ? null : IconWrapper.of(icon));
+  }
+
   /**
    * Sets the icon for the right drawer toggle button.
    *
@@ -781,6 +789,11 @@ public class AppLayout extends BaseDominoElement<HTMLDivElement, AppLayout>
     this.rightDrawerToggle = initRightDrawerToggle(icon);
     rightDrawerToggle.get();
     return this;
+  }
+
+  /** Sets a renderer-neutral icon for the right drawer toggle. */
+  public AppLayout setRightDrawerToggleIcon(IsIcon<?> icon) {
+    return setRightDrawerToggleIcon(icon == null ? null : IconWrapper.of(icon));
   }
 
   /**

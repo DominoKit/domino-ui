@@ -23,7 +23,8 @@ import java.util.Map;
 import java.util.stream.IntStream;
 import org.dominokit.domino.ui.config.HasComponentConfig;
 import org.dominokit.domino.ui.config.PaginationConfig;
-import org.dominokit.domino.ui.icons.lib.Icons;
+import org.dominokit.domino.ui.icons.DefaultIcons;
+import org.dominokit.domino.ui.icons.IconName;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
 
 /**
@@ -139,8 +140,10 @@ public class ScrollingPagination extends BasePagination<ScrollingPagination>
     this.pageSize = pageSize;
     this.windowSize = windowSize;
     pagesList.addCss("dui-scrolling-pagination");
-    pagesList.insertFirst(prevSet = PagerNavItem.nav(Icons.page_first()).collapse());
-    pagesList.appendChild(nextSet = PagerNavItem.nav(Icons.page_last()).collapse());
+    pagesList.insertFirst(
+        prevSet = PagerNavItem.nav(DefaultIcons.coreIcon(IconName.PAGE_FIRST)).collapse());
+    pagesList.appendChild(
+        nextSet = PagerNavItem.nav(DefaultIcons.coreIcon(IconName.PAGE_LAST)).collapse());
 
     firstPage
         .setCssProperty("order", "-30")

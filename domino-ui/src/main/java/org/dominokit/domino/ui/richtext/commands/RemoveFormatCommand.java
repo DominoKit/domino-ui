@@ -19,7 +19,8 @@ import static org.dominokit.domino.ui.utils.Domino.*;
 
 import elemental2.dom.HTMLElement;
 import org.dominokit.domino.ui.button.Button;
-import org.dominokit.domino.ui.icons.lib.Icons;
+import org.dominokit.domino.ui.icons.DefaultIcons;
+import org.dominokit.domino.ui.icons.IconName;
 import org.dominokit.domino.ui.richtext.IsRichTextEditor;
 import org.dominokit.domino.ui.richtext.RichTextCommand;
 import org.dominokit.domino.ui.utils.DominoDom;
@@ -64,7 +65,7 @@ public class RemoveFormatCommand extends RichTextCommand<RemoveFormatCommand> {
   public RemoveFormatCommand(IsRichTextEditor isRichTextEditor) {
     super(isRichTextEditor);
     this.button =
-        Button.create(Icons.format_color_marker_cancel())
+        Button.create(DefaultIcons.coreIcon(IconName.FORMAT_COLOR_MARKER_CANCEL))
             .setTooltip(getLabels().removeFormat())
             .addClickListener(evt -> execute());
     init(this);

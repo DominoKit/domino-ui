@@ -21,7 +21,8 @@ import elemental2.dom.HTMLElement;
 import org.dominokit.domino.ui.button.Button;
 import org.dominokit.domino.ui.button.DropdownButton;
 import org.dominokit.domino.ui.button.group.ButtonsGroup;
-import org.dominokit.domino.ui.icons.lib.Icons;
+import org.dominokit.domino.ui.icons.DefaultIcons;
+import org.dominokit.domino.ui.icons.IconName;
 import org.dominokit.domino.ui.menu.CustomMenuItem;
 import org.dominokit.domino.ui.menu.Menu;
 import org.dominokit.domino.ui.menu.direction.DropDirection;
@@ -70,9 +71,10 @@ public class HeadingCommand extends RichTextCommand<HeadingCommand> {
     this.button =
         ButtonsGroup.create(
                 mainButton =
-                    Button.create(Icons.format_header_1()).addClickListener(evt -> execute()),
+                    Button.create(DefaultIcons.coreIcon(IconName.FORMAT_HEADER_1))
+                        .addClickListener(evt -> execute()),
                 DropdownButton.create(
-                    Button.create(Icons.chevron_down()),
+                    Button.create(DefaultIcons.coreIcon(IconName.CHEVRON_DOWN)),
                     Menu.<String>create()
                         .setDropDirection(DropDirection.BOTTOM_LEFT)
                         .appendChild(
@@ -104,22 +106,28 @@ public class HeadingCommand extends RichTextCommand<HeadingCommand> {
                               this.heading = selection.get(0).getValue();
                               switch (heading) {
                                 case "<h1>":
-                                  mainButton.setIcon(Icons.format_header_1());
+                                  mainButton.setIcon(
+                                      DefaultIcons.coreIcon(IconName.FORMAT_HEADER_1));
                                   break;
                                 case "<h2>":
-                                  mainButton.setIcon(Icons.format_header_2());
+                                  mainButton.setIcon(
+                                      DefaultIcons.coreIcon(IconName.FORMAT_HEADER_2));
                                   break;
                                 case "<h3>":
-                                  mainButton.setIcon(Icons.format_header_3());
+                                  mainButton.setIcon(
+                                      DefaultIcons.coreIcon(IconName.FORMAT_HEADER_3));
                                   break;
                                 case "<h4>":
-                                  mainButton.setIcon(Icons.format_header_4());
+                                  mainButton.setIcon(
+                                      DefaultIcons.coreIcon(IconName.FORMAT_HEADER_4));
                                   break;
                                 case "<h5>":
-                                  mainButton.setIcon(Icons.format_header_5());
+                                  mainButton.setIcon(
+                                      DefaultIcons.coreIcon(IconName.FORMAT_HEADER_5));
                                   break;
                                 case "<h6>":
-                                  mainButton.setIcon(Icons.format_header_6());
+                                  mainButton.setIcon(
+                                      DefaultIcons.coreIcon(IconName.FORMAT_HEADER_6));
                                   break;
                               }
                               execute();

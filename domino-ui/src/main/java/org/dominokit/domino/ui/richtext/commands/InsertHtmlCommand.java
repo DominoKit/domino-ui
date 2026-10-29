@@ -25,7 +25,8 @@ import org.dominokit.domino.ui.dialogs.ConfirmationDialog;
 import org.dominokit.domino.ui.dialogs.DialogSize;
 import org.dominokit.domino.ui.elements.DivElement;
 import org.dominokit.domino.ui.forms.TextAreaBox;
-import org.dominokit.domino.ui.icons.lib.Icons;
+import org.dominokit.domino.ui.icons.DefaultIcons;
+import org.dominokit.domino.ui.icons.IconName;
 import org.dominokit.domino.ui.richtext.IsRichTextEditor;
 import org.dominokit.domino.ui.richtext.RichTextCommand;
 import org.dominokit.domino.ui.utils.DOMParser;
@@ -84,7 +85,7 @@ public class InsertHtmlCommand extends RichTextCommand<InsertHtmlCommand> {
                     rejectbutton
                         .setText(getLabels().close())
                         .addCss(dui_dominant)
-                        .setIcon(Icons.close()))
+                        .setIcon(DefaultIcons.coreIcon(IconName.CLOSE)))
             .appendChild(htmlText = TextAreaBox.create("HTML"))
             .onConfirm(
                 dialog -> {
@@ -93,7 +94,7 @@ public class InsertHtmlCommand extends RichTextCommand<InsertHtmlCommand> {
                 });
 
     this.button =
-        Button.create(Icons.code_tags())
+        Button.create(DefaultIcons.coreIcon(IconName.CODE_TAGS))
             .setTooltip(getLabels().insertHtml())
             .addClickListener(
                 evt -> {

@@ -299,6 +299,14 @@ public class Domino implements DominoCss {
     return DynamicTypography.fontSize(value);
   }
 
+  public static CssClass dui_stroke_width_(String value) {
+    return DynamicIconStyles.strokeWidth(value);
+  }
+
+  public static CssClass dui_stroke_width_(Number value) {
+    return DynamicIconStyles.strokeWidth(value);
+  }
+
   public static CssClass dui_leading_(String value) {
     return DynamicTypography.lineHeight(value);
   }

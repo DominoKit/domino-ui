@@ -19,7 +19,7 @@ import static org.dominokit.domino.ui.utils.Domino.div;
 
 import com.google.gwt.junit.client.GWTTestCase;
 import elemental2.dom.HTMLElement;
-import org.dominokit.domino.ui.icons.Icon;
+import org.dominokit.domino.ui.icons.IsIcon;
 import org.dominokit.domino.ui.icons.lib.Icons;
 import org.dominokit.domino.ui.style.GenericCss;
 
@@ -92,7 +92,7 @@ public class UnitValueTest extends GWTTestCase {
   }
 
   public void testIconUnitIsKeptAsASeparateUnitElement() {
-    Icon<?> icon = Icons.currency_usd();
+    IsIcon<?> icon = Icons.currency_usd();
     UnitValue unitValue = UnitValue.create("1,989.729").setUnit(icon);
 
     assertSame(

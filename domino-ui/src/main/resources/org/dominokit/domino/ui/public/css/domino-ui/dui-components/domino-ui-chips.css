@@ -59,7 +59,7 @@
     text-align: center;
 }
 
-.dui-chip-addon i.mdi.dui {
+.dui-chip-addon .dui-icons {
     font-size: var(--dui-chip-addon-font-size);
     line-height: var(--dui-chip-addon-line-height);
     border-radius: var(--dui-chip-addon-radius);
@@ -95,7 +95,7 @@
     order: 30;
 }
 
-.dui-chip-remove i.dui.mdi{
+.dui-chip-remove .dui-icons {
     --dui-icon-size: var(--dui-chip-remove-icon-size);
     width: var(--dui-chip-addon-width);
     height: var(--dui-chip-addon-height);

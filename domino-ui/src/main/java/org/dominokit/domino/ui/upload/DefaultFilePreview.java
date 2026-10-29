@@ -25,8 +25,9 @@ import org.dominokit.domino.ui.config.UploadConfig;
 import org.dominokit.domino.ui.elements.DivElement;
 import org.dominokit.domino.ui.i18n.HasLabels;
 import org.dominokit.domino.ui.i18n.UploadLabels;
+import org.dominokit.domino.ui.icons.DefaultIcons;
 import org.dominokit.domino.ui.icons.Icon;
-import org.dominokit.domino.ui.icons.lib.Icons;
+import org.dominokit.domino.ui.icons.IconName;
 import org.dominokit.domino.ui.progress.Progress;
 import org.dominokit.domino.ui.progress.ProgressBar;
 import org.dominokit.domino.ui.style.CompositeCssClass;
@@ -112,7 +113,8 @@ public class DefaultFilePreview extends BaseDominoElement<HTMLElement, DefaultFi
           });
       fileReader.readAsDataURL(this.fileItem.getFile());
     } else {
-      thumbnail.appendChild(Icons.file_upload().addCss(dui_fg_grey, dui_font_size_24));
+      thumbnail.appendChild(
+          DefaultIcons.coreIcon(IconName.FILE_UPLOAD).addCss(dui_fg_grey, dui_font_size_24));
     }
 
     thumbnail.withFooter(

@@ -30,8 +30,9 @@ import org.dominokit.domino.ui.datatable.events.RowRecordUpdatedEvent;
 import org.dominokit.domino.ui.datatable.events.TableBorderedEvent;
 import org.dominokit.domino.ui.datatable.plugins.DataTablePlugin;
 import org.dominokit.domino.ui.datatable.plugins.HasPluginConfig;
+import org.dominokit.domino.ui.icons.DefaultIcons;
 import org.dominokit.domino.ui.icons.Icon;
-import org.dominokit.domino.ui.icons.lib.Icons;
+import org.dominokit.domino.ui.icons.IconName;
 import org.dominokit.domino.ui.menu.MenuItem;
 import org.dominokit.domino.ui.utils.DominoCSSRule;
 import org.dominokit.domino.ui.utils.DominoEvent;
@@ -66,8 +67,8 @@ import org.dominokit.domino.ui.utils.PrefixAddOn;
  * enabling/disabling pinning icons and menus, and customizing the icon visuals.
  *
  * <p><strong>Customization:</strong> You can customize the pin icons using {@link
- * org.dominokit.domino.ui.icons.Icon} objects. By default, pin icons are taken from the {@link
- * org.dominokit.domino.ui.icons.lib.Icons} class.
+ * org.dominokit.domino.ui.icons.Icon} objects. By default, pin icons are taken from the {@link icon
+ * catalog}.
  *
  * <p><strong>Pin Menu:</strong> This plugin provides an optional pinning menu that can be shown
  * when a column's header is right-clicked. The menu allows users to easily pin/unpin columns.
@@ -82,7 +83,7 @@ import org.dominokit.domino.ui.utils.PrefixAddOn;
  * @param <T> The type of data in the DataTable.
  * @see org.dominokit.domino.ui.datatable.plugins.column.PinColumnMeta
  * @see org.dominokit.domino.ui.icons.Icon
- * @see org.dominokit.domino.ui.icons.lib.Icons
+ * @see org.dominokit.domino.ui.icons.IconProvider
  */
 public class PinColumnsPlugin<T>
     implements DataTablePlugin<T>, HasPluginConfig<T, PinColumnsPlugin<T>, PinColumnsConfig> {
@@ -157,7 +158,7 @@ public class PinColumnsPlugin<T>
                     .appendChild(
                         MenuItem.<String>create(config.getPinLeftText())
                             .withValue("left")
-                            .appendChild(PrefixAddOn.of(Icons.dock_left()))
+                            .appendChild(PrefixAddOn.of(DefaultIcons.coreIcon(IconName.DOCK_LEFT)))
                             .addSelectionListener(
                                 (source, selection) -> {
                                   setPinLeftColumn(column);
@@ -166,7 +167,7 @@ public class PinColumnsPlugin<T>
                     .appendChild(
                         MenuItem.<String>create(config.getPinRightText())
                             .withValue("right")
-                            .appendChild(PrefixAddOn.of(Icons.dock_right()))
+                            .appendChild(PrefixAddOn.of(DefaultIcons.coreIcon(IconName.DOCK_RIGHT)))
                             .addSelectionListener(
                                 (source, selection) -> {
                                   setPinRightColumn(column);
@@ -175,7 +176,7 @@ public class PinColumnsPlugin<T>
                     .appendChild(
                         MenuItem.<String>create(config.getUnpinText())
                             .withValue("right")
-                            .appendChild(PrefixAddOn.of(Icons.pin_off()))
+                            .appendChild(PrefixAddOn.of(DefaultIcons.coreIcon(IconName.PIN_OFF)))
                             .addSelectionListener(
                                 (source, selection) -> {
                                   unpinColumn(column);

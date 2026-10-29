@@ -25,7 +25,8 @@ import org.dominokit.domino.ui.button.Button;
 import org.dominokit.domino.ui.dialogs.ConfirmationDialog;
 import org.dominokit.domino.ui.dialogs.DialogSize;
 import org.dominokit.domino.ui.forms.TextBox;
-import org.dominokit.domino.ui.icons.lib.Icons;
+import org.dominokit.domino.ui.icons.DefaultIcons;
+import org.dominokit.domino.ui.icons.IconName;
 import org.dominokit.domino.ui.richtext.IsRichTextEditor;
 import org.dominokit.domino.ui.richtext.RichTextCommand;
 
@@ -80,7 +81,7 @@ public class InsertLinkCommand extends RichTextCommand<InsertLinkCommand> {
                     rejectbutton
                         .setText(getLabels().close())
                         .addCss(dui_dominant)
-                        .setIcon(Icons.close()))
+                        .setIcon(DefaultIcons.coreIcon(IconName.CLOSE)))
             .appendChild(linkBox = TextBox.create(getLabels().url()))
             .onConfirm(
                 dialog -> {
@@ -89,7 +90,7 @@ public class InsertLinkCommand extends RichTextCommand<InsertLinkCommand> {
                 });
 
     this.button =
-        Button.create(Icons.link())
+        Button.create(DefaultIcons.coreIcon(IconName.LINK))
             .setTooltip(getLabels().insertLink())
             .addClickListener(
                 evt -> {

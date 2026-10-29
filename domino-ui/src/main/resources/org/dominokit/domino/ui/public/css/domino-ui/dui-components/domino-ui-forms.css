@@ -387,20 +387,20 @@ textarea.dui-field-input {
     align-items: center;
 }
 
-.dui.mdi.dui-form-select-clear {
+.dui-icons.dui-form-select-clear {
     display: none;
 }
 
-.dui-form-select.dui-clearable .dui.mdi.dui-form-select-clear {
+.dui-form-select.dui-clearable .dui-icons.dui-form-select-clear {
     display: block;
 }
 
-.dui.dui-form-select[disabled] .dui.mdi.dui-form-select-drop-arrow,
-.dui.dui-form-select[readonly] .dui.mdi.dui-form-select-drop-arrow,
-.dui.dui-form-select[disabled] .dui.mdi.dui-form-select-clear,
-.dui.dui-form-select[readonly] .dui.mdi.dui-form-select-clear,
-.dui.dui-form-select.dui-clearable[disabled] .dui.mdi.dui-form-select-clear,
-.dui.dui-form-select.dui-clearable[readonly] .dui.mdi.dui-form-select-clear {
+.dui.dui-form-select[disabled] .dui-icons.dui-form-select-drop-arrow,
+.dui.dui-form-select[readonly] .dui-icons.dui-form-select-drop-arrow,
+.dui.dui-form-select[disabled] .dui-icons.dui-form-select-clear,
+.dui.dui-form-select[readonly] .dui-icons.dui-form-select-clear,
+.dui.dui-form-select.dui-clearable[disabled] .dui-icons.dui-form-select-clear,
+.dui.dui-form-select.dui-clearable[readonly] .dui-icons.dui-form-select-clear {
     display: none;
 }
 

@@ -19,7 +19,7 @@ import static org.dominokit.domino.ui.utils.Domino.*;
 
 import elemental2.dom.HTMLButtonElement;
 import org.dominokit.domino.ui.elements.ButtonElement;
-import org.dominokit.domino.ui.icons.Icon;
+import org.dominokit.domino.ui.icons.IsIcon;
 
 /**
  * a simple button component
@@ -46,7 +46,7 @@ public class Button extends BaseButton<HTMLButtonElement, Button> {
    *
    * @param icon The button icon
    */
-  public Button(Icon<?> icon) {
+  public Button(IsIcon<?> icon) {
     super(icon);
   }
 
@@ -56,7 +56,7 @@ public class Button extends BaseButton<HTMLButtonElement, Button> {
    * @param text The button text
    * @param icon The button icon
    */
-  public Button(String text, Icon<?> icon) {
+  public Button(String text, IsIcon<?> icon) {
     super(text, icon);
   }
 
@@ -85,7 +85,7 @@ public class Button extends BaseButton<HTMLButtonElement, Button> {
    * @param icon the button icon
    * @return new Button instance
    */
-  public static Button create(Icon<?> icon) {
+  public static Button create(IsIcon<?> icon) {
     return new Button(icon);
   }
 
@@ -96,7 +96,7 @@ public class Button extends BaseButton<HTMLButtonElement, Button> {
    * @param icon the button icon
    * @return new Button instance
    */
-  public static Button create(String text, Icon<?> icon) {
+  public static Button create(String text, IsIcon<?> icon) {
     return new Button(text, icon);
   }
 
@@ -107,7 +107,7 @@ public class Button extends BaseButton<HTMLButtonElement, Button> {
    * @param text a {@link java.lang.String} object
    * @return new Button instance
    */
-  public static Button create(Icon<?> icon, String text) {
+  public static Button create(IsIcon<?> icon, String text) {
     return new Button(text, icon);
   }
 

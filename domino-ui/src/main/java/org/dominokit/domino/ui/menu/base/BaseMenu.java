@@ -48,6 +48,8 @@ import org.dominokit.domino.ui.elements.AnchorElement;
 import org.dominokit.domino.ui.elements.DivElement;
 import org.dominokit.domino.ui.events.EventType;
 import org.dominokit.domino.ui.icons.Icon;
+import org.dominokit.domino.ui.icons.IconWrapper;
+import org.dominokit.domino.ui.icons.IsIcon;
 import org.dominokit.domino.ui.layout.IsNavBar;
 import org.dominokit.domino.ui.layout.NavBar;
 import org.dominokit.domino.ui.mediaquery.MediaQuery;
@@ -244,6 +246,12 @@ public abstract class BaseMenu<
    */
   public C setIcon(Icon<?> icon) {
     menuHeader.get().appendChild(PrefixAddOn.of(icon));
+    return (C) this;
+  }
+
+  /** Sets a menu icon from any icon pack. */
+  public C setIcon(IsIcon<?> icon) {
+    menuHeader.get().appendChild(PrefixAddOn.of(IconWrapper.of(icon)));
     return (C) this;
   }
 

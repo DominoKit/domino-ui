@@ -23,6 +23,8 @@ import org.dominokit.domino.ui.button.Button;
 import org.dominokit.domino.ui.button.ButtonStyles;
 import org.dominokit.domino.ui.events.EventType;
 import org.dominokit.domino.ui.icons.Icon;
+import org.dominokit.domino.ui.icons.IconWrapper;
+import org.dominokit.domino.ui.icons.IsIcon;
 import org.dominokit.domino.ui.style.ColorsCss;
 import org.dominokit.domino.ui.utils.ElementUtil;
 
@@ -37,7 +39,7 @@ import org.dominokit.domino.ui.utils.ElementUtil;
  *
  * <pre>
  * // Create a scroll to top button with an icon
- * Icon icon = Icons.arrow_upward();
+ * Icon icon = DefaultIcons.coreIcon(IconName.ARROW_UPWARD);
  * ScrollTop scrollTopButton = new ScrollTop(icon);
  *
  * // Customize the button's position and show offset
@@ -77,6 +79,11 @@ public class ScrollTop extends Button implements ButtonStyles {
             ScrollTop.this.collapse();
           }
         });
+  }
+
+  /** Constructs a ScrollTop button with an icon from any icon pack. */
+  public ScrollTop(IsIcon<?> icon) {
+    this(IconWrapper.of(icon));
   }
 
   /**
@@ -119,6 +126,11 @@ public class ScrollTop extends Button implements ButtonStyles {
    * @return A new instance of ScrollTop with the specified icon.
    */
   public static ScrollTop create(Icon<?> icon) {
+    return new ScrollTop(icon);
+  }
+
+  /** Creates a ScrollTop button with an icon from any icon pack. */
+  public static ScrollTop create(IsIcon<?> icon) {
     return new ScrollTop(icon);
   }
 

@@ -17,7 +17,8 @@ package org.dominokit.domino.ui.stepper;
 
 import static org.dominokit.domino.ui.stepper.StepStateCss.dui_step_state_completed;
 
-import org.dominokit.domino.ui.icons.lib.Icons;
+import org.dominokit.domino.ui.icons.DefaultIcons;
+import org.dominokit.domino.ui.icons.IconName;
 
 /**
  * A concrete implementation of the {@link StepState} interface representing a completed step in a
@@ -37,7 +38,9 @@ public class CompletedStep implements StepState {
     tracker
         .addCss(dui_step_state_completed)
         .withTrackerNode(
-            (parent1, node) -> node.appendChild(Icons.check().addCss(dui_tracker_node_icon)));
+            (parent1, node) ->
+                node.appendChild(
+                    DefaultIcons.coreIcon(IconName.CHECK).addCss(dui_tracker_node_icon)));
   }
 
   /**

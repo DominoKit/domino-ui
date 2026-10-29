@@ -32,7 +32,7 @@
 
 .dui-card-main-title,
 .dui-card-description,
-.dui-card-header .dui.mdi:not(:hover) {
+.dui-card-header .dui-icons:not(:hover) {
     color: var(--dui-card-header-color, var(--dui-fg-clr, inherit));
 }
 

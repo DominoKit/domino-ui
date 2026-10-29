@@ -92,6 +92,11 @@
         </dependency>
         <dependency>
             <groupId>org.dominokit</groupId>
+            <artifactId>domino-ui-icons-mdi</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.dominokit</groupId>
             <artifactId>gwt-validation-api</artifactId>
         </dependency>
         <dependency>
@@ -145,7 +150,6 @@
             <groupId>org.gwtproject</groupId>
             <artifactId>gwt-user</artifactId>
             <version>${gwt.version}</version>
-            <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>junit</groupId>
@@ -191,6 +195,14 @@
                 <filtering>false</filtering>
                 <includes>
                     <include>**/fonts/**/*.*</include>
+                </includes>
+            </resource>
+            <resource>
+                <directory>${project.basedir}/../domino-ui-icons-mdi/src/main/resources</directory>
+                <filtering>false</filtering>
+                <includes>
+                    <include>org/dominokit/domino/ui/public/css/domino-ui/dui-components/mdi/**</include>
+                    <include>org/dominokit/domino/ui/public/css/fonts/materialdesignicons-webfont.*</include>
                 </includes>
             </resource>
         </resources>

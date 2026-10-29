@@ -17,9 +17,9 @@ package org.dominokit.domino.ui.datatable.plugins.header;
 
 import elemental2.dom.HTMLElement;
 import org.dominokit.domino.ui.datatable.DataTable;
+import org.dominokit.domino.ui.icons.DefaultIcons;
+import org.dominokit.domino.ui.icons.IconName;
 import org.dominokit.domino.ui.icons.ToggleIcon;
-import org.dominokit.domino.ui.icons.ToggleMdiIcon;
-import org.dominokit.domino.ui.icons.lib.Icons;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
 
 public class StripesTableAction<T> extends BaseDominoElement<HTMLElement, StripesTableAction<T>> {
@@ -39,15 +39,15 @@ public class StripesTableAction<T> extends BaseDominoElement<HTMLElement, Stripe
    */
   public StripesTableAction(DataTable<T> dataTable) {
     stripesIcon =
-        ToggleMdiIcon.create(Icons.view_day_outline(), Icons.view_day())
+        DefaultIcons.toggle(IconName.VIEW_DAY_OUTLINE, IconName.VIEW_DAY)
             .clickable()
             .setAriaLabel("Toggle table stripes")
             .setTooltip(noStripsToolTip)
             .toggleOnClick(true)
             .onToggle(
-                toggleMdiIcon -> {
+                toggleIcon -> {
                   dataTable.setStriped(!dataTable.isStriped());
-                  toggleMdiIcon.setTooltip(dataTable.isStriped() ? stripsToolTip : noStripsToolTip);
+                  toggleIcon.setTooltip(dataTable.isStriped() ? stripsToolTip : noStripsToolTip);
                 });
 
     init(this);

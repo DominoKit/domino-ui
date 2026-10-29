@@ -22,6 +22,8 @@ import org.dominokit.domino.ui.elements.DivElement;
 import org.dominokit.domino.ui.elements.HeadingElement;
 import org.dominokit.domino.ui.elements.SmallElement;
 import org.dominokit.domino.ui.icons.Icon;
+import org.dominokit.domino.ui.icons.IconWrapper;
+import org.dominokit.domino.ui.icons.IsIcon;
 import org.dominokit.domino.ui.utils.*;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
 
@@ -80,6 +82,12 @@ public class EmptyState extends BaseDominoElement<HTMLDivElement, EmptyState>
     setIcon(icon);
   }
 
+  /** Creates an empty state with an icon from any icon pack. */
+  public EmptyState(String title, IsIcon<?> icon) {
+    this(title);
+    setIcon(icon);
+  }
+
   /**
    * Creates a new {@code EmptyState} instance with the specified title, description, and icon.
    *
@@ -92,12 +100,24 @@ public class EmptyState extends BaseDominoElement<HTMLDivElement, EmptyState>
     setIcon(icon);
   }
 
+  /** Creates an empty state with an icon from any icon pack. */
+  public EmptyState(String title, String description, IsIcon<?> icon) {
+    this(title, description);
+    setIcon(icon);
+  }
+
   /**
    * Creates a new {@code EmptyState} instance with the specified icon.
    *
    * @param icon The icon to display in the empty state.
    */
   public EmptyState(Icon<?> icon) {
+    this();
+    setIcon(icon);
+  }
+
+  /** Creates an empty state with an icon from any icon pack. */
+  public EmptyState(IsIcon<?> icon) {
     this();
     setIcon(icon);
   }
@@ -143,6 +163,11 @@ public class EmptyState extends BaseDominoElement<HTMLDivElement, EmptyState>
     return new EmptyState(title, icon);
   }
 
+  /** Creates an empty state with an icon from any icon pack. */
+  public static EmptyState create(String title, IsIcon<?> icon) {
+    return new EmptyState(title, icon);
+  }
+
   /**
    * Creates a new {@code EmptyState} instance with the specified title, description, and icon.
    *
@@ -155,6 +180,11 @@ public class EmptyState extends BaseDominoElement<HTMLDivElement, EmptyState>
     return new EmptyState(title, description, icon);
   }
 
+  /** Creates an empty state with an icon from any icon pack. */
+  public static EmptyState create(String title, String description, IsIcon<?> icon) {
+    return new EmptyState(title, description, icon);
+  }
+
   /**
    * Creates a new {@code EmptyState} instance with the specified icon.
    *
@@ -162,6 +192,11 @@ public class EmptyState extends BaseDominoElement<HTMLDivElement, EmptyState>
    * @return A new {@code EmptyState} instance with the specified icon.
    */
   public static EmptyState create(Icon<?> icon) {
+    return new EmptyState(icon);
+  }
+
+  /** Creates an empty state with an icon from any icon pack. */
+  public static EmptyState create(IsIcon<?> icon) {
     return new EmptyState(icon);
   }
 
@@ -194,8 +229,13 @@ public class EmptyState extends BaseDominoElement<HTMLDivElement, EmptyState>
    * @return This {@code EmptyState} instance.
    */
   public EmptyState setIcon(Icon<?> icon) {
+    return setIcon((IsIcon<?>) icon);
+  }
+
+  /** Sets an icon from any icon pack. */
+  public EmptyState setIcon(IsIcon<?> icon) {
     this.icon.remove();
-    this.icon = LazyChild.of(icon.addCss(dui_empty_state_icon), element);
+    this.icon = LazyChild.of(IconWrapper.of(icon).addCss(dui_empty_state_icon), element);
     this.icon.get();
     return this;
   }

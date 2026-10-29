@@ -25,8 +25,9 @@ import static org.dominokit.domino.ui.utils.Domino.div;
 import elemental2.dom.HTMLDivElement;
 import elemental2.dom.HTMLElement;
 import org.dominokit.domino.ui.elements.DivElement;
-import org.dominokit.domino.ui.icons.Icon;
-import org.dominokit.domino.ui.icons.lib.Icons;
+import org.dominokit.domino.ui.icons.DefaultIcons;
+import org.dominokit.domino.ui.icons.IconName;
+import org.dominokit.domino.ui.icons.IsIcon;
 import org.dominokit.domino.ui.style.BooleanCssClass;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
 import org.dominokit.domino.ui.utils.ChildHandler;
@@ -61,13 +62,13 @@ public class Fab extends BaseDominoElement<HTMLDivElement, Fab> implements HasCl
   }
 
   /** Creates a standalone FAB with an icon. */
-  public Fab(Icon<?> icon) {
+  public Fab(IsIcon<?> icon) {
     this();
     button.setIcon(icon);
   }
 
   /** Creates a standalone FAB with text and an icon. */
-  public Fab(String text, Icon<?> icon) {
+  public Fab(String text, IsIcon<?> icon) {
     this();
     button.setText(text).setIcon(icon);
   }
@@ -78,12 +79,12 @@ public class Fab extends BaseDominoElement<HTMLDivElement, Fab> implements HasCl
   }
 
   /** Creates a standalone FAB with an icon. */
-  public static Fab create(Icon<?> icon) {
+  public static Fab create(IsIcon<?> icon) {
     return new Fab(icon);
   }
 
   /** Creates a standalone FAB with text and an icon. */
-  public static Fab create(String text, Icon<?> icon) {
+  public static Fab create(String text, IsIcon<?> icon) {
     return new Fab(text, icon);
   }
 
@@ -167,7 +168,7 @@ public class Fab extends BaseDominoElement<HTMLDivElement, Fab> implements HasCl
     actions = div().addCss(dui_fab_actions);
     actions.setAttribute("hidden", true);
     root.insertBefore(actions.element(), button.element());
-    closeButton = Button.create(Icons.close()).addCss(dui_fab_button);
+    closeButton = Button.create(DefaultIcons.coreIcon(IconName.CLOSE)).addCss(dui_fab_button);
     closeButton.setAriaLabel("Close actions");
     closeButton.setAttribute("hidden", true);
     closeButton.addClickListener(event -> setExpanded(false));

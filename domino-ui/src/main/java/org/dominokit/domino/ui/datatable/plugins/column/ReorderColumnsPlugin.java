@@ -22,8 +22,9 @@ import org.dominokit.domino.ui.datatable.plugins.DataTablePlugin;
 import org.dominokit.domino.ui.dnd.DragSource;
 import org.dominokit.domino.ui.dnd.Draggable;
 import org.dominokit.domino.ui.dnd.DropZone;
+import org.dominokit.domino.ui.icons.DefaultIcons;
 import org.dominokit.domino.ui.icons.Icon;
-import org.dominokit.domino.ui.icons.lib.Icons;
+import org.dominokit.domino.ui.icons.IconName;
 
 /**
  * A DataTable plugin that allows columns to be reordered via drag-and-drop.
@@ -34,7 +35,8 @@ public class ReorderColumnsPlugin<T> implements DataTablePlugin<T> {
 
   private final DropZone dropZone = new DropZone();
   private final DragSource dragSource = new DragSource();
-  private Supplier<Icon<?>> headerIconSupplier = Icons::drag_vertical;
+  private Supplier<Icon<?>> headerIconSupplier =
+      () -> DefaultIcons.coreIcon(IconName.DRAG_VERTICAL);
 
   /**
    * Handles the addition of a header to the DataTable and enables column reordering via

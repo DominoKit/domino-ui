@@ -16,13 +16,13 @@
     margin: var(--dui-empty-state-description-margin);
 }
 
-.dui.mdi.dui-empty-state-icon {
+.dui-icons.dui-empty-state-icon {
     order: 30;
     min-height: var(--dui-empty-state-icon-size);
     min-width: var(--dui-empty-state-icon-size);
 }
 
-.dui.mdi.dui-empty-state-icon:before {
+.dui-icons.dui-empty-state-icon {
     font-size: var(--dui-empty-state-icon-size);
     min-height: var(--dui-empty-state-icon-size);
     min-width: var(--dui-empty-state-icon-size);

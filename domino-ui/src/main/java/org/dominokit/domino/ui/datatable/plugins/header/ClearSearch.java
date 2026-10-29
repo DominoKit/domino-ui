@@ -19,8 +19,9 @@ import static org.dominokit.domino.ui.style.SpacingCss.dui_font_size_4;
 
 import elemental2.dom.HTMLElement;
 import org.dominokit.domino.ui.datatable.DataTable;
-import org.dominokit.domino.ui.icons.MdiIcon;
-import org.dominokit.domino.ui.icons.lib.Icons;
+import org.dominokit.domino.ui.icons.DefaultIcons;
+import org.dominokit.domino.ui.icons.IconName;
+import org.dominokit.domino.ui.icons.IconWrapper;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
 
 /**
@@ -30,7 +31,7 @@ import org.dominokit.domino.ui.utils.BaseDominoElement;
  */
 public class ClearSearch<T> extends BaseDominoElement<HTMLElement, ClearSearch<T>> {
 
-  private final MdiIcon clearFiltersIcon;
+  private final IconWrapper clearFiltersIcon;
   private String clearFiltersToolTip = "Clear filters";
 
   public static <T> ClearSearch<T> create(DataTable<T> dataTable) {
@@ -44,7 +45,7 @@ public class ClearSearch<T> extends BaseDominoElement<HTMLElement, ClearSearch<T
    */
   public ClearSearch(DataTable<T> dataTable) {
     clearFiltersIcon =
-        Icons.filter_off()
+        IconWrapper.of(DefaultIcons.icon(IconName.FILTER_OFF))
             .setTooltip(clearFiltersToolTip)
             .addCss(dui_font_size_4)
             .clickable()

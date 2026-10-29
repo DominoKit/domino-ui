@@ -17,7 +17,7 @@ package org.dominokit.domino.ui.config;
 
 import java.util.function.Supplier;
 import org.dominokit.domino.ui.icons.Icon;
-import org.dominokit.domino.ui.icons.lib.Icons;
+import org.dominokit.domino.ui.icons.IconName;
 import org.dominokit.domino.ui.tabs.TabsOverflow;
 
 /**
@@ -34,7 +34,7 @@ public interface TabsConfig extends ComponentConfig {
    * @return a {@code Supplier<Icon<?>>}
    */
   default Supplier<Icon<?>> getDefaultTabCloseIcon() {
-    return Icons::close;
+    return () -> icon(IconName.CLOSE);
   }
 
   /**

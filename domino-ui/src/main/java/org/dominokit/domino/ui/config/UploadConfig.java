@@ -17,7 +17,7 @@ package org.dominokit.domino.ui.config;
 
 import java.util.function.Supplier;
 import org.dominokit.domino.ui.icons.Icon;
-import org.dominokit.domino.ui.icons.lib.Icons;
+import org.dominokit.domino.ui.icons.IconName;
 import org.dominokit.domino.ui.upload.*;
 
 /**
@@ -34,7 +34,7 @@ public interface UploadConfig extends ComponentConfig {
    * @return a {@code Supplier<Icon<?>>}
    */
   default Supplier<Icon<?>> getDefaultUploadIcon() {
-    return Icons::upload;
+    return () -> icon(IconName.UPLOAD);
   }
 
   /**
@@ -45,7 +45,7 @@ public interface UploadConfig extends ComponentConfig {
    * @return a {@code Supplier<Icon<?>>}
    */
   default Supplier<Icon<?>> getDefaultRemoveIcon() {
-    return Icons::trash_can;
+    return () -> icon(IconName.TRASH_CAN);
   }
 
   /**
@@ -56,7 +56,7 @@ public interface UploadConfig extends ComponentConfig {
    * @return a {@code Supplier<Icon<?>>}
    */
   default Supplier<Icon<?>> getDefaultCancelIcon() {
-    return Icons::cancel;
+    return () -> icon(IconName.CANCEL);
   }
 
   /**

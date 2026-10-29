@@ -17,8 +17,9 @@
 package org.dominokit.domino.ui.datatable.plugins.column;
 
 import org.dominokit.domino.ui.datatable.plugins.PluginConfig;
+import org.dominokit.domino.ui.icons.DefaultIcons;
 import org.dominokit.domino.ui.icons.Icon;
-import org.dominokit.domino.ui.icons.lib.Icons;
+import org.dominokit.domino.ui.icons.IconName;
 import org.dominokit.domino.ui.style.SpacingCss;
 
 /**
@@ -33,10 +34,12 @@ public class PinColumnsConfig implements PluginConfig {
   private boolean showPinMenu = false;
 
   /** Icon used for pinning columns to the left side of the DataTable. */
-  private Icon<?> pinLeftIcon = Icons.pin().addCss(SpacingCss.dui_font_size_4);
+  private Icon<?> pinLeftIcon =
+      DefaultIcons.coreIcon(IconName.PIN).addCss(SpacingCss.dui_font_size_4);
 
   /** Icon used for pinning columns to the right side of the DataTable. */
-  private Icon<?> pinRightIcon = Icons.pin().addCss(SpacingCss.dui_font_size_4);
+  private Icon<?> pinRightIcon =
+      DefaultIcons.coreIcon(IconName.PIN).addCss(SpacingCss.dui_font_size_4);
 
   /** Text label for the "Pin Left" action in the column menu. */
   private String pinLeftText = "Pin left";

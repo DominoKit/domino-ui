@@ -39,9 +39,10 @@ import org.dominokit.domino.ui.datatable.plugins.pagination.StateIcon;
 import org.dominokit.domino.ui.elements.DivElement;
 import org.dominokit.domino.ui.elements.TDElement;
 import org.dominokit.domino.ui.elements.TableRowElement;
+import org.dominokit.domino.ui.icons.DefaultIcons;
 import org.dominokit.domino.ui.icons.Icon;
+import org.dominokit.domino.ui.icons.IconName;
 import org.dominokit.domino.ui.icons.IconWrapper;
-import org.dominokit.domino.ui.icons.lib.*;
 import org.dominokit.domino.ui.utils.ComponentMeta;
 import org.dominokit.domino.ui.utils.DominoEvent;
 
@@ -75,8 +76,8 @@ public class RecordDetailsPlugin<T> implements DataTablePlugin<T> {
   public RecordDetailsPlugin(CellRenderer<T> cellRenderer) {
     this(
         toDetailsRenderer(cellRenderer),
-        () -> Icons.fullscreen().clickable(),
-        () -> Icons.fullscreen_exit().clickable());
+        () -> DefaultIcons.coreIcon(IconName.FULLSCREEN).clickable(),
+        () -> DefaultIcons.coreIcon(IconName.FULLSCREEN_EXIT).clickable());
   }
 
   /**
@@ -87,8 +88,8 @@ public class RecordDetailsPlugin<T> implements DataTablePlugin<T> {
   public RecordDetailsPlugin(RecordDetailsRenderer<T> cellRenderer) {
     this(
         cellRenderer,
-        () -> Icons.fullscreen().clickable(),
-        () -> Icons.fullscreen_exit().clickable());
+        () -> DefaultIcons.coreIcon(IconName.FULLSCREEN).clickable(),
+        () -> DefaultIcons.coreIcon(IconName.FULLSCREEN_EXIT).clickable());
   }
 
   /**

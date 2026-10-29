@@ -29,22 +29,22 @@
     opacity: var(--dui-bc-disabled-opacity);
 }
 
-.dui-breadcrumb li.dui .dui.mdi,
-.dui-breadcrumb li.dui a.dui .dui.mdi {
+.dui-breadcrumb li.dui .dui-icons,
+.dui-breadcrumb li.dui a.dui .dui-icons {
     margin: var(--dui-bc-icon-margin);
     line-height: var(--dui-spc-px-24);
 }
 
-.dui-breadcrumb li.dui .dui.mdi.mdi-18px {
+.dui-breadcrumb li.dui .dui-icons.dui-icon-size-18 {
     line-height: var(--dui-spc-px-18);
 }
-.dui-breadcrumb li.dui .dui.mdi.mdi-24px {
+.dui-breadcrumb li.dui .dui-icons.dui-icon-size-24 {
     line-height: var(--dui-spc-px-24);
 }
-.dui-breadcrumb li.dui .dui.mdi.mdi-36px {
+.dui-breadcrumb li.dui .dui-icons.dui-icon-size-36 {
     line-height: var(--dui-spc-px-36);
 }
-.dui-breadcrumb li.dui .dui.mdi.mdi-48px {
+.dui-breadcrumb li.dui .dui-icons.dui-icon-size-48 {
     line-height: var(--dui-spc-px-48);
 }
 

@@ -23,6 +23,8 @@ import elemental2.dom.Text;
 import org.dominokit.domino.ui.elements.AnchorElement;
 import org.dominokit.domino.ui.elements.LIElement;
 import org.dominokit.domino.ui.icons.Icon;
+import org.dominokit.domino.ui.icons.IconWrapper;
+import org.dominokit.domino.ui.icons.IsIcon;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
 import org.dominokit.domino.ui.utils.ChildHandler;
 import org.dominokit.domino.ui.utils.HasClickableElement;
@@ -71,6 +73,13 @@ public class BreadcrumbItem extends BaseDominoElement<HTMLLIElement, BreadcrumbI
     this.anchorElement.insertFirst(icon);
   }
 
+  /** Creates a breadcrumb item using an icon from any icon pack. */
+  public BreadcrumbItem(String text, IsIcon<?> icon) {
+    this(text);
+    this.icon = IconWrapper.of(icon);
+    this.anchorElement.insertFirst(icon);
+  }
+
   /**
    * Creates a BreadcrumbItem with a text and icon
    *
@@ -81,6 +90,11 @@ public class BreadcrumbItem extends BaseDominoElement<HTMLLIElement, BreadcrumbI
     this(text);
     this.icon = icon;
     this.anchorElement.insertFirst(icon);
+  }
+
+  /** Creates a breadcrumb item using an icon from any icon pack. */
+  public BreadcrumbItem(IsIcon<?> icon, String text) {
+    this(text, icon);
   }
 
   /**
@@ -101,6 +115,11 @@ public class BreadcrumbItem extends BaseDominoElement<HTMLLIElement, BreadcrumbI
    * @return new BreadcrumbItem instance
    */
   public static BreadcrumbItem create(Icon<?> icon, String text) {
+    return new BreadcrumbItem(text, icon);
+  }
+
+  /** Creates a breadcrumb item using an icon from any icon pack. */
+  public static BreadcrumbItem create(IsIcon<?> icon, String text) {
     return new BreadcrumbItem(text, icon);
   }
 

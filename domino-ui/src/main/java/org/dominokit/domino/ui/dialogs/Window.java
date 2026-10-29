@@ -21,8 +21,10 @@ import static org.dominokit.domino.ui.utils.ElementsFactory.elements;
 import elemental2.dom.*;
 import jsinterop.base.Js;
 import org.dominokit.domino.ui.events.EventType;
-import org.dominokit.domino.ui.icons.MdiIcon;
-import org.dominokit.domino.ui.icons.lib.Icons;
+import org.dominokit.domino.ui.icons.DefaultIcons;
+import org.dominokit.domino.ui.icons.IconName;
+import org.dominokit.domino.ui.icons.IconWrapper;
+import org.dominokit.domino.ui.icons.IsIcon;
 import org.dominokit.domino.ui.layout.NavBar;
 import org.dominokit.domino.ui.utils.ChildHandler;
 import org.dominokit.domino.ui.utils.Domino;
@@ -44,9 +46,9 @@ import org.dominokit.domino.ui.utils.PostfixAddOn;
  */
 public class Window extends AbstractDialog<Window> {
 
-  private final MdiIcon restoreIcon;
-  private final MdiIcon maximizeIcon;
-  private final MdiIcon closeIcon;
+  private final IconWrapper restoreIcon;
+  private final IconWrapper maximizeIcon;
+  private final IconWrapper closeIcon;
   private boolean maximized = false;
 
   private double mouseX;
@@ -108,7 +110,7 @@ public class Window extends AbstractDialog<Window> {
     addCss(dui_window);
 
     restoreIcon =
-        Icons.window_restore()
+        IconWrapper.of(DefaultIcons.icon(IconName.WINDOW_RESTORE))
             .addCss(dui_order_last_1)
             .clickable()
             .setAttribute("aria-label", "Restore window")
@@ -119,7 +121,7 @@ public class Window extends AbstractDialog<Window> {
                 })
             .collapse();
     maximizeIcon =
-        Icons.window_maximize()
+        IconWrapper.of(DefaultIcons.icon(IconName.WINDOW_MAXIMIZE))
             .addCss(dui_order_last_1)
             .clickable()
             .setAttribute("aria-label", "Maximize window")
@@ -129,7 +131,7 @@ public class Window extends AbstractDialog<Window> {
                   maximize();
                 });
     closeIcon =
-        Icons.close()
+        IconWrapper.of(DefaultIcons.icon(IconName.CLOSE))
             .addCss(dui_order_last_4)
             .clickable()
             .setAttribute("aria-label", "Close window")
@@ -452,27 +454,27 @@ public class Window extends AbstractDialog<Window> {
   /**
    * Gets the restore icon of the window.
    *
-   * @return The restore {@link MdiIcon} of the window.
+   * @return The restore icon of the window.
    */
-  public MdiIcon getRestoreIcon() {
+  public IsIcon<?> getRestoreIcon() {
     return restoreIcon;
   }
 
   /**
    * Gets the maximize icon of the window.
    *
-   * @return The maximize {@link MdiIcon} of the window.
+   * @return The maximize icon of the window.
    */
-  public MdiIcon getMaximizeIcon() {
+  public IsIcon<?> getMaximizeIcon() {
     return maximizeIcon;
   }
 
   /**
    * Gets the close icon of the window.
    *
-   * @return The close {@link MdiIcon} of the window.
+   * @return The close icon of the window.
    */
-  public MdiIcon getCloseIcon() {
+  public IsIcon<?> getCloseIcon() {
     return closeIcon;
   }
 

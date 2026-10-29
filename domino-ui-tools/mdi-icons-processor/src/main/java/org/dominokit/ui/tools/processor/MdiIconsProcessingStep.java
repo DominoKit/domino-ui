@@ -40,6 +40,8 @@ public class MdiIconsProcessingStep {
   /** Constant <code>ICONS_ROOT_PACKAGE="org.dominokit.domino.ui.icons"</code> */
   public static final String ICONS_ROOT_PACKAGE = "org.dominokit.domino.ui.icons";
 
+  private static final Path MDI_MODULE_ROOT = Paths.get("domino-ui-icons-mdi");
+
   /** Constant <code>PUBLIC_ROOT="org.dominokit.domino.ui.public"</code> */
   public static final String PUBLIC_ROOT = "org.dominokit.domino.ui.public";
 
@@ -55,19 +57,32 @@ public class MdiIconsProcessingStep {
   }
 
   private static Path getIconRootPath() {
-    return Paths.get("domino-ui/src/main/java", ICONS_ROOT_PACKAGE.replace(".", "/"));
+    return MDI_MODULE_ROOT.resolve(
+        Paths.get("src/main/java", ICONS_ROOT_PACKAGE.replace(".", "/")));
   }
 
   private static Path getSourceRootPath() {
-    return Paths.get("domino-ui/src/main/java");
+    return MDI_MODULE_ROOT.resolve("src/main/java");
   }
 
   private static Path getResourceRootPath() {
-    return Paths.get("domino-ui/src/main/resources");
+    return MDI_MODULE_ROOT.resolve("src/main/resources");
   }
 
   private static Path getResourcePublicRootPath() {
-    return Paths.get("domino-ui/src/main/resources/org/dominokit/domino/ui/public");
+    return getResourceRootPath().resolve(Paths.get("org/dominokit/domino/ui/public"));
+  }
+
+  private static Path getWebjarCssRootPath() {
+    return getResourceRootPath()
+        .resolve(
+            Paths.get(
+                "META-INF/resources/webjars/domino-ui-icons-mdi/css/domino-ui/dui-components/mdi"));
+  }
+
+  private static Path getWebjarFontRootPath() {
+    return getResourceRootPath()
+        .resolve(Paths.get("META-INF/resources/webjars/domino-ui-icons-mdi/css/fonts"));
   }
 
   private static void updateFonts() {
@@ -99,7 +114,7 @@ public class MdiIconsProcessingStep {
         copyFont(
             fontName,
             Files.newInputStream(
-                Paths.get(getResourceRootPath().toString(), "cached/mdi/fonts/" + fontName)));
+                getResourceRootPath().resolve(Paths.get("cached/mdi/fonts/" + fontName))));
       } catch (IOException ex) {
         LOGGER.error("", ex);
       }
@@ -108,9 +123,13 @@ public class MdiIconsProcessingStep {
 
   private static void copyFont(String fontName, InputStream inputStream) throws IOException {
     Path path = Paths.get(getResourcePublicRootPath().toString(), "css/fonts/" + fontName);
+    Path webjarPath = getWebjarFontRootPath().resolve(fontName);
+    Files.createDirectories(path.getParent());
+    Files.createDirectories(webjarPath.getParent());
     OutputStream outputStream = Files.newOutputStream(path);
     IOUtils.copyLarge(inputStream, outputStream);
     outputStream.close();
+    Files.copy(path, webjarPath, java.nio.file.StandardCopyOption.REPLACE_EXISTING);
   }
 
   private static void copyCss(String cssName) {
@@ -125,10 +144,10 @@ public class MdiIconsProcessingStep {
       copyCss(cssName, inputStream);
     } catch (IOException e) {
       try {
-        copyFont(
+        copyCss(
             cssName,
             Files.newInputStream(
-                Paths.get(getResourceRootPath().toString(), "cached/mdi/css/" + cssName)));
+                getResourceRootPath().resolve(Paths.get("cached/mdi/css/" + cssName))));
       } catch (IOException ex) {
         LOGGER.error("", ex);
       }
@@ -139,10 +158,15 @@ public class MdiIconsProcessingStep {
     Path path =
         Paths.get(
             getResourcePublicRootPath().toString(), "css/domino-ui/dui-components/mdi/" + cssName);
+    Path webjarPath = getWebjarCssRootPath().resolve(cssName);
+    Files.createDirectories(path.getParent());
+    Files.createDirectories(webjarPath.getParent());
     System.out.println(path.toFile().getAbsolutePath().toString());
-    OutputStream outputStream = Files.newOutputStream(path);
-    IOUtils.copyLarge(inputStream, outputStream);
-    outputStream.close();
+    String css = IOUtils.toString(inputStream, "UTF-8");
+    css = css.replace("../fonts/", "../../../fonts/");
+    css = css.replace(".mdi", ".dui-icon-mdi.mdi");
+    Files.writeString(path, css, java.nio.charset.StandardCharsets.UTF_8);
+    Files.copy(path, webjarPath, java.nio.file.StandardCopyOption.REPLACE_EXISTING);
   }
 
   private static void generateIcons() {

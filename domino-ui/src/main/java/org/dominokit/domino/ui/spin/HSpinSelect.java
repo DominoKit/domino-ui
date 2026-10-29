@@ -19,6 +19,8 @@ import static org.dominokit.domino.ui.utils.Domino.*;
 
 import elemental2.dom.DOMRect;
 import org.dominokit.domino.ui.icons.Icon;
+import org.dominokit.domino.ui.icons.IconWrapper;
+import org.dominokit.domino.ui.icons.IsIcon;
 import org.dominokit.domino.ui.utils.DominoUIConfig;
 import org.dominokit.domino.ui.utils.SwipeUtil;
 
@@ -71,6 +73,11 @@ public class HSpinSelect<T> extends SpinSelect<T, HSpinSelect<T>> {
     return new HSpinSelect<>(backIcon, forwardIcon, true);
   }
 
+  /** Creates a spin select using icons from any icon pack. */
+  public static <T> HSpinSelect<T> create(IsIcon<?> backIcon, IsIcon<?> forwardIcon) {
+    return new HSpinSelect<>(backIcon, forwardIcon, true);
+  }
+
   /**
    * Creates a new HSpinSelect with the provided back and forward icons.
    *
@@ -81,6 +88,12 @@ public class HSpinSelect<T> extends SpinSelect<T, HSpinSelect<T>> {
    */
   public static <T> HSpinSelect<T> create(Icon<?> backIcon, Icon<?> forwardIcon, boolean swipable) {
     return new HSpinSelect<>(backIcon, forwardIcon);
+  }
+
+  /** Creates a spin select using icons from any icon pack. */
+  public static <T> HSpinSelect<T> create(
+      IsIcon<?> backIcon, IsIcon<?> forwardIcon, boolean swipable) {
+    return new HSpinSelect<>(backIcon, forwardIcon, swipable);
   }
 
   /** Default constructor that initializes the HSpinSelect with default back and forward icons. */
@@ -109,6 +122,11 @@ public class HSpinSelect<T> extends SpinSelect<T, HSpinSelect<T>> {
     this(backIcon, forwardIcon, true);
   }
 
+  /** Creates a spin select using icons from any icon pack. */
+  public HSpinSelect(IsIcon<?> backIcon, IsIcon<?> forwardIcon) {
+    this(backIcon, forwardIcon, true);
+  }
+
   /**
    * Constructor that initializes the HSpinSelect with the provided back and forward icons.
    *
@@ -117,6 +135,13 @@ public class HSpinSelect<T> extends SpinSelect<T, HSpinSelect<T>> {
    */
   public HSpinSelect(Icon<?> backIcon, Icon<?> forwardIcon, boolean swipable) {
     super(backIcon, forwardIcon);
+    addCss(dui_spin_horizontal);
+    setSwipe(swipable);
+  }
+
+  /** Creates a spin select using icons from any icon pack. */
+  public HSpinSelect(IsIcon<?> backIcon, IsIcon<?> forwardIcon, boolean swipable) {
+    super(IconWrapper.of(backIcon), IconWrapper.of(forwardIcon));
     addCss(dui_spin_horizontal);
     setSwipe(swipable);
   }

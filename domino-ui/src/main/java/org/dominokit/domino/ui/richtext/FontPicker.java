@@ -24,9 +24,10 @@ import elemental2.dom.HTMLElement;
 import org.dominokit.domino.ui.button.Button;
 import org.dominokit.domino.ui.button.DropdownButton;
 import org.dominokit.domino.ui.button.group.ButtonsGroup;
+import org.dominokit.domino.ui.icons.DefaultIcons;
 import org.dominokit.domino.ui.icons.ElementIcon;
 import org.dominokit.domino.ui.icons.Icon;
-import org.dominokit.domino.ui.icons.lib.Icons;
+import org.dominokit.domino.ui.icons.IconName;
 import org.dominokit.domino.ui.menu.Menu;
 import org.dominokit.domino.ui.menu.MenuItem;
 import org.dominokit.domino.ui.menu.direction.DropDirection;
@@ -85,7 +86,7 @@ public class FontPicker extends BaseDominoElement<HTMLElement, FontPicker>
                                         .getPropertyValue("font-family")),
                             "fore-color")),
             DropdownButton.create(
-                Button.create(Icons.chevron_down()),
+                Button.create(DefaultIcons.coreIcon(IconName.CHEVRON_DOWN)),
                 fontsMenu =
                     Menu.<String>create()
                         .appendChild(

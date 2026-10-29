@@ -1,43 +1,110 @@
-.dui.mdi,
-.dui.mdi-set {
-    --dui-icon-size: var(--dui-font-size, var(--dui-default-icon-size));
-}
-
-.dui.mdi {
-    display: inline-block;
+.dui-icons {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
     vertical-align: middle;
-    line-height: initial;
+    line-height: 1;
 }
 
-.dui.mdi.dui-hidden {
-    display:none;
+.dui-icons svg {
+    display: block;
+    flex: none;
+    width: var(--dui-icon-size, 1em);
+    height: var(--dui-icon-size, 1em);
 }
 
-.dui.dui-clickable {
-    cursor: var(--dui-clickable-cursor);
-    border-radius: var(--dui-icon-radius);
-    overflow: visible;
+.dui-icons.dui-xs {
+    --dui-icon-size: var(--dui-icon-size-xs, var(--dui-spc-px-12, 0.75em));
+}
+
+.dui-icons.dui-sm {
+    --dui-icon-size: var(--dui-icon-size-sm, var(--dui-spc-px-14, 0.875em));
+}
+
+.dui-icons.dui-md {
+    --dui-icon-size: var(--dui-icon-size-md, var(--dui-spc-px-16, 1em));
+}
+
+.dui-icons.dui-lg {
+    --dui-icon-size: var(--dui-icon-size-lg, var(--dui-spc-px-20, 1.25em));
+}
+
+.dui-icons.dui-xl {
+    --dui-icon-size: var(--dui-icon-size-xl, var(--dui-spc-px-24, 1.5em));
+}
+
+.dui-stroke-width-1 {
+    --dui-icon-stroke-width: var(--dui-icon-stroke-width-1, 1);
+}
+
+.dui-stroke-width-1_5 {
+    --dui-icon-stroke-width: var(--dui-icon-stroke-width-1_5, 1.5);
+}
+
+.dui-stroke-width-2 {
+    --dui-icon-stroke-width: var(--dui-icon-stroke-width-2, 2);
+}
+
+.dui-stroke-width-2_5 {
+    --dui-icon-stroke-width: var(--dui-icon-stroke-width-2_5, 2.5);
+}
+
+.dui-stroke-width-3 {
+    --dui-icon-stroke-width: var(--dui-icon-stroke-width-3, 3);
+}
+
+.dui-icons.dui-icon-outline {
+    color: var(--dui-icon-color, currentColor);
+}
+
+.dui-icons.dui-icon-outline svg {
+    fill: none;
+    stroke: var(--dui-icon-stroke-color, currentColor);
+    stroke-width: var(--dui-icon-stroke-width, 2);
+    stroke-linecap: var(--dui-icon-stroke-linecap, round);
+    stroke-linejoin: var(--dui-icon-stroke-linejoin, round);
+}
+
+.dui-icons.dui-icon-filled {
+    color: var(--dui-icon-color, currentColor);
+}
+
+.dui-icons.dui-icon-filled svg {
+    fill: var(--dui-icon-fill-color, var(--dui-icon-color, currentColor));
+    stroke: var(--dui-icon-filled-stroke-color, none);
+    stroke-width: var(--dui-icon-stroke-width, 2);
+    stroke-linecap: var(--dui-icon-stroke-linecap, round);
+    stroke-linejoin: var(--dui-icon-stroke-linejoin, round);
 }
 
 .dui-icon {
     --dui-emphasis-color: var(--dui-bg, var(--dui-context-color, var(--dui-accent)));
 }
 
+.dui-icons.dui-icon-square,
 .dui-icon.dui-icon-square {
     border-radius: var(--dui-icon-square-radius);
 }
 
+.dui-icons.dui-icon-bordered,
 .dui-icon.dui-icon-bordered {
     border: var(--dui-icon-border);
 }
 
+.dui-icons.dui-icon-surface,
 .dui-icon.dui-icon-surface {
     background-color: var(--dui-icon-surface-background);
 }
 
-.dui.dui-clickable:focus,
-.dui.dui-clickable:focus-visible,
-.dui.dui-clickable:hover {
+.dui-clickable {
+    cursor: var(--dui-clickable-cursor);
+    border-radius: var(--dui-icon-radius);
+    overflow: visible;
+}
+
+.dui-clickable:focus,
+.dui-clickable:focus-visible,
+.dui-clickable:hover {
     transition: var(--dui-clickable-transition);
     background: var(--dui-clickable-hover-background);
     transform-origin: 50% 50%;
@@ -46,33 +113,24 @@
     outline: none;
 }
 
-*.dui[disabled] .dui.mdi.dui-clickable:hover {
+*.dui[disabled] .dui-clickable:hover {
     background: none;
     box-shadow: none;
 }
 
-.dui.mdi .dui-mdi-text{
-    float: right;
+.dui-icon-toggle,
+.dui-icon-state {
+    position: relative;
 }
-.dui.mdi .dui-mdi-text,
-.dui.mdi + .dui-mdi-text{
+
+.dui-icon-text {
+    float: right;
     vertical-align: middle;
 }
-.dui.mdi{
-    min-width: calc(var(--dui-icon-size) + 4px);
-    max-width: calc(var(--dui-icon-size) + 4px);
-    max-height: calc(var(--dui-icon-size) + 4px);
-    min-height: calc(var(--dui-icon-size) + 4px);
-    line-height: calc(var(--dui-icon-size) + 4px);
-    text-align: center;
-}
-.dui.mdi:before {
-    font-size: var(--dui-icon-size);
-}
-.dui.mdi .dui-mdi-text,
-.dui.mdi + .dui-mdi-text {
-    display: inline-block;
-    line-height: calc(var(--dui-icon-size) + 4px);
+
+.dui-icon-toggle > .dui-icons,
+.dui-icon-state > .dui-icons {
+    vertical-align: middle;
 }
 
 .dui-labeled-icon {

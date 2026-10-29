@@ -23,6 +23,8 @@ import org.dominokit.domino.ui.animations.Transition;
 import org.dominokit.domino.ui.button.Button;
 import org.dominokit.domino.ui.elements.SpanElement;
 import org.dominokit.domino.ui.icons.Icon;
+import org.dominokit.domino.ui.icons.IconWrapper;
+import org.dominokit.domino.ui.icons.IsIcon;
 import org.dominokit.domino.ui.layout.NavBar;
 import org.dominokit.domino.ui.utils.ChildHandler;
 import org.dominokit.domino.ui.utils.FooterContent;
@@ -290,6 +292,16 @@ public class AlertMessageDialog extends AbstractDialog<AlertMessageDialog> {
       this.alertIcon.remove();
     }
     this.alertIcon = LazyChild.of(alertIcon, contentHeader);
+    this.alertIcon.get();
+    return this;
+  }
+
+  /** Sets the alert icon from any icon pack. */
+  public AlertMessageDialog setAlertIcon(IsIcon<?> alertIcon) {
+    if (nonNull(alertIcon)) {
+      this.alertIcon.remove();
+    }
+    this.alertIcon = LazyChild.of(IconWrapper.of(alertIcon), contentHeader);
     this.alertIcon.get();
     return this;
   }

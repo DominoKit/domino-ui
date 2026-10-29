@@ -26,8 +26,9 @@ import java.util.function.Consumer;
 import java.util.function.Predicate;
 import org.dominokit.domino.ui.IsElement;
 import org.dominokit.domino.ui.elements.TableRowElement;
-import org.dominokit.domino.ui.icons.MdiIcon;
-import org.dominokit.domino.ui.icons.lib.Icons;
+import org.dominokit.domino.ui.icons.DefaultIcons;
+import org.dominokit.domino.ui.icons.IconName;
+import org.dominokit.domino.ui.icons.IconWrapper;
 import org.dominokit.domino.ui.menu.Menu;
 import org.dominokit.domino.ui.menu.direction.BestSideUpDownDropDirection;
 import org.dominokit.domino.ui.popover.Tooltip;
@@ -88,7 +89,7 @@ public class ColumnConfig<T> implements ElementsFactory, DataTableStyles {
   private final Map<String, ComponentMeta> columnMeta = new HashMap<>();
 
   private Menu<String> menu;
-  private MdiIcon menuIcon;
+  private IconWrapper menuIcon;
 
   /**
    * Factory method to create a new instance of {@link ColumnConfig} with the specified column name.
@@ -123,7 +124,9 @@ public class ColumnConfig<T> implements ElementsFactory, DataTableStyles {
   public ColumnConfig(String name, String title) {
     this.name = name;
     this.title = title;
-    menuIcon = Icons.dots_vertical().addCss(dui_datatable_th_menu_icon);
+    menuIcon =
+        IconWrapper.of(DefaultIcons.icon(IconName.DOTS_VERTICAL))
+            .addCss(dui_datatable_th_menu_icon);
     menuIcon.hide();
   }
 

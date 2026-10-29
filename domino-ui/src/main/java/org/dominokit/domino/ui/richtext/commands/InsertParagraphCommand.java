@@ -20,7 +20,8 @@ import static org.dominokit.domino.ui.utils.Domino.*;
 import elemental2.dom.DocumentFragment;
 import elemental2.dom.HTMLElement;
 import org.dominokit.domino.ui.button.Button;
-import org.dominokit.domino.ui.icons.lib.Icons;
+import org.dominokit.domino.ui.icons.DefaultIcons;
+import org.dominokit.domino.ui.icons.IconName;
 import org.dominokit.domino.ui.richtext.IsRichTextEditor;
 import org.dominokit.domino.ui.richtext.RichTextCommand;
 
@@ -61,7 +62,7 @@ public class InsertParagraphCommand extends RichTextCommand<InsertParagraphComma
   public InsertParagraphCommand(IsRichTextEditor isRichTextEditor) {
     super(isRichTextEditor);
     this.button =
-        Button.create(Icons.format_paragraph())
+        Button.create(DefaultIcons.coreIcon(IconName.FORMAT_PARAGRAPH))
             .setTooltip(getLabels().insertParagraph())
             .addClickListener(evt -> execute());
     init(this);

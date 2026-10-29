@@ -19,6 +19,8 @@ import elemental2.dom.Element;
 import elemental2.dom.HTMLElement;
 import elemental2.dom.Node;
 import jsinterop.base.Js;
+import org.dominokit.domino.ui.icons.IconProvider;
+import org.dominokit.domino.ui.icons.MdiIconProvider;
 import org.dominokit.domino.ui.popover.IsPopover;
 import org.dominokit.domino.ui.popover.IsTooltip;
 import org.dominokit.domino.ui.popover.Popover;
@@ -61,5 +63,16 @@ public interface UIConfig
   @Override
   default IsTooltip<?, ?> createTooltip(Element target, Node content) {
     return Tooltip.create(target, content);
+  }
+
+  /**
+   * Returns the icon provider used for built-in component defaults.
+   *
+   * <p>The default provider preserves the existing MDI behavior. Applications may override this
+   * method to use another included icon pack; icons from different packs can still be composed on
+   * the same page.
+   */
+  default IconProvider getDefaultIconProvider() {
+    return MdiIconProvider.INSTANCE;
   }
 }

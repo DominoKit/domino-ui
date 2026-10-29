@@ -27,6 +27,7 @@ import java.util.List;
 import java.util.Set;
 import org.dominokit.domino.ui.elements.OListElement;
 import org.dominokit.domino.ui.icons.Icon;
+import org.dominokit.domino.ui.icons.IsIcon;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
 import org.dominokit.domino.ui.utils.HasChangeListeners;
 
@@ -90,6 +91,14 @@ public class Breadcrumb extends BaseDominoElement<HTMLOListElement, Breadcrumb>
    * @return same breadcrumb instance
    */
   public Breadcrumb appendChild(Icon<?> icon, String text, EventListener onClick) {
+    BreadcrumbItem item = BreadcrumbItem.create(icon, text);
+    addAndActivateNewItem(item);
+    item.addClickListener(onClick);
+    return this;
+  }
+
+  /** Adds a location using an icon from any icon pack. */
+  public Breadcrumb appendChild(IsIcon<?> icon, String text, EventListener onClick) {
     BreadcrumbItem item = BreadcrumbItem.create(icon, text);
     addAndActivateNewItem(item);
     item.addClickListener(onClick);

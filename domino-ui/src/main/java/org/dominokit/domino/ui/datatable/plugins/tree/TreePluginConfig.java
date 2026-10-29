@@ -26,10 +26,11 @@ import java.util.function.Function;
 import java.util.function.Supplier;
 import org.dominokit.domino.ui.datatable.TableRow;
 import org.dominokit.domino.ui.datatable.plugins.PluginConfig;
+import org.dominokit.domino.ui.icons.DefaultIcons;
 import org.dominokit.domino.ui.icons.Icon;
+import org.dominokit.domino.ui.icons.IconName;
+import org.dominokit.domino.ui.icons.IconWrapper;
 import org.dominokit.domino.ui.icons.ToggleIcon;
-import org.dominokit.domino.ui.icons.ToggleMdiIcon;
-import org.dominokit.domino.ui.icons.lib.Icons;
 
 /**
  * Configuration class for the TreeGridPlugin, which adds tree-like functionality to a DataTable.
@@ -44,8 +45,8 @@ public class TreePluginConfig<T> implements PluginConfig {
   private boolean lazy = false;
   private TreeGridPlugin.ParentRowCellsSupplier<T> parentRowCellsSupplier;
   private Supplier<ToggleIcon<?, ?>> expandToggleIconSupplier =
-      () -> ToggleMdiIcon.create(Icons.menu_right(), Icons.menu_down());
-  private Supplier<Icon<?>> leafIconSupplier = Icons::circle_medium;
+      () -> DefaultIcons.toggle(IconName.MENU_RIGHT, IconName.MENU_DOWN);
+  private Supplier<Icon<?>> leafIconSupplier = () -> DefaultIcons.coreIcon(IconName.CIRCLE_MEDIUM);
   private Function<TableRow<T>, Node> indentColumnElementSupplier = tableRow -> elements.text();
   private int indent = DEFAULT_INDENT;
 
@@ -112,7 +113,7 @@ public class TreePluginConfig<T> implements PluginConfig {
       Supplier<ToggleIcon<?, ?>> expandIconSupplier) {
     if (isNull(expandIconSupplier)) {
       this.expandToggleIconSupplier =
-          () -> ToggleMdiIcon.create(Icons.menu_right(), Icons.menu_down());
+          () -> DefaultIcons.toggle(IconName.MENU_RIGHT, IconName.MENU_DOWN);
     } else {
       this.expandToggleIconSupplier = expandIconSupplier;
     }
@@ -136,7 +137,8 @@ public class TreePluginConfig<T> implements PluginConfig {
    */
   public TreePluginConfig<T> setLeafIconSupplier(Supplier<Icon<?>> leafIconSupplier) {
     if (isNull(leafIconSupplier)) {
-      this.leafIconSupplier = () -> Icons.circle_medium().addCss(dui_font_size_4);
+      this.leafIconSupplier =
+          () -> IconWrapper.of(DefaultIcons.icon(IconName.CIRCLE_MEDIUM)).addCss(dui_font_size_4);
     } else {
       this.leafIconSupplier = leafIconSupplier;
     }

@@ -18,9 +18,8 @@ package org.dominokit.domino.ui.config;
 import java.util.function.Supplier;
 import org.dominokit.domino.ui.collapsible.CollapseStrategy;
 import org.dominokit.domino.ui.collapsible.HeightCollapseStrategy;
+import org.dominokit.domino.ui.icons.IconName;
 import org.dominokit.domino.ui.icons.ToggleIcon;
-import org.dominokit.domino.ui.icons.ToggleMdiIcon;
-import org.dominokit.domino.ui.icons.lib.Icons;
 
 /**
  * Implementations of this interface can be used to configure defaults for {@link
@@ -47,6 +46,6 @@ public interface CardConfig extends ComponentConfig {
    * @return a {@code Supplier<ToggleIcon<?, ?>>}
    */
   default Supplier<ToggleIcon<?, ?>> getCardCollapseExpandIcon() {
-    return () -> ToggleMdiIcon.create(Icons.chevron_up(), Icons.chevron_down());
+    return () -> toggle(IconName.CHEVRON_UP, IconName.CHEVRON_DOWN);
   }
 }

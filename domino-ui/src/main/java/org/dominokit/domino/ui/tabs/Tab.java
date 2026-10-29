@@ -31,6 +31,8 @@ import org.dominokit.domino.ui.elements.DivElement;
 import org.dominokit.domino.ui.elements.LIElement;
 import org.dominokit.domino.ui.elements.SpanElement;
 import org.dominokit.domino.ui.icons.Icon;
+import org.dominokit.domino.ui.icons.IconWrapper;
+import org.dominokit.domino.ui.icons.IsIcon;
 import org.dominokit.domino.ui.utils.*;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
 
@@ -128,6 +130,12 @@ public class Tab extends BaseDominoElement<HTMLLIElement, Tab>
     setIcon(icon);
   }
 
+  /** Creates a tab with an icon from any icon pack. */
+  public Tab(IsIcon<?> icon) {
+    this();
+    setIcon(icon);
+  }
+
   /**
    * Constructor to create a tab with a specified icon, title, and key.
    *
@@ -136,6 +144,11 @@ public class Tab extends BaseDominoElement<HTMLLIElement, Tab>
    * @param key The key associated with the tab.
    */
   public Tab(Icon<?> icon, String title, String key) {
+    this(icon, text(title), key);
+  }
+
+  /** Creates a tab with an icon from any icon pack, title, and key. */
+  public Tab(IsIcon<?> icon, String title, String key) {
     this(icon, text(title), key);
   }
 
@@ -153,6 +166,14 @@ public class Tab extends BaseDominoElement<HTMLLIElement, Tab>
     setKey(key);
   }
 
+  /** Creates a tab with an icon from any icon pack, title, and key. */
+  public Tab(IsIcon<?> icon, Node title, String key) {
+    this();
+    setIcon(icon);
+    setTitle(title);
+    setKey(key);
+  }
+
   /**
    * Constructor to create a tab with a specified icon and title.
    *
@@ -163,6 +184,11 @@ public class Tab extends BaseDominoElement<HTMLLIElement, Tab>
     this(icon, text(title));
   }
 
+  /** Creates a tab with an icon from any icon pack and title. */
+  public Tab(IsIcon<?> icon, String title) {
+    this(icon, text(title));
+  }
+
   /**
    * Constructor to create a tab with a specified icon and title.
    *
@@ -170,6 +196,13 @@ public class Tab extends BaseDominoElement<HTMLLIElement, Tab>
    * @param title The title of the tab.
    */
   public Tab(Icon<?> icon, Node title) {
+    this();
+    setIcon(icon);
+    setTitle(title);
+  }
+
+  /** Creates a tab with an icon from any icon pack and title. */
+  public Tab(IsIcon<?> icon, Node title) {
     this();
     setIcon(icon);
     setTitle(title);
@@ -234,6 +267,11 @@ public class Tab extends BaseDominoElement<HTMLLIElement, Tab>
     return new Tab(icon);
   }
 
+  /** Creates a tab with an icon from any icon pack. */
+  public static Tab create(IsIcon<?> icon) {
+    return new Tab(icon);
+  }
+
   /**
    * Creates a new {@link Tab} instance with the specified key and icon.
    *
@@ -243,6 +281,13 @@ public class Tab extends BaseDominoElement<HTMLLIElement, Tab>
    * @see Tab#Tab(Icon)
    */
   public static Tab create(String key, Icon<?> icon) {
+    Tab tab = new Tab(icon);
+    tab.setKey(key);
+    return tab;
+  }
+
+  /** Creates a tab with a key and an icon from any icon pack. */
+  public static Tab create(String key, IsIcon<?> icon) {
     Tab tab = new Tab(icon);
     tab.setKey(key);
     return tab;
@@ -260,6 +305,11 @@ public class Tab extends BaseDominoElement<HTMLLIElement, Tab>
     return new Tab(icon, title);
   }
 
+  /** Creates a tab with an icon from any icon pack and title. */
+  public static Tab create(IsIcon<?> icon, String title) {
+    return new Tab(icon, title);
+  }
+
   /**
    * Creates a new {@link Tab} instance with the specified icon and title.
    *
@@ -269,6 +319,11 @@ public class Tab extends BaseDominoElement<HTMLLIElement, Tab>
    * @see Tab#Tab(Icon, String)
    */
   public static Tab create(Icon<?> icon, Node title) {
+    return new Tab(icon, title);
+  }
+
+  /** Creates a tab with an icon from any icon pack and title node. */
+  public static Tab create(IsIcon<?> icon, Node title) {
     return new Tab(icon, title);
   }
 
@@ -287,6 +342,13 @@ public class Tab extends BaseDominoElement<HTMLLIElement, Tab>
     return tab;
   }
 
+  /** Creates a keyed tab with an icon from any icon pack and title. */
+  public static Tab create(String key, IsIcon<?> icon, String title) {
+    Tab tab = new Tab(icon, title);
+    tab.setKey(key);
+    return tab;
+  }
+
   /**
    * Creates a new {@link Tab} instance with the specified key, icon, and title.
    *
@@ -297,6 +359,13 @@ public class Tab extends BaseDominoElement<HTMLLIElement, Tab>
    * @see Tab#Tab(Icon, String, String)
    */
   public static Tab create(String key, Icon<?> icon, Node title) {
+    Tab tab = new Tab(icon, title);
+    tab.setKey(key);
+    return tab;
+  }
+
+  /** Creates a keyed tab with an icon from any icon pack and title node. */
+  public static Tab create(String key, IsIcon<?> icon, Node title) {
     Tab tab = new Tab(icon, title);
     tab.setKey(key);
     return tab;
@@ -430,12 +499,19 @@ public class Tab extends BaseDominoElement<HTMLLIElement, Tab>
    * @return The current {@link Tab} instance.
    */
   public Tab setIcon(Icon<?> icon) {
+    return setIcon((IsIcon<?>) icon);
+  }
+
+  /** Sets an icon from any icon pack. */
+  public Tab setIcon(IsIcon<?> icon) {
     if (nonNull(tabIcon) && tabIcon.isInitialized()) {
       tabIcon.remove();
     }
 
     if (nonNull(icon)) {
-      tabIcon = LazyChild.of(icon.addCss(dui_tab_header_item, dui_tab_header_icon), tabHeader);
+      tabIcon =
+          LazyChild.of(
+              IconWrapper.of(icon).addCss(dui_tab_header_item, dui_tab_header_icon), tabHeader);
       tabIcon.get();
     }
     return this;

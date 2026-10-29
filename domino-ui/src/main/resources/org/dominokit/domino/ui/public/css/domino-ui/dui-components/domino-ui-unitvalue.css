@@ -52,7 +52,7 @@
     font: var(--dui-unit-value-unit-font);
 }
 
-.dui-unit-value-unit .dui.mdi {
+.dui-unit-value-unit .dui-icons {
     min-width: unset;
     line-height: 14px;
 }

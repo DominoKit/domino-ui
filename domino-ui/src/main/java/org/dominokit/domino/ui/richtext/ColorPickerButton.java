@@ -22,7 +22,8 @@ import elemental2.dom.HTMLElement;
 import org.dominokit.domino.ui.button.Button;
 import org.dominokit.domino.ui.button.DropdownButton;
 import org.dominokit.domino.ui.button.group.ButtonsGroup;
-import org.dominokit.domino.ui.icons.lib.Icons;
+import org.dominokit.domino.ui.icons.DefaultIcons;
+import org.dominokit.domino.ui.icons.IconName;
 import org.dominokit.domino.ui.menu.CustomMenuItem;
 import org.dominokit.domino.ui.menu.Menu;
 import org.dominokit.domino.ui.menu.direction.DropDirection;
@@ -62,7 +63,7 @@ public abstract class ColorPickerButton extends BaseDominoElement<HTMLElement, C
         ButtonsGroup.create(
             mainButton = makeIndicatorButton(),
             DropdownButton.create(
-                Button.create(Icons.chevron_down()),
+                Button.create(DefaultIcons.coreIcon(IconName.CHEVRON_DOWN)),
                 Menu.<String>create()
                     .addCss(dui_color_picker)
                     .appendChild(

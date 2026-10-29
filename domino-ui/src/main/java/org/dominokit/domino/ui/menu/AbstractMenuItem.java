@@ -29,7 +29,8 @@ import org.dominokit.domino.ui.elements.AnchorElement;
 import org.dominokit.domino.ui.elements.DivElement;
 import org.dominokit.domino.ui.elements.LIElement;
 import org.dominokit.domino.ui.events.EventType;
-import org.dominokit.domino.ui.icons.lib.Icons;
+import org.dominokit.domino.ui.icons.DefaultIcons;
+import org.dominokit.domino.ui.icons.IconName;
 import org.dominokit.domino.ui.menu.base.IsMenuItem;
 import org.dominokit.domino.ui.menu.direction.BestFitSideDropDirection;
 import org.dominokit.domino.ui.style.ConditionalCssClass;
@@ -105,7 +106,7 @@ public class AbstractMenuItem<V> extends BaseDominoElement<HTMLElement, Abstract
             .appendChild(nestedIndicatorElement = div().addCss(dui_menu_item_nested_indicator));
     root.appendChild(linkElement);
 
-    indicatorIcon = createIndicator(Icons.menu_right());
+    indicatorIcon = createIndicator(DefaultIcons.coreIcon(IconName.MENU_RIGHT));
 
     init(this);
     double[] startTime = new double[] {0};

@@ -31,9 +31,9 @@ import org.dominokit.domino.ui.datatable.plugins.DataTablePlugin;
 import org.dominokit.domino.ui.datatable.plugins.HasPluginConfig;
 import org.dominokit.domino.ui.elements.DivElement;
 import org.dominokit.domino.ui.elements.TableRowElement;
+import org.dominokit.domino.ui.icons.DefaultIcons;
+import org.dominokit.domino.ui.icons.IconName;
 import org.dominokit.domino.ui.icons.ToggleIcon;
-import org.dominokit.domino.ui.icons.ToggleMdiIcon;
-import org.dominokit.domino.ui.icons.lib.Icons;
 import org.dominokit.domino.ui.utils.ComponentMeta;
 import org.dominokit.domino.ui.utils.DominoEvent;
 
@@ -74,7 +74,7 @@ public class GroupingPlugin<T>
   private final GroupSupplier<T> groupSupplier;
   private GroupCellRenderer<T> groupRenderer;
   private Supplier<ToggleIcon<?, ?>> groupExpandedCollapseIconSupplier =
-      () -> ToggleMdiIcon.create(Icons.minus_box(), Icons.plus_box());
+      () -> DefaultIcons.toggle(IconName.MINUS_BOX, IconName.PLUS_BOX);
   private GroupingPluginConfig config = new GroupingPluginConfig();
 
   /**

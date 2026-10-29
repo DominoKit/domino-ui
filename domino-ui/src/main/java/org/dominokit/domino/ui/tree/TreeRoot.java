@@ -33,9 +33,9 @@ import org.dominokit.domino.ui.collapsible.CollapseStrategy;
 import org.dominokit.domino.ui.elements.DivElement;
 import org.dominokit.domino.ui.elements.SpanElement;
 import org.dominokit.domino.ui.elements.UListElement;
+import org.dominokit.domino.ui.icons.DefaultIcons;
 import org.dominokit.domino.ui.icons.Icon;
-import org.dominokit.domino.ui.icons.ToggleMdiIcon;
-import org.dominokit.domino.ui.icons.lib.Icons;
+import org.dominokit.domino.ui.icons.IconName;
 import org.dominokit.domino.ui.search.Search;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
 import org.dominokit.domino.ui.utils.ChildHandler;
@@ -375,7 +375,7 @@ public abstract class TreeRoot<V, N extends TreeNode<V, N, S>, C extends TreeRoo
         searchIcon =
             LazyChild.of(
                 PostfixAddOn.of(
-                        Icons.magnify()
+                        DefaultIcons.coreIcon(IconName.MAGNIFY)
                             .clickable()
                             .setAriaLabel("Search tree")
                             .addClickListener(
@@ -412,7 +412,7 @@ public abstract class TreeRoot<V, N extends TreeNode<V, N, S>, C extends TreeRoo
         collapseExpandAllIcon =
             LazyChild.of(
                 PostfixAddOn.of(
-                        ToggleMdiIcon.create(Icons.fullscreen(), Icons.fullscreen_exit())
+                        DefaultIcons.toggle(IconName.FULLSCREEN, IconName.FULLSCREEN_EXIT)
                             .clickable()
                             .setAriaLabel("Toggle tree")
                             .apply(

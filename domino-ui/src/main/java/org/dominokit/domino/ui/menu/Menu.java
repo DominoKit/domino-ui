@@ -43,8 +43,9 @@ import org.dominokit.domino.ui.IsElement;
 import org.dominokit.domino.ui.elements.DivElement;
 import org.dominokit.domino.ui.elements.UListElement;
 import org.dominokit.domino.ui.events.EventType;
-import org.dominokit.domino.ui.icons.MdiIcon;
-import org.dominokit.domino.ui.icons.lib.Icons;
+import org.dominokit.domino.ui.icons.DefaultIcons;
+import org.dominokit.domino.ui.icons.IconName;
+import org.dominokit.domino.ui.icons.IconWrapper;
 import org.dominokit.domino.ui.layout.NavBar;
 import org.dominokit.domino.ui.mediaquery.MediaQuery;
 import org.dominokit.domino.ui.menu.base.BaseMenu;
@@ -67,7 +68,7 @@ import org.dominokit.domino.ui.utils.SupplyOnce;
  * <pre>
  * Menu<String> myMenu = Menu.create()
  *    .setTitle("My Menu")
- *    .setIcon(Icons.ALL.menu())
+ *    .setIcon(DefaultIcons.coreIcon(IconName.MENU))
  *    .appendChild(new MenuItem<>("Menu Item 1"));
  * </pre>
  *
@@ -80,7 +81,7 @@ public class Menu<V> extends BaseMenu<V, Menu<V>, AbstractMenuItem<V>, AbstractM
   private final DivElement menuBody;
   private final LazyChild<DivElement> menuFooter;
 
-  private final LazyChild<MdiIcon> backIcon;
+  private final LazyChild<IconWrapper> backIcon;
   protected DivElement menuElement;
 
   protected List<AbstractMenuItem<V>> menuItems = new ArrayList<>();
@@ -324,7 +325,11 @@ public class Menu<V> extends BaseMenu<V, Menu<V>, AbstractMenuItem<V>, AbstractM
 
     element.addEventListener("keydown", keyboardNavigation);
 
-    backIcon = LazyChild.of(Icons.keyboard_backspace().addCss(dui_menu_back_icon), menuHeader);
+    backIcon =
+        LazyChild.of(
+            IconWrapper.of(DefaultIcons.icon(IconName.KEYBOARD_BACKSPACE))
+                .addCss(dui_menu_back_icon),
+            menuHeader);
     backIcon.whenInitialized(
         () -> {
           backIcon

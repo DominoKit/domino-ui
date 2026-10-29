@@ -19,7 +19,7 @@ import static org.dominokit.domino.ui.utils.Domino.*;
 
 import elemental2.dom.HTMLAnchorElement;
 import org.dominokit.domino.ui.elements.AnchorElement;
-import org.dominokit.domino.ui.icons.Icon;
+import org.dominokit.domino.ui.icons.IsIcon;
 import org.dominokit.domino.ui.utils.ChildHandler;
 
 /**
@@ -47,7 +47,7 @@ public class LinkButton extends BaseButton<HTMLAnchorElement, LinkButton> {
    *
    * @param icon The button icon
    */
-  public LinkButton(Icon<?> icon) {
+  public LinkButton(IsIcon<?> icon) {
     super(icon);
   }
 
@@ -57,7 +57,7 @@ public class LinkButton extends BaseButton<HTMLAnchorElement, LinkButton> {
    * @param icon The button icon
    * @param text the button text
    */
-  public LinkButton(Icon<?> icon, String text) {
+  public LinkButton(IsIcon<?> icon, String text) {
     super(text, icon);
   }
 
@@ -83,21 +83,21 @@ public class LinkButton extends BaseButton<HTMLAnchorElement, LinkButton> {
   /**
    * Factory method to create a LinkButton with icon
    *
-   * @param icon {@link org.dominokit.domino.ui.icons.Icon}, the button icon
+   * @param icon the button icon
    * @return new Button instance
    */
-  public static LinkButton create(Icon<?> icon) {
+  public static LinkButton create(IsIcon<?> icon) {
     return new LinkButton(icon);
   }
 
   /**
    * Factory method to create a LinkButton with text and icon.
    *
-   * @param icon {@link org.dominokit.domino.ui.icons.Icon}, the button icon
+   * @param icon the button icon
    * @param text a {@link java.lang.String} object
    * @return new Button instance
    */
-  public static LinkButton create(Icon<?> icon, String text) {
+  public static LinkButton create(IsIcon<?> icon, String text) {
     return new LinkButton(icon, text);
   }
 

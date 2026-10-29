@@ -17,7 +17,7 @@ package org.dominokit.domino.ui.config;
 
 import java.util.function.Supplier;
 import org.dominokit.domino.ui.icons.Icon;
-import org.dominokit.domino.ui.icons.lib.Icons;
+import org.dominokit.domino.ui.icons.IconName;
 
 /**
  * Implementations of this interface can be used to configure defaults for {@link
@@ -32,6 +32,6 @@ public interface TimePickerConfig extends ComponentConfig {
    * @return a {@code Supplier<Icon<?>>}
    */
   default Supplier<Icon<?>> defaultTimeBoxIcon() {
-    return Icons::clock_outline;
+    return () -> icon(IconName.CLOCK_OUTLINE);
   }
 }

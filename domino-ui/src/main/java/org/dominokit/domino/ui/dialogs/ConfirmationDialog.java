@@ -20,7 +20,8 @@ import static org.dominokit.domino.ui.utils.Domino.*;
 
 import org.dominokit.domino.ui.button.Button;
 import org.dominokit.domino.ui.elements.SpanElement;
-import org.dominokit.domino.ui.icons.lib.Icons;
+import org.dominokit.domino.ui.icons.DefaultIcons;
+import org.dominokit.domino.ui.icons.IconName;
 import org.dominokit.domino.ui.layout.NavBar;
 import org.dominokit.domino.ui.utils.ChildHandler;
 import org.dominokit.domino.ui.utils.FooterContent;
@@ -138,7 +139,7 @@ public class ConfirmationDialog extends AbstractDialog<ConfirmationDialog> {
 
   private void appendButtons() {
     confirmButton =
-        Button.create(Icons.check(), labels.dialogConfirmationAccept())
+        Button.create(DefaultIcons.coreIcon(IconName.CHECK), labels.dialogConfirmationAccept())
             .addCss(dui_dialog_action, dui_success, dui_m_0)
             .addClickListener(
                 evt -> {
@@ -148,7 +149,7 @@ public class ConfirmationDialog extends AbstractDialog<ConfirmationDialog> {
                 });
 
     rejectButton =
-        Button.create(Icons.cancel(), labels.dialogConfirmationReject())
+        Button.create(DefaultIcons.coreIcon(IconName.CANCEL), labels.dialogConfirmationReject())
             .addCss(dui_dialog_action, dui_dialog_secondary_action, dui_m_0)
             .addClickListener(
                 evt -> {

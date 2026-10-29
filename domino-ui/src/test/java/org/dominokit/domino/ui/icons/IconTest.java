@@ -30,15 +30,28 @@ public class IconTest extends GWTTestCase {
 
     icon.setSquare(true).setBordered(true).setSurface(true);
 
-    assertTrue(icon.element().classList.contains("dui-icon"));
-    assertTrue(icon.element().classList.contains("dui-icon-square"));
-    assertTrue(icon.element().classList.contains("dui-icon-bordered"));
-    assertTrue(icon.element().classList.contains("dui-icon-surface"));
+    assertHasClass(icon, "dui-icon");
+    assertHasClass(icon, "dui-icon-square");
+    assertHasClass(icon, "dui-icon-bordered");
+    assertHasClass(icon, "dui-icon-surface");
 
     icon.setSquare(false).setBordered(false).setSurface(false);
 
-    assertFalse(icon.element().classList.contains("dui-icon-square"));
-    assertFalse(icon.element().classList.contains("dui-icon-bordered"));
-    assertFalse(icon.element().classList.contains("dui-icon-surface"));
+    assertDoesNotHaveClass(icon, "dui-icon-square");
+    assertDoesNotHaveClass(icon, "dui-icon-bordered");
+    assertDoesNotHaveClass(icon, "dui-icon-surface");
+  }
+
+  private void assertHasClass(MdiIcon icon, String className) {
+    assertTrue(hasClass(icon, className));
+  }
+
+  private void assertDoesNotHaveClass(MdiIcon icon, String className) {
+    assertFalse(hasClass(icon, className));
+  }
+
+  private boolean hasClass(MdiIcon icon, String className) {
+    String classes = " " + icon.element().className + " ";
+    return classes.indexOf(" " + className + " ") >= 0;
   }
 }

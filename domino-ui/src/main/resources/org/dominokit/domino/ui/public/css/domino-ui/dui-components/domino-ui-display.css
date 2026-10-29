@@ -2249,12 +2249,8 @@ body.dui .dui.dui-outline-hidden {
     font-family: var(--dui-font-family-body) !important;
 }
 
-.dui.dui-font-scope :not(.mdi) {
+.dui.dui-font-scope :not(.dui-icons) {
     font-family: var(--dui-font-family-body) !important;
-}
-
-.dui.dui-font-scope .mdi {
-    font-family: var(--dui-font-family-icon) !important;
 }
 
 .dui.dui-font-scope .dui-font-mono,

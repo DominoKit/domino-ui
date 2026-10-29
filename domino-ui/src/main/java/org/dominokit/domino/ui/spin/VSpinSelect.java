@@ -19,6 +19,8 @@ import static org.dominokit.domino.ui.utils.Domino.*;
 
 import elemental2.dom.DOMRect;
 import org.dominokit.domino.ui.icons.Icon;
+import org.dominokit.domino.ui.icons.IconWrapper;
+import org.dominokit.domino.ui.icons.IsIcon;
 import org.dominokit.domino.ui.utils.DominoUIConfig;
 import org.dominokit.domino.ui.utils.SwipeUtil;
 
@@ -61,6 +63,11 @@ public class VSpinSelect<T> extends SpinSelect<T, VSpinSelect<T>> {
     return new VSpinSelect<>(upIcon, downIcon);
   }
 
+  /** Creates a spin select using icons from any icon pack. */
+  public static <T> VSpinSelect<T> create(IsIcon<?> upIcon, IsIcon<?> downIcon) {
+    return new VSpinSelect<>(upIcon, downIcon);
+  }
+
   /** Default constructor that initializes the VSpinSelect with default up and down icons. */
   public VSpinSelect() {
     this(
@@ -76,6 +83,16 @@ public class VSpinSelect<T> extends SpinSelect<T, VSpinSelect<T>> {
    */
   public VSpinSelect(Icon<?> upIcon, Icon<?> downIcon) {
     super(upIcon, downIcon);
+    addCss(dui_spin_vertical);
+    SwipeUtil.addSwipeListener(
+        SwipeUtil.SwipeDirection.DOWN, contentPanel.element(), evt -> moveBack());
+    SwipeUtil.addSwipeListener(
+        SwipeUtil.SwipeDirection.UP, contentPanel.element(), evt -> moveForward());
+  }
+
+  /** Creates a spin select using icons from any icon pack. */
+  public VSpinSelect(IsIcon<?> upIcon, IsIcon<?> downIcon) {
+    super(IconWrapper.of(upIcon), IconWrapper.of(downIcon));
     addCss(dui_spin_vertical);
     SwipeUtil.addSwipeListener(
         SwipeUtil.SwipeDirection.DOWN, contentPanel.element(), evt -> moveBack());

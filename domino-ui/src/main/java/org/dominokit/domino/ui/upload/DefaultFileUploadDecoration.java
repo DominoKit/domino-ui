@@ -23,6 +23,8 @@ import org.dominokit.domino.ui.elements.DivElement;
 import org.dominokit.domino.ui.elements.HeadingElement;
 import org.dominokit.domino.ui.elements.SmallElement;
 import org.dominokit.domino.ui.icons.Icon;
+import org.dominokit.domino.ui.icons.IconWrapper;
+import org.dominokit.domino.ui.icons.IsIcon;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
 import org.dominokit.domino.ui.utils.LazyChild;
 
@@ -117,6 +119,18 @@ public class DefaultFileUploadDecoration
       iconElement.get();
     }
 
+    return this;
+  }
+
+  /** Sets an icon from any icon pack. */
+  public DefaultFileUploadDecoration setIcon(IsIcon<?> icon) {
+    if (nonNull(iconElement) && iconElement.isInitialized()) {
+      iconElement.remove();
+    }
+    if (nonNull(icon)) {
+      iconElement = LazyChild.of(IconWrapper.of(icon).addCss(dui_order_10), root);
+      iconElement.get();
+    }
     return this;
   }
 

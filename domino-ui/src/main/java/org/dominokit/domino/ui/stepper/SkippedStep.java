@@ -17,7 +17,8 @@ package org.dominokit.domino.ui.stepper;
 
 import static org.dominokit.domino.ui.stepper.StepStateCss.dui_step_state_skipped;
 
-import org.dominokit.domino.ui.icons.lib.Icons;
+import org.dominokit.domino.ui.icons.DefaultIcons;
+import org.dominokit.domino.ui.icons.IconName;
 
 /**
  * Represents a "Skipped" step in a stepper component. Skipped steps indicate that they have been
@@ -37,7 +38,9 @@ public class SkippedStep implements StepState {
     tracker
         .addCss(dui_step_state_skipped)
         .withTrackerNode(
-            (parent1, node) -> node.appendChild(Icons.share().addCss(dui_tracker_node_icon)));
+            (parent1, node) ->
+                node.appendChild(
+                    DefaultIcons.coreIcon(IconName.SHARE).addCss(dui_tracker_node_icon)));
   }
 
   /**

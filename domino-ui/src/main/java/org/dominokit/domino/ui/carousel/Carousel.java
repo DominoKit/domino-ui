@@ -35,8 +35,10 @@ import org.dominokit.domino.ui.elements.AnchorElement;
 import org.dominokit.domino.ui.elements.DivElement;
 import org.dominokit.domino.ui.elements.OListElement;
 import org.dominokit.domino.ui.events.EventType;
-import org.dominokit.domino.ui.icons.MdiIcon;
-import org.dominokit.domino.ui.icons.lib.Icons;
+import org.dominokit.domino.ui.icons.DefaultIcons;
+import org.dominokit.domino.ui.icons.IconName;
+import org.dominokit.domino.ui.icons.IconWrapper;
+import org.dominokit.domino.ui.icons.IsIcon;
 import org.dominokit.domino.ui.style.CssClass;
 import org.dominokit.domino.ui.style.GenericCss;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
@@ -63,8 +65,8 @@ public class Carousel extends BaseDominoElement<HTMLDivElement, Carousel>
   private final AnchorElement prevElement;
   private final AnchorElement nextElement;
 
-  private final MdiIcon prevIcon;
-  private final MdiIcon nextIcon;
+  private final IconWrapper prevIcon;
+  private final IconWrapper nextIcon;
 
   private final DivElement element;
 
@@ -99,7 +101,7 @@ public class Carousel extends BaseDominoElement<HTMLDivElement, Carousel>
                         .setAttribute("role", "button")
                         .appendChild(
                             prevIcon =
-                                Icons.chevron_left()
+                                IconWrapper.of(DefaultIcons.icon(IconName.CHEVRON_LEFT))
                                     .addCss(GenericCss.dui_vertical_center, dui_font_size_12))
                         .setAttribute("aria-label", "Previous slide")
                         .addEventListener("click", evt -> previous())
@@ -112,7 +114,7 @@ public class Carousel extends BaseDominoElement<HTMLDivElement, Carousel>
                         .setAttribute("role", "button")
                         .appendChild(
                             nextIcon =
-                                Icons.chevron_right()
+                                IconWrapper.of(DefaultIcons.icon(IconName.CHEVRON_RIGHT))
                                     .addCss(GenericCss.dui_vertical_center, dui_font_size_12))
                         .setAttribute("aria-label", "Next slide")
                         .addEventListener("click", evt -> next())
@@ -462,7 +464,7 @@ public class Carousel extends BaseDominoElement<HTMLDivElement, Carousel>
    *     customizations
    * @return same carousel instance
    */
-  public Carousel withPreviousIcon(ChildHandler<Carousel, MdiIcon> handler) {
+  public Carousel withPreviousIcon(ChildHandler<Carousel, IsIcon<?>> handler) {
     handler.apply(this, prevIcon);
     return this;
   }
@@ -474,7 +476,7 @@ public class Carousel extends BaseDominoElement<HTMLDivElement, Carousel>
    *     customizations
    * @return same carousel instance
    */
-  public Carousel withNextIcon(ChildHandler<Carousel, MdiIcon> handler) {
+  public Carousel withNextIcon(ChildHandler<Carousel, IsIcon<?>> handler) {
     handler.apply(this, nextIcon);
     return this;
   }

@@ -19,7 +19,8 @@ import static org.dominokit.domino.ui.utils.Domino.*;
 
 import elemental2.dom.HTMLElement;
 import org.dominokit.domino.ui.button.Button;
-import org.dominokit.domino.ui.icons.lib.Icons;
+import org.dominokit.domino.ui.icons.DefaultIcons;
+import org.dominokit.domino.ui.icons.IconName;
 import org.dominokit.domino.ui.richtext.IsRichTextEditor;
 import org.dominokit.domino.ui.richtext.RichTextCommand;
 import org.dominokit.domino.ui.utils.Counter;
@@ -65,7 +66,7 @@ public class IncreaseFontCommand extends RichTextCommand<IncreaseFontCommand> {
     super(isRichTextEditor);
     this.fontSize = isRichTextEditor.getDefaultFontSizeCounter();
     this.button =
-        Button.create(Icons.format_font_size_increase())
+        Button.create(DefaultIcons.coreIcon(IconName.FORMAT_FONT_SIZE_INCREASE))
             .setTooltip(getLabels().increaseFontSize())
             .addClickListener(evt -> execute());
     init(this);

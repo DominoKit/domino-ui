@@ -230,6 +230,8 @@
 .dui-layout-menu {
     max-height: 100%;
     overflow: auto;
+    display: flex;
+    flex-direction: column;
 }
 
 .dui-right-open > .dui-right-drawer {

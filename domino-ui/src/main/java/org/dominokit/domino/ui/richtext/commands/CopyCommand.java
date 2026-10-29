@@ -17,7 +17,8 @@ package org.dominokit.domino.ui.richtext.commands;
 
 import elemental2.dom.HTMLElement;
 import org.dominokit.domino.ui.button.Button;
-import org.dominokit.domino.ui.icons.lib.Icons;
+import org.dominokit.domino.ui.icons.DefaultIcons;
+import org.dominokit.domino.ui.icons.IconName;
 import org.dominokit.domino.ui.richtext.IsRichTextEditor;
 import org.dominokit.domino.ui.richtext.RichTextCommand;
 import org.dominokit.domino.ui.utils.DominoDom;
@@ -58,7 +59,7 @@ public class CopyCommand extends RichTextCommand<CopyCommand> {
   public CopyCommand(IsRichTextEditor isRichTextEditor) {
     super(isRichTextEditor);
     this.button =
-        Button.create(Icons.content_copy())
+        Button.create(DefaultIcons.coreIcon(IconName.CONTENT_COPY))
             .setTooltip(getLabels().copy())
             .addClickListener(evt -> execute());
     init(this);

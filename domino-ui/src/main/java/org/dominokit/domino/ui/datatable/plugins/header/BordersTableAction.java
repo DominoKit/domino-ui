@@ -17,9 +17,9 @@ package org.dominokit.domino.ui.datatable.plugins.header;
 
 import elemental2.dom.HTMLElement;
 import org.dominokit.domino.ui.datatable.DataTable;
+import org.dominokit.domino.ui.icons.DefaultIcons;
+import org.dominokit.domino.ui.icons.IconName;
 import org.dominokit.domino.ui.icons.ToggleIcon;
-import org.dominokit.domino.ui.icons.ToggleMdiIcon;
-import org.dominokit.domino.ui.icons.lib.Icons;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
 
 /**
@@ -44,15 +44,15 @@ public class BordersTableAction<T> extends BaseDominoElement<HTMLElement, Border
    */
   public BordersTableAction(DataTable<T> dataTable) {
     bordersIcon =
-        ToggleMdiIcon.create(Icons.border_vertical(), Icons.border_none())
+        DefaultIcons.toggle(IconName.BORDER_VERTICAL, IconName.BORDER_NONE)
             .clickable()
             .setAriaLabel("Toggle table borders")
             .toggleOnClick(true)
             .setTooltip(borderedToolTip)
             .onToggle(
-                toggleMdiIcon -> {
+                toggleIcon -> {
                   dataTable.setBordered(!dataTable.isBordered());
-                  toggleMdiIcon.setTooltip(
+                  toggleIcon.setTooltip(
                       dataTable.isBordered() ? noBordersToolTip : borderedToolTip);
                 });
 

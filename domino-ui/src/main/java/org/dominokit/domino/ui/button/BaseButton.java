@@ -26,7 +26,7 @@ import elemental2.dom.HTMLElement;
 import org.dominokit.domino.ui.elements.BaseElement;
 import org.dominokit.domino.ui.elements.DivElement;
 import org.dominokit.domino.ui.elements.SpanElement;
-import org.dominokit.domino.ui.icons.Icon;
+import org.dominokit.domino.ui.icons.IsIcon;
 import org.dominokit.domino.ui.style.BooleanCssClass;
 import org.dominokit.domino.ui.style.WavesElement;
 import org.dominokit.domino.ui.utils.AcceptDisable;
@@ -48,7 +48,7 @@ public abstract class BaseButton<E extends HTMLElement, B extends BaseButton<E, 
 
   private DivElement bodyElement;
   private LazyChild<SpanElement> textElement;
-  private LazyChild<Icon<?>> iconElement;
+  private LazyChild<IsIcon<?>> iconElement;
 
   /** The default element that represent the button HTMLElement. */
   protected final BaseElement<E, ?> buttonElement;
@@ -90,7 +90,7 @@ public abstract class BaseButton<E extends HTMLElement, B extends BaseButton<E, 
    * @param text a {@link java.lang.String} object
    * @param icon a {@link org.dominokit.domino.ui.icons.Icon} object
    */
-  protected BaseButton(String text, Icon<?> icon) {
+  protected BaseButton(String text, IsIcon<?> icon) {
     this();
     setText(text);
     setIcon(icon);
@@ -101,7 +101,7 @@ public abstract class BaseButton<E extends HTMLElement, B extends BaseButton<E, 
    *
    * @param icon {@link org.dominokit.domino.ui.icons.Icon}
    */
-  protected BaseButton(Icon<?> icon) {
+  protected BaseButton(IsIcon<?> icon) {
     this();
     setIcon(icon);
   }
@@ -168,10 +168,10 @@ public abstract class BaseButton<E extends HTMLElement, B extends BaseButton<E, 
   /**
    * sets the button icon replacing the current icon.
    *
-   * @param icon the new {@link org.dominokit.domino.ui.icons.Icon}
+   * @param icon the new icon
    * @return same instance
    */
-  public B setIcon(Icon<?> icon) {
+  public B setIcon(IsIcon<?> icon) {
     if (nonNull(iconElement)) {
       iconElement.remove();
     }
@@ -222,7 +222,7 @@ public abstract class BaseButton<E extends HTMLElement, B extends BaseButton<E, 
    * @param handler a {@link org.dominokit.domino.ui.utils.ChildHandler} to apply the customization
    * @return same button instance
    */
-  public B withIconElement(ChildHandler<B, Icon<?>> handler) {
+  public B withIconElement(ChildHandler<B, IsIcon<?>> handler) {
     if (nonNull(iconElement)) {
       handler.apply((B) this, iconElement.get());
     }

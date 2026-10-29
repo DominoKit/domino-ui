@@ -24,8 +24,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Consumer;
 import org.dominokit.domino.ui.elements.UListElement;
-import org.dominokit.domino.ui.icons.MdiIcon;
-import org.dominokit.domino.ui.icons.lib.Icons;
+import org.dominokit.domino.ui.icons.DefaultIcons;
+import org.dominokit.domino.ui.icons.IconName;
+import org.dominokit.domino.ui.icons.IconWrapper;
 import org.dominokit.domino.ui.menu.direction.DropDirection;
 import org.dominokit.domino.ui.popover.Popover;
 import org.dominokit.domino.ui.utils.HandlerRecord;
@@ -33,7 +34,7 @@ import org.gwtproject.timer.client.Timer;
 
 public class TabsDropDownHandler implements TabsOverflowHandler {
 
-  private final MdiIcon dropDownIcon;
+  private final IconWrapper dropDownIcon;
   private final Popover popover;
   private final List<Tab> invisibleTabs = new ArrayList<>();
   private Timer timer;
@@ -43,7 +44,10 @@ public class TabsDropDownHandler implements TabsOverflowHandler {
   private final HandlerRecord resizeRecord = new HandlerRecord();
 
   public TabsDropDownHandler() {
-    dropDownIcon = Icons.dots_horizontal().clickable().setAriaLabel("Show more tabs");
+    dropDownIcon =
+        IconWrapper.of(DefaultIcons.icon(IconName.DOTS_HORIZONTAL))
+            .clickable()
+            .setAriaLabel("Show more tabs");
     popover =
         Popover.create(dropDownIcon)
             .setPosition(DropDirection.BEST_MIDDLE_DOWN_UP)

@@ -26,6 +26,8 @@ import org.dominokit.domino.ui.elements.HeadingElement;
 import org.dominokit.domino.ui.elements.ImageElement;
 import org.dominokit.domino.ui.elements.SmallElement;
 import org.dominokit.domino.ui.icons.Icon;
+import org.dominokit.domino.ui.icons.IconWrapper;
+import org.dominokit.domino.ui.icons.IsIcon;
 import org.dominokit.domino.ui.utils.*;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
 
@@ -396,6 +398,14 @@ public class CardHeader extends BaseDominoElement<HTMLDivElement, CardHeader> {
     return this;
   }
 
+  /** Sets an icon from any icon pack. */
+  public CardHeader setIcon(IsIcon<?> icon) {
+    cardIcon.remove();
+    cardIcon = LazyChild.of(IconWrapper.of(icon).addCss(dui_card_icon), mainHeader);
+    cardIcon.get();
+    return this;
+  }
+
   /**
    * This will initialize and append the card header icon if not yet initialized.
    *
@@ -413,6 +423,12 @@ public class CardHeader extends BaseDominoElement<HTMLDivElement, CardHeader> {
    * @return same CardHeader instance
    */
   public CardHeader withIcon(Icon<?> icon) {
+    setIcon(icon);
+    return this;
+  }
+
+  /** Sets an icon from any icon pack. */
+  public CardHeader withIcon(IsIcon<?> icon) {
     setIcon(icon);
     return this;
   }

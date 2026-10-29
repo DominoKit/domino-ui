@@ -24,8 +24,9 @@ import elemental2.dom.HTMLElement;
 import org.dominokit.domino.ui.datatable.ColumnConfig;
 import org.dominokit.domino.ui.datatable.DataTable;
 import org.dominokit.domino.ui.datatable.DefaultColumnShowHideListener;
+import org.dominokit.domino.ui.icons.DefaultIcons;
 import org.dominokit.domino.ui.icons.Icon;
-import org.dominokit.domino.ui.icons.lib.Icons;
+import org.dominokit.domino.ui.icons.IconName;
 import org.dominokit.domino.ui.menu.CustomMenuItem;
 import org.dominokit.domino.ui.menu.Menu;
 import org.dominokit.domino.ui.menu.direction.DropDirection;
@@ -53,7 +54,10 @@ public class ShowHideColumnsAction<T>
    * @param dataTable The DataTable to which this action element belongs.
    */
   public ShowHideColumnsAction(DataTable<T> dataTable) {
-    columnsIcon = Icons.view_column().clickable().setAriaLabel("Show or hide columns");
+    columnsIcon =
+        DefaultIcons.coreIcon(IconName.VIEW_COLUMN)
+            .clickable()
+            .setAriaLabel("Show or hide columns");
 
     Menu<String> dropDownMenu =
         Menu.<String>create()
@@ -65,7 +69,8 @@ public class ShowHideColumnsAction<T>
                         .forEach(
                             columnConfig -> {
                               Icon<?> checkIcon =
-                                  Icons.check().toggleDisplay(!columnConfig.isHidden());
+                                  DefaultIcons.coreIcon(IconName.CHECK)
+                                      .toggleDisplay(!columnConfig.isHidden());
                               columnConfig.addShowHideListener(
                                   DefaultColumnShowHideListener.of(checkIcon.element(), true));
 

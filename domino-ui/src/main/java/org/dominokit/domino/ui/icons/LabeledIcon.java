@@ -44,6 +44,11 @@ public class LabeledIcon extends WavesElement<HTMLElement, LabeledIcon> {
     this(icon, text, IconPosition.LEFT);
   }
 
+  /** Creates a labeled icon using an icon from any icon pack. */
+  public LabeledIcon(IsIcon<?> icon, String text) {
+    this(IconWrapper.of(icon), text, IconPosition.LEFT);
+  }
+
   /**
    * Creates a labeled icon with the provided icon, text, and specified position.
    *
@@ -74,6 +79,11 @@ public class LabeledIcon extends WavesElement<HTMLElement, LabeledIcon> {
     return new LabeledIcon(icon, text);
   }
 
+  /** Creates a labeled icon using an icon from any icon pack. */
+  public static LabeledIcon create(IsIcon<?> icon, String text) {
+    return new LabeledIcon(icon, text);
+  }
+
   /**
    * Creates a new instance of a labeled icon with the provided icon, text, and specified position.
    *
@@ -84,6 +94,11 @@ public class LabeledIcon extends WavesElement<HTMLElement, LabeledIcon> {
    */
   public static LabeledIcon create(Icon<?> icon, String text, IconPosition position) {
     return new LabeledIcon(icon, text, position);
+  }
+
+  /** Creates a labeled icon using an icon from any icon pack. */
+  public static LabeledIcon create(IsIcon<?> icon, String text, IconPosition position) {
+    return new LabeledIcon(IconWrapper.of(icon), text, position);
   }
 
   /**

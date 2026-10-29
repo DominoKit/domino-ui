@@ -21,12 +21,12 @@
     order: var(--dui-order-last);
 }
 
-.mdi .dui-badge:empty,
+.dui-icons .dui-badge:empty,
 .dui-badge:empty {
     display: none;
 }
 
-.mdi .dui-badge {
+.dui-icons .dui-badge {
     float: none;
     display: inline-block;
     position: relative;

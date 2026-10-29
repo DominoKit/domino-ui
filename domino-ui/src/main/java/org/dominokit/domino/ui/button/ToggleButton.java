@@ -24,7 +24,7 @@ import elemental2.dom.HTMLButtonElement;
 import java.util.HashSet;
 import java.util.Set;
 import org.dominokit.domino.ui.elements.ButtonElement;
-import org.dominokit.domino.ui.icons.Icon;
+import org.dominokit.domino.ui.icons.IsIcon;
 import org.dominokit.domino.ui.style.BooleanCssClass;
 import org.dominokit.domino.ui.style.Color;
 import org.dominokit.domino.ui.style.CssClass;
@@ -64,7 +64,7 @@ public class ToggleButton extends BaseButton<HTMLButtonElement, ToggleButton>
    *
    * @param icon The button icon
    */
-  public ToggleButton(Icon<?> icon) {
+  public ToggleButton(IsIcon<?> icon) {
     super(icon);
   }
 
@@ -74,7 +74,7 @@ public class ToggleButton extends BaseButton<HTMLButtonElement, ToggleButton>
    * @param text The button text
    * @param icon The button icon
    */
-  public ToggleButton(String text, Icon<?> icon) {
+  public ToggleButton(String text, IsIcon<?> icon) {
     super(text, icon);
   }
 
@@ -103,7 +103,7 @@ public class ToggleButton extends BaseButton<HTMLButtonElement, ToggleButton>
    * @param icon the button icon
    * @return new Button instance
    */
-  public static ToggleButton create(Icon<?> icon) {
+  public static ToggleButton create(IsIcon<?> icon) {
     return new ToggleButton(icon);
   }
 
@@ -114,7 +114,7 @@ public class ToggleButton extends BaseButton<HTMLButtonElement, ToggleButton>
    * @param icon the button icon
    * @return new Button instance
    */
-  public static ToggleButton create(String text, Icon<?> icon) {
+  public static ToggleButton create(String text, IsIcon<?> icon) {
     return new ToggleButton(text, icon);
   }
 
@@ -125,7 +125,7 @@ public class ToggleButton extends BaseButton<HTMLButtonElement, ToggleButton>
    * @param text a {@link java.lang.String} object
    * @return new Button instance
    */
-  public static ToggleButton create(Icon<?> icon, String text) {
+  public static ToggleButton create(IsIcon<?> icon, String text) {
     return new ToggleButton(text, icon);
   }
 

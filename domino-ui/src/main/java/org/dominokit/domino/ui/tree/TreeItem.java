@@ -19,6 +19,7 @@ import static java.util.Objects.nonNull;
 
 import java.util.Optional;
 import org.dominokit.domino.ui.icons.Icon;
+import org.dominokit.domino.ui.icons.IsIcon;
 
 public class TreeItem<V> extends TreeNode<V, TreeItem<V>, TreeItem<V>> {
 
@@ -47,6 +48,13 @@ public class TreeItem<V> extends TreeNode<V, TreeItem<V>, TreeItem<V>> {
     return treeItem;
   }
 
+  /** Creates a tree item with an icon from any icon pack and a title. */
+  public static TreeItem<String> create(IsIcon<?> icon, String title) {
+    TreeItem<String> treeItem = new TreeItem<>(icon, title);
+    treeItem.setValue(title);
+    return treeItem;
+  }
+
   /**
    * Creates a new TreeItem instance with the given icon.
    *
@@ -54,6 +62,13 @@ public class TreeItem<V> extends TreeNode<V, TreeItem<V>, TreeItem<V>> {
    * @return A new TreeItem instance with the specified icon.
    */
   public static TreeItem<String> create(Icon<?> icon) {
+    TreeItem<String> treeItem = new TreeItem<>(icon);
+    treeItem.setValue("");
+    return treeItem;
+  }
+
+  /** Creates a tree item with an icon from any icon pack. */
+  public static TreeItem<String> create(IsIcon<?> icon) {
     TreeItem<String> treeItem = new TreeItem<>(icon);
     treeItem.setValue("");
     return treeItem;
@@ -84,6 +99,11 @@ public class TreeItem<V> extends TreeNode<V, TreeItem<V>, TreeItem<V>> {
     return new TreeItem<>(icon, title, value);
   }
 
+  /** Creates a tree item with an icon from any icon pack, title, and value. */
+  public static <T> TreeItem<T> create(IsIcon<?> icon, String title, T value) {
+    return new TreeItem<>(icon, title, value);
+  }
+
   /**
    * Creates a new TreeItem instance with the given icon and value.
    *
@@ -96,6 +116,11 @@ public class TreeItem<V> extends TreeNode<V, TreeItem<V>, TreeItem<V>> {
     return new TreeItem<>(icon, value);
   }
 
+  /** Creates a tree item with an icon from any icon pack and value. */
+  public static <T> TreeItem<T> create(IsIcon<?> icon, T value) {
+    return new TreeItem<>(icon, value);
+  }
+
   /**
    * Constructs a new TreeItem instance with an icon and title.
    *
@@ -103,6 +128,11 @@ public class TreeItem<V> extends TreeNode<V, TreeItem<V>, TreeItem<V>> {
    * @param title The title of the tree item.
    */
   public TreeItem(Icon<?> icon, String title) {
+    super(icon, title);
+  }
+
+  /** Constructs a tree item with an icon from any icon pack and title. */
+  public TreeItem(IsIcon<?> icon, String title) {
     super(icon, title);
   }
 
@@ -121,6 +151,11 @@ public class TreeItem<V> extends TreeNode<V, TreeItem<V>, TreeItem<V>> {
    * @param icon The icon to be displayed for the tree item.
    */
   public TreeItem(Icon<?> icon) {
+    super(icon);
+  }
+
+  /** Constructs a tree item with an icon from any icon pack. */
+  public TreeItem(IsIcon<?> icon) {
     super(icon);
   }
 
@@ -145,6 +180,11 @@ public class TreeItem<V> extends TreeNode<V, TreeItem<V>, TreeItem<V>> {
     super(icon, title, value);
   }
 
+  /** Constructs a tree item with an icon from any icon pack, title, and value. */
+  public TreeItem(IsIcon<?> icon, String title, V value) {
+    super(icon, title, value);
+  }
+
   /**
    * Constructs a new TreeItem instance with an icon and a value.
    *
@@ -152,6 +192,11 @@ public class TreeItem<V> extends TreeNode<V, TreeItem<V>, TreeItem<V>> {
    * @param value The value associated with the tree item.
    */
   public TreeItem(Icon<?> icon, V value) {
+    super(icon, value);
+  }
+
+  /** Constructs a tree item with an icon from any icon pack and value. */
+  public TreeItem(IsIcon<?> icon, V value) {
     super(icon, value);
   }
 

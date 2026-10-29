@@ -20,17 +20,18 @@ import static java.util.Objects.nonNull;
 
 import java.util.function.Supplier;
 import org.dominokit.domino.ui.datatable.plugins.PluginConfig;
+import org.dominokit.domino.ui.icons.DefaultIcons;
 import org.dominokit.domino.ui.icons.Icon;
-import org.dominokit.domino.ui.icons.lib.Icons;
+import org.dominokit.domino.ui.icons.IconName;
 
 /**
  * Configuration class for the SortPlugin that allows customization of sorting behavior and icons.
  */
 public class SortPluginConfig implements PluginConfig {
   private boolean triStateSort = false;
-  private Supplier<Icon<?>> ascendingIcon = Icons::sort_ascending;
-  private Supplier<Icon<?>> descendingIcon = Icons::sort_descending;
-  private Supplier<Icon<?>> unsortedIcon = Icons::sort;
+  private Supplier<Icon<?>> ascendingIcon = () -> DefaultIcons.coreIcon(IconName.SORT_ASCENDING);
+  private Supplier<Icon<?>> descendingIcon = () -> DefaultIcons.coreIcon(IconName.SORT_DESCENDING);
+  private Supplier<Icon<?>> unsortedIcon = () -> DefaultIcons.coreIcon(IconName.SORT);
   private boolean showIconOnSortedColumnOnly = false;
   private boolean showSortOptionsInColumnMenu = false;
   private String sortAscendingLabel = "Sort ascending";

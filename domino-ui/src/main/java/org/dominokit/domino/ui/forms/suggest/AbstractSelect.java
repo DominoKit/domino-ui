@@ -37,7 +37,8 @@ import org.dominokit.domino.ui.elements.SpanElement;
 import org.dominokit.domino.ui.forms.AbstractFormElement;
 import org.dominokit.domino.ui.forms.AutoValidator;
 import org.dominokit.domino.ui.forms.HasInputElement;
-import org.dominokit.domino.ui.icons.lib.Icons;
+import org.dominokit.domino.ui.icons.DefaultIcons;
+import org.dominokit.domino.ui.icons.IconName;
 import org.dominokit.domino.ui.menu.AbstractMenuItem;
 import org.dominokit.domino.ui.menu.Menu;
 import org.dominokit.domino.ui.menu.MenuItemsGroup;
@@ -199,7 +200,7 @@ public abstract class AbstractSelect<
 
     appendChild(
         PrimaryAddOn.of(
-            Icons.chevron_down()
+            DefaultIcons.coreIcon(IconName.CHEVRON_DOWN)
                 .addCss(dui_form_select_drop_arrow)
                 .clickable()
                 .setAttribute("aria-label", "Open options")

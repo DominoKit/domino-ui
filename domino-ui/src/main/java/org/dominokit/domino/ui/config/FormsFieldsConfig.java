@@ -29,7 +29,7 @@ import org.dominokit.domino.ui.forms.IntegerBox;
 import org.dominokit.domino.ui.forms.LongBox;
 import org.dominokit.domino.ui.forms.ShortBox;
 import org.dominokit.domino.ui.icons.Icon;
-import org.dominokit.domino.ui.icons.lib.Icons;
+import org.dominokit.domino.ui.icons.IconName;
 import org.dominokit.domino.ui.timepicker.TimeFormatter;
 import org.gwtproject.i18n.shared.cldr.DateTimeFormatInfo;
 import org.gwtproject.i18n.shared.cldr.impl.DateTimeFormatInfo_factory;
@@ -134,7 +134,7 @@ public interface FormsFieldsConfig extends ComponentConfig, CalendarConfig {
    * @return Icon for clearable fields clear value action.
    */
   default Icon<?> clearableInputDefaultIcon() {
-    return Icons.delete();
+    return icon(IconName.DELETE);
   }
 
   /**

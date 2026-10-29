@@ -35,8 +35,8 @@ import org.dominokit.domino.ui.elements.HeadingElement;
 import org.dominokit.domino.ui.elements.ImageElement;
 import org.dominokit.domino.ui.elements.SmallElement;
 import org.dominokit.domino.ui.icons.Icon;
+import org.dominokit.domino.ui.icons.IsIcon;
 import org.dominokit.domino.ui.icons.ToggleIcon;
-import org.dominokit.domino.ui.icons.ToggleMdiIcon;
 import org.dominokit.domino.ui.style.BooleanCssClass;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
 import org.dominokit.domino.ui.utils.ChildHandler;
@@ -549,6 +549,12 @@ public abstract class BaseCard<C extends BaseCard<C>> extends BaseDominoElement<
     return (C) this;
   }
 
+  /** Sets the card icon from any icon pack. */
+  public C setIcon(IsIcon<?> icon) {
+    header.get().setIcon(icon);
+    return (C) this;
+  }
+
   /**
    * This will initialize and append the card header if not yet initialized.
    *
@@ -566,6 +572,12 @@ public abstract class BaseCard<C extends BaseCard<C>> extends BaseDominoElement<
    * @return same Card instance
    */
   public C withIcon(Icon<?> icon) {
+    setIcon(icon);
+    return (C) this;
+  }
+
+  /** Sets the card icon from any icon pack. */
+  public C withIcon(IsIcon<?> icon) {
     setIcon(icon);
     return (C) this;
   }
@@ -627,10 +639,9 @@ public abstract class BaseCard<C extends BaseCard<C>> extends BaseDominoElement<
    */
   public C setHeaderPosition(HeaderPosition headerPosition) {
     addCss(BooleanCssClass.of(dui_card_header_bottom, HeaderPosition.BOTTOM == headerPosition));
-    if (nonNull(collapseIcon) && collapseIcon instanceof ToggleMdiIcon) {
-      if (HeaderPosition.BOTTOM == headerPosition) {
-        ((ToggleMdiIcon) collapseIcon).flipV();
-      }
+    if (nonNull(collapseIcon)) {
+      collapseIcon.element().style.transform =
+          HeaderPosition.BOTTOM == headerPosition ? "scaleY(-1)" : "";
     }
     return (C) this;
   }

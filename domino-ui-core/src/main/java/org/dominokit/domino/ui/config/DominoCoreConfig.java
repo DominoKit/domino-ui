@@ -17,9 +17,18 @@ package org.dominokit.domino.ui.config;
 
 import java.util.Objects;
 import java.util.function.Supplier;
+import org.dominokit.domino.ui.icons.IconProvider;
 
 /** Configuration contract available to Domino UI Core. */
 public interface DominoCoreConfig extends PopoverConfig, DelayedActionConfig {
+
+  /** Returns the provider used to create icons for built-in component defaults. */
+  default IconProvider getDefaultIconProvider() {
+    return name -> {
+      throw new IllegalStateException(
+          "No icon provider is configured for the semantic icon role " + name);
+    };
+  }
 
   /** Provides the application-wide Core configuration. */
   final class Provider {

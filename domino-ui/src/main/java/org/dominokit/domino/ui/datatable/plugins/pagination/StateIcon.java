@@ -29,14 +29,14 @@ import org.dominokit.domino.ui.icons.*;
  *
  * <pre>
  * // Create a StateIcon with a default icon
- * StateIcon stateIcon = StateIcon.create(Icons.check());
+ * StateIcon stateIcon = StateIcon.create(DefaultIcons.coreIcon(IconName.CHECK));
  *
  * // Define different states and their corresponding icons
  * stateIcon
- *     .withState("active", Icons.star()) // Icon for the "active" state
- *     .withState("inactive", Icons.star_border()) // Icon for the "inactive" state
- *     .withState("disabled", Icons.block()) // Icon for the "disabled" state
- *     .withState("selected", Icons.check_circle()); // Icon for the "selected" state
+ *     .withState("active", DefaultIcons.coreIcon(IconName.STAR)) // Icon for the "active" state
+ *     .withState("inactive", DefaultIcons.coreIcon(IconName.STAR_BORDER)) // Icon for the "inactive" state
+ *     .withState("disabled", DefaultIcons.coreIcon(IconName.BLOCK)) // Icon for the "disabled" state
+ *     .withState("selected", DefaultIcons.coreIcon(IconName.CHECK_CIRCLE)); // Icon for the "selected" state
  *
  * // Set the current state of the icon
  * stateIcon.setState("active");

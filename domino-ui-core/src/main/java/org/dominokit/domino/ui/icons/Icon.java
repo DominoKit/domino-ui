@@ -47,10 +47,16 @@ import org.dominokit.domino.ui.utils.ElementHandler;
  * @see BaseDominoElement
  */
 public abstract class Icon<T extends Icon<T>> extends BaseDominoElement<HTMLElement, T>
-    implements CanApplyOnChildren<T, Icon<?>> {
+    implements CanApplyOnChildren<T, IsIcon<?>>, IsIcon<T> {
 
   protected DominoElement<HTMLElement> icon;
   protected SwapCssClass name = SwapCssClass.of();
+
+  @Override
+  protected void init(T element) {
+    super.init(element);
+    addCss(IconCss.dui_icons);
+  }
 
   /**
    * Gets the name of the icon.
@@ -165,7 +171,7 @@ public abstract class Icon<T extends Icon<T>> extends BaseDominoElement<HTMLElem
    * @return The icon instance with the handler applied.
    */
   @Override
-  public T forEachChild(ElementHandler<Icon<?>> handler) {
+  public T forEachChild(ElementHandler<IsIcon<?>> handler) {
     handler.handleElement(this);
     return (T) this;
   }
