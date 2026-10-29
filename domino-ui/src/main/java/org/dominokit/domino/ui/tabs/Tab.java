@@ -32,6 +32,7 @@ import org.dominokit.domino.ui.elements.LIElement;
 import org.dominokit.domino.ui.elements.SpanElement;
 import org.dominokit.domino.ui.icons.Icon;
 import org.dominokit.domino.ui.utils.*;
+import org.dominokit.domino.ui.utils.BaseDominoElement;
 
 /**
  * Represents a UI tab component used within a {@link TabsPanel}. Provides functionalities such as

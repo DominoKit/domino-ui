@@ -38,8 +38,8 @@ import org.dominokit.domino.ui.utils.PrefixElement;
  *
  * @param <C> the concrete component type
  */
-public abstract class BaseNavBar<C extends BaseNavBar<C>>
-    extends BaseDominoElement<HTMLElement, C> {
+public abstract class BaseNavBar<C extends BaseNavBar<C>> extends BaseDominoElement<HTMLElement, C>
+    implements IsNavBar<C> {
   private final NavElement root;
   private final DivElement prefixAddons;
   private final HeadingElement title;

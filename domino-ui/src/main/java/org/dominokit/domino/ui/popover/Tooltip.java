@@ -32,6 +32,7 @@ import org.dominokit.domino.ui.animations.Transition;
 import org.dominokit.domino.ui.collapsible.AnimationCollapseStrategy;
 import org.dominokit.domino.ui.collapsible.CollapsibleDuration;
 import org.dominokit.domino.ui.dialogs.ModalBackDrop;
+import org.dominokit.domino.ui.elements.DivElement;
 import org.dominokit.domino.ui.events.EventType;
 import org.dominokit.domino.ui.utils.LazyInitializer;
 import org.gwtproject.timer.client.Timer;
@@ -47,7 +48,7 @@ import org.gwtproject.timer.client.Timer;
  * Tooltip.create(element, "This is a tooltip");
  * </pre>
  */
-public class Tooltip extends BasePopover<Tooltip> {
+public class Tooltip extends BasePopover<Tooltip> implements IsTooltip<Tooltip, DivElement> {
 
   static {
     document.body.addEventListener(

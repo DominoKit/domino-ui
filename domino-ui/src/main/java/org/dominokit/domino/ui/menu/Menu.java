@@ -52,6 +52,7 @@ import org.dominokit.domino.ui.search.SearchBox;
 import org.dominokit.domino.ui.utils.AnyElement;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
 import org.dominokit.domino.ui.utils.DominoElement;
+import org.dominokit.domino.ui.utils.DominoUIConfig;
 import org.dominokit.domino.ui.utils.KeyboardNavigation;
 import org.dominokit.domino.ui.utils.LazyChild;
 import org.dominokit.domino.ui.utils.PopupsCloser;
@@ -857,7 +858,7 @@ public class Menu<V> extends BaseMenu<V, Menu<V>, AbstractMenuItem<V>, AbstractM
   public SingleSelectionMode getEffectiveSelectionMode() {
     if (SingleSelectionMode.INHERIT.equals(this.selectionMode)) {
       return isNull(parent)
-          ? config().getUIConfig().getDefaultSelectionMode()
+          ? DominoUIConfig.CONFIG.getUIConfig().getDefaultSelectionMode()
           : parent.getEffectiveSelectionMode();
     }
     return this.selectionMode;

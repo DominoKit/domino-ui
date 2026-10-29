@@ -25,6 +25,7 @@ import org.dominokit.domino.ui.elements.DivElement;
 import org.dominokit.domino.ui.icons.Icon;
 import org.dominokit.domino.ui.layout.NavBar;
 import org.dominokit.domino.ui.utils.*;
+import org.dominokit.domino.ui.utils.BaseDominoElement;
 
 /**
  * A component used with the {@link org.dominokit.domino.ui.collapsible.Accordion} component to host

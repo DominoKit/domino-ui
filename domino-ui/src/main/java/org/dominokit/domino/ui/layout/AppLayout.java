@@ -33,6 +33,7 @@ import org.dominokit.domino.ui.style.GenericCss;
 import org.dominokit.domino.ui.style.SwapCssClass;
 import org.dominokit.domino.ui.style.ToggleCssClass;
 import org.dominokit.domino.ui.utils.*;
+import org.dominokit.domino.ui.utils.BaseDominoElement;
 
 /**
  * The <b>AppLayout</b> class represents the main layout structure for a web application. It

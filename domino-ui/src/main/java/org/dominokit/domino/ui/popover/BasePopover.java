@@ -32,6 +32,7 @@ import org.dominokit.domino.ui.keyboard.KeyboardEventOptions;
 import org.dominokit.domino.ui.menu.direction.DropDirection;
 import org.dominokit.domino.ui.menu.direction.DropDirectionContext;
 import org.dominokit.domino.ui.utils.*;
+import org.dominokit.domino.ui.utils.BaseDominoElement;
 
 /**
  * The base class for creating popovers in the Domino UI framework. Popovers are small overlays that
@@ -58,8 +59,7 @@ import org.dominokit.domino.ui.utils.*;
  */
 public abstract class BasePopover<T extends BasePopover<T>>
     extends BaseDominoElement<HTMLDivElement, T>
-    implements IsPopup<T>,
-        PopoverStyles,
+    implements IsPopoverBase<T, DivElement>,
         FollowOnScroll.ScrollFollower,
         HasComponentConfig<PopoverConfig> {
   protected DominoElement<Element> targetElement;
@@ -182,6 +182,11 @@ public abstract class BasePopover<T extends BasePopover<T>>
   @Override
   public PopoverConfig getOwnConfig() {
     return ownConfig;
+  }
+
+  @Override
+  public PopoverConfig getConfig() {
+    return HasComponentConfig.super.getConfig();
   }
 
   public T setOwnConfig(PopoverConfig ownConfig) {

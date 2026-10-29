@@ -15,10 +15,19 @@
  */
 package org.dominokit.domino.ui.config;
 
+import elemental2.dom.Element;
+import elemental2.dom.HTMLElement;
+import elemental2.dom.Node;
+import jsinterop.base.Js;
+import org.dominokit.domino.ui.popover.IsPopover;
+import org.dominokit.domino.ui.popover.IsTooltip;
+import org.dominokit.domino.ui.popover.Popover;
+import org.dominokit.domino.ui.popover.Tooltip;
+
 /** UIConfig interface. */
 public interface UIConfig
     extends FormsFieldsConfig,
-        ZIndexConfig,
+        DominoCoreConfig,
         AccordionConfig,
         CardConfig,
         ProgressBarConfig,
@@ -36,6 +45,21 @@ public interface UIConfig
         RichTextConfig,
         SlidersConfig,
         MenuConfig,
-        PopoverConfig,
         NotificationConfig,
-        PaginationConfig {}
+        PaginationConfig {
+
+  @Override
+  default IsPopover<?, ?> createPopover(Element target) {
+    return Popover.create(Js.<HTMLElement>uncheckedCast(target));
+  }
+
+  @Override
+  default IsTooltip<?, ?> createTooltip(Element target, String text) {
+    return Tooltip.create(target, text);
+  }
+
+  @Override
+  default IsTooltip<?, ?> createTooltip(Element target, Node content) {
+    return Tooltip.create(target, content);
+  }
+}

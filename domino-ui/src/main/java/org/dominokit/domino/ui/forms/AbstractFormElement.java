@@ -36,6 +36,7 @@ import org.dominokit.domino.ui.forms.validations.ValidationResult;
 import org.dominokit.domino.ui.i18n.FormsLabels;
 import org.dominokit.domino.ui.style.BooleanCssClass;
 import org.dominokit.domino.ui.utils.*;
+import org.dominokit.domino.ui.utils.BaseDominoElement;
 import org.gwtproject.editor.client.EditorError;
 
 /**

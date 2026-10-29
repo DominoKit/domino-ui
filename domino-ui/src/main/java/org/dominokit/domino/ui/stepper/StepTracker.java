@@ -27,6 +27,7 @@ import java.util.Set;
 import org.dominokit.domino.ui.elements.DivElement;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
 import org.dominokit.domino.ui.utils.ChildHandler;
+import org.dominokit.domino.ui.utils.DominoUIConfig;
 import org.dominokit.domino.ui.utils.PostfixElement;
 import org.dominokit.domino.ui.utils.PrefixElement;
 
@@ -62,7 +63,7 @@ public class StepTracker extends BaseDominoElement<HTMLDivElement, StepTracker>
                         .appendChild(trackerLine = div().addCss(dui_tracker_line)))
             .appendChild(trackerContent = div().addCss(dui_tracker_content));
     init(this);
-    setState(uiconfig().getDefaultStepState());
+    setState(DominoUIConfig.CONFIG.getUIConfig().getDefaultStepState());
   }
 
   void bind(StepperTrack parent) {

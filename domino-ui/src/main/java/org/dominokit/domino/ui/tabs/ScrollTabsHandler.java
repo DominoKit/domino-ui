@@ -23,7 +23,7 @@ import java.util.function.Consumer;
 import org.dominokit.domino.ui.elements.UListElement;
 import org.dominokit.domino.ui.icons.MdiIcon;
 import org.dominokit.domino.ui.icons.lib.Icons;
-import org.dominokit.domino.ui.utils.BaseDominoElement;
+import org.dominokit.domino.ui.utils.HandlerRecord;
 import org.gwtproject.timer.client.Timer;
 
 public class ScrollTabsHandler implements TabsOverflowHandler {
@@ -32,8 +32,7 @@ public class ScrollTabsHandler implements TabsOverflowHandler {
   private MdiIcon scrollRightIcon;
   private Timer timer;
   private Consumer<Tab> closeHandler;
-  private final BaseDominoElement.HandlerRecord resizeRecord =
-      new BaseDominoElement.HandlerRecord();
+  private final HandlerRecord resizeRecord = new HandlerRecord();
 
   public ScrollTabsHandler() {
     scrollLeftIcon = Icons.menu_left().clickable().setAriaLabel("Scroll tabs left");

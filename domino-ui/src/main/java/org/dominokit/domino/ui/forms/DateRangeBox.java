@@ -42,11 +42,13 @@ import org.dominokit.domino.ui.forms.validations.ValidationResult;
 import org.dominokit.domino.ui.i18n.CalendarLabels;
 import org.dominokit.domino.ui.i18n.HasLabels;
 import org.dominokit.domino.ui.menu.direction.DropDirection;
+import org.dominokit.domino.ui.popover.IsPopover;
 import org.dominokit.domino.ui.popover.Popover;
 import org.dominokit.domino.ui.utils.AsyncHandler;
 import org.dominokit.domino.ui.utils.ChildHandler;
 import org.dominokit.domino.ui.utils.DelayedExecution;
 import org.dominokit.domino.ui.utils.DominoElement;
+import org.dominokit.domino.ui.utils.DominoUIConfig;
 import org.dominokit.domino.ui.utils.Handler;
 import org.dominokit.domino.ui.utils.PrimaryAddOn;
 import org.gwtproject.i18n.shared.cldr.DateTimeFormatInfo;
@@ -234,7 +236,7 @@ public class DateRangeBox extends TextInputFormField<DateRangeBox, HTMLInputElem
                       }
                     }
                   },
-                  config().getUIConfig().getDateBoxDefaultInputParseDelay());
+                  DominoUIConfig.CONFIG.getUIConfig().getDateBoxDefaultInputParseDelay());
             });
 
     appendChild(
@@ -847,7 +849,8 @@ public class DateRangeBox extends TextInputFormField<DateRangeBox, HTMLInputElem
    * @param handler The handler to apply to the popover
    * @return This DateRangeBox instance with the popover configured
    */
-  public DateRangeBox withPopover(ChildHandler<DateRangeBox, Popover> handler) {
+  @Override
+  public DateRangeBox withPopover(ChildHandler<DateRangeBox, IsPopover<?, ?>> handler) {
     handler.apply(this, this.popover);
     return this;
   }

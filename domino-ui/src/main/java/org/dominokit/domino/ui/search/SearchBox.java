@@ -24,12 +24,8 @@ import elemental2.dom.EventListener;
 import elemental2.dom.HTMLDivElement;
 import java.util.HashSet;
 import java.util.Set;
-import org.dominokit.domino.ui.config.HasComponentConfig;
-import org.dominokit.domino.ui.config.SearchConfig;
 import org.dominokit.domino.ui.elements.DivElement;
 import org.dominokit.domino.ui.forms.TextBox;
-import org.dominokit.domino.ui.i18n.HasLabels;
-import org.dominokit.domino.ui.i18n.QuickSearchLabels;
 import org.dominokit.domino.ui.icons.Icon;
 import org.dominokit.domino.ui.icons.lib.Icons;
 import org.dominokit.domino.ui.keyboard.KeyboardEventOptions;
@@ -69,7 +65,7 @@ import org.gwtproject.timer.client.Timer;
  * @see BaseDominoElement
  */
 public class SearchBox extends BaseDominoElement<HTMLDivElement, SearchBox>
-    implements HasLabels<QuickSearchLabels>, HasComponentConfig<SearchConfig> {
+    implements IsSearchBox<SearchBox> {
 
   private int autoSearchDelay = -1;
   private DivElement root;
@@ -337,11 +333,7 @@ public class SearchBox extends BaseDominoElement<HTMLDivElement, SearchBox>
   @FunctionalInterface
   public interface SearchListener {
 
-    /**
-     * Handles a search action.
-     *
-     * @param token The search token or query.
-     */
+    /** Handles a search action. */
     void onSearch(String token);
   }
 }

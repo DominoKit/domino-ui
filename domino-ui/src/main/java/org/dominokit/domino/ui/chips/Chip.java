@@ -31,6 +31,7 @@ import org.dominokit.domino.ui.elements.ImageElement;
 import org.dominokit.domino.ui.elements.SpanElement;
 import org.dominokit.domino.ui.style.BooleanCssClass;
 import org.dominokit.domino.ui.utils.*;
+import org.dominokit.domino.ui.utils.BaseDominoElement;
 
 /**
  * A component for a Tag that can have a text and icon or image and can be set to be removable.

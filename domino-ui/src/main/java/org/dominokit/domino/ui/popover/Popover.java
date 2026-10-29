@@ -27,6 +27,7 @@ import org.dominokit.domino.ui.animations.Transition;
 import org.dominokit.domino.ui.collapsible.AnimationCollapseStrategy;
 import org.dominokit.domino.ui.collapsible.CollapsibleDuration;
 import org.dominokit.domino.ui.dialogs.ModalBackDrop;
+import org.dominokit.domino.ui.elements.DivElement;
 import org.dominokit.domino.ui.events.EventType;
 import org.dominokit.domino.ui.keyboard.KeyboardEventOptions;
 import org.dominokit.domino.ui.mediaquery.MediaQuery;
@@ -48,7 +49,7 @@ import org.dominokit.domino.ui.menu.direction.DropDirectionContext;
  *         .setModal(false);        // Make the popover non-modal
  * </pre>
  */
-public class Popover extends BasePopover<Popover> {
+public class Popover extends BasePopover<Popover> implements IsPopover<Popover, DivElement> {
 
   private static boolean asDialog = false;
 

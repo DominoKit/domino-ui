@@ -34,6 +34,7 @@ import org.dominokit.domino.ui.elements.DivElement;
 import org.dominokit.domino.ui.elements.UListElement;
 import org.dominokit.domino.ui.style.SwapCssClass;
 import org.dominokit.domino.ui.utils.*;
+import org.dominokit.domino.ui.utils.BaseDominoElement;
 
 /**
  * A panel that facilitates the creation and management of tabs for organizing content in a
@@ -89,7 +90,7 @@ public class TabsPanel extends BaseDominoElement<HTMLDivElement, TabsPanel>
             .appendChild(tabsContent = elementOf(div().addCss(dui_tabs_content).element()));
 
     init(this);
-    setTabsOverflow(config().getUIConfig().getTabsDefaultOverflowHandler());
+    setTabsOverflow(DominoUIConfig.CONFIG.getUIConfig().getTabsDefaultOverflowHandler());
   }
 
   /**
@@ -651,7 +652,8 @@ public class TabsPanel extends BaseDominoElement<HTMLDivElement, TabsPanel>
     }
 
     if (isNull(overflow)) {
-      currentOverflowHandler = config().getUIConfig().getTabsDefaultOverflowHandler().get();
+      currentOverflowHandler =
+          DominoUIConfig.CONFIG.getUIConfig().getTabsDefaultOverflowHandler().get();
     } else {
       currentOverflowHandler = overflow.get();
     }

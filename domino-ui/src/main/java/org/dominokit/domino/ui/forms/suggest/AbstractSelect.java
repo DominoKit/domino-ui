@@ -220,7 +220,7 @@ public abstract class AbstractSelect<
 
     appendChild(
         PrimaryAddOn.of(
-            config()
+            DominoUIConfig.CONFIG
                 .getUIConfig()
                 .clearableInputDefaultIcon()
                 .addCss(dui_form_select_clear)
@@ -240,7 +240,7 @@ public abstract class AbstractSelect<
   private int getTypeAheadDelay() {
     return typeAheadDelay > 0
         ? typeAheadDelay
-        : config().getUIConfig().getSelectBoxTypeAheadDelay();
+        : DominoUIConfig.CONFIG.getUIConfig().getSelectBoxTypeAheadDelay();
   }
 
   public C setTypeAheadDelay(int delay) {

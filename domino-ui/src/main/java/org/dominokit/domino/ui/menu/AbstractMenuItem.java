@@ -34,6 +34,7 @@ import org.dominokit.domino.ui.menu.base.IsMenuItem;
 import org.dominokit.domino.ui.menu.direction.BestFitSideDropDirection;
 import org.dominokit.domino.ui.style.ConditionalCssClass;
 import org.dominokit.domino.ui.utils.*;
+import org.dominokit.domino.ui.utils.BaseDominoElement;
 import org.gwtproject.editor.client.TakesValue;
 
 /**

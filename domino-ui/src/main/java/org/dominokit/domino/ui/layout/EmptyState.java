@@ -23,6 +23,7 @@ import org.dominokit.domino.ui.elements.HeadingElement;
 import org.dominokit.domino.ui.elements.SmallElement;
 import org.dominokit.domino.ui.icons.Icon;
 import org.dominokit.domino.ui.utils.*;
+import org.dominokit.domino.ui.utils.BaseDominoElement;
 
 /**
  * The {@code EmptyState} class represents a UI component for displaying an empty state with a

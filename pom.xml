@@ -51,6 +51,7 @@
     <modules>
         <module>domino-ui</module>
         <module>domino-ui-shared</module>
+        <module>domino-ui-core</module>
         <module>domino-ui-tools</module>
         <module>domino-ui-webjar</module>
     </modules>
@@ -78,6 +79,7 @@
         <gwt.i18n.version>1.0.2</gwt.i18n.version>
         <domino.doc.tool.version>1.0.0</domino.doc.tool.version>
         <gwt.validation.api.version>1.0.3</gwt.validation.api.version>
+        <slf4j-api.version>2.0.16</slf4j-api.version>
     </properties>
 
     <dependencyManagement>

@@ -23,6 +23,7 @@ import elemental2.dom.Text;
 import org.dominokit.domino.ui.button.RemoveButton;
 import org.dominokit.domino.ui.elements.SpanElement;
 import org.dominokit.domino.ui.utils.*;
+import org.dominokit.domino.ui.utils.BaseDominoElement;
 
 /**
  * Displays a label that fits within other components and elements.

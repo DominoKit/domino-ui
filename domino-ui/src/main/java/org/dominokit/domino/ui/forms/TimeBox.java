@@ -33,6 +33,7 @@ import org.dominokit.domino.ui.forms.validations.ValidationResult;
 import org.dominokit.domino.ui.i18n.HasLabels;
 import org.dominokit.domino.ui.i18n.TimePickerLabels;
 import org.dominokit.domino.ui.menu.direction.DropDirection;
+import org.dominokit.domino.ui.popover.IsPopover;
 import org.dominokit.domino.ui.popover.Popover;
 import org.dominokit.domino.ui.timepicker.TimeFormatter;
 import org.dominokit.domino.ui.timepicker.TimePicker;
@@ -811,7 +812,8 @@ public class TimeBox extends TextInputFormField<TimeBox, HTMLInputElement, Date>
    * @param handler the handler to be applied to the {@link Popover}
    * @return the current instance of {@link TimeBox}
    */
-  public TimeBox withPopover(ChildHandler<TimeBox, Popover> handler) {
+  @Override
+  public TimeBox withPopover(ChildHandler<TimeBox, IsPopover<?, ?>> handler) {
     handler.apply(this, this.popover);
     return this;
   }

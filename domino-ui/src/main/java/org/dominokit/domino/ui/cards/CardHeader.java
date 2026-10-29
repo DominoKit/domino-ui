@@ -27,6 +27,7 @@ import org.dominokit.domino.ui.elements.ImageElement;
 import org.dominokit.domino.ui.elements.SmallElement;
 import org.dominokit.domino.ui.icons.Icon;
 import org.dominokit.domino.ui.utils.*;
+import org.dominokit.domino.ui.utils.BaseDominoElement;
 
 /**
  * The component is used as {@link Card} header

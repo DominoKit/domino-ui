@@ -18,9 +18,14 @@ package org.dominokit.domino.ui.utils;
 import static java.util.Objects.nonNull;
 
 import org.dominokit.domino.ui.config.DefaultUIConfig;
+import org.dominokit.domino.ui.config.DominoCoreConfig;
+import org.dominokit.domino.ui.config.PopoverConfigDefaults;
 import org.dominokit.domino.ui.config.UIConfig;
+import org.dominokit.domino.ui.dialogs.DefaultZIndexManager;
+import org.dominokit.domino.ui.dialogs.ZIndexManagerDefaults;
 import org.dominokit.domino.ui.i18n.DefaultDominoUILabels;
 import org.dominokit.domino.ui.i18n.DominoUILabels;
+import org.dominokit.domino.ui.themes.DominoThemeManager;
 
 /** Provides configuration options for the Domino UI framework. */
 public class DominoUIConfig {
@@ -28,11 +33,18 @@ public class DominoUIConfig {
   /** The singleton instance of {@code DominoUIConfig}. */
   public static final DominoUIConfig CONFIG = new DominoUIConfig();
 
+  static {
+    DominoCoreConfig.Provider.set(() -> CONFIG.getUIConfig());
+    ElementsFactoryDelegate.Provider.set(() -> CONFIG.getElementsFactory());
+    SVGFactoryDelegate.Provider.set(() -> CONFIG.getSVGFactory());
+    ZIndexManagerDefaults.set(DefaultZIndexManager.INSTANCE);
+    DominoThemeManager.INSTANCE.applyUserThemes();
+  }
+
   private DominoUILabels dominoUILabels = new DefaultDominoUILabels();
   private UIConfig uiConfig = new DefaultUIConfig();
   private ElementsFactoryDelegate elementsFactoryDelegate = new ElementsFactoryDelegate() {};
   private SVGFactoryDelegate svgFactoryDelegate = new SVGFactoryDelegate() {};
-  private boolean closePopupOnBlur;
 
   /**
    * Protected constructor to prevent external instantiation. Use the {@code CONFIG} singleton
@@ -80,6 +92,7 @@ public class DominoUIConfig {
   public DominoUIConfig setUIConfig(UIConfig uiConfig) {
     if (nonNull(uiConfig)) {
       this.uiConfig = uiConfig;
+      ZIndexLayerOffsets.setProvider(uiConfig);
     }
     return this;
   }
@@ -126,7 +139,7 @@ public class DominoUIConfig {
    * @param closePopupOnBlur {@code true} to close popups on blur, {@code false} otherwise.
    */
   public void setClosePopupOnBlur(boolean closePopupOnBlur) {
-    this.closePopupOnBlur = closePopupOnBlur;
+    PopoverConfigDefaults.setCloseOnBlur(closePopupOnBlur);
   }
 
   /**
@@ -135,6 +148,6 @@ public class DominoUIConfig {
    * @return {@code true} if popups should be closed on blur, {@code false} otherwise.
    */
   public boolean isClosePopupOnBlur() {
-    return this.closePopupOnBlur;
+    return PopoverConfigDefaults.isCloseOnBlur();
   }
 }

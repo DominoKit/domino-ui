@@ -320,7 +320,7 @@ public class Notification extends BaseDominoElement<HTMLDivElement, Notification
   private int getDuration() {
     return this.duration > 0
         ? this.duration
-        : config().getUIConfig().getDefaultNotificationDuration();
+        : DominoUIConfig.CONFIG.getUIConfig().getDefaultNotificationDuration();
   }
 
   /** Closes the notification immediately. */

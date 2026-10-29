@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>org.dominokit</groupId>
+        <artifactId>domino-ui-parent</artifactId>
+        <version>HEAD-SNAPSHOT</version>
+    </parent>
+
+    <artifactId>domino-ui-core</artifactId>
+    <packaging>gwt-lib</packaging>
+
+    <name>domino-ui-core</name>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.dominokit</groupId>
+            <artifactId>domino-ui-shared</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.gwtproject.editor</groupId>
+            <artifactId>gwt-editor</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.gwtproject.safehtml</groupId>
+            <artifactId>gwt-safehtml</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.gwtproject.timer</groupId>
+            <artifactId>gwt-timer</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.dominokit.i18n</groupId>
+            <artifactId>gwt-numberformat</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+            <version>${slf4j-api.version}</version>
+        </dependency>
+    </dependencies>
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>net.ltgt.gwt.maven</groupId>
+                <artifactId>gwt-maven-plugin</artifactId>
+                <extensions>true</extensions>
+                <configuration>
+                    <moduleName>org.dominokit.domino.ui.Core</moduleName>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+</project>

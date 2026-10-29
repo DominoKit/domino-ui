@@ -48,6 +48,7 @@ import org.dominokit.domino.ui.elements.AnchorElement;
 import org.dominokit.domino.ui.elements.DivElement;
 import org.dominokit.domino.ui.events.EventType;
 import org.dominokit.domino.ui.icons.Icon;
+import org.dominokit.domino.ui.layout.IsNavBar;
 import org.dominokit.domino.ui.layout.NavBar;
 import org.dominokit.domino.ui.mediaquery.MediaQuery;
 import org.dominokit.domino.ui.menu.DropTarget;
@@ -140,7 +141,8 @@ public abstract class BaseMenu<
         }
       };
 
-  protected Set<OnBeforeOpenListener<? super C>> onBeforeOpenListeners;
+  protected Set<org.dominokit.domino.ui.menu.base.OnBeforeOpenListener<? super C>>
+      onBeforeOpenListeners;
 
   protected final EventListener openListener =
       evt -> {
@@ -183,7 +185,8 @@ public abstract class BaseMenu<
   protected boolean contextMenu = false;
   protected boolean useSmallScreensDirection = true;
   protected boolean dropDown = false;
-  protected Set<OnAddItemHandler<V, C, I, S>> onAddItemHandlers = new HashSet<>();
+  protected Set<org.dominokit.domino.ui.menu.base.OnAddItemHandler<V, C, I, S>> onAddItemHandlers =
+      new HashSet<>();
   protected boolean fitToTargetWidth = false;
   protected boolean centerOnSmallScreens = false;
 
@@ -1253,7 +1256,8 @@ public abstract class BaseMenu<
    * @param onAddItemHandler The handler to add.
    * @return The current {@link Menu} instance.
    */
-  public C addOnAddItemHandler(OnAddItemHandler<V, C, I, S> onAddItemHandler) {
+  public C addOnAddItemHandler(
+      org.dominokit.domino.ui.menu.base.OnAddItemHandler<V, C, I, S> onAddItemHandler) {
     if (nonNull(onAddItemHandler)) {
       this.onAddItemHandlers.add(onAddItemHandler);
     }
@@ -1276,7 +1280,7 @@ public abstract class BaseMenu<
    * @param handler A handler to customize the header.
    * @return The current {@link Menu} instance.
    */
-  public C withHeader(ChildHandler<C, NavBar> handler) {
+  public C withHeader(ChildHandler<C, IsNavBar<?>> handler) {
     handler.apply((C) this, menuHeader.get());
     return (C) this;
   }
@@ -1408,11 +1412,13 @@ public abstract class BaseMenu<
    *
    * @return A set of {@link OpenListener} instances.
    */
-  public Set<OnBeforeOpenListener<? super C>> getOnBeforeOpenListeners() {
+  public Set<org.dominokit.domino.ui.menu.base.OnBeforeOpenListener<? super C>>
+      getOnBeforeOpenListeners() {
     return onBeforeOpenListeners();
   }
 
-  private Set<OnBeforeOpenListener<? super C>> onBeforeOpenListeners() {
+  private Set<org.dominokit.domino.ui.menu.base.OnBeforeOpenListener<? super C>>
+      onBeforeOpenListeners() {
     if (isNull(this.onBeforeOpenListeners)) {
       this.onBeforeOpenListeners = new HashSet<>();
     }
@@ -1425,7 +1431,8 @@ public abstract class BaseMenu<
    * @param onBeforeOpenListener The open event listener to be added.
    * @return The element with the open event listener added.
    */
-  public C addOnBeforeOpenListener(OnBeforeOpenListener<? super C> onBeforeOpenListener) {
+  public C addOnBeforeOpenListener(
+      org.dominokit.domino.ui.menu.base.OnBeforeOpenListener<? super C> onBeforeOpenListener) {
     getOnBeforeOpenListeners().add(onBeforeOpenListener);
     return (C) this;
   }
@@ -1436,7 +1443,8 @@ public abstract class BaseMenu<
    * @param onBeforeOpenListener The close event listener to be removed.
    * @return The element with the close event listener removed.
    */
-  public C removeOnBeforeOpenListener(OnBeforeOpenListener<? super C> onBeforeOpenListener) {
+  public C removeOnBeforeOpenListener(
+      org.dominokit.domino.ui.menu.base.OnBeforeOpenListener<? super C> onBeforeOpenListener) {
     getOnBeforeOpenListeners().remove(onBeforeOpenListener);
     return (C) this;
   }
@@ -1459,20 +1467,15 @@ public abstract class BaseMenu<
 
   protected abstract Element getMenuListElement();
 
-  /** Represents a handler called when a new item is added to the menu. */
+  /** Compatibility alias for the top-level core menu item handler. */
+  @Deprecated
   public interface OnAddItemHandler<
-      V, C extends IsMenu<V, C, I, S>, I extends IsMenuItem<V, I, S>, S extends Selectable<S>> {
+          V, C extends IsMenu<V, C, I, S>, I extends IsMenuItem<V, I, S>, S extends Selectable<S>>
+      extends org.dominokit.domino.ui.menu.base.OnAddItemHandler<V, C, I, S> {}
 
-    /**
-     * Called when a new menu item is added.
-     *
-     * @param menu The menu to which the item was added.
-     * @param menuItem The added menu item.
-     */
-    void onAdded(C menu, I menuItem);
-  }
-
-  public interface OnBeforeOpenListener<T> {
-    void onBeforeOpen(T target);
-  }
+  /** Compatibility alias for the top-level core listener. */
+  @Deprecated
+  @FunctionalInterface
+  public interface OnBeforeOpenListener<T>
+      extends org.dominokit.domino.ui.menu.base.OnBeforeOpenListener<T> {}
 }

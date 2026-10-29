@@ -30,6 +30,7 @@ import org.dominokit.domino.ui.i18n.SearchLabels;
 import org.dominokit.domino.ui.icons.Icon;
 import org.dominokit.domino.ui.icons.lib.Icons;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
+import org.dominokit.domino.ui.utils.DominoUIConfig;
 import org.dominokit.domino.ui.utils.ElementUtil;
 import org.gwtproject.timer.client.Timer;
 
@@ -173,7 +174,7 @@ public class Search extends BaseDominoElement<HTMLDivElement, Search>
    */
   public Search open() {
     expand();
-    setZIndex(config().getUIConfig().getZindexManager().getNextZIndex(this));
+    setZIndex(DominoUIConfig.CONFIG.getUIConfig().getZindexManager().getNextZIndex(this));
     searchInput.element().focus();
     return this;
   }

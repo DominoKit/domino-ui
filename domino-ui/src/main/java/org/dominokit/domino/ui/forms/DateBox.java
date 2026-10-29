@@ -34,6 +34,7 @@ import org.dominokit.domino.ui.forms.validations.ValidationResult;
 import org.dominokit.domino.ui.i18n.CalendarLabels;
 import org.dominokit.domino.ui.i18n.HasLabels;
 import org.dominokit.domino.ui.menu.direction.DropDirection;
+import org.dominokit.domino.ui.popover.IsPopover;
 import org.dominokit.domino.ui.popover.Popover;
 import org.dominokit.domino.ui.utils.*;
 import org.gwtproject.i18n.shared.cldr.DateTimeFormatInfo;
@@ -269,7 +270,7 @@ public class DateBox extends TextInputFormField<DateBox, HTMLInputElement, Date>
                       }
                     }
                   },
-                  config().getUIConfig().getDateBoxDefaultInputParseDelay());
+                  DominoUIConfig.CONFIG.getUIConfig().getDateBoxDefaultInputParseDelay());
             });
 
     appendChild(
@@ -912,7 +913,8 @@ public class DateBox extends TextInputFormField<DateBox, HTMLInputElement, Date>
    * @param handler The handler to apply to the popover
    * @return This DateBox instance with the popover configured
    */
-  public DateBox withPopover(ChildHandler<DateBox, Popover> handler) {
+  @Override
+  public DateBox withPopover(ChildHandler<DateBox, IsPopover<?, ?>> handler) {
     handler.apply(this, this.popover);
     return this;
   }

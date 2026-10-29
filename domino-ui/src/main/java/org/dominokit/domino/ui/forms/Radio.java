@@ -29,6 +29,7 @@ import org.dominokit.domino.ui.elements.InputElement;
 import org.dominokit.domino.ui.elements.LabelElement;
 import org.dominokit.domino.ui.elements.SmallElement;
 import org.dominokit.domino.ui.utils.*;
+import org.dominokit.domino.ui.utils.BaseDominoElement;
 import org.gwtproject.editor.client.TakesValue;
 import org.gwtproject.safehtml.shared.SafeHtml;
 

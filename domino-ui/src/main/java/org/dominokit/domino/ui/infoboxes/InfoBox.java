@@ -24,6 +24,7 @@ import org.dominokit.domino.ui.elements.DivElement;
 import org.dominokit.domino.ui.icons.Icon;
 import org.dominokit.domino.ui.style.*;
 import org.dominokit.domino.ui.utils.*;
+import org.dominokit.domino.ui.utils.BaseDominoElement;
 
 /**
  * Represents an informational box component that displays icon, title, and value information.

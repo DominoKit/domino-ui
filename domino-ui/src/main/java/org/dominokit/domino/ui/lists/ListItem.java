@@ -29,6 +29,7 @@ import jsinterop.base.Js;
 import org.dominokit.domino.ui.elements.LIElement;
 import org.dominokit.domino.ui.style.BooleanCssClass;
 import org.dominokit.domino.ui.utils.*;
+import org.dominokit.domino.ui.utils.BaseDominoElement;
 
 /**
  * Represents a list item within a {@link ListGroup}. This class provides methods for selecting,

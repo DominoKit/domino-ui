@@ -167,7 +167,7 @@ public abstract class AbstractSuggestBox<
 
     appendChild(
         PrimaryAddOn.of(
-            config()
+            DominoUIConfig.CONFIG
                 .getUIConfig()
                 .clearableInputDefaultIcon()
                 .addCss(dui_form_select_clear)
@@ -285,7 +285,7 @@ public abstract class AbstractSuggestBox<
   public int getTypeAheadDelay() {
     return typeAheadDelay > 0
         ? typeAheadDelay
-        : config().getUIConfig().getSuggestBoxTypeAheadDelay();
+        : DominoUIConfig.CONFIG.getUIConfig().getSuggestBoxTypeAheadDelay();
   }
 
   /**

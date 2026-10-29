@@ -28,7 +28,7 @@ import org.dominokit.domino.ui.icons.MdiIcon;
 import org.dominokit.domino.ui.icons.lib.Icons;
 import org.dominokit.domino.ui.menu.direction.DropDirection;
 import org.dominokit.domino.ui.popover.Popover;
-import org.dominokit.domino.ui.utils.BaseDominoElement;
+import org.dominokit.domino.ui.utils.HandlerRecord;
 import org.gwtproject.timer.client.Timer;
 
 public class TabsDropDownHandler implements TabsOverflowHandler {
@@ -40,8 +40,7 @@ public class TabsDropDownHandler implements TabsOverflowHandler {
   private Consumer<Tab> closeHandler;
   private Tab.ActivationHandler activationHandler;
   private Tab lastVisible;
-  private final BaseDominoElement.HandlerRecord resizeRecord =
-      new BaseDominoElement.HandlerRecord();
+  private final HandlerRecord resizeRecord = new HandlerRecord();
 
   public TabsDropDownHandler() {
     dropDownIcon = Icons.dots_horizontal().clickable().setAriaLabel("Show more tabs");
