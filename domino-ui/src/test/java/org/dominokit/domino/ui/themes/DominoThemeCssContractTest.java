@@ -1492,11 +1492,11 @@ public class DominoThemeCssContractTest {
           resource + " light mode must use its dark identity color as the primary anchor",
           lightTheme.contains("--dui-primary-harmony-anchor: var(--dui-color);"));
       assertTrue(
-          resource + " light mode must use its dark identity color as the accent anchor",
-          lightTheme.contains("--dui-accent-harmony-anchor: var(--dui-color);"));
+          resource + " light mode must anchor accent harmony to the selected accent",
+          lightTheme.contains("--dui-accent-harmony-anchor: var(--dui-accent-source);"));
       assertTrue(
-          resource + " light mode must visibly harmonize the accent role",
-          lightTheme.contains("--dui-accent-harmony-strength: 18%;"));
+          resource + " light mode must keep accent harmony subtle",
+          lightTheme.contains("--dui-accent-harmony-strength: 5%;"));
       assertTrue(
           resource
               + " light mode must use a related lighter identity color as the secondary anchor",
@@ -1511,11 +1511,11 @@ public class DominoThemeCssContractTest {
           resource + " dark mode must use its darker identity color as the primary anchor",
           darkTheme.contains("--dui-primary-harmony-anchor: var(--dui-color-5);"));
       assertTrue(
-          resource + " dark mode must use its darker identity color as the accent anchor",
-          darkTheme.contains("--dui-accent-harmony-anchor: var(--dui-color-5);"));
+          resource + " dark mode must anchor accent harmony to the selected accent",
+          darkTheme.contains("--dui-accent-harmony-anchor: var(--dui-accent-source);"));
       assertTrue(
-          resource + " dark mode must visibly harmonize the accent role",
-          darkTheme.contains("--dui-accent-harmony-strength: 18%;"));
+          resource + " dark mode must keep accent harmony subtle",
+          darkTheme.contains("--dui-accent-harmony-strength: 5%;"));
       assertTrue(
           resource
               + " dark mode must use a related mid-tone identity color as the secondary anchor",
@@ -1533,6 +1533,69 @@ public class DominoThemeCssContractTest {
     int start = css.indexOf(colorModeSelector);
     int end = css.indexOf("}", start);
     return css.substring(start, end);
+  }
+
+  private String cssHexValue(String css, String variable) {
+    Matcher matcher =
+        Pattern.compile(Pattern.quote(variable) + "\\s*:\\s*(#[0-9A-Fa-f]{6})").matcher(css);
+    assertTrue("Missing hex color for " + variable, matcher.find());
+    return matcher.group(1);
+  }
+
+  private String cssDeclaration(String css, String variable, String valuePrefix) {
+    Matcher matcher = Pattern.compile(Pattern.quote(variable) + "\\s*:\\s*([^;]*);").matcher(css);
+    while (matcher.find()) {
+      if (matcher.group(1).contains(valuePrefix)) {
+        return matcher.group(1);
+      }
+    }
+    throw new AssertionError("Missing " + valuePrefix + " declaration for " + variable);
+  }
+
+  private double oklchMixDistance(String sourceHex, String anchorHex, double strength) {
+    double[] source = oklabFromHex(sourceHex);
+    double[] anchor = oklabFromHex(anchorHex);
+    double sourceChroma = Math.hypot(source[1], source[2]);
+    double anchorChroma = Math.hypot(anchor[1], anchor[2]);
+    double sourceHue = Math.atan2(source[2], source[1]);
+    double anchorHue = Math.atan2(anchor[2], anchor[1]);
+    double hueDelta = Math.atan2(Math.sin(anchorHue - sourceHue), Math.cos(anchorHue - sourceHue));
+
+    double mixedLightness = source[0] + (anchor[0] - source[0]) * strength;
+    double mixedChroma = sourceChroma + (anchorChroma - sourceChroma) * strength;
+    double mixedHue = sourceHue + hueDelta * strength;
+    double mixedA = mixedChroma * Math.cos(mixedHue);
+    double mixedB = mixedChroma * Math.sin(mixedHue);
+
+    return Math.sqrt(
+        square(mixedLightness - source[0])
+            + square(mixedA - source[1])
+            + square(mixedB - source[2]));
+  }
+
+  private double[] oklabFromHex(String hex) {
+    double red = linearSrgb(Integer.parseInt(hex.substring(1, 3), 16));
+    double green = linearSrgb(Integer.parseInt(hex.substring(3, 5), 16));
+    double blue = linearSrgb(Integer.parseInt(hex.substring(5, 7), 16));
+
+    double l = Math.cbrt(0.4122214708 * red + 0.5363325363 * green + 0.0514459929 * blue);
+    double m = Math.cbrt(0.2119034982 * red + 0.6806995451 * green + 0.1073969566 * blue);
+    double s = Math.cbrt(0.0883024619 * red + 0.2817188376 * green + 0.6299787005 * blue);
+
+    return new double[] {
+      0.2104542553 * l + 0.7936177850 * m - 0.0040720468 * s,
+      1.9779984951 * l - 2.4285922050 * m + 0.4505937099 * s,
+      0.0259040371 * l + 0.7827717662 * m - 0.8086757660 * s
+    };
+  }
+
+  private double linearSrgb(int channel) {
+    double normalized = channel / 255.0;
+    return normalized <= 0.04045 ? normalized / 12.92 : Math.pow((normalized + 0.055) / 1.055, 2.4);
+  }
+
+  private double square(double value) {
+    return value * value;
   }
 
   @Test
@@ -2165,6 +2228,49 @@ public class DominoThemeCssContractTest {
     assertTrue(colors.contains("--dui-accent-harmony-anchor: var(--dui-accent-source);"));
     assertTrue(colors.contains("color-mix(in oklch,"));
     assertTrue(colors.contains("calc(100% - var(--dui-accent-harmony-strength))"));
+  }
+
+  @Test
+  public void accentHarmonyKeepsTealShadesCloseToTheirLightAndDarkSources() throws IOException {
+    String colors =
+        readResource(
+            "org/dominokit/domino/ui/public/css/domino-ui/dui-components/domino-ui-colors.css");
+    String identity = readResource(identityThemeResources().get(0));
+    String lightIdentity = themeBlock(identity, ".dui-colors-light");
+    String darkIdentity = themeBlock(identity, ".dui-colors-dark");
+    assertTrue(lightIdentity.contains("--dui-accent-harmony-anchor: var(--dui-accent-source);"));
+    assertTrue(darkIdentity.contains("--dui-accent-harmony-anchor: var(--dui-accent-source);"));
+
+    double strength = 0.05;
+    assertTrue(lightIdentity.contains("--dui-accent-harmony-strength: 5%;"));
+    assertTrue(darkIdentity.contains("--dui-accent-harmony-strength: 5%;"));
+
+    for (String slot : accentScaleSlots()) {
+      String declaration = cssDeclaration(colors, "--dui-accent" + slot, "color-mix(in oklch");
+      assertTrue(declaration.contains("var(--dui-accent-source" + slot + ")"));
+      assertTrue(declaration.contains("var(--dui-accent-harmony-anchor)"));
+      assertTrue(declaration.contains("var(--dui-accent-harmony-strength)"));
+    }
+
+    for (String mode : Arrays.asList("light", "dark")) {
+      String palette =
+          readResource(
+              "org/dominokit/domino/ui/public/css/domino-ui/dui-components/domino-ui-colors-"
+                  + mode
+                  + ".css");
+      String anchor = cssHexValue(palette, "--dui-clr-teal");
+      for (String slot : accentScaleSlots()) {
+        String source = cssHexValue(palette, "--dui-clr-teal" + slot);
+        double distance = oklchMixDistance(source, anchor, strength);
+        assertTrue(
+            mode
+                + " teal accent"
+                + slot
+                + " should stay close to its source shade; OKLab distance was "
+                + distance,
+            distance <= 0.025);
+      }
+    }
   }
 
   @Test

@@ -7,8 +7,8 @@
  */
 /* Crimson visual identity: a confident red family for action-oriented applications. */
 .dui.dui-theme-crimson.dui-colors-light {
-    --dui-accent-harmony-anchor: var(--dui-color);
-    --dui-accent-harmony-strength: 18%;
+    --dui-accent-harmony-anchor: var(--dui-accent-source);
+    --dui-accent-harmony-strength: 5%;
     --dui-primary-harmony-anchor: var(--dui-color);
     --dui-primary-harmony-strength: 55%;
     --dui-secondary-harmony-anchor: var(--dui-color-2);
@@ -42,8 +42,8 @@
 }
 
 .dui.dui-theme-crimson.dui-colors-dark {
-    --dui-accent-harmony-anchor: var(--dui-color-5);
-    --dui-accent-harmony-strength: 18%;
+    --dui-accent-harmony-anchor: var(--dui-accent-source);
+    --dui-accent-harmony-strength: 5%;
     --dui-primary-harmony-anchor: var(--dui-color-5);
     --dui-primary-harmony-strength: 55%;
     --dui-secondary-harmony-anchor: var(--dui-color-3);

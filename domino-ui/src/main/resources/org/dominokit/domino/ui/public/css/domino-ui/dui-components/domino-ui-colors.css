@@ -22858,14 +22858,14 @@
  *
  * Accent selectors above publish the unchanged palette as source tokens. The
  * public accent scale below remains the component-facing API and can be
- * meaningfully shifted toward a visual theme's anchor without generating CSS
- * at build time. A zero strength is the compatibility default.
+ * meaningfully harmonized toward the selected accent without generating CSS
+ * at build time. Identity themes use a low-strength accent anchor to retain
+ * the original scale. A zero strength is the compatibility default.
  */
 .dui.dui-colors-light,
 .dui.dui-colors-dark {
     --dui-accent-harmony-strength: calc(0%);
     --dui-accent-harmony-anchor: var(--dui-accent-source);
-
     --dui-accent-l-5: var(--dui-accent-source-l-5);
     --dui-accent-l-4: var(--dui-accent-source-l-4);
     --dui-accent-l-3: var(--dui-accent-source-l-3);
