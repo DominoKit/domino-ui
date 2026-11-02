@@ -226,6 +226,15 @@
                             <target>
                                 <delete file="${project.build.outputDirectory}/org/dominokit/domino/ui/public/css/domino-ui/dui-components/domino-ui-waitMe.css"/>
                                 <delete file="${project.build.outputDirectory}/org/dominokit/domino/ui/public/css/domino-ui/dui-components/domino-ui-waitMe.min.css"/>
+                                <mkdir dir="${project.build.directory}/mdi-css-backup"/>
+                                <copy file="${project.build.outputDirectory}/org/dominokit/domino/ui/public/css/domino-ui/dui-components/mdi/materialdesignicons.css"
+                                      tofile="${project.build.directory}/mdi-css-backup/materialdesignicons.css"
+                                      overwrite="true"/>
+                                <replaceregexp file="${project.build.outputDirectory}/org/dominokit/domino/ui/public/css/domino-ui/dui-components/mdi/materialdesignicons.css"
+                                               match="\.\./\.\./\.\./fonts/"
+                                               replace="../fonts/"
+                                               flags="g"
+                                               byline="true"/>
                                 <concat destfile="${project.build.outputDirectory}/org/dominokit/domino/ui/public/css/domino-ui/domino-ui.css"
                                         encoding="UTF-8" fixlastline="true">
                                     <sort>
@@ -233,6 +242,10 @@
                                                  includes="**/*.css" excludes="**/*.min.css"/>
                                     </sort>
                                 </concat>
+                                <copy file="${project.build.directory}/mdi-css-backup/materialdesignicons.css"
+                                      tofile="${project.build.outputDirectory}/org/dominokit/domino/ui/public/css/domino-ui/dui-components/mdi/materialdesignicons.css"
+                                      overwrite="true"/>
+                                <delete dir="${project.build.directory}/mdi-css-backup"/>
                                 <concat destfile="${project.build.outputDirectory}/org/dominokit/domino/ui/public/css/domino-ui/themes/domino-ui-themes.css"
                                         encoding="UTF-8" fixlastline="true">
                                     <sort>

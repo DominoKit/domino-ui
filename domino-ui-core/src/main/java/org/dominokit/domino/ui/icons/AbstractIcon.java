@@ -19,7 +19,6 @@ import static org.dominokit.domino.ui.utils.Domino.span;
 import static org.dominokit.domino.ui.utils.ElementsFactory.elements;
 
 import elemental2.dom.HTMLElement;
-import java.util.function.Consumer;
 import org.dominokit.domino.ui.style.SwapCssClass;
 import org.dominokit.domino.ui.utils.DominoElement;
 
@@ -46,12 +45,6 @@ public abstract class AbstractIcon<T extends AbstractIcon<T>> extends Icon<T> {
   @Override
   public String getName() {
     return catalogName;
-  }
-
-  /** Applies the supplied action to this icon and returns it for fluent composition. */
-  public T apply(Consumer<T> action) {
-    action.accept((T) this);
-    return (T) this;
   }
 
   /** Copies the common DOM presentation state to another icon instance. */

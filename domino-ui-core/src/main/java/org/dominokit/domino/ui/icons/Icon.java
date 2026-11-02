@@ -56,6 +56,7 @@ public abstract class Icon<T extends Icon<T>> extends BaseDominoElement<HTMLElem
   protected void init(T element) {
     super.init(element);
     addCss(IconCss.dui_icons);
+    addCss(IconCss.dui_icon);
   }
 
   /**

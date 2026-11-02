@@ -25,7 +25,7 @@ public class IconsStyles {
   public static final CssClass dui_icons = IconCss.dui_icons;
 
   /** Represents the common CSS class applied to Domino UI icon elements. */
-  public static final CssClass dui_icon = () -> "dui-icon";
+  public static final CssClass dui_icon = IconCss.dui_icon;
 
   /** Represents the Material Design Icons (MDI) CSS class. */
   public static final CssClass dui_mdi = () -> "mdi";

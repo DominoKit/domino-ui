@@ -23,6 +23,9 @@ public final class IconCss {
   /** Shared marker applied to all pack icon roots. */
   public static final CssClass dui_icons = () -> "dui-icons";
 
+  /** Legacy common icon marker retained for existing icon styling and APIs. */
+  public static final CssClass dui_icon = () -> "dui-icon";
+
   /** Default outline SVG icon treatment. */
   public static final CssClass dui_icon_outline = () -> "dui-icon-outline";
 
