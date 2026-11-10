@@ -21,14 +21,13 @@ import elemental2.dom.HTMLElement;
 import org.dominokit.domino.ui.button.Button;
 import org.dominokit.domino.ui.button.DropdownButton;
 import org.dominokit.domino.ui.button.group.ButtonsGroup;
-import org.dominokit.domino.ui.icons.DefaultIcons;
-import org.dominokit.domino.ui.icons.IconName;
 import org.dominokit.domino.ui.menu.CustomMenuItem;
 import org.dominokit.domino.ui.menu.Menu;
 import org.dominokit.domino.ui.menu.direction.DropDirection;
 import org.dominokit.domino.ui.richtext.IsRichTextEditor;
 import org.dominokit.domino.ui.richtext.RichTextCommand;
 import org.dominokit.domino.ui.utils.DominoDom;
+import org.dominokit.domino.ui.utils.DominoUIConfig;
 
 /**
  * Represents a UI component for setting the heading style of the selected text within a rich text
@@ -71,10 +70,10 @@ public class HeadingCommand extends RichTextCommand<HeadingCommand> {
     this.button =
         ButtonsGroup.create(
                 mainButton =
-                    Button.create(DefaultIcons.coreIcon(IconName.FORMAT_HEADER_1))
+                    Button.create(DominoUIConfig.CONFIG.getUIConfig().getFormatHeader1Icon())
                         .addClickListener(evt -> execute()),
                 DropdownButton.create(
-                    Button.create(DefaultIcons.coreIcon(IconName.CHEVRON_DOWN)),
+                    Button.create(DominoUIConfig.CONFIG.getUIConfig().getChevronDownIcon()),
                     Menu.<String>create()
                         .setDropDirection(DropDirection.BOTTOM_LEFT)
                         .appendChild(
@@ -107,27 +106,27 @@ public class HeadingCommand extends RichTextCommand<HeadingCommand> {
                               switch (heading) {
                                 case "<h1>":
                                   mainButton.setIcon(
-                                      DefaultIcons.coreIcon(IconName.FORMAT_HEADER_1));
+                                      DominoUIConfig.CONFIG.getUIConfig().getFormatHeader1Icon());
                                   break;
                                 case "<h2>":
                                   mainButton.setIcon(
-                                      DefaultIcons.coreIcon(IconName.FORMAT_HEADER_2));
+                                      DominoUIConfig.CONFIG.getUIConfig().getFormatHeader2Icon());
                                   break;
                                 case "<h3>":
                                   mainButton.setIcon(
-                                      DefaultIcons.coreIcon(IconName.FORMAT_HEADER_3));
+                                      DominoUIConfig.CONFIG.getUIConfig().getFormatHeader3Icon());
                                   break;
                                 case "<h4>":
                                   mainButton.setIcon(
-                                      DefaultIcons.coreIcon(IconName.FORMAT_HEADER_4));
+                                      DominoUIConfig.CONFIG.getUIConfig().getFormatHeader4Icon());
                                   break;
                                 case "<h5>":
                                   mainButton.setIcon(
-                                      DefaultIcons.coreIcon(IconName.FORMAT_HEADER_5));
+                                      DominoUIConfig.CONFIG.getUIConfig().getFormatHeader5Icon());
                                   break;
                                 case "<h6>":
                                   mainButton.setIcon(
-                                      DefaultIcons.coreIcon(IconName.FORMAT_HEADER_6));
+                                      DominoUIConfig.CONFIG.getUIConfig().getFormatHeader6Icon());
                                   break;
                               }
                               execute();

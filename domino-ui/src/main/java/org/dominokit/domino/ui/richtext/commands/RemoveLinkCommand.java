@@ -23,10 +23,9 @@ import elemental2.dom.Element;
 import elemental2.dom.HTMLElement;
 import elemental2.dom.NodeList;
 import org.dominokit.domino.ui.button.Button;
-import org.dominokit.domino.ui.icons.DefaultIcons;
-import org.dominokit.domino.ui.icons.IconName;
 import org.dominokit.domino.ui.richtext.IsRichTextEditor;
 import org.dominokit.domino.ui.richtext.RichTextCommand;
+import org.dominokit.domino.ui.utils.DominoUIConfig;
 
 /**
  * Represents a UI command to remove formatting from the selected text in the rich text editor.
@@ -69,7 +68,7 @@ public class RemoveLinkCommand extends RichTextCommand<RemoveLinkCommand> {
     super(isRichTextEditor);
 
     this.button =
-        Button.create(DefaultIcons.coreIcon(IconName.LINK_OFF))
+        Button.create(DominoUIConfig.CONFIG.getUIConfig().getLinkOffIcon())
             .setTooltip(getLabels().removeLinks())
             .addClickListener(
                 evt -> {

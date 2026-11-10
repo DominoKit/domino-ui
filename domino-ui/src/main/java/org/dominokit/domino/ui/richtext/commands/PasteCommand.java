@@ -21,11 +21,10 @@ import elemental2.dom.DomGlobal;
 import elemental2.dom.HTMLElement;
 import jsinterop.base.Js;
 import org.dominokit.domino.ui.button.Button;
-import org.dominokit.domino.ui.icons.DefaultIcons;
-import org.dominokit.domino.ui.icons.IconName;
 import org.dominokit.domino.ui.richtext.IsRichTextEditor;
 import org.dominokit.domino.ui.richtext.RichTextCommand;
 import org.dominokit.domino.ui.utils.DominoNavigator;
+import org.dominokit.domino.ui.utils.DominoUIConfig;
 
 /**
  * Represents a UI command to paste the content from the clipboard into the rich text editor.
@@ -68,7 +67,7 @@ public class PasteCommand extends RichTextCommand<PasteCommand> {
   public PasteCommand(IsRichTextEditor isRichTextEditor) {
     super(isRichTextEditor);
     this.button =
-        Button.create(DefaultIcons.coreIcon(IconName.CONTENT_PASTE))
+        Button.create(DominoUIConfig.CONFIG.getUIConfig().getContentPasteIcon())
             .setTooltip(getLabels().paste())
             .addClickListener(
                 evt -> {

@@ -25,11 +25,10 @@ import org.dominokit.domino.ui.dialogs.ConfirmationDialog;
 import org.dominokit.domino.ui.dialogs.DialogSize;
 import org.dominokit.domino.ui.elements.DivElement;
 import org.dominokit.domino.ui.forms.TextAreaBox;
-import org.dominokit.domino.ui.icons.DefaultIcons;
-import org.dominokit.domino.ui.icons.IconName;
 import org.dominokit.domino.ui.richtext.IsRichTextEditor;
 import org.dominokit.domino.ui.richtext.RichTextCommand;
 import org.dominokit.domino.ui.utils.DOMParser;
+import org.dominokit.domino.ui.utils.DominoUIConfig;
 
 /**
  * Represents a UI command to insert HTML content within a rich text editor.
@@ -85,7 +84,7 @@ public class InsertHtmlCommand extends RichTextCommand<InsertHtmlCommand> {
                     rejectbutton
                         .setText(getLabels().close())
                         .addCss(dui_dominant)
-                        .setIcon(DefaultIcons.coreIcon(IconName.CLOSE)))
+                        .setIcon(DominoUIConfig.CONFIG.getUIConfig().getCloseIcon()))
             .appendChild(htmlText = TextAreaBox.create("HTML"))
             .onConfirm(
                 dialog -> {
@@ -94,7 +93,7 @@ public class InsertHtmlCommand extends RichTextCommand<InsertHtmlCommand> {
                 });
 
     this.button =
-        Button.create(DefaultIcons.coreIcon(IconName.CODE_TAGS))
+        Button.create(DominoUIConfig.CONFIG.getUIConfig().getCodeTagsIcon())
             .setTooltip(getLabels().insertHtml())
             .addClickListener(
                 evt -> {

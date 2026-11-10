@@ -25,10 +25,9 @@ import org.dominokit.domino.ui.button.Button;
 import org.dominokit.domino.ui.dialogs.ConfirmationDialog;
 import org.dominokit.domino.ui.dialogs.DialogSize;
 import org.dominokit.domino.ui.forms.TextBox;
-import org.dominokit.domino.ui.icons.DefaultIcons;
-import org.dominokit.domino.ui.icons.IconName;
 import org.dominokit.domino.ui.richtext.IsRichTextEditor;
 import org.dominokit.domino.ui.richtext.RichTextCommand;
+import org.dominokit.domino.ui.utils.DominoUIConfig;
 
 /**
  * Represents a UI command to insert a hyperlink within a rich text editor.
@@ -81,7 +80,7 @@ public class InsertLinkCommand extends RichTextCommand<InsertLinkCommand> {
                     rejectbutton
                         .setText(getLabels().close())
                         .addCss(dui_dominant)
-                        .setIcon(DefaultIcons.coreIcon(IconName.CLOSE)))
+                        .setIcon(DominoUIConfig.CONFIG.getUIConfig().getCloseIcon()))
             .appendChild(linkBox = TextBox.create(getLabels().url()))
             .onConfirm(
                 dialog -> {
@@ -90,7 +89,7 @@ public class InsertLinkCommand extends RichTextCommand<InsertLinkCommand> {
                 });
 
     this.button =
-        Button.create(DefaultIcons.coreIcon(IconName.LINK))
+        Button.create(DominoUIConfig.CONFIG.getUIConfig().getLinkIcon())
             .setTooltip(getLabels().insertLink())
             .addClickListener(
                 evt -> {

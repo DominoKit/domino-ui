@@ -27,9 +27,7 @@ import org.dominokit.domino.ui.elements.InputElement;
 import org.dominokit.domino.ui.events.EventType;
 import org.dominokit.domino.ui.i18n.HasLabels;
 import org.dominokit.domino.ui.i18n.SearchLabels;
-import org.dominokit.domino.ui.icons.DefaultIcons;
 import org.dominokit.domino.ui.icons.Icon;
-import org.dominokit.domino.ui.icons.IconName;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
 import org.dominokit.domino.ui.utils.DominoUIConfig;
 import org.dominokit.domino.ui.utils.ElementUtil;
@@ -85,7 +83,9 @@ public class Search extends BaseDominoElement<HTMLDivElement, Search>
   public Search(boolean autoSearch) {
     this.autoSearch = autoSearch;
     this.closeIcon =
-        DefaultIcons.coreIcon(IconName.CLOSE)
+        DominoUIConfig.CONFIG
+            .getUIConfig()
+            .getCloseIcon()
             .clickable()
             .setAttribute("aria-label", "Close search")
             .addClickListener(
@@ -104,7 +104,7 @@ public class Search extends BaseDominoElement<HTMLDivElement, Search>
             .appendChild(
                 div()
                     .addCss(dui_search_bar_container)
-                    .appendChild(DefaultIcons.coreIcon(IconName.MAGNIFY))
+                    .appendChild(DominoUIConfig.CONFIG.getUIConfig().getMagnifyIcon())
                     .appendChild(searchInput.addCss(dui_grow_1))
                     .appendChild(closeIcon));
     this.searchHandler = searchToken -> {};

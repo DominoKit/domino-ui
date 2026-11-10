@@ -33,10 +33,18 @@ import org.dominokit.domino.ui.utils.ElementHandler;
  */
 public abstract class StateChangeIcon<I extends IsIcon<I>, T extends StateChangeIcon<I, T>>
     extends Icon<T> {
+
+  /**
+   * Creates a state icon composition from arbitrary icons while keeping the public type abstract.
+   */
+  public static StateChangeIcon<?, ?> of(IsIcon<?> defaultIcon) {
+    return new StateChangeIconImpl(IconWrapper.of(defaultIcon));
+  }
+
   protected final I defaultIcon;
   protected String currentState = "default";
 
-  protected final Map<String, I> statesMap = new HashMap<>();
+  protected final Map<String, IsIcon<?>> statesMap = new HashMap<>();
   private Consumer<T> onStateChanged = icon -> {};
 
   /**
@@ -57,7 +65,7 @@ public abstract class StateChangeIcon<I extends IsIcon<I>, T extends StateChange
    * @param icon The icon to be displayed when the specified state is set.
    * @return The StateChangeIcon instance for method chaining.
    */
-  public T withState(String state, I icon) {
+  public T withState(String state, IsIcon<?> icon) {
     if (nonNull(state) && !state.isEmpty() && nonNull(icon)) {
       statesMap.put(state, icon);
       icon.element().style.display = "none";
@@ -156,5 +164,21 @@ public abstract class StateChangeIcon<I extends IsIcon<I>, T extends StateChange
   @Override
   public HTMLElement element() {
     return super.element();
+  }
+}
+
+final class StateChangeIconImpl extends StateChangeIcon<IconWrapper, StateChangeIconImpl> {
+  StateChangeIconImpl(IconWrapper defaultIcon) {
+    super(defaultIcon);
+  }
+
+  @Override
+  public StateChangeIconImpl copy() {
+    StateChangeIconImpl copy = new StateChangeIconImpl(defaultIcon.copy());
+    statesMap.forEach((state, icon) -> copy.withState(state, icon.copy()));
+    if (!"default".equals(currentState)) {
+      copy.setState(currentState);
+    }
+    return copy;
   }
 }

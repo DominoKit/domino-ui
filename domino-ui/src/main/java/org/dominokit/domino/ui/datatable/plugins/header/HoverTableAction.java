@@ -17,10 +17,9 @@ package org.dominokit.domino.ui.datatable.plugins.header;
 
 import elemental2.dom.HTMLElement;
 import org.dominokit.domino.ui.datatable.DataTable;
-import org.dominokit.domino.ui.icons.DefaultIcons;
-import org.dominokit.domino.ui.icons.IconName;
 import org.dominokit.domino.ui.icons.ToggleIcon;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
+import org.dominokit.domino.ui.utils.DominoUIConfig;
 
 /**
  * An implementation of the {@link HeaderActionElement} that allows toggling table hover effect.
@@ -45,7 +44,9 @@ public class HoverTableAction<T> extends BaseDominoElement<HTMLElement, HoverTab
    */
   public HoverTableAction(DataTable<T> dataTable) {
     hoverIcon =
-        DefaultIcons.toggle(IconName.BLUR_OFF, IconName.BLUR)
+        ToggleIcon.of(
+                DominoUIConfig.CONFIG.getUIConfig().getBlurOffIcon(),
+                DominoUIConfig.CONFIG.getUIConfig().getBlurIcon())
             .clickable()
             .setAriaLabel("Toggle row hover")
             .toggleOnClick(true)

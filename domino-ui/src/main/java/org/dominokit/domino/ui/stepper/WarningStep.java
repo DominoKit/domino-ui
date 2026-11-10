@@ -17,8 +17,7 @@ package org.dominokit.domino.ui.stepper;
 
 import static org.dominokit.domino.ui.stepper.StepStateCss.dui_step_state_warning;
 
-import org.dominokit.domino.ui.icons.DefaultIcons;
-import org.dominokit.domino.ui.icons.IconName;
+import org.dominokit.domino.ui.utils.DominoUIConfig;
 
 /**
  * Represents a "Warning" step in a stepper component. Warning steps indicate that there is a
@@ -39,7 +38,10 @@ public class WarningStep implements StepState {
         .withTrackerNode(
             (parent1, node) ->
                 node.appendChild(
-                    DefaultIcons.coreIcon(IconName.EXCLAMATION).addCss(dui_tracker_node_icon)));
+                    DominoUIConfig.CONFIG
+                        .getUIConfig()
+                        .getExclamationIcon()
+                        .addCss(dui_tracker_node_icon)));
   }
 
   /**

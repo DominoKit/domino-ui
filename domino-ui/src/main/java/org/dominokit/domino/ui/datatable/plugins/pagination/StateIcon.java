@@ -17,6 +17,7 @@
 package org.dominokit.domino.ui.datatable.plugins.pagination;
 
 import org.dominokit.domino.ui.icons.*;
+import org.dominokit.domino.ui.icons.IconWrapper;
 
 /**
  * The {@code StateIcon} class is used to represent an icon that can change its appearance based on
@@ -29,14 +30,14 @@ import org.dominokit.domino.ui.icons.*;
  *
  * <pre>
  * // Create a StateIcon with a default icon
- * StateIcon stateIcon = StateIcon.create(DefaultIcons.coreIcon(IconName.CHECK));
+ * StateIcon stateIcon = StateIcon.create(DominoUIConfig.CONFIG.getUIConfig().getCheckIcon());
  *
  * // Define different states and their corresponding icons
  * stateIcon
- *     .withState("active", DefaultIcons.coreIcon(IconName.STAR)) // Icon for the "active" state
- *     .withState("inactive", DefaultIcons.coreIcon(IconName.STAR_BORDER)) // Icon for the "inactive" state
- *     .withState("disabled", DefaultIcons.coreIcon(IconName.BLOCK)) // Icon for the "disabled" state
- *     .withState("selected", DefaultIcons.coreIcon(IconName.CHECK_CIRCLE)); // Icon for the "selected" state
+ *     .withState("active", DominoUIConfig.CONFIG.getUIConfig().getStarIcon()) // Icon for the "active" state
+ *     .withState("inactive", DominoUIConfig.CONFIG.getUIConfig().getStarBorderIcon()) // Icon for the "inactive" state
+ *     .withState("disabled", DominoUIConfig.CONFIG.getUIConfig().getBlockIcon()) // Icon for the "disabled" state
+ *     .withState("selected", DominoUIConfig.CONFIG.getUIConfig().getCheckCircleIcon()); // Icon for the "selected" state
  *
  * // Set the current state of the icon
  * stateIcon.setState("active");

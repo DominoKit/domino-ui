@@ -17,6 +17,7 @@ package org.dominokit.domino.ui.icons;
 
 import com.google.gwt.junit.client.GWTTestCase;
 import org.dominokit.domino.ui.icons.lib.Icons;
+import org.dominokit.domino.ui.utils.DominoUIConfig;
 
 public class IconTest extends GWTTestCase {
 
@@ -40,6 +41,35 @@ public class IconTest extends GWTTestCase {
     assertDoesNotHaveClass(icon, "dui-icon-square");
     assertDoesNotHaveClass(icon, "dui-icon-bordered");
     assertDoesNotHaveClass(icon, "dui-icon-surface");
+  }
+
+  public void testUiConfigRoleMethodsReturnAbstractIconsWithMdiDefaults() {
+    Icon<?> closeIcon = DominoUIConfig.CONFIG.getUIConfig().getCloseIcon();
+
+    assertNotNull(closeIcon);
+    assertTrue(hasClass(closeIcon, "mdi-close"));
+  }
+
+  public void testAbstractToggleIconFactoryComposesIcons() {
+    ToggleIcon<?, ?> toggle = ToggleIcon.of(Icons.close(), Icons.check());
+
+    assertFalse(toggle.isToggled());
+    toggle.toggle();
+    assertTrue(toggle.isToggled());
+  }
+
+  public void testAbstractStateChangeIconFactoryComposesIcons() {
+    StateChangeIcon<?, ?> stateIcon = StateChangeIcon.of(Icons.close());
+    stateIcon.withState("active", Icons.check());
+    stateIcon.setState("active");
+
+    assertEquals("active", stateIcon.getState());
+    assertEquals("active", stateIcon.copy().getState());
+  }
+
+  private boolean hasClass(Icon<?> icon, String className) {
+    String classes = " " + icon.element().className + " ";
+    return classes.indexOf(" " + className + " ") >= 0;
   }
 
   private void assertHasClass(MdiIcon icon, String className) {

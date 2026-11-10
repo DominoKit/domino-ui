@@ -17,8 +17,8 @@ package org.dominokit.domino.ui.config;
 
 import java.util.function.Supplier;
 import org.dominokit.domino.ui.icons.Icon;
-import org.dominokit.domino.ui.icons.IconName;
 import org.dominokit.domino.ui.upload.*;
+import org.dominokit.domino.ui.utils.DominoUIConfig;
 
 /**
  * Implementations of this interface can be used to configure defaults for {@link FileUpload}
@@ -34,7 +34,7 @@ public interface UploadConfig extends ComponentConfig {
    * @return a {@code Supplier<Icon<?>>}
    */
   default Supplier<Icon<?>> getDefaultUploadIcon() {
-    return () -> icon(IconName.UPLOAD);
+    return () -> DominoUIConfig.CONFIG.getUIConfig().getUploadIcon();
   }
 
   /**
@@ -45,7 +45,7 @@ public interface UploadConfig extends ComponentConfig {
    * @return a {@code Supplier<Icon<?>>}
    */
   default Supplier<Icon<?>> getDefaultRemoveIcon() {
-    return () -> icon(IconName.TRASH_CAN);
+    return () -> DominoUIConfig.CONFIG.getUIConfig().getTrashCanIcon();
   }
 
   /**
@@ -56,7 +56,7 @@ public interface UploadConfig extends ComponentConfig {
    * @return a {@code Supplier<Icon<?>>}
    */
   default Supplier<Icon<?>> getDefaultCancelIcon() {
-    return () -> icon(IconName.CANCEL);
+    return () -> DominoUIConfig.CONFIG.getUIConfig().getCancelIcon();
   }
 
   /**

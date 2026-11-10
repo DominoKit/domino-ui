@@ -33,12 +33,12 @@ import org.dominokit.domino.ui.collapsible.CollapseStrategy;
 import org.dominokit.domino.ui.elements.DivElement;
 import org.dominokit.domino.ui.elements.SpanElement;
 import org.dominokit.domino.ui.elements.UListElement;
-import org.dominokit.domino.ui.icons.DefaultIcons;
 import org.dominokit.domino.ui.icons.Icon;
-import org.dominokit.domino.ui.icons.IconName;
+import org.dominokit.domino.ui.icons.ToggleIcon;
 import org.dominokit.domino.ui.search.Search;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
 import org.dominokit.domino.ui.utils.ChildHandler;
+import org.dominokit.domino.ui.utils.DominoUIConfig;
 import org.dominokit.domino.ui.utils.HasSelectionListeners;
 import org.dominokit.domino.ui.utils.LazyChild;
 import org.dominokit.domino.ui.utils.PostfixAddOn;
@@ -375,7 +375,9 @@ public abstract class TreeRoot<V, N extends TreeNode<V, N, S>, C extends TreeRoo
         searchIcon =
             LazyChild.of(
                 PostfixAddOn.of(
-                        DefaultIcons.coreIcon(IconName.MAGNIFY)
+                        DominoUIConfig.CONFIG
+                            .getUIConfig()
+                            .getMagnifyIcon()
                             .clickable()
                             .setAriaLabel("Search tree")
                             .addClickListener(
@@ -412,7 +414,9 @@ public abstract class TreeRoot<V, N extends TreeNode<V, N, S>, C extends TreeRoo
         collapseExpandAllIcon =
             LazyChild.of(
                 PostfixAddOn.of(
-                        DefaultIcons.toggle(IconName.FULLSCREEN, IconName.FULLSCREEN_EXIT)
+                        ToggleIcon.of(
+                                DominoUIConfig.CONFIG.getUIConfig().getFullscreenIcon(),
+                                DominoUIConfig.CONFIG.getUIConfig().getFullscreenExitIcon())
                             .clickable()
                             .setAriaLabel("Toggle tree")
                             .apply(

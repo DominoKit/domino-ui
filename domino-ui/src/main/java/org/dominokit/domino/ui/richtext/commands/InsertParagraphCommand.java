@@ -20,10 +20,9 @@ import static org.dominokit.domino.ui.utils.Domino.*;
 import elemental2.dom.DocumentFragment;
 import elemental2.dom.HTMLElement;
 import org.dominokit.domino.ui.button.Button;
-import org.dominokit.domino.ui.icons.DefaultIcons;
-import org.dominokit.domino.ui.icons.IconName;
 import org.dominokit.domino.ui.richtext.IsRichTextEditor;
 import org.dominokit.domino.ui.richtext.RichTextCommand;
+import org.dominokit.domino.ui.utils.DominoUIConfig;
 
 /**
  * Represents a UI command to insert a paragraph within a rich text editor.
@@ -62,7 +61,7 @@ public class InsertParagraphCommand extends RichTextCommand<InsertParagraphComma
   public InsertParagraphCommand(IsRichTextEditor isRichTextEditor) {
     super(isRichTextEditor);
     this.button =
-        Button.create(DefaultIcons.coreIcon(IconName.FORMAT_PARAGRAPH))
+        Button.create(DominoUIConfig.CONFIG.getUIConfig().getFormatParagraphIcon())
             .setTooltip(getLabels().insertParagraph())
             .addClickListener(evt -> execute());
     init(this);

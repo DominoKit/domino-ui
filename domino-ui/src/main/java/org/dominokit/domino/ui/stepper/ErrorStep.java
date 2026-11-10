@@ -17,8 +17,7 @@ package org.dominokit.domino.ui.stepper;
 
 import static org.dominokit.domino.ui.stepper.StepStateCss.dui_step_state_error;
 
-import org.dominokit.domino.ui.icons.DefaultIcons;
-import org.dominokit.domino.ui.icons.IconName;
+import org.dominokit.domino.ui.utils.DominoUIConfig;
 
 /**
  * A concrete implementation of the {@link StepState} interface representing an error state in a
@@ -40,7 +39,10 @@ public class ErrorStep implements StepState {
         .withTrackerNode(
             (parent1, node) ->
                 node.appendChild(
-                    DefaultIcons.coreIcon(IconName.WINDOW_CLOSE).addCss(dui_tracker_node_icon)));
+                    DominoUIConfig.CONFIG
+                        .getUIConfig()
+                        .getWindowCloseIcon()
+                        .addCss(dui_tracker_node_icon)));
   }
 
   /**

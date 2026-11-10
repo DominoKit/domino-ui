@@ -22,8 +22,6 @@ import elemental2.dom.HTMLElement;
 import org.dominokit.domino.ui.button.Button;
 import org.dominokit.domino.ui.button.DropdownButton;
 import org.dominokit.domino.ui.button.group.ButtonsGroup;
-import org.dominokit.domino.ui.icons.DefaultIcons;
-import org.dominokit.domino.ui.icons.IconName;
 import org.dominokit.domino.ui.menu.CustomMenuItem;
 import org.dominokit.domino.ui.menu.Menu;
 import org.dominokit.domino.ui.menu.direction.DropDirection;
@@ -32,6 +30,7 @@ import org.dominokit.domino.ui.pickers.ColorValue;
 import org.dominokit.domino.ui.pickers.SimpleColorPicker;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
 import org.dominokit.domino.ui.utils.ChildHandler;
+import org.dominokit.domino.ui.utils.DominoUIConfig;
 
 /**
  * An abstract button component designed to allow color selection using {@link SimpleColorPicker}.
@@ -63,7 +62,7 @@ public abstract class ColorPickerButton extends BaseDominoElement<HTMLElement, C
         ButtonsGroup.create(
             mainButton = makeIndicatorButton(),
             DropdownButton.create(
-                Button.create(DefaultIcons.coreIcon(IconName.CHEVRON_DOWN)),
+                Button.create(DominoUIConfig.CONFIG.getUIConfig().getChevronDownIcon()),
                 Menu.<String>create()
                     .addCss(dui_color_picker)
                     .appendChild(

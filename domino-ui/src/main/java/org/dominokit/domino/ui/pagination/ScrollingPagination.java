@@ -23,9 +23,8 @@ import java.util.Map;
 import java.util.stream.IntStream;
 import org.dominokit.domino.ui.config.HasComponentConfig;
 import org.dominokit.domino.ui.config.PaginationConfig;
-import org.dominokit.domino.ui.icons.DefaultIcons;
-import org.dominokit.domino.ui.icons.IconName;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
+import org.dominokit.domino.ui.utils.DominoUIConfig;
 
 /**
  * ScrollingPagination provides a pagination component with a scrolling window of page numbers.
@@ -141,9 +140,11 @@ public class ScrollingPagination extends BasePagination<ScrollingPagination>
     this.windowSize = windowSize;
     pagesList.addCss("dui-scrolling-pagination");
     pagesList.insertFirst(
-        prevSet = PagerNavItem.nav(DefaultIcons.coreIcon(IconName.PAGE_FIRST)).collapse());
+        prevSet =
+            PagerNavItem.nav(DominoUIConfig.CONFIG.getUIConfig().getPageFirstIcon()).collapse());
     pagesList.appendChild(
-        nextSet = PagerNavItem.nav(DefaultIcons.coreIcon(IconName.PAGE_LAST)).collapse());
+        nextSet =
+            PagerNavItem.nav(DominoUIConfig.CONFIG.getUIConfig().getPageLastIcon()).collapse());
 
     firstPage
         .setCssProperty("order", "-30")

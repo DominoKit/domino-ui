@@ -26,11 +26,10 @@ import java.util.function.Function;
 import java.util.function.Supplier;
 import org.dominokit.domino.ui.datatable.TableRow;
 import org.dominokit.domino.ui.datatable.plugins.PluginConfig;
-import org.dominokit.domino.ui.icons.DefaultIcons;
 import org.dominokit.domino.ui.icons.Icon;
-import org.dominokit.domino.ui.icons.IconName;
 import org.dominokit.domino.ui.icons.IconWrapper;
 import org.dominokit.domino.ui.icons.ToggleIcon;
+import org.dominokit.domino.ui.utils.DominoUIConfig;
 
 /**
  * Configuration class for the TreeGridPlugin, which adds tree-like functionality to a DataTable.
@@ -45,8 +44,12 @@ public class TreePluginConfig<T> implements PluginConfig {
   private boolean lazy = false;
   private TreeGridPlugin.ParentRowCellsSupplier<T> parentRowCellsSupplier;
   private Supplier<ToggleIcon<?, ?>> expandToggleIconSupplier =
-      () -> DefaultIcons.toggle(IconName.MENU_RIGHT, IconName.MENU_DOWN);
-  private Supplier<Icon<?>> leafIconSupplier = () -> DefaultIcons.coreIcon(IconName.CIRCLE_MEDIUM);
+      () ->
+          ToggleIcon.of(
+              DominoUIConfig.CONFIG.getUIConfig().getMenuRightIcon(),
+              DominoUIConfig.CONFIG.getUIConfig().getMenuDownIcon());
+  private Supplier<Icon<?>> leafIconSupplier =
+      () -> DominoUIConfig.CONFIG.getUIConfig().getCircleMediumIcon();
   private Function<TableRow<T>, Node> indentColumnElementSupplier = tableRow -> elements.text();
   private int indent = DEFAULT_INDENT;
 
@@ -113,7 +116,10 @@ public class TreePluginConfig<T> implements PluginConfig {
       Supplier<ToggleIcon<?, ?>> expandIconSupplier) {
     if (isNull(expandIconSupplier)) {
       this.expandToggleIconSupplier =
-          () -> DefaultIcons.toggle(IconName.MENU_RIGHT, IconName.MENU_DOWN);
+          () ->
+              ToggleIcon.of(
+                  DominoUIConfig.CONFIG.getUIConfig().getMenuRightIcon(),
+                  DominoUIConfig.CONFIG.getUIConfig().getMenuDownIcon());
     } else {
       this.expandToggleIconSupplier = expandIconSupplier;
     }
@@ -138,7 +144,9 @@ public class TreePluginConfig<T> implements PluginConfig {
   public TreePluginConfig<T> setLeafIconSupplier(Supplier<Icon<?>> leafIconSupplier) {
     if (isNull(leafIconSupplier)) {
       this.leafIconSupplier =
-          () -> IconWrapper.of(DefaultIcons.icon(IconName.CIRCLE_MEDIUM)).addCss(dui_font_size_4);
+          () ->
+              IconWrapper.of(DominoUIConfig.CONFIG.getUIConfig().getCircleMediumIcon())
+                  .addCss(dui_font_size_4);
     } else {
       this.leafIconSupplier = leafIconSupplier;
     }

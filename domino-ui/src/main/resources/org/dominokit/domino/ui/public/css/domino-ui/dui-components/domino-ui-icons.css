@@ -33,6 +33,20 @@
     --dui-icon-size: var(--dui-icon-size-xl, var(--dui-spc-px-24, 1.5em));
 }
 
+/* Keep font icon packs compatible with the original MDI sizing contract. */
+.dui-icons.dui-icon-mdi {
+    --dui-icon-size: var(--dui-font-size, var(--dui-default-icon-size));
+    display: inline-block;
+    vertical-align: middle;
+    font-size: var(--dui-icon-size);
+    min-width: calc(var(--dui-icon-size) + 4px);
+    max-width: calc(var(--dui-icon-size) + 4px);
+    min-height: calc(var(--dui-icon-size) + 4px);
+    max-height: calc(var(--dui-icon-size) + 4px);
+    line-height: calc(var(--dui-icon-size) + 4px);
+    text-align: center;
+}
+
 .dui-stroke-width-1 {
     --dui-icon-stroke-width: var(--dui-icon-stroke-width-1, 1);
 }

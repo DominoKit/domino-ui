@@ -42,10 +42,6 @@ public final class LucideIcon extends AbstractIcon<LucideIcon> {
     icon.appendChild(svgElement);
   }
 
-  public static LucideIcon create(IconName role) {
-    return LucideIconProvider.INSTANCE.icon(role);
-  }
-
   public static LucideIcon create(LucideIconDefinition definition) {
     return new LucideIcon(definition);
   }

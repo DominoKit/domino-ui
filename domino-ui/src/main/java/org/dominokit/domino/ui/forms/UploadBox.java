@@ -27,9 +27,8 @@ import java.util.List;
 import java.util.stream.Collectors;
 import org.dominokit.domino.ui.elements.DivElement;
 import org.dominokit.domino.ui.elements.SpanElement;
-import org.dominokit.domino.ui.icons.DefaultIcons;
-import org.dominokit.domino.ui.icons.IconName;
 import org.dominokit.domino.ui.utils.*;
+import org.dominokit.domino.ui.utils.DominoUIConfig;
 
 /**
  * The <b>UploadBox</b> class represents an input field for uploading files. It extends the
@@ -86,7 +85,9 @@ public class UploadBox extends InputFormField<UploadBox, HTMLInputElement, List<
     postfixElement = LazyChild.of(div().addCss(dui_field_postfix), wrapperElement);
     appendChild(
         PrimaryAddOn.of(
-            DefaultIcons.coreIcon(IconName.UPLOAD)
+            DominoUIConfig.CONFIG
+                .getUIConfig()
+                .getUploadIcon()
                 .clickable()
                 .setAttribute("aria-label", "Choose file")
                 .addClickListener(evt -> getInputElement().element().click())));

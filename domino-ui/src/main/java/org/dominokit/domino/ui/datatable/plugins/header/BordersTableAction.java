@@ -17,10 +17,9 @@ package org.dominokit.domino.ui.datatable.plugins.header;
 
 import elemental2.dom.HTMLElement;
 import org.dominokit.domino.ui.datatable.DataTable;
-import org.dominokit.domino.ui.icons.DefaultIcons;
-import org.dominokit.domino.ui.icons.IconName;
 import org.dominokit.domino.ui.icons.ToggleIcon;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
+import org.dominokit.domino.ui.utils.DominoUIConfig;
 
 /**
  * An implementation of the {@link HeaderActionElement} that allows toggling table borders.
@@ -44,7 +43,9 @@ public class BordersTableAction<T> extends BaseDominoElement<HTMLElement, Border
    */
   public BordersTableAction(DataTable<T> dataTable) {
     bordersIcon =
-        DefaultIcons.toggle(IconName.BORDER_VERTICAL, IconName.BORDER_NONE)
+        ToggleIcon.of(
+                DominoUIConfig.CONFIG.getUIConfig().getBorderVerticalIcon(),
+                DominoUIConfig.CONFIG.getUIConfig().getBorderNoneIcon())
             .clickable()
             .setAriaLabel("Toggle table borders")
             .toggleOnClick(true)

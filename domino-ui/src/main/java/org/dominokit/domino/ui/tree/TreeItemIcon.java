@@ -15,8 +15,8 @@
  */
 package org.dominokit.domino.ui.tree;
 
-import org.dominokit.domino.ui.icons.DefaultStateChangeIcon;
 import org.dominokit.domino.ui.icons.IsIcon;
+import org.dominokit.domino.ui.icons.StateChangeIcon;
 
 /**
  * The TreeItemIcon class provides a utility for creating a state-changing icon for tree items. This
@@ -46,12 +46,12 @@ public class TreeItemIcon {
    * @param active The icon to be displayed when the tree item is active/selected.
    * @return A state-changing icon that can display different icons based on the tree item's state.
    */
-  public static DefaultStateChangeIcon of(
+  public static StateChangeIcon<?, ?> of(
       IsIcon<?> collapsed, IsIcon<?> expanded, IsIcon<?> leaf, IsIcon<?> active) {
-    return DefaultStateChangeIcon.of(leaf.copy())
-        .withIconState(STATE_COLLAPSED, collapsed)
-        .withIconState(STATE_EXPANDED, expanded)
-        .withIconState(STATE_LEAF, leaf)
-        .withIconState(STATE_ACTIVE, active);
+    return StateChangeIcon.of(leaf.copy())
+        .withState(STATE_COLLAPSED, collapsed)
+        .withState(STATE_EXPANDED, expanded)
+        .withState(STATE_LEAF, leaf)
+        .withState(STATE_ACTIVE, active);
   }
 }

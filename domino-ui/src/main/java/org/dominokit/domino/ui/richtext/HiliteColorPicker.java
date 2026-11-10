@@ -18,10 +18,9 @@ package org.dominokit.domino.ui.richtext;
 import static org.dominokit.domino.ui.utils.Domino.*;
 
 import org.dominokit.domino.ui.button.Button;
-import org.dominokit.domino.ui.icons.DefaultIcons;
 import org.dominokit.domino.ui.icons.Icon;
-import org.dominokit.domino.ui.icons.IconName;
 import org.dominokit.domino.ui.pickers.ColorValue;
+import org.dominokit.domino.ui.utils.DominoUIConfig;
 
 /**
  * A UI component for selecting highlight color.
@@ -71,7 +70,9 @@ public class HiliteColorPicker extends ColorPickerButton {
   public Button makeIndicatorButton() {
     return Button.create(
         colorIndicator =
-            DefaultIcons.coreIcon(IconName.FORMAT_COLOR_HIGHLIGHT)
+            DominoUIConfig.CONFIG
+                .getUIConfig()
+                .getFormatColorHighlightIcon()
                 .addCss(dui_font_size_4)
                 .setColor(getDefaultColor())
                 .addCss(dui_bg_white, dui_border, dui_border_solid, dui_border_black));

@@ -19,11 +19,10 @@ import static org.dominokit.domino.ui.utils.Domino.*;
 
 import elemental2.dom.HTMLElement;
 import org.dominokit.domino.ui.button.Button;
-import org.dominokit.domino.ui.icons.DefaultIcons;
-import org.dominokit.domino.ui.icons.IconName;
 import org.dominokit.domino.ui.richtext.IsRichTextEditor;
 import org.dominokit.domino.ui.richtext.RichTextCommand;
 import org.dominokit.domino.ui.utils.DominoDom;
+import org.dominokit.domino.ui.utils.DominoUIConfig;
 
 /**
  * Represents a UI command to insert a horizontal rule within a rich text editor.
@@ -61,7 +60,7 @@ public class HorizontalRuleCommand extends RichTextCommand<HorizontalRuleCommand
   public HorizontalRuleCommand(IsRichTextEditor isRichTextEditor) {
     super(isRichTextEditor);
     this.button =
-        Button.create(DefaultIcons.coreIcon(IconName.MINUS))
+        Button.create(DominoUIConfig.CONFIG.getUIConfig().getMinusIcon())
             .setTooltip(getLabels().insertHorizontalRule())
             .addClickListener(evt -> execute());
     init(this);

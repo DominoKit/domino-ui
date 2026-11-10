@@ -28,6 +28,12 @@ import org.dominokit.domino.ui.utils.ElementHandler;
  * @param <T> The type of ToggleIcon itself.
  */
 public abstract class ToggleIcon<I extends IsIcon<I>, T extends ToggleIcon<I, T>> extends Icon<T> {
+
+  /** Creates a toggle composition from arbitrary icons while keeping the public type abstract. */
+  public static ToggleIcon<?, ?> of(IsIcon<?> primary, IsIcon<?> alternate) {
+    return new ToggleIconImpl(IconWrapper.of(primary), IconWrapper.of(alternate));
+  }
+
   protected final I primary;
   protected final I toggle;
   protected boolean toggleOnClick = false;
@@ -179,5 +185,16 @@ public abstract class ToggleIcon<I extends IsIcon<I>, T extends ToggleIcon<I, T>
     if (toggleOnClick) {
       toggle();
     }
+  }
+}
+
+final class ToggleIconImpl extends ToggleIcon<IconWrapper, ToggleIconImpl> {
+  ToggleIconImpl(IconWrapper primary, IconWrapper alternate) {
+    super(primary, alternate);
+  }
+
+  @Override
+  public ToggleIconImpl copy() {
+    return new ToggleIconImpl(primary.copy(), toggle.copy());
   }
 }

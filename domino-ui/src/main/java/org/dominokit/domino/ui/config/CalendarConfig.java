@@ -17,7 +17,7 @@ package org.dominokit.domino.ui.config;
 
 import java.util.function.Supplier;
 import org.dominokit.domino.ui.icons.Icon;
-import org.dominokit.domino.ui.icons.IconName;
+import org.dominokit.domino.ui.utils.DominoUIConfig;
 
 /**
  * Implementations of this interface can be used to configure defaults for {@link
@@ -33,7 +33,7 @@ public interface CalendarConfig extends ComponentConfig {
    * @return a {@code Supplier<Icon<?>>}
    */
   default Supplier<Icon<?>> defaultCalendarNextIcon() {
-    return () -> icon(IconName.CHEVRON_RIGHT);
+    return () -> DominoUIConfig.CONFIG.getUIConfig().getChevronRightIcon();
   }
 
   /**
@@ -44,7 +44,7 @@ public interface CalendarConfig extends ComponentConfig {
    * @return a {@code Supplier<Icon<?>>}
    */
   default Supplier<Icon<?>> defaultCalendarPreviousIcon() {
-    return () -> icon(IconName.CHEVRON_LEFT);
+    return () -> DominoUIConfig.CONFIG.getUIConfig().getChevronLeftIcon();
   }
 
   /**
@@ -55,6 +55,6 @@ public interface CalendarConfig extends ComponentConfig {
    * @return a {@code Supplier<Icon<?>>}
    */
   default Supplier<Icon<?>> defaultDateBoxIcon() {
-    return () -> icon(IconName.CALENDAR);
+    return () -> DominoUIConfig.CONFIG.getUIConfig().getCalendarIcon();
   }
 }

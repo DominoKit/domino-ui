@@ -39,12 +39,11 @@ import org.dominokit.domino.ui.datatable.plugins.pagination.StateIcon;
 import org.dominokit.domino.ui.elements.DivElement;
 import org.dominokit.domino.ui.elements.TDElement;
 import org.dominokit.domino.ui.elements.TableRowElement;
-import org.dominokit.domino.ui.icons.DefaultIcons;
 import org.dominokit.domino.ui.icons.Icon;
-import org.dominokit.domino.ui.icons.IconName;
 import org.dominokit.domino.ui.icons.IconWrapper;
 import org.dominokit.domino.ui.utils.ComponentMeta;
 import org.dominokit.domino.ui.utils.DominoEvent;
+import org.dominokit.domino.ui.utils.DominoUIConfig;
 
 /**
  * The {@code RecordDetailsPlugin} class is a DataTable plugin that allows expanding and collapsing
@@ -76,8 +75,8 @@ public class RecordDetailsPlugin<T> implements DataTablePlugin<T> {
   public RecordDetailsPlugin(CellRenderer<T> cellRenderer) {
     this(
         toDetailsRenderer(cellRenderer),
-        () -> DefaultIcons.coreIcon(IconName.FULLSCREEN).clickable(),
-        () -> DefaultIcons.coreIcon(IconName.FULLSCREEN_EXIT).clickable());
+        () -> DominoUIConfig.CONFIG.getUIConfig().getFullscreenIcon().clickable(),
+        () -> DominoUIConfig.CONFIG.getUIConfig().getFullscreenExitIcon().clickable());
   }
 
   /**
@@ -88,8 +87,8 @@ public class RecordDetailsPlugin<T> implements DataTablePlugin<T> {
   public RecordDetailsPlugin(RecordDetailsRenderer<T> cellRenderer) {
     this(
         cellRenderer,
-        () -> DefaultIcons.coreIcon(IconName.FULLSCREEN).clickable(),
-        () -> DefaultIcons.coreIcon(IconName.FULLSCREEN_EXIT).clickable());
+        () -> DominoUIConfig.CONFIG.getUIConfig().getFullscreenIcon().clickable(),
+        () -> DominoUIConfig.CONFIG.getUIConfig().getFullscreenExitIcon().clickable());
   }
 
   /**

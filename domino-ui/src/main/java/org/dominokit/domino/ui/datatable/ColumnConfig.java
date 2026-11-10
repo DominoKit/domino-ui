@@ -26,14 +26,13 @@ import java.util.function.Consumer;
 import java.util.function.Predicate;
 import org.dominokit.domino.ui.IsElement;
 import org.dominokit.domino.ui.elements.TableRowElement;
-import org.dominokit.domino.ui.icons.DefaultIcons;
-import org.dominokit.domino.ui.icons.IconName;
 import org.dominokit.domino.ui.icons.IconWrapper;
 import org.dominokit.domino.ui.menu.Menu;
 import org.dominokit.domino.ui.menu.direction.BestSideUpDownDropDirection;
 import org.dominokit.domino.ui.popover.Tooltip;
 import org.dominokit.domino.ui.utils.ComponentMeta;
 import org.dominokit.domino.ui.utils.DominoElement;
+import org.dominokit.domino.ui.utils.DominoUIConfig;
 import org.dominokit.domino.ui.utils.ElementsFactory;
 import org.dominokit.domino.ui.utils.Handler;
 import org.dominokit.domino.ui.utils.ScreenMedia;
@@ -125,7 +124,7 @@ public class ColumnConfig<T> implements ElementsFactory, DataTableStyles {
     this.name = name;
     this.title = title;
     menuIcon =
-        IconWrapper.of(DefaultIcons.icon(IconName.DOTS_VERTICAL))
+        IconWrapper.of(DominoUIConfig.CONFIG.getUIConfig().getDotsVerticalIcon())
             .addCss(dui_datatable_th_menu_icon);
     menuIcon.hide();
   }

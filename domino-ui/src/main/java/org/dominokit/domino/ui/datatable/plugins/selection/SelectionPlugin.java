@@ -37,12 +37,11 @@ import org.dominokit.domino.ui.datatable.events.TableDataUpdatedEvent;
 import org.dominokit.domino.ui.datatable.events.TableSelectionDisableEvent;
 import org.dominokit.domino.ui.datatable.plugins.DataTablePlugin;
 import org.dominokit.domino.ui.forms.CheckBox;
-import org.dominokit.domino.ui.icons.DefaultIcons;
 import org.dominokit.domino.ui.icons.Icon;
-import org.dominokit.domino.ui.icons.IconName;
 import org.dominokit.domino.ui.style.BooleanCssClass;
 import org.dominokit.domino.ui.style.CssClass;
 import org.dominokit.domino.ui.utils.DominoEvent;
+import org.dominokit.domino.ui.utils.DominoUIConfig;
 import org.dominokit.domino.ui.utils.HasSelectionListeners;
 import org.dominokit.domino.ui.utils.Selectable;
 
@@ -63,7 +62,7 @@ public class SelectionPlugin<T> implements DataTablePlugin<T> {
 
   private Selectable<TableRow<T>> selectedRow;
   private Supplier<Element> singleSelectIndicator =
-      () -> DefaultIcons.coreIcon(IconName.CHECK).element();
+      () -> DominoUIConfig.CONFIG.getUIConfig().getCheckIcon().element();
   private SelectionCondition<T> selectionCondition = (table, row) -> true;
   private TableRow<T> lastSelected;
   private CheckBoxCreator<T> checkBoxCreator = tableRow -> CheckBox.create().addCss(dui_minified);

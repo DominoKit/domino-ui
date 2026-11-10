@@ -39,7 +39,7 @@ import org.dominokit.domino.ui.utils.ElementUtil;
  *
  * <pre>
  * // Create a scroll to top button with an icon
- * Icon icon = DefaultIcons.coreIcon(IconName.ARROW_UPWARD);
+ * Icon icon = DominoUIConfig.CONFIG.getUIConfig().getArrowUpwardIcon();
  * ScrollTop scrollTopButton = new ScrollTop(icon);
  *
  * // Customize the button's position and show offset

@@ -31,11 +31,10 @@ import org.dominokit.domino.ui.datatable.plugins.DataTablePlugin;
 import org.dominokit.domino.ui.datatable.plugins.HasPluginConfig;
 import org.dominokit.domino.ui.elements.DivElement;
 import org.dominokit.domino.ui.elements.TableRowElement;
-import org.dominokit.domino.ui.icons.DefaultIcons;
-import org.dominokit.domino.ui.icons.IconName;
 import org.dominokit.domino.ui.icons.ToggleIcon;
 import org.dominokit.domino.ui.utils.ComponentMeta;
 import org.dominokit.domino.ui.utils.DominoEvent;
+import org.dominokit.domino.ui.utils.DominoUIConfig;
 
 /**
  * The {@code GroupingPlugin} class provides the functionality to group data in a {@link DataTable}
@@ -74,7 +73,10 @@ public class GroupingPlugin<T>
   private final GroupSupplier<T> groupSupplier;
   private GroupCellRenderer<T> groupRenderer;
   private Supplier<ToggleIcon<?, ?>> groupExpandedCollapseIconSupplier =
-      () -> DefaultIcons.toggle(IconName.MINUS_BOX, IconName.PLUS_BOX);
+      () ->
+          ToggleIcon.of(
+              DominoUIConfig.CONFIG.getUIConfig().getMinusBoxIcon(),
+              DominoUIConfig.CONFIG.getUIConfig().getPlusBoxIcon());
   private GroupingPluginConfig config = new GroupingPluginConfig();
 
   /**

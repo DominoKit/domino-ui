@@ -21,13 +21,12 @@ import static org.dominokit.domino.ui.utils.ElementsFactory.elements;
 import elemental2.dom.*;
 import jsinterop.base.Js;
 import org.dominokit.domino.ui.events.EventType;
-import org.dominokit.domino.ui.icons.DefaultIcons;
-import org.dominokit.domino.ui.icons.IconName;
 import org.dominokit.domino.ui.icons.IconWrapper;
 import org.dominokit.domino.ui.icons.IsIcon;
 import org.dominokit.domino.ui.layout.NavBar;
 import org.dominokit.domino.ui.utils.ChildHandler;
 import org.dominokit.domino.ui.utils.Domino;
+import org.dominokit.domino.ui.utils.DominoUIConfig;
 import org.dominokit.domino.ui.utils.PostfixAddOn;
 
 /**
@@ -110,7 +109,7 @@ public class Window extends AbstractDialog<Window> {
     addCss(dui_window);
 
     restoreIcon =
-        IconWrapper.of(DefaultIcons.icon(IconName.WINDOW_RESTORE))
+        IconWrapper.of(DominoUIConfig.CONFIG.getUIConfig().getWindowRestoreIcon())
             .addCss(dui_order_last_1)
             .clickable()
             .setAttribute("aria-label", "Restore window")
@@ -121,7 +120,7 @@ public class Window extends AbstractDialog<Window> {
                 })
             .collapse();
     maximizeIcon =
-        IconWrapper.of(DefaultIcons.icon(IconName.WINDOW_MAXIMIZE))
+        IconWrapper.of(DominoUIConfig.CONFIG.getUIConfig().getWindowMaximizeIcon())
             .addCss(dui_order_last_1)
             .clickable()
             .setAttribute("aria-label", "Maximize window")
@@ -131,7 +130,7 @@ public class Window extends AbstractDialog<Window> {
                   maximize();
                 });
     closeIcon =
-        IconWrapper.of(DefaultIcons.icon(IconName.CLOSE))
+        IconWrapper.of(DominoUIConfig.CONFIG.getUIConfig().getCloseIcon())
             .addCss(dui_order_last_4)
             .clickable()
             .setAttribute("aria-label", "Close window")

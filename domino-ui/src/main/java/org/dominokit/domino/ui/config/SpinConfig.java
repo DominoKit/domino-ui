@@ -17,7 +17,7 @@ package org.dominokit.domino.ui.config;
 
 import java.util.function.Supplier;
 import org.dominokit.domino.ui.icons.Icon;
-import org.dominokit.domino.ui.icons.IconName;
+import org.dominokit.domino.ui.utils.DominoUIConfig;
 
 /**
  * Implementations of this interface can be used to configure defaults for {@link
@@ -33,7 +33,7 @@ public interface SpinConfig extends ComponentConfig {
    * @return a {@code Supplier<Icon<?>>}
    */
   default Supplier<Icon<?>> getDefaultBackIconSupplier() {
-    return () -> icon(IconName.CHEVRON_LEFT);
+    return () -> DominoUIConfig.CONFIG.getUIConfig().getChevronLeftIcon();
   }
 
   /**
@@ -44,7 +44,7 @@ public interface SpinConfig extends ComponentConfig {
    * @return a {@code Supplier<Icon<?>>}
    */
   default Supplier<Icon<?>> getDefaultForwardIconSupplier() {
-    return () -> icon(IconName.CHEVRON_RIGHT);
+    return () -> DominoUIConfig.CONFIG.getUIConfig().getChevronRightIcon();
   }
 
   /**
@@ -55,7 +55,7 @@ public interface SpinConfig extends ComponentConfig {
    * @return a {@code Supplier<Icon<?>>}
    */
   default Supplier<Icon<?>> getDefaultUpIconSupplier() {
-    return () -> icon(IconName.CHEVRON_UP);
+    return () -> DominoUIConfig.CONFIG.getUIConfig().getChevronUpIcon();
   }
 
   /**
@@ -66,6 +66,6 @@ public interface SpinConfig extends ComponentConfig {
    * @return a {@code Supplier<Icon<?>>}
    */
   default Supplier<Icon<?>> getDefaultDownIconSupplier() {
-    return () -> icon(IconName.CHEVRON_DOWN);
+    return () -> DominoUIConfig.CONFIG.getUIConfig().getChevronDownIcon();
   }
 }

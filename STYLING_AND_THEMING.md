@@ -188,6 +188,34 @@ are intentionally excluded; the owned `domino-ui-waitme.css` loader resource is 
 identity, character, density, or surface theme, and it remains outside the optional theme bundle.
 Use its generated `domino-ui-waitme.min.css` sibling when loading individual production resources.
 
+### Load an icon pack stylesheet
+
+Icon pack CSS is distributed separately from `domino-ui.css`. Add the stylesheet for each icon
+pack used by the application to the HTML page. The URL follows this pattern:
+
+```text
+/webjars/domino-ui-icons-{pack}/css/domino-ui-icons-{pack}.css
+```
+
+For example, include the MDI stylesheet like this:
+
+```html
+<link rel="stylesheet" href="/webjars/domino-ui-icons-mdi/css/domino-ui-icons-mdi.css">
+```
+
+The available pack names are `mdi`, `lucide`, `tabler`, and `material-symbols`. Their stylesheet
+URLs are:
+
+```html
+<link rel="stylesheet" href="/webjars/domino-ui-icons-mdi/css/domino-ui-icons-mdi.css">
+<link rel="stylesheet" href="/webjars/domino-ui-icons-lucide/css/domino-ui-icons-lucide.css">
+<link rel="stylesheet" href="/webjars/domino-ui-icons-tabler/css/domino-ui-icons-tabler.css">
+<link rel="stylesheet" href="/webjars/domino-ui-icons-material-symbols/css/domino-ui-icons-material-symbols.css">
+```
+
+Include only the pack stylesheets that the application uses. Each pack artifact contains its
+stylesheet and any required font files; the CSS uses relative URLs for those assets.
+
 ## Theme composition
 
 ### Core categories

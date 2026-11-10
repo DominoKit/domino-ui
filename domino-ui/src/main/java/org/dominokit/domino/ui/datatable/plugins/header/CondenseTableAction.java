@@ -17,10 +17,9 @@ package org.dominokit.domino.ui.datatable.plugins.header;
 
 import elemental2.dom.HTMLElement;
 import org.dominokit.domino.ui.datatable.DataTable;
-import org.dominokit.domino.ui.icons.DefaultIcons;
-import org.dominokit.domino.ui.icons.IconName;
 import org.dominokit.domino.ui.icons.ToggleIcon;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
+import org.dominokit.domino.ui.utils.DominoUIConfig;
 
 public class CondenseTableAction<T> extends BaseDominoElement<HTMLElement, CondenseTableAction<T>> {
 
@@ -34,7 +33,9 @@ public class CondenseTableAction<T> extends BaseDominoElement<HTMLElement, Conde
 
   public CondenseTableAction(DataTable<T> dataTable) {
     condenseIcon =
-        DefaultIcons.toggle(IconName.ARROW_COLLAPSE_VERTICAL, IconName.ARROW_EXPAND_VERTICAL)
+        ToggleIcon.of(
+                DominoUIConfig.CONFIG.getUIConfig().getArrowCollapseVerticalIcon(),
+                DominoUIConfig.CONFIG.getUIConfig().getArrowExpandVerticalIcon())
             .clickable()
             .setAriaLabel("Toggle compact table")
             .setTooltip(condenseToolTip)

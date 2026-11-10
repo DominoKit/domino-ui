@@ -25,12 +25,11 @@ import static org.dominokit.domino.ui.utils.Domino.div;
 import elemental2.dom.HTMLDivElement;
 import elemental2.dom.HTMLElement;
 import org.dominokit.domino.ui.elements.DivElement;
-import org.dominokit.domino.ui.icons.DefaultIcons;
-import org.dominokit.domino.ui.icons.IconName;
 import org.dominokit.domino.ui.icons.IsIcon;
 import org.dominokit.domino.ui.style.BooleanCssClass;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
 import org.dominokit.domino.ui.utils.ChildHandler;
+import org.dominokit.domino.ui.utils.DominoUIConfig;
 import org.dominokit.domino.ui.utils.HasClickableElement;
 
 /**
@@ -168,7 +167,8 @@ public class Fab extends BaseDominoElement<HTMLDivElement, Fab> implements HasCl
     actions = div().addCss(dui_fab_actions);
     actions.setAttribute("hidden", true);
     root.insertBefore(actions.element(), button.element());
-    closeButton = Button.create(DefaultIcons.coreIcon(IconName.CLOSE)).addCss(dui_fab_button);
+    closeButton =
+        Button.create(DominoUIConfig.CONFIG.getUIConfig().getCloseIcon()).addCss(dui_fab_button);
     closeButton.setAriaLabel("Close actions");
     closeButton.setAttribute("hidden", true);
     closeButton.addClickListener(event -> setExpanded(false));

@@ -24,11 +24,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Consumer;
 import org.dominokit.domino.ui.elements.UListElement;
-import org.dominokit.domino.ui.icons.DefaultIcons;
-import org.dominokit.domino.ui.icons.IconName;
 import org.dominokit.domino.ui.icons.IconWrapper;
 import org.dominokit.domino.ui.menu.direction.DropDirection;
 import org.dominokit.domino.ui.popover.Popover;
+import org.dominokit.domino.ui.utils.DominoUIConfig;
 import org.dominokit.domino.ui.utils.HandlerRecord;
 import org.gwtproject.timer.client.Timer;
 
@@ -45,7 +44,7 @@ public class TabsDropDownHandler implements TabsOverflowHandler {
 
   public TabsDropDownHandler() {
     dropDownIcon =
-        IconWrapper.of(DefaultIcons.icon(IconName.DOTS_HORIZONTAL))
+        IconWrapper.of(DominoUIConfig.CONFIG.getUIConfig().getDotsHorizontalIcon())
             .clickable()
             .setAriaLabel("Show more tabs");
     popover =

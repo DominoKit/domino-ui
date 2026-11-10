@@ -42,10 +42,6 @@ public final class TablerIcon extends AbstractIcon<TablerIcon> {
     icon.appendChild(svgElement);
   }
 
-  public static TablerIcon create(IconName role) {
-    return TablerIconProvider.INSTANCE.icon(role);
-  }
-
   public static TablerIcon create(TablerIconDefinition definition) {
     return new TablerIcon(definition);
   }

@@ -30,12 +30,11 @@ import org.dominokit.domino.ui.datatable.events.RowRecordUpdatedEvent;
 import org.dominokit.domino.ui.datatable.events.TableBorderedEvent;
 import org.dominokit.domino.ui.datatable.plugins.DataTablePlugin;
 import org.dominokit.domino.ui.datatable.plugins.HasPluginConfig;
-import org.dominokit.domino.ui.icons.DefaultIcons;
 import org.dominokit.domino.ui.icons.Icon;
-import org.dominokit.domino.ui.icons.IconName;
 import org.dominokit.domino.ui.menu.MenuItem;
 import org.dominokit.domino.ui.utils.DominoCSSRule;
 import org.dominokit.domino.ui.utils.DominoEvent;
+import org.dominokit.domino.ui.utils.DominoUIConfig;
 import org.dominokit.domino.ui.utils.ElementUtil;
 import org.dominokit.domino.ui.utils.PrefixAddOn;
 
@@ -83,7 +82,6 @@ import org.dominokit.domino.ui.utils.PrefixAddOn;
  * @param <T> The type of data in the DataTable.
  * @see org.dominokit.domino.ui.datatable.plugins.column.PinColumnMeta
  * @see org.dominokit.domino.ui.icons.Icon
- * @see org.dominokit.domino.ui.icons.IconProvider
  */
 public class PinColumnsPlugin<T>
     implements DataTablePlugin<T>, HasPluginConfig<T, PinColumnsPlugin<T>, PinColumnsConfig> {
@@ -158,7 +156,9 @@ public class PinColumnsPlugin<T>
                     .appendChild(
                         MenuItem.<String>create(config.getPinLeftText())
                             .withValue("left")
-                            .appendChild(PrefixAddOn.of(DefaultIcons.coreIcon(IconName.DOCK_LEFT)))
+                            .appendChild(
+                                PrefixAddOn.of(
+                                    DominoUIConfig.CONFIG.getUIConfig().getDockLeftIcon()))
                             .addSelectionListener(
                                 (source, selection) -> {
                                   setPinLeftColumn(column);
@@ -167,7 +167,9 @@ public class PinColumnsPlugin<T>
                     .appendChild(
                         MenuItem.<String>create(config.getPinRightText())
                             .withValue("right")
-                            .appendChild(PrefixAddOn.of(DefaultIcons.coreIcon(IconName.DOCK_RIGHT)))
+                            .appendChild(
+                                PrefixAddOn.of(
+                                    DominoUIConfig.CONFIG.getUIConfig().getDockRightIcon()))
                             .addSelectionListener(
                                 (source, selection) -> {
                                   setPinRightColumn(column);
@@ -176,7 +178,8 @@ public class PinColumnsPlugin<T>
                     .appendChild(
                         MenuItem.<String>create(config.getUnpinText())
                             .withValue("right")
-                            .appendChild(PrefixAddOn.of(DefaultIcons.coreIcon(IconName.PIN_OFF)))
+                            .appendChild(
+                                PrefixAddOn.of(DominoUIConfig.CONFIG.getUIConfig().getPinOffIcon()))
                             .addSelectionListener(
                                 (source, selection) -> {
                                   unpinColumn(column);

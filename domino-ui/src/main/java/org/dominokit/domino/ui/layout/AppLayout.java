@@ -26,9 +26,7 @@ import org.dominokit.domino.ui.elements.AsideElement;
 import org.dominokit.domino.ui.elements.DivElement;
 import org.dominokit.domino.ui.elements.HeaderElement;
 import org.dominokit.domino.ui.elements.SectionElement;
-import org.dominokit.domino.ui.icons.DefaultIcons;
 import org.dominokit.domino.ui.icons.Icon;
-import org.dominokit.domino.ui.icons.IconName;
 import org.dominokit.domino.ui.icons.IconWrapper;
 import org.dominokit.domino.ui.icons.IsIcon;
 import org.dominokit.domino.ui.style.BooleanCssClass;
@@ -37,6 +35,7 @@ import org.dominokit.domino.ui.style.SwapCssClass;
 import org.dominokit.domino.ui.style.ToggleCssClass;
 import org.dominokit.domino.ui.utils.*;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
+import org.dominokit.domino.ui.utils.DominoUIConfig;
 
 /**
  * The <b>AppLayout</b> class represents the main layout structure for a web application. It
@@ -61,9 +60,9 @@ public class AppLayout extends BaseDominoElement<HTMLDivElement, AppLayout>
   private final LazyChild<SectionElement> rightDrawerContent;
   private final LazyChild<DivElement> overlay;
   private LazyChild<PrefixAddOn<HTMLElement>> leftDrawerToggle;
-  private Icon<?> leftToggleIcon = DefaultIcons.coreIcon(IconName.MENU);
+  private Icon<?> leftToggleIcon = DominoUIConfig.CONFIG.getUIConfig().getMenuIcon();
   private LazyChild<PostfixAddOn<HTMLElement>> rightDrawerToggle;
-  private Icon<?> rightToggleIcon = DefaultIcons.coreIcon(IconName.MENU_OPEN);
+  private Icon<?> rightToggleIcon = DominoUIConfig.CONFIG.getUIConfig().getMenuOpenIcon();
 
   private boolean autoCloseLeftDrawer = true;
   private boolean autoCloseRightDrawer = true;

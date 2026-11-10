@@ -17,12 +17,11 @@ package org.dominokit.domino.ui.richtext.commands;
 
 import elemental2.dom.HTMLElement;
 import org.dominokit.domino.ui.button.Button;
-import org.dominokit.domino.ui.icons.DefaultIcons;
-import org.dominokit.domino.ui.icons.IconName;
 import org.dominokit.domino.ui.richtext.IsRichTextEditor;
 import org.dominokit.domino.ui.richtext.RichTextCommand;
 import org.dominokit.domino.ui.utils.Counter;
 import org.dominokit.domino.ui.utils.DominoDom;
+import org.dominokit.domino.ui.utils.DominoUIConfig;
 
 /**
  * Represents a UI component for decreasing the font size of the selected text within a rich text
@@ -64,7 +63,7 @@ public class DecreaseFontCommand extends RichTextCommand<DecreaseFontCommand> {
     super(isRichTextEditor);
     this.fontSize = isRichTextEditor.getDefaultFontSizeCounter();
     this.button =
-        Button.create(DefaultIcons.coreIcon(IconName.FORMAT_FONT_SIZE_DECREASE))
+        Button.create(DominoUIConfig.CONFIG.getUIConfig().getFormatFontSizeDecreaseIcon())
             .setTooltip(getLabels().decreaseFontSize())
             .addClickListener(evt -> execute());
     init(this);

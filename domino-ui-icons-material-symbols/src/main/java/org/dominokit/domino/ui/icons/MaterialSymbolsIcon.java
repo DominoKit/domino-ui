@@ -32,10 +32,6 @@ public final class MaterialSymbolsIcon extends AbstractIcon<MaterialSymbolsIcon>
     applyAxes();
   }
 
-  public static MaterialSymbolsIcon create(IconName name) {
-    return new MaterialSymbolsIcon(MaterialSymbolNames.ligature(name));
-  }
-
   /** Creates an icon from a Google Material Symbols ligature name. */
   public static MaterialSymbolsIcon create(String ligature) {
     return new MaterialSymbolsIcon(ligature);

@@ -24,13 +24,12 @@ import elemental2.dom.HTMLElement;
 import org.dominokit.domino.ui.datatable.ColumnConfig;
 import org.dominokit.domino.ui.datatable.DataTable;
 import org.dominokit.domino.ui.datatable.DefaultColumnShowHideListener;
-import org.dominokit.domino.ui.icons.DefaultIcons;
 import org.dominokit.domino.ui.icons.Icon;
-import org.dominokit.domino.ui.icons.IconName;
 import org.dominokit.domino.ui.menu.CustomMenuItem;
 import org.dominokit.domino.ui.menu.Menu;
 import org.dominokit.domino.ui.menu.direction.DropDirection;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
+import org.dominokit.domino.ui.utils.DominoUIConfig;
 
 /**
  * An implementation of the {@link HeaderActionElement} that provides the ability to show/hide
@@ -55,7 +54,9 @@ public class ShowHideColumnsAction<T>
    */
   public ShowHideColumnsAction(DataTable<T> dataTable) {
     columnsIcon =
-        DefaultIcons.coreIcon(IconName.VIEW_COLUMN)
+        DominoUIConfig.CONFIG
+            .getUIConfig()
+            .getViewColumnIcon()
             .clickable()
             .setAriaLabel("Show or hide columns");
 
@@ -69,7 +70,9 @@ public class ShowHideColumnsAction<T>
                         .forEach(
                             columnConfig -> {
                               Icon<?> checkIcon =
-                                  DefaultIcons.coreIcon(IconName.CHECK)
+                                  DominoUIConfig.CONFIG
+                                      .getUIConfig()
+                                      .getCheckIcon()
                                       .toggleDisplay(!columnConfig.isHidden());
                               columnConfig.addShowHideListener(
                                   DefaultColumnShowHideListener.of(checkIcon.element(), true));

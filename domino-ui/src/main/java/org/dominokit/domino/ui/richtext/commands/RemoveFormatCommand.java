@@ -19,11 +19,10 @@ import static org.dominokit.domino.ui.utils.Domino.*;
 
 import elemental2.dom.HTMLElement;
 import org.dominokit.domino.ui.button.Button;
-import org.dominokit.domino.ui.icons.DefaultIcons;
-import org.dominokit.domino.ui.icons.IconName;
 import org.dominokit.domino.ui.richtext.IsRichTextEditor;
 import org.dominokit.domino.ui.richtext.RichTextCommand;
 import org.dominokit.domino.ui.utils.DominoDom;
+import org.dominokit.domino.ui.utils.DominoUIConfig;
 
 /**
  * Represents a UI command to remove formatting from the selected text in the rich text editor.
@@ -65,7 +64,7 @@ public class RemoveFormatCommand extends RichTextCommand<RemoveFormatCommand> {
   public RemoveFormatCommand(IsRichTextEditor isRichTextEditor) {
     super(isRichTextEditor);
     this.button =
-        Button.create(DefaultIcons.coreIcon(IconName.FORMAT_COLOR_MARKER_CANCEL))
+        Button.create(DominoUIConfig.CONFIG.getUIConfig().getFormatColorMarkerCancelIcon())
             .setTooltip(getLabels().removeFormat())
             .addClickListener(evt -> execute());
     init(this);

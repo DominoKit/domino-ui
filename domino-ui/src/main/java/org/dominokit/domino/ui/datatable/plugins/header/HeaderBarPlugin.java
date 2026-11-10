@@ -31,8 +31,6 @@ import org.dominokit.domino.ui.datatable.events.SearchClearedEvent;
 import org.dominokit.domino.ui.datatable.model.Category;
 import org.dominokit.domino.ui.datatable.model.Filter;
 import org.dominokit.domino.ui.datatable.plugins.DataTablePlugin;
-import org.dominokit.domino.ui.icons.DefaultIcons;
-import org.dominokit.domino.ui.icons.IconName;
 import org.dominokit.domino.ui.icons.IconWrapper;
 import org.dominokit.domino.ui.icons.ToggleIcon;
 import org.dominokit.domino.ui.layout.NavBar;
@@ -42,6 +40,7 @@ import org.dominokit.domino.ui.menu.direction.DropDirection;
 import org.dominokit.domino.ui.search.SearchBox;
 import org.dominokit.domino.ui.utils.ChildHandler;
 import org.dominokit.domino.ui.utils.DominoEvent;
+import org.dominokit.domino.ui.utils.DominoUIConfig;
 import org.dominokit.domino.ui.utils.PostfixAddOn;
 
 /**
@@ -151,7 +150,9 @@ public class HeaderBarPlugin<T> implements DataTablePlugin<T> {
     @Override
     public Element asElement(DataTable<T> dataTable) {
       ToggleIcon<?, ?> condenseIcon =
-          DefaultIcons.toggle(IconName.ARROW_COLLAPSE_VERTICAL, IconName.ARROW_EXPAND_VERTICAL)
+          ToggleIcon.of(
+                  DominoUIConfig.CONFIG.getUIConfig().getArrowCollapseVerticalIcon(),
+                  DominoUIConfig.CONFIG.getUIConfig().getArrowExpandVerticalIcon())
               .clickable()
               .setTooltip(condenseToolTip)
               .toggleOnClick(true)
@@ -211,7 +212,9 @@ public class HeaderBarPlugin<T> implements DataTablePlugin<T> {
     @Override
     public Element asElement(DataTable<T> dataTable) {
       ToggleIcon<?, ?> stripesIcon =
-          DefaultIcons.toggle(IconName.VIEW_DAY_OUTLINE, IconName.VIEW_DAY)
+          ToggleIcon.of(
+                  DominoUIConfig.CONFIG.getUIConfig().getViewDayOutlineIcon(),
+                  DominoUIConfig.CONFIG.getUIConfig().getViewDayIcon())
               .clickable()
               .setTooltip(noStripsToolTip)
               .toggleOnClick(true)
@@ -270,7 +273,9 @@ public class HeaderBarPlugin<T> implements DataTablePlugin<T> {
     @Override
     public Element asElement(DataTable<T> dataTable) {
       ToggleIcon<?, ?> bordersIcon =
-          DefaultIcons.toggle(IconName.BORDER_VERTICAL, IconName.BORDER_NONE)
+          ToggleIcon.of(
+                  DominoUIConfig.CONFIG.getUIConfig().getBorderVerticalIcon(),
+                  DominoUIConfig.CONFIG.getUIConfig().getBorderNoneIcon())
               .clickable()
               .toggleOnClick(true)
               .setTooltip(borderedToolTip)
@@ -332,7 +337,9 @@ public class HeaderBarPlugin<T> implements DataTablePlugin<T> {
     public Element asElement(DataTable<T> dataTable) {
 
       ToggleIcon<?, ?> hoverIcon =
-          DefaultIcons.toggle(IconName.BLUR_OFF, IconName.BLUR)
+          ToggleIcon.of(
+                  DominoUIConfig.CONFIG.getUIConfig().getBlurOffIcon(),
+                  DominoUIConfig.CONFIG.getUIConfig().getBlurIcon())
               .clickable()
               .toggleOnClick(true)
               .setTooltip(noHoverToolTip)
@@ -392,7 +399,7 @@ public class HeaderBarPlugin<T> implements DataTablePlugin<T> {
     public Element asElement(DataTable<T> dataTable) {
 
       IconWrapper clearFiltersIcon =
-          IconWrapper.of(DefaultIcons.icon(IconName.FILTER_OFF))
+          IconWrapper.of(DominoUIConfig.CONFIG.getUIConfig().getFilterOffIcon())
               .setTooltip(clearFiltersToolTip)
               .addCss(dui_font_size_4)
               .clickable()
@@ -532,7 +539,8 @@ public class HeaderBarPlugin<T> implements DataTablePlugin<T> {
      */
     @Override
     public Element asElement(DataTable<T> dataTable) {
-      IconWrapper columnsIcon = IconWrapper.of(DefaultIcons.icon(IconName.VIEW_COLUMN)).clickable();
+      IconWrapper columnsIcon =
+          IconWrapper.of(DominoUIConfig.CONFIG.getUIConfig().getViewColumnIcon()).clickable();
 
       Menu<String> dropDownMenu =
           Menu.<String>create()
@@ -544,7 +552,8 @@ public class HeaderBarPlugin<T> implements DataTablePlugin<T> {
                           .forEach(
                               columnConfig -> {
                                 IconWrapper checkIcon =
-                                    IconWrapper.of(DefaultIcons.icon(IconName.CHECK))
+                                    IconWrapper.of(
+                                            DominoUIConfig.CONFIG.getUIConfig().getCheckIcon())
                                         .toggleDisplay(!columnConfig.isHidden());
                                 columnConfig.addShowHideListener(
                                     DefaultColumnShowHideListener.of(checkIcon.element(), true));

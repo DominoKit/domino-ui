@@ -37,14 +37,13 @@ import org.dominokit.domino.ui.elements.SpanElement;
 import org.dominokit.domino.ui.forms.AbstractFormElement;
 import org.dominokit.domino.ui.forms.AutoValidator;
 import org.dominokit.domino.ui.forms.HasInputElement;
-import org.dominokit.domino.ui.icons.DefaultIcons;
-import org.dominokit.domino.ui.icons.IconName;
 import org.dominokit.domino.ui.menu.AbstractMenuItem;
 import org.dominokit.domino.ui.menu.Menu;
 import org.dominokit.domino.ui.menu.MenuItemsGroup;
 import org.dominokit.domino.ui.menu.direction.DropDirection;
 import org.dominokit.domino.ui.style.BooleanCssClass;
 import org.dominokit.domino.ui.utils.*;
+import org.dominokit.domino.ui.utils.DominoUIConfig;
 
 /**
  * Represents an abstract select form element which can be used as a base for building dropdown
@@ -200,7 +199,9 @@ public abstract class AbstractSelect<
 
     appendChild(
         PrimaryAddOn.of(
-            DefaultIcons.coreIcon(IconName.CHEVRON_DOWN)
+            DominoUIConfig.CONFIG
+                .getUIConfig()
+                .getChevronDownIcon()
                 .addCss(dui_form_select_drop_arrow)
                 .clickable()
                 .setAttribute("aria-label", "Open options")

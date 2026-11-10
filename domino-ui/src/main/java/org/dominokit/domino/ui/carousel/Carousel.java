@@ -35,14 +35,13 @@ import org.dominokit.domino.ui.elements.AnchorElement;
 import org.dominokit.domino.ui.elements.DivElement;
 import org.dominokit.domino.ui.elements.OListElement;
 import org.dominokit.domino.ui.events.EventType;
-import org.dominokit.domino.ui.icons.DefaultIcons;
-import org.dominokit.domino.ui.icons.IconName;
 import org.dominokit.domino.ui.icons.IconWrapper;
 import org.dominokit.domino.ui.icons.IsIcon;
 import org.dominokit.domino.ui.style.CssClass;
 import org.dominokit.domino.ui.style.GenericCss;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
 import org.dominokit.domino.ui.utils.ChildHandler;
+import org.dominokit.domino.ui.utils.DominoUIConfig;
 import org.dominokit.domino.ui.utils.SwipeUtil;
 import org.gwtproject.core.client.Scheduler;
 import org.gwtproject.timer.client.Timer;
@@ -101,7 +100,8 @@ public class Carousel extends BaseDominoElement<HTMLDivElement, Carousel>
                         .setAttribute("role", "button")
                         .appendChild(
                             prevIcon =
-                                IconWrapper.of(DefaultIcons.icon(IconName.CHEVRON_LEFT))
+                                IconWrapper.of(
+                                        DominoUIConfig.CONFIG.getUIConfig().getChevronLeftIcon())
                                     .addCss(GenericCss.dui_vertical_center, dui_font_size_12))
                         .setAttribute("aria-label", "Previous slide")
                         .addEventListener("click", evt -> previous())
@@ -114,7 +114,8 @@ public class Carousel extends BaseDominoElement<HTMLDivElement, Carousel>
                         .setAttribute("role", "button")
                         .appendChild(
                             nextIcon =
-                                IconWrapper.of(DefaultIcons.icon(IconName.CHEVRON_RIGHT))
+                                IconWrapper.of(
+                                        DominoUIConfig.CONFIG.getUIConfig().getChevronRightIcon())
                                     .addCss(GenericCss.dui_vertical_center, dui_font_size_12))
                         .setAttribute("aria-label", "Next slide")
                         .addEventListener("click", evt -> next())

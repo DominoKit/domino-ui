@@ -15,25 +15,5 @@
  */
 package org.dominokit.domino.ui.config;
 
-import org.dominokit.domino.ui.icons.DefaultToggleIcon;
-import org.dominokit.domino.ui.icons.Icon;
-import org.dominokit.domino.ui.icons.IconName;
-import org.dominokit.domino.ui.icons.IconWrapper;
-import org.dominokit.domino.ui.icons.IsIcon;
-
-/** ComponentConfig interface. */
-public interface ComponentConfig {
-
-  /** Creates a core icon wrapper from the configured default icon pack. */
-  default Icon<?> icon(IconName name) {
-    IsIcon<?> icon = DominoCoreConfig.Provider.get().getDefaultIconProvider().icon(name);
-    return IconWrapper.of(icon);
-  }
-
-  /** Creates a core toggle wrapper from icons supplied by the configured default pack. */
-  default DefaultToggleIcon toggle(IconName primary, IconName alternate) {
-    return DefaultToggleIcon.of(
-        DominoCoreConfig.Provider.get().getDefaultIconProvider().icon(primary),
-        DominoCoreConfig.Provider.get().getDefaultIconProvider().icon(alternate));
-  }
-}
+/** Marker interface for configuration shared by Domino UI components. */
+public interface ComponentConfig {}

@@ -24,10 +24,9 @@ import org.dominokit.domino.ui.button.Button;
 import org.dominokit.domino.ui.dialogs.ConfirmationDialog;
 import org.dominokit.domino.ui.dialogs.DialogSize;
 import org.dominokit.domino.ui.forms.TextBox;
-import org.dominokit.domino.ui.icons.DefaultIcons;
-import org.dominokit.domino.ui.icons.IconName;
 import org.dominokit.domino.ui.richtext.IsRichTextEditor;
 import org.dominokit.domino.ui.richtext.RichTextCommand;
+import org.dominokit.domino.ui.utils.DominoUIConfig;
 
 /**
  * Represents a UI command to insert an image from a link within a rich text editor.
@@ -80,7 +79,7 @@ public class InsertImageLinkCommand extends RichTextCommand<InsertImageLinkComma
                     rejectbutton
                         .setText(getLabels().close())
                         .addCss(dui_dominant)
-                        .setIcon(DefaultIcons.coreIcon(IconName.CLOSE)))
+                        .setIcon(DominoUIConfig.CONFIG.getUIConfig().getCloseIcon()))
             .appendChild(linkBox = TextBox.create(getLabels().imageLink()))
             .onConfirm(
                 dialog -> {
@@ -90,9 +89,13 @@ public class InsertImageLinkCommand extends RichTextCommand<InsertImageLinkComma
 
     this.button =
         Button.create(
-                DefaultIcons.coreIcon(IconName.IMAGE)
+                DominoUIConfig.CONFIG
+                    .getUIConfig()
+                    .getImageIcon()
                     .appendChild(
-                        DefaultIcons.coreIcon(IconName.LINK)
+                        DominoUIConfig.CONFIG
+                            .getUIConfig()
+                            .getLinkIcon()
                             .addCss(dui_font_size_4, dui_absolute, dui_top_1_5)
                             .setCssProperty("right", "15px")
                             .setCssProperty("color", "var(--dui-btn-bg)")))

@@ -19,12 +19,11 @@ import static org.dominokit.domino.ui.utils.Domino.*;
 
 import elemental2.dom.HTMLElement;
 import org.dominokit.domino.ui.button.Button;
-import org.dominokit.domino.ui.icons.DefaultIcons;
-import org.dominokit.domino.ui.icons.IconName;
 import org.dominokit.domino.ui.richtext.IsRichTextEditor;
 import org.dominokit.domino.ui.richtext.RichTextCommand;
 import org.dominokit.domino.ui.utils.Counter;
 import org.dominokit.domino.ui.utils.DominoDom;
+import org.dominokit.domino.ui.utils.DominoUIConfig;
 
 /**
  * Represents a UI command to increase the font size within a rich text editor.
@@ -66,7 +65,7 @@ public class IncreaseFontCommand extends RichTextCommand<IncreaseFontCommand> {
     super(isRichTextEditor);
     this.fontSize = isRichTextEditor.getDefaultFontSizeCounter();
     this.button =
-        Button.create(DefaultIcons.coreIcon(IconName.FORMAT_FONT_SIZE_INCREASE))
+        Button.create(DominoUIConfig.CONFIG.getUIConfig().getFormatFontSizeIncreaseIcon())
             .setTooltip(getLabels().increaseFontSize())
             .addClickListener(evt -> execute());
     init(this);

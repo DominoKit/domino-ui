@@ -1,0 +1,1088 @@
+/*
+ * Copyright © 2026 Dominokit
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+package org.dominokit.domino.ui.icons.lib;
+
+import java.util.ArrayList;
+import java.util.List;
+import org.dominokit.domino.ui.icons.IconCatalogEntry;
+import org.dominokit.domino.ui.icons.MaterialSymbolsAudioVideo;
+import org.dominokit.domino.ui.icons.MaterialSymbolsIcon;
+
+/** Static icon factory for the Material Symbols Audio Video category. */
+public final class MaterialSymbolsAudioVideo_Factory {
+  private static final List<IconCatalogEntry<MaterialSymbolsIcon>> icons = new ArrayList<>();
+  private static final MaterialSymbolsAudioVideo tagIcons = new MaterialSymbolsAudioVideo() {};
+
+  static {
+    addIcons0();
+    addIcons1();
+    addIcons2();
+  }
+
+  private static void addIcons0() {
+    icons.add(
+        new IconCatalogEntry<>(
+            "10k", "MaterialSymbolsIcon.create(\"10k\")", tagIcons::_10k_audio_video));
+    icons.add(
+        new IconCatalogEntry<>(
+            "1k", "MaterialSymbolsIcon.create(\"1k\")", tagIcons::_1k_audio_video));
+    icons.add(
+        new IconCatalogEntry<>(
+            "1k_plus", "MaterialSymbolsIcon.create(\"1k_plus\")", tagIcons::_1k_plus_audio_video));
+    icons.add(
+        new IconCatalogEntry<>(
+            "2d", "MaterialSymbolsIcon.create(\"2d\")", tagIcons::_2d_audio_video));
+    icons.add(
+        new IconCatalogEntry<>(
+            "2d_2", "MaterialSymbolsIcon.create(\"2d_2\")", tagIcons::_2d_2_audio_video));
+    icons.add(
+        new IconCatalogEntry<>(
+            "2k", "MaterialSymbolsIcon.create(\"2k\")", tagIcons::_2k_audio_video));
+    icons.add(
+        new IconCatalogEntry<>(
+            "2k_plus", "MaterialSymbolsIcon.create(\"2k_plus\")", tagIcons::_2k_plus_audio_video));
+    icons.add(
+        new IconCatalogEntry<>(
+            "30fps", "MaterialSymbolsIcon.create(\"30fps\")", tagIcons::_30fps_audio_video));
+    icons.add(
+        new IconCatalogEntry<>(
+            "3d", "MaterialSymbolsIcon.create(\"3d\")", tagIcons::_3d_audio_video));
+    icons.add(
+        new IconCatalogEntry<>(
+            "3d_2", "MaterialSymbolsIcon.create(\"3d_2\")", tagIcons::_3d_2_audio_video));
+    icons.add(
+        new IconCatalogEntry<>(
+            "3k", "MaterialSymbolsIcon.create(\"3k\")", tagIcons::_3k_audio_video));
+    icons.add(
+        new IconCatalogEntry<>(
+            "3k_plus", "MaterialSymbolsIcon.create(\"3k_plus\")", tagIcons::_3k_plus_audio_video));
+    icons.add(
+        new IconCatalogEntry<>(
+            "4k", "MaterialSymbolsIcon.create(\"4k\")", tagIcons::_4k_audio_video));
+    icons.add(
+        new IconCatalogEntry<>(
+            "4k_plus", "MaterialSymbolsIcon.create(\"4k_plus\")", tagIcons::_4k_plus_audio_video));
+    icons.add(
+        new IconCatalogEntry<>(
+            "5k", "MaterialSymbolsIcon.create(\"5k\")", tagIcons::_5k_audio_video));
+    icons.add(
+        new IconCatalogEntry<>(
+            "5k_plus", "MaterialSymbolsIcon.create(\"5k_plus\")", tagIcons::_5k_plus_audio_video));
+    icons.add(
+        new IconCatalogEntry<>(
+            "60fps", "MaterialSymbolsIcon.create(\"60fps\")", tagIcons::_60fps_audio_video));
+    icons.add(
+        new IconCatalogEntry<>(
+            "6k", "MaterialSymbolsIcon.create(\"6k\")", tagIcons::_6k_audio_video));
+    icons.add(
+        new IconCatalogEntry<>(
+            "6k_plus", "MaterialSymbolsIcon.create(\"6k_plus\")", tagIcons::_6k_plus_audio_video));
+    icons.add(
+        new IconCatalogEntry<>(
+            "7k", "MaterialSymbolsIcon.create(\"7k\")", tagIcons::_7k_audio_video));
+    icons.add(
+        new IconCatalogEntry<>(
+            "7k_plus", "MaterialSymbolsIcon.create(\"7k_plus\")", tagIcons::_7k_plus_audio_video));
+    icons.add(
+        new IconCatalogEntry<>(
+            "8k", "MaterialSymbolsIcon.create(\"8k\")", tagIcons::_8k_audio_video));
+    icons.add(
+        new IconCatalogEntry<>(
+            "8k_plus", "MaterialSymbolsIcon.create(\"8k_plus\")", tagIcons::_8k_plus_audio_video));
+    icons.add(
+        new IconCatalogEntry<>(
+            "9k", "MaterialSymbolsIcon.create(\"9k\")", tagIcons::_9k_audio_video));
+    icons.add(
+        new IconCatalogEntry<>(
+            "9k_plus", "MaterialSymbolsIcon.create(\"9k_plus\")", tagIcons::_9k_plus_audio_video));
+    icons.add(
+        new IconCatalogEntry<>(
+            "adaptive_audio_mic",
+            "MaterialSymbolsIcon.create(\"adaptive_audio_mic\")",
+            tagIcons::adaptive_audio_mic_audio_video));
+    icons.add(
+        new IconCatalogEntry<>(
+            "adaptive_audio_mic_off",
+            "MaterialSymbolsIcon.create(\"adaptive_audio_mic_off\")",
+            tagIcons::adaptive_audio_mic_off_audio_video));
+    icons.add(
+        new IconCatalogEntry<>(
+            "add_to_queue",
+            "MaterialSymbolsIcon.create(\"add_to_queue\")",
+            tagIcons::add_to_queue_audio_video));
+    icons.add(
+        new IconCatalogEntry<>(
+            "airplay", "MaterialSymbolsIcon.create(\"airplay\")", tagIcons::airplay_audio_video));
+    icons.add(
+        new IconCatalogEntry<>(
+            "album", "MaterialSymbolsIcon.create(\"album\")", tagIcons::album_audio_video));
+    icons.add(
+        new IconCatalogEntry<>(
+            "animated_images",
+            "MaterialSymbolsIcon.create(\"animated_images\")",
+            tagIcons::animated_images_audio_video));
+    icons.add(
+        new IconCatalogEntry<>(
+            "ar_on_you",
+            "MaterialSymbolsIcon.create(\"ar_on_you\")",
+            tagIcons::ar_on_you_audio_video));
+    icons.add(
+        new IconCatalogEntry<>(
+            "ar_stickers",
+            "MaterialSymbolsIcon.create(\"ar_stickers\")",
+            tagIcons::ar_stickers_audio_video));
+    icons.add(
+        new IconCatalogEntry<>(
+            "art_track",
+            "MaterialSymbolsIcon.create(\"art_track\")",
+            tagIcons::art_track_audio_video));
+    icons.add(
+        new IconCatalogEntry<>(
+            "artist", "MaterialSymbolsIcon.create(\"artist\")", tagIcons::artist_audio_video));
+    icons.add(
+        new IconCatalogEntry<>(
+            "audio_capture",
+            "MaterialSymbolsIcon.create(\"audio_capture\")",
+            tagIcons::audio_capture_audio_video));
+    icons.add(
+        new IconCatalogEntry<>(
+            "audio_description",
+            "MaterialSymbolsIcon.create(\"audio_description\")",
+            tagIcons::audio_description_audio_video));
+    icons.add(
+        new IconCatalogEntry<>(
+            "audio_file",
+            "MaterialSymbolsIcon.create(\"audio_file\")",
+            tagIcons::audio_file_audio_video));
+    icons.add(
+        new IconCatalogEntry<>(
+            "autopause",
+            "MaterialSymbolsIcon.create(\"autopause\")",
+            tagIcons::autopause_audio_video));
+    icons.add(
+        new IconCatalogEntry<>(
+            "autoplay",
+            "MaterialSymbolsIcon.create(\"autoplay\")",
+            tagIcons::autoplay_audio_video));
+    icons.add(
+        new IconCatalogEntry<>(
+            "autostop",
+            "MaterialSymbolsIcon.create(\"autostop\")",
+            tagIcons::autostop_audio_video));
+    icons.add(
+        new IconCatalogEntry<>(
+            "av1", "MaterialSymbolsIcon.create(\"av1\")", tagIcons::av1_audio_video));
+    icons.add(
+        new IconCatalogEntry<>(
+            "av_timer",
+            "MaterialSymbolsIcon.create(\"av_timer\")",
+            tagIcons::av_timer_audio_video));
+    icons.add(
+        new IconCatalogEntry<>(
+            "avc", "MaterialSymbolsIcon.create(\"avc\")", tagIcons::avc_audio_video));
+    icons.add(
+        new IconCatalogEntry<>(
+            "brand_awareness",
+            "MaterialSymbolsIcon.create(\"brand_awareness\")",
+            tagIcons::brand_awareness_audio_video));
+    icons.add(
+        new IconCatalogEntry<>(
+            "branding_watermark",
+            "MaterialSymbolsIcon.create(\"branding_watermark\")",
+            tagIcons::branding_watermark_audio_video));
+    icons.add(
+        new IconCatalogEntry<>(
+            "broadcast_on_home",
+            "MaterialSymbolsIcon.create(\"broadcast_on_home\")",
+            tagIcons::broadcast_on_home_audio_video));
+    icons.add(
+        new IconCatalogEntry<>(
+            "broadcast_on_personal",
+            "MaterialSymbolsIcon.create(\"broadcast_on_personal\")",
+            tagIcons::broadcast_on_personal_audio_video));
+    icons.add(
+        new IconCatalogEntry<>(
+            "call_to_action",
+            "MaterialSymbolsIcon.create(\"call_to_action\")",
+            tagIcons::call_to_action_audio_video));
+    icons.add(
+        new IconCatalogEntry<>(
+            "chat_display",
+            "MaterialSymbolsIcon.create(\"chat_display\")",
+            tagIcons::chat_display_audio_video));
+    icons.add(
+        new IconCatalogEntry<>(
+            "cinematic_blur",
+            "MaterialSymbolsIcon.create(\"cinematic_blur\")",
+            tagIcons::cinematic_blur_audio_video));
+    icons.add(
+        new IconCatalogEntry<>(
+            "closed_caption",
+            "MaterialSymbolsIcon.create(\"closed_caption\")",
+            tagIcons::closed_caption_audio_video));
+    icons.add(
+        new IconCatalogEntry<>(
+            "closed_caption_add",
+            "MaterialSymbolsIcon.create(\"closed_caption_add\")",
+            tagIcons::closed_caption_add_audio_video));
+    icons.add(
+        new IconCatalogEntry<>(
+            "closed_caption_disabled",
+            "MaterialSymbolsIcon.create(\"closed_caption_disabled\")",
+            tagIcons::closed_caption_disabled_audio_video));
+    icons.add(
+        new IconCatalogEntry<>(
+            "closed_caption_display",
+            "MaterialSymbolsIcon.create(\"closed_caption_display\")",
+            tagIcons::closed_caption_display_audio_video));
+    icons.add(
+        new IconCatalogEntry<>(
+            "control_camera",
+            "MaterialSymbolsIcon.create(\"control_camera\")",
+            tagIcons::control_camera_audio_video));
+    icons.add(
+        new IconCatalogEntry<>(
+            "digital_out_of_home",
+            "MaterialSymbolsIcon.create(\"digital_out_of_home\")",
+            tagIcons::digital_out_of_home_audio_video));
+    icons.add(
+        new IconCatalogEntry<>(
+            "discover_tune",
+            "MaterialSymbolsIcon.create(\"discover_tune\")",
+            tagIcons::discover_tune_audio_video));
+    icons.add(
+        new IconCatalogEntry<>(
+            "display_group",
+            "MaterialSymbolsIcon.create(\"display_group\")",
+            tagIcons::display_group_audio_video));
+    icons.add(
+        new IconCatalogEntry<>(
+            "ear_sound",
+            "MaterialSymbolsIcon.create(\"ear_sound\")",
+            tagIcons::ear_sound_audio_video));
+    icons.add(
+        new IconCatalogEntry<>(
+            "edit_audio",
+            "MaterialSymbolsIcon.create(\"edit_audio\")",
+            tagIcons::edit_audio_audio_video));
+    icons.add(
+        new IconCatalogEntry<>(
+            "equalizer",
+            "MaterialSymbolsIcon.create(\"equalizer\")",
+            tagIcons::equalizer_audio_video));
+    icons.add(
+        new IconCatalogEntry<>(
+            "explicit",
+            "MaterialSymbolsIcon.create(\"explicit\")",
+            tagIcons::explicit_audio_video));
+    icons.add(
+        new IconCatalogEntry<>(
+            "eye_tracking",
+            "MaterialSymbolsIcon.create(\"eye_tracking\")",
+            tagIcons::eye_tracking_audio_video));
+    icons.add(
+        new IconCatalogEntry<>(
+            "fast_forward",
+            "MaterialSymbolsIcon.create(\"fast_forward\")",
+            tagIcons::fast_forward_audio_video));
+    icons.add(
+        new IconCatalogEntry<>(
+            "fast_rewind",
+            "MaterialSymbolsIcon.create(\"fast_rewind\")",
+            tagIcons::fast_rewind_audio_video));
+    icons.add(
+        new IconCatalogEntry<>(
+            "featured_play_list",
+            "MaterialSymbolsIcon.create(\"featured_play_list\")",
+            tagIcons::featured_play_list_audio_video));
+    icons.add(
+        new IconCatalogEntry<>(
+            "featured_video",
+            "MaterialSymbolsIcon.create(\"featured_video\")",
+            tagIcons::featured_video_audio_video));
+    icons.add(
+        new IconCatalogEntry<>(
+            "fiber_dvr",
+            "MaterialSymbolsIcon.create(\"fiber_dvr\")",
+            tagIcons::fiber_dvr_audio_video));
+    icons.add(
+        new IconCatalogEntry<>(
+            "fiber_manual_record",
+            "MaterialSymbolsIcon.create(\"fiber_manual_record\")",
+            tagIcons::fiber_manual_record_audio_video));
+    icons.add(
+        new IconCatalogEntry<>(
+            "fiber_new",
+            "MaterialSymbolsIcon.create(\"fiber_new\")",
+            tagIcons::fiber_new_audio_video));
+    icons.add(
+        new IconCatalogEntry<>(
+            "fiber_pin",
+            "MaterialSymbolsIcon.create(\"fiber_pin\")",
+            tagIcons::fiber_pin_audio_video));
+    icons.add(
+        new IconCatalogEntry<>(
+            "fiber_smart_record",
+            "MaterialSymbolsIcon.create(\"fiber_smart_record\")",
+            tagIcons::fiber_smart_record_audio_video));
+    icons.add(
+        new IconCatalogEntry<>(
+            "forward_10",
+            "MaterialSymbolsIcon.create(\"forward_10\")",
+            tagIcons::forward_10_audio_video));
+    icons.add(
+        new IconCatalogEntry<>(
+            "forward_30",
+            "MaterialSymbolsIcon.create(\"forward_30\")",
+            tagIcons::forward_30_audio_video));
+    icons.add(
+        new IconCatalogEntry<>(
+            "forward_5",
+            "MaterialSymbolsIcon.create(\"forward_5\")",
+            tagIcons::forward_5_audio_video));
+    icons.add(
+        new IconCatalogEntry<>(
+            "forward_circle",
+            "MaterialSymbolsIcon.create(\"forward_circle\")",
+            tagIcons::forward_circle_audio_video));
+    icons.add(
+        new IconCatalogEntry<>(
+            "forward_media",
+            "MaterialSymbolsIcon.create(\"forward_media\")",
+            tagIcons::forward_media_audio_video));
+    icons.add(
+        new IconCatalogEntry<>(
+            "frame_person",
+            "MaterialSymbolsIcon.create(\"frame_person\")",
+            tagIcons::frame_person_audio_video));
+    icons.add(
+        new IconCatalogEntry<>(
+            "frame_person_mic",
+            "MaterialSymbolsIcon.create(\"frame_person_mic\")",
+            tagIcons::frame_person_mic_audio_video));
+    icons.add(
+        new IconCatalogEntry<>(
+            "frame_person_off",
+            "MaterialSymbolsIcon.create(\"frame_person_off\")",
+            tagIcons::frame_person_off_audio_video));
+    icons.add(
+        new IconCatalogEntry<>(
+            "full_hd", "MaterialSymbolsIcon.create(\"full_hd\")", tagIcons::full_hd_audio_video));
+    icons.add(
+        new IconCatalogEntry<>(
+            "genres", "MaterialSymbolsIcon.create(\"genres\")", tagIcons::genres_audio_video));
+    icons.add(
+        new IconCatalogEntry<>(
+            "hangout_video",
+            "MaterialSymbolsIcon.create(\"hangout_video\")",
+            tagIcons::hangout_video_audio_video));
+    icons.add(
+        new IconCatalogEntry<>(
+            "hangout_video_off",
+            "MaterialSymbolsIcon.create(\"hangout_video_off\")",
+            tagIcons::hangout_video_off_audio_video));
+    icons.add(
+        new IconCatalogEntry<>(
+            "hd", "MaterialSymbolsIcon.create(\"hd\")", tagIcons::hd_audio_video));
+    icons.add(
+        new IconCatalogEntry<>(
+            "hearing", "MaterialSymbolsIcon.create(\"hearing\")", tagIcons::hearing_audio_video));
+    icons.add(
+        new IconCatalogEntry<>(
+            "hearing_aid",
+            "MaterialSymbolsIcon.create(\"hearing_aid\")",
+            tagIcons::hearing_aid_audio_video));
+    icons.add(
+        new IconCatalogEntry<>(
+            "hearing_aid_disabled",
+            "MaterialSymbolsIcon.create(\"hearing_aid_disabled\")",
+            tagIcons::hearing_aid_disabled_audio_video));
+    icons.add(
+        new IconCatalogEntry<>(
+            "hearing_aid_disabled_left",
+            "MaterialSymbolsIcon.create(\"hearing_aid_disabled_left\")",
+            tagIcons::hearing_aid_disabled_left_audio_video));
+    icons.add(
+        new IconCatalogEntry<>(
+            "hearing_aid_left",
+            "MaterialSymbolsIcon.create(\"hearing_aid_left\")",
+            tagIcons::hearing_aid_left_audio_video));
+    icons.add(
+        new IconCatalogEntry<>(
+            "hearing_disabled",
+            "MaterialSymbolsIcon.create(\"hearing_disabled\")",
+            tagIcons::hearing_disabled_audio_video));
+    icons.add(
+        new IconCatalogEntry<>(
+            "high_quality",
+            "MaterialSymbolsIcon.create(\"high_quality\")",
+            tagIcons::high_quality_audio_video));
+    icons.add(
+        new IconCatalogEntry<>(
+            "high_quality_off",
+            "MaterialSymbolsIcon.create(\"high_quality_off\")",
+            tagIcons::high_quality_off_audio_video));
+    icons.add(
+        new IconCatalogEntry<>(
+            "instant_mix",
+            "MaterialSymbolsIcon.create(\"instant_mix\")",
+            tagIcons::instant_mix_audio_video));
+    icons.add(
+        new IconCatalogEntry<>(
+            "interpreter_mode",
+            "MaterialSymbolsIcon.create(\"interpreter_mode\")",
+            tagIcons::interpreter_mode_audio_video));
+    icons.add(
+        new IconCatalogEntry<>(
+            "library_add_check",
+            "MaterialSymbolsIcon.create(\"library_add_check\")",
+            tagIcons::library_add_check_audio_video));
+    icons.add(
+        new IconCatalogEntry<>(
+            "library_books",
+            "MaterialSymbolsIcon.create(\"library_books\")",
+            tagIcons::library_books_audio_video));
+    icons.add(
+        new IconCatalogEntry<>(
+            "library_music",
+            "MaterialSymbolsIcon.create(\"library_music\")",
+            tagIcons::library_music_audio_video));
+    icons.add(
+        new IconCatalogEntry<>(
+            "lyrics", "MaterialSymbolsIcon.create(\"lyrics\")", tagIcons::lyrics_audio_video));
+  }
+
+  private static void addIcons1() {
+    icons.add(
+        new IconCatalogEntry<>(
+            "media_link",
+            "MaterialSymbolsIcon.create(\"media_link\")",
+            tagIcons::media_link_audio_video));
+    icons.add(
+        new IconCatalogEntry<>(
+            "mic", "MaterialSymbolsIcon.create(\"mic\")", tagIcons::mic_audio_video));
+    icons.add(
+        new IconCatalogEntry<>(
+            "mic_alert",
+            "MaterialSymbolsIcon.create(\"mic_alert\")",
+            tagIcons::mic_alert_audio_video));
+    icons.add(
+        new IconCatalogEntry<>(
+            "mic_double",
+            "MaterialSymbolsIcon.create(\"mic_double\")",
+            tagIcons::mic_double_audio_video));
+    icons.add(
+        new IconCatalogEntry<>(
+            "mic_gear",
+            "MaterialSymbolsIcon.create(\"mic_gear\")",
+            tagIcons::mic_gear_audio_video));
+    icons.add(
+        new IconCatalogEntry<>(
+            "mic_off", "MaterialSymbolsIcon.create(\"mic_off\")", tagIcons::mic_off_audio_video));
+    icons.add(
+        new IconCatalogEntry<>(
+            "missed_video_call",
+            "MaterialSymbolsIcon.create(\"missed_video_call\")",
+            tagIcons::missed_video_call_audio_video));
+    icons.add(
+        new IconCatalogEntry<>(
+            "movie", "MaterialSymbolsIcon.create(\"movie\")", tagIcons::movie_audio_video));
+    icons.add(
+        new IconCatalogEntry<>(
+            "movie_edit",
+            "MaterialSymbolsIcon.create(\"movie_edit\")",
+            tagIcons::movie_edit_audio_video));
+    icons.add(
+        new IconCatalogEntry<>(
+            "movie_edit_off",
+            "MaterialSymbolsIcon.create(\"movie_edit_off\")",
+            tagIcons::movie_edit_off_audio_video));
+    icons.add(
+        new IconCatalogEntry<>(
+            "movie_info",
+            "MaterialSymbolsIcon.create(\"movie_info\")",
+            tagIcons::movie_info_audio_video));
+    icons.add(
+        new IconCatalogEntry<>(
+            "movie_off",
+            "MaterialSymbolsIcon.create(\"movie_off\")",
+            tagIcons::movie_off_audio_video));
+    icons.add(
+        new IconCatalogEntry<>(
+            "movie_speaker",
+            "MaterialSymbolsIcon.create(\"movie_speaker\")",
+            tagIcons::movie_speaker_audio_video));
+    icons.add(
+        new IconCatalogEntry<>(
+            "music_cast",
+            "MaterialSymbolsIcon.create(\"music_cast\")",
+            tagIcons::music_cast_audio_video));
+    icons.add(
+        new IconCatalogEntry<>(
+            "music_history",
+            "MaterialSymbolsIcon.create(\"music_history\")",
+            tagIcons::music_history_audio_video));
+    icons.add(
+        new IconCatalogEntry<>(
+            "music_note",
+            "MaterialSymbolsIcon.create(\"music_note\")",
+            tagIcons::music_note_audio_video));
+    icons.add(
+        new IconCatalogEntry<>(
+            "music_note_2",
+            "MaterialSymbolsIcon.create(\"music_note_2\")",
+            tagIcons::music_note_2_audio_video));
+    icons.add(
+        new IconCatalogEntry<>(
+            "music_note_add",
+            "MaterialSymbolsIcon.create(\"music_note_add\")",
+            tagIcons::music_note_add_audio_video));
+    icons.add(
+        new IconCatalogEntry<>(
+            "music_off",
+            "MaterialSymbolsIcon.create(\"music_off\")",
+            tagIcons::music_off_audio_video));
+    icons.add(
+        new IconCatalogEntry<>(
+            "music_video",
+            "MaterialSymbolsIcon.create(\"music_video\")",
+            tagIcons::music_video_audio_video));
+    icons.add(
+        new IconCatalogEntry<>(
+            "no_sound",
+            "MaterialSymbolsIcon.create(\"no_sound\")",
+            tagIcons::no_sound_audio_video));
+    icons.add(
+        new IconCatalogEntry<>(
+            "not_started",
+            "MaterialSymbolsIcon.create(\"not_started\")",
+            tagIcons::not_started_audio_video));
+    icons.add(
+        new IconCatalogEntry<>(
+            "pause", "MaterialSymbolsIcon.create(\"pause\")", tagIcons::pause_audio_video));
+    icons.add(
+        new IconCatalogEntry<>(
+            "pause_circle",
+            "MaterialSymbolsIcon.create(\"pause_circle\")",
+            tagIcons::pause_circle_audio_video));
+    icons.add(
+        new IconCatalogEntry<>(
+            "play_arrow",
+            "MaterialSymbolsIcon.create(\"play_arrow\")",
+            tagIcons::play_arrow_audio_video));
+    icons.add(
+        new IconCatalogEntry<>(
+            "play_circle",
+            "MaterialSymbolsIcon.create(\"play_circle\")",
+            tagIcons::play_circle_audio_video));
+    icons.add(
+        new IconCatalogEntry<>(
+            "play_disabled",
+            "MaterialSymbolsIcon.create(\"play_disabled\")",
+            tagIcons::play_disabled_audio_video));
+    icons.add(
+        new IconCatalogEntry<>(
+            "play_lesson",
+            "MaterialSymbolsIcon.create(\"play_lesson\")",
+            tagIcons::play_lesson_audio_video));
+    icons.add(
+        new IconCatalogEntry<>(
+            "play_pause",
+            "MaterialSymbolsIcon.create(\"play_pause\")",
+            tagIcons::play_pause_audio_video));
+    icons.add(
+        new IconCatalogEntry<>(
+            "playlist_add",
+            "MaterialSymbolsIcon.create(\"playlist_add\")",
+            tagIcons::playlist_add_audio_video));
+    icons.add(
+        new IconCatalogEntry<>(
+            "playlist_add_check",
+            "MaterialSymbolsIcon.create(\"playlist_add_check\")",
+            tagIcons::playlist_add_check_audio_video));
+    icons.add(
+        new IconCatalogEntry<>(
+            "playlist_add_check_circle",
+            "MaterialSymbolsIcon.create(\"playlist_add_check_circle\")",
+            tagIcons::playlist_add_check_circle_audio_video));
+    icons.add(
+        new IconCatalogEntry<>(
+            "playlist_add_circle",
+            "MaterialSymbolsIcon.create(\"playlist_add_circle\")",
+            tagIcons::playlist_add_circle_audio_video));
+    icons.add(
+        new IconCatalogEntry<>(
+            "playlist_play",
+            "MaterialSymbolsIcon.create(\"playlist_play\")",
+            tagIcons::playlist_play_audio_video));
+    icons.add(
+        new IconCatalogEntry<>(
+            "playlist_remove",
+            "MaterialSymbolsIcon.create(\"playlist_remove\")",
+            tagIcons::playlist_remove_audio_video));
+    icons.add(
+        new IconCatalogEntry<>(
+            "podcasts",
+            "MaterialSymbolsIcon.create(\"podcasts\")",
+            tagIcons::podcasts_audio_video));
+    icons.add(
+        new IconCatalogEntry<>(
+            "privacy", "MaterialSymbolsIcon.create(\"privacy\")", tagIcons::privacy_audio_video));
+    icons.add(
+        new IconCatalogEntry<>(
+            "queue_music",
+            "MaterialSymbolsIcon.create(\"queue_music\")",
+            tagIcons::queue_music_audio_video));
+    icons.add(
+        new IconCatalogEntry<>(
+            "queue_play_next",
+            "MaterialSymbolsIcon.create(\"queue_play_next\")",
+            tagIcons::queue_play_next_audio_video));
+    icons.add(
+        new IconCatalogEntry<>(
+            "radio", "MaterialSymbolsIcon.create(\"radio\")", tagIcons::radio_audio_video));
+    icons.add(
+        new IconCatalogEntry<>(
+            "recent_actors",
+            "MaterialSymbolsIcon.create(\"recent_actors\")",
+            tagIcons::recent_actors_audio_video));
+    icons.add(
+        new IconCatalogEntry<>(
+            "remove_from_queue",
+            "MaterialSymbolsIcon.create(\"remove_from_queue\")",
+            tagIcons::remove_from_queue_audio_video));
+    icons.add(
+        new IconCatalogEntry<>(
+            "repeat", "MaterialSymbolsIcon.create(\"repeat\")", tagIcons::repeat_audio_video));
+    icons.add(
+        new IconCatalogEntry<>(
+            "repeat_on",
+            "MaterialSymbolsIcon.create(\"repeat_on\")",
+            tagIcons::repeat_on_audio_video));
+    icons.add(
+        new IconCatalogEntry<>(
+            "repeat_one",
+            "MaterialSymbolsIcon.create(\"repeat_one\")",
+            tagIcons::repeat_one_audio_video));
+    icons.add(
+        new IconCatalogEntry<>(
+            "repeat_one_on",
+            "MaterialSymbolsIcon.create(\"repeat_one_on\")",
+            tagIcons::repeat_one_on_audio_video));
+    icons.add(
+        new IconCatalogEntry<>(
+            "replace_audio",
+            "MaterialSymbolsIcon.create(\"replace_audio\")",
+            tagIcons::replace_audio_audio_video));
+    icons.add(
+        new IconCatalogEntry<>(
+            "replace_image",
+            "MaterialSymbolsIcon.create(\"replace_image\")",
+            tagIcons::replace_image_audio_video));
+    icons.add(
+        new IconCatalogEntry<>(
+            "replace_video",
+            "MaterialSymbolsIcon.create(\"replace_video\")",
+            tagIcons::replace_video_audio_video));
+    icons.add(
+        new IconCatalogEntry<>(
+            "replay", "MaterialSymbolsIcon.create(\"replay\")", tagIcons::replay_audio_video));
+    icons.add(
+        new IconCatalogEntry<>(
+            "replay_10",
+            "MaterialSymbolsIcon.create(\"replay_10\")",
+            tagIcons::replay_10_audio_video));
+    icons.add(
+        new IconCatalogEntry<>(
+            "replay_30",
+            "MaterialSymbolsIcon.create(\"replay_30\")",
+            tagIcons::replay_30_audio_video));
+    icons.add(
+        new IconCatalogEntry<>(
+            "replay_5",
+            "MaterialSymbolsIcon.create(\"replay_5\")",
+            tagIcons::replay_5_audio_video));
+    icons.add(
+        new IconCatalogEntry<>(
+            "resume", "MaterialSymbolsIcon.create(\"resume\")", tagIcons::resume_audio_video));
+    icons.add(
+        new IconCatalogEntry<>(
+            "sd", "MaterialSymbolsIcon.create(\"sd\")", tagIcons::sd_audio_video));
+    icons.add(
+        new IconCatalogEntry<>(
+            "select_to_speak",
+            "MaterialSymbolsIcon.create(\"select_to_speak\")",
+            tagIcons::select_to_speak_audio_video));
+    icons.add(
+        new IconCatalogEntry<>(
+            "settings_voice",
+            "MaterialSymbolsIcon.create(\"settings_voice\")",
+            tagIcons::settings_voice_audio_video));
+    icons.add(
+        new IconCatalogEntry<>(
+            "shuffle", "MaterialSymbolsIcon.create(\"shuffle\")", tagIcons::shuffle_audio_video));
+    icons.add(
+        new IconCatalogEntry<>(
+            "shuffle_on",
+            "MaterialSymbolsIcon.create(\"shuffle_on\")",
+            tagIcons::shuffle_on_audio_video));
+    icons.add(
+        new IconCatalogEntry<>(
+            "skip_next",
+            "MaterialSymbolsIcon.create(\"skip_next\")",
+            tagIcons::skip_next_audio_video));
+    icons.add(
+        new IconCatalogEntry<>(
+            "skip_previous",
+            "MaterialSymbolsIcon.create(\"skip_previous\")",
+            tagIcons::skip_previous_audio_video));
+    icons.add(
+        new IconCatalogEntry<>(
+            "slow_motion_video",
+            "MaterialSymbolsIcon.create(\"slow_motion_video\")",
+            tagIcons::slow_motion_video_audio_video));
+    icons.add(
+        new IconCatalogEntry<>(
+            "sound_detection_dog_barking",
+            "MaterialSymbolsIcon.create(\"sound_detection_dog_barking\")",
+            tagIcons::sound_detection_dog_barking_audio_video));
+    icons.add(
+        new IconCatalogEntry<>(
+            "sound_detection_glass_break",
+            "MaterialSymbolsIcon.create(\"sound_detection_glass_break\")",
+            tagIcons::sound_detection_glass_break_audio_video));
+    icons.add(
+        new IconCatalogEntry<>(
+            "sound_detection_loud_sound",
+            "MaterialSymbolsIcon.create(\"sound_detection_loud_sound\")",
+            tagIcons::sound_detection_loud_sound_audio_video));
+    icons.add(
+        new IconCatalogEntry<>(
+            "sound_sampler",
+            "MaterialSymbolsIcon.create(\"sound_sampler\")",
+            tagIcons::sound_sampler_audio_video));
+    icons.add(
+        new IconCatalogEntry<>(
+            "spatial_audio",
+            "MaterialSymbolsIcon.create(\"spatial_audio\")",
+            tagIcons::spatial_audio_audio_video));
+    icons.add(
+        new IconCatalogEntry<>(
+            "spatial_audio_off",
+            "MaterialSymbolsIcon.create(\"spatial_audio_off\")",
+            tagIcons::spatial_audio_off_audio_video));
+    icons.add(
+        new IconCatalogEntry<>(
+            "spatial_speaker",
+            "MaterialSymbolsIcon.create(\"spatial_speaker\")",
+            tagIcons::spatial_speaker_audio_video));
+    icons.add(
+        new IconCatalogEntry<>(
+            "spatial_tracking",
+            "MaterialSymbolsIcon.create(\"spatial_tracking\")",
+            tagIcons::spatial_tracking_audio_video));
+    icons.add(
+        new IconCatalogEntry<>(
+            "speech_to_text",
+            "MaterialSymbolsIcon.create(\"speech_to_text\")",
+            tagIcons::speech_to_text_audio_video));
+    icons.add(
+        new IconCatalogEntry<>(
+            "speech_to_text_2",
+            "MaterialSymbolsIcon.create(\"speech_to_text_2\")",
+            tagIcons::speech_to_text_2_audio_video));
+    icons.add(
+        new IconCatalogEntry<>(
+            "speed", "MaterialSymbolsIcon.create(\"speed\")", tagIcons::speed_audio_video));
+    icons.add(
+        new IconCatalogEntry<>(
+            "speed_0_25",
+            "MaterialSymbolsIcon.create(\"speed_0_25\")",
+            tagIcons::speed_0_25_audio_video));
+    icons.add(
+        new IconCatalogEntry<>(
+            "speed_0_2x",
+            "MaterialSymbolsIcon.create(\"speed_0_2x\")",
+            tagIcons::speed_0_2x_audio_video));
+    icons.add(
+        new IconCatalogEntry<>(
+            "speed_0_5",
+            "MaterialSymbolsIcon.create(\"speed_0_5\")",
+            tagIcons::speed_0_5_audio_video));
+    icons.add(
+        new IconCatalogEntry<>(
+            "speed_0_5x",
+            "MaterialSymbolsIcon.create(\"speed_0_5x\")",
+            tagIcons::speed_0_5x_audio_video));
+    icons.add(
+        new IconCatalogEntry<>(
+            "speed_0_75",
+            "MaterialSymbolsIcon.create(\"speed_0_75\")",
+            tagIcons::speed_0_75_audio_video));
+    icons.add(
+        new IconCatalogEntry<>(
+            "speed_0_7x",
+            "MaterialSymbolsIcon.create(\"speed_0_7x\")",
+            tagIcons::speed_0_7x_audio_video));
+    icons.add(
+        new IconCatalogEntry<>(
+            "speed_1_2",
+            "MaterialSymbolsIcon.create(\"speed_1_2\")",
+            tagIcons::speed_1_2_audio_video));
+    icons.add(
+        new IconCatalogEntry<>(
+            "speed_1_25",
+            "MaterialSymbolsIcon.create(\"speed_1_25\")",
+            tagIcons::speed_1_25_audio_video));
+    icons.add(
+        new IconCatalogEntry<>(
+            "speed_1_2x",
+            "MaterialSymbolsIcon.create(\"speed_1_2x\")",
+            tagIcons::speed_1_2x_audio_video));
+    icons.add(
+        new IconCatalogEntry<>(
+            "speed_1_5",
+            "MaterialSymbolsIcon.create(\"speed_1_5\")",
+            tagIcons::speed_1_5_audio_video));
+    icons.add(
+        new IconCatalogEntry<>(
+            "speed_1_5x",
+            "MaterialSymbolsIcon.create(\"speed_1_5x\")",
+            tagIcons::speed_1_5x_audio_video));
+    icons.add(
+        new IconCatalogEntry<>(
+            "speed_1_75",
+            "MaterialSymbolsIcon.create(\"speed_1_75\")",
+            tagIcons::speed_1_75_audio_video));
+    icons.add(
+        new IconCatalogEntry<>(
+            "speed_1_7x",
+            "MaterialSymbolsIcon.create(\"speed_1_7x\")",
+            tagIcons::speed_1_7x_audio_video));
+    icons.add(
+        new IconCatalogEntry<>(
+            "speed_2", "MaterialSymbolsIcon.create(\"speed_2\")", tagIcons::speed_2_audio_video));
+    icons.add(
+        new IconCatalogEntry<>(
+            "speed_2x",
+            "MaterialSymbolsIcon.create(\"speed_2x\")",
+            tagIcons::speed_2x_audio_video));
+    icons.add(
+        new IconCatalogEntry<>(
+            "speed_3", "MaterialSymbolsIcon.create(\"speed_3\")", tagIcons::speed_3_audio_video));
+    icons.add(
+        new IconCatalogEntry<>(
+            "speed_4", "MaterialSymbolsIcon.create(\"speed_4\")", tagIcons::speed_4_audio_video));
+    icons.add(
+        new IconCatalogEntry<>(
+            "speed_4_progress",
+            "MaterialSymbolsIcon.create(\"speed_4_progress\")",
+            tagIcons::speed_4_progress_audio_video));
+    icons.add(
+        new IconCatalogEntry<>(
+            "split_scene",
+            "MaterialSymbolsIcon.create(\"split_scene\")",
+            tagIcons::split_scene_audio_video));
+    icons.add(
+        new IconCatalogEntry<>(
+            "split_scene_2",
+            "MaterialSymbolsIcon.create(\"split_scene_2\")",
+            tagIcons::split_scene_2_audio_video));
+    icons.add(
+        new IconCatalogEntry<>(
+            "split_scene_down",
+            "MaterialSymbolsIcon.create(\"split_scene_down\")",
+            tagIcons::split_scene_down_audio_video));
+    icons.add(
+        new IconCatalogEntry<>(
+            "split_scene_left",
+            "MaterialSymbolsIcon.create(\"split_scene_left\")",
+            tagIcons::split_scene_left_audio_video));
+    icons.add(
+        new IconCatalogEntry<>(
+            "split_scene_right",
+            "MaterialSymbolsIcon.create(\"split_scene_right\")",
+            tagIcons::split_scene_right_audio_video));
+    icons.add(
+        new IconCatalogEntry<>(
+            "split_scene_up",
+            "MaterialSymbolsIcon.create(\"split_scene_up\")",
+            tagIcons::split_scene_up_audio_video));
+    icons.add(
+        new IconCatalogEntry<>(
+            "stop", "MaterialSymbolsIcon.create(\"stop\")", tagIcons::stop_audio_video));
+    icons.add(
+        new IconCatalogEntry<>(
+            "stop_circle",
+            "MaterialSymbolsIcon.create(\"stop_circle\")",
+            tagIcons::stop_circle_audio_video));
+    icons.add(
+        new IconCatalogEntry<>(
+            "stream", "MaterialSymbolsIcon.create(\"stream\")", tagIcons::stream_audio_video));
+  }
+
+  private static void addIcons2() {
+    icons.add(
+        new IconCatalogEntry<>(
+            "subscriptions",
+            "MaterialSymbolsIcon.create(\"subscriptions\")",
+            tagIcons::subscriptions_audio_video));
+    icons.add(
+        new IconCatalogEntry<>(
+            "subtitles",
+            "MaterialSymbolsIcon.create(\"subtitles\")",
+            tagIcons::subtitles_audio_video));
+    icons.add(
+        new IconCatalogEntry<>(
+            "subtitles_gear",
+            "MaterialSymbolsIcon.create(\"subtitles_gear\")",
+            tagIcons::subtitles_gear_audio_video));
+    icons.add(
+        new IconCatalogEntry<>(
+            "surround_sound",
+            "MaterialSymbolsIcon.create(\"surround_sound\")",
+            tagIcons::surround_sound_audio_video));
+    icons.add(
+        new IconCatalogEntry<>(
+            "text_to_speech",
+            "MaterialSymbolsIcon.create(\"text_to_speech\")",
+            tagIcons::text_to_speech_audio_video));
+    icons.add(
+        new IconCatalogEntry<>(
+            "video_call",
+            "MaterialSymbolsIcon.create(\"video_call\")",
+            tagIcons::video_call_audio_video));
+    icons.add(
+        new IconCatalogEntry<>(
+            "video_camera_back",
+            "MaterialSymbolsIcon.create(\"video_camera_back\")",
+            tagIcons::video_camera_back_audio_video));
+    icons.add(
+        new IconCatalogEntry<>(
+            "video_camera_back_add",
+            "MaterialSymbolsIcon.create(\"video_camera_back_add\")",
+            tagIcons::video_camera_back_add_audio_video));
+    icons.add(
+        new IconCatalogEntry<>(
+            "video_camera_front",
+            "MaterialSymbolsIcon.create(\"video_camera_front\")",
+            tagIcons::video_camera_front_audio_video));
+    icons.add(
+        new IconCatalogEntry<>(
+            "video_camera_front_off",
+            "MaterialSymbolsIcon.create(\"video_camera_front_off\")",
+            tagIcons::video_camera_front_off_audio_video));
+    icons.add(
+        new IconCatalogEntry<>(
+            "video_frame_copy",
+            "MaterialSymbolsIcon.create(\"video_frame_copy\")",
+            tagIcons::video_frame_copy_audio_video));
+    icons.add(
+        new IconCatalogEntry<>(
+            "video_frame_save",
+            "MaterialSymbolsIcon.create(\"video_frame_save\")",
+            tagIcons::video_frame_save_audio_video));
+    icons.add(
+        new IconCatalogEntry<>(
+            "video_label",
+            "MaterialSymbolsIcon.create(\"video_label\")",
+            tagIcons::video_label_audio_video));
+    icons.add(
+        new IconCatalogEntry<>(
+            "video_library",
+            "MaterialSymbolsIcon.create(\"video_library\")",
+            tagIcons::video_library_audio_video));
+    icons.add(
+        new IconCatalogEntry<>(
+            "video_search",
+            "MaterialSymbolsIcon.create(\"video_search\")",
+            tagIcons::video_search_audio_video));
+    icons.add(
+        new IconCatalogEntry<>(
+            "video_settings",
+            "MaterialSymbolsIcon.create(\"video_settings\")",
+            tagIcons::video_settings_audio_video));
+    icons.add(
+        new IconCatalogEntry<>(
+            "video_stable",
+            "MaterialSymbolsIcon.create(\"video_stable\")",
+            tagIcons::video_stable_audio_video));
+    icons.add(
+        new IconCatalogEntry<>(
+            "video_template",
+            "MaterialSymbolsIcon.create(\"video_template\")",
+            tagIcons::video_template_audio_video));
+    icons.add(
+        new IconCatalogEntry<>(
+            "videocam",
+            "MaterialSymbolsIcon.create(\"videocam\")",
+            tagIcons::videocam_audio_video));
+    icons.add(
+        new IconCatalogEntry<>(
+            "videocam_alert",
+            "MaterialSymbolsIcon.create(\"videocam_alert\")",
+            tagIcons::videocam_alert_audio_video));
+    icons.add(
+        new IconCatalogEntry<>(
+            "videocam_off",
+            "MaterialSymbolsIcon.create(\"videocam_off\")",
+            tagIcons::videocam_off_audio_video));
+    icons.add(
+        new IconCatalogEntry<>(
+            "view_in_ar",
+            "MaterialSymbolsIcon.create(\"view_in_ar\")",
+            tagIcons::view_in_ar_audio_video));
+    icons.add(
+        new IconCatalogEntry<>(
+            "view_in_ar_off",
+            "MaterialSymbolsIcon.create(\"view_in_ar_off\")",
+            tagIcons::view_in_ar_off_audio_video));
+    icons.add(
+        new IconCatalogEntry<>(
+            "voice_selection",
+            "MaterialSymbolsIcon.create(\"voice_selection\")",
+            tagIcons::voice_selection_audio_video));
+    icons.add(
+        new IconCatalogEntry<>(
+            "voice_selection_off",
+            "MaterialSymbolsIcon.create(\"voice_selection_off\")",
+            tagIcons::voice_selection_off_audio_video));
+    icons.add(
+        new IconCatalogEntry<>(
+            "volume_down",
+            "MaterialSymbolsIcon.create(\"volume_down\")",
+            tagIcons::volume_down_audio_video));
+    icons.add(
+        new IconCatalogEntry<>(
+            "volume_mute",
+            "MaterialSymbolsIcon.create(\"volume_mute\")",
+            tagIcons::volume_mute_audio_video));
+    icons.add(
+        new IconCatalogEntry<>(
+            "volume_off",
+            "MaterialSymbolsIcon.create(\"volume_off\")",
+            tagIcons::volume_off_audio_video));
+    icons.add(
+        new IconCatalogEntry<>(
+            "volume_up",
+            "MaterialSymbolsIcon.create(\"volume_up\")",
+            tagIcons::volume_up_audio_video));
+  }
+
+  public List<IconCatalogEntry<MaterialSymbolsIcon>> icons() {
+    return new ArrayList<>(icons);
+  }
+}

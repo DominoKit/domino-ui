@@ -23,8 +23,6 @@ import java.util.*;
 import org.dominokit.domino.ui.elements.NavElement;
 import org.dominokit.domino.ui.elements.UListElement;
 import org.dominokit.domino.ui.i18n.PaginationLabels;
-import org.dominokit.domino.ui.icons.DefaultIcons;
-import org.dominokit.domino.ui.icons.IconName;
 import org.dominokit.domino.ui.style.BooleanCssClass;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
 import org.dominokit.domino.ui.utils.ChildHandler;
@@ -94,22 +92,22 @@ public abstract class BasePagination<T extends BasePagination<T>>
     pagesList
         .appendChild(
             firstPage =
-                PagerNavItem.nav(DefaultIcons.coreIcon(IconName.SKIP_PREVIOUS))
+                PagerNavItem.nav(DominoUIConfig.CONFIG.getUIConfig().getSkipPreviousIcon())
                     .withLink((item, link) -> link.setAttribute("aria-label", "First page"))
                     .collapse())
         .appendChild(
             prevPage =
-                PagerNavItem.nav(DefaultIcons.coreIcon(IconName.CHEVRON_LEFT))
+                PagerNavItem.nav(DominoUIConfig.CONFIG.getUIConfig().getChevronLeftIcon())
                     .withLink(
                         (item, link) -> link.setAttribute("aria-label", labels.getPreviousLabel())))
         .appendChild(
             nextPage =
-                PagerNavItem.nav(DefaultIcons.coreIcon(IconName.CHEVRON_RIGHT))
+                PagerNavItem.nav(DominoUIConfig.CONFIG.getUIConfig().getChevronRightIcon())
                     .withLink(
                         (item, link) -> link.setAttribute("aria-label", labels.getNextLabel())))
         .appendChild(
             lastPage =
-                PagerNavItem.nav(DefaultIcons.coreIcon(IconName.SKIP_NEXT))
+                PagerNavItem.nav(DominoUIConfig.CONFIG.getUIConfig().getSkipNextIcon())
                     .withLink((item, link) -> link.setAttribute("aria-label", "Last page"))
                     .collapse());
   }

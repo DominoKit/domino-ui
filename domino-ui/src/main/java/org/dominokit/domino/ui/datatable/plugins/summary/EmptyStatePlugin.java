@@ -41,7 +41,7 @@ import org.dominokit.domino.ui.utils.ChildHandler;
  *
  * <pre>
  * DataTable<MyData> dataTable = DataTable.create();
- * dataTable.addPlugin(EmptyStatePlugin.create(DefaultIcons.coreIcon(IconName.WARNING), "No Data Available"));
+ * dataTable.addPlugin(EmptyStatePlugin.create(DominoUIConfig.CONFIG.getUIConfig().getWarningIcon(), "No Data Available"));
  * </pre>
  *
  * @param <T> The type of data in the DataTable.

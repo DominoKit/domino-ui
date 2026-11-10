@@ -19,10 +19,9 @@ import static org.dominokit.domino.ui.style.SpacingCss.dui_font_size_4;
 
 import elemental2.dom.HTMLElement;
 import org.dominokit.domino.ui.datatable.DataTable;
-import org.dominokit.domino.ui.icons.DefaultIcons;
-import org.dominokit.domino.ui.icons.IconName;
 import org.dominokit.domino.ui.icons.IconWrapper;
 import org.dominokit.domino.ui.utils.BaseDominoElement;
+import org.dominokit.domino.ui.utils.DominoUIConfig;
 
 /**
  * An implementation of the {@link HeaderActionElement} that allows clearing filters in a DataTable.
@@ -45,7 +44,7 @@ public class ClearSearch<T> extends BaseDominoElement<HTMLElement, ClearSearch<T
    */
   public ClearSearch(DataTable<T> dataTable) {
     clearFiltersIcon =
-        IconWrapper.of(DefaultIcons.icon(IconName.FILTER_OFF))
+        IconWrapper.of(DominoUIConfig.CONFIG.getUIConfig().getFilterOffIcon())
             .setTooltip(clearFiltersToolTip)
             .addCss(dui_font_size_4)
             .clickable()

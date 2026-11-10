@@ -17,8 +17,7 @@ package org.dominokit.domino.ui.stepper;
 
 import static org.dominokit.domino.ui.stepper.StepStateCss.dui_step_state_disabled;
 
-import org.dominokit.domino.ui.icons.DefaultIcons;
-import org.dominokit.domino.ui.icons.IconName;
+import org.dominokit.domino.ui.utils.DominoUIConfig;
 
 /**
  * A concrete implementation of the {@link StepState} interface representing a disabled step in a
@@ -41,7 +40,10 @@ public class DisabledStep implements StepState {
         .withTrackerNode(
             (parent1, node) ->
                 node.appendChild(
-                    DefaultIcons.coreIcon(IconName.CANCEL).addCss(dui_tracker_node_icon)));
+                    DominoUIConfig.CONFIG
+                        .getUIConfig()
+                        .getCancelIcon()
+                        .addCss(dui_tracker_node_icon)));
   }
 
   /**

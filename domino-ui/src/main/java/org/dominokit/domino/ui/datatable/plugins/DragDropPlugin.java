@@ -35,10 +35,9 @@ import org.dominokit.domino.ui.dnd.DragSource;
 import org.dominokit.domino.ui.dnd.Draggable;
 import org.dominokit.domino.ui.dnd.DropZone;
 import org.dominokit.domino.ui.elements.DivElement;
-import org.dominokit.domino.ui.icons.DefaultIcons;
 import org.dominokit.domino.ui.icons.Icon;
-import org.dominokit.domino.ui.icons.IconName;
 import org.dominokit.domino.ui.utils.DominoEvent;
+import org.dominokit.domino.ui.utils.DominoUIConfig;
 
 /**
  * The {@code DragDropPlugin} class is a DataTable plugin that enables drag-and-drop functionality
@@ -64,9 +63,9 @@ public class DragDropPlugin<T> implements DataTablePlugin<T> {
   private TableRow<T> emptyDropRow;
   private DataTable<T> dataTable;
   private Supplier<Icon<?>> emptyDropIconSupplier =
-      () -> DefaultIcons.coreIcon(IconName.VECTOR_POINT_PLUS);
+      () -> DominoUIConfig.CONFIG.getUIConfig().getVectorPointPlusIcon();
   private Supplier<Icon<?>> dragDropIconSupplier =
-      () -> DefaultIcons.coreIcon(IconName.DRAG_VERTICAL);
+      () -> DominoUIConfig.CONFIG.getUIConfig().getDragVerticalIcon();
   private DivElement emptyDropArea;
   private Text emptyDropText;
   private final List<DataTable<T>> otherDataTables = new ArrayList<>();
