@@ -1,8 +1,10 @@
 .dui-icons {
+    --dui-icon-size: var(--dui-font-size, var(--dui-default-icon-size));
     display: inline-flex;
     align-items: center;
     justify-content: center;
     vertical-align: middle;
+    font-size: var(--dui-icon-size);
     line-height: 1;
 }
 
@@ -35,7 +37,6 @@
 
 /* Keep font icon packs compatible with the original MDI sizing contract. */
 .dui-icons.dui-icon-mdi {
-    --dui-icon-size: var(--dui-font-size, var(--dui-default-icon-size));
     display: inline-block;
     vertical-align: middle;
     font-size: var(--dui-icon-size);
@@ -153,4 +154,8 @@
     overflow: hidden;
     align-items: center;
     gap: var(--dui-spc-1);
+}
+
+.dui-labeled-icon.dui-clickable {
+    overflow: visible;
 }

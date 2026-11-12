@@ -20,7 +20,7 @@ import static org.dominokit.domino.ui.utils.Domino.svg;
 import org.dominokit.domino.ui.elements.SvgElement;
 
 /** Inline SVG icon from the complete Lucide catalog. */
-public final class LucideIcon extends AbstractIcon<LucideIcon> {
+public final class LucideIcon extends AbstractSvgIcon<LucideIcon> {
   private final LucideIconDefinition definition;
   private final String catalogName;
   private final String variant;
@@ -54,18 +54,9 @@ public final class LucideIcon extends AbstractIcon<LucideIcon> {
     return variant;
   }
 
-  public LucideIcon setStrokeWidth(double width) {
-    root.style.setProperty("--dui-icon-stroke-width", String.valueOf(width));
-    return this;
-  }
-
   @Override
   public LucideIcon copy() {
     LucideIcon copy = create(definition);
-    String strokeWidth = root.style.getPropertyValue("--dui-icon-stroke-width");
-    if (!strokeWidth.isEmpty()) {
-      copy.root.style.setProperty("--dui-icon-stroke-width", strokeWidth);
-    }
     return copyPresentationTo(copy);
   }
 }

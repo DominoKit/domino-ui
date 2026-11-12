@@ -1,3 +1,2 @@
 .dui-icon-tabler { display: inline-flex; align-items: center; justify-content: center; line-height: 1; }
 .dui-icon-tabler svg { display: block; width: var(--dui-icon-size, 1em); height: var(--dui-icon-size, 1em); overflow: visible; color: inherit; }
-.dui-icon-tabler svg * { vector-effect: non-scaling-stroke; }

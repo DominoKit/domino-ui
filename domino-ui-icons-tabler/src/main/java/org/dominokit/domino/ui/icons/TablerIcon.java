@@ -20,7 +20,7 @@ import static org.dominokit.domino.ui.utils.Domino.svg;
 import org.dominokit.domino.ui.elements.SvgElement;
 
 /** Inline SVG icon from the complete Tabler catalog. */
-public final class TablerIcon extends AbstractIcon<TablerIcon> {
+public final class TablerIcon extends AbstractSvgIcon<TablerIcon> {
   private final TablerIconDefinition definition;
   private final String catalogName;
   private final String variant;
@@ -54,16 +54,54 @@ public final class TablerIcon extends AbstractIcon<TablerIcon> {
     return variant;
   }
 
+  @Override
+  public TablerIcon setColor(String color) {
+    return super.setColor(color);
+  }
+
+  @Override
+  public TablerIcon setColor(String color, boolean important) {
+    return super.setColor(color, important);
+  }
+
+  @Override
+  public TablerIcon setFillColor(String color) {
+    return super.setFillColor(color);
+  }
+
+  @Override
+  public TablerIcon setStrokeColor(String color) {
+    return super.setStrokeColor(color);
+  }
+
+  @Override
+  public TablerIcon setFilledStrokeColor(String color) {
+    return super.setFilledStrokeColor(color);
+  }
+
+  @Override
   public TablerIcon setStrokeWidth(double width) {
-    root.style.setProperty("--dui-icon-stroke-width", String.valueOf(width));
-    return this;
+    return super.setStrokeWidth(width);
+  }
+
+  @Override
+  public TablerIcon setStrokeLineCap(String lineCap) {
+    return super.setStrokeLineCap(lineCap);
+  }
+
+  @Override
+  public TablerIcon setStrokeLineJoin(String lineJoin) {
+    return super.setStrokeLineJoin(lineJoin);
+  }
+
+  @Override
+  public TablerIcon setFilled(boolean filled) {
+    return super.setFilled(filled);
   }
 
   @Override
   public TablerIcon copy() {
     TablerIcon copy = create(definition);
-    String strokeWidth = root.style.getPropertyValue("--dui-icon-stroke-width");
-    if (!strokeWidth.isEmpty()) copy.root.style.setProperty("--dui-icon-stroke-width", strokeWidth);
     return copyPresentationTo(copy);
   }
 }
