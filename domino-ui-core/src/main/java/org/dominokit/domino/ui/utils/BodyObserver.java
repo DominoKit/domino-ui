@@ -30,7 +30,6 @@ import elemental2.dom.MutationRecord;
 import elemental2.dom.Node;
 import elemental2.dom.NodeList;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 import jsinterop.base.Js;
 
@@ -71,11 +70,11 @@ public final class BodyObserver {
                   MutationRecord[] recordsArray =
                       Js.uncheckedCast(records.asArray(new MutationRecord[records.length]));
                   for (MutationRecord record : recordsArray) {
-                    if (!record.removedNodes.asList().isEmpty()) {
+                    if (record.removedNodes.length > 0) {
                       onElementsRemoved(record);
                     }
 
-                    if (!record.addedNodes.asList().isEmpty()) {
+                    if (record.addedNodes.length > 0) {
                       onElementsAppended(record);
                     }
                   }
@@ -96,9 +95,10 @@ public final class BodyObserver {
   }
 
   private static void onElementsAppended(MutationRecord record) {
-    List<Node> nodes = record.addedNodes.asList();
+    NodeList<Node> nodes = record.addedNodes;
     Set<String> processed = new HashSet<>();
-    for (Node node : nodes) {
+    for (int index = 0; index < nodes.length; index++) {
+      Node node = nodes.item(index);
       if (Node.ELEMENT_NODE == node.nodeType) {
         Element element = Js.uncheckedCast(node);
         dispatchForElement(element, ATTACH_UID_KEY, record, processed, true);
@@ -108,9 +108,10 @@ public final class BodyObserver {
   }
 
   private static void onElementsRemoved(MutationRecord record) {
-    List<Node> nodes = record.removedNodes.asList();
+    NodeList<Node> nodes = record.removedNodes;
     Set<String> processed = new HashSet<>();
-    for (Node node : nodes) {
+    for (int index = 0; index < nodes.length; index++) {
+      Node node = nodes.item(index);
       if (Node.ELEMENT_NODE == node.nodeType) {
         Element element = Js.uncheckedCast(node);
         dispatchForElement(element, DETACH_UID_KEY, record, processed, false);
