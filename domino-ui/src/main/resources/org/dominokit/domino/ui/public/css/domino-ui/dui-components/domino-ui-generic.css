@@ -971,3 +971,156 @@ hr.dui {
 .dui.dui-dialog.dui-waitme-container {
     transform: translateY(var(--dui-dialog-default-top-translate));
 }
+.dui.dui-context {
+    background-color: var(--dui-context-color);
+    color: var(--dui-context-fg-color);
+}
+.dui.dui-bg-context {
+    background-color: var(--dui-context-color);
+}
+.dui.dui-fg-context {
+    color: var(--dui-context-color);
+}
+.dui.dui-fg-context-color {
+    color: var(--dui-context-fg-color);
+}
+.dui.dui-border-context {
+    border-color: var(--dui-context-color);
+}
+.dui.dui-border-l-context {
+    border-left-color: var(--dui-context-color);
+}
+.dui.dui-border-r-context {
+    border-right-color: var(--dui-context-color);
+}
+.dui.dui-border-t-context {
+    border-top-color: var(--dui-context-color);
+}
+.dui.dui-border-b-context {
+    border-bottom-color: var(--dui-context-color);
+}
+
+
+/*
+ * Runtime accent harmonization.
+ *
+ * Accent selectors above publish the unchanged palette as source tokens. The
+ * public accent scale below remains the component-facing API and can be
+ * meaningfully harmonized toward the selected accent without generating CSS
+ * at build time. Identity themes use a low-strength accent anchor to retain
+ * the original scale. A zero strength is the compatibility default.
+ */
+.dui.dui-colors-light,
+.dui.dui-colors-dark {
+    --dui-accent-harmony-strength: calc(0%);
+    --dui-accent-harmony-anchor: var(--dui-accent-source);
+    --dui-accent-l-5: var(--dui-accent-source-l-5);
+    --dui-accent-l-4: var(--dui-accent-source-l-4);
+    --dui-accent-l-3: var(--dui-accent-source-l-3);
+    --dui-accent-l-2: var(--dui-accent-source-l-2);
+    --dui-accent-l-1: var(--dui-accent-source-l-1);
+    --dui-accent: var(--dui-accent-source);
+    --dui-accent-d-1: var(--dui-accent-source-d-1);
+    --dui-accent-d-2: var(--dui-accent-source-d-2);
+    --dui-accent-d-3: var(--dui-accent-source-d-3);
+    --dui-accent-d-4: var(--dui-accent-source-d-4);
+}
+
+@supports (color: color-mix(in oklch, red, blue)) {
+    .dui.dui-colors-light,
+    .dui.dui-colors-dark {
+        --dui-accent-l-5: color-mix(in oklch, var(--dui-accent-source-l-5) calc(100% - var(--dui-accent-harmony-strength)), var(--dui-accent-harmony-anchor) var(--dui-accent-harmony-strength));
+        --dui-accent-l-4: color-mix(in oklch, var(--dui-accent-source-l-4) calc(100% - var(--dui-accent-harmony-strength)), var(--dui-accent-harmony-anchor) var(--dui-accent-harmony-strength));
+        --dui-accent-l-3: color-mix(in oklch, var(--dui-accent-source-l-3) calc(100% - var(--dui-accent-harmony-strength)), var(--dui-accent-harmony-anchor) var(--dui-accent-harmony-strength));
+        --dui-accent-l-2: color-mix(in oklch, var(--dui-accent-source-l-2) calc(100% - var(--dui-accent-harmony-strength)), var(--dui-accent-harmony-anchor) var(--dui-accent-harmony-strength));
+        --dui-accent-l-1: color-mix(in oklch, var(--dui-accent-source-l-1) calc(100% - var(--dui-accent-harmony-strength)), var(--dui-accent-harmony-anchor) var(--dui-accent-harmony-strength));
+        --dui-accent: color-mix(in oklch, var(--dui-accent-source) calc(100% - var(--dui-accent-harmony-strength)), var(--dui-accent-harmony-anchor) var(--dui-accent-harmony-strength));
+        --dui-accent-d-1: color-mix(in oklch, var(--dui-accent-source-d-1) calc(100% - var(--dui-accent-harmony-strength)), var(--dui-accent-harmony-anchor) var(--dui-accent-harmony-strength));
+        --dui-accent-d-2: color-mix(in oklch, var(--dui-accent-source-d-2) calc(100% - var(--dui-accent-harmony-strength)), var(--dui-accent-harmony-anchor) var(--dui-accent-harmony-strength));
+        --dui-accent-d-3: color-mix(in oklch, var(--dui-accent-source-d-3) calc(100% - var(--dui-accent-harmony-strength)), var(--dui-accent-harmony-anchor) var(--dui-accent-harmony-strength));
+        --dui-accent-d-4: color-mix(in oklch, var(--dui-accent-source-d-4) calc(100% - var(--dui-accent-harmony-strength)), var(--dui-accent-harmony-anchor) var(--dui-accent-harmony-strength));
+    }
+}
+
+/*
+ * Theme-owned primary and secondary roles.
+ *
+ * The --dui-palette-* values are the fixed color-mode fallbacks. The public
+ * --dui-clr-* role values below are resolved at runtime and can be shifted
+ * toward an identity theme without build-time palette generation.
+ */
+.dui.dui-colors-light,
+.dui.dui-colors-dark {
+    --dui-primary-harmony-strength: calc(0%);
+    --dui-primary-harmony-anchor: var(--dui-palette-primary);
+    --dui-secondary-harmony-strength: calc(0%);
+    --dui-secondary-harmony-anchor: var(--dui-palette-secondary);
+
+    --dui-clr-primary-l-5: var(--dui-palette-primary-l-5);
+    --dui-clr-primary-l-4: var(--dui-palette-primary-l-4);
+    --dui-clr-primary-l-3: var(--dui-palette-primary-l-3);
+    --dui-clr-primary-l-2: var(--dui-palette-primary-l-2);
+    --dui-clr-primary-l-1: var(--dui-palette-primary-l-1);
+    --dui-clr-primary: var(--dui-palette-primary);
+    --dui-clr-primary-d-1: var(--dui-palette-primary-d-1);
+    --dui-clr-primary-d-2: var(--dui-palette-primary-d-2);
+    --dui-clr-primary-d-3: var(--dui-palette-primary-d-3);
+    --dui-clr-primary-d-4: var(--dui-palette-primary-d-4);
+
+    --dui-clr-secondary-l-5: var(--dui-palette-secondary-l-5);
+    --dui-clr-secondary-l-4: var(--dui-palette-secondary-l-4);
+    --dui-clr-secondary-l-3: var(--dui-palette-secondary-l-3);
+    --dui-clr-secondary-l-2: var(--dui-palette-secondary-l-2);
+    --dui-clr-secondary-l-1: var(--dui-palette-secondary-l-1);
+    --dui-clr-secondary: var(--dui-palette-secondary);
+    --dui-clr-secondary-d-1: var(--dui-palette-secondary-d-1);
+    --dui-clr-secondary-d-2: var(--dui-palette-secondary-d-2);
+    --dui-clr-secondary-d-3: var(--dui-palette-secondary-d-3);
+    --dui-clr-secondary-d-4: var(--dui-palette-secondary-d-4);
+
+    --dui-clr-accent-l-5: var(--dui-accent-l-5);
+    --dui-clr-accent-l-4: var(--dui-accent-l-4);
+    --dui-clr-accent-l-3: var(--dui-accent-l-3);
+    --dui-clr-accent-l-2: var(--dui-accent-l-2);
+    --dui-clr-accent-l-1: var(--dui-accent-l-1);
+    --dui-clr-accent: var(--dui-accent);
+    --dui-clr-accent-d-1: var(--dui-accent-d-1);
+    --dui-clr-accent-d-2: var(--dui-accent-d-2);
+    --dui-clr-accent-d-3: var(--dui-accent-d-3);
+    --dui-clr-accent-d-4: var(--dui-accent-d-4);
+}
+
+@supports (color: color-mix(in oklch, red, blue)) {
+    .dui.dui-colors-light,
+    .dui.dui-colors-dark {
+        --dui-clr-primary-l-5: color-mix(in oklch, var(--dui-palette-primary-l-5) calc(100% - var(--dui-primary-harmony-strength)), var(--dui-primary-harmony-anchor) var(--dui-primary-harmony-strength));
+        --dui-clr-primary-l-4: color-mix(in oklch, var(--dui-palette-primary-l-4) calc(100% - var(--dui-primary-harmony-strength)), var(--dui-primary-harmony-anchor) var(--dui-primary-harmony-strength));
+        --dui-clr-primary-l-3: color-mix(in oklch, var(--dui-palette-primary-l-3) calc(100% - var(--dui-primary-harmony-strength)), var(--dui-primary-harmony-anchor) var(--dui-primary-harmony-strength));
+        --dui-clr-primary-l-2: color-mix(in oklch, var(--dui-palette-primary-l-2) calc(100% - var(--dui-primary-harmony-strength)), var(--dui-primary-harmony-anchor) var(--dui-primary-harmony-strength));
+        --dui-clr-primary-l-1: color-mix(in oklch, var(--dui-palette-primary-l-1) calc(100% - var(--dui-primary-harmony-strength)), var(--dui-primary-harmony-anchor) var(--dui-primary-harmony-strength));
+        --dui-clr-primary: color-mix(in oklch, var(--dui-palette-primary) calc(100% - var(--dui-primary-harmony-strength)), var(--dui-primary-harmony-anchor) var(--dui-primary-harmony-strength));
+        --dui-clr-primary-d-1: color-mix(in oklch, var(--dui-palette-primary-d-1) calc(100% - var(--dui-primary-harmony-strength)), var(--dui-primary-harmony-anchor) var(--dui-primary-harmony-strength));
+        --dui-clr-primary-d-2: color-mix(in oklch, var(--dui-palette-primary-d-2) calc(100% - var(--dui-primary-harmony-strength)), var(--dui-primary-harmony-anchor) var(--dui-primary-harmony-strength));
+        --dui-clr-primary-d-3: color-mix(in oklch, var(--dui-palette-primary-d-3) calc(100% - var(--dui-primary-harmony-strength)), var(--dui-primary-harmony-anchor) var(--dui-primary-harmony-strength));
+        --dui-clr-primary-d-4: color-mix(in oklch, var(--dui-palette-primary-d-4) calc(100% - var(--dui-primary-harmony-strength)), var(--dui-primary-harmony-anchor) var(--dui-primary-harmony-strength));
+
+        --dui-clr-secondary-l-5: color-mix(in oklch, var(--dui-palette-secondary-l-5) calc(100% - var(--dui-secondary-harmony-strength)), var(--dui-secondary-harmony-anchor) var(--dui-secondary-harmony-strength));
+        --dui-clr-secondary-l-4: color-mix(in oklch, var(--dui-palette-secondary-l-4) calc(100% - var(--dui-secondary-harmony-strength)), var(--dui-secondary-harmony-anchor) var(--dui-secondary-harmony-strength));
+        --dui-clr-secondary-l-3: color-mix(in oklch, var(--dui-palette-secondary-l-3) calc(100% - var(--dui-secondary-harmony-strength)), var(--dui-secondary-harmony-anchor) var(--dui-secondary-harmony-strength));
+        --dui-clr-secondary-l-2: color-mix(in oklch, var(--dui-palette-secondary-l-2) calc(100% - var(--dui-secondary-harmony-strength)), var(--dui-secondary-harmony-anchor) var(--dui-secondary-harmony-strength));
+        --dui-clr-secondary-l-1: color-mix(in oklch, var(--dui-palette-secondary-l-1) calc(100% - var(--dui-secondary-harmony-strength)), var(--dui-secondary-harmony-anchor) var(--dui-secondary-harmony-strength));
+        --dui-clr-secondary: color-mix(in oklch, var(--dui-palette-secondary) calc(100% - var(--dui-secondary-harmony-strength)), var(--dui-secondary-harmony-anchor) var(--dui-secondary-harmony-strength));
+        --dui-clr-secondary-d-1: color-mix(in oklch, var(--dui-palette-secondary-d-1) calc(100% - var(--dui-secondary-harmony-strength)), var(--dui-secondary-harmony-anchor) var(--dui-secondary-harmony-strength));
+        --dui-clr-secondary-d-2: color-mix(in oklch, var(--dui-palette-secondary-d-2) calc(100% - var(--dui-secondary-harmony-strength)), var(--dui-secondary-harmony-anchor) var(--dui-secondary-harmony-strength));
+        --dui-clr-secondary-d-3: color-mix(in oklch, var(--dui-palette-secondary-d-3) calc(100% - var(--dui-secondary-harmony-strength)), var(--dui-secondary-harmony-anchor) var(--dui-secondary-harmony-strength));
+        --dui-clr-secondary-d-4: color-mix(in oklch, var(--dui-palette-secondary-d-4) calc(100% - var(--dui-secondary-harmony-strength)), var(--dui-secondary-harmony-anchor) var(--dui-secondary-harmony-strength));
+    }
+}
+.dui.dui-border-x-context {
+    border-left-color: var(--dui-context-color);
+    border-right-color: var(--dui-context-color);
+}
+.dui.dui-border-y-context {
+    border-top-color: var(--dui-context-color);
+    border-bottom-color: var(--dui-context-color);
+}

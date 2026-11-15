@@ -1466,9 +1466,9 @@ public class DominoThemeCssContractTest {
     String darkTheme =
         readResource(
             "org/dominokit/domino/ui/public/css/domino-ui/dui-components/domino-ui-colors-dark.css");
-    String colors =
+    String generic =
         readResource(
-            "org/dominokit/domino/ui/public/css/domino-ui/dui-components/domino-ui-colors.css");
+            "org/dominokit/domino/ui/public/css/domino-ui/dui-components/domino-ui-generic.css");
 
     assertTrue(lightTheme.contains("--dui-palette-primary-l-5:"));
     assertTrue(lightTheme.contains("--dui-palette-secondary-l-5:"));
@@ -1476,9 +1476,9 @@ public class DominoThemeCssContractTest {
     assertTrue(darkTheme.contains("--dui-palette-primary-l-5:"));
     assertTrue(darkTheme.contains("--dui-palette-secondary-l-5:"));
     assertTrue(darkTheme.contains("--dui-palette-accent-l-5:"));
-    assertTrue(colors.contains("--dui-clr-primary-l-5: var(--dui-palette-primary-l-5);"));
-    assertTrue(colors.contains("--dui-clr-secondary-l-5: var(--dui-palette-secondary-l-5);"));
-    assertTrue(colors.contains("--dui-clr-accent: var(--dui-accent);"));
+    assertTrue(generic.contains("--dui-clr-primary-l-5: var(--dui-palette-primary-l-5);"));
+    assertTrue(generic.contains("--dui-clr-secondary-l-5: var(--dui-palette-secondary-l-5);"));
+    assertTrue(generic.contains("--dui-clr-accent: var(--dui-accent);"));
   }
 
   @Test
@@ -1600,17 +1600,17 @@ public class DominoThemeCssContractTest {
 
   @Test
   public void primaryAndSecondaryRoleScalesAreResolvedAtRuntime() throws IOException {
-    String colors =
+    String generic =
         readResource(
-            "org/dominokit/domino/ui/public/css/domino-ui/dui-components/domino-ui-colors.css");
+            "org/dominokit/domino/ui/public/css/domino-ui/dui-components/domino-ui-generic.css");
 
-    assertTrue(colors.contains("--dui-primary-harmony-strength: calc(0%);"));
-    assertTrue(colors.contains("--dui-secondary-harmony-strength: calc(0%);"));
+    assertTrue(generic.contains("--dui-primary-harmony-strength: calc(0%);"));
+    assertTrue(generic.contains("--dui-secondary-harmony-strength: calc(0%);"));
     assertTrue(
-        colors.contains(
+        generic.contains(
             "--dui-clr-primary: color-mix(in oklch, var(--dui-palette-primary) calc(100% - var(--dui-primary-harmony-strength)), var(--dui-primary-harmony-anchor) var(--dui-primary-harmony-strength));"));
     assertTrue(
-        colors.contains(
+        generic.contains(
             "--dui-clr-secondary: color-mix(in oklch, var(--dui-palette-secondary) calc(100% - var(--dui-secondary-harmony-strength)), var(--dui-secondary-harmony-anchor) var(--dui-secondary-harmony-strength));"));
   }
 
@@ -2161,9 +2161,6 @@ public class DominoThemeCssContractTest {
     String lightColors =
         readResource(
             "org/dominokit/domino/ui/public/css/domino-ui/dui-components/domino-ui-colors-light.css");
-    String colors =
-        readResource(
-            "org/dominokit/domino/ui/public/css/domino-ui/dui-components/domino-ui-colors.css");
     String buttons =
         readResource(
             "org/dominokit/domino/ui/public/css/domino-ui/dui-components/domino-ui-buttons.css");
@@ -2178,8 +2175,6 @@ public class DominoThemeCssContractTest {
     assertTrue(
         buttons.contains(
             "--dui-btn-hover-bg-clr: var(--dui-btn-context-hover-bg-clr, var(--dui-bg-l-4));"));
-    assertTrue(colors.contains(".dui[class*=\"dui-bg-dominant\"]{"));
-    assertTrue(colors.contains("--dui-btn-hover-color:var(--dui-dominant-fg-clr);"));
   }
 
   @Test
@@ -2204,9 +2199,9 @@ public class DominoThemeCssContractTest {
 
   @Test
   public void accentHarmonyKeepsTheCompleteSourceAndRuntimeScale() throws IOException {
-    String colors =
+    String generic =
         readResource(
-            "org/dominokit/domino/ui/public/css/domino-ui/dui-components/domino-ui-colors.css");
+            "org/dominokit/domino/ui/public/css/domino-ui/dui-components/domino-ui-generic.css");
     String lightTheme =
         readResource(
             "org/dominokit/domino/ui/public/css/domino-ui/dui-components/domino-ui-colors-light.css");
@@ -2215,26 +2210,24 @@ public class DominoThemeCssContractTest {
             "org/dominokit/domino/ui/public/css/domino-ui/dui-components/domino-ui-colors-dark.css");
 
     for (String slot : accentScaleSlots()) {
-      assertTrue(
-          "Missing source accent slot: " + slot, colors.contains("--dui-accent-source" + slot));
-      assertTrue("Missing runtime accent slot: " + slot, colors.contains("--dui-accent" + slot));
+      assertTrue("Missing runtime accent slot: " + slot, generic.contains("--dui-accent" + slot));
     }
 
     assertTrue(lightTheme.contains("--dui-accent-source-l-5:"));
     assertTrue(lightTheme.contains("--dui-accent-source-d-4:"));
     assertTrue(darkTheme.contains("--dui-accent-source-l-5:"));
     assertTrue(darkTheme.contains("--dui-accent-source-d-4:"));
-    assertTrue(colors.contains("--dui-accent-harmony-strength: calc(0%);"));
-    assertTrue(colors.contains("--dui-accent-harmony-anchor: var(--dui-accent-source);"));
-    assertTrue(colors.contains("color-mix(in oklch,"));
-    assertTrue(colors.contains("calc(100% - var(--dui-accent-harmony-strength))"));
+    assertTrue(generic.contains("--dui-accent-harmony-strength: calc(0%);"));
+    assertTrue(generic.contains("--dui-accent-harmony-anchor: var(--dui-accent-source);"));
+    assertTrue(generic.contains("color-mix(in oklch,"));
+    assertTrue(generic.contains("calc(100% - var(--dui-accent-harmony-strength))"));
   }
 
   @Test
   public void accentHarmonyKeepsTealShadesCloseToTheirLightAndDarkSources() throws IOException {
-    String colors =
+    String generic =
         readResource(
-            "org/dominokit/domino/ui/public/css/domino-ui/dui-components/domino-ui-colors.css");
+            "org/dominokit/domino/ui/public/css/domino-ui/dui-components/domino-ui-generic.css");
     String identity = readResource(identityThemeResources().get(0));
     String lightIdentity = themeBlock(identity, ".dui-colors-light");
     String darkIdentity = themeBlock(identity, ".dui-colors-dark");
@@ -2246,7 +2239,7 @@ public class DominoThemeCssContractTest {
     assertTrue(darkIdentity.contains("--dui-accent-harmony-strength: 5%;"));
 
     for (String slot : accentScaleSlots()) {
-      String declaration = cssDeclaration(colors, "--dui-accent" + slot, "color-mix(in oklch");
+      String declaration = cssDeclaration(generic, "--dui-accent" + slot, "color-mix(in oklch");
       assertTrue(declaration.contains("var(--dui-accent-source" + slot + ")"));
       assertTrue(declaration.contains("var(--dui-accent-harmony-anchor)"));
       assertTrue(declaration.contains("var(--dui-accent-harmony-strength)"));
@@ -2275,9 +2268,6 @@ public class DominoThemeCssContractTest {
 
   @Test
   public void additionalAccentPalettesExposeTheCompleteColorContract() throws IOException {
-    String colors =
-        readResource(
-            "org/dominokit/domino/ui/public/css/domino-ui/dui-components/domino-ui-colors.css");
     String lightTheme =
         readResource(
             "org/dominokit/domino/ui/public/css/domino-ui/dui-components/domino-ui-colors-light.css");
@@ -2290,16 +2280,6 @@ public class DominoThemeCssContractTest {
       assertTrue(lightTheme.contains("--dui-" + accent + "-fg-clr:"));
       assertTrue(darkTheme.contains("--dui-clr-" + accent + "-d-4:"));
       assertTrue(darkTheme.contains("--dui-" + accent + "-fg-clr:"));
-      assertTrue(colors.contains(".dui[class*=\"dui-accent-" + accent + "\"]{"));
-      assertTrue(colors.contains("--dui-accent-source:var(--dui-clr-" + accent + ");"));
-      for (String slot : accentScaleSlots()) {
-        assertTrue(colors.contains(".dui.dui-fg-" + accent + slot + " {"));
-        assertTrue(colors.contains(".dui.dui-bg-" + accent + slot + " {"));
-        assertTrue(colors.contains(".dui.dui-accent-" + accent + slot + " {"));
-        assertTrue(colors.contains(".dui-context-" + accent + slot + " {"));
-      }
-      assertTrue(colors.contains("--dui-text-color: var(--dui-" + accent + "-fg-clr);"));
-      assertTrue(colors.contains("--dui-accent-text-color: var(--dui-" + accent + "-fg-clr);"));
     }
   }
 

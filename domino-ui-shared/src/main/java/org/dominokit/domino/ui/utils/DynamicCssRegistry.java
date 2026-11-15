@@ -107,6 +107,12 @@ final class DynamicCssRegistry {
     return StaticDynamicCssUtility.resolve(this, staticClassName);
   }
 
+  void setProperty(String selector, String property, String value) {
+    if (!value.equals(styleSheet.getPropertyValue(selector, property))) {
+      styleSheet.setProperty(selector, property, value);
+    }
+  }
+
   void preloadStaticUtilities() {
     if (!staticUtilitiesPreloaded) {
       StaticDynamicCssUtility.preloadAll(this);

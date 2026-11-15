@@ -239,7 +239,8 @@
                                         encoding="UTF-8" fixlastline="true">
                                     <sort>
                                         <fileset dir="${project.build.outputDirectory}/org/dominokit/domino/ui/public/css/domino-ui/dui-components"
-                                                 includes="**/*.css" excludes="**/*.min.css"/>
+                                                 includes="**/*.css"
+                                                 excludes="**/*.min.css"/>
                                     </sort>
                                 </concat>
                                 <copy file="${project.build.directory}/mdi-css-backup/materialdesignicons.css"

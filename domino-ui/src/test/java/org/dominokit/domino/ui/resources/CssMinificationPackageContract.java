@@ -64,15 +64,15 @@ public class CssMinificationPackageContract {
     assertContains("themes/domino-ui-themes.min.css", "dui-theme-ocean");
     assertContains("domino-ui-css-all.min.css", "dui-waitme-animation-bounce");
     assertContains("domino-ui-css-all.min.css", "dui-theme-ocean");
-    assertContains("dui-components/domino-ui-colors.min.css", "var(--dui-");
-    assertContains("dui-components/domino-ui-colors.min.css", "color-mix(");
-    assertContains("dui-components/domino-ui-colors.min.css", "@supports");
+    assertContains("dui-components/domino-ui-generic.min.css", "var(--dui-");
+    assertContains("dui-components/domino-ui-generic.min.css", "color-mix(");
+    assertContains("dui-components/domino-ui-generic.min.css", "@supports");
     assertContains(
-        "dui-components/domino-ui-colors.min.css", "--dui-accent-harmony-strength:calc(0%)");
+        "dui-components/domino-ui-generic.min.css", "--dui-accent-harmony-strength:calc(0%)");
     assertContains(
-        "dui-components/domino-ui-colors.min.css", "--dui-primary-harmony-strength:calc(0%)");
+        "dui-components/domino-ui-generic.min.css", "--dui-primary-harmony-strength:calc(0%)");
     assertContains(
-        "dui-components/domino-ui-colors.min.css", "--dui-secondary-harmony-strength:calc(0%)");
+        "dui-components/domino-ui-generic.min.css", "--dui-secondary-harmony-strength:calc(0%)");
     assertContains("themes/character/domino-ui-theme-glass.min.css", ":where(");
     assertContains("dui-components/domino-ui-animation.min.css", "@keyframes");
     assertContains("dui-components/domino-ui-waitme.min.css", "dui-waitme-animation-bounce");

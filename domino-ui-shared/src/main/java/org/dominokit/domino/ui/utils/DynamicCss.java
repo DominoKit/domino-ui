@@ -58,8 +58,8 @@ public final class DynamicCss {
   /**
    * Creates a lazily resolved compatibility class for a migrated static value utility.
    *
-   * <p>Supported spacing, sizing, flex-basis, position, and stacking utility names retain their
-   * existing selector names and inject their rule only when the class is used.
+   * <p>Supported spacing, sizing, flex-basis, position, stacking, and built-in color utility names
+   * retain their existing selector names and inject their rule only when the class is used.
    *
    * @param staticClassName the existing utility selector name, such as {@code dui-p-4}
    * @return a CSS class that retains the supplied static selector name

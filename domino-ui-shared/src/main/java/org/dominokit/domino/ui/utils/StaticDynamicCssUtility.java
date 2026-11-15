@@ -51,6 +51,48 @@ final class StaticDynamicCssUtility {
     "3", "4", "5", "6", "7", "8", "9", "10", "none", "tight", "snug", "normal", "relaxed", "loose"
   };
 
+  private static final String[] COLOR_NAMES = {
+    "accent",
+    "amber",
+    "black",
+    "blue",
+    "blue-grey",
+    "brown",
+    "cobalt",
+    "coral",
+    "cyan",
+    "deep-orange",
+    "deep-purple",
+    "dominant",
+    "emerald",
+    "error",
+    "green",
+    "grey",
+    "indigo",
+    "info",
+    "light-blue",
+    "light-green",
+    "lime",
+    "orange",
+    "pink",
+    "plum",
+    "primary",
+    "purple",
+    "red",
+    "secondary",
+    "success",
+    "teal",
+    "warning",
+    "white",
+    "yellow"
+  };
+
+  private static final String[] COLOR_SHADES = {
+    "l-5", "l-4", "l-3", "l-2", "l-1", "", "d-1", "d-2", "d-3", "d-4"
+  };
+
+  private static final String[] COLOR_SPECIAL_VALUES = {"current", "inherit", "transparent"};
+
   private static final DynamicCssDefinition TEXT_INDENT =
       DynamicCssDefinition.of("dui-txt-indnt", "dui-spc", "text-indent");
 
@@ -105,6 +147,14 @@ final class StaticDynamicCssUtility {
   private StaticDynamicCssUtility() {}
 
   static CssClass resolve(DynamicCssRegistry registry, String staticClassName) {
+    ColorUtility colorUtility = ColorUtility.fromClassName(staticClassName);
+    if (colorUtility != null) {
+      return new LazyDynamicCssClass(
+          () -> {
+            colorUtility.inject(registry);
+            return () -> staticClassName;
+          });
+    }
     for (Utility utility : UTILITIES) {
       String token = utility.token(staticClassName);
       if (token != null) {
@@ -112,6 +162,267 @@ final class StaticDynamicCssUtility {
       }
     }
     return () -> staticClassName;
+  }
+
+  private static final class ColorUtility {
+
+    private final String utility;
+    private final String color;
+    private final String shade;
+    private final boolean specialValue;
+
+    private ColorUtility(String utility, String color, String shade, boolean specialValue) {
+      this.utility = utility;
+      this.color = color;
+      this.shade = shade;
+      this.specialValue = specialValue;
+    }
+
+    private static ColorUtility fromClassName(String className) {
+      String[] utilityPrefixes = {
+        "text-decoration",
+        "border-x",
+        "border-y",
+        "border-t",
+        "border-r",
+        "border-b",
+        "border-l",
+        "border",
+        "divide",
+        "outline",
+        "shadow",
+        "context",
+        "accent",
+        "fg",
+        "bg"
+      };
+      for (String utility : utilityPrefixes) {
+        String prefix = "dui-" + utility + "-";
+        if (!className.startsWith(prefix)) {
+          continue;
+        }
+        ColorUtility parsed = parse(utility, className.substring(prefix.length()));
+        if (parsed != null) {
+          return parsed;
+        }
+      }
+      return null;
+    }
+
+    private static ColorUtility parse(String utility, String token) {
+      for (String color : COLOR_NAMES) {
+        if (token.equals(color)) {
+          return new ColorUtility(utility, color, "", false);
+        }
+        String colorPrefix = color + "-";
+        if (token.startsWith(colorPrefix)) {
+          String shade = token.substring(colorPrefix.length());
+          if (contains(COLOR_SHADES, shade)) {
+            return new ColorUtility(utility, color, shade, false);
+          }
+        }
+      }
+      if (contains(COLOR_SPECIAL_VALUES, token)) {
+        return new ColorUtility(utility, token, "", true);
+      }
+      return null;
+    }
+
+    private void inject(DynamicCssRegistry registry) {
+      if (!specialValue && isFamilyUtility()) {
+        injectFamilyMapping(registry);
+      }
+      injectUtilityRule(registry);
+    }
+
+    private boolean isFamilyUtility() {
+      return "fg".equals(utility) || "bg".equals(utility) || "accent".equals(utility);
+    }
+
+    private void injectFamilyMapping(DynamicCssRegistry registry) {
+      String selector = ".dui[class*=\"dui-" + utility + "-" + color + "\"]";
+      String propertyPrefix =
+          "fg".equals(utility)
+              ? "--dui-fg"
+              : "bg".equals(utility) ? "--dui-bg" : "--dui-accent-source";
+      for (String familyShade : COLOR_SHADES) {
+        String property = propertyPrefix + suffix(familyShade);
+        registry.setProperty(selector, property, colorValueForFamily(familyShade));
+      }
+      if ("bg".equals(utility) && "dominant".equals(color)) {
+        registry.setProperty(selector, "--dui-btn-hover-color", "var(--dui-dominant-fg-clr)");
+      }
+    }
+
+    private String colorValueForFamily(String familyShade) {
+      String variable;
+      if ("accent".equals(color)) {
+        if ("accent".equals(utility)) {
+          variable = "--dui-palette-accent" + suffix(familyShade);
+        } else {
+          variable = "--dui-accent" + suffix(familyShade);
+        }
+      } else {
+        variable = "--dui-clr-" + color + suffix(familyShade);
+      }
+      return "var(" + variable + ")";
+    }
+
+    private void injectUtilityRule(DynamicCssRegistry registry) {
+      String selector = utilitySelector();
+      String value = colorValue();
+      switch (utility) {
+        case "fg":
+          set(registry, selector, "--dui-fg-clr", value);
+          if (!"accent".equals(color)) {
+            set(registry, selector, "--dui-text-color", "var(--dui-fg-clr)");
+          }
+          set(registry, selector, "color", value);
+          break;
+        case "bg":
+          set(registry, selector, "--dui-bg-clr", value);
+          set(registry, selector, "--dui-text-color", backgroundForeground());
+          set(registry, selector, "background-color", value);
+          break;
+        case "accent":
+          set(registry, selector, "--dui-accent-clr", value);
+          if ("inherit".equals(color)) {
+            set(registry, selector, "--dui-accent-text-color", value);
+          } else if ("accent".equals(color)) {
+            set(registry, selector, "--dui-accent-text-color", "var(--dui-clr-white)");
+          } else if ("dominant".equals(color)) {
+            set(registry, selector, "--dui-accent-text-color", "var(--dui-color)");
+          } else if (!specialValue) {
+            set(registry, selector, "--dui-accent-text-color", foregroundVariable());
+          }
+          set(registry, selector, "accent-color", value);
+          break;
+        case "shadow":
+          set(registry, selector, "--dui-shadow-clr", value);
+          break;
+        case "text-decoration":
+          set(registry, selector, "--dui-text-decoration-clr", value);
+          set(registry, selector, "text-decoration-color", value);
+          break;
+        case "border":
+          set(registry, selector, "--dui-border-clr", value);
+          set(registry, selector, "border-color", value);
+          break;
+        case "border-x":
+          set(registry, selector, "--dui-border-x-clr", value);
+          set(registry, selector, "border-left-color", value);
+          set(registry, selector, "border-right-color", value);
+          break;
+        case "border-y":
+          set(registry, selector, "--dui-border-y-clr", value);
+          set(registry, selector, "border-top-color", value);
+          set(registry, selector, "border-bottom-color", value);
+          break;
+        case "border-t":
+        case "border-r":
+        case "border-b":
+        case "border-l":
+          String side = utility.substring("border-".length());
+          set(registry, selector, "--dui-border-" + side + "-clr", value);
+          set(registry, selector, borderProperty(side), value);
+          break;
+        case "divide":
+          set(registry, selector, "--dui-border-clr", value);
+          set(registry, selector, "border-color", value);
+          break;
+        case "outline":
+          set(registry, selector, "--dui-outline-clr", value);
+          set(registry, selector, "outline-color", value);
+          break;
+        case "context":
+          if (shade.isEmpty()) {
+            for (String familyShade : COLOR_SHADES) {
+              set(
+                  registry,
+                  selector,
+                  "--dui-context-color" + suffix(familyShade),
+                  paletteColorValue(familyShade));
+            }
+          } else {
+            set(registry, selector, "--dui-context-color", value);
+          }
+          set(registry, selector, "--dui-context-fg-color", foregroundVariable());
+          break;
+        default:
+          break;
+      }
+    }
+
+    private String utilitySelector() {
+      if ("context".equals(utility)) {
+        return ".dui-context-" + color + suffix(shade);
+      }
+      String selector = ".dui.dui-" + utility + "-" + color + suffix(shade);
+      if ("divide".equals(utility)) {
+        return selector + " > * + *";
+      }
+      return selector;
+    }
+
+    private String colorValue() {
+      if (specialValue) {
+        return "var(--dui-clr-" + color + ")";
+      }
+      return paletteColorValue(shade);
+    }
+
+    private String paletteColorValue(String colorShade) {
+      String variable =
+          "accent".equals(color)
+              ? "--dui-accent" + suffix(colorShade)
+              : "--dui-clr-" + color + suffix(colorShade);
+      return "var(" + variable + ")";
+    }
+
+    private String backgroundForeground() {
+      if (specialValue || "dominant".equals(color)) {
+        return "var(--dui-color)";
+      }
+      if ("accent".equals(color)) {
+        return "var(--dui-clr-white)";
+      }
+      return foregroundVariable();
+    }
+
+    private String foregroundVariable() {
+      return "var(--dui-" + color + "-fg-clr)";
+    }
+
+    private static String borderProperty(String side) {
+      switch (side) {
+        case "t":
+          return "border-top-color";
+        case "r":
+          return "border-right-color";
+        case "b":
+          return "border-bottom-color";
+        default:
+          return "border-left-color";
+      }
+    }
+
+    private static void set(
+        DynamicCssRegistry registry, String selector, String property, String value) {
+      registry.setProperty(selector, property, value);
+    }
+
+    private static String suffix(String shade) {
+      return shade.isEmpty() ? "" : "-" + shade;
+    }
+  }
+
+  private static boolean contains(String[] values, String value) {
+    for (String candidate : values) {
+      if (candidate.equals(value)) {
+        return true;
+      }
+    }
+    return false;
   }
 
   static CssClass resolveStaticValue(

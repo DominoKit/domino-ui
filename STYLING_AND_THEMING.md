@@ -158,6 +158,10 @@ Use `domino-ui-css-all.css` instead when readable CSS is preferred. These are ad
 the core, themes, fonts, and individual resource URLs remain available for applications that need
 smaller or more selective delivery.
 
+Built-in `Color` and `ColorsCss` classes inject only the color utility rules they use into a runtime
+stylesheet. The palette values remain in the light and dark color stylesheets included with the
+normal Domino UI bundle.
+
 ### Load only selected optional themes
 
 An application that only uses Ocean, Glass, Compact, and Rounded can load those files instead of
