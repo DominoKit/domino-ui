@@ -98,7 +98,7 @@ public final class BodyObserver {
     NodeList<Node> nodes = record.addedNodes;
     Set<String> processed = new HashSet<>();
     for (int index = 0; index < nodes.length; index++) {
-      Node node = nodes.item(index);
+      Node node = Js.uncheckedCast(itemAt(nodes, index));
       if (Node.ELEMENT_NODE == node.nodeType) {
         Element element = Js.uncheckedCast(node);
         dispatchForElement(element, ATTACH_UID_KEY, record, processed, true);
@@ -107,17 +107,22 @@ public final class BodyObserver {
     }
   }
 
-  private static void onElementsRemoved(MutationRecord record) {
+  static void onElementsRemoved(MutationRecord record) {
     NodeList<Node> nodes = record.removedNodes;
     Set<String> processed = new HashSet<>();
     for (int index = 0; index < nodes.length; index++) {
-      Node node = nodes.item(index);
+      Node node = Js.uncheckedCast(itemAt(nodes, index));
       if (Node.ELEMENT_NODE == node.nodeType) {
         Element element = Js.uncheckedCast(node);
         dispatchForElement(element, DETACH_UID_KEY, record, processed, false);
         dispatchForDescendants(element, DETACH_UID_KEY, record, processed, false);
       }
     }
+  }
+
+  private static Object itemAt(NodeList<?> nodes, int index) {
+    // A DOM node can come from another window and fail GWT's checked native-interface cast.
+    return Js.<NodeList<Object>>uncheckedCast(nodes).item(index);
   }
 
   private static void dispatchForElement(
@@ -143,7 +148,7 @@ public final class BodyObserver {
       boolean attached) {
     NodeList<Element> children = element.querySelectorAll("[" + observerAttribute + "]");
     for (int index = 0; index < children.length; index++) {
-      Element child = children.item(index);
+      Element child = Js.uncheckedCast(itemAt(children, index));
       String type =
           attached ? ObserverEventType.attachedType(child) : ObserverEventType.detachedType(child);
       dispatch(child, type, record, processed);

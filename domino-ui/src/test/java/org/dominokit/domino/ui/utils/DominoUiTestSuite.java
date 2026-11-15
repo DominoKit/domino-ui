@@ -55,6 +55,7 @@ public class DominoUiTestSuite extends GWTTestSuite {
     suite.addTestSuite(DynamicCssDefinitionTest.class);
     suite.addTestSuite(DynamicCssRegistryTest.class);
     suite.addTestSuite(DynamicCssCssomTest.class);
+    suite.addTestSuite(BodyObserverTest.class);
     suite.addTestSuite(DominoDynamicColorTest.class);
     suite.addTestSuite(DynamicLayoutCssTest.class);
     suite.addTestSuite(DynamicAdvancedCssTest.class);
