@@ -15,6 +15,8 @@
  */
 package org.dominokit.domino.ui.utils;
 
+import java.util.Map;
+
 /** Abstraction over the document stylesheet used by {@link DynamicCssRegistry}. */
 interface DynamicCssStyleSheet {
 
@@ -29,4 +31,9 @@ interface DynamicCssStyleSheet {
 
   /** Creates the selector rule when necessary and sets one of its properties. */
   void setProperty(String selector, String property, String value);
+
+  /** Sets multiple properties on one selector, allowing adapters to resolve its rule once. */
+  default void setProperties(String selector, Map<String, String> properties) {
+    properties.forEach((property, value) -> setProperty(selector, property, value));
+  }
 }

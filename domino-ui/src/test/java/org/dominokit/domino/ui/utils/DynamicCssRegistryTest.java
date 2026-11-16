@@ -16,7 +16,9 @@
 package org.dominokit.domino.ui.utils;
 
 import com.google.gwt.junit.client.GWTTestCase;
+import java.util.ArrayList;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 import org.dominokit.domino.ui.style.CssClass;
 
@@ -41,6 +43,152 @@ public class DynamicCssRegistryTest extends GWTTestCase {
     assertEquals(
         "var(--dui-test-inject-value-10px)",
         styleSheet.property(".dui.dui-test-inject-10px", "padding"));
+  }
+
+  public void testSmallDeclarationSetRemainsSynchronous() {
+    InMemoryStyleSheet styleSheet = new InMemoryStyleSheet();
+    QueuedFrameScheduler scheduler = new QueuedFrameScheduler();
+    DynamicCssRegistry registry = new DynamicCssRegistry(styleSheet, scheduler);
+
+    for (int index = 0; index < DynamicCssRegistry.SYNC_DECLARATION_BUDGET; index++) {
+      registry.setProperty(".dui-sync-" + index, "color", "red");
+    }
+
+    assertEquals("red", styleSheet.property(".dui-sync-0", "color"));
+    assertEquals("red", styleSheet.property(".dui-sync-127", "color"));
+    assertEquals(1, scheduler.pendingCount());
+  }
+
+  public void testLegacyPositionAliasesUseSpacingVariables() {
+    InMemoryStyleSheet styleSheet = new InMemoryStyleSheet();
+    DynamicCssRegistry registry = new DynamicCssRegistry(styleSheet);
+
+    assertEquals("dui-top-0.5", registry.lazyCssClass("dui-top-0.5").getCssClass());
+    assertEquals("dui-top-1_2", registry.lazyCssClass("dui-top-1_2").getCssClass());
+    assertEquals("dui-inset-x-2_4", registry.lazyCssClass("dui-inset-x-2_4").getCssClass());
+
+    assertEquals("var(--dui-spc-0_5)", styleSheet.property(".dui.dui-top-0\\.5", "top"));
+    assertEquals("var(--dui-spc-1_2p)", styleSheet.property(".dui.dui-top-1_2", "top"));
+    assertEquals(
+        "var(--dui-spc-1_2p)", styleSheet.property(".dui.dui-inset-x-2_4", "left"));
+  }
+
+  public void testSynchronousBudgetResetsAfterEachFrame() {
+    InMemoryStyleSheet styleSheet = new InMemoryStyleSheet();
+    QueuedFrameScheduler scheduler = new QueuedFrameScheduler();
+    DynamicCssRegistry registry = new DynamicCssRegistry(styleSheet, scheduler);
+
+    for (int index = 0; index < DynamicCssRegistry.SYNC_DECLARATION_BUDGET; index++) {
+      registry.setProperty(".dui-sync-frame-" + index, "color", "red");
+    }
+    assertEquals(1, scheduler.pendingCount());
+    scheduler.runNext();
+
+    registry.setProperty(".dui-sync-after-frame", "color", "blue");
+
+    assertEquals("blue", styleSheet.property(".dui-sync-after-frame", "color"));
+    assertEquals(1, scheduler.pendingCount());
+  }
+
+  public void testLargeDeclarationSetIsCoalescedAndDrainedInFrames() {
+    InMemoryStyleSheet styleSheet = new InMemoryStyleSheet();
+    QueuedFrameScheduler scheduler = new QueuedFrameScheduler();
+    DynamicCssRegistry registry = new DynamicCssRegistry(styleSheet, scheduler);
+    int declarationCount =
+        DynamicCssRegistry.SYNC_DECLARATION_BUDGET
+            + DynamicCssRegistry.FRAME_DECLARATION_BUDGET
+            + 1;
+
+    for (int index = 0; index < declarationCount; index++) {
+      registry.setProperty(".dui-burst-" + index, "color", "red");
+    }
+    registry.setProperty(".dui-burst-128", "color", "green");
+
+    assertEquals("red", styleSheet.property(".dui-burst-127", "color"));
+    assertEquals("", styleSheet.property(".dui-burst-128", "color"));
+    assertEquals(1, scheduler.pendingCount());
+
+    scheduler.runNext();
+
+    assertEquals("green", styleSheet.property(".dui-burst-128", "color"));
+    assertEquals("red", styleSheet.property(".dui-burst-383", "color"));
+    assertEquals("", styleSheet.property(".dui-burst-384", "color"));
+    assertEquals(1, scheduler.pendingCount());
+
+    scheduler.runNext();
+
+    assertEquals("red", styleSheet.property(".dui-burst-384", "color"));
+    assertEquals(0, scheduler.pendingCount());
+  }
+
+  public void testSynchronousBudgetResetsAfterLargeQueueDrains() {
+    InMemoryStyleSheet styleSheet = new InMemoryStyleSheet();
+    QueuedFrameScheduler scheduler = new QueuedFrameScheduler();
+    DynamicCssRegistry registry = new DynamicCssRegistry(styleSheet, scheduler);
+    int queuedDeclarationCount = DynamicCssRegistry.FRAME_DECLARATION_BUDGET + 144;
+
+    for (int index = 0; index < DynamicCssRegistry.SYNC_DECLARATION_BUDGET; index++) {
+      registry.setProperty(".dui-drain-sync-" + index, "color", "red");
+    }
+    for (int index = 0; index < queuedDeclarationCount; index++) {
+      registry.setProperty(".dui-drain-queued-" + index, "color", "red");
+    }
+
+    scheduler.runNext();
+    assertEquals(1, scheduler.pendingCount());
+    scheduler.runNext();
+    assertEquals(0, scheduler.pendingCount());
+
+    registry.setProperty(".dui-drain-after", "color", "blue");
+
+    assertEquals("blue", styleSheet.property(".dui-drain-after", "color"));
+  }
+
+  public void testTimerFallbackDrainsQueuedDeclarations() {
+    delayTestFinish(3000);
+    InMemoryStyleSheet styleSheet = new InMemoryStyleSheet();
+    DynamicCssRegistry registry =
+        new DynamicCssRegistry(styleSheet, DynamicCssFrameScheduler.timerFallback());
+
+    for (int index = 0; index <= DynamicCssRegistry.SYNC_DECLARATION_BUDGET; index++) {
+      registry.setProperty(".dui-timer-" + index, "color", "red");
+    }
+
+    assertEquals("", styleSheet.property(".dui-timer-128", "color"));
+    elemental2.dom.DomGlobal.setTimeout(
+        timeoutId -> {
+          assertEquals("red", styleSheet.property(".dui-timer-128", "color"));
+          finishTest();
+        },
+        10);
+  }
+
+  public void testColorUtilityBurstReturnsClassesBeforeAllRulesAreFlushed() {
+    InMemoryStyleSheet styleSheet = new InMemoryStyleSheet();
+    QueuedFrameScheduler scheduler = new QueuedFrameScheduler();
+    DynamicCssRegistry registry = new DynamicCssRegistry(styleSheet, scheduler);
+    String[] utilities = {
+      "fg", "bg", "accent", "shadow", "text-decoration", "border", "border-x",
+      "border-y", "border-t", "border-r", "border-b", "border-l", "divide", "outline"
+    };
+    String[] shades = {"l-5", "l-4", "l-3", "l-2", "l-1", "", "d-1", "d-2", "d-3", "d-4"};
+
+    for (String utility : utilities) {
+      for (String shade : shades) {
+        String className = "dui-" + utility + "-coral" + (shade.isEmpty() ? "" : "-" + shade);
+        assertEquals(className, registry.lazyCssClass(className).getCssClass());
+      }
+    }
+
+    assertTrue(scheduler.pendingCount() > 0);
+    assertEquals("", styleSheet.property(".dui.dui-outline-coral-d-4", "outline-color"));
+    while (scheduler.pendingCount() > 0) {
+      scheduler.runNext();
+    }
+
+    assertEquals("var(--dui-clr-coral-l-5)", styleSheet.property(".dui.dui-fg-coral-l-5", "color"));
+    assertEquals("var(--dui-clr-coral-d-4)", styleSheet.property(".dui.dui-outline-coral-d-4", "outline-color"));
+    assertEquals(10, styleSheet.maxBatchSize());
   }
 
   public void testSameDefinitionAndValueReuseOneVariableAndOneUtilityRule() {
@@ -287,6 +435,7 @@ public class DynamicCssRegistryTest extends GWTTestCase {
 
     private final Map<String, Map<String, String>> rules = new LinkedHashMap<>();
     private int setPropertyCalls;
+    private int maxBatchSize;
 
     @Override
     public boolean hasRule(String selector) {
@@ -297,6 +446,12 @@ public class DynamicCssRegistryTest extends GWTTestCase {
     public void setProperty(String selector, String property, String value) {
       setPropertyCalls++;
       rules.computeIfAbsent(selector, ignored -> new LinkedHashMap<>()).put(property, value);
+    }
+
+    @Override
+    public void setProperties(String selector, Map<String, String> properties) {
+      maxBatchSize = Math.max(maxBatchSize, properties.size());
+      properties.forEach((property, value) -> setProperty(selector, property, value));
     }
 
     private int ruleCount() {
@@ -320,6 +475,28 @@ public class DynamicCssRegistryTest extends GWTTestCase {
 
     private int setPropertyCalls() {
       return setPropertyCalls;
+    }
+
+    private int maxBatchSize() {
+      return maxBatchSize;
+    }
+  }
+
+  private static class QueuedFrameScheduler implements DynamicCssFrameScheduler {
+
+    private final List<Runnable> callbacks = new ArrayList<>();
+
+    @Override
+    public void scheduleFrame(Runnable callback) {
+      callbacks.add(callback);
+    }
+
+    private int pendingCount() {
+      return callbacks.size();
+    }
+
+    private void runNext() {
+      callbacks.remove(0).run();
     }
   }
 }

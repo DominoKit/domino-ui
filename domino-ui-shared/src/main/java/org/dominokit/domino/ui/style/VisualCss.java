@@ -807,25 +807,25 @@ public interface VisualCss {
 
   CssClass dui_border_l_96 = DynamicCss.lazyCssClass("dui-border-l-96");
 
-  CssClass dui_divide_x_0 = () -> "dui-divide-x-0";
+  CssClass dui_divide_x_0 = DynamicCss.lazyCssClass("dui-divide-x-0");
 
-  CssClass dui_divide_x_2 = () -> "dui-divide-x-2";
+  CssClass dui_divide_x_2 = DynamicCss.lazyCssClass("dui-divide-x-2");
 
-  CssClass dui_divide_x_4 = () -> "dui-divide-x-4";
+  CssClass dui_divide_x_4 = DynamicCss.lazyCssClass("dui-divide-x-4");
 
-  CssClass dui_divide_x_8 = () -> "dui-divide-x-8";
+  CssClass dui_divide_x_8 = DynamicCss.lazyCssClass("dui-divide-x-8");
 
-  CssClass dui_divide_x = () -> "dui-divide-x";
+  CssClass dui_divide_x = DynamicCss.lazyCssClass("dui-divide-x");
 
-  CssClass dui_divide_y_0 = () -> "dui-divide-y-0";
+  CssClass dui_divide_y_0 = DynamicCss.lazyCssClass("dui-divide-y-0");
 
-  CssClass dui_divide_y_2 = () -> "dui-divide-y-2";
+  CssClass dui_divide_y_2 = DynamicCss.lazyCssClass("dui-divide-y-2");
 
-  CssClass dui_divide_y_4 = () -> "dui-divide-y-4";
+  CssClass dui_divide_y_4 = DynamicCss.lazyCssClass("dui-divide-y-4");
 
-  CssClass dui_divide_y_8 = () -> "dui-divide-y-8";
+  CssClass dui_divide_y_8 = DynamicCss.lazyCssClass("dui-divide-y-8");
 
-  CssClass dui_divide_y = () -> "dui-divide-y";
+  CssClass dui_divide_y = DynamicCss.lazyCssClass("dui-divide-y");
 
   CssClass dui_outline_0 = () -> "dui-outline-0";
 
@@ -837,13 +837,13 @@ public interface VisualCss {
 
   CssClass dui_outline_8 = () -> "dui-outline-8";
 
-  CssClass dui_outline_offset_0 = () -> "dui-outline-offset-0";
+  CssClass dui_outline_offset_0 = DynamicCss.lazyCssClass("dui-outline-offset-0");
 
-  CssClass dui_outline_offset_1 = () -> "dui-outline-offset-1";
+  CssClass dui_outline_offset_1 = DynamicCss.lazyCssClass("dui-outline-offset-1");
 
-  CssClass dui_outline_offset_2 = () -> "dui-outline-offset-2";
+  CssClass dui_outline_offset_2 = DynamicCss.lazyCssClass("dui-outline-offset-2");
 
-  CssClass dui_outline_offset_4 = () -> "dui-outline-offset-4";
+  CssClass dui_outline_offset_4 = DynamicCss.lazyCssClass("dui-outline-offset-4");
 
-  CssClass dui_outline_offset_8 = () -> "dui-outline-offset-8";
+  CssClass dui_outline_offset_8 = DynamicCss.lazyCssClass("dui-outline-offset-8");
 }

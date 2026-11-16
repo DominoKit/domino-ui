@@ -1535,179 +1535,179 @@ public interface SpacingUtilitiesCss {
 
   CssClass dui_p_y_px = DynamicCss.lazyCssClass("dui-p-y-px");
 
-  CssClass dui_space_x_0 = () -> "dui-space-x-0";
+  CssClass dui_space_x_0 = DynamicCss.lazyCssClass("dui-space-x-0");
 
-  CssClass dui_space_x_0_5 = () -> "dui-space-x-0_5";
+  CssClass dui_space_x_0_5 = DynamicCss.lazyCssClass("dui-space-x-0_5");
 
-  CssClass dui_space_x_1 = () -> "dui-space-x-1";
+  CssClass dui_space_x_1 = DynamicCss.lazyCssClass("dui-space-x-1");
 
-  CssClass dui_space_x_10 = () -> "dui-space-x-10";
+  CssClass dui_space_x_10 = DynamicCss.lazyCssClass("dui-space-x-10");
 
-  CssClass dui_space_x_11 = () -> "dui-space-x-11";
+  CssClass dui_space_x_11 = DynamicCss.lazyCssClass("dui-space-x-11");
 
-  CssClass dui_space_x_12 = () -> "dui-space-x-12";
+  CssClass dui_space_x_12 = DynamicCss.lazyCssClass("dui-space-x-12");
 
-  CssClass dui_space_x_14 = () -> "dui-space-x-14";
+  CssClass dui_space_x_14 = DynamicCss.lazyCssClass("dui-space-x-14");
 
-  CssClass dui_space_x_16 = () -> "dui-space-x-16";
+  CssClass dui_space_x_16 = DynamicCss.lazyCssClass("dui-space-x-16");
 
-  CssClass dui_space_x_1_2p = () -> "dui-space-x-1_2p";
+  CssClass dui_space_x_1_2p = DynamicCss.lazyCssClass("dui-space-x-1_2p");
 
-  CssClass dui_space_x_1_3p = () -> "dui-space-x-1_3p";
+  CssClass dui_space_x_1_3p = DynamicCss.lazyCssClass("dui-space-x-1_3p");
 
-  CssClass dui_space_x_1_4p = () -> "dui-space-x-1_4p";
+  CssClass dui_space_x_1_4p = DynamicCss.lazyCssClass("dui-space-x-1_4p");
 
-  CssClass dui_space_x_1_5 = () -> "dui-space-x-1_5";
+  CssClass dui_space_x_1_5 = DynamicCss.lazyCssClass("dui-space-x-1_5");
 
-  CssClass dui_space_x_2 = () -> "dui-space-x-2";
+  CssClass dui_space_x_2 = DynamicCss.lazyCssClass("dui-space-x-2");
 
-  CssClass dui_space_x_20 = () -> "dui-space-x-20";
+  CssClass dui_space_x_20 = DynamicCss.lazyCssClass("dui-space-x-20");
 
-  CssClass dui_space_x_24 = () -> "dui-space-x-24";
+  CssClass dui_space_x_24 = DynamicCss.lazyCssClass("dui-space-x-24");
 
-  CssClass dui_space_x_28 = () -> "dui-space-x-28";
+  CssClass dui_space_x_28 = DynamicCss.lazyCssClass("dui-space-x-28");
 
-  CssClass dui_space_x_2_3p = () -> "dui-space-x-2_3p";
+  CssClass dui_space_x_2_3p = DynamicCss.lazyCssClass("dui-space-x-2_3p");
 
-  CssClass dui_space_x_2_5 = () -> "dui-space-x-2_5";
+  CssClass dui_space_x_2_5 = DynamicCss.lazyCssClass("dui-space-x-2_5");
 
-  CssClass dui_space_x_2px = () -> "dui-space-x-2px";
+  CssClass dui_space_x_2px = DynamicCss.lazyCssClass("dui-space-x-2px");
 
-  CssClass dui_space_x_3 = () -> "dui-space-x-3";
+  CssClass dui_space_x_3 = DynamicCss.lazyCssClass("dui-space-x-3");
 
-  CssClass dui_space_x_32 = () -> "dui-space-x-32";
+  CssClass dui_space_x_32 = DynamicCss.lazyCssClass("dui-space-x-32");
 
-  CssClass dui_space_x_36 = () -> "dui-space-x-36";
+  CssClass dui_space_x_36 = DynamicCss.lazyCssClass("dui-space-x-36");
 
-  CssClass dui_space_x_3_4p = () -> "dui-space-x-3_4p";
+  CssClass dui_space_x_3_4p = DynamicCss.lazyCssClass("dui-space-x-3_4p");
 
-  CssClass dui_space_x_3_5 = () -> "dui-space-x-3_5";
+  CssClass dui_space_x_3_5 = DynamicCss.lazyCssClass("dui-space-x-3_5");
 
-  CssClass dui_space_x_4 = () -> "dui-space-x-4";
+  CssClass dui_space_x_4 = DynamicCss.lazyCssClass("dui-space-x-4");
 
-  CssClass dui_space_x_40 = () -> "dui-space-x-40";
+  CssClass dui_space_x_40 = DynamicCss.lazyCssClass("dui-space-x-40");
 
-  CssClass dui_space_x_44 = () -> "dui-space-x-44";
+  CssClass dui_space_x_44 = DynamicCss.lazyCssClass("dui-space-x-44");
 
-  CssClass dui_space_x_48 = () -> "dui-space-x-48";
+  CssClass dui_space_x_48 = DynamicCss.lazyCssClass("dui-space-x-48");
 
-  CssClass dui_space_x_4px = () -> "dui-space-x-4px";
+  CssClass dui_space_x_4px = DynamicCss.lazyCssClass("dui-space-x-4px");
 
-  CssClass dui_space_x_5 = () -> "dui-space-x-5";
+  CssClass dui_space_x_5 = DynamicCss.lazyCssClass("dui-space-x-5");
 
-  CssClass dui_space_x_52 = () -> "dui-space-x-52";
+  CssClass dui_space_x_52 = DynamicCss.lazyCssClass("dui-space-x-52");
 
-  CssClass dui_space_x_56 = () -> "dui-space-x-56";
+  CssClass dui_space_x_56 = DynamicCss.lazyCssClass("dui-space-x-56");
 
-  CssClass dui_space_x_6 = () -> "dui-space-x-6";
+  CssClass dui_space_x_6 = DynamicCss.lazyCssClass("dui-space-x-6");
 
-  CssClass dui_space_x_60 = () -> "dui-space-x-60";
+  CssClass dui_space_x_60 = DynamicCss.lazyCssClass("dui-space-x-60");
 
-  CssClass dui_space_x_64 = () -> "dui-space-x-64";
+  CssClass dui_space_x_64 = DynamicCss.lazyCssClass("dui-space-x-64");
 
-  CssClass dui_space_x_7 = () -> "dui-space-x-7";
+  CssClass dui_space_x_7 = DynamicCss.lazyCssClass("dui-space-x-7");
 
-  CssClass dui_space_x_72 = () -> "dui-space-x-72";
+  CssClass dui_space_x_72 = DynamicCss.lazyCssClass("dui-space-x-72");
 
-  CssClass dui_space_x_8 = () -> "dui-space-x-8";
+  CssClass dui_space_x_8 = DynamicCss.lazyCssClass("dui-space-x-8");
 
-  CssClass dui_space_x_80 = () -> "dui-space-x-80";
+  CssClass dui_space_x_80 = DynamicCss.lazyCssClass("dui-space-x-80");
 
-  CssClass dui_space_x_8px = () -> "dui-space-x-8px";
+  CssClass dui_space_x_8px = DynamicCss.lazyCssClass("dui-space-x-8px");
 
-  CssClass dui_space_x_9 = () -> "dui-space-x-9";
+  CssClass dui_space_x_9 = DynamicCss.lazyCssClass("dui-space-x-9");
 
-  CssClass dui_space_x_96 = () -> "dui-space-x-96";
+  CssClass dui_space_x_96 = DynamicCss.lazyCssClass("dui-space-x-96");
 
-  CssClass dui_space_x_full = () -> "dui-space-x-full";
+  CssClass dui_space_x_full = DynamicCss.lazyCssClass("dui-space-x-full");
 
-  CssClass dui_space_x_px = () -> "dui-space-x-px";
+  CssClass dui_space_x_px = DynamicCss.lazyCssClass("dui-space-x-px");
 
-  CssClass dui_space_y_0 = () -> "dui-space-y-0";
+  CssClass dui_space_y_0 = DynamicCss.lazyCssClass("dui-space-y-0");
 
-  CssClass dui_space_y_0_5 = () -> "dui-space-y-0_5";
+  CssClass dui_space_y_0_5 = DynamicCss.lazyCssClass("dui-space-y-0_5");
 
-  CssClass dui_space_y_1 = () -> "dui-space-y-1";
+  CssClass dui_space_y_1 = DynamicCss.lazyCssClass("dui-space-y-1");
 
-  CssClass dui_space_y_10 = () -> "dui-space-y-10";
+  CssClass dui_space_y_10 = DynamicCss.lazyCssClass("dui-space-y-10");
 
-  CssClass dui_space_y_11 = () -> "dui-space-y-11";
+  CssClass dui_space_y_11 = DynamicCss.lazyCssClass("dui-space-y-11");
 
-  CssClass dui_space_y_12 = () -> "dui-space-y-12";
+  CssClass dui_space_y_12 = DynamicCss.lazyCssClass("dui-space-y-12");
 
-  CssClass dui_space_y_14 = () -> "dui-space-y-14";
+  CssClass dui_space_y_14 = DynamicCss.lazyCssClass("dui-space-y-14");
 
-  CssClass dui_space_y_16 = () -> "dui-space-y-16";
+  CssClass dui_space_y_16 = DynamicCss.lazyCssClass("dui-space-y-16");
 
-  CssClass dui_space_y_1_2p = () -> "dui-space-y-1_2p";
+  CssClass dui_space_y_1_2p = DynamicCss.lazyCssClass("dui-space-y-1_2p");
 
-  CssClass dui_space_y_1_3p = () -> "dui-space-y-1_3p";
+  CssClass dui_space_y_1_3p = DynamicCss.lazyCssClass("dui-space-y-1_3p");
 
-  CssClass dui_space_y_1_4p = () -> "dui-space-y-1_4p";
+  CssClass dui_space_y_1_4p = DynamicCss.lazyCssClass("dui-space-y-1_4p");
 
-  CssClass dui_space_y_1_5 = () -> "dui-space-y-1_5";
+  CssClass dui_space_y_1_5 = DynamicCss.lazyCssClass("dui-space-y-1_5");
 
-  CssClass dui_space_y_2 = () -> "dui-space-y-2";
+  CssClass dui_space_y_2 = DynamicCss.lazyCssClass("dui-space-y-2");
 
-  CssClass dui_space_y_20 = () -> "dui-space-y-20";
+  CssClass dui_space_y_20 = DynamicCss.lazyCssClass("dui-space-y-20");
 
-  CssClass dui_space_y_24 = () -> "dui-space-y-24";
+  CssClass dui_space_y_24 = DynamicCss.lazyCssClass("dui-space-y-24");
 
-  CssClass dui_space_y_28 = () -> "dui-space-y-28";
+  CssClass dui_space_y_28 = DynamicCss.lazyCssClass("dui-space-y-28");
 
-  CssClass dui_space_y_2_3p = () -> "dui-space-y-2_3p";
+  CssClass dui_space_y_2_3p = DynamicCss.lazyCssClass("dui-space-y-2_3p");
 
-  CssClass dui_space_y_2_5 = () -> "dui-space-y-2_5";
+  CssClass dui_space_y_2_5 = DynamicCss.lazyCssClass("dui-space-y-2_5");
 
-  CssClass dui_space_y_2px = () -> "dui-space-y-2px";
+  CssClass dui_space_y_2px = DynamicCss.lazyCssClass("dui-space-y-2px");
 
-  CssClass dui_space_y_3 = () -> "dui-space-y-3";
+  CssClass dui_space_y_3 = DynamicCss.lazyCssClass("dui-space-y-3");
 
-  CssClass dui_space_y_32 = () -> "dui-space-y-32";
+  CssClass dui_space_y_32 = DynamicCss.lazyCssClass("dui-space-y-32");
 
-  CssClass dui_space_y_36 = () -> "dui-space-y-36";
+  CssClass dui_space_y_36 = DynamicCss.lazyCssClass("dui-space-y-36");
 
-  CssClass dui_space_y_3_4p = () -> "dui-space-y-3_4p";
+  CssClass dui_space_y_3_4p = DynamicCss.lazyCssClass("dui-space-y-3_4p");
 
-  CssClass dui_space_y_3_5 = () -> "dui-space-y-3_5";
+  CssClass dui_space_y_3_5 = DynamicCss.lazyCssClass("dui-space-y-3_5");
 
-  CssClass dui_space_y_4 = () -> "dui-space-y-4";
+  CssClass dui_space_y_4 = DynamicCss.lazyCssClass("dui-space-y-4");
 
-  CssClass dui_space_y_40 = () -> "dui-space-y-40";
+  CssClass dui_space_y_40 = DynamicCss.lazyCssClass("dui-space-y-40");
 
-  CssClass dui_space_y_44 = () -> "dui-space-y-44";
+  CssClass dui_space_y_44 = DynamicCss.lazyCssClass("dui-space-y-44");
 
-  CssClass dui_space_y_48 = () -> "dui-space-y-48";
+  CssClass dui_space_y_48 = DynamicCss.lazyCssClass("dui-space-y-48");
 
-  CssClass dui_space_y_4px = () -> "dui-space-y-4px";
+  CssClass dui_space_y_4px = DynamicCss.lazyCssClass("dui-space-y-4px");
 
-  CssClass dui_space_y_5 = () -> "dui-space-y-5";
+  CssClass dui_space_y_5 = DynamicCss.lazyCssClass("dui-space-y-5");
 
-  CssClass dui_space_y_52 = () -> "dui-space-y-52";
+  CssClass dui_space_y_52 = DynamicCss.lazyCssClass("dui-space-y-52");
 
-  CssClass dui_space_y_56 = () -> "dui-space-y-56";
+  CssClass dui_space_y_56 = DynamicCss.lazyCssClass("dui-space-y-56");
 
-  CssClass dui_space_y_6 = () -> "dui-space-y-6";
+  CssClass dui_space_y_6 = DynamicCss.lazyCssClass("dui-space-y-6");
 
-  CssClass dui_space_y_60 = () -> "dui-space-y-60";
+  CssClass dui_space_y_60 = DynamicCss.lazyCssClass("dui-space-y-60");
 
-  CssClass dui_space_y_64 = () -> "dui-space-y-64";
+  CssClass dui_space_y_64 = DynamicCss.lazyCssClass("dui-space-y-64");
 
-  CssClass dui_space_y_7 = () -> "dui-space-y-7";
+  CssClass dui_space_y_7 = DynamicCss.lazyCssClass("dui-space-y-7");
 
-  CssClass dui_space_y_72 = () -> "dui-space-y-72";
+  CssClass dui_space_y_72 = DynamicCss.lazyCssClass("dui-space-y-72");
 
-  CssClass dui_space_y_8 = () -> "dui-space-y-8";
+  CssClass dui_space_y_8 = DynamicCss.lazyCssClass("dui-space-y-8");
 
-  CssClass dui_space_y_80 = () -> "dui-space-y-80";
+  CssClass dui_space_y_80 = DynamicCss.lazyCssClass("dui-space-y-80");
 
-  CssClass dui_space_y_8px = () -> "dui-space-y-8px";
+  CssClass dui_space_y_8px = DynamicCss.lazyCssClass("dui-space-y-8px");
 
-  CssClass dui_space_y_9 = () -> "dui-space-y-9";
+  CssClass dui_space_y_9 = DynamicCss.lazyCssClass("dui-space-y-9");
 
-  CssClass dui_space_y_96 = () -> "dui-space-y-96";
+  CssClass dui_space_y_96 = DynamicCss.lazyCssClass("dui-space-y-96");
 
-  CssClass dui_space_y_full = () -> "dui-space-y-full";
+  CssClass dui_space_y_full = DynamicCss.lazyCssClass("dui-space-y-full");
 
-  CssClass dui_space_y_px = () -> "dui-space-y-px";
+  CssClass dui_space_y_px = DynamicCss.lazyCssClass("dui-space-y-px");
 }

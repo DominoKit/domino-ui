@@ -24,7 +24,9 @@ import elemental2.dom.CSSStyleSheet;
 import elemental2.dom.HTMLStyleElement;
 import jsinterop.base.Js;
 import org.dominokit.domino.ui.style.CssClass;
+import org.dominokit.domino.ui.style.DisplayCss;
 import org.dominokit.domino.ui.style.FlexCss;
+import org.dominokit.domino.ui.style.PositionCss;
 import org.dominokit.domino.ui.style.TypographyCss;
 import org.dominokit.domino.ui.style.VisualCss;
 
@@ -47,6 +49,54 @@ public class DynamicCssCssomTest extends GWTTestCase {
     assertEquals(1, document.querySelectorAll("style#dui-dynamic-css").length);
     assertEquals(1, countRules("body.dui"));
     assertEquals(1, countRules(".dui.dui-test-facade-10px"));
+  }
+
+  public void testOwnedRuleCanBeUpdatedWithoutCreatingDuplicateRules() {
+    removeDynamicStyleSheet();
+    CssomDynamicCssStyleSheet styleSheet = new CssomDynamicCssStyleSheet();
+
+    styleSheet.setProperty(".dui.dui-test-cached", "color", "red");
+    styleSheet.setProperty(".dui.dui-test-cached", "background-color", "blue");
+    styleSheet.setProperty(".dui.dui-test-cached", "color", "green");
+
+    assertTrue(styleSheet.hasRule(".dui.dui-test-cached"));
+    assertEquals("green", styleSheet.getPropertyValue(".dui.dui-test-cached", "color"));
+    assertEquals(
+        "blue", styleSheet.getPropertyValue(".dui.dui-test-cached", "background-color"));
+    assertEquals(1, countRules(".dui.dui-test-cached"));
+  }
+
+  public void testAccessibleRuleIndexRefreshesWhenExistingSheetRulesChange() {
+    HTMLStyleElement externalStyle = Js.uncheckedCast(document.createElement("style"));
+    externalStyle.id = "dui-test-external-index";
+    document.head.appendChild(externalStyle);
+    CSSStyleSheet externalSheet = Js.uncheckedCast(externalStyle.sheet);
+    externalSheet.insertRule(".dui-test-external-before {}", 0);
+    CssomDynamicCssStyleSheet styleSheet = new CssomDynamicCssStyleSheet();
+
+    assertTrue(styleSheet.hasRule(".dui-test-external-before"));
+    externalSheet.insertRule(".dui-test-external-after {}", 1);
+
+    assertTrue(styleSheet.hasRule(".dui-test-external-after"));
+    externalStyle.parentNode.removeChild(externalStyle);
+  }
+
+  public void testPositionUtilitiesInjectSpacingVariableRulesOnDemand() {
+    removeDynamicStyleSheet();
+    DynamicCss.reset();
+
+    assertEquals("dui-top-1", PositionCss.dui_top_1.getCssClass());
+    assertEquals("dui-inset-x-1", PositionCss.dui_inset_x_1.getCssClass());
+    assertEquals("dui-inset-1.5", DisplayCss.dui_inset_1_5.getCssClass());
+    assertEquals("dui-top-0.5", DynamicCss.lazyCssClass("dui-top-0.5").getCssClass());
+    assertEquals("dui-top-1_2", DynamicCss.lazyCssClass("dui-top-1_2").getCssClass());
+    assertEquals("dui-inset-x-2_4", DynamicCss.lazyCssClass("dui-inset-x-2_4").getCssClass());
+
+    assertEquals(1, countRules(".dui.dui-top-1"));
+    assertEquals(1, countRules(".dui.dui-inset-x-1"));
+    assertEquals(1, countRules(".dui.dui-top-1_2"));
+    assertEquals(1, countRules(".dui.dui-inset-x-2_4"));
+    assertEquals(7, dynamicRuleCount());
   }
 
   public void testProductionScriptKeepsMigratedStaticUtilitiesLazy() {
@@ -113,5 +163,14 @@ public class DynamicCssCssomTest extends GWTTestCase {
       }
     }
     return matches;
+  }
+
+  private int dynamicRuleCount() {
+    CSSStyleSheet styleSheet =
+        Js.uncheckedCast(
+            Js.<HTMLStyleElement>uncheckedCast(
+                    document.getElementById(DynamicCssRegistry.STYLE_ELEMENT_ID))
+                .sheet);
+    return styleSheet.cssRules.length;
   }
 }

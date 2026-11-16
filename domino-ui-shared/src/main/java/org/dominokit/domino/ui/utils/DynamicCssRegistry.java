@@ -16,6 +16,8 @@
 package org.dominokit.domino.ui.utils;
 
 import java.util.HashMap;
+import java.util.Iterator;
+import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Objects;
 import org.dominokit.domino.ui.style.CssClass;
@@ -30,6 +32,8 @@ import org.dominokit.domino.ui.style.CssClass;
 final class DynamicCssRegistry {
 
   static final String STYLE_ELEMENT_ID = "dui-dynamic-css";
+  static final int SYNC_DECLARATION_BUDGET = 128;
+  static final int FRAME_DECLARATION_BUDGET = 256;
   private static final String VARIABLES_SELECTOR = "body.dui";
   private static DynamicCssRegistry instance;
 
@@ -37,14 +41,24 @@ final class DynamicCssRegistry {
   private final Map<String, String> variableValues = new HashMap<>();
   private final Map<String, String> tokenOwners = new HashMap<>();
   private final DynamicCssStyleSheet styleSheet;
+  private final DynamicCssFrameScheduler frameScheduler;
+  private final Map<String, LinkedHashMap<String, String>> pendingDeclarations =
+      new LinkedHashMap<>();
+  private int synchronousDeclarations;
+  private boolean frameCallbackScheduled;
   private boolean staticUtilitiesPreloaded;
 
   private DynamicCssRegistry() {
-    this(new CssomDynamicCssStyleSheet());
+    this(new CssomDynamicCssStyleSheet(), DynamicCssFrameScheduler.browser());
   }
 
   DynamicCssRegistry(DynamicCssStyleSheet styleSheet) {
+    this(styleSheet, DynamicCssFrameScheduler.browser());
+  }
+
+  DynamicCssRegistry(DynamicCssStyleSheet styleSheet, DynamicCssFrameScheduler frameScheduler) {
     this.styleSheet = styleSheet;
+    this.frameScheduler = frameScheduler;
   }
 
   static DynamicCssRegistry get() {
@@ -83,7 +97,7 @@ final class DynamicCssRegistry {
     String token = availableToken(definition, definitionKey, rawValue);
     String variableName = "--" + definition.getVariablePrefix() + "-" + token;
     String className = definition.getClassPrefix() + "-" + token;
-    String selector = ".dui." + className;
+    String selector = classSelector(className);
 
     if (hasCompatibleRawValueRule(definition, selector, rawValue)) {
       CssClass cssClass = () -> className;
@@ -108,8 +122,58 @@ final class DynamicCssRegistry {
   }
 
   void setProperty(String selector, String property, String value) {
-    if (!value.equals(styleSheet.getPropertyValue(selector, property))) {
+    LinkedHashMap<String, String> pendingForSelector = pendingDeclarations.get(selector);
+    if (pendingForSelector != null && pendingForSelector.containsKey(property)) {
+      pendingForSelector.put(property, value);
+      return;
+    }
+    if (value.equals(styleSheet.getPropertyValue(selector, property))) {
+      return;
+    }
+    if (synchronousDeclarations < SYNC_DECLARATION_BUDGET) {
       styleSheet.setProperty(selector, property, value);
+      synchronousDeclarations++;
+      scheduleFrame();
+      return;
+    }
+    if (pendingForSelector == null) {
+      pendingForSelector = new LinkedHashMap<>();
+      pendingDeclarations.put(selector, pendingForSelector);
+    }
+    pendingForSelector.put(property, value);
+    scheduleFrame();
+  }
+
+  void setProperties(String selector, Map<String, String> properties) {
+    Map<String, String> applyNow = new LinkedHashMap<>();
+    LinkedHashMap<String, String> pendingForSelector = pendingDeclarations.get(selector);
+    for (Map.Entry<String, String> entry : properties.entrySet()) {
+      String property = entry.getKey();
+      String value = entry.getValue();
+      if (pendingForSelector != null && pendingForSelector.containsKey(property)) {
+        pendingForSelector.put(property, value);
+        continue;
+      }
+      if (value.equals(styleSheet.getPropertyValue(selector, property))) {
+        continue;
+      }
+      if (synchronousDeclarations < SYNC_DECLARATION_BUDGET) {
+        applyNow.put(property, value);
+        synchronousDeclarations++;
+      } else {
+        if (pendingForSelector == null) {
+          pendingForSelector = new LinkedHashMap<>();
+          pendingDeclarations.put(selector, pendingForSelector);
+        }
+        pendingForSelector.put(property, value);
+      }
+    }
+    if (!applyNow.isEmpty()) {
+      styleSheet.setProperties(selector, applyNow);
+      scheduleFrame();
+    }
+    if (pendingForSelector != null) {
+      scheduleFrame();
     }
   }
 
@@ -129,7 +193,7 @@ final class DynamicCssRegistry {
     }
 
     String className = definition.getClassPrefix() + "-" + classToken;
-    String selector = ".dui." + className;
+    String selector = classSelector(className);
     if (!hasCompatibleRawValueRule(definition, selector, cssValue)) {
       for (String property : definition.getCssProperties()) {
         styleSheet.setProperty(selector, property, cssValue);
@@ -146,7 +210,7 @@ final class DynamicCssRegistry {
 
   private void ensureVariableExpressionRule(
       DynamicCssDefinition definition, String className, String expression) {
-    String selector = ".dui." + className;
+    String selector = classSelector(className);
     if (!hasCompatibleRawValueRule(definition, selector, expression)) {
       for (String property : definition.getCssProperties()) {
         styleSheet.setProperty(selector, property, expression);
@@ -165,7 +229,7 @@ final class DynamicCssRegistry {
 
   private void ensureUtilityRule(
       DynamicCssDefinition definition, String className, String variableName) {
-    String selector = ".dui." + className;
+    String selector = classSelector(className);
     if (!hasCompatibleUtilityRule(definition, selector, variableName)) {
       for (String property : definition.getCssProperties()) {
         styleSheet.setProperty(selector, property, "var(" + variableName + ")");
@@ -214,7 +278,7 @@ final class DynamicCssRegistry {
 
   private boolean isVariableExpressionClassAvailable(
       DynamicCssDefinition definition, String className, String expression) {
-    String selector = ".dui." + className;
+    String selector = classSelector(className);
     return !styleSheet.hasRule(selector)
         || hasCompatibleRawValueRule(definition, selector, expression);
   }
@@ -240,7 +304,7 @@ final class DynamicCssRegistry {
   }
 
   private boolean isAvailable(DynamicCssDefinition definition, String token, String rawValue) {
-    String selector = ".dui." + definition.getClassPrefix() + "-" + token;
+    String selector = classSelector(definition.getClassPrefix() + "-" + token);
     String variableName = "--" + definition.getVariablePrefix() + "-" + token;
     return !styleSheet.hasRule(selector)
         || hasCompatibleUtilityRule(definition, selector, variableName)
@@ -277,4 +341,58 @@ final class DynamicCssRegistry {
         + "\u0000"
         + String.join("\u0000", definition.getCssProperties());
   }
+
+  private String classSelector(String className) {
+    return ".dui." + className.replace(".", "\\.");
+  }
+
+  private void scheduleFrame() {
+    if (!frameCallbackScheduled) {
+      frameCallbackScheduled = true;
+      frameScheduler.scheduleFrame(this::onFrame);
+    }
+  }
+
+  private void onFrame() {
+    frameCallbackScheduled = false;
+    synchronousDeclarations = 0;
+    flushPendingDeclarations();
+    if (pendingDeclarations.isEmpty()) {
+      synchronousDeclarations = 0;
+    } else {
+      scheduleFrame();
+    }
+  }
+
+  private void flushPendingDeclarations() {
+    int processed = 0;
+    Iterator<Map.Entry<String, LinkedHashMap<String, String>>> selectors =
+        pendingDeclarations.entrySet().iterator();
+    while (selectors.hasNext() && processed < FRAME_DECLARATION_BUDGET) {
+      Map.Entry<String, LinkedHashMap<String, String>> selectorEntry = selectors.next();
+      String selector = selectorEntry.getKey();
+      LinkedHashMap<String, String> pendingForSelector = selectorEntry.getValue();
+      Iterator<Map.Entry<String, String>> properties = pendingForSelector.entrySet().iterator();
+      Map<String, String> applyForSelector = new LinkedHashMap<>();
+      while (properties.hasNext() && processed < FRAME_DECLARATION_BUDGET) {
+        Map.Entry<String, String> propertyEntry = properties.next();
+        String property = propertyEntry.getKey();
+        String value = propertyEntry.getValue();
+        properties.remove();
+        processed++;
+        if (!value.equals(styleSheet.getPropertyValue(selector, property))) {
+          applyForSelector.put(property, value);
+        }
+      }
+      if (!applyForSelector.isEmpty()) {
+        styleSheet.setProperties(selector, applyForSelector);
+      }
+      if (pendingForSelector.isEmpty()) {
+        selectors.remove();
+      }
+    }
+
+    synchronousDeclarations += processed;
+  }
+
 }

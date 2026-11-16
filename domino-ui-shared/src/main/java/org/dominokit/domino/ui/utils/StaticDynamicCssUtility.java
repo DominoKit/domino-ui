@@ -15,6 +15,8 @@
  */
 package org.dominokit.domino.ui.utils;
 
+import java.util.LinkedHashMap;
+import java.util.Map;
 import org.dominokit.domino.ui.style.CssClass;
 
 /** Resolves migrated static utility names to lazy dynamic CSS rules. */
@@ -37,6 +39,10 @@ final class StaticDynamicCssUtility {
     "32", "36", "3_5", "4", "40", "44", "48", "4px", "5", "52", "56", "6", "60", "64", "7", "72",
     "8", "80", "8px", "9", "96", "9999px"
   };
+
+  private static final String[] OUTLINE_OFFSET_TOKENS = {"0", "1", "2", "4", "8"};
+
+  private static final String[] DIVIDE_TOKENS = {"0", "2", "4", "8"};
 
   private static final String[] FLEX_SCALE_TOKENS = {
     "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"
@@ -117,6 +123,7 @@ final class StaticDynamicCssUtility {
     spacing("dui-txt-indnt", TEXT_INDENT),
     spacing("dui-font-size", DynamicTypography.FONT_SIZE),
     leading("dui-leading", DynamicTypography.LINE_HEIGHT),
+    outlineOffset("dui-outline-offset", DynamicOutline.OFFSET),
     sizing("dui-min-w", DynamicSizing.MIN_WIDTH),
     sizing("dui-max-w", DynamicSizing.MAX_WIDTH),
     sizing("dui-min-h", DynamicSizing.MIN_HEIGHT),
@@ -147,6 +154,14 @@ final class StaticDynamicCssUtility {
   private StaticDynamicCssUtility() {}
 
   static CssClass resolve(DynamicCssRegistry registry, String staticClassName) {
+    CssClass spaceUtility = resolveSpaceUtility(registry, staticClassName);
+    if (spaceUtility != null) {
+      return spaceUtility;
+    }
+    CssClass divideUtility = resolveDivideUtility(registry, staticClassName);
+    if (divideUtility != null) {
+      return divideUtility;
+    }
     ColorUtility colorUtility = ColorUtility.fromClassName(staticClassName);
     if (colorUtility != null) {
       return new LazyDynamicCssClass(
@@ -162,6 +177,78 @@ final class StaticDynamicCssUtility {
       }
     }
     return () -> staticClassName;
+  }
+
+  private static CssClass resolveSpaceUtility(
+      DynamicCssRegistry registry, String staticClassName) {
+    String prefix;
+    String property;
+    if (staticClassName.startsWith("dui-space-x-")) {
+      prefix = "dui-space-x-";
+      property = "margin-left";
+    } else if (staticClassName.startsWith("dui-space-y-")) {
+      prefix = "dui-space-y-";
+      property = "margin-top";
+    } else {
+      return null;
+    }
+
+    String token = staticClassName.substring(prefix.length());
+    if (!contains(SPACING_TOKENS, token)) {
+      return null;
+    }
+
+    String selector = ".dui." + staticClassName + " > * + *";
+    String value = "var(--dui-spc-" + token + ")";
+    return new LazyDynamicCssClass(
+        () -> {
+          registry.setProperty(selector, property, value);
+          return () -> staticClassName;
+        });
+  }
+
+  private static CssClass resolveDivideUtility(
+      DynamicCssRegistry registry, String staticClassName) {
+    String prefix;
+    String firstProperty;
+    String secondProperty;
+    if (staticClassName.equals("dui-divide-x") || staticClassName.startsWith("dui-divide-x-")) {
+      prefix = "dui-divide-x";
+      firstProperty = "border-right-width";
+      secondProperty = "border-left-width";
+    } else if (staticClassName.equals("dui-divide-y")
+        || staticClassName.startsWith("dui-divide-y-")) {
+      prefix = "dui-divide-y";
+      firstProperty = "border-top-width";
+      secondProperty = "border-bottom-width";
+    } else {
+      return null;
+    }
+
+    String classToken = staticClassName.equals(prefix) ? "px" : staticClassName.substring(prefix.length() + 1);
+    String spacingToken;
+    if (classToken.equals("px")) {
+      spacingToken = "px";
+    } else if (contains(DIVIDE_TOKENS, classToken)) {
+      spacingToken = "0".equals(classToken) ? "0" : classToken + "px";
+    } else {
+      return null;
+    }
+
+    String selector = ".dui." + staticClassName + " > * + *";
+    Map<String, String> properties = new LinkedHashMap<>();
+    if ("dui-divide-x".equals(prefix)) {
+      properties.put(firstProperty, "var(--dui-spc-" + spacingToken + ")");
+      properties.put(secondProperty, "var(--dui-spc-0)");
+    } else {
+      properties.put(firstProperty, "var(--dui-spc-0)");
+      properties.put(secondProperty, "var(--dui-spc-" + spacingToken + ")");
+    }
+    return new LazyDynamicCssClass(
+        () -> {
+          registry.setProperties(selector, properties);
+          return () -> staticClassName;
+        });
   }
 
   private static final class ColorUtility {
@@ -245,13 +332,15 @@ final class StaticDynamicCssUtility {
           "fg".equals(utility)
               ? "--dui-fg"
               : "bg".equals(utility) ? "--dui-bg" : "--dui-accent-source";
+      Map<String, String> properties = new LinkedHashMap<>();
       for (String familyShade : COLOR_SHADES) {
         String property = propertyPrefix + suffix(familyShade);
-        registry.setProperty(selector, property, colorValueForFamily(familyShade));
+        properties.put(property, colorValueForFamily(familyShade));
       }
       if ("bg".equals(utility) && "dominant".equals(color)) {
-        registry.setProperty(selector, "--dui-btn-hover-color", "var(--dui-dominant-fg-clr)");
+        properties.put("--dui-btn-hover-color", "var(--dui-dominant-fg-clr)");
       }
+      registry.setProperties(selector, properties);
     }
 
     private String colorValueForFamily(String familyShade) {
@@ -460,8 +549,12 @@ final class StaticDynamicCssUtility {
         registry, "auto", "dui-m", "dui-m-x", "dui-m-y", "dui-m-t", "dui-m-r", "dui-m-b",
         "dui-m-l");
     preload(registry, SPACING_TOKENS, "dui-gap", "dui-gap-x", "dui-gap-y", "dui-basis");
+    preload(registry, SPACING_TOKENS, "dui-space-x", "dui-space-y");
     preload(registry, SPACING_TOKENS, "dui-txt-indnt", "dui-font-size");
     preload(registry, LEADING_TOKENS, "dui-leading");
+    preload(registry, OUTLINE_OFFSET_TOKENS, "dui-outline-offset");
+    preload(registry, DIVIDE_TOKENS, "dui-divide-x", "dui-divide-y");
+    preloadBare(registry, "dui-divide-x", "dui-divide-y");
     preload(
         registry,
         BORDER_TOKENS,
@@ -529,6 +622,10 @@ final class StaticDynamicCssUtility {
     return new Utility(prefix, definition, ValueType.SPACING);
   }
 
+  private static Utility outlineOffset(String prefix, DynamicCssDefinition definition) {
+    return new Utility(prefix, definition, ValueType.OUTLINE_OFFSET);
+  }
+
   private static Utility border(String prefix, DynamicCssDefinition definition) {
     return new Utility(prefix, definition, ValueType.SPACING, "px");
   }
@@ -554,7 +651,8 @@ final class StaticDynamicCssUtility {
     SIZING,
     DIRECT,
     CSS_VARIABLE,
-    LEADING
+    LEADING,
+    OUTLINE_OFFSET
   }
 
   private static final class Utility {
@@ -596,6 +694,22 @@ final class StaticDynamicCssUtility {
       if (valueType == ValueType.LEADING) {
         return leadingValue(token);
       }
+      if (valueType == ValueType.OUTLINE_OFFSET) {
+        switch (token) {
+          case "0":
+            return "var(--dui-spc-0)";
+          case "1":
+            return "var(--dui-spc-px)";
+          case "2":
+            return "var(--dui-spc-2px)";
+          case "4":
+            return "var(--dui-spc-4px)";
+          case "8":
+            return "var(--dui-spc-8px)";
+          default:
+            return token;
+        }
+      }
       if (valueType == ValueType.DIRECT || "auto".equals(token) || "inherit".equals(token)) {
         return token;
       }
@@ -613,7 +727,39 @@ final class StaticDynamicCssUtility {
             break;
         }
       }
-      return "var(--dui-spc-" + token + ")";
+      return "var(--dui-spc-" + spacingVariableToken(token) + ")";
+    }
+
+    private String spacingVariableToken(String token) {
+      if (!isPositionUtility()) {
+        return token;
+      }
+      String normalized = token.replace('.', '_');
+      switch (normalized) {
+        case "1_2":
+        case "2_4":
+          return "1_2p";
+        case "1_3":
+          return "1_3p";
+        case "2_3":
+          return "2_3p";
+        case "1_4":
+          return "1_4p";
+        case "3_4":
+          return "3_4p";
+        default:
+          return normalized;
+      }
+    }
+
+    private boolean isPositionUtility() {
+      return prefix.equals("dui-inset")
+          || prefix.equals("dui-inset-x")
+          || prefix.equals("dui-inset-y")
+          || prefix.equals("dui-top")
+          || prefix.equals("dui-right")
+          || prefix.equals("dui-bottom")
+          || prefix.equals("dui-left");
     }
 
     private boolean matches(DynamicCssDefinition other) {
@@ -630,6 +776,9 @@ final class StaticDynamicCssUtility {
         return prefix.equals("dui-order")
             ? contains(ORDER_TOKENS, value)
             : contains(FLEX_SCALE_TOKENS, value);
+      }
+      if (valueType == ValueType.OUTLINE_OFFSET) {
+        return contains(OUTLINE_OFFSET_TOKENS, value);
       }
       return valueType == ValueType.SPACING && contains(SPACING_TOKENS, value);
     }
