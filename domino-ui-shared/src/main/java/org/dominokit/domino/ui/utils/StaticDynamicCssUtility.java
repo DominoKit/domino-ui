@@ -42,7 +42,70 @@ final class StaticDynamicCssUtility {
 
   private static final String[] OUTLINE_OFFSET_TOKENS = {"0", "1", "2", "4", "8"};
 
+  private static final String[] OPACITY_TOKENS = {
+    "0", "5", "10", "20", "25", "30", "40", "50", "60", "70", "75", "80", "90", "95", "100"
+  };
+
+  private static final String[] GRID_COLUMNS_TOKENS = {
+    "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "none"
+  };
+
+  private static final String[] GRID_ROWS_TOKENS = {"1", "2", "3", "4", "5", "6", "none"};
+
+  private static final String[] GRID_SPAN_TOKENS = {
+    "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "full"
+  };
+
+  private static final String[] GRID_COLUMN_POSITION_TOKENS = {
+    "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "auto"
+  };
+
+  private static final String[] GRID_ROW_POSITION_TOKENS = {
+    "1", "2", "3", "4", "5", "6", "7", "auto"
+  };
+
+  private static final String[] GRID_FLOW_TOKENS = {"row", "col", "row-dense", "col-dense"};
+
+  private static final String[] GRID_AUTO_TOKENS = {"auto", "min", "max", "fr"};
+
+  private static final String[] RADIUS_TOKENS = {
+    "none", "inherit", "sm", "1", "md", "lg", "xl", "2xl", "3xl", "full", "circle"
+  };
+
   private static final String[] DIVIDE_TOKENS = {"0", "2", "4", "8"};
+
+  private static final String[] OVERFLOW_TOKENS = {"auto", "hidden", "clip", "visible", "scroll"};
+
+  private static final String[] OVERSCROLL_TOKENS = {"auto", "contain", "none"};
+
+  private static final String[] UNDERLINE_OFFSET_TOKENS = {"auto", "0", "1", "2", "4", "8"};
+
+  private static final DynamicCssDefinition OPACITY =
+      DynamicCssDefinition.of("dui-opacity", "dui-opacity", "opacity");
+
+  private static final DynamicCssDefinition UNDERLINE_OFFSET =
+      DynamicCssDefinition.of("dui-underline-offset", "dui-spc", "text-underline-offset");
+
+  private static final DynamicCssDefinition COLUMN_SPAN =
+      directDefinition("dui-col-span", "grid-column");
+
+  private static final DynamicCssDefinition COLUMN_START =
+      directDefinition("dui-col-start", "grid-column-start");
+
+  private static final DynamicCssDefinition COLUMN_END =
+      directDefinition("dui-col-end", "grid-column-end");
+
+  private static final DynamicCssDefinition ROW_SPAN =
+      directDefinition("dui-row-span", "grid-row");
+
+  private static final DynamicCssDefinition ROW_START =
+      directDefinition("dui-row-start", "grid-row-start");
+
+  private static final DynamicCssDefinition ROW_END =
+      directDefinition("dui-row-end", "grid-row-end");
+
+  private static final DynamicCssDefinition GRID_FLOW =
+      directDefinition("dui-grid-flow", "grid-auto-flow");
 
   private static final String[] FLEX_SCALE_TOKENS = {
     "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"
@@ -103,6 +166,29 @@ final class StaticDynamicCssUtility {
       DynamicCssDefinition.of("dui-txt-indnt", "dui-spc", "text-indent");
 
   private static final Utility[] UTILITIES = {
+    opacity("dui-opacity", OPACITY),
+    radius("dui-rounded-tl", DynamicRadius.TOP_LEFT),
+    radius("dui-rounded-tr", DynamicRadius.TOP_RIGHT),
+    radius("dui-rounded-br", DynamicRadius.BOTTOM_RIGHT),
+    radius("dui-rounded-bl", DynamicRadius.BOTTOM_LEFT),
+    radius("dui-rounded-t", DynamicRadius.TOP),
+    radius("dui-rounded-r", DynamicRadius.RIGHT),
+    radius("dui-rounded-b", DynamicRadius.BOTTOM),
+    radius("dui-rounded-l", DynamicRadius.LEFT),
+    radius("dui-rounded", DynamicRadius.RADIUS),
+    grid("dui-grid-cols", DynamicGrid.COLUMNS, ValueType.GRID_TEMPLATE, GRID_COLUMNS_TOKENS),
+    grid("dui-grid-rows", DynamicGrid.ROWS, ValueType.GRID_TEMPLATE, GRID_ROWS_TOKENS),
+    grid("dui-auto-cols", DynamicGrid.AUTO_COLUMNS, ValueType.GRID_AUTO, GRID_AUTO_TOKENS),
+    grid("dui-auto-rows", DynamicGrid.AUTO_ROWS, ValueType.GRID_AUTO, GRID_AUTO_TOKENS),
+    utility("dui-col-span", COLUMN_SPAN, ValueType.GRID_SPAN),
+    utility("dui-col-start", COLUMN_START, ValueType.GRID_POSITION),
+    utility("dui-col-end", COLUMN_END, ValueType.GRID_POSITION),
+    utility("dui-row-span", ROW_SPAN, ValueType.GRID_SPAN),
+    utility("dui-row-start", ROW_START, ValueType.GRID_POSITION),
+    utility("dui-row-end", ROW_END, ValueType.GRID_POSITION),
+    grid("dui-grid-flow", GRID_FLOW, ValueType.GRID_FLOW, GRID_FLOW_TOKENS),
+    pixelSpacing("dui-underline-offset", UNDERLINE_OFFSET),
+    outlineWidth("dui-outline", DynamicOutline.WIDTH),
     spacing("dui-p-x", DynamicPadding.X),
     spacing("dui-p-y", DynamicPadding.Y),
     spacing("dui-p-t", DynamicPadding.TOP),
@@ -154,6 +240,14 @@ final class StaticDynamicCssUtility {
   private StaticDynamicCssUtility() {}
 
   static CssClass resolve(DynamicCssRegistry registry, String staticClassName) {
+    CssClass directUtility = resolveDirectUtility(registry, staticClassName);
+    if (directUtility != null) {
+      return directUtility;
+    }
+    CssClass radiusUtility = resolveRadiusUtility(registry, staticClassName);
+    if (radiusUtility != null) {
+      return radiusUtility;
+    }
     CssClass spaceUtility = resolveSpaceUtility(registry, staticClassName);
     if (spaceUtility != null) {
       return spaceUtility;
@@ -177,6 +271,95 @@ final class StaticDynamicCssUtility {
       }
     }
     return () -> staticClassName;
+  }
+
+  private static CssClass resolveDirectUtility(
+      DynamicCssRegistry registry, String staticClassName) {
+    String[] prefixes = {
+      "dui-overflow-x", "dui-overflow-y", "dui-overflow",
+      "dui-overscroll-x", "dui-overscroll-y", "dui-overscroll",
+      "dui-col-auto", "dui-row-auto"
+    };
+    String[] properties = {
+      "overflow-x", "overflow-y", "overflow",
+      "overscroll-behavior-x", "overscroll-behavior-y", "overscroll-behavior",
+      "grid-column", "grid-row"
+    };
+    for (int index = 0; index < prefixes.length; index++) {
+      String prefix = prefixes[index];
+      boolean bare = index >= 6;
+      String token;
+      if (bare && staticClassName.equals(prefix)) {
+        token = "auto";
+      } else if (!bare && staticClassName.startsWith(prefix + "-")) {
+        token = staticClassName.substring(prefix.length() + 1);
+      } else {
+        continue;
+      }
+      String[] valid = index < 3 ? OVERFLOW_TOKENS : OVERSCROLL_TOKENS;
+      if (!contains(valid, token)) {
+        return null;
+      }
+      String selector = ".dui." + staticClassName;
+      String property = properties[index];
+      return new LazyDynamicCssClass(
+          () -> {
+            registry.setProperty(selector, property, token);
+            return () -> staticClassName;
+          });
+    }
+    return null;
+  }
+
+  private static CssClass resolveRadiusUtility(
+      DynamicCssRegistry registry, String staticClassName) {
+    String[] prefixes = {
+      "dui-rounded-tl", "dui-rounded-tr", "dui-rounded-br", "dui-rounded-bl",
+      "dui-rounded-t", "dui-rounded-r", "dui-rounded-b", "dui-rounded-l", "dui-rounded"
+    };
+    DynamicCssDefinition[] definitions = {
+      DynamicRadius.TOP_LEFT, DynamicRadius.TOP_RIGHT, DynamicRadius.BOTTOM_RIGHT,
+      DynamicRadius.BOTTOM_LEFT, DynamicRadius.TOP, DynamicRadius.RIGHT, DynamicRadius.BOTTOM,
+      DynamicRadius.LEFT, DynamicRadius.RADIUS
+    };
+    for (int index = 0; index < prefixes.length; index++) {
+      String prefix = prefixes[index];
+      if (!staticClassName.equals(prefix) && !staticClassName.startsWith(prefix + "-")) {
+        continue;
+      }
+      String token = staticClassName.equals(prefix) ? "1" : staticClassName.substring(prefix.length() + 1);
+      if (!contains(RADIUS_TOKENS, token) && !contains(SPACING_TOKENS, token)) {
+        return null;
+      }
+      String value = radiusValue(token);
+      Map<String, String> properties = new LinkedHashMap<>();
+      for (String property : definitions[index].getCssProperties()) {
+        properties.put(property, value);
+      }
+      String selector = ".dui." + staticClassName;
+      return new LazyDynamicCssClass(
+          () -> {
+            registry.setProperties(selector, properties);
+            return () -> staticClassName;
+          });
+    }
+    return null;
+  }
+
+  private static String radiusValue(String token) {
+    switch (token) {
+      case "none": return "var(--dui-spc-0)";
+      case "sm": return "var(--dui-spc-0_5)";
+      case "md": return "var(--dui-spc-1_5)";
+      case "lg": return "var(--dui-spc-2)";
+      case "xl": return "var(--dui-spc-3)";
+      case "2xl": return "var(--dui-spc-4)";
+      case "3xl": return "var(--dui-spc-6)";
+      case "full": return "9999px";
+      case "circle": return "50%";
+      case "inherit": return "inherit";
+      default: return "var(--dui-spc-" + token + ")";
+    }
   }
 
   private static CssClass resolveSpaceUtility(
@@ -525,6 +708,36 @@ final class StaticDynamicCssUtility {
   }
 
   static void preloadAll(DynamicCssRegistry registry) {
+    preload(registry, OPACITY_TOKENS, "dui-opacity");
+    String[] radiusPrefixes = {
+      "dui-rounded-tl",
+      "dui-rounded-tr",
+      "dui-rounded-br",
+      "dui-rounded-bl",
+      "dui-rounded-t",
+      "dui-rounded-r",
+      "dui-rounded-b",
+      "dui-rounded-l",
+      "dui-rounded"
+    };
+    String[] radiusAliases = {"none", "inherit", "sm", "md", "lg", "xl", "2xl", "3xl", "full"};
+    preload(registry, radiusAliases, radiusPrefixes);
+    preloadBare(registry, radiusPrefixes);
+    preload(registry, "circle", "dui-rounded");
+    preload(registry, GRID_COLUMNS_TOKENS, "dui-grid-cols");
+    preload(registry, GRID_ROWS_TOKENS, "dui-grid-rows");
+    preload(registry, GRID_AUTO_TOKENS, "dui-auto-cols", "dui-auto-rows");
+    preload(registry, GRID_SPAN_TOKENS, "dui-col-span", "dui-row-span");
+    preload(registry, GRID_COLUMN_POSITION_TOKENS, "dui-col-start", "dui-col-end");
+    preload(registry, GRID_ROW_POSITION_TOKENS, "dui-row-start", "dui-row-end");
+    preload(registry, GRID_FLOW_TOKENS, "dui-grid-flow");
+    preloadBare(registry, "dui-col-auto", "dui-row-auto");
+    preload(registry, OVERFLOW_TOKENS, "dui-overflow");
+    preload(registry, OVERFLOW_TOKENS, "dui-overflow-x", "dui-overflow-y");
+    preload(registry, OVERSCROLL_TOKENS, "dui-overscroll");
+    preload(registry, OVERSCROLL_TOKENS, "dui-overscroll-x", "dui-overscroll-y");
+    preload(registry, UNDERLINE_OFFSET_TOKENS, "dui-underline-offset");
+    preload(registry, OUTLINE_OFFSET_TOKENS, "dui-outline");
     preload(
         registry,
         SPACING_TOKENS,
@@ -622,6 +835,38 @@ final class StaticDynamicCssUtility {
     return new Utility(prefix, definition, ValueType.SPACING);
   }
 
+  private static Utility radius(String prefix, DynamicCssDefinition definition) {
+    return new Utility(prefix, definition, ValueType.RADIUS, "1");
+  }
+
+  private static Utility grid(
+      String prefix,
+      DynamicCssDefinition definition,
+      ValueType valueType,
+      String[] staticTokens) {
+    return new Utility(prefix, definition, valueType, null, staticTokens);
+  }
+
+  private static Utility utility(
+      String prefix,
+      DynamicCssDefinition definition,
+      ValueType valueType,
+      String bareClassToken) {
+    return new Utility(prefix, definition, valueType, bareClassToken);
+  }
+
+  private static Utility opacity(String prefix, DynamicCssDefinition definition) {
+    return new Utility(prefix, definition, ValueType.OPACITY);
+  }
+
+  private static Utility pixelSpacing(String prefix, DynamicCssDefinition definition) {
+    return new Utility(prefix, definition, ValueType.PIXEL_SPACING);
+  }
+
+  private static Utility outlineWidth(String prefix, DynamicCssDefinition definition) {
+    return new Utility(prefix, definition, ValueType.OUTLINE_WIDTH);
+  }
+
   private static Utility outlineOffset(String prefix, DynamicCssDefinition definition) {
     return new Utility(prefix, definition, ValueType.OUTLINE_OFFSET);
   }
@@ -638,6 +883,14 @@ final class StaticDynamicCssUtility {
     return new Utility(prefix, definition, ValueType.DIRECT);
   }
 
+  private static Utility direct(String prefix, String property) {
+    return direct(prefix, directDefinition(prefix, property));
+  }
+
+  private static DynamicCssDefinition directDefinition(String prefix, String property) {
+    return DynamicCssDefinition.of(prefix, prefix.replace("dui-", "dui-value"), property);
+  }
+
   private static Utility cssVariable(String prefix, DynamicCssDefinition definition) {
     return new Utility(prefix, definition, ValueType.CSS_VARIABLE);
   }
@@ -652,7 +905,16 @@ final class StaticDynamicCssUtility {
     DIRECT,
     CSS_VARIABLE,
     LEADING,
-    OUTLINE_OFFSET
+    OUTLINE_OFFSET,
+    OUTLINE_WIDTH,
+    OPACITY,
+    PIXEL_SPACING,
+    RADIUS,
+    GRID_TEMPLATE,
+    GRID_AUTO,
+    GRID_SPAN,
+    GRID_POSITION,
+    GRID_FLOW
   }
 
   private static final class Utility {
@@ -661,9 +923,10 @@ final class StaticDynamicCssUtility {
     private final DynamicCssDefinition definition;
     private final ValueType valueType;
     private final String bareClassToken;
+    private final String[] staticTokens;
 
     private Utility(String prefix, DynamicCssDefinition definition, ValueType valueType) {
-      this(prefix, definition, valueType, null);
+      this(prefix, definition, valueType, null, null);
     }
 
     private Utility(
@@ -671,10 +934,20 @@ final class StaticDynamicCssUtility {
         DynamicCssDefinition definition,
         ValueType valueType,
         String bareClassToken) {
+      this(prefix, definition, valueType, bareClassToken, null);
+    }
+
+    private Utility(
+        String prefix,
+        DynamicCssDefinition definition,
+        ValueType valueType,
+        String bareClassToken,
+        String[] staticTokens) {
       this.prefix = prefix;
       this.definition = definition;
       this.valueType = valueType;
       this.bareClassToken = bareClassToken;
+      this.staticTokens = staticTokens;
     }
 
     private String token(String className) {
@@ -695,20 +968,66 @@ final class StaticDynamicCssUtility {
         return leadingValue(token);
       }
       if (valueType == ValueType.OUTLINE_OFFSET) {
+        return outlineSpacingValue(token);
+      }
+      if (valueType == ValueType.OUTLINE_WIDTH) {
+        return outlineSpacingValue(token);
+      }
+      if (valueType == ValueType.OPACITY) {
+        return "var(--dui-opacity-" + token + ")";
+      }
+      if (valueType == ValueType.PIXEL_SPACING) {
+        return "auto".equals(token) ? "auto" : token + "px";
+      }
+      if (valueType == ValueType.RADIUS) {
         switch (token) {
-          case "0":
+          case "none":
             return "var(--dui-spc-0)";
-          case "1":
-            return "var(--dui-spc-px)";
-          case "2":
-            return "var(--dui-spc-2px)";
-          case "4":
-            return "var(--dui-spc-4px)";
-          case "8":
-            return "var(--dui-spc-8px)";
+          case "sm":
+            return "var(--dui-spc-0_5)";
+          case "md":
+            return "var(--dui-spc-1_5)";
+          case "lg":
+            return "var(--dui-spc-2)";
+          case "xl":
+            return "var(--dui-spc-3)";
+          case "2xl":
+            return "var(--dui-spc-4)";
+          case "3xl":
+            return "var(--dui-spc-6)";
+          case "full":
+            return "9999px";
+          case "circle":
+            return "50%";
+          case "inherit":
+            return "inherit";
+          default:
+            return "var(--dui-spc-" + token + ")";
+        }
+      }
+      if (valueType == ValueType.GRID_TEMPLATE) {
+        return "none".equals(token) ? "none" : "repeat(" + token + ", minmax(0, 1fr))";
+      }
+      if (valueType == ValueType.GRID_AUTO) {
+        switch (token) {
+          case "min":
+            return "min-content";
+          case "max":
+            return "max-content";
+          case "fr":
+            return "minmax(0, 1fr)";
           default:
             return token;
         }
+      }
+      if (valueType == ValueType.GRID_SPAN) {
+        return "full".equals(token) ? "1 / -1" : "span " + token + " / span " + token;
+      }
+      if (valueType == ValueType.GRID_POSITION) {
+        return token;
+      }
+      if (valueType == ValueType.GRID_FLOW) {
+        return token.replace("col", "column").replace('-', ' ');
       }
       if (valueType == ValueType.DIRECT || "auto".equals(token) || "inherit".equals(token)) {
         return token;
@@ -780,7 +1099,43 @@ final class StaticDynamicCssUtility {
       if (valueType == ValueType.OUTLINE_OFFSET) {
         return contains(OUTLINE_OFFSET_TOKENS, value);
       }
+      if (valueType == ValueType.OUTLINE_WIDTH) {
+        return contains(OUTLINE_OFFSET_TOKENS, value);
+      }
+      if (valueType == ValueType.OPACITY) {
+        return contains(OPACITY_TOKENS, value);
+      }
+      if (valueType == ValueType.PIXEL_SPACING) {
+        return contains(UNDERLINE_OFFSET_TOKENS, value);
+      }
+      if (valueType == ValueType.RADIUS) {
+        return contains(RADIUS_TOKENS, value) || contains(SPACING_TOKENS, value);
+      }
+      if (valueType == ValueType.GRID_TEMPLATE
+          || valueType == ValueType.GRID_AUTO
+          || valueType == ValueType.GRID_SPAN
+          || valueType == ValueType.GRID_POSITION
+          || valueType == ValueType.GRID_FLOW) {
+        return contains(staticTokens, value);
+      }
       return valueType == ValueType.SPACING && contains(SPACING_TOKENS, value);
+    }
+
+    private String outlineSpacingValue(String token) {
+      switch (token) {
+        case "0":
+          return "var(--dui-spc-0)";
+        case "1":
+          return "var(--dui-spc-px)";
+        case "2":
+          return "var(--dui-spc-2px)";
+        case "4":
+          return "var(--dui-spc-4px)";
+        case "8":
+          return "var(--dui-spc-8px)";
+        default:
+          return token;
+      }
     }
 
     private boolean contains(String[] values, String value) {

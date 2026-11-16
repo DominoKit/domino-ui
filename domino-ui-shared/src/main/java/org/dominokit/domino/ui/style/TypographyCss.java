@@ -300,17 +300,17 @@ public interface TypographyCss {
 
   CssClass dui_decoration_8 = () -> "dui-decoration-8";
 
-  CssClass dui_underline_offset_auto = () -> "dui-underline-offset-auto";
+  CssClass dui_underline_offset_auto = DynamicCss.lazyCssClass("dui-underline-offset-auto");
 
-  CssClass dui_underline_offset_0 = () -> "dui-underline-offset-0";
+  CssClass dui_underline_offset_0 = DynamicCss.lazyCssClass("dui-underline-offset-0");
 
-  CssClass dui_underline_offset_1 = () -> "dui-underline-offset-1";
+  CssClass dui_underline_offset_1 = DynamicCss.lazyCssClass("dui-underline-offset-1");
 
-  CssClass dui_underline_offset_2 = () -> "dui-underline-offset-2";
+  CssClass dui_underline_offset_2 = DynamicCss.lazyCssClass("dui-underline-offset-2");
 
-  CssClass dui_underline_offset_4 = () -> "dui-underline-offset-4";
+  CssClass dui_underline_offset_4 = DynamicCss.lazyCssClass("dui-underline-offset-4");
 
-  CssClass dui_underline_offset_8 = () -> "dui-underline-offset-8";
+  CssClass dui_underline_offset_8 = DynamicCss.lazyCssClass("dui-underline-offset-8");
 
   CssClass dui_uppercase = () -> "dui-uppercase";
 
