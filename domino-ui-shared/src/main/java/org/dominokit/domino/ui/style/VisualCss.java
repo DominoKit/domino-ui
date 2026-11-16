@@ -79,187 +79,187 @@ public interface VisualCss {
 
   CssClass dui_bg_contain = () -> "dui-bg-contain";
 
-  CssClass dui_rounded_none = () -> "dui-rounded-none";
+  CssClass dui_rounded_none = DynamicCss.lazyCssClass("dui-rounded-none");
 
-  CssClass dui_rounded_inherit = () -> "dui-rounded-inherit";
+  CssClass dui_rounded_inherit = DynamicCss.lazyCssClass("dui-rounded-inherit");
 
-  CssClass dui_rounded_t_inherit = () -> "dui-rounded-t-inherit";
+  CssClass dui_rounded_t_inherit = DynamicCss.lazyCssClass("dui-rounded-t-inherit");
 
-  CssClass dui_rounded_b_inherit = () -> "dui-rounded-b-inherit";
+  CssClass dui_rounded_b_inherit = DynamicCss.lazyCssClass("dui-rounded-b-inherit");
 
-  CssClass dui_rounded_l_inherit = () -> "dui-rounded-l-inherit";
+  CssClass dui_rounded_l_inherit = DynamicCss.lazyCssClass("dui-rounded-l-inherit");
 
-  CssClass dui_rounded_r_inherit = () -> "dui-rounded-r-inherit";
+  CssClass dui_rounded_r_inherit = DynamicCss.lazyCssClass("dui-rounded-r-inherit");
 
-  CssClass dui_rounded_tl_inherit = () -> "dui-rounded-tl-inherit";
+  CssClass dui_rounded_tl_inherit = DynamicCss.lazyCssClass("dui-rounded-tl-inherit");
 
-  CssClass dui_rounded_tr_inherit = () -> "dui-rounded-tr-inherit";
+  CssClass dui_rounded_tr_inherit = DynamicCss.lazyCssClass("dui-rounded-tr-inherit");
 
-  CssClass dui_rounded_br_inherit = () -> "dui-rounded-br-inherit";
+  CssClass dui_rounded_br_inherit = DynamicCss.lazyCssClass("dui-rounded-br-inherit");
 
-  CssClass dui_rounded_bl_inherit = () -> "dui-rounded-bl-inherit";
+  CssClass dui_rounded_bl_inherit = DynamicCss.lazyCssClass("dui-rounded-bl-inherit");
 
-  CssClass dui_rounded_sm = () -> "dui-rounded-sm";
+  CssClass dui_rounded_sm = DynamicCss.lazyCssClass("dui-rounded-sm");
 
-  CssClass dui_rounded = () -> "dui-rounded";
+  CssClass dui_rounded = DynamicCss.lazyCssClass("dui-rounded");
 
-  CssClass dui_rounded_md = () -> "dui-rounded-md";
+  CssClass dui_rounded_md = DynamicCss.lazyCssClass("dui-rounded-md");
 
-  CssClass dui_rounded_lg = () -> "dui-rounded-lg";
+  CssClass dui_rounded_lg = DynamicCss.lazyCssClass("dui-rounded-lg");
 
-  CssClass dui_rounded_xl = () -> "dui-rounded-xl";
+  CssClass dui_rounded_xl = DynamicCss.lazyCssClass("dui-rounded-xl");
 
-  CssClass dui_rounded_2xl = () -> "dui-rounded-2xl";
+  CssClass dui_rounded_2xl = DynamicCss.lazyCssClass("dui-rounded-2xl");
 
-  CssClass dui_rounded_3xl = () -> "dui-rounded-3xl";
+  CssClass dui_rounded_3xl = DynamicCss.lazyCssClass("dui-rounded-3xl");
 
-  CssClass dui_rounded_full = () -> "dui-rounded-full";
+  CssClass dui_rounded_full = DynamicCss.lazyCssClass("dui-rounded-full");
 
-  CssClass dui_rounded_circle = () -> "dui-rounded-circle";
+  CssClass dui_rounded_circle = DynamicCss.lazyCssClass("dui-rounded-circle");
 
-  CssClass dui_rounded_t_none = () -> "dui-rounded-t-none";
+  CssClass dui_rounded_t_none = DynamicCss.lazyCssClass("dui-rounded-t-none");
 
-  CssClass dui_rounded_t_sm = () -> "dui-rounded-t-sm";
+  CssClass dui_rounded_t_sm = DynamicCss.lazyCssClass("dui-rounded-t-sm");
 
-  CssClass dui_rounded_t = () -> "dui-rounded-t";
+  CssClass dui_rounded_t = DynamicCss.lazyCssClass("dui-rounded-t");
 
-  CssClass dui_rounded_t_md = () -> "dui-rounded-t-md";
+  CssClass dui_rounded_t_md = DynamicCss.lazyCssClass("dui-rounded-t-md");
 
-  CssClass dui_rounded_t_lg = () -> "dui-rounded-t-lg";
+  CssClass dui_rounded_t_lg = DynamicCss.lazyCssClass("dui-rounded-t-lg");
 
-  CssClass dui_rounded_t_xl = () -> "dui-rounded-t-xl";
+  CssClass dui_rounded_t_xl = DynamicCss.lazyCssClass("dui-rounded-t-xl");
 
-  CssClass dui_rounded_t_2xl = () -> "dui-rounded-t-2xl";
+  CssClass dui_rounded_t_2xl = DynamicCss.lazyCssClass("dui-rounded-t-2xl");
 
-  CssClass dui_rounded_t_3xl = () -> "dui-rounded-t-3xl";
+  CssClass dui_rounded_t_3xl = DynamicCss.lazyCssClass("dui-rounded-t-3xl");
 
-  CssClass dui_rounded_t_full = () -> "dui-rounded-t-full";
+  CssClass dui_rounded_t_full = DynamicCss.lazyCssClass("dui-rounded-t-full");
 
-  CssClass dui_rounded_r_none = () -> "dui-rounded-r-none";
+  CssClass dui_rounded_r_none = DynamicCss.lazyCssClass("dui-rounded-r-none");
 
-  CssClass dui_rounded_r_sm = () -> "dui-rounded-r-sm";
+  CssClass dui_rounded_r_sm = DynamicCss.lazyCssClass("dui-rounded-r-sm");
 
-  CssClass dui_rounded_r = () -> "dui-rounded-r";
+  CssClass dui_rounded_r = DynamicCss.lazyCssClass("dui-rounded-r");
 
-  CssClass dui_rounded_r_md = () -> "dui-rounded-r-md";
+  CssClass dui_rounded_r_md = DynamicCss.lazyCssClass("dui-rounded-r-md");
 
-  CssClass dui_rounded_r_lg = () -> "dui-rounded-r-lg";
+  CssClass dui_rounded_r_lg = DynamicCss.lazyCssClass("dui-rounded-r-lg");
 
-  CssClass dui_rounded_r_xl = () -> "dui-rounded-r-xl";
+  CssClass dui_rounded_r_xl = DynamicCss.lazyCssClass("dui-rounded-r-xl");
 
-  CssClass dui_rounded_r_2xl = () -> "dui-rounded-r-2xl";
+  CssClass dui_rounded_r_2xl = DynamicCss.lazyCssClass("dui-rounded-r-2xl");
 
-  CssClass dui_rounded_r_3xl = () -> "dui-rounded-r-3xl";
+  CssClass dui_rounded_r_3xl = DynamicCss.lazyCssClass("dui-rounded-r-3xl");
 
-  CssClass dui_rounded_r_full = () -> "dui-rounded-r-full";
+  CssClass dui_rounded_r_full = DynamicCss.lazyCssClass("dui-rounded-r-full");
 
-  CssClass dui_rounded_b_none = () -> "dui-rounded-b-none";
+  CssClass dui_rounded_b_none = DynamicCss.lazyCssClass("dui-rounded-b-none");
 
-  CssClass dui_rounded_b_sm = () -> "dui-rounded-b-sm";
+  CssClass dui_rounded_b_sm = DynamicCss.lazyCssClass("dui-rounded-b-sm");
 
-  CssClass dui_rounded_b = () -> "dui-rounded-b";
+  CssClass dui_rounded_b = DynamicCss.lazyCssClass("dui-rounded-b");
 
-  CssClass dui_rounded_b_md = () -> "dui-rounded-b-md";
+  CssClass dui_rounded_b_md = DynamicCss.lazyCssClass("dui-rounded-b-md");
 
-  CssClass dui_rounded_b_lg = () -> "dui-rounded-b-lg";
+  CssClass dui_rounded_b_lg = DynamicCss.lazyCssClass("dui-rounded-b-lg");
 
-  CssClass dui_rounded_b_xl = () -> "dui-rounded-b-xl";
+  CssClass dui_rounded_b_xl = DynamicCss.lazyCssClass("dui-rounded-b-xl");
 
-  CssClass dui_rounded_b_2xl = () -> "dui-rounded-b-2xl";
+  CssClass dui_rounded_b_2xl = DynamicCss.lazyCssClass("dui-rounded-b-2xl");
 
-  CssClass dui_rounded_b_3xl = () -> "dui-rounded-b-3xl";
+  CssClass dui_rounded_b_3xl = DynamicCss.lazyCssClass("dui-rounded-b-3xl");
 
-  CssClass dui_rounded_b_full = () -> "dui-rounded-b-full";
+  CssClass dui_rounded_b_full = DynamicCss.lazyCssClass("dui-rounded-b-full");
 
-  CssClass dui_rounded_l_none = () -> "dui-rounded-l-none";
+  CssClass dui_rounded_l_none = DynamicCss.lazyCssClass("dui-rounded-l-none");
 
-  CssClass dui_rounded_l_sm = () -> "dui-rounded-l-sm";
+  CssClass dui_rounded_l_sm = DynamicCss.lazyCssClass("dui-rounded-l-sm");
 
-  CssClass dui_rounded_l = () -> "dui-rounded-l";
+  CssClass dui_rounded_l = DynamicCss.lazyCssClass("dui-rounded-l");
 
-  CssClass dui_rounded_l_md = () -> "dui-rounded-l-md";
+  CssClass dui_rounded_l_md = DynamicCss.lazyCssClass("dui-rounded-l-md");
 
-  CssClass dui_rounded_l_lg = () -> "dui-rounded-l-lg";
+  CssClass dui_rounded_l_lg = DynamicCss.lazyCssClass("dui-rounded-l-lg");
 
-  CssClass dui_rounded_l_xl = () -> "dui-rounded-l-xl";
+  CssClass dui_rounded_l_xl = DynamicCss.lazyCssClass("dui-rounded-l-xl");
 
-  CssClass dui_rounded_l_2xl = () -> "dui-rounded-l-2xl";
+  CssClass dui_rounded_l_2xl = DynamicCss.lazyCssClass("dui-rounded-l-2xl");
 
-  CssClass dui_rounded_l_3xl = () -> "dui-rounded-l-3xl";
+  CssClass dui_rounded_l_3xl = DynamicCss.lazyCssClass("dui-rounded-l-3xl");
 
-  CssClass dui_rounded_l_full = () -> "dui-rounded-l-full";
+  CssClass dui_rounded_l_full = DynamicCss.lazyCssClass("dui-rounded-l-full");
 
-  CssClass dui_rounded_tl_none = () -> "dui-rounded-tl-none";
+  CssClass dui_rounded_tl_none = DynamicCss.lazyCssClass("dui-rounded-tl-none");
 
-  CssClass dui_rounded_tl_sm = () -> "dui-rounded-tl-sm";
+  CssClass dui_rounded_tl_sm = DynamicCss.lazyCssClass("dui-rounded-tl-sm");
 
-  CssClass dui_rounded_tl = () -> "dui-rounded-tl";
+  CssClass dui_rounded_tl = DynamicCss.lazyCssClass("dui-rounded-tl");
 
-  CssClass dui_rounded_tl_md = () -> "dui-rounded-tl-md";
+  CssClass dui_rounded_tl_md = DynamicCss.lazyCssClass("dui-rounded-tl-md");
 
-  CssClass dui_rounded_tl_lg = () -> "dui-rounded-tl-lg";
+  CssClass dui_rounded_tl_lg = DynamicCss.lazyCssClass("dui-rounded-tl-lg");
 
-  CssClass dui_rounded_tl_xl = () -> "dui-rounded-tl-xl";
+  CssClass dui_rounded_tl_xl = DynamicCss.lazyCssClass("dui-rounded-tl-xl");
 
-  CssClass dui_rounded_tl_2xl = () -> "dui-rounded-tl-2xl";
+  CssClass dui_rounded_tl_2xl = DynamicCss.lazyCssClass("dui-rounded-tl-2xl");
 
-  CssClass dui_rounded_tl_3xl = () -> "dui-rounded-tl-3xl";
+  CssClass dui_rounded_tl_3xl = DynamicCss.lazyCssClass("dui-rounded-tl-3xl");
 
-  CssClass dui_rounded_tl_full = () -> "dui-rounded-tl-full";
+  CssClass dui_rounded_tl_full = DynamicCss.lazyCssClass("dui-rounded-tl-full");
 
-  CssClass dui_rounded_tr_none = () -> "dui-rounded-tr-none";
+  CssClass dui_rounded_tr_none = DynamicCss.lazyCssClass("dui-rounded-tr-none");
 
-  CssClass dui_rounded_tr_sm = () -> "dui-rounded-tr-sm";
+  CssClass dui_rounded_tr_sm = DynamicCss.lazyCssClass("dui-rounded-tr-sm");
 
-  CssClass dui_rounded_tr = () -> "dui-rounded-tr";
+  CssClass dui_rounded_tr = DynamicCss.lazyCssClass("dui-rounded-tr");
 
-  CssClass dui_rounded_tr_md = () -> "dui-rounded-tr-md";
+  CssClass dui_rounded_tr_md = DynamicCss.lazyCssClass("dui-rounded-tr-md");
 
-  CssClass dui_rounded_tr_lg = () -> "dui-rounded-tr-lg";
+  CssClass dui_rounded_tr_lg = DynamicCss.lazyCssClass("dui-rounded-tr-lg");
 
-  CssClass dui_rounded_tr_xl = () -> "dui-rounded-tr-xl";
+  CssClass dui_rounded_tr_xl = DynamicCss.lazyCssClass("dui-rounded-tr-xl");
 
-  CssClass dui_rounded_tr_2xl = () -> "dui-rounded-tr-2xl";
+  CssClass dui_rounded_tr_2xl = DynamicCss.lazyCssClass("dui-rounded-tr-2xl");
 
-  CssClass dui_rounded_tr_3xl = () -> "dui-rounded-tr-3xl";
+  CssClass dui_rounded_tr_3xl = DynamicCss.lazyCssClass("dui-rounded-tr-3xl");
 
-  CssClass dui_rounded_tr_full = () -> "dui-rounded-tr-full";
+  CssClass dui_rounded_tr_full = DynamicCss.lazyCssClass("dui-rounded-tr-full");
 
-  CssClass dui_rounded_br_none = () -> "dui-rounded-br-none";
+  CssClass dui_rounded_br_none = DynamicCss.lazyCssClass("dui-rounded-br-none");
 
-  CssClass dui_rounded_br_sm = () -> "dui-rounded-br-sm";
+  CssClass dui_rounded_br_sm = DynamicCss.lazyCssClass("dui-rounded-br-sm");
 
-  CssClass dui_rounded_br = () -> "dui-rounded-br";
+  CssClass dui_rounded_br = DynamicCss.lazyCssClass("dui-rounded-br");
 
-  CssClass dui_rounded_br_md = () -> "dui-rounded-br-md";
+  CssClass dui_rounded_br_md = DynamicCss.lazyCssClass("dui-rounded-br-md");
 
-  CssClass dui_rounded_br_lg = () -> "dui-rounded-br-lg";
+  CssClass dui_rounded_br_lg = DynamicCss.lazyCssClass("dui-rounded-br-lg");
 
-  CssClass dui_rounded_br_xl = () -> "dui-rounded-br-xl";
+  CssClass dui_rounded_br_xl = DynamicCss.lazyCssClass("dui-rounded-br-xl");
 
-  CssClass dui_rounded_br_2xl = () -> "dui-rounded-br-2xl";
+  CssClass dui_rounded_br_2xl = DynamicCss.lazyCssClass("dui-rounded-br-2xl");
 
-  CssClass dui_rounded_br_3xl = () -> "dui-rounded-br-3xl";
+  CssClass dui_rounded_br_3xl = DynamicCss.lazyCssClass("dui-rounded-br-3xl");
 
-  CssClass dui_rounded_br_full = () -> "dui-rounded-br-full";
+  CssClass dui_rounded_br_full = DynamicCss.lazyCssClass("dui-rounded-br-full");
 
-  CssClass dui_rounded_bl_none = () -> "dui-rounded-bl-none";
+  CssClass dui_rounded_bl_none = DynamicCss.lazyCssClass("dui-rounded-bl-none");
 
-  CssClass dui_rounded_bl_sm = () -> "dui-rounded-bl-sm";
+  CssClass dui_rounded_bl_sm = DynamicCss.lazyCssClass("dui-rounded-bl-sm");
 
-  CssClass dui_rounded_bl = () -> "dui-rounded-bl";
+  CssClass dui_rounded_bl = DynamicCss.lazyCssClass("dui-rounded-bl");
 
-  CssClass dui_rounded_bl_md = () -> "dui-rounded-bl-md";
+  CssClass dui_rounded_bl_md = DynamicCss.lazyCssClass("dui-rounded-bl-md");
 
-  CssClass dui_rounded_bl_lg = () -> "dui-rounded-bl-lg";
+  CssClass dui_rounded_bl_lg = DynamicCss.lazyCssClass("dui-rounded-bl-lg");
 
-  CssClass dui_rounded_bl_xl = () -> "dui-rounded-bl-xl";
+  CssClass dui_rounded_bl_xl = DynamicCss.lazyCssClass("dui-rounded-bl-xl");
 
-  CssClass dui_rounded_bl_2xl = () -> "dui-rounded-bl-2xl";
+  CssClass dui_rounded_bl_2xl = DynamicCss.lazyCssClass("dui-rounded-bl-2xl");
 
-  CssClass dui_rounded_bl_3xl = () -> "dui-rounded-bl-3xl";
+  CssClass dui_rounded_bl_3xl = DynamicCss.lazyCssClass("dui-rounded-bl-3xl");
 
-  CssClass dui_rounded_bl_full = () -> "dui-rounded-bl-full";
+  CssClass dui_rounded_bl_full = DynamicCss.lazyCssClass("dui-rounded-bl-full");
 
   CssClass dui_border_0 = DynamicCss.lazyCssClass("dui-border-0");
 
@@ -827,15 +827,15 @@ public interface VisualCss {
 
   CssClass dui_divide_y = DynamicCss.lazyCssClass("dui-divide-y");
 
-  CssClass dui_outline_0 = () -> "dui-outline-0";
+  CssClass dui_outline_0 = DynamicCss.lazyCssClass("dui-outline-0");
 
-  CssClass dui_outline_1 = () -> "dui-outline-1";
+  CssClass dui_outline_1 = DynamicCss.lazyCssClass("dui-outline-1");
 
-  CssClass dui_outline_2 = () -> "dui-outline-2";
+  CssClass dui_outline_2 = DynamicCss.lazyCssClass("dui-outline-2");
 
-  CssClass dui_outline_4 = () -> "dui-outline-4";
+  CssClass dui_outline_4 = DynamicCss.lazyCssClass("dui-outline-4");
 
-  CssClass dui_outline_8 = () -> "dui-outline-8";
+  CssClass dui_outline_8 = DynamicCss.lazyCssClass("dui-outline-8");
 
   CssClass dui_outline_offset_0 = DynamicCss.lazyCssClass("dui-outline-offset-0");
 

@@ -39,77 +39,77 @@ public interface DisplayCss {
   /**
    * @hidden Constant <code>dui_opacity_0</code>
    */
-  CssClass dui_opacity_0 = () -> "dui-opacity-0";
+  CssClass dui_opacity_0 = DynamicCss.lazyCssClass("dui-opacity-0");
 
   /**
    * @hidden Constant <code>dui_opacity_5</code>
    */
-  CssClass dui_opacity_5 = () -> "dui-opacity-5";
+  CssClass dui_opacity_5 = DynamicCss.lazyCssClass("dui-opacity-5");
 
   /**
    * @hidden Constant <code>dui_opacity_10</code>
    */
-  CssClass dui_opacity_10 = () -> "dui-opacity-10";
+  CssClass dui_opacity_10 = DynamicCss.lazyCssClass("dui-opacity-10");
 
   /**
    * @hidden Constant <code>dui_opacity_20</code>
    */
-  CssClass dui_opacity_20 = () -> "dui-opacity-20";
+  CssClass dui_opacity_20 = DynamicCss.lazyCssClass("dui-opacity-20");
 
   /**
    * @hidden Constant <code>dui_opacity_25</code>
    */
-  CssClass dui_opacity_25 = () -> "dui-opacity-25";
+  CssClass dui_opacity_25 = DynamicCss.lazyCssClass("dui-opacity-25");
 
   /**
    * @hidden Constant <code>dui_opacity_30</code>
    */
-  CssClass dui_opacity_30 = () -> "dui-opacity-30";
+  CssClass dui_opacity_30 = DynamicCss.lazyCssClass("dui-opacity-30");
 
   /**
    * @hidden Constant <code>dui_opacity_40</code>
    */
-  CssClass dui_opacity_40 = () -> "dui-opacity-40";
+  CssClass dui_opacity_40 = DynamicCss.lazyCssClass("dui-opacity-40");
 
   /**
    * @hidden Constant <code>dui_opacity_50</code>
    */
-  CssClass dui_opacity_50 = () -> "dui-opacity-50";
+  CssClass dui_opacity_50 = DynamicCss.lazyCssClass("dui-opacity-50");
 
   /**
    * @hidden Constant <code>dui_opacity_60</code>
    */
-  CssClass dui_opacity_60 = () -> "dui-opacity-60";
+  CssClass dui_opacity_60 = DynamicCss.lazyCssClass("dui-opacity-60");
 
   /**
    * @hidden Constant <code>dui_opacity_70</code>
    */
-  CssClass dui_opacity_70 = () -> "dui-opacity-70";
+  CssClass dui_opacity_70 = DynamicCss.lazyCssClass("dui-opacity-70");
 
   /**
    * @hidden Constant <code>dui_opacity_75</code>
    */
-  CssClass dui_opacity_75 = () -> "dui-opacity-75";
+  CssClass dui_opacity_75 = DynamicCss.lazyCssClass("dui-opacity-75");
 
   /**
    * @hidden Constant <code>dui_opacity_80</code>
    */
-  CssClass dui_opacity_80 = () -> "dui-opacity-80";
+  CssClass dui_opacity_80 = DynamicCss.lazyCssClass("dui-opacity-80");
 
   /**
    * @hidden Constant <code>dui_opacity_90</code>
    */
-  CssClass dui_opacity_90 = () -> "dui-opacity-90";
+  CssClass dui_opacity_90 = DynamicCss.lazyCssClass("dui-opacity-90");
 
   /**
    * @hidden Constant <code>dui_opacity_95</code>
    */
-  CssClass dui_opacity_95 = () -> "dui-opacity-95";
+  CssClass dui_opacity_95 = DynamicCss.lazyCssClass("dui-opacity-95");
 
   /**
    * @hidden Constant <code>dui_opacity_100</code>
    */
-  CssClass dui_opacity_100 = () -> "dui-opacity-100";
+  CssClass dui_opacity_100 = DynamicCss.lazyCssClass("dui-opacity-100");
 
   /**
    * @hidden Constant <code>dui_block</code>
@@ -366,122 +366,122 @@ public interface DisplayCss {
   /**
    * @hidden Constant <code>dui_overflow_auto</code>
    */
-  CssClass dui_overflow_auto = () -> "dui-overflow-auto";
+  CssClass dui_overflow_auto = DynamicCss.lazyCssClass("dui-overflow-auto");
 
   /**
    * @hidden Constant <code>dui_overflow_hidden</code>
    */
-  CssClass dui_overflow_hidden = () -> "dui-overflow-hidden";
+  CssClass dui_overflow_hidden = DynamicCss.lazyCssClass("dui-overflow-hidden");
 
   /**
    * @hidden Constant <code>dui_overflow_clip</code>
    */
-  CssClass dui_overflow_clip = () -> "dui-overflow-clip";
+  CssClass dui_overflow_clip = DynamicCss.lazyCssClass("dui-overflow-clip");
 
   /**
    * @hidden Constant <code>dui_overflow_visible</code>
    */
-  CssClass dui_overflow_visible = () -> "dui-overflow-visible";
+  CssClass dui_overflow_visible = DynamicCss.lazyCssClass("dui-overflow-visible");
 
   /**
    * @hidden Constant <code>dui_overflow_scroll</code>
    */
-  CssClass dui_overflow_scroll = () -> "dui-overflow-scroll";
+  CssClass dui_overflow_scroll = DynamicCss.lazyCssClass("dui-overflow-scroll");
 
   /**
    * @hidden Constant <code>dui_overflow_x_auto</code>
    */
-  CssClass dui_overflow_x_auto = () -> "dui-overflow-x-auto";
+  CssClass dui_overflow_x_auto = DynamicCss.lazyCssClass("dui-overflow-x-auto");
 
   /**
    * @hidden Constant <code>dui_overflow_y_auto</code>
    */
-  CssClass dui_overflow_y_auto = () -> "dui-overflow-y-auto";
+  CssClass dui_overflow_y_auto = DynamicCss.lazyCssClass("dui-overflow-y-auto");
 
   /**
    * @hidden Constant <code>dui_overflow_x_hidden</code>
    */
-  CssClass dui_overflow_x_hidden = () -> "dui-overflow-x-hidden";
+  CssClass dui_overflow_x_hidden = DynamicCss.lazyCssClass("dui-overflow-x-hidden");
 
   /**
    * @hidden Constant <code>dui_overflow_y_hidden</code>
    */
-  CssClass dui_overflow_y_hidden = () -> "dui-overflow-y-hidden";
+  CssClass dui_overflow_y_hidden = DynamicCss.lazyCssClass("dui-overflow-y-hidden");
 
   /**
    * @hidden Constant <code>dui_overflow_x_clip</code>
    */
-  CssClass dui_overflow_x_clip = () -> "dui-overflow-x-clip";
+  CssClass dui_overflow_x_clip = DynamicCss.lazyCssClass("dui-overflow-x-clip");
 
   /**
    * @hidden Constant <code>dui_overflow_y_clip</code>
    */
-  CssClass dui_overflow_y_clip = () -> "dui-overflow-y-clip";
+  CssClass dui_overflow_y_clip = DynamicCss.lazyCssClass("dui-overflow-y-clip");
 
   /**
    * @hidden Constant <code>dui_overflow_x_visible</code>
    */
-  CssClass dui_overflow_x_visible = () -> "dui-overflow-x-visible";
+  CssClass dui_overflow_x_visible = DynamicCss.lazyCssClass("dui-overflow-x-visible");
 
   /**
    * @hidden Constant <code>dui_overflow_y_visible</code>
    */
-  CssClass dui_overflow_y_visible = () -> "dui-overflow-y-visible";
+  CssClass dui_overflow_y_visible = DynamicCss.lazyCssClass("dui-overflow-y-visible");
 
   /**
    * @hidden Constant <code>dui_overflow_x_scroll</code>
    */
-  CssClass dui_overflow_x_scroll = () -> "dui-overflow-x-scroll";
+  CssClass dui_overflow_x_scroll = DynamicCss.lazyCssClass("dui-overflow-x-scroll");
 
   /**
    * @hidden Constant <code>dui_overflow_y_scroll</code>
    */
-  CssClass dui_overflow_y_scroll = () -> "dui-overflow-y-scroll";
+  CssClass dui_overflow_y_scroll = DynamicCss.lazyCssClass("dui-overflow-y-scroll");
 
   /**
    * @hidden Constant <code>dui_overscroll_auto</code>
    */
-  CssClass dui_overscroll_auto = () -> "dui-overscroll-auto";
+  CssClass dui_overscroll_auto = DynamicCss.lazyCssClass("dui-overscroll-auto");
 
   /**
    * @hidden Constant <code>dui_overscroll_contain</code>
    */
-  CssClass dui_overscroll_contain = () -> "dui-overscroll-contain";
+  CssClass dui_overscroll_contain = DynamicCss.lazyCssClass("dui-overscroll-contain");
 
   /**
    * @hidden Constant <code>dui_overscroll_none</code>
    */
-  CssClass dui_overscroll_none = () -> "dui-overscroll-none";
+  CssClass dui_overscroll_none = DynamicCss.lazyCssClass("dui-overscroll-none");
 
   /**
    * @hidden Constant <code>dui_overscroll_y_auto</code>
    */
-  CssClass dui_overscroll_y_auto = () -> "dui-overscroll-y-auto";
+  CssClass dui_overscroll_y_auto = DynamicCss.lazyCssClass("dui-overscroll-y-auto");
 
   /**
    * @hidden Constant <code>dui_overscroll_y_contain</code>
    */
-  CssClass dui_overscroll_y_contain = () -> "dui-overscroll-y-contain";
+  CssClass dui_overscroll_y_contain = DynamicCss.lazyCssClass("dui-overscroll-y-contain");
 
   /**
    * @hidden Constant <code>dui_overscroll_y_none</code>
    */
-  CssClass dui_overscroll_y_none = () -> "dui-overscroll-y-none";
+  CssClass dui_overscroll_y_none = DynamicCss.lazyCssClass("dui-overscroll-y-none");
 
   /**
    * @hidden Constant <code>dui_overscroll_x_auto</code>
    */
-  CssClass dui_overscroll_x_auto = () -> "dui-overscroll-x-auto";
+  CssClass dui_overscroll_x_auto = DynamicCss.lazyCssClass("dui-overscroll-x-auto");
 
   /**
    * @hidden Constant <code>dui_overscroll_x_contain</code>
    */
-  CssClass dui_overscroll_x_contain = () -> "dui-overscroll-x-contain";
+  CssClass dui_overscroll_x_contain = DynamicCss.lazyCssClass("dui-overscroll-x-contain");
 
   /**
    * @hidden Constant <code>dui_overscroll_x_none</code>
    */
-  CssClass dui_overscroll_x_none = () -> "dui-overscroll-x-none";
+  CssClass dui_overscroll_x_none = DynamicCss.lazyCssClass("dui-overscroll-x-none");
 
   /**
    * @hidden Constant <code>dui_static_</code>
